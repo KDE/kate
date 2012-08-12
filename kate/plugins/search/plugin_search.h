@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2011 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -119,6 +119,13 @@ private Q_SLOTS:
 
     void resultTabChanged(int index);
 
+    /**
+     * keep track if the project plugin is alive and if the project file did change
+     */
+    void slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView);
+    void slotPluginViewDeleted (const QString &name, Kate::PluginView *pluginView);
+    void slotProjectFileNameChanged ();
+
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 
@@ -136,6 +143,11 @@ private:
     KAction                           *m_useRegExp;
     Results                           *m_curResults;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
+
+    /**
+     * current project plugin view, if any
+     */
+    Kate::PluginView *m_projectPluginView;
 };
 
 class KateSearchCommand : public QObject, public KTextEditor::Command
@@ -150,7 +162,7 @@ Q_SIGNALS:
     void setSearchString(const QString &pattern);
     void startSearch();
     void newTab();
-    
+
     //
     // KTextEditor::Command
     //

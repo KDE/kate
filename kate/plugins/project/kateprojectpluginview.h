@@ -31,8 +31,8 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString currentProjectFileName READ currentProjectFileName)
-    Q_PROPERTY(QStringList currentProjectFiles READ currentProjectFiles)
+    Q_PROPERTY(QString projectFileName READ projectFileName NOTIFY projectFileNameChanged)
+    Q_PROPERTY(QStringList projectFiles READ projectFiles)
 
   public:
     KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWindow );
@@ -45,13 +45,13 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * which project file is currently active?
      * @return empty string if none, else project file name
      */
-    QString currentProjectFileName ();
+    QString projectFileName ();
 
     /**
      * files for the current active project?
      * @return empty list if none, else project files as stringlist
      */
-    QStringList currentProjectFiles ();
+    QStringList projectFiles ();
 
   public slots:
     /**
@@ -61,6 +61,19 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * @return view
      */
     KateProjectView *viewForProject (KateProject *project);
+
+  Q_SIGNALS:
+    /**
+     * Emitted if currentProjectFileName changed.
+     */
+    void projectFileNameChanged ();
+
+  private slots:
+    /**
+     * Current project changed.
+     * @param index index in toolbox
+     */
+    void slotCurrentChanged (int index);
 
   private:
     /**

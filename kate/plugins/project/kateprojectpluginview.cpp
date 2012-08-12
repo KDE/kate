@@ -62,6 +62,7 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
    * connect to important signals, e.g. for auto project view creation
    */
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
+  connect (m_toolBox, SIGNAL(currentChanged (int)), this, SLOT(slotCurrentChanged (int)));
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -125,7 +126,7 @@ void KateProjectPluginView::writeSessionConfig( KConfigBase* config, const QStri
   Q_UNUSED( groupPrefix );
 }
 
-QString KateProjectPluginView::currentProjectFileName ()
+QString KateProjectPluginView::projectFileName ()
 {
   QWidget *active = m_toolBox->currentWidget ();
   if (!active)
@@ -134,13 +135,18 @@ QString KateProjectPluginView::currentProjectFileName ()
   return static_cast<KateProjectView *> (active)->project()->fileName ();
 }
 
-QStringList KateProjectPluginView::currentProjectFiles ()
+QStringList KateProjectPluginView::projectFiles ()
 {
   QWidget *active = m_toolBox->currentWidget ();
   if (!active)
     return QStringList ();
 
   return static_cast<KateProjectView *> (active)->project()->files ();
+}
+
+void KateProjectPluginView::slotCurrentChanged (int)
+{
+  emit projectFileNameChanged ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

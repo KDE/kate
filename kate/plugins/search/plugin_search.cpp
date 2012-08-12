@@ -1,5 +1,5 @@
 /*   Kate search plugin
- * 
+ *
  * Copyright (C) 2011 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
@@ -69,7 +69,7 @@ static QAction *menuEntry(QMenu *menu,
 Results::Results(QWidget *parent): QWidget(parent), matches(0)
 {
     setupUi(this);
-    
+
     tree->setItemDelegate(new SPHtmlDelegate(tree));
     selectAllCB->setText(i18n("Select all 9999 matches"));
     selectAllCB->setFixedWidth(selectAllCB->sizeHint().width());
@@ -150,7 +150,8 @@ KatePluginSearchView::KatePluginSearchView(Kate::MainWindow *mainWin, Kate::Appl
 : Kate::PluginView(mainWin),
 Kate::XMLGUIClient(KatePluginSearchFactory::componentData()),
 m_kateApp(application),
-m_curResults(0)
+m_curResults(0),
+m_projectPluginView(0)
 {
     KAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));
@@ -251,6 +252,17 @@ m_curResults(0)
     connect(mainWindow(), SIGNAL(unhandledShortcutOverride(QEvent*)),
             this, SLOT(handleEsc(QEvent*)));
 
+    // watch for project plugin view creation/deletion
+    connect(mainWindow(), SIGNAL(pluginViewCreated (const QString &, Kate::PluginView *))
+        , this, SLOT(slotPluginViewCreated (const QString &, Kate::PluginView *)));
+
+    connect(mainWindow(), SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
+        , this, SLOT(slotPluginViewDeleted (const QString &, Kate::PluginView *)));
+
+    // update once project plugin state manually
+    m_projectPluginView = mainWindow()->pluginView ("kateprojectplugin");
+    slotProjectFileNameChanged ();
+
     m_replacer.setDocumentManager(m_kateApp->documentManager());
 
     searchPlaceChanged();
@@ -340,7 +352,7 @@ void KatePluginSearchView::setSearchString(const QString &pattern)
 void KatePluginSearchView::startSearch()
 {
     mainWindow()->showToolView(m_toolView); // in case we are invoked from the command interface
-    
+
     if (m_ui.searchCombo->currentText().isEmpty()) {
         // return pressed in the folder combo or filter combo
         return;
@@ -404,11 +416,12 @@ void KatePluginSearchView::setSearchPlace(int place)
 
 void KatePluginSearchView::searchPlaceChanged()
 {
-    bool disable = (m_ui.searchPlaceCombo->currentIndex() == 0);
-    if (!disable) {
+    bool needFolderOptions = (m_ui.searchPlaceCombo->currentIndex() == 1);
+
+    if (needFolderOptions)
         m_ui.displayOptions->setChecked(true);
-    }
-    m_ui.folderOptions->setDisabled(disable);
+
+    m_ui.folderOptions->setDisabled(!needFolderOptions);
 }
 
 void KatePluginSearchView::searchPatternChanged()
@@ -425,7 +438,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
     KUrl kurl(url);
     QString path = kurl.isLocalFile() ? kurl.upUrl().path() : kurl.upUrl().url();
     QString name = kurl.fileName();
-    
+
     for (int i=0; i<m_curResults->tree->topLevelItemCount(); i++) {
         if (m_curResults->tree->topLevelItem(i)->data(0, Qt::UserRole).toString() == url) {
             int matches = m_curResults->tree->topLevelItem(i)->data(1, Qt::UserRole).toInt() + 1;
@@ -667,7 +680,7 @@ void KatePluginSearchView::goToNextMatch()
         curr = res->tree->itemBelow(curr);
     }
     if (!curr) return;
-    
+
     res->tree->setCurrentItem(curr);
     itemSelected(curr);
 }
@@ -946,6 +959,56 @@ void KatePluginSearchView::replaceDone()
     }
 }
 
+void KatePluginSearchView::slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView)
+{
+    // add view
+    if (name == "kateprojectplugin") {
+        m_projectPluginView = pluginView;
+        slotProjectFileNameChanged ();
+        connect (pluginView, SIGNAL(projectFileNameChanged()), this, SLOT(slotProjectFileNameChanged()));
+    }
+}
+
+void KatePluginSearchView::slotPluginViewDeleted (const QString &name, Kate::PluginView *)
+{
+    // remove view
+    if (name == "kateprojectplugin") {
+        m_projectPluginView = 0;
+        slotProjectFileNameChanged ();
+    }
+}
+
+void KatePluginSearchView::slotProjectFileNameChanged ()
+{
+    // query new project file name
+    QString projectFileName;
+    if (m_projectPluginView)
+        projectFileName = m_projectPluginView->property("projectFileName").toString();
+
+    // have project, enable gui for it
+    if (!projectFileName.isEmpty()) {
+        if (m_ui.searchPlaceCombo->count() < 3) {
+            // add "in Project"
+            m_ui.searchPlaceCombo->addItem (SmallIcon("project-open"), i18n("in Project"));
+
+            // switch to search "in Project"
+            setSearchPlace (2);
+        }
+    }
+
+    // else: disable gui for it
+    else {
+        if (m_ui.searchPlaceCombo->count() > 2) {
+            // switch to search "in Open files", if "in Project" is active
+            if (m_ui.searchPlaceCombo->currentIndex () == 2)
+                setSearchPlace (0);
+
+            // remove "in Project"
+            m_ui.searchPlaceCombo->removeItem (2);
+        }
+    }
+}
+
 KateSearchCommand::KateSearchCommand(QObject *parent)
 : QObject(parent), KTextEditor::Command()
 {
@@ -982,7 +1045,7 @@ bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, Q
     }
     emit setSearchString(searchText);
     emit startSearch();
-    
+
     return true;
 }
 

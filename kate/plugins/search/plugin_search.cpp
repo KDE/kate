@@ -221,6 +221,7 @@ m_projectPluginView(0)
     connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), this, SLOT(searchPatternChanged()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchFolder, SLOT(cancelSearch()));
+    connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchProject, SLOT(cancelSearch()));
 
     m_ui.displayOptions->setChecked(true);
 
@@ -231,6 +232,10 @@ m_projectPluginView(0)
     connect(&m_searchFolder, SIGNAL(matchFound(QString,int,int,QString,int)),
             this,              SLOT(matchFound(QString,int,int,QString,int)));
     connect(&m_searchFolder, SIGNAL(searchDone()),  this, SLOT(searchDone()));
+
+    connect(&m_searchProject, SIGNAL(matchFound(QString,int,int,QString,int)),
+            this,              SLOT(matchFound(QString,int,int,QString,int)));
+    connect(&m_searchProject, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
@@ -390,7 +395,7 @@ void KatePluginSearchView::startSearch()
     if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
         m_searchOpenFiles.startSearch(m_kateApp->documentManager()->documents(), reg);
     }
-    else {
+    else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
         m_searchFolder.startSearch(m_ui.folderRequester->text(),
                                    m_ui.recursiveCheckBox->isChecked(),
                                    m_ui.hiddenCheckBox->isChecked(),
@@ -398,6 +403,14 @@ void KatePluginSearchView::startSearch()
                                    m_ui.binaryCheckBox->isChecked(),
                                    m_ui.filterCombo->currentText(),
                                    reg);
+    } else {
+        /**
+         * init search with file list from current project, if any
+         */
+        QStringList files;
+        if (m_projectPluginView)
+            files = m_projectPluginView->property ("projectFiles").toStringList();
+        m_searchProject.startSearch(files, reg);
     }
     m_toolView->setCursor(Qt::WaitCursor);
 
@@ -805,6 +818,7 @@ void KatePluginSearchView::closeTab(QWidget *widget)
     if (m_curResults == tmp) {
         m_searchOpenFiles.cancelSearch();
         m_searchFolder.cancelSearch();
+        m_searchProject.cancelSearch();
     }
     if (m_ui.resultTabWidget->count() > 1) {
         delete tmp; // remove the tab

@@ -33,6 +33,7 @@
 
 #include "search_open_files.h"
 #include "search_folder.h"
+#include "search_project.h"
 #include "replace_matches.h"
 
 class KateSearchCommand;
@@ -138,6 +139,7 @@ private:
     Kate::Application                 *m_kateApp;
     SearchOpenFiles                    m_searchOpenFiles;
     SearchFolder                       m_searchFolder;
+    SearchProject                      m_searchProject;
     ReplaceMatches                     m_replacer;
     KAction                           *m_matchCase;
     KAction                           *m_useRegExp;

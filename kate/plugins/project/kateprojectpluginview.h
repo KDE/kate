@@ -31,13 +31,28 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString projectFileName READ projectFileName NOTIFY projectFileNameChanged)
+    Q_PROPERTY(QStringList projectFiles READ projectFiles)
+
   public:
     KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWindow );
     ~KateProjectPluginView();
 
     virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
     virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
-    
+
+    /**
+     * which project file is currently active?
+     * @return empty string if none, else project file name
+     */
+    QString projectFileName ();
+
+    /**
+     * files for the current active project?
+     * @return empty list if none, else project files as stringlist
+     */
+    QStringList projectFiles ();
+
   public slots:
     /**
      * Create view for given project.
@@ -46,23 +61,41 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * @return view
      */
     KateProjectView *viewForProject (KateProject *project);
+
+  Q_SIGNALS:
+    /**
+     * Emitted if currentProjectFileName changed.
+     */
+    void projectFileNameChanged ();
+
+  private slots:
+    /**
+     * This slot is called whenever the active view changes in our main window.
+     */
+    void slotViewChanged ();
     
+    /**
+     * Current project changed.
+     * @param index index in toolbox
+     */
+    void slotCurrentChanged (int index);
+
   private:
     /**
      * our plugin
      */
     KateProjectPlugin *m_plugin;
-    
+
     /**
      * our projects toolview
      */
     QWidget *m_toolView;
-    
+
     /**
      * the toolbox for the projects
      */
     QToolBox *m_toolBox;
-    
+
     /**
      * project => view
      */

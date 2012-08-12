@@ -37,9 +37,10 @@ namespace KTextEditor
 
 namespace Kate
 {
-
   class PluginConfigPageInterface;
   class Plugin;
+  class PluginView;
+
   /**
    * \brief Interface to a mainwindow.
    *
@@ -145,7 +146,7 @@ namespace Kate
 #undef signals
 #define signals public
 #endif
-    Q_SIGNALS:
+    signals:
 #ifndef Q_MOC_RUN
 #undef signals
 #define signals protected
@@ -160,13 +161,31 @@ namespace Kate
        * This signal is emitted whenever a new view is created
        * @since 4.2
        */
-
       void viewCreated(KTextEditor::View * view);
 
       /**
        * This signal is emitted for every unhandled ShortcutOverride in a view
        */
       void unhandledShortcutOverride (QEvent *e);
+
+      /**
+       * This signal is emitted when a Plugin::View is created for this main window.
+       *
+       * @param name name of plugin
+       * @param pluginView the new plugin view
+       */
+      void pluginViewCreated (const QString &name, Kate::PluginView *pluginView);
+
+      /**
+       * This signal is emitted when the Plugin::View got deleted.
+       *
+       * @param name name of plugin
+       * @param pluginView the deleted plugin view
+       *
+       * Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID
+       * Use the pointer only to remove mappings in hash or maps
+       */
+      void pluginViewDeleted (const QString &name, Kate::PluginView *pluginView);
 
       /*
        * ToolView stuff, here all stuff belong which allows to
@@ -212,7 +231,6 @@ namespace Kate
        */
       QWidget *createToolView (Kate::Plugin* plugin, const QString &identifier, MainWindow::Position pos, const QPixmap &icon, const QString &text);
 
-      
       /**
        * Move the toolview \p widget to position \p pos.
        * \param widget the toolview to move, where the widget was constructed
@@ -239,7 +257,6 @@ namespace Kate
        */
       bool hideToolView (QWidget *widget);
 
-      
       /**
        * This function is used by a plugin to open the kate configuration dialog
        * at one of its own config pages.
@@ -247,11 +264,18 @@ namespace Kate
        * \param id the positional id of the page within the configuration
        */
       void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
-      
+
+      /**
+       * Get a plugin view with identifier \p name.
+       * \param name the plugin's name
+       * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,
+       *         otherwise NULL
+       */
+      PluginView *pluginView (const QString &name);
+
     private:
       class PrivateMainWindow *d;
   };
-
 }
 
 #endif

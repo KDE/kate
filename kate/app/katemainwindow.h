@@ -110,9 +110,15 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     {
       return m_dbusObjectPath;
     }
+
     /**
-     * various methodes to get some little info out of this
+     * get a plugin view with identifier \p name.
+     * \param name the plugin's name
+     * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,
+     *         otherwise null
      */
+    Kate::PluginView *pluginView (const QString &name);
+
   public:
     /** Returns the URL of the current document.
      * anders: I add this for use from the file selector. */
@@ -247,7 +253,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   private Q_SLOTS:
     void slotUpdateBottomViewBar();
     void slotUpdateTopViewBar();
-    
+
   private Q_SLOTS:
     void slotDocumentCloseAll();
     void slotDocumentCloseOther();
@@ -308,7 +314,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     static KateMwModOnHdDialog *s_modOnHdDialog;
 
   public Q_SLOTS:
-    void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);  
+    void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
 
   protected:
     virtual bool event( QEvent *e );

@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QStandardItemModel>
+#include <QMap>
 
 /**
  * Class representing a project.
@@ -37,12 +38,12 @@ class KateProject : public QObject
      * construct empty project
      */
     KateProject ();
-    
+
     /**
      * deconstruct project
      */
     ~KateProject ();
-    
+
     /**
      * Load a project.
      * Only works once, afterwards use reload().
@@ -50,14 +51,14 @@ class KateProject : public QObject
      * @return success
      */
     bool load (const QString &fileName);
-    
+
     /**
      * Try to reload a project.
      * If the reload fails, e.g. because the file is not readable or corrupt, nothing will happen!
      * @return success
      */
     bool reload ();
-    
+
     /**
      * Accessor to file name.
      * @return file name
@@ -66,7 +67,7 @@ class KateProject : public QObject
     {
       return m_fileName;
     }
-    
+
     /**
      * Accessor to project name.
      * @return project name
@@ -75,7 +76,7 @@ class KateProject : public QObject
     {
       return m_name;
     }
-    
+
     /**
      * Accessor for the model.
      * @return model of this project
@@ -84,7 +85,25 @@ class KateProject : public QObject
     {
       return m_model;
     }
+
+    /**
+     * Flat list of all files in the project
+     */
+    QStringList files ()
+    {
+      return m_file2Item.keys ();
+    }
     
+    /**
+     * get item for file
+     * @param file file to get item for
+     * @return item for given file or 0
+     */
+    QStandardItem *itemForFile (const QString &file)
+    {
+      return m_file2Item.value (file);
+    }
+
   private:
     /**
      * Load one group inside the project tree.
@@ -93,29 +112,34 @@ class KateProject : public QObject
      * @param group variant map for this group
      */
     void loadGroup (QStandardItem *parent, const QVariantMap &group);
-    
+
     /**
      * Load one directory entry in the current parent item.
      * @param parent parent standard item in the model
      * @param directory directory specification to load
      */
     void loadDirectory (QStandardItem *parent, const QVariantMap &directory);
-    
+
   private:
     /**
      * project file name
      */
     QString m_fileName;
-    
+
     /**
      * project name
      */
     QString m_name;
-    
+
     /**
      * standard item model with content of this project
      */
     QStandardItemModel *m_model;
+    
+    /**
+     * mapping files => items
+     */
+    QMap<QString, QStandardItem *> m_file2Item;
 };
 
 #endif

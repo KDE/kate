@@ -42,25 +42,40 @@ class KateProjectView : public QTreeView
      * @param project project this view is for
      */
     KateProjectView (KateProjectPluginView *pluginView, KateProject *project);
-    
+
     /**
      * deconstruct project
      */
     ~KateProjectView ();
+
+    /**
+     * our project.
+     * @return project
+     */
+    KateProject *project () const
+    {
+      return m_project;
+    }
     
+    /**
+     * Select given file in the view.
+     * @param file select this file in the view, will be shown if invisible
+     */
+    void selectFile (const QString &file);
+
   private Q_SLOTS:
     /**
      * item got activated, do stuff, like open document
      * @param index model index of activated item
      */
     void slotActivated (const QModelIndex &index);
-    
+
   private:
     /**
      * our plugin view
      */
     KateProjectPluginView *m_pluginView;
-    
+
     /**
      * our project
      */

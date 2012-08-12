@@ -47,6 +47,23 @@ KateProjectView::~KateProjectView ()
 {
 }
 
+void KateProjectView::selectFile (const QString &file)
+{
+  /**
+   * get item if any
+   */
+  QStandardItem *item = m_project->itemForFile (file);
+  if (!item)
+    return;
+  
+  /**
+   * select it
+   */
+  QModelIndex index = m_project->model()->indexFromItem (item);
+  scrollTo (index, QAbstractItemView::EnsureVisible);
+  selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+}
+
 void KateProjectView::slotActivated (const QModelIndex &index)
 {
   /**

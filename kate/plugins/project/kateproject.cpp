@@ -24,6 +24,7 @@
 #include <QDirIterator>
 #include <QFile>
 #include <QFileInfo>
+#include <QProcess>
 
 #include <KMimeType>
 #include <KIconLoader>
@@ -93,12 +94,11 @@ bool KateProject::reload ()
    */
   m_name = globalGroup["name"].toString();
 
-  qDebug ("name %s", qPrintable(m_name));
-
   /**
    * now, clear model once and load other stuff that is possible in all groups
    */
   m_model->clear ();
+  m_file2Item.clear ();
   loadGroup (m_model->invisibleRootItem(), globalGroup);
 
   /**
@@ -217,34 +217,111 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   QDir dir (QFileInfo (m_fileName).absoluteDir());
   if (!dir.cd (directory["directory"].toString()))
     return;
+  
+  /**
+   * get some common flags
+   */
+  const bool recursive = directory["recursive"].toBool();
 
   /**
-   * default filter: only files!
+   * now: choose between different methodes to get files in the directory
    */
-  dir.setFilter (QDir::Files);
-
-  /**
-   * set name filters, if any
-   */
-  QStringList filters = directory["filters"].toStringList();
-  if (!filters.isEmpty())
-    dir.setNameFilters (filters);
-
-  /**
-   * construct flags for iterator
-   */
-  QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
-  if (directory["recursive"].toBool())
-    flags = flags | QDirIterator::Subdirectories;
-
-  /**
-   * create iterator and collect all files
-   */
-  QDirIterator dirIterator (dir, flags);
   QStringList files;
-  while (dirIterator.hasNext()) {
-     dirIterator.next();
-     files.append (dirIterator.filePath());
+  
+  /**
+   * use GIT
+   */
+  if (directory["git"].toBool()) {
+    /**
+     * try to run git with ls-files for this directory
+     */ 
+    QProcess git;
+    git.setWorkingDirectory (dir.absolutePath());
+    QStringList args;
+    args << "ls-files" << ".";
+    git.start("git", args);
+    if (!git.waitForStarted() || !git.waitForFinished())
+      return;
+
+    /**
+     * get output and split up into files
+     */
+    QStringList relFiles = QString::fromLocal8Bit (git.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
+    
+    /**
+     * prepend the directory path
+     */
+    foreach (QString relFile, relFiles) {
+      /**
+       * skip non-direct files if not recursive
+       */
+      if (!recursive && (relFile.indexOf ("/") != -1))
+        continue;
+      
+      files.append (dir.absolutePath() + "/" + relFile);
+    }
+  }
+  
+  /**
+   * use SVN
+   */
+  if (directory["svn"].toBool()) {
+    /**
+     * try to run git with ls-files for this directory
+     */ 
+    QProcess svn;
+    svn.setWorkingDirectory (dir.absolutePath());
+    QStringList args;
+    args << "list" << ".";
+    if (recursive)
+      args << "--depth=infinity";
+    svn.start("svn", args);
+    if (!svn.waitForStarted() || !svn.waitForFinished())
+      return;
+
+    /**
+     * get output and split up into files
+     */
+    QStringList relFiles = QString::fromLocal8Bit (svn.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
+    
+    /**
+     * prepend the directory path
+     */
+    foreach (QString relFile, relFiles)
+      files.append (dir.absolutePath() + "/" + relFile);
+  }
+  
+  /**
+   * fallback to use QDirIterator and search files ourself!
+   */
+  else {
+    /**
+    * default filter: only files!
+    */
+    dir.setFilter (QDir::Files);
+
+    /**
+    * set name filters, if any
+    */
+    QStringList filters = directory["filters"].toStringList();
+    if (!filters.isEmpty())
+      dir.setNameFilters (filters);
+
+    /**
+    * construct flags for iterator
+    */
+    QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
+    if (recursive)
+      flags = flags | QDirIterator::Subdirectories;
+
+    /**
+    * create iterator and collect all files
+    */
+    QDirIterator dirIterator (dir, flags);
+    while (dirIterator.hasNext()) {
+      dirIterator.next();
+      files.append (dirIterator.filePath());
+    }
   }
 
   /**
@@ -260,6 +337,19 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   QIcon dirIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
   QList<QPair<QStandardItem *, QStandardItem *> > item2ParentPath;
   foreach (QString filePath, files) {
+    /**
+     * get file info and skip NON-files
+     */
+    QFileInfo fileInfo (filePath);
+    if (!fileInfo.isFile())
+      continue;
+    
+    /**
+      * skip dupes
+      */
+     if (m_file2Item.contains(filePath))
+       continue;
+    
      /**
       * get the right icon for the file
       */
@@ -270,10 +360,10 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
       * construct the item with right directory prefix
       * already hang in directories in tree
       */
-     QFileInfo fileInfo (filePath);
      QStandardItem *fileItem = new QStandardItem (icon, fileInfo.fileName());
      item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dirIcon, dir.relativeFilePath (fileInfo.absolutePath()))));
      fileItem->setData (filePath, Qt::UserRole);
+     m_file2Item[filePath] = fileItem;
   }
 
   /**

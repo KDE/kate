@@ -204,7 +204,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 
   connect(this,SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)),this,SLOT(showPluginConfigPage(Kate::PluginConfigPageInterface *,uint)));
 
-  
+
 }
 
 KateMainWindow::~KateMainWindow()
@@ -341,7 +341,7 @@ void KateMainWindow::setupActions()
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateOpenWith()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateBottomViewBar()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateTopViewBar()));
-  
+
   slotWindowActivated ();
 
   // session actions
@@ -575,7 +575,7 @@ void KateMainWindow::dropEvent( QDropEvent *event )
 void KateMainWindow::slotDropEvent( QDropEvent * event )
 {
   if (event->mimeData() == 0) return;
-  
+
   //
   // are we dropping files?
   //
@@ -606,7 +606,7 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
         m_viewManager->openUrl (*i);
       }
     }
-  } 
+  }
   //
   // or are we dropping text?
   //
@@ -887,7 +887,7 @@ void KateMainWindow::saveGlobalProperties( KConfig* sessionConfig )
 
   // save plugin config !!
   KateApp::self()->pluginManager()->writeConfig (sessionConfig);
-  
+
 }
 
 void KateMainWindow::saveWindowConfig(const KConfigGroup &_config)
@@ -954,7 +954,7 @@ void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
     s_modOnHdDialog= new KateMwModOnHdDialog( list, this );
     m_modignore = true;
     KWindowSystem::setOnAllDesktops( s_modOnHdDialog->winId(), true);
-    bool res = s_modOnHdDialog->exec();
+    s_modOnHdDialog->exec();
     delete s_modOnHdDialog; // s_modOnHdDialog is set to 0 in destructor of KateMwModOnHdDialog (jowenn!!!)
     m_modignore = false;
   } else {
@@ -969,6 +969,15 @@ bool KateMainWindow::event( QEvent *e )
     emit unhandledShortcutOverride (k);
   }
   return KateMDI::MainWindow::event(e);
+}
+
+Kate::PluginView *KateMainWindow::pluginView (const QString &name)
+{
+  Kate::Plugin *plugin = KateApp::self()->pluginManager()->plugin (name);
+  if (!plugin)
+    return 0;
+
+  return m_pluginViews.value (plugin);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

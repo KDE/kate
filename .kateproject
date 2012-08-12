@@ -4,22 +4,22 @@
     "groups": [
         {
             "name": "KTextEditor",
-            "files": [ { "directory": "ktexteditor", "filters": ["*.cpp", "*.h", "*.ui"] } ]
+            "files": [ { "directory": "ktexteditor", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"] } ]
         },
 
         {
             "name": "KatePart",
-            "files": [ { "directory": "part", "filters": ["*.cpp", "*.h", "*.ui"], "recursive": 1 } ]
+            "files": [ { "directory": "part", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
         },
 
         {
             "name": "Kate",
-            "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui"], "recursive": 1 } ]
+            "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
         },
 
         {
             "name": "KWrite",
-            "files": [ { "directory": "kwrite", "filters": ["*.cpp", "*.h", "*.ui"] } ]
+            "files": [ { "directory": "kwrite", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"] } ]
         }
     ]
 }

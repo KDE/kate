@@ -37,7 +37,6 @@
             "files": [ { "directory": "testdata", "git": 1, "recursive": 1 } ]
         }
     ],
-    
 
     "files": [ { "directory": ".", "git": 1, "recursive": 0 } ]
 }

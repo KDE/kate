@@ -70,6 +70,11 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 
   private slots:
     /**
+     * This slot is called whenever the active view changes in our main window.
+     */
+    void slotViewChanged ();
+    
+    /**
      * Current project changed.
      * @param index index in toolbox
      */

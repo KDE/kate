@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QStandardItemModel>
+#include <QMap>
 
 /**
  * Class representing a project.
@@ -90,7 +91,17 @@ class KateProject : public QObject
      */
     QStringList files ()
     {
-      return m_files;
+      return m_file2Item.keys ();
+    }
+    
+    /**
+     * get item for file
+     * @param file file to get item for
+     * @return item for given file or 0
+     */
+    QStandardItem *itemForFile (const QString &file)
+    {
+      return m_file2Item.value (file);
     }
 
   private:
@@ -124,11 +135,11 @@ class KateProject : public QObject
      * standard item model with content of this project
      */
     QStandardItemModel *m_model;
-
+    
     /**
-     * all project files
+     * mapping files => items
      */
-    QStringList m_files;
+    QMap<QString, QStandardItem *> m_file2Item;
 };
 
 #endif

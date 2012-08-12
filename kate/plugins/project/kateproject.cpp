@@ -97,7 +97,7 @@ bool KateProject::reload ()
    * now, clear model once and load other stuff that is possible in all groups
    */
   m_model->clear ();
-  m_files.clear ();
+  m_file2Item.clear ();
   loadGroup (m_model->invisibleRootItem(), globalGroup);
 
   /**
@@ -252,11 +252,6 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   files.sort ();
 
   /**
-   * append to FULL files list
-   */
-  m_files += files;
-
-  /**
    * construct paths first in tree and items in a map
    */
   QMap<QString, QStandardItem *> dir2Item;
@@ -264,6 +259,12 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   QIcon dirIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
   QList<QPair<QStandardItem *, QStandardItem *> > item2ParentPath;
   foreach (QString filePath, files) {
+     /**
+      * skip dupes
+      */
+     if (m_file2Item.contains(filePath))
+       continue;
+    
      /**
       * get the right icon for the file
       */
@@ -278,6 +279,7 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
      QStandardItem *fileItem = new QStandardItem (icon, fileInfo.fileName());
      item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dirIcon, dir.relativeFilePath (fileInfo.absolutePath()))));
      fileItem->setData (filePath, Qt::UserRole);
+     m_file2Item[filePath] = fileItem;
   }
 
   /**

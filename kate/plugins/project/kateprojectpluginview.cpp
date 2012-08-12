@@ -23,6 +23,7 @@
 
 #include <kate/application.h>
 #include <ktexteditor/view.h>
+#include <ktexteditor/document.h>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -62,6 +63,7 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
    * connect to important signals, e.g. for auto project view creation
    */
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
+  connect (mainWindow(), SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
   connect (m_toolBox, SIGNAL(currentChanged (int)), this, SLOT(slotCurrentChanged (int)));
 }
 
@@ -137,11 +139,39 @@ QString KateProjectPluginView::projectFileName ()
 
 QStringList KateProjectPluginView::projectFiles ()
 {
-  QWidget *active = m_toolBox->currentWidget ();
+  KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
   if (!active)
     return QStringList ();
 
-  return static_cast<KateProjectView *> (active)->project()->files ();
+  return active->project()->files ();
+}
+
+void KateProjectPluginView::slotViewChanged ()
+{
+  /**
+   * get active project view
+   */
+  KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
+  if (!active)
+    return;
+  
+  /**
+   * get active view
+   */
+  KTextEditor::View *activeView = mainWindow()->activeView ();
+  if (!activeView)
+    return;
+  
+  /**
+   * abort if empty url or no local path
+   */
+  if (activeView->document()->url().isEmpty() || !activeView->document()->url().isLocalFile())
+    return;
+  
+  /**
+   * else get local filename and then select it
+   */
+  active->selectFile (activeView->document()->url().toLocalFile ());
 }
 
 void KateProjectPluginView::slotCurrentChanged (int)

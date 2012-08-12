@@ -56,6 +56,12 @@ class KateProjectView : public QTreeView
     {
       return m_project;
     }
+    
+    /**
+     * Select given file in the view.
+     * @param file select this file in the view, will be shown if invisible
+     */
+    void selectFile (const QString &file);
 
   private Q_SLOTS:
     /**

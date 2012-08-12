@@ -161,7 +161,6 @@ namespace Kate
        * This signal is emitted whenever a new view is created
        * @since 4.2
        */
-
       void viewCreated(KTextEditor::View * view);
 
       /**

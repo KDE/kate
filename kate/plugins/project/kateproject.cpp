@@ -24,6 +24,7 @@
 #include <QDirIterator>
 #include <QFile>
 #include <QFileInfo>
+#include <QProcess>
 
 #include <KMimeType>
 #include <KIconLoader>
@@ -218,32 +219,66 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
     return;
 
   /**
-   * default filter: only files!
+   * now: choose between different methodes to get files in the directory
    */
-  dir.setFilter (QDir::Files);
-
-  /**
-   * set name filters, if any
-   */
-  QStringList filters = directory["filters"].toStringList();
-  if (!filters.isEmpty())
-    dir.setNameFilters (filters);
-
-  /**
-   * construct flags for iterator
-   */
-  QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
-  if (directory["recursive"].toBool())
-    flags = flags | QDirIterator::Subdirectories;
-
-  /**
-   * create iterator and collect all files
-   */
-  QDirIterator dirIterator (dir, flags);
   QStringList files;
-  while (dirIterator.hasNext()) {
-     dirIterator.next();
-     files.append (dirIterator.filePath());
+  
+  /**
+   * use GIT
+   */
+  if (directory["git"].toBool()) {
+    /**
+     * try to run git with ls-files for this directory
+     */ 
+    QProcess git;
+    git.setWorkingDirectory (dir.absolutePath());
+    git.start("git", QStringList() << "ls-files" << ".");
+    if (!git.waitForStarted() || !git.waitForFinished())
+      return;
+
+    /**
+     * get output and split up into files
+     */
+    QStringList relFiles = QString::fromLocal8Bit (git.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
+    
+    /**
+     * prepend the directory path
+     */
+    foreach (QString relFile, relFiles)
+      files.append (dir.absolutePath() + "/" + relFile);
+  }
+  
+  /**
+   * fallback to use QDirIterator and search files ourself!
+   */
+  else {
+    /**
+    * default filter: only files!
+    */
+    dir.setFilter (QDir::Files);
+
+    /**
+    * set name filters, if any
+    */
+    QStringList filters = directory["filters"].toStringList();
+    if (!filters.isEmpty())
+      dir.setNameFilters (filters);
+
+    /**
+    * construct flags for iterator
+    */
+    QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
+    if (directory["recursive"].toBool())
+      flags = flags | QDirIterator::Subdirectories;
+
+    /**
+    * create iterator and collect all files
+    */
+    QDirIterator dirIterator (dir, flags);
+    while (dirIterator.hasNext()) {
+      dirIterator.next();
+      files.append (dirIterator.filePath());
+    }
   }
 
   /**

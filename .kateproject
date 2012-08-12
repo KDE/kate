@@ -4,22 +4,37 @@
     "groups": [
         {
             "name": "KTextEditor",
-            "files": [ { "directory": "ktexteditor", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"] } ]
+            "files": [ { "directory": "ktexteditor", "git": 1 } ]
         },
 
         {
             "name": "KatePart",
-            "files": [ { "directory": "part", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
+            "files": [ { "directory": "part", "git": 1 } ]
         },
 
         {
             "name": "Kate",
-            "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"], "recursive": 1 } ]
+            "files": [ { "directory": "kate", "git": 1 } ]
         },
 
         {
             "name": "KWrite",
-            "files": [ { "directory": "kwrite", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"] } ]
+            "files": [ { "directory": "kwrite", "git": 1 } ]
+        },
+
+        {
+            "name": "Documentation",
+            "files": [ { "directory": "doc", "git": 1 } ]
+        },
+
+        {
+            "name": "Includes",
+            "files": [ { "directory": "includes", "git": 1 } ]
+        },
+
+        {
+            "name": "Test Suite",
+            "files": [ { "directory": "testdata", "git": 1 } ]
         }
     ],
     

@@ -251,8 +251,15 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
     /**
      * prepend the directory path
      */
-    foreach (QString relFile, relFiles)
+    foreach (QString relFile, relFiles) {
+      /**
+       * skip non-direct files if not recursive
+       */
+      if (!recursive && (relFile.indexOf ("/") != -1))
+        continue;
+      
       files.append (dir.absolutePath() + "/" + relFile);
+    }
   }
   
   /**

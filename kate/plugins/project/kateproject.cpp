@@ -93,12 +93,11 @@ bool KateProject::reload ()
    */
   m_name = globalGroup["name"].toString();
 
-  qDebug ("name %s", qPrintable(m_name));
-
   /**
    * now, clear model once and load other stuff that is possible in all groups
    */
   m_model->clear ();
+  m_files.clear ();
   loadGroup (m_model->invisibleRootItem(), globalGroup);
 
   /**
@@ -251,6 +250,11 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
    * sort them
    */
   files.sort ();
+
+  /**
+   * append to FULL files list
+   */
+  m_files += files;
 
   /**
    * construct paths first in tree and items in a map

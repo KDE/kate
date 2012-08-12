@@ -52,12 +52,12 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
    * create toolview
    */
   m_toolView = mainWindow()->createToolView ("kateproject", Kate::MainWindow::Left, SmallIcon("project-open"), i18n("Projects"));
-  
+
   /**
    * populate the toolview
    */
   m_toolBox = new QToolBox (m_toolView);
-  
+
   /**
    * connect to important signals, e.g. for auto project view creation
    */
@@ -70,7 +70,7 @@ KateProjectPluginView::~KateProjectPluginView()
    * cu toolview
    */
   delete m_toolView;
-  
+
   /**
    * cu gui client
    */
@@ -83,23 +83,23 @@ KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)
    * needs valid project
    */
   Q_ASSERT (project);
-  
+
   /**
    * existing view?
    */
   if (m_project2View.contains (project))
     return m_project2View.value (project);
-  
+
   /**
    * create new view
    */
    KateProjectView *view = new KateProjectView (this, project);
-   
+
    /**
     * attach to toolbox
     */
    m_toolBox->addItem (view, project->name());
-   
+
    /**
     * remember and return it
     */
@@ -123,6 +123,24 @@ void KateProjectPluginView::writeSessionConfig( KConfigBase* config, const QStri
   // see the Kate::Plugin docs for more information.
   Q_UNUSED( config );
   Q_UNUSED( groupPrefix );
+}
+
+QString KateProjectPluginView::currentProjectFileName ()
+{
+  QWidget *active = m_toolBox->currentWidget ();
+  if (!active)
+    return QString ();
+
+  return static_cast<KateProjectView *> (active)->project()->fileName ();
+}
+
+QStringList KateProjectPluginView::currentProjectFiles ()
+{
+  QWidget *active = m_toolBox->currentWidget ();
+  if (!active)
+    return QStringList ();
+
+  return static_cast<KateProjectView *> (active)->project()->files ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

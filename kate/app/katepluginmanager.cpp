@@ -73,20 +73,20 @@ void KatePluginManager::setupPluginList ()
       info.alwaysLoad=info.service->property("X-Kate-LoadAlways").toBool();
       info.load = false;
       info.plugin = 0L;
-      
+
       if (info.alwaysLoad)
         alwaysLoad.push_back (info);
       else
         others.push_back (info);
     }
   }
-  
+
   /**
    * prefer always load plugins in handling
    */
   m_pluginList = alwaysLoad;
   m_pluginList << others;
-  
+
   /**
    * construct fast lookup map
    */
@@ -110,14 +110,14 @@ void KatePluginManager::loadConfig (KConfig* config)
     for (int i = 0; i < m_pluginList.size(); ++i)
       m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), false);
   }
-  
+
   /**
    * some plugins should be always loaded, like the holy filetree
    */
   for (int i = 0; i < m_pluginList.size(); ++i)
     if (m_pluginList[i].service->property("X-Kate-LoadAlways").toBool())
-      m_pluginList[i].load = true;    
-  
+      m_pluginList[i].load = true;
+
   for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
   {
     if (it->load)
@@ -199,11 +199,12 @@ void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *w
     return;
 
   // lookup if there is already a view for it..
+  Kate::PluginView *createdView = 0;
   if (!win->pluginViews().contains(item->plugin))
   {
     // create the view + try to correctly load shortcuts, if it's a GUI Client
-    Kate::PluginView *view = item->plugin->createView(win->mainWindow());
-    win->pluginViews().insert (item->plugin, view);
+    createdView = item->plugin->createView(win->mainWindow());
+    win->pluginViews().insert (item->plugin, createdView);
   }
 
   // load session config if needed
@@ -212,6 +213,9 @@ void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *w
     int winID = KateApp::self()->mainWindowID(win);
     win->pluginViews().value(item->plugin)->readSessionConfig(config, QString("Plugin:%1:MainWindow:%2").arg(item->saveName()).arg(winID));
   }
+
+  if (createdView)
+    emit win->mainWindow()->pluginViewCreated (item->service->library(), createdView);
 }
 
 void KatePluginManager::enablePluginGUI (KatePluginInfo *item)
@@ -236,8 +240,10 @@ void KatePluginManager::disablePluginGUI (KatePluginInfo *item, KateMainWindow *
     return;
 
   // really delete the view of this plugin
-  delete win->pluginViews().value(item->plugin);
+  Kate::PluginView *deletedView = win->pluginViews().value(item->plugin);
+  delete deletedView;
   win->pluginViews().remove (item->plugin);
+  emit win->mainWindow()->pluginViewDeleted (item->service->library(), deletedView);
 }
 
 void KatePluginManager::disablePluginGUI (KatePluginInfo *item)
@@ -258,7 +264,7 @@ Kate::Plugin *KatePluginManager::plugin (const QString &name)
    */
   if (!m_name2Plugin.contains(name))
     return 0;
-  
+
   /**
    * real plugin instance, if any ;)
    */
@@ -277,14 +283,14 @@ class Kate::Plugin *KatePluginManager::loadPlugin (const QString &name, bool per
    */
   if (!m_name2Plugin.contains(name))
     return 0;
-  
+
   /**
    * load, bail out on error
    */
   loadPlugin (m_name2Plugin.value(name));
   if (!m_name2Plugin.value(name)->plugin)
     return 0;
-  
+
   /**
    * perhaps patch not load again back to "ok, load it once again on next loadConfig"
    */
@@ -299,12 +305,12 @@ void KatePluginManager::unloadPlugin (const QString &name, bool permanent)
    */
   if (!m_name2Plugin.contains(name))
     return;
-  
+
   /**
    * unload
    */
   unloadPlugin (m_name2Plugin.value(name));
-  
+
   /**
    * perhaps patch load again back to "ok, load it once again on next loadConfig"
    */

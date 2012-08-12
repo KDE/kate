@@ -31,13 +31,28 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString currentProjectFileName READ currentProjectFileName)
+    Q_PROPERTY(QStringList currentProjectFiles READ currentProjectFiles)
+
   public:
     KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWindow );
     ~KateProjectPluginView();
 
     virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
     virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
-    
+
+    /**
+     * which project file is currently active?
+     * @return empty string if none, else project file name
+     */
+    QString currentProjectFileName ();
+
+    /**
+     * files for the current active project?
+     * @return empty list if none, else project files as stringlist
+     */
+    QStringList currentProjectFiles ();
+
   public slots:
     /**
      * Create view for given project.
@@ -46,23 +61,23 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * @return view
      */
     KateProjectView *viewForProject (KateProject *project);
-    
+
   private:
     /**
      * our plugin
      */
     KateProjectPlugin *m_plugin;
-    
+
     /**
      * our projects toolview
      */
     QWidget *m_toolView;
-    
+
     /**
      * the toolbox for the projects
      */
     QToolBox *m_toolBox;
-    
+
     /**
      * project => view
      */

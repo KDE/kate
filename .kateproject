@@ -1,25 +1,25 @@
 {
     "name": "Kate",
-    
+
     "groups": [
         {
-            "name": "KTextEditor",            
-            "files": [ { "directory": "ktexteditor", "filters": ["*.cpp", "*.h"] } ]
+            "name": "KTextEditor",
+            "files": [ { "directory": "ktexteditor", "filters": ["*.cpp", "*.h", "*.ui"] } ]
         },
-        
+
         {
-            "name": "KatePart",            
-            "files": [ { "directory": "part", "filters": ["*.cpp", "*.h"], "recursive": 1 } ]
+            "name": "KatePart",
+            "files": [ { "directory": "part", "filters": ["*.cpp", "*.h", "*.ui"], "recursive": 1 } ]
         },
-        
+
         {
-            "name": "Kate",            
-            "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h"], "recursive": 1 } ]
+            "name": "Kate",
+            "files": [ { "directory": "kate", "filters": ["*.cpp", "*.h", "*.ui"], "recursive": 1 } ]
         },
-        
+
         {
-            "name": "KWrite",            
-            "files": [ { "directory": "kwrite", "filters": ["*.cpp", "*.h"] } ]
+            "name": "KWrite",
+            "files": [ { "directory": "kwrite", "filters": ["*.cpp", "*.h", "*.ui"] } ]
         }
     ]
 }

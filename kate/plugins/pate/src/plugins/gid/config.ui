@@ -20,7 +20,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="labelIdFile">
      <property name="text">
-      <string>ID file</string>
+      <string>ID file:</string>
      </property>
      <property name="buddy">
       <cstring>idFile</cstring>
@@ -40,7 +40,7 @@
    <item row="1" column="0">
     <widget class="QLabel" name="labelKeySize">
      <property name="text">
-      <string>Complete tokens after</string>
+      <string>Complete tokens after:</string>
      </property>
      <property name="buddy">
       <cstring>keySize</cstring>
@@ -69,7 +69,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="labelSrcIn">
         <property name="text">
-         <string>Discard file prefix ending with key</string>
+         <string>Discard file prefix ending with key:</string>
         </property>
         <property name="buddy">
          <cstring>idFile</cstring>
@@ -86,7 +86,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="labelSrcOut">
         <property name="text">
-         <string>Then add file prefix</string>
+         <string>Then add file prefix:</string>
         </property>
         <property name="buddy">
          <cstring>srcOut</cstring>
@@ -103,7 +103,7 @@
       <item row="5" column="0">
        <widget class="QLabel" name="labelUseSuffixes">
         <property name="text">
-         <string>Highlight files with suffixes</string>
+         <string>Highlight files with suffixes:</string>
         </property>
         <property name="buddy">
          <cstring>useSuffixes</cstring>
@@ -130,7 +130,7 @@
       <item row="3" column="0">
        <widget class="QLabel" name="labelUseEtags">
         <property name="text">
-         <string>Highlight definitions using etags(1)</string>
+         <string>Highlight definitions using etags(1):</string>
         </property>
        </widget>
       </item>

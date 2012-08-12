@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="labelTopics">
      <property name="text">
-      <string>Module</string>
+      <string>Module:</string>
      </property>
      <property name="buddy">
       <cstring>topics</cstring>
@@ -70,7 +70,7 @@
          <item row="6" column="0">
           <widget class="QLabel" name="labelActionIcon">
            <property name="text">
-            <string>Icon</string>
+            <string>Icon:</string>
            </property>
            <property name="buddy">
             <cstring>configPageIcon</cstring>
@@ -94,7 +94,7 @@
          <item row="6" column="2">
           <widget class="QLabel" name="labelMenu">
            <property name="text">
-            <string>Menu</string>
+            <string>Menu:</string>
            </property>
            <property name="buddy">
             <cstring>menu</cstring>
@@ -104,7 +104,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="labelText">
            <property name="text">
-            <string>Text</string>
+            <string>Text:</string>
            </property>
            <property name="buddy">
             <cstring>name</cstring>
@@ -114,7 +114,7 @@
          <item row="1" column="2">
           <widget class="QLabel" name="labelShortcut">
            <property name="text">
-            <string>Shortcut</string>
+            <string>Shortcut:</string>
            </property>
            <property name="buddy">
             <cstring>fullName</cstring>
@@ -124,7 +124,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="labelActions">
            <property name="text">
-            <string>Action</string>
+            <string>Action:</string>
            </property>
            <property name="buddy">
             <cstring>configPages</cstring>
@@ -177,7 +177,7 @@
          <item row="6" column="0">
           <widget class="QLabel" name="labelPageIcon">
            <property name="text">
-            <string>Icon</string>
+            <string>Icon:</string>
            </property>
            <property name="buddy">
             <cstring>configPageIcon</cstring>
@@ -201,7 +201,7 @@
          <item row="1" column="0">
           <widget class="QLabel" name="labelName">
            <property name="text">
-            <string>Name</string>
+            <string>Name:</string>
            </property>
            <property name="buddy">
             <cstring>name</cstring>
@@ -211,7 +211,7 @@
          <item row="1" column="2">
           <widget class="QLabel" name="labelFullName">
            <property name="text">
-            <string>Full Name</string>
+            <string>Full Name:</string>
            </property>
            <property name="buddy">
             <cstring>fullName</cstring>
@@ -221,7 +221,7 @@
          <item row="0" column="0">
           <widget class="QLabel" name="labelConfigPages">
            <property name="text">
-            <string>Page</string>
+            <string>Page:</string>
            </property>
            <property name="buddy">
             <cstring>configPages</cstring>

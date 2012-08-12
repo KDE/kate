@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QLabel" name="labelToken">
      <property name="text">
-      <string>Token</string>
+      <string>Token:</string>
      </property>
      <property name="buddy">
       <cstring>token</cstring>
@@ -43,7 +43,7 @@
    <item row="0" column="2">
     <widget class="QLabel" name="labelFilter">
      <property name="text">
-      <string>Filter</string>
+      <string>Filter:</string>
      </property>
      <property name="buddy">
       <cstring>filter</cstring>

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>481</width>
+    <width>531</width>
     <height>376</height>
    </rect>
   </property>
@@ -44,7 +44,7 @@
     <item row="1" column="2">
      <widget class="QLabel" name="labelPs2">
       <property name="text">
-       <string>Continuation Prompt</string>
+       <string>Continuation Prompt:</string>
       </property>
       <property name="buddy">
        <cstring>ps2</cstring>
@@ -54,7 +54,7 @@
     <item row="1" column="0">
      <widget class="QLabel" name="labelPs1">
       <property name="text">
-       <string>Main Prompt</string>
+       <string>Main Prompt:</string>
       </property>
       <property name="buddy">
        <cstring>ps1</cstring>
@@ -78,7 +78,7 @@
     <item row="0" column="0">
      <widget class="QLabel" name="promptLabel">
       <property name="text">
-       <string>Prompt</string>
+       <string>Prompt:</string>
       </property>
       <property name="buddy">
        <cstring>promptColour</cstring>
@@ -91,7 +91,7 @@
     <item row="1" column="0">
      <widget class="QLabel" name="stringLabel">
       <property name="text">
-       <string>String</string>
+       <string>String:</string>
       </property>
       <property name="buddy">
        <cstring>stringColour</cstring>
@@ -104,7 +104,7 @@
     <item row="2" column="0">
      <widget class="QLabel" name="nameLabel">
       <property name="text">
-       <string>Name</string>
+       <string>Name:</string>
       </property>
       <property name="buddy">
        <cstring>nameColour</cstring>
@@ -117,7 +117,7 @@
     <item row="3" column="0">
      <widget class="QLabel" name="integerLabel">
       <property name="text">
-       <string>Integer</string>
+       <string>Integer:</string>
       </property>
       <property name="buddy">
        <cstring>integerColour</cstring>
@@ -130,7 +130,7 @@
     <item row="4" column="0">
      <widget class="QLabel" name="floatLabel">
       <property name="text">
-       <string>Float</string>
+       <string>Float:</string>
       </property>
       <property name="buddy">
        <cstring>floatColour</cstring>
@@ -143,7 +143,7 @@
     <item row="5" column="0">
      <widget class="QLabel" name="helpLabel">
       <property name="text">
-       <string>Help</string>
+       <string>Help:</string>
       </property>
       <property name="buddy">
        <cstring>helpColour</cstring>
@@ -156,7 +156,7 @@
     <item row="6" column="0">
      <widget class="QLabel" name="exceptionLabel">
       <property name="text">
-       <string>Exception</string>
+       <string>Exception:</string>
       </property>
       <property name="buddy">
        <cstring>exceptionColour</cstring>

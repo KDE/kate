@@ -21,5 +21,7 @@
             "name": "KWrite",
             "files": [ { "directory": "kwrite", "filters": ["*.cpp", "*.h", "*.ui", "CMakeLists.txt", "Find*.cmake"] } ]
         }
-    ]
+    ],
+    
+    "files": [ { "directory": ".", "filters": ["CMakeLists.txt", "CommitPolicy.txt", "config.h.cmake"] } ]
 }

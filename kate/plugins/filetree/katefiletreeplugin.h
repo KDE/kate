@@ -89,6 +89,7 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
 
     KateFileTreeModel *model();
     KateFileTreeProxyModel *proxy();
+    KateFileTree *tree();
 
     void setListMode(bool listMode);
 
@@ -126,6 +127,10 @@ class KateFileTreeCommand : public QObject, public KTextEditor::Command
 
   Q_SIGNALS:
     void showToolView();
+    void slotDocumentPrev();
+    void slotDocumentNext();
+    void slotDocumentFirst();
+    void slotDocumentLast();
     void switchDocument(const QString&);
 
   public:

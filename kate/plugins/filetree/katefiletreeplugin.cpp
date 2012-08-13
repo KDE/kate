@@ -75,7 +75,11 @@ Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
   KateFileTreePluginView* view = new KateFileTreePluginView (mainWindow, this);
   connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
   connect(m_fileCommand, SIGNAL(showToolView()), view, SLOT(showToolView()));
-  connect(m_fileCommand, SIGNAL(switchDocument(QString)), view, SLOT(switchDocument(QString)));
+  connect(m_fileCommand, SIGNAL(slotDocumentPrev()), view->tree(), SLOT(slotDocumentPrev()));
+  connect(m_fileCommand, SIGNAL(slotDocumentNext()), view->tree(), SLOT(slotDocumentNext()));
+  connect(m_fileCommand, SIGNAL(slotDocumentFirst()), view->tree(), SLOT(slotDocumentFirst()));
+  connect(m_fileCommand, SIGNAL(slotDocumentLast()), view->tree(), SLOT(slotDocumentLast()));
+  connect(m_fileCommand, SIGNAL(switchDocument(QString)), view->tree(), SLOT(switchDocument(QString)));
   m_views.append(view);
 
   return view;
@@ -249,6 +253,11 @@ KateFileTreeModel *KateFileTreePluginView::model()
 KateFileTreeProxyModel *KateFileTreePluginView::proxy()
 {
   return m_proxyModel;
+}
+
+KateFileTree *KateFileTreePluginView::tree()
+{
+  return m_fileTree;
 }
 
 void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
@@ -430,12 +439,24 @@ bool KateFileTreeCommand::exec(KTextEditor::View *view, const QString &cmd, QStr
     // create list of args
     QStringList args(cmd.split(' ', QString::KeepEmptyParts));
     QString command = args.takeFirst(); // same as cmd if split failed
-    QString arguments = args.join(QString(' '));
+    QString argument = args.join(QString(' '));
 
-    if (command == "b") {
-      emit switchDocument(arguments);
-    } else if (command == "ls") {
+    if (command == "ls") {
       emit showToolView();
+    } else if (command == "b" || command == "buffer") {
+      emit switchDocument(argument);
+    } else if (command == "bp" || command == "bprevious" ||
+               command == "tabp" || command == "tabprevious") {
+      emit slotDocumentPrev();
+    } else if (command == "bn" || command == "bnext" ||
+               command == "tabn" || command == "tabnext") {
+      emit slotDocumentNext();
+    } else if (command == "bf" || command == "bfirst" ||
+               command == "tabf" || command == "tabfirst") {
+      emit slotDocumentFirst();
+    } else if (command == "bl" || command == "blast" ||
+               command == "tabl" || command == "tablast") {
+      emit slotDocumentLast();
     }
 
     return true;

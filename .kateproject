@@ -1,4 +1,4 @@
 {
       "name": "Kate"
-    , "files": [ { "directory": ".", "git": 1 } ]
+    , "files": [ { "git": 1 } ]
 }

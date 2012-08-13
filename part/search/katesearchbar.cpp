@@ -1450,9 +1450,9 @@ void KateSearchBar::enterIncrementalMode() {
 
     // Set initial search pattern
     if (!create)
-        disconnect(m_incUi->pattern, SIGNAL(textChanged(QString)), this, SLOT(onIncPatternChanged(QString)));
+        disconnect(m_incUi->pattern, SIGNAL(editTextChanged(QString)), this, SLOT(onIncPatternChanged(QString)));
     m_incUi->pattern->setEditText(initialPattern);
-    connect(m_incUi->pattern, SIGNAL(textChanged(QString)), this, SLOT(onIncPatternChanged(QString)));
+    connect(m_incUi->pattern, SIGNAL(editTextChanged(QString)), this, SLOT(onIncPatternChanged(QString)));
     m_incUi->pattern->lineEdit()->selectAll();
 
     // Propagate settings (slots are still inactive on purpose)

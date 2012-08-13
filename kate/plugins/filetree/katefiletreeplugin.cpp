@@ -430,7 +430,17 @@ KateFileTreeCommand::KateFileTreeCommand(QObject *parent)
 
 const QStringList& KateFileTreeCommand::cmds()
 {
-    static QStringList sl = QStringList() << "ls"; // << "b";
+    static QStringList sl;
+
+    if (sl.empty()) {
+     sl << "ls"
+        << "b" << "buffer"
+        << "bn" << "bnext" << "bp" << "bprevious"
+        << "tabn" << "tabnext" << "tabp" << "tabprevious"
+        << "bf" << "bfirst" << "bl" << "blast"
+        << "tabf" << "tabfirst" << "tabl" << "tablast";
+    }
+
     return sl;
 }
 

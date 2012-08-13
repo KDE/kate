@@ -74,12 +74,16 @@ const QStringList& KateAppCommands::cmds()
     if (l.empty()) {
         l << "q" << "qa" /*<< "w"*/ << "wq" << "wa" << "wqa" << "x" << "xa"
           << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew"
-          << "sp" << "split" << "vs" << "vsplit" << "bd" << "bdelete"
-          << "bn" << "bnext" << "bp" << "bprevious" <<  "bf"
-          << "bfirst" << "bl" << "blast" << "b" << "buffer"
-          << "tabe" << "tabedit" << "tabnew" << "tabc" << "tabclose"
-          << "tabn" << "tabnext" << "tabp" << "tabprevious"
-          << "tabfir" << "tabfirst" << "tabl" << "tablast";
+          << "sp" << "split" << "vs" << "vsplit"
+          // these commands are implemented by the KateFileTree plugin
+          // << "bn" << "bnext" << "bp" << "bprevious"
+          // << "tabn" << "tabnext" << "tabp" << "tabprevious"
+          // <<  "bf" << "bfirst" << "bl" << "blast"
+          // << "tabfir" << "tabfirst" << "tabl" << "tablast"
+          // << "b" << "buffer"
+          << "tabe" << "tabedit" << "tabnew"
+          << "bd" << "bdelete"
+          << "tabc" << "tabclose";
     }
 
     return l;

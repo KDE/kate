@@ -217,24 +217,24 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   QDir dir (QFileInfo (m_fileName).absoluteDir());
   if (!dir.cd (directory["directory"].toString()))
     return;
-  
+
   /**
-   * get some common flags
+   * get recursive attribute, default is TRUE
    */
-  const bool recursive = directory["recursive"].toBool();
+  const bool recursive = !directory.contains ("recursive") || directory["recursive"].toBool();
 
   /**
    * now: choose between different methodes to get files in the directory
    */
   QStringList files;
-  
+
   /**
    * use GIT
    */
   if (directory["git"].toBool()) {
     /**
      * try to run git with ls-files for this directory
-     */ 
+     */
     QProcess git;
     git.setWorkingDirectory (dir.absolutePath());
     QStringList args;
@@ -247,7 +247,7 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
      * get output and split up into files
      */
     QStringList relFiles = QString::fromLocal8Bit (git.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
-    
+
     /**
      * prepend the directory path
      */
@@ -257,18 +257,18 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
        */
       if (!recursive && (relFile.indexOf ("/") != -1))
         continue;
-      
+
       files.append (dir.absolutePath() + "/" + relFile);
     }
   }
-  
+
   /**
    * use SVN
    */
   if (directory["svn"].toBool()) {
     /**
      * try to run git with ls-files for this directory
-     */ 
+     */
     QProcess svn;
     svn.setWorkingDirectory (dir.absolutePath());
     QStringList args;
@@ -283,14 +283,14 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
      * get output and split up into files
      */
     QStringList relFiles = QString::fromLocal8Bit (svn.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
-    
+
     /**
      * prepend the directory path
      */
     foreach (QString relFile, relFiles)
       files.append (dir.absolutePath() + "/" + relFile);
   }
-  
+
   /**
    * fallback to use QDirIterator and search files ourself!
    */
@@ -343,13 +343,13 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
     QFileInfo fileInfo (filePath);
     if (!fileInfo.isFile())
       continue;
-    
+
     /**
       * skip dupes
       */
      if (m_file2Item.contains(filePath))
        continue;
-    
+
      /**
       * get the right icon for the file
       */

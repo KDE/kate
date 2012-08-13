@@ -93,7 +93,7 @@ class KateProject : public QObject
     {
       return m_file2Item.keys ();
     }
-    
+
     /**
      * get item for file
      * @param file file to get item for
@@ -114,11 +114,11 @@ class KateProject : public QObject
     void loadGroup (QStandardItem *parent, const QVariantMap &group);
 
     /**
-     * Load one directory entry in the current parent item.
+     * Load one files entry in the current parent item.
      * @param parent parent standard item in the model
-     * @param directory directory specification to load
+     * @param filesEntry one files entry specification to load
      */
-    void loadDirectory (QStandardItem *parent, const QVariantMap &directory);
+    void loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry);
 
   private:
     /**
@@ -135,7 +135,7 @@ class KateProject : public QObject
      * standard item model with content of this project
      */
     QStandardItemModel *m_model;
-    
+
     /**
      * mapping files => items
      */

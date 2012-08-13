@@ -133,24 +133,8 @@ void KateProject::loadGroup (QStandardItem *parent, const QVariantMap &group)
    * load all specified files
    */
   QVariantList files = group["files"].toList ();
-  foreach (const QVariant &fileVariant, files) {
-    /**
-     * convert to map
-     */
-    QVariantMap file = fileVariant.toMap ();
-
-    /**
-     * now, which kind of file spec we have?
-     */
-
-    /**
-     * directory: xxx?
-     */
-    if (!file["directory"].toString().isEmpty()) {
-      loadDirectory (parent, file);
-      continue;
-    }
-  }
+  foreach (const QVariant &fileVariant, files)
+    loadFilesEntry (parent, fileVariant.toMap ());
 }
 
 /**
@@ -209,19 +193,19 @@ static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item,
   return dir2Item[path];
 }
 
-void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &directory)
+void KateProject::loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry)
 {
   /**
    * get directory to open or skip
    */
   QDir dir (QFileInfo (m_fileName).absoluteDir());
-  if (!dir.cd (directory["directory"].toString()))
+  if (!dir.cd (filesEntry["directory"].toString()))
     return;
 
   /**
    * get recursive attribute, default is TRUE
    */
-  const bool recursive = !directory.contains ("recursive") || directory["recursive"].toBool();
+  const bool recursive = !filesEntry.contains ("recursive") || filesEntry["recursive"].toBool();
 
   /**
    * now: choose between different methodes to get files in the directory
@@ -231,7 +215,7 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   /**
    * use GIT
    */
-  if (directory["git"].toBool()) {
+  if (filesEntry["git"].toBool()) {
     /**
      * try to run git with ls-files for this directory
      */
@@ -265,7 +249,7 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
   /**
    * use SVN
    */
-  if (directory["svn"].toBool()) {
+  if (filesEntry["svn"].toBool()) {
     /**
      * try to run git with ls-files for this directory
      */
@@ -303,7 +287,7 @@ void KateProject::loadDirectory (QStandardItem *parent, const QVariantMap &direc
     /**
     * set name filters, if any
     */
-    QStringList filters = directory["filters"].toStringList();
+    QStringList filters = filesEntry["filters"].toStringList();
     if (!filters.isEmpty())
       dir.setNameFilters (filters);
 

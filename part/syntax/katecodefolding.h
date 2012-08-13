@@ -117,7 +117,7 @@ class KateDocumentPosition
     }
 };
 
-class KateCodeFoldingNode: public QObject
+class KateCodeFoldingNode
 {
   friend class KateCodeFoldingTree;
 

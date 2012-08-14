@@ -60,6 +60,12 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   m_toolBox = new QToolBox (m_toolView);
 
   /**
+   * create views for all already existing projects
+   */
+  foreach (KateProject *project, m_plugin->projects())
+    viewForProject (project);
+  
+  /**
    * connect to important signals, e.g. for auto project view creation
    */
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));

@@ -56,6 +56,15 @@ class KateProjectPlugin : public Kate::Plugin
      */
     KateProject *projectForUrl (const KUrl &url);
     
+    /**
+     * get list of all current open projects
+     * @return list of all open projects
+     */
+    QList<KateProject *> projects () const
+    {
+      return m_fileName2Project.values();
+    }
+    
   signals:
     /**
      * Signal that a new project got created.

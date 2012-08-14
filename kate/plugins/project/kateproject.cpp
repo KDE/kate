@@ -248,7 +248,7 @@ void KateProject::loadFilesEntry (QStandardItem *parent, const QVariantMap &file
   /**
    * use SVN
    */
-  if (filesEntry["svn"].toBool()) {
+  else if (filesEntry["svn"].toBool()) {
     /**
      * try to run git with ls-files for this directory
      */

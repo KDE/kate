@@ -65,6 +65,11 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
   connect (mainWindow(), SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
   connect (m_toolBox, SIGNAL(currentChanged (int)), this, SLOT(slotCurrentChanged (int)));
+  
+  /**
+   * trigger once view change, dummy index
+   */
+  slotCurrentChanged (0);
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -149,29 +154,32 @@ QStringList KateProjectPluginView::projectFiles ()
 void KateProjectPluginView::slotViewChanged ()
 {
   /**
-   * get active project view
-   */
-  KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
-  if (!active)
-    return;
-  
-  /**
    * get active view
    */
   KTextEditor::View *activeView = mainWindow()->activeView ();
-  if (!activeView)
+  
+  /**
+   * update pointer, maybe disconnect before
+   */
+  if (m_activeTextEditorView)
+    m_activeTextEditorView->document()->disconnect (this);
+  m_activeTextEditorView = activeView;
+
+  /**
+   * no current active view, return
+   */
+  if (!m_activeTextEditorView)
     return;
   
   /**
-   * abort if empty url or no local path
+   * connect to url changed, for auto load
    */
-  if (activeView->document()->url().isEmpty() || !activeView->document()->url().isLocalFile())
-    return;
-  
+  connect (m_activeTextEditorView->document(), SIGNAL(documentUrlChanged (KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged (KTextEditor::Document *)));
+
   /**
-   * else get local filename and then select it
+   * trigger slot once
    */
-  active->selectFile (activeView->document()->url().toLocalFile ());
+  slotDocumentUrlChanged (m_activeTextEditorView->document());
 }
 
 void KateProjectPluginView::slotCurrentChanged (int)
@@ -185,6 +193,39 @@ void KateProjectPluginView::slotCurrentChanged (int)
    * project file name might have changed
    */
   emit projectFileNameChanged ();
+}
+
+void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *document)
+{
+  /**
+   * abort if empty url or no local path
+   */
+  if (document->url().isEmpty() || !document->url().isLocalFile())
+    return;
+  
+  /**
+   * search matching project
+   */
+  KateProject *project = m_plugin->projectForUrl (document->url());
+  if (!project)
+    return;
+  
+  /**
+   * get active project view and switch it, if it is for a different project
+   */
+  KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
+  if (active != m_project2View.value (project)) {
+      /**
+       * switch view and return, we will be called again automatically by the slotCurrentChanged!
+       */
+      m_toolBox->setCurrentWidget (m_project2View.value (project));
+      return;
+  }
+  
+  /**
+   * get local filename and then select it
+   */
+  active->selectFile (document->url().toLocalFile ());
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

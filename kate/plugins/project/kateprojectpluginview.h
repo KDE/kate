@@ -25,6 +25,7 @@
 #include "kateproject.h"
 #include "kateprojectview.h"
 
+#include <QPointer>
 #include <QToolBox>
 
 class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
@@ -79,6 +80,11 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * @param index index in toolbox
      */
     void slotCurrentChanged (int index);
+    
+    /**
+     * Url changed, to auto-load projects
+     */
+    void slotDocumentUrlChanged (KTextEditor::Document *document);
 
   private:
     /**
@@ -100,6 +106,12 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * project => view
      */
     QMap<KateProject *, KateProjectView *> m_project2View;
+    
+    /**
+     * remember current active view text editor view
+     * might be 0
+     */
+    QPointer<KTextEditor::View> m_activeTextEditorView;
 };
 
 #endif

@@ -139,7 +139,7 @@ void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)
   /**
    * connect to url changed, for auto load
    */
-  connect (document, SIGNAL(documentUrlChanged ( KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged (KTextEditor::Document *)));
+  connect (document, SIGNAL(documentUrlChanged (KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged (KTextEditor::Document *)));
   
   /**
    * trigger slot once, for existing docs

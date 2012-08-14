@@ -176,8 +176,15 @@ void KateProjectPluginView::slotViewChanged ()
 
 void KateProjectPluginView::slotCurrentChanged (int)
 {
+  /**
+   * we might need to highlight other document
+   */
+  slotViewChanged ();
+  
+  /**
+   * project file name might have changed
+   */
   emit projectFileNameChanged ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
-

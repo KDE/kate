@@ -73,9 +73,9 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   connect (m_toolBox, SIGNAL(currentChanged (int)), this, SLOT(slotCurrentChanged (int)));
   
   /**
-   * trigger once view change, dummy index
+   * trigger once view change, to highlight right document
    */
-  slotCurrentChanged (0);
+  slotViewChanged ();
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -191,11 +191,6 @@ void KateProjectPluginView::slotViewChanged ()
 void KateProjectPluginView::slotCurrentChanged (int)
 {
   /**
-   * we might need to highlight other document
-   */
-  slotViewChanged ();
-  
-  /**
    * project file name might have changed
    */
   emit projectFileNameChanged ();
@@ -220,13 +215,8 @@ void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *docum
    * get active project view and switch it, if it is for a different project
    */
   KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
-  if (active != m_project2View.value (project)) {
-      /**
-       * switch view and return, we will be called again automatically by the slotCurrentChanged!
-       */
+  if (active != m_project2View.value (project))
       m_toolBox->setCurrentWidget (m_project2View.value (project));
-      return;
-  }
   
   /**
    * get local filename and then select it

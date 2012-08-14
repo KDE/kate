@@ -25,6 +25,8 @@
 #include <QStandardItemModel>
 #include <QMap>
 
+#include "kateprojectitem.h"
+
 /**
  * Class representing a project.
  * Holds project properties like name, groups, contained files, ...
@@ -106,12 +108,12 @@ class KateProject : public QObject
 
   private:
     /**
-     * Load one group inside the project tree.
-     * Fill data from JSON storage to model and recurse to sub-groups.
+     * Load one project inside the project tree.
+     * Fill data from JSON storage to model and recurse to sub-projects.
      * @param parent parent standard item in the model
-     * @param group variant map for this group
+     * @param project variant map for this group
      */
-    void loadGroup (QStandardItem *parent, const QVariantMap &group);
+    void loadProject (QStandardItem *parent, const QVariantMap &project);
 
     /**
      * Load one files entry in the current parent item.

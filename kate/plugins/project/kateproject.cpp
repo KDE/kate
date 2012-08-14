@@ -81,25 +81,25 @@ bool KateProject::reload ()
   /**
    * now: get global group
    */
-  QVariantMap globalGroup = project.toMap ();
+  QVariantMap globalProject = project.toMap ();
 
   /**
    * no name, bad => bail out
    */
-  if (globalGroup["name"].toString().isEmpty())
+  if (globalProject["name"].toString().isEmpty())
     return false;
 
   /**
    * setup global attributes in this object
    */
-  m_name = globalGroup["name"].toString();
+  m_name = globalProject["name"].toString();
 
   /**
    * now, clear model once and load other stuff that is possible in all groups
    */
   m_model->clear ();
   m_file2Item.clear ();
-  loadGroup (m_model->invisibleRootItem(), globalGroup);
+  loadProject (m_model->invisibleRootItem(), globalProject);
 
   /**
    * done ok ;)
@@ -107,32 +107,32 @@ bool KateProject::reload ()
   return true;
 }
 
-void KateProject::loadGroup (QStandardItem *parent, const QVariantMap &group)
+void KateProject::loadProject (QStandardItem *parent, const QVariantMap &project)
 {
   /**
-   * recurse to sub-groups FIRST
+   * recurse to sub-projects FIRST
    */
-  QVariantList subGroups = group["groups"].toList ();
+  QVariantList subGroups = project["projects"].toList ();
   foreach (const QVariant &subGroupVariant, subGroups) {
     /**
      * convert to map and get name, else skip
      */
-    QVariantMap subGroup = subGroupVariant.toMap ();
-    if (subGroup["name"].toString().isEmpty())
+    QVariantMap subProject = subGroupVariant.toMap ();
+    if (subProject["name"].toString().isEmpty())
       continue;
 
     /**
      * recurse
      */
-    QStandardItem *subGroupItem = new QStandardItem (QIcon (KIconLoader::global ()->loadIcon ("folder-documents", KIconLoader::Small)), subGroup["name"].toString());
-    loadGroup (subGroupItem, subGroup);
-    parent->appendRow (subGroupItem);
+    QStandardItem *subProjectItem = new KateProjectItem (KateProjectItem::Project, subProject["name"].toString());
+    loadProject (subProjectItem, subProject);
+    parent->appendRow (subProjectItem);
   }
 
   /**
    * load all specified files
    */
-  QVariantList files = group["files"].toList ();
+  QVariantList files = project["files"].toList ();
   foreach (const QVariant &fileVariant, files)
     loadFilesEntry (parent, fileVariant.toMap ());
 }
@@ -140,11 +140,10 @@ void KateProject::loadGroup (QStandardItem *parent, const QVariantMap &group)
 /**
  * small helper to construct directory parent items
  * @param dir2Item map for path => item
- * @param dirIcon directory icon
  * @param path current path we need item for
  * @return correct parent item for given path, will reuse existing ones
  */
-static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item, const QIcon &dirIcon, QString path)
+static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item, QString path)
 {
   /**
    * throw away simple /
@@ -168,7 +167,7 @@ static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item,
    * simple, no recursion, append new item toplevel
    */
   if (slashIndex < 0) {
-    dir2Item[path] = new QStandardItem (dirIcon, path);
+    dir2Item[path] = new KateProjectItem (KateProjectItem::Directory, path);
     dir2Item[""]->appendRow (dir2Item[path]);
     return dir2Item[path];
   }
@@ -183,13 +182,13 @@ static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item,
    * special handling if / with nothing on one side are found
    */
   if (leftPart.isEmpty() || rightPart.isEmpty ())
-    return directoryParent (dir2Item, dirIcon, leftPart.isEmpty() ? rightPart : leftPart);
+    return directoryParent (dir2Item, leftPart.isEmpty() ? rightPart : leftPart);
 
   /**
    * else: recurse on left side
    */
-  dir2Item[path] = new QStandardItem (dirIcon, rightPart);
-  directoryParent (dir2Item, dirIcon, leftPart)->appendRow (dir2Item[path]);
+  dir2Item[path] = new KateProjectItem (KateProjectItem::Directory, rightPart);
+  directoryParent (dir2Item, leftPart)->appendRow (dir2Item[path]);
   return dir2Item[path];
 }
 
@@ -318,7 +317,6 @@ void KateProject::loadFilesEntry (QStandardItem *parent, const QVariantMap &file
    */
   QMap<QString, QStandardItem *> dir2Item;
   dir2Item[""] = parent;
-  QIcon dirIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
   QList<QPair<QStandardItem *, QStandardItem *> > item2ParentPath;
   foreach (QString filePath, files) {
     /**
@@ -335,17 +333,11 @@ void KateProject::loadFilesEntry (QStandardItem *parent, const QVariantMap &file
        continue;
 
      /**
-      * get the right icon for the file
-      */
-     QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(filePath));
-     QIcon icon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
-
-     /**
       * construct the item with right directory prefix
       * already hang in directories in tree
       */
-     QStandardItem *fileItem = new QStandardItem (icon, fileInfo.fileName());
-     item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dirIcon, dir.relativeFilePath (fileInfo.absolutePath()))));
+     QStandardItem *fileItem = new KateProjectItem (KateProjectItem::File, fileInfo.fileName());
+     item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dir.relativeFilePath (fileInfo.absolutePath()))));
      fileItem->setData (filePath, Qt::UserRole);
      m_file2Item[filePath] = fileItem;
   }

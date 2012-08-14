@@ -30,6 +30,7 @@
 
 #include <QDir>
 #include <QFileInfo>
+#include <QTime>
  
 KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
@@ -132,10 +133,17 @@ void KateProjectPlugin::slotDocumentUrlChanged (KTextEditor::Document *document)
      * check for project
      */
     if (fileDirectory.exists (".kateproject")) {
+      
+      //QTime lala;
+      //lala.start ();
+      
       /**
        * load project, if needed, and be done
        */
       projectForFileName (fileDirectory.absolutePath () + "/.kateproject");
+      
+      //printf ("TIME: %d\n", lala.elapsed());
+      
       return;
     }
     

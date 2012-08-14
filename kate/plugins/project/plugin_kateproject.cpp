@@ -91,6 +91,49 @@ KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
   return project;
 }
 
+KateProject *KateProjectPlugin::projectForUrl (const KUrl &url)
+{
+  /**
+   * abort if empty url or no local path
+   */
+  if (url.isEmpty() || !url.isLocalFile())
+    return 0;
+  
+  /**
+   * else get local filename and then the dir for it
+   */
+  QDir fileDirectory = QFileInfo(url.toLocalFile ()).absoluteDir ();
+  
+  /**
+   * now, search projects upwards
+   * with recursion guard
+   */
+  QSet<QString> seenDirectories;
+  while (!seenDirectories.contains (fileDirectory.absolutePath ())) {
+    /**
+     * fill recursion guard
+     */
+    seenDirectories.insert (fileDirectory.absolutePath ());
+    
+    /**
+     * check for project and load it if found
+     */
+    if (fileDirectory.exists (".kateproject"))
+      return projectForFileName (fileDirectory.absolutePath () + "/.kateproject");      
+    
+    /**
+     * else: cd up, if possible or abort
+     */
+    if (!fileDirectory.cdUp())
+      break;
+  }
+  
+  /**
+   * nothing there
+   */
+  return 0;
+}
+
 void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)
 {
   /**
@@ -107,52 +150,9 @@ void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)
 void KateProjectPlugin::slotDocumentUrlChanged (KTextEditor::Document *document)
 {
   /**
-   * abort if empty url or no local path
+   * search matching project
    */
-  if (document->url().isEmpty() || !document->url().isLocalFile())
-    return;
-  
-  /**
-   * else get local filename and then the dir for it
-   */
-  QString filePath = document->url().toLocalFile ();
-  QDir fileDirectory = QFileInfo(filePath).absoluteDir ();
-  
-  /**
-   * now, search projects upwards
-   * with recursion guard
-   */
-  QSet<QString> seenDirectories;
-  while (!seenDirectories.contains (fileDirectory.absolutePath ())) {
-    /**
-     * fill recursion guard
-     */
-    seenDirectories.insert (fileDirectory.absolutePath ());
-    
-    /**
-     * check for project
-     */
-    if (fileDirectory.exists (".kateproject")) {
-      
-      //QTime lala;
-      //lala.start ();
-      
-      /**
-       * load project, if needed, and be done
-       */
-      projectForFileName (fileDirectory.absolutePath () + "/.kateproject");
-      
-      //printf ("TIME: %d\n", lala.elapsed());
-      
-      return;
-    }
-    
-    /**
-     * else: cd up, if possible or abort
-     */
-    if (!fileDirectory.cdUp())
-      return;
-  }
+  projectForUrl (document->url());
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

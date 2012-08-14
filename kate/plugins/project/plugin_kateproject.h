@@ -38,7 +38,7 @@ class KateProjectPlugin : public Kate::Plugin
     Kate::PluginView *createView( Kate::MainWindow *mainWindow );
     
     /**
-     * Get project for given filename.
+     * Get project for given project filename.
      * Will open a new one if not already open, else return the already open one.
      * Null pointer if no project can be opened.
      * File name will be canonicalized!
@@ -46,6 +46,15 @@ class KateProjectPlugin : public Kate::Plugin
      * @return project or null if not openable
      */
     KateProject *projectForFileName (const QString &fileName);
+    
+    /**
+     * Search and open project that contains given url, if possible.
+     * Will search upwards for .kateproject file, if the url is a local file.
+     * Will use internally projectForFileName if a .kateproject file is found.
+     * @param url url to search matching project for
+     * @return project or null if not openable
+     */
+    KateProject *projectForUrl (const KUrl &url);
     
   signals:
     /**

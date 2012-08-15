@@ -80,6 +80,15 @@ class KateProject : public QObject
     }
 
     /**
+     * Accessor to project map containing the whole project info.
+     * @return project info
+     */
+    const QVariantMap &projectMap () const
+    {
+      return m_projectMap;
+    }
+
+    /**
      * Accessor for the model.
      * @return model of this project
      */
@@ -132,6 +141,11 @@ class KateProject : public QObject
      * project name
      */
     QString m_name;
+    
+    /**
+     * variant map representing the project
+     */
+    QVariantMap m_projectMap;
 
     /**
      * standard item model with content of this project

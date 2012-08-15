@@ -139,7 +139,7 @@ void KateProjectPluginView::writeSessionConfig( KConfigBase* config, const QStri
   Q_UNUSED( groupPrefix );
 }
 
-QString KateProjectPluginView::projectFileName ()
+QString KateProjectPluginView::projectFileName () const
 {
   QWidget *active = m_toolBox->currentWidget ();
   if (!active)
@@ -148,7 +148,16 @@ QString KateProjectPluginView::projectFileName ()
   return static_cast<KateProjectView *> (active)->project()->fileName ();
 }
 
-QStringList KateProjectPluginView::projectFiles ()
+QVariantMap KateProjectPluginView::projectMap () const
+{
+  QWidget *active = m_toolBox->currentWidget ();
+  if (!active)
+    return QVariantMap ();
+
+  return static_cast<KateProjectView *> (active)->project()->projectMap ();
+}
+
+QStringList KateProjectPluginView::projectFiles () const
 {
   KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
   if (!active)

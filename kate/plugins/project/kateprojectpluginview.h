@@ -33,6 +33,7 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     Q_OBJECT
 
     Q_PROPERTY(QString projectFileName READ projectFileName NOTIFY projectFileNameChanged)
+    Q_PROPERTY(QVariantMap projectMap READ projectMap)
     Q_PROPERTY(QStringList projectFiles READ projectFiles)
 
   public:
@@ -43,16 +44,22 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
 
     /**
+     * content of current active project, as variant map
+     * @return empty map if no project active, else content of project JSON
+     */
+    QVariantMap projectMap () const;
+    
+    /**
      * which project file is currently active?
      * @return empty string if none, else project file name
      */
-    QString projectFileName ();
+    QString projectFileName () const;
 
     /**
      * files for the current active project?
      * @return empty list if none, else project files as stringlist
      */
-    QStringList projectFiles ();
+    QStringList projectFiles () const;
 
   public slots:
     /**

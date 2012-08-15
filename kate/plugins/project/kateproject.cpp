@@ -93,6 +93,7 @@ bool KateProject::reload ()
    * setup global attributes in this object
    */
   m_name = globalProject["name"].toString();
+  m_projectMap = globalProject;
 
   /**
    * now, clear model once and load other stuff that is possible in all groups

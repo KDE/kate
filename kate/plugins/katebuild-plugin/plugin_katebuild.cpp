@@ -187,6 +187,17 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient(this);
+
+    // watch for project plugin view creation/deletion
+    connect(mainWindow(), SIGNAL(pluginViewCreated (const QString &, Kate::PluginView *))
+        , this, SLOT(slotPluginViewCreated (const QString &, Kate::PluginView *)));
+
+    connect(mainWindow(), SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
+        , this, SLOT(slotPluginViewDeleted (const QString &, Kate::PluginView *)));
+
+    // update once project plugin state manually
+    m_projectPluginView = mainWindow()->pluginView ("kateprojectplugin");
+    slotProjectMapChanged ();
 }
 
 
@@ -921,4 +932,33 @@ void KateBuildView::slotShowOthers(bool showItems) {
         }
     }
 
+}
+
+void KateBuildView::slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView)
+{
+    // add view
+    if (name == "kateprojectplugin") {
+        m_projectPluginView = pluginView;
+        slotProjectMapChanged ();
+        connect (pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()));
+    }
+}
+
+void KateBuildView::slotPluginViewDeleted (const QString &name, Kate::PluginView *)
+{
+    // remove view
+    if (name == "kateprojectplugin") {
+        m_projectPluginView = 0;
+        slotProjectMapChanged ();
+    }
+}
+
+void KateBuildView::slotProjectMapChanged ()
+{
+    // query new project map
+    QVariantMap projectMap;
+    if (m_projectPluginView)
+        projectMap = m_projectPluginView->property("projectMap").toMap();
+
+    printf ("got build %s\n", qPrintable(projectMap.value("build").toMap().value("build").toString()));
 }

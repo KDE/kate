@@ -33,7 +33,7 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     Q_OBJECT
 
     Q_PROPERTY(QString projectFileName READ projectFileName NOTIFY projectFileNameChanged)
-    Q_PROPERTY(QVariantMap projectMap READ projectMap)
+    Q_PROPERTY(QVariantMap projectMap READ projectMap NOTIFY projectMapChanged)
     Q_PROPERTY(QStringList projectFiles READ projectFiles)
 
   public:
@@ -72,9 +72,14 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 
   Q_SIGNALS:
     /**
-     * Emitted if currentProjectFileName changed.
+     * Emitted if projectFileName changed.
      */
     void projectFileNameChanged ();
+    
+    /**
+     * Emitted if projectMap changed.
+     */
+    void projectMapChanged ();
 
   private slots:
     /**

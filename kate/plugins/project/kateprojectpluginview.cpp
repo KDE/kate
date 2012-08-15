@@ -203,6 +203,7 @@ void KateProjectPluginView::slotCurrentChanged (int)
    * project file name might have changed
    */
   emit projectFileNameChanged ();
+  emit projectMapChanged ();
 }
 
 void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *document)

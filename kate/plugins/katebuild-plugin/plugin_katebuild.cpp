@@ -29,7 +29,6 @@
 #include <cassert>
 
 #include <qfile.h>
-#include <qfileinfo.h>
 #include <qinputdialog.h>
 #include <qregexp.h>
 #include <qstring.h>
@@ -41,6 +40,8 @@
 #include <QDirModel>
 #include <QScrollBar>
 #include <QKeyEvent>
+#include <QFileInfo>
+#include <QDir>
 
 
 #include <kaction.h>
@@ -955,10 +956,27 @@ void KateBuildView::slotPluginViewDeleted (const QString &name, Kate::PluginView
 
 void KateBuildView::slotProjectMapChanged ()
 {
+    // only do stuff with valid project
+    if (!m_projectPluginView)
+      return;
+  
     // query new project map
-    QVariantMap projectMap;
-    if (m_projectPluginView)
-        projectMap = m_projectPluginView->property("projectMap").toMap();
+    QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
+    
+    // do we have a valid map for build settings?
+    QVariantMap buildMap = projectMap.value("build").toMap();
+    if (buildMap.isEmpty())
+      return;
 
-    printf ("got build %s\n", qPrintable(projectMap.value("build").toMap().value("build").toString()));
+    // get build dir
+    QDir dir (QFileInfo (m_projectPluginView->property("projectFileName").toString()).absoluteDir());
+    if (!dir.cd (buildMap.value("directory").toString()))
+      return;
+    
+    // set build dir
+    m_targetsUi->buildDir->setText(dir.absolutePath());
+    
+    m_targetsUi->buildCmd->setText(buildMap.value("build").toString());
+    m_targetsUi->cleanCmd->setText(buildMap.value("clean").toString());
+    m_targetsUi->quickCmd->setText(QString());
 }

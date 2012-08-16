@@ -101,7 +101,7 @@ class KateProject : public QObject
      */
     QStandardItemModel *model ()
     {
-      return m_model;
+      return &m_model;
     }
 
     /**
@@ -163,7 +163,7 @@ class KateProject : public QObject
     /**
      * standard item model with content of this project
      */
-    QStandardItemModel *m_model;
+    QStandardItemModel m_model;
 
     /**
      * mapping files => items

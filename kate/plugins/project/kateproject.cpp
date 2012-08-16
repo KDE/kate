@@ -30,7 +30,6 @@
 KateProject::KateProject ()
   : QObject ()
   , m_worker (new KateProjectWorker (this))
-  , m_model (new QStandardItemModel (this))
   , m_file2Item (new QMap<QString, QStandardItem *>())
 {
   /**
@@ -135,7 +134,7 @@ bool KateProject::reload ()
   /**
    * now, clear some stuff and before triggering worker thread to do the work ;)
    */
-  m_model->clear ();
+  m_model.clear ();
   m_file2Item->clear ();
   
   /**
@@ -169,7 +168,7 @@ void KateProject::loadProjectDone (void *topLevel, void *file2Item)
   /**
    * setup model data
    */
-  m_model->invisibleRootItem()->appendColumn (topLevelItem->takeColumn (0));
+  m_model.invisibleRootItem()->appendColumn (topLevelItem->takeColumn (0));
   delete topLevelItem;
   
   /**

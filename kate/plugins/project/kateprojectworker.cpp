@@ -55,13 +55,8 @@ void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
   /**
    * feed back our results
    */
-  
-  /**
-   * trigger worker
-   */
   QMetaObject::invokeMethod (m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(void *, topLevel), Q_ARG(void *, file2Item));
 }
-
 
 void KateProjectWorker::loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> &file2Item)
 {

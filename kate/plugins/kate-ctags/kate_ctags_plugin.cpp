@@ -202,8 +202,13 @@ void KateCTagsConfigPage::updateGlobalDB()
     }
 
     QString targets;
+    QString target;
     for (int i=0; i<m_confUi.targetList->count(); i++) {
-        targets += m_confUi.targetList->item(i)->text() + " ";
+        target = m_confUi.targetList->item(i)->text();
+        if (target.endsWith('/') || target.endsWith('\\')) {
+            target = target.left(target.size() - 1);
+        }
+        targets += target + " ";
     }
 
     QString file = KStandardDirs::locateLocal("appdata", "plugins/katectags/common_db", true);

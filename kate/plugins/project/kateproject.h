@@ -133,6 +133,11 @@ class KateProject : public QObject
 
   private:
     /**
+     * our internal thread to load stuff and do things in background
+     */
+    class KateProjectThread *m_thread;
+    
+    /**
      * project file name
      */
     QString m_fileName;

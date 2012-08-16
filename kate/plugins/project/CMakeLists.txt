@@ -9,7 +9,7 @@ if (NOT QJSON_FOUND)
     return()
 endif (NOT QJSON_FOUND)
 
-set(kateprojectplugin_PART_SRCS plugin_kateproject.cpp kateproject.cpp kateprojectitem.cpp kateprojectview.cpp kateprojectpluginview.cpp)
+set(kateprojectplugin_PART_SRCS plugin_kateproject.cpp kateproject.cpp kateprojectthread.cpp kateprojectitem.cpp kateprojectview.cpp kateprojectpluginview.cpp)
 
 kde4_add_plugin(kateprojectplugin ${kateprojectplugin_PART_SRCS})
 

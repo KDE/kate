@@ -19,6 +19,7 @@
  */
 
 #include "kateproject.h"
+#include "kateprojectthread.h"
 
 #include <QDir>
 #include <QDirIterator>
@@ -33,12 +34,23 @@
 
 KateProject::KateProject ()
   : QObject ()
+  , m_thread (new KateProjectThread (this))
   , m_model (new QStandardItemModel (this))
 {
+  /**
+   * start our worker thread
+   */
+  m_thread->start ();
 }
 
 KateProject::~KateProject ()
 {
+  /**
+   * quit the thread event loop, wait for completion and delete it
+   */
+  m_thread->quit ();
+  m_thread->wait ();
+  delete m_thread;
 }
 
 bool KateProject::load (const QString &fileName)

@@ -19,6 +19,7 @@
  */
 
 #include "kateproject.h"
+#include "kateprojectworker.h"
 
 #include <QDir>
 #include <QFile>
@@ -42,6 +43,24 @@ KateProject::KateProject ()
 KateProject::~KateProject ()
 {
   /**
+   * worker must be already gone!
+   */
+  Q_ASSERT (!m_worker);
+
+  /**
+   * delete other data
+   */
+  delete m_file2Item;
+}
+
+void KateProject::triggerDeleteLater ()
+{
+  /**
+   * only do this once
+   */
+  Q_ASSERT (m_worker);
+  
+  /**
    * quit the thread event loop and wait for completion
    */
   m_thread.quit ();
@@ -51,11 +70,12 @@ KateProject::~KateProject ()
    * delete worker, before thread is deleted
    */
   delete m_worker;
+  m_worker = 0;
   
   /**
-   * delete other data
+   * trigger delete later
    */
-  delete m_file2Item;
+  deleteLater ();
 }
 
 bool KateProject::load (const QString &fileName)
@@ -130,12 +150,21 @@ bool KateProject::reload ()
 }
 
 void KateProject::loadProjectDone (void *topLevel, void *file2Item)
-{
+{ 
   /**
    * convert to right types
    */
   QStandardItem *topLevelItem = static_cast<QStandardItem*> (topLevel);
   QMap<QString, QStandardItem *> *file2ItemMap = static_cast<QMap<QString, QStandardItem *>*> (file2Item);
+
+  /**
+   * no worker any more, only cleanup the stuff we got from invoke!
+   */
+  if (!m_worker) {
+      delete topLevelItem;
+      delete file2ItemMap;
+      return;
+  }
   
   /**
    * setup model data

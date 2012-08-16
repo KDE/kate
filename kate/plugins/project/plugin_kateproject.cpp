@@ -52,7 +52,16 @@ KateProjectPlugin::~KateProjectPlugin()
   /**
    * cleanup open projects
    */
-  qDeleteAll (m_fileName2Project);
+  foreach (KateProject *project, m_fileName2Project) {
+    /**
+     * let events still be handled!
+     */
+    project->triggerDeleteLater ();
+  }
+
+  /**
+   * cleanup list
+   */
   m_fileName2Project.clear ();
 }
 
@@ -79,7 +88,7 @@ KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
    */
   KateProject *project = new KateProject ();
   if (!project->load (canonicalFilePath)) {
-    delete project;
+    project->triggerDeleteLater ();
     return 0;
   }
   

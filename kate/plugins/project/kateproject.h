@@ -25,8 +25,6 @@
 #include <QStandardItemModel>
 #include <QMap>
 
-#include "kateprojectworker.h"
-
 /**
  * Class representing a project.
  * Holds project properties like name, groups, contained files, ...
@@ -34,17 +32,26 @@
 class KateProject : public QObject
 {
   Q_OBJECT
+  
+  private:
+    /**
+     * deconstruct project
+     * close() MUST be called before
+     */
+    ~KateProject ();
 
   public:
     /**
      * construct empty project
      */
     KateProject ();
-
+    
     /**
-     * deconstruct project
+     * Trigger deleteLater().
+     * Using delete directly will leak memory, this causes correct de-initialisation even
+     * with inter-thread events still around (will trigger delete later)
      */
-    ~KateProject ();
+    void triggerDeleteLater ();
 
     /**
      * Load a project.
@@ -131,6 +138,10 @@ class KateProject : public QObject
     
     /**
      * the worker inside the background thread
+     * if this is NULL, we are in our deconstruction state and should
+     * ignore the feedback of our already stopped thread that
+     * may still come in because of queued connects
+     * only DELETE all stuff we need to cleanup in the slots
      */
     QObject *m_worker;
     

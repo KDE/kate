@@ -112,7 +112,7 @@ KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)
    /**
     * attach to toolbox
     */
-   m_toolBox->addItem (view, project->name());
+   m_toolBox->addItem (view, SmallIcon("project-open"), project->name());
 
    /**
     * remember and return it

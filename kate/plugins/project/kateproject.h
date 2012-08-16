@@ -25,7 +25,7 @@
 #include <QStandardItemModel>
 #include <QMap>
 
-#include "kateprojectitem.h"
+#include "kateprojectworker.h"
 
 /**
  * Class representing a project.
@@ -102,7 +102,7 @@ class KateProject : public QObject
      */
     QStringList files ()
     {
-      return m_file2Item.keys ();
+      return m_file2Item->keys ();
     }
 
     /**
@@ -112,24 +112,16 @@ class KateProject : public QObject
      */
     QStandardItem *itemForFile (const QString &file)
     {
-      return m_file2Item.value (file);
+      return m_file2Item->value (file);
     }
-
-  private:
+    
+  private Q_SLOTS:
     /**
-     * Load one project inside the project tree.
-     * Fill data from JSON storage to model and recurse to sub-projects.
-     * @param parent parent standard item in the model
-     * @param project variant map for this group
+     * Used for worker to send back the results of project loading
+     * @param topLevel new toplevel element for model
+     * @param file2Item new file => item mapping
      */
-    void loadProject (QStandardItem *parent, const QVariantMap &project);
-
-    /**
-     * Load one files entry in the current parent item.
-     * @param parent parent standard item in the model
-     * @param filesEntry one files entry specification to load
-     */
-    void loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry);
+    void loadProjectDone (void *topLevel, void *file2Item);
 
   private:
     /**
@@ -140,7 +132,7 @@ class KateProject : public QObject
     /**
      * the worker inside the background thread
      */
-    class KateProjectWorker *m_worker;
+    QObject *m_worker;
     
     /**
      * project file name
@@ -165,7 +157,7 @@ class KateProject : public QObject
     /**
      * mapping files => items
      */
-    QMap<QString, QStandardItem *> m_file2Item;
+    QMap<QString, QStandardItem *> *m_file2Item;
 };
 
 #endif

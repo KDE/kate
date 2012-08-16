@@ -21,9 +21,10 @@
 #ifndef KATE_PROJECT_WORKER_H
 #define KATE_PROJECT_WORKER_H
 
-#include <QObject>
+#include <QStandardItemModel>
+#include <QMap>
 
-#include "kateproject.h"
+#include "kateprojectitem.h"
 
 /**
  * Class representing a project background worker.
@@ -35,21 +36,59 @@ class KateProjectWorker : public QObject
 
   public:
     /**
+     * Type for QueuedConnection
+     */
+    typedef QMap<QString, QStandardItem *> MapString2Item;
+    
+    /**
      * construct project worker for given project
      * @param project our project
      */
-    KateProjectWorker (KateProject *project);
+    KateProjectWorker (QObject *project);
 
     /**
      * deconstruct worker
      */
     ~KateProjectWorker ();
     
+  private Q_SLOTS:
+    /**
+     * Load the project.
+     * Will be used to load project in background.
+     * Will inform the project after loading was done and pass over all needed data!
+     * @param fileName project file name, should stay the same after initial setup
+     * @param projectMap full map containing the whole project as copy to work on
+     */
+    void loadProject (QString fileName, QVariantMap projectMap);
+    
   private:
     /**
-     * our project
+     * Load one project inside the project tree.
+     * Fill data from JSON storage to model and recurse to sub-projects.
+     * @param parent parent standard item in the model
+     * @param project variant map for this group
+     * @param file2Item mapping file => item, will be filled
      */
-    KateProject *m_project;
+    void loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> &file2Item);
+
+    /**
+     * Load one files entry in the current parent item.
+     * @param parent parent standard item in the model
+     * @param filesEntry one files entry specification to load
+     * @param file2Item mapping file => item, will be filled
+     */
+    void loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, QStandardItem *> &file2Item);
+    
+  private:
+    /**
+     * our project, only as QObject, we only send messages back and forth!
+     */
+    QObject *m_project;
+    
+    /**
+     * project file name
+     */
+    QString m_fileName;
 };
 
 #endif

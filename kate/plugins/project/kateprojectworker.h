@@ -18,38 +18,32 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef KATE_PROJECT_THREAD_H
-#define KATE_PROJECT_THREAD_H
+#ifndef KATE_PROJECT_WORKER_H
+#define KATE_PROJECT_WORKER_H
 
-#include <QThread>
+#include <QObject>
 
 #include "kateproject.h"
 
 /**
- * Class representing a project background thread.
- * This thread will build up the model for the project on load and do other stuff in the background.
+ * Class representing a project background worker.
+ * This worker will build up the model for the project on load and do other stuff in the background.
  */
-class KateProjectThread : public QThread
+class KateProjectWorker : public QObject
 {
   Q_OBJECT
 
   public:
     /**
-     * construct project thread for given project
+     * construct project worker for given project
      * @param project our project
      */
-    KateProjectThread (KateProject *project);
+    KateProjectWorker (KateProject *project);
 
     /**
-     * deconstruct project
+     * deconstruct worker
      */
-    ~KateProjectThread ();
-    
-  protected:
-    /**
-     * Overwritten run method
-     */
-    void run ();
+    ~KateProjectWorker ();
     
   private:
     /**

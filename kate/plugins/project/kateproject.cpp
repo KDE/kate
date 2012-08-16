@@ -19,7 +19,7 @@
  */
 
 #include "kateproject.h"
-#include "kateprojectthread.h"
+#include "kateprojectworker.h"
 
 #include <QDir>
 #include <QDirIterator>
@@ -34,23 +34,28 @@
 
 KateProject::KateProject ()
   : QObject ()
-  , m_thread (new KateProjectThread (this))
+  , m_worker (new KateProjectWorker (this))
   , m_model (new QStandardItemModel (this))
 {
   /**
-   * start our worker thread
+   * move worker object over and start our worker thread
    */
-  m_thread->start ();
+  m_worker->moveToThread (&m_thread);
+  m_thread.start ();
 }
 
 KateProject::~KateProject ()
 {
   /**
-   * quit the thread event loop, wait for completion and delete it
+   * quit the thread event loop and wait for completion
    */
-  m_thread->quit ();
-  m_thread->wait ();
-  delete m_thread;
+  m_thread.quit ();
+  m_thread.wait ();
+  
+  /**
+   * delete worker, before thread is deleted
+   */
+  delete m_worker;
 }
 
 bool KateProject::load (const QString &fileName)

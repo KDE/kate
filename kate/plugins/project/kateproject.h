@@ -21,7 +21,7 @@
 #ifndef KATE_PROJECT_H
 #define KATE_PROJECT_H
 
-#include <QObject>
+#include <QThread>
 #include <QStandardItemModel>
 #include <QMap>
 
@@ -135,7 +135,12 @@ class KateProject : public QObject
     /**
      * our internal thread to load stuff and do things in background
      */
-    class KateProjectThread *m_thread;
+    QThread m_thread;
+    
+    /**
+     * the worker inside the background thread
+     */
+    class KateProjectWorker *m_worker;
     
     /**
      * project file name

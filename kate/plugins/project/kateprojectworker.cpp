@@ -18,24 +18,16 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "kateprojectthread.h"
+#include "kateprojectworker.h"
 
-KateProjectThread::KateProjectThread (KateProject *project)
-  : QThread ()
+KateProjectWorker::KateProjectWorker (KateProject *project)
+  : QObject ()
   , m_project (project)
 {
 }
 
-KateProjectThread::~KateProjectThread ()
+KateProjectWorker::~KateProjectWorker ()
 {
-}
-
-void KateProjectThread::run ()
-{
-  /**
-   * execute event loop
-   */
-  exec ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

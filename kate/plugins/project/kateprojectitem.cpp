@@ -23,6 +23,8 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QThread>
+#include <QCoreApplication>
 
 #include <KMimeType>
 #include <KIconLoader>
@@ -44,7 +46,20 @@ QVariant KateProjectItem::data (int role) const
    * create icons on demand
    */
   if (role == Qt::DecorationRole) {
+    /**
+     * this should only happen in main thread
+     * the background thread should only construct this elements and fill data
+     * but never query gui stuff!
+     */
+    Q_ASSERT (QThread::currentThread () == QCoreApplication::instance()->thread ());
+    
+    /**
+     * create icon, on demand
+     */
     if (!m_iconCreated) {
+      /**
+       * use right type
+       */
       switch (m_type) {
         case Project:
           m_icon = QIcon (KIconLoader::global ()->loadIcon ("folder-documents", KIconLoader::Small));
@@ -63,10 +78,11 @@ QVariant KateProjectItem::data (int role) const
       m_iconCreated = true;
     }
     
+    /**
+     * return the cached icon
+     */
     return QVariant (m_icon);
   }
-  
-  //printf ("%p => role %d\n", this, role);
   
   /**
    * use normal data method

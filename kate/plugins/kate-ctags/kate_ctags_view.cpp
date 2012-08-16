@@ -543,7 +543,7 @@ void KateCTagsView::updateSessionDB()
         KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
         return;
     }
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    QApplication::setOverrideCursor(QCursor(Qt::BusyCursor));
     m_ctagsUi.updateButton->setDisabled(true);
     m_ctagsUi.updateButton2->setDisabled(true);
 }

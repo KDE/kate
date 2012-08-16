@@ -229,7 +229,7 @@ void KateCTagsConfigPage::updateGlobalDB()
         return;
     }
     m_confUi.updateDB->setDisabled(true);
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    QApplication::setOverrideCursor(QCursor(Qt::BusyCursor));
 }
 
 /******************************************************************/

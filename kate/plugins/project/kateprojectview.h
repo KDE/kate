@@ -69,6 +69,9 @@ class KateProjectView : public QTreeView
      * @param index model index of activated item
      */
     void slotActivated (const QModelIndex &index);
+  
+  protected:
+    virtual void contextMenuEvent (QContextMenuEvent *event);
 
   private:
     /**

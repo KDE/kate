@@ -21,6 +21,13 @@
 #include "kateprojectview.h"
 #include "kateprojectpluginview.h"
 
+#include <QContextMenuEvent>
+#include <KMimeType>
+#include <KMimeTypeTrader>
+#include <QMenu>
+#include <KRun>
+#include <KIcon>
+
 KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject *project)
   : QTreeView ()
   , m_pluginView (pluginView)
@@ -72,6 +79,49 @@ void KateProjectView::slotActivated (const QModelIndex &index)
   QString filePath = index.data (Qt::UserRole).toString();
   if (!filePath.isEmpty())
     m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
+}
+
+void KateProjectView::contextMenuEvent (QContextMenuEvent *event)
+{
+  // get current file path
+  QModelIndex index = selectionModel()->currentIndex();
+  QString filePath = index.data (Qt::UserRole).toString();
+  if (!filePath.isEmpty()) {
+    // find correct mimetype to query for possible applications
+    KMimeType::Ptr mimeType = KMimeType::findByPath(filePath);
+    KService::List offers = KMimeTypeTrader::self()->query(mimeType->name(), "Application");
+
+    // create context menu
+    QMenu menu;
+    QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
+
+    QAction *action = 0;
+    // for each one, insert a menu item...
+    for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
+    {
+      KService::Ptr service = *it;
+      if (service->name() == "Kate") continue; // omit Kate
+      action = openWithMenu->addAction(KIcon(service->icon()), service->name());
+      action->setData(service->entryPath());
+    }
+
+    // launch the menu
+    action = menu.exec(viewport()->mapToGlobal(event->pos()));
+
+    // and launch the requested application
+    if (action) {
+      const QString openWith = action->data().toString();
+      KService::Ptr app = KService::serviceByDesktopPath(openWith);
+      if (app)
+      {
+        QList<QUrl> list;
+        list << QUrl(filePath);
+        KRun::run(*app, list, this);
+      }
+    }
+  }
+
+  event->accept();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -79,6 +79,12 @@ class KateProjectWorker : public QObject
      */
     void loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, QStandardItem *> &file2Item);
     
+    /**
+     * Load ctags tags for whole project.
+     * @param files list of all project files
+     */
+    void loadCtags (const QStringList &files);
+    
   private:
     /**
      * our project, only as QObject, we only send messages back and forth!

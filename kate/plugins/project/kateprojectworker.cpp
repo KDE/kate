@@ -53,9 +53,19 @@ void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
   loadProject (topLevel, projectMap, *file2Item);
   
   /**
+   * create some local backup of some data we need for further processing!
+   */
+  QStringList files = file2Item->keys ();
+  
+  /**
    * feed back our results
    */
   QMetaObject::invokeMethod (m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(void *, topLevel), Q_ARG(void *, file2Item));
+  
+  /**
+   * trigger more updates
+   */
+  loadCtags (files);
 }
 
 void KateProjectWorker::loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> &file2Item)
@@ -300,6 +310,62 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
   while (i != item2ParentPath.constEnd()) {
     i->second->appendRow (i->first);
     ++i;
+  }
+}
+
+void KateProjectWorker::loadCtags (const QStringList &files)
+{
+  /**
+   * try to run ctags for all files in this project
+   */
+  QProcess ctags;
+  QStringList args;
+  args << "-L" << "-" << "-f" << "-" << "--fields=+z";
+  ctags.start("ctags", args);
+  if (!ctags.waitForStarted())
+    return;
+  
+  /**
+   * write files list and close write channel
+   */
+  ctags.write(files.join("\n").toLocal8Bit());
+  ctags.closeWriteChannel();
+    
+  /**
+   * wait for done
+   */
+  if (!ctags.waitForFinished())
+    return;
+  
+  /**
+   * get results and parse them
+   */
+  QStringList tagLines = QString::fromLocal8Bit (ctags.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
+  foreach (QString tagLine, tagLines) {
+    /**
+     * search first three separators
+     */
+    int firstTab = tagLine.indexOf ("\t", 0);
+    if (firstTab < 0)
+      continue;
+    
+    int secondTab = tagLine.indexOf ("\t", firstTab+1);
+    if (secondTab < 0)
+      continue;
+    
+    int endOfEx = tagLine.indexOf (";\"\t", secondTab+1);
+    if (endOfEx < 0)
+      continue;
+    
+    /**
+     * get infos
+     */
+    QString tagName = tagLine.left (firstTab);
+    QString fileName = tagLine.mid (firstTab+1, secondTab-(firstTab+1));
+    QString exCmd = tagLine.mid (secondTab+1, endOfEx-(secondTab+1));
+    
+    //printf ("tag line: '%s'\n", qPrintable(tagLine.replace("\t", "<TAB>")));
+    //printf ("parsed info: TN '%s' FN '%s' EC '%s'\n\n", qPrintable(tagName), qPrintable(fileName), qPrintable(exCmd));
   }
 }
 

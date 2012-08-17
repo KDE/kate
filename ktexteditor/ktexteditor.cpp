@@ -239,7 +239,7 @@ MdiContainer::~MdiContainer ()
 ViewBarContainer::ViewBarContainer()
 {}
 
-ViewBarContainer::~ViewBarContainer()
+ViewBarContainer::~ViewBarContainer	()
 {}
 
 

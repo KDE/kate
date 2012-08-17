@@ -31,7 +31,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QTime>
- 
+
 KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
 {
@@ -39,7 +39,8 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
    * connect to important signals, e.g. for auto project loading
    */
   connect (application()->documentManager(), SIGNAL(documentCreated (KTextEditor::Document *)), this, SLOT(slotDocumentCreated (KTextEditor::Document *)));
-  
+  connect (&m_fileWatcher, SIGNAL(directoryChanged (const QString &)), this, SLOT(slotDirectoryChanged (const QString &)));
+
   /**
    * connect for all already existing documents
    */
@@ -53,6 +54,11 @@ KateProjectPlugin::~KateProjectPlugin()
    * cleanup open projects
    */
   foreach (KateProject *project, m_fileName2Project) {
+    /**
+     * remove path
+     */
+    m_fileWatcher.removePath (QFileInfo (project->fileName()).canonicalPath());
+
     /**
      * let events still be handled!
      */
@@ -76,13 +82,19 @@ KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
    * canonicalize file path
    */
   QString canonicalFilePath = QFileInfo (fileName).canonicalFilePath ();
-  
+
+  /**
+   * abort if empty
+   */
+  if (canonicalFilePath.isEmpty())
+    return 0;
+
   /**
    * first: lookup in existing projects
    */
   if (m_fileName2Project.contains (canonicalFilePath))
     return m_fileName2Project.value (canonicalFilePath);
-  
+
   /**
    * else: try to load or fail
    */
@@ -91,11 +103,12 @@ KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
     project->triggerDeleteLater ();
     return 0;
   }
-  
+
   /**
    * remember project and emit & return it
    */
   m_fileName2Project[canonicalFilePath] = project;
+  m_fileWatcher.addPath (QFileInfo (canonicalFilePath).canonicalPath());
   emit projectCreated (project);
   return project;
 }
@@ -107,12 +120,12 @@ KateProject *KateProjectPlugin::projectForUrl (const KUrl &url)
    */
   if (url.isEmpty() || !url.isLocalFile())
     return 0;
-  
+
   /**
    * else get local filename and then the dir for it
    */
   QDir fileDirectory = QFileInfo(url.toLocalFile ()).absoluteDir ();
-  
+
   /**
    * now, search projects upwards
    * with recursion guard
@@ -123,20 +136,20 @@ KateProject *KateProjectPlugin::projectForUrl (const KUrl &url)
      * fill recursion guard
      */
     seenDirectories.insert (fileDirectory.absolutePath ());
-    
+
     /**
      * check for project and load it if found
      */
     if (fileDirectory.exists (".kateproject"))
-      return projectForFileName (fileDirectory.absolutePath () + "/.kateproject");      
-    
+      return projectForFileName (fileDirectory.absolutePath () + "/.kateproject");
+
     /**
      * else: cd up, if possible or abort
      */
     if (!fileDirectory.cdUp())
       break;
   }
-  
+
   /**
    * nothing there
    */
@@ -149,7 +162,7 @@ void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)
    * connect to url changed, for auto load
    */
   connect (document, SIGNAL(documentUrlChanged (KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged (KTextEditor::Document *)));
-  
+
   /**
    * trigger slot once, for existing docs
    */
@@ -162,6 +175,16 @@ void KateProjectPlugin::slotDocumentUrlChanged (KTextEditor::Document *document)
    * search matching project
    */
   projectForUrl (document->url());
+}
+
+void KateProjectPlugin::slotDirectoryChanged (const QString &path)
+{
+  /**
+   * auto-reload, if there
+   */
+  KateProject *project = projectForFileName (QFileInfo (path + "/.kateproject").canonicalFilePath ());
+  if (project)
+    project->reload ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

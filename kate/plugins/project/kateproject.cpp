@@ -21,6 +21,8 @@
 #include "kateproject.h"
 #include "kateprojectworker.h"
 
+#include <ktexteditor/document.h>
+
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
@@ -180,6 +182,12 @@ void KateProject::loadProjectDone (void *topLevel, void *file2Item)
    * model changed
    */
   emit modelChanged ();
+}
+
+void KateProject::completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range)
+{
+  if (QString ("projectPluginRulez").contains (view->document()->text(range)))
+    model.appendRow (new QStandardItem ("projectPluginRulez"));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

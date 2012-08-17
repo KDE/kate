@@ -163,44 +163,17 @@ void KateProjectCompletion::completionInvoked(KTextEditor::View* view, const KTe
 // ignoring any dublets
 void KateProjectCompletion::allMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range ) const
 {
-
-  QStringList l;
+  /**
+   * get project for this document, else fail
+   */
+  KateProject *project = m_plugin->projectForDocument (view->document());
+  if (!project)
+    return;
   
-  if (QString ("testFunction").contains (view->document()->text(range)))
-    model.appendRow (new QStandardItem ("testFunction"));
-  
-#if 0
-  int i( 0 );
-  int pos( 0 );
-  KTextEditor::Document *doc = view->document();
-  QRegExp re( "\\b(" + doc->text( range ) + "\\w{1,})" );
-  QString s, m;
-  QSet<QString> seen;
-
-  while( i < doc->lines() )
-  {
-    s = doc->line( i );
-    pos = 0;
-    while ( pos >= 0 )
-    {
-      pos = re.indexIn( s, pos );
-      if ( pos >= 0 )
-      {
-        // typing in the middle of a word
-        if ( ! ( i == range.start().line() && pos == range.start().column() ) )
-        {
-          m = re.cap( 1 );
-          if ( ! seen.contains( m ) ) {
-            seen.insert( m );
-            l << m;
-          }
-        }
-        pos += re.matchedLength();
-      }
-    }
-    i++;
-  }
-#endif
+  /**
+   * let project fill the completion for this document
+   */
+  project->completionMatches (model, view, range);
 }
 
 KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateProjectCompletion::matchingItem(const QModelIndex& /*matched*/)

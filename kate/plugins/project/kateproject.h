@@ -25,6 +25,8 @@
 #include <QStandardItemModel>
 #include <QMap>
 
+#include <ktexteditor/view.h>
+
 /**
  * Class representing a project.
  * Holds project properties like name, groups, contained files, ...
@@ -122,6 +124,14 @@ class KateProject : public QObject
       return m_file2Item->value (file);
     }
 
+    /**
+     * Fill in completion matches for given view/range.
+     * @param model model to fill with completion matches
+     * @param view view we complete for
+     * @param range range we complete for
+     */
+    void completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range);
+    
   private Q_SLOTS:
     /**
      * Used for worker to send back the results of project loading

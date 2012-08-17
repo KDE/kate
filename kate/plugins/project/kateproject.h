@@ -32,7 +32,7 @@
 class KateProject : public QObject
 {
   Q_OBJECT
-  
+
   private:
     /**
      * deconstruct project
@@ -45,7 +45,7 @@ class KateProject : public QObject
      * construct empty project
      */
     KateProject ();
-    
+
     /**
      * Trigger deleteLater().
      * Using delete directly will leak memory, this causes correct de-initialisation even
@@ -78,21 +78,21 @@ class KateProject : public QObject
     }
 
     /**
-     * Accessor to project name.
-     * @return project name
-     */
-    const QString &name () const
-    {
-      return m_name;
-    }
-
-    /**
      * Accessor to project map containing the whole project info.
      * @return project info
      */
     const QVariantMap &projectMap () const
     {
       return m_projectMap;
+    }
+
+    /**
+     * Accessor to project name.
+     * @return project name
+     */
+    QString name () const
+    {
+      return m_projectMap["name"].toString ();
     }
 
     /**
@@ -121,7 +121,7 @@ class KateProject : public QObject
     {
       return m_file2Item->value (file);
     }
-    
+
   private Q_SLOTS:
     /**
      * Used for worker to send back the results of project loading
@@ -130,12 +130,25 @@ class KateProject : public QObject
      */
     void loadProjectDone (void *topLevel, void *file2Item);
 
+  signals:
+    /**
+     * Emited on project map changes.
+     * This includes the name!
+     */
+    void projectMapChanged ();
+
+    /**
+     * Emited on model changes.
+     * This includes the files list, itemForFile mapping!
+     */
+    void modelChanged ();
+
   private:
     /**
      * our internal thread to load stuff and do things in background
      */
     QThread m_thread;
-    
+
     /**
      * the worker inside the background thread
      * if this is NULL, we are in our deconstruction state and should
@@ -144,7 +157,7 @@ class KateProject : public QObject
      * only DELETE all stuff we need to cleanup in the slots
      */
     QObject *m_worker;
-    
+
     /**
      * project file name
      */
@@ -154,7 +167,7 @@ class KateProject : public QObject
      * project name
      */
     QString m_name;
-    
+
     /**
      * variant map representing the project
      */

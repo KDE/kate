@@ -58,19 +58,19 @@ void KateProject::triggerDeleteLater ()
    * only do this once
    */
   Q_ASSERT (m_worker);
-  
+
   /**
    * quit the thread event loop and wait for completion
    */
   m_thread.quit ();
   m_thread.wait ();
-  
+
   /**
    * delete worker, before thread is deleted
    */
   delete m_worker;
   m_worker = 0;
-  
+
   /**
    * trigger delete later
    */
@@ -128,17 +128,15 @@ bool KateProject::reload ()
   /**
    * setup global attributes in this object
    */
-  m_name = globalProject["name"].toString();
   m_projectMap = globalProject;
 
   /**
-   * now, clear some stuff and before triggering worker thread to do the work ;)
+   * emit that we changed stuff
    */
-  m_model.clear ();
-  m_file2Item->clear ();
-  
+  emit projectMapChanged ();
+
   /**
-   * trigger worker
+   * trigger worker to REALLY load the project model and stuff
    */
   QMetaObject::invokeMethod (m_worker, "loadProject", Qt::QueuedConnection, Q_ARG(QString, m_fileName), Q_ARG(QVariantMap, m_projectMap));
 
@@ -149,7 +147,7 @@ bool KateProject::reload ()
 }
 
 void KateProject::loadProjectDone (void *topLevel, void *file2Item)
-{ 
+{
   /**
    * convert to right types
    */
@@ -164,18 +162,24 @@ void KateProject::loadProjectDone (void *topLevel, void *file2Item)
       delete file2ItemMap;
       return;
   }
-  
+
   /**
    * setup model data
    */
+  m_model.clear ();
   m_model.invisibleRootItem()->appendColumn (topLevelItem->takeColumn (0));
   delete topLevelItem;
-  
+
   /**
    * setup file => item map
    */
   delete m_file2Item;
   m_file2Item = file2ItemMap;
+
+  /**
+   * model changed
+   */
+  emit modelChanged ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

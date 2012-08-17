@@ -139,6 +139,12 @@ class KateProject : public QObject
      * @param file2Item new file => item mapping
      */
     void loadProjectDone (void *topLevel, void *file2Item);
+    
+    /**
+     * Used for worker to send back the results of completion loading
+     * @param completionInfo new completion info
+     */
+    void loadCompletionDone (void *completionInfo);
 
   signals:
     /**
@@ -192,6 +198,11 @@ class KateProject : public QObject
      * mapping files => items
      */
     QMap<QString, QStandardItem *> *m_file2Item;
+    
+    /**
+     * completion info
+     */
+    QStringList *m_completionInfo;
 };
 
 #endif

@@ -25,6 +25,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QProcess>
+#include <QSet>
 
 KateProjectWorker::KateProjectWorker (QObject *project)
   : QObject ()
@@ -341,6 +342,8 @@ void KateProjectWorker::loadCtags (const QStringList &files)
    * get results and parse them
    */
   QStringList tagLines = QString::fromLocal8Bit (ctags.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
+  QStringList *completionInfo = new QStringList ();
+  QSet<QString> dupes;
   foreach (QString tagLine, tagLines) {
     /**
      * search first three separators
@@ -364,9 +367,18 @@ void KateProjectWorker::loadCtags (const QStringList &files)
     QString fileName = tagLine.mid (firstTab+1, secondTab-(firstTab+1));
     QString exCmd = tagLine.mid (secondTab+1, endOfEx-(secondTab+1));
     
+    if (!dupes.contains (tagName))
+      completionInfo->append (tagName);
+    dupes.insert (tagName);
+    
     //printf ("tag line: '%s'\n", qPrintable(tagLine.replace("\t", "<TAB>")));
     //printf ("parsed info: TN '%s' FN '%s' EC '%s'\n\n", qPrintable(tagName), qPrintable(fileName), qPrintable(exCmd));
   }
+
+  /**
+   * feed back our results
+   */
+  QMetaObject::invokeMethod (m_project, "loadCompletionDone", Qt::QueuedConnection, Q_ARG(void *, completionInfo));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

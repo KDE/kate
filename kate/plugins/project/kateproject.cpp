@@ -33,6 +33,7 @@ KateProject::KateProject ()
   : QObject ()
   , m_worker (new KateProjectWorker (this))
   , m_file2Item (new QMap<QString, QStandardItem *>())
+  , m_completionInfo (new QStringList ())
 {
   /**
    * move worker object over and start our worker thread
@@ -52,6 +53,7 @@ KateProject::~KateProject ()
    * delete other data
    */
   delete m_file2Item;
+  delete m_completionInfo;
 }
 
 void KateProject::triggerDeleteLater ()
@@ -184,10 +186,42 @@ void KateProject::loadProjectDone (void *topLevel, void *file2Item)
   emit modelChanged ();
 }
 
+void KateProject::loadCompletionDone (void *completionInfo)
+{
+  /**
+   * convert to right types
+   */
+  QStringList *completionInfoList = static_cast<QStringList *> (completionInfo);
+
+  /**
+   * no worker any more, only cleanup the stuff we got from invoke!
+   */
+  if (!m_worker) {
+      delete completionInfoList;
+      return;
+  }
+
+  /**
+   * setup
+   */
+  delete m_completionInfo;
+  m_completionInfo = completionInfoList;
+}
+
 void KateProject::completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range)
 {
-  if (QString ("projectPluginRulez").contains (view->document()->text(range)))
-    model.appendRow (new QStandardItem ("projectPluginRulez"));
+  /**
+   * word to complete
+   */
+  QString word = view->document()->text(range);
+  
+  /**
+   * get all matching things
+   */
+  foreach (QString item, *m_completionInfo) {
+      if (item.contains (word))
+        model.appendRow (new QStandardItem (item));
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

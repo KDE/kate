@@ -26,6 +26,7 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QSet>
+#include <QTime>
 
 KateProjectWorker::KateProjectWorker (QObject *project)
   : QObject ()
@@ -317,6 +318,12 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
 void KateProjectWorker::loadCtags (const QStringList &files)
 {
   /**
+   * get some timing stats
+   */
+  QTime timer;
+  timer.start ();
+  
+  /**
    * try to run ctags for all files in this project
    */
   QProcess ctags;
@@ -374,6 +381,8 @@ void KateProjectWorker::loadCtags (const QStringList &files)
     //printf ("tag line: '%s'\n", qPrintable(tagLine.replace("\t", "<TAB>")));
     //printf ("parsed info: TN '%s' FN '%s' EC '%s'\n\n", qPrintable(tagName), qPrintable(fileName), qPrintable(exCmd));
   }
+  
+  qDebug ("ctags extration did take %d ms", timer.elapsed());
 
   /**
    * feed back our results

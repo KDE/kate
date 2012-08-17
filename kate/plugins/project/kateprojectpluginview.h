@@ -26,7 +26,8 @@
 #include "kateprojectview.h"
 
 #include <QPointer>
-#include <QToolBox>
+#include <QComboBox>
+#include <QStackedWidget>
 
 class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
@@ -48,7 +49,7 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * @return empty map if no project active, else content of project JSON
      */
     QVariantMap projectMap () const;
-    
+
     /**
      * which project file is currently active?
      * @return empty string if none, else project file name
@@ -75,7 +76,7 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * Emitted if projectFileName changed.
      */
     void projectFileNameChanged ();
-    
+
     /**
      * Emitted if projectMap changed.
      */
@@ -86,13 +87,13 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * This slot is called whenever the active view changes in our main window.
      */
     void slotViewChanged ();
-    
+
     /**
      * Current project changed.
      * @param index index in toolbox
      */
     void slotCurrentChanged (int index);
-    
+
     /**
      * Url changed, to auto-load projects
      */
@@ -110,15 +111,20 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     QWidget *m_toolView;
 
     /**
-     * the toolbox for the projects
+     * combo box with all loaded projects inside
      */
-    QToolBox *m_toolBox;
+    QComboBox *m_projectsCombo;
+
+    /**
+     * stacked widget will all currently created project views
+     */
+    QStackedWidget *m_stackedProjectViews;
 
     /**
      * project => view
      */
     QMap<KateProject *, KateProjectView *> m_project2View;
-    
+
     /**
      * remember current active view text editor view
      * might be 0

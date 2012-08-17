@@ -57,21 +57,22 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   /**
    * populate the toolview
    */
-  m_toolBox = new QToolBox (m_toolView);
+  m_projectsCombo = new QComboBox (m_toolView);
+  m_stackedProjectViews = new QStackedWidget (m_toolView);
 
   /**
    * create views for all already existing projects
    */
   foreach (KateProject *project, m_plugin->projects())
     viewForProject (project);
-  
+
   /**
    * connect to important signals, e.g. for auto project view creation
    */
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
   connect (mainWindow(), SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
-  connect (m_toolBox, SIGNAL(currentChanged (int)), this, SLOT(slotCurrentChanged (int)));
-  
+  connect (m_projectsCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentChanged (int)));
+
   /**
    * trigger once view change, to highlight right document
    */
@@ -112,7 +113,8 @@ KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)
    /**
     * attach to toolbox
     */
-   m_toolBox->addItem (view, SmallIcon("project-open"), project->name());
+   m_projectsCombo->addItem (SmallIcon("project-open"), project->name(), project->fileName());
+   m_stackedProjectViews->addWidget (view);
 
    /**
     * remember and return it
@@ -141,7 +143,7 @@ void KateProjectPluginView::writeSessionConfig( KConfigBase* config, const QStri
 
 QString KateProjectPluginView::projectFileName () const
 {
-  QWidget *active = m_toolBox->currentWidget ();
+  QWidget *active = m_stackedProjectViews->currentWidget ();
   if (!active)
     return QString ();
 
@@ -150,7 +152,7 @@ QString KateProjectPluginView::projectFileName () const
 
 QVariantMap KateProjectPluginView::projectMap () const
 {
-  QWidget *active = m_toolBox->currentWidget ();
+  QWidget *active = m_stackedProjectViews->currentWidget ();
   if (!active)
     return QVariantMap ();
 
@@ -159,7 +161,7 @@ QVariantMap KateProjectPluginView::projectMap () const
 
 QStringList KateProjectPluginView::projectFiles () const
 {
-  KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
+  KateProjectView *active = static_cast<KateProjectView *> (m_stackedProjectViews->currentWidget ());
   if (!active)
     return QStringList ();
 
@@ -172,7 +174,7 @@ void KateProjectPluginView::slotViewChanged ()
    * get active view
    */
   KTextEditor::View *activeView = mainWindow()->activeView ();
-  
+
   /**
    * update pointer, maybe disconnect before
    */
@@ -185,7 +187,7 @@ void KateProjectPluginView::slotViewChanged ()
    */
   if (!m_activeTextEditorView)
     return;
-  
+
   /**
    * connect to url changed, for auto load
    */
@@ -197,8 +199,13 @@ void KateProjectPluginView::slotViewChanged ()
   slotDocumentUrlChanged (m_activeTextEditorView->document());
 }
 
-void KateProjectPluginView::slotCurrentChanged (int)
+void KateProjectPluginView::slotCurrentChanged (int index)
 {
+  /**
+   * trigger change of stacked widget
+   */
+  m_stackedProjectViews->setCurrentIndex (index);
+
   /**
    * project file name might have changed
    */
@@ -213,21 +220,24 @@ void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *docum
    */
   if (document->url().isEmpty() || !document->url().isLocalFile())
     return;
-  
+
   /**
    * search matching project
    */
   KateProject *project = m_plugin->projectForUrl (document->url());
   if (!project)
     return;
-  
+
   /**
    * get active project view and switch it, if it is for a different project
    */
-  KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
-  if (active != m_project2View.value (project))
-      m_toolBox->setCurrentWidget (m_project2View.value (project));
-  
+  KateProjectView *active = static_cast<KateProjectView *> (m_stackedProjectViews->currentWidget ());
+  if (active != m_project2View.value (project)) {
+    int index = m_projectsCombo->findData (project->fileName());
+    if (index >= 0)
+      m_projectsCombo->setCurrentIndex (index);
+  }
+
   /**
    * get local filename and then select it
    */

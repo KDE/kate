@@ -26,6 +26,8 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
+#include <QStandardItemModel>
+
 /**
  * Project wide completion support.
  */
@@ -77,7 +79,7 @@ class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KT
 
     virtual KTextEditor::Range completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position);
 
-    const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const;
+    void allMatches( QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range ) const;
 
   private:
     /**
@@ -86,9 +88,9 @@ class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KT
     KateProjectPlugin *m_plugin;
 
     /**
-     * list of matching words
+     * model with matching data
      */
-    QStringList m_matches;
+    QStandardItemModel m_matches;
     
     /**
      * automatic invocation?

@@ -35,11 +35,10 @@ KateProjectCompletion::~KateProjectCompletion ()
 {
 }
 
-void KateProjectCompletion::saveMatches( KTextEditor::View* view,
-                        const KTextEditor::Range& range)
+void KateProjectCompletion::saveMatches( KTextEditor::View* view, const KTextEditor::Range& range)
 {
-  m_matches = allMatches( view, range );
-  m_matches.sort();
+  m_matches.clear ();
+  allMatches( m_matches, view, range );
 }
 
 QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
@@ -59,7 +58,7 @@ QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
   }
 
   if( index.column() == KTextEditor::CodeCompletionModel::Name && role == Qt::DisplayRole )
-    return m_matches.at( index.row() );
+    return m_matches.item ( index.row() )->data (Qt::DisplayRole);
 
   if( index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole ) {
     static QIcon icon(KIcon("insert-text").pixmap(QSize(16, 16)));
@@ -89,7 +88,7 @@ QModelIndex KateProjectCompletion::index(int row, int column, const QModelIndex&
     return QModelIndex();
 
 
-  if (row < 0 || row >= m_matches.count() || column < 0 || column >= ColumnCount )
+  if (row < 0 || row >= m_matches.rowCount() || column < 0 || column >= ColumnCount )
     return QModelIndex();
 
   return createIndex(row, column, 1);
@@ -97,12 +96,12 @@ QModelIndex KateProjectCompletion::index(int row, int column, const QModelIndex&
 
 int KateProjectCompletion::rowCount ( const QModelIndex & parent ) const
 {
-  if( !parent.isValid() && !m_matches.isEmpty() )
+  if( !parent.isValid() && !(m_matches.rowCount() == 0) )
     return 1; //One root node to define the custom group
   else if(parent.parent().isValid())
     return 0; //Completion-items have no children
   else
-    return m_matches.count();
+    return m_matches.rowCount();
 }
 
 
@@ -162,13 +161,13 @@ void KateProjectCompletion::completionInvoked(KTextEditor::View* view, const KTe
 
 // Scan throughout the entire document for possible completions,
 // ignoring any dublets
-const QStringList KateProjectCompletion::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
+void KateProjectCompletion::allMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range ) const
 {
 
   QStringList l;
   
   if (QString ("testFunction").contains (view->document()->text(range)))
-    l << "testFunction";
+    model.appendRow (new QStandardItem ("testFunction"));
   
 #if 0
   int i( 0 );
@@ -202,7 +201,6 @@ const QStringList KateProjectCompletion::allMatches( KTextEditor::View *view, co
     i++;
   }
 #endif
-  return l;
 }
 
 KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateProjectCompletion::matchingItem(const QModelIndex& /*matched*/)

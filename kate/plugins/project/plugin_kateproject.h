@@ -66,6 +66,16 @@ class KateProjectPlugin : public Kate::Plugin
     {
       return m_fileName2Project.values();
     }
+    
+    /**
+     * Map current open documents to projects.
+     * @param document document we want to know which project it belongs to
+     * @return project or 0 if none found for this document
+     */
+    KateProject *projectForDocument (KTextEditor::Document *document)
+    {
+      return m_document2Project.value (document);
+    }
 
   signals:
     /**
@@ -80,6 +90,12 @@ class KateProjectPlugin : public Kate::Plugin
      * @param document new created document
      */
     void slotDocumentCreated (KTextEditor::Document *document);
+
+    /**
+     * Document got deleted
+     * @param document deleted document
+     */
+    void slotDocumentDeleted (KTextEditor::Document *document);
 
     /**
      * Url changed, to auto-load projects
@@ -103,6 +119,11 @@ class KateProjectPlugin : public Kate::Plugin
      * and auto-reload
      */
     QFileSystemWatcher m_fileWatcher;
+    
+    /**
+     * Mapping document => project
+     */
+    QHash<KTextEditor::Document *, KateProject *> m_document2Project;
 };
 
 #endif

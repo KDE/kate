@@ -39,6 +39,7 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
    * connect to important signals, e.g. for auto project loading
    */
   connect (application()->documentManager(), SIGNAL(documentCreated (KTextEditor::Document *)), this, SLOT(slotDocumentCreated (KTextEditor::Document *)));
+  connect (application()->documentManager(), SIGNAL(documentDeleted (KTextEditor::Document *)), this, SLOT(slotDocumentDeleted (KTextEditor::Document *)));
   connect (&m_fileWatcher, SIGNAL(directoryChanged (const QString &)), this, SLOT(slotDirectoryChanged (const QString &)));
 
   /**
@@ -169,12 +170,28 @@ void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)
   slotDocumentUrlChanged (document);
 }
 
+void KateProjectPlugin::slotDocumentDeleted (KTextEditor::Document *document)
+{
+  /**
+   * remove mapping to project
+   */
+  m_document2Project.remove (document);
+}
+
 void KateProjectPlugin::slotDocumentUrlChanged (KTextEditor::Document *document)
 {
   /**
    * search matching project
    */
-  projectForUrl (document->url());
+  KateProject *project = projectForUrl (document->url());
+  
+  /**
+   * update mapping document => project
+   */
+  if (!project)
+    m_document2Project.remove (document);
+  else
+    m_document2Project[document] = project;
 }
 
 void KateProjectPlugin::slotDirectoryChanged (const QString &path)

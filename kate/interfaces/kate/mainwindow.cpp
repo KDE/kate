@@ -70,6 +70,11 @@ namespace Kate
     return d->win->centralWidget();
   }
 
+  const QList<KTextEditor::View *> &MainWindow::views () const
+  {
+    return d->win->viewManager()->viewList();
+  }
+  
   KTextEditor::View *MainWindow::activeView()
   {
     return d->win->viewManager()->activeView();

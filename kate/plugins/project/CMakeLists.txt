@@ -9,11 +9,11 @@ if (NOT QJSON_FOUND)
     return()
 endif (NOT QJSON_FOUND)
 
-set(kateprojectplugin_PART_SRCS plugin_kateproject.cpp kateproject.cpp kateprojectworker.cpp kateprojectitem.cpp kateprojectview.cpp kateprojectpluginview.cpp)
+set(kateprojectplugin_PART_SRCS plugin_kateproject.cpp kateproject.cpp kateprojectworker.cpp kateprojectitem.cpp kateprojectview.cpp kateprojectpluginview.cpp kateprojecttextview.cpp)
 
 kde4_add_plugin(kateprojectplugin ${kateprojectplugin_PART_SRCS})
 
-target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} kateinterfaces )
+target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} kateinterfaces ktexteditor)
 
 ########### install files ###############
 install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR} )

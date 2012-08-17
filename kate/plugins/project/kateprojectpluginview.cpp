@@ -21,6 +21,8 @@
 #include "kateprojectpluginview.h"
 #include "kateprojectpluginview.moc"
 
+#include "kateprojecttextview.h"
+
 #include <kate/application.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
@@ -72,7 +74,14 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
   connect (mainWindow(), SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
   connect (m_projectsCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentChanged (int)));
+  connect (mainWindow(), SIGNAL(viewCreated (KTextEditor::View *)), this, SLOT(slotViewCreated (KTextEditor::View *)));
 
+  /**
+   * connect for all already existing views
+   */
+  foreach (KTextEditor::View *view, mainWindow()->views())
+    slotViewCreated (view);
+  
   /**
    * trigger once view change, to highlight right document
    */
@@ -242,6 +251,26 @@ void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *docum
    * get local filename and then select it
    */
   active->selectFile (document->url().toLocalFile ());
+}
+
+void KateProjectPluginView::slotViewCreated (KTextEditor::View *view)
+{
+  /**
+   * connect to destroyed
+   */
+  connect (view, SIGNAL(destroyed (QObject *)), this, SLOT(slotViewDestroyed (QObject *)));
+  
+  /**
+   * create companion view, will auto-delete on view destruction
+   */
+  new KateProjectTextView (this, view);
+}
+
+void KateProjectPluginView::slotViewDestroyed (QObject *)
+{
+  /**
+   * cleanup later, if needed
+   */
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

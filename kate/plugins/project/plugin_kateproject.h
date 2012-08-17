@@ -23,6 +23,8 @@
 
 #include <QFileSystemWatcher>
 
+#include <ktexteditor/document.h>
+
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
 #include <kxmlguiclient.h>
@@ -92,10 +94,10 @@ class KateProjectPlugin : public Kate::Plugin
     void slotDocumentCreated (KTextEditor::Document *document);
 
     /**
-     * Document got deleted
+     * Document got destroyed.
      * @param document deleted document
      */
-    void slotDocumentDeleted (KTextEditor::Document *document);
+    void slotDocumentDestroyed (QObject *document);
 
     /**
      * Url changed, to auto-load projects
@@ -123,7 +125,7 @@ class KateProjectPlugin : public Kate::Plugin
     /**
      * Mapping document => project
      */
-    QHash<KTextEditor::Document *, KateProject *> m_document2Project;
+    QHash<QObject *, KateProject *> m_document2Project;
 };
 
 #endif

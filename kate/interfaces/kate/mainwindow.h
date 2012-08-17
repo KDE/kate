@@ -109,6 +109,12 @@ namespace Kate
        * \return the central widget
        */
       class QWidget *centralWidget() const;
+      
+      /**
+       * Get a list of all views.
+       * @return all views
+       */
+      const QList<KTextEditor::View *> &views () const;
 
       /*
        * View stuff, here all stuff belong which allows to

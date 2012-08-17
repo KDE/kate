@@ -71,6 +71,19 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      */
     KateProjectView *viewForProject (KateProject *project);
 
+  private slots:
+    /**
+     * New view got created, we need to update our connections
+     * @param view new created view
+     */
+    void slotViewCreated (KTextEditor::View *view);
+
+    /**
+     * View got destroyed.
+     * @param view deleted view
+     */
+    void slotViewDestroyed (QObject *view);
+    
   Q_SIGNALS:
     /**
      * Emitted if projectFileName changed.

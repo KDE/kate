@@ -39,7 +39,6 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
    * connect to important signals, e.g. for auto project loading
    */
   connect (application()->documentManager(), SIGNAL(documentCreated (KTextEditor::Document *)), this, SLOT(slotDocumentCreated (KTextEditor::Document *)));
-  connect (application()->documentManager(), SIGNAL(documentDeleted (KTextEditor::Document *)), this, SLOT(slotDocumentDeleted (KTextEditor::Document *)));
   connect (&m_fileWatcher, SIGNAL(directoryChanged (const QString &)), this, SLOT(slotDirectoryChanged (const QString &)));
 
   /**
@@ -160,9 +159,10 @@ KateProject *KateProjectPlugin::projectForUrl (const KUrl &url)
 void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)
 {
   /**
-   * connect to url changed, for auto load
+   * connect to url changed, for auto load and destroyed
    */
   connect (document, SIGNAL(documentUrlChanged (KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged (KTextEditor::Document *)));
+  connect (document, SIGNAL(destroyed (QObject *)), this, SLOT(slotDocumentDestroyed (QObject *)));
 
   /**
    * trigger slot once, for existing docs
@@ -170,7 +170,7 @@ void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)
   slotDocumentUrlChanged (document);
 }
 
-void KateProjectPlugin::slotDocumentDeleted (KTextEditor::Document *document)
+void KateProjectPlugin::slotDocumentDestroyed (QObject *document)
 {
   /**
    * remove mapping to project

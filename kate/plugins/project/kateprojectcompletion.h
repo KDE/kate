@@ -19,21 +19,17 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef KATE_PROJECT_TEXT_VIEW_H
-#define KATE_PROJECT_TEXT_VIEW_H
-
-#include "kateprojectpluginview.h"
+#ifndef KATE_PROJECT_COMPLETION_H
+#define KATE_PROJECT_COMPLETION_H
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 /**
- * Addon class for KTextEditor::View.
- * Will be created for each view in the application and provide additional
- * stuff like code completion and co. based on project info.
+ * Project wide completion support.
  */
-class KateProjectTextView : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface3
+class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface3
 {
   Q_OBJECT
   
@@ -41,16 +37,15 @@ class KateProjectTextView : public KTextEditor::CodeCompletionModel, public KTex
 
   public:
     /**
-     * Construct addon view.
-     * @param pluginView our plugin view
-     * @param view the view we are bundled to, will be our parent for auto-deletion.
+     * Construct project completion.
+     * @param plugin our plugin
      */
-    KateProjectTextView (KateProjectPluginView *pluginView, KTextEditor::View *view);
+    KateProjectCompletion (class KateProjectPlugin *plugin);
 
     /**
-     * Deconstruct addon view.
+     * Deconstruct project completion.
      */
-    ~KateProjectTextView ();
+    ~KateProjectCompletion ();
 
     /**
      * This function is responsible to generating / updating the list of current
@@ -88,13 +83,8 @@ class KateProjectTextView : public KTextEditor::CodeCompletionModel, public KTex
     /**
      * our plugin view
      */
-    KateProjectPluginView *m_pluginView;
+    KateProjectPlugin *m_plugin;
 
-    /**
-     * our view
-     */
-    KTextEditor::View *m_view;
-    
     /**
      * list of matching words
      */

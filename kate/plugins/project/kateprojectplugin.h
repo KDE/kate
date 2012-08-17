@@ -30,6 +30,7 @@
 #include <kxmlguiclient.h>
 
 #include "kateproject.h"
+#include "kateprojectcompletion.h"
 
 class KateProjectPlugin : public Kate::Plugin
 {
@@ -67,6 +68,15 @@ class KateProjectPlugin : public Kate::Plugin
     QList<KateProject *> projects () const
     {
       return m_fileName2Project.values();
+    }
+    
+    /**
+     * Get global code completion.
+     * @return global completion object for KTextEditor::View
+     */
+    KateProjectCompletion *completion ()
+    {
+      return &m_completion;
     }
     
     /**
@@ -126,6 +136,11 @@ class KateProjectPlugin : public Kate::Plugin
      * Mapping document => project
      */
     QHash<QObject *, KateProject *> m_document2Project;
+    
+    /**
+     * Project completion
+     */
+    KateProjectCompletion m_completion;
 };
 
 #endif

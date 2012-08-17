@@ -21,7 +21,7 @@
 #ifndef _PLUGIN_KATE_PROJECTVIEW_H_
 #define _PLUGIN_KATE_PROJECTVIEW_H_
 
-#include "plugin_kateproject.h"
+#include "kateprojectplugin.h"
 #include "kateproject.h"
 #include "kateprojectview.h"
 
@@ -143,6 +143,11 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * might be 0
      */
     QPointer<KTextEditor::View> m_activeTextEditorView;
+    
+    /**
+     * remember for which text views we might need to cleanup stuff
+     */
+    QSet<QObject *> m_textViews;
 };
 
 #endif

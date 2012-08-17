@@ -18,8 +18,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "plugin_kateproject.h"
-#include "plugin_kateproject.moc"
+#include "kateprojectplugin.h"
+#include "kateprojectplugin.moc"
 
 #include "kateproject.h"
 #include "kateprojectpluginview.h"
@@ -34,6 +34,7 @@
 
 KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
+  , m_completion (this)
 {
   /**
    * connect to important signals, e.g. for auto project loading

@@ -19,31 +19,30 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "kateprojecttextview.h"
+#include "kateprojectcompletion.h"
+#include "kateprojectplugin.h"
 
 #include <klocale.h>
 #include <kicon.h>
 
-KateProjectTextView::KateProjectTextView (KateProjectPluginView *pluginView, KTextEditor::View *view)
-  : KTextEditor::CodeCompletionModel (view)
-  , m_pluginView (pluginView)
-  , m_view (view)
-{
- 
-}
-
-KateProjectTextView::~KateProjectTextView ()
+KateProjectCompletion::KateProjectCompletion (KateProjectPlugin *plugin)
+  : KTextEditor::CodeCompletionModel (0)
+  , m_plugin (plugin)
 {
 }
 
-void KateProjectTextView::saveMatches( KTextEditor::View* view,
+KateProjectCompletion::~KateProjectCompletion ()
+{
+}
+
+void KateProjectCompletion::saveMatches( KTextEditor::View* view,
                         const KTextEditor::Range& range)
 {
   m_matches = allMatches( view, range );
   m_matches.sort();
 }
 
-QVariant KateProjectTextView::data(const QModelIndex& index, int role) const
+QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
 {
   if( role == InheritanceDepth )
     return 10000; //Very high value, so the word-completion group and items are shown behind any other groups/items if there is multiple
@@ -70,7 +69,7 @@ QVariant KateProjectTextView::data(const QModelIndex& index, int role) const
   return QVariant();
 }
 
-QModelIndex KateProjectTextView::parent(const QModelIndex& index) const
+QModelIndex KateProjectCompletion::parent(const QModelIndex& index) const
 {
   if(index.internalId())
     return createIndex(0, 0, 0);
@@ -78,7 +77,7 @@ QModelIndex KateProjectTextView::parent(const QModelIndex& index) const
     return QModelIndex();
 }
 
-QModelIndex KateProjectTextView::index(int row, int column, const QModelIndex& parent) const
+QModelIndex KateProjectCompletion::index(int row, int column, const QModelIndex& parent) const
 {
   if( !parent.isValid()) {
     if(row == 0)
@@ -96,7 +95,7 @@ QModelIndex KateProjectTextView::index(int row, int column, const QModelIndex& p
   return createIndex(row, column, 1);
 }
 
-int KateProjectTextView::rowCount ( const QModelIndex & parent ) const
+int KateProjectCompletion::rowCount ( const QModelIndex & parent ) const
 {
   if( !parent.isValid() && !m_matches.isEmpty() )
     return 1; //One root node to define the custom group
@@ -107,7 +106,7 @@ int KateProjectTextView::rowCount ( const QModelIndex & parent ) const
 }
 
 
-bool KateProjectTextView::shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position)
+bool KateProjectCompletion::shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position)
 {
     if (!userInsertion) return false;
     if(insertedText.isEmpty())
@@ -129,7 +128,7 @@ bool KateProjectTextView::shouldStartCompletion(KTextEditor::View* view, const Q
     return true;
 }
 
-bool KateProjectTextView::shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::Range &range, const QString &currentCompletion) {
+bool KateProjectCompletion::shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::Range &range, const QString &currentCompletion) {
 
     if (m_automatic) {
       if (currentCompletion.length() < 3 /*v->config()->wordCompletionMinimalWordLength()*/) return true;
@@ -138,7 +137,7 @@ bool KateProjectTextView::shouldAbortCompletion(KTextEditor::View* view, const K
     return CodeCompletionModelControllerInterface3::shouldAbortCompletion(view,range,currentCompletion);
 }
 
-void KateProjectTextView::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType it)
+void KateProjectCompletion::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType it)
 {
   /**
    * auto invoke...
@@ -163,10 +162,14 @@ void KateProjectTextView::completionInvoked(KTextEditor::View* view, const KText
 
 // Scan throughout the entire document for possible completions,
 // ignoring any dublets
-const QStringList KateProjectTextView::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
+const QStringList KateProjectCompletion::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
 {
 
   QStringList l;
+  
+  if (QString ("testFunction").contains (view->document()->text(range)))
+    l << "testFunction";
+  
 #if 0
   int i( 0 );
   int pos( 0 );
@@ -202,13 +205,13 @@ const QStringList KateProjectTextView::allMatches( KTextEditor::View *view, cons
   return l;
 }
 
-KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateProjectTextView::matchingItem(const QModelIndex& /*matched*/)
+KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateProjectCompletion::matchingItem(const QModelIndex& /*matched*/)
 {
   return HideListIfAutomaticInvocation;
 }
 
 // Return the range containing the word left of the cursor
-KTextEditor::Range KateProjectTextView::completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position)
+KTextEditor::Range KateProjectCompletion::completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position)
 {
   int line = position.line();
   int col = position.column();

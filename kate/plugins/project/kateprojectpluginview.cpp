@@ -21,11 +21,10 @@
 #include "kateprojectpluginview.h"
 #include "kateprojectpluginview.moc"
 
-#include "kateprojecttextview.h"
-
 #include <kate/application.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/codecompletioninterface.h>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -90,6 +89,15 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
 
 KateProjectPluginView::~KateProjectPluginView()
 {
+  /**
+   * cleanup for all views
+   */
+  foreach (QObject *view, m_textViews) {
+    KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
+    if (cci)
+      cci->unregisterCompletionModel (m_plugin->completion());
+  }
+  
   /**
    * cu toolview
    */
@@ -261,16 +269,24 @@ void KateProjectPluginView::slotViewCreated (KTextEditor::View *view)
   connect (view, SIGNAL(destroyed (QObject *)), this, SLOT(slotViewDestroyed (QObject *)));
   
   /**
-   * create companion view, will auto-delete on view destruction
+   * add completion model if possible
    */
-  new KateProjectTextView (this, view);
+  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
+  if (cci)
+    cci->registerCompletionModel (m_plugin->completion());
+  
+  /**
+   * remember for this view we need to cleanup!
+   */
+  m_textViews.insert (view);
 }
 
-void KateProjectPluginView::slotViewDestroyed (QObject *)
+void KateProjectPluginView::slotViewDestroyed (QObject *view)
 {
   /**
-   * cleanup later, if needed
+   * remove remembered views for which we need to cleanup on exit!
    */
+  m_textViews.remove (view);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

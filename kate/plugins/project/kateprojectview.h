@@ -56,7 +56,7 @@ class KateProjectView : public QTreeView
     {
       return m_project;
     }
-    
+
     /**
      * Select given file in the view.
      * @param file select this file in the view, will be shown if invisible
@@ -69,7 +69,13 @@ class KateProjectView : public QTreeView
      * @param index model index of activated item
      */
     void slotActivated (const QModelIndex &index);
-  
+
+    /**
+     * Triggered on model changes.
+     * This includes the files list, itemForFile mapping!
+     */
+    void slotModelChanged ();
+
   protected:
     virtual void contextMenuEvent (QContextMenuEvent *event);
 

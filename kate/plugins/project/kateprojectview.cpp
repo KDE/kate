@@ -21,6 +21,9 @@
 #include "kateprojectview.h"
 #include "kateprojectpluginview.h"
 
+#include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
+
 #include <QContextMenuEvent>
 #include <KMimeType>
 #include <KMimeTypeTrader>
@@ -38,16 +41,22 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
    */
   setHeaderHidden (true);
   setEditTriggers (QAbstractItemView::NoEditTriggers);
-   
+
    /**
     * attach view => project
     */
   setModel (m_project->model ());
-  
+
   /**
    * connect needed signals
    */
   connect (this, SIGNAL(activated (const QModelIndex &)), this, SLOT(slotActivated (const QModelIndex &)));
+  connect (m_project, SIGNAL(modelChanged ()), this, SLOT(slotModelChanged ()));
+
+  /**
+   * trigger once some slots
+   */
+  slotModelChanged ();
 }
 
 KateProjectView::~KateProjectView ()
@@ -62,7 +71,7 @@ void KateProjectView::selectFile (const QString &file)
   QStandardItem *item = m_project->itemForFile (file);
   if (!item)
     return;
-  
+
   /**
    * select it
    */
@@ -79,6 +88,17 @@ void KateProjectView::slotActivated (const QModelIndex &index)
   QString filePath = index.data (Qt::UserRole).toString();
   if (!filePath.isEmpty())
     m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
+}
+
+void KateProjectView::slotModelChanged ()
+{
+  /**
+   * model was updated
+   * perhaps we need to highlight again new file
+   */
+  KTextEditor::View *activeView = m_pluginView->mainWindow()->activeView ();
+  if (activeView && activeView->document()->url().isLocalFile())
+    selectFile (activeView->document()->url().toLocalFile ());
 }
 
 void KateProjectView::contextMenuEvent (QContextMenuEvent *event)

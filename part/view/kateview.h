@@ -142,6 +142,14 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   // KTextEditor::ViewCursorInterface
   //
   public:
+    /**
+     * Set the caret's style.
+     * The caret can be a box or a line; see the documentation
+     * of KateRenderer::caretStyles for other options.
+     * @param style the caret style
+     * @param repaint whether to update the caret instantly.
+     *        This also resets the caret's timer.
+     */
     void setCaretStyle( KateRenderer::caretStyles style, bool repaint = false );
 
     bool setCursorPosition (KTextEditor::Cursor position);
@@ -377,10 +385,31 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     bool isOverwriteMode() const;
     enum KTextEditor::View::EditMode viewEditMode() const {return isOverwriteMode() ? KTextEditor::View::EditOverwrite : KTextEditor::View::EditInsert;}
     QString currentTextLine();
+
+    /**
+     * The current search pattern.
+     * This is set by the last search.
+     * @return the search pattern or the empty string if not set
+     */
     QString searchPattern() const;
+
+    /**
+     * The current replacement string.
+     * This is set by the last search and replace.
+     * @return the replacment string or the empty string if not set
+     */
     QString replacementPattern() const;
 
+    /**
+     * Set the current search pattern.
+     * @param searchPattern the search pattern
+     */
     void setSearchPattern(const QString &searchPattern);
+
+    /**
+     * Set the current replacement pattern.
+     * @param replacementPattern the replacement pattern
+     */
     void setReplacementPattern(const QString &replacementPattern);
 
   public Q_SLOTS:

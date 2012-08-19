@@ -87,8 +87,20 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
+    /**
+     * The file tree model.
+     * @return the file tree model
+     */
     KateFileTreeModel *model();
+    /**
+     * The file tree proxy model.
+     * @return the file tree proxy model
+     */
     KateFileTreeProxyModel *proxy();
+    /**
+     * The file tree.
+     * @return the file tree
+     */
     KateFileTree *tree();
 
     void setListMode(bool listMode);

@@ -157,6 +157,14 @@ class KateViewInternal : public QWidget
     void doDeleteWordLeft();
     void doDeleteWordRight();
 
+    /**
+     * Set the caret's style.
+     * The caret can be a box or a line; see the documentation
+     * of KateRenderer::caretStyles for other options.
+     * @param style the caret style
+     * @param repaint whether to update the caret instantly.
+     *        This also resets the caret's timer.
+     */
     void setCaretStyle( KateRenderer::caretStyles style, bool repaint = false );
     void cursorLeft(bool sel=false);
     void cursorRight(bool sel=false);

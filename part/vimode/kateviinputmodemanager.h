@@ -182,12 +182,16 @@ public:
   void repeatLastChange();
 
   /**
-   * get the last search term used
+   * The current search pattern.
+   * This is set by the last search.
+   * @return the search pattern or the empty string if not set
    */
   const QString getLastSearchPattern() const;
 
   /**
-   * record a search term so that it will be used with 'n' and 'N'
+   * Set the current search pattern.
+   * This is used by the "n" and "N" motions.
+   * @param p the search pattern
    */
   void setLastSearchPattern( const QString &p );
 
@@ -218,6 +222,18 @@ public:
   void writeSessionConfig( KConfigGroup& config );
 
   // marks
+  /**
+   * Add a mark to the document.
+   * By default, the mark is made visible in the document
+   * by highlighting its line, and it moves when inserting
+   * text at it.
+   * @param doc the document to insert the mark into
+   * @param mark the mark's name
+   * @param pos the mark's position
+   * @param moveoninsert whether the mark should move or stay behind
+   *        when inserting text at it
+   * @param showmark whether to highlight the mark's line
+   */
   void addMark( KateDocument* doc, const QChar& mark, const KTextEditor::Cursor& pos,
                 const bool moveoninsert = true, const bool showmark = true );
   KTextEditor::Cursor getMarkPosition( const QChar& mark ) const;

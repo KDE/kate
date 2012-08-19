@@ -399,6 +399,16 @@ class KateCmdLineEdit : public KLineEdit
     void keyPressEvent( QKeyEvent *ev );
 
   private:
+    /**
+     * Parse an expression denoting a position in the document.
+     * Return the position as an integer.
+     * Examples of expressions are "10" (the 10th line),
+     * "$" (the last line), "." (the current line),
+     * "'a" (the mark 'a), "/foo/" (a forwards search for "foo"),
+     * and "?bar?" (a backwards search for "bar").
+     * @param string the expression to parse
+     * @return the position, an integer
+     */
     int calculatePosition( QString string );
     void fromHistory( bool up );
     QString helptext( const QPoint & ) const;

@@ -51,7 +51,7 @@ QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
     switch ( role )
     {
       case Qt::DisplayRole:
-        return i18n("Auto Word Completion");
+        return i18n("Project Completion");
       case GroupRole:
         return Qt::DisplayRole;
     }

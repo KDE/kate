@@ -48,11 +48,6 @@ KateAppCommands::KateAppCommands()
     re_new.setPattern("(v)?new");
     re_split.setPattern("sp(lit)?");
     re_vsplit.setPattern("vs(plit)?");
-    re_bufferNext.setPattern("bn(ext)?|tab[nN](ext)?");
-    re_bufferPrev.setPattern("bp(revious)?|tab[pP](revious)?");
-    re_bufferFirst.setPattern("bf(irst)?|tabfir(st)?");
-    re_bufferLast.setPattern("bl(ast)?|tabl(ast)?");
-    re_editBuffer.setPattern("b(uffer)?");
 }
 
 KateAppCommands::~KateAppCommands()
@@ -75,12 +70,6 @@ const QStringList& KateAppCommands::cmds()
         l << "q" << "qa" /*<< "w"*/ << "wq" << "wa" << "wqa" << "x" << "xa"
           << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew"
           << "sp" << "split" << "vs" << "vsplit"
-          // these commands are implemented by the KateFileTree plugin
-          // << "bn" << "bnext" << "bp" << "bprevious"
-          // << "tabn" << "tabnext" << "tabp" << "tabprevious"
-          // <<  "bf" << "bfirst" << "bl" << "blast"
-          // << "tabfir" << "tabfirst" << "tabl" << "tablast"
-          // << "b" << "buffer"
           << "tabe" << "tabedit" << "tabnew"
           << "bd" << "bdelete"
           << "tabc" << "tabclose";
@@ -105,6 +94,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
             msg = i18n("Document written to disk");
         }
     }
+    // Other buffer commands are implemented by the KateFileTree plugin
     else if (re_close.exactMatch(command)) {
         QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
     }
@@ -175,68 +165,6 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     else if (re_vsplit.exactMatch(command)) {
         mainWin->viewManager()->slotSplitViewSpaceVert();
     }
-    // FIXME: should the buffer-switching commands ("bfirst", "blast", "bprevious", "bnext", "buffer")
-    // be implemented by the KateFileTree plugin instead? The numbering scheme of KateDocManager
-    // does not necessarily match the sorting mode employed by KateFileTree's document list.
-    else if (re_bufferFirst.exactMatch(command)) {
-        mainWin->viewManager()->activateView( KateDocManager::self()->documentList().first());
-    }
-    else if (re_bufferLast.exactMatch(command)) {
-        mainWin->viewManager()->activateView( KateDocManager::self()->documentList().last());
-    }
-    else if (re_bufferNext.exactMatch(command) || re_bufferPrev.exactMatch(command)) {
-        // skipping 1 document by default
-        int count = 1;
-
-        if (args.size() == 1) {
-            count = args.at(0).toInt();
-        }
-        int current_document_position = KateDocManager::self()->findDocument(
-                                            mainWin->viewManager()->activeView()->document());
-
-        uint wanted_document_position;
-
-        if (re_bufferPrev.exactMatch(command)) {
-            count = -count;
-            int mult = qAbs( current_document_position + count  ) / KateDocManager::self()->documents();
-            wanted_document_position = (mult + (current_document_position + count < 0))
-                                       * KateDocManager::self()->documents() + (current_document_position + count);
-        } else {
-            int mult =  ( current_document_position + count ) / KateDocManager::self()->documents();
-            wanted_document_position = (current_document_position + count) - mult
-                                       * KateDocManager::self()->documents();
-        }
-
-        if ( wanted_document_position > KateDocManager::self()->documents()) {
-            msg = i18n("Cannot go to the document");
-        } else {
-            mainWin->viewManager()->activateView(KateDocManager::self()->document( wanted_document_position ));
-        }
-
-    }
-    else if (re_editBuffer.exactMatch(command)) {
-        QString argument = args.join(QString(' '));
-        if (argument.isEmpty()) {
-            // no argument: switch to the previous document
-            return exec(view, "bprevious", msg);
-        } else if (argument.toInt() > 0 &&
-                   argument.toUInt() <= KateDocManager::self()->documents()) {
-            // numerical argument: switch to the nth document
-            int n = argument.toInt() - 1;
-            KTextEditor::Document *doc = KateDocManager::self()->document( n );
-            mainWin->viewManager()->activateView( doc );
-        } else {
-            // string argument: switch to the given file
-            foreach (KTextEditor::Document *doc, KateDocManager::self()->documentList())
-            {
-                QString name = doc->documentName();
-                if (name.contains(argument)) {
-                    mainWin->viewManager()->activateView( doc );
-                    return true;
-                }
-            }
-        }
-    }
 
     return true;
 }
@@ -283,39 +211,6 @@ bool KateAppCommands::help(KTextEditor::View *view, const QString &cmd, QString 
                    "a file dialog will be shown.</p>"
                    "<p>Unlike the 'w' commands, this command only writes the document if it is modified."
                    "</p>");
-        return true;
-    }
-    else if (re_bufferNext.exactMatch(cmd)) {
-        msg = i18n("<p><b>bn,bnext &mdash; switch to next document</b></p>"
-                   "<p>Usage: <tt><b>bn[ext] [N]</b></tt></p>"
-                   "<p>Goes to <b>[N]</b>th next document (\"<b>b</b>uffer\") in document list."
-                   "<b>[N]</b> defaults to one. </p>"
-                   "<p>Wraps around the end of the document list.</p>");
-        return true;
-    }
-    else if (re_bufferPrev.exactMatch(cmd)) {
-        msg = i18n("<p><b>bp,bprev &mdash; previous buffer</b></p>"
-                   "<p>Usage: <tt><b>bp[revious] [N]</b></tt></p>"
-                   "<p>Goes to <b>[N]</b>th previous document (\"<b>b</b>uffer\") in document list. </p>"
-                   "<p> <b>[N]</b> defaults to one. </p>"
-                   "<p>Wraps around the start of the document list.</p>");
-        return true;
-    }
-    else if (re_bufferFirst.exactMatch(cmd)) {
-        msg = i18n("<p><b>bf,bfirst &mdash; first document</b></p>"
-                   "<p>Usage: <tt><b>bf[irst]</b></tt></p>"
-                   "<p>Goes to the <b>f</b>irst document (\"<b>b</b>uffer\") in document list.</p>");
-        return true;
-    }
-    else if (re_bufferLast.exactMatch(cmd)) {
-        msg = i18n("<p><b>bl,blast &mdash; last document</b></p>"
-                   "<p>Usage: <tt><b>bl[ast]</b></tt></p>"
-                   "<p>Goes to the <b>l</b>ast document (\"<b>b</b>uffer\") in document list.</p>");
-        return true;
-    }
-    else if (re_editBuffer.exactMatch(cmd)) {
-        msg = i18n("<p><b>b,buffer &mdash; Edit document N from the document list</b></p>"
-                   "<p>Usage: <tt><b>b[uffer] [N]</b></tt></p>");
         return true;
     }
     else if (re_split.exactMatch(cmd)) {

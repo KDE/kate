@@ -50,11 +50,6 @@ class KateAppCommands : public KTextEditor::Command
     QRegExp re_new;
     QRegExp re_split;
     QRegExp re_vsplit;
-    QRegExp re_bufferNext;
-    QRegExp re_bufferPrev;
-    QRegExp re_bufferFirst;
-    QRegExp re_bufferLast;
-    QRegExp re_editBuffer;
 };
 
 #endif

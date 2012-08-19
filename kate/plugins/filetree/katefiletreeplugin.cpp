@@ -474,7 +474,41 @@ bool KateFileTreeCommand::exec(KTextEditor::View *view, const QString &cmd, QStr
 
 bool KateFileTreeCommand::help(KTextEditor::View *view, const QString &cmd, QString &msg)
 {
-    return true;
+    if (cmd == "b" || cmd == "buffer") {
+        msg = i18n("<p><b>b,buffer &mdash; Edit document N from the document list</b></p>"
+                   "<p>Usage: <tt><b>b[uffer] [N]</b></tt></p>");
+        return true;
+    } else if (cmd == "bp" || cmd == "bprevious" ||
+               cmd == "tabp" || cmd == "tabprevious") {
+        msg = i18n("<p><b>bp,bprev &mdash; previous buffer</b></p>"
+                   "<p>Usage: <tt><b>bp[revious] [N]</b></tt></p>"
+                   "<p>Goes to <b>[N]</b>th previous document (\"<b>b</b>uffer\") in document list. </p>"
+                   "<p> <b>[N]</b> defaults to one. </p>"
+                   "<p>Wraps around the start of the document list.</p>");
+        return true;
+    } else if (cmd == "bn" || cmd == "bnext" ||
+               cmd == "tabn" || cmd == "tabnext") {
+        msg = i18n("<p><b>bn,bnext &mdash; switch to next document</b></p>"
+                   "<p>Usage: <tt><b>bn[ext] [N]</b></tt></p>"
+                   "<p>Goes to <b>[N]</b>th next document (\"<b>b</b>uffer\") in document list."
+                   "<b>[N]</b> defaults to one. </p>"
+                   "<p>Wraps around the end of the document list.</p>");
+        return true;
+    } else if (cmd == "bf" || cmd == "bfirst" ||
+               cmd == "tabf" || cmd == "tabfirst") {
+        msg = i18n("<p><b>bf,bfirst &mdash; first document</b></p>"
+                   "<p>Usage: <tt><b>bf[irst]</b></tt></p>"
+                   "<p>Goes to the <b>f</b>irst document (\"<b>b</b>uffer\") in document list.</p>");
+        return true;
+    } else if (cmd == "bl" || cmd == "blast" ||
+               cmd == "tabl" || cmd == "tablast") {
+        msg = i18n("<p><b>bl,blast &mdash; last document</b></p>"
+                   "<p>Usage: <tt><b>bl[ast]</b></tt></p>"
+                   "<p>Goes to the <b>l</b>ast document (\"<b>b</b>uffer\") in document list.</p>");
+        return true;
+    }
+
+    return false;
 }
 //END KateFileTreeCommand
 

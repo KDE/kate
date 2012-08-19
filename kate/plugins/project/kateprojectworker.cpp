@@ -374,6 +374,11 @@ void KateProjectWorker::loadCtags (const QStringList &files)
     QString fileName = tagLine.mid (firstTab+1, secondTab-(firstTab+1));
     QString exCmd = tagLine.mid (secondTab+1, endOfEx-(secondTab+1));
     
+    /**
+     * parse extra fields
+     */
+    //QStringList extraFields = tagLine.right(tagLine.size()-(endOfEx+3)).split ("\ţ", QString::SkipEmptyParts);
+    
     if (!dupes.contains (tagName))
       completionInfo->append (tagName);
     dupes.insert (tagName);
@@ -381,6 +386,8 @@ void KateProjectWorker::loadCtags (const QStringList &files)
     //printf ("tag line: '%s'\n", qPrintable(tagLine.replace("\t", "<TAB>")));
     //printf ("parsed info: TN '%s' FN '%s' EC '%s'\n\n", qPrintable(tagName), qPrintable(fileName), qPrintable(exCmd));
   }
+  
+  completionInfo->sort ();
   
   qDebug ("ctags extration did take %d ms", timer.elapsed());
 

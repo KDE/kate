@@ -29,6 +29,8 @@
 
 #include <qjson/parser.h>
 
+#include <algorithm>
+
 KateProject::KateProject ()
   : QObject ()
   , m_worker (new KateProjectWorker (this))
@@ -100,7 +102,7 @@ bool KateProject::load (const QString &fileName)
   return reload ();
 }
 
-bool KateProject::reload ()
+bool KateProject::reload (bool force)
 {
   /**
    * open the file for reading, bail out on error!
@@ -128,6 +130,13 @@ bool KateProject::reload ()
    */
   if (globalProject["name"].toString().isEmpty())
     return false;
+  
+  /**
+   * anything changed?
+   * else be done without forced reload!
+   */
+  if (!force && (m_projectMap == globalProject))
+    return true;
 
   /**
    * setup global attributes in this object
@@ -217,10 +226,16 @@ void KateProject::completionMatches (QStandardItemModel &model, KTextEditor::Vie
   
   /**
    * get all matching things
+   * use binary search for prefix
    */
-  foreach (QString item, *m_completionInfo) {
-      if (item.contains (word))
-        model.appendRow (new QStandardItem (item));
+  QStringList::iterator lowerBound = std::lower_bound (m_completionInfo->begin(), m_completionInfo->end(), word);
+  while (lowerBound != m_completionInfo->end()) {
+    if (lowerBound->startsWith (word)) {
+      model.appendRow (new QStandardItem (*lowerBound));
+      ++lowerBound;
+      continue;
+    }    
+    break;
   }
 }
 

@@ -66,9 +66,10 @@ class KateProject : public QObject
     /**
      * Try to reload a project.
      * If the reload fails, e.g. because the file is not readable or corrupt, nothing will happen!
+     * @param force will enforce the worker to update files list and co even if the content of the file was not changed!
      * @return success
      */
-    bool reload ();
+    bool reload (bool force = false);
 
     /**
      * Accessor to file name.

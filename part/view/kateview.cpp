@@ -276,7 +276,7 @@ KateView::~KateView()
   // remove from xmlgui factory, to be safe
   if (factory())
     factory()->removeClient (this);
-  
+
     KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
     if (viewBarContainer) {
      viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);
@@ -989,7 +989,7 @@ void KateView::setupCodeFolding()
     a->setText(i18n("Fold Nodes in Level %1", i));
     a->setData(i);
     connect(a, SIGNAL(triggered()), this, SLOT(slotCollapseLevel()));
-    
+
     // Expand level connections
     a = ac->addAction(QString("expand_level_%1").arg(i));
     a->setText(i18n("Unfold Nodes in Level %1", i));
@@ -1024,7 +1024,7 @@ void KateView::slotExpandLevel()
   if (!sender()) return;
   QAction *action = qobject_cast<QAction*>(sender());
   if (!action) return;
-  
+
   const int level = action->data().toInt();
   Q_ASSERT(level > 0);
   m_doc->foldingTree()->expandLevel(level);
@@ -1937,7 +1937,7 @@ void KateView::selectWord( const KTextEditor::Cursor& cursor )
   KateLineLayoutPtr curLine = m_viewInternal->cache()->line( cursor.line() );
   if (!curLine)
     return;
-  
+
   int start = cursor.column();
   if (start > 0 && start < curLine->layout()->text().size()) {
     QChar ch = curLine->layout()->text()[start - 1];
@@ -1947,9 +1947,9 @@ void KateView::selectWord( const KTextEditor::Cursor& cursor )
     QChar ch = curLine->layout()->text()[start - 1];
     start -= ch.isSpace() ? 1 : 0;
   }
-  
+
   start = curLine->layout()->previousCursorPosition( start, QTextLayout::SkipWords);
-  
+
   int end = curLine->layout()->nextCursorPosition( start, QTextLayout::SkipWords );
 
   if (end > 0 && end < curLine->layout()->text().size()) {
@@ -1957,7 +1957,7 @@ void KateView::selectWord( const KTextEditor::Cursor& cursor )
     if ( !m_doc->highlight()->isInWord (ch) || ch.isSpace() )
       --end;
   }
-  
+
   setSelection (KTextEditor::Range(cursor.line(), start, cursor.line(), end));
 }
 
@@ -2242,9 +2242,9 @@ void KateView::setSearchPattern(const QString &searchPattern)
   searchBar()->setSearchPattern(searchPattern);
 }
 
-void KateView::setReplacePattern(const QString &replacePattern)
+void KateView::setReplacementPattern(const QString &replacementPattern)
 {
-  searchBar()->setReplacePattern(replacePattern);
+  searchBar()->setReplacementPattern(replacementPattern);
 }
 
 void KateView::indent( )

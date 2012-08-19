@@ -381,7 +381,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     QString replacementPattern() const;
 
     void setSearchPattern(const QString &searchPattern);
-    void setReplacePattern(const QString &replacePattern);
+    void setReplacementPattern(const QString &replacementPattern);
 
   public Q_SLOTS:
     void indent();
@@ -629,7 +629,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateCommandLineBar *cmdLineBar ();
     KateScriptConsole *consoleBar ();
     KateDictionaryBar *dictionaryBar();
-    
+
   private:
     KateSearchBar *searchBar (bool initHintAsPower = false);
     bool hasSearchBar () const { return m_searchBar != 0; }

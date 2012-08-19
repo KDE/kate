@@ -278,7 +278,7 @@ class KateViewBar : public QWidget
   Q_OBJECT
 
   public:
-    KateViewBar (bool external, 
+    KateViewBar (bool external,
                  KTextEditor::ViewBarContainer::Position pos,
                  QWidget *parent,
                  KateView *view);
@@ -298,7 +298,7 @@ class KateViewBar : public QWidget
      * widgets in the viewbar.
      */
     void removeBarWidget (KateViewBarWidget *barWidget);
-    
+
     /**
      * @return if viewbar has widget @p barWidget
      */
@@ -387,7 +387,7 @@ class KateCmdLineEdit : public KLineEdit
 
   signals:
     void hideRequested();
-    
+
   public Q_SLOTS:
     void slotReturnPressed ( const QString& cmd );
 

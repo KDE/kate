@@ -91,7 +91,7 @@ public:
 
 public Q_SLOTS:
     void setSearchPattern(const QString &searchPattern);
-    void setReplacePattern(const QString &replacePattern);
+    void setReplacementPattern(const QString &replacementPattern);
     void setSearchMode(SearchMode mode);
 
     void setSelectionOnly(bool selectionOnly);

@@ -103,7 +103,7 @@ class KateViewInternal : public QWidget
     bool tagRange(const KTextEditor::Range& range, bool realCursors);
 
     void tagAll ();
-    
+
     void updateDirty();
 
     void clear ();

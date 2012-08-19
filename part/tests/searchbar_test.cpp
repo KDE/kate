@@ -335,7 +335,7 @@ void SearchBarTest::testReplaceAll()
   KateSearchBar bar(true, &view, &config);
 
   bar.setSearchPattern("a");
-  bar.setReplacePattern("");
+  bar.setReplacementPattern("");
   bar.replaceAll();
 
   QCOMPARE(bar.m_hlRanges.size(), 3);
@@ -344,7 +344,7 @@ void SearchBarTest::testReplaceAll()
   QCOMPARE(bar.m_hlRanges.at(2)->toRange(), Range(0, 2, 0, 2));
 
   bar.setSearchPattern(" ");
-  bar.setReplacePattern("b");
+  bar.setReplacementPattern("b");
   bar.replaceAll();
 
   QCOMPARE(bar.m_hlRanges.size(), 2);
@@ -508,7 +508,7 @@ void SearchBarTest::testReplaceWithDoubleSelecion()
   KateSearchBar bar(true, &view, &config);
 
   bar.setSelectionOnly(false);
-  bar.setReplacePattern(bar.searchPattern() + bar.searchPattern());
+  bar.setReplacementPattern(bar.searchPattern() + bar.searchPattern());
   bar.replaceNext();
 
   QCOMPARE(doc.text(), result);
@@ -527,7 +527,7 @@ void SearchBarTest::testReplaceDollar()
 
   bar.setSearchPattern("$");
   bar.setSearchMode(KateSearchBar::MODE_REGEX);
-  bar.setReplacePattern("D");
+  bar.setReplacementPattern("D");
 
   bar.replaceAll();
 

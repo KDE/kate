@@ -69,7 +69,7 @@ void KateProjectIndex::loadCtags (const QStringList &files)
    */
   QProcess ctags;
   QStringList args;
-  args << "-L" << "-" << "-f" << m_ctagsIndexFile.fileName() << "--fields=+z";
+  args << "-L" << "-" << "-f" << m_ctagsIndexFile.fileName() << "--fields=+K+n";
   ctags.start("ctags", args);
   if (!ctags.waitForStarted())
     return;

@@ -217,7 +217,7 @@ void KateSearchBar::closed()
 }
 
 
-void KateSearchBar::setReplacePattern(const QString &replacementPattern) {
+void KateSearchBar::setReplacementPattern(const QString &replacementPattern) {
     Q_ASSERT(isPower());
 
     if (this->replacementPattern() == replacementPattern)

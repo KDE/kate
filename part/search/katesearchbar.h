@@ -90,10 +90,19 @@ public:
     static void nextMatchForSelection(KateView * view, SearchDirection searchDirection);
 
 public Q_SLOTS:
+    /**
+     * Set the current search pattern.
+     * @param searchPattern the search pattern
+     */
     void setSearchPattern(const QString &searchPattern);
-    void setReplacePattern(const QString &replacePattern);
-    void setSearchMode(SearchMode mode);
 
+    /**
+     * Set the current replacement pattern.
+     * @param replacementPattern the replacement pattern
+     */
+    void setReplacementPattern(const QString &replacementPattern);
+
+    void setSearchMode(SearchMode mode);
     void setSelectionOnly(bool selectionOnly);
     void setMatchCase(bool matchCase);
 

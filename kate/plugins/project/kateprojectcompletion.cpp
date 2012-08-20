@@ -161,7 +161,7 @@ void KateProjectCompletion::completionInvoked(KTextEditor::View* view, const KTe
 
 // Scan throughout the entire document for possible completions,
 // ignoring any dublets
-void KateProjectCompletion::allMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range ) const
+void KateProjectCompletion::allMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range) const
 {
   /**
    * get project for this document, else fail
@@ -171,9 +171,10 @@ void KateProjectCompletion::allMatches (QStandardItemModel &model, KTextEditor::
     return;
   
   /**
-   * let project fill the completion for this document
+   * let project index fill the completion for this document
    */
-  project->completionMatches (model, view, range);
+  if (project->projectIndex())
+    project->projectIndex()->findMatches (model, view->document()->text(range), KateProjectIndex::CompletionMatches);
 }
 
 KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateProjectCompletion::matchingItem(const QModelIndex& /*matched*/)

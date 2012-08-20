@@ -32,7 +32,6 @@
 KateProject::KateProject ()
   : QObject ()
   , m_worker (new KateProjectWorker (this))
-  , m_file2Item (new QMap<QString, QStandardItem *>())
 { 
   /**
    * move worker object over and start our worker thread
@@ -176,15 +175,6 @@ void KateProject::loadIndexDone (KateProjectSharedProjectIndex projectIndex)
    * move to our project
    */
   m_projectIndex = projectIndex;
-}
-
-void KateProject::completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range)
-{
-  /**
-   * pass over to index, if around
-   */
-  if (m_projectIndex)
-    m_projectIndex->findMatches (model, view->document()->text(range), KateProjectIndex::CompletionMatches);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

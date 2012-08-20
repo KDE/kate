@@ -113,10 +113,11 @@ class KateProject : public QObject
 
     /**
      * Flat list of all files in the project
+     * @return list of files in project
      */
     QStringList files ()
     {
-      return m_file2Item->keys ();
+      return m_file2Item ? m_file2Item->keys () : QStringList ();
     }
 
     /**
@@ -126,16 +127,19 @@ class KateProject : public QObject
      */
     QStandardItem *itemForFile (const QString &file)
     {
-      return m_file2Item->value (file);
+      return m_file2Item ? m_file2Item->value (file) : 0;
     }
-
+    
     /**
-     * Fill in completion matches for given view/range.
-     * @param model model to fill with completion matches
-     * @param view view we complete for
-     * @param range range we complete for
+     * Access to project index.
+     * May be null.
+     * Don't store this pointer, might change.
+     * @return project index
      */
-    void completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range);
+    KateProjectIndex *projectIndex ()
+    {
+      return m_projectIndex.data();
+    }
     
   private Q_SLOTS:
     /**

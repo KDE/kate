@@ -67,9 +67,9 @@ void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
   QMetaObject::invokeMethod (m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedQStandardItem, topLevel), Q_ARG(KateProjectSharedQMapStringItem, file2Item));
   
   /**
-   * trigger more updates
+   * load index
    */
-  loadCtags (files);
+  loadIndex (files);
 }
 
 void KateProjectWorker::loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> *file2Item)
@@ -317,86 +317,18 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
   }
 }
 
-void KateProjectWorker::loadCtags (const QStringList &files)
+void KateProjectWorker::loadIndex (const QStringList &files)
 {
   /**
-   * get some timing stats
+   * create new index, this will do the loading in the constructor
+   * wrap it into shared pointer for transfer to main thread
    */
-  QTime timer;
-  timer.start ();
+  KateProjectSharedProjectIndex index (new KateProjectIndex(files));
   
   /**
-   * try to run ctags for all files in this project
+   * send new index object back to project
    */
-  QProcess ctags;
-  QStringList args;
-  args << "-L" << "-" << "-f" << "-" << "--fields=+z";
-  ctags.start("ctags", args);
-  if (!ctags.waitForStarted())
-    return;
-  
-  /**
-   * write files list and close write channel
-   */
-  ctags.write(files.join("\n").toLocal8Bit());
-  ctags.closeWriteChannel();
-    
-  /**
-   * wait for done
-   */
-  if (!ctags.waitForFinished())
-    return;
-  
-  /**
-   * get results and parse them
-   */
-  QStringList tagLines = QString::fromLocal8Bit (ctags.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
-  QStringList *completionInfo = new QStringList ();
-  QSet<QString> dupes;
-  foreach (QString tagLine, tagLines) {
-    /**
-     * search first three separators
-     */
-    int firstTab = tagLine.indexOf ("\t", 0);
-    if (firstTab < 0)
-      continue;
-    
-    int secondTab = tagLine.indexOf ("\t", firstTab+1);
-    if (secondTab < 0)
-      continue;
-    
-    int endOfEx = tagLine.indexOf (";\"\t", secondTab+1);
-    if (endOfEx < 0)
-      continue;
-    
-    /**
-     * get infos
-     */
-    QString tagName = tagLine.left (firstTab);
-    QString fileName = tagLine.mid (firstTab+1, secondTab-(firstTab+1));
-    QString exCmd = tagLine.mid (secondTab+1, endOfEx-(secondTab+1));
-    
-    /**
-     * parse extra fields
-     */
-    //QStringList extraFields = tagLine.right(tagLine.size()-(endOfEx+3)).split ("\ţ", QString::SkipEmptyParts);
-    
-    if (!dupes.contains (tagName))
-      completionInfo->append (tagName);
-    dupes.insert (tagName);
-    
-    //printf ("tag line: '%s'\n", qPrintable(tagLine.replace("\t", "<TAB>")));
-    //printf ("parsed info: TN '%s' FN '%s' EC '%s'\n\n", qPrintable(tagName), qPrintable(fileName), qPrintable(exCmd));
-  }
-  
-  completionInfo->sort ();
-  
-  qDebug ("ctags extration did take %d ms", timer.elapsed());
-
-  /**
-   * feed back our results
-   */
-  QMetaObject::invokeMethod (m_project, "loadCompletionDone", Qt::QueuedConnection, Q_ARG(void *, completionInfo));
+  QMetaObject::invokeMethod (m_project, "loadIndexDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedProjectIndex, index));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

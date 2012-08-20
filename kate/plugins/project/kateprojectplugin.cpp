@@ -41,6 +41,7 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
    */
   qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
   qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
+  qRegisterMetaType<KateProjectSharedProjectIndex>("KateProjectSharedProjectIndex");
  
   /**
    * connect to important signals, e.g. for auto project loading
@@ -69,7 +70,7 @@ KateProjectPlugin::~KateProjectPlugin()
     /**
      * let events still be handled!
      */
-    project->triggerDeleteLater ();
+    delete project;
   }
 
   /**
@@ -107,7 +108,7 @@ KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
    */
   KateProject *project = new KateProject ();
   if (!project->load (canonicalFilePath)) {
-    project->triggerDeleteLater ();
+    delete project;
     return 0;
   }
 

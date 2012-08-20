@@ -29,13 +29,10 @@
 
 #include <qjson/parser.h>
 
-#include <algorithm>
-
 KateProject::KateProject ()
   : QObject ()
   , m_worker (new KateProjectWorker (this))
   , m_file2Item (new QMap<QString, QStandardItem *>())
-  , m_completionInfo (new QStringList ())
 { 
   /**
    * move worker object over and start our worker thread
@@ -45,19 +42,6 @@ KateProject::KateProject ()
 }
 
 KateProject::~KateProject ()
-{
-  /**
-   * worker must be already gone!
-   */
-  Q_ASSERT (!m_worker);
-
-  /**
-   * delete other data
-   */
-  delete m_completionInfo;
-}
-
-void KateProject::triggerDeleteLater ()
 {
   /**
    * only do this once
@@ -75,11 +59,6 @@ void KateProject::triggerDeleteLater ()
    */
   delete m_worker;
   m_worker = 0;
-
-  /**
-   * trigger delete later
-   */
-  deleteLater ();
 }
 
 bool KateProject::load (const QString &fileName)
@@ -184,48 +163,28 @@ void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, Kate
   emit modelChanged ();
 }
 
-void KateProject::loadCompletionDone (void *completionInfo)
+void KateProject::loadIndexDone (KateProjectSharedProjectIndex projectIndex)
 {
   /**
-   * convert to right types
+   * no worker any more, do nothing!
+   * shared pointers will do deletions
    */
-  QStringList *completionInfoList = static_cast<QStringList *> (completionInfo);
-
-  /**
-   * no worker any more, only cleanup the stuff we got from invoke!
-   */
-  if (!m_worker) {
-      delete completionInfoList;
+  if (!m_worker)
       return;
-  }
 
   /**
-   * setup
+   * move to our project
    */
-  delete m_completionInfo;
-  m_completionInfo = completionInfoList;
+  m_projectIndex = projectIndex;
 }
 
 void KateProject::completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range)
 {
   /**
-   * word to complete
+   * pass over to index, if around
    */
-  QString word = view->document()->text(range);
-  
-  /**
-   * get all matching things
-   * use binary search for prefix
-   */
-  QStringList::iterator lowerBound = std::lower_bound (m_completionInfo->begin(), m_completionInfo->end(), word);
-  while (lowerBound != m_completionInfo->end()) {
-    if (lowerBound->startsWith (word)) {
-      model.appendRow (new QStandardItem (*lowerBound));
-      ++lowerBound;
-      continue;
-    }    
-    break;
-  }
+  if (m_projectIndex)
+    m_projectIndex->completionMatches (model, view, range);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

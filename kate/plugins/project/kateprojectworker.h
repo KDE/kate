@@ -80,10 +80,10 @@ class KateProjectWorker : public QObject
     void loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, QStandardItem *> *file2Item);
     
     /**
-     * Load ctags tags for whole project.
-     * @param files list of all project files
+     * Load index for whole project.
+     * @param files list of all project files to index
      */
-    void loadCtags (const QStringList &files);
+    void loadIndex (const QStringList &files);
     
   private:
     /**

@@ -22,11 +22,10 @@
 #define KATE_PROJECT_H
 
 #include <QThread>
-#include <QStandardItemModel>
 #include <QMap>
 #include <QSharedPointer>
 
-#include <ktexteditor/view.h>
+#include "kateprojectindex.h"
 
 /**
  * Shared pointer data types.
@@ -38,6 +37,9 @@ Q_DECLARE_METATYPE(KateProjectSharedQStandardItem)
 typedef QSharedPointer<QMap<QString, QStandardItem *> > KateProjectSharedQMapStringItem;
 Q_DECLARE_METATYPE(KateProjectSharedQMapStringItem)
 
+typedef QSharedPointer<KateProjectIndex> KateProjectSharedProjectIndex;
+Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
+
 /**
  * Class representing a project.
  * Holds project properties like name, groups, contained files, ...
@@ -46,25 +48,16 @@ class KateProject : public QObject
 {
   Q_OBJECT
 
-  private:
-    /**
-     * deconstruct project
-     * close() MUST be called before
-     */
-    ~KateProject ();
-
   public:
     /**
      * construct empty project
      */
     KateProject ();
-
+    
     /**
-     * Trigger deleteLater().
-     * Using delete directly will leak memory, this causes correct de-initialisation even
-     * with inter-thread events still around (will trigger delete later)
+     * deconstruct project
      */
-    void triggerDeleteLater ();
+    ~KateProject ();
 
     /**
      * Load a project.
@@ -153,10 +146,10 @@ class KateProject : public QObject
     void loadProjectDone (KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);
     
     /**
-     * Used for worker to send back the results of completion loading
-     * @param completionInfo new completion info
+     * Used for worker to send back the results of index loading
+     * @param projectIndex new project index
      */
-    void loadCompletionDone (void *completionInfo);
+    void loadIndexDone (KateProjectSharedProjectIndex projectIndex);
 
   signals:
     /**
@@ -212,9 +205,9 @@ class KateProject : public QObject
     KateProjectSharedQMapStringItem m_file2Item;
     
     /**
-     * completion info
+     * project index, if any
      */
-    QStringList *m_completionInfo;
+    KateProjectSharedProjectIndex m_projectIndex;
 };
 
 #endif

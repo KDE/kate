@@ -77,7 +77,11 @@ class KateProjectView : public QTreeView
     void slotModelChanged ();
 
   protected:
-    virtual void contextMenuEvent (QContextMenuEvent *event);
+    /**
+     * Create matching context menu.
+     * @param event context menu event
+     */
+    void contextMenuEvent (QContextMenuEvent *event);
 
   private:
     /**

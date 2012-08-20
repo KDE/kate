@@ -103,41 +103,57 @@ void KateProjectView::slotModelChanged ()
 
 void KateProjectView::contextMenuEvent (QContextMenuEvent *event)
 {
-  // get current file path
+  /**
+   * get path file path or don't do anything
+   */
   QModelIndex index = selectionModel()->currentIndex();
   QString filePath = index.data (Qt::UserRole).toString();
-  if (!filePath.isEmpty()) {
-    // find correct mimetype to query for possible applications
-    KMimeType::Ptr mimeType = KMimeType::findByPath(filePath);
-    KService::List offers = KMimeTypeTrader::self()->query(mimeType->name(), "Application");
+  if (filePath.isEmpty()) {
+    QTreeView::contextMenuEvent (event);
+    return;
+  }
 
-    // create context menu
-    QMenu menu;
-    QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
+  /**
+   * create context menu
+   */
+  QMenu menu;
 
-    QAction *action = 0;
-    // for each one, insert a menu item...
-    for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
-    {
-      KService::Ptr service = *it;
-      if (service->name() == "Kate") continue; // omit Kate
-      action = openWithMenu->addAction(KIcon(service->icon()), service->name());
-      action->setData(service->entryPath());
-    }
+  /**
+   * handle "open with"
+   * find correct mimetype to query for possible applications
+   */
+  QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
+  KMimeType::Ptr mimeType = KMimeType::findByPath(filePath);
+  KService::List offers = KMimeTypeTrader::self()->query(mimeType->name(), "Application");
 
-    // launch the menu
-    action = menu.exec(viewport()->mapToGlobal(event->pos()));
+  /**
+   * for each one, insert a menu item...
+   */
+  for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
+  {
+    KService::Ptr service = *it;
+    if (service->name() == "Kate") continue; // omit Kate
+    QAction *action = openWithMenu->addAction(KIcon(service->icon()), service->name());
+    action->setData(service->entryPath());
+  }
 
-    // and launch the requested application
-    if (action) {
-      const QString openWith = action->data().toString();
-      KService::Ptr app = KService::serviceByDesktopPath(openWith);
-      if (app)
-      {
-        QList<QUrl> list;
-        list << QUrl(filePath);
-        KRun::run(*app, list, this);
-      }
+  /**
+   * perhaps disable menu, if no entries!
+   */
+  openWithMenu->setEnabled (!openWithMenu->isEmpty());
+
+  /**
+   * run menu and handle the triggered action
+   */
+  if (QAction *action = menu.exec (viewport()->mapToGlobal(event->pos()))) {
+    /**
+     * handle "open with"
+     */
+    const QString openWith = action->data().toString();
+    if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
+      QList<QUrl> list;
+      list << QUrl::fromLocalFile (filePath);
+      KRun::run(*app, list, this);
     }
   }
 

@@ -119,6 +119,11 @@ void KateProjectIndex::findMatches (QStandardItemModel &model, const QString &se
     return;
   
   /**
+   * set to show words only once for completion matches
+   */
+  QSet<QString> guard;
+  
+  /**
    * loop over all found tags
    * first one is filled by above find, others by find next
    */
@@ -134,9 +139,12 @@ void KateProjectIndex::findMatches (QStandardItemModel &model, const QString &se
     switch (type) {
       case CompletionMatches:
         /**
-         * add new completion item
+         * add new completion item, if new name
          */
-        model.appendRow (new QStandardItem (name));
+        if (!guard.contains (name)) {
+          model.appendRow (new QStandardItem (name));
+          guard.insert (name);
+        }
         break;
     
       case FindMatches:

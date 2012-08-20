@@ -60,7 +60,7 @@ class KateProjectIndex
      */
     enum MatchType {
         /**
-         * Completion matches, containing only name
+         * Completion matches, containing only name and same name only once
          */
         CompletionMatches,
         

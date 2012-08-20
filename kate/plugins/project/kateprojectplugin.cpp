@@ -37,6 +37,11 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
   , m_completion (this)
 {
   /**
+   * register some data types
+   */
+  qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
+ 
+  /**
    * connect to important signals, e.g. for auto project loading
    */
   connect (application()->documentManager(), SIGNAL(documentCreated (KTextEditor::Document *)), this, SLOT(slotDocumentCreated (KTextEditor::Document *)));

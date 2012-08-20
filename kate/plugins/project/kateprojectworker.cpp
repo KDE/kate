@@ -19,6 +19,7 @@
  */
 
 #include "kateprojectworker.h"
+#include "kateproject.h"
 
 #include <QDir>
 #include <QDirIterator>
@@ -62,7 +63,7 @@ void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
   /**
    * feed back our results
    */
-  QMetaObject::invokeMethod (m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(void *, topLevel), Q_ARG(void *, file2Item));
+  QMetaObject::invokeMethod (m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedQStandardItem, KateProjectSharedQStandardItem (topLevel)), Q_ARG(void *, file2Item));
   
   /**
    * trigger more updates

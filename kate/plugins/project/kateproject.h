@@ -24,8 +24,16 @@
 #include <QThread>
 #include <QStandardItemModel>
 #include <QMap>
+#include <QSharedPointer>
 
 #include <ktexteditor/view.h>
+
+/**
+ * Shared pointer data types.
+ * Used to pass pointers over queued connected slots
+ */
+typedef QSharedPointer<QStandardItem> KateProjectSharedQStandardItem;
+Q_DECLARE_METATYPE(KateProjectSharedQStandardItem)
 
 /**
  * Class representing a project.
@@ -139,7 +147,7 @@ class KateProject : public QObject
      * @param topLevel new toplevel element for model
      * @param file2Item new file => item mapping
      */
-    void loadProjectDone (void *topLevel, void *file2Item);
+    void loadProjectDone (KateProjectSharedQStandardItem topLevel, void *file2Item);
     
     /**
      * Used for worker to send back the results of completion loading

@@ -36,7 +36,7 @@ KateProject::KateProject ()
   , m_worker (new KateProjectWorker (this))
   , m_file2Item (new QMap<QString, QStandardItem *>())
   , m_completionInfo (new QStringList ())
-{
+{ 
   /**
    * move worker object over and start our worker thread
    */
@@ -159,19 +159,17 @@ bool KateProject::reload (bool force)
   return true;
 }
 
-void KateProject::loadProjectDone (void *topLevel, void *file2Item)
+void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, void *file2Item)
 {
   /**
    * convert to right types
    */
-  QStandardItem *topLevelItem = static_cast<QStandardItem*> (topLevel);
   QMap<QString, QStandardItem *> *file2ItemMap = static_cast<QMap<QString, QStandardItem *>*> (file2Item);
 
   /**
    * no worker any more, only cleanup the stuff we got from invoke!
    */
   if (!m_worker) {
-      delete topLevelItem;
       delete file2ItemMap;
       return;
   }
@@ -180,8 +178,7 @@ void KateProject::loadProjectDone (void *topLevel, void *file2Item)
    * setup model data
    */
   m_model.clear ();
-  m_model.invisibleRootItem()->appendColumn (topLevelItem->takeColumn (0));
-  delete topLevelItem;
+  m_model.invisibleRootItem()->appendColumn (topLevel->takeColumn (0));
 
   /**
    * setup file => item map

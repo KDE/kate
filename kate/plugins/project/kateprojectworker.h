@@ -69,7 +69,7 @@ class KateProjectWorker : public QObject
      * @param project variant map for this group
      * @param file2Item mapping file => item, will be filled
      */
-    void loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> &file2Item);
+    void loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> *file2Item);
 
     /**
      * Load one files entry in the current parent item.
@@ -77,7 +77,7 @@ class KateProjectWorker : public QObject
      * @param filesEntry one files entry specification to load
      * @param file2Item mapping file => item, will be filled
      */
-    void loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, QStandardItem *> &file2Item);
+    void loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, QStandardItem *> *file2Item);
     
     /**
      * Load ctags tags for whole project.

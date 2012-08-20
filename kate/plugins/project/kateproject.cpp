@@ -54,7 +54,6 @@ KateProject::~KateProject ()
   /**
    * delete other data
    */
-  delete m_file2Item;
   delete m_completionInfo;
 }
 
@@ -159,20 +158,14 @@ bool KateProject::reload (bool force)
   return true;
 }
 
-void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, void *file2Item)
+void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item)
 {
   /**
-   * convert to right types
+   * no worker any more, do nothing!
+   * shared pointers will do deletions
    */
-  QMap<QString, QStandardItem *> *file2ItemMap = static_cast<QMap<QString, QStandardItem *>*> (file2Item);
-
-  /**
-   * no worker any more, only cleanup the stuff we got from invoke!
-   */
-  if (!m_worker) {
-      delete file2ItemMap;
+  if (!m_worker)
       return;
-  }
 
   /**
    * setup model data
@@ -183,8 +176,7 @@ void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, void
   /**
    * setup file => item map
    */
-  delete m_file2Item;
-  m_file2Item = file2ItemMap;
+  m_file2Item = file2Item;
 
   /**
    * model changed

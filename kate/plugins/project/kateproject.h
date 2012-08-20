@@ -35,6 +35,9 @@
 typedef QSharedPointer<QStandardItem> KateProjectSharedQStandardItem;
 Q_DECLARE_METATYPE(KateProjectSharedQStandardItem)
 
+typedef QSharedPointer<QMap<QString, QStandardItem *> > KateProjectSharedQMapStringItem;
+Q_DECLARE_METATYPE(KateProjectSharedQMapStringItem)
+
 /**
  * Class representing a project.
  * Holds project properties like name, groups, contained files, ...
@@ -147,7 +150,7 @@ class KateProject : public QObject
      * @param topLevel new toplevel element for model
      * @param file2Item new file => item mapping
      */
-    void loadProjectDone (KateProjectSharedQStandardItem topLevel, void *file2Item);
+    void loadProjectDone (KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);
     
     /**
      * Used for worker to send back the results of completion loading
@@ -206,7 +209,7 @@ class KateProject : public QObject
     /**
      * mapping files => items
      */
-    QMap<QString, QStandardItem *> *m_file2Item;
+    KateProjectSharedQMapStringItem m_file2Item;
     
     /**
      * completion info

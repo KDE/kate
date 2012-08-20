@@ -40,6 +40,7 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
    * register some data types
    */
   qRegisterMetaType<KateProjectSharedQStandardItem>("KateProjectSharedQStandardItem");
+  qRegisterMetaType<KateProjectSharedQMapStringItem>("KateProjectSharedQMapStringItem");
  
   /**
    * connect to important signals, e.g. for auto project loading

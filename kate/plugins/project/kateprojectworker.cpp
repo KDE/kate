@@ -49,11 +49,12 @@ void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
   m_fileName = fileName;
 
   /**
-   * Create dummy top level parent item and load the project recursively
+   * Create dummy top level parent item and empty map inside shared pointers
+   * then load the project recursively
    */
-  QStandardItem *topLevel = new QStandardItem ();
-  QMap<QString, QStandardItem *> *file2Item = new QMap<QString, QStandardItem *> ();
-  loadProject (topLevel, projectMap, *file2Item);
+  KateProjectSharedQStandardItem topLevel (new QStandardItem ());
+  KateProjectSharedQMapStringItem file2Item (new QMap<QString, QStandardItem *> ());
+  loadProject (topLevel.data(), projectMap, file2Item.data());
   
   /**
    * create some local backup of some data we need for further processing!
@@ -63,7 +64,7 @@ void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
   /**
    * feed back our results
    */
-  QMetaObject::invokeMethod (m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedQStandardItem, KateProjectSharedQStandardItem (topLevel)), Q_ARG(void *, file2Item));
+  QMetaObject::invokeMethod (m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedQStandardItem, topLevel), Q_ARG(KateProjectSharedQMapStringItem, file2Item));
   
   /**
    * trigger more updates
@@ -71,7 +72,7 @@ void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
   loadCtags (files);
 }
 
-void KateProjectWorker::loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> &file2Item)
+void KateProjectWorker::loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> *file2Item)
 {
   /**
    * recurse to sub-projects FIRST
@@ -156,7 +157,7 @@ static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item,
   return dir2Item[path];
 }
 
-void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, QStandardItem *> &file2Item)
+void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, QStandardItem *> *file2Item)
 {
   /**
    * get directory to open or skip
@@ -293,7 +294,7 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
     /**
       * skip dupes
       */
-     if (file2Item.contains(filePath))
+     if (file2Item->contains(filePath))
        continue;
 
      /**
@@ -303,7 +304,7 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
      QStandardItem *fileItem = new KateProjectItem (KateProjectItem::File, fileInfo.fileName());
      item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dir.relativeFilePath (fileInfo.absolutePath()))));
      fileItem->setData (filePath, Qt::UserRole);
-     file2Item[filePath] = fileItem;
+     (*file2Item)[filePath] = fileItem;
   }
 
   /**

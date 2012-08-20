@@ -135,7 +135,7 @@ class KateProject : public QObject
      * @param view view we complete for
      * @param range range we complete for
      */
-    void completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range);
+    void completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range &range);
     
   private Q_SLOTS:
     /**

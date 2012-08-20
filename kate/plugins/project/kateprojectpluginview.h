@@ -24,6 +24,7 @@
 #include "kateprojectplugin.h"
 #include "kateproject.h"
 #include "kateprojectview.h"
+#include "kateprojectinfoview.h"
 
 #include <QPointer>
 #include <QComboBox>
@@ -64,12 +65,12 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 
   public slots:
     /**
-     * Create view for given project.
-     * Either gives existing one or creates new one
+     * Create views for given project.
+     * Either gives existing ones or creates new one
      * @param project project we want view for
-     * @return view
+     * @return views (normal + info view)
      */
-    KateProjectView *viewForProject (KateProject *project);
+    QPair<KateProjectView *,KateProjectInfoView *> viewForProject (KateProject *project);
 
   private slots:
     /**
@@ -124,6 +125,11 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     QWidget *m_toolView;
 
     /**
+     * our projects info toolview
+     */
+    QWidget *m_toolInfoView;
+
+    /**
      * combo box with all loaded projects inside
      */
     QComboBox *m_projectsCombo;
@@ -134,9 +140,14 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     QStackedWidget *m_stackedProjectViews;
 
     /**
+     * stacked widget will all currently created project info views
+     */
+    QStackedWidget *m_stackedProjectInfoViews;
+
+    /**
      * project => view
      */
-    QMap<KateProject *, KateProjectView *> m_project2View;
+    QMap<KateProject *, QPair<KateProjectView *,KateProjectInfoView *> > m_project2View;
 
     /**
      * remember current active view text editor view

@@ -51,15 +51,17 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   mainWindow()->guiFactory()->addClient( this );
 
   /**
-   * create toolview
+   * create toolviews
    */
   m_toolView = mainWindow()->createToolView ("kateproject", Kate::MainWindow::Left, SmallIcon("project-open"), i18n("Projects"));
+  m_toolInfoView = mainWindow()->createToolView ("kateprojectinfo", Kate::MainWindow::Bottom, SmallIcon("view-choose"), i18n("Projects Information"));
 
   /**
-   * populate the toolview
+   * populate the toolviews
    */
   m_projectsCombo = new QComboBox (m_toolView);
   m_stackedProjectViews = new QStackedWidget (m_toolView);
+  m_stackedProjectInfoViews = new QStackedWidget (m_toolInfoView);
 
   /**
    * create views for all already existing projects
@@ -99,9 +101,10 @@ KateProjectPluginView::~KateProjectPluginView()
   }
   
   /**
-   * cu toolview
+   * cu toolviews
    */
   delete m_toolView;
+  delete m_toolInfoView;
 
   /**
    * cu gui client
@@ -109,7 +112,7 @@ KateProjectPluginView::~KateProjectPluginView()
   mainWindow()->guiFactory()->removeClient( this );
 }
 
-KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)
+QPair<KateProjectView *,KateProjectInfoView *> KateProjectPluginView::viewForProject (KateProject *project)
 {
   /**
    * needs valid project
@@ -123,21 +126,22 @@ KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)
     return m_project2View.value (project);
 
   /**
-   * create new view
+   * create new views
    */
    KateProjectView *view = new KateProjectView (this, project);
+   KateProjectInfoView *infoView = new KateProjectInfoView (this, project);
 
    /**
-    * attach to toolbox
+    * attach to toolboxes
     */
    m_projectsCombo->addItem (SmallIcon("project-open"), project->name(), project->fileName());
    m_stackedProjectViews->addWidget (view);
+   m_stackedProjectInfoViews->addWidget (infoView);
 
    /**
     * remember and return it
     */
-   m_project2View[project] = view;
-   return view;
+   return (m_project2View[project] = QPair<KateProjectView *,KateProjectInfoView *> (view, infoView));
 }
 
 void KateProjectPluginView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )
@@ -219,9 +223,10 @@ void KateProjectPluginView::slotViewChanged ()
 void KateProjectPluginView::slotCurrentChanged (int index)
 {
   /**
-   * trigger change of stacked widget
+   * trigger change of stacked widgets
    */
   m_stackedProjectViews->setCurrentIndex (index);
+  m_stackedProjectInfoViews->setCurrentIndex (index);
 
   /**
    * project file name might have changed
@@ -249,7 +254,7 @@ void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *docum
    * get active project view and switch it, if it is for a different project
    */
   KateProjectView *active = static_cast<KateProjectView *> (m_stackedProjectViews->currentWidget ());
-  if (active != m_project2View.value (project)) {
+  if (active != m_project2View.value (project).first) {
     int index = m_projectsCombo->findData (project->fileName());
     if (index >= 0)
       m_projectsCombo->setCurrentIndex (index);

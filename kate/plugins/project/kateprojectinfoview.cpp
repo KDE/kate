@@ -26,7 +26,9 @@ KateProjectInfoView::KateProjectInfoView (KateProjectPluginView *pluginView, Kat
   , m_pluginView (pluginView)
   , m_project (project)
 {
- 
+  // add dummy widget
+  QWidget *test = new QWidget ();
+  addTab (test, project->name());
 }
 
 KateProjectInfoView::~KateProjectInfoView ()

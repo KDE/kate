@@ -53,15 +53,31 @@ class KateProjectIndex
      * deconstruct project
      */
     ~KateProjectIndex ();
+    
+    /**
+     * Which kind of match items should be created in the passed model
+     * of the findMatches function?
+     */
+    enum MatchType {
+        /**
+         * Completion matches, containing only name
+         */
+        CompletionMatches,
+        
+        /**
+         * Find matches, containing name, type, file, ...
+         */
+        FindMatches
+    };
 
     /**
      * Fill in completion matches for given view/range.
      * Uses e.g. ctags index.
-     * @param model model to fill with completion matches
-     * @param view view we complete for
-     * @param range range we complete for
+     * @param model model to fill with matches
+     * @param searchWord word to search for
+     * @param type type of matches
      */
-    void completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range);
+    void findMatches (QStandardItemModel &model, const QString &searchWord, MatchType type);
     
   private:
     /**

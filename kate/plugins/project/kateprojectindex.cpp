@@ -94,7 +94,7 @@ void KateProjectIndex::loadCtags (const QStringList &files)
   m_ctagsIndexHandle = tagsOpen (m_ctagsIndexFile.fileName().toLocal8Bit(), &info);
 }
 
-void KateProjectIndex::completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range)
+void KateProjectIndex::findMatches (QStandardItemModel &model, const QString &searchWord, MatchType type)
 {
   /**
    * abort if no ctags index
@@ -106,7 +106,7 @@ void KateProjectIndex::completionMatches (QStandardItemModel &model, KTextEditor
    * word to complete
    * abort if empty
    */
-  QByteArray word = view->document()->text(range).toLocal8Bit();
+  QByteArray word = searchWord.toLocal8Bit();
   if (word.isEmpty())
     return;
  
@@ -124,9 +124,28 @@ void KateProjectIndex::completionMatches (QStandardItemModel &model, KTextEditor
    */
   do {
     /**
-     * add new completion item
+     * get name
      */
-    model.appendRow (new QStandardItem (QString::fromLocal8Bit(entry.name)));
+    QString name (QString::fromLocal8Bit(entry.name));
+    
+    /**
+     * construct right items
+     */
+    switch (type) {
+      case CompletionMatches:
+        /**
+         * add new completion item
+         */
+        model.appendRow (new QStandardItem (name));
+        break;
+    
+      case FindMatches:
+        /**
+         * add new find item
+         */
+        model.appendRow (new QStandardItem (name));
+        break;
+    }
   } while (tagsFindNext (m_ctagsIndexHandle, &entry) == TagSuccess);
 }
 

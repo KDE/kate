@@ -127,7 +127,6 @@ void KateProjectIndex::completionMatches (QStandardItemModel &model, KTextEditor
      * add new completion item
      */
     model.appendRow (new QStandardItem (QString::fromLocal8Bit(entry.name)));
-  printf ("project info created %s\n", entry.name);
   } while (tagsFindNext (m_ctagsIndexHandle, &entry) == TagSuccess);
 }
 

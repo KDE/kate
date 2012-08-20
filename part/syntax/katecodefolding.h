@@ -29,11 +29,12 @@
 #include <QtCore/QMapIterator>
 #include <QtCore/QListIterator>
 
+#include "ktexteditor/cursor.h"
+
 #include "katepartprivate_export.h"
 //#include <ktexteditor/sessionconfiginterface.h>
 
 class KateCodeFoldingTree;
-namespace KTextEditor { class Cursor; }
 class KateBuffer;
 class KConfigGroup;
 class KateDocument;
@@ -65,59 +66,7 @@ class KateLineInfo
   int depth;
 };
 
-// Class is used to define and compare node's positions
-class KateDocumentPosition
-{
-  public:
-    int line;
-    int column;
-
-    KateDocumentPosition (int l, int c) :
-        line(l),
-        column(c)
-    {
-    }
-    KateDocumentPosition (const KateDocumentPosition &pos) :
-        line(pos.line),
-        column(pos.column)
-    {
-    }
-    KateDocumentPosition () :
-        line(0),
-        column(0)
-    {
-    }
-
-    // Operators
-    inline bool operator < (const KateDocumentPosition &pos) const
-    {
-      return (line < pos.line) ? true :
-          (line == pos.line) ?
-          ((column < pos.column) ? true : false)
-            : false;
-    }
-    inline bool operator > (const KateDocumentPosition &pos) const
-    {
-      return (line > pos.line) ? true :
-          (line == pos.line) ?
-          ((column > pos.column) ? true : false)
-            : false;
-    }
-    inline bool operator == (const KateDocumentPosition &pos) const
-    {
-      return (line == pos.line && column == pos.column) ? true : false;
-    }
-    inline bool operator != (const KateDocumentPosition &pos) const
-    {
-      return (line != pos.line || column != pos.column) ? true : false;
-    }
-    inline bool operator >= (const KateDocumentPosition &pos) const
-    {
-      return ((*this) > pos || (*this) == pos);
-    }
-};
-
-class KateCodeFoldingNode: public QObject
+class KateCodeFoldingNode
 {
   friend class KateCodeFoldingTree;
 
@@ -127,7 +76,7 @@ class KateCodeFoldingNode: public QObject
     KateCodeFoldingNode           *m_parentNode;
 
   // node's position in document
-    KateDocumentPosition          m_position;
+    KTextEditor::Cursor          m_position;
 
   // 0 -> toplevel / invalid ; 5 = {} ; 4 = comment ; -5 = only "}" ; 1/-1 start/end node py style
   // if type > 0 : start node ; if type < 0 : end node
@@ -149,9 +98,7 @@ class KateCodeFoldingNode: public QObject
 
 // public methods - Node's interface :
   public:
-    KateCodeFoldingNode ();
-    KateCodeFoldingNode (KateCodeFoldingNode *par, int typ, KateDocumentPosition pos);
-
+    KateCodeFoldingNode (KateCodeFoldingNode *par, int typ, const KTextEditor::Cursor &pos);
     ~KateCodeFoldingNode ();
 
     inline int nodeType ()
@@ -172,11 +119,11 @@ class KateCodeFoldingNode: public QObject
 // Setters and getters
     inline void setColumn(int newColumn)
       {
-        m_position.column = newColumn;
+        m_position.setColumn (newColumn);
         m_virtualColumn = newColumn;
       }
     inline void setLine(int newLine)
-      { m_position.line = newLine; }
+      { m_position.setLine (newLine); }
 
     inline void setColumn(KateCodeFoldingNode *node)
       { setColumn(node->getColumn()); }
@@ -184,10 +131,10 @@ class KateCodeFoldingNode: public QObject
       { setLine(node->getLine()); }
 
     inline int getColumn() const
-      { return m_position.column; }
+      { return m_position.column(); }
     inline int getLine() const
-      { return m_position.line; }
-    inline KateDocumentPosition getPosition() const
+      { return m_position.line(); }
+    inline KTextEditor::Cursor getPosition() const
       { return m_position; }
     int getDepth();
     KateCodeFoldingNode* getStartMatching(KateCodeFoldingNode* endNode);
@@ -275,7 +222,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     QMap < int, QVector <KateCodeFoldingNode*> >  m_lineMapping;
 
   // A "special" position (invalid position)
-    KateDocumentPosition                          INFposition;
+    KTextEditor::Cursor                          INFposition;
 
   // A list of the hidden nodes (only those nodes that are not found in an already folded area) - sorted (key = nodeLine)
     QList <KateCodeFoldingNode*>                  m_hiddenNodes;
@@ -342,12 +289,12 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
   protected:
   // Insert Node methods
-    inline void insertNode(int nodeType, const KateDocumentPosition& pos, int virtualColumn)
+    inline void insertNode(int nodeType, const KTextEditor::Cursor& pos, int virtualColumn)
     {
       nodeType > 0 ? insertStartNode(nodeType,pos, virtualColumn) : insertEndNode(nodeType,pos);
     }
-    void insertStartNode(int type, const KateDocumentPosition& pos, int virtualColumn);
-    void insertEndNode(int type, const KateDocumentPosition& pos);
+    void insertStartNode(int type, const KTextEditor::Cursor& pos, int virtualColumn);
+    void insertEndNode(int type, const KTextEditor::Cursor& pos);
     void insertNodeIntoMap(KateCodeFoldingNode* newNode);
 
   // Delete Node methods
@@ -370,11 +317,11 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
     int getLineDepth(int line, bool &validEndings) const;
 
   // Tree algorithm metods
-    KateCodeFoldingNode* findParent(const KateDocumentPosition& startingPos, int childType) const;
-    KateCodeFoldingNode* fineNodeAbove(const KateDocumentPosition& startingPos) const;
+    KateCodeFoldingNode* findParent(const KTextEditor::Cursor& startingPos, int childType) const;
+    KateCodeFoldingNode* fineNodeAbove(const KTextEditor::Cursor& startingPos) const;
     void sublist(QVector<KateCodeFoldingNode *>& dest, const QVector<KateCodeFoldingNode *>& source,
-                 const KateDocumentPosition& begin, const KateDocumentPosition& end) const;
-    KateCodeFoldingNode* findNodeAt(const KateDocumentPosition& position) const;
+                 const KTextEditor::Cursor& begin, const KTextEditor::Cursor& end) const;
+    KateCodeFoldingNode* findNodeAt(const KTextEditor::Cursor& position) const;
 
     KateCodeFoldingNode* firstNodeFromLine(const QVector<KateCodeFoldingNode *>& lineMap) const;
     KateCodeFoldingNode* lastNodeFromLine(const QVector<KateCodeFoldingNode *>& lineMap) const;

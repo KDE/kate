@@ -99,6 +99,13 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
 
         void handleEsc(QEvent *e);
 
+        /**
+         * keep track if the project plugin is alive and if the project map did change
+         */
+        void slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView);
+        void slotPluginViewDeleted (const QString &name, Kate::PluginView *pluginView);
+        void slotProjectMapChanged ();
+
     protected:
         bool eventFilter(QObject *obj, QEvent *ev);
 
@@ -125,6 +132,11 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         QList<Target>     m_targetList;
         int               m_targetIndex;
         KSelectAction*    m_targetSelectAction;
+
+        /**
+        * current project plugin view, if any
+        */
+        Kate::PluginView *m_projectPluginView;
 };
 
 

@@ -512,8 +512,13 @@ void KateCTagsView::updateSessionDB()
     }
 
     QString targets;
+    QString target;
     for (int i=0; i<m_ctagsUi.targetList->count(); i++) {
-        targets += m_ctagsUi.targetList->item(i)->text() + " ";
+      target = m_ctagsUi.targetList->item(i)->text();
+      if (target.endsWith('/') || target.endsWith('\\')) {
+        target = target.left(target.size() - 1);
+      }
+      targets += target + " ";
     }
 
     if (m_ctagsUi.tagsFile->text().isEmpty()) {
@@ -528,7 +533,7 @@ void KateCTagsView::updateSessionDB()
         return;
     }
 
-    QString command = QString("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text()).arg(m_ctagsUi.tagsFile->text()).arg(targets) ;
+    QString command = QString("%1 -f %2 %3").arg(m_ctagsUi.cmdEdit->text()).arg(m_ctagsUi.tagsFile->text()).arg(targets);
 
     m_proc.setShellCommand(command);
     m_proc.setOutputChannelMode(KProcess::SeparateChannels);
@@ -538,7 +543,7 @@ void KateCTagsView::updateSessionDB()
         KMessageBox::error(0, i18n("Failed to run \"%1\". exitStatus = %2", command, m_proc.exitStatus()));
         return;
     }
-    QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
+    QApplication::setOverrideCursor(QCursor(Qt::BusyCursor));
     m_ctagsUi.updateButton->setDisabled(true);
     m_ctagsUi.updateButton2->setDisabled(true);
 }

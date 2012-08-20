@@ -21,17 +21,20 @@
 #ifndef _PLUGIN_KATE_PROJECTVIEW_H_
 #define _PLUGIN_KATE_PROJECTVIEW_H_
 
-#include "plugin_kateproject.h"
+#include "kateprojectplugin.h"
 #include "kateproject.h"
 #include "kateprojectview.h"
 
-#include <QToolBox>
+#include <QPointer>
+#include <QComboBox>
+#include <QStackedWidget>
 
 class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 
     Q_PROPERTY(QString projectFileName READ projectFileName NOTIFY projectFileNameChanged)
+    Q_PROPERTY(QVariantMap projectMap READ projectMap NOTIFY projectMapChanged)
     Q_PROPERTY(QStringList projectFiles READ projectFiles)
 
   public:
@@ -42,16 +45,22 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
 
     /**
+     * content of current active project, as variant map
+     * @return empty map if no project active, else content of project JSON
+     */
+    QVariantMap projectMap () const;
+
+    /**
      * which project file is currently active?
      * @return empty string if none, else project file name
      */
-    QString projectFileName ();
+    QString projectFileName () const;
 
     /**
      * files for the current active project?
      * @return empty list if none, else project files as stringlist
      */
-    QStringList projectFiles ();
+    QStringList projectFiles () const;
 
   public slots:
     /**
@@ -62,23 +71,46 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      */
     KateProjectView *viewForProject (KateProject *project);
 
+  private slots:
+    /**
+     * New view got created, we need to update our connections
+     * @param view new created view
+     */
+    void slotViewCreated (KTextEditor::View *view);
+
+    /**
+     * View got destroyed.
+     * @param view deleted view
+     */
+    void slotViewDestroyed (QObject *view);
+    
   Q_SIGNALS:
     /**
-     * Emitted if currentProjectFileName changed.
+     * Emitted if projectFileName changed.
      */
     void projectFileNameChanged ();
+
+    /**
+     * Emitted if projectMap changed.
+     */
+    void projectMapChanged ();
 
   private slots:
     /**
      * This slot is called whenever the active view changes in our main window.
      */
     void slotViewChanged ();
-    
+
     /**
      * Current project changed.
      * @param index index in toolbox
      */
     void slotCurrentChanged (int index);
+
+    /**
+     * Url changed, to auto-load projects
+     */
+    void slotDocumentUrlChanged (KTextEditor::Document *document);
 
   private:
     /**
@@ -92,14 +124,30 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     QWidget *m_toolView;
 
     /**
-     * the toolbox for the projects
+     * combo box with all loaded projects inside
      */
-    QToolBox *m_toolBox;
+    QComboBox *m_projectsCombo;
+
+    /**
+     * stacked widget will all currently created project views
+     */
+    QStackedWidget *m_stackedProjectViews;
 
     /**
      * project => view
      */
     QMap<KateProject *, KateProjectView *> m_project2View;
+
+    /**
+     * remember current active view text editor view
+     * might be 0
+     */
+    QPointer<KTextEditor::View> m_activeTextEditorView;
+    
+    /**
+     * remember for which text views we might need to cleanup stuff
+     */
+    QSet<QObject *> m_textViews;
 };
 
 #endif

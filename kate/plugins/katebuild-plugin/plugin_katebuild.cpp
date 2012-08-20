@@ -29,7 +29,6 @@
 #include <cassert>
 
 #include <qfile.h>
-#include <qfileinfo.h>
 #include <qinputdialog.h>
 #include <qregexp.h>
 #include <qstring.h>
@@ -41,6 +40,8 @@
 #include <QDirModel>
 #include <QScrollBar>
 #include <QKeyEvent>
+#include <QFileInfo>
+#include <QDir>
 
 
 #include <kaction.h>
@@ -187,6 +188,17 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     m_toolView->installEventFilter(this);
 
     mainWindow()->guiFactory()->addClient(this);
+
+    // watch for project plugin view creation/deletion
+    connect(mainWindow(), SIGNAL(pluginViewCreated (const QString &, Kate::PluginView *))
+        , this, SLOT(slotPluginViewCreated (const QString &, Kate::PluginView *)));
+
+    connect(mainWindow(), SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
+        , this, SLOT(slotPluginViewDeleted (const QString &, Kate::PluginView *)));
+
+    // update once project plugin state manually
+    m_projectPluginView = mainWindow()->pluginView ("kateprojectplugin");
+    slotProjectMapChanged ();
 }
 
 
@@ -921,4 +933,50 @@ void KateBuildView::slotShowOthers(bool showItems) {
         }
     }
 
+}
+
+void KateBuildView::slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView)
+{
+    // add view
+    if (name == "kateprojectplugin") {
+        m_projectPluginView = pluginView;
+        slotProjectMapChanged ();
+        connect (pluginView, SIGNAL(projectMapChanged()), this, SLOT(slotProjectMapChanged()));
+    }
+}
+
+void KateBuildView::slotPluginViewDeleted (const QString &name, Kate::PluginView *)
+{
+    // remove view
+    if (name == "kateprojectplugin") {
+        m_projectPluginView = 0;
+        slotProjectMapChanged ();
+    }
+}
+
+void KateBuildView::slotProjectMapChanged ()
+{
+    // only do stuff with valid project
+    if (!m_projectPluginView)
+      return;
+  
+    // query new project map
+    QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
+    
+    // do we have a valid map for build settings?
+    QVariantMap buildMap = projectMap.value("build").toMap();
+    if (buildMap.isEmpty())
+      return;
+
+    // get build dir
+    QDir dir (QFileInfo (m_projectPluginView->property("projectFileName").toString()).absoluteDir());
+    if (!dir.cd (buildMap.value("directory").toString()))
+      return;
+    
+    // set build dir
+    m_targetsUi->buildDir->setText(dir.absolutePath());
+    
+    m_targetsUi->buildCmd->setText(buildMap.value("build").toString());
+    m_targetsUi->cleanCmd->setText(buildMap.value("clean").toString());
+    m_targetsUi->quickCmd->setText(QString());
 }

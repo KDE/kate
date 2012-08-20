@@ -24,6 +24,7 @@
 #include <kate/application.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/codecompletioninterface.h>
 
 #include <kaction.h>
 #include <kactioncollection.h>
@@ -57,18 +58,46 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   /**
    * populate the toolview
    */
-  m_toolBox = new QToolBox (m_toolView);
+  m_projectsCombo = new QComboBox (m_toolView);
+  m_stackedProjectViews = new QStackedWidget (m_toolView);
+
+  /**
+   * create views for all already existing projects
+   */
+  foreach (KateProject *project, m_plugin->projects())
+    viewForProject (project);
 
   /**
    * connect to important signals, e.g. for auto project view creation
    */
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
   connect (mainWindow(), SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
-  connect (m_toolBox, SIGNAL(currentChanged (int)), this, SLOT(slotCurrentChanged (int)));
+  connect (m_projectsCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentChanged (int)));
+  connect (mainWindow(), SIGNAL(viewCreated (KTextEditor::View *)), this, SLOT(slotViewCreated (KTextEditor::View *)));
+
+  /**
+   * connect for all already existing views
+   */
+  foreach (KTextEditor::View *view, mainWindow()->views())
+    slotViewCreated (view);
+  
+  /**
+   * trigger once view change, to highlight right document
+   */
+  slotViewChanged ();
 }
 
 KateProjectPluginView::~KateProjectPluginView()
 {
+  /**
+   * cleanup for all views
+   */
+  foreach (QObject *view, m_textViews) {
+    KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
+    if (cci)
+      cci->unregisterCompletionModel (m_plugin->completion());
+  }
+  
   /**
    * cu toolview
    */
@@ -101,7 +130,8 @@ KateProjectView *KateProjectPluginView::viewForProject (KateProject *project)
    /**
     * attach to toolbox
     */
-   m_toolBox->addItem (view, project->name());
+   m_projectsCombo->addItem (SmallIcon("project-open"), project->name(), project->fileName());
+   m_stackedProjectViews->addWidget (view);
 
    /**
     * remember and return it
@@ -128,18 +158,27 @@ void KateProjectPluginView::writeSessionConfig( KConfigBase* config, const QStri
   Q_UNUSED( groupPrefix );
 }
 
-QString KateProjectPluginView::projectFileName ()
+QString KateProjectPluginView::projectFileName () const
 {
-  QWidget *active = m_toolBox->currentWidget ();
+  QWidget *active = m_stackedProjectViews->currentWidget ();
   if (!active)
     return QString ();
 
   return static_cast<KateProjectView *> (active)->project()->fileName ();
 }
 
-QStringList KateProjectPluginView::projectFiles ()
+QVariantMap KateProjectPluginView::projectMap () const
 {
-  KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
+  QWidget *active = m_stackedProjectViews->currentWidget ();
+  if (!active)
+    return QVariantMap ();
+
+  return static_cast<KateProjectView *> (active)->project()->projectMap ();
+}
+
+QStringList KateProjectPluginView::projectFiles () const
+{
+  KateProjectView *active = static_cast<KateProjectView *> (m_stackedProjectViews->currentWidget ());
   if (!active)
     return QStringList ();
 
@@ -149,35 +188,105 @@ QStringList KateProjectPluginView::projectFiles ()
 void KateProjectPluginView::slotViewChanged ()
 {
   /**
-   * get active project view
-   */
-  KateProjectView *active = static_cast<KateProjectView *> (m_toolBox->currentWidget ());
-  if (!active)
-    return;
-  
-  /**
    * get active view
    */
   KTextEditor::View *activeView = mainWindow()->activeView ();
-  if (!activeView)
+
+  /**
+   * update pointer, maybe disconnect before
+   */
+  if (m_activeTextEditorView)
+    m_activeTextEditorView->document()->disconnect (this);
+  m_activeTextEditorView = activeView;
+
+  /**
+   * no current active view, return
+   */
+  if (!m_activeTextEditorView)
     return;
-  
+
+  /**
+   * connect to url changed, for auto load
+   */
+  connect (m_activeTextEditorView->document(), SIGNAL(documentUrlChanged (KTextEditor::Document *)), this, SLOT(slotDocumentUrlChanged (KTextEditor::Document *)));
+
+  /**
+   * trigger slot once
+   */
+  slotDocumentUrlChanged (m_activeTextEditorView->document());
+}
+
+void KateProjectPluginView::slotCurrentChanged (int index)
+{
+  /**
+   * trigger change of stacked widget
+   */
+  m_stackedProjectViews->setCurrentIndex (index);
+
+  /**
+   * project file name might have changed
+   */
+  emit projectFileNameChanged ();
+  emit projectMapChanged ();
+}
+
+void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *document)
+{
   /**
    * abort if empty url or no local path
    */
-  if (activeView->document()->url().isEmpty() || !activeView->document()->url().isLocalFile())
+  if (document->url().isEmpty() || !document->url().isLocalFile())
     return;
-  
+
   /**
-   * else get local filename and then select it
+   * search matching project
    */
-  active->selectFile (activeView->document()->url().toLocalFile ());
+  KateProject *project = m_plugin->projectForUrl (document->url());
+  if (!project)
+    return;
+
+  /**
+   * get active project view and switch it, if it is for a different project
+   */
+  KateProjectView *active = static_cast<KateProjectView *> (m_stackedProjectViews->currentWidget ());
+  if (active != m_project2View.value (project)) {
+    int index = m_projectsCombo->findData (project->fileName());
+    if (index >= 0)
+      m_projectsCombo->setCurrentIndex (index);
+  }
+
+  /**
+   * get local filename and then select it
+   */
+  active->selectFile (document->url().toLocalFile ());
 }
 
-void KateProjectPluginView::slotCurrentChanged (int)
+void KateProjectPluginView::slotViewCreated (KTextEditor::View *view)
 {
-  emit projectFileNameChanged ();
+  /**
+   * connect to destroyed
+   */
+  connect (view, SIGNAL(destroyed (QObject *)), this, SLOT(slotViewDestroyed (QObject *)));
+  
+  /**
+   * add completion model if possible
+   */
+  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
+  if (cci)
+    cci->registerCompletionModel (m_plugin->completion());
+  
+  /**
+   * remember for this view we need to cleanup!
+   */
+  m_textViews.insert (view);
+}
+
+void KateProjectPluginView::slotViewDestroyed (QObject *view)
+{
+  /**
+   * remove remembered views for which we need to cleanup on exit!
+   */
+  m_textViews.remove (view);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
-

@@ -21,11 +21,16 @@
 #ifndef _PLUGIN_KATE_PROJECT_H_
 #define _PLUGIN_KATE_PROJECT_H_
 
+#include <QFileSystemWatcher>
+
+#include <ktexteditor/document.h>
+
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
 #include <kxmlguiclient.h>
 
 #include "kateproject.h"
+#include "kateprojectcompletion.h"
 
 class KateProjectPlugin : public Kate::Plugin
 {
@@ -36,9 +41,9 @@ class KateProjectPlugin : public Kate::Plugin
     virtual ~KateProjectPlugin();
 
     Kate::PluginView *createView( Kate::MainWindow *mainWindow );
-    
+
     /**
-     * Get project for given filename.
+     * Get project for given project filename.
      * Will open a new one if not already open, else return the already open one.
      * Null pointer if no project can be opened.
      * File name will be canonicalized!
@@ -46,31 +51,96 @@ class KateProjectPlugin : public Kate::Plugin
      * @return project or null if not openable
      */
     KateProject *projectForFileName (const QString &fileName);
+
+    /**
+     * Search and open project that contains given url, if possible.
+     * Will search upwards for .kateproject file, if the url is a local file.
+     * Will use internally projectForFileName if a .kateproject file is found.
+     * @param url url to search matching project for
+     * @return project or null if not openable
+     */
+    KateProject *projectForUrl (const KUrl &url);
+
+    /**
+     * get list of all current open projects
+     * @return list of all open projects
+     */
+    QList<KateProject *> projects () const
+    {
+      return m_fileName2Project.values();
+    }
     
+    /**
+     * Get global code completion.
+     * @return global completion object for KTextEditor::View
+     */
+    KateProjectCompletion *completion ()
+    {
+      return &m_completion;
+    }
+    
+    /**
+     * Map current open documents to projects.
+     * @param document document we want to know which project it belongs to
+     * @return project or 0 if none found for this document
+     */
+    KateProject *projectForDocument (KTextEditor::Document *document)
+    {
+      return m_document2Project.value (document);
+    }
+
   signals:
     /**
      * Signal that a new project got created.
      * @param project new created project
      */
     void projectCreated (KateProject *project);
-    
+
   private slots:
     /**
      * New document got created, we need to update our connections
      * @param document new created document
      */
     void slotDocumentCreated (KTextEditor::Document *document);
-    
+
+    /**
+     * Document got destroyed.
+     * @param document deleted document
+     */
+    void slotDocumentDestroyed (QObject *document);
+
     /**
      * Url changed, to auto-load projects
      */
     void slotDocumentUrlChanged (KTextEditor::Document *document);
-    
+
+    /**
+     * did some project file change?
+     * @param path name of directory that did change
+     */
+    void slotDirectoryChanged (const QString &path);
+
   private:
     /**
      * open plugins, map fileName => project
      */
     QMap<QString, KateProject *> m_fileName2Project;
+
+    /**
+     * filesystem watcher to keep track of all project files
+     * and auto-reload
+     */
+    QFileSystemWatcher m_fileWatcher;
+    
+    /**
+     * Mapping document => project
+     */
+    QHash<QObject *, KateProject *> m_document2Project;
+    
+    /**
+     * Project completion
+     */
+    KateProjectCompletion m_completion;
 };
 
 #endif

@@ -19,26 +19,68 @@
  */
 
 #include "kateproject.h"
+#include "kateprojectworker.h"
+
+#include <ktexteditor/document.h>
 
 #include <QDir>
-#include <QDirIterator>
 #include <QFile>
 #include <QFileInfo>
-#include <QProcess>
-
-#include <KMimeType>
-#include <KIconLoader>
 
 #include <qjson/parser.h>
 
+#include <algorithm>
+
 KateProject::KateProject ()
   : QObject ()
-  , m_model (new QStandardItemModel (this))
+  , m_worker (new KateProjectWorker (this))
+  , m_file2Item (new QMap<QString, QStandardItem *>())
+  , m_completionInfo (new QStringList ())
 {
+  /**
+   * move worker object over and start our worker thread
+   */
+  m_worker->moveToThread (&m_thread);
+  m_thread.start ();
 }
 
 KateProject::~KateProject ()
 {
+  /**
+   * worker must be already gone!
+   */
+  Q_ASSERT (!m_worker);
+
+  /**
+   * delete other data
+   */
+  delete m_file2Item;
+  delete m_completionInfo;
+}
+
+void KateProject::triggerDeleteLater ()
+{
+  /**
+   * only do this once
+   */
+  Q_ASSERT (m_worker);
+
+  /**
+   * quit the thread event loop and wait for completion
+   */
+  m_thread.quit ();
+  m_thread.wait ();
+
+  /**
+   * delete worker, before thread is deleted
+   */
+  delete m_worker;
+  m_worker = 0;
+
+  /**
+   * trigger delete later
+   */
+  deleteLater ();
 }
 
 bool KateProject::load (const QString &fileName)
@@ -60,7 +102,7 @@ bool KateProject::load (const QString &fileName)
   return reload ();
 }
 
-bool KateProject::reload ()
+bool KateProject::reload (bool force)
 {
   /**
    * open the file for reading, bail out on error!
@@ -81,25 +123,35 @@ bool KateProject::reload ()
   /**
    * now: get global group
    */
-  QVariantMap globalGroup = project.toMap ();
+  QVariantMap globalProject = project.toMap ();
 
   /**
    * no name, bad => bail out
    */
-  if (globalGroup["name"].toString().isEmpty())
+  if (globalProject["name"].toString().isEmpty())
     return false;
+  
+  /**
+   * anything changed?
+   * else be done without forced reload!
+   */
+  if (!force && (m_projectMap == globalProject))
+    return true;
 
   /**
    * setup global attributes in this object
    */
-  m_name = globalGroup["name"].toString();
+  m_projectMap = globalProject;
 
   /**
-   * now, clear model once and load other stuff that is possible in all groups
+   * emit that we changed stuff
    */
-  m_model->clear ();
-  m_file2Item.clear ();
-  loadGroup (m_model->invisibleRootItem(), globalGroup);
+  emit projectMapChanged ();
+
+  /**
+   * trigger worker to REALLY load the project model and stuff
+   */
+  QMetaObject::invokeMethod (m_worker, "loadProject", Qt::QueuedConnection, Q_ARG(QString, m_fileName), Q_ARG(QVariantMap, m_projectMap));
 
   /**
    * done ok ;)
@@ -107,256 +159,83 @@ bool KateProject::reload ()
   return true;
 }
 
-void KateProject::loadGroup (QStandardItem *parent, const QVariantMap &group)
+void KateProject::loadProjectDone (void *topLevel, void *file2Item)
 {
   /**
-   * recurse to sub-groups FIRST
+   * convert to right types
    */
-  QVariantList subGroups = group["groups"].toList ();
-  foreach (const QVariant &subGroupVariant, subGroups) {
-    /**
-     * convert to map and get name, else skip
-     */
-    QVariantMap subGroup = subGroupVariant.toMap ();
-    if (subGroup["name"].toString().isEmpty())
-      continue;
+  QStandardItem *topLevelItem = static_cast<QStandardItem*> (topLevel);
+  QMap<QString, QStandardItem *> *file2ItemMap = static_cast<QMap<QString, QStandardItem *>*> (file2Item);
 
-    /**
-     * recurse
-     */
-    QStandardItem *subGroupItem = new QStandardItem (QIcon (KIconLoader::global ()->loadIcon ("folder-documents", KIconLoader::Small)), subGroup["name"].toString());
-    loadGroup (subGroupItem, subGroup);
-    parent->appendRow (subGroupItem);
+  /**
+   * no worker any more, only cleanup the stuff we got from invoke!
+   */
+  if (!m_worker) {
+      delete topLevelItem;
+      delete file2ItemMap;
+      return;
   }
 
   /**
-   * load all specified files
+   * setup model data
    */
-  QVariantList files = group["files"].toList ();
-  foreach (const QVariant &fileVariant, files)
-    loadFilesEntry (parent, fileVariant.toMap ());
+  m_model.clear ();
+  m_model.invisibleRootItem()->appendColumn (topLevelItem->takeColumn (0));
+  delete topLevelItem;
+
+  /**
+   * setup file => item map
+   */
+  delete m_file2Item;
+  m_file2Item = file2ItemMap;
+
+  /**
+   * model changed
+   */
+  emit modelChanged ();
 }
 
-/**
- * small helper to construct directory parent items
- * @param dir2Item map for path => item
- * @param dirIcon directory icon
- * @param path current path we need item for
- * @return correct parent item for given path, will reuse existing ones
- */
-static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item, const QIcon &dirIcon, QString path)
+void KateProject::loadCompletionDone (void *completionInfo)
 {
   /**
-   * throw away simple /
+   * convert to right types
    */
-  if (path == "/")
-    path = "";
+  QStringList *completionInfoList = static_cast<QStringList *> (completionInfo);
 
   /**
-   * quick check: dir already seen?
+   * no worker any more, only cleanup the stuff we got from invoke!
    */
-  if (dir2Item.contains (path))
-    return dir2Item[path];
-
-  /**
-   * else: construct recursively
-   */
-  int slashIndex = path.lastIndexOf ('/');
-
-  /**
-   * no slash?
-   * simple, no recursion, append new item toplevel
-   */
-  if (slashIndex < 0) {
-    dir2Item[path] = new QStandardItem (dirIcon, path);
-    dir2Item[""]->appendRow (dir2Item[path]);
-    return dir2Item[path];
+  if (!m_worker) {
+      delete completionInfoList;
+      return;
   }
 
   /**
-   * else, split and recurse
+   * setup
    */
-  QString leftPart = path.left (slashIndex);
-  QString rightPart = path.right (path.size() - (slashIndex + 1));
-
-  /**
-   * special handling if / with nothing on one side are found
-   */
-  if (leftPart.isEmpty() || rightPart.isEmpty ())
-    return directoryParent (dir2Item, dirIcon, leftPart.isEmpty() ? rightPart : leftPart);
-
-  /**
-   * else: recurse on left side
-   */
-  dir2Item[path] = new QStandardItem (dirIcon, rightPart);
-  directoryParent (dir2Item, dirIcon, leftPart)->appendRow (dir2Item[path]);
-  return dir2Item[path];
+  delete m_completionInfo;
+  m_completionInfo = completionInfoList;
 }
 
-void KateProject::loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry)
+void KateProject::completionMatches (QStandardItemModel &model, KTextEditor::View *view, const KTextEditor::Range & range)
 {
   /**
-   * get directory to open or skip
+   * word to complete
    */
-  QDir dir (QFileInfo (m_fileName).absoluteDir());
-  if (!dir.cd (filesEntry["directory"].toString()))
-    return;
-
+  QString word = view->document()->text(range);
+  
   /**
-   * get recursive attribute, default is TRUE
+   * get all matching things
+   * use binary search for prefix
    */
-  const bool recursive = !filesEntry.contains ("recursive") || filesEntry["recursive"].toBool();
-
-  /**
-   * now: choose between different methodes to get files in the directory
-   */
-  QStringList files;
-
-  /**
-   * use GIT
-   */
-  if (filesEntry["git"].toBool()) {
-    /**
-     * try to run git with ls-files for this directory
-     */
-    QProcess git;
-    git.setWorkingDirectory (dir.absolutePath());
-    QStringList args;
-    args << "ls-files" << ".";
-    git.start("git", args);
-    if (!git.waitForStarted() || !git.waitForFinished())
-      return;
-
-    /**
-     * get output and split up into files
-     */
-    QStringList relFiles = QString::fromLocal8Bit (git.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
-
-    /**
-     * prepend the directory path
-     */
-    foreach (QString relFile, relFiles) {
-      /**
-       * skip non-direct files if not recursive
-       */
-      if (!recursive && (relFile.indexOf ("/") != -1))
-        continue;
-
-      files.append (dir.absolutePath() + "/" + relFile);
-    }
-  }
-
-  /**
-   * use SVN
-   */
-  if (filesEntry["svn"].toBool()) {
-    /**
-     * try to run git with ls-files for this directory
-     */
-    QProcess svn;
-    svn.setWorkingDirectory (dir.absolutePath());
-    QStringList args;
-    args << "list" << ".";
-    if (recursive)
-      args << "--depth=infinity";
-    svn.start("svn", args);
-    if (!svn.waitForStarted() || !svn.waitForFinished())
-      return;
-
-    /**
-     * get output and split up into files
-     */
-    QStringList relFiles = QString::fromLocal8Bit (svn.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
-
-    /**
-     * prepend the directory path
-     */
-    foreach (QString relFile, relFiles)
-      files.append (dir.absolutePath() + "/" + relFile);
-  }
-
-  /**
-   * fallback to use QDirIterator and search files ourself!
-   */
-  else {
-    /**
-    * default filter: only files!
-    */
-    dir.setFilter (QDir::Files);
-
-    /**
-    * set name filters, if any
-    */
-    QStringList filters = filesEntry["filters"].toStringList();
-    if (!filters.isEmpty())
-      dir.setNameFilters (filters);
-
-    /**
-    * construct flags for iterator
-    */
-    QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
-    if (recursive)
-      flags = flags | QDirIterator::Subdirectories;
-
-    /**
-    * create iterator and collect all files
-    */
-    QDirIterator dirIterator (dir, flags);
-    while (dirIterator.hasNext()) {
-      dirIterator.next();
-      files.append (dirIterator.filePath());
-    }
-  }
-
-  /**
-   * sort them
-   */
-  files.sort ();
-
-  /**
-   * construct paths first in tree and items in a map
-   */
-  QMap<QString, QStandardItem *> dir2Item;
-  dir2Item[""] = parent;
-  QIcon dirIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
-  QList<QPair<QStandardItem *, QStandardItem *> > item2ParentPath;
-  foreach (QString filePath, files) {
-    /**
-     * get file info and skip NON-files
-     */
-    QFileInfo fileInfo (filePath);
-    if (!fileInfo.isFile())
+  QStringList::iterator lowerBound = std::lower_bound (m_completionInfo->begin(), m_completionInfo->end(), word);
+  while (lowerBound != m_completionInfo->end()) {
+    if (lowerBound->startsWith (word)) {
+      model.appendRow (new QStandardItem (*lowerBound));
+      ++lowerBound;
       continue;
-
-    /**
-      * skip dupes
-      */
-     if (m_file2Item.contains(filePath))
-       continue;
-
-     /**
-      * get the right icon for the file
-      */
-     QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(filePath));
-     QIcon icon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
-
-     /**
-      * construct the item with right directory prefix
-      * already hang in directories in tree
-      */
-     QStandardItem *fileItem = new QStandardItem (icon, fileInfo.fileName());
-     item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dirIcon, dir.relativeFilePath (fileInfo.absolutePath()))));
-     fileItem->setData (filePath, Qt::UserRole);
-     m_file2Item[filePath] = fileItem;
-  }
-
-  /**
-   * plug in the file items to the tree
-   */
-  QList<QPair<QStandardItem *, QStandardItem *> >::const_iterator i = item2ParentPath.constBegin();
-  while (i != item2ParentPath.constEnd()) {
-    i->second->appendRow (i->first);
-    ++i;
+    }    
+    break;
   }
 }
 

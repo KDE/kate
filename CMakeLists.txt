@@ -16,6 +16,7 @@ macro_ensure_out_of_source_build("kate requires an out of source build. Please c
 # config.h
 if(NOT APPLE)
   check_function_exists (fdatasync HAVE_FDATASYNC)
+  check_function_exists (ctermid HAVE_CTERMID)
 endif(NOT APPLE)
 
 configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)

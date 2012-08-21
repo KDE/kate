@@ -31,6 +31,16 @@
 #include <QFileInfo>
 #include <QTime>
 
+#include "config.h"
+
+#ifdef HAVE_CTERMID
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <termios.h>
+#include <unistd.h>
+#endif
+
 KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent)
   , m_completion (this)
@@ -47,7 +57,28 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
    */
   connect (application()->documentManager(), SIGNAL(documentCreated (KTextEditor::Document *)), this, SLOT(slotDocumentCreated (KTextEditor::Document *)));
   connect (&m_fileWatcher, SIGNAL(directoryChanged (const QString &)), this, SLOT(slotDirectoryChanged (const QString &)));
-
+  
+#ifdef HAVE_CTERMID
+  /**
+   * open project for our current working directory, if this kate has a terminal
+   * http://stackoverflow.com/questions/1312922/detect-if-stdin-is-a-terminal-or-pipe-in-c-c-qt
+   */
+  char tty[L_ctermid+1] = {0};
+  ctermid (tty);
+  int fd = ::open(tty, O_RDONLY);
+  if (fd >= 0) {
+    /**
+     * open project for working dir!
+     */
+    projectForDir (QDir::current ());
+    
+    /**
+     * close again
+     */
+    ::close (fd);
+  }
+#endif
+  
   /**
    * connect for all already existing documents
    */

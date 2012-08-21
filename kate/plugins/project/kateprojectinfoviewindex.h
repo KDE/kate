@@ -64,6 +64,12 @@ class KateProjectInfoViewIndex : public QWidget
      * @param text new text
      */
     void slotTextChanged (const QString &text);
+    
+    /**
+     * item got clicked, do stuff, like open document
+     * @param index model index of clicked item
+     */
+    void slotClicked (const QModelIndex &index);
 
   private:
     /**

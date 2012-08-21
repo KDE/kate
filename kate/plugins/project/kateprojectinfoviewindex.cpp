@@ -57,6 +57,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex (KateProjectPluginView *plugi
    * connect needed signals
    */
   connect (m_lineEdit, SIGNAL(textChanged (const QString &)), this, SLOT(slotTextChanged (const QString &)));
+  connect (m_treeView, SIGNAL(clicked (const QModelIndex &)), this, SLOT(slotClicked (const QModelIndex &)));
   
   /**
    * trigger once search with nothing
@@ -88,6 +89,30 @@ void KateProjectInfoViewIndex::slotTextChanged (const QString &text)
   m_treeView->resizeColumnToContents (2);
   m_treeView->resizeColumnToContents (1);
   m_treeView->resizeColumnToContents (0);
+}
+
+void KateProjectInfoViewIndex::slotClicked (const QModelIndex &index)
+{
+  /**
+   * get path
+   */
+  QString filePath = m_model->item (index.row(), 2)->text();
+  if (filePath.isEmpty())
+    return;
+  
+  /**
+   * create view
+   */
+  KTextEditor::View *view = m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
+  if (!view)
+    return;
+  
+  /**
+   * set cursor, if possible
+   */
+  int line = m_model->item (index.row(), 3)->text().toInt();
+  if (line >= 1)
+    view->setCursorPosition (KTextEditor::Cursor (line - 1, 0));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -32,6 +32,11 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex (KateProjectPluginView *plugi
   , m_model (new QStandardItemModel (m_treeView))
 {
   /**
+   * default style
+   */
+  m_treeView->setEditTriggers (QAbstractItemView::NoEditTriggers);
+  
+  /**
    * attach model
    * kill selection model
    */
@@ -52,6 +57,11 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex (KateProjectPluginView *plugi
    * connect needed signals
    */
   connect (m_lineEdit, SIGNAL(textChanged (const QString &)), this, SLOT(slotTextChanged (const QString &)));
+  
+  /**
+   * trigger once search with nothing
+   */
+  slotTextChanged (QString());
 }
 
 KateProjectInfoViewIndex::~KateProjectInfoViewIndex ()
@@ -61,11 +71,23 @@ KateProjectInfoViewIndex::~KateProjectInfoViewIndex ()
 void KateProjectInfoViewIndex::slotTextChanged (const QString &text)
 {
   /**
-   * clear results and trigger search
+   * setup model
    */
   m_model->clear();
-  if (m_project->projectIndex())
+  m_model->setHorizontalHeaderLabels (QStringList () << "Name" << "Kind" << "File" << "Line");
+  
+  /**
+   * get results
+   */
+  if (m_project->projectIndex() && !text.isEmpty())
     m_project->projectIndex()->findMatches (*m_model, text, KateProjectIndex::FindMatches);
+  
+  /**
+   * resize
+   */
+  m_treeView->resizeColumnToContents (2);
+  m_treeView->resizeColumnToContents (1);
+  m_treeView->resizeColumnToContents (0);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -20,15 +20,17 @@
 
 #include "kateprojectinfoview.h"
 #include "kateprojectpluginview.h"
+#include "kateprojectinfoviewindex.h"
 
 KateProjectInfoView::KateProjectInfoView (KateProjectPluginView *pluginView, KateProject *project)
   : QTabWidget ()
   , m_pluginView (pluginView)
   , m_project (project)
 {
-  // add dummy widget
-  QWidget *test = new QWidget ();
-  addTab (test, project->name());
+  /**
+   * add index view
+   */
+  addTab (new KateProjectInfoViewIndex (pluginView, project), "Index");
 }
 
 KateProjectInfoView::~KateProjectInfoView ()

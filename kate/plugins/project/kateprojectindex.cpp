@@ -129,6 +129,12 @@ void KateProjectIndex::findMatches (QStandardItemModel &model, const QString &se
    */
   do {
     /**
+     * skip if no name
+     */
+    if (!entry.name)
+      continue;
+    
+    /**
      * get name
      */
     QString name (QString::fromLocal8Bit(entry.name));
@@ -149,9 +155,14 @@ void KateProjectIndex::findMatches (QStandardItemModel &model, const QString &se
     
       case FindMatches:
         /**
-         * add new find item
+         * add new find item, contains of multiple columns
          */
-        model.appendRow (new QStandardItem (name));
+        QList<QStandardItem*> items;
+        items << new QStandardItem (name);
+        items << new QStandardItem (entry.kind ? QString::fromLocal8Bit(entry.kind) : QString());
+        items << new QStandardItem (entry.file ? QString::fromLocal8Bit(entry.file) : QString());
+        items << new QStandardItem (QString("%1").arg(entry.address.lineNumber));
+        model.appendRow (items);
         break;
     }
   } while (tagsFindNext (m_ctagsIndexHandle, &entry) == TagSuccess);

@@ -42,11 +42,15 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
   setHeaderHidden (true);
   setEditTriggers (QAbstractItemView::NoEditTriggers);
 
-   /**
-    * attach view => project
-    */
+  /**
+   * attach view => project
+   * do this once, model is stable for whole project life time
+   * kill selection model
+   */
+  QItemSelectionModel *m = selectionModel();
   setModel (m_project->model ());
-
+  delete m;
+  
   /**
    * connect needed signals
    */

@@ -18,12 +18,13 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef KATE_PROJECT_INFO_VIEW_H
-#define KATE_PROJECT_INFO_VIEW_H
+#ifndef KATE_PROJECT_INFO_VIEW_INDEX_H
+#define KATE_PROJECT_INFO_VIEW_INDEX_H
 
 #include "kateproject.h"
 
-#include <QTabWidget>
+#include <QLineEdit>
+#include <QTreeView>
 
 class KateProjectPluginView;
 
@@ -31,7 +32,7 @@ class KateProjectPluginView;
  * Class representing a view of a project.
  * A tree like view of project content.
  */
-class KateProjectInfoView : public QTabWidget
+class KateProjectInfoViewIndex : public QWidget
 {
   Q_OBJECT
 
@@ -41,12 +42,12 @@ class KateProjectInfoView : public QTabWidget
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectInfoView (KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectInfoViewIndex (KateProjectPluginView *pluginView, KateProject *project);
 
     /**
      * deconstruct info view
      */
-    ~KateProjectInfoView ();
+    ~KateProjectInfoViewIndex ();
 
     /**
      * our project.
@@ -56,6 +57,13 @@ class KateProjectInfoView : public QTabWidget
     {
       return m_project;
     }
+    
+  private Q_SLOTS:
+    /**
+     * Called if text in lineedit changes, then we need to search
+     * @param text new text
+     */
+    void slotTextChanged (const QString &text);
 
   private:
     /**
@@ -67,6 +75,21 @@ class KateProjectInfoView : public QTabWidget
      * our project
      */
     KateProject *m_project;
+    
+    /**
+     * line edit which allows to search index
+     */
+    QLineEdit *m_lineEdit;
+    
+    /**
+     * tree view for results
+     */
+    QTreeView *m_treeView;
+    
+    /**
+     * standard item model for results
+     */
+    QStandardItemModel *m_model;
 };
 
 #endif

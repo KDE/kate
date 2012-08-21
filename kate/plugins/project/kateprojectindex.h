@@ -65,7 +65,7 @@ class KateProjectIndex
         CompletionMatches,
         
         /**
-         * Find matches, containing name, type, file, ...
+         * Find matches, containing name, kind, file, line, ...
          */
         FindMatches
     };

@@ -32,12 +32,16 @@
 KateProjectItem::KateProjectItem (Type type, const QString &text)
   : QStandardItem (text)
   , m_type (type)
-  , m_iconCreated (false)
+  , m_icon (0)
 {
 }
 
 KateProjectItem::~KateProjectItem ()
 {
+  /**
+   * cleanup
+   */
+  delete m_icon;
 }
 
 QVariant KateProjectItem::data (int role) const
@@ -52,38 +56,37 @@ QVariant KateProjectItem::data (int role) const
      * but never query gui stuff!
      */
     Q_ASSERT (QThread::currentThread () == QCoreApplication::instance()->thread ());
-    
+
     /**
      * create icon, on demand
      */
-    if (!m_iconCreated) {
+    if (!m_icon) {
       /**
        * use right type
        */
       switch (m_type) {
         case Project:
-          m_icon = QIcon (KIconLoader::global ()->loadIcon ("folder-documents", KIconLoader::Small));
+          m_icon = new QIcon (KIconLoader::global ()->loadIcon ("folder-documents", KIconLoader::Small));
           break;
-          
+
         case Directory:
-          m_icon = QIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
+          m_icon = new QIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
           break;
-          
+
         case File: {
           QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(data(Qt::UserRole).toString()));
-          m_icon = QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
+          m_icon = new QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
           break;
         }
       }
-      m_iconCreated = true;
     }
-    
+
     /**
      * return the cached icon
      */
-    return QVariant (m_icon);
+    return QVariant (*m_icon);
   }
-  
+
   /**
    * use normal data method
    */

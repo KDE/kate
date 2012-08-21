@@ -38,7 +38,7 @@ class KateProjectItem : public QStandardItem
       , Directory
       , File
     };
-    
+
     /**
      * construct new item with given text
      * @param type type for this item
@@ -50,7 +50,7 @@ class KateProjectItem : public QStandardItem
      * deconstruct project
      */
     ~KateProjectItem ();
-    
+
     /**
      * Overwritten data methode for on-demand icon creation and co.
      * @param role role to get data for
@@ -63,16 +63,11 @@ class KateProjectItem : public QStandardItem
      * type
      */
     const Type m_type;
-    
-    /**
-     * icon already created?
-     */
-    mutable bool m_iconCreated;
-    
+
     /**
      * cached icon
      */
-    mutable QIcon m_icon;
+    mutable QIcon *m_icon;
 };
 
 #endif

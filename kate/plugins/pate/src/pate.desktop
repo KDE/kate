@@ -5,6 +5,7 @@ X-KDE-Library=pateplugin
 X-Kate-Version=2.8
 Name=Python Plugins
 Name[cs]=Moduly Pythonu
+Name[de]=Python-Module
 Name[he]=תוספי Python
 Name[hu]=Python bővítmények
 Name[nb]=Python programtillegg

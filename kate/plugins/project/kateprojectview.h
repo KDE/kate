@@ -65,10 +65,10 @@ class KateProjectView : public QTreeView
 
   private Q_SLOTS:
     /**
-     * item got activated, do stuff, like open document
-     * @param index model index of activated item
+     * item got clicked, do stuff, like open document
+     * @param index model index of clicked item
      */
-    void slotActivated (const QModelIndex &index);
+    void slotClicked (const QModelIndex &index);
 
     /**
      * Triggered on model changes.

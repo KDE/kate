@@ -50,7 +50,7 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
   /**
    * connect needed signals
    */
-  connect (this, SIGNAL(activated (const QModelIndex &)), this, SLOT(slotActivated (const QModelIndex &)));
+  connect (this, SIGNAL(clicked (const QModelIndex &)), this, SLOT(slotClicked (const QModelIndex &)));
   connect (m_project, SIGNAL(modelChanged ()), this, SLOT(slotModelChanged ()));
 
   /**
@@ -80,7 +80,7 @@ void KateProjectView::selectFile (const QString &file)
   selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
 }
 
-void KateProjectView::slotActivated (const QModelIndex &index)
+void KateProjectView::slotClicked (const QModelIndex &index)
 {
   /**
    * open document, if any usable user data

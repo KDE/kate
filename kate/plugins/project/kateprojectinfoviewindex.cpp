@@ -35,6 +35,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex (KateProjectPluginView *plugi
    * default style
    */
   m_treeView->setEditTriggers (QAbstractItemView::NoEditTriggers);
+  m_model->setHorizontalHeaderLabels (QStringList () << "Name" << "Kind" << "File" << "Line");
   
   /**
    * attach model
@@ -72,10 +73,10 @@ KateProjectInfoViewIndex::~KateProjectInfoViewIndex ()
 void KateProjectInfoViewIndex::slotTextChanged (const QString &text)
 {
   /**
-   * setup model
+   * init
    */
-  m_model->clear();
-  m_model->setHorizontalHeaderLabels (QStringList () << "Name" << "Kind" << "File" << "Line");
+  m_treeView->setSortingEnabled (false);
+  m_model->setRowCount(0);
   
   /**
    * get results
@@ -84,8 +85,9 @@ void KateProjectInfoViewIndex::slotTextChanged (const QString &text)
     m_project->projectIndex()->findMatches (*m_model, text, KateProjectIndex::FindMatches);
   
   /**
-   * resize
+   * tree view polish ;)
    */
+  m_treeView->setSortingEnabled (true);
   m_treeView->resizeColumnToContents (2);
   m_treeView->resizeColumnToContents (1);
   m_treeView->resizeColumnToContents (0);

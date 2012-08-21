@@ -28,7 +28,6 @@
 #include <kate/documentmanager.h>
 #include <ktexteditor/document.h>
 
-#include <QDir>
 #include <QFileInfo>
 #include <QTime>
 
@@ -121,6 +120,38 @@ KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
   return project;
 }
 
+KateProject *KateProjectPlugin::projectForDir (QDir dir)
+{
+  /**
+   * search projects upwards
+   * with recursion guard
+   */
+  QSet<QString> seenDirectories;
+  while (!seenDirectories.contains (dir.absolutePath ())) {
+    /**
+     * fill recursion guard
+     */
+    seenDirectories.insert (dir.absolutePath ());
+
+    /**
+     * check for project and load it if found
+     */
+    if (dir.exists (".kateproject"))
+      return projectForFileName (dir.absolutePath () + "/.kateproject");
+
+    /**
+     * else: cd up, if possible or abort
+     */
+    if (!dir.cdUp())
+      break;
+  }
+
+  /**
+   * nothing there
+   */
+  return 0;
+}
+
 KateProject *KateProjectPlugin::projectForUrl (const KUrl &url)
 {
   /**
@@ -131,37 +162,9 @@ KateProject *KateProjectPlugin::projectForUrl (const KUrl &url)
 
   /**
    * else get local filename and then the dir for it
+   * pass this to right search function
    */
-  QDir fileDirectory = QFileInfo(url.toLocalFile ()).absoluteDir ();
-
-  /**
-   * now, search projects upwards
-   * with recursion guard
-   */
-  QSet<QString> seenDirectories;
-  while (!seenDirectories.contains (fileDirectory.absolutePath ())) {
-    /**
-     * fill recursion guard
-     */
-    seenDirectories.insert (fileDirectory.absolutePath ());
-
-    /**
-     * check for project and load it if found
-     */
-    if (fileDirectory.exists (".kateproject"))
-      return projectForFileName (fileDirectory.absolutePath () + "/.kateproject");
-
-    /**
-     * else: cd up, if possible or abort
-     */
-    if (!fileDirectory.cdUp())
-      break;
-  }
-
-  /**
-   * nothing there
-   */
-  return 0;
+  return projectForDir (QFileInfo(url.toLocalFile ()).absoluteDir ());
 }
 
 void KateProjectPlugin::slotDocumentCreated (KTextEditor::Document *document)

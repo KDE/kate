@@ -22,6 +22,7 @@
 #define _PLUGIN_KATE_PROJECT_H_
 
 #include <QFileSystemWatcher>
+#include <QDir>
 
 #include <ktexteditor/document.h>
 
@@ -51,11 +52,20 @@ class KateProjectPlugin : public Kate::Plugin
      * @return project or null if not openable
      */
     KateProject *projectForFileName (const QString &fileName);
-
+    
+    /**
+     * Search and open project for given dir, if possible.
+     * Will search upwards for .kateproject file.
+     * Will use internally projectForFileName if project file is found.
+     * @param dir dir to search matching project for
+     * @return project or null if not openable
+     */
+    KateProject *projectForDir (QDir dir);
+    
     /**
      * Search and open project that contains given url, if possible.
      * Will search upwards for .kateproject file, if the url is a local file.
-     * Will use internally projectForFileName if a .kateproject file is found.
+     * Will use internally projectForDir.
      * @param url url to search matching project for
      * @return project or null if not openable
      */

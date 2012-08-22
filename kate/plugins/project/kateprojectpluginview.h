@@ -85,6 +85,16 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      */
     void slotViewDestroyed (QObject *view);
     
+    /**
+     * Activate the previous project.
+     */
+    void slotProjectPrev ();
+    
+    /**
+     * Activate the next project.
+     */
+    void slotProjectNext ();
+    
   Q_SIGNALS:
     /**
      * Emitted if projectFileName changed.

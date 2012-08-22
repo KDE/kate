@@ -86,8 +86,8 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   /**
    * back + forward
    */
-  //actionCollection()->addAction( KStandardAction::Back, "projects_prev_project", this, SLOT(slotDocumentPrev()) );
-  //actionCollection()->addAction( KStandardAction::Forward, "projects_next_project", this, SLOT(slotDocumentNext()) );
+  actionCollection()->addAction (KStandardAction::Back, "projects_prev_project", this, SLOT(slotProjectPrev()))->setShortcut (Qt::CTRL | Qt::ALT | Qt::Key_Left);
+  actionCollection()->addAction (KStandardAction::Forward, "projects_next_project", this, SLOT(slotProjectNext()))->setShortcut (Qt::CTRL | Qt::ALT | Qt::Key_Right);
   
   /**
    * add us to gui
@@ -298,6 +298,28 @@ void KateProjectPluginView::slotViewDestroyed (QObject *view)
    * remove remembered views for which we need to cleanup on exit!
    */
   m_textViews.remove (view);
+}
+
+void KateProjectPluginView::slotProjectPrev ()
+{
+  if (!m_projectsCombo->count())
+    return;
+  
+  if (m_projectsCombo->currentIndex () == 0)
+    m_projectsCombo->setCurrentIndex (m_projectsCombo->count()-1);
+  else
+    m_projectsCombo->setCurrentIndex (m_projectsCombo->currentIndex () - 1);
+}
+
+void KateProjectPluginView::slotProjectNext ()
+{
+  if (!m_projectsCombo->count())
+    return;
+  
+  if (m_projectsCombo->currentIndex () + 1 == m_projectsCombo->count())
+    m_projectsCombo->setCurrentIndex (0);
+  else
+    m_projectsCombo->setCurrentIndex (m_projectsCombo->currentIndex () + 1);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -46,11 +46,6 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
     , m_plugin (plugin)
 {
   /**
-   * add us to gui
-   */
-  mainWindow()->guiFactory()->addClient( this );
-
-  /**
    * create toolviews
    */
   m_toolView = mainWindow()->createToolView ("kateproject", Kate::MainWindow::Left, SmallIcon("project-open"), i18n("Projects"));
@@ -87,6 +82,17 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
    * trigger once view change, to highlight right document
    */
   slotViewChanged ();
+  
+  /**
+   * back + forward
+   */
+  //actionCollection()->addAction( KStandardAction::Back, "projects_prev_project", this, SLOT(slotDocumentPrev()) );
+  //actionCollection()->addAction( KStandardAction::Forward, "projects_next_project", this, SLOT(slotDocumentNext()) );
+  
+  /**
+   * add us to gui
+   */
+  mainWindow()->guiFactory()->addClient( this );
 }
 
 KateProjectPluginView::~KateProjectPluginView()

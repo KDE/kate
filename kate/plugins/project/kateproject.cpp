@@ -141,13 +141,6 @@ bool KateProject::reload (bool force)
 void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item)
 {
   /**
-   * no worker any more, do nothing!
-   * shared pointers will do deletions
-   */
-  if (!m_worker)
-      return;
-
-  /**
    * setup model data
    */
   m_model.clear ();
@@ -166,13 +159,6 @@ void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, Kate
 
 void KateProject::loadIndexDone (KateProjectSharedProjectIndex projectIndex)
 {
-  /**
-   * no worker any more, do nothing!
-   * shared pointers will do deletions
-   */
-  if (!m_worker)
-      return;
-
   /**
    * move to our project
    */

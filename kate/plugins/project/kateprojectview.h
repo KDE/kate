@@ -63,6 +63,11 @@ class KateProjectView : public QTreeView
      */
     void selectFile (const QString &file);
 
+    /**
+     * Open the selected document, if any.
+     */
+    void openSelectedDocument ();
+
   private Q_SLOTS:
     /**
      * item got clicked, do stuff, like open document

@@ -50,7 +50,7 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
   QItemSelectionModel *m = selectionModel();
   setModel (m_project->model ());
   delete m;
-  
+
   /**
    * connect needed signals
    */
@@ -82,6 +82,23 @@ void KateProjectView::selectFile (const QString &file)
   QModelIndex index = m_project->model()->indexFromItem (item);
   scrollTo (index, QAbstractItemView::EnsureVisible);
   selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+}
+
+void KateProjectView::openSelectedDocument ()
+{
+  /**
+   * anything selected?
+   */
+  QModelIndexList selecteStuff = selectedIndexes ();
+  if (selecteStuff.isEmpty())
+    return;
+
+  /**
+   * open document for first element, if possible
+   */
+  QString filePath = selecteStuff[0].data (Qt::UserRole).toString();
+  if (!filePath.isEmpty())
+    m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
 }
 
 void KateProjectView::slotClicked (const QModelIndex &index)

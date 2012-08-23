@@ -77,18 +77,18 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
    */
   foreach (KTextEditor::View *view, mainWindow()->views())
     slotViewCreated (view);
-  
+
   /**
    * trigger once view change, to highlight right document
    */
   slotViewChanged ();
-  
+
   /**
    * back + forward
    */
   actionCollection()->addAction (KStandardAction::Back, "projects_prev_project", this, SLOT(slotProjectPrev()))->setShortcut (Qt::CTRL | Qt::ALT | Qt::Key_Left);
   actionCollection()->addAction (KStandardAction::Forward, "projects_next_project", this, SLOT(slotProjectNext()))->setShortcut (Qt::CTRL | Qt::ALT | Qt::Key_Right);
-  
+
   /**
    * add us to gui
    */
@@ -105,7 +105,7 @@ KateProjectPluginView::~KateProjectPluginView()
     if (cci)
       cci->unregisterCompletionModel (m_plugin->completion());
   }
-  
+
   /**
    * cu toolviews
    */
@@ -235,6 +235,12 @@ void KateProjectPluginView::slotCurrentChanged (int index)
   m_stackedProjectInfoViews->setCurrentIndex (index);
 
   /**
+   * open currently selected document
+   */
+  if (QWidget *current = m_stackedProjectViews->currentWidget ())
+    static_cast<KateProjectView *> (current)->openSelectedDocument ();
+
+  /**
    * project file name might have changed
    */
   emit projectFileNameChanged ();
@@ -257,7 +263,13 @@ void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *docum
     return;
 
   /**
+   * select the file FIRST
+   */
+  m_project2View.value (project).first->selectFile (document->url().toLocalFile ());
+
+  /**
    * get active project view and switch it, if it is for a different project
+   * do this AFTER file selection
    */
   KateProjectView *active = static_cast<KateProjectView *> (m_stackedProjectViews->currentWidget ());
   if (active != m_project2View.value (project).first) {
@@ -265,11 +277,6 @@ void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *docum
     if (index >= 0)
       m_projectsCombo->setCurrentIndex (index);
   }
-
-  /**
-   * get local filename and then select it
-   */
-  active->selectFile (document->url().toLocalFile ());
 }
 
 void KateProjectPluginView::slotViewCreated (KTextEditor::View *view)
@@ -278,14 +285,14 @@ void KateProjectPluginView::slotViewCreated (KTextEditor::View *view)
    * connect to destroyed
    */
   connect (view, SIGNAL(destroyed (QObject *)), this, SLOT(slotViewDestroyed (QObject *)));
-  
+
   /**
    * add completion model if possible
    */
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
   if (cci)
     cci->registerCompletionModel (m_plugin->completion());
-  
+
   /**
    * remember for this view we need to cleanup!
    */
@@ -304,7 +311,7 @@ void KateProjectPluginView::slotProjectPrev ()
 {
   if (!m_projectsCombo->count())
     return;
-  
+
   if (m_projectsCombo->currentIndex () == 0)
     m_projectsCombo->setCurrentIndex (m_projectsCombo->count()-1);
   else
@@ -315,7 +322,7 @@ void KateProjectPluginView::slotProjectNext ()
 {
   if (!m_projectsCombo->count())
     return;
-  
+
   if (m_projectsCombo->currentIndex () + 1 == m_projectsCombo->count())
     m_projectsCombo->setCurrentIndex (0);
   else

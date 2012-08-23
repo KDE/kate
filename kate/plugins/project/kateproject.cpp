@@ -32,9 +32,11 @@
 KateProject::KateProject ()
   : QObject ()
   , m_worker (new KateProjectWorker (this))
-{ 
+  , m_thread (m_worker)
+{
   /**
    * move worker object over and start our worker thread
+   * thread will delete worker on run() exit
    */
   m_worker->moveToThread (&m_thread);
   m_thread.start ();
@@ -49,14 +51,14 @@ KateProject::~KateProject ()
 
   /**
    * quit the thread event loop and wait for completion
+   * will delete worker on thread run() exit
    */
   m_thread.quit ();
   m_thread.wait ();
 
   /**
-   * delete worker, before thread is deleted
+   * marks as deleted
    */
-  delete m_worker;
   m_worker = 0;
 }
 
@@ -107,7 +109,7 @@ bool KateProject::reload (bool force)
    */
   if (globalProject["name"].toString().isEmpty())
     return false;
-  
+
   /**
    * anything changed?
    * else be done without forced reload!

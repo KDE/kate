@@ -41,6 +41,46 @@ typedef QSharedPointer<KateProjectIndex> KateProjectSharedProjectIndex;
 Q_DECLARE_METATYPE(KateProjectSharedProjectIndex)
 
 /**
+ * Private worker thread.
+ * Will take care of worker object deletion.
+ */
+class KateProjectWorkerThread : public QThread
+{
+    public:
+        /**
+         * Construct thread for given worker
+         */
+        KateProjectWorkerThread (QObject *worker)
+          : QThread()
+          , m_worker (worker)
+        {
+        }
+
+    protected:
+        /**
+         * start the thread event loop
+         */
+        virtual void run()
+        {
+            /**
+             * run event loop
+             */
+            exec ();
+
+            /**
+             * kill worker in THIS thread
+             */
+            delete m_worker;
+        }
+
+    private:
+        /**
+         * Worker object
+         */
+        QObject *m_worker;
+};
+
+/**
  * Class representing a project.
  * Holds project properties like name, groups, contained files, ...
  */
@@ -53,7 +93,7 @@ class KateProject : public QObject
      * construct empty project
      */
     KateProject ();
-    
+
     /**
      * deconstruct project
      */
@@ -129,7 +169,7 @@ class KateProject : public QObject
     {
       return m_file2Item ? m_file2Item->value (file) : 0;
     }
-    
+
     /**
      * Access to project index.
      * May be null.
@@ -140,7 +180,7 @@ class KateProject : public QObject
     {
       return m_projectIndex.data();
     }
-    
+
   private Q_SLOTS:
     /**
      * Used for worker to send back the results of project loading
@@ -148,7 +188,7 @@ class KateProject : public QObject
      * @param file2Item new file => item mapping
      */
     void loadProjectDone (KateProjectSharedQStandardItem topLevel, KateProjectSharedQMapStringItem file2Item);
-    
+
     /**
      * Used for worker to send back the results of index loading
      * @param projectIndex new project index
@@ -170,11 +210,6 @@ class KateProject : public QObject
 
   private:
     /**
-     * our internal thread to load stuff and do things in background
-     */
-    QThread m_thread;
-
-    /**
      * the worker inside the background thread
      * if this is NULL, we are in our deconstruction state and should
      * ignore the feedback of our already stopped thread that
@@ -182,6 +217,11 @@ class KateProject : public QObject
      * only DELETE all stuff we need to cleanup in the slots
      */
     QObject *m_worker;
+
+    /**
+     * our internal thread to load stuff and do things in background
+     */
+    KateProjectWorkerThread m_thread;
 
     /**
      * project file name
@@ -207,7 +247,7 @@ class KateProject : public QObject
      * mapping files => items
      */
     KateProjectSharedQMapStringItem m_file2Item;
-    
+
     /**
      * project index, if any
      */

@@ -35,6 +35,7 @@
 
 #include <KFileDialog>
 #include <QDialog>
+#include <QHBoxLayout>
 #include <QVBoxLayout>
 
 K_PLUGIN_FACTORY(KateProjectPluginFactory, registerPlugin<KateProjectPlugin>();)
@@ -52,9 +53,16 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   m_toolInfoView = mainWindow()->createToolView ("kateprojectinfo", Kate::MainWindow::Bottom, SmallIcon("view-choose"), i18n("Current Project"));
 
   /**
-   * populate the toolviews
+   * create the combo + buttons for the toolViews + stacked widgets
    */
   m_projectsCombo = new QComboBox (m_toolView);
+  m_reloadButton = new QToolButton (m_toolView);
+  m_reloadButton->setIcon (SmallIcon("view-refresh"));
+  QHBoxLayout *layout = new QHBoxLayout ();
+  layout->addWidget (m_projectsCombo);
+  layout->addWidget (m_reloadButton);
+  m_toolView->layout()->addItem (layout);
+  
   m_stackedProjectViews = new QStackedWidget (m_toolView);
   m_stackedProjectInfoViews = new QStackedWidget (m_toolInfoView);
 

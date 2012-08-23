@@ -29,6 +29,7 @@
 #include <QPointer>
 #include <QComboBox>
 #include <QStackedWidget>
+#include <QToolButton>
 
 class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
 {
@@ -143,6 +144,11 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * combo box with all loaded projects inside
      */
     QComboBox *m_projectsCombo;
+    
+    /**
+     * Reload button
+     */
+    QToolButton *m_reloadButton;
 
     /**
      * stacked widget will all currently created project views

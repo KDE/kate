@@ -62,7 +62,7 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   layout->addWidget (m_projectsCombo);
   layout->addWidget (m_reloadButton);
   m_toolView->layout()->addItem (layout);
-  
+
   m_stackedProjectViews = new QStackedWidget (m_toolView);
   m_stackedProjectInfoViews = new QStackedWidget (m_toolInfoView);
 
@@ -79,6 +79,7 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   connect (mainWindow(), SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
   connect (m_projectsCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentChanged (int)));
   connect (mainWindow(), SIGNAL(viewCreated (KTextEditor::View *)), this, SLOT(slotViewCreated (KTextEditor::View *)));
+  connect (m_reloadButton, SIGNAL(clicked (bool)), this, SLOT(slotProjectReload ()));
 
   /**
    * connect for all already existing views
@@ -335,6 +336,15 @@ void KateProjectPluginView::slotProjectNext ()
     m_projectsCombo->setCurrentIndex (0);
   else
     m_projectsCombo->setCurrentIndex (m_projectsCombo->currentIndex () + 1);
+}
+
+void KateProjectPluginView::slotProjectReload ()
+{
+  /**
+   * force reload if any active project
+   */
+  if (QWidget *current = m_stackedProjectViews->currentWidget ())
+    static_cast<KateProjectView *> (current)->project()->reload (true);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

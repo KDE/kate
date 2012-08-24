@@ -85,17 +85,23 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * @param view deleted view
      */
     void slotViewDestroyed (QObject *view);
-    
+
     /**
      * Activate the previous project.
      */
     void slotProjectPrev ();
-    
+
     /**
      * Activate the next project.
      */
     void slotProjectNext ();
-    
+
+    /**
+     * Reload current project, if any.
+     * This will trigger a reload with force.
+     */
+    void slotProjectReload ();
+
   Q_SIGNALS:
     /**
      * Emitted if projectFileName changed.
@@ -144,7 +150,7 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * combo box with all loaded projects inside
      */
     QComboBox *m_projectsCombo;
-    
+
     /**
      * Reload button
      */
@@ -170,7 +176,7 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * might be 0
      */
     QPointer<KTextEditor::View> m_activeTextEditorView;
-    
+
     /**
      * remember for which text views we might need to cleanup stuff
      */

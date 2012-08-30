@@ -2561,6 +2561,65 @@ KateViRange KateViNormalMode::motionToPrevVisualLine() {
   return goVisualLineUpDown( -getCount() );
 }
 
+KateViRange KateViNormalMode::motionToBeforeParagraph()
+{
+    Cursor c( m_view->cursorPosition() );
+
+    int line = c.line();
+
+    m_stickyColumn = -1;
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        // advance at least one line, but if there are consecutive blank lines
+        // skip them all
+        do {
+            line--;
+        } while (line >= 0 && getLine( line+1 ).length() == 0);
+        while ( line > 0 && getLine( line ).length() != 0 ) {
+            line--;
+        }
+    }
+
+    if ( line < 0 ) {
+        line = 0;
+    }
+
+    KateViRange r( line, 0, ViMotion::InclusiveMotion );
+
+    return r;
+}
+
+KateViRange KateViNormalMode::motionToAfterParagraph()
+{
+    Cursor c( m_view->cursorPosition() );
+
+    int line = c.line();
+
+    m_stickyColumn = -1;
+
+    for ( unsigned int i = 0; i < getCount(); i++ ) {
+        // advance at least one line, but if there are consecutive blank lines
+        // skip them all
+        do {
+            line++;
+        } while (line <= doc()->lines()-1 && getLine( line-1 ).length() == 0);
+        while ( line < doc()->lines()-1 && getLine( line ).length() != 0 ) {
+            line++;
+        }
+    }
+
+    if ( line >= doc()->lines() ) {
+        line = doc()->lines()-1;
+    }
+
+    // if we ended up on the last line, the cursor should be placed on the last column
+    int column = (line == doc()->lines()-1) ? qMax( getLine( line ).length()-1, 0 ) : 0;
+
+    KateViRange r( line, column, ViMotion::InclusiveMotion );
+
+    return r;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // TEXT OBJECTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -2951,6 +3010,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("L", motionToLastLineOfWindow, 0 );
   ADDMOTION("gj", motionToNextVisualLine, 0 );
   ADDMOTION("gk", motionToPrevVisualLine, 0 );
+  ADDMOTION("{", motionToBeforeParagraph, 0 );
+  ADDMOTION("}", motionToAfterParagraph, 0 );
 
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );

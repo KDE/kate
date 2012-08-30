@@ -226,6 +226,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     KateViRange motionToNextVisualLine();
     KateViRange motionToPrevVisualLine();
 
+    KateViRange motionToBeforeParagraph();
+    KateViRange motionToAfterParagraph();
+
     // TEXT OBJECTS
 
     KateViRange textObjectAWord();

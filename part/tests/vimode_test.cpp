@@ -671,6 +671,10 @@ void ViModeTest::CommandModeTests() {
     DoTest("foo\n\nbar\n\nbaz","3}x","foo\n\nbar\n\nba");
     DoTest("foo\n\nbar\n\nbaz","3}{dd{dd","foo\nbar\nbaz");
     DoTest("foo\nfoo\n\nbar\n\nbaz","5}{dd{dd","foo\nfoo\nbar\nbaz");
+    DoTest("foo\nfoo\n\nbar\n\nbaz","5}3{x","oo\nfoo\n\nbar\n\nbaz");
+    DoTest("foo\n\n\nbar","10}{{x","oo\n\n\nbar");
+    DoTest("foo\n\n\nbar","}}x","foo\n\n\nba");
+    DoTest("foo\n\n\nbar\n","}}dd","foo\n\n\nbar");
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -9,6 +9,8 @@ if (NOT QJSON_FOUND)
     return()
 endif (NOT QJSON_FOUND)
 
+include_directories( ${QJSON_INCLUDE_DIR} )
+
 set(kateprojectplugin_PART_SRCS
   kateprojectplugin.cpp
   kateprojectpluginview.cpp

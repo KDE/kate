@@ -663,6 +663,14 @@ void ViModeTest::CommandModeTests() {
     DoTest("1\n2\n3\n4","2j\\:.,.-1d\\","1\n4");
     DoTest("1\n2\n3\n4","\\:.+200-100-100+20-5-5-5-5+.-.,$-1+1-2+2-3+3-4+4-5+5-6+6-7+7-1000+1000+0-0-$+$-.+.-1d\\","4");
     DoTest("1\n2\n3\n4","majmbjmcjmdgg\\:'a+'b+'d-'c,.d\\","");
+
+    // Testing "{" and "}" motions
+    DoTest("","{}","");
+    DoTest("foo","{}dd","");
+    DoTest("foo\n\nbar","}dd","foo\nbar");
+    DoTest("foo\n\nbar\n\nbaz","3}x","foo\n\nbar\n\nba");
+    DoTest("foo\n\nbar\n\nbaz","3}{dd{dd","foo\nbar\nbaz");
+    DoTest("foo\nfoo\n\nbar\n\nbaz","5}{dd{dd","foo\nfoo\nbar\nbaz");
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

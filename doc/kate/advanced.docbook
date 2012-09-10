@@ -89,17 +89,17 @@ arguments.</para>
 <listitem><para>This is used with commands that turns things on or off.
 Legal values are <userinput>on</userinput>, <userinput>off</userinput>,
 <userinput>true</userinput>, <userinput>false</userinput>,
-<userinput>1</userinput> or <userinput>0</userinput></para></listitem>
+<userinput>1</userinput> or <userinput>0</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term>INTEGER</term>
-<listitem><para>An integer number</para></listitem>
+<listitem><para>An integer number.</para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term>STRING</term>
-<listitem><para>A string</para></listitem>
+<listitem><para>A string, surrounded by single quotes (') or double quotes (") when it contains spaces.</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -136,7 +136,7 @@ Legal values are <userinput>on</userinput>, <userinput>off</userinput>,
 
 <varlistentry>
 <term><cmdsynopsis><command>wqa</command></cmdsynopsis></term>
-<listitem><para>Save and close all currently documents.</para></listitem>
+<listitem><para>Save and close all currently open documents.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -209,7 +209,7 @@ a setting different from the default settings, for example for indentation.
 
 <varlistentry>
 <term><cmdsynopsis><command>set-tab-width</command><arg choice="req">INTEGER width</arg></cmdsynopsis></term>
-<listitem><para>Sets the tab width to the number <userinput>width</userinput></para></listitem>
+<listitem><para>Sets the tab width to the number <userinput>width</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry>

@@ -104,6 +104,7 @@
       <item> Q_DECLARE_SHARED </item>
       <item> Q_DECLARE_TYPEINFO </item>
       <item> Q_DISABLE_COPY </item>
+      <item> Q_EMIT </item>
       <item> Q_ENUMS </item>
       <item> Q_EXPORT </item>
       <item> Q_FLAGS </item>

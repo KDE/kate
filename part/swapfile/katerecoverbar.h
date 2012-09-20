@@ -1,6 +1,6 @@
 /*  This file is part of the Kate project.
  *
- *  Copyright (C) 2010 Dominik Haumann <dhaumann kde org>
+ *  Copyright (C) 2010-2012 Dominik Haumann <dhaumann kde org>
  *  Copyright (C) 2010 Diana-Victoria Tiriplica <diana.tiriplica@gmail.com>
  *
  *  This library is free software; you can redistribute it and/or
@@ -25,14 +25,11 @@
 #include "kateviewhelpers.h"
 
 #include <QByteArray>
+#include <QAction>
 
 class KProcess;
 class KateView;
 class KateDocument;
-
-namespace Ui {
-  class RecoverWidget;
-}
 
 class KateRecoverBar : public KateViewBarWidget
 {
@@ -43,12 +40,11 @@ class KateRecoverBar : public KateViewBarWidget
     ~KateRecoverBar ();
 
   protected Q_SLOTS:
-    void showWhatsThis(const QString&);
     void viewDiff();
 
   private:
     KateView *const m_view;
-    Ui::RecoverWidget *m_ui;
+    QAction* m_diffAction;
 
   protected Q_SLOTS:
     void slotDataAvailable();

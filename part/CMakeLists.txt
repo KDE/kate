@@ -203,7 +203,6 @@ search/searchbarincremental.ui
 search/searchbarpower.ui
 dialogs/viinputmodeconfigwidget.ui
 dialogs/spellcheckconfigwidget.ui
-swapfile/recoverwidget.ui
 swapfile/brokenswapfilewidget.ui
 schema/howtoimportschema.ui
 )

@@ -8,7 +8,7 @@
         <!ENTITY eop      "(?=([\s\\;&quot;&#37;]|$))">         <!-- end of path -->
         <!ENTITY pathpart "[^\s\\&#37;;/:\*\?&quot;&gt;&lt;\|]"> <!-- valid character in a file name -->
 ]>
-<language name="MS-DOS Batch" version="0.2" kateversion="2.4" section="Scripts" extensions="*.bat" mimetype="application/x-dos" casesensitive="0" author="Matthew Woehlke (mw_triad@users.sourceforge.net)" license="LGPL">
+<language name="MS-DOS Batch" version="0.30" kateversion="2.4" section="Scripts" extensions="*.bat" mimetype="application/x-dos" casesensitive="0" author="Matthew Woehlke (mw_triad@users.sourceforge.net)" license="LGPL">
 
 <!-- (c) 2006, 2009, 2010 Matthew Woehlke (mw_triad@users.sourceforge.net)
     Released under the LGPL -->
@@ -109,7 +109,7 @@
         <!-- special built-ins -->
         <RegExpr attribute="Builtin" context="#stay" String="\b[Ee][Cc][Hh][Oo]\s+[Oo]([Ff][Ff]|[Nn])\s*$"/>
         <keyword attribute="Builtin" context="CmdEcho" String="echo"/>
-        <keyword attribute="Keyword" context="CmdIf" String="if"/>
+        <keyword attribute="Keyword" context="#stay" String="if"/>
         <keyword attribute="Keyword" context="CmdFor" String="for"/>
         <keyword attribute="Keyword" context="Label" String="goto"/>
         <keyword attribute="Builtin" context="CmdSet" String="set"/>

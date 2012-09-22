@@ -231,7 +231,8 @@ class TreeModel(QStandardItemModel):
                     match = filterRe.search(text)
                 if match:
                     if hits == 0:
-                        fileRow = QStandardItem(fileName)
+                        fileRow = QStandardItem(QFileInfo(fileName).fileName())
+                        fileRow.setData(fileName, Qt.ToolTipRole)
                         if isDeclaration:
                             fileRow.setIcon(KIcon("text-x-chdr"))
                         root.appendRow(fileRow)
@@ -258,7 +259,8 @@ class TreeModel(QStandardItemModel):
                         definitionIndex = resultRow[0].index()
                 line += 1
         except IOError as e:
-            fileRow = QStandardItem(fileName)
+            fileRow = QStandardItem(QFileInfo(fileName).fileName())
+            fileRow.setData(fileName, Qt.ToolTipRole)
             fileRow.setIcon(KIcon("face-sad"))
             fileRow.appendRow(QStandardItem(str(e)))
             root.appendRow(fileRow)
@@ -333,6 +335,29 @@ class TreeModel(QStandardItemModel):
         # Return the model index of the match.
         #
         return definitionIndex
+
+class HistoryModel(QStandardItemModel):
+    """Support the display of a stack of navigation points.
+    Each entry is an occurrence comprising { token, file, line, column }
+    """
+    def __init__(self):
+        """Constructor.
+        """
+        super(HistoryModel, self).__init__()
+        self.setHorizontalHeaderLabels((i18n("Token"), i18n("File"), i18n("Line"), i18n("Col")))        
+
+    def push(self, token, icon, fileName, line, column):
+        """Add a new entry to the top of the stack."""
+        root = self.invisibleRootItem()
+        resultRow = list()
+        resultRow.append(QStandardItem(token))
+        resultRow.append(QStandardItem(QFileInfo(fileName).fileName()))
+        resultRow[1].setData(fileName, Qt.ToolTipRole)
+        resultRow.append(QStandardItem(str(line)))
+        resultRow.append(QStandardItem(str(column)))
+        if icon:
+            resultRow[1].setIcon(icon)
+        root.insertRow(0, resultRow)
 
 class CompletionModel(KTextEditor.CodeCompletionModel):
     """Support Kate code completion.
@@ -417,13 +442,23 @@ class SearchBar(QObject):
         self.token = top.token
         self.filter = top.filter
         self.settings = top.settings
-        self.tree = top.tree
-        self.model = TreeModel(self.dataSource)
-        self.tree.setModel(self.model)
-        width = parent.width() - 300
-        self.tree.setColumnWidth(0, width - 100)
-        self.tree.setColumnWidth(1, 50)
-        self.tree.setColumnWidth(2, 50)
+        
+        self.matchesModel = TreeModel(self.dataSource)
+        self.matchesWidget = top.tree
+        self.matchesWidget.setModel(self.matchesModel)
+        self.matchesWidget.setColumnWidth(0, 400)
+        self.matchesWidget.setColumnWidth(1, 50)
+        self.matchesWidget.setColumnWidth(2, 50)
+        self.matchesWidget.doubleClicked.connect(self.navigateToMatch)
+        
+        self.historyModel = HistoryModel()
+        self.historyWidget = top.history
+        self.historyWidget.setModel(self.historyModel)
+        self.historyWidget.setColumnWidth(0, 200)
+        self.historyWidget.setColumnWidth(1, 200)
+        self.historyWidget.setColumnWidth(2, 50)
+        self.historyWidget.setColumnWidth(3, 50)
+        self.historyWidget.doubleClicked.connect(self.navigateToHistory)
 
         self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
         self.token.completion.connect(self._findCompletion)
@@ -431,7 +466,6 @@ class SearchBar(QObject):
         self.token.returnPressed.connect(self.literalSearch)
         self.filter.returnPressed.connect(self.literalSearch)
         self.settings.clicked.connect(self.getSettings)
-        self.tree.doubleClicked.connect(self.navigateTo)
 
     def __del__(self):
         """Plugins that use a toolview need to delete it for reloading to work."""
@@ -442,8 +476,7 @@ class SearchBar(QObject):
     @pyqtSlot()
     def literalSearch(self):
         """Lookup a single token and return the modelIndex of any definition."""
-        definitionIndex = self.model.literalTokenSearch(self.toolView, self.token.currentText(), self.filter.currentText())
-        self.tree.resizeColumnToContents(0)
+        definitionIndex = self.matchesModel.literalTokenSearch(self.toolView, self.token.currentText(), self.filter.currentText())
         return definitionIndex
 
     def _findCompletion(self, token):
@@ -468,7 +501,7 @@ class SearchBar(QObject):
             return
 
     @pyqtSlot("QModelIndex &")
-    def navigateTo(self, index):
+    def navigateToMatch(self, index):
         """Jump to the selected entry.
         If the match entry is a filename, just jump to the file. If the entry
         if a specfic match, open the file and jump tothe location of the match.
@@ -478,14 +511,17 @@ class SearchBar(QObject):
             #
             # We got a specific search result.
             #
-            file = parent.data()
+            file = parent.data(Qt.ToolTipRole)
             line = int(index.sibling(index.row(), 1).data()) - 1
             column = index.sibling(index.row(), 2).data(Qt.UserRole + 1)
         else:
             #
             # We got a file.
             #
-            file, line, column = index.data(), 0, 0
+            file = index.data(Qt.ToolTipRole)
+            line = 0
+            column = 0
+        icon = index.data(Qt.DecorationRole)
         #
         # Navigate to the point in the file.
         #
@@ -493,6 +529,25 @@ class SearchBar(QObject):
         kate.mainInterfaceWindow().activateView(document)
         point = KTextEditor.Cursor(line, column)
         kate.activeView().setCursorPosition(point)
+        #
+        # Add this point to the history.
+        #
+        self.historyModel.push(self.token.currentText(), icon, file, line + 1, column + 1)
+
+    @pyqtSlot("QModelIndex &")
+    def navigateToHistory(self, index):
+        """Jump to the selected entry."""
+        fileName = index.sibling(index.row(), 1).data(Qt.ToolTipRole)
+        line = int(index.sibling(index.row(), 2).data()) - 1
+        column = int(index.sibling(index.row(), 3).data()) - 1
+        #
+        # Navigate to the original point in the file.
+        #
+        document = kate.documentManager.openUrl(KUrl.fromPath(fileName))
+        kate.mainInterfaceWindow().activateView(document)
+        point = KTextEditor.Cursor(line, column)
+        kate.activeView().setCursorPosition(point)
+
 
     @pyqtSlot()
     def getSettings(self):
@@ -578,9 +633,9 @@ def show():
     # Make all our config is initialised.
     ConfigWidget().apply()
     global idDatabase
-    idDatabase = Lookup()
     global searchBar
     if searchBar is None:
+        idDatabase = Lookup()
         searchBar = SearchBar(kate.mainWindow(), idDatabase)
     global completionModel
     #if completionModel is None:
@@ -605,9 +660,9 @@ def lookup():
 @kate.action("Go to Definition", shortcut = "Alt+3", menu = "&Gid", icon = "go-jump-definition")
 def gotoDefinition():
     global searchBar
-    definitionIndex = lookup();
+    definitionIndex = lookup()
     if definitionIndex:
-        searchBar.navigateTo(definitionIndex)
+        searchBar.navigateToMatch(definitionIndex)
 
 @kate.configPage("gid", "gid(1) token Lookup and Navigation", icon = "edit-find")
 def configPage(parent = None, name = None):

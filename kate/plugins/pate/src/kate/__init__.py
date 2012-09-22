@@ -289,6 +289,7 @@ def action(text, icon=None, shortcut=None, menu=None):
             except Exception, e:
                 txt = "".join(traceback.format_exception(*sys.exc_info()))
                 KMessageBox.error(None, txt, i18n("Error in action '{}'").format(self.f.__name__))
+            return None
 
     def decorator(func):
         a = kdeui.KAction(text, None)

@@ -28,6 +28,8 @@ import traceback
 import functools
 import pydoc
 from inspect import getmembers, isfunction
+from PyKDE4.kdecore import i18n
+from PyKDE4.kdeui import KMessageBox
 
 import pate
 import kate.gui
@@ -276,6 +278,18 @@ def action(text, icon=None, shortcut=None, menu=None):
     NOTE: Kate may need to be restarted for this decorator to take effect, or
     to remove all traces of the plugin on removal.
     '''
+    class catchAllHandler(object):
+        '''Standard error handling for plugin actions.'''
+        def __init__(self, f):
+            self.f = f
+
+        def __call__(self):
+            try:
+                self.f()
+            except Exception, e:
+                txt = "".join(traceback.format_exception(*sys.exc_info()))
+                KMessageBox.error(None, txt, i18n("Error in action '{}'").format(self.f.__name__))
+
     def decorator(func):
         a = kdeui.KAction(text, None)
         if shortcut is not None:
@@ -286,6 +300,7 @@ def action(text, icon=None, shortcut=None, menu=None):
         if icon is not None:
             a.setIcon(kdeui.KIcon(icon))
         a.menu = menu
+        func = catchAllHandler(func)
         a.connect(a, QtCore.SIGNAL('triggered()'), func)
         # delay till everything has been initialised
         action.actions.add(a)

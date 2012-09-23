@@ -253,6 +253,10 @@ def viewCreated(func):
     viewCreated.functions.add(func)
     return func
 
+class _HandledException(Exception):
+    def __init__(self, message):
+        super(_HandledException, self).__init__(message)
+
 @_attribute(actions=set())
 def action(text, icon=None, shortcut=None, menu=None):
     ''' Decorator that adds an action to the menu bar. When the item is fired,
@@ -286,10 +290,12 @@ def action(text, icon=None, shortcut=None, menu=None):
         def __call__(self):
             try:
                 return self.f()
+            except _HandledException:
+                raise
             except Exception, e:
                 txt = "".join(traceback.format_exception(*sys.exc_info()))
                 KMessageBox.error(None, txt, i18n("Error in action '{}'").format(self.f.__name__))
-            return None
+                raise _HandledException(txt)
 
     def decorator(func):
         a = kdeui.KAction(text, None)

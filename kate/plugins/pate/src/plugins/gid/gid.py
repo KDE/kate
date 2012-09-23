@@ -600,6 +600,7 @@ class SearchBar(QObject):
             self.gotSettings = self.getSettings()
         if self.gotSettings:
             kate.mainInterfaceWindow().showToolView(self.toolView)
+            self.token.setFocus(Qt.PopupFocusReason)
         return self.gotSettings
 
     def hide(self):

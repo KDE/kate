@@ -1,7 +1,7 @@
 """Browse the tokens in a GNU idutils ID file, and use it to navigate within a codebase.
 
 The necessary parts of the ID file are held in memory to allow sufficient performance
-for token completion, and When looking up the usage of a token, or jumping to the 
+for token completion, and When looking up the usage of a token, or jumping to the
 definition, etags(1) is used to locate the definition.
 """
 #
@@ -169,9 +169,49 @@ def transform(file):
             file = kate.configuration["srcOut"] + right
     return file
 
-class MatchesModel(QStandardItemModel):
+class HistoryModel(QStandardItemModel):
+    """Support the display of a stack of navigation points.
+    Each visible row comprises { basename(fileName);line, text }.
+    On column 0, we show a tooltip with the full fileName, and any icon.
+    On column 1, we store line and column.
+    """
+    def __init__(self):
+        """Constructor.
+        """
+        super(HistoryModel, self).__init__()
+        self.setHorizontalHeaderLabels((i18n("File"), i18n("Match")))
+
+    def add(self, fileName, icon, text, line, column, fileAndLine):
+        """Add a new entry to the top of the stack."""
+        column0 = QStandardItem(fileAndLine)
+        if icon:
+            column0.setIcon(KIcon(icon))
+        column0.setData(fileName, Qt.ToolTipRole)
+        column1 = QStandardItem(text)
+        column1.setData(line, Qt.UserRole + 1)
+        column1.setData(column, Qt.UserRole + 2)
+        resultRow = (column0, column1)
+        self.invisibleRootItem().insertRow(0, resultRow)
+        if self.rowCount() > 64:
+            self.setRowCount(64)
+        return resultRow[0].index()
+
+    def read(self, index):
+        """Extract a row."""
+        row = index.row()
+        column0 = index.sibling(row, 0)
+        fileAndLine = column0.data()
+        fileName = column0.data(Qt.ToolTipRole)
+        icon = column0.data(Qt.DecorationRole)
+        column1 = index.sibling(row, 1)
+        text = column1.data()
+        line = column1.data(Qt.UserRole + 1)
+        column = column1.data(Qt.UserRole + 2)
+        return (fileName, icon, text, line, column, fileAndLine)
+
+class MatchesModel(HistoryModel):
     """Support the display of a list of entries matching a token.
-    Each entry is an occurrence comprising { match, file, line, column }
+    The display matches HistoryModel, but is a list not a stack.
     """
 
     _boredomInterval = 20
@@ -179,12 +219,11 @@ class MatchesModel(QStandardItemModel):
 
     def __init__(self, dataSource):
         """Constructor.
-        
+
         @param dataSource	an instance of a Lookup().
         """
         super(MatchesModel, self).__init__()
         self.dataSource = dataSource
-        self.setHorizontalHeaderLabels((i18n("File"), i18n("Match"), i18n("Line"), i18n("Col")))
 
     def _etagSearch(self, token, fileName):
         """Use etags to find any definition in this file.
@@ -205,7 +244,7 @@ class MatchesModel(QStandardItemModel):
             #
             lineNumberStart = etagDefinition + len(tokenBytes)
             lineNumberEnd = etagBytes.find(",", lineNumberStart)
-            return int(etagBytes[lineNumberStart:lineNumberEnd])
+            return int(etagBytes[lineNumberStart:lineNumberEnd]) - 1
         if etagBytes.startswith(bytearray(etagsCmd[0])):
             #
             # An error message was printed starting with "etags".
@@ -213,12 +252,12 @@ class MatchesModel(QStandardItemModel):
             raise IOError(unicode(etagBytes, "latin-1"))
         return None
 
-    def _scanFile(self, root, regexp, filterRe, token, fileName, isDeclaration):
+    def _scanFile(self, regexp, filterRe, token, fileName, isDeclaration):
         """Scan a file looking for interesting hits. Return the QModelIndex of the last of any definitions we find."""
         definitionIndex = None
         fileRow = None
         hits = 0
-        line = 1
+        line = 0
         try:
             definitionLine = self._etagSearch(token, fileName)
             #
@@ -231,38 +270,43 @@ class MatchesModel(QStandardItemModel):
                     match = filterRe.search(text)
                 if match:
                     hits += 1
-                    resultRow = list()
-                    resultRow.append(QStandardItem(QFileInfo(fileName).fileName()))
-                    resultRow[0].setData(fileName, Qt.ToolTipRole)
-                    if isDeclaration:
-                        resultRow[0].setIcon(KIcon("text-x-chdr"))
-                    resultRow.append(QStandardItem(text[:-1]))
-                    resultRow.append(QStandardItem(str(line)))
-                    #
-                    # The column value displayed by Kate is based on a
-                    # virtual position, where TABs count as 8.
-                    #
                     column = match.start()
-                    tabs = text[:column].count("\t")
-                    displayColumn = QStandardItem(str(column + tabs * 7 + 1))
-                    displayColumn.setData(column, Qt.UserRole + 1)
-                    resultRow.append(displayColumn)
-                    root.appendRow(resultRow)
                     if line == definitionLine:
                         #
                         # Mark the line and the file as being a definition.
                         #
-                        resultRow[0].setIcon(KIcon("go-jump-definition"))
-                        definitionIndex = resultRow[0].index()
+                        definitionIndex = self.add(fileName, "go-jump-definition", text[:-1], line, column)
+                    elif isDeclaration:
+                        self.add(fileName, "text-x-chdr", text[:-1], line, column)
+                    else:
+                        self.add(fileName, None, text[:-1], line, column)
                 line += 1
+            if not hits:
+                #
+                # This was in the index, but we found no hits. Assuming the file
+                # content has changed, we still permit navigation to the top of
+                # the file.
+                #
+                self.add(fileName, "task-reject", "", 0, 0)
         except IOError as e:
-            resultRow = list()
-            resultRow.append(QStandardItem(QFileInfo(fileName).fileName()))
-            resultRow[0].setData(fileName, Qt.ToolTipRole)
-            resultRow[0].setIcon(KIcon("face-sad"))
-            resultRow.append(QStandardItem(str(e)))
-            root.appendRow(resultRow)
+            self.add(fileName, "face-sad", str(e), None, None)
         return definitionIndex
+
+    def add(self, fileName, icon, text, line, column):
+        """Append a new entry."""
+        if line:
+            column0 = QStandardItem("{}:{}".format(QFileInfo(fileName).fileName(), line + 1))
+        else:
+            column0 = QStandardItem(QFileInfo(fileName).fileName())
+        if icon:
+            column0.setIcon(KIcon(icon))
+        column0.setData(fileName, Qt.ToolTipRole)
+        column1 = QStandardItem(text)
+        column1.setData(line, Qt.UserRole + 1)
+        column1.setData(column, Qt.UserRole + 2)
+        resultRow = (column0, column1)
+        self.invisibleRootItem().appendRow(resultRow)
+        return resultRow[0].index()
 
     def literalTokenSearch(self, parent, token, filter):
         """Add the entries which match the token to the tree, and return the QModelIndex of the last of any definitions we find.
@@ -274,8 +318,7 @@ class MatchesModel(QStandardItemModel):
         If the output takes a long time to generate, the user is given options
         to continue or abort.
         """
-        root = self.invisibleRootItem()
-        root.removeRows(0, root.rowCount())
+        self.setRowCount(0)
         self.definitionIndex = None
         try:
             tokenFlags, hitCount, files = self.dataSource.literalSearch(token)
@@ -313,7 +356,7 @@ class MatchesModel(QStandardItemModel):
             #
             # Update the definitionIndex when we get a good one.
             #
-            newDefinitionIndex = self._scanFile(root, regexp, filterRe, token, fileName, isDeclaration)
+            newDefinitionIndex = self._scanFile(regexp, filterRe, token, fileName, isDeclaration)
             if newDefinitionIndex:
                 definitionIndex = newDefinitionIndex
             filesListed += 1
@@ -334,30 +377,6 @@ class MatchesModel(QStandardItemModel):
         #
         return definitionIndex
 
-class HistoryModel(QStandardItemModel):
-    """Support the display of a stack of navigation points.
-    Each entry is an occurrence comprising { token, file, line, column }
-    """
-    def __init__(self):
-        """Constructor.
-        """
-        super(HistoryModel, self).__init__()
-        self.setHorizontalHeaderLabels((i18n("Token"), i18n("File"), i18n("Line"), i18n("Col")))        
-
-    def push(self, token, icon, fileName, line, displayColumn, column):
-        """Add a new entry to the top of the stack."""
-        root = self.invisibleRootItem()
-        resultRow = list()
-        resultRow.append(QStandardItem(token))
-        resultRow.append(QStandardItem(QFileInfo(fileName).fileName()))
-        resultRow[1].setData(fileName, Qt.ToolTipRole)
-        if icon:
-            resultRow[1].setIcon(icon)
-        resultRow.append(QStandardItem(str(line)))
-        resultRow.append(QStandardItem(displayColumn))
-        resultRow[3].setData(column, Qt.UserRole + 1)
-        root.insertRow(0, resultRow)
-
 class CompletionModel(KTextEditor.CodeCompletionModel):
     """Support Kate code completion.
     """
@@ -367,7 +386,7 @@ class CompletionModel(KTextEditor.CodeCompletionModel):
 
     def __init__(self, parent, dataSource):
         """Constructor.
-        
+
         @param parent		Parent QObject.
         @param dataSource	An instance of a Lookup().
         """
@@ -441,23 +460,19 @@ class SearchBar(QObject):
         self.token = top.token
         self.filter = top.filter
         self.settings = top.settings
-        
+
         self.matchesModel = MatchesModel(self.dataSource)
         self.matchesWidget = top.matches
         self.matchesWidget.setModel(self.matchesModel)
-        self.matchesWidget.setColumnWidth(0, 200)
+        self.matchesWidget.setColumnWidth(0, 150)
         self.matchesWidget.setColumnWidth(1, 400)
-        self.matchesWidget.setColumnWidth(2, 50)
-        self.matchesWidget.setColumnWidth(3, 50)
         self.matchesWidget.doubleClicked.connect(self.navigateToMatch)
-        
+
         self.historyModel = HistoryModel()
         self.historyWidget = top.history
         self.historyWidget.setModel(self.historyModel)
-        self.historyWidget.setColumnWidth(0, 200)
-        self.historyWidget.setColumnWidth(1, 200)
-        self.historyWidget.setColumnWidth(2, 50)
-        self.historyWidget.setColumnWidth(3, 50)
+        self.historyWidget.setColumnWidth(0, 150)
+        self.historyWidget.setColumnWidth(1, 400)
         self.historyWidget.doubleClicked.connect(self.navigateToHistory)
 
         self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
@@ -502,19 +517,10 @@ class SearchBar(QObject):
 
     @pyqtSlot("QModelIndex &")
     def navigateToMatch(self, index):
-        """Jump to the selected entry.
-        If the match entry is a filename, just jump to the file. If the entry
-        if a specfic match, open the file and jump tothe location of the match.
-        """
-        row = index.row()
-        fileName = index.sibling(row, 0).data(Qt.ToolTipRole)
-        icon = index.sibling(row, 0).data(Qt.DecorationRole)
-        line = index.sibling(row, 2).data()
+        """Jump to the selected entry."""
+        (fileName, icon, text, line, column, fileAndLine) = self.matchesModel.read(index)
         if not line:
             return
-        line = int(index.sibling(row, 2).data()) - 1
-        displayColumn = index.sibling(row, 3).data()
-        column = index.sibling(row, 3).data(Qt.UserRole + 1)
         #
         # Navigate to the point in the file.
         #
@@ -525,14 +531,12 @@ class SearchBar(QObject):
         #
         # Add this point to the history.
         #
-        self.historyModel.push(self.token.currentText(), icon, fileName, line + 1, displayColumn, column)
+        self.historyModel.add(fileName, icon, text, line, column, fileAndLine)
 
     @pyqtSlot("QModelIndex &")
     def navigateToHistory(self, index):
         """Jump to the selected entry."""
-        fileName = index.sibling(index.row(), 1).data(Qt.ToolTipRole)
-        line = int(index.sibling(index.row(), 2).data()) - 1
-        column = index.sibling(index.row(), 3).data(Qt.UserRole + 1)
+        (fileName, icon, text, line, column, fileAndLine) = self.historyModel.read(index)
         #
         # Navigate to the original point in the file.
         #
@@ -540,7 +544,6 @@ class SearchBar(QObject):
         kate.mainInterfaceWindow().activateView(document)
         point = KTextEditor.Cursor(line, column)
         kate.activeView().setCursorPosition(point)
-
 
     @pyqtSlot()
     def getSettings(self):

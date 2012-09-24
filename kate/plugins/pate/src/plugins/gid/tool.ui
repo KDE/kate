@@ -81,6 +81,9 @@
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
      </widget>
      <widget class="QTableView" name="history">
       <property name="whatsThis">
@@ -95,6 +98,9 @@
       <property name="selectionBehavior">
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
      </widget>
     </widget>
    </item>

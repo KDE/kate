@@ -183,6 +183,15 @@ class HistoryModel(QStandardItemModel):
 
     def add(self, fileName, icon, text, line, column, fileAndLine):
         """Add a new entry to the top of the stack."""
+        #
+        # Ignore if the top of the stack has an identical entry.
+        #
+        column0 = self.invisibleRootItem().child(0, 0)
+        if column0:
+            if fileName == column0.data(Qt.ToolTipRole):
+                column1 = self.invisibleRootItem().child(0, 1)
+                if line == column1.data(Qt.UserRole + 1):
+                    return column0.index()
         column0 = QStandardItem(fileAndLine)
         if icon:
             column0.setIcon(KIcon(icon))
@@ -463,15 +472,17 @@ class SearchBar(QObject):
 
         self.matchesModel = MatchesModel(self.dataSource)
         self.matchesWidget = top.matches
+        self.matchesWidget.verticalHeader().setDefaultSectionSize(20)
         self.matchesWidget.setModel(self.matchesModel)
-        self.matchesWidget.setColumnWidth(0, 150)
+        self.matchesWidget.setColumnWidth(0, 200)
         self.matchesWidget.setColumnWidth(1, 400)
         self.matchesWidget.doubleClicked.connect(self.navigateToMatch)
 
         self.historyModel = HistoryModel()
         self.historyWidget = top.history
+        self.historyWidget.verticalHeader().setDefaultSectionSize(20)
         self.historyWidget.setModel(self.historyModel)
-        self.historyWidget.setColumnWidth(0, 150)
+        self.historyWidget.setColumnWidth(0, 200)
         self.historyWidget.setColumnWidth(1, 400)
         self.historyWidget.doubleClicked.connect(self.navigateToHistory)
 
@@ -518,20 +529,27 @@ class SearchBar(QObject):
     @pyqtSlot("QModelIndex &")
     def navigateToMatch(self, index):
         """Jump to the selected entry."""
-        (fileName, icon, text, line, column, fileAndLine) = self.matchesModel.read(index)
-        if not line:
+        (fileName, icon, text, nextLine, column, fileAndLine) = self.matchesModel.read(index)
+        if not nextLine:
             return
+        #
+        # Add a history record for the current point.
+        #
+        cursor = kate.activeView().cursorPosition()
+        currentLine = cursor.line()
+        document = kate.activeDocument()
+        self.historyModel.add(document.localFilePath(), "arrow-right", document.line(currentLine), currentLine, cursor.column(), "{}:{}".format(document.documentName(), currentLine + 1))
         #
         # Navigate to the point in the file.
         #
         document = kate.documentManager.openUrl(KUrl.fromPath(fileName))
         kate.mainInterfaceWindow().activateView(document)
-        point = KTextEditor.Cursor(line, column)
+        point = KTextEditor.Cursor(nextLine, column)
         kate.activeView().setCursorPosition(point)
         #
-        # Add this point to the history.
+        # Add this new point to the history.
         #
-        self.historyModel.add(fileName, icon, text, line, column, fileAndLine)
+        self.historyModel.add(fileName, icon, text, nextLine, column, fileAndLine)
 
     @pyqtSlot("QModelIndex &")
     def navigateToHistory(self, index):

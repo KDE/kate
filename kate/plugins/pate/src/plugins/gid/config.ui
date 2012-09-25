@@ -63,16 +63,16 @@
    <item row="2" column="0" colspan="2">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Lookup in files</string>
+      <string>Transform Filenames</string>
      </property>
      <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
        <widget class="QLabel" name="labelSrcIn">
         <property name="text">
-         <string>Discard file prefix ending with key:</string>
+         <string>Replace file prefix ending with key:</string>
         </property>
         <property name="buddy">
-         <cstring>idFile</cstring>
+         <cstring>srcIn</cstring>
         </property>
        </widget>
       </item>
@@ -86,7 +86,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="labelSrcOut">
         <property name="text">
-         <string>Then add file prefix:</string>
+         <string>With this file prefix:</string>
         </property>
         <property name="buddy">
          <cstring>srcOut</cstring>
@@ -96,28 +96,30 @@
       <item row="2" column="1">
        <widget class="KLineEdit" name="srcOut">
         <property name="whatsThis">
-         <string>Replacement prefix. Use %{idPrefix} to insert the prefix of the ID file ending with the key.</string>
+         <string>Replacement prefix. To use the prefix of the ID file ending with the key, use %{idPrefix}.</string>
         </property>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="labelUseSuffixes">
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Highlight Matches</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelUseEtags">
         <property name="text">
-         <string>Highlight files with suffixes:</string>
+         <string>Highlight definitions using etags(1):</string>
         </property>
         <property name="buddy">
-         <cstring>useSuffixes</cstring>
+         <cstring>useEtags</cstring>
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
-       <widget class="KLineEdit" name="useSuffixes">
-        <property name="whatsThis">
-         <string>Use .h;.hxx to highlight files which may contain declarations.</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
+      <item row="1" column="1">
        <widget class="QCheckBox" name="useEtags">
         <property name="whatsThis">
          <string>Use etags(1) to find definitions, and highlight them.</string>
@@ -128,27 +130,24 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="labelUseEtags">
+       <widget class="QLabel" name="labelUseSuffixes">
         <property name="text">
-         <string>Highlight definitions using etags(1):</string>
+         <string>Highlight files with suffixes:</string>
+        </property>
+        <property name="buddy">
+         <cstring>useSuffixes</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="KLineEdit" name="useSuffixes">
+        <property name="whatsThis">
+         <string>Use .h;.hxx to highlight files which may contain declarations.</string>
         </property>
        </widget>
       </item>
      </layout>
     </widget>
-   </item>
-   <item row="3" column="0">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

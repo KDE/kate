@@ -70,7 +70,7 @@
      </property>
      <widget class="QTableView" name="matches">
       <property name="whatsThis">
-       <string>Double click on a match to navigate to .</string>
+       <string>Filtered matches for the token. Activate a match to jump to it.</string>
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
@@ -87,7 +87,7 @@
      </widget>
      <widget class="QTableView" name="history">
       <property name="whatsThis">
-       <string>Double click on a previously visited item to navigate to .</string>
+       <string>Stack of previous locations. Activate an item to jump to it.</string>
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>

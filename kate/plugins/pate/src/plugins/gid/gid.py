@@ -476,7 +476,7 @@ class SearchBar(QObject):
         self.matchesWidget.setModel(self.matchesModel)
         self.matchesWidget.setColumnWidth(0, 200)
         self.matchesWidget.setColumnWidth(1, 400)
-        self.matchesWidget.doubleClicked.connect(self.navigateToMatch)
+        self.matchesWidget.activated.connect(self.navigateToMatch)
 
         self.historyModel = HistoryModel()
         self.historyWidget = top.history
@@ -484,7 +484,7 @@ class SearchBar(QObject):
         self.historyWidget.setModel(self.historyModel)
         self.historyWidget.setColumnWidth(0, 200)
         self.historyWidget.setColumnWidth(1, 400)
-        self.historyWidget.doubleClicked.connect(self.navigateToHistory)
+        self.historyWidget.activated.connect(self.navigateToHistory)
 
         self.token.setCompletionMode(KGlobalSettings.CompletionPopupAuto)
         self.token.completion.connect(self._findCompletion)

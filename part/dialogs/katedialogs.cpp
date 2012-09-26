@@ -1419,20 +1419,23 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
 {
   setButtons( Ok | Apply | Cancel | User1 );
 
-  QString title, btnOK, whatisok;
+  QString title, okText, okIcon, whatisok;
   if ( modtype == KTextEditor::ModificationInterface::OnDiskDeleted )
   {
     title = i18n("File Was Deleted on Disk");
-    btnOK = i18n("&Save File As...");
+    okText = i18n("&Save File As...");
+    okIcon = "document-save-as";
     whatisok = i18n("Lets you select a location and save the file again.");
   } else {
     title = i18n("File Changed on Disk");
-    btnOK = i18n("&Reload File");
+    okText = i18n("&Reload File");
+    okIcon = "view-refresh";
     whatisok = i18n("Reload the file from disk. If you have unsaved changes, "
         "they will be lost.");
   }
 
-  setButtonText( Ok, btnOK );
+  setButtonText( Ok, okText );
+  setButtonIcon( Ok, KIcon( okIcon ) );
   setButtonText( Apply, i18n("&Ignore") );
 
   setButtonWhatsThis( Ok, whatisok );

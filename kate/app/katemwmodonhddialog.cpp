@@ -72,13 +72,13 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   setModal( true );
   setDefaultButton( KDialog::User3 );
 
-  setButtonWhatsThis( User1, i18n(
+  setButtonToolTip( User1, i18n(
                         "Removes the modified flag from the selected documents and closes the "
                         "dialog if there are no more unhandled documents.") );
-  setButtonWhatsThis( User2, i18n(
+  setButtonToolTip( User2, i18n(
                         "Overwrite selected documents, discarding the disk changes and closes the "
                         "dialog if there are no more unhandled documents.") );
-  setButtonWhatsThis( User3, i18n(
+  setButtonToolTip( User3, i18n(
                         "Reloads the selected documents from disk and closes the dialog if there "
                         "are no more unhandled documents.") );
 

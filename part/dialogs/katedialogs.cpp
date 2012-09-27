@@ -1419,18 +1419,18 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
 {
   setButtons( Ok | Apply | Cancel | User1 );
 
-  QString title, okText, okIcon, whatisok;
+  QString title, okText, okIcon, okToolTip;
   if ( modtype == KTextEditor::ModificationInterface::OnDiskDeleted )
   {
     title = i18n("File Was Deleted on Disk");
     okText = i18n("&Save File As...");
     okIcon = "document-save-as";
-    whatisok = i18n("Lets you select a location and save the file again.");
+    okToolTip = i18n("Lets you select a location and save the file again.");
   } else {
     title = i18n("File Changed on Disk");
     okText = i18n("&Reload File");
     okIcon = "view-refresh";
-    whatisok = i18n("Reload the file from disk. If you have unsaved changes, "
+    okToolTip = i18n("Reload the file from disk. If you have unsaved changes, "
         "they will be lost.");
   }
 
@@ -1439,9 +1439,9 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   setButtonText( Apply, i18n("&Ignore Changes") );
   setButtonIcon( Apply, KIcon( "dialog-warning" ) );
 
-  setButtonWhatsThis( Ok, whatisok );
-  setButtonWhatsThis( Apply, i18n("Ignore the changes. You will not be prompted again.") );
-  setButtonWhatsThis( Cancel, i18n("Do nothing. Next time you focus the file, "
+  setButtonToolTip( Ok, okToolTip );
+  setButtonToolTip( Apply, i18n("Ignore the changes. You will not be prompted again.") );
+  setButtonToolTip( Cancel, i18n("Do nothing. Next time you focus the file, "
       "or try to save it or close it, you will be prompted again.") );
 
   setCaption( title );
@@ -1458,7 +1458,7 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   if ( modtype != KTextEditor::ModificationInterface::OnDiskDeleted )
   {
     setButtonGuiItem( User1, KStandardGuiItem::overwrite() );
-    setButtonWhatsThis( User1, i18n("Overwrite the disk file with the editor content.") );
+    setButtonToolTip( User1, i18n("Overwrite the disk file with the editor content.") );
     connect( ui->btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
   }
   else

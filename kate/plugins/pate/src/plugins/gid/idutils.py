@@ -28,6 +28,7 @@ __license__ = "LGPL"
 
 import array
 import exceptions
+import mmap
 import os
 import struct
 
@@ -180,6 +181,32 @@ class _TokenDb():
 	- A file list where the token was seen (see @ref _FileLinkDb).
     """
 
+    class TokenData():
+        """Memory mapped access to token data."""
+        mapped = None
+        offset = None
+        length = None
+
+        def __init__(self, f):
+            """Initialise with a file object."""
+            self.mapped = mmap.mmap(f.fileno(), 0, access = mmap.ACCESS_READ)
+            self.offset = f.tell()
+            #
+            # The file has two "excess" bytes at the end.
+            #
+            self.length = os.fstat(f.fileno()).st_size - self.offset - 2
+
+        def __getitem__(self, key):
+            try:
+                # single element
+                return ord(self.mapped[self.offset + key])
+            except TypeError:
+                # A slice
+                return bytearray(self.mapped[self.offset + key.start:self.offset + key.stop])
+
+        def __len__(self):
+            return self.length
+
     class Flags():
 	"""Token flags."""
 	# 1 = hits are stored as a vector
@@ -259,8 +286,8 @@ class _TokenDb():
     #
     bitsVec = None
 
-    def __init__(self, rawData, maxItems, maxFiles, fileLinkDb):
-	self.rawData = rawData
+    def __init__(self, file, maxItems, maxFiles, fileLinkDb):
+	self.rawData = self.TokenData(file)
 	self.maxItems = maxItems
 	self.fileLinkDb = fileLinkDb
 	#
@@ -589,8 +616,7 @@ class Lookup():
 	#
 	# Initialise token reading.
 	#
-	data = self._readByteArray(self.tokensOffset, self.endOffset)
-	self.tokenDb = _TokenDb(data, self.tokens, self.files, self.fileLinkDb)
+	self.tokenDb = _TokenDb(self.file, self.tokens, self.files, self.fileLinkDb)
 	self.file.close()
 
     def _read(self, size, type):

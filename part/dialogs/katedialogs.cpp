@@ -1436,7 +1436,8 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
 
   setButtonText( Ok, okText );
   setButtonIcon( Ok, KIcon( okIcon ) );
-  setButtonText( Apply, i18n("&Ignore") );
+  setButtonText( Apply, i18n("&Ignore Changes") );
+  setButtonIcon( Apply, KIcon( "dialog-warning" ) );
 
   setButtonWhatsThis( Ok, whatisok );
   setButtonWhatsThis( Apply, i18n("Ignore the changes. You will not be prompted again.") );

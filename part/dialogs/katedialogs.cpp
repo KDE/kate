@@ -1457,7 +1457,7 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   // If the file isn't deleted, present a diff button, and a overwrite action.
   if ( modtype != KTextEditor::ModificationInterface::OnDiskDeleted )
   {
-    setButtonText( User1, i18n("Overwrite") );
+    setButtonGuiItem( User1, KStandardGuiItem::overwrite() );
     setButtonWhatsThis( User1, i18n("Overwrite the disk file with the editor content.") );
     connect( ui->btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
   }

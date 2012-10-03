@@ -116,7 +116,7 @@ void KateMailFilesPluginView::slotMail()
       int r = KMessageBox::warningYesNoCancel( mainWindow()->window(),
               i18n("<p>The current file:<br /><strong>%1</strong><br />has been "
                    "modified. Modifications will not be available in the attachment.</p>"
-                   "<p>Do you want to save it before sending it?</p>", doc->url().prettyUrl()),
+                   "<p>Do you want to save it before sending it?</p>", doc->url().pathOrUrl()),
               i18n("Save Before Sending?"), KStandardGuiItem::save(), KGuiItem(i18n("Do Not Save")) );
       switch ( r )
       {

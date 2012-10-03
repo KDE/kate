@@ -252,7 +252,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
         if ( fi.exists() )
         {
           m_tempFiles[ doc] = qMakePair(u, fi.lastModified());
-          kDebug(13001) << "temporary file will be deleted after use unless modified: " << u.prettyUrl();
+          kDebug(13001) << "temporary file will be deleted after use unless modified: " << u.pathOrUrl();
         }
       }
     }
@@ -306,7 +306,7 @@ bool KateDocManager::closeDocument(class KTextEditor::Document *doc, bool closeU
     if ( fi.lastModified() <= m_tempFiles[ doc ].second ||
          KMessageBox::questionYesNo( KateApp::self()->activeMainWindow(),
                                      i18n("The supposedly temporary file %1 has been modified. "
-                                          "Do you want to delete it anyway?", m_tempFiles[ doc ].first.prettyUrl()),
+                                          "Do you want to delete it anyway?", m_tempFiles[ doc ].first.pathOrUrl()),
                                      i18n("Delete File?") ) == KMessageBox::Yes )
     {
       KIO::del( m_tempFiles[ doc ].first, KIO::HideProgressInfo );
@@ -316,7 +316,7 @@ bool KateDocManager::closeDocument(class KTextEditor::Document *doc, bool closeU
     else
     {
       m_tempFiles.remove(doc);
-      kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.prettyUrl() << " have been modified since loaded, and has not been deleted.";
+      kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.pathOrUrl() << " have been modified since loaded, and has not been deleted.";
     }
   }
 

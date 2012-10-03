@@ -833,7 +833,7 @@ void KateMainWindow::updateCaption (KTextEditor::Document *doc)
   }
   else
   {
-    c = m_viewManager->activeView()->document()->url().prettyUrl();
+    c = m_viewManager->activeView()->document()->url().pathOrUrl();
   }
 
   QString sessName = KateApp::self()->sessionManager()->activeSession()->sessionName();

@@ -77,7 +77,7 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
 {
   public:
     KateSaveModifiedDocumentCheckListItem(KTextEditor::Document *document)
-        : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().prettyUrl())
+        : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().pathOrUrl())
     {
       m_document = document;
     }
@@ -116,13 +116,13 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
           if ( !m_document->saveAs( tmp ) )
           {
             setState(SaveFailedState);
-            setText(1, m_document->url().prettyUrl());
+            setText(1, m_document->url().pathOrUrl());
             return false;
           }
           else
           {
             bool sc = m_document->waitSaveComplete();
-            setText(1, m_document->url().prettyUrl());
+            setText(1, m_document->url().pathOrUrl());
             if (!sc)
             {
               setState(SaveFailedState);
@@ -146,13 +146,13 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
         if ( !m_document->save() )
         {
           setState(SaveFailedState);
-          setText(1, m_document->url().prettyUrl());
+          setText(1, m_document->url().pathOrUrl());
           return false;
         }
         else
         {
           bool sc = m_document->waitSaveComplete();
-          setText(1, m_document->url().prettyUrl());
+          setText(1, m_document->url().pathOrUrl());
           if (!sc)
           {
             setState(SaveFailedState);

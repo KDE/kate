@@ -260,7 +260,7 @@ void KateFileBrowser::setActiveDocumentDir()
 {
 //   kDebug(13001)<<"KateFileBrowser::setActiveDocumentDir()";
   KUrl u = activeDocumentUrl();
-//   kDebug(13001)<<"URL: "<<u.prettyUrl();
+//   kDebug(13001)<<"URL: "<<u.pathOrUrl();
   if (!u.isEmpty())
     setDir(u.upUrl());
 //   kDebug(13001)<<"... setActiveDocumentDir() DONE!";

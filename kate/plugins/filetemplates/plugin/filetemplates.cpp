@@ -913,7 +913,7 @@ void KateTemplateWizard::accept()
       if ( KMessageBox::warningContinueCancel( this, i18n(
           "<p>The file <br /><strong>'%1'</strong><br /> already exists; if you "
           "do not want to overwrite it, change the template file name to "
-          "something else.</p>", templateUrl.prettyUrl() ),
+          "something else.</p>", templateUrl.pathOrUrl() ),
       i18n("File Exists"), KGuiItem(i18n("Overwrite") ))
            == KMessageBox::Cancel )
         return;
@@ -967,7 +967,7 @@ void KateTemplateWizard::accept()
       {
         KMessageBox::sorry( this, i18n(
             "<qt>Error opening the file<br /><strong>%1</strong><br />for reading. "
-            "The document will not be created</qt>", u.prettyUrl()),
+            "The document will not be created</qt>", u.pathOrUrl()),
             i18n("Template Plugin"), 0 );
 
         KIO::NetAccess::removeTempFile( tmpfile );
@@ -1046,7 +1046,7 @@ void KateTemplateWizard::accept()
   {
     KMessageBox::sorry( this, i18n(
         "Unable to save the template to '%1'.\n\nThe template will be opened, "
-        "so you can save it from the editor.", templateUrl.prettyUrl() ),
+        "so you can save it from the editor.", templateUrl.pathOrUrl() ),
         i18n("Save Failed") );
 
     kft->application()->activeMainWindow()->openUrl( KUrl() );

@@ -551,7 +551,7 @@ namespace KTextEditor {
 #ifdef Q_WS_X11      
       url.addQueryItem("window",QString("%1").arg(dialogParent->effectiveWinId()));
 #endif
-      kDebug()<<destFileName<<" --> "<<url.prettyUrl();      
+      kDebug()<<destFileName<<" --> "<<url.pathOrUrl();
       if (!KRun::runUrl(url,"application/x-ktesnippets",dialogParent)) {
         tf.remove();
         KMessageBox::error(dialogParent,i18n("Editor application for new file with mimetype 'application/x-ktesnippets' could not be started"));

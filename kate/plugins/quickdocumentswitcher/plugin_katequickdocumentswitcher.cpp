@@ -174,17 +174,17 @@ PluginViewKateQuickDocumentSwitcherDialog::PluginViewKateQuickDocumentSwitcherDi
     int linecount=0;
     QModelIndex idxToSelect;
     foreach(KTextEditor::Document *doc,docs) {
-        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().prettyUrl()));
+        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
         QStandardItem *itemName=new QStandardItem(doc->documentName());
 
         itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document>(doc)),DocumentRole);
-        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().prettyUrl()),SortFilterRole);
+        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()),SortFilterRole);
         itemName->setEditable(false);
         QFont font=itemName->font();
         font.setBold(true);
         itemName->setFont(font);
 
-        QStandardItem *itemUrl = new QStandardItem(doc->url().prettyUrl());
+        QStandardItem *itemUrl = new QStandardItem(doc->url().pathOrUrl());
         itemUrl->setEditable(false);
         base_model->setItem(linecount,0,itemName);
         base_model->setItem(linecount,1,itemUrl);

@@ -33,7 +33,7 @@ class KateMailDocItem : public QTreeWidgetItem
         : QTreeWidgetItem( parent ), mdoc(doc)
     {
       setText(0, doc->documentName());
-      setText(1, doc->url().prettyUrl());
+      setText(1, doc->url().pathOrUrl());
       setCheckState(0, Qt::Unchecked);
     }
     KTextEditor::Document *doc()

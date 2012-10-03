@@ -93,7 +93,7 @@ void TabBarPluginView::slotDocumentCreated(KTextEditor::Document* document)
           this, SLOT(slotNameChanged(KTextEditor::Document*)));
 
   int index = m_tabBar->addTab(document->documentName());
-  m_tabBar->setTabToolTip(index, document->url().prettyUrl());
+  m_tabBar->setTabToolTip(index, document->url().pathOrUrl());
   m_tabDocMap[index] = document;
   m_docTabMap[document] = index;
   m_docList.append(document);
@@ -203,7 +203,7 @@ void TabBarPluginView::slotNameChanged(KTextEditor::Document* document)
 
   int tabID = m_docTabMap[document];
   m_tabBar->setTabText(tabID, document->documentName());
-  m_tabBar->setTabToolTip(tabID, document->url().prettyUrl());
+  m_tabBar->setTabToolTip(tabID, document->url().pathOrUrl());
 }
 
 void TabBarPluginView::slotWheelDelta(int delta)
@@ -239,7 +239,7 @@ void TabBarPluginView::rebuildMaps() {
 
   for (int i = 0; i < m_docList.count(); i++) {
     KTextEditor::Document* document = m_docList.at(i);
-    //m_tabBar->setTabToolTip(i, document->url().prettyUrl());
+    //m_tabBar->setTabToolTip(i, document->url().pathOrUrl());
     m_tabDocMap[i] = document;
     m_docTabMap[document] = i;
   }

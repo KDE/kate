@@ -615,7 +615,7 @@ void KWrite::documentNameChanged ()
     }
     else
     {
-      c = m_view->document()->url().prettyUrl();
+      c = m_view->document()->url().pathOrUrl();
 
       //File name shouldn't be too long - Maciek
       if (c.length() > 64)

@@ -30,9 +30,15 @@
 
 #include <QtGui/QKeyEvent>
 
+#include <config.h>
+
 class QLabel;
 
 namespace KTextEditor { class EditorChooser; }
+
+#ifdef KActivities_FOUND
+namespace KActivities { class ResourceInstance; }
+#endif
 
 class KToggleAction;
 class KRecentFilesAction;
@@ -109,6 +115,10 @@ class KWrite : public KParts::MainWindow
     KRecentFilesAction * m_recentFiles;
     KToggleAction * m_paShowPath;
     KToggleAction * m_paShowStatusBar;
+
+#ifdef KActivities_FOUND
+    KActivities::ResourceInstance * m_activityResource;
+#endif
 
     QString encoding;
 

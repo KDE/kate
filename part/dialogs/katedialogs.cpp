@@ -1419,25 +1419,29 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
 {
   setButtons( Ok | Apply | Cancel | User1 );
 
-  QString title, btnOK, whatisok;
+  QString title, okText, okIcon, okToolTip;
   if ( modtype == KTextEditor::ModificationInterface::OnDiskDeleted )
   {
     title = i18n("File Was Deleted on Disk");
-    btnOK = i18n("&Save File As...");
-    whatisok = i18n("Lets you select a location and save the file again.");
+    okText = i18n("&Save File As...");
+    okIcon = "document-save-as";
+    okToolTip = i18n("Lets you select a location and save the file again.");
   } else {
     title = i18n("File Changed on Disk");
-    btnOK = i18n("&Reload File");
-    whatisok = i18n("Reload the file from disk. If you have unsaved changes, "
+    okText = i18n("&Reload File");
+    okIcon = "view-refresh";
+    okToolTip = i18n("Reload the file from disk. If you have unsaved changes, "
         "they will be lost.");
   }
 
-  setButtonText( Ok, btnOK );
-  setButtonText( Apply, i18n("&Ignore") );
+  setButtonText( Ok, okText );
+  setButtonIcon( Ok, KIcon( okIcon ) );
+  setButtonText( Apply, i18n("&Ignore Changes") );
+  setButtonIcon( Apply, KIcon( "dialog-warning" ) );
 
-  setButtonWhatsThis( Ok, whatisok );
-  setButtonWhatsThis( Apply, i18n("Ignore the changes. You will not be prompted again.") );
-  setButtonWhatsThis( Cancel, i18n("Do nothing. Next time you focus the file, "
+  setButtonToolTip( Ok, okToolTip );
+  setButtonToolTip( Apply, i18n("Ignore the changes. You will not be prompted again.") );
+  setButtonToolTip( Cancel, i18n("Do nothing. Next time you focus the file, "
       "or try to save it or close it, you will be prompted again.") );
 
   setCaption( title );
@@ -1453,8 +1457,8 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   // If the file isn't deleted, present a diff button, and a overwrite action.
   if ( modtype != KTextEditor::ModificationInterface::OnDiskDeleted )
   {
-    setButtonText( User1, i18n("Overwrite") );
-    setButtonWhatsThis( User1, i18n("Overwrite the disk file with the editor content.") );
+    setButtonGuiItem( User1, KStandardGuiItem::overwrite() );
+    setButtonToolTip( User1, i18n("Overwrite the disk file with the editor content.") );
     connect( ui->btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
   }
   else

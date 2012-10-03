@@ -3917,7 +3917,9 @@ bool KateDocument::documentReload()
 
       int i = KMessageBox::warningYesNoCancel
                 (parentWidget, reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
-                i18n("File Was Changed on Disk"), KGuiItem(i18n("&Reload File")), KGuiItem(i18n("&Ignore Changes")));
+                i18n("File Was Changed on Disk"),
+                KGuiItem(i18n("&Reload File"), "view-refresh"),
+                KGuiItem(i18n("&Ignore Changes"), "dialog-warning"));
 
       if ( i != KMessageBox::Yes)
       {

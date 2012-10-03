@@ -318,7 +318,7 @@ class MatchesModel(HistoryModel):
         return resultRow[0].index()
 
     def literalTokenSearch(self, parent, token, filter):
-        """Add the entries which match the token to the tree, and return the QModelIndex of the last of any definitions we find.
+        """Add the entries which match the token to the matches, and return the QModelIndex of the last of any definitions we find.
 
         Entries are grouped under the file in which the hits are searched. Each
         entry shows the matched text, the line and column of the match. If so
@@ -503,6 +503,12 @@ class SearchBar(QObject):
     def literalSearch(self):
         """Lookup a single token and return the modelIndex of any definition."""
         definitionIndex = self.matchesModel.literalTokenSearch(self.toolView, self.token.currentText(), self.filter.currentText())
+        if definitionIndex:
+            #
+            # Set the navigation starting point to (the last of) any
+            # definition we found.
+            #
+            self.matchesWidget.setCurrentIndex(definitionIndex)
         return definitionIndex
 
     def _findCompletion(self, token):

@@ -313,7 +313,7 @@ modes are 'none', 'normal', 'cstyle', 'haskell', 'lilypond', 'lisp', 'python',
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-auto-ident</command><arg choice="req">BOOLEAN name</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-auto-ident</command><arg choice="req">BOOLEAN script</arg></cmdsynopsis></term>
 <listitem><para>Enable or disable autoindentation.</para></listitem>
 </varlistentry>
 
@@ -340,8 +340,7 @@ Wrap cursor</link>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-mode</command><arg choice="req">BOOLEAN
-enable</arg></cmdsynopsis></term>
+<term><cmdsynopsis><command>set-mode</command><arg choice="req">STRING mode</arg></cmdsynopsis></term>
 <listitem><para>Choose the filetype scheme for the current document.
 </para></listitem>
 </varlistentry>
@@ -476,6 +475,7 @@ if none is specified. The following translations are done when interpreting
 <row><entry><literal>dddd</literal></entry><entry>The long localized day name (e.g. 'Monday'..'Sunday').</entry></row>
 <row><entry><literal>M</literal></entry><entry>The month as number without a leading zero (1-12).</entry></row>
 <row><entry><literal>MM</literal></entry><entry>The month as number with a leading zero (01-12).</entry></row>
+<row><entry><literal>MMMM</literal></entry><entry>The long localized month name (e.g. 'January'..'December').</entry></row>
 <row><entry><literal>MMM</literal></entry><entry>The abbreviated localized month name (e.g. 'Jan'..'Dec').</entry></row>
 <row><entry><literal>yy</literal></entry><entry>The year as two digit number
 (00-99).</entry></row>
@@ -590,7 +590,7 @@ below).</para>
 
 <para>Suppose you have the following line:
 
-<programlisting>void MyClass::DoStringOps( String      &amp;foo, String &amp;bar String *p, int  &amp;a, int &amp;b )</programlisting>
+<programlisting>void MyClass::DoStringOps( String      &amp;foo, String &amp;bar, String *p, int  &amp;a, int &amp;b )</programlisting>
 </para>
 <para>Now you realize that this is not nice code, and decide that you
 want to use the <constant>const</constant> keyword for all
@@ -606,7 +606,7 @@ the regular expression recompile for each match to save the <emphasis>backrefere
 
 <para>Output:
 
-<computeroutput>void MyClass::DoStringOps( const String &amp;foo, const String &amp;bar String *p, const int &amp;a, const int &amp;b )</computeroutput></para>
+<computeroutput>void MyClass::DoStringOps( const String &amp;foo, const String &amp;bar, String *p, const int &amp;a, const int &amp;b )</computeroutput></para>
 
 <para>Mission completed! Now, what happened? Well, we looked for some
 white space (<literal>\s+</literal>) followed by one or more
@@ -1684,15 +1684,6 @@ view. The following is a list of all available View functions.
 
 <varlistentry>
 <term><synopsis>
-<function>void view.setCursorPosition(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>)</function>
-<function>void view.setCursorPosition(<parameter>Cursor <replaceable>cursor</replaceable></parameter>)</function>
-</synopsis></term>
-<listitem><para>Returns the current cursor position in the view.</para></listitem>
-</varlistentry>
-
-
-<varlistentry>
-<term><synopsis>
 void view.setCursorPosition(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 void view.setCursorPosition(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
 </synopsis></term>
@@ -1976,7 +1967,7 @@ bool document.isSpace(<parameter>Cursor <replaceable>cursor</replaceable></param
 
 <varlistentry>
 <term><synopsis>
-bool document.matchesAt(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>int <replaceable>line</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
+bool document.matchesAt(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
 bool document.matchesAt(<parameter>Cursor <replaceable>cursor</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
@@ -2042,7 +2033,7 @@ bool document.truncate(<parameter>Cursor <replaceable>cursor</replaceable></para
 
 <varlistentry>
 <term><synopsis>
-bool document.insertText(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>int <replaceable>line</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
+bool document.insertText(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
 bool document.insertText(<parameter>Cursor <replaceable>cursor</replaceable></parameter>, <parameter>String <replaceable>text</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>

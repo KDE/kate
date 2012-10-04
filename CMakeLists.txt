@@ -30,7 +30,7 @@ set (KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE)
 # add some definitions needed
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-include_directories (${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES})
+include_directories (${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES} ${KACTIVITIES_INCLUDE_DIRS})
 
 # some stuff to have it compile for KDE 4.4
 if (NOT KDE_NO_DEPRECATED)

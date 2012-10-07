@@ -155,7 +155,7 @@
       <attribute name="title">
        <string>Configuration Pages</string>
       </attribute>
-      <layout class="QVBoxLayout" name="tab2lo">
+      <layout class="QVBoxLayout" name="tab3lo">
        <item>
         <layout class="QGridLayout" name="tab3_1lo">
          <item row="6" column="1">

@@ -1128,7 +1128,7 @@ QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
 void KateSchemaConfigPage::importFullSchema()
 {
   const QString srcName = KFileDialog::getOpenFileName(KUrl(),
-                                    "*.kateschema|Kate color schema",
+                                    QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
                                     this, i18n("Importing Color Schema"));
 
   if (srcName.isEmpty()) return;

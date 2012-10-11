@@ -289,7 +289,11 @@ class MatchesModel(HistoryModel):
 						self.add(fileName, "text-x-chdr", text[:-1], line, column)
 					else:
 						self.add(fileName, None, text[:-1], line, column)
-				line += 1
+				#
+				# FF and VT weirdness...
+				#
+				if text[-1] != '\f' and text[-1] != '\v':
+					line += 1
 			if not hits:
 				#
 				# This was in the index, but we found no hits. Assuming the file

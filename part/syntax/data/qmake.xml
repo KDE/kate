@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="QMake" section="Other" extensions="*.pro;*.pri;" mimetype="" version="1.1" kateversion="2.0" author="Milian Wolff (mail@milianw.de)" license="LGPL">
+<language name="QMake" section="Other" extensions="*.pro;*.pri;*.prf;" mimetype="" version="1.2" kateversion="2.0" author="Milian Wolff (mail@milianw.de)" license="LGPL">
 
 <highlighting>
   <list name="variables">

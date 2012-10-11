@@ -1572,11 +1572,12 @@ void KateHighlighting::makeContextList()
         kDebug(13010)<<"Location is:"<< identifierToUse;
 #endif
 
+        if (identifierToUse.isEmpty() )
+          kWarning(13010)<<"Unknown highlighting description referenced:" << it.key() << "in" << identifier;
+
         buildPrefix=it.key()+':';  // attribute names get prefixed by the names
                                    // of the highlighting definitions they belong to
 
-        if (identifierToUse.isEmpty() )
-          kDebug(13010)<<"OHOH, unknown highlighting description referenced";
 
 #ifdef HIGHLIGHTING_DEBUG
         kDebug(13010)<<"setting ("<<it.key()<<") to loaded";

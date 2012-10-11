@@ -10,7 +10,7 @@ include (KDE4Defaults)
 include (MacroLibrary)
 include (CheckFunctionExists)
 
-macro_optional_find_package(KActivities)
+macro_optional_find_package(KActivities 6.1.0)
 macro_log_feature(KActivities_FOUND "KActivities" "Activities interface library" "https://projects.kde.org/projects/kde/kdelibs/kactivities" FALSE "" "Required for Activities integration.")
 
 # no in source builds

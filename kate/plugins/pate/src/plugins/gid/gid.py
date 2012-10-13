@@ -290,7 +290,7 @@ class MatchesModel(HistoryModel):
 					else:
 						self.add(fileName, None, text[:-1], line, column)
 				#
-				# FF and VT weirdness...
+				# FF and VT are line endings it seems...
 				#
 				if text[-1] != '\f' and text[-1] != '\v':
 					line += 1

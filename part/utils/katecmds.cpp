@@ -470,7 +470,11 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
     }
 
     // TODO - should we resetParser, here? We'd have to make it public, if so.
+<<<<<<< HEAD
     // Or maybe synthesise a KateViCommand to execute instead ... ?
+=======
+    // Or maybe synthesis a KateViCommand to execute instead ... ?
+>>>>>>> Fix issue with command-line yank not resetting the count, and fix issues with ViModeTest::TestPressKey which stopped this from being picked up in the automated tests.
     nm->setCount(0);
 
     return true;

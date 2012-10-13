@@ -23,6 +23,7 @@
 #include <QTreeWidgetItem>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
+#include <klocale.h>
 
 ReplaceMatches::ReplaceMatches(QObject *parent) : QObject(parent),
 m_manager(0),
@@ -113,7 +114,7 @@ void ReplaceMatches::doReplaceNextMatch()
         html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
         html += "<b>" + m_replaceText + "</b>";
         html += item->data(3, Qt::ToolTipRole).toString();
-        item->setData(0, Qt::DisplayRole, QString("Line: <b>%1</b>: %2").arg(line+1).arg(html));
+        item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",line+1, html));
         KTextEditor::Range range(line, column, line, column+len);
         KTextEditor::MovingRange* mr = miface->newMovingRange(range);
         rVector.append(mr);

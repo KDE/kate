@@ -18,11 +18,11 @@
  *                      Added a QTimer that every 200ms checks:
  *                      * if the list width has changed
  *                      * if the document has changed
- *                      Added an entry in the popup menu to switch between List and Tree mode
+ *                      Added an entry in the m_popup menu to switch between List and Tree mode
  *                      Various bugfixing.
- *  Apr 24 2003 v 0.5 - Added three check buttons in popup menu to show/hide symbols
+ *  Apr 24 2003 v 0.5 - Added three check buttons in m_popup menu to show/hide m_symbols
  *  Apr 23 2003 v 0.4 - "View Symbol" moved in Settings menu. "Refresh List" is no
- *                      longer in Kate menu. Moved into a popup menu activated by a
+ *                      longer in Kate menu. Moved into a m_popup menu activated by a
  *                      mouse right button click. + Bugfixing.
  *  Apr 22 2003 v 0.3 - Added macro extraction + several bugfixing
  *  Apr 19 2003 v 0.2 - Added to CVS. Extract functions and structures
@@ -52,203 +52,352 @@
 #include <kactioncollection.h>
 #include <kiconloader.h>
 
+#include <ktexteditor/configinterface.h>
+#include <ktexteditor/cursor.h>
+
 #include <QPixmap>
 #include <QVBoxLayout>
 #include <QGroupBox>
 
 #include <QResizeEvent>
 #include <QMenu>
+#include <QPainter>
+
+static const int s_lineWidth = 100;
+static const int s_pixmapWidth = 40;
 
 K_PLUGIN_FACTORY(KateSymbolViewerFactory, registerPlugin<KatePluginSymbolViewer>();)
-K_EXPORT_PLUGIN(KateSymbolViewerFactory(KAboutData("katesymbolviewer","katesymbolviewer",ki18n("SymbolViewer"), "0.1", ki18n("View symbols"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateSymbolViewerFactory(KAboutData("katesymbolviewer","katesymbolviewer",ki18n("SymbolViewer"), "0.1", ki18n("View m_symbols"), KAboutData::License_LGPL_V2)) )
 
 
-KatePluginSymbolViewerView2::KatePluginSymbolViewerView2 (QList<KatePluginSymbolViewerView *> &views, Kate::MainWindow *w)
-    : Kate::PluginView(w)
-    , m_views (views)
-{
-    m_view = new KatePluginSymbolViewerView(w);
-    m_views.append (m_view);
-}
-
-KatePluginSymbolViewerView2::~KatePluginSymbolViewerView2 ()
-{
-    m_views.removeAll(m_view);
-    delete m_view;
-}
-
-KatePluginSymbolViewerView* KatePluginSymbolViewerView2::view()
-{
-    return m_view;
-}
-
-KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w) : Kate::XMLGUIClient(KateSymbolViewerFactory::componentData())
+KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w, KatePluginSymbolViewer *plugin) :
+Kate::PluginView(w),
+Kate::XMLGUIClient(KateSymbolViewerFactory::componentData()),
+m_plugin(plugin)
 {
   KGlobal::locale()->insertCatalog("katesymbolviewer");
-  KToggleAction *act = actionCollection()->add<KToggleAction>("view_insert_symbolviewer");
-  act->setText(i18n("Hide Symbols"));
-  connect(act,SIGNAL(toggled(bool)),this,SLOT(slotInsertSymbol()));
-  act->setCheckedState(KGuiItem(i18n("Show Symbols")));
 
   w->guiFactory()->addClient (this);
-  win = w;
-  symbols = 0;
+  m_symbols = 0;
 
-  m_Active = false;
-  popup = new QMenu(symbols);
-  popup->insertItem(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
-  popup->addSeparator();
-  m_macro = popup->insertItem(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
-  m_struct = popup->insertItem(i18n("Show Structures"), this, SLOT(toggleShowStructures()));
-  m_func = popup->insertItem(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
-  popup->addSeparator();
-  popup->insertItem(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
-  m_sort = popup->insertItem(i18n("Enable Sorting"), this, SLOT(slotEnableSorting()));
+  m_popup = new QMenu(m_symbols);
+  m_popup->insertItem(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
+  m_popup->addSeparator();
+  m_macro = m_popup->insertItem(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
+  m_struct = m_popup->insertItem(i18n("Show Structures"), this, SLOT(toggleShowStructures()));
+  m_func = m_popup->insertItem(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
+  m_popup->addSeparator();
+  m_popup->insertItem(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
+  m_sort = m_popup->insertItem(i18n("Enable Sorting"), this, SLOT(slotEnableSorting()));
 
-  popup->setItemChecked(m_macro, true);
-  popup->setItemChecked(m_struct, true);
-  popup->setItemChecked(m_func, true);
-  popup->setItemChecked(m_sort, false);
+  m_popup->setItemChecked(m_macro, true);
+  m_popup->setItemChecked(m_struct, true);
+  m_popup->setItemChecked(m_func, true);
+  m_popup->setItemChecked(m_sort, false);
   macro_on = true;
   struct_on = true;
   func_on = true;
   treeMode = false;
   lsorting = false;
-  types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
-  expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
-  slotInsertSymbol();
+
+  m_updateTimer.setSingleShot(true);
+  connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmapEdit()));
+
+  QPixmap cls( ( const char** ) class_xpm );
+
+  m_toolview = mainWindow()->createToolView("kate_plugin_symbolviewer", Kate::MainWindow::Left, cls, i18n("Symbol List"));
+
+  QWidget *container = new QWidget(m_toolview);
+  QHBoxLayout *layout = new QHBoxLayout(container);
+
+  m_label = new QLabel();
+  m_pixmap = QPixmap(80, s_lineWidth);
+  m_pixmap.fill();
+  m_label->setPixmap(m_pixmap);
+  m_label->setScaledContents(true);
+  m_label->setMinimumWidth(s_pixmapWidth);
+  m_label->setMaximumWidth(s_pixmapWidth);
+  
+  m_symbols = new QTreeWidget();
+  layout->addWidget(m_label);
+  layout->addWidget(m_symbols, 10);
+
+  m_symbols->setLayoutDirection( Qt::LeftToRight );
+
+  connect(m_symbols, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(goToSymbol(QTreeWidgetItem*)));
+  connect(m_symbols, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotShowContextMenu(QPoint)));
+  
+  connect(mainWindow(), SIGNAL(viewChanged()), this, SLOT(slotDocChanged()));
+  
+  QStringList titles;
+  titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");
+  m_symbols->setColumnCount(2);
+  m_symbols->setHeaderLabels(titles);
+  
+  m_symbols->setColumnHidden(1, true);
+  m_symbols->setSortingEnabled(false);
+  m_symbols->setRootIsDecorated(0);
+  m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);
+  m_symbols->setIndentation(10);
+  //m_symbols->setShowToolTips(true);
+
+  m_toolview->installEventFilter(this);
+
+  /* First Symbols parsing here...*/
+  parseSymbols();
 }
 
 KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
 {
-  win->guiFactory()->removeClient (this);
-  delete dock;
-  delete popup;
+  mainWindow()->guiFactory()->removeClient (this);
+  delete m_toolview;
+  delete m_popup;
 }
 
 void KatePluginSymbolViewerView::toggleShowMacros(void)
 {
- bool s = !popup->isItemChecked(m_macro);
- popup->setItemChecked(m_macro, s);
+ bool s = !m_popup->isItemChecked(m_macro);
+ m_popup->setItemChecked(m_macro, s);
  macro_on = s;
  slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::toggleShowStructures(void)
 {
- bool s = !popup->isItemChecked(m_struct);
- popup->setItemChecked(m_struct, s);
+ bool s = !m_popup->isItemChecked(m_struct);
+ m_popup->setItemChecked(m_struct, s);
  struct_on = s;
  slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::toggleShowFunctions(void)
 {
- bool s = !popup->isItemChecked(m_func);
- popup->setItemChecked(m_func, s);
+ bool s = !m_popup->isItemChecked(m_func);
+ m_popup->setItemChecked(m_func, s);
  func_on = s;
  slotRefreshSymbol();
 }
 
-void KatePluginSymbolViewerView::slotInsertSymbol()
-{
- QPixmap cls( ( const char** ) class_xpm );
- QStringList titles;
-
- if (m_Active == false)
-     {
-      dock = win->createToolView("kate_plugin_symbolviewer", Kate::MainWindow::Left, cls, i18n("Symbol List"));
-
-      symbols = new QTreeWidget(dock);
-      symbols->setLayoutDirection( Qt::LeftToRight );
-      treeMode = 0;
-
-      connect(symbols, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(goToSymbol(QTreeWidgetItem*)));
-      connect(symbols, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotShowContextMenu(QPoint)));
-
-      // FIXME - lately this is broken and doesn't work anymore :(
-      connect(win, SIGNAL(viewChanged()), this, SLOT(slotDocChanged()));
-      //connect(symbols, SIGNAL(resizeEvent(QResizeEvent*)), this, SLOT(slotViewChanged(QResizeEvent*)));
-
-      m_Active = true;
-      //symbols->addColumn(i18n("Symbols"), symbols->parentWidget()->width());
-      titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");
-      symbols->setColumnCount(2);
-      symbols->setHeaderLabels(titles);
-
-      symbols->setColumnHidden(1, true);
-      symbols->setSortingEnabled(false);
-      symbols->setRootIsDecorated(0);
-      symbols->setContextMenuPolicy(Qt::CustomContextMenu);
-      symbols->setIndentation(10);
-      //symbols->setShowToolTips(true);
-
-      /* First Symbols parsing here...*/
-      parseSymbols();
-     }
-  else
-     {
-      delete dock;
-      dock = 0;
-      symbols = 0;
-      m_Active = false;
-     }
-}
-
 void KatePluginSymbolViewerView::slotRefreshSymbol()
 {
-  if (!symbols)
+  if (!m_symbols)
     return;
- symbols->clear();
+ m_symbols->clear();
  parseSymbols();
 }
 
 void KatePluginSymbolViewerView::slotChangeMode()
 {
  treeMode = !treeMode;
- symbols->clear();
+ m_symbols->clear();
  parseSymbols();
 }
 
 void KatePluginSymbolViewerView::slotEnableSorting()
 {
  lsorting = !lsorting;
- popup->setItemChecked(m_sort, lsorting);
- symbols->clear();
+ m_popup->setItemChecked(m_sort, lsorting);
+ m_symbols->clear();
  if (lsorting == true)
-     symbols->setSortingEnabled(true);
+     m_symbols->setSortingEnabled(true);
  else
-     symbols->setSortingEnabled(false);
+     m_symbols->setSortingEnabled(false);
 
  parseSymbols();
- if (lsorting == true) symbols->sortItems(0, Qt::AscendingOrder);
+ if (lsorting == true) m_symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 void KatePluginSymbolViewerView::slotDocChanged()
 {
- //kDebug(13000)<<"Document changed !!!!";
  slotRefreshSymbol();
+
+ m_visibleStart = -1;
+ m_visibleLines = -1;
+ KTextEditor::View *view = mainWindow()->activeView();
+ //kDebug()<<"Document changed !!!!" << view;
+ if (view) {
+   connect(view, SIGNAL(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
+           this, SLOT(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), Qt::UniqueConnection);
+
+   if (view->document()) {
+     connect(view->document(), SIGNAL(textChanged(KTextEditor::Document*)), 
+             this, SLOT(slotDocEdited()), Qt::UniqueConnection);
+   }
+   m_updateTimer.start(10);
+ }
 }
 
 void KatePluginSymbolViewerView::slotViewChanged(QResizeEvent *)
 {
- //kDebug(13000)<<"View changed !!!!";
- symbols->setColumnWidth(0, symbols->parentWidget()->width());
+  //kDebug(13000)<<"View changed !!!!";
+  //m_symbols->setColumnWidth(0, m_symbols->parentWidget()->width());
+  
+}
+
+void KatePluginSymbolViewerView::slotDocEdited()
+{
+  //kDebug() << "";
+  m_updateTimer.start(500);
+}
+
+void KatePluginSymbolViewerView::verticalScrollPositionChanged(
+  KTextEditor::View *view,
+  const KTextEditor::Cursor &newPos)
+{
+  if (view != mainWindow()->activeView()) {
+    return;
+  }
+  QFont f;
+  KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(view);
+  if (ciface) f = ciface->configValue("font").value<QFont>();
+  m_visibleStart = newPos.line();
+  m_visibleLines = mainWindow()->activeView()->height() / (QFontMetrics(f).height());
+  updatePixmapScroll();
+}
+
+
+void KatePluginSymbolViewerView::updatePixmapEdit()
+{
+  if (!mainWindow()) {
+    return;
+  }
+  KTextEditor::View* editView = mainWindow()->activeView();
+  if (!editView) {
+    return;
+  }
+  KTextEditor::Document* doc = editView->document();
+  if (!doc) {
+    return;
+  }
+  int docLines = qMax(doc->lines(), 100);
+  int labelHeight = m_label->height();
+  int numJumpLines = 1;
+  if ((labelHeight > 10) && (docLines > labelHeight*2)) {
+    numJumpLines = docLines / labelHeight;
+  }
+  docLines /= numJumpLines;
+
+  //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
+
+  m_pixmap = QPixmap(s_lineWidth, docLines+1);
+  m_pixmap.fill();
+
+  QString line;
+  int pixX;
+  QPainter p;
+  if (p.begin(&m_pixmap)) {
+    p.setPen(Qt::black);
+    for (int y=0; y < doc->lines(); y+=numJumpLines) {
+      line = doc->line(y);
+      pixX=0;
+      for (int x=0; x <line.size(); x++) {
+        if (pixX >= s_lineWidth) {
+          break;
+        }
+        if (line[x] == ' ') {
+          pixX++;
+        }
+        else if (line[x] == '\t') {
+          pixX += 4; // FIXME: tab width...
+        }
+        else if (line[x] != '\r') {
+          p.drawPoint(pixX, y/numJumpLines);
+          pixX++;
+        }
+      }
+    }
+    p.end();
+  }
+
+  QFont f;
+  KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(editView);
+  if (ciface) f = ciface->configValue("font").value<QFont>();
+  m_visibleStart = editView->cursorPositionVirtual().line();
+  m_visibleStart -= editView->cursorPositionCoordinates().y() / (QFontMetrics(f).height());
+  m_visibleLines = editView->height() / (QFontMetrics(f).height());
+
+  updatePixmapScroll();
+}
+
+void KatePluginSymbolViewerView::updatePixmapScroll()
+{
+  if (!mainWindow()) {
+    return;
+  }
+  KTextEditor::View* editView = mainWindow()->activeView();
+  if (!editView) {
+    return;
+  }
+  KTextEditor::Document* doc = editView->document();
+  if (!doc) {
+    return;
+  }
+  
+  int docLines = qMax(doc->lines(), 100);
+  int labelHeight = m_label->height();
+  int numJumpLines = 1;
+  if ((labelHeight > 10) && (docLines > labelHeight*2)) {
+    numJumpLines = docLines / labelHeight;
+  }
+  docLines /= numJumpLines;
+  
+  //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
+  
+  QPixmap pixmap = m_pixmap;
+  
+  QPainter p;
+  if (p.begin(&pixmap)) {
+    if ((m_visibleStart > -1) && (m_visibleLines > 0)) {
+      p.setBrush(QColor(50,50,255, 100));
+      p.setPen(QColor(20,20,255, 127));
+      p.drawRect(0, m_visibleStart/numJumpLines, s_lineWidth, m_visibleLines/numJumpLines);
+    }
+    p.end();
+  }
+  //kDebug() << editView->visibleRange().start() << editView->visibleRange().end();
+  m_label->setPixmap(pixmap);
+  m_label->setScaledContents(true);
+}
+
+bool KatePluginSymbolViewerView::eventFilter(QObject *obj, QEvent *event)
+{
+  if (event->type() == QEvent::KeyPress) {
+    QKeyEvent *ke = static_cast<QKeyEvent*>(event);
+    if ((obj == m_toolview) && (ke->key() == Qt::Key_Escape)) {
+      mainWindow()->activeView()->setFocus();
+      event->accept();
+      return true;
+    }
+  }
+  else if (event->type() == QEvent::MouseButtonPress) {
+    QMouseEvent *me = static_cast<QMouseEvent*>(event);
+    if ((me->button() == Qt::LeftButton) || (me->button() == Qt::MiddleButton)) {
+      int line = (me->y() * mainWindow()->activeView()->document()->lines()) / m_label->height();
+      mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(line, 0));
+    }
+  }
+  
+// This does not work for some reason...
+//   else if (event->type() == QEvent::Wheel) {
+//     QWheelEvent *we = static_cast<QWheelEvent*>(event);
+//     QWheelEvent *we2 = new QWheelEvent(QPoint(50, 5), we->delta(), we->buttons(), we->modifiers(), we->orientation());
+//     QApplication::postEvent(mainWindow()->activeView(), we2);
+//   }
+  
+  return QObject::eventFilter(obj, event);
 }
 
 void KatePluginSymbolViewerView::slotShowContextMenu(const QPoint &p)
 {
- popup->popup(symbols->mapToGlobal(p));
+ m_popup->popup(m_symbols->mapToGlobal(p));
 }
 
 void KatePluginSymbolViewerView::parseSymbols(void)
 {
-  QTreeWidgetItem *node = NULL;
-
-  if (!win->activeView())
+  if (!mainWindow()->activeView())
     return;
 
-  KTextEditor::Document *doc = win->activeView()->document();
+  KTextEditor::Document *doc = mainWindow()->activeView()->document();
 
   // be sure we have some document around !
   if (!doc)
@@ -281,18 +430,18 @@ void KatePluginSymbolViewerView::parseSymbols(void)
            hlModeName == "JavaScript")
      parseEcmaSymbols();
   else
-     node = new QTreeWidgetItem(symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
+    new QTreeWidgetItem(m_symbols,  QStringList(i18n("Sorry. Language not supported yet") ) );
 }
 
 void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
 {
-  KTextEditor::View *kv = win->activeView();
+  KTextEditor::View *kv = mainWindow()->activeView();
 
   // be sure we really have a view !
   if (!kv)
     return;
 
-  kDebug(13000)<<"Slot Activated at pos: "<<symbols->indexOfTopLevelItem(it);
+  kDebug(13000)<<"Slot Activated at pos: "<<m_symbols->indexOfTopLevelItem(it);
 
   kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(NULL, 10), 0));
 }
@@ -310,9 +459,7 @@ KatePluginSymbolViewer::~KatePluginSymbolViewer()
 
 Kate::PluginView *KatePluginSymbolViewer::createView (Kate::MainWindow *mainWindow)
 {
-  KatePluginSymbolViewerView2 *view = new KatePluginSymbolViewerView2 (mViews, mainWindow);
-  return view;
-  //return new KatePluginSymbolViewerView2 (mainWindow);
+  return new KatePluginSymbolViewerView (mainWindow, this);
 }
 
 Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
@@ -341,13 +488,8 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   config.writeEntry("ViewTypes", p->viewReturns->isChecked());
   config.writeEntry("ExpandTree", p->expandTree->isChecked());
 
- for (int z=0; z < mViews.count(); z++)
-  {
-    mViews.at(z)->types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
-    mViews.at(z)->expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
-    mViews.at(z)->slotRefreshSymbol();
-    //kDebug(13000)<<"KatePluginSymbolViewer: Configuration applied.("<<mViews.at(z)->types_on<<")";
-  }
+  types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
+  expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage

@@ -19,7 +19,7 @@
 
 void KatePluginSymbolViewerView::parseTclSymbols(void)
 {
-  if (!win->activeView())
+  if (!mainWindow()->activeView())
    return;
 
  QString currline, prevline;
@@ -39,27 +39,27 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
 
  if(treeMode)
   {
-   clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Functions") ) );
-   mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Globals") ) );
+   clsNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Functions") ) );
+   mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Globals") ) );
    clsNode->setIcon(0, QIcon(cls));
    mcrNode->setIcon(0, QIcon(mcr));
 
    lastMcrNode = mcrNode;
    lastClsNode = clsNode;
 
-   if (expanded_on)
+   if (m_plugin->expanded_on)
       {
-       symbols->expandItem(clsNode);
-       symbols->expandItem(mcrNode);
+       m_symbols->expandItem(clsNode);
+       m_symbols->expandItem(mcrNode);
       }
-   symbols->setRootIsDecorated(1);
+   m_symbols->setRootIsDecorated(1);
   }
  else
-   symbols->setRootIsDecorated(0);
+   m_symbols->setRootIsDecorated(0);
 
- KTextEditor::Document *kDoc = win->activeView()->document();
+ KTextEditor::Document *kDoc = mainWindow()->activeView()->document();
 
- //positions.resize(kDoc->numLines() + 3); // Maximum symbols number o.O
+ //positions.resize(kDoc->numLines() + 3); // Maximum m_symbols number o.O
  //positions.fill(0);
 
  for (i = 0; i<kDoc->lines(); i++)
@@ -96,7 +96,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                 lastMcrNode = node;
                }
              else
-                node = new QTreeWidgetItem(symbols);
+                node = new QTreeWidgetItem(m_symbols);
              node->setText(0, stripped);
              node->setIcon(0, QIcon(mcr));
              node->setText(1, QString::number( i, 10));
@@ -137,7 +137,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                                    lastClsNode = node;
                                   }
                                 else
-                                   node = new QTreeWidgetItem(symbols);
+                                   node = new QTreeWidgetItem(m_symbols);
                                 node->setText(0, stripped);
                                 node->setIcon(0, QIcon(cls));
                                 node->setText(1, QString::number( i, 10));
@@ -152,6 +152,6 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
       } // not a comment
     } //for i loop
 
- //positions.resize(symbols->itemIndex(node) + 1);
+ //positions.resize(m_symbols->itemIndex(node) + 1);
 }
 

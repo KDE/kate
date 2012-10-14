@@ -19,7 +19,7 @@
 
 void KatePluginSymbolViewerView::parsePhpSymbols(void)
 {
-  if (win->activeView())
+  if (mainWindow()->activeView())
   {
     QString line, lineWithliterals;
     QPixmap namespacePix( ( const char** ) class_int_xpm );
@@ -34,26 +34,26 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
     QTreeWidgetItem *lastNamespaceNode = NULL, *lastDefineNode = NULL, \
         *lastClassNode = NULL, *lastFunctionNode = NULL;
 
-    KTextEditor::Document *kv = win->activeView()->document();
+    KTextEditor::Document *kv = mainWindow()->activeView()->document();
 
     if (treeMode)
     {
-      namespaceNode = new QTreeWidgetItem(symbols, QStringList( i18n("Namespaces") ) );
-      defineNode = new QTreeWidgetItem(symbols, QStringList( i18n("Defines") ) );
-      classNode = new QTreeWidgetItem(symbols, QStringList( i18n("Classes") ) );
-      functionNode = new QTreeWidgetItem(symbols, QStringList( i18n("Functions") ) );
+      namespaceNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Namespaces") ) );
+      defineNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Defines") ) );
+      classNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Classes") ) );
+      functionNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Functions") ) );
 
       namespaceNode->setIcon(0, QIcon( namespacePix ) );
       defineNode->setIcon(0, QIcon( definePix ) );
       classNode->setIcon(0, QIcon( classPix ) );
       functionNode->setIcon(0, QIcon( functionPix ) );
 
-      if (expanded_on)
+      if (m_plugin->expanded_on)
       {
-        symbols->expandItem(namespaceNode);
-        symbols->expandItem(defineNode);
-        symbols->expandItem(classNode);
-        symbols->expandItem(functionNode);
+        m_symbols->expandItem(namespaceNode);
+        m_symbols->expandItem(defineNode);
+        m_symbols->expandItem(classNode);
+        m_symbols->expandItem(functionNode);
       }
 
       lastNamespaceNode = namespaceNode;
@@ -61,11 +61,11 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       lastClassNode = classNode;
       lastFunctionNode = functionNode;
 
-      symbols->setRootIsDecorated(1);
+      m_symbols->setRootIsDecorated(1);
     }
     else
     {
-      symbols->setRootIsDecorated(0);
+      m_symbols->setRootIsDecorated(0);
     }
 
     // Namespaces: http://www.php.net/manual/en/language.namespaces.php
@@ -158,15 +158,15 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         if (treeMode)
         {
           node = new QTreeWidgetItem(namespaceNode, lastNamespaceNode);
-          if (expanded_on)
+          if (m_plugin->expanded_on)
           {
-            symbols->expandItem(node);
+            m_symbols->expandItem(node);
           }
           lastNamespaceNode = node;
         }
         else
         {
-          node = new QTreeWidgetItem(symbols);
+          node = new QTreeWidgetItem(m_symbols);
         }
         node->setText(0, namespaceRegExp.cap(1));
         node->setIcon(0, QIcon(namespacePix));
@@ -183,7 +183,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
           }
           else
           {
-            node = new QTreeWidgetItem(symbols);
+            node = new QTreeWidgetItem(m_symbols);
           }
           node->setText(0, defineRegExp.cap(2));
           node->setIcon(0, QIcon(definePix));
@@ -198,27 +198,27 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         if (treeMode)
         {
           node = new QTreeWidgetItem(classNode, lastClassNode);
-          if (expanded_on)
+          if (m_plugin->expanded_on)
           {
-            symbols->expandItem(node);
+            m_symbols->expandItem(node);
           }
           lastClassNode = node;
         }
         else
         {
-          node = new QTreeWidgetItem(symbols);
+          node = new QTreeWidgetItem(m_symbols);
         }
         if (isClass)
         {
-          if (types_on && !classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
+          if (m_plugin->types_on && !classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
           {
             node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+","+classRegExp.cap(4).trimmed()+"]");
           }
-          else if (types_on && !classRegExp.cap(1).trimmed().isEmpty())
+          else if (m_plugin->types_on && !classRegExp.cap(1).trimmed().isEmpty())
           {
             node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+"]");
           }
-          else if (types_on && !classRegExp.cap(4).trimmed().isEmpty())
+          else if (m_plugin->types_on && !classRegExp.cap(4).trimmed().isEmpty())
           {
             node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(4).trimmed()+"]");
           }
@@ -229,7 +229,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         else
         {
-          if (types_on)
+          if (m_plugin->types_on)
           {
             node->setText(0, interfaceRegExp.cap(1) + " [interface]");
           }
@@ -253,7 +253,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         else
         {
-          node = new QTreeWidgetItem(symbols);
+          node = new QTreeWidgetItem(m_symbols);
         }
         node->setText(0, constantRegExp.cap(1));
         node->setIcon(0, QIcon(constPix));
@@ -271,7 +271,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
           }
           else
           {
-            node = new QTreeWidgetItem(symbols);
+            node = new QTreeWidgetItem(m_symbols);
           }
           node->setText(0, varRegExp.cap(4));
           node->setIcon(0, QIcon(varPix));
@@ -292,10 +292,10 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         else
         {
-          node = new QTreeWidgetItem(symbols);
+          node = new QTreeWidgetItem(m_symbols);
         }
 
-        if (types_on)
+        if (m_plugin->types_on)
         {
           QString functionArgs(functionRegExp.cap(5));
           pos = 0;

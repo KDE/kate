@@ -32,27 +32,15 @@
 #include <qcheckbox.h>
 
 #include <QPixmap>
+#include <QLabel>
 #include <QResizeEvent>
 #include <QTreeWidget>
 #include <QList>
+#include <QTimer>
 #include <klibloader.h>
 #include <klocale.h>
 #include <kiconloader.h>
 #include <kconfig.h>
-
-class KatePluginSymbolViewerView;
-class KatePluginSymbolViewerView2 : public Kate::PluginView
-{
-  Q_OBJECT
-
-  public:
-    KatePluginSymbolViewerView2 (QList<KatePluginSymbolViewerView *> &views, Kate::MainWindow *w);
-    virtual ~KatePluginSymbolViewerView2 ();
-    KatePluginSymbolViewerView* view();
-  private:
-    QList<KatePluginSymbolViewerView *> &m_views;
-    KatePluginSymbolViewerView *m_view;
-};
 
 /**
  * Plugin's config page
@@ -91,18 +79,19 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
     QCheckBox* expandTree;
 };
 
-class KatePluginSymbolViewerView : public QObject, public Kate::XMLGUIClient
+class KatePluginSymbolViewer;
+
+class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUIClient
 {
   Q_OBJECT
 
   public:
-    KatePluginSymbolViewerView (Kate::MainWindow *w);
+    KatePluginSymbolViewerView (Kate::MainWindow *w, KatePluginSymbolViewer *plugin);
     virtual ~KatePluginSymbolViewerView ();
 
     void parseSymbols(void);
 
   public slots:
-    void slotInsertSymbol();
     void slotRefreshSymbol();
     void slotChangeMode();
     void slotEnableSorting();
@@ -112,16 +101,32 @@ class KatePluginSymbolViewerView : public QObject, public Kate::XMLGUIClient
     void toggleShowMacros(void);
     void toggleShowStructures(void);
     void toggleShowFunctions(void);
-  protected:
     void slotViewChanged(QResizeEvent *e);
+    void verticalScrollPositionChanged(KTextEditor::View *view, const KTextEditor::Cursor &newPos);
+    void slotDocEdited();
+    void updatePixmapEdit();
+    
+  protected:
+    bool eventFilter(QObject *obj, QEvent *ev);
+
   private:
-    QMenu *popup;
-    QTreeWidget *symbols;
-    QWidget *dock;
-    bool m_Active;
+    KatePluginSymbolViewer *m_plugin;
+    QMenu       *m_popup;
+    QWidget     *m_toolview;
+    QTreeWidget *m_symbols;
     int m_macro, m_struct, m_func, m_sort;
     bool macro_on, struct_on, func_on;
     bool treeMode, lsorting;
+
+    QLabel  *m_label;
+    QPixmap  m_pixmap;
+    int  m_visibleStart;
+    int  m_visibleLines;
+    
+    QTimer m_updateTimer;
+
+    void updatePixmapScroll();
+    
     void parseCppSymbols(void);
     void parseTclSymbols(void);
     void parseFortranSymbols(void);
@@ -132,10 +137,7 @@ class KatePluginSymbolViewerView : public QObject, public Kate::XMLGUIClient
     void parsePhpSymbols(void);
     void parseBashSymbols(void);
     void parseEcmaSymbols(void);
-  public:
-    Kate::MainWindow *win;
-    bool types_on;
-    bool expanded_on;
+
 };
 
 class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterface
@@ -158,8 +160,10 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
    public slots:
     void applyConfig( KatePluginSymbolViewerConfigPage* p );
 
-  private:
-    QList<KatePluginSymbolViewerView *> mViews;
+public:
+    bool types_on;
+    bool expanded_on;
+  
 };
 
 /* XPM */

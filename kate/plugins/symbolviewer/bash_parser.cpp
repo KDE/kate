@@ -24,7 +24,7 @@
 
 void KatePluginSymbolViewerView::parseBashSymbols(void)
 {
-       if (!win->activeView())
+       if (!mainWindow()->activeView())
                return;
 
        QString currline;
@@ -40,26 +40,26 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
        QPixmap func( ( const char** ) class_xpm );
 
        //It is necessary to change names
-       popup->changeItem( popup->idAt(4),i18n("Show Functions"));
+       m_popup->changeItem( m_popup->idAt(4),i18n("Show Functions"));
 
        if(treeMode)
        {
-               funcNode = new QTreeWidgetItem(symbols, QStringList(i18n("Functions") ) );
+               funcNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions") ) );
                funcNode->setIcon(0, QIcon(func));
 
-               if (expanded_on)
+               if (m_plugin->expanded_on)
                {
-                       symbols->expandItem(funcNode);
+                       m_symbols->expandItem(funcNode);
                }
 
                lastFuncNode = funcNode;
 
-               symbols->setRootIsDecorated(1);
+               m_symbols->setRootIsDecorated(1);
        }
        else
-               symbols->setRootIsDecorated(0);
+               m_symbols->setRootIsDecorated(0);
 
-       KTextEditor::Document *kDoc = win->activeView()->document();
+       KTextEditor::Document *kDoc = mainWindow()->activeView()->document();
 
        for (i = 0; i < kDoc->lines(); i++)
        {
@@ -96,7 +96,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
                                lastFuncNode = node;
                        }
                        else
-                               node = new QTreeWidgetItem(symbols);
+                               node = new QTreeWidgetItem(m_symbols);
 
                        node->setText(0, funcName);
                        node->setIcon(0, QIcon(func));

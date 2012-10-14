@@ -18,7 +18,7 @@
 void KatePluginSymbolViewerView::parseEcmaSymbols(void)
 {
   // make sure there is an active view to attach to
-  if (!win->activeView()) return;
+  if (!mainWindow()->activeView()) return;
 
   // the current line
   QString cl;
@@ -44,14 +44,14 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
   QTreeWidgetItem *node = NULL;
 
   if (treeMode) {
-    symbols->setRootIsDecorated(1);
+    m_symbols->setRootIsDecorated(1);
   }
   else {
-    symbols->setRootIsDecorated(0);
+    m_symbols->setRootIsDecorated(0);
   }
 
   // read the document line by line
-  KTextEditor::Document *kv = win->activeView()->document();
+  KTextEditor::Document *kv = mainWindow()->activeView()->document();
   for (line=0; line < kv->lines(); line++) {
     // get a line to process, trimming off whitespace
     cl = kv->line(line);
@@ -131,16 +131,16 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
         // get the node to add the class entry to
         if ((treeMode) && (! nodes.isEmpty())) {
           node = new QTreeWidgetItem(nodes.last());
-          if (expanded_on) symbols->expandItem(node);
+          if (m_plugin->expanded_on) m_symbols->expandItem(node);
         }
         else {
-          node = new QTreeWidgetItem(symbols);
+          node = new QTreeWidgetItem(m_symbols);
         }
         // add an entry for the class
         node->setText(0, identifier);
         node->setIcon(0, QIcon(cls));
         node->setText(1, QString::number(line, 10));
-        if (expanded_on) symbols->expandItem(node);
+        if (m_plugin->expanded_on) m_symbols->expandItem(node);
       } // (look for classes)
       
       // look for function definitions
@@ -208,7 +208,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
           if ((treeMode) && (parent != NULL))
             node = new QTreeWidgetItem(parent);
           else
-            node = new QTreeWidgetItem(symbols);
+            node = new QTreeWidgetItem(m_symbols);
           // mark the parent as a class (if it's not the root level)
           if (parent != NULL) {
             parent->setIcon(0, QIcon(cls));
@@ -222,7 +222,7 @@ void KatePluginSymbolViewerView::parseEcmaSymbols(void)
           // add the function
           node->setText(0, identifier);
           node->setText(1, QString::number(line, 10));
-          if (expanded_on) symbols->expandItem(node);
+          if (m_plugin->expanded_on) m_symbols->expandItem(node);
         }
       } // (look for functions)
       

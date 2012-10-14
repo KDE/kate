@@ -17,12 +17,12 @@
 
 void KatePluginSymbolViewerView::parsePythonSymbols(void)
 {
-  if (!win->activeView())
+  if (!mainWindow()->activeView())
    return;
 
-  popup->changeItem( popup->idAt(2),i18n("Show Globals"));
-  popup->changeItem( popup->idAt(3),i18n("Show Methods"));
-  popup->changeItem( popup->idAt(4),i18n("Show Classes"));
+  m_popup->changeItem( m_popup->idAt(2),i18n("Show Globals"));
+  m_popup->changeItem( m_popup->idAt(3),i18n("Show Methods"));
+  m_popup->changeItem( m_popup->idAt(4),i18n("Show Classes"));
   QString cl; // Current Line
   QPixmap cls( ( const char** ) class_xpm );
   QPixmap mtd( ( const char** ) method_xpm );
@@ -35,29 +35,29 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
   QTreeWidgetItem *mcrNode = NULL, *mtdNode = NULL, *clsNode = NULL;
   QTreeWidgetItem *lastMcrNode = NULL, *lastMtdNode = NULL, *lastClsNode = NULL;
   
-  KTextEditor::Document *kv = win->activeView()->document();
+  KTextEditor::Document *kv = mainWindow()->activeView()->document();
 
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
   if(treeMode)
     {
-      clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Classes") ) );
-      mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Globals") ) );
+      clsNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Classes") ) );
+      mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Globals") ) );
       mcrNode->setIcon(0, QIcon(mcr));
       clsNode->setIcon(0, QIcon(cls));
   
-      if (expanded_on)
+      if (m_plugin->expanded_on)
         {
-        symbols->expandItem(mcrNode);
-        symbols->expandItem(clsNode);
+        m_symbols->expandItem(mcrNode);
+        m_symbols->expandItem(clsNode);
         }
       lastClsNode = clsNode;
       lastMcrNode = mcrNode;
       mtdNode = clsNode;
       lastMtdNode = clsNode;
-      symbols->setRootIsDecorated(1);
+      m_symbols->setRootIsDecorated(1);
     }
   else
-      symbols->setRootIsDecorated(0);
+      m_symbols->setRootIsDecorated(0);
 
 for (int i=0; i<kv->lines(); i++)
  {
@@ -113,12 +113,12 @@ for (int i=0; i<kv->lines(); i++)
              if (treeMode)
                {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
-                if (expanded_on) symbols->expandItem(node);
+                if (m_plugin->expanded_on) m_symbols->expandItem(node);
                 lastClsNode = node;
                 mtdNode = lastClsNode;
                 lastMtdNode = lastClsNode;
                }
-             else node = new QTreeWidgetItem(symbols);
+             else node = new QTreeWidgetItem(m_symbols);
 
              node->setText(0, name);
              node->setIcon(0, QIcon(cls));
@@ -132,7 +132,7 @@ for (int i=0; i<kv->lines(); i++)
                node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                lastMtdNode = node;
               }
-            else node = new QTreeWidgetItem(symbols);
+            else node = new QTreeWidgetItem(m_symbols);
 
             node->setText(0, name);
             node->setIcon(0, QIcon(mtd));
@@ -146,7 +146,7 @@ for (int i=0; i<kv->lines(); i++)
                 node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                 lastMcrNode = node;
                }
-             else node = new QTreeWidgetItem(symbols);
+             else node = new QTreeWidgetItem(m_symbols);
 
              node->setText(0, name);
              node->setIcon(0, QIcon(mcr));

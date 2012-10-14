@@ -18,7 +18,7 @@
 
 void KatePluginSymbolViewerView::parseFortranSymbols(void)
 {
- if (!win->activeView())
+ if (!mainWindow()->activeView())
    return;
 
  QString currline;
@@ -40,36 +40,36 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
  QPixmap mod( ( const char** ) struct_xpm );
 
  //It is necessary to change names
- popup->changeItem( popup->idAt(2),i18n("Show Subroutines"));
- popup->changeItem( popup->idAt(3),i18n("Show Modules"));
- popup->changeItem( popup->idAt(4),i18n("Show Functions"));
+ m_popup->changeItem( m_popup->idAt(2),i18n("Show Subroutines"));
+ m_popup->changeItem( m_popup->idAt(3),i18n("Show Modules"));
+ m_popup->changeItem( m_popup->idAt(4),i18n("Show Functions"));
 
 
  if(treeMode)
   {
-   funcNode = new QTreeWidgetItem(symbols, QStringList(i18n("Functions") ) );
-   subrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Subroutines") ) );
-   modNode = new QTreeWidgetItem(symbols, QStringList( i18n("Modules") ) );
+   funcNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions") ) );
+   subrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Subroutines") ) );
+   modNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Modules") ) );
    funcNode->setIcon(0, QIcon(func));
    modNode->setIcon(0, QIcon(mod));
    subrNode->setIcon(0, QIcon(subr));
 
-   if (expanded_on)
+   if (m_plugin->expanded_on)
       {
-       symbols->expandItem(funcNode);
-       symbols->expandItem(subrNode);
-       symbols->expandItem(modNode);
+       m_symbols->expandItem(funcNode);
+       m_symbols->expandItem(subrNode);
+       m_symbols->expandItem(modNode);
       }
 
    lastSubrNode = subrNode;
    lastFuncNode = funcNode;
    lastModNode = modNode;
-   symbols->setRootIsDecorated(1);
+   m_symbols->setRootIsDecorated(1);
   }
  else
-   symbols->setRootIsDecorated(0);
+   m_symbols->setRootIsDecorated(0);
 
- KTextEditor::Document *kDoc = win->activeView()->document();
+ KTextEditor::Document *kDoc = mainWindow()->activeView()->document();
 
  for (i = 0; i < kDoc->lines(); i++)
    {
@@ -145,7 +145,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                       lastSubrNode = node;
                      }
                    else
-                      node = new QTreeWidgetItem(symbols);
+                      node = new QTreeWidgetItem(m_symbols);
                    node->setText(0, stripped);
                    node->setIcon(0, QIcon(subr));
                    node->setText(1, QString::number( i, 10));
@@ -185,7 +185,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                   lastModNode = node;
                  }
                else
-                  node = new QTreeWidgetItem(symbols);
+                  node = new QTreeWidgetItem(m_symbols);
                node->setText(0, stripped);
                node->setIcon(0, QIcon(mod));
                node->setText(1, QString::number( i, 10));
@@ -226,7 +226,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                  lastFuncNode = node;
                 }
               else
-                 node = new QTreeWidgetItem(symbols);
+                 node = new QTreeWidgetItem(m_symbols);
               node->setText(0, stripped);
               node->setIcon(0, QIcon(func));
               node->setText(1, QString::number( i, 10));

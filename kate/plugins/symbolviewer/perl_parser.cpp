@@ -17,12 +17,12 @@
 
 void KatePluginSymbolViewerView::parsePerlSymbols(void)
 {
- if (!win->activeView())
+ if (!mainWindow()->activeView())
    return;
 
- popup->changeItem( popup->idAt(2),i18n("Show Uses"));
- popup->changeItem( popup->idAt(3),i18n("Show Pragmas"));
- popup->changeItem( popup->idAt(4),i18n("Show Subroutines"));
+ m_popup->changeItem( m_popup->idAt(2),i18n("Show Uses"));
+ m_popup->changeItem( m_popup->idAt(3),i18n("Show Pragmas"));
+ m_popup->changeItem( m_popup->idAt(4),i18n("Show Subroutines"));
  QString cl; // Current Line
  QString stripped;
  char comment = 0;
@@ -34,31 +34,31 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL;
  QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL;
 
- KTextEditor::Document *kv = win->activeView()->document();
+ KTextEditor::Document *kv = mainWindow()->activeView()->document();
 
      //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
  if(treeMode)
    {
-    mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Uses") ) );
-    sctNode = new QTreeWidgetItem(symbols, QStringList( i18n("Pragmas") ) );
-    clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Subroutines") ) );
+    mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Uses") ) );
+    sctNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Pragmas") ) );
+    clsNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Subroutines") ) );
     mcrNode->setIcon(0, QIcon(mcr));
     sctNode->setIcon(0, QIcon(sct));
     clsNode->setIcon(0, QIcon(cls));
 
-    if (expanded_on)
+    if (m_plugin->expanded_on)
       {
-       symbols->expandItem(mcrNode);
-       symbols->expandItem(sctNode);
-       symbols->expandItem(clsNode);
+       m_symbols->expandItem(mcrNode);
+       m_symbols->expandItem(sctNode);
+       m_symbols->expandItem(clsNode);
       }
     lastMcrNode = mcrNode;
     lastSctNode = sctNode;
     lastClsNode = clsNode;
-    symbols->setRootIsDecorated(1);
+    m_symbols->setRootIsDecorated(1);
    }
  else
-    symbols->setRootIsDecorated(0);
+    m_symbols->setRootIsDecorated(0);
 
  for (int i=0; i<kv->lines(); i++)
    {
@@ -88,7 +88,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
           lastMcrNode = node;
          }
        else
-          node = new QTreeWidgetItem(symbols);
+          node = new QTreeWidgetItem(m_symbols);
 
        node->setText(0, stripped);
        node->setIcon(0, QIcon(mcr));
@@ -105,7 +105,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
           lastMcrNode = node;
          }
        else
-          node = new QTreeWidgetItem(symbols);
+          node = new QTreeWidgetItem(m_symbols);
 
        node->setText(0, stripped);
        node->setIcon(0, QIcon(sct));
@@ -123,7 +123,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
           lastClsNode = node;
          }
        else
-          node = new QTreeWidgetItem(symbols);
+          node = new QTreeWidgetItem(m_symbols);
         node->setText(0, stripped);
 
         if (!stripped.isEmpty() && stripped.at(0)=='_')

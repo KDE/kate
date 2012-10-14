@@ -18,12 +18,12 @@
 
 void KatePluginSymbolViewerView::parseXsltSymbols(void)
 {
-  if (!win->activeView())
+  if (!mainWindow()->activeView())
    return;
 
- popup->changeItem( popup->idAt(2),i18n("Show Params"));
- popup->changeItem( popup->idAt(3),i18n("Show Variables"));
- popup->changeItem( popup->idAt(4),i18n("Show Templates"));
+ m_popup->changeItem( m_popup->idAt(2),i18n("Show Params"));
+ m_popup->changeItem( m_popup->idAt(3),i18n("Show Variables"));
+ m_popup->changeItem( m_popup->idAt(4),i18n("Show Templates"));
 
  QString cl; // Current Line
  QString stripped;
@@ -41,35 +41,35 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
  QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL;
  QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL;
 
- KTextEditor::Document *kv = win->activeView()->document();
+ KTextEditor::Document *kv = mainWindow()->activeView()->document();
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
 
 
  if(treeMode)
    {
-    mcrNode = new QTreeWidgetItem(symbols, QStringList( i18n("Params") ) );
-    sctNode = new QTreeWidgetItem(symbols, QStringList( i18n("Variables") ) );
-    clsNode = new QTreeWidgetItem(symbols, QStringList( i18n("Templates") ) );
+    mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Params") ) );
+    sctNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Variables") ) );
+    clsNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Templates") ) );
     mcrNode->setIcon(0, QIcon(mcr));
     sctNode->setIcon(0, QIcon(sct));
     clsNode->setIcon(0, QIcon(cls));
 
-    if (expanded_on) 
+    if (m_plugin->expanded_on) 
       {
-       symbols->expandItem(mcrNode);
-       symbols->expandItem(sctNode);
-       symbols->expandItem(clsNode);
+       m_symbols->expandItem(mcrNode);
+       m_symbols->expandItem(sctNode);
+       m_symbols->expandItem(clsNode);
       }
 
     lastMcrNode = mcrNode;
     lastSctNode = sctNode;
     lastClsNode = clsNode;
 
-    symbols->setRootIsDecorated(1);
+    m_symbols->setRootIsDecorated(1);
    }
  else
    {
-    symbols->setRootIsDecorated(0);
+    m_symbols->setRootIsDecorated(0);
    }
 
  for (i=0; i<kv->lines(); i++)
@@ -95,7 +95,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
            node = new QTreeWidgetItem(mcrNode, lastMcrNode);
            lastMcrNode = node;
           }
-        else node = new QTreeWidgetItem(symbols);
+        else node = new QTreeWidgetItem(m_symbols);
         node->setText(0, stripped);
         node->setIcon(0, QIcon(mcr));
         node->setText(1, QString::number( i, 10));
@@ -111,7 +111,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
            node = new QTreeWidgetItem(sctNode, lastSctNode);
            lastSctNode = node;
           }
-        else node = new QTreeWidgetItem(symbols);
+        else node = new QTreeWidgetItem(m_symbols);
         node->setText(0, stripped);
         node->setIcon(0, QIcon(sct));
         node->setText(1, QString::number( i, 10));
@@ -127,7 +127,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
            node = new QTreeWidgetItem(clsNode, lastClsNode);
            lastClsNode = node;
           }
-        else node = new QTreeWidgetItem(symbols);
+        else node = new QTreeWidgetItem(m_symbols);
         node->setText(0, stripped);
         node->setIcon(0, QIcon(cls_int));
         node->setText(1, QString::number( i, 10));
@@ -143,7 +143,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
            node = new QTreeWidgetItem(clsNode, lastClsNode);
            lastClsNode = node;
           }
-        else node = new QTreeWidgetItem(symbols);
+        else node = new QTreeWidgetItem(m_symbols);
         node->setText(0, stripped);
         node->setIcon(0, QIcon(cls));
         node->setText(1, QString::number( i, 10));

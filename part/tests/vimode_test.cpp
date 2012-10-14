@@ -86,8 +86,13 @@ void ViModeTest::TestPressKey(QString str) {
         code = key[0].unicode() - '0' + Qt::Key_0;
     }
 
-    key_event = new QKeyEvent(QEvent::KeyRelease, code, keyboard_modifier, key);
-    vi_input_mode_manager->handleKeypress(key_event);
+    key_event = new QKeyEvent(QEvent::KeyPress, code, keyboard_modifier, key);
+    const bool handled = vi_input_mode_manager->handleKeypress(key_event);
+    if (vi_input_mode_manager->getCurrentViMode() == InsertMode && !handled && keyboard_modifier == Qt::NoModifier){
+      QApplication::postEvent(kate_view->focusProxy(), key_event);
+      QApplication::sendPostedEvents();
+    }
+
   }
 }
 
@@ -220,6 +225,7 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo\nbar", "o\\ctrl-c", "foo\n\nbar");
   DoTest("foo bar", "wlI\\ctrl-cx", "oo bar");
   DoTest("foo bar", "wli\\ctrl-cx", "foo ar");
+  DoTest("foo bar", "wlihello\\ctrl-c", "foo bhelloar");
 
   // Testing "Ctrl-w"
   DoTest("foobar", "$i\\ctrl-w", "r");

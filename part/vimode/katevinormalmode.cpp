@@ -2752,8 +2752,47 @@ KateViRange KateViNormalMode::textObjectACurlyBracket()
 
 KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
 {
+  const KateViRange allBetweenCurlyBrackets = findSurroundingBrackets( '{', '}', true, '{', '}' );
+  // Emulate the behaviour of vim, which tries to leave the closing bracket on its own line
+  // if it was originally on a line different to that of the opening bracket.
+  KateViRange innerCurlyBracket(allBetweenCurlyBrackets);
 
-    return findSurroundingBrackets( '{', '}', true, '{', '}' );
+  if (innerCurlyBracket.startLine != innerCurlyBracket.endLine)
+  {
+    const bool stuffToDeleteIsAllOnEndLine = innerCurlyBracket.startColumn == doc()->line(innerCurlyBracket.startLine).length() &&
+    innerCurlyBracket.endLine == innerCurlyBracket.startLine + 1;
+    if (stuffToDeleteIsAllOnEndLine)
+    {
+      if (innerCurlyBracket.endColumn == -1)
+      {
+        // Nothing there to select - abort.
+        innerCurlyBracket.valid = false;
+        return innerCurlyBracket;
+      }
+      else
+      {
+        // Shift the beginning of the range to the start of the line containing the closing bracket.
+        innerCurlyBracket.startLine++;
+        innerCurlyBracket.startColumn = 0;
+      }
+    }
+    else
+    {
+      // The line containing the end bracket is left alone if the end bracket is preceded by whitespace,
+      // else we need to delete everything (i.e. end up with "{}")
+      const QString textLeadingClosingBracket = doc()->line(innerCurlyBracket.endLine).mid(0, innerCurlyBracket.endColumn + 1);
+      const bool hasStuffToDeleteOnEndLine = (!textLeadingClosingBracket.isEmpty() && !textLeadingClosingBracket.trimmed().isEmpty());
+      if (!hasStuffToDeleteOnEndLine)
+      {
+        // Shrink the endpoint of the range so that it ends at the end of the line above,
+        // leaving the closing bracket on its own line.
+        innerCurlyBracket.endLine--;
+        innerCurlyBracket.endColumn = doc()->line(innerCurlyBracket.endLine).length() - 1;
+      }
+    }
+
+  }
+  return innerCurlyBracket;
 }
 
 KateViRange KateViNormalMode::textObjectAInequalitySign()

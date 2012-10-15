@@ -465,6 +465,13 @@ void ViModeTest::NormalModeMotionsTest() {
           "ldiB",
           "{}");
 
+  DoTest( "{\nfoo\n}", "jdiB", "{\n}");
+  DoTest( "{\n}", "diB", "{\n}");
+  DoTest( "{\nfoo}", "jdiB", "{\n}");
+  DoTest( "{foo\nbar\nbaz}", "jdiB", "{}");
+  DoTest( "{foo\nbar\n  \t\t }", "jdiB", "{\n  \t\t }");
+  DoTest( "{foo\nbar\n  \t\ta}", "jdiB", "{}");
+
   DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",
           "jda}xr;",
           "int main();");

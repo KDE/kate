@@ -592,7 +592,7 @@ KateViRange innerRange(KateViRange range, bool inner) {
   if (inner) {
     r.startColumn++;
     r.endColumn--;
-    if ( qAbs(r.startColumn - r.endColumn) < 2 )
+    if ((r.startLine == r.endLine) && qAbs(r.startColumn - r.endColumn) < 2 )
       r.valid = false;
   }
 

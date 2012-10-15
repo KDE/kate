@@ -284,6 +284,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     void joinLines(unsigned int from, unsigned int to) const;
     void reformatLines(unsigned int from, unsigned int to) const;
 
+    KateViRange textObjectComma(bool inner);
+    void shrinkRangeAroundCursor(KateViRange& toShrink, const KateViRange& rangeToShrinkTo);
+
     QString m_keys;
     unsigned int m_countTemp;
     bool m_findWaitingForChar;

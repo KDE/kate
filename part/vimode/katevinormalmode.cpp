@@ -2810,53 +2810,12 @@ KateViRange KateViNormalMode::textObjectInnerInequalitySign()
 
 KateViRange KateViNormalMode::textObjectAComma()
 {
-  KateViRange r = findSurroundingQuotes( ',', false );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( ',', ')', false, '(', ')' );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( ',', ']', false, '[', ']' );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( ',', '}', false, '{', '}' );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( '(', ',', false, '(', ')'  );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( '[', ',', false, '[', ']' );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( '{', ',', false, '{', '}' );
-
-    return r;
+  return textObjectComma(false);
 }
 
 KateViRange KateViNormalMode::textObjectInnerComma()
 {
-
-  KateViRange r = findSurroundingQuotes( ',',true );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( ',', ')', true, '(', ')' );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( ',', ']', true, '[', ']' );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( ',', '}', true, '{', '}' );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( '(', ',', true, '(', ')'  );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( '[', ',', true, '[', ']' );
-
-  if ( !r.valid )
-    r = findSurroundingBrackets( '{', ',', true, '{', '}' );
-
-    return r;
+  return textObjectComma(true);
 }
 
 // add commands
@@ -3213,4 +3172,88 @@ void KateViNormalMode::reformatLines(unsigned int from, unsigned int to) const
 {
   joinLines( from, to );
   doc()->wrapText( from, to );
+}
+
+// Tries to shrinks toShrink so that it fits tightly around rangeToShrinkTo.
+void KateViNormalMode::shrinkRangeAroundCursor(KateViRange& toShrink, const KateViRange& rangeToShrinkTo)
+{
+  if (!toShrink.valid || !rangeToShrinkTo.valid)
+  {
+    return;
+  }
+  Cursor cursorPos = m_view->cursorPosition();
+  if (rangeToShrinkTo.startLine >= cursorPos.line())
+  {
+    if (rangeToShrinkTo.startLine > cursorPos.line())
+    {
+      // Does not surround cursor; aborting.
+      return;
+    }
+    Q_ASSERT(rangeToShrinkTo.startLine == cursorPos.line());
+    if (rangeToShrinkTo.startColumn > cursorPos.column())
+    {
+      // Does not surround cursor; aborting.
+      return;
+    }
+  }
+  if (rangeToShrinkTo.endLine <= cursorPos.line())
+  {
+    if (rangeToShrinkTo.endLine < cursorPos.line())
+    {
+      // Does not surround cursor; aborting.
+      return;
+    }
+    Q_ASSERT(rangeToShrinkTo.endLine == cursorPos.line());
+    if (rangeToShrinkTo.endColumn < cursorPos.column())
+    {
+      // Does not surround cursor; aborting.
+      return;
+    }
+  }
+
+  if (toShrink.startLine <= rangeToShrinkTo.startLine)
+  {
+    if (toShrink.startLine < rangeToShrinkTo.startLine)
+    {
+    toShrink.startLine = rangeToShrinkTo.startLine;
+    toShrink.startColumn = rangeToShrinkTo.startColumn;
+    }
+    Q_ASSERT(toShrink.startLine == rangeToShrinkTo.startLine);
+    if (toShrink.startColumn < rangeToShrinkTo.startColumn)
+    {
+      toShrink.startColumn = rangeToShrinkTo.startColumn;
+    }
+  }
+  if (toShrink.endLine >= rangeToShrinkTo.endLine)
+  {
+    if (toShrink.endLine > rangeToShrinkTo.endLine)
+    {
+    toShrink.endLine = rangeToShrinkTo.endLine;
+    toShrink.endColumn = rangeToShrinkTo.endColumn;
+    }
+    Q_ASSERT(toShrink.endLine == rangeToShrinkTo.endLine);
+    if (toShrink.endColumn > rangeToShrinkTo.endColumn)
+    {
+      toShrink.endColumn = rangeToShrinkTo.endColumn;
+    }
+  }
+}
+
+KateViRange KateViNormalMode::textObjectComma(bool inner)
+{
+  // Basic algorithm: look left and right of the cursor for all combinations
+  // of enclosing commas and the various types of brackets, and pick the pair
+  // closest to the cursor that surrounds the cursor.
+  KateViRange r(0, 0, m_view->doc()->lines(), m_view->doc()->line(m_view->doc()->lastLine()).length(), ViMotion::InclusiveMotion);
+
+  shrinkRangeAroundCursor(r, findSurroundingQuotes( ',', inner ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( '(', ')', inner, '(', ')' ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( '{', '}', inner, '{', '}' ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( ',', ')', inner, '(', ')' ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( ',', ']', inner, '[', ']' ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( ',', '}', inner, '{', '}' ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( '(', ',', inner, '(', ')'  ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( '[', ',', inner, '[', ']' ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( '{', ',', inner, '{', '}' ));
+  return r;
 }

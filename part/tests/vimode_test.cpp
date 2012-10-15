@@ -521,6 +521,12 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("()","di(","()");
   DoTest("\"\"","di\"","\"\"");
 
+  // Comma text object
+  DoTest("func(aaaa);", "llllldi,", "func();");
+  DoTest("func(aaaa);", "lllllda,", "func;");
+  DoTest("//Hello, world!\nfunc(a[0] > 2);", "jf>di,", "//Hello, world!\nfunc();");
+  DoTest("//Hello, world!\nfunc(a[0] > 2);", "jf>da,", "//Hello, world!\nfunc;");
+  DoTest("//Hello, world!\na[] = {135};", "jf3di,", "//Hello, world!\na[] = {};");
 }
 
 void ViModeTest::NormalModeCommandsTest() {

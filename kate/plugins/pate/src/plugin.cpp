@@ -65,10 +65,7 @@ Pate::Plugin::Plugin(QObject *parent, const QStringList &) :
 }
 
 Pate::Plugin::~Plugin() {
-    while (m_moduleConfigPages.size()) {
-        PyObject *tuple = m_moduleConfigPages.takeFirst();
-        Py_DECREF(tuple);
-    }
+    m_moduleConfigPages.clear();
     Pate::Engine::del();
 }
 
@@ -85,7 +82,7 @@ void Pate::Plugin::readSessionConfig(KConfigBase *config, const QString &groupPr
     if (!engine) {
       KPassivePopup::message( i18n("Pate engine could not be initialised"),(QWidget*)0);
       return;
-      
+
     }
     engine->readConfiguration(groupPrefix);
     Python py = Python();
@@ -116,7 +113,7 @@ void Pate::Plugin::reloadModuleConfigPages() const
     if (!engine) {
       KPassivePopup::message( i18n("Pate engine could not be initialised"),(QWidget*)0);
       return;
-      
+
     }
     QStandardItem *root = engine->invisibleRootItem();
     for (int i = 0; i < root->rowCount(); i++) {
@@ -138,7 +135,6 @@ void Pate::Plugin::reloadModuleConfigPages() const
                 for (Py_ssize_t k = 0, l = PyList_Size(configPages); k < l; ++k) {
                     // Add an action for this plugin.
                     PyObject *tuple = PyList_GetItem(configPages, k);
-                    Py_INCREF(tuple);
                     m_moduleConfigPages.append(tuple);
                 }
                 Py_DECREF(configPages);
@@ -259,7 +255,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
 {
     kDebug() << "create ConfigPage";
 
-    
+
     // Create a page with just the main manager tab.
     m_manager.setupUi(this);
     m_manager.tree->setModel(Pate::Engine::self());
@@ -272,7 +268,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
     reloadPage(true);
-    
+
     Pate::Engine *engine=Pate::Engine::self();
     if (engine) {
       m_manager.errorLabel->setVisible(false);

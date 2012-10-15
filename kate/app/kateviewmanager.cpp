@@ -52,6 +52,10 @@
 #include <KGlobalSettings>
 #include <kstandardshortcut.h>
 
+#ifdef KActivities_FOUND
+#include <KActivities/ResourceInstance>
+#endif
+
 #include <QApplication>
 #include <QObject>
 #include <QFileInfo>
@@ -406,6 +410,13 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
 
   viewCreated(view);
 
+#ifdef KActivities_FOUND
+  if (!m_activityResources.contains(view)) {
+    m_activityResources[view] = new KActivities::ResourceInstance(view->window()->winId(), view);
+  }
+  m_activityResources[view]->setUri(doc->url());
+#endif
+
   activateView( view );
 
   return true;
@@ -430,6 +441,10 @@ bool KateViewManager::deleteView (KTextEditor::View *view, bool delViewSpace)
   if (delViewSpace)
     if ( viewspace->viewCount() == 0 )
       removeViewSpace( viewspace );
+
+#ifdef KActivities_FOUND
+  m_activityResources.remove(view);
+#endif
 
   return true;
 }
@@ -538,6 +553,13 @@ void KateViewManager::reactivateActiveView()
 void KateViewManager::activateView ( KTextEditor::View *view )
 {
   if (!view) return;
+
+#ifdef KActivities_FOUND
+  if (m_activityResources.contains(view)) {
+    m_activityResources[view]->setUri(view->document()->url());
+    m_activityResources[view]->notifyFocusedIn();
+  }
+#endif
 
   if (!m_activeStates[view])
   {

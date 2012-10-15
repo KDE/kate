@@ -11,7 +11,7 @@ include (MacroLibrary)
 include (CheckFunctionExists)
 
 macro_optional_find_package(KActivities 6.1.0)
-macro_log_feature(KActivities_FOUND "KActivities" "Activities interface library" "https://projects.kde.org/projects/kde/kdelibs/kactivities" FALSE "" "Required for Activities integration.")
+macro_log_feature(KActivities_FOUND "KActivities" "Activities interface library" "https://projects.kde.org/projects/kde/kdelibs/kactivities" FALSE "6.1.0" "Required for Activities integration.")
 
 # no in source builds
 macro_ensure_out_of_source_build("kate requires an out of source build. Please create a separate build directory and run 'cmake path_to_kate [options]' there.")

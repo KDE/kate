@@ -89,6 +89,10 @@ void ViModeTest::TestPressKey(QString str) {
     key_event = new QKeyEvent(QEvent::KeyPress, code, keyboard_modifier, key);
     const bool handled = vi_input_mode_manager->handleKeypress(key_event);
     if (vi_input_mode_manager->getCurrentViMode() == InsertMode && !handled && keyboard_modifier == Qt::NoModifier){
+      // Allow InsertMode to handle the keys - this has to be done by sending the keys
+      // to KateViewInternal's keyPressed handler, which is is unfortunately protected;
+      // however, KateViewInternal is kate_view's focus proxy, so  we can achieve this
+      // by posting a KeyPress event to it.
       QApplication::postEvent(kate_view->focusProxy(), key_event);
       QApplication::sendPostedEvents();
     }

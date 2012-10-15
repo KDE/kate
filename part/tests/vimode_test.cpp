@@ -67,6 +67,9 @@ void ViModeTest::TestPressKey(QString str) {
            int start_cmd = i+2;
            for( i+=2 ; str.at(i) != '\\' ; i++ ) {}
            kate_view->cmdLineBar()->execute(str.mid(start_cmd,i-start_cmd));
+           // We've handled the command; go back round the loop, avoiding sending
+           // the closing \ to vi_input_mode_manager.
+           continue;
         } else {
             assert(false); //Do not use "\" in tests except for modifiers and command mode.
         }
@@ -246,7 +249,7 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo", "i\\ctrl-t" , "  foo");
   DoTest(" foo", "i\\ctrl-d", "foo");
   DoTest("foo\nbar", "i\\ctrl-t\\ctrl-d","foo\nbar" );
-  
+
   // Testing "Ctrl-H"
   DoTest("foo", "i\\ctrl-h" , "foo");
   DoTest(" foo", "li\\ctrl-h", "foo");

@@ -469,6 +469,10 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
         v->setCursorPosition(start_cursor_position);
     }
 
+    // TODO - should we resetParser, here? We'd have to make it public, if so.
+    // Or maybe synthesise a KateViCommand to execute instead ... ?
+    nm->setCount(0);
+
     return true;
   }
 

@@ -575,6 +575,15 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("foo\nbar", ">>", "  foo\nbar");
   DoTest("foo\nbar", "2>>", "  foo\n  bar");
   DoTest("foo\nbar", "100>>", "  foo\n  bar");
+
+  DoTest("fop\nbar", "yiwjlgpx", "fop\nbafop");
+  DoTest("fop\nbar", "yiwjlgPx", "fop\nbfopr");
+  // Yank and paste op\ngid into bar i.e. text spanning lines, but not linewise.
+  DoTest("fop\ngid\nbar", "lvjyjjgpx", "fop\ngid\nbaop\ngi");
+  DoTest("fop\ngid\nbar", "lvjyjjgPx", "fop\ngid\nbop\ngir");
+  // Linewise
+  DoTest("fop\ngid\nbar\nhuv", "yjjjgpx", "fop\ngid\nbar\nfop\ngid\nuv");
+  DoTest("fop\ngid\nbar\nhuv", "yjjjgPx", "fop\ngid\nfop\ngid\nar\nhuv");
 }
 
 

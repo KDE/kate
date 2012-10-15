@@ -1146,71 +1146,30 @@ bool KateViNormalMode::commandYankToEOL()
 
 // insert the text in the given register at the cursor position
 // the cursor should end up at the beginning of what was pasted
-bool KateViNormalMode::commandPaste()
+bool KateViNormalMode::commandPasteLeaveCursorAtStart()
 {
-  Cursor c( m_view->cursorPosition() );
-  Cursor cAfter = c;
-  QChar reg = getChosenRegister( m_defaultRegister );
-
-  OperationMode m = getRegisterFlag( reg );
-  QString textToInsert = getRegisterContent( reg );
-
-  if ( textToInsert.isNull() ) {
-    error(i18n("Nothing in register %1", reg ));
-    return false;
-  }
-
-  if ( getCount() > 1 ) {
-    textToInsert = textToInsert.repeated( getCount() ); // FIXME: does this make sense for blocks?
-  }
-
-  if ( m == LineWise ) {
-    textToInsert.chop( 1 ); // remove the last \n
-    c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
-    textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
-
-    cAfter.setLine( cAfter.line()+1 );
-    cAfter.setColumn( 0 );
-  } else {
-    if ( getLine( c.line() ).length() > 0 ) {
-      c.setColumn( c.column()+1 );
-    }
-
-    cAfter = c;
-  }
-
-  doc()->insertText( c, textToInsert, m == Block );
-
-  updateCursor( cAfter );
-
-  return true;
+  return paste(true);
 }
 
 // insert the text in the given register before the cursor position
 // the cursor should end up at the beginning of what was pasted
-bool KateViNormalMode::commandPasteBefore()
+bool KateViNormalMode::commandPasteBeforeLeaveCursorAtStart()
 {
-  Cursor c( m_view->cursorPosition() );
-  Cursor cAfter = c;
-  QChar reg = getChosenRegister( m_defaultRegister );
+  return pasteBefore(true);
+}
 
-  QString textToInsert = getRegisterContent( reg );
-  OperationMode m = getRegisterFlag( reg );
+// as with commandPasteLeaveCursorAtStart, but leaves the cursor at the end
+// of what was pasted
+bool KateViNormalMode::commandPasteLeaveCursorAtEnd()
+{
+  return paste(false);
+}
 
-  if ( getCount() > 1 ) {
-    textToInsert = textToInsert.repeated( getCount() );
-  }
-
-  if ( textToInsert.endsWith('\n') ) { // lines
-    c.setColumn( 0 );
-    cAfter.setColumn( 0 );
-  }
-
-  doc()->insertText( c, textToInsert, m == Block );
-
-  updateCursor( cAfter );
-
-  return true;
+// as with commandPasteBeforeLeaveCursorAtStart, but leaves the cursor at the end
+// of what was pasted
+bool KateViNormalMode::commandPasteBeforeLeaveCursorAtEnd()
+{
+  return pasteBefore(false);
 }
 
 bool KateViNormalMode::commandDeleteChar()
@@ -2893,8 +2852,10 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("y", commandYank, NEEDS_MOTION );
   ADDCMD("yy", commandYankLine, 0 );
   ADDCMD("Y", commandYankToEOL, 0 );
-  ADDCMD("p", commandPaste, IS_CHANGE );
-  ADDCMD("P", commandPasteBefore, IS_CHANGE );
+  ADDCMD("p", commandPasteLeaveCursorAtStart, IS_CHANGE );
+  ADDCMD("P", commandPasteBeforeLeaveCursorAtStart, IS_CHANGE );
+  ADDCMD("gp", commandPasteLeaveCursorAtEnd, IS_CHANGE );
+  ADDCMD("gP", commandPasteBeforeLeaveCursorAtEnd, IS_CHANGE );
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD("R", commandEnterReplaceMode, IS_CHANGE );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
@@ -3097,6 +3058,102 @@ OperationMode KateViNormalMode::getOperationMode() const
         m = CharWise;
 
   return m;
+}
+
+bool KateViNormalMode::paste(bool leaveCursorAtStart)
+{
+  Cursor c( m_view->cursorPosition() );
+  Cursor cAfter = c;
+  QChar reg = getChosenRegister( m_defaultRegister );
+
+  OperationMode m = getRegisterFlag( reg );
+  QString textToInsert = getRegisterContent( reg );
+
+  if ( textToInsert.isNull() ) {
+    error(i18n("Nothing in register %1", reg ));
+    return false;
+  }
+
+  if ( getCount() > 1 ) {
+    textToInsert = textToInsert.repeated( getCount() ); // FIXME: does this make sense for blocks?
+  }
+
+  if ( m == LineWise ) {
+    textToInsert.chop( 1 ); // remove the last \n
+    c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
+    textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
+
+    cAfter.setLine( cAfter.line()+1 );
+    cAfter.setColumn( 0 );
+
+    if (!leaveCursorAtStart)
+    {
+      cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
+    }
+
+  } else {
+    if ( getLine( c.line() ).length() > 0 ) {
+      c.setColumn( c.column()+1 );
+    }
+
+    cAfter = c;
+    if (!leaveCursorAtStart)
+    {
+      cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+    }
+  }
+
+  doc()->insertText( c, textToInsert, m == Block );
+
+  updateCursor( cAfter );
+
+  return true;
+}
+
+bool KateViNormalMode::pasteBefore(bool leaveCursorAtStart)
+{
+  Cursor c( m_view->cursorPosition() );
+  Cursor cAfter = c;
+  QChar reg = getChosenRegister( m_defaultRegister );
+
+  QString textToInsert = getRegisterContent( reg );
+  OperationMode m = getRegisterFlag( reg );
+
+  if ( getCount() > 1 ) {
+    textToInsert = textToInsert.repeated( getCount() );
+  }
+
+  if ( textToInsert.endsWith('\n') ) { // lines
+    c.setColumn( 0 );
+    cAfter.setColumn( 0 );
+  }
+
+  doc()->insertText( c, textToInsert, m == Block );
+
+  if (!leaveCursorAtStart)
+  {
+    cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+  }
+
+  updateCursor( cAfter );
+
+  return true;
+}
+
+Cursor KateViNormalMode::cursorPosAtEndOfPaste(const Cursor& pasteLocation, const QString& pastedText)
+{
+  Cursor cAfter = pasteLocation;
+  const QStringList textLines = pastedText.split("\n");
+  if (textLines.length() == 1)
+  {
+    cAfter.setColumn(cAfter.column() + pastedText.length());
+  }
+  else
+  {
+    cAfter.setColumn(textLines.last().length() - 0);
+    cAfter.setLine(cAfter.line() + textLines.length() - 1);
+  }
+  return cAfter;
 }
 
 void KateViNormalMode::joinLines(unsigned int from, unsigned int to) const

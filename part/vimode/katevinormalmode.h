@@ -97,8 +97,11 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandYankLine();
     bool commandYankToEOL();
 
-    bool commandPaste();
-    bool commandPasteBefore();
+    bool commandPasteLeaveCursorAtStart();
+    bool commandPasteBeforeLeaveCursorAtStart();
+
+    bool commandPasteLeaveCursorAtEnd();
+    bool commandPasteBeforeLeaveCursorAtEnd();
 
     bool commandDeleteChar();
     bool commandDeleteCharBackward();
@@ -274,6 +277,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     virtual void goToPos( const KateViRange &r );
     void executeCommand( const KateViCommand* cmd );
     OperationMode getOperationMode() const;
+    bool paste(bool leaveCursorAtStart);
+    bool pasteBefore(bool leaveCursorAtStart);
+    Cursor cursorPosAtEndOfPaste(const Cursor& pasteLocation, const QString& pastedText);
 
     void joinLines(unsigned int from, unsigned int to) const;
     void reformatLines(unsigned int from, unsigned int to) const;

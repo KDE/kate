@@ -82,7 +82,14 @@ void KateViNormalMode::mappingTimerTimeOut()
 {
   kDebug( 13070 ) << "timeout! key presses: " << m_mappingKeys;
   m_mappingKeyPress = true;
-  m_viInputModeManager->feedKeyPresses( m_mappingKeys );
+  if (!m_fullMappingMatch.isNull())
+  {
+    m_viInputModeManager->feedKeyPresses( getMapping(m_fullMappingMatch ));
+  }
+  else
+  {
+    m_viInputModeManager->feedKeyPresses( m_mappingKeys );
+  }
   m_mappingKeyPress = false;
   m_mappingKeys.clear();
 }
@@ -120,18 +127,34 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   if ( !m_mappingKeyPress && !m_ignoreMapping) {
     m_mappingKeys.append( key );
 
-    foreach ( const QString &str, getMappings() ) {
-      if ( str.startsWith( m_mappingKeys ) ) {
-        if ( str == m_mappingKeys ) {
-          m_viInputModeManager->feedKeyPresses( getMapping( str ) );
-          m_mappingTimer->stop();
-          return true;
+    bool isPartialMapping = false;
+    bool isFullMapping = false;
+    m_fullMappingMatch.clear();
+    foreach ( const QString &mapping, getMappings() ) {
+      if ( mapping.startsWith( m_mappingKeys ) ) {
+        if ( mapping == m_mappingKeys ) {
+          isFullMapping = true;
+          m_fullMappingMatch = mapping;
         } else {
-          m_mappingTimer->start( m_timeoutlen );
-          m_mappingTimer->setSingleShot( true );
-          return true;
+          isPartialMapping = true;
         }
       }
+    }
+    if (isFullMapping && !isPartialMapping)
+    {
+      // Great - m_mappingKeys is a mapping, and one that can't be extended to
+      // a longer one - execute it immediately.
+      m_viInputModeManager->feedKeyPresses( getMapping( m_fullMappingMatch ) );
+      m_mappingTimer->stop();
+      return true;
+    }
+    if (isPartialMapping)
+    {
+      // Need to wait for more characters (or a timeout) before we decide what to
+      // do with this.
+      m_mappingTimer->start( m_timeoutlen );
+      m_mappingTimer->setSingleShot( true );
+      return true;
     }
     m_mappingKeys.clear();
   } else {

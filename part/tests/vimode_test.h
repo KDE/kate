@@ -45,7 +45,7 @@ private Q_SLOTS:
   void VisualModeTests();
   void CommandModeTests();
 
-
+  void MappingTests();
 private:
   void BeginTest(const QString& original_text);
   void FinishTest(const QString& expected_text);

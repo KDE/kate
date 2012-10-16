@@ -26,8 +26,10 @@
 #include <katedocument.h>
 #include <kateview.h>
 #include "kateconfig.h"
+#include <kateglobal.h>
 #include "katebuffer.h"
 #include "katevikeyparser.h"
+#include <kateviglobal.h>
 #include "kateviewhelpers.h"
 
 QTEST_KDEMAIN(ViModeTest, GUI)
@@ -769,6 +771,30 @@ void ViModeTest::CommandModeTests() {
     // Quick test that "{" and "}" motions work in visual mode
     DoTest("foo\n\n\nbar\n","v}}d","");
     DoTest("\n\nfoo\nbar\n","jjjv{d","\nar\n");
+}
+
+void ViModeTest::MappingTests()
+{
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "<esc>ihello<esc>^aworld<esc>");
+  DoTest("", "'", "hworldello");
+
+  {
+    // Check that '123 is mapped after the timeout, given that we also have mappings that
+    // extend it (e.g. '1234, '12345, etc) and which it itself extends ('1, '12, etc).
+    KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+    BeginTest("");
+    QString consectiveDigits;
+    for (int i = 1; i < 9; i++)
+    {
+      consectiveDigits += QString::number(i);
+      KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'" + consectiveDigits, "iMapped from " + consectiveDigits + "<esc>");
+    }
+    TestPressKey("'123");
+    QCOMPARE(kate_document->text(), QString("")); // Shouldn't add anything until after the timeout!
+    const int mappingTimeoutMS = 1000; // Chosen to match m_timeoutlen in KateViNormalMode.
+    QTest::qWait(2 * 1000);
+    FinishTest("Mapped from 123");
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

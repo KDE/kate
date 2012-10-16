@@ -321,6 +321,13 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     // mappings
     bool m_mappingKeyPress;
+    // Will be the mapping used if we decide that no extra mapping characters will be
+    // typed, either because we have a mapping that cannot be extended to another
+    // mapping by adding additional characters, or we have a mapping and timed out waiting
+    // for it to be extended to a longer mapping.
+    // (Essentially, this allows us to have mappings that extend each other e.g. "'12" and
+    // "'123", and to choose between them.)
+    QString m_fullMappingMatch;
     // set after f/F/t/T/r so the following character isn't translated
     bool m_ignoreMapping;
     QString m_mappingKeys;

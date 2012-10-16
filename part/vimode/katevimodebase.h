@@ -71,7 +71,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
         m_iscounted(false),
         m_stickyColumn(-1)
     {
-    };
+    }
     virtual ~KateViModeBase() {};
 
     /**

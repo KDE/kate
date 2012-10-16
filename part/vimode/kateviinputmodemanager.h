@@ -134,9 +134,9 @@ public:
   KateViReplaceMode* getViReplaceMode();
 
   /**
-   * @return true if running a macro
+   * @return true if running replaying the last change due to pressing "."
    */
-  bool isRunningMacro() const { return m_runningMacro; }
+  bool isReplayingLastChange() const { return m_replayingLastChange; }
 
   /**
    * set whether insert mode should be repeated as text instead of
@@ -259,9 +259,9 @@ private:
   KateViKeyParser *m_keyParser;
 
   /**
-   * set to true when running a macro (including using the '.' command)
+   * set to true when replaying the last change (due to e.g. pressing ".")
    */
-  bool m_runningMacro;
+  bool m_replayingLastChange;
 
   /**
    * set to true when the insertion should be repeated as text

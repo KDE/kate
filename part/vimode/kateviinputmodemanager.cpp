@@ -52,7 +52,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
 
   m_view->setCaretStyle( KateRenderer::Block, true );
 
-  m_runningMacro = false;
+  m_replayingLastChange = false;
   m_textualRepeat = false;
 
   m_lastSearchBackwards = false;
@@ -85,7 +85,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   bool res;
 
   // record key press so that it can be repeated
-  if (!isRunningMacro()) {
+  if (!isReplayingLastChange()) {
     QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
     appendKeyEventToLog( copy );
   }
@@ -239,9 +239,9 @@ void KateViInputModeManager::storeChangeCommand()
 
 void KateViInputModeManager::repeatLastChange()
 {
-  m_runningMacro = true;
+  m_replayingLastChange = true;
   feedKeyPresses(m_lastChange);
-  m_runningMacro = false;
+  m_replayingLastChange = false;
 }
 
 const QString KateViInputModeManager::getLastSearchPattern() const
@@ -269,7 +269,7 @@ void KateViInputModeManager::viEnterNormalMode()
   bool moveCursorLeft = (m_currentViMode == InsertMode || m_currentViMode == ReplaceMode)
     && m_viewInternal->getCursor().column() > 0;
 
-  if ( !isRunningMacro() && m_currentViMode == InsertMode ) {
+  if ( !isReplayingLastChange() && m_currentViMode == InsertMode ) {
     // '^ is the insert mark and "^ is the insert register,
     // which holds the last inserted text
     Range r( m_view->cursorPosition(), getMarkPosition( '^' ) );

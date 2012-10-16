@@ -497,7 +497,7 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
   // if the command was a change, and it didn't enter insert mode, store the key presses so that
   // they can be repeated with '.'
   if ( m_viInputModeManager->getCurrentViMode() != InsertMode ) {
-    if ( cmd->isChange() && !m_viInputModeManager->isRunningMacro() ) {
+    if ( cmd->isChange() && !m_viInputModeManager->isReplayingLastChange() ) {
       m_viInputModeManager->storeChangeCommand();
     }
 

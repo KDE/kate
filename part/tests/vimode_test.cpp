@@ -37,6 +37,8 @@ using namespace KTextEditor;
 ViModeTest::ViModeTest() {
   kate_document = new KateDocument(false, false, false, 0, NULL);
   kate_view = new KateView(kate_document, 0);
+  kate_view->toggleViInputMode();
+  Q_ASSERT(kate_view->viInputMode());
   vi_input_mode_manager = kate_view->getViInputModeManager();
 }
 
@@ -126,6 +128,7 @@ void ViModeTest::VisualModeTests() {
     DoTest("foobar", "vlllx", "ar");
     DoTest("foo\nbar", "Vd", "bar");
     DoTest("1234\n1234\n1234", "l\\ctrl-vljjd", "14\n14\n14");
+    QCOMPARE(kate_view->blockSelectionMode(), false);
 
     DoTest("12345678", "lv3lyx", "1345678");
     DoTest("12345678", "$hv3hyx", "1235678");

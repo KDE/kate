@@ -178,7 +178,7 @@ void KateViVisualMode::reset()
 
     m_selection_is_changed_inside_ViMode = true;
 
-    if (!m_commandShouldKeepSelection)	
+    if (!m_commandShouldKeepSelection)
         m_view->removeSelection();
     else
         m_commandShouldKeepSelection = false;
@@ -391,6 +391,8 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("a'", textObjectAQuoteSingle, 0 );
   ADDMOTION("i[()]", textObjectInnerParen, REGEX_PATTERN );
   ADDMOTION("a[()]", textObjectAParen, REGEX_PATTERN );
+  ADDMOTION("i[{}B]", textObjectInnerCurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("a[{}B]", textObjectACurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
   ADDMOTION("i[\\[\\]]", textObjectInnerBracket, REGEX_PATTERN );
   ADDMOTION("a[\\[\\]]", textObjectABracket, REGEX_PATTERN );
   ADDMOTION("i,", textObjectInnerComma, 0 );

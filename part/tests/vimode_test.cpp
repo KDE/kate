@@ -471,6 +471,9 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "{foo\nbar\nbaz}", "jdiB", "{}");
   DoTest( "{foo\nbar\n  \t\t }", "jdiB", "{\n  \t\t }");
   DoTest( "{foo\nbar\n  \t\ta}", "jdiB", "{}");
+  // Quick test to see whether inner curly bracket works in visual mode.
+  DoTest( "{\nfoo}", "jviBd", "{\n}");
+  DoTest( "{\nfoo}", "jvaBd", "");
 
   DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",
           "jda}xr;",

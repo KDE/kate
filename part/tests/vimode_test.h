@@ -47,6 +47,8 @@ private Q_SLOTS:
 
 
 private:
+  void BeginTest(const QString& original_text);
+  void FinishTest(const QString& expected_text);
   void TestPressKey(QString str);
   void DoTest(QString original_text,
                                   QString command,

@@ -67,6 +67,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 
   initializeCommands();
   m_ignoreMapping = false;
+  m_pendingResetIsDueToExit = false;
   m_isRepeatedTFcommand = false;
   resetParser(); // initialise with start configuration
 }
@@ -108,6 +109,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   if ( keyCode == Qt::Key_Escape ) {
     m_view->setCaretStyle( KateRenderer::Block, true );
+    m_pendingResetIsDueToExit = true;
     reset();
     return true;
   }
@@ -1425,6 +1427,7 @@ bool KateViNormalMode::commandCentreViewOnCursor()
 
 bool KateViNormalMode::commandAbort()
 {
+  m_pendingResetIsDueToExit = true;
   reset();
   return true;
 }

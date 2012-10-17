@@ -326,6 +326,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     QString m_mappingKeys;
 
     KateViKeyParser *m_keyParser;
+
+    // Ctrl-c or ESC have been pressed, leading to a call to reset().
+    bool m_pendingResetIsDueToExit;
 };
 
 #endif

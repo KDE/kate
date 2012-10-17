@@ -160,16 +160,19 @@ void KateViVisualMode::reset()
       m_lastVisualMode = m_viInputModeManager->getCurrentViMode();
 
       // Return the cursor back to start of selection after.
-      Cursor c = m_view->cursorPosition();
-      if (m_start.line() != -1 && m_start.column() != -1) {
-        if (m_viInputModeManager->getCurrentViMode() == VisualLineMode) {
-          if (m_start.line() < c.line()) {
-            updateCursor(Cursor(m_start.line(),0));
+      if (!m_pendingResetIsDueToExit)
+      {
+        Cursor c = m_view->cursorPosition();
+        if (m_start.line() != -1 && m_start.column() != -1) {
+          if (m_viInputModeManager->getCurrentViMode() == VisualLineMode) {
+            if (m_start.line() < c.line()) {
+              updateCursor(Cursor(m_start.line(),0));
+              m_stickyColumn = -1;
+            }
+          } else {
+            updateCursor(qMin(m_start,c));
             m_stickyColumn = -1;
           }
-        } else {
-          updateCursor(qMin(m_start,c));
-          m_stickyColumn = -1;
         }
       }
 
@@ -187,6 +190,7 @@ void KateViVisualMode::reset()
 
     m_start.setPosition( -1, -1 );
 
+    m_pendingResetIsDueToExit = false;
 }
 
 void KateViVisualMode::saveRangeMarks()

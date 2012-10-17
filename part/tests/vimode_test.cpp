@@ -54,6 +54,7 @@ void ViModeTest::TestPressKey(QString str) {
   Qt::KeyboardModifiers keyboard_modifier;
 
   for (int i = 0; i< str.length(); i++) {
+    key.clear();
     // Looking for keyboard modifiers
     if (str[i] == QChar('\\')) {
         if (str.mid(i,6) == QString("\\ctrl-")){
@@ -65,6 +66,11 @@ void ViModeTest::TestPressKey(QString str) {
         } else if (str.mid(i,5) == QString("\\meta-")) {
             keyboard_modifier = Qt::MetaModifier;
             i+=5;
+        } else if (str.mid(i,4) == QString("\\esc")) {
+            key = QString(Qt::Key_Escape);
+            // Move to the end of the esc; next time round the loop will move
+            // onto the character after the esc.
+            i += 3;
         } else if (str.mid(i,2) == QString("\\:")) {
            int start_cmd = i+2;
            for( i+=2 ; str.at(i) != '\\' ; i++ ) {}
@@ -79,13 +85,18 @@ void ViModeTest::TestPressKey(QString str) {
         keyboard_modifier = Qt::NoModifier;
     }
 
-    key = str[i];
-
     int code;
-    if (vi_input_mode_manager->getCurrentViMode() == InsertMode){
+    if (key != QString(Qt::Key_Escape))
+    {
+      key = str[i];
+      if (vi_input_mode_manager->getCurrentViMode() == InsertMode){
         code = key[0].unicode() - 'a' + Qt::Key_A;
-    } else {
+      } else {
         code = key[0].unicode() - '0' + Qt::Key_0;
+      }
+    }
+    else {
+      code = Qt::Key_Escape;
     }
 
     key_event = new QKeyEvent(QEvent::KeyPress, code, keyboard_modifier, key);
@@ -103,7 +114,8 @@ void ViModeTest::TestPressKey(QString str) {
 /**
  * Starts normal mode.
  * Makes commad on original_text and compare result with expected test.
- * There is a possibility to use keyboard modifiers Ctrl, Alt and Meta.
+ * There is a possibility to use keyboard modifiers Ctrl, Alt and Meta,
+ * and the ESC key.
  * For example:
  *     DoTest("line 1\nline 2\n","ddu\\ctrl-r","line 2\n");
  */
@@ -138,6 +150,16 @@ void ViModeTest::VisualModeTests() {
     DoTest("ab\ncd","jVlkgux", "a\ncd");
     DoTest("ABCD\nABCD\nABCD\nABCD","lj\\ctrl-vjlgux","ABCD\nAcD\nAbcD\nABCD");
     DoTest("abcd\nabcd\nabcd\nabcd","jjjlll\\ctrl-vkkhgUx","abcd\nabD\nabCD\nabCD");
+    // Cancelling visual mode should not reset the cursor.
+    // TODO - due to a rather weird bit of code in KateViewInternal's Escape handling,
+    // this will only work if the Vi bar is not hidden! (If and only if it is hidden, a
+    // clearSelection() call is emitted when ESC is pressed).
+    // Investigate whether this is the intention - I suspect not!
+    DoTest("12345678", "lv3l\\escx", "1234678");
+    DoTest("12345678", "lv3l\\ctrl-cx", "1234678");
+    // Don't forget to clear the flag that says we shouldn't reset the cursor, though!
+    DoTest("12345678", "lv3l\\ctrl-cxv3lyx", "123478");
+    DoTest("12345678", "y\\escv3lyx", "2345678");
 
     // Testing "d"
     DoTest("foobarbaz","lvlkkjl2ld","fbaz");

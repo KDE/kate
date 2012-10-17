@@ -381,6 +381,8 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("<pagedown>", motionPageDown, 0 );
   ADDMOTION("<c-b>", motionPageUp, 0 );
   ADDMOTION("<pageup>", motionPageUp, 0 );
+  ADDMOTION("{", motionToBeforeParagraph, 0 );
+  ADDMOTION("}", motionToAfterParagraph, 0 );
 
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );

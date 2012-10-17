@@ -707,6 +707,9 @@ void ViModeTest::CommandModeTests() {
     DoTest("foo\n\n\nbar","10}{{x","oo\n\n\nbar");
     DoTest("foo\n\n\nbar","}}x","foo\n\n\nba");
     DoTest("foo\n\n\nbar\n","}}dd","foo\n\n\nbar");
+    // Quick test that "{" and "}" motions work in visual mode
+    DoTest("foo\n\n\nbar\n","v}}d","");
+    DoTest("\n\nfoo\nbar\n","jjjv{d","\nar\n");
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

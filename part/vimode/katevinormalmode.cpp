@@ -67,6 +67,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
 
   initializeCommands();
   m_ignoreMapping = false;
+  m_isRepeatedTFcommand = false;
   resetParser(); // initialise with start configuration
 }
 
@@ -2031,7 +2032,7 @@ KateViRange KateViNormalMode::motionToChar()
 
   m_stickyColumn = -1;
 
-  int matchColumn = cursor.column()+1;
+  int matchColumn = cursor.column()+ (m_isRepeatedTFcommand ? 2 : 1);
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
     matchColumn = line.indexOf( m_keys.right( 1 ), matchColumn );
@@ -2044,6 +2045,7 @@ KateViRange KateViNormalMode::motionToChar()
   r.endColumn = matchColumn-1;
   r.endLine = cursor.line();
 
+  m_isRepeatedTFcommand = false;
   return r;
 }
 
@@ -2058,7 +2060,7 @@ KateViRange KateViNormalMode::motionToCharBackward()
   int matchColumn = -1;
 
   unsigned int hits = 0;
-  int i = cursor.column()-1;
+  int i = cursor.column()- (m_isRepeatedTFcommand ? 2 : 1);
 
   while ( hits != getCount() && i >= 0 ) {
     if ( line.at( i ) == m_keys.at( m_keys.size()-1 ) )
@@ -2075,12 +2077,15 @@ KateViRange KateViNormalMode::motionToCharBackward()
   r.endColumn = matchColumn+1;
   r.endLine = cursor.line();
 
+  m_isRepeatedTFcommand = false;
+
   return r;
 }
 
 KateViRange KateViNormalMode::motionRepeatlastTF()
 {
   if ( !m_lastTFcommand.isEmpty() ) {
+    m_isRepeatedTFcommand = true;
     m_keys = m_lastTFcommand;
     if ( m_keys.at( 0 ) == 'f' ) {
       return motionFindChar();
@@ -2107,6 +2112,7 @@ KateViRange KateViNormalMode::motionRepeatlastTF()
 KateViRange KateViNormalMode::motionRepeatlastTFBackward()
 {
   if ( !m_lastTFcommand.isEmpty() ) {
+    m_isRepeatedTFcommand = true;
     m_keys = m_lastTFcommand;
     if ( m_keys.at( 0 ) == 'f' ) {
       return motionFindCharBackward();

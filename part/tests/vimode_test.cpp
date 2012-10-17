@@ -527,6 +527,20 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("//Hello, world!\nfunc(a[0] > 2);", "jf>di,", "//Hello, world!\nfunc();");
   DoTest("//Hello, world!\nfunc(a[0] > 2);", "jf>da,", "//Hello, world!\nfunc;");
   DoTest("//Hello, world!\na[] = {135};", "jf3di,", "//Hello, world!\na[] = {};");
+
+  // Some corner case tests for t/ T, mainly dealing with how a ; after e.g. a ta will
+  // start searching for the next a *after* the character after the cursor.
+  // Hard to explain; I'll let the test-cases do the talking :)
+  DoTest("bar baz", "ta;x" ,"bar az");
+  // Ensure we reset the flag that says we must search starting from the character after the cursor!
+  DoTest("bar baz", "ta;^tax" ,"ar baz");
+  // Corresponding tests for T
+  DoTest("bar baz", "$Ta;x" ,"ba baz");
+  // Ensure we reset the flag that says we must search starting from the character before the cursor!
+  DoTest("bar baz", "$Ta;$Tax" ,"bar ba");
+  // Ensure that command backwards works, too - only one test, as any additional ones would
+  // just overlap with our previous ones.
+  DoTest("aba bar", "lTa,x", "aba ar");
 }
 
 void ViModeTest::NormalModeCommandsTest() {

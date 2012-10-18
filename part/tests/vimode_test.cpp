@@ -253,6 +253,10 @@ void ViModeTest::VisualModeTests() {
     DoTest("  foo\nbar\nbaz","V<<","foo\nbar\nbaz");
     DoTest("foo\nbar\nbaz","V>>V<<","foo\nbar\nbaz");
     DoTest("    foo\n    bar\n    baz","V2j<<","  foo\n  bar\n  baz");
+
+    // Testing block append
+    DoTest("averyverylongline\nshortline\nshorter\n", "jjV$kkAb\\esc", "averyverylonglineb\nshortlineb\nshorterb\n");
+    DoTest("averyverylongline\nshortline\n", "V$jAb\\esc", "averyverylonglineb\nshortlineb\n");
 }
 
 void ViModeTest::InsertModeTests() {

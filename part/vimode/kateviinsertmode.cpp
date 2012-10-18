@@ -127,7 +127,7 @@ bool KateViInsertMode::commandDeleteCharBackward()
 bool KateViInsertMode::commandNewLine()
 {
     doc()->newLine( m_view );
-    return true; 
+    return true;
 }
 
 bool KateViInsertMode::commandIndent()
@@ -477,13 +477,13 @@ void KateViInsertMode::setBlockAppendMode( KateViRange blockRange, BlockInsert b
 {
     Q_ASSERT( b == Append || b == AppendEOL );
 
-    if ( b == AppendEOL ) {
-        m_eolPos = doc()->lineLength( m_blockRange.startLine );
-    }
     // ignore if not more than one line is selected
     if ( blockRange.startLine != blockRange.endLine ) {
         m_blockRange = blockRange;
         m_blockInsert = b;
+        if ( b == AppendEOL ) {
+          m_eolPos = doc()->lineLength( m_blockRange.startLine );
+        }
     } else {
         kDebug( 13070 ) << "cursor moved. ignoring block append/prepend";
     }

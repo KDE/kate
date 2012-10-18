@@ -23,9 +23,9 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
  QString cl; // Current Line
  QString stripped;
  int i, j, tmpPos = 0;
- int par = 0, graph = 0, retry = 0;
+ int par = 0, graph = 0/*, retry = 0*/;
  char mclass = 0, block = 0, comment = 0; // comment: 0-no comment 1-inline comment 2-multiline comment 3-string
- char macro = 0, macro_pos = 0, func_close = 0;
+ char macro = 0/*, macro_pos = 0*/, func_close = 0;
  bool structure = false;
  QPixmap cls( ( const char** ) class_xpm );
  QPixmap sct( ( const char** ) struct_xpm );
@@ -115,7 +115,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                   node->setText(1, QString::number( i, 10));
                  }
               macro = 0;
-              macro_pos = 0;
+              //macro_pos = 0;
               stripped = "";
               //kDebug(13000)<<"Macro -- Inserted : "<<stripped<<" at row : "<<i;
               if (cl.at(cl.length() - 1) == '\\') macro = 5; // continue in rows below
@@ -263,7 +263,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                          node->setText(1, QString::number( tmpPos, 10));
                         }
                       stripped = "";
-                      retry = 0;
+                      //retry = 0;
                       block = 3;
                      }
                    if(cl.at(j)=='{' && structure == true)
@@ -273,7 +273,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                      }
                    if(cl.at(j)=='(' && structure == true)
                      {
-                      retry = 1;
+                      //retry = 1;
                       block = 0;
                       j = 0;
                       //kDebug(13000)<<"Restart from the beginning of line...";

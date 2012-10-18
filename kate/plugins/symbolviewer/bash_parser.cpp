@@ -8,7 +8,7 @@
  /***************************************************************************
     This program is free software; you can redistribute it and/or
     modify it under the terms of the GNU General Public License as
-    published by the Free Software Foundation; either version 2 of 
+    published by the Free Software Foundation; either version 2 of
     the License, or (at your option) any later version.
 
     This program is distributed in the hope that it will be useful,
@@ -31,7 +31,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
        QString funcStr("function ");
 
        int i;
-       bool mainprog;
+       //bool mainprog;
 
        QTreeWidgetItem *node = NULL;
        QTreeWidgetItem *funcNode = NULL;
@@ -72,7 +72,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
                if(currline == "") continue;
                if(currline.at(0) == '#') comment = true;
 
-               mainprog=false;
+               //mainprog=false;
                if(!comment && func_on)
                {
                        QString funcName;

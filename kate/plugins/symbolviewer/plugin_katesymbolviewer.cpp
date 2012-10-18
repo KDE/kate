@@ -117,7 +117,12 @@ m_plugin(plugin)
   m_label->setScaledContents(true);
   m_label->setMinimumWidth(s_pixmapWidth);
   m_label->setMaximumWidth(s_pixmapWidth);
-  
+
+  KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
+  m_label->setVisible(config.readEntry("ShowMiniMap", false));
+  connect(m_plugin, SIGNAL(miniMapNowVisible(bool)), m_label, SLOT(setVisible(bool)));
+  connect(m_plugin, SIGNAL(miniMapNowVisible(bool)), m_label, SLOT(updatePixmapEdit()));
+
   m_symbols = new QTreeWidget();
   layout->addWidget(m_label);
   layout->addWidget(m_symbols, 10);
@@ -126,14 +131,14 @@ m_plugin(plugin)
 
   connect(m_symbols, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(goToSymbol(QTreeWidgetItem*)));
   connect(m_symbols, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotShowContextMenu(QPoint)));
-  
+
   connect(mainWindow(), SIGNAL(viewChanged()), this, SLOT(slotDocChanged()));
-  
+
   QStringList titles;
   titles << i18nc("@title:column", "Symbols") << i18nc("@title:column", "Position");
   m_symbols->setColumnCount(2);
   m_symbols->setHeaderLabels(titles);
-  
+
   m_symbols->setColumnHidden(1, true);
   m_symbols->setSortingEnabled(false);
   m_symbols->setRootIsDecorated(0);
@@ -220,7 +225,7 @@ void KatePluginSymbolViewerView::slotDocChanged()
            this, SLOT(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), Qt::UniqueConnection);
 
    if (view->document()) {
-     connect(view->document(), SIGNAL(textChanged(KTextEditor::Document*)), 
+     connect(view->document(), SIGNAL(textChanged(KTextEditor::Document*)),
              this, SLOT(slotDocEdited()), Qt::UniqueConnection);
    }
    m_updateTimer.start(10);
@@ -231,7 +236,7 @@ void KatePluginSymbolViewerView::slotViewChanged(QResizeEvent *)
 {
   //kDebug(13000)<<"View changed !!!!";
   //m_symbols->setColumnWidth(0, m_symbols->parentWidget()->width());
-  
+
 }
 
 void KatePluginSymbolViewerView::slotDocEdited()
@@ -258,6 +263,9 @@ void KatePluginSymbolViewerView::verticalScrollPositionChanged(
 
 void KatePluginSymbolViewerView::updatePixmapEdit()
 {
+  if (!m_label->isVisible()) {
+    return;
+  }
   if (!mainWindow()) {
     return;
   }
@@ -321,6 +329,9 @@ void KatePluginSymbolViewerView::updatePixmapEdit()
 
 void KatePluginSymbolViewerView::updatePixmapScroll()
 {
+  if (!m_label->isVisible()) {
+    return;
+  }
   if (!mainWindow()) {
     return;
   }
@@ -332,7 +343,7 @@ void KatePluginSymbolViewerView::updatePixmapScroll()
   if (!doc) {
     return;
   }
-  
+
   int docLines = qMax(doc->lines(), 100);
   int labelHeight = m_label->height();
   int numJumpLines = 1;
@@ -340,11 +351,11 @@ void KatePluginSymbolViewerView::updatePixmapScroll()
     numJumpLines = docLines / labelHeight;
   }
   docLines /= numJumpLines;
-  
+
   //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
-  
+
   QPixmap pixmap = m_pixmap;
-  
+
   QPainter p;
   if (p.begin(&pixmap)) {
     if ((m_visibleStart > -1) && (m_visibleLines > 0)) {
@@ -376,14 +387,14 @@ bool KatePluginSymbolViewerView::eventFilter(QObject *obj, QEvent *event)
       mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(line, 0));
     }
   }
-  
+
 // This does not work for some reason...
 //   else if (event->type() == QEvent::Wheel) {
 //     QWheelEvent *we = static_cast<QWheelEvent*>(event);
 //     QWheelEvent *we2 = new QWheelEvent(QPoint(50, 5), we->delta(), we->buttons(), we->modifiers(), we->orientation());
 //     QApplication::postEvent(mainWindow()->activeView(), we2);
 //   }
-  
+
   return QObject::eventFilter(obj, event);
 }
 
@@ -426,7 +437,7 @@ void KatePluginSymbolViewerView::parseSymbols(void)
      parseXsltSymbols();
   else if (hlModeName == "Bash")
      parseBashSymbols();
-  else if (hlModeName == "ActionScript 2.0" || 
+  else if (hlModeName == "ActionScript 2.0" ||
            hlModeName == "JavaScript")
      parseEcmaSymbols();
   else
@@ -467,9 +478,10 @@ Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
 {
   KatePluginSymbolViewerConfigPage* p = new KatePluginSymbolViewerConfigPage(this, w);
 
-  KConfigGroup config(KGlobal::config(), "PluginSymbolViewer"); 
+  KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
   p->viewReturns->setChecked(config.readEntry("ViewTypes", false));
   p->expandTree->setChecked(config.readEntry("ExpandTree", false));
+  p->showMiniMap->setChecked(config.readEntry("ShowMiniMap", false));
   connect( p, SIGNAL(configPageApplyRequest(KatePluginSymbolViewerConfigPage*)),
       SLOT(applyConfig(KatePluginSymbolViewerConfigPage*)) );
   return (Kate::PluginConfigPage*)p;
@@ -487,9 +499,12 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
   config.writeEntry("ViewTypes", p->viewReturns->isChecked());
   config.writeEntry("ExpandTree", p->expandTree->isChecked());
+  config.writeEntry("ShowMiniMap", p->showMiniMap->isChecked());
 
-  types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
-  expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
+  types_on = p->viewReturns->isChecked();
+  expanded_on = p->expandTree->isChecked();
+  emit miniMapNowVisible(p->showMiniMap->isChecked());
+
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage
@@ -501,22 +516,28 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
   int spacing = KDialog::spacingHint();
   lo->setSpacing( spacing );
 
-  QGroupBox* groupBox = new QGroupBox( i18n("Parser Options"), this);
-
   viewReturns = new QCheckBox(i18n("Display functions parameters"));
   expandTree = new QCheckBox(i18n("Automatically expand nodes in tree mode"));
+  showMiniMap = new QCheckBox(i18n("Display a document minimap"));
 
-  QVBoxLayout* top = new QVBoxLayout();
+  QGroupBox* parserGBox = new QGroupBox( i18n("Parser Options"), this);
+  QVBoxLayout* top = new QVBoxLayout(parserGBox);
   top->addWidget(viewReturns);
   top->addWidget(expandTree);
-  groupBox->setLayout(top);
-  lo->addWidget( groupBox );
+
+  QGroupBox* generalGBox = new QGroupBox( i18n("General Options"), this);
+  QVBoxLayout* genLay = new QVBoxLayout(generalGBox);
+  genLay->addWidget( showMiniMap );
+
+  lo->addWidget( parserGBox );
+  lo->addWidget( generalGBox );
   lo->addStretch( 1 );
 
 
 //  throw signal changed
   connect(viewReturns, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
   connect(expandTree, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
+  connect(showMiniMap, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
 }
 
 KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage() {}

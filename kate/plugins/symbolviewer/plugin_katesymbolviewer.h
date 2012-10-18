@@ -77,6 +77,7 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
   private:
     QCheckBox* viewReturns;
     QCheckBox* expandTree;
+    QCheckBox* showMiniMap;
 };
 
 class KatePluginSymbolViewer;
@@ -105,7 +106,7 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     void verticalScrollPositionChanged(KTextEditor::View *view, const KTextEditor::Cursor &newPos);
     void slotDocEdited();
     void updatePixmapEdit();
-    
+
   protected:
     bool eventFilter(QObject *obj, QEvent *ev);
 
@@ -122,11 +123,11 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     QPixmap  m_pixmap;
     int  m_visibleStart;
     int  m_visibleLines;
-    
+
     QTimer m_updateTimer;
 
     void updatePixmapScroll();
-    
+
     void parseCppSymbols(void);
     void parseTclSymbols(void);
     void parseFortranSymbols(void);
@@ -157,13 +158,15 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
     QPixmap configPagePixmap (uint, int) const { return 0L; }
     KIcon configPageIcon (uint number = 0) const;
 
-   public slots:
+  public slots:
     void applyConfig( KatePluginSymbolViewerConfigPage* p );
 
-public:
+  Q_SIGNALS:
+    void miniMapNowVisible(bool visible);
+
+  public:
     bool types_on;
     bool expanded_on;
-  
 };
 
 /* XPM */

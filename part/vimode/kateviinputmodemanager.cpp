@@ -296,8 +296,14 @@ void KateViInputModeManager::viEnterInsertMode()
 {
   changeViMode(InsertMode);
   addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
+  if (getTemporaryNormalMode())
+  {
+    // Ensure the key log contains a request to re-enter Insert mode.
+    m_keyEventsLog.append(QKeyEvent(QEvent::KeyPress, QString("i")[0].unicode(), Qt::NoModifier, "i"));
+  }
   m_keyEventsBeforeInsert = m_keyEventsLog;
   m_view->setCaretStyle( KateRenderer::Line, true );
+  setTemporaryNormalMode(false);
   m_viewInternal->repaint ();
 }
 

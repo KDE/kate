@@ -340,7 +340,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // if normal mode was started by using Ctrl-O in insert mode,
             // it's time to go back to insert mode.
             if (m_viInputModeManager->getTemporaryNormalMode()) {
-                m_viInputModeManager->setTemporaryNormalMode(false);
                 startInsertMode();
                 m_viewInternal->repaint();
             }
@@ -491,7 +490,6 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
   // if normal mode was started by using Ctrl-O in insert mode,
   // it's time to go back to insert mode.
   if (m_viInputModeManager->getTemporaryNormalMode()) {
-      m_viInputModeManager->setTemporaryNormalMode(false);
       startInsertMode();
       m_viewInternal->repaint();
   }

@@ -299,6 +299,9 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo bar baz","3li\\ctrl-od2w\\ctrl-w","baz");
   DoTest("foo bar baz","i\\ctrl-o3l\\ctrl-w"," bar baz");
   DoTest("foo\nbar\nbaz","li\\ctrl-oj\\ctrl-w\\ctrl-oj\\ctrl-w","foo\nar\naz");
+  // Test that the text written after the Ctrl-O command completes is treated as
+  // an insertion of text (rather than a sequence of commands) when repeated via "."
+  DoTest("", "isausage\\ctrl-obugo\\esc.", "ugugoosausage");
 
   // Testing "Ctrl-D" "Ctrl-T"
   DoTest("foo", "i\\ctrl-t" , "  foo");

@@ -799,7 +799,7 @@ void ViModeTest::MappingTests()
     TestPressKey("'123");
     QCOMPARE(kate_document->text(), QString("")); // Shouldn't add anything until after the timeout!
     const int mappingTimeoutMS = 1000; // Chosen to match m_timeoutlen in KateViNormalMode.
-    QTest::qWait(2 * 1000);
+    QTest::qWait(2 * mappingTimeoutMS);
     FinishTest("Mapped from 123");
   }
 }

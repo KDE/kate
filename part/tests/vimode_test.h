@@ -35,7 +35,7 @@ public:
   ~ViModeTest();
 
 private Q_SLOTS:
-  void NormalModeFallingTests();
+  void NormalModeFailingTests();
   void NormalModeMotionsTest();
   void NormalModeCommandsTest();
   void NormalModeControlTests();

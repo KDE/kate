@@ -432,6 +432,10 @@ bool KateViewManager::deleteView (KTextEditor::View *view, bool delViewSpace)
 
   mainWindow()->guiFactory ()->removeClient (view);
 
+#ifdef KActivities_FOUND
+  m_activityResources.remove(view);
+#endif
+
   // remove view from list and memory !!
   m_viewList.removeAt ( m_viewList.indexOf (view) );
   m_activeStates.remove (view);
@@ -441,10 +445,6 @@ bool KateViewManager::deleteView (KTextEditor::View *view, bool delViewSpace)
   if (delViewSpace)
     if ( viewspace->viewCount() == 0 )
       removeViewSpace( viewspace );
-
-#ifdef KActivities_FOUND
-  m_activityResources.remove(view);
-#endif
 
   return true;
 }

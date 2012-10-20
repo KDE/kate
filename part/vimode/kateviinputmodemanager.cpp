@@ -298,7 +298,8 @@ void KateViInputModeManager::viEnterInsertMode()
   addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
   if (getTemporaryNormalMode())
   {
-    // Ensure the key log contains a request to re-enter Insert mode.
+    // Ensure the key log contains a request to re-enter Insert mode, else the keystrokes made
+    // after returning from temporary normal mode will be treated as commands!
     m_keyEventsLog.append(QKeyEvent(QEvent::KeyPress, QString("i")[0].unicode(), Qt::NoModifier, "i"));
   }
   m_keyEventsBeforeInsert = m_keyEventsLog;

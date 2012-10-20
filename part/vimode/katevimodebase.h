@@ -72,7 +72,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
         m_stickyColumn(-1)
     {
     }
-    virtual ~KateViModeBase() {};
+    virtual ~KateViModeBase() {}
 
     /**
      * @return normal mode command accumulated so far

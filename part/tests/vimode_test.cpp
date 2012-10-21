@@ -789,6 +789,8 @@ void ViModeTest::CommandModeTests() {
 
 void ViModeTest::MappingTests()
 {
+  const int mappingTimeoutMS = 1000; // Chosen to match m_timeoutlen in KateViNormalMode.
+
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "<esc>ihello<esc>^aworld<esc>");
   DoTest("", "'", "hworldello");
 
@@ -805,10 +807,25 @@ void ViModeTest::MappingTests()
     }
     TestPressKey("'123");
     QCOMPARE(kate_document->text(), QString("")); // Shouldn't add anything until after the timeout!
-    const int mappingTimeoutMS = 1000; // Chosen to match m_timeoutlen in KateViNormalMode.
     QTest::qWait(2 * mappingTimeoutMS);
     FinishTest("Mapped from 123");
   }
+
+  // Make mappings countable; the count should be applied to the whole mapped sequence, not
+  // just the first command in the sequence.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
+  DoTest("XXXX\nXXXX\nXXXX\nXXXX", "3'testmapping", "XXXX\nXOXX\nXXOX\nXXXO");
+
+  // Test that countable mappings work even when triggered by timeouts.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy");
+  BeginTest("XXXX\nXXXX\nXXXX\nXXXX");
+  TestPressKey("3'testmapping");
+  QTest::qWait(2 * mappingTimeoutMS);
+  FinishTest("XXXX\nXOXX\nXXOX\nXXXO");
+
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

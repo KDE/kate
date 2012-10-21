@@ -331,6 +331,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     // set after f/F/t/T/r so the following character isn't translated
     bool m_ignoreMapping;
     QString m_mappingKeys;
+    void executeMapping();
 
     KateViKeyParser *m_keyParser;
 

@@ -84,7 +84,7 @@ void KateViNormalMode::mappingTimerTimeOut()
   m_mappingKeyPress = true;
   if (!m_fullMappingMatch.isNull())
   {
-    m_viInputModeManager->feedKeyPresses( getMapping(m_fullMappingMatch ));
+    executeMapping();
   }
   else
   {
@@ -144,8 +144,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     {
       // Great - m_mappingKeys is a mapping, and one that can't be extended to
       // a longer one - execute it immediately.
-      m_viInputModeManager->feedKeyPresses( getMapping( m_fullMappingMatch ) );
-      m_mappingTimer->stop();
+      executeMapping();
       return true;
     }
     if (isPartialMapping)
@@ -3286,4 +3285,16 @@ KateViRange KateViNormalMode::textObjectComma(bool inner)
   shrinkRangeAroundCursor(r, findSurroundingBrackets( '[', ',', inner, '[', ']' ));
   shrinkRangeAroundCursor(r, findSurroundingBrackets( '{', ',', inner, '{', '}' ));
   return r;
+}
+
+void KateViNormalMode::executeMapping()
+{
+  const int numberRepeats = m_countTemp == 0 ? 1 : m_countTemp;
+  m_countTemp = 1; // Ensure that the first command in the mapping is not repeated.
+  m_mappingTimer->stop();
+  const QString mappedKeypresses = getMapping(m_fullMappingMatch);
+  for(int count = 1; count <= numberRepeats; count++)
+  {
+    m_viInputModeManager->feedKeyPresses(mappedKeypresses);
+  }
 }

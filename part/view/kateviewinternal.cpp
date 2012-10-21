@@ -799,9 +799,6 @@ void KateViewInternal::doSmartNewline()
 
 void KateViewInternal::doDelete()
 {
-  // If no selection then select one cell for delete cell instead of char
-	if ( !m_view->config()->persistentSelection() && !m_view->selection() )
-		cursorRight( true );
   doc()->del( m_view, m_cursor );
 }
 
@@ -976,70 +973,6 @@ public:
   virtual CalculatingCursor& operator-=( int n ) {
     return operator+=( -n );
   }
-  virtual CalculatingCursor& previousWordPosition () {
-    KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
-    if (!thisLine->isValid()) {
-      kWarning() << "Did not retrieve a valid layout for line " << line();
-      return *this;
-    }
-
-    if (m_column == 0) {
-      // Have come to the start of the document
-      if (line() != 0) {
-
-        // Start going back to the end of the last line
-        setLine(line() - 1);
-
-        // Retrieve the next text range
-        thisLine = m_vi->cache()->line(line());
-        if (!thisLine->isValid()) {
-          kWarning() << "Did not retrieve a valid layout for line " << line();
-          return *this;
-        }
-
-        // Finish going back to the end of the last line
-        m_column = thisLine->length();
-
-      }
-    }
-
-    m_column = thisLine->layout()->previousCursorPosition(m_column, QTextLayout::SkipWords);
-
-    Q_ASSERT(valid());
-    return *this;
-  }
-
-  virtual CalculatingCursor& nextWordPosition () {
-    KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
-    if (!thisLine->isValid()) {
-      kWarning() << "Did not retrieve a valid layout for line " << line();
-      return *this;
-    }
-
-    if (m_column == thisLine->length()) {
-      // Have come to the end of a line
-      if (line() < m_vi->doc()->lines() - 1) {
-        // Not end of the document
-
-        // Advance to the beginning of the next line
-        m_column = 0;
-        setLine(line() + 1);
-
-        // Retrieve the next text range
-        thisLine = m_vi->cache()->line(line());
-        if (!thisLine->isValid()) {
-          kWarning() << "Did not retrieve a valid layout for line " << line();
-          return *this;
-        }
-
-      }
-    }
-
-    m_column = thisLine->layout()->nextCursorPosition(m_column, QTextLayout::SkipWords);
-
-    Q_ASSERT(valid());
-    return *this;
-  }
 };
 
 class WrappingCursor : public CalculatingCursor {
@@ -1149,7 +1082,7 @@ void KateViewInternal::cursorRight( bool sel )
 
 void KateViewInternal::wordLeft ( bool sel )
 {
-  BoundedCursor c( this, m_cursor );
+  WrappingCursor c( this, m_cursor );
 
   // First we skip backwards all space.
   // Then we look up into which category the current position falls:
@@ -1159,8 +1092,32 @@ void KateViewInternal::wordLeft ( bool sel )
   // and skip all preceding characters that fall into this class.
   // The code assumes that space is never part of the word character class.
 
-  // Using skipWords mode of QTextLayout
-  c.previousWordPosition ();;
+  KateHighlighting* h = doc()->highlight();
+  if( !c.atEdge( left ) ) {
+
+    while( !c.atEdge( left ) && doc()->line( c.line() )[ c.column() - 1 ].isSpace() )
+      --c;
+  }
+  if( c.atEdge( left ) )
+  {
+    --c;
+  }
+  else if( h->isInWord( doc()->line( c.line() )[ c.column() - 1 ] ) )
+  {
+    while( !c.atEdge( left ) && h->isInWord( doc()->line( c.line() )[ c.column() - 1 ] ) )
+      --c;
+  }
+  else
+  {
+    while( !c.atEdge( left )
+           && !h->isInWord( doc()->line( c.line() )[ c.column() - 1 ] )
+           // in order to stay symmetric to wordLeft()
+           // we must not skip space preceding a non-word sequence
+           && !doc()->line( c.line() )[ c.column() - 1 ].isSpace() )
+    {
+      --c;
+    }
+  }
 
   updateSelection( c, sel );
   updateCursor( c );
@@ -1168,7 +1125,7 @@ void KateViewInternal::wordLeft ( bool sel )
 
 void KateViewInternal::wordRight( bool sel )
 {
-  BoundedCursor c( this, m_cursor );
+  WrappingCursor c( this, m_cursor );
 
   // We look up into which category the current position falls:
   // 1. a "word" character
@@ -1178,8 +1135,30 @@ void KateViewInternal::wordRight( bool sel )
   // If the skipped characters are followed by space, we skip that too.
   // The code assumes that space is never part of the word character class.
 
-  // Using skipWords mode of QTextLayout
-  c.nextWordPosition ();
+  KateHighlighting* h = doc()->highlight();
+  if( c.atEdge( right ) )
+  {
+    ++c;
+  }
+  else if( h->isInWord( doc()->line( c.line() )[ c.column() ] ) )
+  {
+    while( !c.atEdge( right ) && h->isInWord( doc()->line( c.line() )[ c.column() ] ) )
+      ++c;
+  }
+  else
+  {
+    while( !c.atEdge( right )
+           && !h->isInWord( doc()->line( c.line() )[ c.column() ] )
+           // we must not skip space, because if that space is followed
+           // by more non-word characters, we would skip them, too
+           && !doc()->line( c.line() )[ c.column() ].isSpace() )
+    {
+      ++c;
+    }
+  }
+
+  while( !c.atEdge( right ) && doc()->line( c.line() )[ c.column() ].isSpace() )
+    ++c;
 
   updateSelection( c, sel );
   updateCursor( c );

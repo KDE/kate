@@ -1934,25 +1934,18 @@ void KateView::tagSelection(const KTextEditor::Range &oldSelection)
 
 void KateView::selectWord( const KTextEditor::Cursor& cursor )
 {
-  int start, end;
-  const QString wordSep = (".,?!:;-<>[](){}=/\t");
-  QChar ch;
+  int start, end, len;
 
-  KateLineLayoutPtr curLine = m_viewInternal->cache()->line( cursor.line() );
+  Kate::TextLine textLine = m_doc->plainKateTextLine(cursor.line());
 
-  start = cursor.column();
+  if (!textLine)
+    return;
 
-  ch = curLine->layout()->text()[start - 1];
-  start -= wordSep.contains(ch) ? 1 : 0;
-  ch = curLine->layout()->text()[start - 1];
-  start += (ch == QLatin1Char(' ')) ? 1 : 0;
-
-  start = curLine->layout()->previousCursorPosition( start, QTextLayout::SkipWords);
-  end = curLine->layout()->nextCursorPosition( start, QTextLayout::SkipWords );
-
-  ch = curLine->layout()->text()[end - 1];
-  if ( wordSep.contains(ch) || ch == QLatin1Char(' ') )
-    --end;
+  len = textLine->length();
+  start = end = cursor.column();
+  while (start > 0 && m_doc->highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < len && m_doc->highlight()->isInWord(textLine->at(end), textLine->attribute(start - 1))) end++;
+  if (end <= start) return;
 
   setSelection (KTextEditor::Range(cursor.line(), start, cursor.line(), end));
 }

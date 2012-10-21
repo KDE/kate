@@ -270,6 +270,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     const QStringList getMappings() const;
     virtual void reset();
 
+    void setMappingTimeout(int timeoutMS);
   protected:
     void resetParser();
     void initializeCommands();

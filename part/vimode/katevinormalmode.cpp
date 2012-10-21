@@ -470,6 +470,11 @@ void KateViNormalMode::reset()
     m_commandRange.startColumn = -1;
 }
 
+void KateViNormalMode::setMappingTimeout(int timeoutMS)
+{
+  m_timeoutlen = timeoutMS;
+}
+
 void KateViNormalMode::goToPos( const KateViRange &r )
 {
   Cursor c;

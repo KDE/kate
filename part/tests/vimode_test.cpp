@@ -30,6 +30,7 @@
 #include "katebuffer.h"
 #include "katevikeyparser.h"
 #include <kateviglobal.h>
+#include <katevinormalmode.h>
 #include "kateviewhelpers.h"
 
 QTEST_KDEMAIN(ViModeTest, GUI)
@@ -789,7 +790,7 @@ void ViModeTest::CommandModeTests() {
 
 void ViModeTest::MappingTests()
 {
-  const int mappingTimeoutMS = 1000; // Chosen to match m_timeoutlen in KateViNormalMode.
+  const int mappingTimeoutMS = 100;
 
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "<esc>ihello<esc>^aworld<esc>");
   DoTest("", "'", "hworldello");
@@ -803,6 +804,7 @@ void ViModeTest::MappingTests()
     // extend it (e.g. '1234, '12345, etc) and which it itself extends ('1, '12, etc).
     KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
     BeginTest("");
+    kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
     QString consectiveDigits;
     for (int i = 1; i < 9; i++)
     {
@@ -826,6 +828,7 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy");
   BeginTest("XXXX\nXXXX\nXXXX\nXXXX");
+  kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("3'testmapping");
   QTest::qWait(2 * mappingTimeoutMS);
   FinishTest("XXXX\nXOXX\nXXOX\nXXXO");
@@ -834,6 +837,7 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy");
   BeginTest("XXXX\nXXXX\nXXXX\nXXXX");
+  kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("3'testmapping");
   QTest::qWait(2 * mappingTimeoutMS);
   FinishTest("XXXX\nXOXX\nXXOX\nXXXO");
@@ -857,6 +861,7 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gpa", "idummy");
   BeginTest("hello");
+  kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("yiwgp");
   QTest::qWait(2 * mappingTimeoutMS);
   TestPressKey("x");

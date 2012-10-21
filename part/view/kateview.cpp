@@ -1934,29 +1934,25 @@ void KateView::tagSelection(const KTextEditor::Range &oldSelection)
 
 void KateView::selectWord( const KTextEditor::Cursor& cursor )
 {
-  KateLineLayoutPtr curLine = m_viewInternal->cache()->line( cursor.line() );
-  if (!curLine)
-    return;
+  int start, end;
+  const QString wordSep = (".,?!:;-<>[](){}=/\t");
+  QChar ch;
 
-  int start = cursor.column();
-  if (start > 0 && start < curLine->layout()->text().size()) {
-    QChar ch = curLine->layout()->text()[start - 1];
-    start -= !m_doc->highlight()->isInWord (ch) ? 1 : 0;
-  }
-  if (start > 0 && start < curLine->layout()->text().size()) {
-    QChar ch = curLine->layout()->text()[start - 1];
-    start -= ch.isSpace() ? 1 : 0;
-  }
+  KateLineLayoutPtr curLine = m_viewInternal->cache()->line( cursor.line() );
+
+  start = cursor.column();
+
+  ch = curLine->layout()->text()[start - 1];
+  start -= wordSep.contains(ch) ? 1 : 0;
+  ch = curLine->layout()->text()[start - 1];
+  start += (ch == QLatin1Char(' ')) ? 1 : 0;
 
   start = curLine->layout()->previousCursorPosition( start, QTextLayout::SkipWords);
+  end = curLine->layout()->nextCursorPosition( start, QTextLayout::SkipWords );
 
-  int end = curLine->layout()->nextCursorPosition( start, QTextLayout::SkipWords );
-
-  if (end > 0 && end < curLine->layout()->text().size()) {
-    QChar ch = curLine->layout()->text()[end - 1];
-    if ( !m_doc->highlight()->isInWord (ch) || ch.isSpace() )
-      --end;
-  }
+  ch = curLine->layout()->text()[end - 1];
+  if ( wordSep.contains(ch) || ch == QLatin1Char(' ') )
+    --end;
 
   setSelection (KTextEditor::Range(cursor.line(), start, cursor.line(), end));
 }

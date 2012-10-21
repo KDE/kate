@@ -866,6 +866,16 @@ void ViModeTest::MappingTests()
   QTest::qWait(2 * mappingTimeoutMS);
   TestPressKey("x");
   FinishTest("hhellollo");
+
+  // Make sure that a mapped sequence of commands is merged into a single undo-able edit.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "ofoo<esc>ofoo<esc>ofoo<esc>");
+  DoTest("bar", "'au", "bar");
+
+  // Make sure that a counted mapping is merged into a single undoable edit.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "ofoo<esc>");
+  DoTest("bar", "5'au", "bar");
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

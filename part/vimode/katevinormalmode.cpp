@@ -3304,8 +3304,10 @@ void KateViNormalMode::executeMapping()
   m_countTemp = 1; // Ensure that the first command in the mapping is not repeated.
   m_mappingTimer->stop();
   const QString mappedKeypresses = getMapping(m_fullMappingMatch);
+  doc()->editBegin();
   for(int count = 1; count <= numberRepeats; count++)
   {
     m_viInputModeManager->feedKeyPresses(mappedKeypresses);
   }
+  doc()->editEnd();
 }

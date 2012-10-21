@@ -31,6 +31,7 @@
 #include "ui_search.h"
 #include "ui_results.h"
 
+#include "search_while_typing.h"
 #include "search_open_files.h"
 #include "search_folder.h"
 #include "search_project.h"
@@ -108,6 +109,8 @@ private Q_SLOTS:
     void addMatchMark(KTextEditor::Document* doc, int line, int column, int len);
 
     void searchDone();
+    void searchWhileTypingDone();
+    void indicateMatch(bool hasMatch);
 
     void itemSelected(QTreeWidgetItem *item);
 
@@ -140,6 +143,7 @@ private:
     SearchOpenFiles                    m_searchOpenFiles;
     SearchFolder                       m_searchFolder;
     SearchProject                      m_searchProject;
+    SearchWhileTyping                  m_searchWhileTyping;
     ReplaceMatches                     m_replacer;
     KAction                           *m_matchCase;
     KAction                           *m_useRegExp;

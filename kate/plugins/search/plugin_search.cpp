@@ -1,6 +1,6 @@
 /*   Kate search plugin
  *
- * Copyright (C) 2011 by Kåre Särs <kare.sars@iki.fi>
+ * Copyright (C) 2011-2012 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,6 +42,8 @@
 #include <kaboutdata.h>
 #include <kurlcompletion.h>
 #include <klineedit.h>
+#include <kcolorscheme.h>
+
 #include <QKeyEvent>
 #include <QClipboard>
 #include <QMenu>
@@ -219,6 +221,8 @@ m_projectPluginView(0)
     connect(m_ui.displayOptions,   SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
     connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(searchPlaceChanged()));
     connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), this, SLOT(searchPatternChanged()));
+    connect(m_ui.matchCase,        SIGNAL(stateChanged(int)), this, SLOT(searchPatternChanged()));
+    connect(m_ui.useRegExp,        SIGNAL(stateChanged(int)), this, SLOT(searchPatternChanged()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchFolder, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchProject, SLOT(cancelSearch()));
@@ -236,6 +240,10 @@ m_projectPluginView(0)
     connect(&m_searchProject, SIGNAL(matchFound(QString,int,int,QString,int)),
             this,              SLOT(matchFound(QString,int,int,QString,int)));
     connect(&m_searchProject, SIGNAL(searchDone()),  this, SLOT(searchDone()));
+
+    connect(&m_searchWhileTyping, SIGNAL(matchFound(QString,int,int,QString,int)),
+            this,              SLOT(matchFound(QString,int,int,QString,int)));
+    connect(&m_searchWhileTyping, SIGNAL(searchDone()),  this, SLOT(searchWhileTypingDone()));
 
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
@@ -362,12 +370,12 @@ void KatePluginSearchView::startSearch()
         // return pressed in the folder combo or filter combo
         return;
     }
-    m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    m_ui.searchCombo->addToHistory(m_ui.searchCombo->currentText());
+    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
         kWarning() << "This is a bug";
         return;
     }
-    m_ui.searchCombo->addToHistory(m_ui.searchCombo->currentText());
 
     m_ui.newTabButton->setDisabled(true);
     m_ui.searchCombo->setDisabled(true);
@@ -440,6 +448,34 @@ void KatePluginSearchView::searchPlaceChanged()
 void KatePluginSearchView::searchPatternChanged()
 {
     m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
+
+    if (m_ui.searchCombo->currentText().length() < 3) return;
+    if (!mainWindow()->activeView()) return;
+
+    KTextEditor::Document *doc = mainWindow()->activeView()->document();
+    if (!doc) return;
+
+    m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResults) {
+        kWarning() << "This is a bug";
+        return;
+    }
+
+    QRegExp reg(m_ui.searchCombo->currentText(),
+                m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
+                m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
+
+    m_curResults->regExp = reg;
+
+    clearMarks();
+    m_curResults->tree->clear();
+    m_curResults->buttonContainer->setEnabled(false);
+    m_curResults->matches = 0;
+    m_curResults->selectAllCB->setText(i18n("Select all"));
+    m_curResults->selectAllCB->setChecked(true);
+    disconnect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
+
+    m_searchWhileTyping.startSearch(doc, reg);
 }
 
 QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
@@ -618,8 +654,52 @@ void KatePluginSearchView::searchDone()
 
     connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
+    indicateMatch(m_curResults->tree->topLevelItemCount() > 0);
     m_curResults = 0;
     m_toolView->unsetCursor();
+}
+
+void KatePluginSearchView::searchWhileTypingDone()
+{
+    if (!m_curResults) {
+        return;
+    }
+
+    if (m_curResults->tree->topLevelItemCount() > 0) {
+        m_curResults->tree->setCurrentItem(m_curResults->tree->topLevelItem(0));
+        m_curResults->setFocus(Qt::OtherFocusReason);
+    }
+    m_curResults->tree->resizeColumnToContents(0);
+    m_curResults->buttonContainer->setEnabled(true);
+
+    connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
+
+    indicateMatch(m_curResults->tree->topLevelItemCount() > 0);
+    if (m_curResults->tree->topLevelItemCount() > 0) {
+        itemSelected(m_curResults->tree->topLevelItem(0));
+    }
+    m_curResults = 0;
+    m_ui.searchCombo->lineEdit()->setFocus();
+}
+
+void KatePluginSearchView::indicateMatch(bool hasMatch) {
+    QLineEdit * const lineEdit = m_ui.searchCombo->lineEdit();
+    QPalette background(lineEdit->palette());
+
+    if (hasMatch) {
+        // Green background for line edit
+        KColorScheme::adjustBackground(background, KColorScheme::PositiveBackground);
+    }
+    else {
+        // Reset background of line edit
+        background = QPalette();
+    }
+    // Red background for line edit
+    //KColorScheme::adjustBackground(background, KColorScheme::NegativeBackground);
+    // Neutral background
+    //KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
+
+    lineEdit->setPalette(background);
 }
 
 void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)

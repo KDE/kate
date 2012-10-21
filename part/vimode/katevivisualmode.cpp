@@ -395,8 +395,8 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("a\"", textObjectAQuoteDouble, 0 );
   ADDMOTION("i'", textObjectInnerQuoteSingle, 0 );
   ADDMOTION("a'", textObjectAQuoteSingle, 0 );
-  ADDMOTION("i[()]", textObjectInnerParen, REGEX_PATTERN );
-  ADDMOTION("a[()]", textObjectAParen, REGEX_PATTERN );
+  ADDMOTION("i[()b]", textObjectInnerParen, REGEX_PATTERN );
+  ADDMOTION("a[()b]", textObjectAParen, REGEX_PATTERN );
   ADDMOTION("i[{}B]", textObjectInnerCurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
   ADDMOTION("a[{}B]", textObjectACurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
   ADDMOTION("i[\\[\\]]", textObjectInnerBracket, REGEX_PATTERN );

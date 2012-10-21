@@ -486,6 +486,13 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
           "8w2lcib",
           "foo \"bar baz ()\"");
+  // Quick test that bracket object works in visual mode.
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lvibd",
+          "foo \"bar baz ()\"");
+  DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
+          "8w2lvabd",
+          "foo \"bar baz \"");
 
   DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
           "8w2lca)",

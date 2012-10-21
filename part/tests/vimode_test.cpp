@@ -794,6 +794,10 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "<esc>ihello<esc>^aworld<esc>");
   DoTest("", "'", "hworldello");
 
+  // Ensure that the non-mapping logged keypresses are cleared before we execute a mapping
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "rO");
+  DoTest("X", "'a", "O");
+
   {
     // Check that '123 is mapped after the timeout, given that we also have mappings that
     // extend it (e.g. '1234, '12345, etc) and which it itself extends ('1, '12, etc).
@@ -826,6 +830,37 @@ void ViModeTest::MappingTests()
   QTest::qWait(2 * mappingTimeoutMS);
   FinishTest("XXXX\nXOXX\nXXOX\nXXXO");
 
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy");
+  BeginTest("XXXX\nXXXX\nXXXX\nXXXX");
+  TestPressKey("3'testmapping");
+  QTest::qWait(2 * mappingTimeoutMS);
+  FinishTest("XXXX\nXOXX\nXXOX\nXXXO");
+
+  // Test that telescoping mappings don't interfere with built-in commands. Assumes that gp
+  // is implemented and working.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gdummy", "idummy");
+  DoTest("hello", "yiwgpx", "hhellollo");
+
+  // Test that we can map a sequence of keys that extends a built-in command and use
+  // that sequence without the built-in command firing.
+  // Once again, assumes that gp is implemented and working.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gpa", "idummy");
+  DoTest("hello", "yiwgpa", "dummyhello");
+
+  // Test that we can map a sequence of keys that extends a built-in command and still
+  // have the original built-in command fire if we timeout after entering that command.
+  // Once again, assumes that gp is implemented and working.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gpa", "idummy");
+  BeginTest("hello");
+  TestPressKey("yiwgp");
+  QTest::qWait(2 * mappingTimeoutMS);
+  TestPressKey("x");
+  FinishTest("hhellollo");
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

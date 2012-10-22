@@ -4771,6 +4771,8 @@ bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &
 {
   if (templateString.isEmpty()) return false;
 
+  if (!isReadWrite()) return false;
+  
   KateTemplateScript* kateTemplateScript =
     KateGlobal::self()->scriptManager()->templateScript(templateScript);
 

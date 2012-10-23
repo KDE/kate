@@ -1,8 +1,0 @@
-<!DOCTYPE kpartgui>
-<gui name="katemailfiles" library="katemailfilesplugin" version="2">
-<MenuBar>
-  <Menu name="file"><text>&amp;File</text>
-    <Action name="file_mail" group="export_merge"/>
- </Menu>
-</MenuBar>
-</gui>

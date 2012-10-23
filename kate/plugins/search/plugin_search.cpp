@@ -1110,7 +1110,9 @@ KateSearchCommand::KateSearchCommand(QObject *parent)
 
 const QStringList& KateSearchCommand::cmds()
 {
-    static QStringList sl = QStringList() << "grep" << "search" << "newGrep" << "newSearch";
+    static QStringList sl = QStringList() << "grep" << "newGrep"
+        << "search" << "newSearch"
+        << "pgrep" << "newPGrep";
     return sl;
 }
 
@@ -1121,22 +1123,25 @@ bool KateSearchCommand::exec (KTextEditor::View* /*view*/, const QString& cmd, Q
     QString command = args.takeFirst();
     QString searchText = args.join(QString(' '));
 
-    if (command == "grep") {
+    if (command == "grep" || command == "newGrep") {
         emit setSearchPlace(1);
         emit setCurrentFolder();
+        if (command == "newGrep")
+            emit newTab();
     }
-    else if (command == "search") {
+    
+    else if (command == "search" || command == "newSearch") {
         emit setSearchPlace(0);
+        if (command == "newSearch")
+            emit newTab();
     }
-    else if (command == "newGrep") {
-        emit setSearchPlace(1);
-        emit setCurrentFolder();
-        emit newTab();
+    
+    else if (command == "pgrep" || command == "newPGrep") {
+        emit setSearchPlace(2);
+        if (command == "newPGrep")
+            emit newTab();
     }
-    else if (command == "newSearch") {
-        emit setSearchPlace(0);
-        emit newTab();
-    }
+    
     emit setSearchString(searchText);
     emit startSearch();
 
@@ -1148,17 +1153,25 @@ bool KateSearchCommand::help (KTextEditor::View */*view*/, const QString &cmd, Q
     if (cmd.startsWith("grep")) {
         msg = i18n("Usage: grep [pattern to search for in folder]");
     }
-    else if (cmd.startsWith("search")) {
-        msg = i18n("Usage: search [pattern to search for in open files]");
-    }
     else if (cmd.startsWith("newGrep")) {
         msg = i18n("Usage: newGrep [pattern to search for in folder]");
+    }
+
+    else if (cmd.startsWith("search")) {
+        msg = i18n("Usage: search [pattern to search for in open files]");
     }
     else if (cmd.startsWith("newSearch")) {
         msg = i18n("Usage: search [pattern to search for in open files]");
     }
+    
+    else if (cmd.startsWith("pgrep")) {
+        msg = i18n("Usage: pgrep [pattern to search for in current project]");
+    }
+    else if (cmd.startsWith("newPGrep")) {
+        msg = i18n("Usage: newPGrep [pattern to search for in current project]");
+    }
+    
     return true;
 }
-
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

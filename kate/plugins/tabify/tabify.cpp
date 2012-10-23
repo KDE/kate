@@ -33,7 +33,6 @@
 #include <ktabbar.h>
 #include <kdebug.h>
 #include <QtGui/QBoxLayout>
-#include <QtCore/QMutex>
 
 K_PLUGIN_FACTORY(TabBarFactory, registerPlugin<TabBarPlugin>();)
 K_EXPORT_PLUGIN(TabBarFactory(KAboutData("tabifyplugin", "katetabifyplugin",

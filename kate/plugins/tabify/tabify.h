@@ -31,7 +31,6 @@
 #include <ktabbar.h>
 
 #include <QtCore/QEvent>
-#include <QtCore/QMutex>
 #include <QtCore/QObject>
 #include <QtCore/QList>
 #include <QtGui/QTabBar>

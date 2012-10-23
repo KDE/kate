@@ -18,19 +18,19 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef KATE_PROJECT_VIEW_H
-#define KATE_PROJECT_VIEW_H
+#ifndef KATE_PROJECT_VIEW_TREE_H
+#define KATE_PROJECT_VIEW_TREE_H
 
 #include "kateproject.h"
-#include "kateprojectviewtree.h"
+
+#include <QTreeView>
 
 class KateProjectPluginView;
 
 /**
- * Class representing a view of a project.
  * A tree like view of project content.
  */
-class KateProjectView : public QWidget
+class KateProjectViewTree : public QTreeView
 {
   Q_OBJECT
 
@@ -40,12 +40,12 @@ class KateProjectView : public QWidget
      * @param pluginView our plugin view
      * @param project project this view is for
      */
-    KateProjectView (KateProjectPluginView *pluginView, KateProject *project);
+    KateProjectViewTree (KateProjectPluginView *pluginView, KateProject *project);
 
     /**
      * deconstruct project
      */
-    ~KateProjectView ();
+    ~KateProjectViewTree ();
 
     /**
      * our project.
@@ -67,6 +67,26 @@ class KateProjectView : public QWidget
      */
     void openSelectedDocument ();
 
+  private Q_SLOTS:
+    /**
+     * item got clicked, do stuff, like open document
+     * @param index model index of clicked item
+     */
+    void slotClicked (const QModelIndex &index);
+
+    /**
+     * Triggered on model changes.
+     * This includes the files list, itemForFile mapping!
+     */
+    void slotModelChanged ();
+
+  protected:
+    /**
+     * Create matching context menu.
+     * @param event context menu event
+     */
+    void contextMenuEvent (QContextMenuEvent *event);
+
   private:
     /**
      * our plugin view
@@ -77,11 +97,6 @@ class KateProjectView : public QWidget
      * our project
      */
     KateProject *m_project;
-    
-    /**
-     * our tree view
-     */
-    KateProjectViewTree *m_treeView;
 };
 
 #endif

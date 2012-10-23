@@ -18,6 +18,7 @@ set(kateprojectplugin_PART_SRCS
   kateprojectworker.cpp
   kateprojectitem.cpp
   kateprojectview.cpp
+  kateprojectviewtree.cpp
   kateprojectinfoview.cpp
   kateprojectcompletion.cpp
   kateprojectindex.cpp

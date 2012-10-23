@@ -25,6 +25,7 @@
 #include <ktexteditor/view.h>
 
 #include <QContextMenuEvent>
+#include <QSortFilterProxyModel>
 #include <KMimeType>
 #include <KMimeTypeTrader>
 #include <QMenu>
@@ -32,35 +33,17 @@
 #include <KIcon>
 
 KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject *project)
-  : QTreeView ()
+  : QWidget ()
   , m_pluginView (pluginView)
   , m_project (project)
+  , m_treeView (new KateProjectViewTree(pluginView, project))
 {
   /**
-   * default style
+   * layout tree view and co.
    */
-  setHeaderHidden (true);
-  setEditTriggers (QAbstractItemView::NoEditTriggers);
-
-  /**
-   * attach view => project
-   * do this once, model is stable for whole project life time
-   * kill selection model
-   */
-  QItemSelectionModel *m = selectionModel();
-  setModel (m_project->model ());
-  delete m;
-
-  /**
-   * connect needed signals
-   */
-  connect (this, SIGNAL(clicked (const QModelIndex &)), this, SLOT(slotClicked (const QModelIndex &)));
-  connect (m_project, SIGNAL(modelChanged ()), this, SLOT(slotModelChanged ()));
-
-  /**
-   * trigger once some slots
-   */
-  slotModelChanged ();
+  QHBoxLayout *layout = new QHBoxLayout ();
+  layout->addWidget (m_treeView);
+  setLayout (layout);
 }
 
 KateProjectView::~KateProjectView ()
@@ -69,116 +52,12 @@ KateProjectView::~KateProjectView ()
 
 void KateProjectView::selectFile (const QString &file)
 {
-  /**
-   * get item if any
-   */
-  QStandardItem *item = m_project->itemForFile (file);
-  if (!item)
-    return;
-
-  /**
-   * select it
-   */
-  QModelIndex index = m_project->model()->indexFromItem (item);
-  scrollTo (index, QAbstractItemView::EnsureVisible);
-  selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+  m_treeView->selectFile (file);
 }
 
 void KateProjectView::openSelectedDocument ()
 {
-  /**
-   * anything selected?
-   */
-  QModelIndexList selecteStuff = selectedIndexes ();
-  if (selecteStuff.isEmpty())
-    return;
-
-  /**
-   * open document for first element, if possible
-   */
-  QString filePath = selecteStuff[0].data (Qt::UserRole).toString();
-  if (!filePath.isEmpty())
-    m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
-}
-
-void KateProjectView::slotClicked (const QModelIndex &index)
-{
-  /**
-   * open document, if any usable user data
-   */
-  QString filePath = index.data (Qt::UserRole).toString();
-  if (!filePath.isEmpty())
-    m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
-}
-
-void KateProjectView::slotModelChanged ()
-{
-  /**
-   * model was updated
-   * perhaps we need to highlight again new file
-   */
-  KTextEditor::View *activeView = m_pluginView->mainWindow()->activeView ();
-  if (activeView && activeView->document()->url().isLocalFile())
-    selectFile (activeView->document()->url().toLocalFile ());
-}
-
-void KateProjectView::contextMenuEvent (QContextMenuEvent *event)
-{
-  /**
-   * get path file path or don't do anything
-   */
-  QModelIndex index = selectionModel()->currentIndex();
-  QString filePath = index.data (Qt::UserRole).toString();
-  if (filePath.isEmpty()) {
-    QTreeView::contextMenuEvent (event);
-    return;
-  }
-
-  /**
-   * create context menu
-   */
-  QMenu menu;
-
-  /**
-   * handle "open with"
-   * find correct mimetype to query for possible applications
-   */
-  QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
-  KMimeType::Ptr mimeType = KMimeType::findByPath(filePath);
-  KService::List offers = KMimeTypeTrader::self()->query(mimeType->name(), "Application");
-
-  /**
-   * for each one, insert a menu item...
-   */
-  for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
-  {
-    KService::Ptr service = *it;
-    if (service->name() == "Kate") continue; // omit Kate
-    QAction *action = openWithMenu->addAction(KIcon(service->icon()), service->name());
-    action->setData(service->entryPath());
-  }
-
-  /**
-   * perhaps disable menu, if no entries!
-   */
-  openWithMenu->setEnabled (!openWithMenu->isEmpty());
-
-  /**
-   * run menu and handle the triggered action
-   */
-  if (QAction *action = menu.exec (viewport()->mapToGlobal(event->pos()))) {
-    /**
-     * handle "open with"
-     */
-    const QString openWith = action->data().toString();
-    if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
-      QList<QUrl> list;
-      list << QUrl::fromLocalFile (filePath);
-      KRun::run(*app, list, this);
-    }
-  }
-
-  event->accept();
+  m_treeView->openSelectedDocument ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

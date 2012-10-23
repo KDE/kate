@@ -31,19 +31,28 @@
 #include <QMenu>
 #include <KRun>
 #include <KIcon>
+#include <KFilterProxySearchLine>
 
 KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject *project)
   : QWidget ()
   , m_pluginView (pluginView)
   , m_project (project)
   , m_treeView (new KateProjectViewTree(pluginView, project))
+  , m_filter (new KFilterProxySearchLine ())
 {
   /**
    * layout tree view and co.
    */
-  QHBoxLayout *layout = new QHBoxLayout ();
+  QVBoxLayout *layout = new QVBoxLayout ();
   layout->addWidget (m_treeView);
+  layout->addWidget (m_filter);
   setLayout (layout);
+  
+  /**
+   * allow filtering
+   * tree view always has a sortfilterproxy model
+   */
+  m_filter->setProxy (static_cast<QSortFilterProxyModel *>(m_treeView->model ()));
 }
 
 KateProjectView::~KateProjectView ()

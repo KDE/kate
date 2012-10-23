@@ -25,7 +25,7 @@
 #include <ktexteditor/view.h>
 
 #include <QContextMenuEvent>
-#include <QSortFilterProxyModel>
+#include <KRecursiveFilterProxyModel>
 #include <KMimeType>
 #include <KMimeTypeTrader>
 #include <QMenu>
@@ -50,7 +50,7 @@ KateProjectViewTree::KateProjectViewTree (KateProjectPluginView *pluginView, Kat
    * create sort proxy model
    */
   QItemSelectionModel *m = selectionModel();
-  QSortFilterProxyModel *sortModel = new QSortFilterProxyModel (this);
+  QSortFilterProxyModel *sortModel = new KRecursiveFilterProxyModel (this);
   //sortModel->setFilterRole(SortFilterRole);
   //sortModel->setSortRole(SortFilterRole);
   sortModel->setFilterCaseSensitivity(Qt::CaseInsensitive);

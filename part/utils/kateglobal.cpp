@@ -78,7 +78,7 @@ KateGlobal::KateGlobal ()
   //
   m_aboutData.setProgramIconName("preferences-plugin");
   m_aboutData.addAuthor (ki18n("Christoph Cullmann"), ki18n("Maintainer"), "cullmann@kde.org", "http://www.babylon2k.de");
-  m_aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Core Developer"), "dhaumann@kde.de");
+  m_aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Core Developer"), "dhaumann@kde.org");
   m_aboutData.addAuthor (ki18n("Milian Wolff"), ki18n("Core Developer"), "mail@milianw.de", "http://milianw.de");
   m_aboutData.addAuthor (ki18n("Joseph Wenninger"), ki18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
   m_aboutData.addAuthor (ki18n("Erlend Hamberg"), ki18n("Vi Input Mode"), "ehamberg@gmail.com", "http://hamberg.no/erlend");

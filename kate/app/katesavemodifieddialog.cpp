@@ -137,7 +137,7 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
         }
         else
         {
-          setState(SaveFailedState);
+          //setState(SaveFailedState);
           return false;
         }
       }
@@ -262,7 +262,8 @@ bool KateSaveModifiedDialog::doSave()
     {
       if (!cit->synchronousSave(this /*perhaps that should be the kate mainwindow*/))
       {
-        KMessageBox::sorry( this, i18n("Data you requested to be saved could not be written. Please choose how you want to proceed."));
+        if (cit->state()==AbstractKateSaveModifiedDialogCheckListItem::SaveFailedState)
+            KMessageBox::sorry( this, i18n("Data you requested to be saved could not be written. Please choose how you want to proceed."));
         return false;
       }
     }

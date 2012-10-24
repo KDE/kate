@@ -123,6 +123,12 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      */
     virtual QWidget *widget();
 
+Q_SIGNALS:
+#warning REMOVE IN KDE5
+  void readWriteChanged (KTextEditor::Document *document);
+
+    
+    
   public:
     bool readOnly () const { return m_bReadOnly; }
     bool browserView () const { return m_bBrowserView; }

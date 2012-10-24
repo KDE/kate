@@ -124,7 +124,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     virtual QWidget *widget();
 
 Q_SIGNALS:
-#warning REMOVE IN KDE5
+// TODO for KDE5: move to KTE::Document
   void readWriteChanged (KTextEditor::Document *document);
 
     

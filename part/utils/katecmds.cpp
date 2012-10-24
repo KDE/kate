@@ -601,14 +601,14 @@ bool KateCommands::AppCommands::help(KTextEditor::View *view, const QString &cmd
     Q_UNUSED(view);
 
     if (re_write.exactMatch(cmd)) {
-        msg = "<p><b>w/wa &mdash; write document(s) to disk</b></p>"
+        msg = i18n("<p><b>w/wa &mdash; write document(s) to disk</b></p>"
               "<p>Usage: <tt><b>w[a]</b></tt></p>"
               "<p>Writes the current document(s) to disk. "
               "It can be called in two ways:<br />"
               " <tt>w</tt> &mdash; writes the current document to disk<br />"
               " <tt>wa</tt> &mdash; writes all document to disk.</p>"
               "<p>If no file name is associated with the document, "
-              "a file dialog will be shown.</p>";
+              "a file dialog will be shown.</p>");
         return true;
     }
     return false;

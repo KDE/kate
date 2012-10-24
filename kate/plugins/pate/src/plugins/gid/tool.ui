@@ -23,7 +23,9 @@
       </sizepolicy>
      </property>
      <property name="whatsThis">
-      <string>A regular expression which must also be matched. Use %{token} to include the token.</string>
+      <string>A regular expression which must also be matched. Use %{token} to include the token.
+
+This can be used to get the effect of full text searching for strings which contain the token and match the filter.</string>
      </property>
      <property name="insertPolicy">
       <enum>QComboBox::InsertAtTop</enum>

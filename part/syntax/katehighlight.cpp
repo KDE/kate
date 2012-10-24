@@ -299,13 +299,9 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
 
     // hl continue set or not ???
     if (prevLine->hlLineContinue())
-    {
-      prevLine--;
-    }
+      previousLine--;
     else
-    {
       context = generateContextStack(ctx, context->lineEndContext, previousLine); //get stack ID to use
-    }
 
     //kDebug(13010)<<"test1-2-1-text4";
 

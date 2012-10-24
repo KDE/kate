@@ -105,7 +105,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
                   QWidget *parentWidget = 0, QObject * = 0);
     ~KateDocument ();
-
+    
     using ReadWritePart::closeUrl;
     virtual bool closeUrl();
 
@@ -113,6 +113,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
     KTextEditor::Range rangeOnLine(KTextEditor::Range range, int line) const;
 
+    
   /*
    * Overload this to have on-demand view creation
    */

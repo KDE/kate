@@ -96,6 +96,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(modifiedChanged()));
   connect(m_view->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(modifiedChanged()) );
   connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
+  connect(m_view->document(), SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
   connect(m_view->document(),SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(urlChanged()));
   connect(m_view->document(), SIGNAL(modeChanged(KTextEditor::Document*)), this, SLOT(modeChanged(KTextEditor::Document*)));
 
@@ -604,8 +605,12 @@ void KWrite::documentNameChanged ()
 {
   m_fileNameLabel->setText( KStringHandler::lsqueeze(m_view->document()->documentName (), 64) );
 
+  QString readOnlyCaption;
+  if  (!m_view->document()->isReadWrite())
+    readOnlyCaption=i18n(" [read only]");
+  
   if (m_view->document()->url().isEmpty()) {
-    setCaption(i18n("Untitled"),m_view->document()->isModified());
+    setCaption(i18n("Untitled")+readOnlyCaption,m_view->document()->isModified());
   }
   else
   {
@@ -627,7 +632,7 @@ void KWrite::documentNameChanged ()
         c = "..." + c.right(64);
     }
 
-    setCaption (c, m_view->document()->isModified());
+    setCaption (c+readOnlyCaption, m_view->document()->isModified());
   }
 }
 

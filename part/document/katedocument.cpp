@@ -2529,6 +2529,7 @@ void KateDocument::setReadWrite( bool rw )
       view->slotUpdateUndo();
       view->slotReadWriteChanged ();
     }
+    emit readWriteChanged(this);
   }
 }
 

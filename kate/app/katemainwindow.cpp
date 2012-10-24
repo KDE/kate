@@ -802,6 +802,7 @@ bool KateMainWindow::showModOnDiskPrompt()
 void KateMainWindow::slotDocumentCreated (KTextEditor::Document *doc)
 {
   connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
+  connect(doc, SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
   connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(updateCaption(KTextEditor::Document*)));
   connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(slotUpdateOpenWith()));
 
@@ -840,7 +841,11 @@ void KateMainWindow::updateCaption (KTextEditor::Document *doc)
   if ( !sessName.isEmpty() )
     sessName = QString("%1: ").arg( sessName );
 
-  setCaption( sessName + c,
+  QString readOnlyCaption;
+  if  (!m_viewManager->activeView()->document()->isReadWrite())
+    readOnlyCaption=i18n(" [read only]");
+  
+  setCaption( sessName + c+readOnlyCaption,
               m_viewManager->activeView()->document()->isModified());
 }
 

@@ -777,6 +777,8 @@ void KateFileTreeModel::updateBackgrounds(bool force)
     i++;
   }
   
+  kDebug(debugArea()) << "m_editHistory contains " << m_editHistory.count()<<" elements";
+        
   QMap<ProxyItem *, QBrush> oldBrushes = m_brushes;
   m_brushes.clear();
   
@@ -934,21 +936,28 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
   kDebug(debugArea()) << item;
   kDebug(debugArea()) << item->display() << "->" << path;
 
+  
   if(m_shadingEnabled) {
     ProxyItem *toRemove = m_docmap[doc];
     if(m_brushes.contains(toRemove)) {
+      QBrush brush=m_brushes[toRemove];
       m_brushes.remove(toRemove);
+      m_brushes.insert(item,brush);
       kDebug(debugArea()) << "removing brush" << toRemove;
     }
 
     if(m_viewHistory.contains(toRemove)) {
-      m_viewHistory.removeAll(toRemove);
-      kDebug(debugArea()) << "removing view history" << toRemove;
+      int idx=m_viewHistory.indexOf(toRemove);
+      if (idx!=-1)
+        m_viewHistory.replace(idx,item);
+      kDebug(debugArea()) << "removing/replacing view history" << toRemove;
     }
 
     if(m_editHistory.contains(toRemove)) {
-      m_editHistory.removeAll(toRemove);
-      kDebug(debugArea()) << "removing edit history" << toRemove;
+      int idx=m_editHistory.indexOf(toRemove);
+      if (idx!=-1)
+        m_editHistory.replace(idx,item);
+      kDebug(debugArea()) << "removing/replacing edit history" << toRemove;
     }
   }
   

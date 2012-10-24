@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="Restructured Text" version="1.0" kateversion="2.4" section="Markup" extensions="*.rst" author="Massimiliano Torromeo (massimiliano.torromeo@gmail.com)" license="LGPL">
+
+	<highlighting>
+		<contexts>
+			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+				<RegExpr attribute="Emphasys" String="\*[^* ].*\S\*" context="#stay" />
+				<RegExpr attribute="Strong" String="\*\*\S.*\S\*\*" context="#stay" />
+				<RegExpr attribute="Literal" String="``\S.*\S``" context="#stay" />
+				<RegExpr attribute="Directive" String="^\.\. " context="Directive" />
+				<RegExpr attribute="Title" String="^(#{3,}|\*{3,}|={3,}|-{3,}|\^{3,}|&quot;{3,}|&apos;{3,}|~{3,}|`{3,}|\+{3,})$" context="#stay" />
+				<RegExpr attribute="OrderedList" String="[#0-9]\.\s" firstNonSpace="1" context="#stay" />
+				<AnyChar attribute="UnorderedList" String="*+-" firstNonSpace="1" context="#stay" />
+				<DetectChar attribute="Link" char="`" context="Link" />
+				<RegExpr attribute="Code" String="::$" context="CodeBlock" />
+			</context>
+
+			<context name="CodeBlock" attribute="Code" lineEndContext="#stay">
+				<RegExpr attribute="Code" String="^\s" context="Code" />
+			</context>
+
+			<context name="Code" attribute="Code" lineEndContext="#stay">
+				<RegExpr attribute="Normal" String="^\S" lookAhead="true" context="#pop#pop" />
+			</context>
+
+			<context name="Directive" attribute="Directive" lineEndContext="#pop">
+				<RegExpr attribute="Keyword" String="\w+" context="#stay" />
+			</context>
+
+			<context name="Link" attribute="Link" lineEndContext="#pop">
+				<DetectChar attribute="Link" char="&lt;" context="URL" />
+				<Detect2Chars attribute="Link" char="`" char1="_" context="#pop" />
+			</context>
+
+			<context name="URL" attribute="LinkUrl" lineEndContext="#stay">
+				<RegExpr attribute="LinkUrl" String="[^&gt;]+" context="#stay" />
+				<DetectChar attribute="Link" char="&gt;" context="#pop" />
+			</context>
+		</contexts>
+
+		<itemDatas>
+			<itemData name="Normal Text" defStyleNum="dsNormal" />
+			<itemData name="Directive" defStyleNum="dsDecVal" />
+			<itemData name="Emphasys" defStyleNum="dsNormal" italic="1" />
+			<itemData name="Strong" defStyleNum="dsNormal" bold="1" />
+			<itemData name="Literal" defStyleNum="dsDataType" />
+			<itemData name="Keyword" defStyleNum="dsKeyword" />
+			<itemData name="OrderedList" defStyleNum="dsDecVal" />
+			<itemData name="UnorderedList" defStyleNum="dsFloat" />
+			<itemData name="Link" defStyleNum="dsString" />
+			<itemData name="LinkUrl" defStyleNum="dsString" bold="1" />
+			<itemData name="Title" defStyleNum="dsKeyword" bold="1" />
+			<itemData name="Code" defStyleNum="dsDataType" />
+			<itemData name="Error" defStyleNum="dsError" />
+		</itemDatas>
+
+	</highlighting>
+</language>

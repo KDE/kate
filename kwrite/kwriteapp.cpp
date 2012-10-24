@@ -39,6 +39,9 @@ KWriteApp::KWriteApp(KCmdLineArgs *m_args)
     exit(1);
   }
 
+  // read from global config once
+  m_editor->readConfig(KGlobal::config().data());
+
   // set simple mode
   m_editor->setSimpleMode (true);
 

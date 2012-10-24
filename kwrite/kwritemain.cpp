@@ -389,7 +389,12 @@ void KWrite::readConfig(KSharedConfigPtr config)
 
   m_recentFiles->loadEntries( config->group( "Recent Files" ));
 
-  m_view->document()->editor()->readConfig(config.data());
+  // editor config already read from KGlobal::config() in KWriteApp constructor.
+  // so only load, if the config is a different one (this is only the case on
+  // session restore)
+  if (config != KGlobal::config()) {
+    m_view->document()->editor()->readConfig(config.data());
+  }
 
   if( m_paShowStatusBar->isChecked() )
     statusBar()->show();

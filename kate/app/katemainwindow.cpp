@@ -708,6 +708,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
   KMenu *menu = documentOpenWith->menu();
   menu->clear();
   // get a list of appropriate services.
+  Q_ASSERT(m_viewManager->activeView() != 0);
   KMimeType::Ptr mime = KMimeType::mimeType(m_viewManager->activeView()->document()->mimeType());
   //kDebug(13001) << "mime type: " << mime->name();
 

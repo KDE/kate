@@ -56,8 +56,6 @@ class KateProjectInfoViewNotes : public QWidget
     {
       return m_project;
     }
-    
-
 
   private:
     /**
@@ -70,8 +68,10 @@ class KateProjectInfoViewNotes : public QWidget
      */
     KateProject *m_project;
     
+    /**
+     * edit widget bound to notes document of project
+     */
     QPlainTextEdit *m_edit;
-
 };
 
 #endif

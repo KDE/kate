@@ -27,7 +27,7 @@ KateProjectInfoViewNotes::KateProjectInfoViewNotes (KateProjectPluginView *plugi
   : QWidget ()
   , m_pluginView (pluginView)
   , m_project (project)
-  , m_edit (new QPlainTextEdit())
+  , m_edit (new QPlainTextEdit ())
 {
   /*
    * layout widget
@@ -37,12 +37,10 @@ KateProjectInfoViewNotes::KateProjectInfoViewNotes (KateProjectPluginView *plugi
   layout->addWidget (m_edit);
   setLayout (layout);
   m_edit->setDocument(project->notesDocument());
-  
 }
 
 KateProjectInfoViewNotes::~KateProjectInfoViewNotes ()
 {
 }
-
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1939,7 +1939,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   QFont f (KGlobalSettings::fixedFont());
 
   m_font = config.readEntry("Font", f);
-  m_fontMetrics = QFontMetrics(m_font);
+  m_fontMetrics = QFontMetricsF (m_font);
   m_fontSet = true;
 
   QColor c = schemeWindow.background().color();
@@ -1965,7 +1965,7 @@ const QFont& KateRendererConfig::font() const
   return s_global->font();
 }
 
-const QFontMetrics& KateRendererConfig::fontMetrics() const
+const QFontMetricsF& KateRendererConfig::fontMetrics() const
 {
   if (m_fontSet || isGlobal())
     return m_fontMetrics;
@@ -1979,7 +1979,7 @@ void KateRendererConfig::setFont(const QFont &font)
 
   m_fontSet = true;
   m_font = font;
-  m_fontMetrics = QFontMetrics(m_font);
+  m_fontMetrics = QFontMetricsF (m_font);
 
   configEnd ();
 }

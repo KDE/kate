@@ -28,7 +28,7 @@
 #include "katelinelayout.h"
 
 #include <QtGui/QFont>
-#include <QtGui/QFontMetrics>
+#include <QtGui/QFontMetricsF>
 #include <QtCore/QList>
 #include <QtGui/QTextLine>
 
@@ -195,7 +195,7 @@ public:
     void increaseFontSizes();
     void decreaseFontSizes();
     const QFont& currentFont() const;
-    const QFontMetrics& currentFontMetrics() const;
+    const QFontMetricsF& currentFontMetrics() const;
 
     /**
      * @return whether the renderer is configured to paint in a
@@ -236,12 +236,7 @@ public:
     QList<QTextLayout::FormatRange> decorationsForLine(const Kate::TextLine& textLine, int line, bool selectionsOnly = false, KateRenderRange* completionHighlight = 0L, bool completionSelected = false) const;
 
     // Width calculators
-    uint spaceWidth() const;
-#ifndef KDE_NO_DEPRECATED
-    KDE_DEPRECATED uint textWidth(const Kate::TextLine &, int cursorCol);
-    KDE_DEPRECATED uint textWidth(const Kate::TextLine &textLine, uint startcol, uint maxwidth, bool *needWrap, int *endX = 0);
-    KDE_DEPRECATED uint textWidth(const KTextEditor::Cursor& cursor);
-#endif
+    qreal spaceWidth() const;
 
     /**
      * Returns the x position of cursor \p col on the line \p range.

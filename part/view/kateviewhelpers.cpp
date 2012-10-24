@@ -966,7 +966,7 @@ QSize KateIconBorder::sizeHint() const
 // for graceful handling of variable-width fonts as the linenumber font.
 void KateIconBorder::updateFont()
 {
-  QFontMetrics fm = m_view->renderer()->config()->fontMetrics();
+  const QFontMetricsF &fm = m_view->renderer()->config()->fontMetrics();
   m_maxCharWidth = 0;
   // Loop to determine the widest numeric character in the current font.
   // 48 is ascii '0'

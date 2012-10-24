@@ -237,7 +237,7 @@ void KateRenderer::paintTabstop(QPainter &paint, qreal x, qreal y)
 {
   QPen penBackup( paint.pen() );
   QPen pen( config()->tabMarkerColor() );
-  pen.setWidth(qMax(1u, spaceWidth() / 10));
+  pen.setWidthF(qMax(1.0, spaceWidth() / 10.0));
   paint.setPen( pen );
   paint.setRenderHint(QPainter::Antialiasing, false);
 
@@ -273,7 +273,7 @@ void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
 {
   QPen penBackup( paint.pen() );
   QPen pen( config()->tabMarkerColor() );
-  pen.setWidth(qMax(1u, spaceWidth() / 10));
+  pen.setWidthF(qMax(1.0, spaceWidth() / 10.0));
   paint.setPen( pen );
   paint.setRenderHint(QPainter::Antialiasing, false);
 
@@ -498,7 +498,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 //   kDebug( 13033 )<<"KateRenderer::paintTextLine";
 
   // font data
-  const QFontMetrics& fm = config()->fontMetrics();
+  const QFontMetricsF &fm = config()->fontMetrics();
 
   int currentViewLine = -1;
   if (cursor && cursor->line() == range->line())
@@ -602,7 +602,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // Draw indent lines
       if (showIndentLines() && i == 0)
       {
-        const int w = spaceWidth();
+        const qreal w = spaceWidth();
         const int lastIndentColumn = range->textLine()->indentDepth(m_tabWidth);
 
         for (int x = m_indentWidth; x < lastIndentColumn; x += m_indentWidth)
@@ -774,7 +774,7 @@ const QFont& KateRenderer::currentFont() const
   return config()->font();
 }
 
-const QFontMetrics& KateRenderer::currentFontMetrics() const
+const QFontMetricsF& KateRenderer::currentFontMetrics() const
 {
   return config()->fontMetrics();
 }
@@ -859,7 +859,7 @@ void KateRenderer::updateConfig ()
   m_fontHeight = qMax(fontHeight, italicFontHeight);
 }
 
-uint KateRenderer::spaceWidth() const
+qreal KateRenderer::spaceWidth() const
 {
   return config()->fontMetrics().width(spaceChar);
 }

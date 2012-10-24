@@ -28,7 +28,7 @@
 #include <QtGui/QColor>
 #include <QtCore/QObject>
 #include <QtCore/QVector>
-#include <QtGui/QFontMetrics>
+#include <QtGui/QFontMetricsF>
 #include <QStringListModel>
 
 class KConfigGroup;
@@ -628,7 +628,7 @@ class KateRendererConfig : public KateConfig
     void reloadSchema();
 
     const QFont& font() const;
-    const QFontMetrics& fontMetrics() const;
+    const QFontMetricsF& fontMetrics() const;
     void setFont(const QFont &font);
 
     bool wordWrapMarker () const;
@@ -703,7 +703,7 @@ class KateRendererConfig : public KateConfig
 
     QString m_schema;
     QFont m_font;
-    QFontMetrics m_fontMetrics;
+    QFontMetricsF m_fontMetrics;
     bool m_wordWrapMarker;
     bool m_showIndentationLines;
     bool m_showWholeBracketExpression;

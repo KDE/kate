@@ -87,7 +87,7 @@ void KateProjectViewTree::selectFile (const QString &file)
   /**
    * select it
    */
-  QModelIndex index = m_project->model()->indexFromItem (item);
+  QModelIndex index = static_cast<QSortFilterProxyModel *>(model())->mapFromSource (m_project->model()->indexFromItem (item));
   scrollTo (index, QAbstractItemView::EnsureVisible);
   selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
 }
@@ -115,8 +115,10 @@ void KateProjectViewTree::slotClicked (const QModelIndex &index)
    * open document, if any usable user data
    */
   QString filePath = index.data (Qt::UserRole).toString();
-  if (!filePath.isEmpty())
+  if (!filePath.isEmpty()) {
     m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
+    selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
+  }
 }
 
 void KateProjectViewTree::slotModelChanged ()

@@ -44,6 +44,7 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
    * layout tree view and co.
    */
   QVBoxLayout *layout = new QVBoxLayout ();
+  layout->setSpacing (0);
   layout->addWidget (m_treeView);
   layout->addWidget (m_filter);
   setLayout (layout);

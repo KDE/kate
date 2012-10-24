@@ -201,7 +201,8 @@ QFile *KateProject::projectLocalFile (const QString &file) const
   return readWriteFile;
 }
 
-QTextDocument* KateProject::notesDocument () {
+QTextDocument* KateProject::notesDocument ()
+{
   /**
    * already there?
    */

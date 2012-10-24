@@ -149,10 +149,11 @@ QPair<KateProjectView *,KateProjectInfoView *> KateProjectPluginView::viewForPro
 
    /**
     * attach to toolboxes
+    * first the views, then the combo, that triggers signals
     */
-   m_projectsCombo->addItem (SmallIcon("project-open"), project->name(), project->fileName());
    m_stackedProjectViews->addWidget (view);
    m_stackedProjectInfoViews->addWidget (infoView);
+   m_projectsCombo->addItem (SmallIcon("project-open"), project->name(), project->fileName());
 
    /**
     * remember and return it

@@ -190,7 +190,17 @@ class KateProject : public QObject
      */
     QFile *projectLocalFile (const QString &file) const;
 
-    QTextDocument *notesDocument();
+    /**
+     * Document with project local notes.
+     * Will be stored in a projectLocalFile "notes.txt".
+     * @return notes document
+     */
+    QTextDocument *notesDocument ();
+    
+    /**
+     * Save the notes document to "notes.txt" if any document around.
+     */
+    void saveNotesDocument ();
     
   private Q_SLOTS:
     /**
@@ -264,6 +274,9 @@ class KateProject : public QObject
      */
     KateProjectSharedProjectIndex m_projectIndex;
     
+    /**
+     * notes buffer for project local notes
+     */
     QTextDocument *m_notesDocument;
 };
 

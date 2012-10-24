@@ -62,14 +62,10 @@ KateProject::~KateProject ()
    */
   m_worker = 0;
   
-  if (m_notesDocument) {
-    if (QFile *outFile = projectLocalFile ("notes.txt")) {
-        outFile->resize (0);
-        QTextStream outStream(outFile);
-        outStream<<m_notesDocument->toPlainText();
-        delete outFile;
-    }
-  }
+  /**
+   * save notes document, if any
+   */
+  saveNotesDocument ();
 }
 
 bool KateProject::load (const QString &fileName)
@@ -205,16 +201,57 @@ QFile *KateProject::projectLocalFile (const QString &file) const
   return readWriteFile;
 }
 
-QTextDocument* KateProject::notesDocument() {
-    if (!m_notesDocument) {
-      m_notesDocument=new QTextDocument(this);
-      m_notesDocument->setDocumentLayout(new QPlainTextDocumentLayout(m_notesDocument));
-      if (QFile *inFile = projectLocalFile ("notes.txt")) {
-          QTextStream inStream(inFile);
-          m_notesDocument->setPlainText(inStream.readAll());
-          delete inFile;
-        }
-      }
+QTextDocument* KateProject::notesDocument () {
+  /**
+   * already there?
+   */
+  if (m_notesDocument)
     return m_notesDocument;
+  
+  /**
+   * else create it
+   */
+  m_notesDocument = new QTextDocument (this);
+  m_notesDocument->setDocumentLayout (new QPlainTextDocumentLayout (m_notesDocument));
+  
+  /**
+   * and load text if possible
+   */
+  if (QFile *inFile = projectLocalFile ("notes.txt")) {
+    {
+      QTextStream inStream (inFile);
+      inStream.setCodec ("UTF-8");
+      m_notesDocument->setPlainText (inStream.readAll ());
+    }
+    delete inFile;
+  }
+
+  /**
+   * and be done
+   */
+  return m_notesDocument;
 }
+
+void KateProject::saveNotesDocument ()
+{
+  /**
+   * no notes document, nothing to do
+   */
+  if (!m_notesDocument)
+    return;
+  
+  /**
+   * try to get file to save to
+   */
+  if (QFile *outFile = projectLocalFile ("notes.txt")) {
+    outFile->resize (0);
+    {
+      QTextStream outStream (outFile);
+      outStream.setCodec ("UTF-8");
+      outStream << m_notesDocument->toPlainText ();
+    }
+    delete outFile;
+  }
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

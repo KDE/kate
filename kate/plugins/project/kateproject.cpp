@@ -63,15 +63,11 @@ KateProject::~KateProject ()
   m_worker = 0;
   
   if (m_notesDocument) {
-    QString notesFile=dataFile("notes.txt");
-    if (!notesFile.isEmpty()) {
-      QFile outFile(notesFile);
-      outFile.open(QIODevice::Text | QIODevice::WriteOnly);
-      if (outFile.isOpen()) {
-        QTextStream outStream(&outFile);
+    if (QFile *outFile = projectLocalFile ("notes.txt")) {
+        outFile->resize (0);
+        QTextStream outStream(outFile);
         outStream<<m_notesDocument->toPlainText();
-        outFile.close();
-      }
+        delete outFile;
     }
   }
 }
@@ -179,38 +175,46 @@ void KateProject::loadIndexDone (KateProjectSharedProjectIndex projectIndex)
   m_projectIndex = projectIndex;
 }
 
-QString KateProject::dataFile(const QString& filename) {
-  QString dirPath(m_fileName+".user.d");
-  QDir d;
-  if (d.mkpath(dirPath)) {
-    QString fullFilePath=dirPath+QDir::separator()+filename;
-    QFile f(fullFilePath);
-    if (!f.exists()) {
-      f.open(QIODevice::Text | QIODevice::WriteOnly);
-      f.close();
-    }
-    return fullFilePath;
-  } //else error
-  return QString();
- 
+QFile *KateProject::projectLocalFile (const QString &file) const
+{
+  /**
+   * nothing on empty file names for project
+   * should not happen
+   */
+  if (m_fileName.isEmpty())
+    return 0;
+  
+  /**
+   * create dir to store local files, else fail
+   */
+  if (!QDir().mkpath (m_fileName+".d"))
+    return 0;
+  
+  /**
+   * try to open file read-write
+   */
+  QFile *readWriteFile = new QFile (m_fileName + ".d" + QDir::separator() + file);
+  if (!readWriteFile->open (QIODevice::ReadWrite)) {
+    delete readWriteFile;
+    return 0;
+  }
+  
+  /**
+   * all fine, return file
+   */
+  return readWriteFile;
 }
-
 
 QTextDocument* KateProject::notesDocument() {
     if (!m_notesDocument) {
       m_notesDocument=new QTextDocument(this);
       m_notesDocument->setDocumentLayout(new QPlainTextDocumentLayout(m_notesDocument));
-      QString notesFile=dataFile("notes.txt");
-      if (!notesFile.isEmpty()) {
-        QFile inFile(notesFile);
-        inFile.open(QIODevice::Text | QIODevice::ReadOnly);
-        if (inFile.isOpen()) {
-          QTextStream inStream(&inFile);
+      if (QFile *inFile = projectLocalFile ("notes.txt")) {
+          QTextStream inStream(inFile);
           m_notesDocument->setPlainText(inStream.readAll());
-          inFile.close();
+          delete inFile;
         }
       }
-    }
     return m_notesDocument;
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

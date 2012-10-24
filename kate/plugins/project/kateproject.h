@@ -181,6 +181,14 @@ class KateProject : public QObject
     {
       return m_projectIndex.data();
     }
+    
+    /**
+     * Will try to open a project local file.
+     * Such files will be stored as .kateproject.d/file in the project directory.
+     * @param file wanted file name, relative to .kateproject.d folder in project directory
+     * @return either a pointer to a read-write opened file or null on error
+     */
+    QFile *projectLocalFile (const QString &file) const;
 
     QTextDocument *notesDocument();
     
@@ -257,7 +265,6 @@ class KateProject : public QObject
     KateProjectSharedProjectIndex m_projectIndex;
     
     QTextDocument *m_notesDocument;
-    QString dataFile(const QString& filename);
 };
 
 #endif

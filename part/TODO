@@ -6,6 +6,7 @@ KDE Framework 5.0
 - Dropping KTextEditor::Plugin/View interface
 - KTE: drop unneeded code completion interfaces 2, 3, 4
 - KTE: Merge some interfaces
+- KTE: add Document::readWriteChanged, remove from KateDocument
 - KTE: search for places marked with "KDE5"
 - KTE: export Kate Part Scripting
 - KTE: drop MarkInterface

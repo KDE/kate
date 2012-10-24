@@ -32,6 +32,7 @@
 #include <KRun>
 #include <KIcon>
 #include <KLineEdit>
+#include <QVBoxLayout>
 
 KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject *project)
   : QWidget ()

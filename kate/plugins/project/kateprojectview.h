@@ -67,6 +67,13 @@ class KateProjectView : public QWidget
      * Open the selected document, if any.
      */
     void openSelectedDocument ();
+    
+  private Q_SLOTS:
+    /**
+     * React on filter change
+     * @param filterText new filter text
+     */
+    void filterTextChanged (QString filterText);
 
   private:
     /**

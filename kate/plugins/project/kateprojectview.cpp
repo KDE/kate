@@ -32,6 +32,7 @@
 #include <KRun>
 #include <KIcon>
 #include <KFilterProxySearchLine>
+#include <KLineEdit>
 
 KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject *project)
   : QWidget ()
@@ -54,6 +55,11 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
    * tree view always has a sortfilterproxy model
    */
   m_filter->setProxy (static_cast<QSortFilterProxyModel *>(m_treeView->model ()));
+  
+  /**
+   * do some stuff if line edit is changed
+   */
+  connect (m_filter->lineEdit(), SIGNAL(textChanged(QString)), this, SLOT(filterTextChanged(QString)));
 }
 
 KateProjectView::~KateProjectView ()
@@ -68,6 +74,12 @@ void KateProjectView::selectFile (const QString &file)
 void KateProjectView::openSelectedDocument ()
 {
   m_treeView->openSelectedDocument ();
+}
+
+void KateProjectView::filterTextChanged (QString filterText)
+{
+  if (!filterText.isEmpty())
+    m_treeView->expandAll ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

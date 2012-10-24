@@ -5,7 +5,7 @@ project (kate)
 set (LIBRARY_TYPE SHARED)
 
 # search packages used by KDE
-find_package(KDE4 REQUIRED)
+find_package(KDE4 4.7.0 REQUIRED)
 include (KDE4Defaults)
 include (MacroLibrary)
 include (CheckFunctionExists)

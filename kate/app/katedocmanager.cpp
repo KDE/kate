@@ -509,8 +509,14 @@ void KateDocManager::saveSelected(const QList<KTextEditor::Document*> &docList)
 
 void KateDocManager::reloadAll()
 {
-  foreach ( KTextEditor::Document *doc, m_docList )
-    doc->documentReload();
+  // reload all docs that are NOT modified on disk
+  foreach ( KTextEditor::Document *doc, m_docList ) {
+    if ( ! documentInfo( doc )->modifiedOnDisc )
+      doc->documentReload();
+  }
+
+  // take care of all documents that ARE modified on disk
+  KateApp::self()->activeMainWindow()->showModOnDiskPrompt();
 }
 
 void KateDocManager::closeOrphaned()

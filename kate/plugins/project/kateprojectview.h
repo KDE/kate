@@ -24,7 +24,7 @@
 #include "kateproject.h"
 #include "kateprojectviewtree.h"
 
-class KFilterProxySearchLine;
+class KLineEdit;
 class KateProjectPluginView;
 
 /**
@@ -94,7 +94,7 @@ class KateProjectView : public QWidget
     /**
      * filter
      */
-    KFilterProxySearchLine *m_filter;
+    KLineEdit *m_filter;
 };
 
 #endif

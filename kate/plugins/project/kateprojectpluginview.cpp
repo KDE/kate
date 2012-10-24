@@ -59,6 +59,7 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   m_reloadButton = new QToolButton (m_toolView);
   m_reloadButton->setIcon (SmallIcon("view-refresh"));
   QHBoxLayout *layout = new QHBoxLayout ();
+  layout->setSpacing (0);
   layout->addWidget (m_projectsCombo);
   layout->addWidget (m_reloadButton);
   m_toolView->layout()->addItem (layout);

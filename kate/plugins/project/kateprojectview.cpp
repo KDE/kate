@@ -31,7 +31,6 @@
 #include <QMenu>
 #include <KRun>
 #include <KIcon>
-#include <KFilterProxySearchLine>
 #include <KLineEdit>
 
 KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject *project)
@@ -39,7 +38,7 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
   , m_pluginView (pluginView)
   , m_project (project)
   , m_treeView (new KateProjectViewTree(pluginView, project))
-  , m_filter (new KFilterProxySearchLine ())
+  , m_filter (new KLineEdit ())
 {
   /**
    * layout tree view and co.
@@ -51,15 +50,9 @@ KateProjectView::KateProjectView (KateProjectPluginView *pluginView, KateProject
   setLayout (layout);
   
   /**
-   * allow filtering
-   * tree view always has a sortfilterproxy model
-   */
-  m_filter->setProxy (static_cast<QSortFilterProxyModel *>(m_treeView->model ()));
-  
-  /**
    * do some stuff if line edit is changed
    */
-  connect (m_filter->lineEdit(), SIGNAL(textChanged(QString)), this, SLOT(filterTextChanged(QString)));
+  connect (m_filter, SIGNAL(textChanged(QString)), this, SLOT(filterTextChanged(QString)));
 }
 
 KateProjectView::~KateProjectView ()
@@ -78,8 +71,16 @@ void KateProjectView::openSelectedDocument ()
 
 void KateProjectView::filterTextChanged (QString filterText)
 {
+  /**
+   * filter
+   */
+  static_cast<QSortFilterProxyModel *>(m_treeView->model ())->setFilterFixedString (filterText);
+  
+  /**
+   * expand
+   */
   if (!filterText.isEmpty())
-    m_treeView->expandAll ();
+    QTimer::singleShot (100, m_treeView, SLOT(expandAll ()));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

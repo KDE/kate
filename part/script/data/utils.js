@@ -129,10 +129,24 @@ function moveLinesDown()
     var cursorPosition = view.cursorPosition();
     var selectionRange = view.selection();
 
+    if (selectionRange.isValid() &&
+        selectionRange.end.line == document.lines() - 1 &&
+        selectionRange.end.column == 0) {
+        selectionRange.end.line--;
+        selectionRange.end.column = document.lineLength(selectionRange.end.line);
+        if (cursorPosition.line == document.lines() - 1) {
+            cursorPosition.line--;
+            cursorPosition.column = document.lineLength(cursorPosition.line);
+        }
+    }
+
     if (selectionRange.isValid() && selectionRange.end.line < document.lines() - 1) {
         // extend selection to span complete lines
         var extendedRange = new Range(selectionRange);
         extendedRange.start.column = 0;
+        if (extendedRange.end.column == 0) {
+            extendedRange.end.line--;
+        }
         extendedRange.end.column = document.lineLength(extendedRange.end.line);
 
         // save the text
@@ -174,6 +188,9 @@ function moveLinesUp()
         // extend selection to span complete lines
         var extendedRange = new Range(selectionRange);
         extendedRange.start.column = 0;
+        if (extendedRange.end.column == 0) {
+            extendedRange.end.line--;
+        }
         extendedRange.end.column = document.lineLength(extendedRange.end.line);
 
         // save the text

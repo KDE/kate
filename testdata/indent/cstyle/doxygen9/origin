@@ -1,0 +1,2 @@
+  // in CSS this matches all tags, so do not auto-insert a '*'
+  * a

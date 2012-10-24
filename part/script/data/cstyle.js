@@ -366,17 +366,23 @@ function tryCComment(line)
             if (!document.isSpace(line, document.firstColumn(line) + 1) && !document.endsWith(line, "*/", true))
                 document.insertText(line, document.firstColumn(line) + 1, ' ');
         }
-    } else if (char1 == '*' && (firstPos == lastPos || document.isSpace(currentLine, firstPos + 1))) {
-        currentString.search(/^\s*\*(\s*)/);
-        // in theory, we could search for opening /*, and use its indentation
-        // and then one alignment character. Let's not do this for now, though.
-        var end = RegExp.$1;
-        indentation = document.firstVirtualColumn(currentLine);
-        // only add '*', if there is none yet.
-        if (cfgAutoInsertStar && document.firstChar(line) != '*') {
-            document.insertText(line, view.cursorPosition().column, '*');
-            if (!document.isSpace(line, document.firstColumn(line) + 1))
-                document.insertText(line, document.firstColumn(line) + 1, ' ');
+    } else if (char1 == '*') {
+        var commentLine = currentLine;
+        while (commentLine >= 0 && document.firstChar(commentLine) == '*') {
+            --commentLine;
+        }
+        if (commentLine < 0) {
+            indentation = document.firstVirtualColumn(currentLine);
+        } else if (document.startsWith(commentLine, "/*", true)) {
+            // found a /*, and all succeeding lines start with a *, so it's a comment block
+            indentation = document.firstVirtualColumn(currentLine);
+
+            // only add '*', if there is none yet.
+            if (cfgAutoInsertStar && document.firstChar(line) != '*') {
+                document.insertText(line, view.cursorPosition().column, '*');
+                if (!document.isSpace(line, document.firstColumn(line) + 1))
+                    document.insertText(line, document.firstColumn(line) + 1, ' ');
+            }
         }
     }
 

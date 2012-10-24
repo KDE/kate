@@ -26,13 +26,14 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
-
+#include <QPlainTextDocumentLayout>
 #include <qjson/parser.h>
 
 KateProject::KateProject ()
   : QObject ()
   , m_worker (new KateProjectWorker (this))
   , m_thread (m_worker)
+  , m_notesDocument(0)
 {
   /**
    * move worker object over and start our worker thread
@@ -60,6 +61,19 @@ KateProject::~KateProject ()
    * marks as deleted
    */
   m_worker = 0;
+  
+  if (m_notesDocument) {
+    QString notesFile=dataFile("notes.txt");
+    if (!notesFile.isEmpty()) {
+      QFile outFile(notesFile);
+      outFile.open(QIODevice::Text | QIODevice::WriteOnly);
+      if (outFile.isOpen()) {
+        QTextStream outStream(&outFile);
+        outStream<<m_notesDocument->toPlainText();
+        outFile.close();
+      }
+    }
+  }
 }
 
 bool KateProject::load (const QString &fileName)
@@ -165,4 +179,38 @@ void KateProject::loadIndexDone (KateProjectSharedProjectIndex projectIndex)
   m_projectIndex = projectIndex;
 }
 
+QString KateProject::dataFile(const QString& filename) {
+  QString dirPath(m_fileName+".user.d");
+  QDir d;
+  if (d.mkpath(dirPath)) {
+    QString fullFilePath=dirPath+QDir::separator()+filename;
+    QFile f(fullFilePath);
+    if (!f.exists()) {
+      f.open(QIODevice::Text | QIODevice::WriteOnly);
+      f.close();
+    }
+    return fullFilePath;
+  } //else error
+  return QString();
+ 
+}
+
+
+QTextDocument* KateProject::notesDocument() {
+    if (!m_notesDocument) {
+      m_notesDocument=new QTextDocument(this);
+      m_notesDocument->setDocumentLayout(new QPlainTextDocumentLayout(m_notesDocument));
+      QString notesFile=dataFile("notes.txt");
+      if (!notesFile.isEmpty()) {
+        QFile inFile(notesFile);
+        inFile.open(QIODevice::Text | QIODevice::ReadOnly);
+        if (inFile.isOpen()) {
+          QTextStream inStream(&inFile);
+          m_notesDocument->setPlainText(inStream.readAll());
+          inFile.close();
+        }
+      }
+    }
+    return m_notesDocument;
+}
 // kate: space-indent on; indent-width 2; replace-tabs on;

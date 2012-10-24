@@ -1,6 +1,6 @@
 /*  This file is part of the Kate project.
  *
- *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
+ *  Copyright (C) 2012 Joseph Wenninger <jowenn@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -18,33 +18,31 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "kateprojectinfoview.h"
-#include "kateprojectpluginview.h"
-#include "kateprojectinfoviewterminal.h"
-#include "kateprojectinfoviewindex.h"
 #include "kateprojectinfoviewnotes.h"
-#include "klocale.h"
+#include "kateprojectpluginview.h"
 
-KateProjectInfoView::KateProjectInfoView (KateProjectPluginView *pluginView, KateProject *project)
-  : QTabWidget ()
+#include <QVBoxLayout>
+
+KateProjectInfoViewNotes::KateProjectInfoViewNotes (KateProjectPluginView *pluginView, KateProject *project)
+  : QWidget ()
   , m_pluginView (pluginView)
   , m_project (project)
+  , m_edit (new QPlainTextEdit())
 {
-  /**
-   * add terminal view
+  /*
+   * layout widget
    */
-  addTab (new KateProjectInfoViewTerminal (pluginView, project), i18n("Terminal"));
+  QVBoxLayout *layout = new QVBoxLayout;
+  layout->setSpacing (0);
+  layout->addWidget (m_edit);
+  setLayout (layout);
+  m_edit->setDocument(project->notesDocument());
   
-  /**
-   * add index view
-   */
-  addTab (new KateProjectInfoViewIndex (pluginView, project), i18n("Index"));
-  
-  addTab (new KateProjectInfoViewNotes (pluginView, project), i18n("Notes"));
 }
 
-KateProjectInfoView::~KateProjectInfoView ()
+KateProjectInfoViewNotes::~KateProjectInfoViewNotes ()
 {
 }
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

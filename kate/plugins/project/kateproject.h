@@ -24,6 +24,7 @@
 #include <QThread>
 #include <QMap>
 #include <QSharedPointer>
+#include <QTextDocument>
 
 #include "kateprojectindex.h"
 
@@ -181,6 +182,8 @@ class KateProject : public QObject
       return m_projectIndex.data();
     }
 
+    QTextDocument *notesDocument();
+    
   private Q_SLOTS:
     /**
      * Used for worker to send back the results of project loading
@@ -207,7 +210,7 @@ class KateProject : public QObject
      * This includes the files list, itemForFile mapping!
      */
     void modelChanged ();
-
+    
   private:
     /**
      * the worker inside the background thread
@@ -252,6 +255,9 @@ class KateProject : public QObject
      * project index, if any
      */
     KateProjectSharedProjectIndex m_projectIndex;
+    
+    QTextDocument *m_notesDocument;
+    QString dataFile(const QString& filename);
 };
 
 #endif

@@ -24,6 +24,7 @@ set(kateprojectplugin_PART_SRCS
   kateprojectindex.cpp
   kateprojectinfoviewindex.cpp
   kateprojectinfoviewterminal.cpp
+  kateprojectinfoviewnotes.cpp
 )
 
 kde4_add_plugin(kateprojectplugin ${kateprojectplugin_PART_SRCS})

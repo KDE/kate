@@ -2255,6 +2255,8 @@ bool KateDocument::saveFile()
   deactivateDirWatch ();
 
   // remove all trailing spaces in the document (as edit actions)
+  // NOTE: we need this as edit actions, since otherwise the edit actions
+  //       in the swap file recovery may happen at invalid cursor positions
   removeTrailingSpaces ();
 
   //

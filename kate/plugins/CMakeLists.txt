@@ -12,17 +12,12 @@ endif(NOT WIN32)
 add_subdirectory( textfilter )
 add_subdirectory( konsole )
 
-# needs maintainer!
-#add_subdirectory( externaltools )
-
 add_subdirectory( filebrowser )
 add_subdirectory( mailfiles )
 
 add_subdirectory( tabbarextension )
 add_subdirectory( symbolviewer )
 add_subdirectory( backtracebrowser )
-
-add_subdirectory( quickdocumentswitcher )
 
 add_subdirectory( filetemplates )
 

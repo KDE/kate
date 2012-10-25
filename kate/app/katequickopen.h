@@ -27,6 +27,7 @@
 
 #include <kdialog.h>
 
+#include <QPointer>
 #include <qsortfilterproxymodel.h>
 
 class QListView;
@@ -60,6 +61,11 @@ class KateQuickOpen : public QWidget {
          */
         void slotReturnPressed ();
         
+        /**
+         * Track view changes
+         */
+        void slotViewChanged();
+
     private:
         KateMainWindow *m_mainWindow;
         QTreeView *m_listView;
@@ -74,6 +80,16 @@ class KateQuickOpen : public QWidget {
          * filtered model we search in
          */
         QSortFilterProxyModel *m_model;
+        
+        /**
+         * previous active document
+         */
+        QPointer<KTextEditor::Document> m_prevDoc;
+    
+        /**
+         * current active document
+         */
+        QPointer<KTextEditor::Document> m_activeDoc;
 };
 
-#endif // _KateQuickDocumentSwitcher_h_
+#endif

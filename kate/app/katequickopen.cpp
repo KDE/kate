@@ -90,6 +90,25 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     m_listView->installEventFilter(this);
     m_listView->setHeaderHidden(true);
     m_listView->setRootIsDecorated(false);
+    
+    /**
+     * track view changes
+     */
+    connect (m_mainWindow->mainWindow(), SIGNAL(viewChanged()), SLOT(slotViewChanged()));
+}
+
+void KateQuickOpen::slotViewChanged()
+{
+    if (!m_mainWindow->mainWindow()->activeView())
+        return;
+        
+    // when view changes update active and previous documents
+    // so that right document will be pre-selected on next quick-switch
+    KTextEditor::Document *newDoc = m_mainWindow->mainWindow()->activeView()->document();
+    if(newDoc != m_activeDoc) {
+        m_prevDoc = m_activeDoc;
+        m_activeDoc = newDoc;
+    }
 }
 
 bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
@@ -166,6 +185,9 @@ void KateQuickOpen::update ()
         
         if (!doc->url().isEmpty() && doc->url().isLocalFile())
           alreadySeenFiles.insert (doc->url().toLocalFile());
+        
+        if (doc == m_prevDoc)
+          idxToSelect = itemName->index();
     }
 
     /**
@@ -204,6 +226,11 @@ void KateQuickOpen::update ()
     m_model->setSourceModel (base_model);
     delete m_base_model;
     m_base_model = base_model;
+    
+    if(idxToSelect.isValid())
+        m_listView->setCurrentIndex(m_model->mapFromSource(idxToSelect));
+    else
+        reselectFirst();
     
     /**
      * adjust view

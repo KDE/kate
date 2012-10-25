@@ -318,6 +318,7 @@ void KateMainWindow::setupActions()
   a = actionCollection()->addAction( "view_quick_open" );
   a->setIcon( KIcon("window-new") );
   a->setText( i18n("&Quick Open") );
+  a->setShortcut( QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O) );
   connect( a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()) );
   a->setWhatsThis(i18n("Open a form to quick open documents."));
 
@@ -1016,7 +1017,9 @@ void KateMainWindow::slotQuickOpen ()
   /**
    * show quick open and pass focus to it
    */
+  m_quickOpen->update ();
   m_mainStackedWidget->setCurrentWidget (m_quickOpen);
+  centralWidget()->setFocusProxy (m_quickOpen);
   m_quickOpen->setFocus ();
 }
 

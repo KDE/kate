@@ -33,6 +33,7 @@ class QListView;
 class QTreeView;
 class KLineEdit;
 class KateMainWindow;
+class QStandardItemModel;
 
 namespace KTextEditor {
     class Document;
@@ -42,17 +43,30 @@ class KateQuickOpen : public QWidget {
     Q_OBJECT
     public:
         KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow);
-        virtual ~KateQuickOpen();
-        static KTextEditor::Document *document(QWidget *parent, KTextEditor::Document* docToSelect = 0);
+        /**
+         * update state
+         * will fill model with current open documents, project documents, ...
+         */
+        void update ();
+        
     protected:
         bool eventFilter(QObject *obj, QEvent *event);
     private Q_SLOTS:
         void reselectFirst();
     private:
         KateMainWindow *m_mainWindow;
-        QSortFilterProxyModel *m_model;
         QTreeView *m_listView;
         KLineEdit *m_inputLine;
+        
+        /**
+         * our model we search in
+         */
+        QStandardItemModel *m_base_model;
+        
+        /**
+         * filtered model we search in
+         */
+        QSortFilterProxyModel *m_model;
 };
 
 #endif // _KateQuickDocumentSwitcher_h_

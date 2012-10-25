@@ -39,28 +39,12 @@
 #include <qlabel.h>
 #include <qcoreapplication.h>
 #include <QDesktopWidget>
+#include <QFileInfo>
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
 const int DocumentRole=Qt::UserRole+1;
 const int SortFilterRole=Qt::UserRole+2;
-
-//BEGIN: Dialog
-KTextEditor::Document *KateQuickOpen::document(QWidget *parent, KTextEditor::Document* docToSelect) {
-   /* KateQuickOpen dlg(parent, docToSelect);
-    if (QDialog::Accepted==dlg.exec()) {
-        // document ptr is held in the (row,0) , while item at (row, 1) might be selected,
-        // we need to obtain an index in (row,0)
-        QModelIndex selectedIdx = dlg.m_listView->currentIndex();
-        QModelIndex idx(dlg.m_listView->model()->index(selectedIdx.row(), 0));
-        if (idx.isValid()) {
-            QVariant _doc=idx.data(DocumentRole);
-            QPointer<KTextEditor::Document> doc=_doc.value<QPointer<KTextEditor::Document> >();
-            return (KTextEditor::Document*)doc;
-        }
-    }*/
-    return 0;
-}
 
 KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
     QWidget(parent)
@@ -73,18 +57,10 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
 
 
     m_inputLine=new KLineEdit();
+    setFocusProxy (m_inputLine);
+    m_inputLine->setClickMessage (i18n ("Quick Open Search"));
 
-
-    QLabel *label=new QLabel(i18n("&Filter:"));
-    label->setBuddy(m_inputLine);
-
-    QHBoxLayout *subLayout=new QHBoxLayout();
-    subLayout->setSpacing(0);
-
-    subLayout->addWidget(label);
-    subLayout->addWidget(m_inputLine,1);
-
-    layout->addLayout(subLayout,0);
+    layout->addWidget(m_inputLine);
 
     m_listView=new QTreeView();
     layout->addWidget(m_listView,1);
@@ -92,28 +68,8 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
 
     m_inputLine->setFocus(Qt::OtherFocusReason);
 
-    QStandardItemModel *base_model=new QStandardItemModel(0,2,this);
-    QList<KTextEditor::Document*> docs=Kate::application()->documentManager()->documents();
-    int linecount=0;
-    QModelIndex idxToSelect;
-    foreach(KTextEditor::Document *doc,docs) {
-        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
-        QStandardItem *itemName=new QStandardItem(doc->documentName());
-
-        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document>(doc)),DocumentRole);
-        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()),SortFilterRole);
-        itemName->setEditable(false);
-        QFont font=itemName->font();
-        font.setBold(true);
-        itemName->setFont(font);
-
-        QStandardItem *itemUrl = new QStandardItem(doc->url().pathOrUrl());
-        itemUrl->setEditable(false);
-        base_model->setItem(linecount,0,itemName);
-        base_model->setItem(linecount,1,itemUrl);
-        linecount++;
-    }
-
+    m_base_model =new QStandardItemModel(0,2,this);
+    
     m_model=new QSortFilterProxyModel(this);
     m_model->setFilterRole(SortFilterRole);
     m_model->setSortRole(SortFilterRole);
@@ -127,18 +83,12 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
     connect(m_listView,SIGNAL(activated(QModelIndex)),this,SLOT(accept()));
 
     m_listView->setModel(m_model);
-    m_model->setSourceModel(base_model);
+    m_model->setSourceModel(m_base_model);
 
-    if(idxToSelect.isValid())
-        m_listView->setCurrentIndex(m_model->mapFromSource(idxToSelect));
-    else
-        reselectFirst();
-
-//    m_inputLine->installEventFilter(this);
- //   m_listView->installEventFilter(this);
+    m_inputLine->installEventFilter(this);
+    m_listView->installEventFilter(this);
     m_listView->setHeaderHidden(true);
     m_listView->setRootIsDecorated(false);
-    m_listView->resizeColumnToContents(0);
 }
 
 bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event) {
@@ -174,9 +124,68 @@ void KateQuickOpen::reselectFirst() {
     m_listView->setCurrentIndex(index);
 }
 
-KateQuickOpen::~KateQuickOpen() {
+void KateQuickOpen::update ()
+{
+  /**
+   * new base mode creation
+   */
+  QStandardItemModel *base_model = new QStandardItemModel(0,2,this);
+  
+  m_base_model->clear ();
+  QList<KTextEditor::Document*> docs=Kate::application()->documentManager()->documents();
+    int linecount=0;
+    QModelIndex idxToSelect;
+    foreach(KTextEditor::Document *doc,docs) {
+        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
+        QStandardItem *itemName=new QStandardItem(doc->documentName());
+
+        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document>(doc)),DocumentRole);
+        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()),SortFilterRole);
+        itemName->setEditable(false);
+        QFont font=itemName->font();
+        font.setBold(true);
+        itemName->setFont(font);
+
+        QStandardItem *itemUrl = new QStandardItem(doc->url().pathOrUrl());
+        itemUrl->setEditable(false);
+        base_model->setItem(linecount,0,itemName);
+        base_model->setItem(linecount,1,itemUrl);
+        linecount++;
+    }
+
+    /**
+     * insert all project files, if any project around
+     */
+    if (Kate::PluginView *projectView = m_mainWindow->mainWindow()->pluginView ("kateprojectplugin")) {
+      QStringList projectFiles = projectView->property ("projectFiles").toStringList();
+      foreach (const QString &file, projectFiles) {
+        QFileInfo fi (file);
+        QStandardItem *itemName=new QStandardItem(fi.fileName());
+
+        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document>(0)),DocumentRole);
+        itemName->setData(QString("%1: %2").arg(fi.fileName()).arg(file),SortFilterRole);
+        itemName->setEditable(false);
+        QFont font=itemName->font();
+        font.setBold(true);
+        itemName->setFont(font);
+
+        QStandardItem *itemUrl = new QStandardItem(file);
+        itemUrl->setEditable(false);
+        base_model->setItem(linecount,0,itemName);
+        base_model->setItem(linecount,1,itemUrl);
+        linecount++;
+      }
+    }
+    
+    /**
+     * swap models and kill old one
+     */
+    m_model->setSourceModel (base_model);
+    delete m_base_model;
+    m_base_model = base_model;
+    
+    /**
+     * adjust view
+     */
+    m_listView->resizeColumnToContents(0);
 }
-
-
-//END: Dialog
-

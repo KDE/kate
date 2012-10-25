@@ -51,21 +51,21 @@ KateRecoverBar::KateRecoverBar(KateView *view, QWidget *parent)
   m_diffAction = new QAction(KIcon("split"), i18n("View Changes"), messageWidget);
   messageWidget->addAction(m_diffAction);
 
-  QAction* m_recoverAction = new QAction(KIcon("edit-redo"), i18n("Recover Data"), messageWidget);
-  messageWidget->addAction(m_recoverAction);
+  QAction* recoverAction = new QAction(KIcon("edit-redo"), i18n("Recover Data"), messageWidget);
+  messageWidget->addAction(recoverAction);
 
-  QAction* m_discardAction = new QAction(KStandardGuiItem::discard().icon(), i18n("Discard"), messageWidget);
-  messageWidget->addAction(m_discardAction);
+  QAction* discardAction = new QAction(KStandardGuiItem::discard().icon(), i18n("Discard"), messageWidget);
+  messageWidget->addAction(discardAction);
 
 //   messageWidget->animatedShow();
   messageWidget->show();
 
   // use queued connections because this (all) KateRecoverBar widgets are deleted
-  connect(m_recoverAction, SIGNAL(triggered()), m_view->doc()->swapFile(), SLOT(recover()), Qt::QueuedConnection);
-  connect(m_discardAction, SIGNAL(triggered()), m_view->doc()->swapFile(), SLOT(discard()), Qt::QueuedConnection);
+  connect(recoverAction, SIGNAL(triggered()), m_view->doc()->swapFile(), SLOT(recover()), Qt::QueuedConnection);
+  connect(discardAction, SIGNAL(triggered()), m_view->doc()->swapFile(), SLOT(discard()), Qt::QueuedConnection);
   connect(m_diffAction, SIGNAL(triggered()), this, SLOT(viewDiff()));
 
-  connect(m_discardAction, SIGNAL(triggered()), messageWidget, SLOT(animatedHide()));
+  connect(discardAction, SIGNAL(triggered()), messageWidget, SLOT(animatedHide()));
 }
 
 KateRecoverBar::~KateRecoverBar ()

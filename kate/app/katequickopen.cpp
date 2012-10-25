@@ -47,40 +47,39 @@ Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 const int DocumentRole=Qt::UserRole+1;
 const int SortFilterRole=Qt::UserRole+2;
 
-KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
-    QWidget(parent)
+KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
+    : QWidget(parent)
     , m_mainWindow (mainWindow)
 {
-    
-    QVBoxLayout *layout=new QVBoxLayout();
+    QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
     setLayout (layout);
 
 
-    m_inputLine=new KLineEdit();
+    m_inputLine = new KLineEdit();
     setFocusProxy (m_inputLine);
     m_inputLine->setClickMessage (i18n ("Quick Open Search"));
 
     layout->addWidget(m_inputLine);
 
-    m_listView=new QTreeView();
-    layout->addWidget(m_listView,1);
+    m_listView = new QTreeView();
+    layout->addWidget(m_listView, 1);
     m_listView->setTextElideMode(Qt::ElideLeft);
 
-    m_base_model =new QStandardItemModel(0,2,this);
+    m_base_model = new QStandardItemModel(0, 2, this);
     
-    m_model=new QSortFilterProxyModel(this);
+    m_model = new QSortFilterProxyModel(this);
     m_model->setFilterRole(SortFilterRole);
     m_model->setSortRole(SortFilterRole);
     m_model->setFilterCaseSensitivity(Qt::CaseInsensitive);
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
 
-    connect(m_inputLine,SIGNAL(textChanged(QString)),m_model,SLOT(setFilterFixedString(QString)));
-    connect(m_inputLine,SIGNAL(returnPressed()),this,SLOT(slotReturnPressed()));
-    connect(m_model,SIGNAL(rowsInserted(QModelIndex,int,int)),this,SLOT(reselectFirst()));
-    connect(m_model,SIGNAL(rowsRemoved(QModelIndex,int,int)),this,SLOT(reselectFirst()));
+    connect(m_inputLine, SIGNAL(textChanged(QString)), m_model, SLOT(setFilterFixedString(QString)));
+    connect(m_inputLine, SIGNAL(returnPressed()), this, SLOT(slotReturnPressed()));
+    connect(m_model, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(reselectFirst()));
+    connect(m_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this, SLOT(reselectFirst()));
 
-    connect(m_listView,SIGNAL(activated(QModelIndex)),this,SLOT(accept()));
+    connect(m_listView, SIGNAL(activated(QModelIndex)), this, SLOT(accept()));
 
     m_listView->setModel(m_model);
     m_model->setSourceModel(m_base_model);
@@ -91,36 +90,37 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
     m_listView->setRootIsDecorated(false);
 }
 
-bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event) {
-    if (event->type()==QEvent::KeyPress) {
+bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
+{
+    if (event->type() == QEvent::KeyPress) {
         QKeyEvent *keyEvent=static_cast<QKeyEvent*>(event);
-        if (obj==m_inputLine) {
-            const bool forward2list = (keyEvent->key()==Qt::Key_Up)
-              || (keyEvent->key()==Qt::Key_Down)
-              || (keyEvent->key()==Qt::Key_PageUp)
-              || (keyEvent->key()==Qt::Key_PageDown);
+        if (obj == m_inputLine) {
+            const bool forward2list = (keyEvent->key() == Qt::Key_Up)
+              || (keyEvent->key() == Qt::Key_Down)
+              || (keyEvent->key() == Qt::Key_PageUp)
+              || (keyEvent->key() == Qt::Key_PageDown);
             if (forward2list) {
-                QCoreApplication::sendEvent(m_listView,event);
+                QCoreApplication::sendEvent(m_listView, event);
                 return true;
             }
         } else {
-            const bool forward2input = (keyEvent->key()!=Qt::Key_Up)
-              && (keyEvent->key()!=Qt::Key_Down)
-              && (keyEvent->key()!=Qt::Key_PageUp)
-              && (keyEvent->key()!=Qt::Key_PageDown)
-              && (keyEvent->key()!=Qt::Key_Tab)
-              && (keyEvent->key()!=Qt::Key_Backtab);
+            const bool forward2input = (keyEvent->key() != Qt::Key_Up)
+              && (keyEvent->key() != Qt::Key_Down)
+              && (keyEvent->key() != Qt::Key_PageUp)
+              && (keyEvent->key() != Qt::Key_PageDown)
+              && (keyEvent->key() != Qt::Key_Tab)
+              && (keyEvent->key() != Qt::Key_Backtab);
             if (forward2input) {
-                QCoreApplication::sendEvent(m_inputLine,event);
+                QCoreApplication::sendEvent(m_inputLine, event);
                 return true;
             }
         }
     }
-    return QWidget::eventFilter(obj,event);
+    return QWidget::eventFilter(obj, event);
 }
 
 void KateQuickOpen::reselectFirst() {
-    QModelIndex index=m_model->index(0,0);
+    QModelIndex index = m_model->index(0, 0);
     m_listView->setCurrentIndex(index);
 }
 
@@ -129,27 +129,27 @@ void KateQuickOpen::update ()
   /**
    * new base mode creation
    */
-  QStandardItemModel *base_model = new QStandardItemModel(0,2,this);
+  QStandardItemModel *base_model = new QStandardItemModel(0, 2, this);
   
   m_base_model->clear ();
-  QList<KTextEditor::Document*> docs=Kate::application()->documentManager()->documents();
-    int linecount=0;
+  QList<KTextEditor::Document*> docs = Kate::application()->documentManager()->documents();
+    int linecount = 0;
     QModelIndex idxToSelect;
-    foreach(KTextEditor::Document *doc,docs) {
+    foreach(KTextEditor::Document *doc, docs) {
         //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
-        QStandardItem *itemName=new QStandardItem(doc->documentName());
+        QStandardItem *itemName = new QStandardItem(doc->documentName());
 
-        itemName->setData(qVariantFromValue(doc->url()),DocumentRole);
-        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()),SortFilterRole);
+        itemName->setData(qVariantFromValue(doc->url()), DocumentRole);
+        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()), SortFilterRole);
         itemName->setEditable(false);
-        QFont font=itemName->font();
+        QFont font = itemName->font();
         font.setBold(true);
         itemName->setFont(font);
 
         QStandardItem *itemUrl = new QStandardItem(doc->url().pathOrUrl());
         itemUrl->setEditable(false);
-        base_model->setItem(linecount,0,itemName);
-        base_model->setItem(linecount,1,itemUrl);
+        base_model->setItem(linecount, 0, itemName);
+        base_model->setItem(linecount, 1, itemUrl);
         linecount++;
     }
 
@@ -160,19 +160,19 @@ void KateQuickOpen::update ()
       QStringList projectFiles = projectView->property ("projectFiles").toStringList();
       foreach (const QString &file, projectFiles) {
         QFileInfo fi (file);
-        QStandardItem *itemName=new QStandardItem(fi.fileName());
+        QStandardItem *itemName = new QStandardItem(fi.fileName());
 
-        itemName->setData(qVariantFromValue(KUrl::fromPath (file)),DocumentRole);
-        itemName->setData(QString("%1: %2").arg(fi.fileName()).arg(file),SortFilterRole);
+        itemName->setData(qVariantFromValue(KUrl::fromPath (file)), DocumentRole);
+        itemName->setData(QString("%1: %2").arg(fi.fileName()).arg(file), SortFilterRole);
         itemName->setEditable(false);
-        QFont font=itemName->font();
+        QFont font = itemName->font();
         font.setBold(true);
         itemName->setFont(font);
 
         QStandardItem *itemUrl = new QStandardItem(file);
         itemUrl->setEditable(false);
-        base_model->setItem(linecount,0,itemName);
-        base_model->setItem(linecount,1,itemUrl);
+        base_model->setItem(linecount, 0, itemName);
+        base_model->setItem(linecount, 1, itemUrl);
         linecount++;
       }
     }

@@ -38,8 +38,6 @@
 #include <klineedit.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-// #include <knewstuff2/core/entry.h>
-#include <knewstuff2/engine.h>
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
 #include <kurlrequester.h>
@@ -1064,12 +1062,12 @@ KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *paren
   : QWidget( parent, name )
   , kft( kft )
 {
-  QGridLayout *lo = new QGridLayout( this, 2, 6 );
+  QGridLayout *lo = new QGridLayout( this, 2, 4 );
   lo->setSpacing( KDialog::spacingHint() );
   lvTemplates = new QTreeWidget( this );
   lvTemplates->setHeaderLabel( i18n("Template") );
   lvTemplates->setSelectionMode( QAbstractItemView::SingleSelection );
-  lo->addMultiCellWidget( lvTemplates, 1, 1, 1, 6 );
+  lo->addMultiCellWidget( lvTemplates, 1, 1, 1, 4 );
   connect( lvTemplates, SIGNAL(itemSelectionChanged()), this, SLOT(slotUpdateState()) );
 
   btnNew = new QPushButton( i18nc("@action:button Template", "New..."), this );
@@ -1083,14 +1081,6 @@ KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *paren
   btnRemove = new QPushButton( i18nc("@action:button Template", "Remove"), this );
   connect( btnRemove, SIGNAL(clicked()), this, SLOT(slotRemoveTemplate()) );
   lo->addWidget( btnRemove, 2, 4 );
-
-  btnUpload = new QPushButton( i18nc("@action:button Template", "Upload..."), this );
-  connect( btnUpload, SIGNAL(clicked()), this, SLOT(slotUpload()) );
-  lo->addWidget( btnUpload, 2, 5 );
-
-  btnDownload = new QPushButton( i18nc("@action:button Template", "Download..."), this );
-  connect( btnDownload, SIGNAL(clicked()), this, SLOT(slotDownload()) );
-  lo->addWidget( btnDownload, 2, 6 );
 
   lo->setColumnStretch( 1, 1 );
 
@@ -1133,7 +1123,6 @@ void KateTemplateManager::slotUpdateState()
 
   btnEdit->setEnabled( cool );
   btnRemove->setEnabled( cool );
-  btnUpload->setEnabled( cool );
 }
 
 void KateTemplateManager::slotEditTemplate()
@@ -1183,62 +1172,10 @@ void KateTemplateManager::slotRemoveTemplate()
       cg.writeXdgListEntry( "Hidden", l ); // XXX this is bogus
     }
 
-    // If we removed any files, we should delete a KNewStuff key
-    // for this template, so the template is installable again.
-    // ### This assumes that the knewstuff name is similar to the template name.
-    kDebug()<<"trying to remove knewstuff key '"<<info->tmplate<<"'";
-    config->group("KNewStuffStatus").deleteEntry( info->tmplate );
-
     kft->updateTemplateDirs();
     reload();
   }
 }
-
-// KNewStuff upload
-void KateTemplateManager::slotUpload()
-{
-  // TODO something nicer, like preparing the meta data from the template info.
-//   KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
-//   if ( item )
-//   {
-//     KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
-//     ns->upload( item->templateinfo->filename, QString() );
-//   }
-//### warning ERROR HANDLING
-//   KateTemplateItem *item = dynamic_cast<KateTemplateItem*>( lvTemplates->currentItem() );
-//   if (!item) return;
-//   KNS::Engine *engine=new KNS::Engine(this);
-//   bool success=engine->init("katefiletemplates.knsrc");
-//   if (!success)
-//   {
-//     delete engine;
-//     return;
-//   }
-//   engine->uploadDialogModal(item->templateinfo->filename);
-//   delete engine;
-
-}
-
-// KNewStuff download
-void KateTemplateManager::slotDownload()
-{
-//   KFTNewStuff *ns = new KFTNewStuff( "katefiletemplates/template", this );
-//   ns->download();
-//### warning ERROR HANDLING
-  KNS::Engine *engine=new KNS::Engine(this);
-  bool success=engine->init("katefiletemplates.knsrc");
-  if (!success)
-  {
-    delete engine;
-    return;
-  }
-  engine->downloadDialogModal();
-  delete engine;
-
-  kft->updateTemplateDirs();
-  reload();
-}
-
 //END KateTemplateManager
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

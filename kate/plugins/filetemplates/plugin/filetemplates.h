@@ -227,15 +227,13 @@ class KateTemplateManager : public QWidget
     void reset() { reload(); }
 
   private slots:
-    void slotUpload();
-    void slotDownload();
     void slotUpdateState();
     void slotEditTemplate();
     void slotRemoveTemplate();
 
   private:
     class QTreeWidget *lvTemplates;
-    class QPushButton *btnNew, *btnEdit, *btnRemove, *btnDownload, *btnUpload;
+    class QPushButton *btnNew, *btnEdit, *btnRemove;
     KateFileTemplates *kft;
 //     QList<class TemplateInfo> *remove;
 

@@ -53,6 +53,13 @@ class KateQuickOpen : public QWidget {
         bool eventFilter(QObject *obj, QEvent *event);
     private Q_SLOTS:
         void reselectFirst();
+
+        /**
+         * Return pressed, activate the selected document
+         * and go back to background
+         */
+        void slotReturnPressed ();
+        
     private:
         KateMainWindow *m_mainWindow;
         QTreeView *m_listView;

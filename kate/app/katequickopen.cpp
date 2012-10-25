@@ -66,8 +66,6 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
     layout->addWidget(m_listView,1);
     m_listView->setTextElideMode(Qt::ElideLeft);
 
-    m_inputLine->setFocus(Qt::OtherFocusReason);
-
     m_base_model =new QStandardItemModel(0,2,this);
     
     m_model=new QSortFilterProxyModel(this);
@@ -77,6 +75,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
     m_model->setSortCaseSensitivity(Qt::CaseInsensitive);
 
     connect(m_inputLine,SIGNAL(textChanged(QString)),m_model,SLOT(setFilterFixedString(QString)));
+    connect(m_inputLine,SIGNAL(returnPressed()),this,SLOT(slotReturnPressed()));
     connect(m_model,SIGNAL(rowsInserted(QModelIndex,int,int)),this,SLOT(reselectFirst()));
     connect(m_model,SIGNAL(rowsRemoved(QModelIndex,int,int)),this,SLOT(reselectFirst()));
 
@@ -139,7 +138,7 @@ void KateQuickOpen::update ()
         //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
         QStandardItem *itemName=new QStandardItem(doc->documentName());
 
-        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document>(doc)),DocumentRole);
+        itemName->setData(qVariantFromValue(doc->url()),DocumentRole);
         itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()),SortFilterRole);
         itemName->setEditable(false);
         QFont font=itemName->font();
@@ -162,7 +161,7 @@ void KateQuickOpen::update ()
         QFileInfo fi (file);
         QStandardItem *itemName=new QStandardItem(fi.fileName());
 
-        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document>(0)),DocumentRole);
+        itemName->setData(qVariantFromValue(KUrl::fromPath (file)),DocumentRole);
         itemName->setData(QString("%1: %2").arg(fi.fileName()).arg(file),SortFilterRole);
         itemName->setEditable(false);
         QFont font=itemName->font();
@@ -187,5 +186,9 @@ void KateQuickOpen::update ()
     /**
      * adjust view
      */
-    m_listView->resizeColumnToContents(0);
+    m_listView->resizeColumnToContents(0);    
+}
+
+void KateQuickOpen::slotReturnPressed ()
+{
 }

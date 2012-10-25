@@ -3,8 +3,13 @@
 <!-- Makefile syntaxfile v0.9 by Per Wigren <wigren@home.se> -->
 <!-- Modified by Joseph Wenninger <jowenn@kde.org> -->
 <!-- Modified by Rui Santana <santana.rui@gmail.com> -->
+<!-- v2.0 by Andreas Nordal <andreas.nordal@gmail.com> -->
 <!-- small priority to allow for example Makefile.cpp to be detected as cpp file -->
-<language name="Makefile" version="1.12" kateversion="2.4" section="Other" extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*" mimetype="text/x-makefile" author="Per Wigren (wigren@home.se)" license="">
+<language name="Makefile" section="Other"
+          version="2.0" kateversion="2.4"
+          extensions="GNUmakefile;Makefile;makefile;GNUmakefile.*;Makefile.*;makefile.*"
+          mimetype="text/x-makefile"
+          author="Per Wigren (wigren@home.se)" license="">
   <highlighting>
     <list name = "keywords">
       <item> include </item>
@@ -16,128 +21,189 @@
       <item> ifeq </item>
       <item> ifndef </item>
       <item> ifneq </item>
+      <item> override </item>
     </list>
     <list name = "functions">
-        <item> call </item>
-        <item> subst </item>
-        <item> patsubst </item>
-        <item> strip </item>
-        <item> findstring </item>
-        <item> filter </item>
-        <item> filter-out </item>
-        <item> sort </item>
-        <item> word </item>
-        <item> wordlist </item>
-        <item> words </item>
-        <item> firstword </item>
-        <item> lastword </item>
-        <item> dir </item>
-        <item> notdir </item>
-        <item> suffix </item>
-        <item> basename </item>
-        <item> addsuffix </item>
-        <item> addprefix </item>
-        <item> join </item>
-        <item> wildcard </item>
-        <item> realpath </item>
-        <item> abspath </item>
-        <item> if </item>
-        <item> or </item>
-        <item> and </item>
-        <item> foreach </item>
-        <item> value </item>
-        <item> eval </item>
-        <item> origin </item>
-        <item> flavor </item>
-        <item> shell </item>
-        <item> error </item>
-        <item> warning </item>
-        <item> info </item>
+      <item> call </item>
+      <item> subst </item>
+      <item> patsubst </item>
+      <item> strip </item>
+      <item> findstring </item>
+      <item> filter </item>
+      <item> filter-out </item>
+      <item> sort </item>
+      <item> word </item>
+      <item> wordlist </item>
+      <item> words </item>
+      <item> firstword </item>
+      <item> lastword </item>
+      <item> dir </item>
+      <item> notdir </item>
+      <item> suffix </item>
+      <item> basename </item>
+      <item> addsuffix </item>
+      <item> addprefix </item>
+      <item> join </item>
+      <item> wildcard </item>
+      <item> realpath </item>
+      <item> abspath </item>
+      <item> if </item>
+      <item> or </item>
+      <item> and </item>
+      <item> foreach </item>
+      <item> value </item>
+      <item> eval </item>
+      <item> origin </item>
+      <item> flavor </item>
+      <item> shell </item>
+      <item> error </item>
+      <item> warning </item>
+      <item> info </item>
     </list>
 
     <contexts>
-      <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
+      <context name="normal" attribute="Normal" lineEndContext="#stay">
+        <DetectSpaces/>
         <keyword attribute="Keyword"  context="#stay" String="keywords"/>
-        <RegExpr attribute="Variable" context="Value" String="[_\w\d]*\s*(?=:=|=|\+=|\?=)"/>
-        <RegExpr attribute="Target"   context="#stay" String="[_\w\d-]*\s*:" firstNonSpace="true"/>
-        <RegExpr attribute="Section"  context="#stay" String="^[.].*:"/>
-        <DetectChar attribute="String" context="String" char="&quot;"/>
-        <Detect2Chars attribute="Operator" context="VarFromNormal{" char="$" char1="{"/>
-        <Detect2Chars attribute="Operator" context="VarFromNormal(" char="$" char1="("/>
+        <RegExpr attribute="Variable" context="assign" String="[^\s:+?]*\s*(?=:=|=|\+=|\?=)"/>
+        <RegExpr attribute="Section"  context="prereq" String="^[.].*:"/>
+        <RegExpr attribute="Target"   context="prereq" String="^.*:"/>
+        <DetectIdentifier/>
+        <DetectChar attribute="String" context="string&quot;" char="&quot;"/>
+        <DetectChar attribute="String" context="string'" char="'"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
         <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>
-        <AnyChar attribute="Operator" context="#stay" String="+*=%$():\&#059;"/>
-        <AnyChar attribute="Operator" context="Commands" String="@-" firstNonSpace="true"/>
+        <AnyChar attribute="Operator" context="silent" String="@-" firstNonSpace="1"/>
         <RegExpr attribute="Comment"  context="#stay" String="#.*$"/>
       </context>
 
-      <context attribute="String" lineEndContext="#pop" name="String">
-        <LineContinue attribute="String" context="#stay"/>
+      <context name="prereq" attribute="Prereq" lineEndContext="rule">
+        <DetectSpaces/>
+        <DetectIdentifier/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+        <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
+        <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>
+        <RegExpr attribute="Comment"  context="#stay" String="#.*$"/>
+      </context>
+
+      <context name="rule" attribute="Normal" lineEndContext="#stay">
+        <LineContinue attribute="Operator" context="#stay"/>
+        <!-- pop if there is a leading non-tab,
+        and in particular, mark leading spaces as errors -->
+        <RegExpr attribute="Error" context="#pop#pop#pop" String="^ +" firstNonSpace="1"/>
+        <RegExpr context="#pop#pop#pop" String="^[^\t]" lookAhead="1" firstNonSpace="1"/>
+        <DetectSpaces/>
+        <DetectIdentifier/>
+        <DetectChar attribute="String" context="string&quot;" char="&quot;"/>
+        <DetectChar attribute="String" context="string'" char="'"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+        <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
+        <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>
+        <AnyChar attribute="Operator" context="silent" String="@-" firstNonSpace="1"/>
+        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+      </context>
+
+      <context name="silent" attribute="Silent" lineEndContext="#pop">
+        <LineContinue attribute="Operator" context="#stay"/>
+        <DetectSpaces/>
+        <DetectIdentifier/>
+        <DetectChar attribute="String" context="string&quot;" char="&quot;"/>
+        <DetectChar attribute="String" context="string'" char="'"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+        <Detect2Chars attribute="Special" context="#stay" char="\" char1="#"/>
+        <Detect2Chars attribute="Special" context="#stay" char="\" char1="\"/>
+        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+      </context>
+
+      <context name="string&quot;" attribute="String" lineEndContext="#pop">
+        <LineContinue attribute="Operator" context="#stay"/>
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
       </context>
 
-      <context name="Value" attribute="String" lineEndContext="#pop">
+      <context name="string'" attribute="String" lineEndContext="#pop">
+        <LineContinue attribute="String" context="#stay"/>
+        <DetectChar attribute="String" context="#pop" char="'"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+      </context>
+
+      <context name="assign" attribute="Operator" lineEndContext="#pop">
+        <DetectChar attribute="Operator" context="value" char="="/>
+      </context>
+
+      <context name="value" attribute="String" lineEndContext="#pop#pop">
         <LineContinue attribute="Operator"/>
-        <Detect2Chars attribute="Operator" context="VarFromValue{" char="$" char1="{"/>
-        <Detect2Chars attribute="Operator" context="VarFromValue(" char="$" char1="("/>
-        <RegExpr attribute="Special" context="#pop" String="@[-_\d\w]*@" />
-        <DetectChar attribute="Operator" char="&#059;" context="#pop"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+        <RegExpr attribute="Special" context="#pop#pop" String="@[-_\d\w]*@"/>
+        <DetectChar attribute="Operator" char=";" context="#pop#pop"/>
       </context>
 
-      <context name="VarFromValue(" attribute="Variable" lineEndContext="#stay">
-        <DetectChar attribute="Operator" char=")" context="#pop"/>
+      <context name="dollar" attribute="Operator" lineEndContext="#pop">
+        <DetectChar attribute="Operator" context="call(" char="("/>
+        <DetectChar attribute="Operator" context="call{" char="{"/>
+        <RegExpr attribute="Operator" context="#pop" String="."/>
       </context>
 
-      <context name="VarFromValue{" attribute="Variable" lineEndContext="#stay">
-        <DetectChar attribute="Operator" char="}" context="#pop"/>
+      <context name="call(" attribute="Variable" lineEndContext="#stay" fallthroughContext="callVar(" fallthrough="1">
+        <keyword attribute="Keyword" context="callFunc(" String="functions"/>
       </context>
 
-      <context name="VarFromNormal(" attribute="Variable" lineEndContext="#stay">
-        <keyword attribute="Keyword" context="FunctionCall(" String="functions"/>
-        <DetectChar attribute="Operator" char=")" context="#pop"/>
+      <context name="call{" attribute="Variable" lineEndContext="#stay" fallthroughContext="callVar{" fallthrough="1">
+        <keyword attribute="Keyword" context="callFunc{" String="functions"/>
       </context>
 
-      <context name="VarFromNormal{" attribute="Variable" lineEndContext="#stay">
-        <keyword attribute="Keyword" context="FunctionCall{" String="functions"/>
-        <DetectChar attribute="Comment" char="}" context="#pop"/>
+      <context name="callVar(" attribute="Variable" lineEndContext="#stay">
+        <DetectChar attribute="Operator" char=")" context="#pop#pop#pop"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+        <DetectSpaces attribute="Error" context="#stay"/>
+        <AnyChar attribute="Error" context="#stay" String="=#:"/>
       </context>
 
-      <context name="FunctionCall(" attribute="String" lineEndContext="#stay">
-        <Detect2Chars attribute="Operator" context="VarFromNormal{" char="$" char1="{"/>
-        <Detect2Chars attribute="Operator" context="VarFromNormal(" char="$" char1="("/>
-        <DetectChar attribute="Operator" char=")" context="#pop#pop"/>
+      <context name="callVar{" attribute="Variable" lineEndContext="#stay">
+        <DetectChar attribute="Operator" char="}" context="#pop#pop#pop"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+        <DetectSpaces attribute="Error" context="#stay"/>
+        <AnyChar attribute="Error" context="#stay" String="=#:"/>
       </context>
 
-      <context name="FunctionCall{" attribute="String" lineEndContext="#stay">
-        <Detect2Chars attribute="Operator" context="VarFromNormal{" char="$" char1="{"/>
-        <Detect2Chars attribute="Operator" context="VarFromNormal(" char="$" char1="("/>
-        <DetectChar attribute="Operator" char="}" context="#pop#pop"/>
+      <context name="callFunc(" attribute="FuncParam" lineEndContext="#stay">
+        <DetectChar attribute="Operator" char=")" context="#pop#pop#pop"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+        <DetectChar attribute="Keyword" context="#stay" char=","/>
+        <DetectChar attribute="String" context="string'" char="'"/>
       </context>
 
-      <context name="Commands" attribute="Normal Text" lineEndContext="#pop">
-        <Detect2Chars attribute="Operator" context="VarFromNormal{" char="$" char1="{"/>
-        <Detect2Chars attribute="Operator" context="VarFromNormal(" char="$" char1="("/>
-        <RegExpr attribute="Commands" context="#pop" String="[_\w-]*\b"/>
+      <context name="callFunc{" attribute="FuncParam" lineEndContext="#stay">
+        <DetectChar attribute="Operator" char="}" context="#pop#pop#pop"/>
+        <DetectChar attribute="Operator" context="dollar" char="$"/>
+        <DetectChar attribute="Keyword" context="#stay" char=","/>
+        <DetectChar attribute="String" context="string'" char="'"/>
       </context>
 
     </contexts>
     <itemDatas>
-      <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Keyword"     defStyleNum="dsKeyword"/>
-      <itemData name="Comment"     defStyleNum="dsComment"/>
-      <itemData name="String"      defStyleNum="dsString"/>
-      <itemData name="Variable"    defStyleNum="dsDataType"/>
-      <itemData name="Target"      defStyleNum="dsDecVal"/>
-      <itemData name="Section"     defStyleNum="dsOthers"/>
-      <itemData name="Operator"    defStyleNum="dsChar"/>
-      <itemData name="Commands"    defStyleNum="dsBaseN"/>
-      <itemData name="Special"     defStyleNum="dsFloat"/>
+      <itemData name="Normal"    defStyleNum="dsNormal" spellChecking="0"/>
+      <itemData name="Keyword"   defStyleNum="dsKeyword" spellChecking="0"/>
+      <itemData name="Comment"   defStyleNum="dsComment"/>
+      <itemData name="String"    defStyleNum="dsString" spellChecking="0"/>
+      <itemData name="Variable"  defStyleNum="dsDataType" spellChecking="0"/>
+      <itemData name="Target"    defStyleNum="dsDecVal" spellChecking="0"/>
+      <itemData name="Section"   defStyleNum="dsOthers" spellChecking="0"/>
+      <itemData name="Prereq"    defStyleNum="dsDataType" spellChecking="0"/>
+      <itemData name="FuncParam" defStyleNum="dsString" spellChecking="0"/>
+      <itemData name="Operator"  defStyleNum="dsChar" spellChecking="0"/>
+      <itemData name="Silent"    defStyleNum="dsFunction" spellChecking="0"/>
+      <itemData name="Special"   defStyleNum="dsFloat" spellChecking="0"/>
+      <itemData name="Error"     defStyleNum="dsError" spellChecking="0"/>
     </itemDatas>
   </highlighting>
   <general>
     <comments>
       <comment name = "singleLine" start = "#"/>
     </comments>
-    <keywords casesensitive = "1" />
+    <!-- '-' is not a deliminator in function filter-out -->
+    <keywords casesensitive="1" weakDeliminator = "-"/>
   </general>
 </language>
+<!-- kate: space-indent on; indent-width 2; replace-tabs on; -->

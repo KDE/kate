@@ -237,7 +237,7 @@ void KateFileBrowser::openSelectedFiles()
   const KFileItemList list = m_dirOperator->selectedItems();
 
   if (list.count()>20) {
-    if (KMessageBox::questionYesNo(this,i18n("You are trying to open %1 files, are your sure?").arg(list.count()))
+    if (KMessageBox::questionYesNo(this,i18np("You are trying to open 1 file, are your sure?", "You are trying to open %1 files, are your sure?", list.count()))
       == KMessageBox::No) return;
   }
   

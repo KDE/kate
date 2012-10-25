@@ -19,6 +19,7 @@
 
 #include "katequickopen.h"
 #include "katequickopen.moc"
+#include "katemainwindow.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>

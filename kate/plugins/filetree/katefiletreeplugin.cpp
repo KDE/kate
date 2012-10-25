@@ -203,6 +203,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
           this, SLOT(documentClosed(KTextEditor::Document*)));
 
+  connect(m_documentModel,SIGNAL(triggerViewChangeAfterNameChange()),this,SLOT(viewChanged()));
   m_fileTree->setModel(m_proxyModel);
 
   m_fileTree->setDragEnabled(false);

@@ -963,6 +963,8 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
   
   handleNameChange(item, path);
   
+  triggerViewChangeAfterNameChange();
+  
   kDebug(debugArea()) << "END!";
 }
 

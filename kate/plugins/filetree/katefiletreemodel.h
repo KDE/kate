@@ -82,7 +82,9 @@ class KateFileTreeModel : public QAbstractItemModel
     /* used strictly for the item coloring */
     void documentActivated(KTextEditor::Document*);
     void documentEdited(KTextEditor::Document*);
-    
+
+  Q_SIGNALS:
+    void triggerViewChangeAfterNameChange();
   private:
     ProxyItemDir *m_root;
     QHash<KTextEditor::Document *, ProxyItem *> m_docmap;

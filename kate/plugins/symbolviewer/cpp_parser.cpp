@@ -234,6 +234,13 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                             stripped = stripped.trimmed();
                             while (stripped.indexOf(0x20) >= 0)
                               stripped = stripped.mid(stripped.indexOf(0x20, 0) + 1);
+                            while ( 
+                                (stripped.length()>0) &&
+                                  ( 
+                                    (stripped.at(0)=='*') ||
+                                    (stripped.at(0)=='&')
+                                  )
+                              ) stripped=stripped.right(stripped.length()-1);
                            }
                          if (treeMode)
                            {

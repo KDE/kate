@@ -974,12 +974,10 @@ void KateView::setupCodeFolding()
 
   a = ac->addAction("folding_collapselocal");
   a->setText(i18n("Fold Current Node"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotCollapseLocal()));
 
   a = ac->addAction("folding_expandlocal");
   a->setText(i18n("Unfold Current Node"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
 
   // Explicit folding is allowed for level 2 to 4

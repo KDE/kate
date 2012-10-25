@@ -78,7 +78,17 @@ class KateProjectIndex
      * @param type type of matches
      */
     void findMatches (QStandardItemModel &model, const QString &searchWord, MatchType type);
-    
+
+    /**
+     * Check if running ctags was successfull. This can be used
+     * as indicator whether ctags is installed or not.
+     * @return true if a valid index exists, otherwise false
+     */
+    bool isValid () const
+    {
+      return m_ctagsIndexHandle;
+    }
+
   private:
     /**
      * Load ctags tags.

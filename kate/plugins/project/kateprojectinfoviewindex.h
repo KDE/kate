@@ -27,6 +27,7 @@
 #include <QTreeView>
 
 class KateProjectPluginView;
+class KMessageWidget;
 
 /**
  * Class representing a view of a project.
@@ -71,6 +72,12 @@ class KateProjectInfoViewIndex : public QWidget
      */
     void slotClicked (const QModelIndex &index);
 
+    /**
+     * called whenever the index of the project was updated. Here,
+     * it's used to show a warning, if ctags is not installed.
+     */
+    void indexAvailable ();
+
   private:
     /**
      * our plugin view
@@ -81,12 +88,17 @@ class KateProjectInfoViewIndex : public QWidget
      * our project
      */
     KateProject *m_project;
-    
+
+    /**
+     * information widget showing a warning about missing ctags.
+     */
+    KMessageWidget *m_messageWidget;
+
     /**
      * line edit which allows to search index
      */
     QLineEdit *m_lineEdit;
-    
+
     /**
      * tree view for results
      */

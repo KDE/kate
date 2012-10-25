@@ -228,7 +228,13 @@ class KateProject : public QObject
      * This includes the files list, itemForFile mapping!
      */
     void modelChanged ();
-    
+
+    /**
+     * Emited when the index creation is finished.
+     * This includes the ctags index.
+     */
+    void indexChanged ();
+
   private:
     /**
      * the worker inside the background thread

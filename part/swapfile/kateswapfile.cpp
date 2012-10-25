@@ -198,6 +198,7 @@ bool SwapFile::recover(QDataStream& stream)
     stream.setDevice (0);
     m_swapfile.close ();
     kWarning( 13020 ) << "Can't open swap file, wrong version";
+    emit swapFileBroken();
     return false;
   }
   
@@ -209,6 +210,7 @@ bool SwapFile::recover(QDataStream& stream)
     stream.setDevice (0);
     m_swapfile.close ();
     kWarning( 13020 ) << "Can't recover from swap file, digest of document has changed";
+    emit swapFileBroken();
     return false;
   }
 

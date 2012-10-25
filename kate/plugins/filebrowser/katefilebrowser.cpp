@@ -44,6 +44,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QToolButton>
+#include <KMessageBox>
 
 #include <kdeversion.h>
 
@@ -235,6 +236,11 @@ void KateFileBrowser::openSelectedFiles()
 {
   const KFileItemList list = m_dirOperator->selectedItems();
 
+  if (list.count()>20) {
+    if (KMessageBox::questionYesNo(this,i18n("You are trying to open %1 files, are your sure?").arg(list.count()))
+      == KMessageBox::No) return;
+  }
+  
   foreach (const KFileItem& item, list)
   {
     m_mainWindow->openUrl(item.url());

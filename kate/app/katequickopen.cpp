@@ -191,4 +191,9 @@ void KateQuickOpen::update ()
 
 void KateQuickOpen::slotReturnPressed ()
 {
+  /**
+   * open document for first element, if possible
+   */
+  KUrl url = m_listView->currentIndex().data (DocumentRole).value<KUrl>();
+  m_mainWindow->mainWindow()->openUrl (url);
 }

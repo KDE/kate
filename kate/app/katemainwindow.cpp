@@ -316,7 +316,7 @@ void KateMainWindow::setupActions()
   a->setWhatsThis(i18n("Create a new Kate view (a new window with the same document list)."));
 
   a = actionCollection()->addAction( "view_quick_open" );
-  a->setIcon( KIcon("window-new") );
+  a->setIcon( KIcon("fork") );
   a->setText( i18n("&Quick Open") );
   a->setShortcut( QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O) );
   connect( a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()) );

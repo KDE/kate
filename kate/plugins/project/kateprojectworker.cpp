@@ -302,6 +302,7 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
       * already hang in directories in tree
       */
      QStandardItem *fileItem = new KateProjectItem (KateProjectItem::File, fileInfo.fileName());
+     fileItem->setData(filePath,Qt::ToolTipRole);
      item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dir.relativeFilePath (fileInfo.absolutePath()))));
      fileItem->setData (filePath, Qt::UserRole);
      (*file2Item)[filePath] = fileItem;

@@ -1,5 +1,5 @@
 <!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kate" version="71">
+<kpartgui name="kate" version="72">
 
 <MenuBar>
   <Menu name="file" noMerge="1"><text>&amp;File</text>
@@ -47,6 +47,8 @@
     <Action name="view_new_view" />
     <Separator />
     <DefineGroup name="switch_document" />
+    <Separator />
+    <Action name="view_quick_open" />
     <Separator />
     <Menu name="view-split"><text>Split View</text>
       <Action name="go_prev_split_view"/>

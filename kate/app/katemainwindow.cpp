@@ -34,6 +34,7 @@
 #include "katesession.h"
 #include "katemainwindowadaptor.h"
 #include "kateviewspace.h"
+#include "katequickopen.h"
 
 #include <kate/mainwindow.h>
 
@@ -246,8 +247,15 @@ void KateMainWindow::setupMainWindow ()
    */
   m_mainStackedWidget = new QStackedWidget (centralWidget());
   ((QBoxLayout*)(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget,100);
+  
+  m_quickOpen = new KateQuickOpen (m_mainStackedWidget, this);
+  m_mainStackedWidget->addWidget (m_quickOpen);
+  
   m_viewManager = new KateViewManager (m_mainStackedWidget, this);
   m_mainStackedWidget->addWidget (m_viewManager);
+  
+  // make view manager default visible!
+  m_mainStackedWidget->setCurrentWidget (m_viewManager);
   
   m_bottomViewBarContainer=new QWidget(centralWidget());
   m_bottomContainerStack = new KateContainerStackedLayout(m_bottomViewBarContainer);
@@ -306,6 +314,12 @@ void KateMainWindow::setupActions()
   a->setText( i18n("&New Window") );
   connect( a, SIGNAL(triggered()), this, SLOT(newWindow()) );
   a->setWhatsThis(i18n("Create a new Kate view (a new window with the same document list)."));
+
+  a = actionCollection()->addAction( "view_quick_open" );
+  a->setIcon( KIcon("window-new") );
+  a->setText( i18n("&Quick Open") );
+  connect( a, SIGNAL(triggered()), this, SLOT(slotQuickOpen()) );
+  a->setWhatsThis(i18n("Open a form to quick open documents."));
 
   KToggleAction* showFullScreenAction = KStandardAction::fullScreen( 0, 0, this, this);
   actionCollection()->addAction( showFullScreenAction->objectName(), showFullScreenAction );
@@ -554,6 +568,10 @@ void KateMainWindow::slotWindowActivated ()
   if (m_viewManager->activeView())
     updateCaption (m_viewManager->activeView()->document());
 
+  // show view manager in any case
+  if (m_mainStackedWidget->currentWidget () != m_viewManager)
+    m_mainStackedWidget->setCurrentWidget (m_viewManager);
+  
   // update proxy
   centralWidget()->setFocusProxy (m_viewManager->activeView());
 }
@@ -991,6 +1009,15 @@ Kate::PluginView *KateMainWindow::pluginView (const QString &name)
     return 0;
 
   return m_pluginViews.value (plugin);
+}
+
+void KateMainWindow::slotQuickOpen ()
+{
+  /**
+   * show quick open and pass focus to it
+   */
+  m_mainStackedWidget->setCurrentWidget (m_quickOpen);
+  m_quickOpen->setFocus ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

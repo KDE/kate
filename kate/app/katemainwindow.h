@@ -60,6 +60,7 @@ class KRecentFilesAction;
 
 class KateViewManager;
 class KateMwModOnHdDialog;
+class KateQuickOpen;
 
 #include <QtGui/QStackedLayout>
 // Helper layout class to always provide minimum size
@@ -207,6 +208,11 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void editKeys();
     void mSlotFixOpenWithMenu();
 
+    /**
+     * Show quick open
+     */
+    void slotQuickOpen ();
+    
     void tipOfTheDay();
 
     /* to update the caption */
@@ -268,10 +274,19 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
     bool modNotification;
 
-    // stacked widget containing the central area, aka view manager, quickopen, ...
+    /**
+     * stacked widget containing the central area, aka view manager, quickopen, ...
+     */
     QStackedWidget *m_mainStackedWidget;
     
-    // management items
+    /**
+     * quick open to fast switch documents
+     */
+    KateQuickOpen *m_quickOpen;
+    
+    /**
+     * keeps track of views
+     */
     KateViewManager *m_viewManager;
 
     KRecentFilesAction *fileOpenRecent;

@@ -62,19 +62,20 @@ KTextEditor::Document *KateQuickOpen::document(QWidget *parent, KTextEditor::Doc
     return 0;
 }
 
-KateQuickOpen::KateQuickOpen(QWidget *parent, KTextEditor::Document* docToSelect):
-    QWidget(parent) {
+KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow):
+    QWidget(parent)
+    , m_mainWindow (mainWindow)
+{
     
-    QWidget *mainwidget=new QWidget(this);
-
-    QVBoxLayout *layout=new QVBoxLayout(mainwidget);
+    QVBoxLayout *layout=new QVBoxLayout();
     layout->setSpacing(0);
+    setLayout (layout);
 
 
-    m_inputLine=new KLineEdit(mainwidget);
+    m_inputLine=new KLineEdit();
 
 
-    QLabel *label=new QLabel(i18n("&Filter:"),this);
+    QLabel *label=new QLabel(i18n("&Filter:"));
     label->setBuddy(m_inputLine);
 
     QHBoxLayout *subLayout=new QHBoxLayout();
@@ -85,7 +86,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KTextEditor::Document* docToSelect
 
     layout->addLayout(subLayout,0);
 
-    m_listView=new QTreeView(mainwidget);
+    m_listView=new QTreeView();
     layout->addWidget(m_listView,1);
     m_listView->setTextElideMode(Qt::ElideLeft);
 
@@ -111,9 +112,6 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KTextEditor::Document* docToSelect
         base_model->setItem(linecount,0,itemName);
         base_model->setItem(linecount,1,itemUrl);
         linecount++;
-
-        if(doc == docToSelect)
-            idxToSelect = itemName->index();
     }
 
     m_model=new QSortFilterProxyModel(this);
@@ -136,13 +134,10 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KTextEditor::Document* docToSelect
     else
         reselectFirst();
 
-    m_inputLine->installEventFilter(this);
-    m_listView->installEventFilter(this);
+//    m_inputLine->installEventFilter(this);
+ //   m_listView->installEventFilter(this);
     m_listView->setHeaderHidden(true);
     m_listView->setRootIsDecorated(false);
-    QDesktopWidget *desktop=new QDesktopWidget();
-    setMinimumWidth(desktop->screenGeometry(parent).width()/2);
-    delete desktop;
     m_listView->resizeColumnToContents(0);
 }
 

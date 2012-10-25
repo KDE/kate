@@ -32,6 +32,7 @@
 class QListView;
 class QTreeView;
 class KLineEdit;
+class KateMainWindow;
 
 namespace KTextEditor {
     class Document;
@@ -40,7 +41,7 @@ namespace KTextEditor {
 class KateQuickOpen : public QWidget {
     Q_OBJECT
     public:
-        KateQuickOpen(QWidget *parent, KTextEditor::Document* docToSelect = 0);
+        KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow);
         virtual ~KateQuickOpen();
         static KTextEditor::Document *document(QWidget *parent, KTextEditor::Document* docToSelect = 0);
     protected:
@@ -48,6 +49,7 @@ class KateQuickOpen : public QWidget {
     private Q_SLOTS:
         void reselectFirst();
     private:
+        KateMainWindow *m_mainWindow;
         QSortFilterProxyModel *m_model;
         QTreeView *m_listView;
         KLineEdit *m_inputLine;

@@ -45,7 +45,8 @@
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
 const int DocumentRole=Qt::UserRole+1;
-const int SortFilterRole=Qt::UserRole+2;
+const int UrlRole=Qt::UserRole+2;
+const int SortFilterRole=Qt::UserRole+3;
 
 KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     : QWidget(parent)
@@ -106,6 +107,7 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
             
             if (keyEvent->key() == Qt::Key_Escape) {
               m_mainWindow->slotWindowActivated ();
+              m_inputLine->clear ();
               return true;
             }
         } else {
@@ -136,7 +138,11 @@ void KateQuickOpen::update ()
    */
   QStandardItemModel *base_model = new QStandardItemModel(0, 2, this);
   
-  m_base_model->clear ();
+  /**
+   * get all open documents
+   * remember local file names to avoid dupes with project files
+   */
+  QSet<QString> alreadySeenFiles;
   QList<KTextEditor::Document*> docs = Kate::application()->documentManager()->documents();
     int linecount = 0;
     QModelIndex idxToSelect;
@@ -144,7 +150,7 @@ void KateQuickOpen::update ()
         //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
         QStandardItem *itemName = new QStandardItem(doc->documentName());
 
-        itemName->setData(qVariantFromValue(doc->url()), DocumentRole);
+        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document> (doc)), DocumentRole);
         itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()), SortFilterRole);
         itemName->setEditable(false);
         QFont font = itemName->font();
@@ -156,6 +162,9 @@ void KateQuickOpen::update ()
         base_model->setItem(linecount, 0, itemName);
         base_model->setItem(linecount, 1, itemUrl);
         linecount++;
+        
+        if (!doc->url().isEmpty() && doc->url().isLocalFile())
+          alreadySeenFiles.insert (doc->url().toLocalFile());
     }
 
     /**
@@ -164,10 +173,16 @@ void KateQuickOpen::update ()
     if (Kate::PluginView *projectView = m_mainWindow->mainWindow()->pluginView ("kateprojectplugin")) {
       QStringList projectFiles = projectView->property ("projectFiles").toStringList();
       foreach (const QString &file, projectFiles) {
+        /**
+         * skip files already open
+         */
+        if (alreadySeenFiles.contains (file))
+          continue;
+        
         QFileInfo fi (file);
         QStandardItem *itemName = new QStandardItem(fi.fileName());
 
-        itemName->setData(qVariantFromValue(KUrl::fromPath (file)), DocumentRole);
+        itemName->setData(qVariantFromValue(KUrl::fromPath (file)), UrlRole);
         itemName->setData(QString("%1: %2").arg(fi.fileName()).arg(file), SortFilterRole);
         itemName->setEditable(false);
         QFont font = itemName->font();
@@ -199,8 +214,19 @@ void KateQuickOpen::slotReturnPressed ()
 {
   /**
    * open document for first element, if possible
+   * prefer to use the document pointer
    */
-  KUrl url = m_listView->currentIndex().data (DocumentRole).value<KUrl>();
-  m_mainWindow->mainWindow()->openUrl (url);
+  KTextEditor::Document *doc = m_listView->currentIndex().data (DocumentRole).value<QPointer<KTextEditor::Document> >();
+  if (doc) {
+    m_mainWindow->mainWindow()->activateView (doc);
+  } else {
+    KUrl url = m_listView->currentIndex().data (UrlRole).value<KUrl>();
+    m_mainWindow->mainWindow()->openUrl (url);
+  }
+  
+  /**
+   * in any case, switch back to view manager
+   */
   m_mainWindow->slotWindowActivated ();
+  m_inputLine->clear ();
 }

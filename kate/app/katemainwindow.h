@@ -37,6 +37,7 @@
 #include <QVBoxLayout>
 #include <QModelIndex>
 #include <QHash>
+#include <QStackedWidget>
 
 class QMenu;
 
@@ -267,6 +268,9 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
     bool modNotification;
 
+    // stacked widget containing the central area, aka view manager, quickopen, ...
+    QStackedWidget *m_mainStackedWidget;
+    
     // management items
     KateViewManager *m_viewManager;
 

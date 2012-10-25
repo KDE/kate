@@ -240,8 +240,15 @@ void KateMainWindow::setupMainWindow ()
 
   m_topViewBarContainer=new QWidget(centralWidget());
   m_topContainerStack = new KateContainerStackedLayout(m_topViewBarContainer);
-  m_viewManager = new KateViewManager (centralWidget(), this);
-  ((QBoxLayout*)(centralWidget()->layout()))->setStretchFactor(m_viewManager,100);
+  
+  /**
+   * create central stacked widget with its children
+   */
+  m_mainStackedWidget = new QStackedWidget (centralWidget());
+  ((QBoxLayout*)(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget,100);
+  m_viewManager = new KateViewManager (m_mainStackedWidget, this);
+  m_mainStackedWidget->addWidget (m_viewManager);
+  
   m_bottomViewBarContainer=new QWidget(centralWidget());
   m_bottomContainerStack = new KateContainerStackedLayout(m_bottomViewBarContainer);
 }

@@ -23,6 +23,7 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
    katecontainer.cpp
    katerunninginstanceinfo.cpp
    kateappcommands.cpp
+   katequickopen.cpp
    )
 
 

@@ -167,9 +167,9 @@ QList<QPair<KTextEditor::Range, QString> > KateSpellCheckManager::spellCheckWrtH
     bool inSpellCheckArea = false;
     for(int line = startLine; line <= endLine; ++line) {
       Kate::TextLine kateTextLine = document->kateTextLine(line);
+      if (!kateTextLine) continue; // bug #303496
       const int start = (line == startLine) ? startColumn : 0;
       const int end = (line == endLine) ? endColumn : kateTextLine->length();
-      const KTextEditor::Cursor startCursor();
       for(int i = start; i < end;) { // WARNING: 'i' has to be incremented manually!
         int attr = kateTextLine->attribute(i);
         const KatePrefixStore& prefixStore = highlighting->getCharacterEncodingsPrefixStore(attr);

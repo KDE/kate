@@ -1,6 +1,6 @@
 /*  This file is part of the Kate project.
  *
- *  Copyright (C) 2010 Diana-Victoria Tiriplica <diana.tiriplica@gmail.com>
+ *  Copyright (C) 2010-2012 Dominik Haumann <dhaumann@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -19,38 +19,39 @@
  */
 
 #include "katebrokenswapfilebar.h"
-#include "ui_brokenswapfilewidget.h"
 #include "kateview.h"
 
-#include <QWhatsThis>
+#include <kmessagewidget.h>
+#include <KStandardGuiItem>
+#include <klocale.h>
+
+#include <QHBoxLayout>
 
 //BEGIN KateBrokenSwapFileBar
 KateBrokenSwapFileBar::KateBrokenSwapFileBar(KateView *view, QWidget *parent)
   : KateViewBarWidget( false, parent )
   , m_view ( view )
-  , m_ui (new Ui::BrokenSwapFileWidget())
 {
-  m_ui->setupUi( centralWidget() );
+  KMessageWidget* messageWidget = new KMessageWidget(centralWidget());
+  messageWidget->setMessageType(KMessageWidget::Warning);
+  messageWidget->setCloseButtonVisible(false);
+  messageWidget->setWordWrap(false);
+  messageWidget->setText(i18n("Could not recover data. The swap file was probably incomplete."));
 
-  // set warning icon
-  m_ui->lblIcon->setPixmap(KIcon("dialog-warning").pixmap(64, 64));
+  QAction* closeAction = new QAction(KStandardGuiItem::close().icon(), i18n("Close"), messageWidget);
+  messageWidget->addAction(closeAction);
 
-  m_ui->btnOk->setGuiItem(KGuiItem(m_ui->btnOk->text(), KIcon("dialog-ok")));
+  QHBoxLayout* boxLayout = new QHBoxLayout(centralWidget());
+  boxLayout->addWidget(messageWidget);
 
-  // clicking on the "Help" link pops up the content as what's this
-  connect(m_ui->lblSwap, SIGNAL(linkActivated(QString)),
-          this, SLOT(showWhatsThis(QString)));
-  connect(m_ui->btnOk, SIGNAL(clicked()), this, SIGNAL(hideMe()));
+  // use queued connections because this (all) KateRecoverBar widgets are deleted
+  connect(closeAction, SIGNAL(triggered()), this, SIGNAL(hideMe()), Qt::QueuedConnection);
+
+  messageWidget->show();
 }
 
 KateBrokenSwapFileBar::~KateBrokenSwapFileBar ()
 {
-  delete m_ui;
-}
-
-void KateBrokenSwapFileBar::showWhatsThis(const QString& text)
-{
-  QWhatsThis::showText(QCursor::pos(), text);
 }
 
 //END KateBrokenSwapFileBar

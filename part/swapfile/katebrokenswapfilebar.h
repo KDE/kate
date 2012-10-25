@@ -1,6 +1,6 @@
 /*  This file is part of the Kate project.
  *
- *  Copyright (C) 2010 Diana-Victoria Tiriplica <diana.tiriplica@gmail.com>
+ *  Copyright (C) 2010-2012 Dominik Haumann <dhaumann@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -25,24 +25,16 @@
 
 class KateView;
 
-namespace Ui {
-  class BrokenSwapFileWidget;
-}
-
 class KateBrokenSwapFileBar : public KateViewBarWidget
 {
   Q_OBJECT
 
   public:
     explicit KateBrokenSwapFileBar(KateView *view, QWidget *parent = 0);
-    ~KateBrokenSwapFileBar ();
-
-  protected Q_SLOTS:
-    void showWhatsThis(const QString&);
+    virtual ~KateBrokenSwapFileBar ();
 
   private:
     KateView *const m_view;
-    Ui::BrokenSwapFileWidget *m_ui;
 };
 
 #endif //_KATE_BROKEN_SWAP_H__

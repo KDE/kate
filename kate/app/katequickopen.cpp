@@ -249,7 +249,8 @@ void KateQuickOpen::slotReturnPressed ()
     m_mainWindow->mainWindow()->activateView (doc);
   } else {
     KUrl url = m_listView->currentIndex().data (UrlRole).value<KUrl>();
-    m_mainWindow->mainWindow()->openUrl (url);
+    if (!url.isEmpty())
+      m_mainWindow->mainWindow()->openUrl (url);
   }
   
   /**

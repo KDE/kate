@@ -335,11 +335,13 @@ int KateViewInternal::lineToY(int viewLine) const
 void KateViewInternal::slotIncFontSizes()
 {
   renderer()->increaseFontSizes();
+  update();
 }
 
 void KateViewInternal::slotDecFontSizes()
 {
   renderer()->decreaseFontSizes();
+  update();
 }
 
 /**

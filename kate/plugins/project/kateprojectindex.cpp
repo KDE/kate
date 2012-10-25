@@ -87,6 +87,28 @@ void KateProjectIndex::loadCtags (const QStringList &files)
     return;
   
   /**
+   * file not openable, bad
+   */
+  if (!m_ctagsIndexFile.open ())
+    return;
+  
+  /**
+   * get size
+   */
+  qint64 size = m_ctagsIndexFile.size ();
+  
+  /**
+   * close again
+   */
+  m_ctagsIndexFile.close ();
+  
+  /**
+   * empty file, bad
+   */
+  if (!size)
+    return;
+  
+  /**
    * try to open ctags file
    */
   tagFileInfo info;

@@ -54,6 +54,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
 {
     QVBoxLayout *layout = new QVBoxLayout();
     layout->setSpacing(0);
+    layout->setMargin(0);
     setLayout (layout);
 
 

@@ -69,7 +69,10 @@ SwapFile::SwapFile(KateDocument *document)
 
 SwapFile::~SwapFile()
 {
-  removeSwapFile();
+  // only remove swap file after data recovery (bug #304576)
+  if (!shouldRecover()) {
+    removeSwapFile();
+  }
 }
 
 void SwapFile::configChanged()
@@ -109,8 +112,13 @@ void SwapFile::setTrackingEnabled(bool enable)
 void SwapFile::fileClosed ()
 {
   // remove old swap file, file is now closed
-  removeSwapFile();
-  
+  if (!shouldRecover()) {
+    removeSwapFile();
+  } else {
+    m_document->setReadWrite(true);
+    emit swapFileHandled();
+  }
+
   // purge filename
   updateFileName();
 }
@@ -148,6 +156,7 @@ void SwapFile::recover()
   // the swap file across wrong document content would happen -> certainly wrong
   if (m_swapfile.isOpen()) {
     kWarning( 13020 ) << "Attempt to recover an already modified document. Aborting";
+    removeSwapFile();
     emit swapFileBroken();
     return;
   }
@@ -167,14 +176,19 @@ void SwapFile::recover()
   m_stream.setDevice(&m_swapfile);
 
   // replay the swap file
-  recover(m_stream);
+  bool success = recover(m_stream);
 
   // close swap file
   m_stream.setDevice(0);
   m_swapfile.close();
 
-  // emit signal in case the document has more views
-  emit swapFileHandled();
+  if (success) {
+    // emit signal in case the document has more views
+    emit swapFileHandled();
+  } else {
+    removeSwapFile();
+    emit swapFileBroken();
+  }
 }
 
 bool SwapFile::recover(QDataStream& stream)

@@ -200,7 +200,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
     void slotEditToolbars();
     void slotNewToolbarConfig();
-    void slotWindowActivated ();
     void slotUpdateOpenWith();
     void slotOpenDocument(KUrl);
 
@@ -335,6 +334,8 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   public Q_SLOTS:
     void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
 
+    void slotWindowActivated ();
+    
   protected:
     virtual bool event( QEvent *e );
 };

@@ -103,6 +103,11 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
                 QCoreApplication::sendEvent(m_listView, event);
                 return true;
             }
+            
+            if (keyEvent->key() == Qt::Key_Escape) {
+              m_mainWindow->slotWindowActivated ();
+              return true;
+            }
         } else {
             const bool forward2input = (keyEvent->key() != Qt::Key_Up)
               && (keyEvent->key() != Qt::Key_Down)
@@ -197,4 +202,5 @@ void KateQuickOpen::slotReturnPressed ()
    */
   KUrl url = m_listView->currentIndex().data (DocumentRole).value<KUrl>();
   m_mainWindow->mainWindow()->openUrl (url);
+  m_mainWindow->slotWindowActivated ();
 }

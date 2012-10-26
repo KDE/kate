@@ -1728,6 +1728,7 @@ void KateIconBorder::showAnnotationMenu( int line, const QPoint& pos)
 {
   KMenu menu;
   QAction a(i18n("Disable Annotation Bar"), &menu);
+  a.setIcon(KIcon("dialog-close"));
   menu.addAction(&a);
   emit m_view->annotationContextMenuAboutToShow( m_view, &menu, line  );
   if (menu.exec(pos) == &a)

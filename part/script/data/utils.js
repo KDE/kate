@@ -124,104 +124,67 @@ function unwrap ()
     }
 }
 
+/// \note Range contains a block selected by lines (\b ONLY)!
+/// And it is an open range! I.e. <em>[start, end)</em> (like in STL).
+function _getBlockToMove()
+{
+    // Check if selection present in a view...
+    var blockRange = view.selection();
+    var cursorPosition = view.cursorPosition();
+    if (blockRange.isValid()) {
+        blockRange.start.column = cursorPosition.column;
+        if (blockRange.end.column != 0)
+            blockRange.end.line++;
+        blockRange.end.column = 0;
+        view.setSelection(blockRange);
+    } else {
+        // No, it doesn't! Ok, lets select the current line only
+        // from current position to the end
+        blockRange = new Range(cursorPosition.line, cursorPosition.column, cursorPosition.line + 1, 0);
+    }
+    return blockRange;
+}
+
 function moveLinesDown()
 {
-    var cursorPosition = view.cursorPosition();
-    var selectionRange = view.selection();
-
-    if (selectionRange.isValid() &&
-        selectionRange.end.line == document.lines() - 1 &&
-        selectionRange.end.column == 0) {
-        selectionRange.end.line--;
-        selectionRange.end.column = document.lineLength(selectionRange.end.line);
-        if (cursorPosition.line == document.lines() - 1) {
-            cursorPosition.line--;
-            cursorPosition.column = document.lineLength(cursorPosition.line);
-        }
-    }
-
-    if (selectionRange.isValid() && selectionRange.end.line < document.lines() - 1) {
-        // extend selection to span complete lines
-        var extendedRange = new Range(selectionRange);
-        extendedRange.start.column = 0;
-        if (extendedRange.end.column == 0) {
-            extendedRange.end.line--;
-        }
-        extendedRange.end.column = document.lineLength(extendedRange.end.line);
-
-        // save the text
-        var text = document.text(extendedRange);
-
-        // remove text, and insert at new correct position
+    var blockRange = _getBlockToMove();
+    // Check is there a space to move?
+    if (blockRange.end.line < (document.lines() - 1)) {
         document.editBegin();
-        document.removeText(extendedRange.start, new Cursor(extendedRange.end.line+1, 0));
-        var destination = new Cursor(extendedRange.start.line + 1, 0);
-        document.insertLine(selectionRange.start.line+1, "");
-        document.insertText(destination, text);
-
-        // restore correct cursor position
-        cursorPosition.line++;
-        view.setCursorPosition(cursorPosition);
-
-        // restore selection, moved down by one line
-        selectionRange.start.line++;
-        selectionRange.end.line++;
-        view.setSelection(selectionRange);
-        document.editEnd();
-    } else if (!selectionRange.isValid() && cursorPosition.line < document.lines() - 1) {
-        var text = document.line(cursorPosition.line);
-        document.editBegin();
-        document.removeLine(cursorPosition.line);
-        document.insertLine(cursorPosition.line + 1, text);
-        cursorPosition.line += 1;
-        view.setCursorPosition(cursorPosition);
+        // Move a block to one line down:
+        // 0) take one line after the block
+        var text = document.line(blockRange.end.line);
+        // 1) remove the line after the block
+        document.removeLine(blockRange.end.line);
+        // 2) insert a line before the block
+        document.insertLine(blockRange.start.line, text);
         document.editEnd();
     }
 }
 
 function moveLinesUp()
 {
-    var cursorPosition = view.cursorPosition();
-    var selectionRange = view.selection();
-
-    if (selectionRange.isValid() && selectionRange.start.line > 0) {
-        // extend selection to span complete lines
-        var extendedRange = new Range(selectionRange);
-        extendedRange.start.column = 0;
-        if (extendedRange.end.column == 0) {
-            extendedRange.end.line--;
-        }
-        extendedRange.end.column = document.lineLength(extendedRange.end.line);
-
-        // save the text
-        var text = document.text(extendedRange);
-
-        // remove text, and insert at new correct position
+    var blockRange = _getBlockToMove();
+    // Check is there a space to move?
+    if (0 < blockRange.start.line) {
         document.editBegin();
-        document.removeText(extendedRange.start, new Cursor(extendedRange.end.line+1, 0));
-        var destination = new Cursor(extendedRange.start.line - 1, 0);
-        document.insertLine(selectionRange.start.line-1, "");
-        document.insertText(destination, text);
-
-        // restore correct cursor position
-        cursorPosition.line--;
-        view.setCursorPosition(cursorPosition);
-
-        // restore selection, moved up by one line
-        selectionRange.start.line--;
-        selectionRange.end.line--;
-        view.setSelection(selectionRange);
-        document.editEnd();
-    } else if (!selectionRange.isValid() && cursorPosition.line > 0) {
-        var text = document.line(cursorPosition.line);
-        document.editBegin();
-        document.removeLine(cursorPosition.line);
-        document.insertLine(cursorPosition.line - 1, text);
-        cursorPosition.line -= 1;
-        view.setCursorPosition(cursorPosition);
+        // Move a block to one line up:
+        // 0) take one line before the block,
+        var text = document.line(blockRange.start.line - 1);
+        // 1) and insert it after the block
+        document.insertLine(blockRange.end.line, text);
+        // 2) remove the original line
+        document.removeLine(blockRange.start.line - 1);
+        blockRange.start.line--;
+        blockRange.end.line--;
+        view.setCursorPosition(blockRange.start);
+        var selectionRange = view.selection();
+        if (view.selection().isValid())
+            view.setSelection(blockRange);
         document.editEnd();
     }
 }
+
 
 //private
 function _duplicateLines(up)

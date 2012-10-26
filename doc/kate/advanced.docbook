@@ -2103,7 +2103,8 @@ bool document.wrapLine(<parameter>int <replaceable>line</replaceable></parameter
 bool document.wrapLine(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
-Wraps the line at the given cursor position.
+Wraps the line at the given cursor position. Returns <literal>true</literal> on success,
+otherwise <literal>false</literal>, e.g. if line &lt; 0.
 </para>
 <para>
   Since: KDE 4.9

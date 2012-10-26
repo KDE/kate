@@ -155,10 +155,10 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_buildUi.showErrorsButton, SIGNAL(toggled(bool)), this, SLOT(slotShowErrors(bool)));
     connect(m_buildUi.showWarningsButton, SIGNAL(toggled(bool)), this, SLOT(slotShowWarnings(bool)));
     connect(m_buildUi.showOthersButton, SIGNAL(toggled(bool)), this, SLOT(slotShowOthers(bool)));
-    
+
     connect(m_targetsUi->browse, SIGNAL(clicked()), this, SLOT(slotBrowseClicked()));
 
-    
+
     // set the default values of the build settings. (I think loading a plugin should also trigger
     // a read of the session config data, but it does not)
    //m_targetsUi->buildCmds->setText("make");
@@ -302,13 +302,15 @@ void KateBuildView::slotNext()
     }
 
     QTreeWidgetItem *item = m_buildUi.errTreeWidget->currentItem();
+    if (item && item->isHidden()) item = 0;
 
     int i = (item == 0) ? -1 : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
 
     while (++i < itemCount) {
         item = m_buildUi.errTreeWidget->topLevelItem(i);
-        if (!item->text(1).isEmpty()) {
+        if (!item->text(1).isEmpty() && !item->isHidden()) {
             m_buildUi.errTreeWidget->setCurrentItem(item);
+            m_buildUi.errTreeWidget->scrollToItem(item);
             slotItemSelected(item);
             return;
         }
@@ -324,13 +326,15 @@ void KateBuildView::slotPrev()
     }
 
     QTreeWidgetItem *item = m_buildUi.errTreeWidget->currentItem();
+    if (item && item->isHidden()) item = 0;
 
     int i = (item == 0) ? itemCount : m_buildUi.errTreeWidget->indexOfTopLevelItem(item);
 
     while (--i >= 0) {
         item = m_buildUi.errTreeWidget->topLevelItem(i);
-        if (!item->text(1).isEmpty()) {
+        if (!item->text(1).isEmpty() && !item->isHidden()) {
             m_buildUi.errTreeWidget->setCurrentItem(item);
+            m_buildUi.errTreeWidget->scrollToItem(item);
             slotItemSelected(item);
             return;
         }
@@ -375,19 +379,19 @@ void KateBuildView::addError(const QString &filename, const QString &line,
         message.contains(i18nc("The same word as 'ld' uses to mark an ...","undefined reference"))
        )
     {
-	isError=true;
+        isError=true;
         item->setForeground(1, Qt::red);
         m_numErrors++;
-	item->setHidden(!m_buildUi.showErrorsButton->isChecked());
+        item->setHidden(!m_buildUi.showErrorsButton->isChecked());
     }
     if (message.contains("warning") ||
         message.contains(i18nc("The same word as 'make' uses to mark a warning.","warning"))
        )
     {
-	isWarning=true;
+        isWarning=true;
         item->setForeground(1, Qt::yellow);
         m_numWarnings++;
-	item->setHidden(!m_buildUi.showWarningsButton->isChecked());
+        item->setHidden(!m_buildUi.showWarningsButton->isChecked());
     }
     item->setTextAlignment(1, Qt::AlignRight);
 
@@ -406,10 +410,10 @@ void KateBuildView::addError(const QString &filename, const QString &line,
     if ((isError==false) && (isWarning==false)) {
       item->setHidden(!m_buildUi.showOthersButton->isChecked());
     }
-    
+
     item->setData(0,Qt::UserRole+1,isError);
     item->setData(0,Qt::UserRole+2,isWarning);
-    
+
     // add tooltips in all columns
     // The enclosing <qt>...</qt> enables word-wrap for long error messages
     item->setData(0, Qt::ToolTipRole, filename);
@@ -959,10 +963,10 @@ void KateBuildView::slotProjectMapChanged ()
     // only do stuff with valid project
     if (!m_projectPluginView)
       return;
-  
+
     // query new project map
     QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
-    
+
     // do we have a valid map for build settings?
     QVariantMap buildMap = projectMap.value("build").toMap();
     if (buildMap.isEmpty())
@@ -972,10 +976,10 @@ void KateBuildView::slotProjectMapChanged ()
     QDir dir (QFileInfo (m_projectPluginView->property("projectFileName").toString()).absoluteDir());
     if (!dir.cd (buildMap.value("directory").toString()))
       return;
-    
+
     // set build dir
     m_targetsUi->buildDir->setText(dir.absolutePath());
-    
+
     m_targetsUi->buildCmd->setText(buildMap.value("build").toString());
     m_targetsUi->cleanCmd->setText(buildMap.value("clean").toString());
     m_targetsUi->quickCmd->setText(QString());

@@ -727,21 +727,18 @@ void KateHighlighting::done()
  */
 void KateHighlighting::createKateExtendedAttribute(QList<KateExtendedAttribute::Ptr> &list)
 {
-  // If no highlighting is selected we need only one default.
-  if (noHl)
-  {
-    list.append(KateExtendedAttribute::Ptr(new KateExtendedAttribute(i18n("Normal Text"), KTextEditor::HighlightInterface::dsNormal)));
-    return;
+  // If the internal list isn't already available read the config file
+  if (!noHl) {
+    if (internalIDList.isEmpty())
+      makeContextList();
+
+    list=internalIDList;
   }
 
-  // If the internal list isn't already available read the config file
-  if (internalIDList.isEmpty())
-    makeContextList();
-
-  list=internalIDList;
+  // If no highlighting is selected or we have no attributes we need only one default.
+  if (noHl || list.isEmpty())
+    list.append(KateExtendedAttribute::Ptr(new KateExtendedAttribute(i18n("Normal Text"), KTextEditor::HighlightInterface::dsNormal)));
 }
-
-
 
 /**
  * Adds the styles of the currently parsed highlight to the itemdata list

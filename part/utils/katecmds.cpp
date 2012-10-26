@@ -800,7 +800,8 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
     kDebug(13025) << "Range: " << r;
   }
 
-  QRegExp delim("^s\\s*([^\\w\\s])");
+  // valid delimiters are all non-word, non-space characters plus '_'
+  QRegExp delim("^s\\s*([^\\w\\s]|_)");
   if ( delim.indexIn( cmd ) < 0 ) return false;
 
   bool noCase = cmd[cmd.length() - 1] == 'i' || cmd[cmd.length() - 2] == 'i';

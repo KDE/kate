@@ -81,6 +81,14 @@ KTextEditor::Command *KateCmd::queryCommand (const QString &cmd) const
   // contain at least one letter.
   int f = 0;
   bool b = false;
+
+  // special case: '-' and '_' can be part of a command name, but if the
+  // command is 's' (substitute), it should be considered the delimiter and
+  // should not be counted as part of the command name
+  if ( cmd.length() >= 2 && cmd.at(0) == 's' && ( cmd.at(1) == '-' || cmd.at(1) == '_') ) {
+    return m_dict.value(QString("s"));
+  }
+
   for ( ; f < cmd.length(); f++ )
   {
     if ( cmd[f].isLetter() )

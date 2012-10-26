@@ -728,6 +728,8 @@ void ViModeTest::CommandModeTests() {
     DoTest("foo", "\\:s/$/x/g\\","foox");
     DoTest("foo", "\\:s/.*/x/g\\","x");
 
+    DoTest("foo/bar", "\\:s-/--\\","foobar");
+    DoTest("foo/bar", "\\:s_/__\\","foobar");
 
     DoTest("foo\nfoo\nfoo","\\:2s/foo/bar\\", "foo\nbar\nfoo");
     DoTest("foo\nfoo\nfoo","2jmagg\\:'as/foo/bar\\","foo\nfoo\nbar");

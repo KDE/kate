@@ -1556,6 +1556,20 @@ Returns <literal>true</literal>, if <replaceable>column</replaceable> is in the 
 
 <varlistentry>
 <term><synopsis>
+bool Range.onSingleLine();
+</synopsis></term>
+<listitem><para>
+Returns <literal>true</literal>, if the range starts and ends at the same line,
+i.e. if <replaceable>Range.start.line == Range.end.line</replaceable>.
+</para>
+<para>
+Since: KDE 4.9
+</para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
 bool Range.equals(<parameter>Range <replaceable>other</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>

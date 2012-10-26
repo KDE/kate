@@ -163,8 +163,10 @@ void HighlightSelectionPluginView::createHighlights()
    * fixes $lala hl
    */
   QString regex = QRegExp::escape (m_currentText);
-  if (QRegExp (QString ("\\b%1\\b").arg(regex)).indexIn (QString (" %1 ").arg(m_currentText)) != -1)
-    regex = QString ("\\b%1\\b").arg(regex);
+  if (QRegExp (QString ("\\b%1").arg(regex)).indexIn (QString (" %1 ").arg(m_currentText)) != -1)
+    regex = QString ("\\b%1").arg(regex);
+  if (QRegExp (QString ("%1\\b").arg(regex)).indexIn (QString (" %1 ").arg(m_currentText)) != -1)
+    regex = QString ("%1\\b").arg(regex);
 
   QVector<KTextEditor::Range> matches;
   do {

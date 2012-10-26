@@ -100,28 +100,56 @@ void KateBuffer::editStart ()
 
 void KateBuffer::editEnd ()
 {
+  /**
+   * not finished, do nothing
+   */
   if (!finishEditing())
     return;
 
-  if (editingChangedBuffer ())
-  {
-    // hl update !!!
-    if (m_highlight && editingMinimalLineChanged () <= editingMaximalLineChanged () && editingMaximalLineChanged () <= m_lineHighlighted)
-    {
-      // look one line too far, needed for linecontinue stuff
-      int editTagLineEnd = editingMaximalLineChanged () + 1;
-      int editTagLineStart = editingMinimalLineChanged ();
+  /**
+   * nothing change, OK
+   */
+  if (!editingChangedBuffer ())
+    return;
 
-      // look one line before, needed nearly 100% only for indentation based folding !
-      if (editTagLineStart > 0)
-        --editTagLineStart;
+  /**
+   * if we arrive here, line changed should be OK
+   */
+  Q_ASSERT (editingMinimalLineChanged () != -1);
+  Q_ASSERT (editingMaximalLineChanged () != -1);
+  Q_ASSERT (editingMinimalLineChanged () <= editingMaximalLineChanged ());
+  
+  /**
+   * no highlighting, nothing to do
+   */
+  if (!m_highlight)
+    return;
 
-      doHighlight (
-          editTagLineStart,
-          editTagLineEnd,
-          true);
-    }
-  }
+  /**
+   * if we don't touch the highlighted area => fine
+   */
+  if (editingMinimalLineChanged() > m_lineHighlighted)
+    return;
+
+  /**
+   * look one line too far, needed for linecontinue stuff
+   */
+  int editTagLineEnd = editingMaximalLineChanged () + 1;
+  int editTagLineStart = editingMinimalLineChanged ();
+
+  /**
+   * look one line before, needed nearly 100% only for indentation based folding !
+   */
+  if (editTagLineStart > 0)
+    --editTagLineStart;
+
+  /**
+   * really update highlighting
+   */
+  doHighlight (
+      editTagLineStart,
+      editTagLineEnd,
+      true);
 }
 
 void KateBuffer::clear()

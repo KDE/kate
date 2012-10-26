@@ -263,9 +263,11 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   connect (doc->swapFile(), SIGNAL(swapFileBroken()), this, SLOT(showBrokenSwapFileBar()));
   connect (doc->swapFile(), SIGNAL(swapFileFound()), this, SLOT(showRecoverBar()));
   connect (doc->swapFile(), SIGNAL(swapFileHandled()), this, SLOT(hideRecoverBar()));
+  connect (doc, SIGNAL(aboutToClose(KTextEditor::Document*)), this, SLOT(hideRecoverBar()));
+  connect (doc, SIGNAL(aboutToClose(KTextEditor::Document*)), this, SLOT(hideBrokenSwapFileBar()));
+
   if (doc->swapFile()->shouldRecover())
     showRecoverBar();
-
 }
 
 KateView::~KateView()

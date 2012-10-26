@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Haskell" version="2.0.4" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Nicolas Wu (zenzike@gmail.com)" license="LGPL" indenter="haskell">
+<language name="Haskell" version="2.0.5" kateversion="2.3" section="Sources" extensions="*.hs" mimetype="text/x-haskell" author="Nicolas Wu (zenzike@gmail.com)" license="LGPL" indenter="haskell">
   <highlighting>
   <list name="keywords">
-    <item> as </item>
     <item> case </item>
     <item> class </item>
     <item> data </item>
     <item> deriving </item>
     <item> do </item>
     <item> else </item>
-    <item> hiding </item>
     <item> if </item>
-    <item> import </item>
     <item> in </item>
     <item> infixl </item>
     <item> infixr </item>
@@ -22,7 +19,6 @@
     <item> newtype </item>
     <item> of </item>
     <item> primitive </item>
-    <item> qualified </item>
     <item> then </item>
     <item> type </item>
     <item> where </item>
@@ -303,11 +299,17 @@
     <item> Foldable </item>
     <item> Traversable </item>
   </list>
+  <list name="import_keywords">
+    <item> as </item>
+    <item> qualified </item>
+    <item> hiding </item>
+  </list>
   <contexts>
     <context attribute="Normal" lineEndContext="#stay" name="code">
       <RegExpr attribute="Pragma"  context="#stay" String="\{-#.*#-\}"/>
       <RegExpr attribute="Comment" context="comments" String="\{-[^#]?" />
       <RegExpr attribute="Comment" context="comment"  String="--[^\-!#\$%&amp;\*\+/&lt;=&gt;\?&#92;@\^\|~\.:].*$" />
+      <RegExpr attribute="Keyword" context="import"  String="import" />
 
       <keyword attribute="Keyword"          context="#stay" String="keywords" />
       <keyword attribute="Function Prelude" context="#stay" String="prelude function" />
@@ -347,6 +349,9 @@
     </context>
     <context attribute="Function Infix" lineEndContext="#stay" name="infix">
       <DetectChar attribute="Function Infix" context="#pop" char="`"/>
+    </context>
+    <context attribute="Import Statement" lineEndContext="#pop" name="import">
+      <keyword attribute="Keyword"          context="#stay" String="import_keywords" />
     </context>
   </contexts>
   <itemDatas>

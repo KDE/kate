@@ -1918,6 +1918,25 @@ String document.wordAt(<parameter>Cursor <replaceable>cursor</replaceable></para
 
 
 <varlistentry>
+<term>
+<synopsis>
+Range document.wordRangeAt(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
+Range document.wordRangeAt(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
+</synopsis>
+</term>
+<listitem><para>
+Return the range of the word at the given cursor position. The returned range
+is invalid (see Range.isValid()), if the text position is after the end of a
+line. If there is no word at the given cursor, an empty range is returned.
+</para>
+<para>
+  Since: KDE 4.9
+</para>
+</listitem>
+</varlistentry>
+
+
+<varlistentry>
 <term><synopsis>
 String document.charAt(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
 String document.charAt(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
@@ -2075,6 +2094,21 @@ bool document.removeLine(<parameter>int <replaceable>line</replaceable></paramet
     Removes the given text line. Returns <literal>true</literal> on success, or <literal>false</literal>, if the
     document is in read-only mode or the line is not in the document range.
 </para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
+bool document.wrapLine(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
+bool document.wrapLine(<parameter>Cursor <replaceable>cursor</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+Wraps the line at the given cursor position.
+</para>
+<para>
+  Since: KDE 4.9
+</para>
+</listitem>
 </varlistentry>
 
 

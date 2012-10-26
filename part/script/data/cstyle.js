@@ -449,7 +449,7 @@ function tryBrace(line)
         return (currentString.search(/^\s*namespace\b/) != -1);
     }
 
-    var currentLine = document.prevNonEmptyLine(line - 1);
+    var currentLine = lastNonEmptyLine(line - 1);
     if (currentLine < 0)
         return -1;
 
@@ -480,7 +480,7 @@ function tryBrace(line)
  */
 function tryCKeywords(line, isBrace)
 {
-    var currentLine = document.prevNonEmptyLine(line - 1);
+    var currentLine = lastNonEmptyLine(line - 1);
     if (currentLine < 0)
         return -1;
 
@@ -536,7 +536,7 @@ function tryCKeywords(line, isBrace)
  */
 function tryCondition(line)
 {
-    var currentLine = document.prevNonEmptyLine(line - 1);
+    var currentLine = lastNonEmptyLine(line - 1);
     if (currentLine < 0)
         return -1;
 
@@ -557,7 +557,7 @@ function tryCondition(line)
         var currentIndentation = document.firstVirtualColumn(currentLine);
         if (currentIndentation == 0)
             return -1;
-
+        
         var lineDelimiter = 10; // 10 limit search, hope this is a sane value
         while (currentLine > 0 && lineDelimiter > 0) {
             --currentLine;
@@ -594,7 +594,7 @@ function tryStatement(line)
     if (currentString.endsWith('(')) {
         // increase indent level
         indentation = document.firstVirtualColumn(currentLine) + gIndentWidth;
-        dbg("tryStatement: success in line " + currentLine);
+        dbg("tryStatement (1): success in line " + currentLine);
         return indentation;
     }
     var alignOnSingleQuote = gMode == "PHP/PHP" || gMode == "JavaScript";
@@ -606,6 +606,7 @@ function tryStatement(line)
         // search for opening ", ' or (
         var cursor = new Cursor().invalid();
         if (result[2] == '"' || (alignOnSingleQuote && result[2] == "'")) {
+            
             while(true) {
                 var i = result[1].length - 1; // start from matched closing ' or "
                 // find string opener
@@ -693,7 +694,7 @@ function tryStatement(line)
         indentation = document.firstVirtualColumn(currentLine);
     }
 
-    if (indentation != -1) dbg("tryStatement: success in line " + currentLine);
+    if (indentation != -1) dbg("tryStatement (2): success in line " + currentLine);
     return indentation;
 }
 

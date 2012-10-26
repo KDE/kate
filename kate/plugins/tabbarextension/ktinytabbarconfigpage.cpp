@@ -76,8 +76,8 @@ void KTinyTabBarConfigPage::setupDefaults()
     cmbSorting->setCurrentIndex(0);
 
     // tab sizes group box
-    sbMinWidth->setValue(70);
-    sbMaxWidth->setValue(150);
+    sbMinWidth->setValue(150);
+    sbMaxWidth->setValue(200);
     sbHeight->setValue(22);
 
     // button style group

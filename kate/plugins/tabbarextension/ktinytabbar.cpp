@@ -110,8 +110,8 @@ bool tabLessThan( const KTinyTabButton* a, const KTinyTabButton* b )
  * Creates a new tab bar with the given \a parent and \a name.
  *
  * The default values are in detail:
- *  - minimum tab width: 70 pixel
- *  - maximum tab width: 150 pixel
+ *  - minimum tab width: 150 pixel
+ *  - maximum tab width: 200 pixel
  *  - fixed tab height : 22 pixel. Note that the icon's size is 16 pixel.
  *  - number of rows: 1 row.
  *  .
@@ -119,8 +119,8 @@ bool tabLessThan( const KTinyTabButton* a, const KTinyTabButton* b )
 KTinyTabBar::KTinyTabBar( QWidget *parent )
     : QWidget( parent )
 {
-    m_minimumTabWidth = 70;
-    m_maximumTabWidth = 150;
+    m_minimumTabWidth = 150;
+    m_maximumTabWidth = 200;
 
     m_tabHeight = 22;
 

@@ -179,21 +179,17 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
 {
 
   setCaption( i18n("Save Documents") );
-  setButtons( User1 | User2 | Cancel );
+  setButtons( KDialog::Yes | KDialog::No | Cancel );
   setObjectName( "KateSaveModifiedDialog" );
   setModal( true );
 
-  KGuiItem saveItem = KStandardGuiItem::save();
-  saveItem.setText(i18n("&Save Selected"));
-  setButtonGuiItem(KDialog::User1, saveItem);
+  setButtonGuiItem(KDialog::Yes, KStandardGuiItem::save());
   connect(this, SIGNAL(user1Clicked()), this, SLOT(slotSaveSelected()));
 
-  setButtonGuiItem(KDialog::User2, KStandardGuiItem::dontSave());
+  setButtonGuiItem(KDialog::No, KStandardGuiItem::discard());
   connect(this, SIGNAL(user2Clicked()), this, SLOT(slotDoNotSave()));
 
-  KGuiItem cancelItem = KStandardGuiItem::cancel();
-  cancelItem.setText(i18n("Do &Not Close"));
-  setButtonGuiItem(KDialog::Cancel, cancelItem);
+  setButtonGuiItem(KDialog::Cancel, KStandardGuiItem::cancel());
   setDefaultButton(KDialog::Cancel);
   setButtonFocus(KDialog::Cancel);
   

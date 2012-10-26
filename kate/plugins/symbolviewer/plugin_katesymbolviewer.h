@@ -104,6 +104,9 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     void toggleShowFunctions(void);
     void slotViewChanged(QResizeEvent *e);
     void verticalScrollPositionChanged(KTextEditor::View *view, const KTextEditor::Cursor &newPos);
+    void cursorPositionChanged();
+    QTreeWidgetItem *newActveItem(int &currMinLine, int currLine, QTreeWidgetItem *item);
+    void updateCurrTreeItem();
     void slotDocEdited();
     void updatePixmapEdit();
 
@@ -125,6 +128,7 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     int  m_visibleLines;
 
     QTimer m_updateTimer;
+    QTimer m_currItemTimer;
 
     void updatePixmapScroll();
 

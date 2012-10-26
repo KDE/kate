@@ -20,7 +20,7 @@
  *                      * if the document has changed
  *                      Added an entry in the m_popup menu to switch between List and Tree mode
  *                      Various bugfixing.
- *  Apr 24 2003 v 0.5 - Added three check buttons in m_popup menu to show/hide m_symbols
+ *  Apr 24 2003 v 0.5 - Added three check buttons in m_popup menu to show/hide symbols
  *  Apr 23 2003 v 0.4 - "View Symbol" moved in Settings menu. "Refresh List" is no
  *                      longer in Kate menu. Moved into a m_popup menu activated by a
  *                      mouse right button click. + Bugfixing.
@@ -67,7 +67,7 @@ static const int s_lineWidth = 100;
 static const int s_pixmapWidth = 40;
 
 K_PLUGIN_FACTORY(KateSymbolViewerFactory, registerPlugin<KatePluginSymbolViewer>();)
-K_EXPORT_PLUGIN(KateSymbolViewerFactory(KAboutData("katesymbolviewer","katesymbolviewer",ki18n("SymbolViewer"), "0.1", ki18n("View m_symbols"), KAboutData::License_LGPL_V2)) )
+K_EXPORT_PLUGIN(KateSymbolViewerFactory(KAboutData("katesymbolviewer","katesymbolviewer",ki18n("SymbolViewer"), "0.1", ki18n("View symbols"), KAboutData::License_LGPL_V2)) )
 
 
 KatePluginSymbolViewerView::KatePluginSymbolViewerView(Kate::MainWindow *w, KatePluginSymbolViewer *plugin) :
@@ -103,6 +103,9 @@ m_plugin(plugin)
   m_updateTimer.setSingleShot(true);
   connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmapEdit()));
 
+  m_currItemTimer.setSingleShot(true);
+  connect(&m_currItemTimer, SIGNAL(timeout()), this, SLOT(updateCurrTreeItem()));
+
   QPixmap cls( ( const char** ) class_xpm );
 
   m_toolview = mainWindow()->createToolView("kate_plugin_symbolviewer", Kate::MainWindow::Left, cls, i18n("Symbol List"));
@@ -121,7 +124,7 @@ m_plugin(plugin)
   KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
   m_label->setVisible(config.readEntry("ShowMiniMap", false));
   connect(m_plugin, SIGNAL(miniMapNowVisible(bool)), m_label, SLOT(setVisible(bool)));
-  connect(m_plugin, SIGNAL(miniMapNowVisible(bool)), m_label, SLOT(updatePixmapEdit()));
+  connect(m_plugin, SIGNAL(miniMapNowVisible(bool)), this, SLOT(updatePixmapEdit()));
 
   m_symbols = new QTreeWidget();
   layout->addWidget(m_label);
@@ -224,6 +227,9 @@ void KatePluginSymbolViewerView::slotDocChanged()
    connect(view, SIGNAL(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
            this, SLOT(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), Qt::UniqueConnection);
 
+   connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
+           this, SLOT(cursorPositionChanged()), Qt::UniqueConnection);
+
    if (view->document()) {
      connect(view->document(), SIGNAL(textChanged(KTextEditor::Document*)),
              this, SLOT(slotDocEdited()), Qt::UniqueConnection);
@@ -245,6 +251,12 @@ void KatePluginSymbolViewerView::slotDocEdited()
   m_updateTimer.start(500);
 }
 
+void KatePluginSymbolViewerView::cursorPositionChanged()
+{
+  //kDebug() << "";
+  m_currItemTimer.start(100);
+}
+
 void KatePluginSymbolViewerView::verticalScrollPositionChanged(
   KTextEditor::View *view,
   const KTextEditor::Cursor &newPos)
@@ -260,6 +272,54 @@ void KatePluginSymbolViewerView::verticalScrollPositionChanged(
   updatePixmapScroll();
 }
 
+void KatePluginSymbolViewerView::updateCurrTreeItem()
+{
+  if (!mainWindow()) {
+    return;
+  }
+  KTextEditor::View* editView = mainWindow()->activeView();
+  if (!editView) {
+    return;
+  }
+  KTextEditor::Document* doc = editView->document();
+  if (!doc) {
+    return;
+  }
+  int currLine = editView->cursorPositionVirtual().line();
+
+  int newItemLine = 0;
+  QTreeWidgetItem *newItem = 0;
+  QTreeWidgetItem *tmp = 0;
+  for (int i=0; i<m_symbols->topLevelItemCount(); i++) {
+    tmp = newActveItem(newItemLine, currLine, m_symbols->topLevelItem(i));
+    if (tmp) newItem = tmp;
+  }
+
+  if (newItem) {
+    m_symbols->blockSignals(true);
+    m_symbols->setCurrentItem(newItem);
+    m_symbols->blockSignals(false);
+  }
+}
+
+QTreeWidgetItem *KatePluginSymbolViewerView::newActveItem(int &newItemLine, int currLine, QTreeWidgetItem *item)
+{
+  QTreeWidgetItem *newItem = 0;
+  QTreeWidgetItem *tmp = 0;
+  int itemLine = item->data(1, Qt::DisplayRole).toInt();
+
+  if ((itemLine <= currLine) && (itemLine > newItemLine)) {
+    newItemLine = itemLine;
+    newItem = item;
+  }
+
+  for (int i=0; i<item->childCount(); i++) {
+    tmp = newActveItem(newItemLine, currLine, item->child(i));
+    if (tmp) newItem = tmp;
+  }
+
+  return newItem;
+}
 
 void KatePluginSymbolViewerView::updatePixmapEdit()
 {

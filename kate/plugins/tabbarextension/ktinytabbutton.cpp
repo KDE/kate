@@ -31,6 +31,7 @@
 #include <kdebug.h>
 #include <kiconloader.h>
 #include <klocale.h>
+#include <kglobalsettings.h>
 
 #include <QApplication>
 #include <QContextMenuEvent>
@@ -50,6 +51,7 @@ KTinyTabButton::KTinyTabButton( const QString& docurl, const QString& caption,
                                 int button_id, bool blockContextMenu, QWidget *parent )
     : QPushButton( parent )
 {
+    setFont(KGlobalSettings::toolBarFont());
     setCheckable( true );
     setFocusPolicy( Qt::NoFocus );
     setMinimumWidth( 1 );

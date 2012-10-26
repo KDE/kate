@@ -158,12 +158,19 @@ void HighlightSelectionPluginView::createHighlights()
   KTextEditor::Cursor start(0, 0);
   KTextEditor::Range searchRange;
 
-  QVector<KTextEditor::Range> matches;
+  /**
+   * only add word boundary if we can find the text then
+   * fixes $lala hl
+   */
+  QString regex = QRegExp::escape (m_currentText);
+  if (QRegExp (QString ("\\b%1\\b").arg(regex)).indexIn (QString (" %1 ").arg(m_currentText)) != -1)
+    regex = QString ("\\b%1\\b").arg(regex);
 
+  QVector<KTextEditor::Range> matches;
   do {
     searchRange.setRange(start, m_view->document()->documentEnd());
 
-    matches = siface->searchText(searchRange, m_currentText, KTextEditor::Search::WholeWords);
+    matches = siface->searchText(searchRange, regex, KTextEditor::Search::Regex);
 
     if (matches.first().isValid()) {
       KTextEditor::MovingRange* mr = miface->newMovingRange(matches.first());

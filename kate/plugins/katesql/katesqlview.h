@@ -19,8 +19,7 @@
 #ifndef KATESQLVIEW_H
 #define KATESQLVIEW_H
 
-class TextOutputWidget;
-class DataOutputWidget;
+class KateSQLOutputWidget;
 class SchemaBrowserWidget;
 class SQLManager;
 
@@ -44,8 +43,7 @@ class KateSQLView : public Kate::PluginView, public Kate::XMLGUIClient
     void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
-    TextOutputWidget *textOutputWidget() const { return m_textOutputWidget; }
-    DataOutputWidget *dataOutputWidget() const { return m_dataOutputWidget; }
+   
     SchemaBrowserWidget *schemaBrowserWidget() const { return m_schemaBrowserWidget; }
 
   public slots:
@@ -68,13 +66,12 @@ class KateSQLView : public Kate::PluginView, public Kate::XMLGUIClient
     void setupActions();
 
   private:
-    QWidget *m_textOutputToolView;
-    QWidget *m_dataOutputToolView;
+    QWidget *m_outputToolView;
     QWidget *m_schemaBrowserToolView;
     QActionGroup *m_connectionsGroup;
 
-    TextOutputWidget *m_textOutputWidget;
-    DataOutputWidget *m_dataOutputWidget;
+    KateSQLOutputWidget *m_outputWidget;
+    
     SchemaBrowserWidget *m_schemaBrowserWidget;
 
     KComboBox *m_connectionsComboBox;

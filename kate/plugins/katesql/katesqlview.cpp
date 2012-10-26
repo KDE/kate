@@ -27,6 +27,7 @@
 #include "schemawidget.h"
 #include "schemabrowserwidget.h"
 #include "connectionwizard.h"
+#include "outputwidget.h"
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
@@ -54,16 +55,11 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
 , Kate::XMLGUIClient(KateSQLFactory::componentData())
 , m_manager (new SQLManager(this))
 {
-  m_textOutputToolView    = mw->createToolView("kate_private_plugin_katesql_textoutput",
-                                               Kate::MainWindow::Bottom,
-                                               SmallIcon("view-list-text"),
-                                               i18nc("@title:window", "SQL Text Output")
-                                               );
 
-  m_dataOutputToolView    = mw->createToolView("kate_private_plugin_katesql_dataoutput",
+  m_outputToolView    = mw->createToolView("kate_private_plugin_katesql_output",
                                                Kate::MainWindow::Bottom,
                                                SmallIcon("view-form-table"),
-                                               i18nc("@title:window", "SQL Data Output")
+                                               i18nc("@title:window", "SQL Results")
                                                );
 
   m_schemaBrowserToolView = mw->createToolView("kate_private_plugin_katesql_schemabrowser",
@@ -72,8 +68,8 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
                                                i18nc("@title:window", "SQL Schema Browser")
                                                );
 
-  m_textOutputWidget = new TextOutputWidget(m_textOutputToolView);
-  m_dataOutputWidget = new DataOutputWidget(m_dataOutputToolView);
+  m_outputWidget = new KateSQLOutputWidget(m_outputToolView);
+
   m_schemaBrowserWidget = new SchemaBrowserWidget(m_schemaBrowserToolView, m_manager);
 
   m_connectionsComboBox = new KComboBox(this);
@@ -109,8 +105,7 @@ KateSQLView::~KateSQLView()
 {
   mainWindow()->guiFactory()->removeClient( this );
 
-  delete m_textOutputToolView;
-  delete m_dataOutputToolView;
+  delete m_outputToolView;
   delete m_schemaBrowserToolView;
 
   delete m_manager;
@@ -208,7 +203,7 @@ void KateSQLView::slotConnectionChanged(const QString &connection)
 
 void KateSQLView::slotGlobalSettingsChanged()
 {
-  m_dataOutputWidget->model()->readConfig();
+  m_outputWidget->dataOutputWidget()->model()->readConfig();
 }
 
 
@@ -319,7 +314,7 @@ void KateSQLView::slotConnectionAboutToBeClosed (const QString& name)
   /// must delete the QSqlQuery object inside the model before closing connection
 
   if (name == m_currentResultsetConnection)
-    m_dataOutputWidget->clearResults();
+    m_outputWidget->dataOutputWidget()->clearResults();
 }
 
 
@@ -356,17 +351,19 @@ void KateSQLView::slotRunQuery()
 
 void KateSQLView::slotError(const QString &message)
 {
-  mainWindow()->showToolView(m_textOutputToolView);
-
-  m_textOutputWidget->showErrorMessage(message);
+  m_outputWidget->textOutputWidget()->showErrorMessage(message);
+  m_outputWidget->setCurrentWidget(m_outputWidget->textOutputWidget());
+  mainWindow()->showToolView(m_outputToolView);
+  
 }
 
 
 void KateSQLView::slotSuccess(const QString &message)
 {
-  mainWindow()->showToolView(m_textOutputToolView);
+  m_outputWidget->textOutputWidget()->showSuccessMessage(message);
+  m_outputWidget->setCurrentWidget(m_outputWidget->textOutputWidget());
+  mainWindow()->showToolView(m_outputToolView);
 
-  m_textOutputWidget->showSuccessMessage(message);
 }
 
 
@@ -376,9 +373,10 @@ void KateSQLView::slotQueryActivated(QSqlQuery &query, const QString &connection
   {
     m_currentResultsetConnection = connection;
 
-    mainWindow()->showToolView(m_dataOutputToolView);
-
-    m_dataOutputWidget->showQueryResultSets(query);
+    m_outputWidget->dataOutputWidget()->showQueryResultSets(query);
+    m_outputWidget->setCurrentWidget(m_outputWidget->dataOutputWidget());
+    mainWindow()->showToolView(m_outputToolView);
+    
   }
 }
 

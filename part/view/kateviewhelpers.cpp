@@ -1270,8 +1270,8 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     // icon pane
     if( m_iconBorderOn )
     {
-      p.setPen ( m_view->renderer()->config()->lineNumberColor() );
-      p.setBrush ( m_view->renderer()->config()->lineNumberColor() );
+      p.setPen ( m_view->renderer()->config()->separatorColor() );
+      p.setBrush ( m_view->renderer()->config()->separatorColor() );
       p.drawLine(lnX+iconPaneWidth+1, y, lnX+iconPaneWidth+1, y+h);
 
       if( (realLine > -1) && (m_viewInternal->cache()->viewLine(z).startCol() == 0) )

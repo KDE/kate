@@ -128,8 +128,14 @@ QVector<KateColorItem> KateSchemaConfigColorTab::colorItemList() const
 
   ci.name = i18n("Line Numbers");
   ci.key = "Color Line Number";
-  ci.whatsThis = i18n("<p>This color will be used to draw the line numbers (if enabled) and the lines in the code-folding pane.</p>");
+  ci.whatsThis = i18n("<p>This color will be used to draw the line numbers (if enabled).</p>");
   ci.defaultColor = schemeWindow.foreground().color();
+  items.append(ci);
+
+  ci.name = i18n("Separator");
+  ci.key = "Color Separator";
+  ci.whatsThis = i18n("<p>This color will be used to draw the line between line numbers and the icon borders, if both are enabled.</p>");
+  ci.defaultColor = schemeView.foreground(KColorScheme::InactiveText).color();
   items.append(ci);
 
   ci.name = i18n("Word Wrap Marker");

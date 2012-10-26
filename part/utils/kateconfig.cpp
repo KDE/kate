@@ -1737,6 +1737,7 @@ KateRendererConfig::KateRendererConfig ()
    m_iconBarColorSet(true),
    m_foldingColorSet(true),
    m_lineNumberColorSet (true),
+   m_separatorColorSet (true),
    m_spellingMistakeLineColorSet (true),
    m_templateColorsSet(true),
    m_modifiedLineColorSet(true),
@@ -1774,6 +1775,7 @@ KateRendererConfig::KateRendererConfig (KateRenderer *renderer)
    m_iconBarColorSet (false),
    m_foldingColorSet (false),
    m_lineNumberColorSet (false),
+   m_separatorColorSet (false),
    m_spellingMistakeLineColorSet (false),
    m_templateColorsSet(false),
    m_modifiedLineColorSet(false),
@@ -1887,6 +1889,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   QColor tmp10( schemeView.background(KColorScheme::PositiveBackground).color() );
   QColor tmp11( schemeView.background(KColorScheme::NeutralBackground).color() );
   QColor tmp12( KColorScheme(QPalette::Inactive, KColorScheme::Selection).background().color() );
+  QColor tmp13( schemeView.foreground(KColorScheme::InactiveText).color() );
 
   m_backgroundColor = config.readEntry("Color Background", tmp0);
   m_backgroundColorSet = true;
@@ -1908,6 +1911,8 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_foldingColorSet = true;
   m_lineNumberColor = config.readEntry("Color Line Number", tmp7);
   m_lineNumberColorSet = true;
+  m_separatorColor = config.readEntry("Color Separator", tmp13);
+  m_separatorColorSet = true;
   m_spellingMistakeLineColor = config.readEntry("Color Spelling Mistake Line", tmp8);
   m_spellingMistakeLineColorSet = true;
 
@@ -2242,6 +2247,24 @@ void KateRendererConfig::setLineNumberColor (const QColor &col)
 
   m_lineNumberColorSet = true;
   m_lineNumberColor = col;
+
+  configEnd ();
+}
+
+const QColor& KateRendererConfig::separatorColor() const
+{
+  if (m_separatorColorSet || isGlobal())
+    return m_separatorColor;
+
+  return s_global->separatorColor();
+}
+
+void KateRendererConfig::setSeparatorColor(const QColor& col)
+{
+  configStart ();
+
+  m_separatorColorSet = true;
+  m_separatorColor = col;
 
   configEnd ();
 }

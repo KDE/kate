@@ -670,10 +670,13 @@ class KateRendererConfig : public KateConfig
     const QColor& foldingColor() const;
     void setFoldingColor (const QColor &col);
 
-    // the line number color is used for the line numbers on the left bar and
-    // for vertical separator lines and for code folding lines.
+    // the line number color is used for the line numbers on the left bar
     const QColor& lineNumberColor() const;
     void setLineNumberColor (const QColor &col);
+
+    // the color of the separator between line numbers and icon bar
+    const QColor& separatorColor() const;
+    void setSeparatorColor(const QColor &col);
 
     const QColor& spellingMistakeLineColor() const;
     void setSpellingMistakeLineColor (const QColor &col);
@@ -723,6 +726,7 @@ class KateRendererConfig : public KateConfig
     QColor m_iconBarColor;
     QColor m_foldingColor;
     QColor m_lineNumberColor;
+    QColor m_separatorColor;
     QColor m_spellingMistakeLineColor;
     QVector<QColor> m_lineMarkerColor;
 
@@ -751,6 +755,7 @@ class KateRendererConfig : public KateConfig
     bool m_iconBarColorSet : 1;
     bool m_foldingColorSet : 1;
     bool m_lineNumberColorSet : 1;
+    bool m_separatorColorSet : 1;
     bool m_spellingMistakeLineColorSet : 1;
     bool m_templateColorsSet : 1;
     bool m_modifiedLineColorSet : 1;

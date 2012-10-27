@@ -24,8 +24,10 @@
 #define __SNIPPETPLUGIN_H__
 
 #include <QtCore/QVariant>
+#include <QtCore/QPointer>
 
 #include <kateglobal.h>
+#include <kateview.h>
 
 class SnippetCompletionModel;
 
@@ -54,6 +56,7 @@ class KateSnippetGlobal : public QObject
 
 public:
     KateSnippetGlobal(QObject *parent, const QVariantList &args = QVariantList() );
+    ~KateSnippetGlobal ();
 
     /**
      * Inserts the given @p snippet into the currently active view.
@@ -65,8 +68,6 @@ public:
 #if 0
   virtual KDevelop::ContextMenuExtension contextMenuExtension(KDevelop::Context* context);
 
-    // KDevelop::IPlugin methods
-    virtual void unload();
 #endif
 
     static KateSnippetGlobal* self() { return KateGlobal::self()->snippetGlobal(); }
@@ -75,12 +76,20 @@ private slots:
     void viewCreated( KTextEditor::Document*, KTextEditor::View* view );
     void documentLoaded(KParts::Part*);
 public slots:
+    /**
+     * Show the snippet dialog, used by most simple apps using just
+     * KatePart.
+     * @param view view to show dialog for
+     */
+    void showDialog (KateView *view);
+
     void createSnippetFromSelection();
     void insertSnippetFromActionData();
 
 private:
     class SnippetViewFactory *m_factory;
     class SnippetCompletionModel* m_model;
+    QPointer<KateView> m_activeViewForDialog;
 };
 
 #endif

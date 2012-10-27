@@ -90,32 +90,39 @@ KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
 */
 }
 
-/**
-FIXME
-void KateSnippetGlobal::unload()
+KateSnippetGlobal::~KateSnippetGlobal ()
 {
-    core()->uiController()->removeToolView(m_factory);
     delete SnippetStore::self();
 }
-*/
+
+void KateSnippetGlobal::showDialog (KateView *view)
+{
+  KDialog dialog;
+  dialog.setCaption("Snippets");
+  dialog.setButtons(KDialog::Ok);
+  dialog.setDefaultButton(KDialog::Ok);
+
+  QWidget* widget = new SnippetView (this, &dialog);
+  dialog.setMainWidget(widget);
+
+  /**
+   * set document to work on and trigger dialog
+   */
+  m_activeViewForDialog = view;
+  dialog.exec();
+  m_activeViewForDialog = 0;
+}
 
 void KateSnippetGlobal::insertSnippet(Snippet* snippet)
 {
-/** FIXME
-    KDevelop::IDocument* doc = core()->documentController()->activeDocument();
-    if (!doc) return;
-    if (doc->isTextDocument()) {
-        SnippetCompletionItem item(snippet, static_cast<SnippetRepository*>(snippet->parent()));
-        KTextEditor::Range range = doc->textSelection();
-        if ( !range.isValid() ) {
-            range = KTextEditor::Range(doc->cursorPosition(), doc->cursorPosition());
-        }
-        item.execute(doc->textDocument(), range);
-        if ( doc->textDocument()->activeView() ) {
-            doc->textDocument()->activeView()->setFocus();
-        }
-    }
-*/
+  if (m_activeViewForDialog) {
+      SnippetCompletionItem item(snippet, static_cast<SnippetRepository*>(snippet->parent()));
+      KTextEditor::Range range = m_activeViewForDialog->selectionRange();
+      if ( !range.isValid() ) {
+          range = KTextEditor::Range(m_activeViewForDialog->cursorPosition(), m_activeViewForDialog->cursorPosition());
+      }
+      item.execute(m_activeViewForDialog->document(), range);
+  }
 }
 
 void KateSnippetGlobal::insertSnippetFromActionData()

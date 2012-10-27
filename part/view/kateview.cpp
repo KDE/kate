@@ -60,6 +60,7 @@
 #include "kateswapfile.h"
 #include "katerecoverbar.h"
 #include "katebrokenswapfilebar.h"
+#include "snippet/katesnippetglobal.h"
 
 #include <kparts/event.h>
 
@@ -426,6 +427,10 @@ void KateView::setupActions()
     a->setWhatsThis(i18n("Manually invoke command completion, usually by using a shortcut bound to this action."));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Space));
     connect(a, SIGNAL(triggered(bool)), SLOT(userInvokedCompletion()));
+
+    a = ac->addAction( "tools_snippets" );
+    a->setText( i18n("Snippets...") );
+    connect(a, SIGNAL(triggered(bool)), SLOT(showSnippetsDialog()));
   }
   else
   {
@@ -660,6 +665,11 @@ void KateView::setupActions()
       action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
   connect (this, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(slotSelectionChanged()));
+}
+
+void KateView::showSnippetsDialog ()
+{
+  KateGlobal::self()->snippetGlobal()->showDialog (this);
 }
 
 void KateView::slotConfigDialog ()

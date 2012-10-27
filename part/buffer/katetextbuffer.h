@@ -152,18 +152,6 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * @param newlineAtEof should newline be added if non-existing
      */
     void setNewLineAtEof(bool newlineAtEof) { m_newLineAtEof = newlineAtEof; }
-
-    /**
-     * Specify if the buffer should remove trailing spaces while loading/saving files.
-     * @param removeTrailingSpaces should trailing spaces be removed on load/save?
-     */
-    void setRemoveTrailingSpaces (bool removeTrailingSpaces) { m_removeTrailingSpaces = removeTrailingSpaces; }
-
-    /**
-     * Should trailing spaces be removed on load/save.
-     * @return should trailing spaces be removed on load/save?
-     */
-    bool removeTrailingSpaces () const { return m_removeTrailingSpaces; }
     
     /**
      * Set line length limit
@@ -546,11 +534,6 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * End of line mode, default is Unix
      */
     EndOfLineMode m_endOfLineMode;
-
-    /**
-     * Should trailing spaces be removed on load/save.
-     */
-    bool m_removeTrailingSpaces;
     
     /**
      * Insert newline character at the end of the file?

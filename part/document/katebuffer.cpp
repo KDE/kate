@@ -237,9 +237,6 @@ bool KateBuffer::saveFile (const QString &m_file)
   // generate bom?
   setGenerateByteOrderMark (m_doc->config()->bom());
 
-  // remove trailing spaces?
-  setRemoveTrailingSpaces (m_doc->config()->removeSpaces());
-
   // append a newline character at the end of the file (eof) ?
   setNewLineAtEof (m_doc->config()->newLineAtEof());
 

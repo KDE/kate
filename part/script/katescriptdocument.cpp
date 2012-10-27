@@ -70,7 +70,7 @@ bool KateScriptDocument::isCode(const KTextEditor::Cursor& cursor)
 
 bool KateScriptDocument::isComment(int line, int column)
 {
-  return m_document->isComment(line,column);;
+  return m_document->isComment(line, column);
 }
 
 bool KateScriptDocument::isComment(const KTextEditor::Cursor& cursor)

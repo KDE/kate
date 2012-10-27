@@ -75,13 +75,12 @@ const QStringList &KateCommands::CoreCommands::cmds()
   l << "indent" << "unindent" << "cleanindent"
     << "comment" << "uncomment" << "goto" << "kill-line"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
-    << "set-remove-trailing-space"
     << "set-indent-width"
     << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
     << "set-wrap-cursor"
     << "set-word-wrap" << "set-word-wrap-column"
-    << "set-replace-tabs-save" << "set-remove-trailing-space-save"
+    << "set-replace-tabs-save" << "set-remove-trailing-spaces"
     << "set-highlight" << "set-mode" << "set-show-indent"
     << "print";
 
@@ -207,7 +206,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
 
     if ( cmd == "set-indent-mode" )
     {
-      v->doc()->config()->setIndentationMode( args.first() );
+      v->doc()->config()->setIndentationMode( args.join(" ") );
       return true;
     }
     else if ( cmd == "set-highlight" )
@@ -288,12 +287,10 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
             cmd == "set-folding-markers" ||
             cmd == "set-line-numbers" ||
             cmd == "set-replace-tabs" ||
-            cmd == "set-remove-trailing-space" ||
             cmd == "set-show-tabs" ||
             cmd == "set-word-wrap" ||
             cmd == "set-wrap-cursor" ||
             cmd == "set-replace-tabs-save" ||
-            cmd == "set-remove-trailing-space-save" ||
             cmd == "set-show-indent" )
   {
     if ( ! args.count() )
@@ -312,10 +309,6 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
         v->renderer()->setShowIndentLines( enable );
       else if ( cmd == "set-replace-tabs" )
         config->setReplaceTabsDyn( enable );
-      else if ( cmd == "set-remove-trailing-space" )
-        config->setRemoveSpaces( enable ? 1 : 0 );
-      else if ( cmd == "set-remove-trailing-space-save" )
-        config->setRemoveSpaces( enable ? 2 : 0 );
       else if ( cmd == "set-show-tabs" )
         config->setShowTabs( enable );
       else if ( cmd == "set-show-trailing-spaces" )
@@ -330,6 +323,20 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     else
       KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false",
                  args.first() ,  cmd ) );
+  }
+  else if ( cmd == "set-remove-trailing-spaces" ) {
+    // need at least one item, otherwise args.first() crashes
+    if ( args.count() != 1 )
+      KCC_ERR( i18n("Usage: set-remove-trailing-spaces 0|-|none or 1|+|mod|modified or 2|*|all") );
+
+    QString tmp = args.first().toLower().trimmed();
+    if (tmp == "1" || tmp == "modified" || tmp == "mod" || tmp == "+") {
+      v->doc()->config()->setRemoveSpaces(1);
+    } else if (tmp == "2" || tmp == "all" || tmp == "*") {
+      v->doc()->config()->setRemoveSpaces(2);
+    } else {
+      v->doc()->config()->setRemoveSpaces(0);
+    }
   }
 
   // unlikely..

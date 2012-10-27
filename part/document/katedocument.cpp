@@ -4196,10 +4196,18 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         m_config->setReplaceTabsDyn( state );
         replaceTabsSet = true;  // for backward compatibility; see below
       }
-      else if ( var == "remove-trailing-space" && checkBoolValue( val, &state ) )
+      else if ( var == "remove-trailing-space" && checkBoolValue( val, &state ) ) {
+        kWarning() << i18n("Using deprecated modeline 'remove-trailing-space'. "
+          "Please replace with 'remove-trailing-spaces modified;', see "
+          "http://docs.kde.org/stable/en/kde-baseapps/kate/config-variables.html#variable-remove-trailing-spaces");
         m_config->setRemoveSpaces( state ? 1 : 0 );
-      else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
+      }
+      else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) ) {
+        kWarning() << i18n("Using deprecated modeline 'replace-trailing-space-save'. "
+          "Please replace with 'remove-trailing-spaces all;', see "
+          "http://docs.kde.org/stable/en/kde-baseapps/kate/config-variables.html#variable-remove-trailing-spaces");
         m_config->setRemoveSpaces( state ? 2 : 0 );
+      }
       else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
         m_config->setWrapCursor( state );
       else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
@@ -4249,6 +4257,18 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           if (checkBoolValue(val,&state)) {
             m_config->setBom(state);
           }
+      }
+      else if ( var == "remove-trailing-spaces" ) {
+        val = val.toLower();
+        if (val == "1" || val == "modified" || val == "mod" || val == "+") {
+          m_config->setRemoveSpaces(1);
+        } else if (val == "2" || val == "all" || val == "*") {
+          m_config->setRemoveSpaces(2);
+        } else {
+          m_config->setRemoveSpaces(0);
+        }
+
+        m_config->setRemoveSpaces( state ? 1 : 0 );
       }
       else if (var == "presave-postdialog")
         setPreSavePostDialogFilterChecks(val.split(','));

@@ -362,37 +362,54 @@ int TextBuffer::blockForLine (int line) const
   if ((line < 0) || (line >= lines()))
     qFatal ("out of range line requested in text buffer (%d out of [0, %d[)", line, lines());
 
-  // block to start search with
-  int index = m_lastUsedBlock;
+  // we need blocks and last used block should not be negative
+  Q_ASSERT (!m_blocks.isEmpty());
+  Q_ASSERT (m_lastUsedBlock >= 0);
+  
+  /**
+   * shortcut: try last block first
+   */
+  if (m_lastUsedBlock < m_blocks.size()) {
+    /**
+     * check if block matches
+     * if yes, just return again this block
+     */
+    TextBlock* block = m_blocks[m_lastUsedBlock];
+    const int start = block->startLine();
+    const int lines = block->lines ();
+    if (start <= line && line < (start + lines))
+      return m_lastUsedBlock;
+  }
+
+  /**
+   * search for right block
+   * use binary search
+   * if we leave this loop not by returning the found element we have an error
+   */
   int blockStart = 0;
-  int blockEnd = m_blocks.size();
+  int blockEnd = m_blocks.size() - 1;
+  while (blockEnd >= blockStart) {
+    // get middle and ensure it is OK
+    int middle = blockStart + ((blockEnd - blockStart) / 2);
+    Q_ASSERT (middle >= 0);
+    Q_ASSERT (middle < m_blocks.size());
 
-  // check if start is ok
-  if (index < 0 || index >= m_blocks.size())
-    index = 0;
-
-  // search for right block
-  forever {
     // facts bout this block
-    TextBlock* block = m_blocks.at(index);
+    TextBlock* block = m_blocks[middle];
     const int start = block->startLine();
     const int lines = block->lines ();
 
     // right block found, remember it and return it
     if (start <= line && line < (start + lines)) {
-      m_lastUsedBlock = index;
-      return index;
+      m_lastUsedBlock = middle;
+      return middle;
     }
 
+    // half our stuff ;)
     if (line < start)
-	{
-	  // Search left of index
-	  blockEnd = index;
-	}else{
-	  // Search right of index
-	  blockStart = index+1;
-	}
-	index = (blockStart + (blockEnd-1)) / 2;
+      blockEnd = middle - 1;
+    else
+      blockStart = middle + 1;
   }
 
   // we should always find a block

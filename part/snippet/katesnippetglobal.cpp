@@ -49,17 +49,12 @@ KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)
 {
     SnippetStore::init(this);
-
     m_model = new SnippetCompletionModel;
-
-    /** FIXME
-    core()->uiController()->addToolView(i18n("Snippets"), m_factory);
-    connect( core()->partController(), SIGNAL(partAdded(KParts::Part*)), this, SLOT(documentLoaded(KParts::Part*)) );
-*/
 }
 
 KateSnippetGlobal::~KateSnippetGlobal ()
 {
+    delete m_model;
     delete SnippetStore::self();
 }
 
@@ -111,24 +106,6 @@ void KateSnippetGlobal::insertSnippetFromActionData()
     Snippet* snippet = action->data().value<Snippet*>();
     Q_ASSERT(snippet);
     insertSnippet(snippet);
-}
-
-void KateSnippetGlobal::viewCreated( KTextEditor::Document*, KTextEditor::View* view )
-{
-    KAction* selectionAction = view->actionCollection()->addAction("edit_selection_snippet", this, SLOT(createSnippetFromSelection()));
-    selectionAction->setData(QVariant::fromValue<void *>(view));
-}
-
-void KateSnippetGlobal::documentLoaded( KParts::Part* part )
-{
-    KTextEditor::Document *textDocument = dynamic_cast<KTextEditor::Document*>( part );
-    if ( textDocument ) {
-        foreach( KTextEditor::View* view, textDocument->views() )
-          viewCreated( textDocument, view );
-
-        connect( textDocument, SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)), SLOT(viewCreated(KTextEditor::Document*,KTextEditor::View*)) );
-
-    }
 }
 
 void KateSnippetGlobal::createSnippet (KateView *view)

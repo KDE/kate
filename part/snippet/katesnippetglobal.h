@@ -30,21 +30,7 @@
 #include <kateview.h>
 
 class SnippetCompletionModel;
-
-namespace KTextEditor
-{
-class Document;
-class View;
-}
-
-namespace KParts
-{
-class Part;
-}
-
 class Snippet;
-class KAction;
-class QMenu;
 
 /**
  * This is the main class of KDevelop's snippet plugin.
@@ -64,11 +50,6 @@ public:
      * nothing will happen.
      */
     void insertSnippet(Snippet* snippet);
-    
-#if 0
-  virtual KDevelop::ContextMenuExtension contextMenuExtension(KDevelop::Context* context);
-
-#endif
 
     static KateSnippetGlobal* self() { return KateGlobal::self()->snippetGlobal(); }
 
@@ -78,9 +59,6 @@ public:
      */
     SnippetCompletionModel *completionModel () { return m_model; }
 
-private slots:
-    void viewCreated( KTextEditor::Document*, KTextEditor::View* view );
-    void documentLoaded(KParts::Part*);
 public slots:
     /**
      * Create snippet for given view, e.g. by using the selection
@@ -98,7 +76,6 @@ public slots:
     void insertSnippetFromActionData();
 
 private:
-    class SnippetViewFactory *m_factory;
     class SnippetCompletionModel* m_model;
     QPointer<KateView> m_activeViewForDialog;
 };

@@ -51,6 +51,7 @@
 #include <kmenu.h>
 #include <kiconloader.h>
 #include <kconfiggroup.h>
+#include "ktoolinvocation.h"
 
 #include <QtAlgorithms>
 #include <QVariant>
@@ -388,14 +389,24 @@ class KateCmdLineEditFlagCompletion : public KCompletion
 KateCommandLineBar::KateCommandLineBar (KateView *view, QWidget *parent)
     : KateViewBarWidget (true, parent)
 {
-    QVBoxLayout *topLayout = new QVBoxLayout ();
+    QHBoxLayout *topLayout = new QHBoxLayout ();
     centralWidget()->setLayout(topLayout);
     topLayout->setMargin(0);
     m_lineEdit = new KateCmdLineEdit (this, view);
     connect(m_lineEdit, SIGNAL(hideRequested()), SIGNAL(hideMe()));
     topLayout->addWidget (m_lineEdit);
-
+    
+    QToolButton *helpButton = new QToolButton(this);
+    helpButton->setAutoRaise(true);
+    helpButton->setIcon(KIcon(KIcon ("help-contextual")));
+    topLayout->addWidget(helpButton);
+    connect (helpButton,SIGNAL(clicked()),this,SLOT(showHelpPage()));
+    
     setFocusProxy (m_lineEdit);
+}
+
+void KateCommandLineBar::showHelpPage() {
+  KToolInvocation::invokeHelp("advanced-editing-tools-commandline","kate");
 }
 
 KateCommandLineBar::~KateCommandLineBar()

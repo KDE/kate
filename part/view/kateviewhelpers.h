@@ -378,6 +378,8 @@ class KateViewBar : public QWidget
 
 class KATEPART_TESTS_EXPORT KateCommandLineBar : public KateViewBarWidget
 {
+  Q_OBJECT
+  
   public:
     explicit KateCommandLineBar(KateView *view, QWidget *parent = 0);
     ~KateCommandLineBar();
@@ -385,6 +387,9 @@ class KATEPART_TESTS_EXPORT KateCommandLineBar : public KateViewBarWidget
     void setText(const QString &text, bool selected = true);
     void execute(const QString &text);
 
+  public Q_SLOTS:
+    void showHelpPage();
+    
   private:
     class KateCmdLineEdit *m_lineEdit;
 };

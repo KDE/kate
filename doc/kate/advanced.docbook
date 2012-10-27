@@ -104,98 +104,7 @@ Legal values are <userinput>on</userinput>, <userinput>off</userinput>,
 
 </variablelist>
 
-<sect3 id="advanced-editing-tools-commandline-commands-basic">
-<title>Commands for Basic Editor Functions</title>
 
-<variablelist>
-
-<varlistentry>
-<term><cmdsynopsis><command>w</command></cmdsynopsis></term>
-<listitem><para>Save the current document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>wa</command></cmdsynopsis></term>
-<listitem><para>Save all currently open documents.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>q</command></cmdsynopsis></term>
-<listitem><para>Close the current document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>qa</command></cmdsynopsis></term>
-<listitem><para>Close all open documents.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>wq</command></cmdsynopsis></term>
-<listitem><para>Save and close the current document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>wqa</command></cmdsynopsis></term>
-<listitem><para>Save and close all currently open documents.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>x</command></cmdsynopsis></term>
-<listitem><para>Save and close the current document only if it has changed.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>x</command></cmdsynopsis></term>
-<listitem><para>Save and close all currently open documents only if they have
-changed.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>bp</command></cmdsynopsis></term>
-<listitem><para>Go to the previous document in the documents list.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>bn</command></cmdsynopsis></term>
-<listitem><para>Go to the next document in the documents list.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>new</command></cmdsynopsis></term>
-<listitem><para>Open a new document in horizontal split view.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>vnew</command></cmdsynopsis></term>
-<listitem><para>Open a new document in vertical split view.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>e</command></cmdsynopsis></term>
-<listitem><para>Reload the current document if it has changed on disk.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>enew</command></cmdsynopsis></term>
-<listitem><para>Edit a new document.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><cmdsynopsis><command>print</command></cmdsynopsis></term>
-<listitem><para>Open the Print dialog to print the current document.
-</para></listitem>
-</varlistentry>
-
-</variablelist>
-
-</sect3>
 
 <sect3 id="advanced-editing-tools-commandline-commands-configure">
 <title>Commands for Configuring the Editor</title>
@@ -869,6 +778,101 @@ followed by one or more options, like this:
 </variablelist>
 
 </sect3>
+
+
+<sect3 id="advanced-editing-tools-commandline-commands-basic">
+<title>Commands for Basic Editor Functions (These are depending on the application the editor component is used in)</title>
+
+<variablelist>
+
+<varlistentry>
+<term><cmdsynopsis><command>w</command></cmdsynopsis></term>
+<listitem><para>Save the current document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>wa</command></cmdsynopsis></term>
+<listitem><para>Save all currently open documents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>q</command></cmdsynopsis></term>
+<listitem><para>Close the current document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>qa</command></cmdsynopsis></term>
+<listitem><para>Close all open documents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>wq</command></cmdsynopsis></term>
+<listitem><para>Save and close the current document.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>wqa</command></cmdsynopsis></term>
+<listitem><para>Save and close all currently open documents.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>x</command></cmdsynopsis></term>
+<listitem><para>Save and close the current document only if it has changed.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>x</command></cmdsynopsis></term>
+<listitem><para>Save and close all currently open documents only if they have
+changed.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>bp</command></cmdsynopsis></term>
+<listitem><para>Go to the previous document in the documents list.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>bn</command></cmdsynopsis></term>
+<listitem><para>Go to the next document in the documents list.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>new</command></cmdsynopsis></term>
+<listitem><para>Open a new document in horizontal split view.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>vnew</command></cmdsynopsis></term>
+<listitem><para>Open a new document in vertical split view.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>e</command></cmdsynopsis></term>
+<listitem><para>Reload the current document if it has changed on disk.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>enew</command></cmdsynopsis></term>
+<listitem><para>Edit a new document.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><cmdsynopsis><command>print</command></cmdsynopsis></term>
+<listitem><para>Open the Print dialog to print the current document.
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
 
 </sect2>
 

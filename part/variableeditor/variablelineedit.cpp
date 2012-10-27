@@ -237,7 +237,7 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   listview->addItem(item);
 
   // Add 'indent-mode' to list
-  item = new VariableStringListItem("indent-mode", KateAutoIndent::listModes(),docConfig->indentationMode());
+  item = new VariableStringListItem("indent-mode", KateAutoIndent::listIdentifiers(), docConfig->indentationMode());
   item->setHelpText(i18nc("short translation please", "Set the auto indentation style."));
   listview->addItem(item);
 

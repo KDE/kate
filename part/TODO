@@ -2,7 +2,10 @@ KDE Framework 5.0
 
 - Remove Smart*
 - Cleanup Cursor and Range classes (non virtual!)
-  declare Q_MOVABLE_TYPE: http://doc.qt.nokia.com/qq/qq19-containers.html
+-- mark as movable
+-- inline as much as possible
+-- declare Q_MOVABLE_TYPE: http://doc.qt.nokia.com/qq/qq19-containers.html
+-- remove Range* from Cursor
 - Dropping KTextEditor::Plugin/View interface
 - KTE: drop unneeded code completion interfaces 2, 3, 4
 - KTE: Merge some interfaces

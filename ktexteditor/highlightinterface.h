@@ -101,6 +101,8 @@ class KTEXTEDITOR_EXPORT HighlightInterface
     /// dimension in a given line.
     ///
     /// \see lineAttributes()
+    ///
+    /// TODO: KDE5 mark as movable
     struct AttributeBlock {
       AttributeBlock(const int _start, const int _length, const Attribute::Ptr & _attribute)
         : start(_start), length(_length), attribute(_attribute)

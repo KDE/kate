@@ -982,7 +982,7 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
     // and return /foo/x rather than /foo/xy
     // this seems a bit hackish, but is the simplest way to solve the
     // current issue.
-    path += "/";
+    path += QDir::separator ();
 
     if(name.startsWith(path) && item->flag(ProxyItem::Dir)) {
       return static_cast<ProxyItemDir*>(item);
@@ -1102,7 +1102,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     endInsertRows();
     
     // same fix as in findRootNode, try to match a full dir, instead of a partial path
-    base += "/";
+    base += QDir::separator ();
     
     // try and merge existing roots with the new root node.
     kDebug(debugArea()) << "attempting to merge some existing roots";

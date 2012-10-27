@@ -99,6 +99,9 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)),
           &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
 
+  connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), this, SLOT(updatePixmap()));
+
+
   QTimer::singleShot(0, this, SLOT(updatePixmap()));
 }
 
@@ -151,7 +154,8 @@ void KateScrollBar::updatePixmap()
 {
   if (!m_showMiniMap) return;
 
-  int docLines = m_doc->lines();
+  int visibleLines = m_doc->visibleLines();
+  int docLines = visibleLines;
   int numJumpLines = 1;
   if ((height() > 10) && (docLines > height()*2)) {
     numJumpLines = docLines / height();
@@ -168,8 +172,8 @@ void KateScrollBar::updatePixmap()
   QPainter p;
   if (p.begin(&m_pixmap)) {
     p.setPen(palette().color(QPalette::Text));
-    for (int y=0; y < m_doc->lines(); y+=numJumpLines) {
-      line = m_doc->line(y);
+    for (int y=0; y < visibleLines; y+=numJumpLines) {
+      line = m_doc->line(m_doc->getRealLine(y));
       pixX=10;
       for (int x=0; x <line.size(); x++) {
         if (pixX >= s_lineWidth) {
@@ -231,10 +235,13 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   if (!m_showMarks) return;
 
   QHashIterator<int, QColor> it = m_lines;
+  QPen pen;
+  pen.setWidth(2);
   while (it.hasNext())
   {
     it.next();
-    painter.setPen(it.value());
+    pen.setColor(it.value());
+    painter.setPen(pen);
     painter.drawLine(0, it.key(), width(), it.key());
   }
 }

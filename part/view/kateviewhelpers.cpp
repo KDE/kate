@@ -87,6 +87,8 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   , m_viewInternal(parent)
   , m_showMarks(false)
   , m_showMiniMap(false)
+  , m_lastShownStartLine(-1)
+  , m_pressed(false)
 {
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
   connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document*)), this, SLOT(marksChanged()));
@@ -121,6 +123,12 @@ void KateScrollBar::mousePressEvent(QMouseEvent* e)
   QScrollBar::mousePressEvent(e);
 
   redrawMarks();
+  m_pressed=true;
+  m_lastShownStartLine=m_viewInternal->startLine()+1;
+  m_toolTipPos=e->globalPos();
+  m_toolTipPos.setX(m_toolTipPos.x()-e->pos().x());
+  m_toolTipRect=QRect(e->globalX()-10,e->globalY()-10,20,20);
+  QToolTip::showText(m_toolTipPos,QString("%1").arg(m_lastShownStartLine),this,m_toolTipRect);
 }
 
 void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
@@ -130,14 +138,26 @@ void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
   m_middleMouseDown = false;
 
   redrawMarks();
+  m_pressed=false;  
+  QToolTip::hideText();
+  
 }
 
 void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 {
   QScrollBar::mouseMoveEvent(e);
 
-  if (e->buttons() | Qt::LeftButton)
+  if (e->buttons() | Qt::LeftButton) {
     redrawMarks();
+    int tmp=m_viewInternal->startLine()+1;
+    /*if (tmp!=m_lastShownStartLine)*/ {
+      m_lastShownStartLine=tmp;
+      m_toolTipPos=e->globalPos();
+      m_toolTipPos.setX(m_toolTipPos.x()-e->pos().x());
+      m_toolTipRect=QRect(e->globalX()-10,e->globalY()-10,20,20);
+      QToolTip::showText(m_toolTipPos,QString("%1").arg(tmp),this,m_toolTipRect);
+    }    
+  }
 }
 
 void KateScrollBar::paintEvent(QPaintEvent *e)
@@ -312,6 +332,14 @@ void KateScrollBar::sliderChange ( SliderChange change )
   else if (change == QAbstractSlider::SliderRangeChange)
   {
     recomputeMarksPositions();
+  }
+  
+  if (m_pressed) {
+      int tmp=m_viewInternal->startLine()+1;
+    /*if (tmp!=m_lastShownStartLine)*/ {
+      m_lastShownStartLine=tmp;
+      QToolTip::showText(m_toolTipPos,QString("%1").arg(tmp),this,m_toolTipRect);
+    }  
   }
 }
 

@@ -114,6 +114,10 @@ class KateScrollBar : public QScrollBar
 
     QPixmap m_pixmap;
     QTimer  m_updateTimer;
+    int m_lastShownStartLine;
+    bool m_pressed;
+    QPoint m_toolTipPos;
+    QRect m_toolTipRect;
 };
 
 class KateIconBorder : public QWidget

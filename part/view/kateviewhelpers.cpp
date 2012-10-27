@@ -105,7 +105,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 QSize KateScrollBar::sizeHint() const
 {
   if (m_showMiniMap) {
-    return QSize(QScrollBar::sizeHint().width()*2, QScrollBar::sizeHint().height());
+    return QSize(QScrollBar::sizeHint().width()*3, QScrollBar::sizeHint().height());
   }
   return QScrollBar::sizeHint();
 }
@@ -149,6 +149,8 @@ void KateScrollBar::paintEvent(QPaintEvent *e)
 
 void KateScrollBar::updatePixmap()
 {
+  if (!m_showMiniMap) return;
+
   int docLines = m_doc->lines();
   int numJumpLines = 1;
   if ((height() > 10) && (docLines > height()*2)) {
@@ -168,7 +170,7 @@ void KateScrollBar::updatePixmap()
     p.setPen(palette().color(QPalette::Text));
     for (int y=0; y < m_doc->lines(); y+=numJumpLines) {
       line = m_doc->line(y);
-      pixX=0;
+      pixX=10;
       for (int x=0; x <line.size(); x++) {
         if (pixX >= s_lineWidth) {
           break;
@@ -213,8 +215,8 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
 
   painter.drawPixmap(grooveRect, m_pixmap, m_pixmap.rect());
 
-  painter.setBrush(QColor(127,127,127, 70));
-  painter.setPen(QColor(127,127,127, 70));
+  painter.setBrush(QColor(127,127,127, 127));
+  painter.setPen(QColor(127,127,127, 127));
   painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
   painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));
 

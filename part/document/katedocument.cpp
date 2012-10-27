@@ -89,6 +89,11 @@
 #include <QtCore/QMap>
 //END  includes
 
+#if 0
+#define EDIT_DEBUG kDebug()
+#else
+#define EDIT_DEBUG if (0) kDebug()
+#endif
 
 static int dummy = 0;
 
@@ -912,7 +917,6 @@ bool KateDocument::wrapText(int startLine, int endLine)
   for (int line = startLine; (line <= endLine) && (line < lines()); line++)
   {
     Kate::TextLine l = kateTextLine(line);
-
     if (!l)
       break;
 
@@ -964,7 +968,6 @@ bool KateDocument::wrapText(int startLine, int endLine)
         nw = z;
       }
 
-      bool removeTrailingSpace = false;
       if (z > 0)
       {
         // So why don't we just remove the trailing space right away?
@@ -973,7 +976,6 @@ bool KateDocument::wrapText(int startLine, int endLine)
         // happens, the cursor would be moved to the next line, which is not
         // what we want (bug #106261)
         z++;
-        removeTrailingSpace = true;
       }
       else
       {
@@ -1003,11 +1005,6 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
         endLine++;
       }
-
-      if (removeTrailingSpace) {
-        // cu space
-        editRemoveText (line, z - 1, 1);
-      }
     }
   }
 
@@ -1018,6 +1015,9 @@ bool KateDocument::wrapText(int startLine, int endLine)
 
 bool KateDocument::editInsertText ( int line, int col, const QString &s )
 {
+  // verbose debug
+  EDIT_DEBUG << "editInsertText" << line << col << s;
+
   if (line < 0 || col < 0)
     return false;
 
@@ -1056,6 +1056,9 @@ bool KateDocument::editInsertText ( int line, int col, const QString &s )
 
 bool KateDocument::editRemoveText ( int line, int col, int len )
 {
+  // verbose debug
+  EDIT_DEBUG << "editRemoveText" << line << col << len;
+
   if (line < 0 || col < 0 || len < 0)
     return false;
 
@@ -1097,6 +1100,9 @@ bool KateDocument::editRemoveText ( int line, int col, int len )
 
 bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
 {
+  // verbose debug
+  EDIT_DEBUG << "editMarkLineAutoWrapped" << line << autowrapped;
+
   if (line < 0)
     return false;
 
@@ -1121,6 +1127,9 @@ bool KateDocument::editMarkLineAutoWrapped ( int line, bool autowrapped )
 
 bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLineAdded)
 {
+  // verbose debug
+  EDIT_DEBUG << "editWrapLine" << line << col << newLine;
+
   if (line < 0 || col < 0)
     return false;
 
@@ -1188,6 +1197,9 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
 
 bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
 {
+  // verbose debug
+  EDIT_DEBUG << "editUnWrapLine" << line << removeLine << length;
+
   if (line < 0 || length < 0)
     return false;
 
@@ -1255,6 +1267,9 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
 
 bool KateDocument::editInsertLine ( int line, const QString &s )
 {
+  // verbose debug
+  EDIT_DEBUG << "editInsertLine" << line << s;
+
   if (line < 0)
     return false;
 
@@ -1323,6 +1338,9 @@ bool KateDocument::editRemoveLine ( int line )
 
 bool KateDocument::editRemoveLines ( int from, int to )
 {
+  // verbose debug
+  EDIT_DEBUG << "editRemoveLines" << from << to;
+
   if (to < from || from < 0 || to > lastLine())
     return false;
 

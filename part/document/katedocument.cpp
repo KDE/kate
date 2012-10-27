@@ -239,7 +239,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect (this, SIGNAL(started(KIO::Job*)), this, SLOT(slotStarted(KIO::Job*)));
   connect (this, SIGNAL(completed()), this, SLOT(slotCompleted()));
   connect (this, SIGNAL(canceled(QString)), this, SLOT(slotCanceled()));
-  
+
   // update doc name
   setDocName (QString());
 
@@ -2917,12 +2917,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
     KTextEditor::Range range = KTextEditor::Range(KTextEditor::Cursor(pos.line(), 0),
                                                   KTextEditor::Cursor(pos.line() + lines, 0));
 
-    int start = view->selectionRange().start().line();
-    const int end = view->selectionRange().end().line();
-
-    editStart();
     m_indenter->indent(view, range);
-    editEnd();
   }
 
   if (!view->blockSelectionMode())
@@ -2944,9 +2939,7 @@ void KateDocument::indent (KTextEditor::Range range, int change)
 
 void KateDocument::align(KateView *view, const KTextEditor::Range &range)
 {
-  editStart();
   m_indenter->indent(view, range);
-  editEnd();
 }
 
 void KateDocument::insertTab( KateView *, const KTextEditor::Cursor& c )
@@ -4704,7 +4697,7 @@ bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &
   if (templateString.isEmpty()) return false;
 
   if (!isReadWrite()) return false;
-  
+
   KateTemplateScript* kateTemplateScript =
     KateGlobal::self()->scriptManager()->templateScript(templateScript);
 
@@ -4905,7 +4898,7 @@ bool KateDocument::queryClose()
 void KateDocument::slotCanceled() {
   // remember file loading is over now
   m_filePerhapsStillLoading = false;
-  
+
   m_savingToUrl=false;
   m_saveAs=false;
 }
@@ -4913,7 +4906,7 @@ void KateDocument::slotCanceled() {
 void KateDocument::slotCompleted() {
   // remember file loading is over now
   m_filePerhapsStillLoading = false;
-  
+
   if (m_savingToUrl) {
     if (!m_postSaveFilterChecks.isEmpty())
     {
@@ -4940,7 +4933,7 @@ bool KateDocument::save() {
   // don't allow to save files that still load
   if (m_filePerhapsStillLoading)
     return false;
-  
+
   m_saveAs = false;
   return KTextEditor::Document::save();
 }
@@ -4949,7 +4942,7 @@ bool KateDocument::saveAs( const KUrl &url ) {
   // don't allow to save files that still load
   if (m_filePerhapsStillLoading)
     return false;
-  
+
   m_saveAs = true;
   return KTextEditor::Document::saveAs(url);
 }

@@ -52,6 +52,7 @@ class KatePartPluginManager;
 class KateSpellCheckManager;
 class KateViGlobal;
 class KateWordCompletionModel;
+class KateSnippetGlobal;
 
 namespace Kate {
   class Command;
@@ -308,6 +309,12 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     KateWordCompletionModel *wordCompletionModel () { return m_wordCompletionModel; }
 
     /**
+     * global instance of the snippet handling
+     * @return global instance of the snippet handling
+     */
+    KateSnippetGlobal *snippetGlobal() { return m_snippetGlobal; }
+
+    /**
      * register given command
      * this works global, for all documents
      * @param cmd command to register
@@ -477,6 +484,11 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * global instance of the simple word completion mode
      */
     KateWordCompletionModel *m_wordCompletionModel;
+
+    /**
+     * global instance of the snippet handling
+     */
+    KateSnippetGlobal *m_snippetGlobal;
 };
 
 #endif

@@ -37,6 +37,7 @@
 #include "kateviglobal.h"
 #include "katewordcompletion.h"
 #include "spellcheck/spellcheck.h"
+#include "snippet/katesnippetglobal.h"
 
 #include <klocale.h>
 #include <kservicetypetrader.h>
@@ -187,6 +188,9 @@ KateGlobal::KateGlobal ()
   // global word completion model
   m_wordCompletionModel = new KateWordCompletionModel (this);
 
+  // global snippet handler
+  m_snippetGlobal = new KateSnippetGlobal (this);
+
   //
   // finally setup connections
   //
@@ -195,6 +199,7 @@ KateGlobal::KateGlobal ()
 
 KateGlobal::~KateGlobal()
 {
+  delete m_snippetGlobal;
   delete m_pluginManager;
 
   delete m_globalConfig;

@@ -25,6 +25,8 @@
 
 #include <QtCore/QVariant>
 
+#include <kateglobal.h>
+
 class SnippetCompletionModel;
 
 namespace KTextEditor
@@ -46,13 +48,12 @@ class QMenu;
  * This is the main class of KDevelop's snippet plugin.
  * @author Robert Gruber <rgruber@users.sourceforge.net>
  */
-class SnippetPlugin : public QObject
+class KateSnippetGlobal : public QObject
 {
     Q_OBJECT
 
 public:
-    SnippetPlugin(QObject *parent, const QVariantList &args = QVariantList() );
-    virtual ~SnippetPlugin();
+    KateSnippetGlobal(QObject *parent, const QVariantList &args = QVariantList() );
 
     /**
      * Inserts the given @p snippet into the currently active view.
@@ -68,7 +69,7 @@ public:
     virtual void unload();
 #endif
 
-    static SnippetPlugin* self();;
+    static KateSnippetGlobal* self() { return KateGlobal::self()->snippetGlobal(); }
 
 private slots:
     void viewCreated( KTextEditor::Document*, KTextEditor::View* view );
@@ -80,7 +81,6 @@ public slots:
 private:
     class SnippetViewFactory *m_factory;
     class SnippetCompletionModel* m_model;
-    static SnippetPlugin* m_self;
 };
 
 #endif

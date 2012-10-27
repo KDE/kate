@@ -28,11 +28,11 @@
 
 class SnippetFilterProxyModel;
 class QStandardItem;
-class SnippetPlugin;
+class KateSnippetGlobal;
 class KAction;
 
 /**
- * This class gets embedded into the right tool view by the SnippetPlugin.
+ * This class gets embedded into the right tool view by the KateSnippetGlobal.
  * @author Robert Gruber <rgruber@users.sourceforge.net>
  * @author Milian Wolff <mail@milianw.de>
  */
@@ -41,7 +41,7 @@ class SnippetView : public QWidget, public Ui::SnippetViewBase
     Q_OBJECT
 
 public:
-    explicit SnippetView(SnippetPlugin* plugin, QWidget* parent = 0);
+    explicit SnippetView(KateSnippetGlobal* plugin, QWidget* parent = 0);
     virtual ~SnippetView();
 
 private slots:
@@ -104,7 +104,7 @@ private slots:
 private:
     QStandardItem* currentItem();
 
-    SnippetPlugin* m_plugin;
+    KateSnippetGlobal* m_plugin;
     SnippetFilterProxyModel* m_proxy;
 
     KAction* m_addRepoAction;

@@ -23,7 +23,7 @@
 
 #include "snippetstore.h"
 
-#include "snippetplugin.h"
+#include "katesnippetglobal.h"
 #include "snippetrepository.h"
 
 #include <KStandardDirs>
@@ -34,7 +34,7 @@
 
 SnippetStore* SnippetStore::m_self = 0;
 
-SnippetStore::SnippetStore(SnippetPlugin* plugin)
+SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
     : m_plugin(plugin), m_scriptregistrar(0)
 {
     m_self = this;
@@ -58,7 +58,7 @@ SnippetStore::~SnippetStore()
     m_self = 0;
 }
 
-void SnippetStore::init(SnippetPlugin* plugin)
+void SnippetStore::init(KateSnippetGlobal* plugin)
 {
     Q_ASSERT(!SnippetStore::self());
     new SnippetStore(plugin);
@@ -80,7 +80,7 @@ Qt::ItemFlags SnippetStore::flags(const QModelIndex & index) const
 
 KConfigGroup SnippetStore::getConfig()
 {
-    return KConfigGroup(); //FIXME m_plugin->core()->activeSession()->config()->group("Snippets");
+    return KGlobal::config()->group("Snippets");
 }
 
 bool SnippetStore::setData(const QModelIndex& index, const QVariant& value, int role)

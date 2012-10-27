@@ -28,7 +28,7 @@
 
 #include <KColorScheme>
 
-#include "snippetplugin.h"
+#include "katesnippetglobal.h"
 #include <KActionCollection>
 #include <KAction>
 #include <KParts/MainWindow>
@@ -89,10 +89,10 @@ KAction* Snippet::action()
     ///TODO: this is quite ugly, or is it? if someone knows how to do it better, please refactor
     if ( !m_action ) {
         static int actionCount = 0;
-        m_action = new KAction(QString("insertSnippet%1").arg(actionCount), SnippetPlugin::self());
+        m_action = new KAction(QString("insertSnippet%1").arg(actionCount), KateSnippetGlobal::self());
         m_action->setData(QVariant::fromValue<Snippet*>(this));
-        SnippetPlugin::self()->connect(m_action, SIGNAL(triggered()),
-                                       SnippetPlugin::self(), SLOT(insertSnippetFromActionData()));
+        KateSnippetGlobal::self()->connect(m_action, SIGNAL(triggered()),
+                                       KateSnippetGlobal::self(), SLOT(insertSnippetFromActionData()));
 
 #if 0 // FIXME
         // action needs to be added to a widget before it can work...

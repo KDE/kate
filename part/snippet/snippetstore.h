@@ -28,7 +28,7 @@
 #include <KConfigGroup>
 
 class SnippetRepository;
-class SnippetPlugin;
+class KateSnippetGlobal;
 
 namespace KTextEditor {
 class TemplateScriptRegistrar;
@@ -49,7 +49,7 @@ public:
     /**
      * Initialize the SnippetStore.
      */
-    static void init(SnippetPlugin* plugin);
+    static void init(KateSnippetGlobal* plugin);
     /**
      * Retuns the SnippetStore. Call init() to set it up first.
      */
@@ -80,12 +80,12 @@ public:
     void unregisterScript(KTextEditor::TemplateScript* token);
 
 private:
-    SnippetStore(SnippetPlugin* plugin);
+    SnippetStore(KateSnippetGlobal* plugin);
 
     virtual Qt::ItemFlags flags (const QModelIndex & index) const;
 
     static SnippetStore* m_self;
-    SnippetPlugin* m_plugin;
+    KateSnippetGlobal* m_plugin;
     KTextEditor::TemplateScriptRegistrar* m_scriptregistrar;
 };
 

@@ -28,7 +28,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/search
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/schema
-  ${CMAKE_CURRENT_SOURCE_DIR}/snippets
   ${CMAKE_CURRENT_SOURCE_DIR}/undo
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
@@ -184,7 +183,7 @@ swapfile/kateswapfile.cpp
 swapfile/katebrokenswapfilebar.cpp
 
 # snippets
-snippet/snippetplugin.cpp
+snippet/katesnippetglobal.cpp
 snippet/snippetview.cpp
 snippet/snippetstore.cpp
 snippet/snippetrepository.cpp

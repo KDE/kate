@@ -19,7 +19,7 @@
  *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
  *  Boston, MA 02110-1301, USA.
  */
-#include "snippetplugin.h"
+#include "katesnippetglobal.h"
 
 #include <klocale.h>
 #include <kpluginfactory.h>
@@ -44,11 +44,9 @@
 #include "snippetcompletionitem.h"
 #include "editsnippet.h"
 
-SnippetPlugin* SnippetPlugin::m_self = 0;
-
 class SnippetViewFactory { // FIXME : public KDevelop::IToolViewFactory{
 public:
-    SnippetViewFactory(SnippetPlugin *plugin): m_plugin(plugin) {}
+    SnippetViewFactory(KateSnippetGlobal *plugin): m_plugin(plugin) {}
 
     virtual QWidget* create(QWidget *parent = 0)
     {
@@ -69,16 +67,12 @@ public:
 #endif
 
 private:
-    SnippetPlugin *m_plugin;
+    KateSnippetGlobal *m_plugin;
 };
 
-
-SnippetPlugin::SnippetPlugin(QObject *parent, const QVariantList &)
+KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)
 {
-    Q_ASSERT(!m_self);
-    m_self = this;
-
     SnippetStore::init(this);
 
     m_model = new SnippetCompletionModel;
@@ -96,26 +90,16 @@ SnippetPlugin::SnippetPlugin(QObject *parent, const QVariantList &)
 */
 }
 
-SnippetPlugin::~SnippetPlugin()
-{
-    m_self = 0;
-}
-
-SnippetPlugin* SnippetPlugin::self()
-{
-    return m_self;
-}
-
 /**
 FIXME
-void SnippetPlugin::unload()
+void KateSnippetGlobal::unload()
 {
     core()->uiController()->removeToolView(m_factory);
     delete SnippetStore::self();
 }
 */
 
-void SnippetPlugin::insertSnippet(Snippet* snippet)
+void KateSnippetGlobal::insertSnippet(Snippet* snippet)
 {
 /** FIXME
     KDevelop::IDocument* doc = core()->documentController()->activeDocument();
@@ -134,7 +118,7 @@ void SnippetPlugin::insertSnippet(Snippet* snippet)
 */
 }
 
-void SnippetPlugin::insertSnippetFromActionData()
+void KateSnippetGlobal::insertSnippetFromActionData()
 {
     KAction* action = dynamic_cast<KAction*>(sender());
     Q_ASSERT(action);
@@ -143,13 +127,13 @@ void SnippetPlugin::insertSnippetFromActionData()
     insertSnippet(snippet);
 }
 
-void SnippetPlugin::viewCreated( KTextEditor::Document*, KTextEditor::View* view )
+void KateSnippetGlobal::viewCreated( KTextEditor::Document*, KTextEditor::View* view )
 {
     KAction* selectionAction = view->actionCollection()->addAction("edit_selection_snippet", this, SLOT(createSnippetFromSelection()));
     selectionAction->setData(QVariant::fromValue<void *>(view));
 }
 
-void SnippetPlugin::documentLoaded( KParts::Part* part )
+void KateSnippetGlobal::documentLoaded( KParts::Part* part )
 {
     KTextEditor::Document *textDocument = dynamic_cast<KTextEditor::Document*>( part );
     if ( textDocument ) {
@@ -162,7 +146,7 @@ void SnippetPlugin::documentLoaded( KParts::Part* part )
 }
 
 /** FIXME
-KDevelop::ContextMenuExtension SnippetPlugin::contextMenuExtension(KDevelop::Context* context)
+KDevelop::ContextMenuExtension KateSnippetGlobal::contextMenuExtension(KDevelop::Context* context)
 {
     KDevelop::ContextMenuExtension extension = KDevelop::IPlugin::contextMenuExtension(context);
 
@@ -180,7 +164,7 @@ KDevelop::ContextMenuExtension SnippetPlugin::contextMenuExtension(KDevelop::Con
 }
 */
 
-void SnippetPlugin::createSnippetFromSelection()
+void KateSnippetGlobal::createSnippetFromSelection()
 {
     QAction * action = qobject_cast<QAction*>(sender());
     Q_ASSERT(action);
@@ -222,5 +206,4 @@ void SnippetPlugin::createSnippetFromSelection()
     }
 }
 
-#include "snippetplugin.moc"
-
+#include "katesnippetglobal.moc"

@@ -30,7 +30,7 @@
 #include <KDebug>
 
 #include "snippet.h"
-#include "snippetplugin.h"
+#include "katesnippetglobal.h"
 #include "snippetrepository.h"
 #include "snippetstore.h"
 #include "editrepository.h"
@@ -42,7 +42,7 @@
 #include <KNS3/DownloadDialog>
 #include <knewstuff3/uploaddialog.h>
 
-SnippetView::SnippetView(SnippetPlugin* plugin, QWidget* parent)
+SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
  : QWidget(parent), Ui::SnippetViewBase(), m_plugin(plugin)
 {
     Ui::SnippetViewBase::setupUi(this);

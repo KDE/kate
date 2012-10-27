@@ -131,39 +131,16 @@ void KateSnippetGlobal::documentLoaded( KParts::Part* part )
     }
 }
 
-/** FIXME
-KDevelop::ContextMenuExtension KateSnippetGlobal::contextMenuExtension(KDevelop::Context* context)
+void KateSnippetGlobal::createSnippet (KateView *view)
 {
-    KDevelop::ContextMenuExtension extension = KDevelop::IPlugin::contextMenuExtension(context);
+   // invalid range? skip to do anything, it will fail!
+   if (!view->selectionRange().isValid())
+     return;
 
-    if ( context->type() == KDevelop::Context::EditorContext ) {
-        KDevelop::EditorContext *econtext = dynamic_cast<KDevelop::EditorContext*>(context);
-        if ( econtext->view()->selection() ) {
-            QAction* action = new QAction(KIcon("document-new"), i18n("Create Snippet"), this);
-            connect(action, SIGNAL(triggered(bool)), this, SLOT(createSnippetFromSelection()));
-            action->setData(QVariant::fromValue<void *>(econtext->view()));
-            extension.addAction(KDevelop::ContextMenuExtension::ExtensionGroup, action);
-        }
-    }
-
-    return extension;
-}
-*/
-
-void KateSnippetGlobal::createSnippetFromSelection()
-{
-    QAction * action = qobject_cast<QAction*>(sender());
-    Q_ASSERT(action);
-    KTextEditor::View* view = static_cast<KTextEditor::View*>(action->data().value<void *>());
-    Q_ASSERT(view);
-
-    QString mode;
-    if ( KTextEditor::HighlightInterface* iface = qobject_cast<KTextEditor::HighlightInterface*>(view->document()) ) {
-            mode = iface->highlightingModeAt(view->selectionRange().start());
-    }
-    if ( mode.isEmpty() ) {
-        mode = view->document()->mode();
-    }
+    // get mode
+    QString mode = view->doc()->highlightingModeAt(view->selectionRange().start());
+    if ( mode.isEmpty() )
+        mode = view->doc()->mode();
 
     // try to look for a fitting repo
     SnippetRepository* match = 0;

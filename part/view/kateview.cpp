@@ -354,7 +354,6 @@ void KateView::setupActions()
     KateScriptActionMenu* scriptActionMenu = new KateScriptActionMenu(this, i18n("&Scripts"));
     ac->addAction("tools_scripts", scriptActionMenu);
 
-
     a = ac->addAction("tools_apply_wordwrap");
     a->setText(i18n("Apply &Word Wrap"));
     a->setWhatsThis(i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
@@ -428,6 +427,10 @@ void KateView::setupActions()
     a->setWhatsThis(i18n("Manually invoke command completion, usually by using a shortcut bound to this action."));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Space));
     connect(a, SIGNAL(triggered(bool)), SLOT(userInvokedCompletion()));
+
+    a = ac->addAction( "tools_create_snippet" );
+    a->setText( i18n("Create Snippet") );
+    connect(a, SIGNAL(triggered(bool)), SLOT(createSnippet()));
 
     a = ac->addAction( "tools_snippets" );
     a->setText( i18n("Snippets...") );
@@ -666,6 +669,11 @@ void KateView::setupActions()
       action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
   connect (this, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(slotSelectionChanged()));
+}
+
+void KateView::createSnippet ()
+{
+  KateGlobal::self()->snippetGlobal()->createSnippet (this);
 }
 
 void KateView::showSnippetsDialog ()
@@ -1112,7 +1120,7 @@ void KateView::slotReadWriteChanged ()
       << "tools_uncomment" << "tools_toggle_comment" << "tools_uppercase" << "tools_lowercase"
       << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap"
       << "tools_spelling_from_cursor"
-      << "tools_spelling_selection";
+      << "tools_spelling_selection" << "tools_create_snippet";
 
   QAction *a = 0;
   for (int z = 0; z < l.size(); z++)
@@ -1488,6 +1496,8 @@ void KateView::slotSelectionChanged ()
     return;
 
   m_cut->setEnabled (selection() || m_config->smartCopyCut() );
+
+  actionCollection()->action ("tools_create_snippet")->setEnabled (selection());
 
   m_spell->updateActions ();
 }

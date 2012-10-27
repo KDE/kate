@@ -83,13 +83,18 @@ private slots:
     void documentLoaded(KParts::Part*);
 public slots:
     /**
+     * Create snippet for given view, e.g. by using the selection
+     * @param view view to create snippet for
+     */
+    void createSnippet (KateView *view);
+
+    /**
      * Show the snippet dialog, used by most simple apps using just
      * KatePart.
      * @param view view to show dialog for
      */
     void showDialog (KateView *view);
 
-    void createSnippetFromSelection();
     void insertSnippetFromActionData();
 
 private:

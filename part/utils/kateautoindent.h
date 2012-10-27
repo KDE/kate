@@ -45,11 +45,17 @@ class KateAutoIndent : public QObject
    */
   public:
     /**
-     * List all possible modes by name
+     * List all possible modes by name, i.e. "C Style", "XML Style", ...
      * @return list of modes
      */
     static QStringList listModes ();
 
+    /**
+     * List all possible names, i.e. "cstyle", "xml", ...
+     * @return list of indenter identifiers
+     */
+    static QStringList listIdentifiers ();
+    
     /**
      * Return the mode name given the mode
      * @param mode mode index

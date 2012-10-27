@@ -29,6 +29,7 @@
 #include "kateview.h"
 #include "kateextendedattribute.h"
 #include "katedocument.h"
+// #include "katebuffer.h"
 
 #include <klocale.h>
 #include <kdebug.h>
@@ -47,6 +48,16 @@ QStringList KateAutoIndent::listModes ()
 
   for (int i = 0; i < modeCount(); ++i)
     l << modeDescription(i);
+
+  return l;
+}
+
+QStringList KateAutoIndent::listIdentifiers ()
+{
+  QStringList l;
+
+  for (int i = 0; i < modeCount(); ++i)
+    l << modeName(i);
 
   return l;
 }
@@ -246,6 +257,7 @@ void KateAutoIndent::reloadScript()
 
 void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
+//   view->doc()->buffer().ensureHighlighted(position.line(), 0);
   QPair<int, int> result = m_script->indent (view, position, typedChar, indentWidth);
   int newIndentInChars = result.first;
 

@@ -44,7 +44,7 @@ void KateProjectCompletion::saveMatches( KTextEditor::View* view, const KTextEdi
 QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
 {
   if( role == InheritanceDepth )
-    return 10000; //Very high value, so the word-completion group and items are shown behind any other groups/items if there is multiple
+    return 10010; //Very high value, so the word-completion group and items are shown behind any other groups/items if there is multiple
 
   if( !index.parent().isValid() ) {
     //It is the group header

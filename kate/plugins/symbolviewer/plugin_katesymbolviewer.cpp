@@ -384,6 +384,7 @@ void KatePluginSymbolViewerView::updatePixmapEdit()
   m_visibleStart -= editView->cursorPositionCoordinates().y() / (QFontMetrics(f).height());
   m_visibleLines = editView->height() / (QFontMetrics(f).height());
 
+  parseSymbols();
   updatePixmapScroll();
 }
 

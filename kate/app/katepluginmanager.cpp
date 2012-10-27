@@ -106,9 +106,9 @@ void KatePluginManager::loadConfig (KConfig* config)
   if (config) {
     KConfigGroup cg = KConfigGroup(config, "Kate Plugins");
 
-    // disable all plugin if no config...
+    // disable all plugin if no config..., beside if marked with load
     for (int i = 0; i < m_pluginList.size(); ++i)
-      m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), false);
+      m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), m_pluginList[i].service->property("X-Kate-Load").toBool());
   }
 
   /**

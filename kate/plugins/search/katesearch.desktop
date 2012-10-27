@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/Plugin
 X-KDE-Library=katesearchplugin
 X-Kate-Version=2.9
+X-Kate-Load=True
 Name=Search & Replace
 Name[ca]=Cerca i substitueix
 Name[ca@valencia]=Cerca i substitueix

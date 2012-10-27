@@ -63,5 +63,8 @@ Comment[zh_TW]=Kate 外掛程式
 [PropertyDef::X-Kate-Version]
 Type=QString
 
+[PropertyDef::X-Kate-Load]
+Type=bool
+
 [PropertyDef::X-Kate-LoadAlways]
 Type=bool

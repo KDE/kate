@@ -215,8 +215,15 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
 
   painter.drawPixmap(grooveRect, m_pixmap, m_pixmap.rect());
 
-  painter.setBrush(QColor(127,127,127, 127));
-  painter.setPen(QColor(127,127,127, 127));
+  QColor shieldColor = QColor(127,127,127, 127);
+  QColor shieldColorLight = QColor(127,127,127, 80);
+  QLinearGradient g(0, 0, width(), 0);
+  g.setColorAt(0, shieldColor);
+  g.setColorAt(0.4, shieldColorLight);
+  g.setColorAt(1, shieldColor);
+  painter.setPen(shieldColor);
+  painter.setBrush(g);
+
   painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
   painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));
 

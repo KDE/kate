@@ -494,9 +494,10 @@ bool KateBuildView::slotQuickCompile()
     KUrl url(docUrl());
     KUrl dir = url.upUrl();// url is a file -> remove the file with upUrl()
     // Check if the command contains the file name or directory
-    if (cmd.contains("%f") || cmd.contains("%d")) {
+    if (cmd.contains("%f") || cmd.contains("%d") || cmd.contains("%n")) {
         if (!checkLocal(url)) return false;
 
+        cmd.replace("%n", QFileInfo(url.toLocalFile()).baseName());
         cmd.replace("%f", url.toLocalFile());
         cmd.replace("%d", dir.toLocalFile());
     }

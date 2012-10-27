@@ -42,40 +42,40 @@ QWidget(parent)
     deleteTarget = new QToolButton(this);
     deleteTarget->setToolTip(i18n("Delete"));
     deleteTarget->setIcon(KIcon("edit-delete"));
-    
+
     line = new QFrame(this);
     line->setFrameShadow(QFrame::Sunken);
-    
+
     dirLabel = new QLabel(i18n("Working directory"), this);
     buildDir = new KLineEdit(this);
     buildDir->setToolTip(i18n("Leave empty to use the directory of the current document. "));
     buildDir->setClearButtonShown(true);
     browse = new QToolButton(this);
     browse->setIcon(KIcon("inode-directory"));
-    
+
     buildLabel = new QLabel(i18n("Build"), this);
     buildCmd = new KLineEdit(this);
     buildCmd->setClearButtonShown(true);
-    
+
     cleanLabel = new QLabel(i18n("Clean"), this);
     cleanCmd = new KLineEdit(this);
     cleanCmd->setClearButtonShown(true);
-    
+
     quickLabel = new QLabel(i18n("Quick compile"), this);
     quickCmd = new KLineEdit(this);
-    quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file"));
+    quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
     quickCmd->setClearButtonShown(true);
-    
+
     dirLabel->setBuddy(buildDir);
     buildLabel->setBuddy(buildCmd);
     cleanLabel->setBuddy(cleanCmd);
     quickLabel->setBuddy(quickCmd);
-    
+
     // calculate the approximate height to exceed before going to "Side Layout"
     setSideLayout();
     m_widgetsHeight = sizeHint().height();
     delete layout();
-    
+
     setBottomLayout();
     m_useBottomLayout = true;
 }

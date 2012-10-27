@@ -72,6 +72,12 @@ public:
 
     static KateSnippetGlobal* self() { return KateGlobal::self()->snippetGlobal(); }
 
+    /**
+     * Code completion model.
+     * @return code completion model for snippets
+     */
+    SnippetCompletionModel *completionModel () { return m_model; }
+
 private slots:
     void viewCreated( KTextEditor::Document*, KTextEditor::View* view );
     void documentLoaded(KParts::Part*);

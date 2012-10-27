@@ -61,6 +61,7 @@
 #include "katerecoverbar.h"
 #include "katebrokenswapfilebar.h"
 #include "snippet/katesnippetglobal.h"
+#include "snippet/snippetcompletionmodel.h"
 
 #include <kparts/event.h>
 
@@ -1581,6 +1582,11 @@ void KateView::updateConfig ()
   unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
   if (config()->wordCompletion ())
     registerCompletionModel (KateGlobal::self()->wordCompletionModel());
+
+  // add snippet completion, later with option
+  unregisterCompletionModel (KateGlobal::self()->snippetGlobal()->completionModel());
+  if (1)
+    registerCompletionModel (KateGlobal::self()->snippetGlobal()->completionModel());
 
   m_cut->setEnabled(m_doc->isReadWrite() && (selection() || m_config->smartCopyCut()));
   m_copy->setEnabled(selection() || m_config->smartCopyCut());

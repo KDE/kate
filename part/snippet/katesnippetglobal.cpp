@@ -45,46 +45,13 @@
 #include "snippetcompletionitem.h"
 #include "editsnippet.h"
 
-class SnippetViewFactory { // FIXME : public KDevelop::IToolViewFactory{
-public:
-    SnippetViewFactory(KateSnippetGlobal *plugin): m_plugin(plugin) {}
-
-    virtual QWidget* create(QWidget *parent = 0)
-    {
-        Q_UNUSED(parent)
-        return new SnippetView( m_plugin, parent);
-    }
-
-#if 0 //FIXME
-    virtual Qt::DockWidgetArea defaultPosition()
-    {
-        return Qt::RightDockWidgetArea;
-    }
-
-    virtual QString id() const
-    {
-        return "org.kdevelop.SnippetView";
-    }
-#endif
-
-private:
-    KateSnippetGlobal *m_plugin;
-};
-
 KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)
 {
     SnippetStore::init(this);
 
     m_model = new SnippetCompletionModel;
-    
 
-    //FIXME new KDevelop::CodeCompletion(this, m_model, QString());
-
-    // setXMLFile( "kdevsnippet.rc" );
-
-    m_factory = new SnippetViewFactory(this);
-    
     /** FIXME
     core()->uiController()->addToolView(i18n("Snippets"), m_factory);
     connect( core()->partController(), SIGNAL(partAdded(KParts::Part*)), this, SLOT(documentLoaded(KParts::Part*)) );

@@ -926,23 +926,9 @@ Q_SIGNALS:
     QString reasonedMOHString() const;
 
     /**
-     * Removes all trailing whitespace from @p line, if
-     * the cfRemoveTrailingDyn confg flag is set,
-     * and the active view cursor is not on line and behind
-     * the last nonspace character.
-     */
-    void removeTrailingSpace(int line);
-    /**
      * Removes all trailing whitespace in the document.
      */
     void removeTrailingSpaces();
-
-    inline void blockRemoveTrailingSpaces(bool block)
-    { m_blockRemoveTrailingSpaces = block; }
-
-  private:
-    /// if true, removeTrailingSpace() returns immediately.
-    bool m_blockRemoveTrailingSpaces;
 
   public:
     /**

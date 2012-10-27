@@ -178,7 +178,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_annotationModel(0),
   m_saveAs(false),
   m_isasking(0),
-  m_blockRemoveTrailingSpaces(false),
   m_buffer(new KateBuffer(this)),
   m_indenter(new KateAutoIndent(this)),
   hlSetByUser(false),
@@ -1088,8 +1087,6 @@ bool KateDocument::editRemoveText ( int line, int col, int len )
   // remove text from line
   m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, col), KTextEditor::Cursor (line, col+len)));
 
-  removeTrailingSpace( line );
-
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line, col + len));
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line, col + len), oldText);
 
@@ -1271,8 +1268,6 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
 
   m_undoManager->slotLineInserted(line, s);
 
-  removeTrailingSpace( line ); // old line
-
   // wrap line
   if (line > 0) {
     Kate::TextLine previousLine = m_buffer->line (line-1);
@@ -1283,8 +1278,6 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
 
   // insert text
   m_buffer->insertText (KTextEditor::Cursor (line, 0), s);
-
-  removeTrailingSpace( line ); // new line
 
   Kate::TextLine tl = m_buffer->line (line);
 
@@ -2734,8 +2727,6 @@ void KateDocument::newLine( KateView *v )
   // second: indent the new line, if needed...
   m_indenter->userTypedChar(v, v->cursorPosition(), '\n');
 
-  removeTrailingSpace( ln );
-
   editEnd();
 }
 
@@ -2883,7 +2874,6 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
   m_undoManager->undoSafePoint();
 
   editStart ();
-  blockRemoveTrailingSpaces(true); // bug #242723, see unit test bug242723_test
 
   KTextEditor::Cursor pos = view->cursorPosition();
   if (!view->config()->persistentSelection() && view->selection()) {
@@ -2913,11 +2903,6 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
 
   insertText(pos, s, view->blockSelectionMode());
-  blockRemoveTrailingSpaces(false);
-
-  for (int i = pos.line(); i < pos.line() + lines; ++i)
-    removeTrailingSpace(i);
-
   editEnd();
 
   // move cursor right for block select, as the user is moved right internal
@@ -2936,14 +2921,7 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
     const int end = view->selectionRange().end().line();
 
     editStart();
-
-    blockRemoveTrailingSpaces(true);
     m_indenter->indent(view, range);
-    blockRemoveTrailingSpaces(false);
-
-    for (; start <= end; ++start)
-      removeTrailingSpace(start);
-
     editEnd();
   }
 
@@ -2960,29 +2938,14 @@ void KateDocument::indent (KTextEditor::Range range, int change)
   const int end = range.end().line();
 
   editStart();
-  blockRemoveTrailingSpaces(true);
   m_indenter->changeIndent(range, change);
-  blockRemoveTrailingSpaces(false);
-
-  if (range.numberOfLines() > 1) {
-    for (; start <= end; ++start)
-      removeTrailingSpace(start);
-  }
   editEnd();
 }
 
 void KateDocument::align(KateView *view, const KTextEditor::Range &range)
 {
   editStart();
-
-  blockRemoveTrailingSpaces(true);
   m_indenter->indent(view, range);
-  blockRemoveTrailingSpaces(false);
-
-  for (int start = range.start().line(); start <= range.end().line(); ++start) {
-    removeTrailingSpace(start);
-  }
-
   editEnd();
 }
 
@@ -4541,38 +4504,6 @@ QString KateDocument::reasonedMOHString() const
       return QString();
   }
   return QString();
-}
-
-void KateDocument::removeTrailingSpace(int line)
-{
-  // if undo/redo is active, never remove trailing spaces, because the undo/redo
-  // action also sets the cursor position. If the trailing spaces are removed,
-  // the cursor position can get invalid (i.e. it is behind the last column).
-  // Then, moving the cursor leads to a crash, see bug #152203.
-  if (!m_undoManager->isActive())
-    return;
-
-  // remove trailing spaces from left line if required
-  if (m_blockRemoveTrailingSpaces
-      || !(config()->removeTrailingDyn()))
-    return;
-
-  Kate::TextLine ln = plainKateTextLine(line);
-
-  if (!ln || ln->length() == 0)
-    return;
-
-  if (activeView() && line == activeView()->cursorPosition().line()
-      && activeView()->cursorPosition().column() >= qMax(0, ln->lastChar()))
-    return;
-
-  const int p = ln->lastChar() + 1;
-  const int l = ln->length() - p;
-  if (l > 0) {
-    m_blockRemoveTrailingSpaces = true;
-    editRemoveText(line, p, l);
-    m_blockRemoveTrailingSpaces = false;
-  }
 }
 
 void KateDocument::removeTrailingSpaces()

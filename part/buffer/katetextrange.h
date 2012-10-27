@@ -238,6 +238,16 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
 
   private:
     /**
+     * no copy constructor, don't allow this to be copied.
+     */
+    TextRange (const TextRange &);
+
+    /**
+     * no assignment operator, no copying around.
+     */
+    TextRange &operator= (const TextRange &);
+    
+    /**
      * Check if range is valid, used by constructor and setRange.
      * If at least one cursor is invalid, both will set to invalid.
      * Same if range itself is invalid (start >= end).

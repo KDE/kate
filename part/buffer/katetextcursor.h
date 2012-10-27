@@ -172,6 +172,16 @@ class KATEPART_TESTS_EXPORT TextCursor : public KTextEditor::MovingCursor {
 
   private:
     /**
+     * no copy constructor, don't allow this to be copied.
+     */
+    TextCursor (const TextCursor &);
+
+    /**
+     * no assignment operator, no copying around.
+     */
+    TextCursor &operator= (const TextCursor &);
+
+    /**
      * Set the current cursor position to \e position.
      * Internal helper to allow the same code be used for constructor and
      * setPosition.

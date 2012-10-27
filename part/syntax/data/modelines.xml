@@ -10,7 +10,7 @@
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language name="Modelines"
-          version="0.3"
+          version="0.31"
           kateversion="2.4"
           section="Other"
           extensions=""
@@ -96,6 +96,25 @@
     <item> word-wrap-marker-color </item>
   </list>
 
+  <list name="RemoveSpaces">
+    <item> remove-trailing-spaces </item>
+  </list>
+
+  <list name="RemoveSpacesOptions">
+    <item> 0 </item>
+    <item> - </item>
+    <item> none </item>
+
+    <item> modified </item>
+    <item> mod </item>
+    <item> + </item>
+    <item> 1 </item>
+
+    <item> all </item>
+    <item> * </item>
+    <item> 2 </item>
+  </list>
+
   <contexts>
     <context name="Normal" attribute="Comment" lineEndContext="#pop">
       <DetectSpaces />
@@ -108,12 +127,13 @@
       <keyword String="Booleans" context="Booleans" attribute="Variable" />
       <keyword String="Integrals" context="Integrals" attribute="Variable" />
       <keyword String="Strings" context="Strings" attribute="Variable" />
+      <keyword String="RemoveSpaces" context="RemoveSpaces" attribute="Variable" />
       <LineContinue context="#pop" />
     </context>
 
     <context name="Booleans" attribute="Comment" lineEndContext="#pop">
       <DetectSpaces />
-      <keyword String="True" attribute="Boolean True" context="#stay" />
+      <keyword String="True" attribute="Boolean" context="#stay" />
       <keyword String="False" attribute="Boolean False" context="#stay" />
       <DetectChar char="&end;" context="#pop" attribute="Variable" />
       <LineContinue context="#pop" />
@@ -133,16 +153,23 @@
       <LineContinue context="#pop" />
     </context>
 
+    <context name="RemoveSpaces" attribute="Comment" lineEndContext="#pop">
+      <DetectSpaces />
+      <keyword String="RemoveSpacesOptions" attribute="Value" context="#pop" />
+      <DetectChar char="&end;" context="#pop" attribute="Variable" />
+      <LineContinue context="#pop" />
+    </context>
+
   </contexts>
 
   <itemDatas>
     <itemData name="Comment" defStyleNum="dsComment" spellChecking="true" />
     <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
     <itemData name="Variable" defStyleNum="dsFunction" spellChecking="false" />
-    <itemData name="Boolean True" defStyleNum="dsOthers" spellChecking="false" />
-    <itemData name="Boolean False" defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Boolean" defStyleNum="dsOthers" spellChecking="false" />
     <itemData name="Number" defStyleNum="dsDecVal" spellChecking="false" />
     <itemData name="String" defStyleNum="dsString" spellChecking="false" />
+    <itemData name="Value" defStyleNum="dsOthers" spellChecking="false" />
   </itemDatas>
 
 </highlighting>

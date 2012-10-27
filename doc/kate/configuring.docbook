@@ -509,7 +509,23 @@ on or off.</para></listitem>
 
 <varlistentry id="variable-remove-trailing-space">
 <term><cmdsynopsis><command>remove-trailing-space</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set dynamic end of line cleanup on or off.</para></listitem>
+<listitem><para>Set dynamic end of line cleanup on or off.</para>
+<para>Note: Deprecated since KDE 4.10. Please use <link linkend="variable-remove-trailing-spaces">
+remove-trailing-spaces</link> with the desired choice instead.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="variable-remove-trailing-spaces">
+<term><cmdsynopsis><command>remove-trailing-spaces</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Removes trailing spaces when saving the document. Valid options are:</para>
+<itemizedlist>
+<listitem><para><userinput>none</userinput>, <userinput>-</userinput> or <userinput>0</userinput>: never remove trailing spaces.</para></listitem>
+<listitem><para><userinput>modified</userinput>, <userinput>mod</userinput>, <userinput>+</userinput> or <userinput>1</userinput>: remove trailing spaces only in
+modified lines. The modified lines are marked by the line modification system.</para></listitem>
+<listitem><para><userinput>all</userinput>, <userinput>*</userinput> or <userinput>2</userinput>: remove trailing spaces in the entire document.</para></listitem>
+</itemizedlist>
+<para>Since: KDE 4.10. This deprecates the options <userinput>remove-trailing-space</userinput> and <userinput>replace-trailing-space-save</userinput>.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-replace-tabs-save">
@@ -524,7 +540,10 @@ on or off.</para></listitem>
 
 <varlistentry id="variable-replace-trailing-space-save">
 <term><cmdsynopsis><command>replace-trailing-space-save</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set end of line cleanup on save on or off.</para></listitem>
+<listitem><para>Set end of line cleanup on save on or off.</para>
+<para>Note: Deprecated since KDE 4.10. Please use <link linkend="variable-remove-trailing-spaces">
+remove-trailing-spaces</link> with the desired choice instead.
+</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-scheme">

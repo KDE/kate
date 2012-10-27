@@ -1,10 +1,6 @@
 [KNewStuff]
 ProvidersUrl=http://kate.kde.org/share/providers.xml
 
-[Kate Plugins]
-katefindinfilesplugin=true
-katekonsoleplugin=true
-
 [MainWindow0]
 Active ViewSpace=0
 Kate-MDI-H-Splitter=200,560,200

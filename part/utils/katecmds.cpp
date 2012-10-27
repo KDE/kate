@@ -362,6 +362,25 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
     co->setIgnoreCase( true );
     return co;
   }
+  else if ( cmd == "set-remove-trailing-spaces" )
+  {
+    QStringList l;
+    l << "none" << "modified" << "all";
+
+    KateCmdShellCompletion *co = new KateCmdShellCompletion();
+    co->setItems( l );
+    co->setIgnoreCase( true );
+    return co;
+  }
+  else if ( cmd == "set-indent-mode" )
+  {
+    QStringList l = KateAutoIndent::listIdentifiers();
+    KateCmdShellCompletion *co = new KateCmdShellCompletion();
+    co->setItems( l );
+    co->setIgnoreCase( true );
+    return co;
+  }
+
   return 0L;
 }
 //END CoreCommands

@@ -270,6 +270,17 @@ target_link_libraries( bug286887_test
   katepartinterfaces
 )
 
+########### bug 309093 test ###############
+
+kde4_add_unit_test(bug309093_test TESTNAME kate-bug309093_test bug309093.cpp)
+
+target_link_libraries( bug309093_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 ########### KTextEditor::DocumentCursor test ###############
 
 kde4_add_unit_test(kte_documentcursor_test TESTNAME kte-documentcursor_test kte_documentcursor.cpp)

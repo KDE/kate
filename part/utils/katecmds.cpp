@@ -124,20 +124,24 @@ bool KateCommands::CoreCommands::help(KTextEditor::View *view, const QString &cm
   } else   if (realcmd=="set-replace-tab") {
     msg=i18n("<p>set-replace-tab <b>enable</b></p>"
       "<p>If enabled, tabs are replaced with spaces as you type.</p>"
-      "<p> possible true values: 1 on true<br/>"
+      "<p>Possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
   } else   if (realcmd=="set-show-tabs") {
     msg=i18n("<p>set-show-tabs <b>enable</b></p>"
       "<p>If enabled, TAB characters and trailing whitespace will be visualized by a small dot.</p>"
-      "<p> possible true values: 1 on true<br/>"
+      "<p>Possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-remove-trailing-space") {
-    msg=i18n("<p>set-remove-trailing-space <b>enable</b></p>"
-      "<p>If enabled, trailing whitespace are removed whenever the cursor leaves a line.</p>"
-      "<p> possible true values: 1 on true<br/>"
-      "possible false values: 0 off false</p>");
+  } else   if (realcmd=="set-remove-trailing-spaces") {
+    msg=i18n("<p>set-remove-trailing-spaces <b>mode</b></p>"
+      "<p>Removes the trailing spaces in the document depending on the <b>mode</b>.</p>"
+      "<p>Possible values:"
+      "<ul>"
+      "<li><b>none</b>: never remove trailing spaces.</li>"
+      "<li><b>modified</b>: remove trailing spaces only of modified lines.</li>"
+      "<li><b>all</b>: remove trailing spaces in the entire document.</li>"
+      "</ul></p>");
     return true;
   } else   if (realcmd=="set-indent-width") {
     msg=i18n("<p>set-indent-width <b/>width</b></p>"
@@ -191,12 +195,6 @@ bool KateCommands::CoreCommands::help(KTextEditor::View *view, const QString &cm
   } else   if (realcmd=="set-replace-tabs-save") {
     msg=i18n("<p>set-replace-tabs-save <b>enable</b></p>"
       "<p>When enabled, tabs will be replaced with whitespace whenever the document is saved.</p>"
-      "<p> possible true values: 1 on true<br/>"
-      "possible false values: 0 off false</p>");
-    return true;
-  } else   if (realcmd=="set-remove-trailing-space-save") {
-    msg=i18n("<p>set-remove-trailing-space-save <b>enable</b></p>"
-      "<p>When enabled, trailing space will be removed from each line whenever the document is saved.</p>"
       "<p> possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;

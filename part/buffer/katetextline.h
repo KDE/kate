@@ -400,6 +400,8 @@ class KATEPART_TESTS_EXPORT TextLineData {
     /**
      * store the attribs, int array
      * one int start, next one len, next one attrib
+     *
+     * TODO: KDE5 replace with movable struct of three ints.
      */
     QVector<int> m_attributesList;
 

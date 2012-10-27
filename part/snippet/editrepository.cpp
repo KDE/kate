@@ -18,9 +18,6 @@
 #include <KTextEditor/EditorChooser>
 #include <KPushButton>
 
-#include <interfaces/icore.h>
-#include <interfaces/iuicontroller.h>
-
 #include <KUser>
 
 #include "snippetstore.h"

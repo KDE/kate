@@ -19,8 +19,6 @@
 #include "snippetplugin.h"
 #include <KActionCollection>
 #include <KAction>
-#include <interfaces/icore.h>
-#include <interfaces/iuicontroller.h>
 #include <KParts/MainWindow>
 
 Snippet::Snippet()
@@ -83,8 +81,11 @@ KAction* Snippet::action()
         m_action->setData(QVariant::fromValue<Snippet*>(this));
         SnippetPlugin::self()->connect(m_action, SIGNAL(triggered()),
                                        SnippetPlugin::self(), SLOT(insertSnippetFromActionData()));
+
+#if 0 // FIXME
         // action needs to be added to a widget before it can work...
         KDevelop::ICore::self()->uiController()->activeMainWindow()->addAction(m_action);
+#endif
     }
     m_action->setText(i18n("insert snippet %1", text()));
     return m_action;

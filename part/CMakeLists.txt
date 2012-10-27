@@ -28,6 +28,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/search
   ${CMAKE_CURRENT_SOURCE_DIR}/syntax
   ${CMAKE_CURRENT_SOURCE_DIR}/schema
+  ${CMAKE_CURRENT_SOURCE_DIR}/snippets
   ${CMAKE_CURRENT_SOURCE_DIR}/undo
   ${CMAKE_CURRENT_SOURCE_DIR}/utils
   ${CMAKE_CURRENT_SOURCE_DIR}/vimode
@@ -104,7 +105,6 @@ variableeditor/variablelistview.cpp
 variableeditor/variableeditor.cpp
 variableeditor/variableitem.cpp
 variableeditor/katehelpbutton.cpp
-
 
 # rendering stuff (katerenderer  and helpers)
 render/katerenderer.cpp
@@ -183,6 +183,17 @@ swapfile/katerecoverbar.cpp
 swapfile/kateswapfile.cpp
 swapfile/katebrokenswapfilebar.cpp
 
+# snippets
+snippet/snippetplugin.cpp
+snippet/snippetview.cpp
+snippet/snippetstore.cpp
+snippet/snippetrepository.cpp
+snippet/snippetfilterproxymodel.cpp
+snippet/snippetcompletionmodel.cpp
+snippet/snippetcompletionitem.cpp
+snippet/snippet.cpp
+snippet/editrepository.cpp
+snippet/editsnippet.cpp
 )
 
 set( katepart_PART_UI
@@ -204,6 +215,9 @@ search/searchbarpower.ui
 dialogs/viinputmodeconfigwidget.ui
 dialogs/spellcheckconfigwidget.ui
 schema/howtoimportschema.ui
+snippet/snippetview.ui
+snippet/editrepository.ui
+snippet/editsnippet.ui
 )
 
 add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )
@@ -214,7 +228,7 @@ kde4_add_library (katepartinterfaces ${LIBRARY_TYPE} ${katepart_PART_SRCS} )
 
 target_link_libraries (
   katepartinterfaces ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
-  ${KDE4_KCMUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} ${KDE_4_4_LIBS_NEEDED}
+  ${KDE4_KCMUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} ${KDE_4_4_LIBS_NEEDED} ${KDE4_KNEWSTUFF3_LIBS}
 )
 target_link_libraries(katepartinterfaces LINK_INTERFACE_LIBRARIES "${KDE4_KPARTS_LIBS}" )
 

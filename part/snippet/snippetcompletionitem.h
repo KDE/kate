@@ -24,19 +24,17 @@
 
 /// TODO: push this into kdevplatform/language/codecompletion so language plugins can reuse it's functionality
 
-#include <language/codecompletion/codecompletionitem.h>
-
 class Snippet;
 class SnippetRepository;
 
-class SnippetCompletionItem : public KDevelop::CompletionTreeItem
+class SnippetCompletionItem
 {
 public:
     SnippetCompletionItem(Snippet* snippet, SnippetRepository* repo);
     ~SnippetCompletionItem();
 
-    virtual void execute( KTextEditor::Document* document, const KTextEditor::Range& word );
-    virtual QVariant data( const QModelIndex& index, int role, const KDevelop::CodeCompletionModel* model ) const;
+    void execute( KTextEditor::Document* document, const KTextEditor::Range& word );
+    QVariant data( const QModelIndex& index, int role, const KTextEditor::CodeCompletionModel2* model ) const;
 
 private:
     // we copy since the snippet itself can be deleted at any time

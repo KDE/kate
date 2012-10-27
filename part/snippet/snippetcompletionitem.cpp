@@ -25,8 +25,6 @@
 #include <KLocalizedString>
 #include <QtGui/QTextEdit>
 
-#include <language/codecompletion/codecompletionmodel.h>
-
 #include <ktexteditor/templateinterface.h>
 #include <ktexteditor/view.h>
 
@@ -36,7 +34,7 @@
 #include <ktexteditor/templateinterface2.h>
 
 SnippetCompletionItem::SnippetCompletionItem( Snippet* snippet, SnippetRepository* repo )
-    : CompletionTreeItem(), m_name(snippet->text()), m_snippet(snippet->snippet()), m_prefix(snippet->prefix()),
+    : m_name(snippet->text()), m_snippet(snippet->snippet()), m_prefix(snippet->prefix()),
       m_arguments(snippet->arguments()), m_postfix(snippet->postfix()), m_repo(repo)
 {
     Q_ASSERT(m_repo);
@@ -47,7 +45,7 @@ SnippetCompletionItem::~SnippetCompletionItem()
 {
 }
 
-QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const KDevelop::CodeCompletionModel* model ) const
+QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const KTextEditor::CodeCompletionModel2* model ) const
 {
     // as long as the snippet completion model is not a kdevelop code completion model,
     // model will usually be 0. hence don't use it.
@@ -66,9 +64,9 @@ QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const 
                 return m_arguments;
         }
         break;
-    case KDevelop::CodeCompletionModel::IsExpandable:
+    case KTextEditor::CodeCompletionModel::IsExpandable:
         return QVariant(true);
-    case KDevelop::CodeCompletionModel::ExpandingWidget:
+    case KTextEditor::CodeCompletionModel::ExpandingWidget:
         {
         QTextEdit *textEdit = new QTextEdit();
         ///TODO: somehow make it possible to scroll like in other expanding widgets

@@ -14,14 +14,10 @@
 #include "snippetplugin.h"
 #include "snippetrepository.h"
 
-#include <interfaces/icore.h>
-#include <interfaces/isession.h>
-
 #include <KStandardDirs>
 #include <KDebug>
 
 #include <ktexteditor/editor.h>
-#include <interfaces/ipartcontroller.h>
 #include <ktexteditor/templateinterface2.h>
 
 SnippetStore* SnippetStore::m_self = 0;
@@ -41,7 +37,7 @@ SnippetStore::SnippetStore(SnippetPlugin* plugin)
         appendRow(repo);
     }
 
-    m_scriptregistrar = qobject_cast<KTextEditor::TemplateScriptRegistrar*>(KDevelop::ICore::self()->partController()->editorPart());
+    m_scriptregistrar = KateGlobal::self();
 }
 
 SnippetStore::~SnippetStore()
@@ -72,7 +68,7 @@ Qt::ItemFlags SnippetStore::flags(const QModelIndex & index) const
 
 KConfigGroup SnippetStore::getConfig()
 {
-    return m_plugin->core()->activeSession()->config()->group("Snippets");
+    return KConfigGroup(); //FIXME m_plugin->core()->activeSession()->config()->group("Snippets");
 }
 
 bool SnippetStore::setData(const QModelIndex& index, const QVariant& value, int role)

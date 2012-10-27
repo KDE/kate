@@ -24,13 +24,6 @@
 
 #include <KTextEditor/HighlightInterface>
 
-#include <interfaces/ipartcontroller.h>
-#include <interfaces/icore.h>
-#include <interfaces/iuicontroller.h>
-#include <interfaces/idocumentcontroller.h>
-#include <language/codecompletion/codecompletion.h>
-#include <language/interfaces/editorcontext.h>
-
 #include "snippetview.h"
 #include "snippetcompletionmodel.h"
 #include "snippetstore.h"
@@ -40,12 +33,9 @@
 #include "snippetcompletionitem.h"
 #include "editsnippet.h"
 
-K_PLUGIN_FACTORY(SnippetFactory, registerPlugin<SnippetPlugin>(); )
-K_EXPORT_PLUGIN(SnippetFactory(KAboutData("kdevsnippet","kdevsnippet", ki18n("Snippets"), "0.1", ki18n("Support for managing and using code snippets"), KAboutData::License_GPL)))
-
 SnippetPlugin* SnippetPlugin::m_self = 0;
 
-class SnippetViewFactory: public KDevelop::IToolViewFactory{
+class SnippetViewFactory { // FIXME : public KDevelop::IToolViewFactory{
 public:
     SnippetViewFactory(SnippetPlugin *plugin): m_plugin(plugin) {}
 
@@ -55,6 +45,7 @@ public:
         return new SnippetView( m_plugin, parent);
     }
 
+#if 0 //FIXME
     virtual Qt::DockWidgetArea defaultPosition()
     {
         return Qt::RightDockWidgetArea;
@@ -64,6 +55,7 @@ public:
     {
         return "org.kdevelop.SnippetView";
     }
+#endif
 
 private:
     SnippetPlugin *m_plugin;
@@ -71,7 +63,7 @@ private:
 
 
 SnippetPlugin::SnippetPlugin(QObject *parent, const QVariantList &)
-  : KDevelop::IPlugin(SnippetFactory::componentData(), parent)
+  : QObject(parent)
 {
     Q_ASSERT(!m_self);
     m_self = this;
@@ -79,13 +71,18 @@ SnippetPlugin::SnippetPlugin(QObject *parent, const QVariantList &)
     SnippetStore::init(this);
 
     m_model = new SnippetCompletionModel;
-    new KDevelop::CodeCompletion(this, m_model, QString());
+    
 
-    setXMLFile( "kdevsnippet.rc" );
+    //FIXME new KDevelop::CodeCompletion(this, m_model, QString());
+
+    // setXMLFile( "kdevsnippet.rc" );
 
     m_factory = new SnippetViewFactory(this);
+    
+    /** FIXME
     core()->uiController()->addToolView(i18n("Snippets"), m_factory);
     connect( core()->partController(), SIGNAL(partAdded(KParts::Part*)), this, SLOT(documentLoaded(KParts::Part*)) );
+*/
 }
 
 SnippetPlugin::~SnippetPlugin()
@@ -98,14 +95,18 @@ SnippetPlugin* SnippetPlugin::self()
     return m_self;
 }
 
+/**
+FIXME
 void SnippetPlugin::unload()
 {
     core()->uiController()->removeToolView(m_factory);
     delete SnippetStore::self();
 }
+*/
 
 void SnippetPlugin::insertSnippet(Snippet* snippet)
 {
+/** FIXME
     KDevelop::IDocument* doc = core()->documentController()->activeDocument();
     if (!doc) return;
     if (doc->isTextDocument()) {
@@ -119,6 +120,7 @@ void SnippetPlugin::insertSnippet(Snippet* snippet)
             doc->textDocument()->activeView()->setFocus();
         }
     }
+*/
 }
 
 void SnippetPlugin::insertSnippetFromActionData()
@@ -148,6 +150,7 @@ void SnippetPlugin::documentLoaded( KParts::Part* part )
     }
 }
 
+/** FIXME
 KDevelop::ContextMenuExtension SnippetPlugin::contextMenuExtension(KDevelop::Context* context)
 {
     KDevelop::ContextMenuExtension extension = KDevelop::IPlugin::contextMenuExtension(context);
@@ -164,6 +167,7 @@ KDevelop::ContextMenuExtension SnippetPlugin::contextMenuExtension(KDevelop::Con
 
     return extension;
 }
+*/
 
 void SnippetPlugin::createSnippetFromSelection()
 {

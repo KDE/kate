@@ -11,8 +11,6 @@
 #ifndef __SNIPPETPLUGIN_H__
 #define __SNIPPETPLUGIN_H__
 
-#include <interfaces/iplugin.h>
-#include <interfaces/contextmenuextension.h>
 #include <QtCore/QVariant>
 
 class SnippetCompletionModel;
@@ -36,7 +34,7 @@ class QMenu;
  * This is the main class of KDevelop's snippet plugin.
  * @author Robert Gruber <rgruber@users.sourceforge.net>
  */
-class SnippetPlugin : public KDevelop::IPlugin
+class SnippetPlugin : public QObject
 {
     Q_OBJECT
 
@@ -50,10 +48,13 @@ public:
      * nothing will happen.
      */
     void insertSnippet(Snippet* snippet);
-    virtual KDevelop::ContextMenuExtension contextMenuExtension(KDevelop::Context* context);
+    
+#if 0
+  virtual KDevelop::ContextMenuExtension contextMenuExtension(KDevelop::Context* context);
 
     // KDevelop::IPlugin methods
     virtual void unload();
+#endif
 
     static SnippetPlugin* self();;
 

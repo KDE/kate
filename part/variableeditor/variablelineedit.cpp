@@ -272,11 +272,6 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   item->setHelpText(i18nc("short translation please", "Enable persistent text selection."));
   listview->addItem(item);
 
-  // Add 'remove-trailing-space' to list
-  item = new VariableBoolItem("remove-trailing-space", docConfig->removeSpaces() == 1);
-  item->setHelpText(i18nc("short translation please", "Remove trailing spaces when editing a line."));
-  listview->addItem(item);
-
   // Add 'replace-tabs-save' to list
   item = new VariableBoolItem("replace-tabs-save", false);
   item->setHelpText(i18nc("short translation please", "Replace tabs with spaces when saving the document."));
@@ -287,8 +282,8 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   item->setHelpText(i18nc("short translation please", "Replace tabs with spaces."));
   listview->addItem(item);
 
-  // Add 'replace-trailing-space-save' to list
-  item = new VariableBoolItem("replace-trailing-space-save", docConfig->removeSpaces());
+  // Add 'remove-trailing-spaces' to list
+  item = new VariableRemoveSpacesItem("remove-trailing-spaces", docConfig->removeSpaces());
   item->setHelpText(i18nc("short translation please", "Remove trailing spaces when saving the document."));
   listview->addItem(item);
 

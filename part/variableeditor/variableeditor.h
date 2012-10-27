@@ -33,6 +33,7 @@ class VariableStringListItem;
 class VariableIntItem;
 class VariableStringItem;
 class VariableSpellCheckItem;
+class VariableRemoveSpacesItem;
 
 class KColorCombo;
 class KFontComboBox;
@@ -55,14 +56,14 @@ public:
   virtual ~VariableEditor();
 
   VariableItem* item() const;
-  
+
 Q_SIGNALS:
   void valueChanged();
 
 protected Q_SLOTS:
   void itemEnabled(bool enabled);
   void activateItem();
-  
+
 protected:
   virtual void paintEvent(QPaintEvent* event);
   virtual void enterEvent(QEvent* event);
@@ -71,7 +72,7 @@ protected:
 
 private:
   VariableItem* m_item;
-  
+
   QCheckBox* m_checkBox;
   QLabel* m_variable;
   QLabel* m_helpText;
@@ -169,6 +170,20 @@ protected Q_SLOTS:
 
 private:
   Sonnet::DictionaryComboBox *m_dictionaryCombo;
+};
+
+
+class VariableRemoveSpacesEditor : public VariableEditor
+{
+  Q_OBJECT
+public:
+  VariableRemoveSpacesEditor(VariableRemoveSpacesItem* item, QWidget* parent);
+
+protected Q_SLOTS:
+  void setItemValue(int enabled);
+
+private:
+  QComboBox* m_comboBox;
 };
 
 #endif

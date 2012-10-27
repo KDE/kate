@@ -329,4 +329,51 @@ VariableEditor* VariableSpellCheckItem::createEditor(QWidget *parent)
 }
 //END class VariableSpellCheckItem
 
+//BEGIN class VariableRemoveSpacesItem
+VariableRemoveSpacesItem::VariableRemoveSpacesItem(const QString &variable, int value)
+  : VariableItem(variable)
+  , m_value(value)
+{
+}
+
+int VariableRemoveSpacesItem::value() const
+{
+  return m_value;
+}
+
+void VariableRemoveSpacesItem::setValue(int value)
+{
+  m_value = value;
+}
+
+QString VariableRemoveSpacesItem::valueAsString() const
+{
+  if (m_value == 2) {
+    return "all";
+  } else if (m_value == 1) {
+    return "modified";
+  } else {
+    return "none";
+  }
+}
+
+void VariableRemoveSpacesItem::setValueByString(const QString &value)
+{
+  QString tmp = value.trimmed().toLower();
+
+  if (tmp == "1" || tmp == "modified" || tmp == "mod" || tmp == "+") {
+    m_value = 1;
+  } else if (tmp == "2" || tmp == "all" || tmp == "*") {
+    m_value = 2;
+  } else {
+    m_value = 0;
+  }
+}
+
+VariableEditor* VariableRemoveSpacesItem::createEditor(QWidget *parent)
+{
+  return new VariableRemoveSpacesEditor(this, parent);
+}
+//END class VariableRemoveSpacesItem
+
 // kate: indent-width 2; replace-tabs on;

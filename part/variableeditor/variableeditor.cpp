@@ -64,7 +64,7 @@ VariableEditor::VariableEditor(VariableItem* item, QWidget* parent)
   l->addWidget(m_variable, 0, 1, Qt::AlignLeft);
   l->addWidget(m_btnHelp, 0, 3, Qt::AlignRight);
   l->addWidget(m_helpText, 1, 1, 1, 3);
-  
+
   l->setColumnStretch(0, 0);
   l->setColumnStretch(1, 1);
   l->setColumnStretch(2, 1);
@@ -104,7 +104,7 @@ void VariableEditor::leaveEvent(QEvent* event)
 void VariableEditor::paintEvent(QPaintEvent* event)
 {
   QWidget::paintEvent(event);
-  
+
   // draw highlighting rect like in plasma
   if (underMouse()) {
     QPainter painter(this);
@@ -189,13 +189,13 @@ VariableBoolEditor::VariableBoolEditor(VariableBoolItem* item, QWidget* parent)
   : VariableEditor(item, parent)
 {
   QGridLayout* l = (QGridLayout *) layout();
-  
+
   m_comboBox = new QComboBox(this);
   m_comboBox->addItem(i18n("true"));
   m_comboBox->addItem(i18n("false"));
   m_comboBox->setCurrentIndex(item->value() ? 0 : 1);
   l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
-  
+
   connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(valueChanged()));
   connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(activateItem()));
   connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setItemValue(int)));
@@ -215,7 +215,7 @@ VariableStringListEditor::VariableStringListEditor(VariableStringListItem* item,
   : VariableEditor(item, parent)
 {
   QGridLayout* l = (QGridLayout *) layout();
-  
+
   m_comboBox = new QComboBox(this);
   m_comboBox->addItems(item->stringList());
   int index = 0;
@@ -227,7 +227,7 @@ VariableStringListEditor::VariableStringListEditor(VariableStringListItem* item,
   }
   m_comboBox->setCurrentIndex(index);
   l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
-  
+
   connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(valueChanged()));
   connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(activateItem()));
   connect(m_comboBox, SIGNAL(currentIndexChanged(QString)), this, SLOT(setItemValue(QString)));
@@ -246,7 +246,7 @@ VariableColorEditor::VariableColorEditor(VariableColorItem* item, QWidget* paren
   : VariableEditor(item, parent)
 {
   QGridLayout* l = (QGridLayout *) layout();
-  
+
   m_comboBox = new KColorCombo(this);
   m_comboBox->setColor(item->value());
   l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
@@ -269,7 +269,7 @@ VariableFontEditor::VariableFontEditor(VariableFontItem* item, QWidget* parent)
   : VariableEditor(item, parent)
 {
   QGridLayout* l = (QGridLayout *) layout();
-  
+
   m_comboBox = new KFontComboBox(this);
   m_comboBox->setCurrentFont(item->value());
   l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
@@ -308,6 +308,8 @@ void VariableStringEditor::setItemValue(const QString &newValue)
 }
 //END VariableStringEditor
 
+
+
 //BEGIN VariableSpellCheckEditor
 VariableSpellCheckEditor::VariableSpellCheckEditor(VariableSpellCheckItem *item, QWidget *parent)
   : VariableEditor(item, parent)
@@ -329,5 +331,31 @@ void VariableSpellCheckEditor::setItemValue(const QString &newValue)
 }
 
 //END VariableSpellCheckEditor
+
+
+
+//BEGIN VariableRemoveSpacesEditor
+VariableRemoveSpacesEditor::VariableRemoveSpacesEditor(VariableRemoveSpacesItem* item, QWidget* parent)
+  : VariableEditor(item, parent)
+{
+  QGridLayout* l = (QGridLayout *) layout();
+
+  m_comboBox = new QComboBox(this);
+  m_comboBox->addItem(i18n("none"));
+  m_comboBox->addItem(i18n("modified"));
+  m_comboBox->addItem(i18n("all"));
+  m_comboBox->setCurrentIndex(item->value());
+  l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
+
+  connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(valueChanged()));
+  connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(activateItem()));
+  connect(m_comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(setItemValue(int)));
+}
+
+void VariableRemoveSpacesEditor::setItemValue(int enabled)
+{
+  static_cast<VariableRemoveSpacesItem*>(item())->setValue(enabled == 0);
+}
+//END VariableRemoveSpacesEditor
 
 // kate: indent-width 2; replace-tabs on;

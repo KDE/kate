@@ -38,7 +38,7 @@ public:
   QString variable() const;
   QString helpText() const;
   void setHelpText(const QString& text);
-  
+
   bool isActive() const;
   void setActive(bool active);
 
@@ -96,7 +96,7 @@ public:
   VariableStringListItem(const QString& variable, const QStringList& slist, const QString& value);
 
   QStringList stringList() const;
-  
+
   QString value() const;
   void setValue(const QString& newValue);
 
@@ -104,7 +104,7 @@ public:
   virtual void setValueByString(const QString& value);
   virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
-  
+
 private:
   QStringList m_list;
   QString m_value;
@@ -118,7 +118,7 @@ class VariableBoolItem : public VariableItem
 {
 public:
   VariableBoolItem(const QString& variable, bool value);
-  
+
   bool value() const;
   void setValue(bool enabled);
 
@@ -126,7 +126,7 @@ public:
   virtual void setValueByString(const QString& value);
   virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
-  
+
 private:
   bool m_value;
 };
@@ -139,7 +139,7 @@ class VariableColorItem : public VariableItem
 {
 public:
   VariableColorItem(const QString& variable, const QColor& value);
-  
+
   QColor value() const;
   void setValue(const QColor& color);
 
@@ -147,7 +147,7 @@ public:
   virtual void setValueByString(const QString& value);
   virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
-  
+
 private:
   QColor m_value;
 };
@@ -160,7 +160,7 @@ class VariableFontItem : public VariableItem
 {
 public:
   VariableFontItem(const QString& variable, const QFont& value);
-  
+
   QFont value() const;
   void setValue(const QFont& value);
 
@@ -168,7 +168,7 @@ public:
   virtual void setValueByString(const QString& value);
   virtual QString valueAsString() const;
   virtual VariableEditor* createEditor(QWidget* parent);
-  
+
 private:
   QFont m_value;
 };
@@ -214,6 +214,25 @@ private:
   QString m_value;
 };
 //END class VariableSpellCheckItem
+
+//BEGIN class VariableRemoveSpacesItem
+class VariableRemoveSpacesItem : public VariableItem
+{
+public:
+  VariableRemoveSpacesItem(const QString &variable, int value);
+
+  int value() const;
+  void setValue(int value);
+
+public:
+  virtual void setValueByString(const QString &value);  // Same as setValue() in this case, implemented for uniformity
+  virtual QString valueAsString() const;                // Same as value() in this case, implemented for uniformity
+  virtual VariableEditor* createEditor(QWidget *parent);
+
+private:
+  int m_value;
+};
+//END class VariableRemoveSpacesItem
 
 #endif
 

@@ -25,14 +25,17 @@
 #include <KTextEditor/Document>
 #include <KLocalizedString>
 #include <QtGui/QTextEdit>
+#include <QtCore/QModelIndex>
 
 #include <ktexteditor/templateinterface.h>
+#include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/view.h>
+#include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/codecompletionmodel.h>
 
 #include "snippet.h"
 #include "snippetrepository.h"
 
-#include <ktexteditor/templateinterface2.h>
 
 SnippetCompletionItem::SnippetCompletionItem( Snippet* snippet, SnippetRepository* repo )
     : m_name(snippet->text()), m_snippet(snippet->snippet()), m_prefix(snippet->prefix()),

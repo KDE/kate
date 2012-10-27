@@ -16,6 +16,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "config.h"
+
 #include "katesession.h"
 #include "katesession.moc"
 
@@ -186,7 +188,6 @@ KConfig *KateSession::configWrite ()
     return m_writeConfig;
 
   m_writeConfig = new KConfig (sessionFile (), KConfig::SimpleConfig);
-//  m_writeConfig->group("General").writeEntry ("Name", m_sessionName);
 
   return m_writeConfig;
 }
@@ -398,6 +399,21 @@ static void saveSessionTo(KConfig *sc)
   }
 
   sc->sync();
+
+  /**
+   * try to sync file to disk
+   */
+  QFile fileToSync (sc->name());
+  if (fileToSync.open (QIODevice::ReadOnly)) {
+#ifndef Q_OS_WIN
+    // ensure that the file is written to disk
+#ifdef HAVE_FDATASYNC
+    fdatasync (fileToSync.handle());
+#else
+    fsync (fileToSync.handle());
+#endif
+#endif
+  }
 }
 
 bool KateSessionManager::saveActiveSession (bool rememberAsLast)

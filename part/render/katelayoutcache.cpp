@@ -281,6 +281,10 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine )
 {
   if (m_lineLayouts.contains(realLine)) {
     KateLineLayoutPtr l = m_lineLayouts[realLine];
+    
+    // ensure line is OK
+    Q_ASSERT (l->line() == realLine);
+    Q_ASSERT (realLine < m_renderer->doc()->buffer().lines());
 
     if (virtualLine != -1)
       l->setVirtualLine(virtualLine);

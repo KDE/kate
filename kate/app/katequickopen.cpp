@@ -81,7 +81,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     connect(m_model, SIGNAL(rowsInserted(QModelIndex, int, int)), this, SLOT(reselectFirst()));
     connect(m_model, SIGNAL(rowsRemoved(QModelIndex, int, int)), this, SLOT(reselectFirst()));
 
-    connect(m_listView, SIGNAL(activated(QModelIndex)), this, SLOT(accept()));
+    connect(m_listView, SIGNAL(activated(QModelIndex)), this, SLOT(slotReturnPressed()));
 
     m_listView->setModel(m_model);
     m_model->setSourceModel(m_base_model);

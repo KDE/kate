@@ -1,6 +1,6 @@
 /*  This file is part of the KDE libraries and the Kate part.
  *
- *  Copyright (C) 2008 - 2009 Erlend Hamberg <ehamberg@gmail.com>
+ *  Copyright (C) 2008 - 2012 Erlend Hamberg <ehamberg@gmail.com>
  *  Copyright (C) 2009 Paul Gideon Dann <pdgiddie@gmail.com>
  *  Copyright (C) 2011 Svyatoslav Kuzmich <svatoslav1@gmail.com>
  *
@@ -246,7 +246,7 @@ Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onl
         if ( onlyCurrentLine ) {
             return Cursor( l, c );
         } else if ( l >= doc()->lines()-1 ) {
-            c = line.length()-1;
+            c = qMax(line.length()-1, 0);
             return Cursor( l, c );
         } else {
             c = 0;

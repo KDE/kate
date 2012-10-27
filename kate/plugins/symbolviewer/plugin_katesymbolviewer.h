@@ -77,7 +77,6 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
   private:
     QCheckBox* viewReturns;
     QCheckBox* expandTree;
-    QCheckBox* showMiniMap;
 };
 
 class KatePluginSymbolViewer;
@@ -102,13 +101,10 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     void toggleShowMacros(void);
     void toggleShowStructures(void);
     void toggleShowFunctions(void);
-    void slotViewChanged(QResizeEvent *e);
-    void verticalScrollPositionChanged(KTextEditor::View *view, const KTextEditor::Cursor &newPos);
     void cursorPositionChanged();
     QTreeWidgetItem *newActveItem(int &currMinLine, int currLine, QTreeWidgetItem *item);
     void updateCurrTreeItem();
     void slotDocEdited();
-    void updatePixmapEdit();
 
   protected:
     bool eventFilter(QObject *obj, QEvent *ev);
@@ -121,11 +117,6 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     int m_macro, m_struct, m_func, m_sort;
     bool macro_on, struct_on, func_on;
     bool treeMode, lsorting;
-
-    QLabel  *m_label;
-    QPixmap  m_pixmap;
-    int  m_visibleStart;
-    int  m_visibleLines;
 
     QTimer m_updateTimer;
     QTimer m_currItemTimer;
@@ -164,9 +155,6 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
 
   public slots:
     void applyConfig( KatePluginSymbolViewerConfigPage* p );
-
-  Q_SIGNALS:
-    void miniMapNowVisible(bool visible);
 
   public:
     bool types_on;

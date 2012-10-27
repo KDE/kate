@@ -63,9 +63,6 @@
 #include <QMenu>
 #include <QPainter>
 
-static const int s_lineWidth = 100;
-static const int s_pixmapWidth = 40;
-
 K_PLUGIN_FACTORY(KateSymbolViewerFactory, registerPlugin<KatePluginSymbolViewer>();)
 K_EXPORT_PLUGIN(KateSymbolViewerFactory(KAboutData("katesymbolviewer","katesymbolviewer",ki18n("SymbolViewer"), "0.1", ki18n("View symbols"), KAboutData::License_LGPL_V2)) )
 
@@ -101,7 +98,7 @@ m_plugin(plugin)
   lsorting = false;
 
   m_updateTimer.setSingleShot(true);
-  connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmapEdit()));
+  connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(slotRefreshSymbol()));
 
   m_currItemTimer.setSingleShot(true);
   connect(&m_currItemTimer, SIGNAL(timeout()), this, SLOT(updateCurrTreeItem()));
@@ -113,24 +110,9 @@ m_plugin(plugin)
   QWidget *container = new QWidget(m_toolview);
   QHBoxLayout *layout = new QHBoxLayout(container);
 
-  m_label = new QLabel();
-  m_pixmap = QPixmap(80, s_lineWidth);
-  m_pixmap.fill();
-  m_label->setPixmap(m_pixmap);
-  m_label->setScaledContents(true);
-  m_label->setMinimumWidth(s_pixmapWidth);
-  m_label->setMaximumWidth(s_pixmapWidth);
-
-  KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
-  m_label->setVisible(config.readEntry("ShowMiniMap", false));
-  connect(m_plugin, SIGNAL(miniMapNowVisible(bool)), m_label, SLOT(setVisible(bool)));
-  connect(m_plugin, SIGNAL(miniMapNowVisible(bool)), this, SLOT(updatePixmapEdit()));
-
   m_symbols = new QTreeWidget();
-  layout->addWidget(m_label);
-  layout->addWidget(m_symbols, 10);
-
   m_symbols->setLayoutDirection( Qt::LeftToRight );
+  layout->addWidget(m_symbols, 10);
 
   connect(m_symbols, SIGNAL(itemActivated(QTreeWidgetItem*,int)), this, SLOT(goToSymbol(QTreeWidgetItem*)));
   connect(m_symbols, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(slotShowContextMenu(QPoint)));
@@ -147,7 +129,6 @@ m_plugin(plugin)
   m_symbols->setRootIsDecorated(0);
   m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);
   m_symbols->setIndentation(10);
-  //m_symbols->setShowToolTips(true);
 
   m_toolview->installEventFilter(this);
 
@@ -219,14 +200,9 @@ void KatePluginSymbolViewerView::slotDocChanged()
 {
  slotRefreshSymbol();
 
- m_visibleStart = -1;
- m_visibleLines = -1;
  KTextEditor::View *view = mainWindow()->activeView();
  //kDebug()<<"Document changed !!!!" << view;
  if (view) {
-   connect(view, SIGNAL(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
-           this, SLOT(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), Qt::UniqueConnection);
-
    connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
            this, SLOT(cursorPositionChanged()), Qt::UniqueConnection);
 
@@ -234,42 +210,17 @@ void KatePluginSymbolViewerView::slotDocChanged()
      connect(view->document(), SIGNAL(textChanged(KTextEditor::Document*)),
              this, SLOT(slotDocEdited()), Qt::UniqueConnection);
    }
-   m_updateTimer.start(10);
  }
-}
-
-void KatePluginSymbolViewerView::slotViewChanged(QResizeEvent *)
-{
-  //kDebug(13000)<<"View changed !!!!";
-  //m_symbols->setColumnWidth(0, m_symbols->parentWidget()->width());
-
 }
 
 void KatePluginSymbolViewerView::slotDocEdited()
 {
-  //kDebug() << "";
   m_updateTimer.start(500);
 }
 
 void KatePluginSymbolViewerView::cursorPositionChanged()
 {
-  //kDebug() << "";
   m_currItemTimer.start(100);
-}
-
-void KatePluginSymbolViewerView::verticalScrollPositionChanged(
-  KTextEditor::View *view,
-  const KTextEditor::Cursor &newPos)
-{
-  if (view != mainWindow()->activeView()) {
-    return;
-  }
-  QFont f;
-  KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(view);
-  if (ciface) f = ciface->configValue("font").value<QFont>();
-  m_visibleStart = newPos.line();
-  m_visibleLines = mainWindow()->activeView()->height() / (QFontMetrics(f).height());
-  updatePixmapScroll();
 }
 
 void KatePluginSymbolViewerView::updateCurrTreeItem()
@@ -321,116 +272,6 @@ QTreeWidgetItem *KatePluginSymbolViewerView::newActveItem(int &newItemLine, int 
   return newItem;
 }
 
-void KatePluginSymbolViewerView::updatePixmapEdit()
-{
-  if (!m_label->isVisible()) {
-    return;
-  }
-  if (!mainWindow()) {
-    return;
-  }
-  KTextEditor::View* editView = mainWindow()->activeView();
-  if (!editView) {
-    return;
-  }
-  KTextEditor::Document* doc = editView->document();
-  if (!doc) {
-    return;
-  }
-  int docLines = qMax(doc->lines(), 100);
-  int labelHeight = m_label->height();
-  int numJumpLines = 1;
-  if ((labelHeight > 10) && (docLines > labelHeight*2)) {
-    numJumpLines = docLines / labelHeight;
-  }
-  docLines /= numJumpLines;
-
-  //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
-
-  m_pixmap = QPixmap(s_lineWidth, docLines+1);
-  m_pixmap.fill();
-
-  QString line;
-  int pixX;
-  QPainter p;
-  if (p.begin(&m_pixmap)) {
-    p.setPen(Qt::black);
-    for (int y=0; y < doc->lines(); y+=numJumpLines) {
-      line = doc->line(y);
-      pixX=0;
-      for (int x=0; x <line.size(); x++) {
-        if (pixX >= s_lineWidth) {
-          break;
-        }
-        if (line[x] == ' ') {
-          pixX++;
-        }
-        else if (line[x] == '\t') {
-          pixX += 4; // FIXME: tab width...
-        }
-        else if (line[x] != '\r') {
-          p.drawPoint(pixX, y/numJumpLines);
-          pixX++;
-        }
-      }
-    }
-    p.end();
-  }
-
-  QFont f;
-  KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(editView);
-  if (ciface) f = ciface->configValue("font").value<QFont>();
-  m_visibleStart = editView->cursorPositionVirtual().line();
-  m_visibleStart -= editView->cursorPositionCoordinates().y() / (QFontMetrics(f).height());
-  m_visibleLines = editView->height() / (QFontMetrics(f).height());
-
-  parseSymbols();
-  updatePixmapScroll();
-}
-
-void KatePluginSymbolViewerView::updatePixmapScroll()
-{
-  if (!m_label->isVisible()) {
-    return;
-  }
-  if (!mainWindow()) {
-    return;
-  }
-  KTextEditor::View* editView = mainWindow()->activeView();
-  if (!editView) {
-    return;
-  }
-  KTextEditor::Document* doc = editView->document();
-  if (!doc) {
-    return;
-  }
-
-  int docLines = qMax(doc->lines(), 100);
-  int labelHeight = m_label->height();
-  int numJumpLines = 1;
-  if ((labelHeight > 10) && (docLines > labelHeight*2)) {
-    numJumpLines = docLines / labelHeight;
-  }
-  docLines /= numJumpLines;
-
-  //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
-
-  QPixmap pixmap = m_pixmap;
-
-  QPainter p;
-  if (p.begin(&pixmap)) {
-    if ((m_visibleStart > -1) && (m_visibleLines > 0)) {
-      p.setBrush(QColor(50,50,255, 100));
-      p.setPen(QColor(20,20,255, 127));
-      p.drawRect(0, m_visibleStart/numJumpLines, s_lineWidth, m_visibleLines/numJumpLines);
-    }
-    p.end();
-  }
-  //kDebug() << editView->visibleRange().start() << editView->visibleRange().end();
-  m_label->setPixmap(pixmap);
-  m_label->setScaledContents(true);
-}
-
 bool KatePluginSymbolViewerView::eventFilter(QObject *obj, QEvent *event)
 {
   if (event->type() == QEvent::KeyPress) {
@@ -441,21 +282,6 @@ bool KatePluginSymbolViewerView::eventFilter(QObject *obj, QEvent *event)
       return true;
     }
   }
-  else if (event->type() == QEvent::MouseButtonPress) {
-    QMouseEvent *me = static_cast<QMouseEvent*>(event);
-    if ((me->button() == Qt::LeftButton) || (me->button() == Qt::MiddleButton)) {
-      int line = (me->y() * mainWindow()->activeView()->document()->lines()) / m_label->height();
-      mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(line, 0));
-    }
-  }
-
-// This does not work for some reason...
-//   else if (event->type() == QEvent::Wheel) {
-//     QWheelEvent *we = static_cast<QWheelEvent*>(event);
-//     QWheelEvent *we2 = new QWheelEvent(QPoint(50, 5), we->delta(), we->buttons(), we->modifiers(), we->orientation());
-//     QApplication::postEvent(mainWindow()->activeView(), we2);
-//   }
-
   return QObject::eventFilter(obj, event);
 }
 
@@ -542,7 +368,6 @@ Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
   KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
   p->viewReturns->setChecked(config.readEntry("ViewTypes", false));
   p->expandTree->setChecked(config.readEntry("ExpandTree", false));
-  p->showMiniMap->setChecked(config.readEntry("ShowMiniMap", false));
   connect( p, SIGNAL(configPageApplyRequest(KatePluginSymbolViewerConfigPage*)),
       SLOT(applyConfig(KatePluginSymbolViewerConfigPage*)) );
   return (Kate::PluginConfigPage*)p;
@@ -560,11 +385,9 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
   config.writeEntry("ViewTypes", p->viewReturns->isChecked());
   config.writeEntry("ExpandTree", p->expandTree->isChecked());
-  config.writeEntry("ShowMiniMap", p->showMiniMap->isChecked());
 
   types_on = p->viewReturns->isChecked();
   expanded_on = p->expandTree->isChecked();
-  emit miniMapNowVisible(p->showMiniMap->isChecked());
 
 }
 
@@ -579,26 +402,24 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
 
   viewReturns = new QCheckBox(i18n("Display functions parameters"));
   expandTree = new QCheckBox(i18n("Automatically expand nodes in tree mode"));
-  showMiniMap = new QCheckBox(i18n("Display a document minimap"));
 
   QGroupBox* parserGBox = new QGroupBox( i18n("Parser Options"), this);
   QVBoxLayout* top = new QVBoxLayout(parserGBox);
   top->addWidget(viewReturns);
   top->addWidget(expandTree);
 
-  QGroupBox* generalGBox = new QGroupBox( i18n("General Options"), this);
-  QVBoxLayout* genLay = new QVBoxLayout(generalGBox);
-  genLay->addWidget( showMiniMap );
+  //QGroupBox* generalGBox = new QGroupBox( i18n("General Options"), this);
+  //QVBoxLayout* genLay = new QVBoxLayout(generalGBox);
+  //genLay->addWidget(  );
 
   lo->addWidget( parserGBox );
-  lo->addWidget( generalGBox );
+  //lo->addWidget( generalGBox );
   lo->addStretch( 1 );
 
 
 //  throw signal changed
   connect(viewReturns, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
   connect(expandTree, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
-  connect(showMiniMap, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
 }
 
 KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage() {}

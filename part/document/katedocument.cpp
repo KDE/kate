@@ -914,7 +914,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
     Kate::TextLine l = kateTextLine(line);
 
     if (!l)
-      return false;
+      break;
 
     kDebug (13020) << "try wrap line: " << line;
 

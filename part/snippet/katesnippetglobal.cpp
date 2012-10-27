@@ -32,6 +32,7 @@
 
 #include <KActionCollection>
 #include <KAction>
+#include <KToolBar>
 
 #include <KTextEditor/HighlightInterface>
 
@@ -102,8 +103,19 @@ void KateSnippetGlobal::showDialog (KateView *view)
   dialog.setButtons(KDialog::Ok);
   dialog.setDefaultButton(KDialog::Ok);
 
+  QWidget *mainWidget = new QWidget (&dialog);
+  dialog.setMainWidget(mainWidget);
+  QVBoxLayout *layout = new QVBoxLayout(mainWidget);
+
+  KToolBar *topToolbar = new KToolBar (&dialog, "snippetsToolBar");
+  topToolbar->setToolButtonStyle (Qt::ToolButtonIconOnly);
+  layout->addWidget(topToolbar);
+
   QWidget* widget = new SnippetView (this, &dialog);
-  dialog.setMainWidget(widget);
+  layout->addWidget(widget);
+
+  // add actions
+  topToolbar->addActions (widget->actions());
 
   /**
    * set document to work on and trigger dialog

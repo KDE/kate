@@ -87,6 +87,140 @@ const QStringList &KateCommands::CoreCommands::cmds()
   return l;
 }
 
+bool KateCommands::CoreCommands::help(KTextEditor::View *view, const QString &cmd, QString &msg)
+{
+  QString realcmd=cmd.trimmed();
+  if (realcmd=="indent") {
+    msg=i18n("<p>indent</p>"
+      "<p>Indents the selected lines or the current line</p>");
+    return true;
+  } else   if (realcmd=="unindent") {
+    msg=i18n("<p>unindent</p>"
+      "<p>Unindents the selected lines or current line.</p>");
+    return true;
+  } else   if (realcmd=="cleanindent") {
+    msg=i18n("<p>cleanindent</p>"
+      "<p>Cleans up the indentation of the selected lines or current line according to the indentation settings in the document. </p>");
+    return true;
+  } else   if (realcmd=="comment") {
+    msg=i18n("<p>comment</p>"
+      "<p>Inserts comment markers to make the selection or selected lines or current line a comment according to the text format as defined by the syntax highlight definition for the document.</p>");
+    return true;
+  } else   if (realcmd=="uncomment") {
+    msg=i18n("<p>uncomment</b></p>"
+      "<p>Removes comment markers from the selection or selected lines or current line according to the text format as defined by the syntax highlight definition for the document.</p>");
+    return true;
+  } else   if (realcmd=="goto") {
+    msg=i18n("<p>goto <b>line number</b></p>"
+      "<p>This command navigates to the specified line number.</p>");
+    return true;
+  } else   if (realcmd=="kill-line") {
+    msg=i18n("Deletes the current line.");
+    return true;
+  } else   if (realcmd=="set-tab-width") {
+    msg=i18n("<p>set-tab-width <b>width</b></p>"
+      "<p>Sets the tab width to the number <b>width</b></p>");
+    return true;
+  } else   if (realcmd=="set-replace-tab") {
+    msg=i18n("<p>set-replace-tab <b>enable</b></p>"
+      "<p>If enabled, tabs are replaced with spaces as you type.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-show-tabs") {
+    msg=i18n("<p>set-show-tabs <b>enable</b></p>"
+      "<p>If enabled, TAB characters and trailing whitespace will be visualized by a small dot.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-remove-trailing-space") {
+    msg=i18n("<p>set-remove-trailing-space <b>enable</b></p>"
+      "<p>If enabled, trailing whitespace are removed whenever the cursor leaves a line.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-indent-width") {
+    msg=i18n("<p>set-indent-width <b/>width</b></p>"
+      "<p>Sets the indentation width to the number <b>width</b>. Used only if you are indenting with spaces.</p>");
+    return true;
+  } else   if (realcmd=="set-indent-mode") {
+    msg=i18n("<p>set-indent-mode <b>mode</b></p>"
+      "<p>The mode parameter is a value as seen in the Tools - Indentation menu</p>");
+    return true;
+  } else   if (realcmd=="set-auto-indent") {
+    msg=i18n("<p>set-auto-indent <b>enable</b></p>"
+      "<p>Enable or disable autoindentation.</p>"
+      "<p>possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-line-numbers") {
+    msg=i18n("<p>set-line-numbers <b>enable</b></p>"
+      "<p>Sets the visibility of the line numbers pane.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-folding-markers") {
+    msg=i18n("<p>set-folding-markers <b>enable</b></p>"
+      "<p>Sets the visibility of the folding markers pane.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-icon-border") {
+    msg=i18n("<p>set-icon-border <b>enable</b></p>"
+      "<p>Sets the visibility of the icon border.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-wrap-cursor") {
+    msg=i18n("<p>set-wrap-cursor <b>enable</b></p>"
+      "<p>When on, moving the insertion cursor using the Left and Right keys will go on to previous/next line at beginning/end of the line, similar to most editors.</p>"
+      "<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers. When this option is chosen, moving the cursor with the arrow keys off the end of a line (to the right) causes it to jump down to the beginning of the next line. Likewise when the cursor is moved past the beginning of a line (to the left) it jumps up to the end of the preceding line. When this option is not selected, moving the cursor right past the end of a line merely causes it to continue horizontally in the same line and trying to move it left past the beginning does nothing.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-word-wrap") {
+    msg=i18n("<p>set-word-wrap <b>enable</b></p>"
+      "<p>Enables dynamic word wrap according to <b>enable</b></p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-word-wrap-column") {
+    msg=i18n("<p>set-word-wrap-column <b>width</b></p>"
+      "<p>Sets the line width for hard wrapping to <b>width</b>. This is used if you are having your text wrapped automatically.</p>");
+    return true;
+  } else   if (realcmd=="set-replace-tabs-save") {
+    msg=i18n("<p>set-replace-tabs-save <b>enable</b></p>"
+      "<p>When enabled, tabs will be replaced with whitespace whenever the document is saved.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-remove-trailing-space-save") {
+    msg=i18n("<p>set-remove-trailing-space-save <b>enable</b></p>"
+      "<p>When enabled, trailing space will be removed from each line whenever the document is saved.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="set-highlight") {
+    msg=i18n("<p>set-highlight <b>highlight</b></p>"
+        "<p>Sets the syntax highlighting system for the document. The argument must be a valid highlight name, as seen in the Tools → Highlighting menu. This command provides an autocompletion list for its argument.</p>");
+    return true;
+  } else   if (realcmd=="set-mode") {
+    msg=i18n("<p>set-mode <b>mode</b></p>"
+      "<p>Sets the mode as seen in Tools - Mode</p>");
+    return true;
+  } else   if (realcmd=="set-show-indent") {
+    msg=i18n("<p>set-show-indent <b>enable</b></p>"
+      "<p>If enabled, indentation will be visualized by a vertical dotted line.</p>"
+      "<p> possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
+    return true;
+  } else   if (realcmd=="print") {
+    msg=i18n("<p>Open the Print dialog to print the current document.</p>");
+    return true;
+  } else
+    return false;
+}
+
 bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
                             const QString &_cmd,
                             QString &errorMsg)
@@ -901,6 +1035,21 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
 
 //BEGIN Character
 KateCommands::Character* KateCommands::Character::m_instance = 0;
+
+bool KateCommands::Character::help (class KTextEditor::View *, const QString &cmd, QString &msg)
+{     
+      if (cmd.trimmed()=="char") {
+        msg = i18n("<p> char <b>identifier</b> </p>"
+        "<p>This command allows you to insert literal characters by their numerical identifier, in decimal, octal or hexadecimal form.</p>"
+          "<p>Examples:<ul>"
+          "<li>char <b>234</b></li>"
+          "<li>char <b>0x1234</b></li>"
+          "</ul></p>");
+        return true;
+    }
+    return false;
+}
+
 bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd, QString &)
 {
   QString cmd = _cmd;
@@ -947,6 +1096,37 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
 
 //BEGIN Date
 KateCommands::Date* KateCommands::Date::m_instance = 0;
+
+bool KateCommands::Date::help (class KTextEditor::View *, const QString &cmd, QString &msg)
+{     
+      if (cmd.trimmed()=="date") {
+        msg = i18n("<p>date or date <b>format</b></p>"
+        "<p>Inserts a date/time string as defined by the specified format, or the format yyyy-MM-dd hh:mm:ss if none is specified."
+        "<p>Possible format specifiers are:"
+        "<table>"
+            "<tr><td>dd</td><td>The day as number with a leading zero (01-31).</td></tr>"
+            "<tr><td>ddd</td><td>The abbreviated localized day name (e.g. 'Mon'..'Sun').</td></tr>"
+            "<tr><td>dddd</td><td>The long localized day name (e.g. 'Monday'..'Sunday').</td></tr>"
+            "<tr><td>M</td><td>The month as number without a leading zero (1-12).</td></tr>"
+            "<tr><td>MM</td><td>The month as number with a leading zero (01-12).</td></tr>"
+            "<tr><td>MMM</td><td>The abbreviated localized month name (e.g. 'Jan'..'Dec').</td></tr>"
+            "<tr><td>yy</td><td>The year as two digit number (00-99).</td></tr>"
+            "<tr><td>yyyy</td><td>The year as four digit number (1752-8000).</td></tr>"
+            "<tr><td>h</td><td>The hour without a leading zero (0..23 or 1..12 if AM/PM display).</td></tr>"
+            "<tr><td>hh</td><td>The hour with a leading zero (00..23 or 01..12 if AM/PM display).</td></tr>"
+            "<tr><td>m</td><td>The minute without a leading zero (0..59).</td></tr>"
+            "<tr><td>mm</td><td>The minute with a leading zero (00..59).</td></tr>"
+            "<tr><td>s</td><td>The second without a leading zero (0..59).</td></tr>"
+            "<tr><td>ss</td><td>The second with a leading zero (00..59).</td></tr>"
+            "<tr><td>z</td><td>The milliseconds without leading zeroes (0..999).</td></tr>"
+            "<tr><td>zzz</td><td>The milliseconds with leading zeroes (000..999).</td></tr>"
+            "<tr><td>AP</td><td>Use AM/PM display. AP will be replaced by either \"AM\" or \"PM\".</td></tr>"
+            "<tr><td>ap</td><td>Use am/pm display. ap will be replaced by either \"am\" or \"pm\".</td></tr>"
+        "</table></p>");
+        return true;
+    }
+    return false;
+}
 
 bool KateCommands::Date::exec (KTextEditor::View *view, const QString &cmd, QString &)
 {

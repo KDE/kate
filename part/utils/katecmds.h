@@ -76,7 +76,7 @@ class CoreCommands : public KTextEditor::Command, public KTextEditor::CommandExt
     bool supportsRange(const QString &range);
 
     /** This command does not have help. @see KTextEditor::Command::help */
-    bool help( class KTextEditor::View *, const QString &, QString & ) {return false;}
+    bool help( class KTextEditor::View *, const QString &, QString & );
 
     /**
      * supported commands as prefixes
@@ -308,7 +308,7 @@ class Character : public KTextEditor::Command
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
     /** This command does not have help. @see KTextEditor::Command::help */
-    bool help (class KTextEditor::View *, const QString &, QString &) { return false; }
+    bool help (class KTextEditor::View *, const QString &, QString &);
 
     /**
      * supported commands as prefixes
@@ -345,7 +345,7 @@ class Date : public KTextEditor::Command
     bool exec (class KTextEditor::View *view, const QString &cmd, QString &errorMsg);
 
     /** This command does not have help. @see KTextEditor::Command::help */
-    bool help (class KTextEditor::View *, const QString &, QString &) { return false; }
+    bool help (class KTextEditor::View *, const QString &, QString &);
 
     /**
      * supported commands as prefixes

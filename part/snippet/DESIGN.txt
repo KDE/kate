@@ -1,5 +1,8 @@
 Snippet plugin for KDevelop4
 ============================
+
+=> Moved to KatePart to allow other applications to take benefits
+
 (C) Robert Gruber [rgruber A users!sourceforge!net]
 (C) Milian Wolff <mail@milianw.de>
 

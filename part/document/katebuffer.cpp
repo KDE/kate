@@ -50,13 +50,6 @@
 #include <limits.h>
 
 /**
- * hl will look at the next KATE_HL_LOOKAHEAD lines
- * or until the current block ends if a line is requested
- * will avoid to run doHighlight too often
- */
-static const int KATE_HL_LOOKAHEAD = 64;
-
-/**
  * Initial value for m_maxDynamicContexts
  */
 static const int KATE_MAX_DYNAMIC_CONTEXTS = 512;
@@ -262,7 +255,7 @@ bool KateBuffer::saveFile (const QString &m_file)
   return true;
 }
 
-void KateBuffer::ensureHighlighted (int line)
+void KateBuffer::ensureHighlighted (int line, int lookAhead)
 {
   // valid line at all?
   if (line < 0 || line >= lines ())
@@ -272,8 +265,8 @@ void KateBuffer::ensureHighlighted (int line)
   if (line < m_lineHighlighted)
     return;
 
-  // update hl until this line + max KATE_HL_LOOKAHEAD
-  int end = qMin(line + KATE_HL_LOOKAHEAD, lines ()-1);
+  // update hl until this line + max lookAhead
+  int end = qMin(line + lookAhead, lines ()-1);
 
   // ensure we have enough highlighted
   doHighlight ( m_lineHighlighted, end, false );

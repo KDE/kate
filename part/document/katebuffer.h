@@ -145,8 +145,12 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
 
     /**
      * Update highlighting of given line @p line, if needed.
+     * If @p line is already highlighted, this function does nothing.
+     * If @p line is not highlighted, all lines up to line + lookAhead
+     * are highlighted.
+     * @param lookAhead also highlight these following lines
      */
-    void ensureHighlighted(int line);
+    void ensureHighlighted(int line, int lookAhead = 64);
 
     /**
      * Return the total number of lines in the buffer.

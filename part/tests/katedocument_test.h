@@ -33,7 +33,6 @@ public:
 private Q_SLOTS:
   void testWordWrap();
   void testReplaceQStringList();
-  void testRemoveTrailingSpace();
   void testMovingInterfaceSignals();
 
   void testSetTextPerformance();

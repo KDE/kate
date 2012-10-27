@@ -236,11 +236,14 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     void setReplaceTabsDyn (bool on);
     bool replaceTabsDyn() const;
 
-    void setRemoveTrailingDyn (bool on);
-    bool removeTrailingDyn() const;
-
-    void setRemoveSpaces (bool on);
-    bool removeSpaces () const;
+    /**
+     * Remove trailing spaces on save.
+     * triState = 0: never remove trailing spaces
+     * triState = 1: remove trailing spaces of modified lines (line modification system)
+     * triState = 2: remove trailing spaces in entire document
+     */
+    void setRemoveSpaces (int triState);
+    int removeSpaces () const;
 
     void setNewLineAtEof (bool on);
     bool newLineAtEof () const;
@@ -358,10 +361,8 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_showSpaces : 1;
     bool m_replaceTabsDynSet : 1;
     bool m_replaceTabsDyn : 1;
-    bool m_removeTrailingDynSet : 1;
-    bool m_removeTrailingDyn : 1;
     bool m_removeSpacesSet : 1;
-    bool m_removeSpaces : 1;
+    uint m_removeSpaces : 2;
     bool m_newLineAtEofSet : 1;
     bool m_newLineAtEof : 1;
     bool m_overwiteModeSet : 1;

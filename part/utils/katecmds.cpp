@@ -313,15 +313,15 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
       else if ( cmd == "set-replace-tabs" )
         config->setReplaceTabsDyn( enable );
       else if ( cmd == "set-remove-trailing-space" )
-        config->setRemoveTrailingDyn( enable );
+        config->setRemoveSpaces( enable ? 1 : 0 );
+      else if ( cmd == "set-remove-trailing-space-save" )
+        config->setRemoveSpaces( enable ? 2 : 0 );
       else if ( cmd == "set-show-tabs" )
         config->setShowTabs( enable );
       else if ( cmd == "set-show-trailing-spaces" )
         config->setShowSpaces( enable );
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
-      else if ( cmd == "set-remove-trailing-space-save" )
-        config->setRemoveSpaces( enable );
       else if ( cmd == "set-wrap-cursor" )
         config->setWrapCursor( enable );
 

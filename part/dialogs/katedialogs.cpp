@@ -607,7 +607,6 @@ KateEditGeneralConfigTab::KateEditGeneralConfigTab(QWidget *parent)
   connect(ui->chkStaticWordWrap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkShowStaticWordWrapMarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->sbWordWrap, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect(ui->chkAutoBrackets, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkSmartCopyCut, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkScrollPastEnd, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -634,7 +633,6 @@ void KateEditGeneralConfigTab::apply ()
   KateDocumentConfig::global()->configStart ();
 
   KateDocumentConfig::global()->setAutoBrackets(ui->chkAutoBrackets->isChecked());
-  KateDocumentConfig::global()->setRemoveTrailingDyn(ui->chkRemoveTrailingSpaces->isChecked());
 
   KateDocumentConfig::global()->setWordWrapAt(ui->sbWordWrap->value());
   KateDocumentConfig::global()->setWordWrap(ui->chkStaticWordWrap->isChecked());
@@ -653,7 +651,6 @@ void KateEditGeneralConfigTab::reload ()
   ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
   ui->sbWordWrap->setSuffix(ki18ncp("Wrap words at", " character", " characters"));
   ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
-  ui->chkRemoveTrailingSpaces->setChecked( KateDocumentConfig::global()->removeTrailingDyn() );
   ui->chkAutoBrackets->setChecked( KateDocumentConfig::global()->autoBrackets() );
   ui->chkSmartCopyCut->setChecked( KateViewConfig::global()->smartCopyCut() );
   ui->chkScrollPastEnd->setChecked( KateViewConfig::global()->scrollPastEnd() );
@@ -905,7 +902,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( ui->chkDetectEOL, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect( ui->chkEnableBOM, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect( ui->lineLengthLimit, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
-  connect( ui->chkRemoveTrailingSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect( ui->cbRemoveTrailingSpaces, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
   connect( ui->chkNewLineAtEof, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect( uiadv->chkBackupLocalFiles, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
   connect( uiadv->chkBackupRemoteFiles, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
@@ -970,7 +967,7 @@ void KateSaveConfigTab::apply()
 
   KateDocumentConfig::global()->setSearchDirConfigDepth(uiadv->sbConfigFileSearchDepth->value());
 
-  KateDocumentConfig::global()->setRemoveSpaces(ui->chkRemoveTrailingSpaces->isChecked());
+  KateDocumentConfig::global()->setRemoveSpaces(ui->cbRemoveTrailingSpaces->currentIndex());
 
   KateDocumentConfig::global()->setNewLineAtEof(ui->chkNewLineAtEof->isChecked());
 
@@ -1046,7 +1043,7 @@ void KateSaveConfigTab::reload()
   ui->chkEnableBOM->setChecked(KateDocumentConfig::global()->bom());
   ui->lineLengthLimit->setValue(KateDocumentConfig::global()->lineLengthLimit());
 
-  ui->chkRemoveTrailingSpaces->setChecked(KateDocumentConfig::global()->removeSpaces());
+  ui->cbRemoveTrailingSpaces->setCurrentIndex(KateDocumentConfig::global()->removeSpaces());
   ui->chkNewLineAtEof->setChecked(KateDocumentConfig::global()->newLineAtEof());
   uiadv->sbConfigFileSearchDepth->setValue(KateDocumentConfig::global()->searchDirConfigDepth());
 
@@ -1067,6 +1064,8 @@ void KateSaveConfigTab::reset()
 void KateSaveConfigTab::defaults()
 {
   modeConfigPage->defaults();
+
+  ui->cbRemoveTrailingSpaces->setCurrentIndex(0);
 
   uiadv->chkBackupLocalFiles->setChecked( true );
   uiadv->chkBackupRemoteFiles->setChecked( false );

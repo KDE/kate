@@ -214,17 +214,6 @@ kde4_add_unit_test(indenttest TESTNAME kate-indenttest ${indenttest_SRCS})
 
 target_link_libraries(indenttest ${KATE_TEST_LINK_LIBS})
 
-########### remove trailing spaces for copy&pate, bug #242723 ################
-
-kde4_add_unit_test(bug242723_test TESTNAME kate-bug242723_test bug242723_test.cpp)
-
-target_link_libraries( bug242723_test
-  ${KDE4_KDEUI_LIBS}
-  ${QT_QTTEST_LIBRARY}
-  ${KATE_TEST_LINK_LIBS}
-  katepartinterfaces
-)
-
 ########### bug 213964 test ###############
 
 kde4_add_unit_test(bug213964_test TESTNAME kate-bug213964_test bug213964.cpp)

@@ -273,7 +273,7 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   listview->addItem(item);
 
   // Add 'remove-trailing-space' to list
-  item = new VariableBoolItem("remove-trailing-space", docConfig->removeTrailingDyn());
+  item = new VariableBoolItem("remove-trailing-space", docConfig->removeSpaces() == 1);
   item->setHelpText(i18nc("short translation please", "Remove trailing spaces when editing a line."));
   listview->addItem(item);
 

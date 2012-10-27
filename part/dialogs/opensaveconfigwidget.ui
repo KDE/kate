@@ -160,14 +160,56 @@
      </property>
      <layout class="QVBoxLayout">
       <item>
-       <widget class="QCheckBox" name="chkRemoveTrailingSpaces">
-        <property name="whatsThis">
-         <string>The editor will automatically eliminate extra spaces at the ends of lines of text while saving the file. This change is only visible after a save if you reload the file.</string>
-        </property>
-        <property name="text">
-         <string>Re&amp;move trailing spaces</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="lblRemoveTrailingSpaces">
+          <property name="whatsThis">
+           <string>Depending on the choice, trailing spaces are removed when saving a document, either in the entire document or only of modified lines.</string>
+          </property>
+          <property name="text">
+           <string>Re&amp;move trailing spaces:</string>
+          </property>
+          <property name="buddy">
+           <cstring>cbRemoveTrailingSpaces</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cbRemoveTrailingSpaces">
+          <property name="whatsThis">
+           <string>Depending on the choice, trailing spaces are removed when saving a document, either in the entire document or only of modified lines.</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>Never</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Modified Lines</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Entire Document</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
       <item>
        <widget class="QCheckBox" name="chkNewLineAtEof">

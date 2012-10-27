@@ -4204,7 +4204,9 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         replaceTabsSet = true;  // for backward compatibility; see below
       }
       else if ( var == "remove-trailing-space" && checkBoolValue( val, &state ) )
-        m_config->setRemoveTrailingDyn( state );
+        m_config->setRemoveSpaces( state ? 1 : 0 );
+      else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
+        m_config->setRemoveSpaces( state ? 2 : 0 );
       else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
         m_config->setWrapCursor( state );
       else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
@@ -4226,8 +4228,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       }
       else if ( var == "smart-home" && checkBoolValue( val, &state ) )
         m_config->setSmartHome( state );
-      else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) )
-        m_config->setRemoveSpaces( state );
       else if ( var == "newline-at-eof" && checkBoolValue( val, &state ) )
         m_config->setNewLineAtEof( state );
 
@@ -4508,22 +4508,30 @@ QString KateDocument::reasonedMOHString() const
 
 void KateDocument::removeTrailingSpaces()
 {
-  if (config()->removeSpaces()) {
-    editStart();
+  const int remove = config()->removeSpaces();
+  if (remove == 0)
+    return;
 
-    for (int line = 0; line < lines(); ++line)
+  editStart();
+
+  for (int line = 0; line < lines(); ++line)
+  {
+    Kate::TextLine textline = plainKateTextLine(line);
+
+    if (remove == 2                      // remove trailing spaces in entire document
+      || textline->markedAsModified()    // remove trailing spaces of touched lines, remove = 1
+      || textline->markedAsSavedOnDisk() // remove trailing sapces of touched lines, remove = 1
+      )
     {
-      Kate::TextLine textline = plainKateTextLine(line);
-
       const int p = textline->lastChar() + 1;
       const int l = textline->length() - p;
       if (l > 0) {
         editRemoveText(line, p, l);
       }
     }
-
-    editEnd();
   }
+
+  editEnd();
 }
 
 

@@ -177,7 +177,6 @@ KateDocumentConfig::KateDocumentConfig ()
    m_showTabsSet (false),
    m_showSpacesSet (false),
    m_replaceTabsDynSet (false),
-   m_removeTrailingDynSet (false),
    m_removeSpacesSet (false),
    m_newLineAtEofSet (false),
    m_overwiteModeSet (false),
@@ -224,8 +223,8 @@ KateDocumentConfig::KateDocumentConfig (const KConfigGroup &cg)
    m_showTabsSet (false),
    m_showSpacesSet (false),
    m_replaceTabsDynSet (false),
-   m_removeTrailingDynSet (false),
    m_removeSpacesSet (false),
+   m_newLineAtEofSet (false),
    m_overwiteModeSet (false),
    m_tabIndentsSet (false),
    m_encodingSet (true),
@@ -264,7 +263,6 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_showTabsSet (false),
    m_showSpacesSet (false),
    m_replaceTabsDynSet (false),
-   m_removeTrailingDynSet (false),
    m_removeSpacesSet (false),
    m_newLineAtEofSet (false),
    m_overwiteModeSet (false),
@@ -315,8 +313,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setAutoBrackets (config.readEntry("Automatically Insert Closing Brackets", false));
   setShowSpaces (config.readEntry("Show Spaces", false));
   setReplaceTabsDyn (config.readEntry("ReplaceTabsDyn", false));
-  setRemoveTrailingDyn (config.readEntry("RemoveTrailingDyn", false));
-  setRemoveSpaces (config.readEntry("Remove Spaces", false));
+  setRemoveSpaces (config.readEntry("Remove Spaces", 0));
   setNewLineAtEof (config.readEntry("Newline At EOF", false));
   setOvr (config.readEntry("Overwrite Mode", false));
 
@@ -370,7 +367,6 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Automatically Insert Closing Brackets", autoBrackets());
   config.writeEntry("Show Spaces", showSpaces());
   config.writeEntry("ReplaceTabsDyn", replaceTabsDyn());
-  config.writeEntry("RemoveTrailingDyn", removeTrailingDyn());
   config.writeEntry("Remove Spaces", removeSpaces());
   config.writeEntry("Newline At EOF", newLineAtEof());
   config.writeEntry("Overwrite Mode", ovr());
@@ -712,35 +708,17 @@ bool KateDocumentConfig::replaceTabsDyn() const
   return s_global->replaceTabsDyn();
 }
 
-void KateDocumentConfig::setRemoveTrailingDyn(bool on)
-{
-  configStart ();
-
-  m_removeTrailingDynSet = true;
-  m_removeTrailingDyn = on;
-
-  configEnd ();
-}
-
-bool KateDocumentConfig::removeTrailingDyn() const
-{
-  if (m_removeTrailingDynSet || isGlobal())
-    return m_removeTrailingDyn;
-
-  return s_global->removeTrailingDyn();
-}
-
-void KateDocumentConfig::setRemoveSpaces(bool on)
+void KateDocumentConfig::setRemoveSpaces(int triState)
 {
   configStart ();
 
   m_removeSpacesSet = true;
-  m_removeSpaces = on;
+  m_removeSpaces = triState;
 
   configEnd ();
 }
 
-bool KateDocumentConfig::removeSpaces() const
+int KateDocumentConfig::removeSpaces() const
 {
   if (m_removeSpacesSet || isGlobal())
     return m_removeSpaces;

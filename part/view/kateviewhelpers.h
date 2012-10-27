@@ -67,9 +67,13 @@ class KateScrollBar : public QScrollBar
 
   public:
     KateScrollBar(Qt::Orientation orientation, class KateViewInternal *parent);
+    QSize sizeHint() const;
 
     inline bool showMarks() { return m_showMarks; }
     inline void setShowMarks(bool b) { m_showMarks = b; update(); }
+
+    inline bool showMiniMap() { return m_showMiniMap; }
+    inline void setShowMiniMap(bool b) { m_showMiniMap = b; updateGeometry(); update(); }
 
   Q_SIGNALS:
     void sliderMMBMoved(int value);
@@ -78,7 +82,7 @@ class KateScrollBar : public QScrollBar
     virtual void mousePressEvent(QMouseEvent* e);
     virtual void mouseReleaseEvent(QMouseEvent* e);
     virtual void mouseMoveEvent (QMouseEvent* e);
-    virtual void paintEvent(QPaintEvent *);
+    virtual void paintEvent(QPaintEvent *e);
     virtual void resizeEvent(QResizeEvent *);
     virtual void styleChange(QStyle &oldStyle);
     virtual void sliderChange ( SliderChange change );
@@ -87,9 +91,15 @@ class KateScrollBar : public QScrollBar
     void sliderMaybeMoved(int value);
     void marksChanged();
 
+  private Q_SLOTS:
+    void updatePixmap();
+
   private:
     void redrawMarks();
     void recomputeMarksPositions();
+
+    void miniMapPaintEvent(QPaintEvent *e);
+    void normalPaintEvent(QPaintEvent *e);
 
     bool m_middleMouseDown;
 
@@ -100,6 +110,10 @@ class KateScrollBar : public QScrollBar
     QHash<int, QColor> m_lines;
 
     bool m_showMarks;
+    bool m_showMiniMap;
+
+    QPixmap m_pixmap;
+    QTimer  m_updateTimer;
 };
 
 class KateIconBorder : public QWidget

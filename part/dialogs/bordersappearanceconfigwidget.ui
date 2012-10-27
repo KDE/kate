@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>278</width>
-    <height>260</height>
+    <height>282</height>
    </rect>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -64,6 +64,16 @@
         </property>
         <property name="text">
          <string>Show &amp;scrollbar marks</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="chkScrollbarMiniMap">
+        <property name="whatsThis">
+         <string>&lt;p&gt;If this option is checked, every new view will show marks on the vertical scrollbar.&lt;/p&gt;&lt;p&gt;These marks will show bookmarks, for instance.&lt;/p&gt;</string>
+        </property>
+        <property name="text">
+         <string>Show scrollbar mini-map</string>
         </property>
        </widget>
       </item>

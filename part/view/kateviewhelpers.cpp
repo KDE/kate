@@ -76,6 +76,8 @@
 #include <math.h>
 
 //BEGIN KateScrollBar
+static const int s_lineWidth = 100;
+
 KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* parent)
   : QScrollBar (orientation, parent->m_view)
   , m_middleMouseDown (false)
@@ -83,11 +85,28 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   , m_doc(parent->doc())
   , m_viewInternal(parent)
   , m_showMarks(false)
+  , m_showMiniMap(false)
 {
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
   connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document*)), this, SLOT(marksChanged()));
 
   styleChange(*style());
+
+  m_updateTimer.setInterval(500);
+  m_updateTimer.setSingleShot(true);
+  connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()));
+  connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)),
+          &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+
+  QTimer::singleShot(0, this, SLOT(updatePixmap()));
+}
+
+QSize KateScrollBar::sizeHint() const
+{
+  if (m_showMiniMap) {
+    return QSize(QScrollBar::sizeHint().width()*2, QScrollBar::sizeHint().height());
+  }
+  return QScrollBar::sizeHint();
 }
 
 void KateScrollBar::mousePressEvent(QMouseEvent* e)
@@ -119,10 +138,102 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 
 void KateScrollBar::paintEvent(QPaintEvent *e)
 {
+  if (m_showMiniMap) {
+    miniMapPaintEvent(e);
+  }
+  else {
+    normalPaintEvent(e);
+  }
+}
+
+void KateScrollBar::updatePixmap()
+{
+  int docLines = m_doc->lines();
+  int numJumpLines = 1;
+  if ((height() > 10) && (docLines > height()*2)) {
+    numJumpLines = docLines / height();
+  }
+  docLines /= numJumpLines;
+
+  //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
+
+  m_pixmap = QPixmap(s_lineWidth, docLines+1);
+  m_pixmap.fill(palette().color(QPalette::Base));
+
+  QString line;
+  int pixX;
+  QPainter p;
+  if (p.begin(&m_pixmap)) {
+    p.setPen(palette().color(QPalette::Text));
+    for (int y=0; y < m_doc->lines(); y+=numJumpLines) {
+      line = m_doc->line(y);
+      pixX=0;
+      for (int x=0; x <line.size(); x++) {
+        if (pixX >= s_lineWidth) {
+          break;
+        }
+        if (line[x] == ' ') {
+          pixX++;
+        }
+        else if (line[x] == '\t') {
+          pixX += 4; // FIXME: tab width...
+        }
+        else if (line[x] != '\r') {
+          p.drawPoint(pixX, y/numJumpLines);
+          pixX++;
+        }
+      }
+    }
+  }
+  update();
+}
+
+void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
+{
+  QPainter painter(this);
+
+  QStyleOptionSlider opt;
+  opt.init(this);
+  opt.subControls = QStyle::SC_None;
+  opt.activeSubControls = QStyle::SC_None;
+  opt.orientation = orientation();
+  opt.minimum = minimum();
+  opt.maximum = maximum();
+  opt.sliderPosition = sliderPosition();
+  opt.sliderValue = value();
+  opt.singleStep = singleStep();
+  opt.pageStep = pageStep();
+
+  QRect grooveRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarGroove, this);
+  QRect sliderRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSlider, this);
+
+  style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
+  style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
+
+  painter.drawPixmap(grooveRect, m_pixmap, m_pixmap.rect());
+
+  painter.setBrush(QColor(127,127,127, 70));
+  painter.setPen(QColor(127,127,127, 70));
+  painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
+  painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));
+
+
+  if (!m_showMarks) return;
+
+  QHashIterator<int, QColor> it = m_lines;
+  while (it.hasNext())
+  {
+    it.next();
+    painter.setPen(it.value());
+    painter.drawLine(0, it.key(), width(), it.key());
+  }
+}
+
+void KateScrollBar::normalPaintEvent(QPaintEvent *e)
+{
   QScrollBar::paintEvent(e);
 
-  if (!m_showMarks)
-    return;
+  if (!m_showMarks) return;
 
   QPainter painter(this);
 
@@ -194,9 +305,7 @@ void KateScrollBar::marksChanged()
 
 void KateScrollBar::redrawMarks()
 {
-  if (!m_showMarks)
-    return;
-
+  if (!m_showMarks) return;
   update();
 }
 

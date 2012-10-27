@@ -337,7 +337,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setSwapFileNoSync (config.readEntry("No sync", false));
 
   setOnTheFlySpellCheck(config.readEntry("On-The-Fly Spellcheck", false));
-  
+
   setLineLengthLimit(config.readEntry("Line Length Limit", 1024));
 
   configEnd ();
@@ -1065,6 +1065,7 @@ KateViewConfig::KateViewConfig ()
    m_dynWordWrapAlignIndentSet (true),
    m_lineNumbersSet (true),
    m_scrollBarMarksSet (true),
+   m_scrollBarMiniMapSet (true),
    m_iconBarSet (true),
    m_foldingBarSet (true),
    m_lineModificationSet (true),
@@ -1099,6 +1100,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_dynWordWrapAlignIndentSet (false),
    m_lineNumbersSet (false),
    m_scrollBarMarksSet (false),
+   m_scrollBarMiniMapSet (false),
    m_iconBarSet (false),
    m_foldingBarSet (false),
    m_lineModificationSet (false),
@@ -1142,6 +1144,8 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setLineNumbers (config.readEntry( "Line Numbers",  false));
 
   setScrollBarMarks (config.readEntry( "Scroll Bar Marks",  false));
+
+  setScrollBarMiniMap (config.readEntry( "Scroll Bar Mini Map",  false));
 
   setIconBar (config.readEntry( "Icon Bar", false ));
 
@@ -1196,6 +1200,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry( "Scroll Bar Marks", scrollBarMarks() );
 
+  config.writeEntry( "Scroll Bar Mini Map", scrollBarMiniMap() );
+
   config.writeEntry( "Icon Bar", iconBar() );
 
   config.writeEntry( "Folding Bar", foldingBar() );
@@ -1211,7 +1217,7 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Maximum Search History Size", m_maxHistorySize);
 
   config.writeEntry("Default Mark Type", defaultMarkType());
-  
+
   config.writeEntry("Allow Mark Menu", allowMarkMenu());
 
   config.writeEntry("Persistent Selection", persistentSelection());
@@ -1340,6 +1346,24 @@ void KateViewConfig::setScrollBarMarks (bool on)
 
   m_scrollBarMarksSet = true;
   m_scrollBarMarks = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::scrollBarMiniMap () const
+{
+  if (m_scrollBarMiniMapSet || isGlobal())
+    return m_scrollBarMiniMap;
+
+  return s_global->scrollBarMiniMap();
+}
+
+void KateViewConfig::setScrollBarMiniMap (bool on)
+{
+  configStart ();
+
+  m_scrollBarMiniMapSet = true;
+  m_scrollBarMiniMap = on;
 
   configEnd ();
 }

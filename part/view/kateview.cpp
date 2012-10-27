@@ -548,6 +548,11 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<br /><br />The marks show bookmarks, for instance."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMarks()));
 
+  a = m_toggleScrollBarMiniMap = toggleAction = new KToggleAction(i18n("Show Scrollbar Mini-Map"), this);
+  ac->addAction("view_scrollbar_minimap", a);
+  a->setWhatsThis(i18n("Show/hide the mini-map on the vertical scrollbar.<br /><br />The mini-map shows an overview of the whole document."));
+  connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMiniMap()));
+
   a = toggleAction = m_toggleWWMarker = new KToggleAction(i18n("Show Static &Word Wrap Marker"), this);
   ac->addAction("view_word_wrap_marker", a);
   a->setWhatsThis( i18n(
@@ -1276,6 +1281,16 @@ void KateView::toggleScrollBarMarks()
   config()->setScrollBarMarks (!config()->scrollBarMarks());
 }
 
+void KateView::setScrollBarMiniMap( bool enable )
+{
+  config()->setScrollBarMiniMap (enable);
+}
+
+void KateView::toggleScrollBarMiniMap()
+{
+  config()->setScrollBarMiniMap (!config()->scrollBarMiniMap());
+}
+
 void KateView::toggleDynWordWrap()
 {
   config()->setDynWordWrap( !config()->dynWordWrap() );
@@ -1306,6 +1321,10 @@ bool KateView::lineNumbersOn() {
 
 bool KateView::scrollBarMarks() {
   return m_viewInternal->m_lineScroll->showMarks();
+}
+
+bool KateView::scrollBarMiniMap() {
+  return m_viewInternal->m_lineScroll->showMiniMap();
 }
 
 int KateView::dynWrapIndicators() {
@@ -1521,6 +1540,10 @@ void KateView::updateConfig ()
   // scrollbar marks
   m_viewInternal->m_lineScroll->setShowMarks( config()->scrollBarMarks() );
   m_toggleScrollBarMarks->setChecked( config()->scrollBarMarks() );
+
+  // scrollbar mini-map
+  m_viewInternal->m_lineScroll->setShowMiniMap( config()->scrollBarMiniMap() );
+  m_toggleScrollBarMiniMap->setChecked( config()->scrollBarMiniMap() );
 
   // misc edit
   m_toggleBlockSelection->setChecked( blockSelectionMode() );

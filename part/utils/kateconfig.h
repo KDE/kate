@@ -309,7 +309,7 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
 
     bool onTheFlySpellCheck() const;
     void setOnTheFlySpellCheck(bool on);
-    
+
     int lineLengthLimit() const;
     void setLineLengthLimit(int limit);
 
@@ -443,6 +443,9 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool scrollBarMarks () const;
     void setScrollBarMarks (bool on);
 
+    bool scrollBarMiniMap () const;
+    void setScrollBarMiniMap (bool on);
+
     bool iconBar () const;
     void setIconBar (bool on);
 
@@ -483,7 +486,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
 
     uint defaultMarkType () const;
     void setDefaultMarkType (uint type);
-    
+
     bool allowMarkMenu () const;
     void setAllowMarkMenu (bool allow);
 
@@ -530,6 +533,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     int m_dynWordWrapAlignIndent;
     bool m_lineNumbers;
     bool m_scrollBarMarks;
+    bool m_scrollBarMiniMap;
     bool m_iconBar;
     bool m_foldingBar;
     bool m_lineModification;
@@ -555,6 +559,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_dynWordWrapAlignIndentSet : 1;
     bool m_lineNumbersSet : 1;
     bool m_scrollBarMarksSet : 1;
+    bool m_scrollBarMiniMapSet : 1;
     bool m_iconBarSet : 1;
     bool m_foldingBarSet : 1;
     bool m_lineModificationSet : 1;

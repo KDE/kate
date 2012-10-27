@@ -786,6 +786,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
 
   connect(bordersUi->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->chkScrollbarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(bordersUi->chkScrollbarMiniMap, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->chkLineNumbers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->chkShowLineModification, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->chkShowFoldingMarkers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -817,6 +818,7 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->setLineNumbers (bordersUi->chkLineNumbers->isChecked());
   KateViewConfig::global()->setIconBar (bordersUi->chkIconBorder->isChecked());
   KateViewConfig::global()->setScrollBarMarks (bordersUi->chkScrollbarMarks->isChecked());
+  KateViewConfig::global()->setScrollBarMiniMap (bordersUi->chkScrollbarMiniMap->isChecked());
   KateViewConfig::global()->setFoldingBar (bordersUi->chkShowFoldingMarkers->isChecked());
   KateViewConfig::global()->setLineModification(bordersUi->chkShowLineModification->isChecked());
 
@@ -850,6 +852,7 @@ void KateViewDefaultsConfig::reload ()
   bordersUi->chkLineNumbers->setChecked(KateViewConfig::global()->lineNumbers());
   bordersUi->chkIconBorder->setChecked(KateViewConfig::global()->iconBar());
   bordersUi->chkScrollbarMarks->setChecked(KateViewConfig::global()->scrollBarMarks());
+  bordersUi->chkScrollbarMiniMap->setChecked(KateViewConfig::global()->scrollBarMiniMap());
   bordersUi->chkShowFoldingMarkers->setChecked(KateViewConfig::global()->foldingBar());
   bordersUi->chkShowLineModification->setChecked(KateViewConfig::global()->lineModification());
   bordersUi->rbSortBookmarksByPosition->setChecked(KateViewConfig::global()->bookmarkSort()==0);
@@ -980,7 +983,7 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
   KateDocumentConfig::global()->setBom(ui->chkEnableBOM->isChecked());
-  
+
   KateDocumentConfig::global()->setLineLengthLimit(ui->lineLengthLimit->value());
 
   KateDocumentConfig::global()->configEnd ();

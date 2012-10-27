@@ -11,8 +11,8 @@
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language
-    name="C++ (Qt4)"
-    version="0.2"
+    name="C++11/Qt4"
+    version="0.3"
     kateversion="2.4"
     section="Sources"
     extensions="*.moc"
@@ -1251,9 +1251,9 @@
   </list>
 
   <contexts>
-    <!-- Base context for C++ and Qt highlighting to be used as standalone syntax -->
+    <!-- Base context for C++11 and Qt highlighting to be used as standalone syntax -->
     <context attribute="Normal Text" lineEndContext="#stay" name="Normal">
-      <IncludeRules context="##C++" />
+      <IncludeRules context="##C++11" />
       <IncludeRules context="DetectQt4Extensions" />
     </context>
 

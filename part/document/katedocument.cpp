@@ -4546,11 +4546,9 @@ void KateDocument::removeTrailingSpaces()
   {
     Kate::TextLine textline = plainKateTextLine(line);
 
-    if (remove == 2                      // remove trailing spaces in entire document
-      || textline->markedAsModified()    // remove trailing spaces of touched lines, remove = 1
-      || textline->markedAsSavedOnDisk() // remove trailing sapces of touched lines, remove = 1
-      )
-    {
+    // remove trailing spaces in entire document, remove = 2
+    // remove trailing spaces of touched lines, remove = 1
+    if (remove == 2 || textline->markedAsModified()) {
       const int p = textline->lastChar() + 1;
       const int l = textline->length() - p;
       if (l > 0) {

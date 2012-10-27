@@ -9,9 +9,9 @@
     <!ENTITY convspec "diouxXeEfFgGaAcsP&#37;">
 ]>
 <language
-    name="C++"
+    name="C++11"
     section="Sources"
-    version="1.50.1"
+    version="1.51"
     kateversion="2.4"
     indenter="cppstyle"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"

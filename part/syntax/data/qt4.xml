@@ -11,8 +11,8 @@
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language
-    name="Qt4/C++"
-    version="0.1"
+    name="C++ (Qt4)"
+    version="0.2"
     kateversion="2.4"
     section="Sources"
     extensions="*.moc"

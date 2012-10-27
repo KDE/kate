@@ -96,16 +96,6 @@
      </property>
      <layout class="QVBoxLayout">
       <item>
-       <widget class="QCheckBox" name="chkRemoveTrailingSpaces">
-        <property name="whatsThis">
-         <string>If this is enabled, the editor will remove any trailing whitespace on lines that are changed through editing.</string>
-        </property>
-        <property name="text">
-         <string>Remove &amp;trailing spaces while editing</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QCheckBox" name="chkAutoBrackets">
         <property name="whatsThis">
          <string>When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor.</string>

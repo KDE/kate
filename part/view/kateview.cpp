@@ -429,6 +429,7 @@ void KateView::setupActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(userInvokedCompletion()));
 
     a = ac->addAction( "tools_create_snippet" );
+    a->setIcon (KIcon("document-new"));
     a->setText( i18n("Create Snippet") );
     connect(a, SIGNAL(triggered(bool)), SLOT(createSnippet()));
 

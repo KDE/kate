@@ -48,6 +48,7 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     Ui::SnippetViewBase::setupUi(this);
 
     setWindowTitle(i18n("Snippets"));
+    setWindowIcon (KIcon("document-new"));
 
     connect(filterText, SIGNAL(clearButtonClicked()),
             this, SLOT(slotFilterChanged()));

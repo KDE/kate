@@ -74,6 +74,7 @@
 #include <QtGui/QAction>
 #include <QtGui/QWhatsThis>
 #include <QtGui/QLinearGradient>
+#include <QtGui/QTextLayout>
 
 #include <math.h>
 
@@ -228,9 +229,10 @@ void KateScrollBar::updatePixmap()
           line = m_doc->line(realY);
         }
       }
-      pixX=10;
       kDebug(13040) << realY << y;
+      pixX=5;
       attribs = m_doc->kateTextLine(realY)->attributesList();
+      QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(m_doc->kateTextLine(y), y);
       attribIndex = 0;
       //kDebug(13040) << attribs;
       p.setPen(textColor);
@@ -272,13 +274,29 @@ void KateScrollBar::updatePixmap()
               }
             }
           }
+          
+          // query the decorations
+          foreach ( const QTextLayout::FormatRange& range, decorations ) {
+            if ( range.start <= x and range.start + range.length > x ) {
+              // If there's a different background color set (search markers, ...)
+              // use that, otherwise use the foreground color.
+              if ( range.format.hasProperty(QTextFormat::BackgroundBrush) ) {
+                p.setPen(range.format.background().color());
+              }
+              else {
+                p.setPen(range.format.foreground().color());
+              }
+              break;
+            }
+          }
+          
           p.drawPoint(pixX, y/numJumpLines);
           pixX++;
         }
       }
     }
   }
-  kDebug(13040) << timeThis.elapsed();
+  kDebug(13040) << "time needed for scrollbar pixmap:" << timeThis.elapsed() << "ms";
   update();
 }
 

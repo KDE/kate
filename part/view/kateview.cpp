@@ -694,7 +694,7 @@ void KateView::slotConfigDialog ()
 
   // write config to global settings, else simple programs don't get config saved ever
   // like Konqueror, Dolphin, ...
-  KateGlobal::self ()->writeConfig (KGlobal::config());
+  KateGlobal::self ()->writeConfig (KGlobal::config().data());
 }
 
 void KateView::setupEditActions()

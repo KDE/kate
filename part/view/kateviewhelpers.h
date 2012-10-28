@@ -118,6 +118,8 @@ class KateScrollBar : public QScrollBar
     bool m_pressed;
     QPoint m_toolTipPos;
     QRect m_toolTipRect;
+    
+    static float characterOpacity[256];
 };
 
 class KateIconBorder : public QWidget

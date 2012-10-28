@@ -350,9 +350,6 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   painter.setPen(shieldColor);
   painter.setBrush(g);
 
-
-  kDebug(13040) << docHeight << grooveRect.height() << m_pixmap.height();
-
   int y = value()*docHeight/(maximum()+pageStep()) + yoffset;
   painter.drawRect(QRect(grooveRect.topLeft(), QPoint(grooveRect.right(), y + grooveRect.top())));
 

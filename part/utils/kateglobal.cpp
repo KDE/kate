@@ -517,7 +517,7 @@ void KateGlobal::setContainer( QObject * container )
 
 QWidget *KateGlobal::snippetWidget ()
 {
-  return m_snippetGlobal->snippetWidget ();
+  return snippetGlobal()->snippetWidget ();
 }
 
 KTextEditor::TemplateScript* KateGlobal::registerTemplateScript (QObject* owner, const QString& script)

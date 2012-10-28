@@ -194,6 +194,9 @@ KateGlobal::KateGlobal ()
   // finally setup connections
   //
   connect(KGlobalSettings::self(), SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateColorPalette()));
+
+  //required for setting sessionConfig property
+  qRegisterMetaType<KSharedConfig::Ptr>("KSharedConfig::Ptr");
 }
 
 KateGlobal::~KateGlobal()

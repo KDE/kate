@@ -345,10 +345,11 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   painter.setBrush(palette().window());
   painter.drawRect(grooveRect);
 
+  int max = qMax(maximum(), 1);
   int docHeight = qMin(grooveRect.height(), m_pixmap.height()*3);
-  int yoffset = (grooveRect.height() - docHeight) * value() / maximum();
-
+  int yoffset = (grooveRect.height() - docHeight) * value() / max;
   QRect docRect(QPoint(grooveRect.left(), yoffset+grooveRect.top()), QSize(grooveRect.width(), docHeight));
+
   painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
 
   QColor shieldColor = QColor(127,127,127, 64);
@@ -360,13 +361,13 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   painter.setPen(shieldColor);
   painter.setBrush(g);
 
-  int y = value()*docHeight/(maximum()+pageStep()) + yoffset;
+  int y = value()*docHeight/(max+pageStep()) + yoffset;
   painter.drawRect(QRect(grooveRect.topLeft(), QPoint(grooveRect.right(), y + grooveRect.top())));
   if (docHeight < grooveRect.height()) {
     painter.drawRect(QRect(grooveRect.topLeft(), QPoint(grooveRect.right(), y + grooveRect.top())));
   }
 
-  y = (value()+pageStep())*docHeight/(maximum()+pageStep()) + yoffset;
+  y = (value()+pageStep())*docHeight/(max+pageStep()) + yoffset;
   painter.drawRect(QRect(QPoint(grooveRect.left(), y + grooveRect.top()), grooveRect.bottomRight()));
   if (docHeight < grooveRect.height()) {
     painter.drawRect(QRect(QPoint(grooveRect.left(), y + grooveRect.top()), grooveRect.bottomRight()));

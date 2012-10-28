@@ -121,33 +121,22 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 
   m_updateTimer.setInterval(300);
   m_updateTimer.setSingleShot(true);
-  connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()));
-  connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)),
-          &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
-  connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
-  connect(&(m_doc->buffer()), SIGNAL(lineWrapped(KTextEditor::Cursor)),
-          this, SLOT(lineAdded(KTextEditor::Cursor)));
-  connect(&(m_doc->buffer()), SIGNAL(lineUnwrapped(int)),
-          this, SLOT(lineRemoved(int)));
-
-
 }
 
 void KateScrollBar::setShowMiniMap(bool b)
 {
-
-  //kDebug(13040) << styleSheet();
-  //setStyleSheet(b ? "QScrollBar::add-line:vertical {height: 0px;}\nQScrollBar::sub-line:vertical {height: 0px;}" : "");
-  //kDebug(13040) << styleSheet();
-
   if (b && !m_showMiniMap) {
     connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()), Qt::UniqueConnection);
     connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+    connect(&(m_doc->buffer()), SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(lineAdded(KTextEditor::Cursor)));
+    connect(&(m_doc->buffer()), SIGNAL(lineUnwrapped(int)), this, SLOT(lineRemoved(int)));
   }
-  else {
+  else if (!b) {
     disconnect(&m_updateTimer);
+    disconnect(&(m_doc->buffer()), SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(lineAdded(KTextEditor::Cursor)));
+    disconnect(&(m_doc->buffer()), SIGNAL(lineUnwrapped(int)), this, SLOT(lineRemoved(int)));
   }
 
   m_showMiniMap = b;

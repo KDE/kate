@@ -76,10 +76,12 @@ class KateScrollBar : public QScrollBar
     void setShowMiniMap(bool b);
 
     inline bool miniMapAll() { return m_miniMapAll; }
-    inline void setMiniMapAll(bool b) { m_miniMapAll = b; updateGeometry(); updatePixmap(); update(); }
+    inline void setMiniMapAll(bool b) { m_miniMapAll = b; updateGeometry(); update(); }
 
     inline bool miniMapWidth() { return m_miniMapWidth; }
-    inline void setMiniMapWidth(int width) { m_miniMapWidth = width; updateGeometry(); updatePixmap(); update(); }
+    inline void setMiniMapWidth(int width) { m_miniMapWidth = width; updateGeometry(); update(); }
+
+    inline void queuePixmapUpdate() { m_updateTimer.start(); }
 
 Q_SIGNALS:
     void sliderMMBMoved(int value);

@@ -125,24 +125,24 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 
 void KateScrollBar::setShowMiniMap(bool b)
 {
-  m_showMiniMap = b;
 
   //kDebug(13040) << styleSheet();
   //setStyleSheet(b ? "QScrollBar::add-line:vertical {height: 0px;}\nQScrollBar::sub-line:vertical {height: 0px;}" : "");
   //kDebug(13040) << styleSheet();
 
-  if (b) {
+  if (b && !m_showMiniMap) {
     connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()), Qt::UniqueConnection);
     connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
-    QTimer::singleShot(0, this, SLOT(updatePixmap()));
   }
   else {
     disconnect(&m_updateTimer);
   }
+
+  m_showMiniMap = b;
+
   updateGeometry();
-  updatePixmap();
   update();
 }
 
@@ -437,6 +437,7 @@ void KateScrollBar::normalPaintEvent(QPaintEvent *e)
 void KateScrollBar::resizeEvent(QResizeEvent *e)
 {
   QScrollBar::resizeEvent(e);
+  m_updateTimer.start();
   recomputeMarksPositions();
 }
 

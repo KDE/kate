@@ -264,7 +264,7 @@ void KateMainWindow::setupMainWindow ()
   // use snippets widget provided by editor component, if any
   if (QWidget *snippets = KateDocManager::self()->editor()->property("snippetWidget").value<QWidget*>()) {
     // Toolview for snippets
-    QWidget *toolView = mainWindow()->createToolView (0,"kate_private_snippets", Kate::MainWindow::Right, SmallIcon("document-open"), i18n("Snippets"));
+    QWidget *toolView = mainWindow()->createToolView (0,"kate_private_snippets", Kate::MainWindow::Right, SmallIcon("document-new"), i18n("Snippets"));
     
     // snippets toolbar
     KToolBar *topToolbar = new KToolBar (toolView, "snippetsToolBar");

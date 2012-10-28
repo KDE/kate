@@ -353,6 +353,10 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     //
     KApplication app(true);
     
+    // session restore => no blocking
+    if (app.isSessionRestored ())
+      needToBlock = false;
+    
     // connect dbus signal
     if (needToBlock) {
       KateWaiter *waiter = new KateWaiter (&app, serviceName,tokens);

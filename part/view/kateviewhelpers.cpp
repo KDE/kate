@@ -145,7 +145,8 @@ void KateScrollBar::mousePressEvent(QMouseEvent* e)
 
   redrawMarks();
   m_toolTipPos = e->globalPos() - QPoint(e->pos().x(), 0);
-  QToolTip::showText(m_toolTipPos, QString("%1").arg(m_viewInternal->startLine() + 1), this);
+  const int firstLine = m_viewInternal->cache()->viewLine(0).line() + 1;
+  QToolTip::showText(m_toolTipPos, QString("%1").arg(firstLine), this);
 }
 
 void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
@@ -167,7 +168,8 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 
     // current line tool tip
     m_toolTipPos = e->globalPos() - QPoint(e->pos().x(), 0);
-    QToolTip::showText(m_toolTipPos, QString("%1").arg(m_viewInternal->startLine() + 1), this);
+    const int firstLine = m_viewInternal->cache()->viewLine(0).line() + 1;
+    QToolTip::showText(m_toolTipPos, QString("%1").arg(firstLine), this);
   }
 }
 
@@ -395,7 +397,8 @@ void KateScrollBar::sliderChange ( SliderChange change )
   }
 
   if (QApplication::mouseButtons() & Qt::LeftButton) {
-    QToolTip::showText(m_toolTipPos, QString("%1").arg(m_viewInternal->startLine() + 1), this);
+    const int firstLine = m_viewInternal->cache()->viewLine(0).line() + 1;
+    QToolTip::showText(m_toolTipPos, QString("%1").arg(firstLine), this);
   }
 }
 

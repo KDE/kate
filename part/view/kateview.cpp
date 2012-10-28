@@ -563,11 +563,11 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Show/hide the mini-map on the vertical scrollbar.<br /><br />The mini-map shows an overview of the whole document."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMiniMap()));
 
-  a = m_toggleScrollBarMiniMapAll = toggleAction = new KToggleAction(i18n("Show the whole document in the Mini-Map"), this);
-  ac->addAction("view_scrollbar_minimap_all", a);
-  a->setWhatsThis(i18n("Display the whole document in the mini-map.<br /><br />With this option set the whole document will be visible in the mini-map."));
-  connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMiniMapAll()));
-  connect(m_toggleScrollBarMiniMap, SIGNAL(triggered(bool)), m_toggleScrollBarMiniMapAll, SLOT(setEnabled(bool)));
+//   a = m_toggleScrollBarMiniMapAll = toggleAction = new KToggleAction(i18n("Show the whole document in the Mini-Map"), this);
+//   ac->addAction("view_scrollbar_minimap_all", a);
+//   a->setWhatsThis(i18n("Display the whole document in the mini-map.<br /><br />With this option set the whole document will be visible in the mini-map."));
+//   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMiniMapAll()));
+//   connect(m_toggleScrollBarMiniMap, SIGNAL(triggered(bool)), m_toggleScrollBarMiniMapAll, SLOT(setEnabled(bool)));
 
   a = toggleAction = m_toggleWWMarker = new KToggleAction(i18n("Show Static &Word Wrap Marker"), this);
   ac->addAction("view_word_wrap_marker", a);
@@ -1594,7 +1594,7 @@ void KateView::updateConfig ()
 
   // scrollbar mini-map - (whole document)
   m_viewInternal->m_lineScroll->setMiniMapAll( config()->scrollBarMiniMapAll() );
-  m_toggleScrollBarMiniMapAll->setChecked( config()->scrollBarMiniMapAll() );
+  //m_toggleScrollBarMiniMapAll->setChecked( config()->scrollBarMiniMapAll() );
 
   // scrollbar mini-map.width
   m_viewInternal->m_lineScroll->setMiniMapWidth( config()->scrollBarMiniMapWidth() );

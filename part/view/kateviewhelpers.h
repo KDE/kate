@@ -73,7 +73,7 @@ class KateScrollBar : public QScrollBar
     inline void setShowMarks(bool b) { m_showMarks = b; update(); }
 
     inline bool showMiniMap() { return m_showMiniMap; }
-    inline void setShowMiniMap(bool b) { m_showMiniMap = b; updateGeometry(); updatePixmap(); update(); }
+    void setShowMiniMap(bool b);
 
     inline bool miniMapAll() { return m_miniMapAll; }
     inline void setMiniMapAll(bool b) { m_miniMapAll = b; updateGeometry(); updatePixmap(); update(); }

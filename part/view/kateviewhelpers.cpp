@@ -129,10 +129,22 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   QTimer::singleShot(0, this, SLOT(updatePixmap()));
 }
 
+void KateScrollBar::setShowMiniMap(bool b)
+{
+  m_showMiniMap = b;
+
+  //kDebug(13040) << styleSheet();
+  //setStyleSheet(b ? "QScrollBar::add-line:vertical {height: 0px;}\nQScrollBar::sub-line:vertical {height: 0px;}" : "");
+  //kDebug(13040) << styleSheet();
+
+  updateGeometry();
+  updatePixmap();
+  update();
+}
+
 QSize KateScrollBar::sizeHint() const
 {
   if (m_showMiniMap) {
-    kDebug(13040) << m_miniMapWidth;
     return QSize(m_miniMapWidth, QScrollBar::sizeHint().height());
   }
   return QScrollBar::sizeHint();
@@ -204,8 +216,6 @@ void KateScrollBar::updatePixmap()
   }
   docLines /= numJumpLines;
 
-  //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
-
   m_pixmap = QPixmap(s_lineWidth, docLines+1);
   m_pixmap.fill(m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color());
 
@@ -230,7 +240,6 @@ void KateScrollBar::updatePixmap()
           line = m_doc->line(realY);
         }
       }
-      kDebug(13040) << realY << y;
       pixX=5;
       attribs = m_doc->kateTextLine(realY)->attributesList();
       QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(m_doc->kateTextLine(y), y);
@@ -323,16 +332,33 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
   style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
 
-  painter.drawPixmap(grooveRect, m_pixmap, m_pixmap.rect());
+  painter.setBrush(palette().window());
+  painter.drawRect(grooveRect);
 
-  QColor shieldColor = QColor(127,127,127, 127);
-  QColor shieldColorLight = QColor(127,127,127, 80);
+  int docHeight = qMin(grooveRect.height(), m_pixmap.height()*3);
+  int yoffset = (grooveRect.height() - docHeight) * value() / maximum();
+
+  QRect docRect(QPoint(grooveRect.left(), yoffset+grooveRect.top()), QSize(grooveRect.width(), docHeight));
+  painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
+
+  QColor shieldColor = QColor(127,127,127, 64);
+  QColor shieldColorLight = QColor(127,127,127, 40);
   QLinearGradient g(0, 0, width(), 0);
   g.setColorAt(0, shieldColor);
   g.setColorAt(0.4, shieldColorLight);
   g.setColorAt(1, shieldColor);
   painter.setPen(shieldColor);
   painter.setBrush(g);
+
+
+  kDebug(13040) << docHeight << grooveRect.height() << m_pixmap.height();
+
+  int y = value()*docHeight/(maximum()+pageStep()) + yoffset;
+  painter.drawRect(QRect(grooveRect.topLeft(), QPoint(grooveRect.right(), y + grooveRect.top())));
+
+  y = (value()+pageStep())*docHeight/(maximum()+pageStep()) + yoffset;
+  painter.drawRect(QRect(QPoint(grooveRect.left(), y + grooveRect.top()), grooveRect.bottomRight()));
+
 
   painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
   painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));

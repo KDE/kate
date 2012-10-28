@@ -546,7 +546,6 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   connect(ui->rbNormal, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->rbPersistent, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkSmartHome, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkWrapCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkPagingMovesCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->sbAutoCenterCursor, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
 
@@ -570,7 +569,6 @@ void KateSelectConfigTab::apply ()
   KateDocumentConfig::global()->configStart ();
 
   KateDocumentConfig::global()->setSmartHome(ui->chkSmartHome->isChecked());
-  KateDocumentConfig::global()->setWrapCursor(ui->chkWrapCursor->isChecked());
 
   KateViewConfig::global()->setAutoCenterLines(qMax(0, ui->sbAutoCenterCursor->value()));
   KateDocumentConfig::global()->setPageUpDownMovesCursor(ui->chkPagingMovesCursor->isChecked());
@@ -587,7 +585,6 @@ void KateSelectConfigTab::reload ()
   ui->rbPersistent->setChecked( KateViewConfig::global()->persistentSelection() );
 
   ui->chkSmartHome->setChecked(KateDocumentConfig::global()->smartHome());
-  ui->chkWrapCursor->setChecked(KateDocumentConfig::global()->wrapCursor());
   ui->chkPagingMovesCursor->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
   ui->sbAutoCenterCursor->setValue(KateViewConfig::global()->autoCenterLines());
 }

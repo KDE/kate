@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>CursorConfigWidget</class>
  <widget class="QWidget" name="CursorConfigWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>243</width>
+    <height>229</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>
@@ -19,16 +27,6 @@
         </property>
         <property name="text">
          <string>Smart ho&amp;me and smart end</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="chkWrapCursor">
-        <property name="whatsThis">
-         <string>&lt;p&gt;When on, moving the insertion cursor using the &lt;b&gt;Left&lt;/b&gt; and &lt;b&gt;Right&lt;/b&gt; keys will go on to previous/next line at beginning/end of the line, similar to most editors.&lt;/p&gt;&lt;p&gt;When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers.&lt;/p&gt;</string>
-        </property>
-        <property name="text">
-         <string>Wrap c&amp;ursor</string>
         </property>
        </widget>
       </item>

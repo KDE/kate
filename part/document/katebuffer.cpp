@@ -696,8 +696,8 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
       indentContinueWhitespace=textLine->firstChar()==-1;
     }
     
-    if ((current_line>=90) && (current_line<=100))
-      kDebug (13020)<<"current line:"<<current_line<<"old folding elements:"<<textLine->foldingListArray().count()/2<<"new folding elements:"<<foldingList.size()/2;
+    //if ((current_line>=90) && (current_line<=100))
+    //  kDebug (13020)<<"current line:"<<current_line<<"old folding elements:"<<textLine->foldingListArray().count()/2<<"new folding elements:"<<foldingList.size()/2;
     bool foldingColChanged=false;
     bool foldingChanged = false; //!(foldingList == textLine->foldingListArray());
     if (foldingList.size()!=textLine->foldingListArray().size()) {

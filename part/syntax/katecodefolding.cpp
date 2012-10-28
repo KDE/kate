@@ -1490,7 +1490,7 @@ void KateCodeFoldingTree::updateLine(int line, const QVector<int>& regionChanges
     virtualColumn = regionChanges[virtualIndex - 1];
 
   if (colsChanged) {
-    debug()<<"new:"<<(regionChanges.count()/2)<<" stored for line:"<<m_lineMapping.value(line).count();
+    //debug()<<"new:"<<(regionChanges.count()/2)<<" stored for line:"<<m_lineMapping.value(line).count();
     if (regionChanges.count()/2!=m_lineMapping.value(line).count()) {
       changed=true;
       colsChanged=false;

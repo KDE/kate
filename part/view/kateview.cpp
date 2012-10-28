@@ -691,6 +691,10 @@ void KateView::showSnippetsDialog ()
 void KateView::slotConfigDialog ()
 {
   KateGlobal::self ()->configDialog (this);
+
+  // write config to global settings, else simple programs don't get config saved ever
+  // like Konqueror, Dolphin, ...
+  KateGlobal::self ()->writeConfig (KGlobal::config());
 }
 
 void KateView::setupEditActions()

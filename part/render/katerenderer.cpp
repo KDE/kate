@@ -763,7 +763,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     const QPainter::RenderHints backupRenderHints = paint.renderHints();
     paint.setRenderHint(QPainter::Antialiasing, false);
     paint.setPen( config()->wordWrapMarkerColor() );
-    int _x = m_doc->config()->wordWrapAt() * fm.width('x') - xStart;
+    int _x = qreal(m_doc->config()->wordWrapAt()) * fm.width('x') - xStart;
     paint.drawLine( _x,0,_x,lineHeight() );
     paint.setRenderHints(backupRenderHints);
   }

@@ -2185,7 +2185,11 @@ bool KateDocument::saveFile()
        || ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
   {
     KUrl u( url() );
-    u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
+    if (config()->backupPrefix().contains(QDir::separator())) {
+        u.setPath( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
+    } else {
+        u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
+    }
 
     kDebug( 13020 ) << "backup src file name: " << url();
     kDebug( 13020 ) << "backup dst file name: " << u;

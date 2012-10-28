@@ -144,9 +144,11 @@ void KateScrollBar::mousePressEvent(QMouseEvent* e)
   QScrollBar::mousePressEvent(e);
 
   redrawMarks();
+
   m_toolTipPos = e->globalPos() - QPoint(e->pos().x(), 0);
-  const int firstLine = m_viewInternal->cache()->viewLine(0).line() + 1;
-  QToolTip::showText(m_toolTipPos, QString("%1").arg(firstLine), this);
+  const int fromLine = m_viewInternal->toRealCursor(m_viewInternal->startPos()).line() + 1;
+  const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
+  QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "%1 - %2", fromLine, lastLine), this);
 }
 
 void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
@@ -156,7 +158,9 @@ void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
   m_middleMouseDown = false;
 
   redrawMarks();
-  QToolTip::hideText();
+  if (!(e->buttons() & (Qt::LeftButton | Qt::MidButton))) {
+    QToolTip::hideText();
+  }
 }
 
 void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
@@ -168,8 +172,9 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 
     // current line tool tip
     m_toolTipPos = e->globalPos() - QPoint(e->pos().x(), 0);
-    const int firstLine = m_viewInternal->cache()->viewLine(0).line() + 1;
-    QToolTip::showText(m_toolTipPos, QString("%1").arg(firstLine), this);
+    const int fromLine = m_viewInternal->toRealCursor(m_viewInternal->startPos()).line() + 1;
+    const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
+    QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "%1 - %2", fromLine, lastLine), this);
   }
 }
 
@@ -396,9 +401,10 @@ void KateScrollBar::sliderChange ( SliderChange change )
     recomputeMarksPositions();
   }
 
-  if (QApplication::mouseButtons() & Qt::LeftButton) {
-    const int firstLine = m_viewInternal->cache()->viewLine(0).line() + 1;
-    QToolTip::showText(m_toolTipPos, QString("%1").arg(firstLine), this);
+  if (QApplication::mouseButtons() & (Qt::LeftButton | Qt::MidButton)) {
+    const int fromLine = m_viewInternal->toRealCursor(m_viewInternal->startPos()).line() + 1;
+    const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
+    QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "%1 - %2", fromLine, lastLine), this);
   }
 }
 

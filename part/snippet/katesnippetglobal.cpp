@@ -94,14 +94,30 @@ QWidget *KateSnippetGlobal::snippetWidget ()
 
 void KateSnippetGlobal::insertSnippet(Snippet* snippet)
 {
-  if (m_activeViewForDialog) {
-      SnippetCompletionItem item(snippet, static_cast<SnippetRepository*>(snippet->parent()));
-      KTextEditor::Range range = m_activeViewForDialog->selectionRange();
-      if ( !range.isValid() ) {
-          range = KTextEditor::Range(m_activeViewForDialog->cursorPosition(), m_activeViewForDialog->cursorPosition());
-      }
-      item.execute(m_activeViewForDialog->document(), range);
+  // query active view, always prefer that!
+  KTextEditor::View *view = 0;
+  KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
+  if (iface && iface->activeView())
+    view = iface->activeView();
+  
+  // fallback to stuff set for dialog
+  if (!view)
+    view = m_activeViewForDialog;
+ 
+  // no view => nothing to do
+  if (!view)
+    return;
+
+  // try to insert snippet
+  SnippetCompletionItem item(snippet, static_cast<SnippetRepository*>(snippet->parent()));
+  KTextEditor::Range range = view->selectionRange();
+  if ( !range.isValid() ) {
+      range = KTextEditor::Range(view->cursorPosition(), view->cursorPosition());
   }
+  item.execute(view->document(), range);
+  
+  // set focus to view
+  view->setFocus ();
 }
 
 void KateSnippetGlobal::insertSnippetFromActionData()

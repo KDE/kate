@@ -119,15 +119,8 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 
   m_updateTimer.setInterval(300);
   m_updateTimer.setSingleShot(true);
-  connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()));
-  connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)),
-          &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
-  connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
-
-  connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), this, SLOT(updatePixmap()));
 
 
-  QTimer::singleShot(0, this, SLOT(updatePixmap()));
 }
 
 void KateScrollBar::setShowMiniMap(bool b)
@@ -138,6 +131,16 @@ void KateScrollBar::setShowMiniMap(bool b)
   //setStyleSheet(b ? "QScrollBar::add-line:vertical {height: 0px;}\nQScrollBar::sub-line:vertical {height: 0px;}" : "");
   //kDebug(13040) << styleSheet();
 
+  if (b) {
+    connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+    connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+    connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()), Qt::UniqueConnection);
+    connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+    QTimer::singleShot(0, this, SLOT(updatePixmap()));
+  }
+  else {
+    disconnect(&m_updateTimer);
+  }
   updateGeometry();
   updatePixmap();
   update();
@@ -359,14 +362,20 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
 
   int y = value()*docHeight/(maximum()+pageStep()) + yoffset;
   painter.drawRect(QRect(grooveRect.topLeft(), QPoint(grooveRect.right(), y + grooveRect.top())));
+  if (docHeight < grooveRect.height()) {
+    painter.drawRect(QRect(grooveRect.topLeft(), QPoint(grooveRect.right(), y + grooveRect.top())));
+  }
 
   y = (value()+pageStep())*docHeight/(maximum()+pageStep()) + yoffset;
   painter.drawRect(QRect(QPoint(grooveRect.left(), y + grooveRect.top()), grooveRect.bottomRight()));
+  if (docHeight < grooveRect.height()) {
+    painter.drawRect(QRect(QPoint(grooveRect.left(), y + grooveRect.top()), grooveRect.bottomRight()));
+  }
 
-
-  painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
-  painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));
-
+  if (docHeight >= grooveRect.height()) {
+    painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
+    painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));
+  }
 
   if (!m_showMarks) return;
 

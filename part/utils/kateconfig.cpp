@@ -172,7 +172,6 @@ KateDocumentConfig::KateDocumentConfig ()
    m_indentPastedTextSet (false),
    m_backspaceIndentsSet (false),
    m_smartHomeSet (false),
-   m_wrapCursorSet (false),
    m_autoBracketsSet (false),
    m_showTabsSet (false),
    m_showSpacesSet (false),
@@ -218,7 +217,6 @@ KateDocumentConfig::KateDocumentConfig (const KConfigGroup &cg)
    m_indentPastedTextSet (false),
    m_backspaceIndentsSet (false),
    m_smartHomeSet (false),
-   m_wrapCursorSet (false),
    m_autoBracketsSet (false),
    m_showTabsSet (false),
    m_showSpacesSet (false),
@@ -258,7 +256,6 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_indentPastedTextSet (false),
    m_backspaceIndentsSet (false),
    m_smartHomeSet (false),
-   m_wrapCursorSet (false),
    m_autoBracketsSet (false),
    m_showTabsSet (false),
    m_showSpacesSet (false),
@@ -304,7 +301,6 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setPageUpDownMovesCursor (config.readEntry("PageUp/PageDown Moves Cursor", false));
 
   setSmartHome (config.readEntry("Smart Home", true));
-  setWrapCursor (config.readEntry("Wrap Cursor", true));
   setShowTabs (config.readEntry("Show Tabs", true));
   setTabIndents (config.readEntry("Indent On Tab", true));
   setKeepExtraSpaces (config.readEntry("Keep Extra Spaces", false));
@@ -358,7 +354,6 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("PageUp/PageDown Moves Cursor", pageUpDownMovesCursor());
 
   config.writeEntry("Smart Home", smartHome());
-  config.writeEntry("Wrap Cursor", wrapCursor());
   config.writeEntry("Show Tabs", showTabs());
   config.writeEntry("Indent On Tab", tabIndentsEnabled());
   config.writeEntry("Keep Extra Spaces", keepExtraSpaces());
@@ -616,24 +611,6 @@ bool KateDocumentConfig::smartHome() const
     return m_smartHome;
 
   return s_global->smartHome();
-}
-
-void KateDocumentConfig::setWrapCursor(bool on)
-{
-  configStart ();
-
-  m_wrapCursorSet = true;
-  m_wrapCursor = on;
-
-  configEnd ();
-}
-
-bool KateDocumentConfig::wrapCursor() const
-{
-  if (m_wrapCursorSet || isGlobal())
-    return m_wrapCursor;
-
-  return s_global->wrapCursor();
 }
 
 void KateDocumentConfig::setAutoBrackets(bool on)

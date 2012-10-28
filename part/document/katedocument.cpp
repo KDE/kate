@@ -4227,8 +4227,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           "http://docs.kde.org/stable/en/kde-baseapps/kate/config-variables.html#variable-remove-trailing-spaces");
         m_config->setRemoveSpaces( state ? 2 : 0 );
       }
-      else if ( var == "wrap-cursor" && checkBoolValue( val, &state ) )
-        m_config->setWrapCursor( state );
       else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
         m_config->setAutoBrackets( state );
       else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )

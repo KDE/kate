@@ -340,11 +340,6 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   item = new VariableBoolItem("word-wrap", docConfig->wordWrap());
   item->setHelpText(i18nc("short translation please", "Enable word wrap while typing text."));
   listview->addItem(item);
-
-  // Add 'wrap-cursor' to list
-  item = new VariableBoolItem("wrap-cursor", docConfig->wrapCursor());
-  item->setHelpText(i18nc("short translation please", "Wrap the text cursor at the end of a line."));
-  listview->addItem(item);
 }
 
 void VariableLineEdit::setText(const QString &text)

@@ -221,9 +221,6 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     void setSmartHome (bool on);
     bool smartHome () const;
 
-    void setWrapCursor (bool on);
-    bool wrapCursor () const;
-
     void setAutoBrackets (bool on);
     bool autoBrackets () const;
 
@@ -351,8 +348,6 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool m_backspaceIndents : 1;
     bool m_smartHomeSet : 1;
     bool m_smartHome : 1;
-    bool m_wrapCursorSet : 1;
-    bool m_wrapCursor : 1;
     bool m_autoBracketsSet : 1;
     bool m_autoBrackets : 1;
     bool m_showTabsSet : 1;

@@ -78,7 +78,6 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-indent-width"
     << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
-    << "set-wrap-cursor"
     << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-spaces"
     << "set-highlight" << "set-mode" << "set-show-indent"
@@ -172,13 +171,6 @@ bool KateCommands::CoreCommands::help(KTextEditor::View *view, const QString &cm
   } else   if (realcmd=="set-icon-border") {
     msg=i18n("<p>set-icon-border <b>enable</b></p>"
       "<p>Sets the visibility of the icon border.</p>"
-      "<p> possible true values: 1 on true<br/>"
-      "possible false values: 0 off false</p>");
-    return true;
-  } else   if (realcmd=="set-wrap-cursor") {
-    msg=i18n("<p>set-wrap-cursor <b>enable</b></p>"
-      "<p>When on, moving the insertion cursor using the Left and Right keys will go on to previous/next line at beginning/end of the line, similar to most editors.</p>"
-      "<p>When off, the insertion cursor cannot be moved left of the line start, but it can be moved off the line end, which can be very handy for programmers. When this option is chosen, moving the cursor with the arrow keys off the end of a line (to the right) causes it to jump down to the beginning of the next line. Likewise when the cursor is moved past the beginning of a line (to the left) it jumps up to the end of the preceding line. When this option is not selected, moving the cursor right past the end of a line merely causes it to continue horizontally in the same line and trying to move it left past the beginning does nothing.</p>"
       "<p> possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
@@ -447,8 +439,6 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
         config->setShowSpaces( enable );
       else if ( cmd == "set-word-wrap" )
         v->doc()->setWordWrap( enable );
-      else if ( cmd == "set-wrap-cursor" )
-        config->setWrapCursor( enable );
 
       return true;
     }

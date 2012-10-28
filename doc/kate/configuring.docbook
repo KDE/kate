@@ -609,11 +609,6 @@ that can be evaluated to a valid color, for example <userinput>#ff0000</userinpu
 <listitem><para>Set static word wrapping on or off.</para></listitem>
 </varlistentry>
 
-<varlistentry id="variable-wrap-cursor">
-<term><cmdsynopsis><command>wrap-cursor</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set cursor wrapping on or off.</para></listitem>
-</varlistentry>
-
 </variablelist>
 
 </sect2>

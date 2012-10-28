@@ -53,7 +53,6 @@ void BugTest::cleanupTestCase()
 void BugTest::ctrlShiftLeft()
 {
   KateDocument doc(false, false, false);
-  doc.config()->setWrapCursor(false);
 
   // view must be visible...
   KateView* view = static_cast<KateView*>(doc.createView(0));
@@ -79,7 +78,6 @@ void BugTest::ctrlShiftLeft()
   // disable wrap-cursor, then set cursor after last character, then shift+left
   doc.clear();
   view->setBlockSelection(false);
-  doc.config()->setWrapCursor(true);
   view->setCursorPosition(Cursor(0, 2));
   view->shiftCursorLeft();
 

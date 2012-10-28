@@ -242,13 +242,6 @@ scripts</link> used by Kate, including indenters and command line scripts.</para
 </varlistentry>
 
 <varlistentry>
-<term><cmdsynopsis><command>set-wrap-cursor</command><arg choice="req">BOOLEAN
-enable</arg></cmdsynopsis></term>
-<listitem><para>Enable or disable <link linkend="pref-edit-cursor-selection">
-Wrap cursor</link>.</para></listitem>
-</varlistentry>
-
-<varlistentry>
 <term><cmdsynopsis><command>set-mode</command><arg choice="req">STRING mode</arg></cmdsynopsis></term>
 <listitem><para>Choose the filetype scheme for the current document.
 </para></listitem>

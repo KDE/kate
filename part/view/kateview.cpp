@@ -2123,7 +2123,7 @@ bool KateView::toggleBlockSelectionMode ()
 
 bool KateView::wrapCursor () const
 {
-  return !blockSelectionMode() && (m_doc->config()->wrapCursor());
+  return !blockSelectionMode();
 }
 
 //END

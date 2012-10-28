@@ -563,23 +563,6 @@ skip white space and go to the start of a line's text.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Wrap cursor</guilabel></term>
-<listitem>
-<para>When on, moving the insertion cursor using the <emphasis
-role="bold">Left</emphasis> and <emphasis role="bold">Right</emphasis> keys will
-go on to previous/next line at beginning/end of the line, similar to most
-editors.</para><para>When off, the insertion cursor cannot be moved left of the
-line start, but it can be moved off the line end, which can be very handy for
-programmers. When this option is chosen, moving the cursor with the arrow keys
-off the end of a line (to the right) causes it to jump down to the beginning of
-the next line. Likewise when the cursor is moved past the beginning of a line
-(to the left) it jumps up to the end of the preceding line. When this option is
-not selected, moving the cursor right past the end of a line merely causes it to
-continue horizontally in the same line and trying to move it left past the
-beginning does nothing.</para>
-</listitem>
-</varlistentry>
-<varlistentry>
 <term><guilabel>PageUp/PageDown moves cursor</guilabel></term>
 <listitem>
 <para>This option changes the behavior of the cursor when the user presses

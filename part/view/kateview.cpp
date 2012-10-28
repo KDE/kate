@@ -1721,10 +1721,8 @@ void KateView::ensureCursorColumnValid()
   KTextEditor::Cursor c = m_viewInternal->getCursor();
 
   // make sure the cursor is valid:
-  // - in block selection mode or if wrap cursor is off, the column is arbitrary
   // - otherwise: it's bounded by the line length
-  if (!blockSelectionMode() && wrapCursor()
-      && (!c.isValid() || c.column() > m_doc->lineLength(c.line())))
+  if (!c.isValid() || c.column() > m_doc->lineLength(c.line()))
   {
     c.setColumn(m_doc->kateTextLine(cursorPosition().line())->length());
     setCursorPosition(c);
@@ -1906,10 +1904,7 @@ bool KateView::clearSelection(bool redraw, bool finishedChangingSelection)
 
 bool KateView::selection() const
 {
-  if (!wrapCursor())
-    return m_selection != KTextEditor::Range::invalid();
-  else
-    return m_selection.toRange().isValid();
+  return m_selection.toRange().isValid();
 }
 
 QString KateView::selectionText() const
@@ -2123,7 +2118,7 @@ bool KateView::toggleBlockSelectionMode ()
 
 bool KateView::wrapCursor () const
 {
-  return !blockSelectionMode();
+  return true;
 }
 
 //END

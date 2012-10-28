@@ -352,10 +352,9 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //
     KApplication app(true);
-    
-    // session restore => no blocking
-    if (app.isSessionRestored ())
-      needToBlock = false;
+
+    // do no session managment for this app, just client
+    app.disableSessionManagement ();
     
     // connect dbus signal
     if (needToBlock) {

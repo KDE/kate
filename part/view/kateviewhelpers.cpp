@@ -116,7 +116,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 
   styleChange(*style());
 
-  m_updateTimer.setInterval(500);
+  m_updateTimer.setInterval(300);
   m_updateTimer.setSingleShot(true);
   connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()));
   connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)),

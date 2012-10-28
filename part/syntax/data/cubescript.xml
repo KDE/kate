@@ -7,7 +7,7 @@
 
         List values which are current ignored by the keyword identifier are commented.
 -->
-<language name="CubeScript" section="Scripts" version="0.70" kateversion="3.7" extensions=".cfg" mimetype="" casesensitive="true" author="Kevin Meyer" license="zlib/libpng" indenter="normal">
+<language name="CubeScript" section="Scripts" version="0.72" kateversion="3.7" extensions=".cfg" mimetype="" casesensitive="true" author="Kevin Meyer" license="zlib/libpng" indenter="normal">
   <highlighting>
     <!--
         There are far more commands than these, these are just guaranteed to be in all forks.
@@ -345,8 +345,9 @@
         <DetectSpaces attribute="Normal" context="#pop" />
         <AnyChar lookAhead="true" context="#pop" String=")];" />
         <Detect2Chars lookAhead="true" context="#pop" char="/" char1="/"/>
-        <AnyChar attribute="Lookup" context="LookupEnc" String="[(" />
-        <RegExpr attribute="Error" context="#stay" String="(?!\$+)\S+\$\S*" />
+        <DetectChar attribute="String" context="String" char="&quot;" />
+        <AnyChar attribute="LookupBrackets" context="LookupEnc" String="[(" />
+        <RegExpr attribute="Error" context="#stay" String="[^\$\s]+\$[^\[\]\(\)\s]*" />
         <RegExpr attribute="Error" context="#stay" String="\S+(?![\s\[\(])[^\$@](?=[\[\(])" />
         <RegExpr attribute="Key" context="#stay" String="[@\$]*arg[0-9]+" />
         <!-- FIXME keyword doth not highlight thine reserved aliases-->
@@ -354,9 +355,11 @@
       </context>
 
       <context name="LookupEnc" attribute="Lookup" lineEndContext="#stay">
-        <AnyChar attribute="Lookup" context="LookupEnc" String="[(" />
-        <AnyChar attribute="Lookup" context="#pop" String=")]" />
-        <RegExpr attribute="Error" context="#stay" String="(?!\$+)\S+\$\S*" />
+        <AnyChar attribute="LookupBrackets" context="LookupEnc" String="[(" />
+        <AnyChar attribute="LookupBrackets" context="#pop" String=")]" />
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
+        <DetectChar attribute="String" context="String" char="&quot;" />
+        <RegExpr attribute="Error" context="#stay" String="[^\$\s]+\$[^\[\]\(\)\s]*" />
         <RegExpr attribute="Error" context="#stay" String="\S+(?!\s)[^\$@](?=[\[\(])" />
         <RegExpr attribute="Key" context="#stay" String="[@\$]*arg[0-9]+" />
         <keyword attribute="Key" context="#stay" String="aliases" />
@@ -408,7 +411,8 @@
       <itemData name="Keyword"     defStyleNum="dsFunction" spellChecking="false"/>
       <itemData name="Operator"    defStyleNum="dsKeyword" spellChecking="false"/>
       <itemData name="Key"         defStyleNum="dsOthers" spellChecking="false"/>
-      <itemData name="Brackets"    defStyleNum="dsRegionMarker" spellChecking="false"/>
+      <itemData name="LookupBrackets"    defStyleNum="dsRegionMarker" spellChecking="false"/>
+      <itemData name="Brackets"    defStyleNum="dsNormal" bold="1" spellChecking="false"/>
       <!-- These are for the ^f# format tokens, the background colour is explicitly set to try and guarantee visibility at all times -->
       <itemData name="String0"     defStyleNum="dsString" bold="1" color="#40FF80" backgroundColor="#3F3F3F" spellChecking="false"/>
       <itemData name="String1"     defStyleNum="dsString" bold="1" color="#60A0FF" backgroundColor="#DFDFDF" spellChecking="false"/>

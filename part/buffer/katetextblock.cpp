@@ -190,6 +190,9 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
     const int oldSizeOfPreviousLine = newFirst->text().size();
     if (oldFirst->length() > 0) {
       newFirst->textReadWrite().append (oldFirst->text());
+      QVector<int> tmp=newFirst->foldingListArray();
+      tmp+=oldFirst->foldingListArray();
+      newFirst->setFoldingList(tmp); //JOWENN MERGE CORRECTLY
 
       // mark line as modified, since text was appended
       newFirst->markAsModified(true);
@@ -267,6 +270,10 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
   const int sizeOfCurrentLine = m_lines.at(line)->length();
   if (sizeOfCurrentLine > 0) {
     m_lines.at(line-1)->textReadWrite().append (m_lines.at(line)->text());
+    QVector<int> tmp=m_lines.at(line-1)->foldingListArray();
+    tmp+=m_lines.at(line)->foldingListArray();
+    m_lines.at(line-1)->setFoldingList(tmp); //JOWENN MERGE CORRECTLY
+    
   }
 
   const bool lineChanged = (oldSizeOfPreviousLine > 0 && m_lines.at(line - 1)->markedAsModified())

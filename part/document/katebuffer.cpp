@@ -695,6 +695,9 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
       indentContinueWhitespace=textLine->firstChar()==-1;
     }
+    
+    if ((current_line>=90) && (current_line<=100))
+      kDebug (13020)<<"current line:"<<current_line<<"old folding elements:"<<textLine->foldingListArray().count()/2<<"new folding elements:"<<foldingList.size()/2;
     bool foldingColChanged=false;
     bool foldingChanged = false; //!(foldingList == textLine->foldingListArray());
     if (foldingList.size()!=textLine->foldingListArray().size()) {
@@ -776,15 +779,6 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 #endif
 }
 
-void KateBuffer::codeFoldingColumnUpdate(int lineNr) {
-  Kate::TextLine line=plainLine(lineNr);
-  if (!line) return;
-  if (line->foldingColumnsOutdated()) {
-    line->setFoldingColumnsOutdated(false);
-    bool tmp;
-    QVector<int> folding=line->foldingListArray();
-    m_regionTree.updateLine(lineNr,folding,&tmp,true,false);
-  }
-}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

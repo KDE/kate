@@ -28,6 +28,7 @@
 #include <ktexteditor/annotationinterface.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/containerinterface.h>
+#include <ktexteditor/highlightinterface.h>
 #include "katecodefolding.h"
 #include "kateconfig.h"
 #include "katedocument.h"
@@ -106,6 +107,8 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   , m_viewInternal(parent)
   , m_showMarks(false)
   , m_showMiniMap(false)
+  , m_miniMapAll(true)
+  , m_miniMapWidth(40)
   , m_lastShownStartLine(-1)
   , m_pressed(false)
 {
@@ -129,7 +132,8 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 QSize KateScrollBar::sizeHint() const
 {
   if (m_showMiniMap) {
-    return QSize(QScrollBar::sizeHint().width()*6, QScrollBar::sizeHint().height());
+    kDebug(13040) << m_miniMapWidth;
+    return QSize(m_miniMapWidth, QScrollBar::sizeHint().height());
   }
   return QScrollBar::sizeHint();
 }
@@ -206,8 +210,9 @@ void KateScrollBar::updatePixmap()
   //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
 
   m_pixmap = QPixmap(s_lineWidth, docLines+1);
-  m_pixmap.fill(palette().color(QPalette::Base));
+  m_pixmap.fill(m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color());
 
+  QColor textColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
   QString line;
   int pixX;
   QVector<int> attribs;
@@ -220,7 +225,7 @@ void KateScrollBar::updatePixmap()
       attribs = m_doc->kateTextLine(m_doc->getRealLine(y))->attributesList();
       attribIndex = 0;
       //kDebug(13040) << attribs;
-      p.setPen(palette().color(QPalette::Text));
+      p.setPen(textColor);
       for (int x=0; x <line.size(); x++) {
         if (pixX >= s_lineWidth) {
           break;

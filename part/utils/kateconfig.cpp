@@ -1066,6 +1066,8 @@ KateViewConfig::KateViewConfig ()
    m_lineNumbersSet (true),
    m_scrollBarMarksSet (true),
    m_scrollBarMiniMapSet (true),
+   m_scrollBarMiniMapAllSet (true),
+   m_scrollBarMiniMapWidthSet (true),
    m_iconBarSet (true),
    m_foldingBarSet (true),
    m_lineModificationSet (true),
@@ -1101,6 +1103,8 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_lineNumbersSet (false),
    m_scrollBarMarksSet (false),
    m_scrollBarMiniMapSet (false),
+   m_scrollBarMiniMapAllSet (false),
+   m_scrollBarMiniMapWidthSet (false),
    m_iconBarSet (false),
    m_foldingBarSet (false),
    m_lineModificationSet (false),
@@ -1146,6 +1150,10 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setScrollBarMarks (config.readEntry( "Scroll Bar Marks",  false));
 
   setScrollBarMiniMap (config.readEntry( "Scroll Bar Mini Map",  false));
+
+  setScrollBarMiniMapAll (config.readEntry( "Scroll Bar Mini Map All",  false));
+
+  setScrollBarMiniMapWidth (config.readEntry( "Scroll Bar Mini Map Width",  60));
 
   setIconBar (config.readEntry( "Icon Bar", false ));
 
@@ -1201,6 +1209,10 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( "Scroll Bar Marks", scrollBarMarks() );
 
   config.writeEntry( "Scroll Bar Mini Map", scrollBarMiniMap() );
+
+  config.writeEntry( "Scroll Bar Mini Map All", scrollBarMiniMapAll() );
+
+  config.writeEntry( "Scroll Bar Mini Map Width", scrollBarMiniMapWidth() );
 
   config.writeEntry( "Icon Bar", iconBar() );
 
@@ -1364,6 +1376,42 @@ void KateViewConfig::setScrollBarMiniMap (bool on)
 
   m_scrollBarMiniMapSet = true;
   m_scrollBarMiniMap = on;
+
+  configEnd ();
+}
+
+bool KateViewConfig::scrollBarMiniMapAll () const
+{
+  if (m_scrollBarMiniMapAllSet || isGlobal())
+    return m_scrollBarMiniMapAll;
+
+  return s_global->scrollBarMiniMapAll();
+}
+
+void KateViewConfig::setScrollBarMiniMapAll (bool on)
+{
+  configStart ();
+
+  m_scrollBarMiniMapAllSet = true;
+  m_scrollBarMiniMapAll = on;
+
+  configEnd ();
+}
+
+int KateViewConfig::scrollBarMiniMapWidth () const
+{
+  if (m_scrollBarMiniMapWidthSet || isGlobal())
+    return m_scrollBarMiniMapWidth;
+
+  return s_global->scrollBarMiniMapWidth();
+}
+
+void KateViewConfig::setScrollBarMiniMapWidth (int width)
+{
+  configStart ();
+
+  m_scrollBarMiniMapWidthSet = true;
+  m_scrollBarMiniMapWidth = width;
 
   configEnd ();
 }

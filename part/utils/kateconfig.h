@@ -446,6 +446,12 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool scrollBarMiniMap () const;
     void setScrollBarMiniMap (bool on);
 
+    bool scrollBarMiniMapAll () const;
+    void setScrollBarMiniMapAll (bool on);
+
+    int scrollBarMiniMapWidth () const;
+    void setScrollBarMiniMapWidth (int width);
+
     bool iconBar () const;
     void setIconBar (bool on);
 
@@ -534,6 +540,8 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_lineNumbers;
     bool m_scrollBarMarks;
     bool m_scrollBarMiniMap;
+    bool m_scrollBarMiniMapAll;
+    int  m_scrollBarMiniMapWidth;
     bool m_iconBar;
     bool m_foldingBar;
     bool m_lineModification;
@@ -560,6 +568,8 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_lineNumbersSet : 1;
     bool m_scrollBarMarksSet : 1;
     bool m_scrollBarMiniMapSet : 1;
+    bool m_scrollBarMiniMapAllSet : 1;
+    bool m_scrollBarMiniMapWidthSet : 1;
     bool m_iconBarSet : 1;
     bool m_foldingBarSet : 1;
     bool m_lineModificationSet : 1;

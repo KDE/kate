@@ -506,11 +506,14 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void setLineNumbersOn( bool enable );
     void setScrollBarMarks( bool enable );
     void setScrollBarMiniMap( bool enable );
+    void setScrollBarMiniMapAll( bool enable );
+    void setScrollBarMiniMapWidth( int width );
     void toggleFoldingMarkers();
     void toggleIconBorder();
     void toggleLineNumbersOn();
     void toggleScrollBarMarks();
     void toggleScrollBarMiniMap();
+    void toggleScrollBarMiniMapAll();
     void toggleDynWordWrap ();
     void toggleViInputMode ();
 
@@ -528,6 +531,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     bool lineNumbersOn();
     bool scrollBarMarks();
     bool scrollBarMiniMap();
+    bool scrollBarMiniMapAll();
     int dynWrapIndicators();
     bool foldingMarkersOn();
 
@@ -590,6 +594,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KToggleAction*         m_toggleLineNumbers;
     KToggleAction*         m_toggleScrollBarMarks;
     KToggleAction*         m_toggleScrollBarMiniMap;
+    KToggleAction*         m_toggleScrollBarMiniMapAll;
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;

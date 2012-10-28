@@ -103,6 +103,7 @@ float KateScrollBar::characterOpacity[256] = {
 KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* parent)
   : QScrollBar (orientation, parent->m_view)
   , m_middleMouseDown (false)
+  , m_leftMouseDown (false)
   , m_view(parent->m_view)
   , m_doc(parent->doc())
   , m_viewInternal(parent)
@@ -154,6 +155,8 @@ void KateScrollBar::mousePressEvent(QMouseEvent* e)
 {
   if (e->button() == Qt::MidButton)
     m_middleMouseDown = true;
+  else if (e->button() == Qt::LeftButton)
+    m_leftMouseDown = true;
 
   m_toolTipPos = e->globalPos() - QPoint(e->pos().x(), 0);
   const int fromLine = m_viewInternal->toRealCursor(m_viewInternal->startPos()).line() + 1;
@@ -167,20 +170,22 @@ void KateScrollBar::mousePressEvent(QMouseEvent* e)
 
 void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
 {
-  QScrollBar::mouseReleaseEvent(e);
-
-  m_middleMouseDown = false;
+  if (e->button() == Qt::MidButton)
+    m_middleMouseDown = false;
+  else if (e->button() == Qt::LeftButton)
+    m_leftMouseDown = false;
 
   redrawMarks();
-  if (!(e->buttons() & (Qt::LeftButton | Qt::MidButton))) {
+
+  if (m_leftMouseDown || m_middleMouseDown) {
     QToolTip::hideText();
   }
+
+  QScrollBar::mouseReleaseEvent(e);
 }
 
 void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 {
-  QScrollBar::mouseMoveEvent(e);
-
   if (e->buttons() & (Qt::LeftButton | Qt::MidButton)) {
     redrawMarks();
 
@@ -190,6 +195,8 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
     const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
     QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);
   }
+
+  QScrollBar::mouseMoveEvent(e);
 }
 
 void KateScrollBar::paintEvent(QPaintEvent *e)
@@ -443,7 +450,7 @@ void KateScrollBar::sliderChange ( SliderChange change )
     recomputeMarksPositions();
   }
 
-  if (QApplication::mouseButtons() & (Qt::LeftButton | Qt::MidButton)) {
+  if (m_leftMouseDown || m_middleMouseDown) {
     const int fromLine = m_viewInternal->toRealCursor(m_viewInternal->startPos()).line() + 1;
     const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
     QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);

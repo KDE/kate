@@ -108,6 +108,7 @@ Q_SIGNALS:
     void normalPaintEvent(QPaintEvent *e);
 
     bool m_middleMouseDown;
+    bool m_leftMouseDown;
 
     KateView *m_view;
     KateDocument *m_doc;

@@ -110,7 +110,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 QSize KateScrollBar::sizeHint() const
 {
   if (m_showMiniMap) {
-    return QSize(QScrollBar::sizeHint().width()*3, QScrollBar::sizeHint().height());
+    return QSize(QScrollBar::sizeHint().width()*6, QScrollBar::sizeHint().height());
   }
   return QScrollBar::sizeHint();
 }
@@ -173,6 +173,8 @@ void KateScrollBar::paintEvent(QPaintEvent *e)
 void KateScrollBar::updatePixmap()
 {
   if (!m_showMiniMap) return;
+  QTime timeThis;
+  timeThis.start();
 
   int visibleLines = m_doc->visibleLines();
   int docLines = visibleLines;
@@ -189,29 +191,56 @@ void KateScrollBar::updatePixmap()
 
   QString line;
   int pixX;
+  QVector<int> attribs;
+  int attribIndex=0;
   QPainter p;
   if (p.begin(&m_pixmap)) {
-    p.setPen(palette().color(QPalette::Text));
     for (int y=0; y < visibleLines; y+=numJumpLines) {
       line = m_doc->line(m_doc->getRealLine(y));
       pixX=10;
+      attribs = m_doc->kateTextLine(m_doc->getRealLine(y))->attributesList();
+      attribIndex = 0;
+      //kDebug(13040) << attribs;
+      p.setPen(palette().color(QPalette::Text));
       for (int x=0; x <line.size(); x++) {
         if (pixX >= s_lineWidth) {
           break;
         }
+        // draw the pixels
         if (line[x] == ' ') {
           pixX++;
         }
         else if (line[x] == '\t') {
           pixX += 4; // FIXME: tab width...
         }
-        else if (line[x] != '\r') {
+        else {
+          // check if we are entering next attrib block
+          if (attribIndex < attribs.size()) {
+            //kDebug(13040) << x << attribIndex << attribs[attribIndex] << attribs[attribIndex] + attribs[attribIndex+1];
+            if ((x == attribs[attribIndex]) || (x == attribs[attribIndex] +1)) {
+              // entering the next block ?
+
+              p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
+            }
+            else if (x >= (attribs[attribIndex] + attribs[attribIndex+1])) {
+              // exiting the block ?
+              attribIndex += 3;
+              if ((attribIndex < attribs.size()) && ((x == attribs[attribIndex]) || (x == attribs[attribIndex] +1))) {
+                // entering the next block ?
+                p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
+              }
+              else {
+                p.setPen(palette().color(QPalette::Text));
+              }
+            }
+          }
           p.drawPoint(pixX, y/numJumpLines);
           pixX++;
         }
       }
     }
   }
+  kDebug(13040) << timeThis.elapsed();
   update();
 }
 

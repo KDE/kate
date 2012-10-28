@@ -144,7 +144,7 @@ bool KateCommands::CoreCommands::help(KTextEditor::View *view, const QString &cm
       "</ul></p>");
     return true;
   } else   if (realcmd=="set-indent-width") {
-    msg=i18n("<p>set-indent-width <b/>width</b></p>"
+    msg=i18n("<p>set-indent-width <b>width</b></p>"
       "<p>Sets the indentation width to the number <b>width</b>. Used only if you are indenting with spaces.</p>");
     return true;
   } else   if (realcmd=="set-indent-mode") {
@@ -1099,9 +1099,10 @@ bool KateCommands::Date::help (class KTextEditor::View *, const QString &cmd, QS
 {     
       if (cmd.trimmed()=="date") {
         msg = i18n("<p>date or date <b>format</b></p>"
-        "<p>Inserts a date/time string as defined by the specified format, or the format yyyy-MM-dd hh:mm:ss if none is specified."
+        "<p>Inserts a date/time string as defined by the specified format, or the format yyyy-MM-dd hh:mm:ss if none is specified.</p>"
         "<p>Possible format specifiers are:"
         "<table>"
+            "<tr><td>d</td><td>The day as number without a leading zero (1-31).</td></tr>"
             "<tr><td>dd</td><td>The day as number with a leading zero (01-31).</td></tr>"
             "<tr><td>ddd</td><td>The abbreviated localized day name (e.g. 'Mon'..'Sun').</td></tr>"
             "<tr><td>dddd</td><td>The long localized day name (e.g. 'Monday'..'Sunday').</td></tr>"

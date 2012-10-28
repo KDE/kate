@@ -122,11 +122,8 @@ Q_SIGNALS:
 
     QPixmap m_pixmap;
     QTimer  m_updateTimer;
-    int m_lastShownStartLine;
-    bool m_pressed;
     QPoint m_toolTipPos;
-    QRect m_toolTipRect;
-    
+
     static float characterOpacity[256];
 };
 

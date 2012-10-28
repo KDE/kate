@@ -32,6 +32,7 @@
 #include "katecodefolding.h"
 #include "kateconfig.h"
 #include "katedocument.h"
+#include <katebuffer.h>
 #include "katerenderer.h"
 #include "kateview.h"
 #include "kateviewinternal.h"
@@ -111,6 +112,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   , m_showMiniMap(false)
   , m_miniMapAll(true)
   , m_miniMapWidth(40)
+  , m_linesModified(0)
 {
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
   connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document*)), this, SLOT(marksChanged()));
@@ -119,6 +121,14 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 
   m_updateTimer.setInterval(300);
   m_updateTimer.setSingleShot(true);
+  connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()));
+  connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)),
+          &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+  connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+  connect(&(m_doc->buffer()), SIGNAL(lineWrapped(KTextEditor::Cursor)),
+          this, SLOT(lineAdded(KTextEditor::Cursor)));
+  connect(&(m_doc->buffer()), SIGNAL(lineUnwrapped(int)),
+          this, SLOT(lineRemoved(int)));
 
 
 }
@@ -144,6 +154,39 @@ void KateScrollBar::setShowMiniMap(bool b)
 
   updateGeometry();
   update();
+}
+
+void KateScrollBar::lineRemoved(int line)
+{
+  if ( m_linesAdded.contains(line) ) {
+    m_linesAdded[line] -= 1;
+  }
+  else {
+    m_linesAdded[line] = -1;
+  }
+  m_linesModified++;
+  cleanupLinesAddedAndRemoved();
+}
+
+void KateScrollBar::lineAdded(const Cursor position)
+{
+  int line = position.line();
+  if ( m_linesAdded.contains(line) ) {
+    m_linesAdded[line] += 1;
+  }
+  else {
+    m_linesAdded[line] = +1;
+  }
+  m_linesModified++;
+  cleanupLinesAddedAndRemoved();
+}
+
+void KateScrollBar::cleanupLinesAddedAndRemoved()
+{
+  if ( m_linesModified > 10 ) {
+    m_linesAdded.clear();
+    m_linesModified = 0;
+  }
 }
 
 QSize KateScrollBar::sizeHint() const
@@ -226,7 +269,13 @@ void KateScrollBar::updatePixmap()
   }
   docLines /= numJumpLines;
 
-  m_pixmap = QPixmap(s_lineWidth, docLines+1);
+  //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
+
+  int pixmapHeight = qMax(docLines+1, height()/3);
+  if ( pixmapHeight > 200 ) {
+    pixmapHeight = round((pixmapHeight+5) / 10)*10;
+  }
+  m_pixmap = QPixmap(s_lineWidth, pixmapHeight);
   m_pixmap.fill(m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color());
 
   QColor textColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
@@ -236,8 +285,16 @@ void KateScrollBar::updatePixmap()
   QVector<int> attribs;
   int attribIndex=0;
   QPainter p;
+  const Range& selection = m_view->selectionRange();
   if (p.begin(&m_pixmap)) {
-    for (int y=0; y < visibleLines; y+=numJumpLines) {
+    int jumplinesOffset = 0;
+    for (int y=0; y < visibleLines; y++) {
+      if ( (y + jumplinesOffset) % numJumpLines != 0 ) {
+        int change = m_linesAdded.value(y);
+        jumplinesOffset -= change;
+        jumplinesOffset = jumplinesOffset % numJumpLines;
+        continue;
+      }
       realY = m_doc->getRealLine(y);
       line = m_doc->line(realY);
 
@@ -274,26 +331,8 @@ void KateScrollBar::updatePixmap()
           else {
             p.setOpacity(1.0);
           }
-          // check if we are entering next attrib block
-          if (attribIndex < attribs.size()) {
-            //kDebug(13040) << x << attribIndex << attribs[attribIndex] << attribs[attribIndex] + attribs[attribIndex+1];
-            if ((x == attribs[attribIndex]) || (x == attribs[attribIndex] +1)) {
-              // entering the next block ?
-
-              p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
-            }
-            else if (x >= (attribs[attribIndex] + attribs[attribIndex+1])) {
-              // exiting the block ?
-              attribIndex += 3;
-              if ((attribIndex < attribs.size()) && ((x == attribs[attribIndex]) || (x == attribs[attribIndex] +1))) {
-                // entering the next block ?
-                p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
-              }
-              else {
-                p.setPen(palette().color(QPalette::Text));
-              }
-            }
-          }
+          
+          bool styleFound = false;
           
           // query the decorations
           foreach ( const QTextLayout::FormatRange& range, decorations ) {
@@ -306,7 +345,31 @@ void KateScrollBar::updatePixmap()
               else {
                 p.setPen(range.format.foreground().color());
               }
+              styleFound = true;
               break;
+            }
+          }
+          
+          if ( ! styleFound ) {
+            // check if we are entering next attrib block
+            if (attribIndex < attribs.size()) {
+              //kDebug(13040) << x << attribIndex << attribs[attribIndex] << attribs[attribIndex] + attribs[attribIndex+1];
+              if ((x == attribs[attribIndex]) || (x == attribs[attribIndex] +1)) {
+                // entering the next block ?
+
+                p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
+              }
+              else if (x >= (attribs[attribIndex] + attribs[attribIndex+1])) {
+                // exiting the block ?
+                attribIndex += 3;
+                if ((attribIndex < attribs.size()) && ((x == attribs[attribIndex]) || (x == attribs[attribIndex] +1))) {
+                  // entering the next block ?
+                  p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
+                }
+                else {
+                  p.setPen(palette().color(QPalette::Text));
+                }
+              }
             }
           }
           

@@ -34,6 +34,7 @@
 #include <QtCore/QTimer>
 
 #include <ktexteditor/containerinterface.h>
+#include <ktexteditor/cursor.h>
 #include "katepartprivate_export.h"
 
 class KateDocument;
@@ -98,6 +99,8 @@ Q_SIGNALS:
   protected Q_SLOTS:
     void sliderMaybeMoved(int value);
     void marksChanged();
+    void lineAdded(const KTextEditor::Cursor position);
+    void lineRemoved(int line);
 
   public Q_SLOTS:
     void updatePixmap();
@@ -108,6 +111,9 @@ Q_SIGNALS:
 
     void miniMapPaintEvent(QPaintEvent *e);
     void normalPaintEvent(QPaintEvent *e);
+
+    // cleans up the m_linesAdded / m_linesRemoved arrays if they grow large
+    void cleanupLinesAddedAndRemoved();
 
     bool m_middleMouseDown;
     bool m_leftMouseDown;
@@ -126,6 +132,10 @@ Q_SIGNALS:
     QPixmap m_pixmap;
     QTimer  m_updateTimer;
     QPoint m_toolTipPos;
+
+    // lists of lines added/removed recently to avoid scrollbar flickering
+    QHash<int, int> m_linesAdded;
+    int m_linesModified;
 
     static float characterOpacity[256];
 };

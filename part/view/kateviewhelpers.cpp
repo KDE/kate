@@ -271,7 +271,7 @@ void KateScrollBar::updatePixmap()
 
   //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
 
-  int pixmapHeight = qMax(docLines+1, height()/3);
+  int pixmapHeight = docLines+1;
   if ( pixmapHeight > 200 ) {
     pixmapHeight = round((pixmapHeight+5) / 10)*10;
   }

@@ -203,14 +203,27 @@ void KateScrollBar::updatePixmap()
   QColor textColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
   QString line;
   int pixX;
+  int realY;
   QVector<int> attribs;
   int attribIndex=0;
   QPainter p;
   if (p.begin(&m_pixmap)) {
     for (int y=0; y < visibleLines; y+=numJumpLines) {
-      line = m_doc->line(m_doc->getRealLine(y));
+      realY = m_doc->getRealLine(y);
+      line = m_doc->line(realY);
+
+      // try to get the lines around if this is empty
+      if ((numJumpLines > 1) && line.isEmpty() && (y>10)) {
+        realY = m_doc->getRealLine(y-1);
+        line = m_doc->line(realY);
+        if (line.isEmpty() && (y+5 < visibleLines)) {
+          realY = m_doc->getRealLine(y+1);
+          line = m_doc->line(realY);
+        }
+      }
       pixX=10;
-      attribs = m_doc->kateTextLine(m_doc->getRealLine(y))->attributesList();
+      kDebug(13040) << realY << y;
+      attribs = m_doc->kateTextLine(realY)->attributesList();
       attribIndex = 0;
       //kDebug(13040) << attribs;
       p.setPen(textColor);

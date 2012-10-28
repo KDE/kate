@@ -141,14 +141,14 @@ void KateScrollBar::mousePressEvent(QMouseEvent* e)
   if (e->button() == Qt::MidButton)
     m_middleMouseDown = true;
 
-  QScrollBar::mousePressEvent(e);
-
-  redrawMarks();
-
   m_toolTipPos = e->globalPos() - QPoint(e->pos().x(), 0);
   const int fromLine = m_viewInternal->toRealCursor(m_viewInternal->startPos()).line() + 1;
   const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
-  QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "%1 - %2", fromLine, lastLine), this);
+  QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);
+
+  redrawMarks();
+
+  QScrollBar::mousePressEvent(e);
 }
 
 void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
@@ -174,7 +174,7 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
     m_toolTipPos = e->globalPos() - QPoint(e->pos().x(), 0);
     const int fromLine = m_viewInternal->toRealCursor(m_viewInternal->startPos()).line() + 1;
     const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
-    QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "%1 - %2", fromLine, lastLine), this);
+    QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);
   }
 }
 
@@ -404,7 +404,7 @@ void KateScrollBar::sliderChange ( SliderChange change )
   if (QApplication::mouseButtons() & (Qt::LeftButton | Qt::MidButton)) {
     const int fromLine = m_viewInternal->toRealCursor(m_viewInternal->startPos()).line() + 1;
     const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
-    QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "%1 - %2", fromLine, lastLine), this);
+    QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);
   }
 }
 

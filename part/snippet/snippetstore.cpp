@@ -80,7 +80,10 @@ Qt::ItemFlags SnippetStore::flags(const QModelIndex & index) const
 
 KConfigGroup SnippetStore::getConfig()
 {
-    return KGlobal::config()->group("Snippets");
+  /**
+   * use KTextEditor::Editor session config object
+   */
+  return KateGlobal::self()->sessionConfig()->group("Snippets");
 }
 
 bool SnippetStore::setData(const QModelIndex& index, const QVariant& value, int role)

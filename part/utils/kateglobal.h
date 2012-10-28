@@ -58,6 +58,8 @@ namespace Kate {
   class Command;
 }
 
+Q_DECLARE_METATYPE(KSharedConfig::Ptr)
+
 /**
  * KateGlobal
  * One instance of this class is hold alive during
@@ -84,6 +86,32 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * @return new snippet widget
      */
     QWidget *snippetWidget ();
+
+    /**
+     * property to tell the editor to use a given session config for session related
+     * configuration instead of KGlobal::config().
+     * MUST be set directly after first creation of the editor as otherwise
+     * some parts might not pick this up.
+     */
+    Q_PROPERTY (KSharedConfig::Ptr sessionConfig READ sessionConfig WRITE setSessionConfig)
+
+    /**
+     * Get session config, defaults to KGlobal::config()
+     * @return session config
+     */
+    KSharedConfig::Ptr sessionConfig ()
+    {
+      return m_sessionConfig;
+    }
+
+    /**
+     * Set session config
+     * @param sessionConfig new session config
+     */
+    void setSessionConfig (KSharedConfig::Ptr sessionConfig)
+    {
+      m_sessionConfig = sessionConfig;
+    }
 
   // for setDefaultEncoding
   friend class KateDocumentConfig;
@@ -323,9 +351,11 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
 
     /**
      * global instance of the snippet handling
+     * lazy constructed on first use to allow it to use the session config
+     * set after editor is constructed
      * @return global instance of the snippet handling
      */
-    KateSnippetGlobal *snippetGlobal() { return m_snippetGlobal; }
+    KateSnippetGlobal *snippetGlobal();
 
     /**
      * register given command
@@ -500,6 +530,11 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * global instance of the snippet handling
      */
     KateSnippetGlobal *m_snippetGlobal;
+
+    /**
+     * session config
+     */
+    KSharedConfig::Ptr m_sessionConfig;
 };
 
 #endif

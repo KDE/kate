@@ -67,6 +67,8 @@ KateGlobal::KateGlobal ()
              ki18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              ki18n( "(c) 2000-2009 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
  , m_componentData (&m_aboutData)
+ , m_snippetGlobal (0) // lazy constructed
+ , m_sessionConfig (KGlobal::config())
 {
   // set s_self
   s_self = this;
@@ -188,9 +190,6 @@ KateGlobal::KateGlobal ()
   // global word completion model
   m_wordCompletionModel = new KateWordCompletionModel (this);
 
-  // global snippet handler
-  m_snippetGlobal = new KateSnippetGlobal (this);
-
   //
   // finally setup connections
   //
@@ -242,6 +241,13 @@ KTextEditor::Document *KateGlobal::createDocument ( QObject *parent )
 const QList<KTextEditor::Document*> &KateGlobal::documents ()
 {
   return m_docs;
+}
+
+KateSnippetGlobal *KateGlobal::snippetGlobal()
+{
+  if (!m_snippetGlobal)
+    m_snippetGlobal = new KateSnippetGlobal (this);  
+  return m_snippetGlobal;
 }
 
 //BEGIN KTextEditor::Editor config stuff

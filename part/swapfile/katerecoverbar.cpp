@@ -91,7 +91,7 @@ void KateRecoverBar::viewDiff()
 
   QDataStream stream(&swp);
 
-  recoverDoc.swapFile()->recover(stream);
+  recoverDoc.swapFile()->recover(stream, false);
 
   // create a KProcess proc
   m_proc = new KProcess(this);

@@ -202,7 +202,7 @@ void SwapFile::recover()
   }
 }
 
-bool SwapFile::recover(QDataStream& stream)
+bool SwapFile::recover(QDataStream& stream, bool checkDigest)
 {  
   // read and check header
   QByteArray header;
@@ -219,7 +219,7 @@ bool SwapFile::recover(QDataStream& stream)
   // read md5 digest
   QByteArray digest;
   stream >> digest;
-  if (digest != m_document->digest())
+  if (checkDigest && digest != m_document->digest())
   {
     stream.setDevice (0);
     m_swapfile.close ();

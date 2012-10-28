@@ -167,7 +167,7 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 {
   QScrollBar::mouseMoveEvent(e);
 
-  if (e->buttons() & Qt::LeftButton) {
+  if (e->buttons() & (Qt::LeftButton | Qt::MidButton)) {
     redrawMarks();
 
     // current line tool tip

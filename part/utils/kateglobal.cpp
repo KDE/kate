@@ -509,7 +509,10 @@ void KateGlobal::setContainer( QObject * container )
 {m_container=container;}
 //END container interface
 
-
+QWidget *KateGlobal::snippetWidget ()
+{
+  return m_snippetGlobal->snippetWidget ();
+}
 
 KTextEditor::TemplateScript* KateGlobal::registerTemplateScript (QObject* owner, const QString& script)
 {

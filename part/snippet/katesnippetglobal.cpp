@@ -73,7 +73,7 @@ void KateSnippetGlobal::showDialog (KateView *view)
   topToolbar->setToolButtonStyle (Qt::ToolButtonIconOnly);
   layout->addWidget(topToolbar);
 
-  QWidget* widget = new SnippetView (this, &dialog);
+  QWidget* widget = snippetWidget ();
   layout->addWidget(widget);
 
   // add actions
@@ -85,6 +85,11 @@ void KateSnippetGlobal::showDialog (KateView *view)
   m_activeViewForDialog = view;
   dialog.exec();
   m_activeViewForDialog = 0;
+}
+
+QWidget *KateSnippetGlobal::snippetWidget ()
+{
+  return new SnippetView (this, 0);
 }
 
 void KateSnippetGlobal::insertSnippet(Snippet* snippet)

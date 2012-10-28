@@ -72,6 +72,19 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
   Q_INTERFACES(KTextEditor::ContainerInterface)
   Q_INTERFACES(KTextEditor::TemplateScriptRegistrar)
 
+  public:
+    /**
+     * property to create a new snippet widget.
+     * caller must handle the delete then, is a variant with a widget inside
+     */
+    Q_PROPERTY (QWidget *snippetWidget READ snippetWidget)
+
+    /**
+     * Create a new snippet widget, to allow to manage and insert snippets
+     * @return new snippet widget
+     */
+    QWidget *snippetWidget ();
+
   // for setDefaultEncoding
   friend class KateDocumentConfig;
 
@@ -361,11 +374,9 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      */
     void setContainer( QObject * container );
 
-
     /**
      *  TemplateScriptRegistrar interface
      */
-
     KTextEditor::TemplateScript* registerTemplateScript (QObject* owner, const QString& script);
     void unregisterTemplateScript(KTextEditor::TemplateScript* templateScript);
 

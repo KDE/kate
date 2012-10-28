@@ -59,6 +59,12 @@ public:
      */
     SnippetCompletionModel *completionModel () { return m_model; }
 
+    /**
+     * Create a new snippet widget, to allow to manage and insert snippets
+     * @return new snippet widget
+     */
+    QWidget *snippetWidget ();
+
 public slots:
     /**
      * Create snippet for given view, e.g. by using the selection

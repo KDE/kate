@@ -97,7 +97,7 @@ Q_SIGNALS:
     void sliderMaybeMoved(int value);
     void marksChanged();
 
-  private Q_SLOTS:
+  public Q_SLOTS:
     void updatePixmap();
 
   private:

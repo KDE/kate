@@ -1691,6 +1691,8 @@ void KateView::updateRendererConfig()
   m_viewInternal->m_leftBorder->updateFont();
   m_viewInternal->m_leftBorder->repaint ();
 
+  m_viewInternal->m_lineScroll->updatePixmap ();
+
 // @@ showIndentLines is not cached anymore.
 //  m_renderer->setShowIndentLines (m_renderer->config()->showIndentationLines());
 }

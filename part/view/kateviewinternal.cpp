@@ -1166,6 +1166,101 @@ void KateViewInternal::wordRight( bool sel )
   updateCursor( c );
 }
 
+
+static bool progIsInWord(QChar c,bool lookForLowerOnly=false) {
+      return !c.isSpace()
+      && c != QChar::fromAscii('"') && c != QChar::fromAscii('\'')
+      && c != QChar::fromAscii('`') && c!=QChar::fromAscii('-') 
+      && c != QChar::fromAscii('_') && ((!lookForLowerOnly) || (lookForLowerOnly && !c.isLetter()) || (lookForLowerOnly && c.isLetter() && c.isLower()));
+}
+
+void KateViewInternal::wordLeftSmart ( bool sel )
+{
+  WrappingCursor c( this, m_cursor );
+
+  if( !c.atEdge( left ) ) {
+
+    while( !c.atEdge( left ) && doc()->line( c.line() )[ c.column() - 1 ].isSpace() )
+      --c;
+  }
+  if( c.atEdge( left ) )
+  {
+    --c;
+  }
+  else 
+  {
+    QChar lastChar=doc()->line( c.line() )[ c.column() - 1 ];
+    if( progIsInWord( lastChar ) )
+    {
+      while( !c.atEdge( left ) && progIsInWord( doc()->line( c.line() )[ c.column() - 1 ],true ) )
+        --c;
+      while (!c.atEdge(left))
+      {
+        QChar thisChar=doc()->line( c.line() )[ c.column() - 1 ];
+        if (!thisChar.isUpper()) break;
+        --c;
+      }
+    }
+    else
+    {
+      while( !c.atEdge( left )
+           && !progIsInWord( doc()->line( c.line() )[ c.column() - 1 ] )
+           && !doc()->line( c.line() )[ c.column() - 1 ].isSpace() )
+      {
+        --c;
+      }
+    }
+  }
+
+  updateSelection( c, sel );
+  updateCursor( c );
+}
+
+void KateViewInternal::wordRightSmart( bool sel )
+{
+  WrappingCursor c( this, m_cursor );
+
+  if( c.atEdge( right ) )
+  {
+    ++c;
+  }
+  else
+  {
+    QChar firstChar=doc()->line( c.line() )[ c.column() ];
+    bool lookForLowerOnly=firstChar.isLetter();
+    bool continueBig=firstChar.isUpper();
+    kDebug()<<"lookForSmallOnly"<<lookForLowerOnly<<"----:"<<firstChar;
+    if( progIsInWord(firstChar) )
+    {
+      if (lookForLowerOnly) ++c;
+      while( !c.atEdge( right ) && progIsInWord(doc()->line( c.line() )[ c.column() ],(!continueBig)&&lookForLowerOnly ))
+      {
+        if (continueBig) continueBig=doc()->line( c.line() )[ c.column() ].isUpper();
+        ++c;
+      }
+    }
+    else
+    {
+      while( !c.atEdge( right )
+           && !progIsInWord( doc()->line( c.line() )[ c.column() ] )
+           && !doc()->line( c.line() )[ c.column() ].isSpace() )
+      {
+        ++c;
+      }
+    }
+  }
+
+  while( !c.atEdge( right ) && doc()->line( c.line() )[ c.column() ].isSpace() )
+    ++c;
+
+  updateSelection( c, sel );
+  updateCursor( c );
+}
+
+
+
+
+
 void KateViewInternal::moveEdge( KateViewInternal::Bias bias, bool sel )
 {
   BoundedCursor c( this, m_cursor );

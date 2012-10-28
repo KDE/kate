@@ -170,6 +170,8 @@ class KateViewInternal : public QWidget
     void cursorRight(bool sel=false);
     void wordLeft(bool sel=false);
     void wordRight(bool sel=false);
+    void wordLeftSmart(bool sel=false);
+    void wordRightSmart(bool sel=false);
     void home(bool sel=false);
     void end(bool sel=false);
     void cursorUp(bool sel=false);

@@ -1,8 +1,0 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="KDevSnippet" version="1">
-<MenuBar>
-  <Menu name="edit" noMerge="1"><text>&amp;Edit</text>
-    <Action name="edit_selection_snippet" group="edit_paste_merge" />
-  </Menu>
-</MenuBar>
-</kpartgui>

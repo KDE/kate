@@ -294,7 +294,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 
     KToggleAction* settingsShowFileselector;
 
-    bool m_modignore, m_grrr;
+    bool m_modignore;
 
     QString m_dbusObjectPath;
 

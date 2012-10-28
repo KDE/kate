@@ -121,6 +121,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()));
   connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)),
           &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+  connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
 
   connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), this, SLOT(updatePixmap()));
 

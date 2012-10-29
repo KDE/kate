@@ -450,8 +450,8 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
 
   painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
 
-  QColor shieldColor = QColor(127,127,127, 64);
-  QColor shieldColorLight = QColor(127,127,127, 40);
+  QColor shieldColor = QColor(127,127,127, 96);
+  QColor shieldColorLight = QColor(127,127,127, 64);
   QLinearGradient g(0, 0, width(), 0);
   g.setColorAt(0, shieldColor);
   g.setColorAt(0.4, shieldColorLight);

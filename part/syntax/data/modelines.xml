@@ -46,7 +46,8 @@
     <item> newline-at-eof </item>                           <!-- Since KDE 4.9 -->
     <item> overwrite-mode </item>
     <item> persistent-selection </item>
-    <item> remove-trailing-space </item>
+    <!-- NOTE Deprecated since KDE 4.10 -->
+    <!-- <item> remove-trailing-space </item> -->
     <item> replace-tabs-save </item>
     <item> replace-tabs </item>
     <item> replace-trailing-space-save </item>

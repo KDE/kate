@@ -22,6 +22,8 @@
 #define KTEXTEDITOR_MESSAGEINTERFACE_H
 
 #include <QtCore/QObject>
+#include <QtCore/QList>
+#include <QtGui/QAction>
 
 namespace KTextEditor {
 
@@ -93,7 +95,7 @@ class Message
     /**
      * Returns the text set in the constructor.
      */
-    const QString& text() const;
+    QString text() const;
 
     /**
      * Returns the message type set in the constructor.
@@ -102,18 +104,32 @@ class Message
 
     /**
      * Adds an action to the message.
+     *
+     * By default (@p closeOnTrigger = true), the action closes the message
+     * displayed in all View%s. If @p closeOnTrigger is @e false, the message
+     * is stays open.
+     *
      * The actions will be displayed in the order you added the actions.
+     *
      * @param action action to be added
+     * @param closeOnTrigger when triggered, the message widget is closed
+     *
      * @warning The added actions are deleted automatically in the Message
      *          destructor, so do \em not delete the added actions yourself.
      */
-    void addAction(QAction* action);
+    void addAction(QAction* action, bool closeOnTrigger = true);
+
+    /**
+     * Returns whether triggering @p action closes the message widget or not.
+     * @
+     */
+    bool isCloseAction(QAction* action) const;
 
     /**
      * Accessor to all actions, mainly used in the internal implementation
      * to add the actions into the gui.
      */
-    const QVector<QAction*>& actions() const;
+    QList<QAction*> actions() const;
 
     /**
      * Set the auto hide timer to @p autoHideTimer milliseconds.
@@ -146,20 +162,6 @@ class Message
      * @see setWordWrap()
      */
     bool wordWrap() const;
-
-    /**
-     * Set the visibility of the close button according to @p visible.
-     *
-     * @see isCloseButtonVisible()
-     */
-    void setCloseButtonVisible(bool visible);
-
-    /**
-     * Check, whether the close button is visible or not.
-     *
-     * @see setCloseButtonVisible()
-     */
-    bool isCloseButtonVisible() const;
 
     /**
      * Set the priority of this message to @p priority.
@@ -244,6 +246,7 @@ class MessageInterface
      * Post @p message to the Document and its View%s.
      * If multiple Message%s are posted, the one with the highest priority
      * is shown.
+     * @warning Never post the same message twice.
      */
     virtual void postMessage(Message::Ptr message) = 0;
 

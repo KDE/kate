@@ -26,10 +26,10 @@ class MessagePrivate
 {
   public:
     QVector<QAction*> actions;
+    QVector<bool> actionCloses;
     MessageType messageType;
     QString text;
-    bool closeButtonVisible : 1;
-    bool wordWrap : 1;
+    bool wordWrap;
     int autoHide;
     int priority;
     KTextEditor::View* view;
@@ -39,7 +39,6 @@ Message::Message()
   : d(new MessagePrivate())
 {
   d->messageType = Information;
-  d->closeButtonVisible = true;
   d->wordWrap = false;
   d->autoHide = 0;
   d->priority = 0;
@@ -52,7 +51,7 @@ Message::~Message()
   delete d;
 }
 
-const QString& Message::text() const
+QString Message::text() const
 {
   return d->text;
 }
@@ -62,16 +61,17 @@ MessageType Message::messageType() const
   return d->type;
 }
 
-void Message::addAction(QAction* action)
+void Message::addAction(QAction* action, bool closeOnTrigger)
 {
   // make sure parent is 0, as we delete the action in the destructor
   if (action->parent())
     action->setParent(0);
 
   d->actions.append(action);
+  d->actionCloses.append(closeOnTrigger);
 }
 
-const QVector<QAction*>& actions() const
+QList<QAction*> actions() const
 {
   return d->actions;
 }
@@ -94,16 +94,6 @@ void Message::setWordWrap(bool wordWrap)
 bool Message::wordWrap() const
 {
   return d->wordWrap;
-}
-
-bool Message::isCloseButtonVisible() const
-{
-  return d->closeButtonVisible;
-}
-
-void Message::setCloseButtonVisible(bool visible)
-{
-  d->closeButtonVisible = visible;
 }
 
 void Message::setPriority(int priority)

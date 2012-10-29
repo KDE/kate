@@ -47,10 +47,12 @@ KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget * pa
   Q_ASSERT(message);
 
   QVBoxLayout* l = new QVBoxLayout();
+  l->setMargin(0);
 
   m_messageWidget = new KMessageWidget();
   m_messageWidget->setText(message->text());
   m_messageWidget->setWordWrap(message->wordWrap());
+//   m_messageWidget->setCloseButtonVisible(false);
 
   // the enums values do not necessarily match, hence translate with switch
   switch (message->messageType()) {
@@ -80,8 +82,10 @@ KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget * pa
   setLayout(l);
 
   m_messageWidget->installEventFilter(this);
-
   m_messageWidget->hide();
+
+  // tell the widget to always use the minimum size.
+  setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
 }
 
 int KateMessageWidget::priority() const
@@ -101,6 +105,7 @@ bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
 void KateMessageWidget::showEvent(QShowEvent *event)
 {
   if (!event->spontaneous()) {
+//     m_messageWidget->ensurePolished();
     m_messageWidget->animatedShow();
 
     // enable auto hide if wanted

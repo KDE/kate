@@ -440,13 +440,18 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
   style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
 
+  painter.setPen(palette().window().color());
   painter.setBrush(palette().window());
   painter.drawRect(grooveRect);
 
   int max = qMax(maximum(), 1);
   int docHeight = qMin(grooveRect.height(), m_pixmap.height()*3);
-  int yoffset = (grooveRect.height() - docHeight) * value() / max;
+  int yoffset = (grooveRect.height() - docHeight) / 2;
   QRect docRect(QPoint(grooveRect.left(), yoffset+grooveRect.top()), QSize(grooveRect.width(), docHeight));
+
+  int visibleStart = value()*docHeight/(max+pageStep()) + yoffset + grooveRect.top();
+  int visibleEnd = (value()+pageStep())*docHeight/(max+pageStep()) + yoffset + grooveRect.top() ;
+  QRect visibleRect(QPoint(grooveRect.left(), visibleStart), QPoint(grooveRect.right(), visibleEnd));
 
   painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
 
@@ -459,20 +464,22 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   painter.setPen(shieldColor);
   painter.setBrush(g);
 
-  int y = value()*docHeight/(max+pageStep()) + yoffset;
-  painter.drawRect(QRect(grooveRect.topLeft(), QPoint(grooveRect.right(), y + grooveRect.top())));
   if (docHeight < grooveRect.height()) {
-    painter.drawRect(QRect(grooveRect.topLeft(), QPoint(grooveRect.right(), y + grooveRect.top())));
-  }
+    // Top shielding
+    painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
+    painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
 
-  y = (value()+pageStep())*docHeight/(max+pageStep()) + yoffset;
-  painter.drawRect(QRect(QPoint(grooveRect.left(), y + grooveRect.top()), grooveRect.bottomRight()));
-  if (docHeight < grooveRect.height()) {
-    painter.drawRect(QRect(QPoint(grooveRect.left(), y + grooveRect.top()), grooveRect.bottomRight()));
+    // Bottom shielding
+    painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
+    painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
   }
-
-  if (docHeight >= grooveRect.height()) {
+  else {
+    // Top shielding
+    painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
     painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
+
+    // Bottom shielding
+    painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
     painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));
   }
 

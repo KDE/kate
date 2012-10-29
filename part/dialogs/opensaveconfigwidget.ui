@@ -186,12 +186,12 @@
           </item>
           <item>
            <property name="text">
-            <string>Modified Lines</string>
+            <string>On Modified Lines</string>
            </property>
           </item>
           <item>
            <property name="text">
-            <string>Entire Document</string>
+            <string>In Entire Document</string>
            </property>
           </item>
          </widget>

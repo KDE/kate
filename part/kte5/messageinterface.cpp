@@ -48,7 +48,7 @@ Message::Message(MessageType type, const QString& richtext)
   d->messageType = type;
   d->text = richtext;
   d->wordWrap = false;
-  d->autoHide = 0;
+  d->autoHide = -1;
   d->priority = 0;
   d->view = 0;
   d->document = 0;

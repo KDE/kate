@@ -332,7 +332,7 @@ void KateScrollBar::updatePixmap()
       const Kate::TextLine& kateline = m_doc->plainKateTextLine(realLineNumber);
 
       QVector<int> attributes = kateline->attributesList();
-      QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(kateline, currentVisibleLineNumber);
+      QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(kateline, realLineNumber);
       int attributeIndex = 0;
 
       // The color to draw the currently selected text in; change the alpha value to make it

@@ -490,8 +490,12 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   painter.setRenderHint(QPainter::SmoothPixmapTransform);
   painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
 
-  QColor shieldColor = QColor(127,127,127, 96);
-  QColor shieldColorLight = QColor(127,127,127, 64);
+  QColor foregroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
+  
+  QColor shieldColor(foregroundColor);
+  shieldColor.setAlpha(64);
+  QColor shieldColorLight(foregroundColor);
+  shieldColorLight.setAlpha(32);
   QLinearGradient g(0, 0, width(), 0);
   g.setColorAt(0, shieldColor);
   g.setColorAt(0.4, shieldColorLight);

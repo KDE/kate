@@ -242,6 +242,8 @@ class MessageInterface
 
     /**
      * Post @p message to the Document and its View%s.
+     * If multiple Message%s are posted, the one with the highest priority
+     * is shown.
      */
     virtual void postMessage(Message::Ptr message) = 0;
 
@@ -251,7 +253,8 @@ class MessageInterface
     virtual void removeMessage(Message::Ptr message) = 0;
 
     /**
-     *
+     * Check, whether @p message was already processed.
+     * @return \e true, if @p message is still in the message queue.
      */
     virtual bool isPending(Message::Ptr message);
 
@@ -260,7 +263,17 @@ class MessageInterface
   //
   public:
     /**
+     * This signal is emitted whenever a message was processed.
+     * The View pointer is always valid and represents the View that processed
+     * this message. The View can be accessed through Message::view().
      *
+     * This signal is not emitted if a text message was automatically hidden,
+     * see Message::setAutoHide(). Further, if the message was processed by
+     * the user, this signal is emitted exactly once, even if multiple View%s
+     * show the message.
+     *
+     * @param message the message
+     * @see Message::view()
      */
     void messageProcessed(Message::Ptr message);
 

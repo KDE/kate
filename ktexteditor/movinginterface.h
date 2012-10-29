@@ -33,7 +33,7 @@ namespace KTextEditor
 {
 
 /**
- * \brief Document interface for for MovingCursor%s and MovingRange%s.
+ * \brief Document interface for MovingCursor%s and MovingRange%s.
  *
  * \ingroup kte_group_document_extension
  * \ingroup kte_group_moving_classes

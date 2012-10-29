@@ -995,6 +995,9 @@ bool KateDocument::wrapText(int startLine, int endLine)
       }
       else
       {
+        if (nextl && (nextl->length() > 0) && !nextl->at(0).isSpace() && ((l->length() < 1) || !l->at(l->length()-1).isSpace()))
+          editInsertText (line+1, 0, QString (" "));
+
         bool newLineAdded = false;
         editWrapLine (line, z, false, &newLineAdded);
 

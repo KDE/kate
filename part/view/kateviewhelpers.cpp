@@ -257,6 +257,9 @@ void KateScrollBar::updatePixmap()
   }
   int visibleLinesCount = m_doc->visibleLines();
   int drawLinesCount = visibleLinesCount;
+  if (m_view->config()->scrollPastEnd()) {
+    drawLinesCount += pageStep();
+  }
 
   // For performance reason, only every n-th line will be drawn if the widget is
   // sufficiently small compared to the amount of lines in the document.

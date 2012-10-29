@@ -273,20 +273,28 @@ void KateScrollBar::updatePixmap()
   if ( pixmapHeight > 200 ) {
     pixmapHeight = round((pixmapHeight+5) / 10)*10;
   }
-  m_pixmap = QPixmap(s_lineWidth, pixmapHeight);
-  m_pixmap.fill(m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color());
 
+  QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
   QColor defaultTextColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
+  QColor modifiedLineColor = m_view->renderer()->config()->modifiedLineColor();
+  QColor savedLineColor = m_view->renderer()->config()->savedLineColor();
 
+  m_pixmap = QPixmap(s_lineWidth, pixmapHeight);
+  m_pixmap.fill(backgroundColor);
+  
+  // move the modified line color away from the background color
+  modifiedLineColor.setHsv(modifiedLineColor.hue(), 255, 255 - backgroundColor.value()/3);
+  savedLineColor.setHsv(savedLineColor.hue(), 100, 255 - backgroundColor.value()/3);
+  
   // The text currently selected in the document, to be drawn later.
   const Range& selection = m_view->selectionRange();
 
-  QPainter textPainter;
-  if ( textPainter.begin(&m_pixmap) ) {
+  QPainter painter;
+  if ( painter.begin(&m_pixmap) ) {
     // The amount of lines inserted / removed up to the current line,
     // used for avoiding flickering.
     int jumplinesOffset = 0;
-
+    
     // Iterate over all visible lines, drawing them.
     for ( int currentVisibleLineNumber=0; currentVisibleLineNumber < visibleLinesCount; currentVisibleLineNumber++ ) {
       // Check whether this line should be skipped, taking the offsets due to
@@ -313,7 +321,7 @@ void KateScrollBar::updatePixmap()
       }
 
       // use this to control the offset of the text from the left
-      int pixelX = 5;
+      int pixelX = 8;
 
       QVector<int> attributes = m_doc->kateTextLine(realLineNumber)->attributesList();
       QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(m_doc->kateTextLine(currentVisibleLineNumber), currentVisibleLineNumber);
@@ -324,7 +332,7 @@ void KateScrollBar::updatePixmap()
       QColor selectionColor = palette().color(QPalette::HighlightedText);
       selectionColor.setAlpha(180);
 
-      textPainter.setPen(defaultTextColor);
+      painter.setPen(defaultTextColor);
       // Iterate over all the characters in the current line
       for ( int x = 0; x < currentLineContents.size(); x++ ) {
         int originalPixelOffset = pixelX;
@@ -346,10 +354,10 @@ void KateScrollBar::updatePixmap()
           // This gives the pixels created a bit of structure, which makes it look more
           // like real text.
           if (currentLineContents[x].unicode() < 256) {
-            textPainter.setOpacity(KateScrollBar::characterOpacity[currentLineContents[x].unicode()]);
+            painter.setOpacity(KateScrollBar::characterOpacity[currentLineContents[x].unicode()]);
           }
           else {
-            textPainter.setOpacity(1.0);
+            painter.setOpacity(1.0);
           }
 
           bool styleFound = false;
@@ -361,10 +369,10 @@ void KateScrollBar::updatePixmap()
               // If there's a different background color set (search markers, ...)
               // use that, otherwise use the foreground color.
               if ( range.format.hasProperty(QTextFormat::BackgroundBrush) ) {
-                textPainter.setPen(range.format.background().color());
+                painter.setPen(range.format.background().color());
               }
               else {
-                textPainter.setPen(range.format.foreground().color());
+                painter.setPen(range.format.foreground().color());
               }
               styleFound = true;
               break;
@@ -378,39 +386,56 @@ void KateScrollBar::updatePixmap()
             if (attributeIndex < attributes.size()) {
               if ((x == attributes[attributeIndex]) || (x == attributes[attributeIndex]+1)) {
                 // entering the next block ?
-                textPainter.setPen(m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color());
+                painter.setPen(m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color());
               }
               else if (x >= (attributes[attributeIndex] + attributes[attributeIndex+1])) {
                 // exiting the block ?
                 attributeIndex += 3;
                 if ((attributeIndex < attributes.size()) && ((x == attributes[attributeIndex]) || (x == attributes[attributeIndex] +1))) {
                   // entering the next block ?
-                  textPainter.setPen(m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color());
+                  painter.setPen(m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color());
                 }
                 else {
-                  textPainter.setPen(palette().color(QPalette::Text));
+                  painter.setPen(palette().color(QPalette::Text));
                 }
               }
             }
           }
 
           // Actually draw the pixel with the color queried from the renderer.
-          textPainter.drawPoint(pixelX, currentVisibleLineNumber/drawEvery);
+          painter.drawPoint(pixelX, currentVisibleLineNumber/drawEvery);
 
           pixelX++;
         }
 
         // Query the selection and draw it above the character with an alpha channel
-        if ( selection.contains(Cursor(currentVisibleLineNumber, x)) ) {
-          textPainter.setPen(selectionColor);
-          textPainter.drawPoint(originalPixelOffset, currentVisibleLineNumber/drawEvery);
+        if ( selection.contains(Cursor(realLineNumber, x)) ) {
+          painter.setPen(selectionColor);
+          painter.drawPoint(originalPixelOffset, currentVisibleLineNumber/drawEvery);
           // fill the line up in case the selection extends beyond it
           if ( currentLineContents.size() - 1 == x ) {
             for ( int xFill = originalPixelOffset; xFill < s_lineWidth; xFill++ ) {
-              textPainter.drawPoint(xFill, currentVisibleLineNumber/drawEvery);
+              painter.drawPoint(xFill, currentVisibleLineNumber/drawEvery);
             }
           }
         }
+      }
+    }
+    // Draw line modification marker map.
+    // Disable this if the document is really huge,
+    // since it requires querying every line.
+    if ( m_doc->lines() < 50000 ) {
+      for ( int lineno = 0; lineno < visibleLinesCount; lineno++ ) {
+        if ( m_doc->plainKateTextLine(m_doc->getRealLine(lineno))->markedAsModified() ) {
+          painter.setPen(modifiedLineColor);
+        }
+        else if ( m_doc->plainKateTextLine(m_doc->getRealLine(lineno))->markedAsSavedOnDisk() ) {
+          painter.setPen(savedLineColor);
+        }
+        else {
+          continue;
+        }
+        painter.drawRect(2, lineno/drawEvery, 3, 1);
       }
     }
   }

@@ -434,10 +434,12 @@ void KateScrollBar::updatePixmap()
     // since it requires querying every line.
     if ( m_doc->lines() < 50000 ) {
       for ( int lineno = 0; lineno < visibleLinesCount; lineno++ ) {
-        if ( m_doc->plainKateTextLine(m_doc->getRealLine(lineno))->markedAsModified() ) {
+        int realLineNo = m_doc->getRealLine(lineno);
+        const Kate::TextLine& line = m_doc->plainKateTextLine(realLineNo);
+        if ( line->markedAsModified() ) {
           painter.setPen(modifiedLineColor);
         }
-        else if ( m_doc->plainKateTextLine(m_doc->getRealLine(lineno))->markedAsSavedOnDisk() ) {
+        else if ( line->markedAsSavedOnDisk() ) {
           painter.setPen(savedLineColor);
         }
         else {

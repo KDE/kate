@@ -27,6 +27,8 @@
 
 namespace KTextEditor {
 
+class View;
+
 /**
  * @brief This class holds a Message to display in View%s.
  *

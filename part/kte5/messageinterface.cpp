@@ -20,13 +20,14 @@
 
 #include "messageinterface.h"
 
+
 namespace KTextEditor {
 
 class MessagePrivate
 {
   public:
-    QVector<QAction*> actions;
-    MessageType messageType;
+    QList<QAction*> actions;
+    Message::MessageType messageType;
     QString text;
     bool wordWrap;
     int autoHide;
@@ -34,10 +35,11 @@ class MessagePrivate
     KTextEditor::View* view;
 };
 
-Message::Message()
+Message::Message(MessageType type, const QString& richtext)
   : d(new MessagePrivate())
 {
-  d->messageType = Information;
+  d->messageType = type;
+  d->text = richtext;
   d->wordWrap = false;
   d->autoHide = 0;
   d->priority = 0;
@@ -56,9 +58,9 @@ QString Message::text() const
   return d->text;
 }
 
-MessageType Message::messageType() const
+Message::MessageType Message::messageType() const
 {
-  return d->type;
+  return d->messageType;
 }
 
 void Message::addAction(QAction* action, bool closeOnTrigger)
@@ -72,12 +74,12 @@ void Message::addAction(QAction* action, bool closeOnTrigger)
     connect(action, SIGNAL(triggered()), SLOT(close()));
 }
 
-QList<QAction*> actions() const
+QList<QAction*> Message::actions() const
 {
   return d->actions;
 }
 
-void Message::setAutoHide(int autoHideTimer = 5000)
+void Message::setAutoHide(int autoHideTimer)
 {
   d->autoHide = autoHideTimer;
 }

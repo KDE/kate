@@ -34,6 +34,7 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/view
   ${CMAKE_CURRENT_SOURCE_DIR}/swapfile
   ${CMAKE_CURRENT_SOURCE_DIR}/variableeditor
+  ${CMAKE_CURRENT_SOURCE_DIR}/kte5
   ${KDE4_KIO_INCLUDES}
 )
 
@@ -193,6 +194,9 @@ snippet/snippetcompletionitem.cpp
 snippet/snippet.cpp
 snippet/editrepository.cpp
 snippet/editsnippet.cpp
+
+# message interface
+kte5/messageinterface.cpp
 )
 
 set( katepart_PART_UI

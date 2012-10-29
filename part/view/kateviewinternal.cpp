@@ -135,18 +135,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_lineScroll->setTracking (true);
   m_lineScroll->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Expanding );
 
-  // bottom corner box
-  m_dummy = new QWidget(m_view);
-  m_dummy->setFixedSize(m_lineScroll->width(), m_lineScroll->width());
-  m_dummy->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
-
-  if (m_view->dynWordWrap())
-    m_dummy->hide();
-  else
-    m_dummy->show();
-
-  cache()->setWrap(m_view->dynWordWrap());
-
   // Hijack the line scroller's controls, so we can scroll nicely for word-wrap
   connect(m_lineScroll, SIGNAL(actionTriggered(int)), SLOT(scrollAction(int)));
   connect(m_lineScroll, SIGNAL(sliderMoved(int)), SLOT(scrollLines(int)));
@@ -170,6 +158,18 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_startX = 0;
 
   connect(m_columnScroll, SIGNAL(valueChanged(int)), SLOT(scrollColumns(int)));
+
+  // bottom corner box
+  m_dummy = new QWidget(m_view);
+  m_dummy->setFixedSize(m_lineScroll->width(), m_columnScroll->sizeHint().height());
+  m_dummy->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
+
+  if (m_view->dynWordWrap())
+    m_dummy->hide();
+  else
+    m_dummy->show();
+
+  cache()->setWrap(m_view->dynWordWrap());
 
   //
   // iconborder ;)
@@ -256,6 +256,7 @@ void KateViewInternal::prepareForDynWrapChange()
 
 void KateViewInternal::dynWrapChanged()
 {
+  m_dummy->setFixedSize(m_lineScroll->width(), m_columnScroll->sizeHint().height());
   if (m_view->dynWordWrap())
   {
     m_columnScroll->hide();
@@ -3083,6 +3084,7 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
   bool expandedVertically = height() > e->oldSize().height();
   bool heightChanged = height() != e->oldSize().height();
 
+  m_dummy->setFixedSize(m_lineScroll->width(), m_columnScroll->sizeHint().height());
   m_madeVisible = false;
 
   if (heightChanged) {

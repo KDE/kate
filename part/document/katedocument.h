@@ -101,6 +101,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::MovingInterface)
   Q_INTERFACES(KTextEditor::RecoveryInterface)
 
+  friend class KateDocumentTest;
+
   public:
     explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,
                   QWidget *parentWidget = 0, QObject * = 0);

@@ -42,6 +42,8 @@ private Q_SLOTS:
 
   void testRemoveMultipleLines();
   void testInsertNewline();
+
+  void testDigest();
 };
 
 #endif // KATE_DOCUMENT_TEST_H

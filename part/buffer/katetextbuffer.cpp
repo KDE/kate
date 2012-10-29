@@ -683,7 +683,6 @@ const QByteArray &TextBuffer::digest () const
 
 void TextBuffer::setDigest (const QByteArray & md5sum)
 {
-  kWarning() << "text buffer sum" << md5sum;
   m_digest = md5sum;
 }
 

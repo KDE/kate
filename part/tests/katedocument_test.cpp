@@ -318,4 +318,23 @@ void KateDocumentTest::testInsertNewline()
     doc.editWrapLine(1, 4);
 }
 
+// we have two different ways of creating the md5 checksum:
+// in KateFileLoader and KateDocument::createDigest. Make
+// sure, these two implementations result in the same checksum.
+void KateDocumentTest::testDigest()
+{
+  // md5sum of bug309093_example.cpp: ff6e0fddece03adeb8f902e8c540735a
+  const QByteArray fileDigest("ff6e0fddece03adeb8f902e8c540735a");
+
+  // make sure, Kate::TextBuffer and KateDocument::createDigest() equal
+  KateDocument doc(false, false, false);
+  doc.openUrl(QString(KDESRCDIR + QString("bug309093_example.cpp")));
+  const QByteArray bufferDigest(doc.digest());
+  QVERIFY(doc.createDigest());
+  const QByteArray docDigest(doc.digest());
+
+  QCOMPARE(bufferDigest, fileDigest);
+  QCOMPARE(docDigest, fileDigest);
+}
+
 #include "katedocument_test.moc"

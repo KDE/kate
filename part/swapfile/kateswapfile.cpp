@@ -125,6 +125,29 @@ void SwapFile::fileClosed ()
   updateFileName();
 }
 
+bool SwapFile::isValidSwapFile(QDataStream& stream, bool checkDigest) const
+{
+  // read and check header
+  QByteArray header;
+  stream >> header;
+
+  if (header != swapFileVersionString) {
+    kWarning( 13020 ) << "Can't open swap file, wrong version";
+    return false;
+  }
+
+  // read md5 digest
+  QByteArray digest;
+  stream >> digest;
+//   kDebug() << "DIGEST:" << digest << m_document->digest();
+  if (checkDigest && digest != m_document->digest()) {
+    kWarning( 13020 ) << "Can't recover from swap file, digest of document has changed";
+    return false;
+  }
+
+  return true;
+}
+
 void SwapFile::fileLoaded(const QString&)
 {
   // look for swap file
@@ -140,6 +163,20 @@ void SwapFile::fileLoaded(const QString&)
   if (!QFileInfo(m_swapfile).isReadable())
   {
     kWarning( 13020 ) << "Can't open swap file (missing permissions)";
+    return;
+  }
+
+  // sanity check
+  QFile peekFile(fileName());
+  if (peekFile.open(QIODevice::ReadOnly)) {
+    QDataStream stream(&peekFile);
+    if (!isValidSwapFile(stream, true)) {
+      removeSwapFile();
+      return;
+    }
+    peekFile.close();
+  } else {
+    kWarning( 13020 ) << "Can't open swap file:" << fileName();
     return;
   }
 
@@ -203,27 +240,8 @@ void SwapFile::recover()
 }
 
 bool SwapFile::recover(QDataStream& stream, bool checkDigest)
-{  
-  // read and check header
-  QByteArray header;
-  stream >> header;
-  if (header != swapFileVersionString)
-  {
-    stream.setDevice (0);
-    m_swapfile.close ();
-    kWarning( 13020 ) << "Can't open swap file, wrong version";
-    emit swapFileBroken();
-    return false;
-  }
-  
-  // read md5 digest
-  QByteArray digest;
-  stream >> digest;
-  if (checkDigest && digest != m_document->digest())
-  {
-    stream.setDevice (0);
-    m_swapfile.close ();
-    kWarning( 13020 ) << "Can't recover from swap file, digest of document has changed";
+{
+  if (!isValidSwapFile(stream, checkDigest)) {
     emit swapFileBroken();
     return false;
   }

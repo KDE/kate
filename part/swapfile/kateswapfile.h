@@ -57,6 +57,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     void setTrackingEnabled(bool trackingEnabled);
     void removeSwapFile();
     bool updateFileName();
+    bool isValidSwapFile(QDataStream& stream, bool checkDigest) const;
 
   private:
     KateDocument *m_document;

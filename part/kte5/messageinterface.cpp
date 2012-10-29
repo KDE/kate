@@ -20,7 +20,6 @@
 
 #include "messageinterface.h"
 
-
 namespace KTextEditor {
 
 class MessagePrivate
@@ -33,6 +32,7 @@ class MessagePrivate
     int autoHide;
     int priority;
     KTextEditor::View* view;
+    KTextEditor::Document* document;
 };
 
 Message::Message(MessageType type, const QString& richtext)
@@ -44,6 +44,7 @@ Message::Message(MessageType type, const QString& richtext)
   d->autoHide = 0;
   d->priority = 0;
   d->view = 0;
+  d->document = 0;
 }
 
 Message::~Message()
@@ -120,7 +121,15 @@ KTextEditor::View* Message::view() const
 }
 
 
+void Message::setDocument(KTextEditor::Document* document)
+{
+  d->document = document;
+}
 
+KTextEditor::Document* Message::document() const
+{
+  return d->document;
+}
 
 
 

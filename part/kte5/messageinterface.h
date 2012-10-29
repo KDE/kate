@@ -28,6 +28,7 @@
 namespace KTextEditor {
 
 class View;
+class Document;
 
 /**
  * @brief This class holds a Message to display in View%s.
@@ -178,6 +179,20 @@ class Message : public QObject
      * view first.
      */
     KTextEditor::View* view() const;
+
+    /**
+     * Set the document pointer to @p document.
+     * This is called by the implementation, as soon as you post a message
+     * through MessageInterface::postMessage().
+     * @see MessageInterface, document()
+     */
+    void setDocument(KTextEditor::Document* document);
+
+    /**
+     * Returns the document pointer this message was posted in.
+     * This pointer is 0 as long as the message was not posted.
+     */
+    KTextEditor::Document* document() const;
 
   Q_SIGNALS:
     /**

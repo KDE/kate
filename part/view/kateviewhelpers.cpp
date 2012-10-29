@@ -247,148 +247,174 @@ void KateScrollBar::paintEvent(QPaintEvent *e)
 
 void KateScrollBar::updatePixmap()
 {
-  if (!m_showMiniMap) return;
-  QTime timeThis;
-  timeThis.start();
+  // Remaining things to be fixed:
+  //  - view pixmap does not match the viewport correctly
+  //  - display is broken with code folding
 
-  int visibleLines = m_doc->visibleLines();
-  int docLines = visibleLines;
-  int numJumpLines = 1;
-  if ((height() > 10) && (docLines > height()*2)) {
-    numJumpLines = docLines / height();
+  if (!m_showMiniMap) {
+    // make sure no time is wasted if the option is disabled
+    return;
   }
-  docLines /= numJumpLines;
+  int visibleLinesCount = m_doc->visibleLines();
+  int drawLinesCount = visibleLinesCount;
 
-  //kDebug() << labelHeight << doc->lines() << docLines << numJumpLines;
+  // For performance reason, only every n-th line will be drawn if the widget is
+  // sufficiently small compared to the amount of lines in the document.
+  int drawEvery = 1;
+  if ( (height() > 10) && (drawLinesCount > height()*2) ) {
+    drawEvery = drawLinesCount / height();
+  }
+  drawLinesCount /= drawEvery;
 
-  int pixmapHeight = docLines+1;
+  // To reduce flickering, the pixmap height is rounded to the next-largest 10.
+  // That way, the pixmap will mostly not scale differently when a line is added
+  // or removed from / to the document.
+  int pixmapHeight = drawLinesCount+1;
   if ( pixmapHeight > 200 ) {
     pixmapHeight = round((pixmapHeight+5) / 10)*10;
   }
   m_pixmap = QPixmap(s_lineWidth, pixmapHeight);
   m_pixmap.fill(m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color());
 
-  QColor textColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
-  QString line;
-  int pixX;
-  int realY;
-  QVector<int> attribs;
-  int attribIndex=0;
-  QPainter p;
+  QColor defaultTextColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
+
+  // The text currently selected in the document, to be drawn later.
   const Range& selection = m_view->selectionRange();
-  if (p.begin(&m_pixmap)) {
+
+  QPainter textPainter;
+  if ( textPainter.begin(&m_pixmap) ) {
+    // The amount of lines inserted / removed up to the current line,
+    // used for avoiding flickering.
     int jumplinesOffset = 0;
-    for (int y=0; y < visibleLines; y++) {
-      if ( (y + jumplinesOffset) % numJumpLines != 0 ) {
-        int change = m_linesAdded.value(y);
+
+    // Iterate over all visible lines, drawing them.
+    for ( int currentVisibleLineNumber=0; currentVisibleLineNumber < visibleLinesCount; currentVisibleLineNumber++ ) {
+      // Check whether this line should be skipped, taking the offsets due to
+      // recently inserted / removed lines into account (the latter reduces flickering)
+      if ( (currentVisibleLineNumber + jumplinesOffset) % drawEvery != 0 ) {
+        int change = m_linesAdded.value(currentVisibleLineNumber);
         jumplinesOffset -= change;
-        jumplinesOffset = jumplinesOffset % numJumpLines;
+        jumplinesOffset = jumplinesOffset % drawEvery;
         continue;
       }
-      realY = m_doc->getRealLine(y);
-      line = m_doc->line(realY);
 
-      // try to get the lines around if this is empty
-      if ((numJumpLines > 1) && line.isEmpty() && (y>10)) {
-        realY = m_doc->getRealLine(y-1);
-        line = m_doc->line(realY);
-        if (line.isEmpty() && (y+5 < visibleLines)) {
-          realY = m_doc->getRealLine(y+1);
-          line = m_doc->line(realY);
+      int realLineNumber = m_doc->getRealLine(currentVisibleLineNumber);
+      QString currentLineContents = m_doc->line(realLineNumber);
+
+      // try to draw the lines around this one instead if the current line is empty
+      // this is to avoid large empty blocks in some unlucky situations
+      if ( (drawEvery > 1) && currentLineContents.isEmpty() && (currentVisibleLineNumber>10) ) {
+        realLineNumber = m_doc->getRealLine(currentVisibleLineNumber-1);
+        currentLineContents = m_doc->line(realLineNumber);
+        if (currentLineContents.isEmpty() && (currentVisibleLineNumber+5 < visibleLinesCount)) {
+          realLineNumber = m_doc->getRealLine(currentVisibleLineNumber+1);
+          currentLineContents = m_doc->line(realLineNumber);
         }
       }
-      pixX=5;
-      attribs = m_doc->kateTextLine(realY)->attributesList();
-      QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(m_doc->kateTextLine(y), y);
-      attribIndex = 0;
-      
+
+      // use this to control the offset of the text from the left
+      int pixelX = 5;
+
+      QVector<int> attributes = m_doc->kateTextLine(realLineNumber)->attributesList();
+      QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(m_doc->kateTextLine(currentVisibleLineNumber), currentVisibleLineNumber);
+      int attributeIndex = 0;
+
+      // The color to draw the currently selected text in; change the alpha value to make it
+      // more or less intense
       QColor selectionColor = palette().color(QPalette::HighlightedText);
       selectionColor.setAlpha(180);
-      
-      //kDebug(13040) << attribs;
-      p.setPen(textColor);
-      for (int x=0; x <line.size(); x++) {
-        int originalPixelOffset = pixX;
-        if (pixX >= s_lineWidth) {
+
+      textPainter.setPen(defaultTextColor);
+      // Iterate over all the characters in the current line
+      for ( int x = 0; x < currentLineContents.size(); x++ ) {
+        int originalPixelOffset = pixelX;
+        if ( pixelX >= s_lineWidth ) {
           break;
         }
-        
+
         // draw the pixels
-        if (line[x] == ' ') {
-          pixX++;
+        if (currentLineContents[x] == ' ') {
+          pixelX++;
         }
-        else if (line[x] == '\t') {
-          pixX += 4; // FIXME: tab width...
+        else if (currentLineContents[x] == '\t') {
+          pixelX += 4; // FIXME: tab width...
         }
         else {
-          if (line[x].unicode() < 256) {
-            p.setOpacity(KateScrollBar::characterOpacity[line[x].unicode()]);
+          // Query how much "blackness" the character has.
+          // This causes for example a dot or a dash to appear less intense
+          // than an A or similar.
+          // This gives the pixels created a bit of structure, which makes it look more
+          // like real text.
+          if (currentLineContents[x].unicode() < 256) {
+            textPainter.setOpacity(KateScrollBar::characterOpacity[currentLineContents[x].unicode()]);
           }
           else {
-            p.setOpacity(1.0);
+            textPainter.setOpacity(1.0);
           }
-          
+
           bool styleFound = false;
-          
-          // query the decorations
+
+          // Query the decorations, that is, things like search highlighting, or the
+          // KDevelop DUChain highlighting, for a color to use
           foreach ( const QTextLayout::FormatRange& range, decorations ) {
             if ( range.start <= x and range.start + range.length > x ) {
               // If there's a different background color set (search markers, ...)
               // use that, otherwise use the foreground color.
               if ( range.format.hasProperty(QTextFormat::BackgroundBrush) ) {
-                p.setPen(range.format.background().color());
+                textPainter.setPen(range.format.background().color());
               }
               else {
-                p.setPen(range.format.foreground().color());
+                textPainter.setPen(range.format.foreground().color());
               }
               styleFound = true;
               break;
             }
           }
-          
+
+          // If there's no decoration set for the current character (this will mostly be the case for
+          // plain kate), query the styles, that is, the default kate syntax highlighting.
           if ( ! styleFound ) {
             // check if we are entering next attrib block
-            if (attribIndex < attribs.size()) {
-              //kDebug(13040) << x << attribIndex << attribs[attribIndex] << attribs[attribIndex] + attribs[attribIndex+1];
-              if ((x == attribs[attribIndex]) || (x == attribs[attribIndex]+1)) {
+            if (attributeIndex < attributes.size()) {
+              if ((x == attributes[attributeIndex]) || (x == attributes[attributeIndex]+1)) {
                 // entering the next block ?
-
-                p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
+                textPainter.setPen(m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color());
               }
-              else if (x >= (attribs[attribIndex] + attribs[attribIndex+1])) {
+              else if (x >= (attributes[attributeIndex] + attributes[attributeIndex+1])) {
                 // exiting the block ?
-                attribIndex += 3;
-                if ((attribIndex < attribs.size()) && ((x == attribs[attribIndex]) || (x == attribs[attribIndex] +1))) {
+                attributeIndex += 3;
+                if ((attributeIndex < attributes.size()) && ((x == attributes[attributeIndex]) || (x == attributes[attributeIndex] +1))) {
                   // entering the next block ?
-                  p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
+                  textPainter.setPen(m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color());
                 }
                 else {
-                  p.setPen(palette().color(QPalette::Text));
+                  textPainter.setPen(palette().color(QPalette::Text));
                 }
               }
             }
           }
-          
-          p.drawPoint(pixX, y/numJumpLines);
-          
-          pixX++;
+
+          // Actually draw the pixel with the color queried from the renderer.
+          textPainter.drawPoint(pixelX, currentVisibleLineNumber/drawEvery);
+
+          pixelX++;
         }
-        
-        // query the selection and make an overlay
-        if ( selection.contains(Cursor(y, x)) ) {
-          p.setPen(selectionColor);
-          p.drawPoint(originalPixelOffset, y/numJumpLines);
-          // fill the line up
-          if ( line.size() - 1 == x ) {
-            for ( int x2 = originalPixelOffset; x2 < 100; x2++ ) {
-              p.drawPoint(x2, y/numJumpLines);
+
+        // Query the selection and draw it above the character with an alpha channel
+        if ( selection.contains(Cursor(currentVisibleLineNumber, x)) ) {
+          textPainter.setPen(selectionColor);
+          textPainter.drawPoint(originalPixelOffset, currentVisibleLineNumber/drawEvery);
+          // fill the line up in case the selection extends beyond it
+          if ( currentLineContents.size() - 1 == x ) {
+            for ( int xFill = originalPixelOffset; xFill < s_lineWidth; xFill++ ) {
+              textPainter.drawPoint(xFill, currentVisibleLineNumber/drawEvery);
             }
           }
         }
       }
     }
   }
-  kDebug(13040) << "time needed for scrollbar pixmap:" << timeThis.elapsed() << "ms";
+  // Redraw the scrollbar widget with the updated pixmap.
   update();
 }
 

@@ -123,6 +123,7 @@ Icon=kate
 X-DocPath=kate/index.html
 Type=Application
 Terminal=false
+InitialPreference=9
 X-DBUS-StartupType=Multi
 X-DBUS-ServiceName=org.kde.kate
 Categories=Qt;KDE;Utility;TextEditor;

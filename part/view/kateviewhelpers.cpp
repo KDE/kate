@@ -295,6 +295,9 @@ void KateScrollBar::updatePixmap()
     // used for avoiding flickering.
     int jumplinesOffset = 0;
     
+    // Do not force updates of the highlighting if the document is very large
+    bool simpleMode = m_doc->lines() > 7500;
+    
     // Iterate over all visible lines, drawing them.
     for ( int currentVisibleLineNumber=0; currentVisibleLineNumber < visibleLinesCount; currentVisibleLineNumber++ ) {
       // Check whether this line should be skipped, taking the offsets due to
@@ -323,8 +326,13 @@ void KateScrollBar::updatePixmap()
       // use this to control the offset of the text from the left
       int pixelX = 8;
 
-      QVector<int> attributes = m_doc->kateTextLine(realLineNumber)->attributesList();
-      QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(m_doc->kateTextLine(currentVisibleLineNumber), currentVisibleLineNumber);
+      if ( ! simpleMode ) {
+        m_doc->buffer().ensureHighlighted(realLineNumber);
+      }
+      const Kate::TextLine& kateline = m_doc->plainKateTextLine(realLineNumber);
+
+      QVector<int> attributes = kateline->attributesList();
+      QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(kateline, currentVisibleLineNumber);
       int attributeIndex = 0;
 
       // The color to draw the currently selected text in; change the alpha value to make it

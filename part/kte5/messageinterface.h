@@ -26,14 +26,26 @@
 namespace KTextEditor {
 
 /**
- * @brief This class holds the message data.
+ * @brief This class holds the Message data used to display messages in View%s.
  *
- * To create a new Message, please use code
- * like this:
+ * \section message_intro Introduction
+ *
+ * The Message class holds the data used to display interactive message widgets
+ * in the editor. To post a message, use the MessageInterface.
+ *
+ * \section message_creation Message Creation and Deletion
+ * To create a new Message, use code like this:
  * \code
- * Message message(new MessageData(type, "text"));
+ * Message::Ptr message(new MessageData(Message::Information, "My information text"));
+ * message->setWordWrap(true);
+ * // ...
  * \endcode
+ * Message%s are used through the shared pointer Message::Ptr. Thus, never
+ * delete a message. Messages%s are ref-counted and thus deleted automatically
+ * when no Message::Ptr instance exists anymore.
  *
+ * @see MessageInterface
+ * @author Dominik Haumann \<dhaumann@kde.org\>
  * @since KDE 4.10
  */
 class Message
@@ -42,11 +54,15 @@ class Message
   // public data types
   //
   public:
+    /**
+     * Message types used as visual indicator.
+     * The message types match exactly the behavior of KMessageWidget::MessageType.
+     */
     enum MessageType {
-      Positive = 0,
-      Information,
-      Warning,
-      Error
+      Positive = 0, ///< positive information message
+      Information,  ///< information message type
+      Warning,      ///< warning message type
+      Error         ///< error message type
     };
 
    /**
@@ -88,6 +104,8 @@ class Message
      * Adds an action to the message.
      * The actions will be displayed in the order you added the actions.
      * @param action action to be added
+     * @warning The added actions are deleted automatically in the Message
+     *          destructor, so do \em not delete the added actions yourself.
      */
     void addAction(QAction* action);
 
@@ -200,21 +218,41 @@ private:
  *     return;
  * }
  *
- * Message::Ptr message(new Message(MessageD, "text"));
- * messageInterface->postMessage(message);
+ * Message::Ptr message(new Message(Message::Information, "text"));
+ * message->setWordWrap(true);
+ * message->addAction(...); // add your actions...
+ * iface->postMessage(message);
  * \endcode
  *
  * @see Message
+ * @author Dominik Haumann \<dhaumann@kde.org\>
  * @since KDE 4.10
  */
 class MessageInterface
 {
   public:
+    /**
+     * Default constructor, for internal use.
+     */
     MessageInterface();
+    /**
+     * Destructor, for internal use.
+     */
     virtual ~MessageInterface();
 
+    /**
+     * Post @p message to the Document and its View%s.
+     */
     virtual void postMessage(Message::Ptr message) = 0;
+
+    /**
+     * Remove @p message from the message queue, if it is still active.
+     */
     virtual void removeMessage(Message::Ptr message) = 0;
+
+    /**
+     *
+     */
     virtual bool isPending(Message::Ptr message);
 
   //

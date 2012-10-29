@@ -64,6 +64,10 @@ MessageType Message::messageType() const
 
 void Message::addAction(QAction* action)
 {
+  // make sure parent is 0, as we delete the action in the destructor
+  if (action->parent())
+    action->setParent(0);
+
   d->actions.append(action);
 }
 

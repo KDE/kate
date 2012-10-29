@@ -28,7 +28,7 @@
 namespace KTextEditor {
 
 /**
- * @brief This class holds the Message data used to display messages in View%s.
+ * @brief This class holds a Message to display in View%s.
  *
  * \section message_intro Introduction
  *
@@ -38,20 +38,19 @@ namespace KTextEditor {
  * \section message_creation Message Creation and Deletion
  * To create a new Message, use code like this:
  * \code
- * Message::Ptr message(new MessageData(Message::Information, "My information text"));
+ * QPointer<Message> message = new Message(Message::Information, "My information text");
  * message->setWordWrap(true);
  * // ...
  * \endcode
- * Message%s are used through the shared pointer Message::Ptr. Thus, never
- * delete a message. Messages%s are ref-counted and thus deleted automatically
- * when no Message::Ptr instance exists anymore.
  *
  * @see MessageInterface
  * @author Dominik Haumann \<dhaumann@kde.org\>
  * @since KDE 4.10
  */
-class Message
+class Message : public QObject
 {
+  Q_OBJECT
+
   //
   // public data types
   //
@@ -67,22 +66,11 @@ class Message
       Error         ///< error message type
     };
 
-   /**
-    * Shared data type for a Message. To create a new Message, please use:
-    * \code
-    * Message::Ptr message(new Message(Message::Information, "Information text"));
-    * messageInterface->postMessage(message);
-    * \endcode
-    *
-    * @see MessageInterface, Message
-    */
-    typedef QSharedPointer<Message> Ptr;
-
-
+  public:
     /**
      * Constructor for new messages.
      * @param type the message type, e.g. MessageType::Information
-     * @param richtext s
+     * @param richtext text to be displayed
      */
     Message(MessageType type, const QString& richtext);
 
@@ -90,7 +78,7 @@ class Message
      * Destructor.
      * Deletes all QActions that were added with addAction().
      */
-    ~Message();
+    virtual ~Message();
 
     /**
      * Returns the text set in the constructor.
@@ -118,12 +106,6 @@ class Message
      *          destructor, so do \em not delete the added actions yourself.
      */
     void addAction(QAction* action, bool closeOnTrigger = true);
-
-    /**
-     * Returns whether triggering @p action closes the message widget or not.
-     * @
-     */
-    bool isCloseAction(QAction* action) const;
 
     /**
      * Accessor to all actions, mainly used in the internal implementation
@@ -195,9 +177,18 @@ class Message
      */
     KTextEditor::View* view() const;
 
+  Q_SIGNALS:
+    /**
+     * This signal is emitted before the message is deleted.
+     * Afterwards, this pointer is invalid.
+     * @param message closed message
+     *
+     * @warning \em Never delete a message yourself!
+     */
+    void closed(Message* message);
+
 private:
     class MessagePrivate * const d;
-    Q_DISABLE_COPY(Message)
 };
 
 /**
@@ -207,6 +198,8 @@ private:
  *
  * This interface allows to post Message%s to a Document. The Message then
  * is shown either the specified View, or in all View%s of the Document.
+ *
+ * \section message_interface Working with Message%s
  *
  * To post a message, you first have to cast the Document to this interface,
  * and then create a Message. Example:
@@ -220,10 +213,13 @@ private:
  *     return;
  * }
  *
- * Message::Ptr message(new Message(Message::Information, "text"));
+ * QPointer<Message> message = new Message(Message::Information, "text");
  * message->setWordWrap(true);
  * message->addAction(...); // add your actions...
  * iface->postMessage(message);
+ *
+ * // To remove a message, just delete it (provided you use a QPointer!)
+ * delete message;
  * \endcode
  *
  * @see Message
@@ -245,40 +241,10 @@ class MessageInterface
     /**
      * Post @p message to the Document and its View%s.
      * If multiple Message%s are posted, the one with the highest priority
-     * is shown.
-     * @warning Never post the same message twice.
+     * is shown first.
+     * @param message the message to show
      */
-    virtual void postMessage(Message::Ptr message) = 0;
-
-    /**
-     * Remove @p message from the message queue, if it is still active.
-     */
-    virtual void removeMessage(Message::Ptr message) = 0;
-
-    /**
-     * Check, whether @p message was already processed.
-     * @return \e true, if @p message is still in the message queue.
-     */
-    virtual bool isPending(Message::Ptr message);
-
-  //
-  // SIGNALS
-  //
-  public:
-    /**
-     * This signal is emitted whenever a message was processed.
-     * The View pointer is always valid and represents the View that processed
-     * this message. The View can be accessed through Message::view().
-     *
-     * This signal is not emitted if a text message was automatically hidden,
-     * see Message::setAutoHide(). Further, if the message was processed by
-     * the user, this signal is emitted exactly once, even if multiple View%s
-     * show the message.
-     *
-     * @param message the message
-     * @see Message::view()
-     */
-    void messageProcessed(Message::Ptr message);
+    virtual void postMessage(Message* message) = 0;
 
   private:
     class MessageInterfacePrivate * const d;

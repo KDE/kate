@@ -26,7 +26,6 @@ class MessagePrivate
 {
   public:
     QVector<QAction*> actions;
-    QVector<bool> actionCloses;
     MessageType messageType;
     QString text;
     bool wordWrap;
@@ -47,7 +46,8 @@ Message::Message()
 
 Message::~Message()
 {
-  qDeleteAll(d->actions);
+  emit closed(this);
+
   delete d;
 }
 
@@ -63,12 +63,13 @@ MessageType Message::messageType() const
 
 void Message::addAction(QAction* action, bool closeOnTrigger)
 {
-  // make sure parent is 0, as we delete the action in the destructor
-  if (action->parent())
-    action->setParent(0);
-
+  // make sure this is the parent, so all actions are deleted in the destructor
+  action->setParent(this);
   d->actions.append(action);
-  d->actionCloses.append(closeOnTrigger);
+
+  // call close if wanted
+  if (closeOnTrigger)
+    connect(action, SIGNAL(triggered()), SLOT(close()));
 }
 
 QList<QAction*> actions() const
@@ -118,6 +119,9 @@ KTextEditor::View* Message::view() const
 
 
 
+
+
+
 MessageInterface::MessageInterface()
   : d (0)
 {
@@ -128,7 +132,5 @@ MessageInterface::~MessageInterface()
 }
 
 }
-
-#endif
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

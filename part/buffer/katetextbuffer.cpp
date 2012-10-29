@@ -642,6 +642,9 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
     }
   }
 
+  // save md5sum of file on disk
+  setDigest (file.digest ());
+
   // remember if BOM was found
   if (file.byteOrderMarkFound ())
     setGenerateByteOrderMark (true);
@@ -671,6 +674,17 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
 
   // file loading worked, modulo encoding problems
   return true;
+}
+
+const QByteArray &TextBuffer::digest () const
+{
+  return m_digest;
+}
+
+void TextBuffer::setDigest (const QByteArray & md5sum)
+{
+  kWarning() << "text buffer sum" << md5sum;
+  m_digest = md5sum;
 }
 
 void TextBuffer::setTextCodec (QTextCodec *codec) 

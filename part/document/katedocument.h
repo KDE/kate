@@ -912,13 +912,13 @@ Q_SIGNALS:
 
   private:
     /**
-     * create a MD5 digest of the file, if it is a local file,
-     * and fill it into the string @p result.
+     * create a MD5 digest of the file, if it is a local file.
+     * The result can be accessed through KateBuffer::digest().
      * This is using KMD5::hexDigest().
      *
      * @return wheather the operation was attempted and succeeded.
      */
-    bool createDigest ( QByteArray &result );
+    bool createDigest ();
     
     /**
      * create a string for the modonhd warnings, giving the reason.
@@ -935,11 +935,8 @@ Q_SIGNALS:
      * md5 digest of this document
      * @return md5 digest for this document
      */
-    const QByteArray &digest () const
-    {
-      return m_digest;
-    }
-    
+    const QByteArray &digest () const;
+
     void updateFileType (const QString &newType, bool user = false);
 
     QString fileType () const { return m_fileType; }
@@ -966,7 +963,6 @@ Q_SIGNALS:
 
     bool m_modOnHd;
     ModifiedOnDiskReason m_modOnHdReason;
-    QByteArray m_digest; // MD5 digest, updated on load/save
 
     QString m_docName;
     int m_docNameNumber;

@@ -27,6 +27,7 @@
 // on the fly compression
 #include <kfilterdev.h>
 #include <kmimetype.h>
+#include <kcodecs.h> // KMD5
 
 namespace Kate {
 
@@ -179,7 +180,10 @@ class TextLoader
           if (!m_eof)
           {
             int c = m_file->read (m_buffer.data(), m_buffer.size());
-	    
+
+            // update md5 hash sum
+            m_digest.update(m_buffer.data(), c);
+
             // kill the old lines...
             m_text.remove (0, m_lastLineStart);
 
@@ -348,6 +352,11 @@ class TextLoader
       return !encodingError;
     }
 
+    QByteArray digest ()
+    {
+      return m_digest.hexDigest();
+    }
+
   private:
     QTextCodec *m_codec;
     bool m_eof;
@@ -359,6 +368,7 @@ class TextLoader
     QString m_mimeType;
     QIODevice *m_file;
     QByteArray m_buffer;
+    KMD5 m_digest;
     QString m_text;
     QTextCodec::ConverterState *m_converterState;
     bool m_bomFound;

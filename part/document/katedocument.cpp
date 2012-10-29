@@ -2014,9 +2014,6 @@ bool KateDocument::openFile()
     // read vars
     readVariables();
 
-    // update the md5 digest
-    createDigest( m_digest );
-
     if (!m_postLoadFilterChecks.isEmpty())
     {
       LoadSaveFilterCheckPlugins *lscps=loadSaveFilterCheckPlugins();
@@ -2285,7 +2282,7 @@ bool KateDocument::saveFile()
   }
 
   // update the md5 digest
-  createDigest( m_digest );
+  createDigest ();
 
   // add m_file again to dirwatch
   activateDirWatch ();
@@ -4447,11 +4444,12 @@ void KateDocument::slotModOnHdDirty (const QString &path)
   if ((path == m_dirWatchFile) && (!m_modOnHd || m_modOnHdReason != OnDiskModified))
   {
     // compare md5 with the one we have (if we have one)
-    if ( ! m_digest.isEmpty() )
+    if ( !digest().isEmpty() )
     {
-      QByteArray tmp;
-      if ( createDigest( tmp ) && tmp == m_digest )
+      QByteArray oldDigest = digest();
+      if ( createDigest () && oldDigest == digest() ) {
         return;
+      }
     }
 
     m_modOnHd = true;
@@ -4495,22 +4493,32 @@ void KateDocument::slotModOnHdDeleted (const QString &path)
   }
 }
 
-bool KateDocument::createDigest( QByteArray &result )
+const QByteArray &KateDocument::digest () const
 {
+  return m_buffer->digest();
+}
+
+bool KateDocument::createDigest ()
+{
+  // first reset digest
+  m_buffer->setDigest( QByteArray() );
+
   bool ret = false;
-  result.clear();
   if ( url().isLocalFile() )
   {
     QFile f ( url().toLocalFile() );
     if ( f.open( QIODevice::ReadOnly) )
     {
+      QByteArray md5sum;
       KMD5 md5;
-      ret = md5.update( f );
-      md5.hexDigest( result );
+      md5.update( f );
+      md5.hexDigest( md5sum );
       f.close();
+      m_buffer->setDigest( md5sum );
       ret = true;
     }
   }
+
   return ret;
 }
 

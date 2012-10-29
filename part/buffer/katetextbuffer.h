@@ -431,6 +431,27 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      */
     void invalidateRanges();
 
+  //
+  // md5 checksum handling
+  //
+  public:
+    /**
+    * md5 digest of the document on disk, set either through file loading
+    * in openFile() or in KateDocument::saveFile()
+    * @return md5 digest for this document
+    */
+    const QByteArray &digest () const;
+
+    /**
+    * Set the md5sum of this buffer. Make sure this checksum is up-to-date
+    * when reading digest().
+    * @param md5sum md5 digest for the document on disk
+    */
+    void setDigest (const QByteArray & md5sum);
+
+  private:
+    QByteArray m_digest;
+
   private:
     /**
      * parent document

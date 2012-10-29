@@ -1,6 +1,6 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="MediaWiki" section="Markup" version="1.03" kateversion="2.4" extensions="" mimetype="" license="FDL" >
+<language name="MediaWiki" section="Markup" version="1.03" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
@@ -12,6 +12,7 @@
         <RegExpr String="(http:|ftp:|mailto:)[\S]*($|[\s])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
@@ -29,6 +30,7 @@
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <Detect2Chars char="|" char1="}" context="#pop" attribute="Wiki-Tag" column="0" endRegion="table" />
         <DetectChar char="|" attribute="Wiki-Tag" context="#stay"/>
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
@@ -45,12 +47,10 @@
       </context>
       <context attribute="Link" lineEndContext="#stay" name="URL" >
         <DetectChar char="]" context="#pop" attribute="Wiki-Tag" />
-<!--         <DetectChar char="'" context="Error" attribute="Error" /> -->
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLink" >
         <DetectChar char="|" attribute="Wiki-Tag" context="WikiLinkDescription" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" />
-<!--         <DetectChar char="'" context="Error" attribute="Error" /> -->
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLinkDescription" >
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
@@ -60,9 +60,27 @@
         <AnyChar String="'[]" context="Error" attribute="Error" />
       </context>
       <context attribute="Error" lineEndContext="#pop" name="Error" />
-      <context attribute="Link" lineEndContext="#stay" name="Template" >
+      <context attribute="TemplateName" lineEndContext="#stay" name="Template" >
+        <StringDetect String="|" context="TemplateContent" attribute="Wiki-Tag" lookAhead="true" />
+        <!-- End of Template context: -->
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" />
-<!--         <DetectChar char="'" context="Error" attribute="Error" /> -->
+      </context>
+      <context attribute="Normal" lineEndContext="#stay" name="TemplateContent" >
+        <!-- If you were using a template inside another, you could find parameters: -->
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <!-- Separator for template arguments with parameter definition: -->
+        <RegExpr String="[|][^|=]+[=]" context="TemplateArgumentDefinition" lookAhead="true" />
+        <!-- Separator for template arguments: -->
+        <StringDetect String="|" context="#stay" attribute="Wiki-Tag" />
+        <!-- End of TemplateContent context without parameter definition: -->
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+      </context>
+      <context attribute="Parameter" lineEndContext="#stay" name="TemplateParameter" >
+        <StringDetect String="}}}" context="#pop" attribute="Wiki-Tag" />
+      </context>
+      <context attribute="Parameter" lineEndContext="#stay" name="TemplateArgumentDefinition" >
+        <StringDetect String="|" context="#stay" attribute="Wiki-Tag" />
+        <StringDetect String="=" context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="NoWiki" lineEndContext="#stay" name="NoWiki" >
         <RegExpr String="&lt;!--[^-]*--&gt;" attribute="NoWiki" />
@@ -87,6 +105,8 @@
       <itemData name="Error" defStyleNum="dsError" />
       <itemData name="NoWiki" defStyleNum="dsNormal" />
       <itemData name="Unformatted" defStyleNum="dsNormal" />
+      <itemData name="Parameter" defStyleNum="dsNormal" bold="true" />
+      <itemData name="TemplateName" defStyleNum="dsOthers" bold="true" />
     </itemDatas>
   </highlighting>
   <general>

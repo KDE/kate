@@ -89,7 +89,7 @@
 #include <QtCore/QMap>
 //END  includes
 
-#if 1
+#if 0
 #define EDIT_DEBUG kDebug()
 #else
 #define EDIT_DEBUG if (0) kDebug()
@@ -1154,7 +1154,7 @@ bool KateDocument::editWrapLine ( int line, int col, bool newLine, bool *newLine
   Kate::TextLine nextLine = kateTextLine(line+1);
 
   const int length = l->length();
-  m_undoManager->slotLineWrapped(line, col, length, (!nextLine || newLine));
+  m_undoManager->slotLineWrapped(line, col, length - col, (!nextLine || newLine));
 
   if (!nextLine || newLine)
   {
@@ -1232,8 +1232,8 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
   }
   else
   {
-    m_buffer->insertText (KTextEditor::Cursor (line, col), nextLine->string().left((nextLine->length() < length) ? nextLine->length() : length));
-    m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line + 1, 0), KTextEditor::Cursor (line + 1, (nextLine->length() < length) ? nextLine->length() : length)));
+    m_buffer->wrapLine (KTextEditor::Cursor (line + 1, length));
+    m_buffer->unwrapLine (line + 1);
   }
 
   QList<KTextEditor::Mark*> list;

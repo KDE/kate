@@ -32,6 +32,7 @@ class UndoManagerTest : public QObject
     void testSafePoint();
     void testCursorPosition();
     void testSelectionUndo();
+    void testUndoWordWrapBug301367();
 
   private:
     class TestDocument;

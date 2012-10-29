@@ -31,6 +31,12 @@
 
 #include <KSaveFile>
 
+#if 0
+#define EDIT_DEBUG kDebug()
+#else
+#define EDIT_DEBUG if (0) kDebug()
+#endif
+
 namespace Kate {
 
 TextBuffer::TextBuffer (KateDocument *parent, int blockSize)
@@ -209,6 +215,9 @@ bool TextBuffer::finishEditing ()
 
 void TextBuffer::wrapLine (const KTextEditor::Cursor &position)
 {
+  // debug output for REAL low-level debugging
+  EDIT_DEBUG << "wrapLine" << position;
+
   // only allowed if editing transaction running
   Q_ASSERT (m_editingTransactions > 0);
 
@@ -245,6 +254,9 @@ void TextBuffer::wrapLine (const KTextEditor::Cursor &position)
 
 void TextBuffer::unwrapLine (int line)
 {
+  // debug output for REAL low-level debugging
+  EDIT_DEBUG << "unwrapLine" << line;
+
   // only allowed if editing transaction running
   Q_ASSERT (m_editingTransactions > 0);
 
@@ -291,6 +303,9 @@ void TextBuffer::unwrapLine (int line)
 
 void TextBuffer::insertText (const KTextEditor::Cursor &position, const QString &text)
 {
+  // debug output for REAL low-level debugging
+  EDIT_DEBUG << "insertText" << position << text;
+
   // only allowed if editing transaction running
   Q_ASSERT (m_editingTransactions > 0);
 
@@ -320,6 +335,9 @@ void TextBuffer::insertText (const KTextEditor::Cursor &position, const QString 
 
 void TextBuffer::removeText (const KTextEditor::Range &range)
 {
+  // debug output for REAL low-level debugging
+  EDIT_DEBUG << "removeText" << range;
+
   // only allowed if editing transaction running
   Q_ASSERT (m_editingTransactions > 0);
 

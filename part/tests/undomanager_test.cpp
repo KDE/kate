@@ -196,4 +196,37 @@ void UndoManagerTest::testSelectionUndo()
   delete view;
 }
 
+void UndoManagerTest::testUndoWordWrapBug301367()
+{
+  TestDocument doc;
+  doc.setWordWrap(true);
+  doc.setWordWrapAt(20);
+  KateView *view = static_cast<KateView*>(doc.createView(0));
+
+  QString text = "1234 1234 1234 1234\n"
+                 "1234 1234 1234 1234";
+
+  doc.setText(text);
+  view->setCursorPosition(KTextEditor::Cursor(0, 0));
+
+  doc.typeChars(view, "           ");
+
+  while (doc.undoCount() > 1)
+    doc.undo();
+
+  // test must be exactly the same as before
+  QCOMPARE(doc.text (), text);
+
+  while (doc.redoCount() > 1)
+    doc.redo();
+
+  while (doc.undoCount() > 1)
+    doc.undo();
+
+  // test must be exactly the same as before
+  QCOMPARE(doc.text (), text);
+
+  delete view;
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

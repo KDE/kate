@@ -126,6 +126,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 void KateScrollBar::setShowMiniMap(bool b)
 {
   if (b && !m_showMiniMap) {
+    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()), Qt::UniqueConnection);
@@ -300,12 +301,18 @@ void KateScrollBar::updatePixmap()
       attribs = m_doc->kateTextLine(realY)->attributesList();
       QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(m_doc->kateTextLine(y), y);
       attribIndex = 0;
+      
+      QColor selectionColor = palette().color(QPalette::HighlightedText);
+      selectionColor.setAlpha(180);
+      
       //kDebug(13040) << attribs;
       p.setPen(textColor);
       for (int x=0; x <line.size(); x++) {
+        int originalPixelOffset = pixX;
         if (pixX >= s_lineWidth) {
           break;
         }
+        
         // draw the pixels
         if (line[x] == ' ') {
           pixX++;
@@ -343,7 +350,7 @@ void KateScrollBar::updatePixmap()
             // check if we are entering next attrib block
             if (attribIndex < attribs.size()) {
               //kDebug(13040) << x << attribIndex << attribs[attribIndex] << attribs[attribIndex] + attribs[attribIndex+1];
-              if ((x == attribs[attribIndex]) || (x == attribs[attribIndex] +1)) {
+              if ((x == attribs[attribIndex]) || (x == attribs[attribIndex]+1)) {
                 // entering the next block ?
 
                 p.setPen(m_view->renderer()->attribute(attribs[attribIndex+2])->foreground().color());
@@ -363,7 +370,20 @@ void KateScrollBar::updatePixmap()
           }
           
           p.drawPoint(pixX, y/numJumpLines);
+          
           pixX++;
+        }
+        
+        // query the selection and make an overlay
+        if ( selection.contains(Cursor(y, x)) ) {
+          p.setPen(selectionColor);
+          p.drawPoint(originalPixelOffset, y/numJumpLines);
+          // fill the line up
+          if ( line.size() - 1 == x ) {
+            for ( int x2 = originalPixelOffset; x2 < 100; x2++ ) {
+              p.drawPoint(x2, y/numJumpLines);
+            }
+          }
         }
       }
     }

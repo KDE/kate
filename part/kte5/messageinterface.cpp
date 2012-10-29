@@ -22,7 +22,7 @@
 
 namespace KTextEditor {
 
-class MessageDataPrivate
+class MessagePrivate
 {
   public:
     QVector<QAction*> actions;
@@ -30,13 +30,13 @@ class MessageDataPrivate
     QString text;
     bool closeButtonVisible : 1;
     bool wordWrap : 1;
-    int autoHide; // in milli seconds, < 0 means disable
+    int autoHide;
     int priority;
     KTextEditor::View* view;
 };
 
-MessageData::MessageData()
-  : d(new MessageDataPrivate())
+Message::Message()
+  : d(new MessagePrivate())
 {
   d->messageType = Information;
   d->closeButtonVisible = true;
@@ -46,23 +46,23 @@ MessageData::MessageData()
   d->view = 0;
 }
 
-MessageData::~MessageData()
+Message::~Message()
 {
   qDeleteAll(d->actions);
   delete d;
 }
 
-const QString& MessageData::text() const
+const QString& Message::text() const
 {
   return d->text;
 }
 
-MessageType MessageData::messageType() const
+MessageType Message::messageType() const
 {
   return d->type;
 }
 
-void MessageData::addAction(QAction* action)
+void Message::addAction(QAction* action)
 {
   d->actions.append(action);
 }
@@ -72,59 +72,68 @@ const QVector<QAction*>& actions() const
   return d->actions;
 }
 
-void MessageData::setAutoHide(int autoHideTimer = 5000)
+void Message::setAutoHide(int autoHideTimer = 5000)
 {
   d->autoHide = autoHideTimer;
 }
 
-int MessageData::autoHide() const
+int Message::autoHide() const
 {
   return d->autoHide;
 }
 
-void MessageData::setWordWrap(bool wordWrap)
+void Message::setWordWrap(bool wordWrap)
 {
   d->wordWrap = wordWrap;
 }
 
-bool MessageData::wordWrap() const
+bool Message::wordWrap() const
 {
   return d->wordWrap;
 }
 
-bool MessageData::isCloseButtonVisible() const
+bool Message::isCloseButtonVisible() const
 {
   return d->closeButtonVisible;
 }
 
-void MessageData::setCloseButtonVisible(bool visible)
+void Message::setCloseButtonVisible(bool visible)
 {
   d->closeButtonVisible = visible;
 }
 
-void MessageData::setPriority(int priority)
+void Message::setPriority(int priority)
 {
   d->priority = priority;
 }
 
-int MessageData::priority() const
+int Message::priority() const
 {
   return d->priority;
 }
 
-void MessageData::setView(KTextEditor::View* view)
+void Message::setView(KTextEditor::View* view)
 {
   d->view = view;
 }
 
-KTextEditor::View* MessageData::view() const
+KTextEditor::View* Message::view() const
 {
   return d->view;
 }
 
+
+
+MessageInterface::MessageInterface()
+  : d (0)
+{
 }
 
-Q_DECLARE_INTERFACE(KTextEditor::MovingInterface, "org.kde.KTextEditor.MovingInterface")
+MessageInterface::~MessageInterface()
+{
+}
+
+}
 
 #endif
 

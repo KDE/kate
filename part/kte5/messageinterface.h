@@ -21,10 +21,26 @@
 #ifndef KTEXTEDITOR_MESSAGEINTERFACE_H
 #define KTEXTEDITOR_MESSAGEINTERFACE_H
 
+#include <QtCore/QObject>
+
 namespace KTextEditor {
 
-class MessageData
+/**
+ * @brief This class holds the message data.
+ *
+ * To create a new Message, please use code
+ * like this:
+ * \code
+ * Message message(new MessageData(type, "text"));
+ * \endcode
+ *
+ * @since KDE 4.10
+ */
+class Message
 {
+  //
+  // public data types
+  //
   public:
     enum MessageType {
       Positive = 0,
@@ -33,53 +49,190 @@ class MessageData
       Error
     };
 
-    MessageData(MessageType type, const QString& richtext);
-    ~MessageData();
+   /**
+    * Shared data type for a Message. To create a new Message, please use:
+    * \code
+    * Message::Ptr message(new Message(Message::Information, "Information text"));
+    * messageInterface->postMessage(message);
+    * \endcode
+    *
+    * @see MessageInterface, Message
+    */
+    typedef QSharedPointer<Message> Ptr;
 
-    QString text() const;
+
+    /**
+     * Constructor for new messages.
+     * @param type the message type, e.g. MessageType::Information
+     * @param richtext s
+     */
+    Message(MessageType type, const QString& richtext);
+
+    /**
+     * Destructor.
+     * Deletes all QActions that were added with addAction().
+     */
+    ~Message();
+
+    /**
+     * Returns the text set in the constructor.
+     */
+    const QString& text() const;
+
+    /**
+     * Returns the message type set in the constructor.
+     */
     MessageType messageType() const;
 
+    /**
+     * Adds an action to the message.
+     * The actions will be displayed in the order you added the actions.
+     * @param action action to be added
+     */
     void addAction(QAction* action);
+
+    /**
+     * Accessor to all actions, mainly used in the internal implementation
+     * to add the actions into the gui.
+     */
     const QVector<QAction*>& actions() const;
 
-    void setAutoHide(int ms = 5000);
+    /**
+     * Set the auto hide timer to @p autoHideTimer milliseconds.
+     * If @p autoHideTimer < 0, auto hide is disabled.
+     * If @p autoHideTimer = 0, auto hide is enabled and set to a default
+     * value of several seconds.
+     *
+     * @see autoHide()
+     */
+    void setAutoHide(int autoHideTimer = 0);
+
+    /**
+     * Returns the auto hide time in milliseconds.
+     * Please refer to setAutoHide() for an explanation of the return value.
+     *
+     * @see setAutoHide()
+     */
     int autoHide() const;
 
+    /**
+     * Enabled word wrap according to @p wordWrap.
+     *
+     * @see wordWrap()
+     */
     void setWordWrap(bool wordWrap);
+
+    /**
+     * Check, whether word wrap is enabled or not.
+     *
+     * @see setWordWrap()
+     */
     bool wordWrap() const;
 
-    bool isCloseButtonVisible() const;
+    /**
+     * Set the visibility of the close button according to @p visible.
+     *
+     * @see isCloseButtonVisible()
+     */
     void setCloseButtonVisible(bool visible);
 
+    /**
+     * Check, whether the close button is visible or not.
+     *
+     * @see setCloseButtonVisible()
+     */
+    bool isCloseButtonVisible() const;
+
+    /**
+     * Set the priority of this message to @p priority.
+     * Messages with higher priority are shown first.
+     * The default priority is 0.
+     *
+     * @see priority()
+     */
     void setPriority(int priority);
+
+    /**
+     * Returns the priority of the message. Default is 0.
+     *
+     * @see setPriority()
+     */
     int priority() const;
 
+    /**
+     * Set the associated view of the message.
+     * If @p view is 0, the message is shown in all View%s of the Document.
+     * If @p view is given, i.e. non-zero, the message is shown only in this view.
+     */
     void setView(KTextEditor::View* view);
+
+    /**
+     * This function returns the view the message was posted for.
+     * This can be either be specified by setView() or will be automatically
+     * set when the message is processed, see MessageInterface::messageProcessed().
+     * Therefore, the return value may be 0, if you did not set a valid
+     * view first.
+     */
     KTextEditor::View* view() const;
 
 private:
-    class MessageDataPrivate * const d;
-    Q_DISABLE_COPY(MessageData)
+    class MessagePrivate * const d;
+    Q_DISABLE_COPY(Message)
 };
 
-typedef QSharedPointer<MessageData> Message;
-
+/**
+ * \brief Message interface for posting interactive Message%s to a Document and its View%s.
+ *
+ * \ingroup kte_group_document_extension
+ *
+ * This interface allows to post Message%s to a Document. The Message then
+ * is shown either the specified View, or in all View%s of the Document.
+ *
+ * To post a message, you first have to cast the Document to this interface,
+ * and then create a Message. Example:
+ * \code
+ * // doc is of type KTextEditor::Document*
+ * KTextEditor::MessageInterface *iface =
+ *     qobject_cast<KTextEditor::MessageInterface*>( doc );
+ *
+ * if( !iface ) {
+ *     // the implementation does not support the interface
+ *     return;
+ * }
+ *
+ * Message::Ptr message(new Message(MessageD, "text"));
+ * messageInterface->postMessage(message);
+ * \endcode
+ *
+ * @see Message
+ * @since KDE 4.10
+ */
 class MessageInterface
 {
   public:
     MessageInterface();
     virtual ~MessageInterface();
 
-    void removeMessage(Message message) = 0;
-    bool isPending(Message message);
+    virtual void postMessage(Message::Ptr message) = 0;
+    virtual void removeMessage(Message::Ptr message) = 0;
+    virtual bool isPending(Message::Ptr message);
 
-    Q_SIGNALS:
-      void messageProcessed(Message* message)
+  //
+  // SIGNALS
+  //
+  public:
+    /**
+     *
+     */
+    void messageProcessed(Message::Ptr message);
+
+  private:
+    class MessageInterfacePrivate * const d;
 };
 
 }
 
-Q_DECLARE_INTERFACE(KTextEditor::MovingInterface, "org.kde.KTextEditor.MovingInterface")
+Q_DECLARE_INTERFACE(KTextEditor::MessageInterface, "org.kde.KTextEditor.MessageInterface")
 
 #endif
 

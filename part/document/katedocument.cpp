@@ -4500,26 +4500,23 @@ const QByteArray &KateDocument::digest () const
 
 bool KateDocument::createDigest ()
 {
-  // first reset digest
-  m_buffer->setDigest( QByteArray() );
+  QByteArray md5sum;
 
-  bool ret = false;
   if ( url().isLocalFile() )
   {
     QFile f ( url().toLocalFile() );
     if ( f.open( QIODevice::ReadOnly) )
     {
-      QByteArray md5sum;
       KMD5 md5;
       md5.update( f );
       md5.hexDigest( md5sum );
       f.close();
-      m_buffer->setDigest( md5sum );
-      ret = true;
     }
   }
 
-  return ret;
+  m_buffer->setDigest( md5sum );
+
+  return !md5sum.isEmpty();
 }
 
 QString KateDocument::reasonedMOHString() const

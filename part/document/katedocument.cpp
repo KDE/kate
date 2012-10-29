@@ -89,7 +89,7 @@
 #include <QtCore/QMap>
 //END  includes
 
-#if 0
+#if 1
 #define EDIT_DEBUG kDebug()
 #else
 #define EDIT_DEBUG if (0) kDebug()
@@ -917,16 +917,17 @@ bool KateDocument::wrapText(int startLine, int endLine)
   for (int line = startLine; (line <= endLine) && (line < lines()); line++)
   {
     Kate::TextLine l = kateTextLine(line);
+
     if (!l)
       break;
 
-    kDebug (13020) << "try wrap line: " << line;
+    //kDebug (13020) << "try wrap line: " << line;
 
     if (l->virtualLength(m_buffer->tabWidth()) > col)
     {
       Kate::TextLine nextl = kateTextLine(line+1);
 
-      kDebug (13020) << "do wrap line: " << line;
+      //kDebug (13020) << "do wrap line: " << line;
 
       int eolPosition = l->length()-1;
 
@@ -968,6 +969,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
         nw = z;
       }
 
+      bool removeTrailingSpace = false;
       if (z > 0)
       {
         // So why don't we just remove the trailing space right away?
@@ -976,6 +978,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
         // happens, the cursor would be moved to the next line, which is not
         // what we want (bug #106261)
         z++;
+        removeTrailingSpace = true;
       }
       else
       {
@@ -1004,6 +1007,11 @@ bool KateDocument::wrapText(int startLine, int endLine)
         editMarkLineAutoWrapped (line+1, true);
 
         endLine++;
+      }
+
+      if (removeTrailingSpace) {
+        // cu space
+        editRemoveText (line, z - 1, 1);
       }
     }
   }

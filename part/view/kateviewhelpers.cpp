@@ -452,7 +452,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   int visibleStart = value()*docHeight/(max+pageStep()) + yoffset + grooveRect.top();
   int visibleEnd = (value()+pageStep())*docHeight/(max+pageStep()) + yoffset + grooveRect.top() ;
   QRect visibleRect(QPoint(grooveRect.left(), visibleStart), QPoint(grooveRect.right(), visibleEnd));
-
+  painter.setRenderHint(QPainter::SmoothPixmapTransform);
   painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
 
   QColor shieldColor = QColor(127,127,127, 96);

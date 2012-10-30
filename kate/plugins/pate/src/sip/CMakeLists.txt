@@ -53,8 +53,8 @@ else (PYQT4_VERSION LESS "040905")
     set(SIP_EXTRA_OPTIONS -g -x PyKDE_QVector)
 endif(PYQT4_VERSION LESS "040905")
 
-add_sip_python_module(PyOkteta4.okteta ./okteta/oktetamod.sip ${KDE4_KDEUI_LIBS} okteta1core okteta1gui)
+add_sip_python_module(PyKate4.okteta ./okteta/oktetamod.sip ${KDE4_KDEUI_LIBS} okteta1core okteta1gui)
 
 install(FILES
     ./__init__.py
-    DESTINATION ${PYTHON_SITE_PACKAGES_INSTALL_DIR}/PyOkteta4/)
+    DESTINATION ${PYTHON_SITE_PACKAGES_INSTALL_DIR}/PyKate4/)

@@ -105,8 +105,8 @@ bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
 void KateMessageWidget::showEvent(QShowEvent *event)
 {
   if (!event->spontaneous()) {
-//     m_messageWidget->ensurePolished();
     m_messageWidget->animatedShow();
+//     QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
 
     // enable auto hide if wanted
     const int autoHide = m_message->autoHide();

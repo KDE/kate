@@ -5442,4 +5442,40 @@ bool KateDocument::isComment(int line, int column)
   return defaultStyle == KTextEditor::HighlightInterface::dsComment;
 }
 
+//BEGIN KTextEditor::MessageInterface
+bool KateDocument::postMessage(KTextEditor::Message* message)
+{
+  // no message -> cancel
+  if (!message)
+    return false;
+
+  // no view -> cancel with warning (might be critical)
+  if (m_views.count() == 0) {
+    kWarning() << "no views to post the message:" << message->text();
+    return false;
+  }
+
+  message->setParent(this);
+
+  // reparent actions, as we want full control over when they are deleted
+  foreach (QAction *action, message->actions()) {
+    action->setParent(0);
+    m_messageHash[message].append(QSharedPointer<QAction>(action));
+  }
+
+  // post message to all views
+  foreach (KateView *view, m_views)
+    postMessage(message);
+
+  return true;
+}
+
+void KateDocument::messageClosed(KTextEditor::Message* message)
+{
+  Q_ASSERT(m_messageHash.contains(message));
+  m_messageHash.remove(message);
+  delete message;
+}
+//END KTextEditor::MessageInterface
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

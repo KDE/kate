@@ -48,6 +48,7 @@
 #include "katetextcursor.h"
 #include "katetextrange.h"
 #include "katecodefolding.h"
+#include "messageinterface.h"
 
 namespace KTextEditor {
   class Plugin;
@@ -86,6 +87,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
                      public KTextEditor::HighlightInterface,
                      public KTextEditor::MovingInterface,
                      public KTextEditor::RecoveryInterface,
+                     public KTextEditor::MessageInterface,
                      private KTextEditor::MovingRangeFeedback
 {
   Q_OBJECT
@@ -100,6 +102,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::HighlightInterface)
   Q_INTERFACES(KTextEditor::MovingInterface)
   Q_INTERFACES(KTextEditor::RecoveryInterface)
+  Q_INTERFACES(KTextEditor::MessageInterface)
 
   friend class KateDocumentTest;
 
@@ -1094,6 +1097,19 @@ Q_SIGNALS:
     virtual QList< KTextEditor::HighlightInterface::AttributeBlock > lineAttributes(const unsigned int line);
     virtual QStringList embeddedHighlightingModes() const;
     virtual QString highlightingModeAt(const KTextEditor::Cursor& position);
+
+  //
+  //BEGIN: KTextEditor::MessageInterface
+  //
+  public:
+    virtual bool postMessage(KTextEditor::Message* message);
+
+  public Q_SLOTS:
+    void messageClosed(KTextEditor::Message* message);
+
+  private:
+    QHash<KTextEditor::Message *, QList<QSharedPointer<QAction> > > m_messageHash;
+  //END KTextEditor::MessageInterface
 
   protected Q_SLOTS:
       void dumpRegionTree();

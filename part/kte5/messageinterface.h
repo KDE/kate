@@ -260,8 +260,10 @@ class MessageInterface
      * If multiple Message%s are posted, the one with the highest priority
      * is shown first.
      * @param message the message to show
+     * @return @e true, if @p message was posted. @e false, if message == 0 or
+     *         if the Document does not have a View yet.
      */
-    virtual void postMessage(Message* message) = 0;
+    virtual bool postMessage(Message* message) = 0;
 
   private:
     class MessageInterfacePrivate * const d;

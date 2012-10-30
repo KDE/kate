@@ -270,6 +270,10 @@ void KateScript::initEngine()
   m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument()));
   m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView()));
 
+  // export require function and add the include guard object
+  m_engine->globalObject().setProperty("require", m_engine->newFunction(Kate::Script::require));
+  m_engine->globalObject().setProperty("require_guard", m_engine->newObject());
+  
   // export debug function
   m_engine->globalObject().setProperty("debug", m_engine->newFunction(Kate::Script::debug));
 

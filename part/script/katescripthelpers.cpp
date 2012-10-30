@@ -66,6 +66,13 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
     const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/include/" + name);
     
     /**
+     * check include guard
+     */
+    QScriptValue require_guard = engine->globalObject().property ("require_guard");
+    if (require_guard.property (fullName).toBool ())
+      continue;
+    
+    /**
      * try to read complete file
      * skip non-existing files
      */
@@ -77,6 +84,11 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
      * eval in current script engine
      */
     engine->evaluate (code, fullName);
+    
+    /**
+     * set include guard
+     */
+    require_guard.setProperty (fullName, QScriptValue (true));
   }
   
   /**

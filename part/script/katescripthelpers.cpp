@@ -61,15 +61,13 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
   for(int i = 0; i < context->argumentCount(); ++i) {
     /**
      * get full name of file
+     * skip on errors
      */
     const QString name = context->argument(i).toString();
-
-    printf ("want to load %s\n", qPrintable (name));
-
     const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/script/libraries/" + name);
+    if (fullName.isEmpty())
+      continue;
 
-    printf ("want to load fullName %s\n", qPrintable (fullName));
-    
     /**
      * check include guard
      */
@@ -81,21 +79,27 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
      * try to read complete file
      * skip non-existing files
      */
-
-    printf ("before read fullName %s\n", qPrintable (fullName));
     QString code;
     if (!readFile (fullName, code))
       continue;
-    printf ("after read fullName %s\n", qPrintable (fullName));
-    
+
+    /**
+     * fixup QScriptContext
+     * else the nested evaluate will not work :/
+     * see http://www.qtcentre.org/threads/31027-QtScript-nesting-with-include-imports-or-spawned-script-engines
+     * http://www.qtcentre.org/threads/20432-Can-I-include-a-script-from-script
+     */
+    QScriptContext *context = engine->currentContext();
+    QScriptContext *parent = context->parentContext();
+    if (parent) {
+        context->setActivationObject(context->parentContext()->activationObject());
+        context->setThisObject(context->parentContext()->thisObject());
+    }
+
     /**
      * eval in current script engine
      */
     engine->evaluate (code, fullName);
-    if (engine->hasUncaughtException())
-      printf ("after eval fullName %s had exception\n", qPrintable (fullName));
-
-    printf ("after eval fullName %s\n", qPrintable (fullName));
     
     /**
      * set include guard

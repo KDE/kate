@@ -1601,7 +1601,8 @@ Returns the range as a string of the form <quote><literal>Range(Cursor(line, col
 void require(<parameter>String <replaceable>file</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
-Will search the given <replaceable>file</replaceable> in the <literal>katepart/script/include</literal> directory and evaluate it in the current script environment.
+Will search the given <replaceable>file</replaceable> relative to the <literal>katepart/script/include</literal> directory and evaluate it.
+<literal>require</literal> is guarded against multiple inclusions of the same <replaceable>file</replaceable>.
 </para></listitem>
 </varlistentry></variablelist>
 

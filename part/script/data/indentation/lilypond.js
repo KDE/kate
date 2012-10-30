@@ -4,7 +4,6 @@
  * author: Wilbert Berendsen <info@wilbertberendsen.nl>
  * revision: 2
  * kate-version: 3.4
- * type: indentation
  * required-syntax-style: lilypond
  * indent-languages: lilypond
  *

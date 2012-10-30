@@ -4,7 +4,6 @@
  * author: Milian Wolff <mail@milianw.de>
  * revision: 1
  * kate-version: 3.4
- * type: indentation
  *
  * This file is part of the Kate Project.
  *

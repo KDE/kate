@@ -4,7 +4,6 @@
  * author: Robin Pedersen <robinpeder@gmail.com>
  * revision: 1
  * kate-version: 3.4
- * type: indentation
  * required-syntax-style: ruby
  * indent-languages: ruby
  * priority: 0

@@ -63,7 +63,12 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
      * get full name of file
      */
     const QString name = context->argument(i).toString();
-    const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/lib/" + name);
+
+    printf ("want to load %s\n", qPrintable (name));
+
+    const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/script/libraries/" + name);
+
+    printf ("want to load fullName %s\n", qPrintable (fullName));
     
     /**
      * check include guard
@@ -76,14 +81,21 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
      * try to read complete file
      * skip non-existing files
      */
+
+    printf ("before read fullName %s\n", qPrintable (fullName));
     QString code;
     if (!readFile (fullName, code))
       continue;
+    printf ("after read fullName %s\n", qPrintable (fullName));
     
     /**
      * eval in current script engine
      */
     engine->evaluate (code, fullName);
+    if (engine->hasUncaughtException())
+      printf ("after eval fullName %s had exception\n", qPrintable (fullName));
+
+    printf ("after eval fullName %s\n", qPrintable (fullName));
     
     /**
      * set include guard

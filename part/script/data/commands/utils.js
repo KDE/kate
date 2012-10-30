@@ -3,7 +3,6 @@
  * license: LGPL
  * revision: 5
  * kate-version: 3.4
- * type: commands
  * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown, rewrap
  */
 

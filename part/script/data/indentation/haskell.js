@@ -4,7 +4,6 @@
  * author: Erlend Hamberg <ehamberg@gmail.com>
  * revision: 2
  * kate-version: 3.4
- * type: indentation
  */
 
 // required katepart js libraries

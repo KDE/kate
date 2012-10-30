@@ -169,15 +169,31 @@ bool KateScript::load()
   qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
   qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
 
+  // export require function and add the include guard object
+  m_engine->globalObject().setProperty("require", m_engine->newFunction(Kate::Script::require));
+  m_engine->globalObject().setProperty("require_guard", m_engine->newObject());
+  
+  // export debug function
+  m_engine->globalObject().setProperty("debug", m_engine->newFunction(Kate::Script::debug));
+
+  // export translation functions
+  m_engine->globalObject().setProperty("i18n", m_engine->newFunction(Kate::Script::i18n));
+  m_engine->globalObject().setProperty("i18nc", m_engine->newFunction(Kate::Script::i18nc));
+  m_engine->globalObject().setProperty("i18ncp", m_engine->newFunction(Kate::Script::i18ncp));
+  m_engine->globalObject().setProperty("i18np", m_engine->newFunction(Kate::Script::i18np));
+
   // register scripts itself
   QScriptValue result = m_engine->evaluate(source, m_url);
-  if (hasException(result, m_url)) {
+  if (hasException(result, m_url))
     return false;
-  }
+
+  // AFTER SCRIPT: set the view/document objects as necessary
+  m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument()));
+  m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView()));
 
   // yip yip!
-  initEngine();
   m_loadSuccessful = true;
+
   // load i18n catalog if available
   if (!generalHeader().catalog().isEmpty()) {
     kDebug() << "loading i18n catalog" << generalHeader().catalog();
@@ -197,27 +213,6 @@ bool KateScript::hasException(const QScriptValue& object, const QString& file)
     return true;
   }
   return false;
-}
-
-
-void KateScript::initEngine()
-{
-  // set the view/document objects as necessary
-  m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument()));
-  m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView()));
-
-  // export require function and add the include guard object
-  m_engine->globalObject().setProperty("require", m_engine->newFunction(Kate::Script::require));
-  m_engine->globalObject().setProperty("require_guard", m_engine->newObject());
-  
-  // export debug function
-  m_engine->globalObject().setProperty("debug", m_engine->newFunction(Kate::Script::debug));
-
-  // export translation functions
-  m_engine->globalObject().setProperty("i18n", m_engine->newFunction(Kate::Script::i18n));
-  m_engine->globalObject().setProperty("i18nc", m_engine->newFunction(Kate::Script::i18nc));
-  m_engine->globalObject().setProperty("i18ncp", m_engine->newFunction(Kate::Script::i18ncp));
-  m_engine->globalObject().setProperty("i18np", m_engine->newFunction(Kate::Script::i18np));
 }
 
 bool KateScript::setView(KateView *view)

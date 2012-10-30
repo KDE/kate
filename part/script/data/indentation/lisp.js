@@ -4,7 +4,6 @@
  * author: Matteo Sasso <matteo.sasso@gmail.com>
  * version: 1.1
  * kate-version: 3.0
- * type: indentation
  *
  */
 

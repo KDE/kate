@@ -4,7 +4,6 @@
  * author: Paul Giannaros <paul@giannaros.org>
  * revision: 1
  * kate-version: 3.4
- * type: indentation
  */
 
 // required katepart js libraries

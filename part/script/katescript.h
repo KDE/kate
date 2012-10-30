@@ -171,9 +171,6 @@ class KateScript {
     bool hasException(const QScriptValue& object, const QString& file);
 
   private:
-    /** Add our custom functions to m_engine when it has been initialised */
-    void initEngine();
-
     /** Whether or not there has been a call to load */
     bool m_loaded;
     

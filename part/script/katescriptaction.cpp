@@ -123,7 +123,8 @@ void KateScriptActionMenu::repopulate()
 
       // show in a category submenu?
       if (!info.category().isEmpty()) {
-        if (!menus.contains(info.category())) {
+        m = menus[info.category()];
+        if (!m) {
           m = menu()->addMenu(info.category());
           menus.insert(info.category(), m);
           m_menus.append(m);

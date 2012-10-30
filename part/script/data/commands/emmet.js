@@ -42,48 +42,48 @@ function action(cmd)
 {
 		var a = new Object();
 		a.icon = "";
-		a.category = "";
+		a.category = "Emmet";
 		a.shortcut = "";
-			a.interactive = false;
+		a.interactive = false;
 		if (cmd == "emmetExpand") {
-				a.text = i18n("Emmet: expand abbreviation");
+			a.text = i18n("Expand abbreviation");
 		} else if (cmd == "emmetWrap") {
-			a.text = i18n("Emmet: wrap with tag");
+			a.text = i18n("Wrap with tag");
 			a.interactive = true;		
 		} else if (cmd == "emmetMatchingPair") {
-			a.text = i18n("Emmet: move cursor to matching tag");
+			a.text = i18n("Move cursor to matching tag");
 		} else if (cmd == "emmetSelectTagPairInwards") {
-			a.text = i18n("Emmet: select HTML/XML tag contents inwards");
+			a.text = i18n("Select HTML/XML tag contents inwards");
 		} else if (cmd == "emmetSelectTagPairOutwards") {
-			a.text = i18n("Emmet: select HTML/XML tag contents outwards");
+			a.text = i18n("Select HTML/XML tag contents outwards");
 		} else if (cmd == "emmetToggleComment") {
-			a.text = i18n("Emmet: toggle comment");
+			a.text = i18n("Toggle comment");
 		} else if (cmd == "emmetNext") {
-			a.text = i18n("Emmet: go to next edit point");
+			a.text = i18n("Go to next edit point");
 		} else if (cmd == "emmetPrev") {
-			a.text = i18n("Emmet: go to previous edit point");
+			a.text = i18n("Go to previous edit point");
 		} else if (cmd == "emmetSelectNext") {
-			a.text = i18n("Emmet: select next edit point");
+			a.text = i18n("Select next edit point");
 		} else if (cmd == "emmetSelectPrev") {
-			a.text = i18n("Emmet: select previous edit point");
+			a.text = i18n("Select previous edit point");
 		} else if (cmd == "emmetDelete") {
-			a.text = i18n("Emmet: delete tag under cursor");
+			a.text = i18n("Delete tag under cursor");
 		} else if (cmd == "emmetSplitJoinTab") {
-			a.text = i18n("Emmet: split or join a tag");
+			a.text = i18n("Split or join a tag");
 		} else if (cmd == "emmetEvaluateMathExpression") {
-			a.text = i18n("Emmet: evaluate a simple math expression");
+			a.text = i18n("Evaluate a simple math expression");
 		} else if (cmd == "emmetDecrementNumberBy1") {
-			a.text = i18n("Emmet: decrement number by 1");
+			a.text = i18n("Decrement number by 1");
 		} else if (cmd == "emmetDecrementNumberBy10") {
-			a.text = i18n("Emmet: decrement number by 10");
+			a.text = i18n("Decrement number by 10");
 		} else if (cmd == "emmetDecrementNumberBy01") {
-			a.text = i18n("Emmet: decrement number by 0.1");
+			a.text = i18n("Decrement number by 0.1");
 		} else if (cmd == "emmetIncrementNumberBy1") {
-			a.text = i18n("Emmet: increment number by 1");
+			a.text = i18n("Increment number by 1");
 		} else if (cmd == "emmetIncrementNumberBy10") {
-			a.text = i18n("Emmet: increment number by 10");
+			a.text = i18n("Increment number by 10");
 		} else if (cmd == "emmetIncrementNumberBy01") {
-			a.text = i18n("Emmet: increment number by 0.1");
+			a.text = i18n("Increment number by 0.1");
 		}
 		return a;
 }

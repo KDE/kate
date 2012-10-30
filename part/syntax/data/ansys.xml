@@ -1974,7 +1974,7 @@
 			<RangeDetect attribute="Normal Text" context="#stay" char="(" char1=")" />
 			<DetectChar attribute="error" context="open_parentesis" char="(" />
 			<!-- the next one highlight variable assignements as normal text, to avoid F,,FY,1 been highlighted as F=10 -->
-			<RegExpr attribute="Normal Text" context="#stay" String="^[A-Za-Z0-9]+\=" />
+			<RegExpr attribute="Normal Text" context="#stay" String="^[A-Za-z0-9]+\=" />
 			<keyword attribute="Keyword" context="#stay" String="elements" />
 			<keyword attribute="MatProp" context="#stay" String="material_properties" />
 			<keyword attribute="Labels" context="#stay" String="force-displacement-labels" />

@@ -573,9 +573,9 @@
       </context>
 
       <context name="tr" attribute="Pattern" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop" >
-        <RegExpr attribute="Pattern" context="#pop" String="([^)]*\)\s*\(?:[^)]*\)" />
-        <RegExpr attribute="Pattern" context="#pop" String="{[^}]*\}\s*\{[^}]*\}" />
-        <RegExpr attribute="Pattern" context="#pop" String="\[[^}]*\]\s*\[[^\]]*\]" />
+        <RegExpr attribute="Pattern" context="#pop" String="\([^)]*\)\s*\(?:[^)]*\)" />
+        <RegExpr attribute="Pattern" context="#pop" String="\{[^}]*\}\s*\{[^}]*\}" />
+        <RegExpr attribute="Pattern" context="#pop" String="\[[^]]*\]\s*\[[^\]]*\]" />
         <RegExpr attribute="Pattern" context="#pop" String="([^a-zA-Z0-9_\s[\]{}()]).*\1.*\1" minimal="true"/>
       </context>
 

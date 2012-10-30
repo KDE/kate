@@ -56,7 +56,7 @@
         <RegExpr attribute="Escape" context="#pop" String="\\[gkmMVYz]&roffid;"/>
         <RegExpr attribute="Escape" context="#pop" String="\\O([0-4]|\[5[lrci][^]]\])"/>
         <RegExpr attribute="Escape" context="Measurement" String="\\[hHSvx]&argsep1;"/>
-        <RegExpr attribute="Escape" context="Measurement" String="\\[lL]&argsep1;|?"/> <!-- TODO - optional trailing &glyph; -->
+        <RegExpr attribute="Escape" context="Measurement" String="\\[lL]&argsep1;\|?"/> <!-- TODO - optional trailing &glyph; -->
         <RegExpr attribute="Escape" context="Argument" String="\\R&argsep1;"/> <!-- TODO - &roffid; (register), measurement -->
         <RegExpr attribute="Glyph" context="GlyphArgument" String="\\C&argsep1;"/>
         <RegExpr attribute="Glyph" context="#pop" String="\\N&argsep2;[0-9]+\1"/>

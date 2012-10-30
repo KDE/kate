@@ -581,8 +581,8 @@
         <RegExpr attribute="Expression" context="#stay" String="-[rwxXeozsfdlbcpSugktRLDIFNZ](?=\s)"/>
         <RegExpr attribute="Expression" context="#stay" String="-[AMCUG]:?(?=\s)"/>
         <RegExpr attribute="Expression" context="#stay" String="-P[0-7]{,3}:?(?=\s)"/>
-        <RegExpr attribute="Expression" context="#stay" String="([|&amp;=&gt;&lt;)\1"/>
-        <RegExpr attribute="Expression" context="#stay" String="[|^&amp;&gt;&lt;+-*/%!~]"/>
+        <RegExpr attribute="Expression" context="#stay" String="([|&amp;=&gt;&lt;])\1"/>
+        <RegExpr attribute="Expression" context="#stay" String="[|^&amp;&gt;&lt;+\-*/%!~]"/>
         <RegExpr attribute="Expression" context="#stay" String="([!=]~|[!&gt;&lt;]=)"/>
       </context>
 

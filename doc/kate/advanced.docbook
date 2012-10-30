@@ -1237,41 +1237,33 @@ by <ulink url="mailto:kwrite-devel@kde.org">contacting the mailing list</ulink>.
 
 <para>
 The scripting API presented here is available in all scripts, i.e. indentation
-scripts and command line commands. Before the contents of a script is loaded,
-&kappname; first adds several prototypes and functions to the scripting context.
-This convenience API contains prototypes like text cursors and text ranges and
-is located in the folder <filename>$KDEDIR/share/apps/katepart/libraries</filename>.
-There, the file names of each JavaScript file conforms with the following naming
-scheme:
+scripts and command line commands. 
+The <classname>Cursor</classname> and <classname>Range</classname> are provided by library files in <filename>$KDEDIR/share/apps/katepart/libraries</filename>.
+If you want to use them in your script, which is required to use some of the <classname>Document</classname> or <classname>View</classname> functions, please include the needed library by using:
 
 <programlisting>
-&lt;number&gt;_&lt;name&gt;.js
+// required katepart js libraries, e.g. range.js if you use Range
+require ("range.js");
 </programlisting>
-
-The number has two digits and the name is an arbitrary name such as <quote><filename>myutils</filename></quote>.
-Through the number &kappname; controls the execution order of the API. I.e., the
-file called <filename>05_cursor.js</filename> is called before the file
-<filename>10_range.js</filename>. (This is similar to the start order of the
-runlevel/init system in Linux).
 </para>
 
 <para>
 To extend the standard scripting API with own functions and prototypes simply
 create a new file in the KDE's local configuration folder
-<filename>$KDEHOME/share/apps/katepart/api</filename> and make sure it has a
-greater number (execution order) than the other <filename>*.js</filename> files
-in the global folder <filename>$KDEDIR/share/apps/katepart/api</filename>.
-&kappname; automatically searches in both folders for <filename>*.js</filename>
-files and executes them in the correct order.
+<filename>$KDEHOME/share/apps/katepart/libraries</filename> and include it into your script using:
+
+<programlisting>
+require ("myscriptnamehere.js");
+</programlisting>
+
 </para>
 
 <para>
 To extend existing prototypes like <classname>Cursor</classname> or
 <classname>Range</classname>, the recommended way is to
 <emphasis>not</emphasis> modify the global <filename>*.js</filename> files.
-Instead, create a <filename>*.js</filename> file in the local folder that is
-being executed later than the <filename>05_cursor.js</filename> and then change
-the <classname>Cursor</classname> prototype in JavaScript.
+Instead, change the <classname>Cursor</classname> prototype in JavaScript after the <filename>cursor.js</filename> is included into your
+script via <literal>require</literal>.
 </para>
 
 <sect3 id="advanced-editing-tools-scripting-api-prototypes">
@@ -1601,8 +1593,8 @@ Returns the range as a string of the form <quote><literal>Range(Cursor(line, col
 void require(<parameter>String <replaceable>file</replaceable></parameter>);
 </synopsis></term>
 <listitem><para>
-Will search the given <replaceable>file</replaceable> relative to the <literal>katepart/script/include</literal> directory and evaluate it.
-<literal>require</literal> is guarded against multiple inclusions of the same <replaceable>file</replaceable>.
+Will search the given <replaceable>file</replaceable> relative to the <literal>katepart/script/libraries</literal> directory and evaluate it.
+<literal>require</literal> is internally guarded against multiple inclusions of the same <replaceable>file</replaceable>.
 </para></listitem>
 </varlistentry></variablelist>
 

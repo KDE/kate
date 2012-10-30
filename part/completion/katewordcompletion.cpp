@@ -204,18 +204,19 @@ void KateWordCompletionModel::completionInvoked(KTextEditor::View* view, const K
 const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
 {
   QStringList l;
-
-  int i( 0 );
-  int pos( 0 );
-  KTextEditor::Document *doc = view->document();
-  QRegExp re( "\\b(" + doc->text( range ) + "\\w{1,})" );
-  QString s, m;
+  QRegExp re( "\\b(" + view->document()->text( range ) + "\\w{1,})" );
   QSet<QString> seen;
 
-  while( i < doc->lines() )
+  /**
+   * scan only a range of the document to not die for LARGE files
+   */
+  const int lineLimit = 4096;
+  int start = qMax(0, range.start().line() - lineLimit);
+  int end = qMin(view->document()->lines(), range.start().line() + lineLimit);
+  for (int i = start; i < end; ++i)
   {
-    s = doc->line( i );
-    pos = 0;
+    QString s = view->document()->line( i );
+    int pos = 0;
     while ( pos >= 0 )
     {
       pos = re.indexIn( s, pos );
@@ -224,7 +225,7 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
         // typing in the middle of a word
         if ( ! ( i == range.start().line() && pos == range.start().column() ) )
         {
-          m = re.cap( 1 );
+          QString m = re.cap( 1 );
           if ( ! seen.contains( m ) ) {
             seen.insert( m );
             l << m;
@@ -233,7 +234,6 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
         pos += re.matchedLength();
       }
     }
-    i++;
   }
   return l;
 }

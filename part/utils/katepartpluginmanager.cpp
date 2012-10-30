@@ -207,8 +207,8 @@ void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
     Q_ASSERT( openDependencies.empty() );
   }
 
+  // try to load, else reset load flag!
   item.plugin = item.service()->createInstance<KTextEditor::Plugin>(this);
-  Q_ASSERT(item.plugin);
   item.load = (item.plugin != 0);
 }
 

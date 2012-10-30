@@ -303,35 +303,23 @@ function rewrap()
 function action(cmd)
 {
     var a = new Object();
+    a.icon = "";
+    a.category = "Editing";
+    a.interactive = false;
     if (cmd == "sort") {
         a.text = i18n("Sort Selected Text");
-        a.icon = "";
-        a.category = "";
-        a.interactive = false;
         a.shortcut = "";
     } else if (cmd == "moveLinesDown") {
         a.text = i18n("Move Lines Down");
-        a.icon = "";
-        a.category = "";
-        a.interactive = false;
         a.shortcut = "Ctrl+Shift+Down";
     } else if (cmd == "moveLinesUp") {
         a.text = i18n("Move Lines Up");
-        a.icon = "";
-        a.category = "";
-        a.interactive = false;
         a.shortcut = "Ctrl+Shift+Up";
     } else if (cmd == "duplicateLinesUp") {
         a.text = i18n("Duplicate Selected Lines Up");
-        a.icon = "";
-        a.category = "";
-        a.interactive = false;
         a.shortcut = "Ctrl+Alt+Up";
     } else if (cmd == "duplicateLinesDown") {
         a.text = i18n("Duplicate Selected Lines Down");
-        a.icon = "";
-        a.category = "";
-        a.interactive = false;
         a.shortcut = "Ctrl+Alt+Down";
     }
 

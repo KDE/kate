@@ -29,19 +29,16 @@ function jumpIndentUp() {
 
 function action( cmd ) {
   var a = new Object();
+  a.icon = "";
+  a.category = "Navigation";
+  a.interactive = false;
   if ( cmd == 'jumpIndentUp' ) {
     a.text = i18n('Move cursor to previous matching indent');
     a.shortcut = 'Alt+Shift+Up';
-    a.icon = "";
-    a.category = "";
-    a.interactive = false;
   }
   else if ( cmd == 'jumpIndentDown' ) {
     a.text = i18n('Move cursor to next matching indent');
     a.shortcut = 'Alt+Shift+Down';
-    a.icon = "";
-    a.category = "";
-    a.interactive = false;
   }
 
   return a;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language version="1.02" kateversion="2.3" name="XML (Debug)" section="Markup" extensions="" mimetype="">
+<language version="1.03" kateversion="2.3" name="XML (Debug)" section="Markup" extensions="" mimetype="">
   <highlighting>
     <list name="AttType">
         <item>CDATA</item>
@@ -589,5 +589,6 @@
       <comment name="multiLine" start="&lt;!--" end="--&gt;"/>
     </comments>
     <keywords casesensitive="1"/>
+    <indentation mode="xml" />
   </general>
 </language>

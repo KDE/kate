@@ -1592,6 +1592,21 @@ Returns the range as a string of the form <quote><literal>Range(Cursor(line, col
 <title>Global Functions</title>
 <para>This section lists all global functions.</para>
 
+
+<sect4 id="advanced-editing-tools-scripting-api-includes">
+<title>Including Scripts</title>
+
+<variablelist><varlistentry>
+<term><synopsis>
+void require(<parameter>String <replaceable>file</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+Will search the given <replaceable>file</replaceable> in the <literal>katepart/script/include</literal> directory and evaluate it in the current script environment.
+</para></listitem>
+</varlistentry></variablelist>
+
+</sect4>
+
 <sect4 id="advanced-editing-tools-scripting-api-debug">
 <title>Debugging</title>
 
@@ -1606,6 +1621,7 @@ console launching the application.
 </varlistentry></variablelist>
 
 </sect4>
+
 <sect4 id="advanced-editing-tools-scripting-api-i18n">
 <title>Translation</title>
 

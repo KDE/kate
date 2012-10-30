@@ -927,7 +927,7 @@ the indentation level often increases.
 The following sections describe step by step how to create the skeleton for a
 simple indenter. As first step, create a new <filename>*.js</filename> file
 called e.g. <filename>javascript.js</filename> in the local home folder
-<filename>$KDEHOME/share/apps/katepart/script</filename>.
+<filename>$KDEHOME/share/apps/katepart/script/indentation</filename>.
 </para>
 
 <sect3 id="advanced-editing-tools-scripting-indentation-header">
@@ -943,7 +943,6 @@ comment and is of the following form
  * license: BSD
  * revision: 1
  * kate-version: 3.4
- * type: indentation
  * required-syntax-style: javascript
  * indent-languages: javascript
  * priority: 0
@@ -977,9 +976,6 @@ and in the configuration dialog.
 <literal>kate-version</literal> [required]: Minimal required &kappname; version.
 </para></listitem>
 <listitem><para>
-<literal>type</literal> [required]: The type must be <quote><literal>indentation</literal></quote>, otherwise &kappname; skips this script.
-</para></listitem>
-<listitem><para>
 <literal>required-syntax-style</literal> [optional]: Comma separated list of required syntax highlighting styles. This is important for indenters that rely on specific highlight information in the document. If a required syntax style is specified, the indenter is available only when the appropriate highlighter is active. This prevents <quote>undefined behavior</quote> caused by using the indenter without the expected highlighting schema. For instance, the Ruby indenter makes use of this in the files <filename>ruby.js</filename> and <filename>ruby.xml</filename>.
 </para></listitem>
 <listitem><para>
@@ -1008,6 +1004,9 @@ Having specified the header this section explains how the indentation scripting
 itself works. The basic skeleton of the body looks like this:
 
 <programlisting>
+// required katepart js libraries, e.g. range.js if you use Range
+require ("range.js");
+  
 triggerCharacters = "{}/:;";
 function indent(line, indentWidth, ch)
 {
@@ -1061,7 +1060,7 @@ with a different tab width.
 
 <para>
 A default KDE installation ships &kappname; with several indenters. The
-corresponding JavaScript source code can be found in <filename>$KDEDIR/share/apps/katepart/script</filename>.
+corresponding JavaScript source code can be found in <filename>$KDEDIR/share/apps/katepart/script/indentation</filename>.
 </para>
 
 <para>
@@ -1094,7 +1093,7 @@ For instance, the command
 Command line scripts are located in the same folder as indentation scripts.
 So as first step, create a new <filename>*.js</filename> file called
 <filename>myutils.js</filename> in the local home folder
-<filename>$KDEHOME/share/apps/katepart/script</filename>.
+<filename>$KDEHOME/share/apps/katepart/script/commands</filename>.
 </para>
 
 <sect3 id="advanced-editing-tools-scripting-command-line-header">
@@ -1109,7 +1108,6 @@ following form
  * license: BSD
  * revision: 1
  * kate-version: 3.4
- * type: commands
  * functions: sort, format-paragraph
  * i18n-catalog: mycatalog
  *
@@ -1125,7 +1123,6 @@ Each entry is explained in detail now:
 <listitem><para><literal>license</literal> [optional]: Short form of the license, such as BSD or LGPLv3.</para></listitem>
 <listitem><para><literal>revision</literal> [required]: The revision of the script. This number should be increased whenever the script is modified.</para></listitem>
 <listitem><para><literal>kate-version</literal> [required]: Minimal required &kappname; version.</para></listitem>
-<listitem><para><literal>type</literal> [required]: The type must be <quote><literal>commands</literal></quote>, otherwise &kappname; skips this script.</para></listitem>
 <listitem><para><literal>functions</literal> [required]: Comma separated list of commands in the script.</para></listitem>
 <listitem><para><literal>i18n-catalog</literal> [optional]: Additional message catalog (<literal>po</literal> file) loaded for translation of 3rd-party scripts.</para></listitem>
 </itemizedlist>
@@ -1153,6 +1150,9 @@ functions <command>sort</command> and <command>format-paragraph</command>.
 All functions have the following syntax:
 
 <programlisting>
+// required katepart js libraries, e.g. range.js if you use Range
+require ("range.js");
+
 function &lt;name&gt;(arg1, arg2, ...)
 {
     // ... implementation, see also: Scripting API
@@ -1240,7 +1240,7 @@ The scripting API presented here is available in all scripts, i.e. indentation
 scripts and command line commands. Before the contents of a script is loaded,
 &kappname; first adds several prototypes and functions to the scripting context.
 This convenience API contains prototypes like text cursors and text ranges and
-is located in the folder <filename>$KDEDIR/share/apps/katepart/api</filename>.
+is located in the folder <filename>$KDEDIR/share/apps/katepart/libraries</filename>.
 There, the file names of each JavaScript file conforms with the following naming
 scheme:
 

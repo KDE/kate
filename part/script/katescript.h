@@ -170,9 +170,6 @@ class KateScript {
     /** Checks for exception and gives feedback on the console. */
     bool hasException(const QScriptValue& object, const QString& file);
 
-    /** read complete file contents */
-    static bool readFile(const QString& sourceUrl, QString& sourceCode);
-
   private:
     /** init API, can fail on error in api files */
     bool initApi ();

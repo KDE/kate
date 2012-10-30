@@ -84,24 +84,6 @@ void KateScript::reloadScriptingApi()
   s_scriptingApiLoaded = false;
 }
 
-bool KateScript::readFile(const QString& sourceUrl, QString& sourceCode)
-{
-  sourceCode = QString();
-
-  QFile file(sourceUrl);
-  if (!file.open(QIODevice::ReadOnly)) {
-    kDebug(13050) << i18n("Unable to find '%1'", sourceUrl);
-    return false;
-  } else {
-    QTextStream stream(&file);
-    stream.setCodec("UTF-8");
-    sourceCode = stream.readAll();
-    file.close();
-  }
-  return true;
-}
-
-
 KateScript::KateScript(const QString &urlOrScript, enum InputType inputType)
   : m_loaded(false)
   , m_loadSuccessful(false)
@@ -191,7 +173,6 @@ bool KateScript::initApi ()
 
     // get all api files
     const QStringList list = KGlobal::dirs()->findAllResources("data","katepart/api/*.js", KStandardDirs::NoDuplicates);
-
     for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it )
     {
       // get abs filename....
@@ -205,7 +186,7 @@ bool KateScript::initApi ()
 
       // read the file
       QString content;
-      readFile(absPath, content);
+      Kate::Script::readFile(absPath, content);
       apiBaseName2Content[baseName] = content;
     }
 
@@ -238,7 +219,7 @@ bool KateScript::load()
   // read the script file into memory
   QString source;
   if (m_inputType == InputURL) {
-    if (!readFile(m_url, source)) {
+    if (!Kate::Script::readFile(m_url, source)) {
       return false;
     }
   } else source = m_script;

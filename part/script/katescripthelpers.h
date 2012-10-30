@@ -27,6 +27,11 @@ class QScriptContext;
 namespace Kate {
   /** Top-level script functions */
   namespace Script {
+
+    /** read complete file contents, helper */
+    bool readFile(const QString& sourceUrl, QString& sourceCode);
+    
+    QScriptValue require(QScriptContext *context, QScriptEngine *engine);
     QScriptValue debug(QScriptContext *context, QScriptEngine *engine);
     QScriptValue i18n(QScriptContext *context, QScriptEngine *engine);
     QScriptValue i18nc(QScriptContext *context, QScriptEngine *engine);

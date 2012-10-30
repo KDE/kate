@@ -31,9 +31,59 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <klocalizedstring.h>
+#include <kstandarddirs.h>
 
 namespace Kate {
 namespace Script {
+  
+bool readFile(const QString& sourceUrl, QString& sourceCode)
+{
+  sourceCode = QString();
+
+  QFile file(sourceUrl);
+  if (!file.open(QIODevice::ReadOnly)) {
+    kDebug(13050) << i18n("Unable to find '%1'", sourceUrl);
+    return false;
+  } else {
+    QTextStream stream(&file);
+    stream.setCodec("UTF-8");
+    sourceCode = stream.readAll();
+    file.close();
+  }
+  return true;
+}
+  
+QScriptValue require(QScriptContext *context, QScriptEngine *engine)
+{
+  /**
+   * just search for all given scripts and eval them
+   */
+  for(int i = 0; i < context->argumentCount(); ++i) {
+    /**
+     * get full name of file
+     */
+    const QString name = context->argument(i).toString();
+    const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/include/" + name);
+    
+    /**
+     * try to read complete file
+     * skip non-existing files
+     */
+    QString code;
+    if (!readFile (fullName, code))
+      continue;
+    
+    /**
+     * eval in current script engine
+     */
+    engine->evaluate (code, fullName);
+  }
+  
+  /**
+   * no return value
+   */
+  return engine->nullValue();
+}
 
 QScriptValue debug(QScriptContext *context, QScriptEngine *engine)
 {

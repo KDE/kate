@@ -23,6 +23,9 @@
  * Boston, MA 02110-1301, USA.
  */
 
+// required katepart js libraries
+require ("range.js");
+
 //BEGIN USER CONFIGURATION
 //END USER CONFIGURATION
 

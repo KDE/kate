@@ -107,9 +107,7 @@ class KateScriptManager : public QObject, public KTextEditor::Command
      * This is automatically called by init so you shouldn't call it yourself unless
      * you want to refresh the collected list.
      */
-    void collect(const QString& resourceFile,
-                 const QString& directory,
-                 bool force = false);
+    void collect(bool force = false);
 
     /**
      * Extract the meta data from the script at \p url and put in \p pairs.

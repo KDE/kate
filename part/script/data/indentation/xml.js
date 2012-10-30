@@ -23,6 +23,9 @@
  * Boston, MA 02110-1301, USA.
  */
 
+// required katepart js libraries
+require ("range.js");
+
 var debugMode = true;
 
 // specifies the characters which should trigger indent, beside the default '\n'

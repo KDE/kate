@@ -7,6 +7,9 @@
  * type: indentation
  */
 
+// required katepart js libraries
+require ("range.js");
+
 
 // niceties
 

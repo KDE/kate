@@ -45,8 +45,8 @@ KateScriptManager::KateScriptManager() : QObject(), KTextEditor::Command()
 {
   KateCmd::self()->registerCommand (this);
 
-  // false = force (ignore cache)
-  collect("katepartscriptrc", "katepart/script/*.js", false);
+  // use cached info
+  collect();
 }
 
 KateScriptManager::~KateScriptManager()
@@ -86,13 +86,12 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
   return highestPriorityIndenter;
 }
 
-void KateScriptManager::collect(const QString& resourceFile,
-                                const QString& directory,
-                                bool force)
+void KateScriptManager::collect(bool force)
 {
-  KConfig cfgFile(resourceFile, KConfig::NoGlobals);
+  // local information cache
+  KConfig cfgFile("katescriptingrc", KConfig::NoGlobals);
 
-  force = false;
+  // we might need to enforce reload!
   {
     KConfigGroup config(&cfgFile, "General");
     // If KatePart version does not match, better force a true reload
@@ -101,8 +100,7 @@ void KateScriptManager::collect(const QString& resourceFile,
       force = true;
     }
   }
-  // get a list of all .js files
-  const QStringList list = KGlobal::dirs()->findAllResources("data", directory, KStandardDirs::NoDuplicates);
+
   // clear out the old scripts and reserve enough space
   qDeleteAll(m_indentationScripts);
   qDeleteAll(m_commandLineScripts);
@@ -111,137 +109,146 @@ void KateScriptManager::collect(const QString& resourceFile,
 
   m_languageToIndenters.clear();
   m_indentationScriptMap.clear();
+  
+  /**
+   * now, we search all kinds of known scripts
+   */
+  foreach (const QString &type, QStringList () << "indentation" << "commands") {
+    // get a list of all .js files for the current type
+    const QStringList list = KGlobal::dirs()->findAllResources("data", "katepart/script/" + type + "/*.js", KStandardDirs::NoDuplicates);
+    
+    // iterate through the files and read info out of cache or file
+    foreach(const QString &fileName, list) {
+      // get abs filename....
+      QFileInfo fi(fileName);
+      const QString absPath = fi.absoluteFilePath();
+      const QString baseName = fi.baseName ();
 
-  // iterate through the files and read info out of cache or file
-  foreach(const QString &fileName, list) {
-    // get abs filename....
-    QFileInfo fi(fileName);
-    const QString absPath = fi.absoluteFilePath();
-    const QString baseName = fi.baseName ();
+      // each file has a group
+      const QString group = "Cache "+ fileName;
+      KConfigGroup config(&cfgFile, group);
 
-    // each file has a group
-    const QString group = "Cache "+ fileName;
-    KConfigGroup config(&cfgFile, group);
+      // stat the file to get the last-modified-time
+      KDE_struct_stat sbuf;
+      memset(&sbuf, 0, sizeof(sbuf));
+      KDE::stat(fileName, &sbuf);
 
-    // stat the file to get the last-modified-time
-    KDE_struct_stat sbuf;
-    memset(&sbuf, 0, sizeof(sbuf));
-    KDE::stat(fileName, &sbuf);
-
-    // check whether file is already cached
-    bool useCache = false;
-    if(!force && cfgFile.hasGroup(group)) {
-      useCache = (sbuf.st_mtime == config.readEntry("last-modified", 0));
-    }
-
-    // read key/value pairs from the cached file if possible
-    // otherwise, parse it and then save the needed information to the cache.
-    QHash<QString, QString> pairs;
-    if(useCache) {
-      const QMap<QString, QString> entries = config.entryMap();
-      for(QMap<QString, QString>::ConstIterator entry = entries.constBegin();
-          entry != entries.constEnd();
-          ++entry)
-        pairs[entry.key()] = entry.value();
-    }
-    else if(parseMetaInformation(fileName, pairs)) {
-      config.writeEntry("last-modified", int(sbuf.st_mtime));
-      // iterate keys and save cache
-      for(QHash<QString, QString>::ConstIterator item = pairs.constBegin();
-          item != pairs.constEnd();
-          ++item)
-        config.writeEntry(item.key(), item.value());
-    }
-    else {
-      // parseMetaInformation will have informed the user of the problem
-      continue;
-    }
-    // make sure we have the necessary meta data items we need for proper execution
-    KateScriptHeader generalHeader;
-    QString type = pairs.take("type");
-    if(type == "indentation") {
-      generalHeader.setScriptType(Kate::IndentationScript);
-    } else if (type == "commands") {
-      generalHeader.setScriptType(Kate::CommandLineScript);
-    } else {
-      kDebug(13050) << "Script value error: No type specified in script meta data: "
-                      << qPrintable(fileName) << '\n';
-      continue;
-    }
-
-    generalHeader.setLicense(pairs.take("license"));
-    generalHeader.setAuthor(pairs.take("author"));
-    generalHeader.setRevision(pairs.take("revision").toInt());
-    generalHeader.setKateVersion(pairs.take("kate-version"));
-    generalHeader.setCatalog(pairs.take("i18n-catalog"));
-
-    // now, cast accordingly based on type
-    switch(generalHeader.scriptType()) {
-      case Kate::IndentationScript: {
-        KateIndentScriptHeader indentHeader;
-        indentHeader.setName(pairs.take("name"));
-        indentHeader.setBaseName(baseName);
-        if (indentHeader.name().isNull()) {
-          kDebug( 13050 ) << "Script value error: No name specified in script meta data: "
-                 << qPrintable(fileName) << '\n' << "-> skipping indenter" << '\n';
-          continue;
-        }
-
-        // required style?
-        indentHeader.setRequiredStyle(pairs.take("required-syntax-style"));
-        // which languages does this support?
-        QString indentLanguages = pairs.take("indent-languages");
-        if(!indentLanguages.isNull()) {
-          indentHeader.setIndentLanguages(indentLanguages.split(','));
-        }
-        else {
-          indentHeader.setIndentLanguages(QStringList() << indentHeader.name());
-
-#ifdef DEBUG_SCRIPTMANAGER
-          kDebug( 13050 ) << "Script value warning: No indent-languages specified for indent "
-                    << "script " << qPrintable(fileName) << ". Using the name ("
-                    << qPrintable(indentHeader.name()) << ")\n";
-#endif
-        }
-        // priority?
-        bool convertedToInt;
-        int priority = pairs.take("priority").toInt(&convertedToInt);
-
-#ifdef DEBUG_SCRIPTMANAGER
-        if(!convertedToInt) {
-          kDebug( 13050 ) << "Script value warning: Unexpected or no priority value "
-                    << "in: " << qPrintable(fileName) << ". Setting priority to 0\n";
-        }
-#endif
-
-        indentHeader.setPriority(convertedToInt ? priority : 0);
-        KateIndentScript *script = new KateIndentScript(fileName, indentHeader);
-        script->setGeneralHeader(generalHeader);
-        foreach(const QString &language, indentHeader.indentLanguages()) {
-          m_languageToIndenters[language.toLower()].push_back(script);
-        }
-
-        m_indentationScriptMap.insert(indentHeader.baseName(), script);
-        m_indentationScripts.append(script);
-        break;
+      // check whether file is already cached
+      bool useCache = false;
+      if(!force && cfgFile.hasGroup(group)) {
+        useCache = (sbuf.st_mtime == config.readEntry("last-modified", 0));
       }
-      case Kate::CommandLineScript: {
-        KateCommandLineScriptHeader commandHeader;
-        commandHeader.setFunctions(pairs.take("functions").split(QRegExp("\\s*,\\s*"), QString::SkipEmptyParts));
-        if (commandHeader.functions().isEmpty()) {
-          kDebug(13050) << "Script value error: No functions specified in script meta data: "
-                        << qPrintable(fileName) << '\n' << "-> skipping script" << '\n';
-          continue;
-        }
-        KateCommandLineScript* script = new KateCommandLineScript(fileName, commandHeader);
-        script->setGeneralHeader(generalHeader);
-        m_commandLineScripts.push_back(script);
-        break;
+
+      // read key/value pairs from the cached file if possible
+      // otherwise, parse it and then save the needed information to the cache.
+      QHash<QString, QString> pairs;
+      if(useCache) {
+        const QMap<QString, QString> entries = config.entryMap();
+        for(QMap<QString, QString>::ConstIterator entry = entries.constBegin();
+            entry != entries.constEnd();
+            ++entry)
+          pairs[entry.key()] = entry.value();
       }
-      case Kate::UnknownScript:
-      default:
-        kDebug( 13050 ) << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
-                  << qPrintable(fileName) << '\n';
+      else if(parseMetaInformation(fileName, pairs)) {
+        config.writeEntry("last-modified", int(sbuf.st_mtime));
+        // iterate keys and save cache
+        for(QHash<QString, QString>::ConstIterator item = pairs.constBegin();
+            item != pairs.constEnd();
+            ++item)
+          config.writeEntry(item.key(), item.value());
+      }
+      else {
+        // parseMetaInformation will have informed the user of the problem
+        continue;
+      }
+      
+      /**
+       * remember type
+       */
+      KateScriptHeader generalHeader;
+      if(type == "indentation") {
+        generalHeader.setScriptType(Kate::IndentationScript);
+      } else if (type == "commands") {
+        generalHeader.setScriptType(Kate::CommandLineScript);
+      } else {
+        // should never happen, we dictate type by directory
+        Q_ASSERT (false);
+      }
+
+      generalHeader.setLicense(pairs.take("license"));
+      generalHeader.setAuthor(pairs.take("author"));
+      generalHeader.setRevision(pairs.take("revision").toInt());
+      generalHeader.setKateVersion(pairs.take("kate-version"));
+      generalHeader.setCatalog(pairs.take("i18n-catalog"));
+
+      // now, cast accordingly based on type
+      switch(generalHeader.scriptType()) {
+        case Kate::IndentationScript: {
+          KateIndentScriptHeader indentHeader;
+          indentHeader.setName(pairs.take("name"));
+          indentHeader.setBaseName(baseName);
+          if (indentHeader.name().isNull()) {
+            kDebug( 13050 ) << "Script value error: No name specified in script meta data: "
+                  << qPrintable(fileName) << '\n' << "-> skipping indenter" << '\n';
+            continue;
+          }
+
+          // required style?
+          indentHeader.setRequiredStyle(pairs.take("required-syntax-style"));
+          // which languages does this support?
+          QString indentLanguages = pairs.take("indent-languages");
+          if(!indentLanguages.isNull()) {
+            indentHeader.setIndentLanguages(indentLanguages.split(','));
+          }
+          else {
+            indentHeader.setIndentLanguages(QStringList() << indentHeader.name());
+
+  #ifdef DEBUG_SCRIPTMANAGER
+            kDebug( 13050 ) << "Script value warning: No indent-languages specified for indent "
+                      << "script " << qPrintable(fileName) << ". Using the name ("
+                      << qPrintable(indentHeader.name()) << ")\n";
+  #endif
+          }
+          // priority?
+          bool convertedToInt;
+          int priority = pairs.take("priority").toInt(&convertedToInt);
+
+  #ifdef DEBUG_SCRIPTMANAGER
+          if(!convertedToInt) {
+            kDebug( 13050 ) << "Script value warning: Unexpected or no priority value "
+                      << "in: " << qPrintable(fileName) << ". Setting priority to 0\n";
+          }
+  #endif
+
+          indentHeader.setPriority(convertedToInt ? priority : 0);
+          KateIndentScript *script = new KateIndentScript(fileName, indentHeader);
+          script->setGeneralHeader(generalHeader);
+          foreach(const QString &language, indentHeader.indentLanguages()) {
+            m_languageToIndenters[language.toLower()].push_back(script);
+          }
+
+          m_indentationScriptMap.insert(indentHeader.baseName(), script);
+          m_indentationScripts.append(script);
+          break;
+        }
+        case Kate::CommandLineScript: {
+          KateCommandLineScriptHeader commandHeader;
+          commandHeader.setFunctions(pairs.take("functions").split(QRegExp("\\s*,\\s*"), QString::SkipEmptyParts));
+          if (commandHeader.functions().isEmpty()) {
+            kDebug(13050) << "Script value error: No functions specified in script meta data: "
+                          << qPrintable(fileName) << '\n' << "-> skipping script" << '\n';
+            continue;
+          }
+          KateCommandLineScript* script = new KateCommandLineScript(fileName, commandHeader);
+          script->setGeneralHeader(generalHeader);
+          m_commandLineScripts.push_back(script);
+          break;
+        }
+        case Kate::UnknownScript:
+        default:
+          kDebug( 13050 ) << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
+                    << qPrintable(fileName) << '\n';
+      }
     }
   }
 
@@ -317,8 +324,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
 
 void KateScriptManager::reload()
 {
-  KateScript::reloadScriptingApi();
-  collect("katepartscriptrc", "katepart/script/*.js", true);
+  collect(true);
   emit reloaded();
 }
 

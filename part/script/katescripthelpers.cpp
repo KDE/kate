@@ -63,7 +63,7 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
      * get full name of file
      */
     const QString name = context->argument(i).toString();
-    const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/include/" + name);
+    const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/lib/" + name);
     
     /**
      * check include guard

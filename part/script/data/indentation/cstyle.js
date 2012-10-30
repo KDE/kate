@@ -23,6 +23,9 @@
  * Boston, MA 02110-1301, USA.
  */
 
+// required katepart js libraries
+require ("range.js");
+
 //BEGIN USER CONFIGURATION
 var cfgIndentCase = true;         // indent 'case' and 'default' in a switch?
 var cfgIndentNamespace = true;    // indent after 'namespace'?

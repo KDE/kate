@@ -7,6 +7,9 @@
  * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown, rewrap
  */
 
+// required katepart js libraries
+require ("range.js");
+
 function sort()
 {
     each(function(lines){return lines.sort()});

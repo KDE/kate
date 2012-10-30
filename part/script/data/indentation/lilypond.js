@@ -27,6 +27,9 @@
  * See http://www.gnu.org/licenses/ for more information.
  */
 
+// required katepart js libraries
+require ("range.js");
+
 var triggerCharacters = "}>%;";
 
 function dbg(s) {

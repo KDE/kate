@@ -171,18 +171,18 @@ class KateScript {
     bool hasException(const QScriptValue& object, const QString& file);
 
   private:
-    /** init API, can fail on error in api files */
-    bool initApi ();
-
     /** Add our custom functions to m_engine when it has been initialised */
     void initEngine();
 
     /** Whether or not there has been a call to load */
     bool m_loaded;
+    
     /** Whether or not the script loaded successfully into memory */
     bool m_loadSuccessful;
+    
     /** The script's URL */
     QString m_url;
+    
     /** An error message set when an error occurs */
     QString m_errorMessage;
 
@@ -198,13 +198,7 @@ class KateScript {
     KateScriptDocument *m_document;
     KateScriptView *m_view;
 
-  public:
-    static void reloadScriptingApi();
-
   private:
-    /** True, if the katepartapi.js file is already loaded, otherwise false */
-    static bool s_scriptingApiLoaded;
-
     /** if input is script or url**/
     enum InputType m_inputType;
     QString m_script;

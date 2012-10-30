@@ -75,15 +75,6 @@ static void rangeFromScriptValue(const QScriptValue &obj, KTextEditor::Range &ra
 }
 //END
 
-
-
-bool KateScript::s_scriptingApiLoaded = false;
-
-void KateScript::reloadScriptingApi()
-{
-  s_scriptingApiLoaded = false;
-}
-
 KateScript::KateScript(const QString &urlOrScript, enum InputType inputType)
   : m_loaded(false)
   , m_loadSuccessful(false)
@@ -157,57 +148,6 @@ QScriptValue KateScript::function(const QString &name)
   return value;
 }
 
-bool KateScript::initApi ()
-{
-  // cache file names
-  static QStringList apiFileBaseNames;
-  static QHash<QString, QString> apiBaseName2FileName;
-  static QHash<QString, QString> apiBaseName2Content;
-
-  // read katepart javascript api
-  if (!s_scriptingApiLoaded) {
-    s_scriptingApiLoaded = true;
-    apiFileBaseNames.clear ();
-    apiBaseName2FileName.clear ();
-    apiBaseName2Content.clear ();
-
-    // get all api files
-    const QStringList list = KGlobal::dirs()->findAllResources("data","katepart/api/*.js", KStandardDirs::NoDuplicates);
-    for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it )
-    {
-      // get abs filename....
-      QFileInfo fi(*it);
-      const QString absPath = fi.absoluteFilePath();
-      const QString baseName = fi.baseName ();
-
-      // remember filenames
-      apiFileBaseNames.append (baseName);
-      apiBaseName2FileName[baseName] = absPath;
-
-      // read the file
-      QString content;
-      Kate::Script::readFile(absPath, content);
-      apiBaseName2Content[baseName] = content;
-    }
-
-    // sort...
-    apiFileBaseNames.sort ();
-  }
-
-  // register all script apis found
-  for ( QStringList::ConstIterator it = apiFileBaseNames.constBegin(); it != apiFileBaseNames.constEnd(); ++it )
-  {
-    // try to load into engine, bail out one error, use fullpath for error messages
-    QScriptValue apiObject = m_engine->evaluate(apiBaseName2Content[*it], apiBaseName2FileName[*it]);
-    if (hasException(apiObject, apiBaseName2FileName[*it])) {
-      return false;
-    }
-  }
-
-  // success ;)
-  return true;
-}
-
 bool KateScript::load()
 {
   if(m_loaded)
@@ -228,10 +168,6 @@ bool KateScript::load()
   m_engine = new QScriptEngine();
   qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
   qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
-
-  // init API
-  if (!initApi ())
-    return false;
 
   // register scripts itself
   QScriptValue result = m_engine->evaluate(source, m_url);

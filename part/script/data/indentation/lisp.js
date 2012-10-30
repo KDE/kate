@@ -8,6 +8,9 @@
  *
  */
 
+// required katepart js libraries
+require ("range.js");
+
 triggerCharacters = ";";
 
 function cursors_eq(a, b)

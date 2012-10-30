@@ -2,6 +2,9 @@
 // (C) 2009 Dominik Haumann <dhaumann kde org>
 // License: LGPL v2 or v3
 
+// required katepart js libraries
+require ("cursor.js");
+
 /**
  * Prototype Range.
  */

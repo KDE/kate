@@ -20,7 +20,7 @@
 // Boston, MA 02110-1301, USA.
 
 
-%Module(name=PyOkteta4.okteta, keyword_arguments="Optional")
+%Module(name=PyKate4.okteta, keyword_arguments="Optional")
 
 %ModuleHeaderCode
 #pragma GCC visibility push(default)

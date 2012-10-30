@@ -31,7 +31,7 @@ add_subdirectory( openheader )
 add_subdirectory( xmltools )
 add_subdirectory( xmlcheck )
 
-add_subdirectory( snippets_tng )
+#add_subdirectory( snippets_tng )
 
 add_subdirectory( tabify )
 

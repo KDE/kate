@@ -143,208 +143,11 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
   // get our command line args ;)
   KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
-
-  QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface ();
-
-  KateRunningInstanceMap mapSessionRii;
-  if (!fillinRunningKateAppInstances(&mapSessionRii)) return 1;
   
-  QStringList kateServices;
-  for(KateRunningInstanceMap::const_iterator it=mapSessionRii.constBegin();it!=mapSessionRii.constEnd();++it)
+  /**
+   * own scope: we need a temporary KApplication
+   */
   {
-    kateServices<<(*it)->serviceName;
-  }
-  QString serviceName;
-
-
-  bool force_new=args->isSet("new");
-  if (!force_new) {
-    if ( (!
-      args->isSet("start") ||
-      args->isSet("new") ||
-      args->isSet("pid") ||
-      args->isSet("encoding") ||
-      args->isSet("line") ||
-      args->isSet("column") ||
-      args->isSet("stdin") ||
-      args->isSet("use")
-      ) && (args->count()==0)) force_new=true;
-  }
-    
-  bool start_session_set=false;
-  QString start_session;
-  bool session_already_opened=false;
-  
-  //check if we try to start an already opened session
-  if (args->isSet("startanon"))
-  {
-    force_new=true;
-  }
-  else if (args->isSet("start"))
-  {
-    start_session_set=true;
-    start_session=args->getOption("start");
-    if (mapSessionRii.contains(start_session)) {
-      serviceName=mapSessionRii[start_session]->serviceName;
-      force_new=false;
-      session_already_opened=true;
-    }
-  }
-  
-  //cleanup map
-  cleanupRunningKateAppInstanceMap(&mapSessionRii);
-
-  //if no new instance is forced and no already opened session is requested,
-  //check if a pid is given, which should be reused.
-  // two possibilities: pid given or not...
-  if ((!force_new) && serviceName.isEmpty())
-  {
-    if ( (args->isSet("pid")) || (!qgetenv("KATE_PID").isEmpty()))
-    {
-      QString usePid;
-      if (args->isSet("pid")) usePid = args->getOption("pid");
-      else usePid = QString::fromLocal8Bit(qgetenv("KATE_PID"));
-      
-      serviceName = "org.kde.kate-" + usePid;
-      if (!kateServices.contains(serviceName)) serviceName.clear();
-    }
-  }
-  
-  if ( (!force_new) && ( serviceName.isEmpty()))
-  {
-    if (kateServices.count()>0)
-      serviceName=kateServices[0];
-  } 
-    
-  
-  //check again if service is still running
-  bool foundRunningService = false;
-  if (!serviceName.isEmpty ())
-  {
-    QDBusReply<bool> there = i->isServiceRegistered (serviceName);
-    foundRunningService = there.isValid () && there.value();
-  }
-
-         
-  if (foundRunningService)
-  {
-    // open given session
-    if (args->isSet ("start") && (!session_already_opened) )
-    {
-      QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activateSession");
-
-      QList<QVariant> dbusargs;
-      dbusargs.append(args->getOption("start"));
-      m.setArguments(dbusargs);
-
-      QDBusConnection::sessionBus().call (m);
-    }
-
-    QString enc = args->isSet("encoding") ? args->getOption("encoding") : QByteArray("");
-
-    bool tempfileSet = KCmdLineArgs::isTempFileSet();
-
-    // only block, if files to open there....
-    bool needToBlock = args->isSet( "block" ) && (args->count() > 0);
-    
-    QStringList tokens;
-    
-    // open given files...
-    for (int z = 0; z < args->count(); z++)
-    {
-      QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), "org.kde.Kate.Application", "tokenOpenUrl");
-
-      QList<QVariant> dbusargs;
-      dbusargs.append(args->url(z).url());
-      dbusargs.append(enc);
-      dbusargs.append(tempfileSet);
-      m.setArguments(dbusargs);
-
-      QDBusMessage res=QDBusConnection::sessionBus().call (m);
-      if (res.type()==QDBusMessage::ReplyMessage)
-      {
-        if (res.arguments().count()==1)
-        {
-            QVariant v=res.arguments()[0];
-            if (v.isValid())
-            {
-              QString s=v.toString();
-              if ((!s.isEmpty()) && (s!=QString("ERROR")))
-              {
-                tokens<<s;
-              }
-            }
-        }
-      }
-    }
-    
-    if( args->isSet( "stdin" ) )
-    {
-      QTextStream input(stdin, QIODevice::ReadOnly);
-
-      // set chosen codec
-      QTextCodec *codec = args->isSet("encoding") ? QTextCodec::codecForName(args->getOption("encoding").toUtf8()) : 0;
-
-      if (codec)
-        input.setCodec (codec);
-
-      QString line;
-      QString text;
-
-      do
-      {
-        line = input.readLine();
-        text.append( line + '\n' );
-      }
-      while( !line.isNull() );
-
-      QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), "org.kde.Kate.Application", "openInput");
-
-      QList<QVariant> dbusargs;
-      dbusargs.append(text);
-      m.setArguments(dbusargs);
-
-      QDBusConnection::sessionBus().call (m);
-    }
-
-    int line = 0;
-    int column = 0;
-    bool nav = false;
-
-    if (args->isSet ("line"))
-    {
-      line = args->getOption ("line").toInt() - 1;
-      nav = true;
-    }
-
-    if (args->isSet ("column"))
-    {
-      column = args->getOption ("column").toInt() - 1;
-      nav = true;
-    }
-
-    if (nav)
-    {
-      QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
-              QLatin1String("/MainApplication"), "org.kde.Kate.Application", "setCursor");
-
-      QList<QVariant> args;
-      args.append(line);
-      args.append(column);
-      m.setArguments(args);
-
-      QDBusConnection::sessionBus().call (m);
-    }
-
-    // activate the used instance
-    QDBusMessage activateMsg = QDBusMessage::createMethodCall (serviceName,
-      QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activate");
-    QDBusConnection::sessionBus().call (activateMsg);
-
-    
     // application object to have event loop
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     // It's too bad, that we have to use KApplication here, since this forces us to
@@ -355,21 +158,217 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
     // do no session managment for this app, just client
     app.disableSessionManagement ();
+
+    QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface ();
+
+    KateRunningInstanceMap mapSessionRii;
+    if (!fillinRunningKateAppInstances(&mapSessionRii)) return 1;
     
-    // connect dbus signal
-    if (needToBlock) {
-      KateWaiter *waiter = new KateWaiter (&app, serviceName,tokens);
-      QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "exiting", waiter, SLOT(exiting()));
-      QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "documentClosed", waiter, SLOT(documentClosed(QString)));
+    QStringList kateServices;
+    for(KateRunningInstanceMap::const_iterator it=mapSessionRii.constBegin();it!=mapSessionRii.constEnd();++it)
+    {
+      kateServices<<(*it)->serviceName;
+    }
+    QString serviceName;
+
+    bool force_new=args->isSet("new");
+    if (!force_new) {
+      if ( (!
+        args->isSet("start") ||
+        args->isSet("new") ||
+        args->isSet("pid") ||
+        args->isSet("encoding") ||
+        args->isSet("line") ||
+        args->isSet("column") ||
+        args->isSet("stdin") ||
+        args->isSet("use")
+        ) && (args->count()==0)) force_new=true;
+    }
+      
+    QString start_session;
+    bool session_already_opened=false;
+    
+    //check if we try to start an already opened session
+    if (args->isSet("startanon"))
+    {
+      force_new=true;
+    }
+    else if (args->isSet("start"))
+    {
+      start_session=args->getOption("start");
+      if (mapSessionRii.contains(start_session)) {
+        serviceName=mapSessionRii[start_session]->serviceName;
+        force_new=false;
+        session_already_opened=true;
+      }
     }
     
-#ifdef Q_WS_X11
-    // make the world happy, we are started, kind of...
-    KStartupInfo::appStarted ();
-#endif
+    //cleanup map
+    cleanupRunningKateAppInstanceMap(&mapSessionRii);
 
-    // this will wait until exiting is emitted by the used instance, if wanted...
-    return needToBlock ? app.exec () : 0;
+    //if no new instance is forced and no already opened session is requested,
+    //check if a pid is given, which should be reused.
+    // two possibilities: pid given or not...
+    if ((!force_new) && serviceName.isEmpty())
+    {
+      if ( (args->isSet("pid")) || (!qgetenv("KATE_PID").isEmpty()))
+      {
+        QString usePid;
+        if (args->isSet("pid")) usePid = args->getOption("pid");
+        else usePid = QString::fromLocal8Bit(qgetenv("KATE_PID"));
+        
+        serviceName = "org.kde.kate-" + usePid;
+        if (!kateServices.contains(serviceName)) serviceName.clear();
+      }
+    }
+    
+    if ( (!force_new) && ( serviceName.isEmpty()))
+    {
+      if (kateServices.count()>0)
+        serviceName=kateServices[0];
+    } 
+      
+    //check again if service is still running
+    bool foundRunningService = false;
+    if (!serviceName.isEmpty ())
+    {
+      QDBusReply<bool> there = i->isServiceRegistered (serviceName);
+      foundRunningService = there.isValid () && there.value();
+    }
+           
+    if (foundRunningService)
+    {
+      // open given session
+      if (args->isSet ("start") && (!session_already_opened) )
+      {
+        QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+                QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activateSession");
+
+        QList<QVariant> dbusargs;
+        dbusargs.append(args->getOption("start"));
+        m.setArguments(dbusargs);
+
+        QDBusConnection::sessionBus().call (m);
+      }
+
+      QString enc = args->isSet("encoding") ? args->getOption("encoding") : QByteArray("");
+
+      bool tempfileSet = KCmdLineArgs::isTempFileSet();
+
+      // only block, if files to open there....
+      bool needToBlock = args->isSet( "block" ) && (args->count() > 0);
+      
+      QStringList tokens;
+      
+      // open given files...
+      for (int z = 0; z < args->count(); z++)
+      {
+        QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+                QLatin1String("/MainApplication"), "org.kde.Kate.Application", "tokenOpenUrl");
+
+        QList<QVariant> dbusargs;
+        dbusargs.append(args->url(z).url());
+        dbusargs.append(enc);
+        dbusargs.append(tempfileSet);
+        m.setArguments(dbusargs);
+
+        QDBusMessage res=QDBusConnection::sessionBus().call (m);
+        if (res.type()==QDBusMessage::ReplyMessage)
+        {
+          if (res.arguments().count()==1)
+          {
+              QVariant v=res.arguments()[0];
+              if (v.isValid())
+              {
+                QString s=v.toString();
+                if ((!s.isEmpty()) && (s!=QString("ERROR")))
+                {
+                  tokens<<s;
+                }
+              }
+          }
+        }
+      }
+      
+      if( args->isSet( "stdin" ) )
+      {
+        QTextStream input(stdin, QIODevice::ReadOnly);
+
+        // set chosen codec
+        QTextCodec *codec = args->isSet("encoding") ? QTextCodec::codecForName(args->getOption("encoding").toUtf8()) : 0;
+
+        if (codec)
+          input.setCodec (codec);
+
+        QString line;
+        QString text;
+
+        do
+        {
+          line = input.readLine();
+          text.append( line + '\n' );
+        }
+        while( !line.isNull() );
+
+        QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+                QLatin1String("/MainApplication"), "org.kde.Kate.Application", "openInput");
+
+        QList<QVariant> dbusargs;
+        dbusargs.append(text);
+        m.setArguments(dbusargs);
+
+        QDBusConnection::sessionBus().call (m);
+      }
+
+      int line = 0;
+      int column = 0;
+      bool nav = false;
+
+      if (args->isSet ("line"))
+      {
+        line = args->getOption ("line").toInt() - 1;
+        nav = true;
+      }
+
+      if (args->isSet ("column"))
+      {
+        column = args->getOption ("column").toInt() - 1;
+        nav = true;
+      }
+
+      if (nav)
+      {
+        QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
+                QLatin1String("/MainApplication"), "org.kde.Kate.Application", "setCursor");
+
+        QList<QVariant> args;
+        args.append(line);
+        args.append(column);
+        m.setArguments(args);
+
+        QDBusConnection::sessionBus().call (m);
+      }
+
+      // activate the used instance
+      QDBusMessage activateMsg = QDBusMessage::createMethodCall (serviceName,
+        QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activate");
+      QDBusConnection::sessionBus().call (activateMsg);
+      
+      // connect dbus signal
+      if (needToBlock) {
+        KateWaiter *waiter = new KateWaiter (&app, serviceName,tokens);
+        QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "exiting", waiter, SLOT(exiting()));
+        QDBusConnection::sessionBus().connect(serviceName, QString("/MainApplication"), "org.kde.Kate.Application", "documentClosed", waiter, SLOT(documentClosed(QString)));
+      }
+      
+  #ifdef Q_WS_X11
+      // make the world happy, we are started, kind of...
+      KStartupInfo::appStarted ();
+  #endif
+
+      // this will wait until exiting is emitted by the used instance, if wanted...
+      return needToBlock ? app.exec () : 0;
+    }
   }
 
   // construct the real kate app object ;)

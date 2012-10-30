@@ -1,11 +1,11 @@
 # install default libraries files
-file (GLOB KATE_JS_LIBRARIES_FILES "${CMAKE_CURRENT_SOURCE_DIR}/libraries/*.js")
-install (FILES ${KATE_JS_LIBRARIES_FILES} DESTINATION ${DATA_INSTALL_DIR}/katepart/script/libraries)
+install (DIRECTORY libraries/ DESTINATION ${DATA_INSTALL_DIR}/katepart/script/libraries
+         FILES_MATCHING PATTERN "*.js")
 
 # install default commands files
-file (GLOB KATE_JS_COMMANDS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/commands/*.js")
-install (FILES ${KATE_JS_COMMANDS_FILES} DESTINATION ${DATA_INSTALL_DIR}/katepart/script/commands)
+install (DIRECTORY commands/ DESTINATION ${DATA_INSTALL_DIR}/katepart/script/commands
+         FILES_MATCHING PATTERN "*.js")
 
 # install default indentation files
-file (GLOB KATE_JS_INDENTATION_FILES "${CMAKE_CURRENT_SOURCE_DIR}/indentation/*.js")
-install (FILES ${KATE_JS_INDENTATION_FILES} DESTINATION ${DATA_INSTALL_DIR}/katepart/script/indentation)
+install (DIRECTORY indentation/ DESTINATION ${DATA_INSTALL_DIR}/katepart/script/indentation
+         FILES_MATCHING PATTERN "*.js")

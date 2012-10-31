@@ -129,7 +129,11 @@ bool KateCommandLineScript::exec(KTextEditor::View *view, const QString &cmd, QS
 
   if (setView(qobject_cast<KateView*>(view))) {
     // setView fails if the script cannot be loaded
-    return callFunction(_cmd, args, msg);
+    // balance edit stack in any case!
+    qobject_cast<KateView*>(view)->doc()->pushEditState();
+    bool success = callFunction(_cmd, args, msg);
+    qobject_cast<KateView*>(view)->doc()->popEditState();
+    return success;
   }
 
   return false;

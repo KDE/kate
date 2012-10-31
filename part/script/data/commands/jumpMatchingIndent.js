@@ -30,7 +30,7 @@ function jumpIndentUp() {
 function action( cmd ) {
   var a = new Object();
   a.icon = "";
-  a.category = "Navigation";
+  a.category = i18n("Navigation");
   a.interactive = false;
   if ( cmd == 'jumpIndentUp' ) {
     a.text = i18n('Move cursor to previous matching indent');

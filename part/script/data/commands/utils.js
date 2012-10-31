@@ -304,7 +304,7 @@ function action(cmd)
 {
     var a = new Object();
     a.icon = "";
-    a.category = "Editing";
+    a.category = i18n("Editing");
     a.interactive = false;
     if (cmd == "sort") {
         a.text = i18n("Sort Selected Text");

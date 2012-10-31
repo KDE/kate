@@ -42,7 +42,7 @@ function action(cmd)
 {
 		var a = new Object();
 		a.icon = "";
-		a.category = "Emmet";
+		a.category = i18n("Emmet");
 		a.shortcut = "";
 		a.interactive = false;
 		if (cmd == "emmetExpand") {

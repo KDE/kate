@@ -133,7 +133,7 @@ function quickCodingExpand ()
          * now: for first line, we do nothing, for otheres we add the prefix of the first line
          */
         if (i > 0)
-            document.insertText (new Cursor (start.line + i, 0), document.text (new Cursor (start.line, 0), start));
+            document.insertText (new Cursor (abbreviationStart.line + i, 0), document.text (new Cursor (abbreviationStart.line, 0), abbreviationStart));
                 
         /**
          * create current textline, remove the 4 spaces place holder for one indent level
@@ -141,16 +141,21 @@ function quickCodingExpand ()
         var textLine = text[i];
         if (i + 1 < text.length)
             textLine += "\n";
-        textLine = textLine.replace ("    ", indentChars);
+        textLine = textLine.replace (/    /g, indentChars);
         
         /**
          * insert the line itself
          */
-        document.insertText (new Cursor (start.line + i, start.column), textLine);
+        document.insertText (new Cursor (abbreviationStart.line + i, abbreviationStart.column), textLine);
     }
     
     /**
      * end editing transaction
      */
     document.editEnd ();
+    
+    /**
+     * set cursor position back
+     */
+    view.setCursorPosition (abbreviationStart);
 }

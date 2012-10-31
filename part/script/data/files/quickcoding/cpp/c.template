@@ -12,5 +12,5 @@ class <%= n %><%= typeof(p)!== 'undefined' ?  " : public " + p : '' %>
         /**
          * Destructor of <%= n %>
          */
-        <%= typeof(p)!== 'undefined' ?  "virtual " : '' %>~<%= n %> ();
+        ~<%= n %> ();
 };

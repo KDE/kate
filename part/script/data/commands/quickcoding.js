@@ -40,7 +40,7 @@ function quickCodingExpand ()
 {
     /**
      * some settings
-     * should be read from document/view...
+     * FIXME: should be read from document/view...
      */
     var indentChars = "    ";
     
@@ -91,10 +91,19 @@ function quickCodingExpand ()
     }
     
     /**
+     * choose right language for abbreviations
+     * FIXME: remember that more generic, not this if then else trash here
+     */
+    var language = "none";
+    if (document.highlightingMode().match(/C\+\+/)) {
+        language = "cpp";
+    }
+    
+    /**
      * get abbreviation template
      * else nothing to do
      */
-    var template = read("quickcoding/cpp/" + abbreviationParts[0] + ".template");
+    var template = read("quickcoding/" + language + "/" + abbreviationParts[0] + ".template");
     if (!template)
         return;
     

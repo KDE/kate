@@ -1586,7 +1586,16 @@ Returns the range as a string of the form <quote><literal>Range(Cursor(line, col
 
 
 <sect4 id="advanced-editing-tools-scripting-api-includes">
-<title>Including Scripts</title>
+<title>Reading &amp; Including Files</title>
+
+<variablelist><varlistentry>
+<term><synopsis>
+String read(<parameter>String <replaceable>file</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+Will search the given <replaceable>file</replaceable> relative to the <literal>katepart/script/files</literal> directory and return its content as a string.
+</para></listitem>
+</varlistentry></variablelist>
 
 <variablelist><varlistentry>
 <term><synopsis>

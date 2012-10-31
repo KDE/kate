@@ -31,6 +31,7 @@ namespace Kate {
     /** read complete file contents, helper */
     bool readFile(const QString& sourceUrl, QString& sourceCode);
     
+    QScriptValue read(QScriptContext *context, QScriptEngine *engine);
     QScriptValue require(QScriptContext *context, QScriptEngine *engine);
     QScriptValue debug(QScriptContext *context, QScriptEngine *engine);
     QScriptValue i18n(QScriptContext *context, QScriptEngine *engine);

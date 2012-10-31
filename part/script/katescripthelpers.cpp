@@ -52,6 +52,42 @@ bool readFile(const QString& sourceUrl, QString& sourceCode)
   }
   return true;
 }
+
+QScriptValue read(QScriptContext *context, QScriptEngine *engine)
+{
+  /**
+   * just search for all given files and read them all
+   */
+  QString fullContent;
+  for(int i = 0; i < context->argumentCount(); ++i) {
+    /**
+     * get full name of file
+     * skip on errors
+     */
+    const QString name = context->argument(i).toString();
+    const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/script/files/" + name);
+    if (fullName.isEmpty())
+      continue;
+    
+    /**
+     * try to read complete file
+     * skip non-existing files
+     */
+    QString content;
+    if (!readFile (fullName, content))
+      continue;
+
+    /**
+     * concat to full content
+     */
+    fullContent += content;
+  }
+  
+  /**
+   * return full content
+   */
+  return engine->newVariant(fullContent);
+}
   
 QScriptValue require(QScriptContext *context, QScriptEngine *engine)
 {

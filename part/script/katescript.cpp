@@ -169,7 +169,8 @@ bool KateScript::load()
   qScriptRegisterMetaType (m_engine, cursorToScriptValue, cursorFromScriptValue);
   qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
 
-  // export require function and add the include guard object
+  // export read & require function and add the require guard object
+  m_engine->globalObject().setProperty("read", m_engine->newFunction(Kate::Script::read));
   m_engine->globalObject().setProperty("require", m_engine->newFunction(Kate::Script::require));
   m_engine->globalObject().setProperty("require_guard", m_engine->newObject());
   

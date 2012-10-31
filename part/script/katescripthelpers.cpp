@@ -68,7 +68,7 @@ QScriptValue read(QScriptContext *context, QScriptEngine *engine)
     const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/script/files/" + name);
     if (fullName.isEmpty())
       continue;
-    
+
     /**
      * try to read complete file
      * skip non-existing files
@@ -86,7 +86,7 @@ QScriptValue read(QScriptContext *context, QScriptEngine *engine)
   /**
    * return full content
    */
-  return engine->newVariant(fullContent);
+  return QScriptValue (fullContent);
 }
   
 QScriptValue require(QScriptContext *context, QScriptEngine *engine)

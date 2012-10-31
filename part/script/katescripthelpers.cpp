@@ -120,7 +120,7 @@ QScriptValue debug(QScriptContext *context, QScriptEngine *engine)
     message << context->argument(i).toString();
   }
   // debug in blue to distance from other debug output if necessary
-  std::cerr << "\033[34m" << qPrintable(message.join(" ")) << "\033[0m\n";
+  std::cerr << "\033[31m" << qPrintable(message.join(" ")) << "\033[0m\n";
   return engine->nullValue();
 }
 

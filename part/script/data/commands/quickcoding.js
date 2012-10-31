@@ -34,6 +34,13 @@ function help (cmd)
 }
 
 /**
+ * We want a capitalize function for strings
+ */
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+/**
  * cpp expansion command
  */
 function quickCodingExpand ()
@@ -84,10 +91,15 @@ function quickCodingExpand ()
      * e.g. for c#n:Test#p:Parent => { "n" => "Test", "p" => "Parent" }
      */
     var abbreviationObject = {};
-    for (i = 1; i < abbreviationParts.length; ++i) {
+    for (var i = 1; i < abbreviationParts.length; ++i) {
         var matches = abbreviationParts[i].match (/^(\w+):(.*)$/);
-        if (matches && matches[1] && matches[2])
+        if (matches && matches[1] && matches[2]) {
             abbreviationObject[matches[1]] = matches[2];
+        } else {
+            var matches = abbreviationParts[i].match (/^(\w+)$/);
+            if (matches && matches[1])
+                abbreviationObject[matches[1]] = true;
+        }
     }
     
     /**

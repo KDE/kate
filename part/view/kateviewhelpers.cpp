@@ -121,6 +121,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
 
   m_updateTimer.setInterval(300);
   m_updateTimer.setSingleShot(true);
+  QTimer::singleShot(10, this, SLOT(updatePixmap()));
 }
 
 void KateScrollBar::setShowMiniMap(bool b)
@@ -283,7 +284,7 @@ void KateScrollBar::updatePixmap()
   QColor savedLineColor = m_view->renderer()->config()->savedLineColor();
 
   m_pixmap = QPixmap(s_lineWidth, pixmapHeight);
-  m_pixmap.fill(backgroundColor);
+  m_pixmap.fill(QColor("transparent"));
   
   // move the modified line color away from the background color
   modifiedLineColor.setHsv(modifiedLineColor.hue(), 255, 255 - backgroundColor.value()/3);
@@ -478,8 +479,8 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
   style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
 
-  painter.setPen(palette().window().color());
-  painter.setBrush(palette().window());
+  painter.setPen(palette().color(QPalette::Dark));
+  painter.setBrush(palette().brush(QPalette::Dark));
   painter.drawRect(grooveRect);
 
   int max = qMax(maximum(), 1);
@@ -487,43 +488,50 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   int yoffset = (grooveRect.height() - docHeight) / 2;
   QRect docRect(QPoint(grooveRect.left(), yoffset+grooveRect.top()), QSize(grooveRect.width(), docHeight));
 
-  int visibleStart = value()*docHeight/(max+pageStep()) + yoffset + grooveRect.top();
-  int visibleEnd = (value()+pageStep())*docHeight/(max+pageStep()) + yoffset + grooveRect.top() ;
+  int visibleStart = value()*docHeight/(max+pageStep()) + docRect.top();
+  int visibleEnd = (value()+pageStep())*docHeight/(max+pageStep()) + docRect.top();
   QRect visibleRect(QPoint(grooveRect.left(), visibleStart), QPoint(grooveRect.right(), visibleEnd));
-  painter.setRenderHint(QPainter::SmoothPixmapTransform);
-  painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
 
-  QColor foregroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
-  
-  QColor shieldColor(foregroundColor);
-  shieldColor.setAlpha(64);
-  QColor shieldColorLight(foregroundColor);
-  shieldColorLight.setAlpha(32);
-  QLinearGradient g(0, 0, width(), 0);
-  g.setColorAt(0, shieldColor);
-  g.setColorAt(0.4, shieldColorLight);
-  g.setColorAt(1, shieldColor);
-  painter.setPen(shieldColor);
-  painter.setBrush(g);
+  QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
+
+  QColor shieldColor = palette().color(QPalette::Mid);
+  QColor shieldColorLight = shieldColor;
+  shieldColorLight.setAlpha(150);
+  QLinearGradient gradient(0, 0, width(), 0);
+  gradient.setColorAt(0, shieldColor);
+  gradient.setColorAt(0.4, shieldColorLight);
+  gradient.setColorAt(1, shieldColor);
+
+
+  painter.setPen(backgroundColor);
+  painter.setBrush(backgroundColor);
+  painter.drawRect(docRect);
+
+  painter.setPen(QColor("transparent"));
 
   if (docHeight < grooveRect.height()) {
+    painter.setBrush(gradient);
     // Top shielding
     painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
-    painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
-
     // Bottom shielding
-    painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
     painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
   }
   else {
+    painter.setBrush(palette().brush(QPalette::Midlight));
     // Top shielding
     painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
-    painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
-
     // Bottom shielding
     painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
+
+    painter.setBrush(gradient);
+    // Top shielding
+    painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
+    // Bottom shielding
     painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));
   }
+
+  painter.setRenderHint(QPainter::SmoothPixmapTransform);
+  painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
 
   if (!m_showMarks) return;
 

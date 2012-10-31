@@ -202,8 +202,6 @@
         <Detect2Chars attribute="String" context="Char Literal" char="L" char1="'" />
         <Detect2Chars attribute="String" context="U-Char Literal" char="u" char1="'" />
         <Detect2Chars attribute="String" context="U-Char Literal" char="U" char1="'" />
-        <!-- Match Qt extensions -->
-        <IncludeRules context="DetectQt4Extensions##C++11/Qt4" />
         <!-- Match most used namespaces and styles -->
         <StringDetect attribute="Standard Classes" context="Standard Classes" String="std::" />
         <StringDetect attribute="Boost Stuff" context="Boost Stuff" String="boost::" />

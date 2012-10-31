@@ -47,6 +47,7 @@
 namespace KTextEditor
 {
   class AnnotationModel;
+  class Message;
 }
 
 class KateDocument;
@@ -832,6 +833,20 @@ public:
        * set of ranges which had the caret inside last time
        */
       QSet<Kate::TextRange *> m_rangesCaretIn;
+
+  //
+  // forward impl for KTextEditor::MessageInterface
+  //
+  public:
+    /**
+     * Used by Document::postMessage(). Just forward to KateViewInternal.
+     */
+    void postMessage(KTextEditor::Message* message, QList<QSharedPointer<QAction> > actions);
+
+  private:
+    QVBoxLayout* m_messageContainer;
+    QHash<KTextEditor::Message*, QList<QSharedPointer<QAction> > > m_messageHash;
+
 };
 
 /**

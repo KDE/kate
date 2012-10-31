@@ -5462,6 +5462,7 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
   }
 
   message->setParent(this);
+  message->setDocument(this);
 
   // reparent actions, as we want full control over when they are deleted
   foreach (QAction *action, message->actions()) {
@@ -5471,7 +5472,7 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
 
   // post message to all views
   foreach (KateView *view, m_views)
-    postMessage(message);
+    view->postMessage(message, m_messageHash[message]);
 
   return true;
 }

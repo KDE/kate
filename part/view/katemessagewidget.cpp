@@ -19,13 +19,14 @@
  */
 
 #include "katemessagewidget.h"
+#include "katemessagewidget.moc"
+
 #include <messageinterface.h>
 #include <kmessagewidget.h>
 
 #include <QtCore/QEvent>
 #include <QtCore/QTimer>
 #include <QtGui/QVBoxLayout>
-#include <QtGui/QShowEvent>
 
 // TODO
 // KTextEditor::View* view() const;
@@ -76,16 +77,20 @@ KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget * pa
   foreach (QAction* a, message->actions())
     m_messageWidget->addAction(a);
 
-  connect(message, SIGNAL(closed(Message*)), m_messageWidget, SLOT(animatedHide()));
+  connect(message, SIGNAL(closed(Message*)), this, SLOT(closeActionTriggered()));
 
   l->addWidget(m_messageWidget);
   setLayout(l);
 
-  m_messageWidget->installEventFilter(this);
-  m_messageWidget->hide();
-
   // tell the widget to always use the minimum size.
   setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+  // install event filter so we catch the end of the hide animation
+  m_messageWidget->installEventFilter(this);
+
+  // by default, hide widgets
+  m_messageWidget->hide();
+  hide();
 }
 
 int KateMessageWidget::priority() const
@@ -93,29 +98,46 @@ int KateMessageWidget::priority() const
   return m_message->priority();
 }
 
+void KateMessageWidget::animatedShow()
+{
+  if (!isVisible()) {
+    show();
+    m_messageWidget->animatedShow();
+    //QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
+
+    // start auto-hide timer, if requrested
+    const int autoHide = m_message->autoHide();
+    if (autoHide >= 0) {
+      QTimer::singleShot(autoHide == 0 ? 5000 : autoHide, this, SLOT(animatedHide()));
+    }
+  }
+}
+
+void KateMessageWidget::animatedHide()
+{
+  if (m_messageWidget->isVisible())
+    m_messageWidget->animatedHide();
+
+  // hide this widget in eventFilter, when KMessageWidget's hide animation is done
+}
+
 bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
 {
   if (obj == m_messageWidget && event->type() == QEvent::Hide) {
-    deleteLater();
+    if (m_deleteLater) { // todo: user has clicked a closing action
+      deleteLater();
+    }
+    // always hide message widget, if KMessageWidget is hidden
+    hide();
   }
 
   return QWidget::eventFilter(obj, event);
 }
 
-void KateMessageWidget::showEvent(QShowEvent *event)
+void KateMessageWidget::closeActionTriggered()
 {
-  if (!event->spontaneous()) {
-    m_messageWidget->animatedShow();
-//     QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
-
-    // enable auto hide if wanted
-    const int autoHide = m_message->autoHide();
-    if (autoHide >= 0) {
-      QTimer::singleShot(autoHide == 0 ? 5000 : autoHide, m_messageWidget, SLOT(animatedHide()));
-    }
-  }
-
-  QWidget::showEvent(event);
+  m_deleteLater = true;
+  m_messageWidget->animatedHide();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -62,6 +62,8 @@
 #include "katebrokenswapfilebar.h"
 #include "snippet/katesnippetglobal.h"
 #include "snippet/snippetcompletionmodel.h"
+#include "katemessagewidget.h"
+#include "messageinterface.h"
 
 #include <kparts/event.h>
 
@@ -177,6 +179,11 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   m_bottomViewBar->installEventFilter(m_viewInternal);
 
+  // add container layout for KTE::MessageInterface immediately before view area
+  m_messageContainer = new QVBoxLayout();
+  m_vBox->addLayout(m_messageContainer);
+
+  // add hbox: KateIconBorder | KateViewInternal | KateScrollBar
   QHBoxLayout *hbox = new QHBoxLayout ();
   m_vBox->addLayout (hbox, 100);
   hbox->setMargin (0);
@@ -207,6 +214,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     m_vBox->addSpacing (style()->pixelMetric(QStyle::PM_ScrollView_ScrollBarSpacing, &option, this));
   }
 
+  // add hbox: ColumnsScrollBar | Dummy
   hbox = new QHBoxLayout ();
   m_vBox->addLayout (hbox);
   hbox->setMargin (0);
@@ -215,7 +223,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   hbox->addWidget (m_viewInternal->m_columnScroll);
   hbox->addWidget (m_viewInternal->m_dummy);
 
-  // add viewbar...
+  // add bottom viewbar...
   if (bottomBarParent)
     viewBarContainer->addViewBarToLayout(this,m_bottomViewBar,KTextEditor::ViewBarContainer::BottomBar);
   else
@@ -3110,6 +3118,38 @@ void KateView::hideBrokenSwapFileBar()
     topViewBar()->removeBarWidget(m_brokenSwapFileBar);
     delete m_brokenSwapFileBar;
     m_brokenSwapFileBar = 0;
+  }
+}
+
+void KateView::postMessage(KTextEditor::Message* message,
+                           QList<QSharedPointer<QAction> > actions)
+{
+  Q_ASSERT(!m_messageHash.contains(message));
+  m_messageHash[message] = actions;
+
+  // insert message sorted after priority into QVBoxLayout
+  int i = 0;
+  for (; i < m_messageContainer->count(); ++i) {
+    KateMessageWidget* mw = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(i)->widget());
+    Q_ASSERT(mw);
+    if (message->priority() > mw->priority())
+      break;
+  }
+
+  Q_ASSERT(i <= m_messageContainer->count());
+
+  // if highest priority, hide currently visible message, and show message
+  if (i == 0) {
+    KateMessageWidget* curWidget = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(i)->widget());
+    Q_ASSERT(curWidget);
+    curWidget->animatedHide();
+  }
+
+  KateMessageWidget* newWidget = new KateMessageWidget(message);
+  m_messageContainer->insertWidget(i, newWidget);
+
+  if (i == 0) {
+    newWidget->animatedShow();
   }
 }
 

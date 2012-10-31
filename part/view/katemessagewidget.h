@@ -39,17 +39,44 @@ class KateMessageWidget : public QWidget
   Q_OBJECT
 
   public:
+    /**
+     * Constructor. By default, the widget is hidden.
+     */
     KateMessageWidget(KTextEditor::Message* message, QWidget * parent = 0);
 
+    /**
+     * Returns the priority of this message.
+     */
     int priority() const;
 
+  public Q_SLOTS:
+    /**
+     * Show the KateMessageWidget.
+     * @note Never use show(). Always use animatedShow();
+     */
+    void animatedShow();
+    /**
+     * Hide the KateMessageWidget.
+     * @note Never use hide(). Always use animatedHide();
+     */
+    void animatedHide();
+
+  private Q_SLOTS:
+    /**
+     * Called by the actions. This triggers the deletion of this widget.
+     */
+    void closeActionTriggered();
+
   protected:
+    /**
+     * Event filter, needed to catch the end of the hide animation of the KMessageWidget.
+     */
     virtual bool eventFilter(QObject *obj, QEvent *event);
-    virtual void showEvent(QShowEvent *event);
 
   private:
     KMessageWidget* m_messageWidget;
     KTextEditor::Message* m_message;
+    bool m_deleteLater;
 };
 
 #endif

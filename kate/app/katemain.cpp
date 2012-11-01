@@ -159,7 +159,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
   bool force_new=args->isSet("new");
   if (!force_new) {
-    if ( (!
+    if ( !(
       args->isSet("start") ||
       args->isSet("new") ||
       args->isSet("pid") ||

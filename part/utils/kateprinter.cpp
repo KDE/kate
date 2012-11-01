@@ -1231,7 +1231,7 @@ void KatePrintLayout::readSettings()
   QString colorScheme = layoutGroup.readEntry( "ColorScheme", "Printing" );
   int index = cmbSchema->findData (QVariant (colorScheme));
   if (index != -1)
-    cmbSchema->setCurrentIndex ( cmbSchema->findData (QVariant (colorScheme)) );
+    cmbSchema->setCurrentIndex ( index );
 
   bool isBackgroundChecked = layoutGroup.readEntry( "BackgroundColorEnabled", false );
   cbDrawBackground->setChecked( isBackgroundChecked );

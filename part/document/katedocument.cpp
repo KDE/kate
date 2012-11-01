@@ -2077,33 +2077,33 @@ bool KateDocument::openFile()
   //
   // display errors
   //
-  QWidget *parentWidget(dialogParent());
-
-  if (!suppressOpeningErrorDialogs())
-  {
-    if (!success)
-      KMessageBox::error (parentWidget, i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.", this->url().pathOrUrl()));
-  }
-
   if (!success) {
+    QPointer<KTextEditor::Message> message
+      = new KTextEditor::Message(KTextEditor::Message::Error
+          , i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().pathOrUrl()));
+    message->setWordWrap(true);
+    postMessage(message);
+    
+    // remember error
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().pathOrUrl()));
   }
 
   // warn: broken encoding
-  if (m_buffer->brokenEncoding())
-  {
+  if (m_buffer->brokenEncoding()) {
     // this file can't be saved again without killing it
     setReadWrite( false );
+    
+    QPointer<KTextEditor::Message> message
+      = new KTextEditor::Message(KTextEditor::Message::Warning
+          , i18n ("The file %1 was opened with %2 encoding but contained invalid characters.<br />"
+                "It is set to read-only mode, as saving might destroy its content.<br />"
+                "Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(),
+                QString (m_buffer->textCodec()->name ())));
+    message->setWordWrap(true);
+    postMessage(message);
 
-    if (!suppressOpeningErrorDialogs())
-      KMessageBox::information (parentWidget
-        , i18n ("The file %1 was opened with %2 encoding but contained invalid characters."
-                " It is set to read-only mode, as saving might destroy its content."
-                " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(),
-                QString (m_buffer->textCodec()->name ()))
-        , i18n ("Broken Encoding")
-        , "Broken Encoding Warning");
+    // remember error
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 was opened with %2 encoding but contained invalid characters."
               " It is set to read-only mode, as saving might destroy its content."
@@ -2111,17 +2111,18 @@ bool KateDocument::openFile()
   }
 
   // warn: too long lines
-  if (m_buffer->tooLongLinesWrapped())
-  {
+  if (m_buffer->tooLongLinesWrapped()) {
     // this file can't be saved again without modifications
     setReadWrite( false );
+    
+    QPointer<KTextEditor::Message> message
+      = new KTextEditor::Message(KTextEditor::Message::Warning
+          , i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters).<br />"
+                "Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit()));
+    message->setWordWrap(true);
+    postMessage(message);
 
-    if (!suppressOpeningErrorDialogs())
-      KMessageBox::information (parentWidget
-        , i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters)."
-                " Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit())
-        , i18n ("Too Long Lines Wrapped")
-        , "Too Long Lines Wrapped Warning");
+    // remember error
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters)."
                 " Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit()));

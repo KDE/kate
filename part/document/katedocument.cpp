@@ -202,7 +202,13 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_filePerhapsStillLoading (false)
 {
   setComponentData ( KateGlobal::self()->componentData () );
-
+  
+  /**
+   * avoid spamming plasma and other window managers with progress dialogs
+   * we show such stuff inline in the views!
+   */
+  setProgressInfoEnabled (false);
+  
   QString pathName ("/Kate/Document/%1");
   pathName = pathName.arg (++dummy);
 
@@ -4949,6 +4955,7 @@ bool KateDocument::queryClose()
 void KateDocument::slotCanceled() {
   // remember file loading is over now
   m_filePerhapsStillLoading = false;
+  delete m_loadingMessage;
 
   m_savingToUrl=false;
   m_saveAs=false;
@@ -4957,6 +4964,7 @@ void KateDocument::slotCanceled() {
 void KateDocument::slotCompleted() {
   // remember file loading is over now
   m_filePerhapsStillLoading = false;
+  delete m_loadingMessage;
 
   if (m_savingToUrl) {
     if (!m_postSaveFilterChecks.isEmpty())
@@ -4978,6 +4986,21 @@ void KateDocument::slotStarted (KIO::Job *job)
 {
   // perhaps file loading started
   m_filePerhapsStillLoading = true;
+  
+  // perhaps show loading message, but wait one second
+  if (job)
+    QTimer::singleShot (1000, this, SLOT(slotTriggerLoadingMessage()));
+}
+
+void KateDocument::slotTriggerLoadingMessage ()
+{
+  if (!m_filePerhapsStillLoading)
+    return;
+  
+  m_loadingMessage = new KTextEditor::Message(KTextEditor::Message::Information
+          , i18n ("The file %1 is still loading.", this->url().pathOrUrl()));
+  m_loadingMessage->setWordWrap(true);
+  postMessage(m_loadingMessage);
 }
 
 bool KateDocument::save() {

@@ -1218,11 +1218,21 @@ Q_SIGNALS:
      */
     void slotStarted(KIO::Job *job);
     
+    /**
+     * trigger display of loading message, after 1000 ms
+     */
+    void slotTriggerLoadingMessage ();
+    
   private:
     /**
      * guard to ensure we not allow saveFile during file is still loading
      */
     bool m_filePerhapsStillLoading;
+    
+    /**
+     * message to show during loading
+     */
+    QPointer<KTextEditor::Message> m_loadingMessage;
 };
 
 #endif

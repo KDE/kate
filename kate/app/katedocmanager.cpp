@@ -137,9 +137,6 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
   kDebug()<<"createDoc"<<endl;
 
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
-
-  // avoid spamming plasma and other window managers with progress dialogs
-  doc->setProgressInfoEnabled (false);
   
   // turn of the editorpart's own modification dialog, we have our own one, too!
   KSharedConfig::Ptr config = KGlobal::config();

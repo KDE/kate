@@ -155,20 +155,6 @@ class KWrite : public KParts::MainWindow
       QPixmap m_modPm; //, m_modDiscPm, m_modmodPm;
 };
 
-class KWriteEditorChooser: public KDialog
-{
-  Q_OBJECT
-
-  public:
-    KWriteEditorChooser(QWidget *parent);
-    virtual ~KWriteEditorChooser();
-
-  private:
-    KTextEditor::EditorChooser *m_chooser;
-
-  protected Q_SLOTS:
-    void slotOk();
-};
-
 #endif
+
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

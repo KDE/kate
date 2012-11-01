@@ -703,28 +703,4 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   return a.exec ();
 }
 
-
-KWriteEditorChooser::KWriteEditorChooser(QWidget *parent):
-  KDialog( parent )
-{
-    setCaption( i18n("Choose Editor Component") );
-    setButtons( Ok | Cancel );
-    setDefaultButton(KDialog::Cancel);
-    m_chooser = new KTextEditor::EditorChooser(this);
-    resizeLayout(m_chooser, 0, spacingHint());
-    setMainWidget(m_chooser);
-    m_chooser->readAppSetting();
-
-    connect( this, SIGNAL(okClicked()), SLOT(slotOk()) );
-}
-
-KWriteEditorChooser::~KWriteEditorChooser()
-{
-}
-
-void KWriteEditorChooser::slotOk()
-{
-    m_chooser->writeAppSetting();
-}
-
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

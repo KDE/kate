@@ -87,7 +87,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     m_additionalData["none"]->deliminator = stdDeliminator;
     m_additionalData["none"]->wordWrapDeliminator = stdDeliminator;
     m_hlIndex[0] = "none";
-    m_ctxIndex[0]="";
+    m_ctxIndex[0]= "none";
   }
   else
   {

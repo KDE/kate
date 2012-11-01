@@ -3139,7 +3139,7 @@ void KateView::postMessage(KTextEditor::Message* message,
   Q_ASSERT(i <= m_messageContainer->count());
 
   // if highest priority, hide currently visible message, and show message
-  if (i == 0) {
+  if (i == 0 && m_messageContainer->count()) {
     KateMessageWidget* curWidget = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(i)->widget());
     Q_ASSERT(curWidget);
     curWidget->animatedHide();

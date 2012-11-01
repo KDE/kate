@@ -5469,12 +5469,6 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
   if (!message)
     return false;
 
-  // no view -> cancel with warning (might be critical)
-  if (m_views.count() == 0) {
-    kWarning() << "no views to post the message:" << message->text();
-    return false;
-  }
-
   message->setParent(this);
   message->setDocument(this);
 

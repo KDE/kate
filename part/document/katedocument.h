@@ -961,6 +961,14 @@ Q_SIGNALS:
     {
       m_indenterSetByUser = true;
     }
+    
+    /**
+     * User did set encoding for next reload => enforce it!
+     */
+    void userSetEncodingForNextReload ()
+    {
+      m_userSetEncodingForNextReload = true;
+    }
 
   //
   // REALLY internal data ;)
@@ -975,6 +983,7 @@ Q_SIGNALS:
     bool m_hlSetByUser;
     bool m_bomSetByUser;
     bool m_indenterSetByUser;
+    bool m_userSetEncodingForNextReload;
 
     bool m_modOnHd;
     ModifiedOnDiskReason m_modOnHdReason;

@@ -98,9 +98,10 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     /**
      * Open a file, use the given filename
      * @param m_file filename to open
+     * @param enforceTextCodec enforce to use only the set text codec
      * @return success
      */
-    bool openFile (const QString &m_file);
+    bool openFile (const QString &m_file, bool enforceTextCodec);
 
     /**
      * Did encoding errors occur on load?

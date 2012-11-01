@@ -160,7 +160,7 @@ void KateBuffer::clear()
   m_lineHighlighted = 0;
 }
 
-bool KateBuffer::openFile (const QString &m_file)
+bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
 {
   // first: setup fallback and normal encoding
   setEncodingProberType (KateGlobalConfig::global()->proberType ());
@@ -179,7 +179,7 @@ bool KateBuffer::openFile (const QString &m_file)
   // then, try to load the file
   m_brokenEncoding = false;
   m_tooLongLinesWrapped = false;
-  if (!load (m_file, m_brokenEncoding, m_tooLongLinesWrapped))
+  if (!load (m_file, m_brokenEncoding, m_tooLongLinesWrapped, enforceTextCodec))
     return false;
 
   // save back encoding

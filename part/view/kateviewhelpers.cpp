@@ -2307,11 +2307,11 @@ void KateViewEncodingAction::slotAboutToShow()
 
 void KateViewEncodingAction::setEncoding (const QString &e)
 {
+  doc->userSetEncodingForNextReload ();
   doc->setEncoding(e);
-
   view->reloadFile();
-
 }
+
 int KateViewEncodingAction::mibForName(const QString &codecName, bool *ok) const
 {
   // FIXME logic is good but code is ugly

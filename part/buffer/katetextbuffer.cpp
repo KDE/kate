@@ -508,7 +508,7 @@ void TextBuffer::debugPrint (const QString &title) const
     m_blocks.at(i)->debugPrint (i);
 }
 
-bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooLongLinesWrapped)
+bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooLongLinesWrapped, bool enforceTextCodec)
 {
   // fallback codec must exist
   Q_ASSERT (m_fallbackTextCodec);
@@ -540,7 +540,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
    * 2) use fallback encoding, be done, if no encoding errors happen
    * 3) use again given encoding, be done in any case
    */
-  for (int i = 0; i < 4;  ++i) {
+  for (int i = 0; i < (enforceTextCodec ? 1 : 4);  ++i) {
     /**
      * kill all blocks beside first one
      */
@@ -586,7 +586,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
       encodingErrors = encodingErrors || currentError;
 
       // bail out on encoding error, if not last round!
-      if (encodingErrors && i < 3) {
+      if (encodingErrors && i < (enforceTextCodec ? 0 : 3)) {
         kDebug (13020) << "Failed try to load file" << filename << "with codec" <<
                           (file.textCodec() ? file.textCodec()->name() : "(null)");
         break;

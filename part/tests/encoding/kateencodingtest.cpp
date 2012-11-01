@@ -46,7 +46,7 @@ int main (int argc, char *argv[])
   // load file
   bool encodingErrors = false;
   bool tooLongLines = false;
-  if (!buffer.load (inFile, encodingErrors, tooLongLines) || encodingErrors)
+  if (!buffer.load (inFile, encodingErrors, tooLongLines, false) || encodingErrors)
     return 1;
 
   // save file

@@ -166,10 +166,11 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * @param filename file to open
      * @param encodingErrors were there problems occurred while decoding the file?
      * @param tooLongLinesWrapped were too long lines found and wrapped?
+     * @param enforceTextCodec enforce to use only the set text codec
      * @return success, the file got loaded, perhaps with encoding errors
      * Virtual, can be overwritten.
      */
-    virtual bool load (const QString &filename, bool &encodingErrors, bool &tooLongLinesWrapped);
+    virtual bool load (const QString &filename, bool &encodingErrors, bool &tooLongLinesWrapped, bool enforceTextCodec);
 
     /**
      * Save the current buffer content to the given file.

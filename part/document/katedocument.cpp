@@ -188,6 +188,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_hlSetByUser(false),
   m_bomSetByUser(false),
   m_indenterSetByUser(false),
+  m_userSetEncodingForNextReload(false),
   m_modOnHd(false),
   m_modOnHdReason(OnDiskUnmodified),
   m_docName("need init"),
@@ -1987,14 +1988,14 @@ bool KateDocument::openFile()
   //
   QString mimeType = arguments().mimeType();
   int pos = mimeType.indexOf(';');
-  if (pos != -1)
+  if (pos != -1 && !(m_reloading && m_userSetEncodingForNextReload))
     setEncoding (mimeType.mid(pos+1));
 
   // do we have success ?
   emit KTextEditor::Document::textRemoved(this, documentRange());
   emit KTextEditor::Document::textRemoved(this, documentRange(), m_buffer->text());
 
-  bool success = m_buffer->openFile (localFilePath());
+  bool success = m_buffer->openFile (localFilePath(), (m_reloading && m_userSetEncodingForNextReload));
 
   // disable view updates
   foreach (KateView * view, m_views)
@@ -3887,6 +3888,8 @@ bool KateDocument::documentReload()
           emit modifiedOnDisk (this, m_modOnHd, m_modOnHdReason);
         }
 
+        // reset some flags only valid for one reload!
+        m_userSetEncodingForNextReload = false;
         return false;
       }
     }
@@ -3921,6 +3924,9 @@ bool KateDocument::documentReload()
     m_reloading = true;
     KateDocument::openUrl( url() );
     m_reloading = false;
+    
+    // reset some flags only valid for one reload!
+    m_userSetEncodingForNextReload = false;
 
     // restore cursor positions for all views
     QLinkedList<KateView*>::iterator it = m_views.begin();

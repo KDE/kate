@@ -16,10 +16,9 @@
     Changelog :)
     0.02 Added highliting for interpolated variables
         -->
-<language version="0.02" kateversion="2.4"
+<language version="0.03" kateversion="2.4"
           author="Красимир Беров (k.berov@gmail.com)" license="Artistic"
-          name="TT2" section="Markup" extensions="*.tt*;" casesensitive="TRUE"
-          priority="5" mimetype="text/html;text/plain;">
+          name="TT2" section="Markup" extensions="*.tt*;" casesensitive="TRUE">
 <highlighting>
     <list name="control structures">
         <!-- Template directives -->

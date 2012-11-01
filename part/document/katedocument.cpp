@@ -5480,6 +5480,13 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
   message->setParent(this);
   message->setDocument(this);
 
+  // if there are no actions, add a close action by default
+  if (message->actions().count() == 0) {
+    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
+    closeAction->setToolTip(i18n("Close document"));
+    message->addAction(closeAction);
+  }
+
   // reparent actions, as we want full control over when they are deleted
   foreach (QAction *action, message->actions()) {
     action->setParent(0);
@@ -5491,28 +5498,16 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
     view->postMessage(message, m_messageHash[message]);
 
   // also catch if the user manually calls delete message
-  connect(message, SIGNAL(destroyed(QObject*)), this, SLOT(messageDestroyed(QObject*)));
+  connect(message, SIGNAL(closed(KTextEditor::Message*)), SLOT(messageDestroyed(KTextEditor::Message*)));
 
   return true;
 }
 
-void KateDocument::messageClosed(KTextEditor::Message* message)
+void KateDocument::messageDestroyed(KTextEditor::Message* message)
 {
+  // KTE:Message is already in destructor
   Q_ASSERT(m_messageHash.contains(message));
   m_messageHash.remove(message);
-  delete message;
-}
-
-void KateDocument::messageDestroyed(QObject* message)
-{
-  // the user might delete the message, catch this
-  KTextEditor::Message *m = static_cast<KTextEditor::Message*>(message);
-  if (m_messageHash.contains(m)) {
-    foreach (KateView *view, m_views)
-      view->messageDestroyed(message);
-
-    m_messageHash.remove(m);
-  }
 }
 //END KTextEditor::MessageInterface
 

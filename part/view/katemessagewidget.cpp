@@ -28,20 +28,12 @@
 #include <QtCore/QTimer>
 #include <QtGui/QVBoxLayout>
 
-// TODO
-// KTextEditor::View* view() const;
-//
-// // TODO: set the correct document somewhere
-// void setDocument(KTextEditor::Document* document);
-
-
-
 
 /**
  * This class implements a message widget based on KMessageWidget.
  * It is used to show messages through the KTextEditior::MessageInterface.
  */
-KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget * parent)
+KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget* parent)
   : QWidget(parent)
   , m_message(message)
 {
@@ -53,7 +45,7 @@ KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget * pa
   m_messageWidget = new KMessageWidget();
   m_messageWidget->setText(message->text());
   m_messageWidget->setWordWrap(message->wordWrap());
-//   m_messageWidget->setCloseButtonVisible(false);
+  m_messageWidget->setCloseButtonVisible(false);
 
   // the enums values do not necessarily match, hence translate with switch
   switch (message->messageType()) {
@@ -74,10 +66,9 @@ KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget * pa
       break;
   }
 
+  // add all actions to the message wdiget
   foreach (QAction* a, message->actions())
     m_messageWidget->addAction(a);
-
-  connect(message, SIGNAL(closed(Message*)), this, SLOT(closeActionTriggered()));
 
   l->addWidget(m_messageWidget);
   setLayout(l);
@@ -101,6 +92,13 @@ int KateMessageWidget::priority() const
 KTextEditor::Message* KateMessageWidget::message()
 {
   return m_message;
+}
+
+void KateMessageWidget::hideAndDeleteLater()
+{
+  m_message = 0;
+  m_deleteLater = true;
+  animatedHide();
 }
 
 void KateMessageWidget::animatedShow()
@@ -132,19 +130,13 @@ bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
     if (m_deleteLater) {
       // delete message. This triggers KTE::Message::destroyed(), which in turn
       // removes the messages widgets from all views through KateDocument::messageDestroyed()
-      m_message->deleteLater();
+      deleteLater();
     }
     // always hide message widget, if KMessageWidget is hidden
     hide();
   }
 
   return QWidget::eventFilter(obj, event);
-}
-
-void KateMessageWidget::closeActionTriggered()
-{
-  m_deleteLater = true;
-  m_messageWidget->animatedHide();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

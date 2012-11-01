@@ -67,6 +67,7 @@ class KateSpellingMenu;
 class KateRecoverBar;
 class KateBrokenSwapFileBar;
 class KateScriptConsole;
+class KateMessageWidget;
 
 class KToggleAction;
 class KAction;
@@ -842,10 +843,12 @@ public:
      * Used by Document::postMessage(). Just forward to KateViewInternal.
      */
     void postMessage(KTextEditor::Message* message, QList<QSharedPointer<QAction> > actions);
-    void messageDestroyed(QObject* message);
+  public Q_SLOTS:
+    void messageDestroyed(KTextEditor::Message* message);
 
   private:
     QVBoxLayout* m_messageContainer;
+    QList<KateMessageWidget*> m_messageList;
     QHash<KTextEditor::Message*, QList<QSharedPointer<QAction> > > m_messageHash;
 
 };

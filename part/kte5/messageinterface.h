@@ -172,18 +172,16 @@ class Message : public QObject
     void setView(KTextEditor::View* view);
 
     /**
-     * This function returns the view the message was posted for.
-     * This can be either be specified by setView() or will be automatically
-     * set when the message is processed, see MessageInterface::messageProcessed().
-     * Therefore, the return value may be 0, if you did not set a valid
-     * view first.
+     * This function returns the view you set by setView(). If setView() was
+     * not called, the return value is 0.
      */
     KTextEditor::View* view() const;
 
     /**
      * Set the document pointer to @p document.
      * This is called by the implementation, as soon as you post a message
-     * through MessageInterface::postMessage().
+     * through MessageInterface::postMessage(), so that you do not have to call
+     * this yourself.
      * @see MessageInterface, document()
      */
     void setDocument(KTextEditor::Document* document);
@@ -202,7 +200,7 @@ class Message : public QObject
      *
      * @warning \em Never delete a message yourself!
      */
-    void closed(Message* message);
+    void closed(KTextEditor::Message* message);
 
 private:
     class MessagePrivate * const d;

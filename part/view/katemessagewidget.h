@@ -26,6 +26,7 @@
 namespace KTextEditor
 {
   class Message;
+  class View;
 }
 
 class KMessageWidget;
@@ -42,7 +43,7 @@ class KateMessageWidget : public QWidget
     /**
      * Constructor. By default, the widget is hidden.
      */
-    KateMessageWidget(KTextEditor::Message* message, QWidget * parent = 0);
+    KateMessageWidget(KTextEditor::Message* message, QWidget* parent = 0);
 
     /**
      * Returns the priority of this message.
@@ -53,6 +54,11 @@ class KateMessageWidget : public QWidget
      * Get this Message pointer.
      */
     KTextEditor::Message* message();
+
+    /**
+     * Removes dangling pointer to Message and autohides + deletes this message.
+     */
+    void hideAndDeleteLater();
 
   public Q_SLOTS:
     /**
@@ -66,12 +72,6 @@ class KateMessageWidget : public QWidget
      */
     void animatedHide();
 
-  private Q_SLOTS:
-    /**
-     * Called by the actions. This triggers the deletion of this widget.
-     */
-    void closeActionTriggered();
-
   protected:
     /**
      * Event filter, needed to catch the end of the hide animation of the KMessageWidget.
@@ -79,6 +79,7 @@ class KateMessageWidget : public QWidget
     virtual bool eventFilter(QObject *obj, QEvent *event);
 
   private:
+    KTextEditor::View* m_view;
     KMessageWidget* m_messageWidget;
     KTextEditor::Message* m_message;
     bool m_deleteLater;

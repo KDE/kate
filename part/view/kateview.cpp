@@ -3128,52 +3128,73 @@ void KateView::postMessage(KTextEditor::Message* message,
   Q_ASSERT(!m_messageHash.contains(message));
   m_messageHash[message] = actions;
 
-  // insert message sorted after priority into QVBoxLayout
+  // insert message sorted after priority
   int i = 0;
-  for (; i < m_messageContainer->count(); ++i) {
-    KateMessageWidget* mw = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(i)->widget());
-    Q_ASSERT(mw);
-    if (message->priority() > mw->priority())
+  for (; i < m_messageList.count(); ++i) {
+    if (message->priority() > m_messageList[i]->priority())
       break;
   }
 
-  Q_ASSERT(i <= m_messageContainer->count());
+  KateMessageWidget* nextWidget = m_messageList.count() ? m_messageList[i] : 0;
 
   // if highest priority, hide currently visible message, and show message
-  if (i == 0 && m_messageContainer->count()) {
-    KateMessageWidget* curWidget = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(i)->widget());
-    Q_ASSERT(curWidget);
-    curWidget->animatedHide();
+  if (i == 0 && m_messageList.count()) {
+    m_messageList[i]->animatedHide();
   }
 
-  KateMessageWidget* newWidget = new KateMessageWidget(message);
-  m_messageContainer->insertWidget(i, newWidget);
+  KateMessageWidget* newWidget = new KateMessageWidget(message, this);
+  m_messageList.insert(i, newWidget);
 
+  // m_messageContainer may still contain other widgets that are in hide animation
+  // hence, we have to manually find the correct insert position based on nextWidget
+  int a = 0;
+  for (; a < m_messageContainer->count(); ++a) {
+    KateMessageWidget* mw = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(a)->widget());
+    Q_ASSERT(mw);
+    if (nextWidget == mw) {
+      break;
+    }
+  }
+  m_messageContainer->insertWidget(a, newWidget);
+
+  // if new message has highest priority, show message widget
   if (i == 0) {
     newWidget->animatedShow();
   }
+
+  // catch if the message gets deleted
+  connect(message, SIGNAL(closed(KTextEditor::Message*)), SLOT(messageDestroyed(KTextEditor::Message*)));
 }
 
-void KateView::messageDestroyed(QObject* message)
+void KateView::messageDestroyed(KTextEditor::Message* message)
 {
-  // called by KateDocument, KTE::Message already deleted, only the QObject part
-  // is still valid. Use the pointer to remove the corresponding message, if still there.
+  // last moment when message is valid, since KTE::Message is already in destructor
+  // we have to do the following:
+  // 1. remove message from m_messageList, so we don't care about it anymore
+  // 2. activate hide animation + deleteLater()
+
+  // remove widget from m_messageList
   int i = 0;
-  for (; i < m_messageContainer->count(); ++i) {
-    KateMessageWidget* mw = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(i)->widget());
-    Q_ASSERT(mw);
-    if (static_cast<QObject*>(mw->message()) == message) {
-      delete(mw);
+  for (; i < m_messageList.count(); ++i) {
+    if (m_messageList[i]->message() == message) {
+      if (i == 0) {
+        m_messageList[i]->hideAndDeleteLater();
+      } else {
+        m_messageList[i]->deleteLater();
+      }
+      m_messageList.removeAt(i);
       break;
     }
   }
 
-  // if there are more messages in the queue, show next one.
-  if (i == 0 && m_messageContainer->count()) {
-    KateMessageWidget* mw = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(0)->widget());
-    Q_ASSERT(mw);
-    mw->animatedShow();
+  // check, if another message is in the queue
+  if (i == 0 && m_messageList.count()) {
+    m_messageList[0]->animatedShow();
   }
+
+  // remove message from hash -> release QActions
+  Q_ASSERT(m_messageHash.contains(message));
+  m_messageHash.remove(message);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

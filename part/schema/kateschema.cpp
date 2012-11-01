@@ -113,14 +113,6 @@ void KateSchemaManager::removeSchema (uint number)
   m_schemas.removeAt(number);
 }
 
-bool KateSchemaManager::validSchema (uint number)
-{
-  if (number < (uint)m_schemas.count())
-    return true;
-
-  return false;
-}
-
 bool KateSchemaManager::validSchema (const QString &name)
 {
   if (name == normalSchema() || name == printingSchema())

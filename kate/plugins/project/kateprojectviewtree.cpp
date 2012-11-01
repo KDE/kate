@@ -25,7 +25,7 @@
 #include <ktexteditor/view.h>
 
 #include <QContextMenuEvent>
-#include <KRecursiveFilterProxyModel>
+#include <krecursivefilterproxymodel.h>
 #include <KMimeType>
 #include <KMimeTypeTrader>
 #include <QMenu>

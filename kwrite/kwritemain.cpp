@@ -130,11 +130,14 @@ KWrite::~KWrite()
   guiFactory()->removeClient(m_view);
 
   winList.removeAll(this);
+  
+  KTextEditor::Document *doc = m_view->document();
+  delete m_view;
 
-  if (m_view->document()->views().count() == 1)
-  {
-    docList.removeAll(m_view->document());
-    delete m_view->document();
+  // kill document, if last view is closed
+  if (doc->views().isEmpty()) {
+    docList.removeAll(doc);
+    delete doc;
   }
 
   KGlobal::config()->sync ();

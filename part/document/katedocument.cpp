@@ -354,10 +354,12 @@ KTextEditor::View *KateDocument::createView( QWidget *parent )
     connect( newView, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(slotModifiedOnDisk()) );
 
   emit viewCreated (this, newView);
-  
-  // post existing message to the new view
-  foreach (KTextEditor::Message *message, m_messageHash.keys())
-    newView->postMessage(message, m_messageHash[message]);
+
+  // post existing messages to the new view, if no specific view is given
+  foreach (KTextEditor::Message *message, m_messageHash.keys()) {
+    if (!message->view())
+      newView->postMessage(message, m_messageHash[message]);
+  }
 
   return newView;
 }
@@ -5468,6 +5470,12 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
   // no message -> cancel
   if (!message)
     return false;
+
+  // make sure the desired view belongs to this document
+  if (message->view() && message->view()->document() != this) {
+    kWarning(13020) << "trying to post a message to a view of another document:" << message->text();
+    return false;
+  }
 
   message->setParent(this);
   message->setDocument(this);

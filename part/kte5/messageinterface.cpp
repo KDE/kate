@@ -20,13 +20,6 @@
 
 #include "messageinterface.h"
 
-/*
-QHash<Message *, QList<SharedPointerAction>>
-
-=> closed (message)
-
-=> remove (message)*/
-
 namespace KTextEditor {
 
 class MessagePrivate

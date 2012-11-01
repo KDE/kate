@@ -98,6 +98,11 @@ int KateMessageWidget::priority() const
   return m_message->priority();
 }
 
+KTextEditor::Message* KateMessageWidget::message()
+{
+  return m_message;
+}
+
 void KateMessageWidget::animatedShow()
 {
   if (!isVisible()) {
@@ -124,8 +129,10 @@ void KateMessageWidget::animatedHide()
 bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
 {
   if (obj == m_messageWidget && event->type() == QEvent::Hide) {
-    if (m_deleteLater) { // todo: user has clicked a closing action
-      deleteLater();
+    if (m_deleteLater) {
+      // delete message. This triggers KTE::Message::destroyed(), which in turn
+      // removes the messages widgets from all views through KateDocument::messageDestroyed()
+      m_message->deleteLater();
     }
     // always hide message widget, if KMessageWidget is hidden
     hide();

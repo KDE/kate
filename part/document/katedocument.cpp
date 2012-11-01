@@ -5490,6 +5490,9 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
   foreach (KateView *view, m_views)
     view->postMessage(message, m_messageHash[message]);
 
+  // also catch if the user manually calls delete message
+  connect(message, SIGNAL(destroyed(QObject*)), this, SLOT(messageDestroyed(QObject*)));
+
   return true;
 }
 
@@ -5498,6 +5501,18 @@ void KateDocument::messageClosed(KTextEditor::Message* message)
   Q_ASSERT(m_messageHash.contains(message));
   m_messageHash.remove(message);
   delete message;
+}
+
+void KateDocument::messageDestroyed(QObject* message)
+{
+  // the user might delete the message, catch this
+  KTextEditor::Message *m = static_cast<KTextEditor::Message*>(message);
+  if (m_messageHash.contains(m)) {
+    foreach (KateView *view, m_views)
+      view->messageDestroyed(message);
+
+    m_messageHash.remove(m);
+  }
 }
 //END KTextEditor::MessageInterface
 

@@ -3154,4 +3154,26 @@ void KateView::postMessage(KTextEditor::Message* message,
   }
 }
 
+void KateView::messageDestroyed(QObject* message)
+{
+  // called by KateDocument, KTE::Message already deleted, only the QObject part
+  // is still valid. Use the pointer to remove the corresponding message, if still there.
+  int i = 0;
+  for (; i < m_messageContainer->count(); ++i) {
+    KateMessageWidget* mw = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(i)->widget());
+    Q_ASSERT(mw);
+    if (static_cast<QObject*>(mw->message()) == message) {
+      delete(mw);
+      break;
+    }
+  }
+
+  // if there are more messages in the queue, show next one.
+  if (i == 0 && m_messageContainer->count()) {
+    KateMessageWidget* mw = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(0)->widget());
+    Q_ASSERT(mw);
+    mw->animatedShow();
+  }
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

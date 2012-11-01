@@ -49,6 +49,11 @@ class KateMessageWidget : public QWidget
      */
     int priority() const;
 
+    /**
+     * Get this Message pointer.
+     */
+    KTextEditor::Message* message();
+
   public Q_SLOTS:
     /**
      * Show the KateMessageWidget.

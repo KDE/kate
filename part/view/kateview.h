@@ -842,6 +842,7 @@ public:
      * Used by Document::postMessage(). Just forward to KateViewInternal.
      */
     void postMessage(KTextEditor::Message* message, QList<QSharedPointer<QAction> > actions);
+    void messageDestroyed(QObject* message);
 
   private:
     QVBoxLayout* m_messageContainer;

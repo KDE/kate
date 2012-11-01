@@ -1125,6 +1125,7 @@ Q_SIGNALS:
 
   public Q_SLOTS:
     void messageClosed(KTextEditor::Message* message);
+    void messageDestroyed(QObject* message);
 
   private:
     QHash<KTextEditor::Message *, QList<QSharedPointer<QAction> > > m_messageHash;

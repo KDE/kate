@@ -952,7 +952,8 @@ bool KateDocument::wrapText(int startLine, int endLine)
           break;
       }
 
-      int searchStart = qMin (z2, l->length()-1);
+      const int colInChars = qMin (z2, l->length()-1);
+      int searchStart = colInChars;
 
       // If where we are wrapping is an end of line and is a space we don't
       // want to wrap there
@@ -990,8 +991,8 @@ bool KateDocument::wrapText(int startLine, int endLine)
         // There was no space to break at so break at a nonword character if
         // found, or at the wrapcolumn ( that needs be configurable )
         // Don't try and add any white space for the break
-        if ( nw && nw < col ) nw++; // break on the right side of the character
-        z = nw ? nw : col;
+        if ( nw && nw < colInChars ) nw++; // break on the right side of the character
+        z = nw ? nw : colInChars;
       }
 
       if (nextl && !nextl->isAutoWrapped())

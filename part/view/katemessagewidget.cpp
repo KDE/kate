@@ -24,6 +24,8 @@
 #include <messageinterface.h>
 #include <kmessagewidget.h>
 
+#include <kdeversion.h>
+
 #include <QtCore/QEvent>
 #include <QtCore/QTimer>
 #include <QtGui/QVBoxLayout>
@@ -105,8 +107,13 @@ void KateMessageWidget::animatedShow()
 {
   if (!isVisible()) {
     show();
+
+    // work around KMessageWidget bugs
+#if KDE_VERSION >= KDE_MAKE_VERSION(4,10,0)
     m_messageWidget->animatedShow();
-    //QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
+#else
+    QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
+#endif
 
     // start auto-hide timer, if requrested
     const int autoHide = m_message->autoHide();

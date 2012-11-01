@@ -38,12 +38,14 @@
 //BEGIN KateSchemaManager
 QString KateSchemaManager::normalSchema ()
 {
-  return KGlobal::mainComponent().aboutData()->appName () + QString (" - Normal");
+  // DON'T TRANSLATE HERE; CONFIG KEY
+  return "Normal";
 }
 
 QString KateSchemaManager::printingSchema ()
 {
-  return KGlobal::mainComponent().aboutData()->appName () + QString (" - Printing");
+  // DON'T TRANSLATE HERE; CONFIG KEY
+  return "Printing";
 }
 
 KateSchemaManager::KateSchemaManager ()

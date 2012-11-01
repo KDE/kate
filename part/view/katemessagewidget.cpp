@@ -111,7 +111,7 @@ void KateMessageWidget::animatedShow()
     // start auto-hide timer, if requrested
     const int autoHide = m_message->autoHide();
     if (autoHide >= 0) {
-      QTimer::singleShot(autoHide == 0 ? 5000 : autoHide, this, SLOT(animatedHide()));
+      QTimer::singleShot(autoHide == 0 ? 5000 : autoHide, m_message, SLOT(deleteLater()));
     }
   }
 }

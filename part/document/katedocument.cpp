@@ -1647,12 +1647,6 @@ void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
     }
   }
 
-  if (!swapFile()->shouldRecover()) {
-    // restore "read only mode" property, but don't force ReadWrite if a swap file exists to recover data
-    // todo: what does m_bReadOnly mean?
-    setReadWrite(kconfig.readEntry("ReadWrite", true));
-  }
-
   // indent mode
   config()->setIndentationMode( kconfig.readEntry("Indentation Mode", config()->indentationMode() ) );
 
@@ -1702,9 +1696,6 @@ void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
     kconfig.writeEntry("Highlighting", highlight()->name());
   }
 
-  // read only mode
-  kconfig.writeEntry("ReadWrite", isReadWrite());
-
   // indent mode
   kconfig.writeEntry("Indentation Mode", config()->indentationMode() );
 
@@ -1720,7 +1711,6 @@ void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
     // save folding
     foldingTree()->writeSessionConfig(kconfig);
   }
-
 }
 
 //END KTextEditor::SessionConfigInterface and KTextEditor::ParameterizedSessionConfigInterface stuff

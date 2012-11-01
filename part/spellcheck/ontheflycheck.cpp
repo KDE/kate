@@ -411,10 +411,7 @@ void KateOnTheFlyChecker::performSpellCheck()
             SLOT(misspelling(QString,int)));
     connect(m_backgroundChecker, SIGNAL(done()), this, SLOT(spellCheckDone()));
 
-#if KDE_IS_VERSION(4,5,2)
-// guard necessary to ensure compilation of KatePart's git repository against <= 4.5.1
     m_backgroundChecker->restore(KGlobal::config().data());
-#endif
   }
   m_backgroundChecker->setSpeller(m_speller);
   m_backgroundChecker->setText(text); // don't call 'start()' after this!
@@ -674,12 +671,9 @@ void KateOnTheFlyChecker::updateConfig()
   ON_THE_FLY_DEBUG;
   m_speller.restore(KGlobal::config().data());
 
-#if KDE_IS_VERSION(4,5,2)
-// guard necessary to ensure compilation of KatePart's git repository against <= 4.5.1
   if(m_backgroundChecker) {
     m_backgroundChecker->restore(KGlobal::config().data());
   }
-#endif
 }
 
 void KateOnTheFlyChecker::refreshSpellCheck(const KTextEditor::Range &range)

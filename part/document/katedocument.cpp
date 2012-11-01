@@ -966,17 +966,16 @@ bool KateDocument::wrapText(int startLine, int endLine)
       // anders: if we can't find a space, try breaking on a word
       // boundary, using KateHighlight::canBreakAt().
       // This could be a priority (setting) in the hl/filetype/document
-      int z = 0;
-      int nw = 0; // alternative position, a non word character
-      for (z=searchStart; z > 0; z--)
+      int z = -1;
+      int nw = -1; // alternative position, a non word character
+      for (z=searchStart; z >= 0; z--)
       {
         if (t.at(z).isSpace()) break;
-        if ( ! nw && highlight()->canBreakAt( t.at(z) , l->attribute(z) ) )
-        nw = z;
+        if ( (nw < 0) && highlight()->canBreakAt( t.at(z) , l->attribute(z) ) )
+          nw = z;
       }
 
-      bool removeTrailingSpace = false;
-      if (z > 0)
+      if (z >= 0)
       {
         // So why don't we just remove the trailing space right away?
         // Well, the (view's) cursor may be directly in front of that space
@@ -984,15 +983,14 @@ bool KateDocument::wrapText(int startLine, int endLine)
         // happens, the cursor would be moved to the next line, which is not
         // what we want (bug #106261)
         z++;
-        removeTrailingSpace = true;
       }
       else
       {
         // There was no space to break at so break at a nonword character if
         // found, or at the wrapcolumn ( that needs be configurable )
         // Don't try and add any white space for the break
-        if ( nw && nw < colInChars ) nw++; // break on the right side of the character
-        z = nw ? nw : colInChars;
+        if ( (nw >= 0) && nw < colInChars ) nw++; // break on the right side of the character
+        z = (nw >= 0) ? nw : colInChars;
       }
 
       if (nextl && !nextl->isAutoWrapped())
@@ -1013,11 +1011,6 @@ bool KateDocument::wrapText(int startLine, int endLine)
         editMarkLineAutoWrapped (line+1, true);
 
         endLine++;
-      }
-
-      if (removeTrailingSpace) {
-        // cu space
-        editRemoveText (line, z - 1, 1);
       }
     }
   }

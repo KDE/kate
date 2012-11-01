@@ -137,7 +137,7 @@ class KateHighlighting
                        QVector<int> &foldingList,
                        bool &ctxChanged );
 
-    void setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &,
+    void setKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &,
       KConfig* cfg=0 /*if 0  standard kate config*/, bool writeDefaultsToo=false);
 
     const QString &name() const {return iName;}

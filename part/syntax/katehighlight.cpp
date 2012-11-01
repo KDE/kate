@@ -608,16 +608,15 @@ void KateHighlighting::getKateExtendedAttributeListCopy( const QString &schema, 
  * @param schema The id of the schema group to save
  * @param list QList<KateExtendedAttribute::Ptr> containing the data to be used
  */
-void KateHighlighting::setKateExtendedAttributeList(uint schema, QList<KateExtendedAttribute::Ptr> &list, KConfig *cfg, bool writeDefaultsToo)
+void KateHighlighting::setKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &list, KConfig *cfg, bool writeDefaultsToo)
 { 
   KConfigGroup config(cfg?cfg:KateHlManager::self()->getKConfig(),
-                      "Highlighting " + iName + " - Schema "
-                      + KateGlobal::self()->schemaManager()->name(schema));
+                      "Highlighting " + iName + " - Schema "+ schema);
 
   QStringList settings;
 
   KateAttributeList defList;
-  KateHlManager::self()->getDefaults(KateGlobal::self()->schemaManager()->name (schema), defList);
+  KateHlManager::self()->getDefaults(schema, defList);
   
   foreach (const KateExtendedAttribute::Ptr& p, list)
   {

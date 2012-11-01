@@ -148,8 +148,6 @@ bool KatePrinter::print (KateDocument *doc)
     uint lineCount = 0;
     uint maxWidth = pdmWidth;
     int headerWidth = pdmWidth;
-    int startCol = 0;
-    int endCol = 0;
     bool pageStarted = true;
     int remainder = 0; // remaining sublines from a wrapped line (for the top of a new page)
 
@@ -356,7 +354,7 @@ bool KatePrinter::print (KateDocument *doc)
         // calculate total layouted lines in the document
         int totalLines = 0;
         // TODO: right now ignores selection printing
-        for (int i = firstline; i <= lastline; ++i) {
+        for (unsigned int i = firstline; i <= lastline; ++i) {
           KateLineLayoutPtr rangeptr(new KateLineLayout(doc));
           rangeptr->setLine(i);
           renderer.layoutLine(rangeptr, (int)maxWidth, false);
@@ -386,9 +384,6 @@ bool KatePrinter::print (KateDocument *doc)
      */
     while (  lineCount <= lastline  )
     {
-      startCol = 0;
-      endCol = 0;
-
       if ( y + fontHeight > maxHeight )
       {
         kDebug(13020)<<"Starting new page,"<<lineCount<<"lines up to now.";
@@ -1163,8 +1158,12 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
   // set defaults:
   sbBoxMargin->setValue( 6 );
   gbBoxProps->setEnabled( false );
-  cmbSchema->addItems (KateGlobal::self()->schemaManager()->list ());
-  cmbSchema->setCurrentIndex( 1 );
+  
+  Q_FOREACH (const KateSchema &schema, KateGlobal::self()->schemaManager()->list())
+    cmbSchema->addItem (schema.translatedName(), QVariant (schema.rawName));
+    
+  // default is printing, MUST BE THERE
+  cmbSchema->setCurrentIndex (cmbSchema->findData (QVariant("Printing")));
 
   // whatsthis
   cmbSchema->setWhatsThis(i18n(
@@ -1193,7 +1192,7 @@ KatePrintLayout::~KatePrintLayout()
 
 QString KatePrintLayout::colorScheme()
 {
-  return cmbSchema->currentText();
+  return cmbSchema->itemData(cmbSchema->currentIndex()).toString();
 }
 
 bool KatePrintLayout::useBackground()
@@ -1228,8 +1227,11 @@ void KatePrintLayout::readSettings()
   
   KConfigGroup layoutGroup(&printGroup, "Layout");
 
-  QString colorScheme = layoutGroup.readEntry( "ColorScheme", KateGlobal::self()->schemaManager()->name(1) );
-  cmbSchema->setCurrentItem( colorScheme );
+  // get color schema back
+  QString colorScheme = layoutGroup.readEntry( "ColorScheme", "Printing" );
+  int index = cmbSchema->findData (QVariant (colorScheme));
+  if (index != -1)
+    cmbSchema->setCurrentIndex ( cmbSchema->findData (QVariant (colorScheme)) );
 
   bool isBackgroundChecked = layoutGroup.readEntry( "BackgroundColorEnabled", false );
   cbDrawBackground->setChecked( isBackgroundChecked );

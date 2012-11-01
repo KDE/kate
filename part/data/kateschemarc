@@ -1,8 +1,7 @@
+; Normal Schema, NEEDED
 [Normal]
 ShippedDefaultSchema=true
 
+; Printing Schema, NEEDED
 [Printing]
-ShippedDefaultSchema=true
-
-[Dark]
 ShippedDefaultSchema=true

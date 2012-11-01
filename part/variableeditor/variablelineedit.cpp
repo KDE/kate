@@ -288,7 +288,9 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   listview->addItem(item);
 
   // Add 'scheme' to list
-  QStringList schemas = KateGlobal::self()->schemaManager()->list();
+  QStringList schemas;
+  Q_FOREACH (const KateSchema &schema, KateGlobal::self()->schemaManager()->list())
+    schemas.append (schema.rawName);
   item = new VariableStringListItem("scheme", schemas, rendererConfig->schema());
   item->setHelpText(i18nc("short translation please", "Set the color scheme."));
   listview->addItem(item);

@@ -631,6 +631,7 @@ class KateRendererConfig : public KateConfig
   public:
     const QString &schema () const;
     void setSchema (const QString &schema);
+    
     /**
      * Reload the schema from the schema manager.
      * For the global instance, have all other instances reload.

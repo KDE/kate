@@ -22,6 +22,7 @@
 
 #include <kactionmenu.h>
 #include <kconfig.h>
+#include <klocale.h>
 
 #include <QtCore/QStringList>
 #include <QtCore/QPointer>
@@ -29,53 +30,50 @@
 class KateView;
 class QActionGroup;
 
+class KateSchema
+{
+  public:
+    QString rawName;
+    bool shippedDefaultSchema;
+    
+    /**
+     * construct translated name for shipped schemas
+     */
+    QString translatedName () const {
+      return shippedDefaultSchema ? i18nc("Color Schema", rawName.toUtf8()) : rawName;
+    }
+};
+
 class KateSchemaManager
 {
   public:
     KateSchemaManager ();
-    ~KateSchemaManager ();
+    
+    /**
+     * Config
+     */
+    KConfig &config ()
+    {
+      return m_config;
+    }
 
     /**
-     * Schema Config changed, update all renderers
+     * return kconfiggroup for the given schema
      */
-    void update (bool readfromfile = true);
+    KConfigGroup schema (const QString &name);
+    
+    /**
+     * return schema data for on schema
+     */
+    KateSchema schemaData (const QString &name);
 
     /**
-     * return kconfig with right group set or set to Normal if not there
+     * Constructs list of schemas atm known in config object
      */
-    KConfigGroup schema (uint number);
-
-    /// on success, return schema index. If schema already exists, return -1
-    int addSchema (const QString &t);
-
-    void removeSchema (uint number);
-
-    /**
-     * is this schema valid ? (does it exist ?)
-     */
-    bool validSchema (const QString &name);
-
-    /**
-     * if not found, defaults to 0
-     */
-    uint number (const QString &name);
-
-    /**
-     * group names in the end, no i18n involved
-     */
-    QString name (uint number);
-
-    /**
-     * Don't modify, list with the names of the schemas (i18n name for the default ones)
-     */
-    const QStringList &list () { return m_schemas; }
-
-    static QString normalSchema ();
-    static QString printingSchema ();
+    QList<KateSchema> list ();
 
   private:
     KConfig m_config;
-    QStringList m_schemas;
 };
 
 

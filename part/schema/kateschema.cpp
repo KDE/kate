@@ -36,118 +36,31 @@
 
 
 //BEGIN KateSchemaManager
-QString KateSchemaManager::normalSchema ()
-{
-  // DON'T TRANSLATE HERE; CONFIG KEY
-  return "Normal";
-}
-
-QString KateSchemaManager::printingSchema ()
-{
-  // DON'T TRANSLATE HERE; CONFIG KEY
-  return "Printing";
-}
-
 KateSchemaManager::KateSchemaManager ()
     : m_config ("kateschemarc", KConfig::NoGlobals)
 {
-  update ();
 }
 
-KateSchemaManager::~KateSchemaManager ()
+KConfigGroup KateSchemaManager::schema (const QString &name)
 {
+  return m_config.group (name);
 }
 
-//
-// read the types from config file and update the internal list
-//
-void KateSchemaManager::update (bool readfromfile)
+KateSchema KateSchemaManager::schemaData (const QString &name)
 {
-  if (readfromfile)
-    m_config.reparseConfiguration ();
-
-  m_schemas = m_config.groupList();
-  m_schemas.sort ();
-
-  m_schemas.removeAll (printingSchema());
-  m_schemas.removeAll (normalSchema());
-  m_schemas.prepend (printingSchema());
-  m_schemas.prepend (normalSchema());
+  KConfigGroup cg (schema (name));
+  KateSchema schema;
+  schema.rawName = name;
+  schema.shippedDefaultSchema = cg.readEntry ("ShippedDefaultSchema", false);
+  return schema;
 }
 
-//
-// get the right group
-// special handling of the default schemas ;)
-//
-KConfigGroup KateSchemaManager::schema (uint number)
+QList<KateSchema> KateSchemaManager::list ()
 {
-  if ((number>1) && (number < (uint)m_schemas.count()))
-    return m_config.group (m_schemas[number]);
-  else if (number == 1)
-    return m_config.group (printingSchema());
-  else
-    return m_config.group (normalSchema());
-}
-
-int KateSchemaManager::addSchema (const QString &t)
-{
-  if (t != normalSchema() && t != printingSchema() && !m_schemas.contains(t)) {
-    m_schemas.append(t);
-    return m_schemas.indexOf(t);
-  }
-
-  return -1;
-}
-
-void KateSchemaManager::removeSchema (uint number)
-{
-  if (number >= (uint)m_schemas.count())
-    return;
-
-  if (number < 2)
-    return;
-
-  m_config.deleteGroup (name (number));
-
-  Q_ASSERT(number < m_schemas.size());
-  m_schemas.removeAt(number);
-}
-
-bool KateSchemaManager::validSchema (const QString &name)
-{
-  if (name == normalSchema() || name == printingSchema())
-    return true;
-
-  for (int i = 0; i < m_schemas.size(); ++i)
-    if (m_schemas[i] == name)
-      return true;
-
-  return false;
-}
-
-uint KateSchemaManager::number (const QString &name)
-{
-  if (name == normalSchema())
-    return 0;
-
-  if (name == printingSchema())
-    return 1;
-
-  int i;
-  if ((i = m_schemas.indexOf(name)) > -1)
-    return i;
-
-  return 0;
-}
-
-QString KateSchemaManager::name (uint number)
-{
-  if ((number>1) && (number < (uint)m_schemas.count()))
-    return m_schemas[number];
-  else if (number == 1)
-    return printingSchema();
-
-  return normalSchema();
+  QList<KateSchema> schemas;
+  Q_FOREACH (QString s, m_config.groupList())
+    schemas.append (schemaData (s));
+  return schemas;
 }
 //END
 
@@ -170,7 +83,8 @@ void KateViewSchemaAction::updateMenu (KateView *view)
 void KateViewSchemaAction::slotAboutToShow()
 {
   KateView *view=m_view;
-  int count = KateGlobal::self()->schemaManager()->list().count();
+  
+  QList<KateSchema> schemas = KateGlobal::self()->schemaManager()->list ();
 
   if (!m_group) {
    m_group=new QActionGroup(menu());
@@ -178,35 +92,27 @@ void KateViewSchemaAction::slotAboutToShow()
 
   }
 
-  for (int z=0; z<count; z++)
+  for (int z=0; z< schemas.count(); z++)
   {
-    QString hlName = KateGlobal::self()->schemaManager()->list().operator[](z);
+    QString hlName = schemas[z].translatedName();
 
     if (!names.contains(hlName))
     {
       names << hlName;
       QAction *a=menu()->addAction ( hlName, this, SLOT(setSchema()));
-      a->setData(hlName);
+      a->setData(schemas[z].rawName);
       a->setCheckable(true);
       a->setActionGroup(m_group);
-	//FIXME EXCLUSIVE
     }
   }
 
   if (!view) return;
 
   QString id=view->renderer()->config()->schema();
-   foreach(QAction *a,menu()->actions()) {
+  foreach(QAction *a,menu()->actions()) {
 	a->setChecked(a->data().toString()==id);
 
-	}
-//FIXME
-#if 0
-  popupMenu()->setItemChecked (last, false);
-  popupMenu()->setItemChecked (view->renderer()->config()->schema()+1, true);
-
-  last = view->renderer()->config()->schema()+1;
-#endif
+  }
 }
 
 void KateViewSchemaAction::setSchema () {

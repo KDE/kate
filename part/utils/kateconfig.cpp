@@ -1822,7 +1822,8 @@ void KateRendererConfig::readConfig (const KConfigGroup &config)
 {
   configStart ();
 
-  setSchema (config.readEntry("Schema", KateSchemaManager::normalSchema()));
+  // "Normal" Schema MUST BE THERE, see global kateschemarc
+  setSchema (config.readEntry("Schema", "Normal"));
 
   setWordWrapMarker (config.readEntry("Word Wrap Marker", false ));
 
@@ -1893,7 +1894,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_schemaSet = true;
   m_schema = schema;
 
-  KConfigGroup config = KateGlobal::self()->schemaManager()->schema(KateGlobal::self()->schemaManager()->number(schema));
+  KConfigGroup config = KateGlobal::self()->schemaManager()->schema(schema);
 
   // NOTE keep in sync with KateSchemaConfigColorTab::schemaChanged
   KColorScheme schemeView(QPalette::Active, KColorScheme::View);

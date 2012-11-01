@@ -477,6 +477,7 @@ void KateViewIndentationAction::setMode (QAction *action)
 {
   // set new mode
   doc->config()->setIndentationMode(KateAutoIndent::modeName (action->data().toInt()));
+  doc->rememberUserDidSetIndentationMode ();
 }
 //END KateViewIndentationAction
 

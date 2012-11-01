@@ -952,6 +952,15 @@ Q_SIGNALS:
      * @return document buffer
      */
     KateBuffer &buffer () { return *m_buffer; }
+    
+    /**
+     * set indentation mode by user
+     * this will remember that a user did set it and will avoid reset on save
+     */
+    void rememberUserDidSetIndentationMode ()
+    {
+      m_indenterSetByUser = true;
+    }
 
   //
   // REALLY internal data ;)
@@ -963,8 +972,9 @@ Q_SIGNALS:
     // indenter
     KateAutoIndent *const m_indenter;
 
-    bool hlSetByUser;
+    bool m_hlSetByUser;
     bool m_bomSetByUser;
+    bool m_indenterSetByUser;
 
     bool m_modOnHd;
     ModifiedOnDiskReason m_modOnHdReason;

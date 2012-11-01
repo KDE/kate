@@ -331,6 +331,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     if ( cmd == "set-indent-mode" )
     {
       v->doc()->config()->setIndentationMode( args.join(" ") );
+      v->doc()->rememberUserDidSetIndentationMode ();
       return true;
     }
     else if ( cmd == "set-highlight" )

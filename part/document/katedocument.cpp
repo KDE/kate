@@ -185,8 +185,9 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_isasking(0),
   m_buffer(new KateBuffer(this)),
   m_indenter(new KateAutoIndent(this)),
-  hlSetByUser(false),
+  m_hlSetByUser(false),
   m_bomSetByUser(false),
+  m_indenterSetByUser(false),
   m_modOnHd(false),
   m_modOnHdReason(OnDiskUnmodified),
   m_docName("need init"),
@@ -1592,7 +1593,7 @@ void KateDocument::bufferHlChanged ()
 
 void KateDocument::setDontChangeHlOnSave()
 {
-  hlSetByUser = true;
+  m_hlSetByUser = true;
 }
 
 void KateDocument::bomSetByUser()
@@ -4587,7 +4588,7 @@ void KateDocument::updateFileType (const QString &newType, bool user)
 
           m_config->configStart();
 
-          if (!hlSetByUser && !KateGlobal::self()->modeManager()->fileType(newType).hl.isEmpty())
+          if (!m_hlSetByUser && !KateGlobal::self()->modeManager()->fileType(newType).hl.isEmpty())
           {
             int hl (KateHlManager::self()->nameFind (KateGlobal::self()->modeManager()->fileType(newType).hl));
 
@@ -4597,8 +4598,9 @@ void KateDocument::updateFileType (const QString &newType, bool user)
 
           /**
            * set the indentation mode, if any in the mode...
+           * and user did not set it before!
            */
-          if (!KateGlobal::self()->modeManager()->fileType(newType).indenter.isEmpty())
+          if (!m_indenterSetByUser && !KateGlobal::self()->modeManager()->fileType(newType).indenter.isEmpty())
              config()->setIndentationMode (KateGlobal::self()->modeManager()->fileType(newType).indenter);
 
           // views!

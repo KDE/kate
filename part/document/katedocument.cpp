@@ -2138,18 +2138,6 @@ bool KateDocument::saveFile()
 {
   QWidget *parentWidget(dialogParent());
 
-  //
-  // warn -> try to save binary file!!!!!!!
-  //
-#if 0
-  if (m_buffer->binary() && (KMessageBox::warningContinueCancel (parentWidget
-        , i18n ("The file %1 is a binary, saving it will result in a corrupt file.", url().pathOrUrl())
-        , i18n ("Trying to Save Binary File")
-        , KGuiItem(i18n("Save Nevertheless"))
-        , KStandardGuiItem::cancel(), "Binary File Save Warning") != KMessageBox::Continue))
-    return false;
-#endif
-
   // some warnings, if file was changed by the outside!
   if ( !url().isEmpty() )
   {

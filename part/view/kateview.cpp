@@ -613,6 +613,7 @@ void KateView::setupActions()
   connect(m_setEndOfLine, SIGNAL(triggered(int)), this, SLOT(setEol(int)));
 
   a=m_addBom=new KToggleAction(i18n("Add &Byte Order Mark (BOM)"),this);
+  m_addBom->setChecked(m_doc->config()->bom());
   ac->addAction("add_bom",a);
   a->setWhatsThis(i18n("Enable/disable adding of byte order markers for UTF-8/UTF-16 encoded files while saving"));
   connect(m_addBom,SIGNAL(triggered(bool)),this,SLOT(setAddBom(bool)));

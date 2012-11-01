@@ -381,9 +381,8 @@ class KateHighlighting
      * The key is the starting index in the attribute array for each file.
      * @see hlKeyForAttrib
      */
-    QHash<int, QString> m_hlIndex;
-    QHash<int, QString> m_ctxIndex;
-    
+    QMap<int, QString> m_hlIndex;
+    QMap<int, QString> m_ctxIndex;
   public:
     inline bool foldingIndentationSensitive () { return m_foldingIndentationSensitive; }
     inline bool allowsFolding(){return folding;}

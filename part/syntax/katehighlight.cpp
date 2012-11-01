@@ -87,7 +87,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     m_additionalData["none"]->deliminator = stdDeliminator;
     m_additionalData["none"]->wordWrapDeliminator = stdDeliminator;
     m_hlIndex[0] = "none";
-    m_ctxIndex[0]= "none";
+    m_ctxIndex[0]="";
   }
   else
   {
@@ -1006,14 +1006,34 @@ bool KateHighlighting::attributeRequiresSpellchecking( int attr )
   return true;
 }
 
-QString KateHighlighting::hlKeyForContext (int i) const
+QString KateHighlighting::hlKeyForContext(int i) const
 {
-  return m_ctxIndex.value (i);
+  int k = 0;
+  QMap<int,QString>::const_iterator it = m_ctxIndex.constEnd();
+  while ( it != m_ctxIndex.constBegin() )
+  {
+    --it;
+    k = it.key();
+    if ( i >= k )
+      break;
+  }
+  return it.value();
 }
 
-QString KateHighlighting::hlKeyForAttrib (int i) const
+QString KateHighlighting::hlKeyForAttrib( int i ) const
 {
-  return m_hlIndex.value (i);
+  // find entry. This is faster than QMap::find. m_hlIndex always has an entry
+  // for key '0' (it is "none"), so the result is always valid.
+  int k = 0;
+  QMap<int,QString>::const_iterator it = m_hlIndex.constEnd();
+  while ( it != m_hlIndex.constBegin() )
+  {
+    --it;
+    k = it.key();
+    if ( i >= k )
+      break;
+  }
+  return it.value();
 }
 
 bool KateHighlighting::isInWord( QChar c, int attrib ) const

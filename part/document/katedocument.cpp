@@ -5390,11 +5390,7 @@ QStringList KateDocument::embeddedHighlightingModes() const
 
 QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
 {
-  /**
-   * invalid line?
-   */
-  if (position.line() < 0 || position.line() >= lines())
-    return highlightingMode();
+  Kate::TextLine kateLine = kateTextLine(position.line());
 
 //   const QVector< short >& attrs = kateLine->ctxArray();
 //   kDebug() << "----------------------------------------------------------------------";
@@ -5404,30 +5400,28 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
 //   kDebug() << "----------------------------------------------------------------------";
 //   kDebug() << "col: " << position.column() << " lastchar:" << kateLine->lastChar() << " length:" << kateLine->length() << "global mode:" << highlightingMode();
 
-  Kate::TextLine kateLine = kateTextLine(position.line());
-  const int len = kateLine->length();
-  const int pos = position.column();
+  int len = kateLine->length();
+  int pos = position.column();
   if ( pos >= len ) {
     const QVector< short >& ctxs = kateLine->ctxArray();
     int ctxcnt = ctxs.count();
     if ( ctxcnt == 0 ) {
       return highlightingMode();
     }
-
-    // try ctx if != 0
-    if (int ctx = ctxs.at(ctxcnt-1))
-      return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForContext(ctx));
-    
-    // hl mode fallback
-    return highlightingMode();
+    int ctx = ctxs.at(ctxcnt-1);
+    if ( ctx == 0 ) {
+      return highlightingMode();
+    }
+    return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForContext(ctx));
   }
 
-  // try attr if != 0
-  if (int attr = kateLine->attribute(pos))
-    return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForAttrib(attr));
+  int attr = kateLine->attribute(pos);
+  if ( attr == 0 ) {
+    return mode();
+  }
 
-  // hl mode fallback
-  return highlightingMode();
+  return KateHlManager::self()->nameForIdentifier(highlight()->hlKeyForAttrib(attr));
+
 }
 
 Kate::SwapFile* KateDocument::swapFile()

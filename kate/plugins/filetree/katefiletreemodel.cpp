@@ -1032,7 +1032,9 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
   QStringList current_parts;
   current_parts.append(root->path());
 
-  parts.pop_back();
+  // seems this can be empty, see bug 286191
+  if (!parts.isEmpty())
+    parts.pop_back();
 
   kDebug(debugArea()) << "creating tree for" << item;
   foreach(const QString &part, parts) {

@@ -670,28 +670,39 @@ void KateCompletionWidget::cursorPositionChanged( )
   QList<KTextEditor::CodeCompletionModel*> checkCompletionRanges = m_completionRanges.keys();
 
   //Check the models and eventuall abort some
-  for(QList<KTextEditor::CodeCompletionModel*>::iterator it = checkCompletionRanges.begin();
-      it != checkCompletionRanges.end(); ++it) {
-      if(!m_completionRanges.contains(*it))
+  for(QList<KTextEditor::CodeCompletionModel*>::iterator it = checkCompletionRanges.begin(); it != checkCompletionRanges.end(); ++it) {
+      KTextEditor::CodeCompletionModel *model = *it;
+      if(!m_completionRanges.contains(model))
         continue;
 
-      KTextEditor::CodeCompletionModel *model = *it;
-      KTextEditor::MovingRange *range = m_completionRanges[*it].range;
-
       //kDebug()<<"range before _updateRange:"<< *range;
-      KTextEditor::Range rangeTE = range->toRange();
-      range->setRange (_updateRange(model, view(),rangeTE));
+  
+      // this might invalidate the range, therefore re-check afterwards
+      KTextEditor::Range rangeTE = m_completionRanges[model].range->toRange();
+      KTextEditor::Range newRange = _updateRange(model, view(), rangeTE);
+      if(!m_completionRanges.contains(model))
+        continue;
+      
+      // update value
+      m_completionRanges[model].range->setRange (newRange);
+      
       //kDebug()<<"range after _updateRange:"<< *range;
-      QString currentCompletion = _filterString(model,view(), *range, view()->cursorPosition());
+      QString currentCompletion = _filterString(model,view(), *m_completionRanges[model].range, view()->cursorPosition());
+      if(!m_completionRanges.contains(model))
+        continue;
+      
       //kDebug()<<"after _filterString, currentCompletion="<< currentCompletion;
-      bool abort = _shouldAbortCompletion(model,view(), *range, currentCompletion);
+      bool abort = _shouldAbortCompletion(model,view(), *m_completionRanges[model].range, currentCompletion);
+      if(!m_completionRanges.contains(model))
+        continue;
+      
       //kDebug()<<"after _shouldAbortCompletion:abort="<<abort;
-      if(view()->cursorPosition() < m_completionRanges[*it].leftBoundary) {
+      if(view()->cursorPosition() < m_completionRanges[model].leftBoundary) {
         //kDebug() << "aborting because of boundary: cursor:"<<view()->cursorPosition()<<"completion_Range_left_boundary:"<<m_completionRanges[*it].leftBoundary;
         abort = true;
       }
 
-      if(!m_completionRanges.contains(*it))
+      if(!m_completionRanges.contains(model))
         continue;
 
       if (abort) {
@@ -701,9 +712,9 @@ void KateCompletionWidget::cursorPositionChanged( )
           return;
         } else {
           {
-            delete m_completionRanges[*it].range;
+            delete m_completionRanges[model].range;
             //kDebug()<<"removing completion range 3";
-            m_completionRanges.remove(*it);
+            m_completionRanges.remove(model);
           }
 
           _aborted(model,view());

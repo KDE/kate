@@ -334,7 +334,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setOnTheFlySpellCheck(config.readEntry("On-The-Fly Spellcheck", false));
 
-  setLineLengthLimit(config.readEntry("Line Length Limit", 1024));
+  setLineLengthLimit(config.readEntry("Line Length Limit", 4096));
 
   configEnd ();
 }

@@ -496,9 +496,6 @@ void KWrite::restore()
     ::exit(1);
   }
 
-  // simple mode
-  editor->setSimpleMode (true);
-
   int docs, windows;
   QString buf;
   KTextEditor::Document *doc;

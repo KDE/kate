@@ -42,9 +42,6 @@ KWriteApp::KWriteApp(KCmdLineArgs *m_args)
   // read from global config once
   m_editor->readConfig(KGlobal::config().data());
 
-  // set simple mode
-  m_editor->setSimpleMode (true);
-
   KTextEditor::ContainerInterface *iface =
     qobject_cast<KTextEditor::ContainerInterface*>(m_editor);
   if (iface) {

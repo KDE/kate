@@ -346,6 +346,10 @@ KTextEditor::View *KateDocument::createView( QWidget *parent )
     connect( newView, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(slotModifiedOnDisk()) );
 
   emit viewCreated (this, newView);
+  
+  // post existing message to the new view
+  foreach (KTextEditor::Message *message, m_messageHash.keys())
+    newView->postMessage(message, m_messageHash[message]);
 
   return newView;
 }

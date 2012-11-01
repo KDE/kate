@@ -76,12 +76,10 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
   m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
 
-#if KDE_IS_VERSION(4, 4, 60)
   // Mime filter for the KDirOperator
   QStringList filter;
   filter << "text/plain" << "text/html" << "inode/directory";
   m_dirOperator->setNewFileMenuSupportedMimeTypes(filter);
-#endif
 
   setFocusProxy(m_dirOperator);
   connect(m_dirOperator, SIGNAL(viewChanged(QAbstractItemView*)),

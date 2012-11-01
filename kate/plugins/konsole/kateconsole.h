@@ -191,6 +191,7 @@ class KateConsole : public KVBox, public Kate::XMLGUIClient
     QWidget *m_toolView;
     
     KateKonsolePlugin *m_plugin;
+    QString m_currentPath;
 };
 
 class KateKonsoleConfigPage : public Kate::PluginConfigPage {

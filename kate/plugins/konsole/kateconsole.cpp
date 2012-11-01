@@ -203,6 +203,7 @@ void KateConsole::loadConsoleIfNeeded()
 void KateConsole::slotDestroyed ()
 {
   m_part = 0;
+  m_currentPath.clear ();
 
   // hide the dockwidget
   if (parentWidget())
@@ -221,7 +222,11 @@ void KateConsole::showEvent(QShowEvent *)
 
 void KateConsole::cd (const KUrl &url)
 {
-  sendInput("cd " + KShell::quoteArg(url.path()) + '\n');
+  if (m_currentPath == url.path())
+    return;
+  
+  m_currentPath = url.path();
+  sendInput("cd " + KShell::quoteArg(m_currentPath) + '\n');
 }
 
 void KateConsole::sendInput( const QString& text )
@@ -271,6 +276,7 @@ void KateConsole::slotSync()
 
 void KateConsole::slotManualSync()
 {
+  m_currentPath.clear ();
   slotSync();
   if ( ! m_part || ! m_part->widget()->isVisible() )
     m_mw->showToolView( parentWidget() );

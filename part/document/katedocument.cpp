@@ -4580,6 +4580,9 @@ void KateDocument::updateFileType (const QString &newType, bool user)
   {
     if (!newType.isEmpty())
     {
+          // remember that we got set by user
+          m_fileTypeSetByUser = user;
+      
           m_fileType = newType;
 
           m_config->configStart();

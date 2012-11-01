@@ -392,6 +392,14 @@ on or off.</para></listitem>
 <para>Since: Kate 3.4 (KDE 4.4)</para></listitem>
 </varlistentry>
 
+<varlistentry id="variable-encoding">
+<term><cmdsynopsis><command>encoding</command><arg>STRING</arg></cmdsynopsis></term>
+<listitem><para>Set the encoding used for loading or saving the file.
+As the variables in the document will be read after loading, this impacts only the saving.
+If you place it in a <filename>.kateconfig</filename> file, it will have an effect for the loading, too.</para>
+<para>Since: Kate 3.10 (KDE 4.10)</para></listitem>
+</varlistentry>
+
 <varlistentry id="variable-bracket-highlight-color">
 <term><cmdsynopsis><command>bracket-highlight-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the color for the bracket highlight. The value must be

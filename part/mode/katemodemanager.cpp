@@ -211,7 +211,7 @@ void KateModeManager::save (const QList<KateFileType *>& v)
   update ();
 }
 
-QString KateModeManager::fileType (KateDocument *doc)
+QString KateModeManager::fileType (KateDocument *doc, const QString &fileToReadFrom)
 {
   kDebug(13020);
   if (!doc)
@@ -248,7 +248,15 @@ QString KateModeManager::fileType (KateDocument *doc)
   }
 
   // Try content-based mimetype
-  KMimeType::Ptr mt = doc->mimeTypeForContent();
+  KMimeType::Ptr mt;
+  if (!fileToReadFrom.isEmpty()) {
+    int accuracy = 0;
+    mt = KMimeType::findByFileContent(fileToReadFrom, &accuracy);
+    if (!mt)
+      mt = KMimeType::defaultMimeTypePtr(); 
+  } else {
+    mt = doc->mimeTypeForContent();
+  }
 
   QList<KateFileType*> types;
 

@@ -1989,6 +1989,9 @@ bool KateDocument::openFile()
   // add new m_file to dirwatch
   activateDirWatch ();
 
+  // remember current encoding
+  QString currentEncoding = encoding();
+  
   //
   // mime type magic to get encoding right
   //
@@ -2001,6 +2004,17 @@ bool KateDocument::openFile()
   emit KTextEditor::Document::textRemoved(this, documentRange());
   emit KTextEditor::Document::textRemoved(this, documentRange(), m_buffer->text());
 
+  // update file type, we do this here PRE-LOAD, therefore pass file name for reading from
+  updateFileType (KateGlobal::self()->modeManager()->fileType (this, localFilePath()));
+
+  // read dir config (if possible and wanted)
+  // do this PRE-LOAD to get encoding info!
+  readDirConfig ();
+  
+  // perhaps we need to re-set again the user encoding
+  if (m_reloading && m_userSetEncodingForNextReload && (currentEncoding != encoding()))
+    setEncoding (currentEncoding);
+  
   bool success = m_buffer->openFile (localFilePath(), (m_reloading && m_userSetEncodingForNextReload));
 
   // disable view updates
@@ -2012,14 +2026,8 @@ bool KateDocument::openFile()
   //
   if (success)
   {
-    // update file type
-    updateFileType (KateGlobal::self()->modeManager()->fileType (this));
-
-    // read dir config (if possible and wanted)
-    readDirConfig ();
-
     // read vars
-    readVariables();
+    readVariables ();
 
     if (!m_postLoadFilterChecks.isEmpty())
     {
@@ -2240,8 +2248,8 @@ bool KateDocument::saveFile()
     }
   }
 
-  // update file type
-  updateFileType (KateGlobal::self()->modeManager()->fileType (this));
+  // update file type, pass no file path, read file type content from this document
+  updateFileType (KateGlobal::self()->modeManager()->fileType (this, QString ()));
 
   if (!m_preSavePostDialogFilterChecks.isEmpty())
   {
@@ -2256,6 +2264,18 @@ bool KateDocument::saveFile()
   // remember the oldpath...
   QString oldPath = m_dirWatchFile;
 
+  // read dir config (if possible and wanted)
+  if ( url().isLocalFile())
+  {
+    QFileInfo fo (oldPath), fn (localFilePath());
+
+    if (fo.path() != fn.path())
+      readDirConfig();
+  }
+
+  // read our vars
+  readVariables();
+  
   // remove file from dirwatch
   deactivateDirWatch ();
 
@@ -2282,21 +2302,6 @@ bool KateDocument::saveFile()
 
   // add m_file again to dirwatch
   activateDirWatch ();
-
-  // update file type
-//  updateFileType (KateGlobal::self()->modeManager()->fileType (this));
-
-  // read dir config (if possible and wanted)
-  if ( url().isLocalFile())
-  {
-    QFileInfo fo (oldPath), fn (m_dirWatchFile);
-
-    if (fo.path() != fn.path())
-      readDirConfig();
-  }
-
-  // read our vars
-  readVariables();
 
   //
   // we are not modified
@@ -4298,6 +4303,10 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       else if ( var == "mode" )
       {
         setMode( val );
+      }
+      else if ( var == "encoding" )
+      {
+        setEncoding( val );
       }
       else if ( var == "default-dictionary" )
       {

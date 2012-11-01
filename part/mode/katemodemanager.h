@@ -66,7 +66,7 @@ class KateModeManager
      * get the right fileType for the given document
      * -1 if none found !
      */
-    QString fileType (KateDocument *doc);
+    QString fileType (KateDocument *doc, const QString &fileToReadFrom);
 
     /**
      * Don't store the pointer somewhere longer times, won't be valid after the next update()

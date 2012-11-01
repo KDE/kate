@@ -82,8 +82,9 @@ void KateModeMenu::slotAboutToShow()
 
   for (int z=0; z<count; z++)
   {
-    QString hlName = KateGlobal::self()->modeManager()->list().at(z)->name;
-    QString hlSection = KateGlobal::self()->modeManager()->list().at(z)->section;
+    QString nameRaw = KateGlobal::self()->modeManager()->list().at(z)->name;
+    QString hlName = KateGlobal::self()->modeManager()->list().at(z)->nameTranslated();
+    QString hlSection = KateGlobal::self()->modeManager()->list().at(z)->sectionTranslated();
 
     if ( !hlSection.isEmpty() && !names.contains(hlName) )
     {
@@ -101,7 +102,7 @@ void KateModeMenu::slotAboutToShow()
       QAction *action = subMenus.at(m)->addAction ( hlName );
       m_actionGroup->addAction(action);
       action->setCheckable( true );
-      action->setData( hlName );
+      action->setData( nameRaw );
     }
     else if (!names.contains(hlName))
     {
@@ -113,7 +114,7 @@ void KateModeMenu::slotAboutToShow()
       QAction *action = menu()->addAction ( hlName );
       m_actionGroup->addAction(action);
       action->setCheckable( true );
-      action->setData( hlName );
+      action->setData( nameRaw );
     }
   }
 

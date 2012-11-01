@@ -25,6 +25,8 @@
 #include <QtCore/QPointer>
 #include <QtCore/QHash>
 
+#include <klocale.h>
+
 #include "katedialogs.h"
 
 class KateDocument;
@@ -43,6 +45,18 @@ class KateFileType
     bool hlGenerated;
     QString version;
     QString indenter;
+    
+    QString nameTranslated () const
+    {
+      // use "Language" as for highlightings, to avoid double work!
+      return hlGenerated ? i18nc("Language", name.toUtf8()) : name;
+    }
+    
+    QString sectionTranslated () const
+    {
+      // use "Language Section" as for highlightings, to avoid double work!
+      return hlGenerated ? i18nc("Language Section", section.toUtf8()) : section;
+    }
 
     KateFileType()
       : number(-1), priority(0), hlGenerated(false)

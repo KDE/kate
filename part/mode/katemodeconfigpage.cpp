@@ -153,11 +153,10 @@ void ModeConfigPage::update ()
   ui->cmbFiletypes->clear ();
 
   foreach (KateFileType *type, m_types) {
-    QString typeName = i18nc("Language", type->name.toUtf8());
-    if (type->section.length() > 0)
-      ui->cmbFiletypes->addItem(type->section + QString ("/") + typeName);
+    if (!type->sectionTranslated().isEmpty())
+      ui->cmbFiletypes->addItem(type->sectionTranslated() + QString ("/") + type->nameTranslated());
     else
-      ui->cmbFiletypes->addItem(typeName);
+      ui->cmbFiletypes->addItem(type->nameTranslated());
   }
 
   // get current filetype from active view via the host application
@@ -167,10 +166,8 @@ void ModeConfigPage::update ()
     KateView *kv = qobject_cast<KateView*>(iface->activeView());
     if (kv) {
       const QString filetypeName = kv->doc()->fileType();
-
       for (int i = 0; i < m_types.size(); ++i) {
-        const QString typeName = i18nc("Language", m_types[i]->name.toUtf8());
-        if (filetypeName == typeName) {
+        if (filetypeName == m_types[i]->name) {
           currentIndex = i;
           break;
         }
@@ -223,8 +220,10 @@ void ModeConfigPage::save ()
 {
   if (m_lastType != -1)
   {
-    m_types[m_lastType]->name = ui->edtName->text ();
-    m_types[m_lastType]->section = ui->edtSection->text ();
+    if (!m_types[m_lastType]->hlGenerated) {
+      m_types[m_lastType]->name = ui->edtName->text ();
+      m_types[m_lastType]->section = ui->edtSection->text ();
+    }
     m_types[m_lastType]->varLine = ui->edtVariables->text ();
     m_types[m_lastType]->wildcards = ui->edtFileExtensions->text().split (';', QString::SkipEmptyParts);
     m_types[m_lastType]->mimetypes = ui->edtMimeTypes->text().split (';', QString::SkipEmptyParts);
@@ -256,8 +255,8 @@ void ModeConfigPage::typeChanged (int type)
     ui->gbProperties->setEnabled (true);
     ui->btnDelete->setEnabled (true);
 
-    ui->edtName->setText(t->name);
-    ui->edtSection->setText(t->section);
+    ui->edtName->setText(t->nameTranslated());
+    ui->edtSection->setText(t->sectionTranslated());
     ui->edtVariables->setText(t->varLine);
     ui->edtFileExtensions->setText(t->wildcards.join (";"));
     ui->edtMimeTypes->setText(t->mimetypes.join (";"));

@@ -158,6 +158,8 @@ void KateModeManager::update ()
 
   // add the none type...
   KateFileType *t = new KateFileType ();
+  
+  // DO NOT TRANSLATE THIS, DONE LATER, marked by hlGenerated
   t->name = "Normal";
   t->hl = "None";
   t->hlGenerated = true;

@@ -12,10 +12,11 @@
             <!ENTITY strikeoutregex "(\s|^)-[^-]\w.*\w[^-]-(\s|\.|,|;|:|\-|\?|$)">
             <!ENTITY blockattrsregex "(\(\w+(#\w+)?\))?">
             <!ENTITY formatregex "(&gt;|&lt;|=|&lt;&gt;)?">
+            <!ENTITY name "(?![0-9])[\w_:][\w.:_-]*">
 ]>
             
 <language section="Markup" name="Textile" 
-        version="1.0" kateversion="2.4" 
+        version="1.1" kateversion="2.4" 
         extensions="*.textile" priority="15"
         author="Alexander Kabakov (kabakov.as@gmail.com)"
         license="LGPL" >

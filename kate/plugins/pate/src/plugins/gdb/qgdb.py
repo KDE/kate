@@ -1,23 +1,3 @@
-"""Qt wrapper for GDB.
-
-The key features are:
-
-	1. The Pythonic wrapper.
-
-	2. Program execution is via the GDB/MI interpreter which allows
-	unambiguous separation of output emitted by the running inferior from
-	GDB's own output.
-
-	3. Every other operation that can be implemented via the GDB/MI
-	interpreter is also handled that way.
-
-	4. All other access is via the GDB console interpreter, but commands
-	are wrapped as needed to provide complete integration with Python
-	language features behind a Python CLI:
-
-		- All file commands support environment variables.
-"""
-
 #
 # Copyright 2009, 2012, Shaheed Haque <srhaque@theiet.org>.
 #
@@ -731,9 +711,9 @@ class ProgramControl():
 	def allSources(self):
 		results = self._gdb.miCommandOne("-file-list-exec-source-files")
 		#
-		# [(u'files', [{u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp'}])]]
+		# {u'files': [{u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp'}, {u'fullname': u'/usr/include/c++/4.7/iostream', u'file': u'/usr/include/c++/4.7/iostream'}, ..., {u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kateinterfaces_automoc.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kateinterfaces_automoc.cpp'}]}
 		#
-		results = results[0][1]
+		results = results[u'files']
 		for u in results:
 			try:
 				file = u["fullname"]
@@ -742,14 +722,17 @@ class ProgramControl():
 			print file
 
 	def currentSource(self):
-		results = self._gdb.miCommandOne("-file-list-exec-source-file")
+		u = self._gdb.miCommandOne("-file-list-exec-source-file")
 		#
-		# [(u'line', '1'), (u'file', u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp'), (u'fullname', u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp'), (u'macro-info', '0')]]
+		# {u'line': '3', u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'macro-info': '0'}
 		#
-		print "Current source file is {}".format(results[1][1])
-		print "Located in {}".format(results[2][1])
-		print "Contains {} lines.".format(results[0][1])
-		if results[3][1] != "0":
+		print "Current source file is {}:{}".format(u["file"], u[u'line'])
+		try:
+			file = u["fullname"]
+		except KeyError:
+			file = u["file"]
+		print "Located in {}".format(file)
+		if u[u'macro-info'] != "0":
 			print "Does include preprocessor macro info."
 		else:
 			print "Does not include preprocessor macro info."
@@ -953,6 +936,25 @@ class Threads():
 			print fmt.format(active, v["id"], name + v["target-id"], location)
 
 class QGdbInterpreter(DebuggerIo):
+	"""Qt wrapper for GDB.
+
+	The key features are:
+
+		1. The Pythonic wrapper.
+
+		2. Program execution is via the GDB/MI interpreter which allows
+		unambiguous separation of output emitted by the running inferior from
+		GDB's own output.
+
+		3. Every other operation that can be implemented via the GDB/MI
+		interpreter is also handled that way.
+
+		4. All other access is via the GDB console interpreter, but commands
+		are wrapped as needed to provide complete integration with Python
+		language features behind a Python CLI:
+
+			- All file commands support environment variables.
+	"""
 
 	_breakpoints = None
 	_data = None

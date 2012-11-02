@@ -1,5 +1,3 @@
-"""Python CLI for GDB."""
-
 #
 # Copyright 2009, 2012, Shaheed Haque <srhaque@theiet.org>.
 #
@@ -17,6 +15,7 @@
 # along with this code. If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
 from PyQt4.QtCore import *
 import argparse
 import cmd
@@ -303,9 +302,7 @@ class MyArgs(argparse.ArgumentParser):
 		return formatter.format_help()
 
 class Cli(cmd.Cmd):
-	"""
-	Wrapper for GDB command line.
-	"""
+	"""Python CLI for GDB."""
 
 	prompt = "(pygdb) "
 
@@ -319,8 +316,14 @@ class Cli(cmd.Cmd):
 	#
 	filesCommands = None
 
-	def __init__(self):
+	#
+	# Output handling.
+	#
+	_out = None
+
+	def __init__(self, printLine = print):
 		cmd.Cmd.__init__(self)
+		self._out = printLine
 		#_gdbThreadStarted = QSemaphore()
 		#self.gdb = DebuggerIo(_gdbThreadStarted)
 		#self.gdb.start()
@@ -330,6 +333,15 @@ class Cli(cmd.Cmd):
 		# Ask GDB for all the commands it has.
 		#
 		self.createCommandDb()
+
+	def dbg0(self, msg, *args):
+		self._out("ERR-0", msg.format(*args))
+
+	def dbg1(self, msg, *args):
+		self._out("DBG-1", msg.format(*args))
+
+	def dbg2(self, msg, *args):
+		self._out("DBG-2", msg.format(*args))
 
 	def createCommandDb(self):
 		"""Create a command database we can use to implement our CLI."""
@@ -347,7 +359,7 @@ class Cli(cmd.Cmd):
 		customCommands = [c for c in dir(self) if c.startswith("do_")]
 		for cmd in customCommands:
 			self.commandDb.addCustom(getattr(self, cmd))
-		#print self.commandDb
+		#self.dbg0(self.commandDb)
 
 	def findFilesCommand(self):
 		"""Make a list of each command which takes a file/path."""
@@ -379,14 +391,14 @@ class Cli(cmd.Cmd):
 	def complete(self, text, state):
 		"""Use the command database to provide completions."""
 		matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry = self.commandDb.lookup(text)
-		print [c[len(text):] for c in completions]
+		self.dbg0([c[len(text):] for c in completions])
 		return completions
 
 	def completedefault(self, *ignored):
-		print "completedefault",ignored
+		self.dbg0("completedefault",ignored)
 
 	def completenames(self, text, *ignored):
-		print "completenames",text,ignored
+		self.dbg0("completenames",text,ignored)
 
 	def parseline(self, line):
 		"""Parse the line into a command name and a string containing
@@ -447,9 +459,9 @@ class Cli(cmd.Cmd):
 	def asyncWrapper(self, command, args):
 		"""Execute a command which causes the inferior to run.
 		"""
-		print "asyncWrapper", command, args
+		self.dbg0("asyncWrapper", command, args)
 		command = "{} {}".format(command, args)
-		print "command", command
+		self.dbg0("command", command)
 		results = self.gdb.consoleCommand(command)
 
 
@@ -594,9 +606,9 @@ class Cli(cmd.Cmd):
 			# Try a Python variable.
 			#
 			try:
-				print eval(args)
+				self._out(eval(args))
 			except NameError as f:
-				print "No GDB" + str(e)[2:-1] + ", and Python " + str(f)
+				self._out("No GDB" + str(e)[2:-1] + ", and Python " + str(f))
 
 	def do_info_registers(self, args, getSynopsis = False):
 		parser = MyArgs(prog = "info registers", add_help = False)
@@ -617,7 +629,6 @@ class Cli(cmd.Cmd):
 		self.gdb._data.listRegisterValues(**vars(args))
 
 	def do_x(self, args, getSynopsis = False):
-		print "first args", args
 		parser = MyArgs(prog = "x", add_help = False)
 		parser.add_argument("address", type = long)
 		parser.add_argument("word_format", choices = ["x", "d", "u", "o", "t", "a", "c", "f"])
@@ -629,7 +640,6 @@ class Cli(cmd.Cmd):
 		if getSynopsis:
 			return parser.format_help()
 		args = parser.parse_args(args.split())
-		print "last args", args
 		# TODO assign to local var
 		self.gdb._data.readMemory(**vars(args))
 
@@ -1056,15 +1066,15 @@ class Cli(cmd.Cmd):
 			Only leaf items which match the given regexp are emitted.
 			"""
 			if regexp.search(keyword) or regexp.search(apropos):
-				print "\t" + prefix + keyword + " -- " + apropos
+				self._out("\t" + prefix + keyword + " -- " + apropos)
 
 		#
 		# We emit our help database, so that we can override GDB if needed.
 		#
 		if args == "":
-			print "REGEXP string is empty"
+			self._out("REGEXP string is empty")
 			return
-		print "LIST OF COMMANDS MATCHING '" + args + "'"
+		self._out("LIST OF COMMANDS MATCHING '" + args + "'")
 		self.commandDb.walk(printAproposEntry, re.compile(args, re.IGNORECASE), None, "\t")
 		print
 
@@ -1115,7 +1125,7 @@ class Cli(cmd.Cmd):
 		if error:
 			raise QGdbException("Error executing command: {} '{}'".format(error, result))
 		for line in result:
-			print line
+			self._out(line)
 
 	def do_help(self, args):
 		"""
@@ -1136,13 +1146,13 @@ class Cli(cmd.Cmd):
 
 		def printManHeader(command, apropos, synopsis, description):
 			if apropos:
-				print "NAME\n\t" + command + " -- " + apropos
+				self._out("NAME\n\t" + command + " -- " + apropos)
 			else:
-				print "NAME\n\t" + command
+				self._out("NAME\n\t" + command)
 			if synopsis:
-				print "\nSYNOPSIS\n\t" + synopsis.replace("\n", "\n\t")
+				self._out("\nSYNOPSIS\n\t" + synopsis.replace("\n", "\n\t"))
 			if description:
-				print "\n" + description
+				self._out("\n" + description)
 
 		def printClassHelp(keyword):
 			#
@@ -1152,7 +1162,7 @@ class Cli(cmd.Cmd):
 				#
 				# We emit our help database, so that we can override GDB if needed.
 				#
-				print "LIST OF COMMANDS"
+				self._out("LIST OF COMMANDS")
 				self.commandDb.walk(printAproposEntry, "", None, "\t")
 				print
 				return True
@@ -1178,12 +1188,12 @@ class Cli(cmd.Cmd):
 							synopsis = helpText[i]
 					printManHeader(classes[0], apropos, synopsis, "LIST OF COMMANDS")
 					for line in helpText[2:]:
-						print "\t" + line
+						self._out("\t" + line)
 					return True
 				elif len(classes) > 1:
 					message = "Ambiguous keyword: help"
-					print " ".join((message, keywords[0], str(sorted(classes))))
-					print "^".rjust(len(message) + 2)
+					self._out(" ".join((message, keywords[0], str(sorted(classes)))))
+					self._out("^".rjust(len(message) + 2))
 					return True
 			return False
 
@@ -1192,7 +1202,7 @@ class Cli(cmd.Cmd):
 			Only leaf items which match the given classification prefix are emitted.
 			"""
 			if clazz.startswith(clazzPrefix) :
-				print indentation + keyword + " -- " + apropos
+				self._out(indentation + keyword + " -- " + apropos)
 
 		keywords = args.split()
 		if (keywords):
@@ -1208,12 +1218,12 @@ class Cli(cmd.Cmd):
 					# It was not a class-based request for help...
 					#
 					message = " ".join(("Keyword not found: help", matched)).rstrip()
-					print " ".join((message, unmatched, str(sorted(completions.keys()))))
-					print "^".rjust(len(message) + 2)
+					self._out(" ".join((message, unmatched, str(sorted(completions.keys())))))
+					self._out("^".rjust(len(message) + 2))
 				else:
 					message = " ".join(("Ambiguous keyword: help", matched)).rstrip()
-					print " ".join((message, unmatched, str(sorted(completions))))
-					print "^".rjust(len(message) + 2)
+					self._out(" ".join((message, unmatched, str(sorted(completions)))))
+					self._out("^".rjust(len(message) + 2))
 				return
 			#
 			# We got a match!
@@ -1254,15 +1264,15 @@ class Cli(cmd.Cmd):
 				pass
 			printManHeader(matched, oldApropos, synopsis, "DESCRIPTION")
 			for line in helpText:
-				print line
+				self._out(line)
 		else:
 			#
 			# Emit summary help from GDB.
 			#
 			error, helpText = self.gdb.consoleCommand("help")
-			print "LIST OF CLASSES OF COMMANDS"
+			self._out("LIST OF CLASSES OF COMMANDS")
 			for line in helpText[2:]:
-				print "\t" + line
+				self._out("\t" + line)
 
 #################################
 ## Fallthrough command handler ##
@@ -1314,7 +1324,7 @@ class Cli(cmd.Cmd):
 		#
 		(matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(args)
 		if matched in self.filesCommands:
-			print "is files command", matched
+			self.dbg0("is files command", matched)
 			#
 			# Extract the arguments, and apply getenv to any contained references.
 			#

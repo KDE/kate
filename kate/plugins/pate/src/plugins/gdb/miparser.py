@@ -18,11 +18,15 @@
 # Boston, MA 02110-1301, USA.
 
 from ply import lex, yacc
+from PyKDE4.kdecore import KStandardDirs
 
 class MiParser():
 	def __init__(self):
 		self.lexer = lex.lex(module = self)
-		self.parser = yacc.yacc(module = self)
+		#
+		# To enable generation of parser.out, debug = 1
+		#
+		self.parser = yacc.yacc(module = self, debug = 0, outputdir = str(KStandardDirs().saveLocation("tmp")))
 
 	def testLexer(self, data):
 		"""Test it output."""

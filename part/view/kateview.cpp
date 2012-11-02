@@ -1170,6 +1170,10 @@ void KateView::slotReadWriteChanged ()
     if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->isReadWrite());
   slotUpdateUndo();
+  
+  // inform search bar
+  if (m_searchBar)
+    m_searchBar->slotReadWriteChanged ();
 }
 
 void KateView::slotUpdateUndo()

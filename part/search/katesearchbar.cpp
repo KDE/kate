@@ -1566,4 +1566,14 @@ bool KateSearchBar::isPower() const {
     return m_powerUi != 0;
 }
 
+void KateSearchBar::slotReadWriteChanged ()
+{
+    if (!KateSearchBar::isPower())
+        return;
+    
+    // perhaps disable/enable
+    m_powerUi->replaceNext->setEnabled (m_view->doc()->isReadWrite() && isPatternValid());
+    m_powerUi->replaceAll->setEnabled (m_view->doc()->isReadWrite() && isPatternValid());
+}
+
 // kate: space-indent on; indent-width 4; replace-tabs on;

@@ -120,6 +120,9 @@ public Q_SLOTS:
 
     bool clearHighlights();
     void updateHighlightColors();
+    
+    // read write status of document changed
+    void slotReadWriteChanged ();
 
 protected:
     // Overridden

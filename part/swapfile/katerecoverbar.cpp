@@ -26,7 +26,6 @@
 
 #include <kprocess.h>
 #include <kmessagebox.h>
-#include <ktemporaryfile.h>
 #include <krun.h>
 #include <klocale.h>
 #include <kmessagewidget.h>
@@ -74,12 +73,7 @@ KateRecoverBar::~KateRecoverBar ()
 
 void KateRecoverBar::viewDiff()
 {
-  // create a document with the recovered data
-  KateDocument recoverDoc;
-  recoverDoc.setText(m_view->doc()->text());
-
   QString path = m_view->doc()->swapFile()->fileName();
-
   if (path.isNull())
     return;
 
@@ -89,14 +83,49 @@ void KateRecoverBar::viewDiff()
     return;
   }
 
+  // create all needed tempfiles
+  m_originalFile.setSuffix(".original");
+  m_recoveredFile.setSuffix(".recovered");
+  m_diffFile.setSuffix(".diff");
+  
+  if (!m_originalFile.open() || !m_recoveredFile.open() || !m_diffFile.open()) {
+    kWarning( 13020 ) << "Can't open temporary files needed for diffing";
+    return;
+  }
+  
+  // truncate files, just in case
+  m_originalFile.resize (0);
+  m_recoveredFile.resize (0);
+  m_diffFile.resize (0);
+  
+  // create a document with the recovered data
+  KateDocument recoverDoc;
+  recoverDoc.setText(m_view->doc()->text());
+  
+  // store original text in a file as utf-8 and close it
+  {
+    QTextStream stream (&m_originalFile);
+    stream.setCodec (QTextCodec::codecForName("UTF-8"));
+    stream << recoverDoc.text ();
+  }
+  m_originalFile.close ();
+
+  // recover data
   QDataStream stream(&swp);
-
   recoverDoc.swapFile()->recover(stream, false);
+  
+  // store recovered text in a file as utf-8 and close it
+  {
+    QTextStream stream (&m_recoveredFile);
+    stream.setCodec (QTextCodec::codecForName("UTF-8"));
+    stream << recoverDoc.text ();
+  }
+  m_recoveredFile.close ();
 
-  // create a KProcess proc
+  // create a KProcess proc for diff
   m_proc = new KProcess(this);
   m_proc->setOutputChannelMode(KProcess::MergedChannels);
-  *m_proc << "diff" << "-u" << "-" <<  m_view->doc()->url().toLocalFile();
+  *m_proc << "diff" << "-u" <<  m_originalFile.fileName() << m_recoveredFile.fileName();
 
   connect(m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()));
   connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotDiffFinished()));
@@ -105,8 +134,6 @@ void KateRecoverBar::viewDiff()
 
   // disable the "View Changes" button, so the user won't click it twice
   m_diffAction->setEnabled(false);
-
-  m_diffContent.clear();
 
   m_proc->start();
 
@@ -121,28 +148,21 @@ void KateRecoverBar::viewDiff()
 void KateRecoverBar::slotDataAvailable()
 {
   // collect diff output
-  m_diffContent += m_proc->readAll();
+  m_diffFile.write (m_proc->readAll());
 }
 
 void KateRecoverBar::slotDiffFinished()
 {
   m_diffAction->setEnabled(true);
   unsetCursor();
+  
+  // collect last diff output, if any
+  m_diffFile.write (m_proc->readAll());
 
   // get the exit status to check whether diff command run successfully
   const QProcess::ExitStatus es = m_proc->exitStatus();
   delete m_proc;
   m_proc = 0;
-
-  KTemporaryFile tempFile;
-  tempFile.setSuffix(".diff");
-  if (!tempFile.open()) {
-    kWarning( 13020 ) << "Can't open diff temporary file";
-    return;
-  }
-
-  // write the buffered data to the temporary file
-  tempFile.write(m_diffContent);
 
   // check exit status
   if (es != QProcess::NormalExit)
@@ -155,19 +175,20 @@ void KateRecoverBar::slotDiffFinished()
   }
 
   // sanity check: is there any diff content?
-  if ( tempFile.size() == 0 )
+  if ( m_diffFile.size() == 0 )
   {
     KMessageBox::information(this,
                             i18n("The files are identical."),
                             i18n("Diff Output"));
     return;
   }
-
-  tempFile.setAutoRemove(false);
-  KUrl url = KUrl::fromPath(tempFile.fileName());
+  
+  // close diffFile and avoid removal, KRun will do that later!
+  m_diffFile.close ();
+  m_diffFile.setAutoRemove (false);
 
   // KRun::runUrl should delete the file, once the client exits
-  KRun::runUrl(url, "text/x-patch", this, true );
+  KRun::runUrl (KUrl::fromPath(m_diffFile.fileName()), "text/x-patch", this, true );
 }
 
 //END KateRecoverBar

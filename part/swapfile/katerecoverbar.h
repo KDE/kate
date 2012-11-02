@@ -26,6 +26,7 @@
 
 #include <QByteArray>
 #include <QAction>
+#include <KTemporaryFile>
 
 class KProcess;
 class KateView;
@@ -52,7 +53,9 @@ class KateRecoverBar : public KateViewBarWidget
 
   private:
     KProcess* m_proc;
-    QByteArray m_diffContent;
+    KTemporaryFile m_originalFile;
+    KTemporaryFile m_recoveredFile;
+    KTemporaryFile m_diffFile;
 };
 
 #endif //_KATE_RECOVER_H__

@@ -101,9 +101,7 @@ void AutoBracePlugin::removeView(KTextEditor::View *view)
 void AutoBracePlugin::readConfig()
 {
     KConfigGroup cg(KGlobal::config(), "AutoBrace Plugin");
-    // Read configuration parameters, make them false by default
-    // TODO: set to true by default once https://bugs.kde.org/show_bug.cgi?id=234525 got resolved
-    m_autoBrackets = cg.readEntry("autobrackets", false);
+    m_autoBrackets = cg.readEntry("autobrackets", true);
     m_autoQuotations = cg.readEntry("autoquotations", false);
 }
 
@@ -120,10 +118,6 @@ AutoBracePluginDocument::AutoBracePluginDocument(KTextEditor::Document* document
   : QObject(document), m_insertionLine(0), m_withSemicolon(false),
     m_lastRange(KTextEditor::Range::invalid()), m_autoBrackets(autoBrackets), m_autoQuotations(autoQuotations)
 {
-    // Fill brackets map matching opening and closing brackets.
-    m_brackets["("] = ")";
-    m_brackets["["] = "]";
-
     connect(document, SIGNAL(exclusiveEditStart(KTextEditor::Document*)),
             this, SLOT(disconnectSlots(KTextEditor::Document*)));
     connect(document, SIGNAL(exclusiveEditEnd(KTextEditor::Document*)),
@@ -238,6 +232,15 @@ void AutoBracePluginDocument::slotTextRemoved(KTextEditor::Document* document, c
 void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
                                                const KTextEditor::Range& range)
 {
+    // Fill brackets map matching opening and closing brackets.
+    QMap<QString,QString> brackets;
+    brackets["("] = ")";
+    brackets["["] = "]";
+    
+    // latex wants {, too
+    if (document->mode() == "LaTeX")
+        brackets["{"] = "}";
+    
     // List of Tokens after which an automatic bracket expanion
     // is allowed.
     const static QStringList allowedNextToken = QStringList() << "]" << ")" << ","
@@ -270,11 +273,11 @@ void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
         }
     }
     // Opening brackets (defined in ctor)
-    else if (m_autoBrackets && m_brackets.contains(text)) {
+    else if (m_autoBrackets && brackets.contains(text)) {
         // Only insert auto closing brackets if current text range
         // is followed by one of the allowed next tokens.
         if (allowedNextToken.contains(nextToken(document,range))) {
-            insertAutoBracket(document, range, m_brackets[text]);
+            insertAutoBracket(document, range, brackets[text]);
         }
 
     }
@@ -283,7 +286,7 @@ void AutoBracePluginDocument::slotTextInserted(KTextEditor::Document *document,
     // and set the cursor to the position after that text range.
     // Bracket tests bases on this simple idea: A bracket can only be inserted
     // if it is NOT followed by the same bracket. This results in overwriting closing brackets.
-    else if (m_autoBrackets && m_brackets.values().contains(text)) {
+    else if (m_autoBrackets && brackets.values().contains(text)) {
         if (nextToken(document,range) == text) {
             KTextEditor::Cursor saved = range.end();
             document->removeText(range);

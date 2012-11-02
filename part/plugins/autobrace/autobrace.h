@@ -95,7 +95,6 @@ class AutoBracePluginDocument
     int m_insertionLine;
     QString m_indentation;
     bool m_withSemicolon;
-    QMap<QString,QString> m_brackets;
     KTextEditor::Range m_lastRange;
     const bool& m_autoBrackets;
     const bool& m_autoQuotations;

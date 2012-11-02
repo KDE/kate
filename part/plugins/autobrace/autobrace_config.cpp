@@ -34,7 +34,7 @@ AutoBraceConfig::AutoBraceConfig(QWidget *parent, const QVariantList &args)
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
 
-    m_autoBrackets = new QCheckBox(i18n("Automatically add closing brackets ) and ]"), this);
+    m_autoBrackets = new QCheckBox(i18n("Automatically add closing brackets ) and ] (and } for e.g. LaTeX)"), this);
     m_autoQuotations = new QCheckBox(i18n("Automatically add closing quotation marks"), this);
 
     layout->addWidget(m_autoBrackets);

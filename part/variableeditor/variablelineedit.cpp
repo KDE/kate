@@ -135,11 +135,6 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
     }
   }
 
-  // Add 'auto-brackets' to list
-  item = new VariableBoolItem("auto-brackets", docConfig->autoBrackets());
-  item->setHelpText(i18nc("short translation please", "Set auto insertion of brackets on or off."));
-  listview->addItem(item);
-
   // Add 'auto-center-lines' to list
   item = new VariableIntItem("auto-center-lines", viewConfig->autoCenterLines());
   static_cast<VariableIntItem*>(item)->setRange(1, 100);

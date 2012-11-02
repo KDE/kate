@@ -10,7 +10,7 @@
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language name="Modelines"
-          version="0.31"
+          version="0.32"
           kateversion="2.4"
           section="Other"
           extensions=""
@@ -33,7 +33,8 @@
   </list>
 
   <list name="Booleans">
-    <item> auto-brackets </item>
+    <!-- NOTE Deprecated since KDE 4.10 -->
+    <!-- <item> auto-brackets </item> -->
     <item> auto-insert-doxygen </item>
     <item> backspace-indents </item>
     <item> block-selection </item>

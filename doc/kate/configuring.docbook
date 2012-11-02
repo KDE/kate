@@ -351,11 +351,6 @@ with the following valid expressions:
 
 <variablelist>
 
-<varlistentry id="variable-auto-brackets">
-<term><cmdsynopsis><command>auto-brackets</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set auto insertion of brackets on or off.</para></listitem>
-</varlistentry>
-
 <varlistentry id="variable-auto-center-lines">
 <term><cmdsynopsis><command>auto-center-lines</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the number of autocenter lines.</para></listitem>

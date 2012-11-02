@@ -77,7 +77,6 @@ namespace KTextEditor
  *    or clear the mark of default type.
  *
  * KTextEditor::Document has support for the following:
- *  - auto-brackets [bool], enable/disable automatic bracket completion
  *  - backup-on-save-local [bool], enable/disable backup when saving local files
  *  - backup-on-save-remote [bool], enable/disable backup when saving remote files
  *  - backup-on-save-suffix [string], set the suffix for file backups, e.g. "~"

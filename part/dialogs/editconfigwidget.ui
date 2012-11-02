@@ -96,16 +96,6 @@
      </property>
      <layout class="QVBoxLayout">
       <item>
-       <widget class="QCheckBox" name="chkAutoBrackets">
-        <property name="whatsThis">
-         <string>When the user types a left bracket ([,(, or {) KateView automatically enters the right bracket (}, ), or ]) to the right of the cursor.</string>
-        </property>
-        <property name="text">
-         <string>Auto &amp;brackets</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QCheckBox" name="chkSmartCopyCut">
         <property name="text">
          <string>Copy/Cut the current line if no selection</string>

@@ -172,7 +172,6 @@ KateDocumentConfig::KateDocumentConfig ()
    m_indentPastedTextSet (false),
    m_backspaceIndentsSet (false),
    m_smartHomeSet (false),
-   m_autoBracketsSet (false),
    m_showTabsSet (false),
    m_showSpacesSet (false),
    m_replaceTabsDynSet (false),
@@ -217,7 +216,6 @@ KateDocumentConfig::KateDocumentConfig (const KConfigGroup &cg)
    m_indentPastedTextSet (false),
    m_backspaceIndentsSet (false),
    m_smartHomeSet (false),
-   m_autoBracketsSet (false),
    m_showTabsSet (false),
    m_showSpacesSet (false),
    m_replaceTabsDynSet (false),
@@ -256,7 +254,6 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_indentPastedTextSet (false),
    m_backspaceIndentsSet (false),
    m_smartHomeSet (false),
-   m_autoBracketsSet (false),
    m_showTabsSet (false),
    m_showSpacesSet (false),
    m_replaceTabsDynSet (false),
@@ -306,7 +303,6 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setKeepExtraSpaces (config.readEntry("Keep Extra Spaces", false));
   setIndentPastedText (config.readEntry("Indent On Text Paste", false));
   setBackspaceIndents (config.readEntry("Indent On Backspace", false));
-  setAutoBrackets (config.readEntry("Automatically Insert Closing Brackets", false));
   setShowSpaces (config.readEntry("Show Spaces", false));
   setReplaceTabsDyn (config.readEntry("ReplaceTabsDyn", false));
   setRemoveSpaces (config.readEntry("Remove Spaces", 0));
@@ -359,7 +355,6 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry("Keep Extra Spaces", keepExtraSpaces());
   config.writeEntry("Indent On Text Paste", indentPastedText());
   config.writeEntry("Indent On Backspace", backspaceIndents());
-  config.writeEntry("Automatically Insert Closing Brackets", autoBrackets());
   config.writeEntry("Show Spaces", showSpaces());
   config.writeEntry("ReplaceTabsDyn", replaceTabsDyn());
   config.writeEntry("Remove Spaces", removeSpaces());
@@ -611,24 +606,6 @@ bool KateDocumentConfig::smartHome() const
     return m_smartHome;
 
   return s_global->smartHome();
-}
-
-void KateDocumentConfig::setAutoBrackets(bool on)
-{
-  configStart ();
-
-  m_autoBracketsSet = true;
-  m_autoBrackets = on;
-
-  configEnd ();
-}
-
-bool KateDocumentConfig::autoBrackets() const
-{
-  if (m_autoBracketsSet || isGlobal())
-    return m_autoBrackets;
-
-  return s_global->autoBrackets();
 }
 
 void KateDocumentConfig::setShowTabs(bool on)

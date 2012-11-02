@@ -2622,54 +2622,10 @@ uint KateDocument::toVirtualColumn( const KTextEditor::Cursor& cursor )
 bool KateDocument::typeChars ( KateView *view, const QString &chars )
 {
   Kate::TextLine textLine = m_buffer->plainLine(view->cursorPosition().line ());
-
   if (!textLine)
     return false;
 
-  bool bracketInserted = false;
-  QString buf;
-  foreach(const QChar& ch, chars)
-  {
-    if (ch.isPrint() || ch == QChar::fromAscii('\t'))
-    {
-      buf.append (ch);
-
-      if (config()->autoBrackets())
-      {
-        if (isEndBracket(ch) &&
-            view->document()->character(view->cursorPosition()).toAscii() == ch)
-        {
-          del(view, view->cursorPosition());
-        }
-        else
-        {
-          if (!bracketInserted)
-          {
-            QChar end_ch;
-
-            switch (ch.toAscii()) {
-              case '(': end_ch = ')'; break;
-              case '[': end_ch = ']'; break;
-              case '{': end_ch = '}'; break;
-              case '"': end_ch = '"'; break;
-              case '\'': end_ch = '\''; break;
-            }
-            if (!end_ch.isNull()) {
-              bracketInserted = true;
-
-              if (view->selection()) {
-                buf.append(view->selectionText());
-              }
-
-              buf.append(end_ch);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  if (buf.isEmpty())
+  if (chars.isEmpty())
     return false;
 
   editStart ();
@@ -2682,7 +2638,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
   if (config()->ovr()
       || (view->viInputMode() && view->getViInputModeManager()->getCurrentViMode() == ReplaceMode)) {
 
-    KTextEditor::Range r = KTextEditor::Range(view->cursorPosition(), qMin(buf.length(),
+    KTextEditor::Range r = KTextEditor::Range(view->cursorPosition(), qMin(chars.length(),
           textLine->length() - view->cursorPosition().column()));
 
     // replace mode needs to know what was removed so it can be restored with backspace
@@ -2695,9 +2651,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &chars )
     removeText(r);
   }
 
-  insertText(view->cursorPosition(), buf);
-  if (bracketInserted)
-    view->setCursorPositionInternal (view->cursorPosition() - KTextEditor::Cursor(0,1));
+  insertText(view->cursorPosition(), chars);
 
   KTextEditor::Cursor b(view->cursorPosition());
   m_indenter->userTypedChar (view, b, chars.isEmpty() ? QChar() :  chars.at(chars.length() - 1));
@@ -2784,31 +2738,13 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
   if ((col == 0) && (line == 0))
     return;
 
-  int complement = 0;
   if (col > 0)
   {
-    if (config()->autoBrackets())
-    {
-      // if inside empty (), {}, [], '', "" delete both
-      Kate::TextLine tl = m_buffer->plainLine(line);
-      if(!tl) return;
-      QChar prevChar = tl->at(col-1);
-      QChar nextChar = tl->at(col);
-
-      if ( (prevChar == '"' && nextChar == '"') ||
-           (prevChar == '\'' && nextChar == '\'') ||
-           (prevChar == '(' && nextChar == ')') ||
-           (prevChar == '[' && nextChar == ']') ||
-           (prevChar == '{' && nextChar == '}') )
-      {
-        complement = 1;
-      }
-    }
     if (!(config()->backspaceIndents()))
     {
       // ordinary backspace
       //c.cursor.col--;
-      removeText(KTextEditor::Range(line, col-1, line, col+complement));
+      removeText(KTextEditor::Range(line, col-1, line, col));
     }
     else
     {
@@ -2830,7 +2766,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
         indent( KTextEditor::Range( line, 0, line, 0), -1);
       }
       else
-        removeText(KTextEditor::Range(line, col-1, line, col+complement));
+        removeText(KTextEditor::Range(line, col-1, line, col));
     }
   }
   else
@@ -2937,10 +2873,8 @@ void KateDocument::paste ( KateView* view, QClipboard::Mode mode )
 
 void KateDocument::indent (KTextEditor::Range range, int change)
 {
-  // dominik: if there is a selection, iterate afterwards over all lines and
-  // remove trailing spaces
-  int start = range.start().line();
-  const int end = range.end().line();
+  if (!isReadWrite())
+    return;
 
   editStart();
   m_indenter->changeIndent(range, change);
@@ -3324,14 +3258,10 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
   if (skipWordWrap) setWordWrap(false);
 
   bool hassel = v->selection();
-  int l = line;
   int c = 0;
 
   if ( hassel )
-  {
-    l = v->selectionRange().start().line();
     c = v->selectionRange().start().column();
-  }
 
   int startAttrib = 0;
   Kate::TextLine ln = kateTextLine( line );
@@ -4223,8 +4153,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
           "http://docs.kde.org/stable/en/kde-baseapps/kate/config-variables.html#variable-remove-trailing-spaces");
         m_config->setRemoveSpaces( state ? 2 : 0 );
       }
-      else if ( var == "auto-brackets" && checkBoolValue( val, &state ) )
-        m_config->setAutoBrackets( state );
       else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
         m_config->setOvr( state );
       else if ( var == "keep-extra-spaces" && checkBoolValue( val, &state ) )
@@ -4685,14 +4613,12 @@ bool KateDocument::checkOverwrite( KUrl u, QWidget *parent )
 // BEGIN ConfigInterface stff
 QStringList KateDocument::configKeys() const
 {
-  return QStringList() << "auto-brackets";
+  return QStringList();
 }
 
 QVariant KateDocument::configValue(const QString &key)
 {
-  if (key == "auto-brackets") {
-    return m_config->autoBrackets();
-  } else if (key == "backup-on-save-local") {
+  if (key == "backup-on-save-local") {
     return m_config->backupFlags() & KateDocumentConfig::LocalFiles;
   } else if (key == "backup-on-save-remote") {
     return m_config->backupFlags() & KateDocumentConfig::RemoteFiles;
@@ -4718,9 +4644,7 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
     }
   } else if (value.canConvert(QVariant::Bool)) {
     const bool bValue = value.toBool();
-    if (key == "auto-brackets") {
-      m_config->setAutoBrackets(bValue);
-    } else if (key == "backup-on-save-local" && value.type() == QVariant::String) {
+    if (key == "backup-on-save-local" && value.type() == QVariant::String) {
       uint f = m_config->backupFlags();
       if (bValue) {
         f |= KateDocumentConfig::LocalFiles;

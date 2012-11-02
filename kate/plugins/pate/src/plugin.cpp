@@ -137,7 +137,6 @@ void Pate::Plugin::reloadModuleConfigPages() const
                     PyObject *tuple = PyList_GetItem(configPages, k);
                     m_moduleConfigPages.append(tuple);
                 }
-                Py_DECREF(configPages);
             }
         }
     }

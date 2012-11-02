@@ -2216,22 +2216,13 @@ bool KateDocument::saveFile()
     }
     else // remote file mode, kio
     {
-      QWidget *w = widget ();
-      if (!w && !m_views.isEmpty ())
-        w = m_views.first();
-
       // get the right permissions, start with safe default
-      mode_t  perms = 0600;
       KIO::UDSEntry fentry;
-      if (KIO::NetAccess::stat (url(), fentry, QApplication::activeWindow()))
-      {
-        kDebug( 13020 ) << "stating succesfull: " << url();
-        KFileItem item (fentry, url());
-        perms = item.permissions();
-
+      if (KIO::NetAccess::stat (url(), fentry, QApplication::activeWindow())) {
         // do a evil copy which will overwrite target if possible
-        KIO::FileCopyJob *job = KIO::file_copy ( url(), u, -1, KIO::Overwrite );
-        backupSuccess = KIO::NetAccess::synchronousRun(job, w);
+        KFileItem item (fentry, url());
+        KIO::FileCopyJob *job = KIO::file_copy ( url(), u, item.permissions(), KIO::Overwrite );
+        backupSuccess = KIO::NetAccess::synchronousRun(job, QApplication::activeWindow());
       }
       else
         backupSuccess = true;

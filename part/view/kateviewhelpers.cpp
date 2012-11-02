@@ -270,13 +270,7 @@ void KateScrollBar::updatePixmap()
   }
   drawLinesCount /= drawEvery;
 
-  // To reduce flickering, the pixmap height is rounded to the next-largest 10.
-  // That way, the pixmap will mostly not scale differently when a line is added
-  // or removed from / to the document.
-  int pixmapHeight = drawLinesCount+1;
-  if ( pixmapHeight > 200 ) {
-    pixmapHeight = round((pixmapHeight+5) / 10)*10;
-  }
+  int pixmapHeight = drawLinesCount;
 
   QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
   QColor defaultTextColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
@@ -285,11 +279,11 @@ void KateScrollBar::updatePixmap()
 
   m_pixmap = QPixmap(s_lineWidth, pixmapHeight);
   m_pixmap.fill(QColor("transparent"));
-  
+
   // move the modified line color away from the background color
   modifiedLineColor.setHsv(modifiedLineColor.hue(), 255, 255 - backgroundColor.value()/3);
   savedLineColor.setHsv(savedLineColor.hue(), 100, 255 - backgroundColor.value()/3);
-  
+
   // The text currently selected in the document, to be drawn later.
   const Range& selection = m_view->selectionRange();
 
@@ -298,10 +292,10 @@ void KateScrollBar::updatePixmap()
     // The amount of lines inserted / removed up to the current line,
     // used for avoiding flickering.
     int jumplinesOffset = 0;
-    
+
     // Do not force updates of the highlighting if the document is very large
     bool simpleMode = m_doc->lines() > 7500;
-    
+
     // Iterate over all visible lines, drawing them.
     for ( int currentVisibleLineNumber=0; currentVisibleLineNumber < visibleLinesCount; currentVisibleLineNumber++ ) {
       // Check whether this line should be skipped, taking the offsets due to
@@ -479,58 +473,62 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
   style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
 
+  // draw the grove background in case the document is small
   painter.setPen(palette().color(QPalette::Dark));
   painter.setBrush(palette().brush(QPalette::Dark));
   painter.drawRect(grooveRect);
 
-  int max = qMax(maximum(), 1);
+  // calculate the document size and position
   int docHeight = qMin(grooveRect.height(), m_pixmap.height()*3);
   int yoffset = (grooveRect.height() - docHeight) / 2;
-  QRect docRect(QPoint(grooveRect.left(), yoffset+grooveRect.top()), QSize(grooveRect.width(), docHeight));
+  QRect docRect(QPoint(grooveRect.left(), yoffset+grooveRect.top()), QSize(grooveRect.width()-1, docHeight));
 
+  // calculate the visible area
+  int max = qMax(maximum(), 1);
   int visibleStart = value()*docHeight/(max+pageStep()) + docRect.top();
   int visibleEnd = (value()+pageStep())*docHeight/(max+pageStep()) + docRect.top();
-  QRect visibleRect(QPoint(grooveRect.left(), visibleStart), QPoint(grooveRect.right(), visibleEnd));
+  QRect visibleRect(QPoint(docRect.left(), visibleStart), QPoint(docRect.right(), visibleEnd));
 
   QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
-
   QColor shieldColor = palette().color(QPalette::Mid);
   QColor shieldColorLight = shieldColor;
-  shieldColorLight.setAlpha(150);
+  shieldColorLight.setAlpha(180);
   QLinearGradient gradient(0, 0, width(), 0);
   gradient.setColorAt(0, shieldColor);
-  gradient.setColorAt(0.4, shieldColorLight);
+  gradient.setColorAt(0.3, shieldColorLight);
   gradient.setColorAt(1, shieldColor);
 
-
-  painter.setPen(backgroundColor);
+  painter.setPen(QColor("transparent"));
   painter.setBrush(backgroundColor);
   painter.drawRect(docRect);
 
-  painter.setPen(QColor("transparent"));
+  // "shield" non-visible part
+  painter.setBrush(palette().brush(QPalette::Midlight));
+  // Top shielding
+  painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
+  // Bottom shielding
+  painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
+
+  painter.setBrush(gradient);
 
   if (docHeight < grooveRect.height()) {
-    painter.setBrush(gradient);
+    // shield the non-visible again (not non-slider)
     // Top shielding
     painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
     // Bottom shielding
     painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
   }
   else {
-    painter.setBrush(palette().brush(QPalette::Midlight));
+    // shield the non-slider area
     // Top shielding
-    painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
+    painter.drawRect(QRect(docRect.topLeft(), QPoint(sliderRect.right()-1, sliderRect.top())));
     // Bottom shielding
-    painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
-
-    painter.setBrush(gradient);
-    // Top shielding
-    painter.drawRect(QRect(grooveRect.topLeft(), sliderRect.topRight()));
-    // Bottom shielding
-    painter.drawRect(QRect(sliderRect.bottomLeft(), grooveRect.bottomRight()));
+    painter.drawRect(QRect(sliderRect.bottomLeft(), docRect.bottomRight()));
   }
 
-  painter.setRenderHint(QPainter::SmoothPixmapTransform);
+  if (grooveRect.height() < m_pixmap.height()) {
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+  }
   painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
 
   if (!m_showMarks) return;
@@ -543,7 +541,8 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
     it.next();
     pen.setColor(it.value());
     painter.setPen(pen);
-    painter.drawLine(0, it.key(), width(), it.key());
+    int y = (it.key()-grooveRect.top()) * docHeight/grooveRect.height() + docRect.top();;
+    painter.drawLine(0, y, width(), y);
   }
 }
 

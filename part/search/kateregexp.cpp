@@ -89,7 +89,7 @@ int KateRegExp::repairPattern(bool & stillMultiLine)
 
         case L's':
           // replace "\s" with "[ \t]"
-          output.append("[ \\t]");
+          output.append(" \\t");
           input += 2;
           replaceCount++;
           break;

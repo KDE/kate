@@ -2841,6 +2841,11 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
 void KateViewInternal::leaveEvent( QEvent* )
 {
   m_textHintTimer.stop();
+
+  // fix bug 194452, scrolling keeps going if you scroll via mouse drag and press and other mouse
+  // button outside the view area
+  if (m_dragInfo.state == diNone)
+    m_scrollTimer.stop ();
 }
 
 KTextEditor::Cursor KateViewInternal::coordinatesToCursor(const QPoint& _coord) const

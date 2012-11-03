@@ -1155,6 +1155,7 @@ void KateView::slotReadWriteChanged ()
 
   m_cut->setEnabled (m_doc->isReadWrite() && (selection() || m_config->smartCopyCut()));
   m_paste->setEnabled (m_doc->isReadWrite());
+  m_setEndOfLine->setEnabled (m_doc->isReadWrite());
 
   QStringList l;
 

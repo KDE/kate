@@ -32,6 +32,7 @@
 #include <QtGui/QStackedWidget>
 #include <QtCore/QMap>
 #include <QtCore/QTimer>
+#include <QtGui/QTextLayout>
 
 #include <ktexteditor/containerinterface.h>
 #include <ktexteditor/cursor.h>
@@ -99,8 +100,6 @@ Q_SIGNALS:
   protected Q_SLOTS:
     void sliderMaybeMoved(int value);
     void marksChanged();
-    void lineAdded(const KTextEditor::Cursor position);
-    void lineRemoved(int line);
 
   public Q_SLOTS:
     void updatePixmap();
@@ -112,8 +111,9 @@ Q_SIGNALS:
     void miniMapPaintEvent(QPaintEvent *e);
     void normalPaintEvent(QPaintEvent *e);
 
-    // cleans up the m_linesAdded / m_linesRemoved arrays if they grow large
-    void cleanupLinesAddedAndRemoved();
+    const QColor charColor(const QVector<int> &attributes, int &attributeIndex,
+                           const QList<QTextLayout::FormatRange> &decorations,
+                           const QColor &defaultColor, int x, QChar ch);
 
     bool m_middleMouseDown;
     bool m_leftMouseDown;

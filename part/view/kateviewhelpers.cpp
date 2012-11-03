@@ -75,12 +75,13 @@
 #include <QtGui/QAction>
 #include <QtGui/QWhatsThis>
 #include <QtGui/QLinearGradient>
-#include <QtGui/QTextLayout>
 
 #include <math.h>
 
 //BEGIN KateScrollBar
 static const int s_lineWidth = 100;
+static const int s_pixelMargin = 8;
+static const int s_linePixelIncLimit = 6;
 
 float KateScrollBar::characterOpacity[256] = {
               0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,  // <- 15
@@ -100,6 +101,7 @@ float KateScrollBar::characterOpacity[256] = {
               0.88, 0.86, 0.91, 0.9, 0.88, 0.97, 0.96, 0.74, 0.92, 0.9, 0.94, 0.9, 0.82, 0.8, 0.85, 0.8,  // <- 239
               0.92, 0.8, 0.86, 0.84, 0.89, 0.87, 0.85, 0.66, 0.91, 0.77, 0.75, 0.8, 0.76, 0.8, 0.94, 0.81
 };
+
 
 KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* parent)
   : QScrollBar (orientation, parent->m_view)
@@ -132,52 +134,15 @@ void KateScrollBar::setShowMiniMap(bool b)
     connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()), Qt::UniqueConnection);
     connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
-    connect(&(m_doc->buffer()), SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(lineAdded(KTextEditor::Cursor)));
-    connect(&(m_doc->buffer()), SIGNAL(lineUnwrapped(int)), this, SLOT(lineRemoved(int)));
   }
   else if (!b) {
     disconnect(&m_updateTimer);
-    disconnect(&(m_doc->buffer()), SIGNAL(lineWrapped(KTextEditor::Cursor)), this, SLOT(lineAdded(KTextEditor::Cursor)));
-    disconnect(&(m_doc->buffer()), SIGNAL(lineUnwrapped(int)), this, SLOT(lineRemoved(int)));
   }
 
   m_showMiniMap = b;
 
   updateGeometry();
   update();
-}
-
-void KateScrollBar::lineRemoved(int line)
-{
-  if ( m_linesAdded.contains(line) ) {
-    m_linesAdded[line] -= 1;
-  }
-  else {
-    m_linesAdded[line] = -1;
-  }
-  m_linesModified++;
-  cleanupLinesAddedAndRemoved();
-}
-
-void KateScrollBar::lineAdded(const Cursor position)
-{
-  int line = position.line();
-  if ( m_linesAdded.contains(line) ) {
-    m_linesAdded[line] += 1;
-  }
-  else {
-    m_linesAdded[line] = +1;
-  }
-  m_linesModified++;
-  cleanupLinesAddedAndRemoved();
-}
-
-void KateScrollBar::cleanupLinesAddedAndRemoved()
-{
-  if ( m_linesModified > 10 ) {
-    m_linesAdded.clear();
-    m_linesModified = 0;
-  }
 }
 
 QSize KateScrollBar::sizeHint() const
@@ -246,11 +211,60 @@ void KateScrollBar::paintEvent(QPaintEvent *e)
   }
 }
 
+// This function is optimized for bing called in sequence.
+const QColor KateScrollBar::charColor(const QVector<int> &attributes, int &attributeIndex,
+                                      const QList<QTextLayout::FormatRange> &decorations,
+                                      const QColor &defaultColor, int x, QChar ch)
+{
+  QColor color = defaultColor;
+
+  bool styleFound = false;
+
+  // Query the decorations, that is, things like search highlighting, or the
+  // KDevelop DUChain highlighting, for a color to use
+  foreach (const QTextLayout::FormatRange& range, decorations) {
+    if (range.start <= x and range.start + range.length > x) {
+      // If there's a different background color set (search markers, ...)
+      // use that, otherwise use the foreground color.
+      if ( range.format.hasProperty(QTextFormat::BackgroundBrush) ) {
+        color = range.format.background().color();
+      }
+      else {
+        color = range.format.foreground().color();
+      }
+      styleFound = true;
+      break;
+    }
+  }
+
+  // If there's no decoration set for the current character (this will mostly be the case for
+  // plain Kate), query the styles, that is, the default kate syntax highlighting.
+  if (!styleFound) {
+    // go to the block containing x
+    while ((attributeIndex < attributes.size()) &&
+      ((attributes[attributeIndex] + attributes[attributeIndex+1]) < x))
+    {
+      attributeIndex += 3;
+    }
+    if ((attributeIndex < attributes.size()) && (x < attributes[attributeIndex] + attributes[attributeIndex+1])) {
+      color = m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color();
+    }
+  }
+
+  // Query how much "blackness" the character has.
+  // This causes for example a dot or a dash to appear less intense
+  // than an A or similar.
+  // This gives the pixels created a bit of structure, which makes it look more
+  // like real text.
+  color.setAlphaF((ch.unicode() < 256) ? characterOpacity[ch.unicode()] : 1.0);
+
+  return color;
+}
+
 void KateScrollBar::updatePixmap()
 {
-  // Remaining things to be fixed:
-  //  - view pixmap does not match the viewport correctly
-  //  - display is broken with code folding
+  //QTime time;
+  //time.start();
 
   if (!m_showMiniMap) {
     // make sure no time is wasted if the option is disabled
@@ -264,67 +278,52 @@ void KateScrollBar::updatePixmap()
 
   // For performance reason, only every n-th line will be drawn if the widget is
   // sufficiently small compared to the amount of lines in the document.
-  int drawEvery = 1;
-  if ( (height() > 10) && (drawLinesCount > height()*2) ) {
-    drawEvery = drawLinesCount / height();
+  int groveHeight = height() - 35; // this value only needs to be an approximation
+  int lineDivisor = 1;
+  if ( (groveHeight > 10) && (drawLinesCount > groveHeight*2) ) {
+    lineDivisor = drawLinesCount / groveHeight;
+    drawLinesCount /= lineDivisor;
   }
-  drawLinesCount /= drawEvery;
 
-  int pixmapHeight = drawLinesCount;
+  int lineIncrement = (lineDivisor > s_linePixelIncLimit) ? (lineDivisor/s_linePixelIncLimit + 1) : 1;
+  int charIncrement = (lineDivisor > s_linePixelIncLimit) ? s_linePixelIncLimit : lineDivisor;
+  int drawnLinesDivisor = (lineDivisor > s_linePixelIncLimit) ? (lineDivisor%s_linePixelIncLimit + 1) : lineDivisor;
+
+  //kDebug(13040) << "l inc" << lineIncrement << "c inc" << charIncrement << "divisor" << lineDivisor << "drawLines" << drawLinesCount << "docLines" << m_doc->visibleLines() << "height" << groveHeight;
+
 
   QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
   QColor defaultTextColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
   QColor modifiedLineColor = m_view->renderer()->config()->modifiedLineColor();
   QColor savedLineColor = m_view->renderer()->config()->savedLineColor();
-
-  m_pixmap = QPixmap(s_lineWidth, pixmapHeight);
-  m_pixmap.fill(QColor("transparent"));
-
   // move the modified line color away from the background color
   modifiedLineColor.setHsv(modifiedLineColor.hue(), 255, 255 - backgroundColor.value()/3);
   savedLineColor.setHsv(savedLineColor.hue(), 100, 255 - backgroundColor.value()/3);
+
+  m_pixmap = QPixmap(s_lineWidth, drawLinesCount);
+  m_pixmap.fill(QColor("transparent"));
 
   // The text currently selected in the document, to be drawn later.
   const Range& selection = m_view->selectionRange();
 
   QPainter painter;
   if ( painter.begin(&m_pixmap) ) {
-    // The amount of lines inserted / removed up to the current line,
-    // used for avoiding flickering.
-    int jumplinesOffset = 0;
-
     // Do not force updates of the highlighting if the document is very large
     bool simpleMode = m_doc->lines() > 7500;
 
+    int pixelY = 0;
+    int drawnLines = 0;
+
     // Iterate over all visible lines, drawing them.
-    for ( int currentVisibleLineNumber=0; currentVisibleLineNumber < visibleLinesCount; currentVisibleLineNumber++ ) {
-      // Check whether this line should be skipped, taking the offsets due to
-      // recently inserted / removed lines into account (the latter reduces flickering)
-      if ( (currentVisibleLineNumber + jumplinesOffset) % drawEvery != 0 ) {
-        int change = m_linesAdded.value(currentVisibleLineNumber);
-        jumplinesOffset -= change;
-        jumplinesOffset = jumplinesOffset % drawEvery;
-        continue;
-      }
+    for (int virtualLine=0; virtualLine < visibleLinesCount; virtualLine += lineIncrement) {
 
-      int realLineNumber = m_doc->getRealLine(currentVisibleLineNumber);
-      QString currentLineContents = m_doc->line(realLineNumber);
-
-      // try to draw the lines around this one instead if the current line is empty
-      // this is to avoid large empty blocks in some unlucky situations
-      if ( (drawEvery > 1) && currentLineContents.isEmpty() && (currentVisibleLineNumber>10) ) {
-        realLineNumber = m_doc->getRealLine(currentVisibleLineNumber-1);
-        currentLineContents = m_doc->line(realLineNumber);
-        if (currentLineContents.isEmpty() && (currentVisibleLineNumber+5 < visibleLinesCount)) {
-          realLineNumber = m_doc->getRealLine(currentVisibleLineNumber+1);
-          currentLineContents = m_doc->line(realLineNumber);
-        }
-      }
+      int realLineNumber = m_doc->getRealLine(virtualLine);
+      QString lineText = m_doc->line(realLineNumber);
 
       // use this to control the offset of the text from the left
-      int pixelX = 8;
+      int pixelX = s_pixelMargin;
 
-      if ( ! simpleMode ) {
+      if (!simpleMode) {
         m_doc->buffer().ensureHighlighted(realLineNumber);
       }
       const Kate::TextLine& kateline = m_doc->plainKateTextLine(realLineNumber);
@@ -340,92 +339,44 @@ void KateScrollBar::updatePixmap()
 
       painter.setPen(defaultTextColor);
       // Iterate over all the characters in the current line
-      for ( int x = 0; x < currentLineContents.size(); x++ ) {
-        int originalPixelOffset = pixelX;
-        if ( pixelX >= s_lineWidth ) {
+      for (int x = 0; x < lineText.size(); x += charIncrement) {
+        if (pixelX >= s_lineWidth) {
           break;
         }
 
         // draw the pixels
-        if (currentLineContents[x] == ' ') {
+        if (lineText[x] == ' ') {
           pixelX++;
         }
-        else if (currentLineContents[x] == '\t') {
+        else if (lineText[x] == '\t') {
           pixelX += 4; // FIXME: tab width...
         }
         else {
-          // Query how much "blackness" the character has.
-          // This causes for example a dot or a dash to appear less intense
-          // than an A or similar.
-          // This gives the pixels created a bit of structure, which makes it look more
-          // like real text.
-          if (currentLineContents[x].unicode() < 256) {
-            painter.setOpacity(KateScrollBar::characterOpacity[currentLineContents[x].unicode()]);
-          }
-          else {
-            painter.setOpacity(1.0);
-          }
-
-          bool styleFound = false;
-
-          // Query the decorations, that is, things like search highlighting, or the
-          // KDevelop DUChain highlighting, for a color to use
-          foreach ( const QTextLayout::FormatRange& range, decorations ) {
-            if ( range.start <= x and range.start + range.length > x ) {
-              // If there's a different background color set (search markers, ...)
-              // use that, otherwise use the foreground color.
-              if ( range.format.hasProperty(QTextFormat::BackgroundBrush) ) {
-                painter.setPen(range.format.background().color());
-              }
-              else {
-                painter.setPen(range.format.foreground().color());
-              }
-              styleFound = true;
-              break;
-            }
-          }
-
-          // If there's no decoration set for the current character (this will mostly be the case for
-          // plain kate), query the styles, that is, the default kate syntax highlighting.
-          if ( ! styleFound ) {
-            // check if we are entering next attrib block
-            if (attributeIndex < attributes.size()) {
-              if ((x == attributes[attributeIndex]) || (x == attributes[attributeIndex]+1)) {
-                // entering the next block ?
-                painter.setPen(m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color());
-              }
-              else if (x >= (attributes[attributeIndex] + attributes[attributeIndex+1])) {
-                // exiting the block ?
-                attributeIndex += 3;
-                if ((attributeIndex < attributes.size()) && ((x == attributes[attributeIndex]) || (x == attributes[attributeIndex] +1))) {
-                  // entering the next block ?
-                  painter.setPen(m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color());
-                }
-                else {
-                  painter.setPen(palette().color(QPalette::Text));
-                }
-              }
-            }
-          }
+          painter.setPen(charColor(attributes, attributeIndex, decorations, defaultTextColor, x, lineText[x]));
 
           // Actually draw the pixel with the color queried from the renderer.
-          painter.drawPoint(pixelX, currentVisibleLineNumber/drawEvery);
+          painter.drawPoint(pixelX, pixelY);
 
           pixelX++;
         }
 
         // Query the selection and draw it above the character with an alpha channel
-        if ( selection.contains(Cursor(realLineNumber, x)) ) {
+        if (selection.contains(Cursor(realLineNumber, x))) {
           painter.setPen(selectionColor);
-          painter.drawPoint(originalPixelOffset, currentVisibleLineNumber/drawEvery);
+          painter.drawPoint(s_pixelMargin, pixelY);
           // fill the line up in case the selection extends beyond it
-          if ( currentLineContents.size() - 1 == x ) {
-            for ( int xFill = originalPixelOffset; xFill < s_lineWidth; xFill++ ) {
-              painter.drawPoint(xFill, currentVisibleLineNumber/drawEvery);
+          if (lineText.size() - 1 == x) {
+            for (int xFill = s_pixelMargin; xFill < s_lineWidth; xFill++) {
+              painter.drawPoint(xFill, pixelY);
             }
           }
         }
       }
+      drawnLines++;
+      if (((drawnLines) % drawnLinesDivisor) == 0) {
+        pixelY++;
+      }
+
     }
     // Draw line modification marker map.
     // Disable this if the document is really huge,
@@ -443,10 +394,11 @@ void KateScrollBar::updatePixmap()
         else {
           continue;
         }
-        painter.drawRect(2, lineno/drawEvery, 3, 1);
+        painter.drawRect(2, lineno/lineDivisor, 3, 1);
       }
     }
   }
+  //kDebug(13040) << time.elapsed();
   // Redraw the scrollbar widget with the updated pixmap.
   update();
 }

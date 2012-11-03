@@ -2431,6 +2431,15 @@ bool KateDocument::closeUrl()
     emit aboutToClose(this);
 
   /**
+   * delete all KTE::Messages
+   */
+  if (m_messageHash.count()) {
+    QList<KTextEditor::Message*> keys = m_messageHash.keys ();
+    foreach (KTextEditor::Message* message, keys)
+      delete message;
+  }
+
+  /**
    * we are about to invalidate all cursors/ranges/.. => m_buffer->clear will do so
    */
   emit aboutToInvalidateMovingInterfaceContent (this);

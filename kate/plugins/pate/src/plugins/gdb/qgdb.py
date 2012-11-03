@@ -471,7 +471,6 @@ class Breakpoints():
 		if location:
 			options += " " + location
 		results = self._gdb.miCommandOne("-break-insert {}".format(options))
-		print results["bkpt"]
 		return results["bkpt"]
 
 	def breakpointCreate(self, location, temporary = False, hw = False, disabled = False, condition = None, after = 0, tid = None, probe = None):
@@ -492,15 +491,14 @@ class Breakpoints():
 		elif not onWrite:
 			raise QGdbException("Invalid watchpoint {}, {}".format(onWrite, onRead))
 		results = self._gdb.miCommandOne("-break-watch {} {}".format(options, expr))
-		print results[0][1]
-		return results[0][1]
+		return results["wpt"]
 
 	def breakpointDelete(self, id):
 		results = self._gdb.miCommandOne("-break-delete {}".format(id))
-		print results
+		return results
 
 	def tracepointDelete(self, id):
-		self.breakpointDelete(id)
+		return self.breakpointDelete(id)
 
 	def setAfter(self, id, count):
 		# TODO
@@ -508,81 +506,36 @@ class Breakpoints():
 		#	results = self._gdb.miCommandOne("-break-passcount {} {}".format(id, count))
 		#else:
 		results = self._gdb.miCommandOne("-break-after {} {}".format(id, count))
-		print results
+		return results
 
 	def setCommands(self, id, commands):
 		commands = " ".join(["\"{}\"".format(c) for c in commands])
 		results = self._gdb.miCommandOne("-break-commands {} {}".format(id, commands))
-		print results
+		return results
 
 	def setCondition(self, id, condition):
 		results = self._gdb.miCommandOne("-break-condition {} {}".format(id, condition))
-		print results
+		return results
 
 	def setEnable(self, id, enabled):
 		if enabled:
 			results = self._gdb.miCommandOne("-break-enable {}".format(id))
 		else:
 			results = self._gdb.miCommandOne("-break-disable {}".format(id))
-		print results
+		return results
 
 	def list(self, id):
+		"""
+		[{u'bkpt': {u'disp': u'keep', u'addr': u'<MULTIPLE>', u'type': u'breakpoint', u'enabled': u'y', u'number': '2', u'original-location': u'QWidget::QWidget', u'times': '0'}}, {u'at': u'<QWidget::QWidget(QWidgetPrivate&, QWidget*, QFlags<Qt::WindowType>)>', u'enabled': u'y', u'number': u'2.1', u'addr': '0x7ffff6d601b0'}, {u'at': u'<QWidget::QWidget(QWidget*, char const*, QFlags<Qt::WindowType>)>', u'enabled': u'y', u'number': u'2.2', u'addr': '0x7ffff6d60270'}, {u'at': u'<QWidget::QWidget(QWidget*, QFlags<Qt::WindowType>)>', u'enabled': u'y', u'number': u'2.3', u'addr': '0x7ffff6d603c0'}]
+		"""
 		if id:
 			results = self._gdb.miCommandOne("-break-info {}".format(id))
 		else:
 			results = self._gdb.miCommandOne("-break-info")
-		#
-		# {u'BreakpointTable': {u'body': [{u'bkpt': {u'disp': u'keep', u'addr': u'<MULTIPLE>', u'type': u'breakpoint', u'enabled': u'y', u'number': '2', u'original-location': u'QWidget::QWidget', u'times': '0'}}, {u'at': u'<QWidget::QWidget(QWidgetPrivate&, QWidget*, QFlags<Qt::WindowType>)>', u'enabled': u'y', u'number': u'2.1', u'addr': '0x7ffff6d601b0'}, {u'at': u'<QWidget::QWidget(QWidget*, char const*, QFlags<Qt::WindowType>)>', u'enabled': u'y', u'number': u'2.2', u'addr': '0x7ffff6d60270'}, {u'at': u'<QWidget::QWidget(QWidget*, QFlags<Qt::WindowType>)>', u'enabled': u'y', u'number': u'2.3', u'addr': '0x7ffff6d603c0'}], u'hdr': [{u'width': '7', u'colhdr': u'Num', u'col_name': u'number', u'alignment': '-1'}, {u'width': '14', u'colhdr': u'Type', u'col_name': u'type', u'alignment': '-1'}, {u'width': '4', u'colhdr': u'Disp', u'col_name': u'disp', u'alignment': '-1'}, {u'width': '3', u'colhdr': u'Enb', u'col_name': u'enabled', u'alignment': '-1'}, {u'width': '18', u'colhdr': u'Address', u'col_name': u'addr', u'alignment': '-1'}, {u'width': '40', u'colhdr': u'What', u'col_name': u'what', u'alignment': '2'}], u'nr_cols': '6', u'nr_rows': '1'}}
-		#
 		results = results[u'BreakpointTable'][u'body']
 		if id:
-			results = [row for row in results if row[1]["number"] == id]
-		if not len(results):
-			return
-		#
-		# Print rows.
-		#
-		fmt = "{:<7} {:<14} {:<4} {:<3} {}"
-		print fmt.format("Num", "Type", "Disp", "Enb", "Where")
-		for u in results:
-			try:
-				u = u[u'bkpt']
-				try:
-					location = u["fullname"]
-				except KeyError:
-					try:
-						location = u["file"]
-					except KeyError:
-						try:
-							location = u["original-location"]
-						except KeyError:
-							location = u["at"]
-							u["type"] = "";
-							u["disp"] = "";
-				try:
-					addr = u["addr"]
-				except KeyError:
-					addr = 0
-				try:
-					func = u["func"]
-					line = u["line"]
-				except KeyError:
-					func = ""
-					line = 0
-				location = "{} {} at {}:{}".format(addr, func, location, line)
-				print fmt.format(u["number"], u["type"], u["disp"], u["enabled"], location)
-				try:
-					times = u["times"]
-					if times != "0":
-						print "        breakpoint already hit {} times".format(times)
-				except KeyError:
-					pass
-			except KeyError:
-				#
-				# Not a standalone breakpoint, just an overload of one.
-				#
-				location = "{} {}".format(u["addr"], u["at"])
-				print fmt.format(u["number"], "", "", u["enabled"], location)
+			results = [row for row in results if row["number"] == id]
+		return results
 
 class Data():
 	"""Model of GDB data."""
@@ -631,6 +584,9 @@ class Data():
 					self._registerNumbers[i] = names[i]
 
 	def listRegisterValues(self, fmt = 'r', regName = None):
+		"""
+		[{u'number': '0', u'value': '0x7ffff77b0d90', 'name': u'rax'}, {u'number': '1', u'value': '0x6d6c20', 'name': u'rbx'}, {u'number': '2', u'value': '0x7fffffffd370', 'name': u'rcx'}, {u'number': '3', u'value': '0x0', 'name': u'rdx'}, {u'number': '4', u'value': '0x6d2f00', 'name': u'rsi'}]
+		"""
 		self._getRegisterNames()
 		if regName:
 			try:
@@ -640,17 +596,15 @@ class Data():
 			results = self._gdb.miCommandOne("-data-list-register-values {} {}".format(fmt, regNo))
 		else:
 			results = self._gdb.miCommandOne("-data-list-register-values {}".format(fmt))
-		#
-		# {u'register-values': [{u'number': '0', u'value': '0x7ffff77b0d90'}, {u'number': '1', u'value': '0x7158b0'}, ..., {u'number': '140', u'value': '0x3feffff400000000'}, {u'number': '141', u'value': '0x3ff6980000000000'}]}
-		#
 		results = results[u'register-values']
-		#
-		# Print rows.
-		#
 		for u in results:
-			print self._registerNumbers[int(u[u'number'])], u[u'value']
+			u["name"] = self._registerNumbers[int(u[u'number'])]
+		return results
 
 	def disassemble(self, mode, start_addr = _nextStart, end_addr = _nextEnd, filename = _filename, linenum = _nextLine, lines = _lines):
+		"""
+		[{u'inst': u'push   %rax', u'address': '0x7fffffffdc10'}, {u'inst': u'cmpl   $0x7ffff6,(%rsi)', u'address': '0x7fffffffdc11'}]
+		"""
 		options = ""
 		if start_addr:
 			options += " -s " + str(start_addr)
@@ -663,12 +617,7 @@ class Data():
 		if lines:
 			options += " -n " + str(lines)
 		result = self._gdb.miCommandOne("-data-disassemble {} -- {}".format(options, mode))
-		#
-		# {u'asm_insns': [{u'inst': u'push   %rax', u'address': '0x7fffffffdc10'}, {u'inst': u'cmpl   $0x7ffff6,(%rsi)', u'address': '0x7fffffffdc11'}]}
-		#
-		result = result[u'asm_insns']
-		for u in result:
-			print u[u'address'], u[u'inst']
+		return result[u'asm_insns']
 
 	def evalute(self, expr):
 		return self._gdb.miCommandOne('-data-evaluate-expression', expr)
@@ -677,15 +626,15 @@ class Data():
 		return self._gdb.miCommandOne('-data-list-changed-registers')
 
 	def readMemory(self, address = _nextStart, word_format = _wordFormat, word_size = _wordSize, nr_rows = _rows, nr_cols = _columns, offset_bytes = _offsetBytes, aschar = _asChar):
+		"""
+		[{u'data': ['0xf63e8150', '0x7fff'], u'addr': '0x7fffffffdc10'}, {u'data': ['0x645c10', '0x0'], u'addr': '0x7fffffffdc18'}, {u'data': ['0x69b220', '0x0'], u'addr': '0x7fffffffdc20'}, {u'data': ['0x0', '0x0'], u'addr': '0x7fffffffdc28'}]
+		"""
 		if not address or not word_format or not word_size or not nr_rows or not nr_cols:
 			raise QGdbException("Bad memory args")
 		options = ""
 		if offset_bytes:
 			options += "-o " + offset_bytes
 		results = self._gdb.miCommandOne("-data-read-memory {} {} {} {} {} {}".format(options, address, word_format, word_size, nr_rows, nr_cols))
-		#
-		# {u'prev-page': '0x7fffffffdbd0', u'prev-row': '0x7fffffffdc08', u'addr': '0x7fffffffdc10', u'nr-bytes': '64', u'total-bytes': '64', u'next-row': '0x7fffffffdc18', u'memory': [{u'data': ['0xf63e8150', '0x7fff'], u'addr': '0x7fffffffdc10'}, {u'data': ['0x645c10', '0x0'], u'addr': '0x7fffffffdc18'}, {u'data': ['0x69b220', '0x0'], u'addr': '0x7fffffffdc20'}, {u'data': ['0x0', '0x0'], u'addr': '0x7fffffffdc28'}, {u'data': ['0xf7bcfd28', '0x7fff'], u'addr': '0x7fffffffdc30'}, {u'data': ['0x1', '0x0'], u'addr': '0x7fffffffdc38'}, {u'data': ['0x20a240', '0x0'], u'addr': '0x7fffffffdc40'}, {u'data': ['0x0', '0x0'], u'addr': '0x7fffffffdc48'}], u'next-page': '0x7fffffffdc50'}
-		#
 		self._nextStart = results[u'next-page']
 		self._wordFormat = word_format
 		self._wordSize = word_size
@@ -695,9 +644,7 @@ class Data():
 		self._asChar = aschar
 		bytesRequested = results[u'total-bytes']
 		bytesRead = results[u'nr-bytes']
-		results = results[u'memory']
-		for u in results:
-			print u[u'addr'], u[u'data']
+		return results[u'memory']
 
 class ProgramControl():
 	"""Model of GDB files."""
@@ -709,33 +656,18 @@ class ProgramControl():
 		self._gdb = gdb
 
 	def allSources(self):
+		"""
+		[{u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp'}, {u'fullname': u'/usr/include/c++/4.7/iostream', u'file': u'/usr/include/c++/4.7/iostream'}, ..., {u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kateinterfaces_automoc.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kateinterfaces_automoc.cpp'}]
+		"""
 		results = self._gdb.miCommandOne("-file-list-exec-source-files")
-		#
-		# {u'files': [{u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp'}, {u'fullname': u'/usr/include/c++/4.7/iostream', u'file': u'/usr/include/c++/4.7/iostream'}, ..., {u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kateinterfaces_automoc.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kateinterfaces_automoc.cpp'}]}
-		#
-		results = results[u'files']
-		for u in results:
-			try:
-				file = u["fullname"]
-			except KeyError:
-				file = u["file"]
-			print file
+		return results[u'files']
 
 	def currentSource(self):
-		u = self._gdb.miCommandOne("-file-list-exec-source-file")
-		#
-		# {u'line': '3', u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'macro-info': '0'}
-		#
-		print "Current source file is {}:{}".format(u["file"], u[u'line'])
-		try:
-			file = u["fullname"]
-		except KeyError:
-			file = u["file"]
-		print "Located in {}".format(file)
-		if u[u'macro-info'] != "0":
-			print "Does include preprocessor macro info."
-		else:
-			print "Does not include preprocessor macro info."
+		"""
+		{u'line': '3', u'fullname': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'file': u'/home/srhaque/kdebuild/kate/kate/app/kate_dummy.cpp', u'macro-info': '0'}
+		"""
+		results = self._gdb.miCommandOne("-file-list-exec-source-file")
+		return results
 
 	def execSections(self):
 		results = self._gdb.miCommandOne("-file-list-exec-sections")
@@ -800,33 +732,21 @@ class Stack():
 		return result
 
 	def frameInfo(self, tid, frame = None):
+		"""
+		{u'from': u'/usr/lib/x86_64-linux-gnu/libQtGui.so.4', u'addr': '0x7ffff6d601b0', u'func': u'QWidget::QWidget(QWidgetPrivate&, QWidget*, QFlags<Qt::WindowType>)', u'level': '0'}
+		"""
 		if frame != None:
 			results = self._gdb.miCommandOne("-stack-info-frame --thread {} --frame {}".format(tid, frame))
 		else:
 			results = self._gdb.miCommandOne("-stack-info-frame --thread {}".format(tid))
-		#
-		# {u'frame': {u'from': u'/usr/lib/x86_64-linux-gnu/libQtGui.so.4', u'addr': '0x7ffff6d601b0', u'func': u'QWidget::QWidget(QWidgetPrivate&, QWidget*, QFlags<Qt::WindowType>)', u'level': '0'}}
-		#
-		u = results[u'frame']
-		print "#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"])
+		return results[u'frame']
 
 	def frameVariables(self, tid, printValues, frame):
+		"""
+		[{u'name': u'kateVersion', u'value': u'\\"3.9.2\\" = {[0] = 51 \'3\', [1] = 46 \'.\', [2] = 57 \'9\', [3] = 46 \'.\', [4] = 50 \'2\'}'}, {u'name': u'serviceName', u'value': u'\\"\\"'}, {u'name': u'start_session_set', u'value': u'<optimised out>'}, {u'name': u'start_session', u'value': u'\\"\\"'}, {u'name': u'app', u'value': u'{<KApplication> = {<No data fields>}, static staticMetaObject = {d = {superdata = 0x7ffff63e81e0 <KApplication::staticMetaObject>, stringdata = 0x7ffff6469d00 <qt_meta_stringdata_KateApp> \\"KateApp\\", data = 0x7ffff6469d60 <qt_meta_data_KateApp>, extradata = 0x7ffff667cce0 <KateApp::staticMetaObjectExtraData>}}, static staticMetaObjectExtraData = {objects = 0x0, static_metacall = 0x7ffff6433810 <KateApp::qt_static_metacall(QObject*, QMetaObject::Call, int, void**)>}, m_shouldExit = false, m_args = 0x7ffff7bcfd28, m_application = 0x1, m_docManager = 0x20a240, m_pluginManager = 0x0, m_sessionManager = 0x0, m_adaptor = 0x400688 <_start>, m_mainWindows = QList<KateMainWindow *> = {[0] = 0x0, ...}, m_mainWindowsInterfaces = QList<Kate::MainWindow *> = {[0] = <error reading variable>'}, ..., {u'name': u'argv', u'value': '0x7fffffffdd00', u'arg': '1'}]
+		"""
 		results = self._gdb.miCommandOne("-stack-list-variables --thread {} --frame {} {}".format(tid, frame, printValues))
-		#
-		# {u'variables': [{u'name': u'kateVersion', u'value': u'\\"3.9.2\\" = {[0] = 51 \'3\', [1] = 46 \'.\', [2] = 57 \'9\', [3] = 46 \'.\', [4] = 50 \'2\'}'}, {u'name': u'serviceName', u'value': u'\\"\\"'}, {u'name': u'start_session_set', u'value': u'<optimised out>'}, {u'name': u'start_session', u'value': u'\\"\\"'}, {u'name': u'app', u'value': u'{<KApplication> = {<No data fields>}, static staticMetaObject = {d = {superdata = 0x7ffff63e81e0 <KApplication::staticMetaObject>, stringdata = 0x7ffff6469d00 <qt_meta_stringdata_KateApp> \\"KateApp\\", data = 0x7ffff6469d60 <qt_meta_data_KateApp>, extradata = 0x7ffff667cce0 <KateApp::staticMetaObjectExtraData>}}, static staticMetaObjectExtraData = {objects = 0x0, static_metacall = 0x7ffff6433810 <KateApp::qt_static_metacall(QObject*, QMetaObject::Call, int, void**)>}, m_shouldExit = false, m_args = 0x7ffff7bcfd28, m_application = 0x1, m_docManager = 0x20a240, m_pluginManager = 0x0, m_sessionManager = 0x0, m_adaptor = 0x400688 <_start>, m_mainWindows = QList<KateMainWindow *> = {[0] = 0x0, ...}, m_mainWindowsInterfaces = QList<Kate::MainWindow *> = {[0] = <error reading variable>'}, ..., {u'name': u'argv', u'value': '0x7fffffffdd00', u'arg': '1'}]}
-		#
-		results = [u for u in results[u'variables']]
-		#
-		# Print rows.
-		#
-		for u in results:
-			try:
-				print "arg {} {} = {} = {}".format(u["arg"], u["name"], u["type"], u["value"])
-			except KeyError:
-				try:
-					print "{} = {} = {}".format(u["name"], u["type"], u["value"])
-				except KeyError:
-					print "{} = {}".format(u["name"], u["value"])
+		return results[u'variables']
 
 	def stackArguments(self, tid, printValues, lowFrame = None, highFrame = None):
 		if lowFrame != None and highFrame != None:
@@ -851,33 +771,16 @@ class Stack():
 			print "#{} {}".format(level, args)
 
 	def stackFrames(self, tid, lowFrame = None, highFrame = None):
+		"""
+		[{u'frame': {u'from': u'/usr/lib/x86_64-linux-gnu/libQtGui.so.4', u'addr': '0x7ffff6d601b0', u'func': u'QWidget::QWidget(QWidgetPrivate&, QWidget*, QFlags<Qt::WindowType>)', u'level': '0'}}, ..., {u'frame': {u'addr': '0x4006b1', u'func': u'_start', u'level': '10'}}]
+		"""
 		if lowFrame != None and highFrame != None:
 			results = self._gdb.miCommandOne("-stack-list-frames --thread {} {} {}".format(tid, lowFrame, highFrame))
 		elif lowFrame == None and highFrame == None:
 			results = self._gdb.miCommandOne("-stack-list-frames --thread {}".format(tid))
 		else:
 			raise QGdbException("Invalid frame numbers {}, {}".format(lowFrame, highFrame))
-		#
-		# {u'stack': [{u'frame': {u'from': u'/usr/lib/x86_64-linux-gnu/libQtGui.so.4', u'addr': '0x7ffff6d601b0', u'func': u'QWidget::QWidget(QWidgetPrivate&, QWidget*, QFlags<Qt::WindowType>)', u'level': '0'}}, ..., {u'frame': {u'addr': '0x4006b1', u'func': u'_start', u'level': '10'}}]}
-		#
-		results = [u for u in results[u'stack']]
-		#
-		# Print rows.
-		#
-		for f in results:
-			u = f[u'frame']
-			try:
-				location = u["from"]
-			except KeyError:
-				try:
-					location = u["fullname"] + ":" + u["line"]
-				except KeyError:
-					try:
-						location = u["file"] + ":" + u["line"]
-					except KeyError:
-						print "#{}  {} in {} ()".format(u["level"], u["addr"], u["func"])
-						continue
-			print "#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], location)
+		return results[u'stack']
 
 class Threads():
 	"""Model of GDB threads."""
@@ -889,51 +792,16 @@ class Threads():
 		self._gdb = gdb
 
 	def list(self, id):
+		"""
+		(current-thread-id, [{u'core': '0', u'target-id': u'Thread 0x7ffff7fe1780 (LWP 20450)', u'name': u'kate', u'frame': {u'args': [], u'from': u'/usr/lib/x86_64-linux-gnu/libQtGui.so.4', u'addr': '0x7ffff6d601b0', u'func': u'QWidget::QWidget(QWidgetPrivate&, QWidget*, QFlags<Qt::WindowType>)', u'level': '0'}, u'state': u'stopped', u'id': '1'}])
+		"""
 		if id:
 			results = self._gdb.miCommandOne("-thread-info {}".format(id))
 			currentThread = None
 		else:
 			results = self._gdb.miCommandOne("-thread-info")
-			currentThread = [u for u in results[u'current-thread-id']][0]
-		#
-		# {u'threads': [{u'core': '0', u'target-id': u'Thread 0x7ffff7fe1780 (LWP 20450)', u'name': u'kate', u'frame': {u'args': [], u'from': u'/usr/lib/x86_64-linux-gnu/libQtGui.so.4', u'addr': '0x7ffff6d601b0', u'func': u'QWidget::QWidget(QWidgetPrivate&, QWidget*, QFlags<Qt::WindowType>)', u'level': '0'}, u'state': u'stopped', u'id': '1'}], u'current-thread-id': '1'}]
-		#
-		results = [u for u in results[u'threads']]
-		if id:
-			results = [row for row in results if row["id"] == id]
-		if not len(results):
-			return
-		#
-		# Print rows.
-		#
-		fmt = "{:<1} {:<4} {:<37} {}"
-		print fmt.format(" ", "Id", "Target Id", "Where")
-		for v in results:
-			if currentThread == v["id"]:
-				active = "*"
-			else:
-				active = " "
-			frame = v["frame"]
-			args = frame["args"]
-			args = ", ".join(["{}={}".format(d["name"], d["value"]) for d in args])
-			try:
-				location = frame["fullname"]
-			except KeyError:
-				try:
-					location = frame["file"]
-				except KeyError:
-					location = frame["from"]
-			try:
-				line = frame["line"]
-			except KeyError:
-				line = ""
-			location = "{}: {}({}) at {}:{}".format(frame["addr"], frame["func"], args, location, line)
-			name = v["name"]
-			if name:
-				name += ", "
-			else:
-				name = ""
-			print fmt.format(active, v["id"], name + v["target-id"], location)
+			currentThread = results[u'current-thread-id']
+		return (currentThread, results[u'threads'])
 
 class QGdbInterpreter(DebuggerIo):
 	"""Qt wrapper for GDB.

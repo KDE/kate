@@ -507,10 +507,56 @@ class Cli(cmd.Cmd):
 		if getSynopsis:
 			return parser.format_help()
 		args = parser.parse_args(args.split())
-		self.gdb._breakpoints.breakpointCreate(**vars(args))
+		results = self.gdb._breakpoints.breakpointCreate(**vars(args))
 
 	def do_info_breakpoints(self, args):
-		self.gdb._breakpoints.list(args)
+		results = self.gdb._breakpoints.list(args)
+		if not len(results):
+			return
+		#
+		# Print rows.
+		#
+		fmt = "{:<7} {:<14} {:<4} {:<3} {}"
+		self._out(fmt.format("Num", "Type", "Disp", "Enb", "Where"))
+		for u in results:
+			try:
+				u = u[u'bkpt']
+				try:
+					location = u["fullname"]
+				except KeyError:
+					try:
+						location = u["file"]
+					except KeyError:
+						try:
+							location = u["original-location"]
+						except KeyError:
+							location = u["at"]
+							u["type"] = "";
+							u["disp"] = "";
+				try:
+					addr = u["addr"]
+				except KeyError:
+					addr = 0
+				try:
+					func = u["func"]
+					line = u["line"]
+				except KeyError:
+					func = ""
+					line = 0
+				location = "{} {} at {}:{}".format(addr, func, location, line)
+				self._out(fmt.format(u["number"], u["type"], u["disp"], u["enabled"], location))
+				try:
+					times = u["times"]
+					if times != "0":
+						self._out("        breakpoint already hit {} times".format(times))
+				except KeyError:
+					pass
+			except KeyError:
+				#
+				# Not a standalone breakpoint, just an overload of one.
+				#
+				location = "{} {}".format(u["addr"], u["at"])
+				self._out(fmt.format(u["number"], "", "", u["enabled"], location))
 
 ###################
 ## Data commands ##
@@ -537,7 +583,9 @@ class Cli(cmd.Cmd):
 		if getSynopsis:
 			return parser.format_help()
 		args = parser.parse_args(args.split())
-		self.gdb._data.disassemble(**vars(args))
+		result = self.gdb._data.disassemble(**vars(args))
+		for u in result:
+			self._out(u[u'address'], u[u'inst'])
 
 	def do_output(self, args, getSynopsis = False):
 		parser = MyArgs(prog = "output", add_help = False)
@@ -617,7 +665,12 @@ class Cli(cmd.Cmd):
 			return parser.format_help()
 		args = parser.parse_args(args.split())
 		# TODO assign to local var
-		self.gdb._data.listRegisterValues(**vars(args))
+		results = self.gdb._data.listRegisterValues(**vars(args))
+		#
+		# Print rows.
+		#
+		for u in results:
+			self._out(u[u'name'], u[u'value'])
 
 	def do_info_all__registers(self, args, getSynopsis = False):
 		parser = MyArgs(prog = "info all-registers", add_help = False)
@@ -626,7 +679,12 @@ class Cli(cmd.Cmd):
 			return parser.format_help()
 		args = parser.parse_args(args.split())
 		# TODO assign to local var
-		self.gdb._data.listRegisterValues(**vars(args))
+		results = self.gdb._data.listRegisterValues(**vars(args))
+		#
+		# Print rows.
+		#
+		for u in results:
+			self._out(u[u'name'], u[u'value'])
 
 	def do_x(self, args, getSynopsis = False):
 		parser = MyArgs(prog = "x", add_help = False)
@@ -641,8 +699,9 @@ class Cli(cmd.Cmd):
 			return parser.format_help()
 		args = parser.parse_args(args.split())
 		# TODO assign to local var
-		self.gdb._data.readMemory(**vars(args))
-
+		results = self.gdb._data.readMemory(**vars(args))
+		for u in results:
+			self._out(u[u'addr'], u[u'data'])
 
 #####################
 ## Program control ##
@@ -957,10 +1016,26 @@ class Cli(cmd.Cmd):
 		self.gdb.miCommandExec("-exec-until", args)
 
 	def do_info_source(self, args):
-		self.gdb._programControl.currentSource()
+		u = self.gdb._programControl.currentSource()
+		self._out("Current source file is {}:{}".format(u["file"], u[u'line']))
+		try:
+			file = u["fullname"]
+		except KeyError:
+			file = u["file"]
+		self._out("Located in {}".format(file))
+		if u[u'macro-info'] != "0":
+			self._out("Does include preprocessor macro info.")
+		else:
+			self._out("Does not include preprocessor macro info.")
 
 	def do_info_sources(self, args):
-		self.gdb._programControl.allSources()
+		results = self.gdb._programControl.allSources()
+		for u in results:
+			try:
+				file = u["fullname"]
+			except KeyError:
+				file = u["file"]
+			self._out(file)
 
 	def do_info_files(self, args):
 		#self.gdb._programControl.execSections()
@@ -986,7 +1061,24 @@ class Cli(cmd.Cmd):
 ####################
 
 	def do_bt(self, args):
-		self.gdb._stack.stackFrames(1)
+		results = self.gdb._stack.stackFrames(1)
+		#
+		# Print rows.
+		#
+		for f in results:
+			u = f[u'frame']
+			try:
+				location = u["from"]
+			except KeyError:
+				try:
+					location = u["fullname"] + ":" + u["line"]
+				except KeyError:
+					try:
+						location = u["file"] + ":" + u["line"]
+					except KeyError:
+						self._out("#{}  {} in {} ()".format(u["level"], u["addr"], u["func"]))
+						continue
+			self._out("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], location))
 
 	def do_backtrace(self, args):
 		self.do_bt(args)
@@ -1000,14 +1092,23 @@ class Cli(cmd.Cmd):
 		if not args:
 			self.do_info_frame(args)
 		else:
-			self.gdb._stack.frameInfo((1, 3))
+			self.do_info_frame((1, 3))
 
 	def do_info_frame(self, args):
-		self.gdb._stack.frameInfo(1)
+		u = self.gdb._stack.frameInfo(1)
+		self._out("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
 
 	def do_info_locals(self, args):
 		#self.gdb._stack.stackArguments(1, 1)
-		self.gdb._stack.frameVariables(1, 1, 8)
+		results = self.gdb._stack.frameVariables(1, 1, 8)
+		for u in results:
+			try:
+				self._out("arg {} {} = {} = {}".format(u["arg"], u["name"], u["type"], u["value"]))
+			except KeyError:
+				try:
+					self._out("{} = {} = {}".format(u["name"], u["type"], u["value"]))
+				except KeyError:
+					self._out("{} = {}".format(u["name"], u["value"]))
 
 #####################
 ## Target commands ##
@@ -1029,7 +1130,40 @@ class Cli(cmd.Cmd):
 #'-thread-select'
 
 	def do_info_threads(self, args):
-		self.gdb._threads.list(args)
+		currentThread, results = self.gdb._threads.list(args)
+		if not len(results):
+			return
+		#
+		# Print rows.
+		#
+		fmt = "{:<1} {:<4} {:<37} {}"
+		self._out(fmt.format(" ", "Id", "Target Id", "Where"))
+		for v in results:
+			if currentThread == v["id"]:
+				active = "*"
+			else:
+				active = " "
+			frame = v["frame"]
+			args = frame["args"]
+			args = ", ".join(["{}={}".format(d["name"], d["value"]) for d in args])
+			try:
+				location = frame["fullname"]
+			except KeyError:
+				try:
+					location = frame["file"]
+				except KeyError:
+					location = frame["from"]
+			try:
+				line = frame["line"]
+			except KeyError:
+				line = ""
+			location = "{}: {}({}) at {}:{}".format(frame["addr"], frame["func"], args, location, line)
+			name = v["name"]
+			if name:
+				name += ", "
+			else:
+				name = ""
+			self._out(fmt.format(active, v["id"], name + v["target-id"], location))
 
 ######################
 ## General commands ##

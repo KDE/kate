@@ -339,7 +339,7 @@ void KateScrollBar::updatePixmap()
 
       painter.setPen(defaultTextColor);
       // Iterate over all the characters in the current line
-      for (int x = 0; x < lineText.size(); x += charIncrement) {
+      for (int x = 0; (x < lineText.size() && x < s_lineWidth); x += charIncrement) {
         if (pixelX >= s_lineWidth) {
           break;
         }
@@ -481,7 +481,20 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   if (grooveRect.height() < m_pixmap.height()) {
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
   }
-  painter.drawPixmap(docRect, m_pixmap, m_pixmap.rect());
+  // draw the modified lines margin
+  QRect pixmapMarginRect(QPoint(0, 0), QSize(s_pixelMargin, m_pixmap.height()));
+  QRect docPixmapMarginRect(QPoint(0, docRect.top()), QSize(s_pixelMargin, docRect.height()));
+  painter.drawPixmap(docPixmapMarginRect, m_pixmap, pixmapMarginRect);
+
+  // calculate the stretch and draw the stretched lines
+  int lineDivisor = (m_pixmap.height()) ? m_doc->visibleLines() / m_pixmap.height() : 1;
+  lineDivisor = qMin(lineDivisor, s_linePixelIncLimit);
+  if (lineDivisor<1) lineDivisor = 1;
+  int wantedWidth = (m_pixmap.width()-s_pixelMargin) / lineDivisor;
+  wantedWidth += ((lineDivisor-1) * wantedWidth) / s_linePixelIncLimit;
+  QRect pixmapRect(QPoint(s_pixelMargin, 0), QSize(wantedWidth, m_pixmap.height()));
+  QRect docPixmapRect(QPoint(s_pixelMargin, docRect.top()), QSize(docRect.width()-s_pixelMargin, docRect.height()));
+  painter.drawPixmap(docPixmapRect, m_pixmap, pixmapRect);
 
   if (!m_showMarks) return;
 

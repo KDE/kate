@@ -1727,12 +1727,9 @@ bool KateCompletionModel::shouldMatchHideCompletionList() const {
   foreach(Group* group, m_rowTable)
     foreach(const Item& item, group->filtered)
       if(item.haveExactMatch()) {
-        KTextEditor::CodeCompletionModelControllerInterface2* iface2 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface2*>(item.sourceRow().first);
         KTextEditor::CodeCompletionModelControllerInterface3* iface3 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface3*>(item.sourceRow().first);
         bool hide = false;
-        if (! (iface2 || iface3) ) hide = true;
-        if(iface2 && iface2->matchingItem(item.sourceRow().second) == KTextEditor::CodeCompletionModelControllerInterface2::HideListIfAutomaticInvocation)
-          hide = true;
+        if ( !iface3 ) hide = true;
         if(iface3 && iface3->matchingItem(item.sourceRow().second) == KTextEditor::CodeCompletionModelControllerInterface3::HideListIfAutomaticInvocation)
           hide = true;
         if(hide)

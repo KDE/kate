@@ -29,7 +29,7 @@
 namespace KTextEditor {
 //BEGIN V4
 ///Extension of CodeCompletionModelControllerInterface3
-class KATEPART_TESTS_EXPORT_DEPRECATED CodeCompletionModelControllerInterface4 : public CodeCompletionModelControllerInterface3 {
+class CodeCompletionModelControllerInterface4 : public CodeCompletionModelControllerInterface3 {
   public:
 
     /**

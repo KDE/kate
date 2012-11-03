@@ -24,6 +24,7 @@
 #include "kateproject.h"
 
 #include <QVBoxLayout>
+#include <QKeyEvent>
 
 #include <kparts/part.h>
 
@@ -64,6 +65,11 @@ class KateProjectInfoViewTerminal : public QWidget
      * Construct a new terminal for this view
      */
     void loadTerminal ();
+    
+    /**
+     * Handle that shortcuts are not eaten by console
+     */
+    void overrideShortcut (QKeyEvent *event, bool &override);
 
   private:
     /**

@@ -39,10 +39,9 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
-//Added by qt3to4:
+
 #include <QShowEvent>
 #include <QLabel>
-
 #include <QCheckBox>
 #include <QVBoxLayout>
 
@@ -196,7 +195,8 @@ void KateConsole::loadConsoleIfNeeded()
   m_part->widget()->show();
 
   connect ( m_part, SIGNAL(destroyed()), this, SLOT(slotDestroyed()) );
-
+  connect ( m_part, SIGNAL(overrideShortcut(QKeyEvent*,bool&)),
+                    this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
   slotSync();
 }
 
@@ -211,6 +211,16 @@ void KateConsole::slotDestroyed ()
     m_mw->hideToolView (m_toolView);
     m_mw->centralWidget()->setFocus ();
   }
+}
+
+void KateConsole::overrideShortcut (QKeyEvent *event, bool &override)
+{
+  printf ("event %d\n", event->key());
+  
+  /**
+   * let konsole only handle ESC
+   */
+  override = (event->key() == Qt::Key_Escape);
 }
 
 void KateConsole::showEvent(QShowEvent *)

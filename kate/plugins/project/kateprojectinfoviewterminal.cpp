@@ -94,6 +94,16 @@ void KateProjectInfoViewTerminal::loadTerminal ()
    * guard destruction, create new terminal!
    */
   connect (m_konsolePart, SIGNAL(destroyed()), this, SLOT(loadTerminal()));
+  connect (m_konsolePart, SIGNAL(overrideShortcut(QKeyEvent*,bool&)),
+                    this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
+}
+
+void KateProjectInfoViewTerminal::overrideShortcut (QKeyEvent *event, bool &override)
+{
+  /**
+   * let konsole only handle ESC
+   */
+  override = (event->key() == Qt::Key_Escape);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

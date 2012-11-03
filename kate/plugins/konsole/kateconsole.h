@@ -28,6 +28,7 @@
 
 #include <kvbox.h>
 #include <QList>
+#include <QKeyEvent>
 
 class QShowEvent;
 
@@ -166,6 +167,11 @@ class KateConsole : public KVBox, public Kate::XMLGUIClient
      * set or clear focus as appropriate.
      */
     void slotToggleFocus();
+    
+    /**
+     * Handle that shortcuts are not eaten by console
+     */
+    void overrideShortcut (QKeyEvent *event, bool &override);
 
   protected:
     /**

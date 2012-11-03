@@ -215,8 +215,6 @@ void KateConsole::slotDestroyed ()
 
 void KateConsole::overrideShortcut (QKeyEvent *event, bool &override)
 {
-  printf ("event %d\n", event->key());
-  
   /**
    * let konsole only handle ESC
    */

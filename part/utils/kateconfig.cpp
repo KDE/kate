@@ -320,7 +320,7 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setBackupFlags (config.readEntry("Backup Flags", 0));
 
-  setSearchDirConfigDepth (config.readEntry("Search Dir Config Depth", 3));
+  setSearchDirConfigDepth (config.readEntry("Search Dir Config Depth", 9));
 
   setBackupPrefix (config.readEntry("Backup Prefix", QString ("")));
 

@@ -2865,19 +2865,10 @@ KTextEditor::Cursor KateViewInternal::coordinatesToCursor(const QPoint& _coord) 
 
 void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 {
-  // FIXME only do this if needing to track mouse movement
-  const KateTextLayout& thisLine = yToKateTextLayout(e->y());
-  if (thisLine.isValid()) {
-    KTextEditor::Cursor newPosition = renderer()->xToCursor(thisLine, e->x(), !m_view->wrapCursor());
-    if (newPosition != m_mouse) {
-      m_mouse = newPosition;
-      mouseMoved();
-    }
-  } else {
-    if (m_mouse.isValid()) {
-      m_mouse = KTextEditor::Cursor::invalid();
-      mouseMoved();
-    }
+  KTextEditor::Cursor newPosition = coordinatesToCursor (e->pos());
+  if (newPosition != m_mouse) {
+    m_mouse = newPosition;
+    mouseMoved();
   }
 
   if( e->buttons() & Qt::LeftButton )

@@ -2628,12 +2628,20 @@ uint KateDocument::toVirtualColumn( const KTextEditor::Cursor& cursor )
     return 0;
 }
 
-bool KateDocument::typeChars ( KateView *view, const QString &chars )
+bool KateDocument::typeChars ( KateView *view, const QString &realChars )
 {
   Kate::TextLine textLine = m_buffer->plainLine(view->cursorPosition().line ());
   if (!textLine)
     return false;
 
+  /**
+   * filter out non-printable
+   */
+  QString chars;
+  Q_FOREACH (QChar c, realChars)
+    if (c.isPrint())
+      chars.append (c);
+  
   if (chars.isEmpty())
     return false;
 

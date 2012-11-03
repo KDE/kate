@@ -677,9 +677,10 @@ Q_SIGNALS:
 
   public:
     /**
-     * Type chars in a view
+     * Type chars in a view.
+     * Will filter out non-printable chars from the realChars array before inserting.
      */
-    bool typeChars ( KateView *type, const QString &chars );
+    bool typeChars ( KateView *type, const QString &realChars );
 
     /**
      * gets the last line number (lines() - 1)

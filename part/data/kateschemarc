@@ -1,7 +1,65 @@
 # Normal Schema, NEEDED
 [Normal]
 ShippedDefaultSchema=true
+Color Background=255,255,255
+Color Code Folding=148,202,239
+Color Highlighted Bracket=237,249,255
+Color Highlighted Line=248,247,246
+Color Icon Bar=214,210,208
+Color Indentation Line=210,210,210
+Color Line Number=34,31,30
+Color MarkType 1=0,0,255
+Color MarkType 2=255,0,0
+Color MarkType 3=255,255,0
+Color MarkType 4=255,0,255
+Color MarkType 5=160,160,164
+Color MarkType 6=0,255,0
+Color MarkType 7=255,0,0
+Color Modified Lines=246,230,230
+Color Replace Highlight=0,255,0
+Color Saved Lines=186,248,206
+Color Search Highlight=255,255,0
+Color Selection=148,202,239
+Color Separator=137,136,135
+Color Spelling Mistake Line=191,3,3
+Color Tab Marker=210,210,210
+Color Template Background=214,210,208
+Color Template Editable Placeholder=186,248,206
+Color Template Focused Editable Placeholder=118,218,152
+Color Template Not Editable Placeholder=246,230,230
+Color Word Wrap Marker=237,237,237
 
 # Printing Schema, NEEDED
 [Printing]
+ShippedDefaultSchema=true
+Color Background=255,255,255
+Color Code Folding=148,202,239
+Color Highlighted Bracket=237,249,255
+Color Highlighted Line=248,247,246
+Color Icon Bar=214,210,208
+Color Indentation Line=210,210,210
+Color Line Number=34,31,30
+Color MarkType 1=0,0,255
+Color MarkType 2=255,0,0
+Color MarkType 3=255,255,0
+Color MarkType 4=255,0,255
+Color MarkType 5=160,160,164
+Color MarkType 6=0,255,0
+Color MarkType 7=255,0,0
+Color Modified Lines=246,230,230
+Color Replace Highlight=0,255,0
+Color Saved Lines=186,248,206
+Color Search Highlight=255,255,0
+Color Selection=148,202,239
+Color Separator=137,136,135
+Color Spelling Mistake Line=191,3,3
+Color Tab Marker=210,210,210
+Color Template Background=214,210,208
+Color Template Editable Placeholder=186,248,206
+Color Template Focused Editable Placeholder=118,218,152
+Color Template Not Editable Placeholder=246,230,230
+Color Word Wrap Marker=237,237,237
+
+# KDE Schema, no settings here, fallback to KDE defaults
+[KDE]
 ShippedDefaultSchema=true

@@ -1,0 +1,47 @@
+# Normal Schema, Font color
+[Highlighting None - Schema Normal]
+Normal Text=0,,,,,,,,,,---
+
+# Normal Schema, Default Item Styles
+[Default Item Styles - Schema Normal]
+Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,-,,---
+Base-N Integer=ffb08000,ffffdd00,,,,,-,-,,---
+Character=ff924c9d,ff6c2477,,,,,-,-,,---
+Comment=ff898887,ffc7e2f8,,1,,,-,-,,---
+Data Type=ff0057ae,ff00316e,,,,,-,-,,---
+Decimal/Value=ffb08000,ffffdd00,,,,,-,-,,---
+Error=ffbf0303,ff9c0e0e,,,,,-,-,,---
+Floating Point=ffb08000,ffffdd00,,,,,-,-,,---
+Function=ff644a9b,ff452886,,,,,-,-,,---
+Keyword=ff1f1c1b,ffffffff,1,,,,-,-,,---
+Normal=ff1f1c1b,ffffffff,,,,,-,-,,---
+Others=ff006e28,ff80ff80,,,,,-,-,,---
+Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,-,,---
+String=ffbf0303,ff9c0e0e,,,,,-,-,,---
+
+# Printing Schema, Font color
+[Highlighting None - Schema Printing]
+Normal Text=0,,,,,,,,,,---
+
+# Printing Schema, Default Item Styles
+[Default Item Styles - Schema Printing]
+Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,-,,---
+Base-N Integer=ffb08000,ffffdd00,,,,,-,-,,---
+Character=ff924c9d,ff6c2477,,,,,-,-,,---
+Comment=ff898887,ffc7e2f8,,1,,,-,-,,---
+Data Type=ff0057ae,ff00316e,,,,,-,-,,---
+Decimal/Value=ffb08000,ffffdd00,,,,,-,-,,---
+Error=ffbf0303,ff9c0e0e,,,,,-,-,,---
+Floating Point=ffb08000,ffffdd00,,,,,-,-,,---
+Function=ff644a9b,ff452886,,,,,-,-,,---
+Keyword=ff1f1c1b,ffffffff,1,,,,-,-,,---
+Normal=ff1f1c1b,ffffffff,,,,,-,-,,---
+Others=ff006e28,ff80ff80,,,,,-,-,,---
+Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,-,,---
+String=ffbf0303,ff9c0e0e,,,,,-,-,,---
+
+# KDE Schema, Font color
+[Highlighting None - Schema KDE]
+
+# KDE Schema, Default Item Styles
+[Default Item Styles - Schema KDE]

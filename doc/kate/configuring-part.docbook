@@ -518,17 +518,6 @@ automatically start a new line.</para>
 <listitem>
 <variablelist>
 <varlistentry>
-<term><guilabel>Remove trailing spaces while editing</guilabel></term>
-<listitem><para>&kappname; will automatically eliminate extra spaces
-at the ends of lines of text.</para></listitem> </varlistentry>
-
-<varlistentry>
-<term><guilabel>Auto brackets</guilabel></term> <listitem><para>When
-the user types a left bracket ([, (, or {) &kappname; automatically enters the
-right bracket (}, ), or ]) to the right of the cursor.</para></listitem>
-</varlistentry>
-
-<varlistentry>
 <term><guilabel>Copy/Cut the current line if no selection</guilabel></term> <listitem>
 <para>If this option is enabled and the text selection is empty, copy and cut
 action are performed for the line of text at the actual cursor position.</para></listitem>

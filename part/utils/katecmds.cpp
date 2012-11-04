@@ -86,7 +86,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
   return l;
 }
 
-bool KateCommands::CoreCommands::help(KTextEditor::View *view, const QString &cmd, QString &msg)
+bool KateCommands::CoreCommands::help(KTextEditor::View *, const QString &cmd, QString &msg)
 {
   QString realcmd=cmd.trimmed();
   if (realcmd=="indent") {

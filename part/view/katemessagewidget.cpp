@@ -38,6 +38,7 @@
 KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget* parent)
   : QWidget(parent)
   , m_message(message)
+  , m_deleteLater(false)
 {
   Q_ASSERT(message);
 

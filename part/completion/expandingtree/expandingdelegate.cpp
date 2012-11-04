@@ -163,8 +163,6 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
 
   QTextLayout layout(text, option.font, painter->device());
 
-  QRect textRect = rect.adjusted(1, 0, -1, 0); // remove width padding
-
   QList<QTextLayout::FormatRange> additionalFormats;
 
   int missingFormats = text.length();
@@ -299,10 +297,6 @@ void ExpandingDelegate::heightChanged() const {
 
 bool ExpandingDelegate::editorEvent ( QEvent * event, QAbstractItemModel * /*model*/, const QStyleOptionViewItem & /*option*/, const QModelIndex & index )
 {
-  QKeyEvent* keyEvent = 0;
-  if( event->type() == QEvent::KeyPress )
-    keyEvent = reinterpret_cast<QKeyEvent*>(event);
-  
   if( event->type() == QEvent::MouseButtonRelease )
   {
     event->accept();

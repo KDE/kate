@@ -126,9 +126,6 @@ void KateArgumentHintTree::updateGeometry(QRect geom) {
   
   totalHeight += frameWidth()*2;
   
-  QRect topRect = visualRect(model()->index(0, 0));
-  QRect contentRect = visualRect(model()->index(model()->rowCount(QModelIndex())-1, 0));
-  
   geom.setHeight(totalHeight);
 
   geom.moveBottom(bottom);

@@ -84,7 +84,7 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
       }
       else if ( placeholder == "year" )
       {
-        map[ placeholder ] = KGlobal::locale() ->calendar() ->yearString( date, KCalendarSystem::LongFormat );
+        map[ placeholder ] = KGlobal::locale() ->calendar() ->formatDate(date, KLocale::Year, KLocale::LongNumber);
       }
       else if ( placeholder == "month" )
       {

@@ -538,6 +538,12 @@ QWidget *KateGlobal::snippetWidget ()
   return snippetGlobal()->snippetWidget (0,(KateView*)0);
 }
 
+void KateGlobal::setSessionConfig (KSharedConfig::Ptr sessionConfig)
+{
+  m_sessionConfig = sessionConfig;
+  KateSnippetGlobal::self()->reloadSessionConfig();
+}
+
 KTextEditor::TemplateScript* KateGlobal::registerTemplateScript (QObject* owner, const QString& script)
 {
   return scriptManager()->registerTemplateScript(owner, script);

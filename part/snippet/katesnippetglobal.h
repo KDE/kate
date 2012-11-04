@@ -71,6 +71,9 @@ public:
     enum Mode snippetsMode();
     void setSnippetsMode(enum Mode);
     
+    KConfigGroup sessionConfig();
+    void internalUpdateSessionConfig();
+    
 Q_SIGNALS:
       void typeHasChanged(KTextEditor::Document*);
       void snippetsModeChanged();
@@ -90,7 +93,7 @@ public Q_SLOTS:
     void showDialog (KateView *view);
 
     void insertSnippetFromActionData();
-
+    void reloadSessionConfig();
   
     void addDocument(KTextEditor::Document* document);
     void removeDocument(KTextEditor::Document* document);
@@ -110,6 +113,8 @@ private:
     enum Mode m_snippetsMode;
     
 };
+
+//Q_DECLARE_METATYPE(KateSnippetGlobal::Mode);
 
 #endif
 

@@ -3171,27 +3171,20 @@ void KateView::postMessage(KTextEditor::Message* message,
       break;
   }
 
-  KateMessageWidget* nextWidget = m_messageList.count() ? m_messageList[i] : 0;
+  // save the pointer for the insert position
+  KateMessageWidget* nextWidget = (i < m_messageList.count()) ? m_messageList[i] : 0;
 
   // if highest priority, hide currently visible message, and show message
   if (i == 0 && m_messageList.count()) {
-    m_messageList[i]->animatedHide();
+    m_messageList[0]->animatedHide();
   }
 
+  // create new message widget for this message
   KateMessageWidget* newWidget = new KateMessageWidget(message, this);
   m_messageList.insert(i, newWidget);
 
-  // m_messageContainer may still contain other widgets that are in hide animation
-  // hence, we have to manually find the correct insert position based on nextWidget
-  int a = 0;
-  for (; a < m_messageContainer->count(); ++a) {
-    KateMessageWidget* mw = qobject_cast<KateMessageWidget*>(m_messageContainer->itemAt(a)->widget());
-    Q_ASSERT(mw);
-    if (nextWidget == mw) {
-      break;
-    }
-  }
-  m_messageContainer->insertWidget(a, newWidget);
+  // insert newWidget at correct position in m_messageContainer (index == -1 acts as append)
+  m_messageContainer->insertWidget(m_messageContainer->indexOf(nextWidget), newWidget);
 
   // if new message has highest priority, show message widget
   if (i == 0) {

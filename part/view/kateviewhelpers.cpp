@@ -2565,6 +2565,50 @@ void KateViewBar::hideEvent(QHideEvent* event)
 
 //END KateViewBar related classes
 
+KatePasteMenu::KatePasteMenu (const QString& text, KateView *view)
+  : KActionMenu(text, view)
+  , m_view (view)
+{
+  connect(menu(),SIGNAL(aboutToShow()),this,SLOT(slotAboutToShow()));
+}
+
+void KatePasteMenu::slotAboutToShow()
+{
+  menu()->clear ();
+  
+  /**
+   * insert complete paste history
+   */
+  int i = 0;
+  Q_FOREACH (const QString &text, KateGlobal::self()->clipboardHistory()) {
+    /**
+     * get text for the menu ;)
+     */
+    QString leftPart = text.left(48).replace ("\n", " ");
+    QAction *a=menu()->addAction ( leftPart + "...", this, SLOT(paste()));
+    a->setData(i++);
+  }
+}
+
+void KatePasteMenu::paste ()
+{
+  if (!sender())
+    return;
+  
+  QAction *action = qobject_cast<QAction*>(sender());
+  if (!action)
+    return;
+  
+  // get index
+  int i = action->data().toInt();
+  if (i >= KateGlobal::self()->clipboardHistory().size())
+    return;
+  
+  // paste
+  m_view->paste (&KateGlobal::self()->clipboardHistory()[i]);
+}
+
+
 #include "kateviewhelpers.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

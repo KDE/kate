@@ -2825,7 +2825,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
 
       if( doc()->isReadWrite() )
       {
-        doc()->paste( m_view, QClipboard::Selection );
+        doc()->paste( m_view, QApplication::clipboard()->text(QClipboard::Selection) );
         repaint();
       }
 

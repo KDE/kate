@@ -410,6 +410,27 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     KTextEditor::TemplateScript* registerTemplateScript (QObject* owner, const QString& script);
     void unregisterTemplateScript(KTextEditor::TemplateScript* templateScript);
 
+    /**
+     * Copy text to clipboard an remember it in the history
+     * @param text text to copy to clipboard, does nothing if empty!
+     */
+    void copyToClipboard (const QString &text);
+    
+    /**
+     * Clipboard history, filled with text we ever copied
+     * to clipboard via copyToClipboard.
+     */
+    const QStringList &clipboardHistory () const
+    {
+        return m_clipboardHistory;
+    }
+    
+  Q_SIGNALS:
+    /**
+     * Emitted if the history of clipboard changes via copyToClipboard
+     */
+    void clipboardHistoryChanged ();
+    
   private Q_SLOTS:
     void updateColorPalette();
 
@@ -535,6 +556,11 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * session config
      */
     KSharedConfig::Ptr m_sessionConfig;
+    
+    /**
+     * clipboard history
+     */
+    QStringList m_clipboardHistory;
 };
 
 #endif

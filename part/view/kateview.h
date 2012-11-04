@@ -114,8 +114,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   // KTextEditor::ClipboardInterface
   //
   public Q_SLOTS:
-    // TODO: Factor out of m_viewInternal
-    void paste();
+    void paste(const QString *textToPaste = 0);
     void cut();
     void copy() const;
 
@@ -564,6 +563,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void switchToCmdLine ();
     void switchToConsole ();
     void slotReadWriteChanged ();
+    void slotClipboardHistoryChanged ();
 
   Q_SIGNALS:
     void dropEventPass(QDropEvent*);
@@ -594,6 +594,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     QList<QAction*>        m_editActions;
     KAction*               m_editUndo;
     KAction*               m_editRedo;
+    KAction*               m_pasteMenu;
     KRecentFilesAction*    m_fileRecent;
     KToggleAction*         m_toggleFoldingMarkers;
     KToggleAction*         m_toggleIconBar;

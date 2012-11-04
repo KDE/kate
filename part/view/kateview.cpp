@@ -346,7 +346,10 @@ void KateView::setupActions()
 
   m_copy = a = ac->addAction(KStandardAction::Copy, this, SLOT(copy()));
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
-
+  
+  m_pasteMenu = ac->addAction("edit_paste_menu", new KatePasteMenu (i18n("Clipboard &History"), this));
+  connect (KateGlobal::self(), SIGNAL(clipboardHistoryChanged()), this, SLOT(slotClipboardHistoryChanged()));
+   
   if (!m_doc->readOnly())
   {
     a = ac->addAction(KStandardAction::Save, m_doc, SLOT(documentSave()));
@@ -449,6 +452,7 @@ void KateView::setupActions()
   {
     m_cut->setEnabled (false);
     m_paste->setEnabled (false);
+    m_pasteMenu->setEnabled (false);
     m_editUndo = 0;
     m_editRedo = 0;
   }
@@ -678,6 +682,7 @@ void KateView::setupActions()
   //widget and setting the shortcut context
   setupEditActions();
   setupCodeFolding();
+  slotClipboardHistoryChanged ();
 
   ac->addAssociatedWidget(m_viewInternal);
 
@@ -1155,6 +1160,7 @@ void KateView::slotReadWriteChanged ()
 
   m_cut->setEnabled (m_doc->isReadWrite() && (selection() || m_config->smartCopyCut()));
   m_paste->setEnabled (m_doc->isReadWrite());
+  m_pasteMenu->setEnabled (m_doc->isReadWrite() && !KateGlobal::self()->clipboardHistory().isEmpty());
   m_setEndOfLine->setEnabled (m_doc->isReadWrite());
 
   QStringList l;
@@ -1175,6 +1181,11 @@ void KateView::slotReadWriteChanged ()
   // inform search bar
   if (m_searchBar)
     m_searchBar->slotReadWriteChanged ();
+}
+
+void KateView::slotClipboardHistoryChanged ()
+{
+  m_pasteMenu->setEnabled (m_doc->isReadWrite() && !KateGlobal::self()->clipboardHistory().isEmpty());
 }
 
 void KateView::slotUpdateUndo()
@@ -2097,7 +2108,8 @@ void KateView::copy() const
     m_viewInternal->moveEdge(KateViewInternal::left, false);
   }
 
-  QApplication::clipboard()->setText(text);
+  // copy to clipboard and our history!
+  KateGlobal::self()->copyToClipboard (text);
 }
 
 void KateView::applyWordWrap ()
@@ -2272,9 +2284,9 @@ void KateView::sendCompletionAborted()
   emit completionAborted(this);
 }
 
-void KateView::paste( )
+void KateView::paste(const QString *textToPaste)
 {
-  m_doc->paste( this );
+  m_doc->paste( this, textToPaste ? *textToPaste : QApplication::clipboard()->text(QClipboard::Clipboard) );
   emit selectionChanged (this);
   m_viewInternal->repaint();
 }

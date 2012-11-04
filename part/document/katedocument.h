@@ -725,7 +725,7 @@ Q_SIGNALS:
     void del(           KateView *view, const KTextEditor::Cursor& );
     void transpose(     const KTextEditor::Cursor& );
 
-    void paste ( KateView* view, QClipboard::Mode = QClipboard::Clipboard );
+    void paste ( KateView* view, const QString &s );
 
   public:
     void indent ( KTextEditor::Range range, int change );

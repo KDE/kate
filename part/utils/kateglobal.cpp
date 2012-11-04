@@ -49,8 +49,8 @@
 #include <kiconloader.h>
 
 #include <QtCore/QPointer>
-
 #include <QtGui/QBoxLayout>
+#include <QApplication>
 
 KateGlobal *KateGlobal::s_self = 0;
 
@@ -540,6 +540,33 @@ void KateGlobal::updateColorPalette()
 
   // force full update of all view caches and colors
   m_rendererConfig->updateConfig();
+}
+
+void KateGlobal::copyToClipboard (const QString &text)
+{
+  /**
+   * empty => nop
+   */
+  if (text.isEmpty())
+    return;
+  
+  /**
+   * move to clipboard
+   */
+  QApplication::clipboard()->setText (text, QClipboard::Clipboard);
+  
+  /**
+   * remember in history
+   * cut after 10 entries
+   */
+  m_clipboardHistory.prepend (text);
+  if (m_clipboardHistory.size () > 10)
+    m_clipboardHistory.removeLast ();
+  
+  /**
+   * notify about change
+   */
+  emit clipboardHistoryChanged ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

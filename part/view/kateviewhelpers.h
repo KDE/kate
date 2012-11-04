@@ -24,6 +24,7 @@
 #include <kselectaction.h>
 #include <kencodingprober.h>
 #include <klineedit.h>
+#include <KActionMenu>
 
 #include <QtGui/QPixmap>
 #include <QtGui/QColor>
@@ -478,6 +479,21 @@ class KateCmdLineEdit : public KLineEdit
     QRegExp m_position;
     QRegExp m_cmdRange;
     QTimer *m_hideTimer;
+};
+
+class KatePasteMenu : public KActionMenu
+{
+  Q_OBJECT
+
+  public:
+    KatePasteMenu (const QString& text, KateView *view);
+
+  private:
+    KateView *m_view;
+
+  private Q_SLOTS:
+    void slotAboutToShow();
+    void paste ();
 };
 
 #endif

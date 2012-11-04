@@ -101,16 +101,24 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
   ///TODO: maybe use Kate::CutCopyPasteEdit or similar?
   doc()->editStart();
 
-  if (doc()->insertText(m_lastCaretPosition, templateString)) {
-    Q_ASSERT(m_wholeTemplateRange);
-
-    if (m_view) {
-      // indent the inserted template properly, this makes it possible
-      // to share snippets e.g. via GHNS without caring about
-      // what indent-style to use.
-      doc()->align(m_view, *m_wholeTemplateRange);
-    }
+  /**
+   * bail out if we can't insert text
+   */
+  if (!doc()->insertText(m_lastCaretPosition, templateString)) {
+    doc()->editEnd();
+    cleanupAndExit();
   }
+
+  /**
+   * now there must be a range
+   */
+  Q_ASSERT(m_wholeTemplateRange);
+
+  // indent the inserted template properly, this makes it possible
+  // to share snippets e.g. via GHNS without caring about
+  // what indent-style to use.
+  if (m_view)
+    doc()->align(m_view, *m_wholeTemplateRange);
 
   ///TODO: maybe support delayed actions, i.e.:
   /// - create doc

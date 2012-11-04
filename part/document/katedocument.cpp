@@ -2639,7 +2639,7 @@ bool KateDocument::typeChars ( KateView *view, const QString &realChars )
    */
   QString chars;
   Q_FOREACH (QChar c, realChars)
-    if (c.isPrint())
+    if (c.isPrint() || c == QChar::fromLatin1('\t'))
       chars.append (c);
   
   if (chars.isEmpty())

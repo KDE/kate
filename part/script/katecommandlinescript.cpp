@@ -147,7 +147,7 @@ bool KateCommandLineScript::exec(KTextEditor::View *view, const QString &cmd, QS
   return exec( view, cmd, msg );
 }
 
-bool KateCommandLineScript::supportsRange(const QString &cmd)
+bool KateCommandLineScript::supportsRange(const QString &)
 {
   return true;
 }

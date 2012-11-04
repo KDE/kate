@@ -53,7 +53,7 @@ bool readFile(const QString& sourceUrl, QString& sourceCode)
   return true;
 }
 
-QScriptValue read(QScriptContext *context, QScriptEngine *engine)
+QScriptValue read(QScriptContext *context, QScriptEngine *)
 {
   /**
    * just search for all given files and read them all

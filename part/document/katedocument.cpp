@@ -5385,7 +5385,7 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
   // if there are no actions, add a close action by default
   if (message->actions().count() == 0) {
     QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
-    closeAction->setToolTip(i18n("Close document"));
+    closeAction->setToolTip(i18n("Close message"));
     message->addAction(closeAction);
   }
 

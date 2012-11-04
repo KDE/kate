@@ -101,7 +101,15 @@ void KateMessageWidget::hideAndDeleteLater()
 {
   m_message = 0;
   m_deleteLater = true;
-  animatedHide();
+
+  // if the message is already visible, trigger the hide animation,
+  // otherwise kill it right away.
+  if (isVisible() && m_messageWidget->isVisible()) {
+    animatedHide();
+  } else {
+    hide();
+    deleteLater();
+  }
 }
 
 void KateMessageWidget::animatedShow()

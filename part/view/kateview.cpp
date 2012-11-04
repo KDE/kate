@@ -64,6 +64,7 @@
 #include "snippet/snippetcompletionmodel.h"
 #include "katemessagewidget.h"
 #include "messageinterface.h"
+#include "katetemplatehandler.h"
 
 #include <kparts/event.h>
 
@@ -2182,7 +2183,7 @@ bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c,
                                                   const QString &templateString,
                                                   const QMap<QString,QString> &initialValues)
 {
-  return m_doc->insertTemplateTextImplementation(c, templateString, initialValues, 0, this);
+  return insertTemplateTextImplementation(c, templateString, initialValues, 0);
 }
 
 bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c,
@@ -2190,10 +2191,28 @@ bool KateView::insertTemplateTextImplementation ( const KTextEditor::Cursor& c,
                                                   const QMap<QString,QString> &initialValues,
                                                   KTextEditor::TemplateScript* templateScript)
 {
-/*  if (!scriptToken.isEmpty()) {
-    KateGlobal::self()->scriptManager()->callTestIt(this,scriptToken);
-  }*/
-  return m_doc->insertTemplateTextImplementation(c, templateString, initialValues, templateScript, this);
+  /**
+   * no empty templates
+   */
+  if (templateString.isEmpty())
+    return false;
+
+  /**
+   * not for read-only docs
+   */
+  if (!m_doc->isReadWrite())
+    return false;
+
+  /**
+   * get script
+   */
+  KateTemplateScript* kateTemplateScript = KateGlobal::self()->scriptManager()->templateScript(templateScript);
+
+  /**
+   * the handler will delete itself when necessary
+   */
+  new KateTemplateHandler(this, c, templateString, initialValues, m_doc->undoManager(), kateTemplateScript);
+  return true;
 }
 
 

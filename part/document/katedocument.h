@@ -335,7 +335,10 @@ Q_SIGNALS:
     uint undoCount () const;
     uint redoCount () const;
 
-    KateUndoManager* undoManager();
+    KateUndoManager* undoManager()
+    {
+        return m_undoManager;
+    }
 
   protected:
     KateUndoManager* const m_undoManager;
@@ -1091,23 +1094,6 @@ Q_SIGNALS:
     virtual bool isDataRecoveryAvailable() const;
     virtual void recoverData();
     virtual void discardDataRecovery();
-
-  //
-  // KTextEditor::TemplateInterface + KTextEditor::TemplateInterface2
-  //
-  public:
-    /**
-     * Starts a KateTemplateHandler for the given template. Multiple handlers may
-     * run at the same time, while only the last one created for this document
-     * will be active.
-     *
-     * \see KTextEditor::TemplateInterface::insertTemplateTextImplementation(), KateTemplateHandler
-     */
-    virtual bool insertTemplateTextImplementation ( const KTextEditor::Cursor &c,
-                                                    const QString &templateString,
-                                                    const QMap<QString,QString> &initialValues,
-                                                    KTextEditor::TemplateScript* templateScript,
-                                                    KateView *view);
 
   //
   // KTextEditor::HighlightInterface

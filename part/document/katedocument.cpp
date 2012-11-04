@@ -39,7 +39,6 @@
 #include "kateconfig.h"
 #include "katemodemanager.h"
 #include "kateschema.h"
-#include "katetemplatehandler.h"
 #include "katebuffer.h"
 #include "kateundomanager.h"
 #include "katepartpluginmanager.h"
@@ -1421,11 +1420,6 @@ bool KateDocument::editRemoveLines ( int from, int to )
   return true;
 }
 //END
-
-KateUndoManager* KateDocument::undoManager()
-{
-  return m_undoManager;
-}
 
 //BEGIN KTextEditor::UndoInterface stuff
 uint KateDocument::undoCount () const
@@ -4684,28 +4678,6 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
 }
 
 //END KTextEditor::ConfigInterface
-
-//BEGIN KTextEditor::TemplateInterface
-bool KateDocument::insertTemplateTextImplementation( const KTextEditor::Cursor &c,
-                                                     const QString &templateString,
-                                                     const QMap<QString,QString> &initialValues,
-                                                     KTextEditor::TemplateScript* templateScript,
-                                                     KateView* view)
-{
-  if (templateString.isEmpty()) return false;
-
-  if (!isReadWrite()) return false;
-
-  KateTemplateScript* kateTemplateScript =
-    KateGlobal::self()->scriptManager()->templateScript(templateScript);
-
-  // the handler will delete itself when necessary
-  new KateTemplateHandler(view, c, templateString, initialValues, m_undoManager, kateTemplateScript);
-
-  return true;
-}
-//END KTextEditor::TemplateInterface
-
 
 KateView * KateDocument::activeKateView( ) const
 {

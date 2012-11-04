@@ -74,18 +74,22 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
     , m_jumping(false)
     , m_templateScript(templateScript)
 {
+  /**
+   * we always need a view
+   */ 
+  Q_ASSERT (m_view);
+  
   ifDebug(kDebug() << templateString << initialValues;)
 
   QMap<QString, QString> initial_Values(initialValues);
 
   if (initial_Values.contains("selection")) {
     if (initial_Values["selection"].isEmpty()) {
-      Q_ASSERT(m_view);
       initial_Values[ "selection" ] = m_view->selectionText();
     }
   }
 
-  if (m_view && m_view->selection()) {
+  if (m_view->selection()) {
     m_lastCaretPosition = m_view->selectionRange().start();
     m_view->removeSelectionText();
   }
@@ -117,8 +121,7 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
   // indent the inserted template properly, this makes it possible
   // to share snippets e.g. via GHNS without caring about
   // what indent-style to use.
-  if (m_view)
-    doc()->align(m_view, *m_wholeTemplateRange);
+  doc()->align(m_view, *m_wholeTemplateRange);
 
   ///TODO: maybe support delayed actions, i.e.:
   /// - create doc
@@ -130,7 +133,7 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
   m_undoManager->undoSafePoint();
   doc()->editEnd();
 
-  if (!initialValues.isEmpty() && m_view) {
+  if (!initialValues.isEmpty()) {
     // only do complex stuff when required
     if (!m_templateRanges.isEmpty()) {
       foreach(View* view, doc()->views()) {
@@ -220,8 +223,7 @@ void KateTemplateHandler::cleanupAndExit()
 
 void KateTemplateHandler::jumpToFinalCursorPosition()
 {
-  if (m_view && (!m_wholeTemplateRange
-                 || customContains(m_wholeTemplateRange->toRange(), m_view->cursorPosition()))) {
+  if (!m_wholeTemplateRange || customContains(m_wholeTemplateRange->toRange(), m_view->cursorPosition())) {
     m_view->setSelection(Range::invalid());
     m_view->setCursorPosition(*m_finalCursorPosition);
   }
@@ -275,7 +277,7 @@ bool KateTemplateHandler::eventFilter(QObject* object, QEvent* event)
       return true;
 
     } else if (keyEvent->key() == Qt::Key_Escape) {
-      if (!m_view || !m_view->selection()) {
+      if (!m_view->selection()) {
         // terminate
         jumpToFinalCursorPosition();
         cleanupAndExit();
@@ -392,17 +394,14 @@ void KateTemplateHandler::setCurrentRange(MovingRange* range)
     }
   }
 
-  if (m_view) {
-    m_jumping = true;
+  m_jumping = true;
 
-    if (m_uneditedRanges.contains(range)) {
-      m_view->setSelection(*range);
-    }
+  if (m_uneditedRanges.contains(range))
+    m_view->setSelection(*range);
 
-    m_view->setCursorPosition(range->start());
+  m_view->setCursorPosition(range->start());
 
-    m_jumping = false;
-  }
+  m_jumping = false;
 
   m_lastCaretPosition = range->start();
 }
@@ -768,13 +767,11 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
   Q_ASSERT(!m_wholeTemplateRange->toRange().isEmpty());
 
-  if (m_view) {
-    ///HACK: make sure the view cache is up2date so we can safely set the cursor position
-    ///      else one might hit the Q_ASSERT(false) in KateViewInternal::endPos()
-    ///      the cause is that the view get's ::update()'d, but that does not trigger a
-    ///      paint event right away.
-    m_view->updateView(true);
-  }
+  ///HACK: make sure the view cache is up2date so we can safely set the cursor position
+  ///      else one might hit the Q_ASSERT(false) in KateViewInternal::endPos()
+  ///      the cause is that the view get's ::update()'d, but that does not trigger a
+  ///      paint event right away.
+  m_view->updateView(true);
 
   if (finalCursorPosition.isValid()) {
     m_finalCursorPosition = doc()->newMovingCursor(finalCursorPosition);
@@ -976,7 +973,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
 
     syncMirroredRanges(baseRange);
 
-    if (range.start() == baseRange->start() && m_view) {
+    if (range.start() == baseRange->start()) {
       // TODO: update the attribute, since kate doesn't do that automatically
       // TODO: fix in kate itself
       // TODO: attribute->changed == undefined reference...
@@ -1011,7 +1008,7 @@ void KateTemplateHandler::syncMirroredRanges(MovingRange* range)
 
 KateView* KateTemplateHandler::view()
 {
-  return qobject_cast<KateView*>(m_view);
+  return m_view;
 }
 
 

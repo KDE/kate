@@ -26,6 +26,8 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
+#include <QPointer>
+
 namespace KTextEditor
 {
 class Document;
@@ -58,6 +60,7 @@ public:
 private:
     void initData(KTextEditor::View* view);
     QList<SnippetCompletionItem*> m_snippets;
+    QPointer<KTextEditor::View> m_viewToUse;
 };
 
 #endif

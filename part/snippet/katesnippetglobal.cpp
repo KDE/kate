@@ -114,7 +114,7 @@ void KateSnippetGlobal::insertSnippet(Snippet* snippet)
   if ( !range.isValid() ) {
       range = KTextEditor::Range(view->cursorPosition(), view->cursorPosition());
   }
-  item.execute(view->document(), range);
+  item.execute(view, range);
   
   // set focus to view
   view->setFocus ();

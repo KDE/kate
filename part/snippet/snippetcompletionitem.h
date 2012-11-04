@@ -33,7 +33,7 @@ class SnippetRepository;
 class QModelIndex;
 
 namespace KTextEditor {
-  class Document;
+  class View;
   class Range;
   class CodeCompletionModel2;
 }
@@ -44,7 +44,7 @@ public:
     SnippetCompletionItem(Snippet* snippet, SnippetRepository* repo);
     ~SnippetCompletionItem();
 
-    void execute( KTextEditor::Document* document, const KTextEditor::Range& word );
+    void execute( KTextEditor::View* view, const KTextEditor::Range& word );
     QVariant data( const QModelIndex& index, int role, const KTextEditor::CodeCompletionModel2* model ) const;
 
 private:

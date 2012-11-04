@@ -89,31 +89,10 @@ QVariant SnippetCompletionItem::data( const QModelIndex& index, int role, const 
     return QVariant();
 }
 
-void SnippetCompletionItem::execute( KTextEditor::Document* document, const KTextEditor::Range& word )
+void SnippetCompletionItem::execute( KTextEditor::View* view, const KTextEditor::Range& word )
 {
-    if ( document->activeView() ) {
-        QMap< QString, QString > values = QMap<QString, QString>();
-        if ( document->activeView()->selection() ) {
-            values["selection"] = document->text(document->activeView()->selectionRange());
-        }
-        document->removeText(word);
-        KTextEditor::TemplateInterface2* templateIface2
-            = qobject_cast<KTextEditor::TemplateInterface2*>(document->activeView());
-        if ( templateIface2 )
-        {
-            if ( word != document->activeView()->selectionRange() ) {
-                document->removeText(word);
-            }
-            templateIface2->insertTemplateText(word.start(), m_snippet, values, m_repo->registeredScript());
-            return;
-        }
-        KTextEditor::TemplateInterface* templateIface
-            = qobject_cast<KTextEditor::TemplateInterface*>(document->activeView());
-        if ( templateIface ) {
-            templateIface->insertTemplateText(word.start(), m_snippet, values);
-            return;
-        }
-    }
-
-    document->replaceText(word, m_snippet);
+    QMap< QString, QString > values = QMap<QString, QString>();
+    KTextEditor::TemplateInterface2* templateIface2 = qobject_cast<KTextEditor::TemplateInterface2*>(view);
+    if (templateIface2)
+      templateIface2->insertTemplateText(word.start(), m_snippet, values, m_repo->registeredScript());
 }

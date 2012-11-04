@@ -49,6 +49,7 @@
 #include "spellcheck/spellcheck.h"
 #include "katescriptmanager.h"
 #include "kateswapfile.h"
+#include "snippet/katesnippetglobal.h"
 
 #include "documentcursor.h"
 
@@ -216,6 +217,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   onTheFlySpellCheckingEnabled(config()->onTheFlySpellCheck());
 
+  // register with snippet stuff
+  KateSnippetGlobal::self()->addDocument(this);
   // register document in plugins
   KatePartPluginManager::self()->addDocument(this);
 }
@@ -253,6 +256,9 @@ KateDocument::~KateDocument()
     delete m_views.takeFirst();
   }
 
+  
+  // de-register from snippet stuff
+  KateSnippetGlobal::self()->addDocument(this);
   // de-register from plugin
   KatePartPluginManager::self()->removeDocument(this);
 

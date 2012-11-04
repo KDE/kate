@@ -29,8 +29,14 @@
 #include <kateglobal.h>
 #include <kateview.h>
 
-class SnippetCompletionModel;
-class Snippet;
+#include "completionmodel.h"
+
+namespace KTextEditor {
+  namespace CodesnippetsCore {
+    class SnippetRepositoryModel;
+  }
+}
+
 
 /**
  * This is the main class of KDevelop's snippet plugin.
@@ -44,28 +50,32 @@ public:
     KateSnippetGlobal(QObject *parent, const QVariantList &args = QVariantList() );
     ~KateSnippetGlobal ();
 
-    /**
-     * Inserts the given @p snippet into the currently active view.
-     * If the current active view is not inherited from KTextEditor::View
-     * nothing will happen.
-     */
-    void insertSnippet(Snippet* snippet);
 
     static KateSnippetGlobal* self() { return KateGlobal::self()->snippetGlobal(); }
 
-    /**
-     * Code completion model.
-     * @return code completion model for snippets
-     */
-    SnippetCompletionModel *completionModel () { return m_model; }
-
+    KateView* getCurrentView();
+    
     /**
      * Create a new snippet widget, to allow to manage and insert snippets
      * @return new snippet widget
      */
-    QWidget *snippetWidget ();
-
-public slots:
+    QWidget *snippetWidget (QWidget *parent, KateView *initialView);
+    
+    class KTextEditor::CodesnippetsCore::SnippetRepositoryModel *repositoryModel ();
+    
+    KTextEditor::CodesnippetsCore::CategorizedSnippetModel* modelForDocument(KTextEditor::Document *document);
+    
+    
+    enum Mode {FileModeBasedMode=0, SnippetFileBasedMode=1};
+    
+    enum Mode snippetsMode();
+    void setSnippetsMode(enum Mode);
+    
+Q_SIGNALS:
+      void typeHasChanged(KTextEditor::Document*);
+      void snippetsModeChanged();
+      
+public Q_SLOTS:
     /**
      * Create snippet for given view, e.g. by using the selection
      * @param view view to create snippet for
@@ -81,9 +91,24 @@ public slots:
 
     void insertSnippetFromActionData();
 
+  
+    void addDocument(KTextEditor::Document* document);
+    void removeDocument(KTextEditor::Document* document);
+    void addView(KTextEditor::Document *document, KTextEditor::View *view);
+    void updateDocument(KTextEditor::Document *document);
+    void slotTypeChanged(const QStringList& fileType);    
+    
+    
 private:
-    class SnippetCompletionModel* m_model;
+    class KTextEditor::CodesnippetsCore::SnippetRepositoryModel* m_repositoryModel;
     QPointer<KateView> m_activeViewForDialog;
+    
+    QMultiHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > m_document_model_multihash;
+    QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > m_mode_model_hash;
+    QHash<KTextEditor::Document*,KTextEditor::CodesnippetsCore::CategorizedSnippetModel*> m_document_categorized_hash;
+
+    enum Mode m_snippetsMode;
+    
 };
 
 #endif

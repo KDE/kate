@@ -38,6 +38,7 @@
 #include "katewordcompletion.h"
 #include "spellcheck/spellcheck.h"
 #include "snippet/katesnippetglobal.h"
+#include "snippet/repositoryview.h"
 
 #include <klocale.h>
 #include <kservicetypetrader.h>
@@ -352,7 +353,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
 int KateGlobal::configPages () const
 {
-  return 5;
+  return 6;
 }
 
 KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
@@ -374,6 +375,8 @@ KTextEditor::ConfigPage *KateGlobal::configPage (int number, QWidget *parent)
     case 4:
       return new KatePartPluginConfigPage (parent);
 
+    case 5:
+      return new KatePartSnippetsConfigPage(parent);
     default:
       return 0;
   }
@@ -400,6 +403,9 @@ QString KateGlobal::configPageName (int number) const
     case 4:
       return i18n ("Extensions");
 
+    case 5:
+      return i18n ("Kate Snippets");
+      
     default:
       return QString ("");
   }
@@ -426,6 +432,9 @@ QString KateGlobal::configPageFullName (int number) const
     case 4:
       return i18n ("Extensions Manager");
 
+    case 5:
+      return i18n ("Kate Part Snippets");
+      
     default:
       return QString ("");
   }
@@ -451,6 +460,9 @@ KIcon KateGlobal::configPageIcon (int number) const
 
     case 4:
       return KIcon("preferences-plugin");
+      
+    case 5:
+      return KIcon("textfield");
 
     default:
       return KIcon("document-properties");
@@ -522,7 +534,8 @@ void KateGlobal::setContainer( QObject * container )
 
 QWidget *KateGlobal::snippetWidget ()
 {
-  return snippetGlobal()->snippetWidget ();
+#warning FIXME
+  return snippetGlobal()->snippetWidget (0,(KateView*)0);
 }
 
 KTextEditor::TemplateScript* KateGlobal::registerTemplateScript (QObject* owner, const QString& script)

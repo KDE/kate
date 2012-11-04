@@ -441,40 +441,47 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   int visibleEnd = (value()+pageStep())*docHeight/(max+pageStep()) + docRect.top();
   QRect visibleRect(QPoint(docRect.left(), visibleStart), QPoint(docRect.right(), visibleEnd));
 
+  // calculate colors
   QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
-  QColor shieldColor = palette().color(QPalette::Mid);
-  QColor shieldColorLight = shieldColor;
-  shieldColorLight.setAlpha(180);
+  QColor foregroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
+  int backgroundLightness = backgroundColor.lightness();
+  int foregroundLightness = foregroundColor.lightness();
+  int lighnessDiff = (foregroundLightness - backgroundLightness);
+
+  // get a color suited for the color theme
+  QColor darkShieldColor = palette().color(QPalette::Mid);
+  int hue, sat, light;
+  darkShieldColor.getHsl(&hue, &sat, &light);
+  // apply suitable lightness
+  darkShieldColor.setHsl(hue, sat, backgroundLightness + lighnessDiff * 0.35);
+  // gradient for nicer results
   QLinearGradient gradient(0, 0, width(), 0);
-  gradient.setColorAt(0, shieldColor);
-  gradient.setColorAt(0.3, shieldColorLight);
-  gradient.setColorAt(1, shieldColor);
+  gradient.setColorAt(0, darkShieldColor);
+  gradient.setColorAt(0.3, darkShieldColor.lighter(115));
+  gradient.setColorAt(1, darkShieldColor);
+
+  QColor lightShieldColor;
+  lightShieldColor.setHsl(hue, sat, backgroundLightness + lighnessDiff * 0.15);
 
   painter.setPen(QColor("transparent"));
   painter.setBrush(backgroundColor);
   painter.drawRect(docRect);
 
-  // "shield" non-visible part
-  painter.setBrush(palette().brush(QPalette::Midlight));
+  // light "shield" non-visible parts
+  painter.setBrush(lightShieldColor);
   // Top shielding
   painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
   // Bottom shielding
   painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
 
+  // dark "shield" of non-slider parts
   painter.setBrush(gradient);
-
   if (docHeight < grooveRect.height()) {
-    // shield the non-visible again (not non-slider)
-    // Top shielding
     painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
-    // Bottom shielding
     painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
   }
   else {
-    // shield the non-slider area
-    // Top shielding
     painter.drawRect(QRect(docRect.topLeft(), QPoint(sliderRect.right()-1, sliderRect.top())));
-    // Bottom shielding
     painter.drawRect(QRect(sliderRect.bottomLeft(), docRect.bottomRight()));
   }
 

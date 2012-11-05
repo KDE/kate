@@ -96,8 +96,6 @@
 
 static int dummy = 0;
 
-class KateTemplateScript;
-
 inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '('; }
 inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')'; }
 inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isEndBracket( c ); }
@@ -1997,6 +1995,7 @@ bool KateDocument::openFile()
     //
     setDocName  (QString());
   }
+  
   //
   // to houston, we are not modified
   //
@@ -2330,16 +2329,26 @@ bool KateDocument::closeUrl()
             parentWidget,
             reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur."),
             i18n("Possible Data Loss"), KGuiItem(i18n("Close Nevertheless")), KStandardGuiItem::cancel(),
-            QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Continue))
+            QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Continue)) {
+        /**
+         * reset reloading
+         */
+        m_reloading = false;
         return false;
+      }
     }
   }
 
   //
   // first call the normal kparts implementation
   //
-  if (!KParts::ReadWritePart::closeUrl ())
+  if (!KParts::ReadWritePart::closeUrl ()) {
+    /**
+     * reset reloading
+     */
+    m_reloading = false;
     return false;
+  }
 
   // Tell the world that we're about to go ahead with the close
   if (!m_reloading)
@@ -3787,7 +3796,6 @@ bool KateDocument::documentReload()
 
     m_reloading = true;
     KateDocument::openUrl( url() );
-    m_reloading = false;
     
     // reset some flags only valid for one reload!
     m_userSetEncodingForNextReload = false;
@@ -4831,6 +4839,7 @@ void KateDocument::slotCompleted() {
    * back to idle mode
    */
   m_documentState = DocumentIdle;
+  m_reloading = false;
 }
 
 void KateDocument::slotCanceled() {
@@ -4847,6 +4856,7 @@ void KateDocument::slotCanceled() {
    * back to idle mode
    */
   m_documentState = DocumentIdle;
+  m_reloading = false;
 }
 
 void KateDocument::slotTriggerLoadingMessage ()

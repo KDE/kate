@@ -305,6 +305,9 @@ void KWrite::urlChanged()
 {
   if ( ! m_view->document()->url().isEmpty() )
     m_recentFiles->addUrl( m_view->document()->url() );
+  
+  // update caption
+  documentNameChanged ();
 }
 
 void KWrite::newView()

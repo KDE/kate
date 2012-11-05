@@ -180,7 +180,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_undoManager(new KateUndoManager(this)),
   m_editableMarks(markType01),
   m_annotationModel(0),
-  m_saveAs(false),
   m_isasking(0),
   m_buffer(new KateBuffer(this)),
   m_indenter(new KateAutoIndent(this)),
@@ -196,9 +195,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_reloading(false),
   m_config(new KateDocumentConfig(this)),
   m_fileChangedDialogsActivated(false),
-  m_savingToUrl(false),
   m_onTheFlyChecker(0),
-  m_filePerhapsStillLoading (false),
+  m_documentState (DocumentIdle),
   m_readWriteStateBeforeLoading (false)
 {
   setComponentData ( KateGlobal::self()->componentData () );
@@ -2312,8 +2310,6 @@ bool KateDocument::saveFile()
 
   // url may have changed...
   emit documentUrlChanged (this);
-
-  m_savingToUrl=true;
 
   // (dominik) mark last undo group as not mergeable, otherwise the next
   // edit action might be merged and undo will never stop at the saved state
@@ -4874,87 +4870,151 @@ bool KateDocument::queryClose()
 void KateDocument::slotStarted (KIO::Job *job)
 {
   /**
-   * there shall be no other job around!
+   * if we are idle before, we are now loading!
    */
-  Q_ASSERT (!m_filePerhapsStillLoading);
+  if (m_documentState == DocumentIdle)
+    m_documentState = DocumentLoading;
   
   /**
-   * remember we still load
-   * set to read-only!
+   * if loading:
+   * - remember pre loading read-write mode
+   * if remote load:
+   * - set to read-only
+   * - trigger possible message
    */
-  m_filePerhapsStillLoading = true;
-  m_readWriteStateBeforeLoading = isReadWrite ();
-  setReadWrite (false);
-  
-  /**
-   * perhaps show loading message, but wait one second
-   */
-  if (job)
-    QTimer::singleShot (1000, this, SLOT(slotTriggerLoadingMessage()));
+  if (m_documentState == DocumentLoading) {
+    /**
+     * remember state
+     */
+    m_readWriteStateBeforeLoading = isReadWrite ();
+    
+    /**
+     * perhaps show loading message, but wait one second
+     */
+    if (job) {
+      /**
+       * only read only if really remote file!
+       */
+      setReadWrite (false);
+      
+      /**
+       * perhaps some message about loading in one second!
+       */
+      QTimer::singleShot (1000, this, SLOT(slotTriggerLoadingMessage()));
+    }
+  }
 }
 
 void KateDocument::slotCompleted() {
-  Q_ASSERT (m_filePerhapsStillLoading);
+  /**
+   * if were loading, reset back to old read-write mode before loading
+   * and kill the possible loading message
+   */
+  if (m_documentState == DocumentLoading) {
+    setReadWrite (m_readWriteStateBeforeLoading);
+    delete m_loadingMessage;
+  }
   
-  // remember file loading is over now
-  m_filePerhapsStillLoading = false;
-  setReadWrite (m_readWriteStateBeforeLoading);
-  delete m_loadingMessage;
-
-  if (m_savingToUrl) {
+  if (m_documentState == DocumentSaving || m_documentState == DocumentSavingAs) {
     if (!m_postSaveFilterChecks.isEmpty())
     {
       LoadSaveFilterCheckPlugins *lscps1=loadSaveFilterCheckPlugins();
       foreach(const QString& checkplugin, m_postSaveFilterChecks)
       {
-        if (lscps1->postSaveFilterCheck(checkplugin,this,m_saveAs)==false)
+        if (lscps1->postSaveFilterCheck(checkplugin,this,m_documentState == DocumentSavingAs)==false)
           break;
       }
     }
+    
+    emit documentSavedOrUploaded(this,m_documentState == DocumentSavingAs);
   }
-  emit documentSavedOrUploaded(this,m_saveAs);
-  m_savingToUrl=false;
-  m_saveAs=false;
+  
+  /**
+   * back to idle mode
+   */
+  m_documentState = DocumentIdle;
 }
 
 void KateDocument::slotCanceled() {
-  Q_ASSERT (m_filePerhapsStillLoading);
+  /**
+   * if were loading, reset back to old read-write mode before loading
+   * and kill the possible loading message
+   */
+  if (m_documentState == DocumentLoading) {
+    setReadWrite (m_readWriteStateBeforeLoading);
+    delete m_loadingMessage;
+  }
   
-  // remember file loading is over now
-  m_filePerhapsStillLoading = false;
-  setReadWrite (m_readWriteStateBeforeLoading);
-  delete m_loadingMessage;
-
-  m_savingToUrl=false;
-  m_saveAs=false;
+  /**
+   * back to idle mode
+   */
+  m_documentState = DocumentIdle;
 }
 
 void KateDocument::slotTriggerLoadingMessage ()
 {
-  if (!m_filePerhapsStillLoading)
+  /**
+   * no longer loading?
+   * no message needed!
+   */
+  if (m_documentState != DocumentLoading)
     return;
   
+  /**
+   * post message about file loading in progress
+   */
   m_loadingMessage = new KTextEditor::Message(KTextEditor::Message::Information
           , i18n ("The file %1 is still loading.", this->url().pathOrUrl()));
   m_loadingMessage->setWordWrap(true);
   postMessage(m_loadingMessage);
 }
 
-bool KateDocument::save() {
-  // don't allow to save files that still load
-  if (m_filePerhapsStillLoading)
+bool KateDocument::save()
+{
+  /**
+   * no double save/load
+   * we need to allow saveAs here as state, as save is called in saveAs!
+   */
+  if ((m_documentState != DocumentIdle) && (m_documentState != DocumentSavingAs))
     return false;
 
-  m_saveAs = false;
+  /**
+   * if we are idle, we are now saving
+   */
+  if (m_documentState == DocumentIdle)
+    m_documentState = DocumentSaving;
+  
+  /**
+   * call back implementation for real work
+   */
   return KTextEditor::Document::save();
 }
 
-bool KateDocument::saveAs( const KUrl &url ) {
-  // don't allow to save files that still load
-  if (m_filePerhapsStillLoading)
+bool KateDocument::saveAs( const KUrl &url )
+{
+  /**
+   * abort on bad URL
+   * that is done in saveAs below, too
+   * but we must check it here already to avoid messing up
+   * as no signals will be send, then
+   */
+  if (!url.isValid())
     return false;
+  
+  /**
+   * no double save/load
+   */
+  if (m_documentState != DocumentIdle)
+    return false;
+  
+  /**
+   * we do a save as
+   */
+  m_documentState = DocumentSavingAs;
 
-  m_saveAs = true;
+  /**
+   * call base implementation for real work
+   */
   return KTextEditor::Document::saveAs(url);
 }
 

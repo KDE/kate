@@ -865,8 +865,7 @@ Q_SIGNALS:
     virtual bool save();
   public:
     virtual bool saveAs( const KUrl &url );
-  private:
-    bool m_saveAs;
+
   Q_SIGNALS:
     /**
      * Indicate this file is modified on disk
@@ -1124,7 +1123,6 @@ Q_SIGNALS:
       class LoadSaveFilterCheckPlugins;
 
   private:
-      bool m_savingToUrl;
       void setPreSavePostDialogFilterChecks(QStringList plugins) {m_preSavePostDialogFilterChecks=plugins;}
       QStringList m_preSavePostDialogFilterChecks;
       void setPostSaveFilterChecks(QStringList plugins) {m_postSaveFilterChecks=plugins;}
@@ -1210,9 +1208,34 @@ Q_SIGNALS:
     
   private:
     /**
-     * guard to ensure we not allow saveFile during file is still loading
+     * different possible states
      */
-    bool m_filePerhapsStillLoading;
+    enum DocumentStates {
+      /**
+       * Idle
+       */
+      DocumentIdle,
+      
+      /**
+       * Loading
+       */
+      DocumentLoading,
+      
+      /**
+       * Saving
+       */
+      DocumentSaving,
+      
+      /**
+       * Saving As
+       */
+      DocumentSavingAs
+    };
+    
+    /**
+     * current state
+     */
+    DocumentStates m_documentState;
     
     /**
      * read-write state before loading started

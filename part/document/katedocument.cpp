@@ -194,7 +194,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect (this, SIGNAL(canceled(QString)), this, SLOT(slotCanceled()));
 
   // update doc name
-  setDocName (QString());
+  updateDocName ();
 
   // if single view mode, like in the konqui embedding, create a default view ;)
   // be lazy, only create it now, if any parentWidget is given, otherwise widget()
@@ -1992,7 +1992,7 @@ bool KateDocument::openFile()
     //
     // set doc name, dummy value as arg, don't need it
     //
-    setDocName  (QString());
+    updateDocName  ();
   }
   
   //
@@ -2222,7 +2222,7 @@ bool KateDocument::saveFile()
   }
 
   // update document name...
-  setDocName( QString() );
+  updateDocName ();
 
   // url may have changed...
   emit documentUrlChanged (this);
@@ -2418,7 +2418,7 @@ bool KateDocument::closeUrl()
     emit documentUrlChanged (this);
 
     // update doc name
-    setDocName (QString());
+    updateDocName ();
   }
 
   // purge swap file
@@ -3592,24 +3592,8 @@ inline static QString removeNewLines(const QString& str)
             .replace(QChar('\n'), QLatin1Char(' '));
 }
 
-void KateDocument::setDocName (const QString &_name )
+void KateDocument::updateDocName ()
 {
-  const QString name = removeNewLines(_name);
-  /**
-   * avoid senseless name changes
-   */
-  if ( name == m_docName )
-    return;
-
-  /**
-   * if name given, use it!
-   */
-  if ( !name.isEmpty() ) {
-    m_docName = name;
-    emit documentNameChanged (this);
-    return;
-  }
-
   // if the name is set, and starts with FILENAME, it should not be changed!
   if ( ! url().isEmpty()
        && (m_docName == removeNewLines(url().fileName()) ||
@@ -3636,7 +3620,7 @@ void KateDocument::setDocName (const QString &_name )
 
   if (m_docNameNumber > 0)
     m_docName = QString(m_docName + " (%1)").arg(m_docNameNumber+1);
-
+  
   /**
    * avoid to emit this, if name doesn't change!
    */

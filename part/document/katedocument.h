@@ -831,8 +831,10 @@ Q_SIGNALS:
   public:
     virtual const QString &documentName () const { return m_docName; }
 
-    void setDocName (const QString &docName);
+  private:
+    void updateDocName ();
 
+  public:
     void lineInfo (KateLineInfo *info, int line) const;
 
     KateCodeFoldingTree *foldingTree ();

@@ -1220,6 +1220,11 @@ Q_SIGNALS:
       DocumentSaving,
       
       /**
+       * Pre Saving As, this is between ::saveAs is called and ::save
+       */
+      DocumentPreSavingAs,
+      
+      /**
        * Saving As
        */
       DocumentSavingAs

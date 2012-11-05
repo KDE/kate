@@ -4912,9 +4912,9 @@ bool KateDocument::save()
 {
   /**
    * no double save/load
-   * we need to allow saveAs here as state, as save is called in saveAs!
+   * we need to allow DocumentPreSavingAs here as state, as save is called in saveAs!
    */
-  if ((m_documentState != DocumentIdle) && (m_documentState != DocumentSavingAs))
+  if ((m_documentState != DocumentIdle) && (m_documentState != DocumentPreSavingAs))
     return false;
 
   /**
@@ -4922,6 +4922,8 @@ bool KateDocument::save()
    */
   if (m_documentState == DocumentIdle)
     m_documentState = DocumentSaving;
+  else
+    m_documentState = DocumentSavingAs;
   
   /**
    * call back implementation for real work
@@ -4947,9 +4949,9 @@ bool KateDocument::saveAs( const KUrl &url )
     return false;
   
   /**
-   * we do a save as
+   * we enter the pre save as phase
    */
-  m_documentState = DocumentSavingAs;
+  m_documentState = DocumentPreSavingAs;
 
   /**
    * call base implementation for real work

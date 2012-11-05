@@ -24,12 +24,17 @@
 #include "kateswapfile.h"
 #include "kateview.h"
 #include "kateconfig.h"
+#include "kateswapdiffcreator.h"
 
 #include <kde_file.h>
+#include <klocale.h>
+#include <kicon.h>
+#include <kstandardguiitem.h>
 
 #include <QFileInfo>
 #include <QDir>
 #include <QApplication>
+
 
 // swap file version header
 const static char * const swapFileVersionString = "Kate Swap File 2.0";
@@ -125,6 +130,11 @@ void SwapFile::fileClosed ()
   updateFileName();
 }
 
+KateDocument* SwapFile::document()
+{
+  return m_document;
+}
+
 bool SwapFile::isValidSwapFile(QDataStream& stream, bool checkDigest) const
 {
   // read and check header
@@ -182,7 +192,7 @@ void SwapFile::fileLoaded(const QString&)
 
   // emit signal in case the document has more views
   m_document->setReadWrite(false);
-  emit swapFileFound();
+  showSwapFileMessage();
 }
 
 void SwapFile::modifiedChanged()
@@ -527,6 +537,34 @@ void SwapFile::writeFileToDisk()
     #endif
     #endif
   }
+}
+
+void SwapFile::showSwapFileMessage()
+{
+  m_swapMessage = new KTextEditor::Message(KTextEditor::Message::Warning,
+    i18n("The file was not closed properly."));
+  m_swapMessage->setWordWrap(true);
+
+  QAction* diffAction = new QAction(KIcon("split"), i18n("View Changes"), 0);
+  QAction* recoverAction = new QAction(KIcon("edit-redo"), i18n("Recover Data"), 0);
+  QAction* discardAction = new QAction(KStandardGuiItem::discard().icon(), i18n("Discard"), 0);
+
+  m_swapMessage->addAction(diffAction, false);
+  m_swapMessage->addAction(recoverAction);
+  m_swapMessage->addAction(discardAction);
+
+  connect(diffAction, SIGNAL(triggered()), SLOT(showDiff()));
+  connect(recoverAction, SIGNAL(triggered()), SLOT(recover()), Qt::QueuedConnection);
+  connect(discardAction, SIGNAL(triggered()), SLOT(discard()), Qt::QueuedConnection);
+
+  m_document->postMessage(m_swapMessage);
+}
+
+void SwapFile::showDiff()
+{
+  // the diff creator deletes itself thorugh deleteLater() when it's done
+  SwapDiffCreator* diffCreator = new SwapDiffCreator(this);
+  diffCreator->viewDiff();
 }
 
 }

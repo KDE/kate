@@ -180,9 +180,8 @@ schema/katecolortreewidget.cpp
 schema/katecategorydrawer.cpp
 
 # swapfile
-swapfile/katerecoverbar.cpp
+swapfile/kateswapdiffcreator.cpp
 swapfile/kateswapfile.cpp
-swapfile/katebrokenswapfilebar.cpp
 
 # snippets
 snippet/katesnippetglobal.cpp

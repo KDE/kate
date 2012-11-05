@@ -57,9 +57,6 @@
 #include "script/katescriptmanager.h"
 #include "script/katescriptaction.h"
 #include "script/katescriptconsole.h"
-#include "kateswapfile.h"
-#include "katerecoverbar.h"
-#include "katebrokenswapfilebar.h"
 #include "snippet/katesnippetglobal.h"
 #include "snippet/snippetcompletionmodel.h"
 #include "katemessagewidget.h"
@@ -127,8 +124,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , blockSelect (false)
     , m_bottomViewBar (0)
     , m_topViewBar (0)
-    , m_recoverBar(0)
-    , m_brokenSwapFileBar(0)
     , m_cmdLine (0)
     , m_console (0)
     , m_searchBar (0)
@@ -269,16 +264,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     deactivateEditActions();
     showViModeBar();
   }
-
-  // swap file handling
-  connect (doc->swapFile(), SIGNAL(swapFileBroken()), this, SLOT(showBrokenSwapFileBar()));
-  connect (doc->swapFile(), SIGNAL(swapFileFound()), this, SLOT(showRecoverBar()));
-  connect (doc->swapFile(), SIGNAL(swapFileHandled()), this, SLOT(hideRecoverBar()));
-  connect (doc, SIGNAL(aboutToClose(KTextEditor::Document*)), this, SLOT(hideRecoverBar()));
-  connect (doc, SIGNAL(aboutToClose(KTextEditor::Document*)), this, SLOT(hideBrokenSwapFileBar()));
-
-  if (doc->swapFile()->shouldRecover())
-    showRecoverBar();
 }
 
 KateView::~KateView()
@@ -3104,58 +3089,6 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
 
   // set new ranges
   oldSet = newRangesIn;
-}
-
-void KateView::showRecoverBar()
-{
-  hideBrokenSwapFileBar();
-
-  topViewBar()->showBarWidget(recoverBar());
-}
-
-KateRecoverBar* KateView::recoverBar()
-{
-  if (!m_recoverBar) {
-    m_recoverBar = new KateRecoverBar(this);
-    topViewBar()->addBarWidget(m_recoverBar);
-  }
-  return m_recoverBar;
-}
-
-void KateView::hideRecoverBar()
-{
-  if (m_recoverBar)
-  {
-    topViewBar()->removeBarWidget(m_recoverBar);
-    delete m_recoverBar;
-    m_recoverBar = 0;
-  }
-}
-
-void KateView::showBrokenSwapFileBar()
-{
-  hideRecoverBar();
-
-  topViewBar()->showBarWidget(brokenSwapFileBar());
-}
-
-KateBrokenSwapFileBar* KateView::brokenSwapFileBar()
-{
-  if (!m_brokenSwapFileBar) {
-    m_brokenSwapFileBar = new KateBrokenSwapFileBar(this);
-    topViewBar()->addBarWidget(m_brokenSwapFileBar);
-  }
-  return m_brokenSwapFileBar;
-}
-
-void KateView::hideBrokenSwapFileBar()
-{
-  if (m_brokenSwapFileBar)
-  {
-    topViewBar()->removeBarWidget(m_brokenSwapFileBar);
-    delete m_brokenSwapFileBar;
-    m_brokenSwapFileBar = 0;
-  }
 }
 
 void KateView::postMessage(KTextEditor::Message* message,

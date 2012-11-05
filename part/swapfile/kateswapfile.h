@@ -32,6 +32,8 @@
 #include "katebuffer.h"
 #include "katedocument.h"
 
+#include <messageinterface.h>
+
 class KateView;
 
 namespace Kate {
@@ -49,9 +51,11 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     explicit SwapFile(KateDocument* document);
     ~SwapFile();
     bool shouldRecover() const;
-    
+
     void fileClosed ();
     QString fileName();
+
+    KateDocument* document();
 
   private:
     void setTrackingEnabled(bool trackingEnabled);
@@ -99,6 +103,13 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
 
   private:
     QTimer* syncTimer();
+
+  public Q_SLOTS:
+    void showSwapFileMessage();
+    void showDiff();
+
+  private:
+    QPointer<KTextEditor::Message> m_swapMessage;
 };
 
 }

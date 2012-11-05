@@ -421,6 +421,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
 
   QRect grooveRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarGroove, this);
   QRect sliderRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSlider, this);
+  sliderRect.setWidth(sliderRect.width()-1);
 
   style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
   style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
@@ -464,30 +465,27 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   lightShieldColor.setHsl(hue, sat, backgroundLightness + lighnessDiff * 0.15);
 
   painter.setPen(QColor("transparent"));
-  painter.setBrush(backgroundColor);
-  painter.drawRect(docRect);
-
-  // light "shield" non-visible parts
-  painter.setBrush(lightShieldColor);
-  // Top shielding
-  painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
-  // Bottom shielding
-  painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
 
   // dark "shield" of non-slider parts
   painter.setBrush(gradient);
-  if (docHeight < grooveRect.height()) {
-    painter.drawRect(QRect(docRect.topLeft(), visibleRect.topRight()));
-    painter.drawRect(QRect(visibleRect.bottomLeft(), docRect.bottomRight()));
-  }
-  else {
-    painter.drawRect(QRect(docRect.topLeft(), QPoint(sliderRect.right()-1, sliderRect.top())));
-    painter.drawRect(QRect(sliderRect.bottomLeft(), docRect.bottomRight()));
+  painter.drawRect(docRect);
+
+  // light "shield" non-visible parts
+  if (docHeight >= grooveRect.height()) {
+    painter.setBrush(lightShieldColor);
+    painter.drawRoundedRect(sliderRect, 4, 4);
   }
 
+  // document background
+  painter.setBrush(backgroundColor);
+  painter.drawRoundedRect(visibleRect, 4, 4);
+
+
+  // Smooth transform only when squeezing
   if (grooveRect.height() < m_pixmap.height()) {
     painter.setRenderHint(QPainter::SmoothPixmapTransform);
   }
+
   // draw the modified lines margin
   QRect pixmapMarginRect(QPoint(0, 0), QSize(s_pixelMargin, m_pixmap.height()));
   QRect docPixmapMarginRect(QPoint(0, docRect.top()), QSize(s_pixelMargin, docRect.height()));

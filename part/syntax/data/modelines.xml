@@ -10,7 +10,7 @@
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language name="Modelines"
-          version="0.32"
+          version="0.50"
           kateversion="2.4"
           section="Other"
           extensions=""
@@ -135,8 +135,8 @@
 
     <context name="Booleans" attribute="Comment" lineEndContext="#pop">
       <DetectSpaces />
-      <keyword String="True" attribute="Boolean" context="#stay" />
-      <keyword String="False" attribute="Boolean False" context="#stay" />
+      <keyword String="True" attribute="Option ON" context="#stay" />
+      <keyword String="False" attribute="Option OFF" context="#stay" />
       <DetectChar char="&end;" context="#pop" attribute="Variable" />
       <LineContinue context="#pop" />
     </context>
@@ -168,10 +168,11 @@
     <itemData name="Comment" defStyleNum="dsComment" spellChecking="true" />
     <itemData name="Keyword" defStyleNum="dsKeyword" spellChecking="false" />
     <itemData name="Variable" defStyleNum="dsFunction" spellChecking="false" />
-    <itemData name="Boolean" defStyleNum="dsOthers" spellChecking="false" />
     <itemData name="Number" defStyleNum="dsDecVal" spellChecking="false" />
     <itemData name="String" defStyleNum="dsString" spellChecking="false" />
     <itemData name="Value" defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Option ON" defStyleNum="dsOthers" spellChecking="false" />
+    <itemData name="Option OFF" defStyleNum="dsOthers" spellChecking="false" />
   </itemDatas>
 
 </highlighting>

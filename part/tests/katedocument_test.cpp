@@ -103,8 +103,15 @@ void KateDocumentTest::testWordWrap()
     doc.setWordWrapAt(80);
 
     const QString content = ".........1.........2.........3.........4.........5.........6 ........7 ........8";
-    const QString firstWrap = ".........1.........2.........3.........4.........5.........6 ........7\n....x....8";
-    const QString secondWrap = ".........1.........2.........3.........4.........5.........6\n....ooooooooooo....7 ....x....8";
+    
+    // space after 7 is now kept
+    // else we kill indentation...
+    const QString firstWrap = ".........1.........2.........3.........4.........5.........6 ........7 \n....x....8";
+    
+    // space after 6 is now kept
+    // else we kill indentation...
+    const QString secondWrap = ".........1.........2.........3.........4.........5.........6 \n....ooooooooooo....7 ....x....8";
+    
     doc.setText(content);
     MovingCursor* c = doc.newMovingCursor(Cursor(0, 75), MovingCursor::MoveOnInsert);
 

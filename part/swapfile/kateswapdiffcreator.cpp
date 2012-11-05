@@ -133,6 +133,7 @@ void SwapDiffCreator::slotDiffFinished()
                       i18n("The diff command failed. Please make sure that "
                           "diff(1) is installed and in your PATH."),
                       i18n("Error Creating Diff"));
+    deleteLater();
     return;
   }
 
@@ -142,6 +143,7 @@ void SwapDiffCreator::slotDiffFinished()
     KMessageBox::information(0,
                             i18n("The files are identical."),
                             i18n("Diff Output"));
+    deleteLater();
     return;
   }
 

@@ -198,7 +198,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_fileChangedDialogsActivated(false),
   m_savingToUrl(false),
   m_onTheFlyChecker(0),
-  m_filePerhapsStillLoading (false)
+  m_filePerhapsStillLoading (false),
+  m_readWriteStateBeforeLoading (false)
 {
   setComponentData ( KateGlobal::self()->componentData () );
   
@@ -248,6 +249,12 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect( KateGlobal::self()->dirWatch(), SIGNAL(deleted(QString)),
            this, SLOT(slotModOnHdDeleted(QString)) );
 
+  /**
+   * load handling
+   * this is needed to ensure we signal the user if a file ist still loading
+   * and to disallow him to edit in that time
+   */
+  Q_ASSERT (!m_filePerhapsStillLoading);
   connect (this, SIGNAL(started(KIO::Job*)), this, SLOT(slotStarted(KIO::Job*)));
   connect (this, SIGNAL(completed()), this, SLOT(slotCompleted()));
   connect (this, SIGNAL(canceled(QString)), this, SLOT(slotCanceled()));
@@ -4864,19 +4871,34 @@ bool KateDocument::queryClose()
     }
 }
 
-
-void KateDocument::slotCanceled() {
-  // remember file loading is over now
-  m_filePerhapsStillLoading = false;
-  delete m_loadingMessage;
-
-  m_savingToUrl=false;
-  m_saveAs=false;
+void KateDocument::slotStarted (KIO::Job *job)
+{
+  /**
+   * there shall be no other job around!
+   */
+  Q_ASSERT (!m_filePerhapsStillLoading);
+  
+  /**
+   * remember we still load
+   * set to read-only!
+   */
+  m_filePerhapsStillLoading = true;
+  m_readWriteStateBeforeLoading = isReadWrite ();
+  setReadWrite (false);
+  
+  /**
+   * perhaps show loading message, but wait one second
+   */
+  if (job)
+    QTimer::singleShot (1000, this, SLOT(slotTriggerLoadingMessage()));
 }
 
 void KateDocument::slotCompleted() {
+  Q_ASSERT (m_filePerhapsStillLoading);
+  
   // remember file loading is over now
   m_filePerhapsStillLoading = false;
+  setReadWrite (m_readWriteStateBeforeLoading);
   delete m_loadingMessage;
 
   if (m_savingToUrl) {
@@ -4895,14 +4917,16 @@ void KateDocument::slotCompleted() {
   m_saveAs=false;
 }
 
-void KateDocument::slotStarted (KIO::Job *job)
-{
-  // perhaps file loading started
-  m_filePerhapsStillLoading = true;
+void KateDocument::slotCanceled() {
+  Q_ASSERT (m_filePerhapsStillLoading);
   
-  // perhaps show loading message, but wait one second
-  if (job)
-    QTimer::singleShot (1000, this, SLOT(slotTriggerLoadingMessage()));
+  // remember file loading is over now
+  m_filePerhapsStillLoading = false;
+  setReadWrite (m_readWriteStateBeforeLoading);
+  delete m_loadingMessage;
+
+  m_savingToUrl=false;
+  m_saveAs=false;
 }
 
 void KateDocument::slotTriggerLoadingMessage ()

@@ -1120,10 +1120,6 @@ Q_SIGNALS:
   protected Q_SLOTS:
       void dumpRegionTree();
 
-  private slots:
-      void slotCompleted();
-      void slotCanceled();
-
   private:
       class LoadSaveFilterCheckPlugins;
 
@@ -1204,6 +1200,8 @@ Q_SIGNALS:
      * @param job started job
      */
     void slotStarted(KIO::Job *job);
+    void slotCompleted();
+    void slotCanceled();
     
     /**
      * trigger display of loading message, after 1000 ms
@@ -1215,6 +1213,11 @@ Q_SIGNALS:
      * guard to ensure we not allow saveFile during file is still loading
      */
     bool m_filePerhapsStillLoading;
+    
+    /**
+     * read-write state before loading started
+     */
+    bool m_readWriteStateBeforeLoading;
     
     /**
      * message to show during loading

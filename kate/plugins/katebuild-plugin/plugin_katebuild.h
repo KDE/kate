@@ -102,9 +102,11 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         /**
          * keep track if the project plugin is alive and if the project map did change
          */
-        void slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView);
-        void slotPluginViewDeleted (const QString &name, Kate::PluginView *pluginView);
-        void slotProjectMapChanged ();
+        void slotPluginViewCreated(const QString &name, Kate::PluginView *pluginView);
+        void slotPluginViewDeleted(const QString &name, Kate::PluginView *pluginView);
+        void slotProjectMapChanged();
+        void slotAddProjectTarget();
+        void slotRemoveProjectTarget();
 
     protected:
         bool eventFilter(QObject *obj, QEvent *ev);

@@ -912,7 +912,6 @@ void KateBuildView::slotShowErrors(bool showItems) {
             item->setHidden(!showItems);
         }
     }
-
 }
 
 /******************************************************************/
@@ -926,7 +925,6 @@ void KateBuildView::slotShowWarnings(bool showItems) {
             item->setHidden(!showItems);
         }
     }
-
 }
 
 /******************************************************************/
@@ -940,9 +938,9 @@ void KateBuildView::slotShowOthers(bool showItems) {
             item->setHidden(!showItems);
         }
     }
-
 }
 
+/******************************************************************/
 void KateBuildView::slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView)
 {
     // add view
@@ -953,40 +951,80 @@ void KateBuildView::slotPluginViewCreated (const QString &name, Kate::PluginView
     }
 }
 
+/******************************************************************/
 void KateBuildView::slotPluginViewDeleted (const QString &name, Kate::PluginView *)
 {
     // remove view
     if (name == "kateprojectplugin") {
         m_projectPluginView = 0;
-        slotProjectMapChanged ();
+        slotRemoveProjectTarget();
     }
 }
 
+/******************************************************************/
 void KateBuildView::slotProjectMapChanged ()
 {
     // only do stuff with valid project
-    if (!m_projectPluginView)
-      return;
+    if (!m_projectPluginView) {
+        return;
+    }
+    slotRemoveProjectTarget();
+    slotAddProjectTarget();
 
+}
+
+/******************************************************************/
+void KateBuildView::slotAddProjectTarget()
+{
     // query new project map
     QVariantMap projectMap = m_projectPluginView->property("projectMap").toMap();
 
     // do we have a valid map for build settings?
     QVariantMap buildMap = projectMap.value("build").toMap();
-    if (buildMap.isEmpty())
-      return;
+    if (buildMap.isEmpty()) {
+        return;
+    }
+
+    targetSelected(m_targetIndex); // this saves the current values to the list
+
+    m_targetList.append(Target());
+    m_targetsUi->targetCombo->addItem(i18n("Project Plugin Target"));
+    m_targetIndex = m_targetList.size() - 1;
+    m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);
+    m_targetsUi->deleteTarget->setDisabled(false);
 
     // get build dir
     QDir dir (QFileInfo (m_projectPluginView->property("projectFileName").toString()).absoluteDir());
-    if (!dir.cd (buildMap.value("directory").toString()))
-      return;
-
+    if (dir.cd (buildMap.value("directory").toString())) {
+        m_targetsUi->buildDir->setText(dir.absolutePath());
+    }
     // set build dir
-    m_targetsUi->buildDir->setText(dir.absolutePath());
 
     m_targetsUi->buildCmd->setText(buildMap.value("build").toString());
     m_targetsUi->cleanCmd->setText(buildMap.value("clean").toString());
-    m_targetsUi->quickCmd->setText(QString());
+    m_targetsUi->quickCmd->setText(buildMap.value("quick").toString());
+
+    // update the targets menu
+    targetsChanged();
 }
+
+/******************************************************************/
+void KateBuildView::slotRemoveProjectTarget()
+{
+    int i;
+    for (i=0; i<m_targetList.size(); i++) {
+        if (m_targetList[i].name == i18n("Project Plugin Target")) {
+            break;
+        }
+    }
+    if (i >= m_targetList.size()) {
+        // not found
+        return;
+    }
+
+    targetSelected(i);
+    targetDelete();
+}
+
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

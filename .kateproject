@@ -10,6 +10,6 @@
       
       , "clean": "make clean"
       
-      , "install": "make install"
+      , "quick": "gcc -Wall -g -o %n %f"
     }
 }

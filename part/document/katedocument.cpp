@@ -4813,7 +4813,9 @@ void KateDocument::slotStarted (KIO::Job *job)
       
       /**
        * perhaps some message about loading in one second!
+       * remember job pointer, we want to be able to kill it!
        */
+      m_loadingJob = job;
       QTimer::singleShot (1000, this, SLOT(slotTriggerLoadingMessage()));
     }
   }
@@ -4869,12 +4871,41 @@ void KateDocument::slotTriggerLoadingMessage ()
     return;
   
   /**
-   * post message about file loading in progress
+   * create message about file loading in progress
    */
   m_loadingMessage = new KTextEditor::Message(KTextEditor::Message::Information
           , i18n ("The file %1 is still loading.", this->url().pathOrUrl()));
   m_loadingMessage->setWordWrap(true);
+  
+  /**
+   * if around job: add cancel action
+   */
+  if (m_loadingJob) {
+    QAction *cancel = new QAction ("&Abort Loading", 0);
+    connect (cancel, SIGNAL(triggered()), this, SLOT(slotAbortLoading()));
+    m_loadingMessage->addAction (cancel);
+  }
+  
+  /**
+   * really post message
+   */
   postMessage(m_loadingMessage);
+}
+
+void KateDocument::slotAbortLoading ()
+{
+  /**
+   * no job, no work
+   */
+  if (!m_loadingJob)
+    return;
+  
+  /**
+   * abort loading if any job
+   * signal results!
+   */
+  m_loadingJob->kill (KJob::EmitResult);
+  m_loadingJob = 0;
 }
 
 bool KateDocument::save()

@@ -1194,6 +1194,11 @@ Q_SIGNALS:
      */
     void slotTriggerLoadingMessage ();
     
+    /**
+     * Abort loading
+     */
+    void slotAbortLoading ();
+    
   private:
     /**
      * different possible states
@@ -1229,6 +1234,11 @@ Q_SIGNALS:
      * read-write state before loading started
      */
     bool m_readWriteStateBeforeLoading;
+    
+    /**
+     * loading job, we want to cancel with cancel in the loading message
+     */
+    QPointer<KJob> m_loadingJob;
     
     /**
      * message to show during loading

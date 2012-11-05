@@ -11,12 +11,13 @@
 <language
     name="C++11"
     section="Sources"
-    version="1.52"
+    version="1.53"
     kateversion="2.4"
-    indenter="cppstyle"
+    indenter="cstyle"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
     extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;*.moc"
     author="Alex Turbov (i.zaufi@gmail.com)"
+    license="LGPL"
     priority="7"
   >
   <!--

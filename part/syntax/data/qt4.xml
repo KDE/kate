@@ -12,9 +12,10 @@
   -->
 <language
     name="C++11/Qt4"
-    version="0.3"
-    kateversion="2.4"
     section="Sources"
+    version="0.4"
+    kateversion="2.4"
+    indenter="cstyle"
     extensions="*.moc"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
     author="Alex Turbov (i.zaufi@gmail.com)"

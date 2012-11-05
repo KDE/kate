@@ -102,67 +102,6 @@ inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c 
 inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')'; }
 inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isEndBracket( c ); }
 
-class KateDocument::LoadSaveFilterCheckPlugins
-{
-  public:
-    LoadSaveFilterCheckPlugins() {
-      KService::List traderList = KServiceTypeTrader::self()->query("KTextEditor/LoadSaveFilterCheckPlugin");
-
-      foreach(const KService::Ptr &ptr, traderList)
-      {
-        QString libname;
-        libname=ptr->library();
-        libname=libname.right(libname.length()-12); //ktexteditor_ == 12
-        m_plugins[libname]=0;//new KatePythonEncodingCheck();
-        m_plugins2Service[libname] = ptr;
-      }
-
-    }
-    ~LoadSaveFilterCheckPlugins() {
-      if ( m_plugins.count()==0) return;
-      QHashIterator<QString,KTextEditor::LoadSaveFilterCheckPlugin*>i(m_plugins);
-        while (i.hasNext())
-          i.next();
-          delete i.value();
-      m_plugins.clear();
-    }
-    bool preSavePostDialogFilterCheck(const QString& pluginName,KateDocument *document,QWidget *parentWidget) {
-      KTextEditor::LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
-      if (!plug) {
-        if (KMessageBox::warningContinueCancel (parentWidget
-        , i18n ("The filter/check plugin '%1' could not be found, still continue saving of %2", pluginName,document->url().pathOrUrl())
-        , i18n ("Saving problems")
-        , KGuiItem(i18n("Save Nevertheless"))
-        , KStandardGuiItem::cancel()) != KMessageBox::Continue)
-          return false;
-        else
-          return true;
-      }
-      return plug->preSavePostDialogFilterCheck(document);
-    }
-    void postLoadFilter(const QString& pluginName,KateDocument *document) {
-      KTextEditor::LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
-      if (!plug) return;
-      plug->postLoadFilter(document);
-    }
-    bool postSaveFilterCheck(const QString& pluginName,KateDocument *document,bool saveas) {
-      KTextEditor::LoadSaveFilterCheckPlugin *plug=getPlugin(pluginName);
-      if (!plug) return false;
-      return plug->postSaveFilterCheck(document,saveas);
-    }
-  private:
-    KTextEditor::LoadSaveFilterCheckPlugin *getPlugin(const QString & pluginName)
-    {
-      if (!m_plugins.contains(pluginName)) return 0;
-      if (!m_plugins.value(pluginName, 0)) {
-        m_plugins[pluginName]=m_plugins2Service.value(pluginName)->createInstance<KTextEditor::LoadSaveFilterCheckPlugin>();
-      }
-      return m_plugins.value(pluginName);
-    }
-    QHash <QString,KTextEditor::LoadSaveFilterCheckPlugin*> m_plugins;
-    QHash <QString, KService::Ptr> m_plugins2Service;
-};
-
 //BEGIN d'tor, c'tor
 //
 // KateDocument Constructor
@@ -2024,21 +1963,10 @@ bool KateDocument::openFile()
 
   //
   // yeah, success
+  // read variables
   //
   if (success)
-  {
-    // read vars
     readVariables ();
-
-    if (!m_postLoadFilterChecks.isEmpty())
-    {
-      LoadSaveFilterCheckPlugins *lscps=loadSaveFilterCheckPlugins();
-      foreach(const QString& checkplugin, m_postLoadFilterChecks)
-      {
-         lscps->postLoadFilter(checkplugin,this);
-      }
-    }
-  }
 
   //
   // update views
@@ -2242,16 +2170,6 @@ bool KateDocument::saveFile()
 
   // update file type, pass no file path, read file type content from this document
   updateFileType (KateGlobal::self()->modeManager()->fileType (this, QString ()));
-
-  if (!m_preSavePostDialogFilterChecks.isEmpty())
-  {
-    LoadSaveFilterCheckPlugins *lscps=loadSaveFilterCheckPlugins();
-    foreach(const QString& checkplugin, m_preSavePostDialogFilterChecks)
-    {
-       if (lscps->preSavePostDialogFilterCheck(checkplugin,this,parentWidget)==false)
-         return false;
-    }
-  }
 
   // remember the oldpath...
   QString oldPath = m_dirWatchFile;
@@ -4223,12 +4141,6 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 
         m_config->setRemoveSpaces( state ? 1 : 0 );
       }
-      else if (var == "presave-postdialog")
-        setPreSavePostDialogFilterChecks(val.split(','));
-      else if (var == "postsave")
-        setPostSaveFilterChecks(val.split(','));
-      else if (var == "postload")
-        setPostLoadFilterChecks(val.split(','));
       else if ( var == "syntax" || var == "hl" )
       {
         setHighlightingMode( val );
@@ -4805,12 +4717,6 @@ bool KateDocument::simpleMode ()
   return KateGlobal::self()->simpleMode () && KateGlobal::self()->documentConfig()->allowSimpleMode ();
 }
 
-KateDocument::LoadSaveFilterCheckPlugins* KateDocument::loadSaveFilterCheckPlugins()
-{
-  K_GLOBAL_STATIC(KateDocument::LoadSaveFilterCheckPlugins, s_loadSaveFilterCheckPlugins)
-  return s_loadSaveFilterCheckPlugins;
-}
-
 //BEGIN KTextEditor::AnnotationInterface
 void KateDocument::setAnnotationModel( KTextEditor::AnnotationModel* model )
 {
@@ -4915,19 +4821,11 @@ void KateDocument::slotCompleted() {
     delete m_loadingMessage;
   }
   
-  if (m_documentState == DocumentSaving || m_documentState == DocumentSavingAs) {
-    if (!m_postSaveFilterChecks.isEmpty())
-    {
-      LoadSaveFilterCheckPlugins *lscps1=loadSaveFilterCheckPlugins();
-      foreach(const QString& checkplugin, m_postSaveFilterChecks)
-      {
-        if (lscps1->postSaveFilterCheck(checkplugin,this,m_documentState == DocumentSavingAs)==false)
-          break;
-      }
-    }
-    
-    emit documentSavedOrUploaded(this,m_documentState == DocumentSavingAs);
-  }
+  /**
+   * Emit signal that we saved  the document, if needed
+   */
+  if (m_documentState == DocumentSaving || m_documentState == DocumentSavingAs)
+    emit documentSavedOrUploaded (this, m_documentState == DocumentSavingAs);
   
   /**
    * back to idle mode

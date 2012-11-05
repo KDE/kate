@@ -1119,18 +1119,6 @@ Q_SIGNALS:
   protected Q_SLOTS:
       void dumpRegionTree();
 
-  private:
-      class LoadSaveFilterCheckPlugins;
-
-  private:
-      void setPreSavePostDialogFilterChecks(QStringList plugins) {m_preSavePostDialogFilterChecks=plugins;}
-      QStringList m_preSavePostDialogFilterChecks;
-      void setPostSaveFilterChecks(QStringList plugins) {m_postSaveFilterChecks=plugins;}
-      QStringList m_postSaveFilterChecks;
-      void setPostLoadFilterChecks(QStringList plugins) {m_postLoadFilterChecks=plugins;}
-      QStringList m_postLoadFilterChecks;
-      static LoadSaveFilterCheckPlugins* loadSaveFilterCheckPlugins();
-
   public:
       QString defaultDictionary() const;
       QList<QPair<KTextEditor::MovingRange*, QString> > dictionaryRanges() const;

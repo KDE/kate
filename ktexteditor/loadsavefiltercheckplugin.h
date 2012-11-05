@@ -38,6 +38,7 @@ class LoadSaveFilterCheckPluginPrivate;
 
 /**
 * \brief Plugin for load/save filtering
+* FIXME: REMOVE FOR KDE5
 */ 
 class KTEXTEDITOR_EXPORT LoadSaveFilterCheckPlugin:public QObject {
   Q_OBJECT

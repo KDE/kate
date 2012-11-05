@@ -712,7 +712,10 @@ void KateBuildView::slotBrowseClicked()
         }
     }
 
-   m_targetsUi->buildDir->setText(KFileDialog::getExistingDirectory(defDir, 0, QString()));
+    QString newDir = KFileDialog::getExistingDirectory(defDir, 0, QString());
+    if (!newDir.isEmpty()) {
+        m_targetsUi->buildDir->setText(newDir);
+    }
 }
 
 /******************************************************************/
@@ -985,3 +988,5 @@ void KateBuildView::slotProjectMapChanged ()
     m_targetsUi->cleanCmd->setText(buildMap.value("clean").toString());
     m_targetsUi->quickCmd->setText(QString());
 }
+
+// kate: space-indent on; indent-width 4; replace-tabs on;

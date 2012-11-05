@@ -189,7 +189,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
    * this is needed to ensure we signal the user if a file ist still loading
    * and to disallow him to edit in that time
    */
-  Q_ASSERT (!m_filePerhapsStillLoading);
   connect (this, SIGNAL(started(KIO::Job*)), this, SLOT(slotStarted(KIO::Job*)));
   connect (this, SIGNAL(completed()), this, SLOT(slotCompleted()));
   connect (this, SIGNAL(canceled(QString)), this, SLOT(slotCanceled()));

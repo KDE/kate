@@ -72,7 +72,6 @@ dialogs/katedialogs.cpp
 document/katedocument.cpp
 document/katedocumenthelpers.cpp
 document/katebuffer.cpp
-document/documentcursor.cpp
 
 # undo
 undo/kateundo.cpp
@@ -195,8 +194,9 @@ snippet/snippet.cpp
 snippet/editrepository.cpp
 snippet/editsnippet.cpp
 
-# message interface
+# KDE5: move to KTextEditor
 kte5/messageinterface.cpp
+kte5/documentcursor.cpp
 )
 
 set( katepart_PART_UI

@@ -302,7 +302,9 @@ namespace KTextEditor {
         if (hli)
         {
           //kDebug()<<"me: "<<d->fileType<<" current hl in file: "<<hli->highlightingModeAt(range.end());
-          if (hli->highlightingModeAt(range.end())!=d->fileType) my_mode=false;
+          QString doc_current_type=hli->highlightingModeAt(range.end());
+          if (doc_current_type!=d->fileType) my_mode=false;
+          if ((d->fileType.isEmpty()) && ((doc_current_type.isEmpty()) || (doc_current_type=="None"))) my_mode=true;
         }
         d->automatic=false;
         if (my_mode) {
@@ -384,7 +386,7 @@ namespace KTextEditor {
     }
 
     QModelIndex SnippetCompletionModel::parent(const QModelIndex& index) const {
-      kDebug()<<"hmmm"; 
+      //kDebug()<<"hmmm"; 
       if (index.internalId())
         return createIndex(0, 0, 0);
       else
@@ -392,7 +394,7 @@ namespace KTextEditor {
     }
 
     QModelIndex SnippetCompletionModel::index(int row, int column, const QModelIndex& parent) const {
-      kDebug()<<"blup";
+      //kDebug()<<"blup";
       if (!parent.isValid()) {
         if (row == 0)
           return createIndex(row, column, 0); //header  index
@@ -408,7 +410,7 @@ namespace KTextEditor {
     }
 
     int SnippetCompletionModel::rowCount (const QModelIndex & parent) const {
-      kDebug()<<parent.isValid()<<parent.parent().isValid()<<d->matches.isEmpty();
+      //kDebug()<<parent.isValid()<<parent.parent().isValid()<<d->matches.isEmpty();
       if (!parent.isValid() && !d->matches.isEmpty())
         return 1; //one toplevel node (group header)
       else if(parent.parent().isValid())

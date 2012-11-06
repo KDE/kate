@@ -79,12 +79,7 @@ class KATEPART_TESTS_EXPORT SwapFile : public QObject
     void unwrapLine (int line);
     void insertText (const KTextEditor::Cursor &position, const QString &text);
     void removeText (const KTextEditor::Range &range);
-    
-  Q_SIGNALS:
-    void swapFileFound();
-    void swapFileHandled();
-    void swapFileBroken();
-  
+
   public Q_SLOTS:
     void discard();
     void recover();

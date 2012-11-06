@@ -123,7 +123,6 @@ void SwapFile::fileClosed ()
     removeSwapFile();
   } else {
     m_document->setReadWrite(true);
-    emit swapFileHandled();
   }
 
   // purge filename
@@ -190,7 +189,7 @@ void SwapFile::fileLoaded(const QString&)
     return;
   }
 
-  // emit signal in case the document has more views
+  // show swap file message
   m_document->setReadWrite(false);
   showSwapFileMessage();
 }
@@ -215,7 +214,6 @@ void SwapFile::recover()
   if (m_swapfile.isOpen()) {
     kWarning( 13020 ) << "Attempt to recover an already modified document. Aborting";
     removeSwapFile();
-    emit swapFileBroken();
     return;
   }
 
@@ -223,7 +221,6 @@ void SwapFile::recover()
   if (!m_swapfile.open(QIODevice::ReadOnly))
   {
     kWarning( 13020 ) << "Can't open swap file";
-    emit swapFileHandled();
     return;
   }
 
@@ -240,19 +237,18 @@ void SwapFile::recover()
   m_stream.setDevice(0);
   m_swapfile.close();
 
-  if (success) {
-    // emit signal in case the document has more views
-    emit swapFileHandled();
-  } else {
+  if (!success)
     removeSwapFile();
-    emit swapFileBroken();
-  }
+
+  // recover can also be called through the KTE::RecoveryInterface.
+  // Make sure, the message is hidden in this case as well.
+  if (m_swapMessage)
+    m_swapMessage->deleteLater();
 }
 
 bool SwapFile::recover(QDataStream& stream, bool checkDigest)
 {
   if (!isValidSwapFile(stream, checkDigest)) {
-    emit swapFileBroken();
     return false;
   }
 
@@ -346,7 +342,6 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
   // warn the user if the swap file is not complete
   if (brokenSwapFile) {
     kWarning ( 13020 ) << "Some data might be lost";
-    emit swapFileBroken();
   }
   
   // reconnect the signals
@@ -473,7 +468,11 @@ void SwapFile::discard()
 {
   m_document->setReadWrite(true);
   removeSwapFile();
-  emit swapFileHandled();
+
+  // discard can also be called through the KTE::RecoveryInterface.
+  // Make sure, the message is hidden in this case as well.
+  if (m_swapMessage)
+    m_swapMessage->deleteLater();
 }
 
 void SwapFile::removeSwapFile()

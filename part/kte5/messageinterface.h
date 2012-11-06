@@ -39,12 +39,25 @@ class Document;
  * in the editor. To post a message, use the MessageInterface.
  *
  * \section message_creation Message Creation and Deletion
+ *
  * To create a new Message, use code like this:
  * \code
  * QPointer<Message> message = new Message(Message::Information, "My information text");
  * message->setWordWrap(true);
  * // ...
  * \endcode
+ *
+ * Once you posted the Message through MessageInterface::postMessage(), the
+ * lifetime depends on the user interaction. The Message gets automatically
+ * deleted either if the user clicks a closing action in the message, or for
+ * instance if the document is reloaded.
+ *
+ * If you posted a message but want to remove it yourself again, just delete
+ * the message. But beware of the following warning!
+ *
+ * @warning Always use QPointer\<Message\> to guard the message pointer from
+ *          getting invalid, if you need to access the Message after you posted
+ *          it.
  *
  * @see MessageInterface
  * @author Dominik Haumann \<dhaumann@kde.org\>
@@ -61,6 +74,7 @@ class Message : public QObject
     /**
      * Message types used as visual indicator.
      * The message types match exactly the behavior of KMessageWidget::MessageType.
+     * For simple notifications either use Positive or Information.
      */
     enum MessageType {
       Positive = 0, ///< positive information message
@@ -79,7 +93,6 @@ class Message : public QObject
 
     /**
      * Destructor.
-     * Deletes all QActions that were added with addAction().
      */
     virtual ~Message();
 
@@ -102,11 +115,16 @@ class Message : public QObject
      *
      * The actions will be displayed in the order you added the actions.
      *
+     * To connect to an action, use the following code:
+     * @code
+     * connect(action, SIGNAL(triggered()), receiver, SLOT(slotActionTriggered()));
+     * @endcode
+     *
      * @param action action to be added
      * @param closeOnTrigger when triggered, the message widget is closed
      *
-     * @warning The added actions are deleted automatically in the Message
-     *          destructor, so do \em not delete the added actions yourself.
+     * @warning The added actions are deleted automatically.
+     *          So do \em not delete the added actions yourself.
      */
     void addAction(QAction* action, bool closeOnTrigger = true);
 
@@ -119,8 +137,10 @@ class Message : public QObject
     /**
      * Set the auto hide timer to @p autoHideTimer milliseconds.
      * If @p autoHideTimer < 0, auto hide is disabled.
-     * If @p autoHideTimer = 0, auto hide is enabled and set to a default
+     * If @p autoHideTimer = 0, auto hide is enabled and set to a sane default
      * value of several seconds.
+     *
+     * By default, auto hide is disabled.
      *
      * @see autoHide()
      */
@@ -136,6 +156,10 @@ class Message : public QObject
 
     /**
      * Enabled word wrap according to @p wordWrap.
+     * By default, auto wrap is disabled.
+     *
+     * If the text of the message is long, always enable auto wrap, as
+     * otherwise the layout of the gui breaks.
      *
      * @see wordWrap()
      */
@@ -168,6 +192,7 @@ class Message : public QObject
      * Set the associated view of the message.
      * If @p view is 0, the message is shown in all View%s of the Document.
      * If @p view is given, i.e. non-zero, the message is shown only in this view.
+     * @param view the associated view the message should be displayed in
      */
     void setView(KTextEditor::View* view);
 
@@ -180,8 +205,8 @@ class Message : public QObject
     /**
      * Set the document pointer to @p document.
      * This is called by the implementation, as soon as you post a message
-     * through MessageInterface::postMessage(), so that you do not have to call
-     * this yourself.
+     * through MessageInterface::postMessage(), so that you do not have to
+     * call this yourself.
      * @see MessageInterface, document()
      */
     void setDocument(KTextEditor::Document* document);
@@ -194,11 +219,12 @@ class Message : public QObject
 
   Q_SIGNALS:
     /**
-     * This signal is emitted before the message is deleted.
-     * Afterwards, this pointer is invalid.
-     * @param message closed message
+     * This signal is emitted before the message is deleted. Afterwards, this
+     * pointer is invalid.
      *
-     * @warning \em Never delete a message yourself!
+     * Use the function document() to access the associated Document.
+     *
+     * @param message closed/processed message
      */
     void closed(KTextEditor::Message* message);
 
@@ -212,7 +238,8 @@ private:
  * \ingroup kte_group_document_extension
  *
  * This interface allows to post Message%s to a Document. The Message then
- * is shown either the specified View, or in all View%s of the Document.
+ * is shown either the specified View if Message::setView() was called, or
+ * in all View%s of the Document.
  *
  * \section message_interface Working with Message%s
  *
@@ -228,13 +255,17 @@ private:
  *     return;
  * }
  *
+ * // always use a QPointer go guard your Message, if you keep a pointer
+ * // after calling postMessage()
  * QPointer<Message> message = new Message(Message::Information, "text");
  * message->setWordWrap(true);
  * message->addAction(...); // add your actions...
  * iface->postMessage(message);
  *
- * // To remove a message, just delete it (provided you use a QPointer!)
- * delete message;
+ * // The Message is deleted automatically if the Message gets closed,
+ * // meaning that you usually can forget the pointer.
+ * // If you really need to delete a message before the user processed it,
+ * guard it with a QPointer!
  * \endcode
  *
  * @see Message
@@ -257,9 +288,15 @@ class MessageInterface
      * Post @p message to the Document and its View%s.
      * If multiple Message%s are posted, the one with the highest priority
      * is shown first.
+     *
+     * Usually, you can simply forget the pointer, as the Message is deleted
+     * automatically, once it is processed or the document gets closed.
+     *
+     * If the Document does not have a View yet, the Message is queued and
+     * shown, once a View for the Document is created.
+     *
      * @param message the message to show
-     * @return @e true, if @p message was posted. @e false, if message == 0 or
-     *         if the Document does not have a View yet.
+     * @return @e true, if @p message was posted. @e false, if message == 0.
      */
     virtual bool postMessage(Message* message) = 0;
 

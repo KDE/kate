@@ -69,7 +69,8 @@ QVariant SnippetCompletionModel::data( const QModelIndex& idx, int role ) const
     }
 }
 
-void SnippetCompletionModel::executeCompletionItem2(KTextEditor::Document* document, const KTextEditor::Range& word,
+void SnippetCompletionModel::executeCompletionItem2(KTextEditor::Document* /*document*/,
+                                                    const KTextEditor::Range& word,
                                                     const QModelIndex& index) const
 {
     if ( index.parent().isValid() && m_viewToUse ) {

@@ -1421,7 +1421,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
     if (offset <= currentOffset) {
       // the answer is on the same line
       KateTextLayout thisLine = cache()->textLayout(realCursor.line(), cursorViewLine - offset);
-      Q_ASSERT(thisLine.virtualLine() == doc()->getVirtualLine(virtualCursor.line()));
+      Q_ASSERT(thisLine.virtualLine() == (int) doc()->getVirtualLine(virtualCursor.line()));
       return KTextEditor::Cursor(virtualCursor.line(), thisLine.startCol());
     }
 
@@ -3590,9 +3590,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
 
   //kDebug( 13030 ) << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
 
-  bool createdPreedit = false;
   if (!m_imPreeditRange) {
-    createdPreedit = true;
     m_imPreeditRange = doc()->newMovingRange (KTextEditor::Range(m_cursor, m_cursor), KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
   }
 

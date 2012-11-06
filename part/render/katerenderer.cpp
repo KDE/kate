@@ -291,7 +291,7 @@ void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
   paint.setPen( penBackup );
 }
 
-void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint row)
+void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint /*row*/)
 {
   QPen penBackup( paint.pen() );
   paint.setPen( config()->indentationLineColor() );

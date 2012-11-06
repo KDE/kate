@@ -48,27 +48,27 @@ class RangeFeedback : public MovingRangeFeedback
   public:
     RangeFeedback() : MovingRangeFeedback() { reset(); }
 
-    virtual void rangeEmpty (MovingRange* range) {
+    virtual void rangeEmpty (MovingRange* /*range*/) {
       m_rangeEmptyCalled = true;
     }
 
-    virtual void rangeInvalid (MovingRange* range) {
+    virtual void rangeInvalid (MovingRange* /*range*/) {
       m_rangeInvalidCalled = true;
     }
 
-    virtual void mouseEnteredRange (MovingRange* range, View* view) {
+    virtual void mouseEnteredRange (MovingRange* /*range*/, View* /*view*/) {
       m_mouseEnteredRangeCalled = true;
     }
 
-    virtual void mouseExitedRange (MovingRange* range, View* view) {
+    virtual void mouseExitedRange (MovingRange* /*range*/, View* /*view*/) {
       m_mouseExitedRangeCalled = true;
     }
 
-    virtual void caretEnteredRange (MovingRange* range, View* view) {
+    virtual void caretEnteredRange (MovingRange* /*range*/, View* /*view*/) {
       m_caretEnteredRangeCalled = true;
     }
 
-    virtual void caretExitedRange (MovingRange* range, View* view) {
+    virtual void caretExitedRange (MovingRange* /*range*/, View* /*view*/) {
       m_caretExitedRangeCalled = true;
     }
     

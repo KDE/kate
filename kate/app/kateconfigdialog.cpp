@@ -291,7 +291,7 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
   }
 }
 
-void KateConfigDialog::slotCurrentPageChanged( KPageWidgetItem *current, KPageWidgetItem *before )
+void KateConfigDialog::slotCurrentPageChanged( KPageWidgetItem *current, KPageWidgetItem * /*before*/ )
 {
   PluginPageListItem *info=m_pluginPages[current];
   if (!info) return;

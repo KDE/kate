@@ -445,7 +445,7 @@ const QStringList& KateFileTreeCommand::cmds()
     return sl;
 }
 
-bool KateFileTreeCommand::exec(KTextEditor::View *view, const QString &cmd, QString &msg)
+bool KateFileTreeCommand::exec(KTextEditor::View * /*view*/, const QString &cmd, QString & /*msg*/)
 {
     // create list of args
     QStringList args(cmd.split(' ', QString::KeepEmptyParts));
@@ -473,7 +473,7 @@ bool KateFileTreeCommand::exec(KTextEditor::View *view, const QString &cmd, QStr
     return true;
 }
 
-bool KateFileTreeCommand::help(KTextEditor::View *view, const QString &cmd, QString &msg)
+bool KateFileTreeCommand::help(KTextEditor::View * /*view*/, const QString &cmd, QString &msg)
 {
     if (cmd == "b" || cmd == "buffer") {
         msg = i18n("<p><b>b,buffer &mdash; Edit document N from the document list</b></p>"

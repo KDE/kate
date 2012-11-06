@@ -238,11 +238,11 @@ Kate::PluginView *KatePluginTabBarExtension::createView (Kate::MainWindow *mainW
 }
 
 
-void KatePluginTabBarExtension::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
+void KatePluginTabBarExtension::readSessionConfig (KConfigBase* /*config*/, const QString& /*groupPrefix*/)
 {
 }
 
-void KatePluginTabBarExtension::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
+void KatePluginTabBarExtension::writeSessionConfig (KConfigBase* /*config*/, const QString& /*groupPrefix*/)
 {
 }
 

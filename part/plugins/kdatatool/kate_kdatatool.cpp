@@ -216,9 +216,6 @@ void KDataToolPluginView::slotToolActivated( const KDataToolInfo &info, const QS
 		kDebug( 13040 ) << "Tool ran. Text is now " << text;
 		if ( origText != text )
 		{
-			int line, col;
-			line = m_view->cursorPosition().line();
-      col = m_view->cursorPosition().column();
 			if ( !m_view->selection() )
 			{
 				m_view->setSelection(KTextEditor::Range(m_singleWord_line, m_singleWord_start, m_singleWord_line, m_singleWord_end));

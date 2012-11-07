@@ -34,7 +34,6 @@
 #include <kconfiggroup.h>
 //END
 
-
 //BEGIN KateSchemaManager
 KateSchemaManager::KateSchemaManager ()
     : m_config ("kateschemarc", KConfig::NoGlobals)
@@ -62,7 +61,6 @@ static bool schemasCompare (const KateSchema &s1, const KateSchema &s2)
   
   return s1.translatedName().localeAwareCompare(s1.translatedName()) < 0;
 }
- 
 
 QList<KateSchema> KateSchemaManager::list ()
 {
@@ -76,7 +74,6 @@ QList<KateSchema> KateSchemaManager::list ()
   return schemas;
 }
 //END
-
 
 //BEGIN SCHEMA ACTION -- the 'View->Schema' menu action
 void KateViewSchemaAction::init()

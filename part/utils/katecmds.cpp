@@ -106,7 +106,7 @@ bool KateCommands::CoreCommands::help(KTextEditor::View *, const QString &cmd, Q
       "<p>Inserts comment markers to make the selection or selected lines or current line a comment according to the text format as defined by the syntax highlight definition for the document.</p>");
     return true;
   } else   if (realcmd=="uncomment") {
-    msg=i18n("<p>uncomment</b></p>"
+    msg=i18n("<p>uncomment</p>"
       "<p>Removes comment markers from the selection or selected lines or current line according to the text format as defined by the syntax highlight definition for the document.</p>");
     return true;
   } else   if (realcmd=="goto") {

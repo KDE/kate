@@ -73,7 +73,9 @@ class KateHlContext
 {
   public:
     KateHlContext(const QString &_hlId, int attribute, KateHlContextModification _lineEndContext,KateHlContextModification _lineBeginContext,
-                  bool _fallthrough, KateHlContextModification _fallthroughContext, bool _dynamic,bool _noIndentationBasedFolding);
+                  bool _fallthrough, KateHlContextModification _fallthroughContext, bool _dynamic,bool _noIndentationBasedFolding,
+                  bool _emptyLineContex, KateHlContextModification _emptyLineContextModification
+                 );
     virtual ~KateHlContext();
     KateHlContext *clone(const QStringList *args);
 
@@ -93,6 +95,9 @@ class KateHlContext
     bool dynamic;
     bool dynamicChild;
     bool noIndentationBasedFolding;
+    
+    bool emptyLineContext;
+    KateHlContextModification emptyLineContextModification;
 };
 
 class KateHlIncludeRule

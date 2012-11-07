@@ -354,6 +354,8 @@ context. It is possible to use for example <userinput>#pop#pop#pop</userinput>
 to pop three times.</para>
 <para><userinput>lineBeginContext</userinput> defines the context if a begin
 of a line is encountered. Default: #stay.</para>
+<para><userinput>lineEmptyContext</userinput> defines the context if an empty
+line is encountered. Default: #stay.</para>
 <para><userinput>fallthrough</userinput> defines if the highlight system switches
 to the context specified in fallthroughContext if no rule matches.
 Default: <emphasis>false</emphasis>.</para>

@@ -329,172 +329,178 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
   // optimization: list of highlighting items that need their cache reset
   static QVarLengthArray<KateHlItem*> cachingItems;
 
-
-  QChar lastDelimChar = 0;
-  while (offset < len)
-  {
-    bool anItemMatched = false;
-    bool customStartEnableDetermined = false;
-
-    foreach (item, context->items)
+  // catch empty lines
+  if (len == 0) {
+    // regenerate context stack if needed
+    if (context->emptyLineContext)
+        context = generateContextStack (ctx, context->emptyLineContextModification, previousLine);
+  } else {
+    QChar lastDelimChar = 0;
+    while (offset < len)
     {
-      // does we only match if we are firstNonSpace?
-      if (item->firstNonSpace && (offset > startNonSpace))
-        continue;
+      bool anItemMatched = false;
+      bool customStartEnableDetermined = false;
 
-      // have we a column specified? if yes, only match at this column
-      if ((item->column != -1) && (item->column != offset))
-        continue;
-
-      if (!item->alwaysStartEnable)
+      foreach (item, context->items)
       {
-        if (item->customStartEnable)
+        // does we only match if we are firstNonSpace?
+        if (item->firstNonSpace && (offset > startNonSpace))
+          continue;
+
+        // have we a column specified? if yes, only match at this column
+        if ((item->column != -1) && (item->column != offset))
+          continue;
+
+        if (!item->alwaysStartEnable)
         {
-            if ( oldContext != context ) {
-              oldContext = context;
-              additionalData = m_additionalData[oldContext->hlId];
-            }
-            if (customStartEnableDetermined || additionalData->deliminator.contains(lastChar))
-              customStartEnableDetermined = true;
-            else
+          if (item->customStartEnable)
+          {
+              if ( oldContext != context ) {
+                oldContext = context;
+                additionalData = m_additionalData[oldContext->hlId];
+              }
+              if (customStartEnableDetermined || additionalData->deliminator.contains(lastChar))
+                customStartEnableDetermined = true;
+              else
+                continue;
+          }
+          else
+          {
+            if (lastDelimChar == lastChar) {
+            } else if ( stdDeliminator.contains(lastChar) ) {
+              lastDelimChar = lastChar;
+            } else {
               continue;
-        }
-        else
-        {
-          if (lastDelimChar == lastChar) {
-          } else if ( stdDeliminator.contains(lastChar) ) {
-            lastDelimChar = lastChar;
-          } else {
-            continue;
+            }
           }
         }
-      }
 
-      int offset2 = item->checkHgl(text, offset, len-offset);
-      if ( item->haveCache && !item->cachingHandled ) {
-        cachingItems.append(item);
-        item->cachingHandled = true;
-      }
-
-      if (offset2 <= offset)
-        continue;
-      // BUG 144599: Ignore a context change that would push the same context
-      // without eating anything... this would be an infinite loop!
-      if ( item->lookAhead && ( item->ctx.pops < 2 && item->ctx.newContext == ( ctx.isEmpty() ? 0 : ctx.last() ) ) )
-        continue;
-
-      if (item->region2)
-      {
-        // kDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2);
-        if ( !foldingList.isEmpty() && ((item->region2 < 0) && (int)foldingList[foldingList.size()-2] == -item->region2 ) )
-        {
-          foldingList.resize (foldingList.size()-2);
+        int offset2 = item->checkHgl(text, offset, len-offset);
+        if ( item->haveCache && !item->cachingHandled ) {
+          cachingItems.append(item);
+          item->cachingHandled = true;
         }
+
+        if (offset2 <= offset)
+          continue;
+        // BUG 144599: Ignore a context change that would push the same context
+        // without eating anything... this would be an infinite loop!
+        if ( item->lookAhead && ( item->ctx.pops < 2 && item->ctx.newContext == ( ctx.isEmpty() ? 0 : ctx.last() ) ) )
+          continue;
+
+        if (item->region2)
+        {
+          // kDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2);
+          if ( !foldingList.isEmpty() && ((item->region2 < 0) && (int)foldingList[foldingList.size()-2] == -item->region2 ) )
+          {
+            foldingList.resize (foldingList.size()-2);
+          }
+          else
+          {
+            foldingList.resize (foldingList.size()+2);
+            foldingList[foldingList.size()-2] = (uint)item->region2;
+            if (item->region2<0) //check not really needed yet
+              foldingList[foldingList.size()-1] = offset2;
+            else
+              foldingList[foldingList.size()-1] = offset;
+          }
+
+        }
+
+        if (item->region)
+        {
+          // kDebug(13010)<<QString("Region mark detected: %1").arg(item->region);
+
+        /* if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
+          {
+            foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
+          }
+          else*/
+          {
+            foldingList.resize (foldingList.size()+2);
+            foldingList[foldingList.size()-2] = item->region;
+            if (item->region<0) //check not really needed yet
+              foldingList[foldingList.size()-1] = offset2;
+            else
+              foldingList[foldingList.size()-1] = offset;
+          }
+
+        }
+
+        // regenerate context stack if needed
+        context = generateContextStack (ctx, item->ctx, previousLine);
+
+        // dynamic context: substitute the model with an 'instance'
+        if (context->dynamic)
+        {
+          // try to retrieve captures from regexp
+          QStringList captures;
+          item->capturedTexts (captures);
+          if (!captures.empty())
+          {
+            // Replace the top of the stack and the current context
+            int newctx = makeDynamicContext(context, &captures);
+            if (ctx.size() > 0)
+              ctx[ctx.size() - 1] = newctx;
+
+            context = contextNum(newctx);
+          }
+        }
+
+        // dominik: look ahead w/o changing offset?
+        if (!item->lookAhead)
+        {
+          if (offset2 > len)
+            offset2 = len;
+
+          // even set attributes ;)
+          int attribute = item->onlyConsume ? context->attr : item->attr;
+          if (attribute > 0)
+            textLine->addAttribute (offset, offset2-offset, attribute);
+
+          offset = offset2;
+          lastChar = text[offset-1];
+        }
+
+        anItemMatched = true;
+        break;
+      }
+
+      // something matched, continue loop
+      if (anItemMatched)
+        continue;
+
+      item = 0;
+
+      // nothing found: set attribute of one char
+      // anders: unless this context does not want that!
+      if ( context->fallthrough )
+      {
+      // set context to context->ftctx.
+        context=generateContextStack(ctx, context->ftctx, previousLine);  //regenerate context stack
+
+      //kDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum;
+      // the next is necessary, as otherwise keyword (or anything using the std delimitor check)
+      // immediately after fallthrough fails. Is it bad?
+      // jowenn, can you come up with a nicer way to do this?
+      /*  if (offset)
+          lastChar = text[offset - 1];
         else
-        {
-          foldingList.resize (foldingList.size()+2);
-          foldingList[foldingList.size()-2] = (uint)item->region2;
-          if (item->region2<0) //check not really needed yet
-            foldingList[foldingList.size()-1] = offset2;
-          else
-            foldingList[foldingList.size()-1] = offset;
-        }
-
+          lastChar = '\\';*/
+        continue;
       }
-
-      if (item->region)
-      {
-        // kDebug(13010)<<QString("Region mark detected: %1").arg(item->region);
-
-      /* if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
-        {
-          foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
-        }
-        else*/
-        {
-          foldingList.resize (foldingList.size()+2);
-          foldingList[foldingList.size()-2] = item->region;
-          if (item->region<0) //check not really needed yet
-            foldingList[foldingList.size()-1] = offset2;
-          else
-            foldingList[foldingList.size()-1] = offset;
-        }
-
-      }
-
-      // regenerate context stack if needed
-      context = generateContextStack (ctx, item->ctx, previousLine);
-
-      // dynamic context: substitute the model with an 'instance'
-      if (context->dynamic)
-      {
-        // try to retrieve captures from regexp
-        QStringList captures;
-        item->capturedTexts (captures);
-        if (!captures.empty())
-        {
-          // Replace the top of the stack and the current context
-          int newctx = makeDynamicContext(context, &captures);
-          if (ctx.size() > 0)
-            ctx[ctx.size() - 1] = newctx;
-
-          context = contextNum(newctx);
-        }
-      }
-
-      // dominik: look ahead w/o changing offset?
-      if (!item->lookAhead)
-      {
-        if (offset2 > len)
-          offset2 = len;
-
-        // even set attributes ;)
-        int attribute = item->onlyConsume ? context->attr : item->attr;
-        if (attribute > 0)
-          textLine->addAttribute (offset, offset2-offset, attribute);
-
-        offset = offset2;
-        lastChar = text[offset-1];
-      }
-
-      anItemMatched = true;
-      break;
-    }
-
-    // something matched, continue loop
-    if (anItemMatched)
-      continue;
-
-    item = 0;
-
-    // nothing found: set attribute of one char
-    // anders: unless this context does not want that!
-    if ( context->fallthrough )
-    {
-    // set context to context->ftctx.
-      context=generateContextStack(ctx, context->ftctx, previousLine);  //regenerate context stack
-
-    //kDebug(13010)<<"context num after fallthrough at col "<<z<<": "<<ctxNum;
-    // the next is necessary, as otherwise keyword (or anything using the std delimitor check)
-    // immediately after fallthrough fails. Is it bad?
-    // jowenn, can you come up with a nicer way to do this?
-    /*  if (offset)
-        lastChar = text[offset - 1];
       else
-        lastChar = '\\';*/
-      continue;
-    }
-    else
-    {
-      // set attribute if any
-      if (context->attr > 0)
-        textLine->addAttribute (offset, 1, context->attr);
+      {
+        // set attribute if any
+        if (context->attr > 0)
+          textLine->addAttribute (offset, 1, context->attr);
 
-      lastChar = text[offset];
-      offset++;
+        lastChar = text[offset];
+        offset++;
+      }
     }
   }
-
+  
   // has the context stack changed ?
   if (ctx == textLine->ctxArray())
   {
@@ -1838,8 +1844,6 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
   readSpellCheckingConfig();
 
-  QString ctxName;
-
   // This list is needed for the translation of the attribute parameter,
   // if the itemData name is given instead of the index
   addToKateExtendedAttributeList();
@@ -1870,8 +1874,6 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       else
         attr=lookupAttrName(tmpAttr,iDl);
       //END - Translation of the attribute parameter
-
-      ctxName=buildPrefix+KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplified();
 
       QString tmpLineEndContext=KateHlManager::self()->syntax->groupData(data,QString("lineEndContext")).simplified();
       KateHlContextModification context;
@@ -1904,6 +1906,12 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         }
       }
       //END falltrhough props
+      
+      // empty line context
+      QString emptyLineContext = KateHlManager::self()->syntax->groupData( data, QString("lineEmptyContext") );
+      KateHlContextModification emptyLineContextModification;
+      if (!emptyLineContext.isEmpty())
+        emptyLineContextModification = getContextModificationFromString(&ContextNameList, emptyLineContext, dummy);
 
       bool dynamic = false;
       QString tmpDynamic = KateHlManager::self()->syntax->groupData(data, QString("dynamic") );
@@ -1916,7 +1924,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         context,
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
         (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
-        ft, ftc, dynamic,noIndentationBasedFolding);
+        ft, ftc, dynamic,noIndentationBasedFolding
+      , emptyLineContext.isEmpty(), emptyLineContextModification);
 
       m_contexts.push_back (ctxNew);
 

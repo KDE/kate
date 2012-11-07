@@ -826,7 +826,8 @@ KateHl2CharDetect::KateHl2CharDetect(int attribute, KateHlContextModification co
 
 //BEGIN KateHlContext
 KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContextModification _lineEndContext, KateHlContextModification _lineBeginContext, bool _fallthrough,
-	KateHlContextModification _fallthroughContext, bool _dynamic, bool _noIndentationBasedFolding)
+	KateHlContextModification _fallthroughContext, bool _dynamic, bool _noIndentationBasedFolding,
+                  bool _emptyLineContext, KateHlContextModification _emptyLineContextModification)
 {
   hlId = _hlId;
   attr = attribute;
@@ -837,13 +838,17 @@ KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContext
   dynamic = _dynamic;
   dynamicChild = false;
   noIndentationBasedFolding=_noIndentationBasedFolding;
+  emptyLineContext = _emptyLineContext;
+  emptyLineContextModification = _emptyLineContextModification;
   if (_noIndentationBasedFolding) kDebug(13010)<<QString("**********************_noIndentationBasedFolding is TRUE*****************");
 
 }
 
 KateHlContext *KateHlContext::clone(const QStringList *args)
 {
-  KateHlContext *ret = new KateHlContext(hlId, attr, lineEndContext, lineBeginContext, fallthrough, ftctx, false,noIndentationBasedFolding);
+  KateHlContext *ret = new KateHlContext(hlId, attr, lineEndContext, lineBeginContext, fallthrough, ftctx, false,noIndentationBasedFolding
+      , emptyLineContext, emptyLineContextModification
+  );
 
   for (int n=0; n < items.size(); ++n)
   {

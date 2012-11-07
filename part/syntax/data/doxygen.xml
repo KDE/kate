@@ -474,7 +474,7 @@
       <itemData name="HTML Tag"     defStyleNum="dsKeyword" color="#000000" bold="1" italic="0" />
       <itemData name="Entities"     defStyleNum="dsOthers" color="#4086C0" bold="1" italic="1" />
       <itemData name="Description"  defStyleNum="dsString"  color="#ff0000" />
-      <itemData name="Comment"      defStyleNum="dsComment" color="#0000ff" italic="1" />
+      <itemData name="Comment"      defStyleNum="dsComment" />
       <itemData name="Region"       defStyleNum="dsRegionMarker" />
       <itemData name="Identifier"   defStyleNum="dsOthers" />
       <itemData name="HTML Comment" defStyleNum="dsComment" />

@@ -176,8 +176,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_bottomViewBar->installEventFilter(m_viewInternal);
 
   // add container layout for KTE::MessageInterface immediately before view area
-  m_messageContainer = new QVBoxLayout();
-  m_vBox->addLayout(m_messageContainer);
+  m_topMessageWidget = new KateMessageWidget(this);
+  m_vBox->addWidget(m_topMessageWidget);
+  m_topMessageWidget->hide();
 
   // add hbox: KateIconBorder | KateViewInternal | KateScrollBar
   QHBoxLayout *hbox = new QHBoxLayout ();
@@ -3094,69 +3095,8 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
 void KateView::postMessage(KTextEditor::Message* message,
                            QList<QSharedPointer<QAction> > actions)
 {
-  Q_ASSERT(!m_messageHash.contains(message));
-  m_messageHash[message] = actions;
-
-  // insert message sorted after priority
-  int i = 0;
-  for (; i < m_messageList.count(); ++i) {
-    if (message->priority() > m_messageList[i]->priority())
-      break;
-  }
-
-  // save the pointer for the insert position
-  KateMessageWidget* nextWidget = (i < m_messageList.count()) ? m_messageList[i] : 0;
-
-  // if highest priority, hide currently visible message, and show message
-  if (i == 0 && m_messageList.count()) {
-    m_messageList[0]->animatedHide();
-  }
-
-  // create new message widget for this message
-  KateMessageWidget* newWidget = new KateMessageWidget(message, this);
-  m_messageList.insert(i, newWidget);
-
-  // insert newWidget at correct position in m_messageContainer (index == -1 acts as append)
-  m_messageContainer->insertWidget(m_messageContainer->indexOf(nextWidget), newWidget);
-
-  // if new message has highest priority, show message widget
-  if (i == 0) {
-    newWidget->animatedShow();
-  }
-
-  // catch if the message gets deleted
-  connect(message, SIGNAL(closed(KTextEditor::Message*)), SLOT(messageDestroyed(KTextEditor::Message*)));
-}
-
-void KateView::messageDestroyed(KTextEditor::Message* message)
-{
-  // last moment when message is valid, since KTE::Message is already in destructor
-  // we have to do the following:
-  // 1. remove message from m_messageList, so we don't care about it anymore
-  // 2. activate hide animation + deleteLater()
-
-  // remove widget from m_messageList
-  int i = 0;
-  for (; i < m_messageList.count(); ++i) {
-    if (m_messageList[i]->message() == message) {
-      if (i == 0) {
-        m_messageList[i]->hideAndDeleteLater();
-      } else {
-        m_messageList[i]->deleteLater();
-      }
-      m_messageList.removeAt(i);
-      break;
-    }
-  }
-
-  // check, if another message is in the queue
-  if (i == 0 && m_messageList.count()) {
-    m_messageList[0]->animatedShow();
-  }
-
-  // remove message from hash -> release QActions
-  Q_ASSERT(m_messageHash.contains(message));
-  m_messageHash.remove(message);
+  // just forward to KateMessageWidget :-)
+  m_topMessageWidget->postMessage(message, actions);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

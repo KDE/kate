@@ -35,8 +35,6 @@
 #include <QtCore/QPointer>
 #include <QModelIndex>
 #include <QtGui/QMenu>
-#include <QtCore/QLinkedList>
-#include <QtCore/QHash>
 
 #include <kdebug.h>
 
@@ -831,16 +829,15 @@ public:
   //
   public:
     /**
-     * Used by Document::postMessage(). Just forward to KateViewInternal.
+     * Used by Document::postMessage().
      */
     void postMessage(KTextEditor::Message* message, QList<QSharedPointer<QAction> > actions);
-  public Q_SLOTS:
-    void messageDestroyed(KTextEditor::Message* message);
 
   private:
-    QVBoxLayout* m_messageContainer;
-    QList<KateMessageWidget*> m_messageList;
-    QHash<KTextEditor::Message*, QList<QSharedPointer<QAction> > > m_messageHash;
+    /**
+     * Message widget showing the KTextEditor::Messages
+     */
+    KateMessageWidget* m_topMessageWidget;
 
 };
 

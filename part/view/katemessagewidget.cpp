@@ -35,20 +35,48 @@
  * This class implements a message widget based on KMessageWidget.
  * It is used to show messages through the KTextEditior::MessageInterface.
  */
-KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget* parent)
+KateMessageWidget::KateMessageWidget(QWidget* parent)
   : QWidget(parent)
-  , m_message(message)
-  , m_deleteLater(false)
 {
-  Q_ASSERT(message);
-
   QVBoxLayout* l = new QVBoxLayout();
   l->setMargin(0);
 
-  m_messageWidget = new KMessageWidget();
+  m_messageWidget = new KMessageWidget(this);
+  m_messageWidget->setCloseButtonVisible(false);
+
+  l->addWidget(m_messageWidget);
+  setLayout(l);
+
+  // tell the widget to always use the minimum size.
+  setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+
+  // install event filter so we catch the end of the hide animation
+  m_messageWidget->installEventFilter(this);
+
+  // by default, hide widgets
+  m_messageWidget->hide();
+  hide();
+}
+
+bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
+{
+  if (obj == m_messageWidget && event->type() == QEvent::Hide) {
+    // if there are other messages in the queue, show next one, else hide us
+    if (m_messageList.count()) {
+      showMessage(m_messageList[0]);
+    } else {
+      hide();
+    }
+  }
+
+  return QWidget::eventFilter(obj, event);
+}
+
+void KateMessageWidget::showMessage(KTextEditor::Message* message)
+{
+  // set text etc.
   m_messageWidget->setText(message->text());
   m_messageWidget->setWordWrap(message->wordWrap());
-  m_messageWidget->setCloseButtonVisible(false);
 
   // the enums values do not necessarily match, hence translate with switch
   switch (message->messageType()) {
@@ -69,90 +97,88 @@ KateMessageWidget::KateMessageWidget(KTextEditor::Message* message, QWidget* par
       break;
   }
 
-  // add all actions to the message wdiget
+  // remove all actions from the message widget
+  foreach (QAction* a, m_messageWidget->actions())
+    m_messageWidget->removeAction(a);
+
+  // add new actions to the message wdiget
   foreach (QAction* a, message->actions())
     m_messageWidget->addAction(a);
 
-  l->addWidget(m_messageWidget);
-  setLayout(l);
-
-  // tell the widget to always use the minimum size.
-  setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
-
-  // install event filter so we catch the end of the hide animation
-  m_messageWidget->installEventFilter(this);
-
-  // by default, hide widgets
-  m_messageWidget->hide();
-  hide();
-}
-
-int KateMessageWidget::priority() const
-{
-  return m_message->priority();
-}
-
-KTextEditor::Message* KateMessageWidget::message()
-{
-  return m_message;
-}
-
-void KateMessageWidget::hideAndDeleteLater()
-{
-  m_message = 0;
-  m_deleteLater = true;
-
-  // if the message is already visible, trigger the hide animation,
-  // otherwise kill it right away.
-  if (isVisible() && m_messageWidget->isVisible()) {
-    animatedHide();
-  } else {
-    hide();
-    deleteLater();
-  }
-}
-
-void KateMessageWidget::animatedShow()
-{
-  if (!isVisible()) {
-    show();
-
-    // work around KMessageWidget bugs
-#if KDE_VERSION >= KDE_MAKE_VERSION(4,10,0)
-    m_messageWidget->animatedShow();
+  // finally show us
+  show();
+#if KDE_VERSION >= KDE_MAKE_VERSION(4,10,0)   // work around KMessageWidget bugs
+  m_messageWidget->animatedShow();
 #else
-    QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
+  QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
 #endif
 
-    // start auto-hide timer, if requrested
-    const int autoHide = m_message->autoHide();
-    if (autoHide >= 0) {
-      QTimer::singleShot(autoHide == 0 ? 5000 : autoHide, m_message, SLOT(deleteLater()));
-    }
+  // start auto-hide timer, if requrested
+  const int autoHide = message->autoHide();
+  if (autoHide >= 0) {
+    QTimer::singleShot(autoHide == 0 ? 5000 : autoHide, message, SLOT(deleteLater()));
   }
 }
 
-void KateMessageWidget::animatedHide()
+void KateMessageWidget::postMessage(KTextEditor::Message* message,
+                           QList<QSharedPointer<QAction> > actions)
 {
-  if (m_messageWidget->isVisible())
+  Q_ASSERT(!m_messageHash.contains(message));
+  m_messageHash[message] = actions;
+
+  // insert message sorted after priority
+  int i = 0;
+  for (; i < m_messageList.count(); ++i) {
+    if (message->priority() > m_messageList[i]->priority())
+      break;
+  }
+
+  // queue message
+  m_messageList.insert(i, message);
+
+  if (i == 0) {
+    if (m_messageWidget->isVisible()) {
+      m_messageWidget->animatedHide();
+    } else {
+      showMessage(m_messageList[0]);
+    }
+  }
+
+  // catch if the message gets deleted
+  connect(message, SIGNAL(closed(KTextEditor::Message*)), SLOT(messageDestroyed(KTextEditor::Message*)));
+}
+
+void KateMessageWidget::messageDestroyed(KTextEditor::Message* message)
+{
+  // last moment when message is valid, since KTE::Message is already in
+  // destructor we have to do the following:
+  // 1. remove message from m_messageList, so we don't care about it anymore
+  // 2. activate hide animation or show a new message()
+
+  // remove widget from m_messageList
+  int i = 0;
+  for (; i < m_messageList.count(); ++i) {
+    if (m_messageList[i] == message) {
+      break;
+    }
+  }
+
+  // the message must be in the list
+  Q_ASSERT(i < m_messageList.count());
+
+  // remove message
+  m_messageList.removeAt(i);
+
+  // remove message from hash -> release QActions
+  Q_ASSERT(m_messageHash.contains(message));
+  m_messageHash.remove(message);
+
+  // start hide animation, or show next message
+  if (m_messageWidget->isVisible()) {
     m_messageWidget->animatedHide();
-
-  // hide this widget in eventFilter, when KMessageWidget's hide animation is done
-}
-
-bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
-{
-  if (obj == m_messageWidget && event->type() == QEvent::Hide) {
-    if (m_deleteLater) {
-      // delete message. This triggers KTE::Message::destroyed(), which in turn
-      // removes the messages widgets from all views through KateDocument::messageDestroyed()
-      deleteLater();
-    }
-    // always hide message widget, if KMessageWidget is hidden
-    hide();
+  } else if (i == 0 && m_messageList.count()) {
+    showMessage(m_messageList[0]);
   }
-
-  return QWidget::eventFilter(obj, event);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

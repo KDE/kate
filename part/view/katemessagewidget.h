@@ -22,11 +22,11 @@
 #define KATE_MESSAGE_WIDGET_H
 
 #include <QtGui/QWidget>
+#include <QtCore/QHash>
 
 namespace KTextEditor
 {
   class Message;
-  class View;
 }
 
 class KMessageWidget;
@@ -43,34 +43,18 @@ class KateMessageWidget : public QWidget
     /**
      * Constructor. By default, the widget is hidden.
      */
-    KateMessageWidget(KTextEditor::Message* message, QWidget* parent = 0);
+    KateMessageWidget(QWidget* parent = 0);
 
     /**
-     * Returns the priority of this message.
+     * Post a new incoming message. Show either directly, or queue
      */
-    int priority() const;
+    void postMessage(KTextEditor::Message* message, QList<QSharedPointer<QAction> > actions);
 
+  protected:
     /**
-     * Get this Message pointer.
+     * Show the @p message and launch show animation
      */
-    KTextEditor::Message* message();
-
-    /**
-     * Removes dangling pointer to Message and autohides + deletes this message.
-     */
-    void hideAndDeleteLater();
-
-  public Q_SLOTS:
-    /**
-     * Show the KateMessageWidget.
-     * @note Never use show(). Always use animatedShow();
-     */
-    void animatedShow();
-    /**
-     * Hide the KateMessageWidget.
-     * @note Never use hide(). Always use animatedHide();
-     */
-    void animatedHide();
+    void showMessage(KTextEditor::Message* message);
 
   protected:
     /**
@@ -78,11 +62,19 @@ class KateMessageWidget : public QWidget
      */
     virtual bool eventFilter(QObject *obj, QEvent *event);
 
+  private Q_SLOTS:
+    /**
+     * catch when a message is deleted, then show next one, if applicable.
+     */
+    void messageDestroyed(KTextEditor::Message* message);
+
   private:
-    KTextEditor::View* m_view;
+    // sorted list of pending messages
+    QList<KTextEditor::Message*> m_messageList;
+    // shared pointers to QActions as guard
+    QHash<KTextEditor::Message*, QList<QSharedPointer<QAction> > > m_messageHash;
+    // the message widget, showing the actual contents
     KMessageWidget* m_messageWidget;
-    KTextEditor::Message* m_message;
-    bool m_deleteLater;
 };
 
 #endif

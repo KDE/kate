@@ -835,10 +835,13 @@ public:
 
   private:
     /**
-     * Message widget showing the KTextEditor::Messages
+     * Message widget showing KTextEditor::Messages above the View.
      */
     KateMessageWidget* m_topMessageWidget;
-
+    /**
+     * Message widget showing KTextEditor::Messages below the View.
+     */
+    KateMessageWidget* m_bottomMessageWidget;
 };
 
 /**

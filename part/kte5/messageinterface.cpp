@@ -27,6 +27,7 @@ class MessagePrivate
   public:
     QList<QAction*> actions;
     Message::MessageType messageType;
+    Message::MessagePosition position;
     QString text;
     bool wordWrap;
     int autoHide;
@@ -39,6 +40,7 @@ Message::Message(MessageType type, const QString& richtext)
   : d(new MessagePrivate())
 {
   d->messageType = type;
+  d->position = Message::AboveView;
   d->text = richtext;
   d->wordWrap = false;
   d->autoHide = -1;
@@ -120,7 +122,6 @@ KTextEditor::View* Message::view() const
   return d->view;
 }
 
-
 void Message::setDocument(KTextEditor::Document* document)
 {
   d->document = document;
@@ -129,6 +130,16 @@ void Message::setDocument(KTextEditor::Document* document)
 KTextEditor::Document* Message::document() const
 {
   return d->document;
+}
+
+void Message::setPosition(Message::MessagePosition position)
+{
+  d->position = position;
+}
+
+Message::MessagePosition Message::position() const
+{
+  return d->position;
 }
 
 

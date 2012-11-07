@@ -83,6 +83,15 @@ class Message : public QObject
       Error         ///< error message type
     };
 
+    /**
+     * Message position used to place the message either above or below of the
+     * KTextEditor::View.
+     */
+    enum MessagePosition {
+      AboveView = 0, ///< show message above view
+      BelowView,     ///< show message below view
+    };
+
   public:
     /**
      * Constructor for new messages.
@@ -216,6 +225,18 @@ class Message : public QObject
      * This pointer is 0 as long as the message was not posted.
      */
     KTextEditor::Document* document() const;
+
+    /**
+     * Sets the @p position either to AboveView or BelowView.
+     * By default, the position is set to MessagePosition::AboveView.
+     * @see MessagePosition
+     */
+    void setPosition(MessagePosition position);
+
+    /**
+     * Returns the desired message position of this message.
+     */
+    MessagePosition position() const;
 
   Q_SIGNALS:
     /**

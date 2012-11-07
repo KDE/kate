@@ -175,7 +175,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   m_bottomViewBar->installEventFilter(m_viewInternal);
 
-  // add container layout for KTE::MessageInterface immediately before view area
+  // add KateMessageWidget for KTE::MessageInterface immediately above view
   m_topMessageWidget = new KateMessageWidget(this);
   m_vBox->addWidget(m_topMessageWidget);
   m_topMessageWidget->hide();
@@ -219,6 +219,11 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   hbox->addWidget (m_viewInternal->m_columnScroll);
   hbox->addWidget (m_viewInternal->m_dummy);
+
+  // add KateMessageWidget for KTE::MessageInterface immediately above view
+  m_bottomMessageWidget = new KateMessageWidget(this);
+  m_vBox->addWidget(m_bottomMessageWidget);
+  m_bottomMessageWidget->hide();
 
   // add bottom viewbar...
   if (bottomBarParent)
@@ -3096,7 +3101,11 @@ void KateView::postMessage(KTextEditor::Message* message,
                            QList<QSharedPointer<QAction> > actions)
 {
   // just forward to KateMessageWidget :-)
-  m_topMessageWidget->postMessage(message, actions);
+  if (message->position() == KTextEditor::Message::AboveView) {
+    m_topMessageWidget->postMessage(message, actions);
+  } else {
+    m_bottomMessageWidget->postMessage(message, actions);
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

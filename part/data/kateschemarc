@@ -66,6 +66,7 @@ ShippedDefaultSchema=true
 
 # Solarized (light), NEEDED
 [Solarized (light)]
+ShippedDefaultSchema=true
 Color Background=253,246,227
 Color Code Folding=108,113,196
 Color Highlighted Bracket=7,54,66
@@ -96,6 +97,7 @@ Color Word Wrap Marker=147,161,161
 
 # Solarized (dark), NEEDED
 [Solarized (dark)]
+ShippedDefaultSchema=true
 Color Background=0,43,54
 Color Code Folding=108,113,196
 Color Highlighted Bracket=7,54,66
@@ -125,6 +127,7 @@ Color Template Not Editable Placeholder=7,54,66
 Color Word Wrap Marker=147,161,161
 
 [Vim (dark)]
+ShippedDefaultSchema=true
 Color Background=0,0,0
 Color Code Folding=0,43,38
 Color Highlighted Bracket=68,0,170

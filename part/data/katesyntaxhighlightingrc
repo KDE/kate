@@ -1,7 +1,3 @@
-# Normal Schema, Font color
-[Highlighting None - Schema Normal]
-Normal Text=0,,,,,,,,,,---
-
 # Normal Schema, Default Item Styles
 [Default Item Styles - Schema Normal]
 Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,-,,---
@@ -19,10 +15,6 @@ Others=ff006e28,ff80ff80,,,,,-,-,,---
 Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,-,,---
 String=ffbf0303,ff9c0e0e,,,,,-,-,,---
 
-# Printing Schema, Font color
-[Highlighting None - Schema Printing]
-Normal Text=0,,,,,,,,,,---
-
 # Printing Schema, Default Item Styles
 [Default Item Styles - Schema Printing]
 Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,-,,---
@@ -35,13 +27,41 @@ Error=ffbf0303,ff9c0e0e,,,,,-,-,,---
 Floating Point=ffb08000,ffffdd00,,,,,-,-,,---
 Function=ff644a9b,ff452886,,,,,-,-,,---
 Keyword=ff1f1c1b,ffffffff,1,,,,-,-,,---
-Normal=ff1f1c1b,ffffffff,,,,,-,-,,---
+Normal=ff000000,ffffffff,,,,,-,-,,---
 Others=ff006e28,ff80ff80,,,,,-,-,,---
 Region Marker=ff0057ae,ff00316e,,,,,ffe0e9f8,-,,---
 String=ffbf0303,ff9c0e0e,,,,,-,-,,---
 
-# KDE Schema, Font color
-[Highlighting None - Schema KDE]
+# Solarized (light), Default Item Styles
+[Default Item Styles - Schema Solarized (light)]
+Alert=ffd33682,ffd33682,1,,,,-,-,,---
+Base-N Integer=ffb58900,ffb58900,,,,,-,-,,---
+Character=ffd33682,ffd33682,,,,,-,-,,---
+Comment=ff93a1a1,ff93a1a1,,1,,,-,-,,---
+Data Type=ff268bd2,ff268bd2,,,,,-,-,,---
+Decimal/Value=ffb58900,ffb58900,,,,,-,-,,---
+Error=ffdc322f,ffdc322f,,,,,-,-,,---
+Floating Point=ffb58900,ffb58900,,,,,-,-,,---
+Function=ff6c71c4,ff6c71c4,,,,,-,-,,---
+Keyword=ff839496,ff839496,1,,,,-,-,,---
+Normal=ff839496,ff839496,,,,,-,-,,---
+Others=ff859900,ff859900,,,,,-,-,,---
+Region Marker=ff268bd2,ff268bd2,,,,,ffeee8d5,-,,---
+String=ffdc322f,ffdc322f,,,,,-,-,,---
 
-# KDE Schema, Default Item Styles
-[Default Item Styles - Schema KDE]
+# Solarized (dark), Default Item Styles
+[Default Item Styles - Schema Solarized (dark)]
+Alert=ffd33682,ffd33682,1,,,,-,-,,---
+Base-N Integer=ffb58900,ffb58900,,,,,-,-,,---
+Character=ffd33682,ffd33682,,,,,-,-,,---
+Comment=ff93a1a1,ff93a1a1,,1,,,-,-,,---
+Data Type=ff268bd2,ff268bd2,,,,,-,-,,---
+Decimal/Value=ffb58900,ffb58900,,,,,-,-,,---
+Error=ffdc322f,ffdc322f,,,,,-,-,,---
+Floating Point=ffb58900,ffb58900,,,,,-,-,,---
+Function=ff6c71c4,ff6c71c4,,,,,-,-,,---
+Keyword=ff839496,ff839496,1,,,,-,-,,---
+Normal=ff839496,ff839496,,,,,-,-,,---
+Others=ff859900,ff859900,,,,,-,-,,---
+Region Marker=ff268bd2,ff268bd2,,,,,ffeee8d5,-,,---
+String=ffdc322f,ffdc322f,,,,,-,-,,---

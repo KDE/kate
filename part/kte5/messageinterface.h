@@ -33,19 +33,19 @@ class Document;
 /**
  * @brief This class holds a Message to display in View%s.
  *
- * \section message_intro Introduction
+ * @section message_intro Introduction
  *
  * The Message class holds the data used to display interactive message widgets
  * in the editor. To post a message, use the MessageInterface.
  *
- * \section message_creation Message Creation and Deletion
+ * @section message_creation Message Creation and Deletion
  *
  * To create a new Message, use code like this:
- * \code
+ * @code
  * QPointer<Message> message = new Message(Message::Information, "My information text");
  * message->setWordWrap(true);
  * // ...
- * \endcode
+ * @endcode
  *
  * Once you posted the Message through MessageInterface::postMessage(), the
  * lifetime depends on the user interaction. The Message gets automatically
@@ -58,6 +58,14 @@ class Document;
  * @warning Always use QPointer\<Message\> to guard the message pointer from
  *          getting invalid, if you need to access the Message after you posted
  *          it.
+ *
+ * @section message_positioning Positioning
+ *
+ * By default, the Message appears right above of the View. However, if desired,
+ * the position can be changed through setPosition(). For instance, the
+ * search-and-replace code in Kate Part shows the number of performed replacements
+ * in a message below the view. For further information, have a look at the enum
+ * MessagePosition.
  *
  * @see MessageInterface
  * @author Dominik Haumann \<dhaumann@kde.org\>

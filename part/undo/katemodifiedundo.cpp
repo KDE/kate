@@ -26,7 +26,6 @@
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/view.h>
 
-
 KateModifiedInsertText::KateModifiedInsertText (KateDocument *document, int line, int col, const QString &text)
   : KateEditInsertTextUndo (document, line, col, text)
 {
@@ -58,7 +57,7 @@ KateModifiedWrapLine::KateModifiedWrapLine (KateDocument *document, int line, in
 {
   Kate::TextLine tl = document->plainKateTextLine(line);
   Q_ASSERT(tl);
-  if (col < len || tl->markedAsModified()) {
+  if (len > 0 || tl->markedAsModified()) {
     setFlag(RedoLine1Modified);
   } else if (tl->markedAsSavedOnDisk()) {
     setFlag(RedoLine1Saved);
@@ -72,7 +71,7 @@ KateModifiedWrapLine::KateModifiedWrapLine (KateDocument *document, int line, in
 
   if (tl->markedAsModified()) {
     setFlag(UndoLine1Modified);
-  } else if (((col < len) && (col > 0)) || tl->markedAsSavedOnDisk()) {
+  } else if ((len > 0  && col > 0) || tl->markedAsSavedOnDisk()) {
     setFlag(UndoLine1Saved);
   }
 }

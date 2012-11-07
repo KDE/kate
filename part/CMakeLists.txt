@@ -205,7 +205,7 @@ dialogs/bordersappearanceconfigwidget.ui
 dialogs/commandmenuconfigwidget.ui
 dialogs/commandmenueditwidget.ui
 dialogs/completionconfigtab.ui
-dialogs/cursorconfigwidget.ui
+dialogs/navigationconfigwidget.ui
 dialogs/editconfigwidget.ui
 dialogs/filetypeconfigwidget.ui
 dialogs/indentationconfigwidget.ui

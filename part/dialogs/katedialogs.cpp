@@ -48,7 +48,7 @@
 #include "ui_modonhdwidget.h"
 #include "ui_textareaappearanceconfigwidget.h"
 #include "ui_bordersappearanceconfigwidget.h"
-#include "ui_cursorconfigwidget.h"
+#include "ui_navigationconfigwidget.h"
 #include "ui_editconfigwidget.h"
 #include "ui_indentationconfigwidget.h"
 #include "ui_completionconfigtab.h"
@@ -523,8 +523,8 @@ void KateSpellCheckConfigTab::reload()
 }
 //END KateSpellCheckConfigTab
 
-//BEGIN KateSelectConfigTab
-KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
+//BEGIN KateNavigationConfigTab
+KateNavigationConfigTab::KateNavigationConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   // This will let us having more separation between this page and
@@ -532,7 +532,7 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   QVBoxLayout *layout = new QVBoxLayout;
   QWidget *newWidget = new QWidget(this);
 
-  ui = new Ui::CursorConfigWidget();
+  ui = new Ui::NavigationConfigWidget();
   ui->setupUi( newWidget );
 
   // What's This? Help is in the ui-files
@@ -543,22 +543,22 @@ KateSelectConfigTab::KateSelectConfigTab(QWidget *parent)
   // after initial reload, connect the stuff for the changed () signal
   //
 
-  connect(ui->rbNormal, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->rbPersistent, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(ui->cbTextSelectionMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()));
   connect(ui->chkSmartHome, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkPagingMovesCursor, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->sbAutoCenterCursor, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect(ui->chkScrollPastEnd, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   layout->addWidget(newWidget);
   setLayout(layout);
 }
 
-KateSelectConfigTab::~KateSelectConfigTab()
+KateNavigationConfigTab::~KateNavigationConfigTab()
 {
   delete ui;
 }
 
-void KateSelectConfigTab::apply ()
+void KateNavigationConfigTab::apply ()
 {
   // nothing changed, no need to apply stuff
   if (!hasChanged())
@@ -573,22 +573,24 @@ void KateSelectConfigTab::apply ()
   KateViewConfig::global()->setAutoCenterLines(qMax(0, ui->sbAutoCenterCursor->value()));
   KateDocumentConfig::global()->setPageUpDownMovesCursor(ui->chkPagingMovesCursor->isChecked());
 
-  KateViewConfig::global()->setPersistentSelection (ui->rbPersistent->isChecked());
+  KateViewConfig::global()->setPersistentSelection (ui->cbTextSelectionMode->currentIndex() == 1);
+
+  KateViewConfig::global()->setScrollPastEnd(ui->chkScrollPastEnd->isChecked());
 
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }
 
-void KateSelectConfigTab::reload ()
+void KateNavigationConfigTab::reload ()
 {
-  ui->rbNormal->setChecked( ! KateViewConfig::global()->persistentSelection() );
-  ui->rbPersistent->setChecked( KateViewConfig::global()->persistentSelection() );
+  ui->cbTextSelectionMode->setCurrentIndex( KateViewConfig::global()->persistentSelection() ? 1 : 0 );
 
   ui->chkSmartHome->setChecked(KateDocumentConfig::global()->smartHome());
   ui->chkPagingMovesCursor->setChecked(KateDocumentConfig::global()->pageUpDownMovesCursor());
   ui->sbAutoCenterCursor->setValue(KateViewConfig::global()->autoCenterLines());
+  ui->chkScrollPastEnd->setChecked(KateViewConfig::global()->scrollPastEnd());
 }
-//END KateSelectConfigTab
+//END KateNavigationConfigTab
 
 //BEGIN KateEditGeneralConfigTab
 KateEditGeneralConfigTab::KateEditGeneralConfigTab(QWidget *parent)
@@ -605,7 +607,6 @@ KateEditGeneralConfigTab::KateEditGeneralConfigTab(QWidget *parent)
   connect(ui->chkShowStaticWordWrapMarker, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->sbWordWrap, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect(ui->chkSmartCopyCut, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkScrollPastEnd, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   // "What's this?" help is in the ui-file
 
@@ -635,7 +636,6 @@ void KateEditGeneralConfigTab::apply ()
 
   KateDocumentConfig::global()->configEnd ();
   KateViewConfig::global()->setSmartCopyCut(ui->chkSmartCopyCut->isChecked());
-  KateViewConfig::global()->setScrollPastEnd(ui->chkScrollPastEnd->isChecked());
   KateViewConfig::global()->configEnd ();
 }
 
@@ -646,7 +646,6 @@ void KateEditGeneralConfigTab::reload ()
   ui->sbWordWrap->setSuffix(ki18ncp("Wrap words at", " character", " characters"));
   ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
   ui->chkSmartCopyCut->setChecked( KateViewConfig::global()->smartCopyCut() );
-  ui->chkScrollPastEnd->setChecked( KateViewConfig::global()->scrollPastEnd() );
 }
 //END KateEditGeneralConfigTab
 
@@ -655,7 +654,7 @@ void KateEditGeneralConfigTab::reload ()
 KateEditConfigTab::KateEditConfigTab(QWidget *parent)
   : KateConfigPage(parent)
   , editConfigTab(new KateEditGeneralConfigTab(this))
-  , selectConfigTab(new KateSelectConfigTab(this))
+  , navigationConfigTab(new KateNavigationConfigTab(this))
   , indentConfigTab(new KateIndentConfigTab(this))
   , completionConfigTab (new KateCompletionConfigTab(this))
   , viInputModeConfigTab(new KateViInputModeConfigTab(this))
@@ -667,14 +666,14 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
 
   // add all tabs
   tabWidget->insertTab(0, editConfigTab, i18n("General"));
-  tabWidget->insertTab(1, selectConfigTab, i18n("Cursor && Selection"));
+  tabWidget->insertTab(1, navigationConfigTab, i18n("Text Navigation"));
   tabWidget->insertTab(2, indentConfigTab, i18n("Indentation"));
   tabWidget->insertTab(3, completionConfigTab, i18n("Auto Completion"));
   tabWidget->insertTab(4, viInputModeConfigTab, i18n("Vi Input Mode"));
   tabWidget->insertTab(5, spellCheckConfigTab, i18n("Spellcheck"));
 
   connect(editConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
-  connect(selectConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
+  connect(navigationConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(indentConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(completionConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
   connect(viInputModeConfigTab, SIGNAL(changed()), this, SLOT(slotChanged()));
@@ -692,7 +691,7 @@ void KateEditConfigTab::apply ()
 {
   // try to update the rest of tabs
   editConfigTab->apply();
-  selectConfigTab->apply();
+  navigationConfigTab->apply();
   indentConfigTab->apply();
   completionConfigTab->apply();
   viInputModeConfigTab->apply();
@@ -702,7 +701,7 @@ void KateEditConfigTab::apply ()
 void KateEditConfigTab::reload ()
 {
   editConfigTab->reload();
-  selectConfigTab->reload();
+  navigationConfigTab->reload();
   indentConfigTab->reload();
   completionConfigTab->reload();
   viInputModeConfigTab->reload();
@@ -712,7 +711,7 @@ void KateEditConfigTab::reload ()
 void KateEditConfigTab::reset ()
 {
   editConfigTab->reset();
-  selectConfigTab->reset();
+  navigationConfigTab->reset();
   indentConfigTab->reset();
   completionConfigTab->reset();
   viInputModeConfigTab->reset();
@@ -722,7 +721,7 @@ void KateEditConfigTab::reset ()
 void KateEditConfigTab::defaults ()
 {
   editConfigTab->defaults();
-  selectConfigTab->defaults();
+  navigationConfigTab->defaults();
   indentConfigTab->defaults();
   completionConfigTab->defaults();
   viInputModeConfigTab->defaults();

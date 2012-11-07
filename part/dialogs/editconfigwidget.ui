@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
-    <height>377</height>
+    <width>346</width>
+    <height>283</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -99,13 +99,6 @@
        <widget class="QCheckBox" name="chkSmartCopyCut">
         <property name="text">
          <string>Copy/Cut the current line if no selection</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="chkScrollPastEnd">
-        <property name="text">
-         <string>Allow scrolling past the end of the document</string>
         </property>
        </widget>
       </item>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CursorConfigWidget</class>
- <widget class="QWidget" name="CursorConfigWidget">
+ <class>NavigationConfigWidget</class>
+ <widget class="QWidget" name="NavigationConfigWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>243</width>
-    <height>229</height>
+    <width>364</width>
+    <height>255</height>
    </rect>
   </property>
   <layout class="QVBoxLayout">
@@ -48,7 +48,7 @@
         <item>
          <widget class="QLabel" name="lblAutoCenterCursor">
           <property name="text">
-           <string>&amp;Autocenter cursor (lines):</string>
+           <string>&amp;Autocenter cursor:</string>
           </property>
           <property name="buddy">
            <cstring>sbAutoCenterCursor</cstring>
@@ -62,6 +62,9 @@
           </property>
           <property name="specialValueText">
            <string>Disabled</string>
+          </property>
+          <property name="suffix">
+           <string> lines</string>
           </property>
          </widget>
         </item>
@@ -84,28 +87,56 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="gbSelectionMode">
+    <widget class="QGroupBox" name="cbNavigationMisc">
      <property name="title">
-      <string>Text Selection Mode</string>
+      <string>Misc</string>
      </property>
      <layout class="QVBoxLayout">
       <item>
-       <widget class="QRadioButton" name="rbNormal">
-        <property name="whatsThis">
-         <string>Selections will be overwritten by typed text and will be lost on cursor movement.</string>
-        </property>
-        <property name="text">
-         <string>&amp;Normal</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="lblTextSelectionMode">
+          <property name="text">
+           <string>Text selection mode:</string>
+          </property>
+          <property name="buddy">
+           <cstring>cbTextSelectionMode</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="cbTextSelectionMode">
+          <item>
+           <property name="text">
+            <string>Normal</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Persistent</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
       </item>
       <item>
-       <widget class="QRadioButton" name="rbPersistent">
-        <property name="whatsThis">
-         <string>Selections will stay even after cursor movement and typing.</string>
-        </property>
+       <widget class="QCheckBox" name="chkScrollPastEnd">
         <property name="text">
-         <string>P&amp;ersistent</string>
+         <string>Allow scrolling past the end of the document</string>
         </property>
        </widget>
       </item>

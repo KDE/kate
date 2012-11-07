@@ -79,7 +79,7 @@ namespace Ui
   class ModOnHdWidget;
   class TextareaAppearanceConfigWidget;
   class BordersAppearanceConfigWidget;
-  class CursorConfigWidget;
+  class NavigationConfigWidget;
   class EditConfigWidget;
   class IndentationConfigWidget;
   class OpenSaveConfigWidget;
@@ -210,16 +210,16 @@ class KateEditGeneralConfigTab : public KateConfigPage
     void defaults () {}
 };
 
-class KateSelectConfigTab : public KateConfigPage
+class KateNavigationConfigTab : public KateConfigPage
 {
   Q_OBJECT
 
 public:
-  KateSelectConfigTab(QWidget *parent);
-  ~KateSelectConfigTab();
+  KateNavigationConfigTab(QWidget *parent);
+  ~KateNavigationConfigTab();
 
 private:
-  Ui::CursorConfigWidget *ui;
+  Ui::NavigationConfigWidget *ui;
 
 public Q_SLOTS:
   void apply ();
@@ -290,7 +290,7 @@ public Q_SLOTS:
 
 private:
   KateEditGeneralConfigTab *editConfigTab;
-  KateSelectConfigTab *selectConfigTab;
+  KateNavigationConfigTab *navigationConfigTab;
   KateIndentConfigTab *indentConfigTab;
   KateCompletionConfigTab *completionConfigTab;
   KateViInputModeConfigTab *viInputModeConfigTab;

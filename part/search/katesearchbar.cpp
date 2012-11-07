@@ -32,13 +32,13 @@
 
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>
+#include <kte5/messageinterface.h> // KDE5 rename kte5 to ktexteditor
 
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
 
 #include <kcolorscheme.h>
 #include <kstandardaction.h>
-#include <kpassivepopup.h>
 
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QComboBox>
@@ -625,7 +625,13 @@ void KateSearchBar::findAll()
             : m_view->document()->documentRange();
     const int occurrences = findAll(inputRange, NULL);
 
-    KPassivePopup::message(i18np("1 match found", "%1 matches found", occurrences), this);
+    // send passive notification to view
+    KTextEditor::Message* message = new KTextEditor::Message(KTextEditor::Message::Positive,
+                                                             i18np("1 match found", "%1 matches found", occurrences));
+    message->setPosition(KTextEditor::Message::BelowView);
+    message->setAutoHide(0);
+    message->setView(m_view);
+    m_view->doc()->postMessage(message);
 
     indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
@@ -866,7 +872,14 @@ void KateSearchBar::replaceAll() {
 
     // Pass on the hard work
     int replacementsDone=findAll(inputRange, &replacement);
-    KPassivePopup::message(i18np("1 replacement has been made","%1 replacements have been made",replacementsDone),this);
+
+    // send passive notification to view
+    KTextEditor::Message* message = new KTextEditor::Message(KTextEditor::Message::Positive,
+                                        i18np("1 replacement has been made", "%1 replacements have been made", replacementsDone));
+    message->setPosition(KTextEditor::Message::BelowView);
+    message->setAutoHide(0);
+    message->setView(m_view);
+    m_view->doc()->postMessage(message);
 
     // Never merge replace actions with other replace actions/user actions
     m_view->doc()->undoManager()->undoSafePoint();

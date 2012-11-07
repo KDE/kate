@@ -72,7 +72,7 @@ class KateHlItem
 class KateHlContext
 {
   public:
-    KateHlContext(const QString &_hlId, int attribute, KateHlContextModification _lineEndContext,KateHlContextModification _lineBeginContext,
+    KateHlContext(const QString &_hlId, int attribute, KateHlContextModification _lineEndContext,
                   bool _fallthrough, KateHlContextModification _fallthroughContext, bool _dynamic,bool _noIndentationBasedFolding,
                   bool _emptyLineContex, KateHlContextModification _emptyLineContextModification
                  );
@@ -83,7 +83,6 @@ class KateHlContext
     QString hlId; ///< A unique highlight identifier. Used to look up correct properties.
     int attr;
     KateHlContextModification lineEndContext;
-    KateHlContextModification lineBeginContext;
     /** @internal anders: possible escape if no rules matches.
        false unless 'fallthrough="1|true"' (insensitive)
        if true, go to ftcxt w/o eating of string.

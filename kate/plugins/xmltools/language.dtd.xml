@@ -608,7 +608,6 @@
 <attdecl>
   attribute CDATA #REQUIRED
   lineEndContext NMTOKEN #REQUIRED
-  lineBeginContext NMTOKEN #IMPLIED
   lineEmptyContext NMTOKEN #IMPLIED
   name CDATA #IMPLIED
   fallthrough (false|true) #IMPLIED
@@ -630,10 +629,6 @@
            type="#IMPLIED"
            enumeration="yes"
            value="false true"
-           default=""/>
-<attribute name="lineBeginContext"
-           type="#IMPLIED"
-           value="NMTOKEN"
            default=""/>
 <attribute name="lineEmptyContext"
            type="#IMPLIED"

@@ -220,7 +220,6 @@ TODO
   name:             The name of this context specification. Used in '*Context' attributes [optional]
   attribute:        The name of the ItemData to be used for matching text
   lineEndContext:   Next context if end of line is encountered
-  lineBeginContext: Next context if begin of line is encountered [optional]
   lineEmptyContext: Next context if an empty line is encountered [optional]
   fallthrough:      Use a fallthrough context [optional]
   fallthroughContext: Fall through to this context [optional]
@@ -240,7 +239,6 @@ TODO:
   name              CDATA       #IMPLIED
   attribute         CDATA       #REQUIRED
   lineEndContext    CDATA       #REQUIRED
-  lineBeginContext  CDATA       #IMPLIED
   lineEmptyContext  CDATA       #IMPLIED
   fallthrough       (%boolean;) #IMPLIED
   fallthroughContext CDATA      #IMPLIED

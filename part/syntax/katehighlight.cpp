@@ -1922,8 +1922,6 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         ident,
         attr,
         context,
-        (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).isEmpty()?-1:
-        (KateHlManager::self()->syntax->groupData(data,QString("lineBeginContext"))).toInt(),
         ft, ftc, dynamic,noIndentationBasedFolding
       , emptyLineContext.isEmpty(), emptyLineContextModification);
 

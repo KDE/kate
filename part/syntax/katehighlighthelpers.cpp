@@ -825,14 +825,13 @@ KateHl2CharDetect::KateHl2CharDetect(int attribute, KateHlContextModification co
 //END KateHl2CharDetect
 
 //BEGIN KateHlContext
-KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContextModification _lineEndContext, KateHlContextModification _lineBeginContext, bool _fallthrough,
+KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContextModification _lineEndContext, bool _fallthrough,
 	KateHlContextModification _fallthroughContext, bool _dynamic, bool _noIndentationBasedFolding,
                   bool _emptyLineContext, KateHlContextModification _emptyLineContextModification)
 {
   hlId = _hlId;
   attr = attribute;
   lineEndContext = _lineEndContext;
-  lineBeginContext = _lineBeginContext;
   fallthrough = _fallthrough;
   ftctx = _fallthroughContext;
   dynamic = _dynamic;
@@ -846,7 +845,7 @@ KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContext
 
 KateHlContext *KateHlContext::clone(const QStringList *args)
 {
-  KateHlContext *ret = new KateHlContext(hlId, attr, lineEndContext, lineBeginContext, fallthrough, ftctx, false,noIndentationBasedFolding
+  KateHlContext *ret = new KateHlContext(hlId, attr, lineEndContext, fallthrough, ftctx, false,noIndentationBasedFolding
       , emptyLineContext, emptyLineContextModification
   );
 

@@ -51,15 +51,28 @@ KateSchema KateSchemaManager::schemaData (const QString &name)
   KConfigGroup cg (schema (name));
   KateSchema schema;
   schema.rawName = name;
-  schema.shippedDefaultSchema = cg.readEntry ("ShippedDefaultSchema", false);
+  schema.shippedDefaultSchema = cg.readEntry ("ShippedDefaultSchema", 0);
   return schema;
 }
+
+static bool schemasCompare (const KateSchema &s1, const KateSchema &s2)
+{
+  if (s1.shippedDefaultSchema > s2.shippedDefaultSchema)
+    return true;
+  
+  return s1.translatedName().localeAwareCompare(s1.translatedName()) < 0;
+}
+ 
 
 QList<KateSchema> KateSchemaManager::list ()
 {
   QList<KateSchema> schemas;
   Q_FOREACH (QString s, m_config.groupList())
     schemas.append (schemaData (s));
+    
+  // sort: prio given by default schema and name
+  qSort(schemas.begin(), schemas.end(), schemasCompare);
+    
   return schemas;
 }
 //END

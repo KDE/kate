@@ -1,6 +1,6 @@
 # Normal Schema, NEEDED
 [Normal]
-ShippedDefaultSchema=true
+ShippedDefaultSchema=9999
 Color Background=255,255,255
 Color Code Folding=148,202,239
 Color Highlighted Bracket=237,249,255
@@ -31,7 +31,7 @@ Color Word Wrap Marker=237,237,237
 
 # Printing Schema, NEEDED
 [Printing]
-ShippedDefaultSchema=true
+ShippedDefaultSchema=9990
 Color Background=255,255,255
 Color Code Folding=148,202,239
 Color Highlighted Bracket=237,249,255
@@ -62,11 +62,11 @@ Color Word Wrap Marker=237,237,237
 
 # KDE Schema, no settings here, fallback to KDE defaults
 [KDE]
-ShippedDefaultSchema=true
+ShippedDefaultSchema=9000
 
 # Solarized (light), NEEDED
 [Solarized (light)]
-ShippedDefaultSchema=true
+ShippedDefaultSchema=8000
 Color Background=253,246,227
 Color Code Folding=108,113,196
 Color Highlighted Bracket=7,54,66
@@ -97,7 +97,7 @@ Color Word Wrap Marker=147,161,161
 
 # Solarized (dark), NEEDED
 [Solarized (dark)]
-ShippedDefaultSchema=true
+ShippedDefaultSchema=7000
 Color Background=0,43,54
 Color Code Folding=108,113,196
 Color Highlighted Bracket=7,54,66
@@ -127,7 +127,7 @@ Color Template Not Editable Placeholder=7,54,66
 Color Word Wrap Marker=147,161,161
 
 [Vim (dark)]
-ShippedDefaultSchema=true
+ShippedDefaultSchema=6000
 Color Background=0,0,0
 Color Code Folding=0,43,38
 Color Highlighted Bracket=68,0,170

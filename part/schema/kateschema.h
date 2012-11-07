@@ -34,7 +34,7 @@ class KateSchema
 {
   public:
     QString rawName;
-    bool shippedDefaultSchema;
+    int shippedDefaultSchema;
     
     /**
      * construct translated name for shipped schemas

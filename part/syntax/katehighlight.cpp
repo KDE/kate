@@ -1886,24 +1886,21 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       //BEGIN get fallthrough props
       bool ft = false;
       KateHlContextModification ftc = 0; // fallthrough context
-      if ( i > 0 )  // fallthrough is not smart in context 0
+      QString tmpFt = KateHlManager::self()->syntax->groupData(data, QString("fallthrough") );
+      if ( IS_TRUE(tmpFt) )
+        ft = true;
+      if ( ft )
       {
-        QString tmpFt = KateHlManager::self()->syntax->groupData(data, QString("fallthrough") );
-        if ( IS_TRUE(tmpFt) )
-          ft = true;
-        if ( ft )
-        {
-          QString tmpFtc = KateHlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
+        QString tmpFtc = KateHlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
 
-          ftc=getContextModificationFromString(&ContextNameList, tmpFtc,dummy);
+        ftc=getContextModificationFromString(&ContextNameList, tmpFtc,dummy);
 
-          // stay is not allowed, we need to #pop or push some context...
-          if (ftc.type == KateHlContextModification::doNothing) ftc = 0;
+        // stay is not allowed, we need to #pop or push some context...
+        if (ftc.type == KateHlContextModification::doNothing) ftc = 0;
 
 #ifdef HIGHLIGHTING_DEBUG
-          kDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc.newContext;
+        kDebug(13010)<<"Setting fall through context (context "<<i<<"): "<<ftc.newContext;
 #endif
-        }
       }
       //END falltrhough props
       

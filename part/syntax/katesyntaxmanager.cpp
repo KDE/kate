@@ -235,7 +235,6 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list, 
     Attribute::Ptr attrib(new KTextEditor::Attribute());
     attrib->setForeground( scheme.foreground(KColorScheme::InactiveText).color() );
     attrib->setSelectedForeground( schemeSelected.foreground(KColorScheme::InactiveText).color() );
-    attrib->setFontItalic(true);
     list.append(attrib);
   }
   { // dsOthers

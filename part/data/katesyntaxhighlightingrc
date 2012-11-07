@@ -65,3 +65,20 @@ Normal=ff839496,ff839496,,,,,-,-,,---
 Others=ff859900,ff859900,,,,,-,-,,---
 Region Marker=ff268bd2,ff268bd2,,,,,ffeee8d5,-,,---
 String=ffdc322f,ffdc322f,,,,,-,-,,---
+
+# Vim (dark), Default Item Styles
+[Default Item Styles - Schema Vim (dark)]
+Alert=ffbf0303,ff9c0e0e,1,,,,fff7e6e6,-,,---
+Base-N Integer=ffff54ff,ffffdd00,1,,,,-,-,,---
+Character=ffff54ff,ffff80e0,1,,,,-,-,,---
+Comment=ff5454ff,ffa5c1e4,1,0,,,-,-,,---
+Data Type=ff54ff54,ff00316e,1,,,,-,-,,---
+Decimal/Value=ffff54ff,ffffdd00,1,,,,-,-,,---
+Error=ffbf0303,ff9c0e0e,,,,,-,-,,---
+Floating Point=ffff54ff,ffffdd00,1,,,,-,-,,---
+Function=ff644a9b,ff452886,,,,,-,-,,---
+Keyword=ffdede49,ffffffff,1,,,,-,-,,---
+Normal=ffb2b2b2,ffffffff,1,0,,,-,-,,---
+Others=ff006e28,ff80ff80,,,,,-,-,,---
+Region Marker=ffdadada,ff00316e,,,,,ff4f3a3a,-,,---
+String=ffaf7f00,ff9c0e0e,1,,,,-,-,,---

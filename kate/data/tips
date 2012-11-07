@@ -24,14 +24,13 @@ syntax highlighting.</p>
 <p>You can split the Kate editor as many times as you like and
 in either direction. Each frame has its own status bar and
 can display any open document.</p>
-<p>Just choose <br><strong>View -&gt; Split [ Horizontal | Vertical ]</strong></p>
+<p>Just choose <br><strong>View -&gt; Split View -&gt; Split [ Horizontal | Vertical ]</strong></p>
 </html>
 </tip>
 <tip category="Kate|app">
 <html>
-<p>You can drag the Tool views (<em>File List</em> and <em>File Selector</em>)
-to any side that you want them in Kate, or stack them, or even tear them off the
-main window.</p>
+<p>You can move the Tool views to any side of the main window through the
+context menu.</p>
 </html>
 </tip>
 <tip category="Kate|app">
@@ -62,15 +61,15 @@ choose any application on your system.</p>
 <tip category="Kate|part">
 <html>
 <p>You can configure the editor to always display the line numbers and/or
-bookmark panes when started from the <strong>View Defaults</strong> page of the
+bookmark panes when started from the <strong>Appearance</strong> page of the
 configuration dialog.</p>
 </html>
 </tip>
 <tip category="Kate|part">
 <html>
 <p>You can download new or updated <em>Syntax highlight definitions</em> from
-the <strong>Highlighting</strong> page in the configuration dialog.</p>
-<p>Just click the <em>Download...</em> button on the <em>Open/Save -&gt; Modes & Filetypes</em>
+the <strong>Open/Save</strong> page in the configuration dialog.</p>
+<p>Just click the <em>Download...</em> button on the <em>Open/Save -&gt; Modes &amp; Filetypes</em>
 tab (You have to be online, of course...).</p>
 </html>
 </tip>
@@ -97,7 +96,7 @@ line.</p>
 </tip>
 <tip category="Kate|app">
 <html>
-<p>You can filter the files displayed in the <em>File Selector</em> tool view.
+<p>You can filter the files displayed in the <em>Filesystem Browser</em> tool view.
 </p>
 <p>Simply enter your filter in the filter entry at the bottom, for example:
 <code>*.html *.php</code> if you only want to see HTML and PHP files in the

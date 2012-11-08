@@ -114,6 +114,7 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   , m_showMiniMap(false)
   , m_miniMapAll(true)
   , m_miniMapWidth(40)
+  , m_grooveHeight(height())
   , m_linesModified(0)
 {
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
@@ -270,27 +271,34 @@ void KateScrollBar::updatePixmap()
     // make sure no time is wasted if the option is disabled
     return;
   }
-  int visibleLinesCount = m_doc->visibleLines();
-  int drawLinesCount = visibleLinesCount;
-  if (m_view->config()->scrollPastEnd()) {
-    drawLinesCount += pageStep();
-  }
 
   // For performance reason, only every n-th line will be drawn if the widget is
   // sufficiently small compared to the amount of lines in the document.
-  int groveHeight = height() - 35; // this value only needs to be an approximation
-  int lineDivisor = 1;
-  if ( (groveHeight > 10) && (drawLinesCount > groveHeight*2) ) {
-    lineDivisor = drawLinesCount / groveHeight;
-    drawLinesCount /= lineDivisor;
+  int docLineCount = m_doc->visibleLines();
+  int pixmapLineCount = docLineCount;
+  if (m_view->config()->scrollPastEnd()) {
+    pixmapLineCount += pageStep();
+  }
+  int pixmapLinesUnscaled = pixmapLineCount;
+  if (m_grooveHeight < 5) m_grooveHeight = 5;
+  int lineDivisor = pixmapLinesUnscaled/m_grooveHeight;
+  if (lineDivisor < 1) lineDivisor = 1;
+  int charIncrement = 1;
+  int lineIncrement = 1;
+  if ( (m_grooveHeight > 10) && (pixmapLineCount >= m_grooveHeight*2) ) {
+    charIncrement = pixmapLineCount / m_grooveHeight;
+    while (charIncrement > s_linePixelIncLimit) {
+      lineIncrement++;
+      pixmapLineCount = pixmapLinesUnscaled/lineIncrement;
+      charIncrement = pixmapLineCount / m_grooveHeight;
+    }
+    pixmapLineCount /= charIncrement;
   }
 
-  int lineIncrement = (lineDivisor > s_linePixelIncLimit) ? (lineDivisor/s_linePixelIncLimit + 1) : 1;
-  int charIncrement = (lineDivisor > s_linePixelIncLimit) ? s_linePixelIncLimit : lineDivisor;
-  int drawnLinesDivisor = (lineDivisor > s_linePixelIncLimit) ? (lineDivisor%s_linePixelIncLimit + 1) : lineDivisor;
+  int pixmapLineWidth = s_pixelMargin + s_lineWidth/charIncrement;
 
-  //kDebug(13040) << "l inc" << lineIncrement << "c inc" << charIncrement << "divisor" << lineDivisor << "drawLines" << drawLinesCount << "docLines" << m_doc->visibleLines() << "height" << groveHeight;
-
+  //kDebug(13040) << "l" << lineIncrement << "c" << charIncrement << "d" << lineDivisor;
+  //kDebug(13040) << "pixmap" << pixmapLineCount << pixmapLineWidth << "docLines" << m_doc->visibleLines() << "height" << m_grooveHeight;
 
   QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
   QColor defaultTextColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();
@@ -300,7 +308,7 @@ void KateScrollBar::updatePixmap()
   modifiedLineColor.setHsv(modifiedLineColor.hue(), 255, 255 - backgroundColor.value()/3);
   savedLineColor.setHsv(savedLineColor.hue(), 100, 255 - backgroundColor.value()/3);
 
-  m_pixmap = QPixmap(s_lineWidth, drawLinesCount);
+  m_pixmap = QPixmap(pixmapLineWidth, pixmapLineCount);
   m_pixmap.fill(QColor("transparent"));
 
   // The text currently selected in the document, to be drawn later.
@@ -315,7 +323,7 @@ void KateScrollBar::updatePixmap()
     int drawnLines = 0;
 
     // Iterate over all visible lines, drawing them.
-    for (int virtualLine=0; virtualLine < visibleLinesCount; virtualLine += lineIncrement) {
+    for (int virtualLine=0; virtualLine < docLineCount; virtualLine += lineIncrement) {
 
       int realLineNumber = m_doc->getRealLine(virtualLine);
       QString lineText = m_doc->line(realLineNumber);
@@ -340,7 +348,7 @@ void KateScrollBar::updatePixmap()
       painter.setPen(defaultTextColor);
       // Iterate over all the characters in the current line
       for (int x = 0; (x < lineText.size() && x < s_lineWidth); x += charIncrement) {
-        if (pixelX >= s_lineWidth) {
+        if (pixelX >= s_lineWidth + s_pixelMargin) {
           break;
         }
 
@@ -349,7 +357,7 @@ void KateScrollBar::updatePixmap()
           pixelX++;
         }
         else if (lineText[x] == '\t') {
-          pixelX += 4; // FIXME: tab width...
+          pixelX += qMax(4/charIncrement, 1); // FIXME: tab width...
         }
         else {
           painter.setPen(charColor(attributes, attributeIndex, decorations, defaultTextColor, x, lineText[x]));
@@ -373,16 +381,17 @@ void KateScrollBar::updatePixmap()
         }
       }
       drawnLines++;
-      if (((drawnLines) % drawnLinesDivisor) == 0) {
+      if (((drawnLines) % charIncrement) == 0) {
         pixelY++;
       }
 
     }
+    //kDebug(13040) << drawnLines;
     // Draw line modification marker map.
     // Disable this if the document is really huge,
     // since it requires querying every line.
     if ( m_doc->lines() < 50000 ) {
-      for ( int lineno = 0; lineno < visibleLinesCount; lineno++ ) {
+      for ( int lineno = 0; lineno < docLineCount; lineno++ ) {
         int realLineNo = m_doc->getRealLine(lineno);
         const Kate::TextLine& line = m_doc->plainKateTextLine(realLineNo);
         if ( line->markedAsModified() ) {
@@ -403,8 +412,10 @@ void KateScrollBar::updatePixmap()
   update();
 }
 
-void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
+void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
 {
+  QScrollBar::paintEvent(e);
+
   QPainter painter(this);
 
   QStyleOptionSlider opt;
@@ -423,8 +434,20 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   QRect sliderRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSlider, this);
   sliderRect.setWidth(sliderRect.width()-1);
 
-  style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
-  style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
+  if (style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSubLine, this).height() == 0) {
+    int alignMargin = style()->pixelMetric(QStyle::PM_FocusFrameVMargin, &opt, this);
+    grooveRect.moveTop(alignMargin);
+    grooveRect.setHeight(grooveRect.height() - alignMargin);
+  }
+
+  if (style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddLine, this).height() == 0) {
+    int alignMargin = style()->pixelMetric(QStyle::PM_FocusFrameVMargin, &opt, this);
+    grooveRect.setHeight(grooveRect.height() - alignMargin);
+  }
+
+  m_grooveHeight = grooveRect.height();
+  //style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
+  //style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
 
   // draw the grove background in case the document is small
   painter.setPen(palette().color(QPalette::Dark));
@@ -432,7 +455,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   painter.drawRect(grooveRect);
 
   // calculate the document size and position
-  int docHeight = qMin(grooveRect.height(), m_pixmap.height()*3);
+  int docHeight = qMin(grooveRect.height(), m_pixmap.height()*2);
   int yoffset = (grooveRect.height() - docHeight) / 2;
   QRect docRect(QPoint(grooveRect.left(), yoffset+grooveRect.top()), QSize(grooveRect.width()-1, docHeight));
 
@@ -470,16 +493,19 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   painter.setBrush(gradient);
   painter.drawRect(docRect);
 
+  painter.setRenderHint(QPainter::Antialiasing);
+
   // light "shield" non-visible parts
   if (docHeight >= grooveRect.height()) {
     painter.setBrush(lightShieldColor);
-    painter.drawRoundedRect(sliderRect, 4, 4);
+    painter.drawRoundedRect(sliderRect, 3, 3);
   }
 
   // document background
   painter.setBrush(backgroundColor);
-  painter.drawRoundedRect(visibleRect, 4, 4);
+  painter.drawRoundedRect(visibleRect, 3, 3);
 
+  painter.setRenderHint(QPainter::Antialiasing, false);
 
   // Smooth transform only when squeezing
   if (grooveRect.height() < m_pixmap.height()) {
@@ -492,12 +518,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *)
   painter.drawPixmap(docPixmapMarginRect, m_pixmap, pixmapMarginRect);
 
   // calculate the stretch and draw the stretched lines
-  int lineDivisor = (m_pixmap.height()) ? m_doc->visibleLines() / m_pixmap.height() : 1;
-  lineDivisor = qMin(lineDivisor, s_linePixelIncLimit);
-  if (lineDivisor<1) lineDivisor = 1;
-  int wantedWidth = (m_pixmap.width()-s_pixelMargin) / lineDivisor;
-  wantedWidth += ((lineDivisor-1) * wantedWidth) / s_linePixelIncLimit;
-  QRect pixmapRect(QPoint(s_pixelMargin, 0), QSize(wantedWidth, m_pixmap.height()));
+  QRect pixmapRect(QPoint(s_pixelMargin, 0), QSize(m_pixmap.width() - s_pixelMargin, m_pixmap.height()));
   QRect docPixmapRect(QPoint(s_pixelMargin, docRect.top()), QSize(docRect.width()-s_pixelMargin, docRect.height()));
   painter.drawPixmap(docPixmapRect, m_pixmap, pixmapRect);
 

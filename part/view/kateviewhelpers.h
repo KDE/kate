@@ -131,6 +131,7 @@ Q_SIGNALS:
     int m_miniMapWidth;
 
     QPixmap m_pixmap;
+    int     m_grooveHeight;
     QTimer  m_updateTimer;
     QPoint m_toolTipPos;
 

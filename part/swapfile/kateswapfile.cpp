@@ -82,7 +82,6 @@ SwapFile::~SwapFile()
 
 void SwapFile::configChanged()
 {
-  setTrackingEnabled(!m_document->config()->swapFileNoSync());
 }
 
 void SwapFile::setTrackingEnabled(bool enable)
@@ -396,7 +395,8 @@ void SwapFile::finishEditing ()
     return;
 
   // write the file to the disk every 15 seconds
-  if (!syncTimer()->isActive())
+  // skip this if we disabled forced syncing 
+  if (!m_document->config()->swapFileNoSync() && !syncTimer()->isActive())
     syncTimer()->start(15000);
   
   // format: qint8

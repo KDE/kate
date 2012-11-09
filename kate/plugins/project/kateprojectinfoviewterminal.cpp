@@ -98,12 +98,12 @@ void KateProjectInfoViewTerminal::loadTerminal ()
                     this, SLOT(overrideShortcut(QKeyEvent*,bool&)));
 }
 
-void KateProjectInfoViewTerminal::overrideShortcut (QKeyEvent *event, bool &override)
+void KateProjectInfoViewTerminal::overrideShortcut (QKeyEvent *, bool &override)
 {
   /**
-   * let konsole only handle ESC
+   * let konsole handle all shortcuts
    */
-  override = (event->key() == Qt::Key_Escape);
+  override = true;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

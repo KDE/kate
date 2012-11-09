@@ -213,12 +213,12 @@ void KateConsole::slotDestroyed ()
   }
 }
 
-void KateConsole::overrideShortcut (QKeyEvent *event, bool &override)
+void KateConsole::overrideShortcut (QKeyEvent *, bool &override)
 {
   /**
-   * let konsole only handle ESC
+   * let konsole handle all shortcuts
    */
-  override = (event->key() == Qt::Key_Escape);
+  override = true;
 }
 
 void KateConsole::showEvent(QShowEvent *)

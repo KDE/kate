@@ -1172,7 +1172,7 @@ static bool progIsInWord(QChar c,bool lookForLowerOnly=false) {
       return !c.isSpace()
       && c != QChar::fromAscii('"') && c != QChar::fromAscii('\'')
       && c != QChar::fromAscii('`') && c!=QChar::fromAscii('-') 
-      && c != QChar::fromAscii('_') && ((!lookForLowerOnly) || (lookForLowerOnly && !c.isLetter()) || (lookForLowerOnly && c.isLetter() && c.isLower()));
+      && c != QChar::fromAscii('_') && ((!lookForLowerOnly) || (lookForLowerOnly && !c.isLetter()) || (lookForLowerOnly && c.isLetter() && !c.isUpper()));
 }
 
 void KateViewInternal::wordLeftSmart ( bool sel )

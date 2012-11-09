@@ -139,7 +139,7 @@ Q_SIGNALS:
     QHash<int, int> m_linesAdded;
     int m_linesModified;
 
-    static float characterOpacity[256];
+    static unsigned char characterOpacity[256];
 };
 
 class KateIconBorder : public QWidget

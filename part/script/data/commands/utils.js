@@ -195,14 +195,14 @@ function _duplicateLines(up)
     var toLine = -1;
 
     var selectionRange = view.selection();
-    if (selectionRange.isValid() && selectionRange.start.line > 0) {
+    if (selectionRange.isValid()) {
         fromLine = selectionRange.start.line;
         toLine = selectionRange.end.line;
         if (document.lineLength(toLine) > 0 && selectionRange.end.column == 0) {
             //if selection ends at beginning of line, skip that line
             toLine--;
         }
-    } else if (view.cursorPosition().line > 0) {
+    } else {
         toLine = view.cursorPosition().line;
         fromLine = toLine;
     }

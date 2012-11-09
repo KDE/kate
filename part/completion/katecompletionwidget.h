@@ -69,11 +69,13 @@ class KATEPART_TESTS_EXPORT KateCompletionWidget : public QFrame
     void startCompletion(const KTextEditor::Range& word, const QList<KTextEditor::CodeCompletionModel*>& models = QList<KTextEditor::CodeCompletionModel*>(), KTextEditor::CodeCompletionModel::InvocationType invocationType = KTextEditor::CodeCompletionModel::ManualInvocation);
     void userInvokedCompletion();
 
+  public Q_SLOTS:
     //Executed when return is pressed while completion is active.
     void execute();
     void cursorDown();
     void cursorUp();
 
+  public:
     void tab(bool shift);
 
     ///Returns whether the current item was expanded/unexpanded

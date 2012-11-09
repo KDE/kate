@@ -137,6 +137,9 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   m_argumentHintTree->setParent(0, Qt::ToolTip);
   m_argumentHintTree->setModel(m_argumentHintModel);
 
+  // trigger completion on double click on completion list  
+  connect(m_entryList, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(execute()));
+  
   connect(m_entryList->verticalScrollBar(), SIGNAL(valueChanged(int)), m_presentationModel, SLOT(placeExpandingWidgets()));
   connect(m_argumentHintTree->verticalScrollBar(), SIGNAL(valueChanged(int)), m_argumentHintModel, SLOT(placeExpandingWidgets()));
   connect(view(), SIGNAL(focusOut(KTextEditor::View*)), this, SLOT(viewFocusOut()));
@@ -153,7 +156,7 @@ KateCompletionWidget::KateCompletionWidget(KateView* parent)
   // No smart lock, no queued connects
   connect(view(), SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), this, SLOT(cursorPositionChanged()));
   connect(view(), SIGNAL(verticalScrollPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), this, SLOT(updatePositionSlot()));
-  
+ 
   /**
    * connect to all possible editing primitives
    */

@@ -25,1090 +25,1090 @@ import traceback
 from qgdb import QGdbInterpreter
 
 class CommandDb(object):
-	"""From GDB's "help all" output, find all the commands it has.
-	Classify them as GDB does, and then add them to a global structure.
-	New and overriding commands can then be added.
-	"""
+    """From GDB's "help all" output, find all the commands it has.
+    Classify them as GDB does, and then add them to a global structure.
+    New and overriding commands can then be added.
+    """
 
-	#
-	# The keyword dictionary contains a series of key, value pairs of the form
-	#
-	#   "keyword" : ( apropos, nextLevel | None, classification | None, function | None )
-	#
-	# The nextLevel allows sequences of keywords to be represented.
-	# Given that the entries are added such that the command prefixes
-	# are added before leaf commands, the apropos string is guaranteed to be
-	# that of the prefix.
-	#
-	# The classification is only present for leaf entries, and reflects the GDB
-	# help classification of the command.
-	#
-	# The function item is None for GDB's own commands, and the implementation for our versions.
-	#
-	keyword_db = None
+    #
+    # The keyword dictionary contains a series of key, value pairs of the form
+    #
+    #   "keyword" : ( apropos, nextLevel | None, classification | None, function | None )
+    #
+    # The nextLevel allows sequences of keywords to be represented.
+    # Given that the entries are added such that the command prefixes
+    # are added before leaf commands, the apropos string is guaranteed to be
+    # that of the prefix.
+    #
+    # The classification is only present for leaf entries, and reflects the GDB
+    # help classification of the command.
+    #
+    # The function item is None for GDB's own commands, and the implementation for our versions.
+    #
+    keyword_db = None
 
-	#
-	# Command classifications according to GDB.
-	#
-	classes_db = None
+    #
+    # Command classifications according to GDB.
+    #
+    classes_db = None
 
-	def __init__(self, helpText):
-		super(CommandDb, self).__init__()
-		#
-		# Start from scratch.
-		#
-		self.keyword_db = dict()
-		self.classes_db = list()
+    def __init__(self, helpText):
+        super(CommandDb, self).__init__()
+        #
+        # Start from scratch.
+        #
+        self.keyword_db = dict()
+        self.classes_db = list()
 
-		clazz = None
-		for line in helpText:
-			if line.startswith("Command class"):
-				clazz = line[15:]
-				self.classes_db.append(clazz)
-			elif line.startswith("Unclassified commands"):
-				clazz = "unclassified"
-				self.classes_db.append(clazz)
-			elif line.find(" -- ") > -1:
-				(command, apropos) = line.split(" -- ")
-				#
-				# Add the command to the database.
-				#
-				keywords = command.split(" ")
-				dictionary = self.keyword_db
-				for i in range(len(keywords)):
-					if keywords[i] in dictionary:
-						(oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keywords[i]]
-						if oldLevel:
-							#
-							# We already have a dictionary at this level.
-							#
-							dictionary = oldLevel
-						else:
-							#
-							# Replace the value in the current level with a
-							# new dictionary representing the additional level
-							# of nesting, and move the original value into it.
-							# Note that the old classification is kept; this
-							# allows the entry to function as a leaf.
-							#
-							newLevel = dict()
-							dictionary[keywords[i]] = (oldApropos, newLevel, oldClazz, oldFunction)
-							dictionary = newLevel
-					else:
-						#
-						# Add the new keyword to the current dictionary.
-						#
-						dictionary[keywords[i]] = (apropos, None, clazz, None)
+        clazz = None
+        for line in helpText:
+            if line.startswith("Command class"):
+                clazz = line[15:]
+                self.classes_db.append(clazz)
+            elif line.startswith("Unclassified commands"):
+                clazz = "unclassified"
+                self.classes_db.append(clazz)
+            elif line.find(" -- ") > -1:
+                (command, apropos) = line.split(" -- ")
+                #
+                # Add the command to the database.
+                #
+                keywords = command.split(" ")
+                dictionary = self.keyword_db
+                for i in range(len(keywords)):
+                    if keywords[i] in dictionary:
+                        (oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keywords[i]]
+                        if oldLevel:
+                            #
+                            # We already have a dictionary at this level.
+                            #
+                            dictionary = oldLevel
+                        else:
+                            #
+                            # Replace the value in the current level with a
+                            # new dictionary representing the additional level
+                            # of nesting, and move the original value into it.
+                            # Note that the old classification is kept; this
+                            # allows the entry to function as a leaf.
+                            #
+                            newLevel = dict()
+                            dictionary[keywords[i]] = (oldApropos, newLevel, oldClazz, oldFunction)
+                            dictionary = newLevel
+                    else:
+                        #
+                        # Add the new keyword to the current dictionary.
+                        #
+                        dictionary[keywords[i]] = (apropos, None, clazz, None)
 
-	def addCustom(self, function):
-		"""Add a custom command to the global database.
-		Will override any previously added entry (i.e. from GDB).
-		"""
-		try:
-			helpText = function.__doc__.split("\n")
-			clazz = helpText[1].lstrip("\t")
-			(command, apropos) = helpText[3].lstrip("\t").split(" -- ")
-			command = command.lstrip()
-		except AttributeError as e:
-			#
-			# If we are overriding an existing command, maybe we already have
-			# the information we need?
-			#
-			command = function.__name__[3:].replace("__", "-").replace("_", " ")
-			(matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry) = self.lookup(command)
-			if command != matchedKeywords or unmatchedKeyword:
-				raise AttributeError("No help for: {}".format(function.__name__))
-			apropos = completions[0]
-			clazz = completions[2]
-		#
-		# Add the command to the database.
-		#
-		keywords = command.split(" ")
-		dictionary = self.keyword_db
-		for i in range(len(keywords) - 1):
-			#
-			# This is a prefix for the final keyword, navigate the tree.
-			#
-			if keywords[i] in dictionary:
-				(oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keywords[i]]
-				if oldLevel:
-					#
-					# We already have a dictionary at this level.
-					#
-					dictionary = oldLevel
-				else:
-					#
-					# Replace the value in the current level with a
-					# new dictionary representing the additional level
-					# of nesting, and move the original value into it.
-					# Note that the old classification is kept; this
-					# allows the entry to function as a leaf.
-					#
-					newLevel = dict()
-					dictionary[keywords[i]] = (oldApropos, newLevel, oldClazz, oldFunction)
-					dictionary = newLevel
-			else:
-				#
-				# Add the new keyword to the current dictionary.
-				#
-				dictionary[keywords[i]] = ("", None, clazz, None)
-		#
-		# Add the final keyword.
-		#
-		keyword = keywords[len(keywords) - 1]
-		if keyword in dictionary:
-			#
-			# Keep any dictionary we already have at this level.
-			#
-			(oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keyword]
-			dictionary[keyword] = (apropos, oldLevel, clazz, function)
-		else:
-			#
-			# Add the new keyword to the current dictionary.
-			#
-			dictionary[keyword] = (apropos, None, clazz, function)
+    def addCustom(self, function):
+        """Add a custom command to the global database.
+        Will override any previously added entry (i.e. from GDB).
+        """
+        try:
+            helpText = function.__doc__.split("\n")
+            clazz = helpText[1].lstrip("\t")
+            (command, apropos) = helpText[3].lstrip("\t").split(" -- ")
+            command = command.lstrip()
+        except AttributeError as e:
+            #
+            # If we are overriding an existing command, maybe we already have
+            # the information we need?
+            #
+            command = function.__name__[3:].replace("__", "-").replace("_", " ")
+            (matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry) = self.lookup(command)
+            if command != matchedKeywords or unmatchedKeyword:
+                raise AttributeError("No help for: {}".format(function.__name__))
+            apropos = completions[0]
+            clazz = completions[2]
+        #
+        # Add the command to the database.
+        #
+        keywords = command.split(" ")
+        dictionary = self.keyword_db
+        for i in range(len(keywords) - 1):
+            #
+            # This is a prefix for the final keyword, navigate the tree.
+            #
+            if keywords[i] in dictionary:
+                (oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keywords[i]]
+                if oldLevel:
+                    #
+                    # We already have a dictionary at this level.
+                    #
+                    dictionary = oldLevel
+                else:
+                    #
+                    # Replace the value in the current level with a
+                    # new dictionary representing the additional level
+                    # of nesting, and move the original value into it.
+                    # Note that the old classification is kept; this
+                    # allows the entry to function as a leaf.
+                    #
+                    newLevel = dict()
+                    dictionary[keywords[i]] = (oldApropos, newLevel, oldClazz, oldFunction)
+                    dictionary = newLevel
+            else:
+                #
+                # Add the new keyword to the current dictionary.
+                #
+                dictionary[keywords[i]] = ("", None, clazz, None)
+        #
+        # Add the final keyword.
+        #
+        keyword = keywords[len(keywords) - 1]
+        if keyword in dictionary:
+            #
+            # Keep any dictionary we already have at this level.
+            #
+            (oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keyword]
+            dictionary[keyword] = (apropos, oldLevel, clazz, function)
+        else:
+            #
+            # Add the new keyword to the current dictionary.
+            #
+            dictionary[keyword] = (apropos, None, clazz, function)
 
-	def lookup(self, line):
-		"""
-		Match the given line containing abbreviated keywords with the keyword
-		database, and return a string with any matched keywords, the first
-		unmatched keyword and a set of possible completions:
+    def lookup(self, line):
+        """
+        Match the given line containing abbreviated keywords with the keyword
+        database, and return a string with any matched keywords, the first
+        unmatched keyword and a set of possible completions:
 
-			(matchedKeywords, None | unmatchedKeyword, completions, lastMatchedEntry)
+            (matchedKeywords, None | unmatchedKeyword, completions, lastMatchedEntry)
 
-		None unmatchedKeyword means that the entire string was matched, and
-		the completions is the matched dictionary entry.
-		A completions set gives possible completions to resolve ambiguity.
-		A completions dictionary means the line itself was not matched.
-		"""
-		dictionary = self.keyword_db
-		matchedKeywords = ""
-		matchedEntry = None
-		previous_dictionary = dictionary
-		previousMatchedEntry = matchedEntry
-		keywords = line.split()
-		for i in range(len(keywords)):
-			if not dictionary:
-				#
-				# Whoops, we have more input than dictionary levels...
-				#
-				return (matchedKeywords, keywords[i], None, matchedEntry)
-			previous_dictionary = dictionary
-			previousMatchedEntry = matchedEntry
-			matches = [key for key in dictionary if key.startswith(keywords[i])]
-			#
-			# Success if we have exactly one match, or an exact hit on the first item.
-			#
-			if len(matches) == 1 or len(matches) > 1 and sorted(matches)[0] == keywords[i]:
-				#
-				# A match! Accumulate the matchedKeywords string.
-				#
-				matches = sorted(matches)
-				matchedEntry = dictionary[matches[0]]
-				(oldApropos, oldLevel, oldClazz, oldFunction) = matchedEntry
-				if len(matchedKeywords) > 0:
-					matchedKeywords = " ".join((matchedKeywords, matches[0]))
-				else:
-					matchedKeywords = matches[0]
-				#
-				# And prepare for the next level.
-				#
-				dictionary = oldLevel
-			elif len(matches) == 0:
-				#
-				# No match for the current keyword.
-				#
-				return (matchedKeywords, keywords[i], dictionary, previousMatchedEntry)
-			else:
-				#
-				# Ambiguous match.
-				#
-				return (matchedKeywords, keywords[i], matches, None)
-		#
-		# All keywords matched!
-		#
-		return (matchedKeywords, None, matchedEntry, matchedEntry)
+        None unmatchedKeyword means that the entire string was matched, and
+        the completions is the matched dictionary entry.
+        A completions set gives possible completions to resolve ambiguity.
+        A completions dictionary means the line itself was not matched.
+        """
+        dictionary = self.keyword_db
+        matchedKeywords = ""
+        matchedEntry = None
+        previous_dictionary = dictionary
+        previousMatchedEntry = matchedEntry
+        keywords = line.split()
+        for i in range(len(keywords)):
+            if not dictionary:
+                #
+                # Whoops, we have more input than dictionary levels...
+                #
+                return (matchedKeywords, keywords[i], None, matchedEntry)
+            previous_dictionary = dictionary
+            previousMatchedEntry = matchedEntry
+            matches = [key for key in dictionary if key.startswith(keywords[i])]
+            #
+            # Success if we have exactly one match, or an exact hit on the first item.
+            #
+            if len(matches) == 1 or len(matches) > 1 and sorted(matches)[0] == keywords[i]:
+                #
+                # A match! Accumulate the matchedKeywords string.
+                #
+                matches = sorted(matches)
+                matchedEntry = dictionary[matches[0]]
+                (oldApropos, oldLevel, oldClazz, oldFunction) = matchedEntry
+                if len(matchedKeywords) > 0:
+                    matchedKeywords = " ".join((matchedKeywords, matches[0]))
+                else:
+                    matchedKeywords = matches[0]
+                #
+                # And prepare for the next level.
+                #
+                dictionary = oldLevel
+            elif len(matches) == 0:
+                #
+                # No match for the current keyword.
+                #
+                return (matchedKeywords, keywords[i], dictionary, previousMatchedEntry)
+            else:
+                #
+                # Ambiguous match.
+                #
+                return (matchedKeywords, keywords[i], matches, None)
+        #
+        # All keywords matched!
+        #
+        return (matchedKeywords, None, matchedEntry, matchedEntry)
 
-	def walk(self, userCallback, userFilter, userArg, indentation = "", prefix = ""):
-		"""
-		Walk the contents of the database.
-		"""
-		self.walkLevel(self.keyword_db, userCallback, userFilter, userArg, indentation, prefix)
+    def walk(self, userCallback, userFilter, userArg, indentation = "", prefix = ""):
+        """
+        Walk the contents of the database.
+        """
+        self.walkLevel(self.keyword_db, userCallback, userFilter, userArg, indentation, prefix)
 
-	def walkLevel(self, level, userCallback, userFilter, userArg, indentation = "", prefix = ""):
-		"""
-		Walk the contents of the database level.
-		"""
-		for keyword in sorted(level.iterkeys()):
-			(oldApropos, oldLevel, oldClazz, oldFunction) = level[keyword]
-			userCallback(userFilter, userArg, indentation, prefix, keyword, oldApropos, oldClazz, oldFunction)
-			if oldLevel:
-				self.walkLevel(oldLevel, userCallback, userFilter, userArg, indentation + ".   ", prefix + keyword + " ")
+    def walkLevel(self, level, userCallback, userFilter, userArg, indentation = "", prefix = ""):
+        """
+        Walk the contents of the database level.
+        """
+        for keyword in sorted(level.iterkeys()):
+            (oldApropos, oldLevel, oldClazz, oldFunction) = level[keyword]
+            userCallback(userFilter, userArg, indentation, prefix, keyword, oldApropos, oldClazz, oldFunction)
+            if oldLevel:
+                self.walkLevel(oldLevel, userCallback, userFilter, userArg, indentation + ".   ", prefix + keyword + " ")
 
-	_result = None
-	def __repr__(self):
-		def callback(clazzPrefix, arg, indentation, prefix, keyword, apropos, clazz, function):
-			"""
-			Dump the contents of the database as help text. Only leaf items which
-			match the given classification prefix are emitted.
-			"""
-			#   "keyword" : ( apropos, nextLevel | None, classification | None, function | None )
-			if clazz.startswith(clazzPrefix) :
-				if not function:
-					function = "None"
-				else:
-					function = function.__name__
-				self._result += indentation + "'" + keyword + "', " + function + "\n"
+    _result = None
+    def __repr__(self):
+        def callback(clazzPrefix, arg, indentation, prefix, keyword, apropos, clazz, function):
+            """
+            Dump the contents of the database as help text. Only leaf items which
+            match the given classification prefix are emitted.
+            """
+            #   "keyword" : ( apropos, nextLevel | None, classification | None, function | None )
+            if clazz.startswith(clazzPrefix) :
+                if not function:
+                    function = "None"
+                else:
+                    function = function.__name__
+                self._result += indentation + "'" + keyword + "', " + function + "\n"
 
-		self._result = ""
-		self.walk(callback, "", self._result)
-		result = self._result
-		self._result = None
-		return result
+        self._result = ""
+        self.walk(callback, "", self._result)
+        result = self._result
+        self._result = None
+        return result
 
 class MyArgs(argparse.ArgumentParser):
-	def __init__(self, **kwargs):
-		super(MyArgs, self).__init__(**kwargs)
+    def __init__(self, **kwargs):
+        super(MyArgs, self).__init__(**kwargs)
 
-	def format_usage(self):
-		formatter = self._get_formatter()
-		formatter._indent_increment = 4
-		formatter.add_usage(self.usage, self._actions,
-				self._mutually_exclusive_groups, "")
-		return formatter.format_help()
+    def format_usage(self):
+        formatter = self._get_formatter()
+        formatter._indent_increment = 4
+        formatter.add_usage(self.usage, self._actions,
+                self._mutually_exclusive_groups, "")
+        return formatter.format_help()
 
-	def format_help(self):
-		formatter = self._get_formatter()
-		formatter._indent_increment = 4
+    def format_help(self):
+        formatter = self._get_formatter()
+        formatter._indent_increment = 4
 
-		# usage
-		formatter.add_usage(self.usage, self._actions,
-				self._mutually_exclusive_groups, "")
+        # usage
+        formatter.add_usage(self.usage, self._actions,
+                self._mutually_exclusive_groups, "")
 
-		# description
-		formatter.add_text(self.description)
+        # description
+        formatter.add_text(self.description)
 
-		# positionals, optionals and user-defined groups
-		for action_group in self._action_groups:
-			formatter.start_section(action_group.title)
-			formatter.add_text(action_group.description)
-			formatter.add_arguments(action_group._group_actions)
-			formatter.end_section()
+        # positionals, optionals and user-defined groups
+        for action_group in self._action_groups:
+            formatter.start_section(action_group.title)
+            formatter.add_text(action_group.description)
+            formatter.add_arguments(action_group._group_actions)
+            formatter.end_section()
 
-		# epilog
-		formatter.add_text(self.epilog)
+        # epilog
+        formatter.add_text(self.epilog)
 
-		# determine help from format above
-		return formatter.format_help()
+        # determine help from format above
+        return formatter.format_help()
 
 class Cli(cmd.Cmd):
-	"""Python CLI for GDB."""
+    """Python CLI for GDB."""
 
-	prompt = "(pygdb) "
+    prompt = "(pygdb) "
 
-	#
-	# Our database of commands.
-	#
-	commandDb = None
+    #
+    # Our database of commands.
+    #
+    commandDb = None
 
-	#
-	# Commands which will have environment variable substitution applied.
-	#
-	filesCommands = None
+    #
+    # Commands which will have environment variable substitution applied.
+    #
+    filesCommands = None
 
-	#
-	# Output handling.
-	#
-	_out = None
+    #
+    # Output handling.
+    #
+    _out = None
 
-	def __init__(self, printLine = print):
-		cmd.Cmd.__init__(self)
-		self._out = printLine
-		#_gdbThreadStarted = QSemaphore()
-		#self.gdb = DebuggerIo(_gdbThreadStarted)
-		#self.gdb.start()
-		#_gdbThreadStarted.acquire()
-		self.gdb = QGdbInterpreter(["gdb"])
-		#
-		# Ask GDB for all the commands it has.
-		#
-		self.createCommandDb()
+    def __init__(self, printLine = print):
+        cmd.Cmd.__init__(self)
+        self._out = printLine
+        #_gdbThreadStarted = QSemaphore()
+        #self.gdb = DebuggerIo(_gdbThreadStarted)
+        #self.gdb.start()
+        #_gdbThreadStarted.acquire()
+        self.gdb = QGdbInterpreter(["gdb"])
+        #
+        # Ask GDB for all the commands it has.
+        #
+        self.createCommandDb()
 
-	def dbg0(self, msg, *args):
-		self._out("ERR-0", msg.format(*args))
+    def dbg0(self, msg, *args):
+        self._out("ERR-0", msg.format(*args))
 
-	def dbg1(self, msg, *args):
-		self._out("DBG-1", msg.format(*args))
+    def dbg1(self, msg, *args):
+        self._out("DBG-1", msg.format(*args))
 
-	def dbg2(self, msg, *args):
-		self._out("DBG-2", msg.format(*args))
+    def dbg2(self, msg, *args):
+        self._out("DBG-2", msg.format(*args))
 
-	def createCommandDb(self):
-		"""Create a command database we can use to implement our CLI."""
-		#
-		# First, read all the command line help to find out what GDB has.
-		#
-		error, helpText = self.gdb.consoleCommand("h all")
-		if error:
-			raise QGdbException("Unable to read supported commands: {} '{}'..'{}'".format(error, helpText[0], helpText[-1]))
-		self.commandDb = CommandDb(helpText)
-		self.findFilesCommand()
-		#
-		# Add in all our overrides; that's any routine starting doXXX.
-		#
-		customCommands = [c for c in dir(self) if c.startswith("do_")]
-		for cmd in customCommands:
-			self.commandDb.addCustom(getattr(self, cmd))
-		#self.dbg0(self.commandDb)
+    def createCommandDb(self):
+        """Create a command database we can use to implement our CLI."""
+        #
+        # First, read all the command line help to find out what GDB has.
+        #
+        error, helpText = self.gdb.consoleCommand("h all")
+        if error:
+            raise QGdbException("Unable to read supported commands: {} '{}'..'{}'".format(error, helpText[0], helpText[-1]))
+        self.commandDb = CommandDb(helpText)
+        self.findFilesCommand()
+        #
+        # Add in all our overrides; that's any routine starting doXXX.
+        #
+        customCommands = [c for c in dir(self) if c.startswith("do_")]
+        for cmd in customCommands:
+            self.commandDb.addCustom(getattr(self, cmd))
+        #self.dbg0(self.commandDb)
 
-	def findFilesCommand(self):
-		"""Make a list of each command which takes a file/path."""
+    def findFilesCommand(self):
+        """Make a list of each command which takes a file/path."""
 
-		def matchClass(clazz_exact, arg, indentation, prefix, keyword, apropos, clazz, function):
-			"""
-			Add contents of the database which are in the given clazz_exact to
-			the files set.
-			"""
-			if clazz == clazz_exact:
-				arg[prefix + keyword] = apropos
+        def matchClass(clazz_exact, arg, indentation, prefix, keyword, apropos, clazz, function):
+            """
+            Add contents of the database which are in the given clazz_exact to
+            the files set.
+            """
+            if clazz == clazz_exact:
+                arg[prefix + keyword] = apropos
 
-		def matchRegExp(regexp, arg, indentation, prefix, keyword, apropos, clazz, function):
-			"""
-			Add contents of the database which match the given regexp to the
-			files set.
-			"""
-			if regexp.search(keyword) or regexp.search(apropos):
-				arg[prefix + keyword] = apropos
+        def matchRegExp(regexp, arg, indentation, prefix, keyword, apropos, clazz, function):
+            """
+            Add contents of the database which match the given regexp to the
+            files set.
+            """
+            if regexp.search(keyword) or regexp.search(apropos):
+                arg[prefix + keyword] = apropos
 
-		#
-		# Put all the commands we want to wrap into a dictinary, to avoid duplicates.
-		#
-		self.filesCommands = dict()
-		self.commandDb.walk(matchClass, "files", self.filesCommands)
-		self.commandDb.walk(matchRegExp, re.compile(" path", re.IGNORECASE), self.filesCommands)
-		self.commandDb.walk(matchRegExp, re.compile(" file", re.IGNORECASE), self.filesCommands)
+        #
+        # Put all the commands we want to wrap into a dictinary, to avoid duplicates.
+        #
+        self.filesCommands = dict()
+        self.commandDb.walk(matchClass, "files", self.filesCommands)
+        self.commandDb.walk(matchRegExp, re.compile(" path", re.IGNORECASE), self.filesCommands)
+        self.commandDb.walk(matchRegExp, re.compile(" file", re.IGNORECASE), self.filesCommands)
 
-	def complete(self, text, state):
-		"""Use the command database to provide completions."""
-		matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry = self.commandDb.lookup(text)
-		self.dbg0([c[len(text):] for c in completions])
-		return completions
+    def complete(self, text, state):
+        """Use the command database to provide completions."""
+        matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry = self.commandDb.lookup(text)
+        self.dbg0([c[len(text):] for c in completions])
+        return completions
 
-	def completedefault(self, *ignored):
-		self.dbg0("completedefault",ignored)
+    def completedefault(self, *ignored):
+        self.dbg0("completedefault",ignored)
 
-	def completenames(self, text, *ignored):
-		self.dbg0("completenames",text,ignored)
+    def completenames(self, text, *ignored):
+        self.dbg0("completenames",text,ignored)
 
-	def parseline(self, line):
-		"""Parse the line into a command name and a string containing
-		the arguments.  Returns a tuple containing (command, args, line).
-		'command' and 'args' may be None if the line couldn't be parsed.
-		"""
-		line = line.strip()
-		if not line:
-			return None, None, line
-		elif line[0] == '?':
-			line = 'help ' + line[1:]
-		elif line[0] == '!':
-			if hasattr(self, 'do_shell'):
-				line = 'shell ' + line[1:]
-			else:
-				return None, None, line
-		#
-		# Parse the keywords, and separate with "_". The rest is args.
-		#
-		(matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(line)
-		matchedFrags = matched.count(" ") + matched.count("-") + 1
-		frags = line.split(None, matchedFrags);
-		#
-		# Invoke GDB...
-		#
-		cmd = matched.replace(" ", "_").replace("-", "__")
-		if matchedFrags >= len(frags):
-			args = ""
-		else:
-			args = frags[matchedFrags]
-		return cmd, args, line
+    def parseline(self, line):
+        """Parse the line into a command name and a string containing
+        the arguments.  Returns a tuple containing (command, args, line).
+        'command' and 'args' may be None if the line couldn't be parsed.
+        """
+        line = line.strip()
+        if not line:
+            return None, None, line
+        elif line[0] == '?':
+            line = 'help ' + line[1:]
+        elif line[0] == '!':
+            if hasattr(self, 'do_shell'):
+                line = 'shell ' + line[1:]
+            else:
+                return None, None, line
+        #
+        # Parse the keywords, and separate with "_". The rest is args.
+        #
+        (matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(line)
+        matchedFrags = matched.count(" ") + matched.count("-") + 1
+        frags = line.split(None, matchedFrags);
+        #
+        # Invoke GDB...
+        #
+        cmd = matched.replace(" ", "_").replace("-", "__")
+        if matchedFrags >= len(frags):
+            args = ""
+        else:
+            args = frags[matchedFrags]
+        return cmd, args, line
 
-	#
-	# See http://lists.baseurl.org/pipermail/yum-devel/2011-August/008495.html
-	#
-	def ____cmdloop(self):
-		""" Sick hack for readline. """
-		import __builtin__
-		oraw_input = raw_input
-		owriter    = sys.stdout
-		_ostdout   = owriter  #.stream
+    #
+    # See http://lists.baseurl.org/pipermail/yum-devel/2011-August/008495.html
+    #
+    def ____cmdloop(self):
+        """ Sick hack for readline. """
+        import __builtin__
+        oraw_input = raw_input
+        owriter    = sys.stdout
+        _ostdout   = owriter  #.stream
 
-		def _sick_hack_raw_input(prompt):
-			sys.stdout = _ostdout
-			#rret = oraw_input(to_utf8(prompt))
-			rret = oraw_input(prompt)
-			sys.stdout = owriter
+        def _sick_hack_raw_input(prompt):
+            sys.stdout = _ostdout
+            #rret = oraw_input(to_utf8(prompt))
+            rret = oraw_input(prompt)
+            sys.stdout = owriter
 
-			return rret
+            return rret
 
-		__builtin__.raw_input = _sick_hack_raw_input
-		try:
-			cret = cmd.Cmd.cmdloop(self)
-		finally:
-			__builtin__.raw_input  = oraw_input
-		return cret
+        __builtin__.raw_input = _sick_hack_raw_input
+        try:
+            cret = cmd.Cmd.cmdloop(self)
+        finally:
+            __builtin__.raw_input  = oraw_input
+        return cret
 
-	def asyncWrapper(self, command, args):
-		"""Execute a command which causes the inferior to run.
-		"""
-		self.dbg0("asyncWrapper", command, args)
-		command = "{} {}".format(command, args)
-		self.dbg0("command", command)
-		results = self.gdb.consoleCommand(command)
+    def asyncWrapper(self, command, args):
+        """Execute a command which causes the inferior to run.
+        """
+        self.dbg0("asyncWrapper", command, args)
+        command = "{} {}".format(command, args)
+        self.dbg0("command", command)
+        results = self.gdb.consoleCommand(command)
 
 
 ##########################
 ## Breakpoint commands ##
 ##########################
 
-	def do_break(self, args, getSynopsis = False):
-		"""
-		breakpoints
-		NAME
-			break -- Set breakpoint at specified line or function
+    def do_break(self, args, getSynopsis = False):
+        """
+        breakpoints
+        NAME
+            break -- Set breakpoint at specified line or function
 
-		DESCRIPTION
-			LOCATION may be a probe point, line number, function name, or "*" and an address.
-			If a line number is specified, break at start of code for that line.
-			If a function is specified, break at start of code for that function.
-			If an address is specified, break at that exact address.
-			With no LOCATION, uses current execution address of the selected
-			stack frame.  This is useful for breaking on return to a stack frame.
+        DESCRIPTION
+            LOCATION may be a probe point, line number, function name, or "*" and an address.
+            If a line number is specified, break at start of code for that line.
+            If a function is specified, break at start of code for that function.
+            If an address is specified, break at that exact address.
+            With no LOCATION, uses current execution address of the selected
+            stack frame.  This is useful for breaking on return to a stack frame.
 
-			THREADNUM is the number from "info threads".
-			CONDITION is a boolean expression.
+            THREADNUM is the number from "info threads".
+            CONDITION is a boolean expression.
 
-			Multiple breakpoints at one place are permitted, and useful if their
-			conditions are different.
+            Multiple breakpoints at one place are permitted, and useful if their
+            conditions are different.
 
-			Do "help breakpoints" for info on other commands dealing with breakpoints.
-		"""
-		parser = MyArgs(prog = "break", add_help = False)
-		parser.add_argument("-t", "--temporary", action = "store_true", dest = "temporary")
-		parser.add_argument("-h", "--hardware", action = "store_true", dest = "hw")
-		parser.add_argument("-d", "--disabled", action = "store_true", dest = "disabled")
-		parser.add_argument("-a", "--after", type = int, dest = "after")
-		parser.add_argument("-p", "--probe", choices = ["generic", "stab"], dest = "probe", help = "Generic or SystemTap probe")
-		parser.add_argument("location", nargs='?')
-		# TODO add these back when we have optional subcommands working.
-		#subparsers = parser.add_subparsers()
-		#if_parser = subparsers.add_parser("if", add_help = False, help = "if CONDITION")
-		#if_parser.add_argument("condition")
-		#thread_parser = subparsers.add_parser("thread", add_help = False, help = "thread TID")
-		#thread_parser.add_argument("tid", type = int)
-		if getSynopsis:
-			return parser.format_help()
-		args = parser.parse_args(args.split())
-		results = self.gdb._breakpoints.breakpointCreate(**vars(args))
+            Do "help breakpoints" for info on other commands dealing with breakpoints.
+        """
+        parser = MyArgs(prog = "break", add_help = False)
+        parser.add_argument("-t", "--temporary", action = "store_true", dest = "temporary")
+        parser.add_argument("-h", "--hardware", action = "store_true", dest = "hw")
+        parser.add_argument("-d", "--disabled", action = "store_true", dest = "disabled")
+        parser.add_argument("-a", "--after", type = int, dest = "after")
+        parser.add_argument("-p", "--probe", choices = ["generic", "stab"], dest = "probe", help = "Generic or SystemTap probe")
+        parser.add_argument("location", nargs='?')
+        # TODO add these back when we have optional subcommands working.
+        #subparsers = parser.add_subparsers()
+        #if_parser = subparsers.add_parser("if", add_help = False, help = "if CONDITION")
+        #if_parser.add_argument("condition")
+        #thread_parser = subparsers.add_parser("thread", add_help = False, help = "thread TID")
+        #thread_parser.add_argument("tid", type = int)
+        if getSynopsis:
+            return parser.format_help()
+        args = parser.parse_args(args.split())
+        results = self.gdb._breakpoints.breakpointCreate(**vars(args))
 
-	def do_info_breakpoints(self, args):
-		results = self.gdb._breakpoints.list(args)
-		if not len(results):
-			return
-		#
-		# Print rows.
-		#
-		fmt = "{:<7} {:<14} {:<4} {:<3} {}"
-		self._out(fmt.format("Num", "Type", "Disp", "Enb", "Where"))
-		for u in results:
-			try:
-				u = u[u'bkpt']
-				try:
-					location = u["fullname"]
-				except KeyError:
-					try:
-						location = u["file"]
-					except KeyError:
-						try:
-							location = u["original-location"]
-						except KeyError:
-							location = u["at"]
-							u["type"] = "";
-							u["disp"] = "";
-				try:
-					addr = u["addr"]
-				except KeyError:
-					addr = 0
-				try:
-					func = u["func"]
-					line = u["line"]
-				except KeyError:
-					func = ""
-					line = 0
-				location = "{} {} at {}:{}".format(addr, func, location, line)
-				self._out(fmt.format(u["number"], u["type"], u["disp"], u["enabled"], location))
-				try:
-					times = u["times"]
-					if times != "0":
-						self._out("        breakpoint already hit {} times".format(times))
-				except KeyError:
-					pass
-			except KeyError:
-				#
-				# Not a standalone breakpoint, just an overload of one.
-				#
-				location = "{} {}".format(u["addr"], u["at"])
-				self._out(fmt.format(u["number"], "", "", u["enabled"], location))
+    def do_info_breakpoints(self, args):
+        results = self.gdb._breakpoints.list(args)
+        if not len(results):
+            return
+        #
+        # Print rows.
+        #
+        fmt = "{:<7} {:<14} {:<4} {:<3} {}"
+        self._out(fmt.format("Num", "Type", "Disp", "Enb", "Where"))
+        for u in results:
+            try:
+                u = u[u'bkpt']
+                try:
+                    location = u["fullname"]
+                except KeyError:
+                    try:
+                        location = u["file"]
+                    except KeyError:
+                        try:
+                            location = u["original-location"]
+                        except KeyError:
+                            location = u["at"]
+                            u["type"] = "";
+                            u["disp"] = "";
+                try:
+                    addr = u["addr"]
+                except KeyError:
+                    addr = 0
+                try:
+                    func = u["func"]
+                    line = u["line"]
+                except KeyError:
+                    func = ""
+                    line = 0
+                location = "{} {} at {}:{}".format(addr, func, location, line)
+                self._out(fmt.format(u["number"], u["type"], u["disp"], u["enabled"], location))
+                try:
+                    times = u["times"]
+                    if times != "0":
+                        self._out("        breakpoint already hit {} times".format(times))
+                except KeyError:
+                    pass
+            except KeyError:
+                #
+                # Not a standalone breakpoint, just an overload of one.
+                #
+                location = "{} {}".format(u["addr"], u["at"])
+                self._out(fmt.format(u["number"], "", "", u["enabled"], location))
 
 ###################
 ## Data commands ##
 ###################
 
-	def do_call(self, args, getSynopsis = False):
-		parser = MyArgs(prog = "call", add_help = False)
-		parser.add_argument("expr")
-		if getSynopsis:
-			return parser.format_help()
-		args = parser.parse_args(args.split())
-		# TODO assign to local var
-		self.gdb._data.evalute(**vars(args))
+    def do_call(self, args, getSynopsis = False):
+        parser = MyArgs(prog = "call", add_help = False)
+        parser.add_argument("expr")
+        if getSynopsis:
+            return parser.format_help()
+        args = parser.parse_args(args.split())
+        # TODO assign to local var
+        self.gdb._data.evalute(**vars(args))
 
-	def do_disassemble(self, args, getSynopsis = False):
-		parser = MyArgs(prog = "disassemble", add_help = False)
-		parser.add_argument("-s", "--start-addr", type = long)
-		parser.add_argument("-e", "--end-addr", type = long)
-		parser.add_argument("-f", "--filename")
-		parser.add_argument("-l", "--linenum", type = int)
-		parser.add_argument("-n", "--lines", type = int)
-		# ["disassembly_only", "with_source", "with_opcodes", "all"]
-		parser.add_argument("mode", type = int, choices = [ 0, 1, 2, 3 ])
-		if getSynopsis:
-			return parser.format_help()
-		args = parser.parse_args(args.split())
-		result = self.gdb._data.disassemble(**vars(args))
-		for u in result:
-			self._out(u[u'address'], u[u'inst'])
+    def do_disassemble(self, args, getSynopsis = False):
+        parser = MyArgs(prog = "disassemble", add_help = False)
+        parser.add_argument("-s", "--start-addr", type = long)
+        parser.add_argument("-e", "--end-addr", type = long)
+        parser.add_argument("-f", "--filename")
+        parser.add_argument("-l", "--linenum", type = int)
+        parser.add_argument("-n", "--lines", type = int)
+        # ["disassembly_only", "with_source", "with_opcodes", "all"]
+        parser.add_argument("mode", type = int, choices = [ 0, 1, 2, 3 ])
+        if getSynopsis:
+            return parser.format_help()
+        args = parser.parse_args(args.split())
+        result = self.gdb._data.disassemble(**vars(args))
+        for u in result:
+            self._out(u[u'address'], u[u'inst'])
 
-	def do_output(self, args, getSynopsis = False):
-		parser = MyArgs(prog = "output", add_help = False)
-		parser.add_argument("expr")
-		if getSynopsis:
-			return parser.format_help()
-		args = parser.parse_args(args.split())
-		self.gdb._data.evalute(**vars(args))
+    def do_output(self, args, getSynopsis = False):
+        parser = MyArgs(prog = "output", add_help = False)
+        parser.add_argument("expr")
+        if getSynopsis:
+            return parser.format_help()
+        args = parser.parse_args(args.split())
+        self.gdb._data.evalute(**vars(args))
 
-	def do_print(self, args, getSynopsis = False):
-		parser = MyArgs(prog = "print", add_help = False)
-		parser.add_argument("expr")
-		if getSynopsis:
-			return parser.format_help()
-		args = parser.parse_args(args.split())
-		# TODO assign to local var
-		self.gdb._data.evalute(**vars(args))
+    def do_print(self, args, getSynopsis = False):
+        parser = MyArgs(prog = "print", add_help = False)
+        parser.add_argument("expr")
+        if getSynopsis:
+            return parser.format_help()
+        args = parser.parse_args(args.split())
+        # TODO assign to local var
+        self.gdb._data.evalute(**vars(args))
 
-	def do_print(self, args):
-		"""
-		data
-		NAME
-			print -- Print value of expression EXP
+    def do_print(self, args):
+        """
+        data
+        NAME
+            print -- Print value of expression EXP
 
-		SYNOPSIS
-			print EXP
+        SYNOPSIS
+            print EXP
 
-		DESCRIPTION
-			EXP can be any of:
-			-       Inferior variables of the lexical environment of the selected
-				stack frame, plus all those whose scope is global or an entire file.
-			-       $NUM gets previous value number NUM.  $ and $$ are the last two
-				values. $$NUM refers to NUM'th value back from the last one.
-			-       Names starting with $ refer to registers (with the values they
-				would have if the program were to return to the stack frame now
-				selected, restoring all registers saved by frames farther in) or
-				else to ...
-			-       GDB "convenience" variables. Use assignment expressions to give
-				values to convenience variables.
-			-       {TYPE}ADREXP refers to a datum of data type TYPE, located at address
-				ADREXP. @ is a binary operator for treating consecutive data objects
-				anywhere in memory as an array.  FOO@NUM gives an array whose first
-				element is FOO, whose second element is stored in the space following
-				where FOO is stored, etc.  FOO must be an expression whose value
-				resides in memory.
-			-       Python expressions. In case of ambiguity between an inferior
-				variable and a python variable, use the "gdb print" or "py print"
-				commands.
+        DESCRIPTION
+            EXP can be any of:
+            -       Inferior variables of the lexical environment of the selected
+                stack frame, plus all those whose scope is global or an entire file.
+            -       $NUM gets previous value number NUM.  $ and $$ are the last two
+                values. $$NUM refers to NUM'th value back from the last one.
+            -       Names starting with $ refer to registers (with the values they
+                would have if the program were to return to the stack frame now
+                selected, restoring all registers saved by frames farther in) or
+                else to ...
+            -       GDB "convenience" variables. Use assignment expressions to give
+                values to convenience variables.
+            -       {TYPE}ADREXP refers to a datum of data type TYPE, located at address
+                ADREXP. @ is a binary operator for treating consecutive data objects
+                anywhere in memory as an array.  FOO@NUM gives an array whose first
+                element is FOO, whose second element is stored in the space following
+                where FOO is stored, etc.  FOO must be an expression whose value
+                resides in memory.
+            -       Python expressions. In case of ambiguity between an inferior
+                variable and a python variable, use the "gdb print" or "py print"
+                commands.
 
-			EXP may be preceded with /FMT, where FMT is a format letter
-			but no count or size letter (see "x" command).
+            EXP may be preceded with /FMT, where FMT is a format letter
+            but no count or size letter (see "x" command).
 
-		EXAMPLES
-			print main+1		Print inferior expression.
-			print $1		Print previous value.
-			print $getenv("HOME")	Print convenience function
-			print gdb.PYTHONDIR	Print Python expression
-		"""
-		try:
-			#
-			# Assume its an object known to GDB.
-			#
-			self.do_gdb("print " + args, name_errors = True)
-		except NameError as e:
-			#
-			# Try a Python variable.
-			#
-			try:
-				self._out(eval(args))
-			except NameError as f:
-				self._out("No GDB" + str(e)[2:-1] + ", and Python " + str(f))
+        EXAMPLES
+            print main+1        Print inferior expression.
+            print $1        Print previous value.
+            print $getenv("HOME")    Print convenience function
+            print gdb.PYTHONDIR    Print Python expression
+        """
+        try:
+            #
+            # Assume its an object known to GDB.
+            #
+            self.do_gdb("print " + args, name_errors = True)
+        except NameError as e:
+            #
+            # Try a Python variable.
+            #
+            try:
+                self._out(eval(args))
+            except NameError as f:
+                self._out("No GDB" + str(e)[2:-1] + ", and Python " + str(f))
 
-	def do_info_registers(self, args, getSynopsis = False):
-		parser = MyArgs(prog = "info registers", add_help = False)
-		parser.add_argument("regName", nargs = "?")
-		if getSynopsis:
-			return parser.format_help()
-		args = parser.parse_args(args.split())
-		# TODO assign to local var
-		results = self.gdb._data.listRegisterValues(**vars(args))
-		#
-		# Print rows.
-		#
-		for u in results:
-			self._out(u[u'name'], u[u'value'])
+    def do_info_registers(self, args, getSynopsis = False):
+        parser = MyArgs(prog = "info registers", add_help = False)
+        parser.add_argument("regName", nargs = "?")
+        if getSynopsis:
+            return parser.format_help()
+        args = parser.parse_args(args.split())
+        # TODO assign to local var
+        results = self.gdb._data.listRegisterValues(**vars(args))
+        #
+        # Print rows.
+        #
+        for u in results:
+            self._out(u[u'name'], u[u'value'])
 
-	def do_info_all__registers(self, args, getSynopsis = False):
-		parser = MyArgs(prog = "info all-registers", add_help = False)
-		parser.add_argument("regName", nargs = "?")
-		if getSynopsis:
-			return parser.format_help()
-		args = parser.parse_args(args.split())
-		# TODO assign to local var
-		results = self.gdb._data.listRegisterValues(**vars(args))
-		#
-		# Print rows.
-		#
-		for u in results:
-			self._out(u[u'name'], u[u'value'])
+    def do_info_all__registers(self, args, getSynopsis = False):
+        parser = MyArgs(prog = "info all-registers", add_help = False)
+        parser.add_argument("regName", nargs = "?")
+        if getSynopsis:
+            return parser.format_help()
+        args = parser.parse_args(args.split())
+        # TODO assign to local var
+        results = self.gdb._data.listRegisterValues(**vars(args))
+        #
+        # Print rows.
+        #
+        for u in results:
+            self._out(u[u'name'], u[u'value'])
 
-	def do_x(self, args, getSynopsis = False):
-		parser = MyArgs(prog = "x", add_help = False)
-		parser.add_argument("address", type = long)
-		parser.add_argument("word_format", choices = ["x", "d", "u", "o", "t", "a", "c", "f"])
-		parser.add_argument("word_size", type = int)
-		parser.add_argument("nr_rows", type = int)
-		parser.add_argument("nr_cols", type = int)
-		parser.add_argument("aschar", nargs="?", default = ".")
-		parser.add_argument("-o", "--offset-bytes", type = long)
-		if getSynopsis:
-			return parser.format_help()
-		args = parser.parse_args(args.split())
-		# TODO assign to local var
-		results = self.gdb._data.readMemory(**vars(args))
-		for u in results:
-			self._out(u[u'addr'], u[u'data'])
+    def do_x(self, args, getSynopsis = False):
+        parser = MyArgs(prog = "x", add_help = False)
+        parser.add_argument("address", type = long)
+        parser.add_argument("word_format", choices = ["x", "d", "u", "o", "t", "a", "c", "f"])
+        parser.add_argument("word_size", type = int)
+        parser.add_argument("nr_rows", type = int)
+        parser.add_argument("nr_cols", type = int)
+        parser.add_argument("aschar", nargs="?", default = ".")
+        parser.add_argument("-o", "--offset-bytes", type = long)
+        if getSynopsis:
+            return parser.format_help()
+        args = parser.parse_args(args.split())
+        # TODO assign to local var
+        results = self.gdb._data.readMemory(**vars(args))
+        for u in results:
+            self._out(u[u'addr'], u[u'data'])
 
 #####################
 ## Program control ##
 #####################
         def do_advance(self, args):
-		"""
-		running
-		NAME
-			advance -- Continue the program up to the given location (same form as args for break command)
+        """
+        running
+        NAME
+            advance -- Continue the program up to the given location (same form as args for break command)
 
-		SYNOPSIS
-			advance [PROBE_MODIFIER] [LOCATION] [thread THREADNUM] [if CONDITION]
+        SYNOPSIS
+            advance [PROBE_MODIFIER] [LOCATION] [thread THREADNUM] [if CONDITION]
 
-		DESCRIPTION
-			Continue the program up to the given location (same form as args for break command).
-			Execution will also stop upon exit from the current stack frame.
-		"""
-		self.asyncWrapper("advance", args)
+        DESCRIPTION
+            Continue the program up to the given location (same form as args for break command).
+            Execution will also stop upon exit from the current stack frame.
+        """
+        self.asyncWrapper("advance", args)
 
         def do_continue(self, args):
-		"""
-		running
-		NAME
-			continue -- Continue program being debugged
+        """
+        running
+        NAME
+            continue -- Continue program being debugged
 
-		SYNOPSIS
-			continue [N|-a]
+        SYNOPSIS
+            continue [N|-a]
 
-		DESCRIPTION
-			Continue program being debugged, after signal or breakpoint.
-			If proceeding from breakpoint, a number N may be used as an argument,
-			which means to set the ignore count of that breakpoint to N - 1 (so that
-			the breakpoint won't break until the Nth time it is reached).
+        DESCRIPTION
+            Continue program being debugged, after signal or breakpoint.
+            If proceeding from breakpoint, a number N may be used as an argument,
+            which means to set the ignore count of that breakpoint to N - 1 (so that
+            the breakpoint won't break until the Nth time it is reached).
 
-			If non-stop mode is enabled, continue only the current thread,
-			otherwise all the threads in the program are continued.  To
-			continue all stopped threads in non-stop mode, use the -a option.
-			Specifying -a and an ignore count simultaneously is an error.
-		"""
-		self.gdb.miCommandExec("-exec-continue", args)
+            If non-stop mode is enabled, continue only the current thread,
+            otherwise all the threads in the program are continued.  To
+            continue all stopped threads in non-stop mode, use the -a option.
+            Specifying -a and an ignore count simultaneously is an error.
+        """
+        self.gdb.miCommandExec("-exec-continue", args)
 
         def do_finish(self, args):
-		"""
-		running
-		NAME
-			finish -- Execute until selected stack frame returns
+        """
+        running
+        NAME
+            finish -- Execute until selected stack frame returns
 
-		SYNOPSIS
-			finish
+        SYNOPSIS
+            finish
 
-		DESCRIPTION
-			Execute until selected stack frame returns.
-			Upon return, the value returned is printed and put in the value history.
-		"""
-		self.gdb.miCommandExec("-exec-finish", args)
+        DESCRIPTION
+            Execute until selected stack frame returns.
+            Upon return, the value returned is printed and put in the value history.
+        """
+        self.gdb.miCommandExec("-exec-finish", args)
 
         def do_interrupt(self, args):
-		self.gdb.miCommandExec("-exec-interrupt", args)
+        self.gdb.miCommandExec("-exec-interrupt", args)
 
         def do_jump(self, args):
-		"""
-		running
-		NAME
-			jump -- Continue program being debugged at specified line or address
+        """
+        running
+        NAME
+            jump -- Continue program being debugged at specified line or address
 
-		SYNOPSIS
-			jump LINENUM|*ADDR
+        SYNOPSIS
+            jump LINENUM|*ADDR
 
-		DESCRIPTION
-			Continue program being debugged at specified line or address.
-			Give as argument either LINENUM or *ADDR, where ADDR is an expression
-			for an address to start at.
-		"""
-		self.asyncWrapper("jump", args)
+        DESCRIPTION
+            Continue program being debugged at specified line or address.
+            Give as argument either LINENUM or *ADDR, where ADDR is an expression
+            for an address to start at.
+        """
+        self.asyncWrapper("jump", args)
 
         def do_kill(self, args):
-		self.gdb.miCommandExec("-exec-abort", args)
+        self.gdb.miCommandExec("-exec-abort", args)
 
         def do_next(self, args):
-		"""
-		running
-		NAME
-			next -- Step program
+        """
+        running
+        NAME
+            next -- Step program
 
-		SYNOPSIS
-			next [N]
+        SYNOPSIS
+            next [N]
 
-		DESCRIPTION
-			Step program, proceeding through subroutine calls.
-			Like the "step" command as long as subroutine calls do not happen;
-			when they do, the call is treated as one instruction.
-			Argument N means do this N times (or till program stops for another reason).
-		"""
-		self.gdb.miCommandExec("-exec-next", args)
+        DESCRIPTION
+            Step program, proceeding through subroutine calls.
+            Like the "step" command as long as subroutine calls do not happen;
+            when they do, the call is treated as one instruction.
+            Argument N means do this N times (or till program stops for another reason).
+        """
+        self.gdb.miCommandExec("-exec-next", args)
 
-	def do_nexti(self, args):
-		"""
-		running
-		NAME
-			nexti -- Step one instruction
+    def do_nexti(self, args):
+        """
+        running
+        NAME
+            nexti -- Step one instruction
 
-		SYNOPSIS
-			nexti [N]
+        SYNOPSIS
+            nexti [N]
 
-		DESCRIPTION
-			Step one instruction, but proceed through subroutine calls.
-			Argument N means do this N times (or till program stops for another reason).
-		"""
-		self.gdb.miCommandExec("-exec-next-instruction", args)
+        DESCRIPTION
+            Step one instruction, but proceed through subroutine calls.
+            Argument N means do this N times (or till program stops for another reason).
+        """
+        self.gdb.miCommandExec("-exec-next-instruction", args)
 
-	def do_return(self, args):
-		self.gdb.miCommandExec("-exec-return", args)
+    def do_return(self, args):
+        self.gdb.miCommandExec("-exec-return", args)
 
-	def do_reverse_continue(self, args):
-		"""
-		running
-		NAME
-			reverse-continue -- Continue program being debugged but run it in reverse
+    def do_reverse_continue(self, args):
+        """
+        running
+        NAME
+            reverse-continue -- Continue program being debugged but run it in reverse
 
-		SYNOPSIS
-			reverse-continue [N]
+        SYNOPSIS
+            reverse-continue [N]
 
-		DESCRIPTION
-			Continue program being debugged but run it in reverse.
-			If proceeding from breakpoint, a number N may be used as an argument,
-			which means to set the ignore count of that breakpoint to N - 1 (so that
-			the breakpoint won't break until the Nth time it is reached).
-		"""
-		self.asyncWrapper("reverse-continue", args)
+        DESCRIPTION
+            Continue program being debugged but run it in reverse.
+            If proceeding from breakpoint, a number N may be used as an argument,
+            which means to set the ignore count of that breakpoint to N - 1 (so that
+            the breakpoint won't break until the Nth time it is reached).
+        """
+        self.asyncWrapper("reverse-continue", args)
 
-	def do_reverse_finish(self, args):
-		"""
-		running
-		NAME
-			reverse-finish -- Execute backward until just before selected stack frame is called
+    def do_reverse_finish(self, args):
+        """
+        running
+        NAME
+            reverse-finish -- Execute backward until just before selected stack frame is called
 
-		SYNOPSIS
-			reverse-finish
+        SYNOPSIS
+            reverse-finish
 
-		DESCRIPTION
-			Execute backward until just before selected stack frame is called.
-		"""
-		self.asyncWrapper("reverse-finish", args)
+        DESCRIPTION
+            Execute backward until just before selected stack frame is called.
+        """
+        self.asyncWrapper("reverse-finish", args)
 
-	def do_reverse_next(self, args):
-		"""
-		running
-		NAME
-			reverse-next -- Step program backward
+    def do_reverse_next(self, args):
+        """
+        running
+        NAME
+            reverse-next -- Step program backward
 
-		SYNOPSIS
-			reverse-next [N]
+        SYNOPSIS
+            reverse-next [N]
 
-		DESCRIPTION
-			Step program backward, proceeding through subroutine calls.
-			Like the "reverse-step" command as long as subroutine calls do not happen;
-			when they do, the call is treated as one instruction.
-			Argument N means do this N times (or till program stops for another reason).
-		"""
-		self.asyncWrapper("reverse-next", args)
+        DESCRIPTION
+            Step program backward, proceeding through subroutine calls.
+            Like the "reverse-step" command as long as subroutine calls do not happen;
+            when they do, the call is treated as one instruction.
+            Argument N means do this N times (or till program stops for another reason).
+        """
+        self.asyncWrapper("reverse-next", args)
 
-	def do_reverse_nexti(self, args):
-		"""
-		running
-		NAME
-			reverse-nexti -- Step backward one instruction
+    def do_reverse_nexti(self, args):
+        """
+        running
+        NAME
+            reverse-nexti -- Step backward one instruction
 
-		SYNOPSIS
-			reverse-nexti [N]
+        SYNOPSIS
+            reverse-nexti [N]
 
-		DESCRIPTION
-			Step backward one instruction, but proceed through called subroutines.
-			Argument N means do this N times (or till program stops for another reason).
-		"""
-		self.asyncWrapper("reverse-nexti", args)
+        DESCRIPTION
+            Step backward one instruction, but proceed through called subroutines.
+            Argument N means do this N times (or till program stops for another reason).
+        """
+        self.asyncWrapper("reverse-nexti", args)
 
-	def do_reverse_step(self, args):
-		"""
-		running
-		NAME
-			reverse-step -- Step program backward until it reaches the beginning of another source line
+    def do_reverse_step(self, args):
+        """
+        running
+        NAME
+            reverse-step -- Step program backward until it reaches the beginning of another source line
 
-		SYNOPSIS
-			reverse-step [N]
+        SYNOPSIS
+            reverse-step [N]
 
-		DESCRIPTION
-			Step program backward until it reaches the beginning of another source line.
-			Argument N means do this N times (or till program stops for another reason).
-		"""
-		self.asyncWrapper("reverse-step", args)
+        DESCRIPTION
+            Step program backward until it reaches the beginning of another source line.
+            Argument N means do this N times (or till program stops for another reason).
+        """
+        self.asyncWrapper("reverse-step", args)
 
-	def do_reverse_stepi(self, args):
-		"""
-		running
-		NAME
-			reverse-stepi -- Step backward exactly one instruction
+    def do_reverse_stepi(self, args):
+        """
+        running
+        NAME
+            reverse-stepi -- Step backward exactly one instruction
 
-		SYNOPSIS
-			reverse-stepi [N]
+        SYNOPSIS
+            reverse-stepi [N]
 
-		DESCRIPTION
-			Step backward exactly one instruction.
-			Argument N means do this N times (or till program stops for another reason).
-		"""
-		self.asyncWrapper("reverse-stepi", args)
+        DESCRIPTION
+            Step backward exactly one instruction.
+            Argument N means do this N times (or till program stops for another reason).
+        """
+        self.asyncWrapper("reverse-stepi", args)
 
-	def do_run(self, args):
-		"""
-		running
-		NAME
-			run -- Start debugged program
+    def do_run(self, args):
+        """
+        running
+        NAME
+            run -- Start debugged program
 
-		SYNOPSIS
-			run [ARGS]
+        SYNOPSIS
+            run [ARGS]
 
-		DESCRIPTION
-			Start debugged program.  You may specify arguments to give it.
-			Args may include "*", or "[...]"; they are expanded using "sh".
-			Input and output redirection with ">", "<", or ">>" are also allowed.
+        DESCRIPTION
+            Start debugged program.  You may specify arguments to give it.
+            Args may include "*", or "[...]"; they are expanded using "sh".
+            Input and output redirection with ">", "<", or ">>" are also allowed.
 
-			With no arguments, uses arguments last specified (with "run" or "set args").
-			To cancel previous arguments and run with no arguments,
-			use "set args" without arguments.
-		"""
-		tty = self.gdb.startIoThread()
-		self.gdb.miCommandOne("-inferior-tty-set {}".format(tty))
-		if args:
-			self.do_set_args(args)
-		self.gdb.miCommandExec("-exec-run", args)
+            With no arguments, uses arguments last specified (with "run" or "set args").
+            To cancel previous arguments and run with no arguments,
+            use "set args" without arguments.
+        """
+        tty = self.gdb.startIoThread()
+        self.gdb.miCommandOne("-inferior-tty-set {}".format(tty))
+        if args:
+            self.do_set_args(args)
+        self.gdb.miCommandExec("-exec-run", args)
 
         def do_set_args(self, args):
-		self.gdb.miCommandExec("-exec-arguments", args)
+        self.gdb.miCommandExec("-exec-arguments", args)
 
         def do_show_args(self, args):
-		self.gdb.miCommandExec("-exec-show-arguments", args)
+        self.gdb.miCommandExec("-exec-show-arguments", args)
 
-	def do_signal(self, args):
-		"""
-		running
-		NAME
-			signal -- Continue program giving it signal specified by the argument
+    def do_signal(self, args):
+        """
+        running
+        NAME
+            signal -- Continue program giving it signal specified by the argument
 
-		SYNOPSIS
-			signal N
+        SYNOPSIS
+            signal N
 
-		DESCRIPTION
-			Continue program giving it signal specified by the argument.
-			An argument of "0" means continue program without giving it a signal.
-		"""
-		self.asyncWrapper("signal", args)
+        DESCRIPTION
+            Continue program giving it signal specified by the argument.
+            An argument of "0" means continue program without giving it a signal.
+        """
+        self.asyncWrapper("signal", args)
 
-	def do_start(self, args):
-		"""
-		running
-		NAME
-			start -- Run the debugged program until the beginning of the main procedure
+    def do_start(self, args):
+        """
+        running
+        NAME
+            start -- Run the debugged program until the beginning of the main procedure
 
-		SYNOPSIS
-			start [ARGS]
+        SYNOPSIS
+            start [ARGS]
 
-		DESCRIPTION
-			Run the debugged program until the beginning of the main procedure.
-			You may specify arguments to give to your program, just as with the
-			"run" command.
-		"""
-		self.do_break("--temporary main")
-		self.do_run(args)
+        DESCRIPTION
+            Run the debugged program until the beginning of the main procedure.
+            You may specify arguments to give to your program, just as with the
+            "run" command.
+        """
+        self.do_break("--temporary main")
+        self.do_run(args)
 
-	def do_step(self, args):
-		"""
-		running
-		NAME
-			step -- Step program until it reaches a different source line
+    def do_step(self, args):
+        """
+        running
+        NAME
+            step -- Step program until it reaches a different source line
 
-		SYNOPSIS
-			step [N]
+        SYNOPSIS
+            step [N]
 
-		DESCRIPTION
-			Step program until it reaches a different source line.
-			Argument N means do this N times (or till program stops for another reason).
-		"""
-		self.gdb.miCommandExec("-exec-step", args)
+        DESCRIPTION
+            Step program until it reaches a different source line.
+            Argument N means do this N times (or till program stops for another reason).
+        """
+        self.gdb.miCommandExec("-exec-step", args)
 
-	def do_stepi(self, args):
-		"""
-		running
-		NAME
-			stepi -- Step one instruction exactly
+    def do_stepi(self, args):
+        """
+        running
+        NAME
+            stepi -- Step one instruction exactly
 
-		SYNOPSIS
-			stepi [N]
+        SYNOPSIS
+            stepi [N]
 
-		DESCRIPTION
-			Step one instruction exactly.
-			Argument N means do this N times (or till program stops for another reason).
-		"""
-		self.gdb.miCommandExec("-exec-step-instruction", args)
+        DESCRIPTION
+            Step one instruction exactly.
+            Argument N means do this N times (or till program stops for another reason).
+        """
+        self.gdb.miCommandExec("-exec-step-instruction", args)
 
-	def do_until(self, args):
-		"""
-		running
-		NAME
-			until -- Execute until the program reaches a source line greater than the current
+    def do_until(self, args):
+        """
+        running
+        NAME
+            until -- Execute until the program reaches a source line greater than the current
 
-		SYNOPSIS
-			until [PROBE_MODIFIER] [LOCATION] [thread THREADNUM] [if CONDITION]
+        SYNOPSIS
+            until [PROBE_MODIFIER] [LOCATION] [thread THREADNUM] [if CONDITION]
 
-		DESCRIPTION
-			Execute until the program reaches a source line greater than the current
-			or a specified location (same args as break command) within the current frame.
-		"""
-		self.gdb.miCommandExec("-exec-until", args)
+        DESCRIPTION
+            Execute until the program reaches a source line greater than the current
+            or a specified location (same args as break command) within the current frame.
+        """
+        self.gdb.miCommandExec("-exec-until", args)
 
-	def do_info_source(self, args):
-		u = self.gdb._programControl.currentSource()
-		self._out("Current source file is {}:{}".format(u["file"], u[u'line']))
-		try:
-			file = u["fullname"]
-		except KeyError:
-			file = u["file"]
-		self._out("Located in {}".format(file))
-		if u[u'macro-info'] != "0":
-			self._out("Does include preprocessor macro info.")
-		else:
-			self._out("Does not include preprocessor macro info.")
+    def do_info_source(self, args):
+        u = self.gdb._programControl.currentSource()
+        self._out("Current source file is {}:{}".format(u["file"], u[u'line']))
+        try:
+            file = u["fullname"]
+        except KeyError:
+            file = u["file"]
+        self._out("Located in {}".format(file))
+        if u[u'macro-info'] != "0":
+            self._out("Does include preprocessor macro info.")
+        else:
+            self._out("Does not include preprocessor macro info.")
 
-	def do_info_sources(self, args):
-		results = self.gdb._programControl.allSources()
-		for u in results:
-			try:
-				file = u["fullname"]
-			except KeyError:
-				file = u["file"]
-			self._out(file)
+    def do_info_sources(self, args):
+        results = self.gdb._programControl.allSources()
+        for u in results:
+            try:
+                file = u["fullname"]
+            except KeyError:
+                file = u["file"]
+            self._out(file)
 
-	def do_info_files(self, args):
-		#self.gdb._programControl.execSections()
-		self.gdb._programControl.symbolFiles()
+    def do_info_files(self, args):
+        #self.gdb._programControl.execSections()
+        self.gdb._programControl.symbolFiles()
 
-	def do_info_target(self, args):
-		self.do_info_files(args)
+    def do_info_target(self, args):
+        self.do_info_files(args)
 
-	def do_info_sharedlibrary(self, args):
-		self.gdb._programControl.sharedLibraries()
+    def do_info_sharedlibrary(self, args):
+        self.gdb._programControl.sharedLibraries()
 
-	def do_file(self, filename):
-		self.gdb._programControl.setExecAndSymbols(filename)
+    def do_file(self, filename):
+        self.gdb._programControl.setExecAndSymbols(filename)
 
-	#def do_exec_file(self, filename):
-	#	self.gdb._programControl.setExecOnly(filename)
+    #def do_exec_file(self, filename):
+    #    self.gdb._programControl.setExecOnly(filename)
 
-	#def do_symbol_file(self, filename):
-	#	self.gdb._programControl.setSymbolsOnly(filename)
+    #def do_symbol_file(self, filename):
+    #    self.gdb._programControl.setSymbolsOnly(filename)
 
 ####################
 ## Stack commands ##
 ####################
 
-	def do_bt(self, args):
-		results = self.gdb._stack.stackFrames(1)
-		#
-		# Print rows.
-		#
-		for f in results:
-			u = f[u'frame']
-			try:
-				location = u["from"]
-			except KeyError:
-				try:
-					location = u["fullname"] + ":" + u["line"]
-				except KeyError:
-					try:
-						location = u["file"] + ":" + u["line"]
-					except KeyError:
-						self._out("#{}  {} in {} ()".format(u["level"], u["addr"], u["func"]))
-						continue
-			self._out("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], location))
+    def do_bt(self, args):
+        results = self.gdb._stack.stackFrames(1)
+        #
+        # Print rows.
+        #
+        for f in results:
+            u = f[u'frame']
+            try:
+                location = u["from"]
+            except KeyError:
+                try:
+                    location = u["fullname"] + ":" + u["line"]
+                except KeyError:
+                    try:
+                        location = u["file"] + ":" + u["line"]
+                    except KeyError:
+                        self._out("#{}  {} in {} ()".format(u["level"], u["addr"], u["func"]))
+                        continue
+            self._out("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], location))
 
-	def do_backtrace(self, args):
-		self.do_bt(args)
+    def do_backtrace(self, args):
+        self.do_bt(args)
 
-	def do_where(self, args):
-		self.do_bt(args)
+    def do_where(self, args):
+        self.do_bt(args)
 
-	#def do_depth(self, tid, maxFrames = None):
+    #def do_depth(self, tid, maxFrames = None):
 
-	def do_frame(self, args):
-		if not args:
-			self.do_info_frame(args)
-		else:
-			self.do_info_frame((1, 3))
+    def do_frame(self, args):
+        if not args:
+            self.do_info_frame(args)
+        else:
+            self.do_info_frame((1, 3))
 
-	def do_info_frame(self, args):
-		u = self.gdb._stack.frameInfo(1)
-		self._out("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
+    def do_info_frame(self, args):
+        u = self.gdb._stack.frameInfo(1)
+        self._out("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
 
-	def do_info_locals(self, args):
-		#self.gdb._stack.stackArguments(1, 1)
-		results = self.gdb._stack.frameVariables(1, 1, 8)
-		for u in results:
-			try:
-				self._out("arg {} {} = {} = {}".format(u["arg"], u["name"], u["type"], u["value"]))
-			except KeyError:
-				try:
-					self._out("{} = {} = {}".format(u["name"], u["type"], u["value"]))
-				except KeyError:
-					self._out("{} = {}".format(u["name"], u["value"]))
+    def do_info_locals(self, args):
+        #self.gdb._stack.stackArguments(1, 1)
+        results = self.gdb._stack.frameVariables(1, 1, 8)
+        for u in results:
+            try:
+                self._out("arg {} {} = {} = {}".format(u["arg"], u["name"], u["type"], u["value"]))
+            except KeyError:
+                try:
+                    self._out("{} = {} = {}".format(u["name"], u["type"], u["value"]))
+                except KeyError:
+                    self._out("{} = {}".format(u["name"], u["value"]))
 
 #####################
 ## Target commands ##
@@ -1129,41 +1129,41 @@ class Cli(cmd.Cmd):
 #####################
 #'-thread-select'
 
-	def do_info_threads(self, args):
-		currentThread, results = self.gdb._threads.list(args)
-		if not len(results):
-			return
-		#
-		# Print rows.
-		#
-		fmt = "{:<1} {:<4} {:<37} {}"
-		self._out(fmt.format(" ", "Id", "Target Id", "Where"))
-		for v in results:
-			if currentThread == v["id"]:
-				active = "*"
-			else:
-				active = " "
-			frame = v["frame"]
-			args = frame["args"]
-			args = ", ".join(["{}={}".format(d["name"], d["value"]) for d in args])
-			try:
-				location = frame["fullname"]
-			except KeyError:
-				try:
-					location = frame["file"]
-				except KeyError:
-					location = frame["from"]
-			try:
-				line = frame["line"]
-			except KeyError:
-				line = ""
-			location = "{}: {}({}) at {}:{}".format(frame["addr"], frame["func"], args, location, line)
-			name = v["name"]
-			if name:
-				name += ", "
-			else:
-				name = ""
-			self._out(fmt.format(active, v["id"], name + v["target-id"], location))
+    def do_info_threads(self, args):
+        currentThread, results = self.gdb._threads.list(args)
+        if not len(results):
+            return
+        #
+        # Print rows.
+        #
+        fmt = "{:<1} {:<4} {:<37} {}"
+        self._out(fmt.format(" ", "Id", "Target Id", "Where"))
+        for v in results:
+            if currentThread == v["id"]:
+                active = "*"
+            else:
+                active = " "
+            frame = v["frame"]
+            args = frame["args"]
+            args = ", ".join(["{}={}".format(d["name"], d["value"]) for d in args])
+            try:
+                location = frame["fullname"]
+            except KeyError:
+                try:
+                    location = frame["file"]
+                except KeyError:
+                    location = frame["from"]
+            try:
+                line = frame["line"]
+            except KeyError:
+                line = ""
+            location = "{}: {}({}) at {}:{}".format(frame["addr"], frame["func"], args, location, line)
+            name = v["name"]
+            if name:
+                name += ", "
+            else:
+                name = ""
+            self._out(fmt.format(active, v["id"], name + v["target-id"], location))
 
 ######################
 ## General commands ##
@@ -1183,312 +1183,312 @@ class Cli(cmd.Cmd):
 #'-list-features'
 
         def do_apropos(self, args):
-		"""
-		support
-		NAME
-			apropos -- Search for commands matching a REGEXP
+        """
+        support
+        NAME
+            apropos -- Search for commands matching a REGEXP
 
-		SYNOPSIS
-			apropos REGEXP
+        SYNOPSIS
+            apropos REGEXP
 
-		DESCRIPTION
-			Type "apropos word" to search for commands related to "word".
-		"""
+        DESCRIPTION
+            Type "apropos word" to search for commands related to "word".
+        """
 
-		def printAproposEntry(regexp, arg, indentation, prefix, keyword, apropos, clazz, function):
-			"""Dump the contents of the database as help text.
-			Only leaf items which match the given regexp are emitted.
-			"""
-			if regexp.search(keyword) or regexp.search(apropos):
-				self._out("\t" + prefix + keyword + " -- " + apropos)
+        def printAproposEntry(regexp, arg, indentation, prefix, keyword, apropos, clazz, function):
+            """Dump the contents of the database as help text.
+            Only leaf items which match the given regexp are emitted.
+            """
+            if regexp.search(keyword) or regexp.search(apropos):
+                self._out("\t" + prefix + keyword + " -- " + apropos)
 
-		#
-		# We emit our help database, so that we can override GDB if needed.
-		#
-		if args == "":
-			self._out("REGEXP string is empty")
-			return
-		self._out("LIST OF COMMANDS MATCHING '" + args + "'")
-		self.commandDb.walk(printAproposEntry, re.compile(args, re.IGNORECASE), None, "\t")
-		print
+        #
+        # We emit our help database, so that we can override GDB if needed.
+        #
+        if args == "":
+            self._out("REGEXP string is empty")
+            return
+        self._out("LIST OF COMMANDS MATCHING '" + args + "'")
+        self.commandDb.walk(printAproposEntry, re.compile(args, re.IGNORECASE), None, "\t")
+        print
 
-	def do_EOF(self, args):
-		"""
-		alias
-		NAME
-			<Ctrl-D> -- Exit GDB.
+    def do_EOF(self, args):
+        """
+        alias
+        NAME
+            <Ctrl-D> -- Exit GDB.
 
-		SYNOPSIS
-			<Ctrl-D>
+        SYNOPSIS
+            <Ctrl-D>
 
-		DESCRIPTION
-			Shortcut for "quit".
-		"""
-		return True
+        DESCRIPTION
+            Shortcut for "quit".
+        """
+        return True
 
-	def do_quit(self, args):
-		"""
-		support
-		NAME
-			quit -- Exit GDB.
+    def do_quit(self, args):
+        """
+        support
+        NAME
+            quit -- Exit GDB.
 
-		SYNOPSIS
-			quit
+        SYNOPSIS
+            quit
 
-		DESCRIPTION
-			Exit the interpreter. Shortcut: <Ctrl-D>
-		"""
-		return True
+        DESCRIPTION
+            Exit the interpreter. Shortcut: <Ctrl-D>
+        """
+        return True
 
-	def do_gdb(self, args):
-		"""
-		support
-		NAME
-			gdb -- Execute a GDB command directly.
+    def do_gdb(self, args):
+        """
+        support
+        NAME
+            gdb -- Execute a GDB command directly.
 
-		SYNOPSIS
-			gdb NATIVE-GDB-COMMAND
+        SYNOPSIS
+            gdb NATIVE-GDB-COMMAND
 
-		DESCRIPTION
-			The command is executed directly, bypassing any overrides in this wrapper.
+        DESCRIPTION
+            The command is executed directly, bypassing any overrides in this wrapper.
 
-		EXAMPLES
-			gdb help		Get GDB's native help.
-		"""
-		error, result = self.gdb.consoleCommand(args)
-		if error:
-			raise QGdbException("Error executing command: {} '{}'".format(error, result))
-		for line in result:
-			self._out(line)
+        EXAMPLES
+            gdb help        Get GDB's native help.
+        """
+        error, result = self.gdb.consoleCommand(args)
+        if error:
+            raise QGdbException("Error executing command: {} '{}'".format(error, result))
+        for line in result:
+            self._out(line)
 
-	def do_help(self, args):
-		"""
-		support
-		NAME
-			help -- Print list of commands
+    def do_help(self, args):
+        """
+        support
+        NAME
+            help -- Print list of commands
 
-		SYNOPSIS
-			help [COMMAND|COMMAND-CLASS]
+        SYNOPSIS
+            help [COMMAND|COMMAND-CLASS]
 
-		DESCRIPTION
-			Type "help" followed by a class name for a list of commands in that class.
-			Type "help all" for the list of all commands.
-			Type "help" followed by command name for full documentation.
-			Type "apropos word" to search for commands related to "word".
-			Command name abbreviations are allowed if unambiguous.
-		"""
+        DESCRIPTION
+            Type "help" followed by a class name for a list of commands in that class.
+            Type "help all" for the list of all commands.
+            Type "help" followed by command name for full documentation.
+            Type "apropos word" to search for commands related to "word".
+            Command name abbreviations are allowed if unambiguous.
+        """
 
-		def printManHeader(command, apropos, synopsis, description):
-			if apropos:
-				self._out("NAME\n\t" + command + " -- " + apropos)
-			else:
-				self._out("NAME\n\t" + command)
-			if synopsis:
-				self._out("\nSYNOPSIS\n\t" + synopsis.replace("\n", "\n\t"))
-			if description:
-				self._out("\n" + description)
+        def printManHeader(command, apropos, synopsis, description):
+            if apropos:
+                self._out("NAME\n\t" + command + " -- " + apropos)
+            else:
+                self._out("NAME\n\t" + command)
+            if synopsis:
+                self._out("\nSYNOPSIS\n\t" + synopsis.replace("\n", "\n\t"))
+            if description:
+                self._out("\n" + description)
 
-		def printClassHelp(keyword):
-			#
-			# Now check if the user asked for class-based help.
-			#
-			if keyword == "all":
-				#
-				# We emit our help database, so that we can override GDB if needed.
-				#
-				self._out("LIST OF COMMANDS")
-				self.commandDb.walk(printAproposEntry, "", None, "\t")
-				print
-				return True
-			else:
-				classes = [name for name in self.commandDb.classes_db if name.startswith(keyword)]
-				if len(classes) == 1:
-					#
-					# Emit GDB help for the class.
-					#
-					error, helpText = self.gdb.consoleCommand("help " + classes[0])
-					apropos = helpText[0]
-					synopsis = None
-					for i in range(1, len(helpText)):
-						if helpText[i] == "":
-							#
-							# Skip the "List of commands"
-							#
-							helpText = helpText[i + 1:]
-							break
-						if synopsis:
-							synopsis = "\n\t".join((synopsis, helpText[i]))
-						else:
-							synopsis = helpText[i]
-					printManHeader(classes[0], apropos, synopsis, "LIST OF COMMANDS")
-					for line in helpText[2:]:
-						self._out("\t" + line)
-					return True
-				elif len(classes) > 1:
-					message = "Ambiguous keyword: help"
-					self._out(" ".join((message, keywords[0], str(sorted(classes)))))
-					self._out("^".rjust(len(message) + 2))
-					return True
-			return False
+        def printClassHelp(keyword):
+            #
+            # Now check if the user asked for class-based help.
+            #
+            if keyword == "all":
+                #
+                # We emit our help database, so that we can override GDB if needed.
+                #
+                self._out("LIST OF COMMANDS")
+                self.commandDb.walk(printAproposEntry, "", None, "\t")
+                print
+                return True
+            else:
+                classes = [name for name in self.commandDb.classes_db if name.startswith(keyword)]
+                if len(classes) == 1:
+                    #
+                    # Emit GDB help for the class.
+                    #
+                    error, helpText = self.gdb.consoleCommand("help " + classes[0])
+                    apropos = helpText[0]
+                    synopsis = None
+                    for i in range(1, len(helpText)):
+                        if helpText[i] == "":
+                            #
+                            # Skip the "List of commands"
+                            #
+                            helpText = helpText[i + 1:]
+                            break
+                        if synopsis:
+                            synopsis = "\n\t".join((synopsis, helpText[i]))
+                        else:
+                            synopsis = helpText[i]
+                    printManHeader(classes[0], apropos, synopsis, "LIST OF COMMANDS")
+                    for line in helpText[2:]:
+                        self._out("\t" + line)
+                    return True
+                elif len(classes) > 1:
+                    message = "Ambiguous keyword: help"
+                    self._out(" ".join((message, keywords[0], str(sorted(classes)))))
+                    self._out("^".rjust(len(message) + 2))
+                    return True
+            return False
 
-		def printAproposEntry(clazzPrefix, arg, indentation, prefix, keyword, apropos, clazz, function):
-			"""Dump the contents of the database as help text.
-			Only leaf items which match the given classification prefix are emitted.
-			"""
-			if clazz.startswith(clazzPrefix) :
-				self._out(indentation + keyword + " -- " + apropos)
+        def printAproposEntry(clazzPrefix, arg, indentation, prefix, keyword, apropos, clazz, function):
+            """Dump the contents of the database as help text.
+            Only leaf items which match the given classification prefix are emitted.
+            """
+            if clazz.startswith(clazzPrefix) :
+                self._out(indentation + keyword + " -- " + apropos)
 
-		keywords = args.split()
-		if (keywords):
-			#
-			# First try to find command-specific help.
-			#
-			(matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(args)
-			if unmatched:
-				if isinstance(completions, dict):
-					if printClassHelp(keywords[0]):
-						return
-					#
-					# It was not a class-based request for help...
-					#
-					message = " ".join(("Keyword not found: help", matched)).rstrip()
-					self._out(" ".join((message, unmatched, str(sorted(completions.keys())))))
-					self._out("^".rjust(len(message) + 2))
-				else:
-					message = " ".join(("Ambiguous keyword: help", matched)).rstrip()
-					self._out(" ".join((message, unmatched, str(sorted(completions)))))
-					self._out("^".rjust(len(message) + 2))
-				return
-			#
-			# We got a match!
-			#
-			(oldApropos, oldLevel, oldClazz, oldFunction) = completions
-			if oldFunction and oldFunction.__doc__:
-				#
-				# Emit help for our implementation if we have it.
-				#
-				helpText = oldFunction.__doc__.split("\n")
-				synopsis = helpText[6].lstrip()
-				if synopsis.startswith(matched):
-					helpText = [line[2:] for line in helpText[11:]]
-				else:
-					helpText = [line[2:] for line in helpText[8:]]
-					synopsis = matched
-			else:
-				#
-				# Emit help for the GDB implementation.
-				#
-				error, helpText = self.gdb.consoleCommand("help " + matched)
-				if len(helpText) > 1 and (helpText[1].startswith(matched) or helpText[1].startswith("Usage:")):
-					synopsis = helpText[1]
-					helpText = ["\t" + line for line in helpText[2:]]
-				elif len(helpText) > 2 and (helpText[2].startswith(matched) or helpText[2].startswith("Usage:")):
-					synopsis = helpText[2]
-					helpText = ["\t" + line for line in helpText[3:]]
-				else:
-					helpText = ["\t" + line for line in helpText]
-					synopsis = matched
-			#
-			# If we have a dynamically generated synopsis, use it.
-			#
-			try:
-				synopsis = oldFunction(None, getSynopsis = True)
-				synopsis = synopsis[:-1]
-			except TypeError:
-				pass
-			printManHeader(matched, oldApropos, synopsis, "DESCRIPTION")
-			for line in helpText:
-				self._out(line)
-		else:
-			#
-			# Emit summary help from GDB.
-			#
-			error, helpText = self.gdb.consoleCommand("help")
-			self._out("LIST OF CLASSES OF COMMANDS")
-			for line in helpText[2:]:
-				self._out("\t" + line)
+        keywords = args.split()
+        if (keywords):
+            #
+            # First try to find command-specific help.
+            #
+            (matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(args)
+            if unmatched:
+                if isinstance(completions, dict):
+                    if printClassHelp(keywords[0]):
+                        return
+                    #
+                    # It was not a class-based request for help...
+                    #
+                    message = " ".join(("Keyword not found: help", matched)).rstrip()
+                    self._out(" ".join((message, unmatched, str(sorted(completions.keys())))))
+                    self._out("^".rjust(len(message) + 2))
+                else:
+                    message = " ".join(("Ambiguous keyword: help", matched)).rstrip()
+                    self._out(" ".join((message, unmatched, str(sorted(completions)))))
+                    self._out("^".rjust(len(message) + 2))
+                return
+            #
+            # We got a match!
+            #
+            (oldApropos, oldLevel, oldClazz, oldFunction) = completions
+            if oldFunction and oldFunction.__doc__:
+                #
+                # Emit help for our implementation if we have it.
+                #
+                helpText = oldFunction.__doc__.split("\n")
+                synopsis = helpText[6].lstrip()
+                if synopsis.startswith(matched):
+                    helpText = [line[2:] for line in helpText[11:]]
+                else:
+                    helpText = [line[2:] for line in helpText[8:]]
+                    synopsis = matched
+            else:
+                #
+                # Emit help for the GDB implementation.
+                #
+                error, helpText = self.gdb.consoleCommand("help " + matched)
+                if len(helpText) > 1 and (helpText[1].startswith(matched) or helpText[1].startswith("Usage:")):
+                    synopsis = helpText[1]
+                    helpText = ["\t" + line for line in helpText[2:]]
+                elif len(helpText) > 2 and (helpText[2].startswith(matched) or helpText[2].startswith("Usage:")):
+                    synopsis = helpText[2]
+                    helpText = ["\t" + line for line in helpText[3:]]
+                else:
+                    helpText = ["\t" + line for line in helpText]
+                    synopsis = matched
+            #
+            # If we have a dynamically generated synopsis, use it.
+            #
+            try:
+                synopsis = oldFunction(None, getSynopsis = True)
+                synopsis = synopsis[:-1]
+            except TypeError:
+                pass
+            printManHeader(matched, oldApropos, synopsis, "DESCRIPTION")
+            for line in helpText:
+                self._out(line)
+        else:
+            #
+            # Emit summary help from GDB.
+            #
+            error, helpText = self.gdb.consoleCommand("help")
+            self._out("LIST OF CLASSES OF COMMANDS")
+            for line in helpText[2:]:
+                self._out("\t" + line)
 
 #################################
 ## Fallthrough command handler ##
 #################################
 
-	def default(self, args):
-		"""
-		Default command handler, for all commands not matched by a hand-crafted
-		do_xxx() handler, and any special handlers.
-		"""
+    def default(self, args):
+        """
+        Default command handler, for all commands not matched by a hand-crafted
+        do_xxx() handler, and any special handlers.
+        """
 
-		def getenv(name):
-			from ctypes import CDLL, cChar_p, stringAt
-			libc = CDLL("libc.so.6")
-			libc.getenv.argtypes = [cChar_p]
-			libc.getenv.restype = cChar_p
-			return libc.getenv(name)
+        def getenv(name):
+            from ctypes import CDLL, cChar_p, stringAt
+            libc = CDLL("libc.so.6")
+            libc.getenv.argtypes = [cChar_p]
+            libc.getenv.restype = cChar_p
+            return libc.getenv(name)
 
-		def expandEnvironmentVariables(line):
-			"""
-			Fetch any environment variabled, i.e. $FOO or ${FOO}
-			"""
-			regexp = re.compile(r"\${(\w+)}|\$(\w+)")
-			match = regexp.search(line)
-			while match:
-				#
-				# Extract the name of the environment variable.
-				#
-				envVar = match.group(1)
-				if not envVar:
-					envVar = match.group(2)
-				#
-				# Substitute value.
-				#
-				envVar = getenv(envVar)
-				if not envVar:
-					envVar = ""
-				line = line[:match.start()] + envVar + line[match.end():]
-				#
-				# No recursive resolution for us, so continue from after the
-				# substitution...
-				#
-				match = regexp.search(line, match.start() + len(envVar))
-			return line
+        def expandEnvironmentVariables(line):
+            """
+            Fetch any environment variabled, i.e. $FOO or ${FOO}
+            """
+            regexp = re.compile(r"\${(\w+)}|\$(\w+)")
+            match = regexp.search(line)
+            while match:
+                #
+                # Extract the name of the environment variable.
+                #
+                envVar = match.group(1)
+                if not envVar:
+                    envVar = match.group(2)
+                #
+                # Substitute value.
+                #
+                envVar = getenv(envVar)
+                if not envVar:
+                    envVar = ""
+                line = line[:match.start()] + envVar + line[match.end():]
+                #
+                # No recursive resolution for us, so continue from after the
+                # substitution...
+                #
+                match = regexp.search(line, match.start() + len(envVar))
+            return line
 
-		#
-		# Was the matched part a command which takes files/paths? If so, expand
-		# any embedded environment variables.
-		#
-		(matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(args)
-		if matched in self.filesCommands:
-			self.dbg0("is files command", matched)
-			#
-			# Extract the arguments, and apply getenv to any contained references.
-			#
-			matchedFrags = matched.count(" ") + 1
-			frags = args.split(None, matchedFrags);
-			if matchedFrags >= len(frags):
-				args = ""
-			else:
-				args = frags[matchedFrags]
-			args = " ".join((matched, expandEnvironmentVariables(args)))
-		#
-		# Invoke GDB...
-		#
-		self.do_gdb(args)
+        #
+        # Was the matched part a command which takes files/paths? If so, expand
+        # any embedded environment variables.
+        #
+        (matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(args)
+        if matched in self.filesCommands:
+            self.dbg0("is files command", matched)
+            #
+            # Extract the arguments, and apply getenv to any contained references.
+            #
+            matchedFrags = matched.count(" ") + 1
+            frags = args.split(None, matchedFrags);
+            if matchedFrags >= len(frags):
+                args = ""
+            else:
+                args = frags[matchedFrags]
+            args = " ".join((matched, expandEnvironmentVariables(args)))
+        #
+        # Invoke GDB...
+        #
+        self.do_gdb(args)
 
 if __name__ == "__main__":
-	import sys
+    import sys
 
-	class Test(QObject):
-		def __init__(self, parent = None):
-			gdb = Cli()
-			gdb.do_file("/usr/local/bin/kate")
-			gdb.do_start(None)
-			gdb.do_break("QWidget::QWidget")
-			gdb.do_info_breakpoints(None)
-			gdb.do_continue(None)
-			gdb.do_x("140737488346128 x 4 8 2") # 0x7fffffffdc10
-			gdb.do_disassemble("-s 140737488346128 -e 140737488346140 0") # 0x7fffffffdc10
-			gdb.cmdloop()
+    class Test(QObject):
+        def __init__(self, parent = None):
+            gdb = Cli()
+            gdb.do_file("/usr/local/bin/kate")
+            gdb.do_start(None)
+            gdb.do_break("QWidget::QWidget")
+            gdb.do_info_breakpoints(None)
+            gdb.do_continue(None)
+            gdb.do_x("140737488346128 x 4 8 2") # 0x7fffffffdc10
+            gdb.do_disassemble("-s 140737488346128 -e 140737488346140 0") # 0x7fffffffdc10
+            gdb.cmdloop()
 
-	app = QCoreApplication(sys.argv)
-	foo = Test()
-	#sys.exit(app.exec_())
+    app = QCoreApplication(sys.argv)
+    foo = Test()
+    #sys.exit(app.exec_())

@@ -16,11 +16,12 @@
 #
 
 from __future__ import print_function
-from PyQt4.QtCore import *
 import argparse
 import cmd
 import re
 import traceback
+
+from PyQt4.QtCore import QCoreApplication, QObject
 
 from qgdb import QGdbInterpreter
 
@@ -706,7 +707,7 @@ class Cli(cmd.Cmd):
 #####################
 ## Program control ##
 #####################
-        def do_advance(self, args):
+    def do_advance(self, args):
         """
         running
         NAME
@@ -721,7 +722,7 @@ class Cli(cmd.Cmd):
         """
         self.asyncWrapper("advance", args)
 
-        def do_continue(self, args):
+    def do_continue(self, args):
         """
         running
         NAME
@@ -743,7 +744,7 @@ class Cli(cmd.Cmd):
         """
         self.gdb.miCommandExec("-exec-continue", args)
 
-        def do_finish(self, args):
+    def do_finish(self, args):
         """
         running
         NAME
@@ -758,10 +759,10 @@ class Cli(cmd.Cmd):
         """
         self.gdb.miCommandExec("-exec-finish", args)
 
-        def do_interrupt(self, args):
+    def do_interrupt(self, args):
         self.gdb.miCommandExec("-exec-interrupt", args)
 
-        def do_jump(self, args):
+    def do_jump(self, args):
         """
         running
         NAME
@@ -777,10 +778,10 @@ class Cli(cmd.Cmd):
         """
         self.asyncWrapper("jump", args)
 
-        def do_kill(self, args):
+    def do_kill(self, args):
         self.gdb.miCommandExec("-exec-abort", args)
 
-        def do_next(self, args):
+    def do_next(self, args):
         """
         running
         NAME
@@ -932,10 +933,10 @@ class Cli(cmd.Cmd):
             self.do_set_args(args)
         self.gdb.miCommandExec("-exec-run", args)
 
-        def do_set_args(self, args):
+    def do_set_args(self, args):
         self.gdb.miCommandExec("-exec-arguments", args)
 
-        def do_show_args(self, args):
+    def do_show_args(self, args):
         self.gdb.miCommandExec("-exec-show-arguments", args)
 
     def do_signal(self, args):
@@ -1183,34 +1184,34 @@ class Cli(cmd.Cmd):
 #'-list-features'
 
         def do_apropos(self, args):
-        """
-        support
-        NAME
-            apropos -- Search for commands matching a REGEXP
-
-        SYNOPSIS
-            apropos REGEXP
-
-        DESCRIPTION
-            Type "apropos word" to search for commands related to "word".
-        """
-
-        def printAproposEntry(regexp, arg, indentation, prefix, keyword, apropos, clazz, function):
-            """Dump the contents of the database as help text.
-            Only leaf items which match the given regexp are emitted.
             """
-            if regexp.search(keyword) or regexp.search(apropos):
-                self._out("\t" + prefix + keyword + " -- " + apropos)
+            support
+            NAME
+                apropos -- Search for commands matching a REGEXP
 
-        #
-        # We emit our help database, so that we can override GDB if needed.
-        #
-        if args == "":
-            self._out("REGEXP string is empty")
-            return
-        self._out("LIST OF COMMANDS MATCHING '" + args + "'")
-        self.commandDb.walk(printAproposEntry, re.compile(args, re.IGNORECASE), None, "\t")
-        print
+            SYNOPSIS
+                apropos REGEXP
+
+            DESCRIPTION
+                Type "apropos word" to search for commands related to "word".
+            """
+
+            def printAproposEntry(regexp, arg, indentation, prefix, keyword, apropos, clazz, function):
+                """Dump the contents of the database as help text.
+                Only leaf items which match the given regexp are emitted.
+                """
+                if regexp.search(keyword) or regexp.search(apropos):
+                    self._out("\t" + prefix + keyword + " -- " + apropos)
+
+            #
+            # We emit our help database, so that we can override GDB if needed.
+            #
+            if args == "":
+                self._out("REGEXP string is empty")
+                return
+            self._out("LIST OF COMMANDS MATCHING '" + args + "'")
+            self.commandDb.walk(printAproposEntry, re.compile(args, re.IGNORECASE), None, "\t")
+            print
 
     def do_EOF(self, args):
         """

@@ -154,7 +154,7 @@ class DebuggerIo(QThread):
     def miCommandExec(self, command, args):
         self.miCommandOne(command)
 
-    def waitForPromptConsole(self, why, timeoutMs = 10000):
+    def waitForPromptConsole(self, why, endLine = None, timeoutMs = 10000):
         """Read responses from GDB until a prompt, or interrupt.
 
         @return (error, lines)    Where error is None (normal prompt seen),
@@ -162,12 +162,13 @@ class DebuggerIo(QThread):
                     curses.ascii.CAN (caller timeout)
         """
         prompt = "(gdb) "
+
         lines = []
         maxTimeouts = timeoutMs / 100
         self.dbg1("reading for: {}", why)
         self._interruptPending = False
         while True:
-            while not self._gdbThread.canReadLine() and \
+            while not self._gdbThread.canReadLine()  and \
                     self._gdbThread.peek(len(prompt)) != prompt and \
                     not self._interruptPending and \
                     maxTimeouts:
@@ -175,7 +176,14 @@ class DebuggerIo(QThread):
                 maxTimeouts -= 1
             if self._gdbThread.canReadLine():
                 line = self._gdbThread.readLine()
-                lines.append(unicode(line[:-1], "utf-8"))
+                line = unicode(line[:-1], "utf-8")
+                lines.append(line)
+                if endLine and line.startswith(endLine):
+                    #
+                    # Yay, got to the end!
+                    #
+                    self.dbg2("All lines read: {}", len(lines))
+                    return (None, lines)
                 #
                 # We managed to read a line, so reset the timeout.
                 #
@@ -714,6 +722,52 @@ class ProgramControl():
         # Expected results = []
         #
 
+class Python():
+    """Model of embedded Python."""
+
+    _gdb = None
+    _connectionId = None
+
+    def _pythonCommand(self, command):
+        self._gdb._gdbThread.write("python {}\n".format(command))
+        print("command="+command)
+        self._gdb._gdbThread.waitForBytesWritten()
+
+    def __init__(self, gdb):
+        """Constructor."""
+        self._gdb = gdb
+
+
+    def enter(self, args):
+        if not self._connectionId:
+            command = ""
+            #command += "sys.path.insert(0, os.path.dirname('" + __file__ + "')); "
+            #command += "import logging; "
+            command += "from IPython.zmq.ipkernel import IPKernelApp; app = IPKernelApp.instance(); app.initialize(); "
+            #command += "log = app.kernel.log; log.setLevel(logging.DEBUG); fh = logging.FileHandler('gdb.log'); fh.setLevel(logging.DEBUG); log.addHandler(fh); log.debug('debug message'); "
+            command += "app.start()"
+            #
+            # First time around...
+            #
+            self._pythonCommand(command)
+            #
+            # Wait for the line that announces the IPython connection string.
+            #
+            connectionInfo = "[IPKernelApp] --existing "
+            error, lines = self._gdb.waitForPromptConsole(command, endLine = connectionInfo)
+            if not lines[-1].startswith(connectionInfo):
+                raise QGdbException("IPython connection error '{}'".format(lines))
+            self._connectionId = lines[-1][len(connectionInfo):]
+            self._gdb.dbg1("IPython connection='{}'".format(self._connectionId))
+        return self._connectionId
+
+    def exit(self):
+        print("exiting!!!!!!!!!!!!!")
+        command = "import sys;from IPython.zmq.ipkernel import IPKernelApp; app=IPKernelApp.instance();print('kill',app);app.kernel.shell.exit_now = True;sys.exit(0)"
+        self._pythonCommand(command)
+        error, lines = self._gdb.waitForPromptConsole("xxxxxxxxxxxxxxx")
+
+
 class Stack():
     """Model of GDB stack."""
 
@@ -827,6 +881,7 @@ class QGdbInterpreter(DebuggerIo):
     _breakpoints = None
     _data = None
     _programControl = None
+    _python = None
     _stack = None
     _threads = None
 
@@ -846,5 +901,6 @@ class QGdbInterpreter(DebuggerIo):
         self._breakpoints = Breakpoints(self)
         self._data = Data(self)
         self._programControl = ProgramControl(self)
+        self._python = Python(self)
         self._stack = Stack(self)
         self._threads = Threads(self)

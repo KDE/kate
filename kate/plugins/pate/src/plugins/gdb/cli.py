@@ -1,3 +1,4 @@
+#coding: utf-8
 #
 # Copyright 2009, 2012, Shaheed Haque <srhaque@theiet.org>.
 #
@@ -17,13 +18,42 @@
 
 from __future__ import print_function
 import argparse
+import atexit
 import cmd
 import re
 import traceback
 
+from IPython.frontend.terminal.console.interactiveshell import ZMQTerminalInteractiveShell
+from IPython.lib.kernel import find_connection_file
+from IPython.zmq.blockingkernelmanager import BlockingKernelManager
 from PyQt4.QtCore import QCoreApplication, QObject
 
 from qgdb import QGdbInterpreter
+
+class IPythonConsoleShell(ZMQTerminalInteractiveShell):
+    """A simple console shell for IPython.
+
+    References:
+
+    - http://stackoverflow.com/questions/9977446/connecting-to-a-remote-ipython-instance
+    - https://github.com/ipython/ipython/blob/master/IPython/zmq/blockingkernelmanager.py
+
+    For the Qt version, see:
+
+    - http://stackoverflow.com/questions/11513132/embedding-ipython-qt-console-in-a-pyqt-application
+    """
+    def __init__(self, *args, **kwargs):
+        connection_file = find_connection_file(kwargs.pop("connection_file"))
+
+        km = BlockingKernelManager(connection_file=connection_file)
+
+        km.load_connection_file()
+        heartbeat = True
+        km.start_channels(hb=heartbeat)
+        atexit.register(km.cleanup_connection_file)
+        super(IPythonConsoleShell, self).__init__(kernel_manager = km)
+        self.km = km
+
 
 class CommandDb(object):
     """From GDB's "help all" output, find all the commands it has.
@@ -1408,6 +1438,13 @@ class Cli(cmd.Cmd):
             self._out("LIST OF CLASSES OF COMMANDS")
             for line in helpText[2:]:
                 self._out("\t" + line)
+
+    pythonShell = None
+    def do_python(self, args):
+        connectionFile = self.gdb._python.enter(args)
+        if not self.pythonShell:
+            self.pythonShell = IPythonConsoleShell(connection_file = connectionFile)
+        self.pythonShell.interact()
 
 #################################
 ## Fallthrough command handler ##

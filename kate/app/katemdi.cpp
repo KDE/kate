@@ -378,6 +378,10 @@ namespace KateMDI
 
     setTab (m_widgetToId[widget], true);
 
+    // set minimum size again to 80,80!
+    // we changed that on hide!
+    widget->setMinimumSize (80, 80);
+    
     /**
      * resize to right size again and show, else artefacts
      */
@@ -433,6 +437,10 @@ namespace KateMDI
         m_preHideSize = m_ownSplit->size ();
       m_ownSplit->hide ();
     }
+    
+    // set minimum size == size, this avoid artifical resizes on show
+    // there we will reset this again to 80,80!
+    widget->setMinimumSize (widget->size());
 
     widget->hide ();
 

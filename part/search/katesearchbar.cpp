@@ -166,6 +166,8 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
     widget->setLayout(m_layout);
     m_layout->setMargin(0);
 
+    // allow to have small size, for e.g. Kile
+    setMinimumWidth (100);
 
     // Copy global to local config backup
     const long searchFlags = m_config->searchFlags();

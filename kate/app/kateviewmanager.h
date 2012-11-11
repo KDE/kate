@@ -246,6 +246,16 @@ class KateViewManager : public QSplitter
     void slotCloseCurrentViewSpace();
 
     void reactivateActiveView();
+    
+    /**
+     * get views => age mapping
+     * useful to show views in a LRU way
+     * important: smallest age ==> latest used view
+     */
+    const QHash<KTextEditor::View *, qint64> &lruViews () const
+    {
+      return m_lruViews;
+    }
 
   private:
     KateMainWindow *m_mainWindow;
@@ -274,6 +284,17 @@ class KateViewManager : public QSplitter
     bool m_activeViewRunning;
 
     int m_splitterIndex; // used during saving splitter config.
+
+    /**
+     * history of view activations
+     * map view => number, the lower, the more recent activated
+     */
+    QHash<KTextEditor::View *, qint64> m_lruViews;
+
+    /**
+     * current minimal age
+     */
+    qint64 m_minAge;
 };
 
 #endif

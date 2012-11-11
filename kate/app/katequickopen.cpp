@@ -20,6 +20,7 @@
 #include "katequickopen.h"
 #include "katequickopen.moc"
 #include "katemainwindow.h"
+#include "kateviewmanager.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -57,7 +58,6 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     layout->setMargin(0);
     setLayout (layout);
 
-
     m_inputLine = new KLineEdit();
     setFocusProxy (m_inputLine);
     m_inputLine->setClickMessage (i18n ("Quick Open Search"));
@@ -69,7 +69,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     m_listView->setTextElideMode(Qt::ElideLeft);
 
     m_base_model = new QStandardItemModel(0, 2, this);
-    
+
     m_model = new QSortFilterProxyModel(this);
     m_model->setFilterRole(SortFilterRole);
     m_model->setSortRole(SortFilterRole);
@@ -90,25 +90,6 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
     m_listView->installEventFilter(this);
     m_listView->setHeaderHidden(true);
     m_listView->setRootIsDecorated(false);
-    
-    /**
-     * track view changes
-     */
-    connect (m_mainWindow->mainWindow(), SIGNAL(viewChanged()), SLOT(slotViewChanged()));
-}
-
-void KateQuickOpen::slotViewChanged()
-{
-    if (!m_mainWindow->mainWindow()->activeView())
-        return;
-        
-    // when view changes update active and previous documents
-    // so that right document will be pre-selected on next quick-switch
-    KTextEditor::Document *newDoc = m_mainWindow->mainWindow()->activeView()->document();
-    if(newDoc != m_activeDoc) {
-        m_prevDoc = m_activeDoc;
-        m_activeDoc = newDoc;
-    }
 }
 
 bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
@@ -124,7 +105,7 @@ bool KateQuickOpen::eventFilter(QObject *obj, QEvent *event)
                 QCoreApplication::sendEvent(m_listView, event);
                 return true;
             }
-            
+
             if (keyEvent->key() == Qt::Key_Escape) {
               m_mainWindow->slotWindowActivated ();
               m_inputLine->clear ();
@@ -157,16 +138,35 @@ void KateQuickOpen::update ()
    * new base mode creation
    */
   QStandardItemModel *base_model = new QStandardItemModel(0, 2, this);
-  
+
   /**
-   * get all open documents
    * remember local file names to avoid dupes with project files
    */
   QSet<QString> alreadySeenFiles;
-  QList<KTextEditor::Document*> docs = Kate::application()->documentManager()->documents();
-    int linecount = 0;
-    QModelIndex idxToSelect;
-    foreach(KTextEditor::Document *doc, docs) {
+  QSet<KTextEditor::Document *> alreadySeenDocs;
+
+  /**
+   * get views in lru order
+   */
+  QMap<qint64, KTextEditor::View *> sortedViews;
+  QHashIterator<KTextEditor::View *, qint64> i(m_mainWindow->viewManager()->lruViews());
+  while (i.hasNext()) {
+    i.next ();
+    sortedViews[i.value()] = i.key();
+  }
+
+  /**
+   * now insert them in order
+   */
+  QModelIndex idxToSelect;
+  int linecount = 0;
+  QMapIterator<qint64, KTextEditor::View *> i2(sortedViews);
+  while (i2.hasNext()) {
+        i2.next();
+
+        KTextEditor::Document *doc = i2.value()->document();
+        alreadySeenDocs.insert (doc);
+
         //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
         QStandardItem *itemName = new QStandardItem(doc->documentName());
 
@@ -182,12 +182,44 @@ void KateQuickOpen::update ()
         base_model->setItem(linecount, 0, itemName);
         base_model->setItem(linecount, 1, itemUrl);
         linecount++;
-        
+
         if (!doc->url().isEmpty() && doc->url().isLocalFile())
           alreadySeenFiles.insert (doc->url().toLocalFile());
-        
-        if (doc == m_prevDoc)
+
+        // select second document, that is the last used (beside the active one)
+        if (linecount == 2)
           idxToSelect = itemName->index();
+    }
+
+  /**
+   * get all open documents
+   */
+  QList<KTextEditor::Document*> docs = Kate::application()->documentManager()->documents();
+    foreach(KTextEditor::Document *doc, docs) {
+        /**
+         * skip docs already open
+         */
+        if (alreadySeenDocs.contains (doc))
+          continue;
+
+        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
+        QStandardItem *itemName = new QStandardItem(doc->documentName());
+
+        itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document> (doc)), DocumentRole);
+        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()), SortFilterRole);
+        itemName->setEditable(false);
+        QFont font = itemName->font();
+        font.setBold(true);
+        itemName->setFont(font);
+
+        QStandardItem *itemUrl = new QStandardItem(doc->url().pathOrUrl());
+        itemUrl->setEditable(false);
+        base_model->setItem(linecount, 0, itemName);
+        base_model->setItem(linecount, 1, itemUrl);
+        linecount++;
+
+        if (!doc->url().isEmpty() && doc->url().isLocalFile())
+          alreadySeenFiles.insert (doc->url().toLocalFile());
     }
 
     /**
@@ -201,7 +233,7 @@ void KateQuickOpen::update ()
          */
         if (alreadySeenFiles.contains (file))
           continue;
-        
+
         QFileInfo fi (file);
         QStandardItem *itemName = new QStandardItem(fi.fileName());
 
@@ -219,23 +251,23 @@ void KateQuickOpen::update ()
         linecount++;
       }
     }
-    
+
     /**
      * swap models and kill old one
      */
     m_model->setSourceModel (base_model);
     delete m_base_model;
     m_base_model = base_model;
-    
+
     if(idxToSelect.isValid())
         m_listView->setCurrentIndex(m_model->mapFromSource(idxToSelect));
     else
         reselectFirst();
-    
+
     /**
      * adjust view
      */
-    m_listView->resizeColumnToContents(0);    
+    m_listView->resizeColumnToContents(0);
 }
 
 void KateQuickOpen::slotReturnPressed ()
@@ -252,7 +284,7 @@ void KateQuickOpen::slotReturnPressed ()
     if (!url.isEmpty())
       m_mainWindow->mainWindow()->openUrl (url);
   }
-  
+
   /**
    * in any case, switch back to view manager
    */

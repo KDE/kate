@@ -49,9 +49,10 @@ class KateQuickOpen : public QWidget {
          * will fill model with current open documents, project documents, ...
          */
         void update ();
-        
+
     protected:
         bool eventFilter(QObject *obj, QEvent *event);
+
     private Q_SLOTS:
         void reselectFirst();
 
@@ -60,36 +61,21 @@ class KateQuickOpen : public QWidget {
          * and go back to background
          */
         void slotReturnPressed ();
-        
-        /**
-         * Track view changes
-         */
-        void slotViewChanged();
 
     private:
         KateMainWindow *m_mainWindow;
         QTreeView *m_listView;
         KLineEdit *m_inputLine;
-        
+
         /**
          * our model we search in
          */
         QStandardItemModel *m_base_model;
-        
+
         /**
          * filtered model we search in
          */
         QSortFilterProxyModel *m_model;
-        
-        /**
-         * previous active document
-         */
-        QPointer<KTextEditor::Document> m_prevDoc;
-    
-        /**
-         * current active document
-         */
-        QPointer<KTextEditor::Document> m_activeDoc;
 };
 
 #endif

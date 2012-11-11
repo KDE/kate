@@ -70,6 +70,7 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
     , m_mainWindow(parent)
     , m_blockViewCreationAndActivation (false)
     , m_activeViewRunning (false)
+    , m_minAge (0)
 {
   // while init
   m_init = true;
@@ -435,6 +436,9 @@ bool KateViewManager::deleteView (KTextEditor::View *view, bool delViewSpace)
 #ifdef KActivities_FOUND
   m_activityResources.remove(view);
 #endif
+  
+  // kill LRU mapping
+  m_lruViews.remove (view);
 
   // remove view from list and memory !!
   m_viewList.removeAt ( m_viewList.indexOf (view) );
@@ -588,6 +592,9 @@ void KateViewManager::activateView ( KTextEditor::View *view )
     if (toolbarVisible)
       mainWindow()->toolBar()->show();
     mainWindow()->setUpdatesEnabled( true );
+
+    // remember age of this view
+    m_lruViews[view] = m_minAge--;
 
     emit viewChanged();
   }
@@ -837,6 +844,7 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   qDeleteAll( m_viewSpaceList );
   m_viewSpaceList.clear();
   m_activeStates.clear();
+  m_lruViews.clear();
 
   // start recursion for the root splitter (Splitter 0)
   restoreSplitter( config.config(), config.name() + "-Splitter 0", this, config.name() );

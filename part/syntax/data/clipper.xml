@@ -486,7 +486,6 @@
       <itemData name="Preprocessor"  	defStyleNum="dsOthers"/>
       <itemData name="Prep. Lib"  	defStyleNum="dsOthers"/>
       <itemData name="Eval Block"  	defStyleNum="dsOthers"/>
-<!--      <itemData name="Region Marker" 	defStyleNum="dsNormal" color="#0000ff"/>-->
       <itemData name="Region Marker" defStyleNum="dsRegionMarker"/>
     </itemDatas>
   </highlighting>

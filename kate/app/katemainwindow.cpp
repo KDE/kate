@@ -260,20 +260,6 @@ void KateMainWindow::setupMainWindow ()
   
   m_bottomViewBarContainer=new QWidget(centralWidget());
   m_bottomContainerStack = new KateContainerStackedLayout(m_bottomViewBarContainer);
-
-  // use snippets widget provided by editor component, if any
-  if (QWidget *snippets = KateDocManager::self()->editor()->property("snippetWidget").value<QWidget*>()) {
-    // Toolview for snippets
-    QWidget *toolView = mainWindow()->createToolView (0,"kate_private_snippets", Kate::MainWindow::Right, SmallIcon("document-new"), i18n("Snippets"));
-    
-    // snippets toolbar
-    KToolBar *topToolbar = new KToolBar (toolView, "snippetsToolBar");
-    topToolbar->setToolButtonStyle (Qt::ToolButtonIconOnly);
-    topToolbar->addActions (snippets->actions());
-
-    // add snippets widget
-    snippets->setParent (toolView);
-  }
 }
 
 void KateMainWindow::setupActions()

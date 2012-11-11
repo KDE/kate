@@ -430,40 +430,37 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
   opt.singleStep = singleStep();
   opt.pageStep = pageStep();
 
+  int docXMargin = 1;
   QRect grooveRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarGroove, this);
-  QRect sliderRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSlider, this);
-  sliderRect.setWidth(sliderRect.width()-1);
-
   if (style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSubLine, this).height() == 0) {
     int alignMargin = style()->pixelMetric(QStyle::PM_FocusFrameVMargin, &opt, this);
     grooveRect.moveTop(alignMargin);
     grooveRect.setHeight(grooveRect.height() - alignMargin);
   }
-
   if (style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddLine, this).height() == 0) {
     int alignMargin = style()->pixelMetric(QStyle::PM_FocusFrameVMargin, &opt, this);
     grooveRect.setHeight(grooveRect.height() - alignMargin);
   }
-
   m_grooveHeight = grooveRect.height();
+
+  QRect sliderRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSlider, this);
+  sliderRect.adjust(docXMargin+1, 1, -(docXMargin+1), -1);
+
   //style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
   //style()->drawControl(QStyle::CE_ScrollBarSubLine, &opt, &painter, this);
 
-  // draw the grove background in case the document is small
-  painter.setPen(palette().color(QPalette::Dark));
-  painter.setBrush(palette().brush(QPalette::Dark));
-  painter.drawRect(grooveRect);
-
   // calculate the document size and position
-  int docHeight = qMin(grooveRect.height(), m_pixmap.height()*2);
+  int docHeight = qMin(grooveRect.height(), m_pixmap.height()*2) - 2*docXMargin;
   int yoffset = (grooveRect.height() - docHeight) / 2;
-  QRect docRect(QPoint(grooveRect.left(), yoffset+grooveRect.top()), QSize(grooveRect.width()-1, docHeight));
+  QRect docRect(QPoint(grooveRect.left()+docXMargin, yoffset+grooveRect.top()), QSize(grooveRect.width()-2*docXMargin, docHeight));
 
   // calculate the visible area
-  int max = qMax(maximum(), 1);
+  int max = qMax(maximum()+1, 1);
   int visibleStart = value()*docHeight/(max+pageStep()) + docRect.top();
   int visibleEnd = (value()+pageStep())*docHeight/(max+pageStep()) + docRect.top();
-  QRect visibleRect(QPoint(docRect.left(), visibleStart), QPoint(docRect.right(), visibleEnd));
+  QRect visibleRect = docRect;
+  visibleRect.moveTop(visibleStart);
+  visibleRect.setHeight(visibleEnd-visibleStart);
 
   // calculate colors
   QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
@@ -487,25 +484,50 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
   QColor lightShieldColor;
   lightShieldColor.setHsl(hue, sat, backgroundLightness + lighnessDiff * 0.15);
 
-  painter.setPen(QColor("transparent"));
+  QColor outlineColor;
+  outlineColor.setHsl(hue, sat, backgroundLightness + lighnessDiff * 0.5);
+
+  // draw the grove background in case the document is small
+  painter.setPen(QPen(QColor("transparent"),0));
+  painter.setBrush(palette().brush(QPalette::Dark));
+  painter.drawRect(grooveRect);
 
   // dark "shield" of non-slider parts
   painter.setBrush(gradient);
   painter.drawRect(docRect);
 
-  painter.setRenderHint(QPainter::Antialiasing);
 
   // light "shield" non-visible parts
-  if (docHeight >= grooveRect.height()) {
+  if ((docHeight+2*docXMargin >= grooveRect.height()) && (sliderRect.height() > visibleRect.height()+2)) {
+    // slider
+    painter.setPen(QPen(QColor("transparent"),0));
     painter.setBrush(lightShieldColor);
-    painter.drawRoundedRect(sliderRect, 3, 3);
+    sliderRect.adjust(1,0,-1,0);
+    painter.drawRect(sliderRect);
+
+    // visible area
+    visibleRect.adjust(2,0,-3,0);
+    painter.setPen(QPen(backgroundColor,1));
+    painter.setBrush(backgroundColor);
+    painter.drawRect(visibleRect);
+
+    // slider outline
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QPen(outlineColor, 2));
+    painter.setBrush(QColor("transparent"));
+    sliderRect.adjust(-1,0,1,0);
+    painter.drawRoundedRect(sliderRect, 4, 4);
+    painter.setRenderHint(QPainter::Antialiasing, false);
   }
-
-  // document background
-  painter.setBrush(backgroundColor);
-  painter.drawRoundedRect(visibleRect, 3, 3);
-
-  painter.setRenderHint(QPainter::Antialiasing, false);
+  else {
+    // visible area with outline
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setPen(QPen(outlineColor, 2));
+    painter.setBrush(backgroundColor);
+    visibleRect.adjust(1,0,-1,2);
+    painter.drawRoundedRect(visibleRect, 4, 4);
+    painter.setRenderHint(QPainter::Antialiasing, false);
+  }
 
   // Smooth transform only when squeezing
   if (grooveRect.height() < m_pixmap.height()) {

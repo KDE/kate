@@ -101,7 +101,7 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
   foreach (KTextEditor::Document *doc, docs)
     documentCreated (doc);
   m_blockViewCreationAndActivation = false;
-  
+
   // init done
   m_init = false;
 }
@@ -187,32 +187,32 @@ void KateViewManager::setupActions ()
    */
   m_cursorPosToggle = new KToggleAction(i18n("Show Cursor Position"), this);
   m_mainWindow->actionCollection()->addAction( "show_cursor_pos", m_cursorPosToggle );
-  connect(m_cursorPosToggle, SIGNAL(toggled(bool)), 
+  connect(m_cursorPosToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(cursorPositionItemVisibilityChanged(bool)));
 
   m_charCountToggle = new KToggleAction(i18n("Show Characters Count"), this);
   m_mainWindow->actionCollection()->addAction( "show_char_count", m_charCountToggle );
-  connect(m_charCountToggle, SIGNAL(toggled(bool)), 
+  connect(m_charCountToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(charactersCountItemVisibilityChanged(bool)));
 
   m_insertModeToggle = new KToggleAction(i18n("Show Insertion Mode"), this);
   m_mainWindow->actionCollection()->addAction( "show_insert_mode", m_insertModeToggle );
-  connect(m_insertModeToggle, SIGNAL(toggled(bool)), 
+  connect(m_insertModeToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(insertModeItemVisibilityChanged(bool)));
 
   m_selectModeToggle = new KToggleAction(i18n("Show Selection Mode"), this);
   m_mainWindow->actionCollection()->addAction( "show_select_mode", m_selectModeToggle );
-  connect(m_selectModeToggle, SIGNAL(toggled(bool)), 
+  connect(m_selectModeToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(selectModeItemVisibilityChanged(bool)));
 
   m_encodingToggle = new KToggleAction(i18n("Show Encoding"), this);
   m_mainWindow->actionCollection()->addAction( "show_encoding", m_encodingToggle );
-  connect(m_encodingToggle, SIGNAL(toggled(bool)), 
+  connect(m_encodingToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(encodingItemVisibilityChanged(bool)));
 
   m_docNameToggle = new KToggleAction(i18n("Show Document Name"), this);
   m_mainWindow->actionCollection()->addAction( "show_doc_name", m_docNameToggle );
-  connect(m_docNameToggle, SIGNAL(toggled(bool)), 
+  connect(m_docNameToggle, SIGNAL(toggled(bool)),
           this, SIGNAL(documentNameItemVisibilityChanged(bool)));
 }
 
@@ -358,12 +358,12 @@ bool KateViewManager::isDocumentNameVisible() const
 // VIEWSPACE
 
 void KateViewManager::documentCreated (KTextEditor::Document *doc)
-{ 
+{
   // to update open recent files on saving
   connect (doc, SIGNAL(documentSavedOrUploaded(KTextEditor::Document*,bool)), this, SLOT(documentSavedOrUploaded(KTextEditor::Document*,bool)));
 
   if (m_blockViewCreationAndActivation) return;
-  
+
   if (!activeView())
     activateView (doc);
 }
@@ -436,7 +436,7 @@ bool KateViewManager::deleteView (KTextEditor::View *view, bool delViewSpace)
 #ifdef KActivities_FOUND
   m_activityResources.remove(view);
 #endif
-  
+
   // kill LRU mapping
   m_lruViews.remove (view);
 
@@ -844,7 +844,10 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   qDeleteAll( m_viewSpaceList );
   m_viewSpaceList.clear();
   m_activeStates.clear();
+
+  // reset lru history, too!
   m_lruViews.clear();
+  m_minAge = 0;
 
   // start recursion for the root splitter (Splitter 0)
   restoreSplitter( config.config(), config.name() + "-Splitter 0", this, config.name() );
@@ -1001,7 +1004,7 @@ void KateViewManager::moveSplitter(Qt::Key key, int repeats)
     QFontMetrics fm(attrib->font());
     move = fm.height() * repeats;
   }
-  
+
   QWidget* currentWidget = (QWidget*)vs;
   bool foundSplitter = false;
 

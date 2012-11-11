@@ -87,7 +87,6 @@ class KateConfigDialog : public KPageDialog
     QRadioButton *m_manuallyChooseSessionRadioButton;
     
     QHash<KPageWidgetItem*, PluginPageListItem*> m_pluginPages;
-    KTextEditor::EditorChooser *m_editorChooser;
     KPageWidgetItem *m_applicationPage;
     KPageWidgetItem *m_editorPage;
     

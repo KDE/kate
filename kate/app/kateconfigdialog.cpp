@@ -132,14 +132,8 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   vbox->addWidget(metaInfos);
   buttonGroup->setLayout(vbox);
-
-  // editor component
-  m_editorChooser = new KTextEditor::EditorChooser(generalFrame);
-  m_editorChooser->readAppSetting();
-  connect(m_editorChooser, SIGNAL(changed()), this, SLOT(slotChanged()));
-  layout->addWidget(m_editorChooser);
+  
   layout->addStretch(1); // :-] works correct without autoadd
-
   //END General page
 
 
@@ -357,8 +351,6 @@ void KateConfigDialog::slotApply()
       cg.writeEntry ("Startup Session", "last");
     else
       cg.writeEntry ("Startup Session", "manual");
-
-    m_editorChooser->writeAppSetting();
 
     cg.writeEntry("Save Meta Infos", m_saveMetaInfos->isChecked());
     KateDocManager::self()->setSaveMetaInfos(m_saveMetaInfos->isChecked());

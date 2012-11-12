@@ -202,7 +202,6 @@ function duplicateLinesDown()
     document.insertText(blockRange.end, document.text(blockRange));
     // NOTE Inserting a text after the selected block (if any) will extend it and moves a cursor...
     // So we have to shrink it and return the cursor back.
-    var selectionRange = view.selection();
     if (view.selection().isValid()) {
         view.setSelection(blockRange);
         var cursorPosition = view.cursorPosition();

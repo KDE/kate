@@ -15,10 +15,14 @@
 # along with this code. If not, see <http://www.gnu.org/licenses/>.
 #
 
+from __future__ import print_function
+import curses.ascii
+import logging
+import os
+
 from PyQt4.QtCore import *
 from PyKDE4.kdecore import *
-import curses.ascii
-import os
+from IPython.zmq.ipkernel import IPKernelApp
 
 from miparser import MiParser
 
@@ -33,6 +37,45 @@ class QGdbInvalidResults(QGdbException):
 
 class QGdbExecuteError(QGdbException):
     pass
+
+class DebuggerKernel():
+    """Start or stop the IPython "kernel" inside GDB's Python support.
+
+    This kernel communicates via 0MQ to the remote IPython "shell"
+    """
+    _app = None
+
+    def __init__(self):
+        self._app = IPKernelApp.instance()
+        self._app.initialize()
+        fh = logging.FileHandler(self.__class__.__name__ + ".log")
+        fh.setLevel(logging.DEBUG)
+        log = self._app.kernel.log
+        log.setLevel(logging.DEBUG)
+        log.addHandler(fh)
+        log.debug("kernel init")
+
+    def start(self):
+        self._app.kernel.log.debug("kernel start")
+        self._app.start()
+
+    def stop(self):
+        self._app.kernel.log.debug("kernel stop")
+        #self._app.shell.keepkernel_on_exit = True
+        self._app.shell.ask_exit()
+        self._app.kernel.log.debug("kernel stopping")
+        print('shell being stopped is', self._app.shell)
+        app = self._app
+        app.exit_now = True
+        if app.kernel.control_stream:
+            self._app.kernel.log.debug("control_stream stop")
+            app.kernel.control_stream.stop()
+        for s in app.kernel.shell_streams:
+            self._app.kernel.log.debug("shell_stream stop")
+            s.stop_on_send()
+            s.stop_on_recv()
+            s.close()
+
 
 class InferiorIo(QThread):
     _pty = None
@@ -58,7 +101,7 @@ class InferiorIo(QThread):
             if not line:
                 break
             self.parent().gdbStreamTarget.emit(line[:-1])
-        print "inferior reader done!!!!"
+        print("inferior reader done!!!!")
 
     def interruptWait(self):
         """Interrupt an in-progress wait for response from GDB."""
@@ -92,7 +135,6 @@ class DebuggerIo(QThread):
     def run(self):
         try:
             #self._gdbThread = pygdb.Gdb(GDB_CMDLINE, handler = self, verbose = verbose)
-            print "QGDB command line", self.arguments
             self._gdbThread = QProcess()
             self._gdbThread.setProcessChannelMode(QProcess.MergedChannels)
             self._gdbThread.error.connect(self.gdbProcessError)
@@ -107,7 +149,7 @@ class DebuggerIo(QThread):
             self._gdbThread.waitForStarted()
             self.waitForPromptConsole("cmd: " + self.arguments[0])
         except QGdbException as e:
-            print "TODO make signal work", str(e)
+            self.dbg0("TODO make signal work: {}", e)
             traceback.print_exc()
             self.dbg.emit(0, str(e))
         self._gdbThreadStarted.release()
@@ -199,13 +241,13 @@ class DebuggerIo(QThread):
                 #
                 # User got fed up. Note, there may be more to read!
                 #
-                self.dbg0("Interrupt after {} lines read", len(lines))
+                self.dbg0("Interrupt after {} lines read, '{}'", len(lines), lines)
                 return (curses.ascii.ESC, lines)
             elif not maxTimeouts:
                 #
                 # Caller got fed up. Note, there may be more to read!
                 #
-                self.dbg0("Timeout after {} lines read", len(lines))
+                self.dbg0("Timeout after {} lines read, '{}'", len(lines), lines)
                 return (curses.ascii.CAN, lines)
 
     def waitForPromptMi(self, token, why, timeoutMs = 10000):
@@ -373,13 +415,13 @@ class DebuggerIo(QThread):
             self.onUnknownEvent.emit(event, args)
 
     def dbg0(self, msg, *args):
-        print "ERR-0", msg.format(*args)
+        print("ERR-0", msg.format(*args))
 
     def dbg1(self, msg, *args):
-        print "DBG-1", msg.format(*args)
+        print("DBG-1", msg.format(*args))
 
     def dbg2(self, msg, *args):
-        print "DBG-2", msg.format(*args)
+        print("DBG-2", msg.format(*args))
 
     @pyqtSlot(QProcess.ProcessError)
     def gdbProcessError(self, error):
@@ -683,8 +725,7 @@ class ProgramControl():
         # [(u'variables', [{u'name': u'options', u'value': u'{d = 0x622320}'}, {u'type': u'KateApp * const', u'name': u'this', u'value': '0x7fffffffdc10', u'arg': '1'}, {u'type': u'KCmdLineArgs *', u'name': u'args', u'value': '0x6237f0', u'arg': '1'}])]
         #
         u = results[0][1]
-        print u
-        print "#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"])
+        print("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
 
     def sharedLibraries(self):
         results = self._gdb.miCommandOne("-file-list-shared-libraries")
@@ -692,8 +733,7 @@ class ProgramControl():
         # [(u'variables', [{u'name': u'options', u'value': u'{d = 0x622320}'}, {u'type': u'KateApp * const', u'name': u'this', u'value': '0x7fffffffdc10', u'arg': '1'}, {u'type': u'KCmdLineArgs *', u'name': u'args', u'value': '0x6237f0', u'arg': '1'}])]
         #
         u = results[0][1]
-        print u
-        print "#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"])
+        print("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
 
     def symbolFiles(self):
         results = self._gdb.miCommandOne("-file-list-symbol-files")
@@ -701,8 +741,7 @@ class ProgramControl():
         # [(u'variables', [{u'name': u'options', u'value': u'{d = 0x622320}'}, {u'type': u'KateApp * const', u'name': u'this', u'value': '0x7fffffffdc10', u'arg': '1'}, {u'type': u'KCmdLineArgs *', u'name': u'args', u'value': '0x6237f0', u'arg': '1'}])]
         #
         u = results[0][1]
-        print u
-        print "#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"])
+        print("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
 
     def setExecAndSymbols(self, filename):
         results = self._gdb.miCommandOne("-file-exec-and-symbols {}".format(filename))
@@ -730,21 +769,18 @@ class Python():
 
     def _pythonCommand(self, command):
         self._gdb._gdbThread.write("python {}\n".format(command))
-        print("command="+command)
+        print("python "+command)
         self._gdb._gdbThread.waitForBytesWritten()
 
     def __init__(self, gdb):
         """Constructor."""
         self._gdb = gdb
 
-
     def enter(self, args):
         if not self._connectionId:
             command = ""
-            #command += "sys.path.insert(0, os.path.dirname('" + __file__ + "')); "
-            #command += "import logging; "
-            command += "from IPython.zmq.ipkernel import IPKernelApp; app = IPKernelApp.instance(); app.initialize(); "
-            #command += "log = app.kernel.log; log.setLevel(logging.DEBUG); fh = logging.FileHandler('gdb.log'); fh.setLevel(logging.DEBUG); log.addHandler(fh); log.debug('debug message'); "
+            command += "sys.path.insert(0, os.path.dirname('" + __file__ + "')); "
+            command += "from " + self.__module__ + " import DebuggerKernel; app = DebuggerKernel(); "
             command += "app.start()"
             #
             # First time around...
@@ -762,10 +798,12 @@ class Python():
         return self._connectionId
 
     def exit(self):
-        print("exiting!!!!!!!!!!!!!")
-        command = "import sys;from IPython.zmq.ipkernel import IPKernelApp; app=IPKernelApp.instance();print('kill',app);app.kernel.shell.exit_now = True;sys.exit(0)"
+        command = "%Quit"
         self._pythonCommand(command)
         error, lines = self._gdb.waitForPromptConsole("xxxxxxxxxxxxxxx")
+        print("exiting!!!!!!!!!!!!!",error,lines)
+        error, lines = self._gdb.waitForPromptConsole("yyyyyyyyyyy")
+        print("exiting222!!!!!!!!!!!!!",error,lines)
 
 
 class Stack():
@@ -782,7 +820,6 @@ class Stack():
             results = self._gdb.miCommandOne("-stack-info-depth --thread {} {}".format(tid, maxFrames))
         else:
             results = self._gdb.miCommandOne("-stack-info-depth --thread {}".format(tid))
-        print result
         return result
 
     def frameInfo(self, tid, frame = None):
@@ -822,7 +859,7 @@ class Stack():
             level = v["level"]
             args = v["args"]
             args = ", ".join(["{}={}".format(d["name"], d["value"]) for d in args])
-            print "#{} {}".format(level, args)
+            print("#{} {}".format(level, args))
 
     def stackFrames(self, tid, lowFrame = None, highFrame = None):
         """

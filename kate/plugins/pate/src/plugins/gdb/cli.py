@@ -54,6 +54,12 @@ class IPythonConsoleShell(ZMQTerminalInteractiveShell):
         super(IPythonConsoleShell, self).__init__(kernel_manager = km)
         self.km = km
 
+    def stop(self):
+        print("IPythonConsoleShell stop()")
+        self.exit_now = True
+        #self.km.stop_channels()
+        self.km.shutdown_kernel()
+        self.ask_exit()
 
 class CommandDb(object):
     """From GDB's "help all" output, find all the commands it has.
@@ -1441,10 +1447,15 @@ class Cli(cmd.Cmd):
 
     pythonShell = None
     def do_python(self, args):
+        print("do_python(), calling enter", self.pythonShell)
         connectionFile = self.gdb._python.enter(args)
         if not self.pythonShell:
             self.pythonShell = IPythonConsoleShell(connection_file = connectionFile)
         self.pythonShell.interact()
+        print("do_python(), pythonShell.interact done!")
+        self.pythonShell.stop()
+        self.gdb._python.exit()
+        del self.pythonShell
 
 #################################
 ## Fallthrough command handler ##

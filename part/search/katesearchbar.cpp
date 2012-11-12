@@ -367,10 +367,13 @@ void KateSearchBar::selectRange2(const KTextEditor::Range & range) {
 
 
 
-void KateSearchBar::onIncPatternChanged(const QString & pattern) {
+void KateSearchBar::onIncPatternChanged(const QString & pattern)
+{
     if (!m_incUi)
         return;
-    clearHighlights();
+
+    // delete info message if present (calls clearHighlights)
+    delete m_infoMessage;
 
     m_incUi->next->setDisabled(pattern.isEmpty());
     m_incUi->prev->setDisabled(pattern.isEmpty());
@@ -621,19 +624,22 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
 void KateSearchBar::findAll()
 {
-    clearHighlights();
+    // delete info message if present (calls clearHighlights)
+    delete m_infoMessage;
+
     Range inputRange = (m_view->selection() && selectionOnly())
             ? m_view->selectionRange()
             : m_view->document()->documentRange();
     const int occurrences = findAll(inputRange, NULL);
 
     // send passive notification to view
-    KTextEditor::Message* message = new KTextEditor::Message(KTextEditor::Message::Positive,
-                                                             i18np("1 match found", "%1 matches found", occurrences));
-    message->setPosition(KTextEditor::Message::BelowView);
-    message->setAutoHide(0);
-    message->setView(m_view);
-    m_view->doc()->postMessage(message);
+    m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive,
+                                             i18np("1 match found", "%1 matches found", occurrences));
+    m_infoMessage->setPosition(KTextEditor::Message::BelowView);
+    m_infoMessage->setAutoHide(0);
+    m_infoMessage->setView(m_view);
+    connect(m_infoMessage, SIGNAL(closed(KTextEditor::Message*)), SLOT(clearHighlights()));
+    m_view->doc()->postMessage(m_infoMessage);
 
     indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
@@ -771,9 +777,6 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement)
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
     const bool multiLinePattern = regexMode ? KateRegExp(searchPattern()).isMultiLine() : false;
 
-    // Before first match
-    clearHighlights();
-
     KTextEditor::MovingRange * workingRange = m_view->doc()->newMovingRange(inputRange);
     QList<Range> highlightRanges;
     int matchCounter = 0;
@@ -860,7 +863,10 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement)
 
 
 
-void KateSearchBar::replaceAll() {
+void KateSearchBar::replaceAll()
+{
+    delete m_infoMessage;
+
     // What to find/replace?
     const QString replacement = m_powerUi->replacement->currentText();
 
@@ -876,12 +882,13 @@ void KateSearchBar::replaceAll() {
     int replacementsDone=findAll(inputRange, &replacement);
 
     // send passive notification to view
-    KTextEditor::Message* message = new KTextEditor::Message(KTextEditor::Message::Positive,
-                                        i18np("1 replacement has been made", "%1 replacements have been made", replacementsDone));
-    message->setPosition(KTextEditor::Message::BelowView);
-    message->setAutoHide(0);
-    message->setView(m_view);
-    m_view->doc()->postMessage(message);
+    m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive,
+                        i18np("1 replacement has been made", "%1 replacements have been made", replacementsDone));
+    m_infoMessage->setPosition(KTextEditor::Message::BelowView);
+    m_infoMessage->setAutoHide(0);
+    m_infoMessage->setView(m_view);
+    connect(m_infoMessage, SIGNAL(closed(KTextEditor::Message*)), SLOT(clearHighlights()));
+    m_view->doc()->postMessage(m_infoMessage);
 
     // Never merge replace actions with other replace actions/user actions
     m_view->doc()->undoManager()->undoSafePoint();
@@ -1495,6 +1502,15 @@ void KateSearchBar::enterIncrementalMode() {
     }
 }
 
+bool KateSearchBar::hideInfoMessage()
+{
+    if (m_infoMessage) {
+        delete m_infoMessage;
+        return true;
+    }
+
+    return false;
+}
 
 bool KateSearchBar::clearHighlights() {
     if (m_hlRanges.isEmpty()) {

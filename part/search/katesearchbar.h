@@ -40,6 +40,7 @@ namespace Ui {
 
 namespace KTextEditor {
     class MovingRange;
+    class Message;
 }
 
 
@@ -118,6 +119,7 @@ public Q_SLOTS:
     void enterPowerMode();
     void enterIncrementalMode();
 
+    bool hideInfoMessage();
     bool clearHighlights();
     void updateHighlightColors();
     
@@ -172,6 +174,7 @@ private:
     KateView *const m_view;
     KateViewConfig *const m_config;
     QList<KTextEditor::MovingRange*> m_hlRanges;
+    QPointer<KTextEditor::Message> m_infoMessage;
 
     // Shared by both dialogs
     QVBoxLayout *const m_layout;

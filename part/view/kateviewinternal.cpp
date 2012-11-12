@@ -2269,7 +2269,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
           return true;
         } else if (m_view->hasSearchBar()) {
           // hide search&replace highlights
-          if (m_view->searchBar()->clearHighlights()) {
+          if (m_view->searchBar()->hideInfoMessage()) {
             k->accept();
             //kDebug() << obj << "shortcut override" << k->key() << "hide search&replace highlights";
             return true;

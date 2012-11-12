@@ -660,7 +660,6 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
     int SnippetSelectorModel::rowCount(const QModelIndex& parent) const
     {
       if (parent.isValid()) return 0;
-      kDebug()<<"returning:"<< m_cmodel->d->entries.count();
       return m_cmodel->d->entries.count();
     }
 
@@ -682,7 +681,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
     
     QModelIndex SnippetSelectorModel::index ( int row, int column, const QModelIndex & parent ) const
     {
-      kDebug()<<"afdafsfsd"<<parent<<"XXXX"<<row<<"yyyy"<<column;
+      //kDebug()<<"afdafsfsd"<<parent<<"XXXX"<<row<<"yyyy"<<column;
       if (parent.isValid()) return QModelIndex();
       if (column!=0) return QModelIndex();
       if ((row>=0) && (row<m_cmodel->d->entries.count()))
@@ -692,7 +691,7 @@ bool SnippetCompletionModel::shouldAbortCompletion(KTextEditor::View* view, cons
 
     QVariant SnippetSelectorModel::data(const QModelIndex &index, int role) const
     {
-        kDebug()<<index;
+        //kDebug()<<index;
         if (role==MergedFilesRole) return m_cmodel->d->mergedFiles;
         if (!index.isValid()) return QVariant();
         switch (role) {

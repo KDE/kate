@@ -12,11 +12,11 @@
 
 
 KateCombinedSnippetSelector::KateCombinedSnippetSelector(QWidget *parent,KateView* initialView):
-  QWidget(parent), m_implementationWidget(0) {
+  QWidget(parent), m_implementationWidget(0),m_toolBar(0) {
     KateSnippetGlobal *global=KateSnippetGlobal::self();
     m_mode=global->snippetsMode();
-    createWidget();
-    connect(global,SIGNAL(snippetModeChanged()),this,SLOT(updateSnippetsMode()));
+    createWidget(initialView);
+    connect(global,SIGNAL(snippetsModeChanged()),this,SLOT(updateSnippetsMode()));
   }
 
 KateCombinedSnippetSelector::~KateCombinedSnippetSelector() { m_implementationWidget=0;}
@@ -25,11 +25,13 @@ void KateCombinedSnippetSelector::updateSnippetsMode() {
   enum KateSnippetGlobal::Mode m=KateSnippetGlobal::self()->snippetsMode();
   if (m!=m_mode) {
     m_mode=m;
-    createWidget();
+    if (!m_currentEditorView) 
+      setCurrentEditorView(KateSnippetGlobal::self()->getCurrentView());
+    createWidget(m_currentEditorView);
   }
 }
 
-void KateCombinedSnippetSelector::createWidget() {
+void KateCombinedSnippetSelector::createWidget(KateView *initialView) {
     KateSnippetGlobal *global=KateSnippetGlobal::self();
     delete m_toolBar;
     m_toolBar=0;
@@ -37,12 +39,15 @@ void KateCombinedSnippetSelector::createWidget() {
     m_implementationWidget=0;
     QLayout *l=layout();
     setLayout(0);
+    setCurrentEditorView(initialView);
     delete l;
     switch (m_mode) {
       case KateSnippetGlobal::FileModeBasedMode: {
           QVBoxLayout *layout=new QVBoxLayout(this);
           m_implementationWidget=new JoWenn::KateCategorizedSnippetSelector(this);
           layout->addWidget(m_implementationWidget);
+          connect(this,SIGNAL(viewChanged(KateView*)),m_implementationWidget,SLOT(viewChanged(KateView*)));
+          viewChanged(initialView);
         }     
         break;
 
@@ -62,5 +67,18 @@ void KateCombinedSnippetSelector::createWidget() {
     }
 }
 
+
+void KateCombinedSnippetSelector::setCurrentEditorView(KTextEditor::View* view) {
+  KateView* kateView=qobject_cast<KateView*>(view);
+  if (!kateView) {
+    m_currentEditorView=0;
+    emit viewChanged(0);
+  } else {
+    if (kateView!=m_currentEditorView) {
+      m_currentEditorView=kateView;
+      emit viewChanged(kateView);
+    }
+  }
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -21,7 +21,6 @@
 #include "dbus_helpers.moc"
 #include "completionmodel.h"
 #include "dbus_helpers.h"
-#include "ui_snippet_repository.h"
 #include <qcheckbox.h>
 #include <qlabel.h>
 #include <QFileInfo>
@@ -117,6 +116,10 @@ namespace KTextEditor {
     SnippetRepositoryItemDelegate::~SnippetRepositoryItemDelegate(){}
     
     QList<QWidget*> SnippetRepositoryItemDelegate::createItemWidgets() const {
+      /*static int invocations=0;
+      invocations++;
+      kDebug()<<"invoked: "<<invocations;*/
+      
       QList<QWidget*> list;
       QCheckBox *checkbox=new QCheckBox();
       list<<checkbox;
@@ -159,6 +162,16 @@ namespace KTextEditor {
     void SnippetRepositoryItemDelegate::updateItemWidgets(const QList<QWidget*> widgets,
       const QStyleOptionViewItem &option,
       const QPersistentModelIndex &index) const {
+
+     
+     /* static int invocations=0;
+      invocations++;
+      if (index.isValid())
+        kDebug()<<"invoked: "<<invocations<<" item=invalid";
+      else
+        kDebug()<<"invoked: "<<invocations<<" item="<<index.model()->data(index, SnippetRepositoryModel::NameRole).toString();
+       */ 
+        
       //CHECKBOX
       QCheckBox *checkBox = static_cast<QCheckBox*>(widgets[0]);
       checkBox->resize(checkBox->sizeHint());
@@ -706,27 +719,29 @@ void SnippetRepositoryModel::addSnippetToNewEntry(QWidget * dialogParent, const 
     : QWidget( parent )
     , m_repository( repository )
   {
-    m_ui=new Ui::KTESnippetRepository();
-    m_ui->setupUi(this);
-    m_ui->btnGHNS->setIcon(KIcon("get-hot-new-stuff"));    
-    KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate *delegate=new KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate(m_ui->lstSnippetFiles,this);
-    m_ui->lstSnippetFiles->setItemDelegate(delegate);
     
-    m_ui->lstSnippetFiles->setModel(m_repository);
-    m_ui->cbMode->setCurrentIndex((int)KateSnippetGlobal::self()->snippetsMode());
-    connect(m_ui->btnNew,SIGNAL(clicked()),m_repository,SLOT(newEntry()));
-    connect(m_ui->btnCopy,SIGNAL(clicked()),this,SLOT(slotCopy()));
-    connect(m_ui->btnGHNS,SIGNAL(clicked()),this,SLOT(slotGHNS()));
-    connect(m_ui->cbMode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotModeChanged()));
+    m_ui.setupUi(this);
+    m_ui.btnGHNS->setIcon(KIcon("get-hot-new-stuff"));    
+    m_delegate=new KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate(m_ui.lstSnippetFiles,this);
+    m_ui.lstSnippetFiles->setItemDelegate(m_delegate);
+    
+    SnippetRepositoryViewFilterModel *filterModel=new SnippetRepositoryViewFilterModel(m_ui.lstSnippetFiles);
+    filterModel->setSourceModel(m_repository);
+    m_ui.lstSnippetFiles->setModel(filterModel);
+    m_ui.cbMode->setCurrentIndex((int)KateSnippetGlobal::self()->snippetsMode());
+    connect(m_ui.btnNew,SIGNAL(clicked()),m_repository,SLOT(newEntry()));
+    connect(m_ui.btnCopy,SIGNAL(clicked()),this,SLOT(slotCopy()));
+    connect(m_ui.btnGHNS,SIGNAL(clicked()),this,SLOT(slotGHNS()));
+    connect(m_ui.cbMode,SIGNAL(currentIndexChanged(int)),this,SLOT(slotModeChanged()));
   }
   
   void SnippetRepositoryConfigWidget::slotModeChanged() {
-    KateSnippetGlobal::self()->setSnippetsMode((enum KateSnippetGlobal::Mode)m_ui->cbMode->currentIndex());
+    KateSnippetGlobal::self()->setSnippetsMode((enum KateSnippetGlobal::Mode)m_ui.cbMode->currentIndex());
   }
 
   void SnippetRepositoryConfigWidget::slotCopy()
   {
-    KUrl url(m_ui->urlSource->url());
+    KUrl url(m_ui.urlSource->url());
     if (!url.isValid()) return;
     m_repository->copyToRepository(url);
   }
@@ -742,7 +757,8 @@ void SnippetRepositoryModel::addSnippetToNewEntry(QWidget * dialogParent, const 
 
   SnippetRepositoryConfigWidget::~SnippetRepositoryConfigWidget()
   {
-    delete m_ui;
+    delete m_delegate;
+    m_ui.lstSnippetFiles->setModel(0);
   }
 
 //END: Config Widget
@@ -767,6 +783,47 @@ void SnippetRepositoryModel::addSnippetToNewEntry(QWidget * dialogParent, const 
  
 //END: DBus Adaptor
 
+
+//BEGIN: SnippetRepositoryViewFilterModel
+SnippetRepositoryViewFilterModel::SnippetRepositoryViewFilterModel(QObject *parent)
+ : QSortFilterProxyModel(parent)
+{
+    connect(KateSnippetGlobal::self()->repositoryModel(),
+            SIGNAL(dataChanged(QModelIndex,QModelIndex)),
+            this,
+            SLOT(dataChanged(QModelIndex,QModelIndex)));
+}
+
+void SnippetRepositoryViewFilterModel::setSourceModel ( QAbstractItemModel * _sourceModel ) {
+  QAbstractItemModel *m=sourceModel();
+  if (m) {
+    disconnect(m,SIGNAL(dataChanged(QModelIndex,QModelIndex)),this,SLOT(dataChanged(QModelIndex,QModelIndex)));
+  }
+  QSortFilterProxyModel::setSourceModel(_sourceModel);
+  
+  connect(_sourceModel,SIGNAL(dataChanged(QModelIndex,QModelIndex)),this,SLOT(dataChanged(QModelIndex,QModelIndex)));
+  
+}
+
+
+SnippetRepositoryViewFilterModel::~SnippetRepositoryViewFilterModel()
+{
+}
+
+
+bool SnippetRepositoryViewFilterModel::filterAcceptsRow(int sourceRow, const QModelIndex & sourceParent) const
+{
+    if (sourceParent.isValid()) return false;
+    return true;
+}
+
+void SnippetRepositoryViewFilterModel::dataChanged(const QModelIndex& /*topLeft*/, const QModelIndex& /*bottomRight*/)
+{
+    clear();
+}
+
+
+//END: SnippetRepositoryViewFilterModel
   }
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

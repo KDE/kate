@@ -11,17 +11,24 @@ class KateCombinedSnippetSelector : public QWidget {
     Q_OBJECT
   
   public:
+    Q_PROPERTY (KTextEditor::View* currentEditorView WRITE setCurrentEditorView)
+    
     KateCombinedSnippetSelector(QWidget *parent,KateView* initialView);
     virtual ~KateCombinedSnippetSelector();
-    void createWidget();
+    void createWidget(KateView *initialView);
 
   public Q_SLOTS:
     void updateSnippetsMode();
+    void setCurrentEditorView(KTextEditor::View* view);
+       
+  Q_SIGNALS:
+    void viewChanged(KateView* view);
     
   private:
     QWidget *m_implementationWidget;
     KToolBar *m_toolBar;
     KateSnippetGlobal::Mode m_mode;
+    QPointer<KateView> m_currentEditorView;
 };
 
 #endif

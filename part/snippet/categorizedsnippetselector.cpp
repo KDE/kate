@@ -159,6 +159,14 @@ namespace JoWenn {
 
   void KateCategorizedSnippetSelector::showRepoManager()
   {
+    KDialog dialog;
+    dialog.setCaption(i18n("Kate Snippets"));
+    dialog.setButtons(KDialog::Close);
+    dialog.setDefaultButton(KDialog::Close);
+
+    QWidget *widget=new KTextEditor::CodesnippetsCore::SnippetRepositoryConfigWidget(&dialog,KateSnippetGlobal::self()->repositoryModel());
+    dialog.setMainWidget(widget);
+    dialog.exec();
 #warning FIXME
 /*    m_mainWindow->showPluginConfigPage(
       dynamic_cast<Kate::PluginConfigPageInterface*> (m_plugin),

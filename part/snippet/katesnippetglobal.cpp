@@ -117,6 +117,7 @@ void KateSnippetGlobal::showDialog (KateView *view)
 
 QWidget *KateSnippetGlobal::snippetWidget (QWidget *parent,KateView *initialView)
 {
+  if (!initialView) initialView=KateSnippetGlobal::self()->getCurrentView();
   return new KateCombinedSnippetSelector(parent,initialView);
  /*
   QTabWidget *widget=new QTabWidget(0);
@@ -208,7 +209,7 @@ void KateSnippetGlobal::createSnippet (KateView *view)
     modes<<document->mode();
     modes<<hli->embeddedHighlightingModes();
     kDebug(13040)<<modes;
-    kDebug(13040)<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
+    //kDebug(13040)<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
     QList<KTextEditor::CodesnippetsCore::SnippetCompletionModel> models;
     foreach (const QString& mode, modes)
     {

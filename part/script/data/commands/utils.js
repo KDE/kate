@@ -180,7 +180,6 @@ function moveLinesUp()
         blockRange.start.line--;
         blockRange.end.line--;
         view.setCursorPosition(blockRange.start);
-        var selectionRange = view.selection();
         if (view.selection().isValid())
             view.setSelection(blockRange);
         document.editEnd();

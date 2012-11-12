@@ -128,13 +128,13 @@ function unwrap ()
 
 /// \note Range contains a block selected by lines (\b ONLY)!
 /// And it is an open range! I.e. <em>[start, end)</em> (like in STL).
-function _getBlockToMove()
+function _getBlockForAction()
 {
     // Check if selection present in a view...
     var blockRange = view.selection();
     var cursorPosition = view.cursorPosition();
     if (blockRange.isValid()) {
-        blockRange.start.column = cursorPosition.column;
+        blockRange.start.column = 0;
         if (blockRange.end.column != 0)
             blockRange.end.line++;
         blockRange.end.column = 0;
@@ -142,14 +142,14 @@ function _getBlockToMove()
     } else {
         // No, it doesn't! Ok, lets select the current line only
         // from current position to the end
-        blockRange = new Range(cursorPosition.line, cursorPosition.column, cursorPosition.line + 1, 0);
+        blockRange = new Range(cursorPosition.line, 0, cursorPosition.line + 1, 0);
     }
     return blockRange;
 }
 
 function moveLinesDown()
 {
-    var blockRange = _getBlockToMove();
+    var blockRange = _getBlockForAction();
     // Check is there a space to move?
     if (blockRange.end.line < (document.lines() - 1)) {
         document.editBegin();
@@ -166,7 +166,7 @@ function moveLinesDown()
 
 function moveLinesUp()
 {
-    var blockRange = _getBlockToMove();
+    var blockRange = _getBlockForAction();
     // Check is there a space to move?
     if (0 < blockRange.start.line) {
         document.editBegin();
@@ -187,60 +187,29 @@ function moveLinesUp()
     }
 }
 
-
-//private
-function _duplicateLines(up)
-{
-    var fromLine = -1;
-    var toLine = -1;
-
-    var selectionRange = view.selection();
-    if (selectionRange.isValid()) {
-        fromLine = selectionRange.start.line;
-        toLine = selectionRange.end.line;
-        if (document.lineLength(toLine) > 0 && selectionRange.end.column == 0) {
-            //if selection ends at beginning of line, skip that line
-            toLine--;
-        }
-    } else {
-        toLine = view.cursorPosition().line;
-        fromLine = toLine;
-    }
-
-    var text = [];
-    for (var i=fromLine; i<=toLine; ++i) {
-        text.push(document.line(i));
-    }
-
-    document.editBegin();
-    for (var i=text.length-1; i>=0; --i) {
-        if (up) {
-            document.insertLine(fromLine, text[i]);
-        } else {
-            document.insertLine(toLine+1, text[i]);
-        }
-    }
-    document.editEnd();
-
-    if (up) {
-        var endCursor = new Cursor(toLine, document.lineLength(toLine));
-        view.setSelection(new Range(new Cursor(fromLine, 0), endCursor));
-        view.setCursorPosition(new Cursor(fromLine, 0));
-    } else {
-        var endCursor = new Cursor(toLine+text.length, document.lineLength(toLine+text.length));
-        view.setSelection(new Range(new Cursor(toLine+1, 0), endCursor));
-        view.setCursorPosition(new Cursor(toLine+1, 0));
-    }
-}
-
 function duplicateLinesUp()
 {
-    _duplicateLines(true);
+    var blockRange = _getBlockForAction();
+    document.editBegin();
+    document.insertText(blockRange.start, document.text(blockRange));
+    document.editEnd();
 }
 
 function duplicateLinesDown()
 {
-    _duplicateLines(false);
+    var blockRange = _getBlockForAction();
+    document.editBegin();
+    document.insertText(blockRange.end, document.text(blockRange));
+    // NOTE Inserting a text after the selected block (if any) will extend it and moves a cursor...
+    // So we have to shrink it and return the cursor back.
+    var selectionRange = view.selection();
+    if (view.selection().isValid()) {
+        view.setSelection(blockRange);
+        var cursorPosition = view.cursorPosition();
+        cursorPosition.line = blockRange.end.line;
+        view.setCursorPosition(cursorPosition);
+    }
+    document.editEnd();
 }
 
 function rewrap()

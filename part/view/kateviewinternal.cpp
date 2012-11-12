@@ -3552,15 +3552,22 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
       // which supports Asian input methods. Asian input methods need
       // start point of IM selection text to place candidate window as
       // adjacent to the selection text.
-      KTextEditor::Cursor c = m_imPreeditRange ? m_imPreeditRange->start() : m_cursor;
-      return QRect (cursorToCoordinate(c, true, false), QSize(0, renderer()->lineHeight()));
+      return QRect (cursorToCoordinate(m_cursor, true, false), QSize(0, renderer()->lineHeight()));
     }
 
     case Qt::ImFont:
       return renderer()->currentFont();
 
     case Qt::ImCursorPosition:
-      return m_imPreeditRange ? m_imPreeditRange->start().column() : 0;
+      return m_cursor.column();
+
+    case Qt::ImAnchorPosition:
+      // If selectAnchor is at the same line, return the real anchor position
+      // Otherwise return the same position of cursor
+      if (m_view->selection() && m_selectAnchor.line() == m_cursor.line())
+        return m_selectAnchor.column();
+      else
+        return m_cursor.column();
 
     case Qt::ImSurroundingText:
       if (Kate::TextLine l = doc()->kateTextLine(m_cursor.line()))
@@ -3574,7 +3581,7 @@ QVariant KateViewInternal::inputMethodQuery ( Qt::InputMethodQuery query ) const
       else
         return QString();
     default:
-      /* values: ImMaximumTextLength and ImAnchorPosition */
+      /* values: ImMaximumTextLength */
       break;
   }
 

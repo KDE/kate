@@ -387,14 +387,14 @@ void KateFileTreeModel::clearModel()
 
 QModelIndex KateFileTreeModel::docIndex(KTextEditor::Document *d)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
   ProxyItem *item = m_docmap[d];
   if(!item) {
     kDebug(debugArea()) << "doc" << d << "does not exist";
     return QModelIndex();
   }
 
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "^END!";
   return createIndex(item->row(), 0, item);
 }
 
@@ -637,7 +637,7 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
   
   ProxyItem *item = m_docmap[doc];
   if(!item)
@@ -659,13 +659,13 @@ void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
   QModelIndex idx = createIndex(item->row(), 0, item);
   emit dataChanged(idx, idx);
 
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason )
 {
   Q_UNUSED(modified);
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
   ProxyItem *item = m_docmap[doc];
   if(!item)
     return;
@@ -696,12 +696,12 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
   
   QModelIndex idx = createIndex(item->row(), 0, item);
   emit dataChanged(idx, idx);
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::documentActivated(KTextEditor::Document *doc)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
 
   if(!m_docmap.contains(doc)) {
     kDebug(debugArea()) << "invalid doc" << doc;
@@ -717,12 +717,12 @@ void KateFileTreeModel::documentActivated(KTextEditor::Document *doc)
 
   updateBackgrounds();
   
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::documentEdited(KTextEditor::Document *doc)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
 
   if(!m_docmap.contains(doc)) {
     kDebug(debugArea()) << "invalid doc" << doc;
@@ -737,7 +737,7 @@ void KateFileTreeModel::documentEdited(KTextEditor::Document *doc)
 
   updateBackgrounds();
   
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 class EditViewCount
@@ -753,7 +753,7 @@ void KateFileTreeModel::updateBackgrounds(bool force)
 {
   if (!m_shadingEnabled && !force) return;
   
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
   
   QMap <ProxyItem *, EditViewCount> helper;
   int i = 1;
@@ -826,12 +826,12 @@ void KateFileTreeModel::updateBackgrounds(bool force)
     dataChanged(idx, idx);
   }
 
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
   Q_ASSERT(item != 0);
   
   if(!item || !item->parent()) {
@@ -856,7 +856,7 @@ void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
     }
     else {
       // breakout early, if this node isn't empty, theres no use in checking its parents
-      kDebug(debugArea()) << "END!";
+      //kDebug(debugArea()) << "END!";
       return;
     }
     
@@ -865,7 +865,7 @@ void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
   }
   
   //emit layoutChanged();
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
@@ -915,7 +915,7 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
 
 void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
 
   if(!m_docmap.contains(doc)) {
     kDebug(debugArea()) << "docmap doesn't contain doc" << doc;
@@ -965,7 +965,7 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
   
   triggerViewChangeAfterNameChange();
   
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
@@ -1019,7 +1019,7 @@ ProxyItemDir *KateFileTreeModel::findChildNode(ProxyItemDir *parent, const QStri
 
 void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
 
   Q_ASSERT(root != 0);
   Q_ASSERT(item != 0);
@@ -1059,12 +1059,12 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
     ptr->addChild(item);
   endInsertRows();
 
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::handleInsert(ProxyItem *item)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
 
   Q_ASSERT(item != 0);
   
@@ -1136,7 +1136,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
 
   }
 
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_name)
@@ -1195,12 +1195,12 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
   kDebug(debugArea()) << "inserting" << item;
   handleInsert(item);
 
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 void KateFileTreeModel::setupIcon(ProxyItem *item)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  //kDebug(debugArea()) << "BEGIN!";
 
   Q_ASSERT(item != 0);
   
@@ -1222,7 +1222,7 @@ void KateFileTreeModel::setupIcon(ProxyItem *item)
 
   item->setIcon(KIcon(icon_name, 0, emblems));
 
-  kDebug(debugArea()) << "END!";
+  //kDebug(debugArea()) << "END!";
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

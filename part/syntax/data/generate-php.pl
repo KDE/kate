@@ -1,3 +1,5 @@
+#!/usr/bin/perl
+
 # This perl script read stdin and write on stdout. It shall be an XML language file.
 #
 # * If the name of the language is 'HTML', then it creates the language 'PHP (HTML)'

@@ -24,6 +24,7 @@
 
 // required katepart js libraries
 require ("range.js");
+require ("string.js");
 
 //BEGIN USER CONFIGURATION
 var cfgIndentCase = true;         // indent 'case' and 'default' in a switch?
@@ -100,80 +101,6 @@ function lastNonEmptyLine(line)
     }
 
     return line;
-}
-
-/**
- * Returns true when string ends with @p needle.
- * False otherwise.
- */
-String.prototype.endsWith = function(needle)
-{
-    return this.substr(- needle.length) == needle;
-}
-
-/**
- * Returns true when string starts with @p needle.
- * False otherwise.
- */
-String.prototype.startsWith = function(needle)
-{
-    return this.substr(0, needle.length) == needle;
-}
-
-/**
- * Returns @p string without leading spaces.
- */
-String.prototype.ltrim = function()
-{
-    var i = 0;
-    for ( ; i < this.length && (this[i] == ' ' || this[i] == '\t'); ++i ) {
-        // continue
-    }
-    return this.substr(i);
-}
-
-/**
- * Returns @p string without trailing spaces.
- */
-String.prototype.rtrim = function()
-{
-    if ( this.length == 0 ) {
-        return "";
-    }
-    var i = this.length - 1;
-    for ( ; i >= 0 && (this[i] == ' ' || this[i] == '\t'); --i ) {
-        // continue
-    }
-    return this.substr(0, i + 1);
-}
-
-/**
- * Returns @p string without leading or trailing spaces.
- */
-String.prototype.trim = function()
-{
-    return this.rtrim().ltrim();
-}
-
-/**
- * Returns true when @p needle is contained in this string, false otherwise.
- */
-String.prototype.contains = function(needle)
-{
-    return this.indexOf(needle) !== -1;
-}
-
-/**
- * Fills with @p size @p char's.
- * @return the string itself (for chain calls)
- */
-String.prototype.fill = function(char, size)
-{
-    var string = "";
-    for ( var i = 0; i < size; ++i ) {
-        string += char;
-    }
-    return string;
 }
 
 /**
@@ -559,7 +486,7 @@ function tryCondition(line)
         var currentIndentation = document.firstVirtualColumn(currentLine);
         if (currentIndentation == 0)
             return -1;
-        
+
         var lineDelimiter = 10; // 10 limit search, hope this is a sane value
         while (currentLine > 0 && lineDelimiter > 0) {
             --currentLine;
@@ -608,7 +535,7 @@ function tryStatement(line)
         // search for opening ", ' or (
         var cursor = new Cursor().invalid();
         if (result[2] == '"' || (alignOnSingleQuote && result[2] == "'")) {
-            
+
             while(true) {
                 var i = result[1].length - 1; // start from matched closing ' or "
                 // find string opener

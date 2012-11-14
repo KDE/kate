@@ -11,7 +11,7 @@
 <language
     name="C++11"
     section="Sources"
-    version="1.53.1"
+    version="1.54"
     kateversion="2.4"
     indenter="cppstyle"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"

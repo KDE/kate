@@ -69,7 +69,8 @@ SwapFile::SwapFile(KateDocument *document)
   connect(&m_document->buffer(), SIGNAL(loaded(QString,bool)), this, SLOT(fileLoaded(QString)));
   connect(m_document, SIGNAL(configChanged()), this, SLOT(configChanged()));
 
-  configChanged();
+  // tracking on!
+  setTrackingEnabled (true);
 }
 
 SwapFile::~SwapFile()

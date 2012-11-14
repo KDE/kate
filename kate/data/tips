@@ -101,7 +101,7 @@ line.</p>
 <p>Simply enter your filter in the filter entry at the bottom, for example:
 <code>*.html *.php</code> if you only want to see HTML and PHP files in the
 current folder.</p>
-<p>The File Selector will even remember your filters for you.</strong></p>
+<p>The Filesystem Browser will even remember your filters for you.</p>
 </html>
 </tip>
 <tip category="Kate|app">

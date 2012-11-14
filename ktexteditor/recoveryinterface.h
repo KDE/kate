@@ -82,6 +82,14 @@ class KTEXTEDITOR_EXPORT RecoveryInterface
      */
     virtual void discardDataRecovery() = 0;
 
+    /**
+     * TODO KDE5 (see SwapFile::setTrackingEnabled())
+     * Enables or disables the writing of swap files.
+     * @note Enabling/disabling only works when the document is \e not modified!
+     */
+    // void setDataRecoveryEnabled(bool enable);
+    // bool dataRecoveryEnabled() const;
+
   private:
     class RecoveryInterfacePrivate* const d;
 };

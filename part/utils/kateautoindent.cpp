@@ -175,11 +175,15 @@ bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
 
   QString indentString = tabString(indentDepth, align);
 
-  // remove leading whitespace, then insert the leading indentation
-  doc->editStart ();
-  doc->editRemoveText (line, 0, oldIndentation.length());
-  doc->editInsertText (line, 0, indentString);
-  doc->editEnd ();
+  // Modify the document *ONLY* if smth has really changed!
+  if (oldIndentation != indentString)
+  {
+    // remove leading whitespace, then insert the leading indentation
+    doc->editStart ();
+    doc->editRemoveText (line, 0, oldIndentation.length());
+    doc->editInsertText (line, 0, indentString);
+    doc->editEnd ();
+  }
 
   return true;
 }
@@ -324,7 +328,10 @@ void KateAutoIndent::setMode (const QString &name)
     }
     else
     {
-      kWarning( 13060 ) << "mode" << name << "requires a different highlight style";
+      kWarning( 13060 ) << "mode" << name <<
+        "requires a different highlight style: document style '" << doc->highlight() << "'"
+        ", but script require '" << script->indentHeader().requiredStyle() << "'"
+        ;
     }
   }
   else
@@ -342,7 +349,10 @@ void KateAutoIndent::checkRequiredStyle()
   {
     if (!isStyleProvided(m_script, doc->highlight()))
     {
-      kDebug( 13060 ) << "mode" << m_mode << "requires a different highlight style";
+      kDebug( 13060 ) << "mode" << m_mode <<
+        "requires a different highlight style: document style '" << doc->highlight() << "'"
+        ", but script require '" << m_script->indentHeader().requiredStyle() << "'"
+        ;
       doc->config()->setIndentationMode(MODE_NORMAL);
     }
   }

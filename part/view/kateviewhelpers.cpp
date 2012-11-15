@@ -272,6 +272,11 @@ void KateScrollBar::updatePixmap()
     return;
   }
 
+  if (!m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)) {
+    // Without style we cannot update the pixmap
+    return;
+  }
+
   // For performance reason, only every n-th line will be drawn if the widget is
   // sufficiently small compared to the amount of lines in the document.
   int docLineCount = m_doc->visibleLines();

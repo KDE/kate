@@ -144,9 +144,9 @@ void ExporterPluginView::exportData(const bool useSelection, QTextStream &output
   output.setCodec(QTextCodec::codecForName("UTF-8"));
 
   ///TODO: add more exporters
-  AbstractExporter* exporter;
+  QScopedPointer<AbstractExporter> exporter;
 
-  exporter = new HTMLExporter(m_view, output, !useSelection);
+  exporter.reset(new HTMLExporter(m_view, output, !useSelection));
 
   KTextEditor::HighlightInterface* hiface = qobject_cast<KTextEditor::HighlightInterface*>(m_view->document());
 
@@ -196,8 +196,6 @@ void ExporterPluginView::exportData(const bool useSelection, QTextStream &output
 
     exporter->closeLine(i == range.end().line());
   }
-
-  delete exporter;
 
   output.flush();
 }

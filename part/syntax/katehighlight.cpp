@@ -1920,7 +1920,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         attr,
         context,
         ft, ftc, dynamic,noIndentationBasedFolding
-      , emptyLineContext.isEmpty(), emptyLineContextModification);
+      , !emptyLineContext.isEmpty(), emptyLineContextModification);
 
       m_contexts.push_back (ctxNew);
 

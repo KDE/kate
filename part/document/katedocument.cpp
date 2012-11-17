@@ -2824,13 +2824,36 @@ void KateDocument::align(KateView *view, const KTextEditor::Range &range)
   m_indenter->indent(view, range);
 }
 
-void KateDocument::insertTab( KateView *, const KTextEditor::Cursor& c )
+void KateDocument::insertTab( KateView *view, const KTextEditor::Cursor&)
 {
   if (!isReadWrite())
     return;
 
+  int lineLen = line(view->cursorPosition().line()).length();
+  KTextEditor::Cursor c = view->cursorPosition();
+
   editStart();
+
+
+  if (!view->config()->persistentSelection() && view->selection() ) {
+    view->removeSelectedText();
+  }
+  else if (config()->ovr() && c.column() < lineLen)
+  {
+    KTextEditor::Range r = KTextEditor::Range(view->cursorPosition(), 1);
+
+    if (view->viInputMode() && view->getViInputModeManager()->getCurrentViMode() == ReplaceMode)
+    {
+      // vi replace mode needs to know what was removed so it can be restored with backspace
+      QChar removed = line(view->cursorPosition().line()).at( r.start().column());
+      view->getViInputModeManager()->getViReplaceMode()->overwrittenChar(removed);
+    }
+    removeText(r);
+  }
+
+  c = view->cursorPosition();
   editInsertText(c.line(), c.column(), QChar('\t'));
+
   editEnd();
 }
 

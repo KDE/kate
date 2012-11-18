@@ -44,6 +44,7 @@
 #include <qclipboard.h>
 #include <qtextstream.h>
 #include <qfile.h>
+#include <qtimer.h>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)
 : QWidget(parent)
@@ -122,7 +123,7 @@ void DataOutputWidget::showQueryResultSets(QSqlQuery &query)
 
   m_isEmpty = false;
 
-  resizeColumnsToContents();
+  QTimer::singleShot(0, this, SLOT(resizeColumnsToContents()));
 
   raise();
 }

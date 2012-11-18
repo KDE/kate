@@ -56,16 +56,24 @@ QSqlRecord CachedSqlQueryModel::record(int row) const
     if (row - cache.lastIndex() > lookAhead)
       cacheRecords(row - halfLookAhead, qMin(rowCount(), row + halfLookAhead));
     else
-      while (row > cache.lastIndex())
+    {
+      int until = qMin(rowCount(), cache.lastIndex() + lookAhead);
+
+      while (cache.lastIndex() < until)
         cache.append(QSqlQueryModel::record(cache.lastIndex() + 1));
+    }
   }
   else if (row < cache.firstIndex())
   {
     if (cache.firstIndex() - row > lookAhead)
       cacheRecords(qMax(0, row - halfLookAhead), row + halfLookAhead);
     else
-      while (row < cache.firstIndex())
+    {
+      int until = qMax(0, cache.firstIndex() - lookAhead);
+
+      while (cache.firstIndex() > until)
         cache.prepend(QSqlQueryModel::record(cache.firstIndex() - 1));
+    }
   }
 
   return cache.at(row);

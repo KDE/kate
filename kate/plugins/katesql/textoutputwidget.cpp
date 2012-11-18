@@ -28,9 +28,6 @@
 #include <qlayout.h>
 #include <qtextedit.h>
 #include <qdatetime.h>
-#include <qsqlquery.h>
-#include <qsqldriver.h>
-#include <qsqlerror.h>
 
 TextOutputWidget::TextOutputWidget(QWidget *parent)
 : QWidget(parent)
@@ -65,6 +62,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
 
   m_layout->addWidget(toolbar);
   m_layout->addWidget(m_output, 1);
+  m_layout->setContentsMargins(0, 0, 0, 0);
 
   setLayout(m_layout);
 }

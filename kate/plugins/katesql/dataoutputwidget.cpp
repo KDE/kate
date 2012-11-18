@@ -97,6 +97,7 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
 
   layout->addWidget(toolbar);
   layout->addLayout(m_dataLayout);
+  layout->setContentsMargins(0, 0, 0, 0);
 
   setLayout(layout);
 }

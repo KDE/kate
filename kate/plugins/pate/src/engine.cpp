@@ -64,16 +64,6 @@ typedef enum
     UsableDirectory
 } Loadability;
 
-#if PY_MAJOR_VERSION >= 3
-    #define MOD_DEF(name, doc, methods) \
-            static struct PyModuleDef moduledef = { \
-                            PyModuleDef_HEAD_INIT, name, doc, -1, methods, 0, 0, 0, 0 }; \
-        PyModule_Create(&moduledef);
-#else
-    #define MOD_DEF(name, doc, methods) \
-            Py_InitModule3(name, methods, doc);
-#endif
-
 /**
  * A usable plugin.
  */
@@ -181,7 +171,7 @@ void Pate::Engine::del()
 
 bool Pate::Engine::init()
 {
-    kDebug() << "Construct the Python engine";
+    kDebug() << "Construct the Python engine for Python" << PY_MAJOR_VERSION;
     Python::libraryLoad();
     Python py = Python();
     // Finish setting up the model. At the top level, we have pairs of icons
@@ -218,8 +208,15 @@ bool Pate::Engine::init()
     );
 
     // Initialise our built-in module.
-    //
-    MOD_DEF(Python::PATE_ENGINE, "The pate module", pateMethods); 
+#if PY_MAJOR_VERSION < 3
+    Py_InitModule3(Python::PATE_ENGINE, pateMethods, "The pate module");
+#else
+    static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT, Python::PATE_ENGINE, "The pate module",
+	-1, pateMethods, 0, 0, 0, 0 };
+    PyModule_Create(&moduledef);
+#endif
+
     m_configuration = PyDict_New();
 
     // Host the configuration dictionary.
@@ -374,7 +371,7 @@ void Pate::Engine::loadModules()
 
         // Add to pate.pluginDirectories and to sys.path.
         py.appendStringToList(pluginDirectories, directoryPath);
-        PyObject *d = py.unicode(directoryPath);
+        PyObject *d = Python::unicode(directoryPath);
         PyList_Insert(pythonPath, 0, d);
         Py_DECREF(d);
 
@@ -395,7 +392,7 @@ void Pate::Engine::loadModules()
                 path = directoryPath + pluginName;
                 QFile f(path);
                 if (f.exists()) {
-                    PyObject *d = py.unicode(path);
+                    PyObject *d = Python::unicode(path);
                     PyList_Insert(pythonPath, 0, d);
                     Py_DECREF(d);
                 } else {
@@ -418,11 +415,7 @@ void Pate::Engine::loadModules()
 
                     // Get a description of the plugin if we can.
                     PyObject *doc = py.itemString("__doc__", PQ(pluginName));
-                    #if PY_MAJOR_VERSION < 3
-                    QString comment = PyString_Check(doc) ? PyString_AsString(doc) : i18n("Loaded");
-                    #else
-                    QString comment = PyUnicode_Check(doc) ? PyUnicode_AsUnicode(doc) : i18n("Loaded");
-                    #endif
+                    QString comment = Python::isUnicode(doc) ? Python::unicode(doc) : i18n("Loaded");
 
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(comment.split("\n")[0]));
                 } else {
@@ -461,11 +454,7 @@ void Pate::Engine::unloadModules()
             PyObject *pluginName = py.itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
             if(pluginName && PyDict_Contains(modules, pluginName)) {
                 PyDict_DelItem(modules, pluginName);
-                #if PY_MAJOR_VERSION < 3
-                kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
-                #else
-                kDebug() << "Deleted" << PyUnicode_AsUnicode(pluginName) << "from sys.modules";
-                #endif
+                kDebug() << "Deleted" << Python::unicode(pluginName) << "from sys.modules";
             }
         }
         py.itemStringDel("plugins");

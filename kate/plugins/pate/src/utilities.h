@@ -65,8 +65,14 @@ public:
      */
     static void libraryUnload();
 
-    /// Convert a QString to a Python unicode object
-    PyObject *unicode(const QString &string);
+    /// Convert a QString to a Python unicode object.
+    static PyObject *unicode(const QString &string);
+
+    /// Convert a Python unicode object to a QString.
+    static QString unicode(PyObject *string);
+
+    /// Test if a Python object is compatible with a QString.
+    static bool isUnicode(PyObject *string);
 
     /// Append a QString to a list as a Python unicode object
     void appendStringToList(PyObject *list, const QString &value);

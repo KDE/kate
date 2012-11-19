@@ -223,11 +223,7 @@ QString Python::moduleHelp(const char *moduleName)
     if (!result) {
         return QString();
     }
-    #if PY_MAJOR_VERSION < 3
-    QString r(PyString_AsString(result));
-    #else
-    QString r(PyUnicode_AsUnicode(result));
-    #endif
+    QString r(unicode(result));
     Py_DECREF(result);
     return r;
 }
@@ -321,22 +317,14 @@ void Python::traceback(const QString &description)
     if (exc_val) {
         PyObject *temp = PyObject_Str(exc_val);
         if (temp) {
-            #if PY_MAJOR_VERSION < 3
-            m_traceback += PyString_AsString(temp);
-            #else
-            m_traceback += PyUnicode_AsUnicode(temp);
-            #endif
+            m_traceback += unicode(temp);
             m_traceback += "\n";
         }
         Py_DECREF(exc_val);
     } else {
         PyObject *temp = PyObject_Str(exc_typ);
         if (temp) {
-            #if PY_MAJOR_VERSION < 3
-            m_traceback += PyString_AsString(temp);
-            #else
-            m_traceback += PyUnicode_AsUnicode(temp);
-            #endif
+            m_traceback += unicode(temp);
             m_traceback += "\n";
         }
     }
@@ -349,14 +337,32 @@ void Python::traceback(const QString &description)
 
 PyObject *Python::unicode(const QString &string)
 {
-    #if PY_MAJOR_VERSION < 3
+#if PY_MAJOR_VERSION < 3
     PyObject *s = PyString_FromString(PQ(string));
-    #else
+#else
     PyObject *s = PyUnicode_FromString(PQ(string));
-    #endif
+#endif
     PyObject *u = PyUnicode_FromEncodedObject(s, "utf-8", "strict");
     Py_DECREF(s);
     return u;
+}
+
+QString Python::unicode(PyObject *string)
+{
+#if PY_MAJOR_VERSION < 3
+    return PyString_AsString(string);
+#else
+    return PyUnicode_AsUnicode(string);
+#endif
+}
+
+bool Python::isUnicode(PyObject *string)
+{
+#if PY_MAJOR_VERSION < 3
+    return PyString_Check(string);
+#else
+    return PyUnicode_Check(string);
+#endif
 }
 
 void Python::updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary)
@@ -365,19 +371,11 @@ void Python::updateConfigurationFromDictionary(KConfigBase *config, PyObject *di
     PyObject *groupDictionary;
     Py_ssize_t position = 0;
     while (PyDict_Next(dictionary, &position, &groupKey, &groupDictionary)) {
-        #if PY_MAJOR_VERSION < 3
-        if (!PyString_Check(groupKey)) {
-        #else
-        if (!PyUnicode_Check(groupKey)) {
-        #endif
+        if (!isUnicode(groupKey)) {
             traceback(i18n("Configuration group name not a string"));
             continue;
         }
-        #if PY_MAJOR_VERSION < 3
-        QString groupName = PyString_AsString(groupKey);
-        #else
-        QString groupName = PyUnicode_AsUnicode(groupKey);
-        #endif
+        QString groupName = unicode(groupKey);
         if (!PyDict_Check(groupDictionary)) {
             traceback(i18n("Configuration group %1 top level key not a dictionary").arg(groupName));
             continue;
@@ -389,21 +387,13 @@ void Python::updateConfigurationFromDictionary(KConfigBase *config, PyObject *di
         PyObject *value;
         Py_ssize_t x = 0;
         while (PyDict_Next(groupDictionary, &x, &key, &value)) {
-            #if PY_MAJOR_VERSION < 3
-            if (!PyString_Check(key)) {
-            #else
-            if (!PyUnicode_Check(key)) {
-            #endif
+            if (!isUnicode(key)) {
                 traceback(i18n("Configuration group %1 itemKey not a string").arg(groupName));
                 continue;
             }
             PyObject *arguments = Py_BuildValue("(O)", value);
             PyObject *pickled = functionCall("dumps", "pickle", arguments);
-            #if PY_MAJOR_VERSION < 3
-            group.writeEntry(PyString_AsString(key), QString(PyString_AsString(pickled)));
-            #else
-            group.writeEntry(PyUnicode_AsUnicode(key), QString(PyUnicode_AsUnicode(pickled)));
-            #endif
+            group.writeEntry(unicode(key), QString(unicode(pickled)));
             Py_DECREF(pickled);
         }
     }

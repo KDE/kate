@@ -2471,7 +2471,7 @@ void KateView::insertTab( )
 
 void KateView::deleteWordLeft( )
 {
-  m_viewInternal->doDeleteWordLeft();
+  m_viewInternal->doDeletePrevWord();
 }
 
 void KateView::keyDelete( )
@@ -2481,7 +2481,7 @@ void KateView::keyDelete( )
 
 void KateView::deleteWordRight( )
 {
-  m_viewInternal->doDeleteWordRight();
+  m_viewInternal->doDeleteNextWord();
 }
 
 void KateView::transpose( )
@@ -2491,63 +2491,98 @@ void KateView::transpose( )
 
 void KateView::cursorLeft( )
 {
-  m_viewInternal->cursorLeft();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->cursorNextChar();
+  else
+    m_viewInternal->cursorPrevChar();
 }
 
 void KateView::shiftCursorLeft( )
 {
-  m_viewInternal->cursorLeft(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->cursorNextChar(true);
+  else
+    m_viewInternal->cursorPrevChar(true);
 }
 
 void KateView::cursorRight( )
 {
-  m_viewInternal->cursorRight();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->cursorPrevChar();
+  else
+   m_viewInternal->cursorNextChar();
 }
 
 void KateView::shiftCursorRight( )
 {
-  m_viewInternal->cursorRight(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->cursorPrevChar(true);
+  else
+    m_viewInternal->cursorNextChar(true);
 }
 
 void KateView::wordLeft( )
 {
-  m_viewInternal->wordLeft();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordNext();
+  else
+    m_viewInternal->wordPrev();
 }
 
 void KateView::wordLeftSmart( )
 {
-  m_viewInternal->wordLeftSmart();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordNextSmart();
+  else
+    m_viewInternal->wordPrevSmart();
 }
-
 
 void KateView::shiftWordLeft( )
 {
-  m_viewInternal->wordLeft(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordNextSmart(true);
+  else
+    m_viewInternal->wordPrevSmart(true);
 }
 
 void KateView::shiftWordLeftSmart( )
 {
-  m_viewInternal->wordLeftSmart(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordNextSmart(true);
+  else
+    m_viewInternal->wordPrevSmart(true);
 }
 
 void KateView::wordRight( )
 {
-  m_viewInternal->wordRight();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordPrev();
+  else
+    m_viewInternal->wordNext();
 }
 
 void KateView::wordRightSmart( )
 {
-  m_viewInternal->wordRightSmart();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordPrevSmart();
+  else
+    m_viewInternal->wordNextSmart();
 }
 
 void KateView::shiftWordRight( )
 {
-  m_viewInternal->wordRight(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordPrevSmart(true);
+  else
+    m_viewInternal->wordNextSmart(true);
 }
 
 void KateView::shiftWordRightSmart( )
 {
-  m_viewInternal->wordRightSmart(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordPrevSmart(true);
+  else
+    m_viewInternal->wordNextSmart(true);
 }
 
 void KateView::home( )

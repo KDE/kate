@@ -820,10 +820,10 @@ void KateViewInternal::doTranspose()
   doc()->transpose( m_cursor );
 }
 
-void KateViewInternal::doDeleteWordLeft()
+void KateViewInternal::doDeletePrevWord()
 {
   doc()->editStart();
-  wordLeft( true );
+  wordPrev( true );
   KTextEditor::Range selection = m_view->selectionRange();
   m_view->removeSelectedText();
   doc()->editEnd();
@@ -831,10 +831,10 @@ void KateViewInternal::doDeleteWordLeft()
   updateDirty();
 }
 
-void KateViewInternal::doDeleteWordRight()
+void KateViewInternal::doDeleteNextWord()
 {
   doc()->editStart();
-  wordRight( true );
+  wordNext( true );
   KTextEditor::Range selection = m_view->selectionRange();
   m_view->removeSelectedText();
   doc()->editEnd();
@@ -1070,7 +1070,7 @@ void KateViewInternal::moveChar( KateViewInternal::Bias bias, bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::cursorLeft(  bool sel )
+void KateViewInternal::cursorPrevChar( bool sel )
 {
   if ( ! m_view->wrapCursor() && m_cursor.column() == 0 )
     return;
@@ -1078,12 +1078,12 @@ void KateViewInternal::cursorLeft(  bool sel )
   moveChar( KateViewInternal::left, sel );
 }
 
-void KateViewInternal::cursorRight( bool sel )
+void KateViewInternal::cursorNextChar( bool sel )
 {
   moveChar( KateViewInternal::right, sel );
 }
 
-void KateViewInternal::wordLeft ( bool sel )
+void KateViewInternal::wordPrev( bool sel )
 {
   WrappingCursor c( this, m_cursor );
 
@@ -1126,7 +1126,7 @@ void KateViewInternal::wordLeft ( bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::wordRight( bool sel )
+void KateViewInternal::wordNext( bool sel )
 {
   WrappingCursor c( this, m_cursor );
 
@@ -1175,7 +1175,7 @@ static bool progIsInWord(QChar c,bool lookForLowerOnly=false) {
       && c != QChar::fromAscii('_') && ((!lookForLowerOnly) || (lookForLowerOnly && !c.isLetter()) || (lookForLowerOnly && c.isLetter() && !c.isUpper()));
 }
 
-void KateViewInternal::wordLeftSmart ( bool sel )
+void KateViewInternal::wordPrevSmart ( bool sel )
 {
   WrappingCursor c( this, m_cursor );
 
@@ -1217,7 +1217,7 @@ void KateViewInternal::wordLeftSmart ( bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::wordRightSmart( bool sel )
+void KateViewInternal::wordNextSmart( bool sel )
 {
   WrappingCursor c( this, m_cursor );
 

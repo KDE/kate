@@ -154,8 +154,8 @@ class KateViewInternal : public QWidget
     void doBackspace();
     void doTabulator();
     void doTranspose();
-    void doDeleteWordLeft();
-    void doDeleteWordRight();
+    void doDeletePrevWord();
+    void doDeleteNextWord();
 
     /**
      * Set the caret's style.
@@ -166,12 +166,12 @@ class KateViewInternal : public QWidget
      *        This also resets the caret's timer.
      */
     void setCaretStyle( KateRenderer::caretStyles style, bool repaint = false );
-    void cursorLeft(bool sel=false);
-    void cursorRight(bool sel=false);
-    void wordLeft(bool sel=false);
-    void wordRight(bool sel=false);
-    void wordLeftSmart(bool sel=false);
-    void wordRightSmart(bool sel=false);
+    void cursorPrevChar(bool sel=false);
+    void cursorNextChar(bool sel=false);
+    void wordPrev(bool sel=false);
+    void wordNext(bool sel=false);
+    void wordPrevSmart(bool sel=false);
+    void wordNextSmart(bool sel=false);
     void home(bool sel=false);
     void end(bool sel=false);
     void cursorUp(bool sel=false);

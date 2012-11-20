@@ -338,21 +338,60 @@ void Python::traceback(const QString &description)
 PyObject *Python::unicode(const QString &string)
 {
 #if PY_MAJOR_VERSION < 3
+    /* Python 2.x. http://docs.python.org/2/c-api/unicode.html */
     PyObject *s = PyString_FromString(PQ(string));
-#else
-    PyObject *s = PyUnicode_FromString(PQ(string));
-#endif
     PyObject *u = PyUnicode_FromEncodedObject(s, "utf-8", "strict");
     Py_DECREF(s);
     return u;
+#elif PY_MINOR_VERSION < 3
+    /* Python 3.2 or less. http://docs.python.org/3.2/c-api/unicode.html#unicode-objects */
+#if (sizeof(Py_UNICODE) == 2)
+    return PyUnicode_FromUnicode(string.constData(), string.length());
+#else
+    return PyUnicode_DecodeUTF16(string.constData(), string.length() * 2, NULL, NULL);
+#endif
+#else /* Python 3.3 or greater. http://docs.python.org/3.3/c-api/unicode.html#unicode-objects */
+    return PyUnicode_FromKindAndData(PyUnicode_2BYTE_KIND, string.constData(), string.length());
+#endif
 }
 
 QString Python::unicode(PyObject *string)
 {
 #if PY_MAJOR_VERSION < 3
+    /* Python 2.x. http://docs.python.org/2/c-api/unicode.html */
     return PyString_AsString(string);
+#elif PY_MINOR_VERSION < 3
+    /* Python 3.2 or less. http://docs.python.org/3.2/c-api/unicode.html#unicode-objects */
+    int unichars = PyUnicode_GetSize(string);
+#if (sizeof(Py_UNICODE) == sizeof(wchar_t))
+    return QString::fromWCharArray(PyUnicode_AsUnicode(string), unichars);
+#elif (sizeof(Py_UNICODE) == 2)
+    // Despite the above reference defining the use of UCS-2, various sources claim it is
+    // using UCS-2 "with limited support for UTF-16".
+    return QString::fromUtf16(PyUnicode_AsUnicode(string), unichars);
 #else
-    return PyUnicode_AsUnicode(string);
+    return QString::fromUcs4(PyUnicode_AsUnicode(string), unichars);
+#endif
+#else /* Python 3.3 or greater. http://docs.python.org/3.3/c-api/unicode.html#unicode-objects */
+    int unichars = PyUnicode_GetLength(string);
+    if (0 != PyUnicode_READY(string)) {
+        return QString();
+    }
+    switch (PyUnicode_KIND(string)) {
+    case PyUnicode_1BYTE_KIND
+        return QString::fromLatin1(PyUnicode_1BYTE_DATA(string), unichars)
+        break;
+    case PyUnicode_2BYTE_KIND:
+        // Assume 3.3 behaves as 3.2, i..e "limited UTF-16".
+        return QString::fromUtf16(PyUnicode_2BYTE_DATA(string), unichars);
+        break;
+    case PyUnicode_4BYTE_KIND:
+        return QString::fromUcs4(PyUnicode_4BYTE_DATA(string), unichars);
+        break;
+    default:
+        return QString();
+        break;
+    }
 #endif
 }
 

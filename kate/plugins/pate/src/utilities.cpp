@@ -345,10 +345,10 @@ PyObject *Python::unicode(const QString &string)
     return u;
 #elif PY_MINOR_VERSION < 3
     /* Python 3.2 or less. http://docs.python.org/3.2/c-api/unicode.html#unicode-objects */
-#if (sizeof(Py_UNICODE) == 2)
-    return PyUnicode_FromUnicode(string.constData(), string.length());
+#ifdef Py_UNICODE_WIDE
+    return PyUnicode_DecodeUTF16((const char *)string.constData(), string.length() * 2, 0, 0);
 #else
-    return PyUnicode_DecodeUTF16(string.constData(), string.length() * 2, NULL, NULL);
+    return PyUnicode_FromUnicode(string.constData(), string.length());
 #endif
 #else /* Python 3.3 or greater. http://docs.python.org/3.3/c-api/unicode.html#unicode-objects */
     return PyUnicode_FromKindAndData(PyUnicode_2BYTE_KIND, string.constData(), string.length());
@@ -363,14 +363,14 @@ QString Python::unicode(PyObject *string)
 #elif PY_MINOR_VERSION < 3
     /* Python 3.2 or less. http://docs.python.org/3.2/c-api/unicode.html#unicode-objects */
     int unichars = PyUnicode_GetSize(string);
-#if (sizeof(Py_UNICODE) == sizeof(wchar_t))
+#ifdef HAVE_USABLE_WCHAR_T
     return QString::fromWCharArray(PyUnicode_AsUnicode(string), unichars);
-#elif (sizeof(Py_UNICODE) == 2)
-    // Despite the above reference defining the use of UCS-2, various sources claim it is
-    // using UCS-2 "with limited support for UTF-16".
-    return QString::fromUtf16(PyUnicode_AsUnicode(string), unichars);
 #else
+#ifdef Py_UNICODE_WIDE
     return QString::fromUcs4(PyUnicode_AsUnicode(string), unichars);
+#else
+    return QString::fromUtf16(PyUnicode_AsUnicode(string), unichars);
+#endif
 #endif
 #else /* Python 3.3 or greater. http://docs.python.org/3.3/c-api/unicode.html#unicode-objects */
     int unichars = PyUnicode_GetLength(string);

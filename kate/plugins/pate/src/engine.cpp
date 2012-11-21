@@ -171,7 +171,7 @@ void Pate::Engine::del()
 
 bool Pate::Engine::init()
 {
-    kDebug() << "Construct the Python engine for Python" << PY_MAJOR_VERSION;
+    kDebug() << "Construct the Python engine for Python" << PY_MAJOR_VERSION << PY_MINOR_VERSION;
     Python::libraryLoad();
     Python py = Python();
     // Finish setting up the model. At the top level, we have pairs of icons
@@ -213,7 +213,7 @@ bool Pate::Engine::init()
 #else
     static struct PyModuleDef moduledef = {
         PyModuleDef_HEAD_INIT, Python::PATE_ENGINE, "The pate module",
-	-1, pateMethods, 0, 0, 0, 0 };
+        -1, pateMethods, 0, 0, 0, 0 };
     PyModule_Create(&moduledef);
 #endif
 

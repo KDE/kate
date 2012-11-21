@@ -170,8 +170,6 @@ class KateViewInternal : public QWidget
     void cursorNextChar(bool sel=false);
     void wordPrev(bool sel=false);
     void wordNext(bool sel=false);
-    void wordPrevSmart(bool sel=false);
-    void wordNextSmart(bool sel=false);
     void home(bool sel=false);
     void end(bool sel=false);
     void cursorUp(bool sel=false);

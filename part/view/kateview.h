@@ -452,13 +452,9 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void cursorRight();
     void shiftCursorRight();
     void wordLeft();
-    void wordLeftSmart();
     void shiftWordLeft();
-    void shiftWordLeftSmart();
     void wordRight();
-    void wordRightSmart();
     void shiftWordRight();
-    void shiftWordRightSmart();
     void home();
     void shiftHome();
     void end();

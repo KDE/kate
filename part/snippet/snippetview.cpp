@@ -39,7 +39,6 @@
 #include <KGlobalSettings>
 
 #include <KNS3/DownloadDialog>
-#include <knewstuff3/uploaddialog.h>
 
 SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
  : QWidget(parent), Ui::SnippetViewBase(), m_plugin(plugin)
@@ -78,7 +77,7 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     connect(m_removeRepoAction, SIGNAL(triggered()), this, SLOT(slotRemoveRepo()));
     addAction(m_removeRepoAction);
 
-    m_putNewStuffAction = new KAction(KIcon("get-hot-new-stuff"), i18n("Publish Repository"), this);
+    m_putNewStuffAction = new KAction(KIcon("gethotnewstuffupload"), i18n("Publish Repository"), this);
     connect(m_putNewStuffAction, SIGNAL(triggered()), this, SLOT(slotSnippetToGHNS()));
     addAction(m_putNewStuffAction);
 
@@ -112,22 +111,25 @@ SnippetView::~SnippetView()
 
 void SnippetView::validateActions()
 {
-#warning fixme
-#if 0
-    QStandardItem* item = currentItem();
 
-    Snippet* selectedSnippet = dynamic_cast<Snippet*>( item );
-    SnippetRepository* selectedRepo = dynamic_cast<SnippetRepository*>( item );
-
+    QModelIndex index=snippetTree->currentIndex();
+    bool isSnippet=false;
+    bool isRepo=false;
+    if (index.isValid()) {
+      if (index.parent().isValid())
+        isSnippet=true;
+      else
+        isRepo=true;
+    }
+  
     m_addRepoAction->setEnabled(true);
-    m_editRepoAction->setEnabled(selectedRepo);
-    m_removeRepoAction->setEnabled(selectedRepo);
-    m_putNewStuffAction->setEnabled(selectedRepo);
+    m_editRepoAction->setEnabled(isRepo);
+    m_removeRepoAction->setEnabled(isRepo);
+    m_putNewStuffAction->setEnabled(isRepo);
 
-    m_addSnippetAction->setEnabled(selectedRepo || selectedSnippet);
-    m_editSnippetAction->setEnabled(selectedSnippet);
-    m_removeSnippetAction->setEnabled(selectedSnippet);
-#endif
+    m_addSnippetAction->setEnabled(isSnippet || isRepo);
+    m_editSnippetAction->setEnabled(isSnippet);
+    m_removeSnippetAction->setEnabled(isSnippet);
   
 }
 
@@ -337,21 +339,12 @@ void SnippetView::slotGHNS()
 
 void SnippetView::slotSnippetToGHNS()
 {
-#warning fixme
-#if 0
-    QStandardItem* item = currentItem();
-    if ( !item)
-        return;
+    QModelIndex index = snippetTree->currentIndex();
+    if (!index.isValid()) return;
+    if (index.parent().isValid()) return;//snippet index=index.parent();
+    snippetTree->model()->setData(index,qVariantFromValue(qobject_cast<QWidget*>(parent())),KTextEditor::CodesnippetsCore::SnippetRepositoryModel::UploadNowRole);
 
-    SnippetRepository* repo = dynamic_cast<SnippetRepository*>( item );
-    if ( !repo )
-        return;
-
-    KNS3::UploadDialog dialog("ktexteditor_codesnippets_core.knsrc", this);
-    dialog.setUploadFile(KUrl::fromPath(repo->file()));
-    dialog.setUploadName(repo->text());
-    dialog.exec();
-#endif
+    
 }
 
 bool SnippetView::eventFilter(QObject* obj, QEvent* e)

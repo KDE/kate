@@ -38,6 +38,7 @@
 #include <krun.h>
 #include <kio/netaccess.h>
 #include <knewstuff3/downloaddialog.h>
+#include <knewstuff3/uploaddialog.h>
 #include <QDBusConnectionInterface>
 #include <QDBusConnection>
 #include <QDBusMessage>
@@ -137,6 +138,13 @@ namespace KTextEditor {
       btn->setIcon(KIcon("edit-delete-page"));
       list<<btn;
       connect(btn,SIGNAL(clicked()),this,SLOT(deleteEntry()));
+      
+      btn=new KPushButton();
+      btn->setIcon(KIcon("gethotnewstuffupload"));
+      list<<btn;
+      connect(btn,SIGNAL(clicked()),this,SLOT(uploadEntry()));
+      
+      
       return list;
     }
 
@@ -150,6 +158,13 @@ namespace KTextEditor {
       const QModelIndex idx=focusedIndex();
       if (!idx.isValid()) return;
       const_cast<QAbstractItemModel*>(idx.model())->setData(idx,qVariantFromValue(qobject_cast<QWidget*>(parent())),SnippetRepositoryModel::EditNowRole);
+    }
+    
+    void SnippetRepositoryItemDelegate::uploadEntry() {
+      const QModelIndex idx=focusedIndex();
+      if (!idx.isValid()) return;
+      const_cast<QAbstractItemModel*>(idx.model())->setData(idx,qVariantFromValue(qobject_cast<QWidget*>(parent())),SnippetRepositoryModel::UploadNowRole);
+    
     }
     
     void SnippetRepositoryItemDelegate::deleteEntry() {
@@ -186,12 +201,17 @@ namespace KTextEditor {
       KPushButton *btnDelete = static_cast<KPushButton*>(widgets[4]);
       btnDelete->resize(btnDelete->sizeHint());
       int btnW=btnDelete->sizeHint().width();
-      btnDelete->move(option.rect.width()-SPACING-btnW, option.rect.height() / 2 - btnDelete->sizeHint().height() / 2);
+      btnDelete->move(option.rect.width()-SPACING-btnW*2, option.rect.height() / 2 - btnDelete->sizeHint().height() / 2);
       
       //EDIT BUTTON    
       KPushButton *btnEdit = static_cast<KPushButton*>(widgets[3]);
       btnEdit->resize(btnEdit->sizeHint());
-      btnEdit->move(option.rect.width()-2*SPACING-btnW-btnEdit->sizeHint().width(), option.rect.height() / 2 - btnEdit->sizeHint().height() / 2);
+      btnEdit->move(option.rect.width()-2*SPACING-btnW*3, option.rect.height() / 2 - btnEdit->sizeHint().height() / 2);
+     
+      //UPLOAD BUTTON
+      KPushButton *btnUpload = static_cast<KPushButton*>(widgets[5]);
+      btnUpload->resize(btnDelete->sizeHint());
+      btnUpload->move(option.rect.width()-SPACING-btnW, option.rect.height() / 2 - btnDelete->sizeHint().height() / 2);
       
       //NAME LABEL
       QLabel *label=static_cast<QLabel*>(widgets[2]);
@@ -205,12 +225,14 @@ namespace KTextEditor {
           btnDelete->setVisible(false);
           label->setVisible(false);
           typeicon->setVisible(false);
+          btnUpload->setVisible(false);
       } else {
           bool systemFile=index.model()->data(index, SnippetRepositoryModel::SystemFileRole).toBool();
           bool ghnsFile=index.model()->data(index, SnippetRepositoryModel::GhnsFileRole).toBool();
           checkBox->setVisible(true);
           btnEdit->setVisible(!systemFile);
           btnDelete->setVisible((!systemFile) && !(ghnsFile));
+          btnUpload->setVisible((!systemFile) && !(ghnsFile)); 
           label->setVisible(true);
           typeicon->setVisible(true);
           //kDebug()<<"GHNSFILE==="<<ghnsFile;
@@ -484,6 +506,19 @@ namespace KTextEditor {
           case EditNowRole:
             if (!KRun::runUrl(KUrl::fromPath(entry.filename),"application/x-ktesnippets",value.value<QWidget*>())) {
               KMessageBox::error(value.value<QWidget*>(),i18n("Editor application for file '%1' with mimetype 'application/x-ktesnippets' could not be started",entry.filename));
+            }
+            return false;
+            break;
+          case UploadNowRole:
+            {
+                QString fileName=entry.filename;
+                QString displayName=entry.name;
+                kDebug()<<"filename:"<<fileName<<" displayName:"<<displayName;
+    
+                KNS3::UploadDialog dialog("ktexteditor_codesnippets_core.knsrc", value.value<QWidget*>());
+                dialog.setUploadFile(KUrl::fromPath(fileName));
+                dialog.setUploadName(displayName);
+                dialog.exec();
             }
             return false;
             break;

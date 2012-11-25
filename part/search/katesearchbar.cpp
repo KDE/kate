@@ -283,14 +283,26 @@ void KateSearchBar::showInfoMessage(const QString& text)
     closeAction->setToolTip(i18n("Close message (Escape)"));
 
     QAction* hlAction = new QAction(i18n("&Keep highlighting"), 0);
-    closeAction->setToolTip(i18n("Keep search and replace highlighting marks"));
+    hlAction->setToolTip(i18n("Keep search and replace highlighting marks"));
 
     m_infoMessage->addAction(hlAction);
     m_infoMessage->addAction(closeAction);
 
-    connect(closeAction, SIGNAL(triggered()), SLOT(clearHighlights()));
+    // the closed() signal is emitted in the Message::destructor, clearHighlights()
+    // calls delete m_infoMessage, which leads to a double delete. Thus, use a
+    // Qt::QueuedConnection.
+    connect(m_infoMessage, SIGNAL(closed(KTextEditor::Message*)), SLOT(clearHighlights()), Qt::QueuedConnection);
+    connect(hlAction, SIGNAL(triggered()), SLOT(keepHighlights()));
 
     m_view->doc()->postMessage(m_infoMessage);
+}
+
+void KateSearchBar::keepHighlights()
+{
+    if (m_infoMessage) {
+        // kill the Message::closed() <-> clearHighlights() connection
+        disconnect(m_infoMessage, 0, this, 0);
+    }
 }
 
 void KateSearchBar::highlightMatch(const Range & range) {
@@ -1516,7 +1528,8 @@ void KateSearchBar::enterIncrementalMode() {
 
 bool KateSearchBar::clearHighlights()
 {
-    delete m_infoMessage;
+    if (m_infoMessage)
+        delete m_infoMessage;
 
     if (m_hlRanges.isEmpty()) {
         return false;

@@ -119,10 +119,9 @@ public Q_SLOTS:
     void enterPowerMode();
     void enterIncrementalMode();
 
-    bool hideInfoMessage();
     bool clearHighlights();
     void updateHighlightColors();
-    
+
     // read write status of document changed
     void slotReadWriteChanged ();
 
@@ -145,6 +144,8 @@ private Q_SLOTS:
     void onPowerPatternContextMenuRequest(const QPoint&);
     void onPowerReplacmentContextMenuRequest();
     void onPowerReplacmentContextMenuRequest(const QPoint&);
+
+    void keepHighlights();
 
 private:
     // Helpers
@@ -169,6 +170,8 @@ private:
     void backupConfig(bool ofPower);
     void sendConfig();
     void fixForSingleLine(KTextEditor::Range & range, SearchDirection searchDirection);
+
+    void showInfoMessage(const QString& text);
 
 private:
     KateView *const m_view;

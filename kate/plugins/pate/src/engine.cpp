@@ -64,6 +64,16 @@ typedef enum
     UsableDirectory
 } Loadability;
 
+#if PY_MAJOR_VERSION >= 3
+    #define MOD_DEF(name, doc, methods) \
+            static struct PyModuleDef moduledef = { \
+                            PyModuleDef_HEAD_INIT, name, doc, -1, methods, 0, 0, 0, 0 }; \
+        PyModule_Create(&moduledef);
+#else
+    #define MOD_DEF(name, doc, methods) \
+            Py_InitModule3(name, methods, doc);
+#endif
+
 /**
  * A usable plugin.
  */
@@ -208,7 +218,8 @@ bool Pate::Engine::init()
     );
 
     // Initialise our built-in module.
-    Py_InitModule3(Python::PATE_ENGINE, pateMethods, "The pate module");
+    //
+    MOD_DEF(Python::PATE_ENGINE, "The pate module", pateMethods); 
     m_configuration = PyDict_New();
 
     // Host the configuration dictionary.
@@ -407,7 +418,12 @@ void Pate::Engine::loadModules()
 
                     // Get a description of the plugin if we can.
                     PyObject *doc = py.itemString("__doc__", PQ(pluginName));
+                    #if PY_MAJOR_VERSION < 3
                     QString comment = PyString_Check(doc) ? PyString_AsString(doc) : i18n("Loaded");
+                    #else
+                    QString comment = PyUnicode_Check(doc) ? PyUnicode_AsUnicode(doc) : i18n("Loaded");
+                    #endif
+
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(comment.split("\n")[0]));
                 } else {
                     pluginItem->setBroken(true);
@@ -445,7 +461,11 @@ void Pate::Engine::unloadModules()
             PyObject *pluginName = py.itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
             if(pluginName && PyDict_Contains(modules, pluginName)) {
                 PyDict_DelItem(modules, pluginName);
+                #if PY_MAJOR_VERSION < 3
                 kDebug() << "Deleted" << PyString_AsString(pluginName) << "from sys.modules";
+                #else
+                kDebug() << "Deleted" << PyUnicode_AsUnicode(pluginName) << "from sys.modules";
+                #endif
             }
         }
         py.itemStringDel("plugins");

@@ -820,10 +820,10 @@ void KateViewInternal::doTranspose()
   doc()->transpose( m_cursor );
 }
 
-void KateViewInternal::doDeleteWordLeft()
+void KateViewInternal::doDeletePrevWord()
 {
   doc()->editStart();
-  wordLeft( true );
+  wordPrev( true );
   KTextEditor::Range selection = m_view->selectionRange();
   m_view->removeSelectedText();
   doc()->editEnd();
@@ -831,10 +831,10 @@ void KateViewInternal::doDeleteWordLeft()
   updateDirty();
 }
 
-void KateViewInternal::doDeleteWordRight()
+void KateViewInternal::doDeleteNextWord()
 {
   doc()->editStart();
-  wordRight( true );
+  wordNext( true );
   KTextEditor::Range selection = m_view->selectionRange();
   m_view->removeSelectedText();
   doc()->editEnd();
@@ -1070,7 +1070,7 @@ void KateViewInternal::moveChar( KateViewInternal::Bias bias, bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::cursorLeft(  bool sel )
+void KateViewInternal::cursorPrevChar( bool sel )
 {
   if ( ! m_view->wrapCursor() && m_cursor.column() == 0 )
     return;
@@ -1078,12 +1078,12 @@ void KateViewInternal::cursorLeft(  bool sel )
   moveChar( KateViewInternal::left, sel );
 }
 
-void KateViewInternal::cursorRight( bool sel )
+void KateViewInternal::cursorNextChar( bool sel )
 {
   moveChar( KateViewInternal::right, sel );
 }
 
-void KateViewInternal::wordLeft ( bool sel )
+void KateViewInternal::wordPrev( bool sel )
 {
   WrappingCursor c( this, m_cursor );
 
@@ -1126,7 +1126,7 @@ void KateViewInternal::wordLeft ( bool sel )
   updateCursor( c );
 }
 
-void KateViewInternal::wordRight( bool sel )
+void KateViewInternal::wordNext( bool sel )
 {
   WrappingCursor c( this, m_cursor );
 
@@ -1166,101 +1166,6 @@ void KateViewInternal::wordRight( bool sel )
   updateSelection( c, sel );
   updateCursor( c );
 }
-
-
-static bool progIsInWord(QChar c,bool lookForLowerOnly=false) {
-      return !c.isSpace()
-      && c != QChar::fromAscii('"') && c != QChar::fromAscii('\'')
-      && c != QChar::fromAscii('`') && c!=QChar::fromAscii('-') 
-      && c != QChar::fromAscii('_') && ((!lookForLowerOnly) || (lookForLowerOnly && !c.isLetter()) || (lookForLowerOnly && c.isLetter() && !c.isUpper()));
-}
-
-void KateViewInternal::wordLeftSmart ( bool sel )
-{
-  WrappingCursor c( this, m_cursor );
-
-  if( !c.atEdge( left ) ) {
-
-    while( !c.atEdge( left ) && doc()->line( c.line() )[ c.column() - 1 ].isSpace() )
-      --c;
-  }
-  if( c.atEdge( left ) )
-  {
-    --c;
-  }
-  else 
-  {
-    QChar lastChar=doc()->line( c.line() )[ c.column() - 1 ];
-    if( progIsInWord( lastChar ) )
-    {
-      while( !c.atEdge( left ) && progIsInWord( doc()->line( c.line() )[ c.column() - 1 ],true ) )
-        --c;
-      while (!c.atEdge(left))
-      {
-        QChar thisChar=doc()->line( c.line() )[ c.column() - 1 ];
-        if (!thisChar.isUpper()) break;
-        --c;
-      }
-    }
-    else
-    {
-      while( !c.atEdge( left )
-           && !progIsInWord( doc()->line( c.line() )[ c.column() - 1 ] )
-           && !doc()->line( c.line() )[ c.column() - 1 ].isSpace() )
-      {
-        --c;
-      }
-    }
-  }
-
-  updateSelection( c, sel );
-  updateCursor( c );
-}
-
-void KateViewInternal::wordRightSmart( bool sel )
-{
-  WrappingCursor c( this, m_cursor );
-
-  if( c.atEdge( right ) )
-  {
-    ++c;
-  }
-  else
-  {
-    QChar firstChar=doc()->line( c.line() )[ c.column() ];
-    bool lookForLowerOnly=firstChar.isLetter();
-    bool continueBig=firstChar.isUpper();
-    kDebug()<<"lookForSmallOnly"<<lookForLowerOnly<<"----:"<<firstChar;
-    if( progIsInWord(firstChar) )
-    {
-      if (lookForLowerOnly) ++c;
-      while( !c.atEdge( right ) && progIsInWord(doc()->line( c.line() )[ c.column() ],(!continueBig)&&lookForLowerOnly ))
-      {
-        if (continueBig) continueBig=doc()->line( c.line() )[ c.column() ].isUpper();
-        ++c;
-      }
-    }
-    else
-    {
-      while( !c.atEdge( right )
-           && !progIsInWord( doc()->line( c.line() )[ c.column() ] )
-           && !doc()->line( c.line() )[ c.column() ].isSpace() )
-      {
-        ++c;
-      }
-    }
-  }
-
-  while( !c.atEdge( right ) && doc()->line( c.line() )[ c.column() ].isSpace() )
-    ++c;
-
-  updateSelection( c, sel );
-  updateCursor( c );
-}
-
-
-
-
 
 void KateViewInternal::moveEdge( KateViewInternal::Bias bias, bool sel )
 {
@@ -2269,7 +2174,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
           return true;
         } else if (m_view->hasSearchBar()) {
           // hide search&replace highlights
-          if (m_view->searchBar()->hideInfoMessage()) {
+          if (m_view->searchBar()->clearHighlights()) {
             k->accept();
             //kDebug() << obj << "shortcut override" << k->key() << "hide search&replace highlights";
             return true;

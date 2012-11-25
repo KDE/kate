@@ -270,6 +270,41 @@ void KateSearchBar::findPrevious() {
     }
 }
 
+void KateSearchBar::showInfoMessage(const QString& text)
+{
+    delete m_infoMessage;
+
+    m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive, text);
+    m_infoMessage->setPosition(KTextEditor::Message::BelowView);
+    m_infoMessage->setAutoHide(0);
+    m_infoMessage->setView(m_view);
+
+    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
+    closeAction->setToolTip(i18n("Close message (Escape)"));
+
+    QAction* hlAction = new QAction(i18n("&Keep highlighting"), 0);
+    hlAction->setToolTip(i18n("Keep search and replace highlighting marks"));
+
+    m_infoMessage->addAction(hlAction);
+    m_infoMessage->addAction(closeAction);
+
+    // the closed() signal is emitted in the Message::destructor, clearHighlights()
+    // calls delete m_infoMessage, which leads to a double delete. Thus, use a
+    // Qt::QueuedConnection.
+    connect(m_infoMessage, SIGNAL(closed(KTextEditor::Message*)), SLOT(clearHighlights()), Qt::QueuedConnection);
+    connect(hlAction, SIGNAL(triggered()), SLOT(keepHighlights()));
+
+    m_view->doc()->postMessage(m_infoMessage);
+}
+
+void KateSearchBar::keepHighlights()
+{
+    if (m_infoMessage) {
+        // kill the Message::closed() <-> clearHighlights() connection
+        disconnect(m_infoMessage, 0, this, 0);
+    }
+}
+
 void KateSearchBar::highlightMatch(const Range & range) {
     KTextEditor::MovingRange* const highlight = m_view->doc()->newMovingRange(range, Kate::TextRange::DoNotExpand);
     highlight->setView(m_view); // show only in this view
@@ -372,8 +407,8 @@ void KateSearchBar::onIncPatternChanged(const QString & pattern)
     if (!m_incUi)
         return;
 
-    // delete info message if present (calls clearHighlights)
-    delete m_infoMessage;
+    // clear prior highlightings (deletes info message if present)
+    clearHighlights();
 
     m_incUi->next->setDisabled(pattern.isEmpty());
     m_incUi->prev->setDisabled(pattern.isEmpty());
@@ -624,8 +659,8 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
 void KateSearchBar::findAll()
 {
-    // delete info message if present (calls clearHighlights)
-    delete m_infoMessage;
+    // clear highlightings of prior search&replace action
+    clearHighlights();
 
     Range inputRange = (m_view->selection() && selectionOnly())
             ? m_view->selectionRange()
@@ -633,13 +668,7 @@ void KateSearchBar::findAll()
     const int occurrences = findAll(inputRange, NULL);
 
     // send passive notification to view
-    m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive,
-                                             i18np("1 match found", "%1 matches found", occurrences));
-    m_infoMessage->setPosition(KTextEditor::Message::BelowView);
-    m_infoMessage->setAutoHide(0);
-    m_infoMessage->setView(m_view);
-    connect(m_infoMessage, SIGNAL(closed(KTextEditor::Message*)), SLOT(clearHighlights()));
-    m_view->doc()->postMessage(m_infoMessage);
+    showInfoMessage(i18np("1 match found", "%1 matches found", occurrences));
 
     indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
@@ -865,7 +894,8 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement)
 
 void KateSearchBar::replaceAll()
 {
-    delete m_infoMessage;
+    // clear prior highlightings (deletes info message if present)
+    clearHighlights();
 
     // What to find/replace?
     const QString replacement = m_powerUi->replacement->currentText();
@@ -882,13 +912,7 @@ void KateSearchBar::replaceAll()
     int replacementsDone=findAll(inputRange, &replacement);
 
     // send passive notification to view
-    m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive,
-                        i18np("1 replacement has been made", "%1 replacements have been made", replacementsDone));
-    m_infoMessage->setPosition(KTextEditor::Message::BelowView);
-    m_infoMessage->setAutoHide(0);
-    m_infoMessage->setView(m_view);
-    connect(m_infoMessage, SIGNAL(closed(KTextEditor::Message*)), SLOT(clearHighlights()));
-    m_view->doc()->postMessage(m_infoMessage);
+    showInfoMessage(i18np("1 replacement has been made", "%1 replacements have been made", replacementsDone));
 
     // Never merge replace actions with other replace actions/user actions
     m_view->doc()->undoManager()->undoSafePoint();
@@ -1502,17 +1526,11 @@ void KateSearchBar::enterIncrementalMode() {
     }
 }
 
-bool KateSearchBar::hideInfoMessage()
+bool KateSearchBar::clearHighlights()
 {
-    if (m_infoMessage) {
+    if (m_infoMessage)
         delete m_infoMessage;
-        return true;
-    }
 
-    return false;
-}
-
-bool KateSearchBar::clearHighlights() {
     if (m_hlRanges.isEmpty()) {
         return false;
     }

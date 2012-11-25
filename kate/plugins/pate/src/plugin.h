@@ -21,6 +21,7 @@
 #ifndef PATE_PLUGIN_H
 #define PATE_PLUGIN_H
 
+#include "Python.h"
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
 #include <kate/pluginconfigpageinterface.h>
@@ -29,9 +30,9 @@
 
 #include <QList>
 
-#include "Python.h"
 #include "ui_info.h"
 #include "ui_manager.h"
+
 
 class QPushButton;
 class QCheckBox;
@@ -127,7 +128,7 @@ public:
     explicit ConfigPage(QWidget *parent = 0, Plugin *plugin = 0);
     virtual ~ConfigPage();
 
-public slots:
+public Q_SLOTS:
     virtual void apply();
     virtual void reset();
     virtual void defaults();

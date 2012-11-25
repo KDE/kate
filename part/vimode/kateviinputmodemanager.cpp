@@ -286,7 +286,7 @@ void KateViInputModeManager::viEnterNormalMode()
   changeViMode(NormalMode);
 
   if ( moveCursorLeft ) {
-    m_viewInternal->cursorLeft();
+    m_viewInternal->cursorPrevChar();
   }
   m_view->setCaretStyle( KateRenderer::Block, true );
   m_viewInternal->repaint ();

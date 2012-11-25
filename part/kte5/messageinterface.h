@@ -270,7 +270,7 @@ private:
  * is shown either the specified View if Message::setView() was called, or
  * in all View%s of the Document.
  *
- * \section message_interface Working with Message%s
+ * \section message_interface Working with Messages
  *
  * To post a message, you first have to cast the Document to this interface,
  * and then create a Message. Example:

@@ -780,8 +780,9 @@ class Python():
         if not self._connectionId:
             command = ""
             command += "sys.path.insert(0, os.path.dirname('" + __file__ + "')); "
-            command += "from " + self.__module__ + " import DebuggerKernel; app = DebuggerKernel(); "
-            command += "app.start()"
+            command += "import gdb_execute; "
+            command += "from " + self.__module__ + " import DebuggerKernel; "
+            command += "app = DebuggerKernel(); app.start()"
             #
             # First time around...
             #

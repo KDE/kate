@@ -197,7 +197,11 @@ QString Pate::Plugin::configPageName(uint number) const
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *configPage = PyTuple_GetItem(tuple, 2);
     PyObject *name = PyTuple_GetItem(configPage, 0);
+    #if PY_MAJOR_VERSION < 3
     return PyString_AsString(name);
+    #else
+    return PyUnicode_AsUnicode(name);
+    #endif
 }
 
 QString Pate::Plugin::configPageFullName(uint number) const
@@ -213,7 +217,11 @@ QString Pate::Plugin::configPageFullName(uint number) const
     PyObject *tuple = m_moduleConfigPages.at(number);
     PyObject *configPage = PyTuple_GetItem(tuple, 2);
     PyObject *fullName = PyTuple_GetItem(configPage, 1);
+    #if PY_MAJOR_VERSION < 3
     return PyString_AsString(fullName);
+    #else
+    return PyUnicode_AsUnicode(fullName);
+    #endif
 }
 
 KIcon Pate::Plugin::configPageIcon(uint number) const
@@ -353,7 +361,11 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
             PyObject *functionName = PyTuple_GetItem(tuple, 0);
 
             // Add an action for this plugin.
+            #if PY_MAJOR_VERSION < 3
             m_info.actions->addItem(PyString_AsString(functionName));
+            #else
+            m_info.actions->addItem(PyUnicode_AsUnicode(functionName));
+            #endif
         }
         if (PyList_Size(m_pluginActions)) {
             infoPluginActionsChanged(0);
@@ -370,7 +382,11 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
             PyObject *functionName = PyTuple_GetItem(tuple, 0);
 
             // Add a config page for this plugin.
+            #if PY_MAJOR_VERSION < 3
             m_info.configPages->addItem(PyString_AsString(functionName));
+            #else
+            m_info.configPages->addItem(PyUnicode_AsUnicode(functionName));
+            #endif
         }
         if (PyList_Size(m_pluginConfigPages)) {
             infoPluginConfigPagesChanged(0);
@@ -399,9 +415,15 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
 
     // Add a topic for this plugin, using stacked page 0.
     // TODO: Proper handling of Unicode
+    #if PY_MAJOR_VERSION < 3
     m_info.text->setText(PyString_AsString(text));
+    #else
+    m_info.text->setText(PyUnicode_AsUnicode(text));
+    #endif 
+
     if (Py_None == icon) {
         m_info.actionIcon->setIcon(QIcon());
+    #if PY_MAJOR_VERSION < 3
     } else if (PyString_Check(icon)) {
         m_info.actionIcon->setIcon(KIcon(PyString_AsString(icon)));
     } else {
@@ -410,6 +432,16 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
     m_info.actionIcon->setText(PyString_AsString(icon));
     m_info.shortcut->setText(PyString_AsString(shortcut));
     m_info.menu->setText(PyString_AsString(menu));
+    #else
+    } else if (PyUnicode_Check(icon)) {
+        m_info.actionIcon->setIcon(KIcon(PyUnicode_AsUnicode(icon)));
+    } else {
+        m_info.actionIcon->setIcon(*(QPixmap *)PyCapsule_GetPointer(icon, "icon"));
+    }
+    m_info.actionIcon->setText(PyUnicode_AsUnicode(icon));
+    m_info.shortcut->setText(PyUnicode_AsUnicode(shortcut));
+    m_info.menu->setText(PyUnicode_AsUnicode(menu));
+    #endif
 }
 
 void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
@@ -432,6 +464,7 @@ void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
 
     // Add a topic for this plugin, using stacked page 0.
     // TODO: Proper handling of Unicode
+    #if PY_MAJOR_VERSION < 3
     m_info.name->setText(PyString_AsString(name));
     m_info.fullName->setText(PyString_AsString(fullName));
     if (Py_None == icon) {
@@ -442,6 +475,18 @@ void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
         m_info.configPageIcon->setIcon(*(KIcon *)py.objectUnwrap(icon));
     }
     m_info.configPageIcon->setText(PyString_AsString(icon));
+    #else
+    m_info.name->setText(PyUnicode_AsUnicode(name));
+    m_info.fullName->setText(PyUnicode_AsUnicode(fullName));
+    if (Py_None == icon) {
+        m_info.configPageIcon->setIcon(QIcon());
+    } else if (PyUnicode_Check(icon)) {
+        m_info.configPageIcon->setIcon(KIcon(PyUnicode_AsUnicode(icon)));
+    } else {
+        m_info.configPageIcon->setIcon(*(KIcon *)py.objectUnwrap(icon));
+    }
+    m_info.configPageIcon->setText(PyUnicode_AsUnicode(icon));
+    #endif
 }
 
 void Pate::ConfigPage::apply()

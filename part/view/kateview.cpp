@@ -716,13 +716,6 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)),  SLOT(wordLeft()));
   m_editActions << a;
 
-  
-  a = ac->addAction("programmers_word_left");
-  a->setText(i18n("Programmer's Move Word Left"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::META+Qt::Key_Left));
-  connect(a, SIGNAL(triggered(bool)),  SLOT(wordLeftSmart()));
-  m_editActions << a;
-  
   a = ac->addAction("select_char_left");
   a->setText(i18n("Select Character Left"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Left));
@@ -735,24 +728,12 @@ void KateView::setupEditActions()
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordLeft()));
   m_editActions << a;
 
-  a = ac->addAction("programmers_select_word_left");
-  a->setText(i18n("Programmer's Select Word Left"));
-  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::META + Qt::Key_Left));
-  connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordLeftSmart()));
-  m_editActions << a;
-
   a = ac->addAction("word_right");
   a->setText(i18n("Move Word Right"));
   a->setShortcuts(KStandardShortcut::forwardWord());
   connect(a, SIGNAL(triggered(bool)), SLOT(wordRight()));
   m_editActions << a;
 
-  a = ac->addAction("programmers_word_right");
-  a->setText(i18n("Programmer's Move Word Right"));
-  a->setShortcut(QKeySequence(Qt::CTRL+Qt::META+Qt::Key_Right));
-  connect(a, SIGNAL(triggered(bool)), SLOT(wordRightSmart()));
-  m_editActions << a;
-  
   a = ac->addAction("select_char_right");
   a->setText(i18n("Select Character Right"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Right));
@@ -763,12 +744,6 @@ void KateView::setupEditActions()
   a->setText(i18n("Select Word Right"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordRight()));
-  m_editActions << a;
-
-  a = ac->addAction("programmers_select_word_right");
-  a->setText(i18n("Programmer's Select Word Right"));
-  a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::META + Qt::Key_Right));
-  connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordRightSmart()));
   m_editActions << a;
 
   a = ac->addAction("beginning_of_line");
@@ -2471,7 +2446,7 @@ void KateView::insertTab( )
 
 void KateView::deleteWordLeft( )
 {
-  m_viewInternal->doDeleteWordLeft();
+  m_viewInternal->doDeletePrevWord();
 }
 
 void KateView::keyDelete( )
@@ -2481,7 +2456,7 @@ void KateView::keyDelete( )
 
 void KateView::deleteWordRight( )
 {
-  m_viewInternal->doDeleteWordRight();
+  m_viewInternal->doDeleteNextWord();
 }
 
 void KateView::transpose( )
@@ -2491,63 +2466,66 @@ void KateView::transpose( )
 
 void KateView::cursorLeft( )
 {
-  m_viewInternal->cursorLeft();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->cursorNextChar();
+  else
+    m_viewInternal->cursorPrevChar();
 }
 
 void KateView::shiftCursorLeft( )
 {
-  m_viewInternal->cursorLeft(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->cursorNextChar(true);
+  else
+    m_viewInternal->cursorPrevChar(true);
 }
 
 void KateView::cursorRight( )
 {
-  m_viewInternal->cursorRight();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->cursorPrevChar();
+  else
+   m_viewInternal->cursorNextChar();
 }
 
 void KateView::shiftCursorRight( )
 {
-  m_viewInternal->cursorRight(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->cursorPrevChar(true);
+  else
+    m_viewInternal->cursorNextChar(true);
 }
 
 void KateView::wordLeft( )
 {
-  m_viewInternal->wordLeft();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordNext();
+  else
+    m_viewInternal->wordPrev();
 }
-
-void KateView::wordLeftSmart( )
-{
-  m_viewInternal->wordLeftSmart();
-}
-
 
 void KateView::shiftWordLeft( )
 {
-  m_viewInternal->wordLeft(true);
-}
-
-void KateView::shiftWordLeftSmart( )
-{
-  m_viewInternal->wordLeftSmart(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordNext(true);
+  else
+    m_viewInternal->wordPrev(true);
 }
 
 void KateView::wordRight( )
 {
-  m_viewInternal->wordRight();
-}
-
-void KateView::wordRightSmart( )
-{
-  m_viewInternal->wordRightSmart();
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordPrev();
+  else
+    m_viewInternal->wordNext();
 }
 
 void KateView::shiftWordRight( )
 {
-  m_viewInternal->wordRight(true);
-}
-
-void KateView::shiftWordRightSmart( )
-{
-  m_viewInternal->wordRightSmart(true);
+  if (m_viewInternal->m_view->currentTextLine().isRightToLeft())
+    m_viewInternal->wordPrev(true);
+  else
+    m_viewInternal->wordNext(true);
 }
 
 void KateView::home( )

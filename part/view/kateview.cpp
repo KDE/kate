@@ -2751,7 +2751,8 @@ QStringList KateView::configKeys() const
 {
   return QStringList() << "icon-bar" << "line-numbers" << "dynamic-word-wrap"
                        << "background-color" << "selection-color"
-                       << "search-highlight-color" << "replace-highlight-color";
+                       << "search-highlight-color" << "replace-highlight-color"
+                       << "folding-bar";
 }
 
 QVariant KateView::configValue(const QString &key)
@@ -2774,6 +2775,8 @@ QVariant KateView::configValue(const QString &key)
     return config()->defaultMarkType();
   else if (key == "allow-mark-menu")
     return config()->allowMarkMenu();
+  else if (key == "folding-bar")
+    return config()->foldingBar();
 
   // return invalid variant
   return QVariant();
@@ -2801,6 +2804,8 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
       config()->setDynWordWrap(value.toBool());
     else if (key == "allow-mark-menu")
       config()->setAllowMarkMenu(value.toBool());
+    else if (key == "folding-bar")
+      config()->setFoldingBar(value.toBool());
   } else if ( value.canConvert(QVariant::UInt) ) {
     if (key == "default-mark-type")
       config()->setDefaultMarkType(value.toUInt());

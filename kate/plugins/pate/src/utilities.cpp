@@ -381,7 +381,7 @@ QString Python::unicode(PyObject *string)
     case PyUnicode_1BYTE_KIND:
         //Not sure which is correct here.
         //return QString::fromLatin1(PyUnicode_1BYTE_DATA(string), unichars)
-        return QString::fromLatin1(PyUnicode_AS_DATA(string), unichars)
+        return QString::fromLatin1(PyUnicode_AS_DATA(string), unichars);
         break;
     case PyUnicode_2BYTE_KIND:
         // Assume 3.3 behaves as 3.2, i..e "limited UTF-16".

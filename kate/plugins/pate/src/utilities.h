@@ -74,8 +74,8 @@ public:
     /// Test if a Python object is compatible with a QString.
     static bool isUnicode(PyObject *string);
 
-    /// Append a QString to a list as a Python unicode object
-    void appendStringToList(PyObject *list, const QString &value);
+    /// Prepend a QString to a list as a Python unicode object
+    bool prependStringToList(PyObject *list, const QString &value);
 
     /**
      * Print and save (see @ref lastTraceback()) the current traceback in a

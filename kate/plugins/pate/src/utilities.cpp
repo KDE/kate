@@ -55,11 +55,15 @@ Python::~Python()
 #endif
 }
 
-void Python::appendStringToList(PyObject *list, const QString &value)
+bool Python::prependStringToList(PyObject *list, const QString &value)
 {
     PyObject *u = unicode(value);
-    PyList_Append(list, u);
+    bool result = 0 == PyList_Insert(list, 0, u);
     Py_DECREF(u);
+    if (!result) {
+        traceback(QString("Failed to prepend %1").arg(value));
+    }
+    return result;
 }
 
 bool Python::functionCall(const char *functionName, const char *moduleName)

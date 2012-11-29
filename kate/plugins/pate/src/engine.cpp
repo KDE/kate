@@ -180,22 +180,31 @@ bool Pate::Engine::init()
     QStringList labels;
     labels << i18n("Name") << i18n("Comment");
     setHorizontalHeaderLabels(labels);
-
-    
-    //move the custom directories to the front, so they get picked up instead of stale distribution ones
-    //py.appendStringToList(sysPath,PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR);
-    //py.appendStringToList(sysPath, katePackageDirectory);
+ 
+    // Move the custom directories to the front, so they get picked up instead
+    // of stale distribution ones.
     QString katePackageDirectory = KStandardDirs::locate("appdata", "plugins/pate/");
-    QString preparePathesString("import sys\n");
-    preparePathesString+="prependpathes=['";
-    preparePathesString+=PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR;
-    preparePathesString+="','";
-    preparePathesString+=katePackageDirectory;
-    preparePathesString+="']\n";
-    preparePathesString+="sys.path=prependpathes+sys.path\n";
-    QByteArray ba=preparePathesString.toLocal8Bit();
-    PyRun_SimpleString(ba.constData());
-    
+    QString sitePackageDirectory = QLatin1String(PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR);
+    PyObject *sysPath = py.itemString("path", "sys");
+    if (!sysPath) {
+        kError() << "Cannot get sys.path";
+        return false;
+    }
+    if (!py.prependStringToList(sysPath, QLatin1String("/usr/local/lib/kde4"))) {
+        return false;
+    }
+    if (!py.prependStringToList(sysPath, sitePackageDirectory)) {
+        return false;
+    }
+    if (!py.prependStringToList(sysPath, katePackageDirectory)) {
+        return false;
+    }
+    Py_ssize_t len = PyList_Size(sysPath);
+    for (Py_ssize_t i = 0; i < len; i++) {
+        PyObject *path = PyList_GetItem(sysPath, i);
+        kDebug() << "sys.path" << i << Python::unicode(path);
+    }
+
     PyRun_SimpleString(
         "import sip\n"
         "sip.setapi('QDate', 2)\n"
@@ -223,20 +232,7 @@ bool Pate::Engine::init()
     py.itemStringSet("configuration", m_configuration);
 
     // Load the kate module, but find it first, and verify it loads.
-    PyObject *katePackage = 0;
-   
-    
-    
-    PyObject *sysPath = py.itemString("path", "sys");
-    if (sysPath) {
-        //I've installed to a custom directory prefix, add this directory to the lib
-        kDebug() << PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR;
-        //py.appendStringToList(sysPath,PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR);
-        
-        //py.appendStringToList(sysPath, katePackageDirectory);
-        katePackage = py.moduleImport("kate");
-    }
-
+    PyObject *katePackage = py.moduleImport("kate");
     if (!katePackage) {
         return false;
     }
@@ -370,7 +366,7 @@ void Pate::Engine::loadModules()
         QString directoryPath = directoryItem->text();
 
         // Add to pate.pluginDirectories and to sys.path.
-        py.appendStringToList(pluginDirectories, directoryPath);
+        py.prependStringToList(pluginDirectories, directoryPath);
         PyObject *d = Python::unicode(directoryPath);
         PyList_Insert(pythonPath, 0, d);
         Py_DECREF(d);

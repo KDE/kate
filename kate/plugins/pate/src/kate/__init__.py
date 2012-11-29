@@ -22,6 +22,7 @@
 This namespace contains interfaces for plugin developers for the Kate application.
 """
 
+from __future__ import print_function
 import sys
 import os
 import traceback
@@ -292,7 +293,7 @@ def action(text, icon=None, shortcut=None, menu=None):
                 return self.f()
             except _HandledException:
                 raise
-            except Exception, e:
+            except Exception as e:
                 txt = "".join(traceback.format_exception(*sys.exc_info()))
                 KMessageBox.error(None, txt, i18n("Error in action '{}'").format(self.f.__name__))
                 raise _HandledException(txt)
@@ -389,9 +390,9 @@ def centralWidget():
 
 def focusEditor():
     ''' Give the editing section focus '''
-    print 'dumping tree....'
+    print('dumping tree....')
     for x in mainWindow().findChildren(QtGui.QWidget):
-        print x.__class__.__name__, x.objectName()
+        print(x.__class__.__name__, x.objectName())
 
 def applicationDirectories(*path):
     path = os.path.join('pate', *path)

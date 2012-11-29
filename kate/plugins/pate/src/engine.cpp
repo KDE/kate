@@ -190,9 +190,6 @@ bool Pate::Engine::init()
         kError() << "Cannot get sys.path";
         return false;
     }
-    if (!py.prependStringToList(sysPath, QLatin1String("/usr/local/lib/kde4"))) {
-        return false;
-    }
     if (!py.prependStringToList(sysPath, sitePackageDirectory)) {
         return false;
     }

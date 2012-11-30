@@ -183,7 +183,7 @@ def moduleGetActions(module):
 
     The returned object is [ { function, ( text, icon, shortcut, menu ) }... ].
     """
-    functionsList = [o for o in getmembers(module) if isfunction(o[1])]
+    functionsList = [o for o in getmembers(module) if isinstance(o[1], kate.catchAllHandler)]
     actionsList = [(n, _moduleActionDecompile(o.__dict__['action'])) for (n, o) in functionsList if 'action' in o.__dict__]
     return actionsList
 
@@ -258,6 +258,21 @@ class _HandledException(Exception):
     def __init__(self, message):
         super(_HandledException, self).__init__(message)
 
+class catchAllHandler(object):
+    '''Standard error handling for plugin actions.'''
+    def __init__(self, f):
+        self.f = f
+
+    def __call__(self):
+        try:
+            return self.f()
+        except _HandledException:
+            raise
+        except Exception as e:
+            txt = "".join(traceback.format_exception(*sys.exc_info()))
+            KMessageBox.error(None, txt, i18n("Error in action '{}'").format(self.f.__name__))
+            raise _HandledException(txt)
+
 @_attribute(actions=set())
 def action(text, icon=None, shortcut=None, menu=None):
     ''' Decorator that adds an action to the menu bar. When the item is fired,
@@ -283,21 +298,6 @@ def action(text, icon=None, shortcut=None, menu=None):
     NOTE: Kate may need to be restarted for this decorator to take effect, or
     to remove all traces of the plugin on removal.
     '''
-    class catchAllHandler(object):
-        '''Standard error handling for plugin actions.'''
-        def __init__(self, f):
-            self.f = f
-
-        def __call__(self):
-            try:
-                return self.f()
-            except _HandledException:
-                raise
-            except Exception as e:
-                txt = "".join(traceback.format_exception(*sys.exc_info()))
-                KMessageBox.error(None, txt, i18n("Error in action '{}'").format(self.f.__name__))
-                raise _HandledException(txt)
-
     def decorator(func):
         a = kdeui.KAction(text, None)
         if shortcut is not None:

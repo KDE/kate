@@ -133,6 +133,29 @@ static PyMethodDef pateMethods[] =
     { NULL, NULL, 0, NULL }
 };
 
+static  PyObject *s_pate;
+
+#if PY_MAJOR_VERSION < 3
+#define PATE_INIT initpate
+#else
+#define PATE_INIT PyInit_pate
+#endif
+
+PyMODINIT_FUNC PATE_INIT(void)
+{
+#if PY_MAJOR_VERSION < 3
+    s_pate = Py_InitModule3("pate", pateMethods, "The pate module");
+    PyModule_AddStringConstant(s_pate, "__file__", __FILE__);
+#else
+    static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT, "pate", "The pate module",
+        -1, pateMethods, 0, 0, 0, 0 };
+    s_pate = PyModule_Create(&moduledef);
+    PyModule_AddStringConstant(s_pate, "__file__", __FILE__);
+    return s_pate;
+#endif
+}
+
 Pate::Engine *Pate::Engine::s_self = 0;
 
 Pate::Engine::Engine(QObject *parent) :
@@ -172,6 +195,10 @@ void Pate::Engine::del()
 bool Pate::Engine::init()
 {
     kDebug() << "Construct the Python engine for Python" << PY_MAJOR_VERSION << PY_MINOR_VERSION;
+    if (0 != PyImport_AppendInittab(Python::PATE_ENGINE, PATE_INIT)) {
+        kError() << "Cannot extend inittab";
+        return false;
+    }
     Python::libraryLoad();
     Python py = Python();
     // Finish setting up the model. At the top level, we have pairs of icons
@@ -214,15 +241,11 @@ bool Pate::Engine::init()
     );
 
     // Initialise our built-in module.
-#if PY_MAJOR_VERSION < 3
-    Py_InitModule3(Python::PATE_ENGINE, pateMethods, "The pate module");
-#else
-    static struct PyModuleDef moduledef = {
-        PyModuleDef_HEAD_INIT, Python::PATE_ENGINE, "The pate module",
-        -1, pateMethods, 0, 0, 0, 0 };
-    PyModule_Create(&moduledef);
-#endif
-
+    PATE_INIT();
+    if (!s_pate) {
+        kError() << "No pate built-in module";
+        return false;
+    }
     m_configuration = PyDict_New();
 
     // Host the configuration dictionary.

@@ -16,7 +16,7 @@ from PyKDE4.kdecore import KConfig
 class ParseError(Exception):
     pass
 
-wordBoundary = set(u' \t"\';[]{}()#:/\\,+=!?%^|&*~`')
+wordBoundary = set(' \t"\';[]{}()#:/\\,+=!?%^|&*~`')
 
 def wordAtCursor(document, view=None):
     view = view or document.activeView()
@@ -106,13 +106,13 @@ def matchingParenthesisPosition(document, position, opening='('):
 
         position.setColumn(position.column() + delta)
         # must we move down a line?
-        if document.character(position) == u'\x00':
+        if document.character(position) == '\x00':
             position.setPosition(position.line() + delta, 0)
             if delta == -1:
                 # move to the far right
                 position.setColumn(document.lineLength(position.line()) - 1)
             # failure again => EOF
-            if document.character(position) == u'\x00':
+            if document.character(position) == '\x00':
                 raise ParseError('end of file reached')
             else:
                 if state in ('"', "'"):
@@ -166,7 +166,7 @@ def indentationCharacters(document):
         # gross, but there's no public API for this. Growl.
         indentationCharacters.configurationUseTabs = True
         if flags and int(flags) & 0x2000000:
-            print 'insert spaces instead of tabulators'
+            print('insert spaces instead of tabulators')
             indentationCharacters.configurationUseTabs = False
 
         indentWidth = str(group.readEntry('Indentation Width'))
@@ -198,7 +198,7 @@ def expandAtCursor():
     view = document.activeView()
     try:
         word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
-    except ParseError, e:
+    except ParseError as e:
         kate.popup('Parse error:', e)
         return
     word = document.text(word_range)
@@ -219,7 +219,7 @@ def expandAtCursor():
     # document.removeText(word_range)
     try:
         replacement = func(*argument)
-    except Exception, e:
+    except Exception as e:
         # remove the top of the exception, it's our code
         try:
             type, value, tb = sys.exc_info()

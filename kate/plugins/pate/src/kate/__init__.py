@@ -301,7 +301,7 @@ def action(text, icon=None, shortcut=None, menu=None):
     def decorator(func):
         a = kdeui.KAction(text, None)
         if shortcut is not None:
-            if isinstance(shortcut, basestring):
+            if isinstance(shortcut, str):
                 a.setShortcut(QtGui.QKeySequence(shortcut))
             else:
                 a.setShortcut(shortcut)

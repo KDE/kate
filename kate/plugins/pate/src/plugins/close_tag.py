@@ -41,7 +41,7 @@ def closeTagAtCursor():
         return
     
     currentLine = unicode(document.line(currentPosition.line()))
-    insertionText = u'</%s>' % tag
+    insertionText = '</%s>' % tag
     if onPreviousLine:
         leadingSpacing = re.search('^\s*', tagLine).group(0)
         insertionText = '%s%s\n' % (leadingSpacing, insertionText)

@@ -21,8 +21,9 @@ library module tokenize.'''
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
+from __future__ import print_function
 import code
-from cStringIO import StringIO
+from io import StringIO
 import keyword
 import os.path
 import sys
@@ -44,18 +45,28 @@ import kate
     # w = window.window()
     # # print w
 
-def tok(s):
+def tokold(s):
     gen = tokenize.generate_tokens(StringIO(s).readline)
     l = []
     while True:
         try:
             token = gen.next()
-        except tokenize.TokenError, e:
+        except tokenize.TokenError as e:
             l.append(e)
             break
         except StopIteration:
             break
         l.append(token)
+    return l
+
+def tok(s):
+    line = StringIO(s).readline
+    l = []
+    try:
+        for token in tokenize.generate_tokens(line):
+            l.append(token)
+    except tokenize.TokenError:
+        pass
     return l
 
 class ConfigWidget(KTabWidget):
@@ -158,6 +169,19 @@ class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
         self.widget.defaults()
         self.changed.emit()
 
+def softspace(file, newvalue):
+    oldvalue = 0
+    try:
+        oldvalue = file.softspace
+    except AttributeError:
+        pass
+    try:
+        file.softspace = newvalue
+    except (AttributeError, TypeError):
+        # "attribute-less object" or "read-only attributes"
+        pass
+    return oldvalue
+
 class Console(code.InteractiveConsole):
     ''' The standard library module code doesn't provide you with
     string when you evaluate an expression (e.g "[]"); instead, it
@@ -167,14 +191,14 @@ class Console(code.InteractiveConsole):
         stdout = sys.stdout
         sys.stdout = StringIO()
         try:
-            exec c in self.locals
+            exec(c, self.locals)
         except SystemExit:
             raise
         except:
             self.showtraceback()
         else:
-            if code.softspace(sys.stdout, 0):
-                print
+            if softspace(sys.stdout, 0):
+                print("")
         r = sys.stdout.getvalue()
         sys.stdout = stdout
         self.write(r)
@@ -211,7 +235,7 @@ class Helper:
 
     def __call__(self, o = None):
         if not o:
-            print self.__str__()
+            print(self.__str__())
             return
         s = self.console.state
         self.console.state = 'help'
@@ -270,7 +294,6 @@ class KateConsoleHighlighter(QSyntaxHighlighter):
         self.doubleMultiLineString = 2
 
     def highlightBlock(self, line):
-        line = str(line)
         # print 'highlight %r' % line
         # print repr(prompt), repr(line), repr(self.console.state)
         if self.console.inputting:

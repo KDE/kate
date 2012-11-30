@@ -22,12 +22,12 @@
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
+from __future__ import print_function
 __title__ = "idutils"
 __author__ = "Shaheed Haque <srhaque@theiet.org>"
 __license__ = "LGPL"
 
 import array
-import exceptions
 import mmap
 import os
 import struct
@@ -638,7 +638,7 @@ class Lookup():
         data = bytearray(end - start)
         bytesRead = self.file.readinto(data)
         if bytesRead < len(data):
-            print "Read {} bytes instead of {}".format(bytesRead, len(data))
+            print("Read {} bytes instead of {}".format(bytesRead, len(data)))
             raise IOError
         return data
 

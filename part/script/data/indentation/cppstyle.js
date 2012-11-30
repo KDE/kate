@@ -179,7 +179,7 @@ function tryToKeepInlineComment(line)
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
     var sc = splitByComment(currentLineText);
-    if (sc.hasComment && isNotStringOrComment(line, sc.before.length - 1) && sc.before.length > 0))
+    if (sc.hasComment && isNotStringOrComment(line, sc.before.length - 1) && sc.before.length > 0)
     {
         // Yep, try to move it on a previous line.
         // NOTE The latter can't have a comment!

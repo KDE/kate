@@ -478,10 +478,10 @@ bookmark.</para>
 
 <para>To quickly move between bookmarks or to the next/previous bookmark,
 use the <menuchoice><guimenu>Bookmarks</guimenu><guimenuitem>Next</guimenuitem>
-</menuchoice> (<keycombo action="simul">&Ctrl;
+</menuchoice> (<keycombo action="simul">&Alt;
 <keycap>PgDown</keycap></keycombo>)  or <menuchoice>
 <guimenu>Bookmarks</guimenu><guimenuitem>Previous</guimenuitem></menuchoice>
-(<keycombo action="simul">&Ctrl;<keycap>PgUp</keycap>
+(<keycombo action="simul">&Alt;<keycap>PgUp</keycap>
 </keycombo>) commands.</para>
 
 </sect1>

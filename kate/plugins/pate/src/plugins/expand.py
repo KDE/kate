@@ -26,8 +26,8 @@ def wordAtCursor(document, view=None):
     return line[start:end]
 
 def wordAtCursorPosition(line, cursor):
-    ''' Get the word under the active view's cursor in the given
-    document '''
+    ''' Get the word under the active view's cursor in the given document
+    '''
     # better to use word boundaries than to hardcode valid letters because
     # expansions should be able to be in any unicode character.
     start = end = cursor.column()
@@ -106,13 +106,13 @@ def matchingParenthesisPosition(document, position, opening='('):
 
         position.setColumn(position.column() + delta)
         # must we move down a line?
-        if document.character(position) == '\x00':
+        if document.character(position) == None:
             position.setPosition(position.line() + delta, 0)
             if delta == -1:
                 # move to the far right
                 position.setColumn(document.lineLength(position.line()) - 1)
             # failure again => EOF
-            if document.character(position) == '\x00':
+            if document.character(position) == None:
                 raise ParseError('end of file reached')
             else:
                 if state in ('"', "'"):
@@ -155,7 +155,7 @@ def loadExpansions(mime):
 
 def indentationCharacters(document):
     ''' The characters used to indent in a document as set by variables in the
-    document or in the configuration. Will be something like '\t' or '    '
+        document or in the configuration. Will be something like '\t' or '    '
     '''
     v = document.variableInterface()
     # cache
@@ -209,16 +209,31 @@ def expandAtCursor():
     except KeyError:
         kate.gui.popup('Expansion "%s" not found :(' % word, timeout=3, icon='dialog-warning', minTextWidth=200)
         return
-    argument = ()
+    arguments = []
+    namedArgs = {}
     if argument_range is not None:
-        # strip parentheses
-        argument = (document.text(argument_range)[1:-1],)
-        # map foo() => foo
-        if argument == ('',):
-            argument = ()
-    # document.removeText(word_range)
+        # strip parentheses and split arguments by comma
+        preArgs = [arg.strip() for arg in document.text(argument_range)[1:-1].split(',') if bool(arg.strip())]
+        print('>> EXPAND: arguments = ' + repr(arguments))
+        # form a dictionary from args w/ '=' character, leave others in a list
+        for arg in preArgs:
+            print('>> EXPAND: current arg = ' + repr(arg))
+            if '=' in arg:
+                key, value = [item.strip() for item in arg.split('=')]
+                print('>> EXPAND: key = ' + repr(key))
+                print('>> EXPAND: value = ' + repr(value))
+                namedArgs[key] = value
+            else:
+                arguments.append(arg)
+    # Call user expand function w/ parsed arguments and
+    # possible w/ named params dict
     try:
-        replacement = func(*argument)
+        print('>> EXPAND: arguments = ' + repr(arguments))
+        print('>> EXPAND: named arguments = ' + repr(namedArgs))
+        if len(namedArgs):
+            replacement = func(*arguments, **namedArgs)
+        else:
+            replacement = func(*arguments)
     except Exception as e:
         # remove the top of the exception, it's our code
         try:
@@ -230,7 +245,7 @@ def expandAtCursor():
             del tblist[:1]
             l = traceback.format_list(tblist)
             if l:
-                l.insert(0, "Traceback (most recent call last):\n")
+                l.insert(0, 'Traceback (most recent call last):\n')
             l[len(l):] = traceback.format_exception_only(type, value)
         finally:
             tblist = tb = None
@@ -246,15 +261,11 @@ def expandAtCursor():
         kate.gui.popup('<p style="white-space:pre">%s</p>' % s, icon='dialog-error', timeout=5, maxTextWidth=None, minTextWidth=300)
         return
 
-    try:
-        replacement = unicode(replacement)
-    except UnicodeEncodeError:
-        replacement = repr(replacement)
     #KateDocumentConfig::cfReplaceTabsDyn
     indentCharacters = indentationCharacters(document)
     # convert newlines followed by tab characters to whatever spacing
     # the user... uses.
-    for i in xrange(100):
+    for i in range(100):
         if '\n' + (indentCharacters * i) + '\t' in replacement:
             replacement = replacement.replace('\n' + (indentCharacters * i) + '\t', '\n' + (indentCharacters * (i + 1)))
     insertPosition = word_range.start()
@@ -268,11 +279,11 @@ def expandAtCursor():
         else:
             break
     replacement = replacement.replace('\n', '\n' + whitespace)
-    # cursor position set?
+    # is desired cursor position set?
     cursorAdvancement = None
     if '%{cursor}' in replacement:
         cursorAdvancement = replacement.index('%{cursor}')
-        # strip around that byte
+        # strip around that word
         replacement = replacement[:cursorAdvancement] + replacement[cursorAdvancement + 9:]
     # make the removal and insertion an atomic operation
     document.startEditing()
@@ -298,4 +309,4 @@ def expandAtCursor():
         view.setCursorPosition(insertPosition)
 
 
-# kate: space-indent on;
+# kate: space-indent on; hl python;

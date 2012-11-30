@@ -6,7 +6,7 @@ import re
 # <html>
 
 def openingTagBeforeCursor(document, position):
-    currentLine = unicode(document.line(position.line()))
+    currentLine = document.line(position.line())
     currentLine = currentLine[:position.column()].rstrip()
     tag = re.compile('<\s*([^/][^ ]*)(?:\s+[^>]+)?>')
     openTags = list(tag.finditer(currentLine))
@@ -32,15 +32,15 @@ def closeTagAtCursor():
             insertionPosition.setColumn(document.lineLength(insertionPosition.line()))
             if insertionPosition.isValid():
                 tag = openingTagBeforeCursor(document, insertionPosition)
-                tagLine = unicode(document.line(insertionPosition.line()))
+                tagLine = document.line(insertionPosition.line())
                 onPreviousLine = True
                 insertionPosition.setLine(currentPosition.line() + 1)
                 insertionPosition.setColumn(0)
     if tag is None:
         kate.gui.popup('No opening tag found', 2, icon='dialog-warning', minTextWidth=200)
         return
-    
-    currentLine = unicode(document.line(currentPosition.line()))
+
+    currentLine = document.line(currentPosition.line())
     insertionText = '</%s>' % tag
     if onPreviousLine:
         leadingSpacing = re.search('^\s*', tagLine).group(0)
@@ -49,4 +49,4 @@ def closeTagAtCursor():
     document.insertText(insertionPosition, insertionText)
     view.setCursorPosition(currentPosition)
     document.endEditing()
-    
+

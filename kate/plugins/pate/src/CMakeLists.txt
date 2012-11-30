@@ -43,10 +43,16 @@ install(DIRECTORY kate DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate FILES_M
 # Install individual Pate plugins.
 #
 install(FILES
-    plugins/close_tag.py
+    plugins/expand.py plugins/close_tag.py plugins/block.py plugins/commentar.py plugins/format.py plugins/tools.py
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate)
+
 install(DIRECTORY
     plugins/console
     plugins/expand
     plugins/gid
+    plugins/libkatepate
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")
+
+install(DIRECTORY
+    plugins/expand
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.expand")

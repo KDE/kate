@@ -182,6 +182,20 @@ def softspace(file, newvalue):
         pass
     return oldvalue
 
+class StringIOHack():
+
+    def __init__(self):
+        self.writeStrings = ""
+
+    def close(self):
+        self.writeStrings = None
+
+    def write(self, s):
+        self.writeStrings += s
+
+    def getvalue(self):
+        return self.writeStrings
+
 class Console(code.InteractiveConsole):
     ''' The standard library module code doesn't provide you with
     string when you evaluate an expression (e.g "[]"); instead, it
@@ -189,7 +203,7 @@ class Console(code.InteractiveConsole):
     will probably not be massively forward compatible '''
     def runcode(self, c):
         stdout = sys.stdout
-        sys.stdout = StringIO()
+        sys.stdout = StringIOHack()
         try:
             exec(c, self.locals)
         except SystemExit:

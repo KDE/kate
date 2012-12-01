@@ -172,7 +172,7 @@ def _moduleActionDecompile(action):
     else:
         menu = None
 
-    if (action.shortcut().toString()) > 0:
+    if len(action.shortcut().toString()) > 0:
         shortcut = action.shortcut().toString().encode('utf8')
     else:
         shortcut = None
@@ -181,10 +181,10 @@ def _moduleActionDecompile(action):
 def moduleGetActions(module):
     """Return a list of each module function decorated with @action.
 
-    The returned object is [ { function, ( text, icon, shortcut, menu ) }... ].
+    The returned object is [ { function, ( text, icon, shortcut, menu), help }... ].
     """
     functionsList = [o for o in getmembers(module) if isinstance(o[1], kate.catchAllHandler)]
-    actionsList = [(n, _moduleActionDecompile(o.__dict__['action'])) for (n, o) in functionsList if 'action' in o.__dict__]
+    actionsList = [(n, _moduleActionDecompile(o.__dict__['action']), getattr(getattr(module,n).f,"__doc__")) for (n, o) in functionsList if 'action' in o.__dict__]
     return actionsList
 
 def moduleGetConfigPages(module):
@@ -294,6 +294,8 @@ def action(text, icon=None, shortcut=None, menu=None):
         * menu -        The menu under which to place this item. Must be a
                         string such as 'tools' or 'settings', or None to not
                         place it in any menu.
+
+    The docstring for your action will be used to provide "help" text.
 
     NOTE: Kate may need to be restarted for this decorator to take effect, or
     to remove all traces of the plugin on removal.

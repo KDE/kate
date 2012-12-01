@@ -7,36 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>486</width>
-    <height>337</height>
+    <height>391</height>
    </rect>
   </property>
-  <layout class="QFormLayout" name="formLayout_2">
-   <property name="fieldGrowthPolicy">
-    <enum>QFormLayout::ExpandingFieldsGrow</enum>
-   </property>
-   <item row="0" column="0">
-    <widget class="QLabel" name="labelTopics">
-     <property name="text">
-      <string>Module:</string>
-     </property>
-     <property name="buddy">
-      <cstring>topics</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="KComboBox" name="topics"/>
-   </item>
+  <layout class="QGridLayout" name="gridLayout_2">
    <item row="1" column="0" colspan="2">
     <widget class="KTabWidget" name="tabs">
      <property name="currentIndex">
       <number>0</number>
      </property>
-     <widget class="QWebView" name="help">
-      <attribute name="title">
-       <string>Reference</string>
-      </attribute>
-     </widget>
      <widget class="QWidget" name="tab2">
       <attribute name="title">
        <string>Actions</string>
@@ -44,13 +23,6 @@
       <layout class="QVBoxLayout" name="tab2lo">
        <item>
         <layout class="QGridLayout" name="tab2_1lo">
-         <item row="6" column="3">
-          <widget class="KLineEdit" name="menu">
-           <property name="whatsThis">
-            <string>The menu under which to place this item such as 'tools' or 'settings', or None.</string>
-           </property>
-          </widget>
-         </item>
          <item row="6" column="1">
           <widget class="KIconButton" name="actionIcon">
            <property name="minimumSize">
@@ -74,6 +46,13 @@
            </property>
            <property name="buddy">
             <cstring>configPageIcon</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="3">
+          <widget class="KLineEdit" name="menu">
+           <property name="whatsThis">
+            <string>The menu under which to place this item such as 'tools' or 'settings', or None.</string>
            </property>
           </widget>
          </item>
@@ -121,17 +100,27 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="labelActions">
+         <item row="7" column="0">
+          <widget class="QLabel" name="labelTopics">
            <property name="text">
-            <string>Action:</string>
+            <string>Description:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
            <property name="buddy">
-            <cstring>configPages</cstring>
+            <cstring>topics</cstring>
            </property>
           </widget>
          </item>
-         <item row="0" column="1" colspan="3">
+         <item row="7" column="1" colspan="3">
+          <widget class="QTextEdit" name="description">
+           <property name="textInteractionFlags">
+            <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="4">
           <widget class="KComboBox" name="actions"/>
          </item>
         </layout>
@@ -218,17 +207,7 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="labelConfigPages">
-           <property name="text">
-            <string>Page:</string>
-           </property>
-           <property name="buddy">
-            <cstring>configPages</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1" colspan="3">
+         <item row="0" column="0" colspan="4">
           <widget class="KComboBox" name="configPages"/>
          </item>
         </layout>
@@ -248,7 +227,15 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWebView" name="help">
+      <attribute name="title">
+       <string>Programmer's Reference</string>
+      </attribute>
+     </widget>
     </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="KComboBox" name="topics"/>
    </item>
   </layout>
  </widget>

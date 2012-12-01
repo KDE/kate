@@ -266,6 +266,8 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_info.setupUi(infoWidget);
     m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
+    connect(m_info.actions, SIGNAL(currentIndexChanged(int)), SLOT(infoPluginActionsChanged(int)));
+    connect(m_info.configPages, SIGNAL(currentIndexChanged(int)), SLOT(infoPluginConfigPagesChanged(int)));
     reloadPage(true);
 
     Pate::Engine *engine=Pate::Engine::self();
@@ -396,6 +398,7 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
     PyObject *icon = PyTuple_GetItem(action, 1);
     PyObject *shortcut = PyTuple_GetItem(action, 2);
     PyObject *menu = PyTuple_GetItem(action, 3);
+    PyObject *__doc__ = PyTuple_GetItem(tuple, 2);
 
     // Add a topic for this plugin, using stacked page 0.
     // TODO: Proper handling of Unicode
@@ -415,6 +418,7 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
     m_info.actionIcon->setText(Python::unicode(icon));
     m_info.shortcut->setText(Python::unicode(shortcut));
     m_info.menu->setText(Python::unicode(menu));
+    m_info.description->setText(Python::unicode(__doc__));
 }
 
 void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)

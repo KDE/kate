@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 #
-# Kate/Pâté plugins to work with C++ code formatting
 # Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
 #
 #
@@ -17,19 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Here is a short list of plugins in this file:
-#
-#
-#   Boost-like Format Params (Meta+F)
-#       Format function's/template's parameters list (or `for`'s) in a boost-like style
-#       I.e. when 2nd and the rest parameters has leading comma/semicolon
-#       and closing ')' or '>' on a separate line.
-#       THIS IS REALLY BETTER TO HAVE SUCH STYLE WHEN U HAVE A LONG PARAMETERS LIST!
-#
-#   Unformat Function Params (Meta+Shift+F)
-#       merge everything between '(' and ')' into a single line
-#
-#
+
+'''Plugins to work with C++ code formatting'''
 
 import kate
 
@@ -303,6 +291,11 @@ def boostFormatText(textRange, indent, breakPositions):
 @has_selection(False)
 @selection_mode(selection.NORMAL)
 def boostFormat():
+    '''Format function's/template's parameters list (or `for`'s) in a boost-like style
+       I.e. when 2nd and the rest parameters has leading comma/semicolon
+       and closing ')' or '>' on a separate line.
+       THIS IS REALLY BETTER TO HAVE SUCH STYLE WHEN U HAVE A LONG PARAMETERS LIST!
+    '''
     document = kate.activeDocument()
     view = kate.activeView()
 
@@ -357,7 +350,8 @@ def boostUnformatText(textRange, breakPositions):
 @check_constraints
 @has_selection(False)
 @selection_mode(selection.NORMAL)
-def boostFormat():
+def boostUnformat():
+    '''Merge everything between '(' and ')' into a single line'''
     document = kate.activeDocument()
     view = kate.activeView()
 
@@ -385,3 +379,5 @@ def boostFormat():
 
     # Going to unformat a text whithin a selected range
     text = boostUnformatText(r, breakPositions)
+
+# kate: indent-width 4;

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 #
-# Kate/Pâté plugins for general use
 # Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
 #
 #
@@ -24,6 +23,8 @@
 #       open color choose dialog and insert selected color as #hex string
 #
 
+'''Plugins for general use'''
+
 import kate
 
 from PyQt4 import QtGui
@@ -35,8 +36,13 @@ from libkatepate import common
 _LEFT_COLOR_BOUNDARY = set(' \t"\';[]{}():/\\,+=!?%^|&*~`')
 _RIGHT_COLOR_BOUNDARY = set(' \t"\';[]{}():/\\,+=!?%^|&*~`#')
 
-@kate.action('Insert Color', shortcut='Meta+Shift+C', menu='Tools')
+@kate.action('Insert Color', shortcut='Meta+Shift+C', icon='color', menu='Tools')
 def insertColor():
+    ''' Insert/edit #color using color chooser dialog
+
+        If cursor positioned in a #color 'word', this action will edit it, otherwise
+        a new #color will be inserted into a document.
+    '''
     document = kate.activeDocument()
     view = kate.activeView()
 
@@ -58,3 +64,5 @@ def insertColor():
             startPos = colorRange.start()
             endPos = KTextEditor.Cursor(startPos.line(), startPos.column() + len(colorStr))
             view.setSelection(KTextEditor.Range(startPos, endPos))
+
+# kate: indent-width 4;

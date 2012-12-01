@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 #
-# Kate/Pâté plugins to work with C++ comments
 # Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
 #
 #
@@ -17,50 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #
-#
-# Here is a short list of plugins in this file:
-#
-#   Inline Comment (Alt+D)
-#       put a comment (//) after a code line (at position 60)
-#       or just move cursor at comment if already present.
-#       If there wasn't any comment aside of #else/#endif put
-#       corresponding #if condition as default comment
-#
-#   Move Comment Above (Meta+Left)
-#       move on-same-line comment (if presnt) to the line above the current
-#
-#   Move Comment Inline (Meta+Right)
-#       move comment from current line to the line below as
-#       on-same-line comment
-#
-#   Comment Block (Meta+D)
-#       wrap selected text (or current line) into a #if0/#endif block
-#
-#   Toggle Comment Block (Meta+Shift+D)
-#       switch current code block to ON(#if1)/OFF(#if0) state.
-#       Current means that cursor located inside of it.
-#
-#   Remove Commented Block (Meta+R)
-#       remove #if0 or #if1 and closing #endif around current code block
-#       leaving #else part as is
-#
-#   Select Current #if0/#if1 Block (Meta+S)
-#       set selection of current (where cursor positioned) #if0/#endif block
-#
-#   Transform Doxygen Comments (Meta+X)
-#       turn block of '///' doxygen comments into
-#       /**
-#        *
-#        */
-#       and vise versa
-#
-#   Shrink Comment Paragraph (Meta+[)
-#       shrink a text paragraph width, whithing a comment, around a current cursor position
-#
-#   Extend Comment Paragraph (Meta+])
-#       extend a text paragraph width, whithing a comment, around a current cursor position
-#
-#
+
+'''Plugins to work with C++ comments'''
 
 import kate
 import kate.gui
@@ -92,10 +49,6 @@ BLOCK_ELSE_ENDIF_MATCH_RE = re.compile('^\s*#\s*(endif|else).*$')
 BLOCK_START_GET_COND_RE = re.compile('^\s*#\s*(if((n)?def)?)\s+(.*)\s*$')
 
 
-def isApplicableMime():
-    return str(kate.activeDocument().mimeType()).find('c++') != -1
-
-
 def extendSelectionToWholeLine(view):
     selectedRange = view.selectionRange()
     if not selectedRange.isEmpty():
@@ -106,12 +59,12 @@ def extendSelectionToWholeLine(view):
             selectedRange.end().setLine(selectedRange.end().line() + 1)
         view.setSelection(selectedRange)
 
-#
-# Build a list of tuples (start, end, elseif, is_comment) for all #if/#elseif/#endif blocks
-# in a document. If block contains #endif 3rd element will point its line, -1 otherwise.
-# For blocks #if1/#if0 4th element is True, otherwise False.
-#
 def buildIfEndifMap(document):
+    '''
+        Build a list of tuples (start, end, elseif, is_comment) for all #if/#elseif/#endif blocks
+        in a document. If block contains #endif 3rd element will point its line, -1 otherwise.
+        For blocks #if1/#if0 4th element is True, otherwise False.
+    '''
     # Make list of ranges of #if*/#endif blocks
     openBlockStack = list()
     blockRanges = list()
@@ -231,9 +184,11 @@ def processLine(line, commentCh):
 @comment_char_must_be_known()
 @selection_mode(selection.NORMAL)
 def commentar():
-    '''Append or align an inlined comment to COMMENT_POS for the current line or the selection.
+    ''' Append or align an inlined comment at position 60 for the current line or the selection.
 
         Move cursor to the start of a comment, if nothing has changed.
+        If there wasn't any comment aside of #else/#endif put corresponding #if condition as default
+        comment text
     '''
     document = kate.activeDocument()
     view = kate.activeView()
@@ -288,8 +243,7 @@ def commentar():
 @check_constraints
 @comment_char_must_be_known()
 def moveAbove():
-    '''Move inlined comment before the current line at same align
-    '''
+    '''Move an inlined comment before the current line w/ same indentation level'''
     document = kate.activeDocument()
     view = kate.activeView()
     pos = view.cursorPosition()
@@ -415,6 +369,7 @@ def moveInline():
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def commentBlock():
+    '''Wrap selected text (or current line) into a #if0/#endif block'''
     view = kate.activeView()
 
     # This operation have no sense for partly selected lines
@@ -444,6 +399,10 @@ def commentBlock():
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def toggleBlock():
+    ''' Switch a current code block to ON(#if1) or OFF(#if0) state.
+
+        Current means that cursor placed inside of it.
+    '''
     document = kate.activeDocument()
     view = kate.activeView()
 
@@ -478,6 +437,7 @@ def toggleBlock():
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def removeBlock():
+    ''' Remove a block of code commented with #if0 or #if1-#else'''
     document = kate.activeDocument()
     view = kate.activeView()
 
@@ -524,6 +484,7 @@ def removeBlock():
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def selectBlock():
+    '''Set selection of a current (where cursor positioned) #if0/#endif block'''
     document = kate.activeDocument()
     view = kate.activeView()
 
@@ -642,6 +603,12 @@ def turnFromBlockComment():
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 @has_selection(False)
 def toggleDoxyComment():
+    ''' Turn block of '///' doxygen comments into
+        /**
+         *
+         */
+        and vise versa
+    '''
     document = kate.activeDocument()
     view = kate.activeView()
     pos = view.cursorPosition()
@@ -741,6 +708,7 @@ def changeParagraphWidth(step):
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 def shrinkParagraph():
+    '''Shrink a text paragraph width, whithing a comment, around the current cursor position'''
     changeParagraphWidth(-1)
 
 
@@ -748,6 +716,7 @@ def shrinkParagraph():
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 def extendParagraph():
+    '''Extend a text paragraph width, whithing a comment, around the current cursor position'''
     changeParagraphWidth(1)
 
 
@@ -766,3 +735,5 @@ def extendParagraph():
 #@kate.unload
 #def vc4():
     #kate.gui.popup("On unload: " + kate.activeDocument().mimeType(), 10)
+
+# kate: indent-width 4;

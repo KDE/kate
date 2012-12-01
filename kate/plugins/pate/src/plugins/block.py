@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 #
-# Kate/Pâté plugins to work with code blocks
 # Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
 #
 #
@@ -17,22 +16,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #
-#
-# Here is a short list of plugins in this file:
-#
-#   Insert Char From Line Above (Meta+E)
-#       add the same char to the current cursor position as in the line above
-#
-#   Insert Char From Line Below (Meta+W)
-#       add the same char to the current cursor position as in the line below
-#
-#   Kill Text After Cursor (Meta+K)
-#       remove text from cursor position to the end of the current line
-#
-#   Kill Text Before Cursor (Meta+U)
-#       remove text from cursor position to the start of the current line
-#       but keep leading spaces (to avoid breaking indentation)
-#
+
+'''Plugins to work with code blocks'''
 
 import kate
 import kate.gui
@@ -43,6 +28,7 @@ from libkatepate import ui, common
 
 @kate.action('Insert Char From Line Above', shortcut='Meta+E')
 def insertCharFromLineAbove():
+    '''Add the same char to the current cursor position as at the line above'''
     doc = kate.activeDocument()
     view = kate.activeView()
     pos = view.cursorPosition()
@@ -62,6 +48,7 @@ def insertCharFromLineAbove():
 
 @kate.action('Insert Char From Line Below', shortcut='Meta+W')
 def insertCharFromLineBelow():
+    '''Add the same char to the current cursor position as at the line below'''
     doc = kate.activeDocument()
     view = kate.activeView()
     pos = view.cursorPosition()
@@ -81,6 +68,7 @@ def insertCharFromLineBelow():
 
 @kate.action('Kill Text After Cursor', shortcut='Meta+K')
 def killRestOfLine():
+    '''Remove text from cursor position to the end of the current line'''
     doc = kate.activeDocument()
     view = kate.activeView()
     pos = view.cursorPosition()
@@ -95,7 +83,8 @@ def killRestOfLine():
 
 @kate.action('Kill Text Before Cursor', shortcut='Meta+U')
 def killLeadOfLine():
-    ''' Remove text from a start of a line to the current crsor position
+    ''' Remove text from a start of a line to the current cursor position
+        but keep leading spaces (to avoid breaking indentation)
 
         NOTE This function suppose spaces as indentation character!
     '''
@@ -111,3 +100,6 @@ def killLeadOfLine():
     doc.removeText(killRange)
     doc.insertText(startPosition, ' ' * indent)
     doc.endEditing()
+
+
+# kate: indent-width 4;

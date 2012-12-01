@@ -297,6 +297,7 @@ void Python::traceback(const QString &description)
     PyErr_Fetch(&exc_typ, &exc_val, &exc_tb);
     PyErr_NormalizeException(&exc_typ, &exc_val, &exc_tb);
 
+    // Include the traceback.
     if (exc_tb) {
         m_traceback = "Traceback (most recent call last):\n";
         PyObject *arguments = PyTuple_New(1);
@@ -317,7 +318,15 @@ void Python::traceback(const QString &description)
         Py_DECREF(exc_tb);
     }
 
-    // If we have the value, don't bother with the type.
+    // Include the exception type and value.
+    if (exc_typ) {
+        PyObject *temp = PyObject_GetAttrString(exc_typ, "__name__");
+        if (temp) {
+            m_traceback += unicode(temp);
+            m_traceback += ": ";
+        }
+        Py_DECREF(exc_typ);
+    }
     if (exc_val) {
         PyObject *temp = PyObject_Str(exc_val);
         if (temp) {
@@ -325,15 +334,6 @@ void Python::traceback(const QString &description)
             m_traceback += "\n";
         }
         Py_DECREF(exc_val);
-    } else {
-        PyObject *temp = PyObject_Str(exc_typ);
-        if (temp) {
-            m_traceback += unicode(temp);
-            m_traceback += "\n";
-        }
-    }
-    if (exc_typ) {
-        Py_DECREF(exc_typ);
     }
     m_traceback += description;
     kError() << m_traceback;

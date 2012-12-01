@@ -655,6 +655,7 @@ def wordAtCursor(document, view):
 
 @kate.action("Browse Tokens", shortcut = "Alt+1", menu = "&Gid")
 def show():
+    """Browse the tokens in the ID file."""
     # Make all our config is initialised.
     ConfigWidget().apply()
     global idDatabase
@@ -670,6 +671,9 @@ def show():
 
 @kate.action("Lookup Current Token", shortcut = "Alt+2", menu = "&Gid", icon = "edit-find")
 def lookup():
+    """Lookup the currently selected token.
+    Find the token, filter the results.
+    """
     global searchBar
     if show():
         if kate.activeView().selection():
@@ -684,6 +688,9 @@ def lookup():
 
 @kate.action("Go to Definition", shortcut = "Alt+3", menu = "&Gid", icon = "go-jump-definition")
 def gotoDefinition():
+    """Go to the definition of the currently selected token.
+    Find the token, search for definitions using etags, jump to the definition.
+    """
     global searchBar
     definitionIndex = lookup()
     if definitionIndex:

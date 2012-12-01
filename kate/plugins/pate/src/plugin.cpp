@@ -264,7 +264,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     // Add a tab for reference information.
     QWidget *infoWidget = new QWidget(m_manager.tabWidget);
     m_info.setupUi(infoWidget);
-    m_manager.tabWidget->addTab(infoWidget, i18n("Modules"));
+    m_manager.tabWidget->addTab(infoWidget, i18n("Documentation"));
     connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
     connect(m_info.actions, SIGNAL(currentIndexChanged(int)), SLOT(infoPluginActionsChanged(int)));
     connect(m_info.configPages, SIGNAL(currentIndexChanged(int)), SLOT(infoPluginConfigPagesChanged(int)));
@@ -357,10 +357,8 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
             // Add an action for this plugin.
             m_info.actions->addItem(Python::unicode(functionName));
         }
-        if (PyList_Size(m_pluginActions)) {
-            infoPluginActionsChanged(0);
-        }
     }
+    infoPluginActionsChanged(0);
 
     // Config pages tab.
     m_info.configPages->clear();
@@ -374,10 +372,8 @@ void Pate::ConfigPage::infoTopicChanged(int topicIndex)
             // Add a config page for this plugin.
             m_info.configPages->addItem(Python::unicode(functionName));
         }
-        if (PyList_Size(m_pluginConfigPages)) {
-            infoPluginConfigPagesChanged(0);
-        }
     }
+    infoPluginConfigPagesChanged(0);
 }
 
 void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
@@ -389,7 +385,13 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
     }
     PyObject *tuple = PyList_GetItem(m_pluginActions, actionIndex);
     if (!tuple) {
-        // This is a bit wierd: a plugin with no executable actions?
+        // A plugin with no executable actions? It must be a module...
+        m_info.text->setText(QString::null);
+        m_info.actionIcon->setIcon(QIcon());
+        m_info.actionIcon->setText(QString::null);
+        m_info.shortcut->setText(QString::null);
+        m_info.menu->setText(QString::null);
+        m_info.description->setText(QString::null);
         return;
     }
 
@@ -401,9 +403,7 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
     PyObject *__doc__ = PyTuple_GetItem(tuple, 2);
 
     // Add a topic for this plugin, using stacked page 0.
-    // TODO: Proper handling of Unicode
     m_info.text->setText(Python::unicode(text));
-
     if (Py_None == icon) {
         m_info.actionIcon->setIcon(QIcon());
     } else if (Python::isUnicode(icon)) {
@@ -430,7 +430,11 @@ void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
     }
     PyObject *tuple = PyList_GetItem(m_pluginConfigPages, pageIndex);
     if (!tuple) {
-        // This is a bit wierd: a plugin with no executable actions?
+        // No config pages.
+        m_info.name->setText(QString::null);
+        m_info.fullName->setText(QString::null);
+        m_info.configPageIcon->setIcon(QIcon());
+        m_info.configPageIcon->setText(QString::null);
         return;
     }
 

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>486</width>
+    <width>654</width>
     <height>391</height>
    </rect>
   </property>
@@ -23,7 +23,103 @@
       <layout class="QVBoxLayout" name="tab2lo">
        <item>
         <layout class="QGridLayout" name="tab2_1lo">
-         <item row="6" column="1">
+         <item row="9" column="0">
+          <widget class="QLabel" name="labelTopics">
+           <property name="text">
+            <string>Description:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>topics</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="9" column="1" colspan="3">
+          <widget class="QTextEdit" name="description">
+           <property name="textInteractionFlags">
+            <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="4">
+          <widget class="KComboBox" name="actions"/>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="labelText">
+           <property name="text">
+            <string>Menu Item:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>name</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="menu">
+           <property name="whatsThis">
+            <string>The menu under which to place this item such as 'tools' or 'settings', or None.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelMenu">
+           <property name="text">
+            <string>Menu:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>menu</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QLabel" name="text">
+           <property name="whatsThis">
+            <string>The text associated with the action (used as the menu item label, etc), or None.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="2">
+          <widget class="QLabel" name="labelActionIcon">
+           <property name="text">
+            <string>Icon:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>configPageIcon</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="0">
+          <widget class="QLabel" name="labelShortcut">
+           <property name="text">
+            <string>Shortcut:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+           <property name="buddy">
+            <cstring>fullName</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="1">
+          <widget class="QLabel" name="shortcut">
+           <property name="whatsThis">
+            <string>The shortcut to fire this action such as 'Ctrl+1', or a QKeySequence instance, or None.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="8" column="3">
           <widget class="KIconButton" name="actionIcon">
            <property name="minimumSize">
             <size>
@@ -38,90 +134,6 @@
             <bool>true</bool>
            </property>
           </widget>
-         </item>
-         <item row="6" column="0">
-          <widget class="QLabel" name="labelActionIcon">
-           <property name="text">
-            <string>Icon:</string>
-           </property>
-           <property name="buddy">
-            <cstring>configPageIcon</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="3">
-          <widget class="KLineEdit" name="menu">
-           <property name="whatsThis">
-            <string>The menu under which to place this item such as 'tools' or 'settings', or None.</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="KLineEdit" name="text">
-           <property name="whatsThis">
-            <string>The text associated with the action (used as the menu item label, etc), or None.</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="KLineEdit" name="shortcut">
-           <property name="whatsThis">
-            <string>The shortcut to fire this action such as 'Ctrl+1', or a QKeySequence instance, or None.</string>
-           </property>
-          </widget>
-         </item>
-         <item row="6" column="2">
-          <widget class="QLabel" name="labelMenu">
-           <property name="text">
-            <string>Menu:</string>
-           </property>
-           <property name="buddy">
-            <cstring>menu</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="labelText">
-           <property name="text">
-            <string>Text:</string>
-           </property>
-           <property name="buddy">
-            <cstring>name</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QLabel" name="labelShortcut">
-           <property name="text">
-            <string>Shortcut:</string>
-           </property>
-           <property name="buddy">
-            <cstring>fullName</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="0">
-          <widget class="QLabel" name="labelTopics">
-           <property name="text">
-            <string>Description:</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-           <property name="buddy">
-            <cstring>topics</cstring>
-           </property>
-          </widget>
-         </item>
-         <item row="7" column="1" colspan="3">
-          <widget class="QTextEdit" name="description">
-           <property name="textInteractionFlags">
-            <set>Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0" colspan="4">
-          <widget class="KComboBox" name="actions"/>
          </item>
         </layout>
        </item>
@@ -147,7 +159,10 @@
       <layout class="QVBoxLayout" name="tab3lo">
        <item>
         <layout class="QGridLayout" name="tab3_1lo">
-         <item row="6" column="1">
+         <item row="0" column="0" colspan="4">
+          <widget class="KComboBox" name="configPages"/>
+         </item>
+         <item row="6" column="3">
           <widget class="KIconButton" name="configPageIcon">
            <property name="minimumSize">
             <size>
@@ -163,52 +178,55 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="0">
+         <item row="6" column="2">
           <widget class="QLabel" name="labelPageIcon">
            <property name="text">
             <string>Icon:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
            <property name="buddy">
             <cstring>configPageIcon</cstring>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
-          <widget class="KLineEdit" name="name">
-           <property name="whatsThis">
-            <string>The text associated with the action (used as the menu item label, etc), or None.</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="3">
-          <widget class="KLineEdit" name="fullName">
-           <property name="whatsThis">
-            <string>The shortcut to fire this action such as 'Ctrl+1', or a QKeySequence instance, or None.</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
+         <item row="6" column="0">
           <widget class="QLabel" name="labelName">
            <property name="text">
             <string>Name:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
            </property>
            <property name="buddy">
             <cstring>name</cstring>
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
-          <widget class="QLabel" name="labelFullName">
-           <property name="text">
-            <string>Full Name:</string>
-           </property>
-           <property name="buddy">
-            <cstring>fullName</cstring>
+         <item row="6" column="1">
+          <widget class="QLabel" name="name">
+           <property name="whatsThis">
+            <string>The text associated with the action (used as the menu item label, etc), or None.</string>
            </property>
           </widget>
          </item>
-         <item row="0" column="0" colspan="4">
-          <widget class="KComboBox" name="configPages"/>
+         <item row="1" column="1" colspan="3">
+          <widget class="QLabel" name="fullName">
+           <property name="whatsThis">
+            <string>The shortcut to fire this action such as 'Ctrl+1', or a QKeySequence instance, or None.</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Title:</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
          </item>
         </layout>
        </item>
@@ -256,11 +274,6 @@
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
@@ -271,13 +284,7 @@
   <tabstop>topics</tabstop>
   <tabstop>tabs</tabstop>
   <tabstop>actions</tabstop>
-  <tabstop>text</tabstop>
-  <tabstop>actionIcon</tabstop>
-  <tabstop>shortcut</tabstop>
-  <tabstop>menu</tabstop>
   <tabstop>configPages</tabstop>
-  <tabstop>name</tabstop>
-  <tabstop>configPageIcon</tabstop>
   <tabstop>fullName</tabstop>
  </tabstops>
  <resources/>

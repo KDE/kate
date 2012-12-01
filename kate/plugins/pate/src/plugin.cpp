@@ -304,7 +304,7 @@ void Pate::ConfigPage::reloadPage(bool init)
     QString topic;
 
     // Add a topic for each built-in packages, using stacked page 0. Note that
-    // pate itself is not exposed as it is just part of the plubing required
+    // pate itself is not exposed as it is just part of the plumbing required
     // by kate.
     m_info.topics->clear();
     topic = QLatin1String("kate");

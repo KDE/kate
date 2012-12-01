@@ -156,12 +156,12 @@ def moduleGetHelp(module):
 def _moduleActionDecompile(action):
     """Deconstruct an @action."""
     if len(action.text()) > 0:
-        text = action.text().encode('utf8')
+        text = action.text()
     else:
         text = None
 
     if len(action.icon().name()) > 0:
-        icon = action.icon().name().encode('utf8')
+        icon = action.icon().name()
     elif action.icon().isNull():
         icon = None
     else:
@@ -173,7 +173,7 @@ def _moduleActionDecompile(action):
         menu = None
 
     if len(action.shortcut().toString()) > 0:
-        shortcut = action.shortcut().toString().encode('utf8')
+        shortcut = action.shortcut().toString()
     else:
         shortcut = None
     return (text, icon, shortcut, menu)
@@ -183,18 +183,27 @@ def moduleGetActions(module):
 
     The returned object is [ { function, ( text, icon, shortcut, menu), help }... ].
     """
-    functionsList = [o for o in getmembers(module) if isinstance(o[1], kate.catchAllHandler)]
-    actionsList = [(n, _moduleActionDecompile(o.__dict__['action']), getattr(getattr(module,n).f,"__doc__")) for (n, o) in functionsList if 'action' in o.__dict__]
-    return actionsList
+    try:
+        result = []
+        for k, v in module.__dict__.items():
+            if isinstance(v, kate.catchAllHandler):
+                result.append((k, _moduleActionDecompile(v.action), getattr(v.f, "__doc__", None)))
+        return result
+    except IndexError:
+        # Python3 throws this for modules, though Python 2 does not.
+        sys.stderr.write("IndexError getting actions for " + str(module) + "\n")
+        return []
 
 def moduleGetConfigPages(module):
     """Return a list of each module function decorated with @configPage.
 
     The returned object is [ { function, callable, ( name, fullName, icon ) }... ].
     """
-    functionsList = [o for o in getmembers(module) if isfunction(o[1])]
-    configPagesList = [(n, o, o.__dict__['configPage']) for (n, o) in functionsList if 'configPage' in o.__dict__]
-    return configPagesList
+    result = []
+    for k, v in module.__dict__.items():
+        if isfunction(v) and hasattr(v, "configPage"):
+            result.append((k, v, v.configPage))
+    return result
 
 def _callAll(l, *args, **kwargs):
     for f in l:

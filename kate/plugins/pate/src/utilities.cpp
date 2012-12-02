@@ -446,9 +446,14 @@ void Python::updateConfigurationFromDictionary(KConfigBase *config, PyObject *di
                 traceback(i18n("Configuration group %1 itemKey not a string").arg(groupName));
                 continue;
             }
-            PyObject *arguments = Py_BuildValue("(O)", value);
+            PyObject *arguments = Py_BuildValue("(Oi)", value, 0);
             PyObject *pickled = functionCall("dumps", "pickle", arguments);
-            group.writeEntry(unicode(key), QString(unicode(pickled)));
+#if PY_MAJOR_VERSION < 3
+            QString ascii(unicode(pickled));
+#else
+            QString ascii(PyBytes_AsString(pickled));
+#endif
+            group.writeEntry(unicode(key), ascii);
             Py_DECREF(pickled);
         }
     }
@@ -463,7 +468,11 @@ void Python::updateDictionaryFromConfiguration(PyObject *dictionary, const KConf
         PyDict_SetItemString(dictionary, PQ(groupName), groupDictionary);
         foreach(QString key, group.keyList()) {
             QString pickled = group.readEntry(key);
+#if PY_MAJOR_VERSION < 3
             PyObject *arguments = Py_BuildValue("(s)", PQ(pickled));
+#else
+            PyObject *arguments = Py_BuildValue("(y)", PQ(pickled));
+#endif
             PyObject *value = functionCall("loads", "pickle", arguments);
             if (value) {
                 PyDict_SetItemString(groupDictionary, PQ(key), value);

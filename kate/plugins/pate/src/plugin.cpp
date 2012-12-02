@@ -415,7 +415,6 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
         m_info.actionIcon->setIcon(*(QPixmap *)PyCapsule_GetPointer(icon, "icon"));
 #endif
     }
-    m_info.actionIcon->setText(Python::unicode(icon));
     m_info.shortcut->setText(Python::unicode(shortcut));
     m_info.menu->setText(Python::unicode(menu));
     m_info.description->setText(Python::unicode(__doc__));
@@ -454,7 +453,6 @@ void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
     } else {
         m_info.configPageIcon->setIcon(*(KIcon *)py.objectUnwrap(icon));
     }
-    m_info.configPageIcon->setText(Python::unicode(icon));
 }
 
 void Pate::ConfigPage::apply()

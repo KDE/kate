@@ -79,12 +79,12 @@ bool Python::functionCall(const char *functionName, const char *moduleName)
 PyObject *Python::functionCall(const char *functionName, const char *moduleName, PyObject *arguments)
 {
     if (!arguments) {
-        traceback(QString("Missing arguments for %1.%2").arg(moduleName).arg(functionName));
+        kError() << "Missing arguments for" << moduleName << functionName;
         return 0;
     }
     PyObject *func = itemString(functionName, moduleName);
     if (!func) {
-        traceback(QString("Failed to resolve %1.%2").arg(moduleName).arg(functionName));
+        kError() << "Failed to resolve" << moduleName << functionName;
         return 0;
     }
     if (!PyCallable_Check(func)) {
@@ -118,7 +118,7 @@ PyObject *Python::itemString(const char *item, const char *moduleName)
     if (value) {
         return value;
     }
-    traceback(QString("Could not get item string %1.%2").arg(moduleName).arg(item));
+    kError() << "Could not get item string" << moduleName << item;
     return 0;
 }
 
@@ -427,12 +427,12 @@ void Python::updateConfigurationFromDictionary(KConfigBase *config, PyObject *di
     Py_ssize_t position = 0;
     while (PyDict_Next(dictionary, &position, &groupKey, &groupDictionary)) {
         if (!isUnicode(groupKey)) {
-            traceback(i18n("Configuration group name not a string"));
+            traceback(QString("Configuration group name not a string"));
             continue;
         }
         QString groupName = unicode(groupKey);
         if (!PyDict_Check(groupDictionary)) {
-            traceback(i18n("Configuration group %1 top level key not a dictionary").arg(groupName));
+            traceback(QString("Configuration group %1 top level key not a dictionary").arg(groupName));
             continue;
         }
 
@@ -443,7 +443,7 @@ void Python::updateConfigurationFromDictionary(KConfigBase *config, PyObject *di
         Py_ssize_t x = 0;
         while (PyDict_Next(groupDictionary, &x, &key, &value)) {
             if (!isUnicode(key)) {
-                traceback(i18n("Configuration group %1 itemKey not a string").arg(groupName));
+                traceback(QString("Configuration group %1 itemKey not a string").arg(groupName));
                 continue;
             }
             PyObject *arguments = Py_BuildValue("(Oi)", value, 0);

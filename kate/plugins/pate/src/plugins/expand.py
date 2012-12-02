@@ -1,3 +1,53 @@
+"""User-defined text expansions.
+
+Each text expansion is a simple function which must return a string.
+This string will be inserted into a document by the expandAtCursor action.
+For example if you have a function "foo" in then all.expand file
+which is defined as:
+
+def foo:
+  return 'Hello from foo!'
+
+after typing "foo", the action will replace "foo" with "Hello from foo!".
+The expansion function may have parameters as well. For example, the
+text_x-c++src.expand file contains the "cl" function which creates a class
+(or class template). This will expand "cl(test)" into:
+
+/**
+ * \\brief Class \c test
+ */
+class test
+{
+public:
+    /// Default constructor
+    explicit test()
+    {
+    }
+    /// Destructor
+    virtual ~test()
+    {
+    }
+};
+
+but "cl(test, T1, T2, T3)" will expand to:
+
+/**
+ * \\brief Class \c test
+ */
+template <typename T1, typename T2, typename T3>
+class test
+{
+public:
+    /// Default constructor
+    explicit test()
+    {
+    }
+    /// Destructor
+    virtual ~test()
+    {
+    }
+};
+"""
 # -*- coding: utf-8 -*-
 
 import kate
@@ -194,6 +244,7 @@ def indentationCharacters(document):
 
 @kate.action('Expand', shortcut='Ctrl+E', menu='Edit')
 def expandAtCursor():
+    """Attempt text expansion on the word at the cursor."""
     document = kate.activeDocument()
     view = document.activeView()
     try:

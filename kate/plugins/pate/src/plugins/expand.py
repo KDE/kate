@@ -244,7 +244,11 @@ def indentationCharacters(document):
 
 @kate.action('Expand', shortcut='Ctrl+E', menu='Edit')
 def expandAtCursor():
-    """Attempt text expansion on the word at the cursor."""
+    """Attempt text expansion on the word at the cursor.
+    The expansions available are based firstly on the mimetype of the
+    document, for example "text_x-c++src.expand" for "text/x-c++src", and
+    secondly on "all.expand".
+    """
     document = kate.activeDocument()
     view = document.activeView()
     try:

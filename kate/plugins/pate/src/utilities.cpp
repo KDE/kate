@@ -448,13 +448,17 @@ void Python::updateConfigurationFromDictionary(KConfigBase *config, PyObject *di
             }
             PyObject *arguments = Py_BuildValue("(Oi)", value, 0);
             PyObject *pickled = functionCall("dumps", "pickle", arguments);
+            if (pickled) {
 #if PY_MAJOR_VERSION < 3
-            QString ascii(unicode(pickled));
+                QString ascii(unicode(pickled));
 #else
-            QString ascii(PyBytes_AsString(pickled));
+                QString ascii(PyBytes_AsString(pickled));
 #endif
-            group.writeEntry(unicode(key), ascii);
-            Py_DECREF(pickled);
+                group.writeEntry(unicode(key), ascii);
+                Py_DECREF(pickled);
+            } else {
+                kError() << "Cannot write" << groupName << unicode(key) << unicode(PyObject_Str(value));
+            }
         }
     }
 }
@@ -477,9 +481,8 @@ void Python::updateDictionaryFromConfiguration(PyObject *dictionary, const KConf
             if (value) {
                 PyDict_SetItemString(groupDictionary, PQ(key), value);
                 Py_DECREF(value);
-            }
-            else {
-                traceback(QString("Bad config value: %1.%2=%3").arg(groupName).arg(key).arg(pickled));
+            } else {
+                kError() << "Cannot read" << groupName << key << pickled;
             }
         }
         Py_DECREF(groupDictionary);

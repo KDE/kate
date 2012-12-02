@@ -279,7 +279,10 @@ class catchAllHandler(object):
             raise
         except Exception as e:
             txt = "".join(traceback.format_exception(*sys.exc_info()))
-            KMessageBox.error(None, txt, i18n("Error in action '{}'").format(self.f.__name__))
+            # TODO: Use the i18n() wrapper here. Unfortunately, Python3 currently
+            # says "TypeError: i18n(): argument 1 has unexpected type 'str'",
+            # and that is rather unfortunate for the catch-all handler.
+            KMessageBox.error(None, txt, "Error in action '{}'".format(self.f.__name__))
             raise _HandledException(txt)
 
 @_attribute(actions=set())

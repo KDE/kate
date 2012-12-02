@@ -396,7 +396,7 @@ QString Python::unicode(PyObject *string)
     }
     switch (PyUnicode_KIND(string)) {
     case PyUnicode_1BYTE_KIND:
-        return QString::fromLatin1((const char *)PyUnicode_1BYTE_DATA(string), unichars)
+        return QString::fromLatin1((const char *)PyUnicode_1BYTE_DATA(string), unichars);
         break;
     case PyUnicode_2BYTE_KIND:
         return QString::fromUtf16(PyUnicode_2BYTE_DATA(string), unichars);

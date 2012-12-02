@@ -365,7 +365,7 @@ QString Python::unicode(PyObject *string)
     /* Python 2.x. http://docs.python.org/2/c-api/unicode.html */
     if (PyString_Check(string)) {
         return QString(PyString_AsString(string));
-    } else {
+    } else if (PyUnicode_Check(string)) {
         int unichars = PyUnicode_GetSize(string);
 #ifdef HAVE_USABLE_WCHAR_T
         return QString::fromWCharArray(PyUnicode_AsUnicode(string), unichars);
@@ -376,9 +376,14 @@ QString Python::unicode(PyObject *string)
         return QString::fromUtf16(PyUnicode_AsUnicode(string), unichars);
 #endif
 #endif
+    } else {
+        return QString();
     }
 #elif PY_MINOR_VERSION < 3
     /* Python 3.2 or less. http://docs.python.org/3.2/c-api/unicode.html#unicode-objects */
+    if (!PyUnicode_Check(string)) {
+        return QString();
+    }
     int unichars = PyUnicode_GetSize(string);
 #ifdef HAVE_USABLE_WCHAR_T
     return QString::fromWCharArray(PyUnicode_AsUnicode(string), unichars);
@@ -390,6 +395,9 @@ QString Python::unicode(PyObject *string)
 #endif
 #endif
 #else /* Python 3.3 or greater. http://docs.python.org/3.3/c-api/unicode.html#unicode-objects */
+    if (!PyUnicode_Check(string)) {
+        return QString();
+    }
     int unichars = PyUnicode_GetLength(string);
     if (0 != PyUnicode_READY(string)) {
         return QString();

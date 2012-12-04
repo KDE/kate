@@ -13,7 +13,7 @@
 <language
     name="C++11/Qt4"
     section="Sources"
-    version="0.6"
+    version="0.7"
     kateversion="2.4"
     indenter="cstyle"
     extensions="*.moc"
@@ -57,19 +57,30 @@
     <item> Q_SIGNALS </item>
     <item> Q_SLOT </item>
     <item> Q_SLOTS </item>
-    <!-- List of Qt macros obtained by support/get-Qt-macros.sh -->
+    <!-- Various macros from:
+        http://qt-project.org/doc/qt-4.8/qmetatype.html#macros
+        http://qt-project.org/doc/qt-4.8/qbytearray.html#macros
+        http://qt-project.org/doc/qt-4.8/qstring.html#macros
+        http://qt-project.org/doc/qt-4.8/qurl.html#macros
+      -->
+    <item> Q_DECLARE_METATYPE </item>
+    <item> QT_NO_CAST_FROM_BYTEARRAY </item>
+    <item> QT_NO_CAST_FROM_ASCII </item>
+    <item> QT_NO_CAST_TO_ASCII </item>
+    <item> QT_NO_URL_CAST_FROM_STRING </item>
+    <item> QT_USE_QSTRINGBUILDER </item>
+    <!-- List of Qt macros obtained by
+         part/syntax/data/get-Qt-macros.sh for qglobal.h qfeatures.h qconfig.h
+      -->
     <item> QT3_SUPPORT </item>
     <item> QT3_SUPPORT_CONSTRUCTOR </item>
     <item> QT3_SUPPORT_VARIABLE </item>
     <item> QT3_SUPPORT_WARNINGS </item>
+    <item> QT_ARCH_X86_64 </item>
     <item> QT_ASCII_CAST_WARN </item>
     <item> QT_ASCII_CAST_WARN_CONSTRUCTOR </item>
-    <item> QT_BEGIN_HEADER </item>
-    <item> QT_BEGIN_INCLUDE_HEADER </item>
-    <item> QT_BEGIN_INCLUDE_NAMESPACE </item>
-    <item> QT_BEGIN_MOC_NAMESPACE </item>
-    <item> QT_BEGIN_NAMESPACE </item>
     <item> QT_BUILD_KEY </item>
+    <item> QT_BUILD_KEY_COMPAT </item>
     <item> QT_CATCH </item>
     <item> QT_COMPAT </item>
     <item> QT_COMPAT_WARNINGS </item>
@@ -86,11 +97,6 @@
     <item> QT_EDITION_EVALUATION </item>
     <item> QT_EDITION_OPENSOURCE </item>
     <item> QT_EDITION_UNIVERSAL </item>
-    <item> QT_END_HEADER </item>
-    <item> QT_END_INCLUDE_HEADER </item>
-    <item> QT_END_INCLUDE_NAMESPACE </item>
-    <item> QT_END_MOC_NAMESPACE </item>
-    <item> QT_END_NAMESPACE </item>
     <item> QT_ENSURE_STACK_ALIGNED_FOR_SSE </item>
     <item> QT_FASTCALL </item>
     <item> QT_FORWARD_DECLARE_CLASS </item>
@@ -98,12 +104,9 @@
     <item> QT_HAVE_ARMV6 </item>
     <item> QT_LARGEFILE_SUPPORT </item>
     <item> QT_LICENSED_MODULE </item>
+    <item> QT_LINKED_OPENSSL </item>
     <item> QT_LINUXBASE </item>
     <item> QT_MAC_USE_COCOA </item>
-    <item> QT_MANGLE_NAMESPACE </item>
-    <item> QT_MANGLE_NAMESPACE0 </item>
-    <item> QT_MANGLE_NAMESPACE1 </item>
-    <item> QT_MANGLE_NAMESPACE2 </item>
     <item> QT_MOC_COMPAT </item>
     <item> QT_MODULE </item>
     <item> QT_MODULE_ACTIVEQT </item>
@@ -126,34 +129,181 @@
     <item> QT_MODULE_TEST </item>
     <item> QT_MODULE_XML </item>
     <item> QT_MODULE_XMLPATTERNS </item>
+    <item> QT_NO_ACCESSIBILITY </item>
+    <item> QT_NO_ANIMATION </item>
     <item> QT_NO_ARM_EABI </item>
-    <item> QT_NO_CAST_FROM_ASCII </item>
-    <item> QT_NO_CAST_TO_ASCII </item>
-    <item> QT_NO_CAST_FROM_BYTEARRAY </item>
+    <item> QT_NO_BEARERMANAGEMENT </item>
+    <item> QT_NO_BUTTONGROUP </item>
+    <item> QT_NO_CALENDARWIDGET </item>
+    <item> QT_NO_CLIPBOARD </item>
+    <item> QT_NO_CODECS </item>
+    <item> QT_NO_COLORDIALOG </item>
+    <item> QT_NO_COLUMNVIEW </item>
+    <item> QT_NO_COMBOBOX </item>
+    <item> QT_NO_COMPLETER </item>
     <item> QT_NO_CONCURRENT </item>
     <item> QT_NO_CONCURRENT_FILTER </item>
     <item> QT_NO_CONCURRENT_MAP </item>
+    <item> QT_NO_CONTEXTMENU </item>
     <item> QT_NO_COP </item>
     <item> QT_NO_CRASHHANDLER </item>
+    <item> QT_NO_CUPS </item>
+    <item> QT_NO_DATAWIDGETMAPPER </item>
+    <item> QT_NO_DATESTRING </item>
+    <item> QT_NO_DATETIMEEDIT </item>
+    <item> QT_NO_DBUS </item>
     <item> QT_NO_DEBUG </item>
     <item> QT_NO_DEBUG_STREAM </item>
+    <item> QT_NO_DECLARATIVE </item>
+    <item> QT_NO_DIAL </item>
+    <item> QT_NO_DIRMODEL </item>
+    <item> QT_NO_DOCKWIDGET </item>
+    <item> QT_NO_DRAGANDDROP </item>
+    <item> QT_NO_EGL </item>
+    <item> QT_NO_ERRORMESSAGE </item>
     <item> QT_NO_EXCEPTIONS </item>
+    <item> QT_NO_FILEDIALOG </item>
+    <item> QT_NO_FILESYSTEMMODEL </item>
+    <item> QT_NO_FONTCOMBOBOX </item>
+    <item> QT_NO_FONTCONFIG </item>
+    <item> QT_NO_FONTDIALOG </item>
     <item> QT_NO_FPU </item>
+    <item> QT_NO_FSCOMPLETER </item>
+    <item> QT_NO_FTP </item>
     <item> QT_NO_GETIFADDRS </item>
+    <item> QT_NO_GRAPHICSEFFECT </item>
+    <item> QT_NO_GRAPHICSSVGITEM </item>
+    <item> QT_NO_GRAPHICSVIEW </item>
+    <item> QT_NO_GSTREAMER </item>
+    <item> QT_NO_HOSTINFO </item>
+    <item> QT_NO_HTTP </item>
+    <item> QT_NO_ICD </item>
+    <item> QT_NO_IM </item>
+    <item> QT_NO_IMAGEFORMAT_JPEG </item>
+    <item> QT_NO_IMAGEFORMAT_MNG </item>
+    <item> QT_NO_IMAGEFORMAT_PNG </item>
+    <item> QT_NO_IMAGEFORMAT_TIFF </item>
+    <item> QT_NO_IMAGEFORMAT_XPM </item>
+    <item> QT_NO_INPUTDIALOG </item>
+    <item> QT_NO_ITEMVIEWS </item>
+    <item> QT_NO_LIBRARY </item>
+    <item> QT_NO_LISTVIEW </item>
+    <item> QT_NO_LISTWIDGET </item>
     <item> QT_NO_LPR </item>
+    <item> QT_NO_MAINWINDOW </item>
+    <item> QT_NO_MDIAREA </item>
+    <item> QT_NO_MENU </item>
+    <item> QT_NO_MENUBAR </item>
+    <item> QT_NO_MITSHM </item>
+    <item> QT_NO_MULTIMEDIA </item>
+    <item> QT_NO_NAS </item>
+    <item> QT_NO_NETWORKDISKCACHE </item>
+    <item> QT_NO_OPENGL </item>
+    <item> QT_NO_OPENVG </item>
     <item> QT_NO_PAINT_DEBUG </item>
+    <item> QT_NO_PHONON </item>
+    <item> QT_NO_PHONON_EFFECTWIDGET </item>
+    <item> QT_NO_PHONON_PLATFORMPLUGIN </item>
+    <item> QT_NO_PHONON_SEEKSLIDER </item>
+    <item> QT_NO_PHONON_SETTINGSGROUP </item>
+    <item> QT_NO_PHONON_VIDEOPLAYER </item>
+    <item> QT_NO_PHONON_VOLUMEFADEREFFECT </item>
+    <item> QT_NO_PHONON_VOLUMESLIDER </item>
+    <item> QT_NO_PRINTDIALOG </item>
+    <item> QT_NO_PRINTER </item>
+    <item> QT_NO_PRINTPREVIEWDIALOG </item>
+    <item> QT_NO_PRINTPREVIEWWIDGET </item>
     <item> QT_NO_PROCESS </item>
+    <item> QT_NO_PROGRESSDIALOG </item>
+    <item> QT_NO_PROXYMODEL </item>
+    <item> QT_NO_PULSEAUDIO </item>
     <item> QT_NO_QDEBUG_MACRO </item>
     <item> QT_NO_QFUTURE </item>
     <item> QT_NO_QWARNING_MACRO </item>
+    <item> QT_NO_QWS_CURSOR </item>
+    <item> QT_NO_QWS_DECORATION_STYLED </item>
+    <item> QT_NO_QWS_DECORATION_WINDOWS </item>
+    <item> QT_NO_QWS_DYNAMICSCREENTRANSFORMATION </item>
+    <item> QT_NO_QWS_INPUTMETHODS </item>
+    <item> QT_NO_QWS_MANAGER </item>
     <item> QT_NO_QWS_MULTIPROCESS </item>
+    <item> QT_NO_QWS_SOUNDSERVER </item>
+    <item> QT_NO_QWS_TRANSFORMED </item>
+    <item> QT_NO_QWS_VNC </item>
     <item> QT_NO_RAWFONT </item>
+    <item> QT_NO_S60 </item>
+    <item> QT_NO_SCRIPT </item>
+    <item> QT_NO_SCRIPTTOOLS </item>
+    <item> QT_NO_SCROLLAREA </item>
+    <item> QT_NO_SCROLLBAR </item>
+    <item> QT_NO_SESSIONMANAGER </item>
+    <item> QT_NO_SHAPE </item>
     <item> QT_NO_SHAREDMEMORY </item>
+    <item> QT_NO_SOCKS5 </item>
+    <item> QT_NO_SOFTKEYMANAGER </item>
+    <item> QT_NO_SORTFILTERPROXYMODEL </item>
+    <item> QT_NO_SPINBOX </item>
+    <item> QT_NO_SPLITTER </item>
+    <item> QT_NO_STANDARDITEMMODEL </item>
+    <item> QT_NO_STATEMACHINE </item>
     <item> QT_NO_STL_WCHAR </item>
+    <item> QT_NO_STRINGLISTMODEL </item>
+    <item> QT_NO_STYLE_CDE </item>
+    <item> QT_NO_STYLE_CLEANLOOKS </item>
+    <item> QT_NO_STYLE_GTK </item>
+    <item> QT_NO_STYLE_PLASTIQUE </item>
+    <item> QT_NO_STYLE_S60 </item>
+    <item> QT_NO_STYLE_STYLESHEET </item>
+    <item> QT_NO_STYLE_WINDOWSCE </item>
+    <item> QT_NO_STYLE_WINDOWSMOBILE </item>
+    <item> QT_NO_STYLE_WINDOWSVISTA </item>
+    <item> QT_NO_STYLE_WINDOWSXP </item>
+    <item> QT_NO_SVG </item>
+    <item> QT_NO_SVGGENERATOR </item>
+    <item> QT_NO_SVGRENDERER </item>
+    <item> QT_NO_SVGWIDGET </item>
+    <item> QT_NO_SXE </item>
+    <item> QT_NO_SYNTAXHIGHLIGHTER </item>
     <item> QT_NO_SYSTEMSEMAPHORE </item>
+    <item> QT_NO_TABBAR </item>
+    <item> QT_NO_TABDIALOG </item>
+    <item> QT_NO_TABLET </item>
+    <item> QT_NO_TABLEVIEW </item>
+    <item> QT_NO_TABLEWIDGET </item>
+    <item> QT_NO_TABWIDGET </item>
     <item> QT_NO_TEMPLATE_TEMPLATE_PARAMETERS </item>
-    <item> QT_NO_URL_CAST_FROM_STRING </item>
+    <item> QT_NO_TEXTBROWSER </item>
+    <item> QT_NO_TEXTCODECPLUGIN </item>
+    <item> QT_NO_TEXTEDIT </item>
+    <item> QT_NO_TEXTODFWRITER </item>
+    <item> QT_NO_TOOLBAR </item>
+    <item> QT_NO_TOOLBOX </item>
+    <item> QT_NO_TOOLBUTTON </item>
+    <item> QT_NO_TRANSLATION_UTF8 </item>
+    <item> QT_NO_TREEVIEW </item>
+    <item> QT_NO_TREEWIDGET </item>
+    <item> QT_NO_UNDOGROUP </item>
+    <item> QT_NO_UNDOSTACK </item>
+    <item> QT_NO_UNDOVIEW </item>
     <item> QT_NO_WARNINGS </item>
+    <item> QT_NO_WEBKIT </item>
+    <item> QT_NO_WHATSTHIS </item>
+    <item> QT_NO_WIN_ACTIVEQT </item>
+    <item> QT_NO_WIZARD </item>
+    <item> QT_NO_WORKSPACE </item>
+    <item> QT_NO_XCURSOR </item>
+    <item> QT_NO_XFIXES </item>
+    <item> QT_NO_XINERAMA </item>
+    <item> QT_NO_XINPUT </item>
+    <item> QT_NO_XKB </item>
+    <item> QT_NO_XMLPATTERNS </item>
+    <item> QT_NO_XMLSTREAMREADER </item>
+    <item> QT_NO_XMLSTREAMWRITER </item>
+    <item> QT_NO_XRANDR </item>
+    <item> QT_NO_XRENDER </item>
+    <item> QT_NO_XSYNC </item>
+    <item> QT_NO_XVIDEO </item>
+    <item> QT_NO_ZLIB </item>
     <item> QT_PACKAGEDATE_STR </item>
     <item> QT_PACKAGE_TAG </item>
     <item> QT_POINTER_SIZE </item>
@@ -180,8 +330,8 @@
     <item> QT_TRYCATCH_LEAVING </item>
     <item> QT_TR_NOOP </item>
     <item> QT_TR_NOOP_UTF8 </item>
+    <item> QT_USE_MATH_H_FLOATS </item>
     <item> QT_USE_NAMESPACE </item>
-    <item> QT_USE_QSTRINGBUILDER </item>
     <item> QT_VERSION </item>
     <item> QT_VERSION_CHECK </item>
     <item> QT_VERSION_STR </item>
@@ -192,8 +342,10 @@
     <item> Q_ALIGNOF </item>
     <item> Q_ASSERT </item>
     <item> Q_ASSERT_X </item>
+    <item> Q_BIG_ENDIAN </item>
     <item> Q_BROKEN_DEBUG_STREAM </item>
     <item> Q_BROKEN_TEMPLATE_SPECIALIZATION </item>
+    <item> Q_BYTE_ORDER </item>
     <item> Q_CANNOT_DELETE_CONSTANT </item>
     <item> Q_CC_BOR </item>
     <item> Q_CC_CDS </item>
@@ -276,6 +428,7 @@
     <item> Q_INLINE_TEMPLATE </item>
     <item> Q_INT64_C </item>
     <item> Q_LIKELY </item>
+    <item> Q_LITTLE_ENDIAN </item>
     <item> Q_NO_BOOL_TYPE </item>
     <item> Q_NO_DATA_RELOCATION </item>
     <item> Q_NO_DECLARED_NOT_DEFINED </item>
@@ -1253,6 +1406,11 @@
     <item> qvsnprintf </item>
     <!-- http://qt-project.org/doc/qt-4.8/qhash.html#related-non-members -->
     <item> qHash </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qmetatype.html#related-non-members -->
+    <item> qMetaTypeId </item>
+    <item> qRegisterMetaType </item>
+    <item> qRegisterMetaType </item>
+    <item> qRegisterMetaTypeStreamOperators </item>
   </list>
 
   <!-- Types list from http://qt-project.org/doc/qt-4.8/qtglobal.html -->

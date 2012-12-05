@@ -24,8 +24,8 @@
  * Boston, MA  02110-1301, USA.                                       *
  **********************************************************************
  -->
-<!-- generated for "cmake version 2.8.1" -->
-<language name="CMake" version="1.13" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<!-- generated for "cmake version 2.8.10.2" -->
+<language name="CMake" version="1.14" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
@@ -144,6 +144,7 @@
       <item> ALPHABET </item>
       <item> AND </item>
       <item> APPEND </item>
+      <item> APPEND_STRING </item>
       <item> ARCHIVE </item>
       <item> ARGS </item>
       <item> ASCII </item>
@@ -166,12 +167,14 @@
       <item> COMPILE_RESULT_VAR </item>
       <item> COMPONENT </item>
       <item> COMPONENTS </item>
+      <item> CONFIG </item>
       <item> CONFIGS </item>
       <item> CONFIGURATION </item>
       <item> CONFIGURATIONS </item>
       <item> CONFIGURE </item>
       <item> COPYONLY </item>
       <item> COPY_FILE </item>
+      <item> CRLF </item>
       <item> DEFINED </item>
       <item> DEFINITION </item>
       <item> DEPENDS </item>
@@ -179,6 +182,7 @@
       <item> DIRECTORY </item>
       <item> DIRECTORY_PERMISSIONS </item>
       <item> DOC </item>
+      <item> DOS </item>
       <item> DOWNLOAD </item>
       <item> ENV </item>
       <item> EQUAL </item>
@@ -191,6 +195,8 @@
       <item> EXCLUDE </item>
       <item> EXCLUDE_FROM_ALL </item>
       <item> EXISTS </item>
+      <item> EXPECTED_HASH </item>
+      <item> EXPECTED_MD5 </item>
       <item> EXPORT </item>
       <item> EXPR </item>
       <item> EXT </item>
@@ -202,21 +208,25 @@
       <item> FILE_PERMISSIONS </item>
       <item> FIND </item>
       <item> FOLLOW_SYMLINKS </item>
+      <item> FOO </item>
       <item> FORCE </item>
       <item> FRAMEWORK </item>
       <item> FULL_DOCS </item>
       <item> FUNCTION </item>
       <item> GET </item>
       <item> GLOB </item>
+      <item> GLOBAL </item>
       <item> GLOB_RECURSE </item>
       <item> GREATER </item>
       <item> GROUP_EXECUTE </item>
       <item> GROUP_READ </item>
+      <item> GUID </item>
       <item> HEX </item>
       <item> HINTS </item>
       <item> IMPLICIT_DEPENDS </item>
       <item> IMPORTED </item>
       <item> IN </item>
+      <item> INACTIVITY_TIMEOUT </item>
       <item> INCLUDE_INTERNALS </item>
       <item> INHERITED </item>
       <item> INPUT_FILE </item>
@@ -230,6 +240,7 @@
       <item> LENGTH_MAXIMUM </item>
       <item> LENGTH_MINIMUM </item>
       <item> LESS </item>
+      <item> LF </item>
       <item> LIBRARY </item>
       <item> LIMIT </item>
       <item> LIMIT_COUNT </item>
@@ -253,6 +264,7 @@
       <item> NAME_WE </item>
       <item> NEW </item>
       <item> NEWLINE_CONSUME </item>
+      <item> NEWLINE_STYLE </item>
       <item> NOT </item>
       <item> NOTEQUAL </item>
       <item> NO_CMAKE_BUILDS_PATH </item>
@@ -260,6 +272,7 @@
       <item> NO_CMAKE_FIND_ROOT_PATH </item>
       <item> NO_CMAKE_PACKAGE_REGISTRY </item>
       <item> NO_CMAKE_PATH </item>
+      <item> NO_CMAKE_SYSTEM_PACKAGE_REGISTRY </item>
       <item> NO_CMAKE_SYSTEM_PATH </item>
       <item> NO_DEFAULT_PATH </item>
       <item> NO_HEX_CONVERSION </item>
@@ -267,10 +280,12 @@
       <item> NO_POLICY_SCOPE </item>
       <item> NO_SOURCE_PERMISSIONS </item>
       <item> NO_SYSTEM_ENVIRONMENT_PATH </item>
+      <item> OBJECT </item>
       <item> OFFSET </item>
       <item> OLD </item>
       <item> ONLY_CMAKE_FIND_ROOT_PATH </item>
       <item> OPTIONAL </item>
+      <item> OPTIONAL_COMPONENTS </item>
       <item> OR </item>
       <item> OUTPUT </item>
       <item> OUTPUT_DIRECTORY </item>
@@ -289,6 +304,7 @@
       <item> PATH_TO_MESA </item>
       <item> PATTERN </item>
       <item> PERMISSIONS </item>
+      <item> PLATFORM </item>
       <item> POLICY </item>
       <item> POP </item>
       <item> POST_BUILD </item>
@@ -337,7 +353,12 @@
       <item> SCRIPT </item>
       <item> SEND_ERROR </item>
       <item> SET </item>
+      <item> SHA1 </item>
+      <item> SHA224 </item>
+      <item> SHA256 </item>
+      <item> SHA384 </item>
       <item> SHARED </item>
+      <item> SHOW_PROGRESS </item>
       <item> SORT </item>
       <item> SOURCE </item>
       <item> SOURCES </item>
@@ -355,10 +376,15 @@
       <item> TEST </item>
       <item> TEST_VARIABLE </item>
       <item> TIMEOUT </item>
+      <item> TLS_CAINFO </item>
+      <item> TLS_VERIFY </item>
       <item> TOLOWER </item>
       <item> TOUPPER </item>
       <item> TO_CMAKE_PATH </item>
       <item> TO_NATIVE_PATH </item>
+      <item> TYPE </item>
+      <item> UNIX </item>
+      <item> UPLOAD </item>
       <item> USE_SOURCE_PERMISSIONS </item>
       <item> VALUE </item>
       <item> VAR </item>
@@ -391,7 +417,11 @@
       <item> ARCHIVE_OUTPUT_NAME </item>
       <item> ATTACHED_FILES </item>
       <item> ATTACHED_FILES_ON_FAIL </item>
+      <item> AUTOMOC </item>
+      <item> AUTOMOC_MOC_OPTIONS </item>
       <item> BUILD_WITH_INSTALL_RPATH </item>
+      <item> BUNDLE </item>
+      <item> BUNDLE_EXTENSION </item>
       <item> CACHE_VARIABLES </item>
       <item> CLEAN_NO_CUSTOM </item>
       <item> COMPILE_DEFINITIONS </item>
@@ -413,12 +443,15 @@
       <item> FAIL_REGULAR_EXPRESSION </item>
       <item> FIND_LIBRARY_USE_LIB64_PATHS </item>
       <item> FIND_LIBRARY_USE_OPENBSD_VERSIONING </item>
+      <item> FOLDER </item>
       <item> FRAMEWORK </item>
+      <item> Fortran_FORMAT </item>
       <item> Fortran_MODULE_DIRECTORY </item>
       <item> GENERATED </item>
       <item> GENERATOR_FILE_NAME </item>
       <item> GLOBAL_DEPENDS_DEBUG_MODE </item>
       <item> GLOBAL_DEPENDS_NO_CYCLES </item>
+      <item> GNUtoMS </item>
       <item> HAS_CXX </item>
       <item> HEADER_FILE_ONLY </item>
       <item> HELPSTRING </item>
@@ -431,6 +464,7 @@
       <item> IMPORTED_LINK_INTERFACE_LIBRARIES </item>
       <item> IMPORTED_LINK_INTERFACE_MULTIPLICITY </item>
       <item> IMPORTED_LOCATION </item>
+      <item> IMPORTED_NO_SONAME </item>
       <item> IMPORTED_SONAME </item>
       <item> IMPORT_PREFIX </item>
       <item> IMPORT_SUFFIX </item>
@@ -447,11 +481,13 @@
       <item> LIBRARY_OUTPUT_DIRECTORY </item>
       <item> LIBRARY_OUTPUT_NAME </item>
       <item> LINKER_LANGUAGE </item>
+      <item> LINK_DEPENDS </item>
       <item> LINK_DIRECTORIES </item>
       <item> LINK_FLAGS </item>
       <item> LINK_INTERFACE_LIBRARIES </item>
       <item> LINK_INTERFACE_MULTIPLICITY </item>
       <item> LINK_SEARCH_END_STATIC </item>
+      <item> LINK_SEARCH_START_STATIC </item>
       <item> LISTFILE_STACK </item>
       <item> LOCATION </item>
       <item> MACOSX_BUNDLE </item>
@@ -461,6 +497,7 @@
       <item> MACROS </item>
       <item> MEASUREMENT </item>
       <item> MODIFIED </item>
+      <item> NO_SONAME </item>
       <item> OBJECT_DEPENDS </item>
       <item> OBJECT_OUTPUTS </item>
       <item> OSX_ARCHITECTURES </item>
@@ -469,7 +506,11 @@
       <item> PACKAGES_NOT_FOUND </item>
       <item> PARENT_DIRECTORY </item>
       <item> PASS_REGULAR_EXPRESSION </item>
+      <item> PDB_NAME </item>
+      <item> PDB_OUTPUT_DIRECTORY </item>
+      <item> POSITION_INDEPENDENT_CODE </item>
       <item> POST_INSTALL_SCRIPT </item>
+      <item> PREDEFINED_TARGETS_FOLDER </item>
       <item> PREFIX </item>
       <item> PRE_INSTALL_SCRIPT </item>
       <item> PRIVATE_HEADER </item>
@@ -479,6 +520,7 @@
       <item> REPORT_UNDEFINED_PROPERTIES </item>
       <item> REQUIRED_FILES </item>
       <item> RESOURCE </item>
+      <item> RESOURCE_LOCK </item>
       <item> RULE_LAUNCH_COMPILE </item>
       <item> RULE_LAUNCH_CUSTOM </item>
       <item> RULE_LAUNCH_LINK </item>
@@ -498,15 +540,23 @@
       <item> TEST_INCLUDE_FILE </item>
       <item> TIMEOUT </item>
       <item> TYPE </item>
+      <item> USE_FOLDERS </item>
       <item> VALUE </item>
       <item> VARIABLES </item>
       <item> VERSION </item>
+      <item> VS_DOTNET_REFERENCES </item>
+      <item> VS_GLOBAL_KEYWORD </item>
+      <item> VS_GLOBAL_PROJECT_TYPES </item>
       <item> VS_KEYWORD </item>
+      <item> VS_SCC_AUXPATH </item>
       <item> VS_SCC_LOCALPATH </item>
       <item> VS_SCC_PROJECTNAME </item>
       <item> VS_SCC_PROVIDER </item>
+      <item> VS_WINRT_EXTENSIONS </item>
+      <item> VS_WINRT_REFERENCES </item>
       <item> WILL_FAIL </item>
       <item> WIN32_EXECUTABLE </item>
+      <item> WORKING_DIRECTORY </item>
       <item> WRAP_EXCLUDE </item>
       <item> __CMAKE_DELETE_CACHE_CHANGE_VARS_ </item>
     </list>

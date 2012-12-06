@@ -28,3 +28,4 @@ KDE Framework 5.0
   - still provide some default mark types
   - https://bugs.kde.org/show_bug.cgi?id=243375
     maybe move incRef(), decRef() into KTE::Factory or KTE::Editor?
+- scrolling API: http://bugs.kde.org/show_bug.cgi?id=138956

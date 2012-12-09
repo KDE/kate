@@ -35,7 +35,7 @@
     - improved highlighting
 
     -->
-<language name="Lua" version="1.05" indenter="lua" kateversion="2.4" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
+<language name="Lua" version="1.06" indenter="lua" kateversion="2.4" section="Scripts" extensions="*.lua" mimetype="text/x-lua">
   <highlighting>
     <list name="keywords">
       <item> and </item>
@@ -249,7 +249,7 @@
         <Detect2Chars attribute="Error"    context="#stay" char="+" char1="="/>
         <Detect2Chars attribute="Error"    context="#stay" char="+" char1="+"/>
         <Detect2Chars attribute="Error"    context="#stay" char="." char1="="/>
-        <AnyChar      attribute="Symbols"  context="#stay" String="[]().=~+-*/^&gt;&lt;#;" />
+        <AnyChar      attribute="Symbols"  context="#stay" String="[]().,=~+-*/^&gt;&lt;#;" />
       </context>
       <context name="Comment"       attribute="Comment"     lineEndContext="#pop">
         <Detect2Chars attribute="Alerts"   context="#stay" char="-" char1="-" />
@@ -276,18 +276,18 @@
       </context>
     </contexts>
     <itemDatas>
-      <itemData name="Alerts"          defStyleNum="dsAlert" />
-      <itemData name="BFunc"           defStyleNum="dsFunction"/>
+      <itemData name="Normal Text"     defStyleNum="dsNormal" spellChecking="false"/>
+      <itemData name="Alerts"          defStyleNum="dsAlert" spellChecking="false"/>
+      <itemData name="BFunc"           defStyleNum="dsFunction" spellChecking="false"/>
       <itemData name="Comment"         defStyleNum="dsComment"/>
-      <itemData name="Constant"        defStyleNum="dsKeyword"/>
-      <itemData name="Control"         defStyleNum="dsKeyword" color="#A1A100" selColor="#ffffff" bold="0" italic="0"/>
-      <itemData name="Error"           defStyleNum="dsError"/>
-      <itemData name="Keyword"         defStyleNum="dsKeyword"/>
-      <itemData name="Normal Text"     defStyleNum="dsNormal"/>
-      <itemData name="Numbers"         defStyleNum="dsDecVal"/>
+      <itemData name="Constant"        defStyleNum="dsKeyword" spellChecking="false"/>
+      <itemData name="Control"         defStyleNum="dsKeyword" color="#A1A100" selColor="#ffffff" bold="0" italic="0" spellChecking="false"/>
+      <itemData name="Error"           defStyleNum="dsError" spellChecking="false"/>
+      <itemData name="Keyword"         defStyleNum="dsKeyword" spellChecking="false"/>
+      <itemData name="Numbers"         defStyleNum="dsDecVal" spellChecking="false"/>
       <itemData name="Strings"         defStyleNum="dsString"/>
-      <itemData name="Symbols"         defStyleNum="dsOthers"/>
-      <itemData name="Variable"        defStyleNum="dsKeyword" color="#5555FF" selColor="#ffffff" bold="0" italic="0" />
+      <itemData name="Symbols"         defStyleNum="dsOthers" spellChecking="false"/>
+      <itemData name="Variable"        defStyleNum="dsKeyword" color="#5555FF" selColor="#ffffff" bold="0" italic="0" spellChecking="false"/>
     </itemDatas>
   </highlighting>
   <general>

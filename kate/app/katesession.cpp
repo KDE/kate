@@ -277,9 +277,9 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
             QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),"katesessionmanager_switch_instance")==KMessageBox::Yes)
       {
         instances[session->sessionName()]->dbus_if->call("activate");
+        cleanupRunningKateAppInstanceMap(&instances);
+        return false;
       }
-      cleanupRunningKateAppInstanceMap(&instances);
-      return false;
     }
 
     cleanupRunningKateAppInstanceMap(&instances);
@@ -483,8 +483,8 @@ bool KateSessionManager::chooseSession ()
             break;
           }
 
-          if (!activateSession (s, false, false)) retry = true;
-          else retry = false;
+          success = activateSession (s, false, false);
+          retry = false;
           break;
         }
 

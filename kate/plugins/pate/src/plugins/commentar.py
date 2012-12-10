@@ -33,14 +33,9 @@ from libkatepate import ui, selection
 from libkatepate import pred
 from libkatepate.pred import neg, all_of, any_of
 
-
-if 'commentar:comment-position' not in kate.configuration:
-    kate.configuration['commentar:comment-position'] = int(60)
-if 'commentar:comment-threashold' not in kate.configuration:
-    kate.configuration['commentar:comment-threashold'] = int(50)
-
-COMMENT_POS = kate.configuration['commentar:comment-position']
-COMMENT_THRESHOLD = kate.configuration['commentar:comment-threashold']
+# TODO Make a configuration page for the following two parameters
+COMMENT_POS = 60
+COMMENT_THRESHOLD = 50
 BLOCK_ANY_START_SEARCH_RE = re.compile('^\s*#\s*if.*$')
 BLOCK_START_SEARCH_RE = re.compile('^\s*#\s*if\s*([01])$')
 BLOCK_ELSE_SEARCH_RE = re.compile('^\s*#\s*else.*$')

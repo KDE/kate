@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.50" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;*.tikz" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+<language name="LaTeX" version="1.51" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;*.tikz" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -126,11 +126,19 @@
       <context name="ContrSeq" attribute="Keyword" lineEndContext="#pop">
         <StringDetect String="verb*" attribute="Keyword" context="Verb"/>
         <RegExpr String="(Verb|verb|lstinline)(?=[^a-zA-Z])" attribute="Keyword" context="Verb"/>
+        <RegExpr String="mint(?=[^a-zA-Z])" attribute="Keyword" context="MintParam"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[a-zA-Z@]+(\+?|\*{0,3})" attribute="Keyword" context="#pop"/>
         <RegExpr String="[^a-zA-Z]" attribute="Keyword" context="#pop" />
       </context>
       <context name="ToEndOfLine" attribute="Normal Text" lineEndContext="#pop">
+      </context>
+
+      <!-- \mint command with parameter-->
+      <context name="MintParam" attribute="Normal Text" lineEndContext="#stay">
+        <Detect2Chars char="}" char1="[" attribute="Normal Text" context="#stay"/>
+        <DetectChar char="}" attribute="Normal Text" context="Verb"/>
+        <DetectChar char="]" attribute="Normal Text" context="Verb"/>
       </context>
 
       <!-- verb command -->
@@ -212,7 +220,7 @@
 
       <!-- filter the environment name and check the type -->
       <context name="BeginEnvironment" attribute="Environment" lineEndContext="#stay">
-        <RegExpr String="(lstlisting|(B|L)?Verbatim)" attribute="Environment" context="VerbatimEnvParam"/>
+        <RegExpr String="(lstlisting|(B|L)?Verbatim|minted)" attribute="Environment" context="VerbatimEnvParam"/>
         <RegExpr String="(verbatim|boxedverbatim)" attribute="Environment" context="VerbatimEnv"/>
         <RegExpr String="comment" attribute="Environment" context="CommentEnv"/>
         <RegExpr String="(alignat|xalignat|xxalignat)" attribute="Environment" context="MathEnvParam"/>
@@ -249,13 +257,13 @@
       <!-- parse verbatim text -->
       <context name="Verbatim" attribute="Verbatim" lineEndContext="#stay">
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
-        <RegExpr String="\\end(?=\s*\{(verbatim|lstlisting|boxedverbatim|(B|L)?Verbatim)\*?\})" attribute="Structure"  context="VerbFindEnd"/>
+        <RegExpr String="\\end(?=\s*\{(verbatim|lstlisting|boxedverbatim|(B|L)?Verbatim|minted)\*?\})" attribute="Structure"  context="VerbFindEnd"/>
       </context>
 
       <!-- end of verbatim environment -->
       <context name="VerbFindEnd" attribute="Normal Text" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
         <RegExpr String="\s*\{" attribute="Normal Text" context="#stay"/>
-        <RegExpr String="(verbatim|lstlisting|boxedverbatim|(B|L)?Verbatim)\*?" attribute="Environment" context="#stay"/>
+        <RegExpr String="(verbatim|lstlisting|boxedverbatim|(B|L)?Verbatim|minted)\*?" attribute="Environment" context="#stay"/>
         <DetectChar char="}" attribute="Normal Text" context="#pop#pop#pop#pop#pop" endRegion="block"/>
       </context>
 

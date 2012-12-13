@@ -19,7 +19,6 @@
 #include "sqlmanager.h"
 #include "connectionmodel.h"
 
-#include <kpassworddialog.h>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kconfig.h>

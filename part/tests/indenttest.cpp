@@ -108,7 +108,7 @@ void IndentTest::getTestData(const QString& indenter)
   QTest::addColumn<QString>("testcase");
 
   // make sure the indenters are valid
-  QFile indenterFile(srcPath + "/../script/data/" + indenter + ".js");
+  QFile indenterFile(srcPath + "/../script/data/indentation/" + indenter + ".js");
   if (!indenterFile.exists()) {
     QSKIP(qPrintable(QString(indenterFile.fileName() + " does not exist")), SkipAll);
   }

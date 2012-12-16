@@ -13,7 +13,7 @@
 <language
     name="C++11/Qt4"
     section="Sources"
-    version="0.7"
+    version="0.8"
     kateversion="2.4"
     indenter="cstyle"
     extensions="*.moc"
@@ -69,6 +69,21 @@
     <item> QT_NO_CAST_TO_ASCII </item>
     <item> QT_NO_URL_CAST_FROM_STRING </item>
     <item> QT_USE_QSTRINGBUILDER </item>
+    <!-- QtTest macros: http://qt-project.org/doc/qt-4.8/qtest.html#macros -->
+    <item> QBENCHMARK </item>
+    <item> QBENCHMARK_ONCE </item>
+    <item> QCOMPARE </item>
+    <item> QEXPECT_FAIL </item>
+    <item> QFAIL </item>
+    <item> QFETCH </item>
+    <item> QSKIP </item>
+    <item> QTEST </item>
+    <item> QTEST_APPLESS_MAIN </item>
+    <item> QTEST_MAIN </item>
+    <item> QTEST_NOOP_MAIN </item>
+    <item> QVERIFY2 </item>
+    <item> QVERIFY </item>
+    <item> QWARN </item>
     <!-- List of Qt macros obtained by
          part/syntax/data/get-Qt-macros.sh for qglobal.h qfeatures.h qconfig.h
       -->
@@ -514,6 +529,9 @@
   </list>
 
   <list name="Qt4Classes">
+    <!-- Classes listed here: http://qt-project.org/doc/qt-4.8/classes.html
+        Obtained by `get-Qt-classes.sh 4.8`
+      -->
     <item> QAbstractAnimation </item>
     <item> QAbstractButton </item>
     <item> QAbstractEventDispatcher </item>
@@ -717,7 +735,6 @@
     <item> QFileDialog </item>
     <item> QFileIconProvider </item>
     <item> QFileInfo </item>
-    <item> QFileInfoList </item>                            <!-- typedef -->
     <item> QFileOpenEvent </item>
     <item> QFileSystemModel </item>
     <item> QFileSystemWatcher </item>
@@ -922,7 +939,6 @@
     <item> QMutableListIterator </item>
     <item> QMutableMapIterator </item>
     <item> QMutableSetIterator </item>
-    <item> QMutableStringListIterator </item>
     <item> QMutableVectorIterator </item>
     <item> QMutex </item>
     <item> QMutexLocker </item>
@@ -990,7 +1006,6 @@
     <item> QProxyScreenCursor </item>
     <item> QProxyStyle </item>
     <item> QPushButton </item>
-    <item> QTouchEventSequence (QTest) </item>
     <item> QQuaternion </item>
     <item> QQueue </item>
     <item> QRadialGradient </item>
@@ -1101,7 +1116,6 @@
     <item> QStatusTipEvent </item>
     <item> QString </item>
     <item> QStringList </item>
-    <item> QStringListIterator </item>
     <item> QStringListModel </item>
     <item> QStringMatcher </item>
     <item> QStringRef </item>
@@ -1332,8 +1346,15 @@
     <item> QXmlStreamWriter </item>
     <!-- Not actually classes, but namespaces -->
     <item> Qt </item>
+    <item> QTest </item>
     <item> QtConcurrent </item>
     <item> Phonon </item>
+    <!-- Some public types, but not listed in main class list -->
+    <item> QFileInfoList </item>
+    <item> QMutableStringListIterator </item>
+    <item> QTouchEventSequence </item>                      <!-- QTest -->
+    <item> QStringListIterator </item>
+    <item> QStringBuilder </item>
   </list>
 
   <list name="Qt4Func">
@@ -1434,6 +1455,8 @@
     <item> uint </item>
     <item> ulong </item>
     <item> ushort </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qprocess.html#Q_PID-typedef -->
+    <item> Q_PID </item>
   </list>
 
   <contexts>

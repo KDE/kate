@@ -36,7 +36,7 @@ KWriteApp::KWriteApp(KCmdLineArgs *m_args)
   {
     KMessageBox::error(0, i18n("A KDE text-editor component could not be found.\n"
                                   "Please check your KDE installation."));
-    exit(1);
+    ::exit(1); // ::exit() instead of exit(), that calls QCoreApplication::exit()
   }
 
   // read from global config once

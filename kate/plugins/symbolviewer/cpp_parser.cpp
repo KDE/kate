@@ -87,7 +87,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                      macro = 2;
                      j += 6; // skip the word "define"
                     }
-              if(macro == 2 && cl.at(j) != ' ') macro = 3;
+              if(macro == 2 && j<cl.length() &&cl.at(j) != ' ') macro = 3;
               if(macro == 3)
                 {
                  if (cl.at(j) >= 0x20) stripped += cl.at(j);

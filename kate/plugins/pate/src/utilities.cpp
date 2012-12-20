@@ -371,7 +371,7 @@ QString Python::unicode(PyObject *string)
         return QString::fromWCharArray(PyUnicode_AsUnicode(string), unichars);
 #else
 #ifdef Py_UNICODE_WIDE
-        return QString::fromUcs4(PyUnicode_AsUnicode(string), unichars);
+        return QString::fromUcs4((const unsigned int *)PyUnicode_AsUnicode(string), unichars);
 #else
         return QString::fromUtf16(PyUnicode_AsUnicode(string), unichars);
 #endif

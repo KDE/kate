@@ -9,7 +9,8 @@ if (NOT QJSON_FOUND)
     return()
 endif (NOT QJSON_FOUND)
 
-include_directories( ${QJSON_INCLUDE_DIR} )
+# Ubuntu 12.10 needs the lower-case qjson
+include_directories( ${QJSON_INCLUDE_DIR} ${qjson_INCLUDE_DIR} )
 
 set(kateprojectplugin_PART_SRCS
   kateprojectplugin.cpp
@@ -29,7 +30,8 @@ set(kateprojectplugin_PART_SRCS
 
 kde4_add_plugin(kateprojectplugin ${kateprojectplugin_PART_SRCS})
 
-target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} kateinterfaces ktexteditor)
+# Ubuntu 12.10 needs the lower-case qjson
+target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} ${qjson_LIBRARIES} kateinterfaces ktexteditor)
 
 ########### install files ###############
 install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR} )

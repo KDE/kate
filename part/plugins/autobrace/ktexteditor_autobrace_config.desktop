@@ -6,7 +6,6 @@ X-KDE-PluginKeyword=ktexteditor_autobrace_config
 X-KDE-ParentComponents=ktexteditorautobrace
 Name=AutoBrace Configuration
 Name[bg]=Настройка на автоматичните скоби
-Name[bs]=Konfiguracija automatskih zagrada
 Name[ca]=Configuració dels parèntesis automàtics
 Name[ca@valencia]=Configuració dels parèntesis automàtics
 Name[cs]=Nastavení automatických závorek

@@ -16,6 +16,7 @@
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
+from __future__ import print_function
 from ply import lex, yacc
 from PyKDE4.kdecore import KStandardDirs
 
@@ -36,7 +37,7 @@ class MiParser():
         while True:
             tok = self.lexer.token()
             if not tok: break
-            print tok
+            print(tok)
 
     def parse(self, input):
         return self.parser.parse(input, lexer = self.lexer)
@@ -81,7 +82,7 @@ class MiParser():
 
     # Error handling rule
     def t_error(self, t):
-        print "Illegal character '{}' at offset {} in '{}'".format(t.value[0], t.lexpos, t.lexer.lexdata[:t.lexpos + 1])
+        print("Illegal character '{}' at offset {} in '{}'".format(t.value[0], t.lexpos, t.lexer.lexdata[:t.lexpos + 1]))
         t.lexer.skip(1)
 
     ##########
@@ -166,7 +167,7 @@ class MiParser():
         #print "p_array_multiple2", p[0]
 
     def p_error(self, p):
-        print "Syntax error near offset {} in '{}'".format(p.lexpos, p.lexer.lexdata[:p.lexpos + 1])
+        print("Syntax error near offset {} in '{}'".format(p.lexpos, p.lexer.lexdata[:p.lexpos + 1]))
 
 
 if __name__ == "__main__":

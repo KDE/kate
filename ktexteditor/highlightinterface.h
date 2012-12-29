@@ -40,7 +40,7 @@ class Document;
  * The HighlightInterface provides methods to access the Attributes
  * used for highlighting the Document.
  *
- * \section searchiface_access Accessing the HighlightInterface
+ * \section highlightiface_access Accessing the HighlightInterface
  *
  * The HighlightInterface is supposed to be an extension interface for a
  * Document, i.e. the Document inherits the interface \e provided that the

@@ -89,16 +89,20 @@ class CommandDb(object):
     #
     classes_db = None
 
-    def __init__(self, helpText):
+    def __init__(self, gdb):
         super(CommandDb, self).__init__()
         #
         # Start from scratch.
         #
         self.keyword_db = dict()
         self.classes_db = list()
-
+        #
+        # First, read all the command line help to find out what GDB has.
+        #
+        helpText = gdb.consoleCommand("help all", True)
         clazz = None
         for line in helpText:
+            line = line.strip()
             if line.startswith("Command class"):
                 clazz = line[15:]
                 self.classes_db.append(clazz)
@@ -136,6 +140,8 @@ class CommandDb(object):
                         # Add the new keyword to the current dictionary.
                         #
                         dictionary[keywords[i]] = (apropos, None, clazz, None)
+            else:
+                raise Exception("Unmatched line '{}'".format(line))
 
     def addCustom(self, function):
         """Add a custom command to the global database.
@@ -276,7 +282,7 @@ class CommandDb(object):
         """
         Walk the contents of the database level.
         """
-        for keyword in sorted(level.iterkeys()):
+        for keyword in sorted(level.keys()):
             (oldApropos, oldLevel, oldClazz, oldFunction) = level[keyword]
             userCallback(userFilter, userArg, indentation, prefix, keyword, oldApropos, oldClazz, oldFunction)
             if oldLevel:
@@ -366,9 +372,6 @@ class Cli(cmd.Cmd):
         #self.gdb.start()
         #_gdbThreadStarted.acquire()
         self.gdb = QGdbInterpreter(["gdb"])
-        #
-        # Ask GDB for all the commands it has.
-        #
         self.createCommandDb()
 
     def dbg0(self, msg, *args):
@@ -383,12 +386,9 @@ class Cli(cmd.Cmd):
     def createCommandDb(self):
         """Create a command database we can use to implement our CLI."""
         #
-        # First, read all the command line help to find out what GDB has.
+        # Ask GDB for all the commands it has.
         #
-        error, helpText = self.gdb.consoleCommand("h all")
-        if error:
-            raise QGdbException("Unable to read supported commands: {} '{}'..'{}'".format(error, helpText[0], helpText[-1]))
-        self.commandDb = CommandDb(helpText)
+        self.commandDb = CommandDb(self.gdb)
         self.findFilesCommand()
         #
         # Add in all our overrides; that's any routine starting doXXX.
@@ -610,8 +610,8 @@ class Cli(cmd.Cmd):
 
     def do_disassemble(self, args, getSynopsis = False):
         parser = MyArgs(prog = "disassemble", add_help = False)
-        parser.add_argument("-s", "--start-addr", type = long)
-        parser.add_argument("-e", "--end-addr", type = long)
+        parser.add_argument("-s", "--start-addr", type = int)
+        parser.add_argument("-e", "--end-addr", type = int)
         parser.add_argument("-f", "--filename")
         parser.add_argument("-l", "--linenum", type = int)
         parser.add_argument("-n", "--lines", type = int)
@@ -725,13 +725,13 @@ class Cli(cmd.Cmd):
 
     def do_x(self, args, getSynopsis = False):
         parser = MyArgs(prog = "x", add_help = False)
-        parser.add_argument("address", type = long)
+        parser.add_argument("address", type = int)
         parser.add_argument("word_format", choices = ["x", "d", "u", "o", "t", "a", "c", "f"])
         parser.add_argument("word_size", type = int)
         parser.add_argument("nr_rows", type = int)
         parser.add_argument("nr_cols", type = int)
         parser.add_argument("aschar", nargs="?", default = ".")
-        parser.add_argument("-o", "--offset-bytes", type = long)
+        parser.add_argument("-o", "--offset-bytes", type = int)
         if getSynopsis:
             return parser.format_help()
         args = parser.parse_args(args.split())
@@ -1219,35 +1219,35 @@ class Cli(cmd.Cmd):
 #'-interpreter-exec'
 #'-list-features'
 
-        def do_apropos(self, args):
+    def do_apropos(self, args):
+        """
+        support
+        NAME
+            apropos -- Search for commands matching a REGEXP
+
+        SYNOPSIS
+            apropos REGEXP
+
+        DESCRIPTION
+            Type "apropos word" to search for commands related to "word".
+        """
+
+        def printAproposEntry(regexp, arg, indentation, prefix, keyword, apropos, clazz, function):
+            """Dump the contents of the database as help text.
+            Only leaf items which match the given regexp are emitted.
             """
-            support
-            NAME
-                apropos -- Search for commands matching a REGEXP
+            if regexp.search(keyword) or regexp.search(apropos):
+                self._out("\t" + prefix + keyword + " -- " + apropos)
 
-            SYNOPSIS
-                apropos REGEXP
-
-            DESCRIPTION
-                Type "apropos word" to search for commands related to "word".
-            """
-
-            def printAproposEntry(regexp, arg, indentation, prefix, keyword, apropos, clazz, function):
-                """Dump the contents of the database as help text.
-                Only leaf items which match the given regexp are emitted.
-                """
-                if regexp.search(keyword) or regexp.search(apropos):
-                    self._out("\t" + prefix + keyword + " -- " + apropos)
-
-            #
-            # We emit our help database, so that we can override GDB if needed.
-            #
-            if args == "":
-                self._out("REGEXP string is empty")
-                return
-            self._out("LIST OF COMMANDS MATCHING '" + args + "'")
-            self.commandDb.walk(printAproposEntry, re.compile(args, re.IGNORECASE), None, "\t")
-            print
+        #
+        # We emit our help database, so that we can override GDB if needed.
+        #
+        if args == "":
+            self._out("REGEXP string is empty")
+            return
+        self._out("LIST OF COMMANDS MATCHING '" + args + "'")
+        self.commandDb.walk(printAproposEntry, re.compile(args, re.IGNORECASE), None, "\t")
+        print
 
     def do_EOF(self, args):
         """
@@ -1343,7 +1343,7 @@ class Cli(cmd.Cmd):
                     #
                     # Emit GDB help for the class.
                     #
-                    error, helpText = self.gdb.consoleCommand("help " + classes[0])
+                    error, helpText = self.gdb.consoleCommand("help " + classes[0], True)
                     apropos = helpText[0]
                     synopsis = None
                     for i in range(1, len(helpText)):
@@ -1415,7 +1415,7 @@ class Cli(cmd.Cmd):
                 #
                 # Emit help for the GDB implementation.
                 #
-                error, helpText = self.gdb.consoleCommand("help " + matched)
+                error, helpText = self.gdb.consoleCommand("help " + matched, True)
                 if len(helpText) > 1 and (helpText[1].startswith(matched) or helpText[1].startswith("Usage:")):
                     synopsis = helpText[1]
                     helpText = ["\t" + line for line in helpText[2:]]
@@ -1440,7 +1440,7 @@ class Cli(cmd.Cmd):
             #
             # Emit summary help from GDB.
             #
-            error, helpText = self.gdb.consoleCommand("help")
+            error, helpText = self.gdb.consoleCommand("help", True)
             self._out("LIST OF CLASSES OF COMMANDS")
             for line in helpText[2:]:
                 self._out("\t" + line)

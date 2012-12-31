@@ -22,6 +22,8 @@ import os
 
 from PyQt4.QtCore import *
 from PyKDE4.kdecore import *
+import sys
+sys.argv = ["gdb"]
 from IPython.zmq.ipkernel import IPKernelApp
 
 from miparser import MiParser
@@ -29,10 +31,10 @@ from miparser import MiParser
 class QGdbException(Exception):
     pass
 
-class QGdbTimeoutError(QGdbException):
+class QGdbInterrupted(QGdbException):
     pass
 
-class QGdbInvalidResults(QGdbException):
+class QGdbTimeoutError(QGdbException):
     pass
 
 class QGdbExecuteError(QGdbException):
@@ -76,8 +78,8 @@ class DebuggerKernel():
             s.stop_on_recv()
             s.close()
 
-
 class InferiorIo(QThread):
+    """Thread handling IO with the running inferior."""
     _pty = None
     def __init__(self, parent):
         super(InferiorIo, self).__init__(parent)
@@ -100,7 +102,7 @@ class InferiorIo(QThread):
             line = self._masterFd.readline()
             if not line:
                 break
-            self.parent().gdbStreamTarget.emit(line[:-1])
+            self.parent().gdbStreamInferior.emit(line[:-1])
         print("inferior reader done!!!!")
 
     def interruptWait(self):
@@ -145,9 +147,10 @@ class DebuggerIo(QThread):
             #
             # Start.
             #
+            self.arguments.insert(1, "--interpreter=mi")
             self._gdbThread.start(self.arguments[0], self.arguments[1:])
             self._gdbThread.waitForStarted()
-            self.waitForPromptConsole("cmd: " + self.arguments[0])
+            self.waitForPrompt(None, "cmd: " + self.arguments[0])
         except QGdbException as e:
             self.dbg0("TODO make signal work: {}", e)
             traceback.print_exc()
@@ -162,49 +165,50 @@ class DebuggerIo(QThread):
         self._inferiorThread = InferiorIo(self)
         return self._inferiorThread.ttyName()
 
-    def consoleCommand(self, command):
+    def consoleCommand(self, command, captureConsole = False):
+        """Execute a non-MI command using the GDB/MI interpreter."""
+        #command = "interpreter-exec mi \"{}\"".format(command)
         self.dbg1("consoleCommand: {}", command)
         self._gdbThread.write(command + "\n")
         self._gdbThread.waitForBytesWritten()
-        return self.waitForPromptConsole(command)
+        records = self.waitForPrompt("", command, captureConsole)
+        status, msg = records[-1]
+        del records[-1]
+        if status or msg:
+            raise QGdbException("Unexpected {} result, {}".format(status, msg))
+        return records
 
     def miCommand(self, command):
-        """Execute a command using the GDB/MI interpreter."""
+        """Execute a MI command using the GDB/MI interpreter."""
         self._miToken += 1
-        command = "interpreter-exec mi \"{}{}\"".format(self._miToken, command)
+        #command = "interpreter-exec mi \"{}{}\"".format(self._miToken, command)
+        command = "{}{}".format(self._miToken, command)
         self.dbg1("miCommand: '{}'", command)
         self._gdbThread.write(command + "\n")
         self._gdbThread.waitForBytesWritten()
-        return self.waitForPromptMi(self._miToken, command)
+        records = self.waitForPrompt(str(self._miToken), command)
+        status, msg = records[-1]
+        del records[-1]
+        if status or msg:
+            raise QGdbException("Unexpected {} result, {}".format(status, msg))
+        return records
 
     def miCommandOne(self, command):
         """A specialisation of miCommand() where we expect exactly one result record."""
-        error, records = self.miCommand(command)
-        #
-        # We expect exactly one record.
-        #
-        if error == curses.ascii.CAN:
-            raise QGdbTimeoutError("Timeout after {} results, '{}' ".format(len(records), records))
-        elif len(records) != 1:
-            raise QGdbInvalidResults("Expected 1 result, not {}, '{}' ".format(len(records), records))
-        status, results = records[0]
-        self.dbg2("miCommandOne: {}", records[0])
-        if status == "error":
-            raise QGdbExecuteError(results[0][5:-1])
-        return results
+        records = self.miCommand(command)
+        if records:
+            raise QGdbException("Unexpected {} records {}".format(len(records), records))
 
     def miCommandExec(self, command, args):
         self.miCommandOne(command)
 
-    def waitForPromptConsole(self, why, endLine = None, timeoutMs = 10000):
+    def waitForPrompt(self, token, why, captureConsole = False, endLine = None, timeoutMs = 10000):
         """Read responses from GDB until a prompt, or interrupt.
 
-        @return (error, lines)    Where error is None (normal prompt seen),
-                    curses.ascii.ESC (user interrupt) or
-                    curses.ascii.CAN (caller timeout)
+        @return lines   Each entry in the lines array is either a console string or a
+                        parsed dictionary of output. The last entry should be a result.
         """
         prompt = "(gdb) "
-
         lines = []
         maxTimeouts = timeoutMs / 100
         self.dbg1("reading for: {}", why)
@@ -218,130 +222,94 @@ class DebuggerIo(QThread):
                 maxTimeouts -= 1
             if self._gdbThread.canReadLine():
                 line = self._gdbThread.readLine()
-                line = unicode(line[:-1], "utf-8")
-                lines.append(line)
+                line = str(line[:-1], "utf-8")
+                #
+                # TODO: check what IPython does now.
+                #
                 if endLine and line.startswith(endLine):
                     #
                     # Yay, got to the end!
                     #
+                    self.dbg2("TODO: check what IPython does: All lines read: {}", len(lines))
+                    return lines
+                elif line == prompt:
+                    #
+                    # Yay, got to the end!
+                    #
                     self.dbg2("All lines read: {}", len(lines))
-                    return (None, lines)
-                #
-                # We managed to read a line, so reset the timeout.
-                #
-                maxTimeouts = timeoutMs / 100
-            elif self._gdbThread.peek(len(prompt)) == prompt:
-                self._gdbThread.read(len(prompt))
-                #
-                # Yay, got to the end!
-                #
-                self.dbg2("All lines read: {}", len(lines))
-                return (None, lines)
-            elif self._interruptPending:
-                #
-                # User got fed up. Note, there may be more to read!
-                #
-                self.dbg0("Interrupt after {} lines read, '{}'", len(lines), lines)
-                return (curses.ascii.ESC, lines)
-            elif not maxTimeouts:
-                #
-                # Caller got fed up. Note, there may be more to read!
-                #
-                self.dbg0("Timeout after {} lines read, '{}'", len(lines), lines)
-                return (curses.ascii.CAN, lines)
-
-    def waitForPromptMi(self, token, why, timeoutMs = 10000):
-        """Read responses from GDB until a prompt, or interrupt.
-
-        @return (error, lines)    Where error is None (normal prompt seen),
-                    curses.ascii.ESC (user interrupt) or
-                    curses.ascii.CAN (caller timeout)
-        """
-        prompt = "(gdb) "
-        lines = []
-        maxTimeouts = timeoutMs / 100
-        self.dbg1("reading for: {}", why)
-        self._interruptPending = False
-        token = str(token)
-        while True:
-            while not self._gdbThread.canReadLine() and \
-                    self._gdbThread.peek(len(prompt)) != prompt and \
-                    not self._interruptPending and \
-                    maxTimeouts:
-                self._gdbThread.waitForReadyRead(100)
-                maxTimeouts -= 1
-            if self._gdbThread.canReadLine():
-                line = self._gdbThread.readLine()
-                line = unicode(line[:-1], "utf-8")
-                if line[0] == "~":
-                    line = line[1:]
-                    #
-                    # Console stream record. Not added to return value!
-                    #
-                    self.gdbStreamConsole.emit(line)
-                elif line[0] == "@":
-                    line = line[1:]
-                    #
-                    # Target stream record. Not added to return value!
-                    #
-                    self.gdbStreamTarget.emit(line)
-                elif line[0] == "&":
-                    line = line[1:]
-                    #
-                    # Log stream record. Not added to return value!
-                    #
-                    self.gdbStreamLog.emit(line)
-                elif line[0] == "*":
-                    #
-                    # OOB record.
-                    #
-                    line = line[1:]
-                    tuple = self.parseOobRecord(line)
-                    self.signalEvent(tuple[0], tuple[1])
-                    lines.append(tuple)
-                elif line.startswith(token + "^"):
-                    #
-                    # Result record.
-                    #
-                    line = line[len(token) + 1:]
-                    tuple = self.parseResultRecord(line)
-                    self.signalEvent(tuple[0], tuple[1])
-                    lines.append(tuple)
+                    return lines
                 else:
-                    # TODO: other record types.
-                    self.dbg0("NYI: unexpected record string {}", line)
+                    line = self.parseLine(line, token, captureConsole)
+                    if line:
+                        lines.append(line)
                 #
                 # We managed to read a line, so reset the timeout.
                 #
                 maxTimeouts = timeoutMs / 100
-            elif self._gdbThread.peek(len(prompt)) == prompt:
-                self._gdbThread.read(len(prompt))
-                #
-                # Yay, got to the end!
-                #
-                self.dbg2("All lines read: {}", len(lines))
-                return (None, lines)
             elif self._interruptPending:
                 #
                 # User got fed up. Note, there may be more to read!
                 #
-                self.dbg0("Interrupt after {} lines read", len(lines))
-                return (curses.ascii.ESC, lines)
+                raise QGdbInterrupted("Interrupt after {} lines read, {}".format(len(lines), lines))
             elif not maxTimeouts:
                 #
                 # Caller got fed up. Note, there may be more to read!
                 #
-                self.dbg0("Timeout after {} lines read", len(lines))
-                return (curses.ascii.CAN, lines)
+                raise QGdbTimeoutError("Timeout after {} lines read, {}".format(len(lines), lines))
+
+    def parseLine(self, line, token, captureConsole = False):
+        if line[0] == "~":
+            line = self.parseStringRecord(line[1:])
+            #
+            # GDB console stream record. Not added to return value unless the caller
+            # asked for it.
+            #
+            if captureConsole:
+                return line
+            else:
+                self.gdbStreamConsole.emit(line)
+        elif line[0] == "@":
+            line = self.parseStringRecord(line[1:])
+            #
+            # Target stream record. Not added to return value!
+            #
+            self.gdbStreamInferior.emit(line)
+        elif line[0] == "&":
+            line = self.parseStringRecord(line[1:])
+            #
+            # GDB log stream record. Not added to return value!
+            #
+            self.gdbStreamLog.emit(line)
+        elif line[0] in ["*", "="]:
+            #
+            # GDB OOB stream record. TODO: does "*" mean inferior state change to stopped?
+            #
+            line = line[1:]
+            tuple = self.parseOobRecord(line)
+            self.signalEvent(tuple[0], tuple[1])
+            return tuple
+        elif line.startswith(token + "^"):
+            #
+            # GDB result-of-command record.
+            #
+            line = line[len(token) + 1:]
+            tuple = self.parseResultRecord(line)
+            self.signalEvent(tuple[0], tuple[1])
+            return tuple
+        else:
+            # TODO: other record types.
+            self.dbg0("NYI: unexpected record string '{}'", line)
+        return None
+
+    def parseStringRecord(self, line):
+        return self.miParser.parse("t=" + line)['t'].strip()
 
     def parseOobRecord(self, line):
         """GDB/MI OOB record."""
         self.dbg1("OOB string {}", line)
         tuple = line.split(",", 1)
-        if tuple[0] == "stop":
-            tuple[0] = ""
-        else:
-            self.dbg0("Unexpected OOB string {}", line)
+        if tuple[0] in ["stop", "stopped"]:
+            tuple[0] = "stopped"
         if len(tuple) > 1:
             tuple[1] = self.miParser.parse(tuple[1])
         else:
@@ -352,18 +320,20 @@ class DebuggerIo(QThread):
     def parseResultRecord(self, line):
         """GDB/MI Result record.
 
-        @param result    "error" for ^error
-                "exit" for ^exit
-                "" for normal cases (^done, ^running, ^connected)
-        @param data    "c-string" for ^error
-                "results" for ^done
+        @param result   "error" for ^error
+                        "exit" for ^exit
+                        "" for normal cases (^done, ^running, ^connected)
+        @param data     "c-string" for ^error
+                        "results" for ^done
         """
         self.dbg1("Result string {}", line)
         tuple = line.split(",", 1)
-        if tuple[0] in ["done", "running" ]:
+        if tuple[0] in ["done", "running"]:
             tuple[0] = ""
-        elif tuple[0] != "error":
-            self.dbg0("Unexpected result string {}", line)
+        elif tuple[0] == "error":
+            raise QGdbExecuteError(self.miParser.parse(tuple[1])["msg"])
+        else:
+            raise QGdbException("Unexpected result string '{}'".format(line))
         if len(tuple) > 1:
             tuple[1] = self.miParser.parse(tuple[1])
         else:
@@ -372,47 +342,57 @@ class DebuggerIo(QThread):
         return tuple
 
     def signalEvent(self, event, args):
-        """Signal whoever is interested of interesting events."""
-        if event == "stop":
-            self.onStopped.emit(args)
-        elif event.startswith("thread-group"):
-            if event == "thread-group-added":
-                self.onThreadGroupAdded.emit(args)
-            elif event == "thread-group-removed":
-                self.onThreadGroupRemoved.emit(args)
-            elif event == "thread-group-started":
-                self.onThreadGroupStarted.emit(args)
-            elif event == "thread-group-exited":
-                self.onThreadGroupExited.emit(args)
+        """Signal any interesting events."""
+        try:
+            if event == "stopped":
+                self.onStopped.emit(args)
+            elif event.startswith("thread-group"):
+                id = args["id"]
+                if event == "thread-group-added":
+                    self.onThreadGroupAdded.emit(id)
+                elif event == "thread-group-removed":
+                    self.onThreadGroupRemoved.emit(id)
+                elif event == "thread-group-started":
+                    self.onThreadGroupStarted.emit(id, int(args["pid"]))
+                elif event == "thread-group-exited":
+                    try:
+                        exitCode = int(args["exit-code"])
+                    except KeyError:
+                        exitCode = 0
+                    self.onThreadGroupExited.emit(id, exitCode)
+                else:
+                    self.onUnknownEvent.emit(event, args)
+            elif event.startswith("thread"):
+                if event == "thread-created":
+                    self.onThreadCreated.emit(args)
+                elif event == "thread-exited":
+                    self.onThreadExited.emit(args)
+                elif event == "thread-selected":
+                    self.onThreadSelected.emit(args)
+                else:
+                    self.onUnknownEvent.emit(event, args)
+            elif event.startswith("library"):
+                if event == "library-loaded":
+                    self.onLibraryLoaded.emit(args)
+                elif event == "library-unloaded":
+                    self.onLibraryUnloaded.emit(args)
+                else:
+                    self.onUnknownEvent.emit(event, args)
+            elif event.startswith("breakpoint"):
+                if event == "breakpoint-created":
+                    self.onBreakpointCreated.emit(args)
+                elif event == "breakpoint-modified":
+                    self.onBreakpointModified.emit(args)
+                elif event == "breakpoint-deleted":
+                    self.onBreakpointDeleted.emit(args)
+                else:
+                    self.onUnknownEvent.emit(event, args)
             else:
                 self.onUnknownEvent.emit(event, args)
-        elif event.startswith("thread"):
-            if event == "thread-created":
-                self.onThreadCreated.emit(args)
-            elif event == "thread-exited":
-                self.onThreadExited.emit(args)
-            elif event == "thread-selected":
-                self.onThreadSelected.emit(args)
-            else:
-                self.onUnknownEvent.emit(event, args)
-        elif event.startswith("library"):
-            if event == "library-loaded":
-                self.onLibraryLoaded.emit(args)
-            elif event == "library-unloaded":
-                self.onLibraryUnloaded.emit(args)
-            else:
-                self.onUnknownEvent.emit(event, args)
-        elif event.startswith("breakpoint"):
-            if event == "breakpoint-created":
-                self.onBreakpointCreated.emit(args)
-            elif event == "breakpoint-modified":
-                self.onBreakpointModified.emit(args)
-            elif event == "breakpoint-deleted":
-                self.onBreakpointDeleted.emit(args)
-            else:
-                self.onUnknownEvent.emit(event, args)
-        else:
-            self.onUnknownEvent.emit(event, args)
+        except Exception as e:
+            self.dbg0("TODO make signal work: {}", e)
+            traceback.print_exc()
+            self.dbg.emit(0, str(e))
 
     def dbg0(self, msg, *args):
         print("ERR-0", msg.format(*args))
@@ -447,7 +427,7 @@ class DebuggerIo(QThread):
     gdbStreamConsole = pyqtSignal('QString')
 
     """GDB/MI Stream record, GDB target output."""
-    gdbStreamTarget = pyqtSignal('QString')
+    gdbStreamInferior = pyqtSignal('QString')
 
     """GDB/MI Stream record, GDB log output."""
     gdbStreamLog = pyqtSignal('QString')
@@ -462,9 +442,9 @@ class DebuggerIo(QThread):
     """thread-group-removed,id="id". """
     onThreadGroupRemoved = pyqtSignal('QString')
     """thread-group-started,id="id",pid="pid". """
-    onThreadGroupStarted = pyqtSignal('QString', 'QString')
+    onThreadGroupStarted = pyqtSignal('QString', int)
     """thread-group-exited,id="id"[,exit-code="code"]. """
-    onThreadGroupExited = pyqtSignal('QString', 'QString')
+    onThreadGroupExited = pyqtSignal('QString', int)
 
     """thread-created,id="id",group-id="gid". """
     onThreadCreated = pyqtSignal('QString', 'QString')
@@ -480,11 +460,11 @@ class DebuggerIo(QThread):
     onLibraryUnloaded = pyqtSignal('QString', 'QString', 'QString', 'QString')
 
     """breakpoint-created,bkpt={...}. """
-    onBreakpointCreated = pyqtSignal('QString')
+    onBreakpointCreated = pyqtSignal(dict)
     """breakpoint-modified,bkpt={...}. """
-    onBreakpointModified = pyqtSignal('QString')
+    onBreakpointModified = pyqtSignal(dict)
     """breakpoint-deleted,bkpt={...}. """
-    onBreakpointDeleted = pyqtSignal('QString')
+    onBreakpointDeleted = pyqtSignal(dict)
 
 class Breakpoints():
     """Model of GDB breakpoints, tracepoints and watchpoints."""
@@ -791,7 +771,7 @@ class Python():
             # Wait for the line that announces the IPython connection string.
             #
             connectionInfo = "[IPKernelApp] --existing "
-            error, lines = self._gdb.waitForPromptConsole(command, endLine = connectionInfo)
+            error, lines = self._gdb.waitForPrompt(None, command, endLine = connectionInfo)
             if not lines[-1].startswith(connectionInfo):
                 raise QGdbException("IPython connection error '{}'".format(lines))
             self._connectionId = lines[-1][len(connectionInfo):]
@@ -801,11 +781,10 @@ class Python():
     def exit(self):
         command = "%Quit"
         self._pythonCommand(command)
-        error, lines = self._gdb.waitForPromptConsole("xxxxxxxxxxxxxxx")
+        error, lines = self._gdb.waitForPrompt(None, "xxxxxxxxxxxxxxx")
         print("exiting!!!!!!!!!!!!!",error,lines)
-        error, lines = self._gdb.waitForPromptConsole("yyyyyyyyyyy")
+        error, lines = self._gdb.waitForPrompt(None, "yyyyyyyyyyy")
         print("exiting222!!!!!!!!!!!!!",error,lines)
-
 
 class Stack():
     """Model of GDB stack."""

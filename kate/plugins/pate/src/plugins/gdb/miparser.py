@@ -77,7 +77,10 @@ class MiParser():
             try:
                 t.value = hex(int(t.value, 16))
             except ValueError:
-                pass
+                #
+                # De-escape strings.
+                #
+                t.value = t.value.replace("\\n", "\n").replace("\\t", "\t").replace('\\"', '"')
         return t
 
     # Error handling rule
@@ -112,7 +115,7 @@ class MiParser():
         #
         'named_values : named_values COMMA value'
         p[0] = dict()
-        for k, v in p[1].iteritems():
+        for k, v in p[1].items():
             if isinstance(v, dict):
                 v = [v]
             v.append(p[3])

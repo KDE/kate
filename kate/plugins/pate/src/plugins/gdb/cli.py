@@ -373,7 +373,7 @@ class Cli(cmd.Cmd):
     #
     _out = None
 
-    def __init__(self, arguments = ["gdb"], printLine = print):
+    def __init__(self, arguments, printLine = print):
         cmd.Cmd.__init__(self)
         self._out = printLine
         #_gdbThreadStarted = QSemaphore()
@@ -1528,7 +1528,7 @@ if __name__ == "__main__":
 
     class Test(QObject):
         def __init__(self, parent = None):
-            gdb = Cli()
+            gdb = Cli(["gdb"])
             gdb.do_file("/usr/local/bin/kate")
             gdb.do_start(None)
             gdb.do_break("QWidget::QWidget")

@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this code. If not, see <http://www.gnu.org/licenses/>.
 #
+# The thread-based I/O here was inspired by, and is in places
+# derived from, pygdb (http://code.google.com/p/pygdb/).
 
 from __future__ import print_function
 import logging

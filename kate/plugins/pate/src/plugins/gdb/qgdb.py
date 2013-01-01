@@ -16,9 +16,9 @@
 #
 
 from __future__ import print_function
-import curses.ascii
 import logging
 import os
+import traceback
 
 from PyQt4.QtCore import *
 from PyKDE4.kdecore import *
@@ -149,6 +149,7 @@ class DebuggerIo(QThread):
         self._gdbThreadStarted = gdbThreadStarted
         self.arguments = arguments
         self._miToken = 0
+        self.onUnknownEvent.connect(self.unknownEvent)
 
     def run(self):
         try:
@@ -178,6 +179,9 @@ class DebuggerIo(QThread):
     def interruptWait(self):
         """Interrupt an in-progress wait for response from GDB."""
         self._interruptPending = True
+
+    def unknownEvent(self, key, args):
+        dbg1("unknown event: {}, {}", key, args)
 
     def startIoThread(self):
         self._inferiorThread = InferiorIo(self)
@@ -304,18 +308,15 @@ class DebuggerIo(QThread):
             line = line[1:]
             tuple = self.parseOobRecord(line)
             self.signalEvent(tuple[0], tuple[1])
-            return tuple
         elif line.startswith(token + "^"):
             #
             # GDB result-of-command record.
             #
             line = line[len(token) + 1:]
             tuple = self.parseResultRecord(line)
-            self.signalEvent(tuple[0], tuple[1])
             return tuple
         else:
-            # TODO: other record types.
-            dbg0("NYI: unexpected record string '{}'", line)
+            raise GdbException("Unexpected record string '{}'".format(line))
         return None
 
     def parseStringRecord(self, line):
@@ -325,8 +326,6 @@ class DebuggerIo(QThread):
         """GDB/MI OOB record."""
         dbg1("OOB string {}", line)
         tuple = line.split(",", 1)
-        if tuple[0] in ["stop", "stopped"]:
-            tuple[0] = "stopped"
         if len(tuple) > 1:
             tuple[1] = self.miParser.parse(tuple[1])
         else:
@@ -363,25 +362,33 @@ class DebuggerIo(QThread):
         try:
             if event == "stopped":
                 self.onStopped.emit(args)
+            elif event == "running":
+                #
+                # This is a string thread id, to allow for the magic value "all".
+                # TODO: A more Pythonic model.
+                #
+                tid = args["thread-id"]
+                self.onRunning.emit(tid)
             elif event.startswith("thread-group"):
-                id = args["id"]
+                tgid = args["id"]
                 if event == "thread-group-added":
-                    self.onThreadGroupAdded.emit(id)
+                    self.onThreadGroupAdded.emit(tgid)
                 elif event == "thread-group-removed":
-                    self.onThreadGroupRemoved.emit(id)
+                    self.onThreadGroupRemoved.emit(tgid)
                 elif event == "thread-group-started":
-                    self.onThreadGroupStarted.emit(id, int(args["pid"]))
+                    self.onThreadGroupStarted.emit(tgid, int(args["pid"]))
                 elif event == "thread-group-exited":
                     try:
                         exitCode = int(args["exit-code"])
                     except KeyError:
                         exitCode = 0
-                    self.onThreadGroupExited.emit(id, exitCode)
+                    self.onThreadGroupExited.emit(tgid, exitCode)
                 else:
                     self.onUnknownEvent.emit(event, args)
             elif event.startswith("thread"):
+                tid = int(args["id"])
                 if event == "thread-created":
-                    self.onThreadCreated.emit(args)
+                    self.onThreadCreated.emit(tid, args["group-id"])
                 elif event == "thread-exited":
                     self.onThreadExited.emit(args)
                 elif event == "thread-selected":
@@ -409,7 +416,7 @@ class DebuggerIo(QThread):
         except Exception as e:
             dbg0("TODO make signal work: {}", e)
             traceback.print_exc()
-            dbg.emit(0, str(e))
+            dbg0.emit(0, str(e))
 
     @pyqtSlot(QProcess.ProcessError)
     def gdbProcessError(self, error):
@@ -442,6 +449,7 @@ class DebuggerIo(QThread):
 
     onUnknownEvent = pyqtSignal('QString', dict)
 
+    """running,thread-id="all". """
     onRunning = pyqtSignal('QString')
     onStopped = pyqtSignal('QString', 'QString', 'QString', 'QString')
 
@@ -455,7 +463,7 @@ class DebuggerIo(QThread):
     onThreadGroupExited = pyqtSignal('QString', int)
 
     """thread-created,id="id",group-id="gid". """
-    onThreadCreated = pyqtSignal('QString', 'QString')
+    onThreadCreated = pyqtSignal(int, 'QString')
     """thread-exited,id="id",group-id="gid". """
     onThreadExited = pyqtSignal('QString', 'QString')
     """thread-selected,id="id". """

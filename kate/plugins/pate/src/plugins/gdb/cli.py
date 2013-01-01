@@ -30,6 +30,15 @@ from PyQt4.QtCore import QCoreApplication, QObject
 
 from qgdb import QGdbInterpreter
 
+def dbg0(msg, *args):
+    print("ERR-0", msg.format(*args))
+
+def dbg1(msg, *args):
+    print("DBG-1", msg.format(*args))
+
+def dbg2(msg, *args):
+    print("DBG-2", msg.format(*args))
+
 class IPythonConsoleShell(ZMQTerminalInteractiveShell):
     """A simple console shell for IPython.
 
@@ -364,24 +373,15 @@ class Cli(cmd.Cmd):
     #
     _out = None
 
-    def __init__(self, printLine = print):
+    def __init__(self, arguments = ["gdb"], printLine = print):
         cmd.Cmd.__init__(self)
         self._out = printLine
         #_gdbThreadStarted = QSemaphore()
         #self.gdb = DebuggerIo(_gdbThreadStarted)
         #self.gdb.start()
         #_gdbThreadStarted.acquire()
-        self.gdb = QGdbInterpreter(["gdb"])
+        self.gdb = QGdbInterpreter(arguments)
         self.createCommandDb()
-
-    def dbg0(self, msg, *args):
-        self._out("ERR-0", msg.format(*args))
-
-    def dbg1(self, msg, *args):
-        self._out("DBG-1", msg.format(*args))
-
-    def dbg2(self, msg, *args):
-        self._out("DBG-2", msg.format(*args))
 
     def createCommandDb(self):
         """Create a command database we can use to implement our CLI."""
@@ -396,7 +396,7 @@ class Cli(cmd.Cmd):
         customCommands = [c for c in dir(self) if c.startswith("do_")]
         for cmd in customCommands:
             self.commandDb.addCustom(getattr(self, cmd))
-        #self.dbg0(self.commandDb)
+        #dbg0(self.commandDb)
 
     def findFilesCommand(self):
         """Make a list of each command which takes a file/path."""
@@ -428,14 +428,14 @@ class Cli(cmd.Cmd):
     def complete(self, text, state):
         """Use the command database to provide completions."""
         matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry = self.commandDb.lookup(text)
-        self.dbg0([c[len(text):] for c in completions])
+        dbg0([c[len(text):] for c in completions])
         return completions
 
     def completedefault(self, *ignored):
-        self.dbg0("completedefault",ignored)
+        dbg0("completedefault",ignored)
 
     def completenames(self, text, *ignored):
-        self.dbg0("completenames",text,ignored)
+        dbg0("completenames",text,ignored)
 
     def parseline(self, line):
         """Parse the line into a command name and a string containing
@@ -496,9 +496,9 @@ class Cli(cmd.Cmd):
     def asyncWrapper(self, command, args):
         """Execute a command which causes the inferior to run.
         """
-        self.dbg0("asyncWrapper", command, args)
+        dbg0("asyncWrapper", command, args)
         command = "{} {}".format(command, args)
-        self.dbg0("command", command)
+        dbg0("command", command)
         results = self.gdb.consoleCommand(command)
 
 
@@ -1507,7 +1507,7 @@ class Cli(cmd.Cmd):
         #
         (matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(args)
         if matched in self.filesCommands:
-            self.dbg0("is files command", matched)
+            dbg0("is files command", matched)
             #
             # Extract the arguments, and apply getenv to any contained references.
             #

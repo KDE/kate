@@ -28,6 +28,16 @@ from IPython.zmq.ipkernel import IPKernelApp
 
 from miparser import MiParser
 
+
+def dbg0(msg, *args):
+    print("ERR-0", msg.format(*args))
+
+def dbg1(msg, *args):
+    print("DBG-1", msg.format(*args))
+
+def dbg2(msg, *args):
+    print("DBG-2", msg.format(*args))
+
 class QGdbException(Exception):
     pass
 
@@ -40,7 +50,7 @@ class QGdbTimeoutError(QGdbException):
 class QGdbExecuteError(QGdbException):
     pass
 
-class DebuggerKernel():
+class DebuggerPythonKernel():
     """Start or stop the IPython "kernel" inside GDB's Python support.
 
     This kernel communicates via 0MQ to the remote IPython "shell"
@@ -98,12 +108,18 @@ class InferiorIo(QThread):
         os.close(self._masterFd)
 
     def run(self):
-        while not (self.parent()._interruptPending):
-            line = self._masterFd.readline()
-            if not line:
-                break
-            self.parent().gdbStreamInferior.emit(line[:-1])
-        print("inferior reader done!!!!")
+        try:
+            while not (self.parent()._interruptPending):
+                line = self._masterFd.readline()
+                if not line:
+                    break
+                self.parent().gdbStreamInferior.emit(line[:-1])
+        except Exception as e:
+            dbg0("{}: unexpected exception: {}", self, e)
+            traceback.print_exc()
+            dbg.emit(0, str(e))
+        else:
+            dbg0("{}: thread exit", self)
 
     def interruptWait(self):
         """Interrupt an in-progress wait for response from GDB."""
@@ -150,11 +166,13 @@ class DebuggerIo(QThread):
             self.arguments.insert(1, "--interpreter=mi")
             self._gdbThread.start(self.arguments[0], self.arguments[1:])
             self._gdbThread.waitForStarted()
-            self.waitForPrompt(None, "cmd: " + self.arguments[0])
-        except QGdbException as e:
-            self.dbg0("TODO make signal work: {}", e)
+            self.waitForPrompt("", self.arguments, False)
+        except Exception as e:
+            dbg0("{}: unexpected exception: {}", self, e)
             traceback.print_exc()
-            self.dbg.emit(0, str(e))
+            dbg.emit(0, str(e))
+        else:
+            dbg0("{}: thread exit", self)
         self._gdbThreadStarted.release()
 
     def interruptWait(self):
@@ -167,31 +185,15 @@ class DebuggerIo(QThread):
 
     def consoleCommand(self, command, captureConsole = False):
         """Execute a non-MI command using the GDB/MI interpreter."""
-        #command = "interpreter-exec mi \"{}\"".format(command)
-        self.dbg1("consoleCommand: {}", command)
-        self._gdbThread.write(command + "\n")
-        self._gdbThread.waitForBytesWritten()
-        records = self.waitForPrompt("", command, captureConsole)
-        status, msg = records[-1]
-        del records[-1]
-        if status or msg:
-            raise QGdbException("Unexpected {} result, {}".format(status, msg))
-        return records
+        dbg1("consoleCommand: {}", command)
+        return self.waitForResults("", command, captureConsole)
 
     def miCommand(self, command):
         """Execute a MI command using the GDB/MI interpreter."""
         self._miToken += 1
-        #command = "interpreter-exec mi \"{}{}\"".format(self._miToken, command)
         command = "{}{}".format(self._miToken, command)
-        self.dbg1("miCommand: '{}'", command)
-        self._gdbThread.write(command + "\n")
-        self._gdbThread.waitForBytesWritten()
-        records = self.waitForPrompt(str(self._miToken), command)
-        status, msg = records[-1]
-        del records[-1]
-        if status or msg:
-            raise QGdbException("Unexpected {} result, {}".format(status, msg))
-        return records
+        dbg1("miCommand: '{}'", command)
+        return self.waitForResults(str(self._miToken), command, False)
 
     def miCommandOne(self, command):
         """A specialisation of miCommand() where we expect exactly one result record."""
@@ -202,7 +204,22 @@ class DebuggerIo(QThread):
     def miCommandExec(self, command, args):
         self.miCommandOne(command)
 
-    def waitForPrompt(self, token, why, captureConsole = False, endLine = None, timeoutMs = 10000):
+    def waitForResults(self, token, command, captureConsole, endLine = None, timeoutMs = 10000):
+        """Wait for and check results from GDB.
+
+        @return lines   Each entry in the lines array is either a console string or a
+                        parsed dictionary of output.
+        """
+        self._gdbThread.write(command + "\n")
+        self._gdbThread.waitForBytesWritten()
+        records = self.waitForPrompt(token, command, captureConsole, endLine, timeoutMs)
+        status, msg = records[-1]
+        del records[-1]
+        if status or msg:
+            raise QGdbException("Unexpected {} result, {}".format(status, msg))
+        return records
+
+    def waitForPrompt(self, token, why, captureConsole, endLine = None, timeoutMs = 10000):
         """Read responses from GDB until a prompt, or interrupt.
 
         @return lines   Each entry in the lines array is either a console string or a
@@ -211,7 +228,7 @@ class DebuggerIo(QThread):
         prompt = "(gdb) "
         lines = []
         maxTimeouts = timeoutMs / 100
-        self.dbg1("reading for: {}", why)
+        dbg1("reading for: {}", why)
         self._interruptPending = False
         while True:
             while not self._gdbThread.canReadLine()  and \
@@ -230,13 +247,13 @@ class DebuggerIo(QThread):
                     #
                     # Yay, got to the end!
                     #
-                    self.dbg2("TODO: check what IPython does: All lines read: {}", len(lines))
+                    dbg2("TODO: check what IPython does: All lines read: {}", len(lines))
                     return lines
                 elif line == prompt:
                     #
                     # Yay, got to the end!
                     #
-                    self.dbg2("All lines read: {}", len(lines))
+                    dbg2("All lines read: {}", len(lines))
                     return lines
                 else:
                     line = self.parseLine(line, token, captureConsole)
@@ -257,7 +274,7 @@ class DebuggerIo(QThread):
                 #
                 raise QGdbTimeoutError("Timeout after {} lines read, {}".format(len(lines), lines))
 
-    def parseLine(self, line, token, captureConsole = False):
+    def parseLine(self, line, token, captureConsole):
         if line[0] == "~":
             line = self.parseStringRecord(line[1:])
             #
@@ -298,7 +315,7 @@ class DebuggerIo(QThread):
             return tuple
         else:
             # TODO: other record types.
-            self.dbg0("NYI: unexpected record string '{}'", line)
+            dbg0("NYI: unexpected record string '{}'", line)
         return None
 
     def parseStringRecord(self, line):
@@ -306,7 +323,7 @@ class DebuggerIo(QThread):
 
     def parseOobRecord(self, line):
         """GDB/MI OOB record."""
-        self.dbg1("OOB string {}", line)
+        dbg1("OOB string {}", line)
         tuple = line.split(",", 1)
         if tuple[0] in ["stop", "stopped"]:
             tuple[0] = "stopped"
@@ -314,7 +331,7 @@ class DebuggerIo(QThread):
             tuple[1] = self.miParser.parse(tuple[1])
         else:
             tuple.append({})
-        self.dbg1("OOB record {}", tuple)
+        dbg1("OOB record {}", tuple)
         return tuple
 
     def parseResultRecord(self, line):
@@ -326,7 +343,7 @@ class DebuggerIo(QThread):
         @param data     "c-string" for ^error
                         "results" for ^done
         """
-        self.dbg1("Result string {}", line)
+        dbg1("Result string {}", line)
         tuple = line.split(",", 1)
         if tuple[0] in ["done", "running"]:
             tuple[0] = ""
@@ -338,7 +355,7 @@ class DebuggerIo(QThread):
             tuple[1] = self.miParser.parse(tuple[1])
         else:
             tuple.append({})
-        self.dbg1("Result record {}", tuple)
+        dbg1("Result record {}", tuple)
         return tuple
 
     def signalEvent(self, event, args):
@@ -390,38 +407,29 @@ class DebuggerIo(QThread):
             else:
                 self.onUnknownEvent.emit(event, args)
         except Exception as e:
-            self.dbg0("TODO make signal work: {}", e)
+            dbg0("TODO make signal work: {}", e)
             traceback.print_exc()
-            self.dbg.emit(0, str(e))
-
-    def dbg0(self, msg, *args):
-        print("ERR-0", msg.format(*args))
-
-    def dbg1(self, msg, *args):
-        print("DBG-1", msg.format(*args))
-
-    def dbg2(self, msg, *args):
-        print("DBG-2", msg.format(*args))
+            dbg.emit(0, str(e))
 
     @pyqtSlot(QProcess.ProcessError)
     def gdbProcessError(self, error):
-        self.dbg0("gdbProcessError: {}", error)
+        dbg0("gdbProcessError: {}", error)
 
     @pyqtSlot(int, QProcess.ExitStatus)
     def gdbProcessFinished(self, exitCode, exitStatus):
-        self.dbg2("gdbProcessFinished: {}, {}", exitCode, exitStatus)
+        dbg2("gdbProcessFinished: {}, {}", exitCode, exitStatus)
 
     @pyqtSlot()
     def gdbProcessReadyReadStandardOutput(self):
-        self.dbg2("gdbProcessReadyReadStandardOutput")
+        dbg2("gdbProcessReadyReadStandardOutput")
 
     @pyqtSlot()
     def gdbProcessStarted(self):
-        self.dbg2("gdbProcessStarted")
+        dbg2("gdbProcessStarted")
 
     @pyqtSlot(QProcess.ExitStatus)
     def gdbProcessStateChanged(self, newState):
-        self.dbg2("gdbProcessStateChanged: {}", newState)
+        dbg2("gdbProcessStateChanged: {}", newState)
 
     """GDB/MI Stream record, GDB console output."""
     gdbStreamConsole = pyqtSignal('QString')
@@ -761,8 +769,8 @@ class Python():
             command = ""
             command += "sys.path.insert(0, os.path.dirname('" + __file__ + "')); "
             command += "import gdb_execute; "
-            command += "from " + self.__module__ + " import DebuggerKernel; "
-            command += "app = DebuggerKernel(); app.start()"
+            command += "from " + self.__module__ + " import DebuggerPythonKernel; "
+            command += "app = DebuggerPythonKernel(); app.start()"
             #
             # First time around...
             #

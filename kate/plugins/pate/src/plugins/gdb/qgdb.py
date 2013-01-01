@@ -37,7 +37,7 @@ def dbg1(msg, *args):
     print("DBG-1", msg.format(*args))
 
 def dbg2(msg, *args):
-    print("DBG-2", msg.format(*args))
+    pass #print("DBG-2", msg.format(*args))
 
 class QGdbException(Exception):
     pass
@@ -117,7 +117,7 @@ class InferiorIo(QThread):
                 self.parent().gdbStreamInferior.emit(line[:-1])
         except Exception as e:
             dbg0("unexpected exception: {}", self)
-            dbg0.emit(0, str(e))
+            dbg0(str(e))
         else:
             dbg0("thread exit: {}", self)
 
@@ -170,7 +170,7 @@ class DebuggerIo(QThread):
             self.waitForPrompt("", self.arguments, False)
         except Exception as e:
             dbg0("unexpected exception: {}", self)
-            dbg0.emit(0, str(e))
+            dbg0(str(e))
         else:
             dbg0("thread exit: {}", self)
         self._gdbThreadStarted.release()
@@ -258,14 +258,15 @@ class DebuggerIo(QThread):
                     #
                     # Yay, got to the end!
                     #
-                    dbg2("TODO: check what IPython does: All lines read: {}", len(lines))
+                    dbg1("TODO: check what IPython does: {}: all lines read: {}", why, len(lines))
                     return lines
                 elif line == prompt:
-                    #
-                    # Yay, got to the end!
-                    #
-                    dbg2("All lines read: {}", len(lines))
-                    return lines
+                    if len(lines) and isinstance(lines[-1], list):
+                        #
+                        # Yay, got a prompt *after* the result record => got to the end!
+                        #
+                        dbg1("{}: all lines read: {}", why, len(lines))
+                        return lines
                 else:
                     line = self.parseLine(line, token, captureConsole)
                     if line:
@@ -323,7 +324,7 @@ class DebuggerIo(QThread):
             tuple = self.parseResultRecord(line)
             return tuple
         else:
-            raise GdbException("Unexpected record string '{}'".format(line))
+            raise QGdbException("Unexpected record string '{}'".format(line))
         return None
 
     def parseStringRecord(self, line):
@@ -331,7 +332,7 @@ class DebuggerIo(QThread):
 
     def parseOobRecord(self, line):
         """GDB/MI OOB record."""
-        dbg1("OOB string {}", line)
+        dbg2("OOB string {}", line)
         tuple = line.split(",", 1)
         if len(tuple) > 1:
             tuple[1] = self.miParser.parse(tuple[1])
@@ -349,7 +350,7 @@ class DebuggerIo(QThread):
         @param data     "c-string" for ^error
                         "results" for ^done
         """
-        dbg1("Result string {}", line)
+        dbg2("Result string {}", line)
         tuple = line.split(",", 1)
         if tuple[0] in ["done", "running"]:
             tuple[0] = ""
@@ -424,7 +425,7 @@ class DebuggerIo(QThread):
                 self.onUnknownEvent.emit(event, args)
         except Exception as e:
             dbg0("unexpected exception: {}", self)
-            dbg0.emit(0, str(e))
+            dbg0(str(e))
 
     @pyqtSlot(QProcess.ProcessError)
     def gdbProcessError(self, error):

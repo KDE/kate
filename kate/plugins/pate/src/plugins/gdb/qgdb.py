@@ -20,7 +20,6 @@
 from __future__ import print_function
 import logging
 import os
-import traceback
 
 from PyQt4.QtCore import *
 from PyKDE4.kdecore import *
@@ -117,11 +116,10 @@ class InferiorIo(QThread):
                     break
                 self.parent().gdbStreamInferior.emit(line[:-1])
         except Exception as e:
-            dbg0("{}: unexpected exception: {}", self, e)
-            traceback.print_exc()
-            dbg.emit(0, str(e))
+            dbg0("unexpected exception: {}", self)
+            dbg0.emit(0, str(e))
         else:
-            dbg0("{}: thread exit", self)
+            dbg0("thread exit: {}", self)
 
     def interruptWait(self):
         """Interrupt an in-progress wait for response from GDB."""
@@ -171,11 +169,10 @@ class DebuggerIo(QThread):
             self._gdbThread.waitForStarted()
             self.waitForPrompt("", self.arguments, False)
         except Exception as e:
-            dbg0("{}: unexpected exception: {}", self, e)
-            traceback.print_exc()
-            dbg.emit(0, str(e))
+            dbg0("unexpected exception: {}", self)
+            dbg0.emit(0, str(e))
         else:
-            dbg0("{}: thread exit", self)
+            dbg0("thread exit: {}", self)
         self._gdbThreadStarted.release()
 
     def interruptWait(self):
@@ -204,8 +201,7 @@ class DebuggerIo(QThread):
     def miCommandOne(self, command):
         """A specialisation of miCommand() where we expect exactly one result record."""
         records = self.miCommand(command)
-        if records:
-            raise QGdbException("Unexpected {} records {}".format(len(records), records))
+        return records
 
     def miCommandExec(self, command, args):
         self.miCommandOne(command)
@@ -213,17 +209,26 @@ class DebuggerIo(QThread):
     def waitForResults(self, token, command, captureConsole, endLine = None, timeoutMs = 10000):
         """Wait for and check results from GDB.
 
-        @return lines   Each entry in the lines array is either a console string or a
-                        parsed dictionary of output.
+        @return The result dictionary, or any captureConsole'd output.
         """
         self._gdbThread.write(command + "\n")
         self._gdbThread.waitForBytesWritten()
         records = self.waitForPrompt(token, command, captureConsole, endLine, timeoutMs)
-        status, msg = records[-1]
+        status, result = records[-1]
         del records[-1]
-        if status or msg:
-            raise QGdbException("Unexpected {} result, {}".format(status, msg))
-        return records
+        if status:
+            raise QGdbException("Unexpected status {}, {}, {}".format(status, result, records))
+        #
+        # Return the result information and any preceeding records.
+        #
+        if captureConsole:
+            if result:
+                raise QGdbException("Unexpected result {}, {}".format(result, records))
+            return records
+        else:
+            if records:
+                raise QGdbException("Unexpected records {}, {}".format(result, records))
+            return result
 
     def waitForPrompt(self, token, why, captureConsole, endLine = None, timeoutMs = 10000):
         """Read responses from GDB until a prompt, or interrupt.
@@ -372,13 +377,13 @@ class DebuggerIo(QThread):
                 tid = args["thread-id"]
                 self.onRunning.emit(tid)
             elif event.startswith("thread-group"):
-                tgid = args["id"]
+                tgId = args["id"]
                 if event == "thread-group-added":
-                    self.onThreadGroupAdded.emit(tgid)
+                    self.onThreadGroupAdded.emit(tgId)
                 elif event == "thread-group-removed":
-                    self.onThreadGroupRemoved.emit(tgid)
+                    self.onThreadGroupRemoved.emit(tgId)
                 elif event == "thread-group-started":
-                    self.onThreadGroupStarted.emit(tgid, int(args["pid"]))
+                    self.onThreadGroupStarted.emit(tgId, int(args["pid"]))
                 elif event == "thread-group-exited":
                     try:
                         exitCode = int(args["exit-code"])
@@ -390,7 +395,8 @@ class DebuggerIo(QThread):
             elif event.startswith("thread"):
                 tid = int(args["id"])
                 if event == "thread-created":
-                    self.onThreadCreated.emit(tid, args["group-id"])
+                    tgId = args["group-id"]
+                    self.onThreadCreated.emit(tid, tgId)
                 elif event == "thread-exited":
                     self.onThreadExited.emit(args)
                 elif event == "thread-selected":
@@ -399,7 +405,8 @@ class DebuggerIo(QThread):
                     self.onUnknownEvent.emit(event, args)
             elif event.startswith("library"):
                 if event == "library-loaded":
-                    self.onLibraryLoaded.emit(args)
+                    tgId = args["thread-group"]
+                    self.onLibraryLoaded.emit(args["id"], args["host-name"], args["target-name"], int(args["symbols-loaded"]), tgId)
                 elif event == "library-unloaded":
                     self.onLibraryUnloaded.emit(args)
                 else:
@@ -416,8 +423,7 @@ class DebuggerIo(QThread):
             else:
                 self.onUnknownEvent.emit(event, args)
         except Exception as e:
-            dbg0("TODO make signal work: {}", e)
-            traceback.print_exc()
+            dbg0("unexpected exception: {}", self)
             dbg0.emit(0, str(e))
 
     @pyqtSlot(QProcess.ProcessError)
@@ -453,7 +459,8 @@ class DebuggerIo(QThread):
 
     """running,thread-id="all". """
     onRunning = pyqtSignal('QString')
-    onStopped = pyqtSignal('QString', 'QString', 'QString', 'QString')
+    """stopped,reason="breakpoint-hit",disp="del",bkptno="1",frame={addr="0x4006b0",func="main",args=[{name="argc",value="1"},{name="argv",value="0x7fd48"}],file="dummy.cpp",fullname="dummy.cpp",line="3"},thread-id="1",stopped-threads="all",core="5". """
+    onStopped = pyqtSignal(dict)
 
     """thread-group-added,id="id". """
     onThreadGroupAdded = pyqtSignal('QString')

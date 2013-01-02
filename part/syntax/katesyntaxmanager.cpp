@@ -57,6 +57,15 @@
 
 using namespace KTextEditor;
 
+bool compareKateHighlighting(const KateHighlighting* const left, const KateHighlighting* const right)
+{
+  int comparison = left->section().compare(right->section(), Qt::CaseInsensitive);
+  if (comparison == 0) {
+    comparison = left->nameTranslated().compare(right->nameTranslated(), Qt::CaseInsensitive);
+  }
+  return comparison < 0;
+}
+
 //BEGIN KateHlManager
 KateHlManager::KateHlManager()
   : QObject()
@@ -67,22 +76,13 @@ KateHlManager::KateHlManager()
   , forceNoDCReset(false)
 {
   KateSyntaxModeList modeList = syntax->modeList();
+  hlList.reserve(modeList.size() + 1);
+  hlDict.reserve(modeList.size() + 1);
   for (int i=0; i < modeList.count(); i++)
   {
     KateHighlighting *hl = new KateHighlighting(modeList[i]);
 
-    int insert = 0;
-    for (; insert <= hlList.count(); insert++)
-    {
-      if (insert == hlList.count())
-        break;
-
-      if ( QString(hlList.at(insert)->section() + hlList.at(insert)->nameTranslated()).toLower()
-            > QString(hl->section() + hl->nameTranslated()).toLower() )
-        break;
-    }
-
-    hlList.insert (insert, hl);
+    hlList.insert (qLowerBound(hlList.begin(), hlList.end(), hl, compareKateHighlighting), hl);
     hlDict.insert (hl->name(), hl);
   }
 

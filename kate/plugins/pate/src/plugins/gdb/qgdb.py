@@ -127,17 +127,16 @@ class InferiorIo(QThread):
     def ttyName(self):
         return self._pty.ttyName()
 
-class DebuggerIo(QThread):
-    """A procedural interface to GDB running as a subprocess in a thread.
+class DebuggerIo(QObject):
+    """A procedural interface to GDB running as a subprocess.
     A second thread is used to handle I/O with a direct inferior if needed.
     """
     _gdbThread = None
     _inferiorThread = None
-    _gdbThreadStarted = None
     _interruptPending = None
     arguments = None
     _miToken = None
-    def __init__(self, gdbThreadStarted, arguments, verbose = 0):
+    def __init__(self, arguments, verbose = 0):
         """Constructor.
 
         @param _gdbThreadStarted    Signal completion via semaphore.
@@ -145,32 +144,23 @@ class DebuggerIo(QThread):
         """
         super(DebuggerIo, self).__init__()
         self.miParser = MiParser()
-        self._gdbThreadStarted = gdbThreadStarted
         self.arguments = arguments
         self.arguments.append("--interpreter=mi")
         self._miToken = 0
         self.onUnknownEvent.connect(self.unknownEvent)
-
-    def run(self):
-        try:
-            self._gdbThread = QProcess()
-            self._gdbThread.setProcessChannelMode(QProcess.MergedChannels)
-            self._gdbThread.error.connect(self.gdbProcessError)
-            self._gdbThread.finished.connect(self.gdbProcessFinished)
-            self._gdbThread.readyReadStandardOutput.connect(self.gdbProcessReadyReadStandardOutput)
-            self._gdbThread.started.connect(self.gdbProcessStarted)
-            self._gdbThread.stateChanged.connect(self.gdbProcessStateChanged)
-            #
-            # Start.
-            #
-            self._gdbThread.start(self.arguments[0], self.arguments[1:])
-            self._gdbThread.waitForStarted()
-            self.waitForPrompt("", None, False)
-        except Exception as e:
-            dbg0("unexpected exception: {} {}", self, e)
-        else:
-            dbg0("thread exit: {}", self)
-        self._gdbThreadStarted.release()
+        self._gdbThread = QProcess()
+        self._gdbThread.setProcessChannelMode(QProcess.MergedChannels)
+        self._gdbThread.error.connect(self.gdbProcessError)
+        self._gdbThread.finished.connect(self.gdbProcessFinished)
+        self._gdbThread.readyReadStandardOutput.connect(self.gdbProcessReadyReadStandardOutput)
+        self._gdbThread.started.connect(self.gdbProcessStarted)
+        self._gdbThread.stateChanged.connect(self.gdbProcessStateChanged)
+        #
+        # Start.
+        #
+        self._gdbThread.start(self.arguments[0], self.arguments[1:])
+        self._gdbThread.waitForStarted()
+        self.waitForPrompt("", None, False)
 
     def interruptWait(self):
         """Interrupt an in-progress wait for response from GDB."""
@@ -928,13 +918,9 @@ class QGdbInterpreter(DebuggerIo):
     def __init__(self, arguments, verbose = 0):
         """Constructor.
 
-        @param _gdbThreadStarted    Signal completion via semaphore.
         @param arguments        GDB start command.
         """
-        _gdbThreadStarted = QSemaphore()
-        super(QGdbInterpreter, self).__init__(_gdbThreadStarted, arguments)
-        self.start()
-        _gdbThreadStarted.acquire()
+        super(QGdbInterpreter, self).__init__(arguments)
         #
         # Subprocess is running.
         #

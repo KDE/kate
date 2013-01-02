@@ -318,7 +318,7 @@ class KATEPART_TESTS_EXPORT KateCodeFoldingTree : public QObject
 
   // Tree algorithm metods
     KateCodeFoldingNode* findParent(const KTextEditor::Cursor& startingPos, int childType) const;
-    KateCodeFoldingNode* fineNodeAbove(const KTextEditor::Cursor& startingPos) const;
+    KateCodeFoldingNode* findNodeAbove(const KTextEditor::Cursor& startingPos) const;
     void sublist(QVector<KateCodeFoldingNode *>& dest, const QVector<KateCodeFoldingNode *>& source,
                  const KTextEditor::Cursor& begin, const KTextEditor::Cursor& end) const;
     KateCodeFoldingNode* findNodeAt(const KTextEditor::Cursor& position) const;

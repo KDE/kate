@@ -612,7 +612,7 @@ void KateCodeFoldingTree::deleteStartNode(KateCodeFoldingNode* deletedNode)
   deleteNodeFromMap(deletedNode);
 
   // step 1 - all its startChildren are inherited by its heir
-  KateCodeFoldingNode *heir = fineNodeAbove(deletedNode->m_position);
+  KateCodeFoldingNode *heir = findNodeAbove(deletedNode->m_position);
   heir->mergeChildren(heir->m_startChildren,deletedNode->m_startChildren);
 
   // step 2 - this node is removed from the tree
@@ -714,7 +714,7 @@ void KateCodeFoldingTree::expandToplevelNodes()
 }
 
 // Searches for the first start node above
-KateCodeFoldingNode* KateCodeFoldingTree::fineNodeAbove(const KTextEditor::Cursor& startingPos) const
+KateCodeFoldingNode* KateCodeFoldingTree::findNodeAbove(const KTextEditor::Cursor& startingPos) const
 {
   for (int line = startingPos.line() ; line >= 0 ; line --) {
     if (!m_lineMapping.contains(line))

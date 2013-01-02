@@ -284,8 +284,7 @@ KateHlKeyword::KateHlKeyword (int attribute, KateHlContextModification context, 
 
 KateHlKeyword::~KateHlKeyword ()
 {
-  for (int i=0; i < dict.size(); ++i)
-    delete dict[i];
+  qDeleteAll(dict);
 }
 
 void KateHlKeyword::addList(const QStringList& list)

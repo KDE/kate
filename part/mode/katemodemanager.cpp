@@ -64,6 +64,15 @@ KateModeManager::~KateModeManager ()
   qDeleteAll (m_types);
 }
 
+bool compareKateFileType(const KateFileType* const left, const KateFileType* const right)
+{
+  int comparison = left->section.compare(right->section, Qt::CaseInsensitive);
+  if (comparison == 0) {
+    comparison = left->name.compare(right->name, Qt::CaseInsensitive);
+  }
+  return comparison < 0;
+}
+
 //
 // read the types from config file and update the internal list
 //
@@ -134,27 +143,7 @@ void KateModeManager::update ()
   }
 
   // sort the list...
-  QList<KateFileType *> newList;  
-  for (int i=0; i < m_types.count(); i++)
-  {
-    KateFileType *t = m_types[i];
-
-    int insert = 0;
-    for (; insert <= newList.count(); insert++)
-    {
-      if (insert == newList.count())
-        break;
-
-      if ( QString(newList.at(insert)->section + newList.at(insert)->name).toLower()
-            > QString(t->section + t->name).toLower() )
-        break;
-    }
-
-    newList.insert (insert, t);
-  }
-
-  // replace old list with new sorted list...
-  m_types = newList;
+  qSort(m_types.begin(), m_types.end(), compareKateFileType);
 
   // add the none type...
   KateFileType *t = new KateFileType ();

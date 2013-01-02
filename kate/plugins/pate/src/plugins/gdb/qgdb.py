@@ -116,8 +116,7 @@ class InferiorIo(QThread):
                     break
                 self.parent().gdbStreamInferior.emit(line[:-1])
         except Exception as e:
-            dbg0("unexpected exception: {}", self)
-            dbg0(str(e))
+            dbg0("unexpected exception: {} {}", self, e)
         else:
             dbg0("thread exit: {}", self)
 
@@ -153,7 +152,6 @@ class DebuggerIo(QThread):
 
     def run(self):
         try:
-            #self._gdbThread = pygdb.Gdb(GDB_CMDLINE, handler = self, verbose = verbose)
             self._gdbThread = QProcess()
             self._gdbThread.setProcessChannelMode(QProcess.MergedChannels)
             self._gdbThread.error.connect(self.gdbProcessError)
@@ -169,8 +167,7 @@ class DebuggerIo(QThread):
             self._gdbThread.waitForStarted()
             self.waitForPrompt("", self.arguments, False)
         except Exception as e:
-            dbg0("unexpected exception: {}", self)
-            dbg0(str(e))
+            dbg0("unexpected exception: {} {}", self, e)
         else:
             dbg0("thread exit: {}", self)
         self._gdbThreadStarted.release()
@@ -217,17 +214,17 @@ class DebuggerIo(QThread):
         status, result = records[-1]
         del records[-1]
         if status:
-            raise QGdbException("Unexpected status {}, {}, {}".format(status, result, records))
+            raise QGdbException("{}: unexpected status {}, {}, {}".format(command, status, result, records))
         #
         # Return the result information and any preceeding records.
         #
         if captureConsole:
             if result:
-                raise QGdbException("Unexpected result {}, {}".format(result, records))
+                raise QGdbException("{}: unexpected result {}, {}".format(command, result, records))
             return records
         else:
             if records:
-                raise QGdbException("Unexpected records {}, {}".format(result, records))
+                raise QGdbException("{}: unexpected records {}, {}".format(command, result, records))
             return result
 
     def waitForPrompt(self, token, why, captureConsole, endLine = None, timeoutMs = 10000):
@@ -268,7 +265,7 @@ class DebuggerIo(QThread):
                         dbg1("{}: all lines read: {}", why, len(lines))
                         return lines
                 else:
-                    line = self.parseLine(line, token, captureConsole)
+                    line = self.parseLine(line, token, why, captureConsole)
                     if line:
                         lines.append(line)
                 #
@@ -279,14 +276,14 @@ class DebuggerIo(QThread):
                 #
                 # User got fed up. Note, there may be more to read!
                 #
-                raise QGdbInterrupted("Interrupt after {} lines read, {}".format(len(lines), lines))
+                raise QGdbInterrupted("{}: interrupt after {} lines read, {}".format(why, len(lines), lines))
             elif not maxTimeouts:
                 #
                 # Caller got fed up. Note, there may be more to read!
                 #
-                raise QGdbTimeoutError("Timeout after {} lines read, {}".format(len(lines), lines))
+                raise QGdbTimeoutError("{}: timeout after {} lines read, {}".format(why, len(lines), lines))
 
-    def parseLine(self, line, token, captureConsole):
+    def parseLine(self, line, token, why, captureConsole):
         if line[0] == "~":
             line = self.parseStringRecord(line[1:])
             #
@@ -324,7 +321,7 @@ class DebuggerIo(QThread):
             tuple = self.parseResultRecord(line)
             return tuple
         else:
-            raise QGdbException("Unexpected record string '{}'".format(line))
+            raise QGdbException("{}: unexpected record string '{}'".format(why, line))
         return None
 
     def parseStringRecord(self, line):
@@ -378,13 +375,13 @@ class DebuggerIo(QThread):
                 tid = args["thread-id"]
                 self.onRunning.emit(tid)
             elif event.startswith("thread-group"):
-                tgId = args["id"]
+                tgid = args["id"]
                 if event == "thread-group-added":
-                    self.onThreadGroupAdded.emit(tgId)
+                    self.onThreadGroupAdded.emit(tgid)
                 elif event == "thread-group-removed":
-                    self.onThreadGroupRemoved.emit(tgId)
+                    self.onThreadGroupRemoved.emit(tgid)
                 elif event == "thread-group-started":
-                    self.onThreadGroupStarted.emit(tgId, int(args["pid"]))
+                    self.onThreadGroupStarted.emit(tgid, int(args["pid"]))
                 elif event == "thread-group-exited":
                     try:
                         exitCode = int(args["exit-code"])
@@ -396,8 +393,8 @@ class DebuggerIo(QThread):
             elif event.startswith("thread"):
                 tid = int(args["id"])
                 if event == "thread-created":
-                    tgId = args["group-id"]
-                    self.onThreadCreated.emit(tid, tgId)
+                    tgid = args["group-id"]
+                    self.onThreadCreated.emit(tid, tgid)
                 elif event == "thread-exited":
                     self.onThreadExited.emit(args)
                 elif event == "thread-selected":
@@ -406,8 +403,8 @@ class DebuggerIo(QThread):
                     self.onUnknownEvent.emit(event, args)
             elif event.startswith("library"):
                 if event == "library-loaded":
-                    tgId = args["thread-group"]
-                    self.onLibraryLoaded.emit(args["id"], args["host-name"], args["target-name"], int(args["symbols-loaded"]), tgId)
+                    tgid = args["thread-group"]
+                    self.onLibraryLoaded.emit(args["id"], args["host-name"], args["target-name"], int(args["symbols-loaded"]), tgid)
                 elif event == "library-unloaded":
                     self.onLibraryUnloaded.emit(args)
                 else:

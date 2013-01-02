@@ -147,6 +147,7 @@ class DebuggerIo(QThread):
         self.miParser = MiParser()
         self._gdbThreadStarted = gdbThreadStarted
         self.arguments = arguments
+        self.arguments.append("--interpreter=mi")
         self._miToken = 0
         self.onUnknownEvent.connect(self.unknownEvent)
 
@@ -162,10 +163,9 @@ class DebuggerIo(QThread):
             #
             # Start.
             #
-            self.arguments.insert(1, "--interpreter=mi")
             self._gdbThread.start(self.arguments[0], self.arguments[1:])
             self._gdbThread.waitForStarted()
-            self.waitForPrompt("", self.arguments, False)
+            self.waitForPrompt("", None, False)
         except Exception as e:
             dbg0("unexpected exception: {} {}", self, e)
         else:
@@ -258,7 +258,7 @@ class DebuggerIo(QThread):
                     dbg1("TODO: check what IPython does: {}: all lines read: {}", why, len(lines))
                     return lines
                 elif line == prompt:
-                    if len(lines) and isinstance(lines[-1], list):
+                    if not why or len(lines) and isinstance(lines[-1], list):
                         #
                         # Yay, got a prompt *after* the result record => got to the end!
                         #

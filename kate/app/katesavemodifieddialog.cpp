@@ -1,15 +1,15 @@
 /* This file is part of the KDE project
    Copyright (C) 2004 Joseph Wenninger <jowenn@kde.org>
- 
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
- 
+
    This library is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
    Library General Public License for more details.
- 
+
    You should have received a copy of the GNU Library General Public License
    along with this library; see the file COPYING.LIB.  If not, write to
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
@@ -110,7 +110,7 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
              }
             }
           }
-          
+
           m_document->setEncoding( r.encoding );
 
           if ( !m_document->saveAs( tmp ) )
@@ -184,15 +184,15 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
   setModal( true );
 
   setButtonGuiItem(KDialog::Yes, KStandardGuiItem::save());
-  connect(this, SIGNAL(user1Clicked()), this, SLOT(slotSaveSelected()));
+  connect(this, SIGNAL(yesClicked()), this, SLOT(slotSaveSelected()));
 
   setButtonGuiItem(KDialog::No, KStandardGuiItem::discard());
-  connect(this, SIGNAL(user2Clicked()), this, SLOT(slotDoNotSave()));
+  connect(this, SIGNAL(noClicked()), this, SLOT(slotDoNotSave()));
 
   setButtonGuiItem(KDialog::Cancel, KStandardGuiItem::cancel());
   setDefaultButton(KDialog::Cancel);
   setButtonFocus(KDialog::Cancel);
-  
+
   KVBox *box = new KVBox(this);
   setMainWidget(box);
   new QLabel(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"), box);
@@ -223,7 +223,7 @@ void KateSaveModifiedDialog::slotItemActivated(QTreeWidgetItem*, int)
       break;
     }
   }
-  
+
   // enable or disable the Save button
   enableButton(KDialog::User1, enableSaveButton);
 }

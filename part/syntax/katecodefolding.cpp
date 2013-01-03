@@ -716,17 +716,25 @@ void KateCodeFoldingTree::expandToplevelNodes()
 // Searches for the first start node above
 KateCodeFoldingNode* KateCodeFoldingTree::findNodeAbove(const KTextEditor::Cursor& startingPos) const
 {
-  for (int line = startingPos.line() ; line >= 0 ; line --) {
-    if (!m_lineMapping.contains(line))
-      continue;
+  if (m_lineMapping.isEmpty()) {
+    return m_root;
+  }
 
-    const QVector <KateCodeFoldingNode*>& nodes = m_lineMapping.value(line);
+  KateCodeFoldingNode* ret = 0;
+  QMap< int, QVector< KateCodeFoldingNode* > >::const_iterator it = m_lineMapping.lowerBound(startingPos.line());
+  while(it != m_lineMapping.constBegin()) {
+    --it;
+    if (it.key() < 0) {
+      break;
+    }
+    const QVector <KateCodeFoldingNode*>& nodes = it.value();
     for (int column = nodes.size() - 1 ; column >= 0 ; column --) {
       KateCodeFoldingNode* node = nodes.at(column);
       // We search for a "start node"
       // We still have to check positions becose the parent might be on the same line
-      if (node->m_type > 0 && node->m_position < startingPos)
+      if (node->m_type > 0 && node->m_position < startingPos) {
         return node;
+      }
     }
   }
 

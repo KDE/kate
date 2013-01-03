@@ -230,7 +230,7 @@ void KateMainWindow::setupImportantActions ()
   m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleShowStatusBar()), actionCollection());
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
-  m_paShowPath = new KToggleAction( i18n("Sho&w Path"), this );
+  m_paShowPath = new KToggleAction( i18n("Sho&w Path in Titlebar"), this );
   actionCollection()->addAction( "settings_show_full_path", m_paShowPath );
   connect( m_paShowPath, SIGNAL(toggled(bool)), this, SLOT(updateCaption()) );
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
@@ -242,22 +242,22 @@ void KateMainWindow::setupMainWindow ()
 
   m_topViewBarContainer=new QWidget(centralWidget());
   m_topContainerStack = new KateContainerStackedLayout(m_topViewBarContainer);
-  
+
   /**
    * create central stacked widget with its children
    */
   m_mainStackedWidget = new QStackedWidget (centralWidget());
   ((QBoxLayout*)(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget,100);
-  
+
   m_quickOpen = new KateQuickOpen (m_mainStackedWidget, this);
   m_mainStackedWidget->addWidget (m_quickOpen);
-  
+
   m_viewManager = new KateViewManager (m_mainStackedWidget, this);
   m_mainStackedWidget->addWidget (m_viewManager);
-  
+
   // make view manager default visible!
   m_mainStackedWidget->setCurrentWidget (m_viewManager);
-  
+
   m_bottomViewBarContainer=new QWidget(centralWidget());
   m_bottomContainerStack = new KateContainerStackedLayout(m_bottomViewBarContainer);
 }
@@ -573,7 +573,7 @@ void KateMainWindow::slotWindowActivated ()
   // show view manager in any case
   if (m_mainStackedWidget->currentWidget () != m_viewManager)
     m_mainStackedWidget->setCurrentWidget (m_viewManager);
-  
+
   // update proxy
   centralWidget()->setFocusProxy (m_viewManager->activeView());
 }
@@ -872,7 +872,7 @@ void KateMainWindow::updateCaption (KTextEditor::Document *doc)
   QString readOnlyCaption;
   if  (!m_viewManager->activeView()->document()->isReadWrite())
     readOnlyCaption=i18n(" [read only]");
-  
+
   setCaption( sessName + c+readOnlyCaption,
               m_viewManager->activeView()->document()->isModified());
 }

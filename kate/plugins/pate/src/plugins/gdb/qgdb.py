@@ -77,7 +77,7 @@ class DebuggerPythonKernel():
         #self._app.shell.keepkernel_on_exit = True
         self._app.shell.ask_exit()
         self._app.kernel.log.debug("kernel stopping")
-        print('shell being stopped is', self._app.shell)
+        dbg0('shell being stopped is', self._app.shell)
         app = self._app
         app.exit_now = True
         if app.kernel.control_stream:
@@ -386,17 +386,21 @@ class DebuggerIo(QObject):
                     tgid = args["group-id"]
                     self.onThreadCreated.emit(tid, tgid)
                 elif event == "thread-exited":
-                    self.onThreadExited.emit(args)
+                    tgid = args["group-id"]
+                    self.onThreadExited.emit(tid, tgid)
                 elif event == "thread-selected":
-                    self.onThreadSelected.emit(args)
+                    self.onThreadSelected.emit(tid)
                 else:
                     self.onUnknownEvent.emit(event, args)
             elif event.startswith("library"):
+                lid = args["id"]
+                hostName = args["host-name"]
+                targetName = args["target-name"]
+                tgid = args["thread-group"]
                 if event == "library-loaded":
-                    tgid = args["thread-group"]
-                    self.onLibraryLoaded.emit(args["id"], args["host-name"], args["target-name"], int(args["symbols-loaded"]), tgid)
+                    self.onLibraryLoaded.emit(lid, hostName, targetName, int(args["symbols-loaded"]), tgid)
                 elif event == "library-unloaded":
-                    self.onLibraryUnloaded.emit(args)
+                    self.onLibraryUnloaded.emit(lid, hostName, targetName, tgid)
                 else:
                     self.onUnknownEvent.emit(event, args)
             elif event.startswith("breakpoint"):
@@ -462,9 +466,9 @@ class DebuggerIo(QObject):
     """thread-created,id="id",group-id="gid". """
     onThreadCreated = pyqtSignal(int, 'QString')
     """thread-exited,id="id",group-id="gid". """
-    onThreadExited = pyqtSignal('QString', 'QString')
+    onThreadExited = pyqtSignal(int, 'QString')
     """thread-selected,id="id". """
-    onThreadSelected = pyqtSignal('QString')
+    onThreadSelected = pyqtSignal(int)
 
     """library-loaded,id="id",target-name,host-name,symbols-loaded[,thread-group].
     Note: symbols-loaded is not used"""
@@ -718,15 +722,7 @@ class ProgramControl():
         # [(u'variables', [{u'name': u'options', u'value': u'{d = 0x622320}'}, {u'type': u'KateApp * const', u'name': u'this', u'value': '0x7fffffffdc10', u'arg': '1'}, {u'type': u'KCmdLineArgs *', u'name': u'args', u'value': '0x6237f0', u'arg': '1'}])]
         #
         u = results[0][1]
-        print("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
-
-    def sharedLibraries(self):
-        results = self._gdb.miCommandOne("-file-list-shared-libraries")
-        #
-        # [(u'variables', [{u'name': u'options', u'value': u'{d = 0x622320}'}, {u'type': u'KateApp * const', u'name': u'this', u'value': '0x7fffffffdc10', u'arg': '1'}, {u'type': u'KCmdLineArgs *', u'name': u'args', u'value': '0x6237f0', u'arg': '1'}])]
-        #
-        u = results[0][1]
-        print("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
+        self._out("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
 
     def symbolFiles(self):
         results = self._gdb.miCommandOne("-file-list-symbol-files")
@@ -734,7 +730,7 @@ class ProgramControl():
         # [(u'variables', [{u'name': u'options', u'value': u'{d = 0x622320}'}, {u'type': u'KateApp * const', u'name': u'this', u'value': '0x7fffffffdc10', u'arg': '1'}, {u'type': u'KCmdLineArgs *', u'name': u'args', u'value': '0x6237f0', u'arg': '1'}])]
         #
         u = results[0][1]
-        print("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
+        self._out("#{}  {} in {} () from {}".format(u["level"], u["addr"], u["func"], u["from"]))
 
     def setExecAndSymbols(self, filename):
         results = self._gdb.miCommandOne("-file-exec-and-symbols {}".format(filename))
@@ -762,7 +758,7 @@ class Python():
 
     def _pythonCommand(self, command):
         self._gdb._gdbThread.write("python {}\n".format(command))
-        print("python "+command)
+        dbg0("python "+command)
         self._gdb._gdbThread.waitForBytesWritten()
 
     def __init__(self, gdb):
@@ -795,9 +791,9 @@ class Python():
         command = "%Quit"
         self._pythonCommand(command)
         error, lines = self._gdb.waitForPrompt(None, "xxxxxxxxxxxxxxx")
-        print("exiting!!!!!!!!!!!!!",error,lines)
+        dbg0("exiting!!!!!!!!!!!!!",error,lines)
         error, lines = self._gdb.waitForPrompt(None, "yyyyyyyyyyy")
-        print("exiting222!!!!!!!!!!!!!",error,lines)
+        dbg0("exiting222!!!!!!!!!!!!!",error,lines)
 
 class Stack():
     """Model of GDB stack."""
@@ -852,7 +848,7 @@ class Stack():
             level = v["level"]
             args = v["args"]
             args = ", ".join(["{}={}".format(d["name"], d["value"]) for d in args])
-            print("#{} {}".format(level, args))
+            self._out("#{} {}".format(level, args))
 
     def stackFrames(self, tid, lowFrame = None, highFrame = None):
         """
@@ -915,12 +911,13 @@ class QGdbInterpreter(DebuggerIo):
     _stack = None
     _threads = None
 
-    def __init__(self, arguments, verbose = 0):
+    def __init__(self, arguments, printLine, verbose = 0):
         """Constructor.
 
         @param arguments        GDB start command.
         """
         super(QGdbInterpreter, self).__init__(arguments)
+        self._out = printLine
         #
         # Subprocess is running.
         #

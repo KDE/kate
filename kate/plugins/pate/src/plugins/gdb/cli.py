@@ -376,11 +376,7 @@ class Cli(cmd.Cmd):
     def __init__(self, arguments, printLine = print):
         cmd.Cmd.__init__(self)
         self._out = printLine
-        #_gdbThreadStarted = QSemaphore()
-        #self.gdb = DebuggerIo(_gdbThreadStarted)
-        #self.gdb.start()
-        #_gdbThreadStarted.acquire()
-        self.gdb = QGdbInterpreter(arguments)
+        self.gdb = QGdbInterpreter(arguments, printLine)
         self.createCommandDb()
 
     def createCommandDb(self):
@@ -424,49 +420,6 @@ class Cli(cmd.Cmd):
         self.commandDb.walk(matchClass, "files", self.filesCommands)
         self.commandDb.walk(matchRegExp, re.compile(" path", re.IGNORECASE), self.filesCommands)
         self.commandDb.walk(matchRegExp, re.compile(" file", re.IGNORECASE), self.filesCommands)
-
-    def complete(self, text, state):
-        """Use the command database to provide completions."""
-        matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry = self.commandDb.lookup(text)
-        dbg0([c[len(text):] for c in completions])
-        return completions
-
-    def completedefault(self, *ignored):
-        dbg0("completedefault",ignored)
-
-    def completenames(self, text, *ignored):
-        dbg0("completenames",text,ignored)
-
-    def parseline(self, line):
-        """Parse the line into a command name and a string containing
-        the arguments.  Returns a tuple containing (command, args, line).
-        'command' and 'args' may be None if the line couldn't be parsed.
-        """
-        line = line.strip()
-        if not line:
-            return None, None, line
-        elif line[0] == '?':
-            line = 'help ' + line[1:]
-        elif line[0] == '!':
-            if hasattr(self, 'do_shell'):
-                line = 'shell ' + line[1:]
-            else:
-                return None, None, line
-        #
-        # Parse the keywords, and separate with "_". The rest is args.
-        #
-        (matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(line)
-        matchedFrags = matched.count(" ") + matched.count("-") + 1
-        frags = line.split(None, matchedFrags);
-        #
-        # Invoke GDB...
-        #
-        cmd = matched.replace(" ", "_").replace("-", "__")
-        if matchedFrags >= len(frags):
-            args = ""
-        else:
-            args = frags[matchedFrags]
-        return cmd, args, line
 
     #
     # See http://lists.baseurl.org/pipermail/yum-devel/2011-August/008495.html
@@ -1081,9 +1034,6 @@ class Cli(cmd.Cmd):
     def do_info_target(self, args):
         self.do_info_files(args)
 
-    def do_info_sharedlibrary(self, args):
-        self.gdb._programControl.sharedLibraries()
-
     def do_file(self, filename):
         self.gdb._programControl.setExecAndSymbols(filename)
 
@@ -1247,7 +1197,7 @@ class Cli(cmd.Cmd):
             return
         self._out("LIST OF COMMANDS MATCHING '" + args + "'")
         self.commandDb.walk(printAproposEntry, re.compile(args, re.IGNORECASE), None, "\t")
-        print
+        self._out("")
 
     def do_EOF(self, args):
         """
@@ -1292,10 +1242,8 @@ class Cli(cmd.Cmd):
         EXAMPLES
             gdb help        Get GDB's native help.
         """
-        error, result = self.gdb.consoleCommand(args)
-        if error:
-            raise QGdbException("Error executing command: {} '{}'".format(error, result))
-        for line in result:
+        results = self.gdb.consoleCommand(args, True)
+        for line in results:
             self._out(line)
 
     def do_help(self, args):
@@ -1335,7 +1283,7 @@ class Cli(cmd.Cmd):
                 #
                 self._out("LIST OF COMMANDS")
                 self.commandDb.walk(printAproposEntry, "", None, "\t")
-                print
+                self._out("")
                 return True
             else:
                 classes = [name for name in self.commandDb.classes_db if name.startswith(keyword)]
@@ -1440,7 +1388,7 @@ class Cli(cmd.Cmd):
             #
             # Emit summary help from GDB.
             #
-            error, helpText = self.gdb.consoleCommand("help", True)
+            helpText = self.gdb.consoleCommand("help", True)
             self._out("LIST OF CLASSES OF COMMANDS")
             for line in helpText[2:]:
                 self._out("\t" + line)
@@ -1506,6 +1454,15 @@ class Cli(cmd.Cmd):
         # any embedded environment variables.
         #
         (matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(args)
+        if isinstance(completions, list):
+            self._out("Ambiguous command \"{}\": {}.".format(unmatched, ", ".join(completions)))
+            return
+        elif isinstance(completions, tuple) and completions[1]:
+            subcommands = completions[1]
+            self._out("\"{}\" must be followed by the name of an {} command.\nList of {} subcommands:\n".format(matched, matched, matched))
+            for k in sorted(subcommands.keys()):
+                self._out("{} {} -- {}".format(matched, k, subcommands[k][0]))
+            return
         if matched in self.filesCommands:
             dbg0("is files command", matched)
             #
@@ -1518,10 +1475,29 @@ class Cli(cmd.Cmd):
             else:
                 args = frags[matchedFrags]
             args = " ".join((matched, expandEnvironmentVariables(args)))
-        #
-        # Invoke GDB...
-        #
-        self.do_gdb(args)
+        try:
+            func = getattr(self, "do_" + "_".join(matched.split()))
+        except AttributeError:
+            #
+            # Invoke GDB...
+            #
+            self._out("do_gdb: {}".format(args))
+            self.do_gdb(args)
+        else:
+            func(args)
+
+    def complete(self, text, state):
+        """Use the command database to provide completions."""
+        matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry = self.commandDb.lookup(text)
+        #self.stdout.write("=={}==\n".format((matched, unmatched, completions, lastMatchedEntry)))
+        self.stdout.write("\n{}\n{}{}".format("\t".join(completions), self.prompt, text))
+        return completions
+
+    def completedefault(self, *ignored):
+        self.stdout.write("completedefault {}".format(ignored))
+
+    def completenames(self, text, *ignored):
+        self.stdout.write("completenames {} {}".format(text, ignored))
 
 if __name__ == "__main__":
     import sys

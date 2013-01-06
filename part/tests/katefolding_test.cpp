@@ -438,7 +438,7 @@ void KateFoldingTest::testFindNodeForPosition()
 void KateFoldingTest::testCrash311866()
 {
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("bug311866.cpp");
+  QString url = KDESRCDIR + QString("data/bug311866.cpp");
   doc.openUrl(url);
   doc.setHighlightingMode("C++");
   doc.buffer().ensureHighlighted (6);

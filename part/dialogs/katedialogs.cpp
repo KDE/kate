@@ -1082,15 +1082,7 @@ void KateSaveConfigTab::defaults()
 KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   : KateConfigPage (parent, "")
 {
-  QVBoxLayout *generalLayout = new QVBoxLayout;
-  generalLayout->setMargin(0);
-  KTabWidget *tabWidget = new KTabWidget(this);
-
-  QWidget *tmpWidget = new QWidget(tabWidget);
-  QVBoxLayout *internalLayout = new QVBoxLayout;
-  QWidget *newWidget = new QWidget(tabWidget);
   QVBoxLayout *layout = new QVBoxLayout;
-  newWidget->setLayout(layout);
   layout->setMargin(0);
 
   plugins.clear();
@@ -1110,16 +1102,9 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
   connect(selector, SIGNAL(configCommitted(QByteArray)), this, SLOT(slotChanged()));
 
   selector->addPlugins(plugins, KPluginSelector::IgnoreConfigFile, i18n("Editor Plugins"), "Editor");
+
   layout->addWidget(selector);
-
-  internalLayout->addWidget(newWidget);
-  tmpWidget->setLayout(internalLayout);
-
-  // add all tabs
-  tabWidget->insertTab(0, tmpWidget, i18n("Plugins"));
-
-  generalLayout->addWidget(tabWidget);
-  setLayout(generalLayout);
+  setLayout(layout);
 }
 
 KatePartPluginConfigPage::~KatePartPluginConfigPage ()

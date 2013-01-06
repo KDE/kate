@@ -25,14 +25,13 @@
 
 class KateFoldingTest : public QObject
 {
-  //friend class KateCodeFoldingTree;
-
   Q_OBJECT
 
-//public:
+public Q_SLOTS:
+  void initTestCase();
+  void cleanupTestCase();
 
 private Q_SLOTS:
-
   void testFolding_data();
   void testFolding();
   void testFoldingReload();
@@ -43,6 +42,8 @@ private Q_SLOTS:
   void testFolding_collapse_dsComments_C();
   void testFolding_collapse_dsComments_XML();
   void testFindNodeForPosition();
+
+  void testCrash311866();
 };
 
 #endif // KATE_FOLDING_TEST_H

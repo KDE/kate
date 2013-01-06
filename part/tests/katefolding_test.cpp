@@ -22,6 +22,8 @@
 
 #include <qtest_kde.h>
 
+#include <kateglobal.h>
+#include <katebuffer.h>
 #include <katedocument.h>
 #include <kateview.h>
 #include <ktexteditor/movingcursor.h>
@@ -40,6 +42,16 @@ QTEST_KDEMAIN(KateFoldingTest, GUI)
                     + ", " + QByteArray::number(cursor.column()) + "]";
     return qstrdup(ba.data());
   }
+}
+
+void KateFoldingTest::initTestCase()
+{
+  KateGlobal::self()->incRef();
+}
+
+void KateFoldingTest::cleanupTestCase()
+{
+    KateGlobal::self()->decRef();
 }
 
 void KateFoldingTest::testFolding_data()
@@ -416,4 +428,30 @@ void KateFoldingTest::testFindNodeForPosition()
   QVERIFY(!doc.foldingTree()->findNodeForPosition(1, 0));
   QVERIFY(doc.foldingTree()->findNodeForLine(1));
   QVERIFY(doc.foldingTree()->findNodeForLine(0));
+}
+
+// This is a unit test for bug 311866 (http://bugs.kde.org/show_bug.cgi?id=311866)
+// It loads 5 lines of C++ code, places the cursor in line 4, and then folds
+// the code.
+// Expected behavior: the cursor should be moved so it stays visible
+// Buggy behavior: the cursor is hidden, and moving the hidden cursor crashes kate
+void KateFoldingTest::testCrash311866()
+{
+  KateDocument doc(false, false, false);
+  QString url = KDESRCDIR + QString("bug311866.cpp");
+  doc.openUrl(url);
+  doc.setHighlightingMode("C++");
+  doc.buffer().ensureHighlighted (6);
+
+  KateView* view = static_cast<KateView*>(doc.createView(0));
+  view->show();
+  view->resize(400, 300);
+  view->setCursorPosition(Cursor(3, 0));
+  QTest::qWait(100);
+
+  doc.foldingTree()->collapseToplevelNodes();
+  doc.buffer().ensureHighlighted (6);
+
+  qDebug() << "!!! Does the next line crash?";
+  view->up();
 }

@@ -56,7 +56,7 @@ void BugTest::cleanupTestCase()
 void BugTest::tryCppFoldingCrash()
 {
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("bug309093_example.cpp");
+  QString url = KDESRCDIR + QString("data/bug309093.cpp");
   doc.openUrl(url);
   doc.discardDataRecovery();
   doc.setHighlightingMode("C++");

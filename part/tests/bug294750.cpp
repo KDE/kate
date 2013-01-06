@@ -57,7 +57,7 @@ void BugTest::cleanupTestCase()
 void BugTest::tryCrash()
 {
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("folding-crash.py");
+  QString url = KDESRCDIR + QString("data/folding-crash.py");
   doc.openUrl(url);
   doc.discardDataRecovery();
   doc.setHighlightingMode("Python");

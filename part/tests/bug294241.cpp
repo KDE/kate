@@ -57,7 +57,7 @@ void BugTest::cleanupTestCase()
 void BugTest::tryXmlCrash()
 {
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("bug294241.xml");
+  QString url = KDESRCDIR + QString("data/bug294241.xml");
   doc.openUrl(url);
   doc.discardDataRecovery();
   doc.setHighlightingMode("XML");
@@ -84,7 +84,7 @@ void BugTest::tryXmlCrash()
 void BugTest::tryPhpCrash()
 {
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("bug294241.php");
+  QString url = KDESRCDIR + QString("data/bug294241.php");
   doc.openUrl(url);
   doc.discardDataRecovery();
   doc.setHighlightingMode("PHP/PHP");
@@ -118,7 +118,7 @@ void BugTest::tryRubyCrash()
 {
   int i = 0;
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("bug294241.rb");
+  QString url = KDESRCDIR + QString("data/bug294241.rb");
   doc.openUrl(url);
   doc.discardDataRecovery();
   doc.setHighlightingMode("Ruby");

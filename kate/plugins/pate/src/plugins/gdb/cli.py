@@ -1481,7 +1481,6 @@ class Cli(cmd.Cmd):
             #
             # Invoke GDB...
             #
-            self._out("do_gdb: {}".format(args))
             self.do_gdb(args)
         else:
             func(args)

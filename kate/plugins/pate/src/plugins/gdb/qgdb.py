@@ -161,7 +161,6 @@ class DebuggerIo(QObject):
         self._gdbThread.start(self.arguments[0], self.arguments[1:])
         self._gdbThread.waitForStarted()
         lines = self.waitForPrompt("", None, True)
-        print(earlyConsolePrint)
         for line in lines:
             earlyConsolePrint(line)
 

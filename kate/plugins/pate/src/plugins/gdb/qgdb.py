@@ -136,7 +136,7 @@ class DebuggerIo(QObject):
     _interruptPending = None
     arguments = None
     _miToken = None
-    def __init__(self, arguments, verbose = 0):
+    def __init__(self, arguments, earlyConsolePrint, verbose = 0):
         """Constructor.
 
         @param _gdbThreadStarted    Signal completion via semaphore.
@@ -160,7 +160,10 @@ class DebuggerIo(QObject):
         #
         self._gdbThread.start(self.arguments[0], self.arguments[1:])
         self._gdbThread.waitForStarted()
-        self.waitForPrompt("", None, False)
+        lines = self.waitForPrompt("", None, True)
+        print(earlyConsolePrint)
+        for line in lines:
+            earlyConsolePrint(line)
 
     def interruptWait(self):
         """Interrupt an in-progress wait for response from GDB."""
@@ -911,13 +914,12 @@ class QGdbInterpreter(DebuggerIo):
     _stack = None
     _threads = None
 
-    def __init__(self, arguments, printLine, verbose = 0):
+    def __init__(self, arguments, earlyConsolePrint, verbose = 0):
         """Constructor.
 
         @param arguments        GDB start command.
         """
-        super(QGdbInterpreter, self).__init__(arguments)
-        self._out = printLine
+        super(QGdbInterpreter, self).__init__(arguments, earlyConsolePrint)
         #
         # Subprocess is running.
         #

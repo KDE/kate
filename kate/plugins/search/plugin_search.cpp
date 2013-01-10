@@ -371,6 +371,10 @@ void KatePluginSearchView::startSearch()
         return;
     }
     m_ui.searchCombo->addToHistory(m_ui.searchCombo->currentText());
+    if(m_ui.filterCombo->findText(m_ui.filterCombo->currentText()) == -1) {
+        m_ui.filterCombo->insertItem(0, m_ui.filterCombo->currentText());
+        m_ui.filterCombo->setCurrentIndex(0);
+    }
     m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
         kWarning() << "This is a bug";
@@ -1037,6 +1041,11 @@ void KatePluginSearchView::replaceChecked()
     if (!m_curResults) {
         kWarning() << "Results not found";
         return;
+    }
+
+    if(m_curResults->replaceCombo->findText(m_curResults->replaceCombo->currentText()) == -1) {
+        m_curResults->replaceCombo->insertItem(0, m_curResults->replaceCombo->currentText());
+        m_curResults->replaceCombo->setCurrentIndex(0);
     }
 
     m_replacer.replaceChecked(m_curResults->tree,

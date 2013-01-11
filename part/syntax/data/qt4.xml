@@ -13,7 +13,7 @@
 <language
     name="C++11/Qt4"
     section="Sources"
-    version="0.8"
+    version="0.9"
     kateversion="2.4"
     indenter="cstyle"
     extensions="*.moc"
@@ -1432,6 +1432,15 @@
     <item> qRegisterMetaType </item>
     <item> qRegisterMetaType </item>
     <item> qRegisterMetaTypeStreamOperators </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qcolor.html#related-non-members -->
+    <item> qAlpha </item>
+    <item> qBlue </item>
+    <item> qGray </item>
+    <item> qGray </item>
+    <item> qGreen </item>
+    <item> qRed </item>
+    <item> qRgb </item>
+    <item> qRgba  </item>
   </list>
 
   <!-- Types list from http://qt-project.org/doc/qt-4.8/qtglobal.html -->
@@ -1457,6 +1466,8 @@
     <item> ushort </item>
     <!-- http://qt-project.org/doc/qt-4.8/qprocess.html#Q_PID-typedef -->
     <item> Q_PID </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qcolor.html#related-non-members -->
+    <item> QRgb </item>
   </list>
 
   <contexts>

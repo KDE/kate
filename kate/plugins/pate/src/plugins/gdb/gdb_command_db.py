@@ -270,9 +270,6 @@ class GdbCommandDb(object):
         return result
 
 if __name__ == "__main__":
-    def printer(userFilter, userArg, indentation, prefix, keyword, oldApropos, oldClazz, oldFunction):
-        print(indentation + prefix + keyword)
-
     helpText = [
         "Command class: aliases",
         "",
@@ -290,5 +287,5 @@ if __name__ == "__main__":
         "set tui active-border-mode -- Set the attribute mode to use for the active TUI window border"
         ]
     db = GdbCommandDb(helpText)
-    db.walk(printer, None, None)
+    print(db)
 

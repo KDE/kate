@@ -957,7 +957,11 @@ class Cli(cmd.Cmd):
             You may specify arguments to give to your program, just as with the
             "run" command.
         """
-        self.do_break("--temporary main")
+        results = self.gdb._breakpoints.breakpointCreate("main", temporary = True)
+        if "pending" in results:
+            results = self.gdb._breakpoints.breakpointDelete(results["number"])
+            self._out("Cannot set breakpoint at 'main'")
+            return
         self.do_run(args)
 
     def do_step(self, args):
@@ -1450,8 +1454,7 @@ class Cli(cmd.Cmd):
             return line
 
         #
-        # Was the matched part a command which takes files/paths? If so, expand
-        # any embedded environment variables.
+        # Did we get a command?
         #
         (matched, unmatched, completions, lastMatchedEntry) = self.commandDb.lookup(args)
         if isinstance(completions, list):
@@ -1463,18 +1466,22 @@ class Cli(cmd.Cmd):
             for k in sorted(subcommands.keys()):
                 self._out("{} {} -- {}".format(matched, k, subcommands[k][0]))
             return
-        if matched in self.filesCommands:
-            dbg0("is files command", matched)
-            #
-            # Extract the arguments, and apply getenv to any contained references.
-            #
-            matchedFrags = matched.count(" ") + 1
-            frags = args.split(None, matchedFrags);
-            if matchedFrags >= len(frags):
-                args = ""
-            else:
-                args = frags[matchedFrags]
-            args = " ".join((matched, expandEnvironmentVariables(args)))
+        #
+        # Extract the arguments.
+        #
+        matchedFrags = matched.count(" ") + 1
+        frags = args.split(None, matchedFrags);
+        if matchedFrags >= len(frags):
+            args = ""
+        else:
+            args = frags[matchedFrags]
+            if matched in self.filesCommands:
+                dbg0("is files command", matched)
+                #
+                # Does the command which takes files/paths? If so, expand
+                # any embedded environment variables.
+                #
+                args = " ".join(expandEnvironmentVariables(args))
         try:
             func = getattr(self, "do_" + "_".join(matched.split()))
         except AttributeError:

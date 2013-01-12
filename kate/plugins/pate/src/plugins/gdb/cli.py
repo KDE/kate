@@ -1,4 +1,3 @@
-#coding: utf-8
 #
 # Copyright 2009, 2012, Shaheed Haque <srhaque@theiet.org>.
 #
@@ -28,6 +27,7 @@ from IPython.lib.kernel import find_connection_file
 from IPython.zmq.blockingkernelmanager import BlockingKernelManager
 from PyQt4.QtCore import QCoreApplication, QObject
 
+from gdb_command_db import GdbCommandDb
 from qgdb import QGdbInterpreter
 
 def dbg0(msg, *args):
@@ -69,254 +69,6 @@ class IPythonConsoleShell(ZMQTerminalInteractiveShell):
         #self.km.stop_channels()
         self.km.shutdown_kernel()
         self.ask_exit()
-
-class CommandDb(object):
-    """From GDB's "help all" output, find all the commands it has.
-    Classify them as GDB does, and then add them to a global structure.
-    New and overriding commands can then be added.
-    """
-
-    #
-    # The keyword dictionary contains a series of key, value pairs of the form
-    #
-    #   "keyword" : ( apropos, nextLevel | None, classification | None, function | None )
-    #
-    # The nextLevel allows sequences of keywords to be represented.
-    # Given that the entries are added such that the command prefixes
-    # are added before leaf commands, the apropos string is guaranteed to be
-    # that of the prefix.
-    #
-    # The classification is only present for leaf entries, and reflects the GDB
-    # help classification of the command.
-    #
-    # The function item is None for GDB's own commands, and the implementation for our versions.
-    #
-    keyword_db = None
-
-    #
-    # Command classifications according to GDB.
-    #
-    classes_db = None
-
-    def __init__(self, gdb):
-        super(CommandDb, self).__init__()
-        #
-        # Start from scratch.
-        #
-        self.keyword_db = dict()
-        self.classes_db = list()
-        #
-        # First, read all the command line help to find out what GDB has.
-        #
-        helpText = gdb.consoleCommand("help all", True)
-        clazz = None
-        for line in helpText:
-            line = line.strip()
-            if line.startswith("Command class"):
-                clazz = line[15:]
-                self.classes_db.append(clazz)
-            elif line.startswith("Unclassified commands"):
-                clazz = "unclassified"
-                self.classes_db.append(clazz)
-            elif line.find(" -- ") > -1:
-                (command, apropos) = line.split(" -- ")
-                #
-                # Add the command to the database.
-                #
-                keywords = command.split(" ")
-                dictionary = self.keyword_db
-                for i in range(len(keywords)):
-                    if keywords[i] in dictionary:
-                        (oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keywords[i]]
-                        if oldLevel:
-                            #
-                            # We already have a dictionary at this level.
-                            #
-                            dictionary = oldLevel
-                        else:
-                            #
-                            # Replace the value in the current level with a
-                            # new dictionary representing the additional level
-                            # of nesting, and move the original value into it.
-                            # Note that the old classification is kept; this
-                            # allows the entry to function as a leaf.
-                            #
-                            newLevel = dict()
-                            dictionary[keywords[i]] = (oldApropos, newLevel, oldClazz, oldFunction)
-                            dictionary = newLevel
-                    else:
-                        #
-                        # Add the new keyword to the current dictionary.
-                        #
-                        dictionary[keywords[i]] = (apropos, None, clazz, None)
-            else:
-                raise Exception("Unmatched line '{}'".format(line))
-
-    def addCustom(self, function):
-        """Add a custom command to the global database.
-        Will override any previously added entry (i.e. from GDB).
-        """
-        try:
-            helpText = function.__doc__.split("\n")
-            clazz = helpText[1].lstrip("\t")
-            (command, apropos) = helpText[3].lstrip("\t").split(" -- ")
-            command = command.lstrip()
-        except AttributeError as e:
-            #
-            # If we are overriding an existing command, maybe we already have
-            # the information we need?
-            #
-            command = function.__name__[3:].replace("__", "-").replace("_", " ")
-            (matchedKeywords, unmatchedKeyword, completions, lastMatchedEntry) = self.lookup(command)
-            if command != matchedKeywords or unmatchedKeyword:
-                raise AttributeError("No help for: {}".format(function.__name__))
-            apropos = completions[0]
-            clazz = completions[2]
-        #
-        # Add the command to the database.
-        #
-        keywords = command.split(" ")
-        dictionary = self.keyword_db
-        for i in range(len(keywords) - 1):
-            #
-            # This is a prefix for the final keyword, navigate the tree.
-            #
-            if keywords[i] in dictionary:
-                (oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keywords[i]]
-                if oldLevel:
-                    #
-                    # We already have a dictionary at this level.
-                    #
-                    dictionary = oldLevel
-                else:
-                    #
-                    # Replace the value in the current level with a
-                    # new dictionary representing the additional level
-                    # of nesting, and move the original value into it.
-                    # Note that the old classification is kept; this
-                    # allows the entry to function as a leaf.
-                    #
-                    newLevel = dict()
-                    dictionary[keywords[i]] = (oldApropos, newLevel, oldClazz, oldFunction)
-                    dictionary = newLevel
-            else:
-                #
-                # Add the new keyword to the current dictionary.
-                #
-                dictionary[keywords[i]] = ("", None, clazz, None)
-        #
-        # Add the final keyword.
-        #
-        keyword = keywords[len(keywords) - 1]
-        if keyword in dictionary:
-            #
-            # Keep any dictionary we already have at this level.
-            #
-            (oldApropos, oldLevel, oldClazz, oldFunction) = dictionary[keyword]
-            dictionary[keyword] = (apropos, oldLevel, clazz, function)
-        else:
-            #
-            # Add the new keyword to the current dictionary.
-            #
-            dictionary[keyword] = (apropos, None, clazz, function)
-
-    def lookup(self, line):
-        """
-        Match the given line containing abbreviated keywords with the keyword
-        database, and return a string with any matched keywords, the first
-        unmatched keyword and a set of possible completions:
-
-            (matchedKeywords, None | unmatchedKeyword, completions, lastMatchedEntry)
-
-        None unmatchedKeyword means that the entire string was matched, and
-        the completions is the matched dictionary entry.
-        A completions set gives possible completions to resolve ambiguity.
-        A completions dictionary means the line itself was not matched.
-        """
-        dictionary = self.keyword_db
-        matchedKeywords = ""
-        matchedEntry = None
-        previous_dictionary = dictionary
-        previousMatchedEntry = matchedEntry
-        keywords = line.split()
-        for i in range(len(keywords)):
-            if not dictionary:
-                #
-                # Whoops, we have more input than dictionary levels...
-                #
-                return (matchedKeywords, keywords[i], None, matchedEntry)
-            previous_dictionary = dictionary
-            previousMatchedEntry = matchedEntry
-            matches = [key for key in dictionary if key.startswith(keywords[i])]
-            #
-            # Success if we have exactly one match, or an exact hit on the first item.
-            #
-            if len(matches) == 1 or len(matches) > 1 and sorted(matches)[0] == keywords[i]:
-                #
-                # A match! Accumulate the matchedKeywords string.
-                #
-                matches = sorted(matches)
-                matchedEntry = dictionary[matches[0]]
-                (oldApropos, oldLevel, oldClazz, oldFunction) = matchedEntry
-                if len(matchedKeywords) > 0:
-                    matchedKeywords = " ".join((matchedKeywords, matches[0]))
-                else:
-                    matchedKeywords = matches[0]
-                #
-                # And prepare for the next level.
-                #
-                dictionary = oldLevel
-            elif len(matches) == 0:
-                #
-                # No match for the current keyword.
-                #
-                return (matchedKeywords, keywords[i], dictionary, previousMatchedEntry)
-            else:
-                #
-                # Ambiguous match.
-                #
-                return (matchedKeywords, keywords[i], matches, None)
-        #
-        # All keywords matched!
-        #
-        return (matchedKeywords, None, matchedEntry, matchedEntry)
-
-    def walk(self, userCallback, userFilter, userArg, indentation = "", prefix = ""):
-        """
-        Walk the contents of the database.
-        """
-        self.walkLevel(self.keyword_db, userCallback, userFilter, userArg, indentation, prefix)
-
-    def walkLevel(self, level, userCallback, userFilter, userArg, indentation = "", prefix = ""):
-        """
-        Walk the contents of the database level.
-        """
-        for keyword in sorted(level.keys()):
-            (oldApropos, oldLevel, oldClazz, oldFunction) = level[keyword]
-            userCallback(userFilter, userArg, indentation, prefix, keyword, oldApropos, oldClazz, oldFunction)
-            if oldLevel:
-                self.walkLevel(oldLevel, userCallback, userFilter, userArg, indentation + ".   ", prefix + keyword + " ")
-
-    _result = None
-    def __repr__(self):
-        def callback(clazzPrefix, arg, indentation, prefix, keyword, apropos, clazz, function):
-            """
-            Dump the contents of the database as help text. Only leaf items which
-            match the given classification prefix are emitted.
-            """
-            #   "keyword" : ( apropos, nextLevel | None, classification | None, function | None )
-            if clazz.startswith(clazzPrefix) :
-                if not function:
-                    function = "None"
-                else:
-                    function = function.__name__
-                self._result += indentation + "'" + keyword + "', " + function + "\n"
-
-        self._result = ""
-        self.walk(callback, "", self._result)
-        result = self._result
-        self._result = None
-        return result
 
 class MyArgs(argparse.ArgumentParser):
     def __init__(self, **kwargs):
@@ -373,7 +125,7 @@ class Cli(cmd.Cmd):
     #
     _out = None
 
-    def __init__(self, arguments, printLine = print):
+    def __init__(self, arguments, printLine):
         cmd.Cmd.__init__(self)
         self._out = printLine
         self.gdb = QGdbInterpreter(arguments, printLine)
@@ -384,7 +136,8 @@ class Cli(cmd.Cmd):
         #
         # Ask GDB for all the commands it has.
         #
-        self.commandDb = CommandDb(self.gdb)
+        helpText = self.gdb.consoleCommand("help all", True)
+        self.commandDb = GdbCommandDb(helpText)
         self.findFilesCommand()
         #
         # Add in all our overrides; that's any routine starting doXXX.
@@ -1476,7 +1229,7 @@ class Cli(cmd.Cmd):
         else:
             args = frags[matchedFrags]
             if matched in self.filesCommands:
-                dbg0("is files command", matched)
+                dbg0("is files command {}", matched)
                 #
                 # Does the command which takes files/paths? If so, expand
                 # any embedded environment variables.
@@ -1510,7 +1263,7 @@ if __name__ == "__main__":
 
     class Test(QObject):
         def __init__(self, parent = None):
-            gdb = Cli(["gdb"])
+            gdb = Cli(["gdb"], print)
             gdb.do_file("/usr/local/bin/kate")
             gdb.do_start(None)
             gdb.do_break("QWidget::QWidget")

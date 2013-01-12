@@ -139,7 +139,6 @@ class DebuggerIo(QObject):
     def __init__(self, arguments, earlyConsolePrint, verbose = 0):
         """Constructor.
 
-        @param _gdbThreadStarted    Signal completion via semaphore.
         @param arguments        GDB start command.
         """
         super(DebuggerIo, self).__init__()
@@ -156,13 +155,18 @@ class DebuggerIo(QObject):
         self._gdbThread.started.connect(self.gdbProcessStarted)
         self._gdbThread.stateChanged.connect(self.gdbProcessStateChanged)
         #
+        # Output from the GDB process is read in realtime and written to the
+        # self._lines list. This list is protected by the _linesMutex from the
+        # user-called reader in waitForPrompt().
+        #
+        self._lines = []
+        self._linesMutex = QMutex()
+        #
         # Start.
         #
         self._gdbThread.start(self.arguments[0], self.arguments[1:])
         self._gdbThread.waitForStarted()
-        lines = self.waitForPrompt("", None, True)
-        for line in lines:
-            earlyConsolePrint(line)
+        self.waitForPrompt("", None, earlyConsolePrint)
 
     def interruptWait(self):
         """Interrupt an in-progress wait for response from GDB."""
@@ -178,14 +182,22 @@ class DebuggerIo(QObject):
     def consoleCommand(self, command, captureConsole = False):
         """Execute a non-MI command using the GDB/MI interpreter."""
         dbg1("consoleCommand: {}", command)
-        return self.waitForResults("", command, captureConsole)
+        if captureConsole:
+            self._captured = []
+            self.waitForResults("", command, self.consoleCapture)
+            return self._captured
+        else:
+            return self.waitForResults("", command, None)
+
+    def consoleCapture(self, line):
+        self._captured.append(line)
 
     def miCommand(self, command):
         """Execute a MI command using the GDB/MI interpreter."""
         self._miToken += 1
         command = "{}{}".format(self._miToken, command)
         dbg1("miCommand: '{}'", command)
-        return self.waitForResults(str(self._miToken), command, False)
+        return self.waitForResults(str(self._miToken), command, None)
 
     def miCommandOne(self, command):
         """A specialisation of miCommand() where we expect exactly one result record."""
@@ -226,95 +238,98 @@ class DebuggerIo(QObject):
                         parsed dictionary of output. The last entry should be a result.
         """
         prompt = "(gdb) "
+        foundResultOfCommand = False
+        result = []
         lines = []
         maxTimeouts = timeoutMs / 100
         dbg1("reading for: {}", why)
         self._interruptPending = False
         while True:
-            while not self._gdbThread.canReadLine()  and \
-                    self._gdbThread.peek(len(prompt)) != prompt and \
-                    not self._interruptPending and \
-                    maxTimeouts:
+            self._linesMutex.lock()
+            tmp = lines
+            lines = self._lines
+            self._lines = tmp
+            self._linesMutex.unlock()
+            while not lines and not self._interruptPending and maxTimeouts:
                 self._gdbThread.waitForReadyRead(100)
                 maxTimeouts -= 1
-            if self._gdbThread.canReadLine():
-                line = self._gdbThread.readLine()
-                line = str(line[:-1], "utf-8")
-                #
-                # TODO: check what IPython does now.
-                #
-                if endLine and line.startswith(endLine):
+                self._linesMutex.lock()
+                tmp = lines
+                lines = self._lines
+                self._lines = tmp
+                self._linesMutex.unlock()
+            if lines:
+                for i in range(len(lines)):
                     #
-                    # Yay, got to the end!
+                    # TODO: check what IPython does now.
                     #
-                    dbg1("TODO: check what IPython does: {}: all lines read: {}", why, len(lines))
-                    return lines
-                elif line == prompt:
-                    if not why or len(lines) and isinstance(lines[-1], list):
+                    line = lines[i]
+                    if endLine and line.startswith(endLine):
                         #
-                        # Yay, got a prompt *after* the result record => got to the end!
+                        # Yay, got to the end!
                         #
-                        dbg1("{}: all lines read: {}", why, len(lines))
-                        return lines
-                else:
-                    line = self.parseLine(line, token, why, captureConsole)
-                    if line:
-                        lines.append(line)
-                #
-                # We managed to read a line, so reset the timeout.
-                #
-                maxTimeouts = timeoutMs / 100
+                        dbg1("TODO: check what IPython does: {}: all lines read: {}", why, len(lines))
+                        #
+                        # Save any unread lines for next time.
+                        #
+                        tmp = lines[i + 1:]
+                        dbg0("push back {} lines: '{}'", len(tmp), tmp)
+                        self._linesMutex.lock()
+                        tmp.extend(self._lines)
+                        self._lines = tmp
+                        self._linesMutex.unlock()
+                        result.append(line)
+                        return result
+                    elif line == prompt:
+                        if not why or foundResultOfCommand:
+                            #
+                            # Yay, got a prompt *after* the result record => got to the end!
+                            #
+                            dbg1("{}: all lines read: {}", why, len(lines))
+                            #
+                            # Save any unread lines for next time, but discard this one
+                            #
+                            tmp = lines[i + 1:]
+                            if tmp:
+                                dbg0("push back {} lines: '{}'", len(tmp), tmp)
+                            self._linesMutex.lock()
+                            tmp.extend(self._lines)
+                            self._lines = tmp
+                            self._linesMutex.unlock()
+                            return result
+                    elif line[0] == "~":
+                        line = self.parseStringRecord(line[1:])
+                        #
+                        # GDB console stream record.
+                        #
+                        if captureConsole:
+                            captureConsole(line)
+                        else:
+                            self.gdbStreamConsole.emit(line)
+                    elif line.startswith(token + "^"):
+                        #
+                        # GDB result-of-command record.
+                        #
+                        line = line[len(token) + 1:]
+                        result.append(self.parseResultRecord(line))
+                        foundResultOfCommand = True
+                    else:
+                        result.append(line)
+                        dbg0("{}: unexpected record string '{}'", why, line)
+                    #
+                    # We managed to read a line, so reset the timeout.
+                    #
+                    maxTimeouts = timeoutMs / 100
             elif self._interruptPending:
                 #
                 # User got fed up. Note, there may be more to read!
                 #
-                raise QGdbInterrupted("{}: interrupt after {} lines read, {}".format(why, len(lines), lines))
+                raise QGdbInterrupted("{}: interrupt after {} lines read, {}".format(why, len(result), result))
             elif not maxTimeouts:
                 #
                 # Caller got fed up. Note, there may be more to read!
                 #
-                raise QGdbTimeoutError("{}: timeout after {} lines read, {}".format(why, len(lines), lines))
-
-    def parseLine(self, line, token, why, captureConsole):
-        if line[0] == "~":
-            line = self.parseStringRecord(line[1:])
-            #
-            # GDB console stream record. Not added to return value unless the caller
-            # asked for it.
-            #
-            if captureConsole:
-                return line
-            else:
-                self.gdbStreamConsole.emit(line)
-        elif line[0] == "@":
-            line = self.parseStringRecord(line[1:])
-            #
-            # Target stream record. Not added to return value!
-            #
-            self.gdbStreamInferior.emit(line)
-        elif line[0] == "&":
-            line = self.parseStringRecord(line[1:])
-            #
-            # GDB log stream record. Not added to return value!
-            #
-            self.gdbStreamLog.emit(line)
-        elif line[0] in ["*", "="]:
-            #
-            # GDB OOB stream record. TODO: does "*" mean inferior state change to stopped?
-            #
-            line = line[1:]
-            tuple = self.parseOobRecord(line)
-            self.signalEvent(tuple[0], tuple[1])
-        elif line.startswith(token + "^"):
-            #
-            # GDB result-of-command record.
-            #
-            line = line[len(token) + 1:]
-            tuple = self.parseResultRecord(line)
-            return tuple
-        else:
-            raise QGdbException("{}: unexpected record string '{}'".format(why, line))
-        return None
+                raise QGdbTimeoutError("{}: timeout after {} lines read, {}".format(why, len(result), result))
 
     def parseStringRecord(self, line):
         return self.miParser.parse("t=" + line)['t'].strip()
@@ -327,7 +342,7 @@ class DebuggerIo(QObject):
             tuple[1] = self.miParser.parse(tuple[1])
         else:
             tuple.append({})
-        dbg1("OOB record {}", tuple)
+        dbg1("OOB record '{}'", tuple[0])
         return tuple
 
     def parseResultRecord(self, line):
@@ -351,7 +366,7 @@ class DebuggerIo(QObject):
             tuple[1] = self.miParser.parse(tuple[1])
         else:
             tuple.append({})
-        dbg1("Result record {}", tuple)
+        dbg1("Result record '{}', '{}'", tuple[0], tuple[1].keys())
         return tuple
 
     def signalEvent(self, event, args):
@@ -417,8 +432,7 @@ class DebuggerIo(QObject):
             else:
                 self.onUnknownEvent.emit(event, args)
         except Exception as e:
-            dbg0("unexpected exception: {}", self)
-            dbg0(str(e))
+            dbg0("unexpected exception: {}: {}", self, e)
 
     @pyqtSlot(QProcess.ProcessError)
     def gdbProcessError(self, error):
@@ -431,6 +445,41 @@ class DebuggerIo(QObject):
     @pyqtSlot()
     def gdbProcessReadyReadStandardOutput(self):
         dbg2("gdbProcessReadyReadStandardOutput")
+        while self._gdbThread.canReadLine():
+            line = self._gdbThread.readLine()
+            line = str(line[:-1], "utf-8")
+            #
+            # What kind of line is this, one we have to save, or one we have
+            # to emit right away?
+            #
+            if line[0] == "@":
+                line = self.parseStringRecord(line[1:])
+                #
+                # Target stream record. Emit now!
+                #
+                self.gdbStreamInferior.emit(line)
+            elif line[0] == "&":
+                line = self.parseStringRecord(line[1:])
+                #
+                # GDB log stream record. Emit now!
+                #
+                self.gdbStreamLog.emit(line)
+            elif line[0] in ["*", "="]:
+                #
+                # GDB OOB stream record. TODO: does "*" mean inferior state change to stopped?
+                #
+                line = line[1:]
+                tuple = self.parseOobRecord(line)
+                self.signalEvent(tuple[0], tuple[1])
+            else:
+                #
+                # GDB console stream record (~),
+                # GDB result-of-command record (token^),
+                # or something else (e.g. prompt).
+                #
+                self._linesMutex.lock()
+                self._lines.append(line)
+                self._linesMutex.unlock()
 
     @pyqtSlot()
     def gdbProcessStarted(self):

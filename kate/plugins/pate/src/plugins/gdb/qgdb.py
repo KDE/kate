@@ -238,7 +238,7 @@ class DebuggerIo(QObject):
                         parsed dictionary of output. The last entry should be a result.
         """
         prompt = "(gdb) "
-        foundResultOfCommand = False
+        foundResultOfCommand = not why
         result = []
         lines = []
         maxTimeouts = timeoutMs / 100
@@ -281,7 +281,7 @@ class DebuggerIo(QObject):
                         result.append(line)
                         return result
                     elif line == prompt:
-                        if not why or foundResultOfCommand:
+                        if foundResultOfCommand:
                             #
                             # Yay, got a prompt *after* the result record => got to the end!
                             #
@@ -297,6 +297,8 @@ class DebuggerIo(QObject):
                             self._lines = tmp
                             self._linesMutex.unlock()
                             return result
+                        else:
+                            dbg1("ignored prompt")
                     elif line[0] == "~":
                         line = self.parseStringRecord(line[1:])
                         #
@@ -320,6 +322,7 @@ class DebuggerIo(QObject):
                     # We managed to read a line, so reset the timeout.
                     #
                     maxTimeouts = timeoutMs / 100
+                lines = []
             elif self._interruptPending:
                 #
                 # User got fed up. Note, there may be more to read!

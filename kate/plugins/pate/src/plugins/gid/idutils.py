@@ -31,6 +31,25 @@ import array
 import mmap
 import os
 import struct
+import sys
+
+def toStr(_bytes):
+    if sys.hexversion > 0x03000000:
+        return str(_bytes, "utf-8")
+    else:
+        return str(_bytes)
+
+def toBytes(name):
+    if sys.hexversion > 0x03000000:
+        if isinstance(name, str):
+            return bytearray(name.encode("utf-8"))
+        else:
+            return bytearray(name)
+    else:
+        if isinstance(name, unicode):
+            return bytearray(name.encode("utf-8"))
+        else:
+            return bytearray(name)
 
 class _FileLinkDb():
     """Read the file link database in an ID file.
@@ -165,7 +184,7 @@ class _FileLinkDb():
         parentIndex = self.rawData[i + 3]
         parentIndex = (parentIndex << 8) + self.rawData[i + 2]
         parentIndex = (parentIndex << 8) + self.rawData[i + 1]
-        return str(name), flags, parentIndex
+        return toStr(name), flags, parentIndex
 
 class _TokenDb():
     """Read the file link database in an ID file.
@@ -199,7 +218,10 @@ class _TokenDb():
         def __getitem__(self, key):
             try:
                 # single element
-                return ord(self.mapped[self.offset + key])
+                if sys.hexversion > 0x03000000:
+                    return self.mapped[self.offset + key]
+                else:
+                    return ord(self.mapped[self.offset + key])
             except TypeError:
                 # A slice
                 return bytearray(self.mapped[self.offset + key.start:self.offset + key.stop])
@@ -298,7 +320,7 @@ class _TokenDb():
         #
         # More than enough...
         #
-        bitsVecSize = (maxFiles + 7) / 4
+        bitsVecSize = (maxFiles + 7) // 4
         self.bitsVec = array.array('B')
         for i in range(bitsVecSize):
             self.bitsVec.append(0)
@@ -322,9 +344,7 @@ class _TokenDb():
 
         See idutils lid.c.
         """
-        if isinstance(name, unicode):
-            name = name.encode("utf-8")
-        token = bytearray(name)
+        token = toBytes(name)
         token.append(0)
         tokenSize = len(token)
         start = 0
@@ -333,7 +353,7 @@ class _TokenDb():
         order = None
 
         while start < end:
-            offset = start + (end - start) / 2
+            offset = start + (end - start) // 2
             offset = self._skip_past_00(offset)
             if offset >= end:
                 offset = start
@@ -376,7 +396,7 @@ class _TokenDb():
                 #
                 while self.rawData[offset + i] != 0:
                     i += 1
-                name = str(self.rawData[offset:offset + i])
+                name = toStr(self.rawData[offset:offset + i])
             else:
                 raise IndexError("Not found: " + name)
 
@@ -398,9 +418,7 @@ class _TokenDb():
         IndexError is thrown.
         """
         offset = self._skip_past_00(startingOffset)
-        if isinstance(name, unicode):
-            name = name.encode("utf-8")
-        token = bytearray(name)
+        token = toBytes(name)
         token.append(0)
         tokenSize = len(token)
 
@@ -430,7 +448,7 @@ class _TokenDb():
         #
         while self.rawData[offset + i] != 0:
             i += 1
-        name = str(self.rawData[offset:offset + i])
+        name = toStr(self.rawData[offset:offset + i])
         #
         # Are we done?
         #
@@ -513,7 +531,7 @@ class _TokenDb():
             while (bit & 0xff) != 0:
                 if (bit & hits) != 0:
                     self.flinkv_0[flinkv] = self.fileLinkDb.memberOffsets[members]
-                    #print "FOUND MEMBER", x.file(self.flinkv_0[flinkv])
+                    #print("FOUND MEMBER", self.flinkv_0[flinkv])
                     flinkv += 1
                 members += 1
                 if members >= end:
@@ -638,8 +656,7 @@ class Lookup():
         data = bytearray(end - start)
         bytesRead = self.file.readinto(data)
         if bytesRead < len(data):
-            print("Read {} bytes instead of {}".format(bytesRead, len(data)))
-            raise IOError
+            raise IOError("Read {} bytes instead of {}".format(bytesRead, len(data)))
         return data
 
     def __repr__(self):
@@ -664,4 +681,11 @@ class Lookup():
     def prefixSearchNext(self, offset, token):
         """Return the (offset, name) matching the prefix token after the given offset."""
         return self.tokenDb.nextPrefixMatch(offset, token)
+
+if __name__ == "__main__":
+    dataSource = Lookup()
+    dataSource.setFile("ID")
+    #tokenFlags, hitCount, files = dataSource.literalSearch("fib_route_looped")
+    tokenFlags, hitCount, files = dataSource.literalSearch("cef_dpss_open")
+    print(tokenFlags, hitCount, files)
 

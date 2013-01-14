@@ -39,11 +39,18 @@ import os.path
 import re
 import sip
 import subprocess
+import sys
 import time
 
 idDatabase = None
 searchBar = None
 completionModel = None
+
+def toStr(_bytes):
+    if sys.hexversion > 0x03000000:
+        return str(_bytes, "utf-8")
+    else:
+        return str(_bytes)
 
 class ConfigWidget(QWidget):
     """Configuration widget for this plugin."""
@@ -252,13 +259,13 @@ class MatchesModel(HistoryModel):
             # The line number follows.
             #
             lineNumberStart = etagDefinition + len(tokenBytes)
-            lineNumberEnd = etagBytes.find(",", lineNumberStart)
+            lineNumberEnd = toStr(etagBytes).find(",", lineNumberStart)
             return int(etagBytes[lineNumberStart:lineNumberEnd]) - 1
-        if etagBytes.startswith(bytearray(etagsCmd[0])):
+        if etagBytes.startswith(bytearray(etagsCmd[0], "latin-1")):
             #
             # An error message was printed starting with "etags".
             #
-            raise IOError(unicode(etagBytes, "latin-1"))
+            raise IOError(toStr(etagBytes))
         return None
 
     def _scanFile(self, regexp, filterRe, token, fileName, isDeclaration):
@@ -302,7 +309,7 @@ class MatchesModel(HistoryModel):
                 #
                 self.add(fileName, "task-reject", "", 0, 0)
         except IOError as e:
-            self.add(fileName, "face-sad", str(e), None, None)
+            self.add(fileName, "face-sad", toStr(e), None, None)
         return definitionIndex
 
     def add(self, fileName, icon, text, line, column):
@@ -357,7 +364,7 @@ class MatchesModel(HistoryModel):
             declarationRe = "(" + declarationRe.replace(".", "\.") + ")$"
             declarationRe = re.compile(declarationRe, re.IGNORECASE)
         startBoredomQuery = time.time()
-        previousBoredomQuery = startBoredomQuery - self._boredomInterval / 2
+        previousBoredomQuery = startBoredomQuery - self._boredomInterval // 2
         #
         # For each file, list the lines where a match is found.
         #
@@ -600,7 +607,7 @@ class SearchBar(QObject):
                     searchBar.dataSource.setFile(kate.configuration["idFile"])
                 fileSet = True
             except IOError as detail:
-                KMessageBox.error(self.parent(), str(detail), i18n("ID database error"))
+                KMessageBox.error(self.parent(), toStr(detail), i18n("ID database error"))
             #
             # Check the transformation settings.
             #

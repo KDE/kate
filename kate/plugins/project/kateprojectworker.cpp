@@ -264,7 +264,6 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
          */
         if ((line.size() > prefixLength) && line[0] != '?' && line[0] != 'I')
           files.append (dir.absolutePath() + "/" + line.right (line.size() - prefixLength));
-
     }
   }
 

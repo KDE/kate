@@ -39,7 +39,7 @@
 #include <QVBoxLayout>
 
 K_PLUGIN_FACTORY(KateProjectPluginFactory, registerPlugin<KateProjectPlugin>();)
-K_EXPORT_PLUGIN(KateProjectPluginFactory(KAboutData("project","kateprojectplugin",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
+K_EXPORT_PLUGIN(KateProjectPluginFactory(KAboutData("project","kateproject",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
 
 KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWin )
     : Kate::PluginView( mainWin )

@@ -7,13 +7,11 @@
 ]>
 <!--
   Copyright (c) 2012 by Alex Turbov (i.zaufi@gmail.com)
-
-  Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language
     name="C++11/Qt4"
     section="Sources"
-    version="0.9"
+    version="0.10"
     kateversion="2.4"
     indenter="cstyle"
     extensions="*.moc"
@@ -26,7 +24,7 @@
   The main purpose of this file is to hold Qt extensions syntax in a single place,
   so later it can be included (using IncludeRules) to other (C++ based) syntaxes.
 
-  NOTE Default colors are set to 'Normal Text', so if u don't want to highlighting Qt stuff,
+  NOTE Default colors are set to 'Normal Text', so if u don't want to highlight Qt stuff,
   just leave colors as is...
 
   Based on Qt 4.8 documentation (http://qt-project.org/doc/qt-4.8/)
@@ -43,6 +41,10 @@
     <item> forever </item>
     <item> SIGNAL </item>
     <item> SLOT </item>
+    <!-- http://qt-project.org/doc/qt-4.8/QApplication.html#macros -->
+    <item> qApp </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qcoreapplication.html#macros -->
+    <item> Q_DECLARE_TR_FUNCTIONS </item>
     <!-- QObject related macros from http://qt-project.org/doc/qt-4.8/qobject.html#macros -->
     <item> Q_CLASSINFO </item>
     <item> Q_DISABLE_COPY </item>
@@ -84,6 +86,54 @@
     <item> QVERIFY2 </item>
     <item> QVERIFY </item>
     <item> QWARN </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qaxfactory.html#macros -->
+    <item> QAXCLASS </item>
+    <item> QAXFACTORY_BEGIN </item>
+    <item> QAXFACTORY_DEFAULT </item>
+    <item> QAXFACTORY_END </item>
+    <item> QAXFACTORY_EXPORT </item>
+    <item> QAXTYPE </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qdesignercustomwidgetinterface.html#macros -->
+    <item> QDESIGNER_WIDGET_EXPORT </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qdeclarativeengine.html#macros -->
+    <item> QML_DECLARE_TYPE </item>
+    <item> QML_DECLARE_TYPEINFO </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qwebpage.html#macros -->
+    <item> QTWEBKIT_VERSION </item>
+    <item> QTWEBKIT_VERSION_CHECK </item>
+    <item> QTWEBKIT_VERSION_STR </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qmetaobject.html#macros -->
+    <item> Q_ARG </item>
+    <item> Q_RETURN_ARG </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qatomicint.html#macros -->
+    <item> Q_ATOMIC_INT_FETCH_AND_ADD_IS_ALWAYS_NATIVE </item>
+    <item> Q_ATOMIC_INT_FETCH_AND_ADD_IS_NOT_NATIVE </item>
+    <item> Q_ATOMIC_INT_FETCH_AND_ADD_IS_SOMETIMES_NATIVE </item>
+    <item> Q_ATOMIC_INT_FETCH_AND_ADD_IS_WAIT_FREE </item>
+    <item> Q_ATOMIC_INT_FETCH_AND_STORE_IS_ALWAYS_NATIVE </item>
+    <item> Q_ATOMIC_INT_FETCH_AND_STORE_IS_NOT_NATIVE </item>
+    <item> Q_ATOMIC_INT_FETCH_AND_STORE_IS_SOMETIMES_NATIVE </item>
+    <item> Q_ATOMIC_INT_FETCH_AND_STORE_IS_WAIT_FREE </item>
+    <item> Q_ATOMIC_INT_REFERENCE_COUNTING_IS_ALWAYS_NATIVE </item>
+    <item> Q_ATOMIC_INT_REFERENCE_COUNTING_IS_NOT_NATIVE </item>
+    <item> Q_ATOMIC_INT_REFERENCE_COUNTING_IS_SOMETIMES_NATIVE </item>
+    <item> Q_ATOMIC_INT_REFERENCE_COUNTING_IS_WAIT_FREE </item>
+    <item> Q_ATOMIC_INT_TEST_AND_SET_IS_ALWAYS_NATIVE </item>
+    <item> Q_ATOMIC_INT_TEST_AND_SET_IS_NOT_NATIVE </item>
+    <item> Q_ATOMIC_INT_TEST_AND_SET_IS_SOMETIMES_NATIVE </item>
+    <item> Q_ATOMIC_INT_TEST_AND_SET_IS_WAIT_FREE </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qextensionmanager.html#macros -->
+    <item> Q_DECLARE_EXTENSION_INTERFACE </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qtplugin.html -->
+    <item> Q_DECLARE_INTERFACE </item>
+    <item> Q_EXPORT_PLUGIN2 </item>
+    <item> Q_IMPORT_PLUGIN </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qdbusabstractadaptor.html#macros -->
+    <item> Q_NOREPLY </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qscriptengine.html#macros -->
+    <item> Q_SCRIPT_DECLARE_QMETAOBJECT </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qwidget.html#macros -->
+    <item> QWIDGETSIZE_MAX </item>
     <!-- List of Qt macros obtained by
          part/syntax/data/get-Qt-macros.sh for qglobal.h qfeatures.h qconfig.h
       -->
@@ -1355,6 +1405,8 @@
     <item> QTouchEventSequence </item>                      <!-- QTest -->
     <item> QStringListIterator </item>
     <item> QStringBuilder </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qwidget.html#related-non-members -->
+    <item> QWidgetList </item>
   </list>
 
   <list name="Qt4Func">
@@ -1441,11 +1493,30 @@
     <item> qRed </item>
     <item> qRgb </item>
     <item> qRgba  </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qcoreapplication.html#related-non-members -->
+    <item> qAddPostRoutine </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qdeclarativeengine.html#related-non-members -->
+    <item> qmlInfo </item>
+    <item> qmlRegisterInterface </item>
+    <item> qmlRegisterType </item>
+    <item> qmlRegisterType </item>
+    <item> qmlRegisterTypeNotAvailable </item>
+    <item> qmlRegisterUncreatableType </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qwebpage.html#related-non-members -->
+    <item> qWebKitMajorVersion </item>
+    <item> qWebKitMinorVersion </item>
+    <item> qWebKitVersion </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qextensionmanager.html#related-non-members -->
+    <item> qt_extension </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qdbusargument.html#related-non-members -->
+    <item> qDBusRegisterMetaType </item>
+    <item> qdbus_cast </item>
   </list>
 
   <!-- Types list from http://qt-project.org/doc/qt-4.8/qtglobal.html -->
   <list name="Qt4Types">
     <item> QtMsgHandler </item>
+    <item> QtMsgType </item>
     <item> QObjectList </item>
     <item> qint8 </item>
     <item> qint16 </item>
@@ -1468,6 +1539,15 @@
     <item> Q_PID </item>
     <!-- http://qt-project.org/doc/qt-4.8/qcolor.html#related-non-members -->
     <item> QRgb </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qscriptengine.html#related-non-members -->
+    <item> qScriptConnect </item>
+    <item> qScriptDisconnect </item>
+    <item> qScriptRegisterMetaType </item>
+    <item> qScriptRegisterSequenceMetaType </item>
+    <item> qScriptValueFromSequence </item>
+    <item> qScriptValueToSequence </item>
+    <!-- http://qt-project.org/doc/qt-4.8/qwidget.html#related-non-members -->
+    <item> WId </item>
   </list>
 
   <contexts>

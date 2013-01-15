@@ -55,17 +55,17 @@ void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
   KateProjectSharedQStandardItem topLevel (new QStandardItem ());
   KateProjectSharedQMapStringItem file2Item (new QMap<QString, QStandardItem *> ());
   loadProject (topLevel.data(), projectMap, file2Item.data());
-  
+
   /**
    * create some local backup of some data we need for further processing!
    */
   QStringList files = file2Item->keys ();
-  
+
   /**
    * feed back our results
    */
   QMetaObject::invokeMethod (m_project, "loadProjectDone", Qt::QueuedConnection, Q_ARG(KateProjectSharedQStandardItem, topLevel), Q_ARG(KateProjectSharedQMapStringItem, file2Item));
-  
+
   /**
    * load index
    */
@@ -220,23 +220,52 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
     QProcess svn;
     svn.setWorkingDirectory (dir.absolutePath());
     QStringList args;
-    args << "list" << ".";
+    args << "status" << "--verbose" << ".";
     if (recursive)
       args << "--depth=infinity";
+    else
+      args << "--depth=files";
     svn.start("svn", args);
     if (!svn.waitForStarted() || !svn.waitForFinished())
       return;
 
     /**
-     * get output and split up into files
+     * get output and split up into lines
      */
-    QStringList relFiles = QString::fromLocal8Bit (svn.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
+    QStringList lines = QString::fromLocal8Bit (svn.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
 
     /**
-     * prepend the directory path
+     * remove start of line that is no filename, sort out unknown and ignore
      */
-    foreach (QString relFile, relFiles)
-      files.append (dir.absolutePath() + "/" + relFile);
+    bool first = true;
+    int prefixLength = -1;
+    foreach (QString line, lines) {
+        /**
+         * get length of stuff to cut
+         */
+        if (first) {
+          /**
+           * try to find ., else fail
+           */
+          prefixLength = line.lastIndexOf (".");
+          if (prefixLength < 0)
+                break;
+
+          /**
+           * skip first
+           */
+          first = false;
+          continue;
+        }
+
+        /**
+         * get file, if not unknown or ignored
+         * prepend directory path
+         */
+        if ((line.size() > prefixLength) && line[0] != '?' && line[0] != 'I')
+          files.append (dir.absolutePath() + "/" + line.right (line.size() - prefixLength));
+
+    }
   }
 
   /**
@@ -325,7 +354,7 @@ void KateProjectWorker::loadIndex (const QStringList &files)
    * wrap it into shared pointer for transfer to main thread
    */
   KateProjectSharedProjectIndex index (new KateProjectIndex(files));
-  
+
   /**
    * send new index object back to project
    */

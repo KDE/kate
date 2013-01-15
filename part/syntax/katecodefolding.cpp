@@ -246,7 +246,7 @@ bool KateCodeFoldingNode::removeEndDescending(KateCodeFoldingNode *deletedNode)
       m_parentNode->removeEndDescending(deletedNode);
     }
   }
-  
+
   return i != -1;
 }
 
@@ -720,7 +720,6 @@ KateCodeFoldingNode* KateCodeFoldingTree::findNodeAbove(const KTextEditor::Curso
     return m_root;
   }
 
-  KateCodeFoldingNode* ret = 0;
   QMap< int, QVector< KateCodeFoldingNode* > >::const_iterator it = m_lineMapping.lowerBound(startingPos.line());
   while(it != m_lineMapping.constBegin()) {
     --it;
@@ -1503,9 +1502,9 @@ void KateCodeFoldingTree::updateLine(int line, const QVector<int>& regionChanges
       changed=true;
       colsChanged=false;
     }
-      
+
   }
-  
+
   if (colsChanged) {
     setColumns(line, regionChanges, virtualIndex, virtualColumn);
     *updated = true;

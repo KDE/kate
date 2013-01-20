@@ -312,6 +312,7 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
 
   m_fileNameLabel = new KSqueezedTextLabel( this );
   addPermanentWidget( m_fileNameLabel, 1 );
+  m_fileNameLabel->setTextFormat(Qt::PlainText);
   m_fileNameLabel->setMinimumSize( 0, 0 );
   m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
   m_fileNameLabel->setAlignment( /*Qt::AlignRight*/Qt::AlignLeft );

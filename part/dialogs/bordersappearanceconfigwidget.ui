@@ -70,7 +70,7 @@
       <item>
        <widget class="QCheckBox" name="chkScrollbarMiniMap">
         <property name="whatsThis">
-         <string>&lt;p&gt;If this option is checked, every new view will show marks on the vertical scrollbar.&lt;/p&gt;&lt;p&gt;These marks will show bookmarks, for instance.&lt;/p&gt;</string>
+         <string>If this option is checked, every new view will show a mini map on the vertical scrollbar.</string>
         </property>
         <property name="text">
          <string>Show scrollbar mini-map</string>
@@ -89,7 +89,7 @@
             <bool>false</bool>
            </property>
            <property name="whatsThis">
-            <string>&lt;p&gt;If this option is checked, every new view will show marks on the vertical scrollbar.&lt;/p&gt;&lt;p&gt;These marks will show bookmarks, for instance.&lt;/p&gt;</string>
+            <string>If this option is checked, every new view will show a mini map of the whole document on the vertical scrollbar.</string>
            </property>
            <property name="text">
             <string>Map the whole document</string>

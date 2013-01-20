@@ -2753,13 +2753,14 @@ void KateViewInternal::leaveEvent( QEvent* )
     m_scrollTimer.stop ();
 }
 
-KTextEditor::Cursor KateViewInternal::coordinatesToCursor(const QPoint& _coord) const
+KTextEditor::Cursor KateViewInternal::coordinatesToCursor(const QPoint& _coord, bool includeBorder) const
 {
   QPoint coord(_coord);
 
   KTextEditor::Cursor ret = KTextEditor::Cursor::invalid();
 
-  coord.setX( coord.x() - m_leftBorder->width() + startX() );
+  if (includeBorder) coord.rx() -= m_leftBorder->width();
+  coord.rx() += startX();
 
   const KateTextLayout& thisLine = yToKateTextLayout(coord.y());
   if (thisLine.isValid())
@@ -2770,7 +2771,7 @@ KTextEditor::Cursor KateViewInternal::coordinatesToCursor(const QPoint& _coord) 
 
 void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
 {
-  KTextEditor::Cursor newPosition = coordinatesToCursor (e->pos());
+  KTextEditor::Cursor newPosition = coordinatesToCursor (e->pos(), false);
   if (newPosition != m_mouse) {
     m_mouse = newPosition;
     mouseMoved();

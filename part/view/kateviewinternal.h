@@ -190,8 +190,8 @@ class KateViewInternal : public QWidget
     KTextEditor::Cursor getMouse() const { return m_mouse; }
 
     QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor, bool realCursor = true, bool includeBorder = true) const;
-    //Always works on coordinates of the whole widget, eg. offsetted by the border
-    KTextEditor::Cursor coordinatesToCursor(const QPoint& coord) const;
+    // by default, works on coordinates of the whole widget, eg. offsetted by the border
+    KTextEditor::Cursor coordinatesToCursor(const QPoint& coord, bool includeBorder = true) const;
     QPoint cursorCoordinates(bool includeBorder = true) const;
     KTextEditor::Cursor findMatchingBracket();
 

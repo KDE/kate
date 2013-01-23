@@ -2290,6 +2290,12 @@ void KateDocument::activateDirWatch (const QString &useFileName)
   if (fileToUse.isEmpty())
     fileToUse = localFilePath();
 
+  QFileInfo fileInfo = QFileInfo(fileToUse);
+  if (fileInfo.isSymLink()) {
+    // Monitor the actual data and not the symlink
+    fileToUse = fileInfo.canonicalFilePath();
+  }
+
   // same file as we are monitoring, return
   if (fileToUse == m_dirWatchFile)
     return;

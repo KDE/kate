@@ -204,7 +204,7 @@ window configuration) will always be saved.</para>
 </sect2>
 
 <sect2 id="config-dialog-treeview">
-<title>Tree View</title> <!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
+<title>Documents</title> <!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
 <!-- Tree View plugin http://kate-editor.org/2010/09/10/tree-view-plugin-introduction/ -->
 <variablelist>
 <varlistentry>

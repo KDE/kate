@@ -23,92 +23,11 @@ that.</para>
 <para>There are many plugins for various purposes available
 and you can search the web for more. A few plugins are shipped with the
 editor component, for inserting automatic braces, insert files,
-data tools and exporting text as &HTML;.</para>
+and exporting text as &HTML;.</para>
 
-<sect1 id="kate-editor-plugins">
-<title>Editor Component Plugins</title>
-
-<para>The <guilabel>Plugins</guilabel> tab on the <guilabel>Extensions</guilabel> page
-lists all available plugins and you can check those you
-want to use. Click on the <guibutton>Information</guibutton> button to open the
-<guilabel>About</guilabel> dialog of this plugin.</para>
-<para>Once a configurable plugin is checked, the
-<guibutton>Configure</guibutton> button is enabled and you can click it
-in order to configure the highlighted plugin.</para>
-
-<variablelist>
-<varlistentry>
-<term><guilabel>AutoBrace</guilabel></term>
-<listitem><para>The autobrace plugin supersedes the &kate; internal
-<quote>Auto Brackets</quote> feature.
-It automatically inserts a closing brace <keycap>}</keycap> at the beginning
-of the next line after ending a line with an opening one <keycap>{</keycap>
-and pressing the &Enter; key.</para></listitem>
-</varlistentry>
-<!--http://jakob.petsovits.at/topic/kate-->
-<!--Right, it's the automatic insertion of a closing brace ("}") after you ended a line with an opening one ("{"). Kate's standard insertion of parentheses, brackets and braces is simply too obtrusive for me, so even if I tried it several times I always had to disable it again because I can't stand it. So here's how AutoBrace works.
-You, the developer, are writing a line of code, and want to open a new block delimited by braces. Looks like this:
-If you press Enter and AutoBrace is enabled, it will insert your favorite new brace where it belongs. Looks like this:
--->
-<varlistentry>
-<term><guilabel>Data Tools</guilabel></term>
-<listitem><para>Enables data tools like thesaurus and spell check (if installed).
-Data tools are only available when text is selected, or when the right mouse
-button is clicked over a word. If no data tools are offered even when text
-is selected, you need to install them. Some data tools are part of the
-&koffice; package.
-If this plugin is enabled and data tools are installed, additional items
-appear at the end of the context menu.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><link linkend="kate-editor-plugin-exporter"><guilabel>Exporter</guilabel></link></term>
-<listitem><para>This command allows you to export the current document with all highlighting
-information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export
-as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimenu>Edit</guimenu>
-<guimenuitem>Copy as HTML</guimenuitem></menuchoice> to copy the currently selected text
-as HTML to the system clipboard.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>IconInserter</guilabel></term>
-<listitem><para>The icon inserter plugin is only of use for &kde; developers: It adds an item
-<guimenuitem>Insert KIcon-Code</guimenuitem> into the context menu of the editor.
-If activated, the &kde;'s icon chooser opens (showing application icons, action icons &etc;..).
-If you click on it, the file name without file extension will be inserted as
-text. Useful only for setting icons via &kde;'s framework through the KIcon() class.
-</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Insane (not ZEN) HTML coding (light edition)</guilabel></term>
-<listitem><para>A plugin, which does zen-coding like selector completion.
-For more information see <ulink url="http://en.wikipedia.org/wiki/Zen_Coding">
-Zen Coding</ulink>.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Insert File</guilabel></term>
-<listitem><para>This plugin allows you to insert any readable file at the cursor position.
-If enabled, the <guimenu>Tools</guimenu> menu has an additional menu item
-<guimenuitem>Insert File</guimenuitem>.</para></listitem>
-</varlistentry>
-<!-- not build any longer in kde 4.5
-<varlistentry>
-<term>Python Encoding check</term>
-<listitem><para>This plugin is always enabled.
-If you are trying to save a python file as non ASCII, without specifying a
-correct source encoding line like &eg; <quote># -*- coding: utf-8 -*-</quote>,
-a warning dialog pops up and allows you to add a proper source encoding line for the
-current encoding to the file.
-</para></listitem>
-</varlistentry>
--->
-</variablelist>
-<!--
-kdelibs/kate/plugins/ has additional plugins
-autobookmark not build, its broken!
-timedate not build? plugin is for howto-write-a-plugin purposes!
--->
-
-<!-- Scripts tab ??? empty: Not implemented yet, hidden in 4.4 + 4.7  branch, removed in master bye bye-->
-</sect1>
+<para>All available <link linkend="pref-plugins">Editor Component Plugins</link> 
+you find in the configuration dialog.
+</para>
 
 <sect1 id="kate-application-plugins">
 <title>&kate; Application Plugins</title>
@@ -129,62 +48,28 @@ The available application plugins are:
 </para>
 <itemizedlist>
 <listitem>
-<para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
-simple &gdb; frontend</para>
-</listitem>
-<listitem>
 <para>Backtrace Browser - Backtrace navigation tool view</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-quickswitcher">Quick Document switcher</link> -
-  Quickly switch to another already opened document</para>
+<para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-sql">SQL Plugin</link> - Execute
-query on SQL databases</para>
-</listitem>
-<listitem>
-<para>Search and Replace Plugin - Search or replace patterns in all open files or all files in a folder</para>
-</listitem>
-<listitem>
-<para>Tab Bar - Adds a standard tab bar to &kate;'s main window</para>
-<!--http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/-->
-</listitem>
-<!--listitem>
-<para>Text Snippets - Configurable Text Snippets</para>
-</listitem-->
-<listitem>
-<para>Text Filter - Easy text filtering</para>
-</listitem>
-<listitem>
-<para>Symbol Viewer - Extract and show reference symbols from source</para>
+<para>CTags Plugin - Look up definitions/declarations with CTags</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> -
   File system browser tool view</para>
 </listitem>
 <listitem>
-<para>Terminal tool view - Toolview embedding a terminal widget</para>
-</listitem>
-<!--listitem>
-<para>Kate Python Browser Plugin - A Python browser plugin for Kate</para>
-</listitem-->
-<listitem>
-<para>CTags Plugin - Look up definitions/declarations with CTags</para>
-</listitem>
-<listitem>
 <para><link linkend="kate-application-plugin-filetemplate">File Templates</link> -
   Create new files from templates</para>
 </listitem>
 <listitem>
-<para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
+<para><link linkend="kate-application-plugin-gdb">&gdb;</link> - Provides a
+simple &gdb; frontend</para>
 </listitem>
-<!--<listitem>
-<para><link linkend="kate-application-plugin-exttools">External Tools</link></para>
-</listitem>-->
 <listitem>
-<para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
-<!-- http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
+<para>Jovie Text-to-Speech - Adds a menu entry for speaking the text</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-mail">Mail files</link> - Send files
@@ -194,10 +79,37 @@ query on SQL databases</para>
 <para>Multiline Tab Bar - Add a tab bar with multiple rows to &kate;'s main window</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-snippets">Kate Snippets</link> - Snippets plugin with code completion support</para>
+<para>Open Header - Opens the corresponding .h/[.cpp|.c] file</para>
 </listitem>
 <listitem>
-<para>Jovie Text-to-Speech Plugin - Adds a menu entry for speaking the text</para>
+<para>Project Plugin - Project plugin for kate</para>
+</listitem>
+<listitem>
+<para>Python Plugins - Pâté host for Python plugins</para>
+</listitem>
+<listitem>
+<para>Search and Replace Plugin - Search or replace patterns in all open files or all files in a folder</para>
+<!-- FIXME add info from http://kate-editor.org/2011/06/28/kate-plugin-updates-part-3/-->
+</listitem>
+<listitem>
+<para>Snippets tool view - Toolview embedding the snippets management</para>
+</listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-sql">SQL Plugin</link> - Execute
+query on SQL databases</para>
+</listitem>
+<listitem>
+<para>Symbol Viewer - Extract and show reference symbols from source</para>
+</listitem>
+<listitem>
+<para>Tab Bar - Adds a standard tab bar to &kate;'s main window</para>
+<!--http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/-->
+</listitem>
+<listitem>
+<para>Terminal tool view - Toolview embedding a terminal widget</para>
+</listitem>
+<listitem>
+<para>Text Filter - Easy text filtering</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
@@ -206,10 +118,24 @@ query on SQL databases</para>
 <para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
 attributes, attribute values and entities allowed by DTD</para>
 </listitem>
+
+<!-- not in 4.10
 <listitem>
-<para>Tabify - Adds a tab bar to Kate's main window</para>
-<!--http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/-->
+<para>Text Snippets - Configurable Text Snippets</para>
+</listitem-->
+<!--listitem>
+<para>Kate Python Browser Plugin - A Python browser plugin for Kate</para>
+</listitem-->
+<!--<listitem>
+<para><link linkend="kate-application-plugin-exttools">External Tools</link></para>
 </listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-snippets">Kate Snippets</link> - Snippets plugin with code completion support</para>
+</listitem>
+<para>Tabify - Adds a tab bar to Kate's main window</para>
+http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/
+</listitem>
+-->
 </itemizedlist>
 </sect1>
 
@@ -747,37 +673,6 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 <para>Documentation copyright 2001,2002 &Daniel.Naber;</para>
 </sect2>
 
-</sect1>
-
-<sect1 id="kate-application-plugin-quickswitcher">
-<!--<sect1info>
-<authorgroup><author>
-&TC.Hollingsworth; &TC.Hollingsworth.mail;
-</author></authorgroup>
-</sect1info>-->
-<title>Quick Document Switcher</title>
-
-<sect2 id="quickswitcher-menu">
-<title>Menu Structure</title>
-
-<variablelist>
-<varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;<keycap>1</keycap>
-</keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Quickswitch
-</guimenuitem></menuchoice></term>
-<listitem><para>Opens the <guilabel>Document Quick Switch</guilabel> dialog
-with a search field and a list of opened files. While entering text in the search
-field the document names and document urls are searched for matching text.
-While entering text in the search field you can use
-the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the
-list view. If the dialog is left with <guilabel>OK</guilabel> the plugin switches
-the view to the document selected in the list view. This makes switching between
-documents easier, if there are a lot of them open.
-</para></listitem>
-</varlistentry>
-</variablelist>
-
-</sect2>
 </sect1>
 
 <sect1 id="kate-editor-plugin-exporter">
@@ -1427,6 +1322,7 @@ from disk.</para></listitem>
 </sect2>
 </sect1>-->
 
+ <!--FIXME needs an update to 4.10 -->
 <sect1 id="kate-application-plugin-snippets">
 <sect1info>
 <authorgroup>
@@ -1449,7 +1345,7 @@ also supports code completion and QtScript.</para>
 <variablelist>
 <varlistentry>
 <term><menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Kate Snippets</guimenuitem></menuchoice></term>
+<guimenuitem>Show Snippets</guimenuitem></menuchoice></term>
 <listitem><para>Shows snippets panel containing all snippets in your repository
 that are for the currently opened file type.</para></listitem>
 </varlistentry>
@@ -1457,23 +1353,19 @@ that are for the currently opened file type.</para></listitem>
 
 </sect2>
 
-<sect2 id="snippets-config">
-<title>Configuration</title>
-
-<para>The configuration for Kate Snippets can be accessed in <menuchoice>
-<guimenu>Settings</guimenu><guimenuitem>Configure Kate</guimenuitem></menuchoice>,
-in <guilabel>Kate Snippets</guilabel> under <guilabel>Application</guilabel>.</para>
+<sect2 id="snippets-panel">
+<title>Snippets panel</title>
 
 <screenshot id="screenshot-snippets-config">
-<screeninfo>Kate Snippets Configuration</screeninfo>
+<screeninfo>Kate Snippets Panel</screeninfo>
 <mediaobject>
-<imageobject><imagedata fileref="snippets-config.png" format="PNG"/></imageobject>
-<textobject><phrase>The Kate snippets configuration panel.</phrase></textobject>
-<caption><para>The configuration panel for Kate Snippets.</para></caption>
+<imageobject><imagedata fileref="snippets-panel.png" format="PNG"/></imageobject>
+<textobject><phrase>The Kate snippets panel.</phrase></textobject>
+<caption><para>The panel for Kate Snippets.</para></caption>
 </mediaobject>
 </screenshot>
 
-<para>In the configuration panel you should see a list of snippet repositories,
+<para>In the panel you should see a list of snippet repositories,
 along with options to create your own, get them from the Internet or load
 them from a local file.  Each repository has a checkbox that can be used to
 activate or deactivate it.  There are also buttons to edit and delete existing
@@ -1485,7 +1377,7 @@ repositories.</para>
 <guibutton>Get New Snippets</guibutton> and a window with a list of snippet 
 repositories will open.  After downloading the desired snippet, make sure that
 you have activated it.</para>
-
+<!--FIXME no way to load a local file ?-->
 <para>You can also load snippet repositories from a local file using the file
 browser at the bottom of the panel.  Click <guibutton>Copy to repository</guibutton>
 when finished.</para>
@@ -1613,6 +1505,7 @@ writing much of this section.</para>
 </sect1>
 
 <sect1 id="kate-application-plugin-build">
+<!--http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
 <sect1info>
 <authorgroup>
 <author><firstname>Salma</firstname> <surname>Sultana</surname></author>
@@ -2024,6 +1917,7 @@ writing much of this section.</para>
 </sect1>
 
 <sect1 id="kate-application-plugin-gdb">
+<!--http://kate-editor.org/2011/06/23/kate-plugin-updates-part-2/-->
 <sect1info>
 <authorgroup>
 <author><firstname>Martin</firstname> <surname>Gergov</surname></author>

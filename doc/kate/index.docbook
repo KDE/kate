@@ -54,13 +54,13 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2012-02-26</date>
-<releaseinfo>3.9 &kde; 4.9</releaseinfo>
+<date>2012-11-12</date>
+<releaseinfo>3.10 &kde; 4.10</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor for &kde; 4 and above.</para>
 
-<para>This handbook documents &kate; Version 3.9</para>
+<para>This handbook documents &kate; Version 3.10</para>
 </abstract>
 
 <keywordset>
@@ -81,7 +81,10 @@
 </keywordset>
 
 </bookinfo>
-
+<!-- FIXME
+ckeck http://kate-editor.org/2012/06/30/kate-in-kde-4-9/
+http://kate-editor.org/2012/11/02/using-the-projects-plugin-in-kate/
+  -->
 <chapter id="introduction">
 <title>Introduction</title>
 

@@ -123,9 +123,6 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
     view = kate.activeView()
     pos = view.cursorPosition()
 
-    # Try to extend selection to be started from 0 columns at both ends
-    common.extendSelectionToWholeLine(view)
-
     selectedRange = view.selectionRange()
     if selectedRange.isEmpty():
         # No text selected. Ok, lets wrap a word where cursor positioned
@@ -145,6 +142,10 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
             selectedRange.end().setColumn(selectedRange.end().column() + len(openCh) + len(closeCh))
             view.setSelection(selectedRange)
         else:
+            # Try to extend selection to be started from 0 columns at both ends
+            common.extendSelectionToWholeLine(view)
+            selectedRange = view.selectionRange()
+
             # multiline selection
             # 0) extend selection to capture whole lines
             gap = ' ' * common.getLineIndentation(selectedRange.start().line(), doc)

@@ -148,6 +148,7 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
             # multiline selection
             # 0) extend selection to capture whole lines
             gap = ' ' * common.getLineIndentation(selectedRange.start().line(), doc)
+            # TODO Get indent width (and char) from config (get rid of hardcocded '4')
             text = gap + openCh + '\n' \
               + '\n'.join([' ' * 4 + line for line in doc.text(selectedRange).split('\n')[:-1]]) \
               + '\n' + gap + closeCh + '\n'
@@ -156,7 +157,6 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
             doc.endEditing()
 
             # extend current selection
-            selectedRange.end().setColumn(selectedRange.end().column() + len(openCh) + len(closeCh))
             r = KTextEditor.Range(selectedRange.start().line(), 0, selectedRange.end().line() + 2, 0)
             view.setSelection(r)
 

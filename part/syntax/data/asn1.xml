@@ -13,7 +13,7 @@
 
         You'll find the "Writing a Kate Highlighting XML File HOWTO" at http://kate.kde.org/doc/hlhowto.php
 -->
-<language name="ASN.1" section="Markup" version="1.00" kateversion="2.3" extensions="*.asn*.asn1" mimetype="" author="Philippe Rigault" license="GPL">
+<language name="ASN.1" section="Markup" version="1.01" kateversion="2.3" extensions="*.asn;*.asn1" mimetype="" author="Philippe Rigault" license="GPL">
   <highlighting>
     <list name="keywords">
       <item> DEFINITIONS </item>

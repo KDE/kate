@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #
+# Kate/Pâté plugins to work with C++ comments
 # Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
 #
 #
@@ -27,8 +28,7 @@ import textwrap
 from PyKDE4.ktexteditor import KTextEditor
 
 from libkatepate.decorators import *
-from libkatepate.common import getCommentStyleForDoc, getTextBlockAroundCursor, getCurrentLineIndentation
-from libkatepate import ui, selection
+from libkatepate import common, ui, selection
 # text processing predicates
 from libkatepate import pred
 from libkatepate.pred import neg, all_of, any_of
@@ -44,15 +44,9 @@ BLOCK_ELSE_ENDIF_MATCH_RE = re.compile('^\s*#\s*(endif|else).*$')
 BLOCK_START_GET_COND_RE = re.compile('^\s*#\s*(if((n)?def)?)\s+(.*)\s*$')
 
 
-def extendSelectionToWholeLine(view):
-    selectedRange = view.selectionRange()
-    if not selectedRange.isEmpty():
-        # ... extend selection to whole line, before do smth
-        selectedRange.start().setColumn(0)
-        if selectedRange.end().column() != 0:
-            selectedRange.end().setColumn(0)
-            selectedRange.end().setLine(selectedRange.end().line() + 1)
-        view.setSelection(selectedRange)
+def isApplicableMime():
+    return str(kate.activeDocument().mimeType()).find('c++') != -1
+
 
 def buildIfEndifMap(document):
     '''
@@ -188,11 +182,11 @@ def commentar():
     document = kate.activeDocument()
     view = kate.activeView()
     pos = view.cursorPosition()
-    commentCh = getCommentStyleForDoc(document)
+    commentCh = common.getCommentStyleForDoc(document)
 
     if view.selection():
         # If selected smth on a single line...
-        extendSelectionToWholeLine(view)
+        common.extendSelectionToWholeLine(view)
 
         selectedText = view.selectionText().split('\n')
         if not bool(selectedText[-1]):
@@ -242,7 +236,7 @@ def moveAbove():
     document = kate.activeDocument()
     view = kate.activeView()
     pos = view.cursorPosition()
-    commentCh = getCommentStyleForDoc(document)
+    commentCh = common.getCommentStyleForDoc(document)
 
     insertionText = list()
     line = document.line(pos.line())
@@ -295,7 +289,7 @@ def moveInline():
     document = kate.activeDocument()
     view = kate.activeView()
     pos = view.cursorPosition()
-    commentCh = getCommentStyleForDoc(document)
+    commentCh = common.getCommentStyleForDoc(document)
 
     insertionText = []
     currentLine = document.line(pos.line())
@@ -368,7 +362,7 @@ def commentBlock():
     view = kate.activeView()
 
     # This operation have no sense for partly selected lines
-    extendSelectionToWholeLine(view)
+    common.extendSelectionToWholeLine(view)
 
     start = -1
     end = -1
@@ -506,7 +500,7 @@ def turnToBlockComment():
         start = sr.start().line()
         end = sr.end().line()
     else:
-        r = getTextBlockAroundCursor(
+        r = common.getTextBlockAroundCursor(
             document
           , pos
           , [neg(any_of(pred.startsWith('///'), pred.startsWith('//!')))]
@@ -553,7 +547,7 @@ def turnFromBlockComment():
         end = sr.end().line()
     else:
         # Try to detect block comment (/* ... */)
-        r = getTextBlockAroundCursor(
+        r = common.getTextBlockAroundCursor(
             document
           , pos
           , [pred.blockCommentStart, neg(pred.startsWith('*'))]
@@ -620,7 +614,7 @@ def toggleDoxyComment():
 
 def getParagraphRange(doc, pos):
     # Try to detect block comment (/* ... */)
-    r = getTextBlockAroundCursor(
+    r = common.getTextBlockAroundCursor(
         doc
       , pos
       , [pred.blockCommentStart, pred.equalTo('*'), neg(pred.startsWith('*'))]
@@ -629,7 +623,7 @@ def getParagraphRange(doc, pos):
     isBlock = True
     if r.isEmpty():
         # Ok, maybe it's a single lines comment block?
-        r = getTextBlockAroundCursor(
+        r = common.getTextBlockAroundCursor(
             doc
           , pos
           , [neg(pred.onlySingleLineComment)]
@@ -649,7 +643,7 @@ def changeParagraphWidth(step):
         ui.popup("Sorry", "can't detect commented paragraph at cursor...", "face-sad")
         return                                              # Dunno what to do on empty range!
 
-    indent = getCurrentLineIndentation(view)                # detect current align
+    indent = common.getCurrentLineIndentation(view)         # detect current align
     # Processing:
     # 0) split text into left stripped lines
     originalText = view.document().text(originRange)

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #
+# Kate/Pâté plugins for general use
 # Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
 #
 #

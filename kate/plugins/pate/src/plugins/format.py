@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #
+# Kate/Pâté plugins to work with C++ code formatting
 # Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
 #
 #

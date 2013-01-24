@@ -34,6 +34,8 @@ _COMMENT_STRINGS_MAP = {
   , 'JavaScript'    : '//'
 }
 
+# NOTE ':' can be a part of full qualified name
+CXX_IDENTIFIER_BOUNDARIES = set(' \t\n"\'[]{}()<>`~!@#$%^&*-+=|\\/?;,')
 
 def isKnownCommentStyle(docType):
     ''' Check if we know how to comment a line in a given document type '''
@@ -102,6 +104,21 @@ def getTextBlockAroundCursor(doc, pos, upPred, downPred):
     return KTextEditor.Range(start, 0, end, 0)
 
 
-def getCurrentLineIndentation(view):
-    lineStr = view.document().line(view.cursorPosition().line())
+def getLineIndentation(line, document):
+    lineStr = document.line(line)
     return len(lineStr) - len(lineStr.lstrip())
+
+
+def getCurrentLineIndentation(view):
+    return getLineIndentation(view.cursorPosition().line(), view.document())
+
+
+def extendSelectionToWholeLine(view):
+    selectedRange = view.selectionRange()
+    if not selectedRange.isEmpty():
+        # ... try to extend selection to whole lines (of both ends), before do smth
+        selectedRange.start().setColumn(0)
+        if selectedRange.end().column() != 0:
+            selectedRange.end().setColumn(0)
+            selectedRange.end().setLine(selectedRange.end().line() + 1)
+        view.setSelection(selectedRange)

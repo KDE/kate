@@ -124,6 +124,21 @@ For more information, see <xref linkend="kate-part-line-modification"/>.
 will show marks on the vertical scrollbar. These marks will
 for instance show bookmarks.</para></listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Show Mini-Map
+</guilabel></term>
+<listitem><para>If this option is checked, every new view will show a mini map of the 
+<!--FIXME remove when next option is enabled-->whole<!--FIXME--> 
+document on the vertical scrollbar.</para></listitem>
+</varlistentry>
+<!--FIXME disabled in 4.10/master
+<varlistentry>
+<term><guilabel>Map the whole document
+</guilabel></term>
+<listitem><para>If this option is checked, every new view will show a mini map of the whole 
+document on the vertical scrollbar, otherwise only a map of the current page.</para></listitem>
+</varlistentry>
+-->
 </variablelist>
 </listitem>
 </varlistentry>
@@ -422,7 +437,7 @@ documentation</ulink>.</para></listitem>
 </sect3>
 
 <sect3 id="prefcolors-fonts">
-<title>Fonts</title>
+<title>Font</title>
 <para>
 Here you can choose the font for the schema.  You can choose from
 any font available on your system, and set a default size. A sample text
@@ -431,8 +446,8 @@ displays at the bottom of the dialog, so you can see the effect of your choices.
 </sect3>
 
 <sect3 id="prefcolors-normal-text-styles">
-<title>Normal Text Styles</title>
-<para>The normal text styles are inherited by the highlight text styles,
+<title>Default Text Styles</title>
+<para>The default text styles are inherited by the highlight text styles,
 allowing the editor to present text in a very consistent way, for example comment
 text is using the same style in almost all of the text formats that &kappname; can
 highlight.</para>
@@ -522,12 +537,6 @@ automatically start a new line.</para>
 <para>If this option is enabled and the text selection is empty, copy and cut
 action are performed for the line of text at the actual cursor position.</para></listitem>
 </varlistentry>
-
-<varlistentry>
-<term><guilabel>Allow scrolling past the end of the document</guilabel></term> <listitem>
-<para>This option lets you scroll past the end of the document. This can be used to vertically centre the bottom of the document, or put it on top of the current view.</para></listitem>
-</varlistentry>
-
 </variablelist>
 </listitem>
 </varlistentry>
@@ -536,7 +545,7 @@ action are performed for the line of text at the actual cursor position.</para><
 </sect3>
 
 <sect3 id="pref-edit-cursor-selection">
-<title>Cursor &amp; Selection</title>
+<title>Text Navigation</title>
 
 <variablelist>
 
@@ -592,6 +601,11 @@ cursor movement.</para>
 <para>Selections will stay even after cursor movement and typing.</para>
 </listitem>
 </varlistentry>
+<varlistentry>
+<term><guilabel>Allow scrolling past the end of the document</guilabel></term> <listitem>
+<para>This option lets you scroll past the end of the document. This can be used to vertically centre the bottom of the document, or put it on top of the current view.</para></listitem>
+</varlistentry>
+
 </variablelist>
 </listitem>
 </varlistentry>
@@ -1147,6 +1161,7 @@ want to use. Click on the <guibutton>Information</guibutton> button to open the
 <para>Once a configurable plugin is checked, the
 <guibutton>Configure</guibutton> button is enabled and you can click it
 in order to configure the highlighted plugin.</para>
+<!--FIXME duplicated content also in plugins.docbook-->
 <variablelist>
 <title>Editor Component Plugins</title>
 <!-- not released with 4.7
@@ -1170,16 +1185,6 @@ You, the developer, are writing a line of code, and want to open a new block del
 If you press Enter and AutoBrace is enabled, it will insert your favorite new brace where it belongs. Looks like this:
 -->
 <varlistentry>
-<term><guilabel>Data Tools</guilabel></term>
-<listitem><para>Enables data tools like thesaurus and spell check (if installed).
-Data tools are only available when text is selected, or when the right mouse
-button is clicked over a word. If no data tools are offered even when text
-is selected, you need to install them. Some data tools are part of the
-&koffice; package.
-If this plugin is enabled and data tools are installed, additional items
-appear at the end of the context menu.</para></listitem>
-</varlistentry>
-<varlistentry>
 <term><guilabel>Exporter</guilabel></term>
 <listitem><para>This command allows you to export the current document with all highlighting
 information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export
@@ -1187,12 +1192,12 @@ as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimen
 <guimenuitem>Copy as HTML</guimenuitem></menuchoice> to copy the currently selected text
 as HTML to the system clipboard.</para></listitem>
 </varlistentry>
-<!-- not in 4.7
+<!--FIXME not in master, but in 4.10 ??-->
 <varlistentry>
 <term><guilabel>Highlight Selection</guilabel></term>
+<!--http://kate-editor.org/2010/11/14/highlight-selected-text/-->
 <listitem><para>Highlights all words that match the currently selected text.</para></listitem>
 </varlistentry>
--->
 <varlistentry>
 <term><guilabel>IconInserter</guilabel></term>
 <listitem><para>The icon inserter plugin is only of use for &kde; developers: It adds an item
@@ -1201,12 +1206,6 @@ If activated, the &kde;'s icon chooser opens (showing application icons, action 
 If you click on it, the file name without file extension will be inserted as
 text. Useful only for setting icons via &kde;'s framework through the KIcon() class.
 </para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Insane (not ZEN) HTML coding (light edition)</guilabel></term>
-<listitem><para>A plugin, which does zen-coding like selector completion.
-For more information see <ulink url="http://en.wikipedia.org/wiki/Zen_Coding">
-Zen Coding</ulink>.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Insert File</guilabel></term>

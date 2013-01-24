@@ -370,7 +370,10 @@ all to work with the currently active document.</para>
 <note><para>If Overwrite Selection is enabled, the pasted text will overwrite the selection, if any.</para></note>
  </listitem>
 </varlistentry>
-
+<!--FIXME
+Clipboard history
+list of items copied to clipboard
+  -->
 <varlistentry>
 <term>
 <anchor id="edit-select-all"/>
@@ -468,7 +471,7 @@ Mode, either <guilabel>INS</guilabel> or <guilabel>OVR</guilabel>.</para>
 <anchor id="edit-find-next"/>
 <menuchoice>
 <shortcut><keycombo action="simul"><keycap>F3</keycap></keycombo></shortcut>
-<guimenu>Edit</guimenu>
+<guimenu>Edit</guimenu><guisubmenu>Find Variants</guisubmenu>
 <guimenuitem>Find Next</guimenuitem>
 </menuchoice>
 </term>
@@ -482,12 +485,36 @@ Mode, either <guilabel>INS</guilabel> or <guilabel>OVR</guilabel>.</para>
 <anchor id="edit-find-previous"/>
 <menuchoice>
 <shortcut><keycombo action="simul">&Shift;<keycap>F3</keycap></keycombo></shortcut>
-<guimenu>Edit</guimenu>
+<guimenu>Edit</guimenu><guisubmenu>Find Variants</guisubmenu>
 <guimenuitem>Find Previous</guimenuitem>
 </menuchoice>
 </term>
 <listitem>
 <para>Go to the nearest upwards match of the last text or regular expression searched for, starting from cursor position</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term id="find-selected">
+<menuchoice>
+<shortcut><keycombo
+action="simul">&Ctrl;<keycap>H</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu><guisubmenu>Find Variants</guisubmenu>
+<guimenuitem>Find Selected</guimenuitem></menuchoice></term>
+<listitem>
+<para>Finds next occurrence of selected text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term id="find-selected-backwards">
+<menuchoice>
+<shortcut><keycombo
+action="simul">&Ctrl;&Shift;<keycap>H</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu><guisubmenu>Find Variants</guisubmenu>
+<guimenuitem>Find Selected Backwards</guimenuitem></menuchoice></term>
+<listitem>
+<para>Finds previous occurrence of selected text.</para>
 </listitem>
 </varlistentry>
 
@@ -502,28 +529,6 @@ Mode, either <guilabel>INS</guilabel> or <guilabel>OVR</guilabel>.</para>
 </term>
 <listitem>
 <para>Launch the power search and replace bar to replace one or more instances of a defined text with something else.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term id="find-selected">
-<menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;<keycap>H</keycap></keycombo></shortcut>
-<guimenu>Edit</guimenu><guimenuitem>Find Selected</guimenuitem></menuchoice></term>
-<listitem>
-<para>Finds next occurrence of selected text.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term id="find-selected-backwards">
-<menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;&Shift;<keycap>H</keycap></keycombo></shortcut>
-<guimenu>Edit</guimenu><guimenuitem>Find Selected Backwards</guimenuitem></menuchoice></term>
-<listitem>
-<para>Finds previous occurrence of selected text.</para>
 </listitem>
 </varlistentry>
 
@@ -615,6 +620,27 @@ The new instance will be identical to your previous instance.
 
 <varlistentry>
 <term>
+<anchor id="view-quick-open"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keycap>O</keycap></keycombo></shortcut>
+<guimenu>View</guimenu>
+<guimenuitem>Quick Open</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Show a search field and a list of opened files in the editor area.
+While entering text in the search
+field the document names and document urls are searched for matching text.
+While entering text in the search field you can use
+the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the
+list view. Pressing the &Enter; key or double clicking on an item in the list switches
+the view to the document selected in the list view. This makes switching between
+documents easier, if there are a lot of them open.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
 <anchor id="view-split-previous"/>
 <menuchoice>
 <shortcut><keycombo action="simul">&Shift;<keycap>F8</keycap></keycombo></shortcut>
@@ -695,9 +721,8 @@ the File List.</para> <para>See also <link linkend="kate-mdi">Working with the
 &kate; MDI</link></para>
 </listitem>
 </varlistentry>
-<!-- missing
+<!-- FIXME missing
 Split View -> Move Splitter Left/Right/Up/Down
-    not in 4.6
   -->
 <varlistentry>
 <term><menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
@@ -750,7 +775,7 @@ change to the directory of the active document, if it is a local file.</para>
 enabled by default.</para>
 </listitem>
 </varlistentry>
-
+<!--FIXME depending on selected plugins more items here e.g. Show Snippets -->
 </variablelist>
 </listitem>
 </varlistentry>
@@ -858,7 +883,7 @@ vertical scrollbar. When enabled, marks are represented by a thin line in the
 mark color at the scrollbar, middleclicking on the lines will scroll the view
 to a position near the mark.</para></listitem>
 </varlistentry>
-
+<!--FIXME Show Mini-Map missing-->
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul"><keycap>F9</keycap>
 </keycombo></shortcut>
@@ -898,6 +923,7 @@ Code Folding</link>.</para></listitem>
 </term>
 <listitem><para>Expand all regions in the document.</para></listitem>
 </varlistentry>
+<!--FIXME Fold Multiline Comments missing -->
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 &Shift;<keycap>-</keycap></keycombo></shortcut>
@@ -952,13 +978,17 @@ Code Folding</link>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenu>View</guimenu><guimenuitem>Enlarge Font</guimenuitem></menuchoice>
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+<keycap>+</keycap></keycombo></shortcut>
+<guimenu>View</guimenu><guimenuitem>Enlarge Font</guimenuitem></menuchoice>
 </term>
 <listitem><para>This increases the display font size.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenu>View</guimenu><guimenuitem>Shrink Font</guimenuitem></menuchoice>
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+<keycap>-</keycap></keycombo></shortcut>
+<guimenu>View</guimenu><guimenuitem>Shrink Font</guimenuitem></menuchoice>
 </term>
 <listitem><para>This decreases the display font size.</para></listitem>
 </varlistentry>
@@ -1235,7 +1265,7 @@ own scripts</link>. This way, &kate; can be extended with user-defined tools.
 <para>The following scripts are included by default:</para>
 
 <variablelist>
-
+  <!--FIXME more items in 4.10 -->
 <varlistentry id="tools-scripts-sort">
 <term><menuchoice>
 <guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
@@ -1327,7 +1357,7 @@ Completion</guimenuitem> pops up a completion box with matching entries.</para>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>O</keycap></keycombo>
 </shortcut>
-<guimenu>Tools</guimenu>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Automatic Spell Checking</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -1338,7 +1368,7 @@ is underlined in the document on-the-fly.</para>
 
 <varlistentry>
 <term><anchor id="tools-spelling"/><menuchoice>
-<guimenu>Tools</guimenu><guimenuitem>Spelling...</guimenuitem></menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu><guimenuitem>Spelling...</guimenuitem></menuchoice>
 </term>
 
 <!--para>These options are described in the documentation for the
@@ -1450,7 +1480,7 @@ are reverted, and you will return to your document.</para></listitem>
 <variablelist>
 <varlistentry>
 <term><anchor id="tools-spelling-from-cursor"/><menuchoice>
-<guimenu>Tools</guimenu>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Spelling (from cursor)...</guimenuitem></menuchoice></term>
  <listitem>
 <para>This initiates the spellchecking program but it starts where your cursor
@@ -1460,7 +1490,7 @@ is instead of at the beginning of the document.</para>
 
 <varlistentry>
 <term><anchor id="tools-spellcheck-selection"/><menuchoice>
-<guimenu>Tools</guimenu>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Spellcheck Selection...</guimenuitem></menuchoice></term>
  <listitem>
 <para>Spellchecks the current selection.</para>
@@ -1469,7 +1499,7 @@ is instead of at the beginning of the document.</para>
 
 <varlistentry>
 <term><anchor id="tools-change-dictionary"/><menuchoice>
-<guimenu>Tools</guimenu>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Change Dictionary</guimenuitem></menuchoice></term>
  <listitem>
 <para>Displays a drop down box with all available dictionaries for spellchecking
@@ -1612,7 +1642,11 @@ in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
-
+<!--FIXME
+Create Snippets
+Snippets... -> Snippets tool view as separate window
+missing
+  -->
 </variablelist>
 <para>Menu items for the selected <link linkend="pref-plugins">plugins</link>
 are displayed at the end of this menu

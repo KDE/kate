@@ -314,7 +314,8 @@ this is in mdi.docbook
 </term>
 <listitem>
 <para>
-Toggles the Documents on and off. If the Documents/Filesystem Browser window is
+Toggles the Documents on and off. 
+<!--FIXME no longer in kate 3.10/kde 4.10-->If the Documents/Filesystem Browser window is
 not open, &kate; launches the side bar as a separate, undocked,
 window. To dock the window grab the two thin parallel lines above the
 tabs by clicking on them with your &LMB; and holding the button
@@ -325,7 +326,7 @@ prefer.
 
 <tip>
 <para>
-If you have grabbed the two parallel lines successfully your mouse
+<!--FIXME no longer in kate 3.10/kde 4.10-->If you have grabbed the two parallel lines successfully your mouse
 pointer will turn into two crossed arrows as you drag.
 </para>
 </tip>

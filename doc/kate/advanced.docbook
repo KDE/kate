@@ -1604,7 +1604,11 @@ void require(<parameter>String <replaceable>file</replaceable></parameter>);
 <listitem><para>
 Will search the given <replaceable>file</replaceable> relative to the <literal>katepart/script/libraries</literal> directory and evaluate it.
 <literal>require</literal> is internally guarded against multiple inclusions of the same <replaceable>file</replaceable>.
-</para></listitem>
+</para>
+<para>
+  Since: KDE 4.10
+</para>
+</listitem>
 </varlistentry></variablelist>
 
 </sect4>

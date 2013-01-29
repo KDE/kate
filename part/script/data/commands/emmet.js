@@ -15,27 +15,27 @@ require ("emmet/editor_interface.js");
 function help(cmd)
 {
 	cmds = {
-		"emmetExpand" : "Expands the abbreviation using Emmet expressions; see http://code.google.com/p/zen-coding/wiki/ZenHTMLSelectorsEn",
-		"emmetWrap" : "Wraps the selected text in XML tags constructed from the provided Emmet expression (defaults to div).",
-		"emmetMatchingPair" : "Moves the caret to the current tag's pair",
-		"emmetSelectTagPairInwards" : "Select contents of HTML/XML tag, moving inward on continious invocations",
-		"emmetSelectTagPairOutwards" : "Select contents of HTML/XML tag, moving outwards on continious invocations",
-		"emmetNext" : "Move to the next edit point (tag or empty attribute).",
-		"emmetPrev" : "Move to the previous edit point (tag or empty attribute).",
-		"emmetSelectNext" : "Select next edit point (tag or empty attribute).",
-		"emmetSelectPrev" : "Select previous edit point (tag or empty attribute).",
-		"emmetToggleComment" : "Toggle comment of current tag or CSS selector",
-		"emmetDelete" : "Deletes tag under cursor",
-		"emmetSplitJoinTab" : "Splits or joins a tag",
-		"emmetEvaluateMathExpression" : "Evaluates a simple math expression",
-		"emmetDecrementNumberBy1" : "Decrement number under cursor by 1",
-		"emmetDecrementNumberBy10" : "Decrement number under cursor by 10",
-		"emmetDecrementNumberBy01" : "Decrement number under cursor by 0.1",
-		"emmetIncrementNumberBy1" : "Increment number under cursor by 1",
-		"emmetIncrementNumberBy10" : "Increment number under cursor by 10",
-		"emmetIncrementNumberBy01" : "Increment number under cursor by 0.1"
+		"emmetExpand" : i18n("Expands the abbreviation using Emmet expressions; see http://code.google.com/p/zen-coding/wiki/ZenHTMLSelectorsEn"),
+		"emmetWrap" : i18n("Wraps the selected text in XML tags constructed from the provided Emmet expression (defaults to div)."),
+		"emmetMatchingPair" : i18n("Moves the caret to the current tag's pair"),
+		"emmetSelectTagPairInwards" : i18n("Select contents of HTML/XML tag, moving inward on continious invocations"),
+		"emmetSelectTagPairOutwards" : i18n("Select contents of HTML/XML tag, moving outwards on continious invocations"),
+		"emmetNext" : i18n("Move to the next edit point (tag or empty attribute)."),
+		"emmetPrev" : i18n("Move to the previous edit point (tag or empty attribute)."),
+		"emmetSelectNext" : i18n("Select next edit point (tag or empty attribute)."),
+		"emmetSelectPrev" : i18n("Select previous edit point (tag or empty attribute)."),
+		"emmetToggleComment" : i18n("Toggle comment of current tag or CSS selector"),
+		"emmetDelete" : i18n("Deletes tag under cursor"),
+		"emmetSplitJoinTab" : i18n("Splits or joins a tag"),
+		"emmetEvaluateMathExpression" : i18n("Evaluates a simple math expression"),
+		"emmetDecrementNumberBy1" : i18n("Decrement number under cursor by 1"),
+		"emmetDecrementNumberBy10" : i18n("Decrement number under cursor by 10"),
+		"emmetDecrementNumberBy01" : i18n("Decrement number under cursor by 0.1"),
+		"emmetIncrementNumberBy1" : i18n("Increment number under cursor by 1"),
+		"emmetIncrementNumberBy10" : i18n("Increment number under cursor by 10"),
+		"emmetIncrementNumberBy01" : i18n("Increment number under cursor by 0.1")
 	}
-	return i18n(cmds[cmd]);
+	return cmds[cmd];
 }
 
 function action(cmd)

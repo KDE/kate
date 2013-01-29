@@ -22,7 +22,9 @@
 #include "kateprojectpluginview.h"
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectinfoviewindex.h"
+#include "kateprojectinfoviewcodeanalysis.h"
 #include "kateprojectinfoviewnotes.h"
+
 #include "klocale.h"
 
 KateProjectInfoView::KateProjectInfoView (KateProjectPluginView *pluginView, KateProject *project)
@@ -31,15 +33,23 @@ KateProjectInfoView::KateProjectInfoView (KateProjectPluginView *pluginView, Kat
   , m_project (project)
 {
   /**
-   * add terminal view
+   * terminal
    */
   addTab (new KateProjectInfoViewTerminal (pluginView, project), i18n("Terminal"));
-  
+
   /**
-   * add index view
+   * index
    */
-  addTab (new KateProjectInfoViewIndex (pluginView, project), i18n("Index"));
-  
+  addTab (new KateProjectInfoViewIndex (pluginView, project), i18n("Code Index"));
+
+  /**
+   * code analysis
+   */
+  addTab (new KateProjectInfoViewCodeAnalysis (pluginView, project), i18n("Code Analysis"));
+
+  /**
+   * notes
+   */
   addTab (new KateProjectInfoViewNotes (pluginView, project), i18n("Notes"));
 }
 

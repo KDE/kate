@@ -1,0 +1,166 @@
+/*  This file is part of the Kate project.
+ *
+ *  Copyright (C) 2012 Christoph Cullmann <cullmann@kde.org>
+ *
+ *  This library is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU Library General Public
+ *  License as published by the Free Software Foundation; either
+ *  version 2 of the License, or (at your option) any later version.
+ *
+ *  This library is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  Library General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Library General Public License
+ *  along with this library; see the file COPYING.LIB.  If not, write to
+ *  the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ *  Boston, MA 02110-1301, USA.
+ */
+
+#include "kateprojectinfoviewcodeanalysis.h"
+#include "kateprojectpluginview.h"
+
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QProcess>
+
+#include <klocale.h>
+#include <kmessagewidget.h>
+
+KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis (KateProjectPluginView *pluginView, KateProject *project)
+  : QWidget ()
+  , m_pluginView (pluginView)
+  , m_project (project)
+  , m_messageWidget (0)
+  , m_startStopAnalysis (new QPushButton(i18n("Start Analysis...")))
+  , m_treeView (new QTreeView())
+  , m_model (new QStandardItemModel (m_treeView))
+  , m_analyzer (0)
+{
+  /**
+   * default style
+   */
+  m_treeView->setEditTriggers (QAbstractItemView::NoEditTriggers);
+  m_model->setHorizontalHeaderLabels (QStringList () << "Name" << "Kind" << "File" << "Line");
+
+  /**
+   * attach model
+   * kill selection model
+   */
+  QItemSelectionModel *m = m_treeView->selectionModel();
+  m_treeView->setModel (m_model);
+  delete m;
+
+  /**
+   * layout widget
+   */
+  QVBoxLayout *layout = new QVBoxLayout;
+  layout->setSpacing (0);
+  layout->addWidget (m_treeView);
+  QHBoxLayout *hlayout = new QHBoxLayout;
+  layout->addLayout (hlayout);
+  hlayout->setSpacing (0);
+  hlayout->addStretch();
+  hlayout->addWidget (m_startStopAnalysis);
+  setLayout (layout);
+
+  /**
+   * connect needed signals
+   */
+  connect (m_startStopAnalysis, SIGNAL(clicked (bool)), this, SLOT(slotStartStopClicked ()));
+  connect (m_treeView, SIGNAL(clicked (const QModelIndex &)), this, SLOT(slotClicked (const QModelIndex &)));
+  connect (m_project, SIGNAL(indexChanged ()), this, SLOT(indexAvailable ()));
+}
+
+KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis ()
+{
+}
+
+void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
+{
+  /**
+   * get files for cppcheck
+   */
+  QStringList files = m_project->files ().filter (QRegExp ("\\.(cpp|cxx|cc|c\\+\\+|c|tpp|txx)$"));
+
+  /**
+   * launch cppcheck
+   */
+  m_analyzer = new QProcess (this);
+  m_analyzer->setProcessChannelMode(QProcess::MergedChannels);
+
+  connect (m_analyzer, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
+
+  QStringList args;
+  args << "-q" << "--enable=all" << "--template='{file}\n{line}\n{severity}\n{message}'" << "--file-list=-";
+  m_analyzer->start("cppcheck", args);
+  if (!m_analyzer->waitForStarted())
+    return;
+
+  /**
+   * write files list and close write channel
+   */
+  m_analyzer->write(files.join("\n").toLocal8Bit());
+  m_analyzer->closeWriteChannel();
+}
+
+void KateProjectInfoViewCodeAnalysis::slotReadyRead ()
+{
+  if (m_analyzer->canReadLine())
+    printf ("%s", qPrintable (m_analyzer->readLine()));
+}
+
+void KateProjectInfoViewCodeAnalysis::slotClicked (const QModelIndex &index)
+{
+  /**
+   * get path
+   */
+  QString filePath = m_model->item (index.row(), 2)->text();
+  if (filePath.isEmpty())
+    return;
+
+  /**
+   * create view
+   */
+  KTextEditor::View *view = m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
+  if (!view)
+    return;
+
+  /**
+   * set cursor, if possible
+   */
+  int line = m_model->item (index.row(), 3)->text().toInt();
+  if (line >= 1)
+    view->setCursorPosition (KTextEditor::Cursor (line - 1, 0));
+}
+
+void KateProjectInfoViewCodeAnalysis::indexAvailable ()
+{
+  /**
+   * update enabled state of widgets
+   */
+  const bool valid = m_project->projectIndex ()->isValid ();
+ // m_lineEdit->setEnabled(valid);
+  m_treeView->setEnabled(valid);
+
+  /**
+   * if index exists, hide possible message widget, else create it
+   */
+  if (valid) {
+    if (m_messageWidget && m_messageWidget->isVisible ()) {
+      m_messageWidget->animatedHide ();
+    }
+  } else if (!m_messageWidget) {
+    m_messageWidget = new KMessageWidget();
+    m_messageWidget->setCloseButtonVisible(true);
+    m_messageWidget->setMessageType(KMessageWidget::Warning);
+    m_messageWidget->setWordWrap(false);
+    m_messageWidget->setText(i18n("The index could not be created. Please install 'ctags'."));
+    static_cast<QVBoxLayout*>(layout ())->insertWidget(0, m_messageWidget);
+  } else {
+    m_messageWidget->animatedShow ();
+  }
+}
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

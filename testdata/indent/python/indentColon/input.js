@@ -1,3 +1,3 @@
-v.setCursorPosition(0,34);
+v.setCursorPosition(0, document.lineLength(0));
 v.enter();
 v.type("pass");

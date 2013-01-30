@@ -1,3 +1,3 @@
-v.setCursorPosition(1,9);
+v.setCursorPosition(1, document.lineLength(1));
 v.enter();
-v.type("except:");
+v.type("pass");

@@ -1,4 +1,4 @@
 def some_function(param, param2):
-  a = 5
-  b = 7
-  pass
+    a = 5
+    b = 7
+    pass

@@ -1,0 +1,3 @@
+def some_function():
+    return  # comment
+pass

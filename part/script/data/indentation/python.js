@@ -1,114 +1,154 @@
 /** kate-script
  * name: Python
  * license: LGPL
- * author: Paul Giannaros <paul@giannaros.org>
- * revision: 1
- * kate-version: 3.4
+ * author: Paul Giannaros <paul@giannaros.org>, Gerald Senarclens de Grancy <oss@senarclens.eu>
+ * revision: 2
+ * kate-version: 3.10
  */
+
 
 // required katepart js libraries
 require ("range.js");
+require ("string.js");
+
+openings = ['(', '[', '{'];
+closings = [')', ']', '}'];  // requires same order as in openings
+unindenters = ['continue', 'pass', 'raise', 'return']
 
 
-// niceties
-
-String.prototype.startsWith = function(prefix) {
-    return this.substring(0, prefix.length) == prefix;
-}
-
-String.prototype.endsWith = function(suffix) {
-    var startPos = this.length - suffix.length;
-    if (startPos < 0)
-        return false;
-    return (this.lastIndexOf(suffix, startPos) == startPos);
-}
-
-String.prototype.lastCharacter = function() {
-    var l = this.length;
-    if(l == 0)
-        return '';
-    else
-        return this.charAt(l - 1);
-}
-
-String.prototype.sansWhiteSpace = function() {
-    return this.replace(/[ \t\n\r]/g, '');
-}
-String.prototype.stripWhiteSpace = function() {
-    return this.replace(/^[ \t\n\r]+/, '').replace(/[ \t\n\r]+$/, '');
-}
-
-
-function dbg(s) {
-    // debug to the term in blue so that it's easier to make out amongst all
-    // of Kate's other debug output.
-    debug("\u001B[34m" + s + "\u001B[0m");
-}
-
-var triggerCharacters = "";
-
-// General notes:
-// indent() returns the amount of characters (in spaces) to be indented.
-// Special indent() return values:
-//   -2 = no indent
-//   -1 = keep last indent
-
-function indent(line, indentWidth, character) {
-//     dbg(document.attribute.toString());
-//     dbg("indent character: " + character);
-//     dbg("line text: " + document.line(line));
-    var currentLine = document.line(line);
-//     dbg("current line: " + currentLine);
-    var lastLine = document.line(line - 1);
-    var lastCharacter = lastLine.lastCharacter();
-    // we can't really indent line 0
-    if(line == 0)
-        return -2;
-    if(lastLine == "")
-        return -2;
-    // make sure the last line is code
-    if(!document.isCode(line - 1, document.lineLength(line - 1) - 1) && lastCharacter != "\"" && lastCharacter != "'") {
-//         dbg("attributes that we don't want! Returning");
-        return -1;
+// Return the given line without comments and leading or trailing whitespace.
+// Eg.
+// getCode(x) -> "for i in range(3):"
+//     if document.line(x) == "  for i in range(3):"
+// getCode(x) -> "for i in range(3):"
+//     if document.line(x) == "for i in range(3):  "
+// getCode(x) -> "for i in range(3):"
+//     if document.line(x) == "for i in range(3):  # grand"
+function getCode(lineNr) {
+    var line = document.line(lineNr);
+    var length = line.length;
+    while (length > 0 && document.isComment(lineNr, length - 1)) {
+        length--;
     }
-    // otherwise, check the line contents
-    // for :, we simply indent
-//     dbg('line without white space: ' + currentLine.sansWhiteSpace().length);
-    if(lastLine.endsWith(':')) {
-//         dbg('indenting line for :');
-        return document.firstVirtualColumn(line - 1) + indentWidth;
+    line = line.substr(0, length);  // strip the comment
+    return line.trim();
+}
+
+
+// Return the indent if a opening bracket is not closed (incomplete sequence).
+// The calculated intent is the innermost opening bracket's position plus 1.
+// `lineNr`: the number of the line on which the brackets should be counted
+function _calcOpeningIndent(lineNr) {
+    var line = document.line(lineNr);
+    var countClosing = new Array();
+    closings.forEach(function(elem) {
+        countClosing[elem] = 0;
+    });
+    for (i = line.length - 1; i >= 0; --i) {
+        if (document.isComment(lineNr, i) || document.isString(lineNr, i))
+            continue;
+        if (closings.indexOf(line[i]) > -1)
+            countClosing[line[i]]++;
+        var index = openings.indexOf(line[i]);
+        if (index > -1) {
+            if (countClosing[closings[index]] == 0) {
+                return i + 1;
+            }
+            countClosing[closings[index]]--;
+        }
     }
-    // generally, when a brace is on its own at the end of a regular line
-    // (i.e a data structure is being started), indent is wanted.
-    // For example:
-    // dictionary = {
-    //     'foo': 'bar',
-    // }
-    // etc..
-    else if(lastCharacter == '{' || lastCharacter == '[') {
-//         dbg('indenting for { or [');
-        return document.firstVirtualColumn(line - 1) + indentWidth;
-    }
-    // XX this introduces irritating bugs. Commenting it out for now
-    //
-//     // relatively simplistic heuristic for determining whether or not to unindent:
-//     // if a }] has been typed and it's the sole letter on the line, unindent
-//     else if((character == '}' || character == ']') && (currentLine.sansWhiteSpace().length == 1)) {
-//         dbg('unindenting line for } or ]');
-//         return Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
-//     }
-    // finally, a raise, pass, and continue should unindent
-    lastLine = lastLine.stripWhiteSpace();
-    if(    lastLine == 'continue' || lastLine == 'pass' || lastLine == 'raise' || lastLine.startsWith('raise ')
-        || lastLine.startsWith('return ') || lastLine == 'return'
-    )
-    {
-//         dbg('unindenting line for keyword');
-        return Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
-    }
-//     dbg('continuing with regular indent');
     return -1;
 }
 
+
+// Return the indent if a closing bracket not opened (incomplete sequence).
+// The intent is the same as on the line with the unmatched opening bracket.
+// `lineNr`: the number of the line on which the brackets should be counted
+function _calcClosingIndent(lineNr) {
+    var line = document.line(lineNr);
+    var countClosing = new Array();
+    closings.forEach(function(elem) {
+        countClosing[elem] = 0;
+    });
+    for (i = line.length - 1; i >= 0; --i) {
+        if (document.isComment(lineNr, i) || document.isString(lineNr, i))
+            continue;
+        if (closings.indexOf(line[i]) > -1)
+            countClosing[line[i]]++;
+        var index = openings.indexOf(line[i]);
+        if (index > -1)
+            countClosing[closings[index]]--;
+    }
+    for (var key in countClosing) {
+        if (countClosing[key] > 0) {  // unmatched closing bracket
+            for (--lineNr; lineNr >= 0; --lineNr) {
+                if (_calcOpeningIndent(lineNr) > -1)
+                    return document.firstVirtualColumn(lineNr)
+            }
+        }
+    }
+    return -1;
+}
+
+
+// Returns the indent for mismatched (opening or closing) brackets.
+// If there are no mismatched brackets, -1 is returned.
+// `lineNr`: number of the line for which the indent is calculated
+function calcBracketIndent(lineNr) {
+    var indent = _calcOpeningIndent(lineNr - 1);
+    if (indent > -1)
+        return indent
+    indent = _calcClosingIndent(lineNr - 1);
+    if (indent > -1)
+        return indent
+    return -1;
+}
+
+
+// Return true if a single unindent should occur.
+function shouldUnindent(LineNr) {
+    lastLine = getCode(LineNr - 1);
+    if (unindenters.indexOf(lastLine) >= 0 || lastLine.startsWith('raise ') ||
+        lastLine.startsWith('return '))
+        return 1;
+    // unindent if the last line was indented b/c of a backslash
+    if (LineNr >= 2) {
+        secondLastLine = getCode(LineNr - 2);
+        if (secondLastLine.length && secondLastLine.substr(-1) == "\\")
+            return 1;
+    }
+    return 0;
+}
+
+
+// Return the amount of characters (in spaces) to be indented.
+// Special indent() return values:
+//   -2 = no indent
+//   -1 = keep last indent
+// Follow PEP8 for unfinished sequences and argument lists.
+// Nested sequences are not implemented. (neither by Emacs' python-mode)
+function indent(line, indentWidth, character) {
+    if (line == 0)  // don't ever act on document's first line
+        return -2;
+    if (!document.line(line - 1).length)  // empty line
+        return -2;
+    var lastLine = getCode(line - 1);
+    var lastChar = lastLine.substr(-1);
+
+    // indent when opening bracket or backslash is at the end the previous line
+    if (openings.indexOf(lastChar) >= 0 || lastChar == "\\") {
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
+    // continue, pass, raise, return etc. should unindent
+    if (shouldUnindent(line))
+        return Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
+    var indent = calcBracketIndent(line);
+    if (lastLine.endsWith(':')) {
+        if (indent > -1)
+            return indent + indentWidth;
+        return document.firstVirtualColumn(line - 1) + indentWidth;
+    }
+    return indent;
+}
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

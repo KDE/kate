@@ -5,7 +5,7 @@
   original by Shane Wright (me@shanewright.co.uk)
   modifications by Milian Wolff (mail@milianw.de)
 -->
-<language name="SQL (MySQL)" version="1.14" kateversion="2.5" section="Database" extensions="*.sql;*.SQL;*.ddl;*.DDL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
+<language name="SQL (MySQL)" version="1.15" kateversion="2.5" section="Database" extensions="*.sql;*.SQL;*.ddl;*.DDL" mimetype="text/x-sql" casesensitive="0" author="Shane Wright (me@shanewright.co.uk)" license="">
   <highlighting>
     <list name="keywords">
       <item> ACCESS </item>
@@ -153,6 +153,7 @@
       <item> VARYING </item>
       <item> WHEN </item>
       <item> WHERE </item>
+      <item> WHILE </item>
       <item> WITH </item>
       <item> WRITE </item>
       <item> XOR </item>

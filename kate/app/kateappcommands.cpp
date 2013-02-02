@@ -67,11 +67,9 @@ const QStringList& KateAppCommands::cmds()
     static QStringList l;
 
     if (l.empty()) {
-        l << "q" << "qa" /*<< "w"*/ << "wq" << "wa" << "wqa" << "x" << "xa"
-          << "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew"
-          << "sp" << "split" << "vs" << "vsplit"
-          << "tabe" << "tabedit" << "tabnew"
-          << "bd" << "bdelete"
+        l << "q" << "qa" << "wq" << "wa" << "wqa" << "x" << "xa" << "new"
+          << "vnew" << "e" << "edit" << "enew" << "sp" << "split" << "vs"
+          << "vsplit" << "tabe" << "tabedit" << "tabnew" << "bd" << "bdelete"
           << "tabc" << "tabclose";
     }
 

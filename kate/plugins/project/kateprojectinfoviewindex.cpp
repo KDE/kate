@@ -38,8 +38,10 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex (KateProjectPluginView *plugi
    * default style
    */
   m_treeView->setEditTriggers (QAbstractItemView::NoEditTriggers);
+  m_treeView->setUniformRowHeights (true);
+  m_treeView->setRootIsDecorated (false);
   m_model->setHorizontalHeaderLabels (QStringList () << "Name" << "Kind" << "File" << "Line");
-  
+
   /**
    * attach model
    * kill selection model
@@ -47,7 +49,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex (KateProjectPluginView *plugi
   QItemSelectionModel *m = m_treeView->selectionModel();
   m_treeView->setModel (m_model);
   delete m;
-  
+
   /**
    * layout widget
    */
@@ -56,7 +58,7 @@ KateProjectInfoViewIndex::KateProjectInfoViewIndex (KateProjectPluginView *plugi
   layout->addWidget (m_lineEdit);
   layout->addWidget (m_treeView);
   setLayout (layout);
-  
+
   /**
    * connect needed signals
    */
@@ -81,13 +83,13 @@ void KateProjectInfoViewIndex::slotTextChanged (const QString &text)
    */
   m_treeView->setSortingEnabled (false);
   m_model->setRowCount(0);
-  
+
   /**
    * get results
    */
   if (m_project->projectIndex() && !text.isEmpty())
     m_project->projectIndex()->findMatches (*m_model, text, KateProjectIndex::FindMatches);
-  
+
   /**
    * tree view polish ;)
    */
@@ -105,14 +107,14 @@ void KateProjectInfoViewIndex::slotClicked (const QModelIndex &index)
   QString filePath = m_model->item (index.row(), 2)->text();
   if (filePath.isEmpty())
     return;
-  
+
   /**
    * create view
    */
   KTextEditor::View *view = m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
   if (!view)
     return;
-  
+
   /**
    * set cursor, if possible
    */

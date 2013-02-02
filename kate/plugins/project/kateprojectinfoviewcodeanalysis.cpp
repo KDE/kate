@@ -43,6 +43,8 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis (KateProjectPlu
    * default style
    */
   m_treeView->setEditTriggers (QAbstractItemView::NoEditTriggers);
+  m_treeView->setUniformRowHeights (true);
+  m_treeView->setRootIsDecorated (false);
   m_model->setHorizontalHeaderLabels (QStringList () << "File" << "Line" << "Severity" << "Message");
 
   /**
@@ -132,6 +134,13 @@ void KateProjectInfoViewCodeAnalysis::slotReadyRead ()
     items << new QStandardItem (elements[3].simplified());
     m_model->appendRow (items);
   }
+
+  /**
+   * tree view polish ;)
+   */
+  m_treeView->resizeColumnToContents (2);
+  m_treeView->resizeColumnToContents (1);
+  m_treeView->resizeColumnToContents (0);
 }
 
 void KateProjectInfoViewCodeAnalysis::slotClicked (const QModelIndex &index)

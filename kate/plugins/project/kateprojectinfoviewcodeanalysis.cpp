@@ -24,6 +24,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QProcess>
+#include <QFileInfo>
 
 #include <klocale.h>
 #include <kmessagewidget.h>
@@ -42,7 +43,7 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis (KateProjectPlu
    * default style
    */
   m_treeView->setEditTriggers (QAbstractItemView::NoEditTriggers);
-  m_model->setHorizontalHeaderLabels (QStringList () << "Name" << "Kind" << "File" << "Line");
+  m_model->setHorizontalHeaderLabels (QStringList () << "File" << "Line" << "Severity" << "Message");
 
   /**
    * attach model
@@ -93,7 +94,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
   connect (m_analyzer, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
 
   QStringList args;
-  args << "-q" << "--enable=all" << "--template='{file}\n{line}\n{severity}\n{message}'" << "--file-list=-";
+  args << "-q" << "--enable=all" << "--template={file}////{line}////{severity}////{message}" << "--file-list=-";
   m_analyzer->start("cppcheck", args);
   if (!m_analyzer->waitForStarted())
     return;
@@ -107,8 +108,30 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
 
 void KateProjectInfoViewCodeAnalysis::slotReadyRead ()
 {
-  if (m_analyzer->canReadLine())
-    printf ("%s", qPrintable (m_analyzer->readLine()));
+  /**
+   * get results of analysis
+   */
+  while (m_analyzer->canReadLine()) {
+    /**
+     * get one line, split it, skip it, if too few elements
+     */
+    QString line = QString::fromLocal8Bit (m_analyzer->readLine());
+    QStringList elements = line.split (QRegExp("////"), QString::SkipEmptyParts);
+    if (elements.size() < 4)
+      continue;
+
+    /**
+     * feed into model
+     */
+    QList<QStandardItem*> items;
+    QStandardItem *fileNameItem = new QStandardItem (QFileInfo (elements[0]).fileName());
+    fileNameItem->setToolTip (elements[0]);
+    items << fileNameItem;
+    items << new QStandardItem (elements[1]);
+    items << new QStandardItem (elements[2]);
+    items << new QStandardItem (elements[3].simplified());
+    m_model->appendRow (items);
+  }
 }
 
 void KateProjectInfoViewCodeAnalysis::slotClicked (const QModelIndex &index)
@@ -116,7 +139,7 @@ void KateProjectInfoViewCodeAnalysis::slotClicked (const QModelIndex &index)
   /**
    * get path
    */
-  QString filePath = m_model->item (index.row(), 2)->text();
+  QString filePath = m_model->item (index.row(), 0)->toolTip();
   if (filePath.isEmpty())
     return;
 
@@ -130,7 +153,7 @@ void KateProjectInfoViewCodeAnalysis::slotClicked (const QModelIndex &index)
   /**
    * set cursor, if possible
    */
-  int line = m_model->item (index.row(), 3)->text().toInt();
+  int line = m_model->item (index.row(), 1)->text().toInt();
   if (line >= 1)
     view->setCursorPosition (KTextEditor::Cursor (line - 1, 0));
 }

@@ -6,7 +6,7 @@
 <link linkend="pref-open-save-modes-filetypes">defining a filetype</link>,
 by <ulink url="help:/kate/config-variables.html">Document Variables</ulink> or
 by changing them per document during an editing session.</para>
-<sect2 id="appearance"> <!-- updated to 4.7 + synced with kwrite -->
+<sect2 id="appearance"> <!-- updated to 4.10 -->
 <title>Appearance</title>
 
 <sect3 id="appearance-general">
@@ -125,11 +125,15 @@ will show marks on the vertical scrollbar. These marks will
 for instance show bookmarks.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Show Mini-Map
-</guilabel></term>
+<term><guilabel>Show scrollbar mini-map</guilabel></term>
 <listitem><para>If this option is checked, every new view will show a mini map of the 
 <!--FIXME remove when next option is enabled-->whole<!--FIXME--> 
 document on the vertical scrollbar.</para></listitem>
+</varlistentry>
+<varlistentry>
+<term><guilabel>Minimap Width</guilabel></term>
+<listitem><para>Adjusts the width of the scrollbar mini-map, defined in pixels.
+</para></listitem>
 </varlistentry>
 <!--FIXME disabled in 4.10/master
 <varlistentry>
@@ -237,15 +241,6 @@ from the Normal text background helps to keep focus on the current line.
 operation.</para></listitem>
 </varlistentry>
 
-<!--<varlistentry id="variable-pref-colors-marks">
-<term><guilabel>Bookmark</guilabel></term>
-<listitem><para>This combobox lets you set overlay colors for various mark types.
-The color is mixed into the background color of a marked line, so that a line
-with more marks or a marked line that is current has a background that is a mix
-of more colors. The mark colors are also used if you enable display of scrollbar
-marks.</para></listitem>
-</varlistentry>-->
-
 </variablelist>
 </listitem>
 </varlistentry>
@@ -267,6 +262,8 @@ marker borders in the left side of the editor view when they are displayed.
 <listitem><para>This color is used to draw the line numbers on the left side of
 the view when displayed.</para></listitem>
 </varlistentry>
+
+<!--FIXME: Missing Seperator - not sure what that is-->
 
 <varlistentry>
 <term><guilabel>Word Wrap Marker</guilabel></term>
@@ -316,6 +313,12 @@ that have been modified this session and saved.  For more information, see
 <term><guilabel>Tab and Space Markers</guilabel></term>
 <listitem><para>This color is used to draw white space indicators, when they are
 enabled.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Indentation Line</guilabel></term>
+<listitem><para>This color is used to draw a line to the left of indented blocks,
+if <link linkend="appearance-general">that feature is enabled</link>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -443,6 +446,9 @@ Here you can choose the font for the schema.  You can choose from
 any font available on your system, and set a default size. A sample text
 displays at the bottom of the dialog, so you can see the effect of your choices.
 </para>
+<para>For more information about selecting a font, see the 
+<ulink url="help:/funadmentals/fonts.html"><emphasis>Choosing Fonts</emphasis>
+section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
 </sect3>
 
 <sect3 id="prefcolors-normal-text-styles">
@@ -863,7 +869,7 @@ commands.</para>
 <variablelist>
 
 <varlistentry>
-<term><guilabel>Encoding:</guilabel></term>
+<term><guilabel>Encoding</guilabel></term>
 <listitem>
 <para>This defines the standard encoding to use to open/save files, if not changed
 in the open/save dialog or by using a command line option.</para>
@@ -897,7 +903,7 @@ detection will run, if both fail fallback encoding will be tried.</para>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>End of line:</guilabel></term>
+<term><guilabel>End of line</guilabel></term>
 <listitem>
 <para>Choose your preferred end of line mode for your active
 document. You have the choice between &UNIX;, DOS/&Windows; or Macintosh.</para>
@@ -1154,65 +1160,15 @@ from the &kappname; website.
 </sect2>
 
 <sect2 id="pref-plugins">
-<title>Extensions</title> <!-- updated to 4.7 + synced with kwrite -->
-<para>The <guilabel>Plugins</guilabel> tab lists all available plugins and you can check those you
+<title>Extensions</title> <!-- updated to 4.10 -->
+<para>The <guilabel>Extensions</guilabel> tab lists all available plugins and you can check those you
 want to use. Click on the <guibutton>Information</guibutton> button to open the
 <guilabel>About</guilabel> dialog of this plugin.</para>
 <para>Once a configurable plugin is checked, the
 <guibutton>Configure</guibutton> button is enabled and you can click it
 in order to configure the highlighted plugin.</para>
-<!--FIXME duplicated content also in plugins.docbook-->
-<variablelist>
-<title>Editor Component Plugins</title>
-<!-- not released with 4.7
-<varlistentry>
-<term><guilabel>Artistic Comment</guilabel></term>
-<listitem><para>Format long source-code comments like license-headers
-or descriptions using different style.</para></listitem>
-</varlistentry>
--->
-<varlistentry>
-<term><guilabel>AutoBrace</guilabel></term>
-<listitem><para>The autobrace plugin supersedes the &kappname; internal
-<quote>Auto Brackets</quote> feature.
-It automatically inserts a closing brace <keycap>}</keycap> at the beginning
-of the next line after ending a line with an opening one <keycap>{</keycap>
-and pressing the &Enter; key.</para></listitem>
-</varlistentry>
-<!--http://jakob.petsovits.at/topic/kate-->
-<!--Right, it's the automatic insertion of a closing brace ("}") after you ended a line with an opening one ("{"). Kate's standard insertion of parentheses, brackets and braces is simply too obtrusive for me, so even if I tried it several times I always had to disable it again because I can't stand it. So here's how AutoBrace works.
-You, the developer, are writing a line of code, and want to open a new block delimited by braces. Looks like this:
-If you press Enter and AutoBrace is enabled, it will insert your favorite new brace where it belongs. Looks like this:
--->
-<varlistentry>
-<term><guilabel>Exporter</guilabel></term>
-<listitem><para>This command allows you to export the current document with all highlighting
-information into a HTML document using <menuchoice><guimenu>File</guimenu><guimenuitem>Export
-as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimenu>Edit</guimenu>
-<guimenuitem>Copy as HTML</guimenuitem></menuchoice> to copy the currently selected text
-as HTML to the system clipboard.</para></listitem>
-</varlistentry>
-<!--FIXME not in master, but in 4.10 ??-->
-<varlistentry>
-<term><guilabel>Highlight Selection</guilabel></term>
-<!--http://kate-editor.org/2010/11/14/highlight-selected-text/-->
-<listitem><para>Highlights all words that match the currently selected text.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>IconInserter</guilabel></term>
-<listitem><para>The icon inserter plugin is only of use for &kde; developers: It adds an item
-<guimenuitem>Insert KIcon-Code</guimenuitem> into the context menu of the editor.
-If activated, the &kde;'s icon chooser opens (showing application icons, action icons &etc;..).
-If you click on it, the file name without file extension will be inserted as
-text. Useful only for setting icons via &kde;'s framework through the KIcon() class.
-</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Insert File</guilabel></term>
-<listitem><para>This plugin allows you to insert any readable file at the cursor position.
-If enabled, the <guimenu>Tools</guimenu> menu has an additional menu item
-<guimenuitem>Insert File</guimenuitem>.</para></listitem>
-</varlistentry>
-</variablelist>
+
+<para>For more information on the available plugins, see 
+<xref linkend="plugins"/>.</para>
 </sect2>
 </sect1>

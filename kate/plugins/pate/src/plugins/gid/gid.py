@@ -169,7 +169,13 @@ def transform(file):
             return file
         percentI = kate.configuration["srcOut"].find("%{idPrefix}")
         if percentI > -1:
-            insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
+            try:
+                insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
+            except ValueError:
+                #
+                # No transformation is possible.
+                #
+                return file
             discard, insertRight = kate.configuration["srcOut"].split("%{idPrefix}", 1)
             file = insertLeft + insertRight + right
         else:

@@ -674,7 +674,7 @@ You will have to repeat it when you start &kate; the next time.</para></listitem
 </sect2>
 
 </sect1>
-
+<!--FIXME this belongs to Extensions, it is an editor plugin-->
 <sect1 id="kate-editor-plugin-exporter">
 <!--<sect1info>
 <authorgroup><author>
@@ -1356,7 +1356,7 @@ that are for the currently opened file type.</para></listitem>
 <sect2 id="snippets-panel">
 <title>Snippets panel</title>
 
-<screenshot id="screenshot-snippets-config">
+<screenshot id="screenshot-snippets-panel">
 <screeninfo>Kate Snippets Panel</screeninfo>
 <mediaobject>
 <imageobject><imagedata fileref="snippets-panel.png" format="PNG"/></imageobject>

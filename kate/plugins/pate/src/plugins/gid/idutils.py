@@ -34,13 +34,13 @@ import struct
 import sys
 
 def toStr(_bytes):
-    if sys.hexversion > 0x03000000:
-        return str(_bytes, "utf-8")
+    if sys.version_info.major >= 3:
+        return _bytes.decode("utf-8")
     else:
-        return str(_bytes)
+        return unicode(_bytes)
 
 def toBytes(name):
-    if sys.hexversion > 0x03000000:
+    if sys.version_info.major >= 3:
         if isinstance(name, str):
             return bytearray(name.encode("utf-8"))
         else:

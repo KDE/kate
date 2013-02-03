@@ -47,10 +47,10 @@ searchBar = None
 completionModel = None
 
 def toStr(_bytes):
-    if sys.hexversion > 0x03000000:
-        return str(_bytes, "utf-8")
+    if sys.version_info.major >= 3:
+        return _bytes.decode("utf-8")
     else:
-        return str(_bytes)
+        return unicode(_bytes)
 
 class ConfigWidget(QWidget):
     """Configuration widget for this plugin."""
@@ -309,7 +309,7 @@ class MatchesModel(HistoryModel):
                 #
                 self.add(fileName, "task-reject", "", 0, 0)
         except IOError as e:
-            self.add(fileName, "face-sad", toStr(e), None, None)
+            self.add(fileName, "face-sad", str(e), None, None)
         return definitionIndex
 
     def add(self, fileName, icon, text, line, column):

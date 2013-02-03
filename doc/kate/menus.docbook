@@ -7,6 +7,8 @@
 </chapterinfo>
 <title>Menu Entries</title>
 
+<!--FIXME: use formatting and anchors consistently throughout this docbook-->
+
 <sect1 id="file-menu">
 <title>The File Menu</title>
 
@@ -370,10 +372,22 @@ all to work with the currently active document.</para>
 <note><para>If Overwrite Selection is enabled, the pasted text will overwrite the selection, if any.</para></note>
  </listitem>
 </varlistentry>
-<!--FIXME
-Clipboard history
-list of items copied to clipboard
-  -->
+
+<varlistentry>
+<term>
+<anchor id="edit-clipboard-history"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guisubmenu>Clipboard History</guisubmenu>
+</menuchoice>
+</term>
+<listitem>
+<para>This submenu will display the beginning of portions of text recently
+copied to the clipboard.  Select an item from this menu to paste it in the
+currently open file.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry>
 <term>
 <anchor id="edit-select-all"/>
@@ -721,9 +735,63 @@ the File List.</para> <para>See also <link linkend="kate-mdi">Working with the
 &kate; MDI</link></para>
 </listitem>
 </varlistentry>
-<!-- FIXME missing
-Split View -> Move Splitter Left/Right/Up/Down
-  -->
+
+<varlistentry>
+<term>
+<anchor id="view-move-splitter-left"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Move Splitter Left</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>When Split View is enabled, this will move the border in between two
+vertically split documents further left.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-move-splitter-right"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Move Splitter Right</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>When Split View is enabled, this will move the border in between two
+vertically split documents further right.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-move-splitter-up"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Move Splitter Up</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>When Split View is enabled, this will move the border in between two
+horizontally split documents further up.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-move-splitter-down"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Move Splitter Down</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>When Split View is enabled, this will move the border in between two
+horizontally split documents further down.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry>
 <term><menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
 </menuchoice></term>
@@ -775,7 +843,7 @@ change to the directory of the active document, if it is a local file.</para>
 enabled by default.</para>
 </listitem>
 </varlistentry>
-<!--FIXME depending on selected plugins more items here e.g. Show Snippets -->
+
 </variablelist>
 </listitem>
 </varlistentry>
@@ -802,8 +870,8 @@ interactively. For more information, see
 <varlistentry>
 <term><menuchoice><guimenu>View</guimenu><guisubmenu>Schema</guisubmenu>
 </menuchoice></term>
-<listitem><para>This menu lists the available schemas. You can change the schema
-for the current view here, to change the default schema you need to
+<listitem><para>This menu lists the available color schemes. You can change the 
+schema for the current view here, to change the default schema you need to
 use the <link linkend="prefcolors">Fonts &amp; Colors</link> page
 of the config dialog.</para>
 </listitem>
@@ -883,7 +951,24 @@ vertical scrollbar. When enabled, marks are represented by a thin line in the
 mark color at the scrollbar, middleclicking on the lines will scroll the view
 to a position near the mark.</para></listitem>
 </varlistentry>
-<!--FIXME Show Mini-Map missing-->
+
+<varlistentry>
+<term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Scrollbar
+Minimap</guimenuitem></menuchoice></term>
+<listitem><para>This will replace the scrollbar with a visualization of the
+current document. <!--FIXME: describe this functionality in detail in on of the
+other sections and link to it here--></para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Scrollbar
+Marks</guimenuitem></menuchoice></term>
+<listitem><para>Toggles the visualization of bookmarks (and other marks) on the
+vertical scrollbar. When enabled, marks are represented by a thin line in the
+mark color at the scrollbar, middleclicking on the lines will scroll the view
+to a position near the mark.</para></listitem>
+</varlistentry>
+
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul"><keycap>F9</keycap>
 </keycombo></shortcut>
@@ -903,6 +988,7 @@ Code Folding</link>.</para></listitem>
 <listitem><para>These options pertain to
 <link linkend="advanced-editing-tools-code-folding">code folding</link>:</para>
 <variablelist>
+
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 <keycap>-</keycap></keycombo></shortcut>
@@ -910,6 +996,7 @@ Code Folding</link>.</para></listitem>
 </term>
 <listitem><para>Collapse the region that contains the cursor.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 <keycap>+</keycap></keycombo></shortcut>
@@ -917,13 +1004,23 @@ Code Folding</link>.</para></listitem>
 </term>
 <listitem><para>Expand the region that contains the cursor.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice>
 <guimenuitem>Unfold All Nodes</guimenuitem></menuchoice>
 </term>
 <listitem><para>Expand all regions in the document.</para></listitem>
 </varlistentry>
-<!--FIXME Fold Multiline Comments missing -->
+
+<varlistentry>
+<term><menuchoice>
+<guimenuitem>Fold Multiline Comments</guimenuitem></menuchoice>
+</term>
+<listitem><para>Fold all multiline comments in the document.  (For example,
+this will fold all comments that use <code>/* comment */</code> syntax in C-like
+programming languages.)</para></listitem>
+</varlistentry>
+
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 &Shift;<keycap>-</keycap></keycombo></shortcut>
@@ -931,24 +1028,28 @@ Code Folding</link>.</para></listitem>
 </term>
 <listitem><para>Collapse all toplevel regions in the document.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice>
 <guimenuitem>Fold Nodes in Level 2</guimenuitem></menuchoice>
 </term>
 <listitem><para>Collapse all level 2 nodes in the document.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice>
 <guimenuitem>Fold Nodes in Level 3</guimenuitem></menuchoice>
 </term>
 <listitem><para>Collapse all level 3 nodes in the document.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice>
 <guimenuitem>Fold Nodes in Level 4</guimenuitem></menuchoice>
 </term>
 <listitem><para>Collapse all level 4 nodes in the document.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 &Shift;<keycap>+</keycap></keycombo></shortcut>
@@ -956,25 +1057,30 @@ Code Folding</link>.</para></listitem>
 </term>
 <listitem><para>Expand all toplevel regions in the document.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice>
 <guimenuitem>Unfold Nodes in Level 2</guimenuitem></menuchoice>
 </term>
 <listitem><para>Expand all level 2 nodes in the document.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice>
 <guimenuitem>Unfold Nodes in Level 3</guimenuitem></menuchoice>
 </term>
 <listitem><para>Expand all level 3 nodes in the document.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice>
 <guimenuitem>Unfold Nodes in Level 4</guimenuitem></menuchoice>
 </term>
 <listitem><para>Expand all level 4 nodes in the document.</para></listitem>
 </varlistentry>
-</variablelist></listitem>
+</variablelist>
+
+</listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1128,9 +1234,7 @@ and delete sessions.</para></listitem>
 <title>The Tools Menu</title>
 
 <variablelist>
-  <!-- the  first 4 items are only in the menu if the plugin is enabled
-  add this info (different variablelists one for terminal + one for main items?
-  -->
+
 <varlistentry>
 <term><menuchoice><guimenu>Tools</guimenu><guimenuitem>Pipe to
 Terminal</guimenuitem></menuchoice></term>
@@ -1371,113 +1475,15 @@ is underlined in the document on-the-fly.</para>
 <guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu><guimenuitem>Spelling...</guimenuitem></menuchoice>
 </term>
 
-<!--para>These options are described in the documentation for the
-<ulink url="help:/sonnet/index.html">Check Spelling Dialog</ulink>.</para
-Move / merge the following into kdelibs/doc/sonnet/index.docbook and replace it with the para above
--->
-
 <listitem><para><action>This initiates the spellchecking program - a program
-designed to help the user catch and correct any spelling errors.</action>
-Clicking on this entry will start the checker and bring up the speller dialog
-box through which the user can control the process.  There are four settings
-lined up vertically in the center of the dialog with their corresponding labels
-just to the left.  Starting at the top they are:</para>
+designed to help the user catch and correct any spelling errors.</action></para>
 
-<variablelist>
-<varlistentry>
-<term><guilabel>Unknown word:</guilabel></term>
-<listitem><para>Here, the spellchecker indicates the word currently under
-consideration.  This happens when the checker encounters a word not in its
-dictionary - a file containing a list of correctly spelled words against which
-it compares each word in the editor.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Replace with:</guilabel></term>
-<listitem><para> If the checker has any similar words in its dictionary the
-first one will be listed here.  The user can accept the suggestion, type in his
-or her own correction, or choose a different suggestion from the next
-box.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Language:</guilabel></term>
-<listitem><para> If you have installed multiple dictionaries, here you can
-select which dictionary/language should be used.</para></listitem>
-</varlistentry>
-</variablelist>
-
-<para>On the right side of the dialog box are 6 buttons that allow the user to
-control the spellcheck process.  They are:</para>
-
-<variablelist>
-<varlistentry>
-<term><guibutton>Add to Dictionary</guibutton></term>
-<listitem><para>Pressing this button adds the <guilabel>Unknown word
-</guilabel> to the checker's dictionary. This means that in the future
-the checker will always consider this word to be correctly
-spelled.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Suggest</guilabel></term>
-<listitem><para> The checker may list here a number of possible replacements for
-the word under consideration.  Clicking on any one of the suggestions will cause
-that word to be entered in the <guilabel>Replace with</guilabel> box,
-above.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guibutton>Replace</guibutton></term>
-<listitem><para> This button has the checker replace the word under
-consideration in the document with the word in the
-<guilabel>Replace with</guilabel> box.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guibutton>Replace All</guibutton></term>
-<listitem><para> This button causes the checker to replace not only the current
-<guilabel>Unknown word:</guilabel> but to automatically make the same
-substitution for any other occurrences of this <guilabel>Unknown word</guilabel>
-in the document.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guibutton>Ignore</guibutton></term>
-<listitem><para>Activating this button will have the checker move on without
-making any changes.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><guibutton>Ignore All</guibutton></term>
-<listitem><para> This button tells the checker to do nothing with the current
-<guilabel>Unknown word:</guilabel> and to pass over any other instances of
-the same word.</para> <note><para>This only applies to the current spellcheck
-run.  If the checker is run again later it will stop on this same
-word.</para></note></listitem>
-</varlistentry>
-</variablelist>
-
-<para>Three more buttons are located horizontally along the bottom of the
-spellcheck dialog.  They are:</para>
-
-<variablelist>
-<varlistentry>
-<term><guibutton>Help</guibutton></term>
-<listitem><para> This invokes the &kde; help system with the help page
-for this dialog.</para></listitem>
+<para>For more information on how to use the &kde; spellchecking program, see the
+<ulink url="help:/fundamentals/spellcheck.html"><emphasis>Check Spelling</emphasis>
+section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.
+</para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term><guibutton>Finished</guibutton></term>
-<listitem><para> This button ends the spellcheck process, and returns to the
-document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guibutton>Cancel</guibutton></term>
-<listitem><para> This button cancels the spellcheck process, all modifications
-are reverted, and you will return to your document.</para></listitem>
-</varlistentry>
-</variablelist>
-</listitem>
-</varlistentry>
-</variablelist>
-
-<variablelist>
 <varlistentry>
 <term><anchor id="tools-spelling-from-cursor"/><menuchoice>
 <guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
@@ -1485,6 +1491,10 @@ are reverted, and you will return to your document.</para></listitem>
  <listitem>
 <para>This initiates the spellchecking program but it starts where your cursor
 is instead of at the beginning of the document.</para>
+
+<para>For more information on how to use the &kde; spellchecking program, see the
+<ulink url="help:/fundamentals/spellcheck.html"><emphasis>Check Spelling</emphasis>
+section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
  </listitem>
 </varlistentry>
 
@@ -1494,6 +1504,9 @@ is instead of at the beginning of the document.</para>
 <guimenuitem>Spellcheck Selection...</guimenuitem></menuchoice></term>
  <listitem>
 <para>Spellchecks the current selection.</para>
+<para>For more information on how to use the &kde; spellchecking program, see the
+<ulink url="help:/fundamentals/spellcheck.html"><emphasis>Check Spelling</emphasis>
+section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
  </listitem>
 </varlistentry>
 
@@ -1642,11 +1655,7 @@ in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
-<!--FIXME
-Create Snippets
-Snippets... -> Snippets tool view as separate window
-missing
-  -->
+
 </variablelist>
 <para>Menu items for the selected <link linkend="pref-plugins">plugins</link>
 are displayed at the end of this menu
@@ -1720,7 +1729,10 @@ Mode</guimenuitem></menuchoice></term>
 </term>
 <listitem>
 <para>Display the familiar &kde; Keyboard Shortcut Configuration
-Dialog.</para>
+Dialog.  For more information on using this, see the
+<ulink url="help:/fundamentals/shortcuts.html"><emphasis>Using and Customizing
+Shortcuts</emphasis> section of the <emphasis>&kde; Fundamentals</emphasis>
+documentation</ulink>.</para>
 </listitem>
 </varlistentry>
 
@@ -1734,7 +1746,11 @@ Dialog.</para>
 </menuchoice>
 </term>
 <listitem>
-<para>Display the familiar &kde; Toolbar Configuration Dialog.</para>
+<para>Display the familiar &kde; Toolbar Configuration Dialog.  For more
+information on using this, see the 
+<ulink url="help:/fundamentals/config.html#toolbars"><emphasis>Customizing
+Toolbars</emphasis> section of the <emphasis>&kde; Fundamentals</emphasis>
+documentation</ulink>.</para>
 </listitem>
 </varlistentry>
 

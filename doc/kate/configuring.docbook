@@ -134,14 +134,6 @@ reasonably sized.</para></listitem>
 </listitem>
 </varlistentry><!-- /meta data group -->
 
-<varlistentry>
-<term><anchor id="config-general-default-text-editing-component"/>
-<guilabel>Default text-editing component</guilabel></term>
-<listitem><para>Select the text-editing component used by &kate;.  By
-default, it is configured to use the system default text-editing component as
-configured in &systemsettings;.</para></listitem>
-</varlistentry>
-
 </variablelist>
 </sect2>
 
@@ -203,6 +195,22 @@ window configuration) will always be saved.</para>
 
 </sect2>
 
+<sect2 id="config-dialog-plugins">
+<title>Plugins</title>
+
+<para>This page provides a list of installed plugins for the &kate;
+application. Each plug-in is represented with its name and a short description.
+You can check the checkbox with an item to enable the plug-in it represents.
+</para>
+
+<para>If a plug-in provides configuration options, a section to access those
+will appear as a child of this page.</para>
+
+<para>For more information about the available plugins, see 
+<xref linkend="plugins"/>.</para>
+
+</sect2>
+
 <sect2 id="config-dialog-treeview">
 <title>Documents</title> <!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
 <!-- Tree View plugin http://kate-editor.org/2010/09/10/tree-view-plugin-introduction/ -->
@@ -215,34 +223,37 @@ enabled. See the section about <link
 linkend="kate-mdi-tools-file-list">The Document List</link> for more about
 this feature.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><guilabel>Sort By</guilabel></term>
 <listitem><para>Set how you want the document list sorted. This can be set
 from the &RMB; menu in the document list as well.</para></listitem>
 </varlistentry>
-<!--
-View Mode - Tree View / List View missing
-  -->
+
 <varlistentry>
 <term><guilabel>Show Full Path</guilabel></term>
 <listitem><para>When enabled, in tree mode, top level folders will show up
 with their full path rather than just the last folder name.</para></listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>View Mode</guilabel></term>
+<listitem><para>This provides two options that effect the display of the
+Documents tool view.  The <guilabel>Tree View</guilabel> option will display
+the documents in a tree underneath the folders they are in, while the
+<guilabel>List View</guilabel> option will display a flat list of documents.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Show Full Path</guilabel></term>
+<listitem><para>When Tree View and this option are enabled, the folder entries
+displayed in the Documents tool view will display the full filesystem path to 
+the folder in addition to the name of the folder.  It has no effect in List
+View.</para></listitem>
+</varlistentry>
+
 </variablelist>
-
-</sect2>
-
-<sect2 id="config-dialog-plugins">
-<title>Plugins</title>
-
-<para>This page provides a list of installed plugins for the &kate;
-application. Each plug-in is represented with its name and a short description.
-You can check the checkbox with an item to enable the plug-in it represents.
-</para>
-
-<para>If a plug-in provides configuration options, a section to access those
-will appear as a child of this page.</para>
 
 </sect2>
 

@@ -312,6 +312,7 @@ all to work with the currently active document.</para>
 </term>
 <listitem>
 <para>Undo the last editing command (typing, copying, cutting etc.)</para>
+<!-- FIXME how/where to enable/disable grouped undo ?-->
 <note><para>If grouped undo is enabled, this may undo several editing commands of the same type, like typing in characters.</para></note>
 </listitem>
 </varlistentry>
@@ -1017,7 +1018,7 @@ Code Folding</link>.</para></listitem>
 <guimenuitem>Fold Multiline Comments</guimenuitem></menuchoice>
 </term>
 <listitem><para>Fold all multiline comments in the document.  (For example,
-this will fold all comments that use <code>/* comment */</code> syntax in C-like
+this will fold all comments that use <quote>/* comment */</quote> syntax in C-like
 programming languages.)</para></listitem>
 </varlistentry>
 
@@ -1369,7 +1370,7 @@ own scripts</link>. This way, &kate; can be extended with user-defined tools.
 <para>The following scripts are included by default:</para>
 
 <variablelist>
-  <!--FIXME more items in 4.10 -->
+  <!--FIXME more items in 4.10 guisubmeu Navigation, Quick Coding, Editing, Emmet-->
 <varlistentry id="tools-scripts-sort">
 <term><menuchoice>
 <guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>

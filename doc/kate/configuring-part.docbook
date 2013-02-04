@@ -1169,6 +1169,6 @@ want to use. Click on the <guibutton>Information</guibutton> button to open the
 in order to configure the highlighted plugin.</para>
 
 <para>For more information on the available plugins, see 
-<!--FIXME: need to add this docbook to kwrite <xref linkend="plugins"/>-->.</para>
+<xref linkend="editor-component-plugins"/>.</para>
 </sect2>
 </sect1>

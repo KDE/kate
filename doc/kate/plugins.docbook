@@ -25,10 +25,6 @@ and you can search the web for more. A few plugins are shipped with the
 editor component, for inserting automatic braces, insert files,
 and exporting text as &HTML;.</para>
 
-<para>All available <link linkend="pref-plugins">Editor Component Plugins</link> 
-you find in the configuration dialog.
-</para>
-
 <sect1 id="kate-application-plugins">
 <title>&kate; Application Plugins</title>
 
@@ -138,6 +134,8 @@ http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/
 -->
 </itemizedlist>
 </sect1>
+
+&plugins-part-sections;
 
 <!-- from doc/kate-addons/filetemplates.docbook -->
 <sect1 id="kate-application-plugin-filetemplate">

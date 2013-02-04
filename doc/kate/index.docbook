@@ -17,6 +17,7 @@
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
   <!ENTITY part-chapter SYSTEM "part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
+  <!ENTITY plugins-part-sections SYSTEM "plugins-part.docbook">
   <!ENTITY vi-chapter SYSTEM "vi.docbook">
   <!ENTITY regexp-appendix SYSTEM "regular-expressions.docbook">
   <!ENTITY % addindex "IGNORE">

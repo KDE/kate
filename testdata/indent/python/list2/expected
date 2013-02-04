@@ -1,0 +1,4 @@
+mylist = [1,  # opening list w/ elements indents to opening
+          2,
+          3]
+pass

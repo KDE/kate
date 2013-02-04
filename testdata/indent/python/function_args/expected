@@ -1,0 +1,3 @@
+def test2(arg1,  # opening function w/ arguments indents to opening
+          arg2):
+    pass

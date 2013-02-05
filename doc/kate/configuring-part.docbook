@@ -128,7 +128,9 @@ for instance show bookmarks.</para></listitem>
 <term><guilabel>Show scrollbar mini-map</guilabel></term>
 <listitem><para>If this option is checked, every new view will show a mini map of the 
 <!--FIXME remove when next option is enabled-->whole<!--FIXME--> 
-document on the vertical scrollbar.</para></listitem>
+document on the vertical scrollbar.</para>
+<para>For more information on the scrollbar minimap, see
+<xref linkend="kate-part-scrollbar-minimap"/></para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Minimap Width</guilabel></term>

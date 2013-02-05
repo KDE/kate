@@ -621,4 +621,26 @@ panel</link>, or you can disable this feature completely in the
 
 </sect1>
 
+<sect1 id="kate-part-scrollbar-minimap">
+<title>The Scrollbar Minimap</title>
+
+<para>&kappname;'s Scrollbar Minimap displays a preview of documents in place of
+the scrollbar.  The currently visible portion of the document is highlighted.
+</para>
+
+<para>
+<mediaobject>
+<imageobject><imagedata format="PNG" fileref="&imgpath;minimap.png"/></imageobject>
+<caption><para>The Scrollbar Minimap shows a preview of the &kate; source code.
+</para></caption>
+</mediaobject>
+</para>
+
+<para>You can temporarily enable or disable the minimap by selecting
+<menuchoice><guimenu>View</guimenu><guimenuitem>View Scrollbar Minimap</guimenuitem></menuchoice>
+or permanently in <link linkend="appearance-borders">the Appearance section of
+&kappname;'s configuration</link>.</para>
+
+</sect1>
+
 </chapter>

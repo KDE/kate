@@ -957,8 +957,8 @@ to a position near the mark.</para></listitem>
 <term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Scrollbar
 Minimap</guimenuitem></menuchoice></term>
 <listitem><para>This will replace the scrollbar with a visualization of the
-current document. <!--FIXME: describe this functionality in detail in on of the
-other sections and link to it here--></para></listitem>
+current document. For more information on the scrollbar minimap, see
+<xref linkend="kate-part-scrollbar-minimap"/></para></listitem>
 </varlistentry>
 
 <varlistentry>

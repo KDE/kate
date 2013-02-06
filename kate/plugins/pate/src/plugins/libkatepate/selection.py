@@ -19,6 +19,7 @@
 #
 
 import kate
+from PyKDE4.ktexteditor import KTextEditor
 
 ''' Reusable code for Kate/Pâté plugins: selection mode constants
 
@@ -37,4 +38,3 @@ def setSelectionFromCurrentPosition(start, end, pos=None):
     cursor2 = KTextEditor.Cursor(pos.line() + end[0], pos.column() + end[1])
     view.setSelection(KTextEditor.Range(cursor1, cursor2))
     view.setCursorPosition(cursor1)
-

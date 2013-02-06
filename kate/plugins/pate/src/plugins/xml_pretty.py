@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-# This plugin originally was in this repository: 
+# This plugin originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/xhtml_plugins/xml_plugins.py>
 
 import kate
@@ -29,6 +29,7 @@ KATE_ACTIONS = {'togglePrettyXMLFormat': {'text': 'Pretty XML',
                                           'shortcut': 'Shift+X',
                                           'menu': 'XML', 'icon': None},
 }
+
 
 @kate.action(**KATE_ACTIONS['togglePrettyXMLFormat'])
 def togglePrettyJsonFormat():

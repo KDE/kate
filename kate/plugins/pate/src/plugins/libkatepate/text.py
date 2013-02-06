@@ -46,5 +46,3 @@ def insertText(text, strip_line=False,
         lines = text[pos_xxx + text_to_change_len:].count('\n')
         column = len(text[:pos_xxx].split('\n')[-1]) - currentPosition.column()
         setSelectionFromCurrentPosition((-lines, column), (-lines, column + text_to_change_len))
-
-

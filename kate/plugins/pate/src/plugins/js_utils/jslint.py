@@ -25,8 +25,9 @@ import kate
 
 from pyjslint import check_JSLint
 
-from settings import KATE_ACTIONS
-from libkatepate.errors import showErrors, showOk
+from settings import KATE_ACTIONS, CHECK_WHEN_SAVE
+from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
+                                showErrors, showOk)
 
 
 pattern = re.compile(r"Lint at line (\d+) character (\d+): (.*)")
@@ -40,6 +41,9 @@ def checkJslint(currentDocument=None):
         return
     move_cursor = not currentDocument
     currentDocument = currentDocument or kate.activeDocument()
+    mark_iface = currentDocument.markInterface()
+    clearMarksOfError(currentDocument, mark_iface)
+    hideOldPopUps()
     path = unicode(currentDocument.url().path())
     mark_key = '%s-jslint' % path
 
@@ -75,3 +79,13 @@ def is_mymetype_js(doc, text_plain=False):
     elif mimetype == 'text/plain' and text_plain:
         return True
     return False
+
+
+@kate.init
+@kate.viewCreated
+def createSignalCheckDocument(view=None, *args, **kwargs):
+    if not CHECK_WHEN_SAVE:
+        return
+    view = view or kate.activeView()
+    doc = view.document()
+    doc.modifiedChanged.connect(checkJslint.f)

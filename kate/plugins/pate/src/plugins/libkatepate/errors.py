@@ -22,6 +22,25 @@ import kate
 from PyKDE4.ktexteditor import KTextEditor
 
 
+def clearMarksOfError(doc, mark_iface):
+    for line in range(doc.lines()):
+        if mark_iface.mark(line) == mark_iface.Error:
+            mark_iface.removeMark(line, mark_iface.Error)
+
+
+def hideOldPopUps():
+    mainWindow = kate.mainWindow()
+    popups = kate.gui.TimeoutPassivePopup.popups.get(mainWindow, []) or []
+    for popup in popups:
+        popup.timer.stop()
+        popup.hide()
+        popup.setFixedHeight(0)
+        popup.adjustSize()
+        popup.originalHeight = popup.height()
+        popup.offsetBottom = 0
+        popup.move(0, 0)
+
+
 def showErrors(message, errors, key_mark, doc, time=10, icon='dialog-warning',
                key_line='line', key_column='column',
                max_errors=3, show_popup=True, move_cursor=False):

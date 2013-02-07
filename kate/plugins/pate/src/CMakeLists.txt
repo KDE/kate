@@ -50,8 +50,9 @@ install(DIRECTORY
     plugins/console
     plugins/expand
     plugins/gid
+    plugins/js_utils
     plugins/libkatepate
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json")
 
 install(DIRECTORY
     plugins/expand

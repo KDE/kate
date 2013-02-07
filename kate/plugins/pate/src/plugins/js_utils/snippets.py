@@ -14,6 +14,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+# This plugin originally was in this repository:
+# <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/jquery_plugins.py>
+
 import kate
 
 from libkatepate import text
@@ -34,4 +37,5 @@ TEXT_JQUERY = """<script type="text/javascript">
 
 @kate.action(**KATE_ACTIONS['insertReady'])
 def insertReady():
+    """Snippet with the ready code of the jQuery"""
     text.insertText(TEXT_JQUERY % text.TEXT_TO_CHANGE, start_in_current_column=True)

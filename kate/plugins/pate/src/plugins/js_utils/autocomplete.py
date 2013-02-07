@@ -14,6 +14,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+# This file originally was in this repository:
+# <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/autocomplete.py>
+
 import kate
 import re
 

@@ -33,8 +33,7 @@ KATE_ACTIONS = {'togglePrettyXMLFormat': {'text': 'Pretty XML',
 
 @kate.action(**KATE_ACTIONS['togglePrettyXMLFormat'])
 def togglePrettyJsonFormat():
-    """Pretty format a XML
-    """
+    """Pretty format a XML"""
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     source = unicode(view.selectionText()).encode('utf-8', 'ignore')

@@ -18,15 +18,34 @@
 
 # This plugin originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/jste_plugins/>
-# The original author of the jslint checker is Alejandro Blanco
+# The original author of the jslint checker is Alejandro Blanco <alejandro.b.e@gmail.com>
 
-from autocomplete import *
+NEED_PACKAGES = {}
+
+try:
+    import simplejson
+except ImportError:
+    NEED_PACKAGES["simplejson"] = "3.0.7"
+
+try:
+    import pyjslint
+except ImportError:
+    NEED_PACKAGES["pyjslint"] = "0.6.0"
+
+
 from snippets import *
-try:
+
+if not "simplejson" in NEED_PACKAGES:
+    from autocomplete import *
     from json_pretty import *
-except ImportError:
-    pass
-try:
+
+if not "pyjslint" in NEED_PACKAGES:
     from jslint import *
-except ImportError:
-    pass
+
+
+if NEED_PACKAGES:
+    msg = "You need install the next packages:\n"
+    for package in NEED_PACKAGES:
+        msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s" % {'package': package,
+                                                                               'version': NEED_PACKAGES[package]}
+    raise ImportError(msg)

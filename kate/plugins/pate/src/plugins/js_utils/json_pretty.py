@@ -16,6 +16,8 @@
 
 # This code is based in this code:
 # <http://www.muhuk.com/2008/11/extending-kate-with-pate/>
+# This file originally was in this repository:
+# <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/json_plugins.py>
 
 import kate
 import simplejson
@@ -26,6 +28,7 @@ from settings import KATE_ACTIONS
 
 @kate.action(**KATE_ACTIONS['togglePrettyJsonFormat'])
 def togglePrettyJsonFormat():
+    """A simple JSON pretty printer. JSON formatter which a good indents"""
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     source = view.selectionText()

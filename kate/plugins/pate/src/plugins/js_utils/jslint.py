@@ -14,6 +14,11 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+# This file originally was in this repository:
+# <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/jslint_plugins.py>
+# The original author of the jslint checker is Alejandro Blanco <alejandro.b.e@gmail.com>
+
+
 import re
 
 import kate
@@ -29,6 +34,7 @@ pattern = re.compile(r"Lint at line (\d+) character (\d+): (.*)")
 
 @kate.action(**KATE_ACTIONS['checkJslint'])
 def checkJslint(currentDocument=None):
+    """Check your js code with the jslint tool"""
     if not (not currentDocument or (is_mymetype_js(currentDocument) and
                                     not currentDocument.isModified())):
         return

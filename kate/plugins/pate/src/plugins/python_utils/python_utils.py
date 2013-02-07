@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Utils to JavaScript: Autocomplete, Autocomplete jQuery, Checker JSLint, Pretty JSON, Snippets'''
+'''Utils to Python: Autocomplete, Checker Parse, Checker Pep8, Checker Pyflakes, Snippets'''
 
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #
@@ -17,31 +17,36 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
 # This plugin originally was in this repository:
-# <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/jste_plugins/>
-# The original author of the jslint checker is Alejandro Blanco <alejandro.b.e@gmail.com>
+# <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/>
+# The original author of the pep8 and pyflakes checker is Alejandro Blanco <alejandro.b.e@gmail.com>
 
 NEED_PACKAGES = {}
 
 try:
-    import simplejson
+    import pep8
 except ImportError:
-    NEED_PACKAGES["simplejson"] = "3.0.7"
+    NEED_PACKAGES["pep8"] = "1.4.1"
 
 try:
-    import pyjslint
+    import pyflakes
 except ImportError:
-    NEED_PACKAGES["pyjslint"] = "0.6.0"
+    NEED_PACKAGES["pyflakes"] = "0.6.1"
 
 
-from snippets_js import *
+try:
+    import pysmell
+except ImportError:
+    NEED_PACKAGES["pysmell"] = "0.0.2"
 
-if not "simplejson" in NEED_PACKAGES:
-    from autocomplete_js import *
-    from json_pretty import *
 
-if not "pyjslint" in NEED_PACKAGES:
-    from jslint import *
+if not "pysmell" in NEED_PACKAGES:
+    try:
+        import pyplete
+    except ImportError:
+        NEED_PACKAGES["pyplete"] = "0.0.2"
 
+
+from snippets_py import *
 
 if NEED_PACKAGES:
     msg = "You need install the next packages:\n"

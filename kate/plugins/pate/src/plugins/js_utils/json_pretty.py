@@ -23,7 +23,7 @@ import kate
 import simplejson
 
 from libkatepate import text
-from settings import KATE_ACTIONS
+from settings_js import KATE_ACTIONS
 
 
 @kate.action(**KATE_ACTIONS['togglePrettyJsonFormat'])

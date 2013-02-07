@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
+# Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com> and 
+# Alejandro Blanco <alejandro.b.e@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -16,7 +17,6 @@
 
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/jslint_plugins.py>
-# The original author of the jslint checker is Alejandro Blanco <alejandro.b.e@gmail.com>
 
 
 import re
@@ -25,7 +25,7 @@ import kate
 
 from pyjslint import check_JSLint
 
-from settings import KATE_ACTIONS, CHECK_WHEN_SAVE
+from settings_js import KATE_ACTIONS, CHECK_WHEN_SAVE
 from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
                                 showErrors, showOk)
 

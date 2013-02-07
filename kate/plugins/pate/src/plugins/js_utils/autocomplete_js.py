@@ -21,8 +21,8 @@ import kate
 import re
 
 from libkatepate.autocomplete import AbstractJSONFileCodeCompletionModel, reset
-from settings import (JAVASCRIPT_AUTOCOMPLETE_ENABLED,
-                      JQUERY_AUTOCOMPLETE_ENABLED)
+from settings_js import (JAVASCRIPT_AUTOCOMPLETE_ENABLED,
+                         JQUERY_AUTOCOMPLETE_ENABLED)
 
 
 class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):

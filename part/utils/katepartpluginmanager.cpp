@@ -75,17 +75,25 @@ KatePartPluginManager *KatePartPluginManager::self()
 void KatePartPluginManager::setupPluginList ()
 {
   KService::List traderList = KServiceTypeTrader::self()->
-      query("KTextEditor/Plugin",
-            "([X-KDE-Version] >= 4.0) and ([X-KDE-Version] <= " + QString("%1.%2").arg(KDE::versionMajor()).arg(KDE::versionMinor()) + ')');
+      query("KTextEditor/Plugin");
 
   foreach(const KService::Ptr &ptr, traderList)
   {
-    KatePartPluginInfo info(ptr);
+    QVariant version = ptr->property("X-KDE-Version", QVariant::String);
+    QStringList numbers = qvariant_cast<QString>(version).split('.');
+    unsigned int kdeVersion = KDE_MAKE_VERSION(numbers.value(0).toUInt(),
+                                               numbers.value(1).toUInt(),
+                                               numbers.value(2).toUInt());
 
-    info.load = false;
-    info.plugin = 0L;
+    if (KDE_MAKE_VERSION(4,0,0) <= kdeVersion && kdeVersion <= KDE::version())
+    {
+      KatePartPluginInfo info(ptr);
 
-    m_pluginList.push_back (info);
+      info.load = false;
+      info.plugin = 0L;
+
+      m_pluginList.push_back (info);
+    }
   }
 }
 

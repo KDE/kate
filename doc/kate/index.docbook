@@ -50,13 +50,13 @@
 <holder>&Dominik.Haumann;</holder>
 </copyright>
 <copyright>
-<year>2011</year>
+<year>2011</year><year>2012</year><year>2013</year>
 <holder>&TC.Hollingsworth;</holder>
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2012-11-12</date>
-<releaseinfo>3.10 &kde; 4.10</releaseinfo>
+<date>2013-02-10</date>
+<releaseinfo>3.10.1 &kde; 4.10.1</releaseinfo>
 
 <abstract>
 <para>&kate; is a programmer's text editor for &kde; 4 and above.</para>

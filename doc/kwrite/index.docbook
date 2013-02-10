@@ -49,13 +49,13 @@
 <holder>&Anders.Lund; &Anders.Lund.mail;</holder>
 </copyright>
 <copyright>
-<year>2011</year>
+<year>2011</year><year>2012</year><year>2013</year>
 <holder>&TC.Hollingsworth; &TC.Hollingsworth.mail;</holder>
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2012-02-26</date>
-<releaseinfo>4.8.4</releaseinfo>
+<date>2013-02-10</date>
+<releaseinfo>4.10.1</releaseinfo>
 
 <abstract>
 <para>&kwrite; is a text editor for &kde; allowing you to edit one file at the time per window.</para>

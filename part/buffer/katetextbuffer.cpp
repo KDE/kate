@@ -58,7 +58,7 @@ TextBuffer::TextBuffer (KateDocument *parent, int blockSize)
   , m_generateByteOrderMark (false)
   , m_endOfLineMode (eolUnix)
   , m_newLineAtEof (false)
-  , m_lineLengthLimit (1024)
+  , m_lineLengthLimit (4096)
 {
   // minimal block size must be > 0
   Q_ASSERT (m_blockSize > 0);

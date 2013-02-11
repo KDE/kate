@@ -25,7 +25,7 @@ NEED_PACKAGES = {}
 try:
     import pep8
 except ImportError:
-    NEED_PACKAGES["pep8"] = "1.4.1"
+    NEED_PACKAGES["pep8"] = "1.4.2"
 
 try:
     import pyflakes
@@ -55,6 +55,8 @@ if not "pep8" in NEED_PACKAGES:
 if not "pyflakes" in NEED_PACKAGES:
     from python_checkers.pyflakes_checker import *
 
+if not "pysmell" in NEED_PACKAGES and not "pyplete" in NEED_PACKAGES:
+    from python_autocomplete.autocomplete import *
 
 if NEED_PACKAGES:
     msg = "You need install the next packages:\n"

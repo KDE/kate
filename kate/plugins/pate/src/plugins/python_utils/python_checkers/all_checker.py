@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-# This plugin originally was in this repository:
+# This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/check_plugins/check_all_plugins.py>
 
 
@@ -69,7 +69,7 @@ def checkAll(doc=None, excludes=None, exclude_all=False):
                 from python_checkers.pep8_checker import checkPep8
                 checkPep8.f(currentDoc, refresh=False)
             except ImportError:
-                pass
+                import pdb; pdb.set_trace()
     if not doc and currentDoc.isModified() and not excludes:
         kate.gui.popup('You must save the file first', 3,
                         icon='dialog-warning', minTextWidth=200)

@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-# This plugin originally was in this repository:
+# This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/text_plugins.py>
 
 import kate

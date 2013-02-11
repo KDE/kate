@@ -14,16 +14,29 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-
-def is_mymetype_python(doc, text_plain=False):
-    mimetype = unicode(doc.mimeType())
-    if mimetype == 'text/x-python':
-        return True
-    elif mimetype == 'text/plain' and text_plain:
-        return True
-    return False
+import kate
+from PyKDE4.kdecore import KConfig, KConfigGroup
 
 
-def canCheckDocument(doc, text_plain=False):
-    return not doc or (is_mymetype_python(doc, text_plain) and
-                       not doc.isModified())
+def get_session():
+    main_window = kate.mainWindow()
+    title = unicode(main_window.windowTitle())
+    session = None
+    if title and title != 'Kate' and ":" in title:
+        session = title.split(":")[0]
+        if session == 'file':
+            session = None
+    if session:
+        return session
+    return get_last_session()
+
+
+def get_last_session():
+    config = KConfig('katerc')
+    kgroup = KConfigGroup(config, "General")
+    session = kgroup.readEntry("Last Session")
+    if session:
+        session = unicode(session)
+        session = session.replace('.katesession', '')
+        return session
+    return None

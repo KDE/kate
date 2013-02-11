@@ -21,7 +21,7 @@ import kate
 
 from libkatepate import text
 
-from settings_js import KATE_ACTIONS
+from js_settings import KATE_ACTIONS
 
 TEXT_JQUERY = """<script type="text/javascript">
     (function($){

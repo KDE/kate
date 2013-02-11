@@ -33,10 +33,10 @@ except ImportError:
     NEED_PACKAGES["pyjslint"] = "0.6.0"
 
 
-from snippets_js import *
+from js_snippets import *
 
 if not "simplejson" in NEED_PACKAGES:
-    from autocomplete_js import *
+    from js_autocomplete import *
     from json_pretty import *
 
 if not "pyjslint" in NEED_PACKAGES:

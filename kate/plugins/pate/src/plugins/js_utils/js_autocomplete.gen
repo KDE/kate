@@ -78,7 +78,7 @@ result = JSON.stringify(kateGetJSAutocomplete(window, 2))
 
 /* After in a python shell: */
 import simplejson
-file_path = "./autocomplete_js.json"
+file_path = "./js_autocomplete.json"
 json_text = open(file_path).read()
 file = open(file_path, "w")
 target = simplejson.dumps(simplejson.loads(json_text), indent=2)

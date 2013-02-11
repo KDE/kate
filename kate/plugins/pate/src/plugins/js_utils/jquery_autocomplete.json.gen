@@ -23,8 +23,8 @@ And add this line:
 
 And in python change this line:
 
-file_path = "./autocomplete_js.json"
+file_path = "./js_autocomplete.json"
 
 to this:
 
-file_path = "./autocomplete_jquery.json"
+file_path = "./jquery_autocomplete.json"

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com> and 
+# Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com> and
 # Alejandro Blanco <alejandro.b.e@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify
@@ -25,7 +25,7 @@ import kate
 
 from pyjslint import check_JSLint
 
-from settings_js import KATE_ACTIONS, CHECK_WHEN_SAVE
+from js_settings import KATE_ACTIONS, CHECK_WHEN_SAVE
 from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
                                 showErrors, showOk)
 

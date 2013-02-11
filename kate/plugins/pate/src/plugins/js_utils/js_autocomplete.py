@@ -21,7 +21,7 @@ import kate
 import re
 
 from libkatepate.autocomplete import AbstractJSONFileCodeCompletionModel, reset
-from settings_js import (JAVASCRIPT_AUTOCOMPLETE_ENABLED,
+from js_settings import (JAVASCRIPT_AUTOCOMPLETE_ENABLED,
                          JQUERY_AUTOCOMPLETE_ENABLED)
 
 
@@ -30,7 +30,7 @@ class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):
     MIMETYPES = ['application/javascript', 'text/html']
     TITLE_AUTOCOMPLETION = "JS Auto Complete"
     # generated with autocomplete_js.gen
-    FILE_PATH = 'autocomplete_js.json'
+    FILE_PATH = 'js_autocomplete.json'
     OPERATORS = ["=", " ", "[", "]", "(", ")", "{", "}", ":", ">", "<",
                  "+", "-", "*", "/", "%", " && ", " || ", ","]
 
@@ -48,7 +48,7 @@ class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):
 
 class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
     TITLE_AUTOCOMPLETION = "jQuery Auto Complete"
-    FILE_PATH = 'autocomplete_jquery.json'
+    FILE_PATH = 'jquery_autocomplete.json'
     # generated with autocomplete_jquery.gen
 
     def __init__(self, *args, **kwargs):

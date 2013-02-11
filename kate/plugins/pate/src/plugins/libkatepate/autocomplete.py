@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-# This core originally was in this repository:
+# This code originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/autopate.py>
 
 import inspect

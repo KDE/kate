@@ -21,7 +21,7 @@ import kate
 import re
 
 from libkatepate.text import insertText, TEXT_TO_CHANGE
-from settings_py import KATE_ACTIONS
+from python_settings import KATE_ACTIONS
 
 
 TEXT_INIT = """
@@ -58,11 +58,13 @@ PYTHON_SPACES = 4
 
 @kate.action(**KATE_ACTIONS['insertIPDB'])
 def insertIPDB():
+    """Insert the instructions to debug the python code"""
     insertText("import ipdb; ipdb.set_trace()")
 
 
 @kate.action(**KATE_ACTIONS['insertInit'])
 def insertInit():
+    """Insert the __init__ function (Into a class)"""
     class_name = TEXT_TO_CHANGE
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
@@ -165,6 +167,7 @@ def get_prototype_of_current_func():
 
 @kate.action(**KATE_ACTIONS['insertSuper'])
 def insertSuper():
+    """Insert the call to the parent method (Into a method of a class)"""
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     currentPosition = view.cursorPosition()
@@ -184,6 +187,7 @@ def insertSuper():
 
 @kate.action(**KATE_ACTIONS['callRecursive'])
 def callRecursive():
+    """Insert the recursive call (Into a method of a class or into a function)"""
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     currentPosition = view.cursorPosition()

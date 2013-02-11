@@ -46,7 +46,15 @@ if not "pysmell" in NEED_PACKAGES:
         NEED_PACKAGES["pyplete"] = "0.0.2"
 
 
-from snippets_py import *
+from python_snippets import *
+from python_checkers.parse_checker import *
+
+if not "pep8" in NEED_PACKAGES:
+    from python_checkers.pep8_checker import *
+
+if not "pyflakes" in NEED_PACKAGES:
+    from python_checkers.pyflakes_checker import *
+
 
 if NEED_PACKAGES:
     msg = "You need install the next packages:\n"

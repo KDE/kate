@@ -14,13 +14,16 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+import kate
+
+from libkatepate.menu import move_menu_submenu, separated_menu
 
 PY_MENU = "Python"
 PY_CHECKERS = "Checkers"
 
 KATE_ACTIONS = {
     'insertIPDB': {'text': 'ipdb', 'shortcut': 'Ctrl+I',
-                   'menu': PY_MENU, 'icon': None},
+                   'menu': PY_MENU, 'icon': 'tools-report-bug'},
     'insertInit': {'text': '__init__', 'shortcut': 'Ctrl+-',
                    'menu': PY_MENU, 'icon': None},
     'insertSuper': {'text': 'super', 'shortcut': 'Alt+-',
@@ -29,7 +32,7 @@ KATE_ACTIONS = {
                     'menu': PY_MENU, 'icon': None},
     'checkAll': {'text': 'Check all', 'shortcut': 'Alt+5',
                  'menu': PY_CHECKERS, 'icon': None},
-    'checkPyflakes': {'text': 'pyflakes', 'shortcut': 'Alt+7',
+    'checkPyflakes': {'text': 'Pyflakes', 'shortcut': 'Alt+7',
                       'menu': PY_CHECKERS, 'icon': None},
     'parseCode': {'text': 'Parse code python', 'shortcut': 'Alt+6',
                   'menu': PY_CHECKERS, 'icon': None},
@@ -40,3 +43,11 @@ KATE_ACTIONS = {
 PYTHON_AUTOCOMPLETE_ENABLED = True
 CHECK_WHEN_SAVE = True
 IGNORE_PEP8_ERRORS = []
+
+
+@kate.init
+def move_menus():
+    py_menu_slug = PY_MENU.lower()
+    py_checkers_slug = PY_CHECKERS.lower()
+    separated_menu(py_menu_slug)
+    move_menu_submenu(py_menu_slug, py_checkers_slug)

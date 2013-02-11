@@ -20,6 +20,7 @@
 
 import kate
 
+from python_checkers.utils import is_mymetype_python
 from python_settings import KATE_ACTIONS, CHECK_WHEN_SAVE
 
 
@@ -45,31 +46,33 @@ def hideOldPopUps():
 @kate.action(**KATE_ACTIONS['checkAll'])
 def checkAll(doc=None, excludes=None, exclude_all=False):
     """Check the syntax, pep8 and pyflakes errors of the document"""
+    if not (not doc or (is_mymetype_python(doc) and
+                        not doc.isModified())):
+        return
     from python_checkers.parse_checker import parseCode
-    if not doc or not doc.isModified():
-        excludes = excludes or []
-        currentDoc = doc or kate.activeDocument()
-        mark_iface = currentDoc.markInterface()
-        clearMarksOfError(currentDoc, mark_iface)
-        hideOldPopUps()
-        if not exclude_all:
-            if not 'parseCode' in excludes:
-                parseCode.f(currentDoc, refresh=False)
-            if not 'checkPyflakes' in excludes:
-                try:
-                    from python_checkers.pyflakes_checker import checkPyflakes
-                    checkPyflakes.f(currentDoc, refresh=False)
-                except ImportError:
-                    pass
-            if not 'checkPep8' in excludes:
-                try:
-                    from python_checkers.pep8_checker import checkPep8
-                    checkPep8.f(currentDoc, refresh=False)
-                except ImportError:
-                    pass
-        if not doc and currentDoc.isModified() and not excludes:
-            kate.gui.popup('You must save the file first', 3,
-                            icon='dialog-warning', minTextWidth=200)
+    excludes = excludes or []
+    currentDoc = doc or kate.activeDocument()
+    mark_iface = currentDoc.markInterface()
+    clearMarksOfError(currentDoc, mark_iface)
+    hideOldPopUps()
+    if not exclude_all:
+        if not 'parseCode' in excludes:
+            parseCode.f(currentDoc, refresh=False)
+        if not 'checkPyflakes' in excludes:
+            try:
+                from python_checkers.pyflakes_checker import checkPyflakes
+                checkPyflakes.f(currentDoc, refresh=False)
+            except ImportError:
+                pass
+        if not 'checkPep8' in excludes:
+            try:
+                from python_checkers.pep8_checker import checkPep8
+                checkPep8.f(currentDoc, refresh=False)
+            except ImportError:
+                pass
+    if not doc and currentDoc.isModified() and not excludes:
+        kate.gui.popup('You must save the file first', 3,
+                        icon='dialog-warning', minTextWidth=200)
 
 
 @kate.init

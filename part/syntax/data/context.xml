@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE language SYSTEM "language.dtd">
+<language name="ConTeXt" version="1.0" section="Markup" kateversion="2.3" priority="10" extensions="*.ctx" mimetype="text/x-tex" casesensitive="1" author="Philipp A. (flying-sheep@web.de)" license="GPL" >
+	<highlighting>
+		<contexts>
+			<!-- Normal text -->
+			<context name="Normal Text" attribute="Normal Text" lineEndContext="#stay">
+				<DetectChar   char="$"               attribute="Math" context="MathMode"/>
+				<Detect2Chars char="$" char1="$"     attribute="Math" context="MathModeDisplay"/>
+				<StringDetect String="\startformula" attribute="Math" context="MathModeFormula"/>
+				<!--TODO: das gleiche wie im mathemodus-->
+				<DetectChar   char="%"                   attribute="Comment"     context="Comment"/>
+				<DetectChar   char="\"                   attribute="Macro"       context="Macro"/>
+				<DetectChar   char="{"                   attribute="Normal Text" context="#stay" beginRegion="block"/>
+				<DetectChar   char="}"                   attribute="Normal Text" context="#stay" endRegion="block"/>
+			</context>
+			
+			<!-- Macro -->
+			<context name="Macro" attribute="Macro" lineEndContext="#pop">
+				<RegExpr String="start([a-zA-Z_]+)"        attribute="Block" context="#pop" beginRegion="block"/>
+				<RegExpr String="stop([a-zA-Z_]+)"         attribute="Block" context="#pop" endRegion="block"/>
+				<RegExpr String="[a-zA-Z@_]+(\+?|\*{0,3})" attribute="Macro" context="#pop"/>
+				<RegExpr String="[^a-zA-Z_]"               attribute="Macro" context="#pop"/>
+			</context>
+			
+			<!-- Comment -->
+			<context name="Comment" attribute="Comment" lineEndContext="#pop">
+				<RegExpr String="(FIXME|TODO):?" attribute="Alert" context="#stay"/>
+			</context>
+			
+			<!-- Math Modes -->
+			<context name="MathMode" attribute="Math" lineEndContext="#stay">
+				<DetectChar   char="$"               attribute="Math"  context="#pop"/>
+				<Detect2Chars char="$" char1="$"     attribute="Error" context="#stay"/>
+				<StringDetect String="\stopformula"  attribute="Error" context="#stay"/>
+				<IncludeRules context="MathModeCommon"/>
+			</context>
+			<context name="MathModeDisplay" attribute="Math" lineEndContext="#stay">
+				<DetectChar   char="$"               attribute="Error" context="#stay"/>
+				<Detect2Chars char="$" char1="$"     attribute="Math"  context="#pop"/>
+				<StringDetect String="\stopformula"  attribute="Error" context="#stay"/>
+				<IncludeRules context="MathModeCommon"/>
+			</context>
+			<context name="MathModeFormula" attribute="Math" lineEndContext="#stay">
+				<DetectChar   char="$"               attribute="Error" context="#stay"/>
+				<Detect2Chars char="$" char1="$"     attribute="Math"  context="#stay"/>
+				<StringDetect String="\stopformula"  attribute="Error" context="#pop"/>
+				<IncludeRules context="MathModeCommon"/>
+			</context>
+			<context name="MathModeCommon" attribute="Math" lineEndContext="#stay">
+				<StringDetect String="\startformula" attribute="Error"   context="#stay"/>
+				<!--TODO: das gleiche wie in normalem text-->
+				<DetectChar   char="%"                   attribute="Comment"     context="Comment"/>
+				<DetectChar   char="\"                   attribute="Macro"       context="Macro"/>
+				<DetectChar   char="{"                   attribute="Math"        context="#stay" beginRegion="block"/>
+				<DetectChar   char="}"                   attribute="Math"        context="#stay" endRegion="block"/>
+			</context>
+			
+		</contexts>
+		
+		<itemDatas>
+			<itemData name="Normal Text" defStyleNum="dsNormal"                            /><!--(Hi, I’m text)-->
+			<itemData name="Comment"     defStyleNum="dsComment"                           /><!--(%Comment)-->
+			<itemData name="Section"     defStyleNum="dsKeyword"                           /><!--\section{(Fancy!)}-->
+			<itemData name="Alert"       defStyleNum="dsAlert"        spellChecking="false"/><!--%(TODO):do sth.!-->
+			<itemData name="Math"        defStyleNum="dsOthers"       spellChecking="false"/><!--($5$)-->
+			<itemData name="Macro"       defStyleNum="dsFunction"     spellChecking="false"/><!--(\foo)-->
+			<itemData name="Label Ref"   defStyleNum="dsRegionMarker" spellChecking="false"/><!--\placeWUTEVA[(spam)], \ref[(spam)]-->
+			<itemData name="Block"       defStyleNum="dsRegionMarker" spellChecking="false"/><!--\start(bar), \stop(bar)-->
+			<itemData name="Error"       defStyleNum="dsError"        spellChecking="false"/><!--$($$)-->
+			<itemData name="Verbatim"    defStyleNum="dsString"       spellChecking="false"/><!--\starttyping(eggs)\stoptyping, \definetyping[C] \startC(umm…)\stopC-->
+		</itemDatas>
+	</highlighting>
+
+	<general>
+		<keywords weakDeliminator="\" wordWrapDeliminator=",{}[]"/>
+		<comments>
+			<comment name="singleLine" start="%" />
+		</comments>
+	</general>
+	
+	<spellchecking>
+		<configuration encodingReplacementPolicy="EncodeWhenPresent"/>
+		<encodings>
+			<encoding string="''" ignored="true" />
+		</encodings>
+	</spellchecking>
+</language>

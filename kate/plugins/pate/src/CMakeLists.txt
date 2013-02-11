@@ -52,6 +52,7 @@ install(DIRECTORY
     plugins/gid
     plugins/js_utils
     plugins/python_utils
+    plugins/django_utils
     plugins/libkatepate
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json")
 

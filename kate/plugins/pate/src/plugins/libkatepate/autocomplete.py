@@ -16,6 +16,7 @@
 
 # This code originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/autopate.py>
+# Thanks to Jeroen van Veen <j.veenvan@gmail.com> for the help
 
 import inspect
 import os

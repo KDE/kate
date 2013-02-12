@@ -23,60 +23,13 @@ import kate
 from PyQt4 import QtGui
 
 from libkatepate.text import insertText, TEXT_TO_CHANGE
-from django_settings import KATE_ACTIONS
-
-TEXT_URLS = """from django.conf.urls.defaults import patterns, url
-
-
-urlpatterns = patterns('%(app)s.views',
-    url(r'^$', '%(change)s', name='%(change)s'),
-)
-"""
-
-TEXT_VIEWS = """from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
-"""
-
-PATTERN_MODEL_FORM = """
-
-class %(class_name)s(forms.ModelForm):
-
-    class Meta:
-        model = %(class_model)s
-
-    def __init__(self, *args, **kwargs):
-        super(%(class_name)s, self).__init__(*args, **kwargs)
-
-    def clean(self):
-        return super(%(class_name)s, self).clean()
-
-    def save(self, commit=True):
-        return super(%(class_name)s, self).save(commit)
-
-"""
-
-PATTERN_MODEL = """
-
-class %(class_name)s(models.Model):
-
-    class Meta:
-        verbose_name = _('%(class_name)s')
-        verbose_name_plural = _('%(class_name)ss')
-
-    @permalink
-    def get_absolute_url(self):
-        pass
-
-    def __unicode__(self):
-        pass
-
-"""
+from django_settings import (KATE_ACTIONS, TEXT_URLS, TEXT_VIEWS,
+                             PATTERN_MODEL_FORM, PATTERN_MODEL)
 
 
 @kate.action(**KATE_ACTIONS['importUrls'])
 def importUrls():
+    """Insert the typical code of the urls.py file"""
     currentDocument = kate.activeDocument()
     path = unicode(currentDocument.url().directory())
     path_split = path.split('/')
@@ -87,6 +40,7 @@ def importUrls():
 
 @kate.action(**KATE_ACTIONS['importViews'])
 def importViews():
+    """Insert the usual imports of the views.py file"""
     insertText(TEXT_VIEWS)
 
 
@@ -104,11 +58,13 @@ def create_frame(pattern_str='', title='', name_field=''):
 
 @kate.action(**KATE_ACTIONS['createForm'])
 def createForm():
+    """Create a form class from its name"""
     create_frame(pattern_str=PATTERN_MODEL_FORM, title='Create Form',
                  name_field='Name Form')
 
 
 @kate.action(**KATE_ACTIONS['createModel'])
 def createModel():
+    """Create a model class from its name"""
     create_frame(pattern_str=PATTERN_MODEL, title='Create Model',
                  name_field='Name Model')

@@ -1,4 +1,4 @@
-/* File generated with this script: */
+/* js_autocomplete.json file was generated with this script: */
 function kateGetCategory(child, childKey) {
     if (!child) {
         return "constant";
@@ -76,7 +76,7 @@ function kateGetJSAutocomplete(obj, levelmax, level, dict) {
 
 result = JSON.stringify(kateGetJSAutocomplete(window, 2))
 
-/* After in a python shell: */
+/* After in a python shell (pretty json): */
 import simplejson
 file_path = "./js_autocomplete.json"
 json_text = open(file_path).read()

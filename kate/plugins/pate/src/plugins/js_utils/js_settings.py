@@ -34,3 +34,13 @@ KATE_ACTIONS = {'insertReady': {'text': 'jQuery Ready',
 JAVASCRIPT_AUTOCOMPLETE_ENABLED = True
 JQUERY_AUTOCOMPLETE_ENABLED = True
 CHECK_WHEN_SAVE = True
+TEXT_JQUERY = """<script type="text/javascript">
+    (function($){
+        $(document).ready(function () {
+            $("%s").click(function(){
+                // Write here
+            });
+        });
+      })(jQuery);
+</script>
+"""

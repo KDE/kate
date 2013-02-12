@@ -21,18 +21,7 @@ import kate
 
 from libkatepate import text
 
-from js_settings import KATE_ACTIONS
-
-TEXT_JQUERY = """<script type="text/javascript">
-    (function($){
-        $(document).ready(function () {
-            $("%s").click(function(){
-                // Write here
-            });
-        });
-      })(jQuery);
-</script>
-"""
+from js_settings import KATE_ACTIONS, TEXT_JQUERY
 
 
 @kate.action(**KATE_ACTIONS['insertReady'])

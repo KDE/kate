@@ -28,6 +28,7 @@ str_blank = "(?:\ |\t|\n)*"
 
 @kate.action(**KATE_ACTIONS['closeTemplateTag'])
 def closeTemplateTag():
+    """Close the last templatetag open"""
     template_tags = '|'.join(TEMPLATE_TAGS_CLOSE)
     pattern_tag_open = re.compile("(.)*{%%%(espaces)s(%(tags)s)%(espaces)s(.)*%(espaces)s%%}(.)*" % {'espaces': str_blank, 'tags': template_tags})
     pattern_tag_close = re.compile("(.)*{%%%(espaces)send(%(tags)s)%(espaces)s%(espaces)s%%}(.)*" % {'espaces': str_blank, 'tags': template_tags})
@@ -60,6 +61,7 @@ def closeTemplateTag():
 
 @kate.action(**KATE_ACTIONS['createBlock'])
 def createBlock():
+    """Insert the tag block/endblock. The name of the block will be the text selected"""
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     source = view.selectionText()

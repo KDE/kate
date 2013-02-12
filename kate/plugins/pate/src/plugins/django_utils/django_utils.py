@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Utils to Django: Snippets, and templte utils'''
+'''Utils to Django: Snippets, and template utils'''
 
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #

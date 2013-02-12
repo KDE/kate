@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-# This code is based in this code:
+# This code is based in this other:
 # <http://www.muhuk.com/2008/11/extending-kate-with-pate/>
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/json_plugins.py>
@@ -36,11 +36,12 @@ def togglePrettyJsonFormat():
         kate.gui.popup('Select a json text', 2,
                        icon='dialog-warning',
                        minTextWidth=200)
-    try:
-        target = simplejson.dumps(simplejson.loads(source), indent=2)
-        view.removeSelectionText()
-        text.insertText(target)
-    except simplejson.JSONDecodeError:
-        kate.gui.popup('This text is not a valid json text', 2,
-                       icon='dialog-warning',
-                       minTextWidth=200)
+    else:
+        try:
+            target = simplejson.dumps(simplejson.loads(source), indent=2)
+            view.removeSelectionText()
+            text.insertText(target)
+        except simplejson.JSONDecodeError:
+            kate.gui.popup('This text is not a valid json text', 2,
+                        icon='dialog-warning',
+                        minTextWidth=200)

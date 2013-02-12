@@ -24,7 +24,7 @@ KATE_ACTIONS = {
                     'menu': DJ_MENU, 'icon': None},
     'importUrls': {'text': 'Template Django urls', 'shortcut': 'Ctrl+Alt+7',
                    'menu': DJ_MENU, 'icon': None},
-    'importViews': {'text': 'Template import views', 'shortcut': 'Ctrl+Alt+v',
+    'importViews': {'text': 'Template import views', 'shortcut': 'Ctrl+Alt+I',
                     'menu': DJ_MENU, 'icon': None},
     'createBlock': {'text': 'Template block', 'shortcut': 'Ctrl+Alt+B',
                               'menu': DJ_MENU, 'icon': None},
@@ -34,3 +34,52 @@ KATE_ACTIONS = {
 
 TEMPLATE_TAGS_CLOSE = ["autoescape", "block", "comment", "filter", "for",
                        "ifchanged", "ifequal", "if", "spaceless", "with"]
+
+TEXT_URLS = """from django.conf.urls.defaults import patterns, url
+
+
+urlpatterns = patterns('%(app)s.views',
+    url(r'^$', '%(change)s', name='%(change)s'),
+)
+"""
+
+TEXT_VIEWS = """from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render_to_response, get_object_or_404
+from django.template import RequestContext
+"""
+
+PATTERN_MODEL_FORM = """
+
+class %(class_name)s(forms.ModelForm):
+
+    class Meta:
+        model = %(class_model)s
+
+    def __init__(self, *args, **kwargs):
+        super(%(class_name)s, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        return super(%(class_name)s, self).clean()
+
+    def save(self, commit=True):
+        return super(%(class_name)s, self).save(commit)
+
+"""
+
+PATTERN_MODEL = """
+
+class %(class_name)s(models.Model):
+
+    class Meta:
+        verbose_name = _('%(class_name)s')
+        verbose_name_plural = _('%(class_name)ss')
+
+    @permalink
+    def get_absolute_url(self):
+        pass
+
+    def __unicode__(self):
+        pass
+
+"""

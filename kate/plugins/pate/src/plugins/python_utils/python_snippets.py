@@ -21,17 +21,10 @@ import kate
 import re
 
 from libkatepate.text import insertText, TEXT_TO_CHANGE
-from python_settings import KATE_ACTIONS
-
-
-TEXT_INIT = """
-    def __init__(self, *args, **kwargs):
-        super(%s, self).__init__(*args, **kwargs)
-"""
-
-TEXT_SUPER = """%ssuper(%s, %s).%s(%s)\n"""
-TEXT_RECURSIVE_CLASS = """%s%s.%s(%s)\n"""
-TEXT_RECURSIVE_NO_CLASS = """%s%s(%s)\n"""
+from python_settings import (KATE_ACTIONS, PYTHON_SPACES,
+                             TEXT_INIT, TEXT_SUPER,
+                             TEXT_RECURSIVE_CLASS,
+                             TEXT_RECURSIVE_NO_CLASS)
 
 str_blank = "(?:\ |\t|\n)*"
 str_espaces = "([\ |\t|\n]*)"
@@ -53,7 +46,6 @@ pattern_param = re.compile("%(espaces)s(\w+)%(blank)s\=%(blank)s(.*)" % {
                                                 "espaces": str_espaces},
                                                 re.MULTILINE | re.DOTALL)
 
-PYTHON_SPACES = 4
 
 
 @kate.action(**KATE_ACTIONS['insertIPDB'])

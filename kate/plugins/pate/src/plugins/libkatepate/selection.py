@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
+# Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com> and
+# Copyright 2013 by Pablo Martín <goinnn@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -17,6 +18,9 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import kate
+from PyKDE4.ktexteditor import KTextEditor
+
 ''' Reusable code for Kate/Pâté plugins: selection mode constants
 
     ... just to introduce separate `namespace`
@@ -26,3 +30,11 @@
 NORMAL = False
 BLOCK = True
 
+
+def setSelectionFromCurrentPosition(start, end, pos=None):
+    view = kate.activeView()
+    pos = pos or view.cursorPosition()
+    cursor1 = KTextEditor.Cursor(pos.line() + start[0], pos.column() + start[1])
+    cursor2 = KTextEditor.Cursor(pos.line() + end[0], pos.column() + end[1])
+    view.setSelection(KTextEditor.Range(cursor1, cursor2))
+    view.setCursorPosition(cursor1)

@@ -649,9 +649,7 @@ void KatePluginSearchView::searchDone()
     }
     m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);
-    if (m_curResults->tree->verticalScrollBar()->maximum() >
-        3*m_curResults->tree->verticalScrollBar()->pageStep())
-    {
+    if (!m_ui.u_expandResults->isChecked()) {
         m_curResults->tree->collapseAll();
     }
     m_curResults->buttonContainer->setEnabled(true);
@@ -837,6 +835,7 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     m_ui.searchCombo->setHistoryItems(cg.readEntry("Search", QStringList()), true);
     m_ui.matchCase->setChecked(cg.readEntry("MatchCase", false));
     m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));
+    m_ui.u_expandResults->setChecked(cg.readEntry("ExpandSearchResults", false));
 
     m_ui.searchPlaceCombo->setCurrentIndex(cg.readEntry("Place", 0));
     m_ui.recursiveCheckBox->setChecked(cg.readEntry("Recursive", true));
@@ -857,6 +856,7 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
     cg.writeEntry("Search", m_ui.searchCombo->historyItems());
     cg.writeEntry("MatchCase", m_ui.matchCase->isChecked());
     cg.writeEntry("UseRegExp", m_ui.useRegExp->isChecked());
+    cg.writeEntry("ExpandSearchResults", m_ui.u_expandResults->isChecked());
 
     cg.writeEntry("Place", m_ui.searchPlaceCombo->currentIndex());
     cg.writeEntry("Recursive", m_ui.recursiveCheckBox->isChecked());

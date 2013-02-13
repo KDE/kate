@@ -45,18 +45,17 @@ void SearchFolder::startSearch(const QString &folder,
     m_regExp       = regexp;
     m_excludeList.clear();
 
-    if (types.startsWith('-')) {
-        m_types = QStringList("*");
-        QString tmpStr = types;
-        QStringList tmpStrList((tmpStr.remove(0,1)).split(','));
-        for (int i=0; i<tmpStrList.size(); i++) {
-            QRegExp rx(tmpStrList[i]);
-            rx.setPatternSyntax(QRegExp::Wildcard);
-            m_excludeList << rx;
-        }
-    }
-    else {
-        m_types = types.split(',');
+    m_types = types.split(',');
+
+    for (int i=0; i<m_types.size(); i++) {
+      if (m_types[i].startsWith('-')) {
+        m_types[i].remove(0, 1);
+        QRegExp rx(m_types[i]);
+        rx.setPatternSyntax(QRegExp::Wildcard);
+        m_excludeList << rx;
+        m_types.removeAt(i);
+        i=0;
+      }
     }
 
     start();

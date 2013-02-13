@@ -186,7 +186,7 @@ m_projectPluginView(0)
     m_ui.newTabButton->setIcon(KIcon("tab-new"));
 
     m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. example: \"*.cpp,*.h\"\n"
-    "NOTE: Put a minus sign ('-') in front of the list to make it into an exclude list. example: \"-*.o,*.obj\""));
+    "NOTE: Put a minus sign ('-') in front of an element to exclude those files and directories. example: \"*.cpp,*.h,-build*\""));
 
     int padWidth = m_ui.folderLabel->sizeHint().width();
     padWidth = qMax(padWidth, m_ui.filterLabel->sizeHint().width());

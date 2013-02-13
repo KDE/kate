@@ -155,9 +155,24 @@ m_kateApp(application),
 m_curResults(0),
 m_projectPluginView(0)
 {
+    m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
+                                          Kate::MainWindow::Bottom,
+                                          SmallIcon("edit-find"),
+                                          i18n("Search and Replace"));
+
+    QWidget *container = new QWidget(m_toolView);
+    m_ui.setupUi(container);
+
     KAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
+
+    a = actionCollection()->addAction("search_in_files_new_tab");
+    a->setText(i18n("Search in Files (new tab)"));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(addTab()));
+    connect(a, SIGNAL(triggered(bool)), m_ui.displayOptions, SLOT(toggle()));
+    // toggle works her because addTab() sets it to a not pressed
 
     a = actionCollection()->addAction("go_to_next_match");
     a->setText(i18n("Go to Next Match"));
@@ -166,13 +181,6 @@ m_projectPluginView(0)
     a = actionCollection()->addAction("go_to_prev_match");
     a->setText(i18n("Go to Previous Match"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(goToPreviousMatch()));
-
-    m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
-                                          Kate::MainWindow::Bottom,
-                                          SmallIcon("edit-find"),
-                                          i18n("Search and Replace"));
-    QWidget *container = new QWidget(m_toolView);
-    m_ui.setupUi(container);
 
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
 
@@ -892,6 +900,7 @@ void KatePluginSearchView::addTab()
     m_ui.resultTabWidget->setCurrentIndex(m_ui.resultTabWidget->count()-1);
     m_ui.stackedWidget->setCurrentIndex(0);
     m_ui.resultTabWidget->tabBar()->show();
+    m_ui.displayOptions->setChecked(false);
 
     res->tree->installEventFilter(this);
 }

@@ -1188,6 +1188,24 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
 
 KateHlDownloadDialog::~KateHlDownloadDialog(){}
 
+/// Split typical version string (\c major.minor.patch) into
+/// numeric components, convert 'em to \c unsigned and form a
+/// single value that can be compared w/ other versions
+/// using relation operators.
+/// \note It takes into account only first 3 numbers
+unsigned KateHlDownloadDialog::parseVersion(const QString& version_string)
+{
+  unsigned vn[3] = {0, 0, 0};
+  unsigned idx = 0;
+  foreach (const QString& n, version_string.split("."))
+  {
+    vn[idx++] = n.toUInt();
+    if (idx == sizeof(vn))
+      break;
+  }
+  return KDE_MAKE_VERSION(vn[0], vn[1], vn[2]);
+}
+
 void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 {
   if (!transferJob || transferJob->isErrorPage())
@@ -1245,7 +1263,15 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
         entry->setText(3, e.attribute("version"));
         entry->setText(4, e.attribute("url"));
 
-        if (!hl || hl->version() < e.attribute("version"))
+        bool is_fresh = false;
+        if (hl)
+        {
+          unsigned prev_version = parseVersion(hl->version());
+          unsigned next_version = parseVersion(e.attribute("version"));
+          is_fresh = prev_version < next_version;
+        }
+        else is_fresh = true;
+        if (is_fresh)
         {
           entry->treeWidget()->setItemSelected(entry, true);
           entry->setIcon(0, SmallIcon(("get-hot-new-stuff")));

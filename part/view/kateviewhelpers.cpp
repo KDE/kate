@@ -156,6 +156,8 @@ QSize KateScrollBar::sizeHint() const
 
 void KateScrollBar::mousePressEvent(QMouseEvent* e)
 {
+  QScrollBar::mousePressEvent(e);
+
   if (e->button() == Qt::MidButton)
     m_middleMouseDown = true;
   else if (e->button() == Qt::LeftButton)
@@ -167,8 +169,6 @@ void KateScrollBar::mousePressEvent(QMouseEvent* e)
   QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);
 
   redrawMarks();
-
-  QScrollBar::mousePressEvent(e);
 }
 
 void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
@@ -189,6 +189,8 @@ void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
 
 void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 {
+  QScrollBar::mouseMoveEvent(e);
+
   if (e->buttons() & (Qt::LeftButton | Qt::MidButton)) {
     redrawMarks();
 
@@ -198,8 +200,6 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
     const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
     QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);
   }
-
-  QScrollBar::mouseMoveEvent(e);
 }
 
 void KateScrollBar::paintEvent(QPaintEvent *e)

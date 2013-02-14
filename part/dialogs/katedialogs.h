@@ -374,6 +374,7 @@ class KateHlDownloadDialog: public KDialog
     ~KateHlDownloadDialog();
 
   private:
+    static unsigned parseVersion(const QString&);
     class QTreeWidget  *list;
     class QString listData;
     KIO::TransferJob *transferJob;

@@ -94,5 +94,10 @@ void SnippetCompletionItem::execute( KTextEditor::View* view, const KTextEditor:
     QMap< QString, QString > values = QMap<QString, QString>();
     KTextEditor::TemplateInterface2* templateIface2 = qobject_cast<KTextEditor::TemplateInterface2*>(view);
     if (templateIface2)
+    {
+      // Replace matched text...
+      view->document()->removeText(word);
+      // ... with snippet content
       templateIface2->insertTemplateText(word.start(), m_snippet, values, m_repo->registeredScript());
+    }
 }

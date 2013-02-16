@@ -33,11 +33,11 @@ function action( cmd ) {
   a.category = i18n("Navigation");
   a.interactive = false;
   if ( cmd == 'jumpIndentUp' ) {
-    a.text = i18n('Move cursor to previous matching indent');
+    a.text = i18n("Move cursor to previous matching indent");
     a.shortcut = 'Alt+Shift+Up';
   }
   else if ( cmd == 'jumpIndentDown' ) {
-    a.text = i18n('Move cursor to next matching indent');
+    a.text = i18n("Move cursor to next matching indent");
     a.shortcut = 'Alt+Shift+Down';
   }
 
@@ -47,10 +47,10 @@ function action( cmd ) {
 
 function help( cmd ) {
   if (cmd == 'jumpIndentUp') {
-    return i18n('Move cursor to previous matching indent');
+    return i18n("Move cursor to previous matching indent");
   }
   else if (cmd == 'jumpIndentDown') {
-    return i18n('Move cursor to next matching indent');
+    return i18n("Move cursor to next matching indent");
   }
 }
 

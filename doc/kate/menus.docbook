@@ -1443,15 +1443,15 @@ to the opening tag.
 </menuchoice></term>
 <listitem><para>
 If the selected portion is not a comment, this item will enclose that portion
-in &HTML;/XML comments (e.g. 
-<computeroutput>&lt;-- selected texxt --&gt;</computeroutput>). If the selected 
+in &HTML;/XML comments (&eg;
+<computeroutput>&lt;-- selected text --&gt;</computeroutput>). If the selected 
 portion is a comment, the comment tags will be removed instead.
 </para></listitem>
 </varlistentry>
 
 <!--FIXME: (Go to|Select next) (previous|next) edit point -->
 
-<varlistentry id="tools-scripts-emmet-toggle-comment">
+<varlistentry id="tools-scripts-emmet-toggle-delete-tag">
 <term><menuchoice>
 <guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
 <guimenuitem>Delete tag under cursor</guimenuitem>
@@ -1495,18 +1495,6 @@ For example, if <userinput>15</userinput> is selected, it will become
 This item will subtract 0.1 from the currently selected text, if it is a number.  
 For example, if <userinput>4.5</userinput> is selected, it will become 
 <computeroutput>4.4</computeroutput>.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="tools-scripts-emmet-increment-number-by-1">
-<term><menuchoice>
-<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Emmet</guisubmenu>
-<guimenuitem>Increment number by 1</guimenuitem>
-</menuchoice></term>
-<listitem><para>
-This item will add one to the currently selected text, if it is a number.  
-For example, if <userinput>5</userinput> is selected, it will become 
-<computeroutput>6</computeroutput>.
 </para></listitem>
 </varlistentry>
 

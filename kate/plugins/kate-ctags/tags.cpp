@@ -50,7 +50,8 @@ unsigned int Tags::numberOfMatches( const QString & tagpart, bool partial )
 	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit(), &info );
 	ctags::tagEntry entry;
 
-	if ( ctags::tagsFind( file, &entry, tagpart.toLocal8Bit(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH) ) == ctags::TagSuccess )
+	QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
+	if ( ctags::tagsFind( file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH) ) == ctags::TagSuccess )
 	{
 		do
 		{
@@ -74,7 +75,8 @@ Tags::TagList Tags::getMatches( const QString & tagpart, bool partial, const QSt
 	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit(), &info );
 	ctags::tagEntry entry;
 
-	if ( ctags::tagsFind( file, &entry, tagpart.toLocal8Bit().data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH) ) == ctags::TagSuccess )
+	QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
+	if ( ctags::tagsFind( file, &entry, tagpartBArray.data(), TAG_OBSERVECASE | (partial ? TAG_PARTIALMATCH : TAG_FULLMATCH) ) == ctags::TagSuccess )
 	{
 		do
 		{

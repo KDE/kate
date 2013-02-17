@@ -357,11 +357,11 @@ void KateSearchBar::indicateMatch(MatchResult matchResult) {
         case MatchFound: // FALLTHROUGH
         case MatchNothing:
             KColorScheme::adjustForeground(foreground, KColorScheme::NormalText, QPalette::WindowText, KColorScheme::Window);
-            m_incUi->status->setText("");
+            m_incUi->status->clear();
             break;
         case MatchWrappedForward:
         case MatchWrappedBackward:
-            KColorScheme::adjustForeground(foreground, KColorScheme::ActiveText, QPalette::WindowText, KColorScheme::Window);
+            KColorScheme::adjustForeground(foreground, KColorScheme::NormalText, QPalette::WindowText, KColorScheme::Window);
             if (matchResult == MatchWrappedBackward) {
                 m_incUi->status->setText(i18n("Reached top, continued from bottom"));
             } else {

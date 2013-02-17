@@ -1444,7 +1444,7 @@ to the opening tag.
 <listitem><para>
 If the selected portion is not a comment, this item will enclose that portion
 in &HTML;/XML comments (&eg;
-<computeroutput>&lt;-- selected text --&gt;</computeroutput>). If the selected 
+<computeroutput>&lt;!-- selected text --&gt;</computeroutput>). If the selected 
 portion is a comment, the comment tags will be removed instead.
 </para></listitem>
 </varlistentry>

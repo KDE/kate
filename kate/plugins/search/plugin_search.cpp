@@ -346,6 +346,7 @@ void KatePluginSearchView::openSearchView()
                 m_ui.searchCombo->lineEdit()->setText(selection);
             }
         }
+        searchPatternChanged();
     }
 }
 
@@ -675,19 +676,12 @@ void KatePluginSearchView::searchWhileTypingDone()
         return;
     }
 
-    if (m_curResults->tree->topLevelItemCount() > 0) {
-        m_curResults->tree->setCurrentItem(m_curResults->tree->topLevelItem(0));
-        m_curResults->setFocus(Qt::OtherFocusReason);
-    }
     m_curResults->tree->resizeColumnToContents(0);
     m_curResults->buttonContainer->setEnabled(true);
 
     connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
     indicateMatch(m_curResults->tree->topLevelItemCount() > 0);
-    if (m_curResults->tree->topLevelItemCount() > 0) {
-        itemSelected(m_curResults->tree->topLevelItem(0));
-    }
     m_curResults = 0;
     m_ui.searchCombo->lineEdit()->setFocus();
 }

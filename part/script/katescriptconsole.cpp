@@ -58,7 +58,7 @@ const QString & KateScriptConsoleEngine::execute(const QString & text)
 
   QFile file(m_utilsUrl);
   if (!file.open(QFile::ReadOnly)) {
-    msg = i18n("Error: can't open utils.js");
+    msg = i18n("Error: cannot open utils.js");
     return msg;
   }
   QString utilsCode = file.readAll();

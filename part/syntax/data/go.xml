@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 -->
 
 
-<language name="Go" version="1.01" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
+<language name="Go" version="1.02" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
     <highlighting>
     <list name="keywords">
 <!-- Keywords have been taken from The Go Programming Language Specification -> Keywords section -->
@@ -79,20 +79,21 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>uint64</item>
     </list>
     <list name="builtin">
-      <item> append </item>
-      <item> cap </item>
-      <item> close </item>
-      <item> complex </item>
-      <item> copy </item>
-      <item> imag </item>
-      <item> len </item>
-      <item> make </item>
-      <item> new </item>
-      <item> panic </item>
-      <item> print </item>
-      <item> println </item>
-      <item> real </item>
-      <item> recover </item>
+      <item>append</item>
+      <item>cap</item>
+      <item>close</item>
+      <item>complex</item>
+      <item>copy</item>
+      <item>delete</item>
+      <item>imag</item>
+      <item>len</item>
+      <item>make</item>
+      <item>new</item>
+      <item>panic</item>
+      <item>print</item>
+      <item>println</item>
+      <item>real</item>
+      <item>recover</item>
     </list>
     <list name="predeclared">
       <item>false</item>

@@ -599,8 +599,8 @@ void KatePluginSearchView::clearMarks()
             QHashIterator<int, KTextEditor::Mark*> i(marks);
             while (i.hasNext()) {
                 i.next();
-                if (i.value()->type == KTextEditor::MarkInterface::markType32) {
-                    iface->removeMark(i.value()->line, i.value()->type);
+                if (i.value()->type & KTextEditor::MarkInterface::markType32) {
+                    iface->removeMark(i.value()->line, KTextEditor::MarkInterface::markType32);
                 }
             }
         }
@@ -620,8 +620,8 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
         QHashIterator<int, KTextEditor::Mark*> i(marks);
         while (i.hasNext()) {
             i.next();
-            if (i.value()->type == KTextEditor::MarkInterface::markType32) {
-                iface->removeMark(i.value()->line, i.value()->type);
+            if (i.value()->type & KTextEditor::MarkInterface::markType32) {
+                iface->removeMark(i.value()->line, KTextEditor::MarkInterface::markType32);
             }
         }
     }

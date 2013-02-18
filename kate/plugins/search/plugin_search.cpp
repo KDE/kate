@@ -153,6 +153,7 @@ KatePluginSearchView::KatePluginSearchView(Kate::MainWindow *mainWin, Kate::Appl
 Kate::XMLGUIClient(KatePluginSearchFactory::componentData()),
 m_kateApp(application),
 m_curResults(0),
+m_searchJustOpened(false),
 m_projectPluginView(0)
 {
     KAction *a = actionCollection()->addAction("search_in_files");
@@ -338,6 +339,8 @@ void KatePluginSearchView::openSearchView()
                 m_ui.searchCombo->lineEdit()->setText(selection);
             }
         }
+        m_ui.searchCombo->lineEdit()->selectAll();
+        m_searchJustOpened = true;
         searchPatternChanged();
     }
 }
@@ -662,6 +665,7 @@ void KatePluginSearchView::searchDone()
     indicateMatch(m_curResults->tree->topLevelItemCount() > 0);
     m_curResults = 0;
     m_toolView->unsetCursor();
+    m_searchJustOpened = false;
 }
 
 void KatePluginSearchView::searchWhileTypingDone()
@@ -675,9 +679,13 @@ void KatePluginSearchView::searchWhileTypingDone()
 
     connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
+    if (!m_searchJustOpened && (m_curResults->tree->topLevelItemCount() > 0)) {
+        itemSelected(m_curResults->tree->topLevelItem(0));
+    }
     indicateMatch(m_curResults->tree->topLevelItemCount() > 0);
     m_curResults = 0;
     m_ui.searchCombo->lineEdit()->setFocus();
+    m_searchJustOpened = false;
 }
 
 void KatePluginSearchView::indicateMatch(bool hasMatch) {
@@ -873,6 +881,13 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
 
 void KatePluginSearchView::addTab()
 {
+    if ((sender() != m_ui.newTabButton) &&
+        (m_ui.resultTabWidget->count() >  0) &&
+        m_ui.resultTabWidget->tabText(m_ui.resultTabWidget->currentIndex()).isEmpty())
+    {
+        return;
+    }
+
     Results *res = new Results();
 
     connect(res->tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),

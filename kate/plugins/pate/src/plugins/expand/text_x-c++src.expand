@@ -275,4 +275,4 @@ def sw(expr = None, *caseList):
 def test(expr):
     return '{\n\t%{cursor}' + expr + '\n}'
 
-# kate: hl python;
+# kate: hl python; indent-width 4;

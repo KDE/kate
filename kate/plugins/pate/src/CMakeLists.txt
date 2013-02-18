@@ -44,6 +44,7 @@ install(DIRECTORY kate DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate FILES_M
 #
 install(FILES
     plugins/expand.py plugins/close_tag.py plugins/block.py plugins/commentar.py plugins/format.py plugins/tools.py plugins/xml_pretty.py
+    plugins/commentar_config.ui
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate)
 
 install(DIRECTORY

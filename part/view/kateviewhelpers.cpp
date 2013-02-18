@@ -154,8 +154,48 @@ QSize KateScrollBar::sizeHint() const
   return QScrollBar::sizeHint();
 }
 
+int KateScrollBar::minimapYToStdY(int y)
+{
+  // Check if the minimap fills the whole scrollbar
+  if (m_stdGroveRect.height() == m_mapGroveRect.height()){
+    return y;
+  }
+
+  // check if y is on the step up/down
+  if ((y < m_stdGroveRect.top()) || (y > m_stdGroveRect.bottom())) {
+    return y;
+  }
+
+  if (y < m_mapGroveRect.top()) {
+    return m_stdGroveRect.top() + 1;
+  }
+
+  if (y > m_mapGroveRect.bottom()) {
+    return m_stdGroveRect.bottom() - 1;
+  }
+
+  // check for div/0
+  if (m_mapGroveRect.height() == 0) {
+    return y;
+  }
+
+  int newY = (y - m_mapGroveRect.top()) * m_stdGroveRect.height() / m_mapGroveRect.height();
+  newY += m_stdGroveRect.top();
+  return newY;
+}
+
 void KateScrollBar::mousePressEvent(QMouseEvent* e)
 {
+  if (m_showMiniMap) {
+    QMouseEvent eMod(QEvent::MouseButtonPress,
+                     QPoint(6, minimapYToStdY(e->pos().y())),
+                     e->button(), e->buttons(), e->modifiers());
+    QScrollBar::mousePressEvent(&eMod);
+  }
+  else {
+    QScrollBar::mousePressEvent(e);
+  }
+
   if (e->button() == Qt::MidButton)
     m_middleMouseDown = true;
   else if (e->button() == Qt::LeftButton)
@@ -167,8 +207,6 @@ void KateScrollBar::mousePressEvent(QMouseEvent* e)
   QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);
 
   redrawMarks();
-
-  QScrollBar::mousePressEvent(e);
 }
 
 void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
@@ -184,11 +222,29 @@ void KateScrollBar::mouseReleaseEvent(QMouseEvent* e)
     QToolTip::hideText();
   }
 
-  QScrollBar::mouseReleaseEvent(e);
+  if (m_showMiniMap) {
+    QMouseEvent eMod(QEvent::MouseButtonRelease,
+                     QPoint(e->pos().x(), minimapYToStdY(e->pos().y())),
+                     e->button(), e->buttons(), e->modifiers());
+    QScrollBar::mouseReleaseEvent(&eMod);
+  }
+  else {
+    QScrollBar::mouseReleaseEvent(e);
+  }
 }
 
 void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 {
+  if (m_showMiniMap) {
+    QMouseEvent eMod(QEvent::MouseMove,
+                     QPoint(e->pos().x(), minimapYToStdY(e->pos().y())),
+                     e->button(), e->buttons(), e->modifiers());
+    QScrollBar::mouseMoveEvent(&eMod);
+  }
+  else {
+    QScrollBar::mouseMoveEvent(e);
+  }
+
   if (e->buttons() & (Qt::LeftButton | Qt::MidButton)) {
     redrawMarks();
 
@@ -198,8 +254,6 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
     const int lastLine = m_viewInternal->toRealCursor(m_viewInternal->endPos()).line() + 1;
     QToolTip::showText(m_toolTipPos, i18nc("from line - to line", "<center>%1<br>&mdash;<br/>%2</center>", fromLine, lastLine), this);
   }
-
-  QScrollBar::mouseMoveEvent(e);
 }
 
 void KateScrollBar::paintEvent(QPaintEvent *e)
@@ -437,6 +491,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
 
   int docXMargin = 1;
   QRect grooveRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarGroove, this);
+  m_stdGroveRect = grooveRect;
   if (style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSubLine, this).height() == 0) {
     int alignMargin = style()->pixelMetric(QStyle::PM_FocusFrameVMargin, &opt, this);
     grooveRect.moveTop(alignMargin);
@@ -449,6 +504,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
   m_grooveHeight = grooveRect.height();
 
   QRect sliderRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSlider, this);
+  m_stdSliderRect = sliderRect;
   sliderRect.adjust(docXMargin+1, 1, -(docXMargin+1), -1);
 
   //style()->drawControl(QStyle::CE_ScrollBarAddLine, &opt, &painter, this);
@@ -458,6 +514,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
   int docHeight = qMin(grooveRect.height(), m_pixmap.height()*2) - 2*docXMargin;
   int yoffset = (grooveRect.height() - docHeight) / 2;
   QRect docRect(QPoint(grooveRect.left()+docXMargin, yoffset+grooveRect.top()), QSize(grooveRect.width()-2*docXMargin, docHeight));
+  m_mapGroveRect = docRect;
 
   // calculate the visible area
   int max = qMax(maximum()+1, 1);
@@ -466,6 +523,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
   QRect visibleRect = docRect;
   visibleRect.moveTop(visibleStart);
   visibleRect.setHeight(visibleEnd-visibleStart);
+  m_mapSliderRect = visibleRect;
 
   // calculate colors
   QColor backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();

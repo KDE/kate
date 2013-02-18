@@ -148,6 +148,7 @@ private:
     KAction                           *m_matchCase;
     KAction                           *m_useRegExp;
     Results                           *m_curResults;
+    bool                               m_searchJustOpened;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
 
     /**

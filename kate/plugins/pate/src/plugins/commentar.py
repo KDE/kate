@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Kate/Pâté plugins to work with C++ comments
-# Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
+# Copyright 2010-2013 by Alex Trubov <i.zaufi@gmail.com>
 #
 #
 # This software is free software: you can redistribute it and/or modify
@@ -22,9 +22,11 @@
 
 import kate
 import kate.gui
+import os
 import re
 import textwrap
-# TODO Is it really bad to import in such way? (even here?)
+from PyQt4 import uic
+from PyQt4.QtGui import *
 from PyKDE4.ktexteditor import KTextEditor
 
 from libkatepate.decorators import *
@@ -33,19 +35,12 @@ from libkatepate import common, ui, selection
 from libkatepate import pred
 from libkatepate.pred import neg, all_of, any_of
 
-# TODO Make a configuration page for the following two parameters
-COMMENT_POS = 60
-COMMENT_THRESHOLD = 50
 BLOCK_ANY_START_SEARCH_RE = re.compile('^\s*#\s*if.*$')
 BLOCK_START_SEARCH_RE = re.compile('^\s*#\s*if\s*([01])$')
 BLOCK_ELSE_SEARCH_RE = re.compile('^\s*#\s*else.*$')
 BLOCK_END_SEARCH_RE = re.compile('^\s*#\s*endif.*$')
 BLOCK_ELSE_ENDIF_MATCH_RE = re.compile('^\s*#\s*(endif|else).*$')
 BLOCK_START_GET_COND_RE = re.compile('^\s*#\s*(if((n)?def)?)\s+(.*)\s*$')
-
-
-def isApplicableMime():
-    return str(kate.activeDocument().mimeType()).find('c++') != -1
 
 
 def buildIfEndifMap(document):
@@ -108,7 +103,7 @@ def locateBlock(currentLine, blockRanges, ignoreComments = False):
 
 def processLine(line, commentCh):
     result = []
-    column = COMMENT_POS
+    column = kate.configuration["commentStartPos"]
     # Split line before and after a comment
     (before, comment, after) = line.partition(commentCh)
     before_s = before.rstrip()
@@ -117,9 +112,9 @@ def processLine(line, commentCh):
         # Is there is any text before inline comment position?
         if bool(before_s):
             # Yes! Is text before not longer than desired comment position
-            if len(before_s) < (COMMENT_POS + 1):
+            if len(before_s) < (kate.configuration["commentStartPos"] + 1):
                 # Yep, just reformat the line...
-                result.append(before_s + (' ' * (COMMENT_POS - len(before_s))) + commentCh + after.rstrip())
+                result.append(before_s + (' ' * (kate.configuration["commentStartPos"] - len(before_s))) + commentCh + after.rstrip())
             else:
                 # Move comment to the line above
                 column = len(before) - len(before.lstrip())
@@ -131,9 +126,9 @@ def processLine(line, commentCh):
         else:
             # No! The line contains only whitespaces...
             # Is comment after or 'close before' to inline comment position?
-            if len(before) > COMMENT_THRESHOLD:
+            if len(before) > (kate.configuration["commentStartPos"] / 6):
                 # Align comment to desired position...
-                result.append(' ' * COMMENT_POS + commentCh + after.rstrip())
+                result.append(' ' * kate.configuration["commentStartPos"] + commentCh + after.rstrip())
             else:
                 # TODO Align comment to closest to div 4 position...
                 result.append(line.rstrip())
@@ -141,12 +136,12 @@ def processLine(line, commentCh):
         # There is no comments... What about any text?
         if bool(before_s):
             # Is it longer that inline comment position?
-            if len(before_s) > (COMMENT_POS):
+            if len(before_s) > (kate.configuration["commentStartPos"]):
                 column = len(before) - len(before.lstrip())
                 result.append(' ' * column + commentCh + ' ')
                 result.append(before_s)
             else:
-                result.append(before_s + ' ' * (COMMENT_POS - len(before_s)) + commentCh + ' ')
+                result.append(before_s + ' ' * (kate.configuration["commentStartPos"] - len(before_s)) + commentCh + ' ')
             # Check for preprocessor directives #else/#endif and try to append
             # corresponding #if condition as a comment for current line
             if bool(BLOCK_ELSE_ENDIF_MATCH_RE.search(before_s)):
@@ -164,7 +159,7 @@ def processLine(line, commentCh):
                         result[-1] += matchObj.group(4)
         else:
             # No text! Just add a comment...
-            result.append(' ' * COMMENT_POS + commentCh + ' ')
+            result.append(' ' * kate.configuration["commentStartPos"] + commentCh + ' ')
     return (result, column + len(commentCh) + 1)
 
 
@@ -317,7 +312,7 @@ def moveInline():
                     # Just text.... no comment. Ok lets work!
                     # (if there is some space remains for inline comment)
                     b_before_s = b_before.rstrip()
-                    if len(b_before_s) > COMMENT_POS:
+                    if len(b_before_s) > kate.configuration["commentStartPos"]:
                         # Oops! No space remains! Get outa here
                         return
                     else:
@@ -326,9 +321,9 @@ def moveInline():
                             after = '/< ' + after[2:]
                             doxCommentOffset = 2
                         insertionText.append(
-                            b_before_s + ' ' * (COMMENT_POS - len(b_before_s)) + commentCh + after.rstrip()
+                            b_before_s + ' ' * (kate.configuration["commentStartPos"] - len(b_before_s)) + commentCh + after.rstrip()
                             )
-                        column = COMMENT_POS + 3 + doxCommentOffset
+                        column = kate.configuration["commentStartPos"] + 3 + doxCommentOffset
             else:
                 # No text on the line below! Dunno what damn user wants...
                 return
@@ -709,20 +704,65 @@ def extendParagraph():
     changeParagraphWidth(1)
 
 
-#@kate.viewChanged
-#def vc1():
-    #kate.gui.popup("On view changed: " + kate.activeDocument().mimeType(), 10)
+# ----------------------------------------------------------
+# Plugin configuration stuff
+# ----------------------------------------------------------
 
-#@kate.viewCreated
-#def vc2():
-    #kate.gui.popup("On view created: " + kate.activeDocument().mimeType(), 10)
+class ConfigWidget(QWidget):
+    """Configuration widget for this plugin."""
+    #
+    # Same-line-comment start position
+    #
+    commentStartPos = None
 
-#@kate.init
-#def vc3():
-    #kate.gui.popup("On init: " + kate.activeDocument().mimeType(), 10)
+    def __init__(self, parent=None, name=None):
+        super(ConfigWidget, self).__init__(parent)
 
-#@kate.unload
-#def vc4():
-    #kate.gui.popup("On unload: " + kate.activeDocument().mimeType(), 10)
+        # Set up the user interface from Designer.
+        uic.loadUi(os.path.join(os.path.dirname(__file__), "commentar_config.ui"), self)
+
+        self.reset();
+
+    def apply(self):
+        kate.configuration["commentStartPos"] = self.commentStartPos.value()
+        kate.configuration.save()
+
+    def reset(self):
+        self.defaults()
+        if "commentStartPos" in kate.configuration:
+            self.commentStartPos.setValue(kate.configuration["commentStartPos"])
+
+    def defaults(self):
+        self.commentStartPos.setValue(60)
+
+
+class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
+    """Kate configuration page for this plugin."""
+    def __init__(self, parent = None, name = None):
+        super(ConfigPage, self).__init__(parent, name)
+        self.widget = ConfigWidget(parent)
+        lo = parent.layout()
+        lo.addWidget(self.widget)
+
+    def apply(self):
+        self.widget.apply()
+
+    def reset(self):
+        self.widget.reset()
+
+    def defaults(self):
+        self.widget.defaults()
+        self.changed.emit()
+
+
+@kate.configPage("Commentar Plugin", "Commentar Plugin Settings", icon="preferences-other")
+def commentarConfigPage(parent=None, name=None):
+    return ConfigPage(parent, name)
+
+@kate.init
+def init():
+    # Set default value if not configured yet
+    if "commentStartPos" not in kate.configuration:
+        kate.configuration["commentStartPos"] = 60
 
 # kate: indent-width 4;

@@ -112,6 +112,8 @@ Q_SIGNALS:
     void miniMapPaintEvent(QPaintEvent *e);
     void normalPaintEvent(QPaintEvent *e);
 
+    int minimapYToStdY(int y);
+
     const QColor charColor(const QVector<int> &attributes, int &attributeIndex,
                            const QList<QTextLayout::FormatRange> &decorations,
                            const QColor &defaultColor, int x, QChar ch);
@@ -132,6 +134,10 @@ Q_SIGNALS:
 
     QPixmap m_pixmap;
     int     m_grooveHeight;
+    QRect   m_stdGroveRect;
+    QRect   m_mapGroveRect;
+    QRect   m_stdSliderRect;
+    QRect   m_mapSliderRect;
     QTimer  m_updateTimer;
     QPoint m_toolTipPos;
 

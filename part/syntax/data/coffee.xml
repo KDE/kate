@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 
 <language name="CoffeeScript"
-          version="1.3"
+          version="1.4"
           kateversion="2.4"
           section="Scripts"
           extensions="Cakefile;*.coffee;*.coco"
@@ -44,6 +44,7 @@
       <item>and</item>
       <item>or</item>
       <item>in</item>
+      <item>do</item>
       <item>of</item>
       <item>by</item>
       <item>is</item>

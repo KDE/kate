@@ -4885,6 +4885,7 @@ void KateDocument::slotTriggerLoadingMessage ()
   /**
    * create message about file loading in progress
    */
+  delete m_loadingMessage;
   m_loadingMessage = new KTextEditor::Message(KTextEditor::Message::Information
           , i18n ("The file %1 is still loading.", this->url().pathOrUrl()));
   m_loadingMessage->setWordWrap(true);
@@ -5432,9 +5433,13 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
     m_messageHash[message].append(QSharedPointer<QAction>(action));
   }
 
-  // post message to all views
-  foreach (KateView *view, m_views)
+  // post message to requested view, or to all views
+  if (KateView *view = qobject_cast<KateView*>(message->view())) {
     view->postMessage(message, m_messageHash[message]);
+  } else {
+    foreach (KateView *view, m_views)
+      view->postMessage(message, m_messageHash[message]);
+  }
 
   // also catch if the user manually calls delete message
   connect(message, SIGNAL(closed(KTextEditor::Message*)), SLOT(messageDestroyed(KTextEditor::Message*)));

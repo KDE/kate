@@ -19,7 +19,7 @@ function action (cmd)
   a.category = i18n("Quick Coding");
   a.interactive = false;
   if ( cmd == 'quickCodingExpand' ) {
-    a.text = i18n('Expand Abbreviation');
+    a.text = i18n("Expand Abbreviation");
     a.shortcut = 'Ctrl+Alt+#';
   }
 
@@ -29,7 +29,7 @@ function action (cmd)
 function help (cmd)
 {
   if (cmd == 'quickCodingExpand') {
-    return i18n('Expand Quick Coding Abbreviation');
+    return i18n("Expand Quick Coding Abbreviation");
   }
 }
 

@@ -30,7 +30,7 @@ void SearchWhileTyping::startSearch(const KTextEditor::Document *doc, const QReg
 
   maxTime.start();
   for (int line =0; line < doc->lines(); line++) {
-    if (maxTime.elapsed() > 20) {
+    if (maxTime.elapsed() > 50) {
       kDebug() << "Search time exceeded -> stop" << maxTime.elapsed() << line;
       break;
     }

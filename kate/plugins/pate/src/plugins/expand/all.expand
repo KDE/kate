@@ -1,25 +1,37 @@
-#!/usr/bin/python
-# ^ for Python syntax highlighting
+#
+# Expand-functions in this modude mostly for demonstration
+# than for daily use...
+#
 
-import __builtin__
+try:
+  import builtins as interpreter
+except ImportError:
+  import __builtin__ as interpreter
+
+try:
+    from io import StringIO
+except:
+    from cStringIO import StringIO
+
 import sys
-from cStringIO import StringIO
 
 def eval(s):
     # get automatic conversion to unicode or (that failing)
     # a string representation
-    return __builtin__.eval(s)
+    return interpreter.eval(s)
 
 def python(s):
-	# execute a block. sys.stdout is written to the document
-	old = sys.stdout
-	io = StringIO()
-	sys.stdout = io
-	try:
-		exec s
-	finally:
-		sys.stdout = old
-	return io.getvalue().strip() # should we always strip?
+    # execute a block. sys.stdout is written to the document
+    old = sys.stdout
+    io = StringIO()
+    sys.stdout = io
+    try:
+        exec(s)
+    finally:
+        sys.stdout = old
+    return io.getvalue().strip() # should we always strip?
 
 def test(s):
     raise ValueError(s)
+
+# kate: hl python; indent-width 4;

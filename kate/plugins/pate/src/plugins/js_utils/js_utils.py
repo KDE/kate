@@ -30,7 +30,7 @@ except ImportError:
 try:
     import pyjslint
 except ImportError:
-    NEED_PACKAGES["pyjslint"] = "0.6.0"
+    NEED_PACKAGES["pyjslint"] = "0.3.3"
 
 
 from js_snippets import *

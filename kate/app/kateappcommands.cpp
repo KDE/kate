@@ -107,10 +107,14 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
                 view->document()->documentSave();
             }
 
-            if (KateDocManager::self()->documents() > 1)
-                QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
-            else
-                QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
+            if (mainWin->viewManager()->count() > 1) {
+              QTimer::singleShot(0, mainWin->viewManager(), SLOT(slotCloseCurrentViewSpace()));
+            } else {
+                if (KateDocManager::self()->documents() > 1)
+                  QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
+                else
+                  QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
+            }
         }
     } else if (re_exit.exactMatch(command)) {
         if (!re_exit.cap(1).isEmpty()) { // a[ll]

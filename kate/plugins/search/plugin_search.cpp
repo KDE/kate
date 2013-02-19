@@ -336,7 +336,9 @@ void KatePluginSearchView::openSearchView()
                 selection = selection.left(selection.size() -1);
             }
             if (!selection.isEmpty() && !selection.contains('\n')) {
+                m_ui.searchCombo->blockSignals(true);
                 m_ui.searchCombo->lineEdit()->setText(selection);
+                m_ui.searchCombo->blockSignals(false);
             }
         }
         m_ui.searchCombo->lineEdit()->selectAll();

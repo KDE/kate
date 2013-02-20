@@ -531,6 +531,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
   // calculate colors
   QColor backgroundColor;
   QColor foregroundColor;
+  // TODO KDE5: If HighlightInterface is a View interface, use HighlightInterface::defaultStyle() again.
   if (m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)) {
     backgroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->background().color();
     foregroundColor = m_doc->defaultStyle(KTextEditor::HighlightInterface::dsNormal)->foreground().color();

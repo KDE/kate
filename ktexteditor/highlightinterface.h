@@ -30,6 +30,14 @@ namespace KTextEditor
 
 class Document;
 
+//
+// TODO: KDE5
+// The highlight information depends on the chosen Schema.
+// Currently, each view can have a different Schema.
+// Thus, for KDE5, this interface should be a view_extension and not a document_extension.
+// Discussed by: Milian, Dominik
+//
+
 /**
  * \brief Highlighting information interface for the Document.
  *

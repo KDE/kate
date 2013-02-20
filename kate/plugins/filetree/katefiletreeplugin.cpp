@@ -224,8 +224,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   /**
    * back + forward
    */
-  actionCollection()->addAction( KStandardAction::Back, "filetree_prev_document", m_fileTree, SLOT(slotDocumentPrev()) );
-  actionCollection()->addAction( KStandardAction::Forward, "filetree_next_document", m_fileTree, SLOT(slotDocumentNext()) );
+  actionCollection()->addAction( KStandardAction::Back, "filetree_prev_document", m_fileTree, SLOT(slotDocumentPrev()) )->setText(i18n("Previous Document"));
+  actionCollection()->addAction( KStandardAction::Forward, "filetree_next_document", m_fileTree, SLOT(slotDocumentNext()) )->setText(i18n("Next Document"));
 
   mainWindow->guiFactory()->addClient(this);
 

@@ -45,7 +45,6 @@ def parseCode(doc=None, refresh=True):
         showOk('Parse code Ok')
     except SyntaxError, e:
         error = {}
-        error['filename'] = e.filename
         error['text'] = e.text
         error['line'] = e.lineno
         showErrors('Parse code Errors:', [error], mark_key, doc,

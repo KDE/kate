@@ -42,7 +42,11 @@ KATE_ACTIONS = {
 
 PYTHON_AUTOCOMPLETE_ENABLED = True
 CHECK_WHEN_SAVE = True
-IGNORE_PEP8_ERRORS = []
+try:
+    import pep8
+    IGNORE_PEP8_ERRORS = pep8.DEFAULT_IGNORE.split(",")
+except ImportError:
+    IGNORE_PEP8_ERRORS = []
 PYTHON_SPACES = 4
 TEXT_INIT = """
     def __init__(self, *args, **kwargs):
@@ -51,7 +55,6 @@ TEXT_INIT = """
 TEXT_SUPER = """%ssuper(%s, %s).%s(%s)\n"""
 TEXT_RECURSIVE_CLASS = """%s%s.%s(%s)\n"""
 TEXT_RECURSIVE_NO_CLASS = """%s%s(%s)\n"""
-
 
 
 @kate.init

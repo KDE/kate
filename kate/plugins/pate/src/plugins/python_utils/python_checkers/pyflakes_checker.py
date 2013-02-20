@@ -85,7 +85,6 @@ def checkPyflakes(currentDocument=None, refresh=True):
     # Prepare errors found for painting
     for error in errors:
         errors_to_show.append({
-            "filename": path,
             "message": error.message % error.message_args,
             "line": error.lineno,
             })

@@ -56,7 +56,6 @@ def checkJslint(currentDocument=None):
         matches = pattern.search(error)
         if matches:
             errors_to_show.append({
-                "filename": path,
                 "message": matches.groups()[2],
                 "line": int(matches.groups()[0]),
                 "column": int(matches.groups()[1]) + 1,

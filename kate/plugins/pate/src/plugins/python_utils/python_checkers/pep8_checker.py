@@ -29,27 +29,51 @@ from python_checkers.all_checker import checkAll
 from python_checkers.utils import canCheckDocument
 from python_settings import KATE_ACTIONS, IGNORE_PEP8_ERRORS
 
+OLD_PEP8_VERSIONS = ['1.0.1', '1.1', '1.2']
 
-class StoreErrorsChecker(pep8.Checker):
 
-    def __init__(self, *args, **kwargs):
-        super(StoreErrorsChecker, self).__init__(*args, **kwargs)
-        self.error_list = []
+if pep8.__version__ not in OLD_PEP8_VERSIONS:
+    class KateReport(pep8.BaseReport):
 
-    def report_error(self, line_number, offset, text, check):
-        """
-        Store the error
-        """
-        self.file_errors += 1
-        self.error_list.append([line_number, offset, text[0:4], text])
+        def __init__(self, options):
+            super(KateReport, self).__init__(options)
+            self.error_list = []
+            self.ignore = options.ignore
 
-    def get_errors(self):
-        """
-        Get the errors, and reset the checker
-        """
-        result, self.error_list = self.error_list, []
-        self.file_errors = 0
-        return result
+        def error(self, line_number, offset, text, check):
+            code = super(KateReport, self).error(line_number, offset, text, check)
+            self.error_list.append([line_number, offset, text[0:4], text])
+            return code
+
+        def get_errors(self):
+            """
+            Get the errors, and reset the checker
+            """
+            result, self.error_list = self.error_list, []
+            return result
+else:
+    class StoreErrorsChecker(pep8.Checker):
+
+        def __init__(self, *args, **kwargs):
+            super(StoreErrorsChecker, self).__init__(*args, **kwargs)
+            self.error_list = []
+
+        def report_error(self, line_number, offset, text, check):
+            """
+            Store the error
+            """
+            self.file_errors += 1
+            error_code = text[0:4]
+            if not pep8.ignore_code(error_code):
+                self.error_list.append([line_number, offset, error_code, text])
+
+        def get_errors(self):
+            """
+            Get the errors, and reset the checker
+            """
+            result, self.error_list = self.error_list, []
+            self.file_errors = 0
+            return result
 
 
 def saveFirst():
@@ -79,31 +103,28 @@ def checkPep8(currentDocument=None, refresh=True):
     # Check the file for errors with PEP8
     sys.argv = [path]
     pep8.process_options([path])
-    checker = StoreErrorsChecker(path)
-    checker.check_all()
-    errors = checker.get_errors()
-
+    if pep8.__version__ in OLD_PEP8_VERSIONS:
+        checker = StoreErrorsChecker(path)
+        pep8.options.ignore = IGNORE_PEP8_ERRORS
+        checker.check_all()
+        errors = checker.get_errors()
+    else:
+        checker = pep8.Checker(path, reporter=KateReport, ignore=IGNORE_PEP8_ERRORS)
+        checker.check_all()
+        errors = checker.report.get_errors()
     if len(errors) == 0:
         showOk('Pep8 Ok')
         return
-
     errors_to_show = []
-    if IGNORE_PEP8_ERRORS:
-        pep8.options.ignore.extend(IGNORE_PEP8_ERRORS)
-        pep8.options.ignore = list(set(pep8.options.ignore))
     # Paint errors found
     for error in errors:
-        if pep8.ignore_code(error[2]):
-            continue
         errors_to_show.append({
             "line": error[0],
             "column": error[1] + 1,
-            "filename": path,
             "message": error[3],
             })
-    if errors_to_show:
-        showErrors('Pep8 Errors:', errors_to_show,
-                            mark_key, currentDocument,
-                            move_cursor=move_cursor)
-    else:
-        showOk('Pep8 Ok')
+    showErrors('Pep8 Errors:',
+               errors_to_show,
+               mark_key,
+               currentDocument,
+               move_cursor=move_cursor)

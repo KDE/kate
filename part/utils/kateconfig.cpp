@@ -1940,7 +1940,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   mark[6] = Qt::red;
 
   for (int i = 1; i <= KTextEditor::MarkInterface::reservedMarkersCount(); i++) {
-    QColor col = config.readEntry(QString("Color MarkType%1").arg(i), mark[i - 1]);
+    QColor col = config.readEntry(QString("Color MarkType %1").arg(i), mark[i - 1]);
     int index = i-1;
     m_lineMarkerColorSet[index] = true;
     m_lineMarkerColor[index] = col;

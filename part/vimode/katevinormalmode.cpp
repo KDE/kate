@@ -3176,10 +3176,10 @@ bool KateViNormalMode::pasteBefore(bool isgPaste)
 
   doc()->insertText( c, textToInsert, m == Block );
 
-  Cursor cAfter = c;
-  if (isgPaste)
+  Cursor cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+  if (!isgPaste)
   {
-    cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+    cAfter.setColumn(cAfter.column() - 1);
   }
 
   updateCursor( cAfter );

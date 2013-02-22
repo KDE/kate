@@ -681,6 +681,7 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fop\ngid\nbar\nhuv", "yjjjgPx", "fop\ngid\nfop\ngid\nar\nhuv");
 
   DoTest("fop\nbar", "yiwjlpx", "fop\nbafor");
+  DoTest("fop\nbar", "yiwjlPx", "fop\nbfoar");
 }
 
 

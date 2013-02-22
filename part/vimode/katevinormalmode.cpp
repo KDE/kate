@@ -3125,27 +3125,18 @@ bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
 
 
   if ( m == LineWise ) {
-    if (pasteOnCurrentLineOrCursor)
-    {
-      c.setColumn( 0 );
-      if (isgPaste)
-      {
-        cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
-      }
-    }
-    else
+    c.setColumn( 0 );
+    if (!pasteOnCurrentLineOrCursor)
     {
       textToInsert.chop( 1 ); // remove the last \n
       c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
       textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
 
       cAfter.setLine( cAfter.line()+1 );
-      cAfter.setColumn( 0 );
-
-      if (isgPaste)
-      {
-        cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
-      }
+    }
+    if (isgPaste)
+    {
+      cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
     }
   } else {
     if (pasteOnCurrentLineOrCursor)

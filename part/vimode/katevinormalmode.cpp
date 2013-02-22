@@ -3168,9 +3168,14 @@ bool KateViNormalMode::pasteBefore(bool isgPaste)
   Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
+  OperationMode m = getRegisterFlag( reg );
   QString textToInsert = getRegisterContent( reg );
   const bool isTextMultiLine = textToInsert.split("\n").count() > 1;
-  OperationMode m = getRegisterFlag( reg );
+
+  if ( textToInsert.isNull() ) {
+    error(i18n("Nothing in register %1", reg ));
+    return false;
+  }
 
   if ( getCount() > 1 ) {
     textToInsert = textToInsert.repeated( getCount() );

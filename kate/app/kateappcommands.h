@@ -50,6 +50,7 @@ class KateAppCommands : public KTextEditor::Command
     QRegExp re_new;
     QRegExp re_split;
     QRegExp re_vsplit;
+    QRegExp re_only;
 };
 
 #endif

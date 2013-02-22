@@ -3104,7 +3104,7 @@ OperationMode KateViNormalMode::getOperationMode() const
   return m;
 }
 
-bool KateViNormalMode::paste(bool leaveCursorAtStart)
+bool KateViNormalMode::paste(bool isgPaste)
 {
   Cursor c( m_view->cursorPosition() );
   Cursor cAfter = c;
@@ -3130,7 +3130,7 @@ bool KateViNormalMode::paste(bool leaveCursorAtStart)
     cAfter.setLine( cAfter.line()+1 );
     cAfter.setColumn( 0 );
 
-    if (!leaveCursorAtStart)
+    if (!isgPaste)
     {
       cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
     }
@@ -3141,7 +3141,7 @@ bool KateViNormalMode::paste(bool leaveCursorAtStart)
     }
 
     cAfter = c;
-    if (!leaveCursorAtStart)
+    if (!isgPaste)
     {
       cAfter = cursorPosAtEndOfPaste(c, textToInsert);
     }
@@ -3154,7 +3154,7 @@ bool KateViNormalMode::paste(bool leaveCursorAtStart)
   return true;
 }
 
-bool KateViNormalMode::pasteBefore(bool leaveCursorAtStart)
+bool KateViNormalMode::pasteBefore(bool isgPaste)
 {
   Cursor c( m_view->cursorPosition() );
   Cursor cAfter = c;
@@ -3174,7 +3174,7 @@ bool KateViNormalMode::pasteBefore(bool leaveCursorAtStart)
 
   doc()->insertText( c, textToInsert, m == Block );
 
-  if (!leaveCursorAtStart)
+  if (!isgPaste)
   {
     cAfter = cursorPosAtEndOfPaste(c, textToInsert);
   }

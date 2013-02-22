@@ -3112,6 +3112,7 @@ bool KateViNormalMode::paste(bool isgPaste)
 
   OperationMode m = getRegisterFlag( reg );
   QString textToInsert = getRegisterContent( reg );
+  const bool isTextMultiLine = textToInsert.split("\n").count() > 1;
 
   if ( textToInsert.isNull() ) {
     error(i18n("Nothing in register %1", reg ));
@@ -3140,10 +3141,13 @@ bool KateViNormalMode::paste(bool isgPaste)
       c.setColumn( c.column()+1 );
     }
 
-    cAfter = c;
-    if (isgPaste)
+    if (!isTextMultiLine || isgPaste)
     {
       cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+      if (!isgPaste)
+      {
+        cAfter.setColumn(cAfter.column() - 1);
+      }
     }
   }
 

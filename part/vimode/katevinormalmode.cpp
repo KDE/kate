@@ -3164,9 +3164,11 @@ bool KateViNormalMode::paste(bool isgPaste)
 bool KateViNormalMode::pasteBefore(bool isgPaste)
 {
   Cursor c( m_view->cursorPosition() );
+  Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
+  const bool isTextMultiLine = textToInsert.split("\n").count() > 1;
   OperationMode m = getRegisterFlag( reg );
 
   if ( getCount() > 1 ) {
@@ -3179,10 +3181,13 @@ bool KateViNormalMode::pasteBefore(bool isgPaste)
 
   doc()->insertText( c, textToInsert, m == Block );
 
-  Cursor cAfter = cursorPosAtEndOfPaste(c, textToInsert);
-  if (!isgPaste && cAfter.column() != 0)
+  if (!isTextMultiLine || isgPaste)
   {
-    cAfter.setColumn(cAfter.column() - 1);
+    cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+    if (!isgPaste && cAfter.column() != 0)
+    {
+      cAfter.setColumn(cAfter.column() - 1);
+    }
   }
 
   updateCursor( cAfter );

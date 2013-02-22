@@ -329,7 +329,6 @@ void ViModeTest::InsertModeTests() {
  // They are disabled in order to be able to check all others working tests.
 void ViModeTest::NormalModeFailingTests()
 {
-  DoTest("fop\ngid\nbar\nhuv", "yjjjPx", "fop\ngid\nop\ngid\nbar\nhuv");
 }
 
 void ViModeTest::NormalModeMotionsTest() {
@@ -681,6 +680,7 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fop\ngid\nbar\nhuv", "yjjjgpx", "fop\ngid\nbar\nfop\ngid\nuv");
   DoTest("fop\ngid\nbar\nhuv", "yjjjgPx", "fop\ngid\nfop\ngid\nar\nhuv");
   DoTest("fop\ngid", "yjjgpx", "fop\ngid\nfop\nid");
+  DoTest("fop\ngid\nbar\nhuv", "yjjjPx", "fop\ngid\nop\ngid\nbar\nhuv");
 
   DoTest("fop\nbar", "yiwjlpx", "fop\nbafor");
   DoTest("fop\nbar", "yiwjlPx", "fop\nbfoar");

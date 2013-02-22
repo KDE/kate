@@ -1186,13 +1186,13 @@ bool KateViNormalMode::commandYankToEOL()
 // If linewise, will paste after the current line.
 bool KateViNormalMode::commandPaste()
 {
-  return paste(true);
+  return paste(false);
 }
 
 // As with commandPaste, except that the text is pasted *at* the cursor position
 bool KateViNormalMode::commandPasteBefore()
 {
-  return pasteBefore(true);
+  return pasteBefore(false);
 }
 
 // As with commandPaste, except that the cursor will generally be placed *after* the
@@ -1202,14 +1202,14 @@ bool KateViNormalMode::commandPasteBefore()
 // last line pasted.
 bool KateViNormalMode::commandgPaste()
 {
-  return paste(false);
+  return paste(true);
 }
 
 // As with commandgPaste, except that it pastes *at* the current cursor position or, if linewise,
 // at the current line.
 bool KateViNormalMode::commandgPasteBefore()
 {
-  return pasteBefore(false);
+  return pasteBefore(true);
 }
 
 bool KateViNormalMode::commandDeleteChar()
@@ -3130,7 +3130,7 @@ bool KateViNormalMode::paste(bool isgPaste)
     cAfter.setLine( cAfter.line()+1 );
     cAfter.setColumn( 0 );
 
-    if (!isgPaste)
+    if (isgPaste)
     {
       cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
     }
@@ -3141,7 +3141,7 @@ bool KateViNormalMode::paste(bool isgPaste)
     }
 
     cAfter = c;
-    if (!isgPaste)
+    if (isgPaste)
     {
       cAfter = cursorPosAtEndOfPaste(c, textToInsert);
     }
@@ -3157,7 +3157,6 @@ bool KateViNormalMode::paste(bool isgPaste)
 bool KateViNormalMode::pasteBefore(bool isgPaste)
 {
   Cursor c( m_view->cursorPosition() );
-  Cursor cAfter = c;
   QChar reg = getChosenRegister( m_defaultRegister );
 
   QString textToInsert = getRegisterContent( reg );
@@ -3169,12 +3168,12 @@ bool KateViNormalMode::pasteBefore(bool isgPaste)
 
   if ( textToInsert.endsWith('\n') ) { // lines
     c.setColumn( 0 );
-    cAfter.setColumn( 0 );
   }
 
   doc()->insertText( c, textToInsert, m == Block );
 
-  if (!isgPaste)
+  Cursor cAfter = c;
+  if (isgPaste)
   {
     cAfter = cursorPosAtEndOfPaste(c, textToInsert);
   }

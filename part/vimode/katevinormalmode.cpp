@@ -3141,12 +3141,15 @@ bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
   } else {
     if (!pasteOnCurrentLineOrCursor)
     {
+      // Move cursor forward one before we paste.  The position after the paste must also
+      // be updated accordingly.
       if ( getLine( c.line() ).length() > 0 ) {
         c.setColumn( c.column()+1 );
       }
       cAfter = c;
     }
-    if (!isTextMultiLine || isgPaste)
+    const bool leaveCursorAtStartOfPaste = isTextMultiLine && !isgPaste;
+    if (!leaveCursorAtStartOfPaste)
     {
       cAfter = cursorPosAtEndOfPaste(c, textToInsert);
       if (!isgPaste)

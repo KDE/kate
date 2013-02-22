@@ -3106,8 +3106,8 @@ OperationMode KateViNormalMode::getOperationMode() const
 
 bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
 {
-  Cursor c( m_view->cursorPosition() );
-  Cursor cAfter = c;
+  Cursor pasteAt( m_view->cursorPosition() );
+  Cursor cursorAfterPaste = pasteAt;
   QChar reg = getChosenRegister( m_defaultRegister );
 
   OperationMode m = getRegisterFlag( reg );
@@ -3125,47 +3125,47 @@ bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
 
 
   if ( m == LineWise ) {
-    c.setColumn( 0 );
+    pasteAt.setColumn( 0 );
     if (!pasteOnCurrentLineOrCursor)
     {
       textToInsert.chop( 1 ); // remove the last \n
-      c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
+      pasteAt.setColumn( doc()->lineLength( pasteAt.line() ) ); // paste after the current line and ...
       textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
 
-      cAfter.setLine( cAfter.line()+1 );
+      cursorAfterPaste.setLine( cursorAfterPaste.line()+1 );
     }
     if (isgPaste)
     {
-      cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
+      cursorAfterPaste.setLine(cursorAfterPaste.line() + textToInsert.split("\n").length() - 1);
     }
   } else {
     if (!pasteOnCurrentLineOrCursor)
     {
       // Move cursor forward one before we paste.  The position after the paste must also
       // be updated accordingly.
-      if ( getLine( c.line() ).length() > 0 ) {
-        c.setColumn( c.column()+1 );
+      if ( getLine( pasteAt.line() ).length() > 0 ) {
+        pasteAt.setColumn( pasteAt.column()+1 );
       }
-      cAfter = c;
+      cursorAfterPaste = pasteAt;
     }
     const bool leaveCursorAtStartOfPaste = isTextMultiLine && !isgPaste;
     if (!leaveCursorAtStartOfPaste)
     {
-      cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+      cursorAfterPaste = cursorPosAtEndOfPaste(pasteAt, textToInsert);
       if (!isgPaste)
       {
-        cAfter.setColumn(cAfter.column() - 1);
+        cursorAfterPaste.setColumn(cursorAfterPaste.column() - 1);
       }
     }
   }
 
-  doc()->insertText( c, textToInsert, m == Block );
+  doc()->insertText( pasteAt, textToInsert, m == Block );
 
-  if (cAfter.line() >= doc()->lines())
+  if (cursorAfterPaste.line() >= doc()->lines())
   {
-    cAfter.setLine(doc()->lines() - 1);
+    cursorAfterPaste.setLine(doc()->lines() - 1);
   }
-  updateCursor( cAfter );
+  updateCursor( cursorAfterPaste );
 
   return true;
 }

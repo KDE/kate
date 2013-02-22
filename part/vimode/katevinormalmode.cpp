@@ -1186,13 +1186,13 @@ bool KateViNormalMode::commandYankToEOL()
 // If linewise, will paste after the current line.
 bool KateViNormalMode::commandPaste()
 {
-  return paste(false, false);
+  return paste(AfterCurrentPosition, false);
 }
 
 // As with commandPaste, except that the text is pasted *at* the cursor position
 bool KateViNormalMode::commandPasteBefore()
 {
-  return paste(true, false);
+  return paste(AtCurrentPosition, false);
 }
 
 // As with commandPaste, except that the cursor will generally be placed *after* the
@@ -1202,14 +1202,14 @@ bool KateViNormalMode::commandPasteBefore()
 // last line pasted.
 bool KateViNormalMode::commandgPaste()
 {
-  return paste(false, true);
+  return paste(AfterCurrentPosition, true);
 }
 
 // As with commandgPaste, except that it pastes *at* the current cursor position or, if linewise,
 // at the current line.
 bool KateViNormalMode::commandgPasteBefore()
 {
-  return paste(true, true);
+  return paste(AtCurrentPosition, true);
 }
 
 bool KateViNormalMode::commandDeleteChar()
@@ -3104,7 +3104,7 @@ OperationMode KateViNormalMode::getOperationMode() const
   return m;
 }
 
-bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
+bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste)
 {
   Cursor pasteAt( m_view->cursorPosition() );
   Cursor cursorAfterPaste = pasteAt;
@@ -3126,7 +3126,7 @@ bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
 
   if ( m == LineWise ) {
     pasteAt.setColumn( 0 );
-    if (!pasteOnCurrentLineOrCursor)
+    if (pasteLocation == AfterCurrentPosition)
     {
       textToInsert.chop( 1 ); // remove the last \n
       pasteAt.setColumn( doc()->lineLength( pasteAt.line() ) ); // paste after the current line and ...
@@ -3139,7 +3139,7 @@ bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
       cursorAfterPaste.setLine(cursorAfterPaste.line() + textToInsert.split("\n").length() - 1);
     }
   } else {
-    if (!pasteOnCurrentLineOrCursor)
+    if (pasteLocation == AfterCurrentPosition)
     {
       // Move cursor forward one before we paste.  The position after the paste must also
       // be updated accordingly.

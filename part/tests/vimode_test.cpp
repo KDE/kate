@@ -677,6 +677,7 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fop\ngid\nbar", "lvjyjjgpx", "fop\ngid\nbaop\ngi");
   DoTest("fop\ngid\nbar", "lvjyjjgPx", "fop\ngid\nbop\ngir");
   DoTest("fop\ngid\nbar", "lvjyjjpx", "fop\ngid\nbap\ngir");
+  DoTest("fop\ngid\nbar", "lvjyjjPx", "fop\ngid\nbp\ngiar");
   // Linewise
   DoTest("fop\ngid\nbar\nhuv", "yjjjgpx", "fop\ngid\nbar\nfop\ngid\nuv");
   DoTest("fop\ngid\nbar\nhuv", "yjjjgPx", "fop\ngid\nfop\ngid\nar\nhuv");

@@ -1186,13 +1186,13 @@ bool KateViNormalMode::commandYankToEOL()
 // If linewise, will paste after the current line.
 bool KateViNormalMode::commandPaste()
 {
-  return paste(false);
+  return paste(false, false);
 }
 
 // As with commandPaste, except that the text is pasted *at* the cursor position
 bool KateViNormalMode::commandPasteBefore()
 {
-  return pasteBefore(false);
+  return paste(true, false);
 }
 
 // As with commandPaste, except that the cursor will generally be placed *after* the
@@ -1202,14 +1202,14 @@ bool KateViNormalMode::commandPasteBefore()
 // last line pasted.
 bool KateViNormalMode::commandgPaste()
 {
-  return paste(true);
+  return paste(false, true);
 }
 
 // As with commandgPaste, except that it pastes *at* the current cursor position or, if linewise,
 // at the current line.
 bool KateViNormalMode::commandgPasteBefore()
 {
-  return pasteBefore(true);
+  return paste(true, true);
 }
 
 bool KateViNormalMode::commandDeleteChar()
@@ -3104,7 +3104,7 @@ OperationMode KateViNormalMode::getOperationMode() const
   return m;
 }
 
-bool KateViNormalMode::paste(bool isgPaste)
+bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
 {
   Cursor c( m_view->cursorPosition() );
   Cursor cAfter = c;
@@ -3123,30 +3123,56 @@ bool KateViNormalMode::paste(bool isgPaste)
     textToInsert = textToInsert.repeated( getCount() ); // FIXME: does this make sense for blocks?
   }
 
+
   if ( m == LineWise ) {
-    textToInsert.chop( 1 ); // remove the last \n
-    c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
-    textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
-
-    cAfter.setLine( cAfter.line()+1 );
-    cAfter.setColumn( 0 );
-
-    if (isgPaste)
+    if (pasteOnCurrentLineOrCursor)
     {
-      cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
+      c.setColumn( 0 );
+      if (isgPaste)
+      {
+        cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
+      }
+    }
+    else
+    {
+      textToInsert.chop( 1 ); // remove the last \n
+      c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
+      textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
+
+      cAfter.setLine( cAfter.line()+1 );
+      cAfter.setColumn( 0 );
+
+      if (isgPaste)
+      {
+        cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
+      }
     }
   } else {
-    if ( getLine( c.line() ).length() > 0 ) {
-      c.setColumn( c.column()+1 );
-    }
-    cAfter = c;
-
-    if (!isTextMultiLine || isgPaste)
+    if (pasteOnCurrentLineOrCursor)
     {
-      cAfter = cursorPosAtEndOfPaste(c, textToInsert);
-      if (!isgPaste)
+      if (!isTextMultiLine || isgPaste)
       {
-        cAfter.setColumn(cAfter.column() - 1);
+        cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+        if (!isgPaste && cAfter.column() != 0)
+        {
+          cAfter.setColumn(cAfter.column() - 1);
+        }
+      }
+    }
+    else
+    {
+      if ( getLine( c.line() ).length() > 0 ) {
+        c.setColumn( c.column()+1 );
+      }
+      cAfter = c;
+
+      if (!isTextMultiLine || isgPaste)
+      {
+        cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+        if (!isgPaste)
+        {
+          cAfter.setColumn(cAfter.column() - 1);
+        }
       }
     }
   }
@@ -3157,45 +3183,6 @@ bool KateViNormalMode::paste(bool isgPaste)
   {
     cAfter.setLine(doc()->lines() - 1);
   }
-  updateCursor( cAfter );
-
-  return true;
-}
-
-bool KateViNormalMode::pasteBefore(bool isgPaste)
-{
-  Cursor c( m_view->cursorPosition() );
-  Cursor cAfter = c;
-  QChar reg = getChosenRegister( m_defaultRegister );
-
-  OperationMode m = getRegisterFlag( reg );
-  QString textToInsert = getRegisterContent( reg );
-  const bool isTextMultiLine = textToInsert.split("\n").count() > 1;
-
-  if ( textToInsert.isNull() ) {
-    error(i18n("Nothing in register %1", reg ));
-    return false;
-  }
-
-  if ( getCount() > 1 ) {
-    textToInsert = textToInsert.repeated( getCount() );
-  }
-
-  if ( m == LineWise ) {
-    c.setColumn( 0 );
-  }
-
-  doc()->insertText( c, textToInsert, m == Block );
-
-  if (!isTextMultiLine || isgPaste)
-  {
-    cAfter = cursorPosAtEndOfPaste(c, textToInsert);
-    if (!isgPaste && cAfter.column() != 0)
-    {
-      cAfter.setColumn(cAfter.column() - 1);
-    }
-  }
-
   updateCursor( cAfter );
 
   return true;

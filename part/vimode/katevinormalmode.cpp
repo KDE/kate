@@ -3135,7 +3135,6 @@ bool KateViNormalMode::paste(bool isgPaste)
     {
       cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
     }
-
   } else {
     if ( getLine( c.line() ).length() > 0 ) {
       c.setColumn( c.column()+1 );
@@ -3153,6 +3152,10 @@ bool KateViNormalMode::paste(bool isgPaste)
 
   doc()->insertText( c, textToInsert, m == Block );
 
+  if (cAfter.line() >= doc()->lines())
+  {
+    cAfter.setLine(doc()->lines() - 1);
+  }
   updateCursor( cAfter );
 
   return true;

@@ -303,7 +303,7 @@ void KateGlobal::configDialog(QWidget *parent)
 {
   QPointer<KPageDialog> kd = new KPageDialog(parent);
   kd->setCaption( i18n("Configure") );
-  kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Help );
+  kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Help );
   kd->setFaceType( KPageDialog::List );
   kd->setHelp( QString(), KGlobal::mainComponent().componentName() );
 
@@ -323,6 +323,7 @@ void KateGlobal::configDialog(QWidget *parent)
     topLayout->setMargin( 0 );
 
     KTextEditor::ConfigPage *cp = configPage(i, page);
+    connect(kd, SIGNAL(applyClicked  ( )), cp, SLOT(apply()));
     topLayout->addWidget( cp);
     editorPages.append (cp);
   }

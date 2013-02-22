@@ -144,6 +144,13 @@ void KateViewManager::setupActions ()
 
   m_closeView->setWhatsThis(i18n("Close the currently active split view"));
 
+  m_closeOtherViews = m_mainWindow->actionCollection()->addAction("view_close_others");
+  m_closeOtherViews->setIcon(KIcon("view-close"));
+  m_closeOtherViews->setText(i18n("Close Inactive Views"));
+  connect(m_closeOtherViews, SIGNAL(triggered()), this, SLOT(slotCloseOtherViews()));
+
+  m_closeOtherViews->setWhatsThis(i18n("Close every view but the active one"));
+
   goNext = m_mainWindow->actionCollection()->addAction( "go_next_split_view" );
   goNext->setText( i18n("Next Split View") );
   goNext->setShortcut( Qt::Key_F8 );
@@ -219,6 +226,7 @@ void KateViewManager::setupActions ()
 void KateViewManager::updateViewSpaceActions ()
 {
   m_closeView->setEnabled (viewSpaceCount() > 1);
+  m_closeOtherViews->setEnabled(viewSpaceCount() > 1);
   goNext->setEnabled (viewSpaceCount() > 1);
   goPrev->setEnabled (viewSpaceCount() > 1);
 }
@@ -810,6 +818,16 @@ void KateViewManager::slotCloseCurrentViewSpace()
 {
   removeViewSpace(activeViewSpace());
 }
+
+void KateViewManager::slotCloseOtherViews()
+{
+  foreach (KateViewSpace  *v, m_viewSpaceList) {
+    if (activeViewSpace() != v) {
+      removeViewSpace(v);
+    }
+  }
+}
+
 
 /**
  * session config functions

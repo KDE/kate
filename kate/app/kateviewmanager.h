@@ -244,9 +244,12 @@ class KateViewManager : public QSplitter
     }
 
     void slotCloseCurrentViewSpace();
+    
+    /** closes every view but the active one */
+    void slotCloseOtherViews();
 
     void reactivateActiveView();
-    
+
     /**
      * get views => age mapping
      * useful to show views in a LRU way
@@ -262,6 +265,7 @@ class KateViewManager : public QSplitter
     bool m_init;
 
     KAction *m_closeView;
+    KAction *m_closeOtherViews;
     KAction *goNext;
     KAction *goPrev;
     KAction *m_cursorPosToggle;

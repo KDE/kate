@@ -3139,6 +3139,7 @@ bool KateViNormalMode::paste(bool isgPaste)
     if ( getLine( c.line() ).length() > 0 ) {
       c.setColumn( c.column()+1 );
     }
+    cAfter = c;
 
     if (!isTextMultiLine || isgPaste)
     {

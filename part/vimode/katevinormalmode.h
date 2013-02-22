@@ -97,11 +97,11 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandYankLine();
     bool commandYankToEOL();
 
-    bool commandPasteLeaveCursorAtStart();
-    bool commandPasteBeforeLeaveCursorAtStart();
+    bool commandPaste();
+    bool commandPasteBefore();
 
-    bool commandPasteLeaveCursorAtEnd();
-    bool commandPasteBeforeLeaveCursorAtEnd();
+    bool commandgPaste();
+    bool commandgPasteBefore();
 
     bool commandDeleteChar();
     bool commandDeleteCharBackward();

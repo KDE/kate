@@ -318,8 +318,8 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("U", commandMakeUppercase, IS_CHANGE );
   ADDCMD("y", commandYank, 0 );
   ADDCMD("Y", commandYankToEOL, 0 );
-  ADDCMD("p", commandPasteLeaveCursorAtStart, IS_CHANGE );
-  ADDCMD("P", commandPasteBeforeLeaveCursorAtStart, IS_CHANGE );
+  ADDCMD("p", commandPaste, IS_CHANGE );
+  ADDCMD("P", commandPasteBefore, IS_CHANGE );
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
   ADDCMD("/", commandSearchForward, 0 );

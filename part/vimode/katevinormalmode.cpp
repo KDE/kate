@@ -1178,30 +1178,36 @@ bool KateViNormalMode::commandYankToEOL()
   return r;
 }
 
-// insert the text in the given register at the cursor position
-// the cursor should end up at the beginning of what was pasted
-bool KateViNormalMode::commandPasteLeaveCursorAtStart()
+// Insert the text in the given register after the cursor position.
+// This is the non-g version of paste, so the cursor will usually
+// end up on the last character of the pasted text, unless the text
+// was multi-line or linewise in which case it will end up
+// on the *first* character of the pasted text(!)
+// If linewise, will paste after the current line.
+bool KateViNormalMode::commandPaste()
 {
   return paste(true);
 }
 
-// insert the text in the given register before the cursor position
-// the cursor should end up at the beginning of what was pasted
-bool KateViNormalMode::commandPasteBeforeLeaveCursorAtStart()
+// As with commandPaste, except that the text is pasted *at* the cursor position
+bool KateViNormalMode::commandPasteBefore()
 {
   return pasteBefore(true);
 }
 
-// as with commandPasteLeaveCursorAtStart, but leaves the cursor at the end
-// of what was pasted
-bool KateViNormalMode::commandPasteLeaveCursorAtEnd()
+// As with commandPaste, except that the cursor will generally be placed *after* the
+// last pasted character (assuming the last pasted character is not at  the end of the line).
+// If linewise, cursor will be at the beginning of the line *after* the last line of pasted text,
+// unless that line is the last line of the document; then it will be placed at the beginning of the
+// last line pasted.
+bool KateViNormalMode::commandgPaste()
 {
   return paste(false);
 }
 
-// as with commandPasteBeforeLeaveCursorAtStart, but leaves the cursor at the end
-// of what was pasted
-bool KateViNormalMode::commandPasteBeforeLeaveCursorAtEnd()
+// As with commandgPaste, except that it pastes *at* the current cursor position or, if linewise,
+// at the current line.
+bool KateViNormalMode::commandgPasteBefore()
 {
   return pasteBefore(false);
 }
@@ -2890,10 +2896,10 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("y", commandYank, NEEDS_MOTION );
   ADDCMD("yy", commandYankLine, 0 );
   ADDCMD("Y", commandYankToEOL, 0 );
-  ADDCMD("p", commandPasteLeaveCursorAtStart, IS_CHANGE );
-  ADDCMD("P", commandPasteBeforeLeaveCursorAtStart, IS_CHANGE );
-  ADDCMD("gp", commandPasteLeaveCursorAtEnd, IS_CHANGE );
-  ADDCMD("gP", commandPasteBeforeLeaveCursorAtEnd, IS_CHANGE );
+  ADDCMD("p", commandPaste, IS_CHANGE );
+  ADDCMD("P", commandPasteBefore, IS_CHANGE );
+  ADDCMD("gp", commandgPaste, IS_CHANGE );
+  ADDCMD("gP", commandgPasteBefore, IS_CHANGE );
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD("R", commandEnterReplaceMode, IS_CHANGE );
   ADDCMD(":", commandSwitchToCmdLine, 0 );

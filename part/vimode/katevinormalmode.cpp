@@ -3176,7 +3176,7 @@ bool KateViNormalMode::pasteBefore(bool isgPaste)
     textToInsert = textToInsert.repeated( getCount() );
   }
 
-  if ( textToInsert.endsWith('\n') ) { // lines
+  if ( m == LineWise ) {
     c.setColumn( 0 );
   }
 

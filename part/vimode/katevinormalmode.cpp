@@ -3139,31 +3139,19 @@ bool KateViNormalMode::paste(bool pasteOnCurrentLineOrCursor, bool isgPaste)
       cAfter.setLine(cAfter.line() + textToInsert.split("\n").length() - 1);
     }
   } else {
-    if (pasteOnCurrentLineOrCursor)
-    {
-      if (!isTextMultiLine || isgPaste)
-      {
-        cAfter = cursorPosAtEndOfPaste(c, textToInsert);
-        if (!isgPaste && cAfter.column() != 0)
-        {
-          cAfter.setColumn(cAfter.column() - 1);
-        }
-      }
-    }
-    else
+    if (!pasteOnCurrentLineOrCursor)
     {
       if ( getLine( c.line() ).length() > 0 ) {
         c.setColumn( c.column()+1 );
       }
       cAfter = c;
-
-      if (!isTextMultiLine || isgPaste)
+    }
+    if (!isTextMultiLine || isgPaste)
+    {
+      cAfter = cursorPosAtEndOfPaste(c, textToInsert);
+      if (!isgPaste)
       {
-        cAfter = cursorPosAtEndOfPaste(c, textToInsert);
-        if (!isgPaste)
-        {
-          cAfter.setColumn(cAfter.column() - 1);
-        }
+        cAfter.setColumn(cAfter.column() - 1);
       }
     }
   }

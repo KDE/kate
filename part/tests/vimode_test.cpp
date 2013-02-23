@@ -597,8 +597,11 @@ void ViModeTest::NormalModeMotionsTest() {
   // just overlap with our previous ones.
   DoTest("aba bar", "lTa,x", "aba ar");
   DoTest("aba bar", "2tax", "aba ar");
-  // If we can't find 3 further a's, don't move at all.
+  // If we can't find 3 further a's, don't move at all...
   DoTest("aba bar", "3tax", "ba bar");
+  // ... except if we are repeating the last search, in which case stop at the last
+  // one that we do find.
+  DoTest("aba bar", "ta2;x", "aba ar");
 }
 
 void ViModeTest::NormalModeCommandsTest() {

@@ -2071,12 +2071,16 @@ KateViRange KateViNormalMode::motionToChar()
 
   m_stickyColumn = -1;
 
+  const int originalColumn = cursor.column();
   int matchColumn = cursor.column()+ (m_isRepeatedTFcommand ? 2 : 1);
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
     matchColumn = line.indexOf( m_keys.right( 1 ), matchColumn + ((i > 0) ? 1 : 0));
     if ( matchColumn == -1 )
+    {
+      matchColumn = originalColumn;
       break;
+    }
   }
 
   KateViRange r;

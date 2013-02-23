@@ -138,6 +138,10 @@ class Document;
  *      KXMLGUIClient
  * \author Christoph Cullmann \<cullmann@kde.org\>
  */
+// KDE5: consider deriving from QFrame instead of QWidget, since e.g. the Oxygen style
+// http://lxr.kde.org/source/kde/kde-workspace/kstyles/oxygen/oxygenstyle.cpp#614
+// checks for a QFrame and then KStyle::pixelMetric returns a better margin (Frame_FrameWidth)
+// This is needed because the Oxygen "focus border" paints over the line numbers otherwise.
 class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
 {
   Q_OBJECT

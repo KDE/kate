@@ -424,9 +424,11 @@ void KatePluginSearchView::startSearch()
                                      m_ui.searchCombo->currentText());
 
     if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
+        m_resultBaseDir.clear();
         m_searchOpenFiles.startSearch(m_kateApp->documentManager()->documents(), reg);
     }
     else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
+        m_resultBaseDir = m_ui.folderRequester->text();
         m_searchFolder.startSearch(m_ui.folderRequester->text(),
                                    m_ui.recursiveCheckBox->isChecked(),
                                    m_ui.hiddenCheckBox->isChecked(),
@@ -439,9 +441,15 @@ void KatePluginSearchView::startSearch()
         /**
          * init search with file list from current project, if any
          */
+        m_resultBaseDir.clear();
         QStringList files;
-        if (m_projectPluginView)
+        if (m_projectPluginView) {
+            QString projectFile = m_projectPluginView->property ("projectFileName").toString();
+            if (projectFile.endsWith(".kateproject")) {
+                m_resultBaseDir = projectFile.left(projectFile.size() - QString(".kateproject").size());
+            }
             files = m_projectPluginView->property ("projectFiles").toStringList();
+        }
         m_searchProject.startSearch(files, reg);
     }
     m_toolView->setCursor(Qt::WaitCursor);
@@ -499,6 +507,7 @@ void KatePluginSearchView::searchPatternChanged()
     m_curResults->selectAllCB->setChecked(true);
     disconnect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
+    m_resultBaseDir.clear();
     m_searchWhileTyping.startSearch(doc, reg);
 }
 
@@ -510,6 +519,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
 
     KUrl kurl(url);
     QString path = kurl.isLocalFile() ? kurl.upUrl().path() : kurl.upUrl().url();
+    path.replace(m_resultBaseDir, "");
     QString name = kurl.fileName();
 
     for (int i=0; i<m_curResults->tree->topLevelItemCount(); i++) {

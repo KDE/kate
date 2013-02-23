@@ -305,6 +305,8 @@ void ViModeTest::InsertModeTests() {
   DoTest("", "isausage\\ctrl-obugo\\esc.", "ugugoosausage");
   // 'Step back' on Ctrl-O if at the end of the line
   DoTest("foo bar baz","A\\ctrl-ox","foo bar ba");
+  // Paste acts as gp when executing in a Ctrl-O
+  DoTest("foo bar baz","yiwea\\ctrl-opd","foo foodbar baz");
 
   // Testing "Ctrl-D" "Ctrl-T"
   DoTest("foo", "i\\ctrl-t" , "  foo");

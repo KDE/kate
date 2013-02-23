@@ -3119,6 +3119,9 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste)
   QString textToInsert = getRegisterContent( reg );
   const bool isTextMultiLine = textToInsert.split("\n").count() > 1;
 
+  // In temporary normal mode, p/P act as gp/gP.
+  isgPaste |= m_viInputModeManager->getTemporaryNormalMode();
+
   if ( textToInsert.isNull() ) {
     error(i18n("Nothing in register %1", reg ));
     return false;

@@ -821,8 +821,9 @@ void KateViewManager::slotCloseCurrentViewSpace()
 
 void KateViewManager::slotCloseOtherViews()
 {
+  KateViewSpace* active = activeViewSpace();
   foreach (KateViewSpace  *v, m_viewSpaceList) {
-    if (activeViewSpace() != v) {
+    if (active != v) {
       removeViewSpace(v);
     }
   }

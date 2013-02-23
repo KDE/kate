@@ -84,7 +84,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
 
     KateMainWindow *mainWin = KateApp::self()->activeMainWindow();
 
-    if (re_write.exactMatch(command)) {
+    if (re_write.exactMatch(command)) {  //TODO: handle writing to specific file
         if (!re_write.cap(1).isEmpty()) { // [a]ll
             KateDocManager::self()->saveAll();
             msg = i18n("All documents written to disk");

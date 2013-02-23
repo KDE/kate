@@ -246,6 +246,12 @@ bool KateViInsertMode::commandInsertContentOfRegister(){
 bool KateViInsertMode::commandSwitchToNormalModeForJustOneCommand(){
     m_viInputModeManager->setTemporaryNormalMode(true);
     m_viInputModeManager->changeViMode(NormalMode);
+    const Cursor cursorPos = m_view->cursorPosition();
+    // If we're at end of the line, move the cursor back one step, as in Vim.
+    if (doc()->line(cursorPos.line()).length() == cursorPos.column())
+    {
+      m_view->setCursorPosition(Cursor(cursorPos.line(), cursorPos.column() - 1));
+    }
     m_view->setCaretStyle( KateRenderer::Block, true );
     m_view->updateViModeBarMode();
     m_viewInternal->repaint();

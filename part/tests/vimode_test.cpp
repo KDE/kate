@@ -303,6 +303,8 @@ void ViModeTest::InsertModeTests() {
   // Test that the text written after the Ctrl-O command completes is treated as
   // an insertion of text (rather than a sequence of commands) when repeated via "."
   DoTest("", "isausage\\ctrl-obugo\\esc.", "ugugoosausage");
+  // 'Step back' on Ctrl-O if at the end of the line
+  DoTest("foo bar baz","A\\ctrl-ox","foo bar ba");
 
   // Testing "Ctrl-D" "Ctrl-T"
   DoTest("foo", "i\\ctrl-t" , "  foo");

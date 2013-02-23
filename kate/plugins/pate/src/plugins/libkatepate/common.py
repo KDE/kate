@@ -52,6 +52,7 @@ def getBoundTextRangeSL(leftBoundary, rightBoundary, pos, doc):
     ''' Get the range between any symbol specified in leftBoundary set and rightBoundary
 
         Search starts from given cursor position...
+
         NOTE `SL' suffix means Single Line -- i.e. when search, do not cross one line boundaries!
     '''
     if not doc.lineLength(pos.line()):
@@ -59,20 +60,23 @@ def getBoundTextRangeSL(leftBoundary, rightBoundary, pos, doc):
 
     lineStr = doc.line(pos.line())                          # Get the current line as string to analyse
     found = False
-    for cc in range(pos.column(), -1, -1):                  # Moving towards line start
+    # NOTE If cursor positioned at the end of a line, column()
+    # will be equal to the line length and lineStr[cc] will
+    # fail... So it must be handled before the `for' loop...
+    initialPos = min(len(lineStr) - 1, pos.column() - 1)    # Let initial index be less than line length
+    for cc in range(initialPos, -1, -1):                    # Moving towards the line start
         found = lineStr[cc] in leftBoundary                 # Check the current char for left boundary terminators
         if found:
             break                                           # Break the loop if found smth
 
     startPos = KTextEditor.Cursor(pos.line(), cc + int(found))
 
-    found = False
-    for cc in range(pos.column(), len(lineStr)):            # Moving towards line end
-        found = lineStr[cc] in rightBoundary                # Check the current char for right boundary terminators
-        if found:
+    cc = pos.column()
+    for cc in range(pos.column(), len(lineStr)):            # Moving towards the line end
+        if lineStr[cc] in rightBoundary:                    # Check the current char for right boundary terminators
             break                                           # Break the loop if found smth
 
-    endPos = KTextEditor.Cursor(pos.line(), cc + int(not found))
+    endPos = KTextEditor.Cursor(pos.line(), cc)
 
     return KTextEditor.Range(startPos, endPos)
 
@@ -122,3 +126,5 @@ def extendSelectionToWholeLine(view):
             selectedRange.end().setColumn(0)
             selectedRange.end().setLine(selectedRange.end().line() + 1)
         view.setSelection(selectedRange)
+
+# kate: indent-width 4;

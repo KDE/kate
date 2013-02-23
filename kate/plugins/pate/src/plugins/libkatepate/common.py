@@ -60,9 +60,12 @@ def getBoundTextRangeSL(leftBoundary, rightBoundary, pos, doc):
 
     lineStr = doc.line(pos.line())                          # Get the current line as string to analyse
     found = False
+    cc = pos.column()                                       # (pre)initialize 'current column'
     # NOTE If cursor positioned at the end of a line, column()
     # will be equal to the line length and lineStr[cc] will
     # fail... So it must be handled before the `for' loop...
+    # And BTW, going to the line begin will start from a
+    # previous position -- it is why 'pos.column() - 1'
     initialPos = min(len(lineStr) - 1, pos.column() - 1)    # Let initial index be less than line length
     for cc in range(initialPos, -1, -1):                    # Moving towards the line start
         found = lineStr[cc] in leftBoundary                 # Check the current char for left boundary terminators
@@ -71,7 +74,7 @@ def getBoundTextRangeSL(leftBoundary, rightBoundary, pos, doc):
 
     startPos = KTextEditor.Cursor(pos.line(), cc + int(found))
 
-    cc = pos.column()
+    cc = pos.column()                                       # Reset 'current column'
     for cc in range(pos.column(), len(lineStr)):            # Moving towards the line end
         if lineStr[cc] in rightBoundary:                    # Check the current char for right boundary terminators
             break                                           # Break the loop if found smth

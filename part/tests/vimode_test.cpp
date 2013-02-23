@@ -596,6 +596,7 @@ void ViModeTest::NormalModeMotionsTest() {
   // Ensure that command backwards works, too - only one test, as any additional ones would
   // just overlap with our previous ones.
   DoTest("aba bar", "lTa,x", "aba ar");
+  DoTest("aba bar", "2tax", "aba ar");
 }
 
 void ViModeTest::NormalModeCommandsTest() {

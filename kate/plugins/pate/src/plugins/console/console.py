@@ -201,6 +201,12 @@ class Console(code.InteractiveConsole):
     string when you evaluate an expression (e.g "[]"); instead, it
     gets printed to stdout. Gross. This patches that problem but
     will probably not be massively forward compatible '''
+    def __init__(self, writer, tracer, locals = None, filename = "<console>"):
+        #super(Console, self).__init__(locals, filename)
+        code.InteractiveConsole.__init__(self, locals, filename)
+        self.write = writer
+        self.tracer = tracer
+
     def runcode(self, c):
         stdout = sys.stdout
         sys.stdout = StringIOHack()
@@ -217,9 +223,15 @@ class Console(code.InteractiveConsole):
         sys.stdout = stdout
         self.write(r)
 
-    def write(self, s):
-        sys.stdout.write(repr(s) + '\n')
-
+    def showtraceback(self):
+        self.tracer()
+        stderr = sys.stderr
+        sys.stderr = StringIOHack()
+        #super(Console, self).showtraceback()
+        code.InteractiveConsole.showtraceback(self)
+        r = sys.stderr.getvalue()
+        sys.stderr = stderr
+        self.write(r)
 
 class Exit:
     def __init__(self, window):
@@ -421,9 +433,7 @@ class KateConsole(QTextEdit):
             'help': Helper(self),
             '__name__': __name__,
         }
-        self.console = Console(builtins)
-        self.console.write = self.displayResult
-        self.console.showtraceback = self.showTraceback
+        self.console = Console(self.displayResult, self.showTraceback, builtins)
         self.state = 'normal'
         self.setPlainText(self.prompt)
         KateConsoleHighlighter(self)
@@ -431,7 +441,6 @@ class KateConsole(QTextEdit):
 
     def showTraceback(self):
         self.state = 'exception'
-        code.InteractiveConsole.showtraceback(self.console)
 
     @property
     def inputting(self):

@@ -39,6 +39,7 @@ public:
                      bool symlinks,
                      bool binary,
                      const QString &types,
+                     const QString &excludes,
                      const QRegExp &regexp);
     void run();
 

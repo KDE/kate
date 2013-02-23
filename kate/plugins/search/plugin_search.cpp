@@ -194,8 +194,8 @@ m_projectPluginView(0)
     m_ui.currentFolderButton->setIcon(KIcon("view-refresh"));
     m_ui.newTabButton->setIcon(KIcon("tab-new"));
 
-    m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. example: \"*.cpp,*.h\"\n"
-    "NOTE: Put a minus sign ('-') in front of an element to exclude those files and directories. example: \"*.cpp,*.h,-build*\""));
+    m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"));
+    m_ui.excludeCombo->setToolTip(i18n("Comma separated list of files and directories to exclude from the search. Example: \"build*\""));
 
     int padWidth = m_ui.folderLabel->sizeHint().width();
     padWidth = qMax(padWidth, m_ui.filterLabel->sizeHint().width());
@@ -226,6 +226,7 @@ m_projectPluginView(0)
     connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
 
     connect(m_ui.filterCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.excludeCombo,     SIGNAL(returnPressed()), this, SLOT(startSearch()));
 
     connect(m_ui.displayOptions,   SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
     connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(searchPlaceChanged()));
@@ -389,6 +390,10 @@ void KatePluginSearchView::startSearch()
         m_ui.filterCombo->insertItem(0, m_ui.filterCombo->currentText());
         m_ui.filterCombo->setCurrentIndex(0);
     }
+    if(m_ui.excludeCombo->findText(m_ui.excludeCombo->currentText()) == -1) {
+        m_ui.excludeCombo->insertItem(0, m_ui.excludeCombo->currentText());
+        m_ui.excludeCombo->setCurrentIndex(0);
+    }
     m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
         kWarning() << "This is a bug";
@@ -428,6 +433,7 @@ void KatePluginSearchView::startSearch()
                                    m_ui.symLinkCheckBox->isChecked(),
                                    m_ui.binaryCheckBox->isChecked(),
                                    m_ui.filterCombo->currentText(),
+                                   m_ui.excludeCombo->currentText(),
                                    reg);
     } else {
         /**
@@ -860,6 +866,9 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     m_ui.filterCombo->clear();
     m_ui.filterCombo->addItems(cg.readEntry("Filters", QStringList()));
     m_ui.filterCombo->setCurrentIndex(cg.readEntry("CurrentFilter", 0));
+    m_ui.excludeCombo->clear();
+    m_ui.excludeCombo->addItems(cg.readEntry("ExcludeFilters", QStringList()));
+    m_ui.excludeCombo->setCurrentIndex(cg.readEntry("CurrentExcludeFilter", 0));
 }
 
 void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString& groupPrefix)
@@ -887,6 +896,13 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
     }
     cg.writeEntry("Filters", filterItems);
     cg.writeEntry("CurrentFilter", m_ui.filterCombo->currentIndex());
+
+    QStringList excludeFilterItems;
+    for (int i=0; i<qMin(m_ui.excludeCombo->count(), 10); i++) {
+        excludeFilterItems << m_ui.excludeCombo->itemText(i);
+    }
+    cg.writeEntry("ExcludeFilters", excludeFilterItems);
+    cg.writeEntry("CurrentExcludeFilter", m_ui.excludeCombo->currentIndex());
 }
 
 void KatePluginSearchView::addTab()

@@ -602,7 +602,7 @@ and additionally using a shell alias.</para></listitem>
 <listitem>
 <para>Offers detailed documentation on all menu commands,
 configuration options, tools, dialogs, plugins &etc; as well as
-descriptions of of the &kate; window, the editor and various concepts
+descriptions of the &kate; window, the editor and various concepts
 used in the application.</para>
 
 <para>Press <keycap>F1</keycap> or use the

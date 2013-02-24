@@ -154,6 +154,7 @@ Kate::XMLGUIClient(KatePluginSearchFactory::componentData()),
 m_kateApp(application),
 m_curResults(0),
 m_searchJustOpened(false),
+m_switchToProjectModeWhenAvailable(false),
 m_projectPluginView(0)
 {
     m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
@@ -380,6 +381,7 @@ void KatePluginSearchView::setSearchString(const QString &pattern)
 void KatePluginSearchView::startSearch()
 {
     mainWindow()->showToolView(m_toolView); // in case we are invoked from the command interface
+    m_switchToProjectModeWhenAvailable = false; // now that we started, don't switch back automatically
 
     if (m_ui.searchCombo->currentText().isEmpty()) {
         // return pressed in the folder combo or filter combo
@@ -865,7 +867,14 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));
     m_ui.u_expandResults->setChecked(cg.readEntry("ExpandSearchResults", false));
 
-    m_ui.searchPlaceCombo->setCurrentIndex(cg.readEntry("Place", 0));
+    int searchPlaceIndex = cg.readEntry("Place", 0);
+    if ((searchPlaceIndex == 2) && (searchPlaceIndex >= m_ui.searchPlaceCombo->count())) {
+        // handle the case that project mode was selected, butnot yet available
+        m_switchToProjectModeWhenAvailable = true;
+        searchPlaceIndex = 0;
+    }
+    m_ui.searchPlaceCombo->setCurrentIndex(searchPlaceIndex);
+
     m_ui.recursiveCheckBox->setChecked(cg.readEntry("Recursive", true));
     m_ui.hiddenCheckBox->setChecked(cg.readEntry("HiddenFiles", false));
     m_ui.symLinkCheckBox->setChecked(cg.readEntry("FollowSymLink", false));
@@ -1139,9 +1148,11 @@ void KatePluginSearchView::slotProjectFileNameChanged ()
         if (m_ui.searchPlaceCombo->count() < 3) {
             // add "in Project"
             m_ui.searchPlaceCombo->addItem (SmallIcon("project-open"), i18n("in Project"));
-
-            // switch to search "in Project"
-            setSearchPlace (2);
+            if (m_switchToProjectModeWhenAvailable) {
+                // switch to search "in Project"
+                m_switchToProjectModeWhenAvailable = false;
+                setSearchPlace (2);
+            }
         }
     }
 

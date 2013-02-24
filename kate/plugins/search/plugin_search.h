@@ -149,6 +149,7 @@ private:
     KAction                           *m_useRegExp;
     Results                           *m_curResults;
     bool                               m_searchJustOpened;
+    bool                               m_switchToProjectModeWhenAvailable;
     QString                            m_resultBaseDir;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
 

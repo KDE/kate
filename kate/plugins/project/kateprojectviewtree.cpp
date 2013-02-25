@@ -20,17 +20,13 @@
 
 #include "kateprojectviewtree.h"
 #include "kateprojectpluginview.h"
+#include "kateprojecttreeviewcontextmenu.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
 #include <QContextMenuEvent>
 #include <krecursivefilterproxymodel.h>
-#include <KMimeType>
-#include <KMimeTypeTrader>
-#include <QMenu>
-#include <KRun>
-#include <KIcon>
 
 KateProjectViewTree::KateProjectViewTree (KateProjectPluginView *pluginView, KateProject *project)
   : QTreeView ()
@@ -144,49 +140,8 @@ void KateProjectViewTree::contextMenuEvent (QContextMenuEvent *event)
     return;
   }
 
-  /**
-   * create context menu
-   */
-  QMenu menu;
-
-  /**
-   * handle "open with"
-   * find correct mimetype to query for possible applications
-   */
-  QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
-  KMimeType::Ptr mimeType = KMimeType::findByPath(filePath);
-  KService::List offers = KMimeTypeTrader::self()->query(mimeType->name(), "Application");
-
-  /**
-   * for each one, insert a menu item...
-   */
-  for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
-  {
-    KService::Ptr service = *it;
-    if (service->name() == "Kate") continue; // omit Kate
-    QAction *action = openWithMenu->addAction(KIcon(service->icon()), service->name());
-    action->setData(service->entryPath());
-  }
-
-  /**
-   * perhaps disable menu, if no entries!
-   */
-  openWithMenu->setEnabled (!openWithMenu->isEmpty());
-
-  /**
-   * run menu and handle the triggered action
-   */
-  if (QAction *action = menu.exec (viewport()->mapToGlobal(event->pos()))) {
-    /**
-     * handle "open with"
-     */
-    const QString openWith = action->data().toString();
-    if (KService::Ptr app = KService::serviceByDesktopPath(openWith)) {
-      QList<QUrl> list;
-      list << QUrl::fromLocalFile (filePath);
-      KRun::run(*app, list, this);
-    }
-  }
+  KateProjectTreeViewContextMenu menu;
+  menu.exec(filePath, viewport()->mapToGlobal(event->pos()), this);
 
   event->accept();
 }

@@ -29,7 +29,6 @@
 #include <QtCore/QStack>
 
 #include <kmimetype.h>
-#include <kencodingprober.h>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/sessionconfiginterface.h>

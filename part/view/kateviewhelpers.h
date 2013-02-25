@@ -22,7 +22,6 @@
 #define __KATE_VIEW_HELPERS_H__
 
 #include <kselectaction.h>
-#include <kencodingprober.h>
 #include <klineedit.h>
 #include <KActionMenu>
 

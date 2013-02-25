@@ -267,36 +267,40 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
     }
   }
 
-  /**
-   * fallback to use QDirIterator and search files ourself!
-   */
   else {
-    /**
-    * default filter: only files!
-    */
-    dir.setFilter (QDir::Files);
+    files = filesEntry["list"].toStringList();
 
     /**
-    * set name filters, if any
+    * fallback to use QDirIterator and search files ourself!
     */
-    QStringList filters = filesEntry["filters"].toStringList();
-    if (!filters.isEmpty())
-      dir.setNameFilters (filters);
+    if (files.empty()) {
+      /**
+      * default filter: only files!
+      */
+      dir.setFilter (QDir::Files);
 
-    /**
-    * construct flags for iterator
-    */
-    QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
-    if (recursive)
-      flags = flags | QDirIterator::Subdirectories;
+      /**
+      * set name filters, if any
+      */
+      QStringList filters = filesEntry["filters"].toStringList();
+      if (!filters.isEmpty())
+        dir.setNameFilters (filters);
 
-    /**
-    * create iterator and collect all files
-    */
-    QDirIterator dirIterator (dir, flags);
-    while (dirIterator.hasNext()) {
-      dirIterator.next();
-      files.append (dirIterator.filePath());
+      /**
+      * construct flags for iterator
+      */
+      QDirIterator::IteratorFlags flags = QDirIterator::NoIteratorFlags;
+      if (recursive)
+        flags = flags | QDirIterator::Subdirectories;
+
+      /**
+      * create iterator and collect all files
+      */
+      QDirIterator dirIterator (dir, flags);
+      while (dirIterator.hasNext()) {
+        dirIterator.next();
+        files.append (dirIterator.filePath());
+      }
     }
   }
 

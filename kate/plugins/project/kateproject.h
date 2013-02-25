@@ -124,6 +124,11 @@ class KateProject : public QObject
     {
       return m_fileName;
     }
+    
+    const QString baseDir () const
+    {
+      return m_baseDir;
+    }
 
     /**
      * Accessor to project map containing the whole project info.
@@ -254,6 +259,11 @@ class KateProject : public QObject
      * project file name
      */
     QString m_fileName;
+
+    /**
+     * base directory of the project
+     */
+    QString m_baseDir;
 
     /**
      * project name

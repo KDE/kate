@@ -56,10 +56,10 @@ class KateProjectWorker : public QObject
      * Load the project.
      * Will be used to load project in background.
      * Will inform the project after loading was done and pass over all needed data!
-     * @param fileName project file name, should stay the same after initial setup
+     * @param baseDir project file name, should stay the same after initial setup
      * @param projectMap full map containing the whole project as copy to work on
      */
-    void loadProject (QString fileName, QVariantMap projectMap);
+    void loadProject (QString baseDir, QVariantMap projectMap);
     
   private:
     /**
@@ -92,9 +92,9 @@ class KateProjectWorker : public QObject
     QObject *m_project;
     
     /**
-     * project file name
+     * project base directory name
      */
-    QString m_fileName;
+    QString m_baseDir;
 };
 
 #endif

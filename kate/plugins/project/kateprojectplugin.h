@@ -44,14 +44,13 @@ class KateProjectPlugin : public Kate::Plugin
     Kate::PluginView *createView( Kate::MainWindow *mainWindow );
 
     /**
-     * Get project for given project filename.
-     * Will open a new one if not already open, else return the already open one.
+     * Create new project for given project filename.
      * Null pointer if no project can be opened.
      * File name will be canonicalized!
-     * @param fileName file name for the project
+     * @param fileName canonicalized file name for the project
      * @return project or null if not openable
      */
-    KateProject *projectForFileName (const QString &fileName);
+    KateProject *createProjectForFileName (const QString &fileName);
     
     /**
      * Search and open project for given dir, if possible.
@@ -77,7 +76,7 @@ class KateProjectPlugin : public Kate::Plugin
      */
     QList<KateProject *> projects () const
     {
-      return m_fileName2Project.values();
+      return m_projects;
     }
     
     /**
@@ -132,9 +131,9 @@ class KateProjectPlugin : public Kate::Plugin
 
   private:
     /**
-     * open plugins, map fileName => project
+     * open plugins, maps project base directory => project
      */
-    QMap<QString, KateProject *> m_fileName2Project;
+    QList<KateProject *> m_projects;
 
     /**
      * filesystem watcher to keep track of all project files

@@ -39,14 +39,14 @@ KateProjectWorker::~KateProjectWorker ()
 {
 }
 
-void KateProjectWorker::loadProject (QString fileName, QVariantMap projectMap)
+void KateProjectWorker::loadProject (QString baseDir, QVariantMap projectMap)
 {
   /**
-   * setup project file name
-   * name should be FIX after initial setting
+   * setup project base directory
+   * this should be FIX after initial setting
    */
-  Q_ASSERT (m_fileName.isEmpty() || (m_fileName == fileName));
-  m_fileName = fileName;
+  Q_ASSERT (m_baseDir.isEmpty() || (m_baseDir == baseDir));
+  m_baseDir = baseDir;
 
   /**
    * Create dummy top level parent item and empty map inside shared pointers
@@ -162,7 +162,7 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
   /**
    * get directory to open or skip
    */
-  QDir dir (QFileInfo (m_fileName).absoluteDir());
+  QDir dir (m_baseDir);
   if (!dir.cd (filesEntry["directory"].toString()))
     return;
 

@@ -77,9 +77,10 @@ bool KateProject::load (const QString &fileName)
     return false;
 
   /**
-   * set new filename
+   * set new filename and base directory
    */
   m_fileName = fileName;
+  m_baseDir = QFileInfo(m_fileName).canonicalPath();
 
   /**
    * trigger reload
@@ -117,6 +118,12 @@ bool KateProject::reload (bool force)
     return false;
 
   /**
+   * support out-of-source project files
+   */
+  if (!globalProject["directory"].toString().isEmpty()) 
+    m_baseDir = QFileInfo (globalProject["directory"].toString()).canonicalFilePath ();
+
+  /**
    * anything changed?
    * else be done without forced reload!
    */
@@ -136,7 +143,7 @@ bool KateProject::reload (bool force)
   /**
    * trigger worker to REALLY load the project model and stuff
    */
-  QMetaObject::invokeMethod (m_worker, "loadProject", Qt::QueuedConnection, Q_ARG(QString, m_fileName), Q_ARG(QVariantMap, m_projectMap));
+  QMetaObject::invokeMethod (m_worker, "loadProject", Qt::QueuedConnection, Q_ARG(QString, m_baseDir), Q_ARG(QVariantMap, m_projectMap));
 
   /**
    * done ok ;)

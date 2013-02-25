@@ -71,7 +71,7 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
      * open project for working dir!
      */
     projectForDir (QDir::current ());
-    
+
     /**
      * close again
      */
@@ -91,7 +91,7 @@ KateProjectPlugin::~KateProjectPlugin()
   /**
    * cleanup open projects
    */
-  foreach (KateProject *project, m_fileName2Project) {
+  foreach (KateProject *project, m_projects) {
     /**
      * remove path
      */
@@ -106,7 +106,7 @@ KateProjectPlugin::~KateProjectPlugin()
   /**
    * cleanup list
    */
-  m_fileName2Project.clear ();
+  m_projects.clear ();
 }
 
 Kate::PluginView *KateProjectPlugin::createView( Kate::MainWindow *mainWindow )
@@ -114,30 +114,13 @@ Kate::PluginView *KateProjectPlugin::createView( Kate::MainWindow *mainWindow )
   return new KateProjectPluginView ( this, mainWindow );
 }
 
-KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
+KateProject *KateProjectPlugin::createProjectForFileName (const QString &fileName)
 {
   /**
-   * canonicalize file path
-   */
-  QString canonicalFilePath = QFileInfo (fileName).canonicalFilePath ();
-
-  /**
-   * abort if empty
-   */
-  if (canonicalFilePath.isEmpty())
-    return 0;
-
-  /**
-   * first: lookup in existing projects
-   */
-  if (m_fileName2Project.contains (canonicalFilePath))
-    return m_fileName2Project.value (canonicalFilePath);
-
-  /**
-   * else: try to load or fail
+   * try to load or fail
    */
   KateProject *project = new KateProject ();
-  if (!project->load (canonicalFilePath)) {
+  if (!project->load (fileName)) {
     delete project;
     return 0;
   }
@@ -145,8 +128,8 @@ KateProject *KateProjectPlugin::projectForFileName (const QString &fileName)
   /**
    * remember project and emit & return it
    */
-  m_fileName2Project[canonicalFilePath] = project;
-  m_fileWatcher.addPath (QFileInfo (canonicalFilePath).canonicalPath());
+  m_projects.append(project);
+  m_fileWatcher.addPath (QFileInfo(fileName).canonicalPath());
   emit projectCreated (project);
   return project;
 }
@@ -167,8 +150,16 @@ KateProject *KateProjectPlugin::projectForDir (QDir dir)
     /**
      * check for project and load it if found
      */
+    QString canonicalPath = dir.canonicalPath();
+    QString canonicalFileName = canonicalPath + QString("/.kateproject");
+
+    foreach (KateProject *project, m_projects) {
+      if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName)
+        return project;
+    }
+
     if (dir.exists (".kateproject"))
-      return projectForFileName (dir.absolutePath () + "/.kateproject");
+      return createProjectForFileName (canonicalFileName);
 
     /**
      * else: cd up, if possible or abort
@@ -241,9 +232,13 @@ void KateProjectPlugin::slotDirectoryChanged (const QString &path)
   /**
    * auto-reload, if there
    */
-  KateProject *project = projectForFileName (QFileInfo (path + "/.kateproject").canonicalFilePath ());
-  if (project)
-    project->reload ();
+  QString fileName = path + QString("/.kateproject");
+  foreach (KateProject *project, m_projects) {
+    if (project->fileName() == fileName) {
+      project->reload();
+      break;
+    }
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -20,6 +20,7 @@ set(kateprojectplugin_PART_SRCS
   kateprojectitem.cpp
   kateprojectview.cpp
   kateprojectviewtree.cpp
+  kateprojecttreeviewcontextmenu.cpp
   kateprojectinfoview.cpp
   kateprojectcompletion.cpp
   kateprojectindex.cpp

@@ -132,7 +132,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   vbox->addWidget(metaInfos);
   buttonGroup->setLayout(vbox);
-  
+
   layout->addStretch(1); // :-] works correct without autoadd
   //END General page
 
@@ -157,7 +157,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   m_restoreVC->setChecked( cgGeneral.readEntry("Restore Window Configuration", true) );
   m_restoreVC->setWhatsThis( i18n("Check this if you want all your views and frames restored each time you open Kate"));
   connect( m_restoreVC, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
-  
+
   vbox->addWidget(m_restoreVC);
   buttonGroup->setLayout(vbox);
 
@@ -180,7 +180,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   connect(m_startNewSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_loadLastUserSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(m_manuallyChooseSessionRadioButton, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  
+
   vbox->addWidget(m_startNewSessionRadioButton);
   vbox->addWidget(m_loadLastUserSessionRadioButton);
   vbox->addWidget(m_manuallyChooseSessionRadioButton);
@@ -230,31 +230,15 @@ KateConfigDialog::~KateConfigDialog()
 
 
 void KateConfigDialog::addEditorPages() {
-  
+
   for (int i = 0; i < KateDocManager::self()->editor()->configPages (); ++i)
   {
-    KVBox *page = new KVBox();
-    page->setSpacing( -1 );
+    QWidget *page = KateDocManager::self()->editor()->configPage(i, this);
+    connect( page, SIGNAL(changed()), this, SLOT(slotChanged()) );
     KPageWidgetItem *item=addSubPage( m_editorPage, page, KateDocManager::self()->editor()->configPageName(i) );
     item->setHeader( KateDocManager::self()->editor()->configPageFullName(i) );
     item->setIcon( KateDocManager::self()->editor()->configPageIcon(i) );
-    
-    PluginPageListItem *info = new PluginPageListItem;
-    info->type=PluginPageListItem::Editor;
-    info->plugin = 0;
-    info->configPageInterface=0;
-    info->pageParent=page;
-    info->pluginPage = 0;
-    info->editorPage = 0; //info->configPageInterface->configPage (i, page);
-    info->idInPlugin=i;
-    info->pageWidgetItem = item;
-    //connect( info->page, SIGNAL(changed()), this, SLOT(slotChanged()) );
-    m_pluginPages.insert(item,info);
-    
-    
   }
-
-  
 }
 
 void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
@@ -272,7 +256,6 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
     item->setIcon( Kate::pluginConfigPageInterface(plugin)->configPageIcon(i));
 
     PluginPageListItem *info = new PluginPageListItem;
-    info->type=PluginPageListItem::Plugin;
     info->plugin = plugin;
     info->configPageInterface=Kate::pluginConfigPageInterface(plugin);
     info->pageParent=page;
@@ -291,17 +274,9 @@ void KateConfigDialog::slotCurrentPageChanged( KPageWidgetItem *current, KPageWi
   if (!info) return;
   if (info->pluginPage || info->editorPage) return;
   kDebug()<<"creating config page";
-  if (info->type==PluginPageListItem::Plugin) {
-    info->pluginPage=info->configPageInterface->configPage(info->idInPlugin,info->pageParent);
-    info->pluginPage->show();
-    connect( info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
-  } else if (info->type==PluginPageListItem::Editor) {
-    info->editorPage = KateDocManager::self()->editor()->configPage(info->idInPlugin, info->pageParent);
-    info->editorPage->show();
-    connect( info->editorPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
-  }
-
-  
+  info->pluginPage=info->configPageInterface->configPage(info->idInPlugin,info->pageParent);
+  info->pluginPage->show();
+  connect( info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
 }
 
 void KateConfigDialog::removePluginPage (Kate::Plugin *plugin)
@@ -316,7 +291,7 @@ void KateConfigDialog::removePluginPage (Kate::Plugin *plugin)
     if (pli->plugin==plugin)
       remove.append(it.key());
   }
-  
+
   kDebug()<<remove.count();
   while (!remove.isEmpty()) {
     KPageWidgetItem *wItem=remove.takeLast();
@@ -360,7 +335,7 @@ void KateConfigDialog::slotApply()
 
     cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
     m_mainWindow->modNotification = m_modNotifications->isChecked();
-    
+
     // patch document modified warn state
     const QList<KTextEditor::Document*> &docs = KateDocManager::self()->documentList ();
     foreach (KTextEditor::Document *doc, docs)
@@ -383,7 +358,7 @@ void KateConfigDialog::slotApply()
     else if (plugin->editorPage)
       plugin->editorPage->apply();
   }
-  
+
   // write back the editor config
   KateDocManager::self()->editor()->writeConfig(config.data());
 

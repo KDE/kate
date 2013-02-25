@@ -38,10 +38,6 @@ class KateMainWindow;
 
 struct PluginPageListItem
 {
-  enum e_type{Editor=1,Plugin=2};
-  
-  enum e_type type;
-  
   Kate::Plugin *plugin;
   Kate::PluginConfigPageInterface *configPageInterface;
   uint idInPlugin;
@@ -69,7 +65,7 @@ class KateConfigDialog : public KPageDialog
     void slotChanged();
 
     void slotCurrentPageChanged( KPageWidgetItem *current, KPageWidgetItem *before );
-    
+
   private:
     KateMainWindow *m_mainWindow;
 
@@ -85,11 +81,11 @@ class KateConfigDialog : public KPageDialog
     QRadioButton *m_startNewSessionRadioButton;
     QRadioButton *m_loadLastUserSessionRadioButton;
     QRadioButton *m_manuallyChooseSessionRadioButton;
-    
+
     QHash<KPageWidgetItem*, PluginPageListItem*> m_pluginPages;
     KPageWidgetItem *m_applicationPage;
     KPageWidgetItem *m_editorPage;
-    
+
     void addEditorPages();
 };
 

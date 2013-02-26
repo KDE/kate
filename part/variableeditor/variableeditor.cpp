@@ -341,9 +341,9 @@ VariableRemoveSpacesEditor::VariableRemoveSpacesEditor(VariableRemoveSpacesItem*
   QGridLayout* l = (QGridLayout *) layout();
 
   m_comboBox = new QComboBox(this);
-  m_comboBox->addItem(i18n("none"));
-  m_comboBox->addItem(i18n("modified"));
-  m_comboBox->addItem(i18n("all"));
+  m_comboBox->addItem(i18nc("value for variable remove-trailing-spaces", "none"));
+  m_comboBox->addItem(i18nc("value for variable remove-trailing-spaces", "modified"));
+  m_comboBox->addItem(i18nc("value for variale remove-trailing-spaces", "all"));
   m_comboBox->setCurrentIndex(item->value());
   l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
 

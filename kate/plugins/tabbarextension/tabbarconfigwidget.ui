@@ -30,12 +30,12 @@
        <widget class="QComboBox" name="cmbLocation" >
         <item>
          <property name="text" >
-          <string>Top</string>
+          <string comment="Tab bar location">Top</string>
          </property>
         </item>
         <item>
          <property name="text" >
-          <string>Bottom</string>
+          <string comment="Tab bar location">Bottom</string>
          </property>
         </item>
        </widget>

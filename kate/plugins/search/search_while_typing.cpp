@@ -36,6 +36,7 @@ void SearchWhileTyping::startSearch(const KTextEditor::Document *doc, const QReg
     }
     column = regExp.indexIn(doc->line(line));
     while (column != -1) {
+      if (regExp.cap().isEmpty()) break;
       emit matchFound(doc->url().pathOrUrl(), line, column,
                       doc->line(line), regExp.matchedLength());
       column = regExp.indexIn(doc->line(line), column + regExp.cap().size());

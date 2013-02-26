@@ -57,6 +57,7 @@ void SearchProject::run()
             if (m_cancelSearch) break;
             column = m_regExp.indexIn(line);
             while (column != -1) {
+                if (m_regExp.cap().isEmpty()) break;
                 // limit line length
                 if (line.length() > 512) line = line.left(512);
                 emit matchFound(fileName, i, column, line, m_regExp.matchedLength());

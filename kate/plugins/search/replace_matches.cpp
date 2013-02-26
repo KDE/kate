@@ -92,6 +92,7 @@ void ReplaceMatches::doReplaceNextMatch()
     }
 
     QVector<KTextEditor::MovingRange*> rVector;
+    QStringList rTexts;
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
     int line;
     int column;
@@ -110,9 +111,18 @@ void ReplaceMatches::doReplaceNextMatch()
             kDebug() << "expression does not match";
             continue;
         }
+
+        QString replaceText = m_replaceText;
+        replaceText.replace("\\\\", "¤¤");
+        for (int j=1; j<=m_regExp.captureCount(); j++) {
+            replaceText.replace(QString("\\%1").arg(j), m_regExp.cap(j));
+        }
+        replaceText.replace("¤¤", "\\\\");
+        rTexts << replaceText;
+
         QString html = item->data(1, Qt::ToolTipRole).toString();
         html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
-        html += "<b>" + m_replaceText + "</b>";
+        html += "<b>" + replaceText + "</b>";
         html += item->data(3, Qt::ToolTipRole).toString();
         item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",line+1, html));
         KTextEditor::Range range(line, column, line, column+len);
@@ -123,8 +133,8 @@ void ReplaceMatches::doReplaceNextMatch()
     for (int i=0; i<rVector.size(); i++) {
         line = rVector[i]->start().line();
         column = rVector[i]->start().column();
-        doc->replaceText(*rVector[i], m_replaceText);
-        emit matchReplaced(doc, line, column, m_replaceText.length());
+        doc->replaceText(*rVector[i], rTexts[i]);
+        emit matchReplaced(doc, line, column, rTexts[i].length());
     }
 
     qDeleteAll(rVector);

@@ -60,7 +60,7 @@ void SearchProject::run()
                 // limit line length
                 if (line.length() > 512) line = line.left(512);
                 emit matchFound(fileName, i, column, line, m_regExp.matchedLength());
-                column = m_regExp.indexIn(line, column + 1);
+                column = m_regExp.indexIn(line, column + m_regExp.cap().size());
             }
             i++;
         }

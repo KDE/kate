@@ -66,7 +66,7 @@ void SearchOpenFiles::doSearchNextFile()
                 emit matchFound(m_docList[m_nextIndex]->url().prettyUrl(), line, column,
                                 m_docList[m_nextIndex]->line(line), m_regExp.matchedLength());
             }
-            column = m_regExp.indexIn(m_docList[m_nextIndex]->line(line), column + 1);
+            column = m_regExp.indexIn(m_docList[m_nextIndex]->line(line), column + m_regExp.cap().size());
         }
     }
 

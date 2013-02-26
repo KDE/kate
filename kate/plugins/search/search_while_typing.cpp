@@ -38,7 +38,7 @@ void SearchWhileTyping::startSearch(const KTextEditor::Document *doc, const QReg
     while (column != -1) {
       emit matchFound(doc->url().pathOrUrl(), line, column,
                       doc->line(line), regExp.matchedLength());
-      column = regExp.indexIn(doc->line(line), column + 1);
+      column = regExp.indexIn(doc->line(line), column + regExp.cap().size());
     }
   }
   emit searchDone();

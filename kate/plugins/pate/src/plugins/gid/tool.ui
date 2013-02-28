@@ -10,9 +10,6 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>tool</string>
-  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="3">
     <widget class="KHistoryComboBox" name="filter">

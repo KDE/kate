@@ -10,9 +10,6 @@
     <height>376</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>ConsoleConfig</string>
-  </property>
   <property name="currentIndex">
    <number>1</number>
   </property>

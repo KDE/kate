@@ -1459,7 +1459,7 @@ Returns <literal>true</literal>, if both start and end cursor are valid, otherwi
 
 <varlistentry>
 <term><synopsis>
-bool Range.invalid();
+Range Range.invalid();
 </synopsis></term>
 <listitem><para>
 Returns the Range from (-1, -1) to (-1, -1).

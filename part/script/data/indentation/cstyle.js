@@ -116,7 +116,7 @@ function tryParenthesisBeforeBrace(line, column)
     while (column > firstColumn && document.isSpace(line, --column));
     if (document.charAt(line, column) == ')')
         return document.anchor(line, column, '(');
-    return new Cursor().invalid();
+    return Cursor.invalid();
 }
 
 /**
@@ -415,7 +415,7 @@ function tryCKeywords(line, isBrace)
 
     // if line ends with ')', find the '(' and check this line then.
     var lastPos = document.lastColumn(currentLine);
-    var cursor = new Cursor().invalid();
+    var cursor = Cursor.invalid();
     if (document.charAt(currentLine, lastPos) == ')')
         cursor = document.anchor(currentLine, lastPos, '(');
     if (cursor.isValid())
@@ -533,7 +533,7 @@ function tryStatement(line)
     if (result != null && result.index == 0) {
         var alignOnAnchor = result[3].length == 0 && result[2] != ')';
         // search for opening ", ' or (
-        var cursor = new Cursor().invalid();
+        var cursor = Cursor.invalid();
         if (result[2] == '"' || (alignOnSingleQuote && result[2] == "'")) {
 
             while(true) {

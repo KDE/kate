@@ -824,7 +824,7 @@ function tryCloseBracket(cursor, ch)
     // (i.e. it is 'dangling' brace)...
     if (document.firstChar(line) == ch && document.firstColumn(line) == (column - 1))
     {
-        var braceCursor = new Cursor().invalid();
+        var braceCursor = Cursor.invalid();
         if (ch != '>')
             braceCursor = document.anchor(line, column - 1, gBraceMap[ch]);
             // TODO Otherwise, it seems we have a template parameters list...

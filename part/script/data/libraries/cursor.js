@@ -18,7 +18,7 @@
  * var cursor1 = new Cursor(); // constructs a (valid) cursor at position (0, 0)
  * var cursor2 = new Cursor(2, 4); // constructs a cursor at position (2, 4)
  * var cursor3 = new Cursor(cursor2); // copies the cursor2
- * var cursor4 = new Cursor().invalid(); // constructs invalid cursor at (-1, -1)
+ * var cursor4 = Cursor.invalid(); // constructs invalid cursor at (-1, -1)
  * \endcode
  *
  * There are several convenience member functions that easy working with
@@ -27,51 +27,59 @@
  *
  * \see Range
  */
-function Cursor()
-{
-  if (arguments.length == 0) {
+function Cursor() {
+
+  if (arguments.length === 0) {
     return new Cursor(0, 0);
-  } else if (arguments.length == 1 && typeof arguments[0] == "object") {
+  }
+
+  if (arguments.length === 1 && typeof arguments[0] == "object") {
     // assume: cursor = new Cursor(otherCursor);
     return arguments[0].clone();
-  } else if (arguments.length == 2 && typeof arguments[0] == "number"
-                                   && typeof arguments[1] == "number") {
+  }
+
+  if (arguments.length === 2 && typeof arguments[0] == "number"
+                             && typeof arguments[1] == "number") {
     // assume: cursor = new Cursor(line, column);
-    this.line = parseInt(arguments[0]);
-    this.column = parseInt(arguments[1]);
+    this.line = parseInt(arguments[0], 10);
+    this.column = parseInt(arguments[1], 10);
   } else {
     throw "Wrong usage of Cursor constructor";
   }
-
-  this.clone = function() {
-    return new Cursor(this.line, this.column);
-  };
-
-  this.isValid = function() {
-    return (this.line >= 0) && (this.column >= 0);
-  };
-
-  this.invalid = function() {
-    return new Cursor(-1, -1);
-  };
-
-  this.compareTo = function(other) {
-    if (this.line > other.line || (this.line == other.line && this.column > other.column)) {
-      return 1;
-    } else if (this.line < other.line || (this.line == other.line && this.column < other.column)) {
-      return -1;
-    } else {
-      return 0;
-    }
-  };
-
-  this.equals = function(other) {
-    return (this.line == other.line && this.column == other.column);
-  };
-
-  this.toString = function() {
-    return "Cursor(" + this.line+ ", " + this.column+ ")";
-  };
 }
 
+Cursor.prototype.clone = function() {
+  return new Cursor(this.line, this.column);
+}
 
+Cursor.prototype.isValid = function() {
+  return (this.line >= 0) && (this.column >= 0);
+}
+
+Cursor.prototype.compareTo = function(other) {
+  if (this.line > other.line || (this.line === other.line && this.column > other.column)) {
+    return 1;
+  }
+  if (this.line < other.line || (this.line === other.line && this.column < other.column)) {
+    return -1;
+  }
+  return 0;
+}
+
+Cursor.prototype.equals = function(other) {
+  return (this.line === other.line && this.column === other.column);
+}
+
+Cursor.prototype.toString = function() {
+  if (this.isValid()) {
+    return "Cursor(" + this.line+ "," + this.column+ ")";
+  } else {
+    return "Cursor()";
+  }
+}
+
+Cursor.invalid = function() {
+  return new Cursor(-1, -1);
+}
+
+// kate: indent-width 2; replace-tabs on;

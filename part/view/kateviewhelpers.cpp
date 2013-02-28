@@ -278,7 +278,7 @@ const QColor KateScrollBar::charColor(const QVector<int> &attributes, int &attri
   // Query the decorations, that is, things like search highlighting, or the
   // KDevelop DUChain highlighting, for a color to use
   foreach (const QTextLayout::FormatRange& range, decorations) {
-    if (range.start <= x and range.start + range.length > x) {
+    if (range.start <= x && range.start + range.length > x) {
       // If there's a different background color set (search markers, ...)
       // use that, otherwise use the foreground color.
       if ( range.format.hasProperty(QTextFormat::BackgroundBrush) ) {

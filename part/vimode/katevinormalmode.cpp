@@ -1488,6 +1488,10 @@ bool KateViNormalMode::commandRepeatLastChange()
 {
   const int count = getCount();
   resetParser();
+  if (count > 1)
+  {
+    m_oneTimeCountOverride = count;
+  }
   doc()->editStart();
   m_viInputModeManager->repeatLastChange(count);
   doc()->editEnd();

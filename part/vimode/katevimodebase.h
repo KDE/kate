@@ -68,6 +68,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     KateViModeBase()
       : QObject(),
         m_count(0),
+        m_oneTimeCountOverride(-1),
         m_iscounted(false),
         m_stickyColumn(-1)
     {
@@ -125,7 +126,13 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     unsigned int linesDisplayed() { return m_viewInternal->linesDisplayed(); }
     void scrollViewLines( int l ) { m_viewInternal->scrollViewLines( l ); }
 
-    unsigned int getCount() const { return ( m_count > 0 ) ? m_count : 1; }
+    unsigned int getCount() const {
+      if (m_oneTimeCountOverride != -1)
+      {
+        return m_oneTimeCountOverride;
+      }
+      return ( m_count > 0 ) ? m_count : 1;
+    }
     bool isCounted() { return m_iscounted; }
 
     bool startNormalMode();
@@ -150,6 +157,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 
     KateViRange m_commandRange;
     unsigned int m_count;
+    int m_oneTimeCountOverride;
     bool m_iscounted;
 
     QString m_extraWordCharacters;

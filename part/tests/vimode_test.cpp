@@ -290,7 +290,7 @@ void ViModeTest::InsertModeTests() {
   DoTest("bar", "5Ohello\\esc", "hello\nhello\nhello\nhello\nhello\nbar");
   DoTest("foo\nbar", "j5Ohello\\esc", "foo\nhello\nhello\nhello\nhello\nhello\nbar");
   DoTest("bar", "5ohello\\esc2ixyz\\esc", "bar\nhello\nhello\nhello\nhello\nhellxyzxyzo");
-  DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo", ShouldFail, "Need to get counted inserts working, then use a 'count multiplier' for counted repeats.");
+  DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo");
 
   // Testing "Ctrl-w"
   DoTest("foobar", "$i\\ctrl-w", "r");
@@ -723,7 +723,7 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("-1", "l1\\ctrl-a", "0");
   DoTest("0x0000f", "\\ctrl-a","0x00010" );
   DoTest("5", "5\\ctrl-a.","15" );
-  DoTest("5", "5\\ctrl-a2.","12", ShouldFail, "Gah - messed up how counted repeats of last change are supposed to work");
+  DoTest("5", "5\\ctrl-a2.","12");
 
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");

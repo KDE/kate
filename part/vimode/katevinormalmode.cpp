@@ -2100,9 +2100,10 @@ KateViRange KateViNormalMode::motionToCharBackward()
   Cursor cursor ( m_view->cursorPosition() );
   QString line = getLine();
 
+  const int originalColumn = cursor.column();
   m_stickyColumn = -1;
 
-  int matchColumn = -1;
+  int matchColumn = originalColumn - 1;
 
   unsigned int hits = 0;
   int i = cursor.column()- (m_isRepeatedTFcommand ? 2 : 1);

@@ -622,6 +622,7 @@ void ViModeTest::NormalModeMotionsTest() {
   // one that we do find.
   DoTest("aba bar", "ta2;x", "aba ar");
   DoTest("nocapitalc", "lltCx", "noapitalc");
+  DoTest("nocapitalc", "llTCx", "noapitalc");
 }
 
 void ViModeTest::NormalModeCommandsTest() {

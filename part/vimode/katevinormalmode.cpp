@@ -600,6 +600,7 @@ bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
   updateCursor( cursor );
 
   m_stickyColumn = -1;
+  m_viInputModeManager->getViInsertMode()->setCount(getCount());
   return startInsertMode();
 }
 

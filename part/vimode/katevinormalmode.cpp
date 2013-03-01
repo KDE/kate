@@ -114,7 +114,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
-  if ( keyCode == Qt::Key_Escape ) {
+  if ( keyCode == Qt::Key_Escape || (keyCode == Qt::Key_C && e->modifiers() == Qt::ControlModifier)) {
     m_view->setCaretStyle( KateRenderer::Block, true );
     m_pendingResetIsDueToExit = true;
     reset();

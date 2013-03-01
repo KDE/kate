@@ -2813,9 +2813,10 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
     const bool stuffToDeleteIsAllOnEndLine = innerCurlyBracket.startColumn == doc()->line(innerCurlyBracket.startLine).length() &&
     innerCurlyBracket.endLine == innerCurlyBracket.startLine + 1;
     const QString textLeadingClosingBracket = doc()->line(innerCurlyBracket.endLine).mid(0, innerCurlyBracket.endColumn + 1);
+    const bool closingBracketHasLeadingNonWhitespace = !textLeadingClosingBracket.trimmed().isEmpty();
     if (stuffToDeleteIsAllOnEndLine)
     {
-      if (innerCurlyBracket.endColumn == -1 || textLeadingClosingBracket.trimmed().isEmpty())
+      if (!closingBracketHasLeadingNonWhitespace)
       {
         // Nothing there to select - abort.
         innerCurlyBracket.valid = false;
@@ -2830,11 +2831,9 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
     }
     else
     {
-      // The line containing the end bracket is left alone if the end bracket is preceded by whitespace,
+      // The line containing the end bracket is left alone if the end bracket is preceded by just whitespace,
       // else we need to delete everything (i.e. end up with "{}")
-      const QString textLeadingClosingBracket = doc()->line(innerCurlyBracket.endLine).mid(0, innerCurlyBracket.endColumn + 1);
-      const bool hasStuffToDeleteOnEndLine = (!textLeadingClosingBracket.isEmpty() && !textLeadingClosingBracket.trimmed().isEmpty());
-      if (!hasStuffToDeleteOnEndLine)
+      if (!closingBracketHasLeadingNonWhitespace)
       {
         // Shrink the endpoint of the range so that it ends at the end of the line above,
         // leaving the closing bracket on its own line.

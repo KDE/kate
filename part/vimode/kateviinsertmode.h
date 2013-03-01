@@ -79,6 +79,8 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     void setBlockPrependMode( KateViRange blockRange );
     void setBlockAppendMode( KateViRange blockRange, BlockInsert b );
 
+    void setCount(int count) { m_count = count;};
+
   protected:
     BlockInsert m_blockInsert;
     unsigned int m_eolPos; // length of first line in eol mode before text is appended
@@ -86,6 +88,8 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
 
     QString m_registerTemp;
     QString m_keys;
+
+    int m_count;
 
     void leaveInsertMode( bool force = false);
 };

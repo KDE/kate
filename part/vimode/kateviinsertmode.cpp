@@ -39,6 +39,7 @@ KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
 
   m_blockInsert = None;
   m_eolPos = 0;
+  m_count = 1;
 }
 
 KateViInsertMode::~KateViInsertMode()
@@ -466,6 +467,17 @@ void KateViInsertMode::leaveInsertMode( bool force )
         }
 
         m_blockInsert = None;
+    }
+    else
+    {
+        const QString added = doc()->text(Range(m_viInputModeManager->getMarkPosition('^'), m_view->cursorPosition()));
+        if (m_count > 1)
+        {
+            for (unsigned int i = 0; i < m_count - 1; i++)
+            {
+                doc()->insertText( m_view->cursorPosition(), added );
+            }
+        }
     }
     startNormalMode();
 }

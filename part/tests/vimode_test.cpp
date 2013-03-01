@@ -901,4 +901,11 @@ void ViModeTest::MappingTests()
   DoTest("bar", "5'au", "bar");
 }
 
+// Special area for tests where you want to set breakpoints etc without all the other tests
+// triggering them.  Run with ./vimode_test debuggingTests
+void ViModeTest::debuggingTests()
+{
+
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

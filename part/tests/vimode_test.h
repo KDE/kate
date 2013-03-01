@@ -45,6 +45,8 @@ private Q_SLOTS:
   void CommandModeTests();
 
   void MappingTests();
+
+  void debuggingTests();
 private:
   enum Expectation { ShouldPass, ShouldFail };
   void BeginTest(const QString& original_text);

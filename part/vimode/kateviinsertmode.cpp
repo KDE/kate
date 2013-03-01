@@ -480,6 +480,7 @@ void KateViInsertMode::leaveInsertMode( bool force )
                 doc()->insertText( m_view->cursorPosition(), (m_countedRepeatsBeginOnNewLine ? "\n" : "") + added );
             }
         }
+        m_countedRepeatsBeginOnNewLine = false;
     }
     startNormalMode();
 }

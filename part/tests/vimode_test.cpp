@@ -63,6 +63,7 @@ void ViModeTest::FinishTest(const QString& expected_text, ViModeTest::Expectatio
   if (expectation == ShouldFail)
   {
     QEXPECT_FAIL("", failureReason.toLocal8Bit(), Continue);
+    qDebug() << "Actual text:\n\t" << kate_document->text() << "\nShould be (for this test to pass):\n\t" << expected_text;
   }
   QCOMPARE(kate_document->text(), expected_text);
 }

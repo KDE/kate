@@ -328,6 +328,8 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo bar baz","A\\ctrl-ox","foo bar ba");
   // Paste acts as gp when executing in a Ctrl-O
   DoTest("foo bar baz","yiwea\\ctrl-opd","foo foodbar baz");
+  DoTest("bar","A\\ctrl-o\\ctrl-chx","br", ShouldFail, "Need to return direct to normal (not Insert) mode when aborting temporary normal mode");
+  DoTest("bar","A\\ctrl-o\\eschx","br", ShouldFail, "Need to return direct to normal (not Insert) mode when aborting temporary normal mode");
 
   // Testing "Ctrl-D" "Ctrl-T"
   DoTest("foo", "i\\ctrl-t" , "  foo");

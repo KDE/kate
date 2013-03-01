@@ -2812,9 +2812,10 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
   {
     const bool stuffToDeleteIsAllOnEndLine = innerCurlyBracket.startColumn == doc()->line(innerCurlyBracket.startLine).length() &&
     innerCurlyBracket.endLine == innerCurlyBracket.startLine + 1;
+    const QString textLeadingClosingBracket = doc()->line(innerCurlyBracket.endLine).mid(0, innerCurlyBracket.endColumn + 1);
     if (stuffToDeleteIsAllOnEndLine)
     {
-      if (innerCurlyBracket.endColumn == -1)
+      if (innerCurlyBracket.endColumn == -1 || textLeadingClosingBracket.trimmed().isEmpty())
       {
         // Nothing there to select - abort.
         innerCurlyBracket.valid = false;

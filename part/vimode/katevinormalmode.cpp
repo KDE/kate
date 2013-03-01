@@ -965,9 +965,7 @@ bool KateViNormalMode::commandOpenNewLineOver()
   Cursor c( m_view->cursorPosition() );
 
   if ( c.line() == 0 ) {
-    for (unsigned int i = 0; i < getCount(); i++ ) {
-      doc()->insertLine( 0, QString() );
-    }
+    doc()->newLine( m_view );
     c.setColumn( 0 );
     c.setLine( 0 );
     updateCursor( c );
@@ -978,17 +976,12 @@ bool KateViNormalMode::commandOpenNewLineOver()
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         doc()->newLine( m_view );
     }
-
-    if ( getCount() > 1 ) {
-      c = m_view->cursorPosition();
-      c.setLine( c.line()-(getCount()-1 ) );
-      updateCursor( c );
-    }
-    //c.setLine( c.line()-getCount() );
   }
 
   m_stickyColumn = -1;
   startInsertMode();
+  m_viInputModeManager->getViInsertMode()->setCount(getCount());
+  m_viInputModeManager->getViInsertMode()->setCountedRepeatsBeginOnNewLine(true);
   m_viewInternal->repaint ();
 
   return true;

@@ -80,6 +80,7 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     void setBlockAppendMode( KateViRange blockRange, BlockInsert b );
 
     void setCount(int count) { m_count = count;};
+    void setCountedRepeatsBeginOnNewLine(bool countedRepeatsBeginOnNewLine) { m_countedRepeatsBeginOnNewLine = countedRepeatsBeginOnNewLine;};
 
   protected:
     BlockInsert m_blockInsert;
@@ -90,6 +91,7 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     QString m_keys;
 
     int m_count;
+    bool m_countedRepeatsBeginOnNewLine;
 
     void leaveInsertMode( bool force = false);
 };

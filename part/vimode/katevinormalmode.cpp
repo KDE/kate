@@ -949,12 +949,12 @@ bool KateViNormalMode::commandOpenNewLineUnder()
   c.setColumn( doc()->lineLength( c.line() ) );
   updateCursor( c );
 
-  for ( unsigned int i = 0; i < getCount(); i++ ) {
-    doc()->newLine( m_view );
-  }
+  doc()->newLine( m_view );
 
   m_stickyColumn = -1;
   startInsertMode();
+  m_viInputModeManager->getViInsertMode()->setCount(getCount());
+  m_viInputModeManager->getViInsertMode()->setCountedRepeatsBeginOnNewLine(true);
   m_viewInternal->repaint ();
 
   return true;

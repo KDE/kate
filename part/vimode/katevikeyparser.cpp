@@ -515,16 +515,28 @@ const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
       else {
         // contains modifiers
         if ( keys.mid( i ).indexOf( '-' ) != -1 && keys.mid( i ).indexOf( '-' ) < keys.mid( i ).indexOf( '>' ) ) {
-          QStringList tokens = keys.mid( i, keys.mid( i ).indexOf( '>' ) ).toLower().split( '-' );
+          // Perform something similar to a split on '-', except that we want to keep the occurences of '-'
+          // e.g. <c-s-a> will equate to the list of tokens "c-", "s-", "a".
+          // A straight split on '-' would give us "c", "s", "a", in which case we lose the piece of information that
+          // 'a' is just the 'a' key, not the 'alt' modifier.
+          const QString untilClosing = keys.mid( i, keys.mid( i ).indexOf( '>' ) ).toLower();
+          QStringList tokens;
+          int currentPos = 0;
+          while (int nextHypen = untilClosing.indexOf('-', currentPos) != -1)
+          {
+            tokens << untilClosing.mid(currentPos, nextHypen - currentPos + 1);
+            currentPos = nextHypen + 1;
+          }
+          tokens << untilClosing.mid(currentPos);
 
           foreach ( const QString& str, tokens ) {
-            if ( str == "s" && ( keyCodeTemp & 0x01 ) != 0x1  )
+            if ( str == "s-" && ( keyCodeTemp & 0x01 ) != 0x1  )
               keyCodeTemp += 0x1;
-            else if ( str == "c" && ( keyCodeTemp & 0x02 ) != 0x2 )
+            else if ( str == "c-" && ( keyCodeTemp & 0x02 ) != 0x2 )
               keyCodeTemp += 0x2;
-            else if ( str == "a" && ( keyCodeTemp & 0x04 ) != 0x4 )
+            else if ( str == "a-" && ( keyCodeTemp & 0x04 ) != 0x4 )
               keyCodeTemp += 0x4;
-            else if ( str == "m" && ( keyCodeTemp & 0x08 ) != 0x8 )
+            else if ( str == "m-" && ( keyCodeTemp & 0x08 ) != 0x8 )
               keyCodeTemp += 0x8;
             else {
               if ( m_nameToKeyCode->contains( str ) || ( str.length() == 1 && str.at( 0 ).isLetterOrNumber() ) ) {

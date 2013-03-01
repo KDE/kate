@@ -714,6 +714,7 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("-1", "1\\ctrl-a", "0");
   DoTest("-1", "l1\\ctrl-a", "0");
   DoTest("0x0000f", "\\ctrl-a","0x00010" );
+  DoTest("5", "5\\ctrl-a.","15" );
 
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");

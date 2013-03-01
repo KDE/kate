@@ -1145,6 +1145,7 @@ void KateViModeBase::addToNumberUnderCursor( int count )
         bool ok = false;
         int base = number.cap( 1 ).isEmpty() ? 10 : 16;
         int n = nString.toInt( &ok, base );
+        const QString withoutBase = number.cap(2);
 
         kDebug( 13070 ) << "base: " << base;
         kDebug( 13070 ) << "n: " << n;
@@ -1158,7 +1159,9 @@ void KateViModeBase::addToNumberUnderCursor( int count )
         n += count;
 
         // create the new text string to be inserted. prepend with “0x” if in base 16
-        QString newText = (base == 16 ? "0x" : "") + QString::number(n, base);
+        // Try to keep the length of the number the same (including leading 0's).
+        QString newNumberPadded = QString("%1").arg(n, withoutBase.length(), base, QChar('0'));
+        QString newText = (base == 16 ? "0x" : "") + newNumberPadded;
 
         // replace the old number string with the new
         doc()->editStart();

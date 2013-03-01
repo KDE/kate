@@ -706,12 +706,14 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("150", "101\\ctrl-x", "49");
   DoTest("1", "\\ctrl-x\\ctrl-x\\ctrl-x\\ctrl-x", "-3");
   DoTest("0xabcdef", "1000000\\ctrl-x","0x9c8baf" );
+  DoTest("0x0000f", "\\ctrl-x","0x0000e" );
 
   // Testing "Ctrl-a"
   DoTest("150", "101\\ctrl-a", "251");
   DoTest("1000", "\\ctrl-ax", "100");
   DoTest("-1", "1\\ctrl-a", "0");
   DoTest("-1", "l1\\ctrl-a", "0");
+  DoTest("0x0000f", "\\ctrl-a","0x00010" );
 
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");

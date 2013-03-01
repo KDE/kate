@@ -585,6 +585,7 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
   updateCursor( c );
 
   m_stickyColumn = -1;
+  m_viInputModeManager->getViInsertMode()->setCount(getCount());
   return startInsertMode();
 }
 

@@ -1486,14 +1486,14 @@ bool KateViNormalMode::commandPrintCharacterCode()
 
 bool KateViNormalMode::commandRepeatLastChange()
 {
-  const int count = getCount();
+  const int repeatCount = getCount();
   resetParser();
-  if (count > 1)
+  if (repeatCount > 1)
   {
-    m_oneTimeCountOverride = count;
+    m_oneTimeCountOverride = repeatCount;
   }
   doc()->editStart();
-  m_viInputModeManager->repeatLastChange(count);
+  m_viInputModeManager->repeatLastChange(repeatCount);
   doc()->editEnd();
 
   return true;

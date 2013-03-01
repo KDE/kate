@@ -248,6 +248,7 @@ void ViModeTest::VisualModeTests() {
     DoTest("foobar","Vra","aaaaaa");
     DoTest("foo\nbar","jlvklrx","fox\nxxr");
     DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
+    DoTest("a", "r\\ctrl-c", "a");
 
     // Testing "gq"
     DoTest("foo\nbar\nbaz","Vgq","foo\nbar\nbaz");

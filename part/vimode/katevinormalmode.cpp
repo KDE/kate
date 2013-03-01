@@ -445,6 +445,7 @@ void KateViNormalMode::resetParser()
   m_keys.clear();
   m_keysVerbatim.clear();
   m_count = 0;
+  m_oneTimeCountOverride = -1;
   m_iscounted = false;
   m_countTemp = 0;
   m_register = QChar::Null;

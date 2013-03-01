@@ -285,6 +285,7 @@ void ViModeTest::InsertModeTests() {
   DoTest("bar", "5ahello\\esc", "bhellohellohellohellohelloar");
   DoTest("   bar", "5Ihello\\esc", "   hellohellohellohellohellobar");
   DoTest("bar", "5Ahello\\esc", "barhellohellohellohellohello");
+  DoTest("", "5ihello\\ctrl-c", "hello");
   DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo", ShouldFail, "Need to get counted inserts working, then use a 'count multiplier' for counted repeats.");
 
   // Testing "Ctrl-w"

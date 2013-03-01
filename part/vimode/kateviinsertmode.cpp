@@ -468,7 +468,7 @@ void KateViInsertMode::leaveInsertMode( bool force )
 
         m_blockInsert = None;
     }
-    else
+    else if (!force)
     {
         const QString added = doc()->text(Range(m_viInputModeManager->getMarkPosition('^'), m_view->cursorPosition()));
         if (m_count > 1)

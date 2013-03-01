@@ -2080,7 +2080,7 @@ KateViRange KateViNormalMode::motionToChar()
     matchColumn = line.indexOf( m_keys.right( 1 ), matchColumn + ((i > 0) ? 1 : 0));
     if ( matchColumn == -1 )
     {
-      matchColumn = (m_isRepeatedTFcommand) ? lastColumn : originalColumn;
+      matchColumn = (m_isRepeatedTFcommand) ? lastColumn : originalColumn + 1;
       break;
     }
   }

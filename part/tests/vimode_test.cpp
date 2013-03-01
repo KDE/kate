@@ -621,6 +621,7 @@ void ViModeTest::NormalModeMotionsTest() {
   // ... except if we are repeating the last search, in which case stop at the last
   // one that we do find.
   DoTest("aba bar", "ta2;x", "aba ar");
+  DoTest("nocapitalc", "lltCx", "noapitalc");
 }
 
 void ViModeTest::NormalModeCommandsTest() {

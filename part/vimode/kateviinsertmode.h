@@ -90,7 +90,7 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     QString m_registerTemp;
     QString m_keys;
 
-    int m_count;
+    unsigned int m_count;
     bool m_countedRepeatsBeginOnNewLine;
 
     void leaveInsertMode( bool force = false);

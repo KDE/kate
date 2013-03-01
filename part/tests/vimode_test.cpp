@@ -333,6 +333,7 @@ void ViModeTest::InsertModeTests() {
  // They are disabled in order to be able to check all others working tests.
 void ViModeTest::NormalModeFailingTests()
 {
+//  DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo");
 }
 
 void ViModeTest::NormalModeMotionsTest() {
@@ -715,6 +716,7 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("-1", "l1\\ctrl-a", "0");
   DoTest("0x0000f", "\\ctrl-a","0x00010" );
   DoTest("5", "5\\ctrl-a.","15" );
+  DoTest("5", "5\\ctrl-a2.","20" );
 
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");

@@ -1491,9 +1491,10 @@ bool KateViNormalMode::commandPrintCharacterCode()
 
 bool KateViNormalMode::commandRepeatLastChange()
 {
+  const int count = getCount();
   resetParser();
   doc()->editStart();
-  m_viInputModeManager->repeatLastChange();
+  m_viInputModeManager->repeatLastChange(count);
   doc()->editEnd();
 
   return true;

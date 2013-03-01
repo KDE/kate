@@ -58,8 +58,12 @@ void ViModeTest::BeginTest(const QString& original_text) {
   kate_view->setCursorPosition(Cursor(0,0));
 }
 
-void ViModeTest::FinishTest(const QString& expected_text)
+void ViModeTest::FinishTest(const QString& expected_text, ViModeTest::Expectation expectation, const QString& failureReason)
 {
+  if (expectation == ShouldFail)
+  {
+    QEXPECT_FAIL("", failureReason.toLocal8Bit(), Continue);
+  }
   QCOMPARE(kate_document->text(), expected_text);
 }
 
@@ -147,11 +151,11 @@ void ViModeTest::TestPressKey(QString str) {
  */
 void ViModeTest::DoTest(QString original_text,
     QString command,
-    QString expected_text) {
+    QString expected_text, Expectation expectation, const QString& failureReason) {
 
   BeginTest(original_text);
   TestPressKey(command);
-  FinishTest(expected_text);
+  FinishTest(expected_text, expectation, failureReason);
 }
 
 
@@ -276,6 +280,7 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo bar", "wlI\\ctrl-cx", "oo bar");
   DoTest("foo bar", "wli\\ctrl-cx", "foo ar");
   DoTest("foo bar", "wlihello\\ctrl-c", "foo bhelloar");
+  DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo", ShouldFail, "Need to get counted inserts working.");
 
   // Testing "Ctrl-w"
   DoTest("foobar", "$i\\ctrl-w", "r");
@@ -326,14 +331,6 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo\nbar", "ji\\ctrl-j","foo\n\nbar");
   DoTest("foobar", "A\\ctrl-j","foobar\n" );
   DoTest("foobar", "li\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-c","f\no\no\nb\na\nr");
-}
-
-
- // There are written tests that fail.
- // They are disabled in order to be able to check all others working tests.
-void ViModeTest::NormalModeFailingTests()
-{
-//  DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo");
 }
 
 void ViModeTest::NormalModeMotionsTest() {

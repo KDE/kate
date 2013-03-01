@@ -35,7 +35,6 @@ public:
   ~ViModeTest();
 
 private Q_SLOTS:
-  void NormalModeFailingTests();
   void NormalModeMotionsTest();
   void NormalModeCommandsTest();
   void NormalModeControlTests();
@@ -47,12 +46,16 @@ private Q_SLOTS:
 
   void MappingTests();
 private:
+  enum Expectation { ShouldPass, ShouldFail };
   void BeginTest(const QString& original_text);
-  void FinishTest(const QString& expected_text);
+  void FinishTest(const QString& expected_text, Expectation expectation = ShouldPass, const QString& failureReason = QString());
   void TestPressKey(QString str);
   void DoTest(QString original_text,
                                   QString command,
-                                  QString expected_text);
+                                  QString expected_text,
+                                  Expectation expectation = ShouldPass,
+                                  const QString& failureReason = QString()
+             );
 
   KateDocument *kate_document;
   KateView *kate_view;

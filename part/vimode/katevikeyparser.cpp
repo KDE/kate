@@ -522,7 +522,8 @@ const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
           const QString untilClosing = keys.mid( i, keys.mid( i ).indexOf( '>' ) ).toLower();
           QStringList tokens;
           int currentPos = 0;
-          while (int nextHypen = untilClosing.indexOf('-', currentPos) != -1)
+          int nextHypen = -1;
+          while ((nextHypen = untilClosing.indexOf(QChar('-'), currentPos)) != -1)
           {
             tokens << untilClosing.mid(currentPos, nextHypen - currentPos + 1);
             currentPos = nextHypen + 1;

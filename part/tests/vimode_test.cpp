@@ -111,10 +111,15 @@ void ViModeTest::TestPressKey(QString str) {
     if (key != QString(Qt::Key_Escape))
     {
       key = str[i];
-      if (vi_input_mode_manager->getCurrentViMode() == InsertMode){
-        code = key[0].unicode() - 'a' + Qt::Key_A;
-      } else {
-        code = key[0].unicode() - '0' + Qt::Key_0;
+      code = key[0].unicode();
+      if (keyboard_modifier != Qt::NoModifier)
+      {
+        // Kate Vim mode's internals identifier e.g. CTRL-C by Qt::Key_C plus the control modifier,
+        // so we need to translate e.g. 'c' to Key_C.
+        if (key[0].isLetter())
+        {
+          code = code - 'a' + Qt::Key_A;
+        }
       }
     }
     else {

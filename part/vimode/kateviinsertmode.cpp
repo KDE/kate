@@ -477,7 +477,11 @@ void KateViInsertMode::leaveInsertMode( bool force )
         {
             for (unsigned int i = 0; i < m_count - 1; i++)
             {
-                doc()->insertText( m_view->cursorPosition(), (m_countedRepeatsBeginOnNewLine ? "\n" : "") + added );
+                if (m_countedRepeatsBeginOnNewLine)
+                {
+                    doc()->newLine(m_view);
+                }
+                doc()->insertText( m_view->cursorPosition(), added );
             }
         }
         m_countedRepeatsBeginOnNewLine = false;

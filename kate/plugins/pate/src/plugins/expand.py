@@ -70,14 +70,26 @@ class ParseError(Exception):
 
 def wordAndArgumentAtCursorRanges(document, cursor):
     line = document.line(cursor.line())
-    # special case: cursor past end of argument
+
     argument_range = None
-    if cursor.column() > 0 and line[cursor.column() - 1] == ')':
-        argument_end = kate.KTextEditor.Cursor(cursor.line(), cursor.column() - 1)
-        argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
-        argument_end.setColumn(argument_end.column() + 1)
-        argument_range = kate.KTextEditor.Range(argument_start, argument_end)
-        cursor = argument_start
+    # Handle some special cases:
+    if cursor.column() > 0:
+        if cursor.column() < len(line) and line[cursor.column()] == ')':
+            # special case: cursor just right before a closing brace
+            argument_end = kate.KTextEditor.Cursor(cursor.line(), cursor.column())
+            argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
+            argument_end.setColumn(argument_end.column() + 1)
+            argument_range = kate.KTextEditor.Range(argument_start, argument_end)
+            cursor = argument_start                         #  NOTE Reassign
+
+        if line[cursor.column() - 1] == ')':
+            # one more special case: cursor past end of arguments
+            argument_end = kate.KTextEditor.Cursor(cursor.line(), cursor.column() - 1)
+            argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
+            argument_end.setColumn(argument_end.column() + 1)
+            argument_range = kate.KTextEditor.Range(argument_start, argument_end)
+            cursor = argument_start                         #  NOTE Reassign
+
     word_range = common.getBoundTextRangeSL(
         common.IDENTIFIER_BOUNDARIES
       , common.IDENTIFIER_BOUNDARIES

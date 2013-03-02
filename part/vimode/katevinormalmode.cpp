@@ -966,7 +966,7 @@ bool KateViNormalMode::commandOpenNewLineOver()
   Cursor c( m_view->cursorPosition() );
 
   if ( c.line() == 0 ) {
-    doc()->newLine( m_view );
+    doc()->insertLine(0, QString());
     c.setColumn( 0 );
     c.setLine( 0 );
     updateCursor( c );

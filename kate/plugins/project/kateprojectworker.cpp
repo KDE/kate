@@ -211,6 +211,40 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
   }
 
   /**
+   * use MERCURIAL
+   */
+  else if (filesEntry["hg"].toBool()) {
+    /**
+     * try to run "hg manifest" for this directory
+     */
+    QProcess hg;
+    hg.setWorkingDirectory (dir.absolutePath());
+    QStringList args;
+    args << "manifest" << ".";
+    hg.start("hg", args);
+    if (!hg.waitForStarted() || !hg.waitForFinished())
+      return;
+
+    /**
+     * get output and split up into files
+     */
+    QStringList relFiles = QString::fromLocal8Bit (hg.readAllStandardOutput ()).split (QRegExp("[\n\r]"), QString::SkipEmptyParts);
+
+    /**
+     * prepend the directory path
+     */
+    foreach (QString relFile, relFiles) {
+      /**
+       * skip non-direct files if not recursive
+       */
+      if (!recursive && (relFile.indexOf ("/") != -1))
+        continue;
+
+      files.append (dir.absolutePath() + "/" + relFile);
+    }
+  }
+
+  /**
    * use SVN
    */
   else if (filesEntry["svn"].toBool()) {

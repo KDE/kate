@@ -127,8 +127,8 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
     if selectedRange.isEmpty():
         # No text selected. Ok, lets wrap a word where cursor positioned
         wordRange = common.getBoundTextRangeSL(
-            common.CXX_IDENTIFIER_BOUNDARIES
-          , common.CXX_IDENTIFIER_BOUNDARIES
+            common.IDENTIFIER_BOUNDARIES
+          , common.IDENTIFIER_BOUNDARIES
           , pos
           , doc
           )

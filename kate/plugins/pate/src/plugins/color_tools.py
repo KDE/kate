@@ -41,7 +41,6 @@ from PyKDE4.ktexteditor import KTextEditor
 from libkatepate.common import getBoundTextRangeSL
 
 
-_COLOR_BOUNDARY = set(' \t"\';[]{}():/\\,+=!?%^|&*~`')
 _INSERT_COLOR_LCC = "insertColor:lastUsedColor"
 
 
@@ -60,9 +59,11 @@ def insertColor():
         color_range = view.selectionRange()
     else:                                                   # If no selection, try to get a #color under cursor
         color_range = getBoundTextRangeSL(
-            _COLOR_BOUNDARY,
-            _COLOR_BOUNDARY | {'#'},
-            cursor, document)
+            common.IDENTIFIER_BOUNDARIES - {'#'}
+          , common.IDENTIFIER_BOUNDARIES
+          , cursor
+          , document
+          )
 
     if color_range.isValid():
         current_color = document.text(color_range)

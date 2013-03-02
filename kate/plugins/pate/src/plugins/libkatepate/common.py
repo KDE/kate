@@ -35,7 +35,7 @@ _COMMENT_STRINGS_MAP = {
 }
 
 # NOTE ':' can be a part of full qualified name
-CXX_IDENTIFIER_BOUNDARIES = set(' \t\n"\'[]{}()<>`~!@#$%^&*-+=|\\/?;,')
+IDENTIFIER_BOUNDARIES = set(' \t\n"\'[]{}()<>`~!@#$%^&*-+=|\\/?;,.')
 
 def isKnownCommentStyle(docType):
     ''' Check if we know how to comment a line in a given document type '''

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Kate/Pâté plugins to work with C++ comments
-# Copyright 2010-2013 by Alex Trubov <i.zaufi@gmail.com>
+# Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>
 #
 #
 # This software is free software: you can redistribute it and/or modify

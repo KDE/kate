@@ -38,7 +38,7 @@ from kate.gui import QColor, QToolTip, QPalette, QTimer
 from PyKDE4.kdeui import KColorDialog
 from PyKDE4.ktexteditor import KTextEditor
 
-from libkatepate.common import getBoundTextRangeSL
+from libkatepate import common
 
 
 _INSERT_COLOR_LCC = 'insertColor:lastUsedColor'
@@ -58,7 +58,7 @@ def insertColor():
     if view.selection(): # Some text selected, just use it as input...
         color_range = view.selectionRange()
     else:                                                   # If no selection, try to get a #color under cursor
-        color_range = getBoundTextRangeSL(
+        color_range = common.getBoundTextRangeSL(
             common.IDENTIFIER_BOUNDARIES - {'#'}
           , common.IDENTIFIER_BOUNDARIES
           , cursor

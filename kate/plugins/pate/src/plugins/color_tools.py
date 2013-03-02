@@ -1,6 +1,6 @@
 #
 # Kate/Pâté color plugins
-# Copyright 2010-2012 by Alex Turbov <i.zaufi@gmail.com>
+# Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>
 # Copyright 2013 by Phil Schaf
 #
 #
@@ -41,7 +41,7 @@ from PyKDE4.ktexteditor import KTextEditor
 from libkatepate.common import getBoundTextRangeSL
 
 
-_INSERT_COLOR_LCC = "insertColor:lastUsedColor"
+_INSERT_COLOR_LCC = 'insertColor:lastUsedColor'
 
 
 @kate.action('Insert Color', shortcut='Meta+Shift+C', icon='color', menu='Tools')
@@ -137,7 +137,7 @@ class ColorSwatcher:
 @kate.init
 def _init():
     # Set default value for last used #color if not configured yet
-    if "lastUsedColor" not in kate.configuration:
+    if 'lastUsedColor' not in kate.configuration:
         kate.configuration[_INSERT_COLOR_LCC] = 'white'
 
     swatcher = ColorSwatcher()

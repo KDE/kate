@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Kate/Pâté plugins to work with code blocks
-# Copyright 2010-2012 by Alex Turbov <i.zaufi@gmail.com>
+# Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>
 #
 #
 # This software is free software: you can redistribute it and/or modify
@@ -127,8 +127,8 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
     if selectedRange.isEmpty():
         # No text selected. Ok, lets wrap a word where cursor positioned
         wordRange = common.getBoundTextRangeSL(
-            common.IDENTIFIER_BOUNDARIES
-          , common.IDENTIFIER_BOUNDARIES
+            common.CXX_IDENTIFIER_BOUNDARIES
+          , common.CXX_IDENTIFIER_BOUNDARIES
           , pos
           , doc
           )

@@ -209,6 +209,16 @@ class Console(code.InteractiveConsole):
         sys.stdout = stdout
         self.write(r)
 
+    def showsyntaxerror(self, filename = None):
+        self.tracer()
+        stderr = sys.stderr
+        sys.stderr = StringIO()
+        #super(Console, self).showsyntaxerror(filename)
+        code.InteractiveConsole.showsyntaxerror(self, filename)
+        r = sys.stderr.getvalue()
+        sys.stderr = stderr
+        self.write(r)
+
     def showtraceback(self):
         self.tracer()
         stderr = sys.stderr
@@ -373,8 +383,6 @@ class KateConsoleHighlighter(QSyntaxHighlighter):
             return self.floatFormat
         return self.integerFormat
 
-
-
 class KateConsole(QTextEdit):
     def __init__(self, parent=None):
         QTextEdit.__init__(self, parent)
@@ -400,12 +408,11 @@ class KateConsole(QTextEdit):
             '__name__': __name__,
         }
         self.console = Console(self.displayResult, self.showTraceback, builtins)
-        
         self.state = 'normal'
         self.setPlainText(self.prompt)
         KateConsoleHighlighter(self)
         QTimer.singleShot(0, self.moveCursorToEnd)
-        
+
     def showTraceback(self):
         self.state = 'exception'
 

@@ -1,4 +1,4 @@
-''' Interactive console for inspecting Kate's internals and playing about.
+'''Interactive console for inspecting Kate's internals and playing about.
 
 The console provides syntax highlighting by tokenizing the code using standard 
 library module tokenize.'''
@@ -182,20 +182,6 @@ def softspace(file, newvalue):
         pass
     return oldvalue
 
-class StringIOHack():
-
-    def __init__(self):
-        self.writeStrings = ""
-
-    def close(self):
-        self.writeStrings = None
-
-    def write(self, s):
-        self.writeStrings += s
-
-    def getvalue(self):
-        return self.writeStrings
-
 class Console(code.InteractiveConsole):
     ''' The standard library module code doesn't provide you with
     string when you evaluate an expression (e.g "[]"); instead, it
@@ -209,7 +195,7 @@ class Console(code.InteractiveConsole):
 
     def runcode(self, c):
         stdout = sys.stdout
-        sys.stdout = StringIOHack()
+        sys.stdout = StringIO()
         try:
             exec(c, self.locals)
         except SystemExit:
@@ -226,28 +212,12 @@ class Console(code.InteractiveConsole):
     def showtraceback(self):
         self.tracer()
         stderr = sys.stderr
-        sys.stderr = StringIOHack()
+        sys.stderr = StringIO()
         #super(Console, self).showtraceback()
         code.InteractiveConsole.showtraceback(self)
         r = sys.stderr.getvalue()
         sys.stderr = stderr
         self.write(r)
-
-class Exit:
-    def __init__(self, window):
-        self.window = window
-
-    def __repr__(self):
-        return i18n('Type exit() or Ctrl+D to exit.')
-
-    def __str__(self):
-        return repr(self)
-
-    def __call__(self):
-        w = self.window
-        del self.window
-        w.close()
-
 
 class Helper:
     def __init__(self, console):
@@ -268,7 +238,6 @@ class Helper:
         help(o)
 
 class History(KHistoryComboBox):
-
     def __init__(self, parent):
         super(History, self).__init__(parent)
         self.setMaxCount(50)
@@ -279,7 +248,7 @@ class History(KHistoryComboBox):
 
     @pyqtSlot("QString")
     def _doneCompletion(self, line):
-        self.parent().console.displayResult(line)
+        self.parent().displayResult(line)
         self.hide()
 
     def recall(self, left, top):
@@ -421,24 +390,22 @@ class KateConsole(QTextEdit):
                 if key is None:
                     continue
                 self.keyToMethod[key] = getattr(self, methodName)
-        self.history = History(self.window())
+        self.history = History(self)
         self.buffer = ''
-        exit = Exit(self.window())
         builtins = {
             'kate': kate,
             'KTextEditor': kate.KTextEditor,
             'Kate': kate.Kate,
-            'exit': exit,
-            'quit': exit,
             'help': Helper(self),
             '__name__': __name__,
         }
         self.console = Console(self.displayResult, self.showTraceback, builtins)
+        
         self.state = 'normal'
         self.setPlainText(self.prompt)
         KateConsoleHighlighter(self)
         QTimer.singleShot(0, self.moveCursorToEnd)
-
+        
     def showTraceback(self):
         self.state = 'exception'
 
@@ -473,11 +440,7 @@ class KateConsole(QTextEdit):
             if result is True:
                 QTextEdit.keyPressEvent(self, e)
         else:
-            #
-            if e.modifiers() & Qt.ControlModifier and e.key() == Qt.Key_D:
-                self.window().close()
-            else:
-                QTextEdit.keyPressEvent(self, e)
+            QTextEdit.keyPressEvent(self, e)
 
     def moveCursorToEndOfLine(self):
         cursor = self.textCursor()
@@ -567,31 +530,12 @@ class KateConsole(QTextEdit):
     def keyEnd(self):
         self.moveCursorToEndOfLine()
 
-
-class KateConsoleDialog(QDialog):
-    def __init__(self, parent=None):
-        QDialog.__init__(self, parent)
-        layout = QVBoxLayout(self)
-        layout.setMargin(0)
-        layout.setSpacing(0)
-        self.console = KateConsole(self)
-        layout.addWidget(self.console)
-        try:
-            self.resize(kate.configuration["dialogSize"])
-        except KeyError:
-            self.resize(600, 420)
-
-    def closeEvent(self, e):
-        kate.configuration["dialogSize"] = self.size();
-        QDialog.closeEvent(self, e)
-
-@kate.action('Python Console', icon='utilities-terminal', shortcut='Ctrl+Shift+P', menu='View')
-def showConsole():
-    # Make all our config is initialised.
+@kate.init
+def init():
     ConfigWidget().apply()
-    parent = kate.mainWindow()
-    dialog = KateConsoleDialog(parent)
-    dialog.show()
+    kate_window = kate.mainInterfaceWindow()
+    v = kate_window.createToolView("python_console", kate_window.Bottom, kate.gui.loadIcon("utilities-terminal"), "Python Console")
+    console = KateConsole(v)
 
 @kate.configPage("Python Console", "Python Console", icon = "utilities-terminal")
 def configPage(parent = None, name = None):

@@ -37,7 +37,7 @@
 #include <kdebug.h>
 
 
-class KateWordCompletionModel : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface4
+class KateWordCompletionModel : public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface4
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface4)
@@ -57,12 +57,9 @@ class KateWordCompletionModel : public KTextEditor::CodeCompletionModel, public 
      * */
     void completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType invocationType);
 
-    
     bool shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position);
     bool shouldAbortCompletion(KTextEditor::View* view, const KTextEditor::Range &range, const QString &currentCompletion);
 
-    
-    
     void saveMatches( KTextEditor::View* view,
                             const KTextEditor::Range& range);
 
@@ -78,6 +75,8 @@ class KateWordCompletionModel : public KTextEditor::CodeCompletionModel, public 
     virtual bool shouldHideItemsWithEqualNames() const;
 
     const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const;
+
+    virtual void executeCompletionItem2(KTextEditor::Document* document, const KTextEditor::Range& word, const QModelIndex& index) const;
 
   private:
     QStringList m_matches;

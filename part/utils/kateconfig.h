@@ -517,6 +517,9 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     int wordCompletionMinimalWordLength () const;
     void setWordCompletionMinimalWordLength (int length);
 
+    bool wordCompletionRemoveTail () const;
+    void setWordCompletionRemoveTail (bool on);
+
     bool smartCopyCut() const;
     void setSmartCopyCut(bool on);
 
@@ -549,6 +552,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_automaticCompletionInvocation;
     bool m_wordCompletion;
     int m_wordCompletionMinimalWordLength;
+    bool m_wordCompletionRemoveTail;
     bool m_smartCopyCut;
     bool m_scrollPastEnd;
 
@@ -577,6 +581,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_smartCopyCutSet : 1;
     bool m_scrollPastEndSet : 1;
     bool m_allowMarkMenu : 1;
+    bool m_wordCompletionRemoveTailSet : 1;
 
   private:
     static KateViewConfig *s_global;

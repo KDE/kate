@@ -60,7 +60,7 @@
 
 //BEGIN KateWordCompletionModel
 KateWordCompletionModel::KateWordCompletionModel( QObject *parent )
-  : CodeCompletionModel( parent ), m_automatic(false)
+  : CodeCompletionModel2( parent ), m_automatic(false)
 {
   setHasGroups(false);
 }
@@ -236,6 +236,23 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
     }
   }
   return l;
+}
+
+void KateWordCompletionModel::executeCompletionItem2(
+    KTextEditor::Document* document
+  , const KTextEditor::Range& word
+  , const QModelIndex& index
+  ) const
+{
+  KateView *v = qobject_cast<KateView*> (document->activeView());
+  KTextEditor::Range r = word;
+  if (v->config()->wordCompletionRemoveTail())
+  {
+    const QString& next_word = static_cast<KateDocument*>(document)->getWord(word.end());
+    r.end().setColumn(r.end().column() + next_word.length());
+  }
+
+  document->replaceText(r, m_matches.at(index.row()));
 }
 
 KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateWordCompletionModel::matchingItem(const QModelIndex& /*matched*/)

@@ -1038,6 +1038,7 @@ KateViewConfig::KateViewConfig ()
    m_smartCopyCutSet (true),
    m_scrollPastEndSet (true),
    m_allowMarkMenu (true),
+   m_wordCompletionRemoveTailSet (false),
    m_view (0)
 {
   s_global = this;
@@ -1075,6 +1076,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_smartCopyCutSet (false),
    m_scrollPastEndSet (false),
    m_allowMarkMenu (true),
+   m_wordCompletionRemoveTailSet (false),
    m_view (view)
 {
 }
@@ -1136,6 +1138,7 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
   setWordCompletion (config.readEntry( "Word Completion", true ));
   setWordCompletionMinimalWordLength (config.readEntry( "Word Completion Minimal Word Length", 3 ));
+  setWordCompletionRemoveTail (config.readEntry( "Word Completion Remove Tail", false ));
   setSmartCopyCut (config.readEntry( "Smart Copy Cut", false ));
   setScrollPastEnd (config.readEntry( "Scroll Past End", false ));
 
@@ -1191,6 +1194,7 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( "Auto Completion", automaticCompletionInvocation());
   config.writeEntry( "Word Completion", wordCompletion());
   config.writeEntry( "Word Completion Minimal Word Length", wordCompletionMinimalWordLength());
+  config.writeEntry( "Word Completion Remove Tail", wordCompletionRemoveTail());
 
   config.writeEntry( "Smart Copy Cut", smartCopyCut() );
   config.writeEntry( "Scroll Past End" , scrollPastEnd() );
@@ -1678,6 +1682,24 @@ void KateViewConfig::setWordCompletionMinimalWordLength (int length)
 
   m_wordCompletionMinimalWordLengthSet = true;
   m_wordCompletionMinimalWordLength = length;
+
+  configEnd ();
+}
+
+bool KateViewConfig::wordCompletionRemoveTail () const
+{
+  if (m_wordCompletionRemoveTailSet || isGlobal())
+  {
+    return m_wordCompletionRemoveTail;
+    }
+  return s_global->wordCompletionRemoveTail();
+}
+
+void KateViewConfig::setWordCompletionRemoveTail (bool on)
+{
+  configStart ();
+  m_wordCompletionRemoveTailSet = true;
+  m_wordCompletionRemoveTail = on;
 
   configEnd ();
 }

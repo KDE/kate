@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>CompletionConfigTab</class>
  <widget class="QWidget" name="CompletionConfigTab">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>289</width>
+    <height>150</height>
+   </rect>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="margin">
     <number>0</number>
@@ -60,6 +68,16 @@
          </spacer>
         </item>
        </layout>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="removeTail">
+        <property name="toolTip">
+         <string>Remove tail of a previous word when completion item chosen from a list</string>
+        </property>
+        <property name="text">
+         <string>Remove tail on complete</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

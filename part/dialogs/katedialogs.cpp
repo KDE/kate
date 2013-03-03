@@ -288,6 +288,7 @@ KateCompletionConfigTab::KateCompletionConfigTab(QWidget *parent)
   connect(ui->chkAutoCompletionEnabled, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->gbWordCompletion, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->minimalWordLength, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
+  connect(ui->removeTail, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   layout->addWidget(newWidget);
   setLayout(layout);
@@ -314,6 +315,7 @@ void KateCompletionConfigTab::apply ()
   KateViewConfig::global()->setAutomaticCompletionInvocation (ui->chkAutoCompletionEnabled->isChecked());
   KateViewConfig::global()->setWordCompletion (ui->gbWordCompletion->isChecked());
   KateViewConfig::global()->setWordCompletionMinimalWordLength (ui->minimalWordLength->value());
+  KateViewConfig::global()->setWordCompletionRemoveTail (ui->removeTail->isChecked());
   KateViewConfig::global()->configEnd ();
 }
 
@@ -322,6 +324,7 @@ void KateCompletionConfigTab::reload ()
   ui->chkAutoCompletionEnabled->setChecked( KateViewConfig::global()->automaticCompletionInvocation () );
   ui->gbWordCompletion->setChecked( KateViewConfig::global()->wordCompletion () );
   ui->minimalWordLength->setValue (KateViewConfig::global()->wordCompletionMinimalWordLength ());
+  ui->removeTail->setChecked (KateViewConfig::global()->wordCompletionRemoveTail ());
 }
 //END KateCompletionConfigTab
 

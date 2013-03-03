@@ -49,13 +49,14 @@ install(FILES
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate)
 
 install(DIRECTORY
-    plugins/console
+    plugins/django_utils
     plugins/expand
     plugins/gid
     plugins/js_utils
-    plugins/python_utils
-    plugins/django_utils
     plugins/libkatepate
+    plugins/python_console_classic
+    plugins/python_console_ipython
+    plugins/python_utils
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json")
 
 install(DIRECTORY

@@ -105,7 +105,8 @@ class ColorSwatcher:
     def view_changed(self):
         """Connects a swatch showing slot to each view’s selection change signal"""
         view = kate.activeView()
-        view.selectionChanged.connect(self.show_swatch)
+        if view:
+            view.selectionChanged.connect(self.show_swatch)
 
     def show_swatch(self, view):
         """Shows the swatch if a valid color is selected"""
@@ -137,7 +138,7 @@ class ColorSwatcher:
 @kate.init
 def _init():
     # Set default value for last used #color if not configured yet
-    if 'lastUsedColor' not in kate.configuration:
+    if _INSERT_COLOR_LCC not in kate.configuration:
         kate.configuration[_INSERT_COLOR_LCC] = 'white'
 
     swatcher = ColorSwatcher()

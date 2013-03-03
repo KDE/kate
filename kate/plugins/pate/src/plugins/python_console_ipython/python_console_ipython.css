@@ -1,0 +1,24 @@
+QPlainTextEdit, QTextEdit
+{
+    font: Fixed;
+}
+.error
+{
+    color: red;
+}
+.in-prompt
+{
+    color: green;
+}
+.in-prompt-number
+{
+    font-weight: bold;
+}
+.out-prompt
+{
+    color: cyan;
+}
+.out-prompt-number
+{
+    font-weight: bold;
+}

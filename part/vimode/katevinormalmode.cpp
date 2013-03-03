@@ -945,6 +945,8 @@ bool KateViNormalMode::commandChangeCase()
 
 bool KateViNormalMode::commandOpenNewLineUnder()
 {
+  doc()->setUndoMergeAllEdits(true);
+
   Cursor c( m_view->cursorPosition() );
 
   c.setColumn( doc()->lineLength( c.line() ) );
@@ -963,6 +965,8 @@ bool KateViNormalMode::commandOpenNewLineUnder()
 
 bool KateViNormalMode::commandOpenNewLineOver()
 {
+  doc()->setUndoMergeAllEdits(true);
+
   Cursor c( m_view->cursorPosition() );
 
   if ( c.line() == 0 ) {

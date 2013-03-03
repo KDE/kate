@@ -294,10 +294,10 @@ void ViModeTest::InsertModeTests() {
   DoTest("", "5ihello\\ctrl-c", "hello");
   DoTest("bar", "5ohello\\esc", "bar\nhello\nhello\nhello\nhello\nhello");
   DoTest("bar", "5Ohello\\esc", "hello\nhello\nhello\nhello\nhello\nbar");
-  DoTest("bar", "Ohello\\escu", "bar", ShouldFail, "Need to setUndoMergeEdits before we add new line");
-  DoTest("bar", "5Ohello\\escu", "bar", ShouldFail, "Need to setUndoMergeEdits before we add new line");
-  DoTest("bar", "ohello\\escu", "bar", ShouldFail, "Need to setUndoMergeEdits before we add new line");
-  DoTest("bar", "5ohello\\escu", "bar", ShouldFail, "Need to setUndoMergeEdits before we add new line");
+  DoTest("bar", "Ohello\\escu", "bar");
+  DoTest("bar", "5Ohello\\escu", "bar");
+  DoTest("bar", "ohello\\escu", "bar");
+  DoTest("bar", "5ohello\\escu", "bar");
   DoTest("foo\nbar", "j5Ohello\\esc", "foo\nhello\nhello\nhello\nhello\nhello\nbar");
   DoTest("bar", "5ohello\\esc2ixyz\\esc", "bar\nhello\nhello\nhello\nhello\nhellxyzxyzo");
   DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo");

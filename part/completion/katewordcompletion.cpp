@@ -248,8 +248,14 @@ void KateWordCompletionModel::executeCompletionItem2(
   KTextEditor::Range r = word;
   if (v->config()->wordCompletionRemoveTail())
   {
-    const QString& next_word = static_cast<KateDocument*>(document)->getWord(word.end());
-    r.end().setColumn(r.end().column() + next_word.length());
+    const QString& line = document->line(word.end().line());
+    int real_word_size = line.length();
+    for (int i = word.end().column(); i < real_word_size; ++i)
+      // Letters, numbers and underscore are part of a word!
+      /// \todo Introduce configurable \e word-separators??
+      if (!line[i].isLetterOrNumber() && line[i] != '_')
+        real_word_size = i;
+    r.end().setColumn(real_word_size);
   }
 
   document->replaceText(r, m_matches.at(index.row()));

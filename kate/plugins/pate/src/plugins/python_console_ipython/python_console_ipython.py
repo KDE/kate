@@ -37,7 +37,7 @@ def event_loop(kernel):
 
 def default_kernel_app():
     app = IPKernelApp.instance()
-    app.initialize(['python'])
+    app.initialize(['python', '--pylab=qt'])
     app.kernel.eventloop = event_loop
     return app
 

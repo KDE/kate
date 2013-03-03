@@ -114,6 +114,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_activeView(0),
   editSessionNumber(0),
   editIsRunning(false),
+  m_undoMergeAllEdits(false),
   m_undoManager(new KateUndoManager(this)),
   m_editableMarks(markType01),
   m_annotationModel(0),
@@ -4677,8 +4678,15 @@ bool KateDocument::isEditRunning() const
 
 void KateDocument::setUndoMergeAllEdits(bool merge)
 {
+  if (merge && m_undoMergeAllEdits)
+  {
+    // Don't add another undo safe point: it will override our current one,
+    // meaning we'll need two undo's to get back there - which defeats the object!
+    return;
+  }
   m_undoManager->undoSafePoint();
   m_undoManager->setAllowComplexMerge(merge);
+  m_undoMergeAllEdits = merge;
 }
 
 //BEGIN KTextEditor::MovingInterface

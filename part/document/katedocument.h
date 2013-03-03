@@ -322,6 +322,7 @@ Q_SIGNALS:
     int editSessionNumber;
     QStack<int> editStateStack;
     bool editIsRunning;
+    bool m_undoMergeAllEdits;
 
   //
   // KTextEditor::UndoInterface stuff

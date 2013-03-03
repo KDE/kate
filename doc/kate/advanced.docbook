@@ -1328,6 +1328,18 @@ Returns a clone of the cursor.</para>
 
 <varlistentry>
 <term><synopsis>
+Cursor.setPosition(<parameter>int <replaceable>line</replaceable></parameter>, <parameter>int <replaceable>column</replaceable></parameter>);
+</synopsis></term>
+<listitem><para>
+Sets the cursor position to <replaceable>line</replaceable> and <replaceable>column</replaceable>.</para>
+<para>
+Since: KDE 4.11
+</para></listitem>
+</varlistentry>
+
+
+<varlistentry>
+<term><synopsis>
 bool Cursor.isValid();
 </synopsis></term>
 <listitem><para>

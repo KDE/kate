@@ -51,7 +51,6 @@ public:
 # -*- coding: utf-8 -*-
 
 import kate
-import kate.gui
 
 import os
 import sys
@@ -62,63 +61,43 @@ import traceback
 
 from PyKDE4.kdecore import KConfig
 
+from libkatepate import ui, common
+
 
 class ParseError(Exception):
     pass
 
-wordBoundary = set(' \t"\';[]{}()#:/\\,+=!?%^|&*~`')
-
-def wordAtCursor(document, view=None):
-    view = view or document.activeView()
-    cursor = view.cursorPosition()
-    line = document.line(cursor.line())
-    start, end = wordAtCursorPosition(line, cursor)
-    return line[start:end]
-
-def wordAtCursorPosition(line, cursor):
-    ''' Get the word under the active view's cursor in the given document
-    '''
-    # better to use word boundaries than to hardcode valid letters because
-    # expansions should be able to be in any unicode character.
-    start = end = cursor.column()
-    if start == len(line) or line[start] in wordBoundary:
-        start -= 1
-    while start >= 0 and line[start] not in wordBoundary:
-        start -= 1
-    start += 1
-    while end < len(line) and line[end] not in wordBoundary:
-        end += 1
-    return start, end
-
-def wordAndArgumentAtCursor(document, view=None):
-    view = view or document.activeView()
-    word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
-    if word_range.isEmpty():
-        word = None
-    else:
-        word = document.text(word_range)
-    if not argument_range or argument_range.isEmpty():
-        argument = None
-    else:
-        argument = document.text(argument_range)
-    return word, argument
 
 def wordAndArgumentAtCursorRanges(document, cursor):
     line = document.line(cursor.line())
-    column_position = cursor.column()
-    # special case: cursor past end of argument
+
     argument_range = None
-    if cursor.column() > 0 and line[cursor.column() - 1] == ')':
-        argument_end = kate.KTextEditor.Cursor(cursor.line(), cursor.column() - 1)
-        argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
-        argument_end.setColumn(argument_end.column() + 1)
-        argument_range = kate.KTextEditor.Range(argument_start, argument_end)
-        cursor = argument_start
-    line = document.line(cursor.line())
-    start, end = wordAtCursorPosition(line, cursor)
-    word_range = kate.KTextEditor.Range(cursor.line(), start, cursor.line(), end)
-    word = line[start:end]
-    if argument_range is None and word:
+    # Handle some special cases:
+    if cursor.column() > 0:
+        if cursor.column() < len(line) and line[cursor.column()] == ')':
+            # special case: cursor just right before a closing brace
+            argument_end = kate.KTextEditor.Cursor(cursor.line(), cursor.column())
+            argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
+            argument_end.setColumn(argument_end.column() + 1)
+            argument_range = kate.KTextEditor.Range(argument_start, argument_end)
+            cursor = argument_start                         #  NOTE Reassign
+
+        if line[cursor.column() - 1] == ')':
+            # one more special case: cursor past end of arguments
+            argument_end = kate.KTextEditor.Cursor(cursor.line(), cursor.column() - 1)
+            argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
+            argument_end.setColumn(argument_end.column() + 1)
+            argument_range = kate.KTextEditor.Range(argument_start, argument_end)
+            cursor = argument_start                         #  NOTE Reassign
+
+    word_range = common.getBoundTextRangeSL(
+        common.IDENTIFIER_BOUNDARIES
+      , common.IDENTIFIER_BOUNDARIES
+      , cursor
+      , document
+      )
+    end = word_range.end().column()
+    if argument_range is None and word_range.isValid():
         if end < len(line) and line[end] == '(':
             # ruddy lack of attribute type access from the KTextEditor
             # interfaces.
@@ -127,7 +106,7 @@ def wordAndArgumentAtCursorRanges(document, cursor):
             argument_range = kate.KTextEditor.Range(argument_start, argument_end)
     return word_range, argument_range
 
-
+# TODO Generalize this and move to `common' package
 def matchingParenthesisPosition(document, position, opening='('):
     closing = ')' if opening == '(' else '('
     delta = 1 if opening == '(' else -1
@@ -262,7 +241,7 @@ def expandAtCursor():
     try:
         func = expansions[word]
     except KeyError:
-        kate.gui.popup('Expansion "%s" not found :(' % word, timeout=3, icon='dialog-warning', minTextWidth=200)
+        ui.popup('Error', 'Expansion "%s" not found :(' % word, 'dialog-warning')
         return
     arguments = []
     namedArgs = {}
@@ -313,7 +292,7 @@ def expandAtCursor():
             return text
         s = ''.join(l).strip()
         s = re.sub('File "(/[^\n]+)", line', replaceAbsolutePathWithLinkCallback, s)
-        kate.gui.popup('<p style="white-space:pre">%s</p>' % s, icon='dialog-error', timeout=5, maxTextWidth=None, minTextWidth=300)
+        ui.popup('Error', '<p style="white-space:pre">%s</p>' % s, 'dialog-error')
         return
 
     #KateDocumentConfig::cfReplaceTabsDyn
@@ -364,4 +343,4 @@ def expandAtCursor():
         view.setCursorPosition(insertPosition)
 
 
-# kate: space-indent on; hl python;
+# kate: space-indent on; mixedindent off; indent-width 4;

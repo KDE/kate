@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
+# Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>
 #
 #
 # This software is free software: you can redistribute it and/or modify
@@ -35,7 +35,8 @@ _COMMENT_STRINGS_MAP = {
 }
 
 # NOTE ':' can be a part of full qualified name
-CXX_IDENTIFIER_BOUNDARIES = set(' \t\n"\'[]{}()<>`~!@#$%^&*-+=|\\/?;,')
+CXX_IDENTIFIER_BOUNDARIES = set(' \t\n"\'[]{}()<>`~!@#$%^&*-+=|\\/?;:,.')
+IDENTIFIER_BOUNDARIES = CXX_IDENTIFIER_BOUNDARIES | {':'}
 
 def isKnownCommentStyle(docType):
     ''' Check if we know how to comment a line in a given document type '''

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2010-2012 by Alex Trubov <i.zaufi@gmail.com>
+# Copyright 2010-2012 by Alex Turbov <i.zaufi@gmail.com>
 #
 #
 # This software is free software: you can redistribute it and/or modify

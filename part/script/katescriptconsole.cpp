@@ -40,7 +40,7 @@
 KateScriptConsoleEngine::KateScriptConsoleEngine(KateView * view)
     : m_view (view)
 {
-  m_utilsUrl = KGlobal::dirs()->findResource("data", "katepart/script/utils.js");
+  m_utilsUrl = KGlobal::dirs()->findResource("data", "katepart/script/commands/utils.js");
 }
 
 KateScriptConsoleEngine::~KateScriptConsoleEngine()

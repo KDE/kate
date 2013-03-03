@@ -52,6 +52,11 @@ Cursor.prototype.clone = function() {
   return new Cursor(this.line, this.column);
 }
 
+Cursor.prototype.setPosition = function(line, column) {
+  this.line = line;
+  this.column = column;
+}
+
 Cursor.prototype.isValid = function() {
   return (this.line >= 0) && (this.column >= 0);
 }

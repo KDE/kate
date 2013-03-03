@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>CompletionConfigTab</class>
  <widget class="QWidget" name="CompletionConfigTab">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>289</width>
-    <height>150</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="margin">
     <number>0</number>

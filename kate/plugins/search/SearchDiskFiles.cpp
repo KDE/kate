@@ -26,7 +26,7 @@
 #include <QDir>
 #include <QTextStream>
 
-SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent) {}
+SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent), m_cancelSearch(true) {}
 
 SearchDiskFiles::~SearchDiskFiles()
 {
@@ -78,9 +78,15 @@ void SearchDiskFiles::run()
         }
     }
     emit searchDone();
+    m_cancelSearch = true;
 }
 
 void SearchDiskFiles::cancelSearch()
 {
     m_cancelSearch = true;
+}
+
+bool SearchDiskFiles::searching()
+{
+    return !m_cancelSearch;
 }

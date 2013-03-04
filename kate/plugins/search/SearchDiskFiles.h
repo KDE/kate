@@ -40,6 +40,9 @@ public:
                      const QRegExp &regexp);
     void run();
 
+    bool searching();
+
+
 public Q_SLOTS:
     void cancelSearch();
 

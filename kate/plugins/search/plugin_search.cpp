@@ -447,6 +447,21 @@ void KatePluginSearchView::startSearch()
             }
             files = m_projectPluginView->property ("projectFiles").toStringList();
         }
+
+        QList<KTextEditor::Document*> openList;
+        for (int i=0; i<m_kateApp->documentManager()->documents().size(); i++) {
+            int index = files.indexOf(m_kateApp->documentManager()->documents()[i]->url().pathOrUrl());
+            if (index != -1) {
+                openList << m_kateApp->documentManager()->documents()[i];
+                files.removeAt(index);
+            }
+        }
+        // search order is important: Open files starts immediately and should finish
+        // earliest after first event loop.
+        // The DiskFile might finish immediately
+        if (openList.size() > 0) {
+            m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
+        }
         m_searchDiskFiles.startSearch(files, reg);
     }
     m_toolView->setCursor(Qt::WaitCursor);
@@ -518,8 +533,26 @@ void KatePluginSearchView::folderFileListChanged()
         searchDone();
         return;
     }
+    QStringList fileList = m_folderFilesList.fileList();
 
-    m_searchDiskFiles.startSearch(m_folderFilesList.fileList(), m_curResults->regExp);
+    QList<KTextEditor::Document*> openList;
+    for (int i=0; i<m_kateApp->documentManager()->documents().size(); i++) {
+        int index = fileList.indexOf(m_kateApp->documentManager()->documents()[i]->url().pathOrUrl());
+        if (index != -1) {
+            openList << m_kateApp->documentManager()->documents()[i];
+            fileList.removeAt(index);
+        }
+    }
+
+    // search order is important: Open files starts immediately and should finish
+    // earliest after first event loop.
+    // The DiskFile might finish immediately
+    if (openList.size() > 0) {
+        m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
+    }
+
+    m_searchDiskFiles.startSearch(fileList, m_curResults->regExp);
+
 }
 
 QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
@@ -675,6 +708,9 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
 
 void KatePluginSearchView::searchDone()
 {
+    if (m_searchDiskFiles.searching()) return;
+    if (m_searchOpenFiles.searching()) return;
+
     m_ui.newTabButton->setDisabled(false);
     m_ui.searchCombo->setDisabled(false);
     m_ui.searchButton->setDisabled(false);

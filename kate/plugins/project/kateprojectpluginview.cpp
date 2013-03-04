@@ -188,6 +188,24 @@ QString KateProjectPluginView::projectFileName () const
   return static_cast<KateProjectView *> (active)->project()->fileName ();
 }
 
+QString KateProjectPluginView::projectName () const
+{
+  QWidget *active = m_stackedProjectViews->currentWidget ();
+  if (!active)
+    return QString ();
+
+  return static_cast<KateProjectView *> (active)->project()->name ();
+}
+
+QString KateProjectPluginView::projectBaseDir () const
+{
+  QWidget *active = m_stackedProjectViews->currentWidget ();
+  if (!active)
+    return QString ();
+
+  return static_cast<KateProjectView *> (active)->project()->baseDir ();
+}
+
 QVariantMap KateProjectPluginView::projectMap () const
 {
   QWidget *active = m_stackedProjectViews->currentWidget ();

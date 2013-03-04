@@ -36,6 +36,8 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     Q_OBJECT
 
     Q_PROPERTY(QString projectFileName READ projectFileName NOTIFY projectFileNameChanged)
+    Q_PROPERTY(QString projectName READ projectName)
+    Q_PROPERTY(QString projectBaseDir READ projectBaseDir)
     Q_PROPERTY(QVariantMap projectMap READ projectMap NOTIFY projectMapChanged)
     Q_PROPERTY(QStringList projectFiles READ projectFiles)
 
@@ -57,6 +59,16 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * @return empty string if none, else project file name
      */
     QString projectFileName () const;
+
+    /** 
+     * Returns the name of the project
+     */
+    QString projectName () const;
+
+    /** 
+     * Returns the base directory of the project
+     */
+    QString projectBaseDir () const;
 
     /**
      * files for the current active project?

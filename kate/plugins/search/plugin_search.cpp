@@ -421,10 +421,13 @@ void KatePluginSearchView::startSearch()
 
     if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
         m_resultBaseDir.clear();
-        m_searchOpenFiles.startSearch(m_kateApp->documentManager()->documents(), reg);
+        const QList<KTextEditor::Document*> & documents = m_kateApp->documentManager()->documents();
+        addHeaderItem(i18n("<b><i>Results from %1 open files</i></b>").arg(documents.size()));
+        m_searchOpenFiles.startSearch(documents, reg);
     }
     else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
         m_resultBaseDir = m_ui.folderRequester->text();
+        addHeaderItem(i18n("<b><i>Results in folder %1</i></b>").arg(m_resultBaseDir));
         m_folderFilesList.generateList(m_ui.folderRequester->text(),
                                        m_ui.recursiveCheckBox->isChecked(),
                                        m_ui.hiddenCheckBox->isChecked(),
@@ -441,10 +444,11 @@ void KatePluginSearchView::startSearch()
         m_resultBaseDir.clear();
         QStringList files;
         if (m_projectPluginView) {
-            QString projectFile = m_projectPluginView->property ("projectFileName").toString();
-            if (projectFile.endsWith(".kateproject")) {
-                m_resultBaseDir = projectFile.left(projectFile.size() - QString(".kateproject").size());
-            }
+            QString projectName = m_projectPluginView->property ("projectName").toString();
+            m_resultBaseDir = m_projectPluginView->property ("projectBaseDir").toString();
+            if (!m_resultBaseDir.endsWith("/"))
+                m_resultBaseDir += "/";
+            addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>").arg(projectName).arg(m_resultBaseDir));
             files = m_projectPluginView->property ("projectFiles").toStringList();
         }
 
@@ -554,6 +558,14 @@ void KatePluginSearchView::folderFileListChanged()
     m_searchDiskFiles.startSearch(fileList, m_curResults->regExp);
 
 }
+
+
+void KatePluginSearchView::addHeaderItem(const QString& text)
+{
+    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResults->tree, QStringList(text));
+    item->setFlags(Qt::NoItemFlags);
+}
+
 
 QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
 {

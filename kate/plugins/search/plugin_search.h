@@ -133,6 +133,7 @@ private Q_SLOTS:
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
+    void addHeaderItem(const QString& text);
 
 private:
     QTreeWidgetItem *rootFileItem(const QString &url);

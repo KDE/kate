@@ -1138,7 +1138,7 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
   setWordCompletion (config.readEntry( "Word Completion", true ));
   setWordCompletionMinimalWordLength (config.readEntry( "Word Completion Minimal Word Length", 3 ));
-  setWordCompletionRemoveTail (config.readEntry( "Word Completion Remove Tail", false ));
+  setWordCompletionRemoveTail (config.readEntry( "Word Completion Remove Tail", true ));
   setSmartCopyCut (config.readEntry( "Smart Copy Cut", false ));
   setScrollPastEnd (config.readEntry( "Scroll Past End", false ));
 

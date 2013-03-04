@@ -1,6 +1,6 @@
 /*   Kate search plugin
- *
- * Copyright (C) 2011 by Kåre Särs <kare.sars@iki.fi>
+ * 
+ * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,19 +18,29 @@
  * MA 02110-1301, USA.
  */
 
-#include "search_project.h"
-#include "search_project.moc"
+#include "SearchDiskFiles.h"
+#include "SearchDiskFiles.moc"
 #include <kmimetype.h>
+#include <kdebug.h>
 
 #include <QDir>
+#include <QTextStream>
 
-SearchProject::SearchProject(QObject *parent) : QThread(parent)
+SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent) {}
+
+SearchDiskFiles::~SearchDiskFiles()
 {
+    m_cancelSearch = true;
+    wait();
 }
 
-void SearchProject::startSearch(const QStringList &files,
-                                const QRegExp &regexp)
+void SearchDiskFiles::startSearch(const QStringList &files,
+                               const QRegExp &regexp)
 {
+    if (files.size() == 0) {
+        emit searchDone();
+        return;
+    }
     m_cancelSearch = false;
     m_files = files;
     m_regExp = regexp;
@@ -38,11 +48,12 @@ void SearchProject::startSearch(const QStringList &files,
     start();
 }
 
-void SearchProject::run()
+void SearchDiskFiles::run()
 {
     foreach (QString fileName, m_files) {
-        if (m_cancelSearch)
+        if (m_cancelSearch) {
             break;
+        }
 
         QFile file (fileName);
 
@@ -69,7 +80,7 @@ void SearchProject::run()
     emit searchDone();
 }
 
-void SearchProject::cancelSearch()
+void SearchDiskFiles::cancelSearch()
 {
     m_cancelSearch = true;
 }

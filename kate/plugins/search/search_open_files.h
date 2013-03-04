@@ -33,9 +33,12 @@ public:
     SearchOpenFiles(QObject *parent = 0);
 
     void startSearch(const QList<KTextEditor::Document*> &list,const QRegExp &regexp);
+    bool searching();
 
 public Q_SLOTS:
     void cancelSearch();
+
+    void searchOpenFile(KTextEditor::Document *doc, const QRegExp &regExp, int maxSearchTime);
 
 private Q_SLOTS:
     void doSearchNextFile();

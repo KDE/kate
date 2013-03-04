@@ -1,6 +1,6 @@
 /*   Kate search plugin
  * 
- * Copyright (C) 2011 by Kåre Särs <kare.sars@iki.fi>
+ * Copyright (C) 2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,54 +18,52 @@
  * MA 02110-1301, USA.
  */
 
-#ifndef _SEARCH_FOLDER_H_
-#define _SEARCH_FOLDER_H_
+#ifndef FolderFilesList_h
+#define FolderFilesList_h
 
 #include <QThread>
 #include <QRegExp>
 #include <QFileInfo>
-#include <ktexteditor/document.h>
+#include <QVector>
+#include <QStringList>
 
-class SearchFolder: public QThread
+class FolderFilesList: public QThread
 {
     Q_OBJECT
 
 public:
-    SearchFolder(QObject *parent = 0);
+    FolderFilesList(QObject *parent = 0);
+    ~FolderFilesList();
 
-    void startSearch(const QString &folder,
-                     bool recursive,
-                     bool hidden,
-                     bool symlinks,
-                     bool binary,
-                     const QString &types,
-                     const QString &excludes,
-                     const QRegExp &regexp);
     void run();
+
+    void generateList(const QString &folder,
+                      bool recursive,
+                      bool hidden,
+                      bool symlinks,
+                      bool binary,
+                      const QString &types,
+                      const QString &excludes);
+
+    QStringList fileList();
 
 public Q_SLOTS:
     void cancelSearch();
 
-Q_SIGNALS:
-    void matchFound(const QString &url, int line, int column,
-                    const QString &lineContent, int matchLen);
-    void searchDone();
+private:
+    void checkNextItem(const QFileInfo &item);
 
 private:
-    void handleNextItem(const QFileInfo &item);
-    void searchFile(const QFileInfo &item);
-
-private:
-    QRegExp          m_regExp;
+    QString          m_folder;
+    QStringList      m_files;
     bool             m_cancelSearch;
+
     bool             m_recursive;
     bool             m_hidden;
     bool             m_symlinks;
     bool             m_binary;
     QStringList      m_types;
-    QString          m_folder;
     QVector<QRegExp> m_excludeList;
-
 };
 
 

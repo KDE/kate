@@ -31,10 +31,9 @@
 #include "ui_search.h"
 #include "ui_results.h"
 
-#include "search_while_typing.h"
 #include "search_open_files.h"
-#include "search_folder.h"
-#include "search_project.h"
+#include "SearchDiskFiles.h"
+#include "FolderFilesList.h"
 #include "replace_matches.h"
 
 class KateSearchCommand;
@@ -103,6 +102,8 @@ private Q_SLOTS:
     void searchPlaceChanged();
     void searchPatternChanged();
 
+    void folderFileListChanged();
+
     void matchFound(const QString &fileName, int line, int column,
                     const QString &lineContent, int matchLen);
 
@@ -141,9 +142,8 @@ private:
     QWidget                           *m_toolView;
     Kate::Application                 *m_kateApp;
     SearchOpenFiles                    m_searchOpenFiles;
-    SearchFolder                       m_searchFolder;
-    SearchProject                      m_searchProject;
-    SearchWhileTyping                  m_searchWhileTyping;
+    FolderFilesList                    m_folderFilesList;
+    SearchDiskFiles                    m_searchDiskFiles;
     ReplaceMatches                     m_replacer;
     KAction                           *m_matchCase;
     KAction                           *m_useRegExp;

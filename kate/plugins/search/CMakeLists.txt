@@ -12,10 +12,9 @@ endif(NOT KDE4_FOUND)
 
 set(katesearchplugin_PART_SRCS
     plugin_search.cpp
-    search_while_typing.cpp
     search_open_files.cpp
-    search_folder.cpp
-    search_project.cpp
+    SearchDiskFiles.cpp
+    FolderFilesList.cpp
     replace_matches.cpp
     htmldelegate.cpp
 )

@@ -235,8 +235,8 @@ m_projectPluginView(0)
     connect(m_ui.matchCase,        SIGNAL(stateChanged(int)), this, SLOT(searchPatternChanged()));
     connect(m_ui.useRegExp,        SIGNAL(stateChanged(int)), this, SLOT(searchPatternChanged()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
-    connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchFolder, SLOT(cancelSearch()));
-    connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchProject, SLOT(cancelSearch()));
+    connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchDiskFiles, SLOT(cancelSearch()));
+    connect(m_ui.stopButton,       SIGNAL(clicked()), &m_folderFilesList, SLOT(cancelSearch()));
 
     m_ui.displayOptions->setChecked(true);
 
@@ -244,17 +244,11 @@ m_projectPluginView(0)
             this,                 SLOT(matchFound(QString,int,int,QString,int)));
     connect(&m_searchOpenFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
-    connect(&m_searchFolder, SIGNAL(matchFound(QString,int,int,QString,int)),
-            this,              SLOT(matchFound(QString,int,int,QString,int)));
-    connect(&m_searchFolder, SIGNAL(searchDone()),  this, SLOT(searchDone()));
+    connect(&m_folderFilesList, SIGNAL(finished()),  this, SLOT(folderFileListChanged()));
 
-    connect(&m_searchProject, SIGNAL(matchFound(QString,int,int,QString,int)),
+    connect(&m_searchDiskFiles, SIGNAL(matchFound(QString,int,int,QString,int)),
             this,              SLOT(matchFound(QString,int,int,QString,int)));
-    connect(&m_searchProject, SIGNAL(searchDone()),  this, SLOT(searchDone()));
-
-    connect(&m_searchWhileTyping, SIGNAL(matchFound(QString,int,int,QString,int)),
-            this,              SLOT(matchFound(QString,int,int,QString,int)));
-    connect(&m_searchWhileTyping, SIGNAL(searchDone()),  this, SLOT(searchWhileTypingDone()));
+    connect(&m_searchDiskFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
 
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
@@ -431,15 +425,16 @@ void KatePluginSearchView::startSearch()
     }
     else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
         m_resultBaseDir = m_ui.folderRequester->text();
-        m_searchFolder.startSearch(m_ui.folderRequester->text(),
-                                   m_ui.recursiveCheckBox->isChecked(),
-                                   m_ui.hiddenCheckBox->isChecked(),
-                                   m_ui.symLinkCheckBox->isChecked(),
-                                   m_ui.binaryCheckBox->isChecked(),
-                                   m_ui.filterCombo->currentText(),
-                                   m_ui.excludeCombo->currentText(),
-                                   reg);
-    } else {
+        m_folderFilesList.generateList(m_ui.folderRequester->text(),
+                                       m_ui.recursiveCheckBox->isChecked(),
+                                       m_ui.hiddenCheckBox->isChecked(),
+                                       m_ui.symLinkCheckBox->isChecked(),
+                                       m_ui.binaryCheckBox->isChecked(),
+                                       m_ui.filterCombo->currentText(),
+                                       m_ui.excludeCombo->currentText());
+        // the file list will be ready when the thread returns (connected to folderFileListChanged)
+    }
+    else {
         /**
          * init search with file list from current project, if any
          */
@@ -452,7 +447,7 @@ void KatePluginSearchView::startSearch()
             }
             files = m_projectPluginView->property ("projectFiles").toStringList();
         }
-        m_searchProject.startSearch(files, reg);
+        m_searchDiskFiles.startSearch(files, reg);
     }
     m_toolView->setCursor(Qt::WaitCursor);
 
@@ -483,7 +478,6 @@ void KatePluginSearchView::searchPatternChanged()
 {
     m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
 
-    if (m_ui.searchCombo->currentText().length() < 3) return;
     if (!mainWindow()->activeView()) return;
 
     KTextEditor::Document *doc = mainWindow()->activeView()->document();
@@ -510,7 +504,22 @@ void KatePluginSearchView::searchPatternChanged()
     disconnect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
     m_resultBaseDir.clear();
-    m_searchWhileTyping.startSearch(doc, reg);
+    if (m_ui.searchCombo->currentText().length() >= 3) {
+        m_searchOpenFiles.searchOpenFile(doc, reg, 50);
+    }
+    searchWhileTypingDone();
+}
+
+
+void KatePluginSearchView::folderFileListChanged()
+{
+    if (!m_curResults) {
+        kWarning() << "This is a bug";
+        searchDone();
+        return;
+    }
+
+    m_searchDiskFiles.startSearch(m_folderFilesList.fileList(), m_curResults->regExp);
 }
 
 QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
@@ -880,8 +889,8 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     m_ui.symLinkCheckBox->setChecked(cg.readEntry("FollowSymLink", false));
     m_ui.binaryCheckBox->setChecked(cg.readEntry("BinaryFiles", false));
     m_ui.folderRequester->comboBox()->clear();
-    m_ui.folderRequester->comboBox()->addItems(cg.readEntry("SearchFolders", QStringList()));
-    m_ui.folderRequester->setText(cg.readEntry("SearchFolder", QString()));
+    m_ui.folderRequester->comboBox()->addItems(cg.readEntry("SearchDiskFiless", QStringList()));
+    m_ui.folderRequester->setText(cg.readEntry("SearchDiskFiles", QString()));
     m_ui.filterCombo->clear();
     m_ui.filterCombo->addItems(cg.readEntry("Filters", QStringList()));
     m_ui.filterCombo->setCurrentIndex(cg.readEntry("CurrentFilter", 0));
@@ -907,8 +916,8 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
     for (int i=0; i<qMin(m_ui.folderRequester->comboBox()->count(), 10); i++) {
         folders << m_ui.folderRequester->comboBox()->itemText(i);
     }
-    cg.writeEntry("SearchFolders", folders);
-    cg.writeEntry("SearchFolder", m_ui.folderRequester->text());
+    cg.writeEntry("SearchDiskFiless", folders);
+    cg.writeEntry("SearchDiskFiles", m_ui.folderRequester->text());
     QStringList filterItems;
     for (int i=0; i<qMin(m_ui.filterCombo->count(), 10); i++) {
         filterItems << m_ui.filterCombo->itemText(i);
@@ -956,8 +965,7 @@ void KatePluginSearchView::closeTab(QWidget *widget)
     Results *tmp = qobject_cast<Results *>(widget);
     if (m_curResults == tmp) {
         m_searchOpenFiles.cancelSearch();
-        m_searchFolder.cancelSearch();
-        m_searchProject.cancelSearch();
+        m_searchDiskFiles.cancelSearch();
     }
     if (m_ui.resultTabWidget->count() > 1) {
         delete tmp; // remove the tab

@@ -233,8 +233,9 @@ void KateConfigDialog::addEditorPages() {
 
   for (int i = 0; i < KateDocManager::self()->editor()->configPages (); ++i)
   {
-    QWidget *page = KateDocManager::self()->editor()->configPage(i, this);
+    KTextEditor::ConfigPage *page = KateDocManager::self()->editor()->configPage(i, this);
     connect( page, SIGNAL(changed()), this, SLOT(slotChanged()) );
+    m_editorPages.push_back (page);
     KPageWidgetItem *item=addSubPage( m_editorPage, page, KateDocManager::self()->editor()->configPageName(i) );
     item->setHeader( KateDocManager::self()->editor()->configPageFullName(i) );
     item->setIcon( KateDocManager::self()->editor()->configPageIcon(i) );
@@ -260,7 +261,6 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
     info->configPageInterface=Kate::pluginConfigPageInterface(plugin);
     info->pageParent=page;
     info->pluginPage = 0; //info->configPageInterface->configPage (i, page);
-    info->editorPage = 0;
     info->idInPlugin=i;
     info->pageWidgetItem = item;
     //connect( info->page, SIGNAL(changed()), this, SLOT(slotChanged()) );
@@ -272,7 +272,7 @@ void KateConfigDialog::slotCurrentPageChanged( KPageWidgetItem *current, KPageWi
 {
   PluginPageListItem *info=m_pluginPages[current];
   if (!info) return;
-  if (info->pluginPage || info->editorPage) return;
+  if (info->pluginPage) return;
   kDebug()<<"creating config page";
   info->pluginPage=info->configPageInterface->configPage(info->idInPlugin,info->pageParent);
   info->pluginPage->show();
@@ -355,9 +355,11 @@ void KateConfigDialog::slotApply()
     if (!plugin) continue;
     if (plugin->pluginPage)
       plugin->pluginPage->apply();
-    else if (plugin->editorPage)
-      plugin->editorPage->apply();
   }
+
+  // apply ktexteditor pages
+  foreach (KTextEditor::ConfigPage *page, m_editorPages)
+    page->apply();
 
   // write back the editor config
   KateDocManager::self()->editor()->writeConfig(config.data());

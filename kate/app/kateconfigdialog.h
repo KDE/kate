@@ -44,7 +44,6 @@ struct PluginPageListItem
   Kate::PluginConfigPage *pluginPage;
   QWidget *pageParent;
   KPageWidgetItem *pageWidgetItem;
-  KTextEditor::ConfigPage *editorPage;
 };
 
 class KateConfigDialog : public KPageDialog
@@ -83,6 +82,7 @@ class KateConfigDialog : public KPageDialog
     QRadioButton *m_manuallyChooseSessionRadioButton;
 
     QHash<KPageWidgetItem*, PluginPageListItem*> m_pluginPages;
+    QList<KTextEditor::ConfigPage *> m_editorPages;
     KPageWidgetItem *m_applicationPage;
     KPageWidgetItem *m_editorPage;
 

@@ -43,6 +43,8 @@
 //Added by qt3to4:
 #include <Q3CString>
 #include <QApplication>
+#include <QTreeWidget>
+#include <QHeaderView>
 
 #include <kdefakes.h> // for setenv
 #include <kaction.h>
@@ -82,7 +84,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
     : Kate::PluginView (mainwin), Kate::XMLGUIClient(PluginKateXMLCheckFactory::componentData()),win(mainwin)
 {
     dock = win->createToolView("kate_plugin_xmlcheck_ouputview", Kate::MainWindow::Bottom, SmallIcon("misc"), i18n("XML Checker Output"));
-    listview = new Q3ListView( dock );
+    listview = new QTreeWidget( dock );
     m_tmp_file=0;
     m_proc=0;
     QAction *a = actionCollection()->addAction("xml_check");
@@ -93,15 +95,19 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
     //	SLOT(slotIndent()), actionCollection(), "xml_indent" );
 
     listview->setFocusPolicy(Qt::NoFocus);
-    listview->addColumn(i18n("#"), -1);
-    listview->addColumn(i18n("Line"), -1);
-    listview->setColumnAlignment(1, Qt::AlignRight);
-    listview->addColumn(i18n("Column"), -1);
-    listview->setColumnAlignment(2, Qt::AlignRight);
-    listview->addColumn(i18n("Message"), -1);
-    listview->setAllColumnsShowFocus(true);
-    listview->setResizeMode(Q3ListView::LastColumn);
-    connect(listview, SIGNAL(clicked(Q3ListViewItem*)), SLOT(slotClicked(Q3ListViewItem*)));
+    QStringList headers;
+    headers << i18n("#");
+    headers << i18n("Line");
+    headers << i18n("Column");
+    headers << i18n("Message");
+    listview->setHeaderLabels(headers);
+    listview->setRootIsDecorated(false);
+    connect(listview, SIGNAL(itemClicked(QTreeWidgetItem*,int)), SLOT(slotClicked(QTreeWidgetItem*,int)));
+
+    QHeaderView *header = listview->header();
+    header->setResizeMode(0, QHeaderView::ResizeToContents);
+    header->setResizeMode(1, QHeaderView::ResizeToContents);
+    header->setResizeMode(2, QHeaderView::ResizeToContents);
 
 /* TODO?: invalidate the listview when document has changed
    Kate::View *kv = application()->activeMainWindow()->activeView();
@@ -138,8 +144,10 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
 //	}
 
     if (exitStatus != QProcess::NormalExit) {
-        (void)new Q3ListViewItem(listview, QString("1").rightJustified(4,' '), "", "",
-                                 "Validate process crashed.");
+        QTreeWidgetItem *item = new QTreeWidgetItem();
+        item->setText(0, QString("1").rightJustified(4,' '));
+        item->setText(3, "Validate process crashed.");
+        listview->addTopLevelItem(item);
         return;
     }
 
@@ -159,12 +167,14 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         } else {
             msg = '\'' + m_dtdname + "' not found, will only check well-formedness.";
         }
-        (void)new Q3ListViewItem(listview, QString("1").rightJustified(4,' '), "", "", msg);
+        QTreeWidgetItem *item = new QTreeWidgetItem();
+        item->setText(0, QString("1").rightJustified(4,' '));
+        item->setText(3, msg);
+        listview->addTopLevelItem(item);
         list_count++;
     }
     if( ! proc_stderr.isEmpty() ) {
         QStringList lines = proc_stderr.split("\n", QString::SkipEmptyParts);
-        Q3ListViewItem *item = 0;
         QString linenumber, msg;
         int line_count = 0;
         for(QStringList::Iterator it = lines.begin(); it != lines.end(); ++it) {
@@ -189,13 +199,18 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
                 }
                 err_count++;
                 list_count++;
-                item = new Q3ListViewItem(listview, QString::number(list_count).rightJustified(4,' '), linenumber, col, msg);
-                item->setMultiLinesEnabled(true);
+                QTreeWidgetItem *item = new QTreeWidgetItem();
+                item->setText(0, QString::number(list_count).rightJustified(4,' '));
+                item->setText(1, linenumber);
+                item->setTextAlignment(1, (item->textAlignment(1) & ~Qt::AlignHorizontal_Mask) | Qt::AlignRight);
+                item->setText(2, col);
+                item->setTextAlignment(2, (item->textAlignment(2) & ~Qt::AlignHorizontal_Mask) | Qt::AlignRight);
+                item->setText(3, msg);
+                listview->addTopLevelItem(item);
             } else {
                 msg = msg+'\n'+line;
             }
         }
-        listview->sort();	// TODO?: insert in right order
     }
     if( err_count == 0 ) {
         QString msg;
@@ -204,13 +219,17 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         } else {
             msg = "No errors found, document is well-formed.";	// no i18n here
         }
-        (void)new Q3ListViewItem(listview, QString::number(list_count+1).rightJustified(4,' '), "", "", msg);
+        QTreeWidgetItem *item = new QTreeWidgetItem();
+        item->setText(0, QString::number(list_count+1).rightJustified(4,' '));
+        item->setText(3, msg);
+        listview->addTopLevelItem(item);
     }
 }
 
 
-void PluginKateXMLCheckView::slotClicked(Q3ListViewItem *item)
+void PluginKateXMLCheckView::slotClicked(QTreeWidgetItem *item, int column)
 {
+	Q_UNUSED(column);
 	kDebug() << "slotClicked";
 	if( item ) {
 		bool ok = true;

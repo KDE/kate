@@ -25,7 +25,7 @@
 
 SearchOpenFiles::SearchOpenFiles(QObject *parent) : QObject(parent), m_nextIndex(-1), m_cancelSearch(true)
 {
-    connect(this, SIGNAL(searchNextFile()), this, SLOT(doSearchNextFile()), Qt::QueuedConnection);
+    connect(this, SIGNAL(searchNextFile(int)), this, SLOT(doSearchNextFile(int)), Qt::QueuedConnection);
 }
 
 bool SearchOpenFiles::searching() { return !m_cancelSearch; }
@@ -38,7 +38,7 @@ void SearchOpenFiles::startSearch(const QList<KTextEditor::Document*> &list, con
     m_nextIndex = 0;
     m_regExp = regexp;
     m_cancelSearch = false;
-    emit searchNextFile();
+    emit searchNextFile(0);
 }
 
 void SearchOpenFiles::cancelSearch()
@@ -46,7 +46,7 @@ void SearchOpenFiles::cancelSearch()
     m_cancelSearch = true;
 }
 
-void SearchOpenFiles::doSearchNextFile()
+void SearchOpenFiles::doSearchNextFile(int startLine)
 {
     if (m_cancelSearch) {
         m_nextIndex = -1;
@@ -57,30 +57,34 @@ void SearchOpenFiles::doSearchNextFile()
 
     // NOTE The document managers signal documentWillBeDeleted() must be connected to
     // cancelSearch(). A closed file could lead to a crash if it is not handled.
-    searchOpenFile(m_docList[m_nextIndex], m_regExp, 500);
-
-    m_nextIndex++;
-    if (m_nextIndex == m_docList.size()) {
-        m_nextIndex = -1;
-        m_cancelSearch = true;
-        emit searchDone();
+    int line = searchOpenFile(m_docList[m_nextIndex], m_regExp, startLine);
+    if (line == 0) {
+        // file searched go to next
+        m_nextIndex++;
+        if (m_nextIndex == m_docList.size()) {
+            m_nextIndex = -1;
+            m_cancelSearch = true;
+            emit searchDone();
+        }
+        else {
+            emit searchNextFile(0);
+        }
     }
     else {
-        emit searchNextFile();
+        emit searchNextFile(line);
     }
 }
 
-
-void SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegExp &regExp, int maxSearchTime)
+int SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegExp &regExp, int startLine)
 {
     int column;
-    QTime maxTime;
+    QTime time;
 
-    maxTime.start();
-    for (int line =0; line < doc->lines(); line++) {
-        if (maxTime.elapsed() > maxSearchTime) {
-            kDebug() << "Search time exceeded -> stop" << maxTime.elapsed() << line;
-            break;
+    time.start();
+    for (int line = startLine; line < doc->lines(); line++) {
+        if (time.elapsed() > 100) {
+            kDebug() << "Search time exceeded" << time.elapsed() << line;
+            return line;
         }
         column = regExp.indexIn(doc->line(line));
         while (column != -1) {
@@ -90,5 +94,6 @@ void SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegExp &
             column = regExp.indexIn(doc->line(line), column + regExp.cap().size());
         }
     }
+    return 0;
 }
 

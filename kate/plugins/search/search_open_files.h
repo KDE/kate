@@ -38,13 +38,14 @@ public:
 public Q_SLOTS:
     void cancelSearch();
 
-    void searchOpenFile(KTextEditor::Document *doc, const QRegExp &regExp, int maxSearchTime);
+    /// return 0 on success or a line number where we stopped.
+    int searchOpenFile(KTextEditor::Document *doc, const QRegExp &regExp, int startLine);
 
 private Q_SLOTS:
-    void doSearchNextFile();
+    void doSearchNextFile(int startLine);
 
 Q_SIGNALS:
-    void searchNextFile();
+    void searchNextFile(int startLine);
     void matchFound(const QString &url, int line, int column, const QString &lineContent, int matchLen);
     void searchDone();
     

@@ -520,7 +520,7 @@ void KatePluginSearchView::searchPatternChanged()
 
     m_resultBaseDir.clear();
     if (m_ui.searchCombo->currentText().length() >= 3) {
-        m_searchOpenFiles.searchOpenFile(doc, reg, 50);
+        m_searchOpenFiles.searchOpenFile(doc, reg, 0);
     }
     searchWhileTypingDone();
 }
@@ -745,6 +745,7 @@ void KatePluginSearchView::searchWhileTypingDone()
         return;
     }
 
+    m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);
     m_curResults->buttonContainer->setEnabled(true);
 

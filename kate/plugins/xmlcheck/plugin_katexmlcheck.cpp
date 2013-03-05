@@ -163,17 +163,17 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         list_count++;
     }
     if( ! proc_stderr.isEmpty() ) {
-        QStringList lines = QStringList::split("\n", proc_stderr);
+        QStringList lines = proc_stderr.split("\n", QString::SkipEmptyParts);
         Q3ListViewItem *item = 0;
         QString linenumber, msg;
         int line_count = 0;
         for(QStringList::Iterator it = lines.begin(); it != lines.end(); ++it) {
             QString line = *it;
             line_count++;
-            int semicolon_1 = line.find(':');
-            int semicolon_2 = line.find(':', semicolon_1+1);
-            int semicolon_3 = line.find(':', semicolon_2+2);
-            int caret_pos = line.find('^');
+            int semicolon_1 = line.indexOf(':');
+            int semicolon_2 = line.indexOf(':', semicolon_1+1);
+            int semicolon_3 = line.indexOf(':', semicolon_2+2);
+            int caret_pos = line.indexOf('^');
             if( semicolon_1 != -1 && semicolon_2 != -1 && semicolon_3 != -1 ) {
                 linenumber = line.mid(semicolon_1+1, semicolon_2-semicolon_1-1).trimmed();
                 linenumber = linenumber.rightJustified(6, ' ');	// for sorting numbers
@@ -293,10 +293,10 @@ bool PluginKateXMLCheckView::slotValidate()
 	QRegExp re("<!--.*-->");
 	re.setMinimal(true);
 	text_start.remove(re);
-	QRegExp re_doctype("<!DOCTYPE\\s+(.*)\\s+(?:PUBLIC\\s+[\"'].*[\"']\\s+[\"'](.*)[\"']|SYSTEM\\s+[\"'](.*)[\"'])", false);
+	QRegExp re_doctype("<!DOCTYPE\\s+(.*)\\s+(?:PUBLIC\\s+[\"'].*[\"']\\s+[\"'](.*)[\"']|SYSTEM\\s+[\"'](.*)[\"'])", Qt::CaseInsensitive);
 	re_doctype.setMinimal(true);
 
-	if( re_doctype.search(text_start) != -1 ) {
+	if( re_doctype.indexIn(text_start) != -1 ) {
 		QString dtdname;
 		if( ! re_doctype.cap(2).isEmpty() ) {
 			dtdname = re_doctype.cap(2);
@@ -311,7 +311,7 @@ bool PluginKateXMLCheckView::slotValidate()
 			m_validating = true;
 			*m_proc << "--valid";
 		}
-	} else if( text_start.find("<!DOCTYPE") != -1 ) {
+	} else if( text_start.indexOf("<!DOCTYPE") != -1 ) {
 		// DTD is inside the XML file
 		m_validating = true;
 		*m_proc << "--valid";

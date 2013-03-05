@@ -25,10 +25,7 @@
 #ifndef PLUGIN_KATEXMLCHECK_H
 #define PLUGIN_KATEXMLCHECK_H
 
-#include <qstring.h>
 #include <QProcess>
-//Added by qt3to4:
-#include <Q3PtrList>
 
 #include <kate/plugin.h>
 #include <kate/application.h>
@@ -37,10 +34,6 @@
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
-
-#include <k3dockwidget.h>
-#include <kiconloader.h>
-#include <QVariantList>
 
 class QTreeWidget;
 class QTreeWidgetItem;

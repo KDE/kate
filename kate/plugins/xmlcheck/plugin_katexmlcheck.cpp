@@ -32,16 +32,12 @@
 #include <QHBoxLayout>
 #include "plugin_katexmlcheck.moc"
 
-#include <cassert>
-
 #include <qfile.h>
 #include <qinputdialog.h>
 #include <qregexp.h>
 #include <qstring.h>
 #include <qtextstream.h>
 #include <kactioncollection.h>
-//Added by qt3to4:
-#include <Q3CString>
 #include <QApplication>
 #include <QTreeWidget>
 #include <QHeaderView>
@@ -50,7 +46,6 @@
 #include <kaction.h>
 #include <kcursor.h>
 #include <kdebug.h>
-#include <k3dockwidget.h>
 #include <kcomponentdata.h>
 #include <klocale.h>
 #include <kmessagebox.h>

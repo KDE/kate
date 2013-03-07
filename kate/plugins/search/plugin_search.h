@@ -137,7 +137,7 @@ protected:
 
 private:
     QTreeWidgetItem *rootFileItem(const QString &url);
-
+    QStringList filterFiles(const QStringList& files) const;
 
     Ui::SearchDialog                   m_ui;
     QWidget                           *m_toolView;

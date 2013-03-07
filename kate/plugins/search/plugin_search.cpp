@@ -372,6 +372,43 @@ void KatePluginSearchView::setSearchString(const QString &pattern)
     m_ui.searchCombo->lineEdit()->setText(pattern);
 }
 
+
+QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
+{
+    QString types = m_ui.filterCombo->currentText();
+    if (types.isEmpty() || types == "*") {
+        // shortcut for use all files
+        return files;
+    }
+
+    QStringList tmpTypes = types.split(',');
+    QVector<QRegExp> typeList;
+    for (int i=0; i<tmpTypes.size(); i++) {
+        QRegExp rx(tmpTypes[i]);
+        rx.setPatternSyntax(QRegExp::Wildcard);
+        typeList << rx;
+    }
+
+    QStringList filteredFiles;
+    foreach (QString fileName, files) {
+        bool isInSubDir = fileName.startsWith(m_resultBaseDir);
+        QString subDirFileName;
+        if (isInSubDir) {
+            subDirFileName = fileName.mid(m_resultBaseDir.size());
+        }
+
+        for (int i=0; i<typeList.size(); i++) {
+            if (typeList[i].exactMatch(isInSubDir ? subDirFileName : fileName)) {
+                filteredFiles << fileName;
+                break;
+            }
+        }
+    }
+    return filteredFiles;
+}
+
+
+
 void KatePluginSearchView::startSearch()
 {
     mainWindow()->showToolView(m_toolView); // in case we are invoked from the command interface
@@ -449,7 +486,8 @@ void KatePluginSearchView::startSearch()
             if (!m_resultBaseDir.endsWith("/"))
                 m_resultBaseDir += "/";
             addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>").arg(projectName).arg(m_resultBaseDir));
-            files = m_projectPluginView->property ("projectFiles").toStringList();
+            QStringList projectFiles = m_projectPluginView->property ("projectFiles").toStringList();
+            files = filterFiles(projectFiles);
         }
 
         QList<KTextEditor::Document*> openList;
@@ -485,12 +523,27 @@ void KatePluginSearchView::setSearchPlace(int place)
 
 void KatePluginSearchView::searchPlaceChanged()
 {
-    bool needFolderOptions = (m_ui.searchPlaceCombo->currentIndex() == 1);
+    m_ui.displayOptions->setChecked(true);
 
-    if (needFolderOptions)
-        m_ui.displayOptions->setChecked(true);
+    const bool inFolder = (m_ui.searchPlaceCombo->currentIndex() == 1);
+    const bool inProject = (m_ui.searchPlaceCombo->currentIndex() == 2);
 
-    m_ui.folderOptions->setDisabled(!needFolderOptions);
+    m_ui.folderOptions->setEnabled(inFolder || inProject);
+    m_ui.filterCombo->setEnabled(inFolder || inProject);
+
+    m_ui.excludeCombo->setEnabled(inFolder);
+    m_ui.folderRequester->setEnabled(inFolder);
+    m_ui.folderUpButton->setEnabled(inFolder);
+    m_ui.currentFolderButton->setEnabled(inFolder);
+    m_ui.recursiveCheckBox->setEnabled(inFolder);
+    m_ui.hiddenCheckBox->setEnabled(inFolder);
+    m_ui.symLinkCheckBox->setEnabled(inFolder);
+    m_ui.binaryCheckBox->setEnabled(inFolder);
+
+    // ... and the labels:
+    m_ui.folderLabel->setEnabled(m_ui.folderRequester->isEnabled());
+    m_ui.filterLabel->setEnabled(m_ui.filterCombo->isEnabled());
+    m_ui.excludeLabel->setEnabled(m_ui.excludeCombo->isEnabled());
 }
 
 void KatePluginSearchView::searchPatternChanged()

@@ -36,14 +36,15 @@ import os
 import math
 import string
 
-import kate
-from kate.gui import QColor, QObject, QPalette, QTimer, QToolTip, QWidget, pyqtSlot
-
 from PyQt4 import uic
+from PyQt4.QtCore import QEvent, QObject, QTimer, Qt, pyqtSlot
+from PyQt4.QtGui import QColor, QPalette, QToolTip, QWidget
 
 from PyKDE4.kdecore import i18n
 from PyKDE4.kdeui import KColorDialog, KColorCells
 from PyKDE4.ktexteditor import KTextEditor
+
+import kate
 
 from libkatepate import common
 
@@ -167,6 +168,7 @@ class PaletteView(QObject):
           , kate.gui.loadIcon('color')
           , i18n("Palette")
           )
+        self.toolView.installEventFilter(self)
         # By default, the toolview has box layout, which is not easy to delete.
         # For now, just add an extra widget.
         top = QWidget(self.toolView)
@@ -186,6 +188,13 @@ class PaletteView(QObject):
         if self.toolView:
             self.toolView.deleteLater()
             self.toolView = None
+
+    def eventFilter(self, obj, event):
+        """Hide the Palette tool view on ESCAPE key"""
+        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Escape:
+            kate.mainInterfaceWindow().hideToolView(self.toolView)
+            return True
+        return self.toolView.eventFilter(obj, event)
 
     def updateColors(self):
         """Scan a document for #colors"""

@@ -174,6 +174,9 @@ class PaletteView(QObject):
         interior = uic.loadUi(os.path.join(os.path.dirname(__file__), 'color_tools_toolview.ui'), top)
         interior.update.clicked.connect(self.update)
         self.colorCellsWidget = KColorCells(interior, 1, 1)
+        # TODO Don't know how to deal w/ drag-n-drops :(
+        # It seems there is no signal to realize that some item has changed :(
+        self.colorCellsWidget.setAcceptDrags(False)
         interior.verticalLayout.addWidget(self.colorCellsWidget)
         self.colorCellsWidget.colorSelected.connect(self.colorSelected)
         self.colorCellsWidget.colorDoubleClicked.connect(self.colorDoubleClicked)

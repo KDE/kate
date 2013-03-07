@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>palette</class>
  <widget class="QWidget" name="palette">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>312</width>
-    <height>193</height>
-   </rect>
-  </property>
   <property name="sizePolicy">
    <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
     <horstretch>0</horstretch>
@@ -37,6 +29,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="update">
+       <property name="toolTip">
+        <string>Rescan current document for #colors</string>
+       </property>
        <property name="text">
         <string>Update</string>
        </property>

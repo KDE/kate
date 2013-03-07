@@ -13,7 +13,7 @@
 <!-- v2.06 decorator names can (and often do) contain periods -->
 <!-- v2.07 add support for %prog and co, see bug 142832 -->
 <!-- v2.08 add missing overloaders, new Python 3 statements, builtins, and keywords -->
-<language name="Python" version="2.15" style="python" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw;SConstruct;SConscript" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
+<language name="Python" version="2.16" style="python" kateversion="2.4" section="Scripts" extensions="*.py;*.pyw;SConstruct;SConscript" mimetype="application/x-python;text/x-python" casesensitive="1" author="Michael Bueker" license="">
 	<highlighting>
 		<list name="prep">
 			<item> import </item>
@@ -420,7 +420,8 @@
 			<!-- Comments -->
 
 			<context name="Hash comment" attribute="Comment" lineEndContext="#pop">
-				<IncludeRules context="##Alerts_indent" />
+				<IncludeRules context="##Alerts" />
+        <IncludeRules context="##Modelines" />
 			</context>
 
 			<context name="Tripple A-comment" attribute="Comment" lineEndContext="#stay" noIndentationBasedFolding="true">
@@ -518,14 +519,14 @@
 			<itemData name="Normal Text" defStyleNum="dsNormal" spellChecking="false"/>
 			<itemData name="Definition Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
 			<itemData name="Operator" defStyleNum="dsNormal" bold="1" spellChecking="false"/>
-			<itemData name="String Substitution" defStyleNum="dsOthers" color="#0057ae" selColor="#ffffff"  spellChecking="false"/>
+			<itemData name="String Substitution" defStyleNum="dsOthers" color="#0057ae" selColor="#0057ae"  spellChecking="false"/>
 			<itemData name="Command Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
 			<itemData name="Flow Control Keyword" defStyleNum="dsKeyword" spellChecking="false"/>
 			<itemData name="Builtin Function" defStyleNum="dsDataType" spellChecking="false"/>
 			<itemData name="Special Variable" defStyleNum="dsOthers" spellChecking="false"/>
-			<itemData name="Extensions" defStyleNum="dsOthers" color="#0095ff" selColor="#ffffff" bold="1" italic="0" spellChecking="false"/>
-			<itemData name="Exceptions" defStyleNum="dsOthers" color="#054d00" selColor="#ffffff" bold="1" italic="0" spellChecking="false"/>
-			<itemData name="Overloaders" defStyleNum="dsOthers" color="#000e52" selColor="#ffffff" bold="1" italic="0" spellChecking="false"/>
+			<itemData name="Extensions" defStyleNum="dsOthers" color="#0095ff" selColor="#0095ff" bold="1" italic="0" spellChecking="false"/>
+			<itemData name="Exceptions" defStyleNum="dsOthers" color="#054d00" selColor="#054d00" bold="1" italic="0" spellChecking="false"/>
+			<itemData name="Overloaders" defStyleNum="dsOthers" color="#000e52" selColor="#000e52" bold="1" italic="0" spellChecking="false"/>
 			<itemData name="Preprocessor" defStyleNum="dsChar" spellChecking="false"/>
 			<itemData name="String Char" defStyleNum="dsChar" spellChecking="false"/>
 			<itemData name="Float" defStyleNum="dsFloat" spellChecking="false"/>
@@ -536,7 +537,7 @@
 			<itemData name="Comment" defStyleNum="dsComment"/>
 			<itemData name="String" defStyleNum="dsString"/>
 			<itemData name="Raw String" defStyleNum="dsString"/>
-			<itemData name="Decorator" defStyleNum="dsOthers" color="#8f6b32" selColor="#ffffff" italic="0" spellChecking="false"/>
+			<itemData name="Decorator" defStyleNum="dsOthers" color="#8f6b32" selColor="#8f6b32" italic="0" spellChecking="false"/>
 		</itemDatas>
 	</highlighting>
 	<general>

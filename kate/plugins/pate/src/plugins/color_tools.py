@@ -28,21 +28,29 @@
 #       Select a color string of any kind to display its color in a tooltip
 #
 
-"""Shows a preview of a of a selected color string (like e.g. #fe57a1) \
-and adds a menu items to insert such color stings
+"""Shows a preview of a of a selected color string (like e.g. #fe57a1) in a tooltip \
+and/or all parsed #colors in a 'Palette' tool view, ability to edit/insert #color strings.
 """
 
-import kate
-from kate.gui import QColor, QToolTip, QPalette, QTimer
+import os
+import math
+import string
 
-from PyKDE4.kdeui import KColorDialog
+import kate
+from kate.gui import QColor, QObject, QPalette, QTimer, QToolTip, QWidget, pyqtSlot
+
+from PyQt4 import uic
+
+from PyKDE4.kdecore import i18n
+from PyKDE4.kdeui import KColorDialog, KColorCells
 from PyKDE4.ktexteditor import KTextEditor
 
 from libkatepate import common
 
 
 _INSERT_COLOR_LCC = 'insertColor:lastUsedColor'
-
+_CELLS_COUNT_PER_ROW = 5
+paletteView = None
 
 @kate.action('Insert Color', shortcut='Meta+Shift+C', icon='color', menu='Tools')
 def insertColor():
@@ -77,7 +85,7 @@ def insertColor():
     if not color.isValid():
         color = QColor(kate.configuration[_INSERT_COLOR_LCC])
         if not view.selection():
-            color_range = KTextEditor.Range(cursor, 0)  # Will not override the text under cursor…
+            color_range = KTextEditor.Range(cursor, 0)      # Will not override the text under cursor…
     # Choose a color via dialog
     result = KColorDialog.getColor(color)
     if result == KColorDialog.Accepted:                     # Did user press OK?
@@ -135,12 +143,142 @@ class ColorSwatcher:
             self.old_palette = None
 
 
+class ColorRangePair:
+    """Simple class to store a #color associated w/ a location in a document"""
+    color = None
+    color_range = None
+
+    def __init__(self, color, color_range):
+        self.color = color
+        self.color_range = color_range
+
+
+class PaletteView(QObject):
+    """A toolvide to display palette of the current document"""
+    colors = []
+    toolView = None
+    colorCellsWidget = None
+
+    def __init__(self, parent):
+        super(PaletteView, self).__init__(parent)
+        self.toolView = kate.mainInterfaceWindow().createToolView(
+            "color_tools_pate_plugin"
+          , kate.Kate.MainWindow.Bottom
+          , kate.gui.loadIcon('color')
+          , i18n("Palette")
+          )
+        # By default, the toolview has box layout, which is not easy to delete.
+        # For now, just add an extra widget.
+        top = QWidget(self.toolView)
+        # Set up the user interface from Designer.
+        interior = uic.loadUi(os.path.join(os.path.dirname(__file__), 'color_tools_toolview.ui'), top)
+        interior.update.clicked.connect(self.update)
+        self.colorCellsWidget = KColorCells(interior, 1, 1)
+        interior.verticalLayout.addWidget(self.colorCellsWidget)
+        self.colorCellsWidget.colorSelected.connect(self.colorSelected)
+        self.colorCellsWidget.colorDoubleClicked.connect(self.colorDoubleClicked)
+
+    def __del__(self):
+        """Plugins that use a toolview need to delete it for reloading to work."""
+        if self.toolView:
+            self.toolView.deleteLater()
+            self.toolView = None
+
+    def updateColors(self):
+        """Scan a document for #colors"""
+        self.colors = list()
+        document = kate.activeDocument()
+        for l in range(0, document.lines()):
+            line = document.line(l)                         # Get the current line
+            start = 0                                       # Set initial position to 0 (line start)
+            while start < len(line):                        # Repeat 'till the line end
+                start = line.find('#', start)               # Try to find a '#' character (start of #color)
+                if start == -1:                             # Did we found smth?
+                    break                                   # No! Nothing to do...
+                # Try to get a word right after the '#' char
+                end = start + 1
+                for p, c in enumerate(line[end:]):
+                    if c not in string.hexdigits and c not in string.ascii_letters:
+                        end += p
+                        break
+                color_range = KTextEditor.Range(l, start, l, end)
+                current_color = document.text(color_range)
+                color = QColor(current_color)
+                if color.isValid():
+                    self.colors.append(ColorRangePair(color, color_range))
+                start = end
+
+    def updateColorCells(self):
+        """Calculate rows*columns and fill the cells w/ #colors"""
+        columns = int(math.sqrt(len(self.colors)))
+        rows = int(len(self.colors) / columns) + int(bool(len(self.colors) % columns))
+        self.colorCellsWidget.setColumnCount(columns)
+        self.colorCellsWidget.setRowCount(rows)
+        self.colorCellsWidget.resizeColumnsToContents()
+        self.colorCellsWidget.resizeRowsToContents()
+        for i, crp in enumerate(self.colors):
+            self.colorCellsWidget.setColor(i, crp.color)
+
+    def show(self):
+        self.update()
+        kate.mainInterfaceWindow().showToolView(self.toolView)
+        return True
+
+    @pyqtSlot()
+    def update(self):
+        self.updateColors()
+        self.updateColorCells()
+
+    @pyqtSlot(int, QColor)
+    def colorSelected(self, idx, color):
+        """Move cursor to the position of the selected #color and select the range"""
+        view = kate.activeView()
+        view.setCursorPosition(self.colors[idx].color_range.start())
+        view.setSelection(self.colors[idx].color_range)
+
+    @pyqtSlot(int, QColor)
+    def colorDoubleClicked(self, idx, color):
+        """Edit selected color on double click"""
+        insertColor()
+        self.show()
+
+
+@kate.action('Show Palette', shortcut='Meta+P', menu='View')
+def showPaletteToolView():
+    """Show palette of a document in a toolview"""
+    viewChanged()
+    global paletteView
+    return paletteView.show()
+
+
+@kate.viewChanged
+@kate.viewCreated
+def viewChanged(view=None):
+    """ Rescan current document on view create and/or change"""
+    global paletteView
+    return paletteView.update()
+
+
 @kate.init
-def _init():
+def init():
+    """Iniialize global variables and read config"""
     # Set default value for last used #color if not configured yet
     if _INSERT_COLOR_LCC not in kate.configuration:
         kate.configuration[_INSERT_COLOR_LCC] = 'white'
 
     swatcher = ColorSwatcher()
+
+    # Make an instance of a palette tool view
+    global paletteView
+    if paletteView is None:
+        paletteView = PaletteView(kate.mainWindow())
+
+@kate.unload
+def destroy():
+    """Plugins that use a toolview need to delete it for reloading to work."""
+    global paletteView
+    if paletteView:
+        paletteView.__del__()
+        paletteView = None
 
 # kate: space-indent on; mixedindent off; indent-width 4;

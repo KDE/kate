@@ -395,6 +395,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
+  <tabstop>newTabButton</tabstop>
   <tabstop>searchCombo</tabstop>
   <tabstop>searchButton</tabstop>
   <tabstop>searchPlaceCombo</tabstop>
@@ -412,7 +413,6 @@
   <tabstop>hiddenCheckBox</tabstop>
   <tabstop>symLinkCheckBox</tabstop>
   <tabstop>binaryCheckBox</tabstop>
-  <tabstop>newTabButton</tabstop>
   <tabstop>resultTabWidget</tabstop>
  </tabstops>
  <resources/>

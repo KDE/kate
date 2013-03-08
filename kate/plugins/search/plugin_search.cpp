@@ -818,9 +818,9 @@ void KatePluginSearchView::searchDone()
     if (!m_curResults) {
         return;
     }
-    if (m_curResults->tree->topLevelItemCount() > 0) {
-        m_curResults->tree->setCurrentItem(m_curResults->tree->topLevelItem(0));
-        m_curResults->setFocus(Qt::OtherFocusReason);
+    if (m_curResults->tree->topLevelItemCount() > 1) {
+        m_curResults->tree->setCurrentItem(m_curResults->tree->topLevelItem(1));
+        m_curResults->tree->setFocus(Qt::OtherFocusReason);
     }
     m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);

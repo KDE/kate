@@ -378,7 +378,8 @@ void KatePluginSearchView::setSearchString(const QString &pattern)
 QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
 {
     QString types = m_ui.filterCombo->currentText();
-    if (types.isEmpty() || types == "*") {
+    QString excludes = m_ui.excludeCombo->currentText();
+    if (((types.isEmpty() || types == "*")) && (excludes.isEmpty())) {
         // shortcut for use all files
         return files;
     }
@@ -391,16 +392,36 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
         typeList << rx;
     }
 
+    QStringList tmpExcludes = excludes.split(',');
+    QVector<QRegExp> excludeList;
+    for (int i=0; i<tmpExcludes.size(); i++) {
+        QRegExp rx(tmpExcludes[i]);
+        rx.setPatternSyntax(QRegExp::Wildcard);
+        excludeList << rx;
+    }
+
     QStringList filteredFiles;
     foreach (QString fileName, files) {
         bool isInSubDir = fileName.startsWith(m_resultBaseDir);
-        QString subDirFileName;
+        QString nameToCheck = fileName;
         if (isInSubDir) {
-            subDirFileName = fileName.mid(m_resultBaseDir.size());
+            nameToCheck = fileName.mid(m_resultBaseDir.size());
         }
 
+        bool skip = false;
+        for (int i=0; i<excludeList.size(); i++) {
+            if (excludeList[i].exactMatch(nameToCheck)) {
+                skip = true;
+                break;
+            }
+        }
+        if (skip) {
+            continue;
+        }
+
+
         for (int i=0; i<typeList.size(); i++) {
-            if (typeList[i].exactMatch(isInSubDir ? subDirFileName : fileName)) {
+            if (typeList[i].exactMatch(nameToCheck)) {
                 filteredFiles << fileName;
                 break;
             }
@@ -533,7 +554,7 @@ void KatePluginSearchView::searchPlaceChanged()
     m_ui.folderOptions->setEnabled(inFolder || inProject);
     m_ui.filterCombo->setEnabled(inFolder || inProject);
 
-    m_ui.excludeCombo->setEnabled(inFolder);
+    m_ui.excludeCombo->setEnabled(inFolder || inProject);
     m_ui.folderRequester->setEnabled(inFolder);
     m_ui.folderUpButton->setEnabled(inFolder);
     m_ui.currentFolderButton->setEnabled(inFolder);

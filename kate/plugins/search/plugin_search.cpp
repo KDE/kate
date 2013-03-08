@@ -1017,11 +1017,14 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));
     m_ui.u_expandResults->setChecked(cg.readEntry("ExpandSearchResults", false));
 
-    int searchPlaceIndex = cg.readEntry("Place", 0);
+    int searchPlaceIndex = cg.readEntry("Place", 1);
+    if (searchPlaceIndex < 0) {
+        searchPlaceIndex = 1; // for the case we happen to read -1 as Place
+    }
     if ((searchPlaceIndex == 2) && (searchPlaceIndex >= m_ui.searchPlaceCombo->count())) {
         // handle the case that project mode was selected, butnot yet available
         m_switchToProjectModeWhenAvailable = true;
-        searchPlaceIndex = 0;
+        searchPlaceIndex = 1;
     }
     m_ui.searchPlaceCombo->setCurrentIndex(searchPlaceIndex);
 

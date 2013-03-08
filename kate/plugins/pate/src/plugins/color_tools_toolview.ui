@@ -28,7 +28,7 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="update">
+      <widget class="KPushButton" name="update">
        <property name="toolTip">
         <string>Rescan current document for #colors</string>
        </property>
@@ -41,6 +41,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KPushButton</class>
+   <extends>QPushButton</extends>
+   <header>kpushbutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -196,10 +196,13 @@ class PaletteView(QObject):
             return True
         return self.toolView.eventFilter(obj, event)
 
-    def updateColors(self):
+    def updateColors(self, view=None):
         """Scan a document for #colors"""
-        self.colors = list()
-        document = kate.activeDocument()
+        self.colors = list()                                # Clear previous colors
+        if view:
+            document = view.document()
+        else:
+            document = kate.activeDocument()
         for l in range(0, document.lines()):
             line = document.line(l)                         # Get the current line
             start = 0                                       # Set initial position to 0 (line start)
@@ -209,36 +212,39 @@ class PaletteView(QObject):
                     break                                   # No! Nothing to do...
                 # Try to get a word right after the '#' char
                 end = start + 1
-                for p, c in enumerate(line[end:]):
-                    if c not in string.hexdigits and c not in string.ascii_letters:
-                        end += p
+                for c in line[end:]:
+                    if not (c in string.hexdigits or c in string.ascii_letters):
                         break
+                    end += 1
                 color_range = KTextEditor.Range(l, start, l, end)
-                current_color = document.text(color_range)
-                color = QColor(current_color)
+                color_str = document.text(color_range)
+                color = QColor(color_str)
                 if color.isValid():
                     self.colors.append(ColorRangePair(color, color_range))
+                    print('PALETTE VIEW: Found %s' % color_str)
                 start = end
 
     def updateColorCells(self):
         """Calculate rows*columns and fill the cells w/ #colors"""
-        columns = int(math.sqrt(len(self.colors)))
-        rows = int(len(self.colors) / columns) + int(bool(len(self.colors) % columns))
+        if len(self.colors):
+            # Recalculate rows/columns
+            columns = int(math.sqrt(len(self.colors)))
+            rows = int(len(self.colors) / columns) + int(bool(len(self.colors) % columns))
+        else:
+            columns = 1
+            rows = 1
+            self.colors.append(ColorRangePair(QColor(), KTextEditor.Range()))
         self.colorCellsWidget.setColumnCount(columns)
         self.colorCellsWidget.setRowCount(rows)
         self.colorCellsWidget.resizeColumnsToContents()
         self.colorCellsWidget.resizeRowsToContents()
+        # Fill color cells
         for i, crp in enumerate(self.colors):
             self.colorCellsWidget.setColor(i, crp.color)
 
-    def show(self):
-        self.update()
-        kate.mainInterfaceWindow().showToolView(self.toolView)
-        return True
-
     @pyqtSlot()
-    def update(self):
-        self.updateColors()
+    def update(self, view=None):
+        self.updateColors(view)
         self.updateColorCells()
 
     @pyqtSlot(int, QColor)
@@ -252,15 +258,7 @@ class PaletteView(QObject):
     def colorDoubleClicked(self, idx, color):
         """Edit selected color on double click"""
         insertColor()
-        self.show()
-
-
-@kate.action('Show Palette', shortcut='Meta+P', menu='View')
-def showPaletteToolView():
-    """Show palette of a document in a toolview"""
-    viewChanged()
-    global paletteView
-    return paletteView.show()
+        self.update()
 
 
 @kate.viewChanged
@@ -268,7 +266,7 @@ def showPaletteToolView():
 def viewChanged(view=None):
     """ Rescan current document on view create and/or change"""
     global paletteView
-    return paletteView.update()
+    return paletteView.update(view)
 
 
 @kate.init
@@ -293,4 +291,4 @@ def destroy():
         paletteView.__del__()
         paletteView = None
 
-# kate: space-indent on; mixedindent off; indent-width 4;
+# kate: space-indent on; indent-width 4;

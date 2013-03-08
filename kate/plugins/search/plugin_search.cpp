@@ -803,6 +803,9 @@ void KatePluginSearchView::searchDone()
     }
     m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);
+    if (m_curResults->tree->columnWidth(0) < m_curResults->tree->width()-30) {
+        m_curResults->tree->setColumnWidth(0, m_curResults->tree->width()-30);
+    }
     if (!m_ui.u_expandResults->isChecked()) {
         m_curResults->tree->collapseAll();
     }
@@ -824,6 +827,9 @@ void KatePluginSearchView::searchWhileTypingDone()
 
     m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);
+    if (m_curResults->tree->columnWidth(0) < m_curResults->tree->width()-30) {
+        m_curResults->tree->setColumnWidth(0, m_curResults->tree->width()-30);
+    }
     m_curResults->buttonContainer->setEnabled(true);
 
     connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));

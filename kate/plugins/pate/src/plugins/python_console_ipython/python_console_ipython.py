@@ -141,4 +141,4 @@ def init():
     if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
         console.buffer_size = kate.configuration[_SCROLLBACK_LINES_COUNT_CFG]
 
-# kate: space-indent on; mixedindent off; indent-width 4;
+# kate: space-indent on; indent-width 4;

@@ -343,4 +343,4 @@ def expandAtCursor():
         view.setCursorPosition(insertPosition)
 
 
-# kate: space-indent on; mixedindent off; indent-width 4;
+# kate: space-indent on; indent-width 4;

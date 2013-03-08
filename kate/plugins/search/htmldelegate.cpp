@@ -51,7 +51,7 @@ void SPHtmlDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option
     // draw area
     QRect clip = options.widget->style()->subElementRect(QStyle::SE_ItemViewItemText, &options);
     QFontMetrics metrics(options.font);
-    if ((index.row() == 0) && (!index.parent().isValid())) {
+    if (index.flags() == Qt::NoItemFlags) {
         painter->setBrush(QBrush(QWidget().palette().color(QPalette::Base)));
         painter->setPen(QWidget().palette().color(QPalette::Base));
         painter->drawRect(QRect(clip.topLeft() - QPoint(20, metrics.descent()), clip.bottomRight()));

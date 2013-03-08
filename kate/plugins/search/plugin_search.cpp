@@ -88,6 +88,7 @@ void Results::selectAll(bool)
     if (state == Qt::PartiallyChecked) state = Qt::Checked;
     selectAllCB->setCheckState(state);
     for (int i=0; i<tree->topLevelItemCount(); i++) {
+        if (tree->topLevelItem(i)->flags() == Qt::NoItemFlags) continue;
         tree->topLevelItem(i)->setCheckState(0, state);
     }
     connect(tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(checkCheckedState()));
@@ -97,6 +98,7 @@ void Results::checkCheckedState()
 {
     Qt::CheckState state;
     for (int i=0; i<tree->topLevelItemCount(); i++) {
+        if (tree->topLevelItem(i)->flags() == Qt::NoItemFlags) continue;
         if (i==0) {
             state = tree->topLevelItem(i)->checkState(0);
         }

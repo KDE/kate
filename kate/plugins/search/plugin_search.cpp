@@ -668,7 +668,15 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
         if (ciface) searchColor = ciface->configValue("search-highlight-color").value<QColor>();
         attr->setBackground(searchColor);
     }
-    KTextEditor::Range range(line, column, line, column+matchLen);
+    // calculate end line in case of multi-line match
+    int endLine = line;
+    int endColumn = column+matchLen;
+    while ((endLine < doc->lines()) &&  (endColumn > doc->line(endLine).size())) {
+        endColumn -= doc->line(endLine).size();
+        endColumn--; // remove one for '\n'
+        endLine++;
+    }
+    KTextEditor::Range range(line, column, endLine, endColumn);
     KTextEditor::MovingRange* mr = miface->newMovingRange(range);
     mr->setAttribute(attr);
     mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
@@ -692,8 +700,10 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     if (!m_curResults) {
         return;
     }
+
     QString pre = Qt::escape(lineContent.left(column));
     QString match = Qt::escape(lineContent.mid(column, matchLen));
+    match.replace('\n', "\\n");
     QString post = Qt::escape(lineContent.mid(column + matchLen));
     QStringList row;
     row << i18n("Line: <b>%1</b>: %2", line+1, pre+"<b>"+match+"</b>"+post);

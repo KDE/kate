@@ -44,6 +44,10 @@ public Q_SLOTS:
 private Q_SLOTS:
     void doSearchNextFile(int startLine);
 
+private:
+    int searchSingleLineRegExp(KTextEditor::Document *doc, const QRegExp &regExp, int startLine);
+    int searchMultiLineRegExp(KTextEditor::Document *doc, const QRegExp &regExp, int startLine);
+
 Q_SIGNALS:
     void searchNextFile(int startLine);
     void matchFound(const QString &url, int line, int column, const QString &lineContent, int matchLen);
@@ -54,7 +58,8 @@ private:
     int                           m_nextIndex;
     QRegExp                       m_regExp;
     bool                          m_cancelSearch;
-    
+    QString                       m_fullDoc;
+    QVector<int>                  m_lineStart;
 };
 
 

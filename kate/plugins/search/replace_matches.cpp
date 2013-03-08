@@ -96,36 +96,56 @@ void ReplaceMatches::doReplaceNextMatch()
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
     int line;
     int column;
-    int len;
+    int matchLen;
+    int endLine;
+    int endColumn;
     QTreeWidgetItem *item;
-    
+    QString matchLines;
+
     // lines might be modified so search the document again
     for (int i=0; i<rootItem->childCount(); i++) {
         item = rootItem->child(i);
         if (item->checkState(0) == Qt::Unchecked) continue;
 
-        line = item->data(1, Qt::UserRole).toInt();
+        line = endLine= item->data(1, Qt::UserRole).toInt();
         column = item->data(2, Qt::UserRole).toInt();
-        len = item->data(3, Qt::UserRole).toInt();
-        if (m_regExp.indexIn(doc->line(line), column) != column) {
+        matchLen = item->data(3, Qt::UserRole).toInt();
+        matchLines = doc->line(line).mid(column);
+        while (matchLines.size() < matchLen) {
+            if (endLine+1 >= doc->lines()) break;
+            endLine++;
+            matchLines+= '\n' + doc->line(endLine);
+        }
+
+        if (m_regExp.indexIn(matchLines) != 0) {
             kDebug() << "expression does not match";
             continue;
         }
 
         QString replaceText = m_replaceText;
-        replaceText.replace("\\\\", "¤¤");
+        replaceText.replace("\\\\", "¤Search&Replace¤");
         for (int j=1; j<=m_regExp.captureCount(); j++) {
             replaceText.replace(QString("\\%1").arg(j), m_regExp.cap(j));
         }
-        replaceText.replace("¤¤", "\\\\");
+        replaceText.replace("\\n", "\n");
+        replaceText.replace("¤Search&Replace¤", "\\\\");
         rTexts << replaceText;
 
+        replaceText.replace('\n', "\\n");
         QString html = item->data(1, Qt::ToolTipRole).toString();
         html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
         html += "<b>" + replaceText + "</b>";
         html += item->data(3, Qt::ToolTipRole).toString();
         item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",line+1, html));
-        KTextEditor::Range range(line, column, line, column+len);
+
+        endLine = line;
+        endColumn = column+matchLen;
+        while ((endLine < doc->lines()) &&  (endColumn > doc->line(endLine).size())) {
+            endColumn -= doc->line(endLine).size();
+            endColumn--; // remove one for '\n'
+            endLine++;
+        }
+        KTextEditor::Range range(line, column, endLine, endColumn);
         KTextEditor::MovingRange* mr = miface->newMovingRange(range);
         rVector.append(mr);
     }

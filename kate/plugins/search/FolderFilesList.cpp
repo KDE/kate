@@ -85,6 +85,9 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         return;
     }
     if (item.isFile()) {
+        if (!m_binary && KMimeType::isBinaryData(item.absoluteFilePath())) {
+            return;
+        }
         m_files << item.absoluteFilePath();
     }
     else {

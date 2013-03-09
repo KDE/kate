@@ -1044,6 +1044,7 @@ bool KateViNormalMode::commandChange()
     return commandPrependToBlock();
   }
 
+  setCount(0); // The count was for the motion, not the insertion.
   commandEnterInsertMode();
 
   // correct indentation level

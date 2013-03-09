@@ -301,6 +301,7 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo\nbar", "j5Ohello\\esc", "foo\nhello\nhello\nhello\nhello\nhello\nbar");
   DoTest("bar", "5ohello\\esc2ixyz\\esc", "bar\nhello\nhello\nhello\nhello\nhellxyzxyzo");
   DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo");
+  DoTest("foo foo foo", "c3wbar\\esc", "bar");
   DoTest("abc", "lOxyz", "xyz\nabc");
 
   // Testing "Ctrl-w"

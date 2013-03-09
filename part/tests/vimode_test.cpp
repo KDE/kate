@@ -474,6 +474,8 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("FOO{\nBAR}BAZ", "lllgu%", "FOO{\nbar}BAZ");
   DoTest("foo{\nbar}baz", "lllgU%", "foo{\nBAR}baz");
   DoTest("foo{\nbar\n}", "llly%p", "foo{{\nbar\n}\nbar\n}");
+  // Regression bug for test where yanking with % would actually move the cursor.
+  DoTest("a()", "y%x", "()");
 
   // Testing percentage "<N>%"
   DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",

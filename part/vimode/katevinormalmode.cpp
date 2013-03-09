@@ -2332,7 +2332,6 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   if ( brackets.indexIn ( l, n1 ) == n1 ) {
     // move the cursor to the first bracket
     c.setColumn( n1 + 1 );
-    updateCursor( c );
 
     // find the matching one
     c = m_viewInternal->findMatchingBracket();

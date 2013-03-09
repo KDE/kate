@@ -117,6 +117,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   if ( keyCode == Qt::Key_Escape || (keyCode == Qt::Key_C && e->modifiers() == Qt::ControlModifier)) {
     m_view->setCaretStyle( KateRenderer::Block, true );
     m_pendingResetIsDueToExit = true;
+    // Vim in weird as if we e.g. i<ctrl-o><ctrl-c> it claims (in the status bar) to still be in insert mode,
+    // but behaves as if it's in normal mode. I'm treating the status bar thing as a bug and just exiting
+    // insert mode altogether.
+    m_viInputModeManager->setTemporaryNormalMode(false);
     reset();
     return true;
   }

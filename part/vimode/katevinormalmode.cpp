@@ -2330,15 +2330,20 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
   // use Kate's built-in matching bracket finder for brackets
   if ( brackets.indexIn ( l, n1 ) == n1 ) {
-    // move the cursor to the first bracket
+    // findMatchingBracket requires us to move the cursor to the
+    // first bracket, but we don't want the cursor to really move
+    // in case this is e.g. a yank, so restore it to its original
+    // position afterwards.
     c.setColumn( n1 + 1 );
+    const Cursor oldCursorPos = m_view->cursorPosition();
+    updateCursor(c);
 
     // find the matching one
     c = m_viewInternal->findMatchingBracket();
-
     if ( c > m_view->cursorPosition() ) {
       c.setColumn( c.column() - 1 );
     }
+    m_view->setCursorPosition(oldCursorPos);
   } else {
     // text item we want to find a matching item for
     int n2 = l.indexOf( QRegExp( "\\b|\\s|$" ), n1 );

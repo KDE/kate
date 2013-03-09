@@ -20,7 +20,6 @@
 
 #include "SearchDiskFiles.h"
 #include "SearchDiskFiles.moc"
-#include <kmimetype.h>
 #include <kdebug.h>
 
 #include <QDir>

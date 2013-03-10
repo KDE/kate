@@ -14,33 +14,38 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef INDENTTEST_H
-#define INDENTTEST_H
+#ifndef SCRIPT_TEST_H
+#define SCRIPT_TEST_H
 
 #include <QtCore/QObject>
+#include <QtCore/QStringList>
+#include <QtCore/QPair>
 
-#include "script_test_base.h"
+class TestScriptEnv;
+class KateDocument;
+class KateView;
+class KMainWindow;
 
-class IndentTest : public ScriptTestBase
+class ScriptTestBase : public QObject
 {
   Q_OBJECT
-private slots:
+
+protected:
   void initTestCase();
+  void cleanupTestCase();
+  typedef QPair<const char*, const char*> Failure;
+  typedef QList<Failure> ExpectedFailures;
+  void getTestData(const QString& script);
+  void runTest(const ExpectedFailures& failures);
 
-  void python_data();
-  void python();
-
-  void cstyle_data();
-  void cstyle();
-
-  void ruby_data();
-  void ruby();
-
-  void haskell_data();
-  void haskell();
-
-  void normal_data();
-  void normal();
+  TestScriptEnv* m_env;
+  KateDocument* m_document;
+  KMainWindow* m_toplevel;
+  bool m_outputWasCustomised;
+  QStringList m_commands;
+  KateView* m_view;
+  QString m_section;  // dir name in testdata/
+  QString m_script_dir;  // dir name in part/script/data/
 };
 
-#endif // INDENTTEST_H
+#endif // SCRIPT_TEST_H

@@ -14,33 +14,21 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef INDENTTEST_H
-#define INDENTTEST_H
+#ifndef COMMANDS_TEST_H
+#define COMMANDS_TEST_H
 
 #include <QtCore/QObject>
 
 #include "script_test_base.h"
 
-class IndentTest : public ScriptTestBase
+class CommandsTest : public ScriptTestBase
 {
   Q_OBJECT
 private slots:
   void initTestCase();
 
-  void python_data();
-  void python();
-
-  void cstyle_data();
-  void cstyle();
-
-  void ruby_data();
-  void ruby();
-
-  void haskell_data();
-  void haskell();
-
-  void normal_data();
-  void normal();
+  void utils_data();
+  void utils();
 };
 
-#endif // INDENTTEST_H
+#endif // COMMANDS_TEST_H

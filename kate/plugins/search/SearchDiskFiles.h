@@ -42,6 +42,9 @@ public:
 
     bool searching();
 
+private:
+    void searchSingleLineRegExp(const QString &fileName);
+    void searchMultiLineRegExp(const QString &fileName);
 
 public Q_SLOTS:
     void cancelSearch();

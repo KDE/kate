@@ -137,7 +137,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
     column = regExp.indexIn(m_fullDoc, column);
     while (column != -1) {
         if (regExp.cap().isEmpty()) break;
-        // search for the line number or the match
+        // search for the line number of the match
         int i;
         line = -1;
         for (i=1; i<m_lineStart.size(); i++) {

@@ -54,26 +54,11 @@ void SearchDiskFiles::run()
             break;
         }
 
-        QFile file (fileName);
-
-        if (!file.open(QFile::ReadOnly))
-            continue;
-
-        QTextStream stream (&file);
-        QString line;
-        int i = 0;
-        int column;
-        while (!(line=stream.readLine()).isNull()) {
-            if (m_cancelSearch) break;
-            column = m_regExp.indexIn(line);
-            while (column != -1) {
-                if (m_regExp.cap().isEmpty()) break;
-                // limit line length
-                if (line.length() > 512) line = line.left(512);
-                emit matchFound(fileName, i, column, line, m_regExp.matchedLength());
-                column = m_regExp.indexIn(line, column + m_regExp.cap().size());
-            }
-            i++;
+        if (m_regExp.pattern().contains("\\n")) {
+            searchMultiLineRegExp(fileName);
+        }
+        else {
+            searchSingleLineRegExp(fileName);
         }
     }
     emit searchDone();
@@ -89,3 +74,80 @@ bool SearchDiskFiles::searching()
 {
     return !m_cancelSearch;
 }
+
+void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
+{
+    QFile file (fileName);
+
+    if (!file.open(QFile::ReadOnly)) {
+        return;
+    }
+
+    QTextStream stream (&file);
+    QString line;
+    int i = 0;
+    int column;
+    while (!(line=stream.readLine()).isNull()) {
+        if (m_cancelSearch) break;
+        column = m_regExp.indexIn(line);
+        while (column != -1) {
+            if (m_regExp.cap().isEmpty()) break;
+            // limit line length
+            if (line.length() > 512) line = line.left(512);
+            emit matchFound(fileName, i, column, line, m_regExp.matchedLength());
+            column = m_regExp.indexIn(line, column + m_regExp.cap().size());
+        }
+        i++;
+    }
+}
+
+void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
+{
+    QFile file (fileName);
+    int column = 0;
+    int line = 0;
+    static QString fullDoc;
+    static QVector<int> lineStart;
+
+
+    if (!file.open(QFile::ReadOnly)) {
+        return;
+    }
+
+    QTextStream stream (&file);
+    fullDoc = stream.readAll();
+    fullDoc.remove('\r');
+
+    lineStart.clear();
+    lineStart << 0;
+    for (int i=0; i<fullDoc.size()-1; i++) {
+        if (fullDoc[i] == '\n') {
+            lineStart << i+1;
+        }
+    }
+
+    column = m_regExp.indexIn(fullDoc, column);
+    while (column != -1) {
+        if (m_cancelSearch) break;
+        if (m_regExp.cap().isEmpty()) break;
+        // search for the line number of the match
+        int i;
+        line = -1;
+        for (i=1; i<lineStart.size(); i++) {
+            if (lineStart[i] > column) {
+                line = i-1;
+                break;
+            }
+        }
+        if (line == -1) {
+            break;
+        }
+        emit matchFound(fileName,
+                        line,
+                        (column - lineStart[line]),
+                        fullDoc.mid(lineStart[line], column - lineStart[line])+m_regExp.cap(),
+                        m_regExp.matchedLength());
+        column = m_regExp.indexIn(fullDoc, column + m_regExp.matchedLength());
+    }
+}
+

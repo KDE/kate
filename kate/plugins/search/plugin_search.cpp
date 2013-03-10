@@ -166,6 +166,7 @@ m_projectPluginView(0)
 
     QWidget *container = new QWidget(m_toolView);
     m_ui.setupUi(container);
+    container->setFocusProxy(m_ui.searchCombo);
 
     KAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));

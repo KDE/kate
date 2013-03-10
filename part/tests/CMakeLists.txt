@@ -208,12 +208,25 @@ target_link_libraries( templatehandler_test
 
 set(indenttest_SRCS
   indenttest.cpp
+  script_test_base.cpp
   testutils.cpp
 )
 
 kde4_add_unit_test(indenttest TESTNAME kate-indenttest ${indenttest_SRCS})
 
 target_link_libraries(indenttest ${KATE_TEST_LINK_LIBS})
+
+########### commands test ################
+
+set(commands_test_SRCS
+  commands_test.cpp
+  script_test_base.cpp
+  testutils.cpp
+)
+
+kde4_add_unit_test(commands_test TESTNAME kate-commands_test ${commands_test_SRCS})
+
+target_link_libraries(commands_test ${KATE_TEST_LINK_LIBS})
 
 ########### bug 213964 test ###############
 

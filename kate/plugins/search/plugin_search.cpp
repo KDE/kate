@@ -482,12 +482,12 @@ void KatePluginSearchView::startSearch()
     if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
         m_resultBaseDir.clear();
         const QList<KTextEditor::Document*> & documents = m_kateApp->documentManager()->documents();
-        addHeaderItem(i18n("<b><i>Results from %1 open files</i></b>").arg(documents.size()));
+        addHeaderItem(i18np("<b><i>Results from 1 open file</i></b>", "<b><i>Results from %1 open files</i></b>", documents.size()));
         m_searchOpenFiles.startSearch(documents, reg);
     }
     else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
         m_resultBaseDir = m_ui.folderRequester->text();
-        addHeaderItem(i18n("<b><i>Results in folder %1</i></b>").arg(m_resultBaseDir));
+        addHeaderItem(i18n("<b><i>Results in folder %1</i></b>", m_resultBaseDir));
         m_folderFilesList.generateList(m_ui.folderRequester->text(),
                                        m_ui.recursiveCheckBox->isChecked(),
                                        m_ui.hiddenCheckBox->isChecked(),
@@ -508,7 +508,7 @@ void KatePluginSearchView::startSearch()
             m_resultBaseDir = m_projectPluginView->property ("projectBaseDir").toString();
             if (!m_resultBaseDir.endsWith("/"))
                 m_resultBaseDir += "/";
-            addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>").arg(projectName).arg(m_resultBaseDir));
+            addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>", projectName, m_resultBaseDir));
             QStringList projectFiles = m_projectPluginView->property ("projectFiles").toStringList();
             files = filterFiles(projectFiles);
         }

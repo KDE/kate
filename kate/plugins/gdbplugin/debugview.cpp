@@ -288,6 +288,7 @@ static QRegExp stackFrameFile( "#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\
 static QRegExp changeFile( "(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*" );
 static QRegExp changeLine( "(\\d+)\\s+.*" );
 static QRegExp breakPointReg( "Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*" );
+static QRegExp breakPointMultiReg( "Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+([^\\,]+):(\\d+).*" );
 static QRegExp breakPointDel( "Deleted\\s+breakpoint.*" );
 static QRegExp exitProgram( "(?:Program|.*Inferior.*)\\s+exited.*" );
 static QRegExp threadLine( "\\**\\s+(\\d+)\\s+Thread.*" );
@@ -362,7 +363,7 @@ void DebugView::processLine( QString line )
                 }
                 m_debugLocationChanged = true;
             }
-            else if (breakPointReg.exactMatch(line)) 
+            else if (breakPointReg.exactMatch(line))
             {
                 BreakPoint breakPoint;
                 breakPoint.number = breakPointReg.cap( 1 ).toInt();
@@ -371,7 +372,16 @@ void DebugView::processLine( QString line )
                 m_breakPointList << breakPoint;
                 emit breakPointSet( breakPoint.file, breakPoint.line -1 );
             }
-            else if (breakPointDel.exactMatch(line)) 
+            else if (breakPointMultiReg.exactMatch(line))
+            {
+                BreakPoint breakPoint;
+                breakPoint.number = breakPointMultiReg.cap( 1 ).toInt();
+                breakPoint.file = resolveFileName( breakPointMultiReg.cap( 2 ) );
+                breakPoint.line = breakPointMultiReg.cap( 3 ).toInt();
+                m_breakPointList << breakPoint;
+                emit breakPointSet( breakPoint.file, breakPoint.line -1 );
+            }
+            else if (breakPointDel.exactMatch(line))
             {
                 line.remove("Deleted breakpoint");
                 line.remove("s"); // in case of multiple breakpoints

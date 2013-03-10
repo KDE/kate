@@ -174,6 +174,7 @@ m_projectPluginView(0)
                                           i18n("Search and Replace"));
     QWidget *container = new QWidget(m_toolView);
     m_ui.setupUi(container);
+    container->setFocusProxy(m_ui.searchCombo);
 
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
 

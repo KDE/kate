@@ -271,6 +271,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     virtual void reset();
 
     void setMappingTimeout(int timeoutMS);
+
+    void beginMonitoringDocumentChanges();
   protected:
     void resetParser();
     void initializeCommands();
@@ -340,6 +342,11 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     // Ctrl-c or ESC have been pressed, leading to a call to reset().
     bool m_pendingResetIsDueToExit;
+
+    Cursor m_currentChangeEndMarker;
+private slots:
+    void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
+    void textRemoved(KTextEditor::Document*,KTextEditor::Range);
 };
 
 #endif

@@ -69,6 +69,10 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
            this,
            SLOT(markChanged(KTextEditor::Document*, KTextEditor::Mark,
                             KTextEditor::MarkInterface::MarkChangeAction)));
+  // We have to do this outside of KateViNormalMode, as we don't want
+  // KateViVisualMode (which inherits from KateViNormalMode) to respond
+  // to changes in the document as well.
+  m_viNormalMode->beginMonitoringDocumentChanges();
 }
 
 KateViInputModeManager::~KateViInputModeManager()
@@ -548,7 +552,7 @@ void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, cons
   m_marks.insert( mark, doc->newMovingCursor( pos, behavior ) );
 
   // Showing what mark we set:
-  if ( showmark && mark != '>' && mark != '<' ) {
+  if ( showmark && mark != '>' && mark != '<' && mark != '[' && mark != '.' && mark != ']') {
     if( !marktype & KTextEditor::MarkInterface::markType01 ) {
       m_view->doc()->addMark( pos.line(),
           KTextEditor::MarkInterface::markType01 );

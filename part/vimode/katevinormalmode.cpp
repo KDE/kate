@@ -465,6 +465,7 @@ void KateViNormalMode::resetParser()
 
   m_commandShouldKeepSelection = false;
 
+  m_currentChangeEndMarker = Cursor::invalid();
 }
 
 // reset the command parser
@@ -478,6 +479,14 @@ void KateViNormalMode::reset()
 void KateViNormalMode::setMappingTimeout(int timeoutMS)
 {
   m_timeoutlen = timeoutMS;
+}
+
+void KateViNormalMode::beginMonitoringDocumentChanges()
+{
+  connect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+          this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
+  connect(doc(), SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+          this, SLOT(textRemoved(KTextEditor::Document*,KTextEditor::Range)));
 }
 
 void KateViNormalMode::goToPos( const KateViRange &r )
@@ -3022,7 +3031,7 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("gE", motionToEndOfPrevWORD, 0 );
   ADDMOTION("|", motionToScreenColumn, 0 );
   ADDMOTION("%", motionToMatchingItem, IS_NOT_LINEWISE );
-  ADDMOTION("`[a-zA-Z^><]", motionToMark, REGEX_PATTERN );
+  ADDMOTION("`[a-zA-Z^><\\.\\[\\]]", motionToMark, REGEX_PATTERN );
   ADDMOTION("'[a-zA-Z^><]", motionToMarkLine, REGEX_PATTERN );
   ADDMOTION("[[", motionToPreviousBraceBlockStart, 0 );
   ADDMOTION("]]", motionToNextBraceBlockStart, 0 );
@@ -3325,4 +3334,51 @@ void KateViNormalMode::executeMapping()
     m_viInputModeManager->feedKeyPresses(mappedKeypresses);
   }
   doc()->editEnd();
+}
+
+void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range)
+{
+  kDebug() << "text inserted: " << range << " m_currentChangeEndMarker: " << m_currentChangeEndMarker;
+  const bool beginningMarkerIsBeingMovedByInserts = (m_viInputModeManager->getMarkPosition('[') == m_view->cursorPosition());
+  if (beginningMarkerIsBeingMovedByInserts)
+  {
+    // We've deleted during this insertion in such a way that the '[' marker is being automatically
+    // moved around by Kate's MovingCursor mechanism: manually put it behind the cursor,
+    // out of harm's way.
+    Cursor beforeInsertPoint = m_view->cursorPosition();
+    beforeInsertPoint.setColumn(beforeInsertPoint.column() - 1);
+    m_viInputModeManager->addMark(doc(), '[', beforeInsertPoint);
+  }
+  const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
+  const bool continuesInsertion = range.start().line() == m_currentChangeEndMarker.line() && range.start().column() == m_currentChangeEndMarker.column();
+  if (!continuesInsertion)
+  {
+    m_viInputModeManager->addMark(doc(), '[', range.start());
+  }
+  m_viInputModeManager->addMark(doc(), '.', range.start());
+  Cursor editEndMarker = range.end();
+  if (!isInsertMode)
+  {
+    editEndMarker.setColumn(editEndMarker.column() - 1);
+  }
+  m_viInputModeManager->addMark(doc(), ']', editEndMarker);
+  m_currentChangeEndMarker = range.end();
+}
+
+void KateViNormalMode::textRemoved(KTextEditor::Document* document , Range range)
+{
+  const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
+  m_viInputModeManager->addMark(doc(), '.', range.start());
+  if (!isInsertMode)
+  {
+    // Don't go resetting [ just because we did a Ctrl-h!
+    m_viInputModeManager->addMark(doc(), '[', range.start());
+  }
+  else
+  {
+    // Don't go disrupting our continued insertion just because we did a Ctrl-h!
+    m_currentChangeEndMarker = range.start();
+  }
+  m_viInputModeManager->addMark(doc(), ']', range.start());
+  kDebug() << "text removed: " << range;
 }

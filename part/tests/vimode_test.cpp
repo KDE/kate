@@ -728,6 +728,37 @@ void ViModeTest::NormalModeCommandsTest() {
 
   DoTest("fop\nbar", "yiwjlpx", "fop\nbafor");
   DoTest("fop\nbar", "yiwjlPx", "fop\nbfoar");
+
+  // Last edit markers.
+  DoTest("foo", "ean\\escgg`.r.", "foo.");
+  DoTest("foo", "ean\\escgg`[r[", "foo[");
+  DoTest("foo", "ean\\escgg`]r]", "foo]");
+  DoTest("foo bar", "ean\\escgg`]r]", "foon]bar");
+  DoTest("", "ibar\\escgg`.r.", "ba.");
+  DoTest("", "ibar\\escgggUiw`.r.", ".AR");
+  DoTest("", "2ibar\\escgg`]r]", "barba]");
+  DoTest("", "2ibar\\escgg`[r[", "[arbar");
+  DoTest("", "3ibar\\escgg`.r.", "barbar.ar"); // Vim is weird.
+  DoTest("", "abar\\esc.gg`]r]", "barba]");
+  DoTest("foo bar", "wgUiwgg`]r]", "foo BA]");
+  DoTest("foo bar", "wgUiwgg`.r.", "foo .AR");
+  DoTest("foo bar", "gUiwgg`]r.", "FO. bar");
+  DoTest("foo bar", "wdiwgg`[r[", "foo[");
+  DoTest("foo bar", "wdiwgg`]r]", "foo]");
+  DoTest("foo bar", "wdiwgg`.r.", "foo.");
+  DoTest("foo bar", "wciwnose\\escgg`.r.", "foo nos.");
+  DoTest("foo bar", "wciwnose\\escgg`[r[", "foo [ose");
+  DoTest("foo bar", "wciwnose\\escgg`]r]", "foo nos]");
+  DoTest("foo", "~ibar\\escgg`[r[", "F[aroo");
+  DoTest("foo bar", "lragg`.r.", "f.o bar");
+  DoTest("foo bar", "lragg`[r[", "f[o bar");
+  DoTest("foo bar", "lragg`]r]", "f]o bar");
+  DoTest("", "ifoo\\ctrl-hbar\\esc`[r[", "[obar");
+  DoTest("", "ifoo\\ctrl-wbar\\esc`[r[", "[ar");
+  DoTest("", "if\\ctrl-hbar\\esc`[r[", "[ar");
+  DoTest("", "5ofoo\\escgg`[r[", "\n[oo\nfoo\nfoo\nfoo\nfoo");
+  DoTest("", "5ofoo\\escgg`]r]", "\nfoo\nfoo\nfoo\nfoo\nfo]");
+  DoTest("", "5ofoo\\escgg`.r.", "\nfoo\nfoo\nfoo\nfoo\n.oo");
 }
 
 

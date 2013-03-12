@@ -755,7 +755,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 
     // set the cursor to the correct position
     mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(toLine, toColumn));
-    //mainWindow()->activeView()->setFocus();
+    mainWindow()->activeView()->setFocus();
 }
 
 void KatePluginSearchView::goToNextMatch()

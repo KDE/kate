@@ -47,6 +47,7 @@
 #include <QKeyEvent>
 #include <QClipboard>
 #include <QMenu>
+#include <QMetaObject>
 #include <QTextDocument>
 #include <QScrollBar>
 
@@ -150,6 +151,43 @@ Kate::PluginView *KatePluginSearch::createView(Kate::MainWindow *mainWindow)
 }
 
 
+// This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
+class ContainerWidget:public QWidget
+{
+public:
+    ContainerWidget(QWidget* parent):QWidget(parent), searchCombo(0), firstFocusWidget(0), lastFocusWidget(0) {}
+    void setWidgets(QComboBox* theSearchBox, QWidget* theFirstFocusWidget, QWidget* theLastFocusWidget);
+protected:
+    virtual bool focusNextPrevChild (bool next);
+    QComboBox* searchCombo;
+    QWidget* firstFocusWidget;
+    QWidget* lastFocusWidget;
+};
+
+void ContainerWidget::setWidgets(QComboBox* theSearchCombo, QWidget* theFirstFocusWidget, QWidget* theLastFocusWidget)
+{
+    searchCombo = theSearchCombo;
+    firstFocusWidget = theFirstFocusWidget;
+    lastFocusWidget = theLastFocusWidget;
+}
+
+bool ContainerWidget::focusNextPrevChild (bool next)
+{
+    const QWidget* fw = focusWidget();
+    // we use the object names here because there can be multiple replaceButtons (on multiple result tabs)
+    if (next && ((fw->objectName() == "binaryCheckBox") || (fw->objectName() == "replaceButton"))) {
+        firstFocusWidget->setFocus();
+        return true;
+    }
+    if (!next && focusWidget() == firstFocusWidget) {
+        // this is not really good, but still kind of ok if the result-tab is visible
+        lastFocusWidget->setFocus();
+        return true;
+    }
+    return QWidget::focusNextPrevChild(next);
+}
+
+
 KatePluginSearchView::KatePluginSearchView(Kate::MainWindow *mainWin, Kate::Application* application)
 : Kate::PluginView(mainWin),
 Kate::XMLGUIClient(KatePluginSearchFactory::componentData()),
@@ -164,9 +202,10 @@ m_projectPluginView(0)
                                           SmallIcon("edit-find"),
                                           i18n("Search and Replace"));
 
-    QWidget *container = new QWidget(m_toolView);
+    ContainerWidget *container = new ContainerWidget(m_toolView);
     m_ui.setupUi(container);
     container->setFocusProxy(m_ui.searchCombo);
+    container->setWidgets(m_ui.searchCombo, m_ui.newTabButton, m_ui.binaryCheckBox);
 
     KAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));

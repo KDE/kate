@@ -173,11 +173,10 @@ m_projectPluginView(0)
     connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
 
     a = actionCollection()->addAction("search_in_files_new_tab");
-    a->setText(i18n("Search in Files (new tab)"));
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
+    a->setText(i18n("Search in Files (in new tab)"));
+    // first add tab, then open search view, since open search view switches to show the search options
     connect(a, SIGNAL(triggered(bool)), this, SLOT(addTab()));
-    connect(a, SIGNAL(triggered(bool)), m_ui.displayOptions, SLOT(toggle()));
-    // toggle works her because addTab() sets it to not pressed
+    connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
 
     a = actionCollection()->addAction("go_to_next_match");
     a->setText(i18n("Go to Next Match"));

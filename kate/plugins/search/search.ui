@@ -397,6 +397,11 @@
  <tabstops>
   <tabstop>newTabButton</tabstop>
   <tabstop>searchCombo</tabstop>
+  <tabstop>folderRequester</tabstop>
+  <tabstop>folderUpButton</tabstop>
+  <tabstop>currentFolderButton</tabstop>
+  <tabstop>filterCombo</tabstop>
+  <tabstop>excludeCombo</tabstop>
   <tabstop>searchButton</tabstop>
   <tabstop>searchPlaceCombo</tabstop>
   <tabstop>stopButton</tabstop>
@@ -404,11 +409,6 @@
   <tabstop>matchCase</tabstop>
   <tabstop>useRegExp</tabstop>
   <tabstop>u_expandResults</tabstop>
-  <tabstop>folderRequester</tabstop>
-  <tabstop>folderUpButton</tabstop>
-  <tabstop>currentFolderButton</tabstop>
-  <tabstop>filterCombo</tabstop>
-  <tabstop>excludeCombo</tabstop>
   <tabstop>recursiveCheckBox</tabstop>
   <tabstop>hiddenCheckBox</tabstop>
   <tabstop>symLinkCheckBox</tabstop>

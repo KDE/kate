@@ -1168,6 +1168,7 @@ void KateViModeBase::addToNumberUnderCursor( int count )
         doc()->removeText( KTextEditor::Range( c.line(), start , c.line(), start+nString.length() ) );
         doc()->insertText( KTextEditor::Cursor( c.line(), start ), newText );
         doc()->editEnd();
+        updateCursor(Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() - 1));
     }
 }
 

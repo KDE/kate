@@ -33,6 +33,9 @@ private slots:
   void cstyle_data();
   void cstyle();
 
+  void cppstyle_data();
+  void cppstyle();
+
   void ruby_data();
   void ruby();
 

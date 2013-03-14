@@ -232,7 +232,10 @@ void KateConsole::cd (const KUrl &url)
 {
   if (m_currentPath == url.path())
     return;
-  
+
+  if (!m_part)
+    return;
+
   m_currentPath = url.path();
   sendInput("cd " + KShell::quoteArg(m_currentPath) + '\n');
 }

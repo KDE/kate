@@ -273,6 +273,10 @@ void ViModeTest::VisualModeTests() {
     // Testing undo behaviour with c and cc
     DoTest("foo", "ciwbar\\escu", "foo");
     DoTest("foo", "ccbar\\escu", "foo");
+
+    // Regression test for ][ in Visual Mode.
+    DoTest("foo {\n\n}", "lV][d", "");
+
 }
 
 void ViModeTest::InsertModeTests() {

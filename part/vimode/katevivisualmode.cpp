@@ -146,8 +146,6 @@ void KateViVisualMode::goToPos( const KateViRange &r )
 
 void KateViVisualMode::reset()
 {
-    m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
-
     m_mode = VisualMode;
 
     // only switch to normal mode if still in visual mode. commands like c, s, ...
@@ -217,8 +215,6 @@ void KateViVisualMode::init()
       m_selection_is_changed_inside_ViMode = false;
 
     }
-
-    m_awaitingMotionOrTextObject.push_back( 0 ); // search for text objects/motion from char 0
 
     m_commandRange.startLine = m_commandRange.endLine = m_start.line();
     m_commandRange.startColumn = m_commandRange.endColumn = m_start.column();

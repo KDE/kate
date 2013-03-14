@@ -2485,6 +2485,13 @@ KateViRange KateViNormalMode::motionToNextBraceBlockEnd()
   r.endColumn = 0;
   r.jump = true;
 
+  if (motionWillBeUsedWithCommand())
+  {
+    // Don't include the "}" when used with a command.
+    r.endLine--;
+    r.endColumn = doc()->lineLength(r.endLine);
+  }
+
   return r;
 }
 

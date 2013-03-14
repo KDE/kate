@@ -301,6 +301,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     QVector<int> m_matchingCommands;
     QVector<int> m_matchingMotions;
     QStack<int> m_awaitingMotionOrTextObject;
+    bool motionWillBeUsedWithCommand() { return !m_awaitingMotionOrTextObject.isEmpty(); };
 
     int m_motionOperatorIndex;
 

@@ -23,12 +23,12 @@ set(SIP_INCLUDES ${PYQT4_SIP_DIR} ${PYKDE4_SIP_DIR} ./kate)
 set(SIP_CONCAT_PARTS 1)
 set(SIP_TAGS ALL WS_X11 ${PYQT4_VERSION_TAG})
 
-if(PYQT4_VERSION LESS "040905")  
+if(PYQT4_VERSION STRLESS "040905")
     set(SIP_EXTRA_OPTIONS -g)
-else (PYQT4_VERSION LESS "040905")
+else (PYQT4_VERSION STRLESS "040905")
     # Disable QVector<int> for newer PyQt
     set(SIP_EXTRA_OPTIONS -g -x PyKDE_QVector)
-endif(PYQT4_VERSION LESS "040905")
+endif(PYQT4_VERSION STRLESS "040905")
 
 add_sip_python_module(PyKate4.kate ./kate/katemod.sip ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces)
 

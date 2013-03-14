@@ -590,10 +590,14 @@ KateViRange innerRange(KateViRange range, bool inner) {
   KateViRange r = range;
 
   if (inner) {
+    const int columnDistance = qAbs(r.startColumn - r.endColumn);
+    if ((r.startLine == r.endLine) && columnDistance == 1 )
+    {
+      // Start and end are right next to each other; there is nothing inside them.
+      r.valid = false;
+    }
     r.startColumn++;
     r.endColumn--;
-    if ((r.startLine == r.endLine) && qAbs(r.startColumn - r.endColumn) < 2 )
-      r.valid = false;
   }
 
   return r;

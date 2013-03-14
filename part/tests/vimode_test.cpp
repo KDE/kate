@@ -596,6 +596,9 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "( foo ( bar ) )baz", "di(", "()baz" );
   DoTest( "( foo ( bar ) )baz", "da(", "baz" );
   DoTest( "[foo [ bar] [(a)b [c]d ]]","$hda]", "[foo [ bar] ]");
+  DoTest( "(a)", "di(", "()");
+  DoTest( "(ab)", "di(", "()");
+  DoTest( "(abc)", "di(", "()");
 
   DoTest( "hi!))))}}]]","di]di}da)di)da]", "hi!))))}}]]" );
 

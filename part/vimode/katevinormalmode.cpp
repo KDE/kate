@@ -2505,9 +2505,14 @@ KateViRange KateViNormalMode::motionToNextBraceBlockEnd()
 
   if (motionWillBeUsedWithCommand())
   {
-    // Don't include the "}" when used with a command.
-    r.endLine--;
-    r.endColumn = doc()->lineLength(r.endLine);
+    // Delete from cursor (inclusive) to the '}' (exclusive).
+    // If we are on the first column, then delete the entire current line.
+    r.motionType = ViMotion::ExclusiveMotion;
+    if (m_view->cursorPosition().column() != 0)
+    {
+      r.endLine--;
+      r.endColumn = doc()->lineLength(r.endLine);
+    }
   }
 
   return r;
@@ -3060,7 +3065,7 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("[[", motionToPreviousBraceBlockStart, IS_NOT_LINEWISE );
   ADDMOTION("]]", motionToNextBraceBlockStart, IS_NOT_LINEWISE );
   ADDMOTION("[]", motionToPreviousBraceBlockEnd, 0 );
-  ADDMOTION("][", motionToNextBraceBlockEnd, 0 );
+  ADDMOTION("][", motionToNextBraceBlockEnd, IS_NOT_LINEWISE );
   ADDMOTION("*", motionToNextOccurrence, 0 );
   ADDMOTION("#", motionToPrevOccurrence, 0 );
   ADDMOTION("H", motionToFirstLineOfWindow, 0 );

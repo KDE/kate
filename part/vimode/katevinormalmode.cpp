@@ -2447,7 +2447,14 @@ KateViRange KateViNormalMode::motionToNextBraceBlockStart()
 
   if (motionWillBeUsedWithCommand())
   {
+    // Delete from cursor (inclusive) to the '{' (exclusive).
+    // If we are on the first column, then delete the entire current line.
     r.motionType = ViMotion::ExclusiveMotion;
+    if (m_view->cursorPosition().column() != 0)
+    {
+      r.endLine--;
+      r.endColumn = doc()->lineLength(r.endLine);
+    }
   }
 
   return r;

@@ -87,8 +87,22 @@
 const QString srcPath(KDESRCDIR);
 const QString testDataPath(KDESRCDIR "../../testdata/");
 
+
+QtMsgHandler ScriptTestBase::m_msgHandler = 0;
+void noDebugMessageOutput(QtMsgType type, const char *msg)
+{
+  switch (type) {
+  case QtDebugMsg:
+    break;
+  default:
+    ScriptTestBase::m_msgHandler(type, msg);
+  }
+}
+
+
 void ScriptTestBase::initTestCase()
 {
+  m_msgHandler = qInstallMsgHandler(noDebugMessageOutput);
   KateGlobal::self()->incRef();
   m_toplevel = new KMainWindow();
   m_document = new KateDocument(true, false, false, m_toplevel);
@@ -98,7 +112,8 @@ void ScriptTestBase::initTestCase()
 
 void ScriptTestBase::cleanupTestCase()
 {
-    KateGlobal::self()->decRef();
+  KateGlobal::self()->decRef();
+  qInstallMsgHandler(m_msgHandler);
 }
 
 void ScriptTestBase::getTestData(const QString& script)

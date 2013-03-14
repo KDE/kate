@@ -46,6 +46,9 @@ protected:
   KateView* m_view;
   QString m_section;  // dir name in testdata/
   QString m_script_dir;  // dir name in part/script/data/
+
+public:
+  static QtMsgHandler m_msgHandler;
 };
 
 #endif // SCRIPT_TEST_H

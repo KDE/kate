@@ -638,6 +638,12 @@ void ViModeTest::NormalModeMotionsTest() {
   // Don't move if we can't find any matches at all.
   DoTest("nocapitalc", "lltCx", "noapitalc");
   DoTest("nocapitalc", "llTCx", "noapitalc");
+
+  // Motion to lines starting with { or }
+  DoTest("{\nfoo\n}", "][x", "{\nfoo\n");
+  DoTest("{\nfoo\n}", "j[[x", "\nfoo\n}");
+  DoTest("bar\n{\nfoo\n}", "]]x", "bar\n\nfoo\n}");
+  DoTest("{\nfoo\n}\nbar", "jjj[]x", "{\nfoo\n\nbar");
 }
 
 void ViModeTest::NormalModeCommandsTest() {

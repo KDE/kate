@@ -816,7 +816,7 @@ int KateViModeBase::findLineStartingWitchChar( const QChar &c, unsigned int coun
     line--;
   }
 
-  while ( line < lines && line > 0 && hits < count ) {
+  while ( line < lines && line >= 0 && hits < count ) {
     QString l = getLine( line );
     if ( l.length() > 0 && l.at( 0 ) == c ) {
       hits++;

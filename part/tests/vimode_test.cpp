@@ -653,7 +653,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("{\nfoo\n}\nbar", "jjj[]x", "{\nfoo\n\nbar");
   DoTest("bar\nfoo\n}", "d][", "}");
   DoTest("bar\nfoo\n}", "ld][", "b\n}", ShouldFail, "This motion should be Exclusive when used with command, and should also be from the cursor.");
-  DoTest("{\nfoo\n}", "jld[[", "oo\n}", ShouldFail, "This motion should be Exclusive when used with command, and should also be from the cursor.");
+  DoTest("{\nfoo\n}", "jld[[", "oo\n}");
   DoTest("bar\n{\nfoo\n}", "ld]]", "b\n{\nfoo\n}", ShouldFail, "This motion should be Exclusive when used with command, and should also be from the cursor.");
   DoTest("{\nfoo\n}\nbar", "jjjld[]", "{\nfoo\nar", ShouldFail, "This motion should be Exclusive when used with command, and should also be from the cursor.");
 }

@@ -1088,7 +1088,7 @@ bool KateViNormalMode::commandChangeLine()
   c.setColumn( 0 );
   updateCursor( c );
 
-  doc()->editStart();
+  doc()->setUndoMergeAllEdits(true);
 
   // if count >= 2 start by deleting the whole lines
   if ( getCount() >= 2 ) {
@@ -1100,7 +1100,6 @@ bool KateViNormalMode::commandChangeLine()
   KateViRange r( c.line(), c.column(), c.line(), doc()->lineLength( c.line() )-1,
       ViMotion::InclusiveMotion );
   deleteRange( r, CharWise, true );
-  doc()->editEnd();
 
   // ... then enter insert mode
   if ( getOperationMode() == Block ) {

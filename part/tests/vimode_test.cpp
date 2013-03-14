@@ -272,6 +272,7 @@ void ViModeTest::VisualModeTests() {
 
     // Testing undo behaviour with c and cc
     DoTest("foo", "ciwbar\\escu", "foo");
+    DoTest("foo", "ccbar\\escu", "foo");
 }
 
 void ViModeTest::InsertModeTests() {

@@ -1036,7 +1036,8 @@ bool KateViNormalMode::commandChange()
 
   OperationMode m = getOperationMode();
 
-  doc()->editStart();
+  doc()->setUndoMergeAllEdits(true);
+
   commandDelete();
 
   // if we deleted several lines, insert an empty line and put the cursor there
@@ -1045,7 +1046,6 @@ bool KateViNormalMode::commandChange()
     c.setLine( m_commandRange.startLine );
     c.setColumn(0);
   }
-  doc()->editEnd();
 
   if ( m == LineWise ) {
     updateCursor( c );

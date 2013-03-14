@@ -269,6 +269,9 @@ void ViModeTest::VisualModeTests() {
     // Testing block append
     DoTest("averyverylongline\nshortline\nshorter\n", "jjV$kkAb\\esc", "averyverylonglineb\nshortlineb\nshorterb\n");
     DoTest("averyverylongline\nshortline\n", "V$jAb\\esc", "averyverylonglineb\nshortlineb\n");
+
+    // Testing undo behaviour with c and cc
+    DoTest("foo", "ciwbar\\escu", "foo");
 }
 
 void ViModeTest::InsertModeTests() {

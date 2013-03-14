@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """IPython console for hacking kate and doing science
 
 Uses this: http://stackoverflow.com/a/11525205/247482
@@ -23,7 +24,7 @@ from IPython.frontend.qt.kernelmanager import QtKernelManager
 from IPython.frontend.qt.console.rich_ipython_widget import RichIPythonWidget
 
 from PyQt4 import uic
-from PyQt4.QtGui import *
+from PyQt4.QtGui import QWidget
 
 _SCROLLBACK_LINES_COUNT_CFG = 'ipythonConsole:scrollbackLinesCount'
 _CONFIG_UI = 'python_console_ipython.ui'
@@ -35,11 +36,13 @@ def event_loop(kernel):
     kernel.timer.timeout.connect(kernel.do_one_iteration)
     kernel.timer.start(1000 * kernel._poll_interval)
 
+
 def default_kernel_app():
     app = IPKernelApp.instance()
     app.initialize(['python', '--pylab=qt'])
     app.kernel.eventloop = event_loop
     return app
+
 
 def default_manager(kernel_app):
     connection_file = find_connection_file(kernel_app.connection_file)
@@ -48,6 +51,7 @@ def default_manager(kernel_app):
     manager.start_channels()
     atexit.register(manager.cleanup_connection_file)
     return manager
+
 
 def terminal_widget(parent=None, **kwargs):
     kernel_app = default_kernel_app()
@@ -65,6 +69,7 @@ def terminal_widget(parent=None, **kwargs):
     kernel_app.start()
     return widget
 
+
 class ConfigWidget(QWidget):
     """Configuration widget for this plugin."""
     #
@@ -78,7 +83,7 @@ class ConfigWidget(QWidget):
         # Set up the user interface from Designer.
         uic.loadUi(os.path.join(os.path.dirname(__file__), _CONFIG_UI), self)
 
-        self.reset();
+        self.reset()
 
     def apply(self):
         kate.configuration[_SCROLLBACK_LINES_COUNT_CFG] = self.scrollbackLinesCount.value()
@@ -95,7 +100,7 @@ class ConfigWidget(QWidget):
 
 class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
     """Kate configuration page for this plugin."""
-    def __init__(self, parent = None, name = None):
+    def __init__(self, parent=None, name=None):
         super(ConfigPage, self).__init__(parent, name)
         self.widget = ConfigWidget(parent)
         lo = parent.layout()

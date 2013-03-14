@@ -161,6 +161,12 @@ function moveLinesDown()
         // 2) insert a line before the block
         document.insertLine(blockRange.start.line, text);
         document.editEnd();
+        if (view.selection().isValid())
+        {
+            blockRange.start.line++;
+            blockRange.end.line++;
+            view.setSelection(blockRange);
+        }
     }
 }
 

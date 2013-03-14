@@ -229,7 +229,7 @@
        <item row="1" column="1">
         <widget class="QCheckBox" name="matchCase">
          <property name="text">
-          <string>Match case</string>
+          <string>M&amp;atch case</string>
          </property>
         </widget>
        </item>
@@ -249,7 +249,7 @@
        <item row="1" column="2">
         <widget class="QCheckBox" name="useRegExp">
          <property name="text">
-          <string>Regular expressions</string>
+          <string>Regular e&amp;xpressions</string>
          </property>
         </widget>
        </item>
@@ -397,6 +397,11 @@
  <tabstops>
   <tabstop>newTabButton</tabstop>
   <tabstop>searchCombo</tabstop>
+  <tabstop>folderRequester</tabstop>
+  <tabstop>folderUpButton</tabstop>
+  <tabstop>currentFolderButton</tabstop>
+  <tabstop>filterCombo</tabstop>
+  <tabstop>excludeCombo</tabstop>
   <tabstop>searchButton</tabstop>
   <tabstop>searchPlaceCombo</tabstop>
   <tabstop>stopButton</tabstop>
@@ -404,11 +409,6 @@
   <tabstop>matchCase</tabstop>
   <tabstop>useRegExp</tabstop>
   <tabstop>u_expandResults</tabstop>
-  <tabstop>folderRequester</tabstop>
-  <tabstop>folderUpButton</tabstop>
-  <tabstop>currentFolderButton</tabstop>
-  <tabstop>filterCombo</tabstop>
-  <tabstop>excludeCombo</tabstop>
   <tabstop>recursiveCheckBox</tabstop>
   <tabstop>hiddenCheckBox</tabstop>
   <tabstop>symLinkCheckBox</tabstop>

@@ -116,6 +116,17 @@ void IndentTest::cstyle()
 }
 
 
+void IndentTest::cppstyle_data()
+{
+    getTestData( "cppstyle" );
+}
+
+void IndentTest::cppstyle()
+{
+    runTest( ExpectedFailures() );
+}
+
+
 void IndentTest::python_data()
 {
     getTestData( "python" );

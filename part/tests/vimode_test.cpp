@@ -269,6 +269,10 @@ void ViModeTest::VisualModeTests() {
     // Testing block append
     DoTest("averyverylongline\nshortline\nshorter\n", "jjV$kkAb\\esc", "averyverylonglineb\nshortlineb\nshorterb\n");
     DoTest("averyverylongline\nshortline\n", "V$jAb\\esc", "averyverylonglineb\nshortlineb\n");
+
+    // Testing undo behaviour with c and cc
+    DoTest("foo", "ciwbar\\escu", "foo");
+    DoTest("foo", "ccbar\\escu", "foo");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -592,6 +596,9 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "( foo ( bar ) )baz", "di(", "()baz" );
   DoTest( "( foo ( bar ) )baz", "da(", "baz" );
   DoTest( "[foo [ bar] [(a)b [c]d ]]","$hda]", "[foo [ bar] ]");
+  DoTest( "(a)", "di(", "()");
+  DoTest( "(ab)", "di(", "()");
+  DoTest( "(abc)", "di(", "()");
 
   DoTest( "hi!))))}}]]","di]di}da)di)da]", "hi!))))}}]]" );
 
@@ -638,6 +645,18 @@ void ViModeTest::NormalModeMotionsTest() {
   // Don't move if we can't find any matches at all.
   DoTest("nocapitalc", "lltCx", "noapitalc");
   DoTest("nocapitalc", "llTCx", "noapitalc");
+
+  // Motion to lines starting with { or }
+  DoTest("{\nfoo\n}", "][x", "{\nfoo\n");
+  DoTest("{\nfoo\n}", "j[[x", "\nfoo\n}");
+  DoTest("bar\n{\nfoo\n}", "]]x", "bar\n\nfoo\n}");
+  DoTest("{\nfoo\n}\nbar", "jjj[]x", "{\nfoo\n\nbar");
+  DoTest("bar\nfoo\n}", "d][", "}");
+  DoTest("bar\n{\nfoo\n}", "d]]", "{\nfoo\n}");
+  DoTest("bar\nfoo\n}", "ld][", "b\n}");
+  DoTest("{\nfoo\n}", "jld[[", "oo\n}");
+  DoTest("bar\n{\nfoo\n}", "ld]]", "b\n{\nfoo\n}");
+  DoTest("{\nfoo\n}\nbar", "jjjld[]", "{\nfoo\nar");
 }
 
 void ViModeTest::NormalModeCommandsTest() {
@@ -778,6 +797,7 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("5", "5\\ctrl-a.","15" );
   DoTest("5", "5\\ctrl-a2.","12");
   DoTest("5", "5\\ctrl-a2.10\\ctrl-a","22");
+  DoTest(" 5 ", "l\\ctrl-ax","  ");
 
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");

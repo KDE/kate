@@ -590,10 +590,14 @@ KateViRange innerRange(KateViRange range, bool inner) {
   KateViRange r = range;
 
   if (inner) {
+    const int columnDistance = qAbs(r.startColumn - r.endColumn);
+    if ((r.startLine == r.endLine) && columnDistance == 1 )
+    {
+      // Start and end are right next to each other; there is nothing inside them.
+      r.valid = false;
+    }
     r.startColumn++;
     r.endColumn--;
-    if ((r.startLine == r.endLine) && qAbs(r.startColumn - r.endColumn) < 2 )
-      r.valid = false;
   }
 
   return r;
@@ -816,7 +820,7 @@ int KateViModeBase::findLineStartingWitchChar( const QChar &c, unsigned int coun
     line--;
   }
 
-  while ( line < lines && line > 0 && hits < count ) {
+  while ( line < lines && line >= 0 && hits < count ) {
     QString l = getLine( line );
     if ( l.length() > 0 && l.at( 0 ) == c ) {
       hits++;
@@ -1168,6 +1172,7 @@ void KateViModeBase::addToNumberUnderCursor( int count )
         doc()->removeText( KTextEditor::Range( c.line(), start , c.line(), start+nString.length() ) );
         doc()->insertText( KTextEditor::Cursor( c.line(), start ), newText );
         doc()->editEnd();
+        updateCursor(Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() - 1));
     }
 }
 

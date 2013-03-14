@@ -672,6 +672,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   aboutData.addAuthor (ki18n("Glen Parker"),ki18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
   aboutData.addAuthor (ki18n("Scott Manson"),ki18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
   aboutData.addAuthor (ki18n("John Firebaugh"),ki18n("Patches and more"), "jfirebaugh@kde.org");
+  aboutData.addAuthor (ki18n("Gerald Senarclens de Grancy"), ki18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
 
   aboutData.addCredit (ki18n("Matteo Merli"),ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
   aboutData.addCredit (ki18n("Rocky Scaletta"),ki18n("Highlighting for VHDL"), "rocky@purdue.edu");

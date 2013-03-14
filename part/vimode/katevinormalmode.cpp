@@ -2535,6 +2535,11 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
   r.endColumn = 0;
   r.jump = true;
 
+  if (motionWillBeUsedWithCommand())
+  {
+    r.motionType = ViMotion::ExclusiveMotion;
+  }
+
   return r;
 }
 
@@ -3064,7 +3069,7 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("'[a-zA-Z^><]", motionToMarkLine, REGEX_PATTERN );
   ADDMOTION("[[", motionToPreviousBraceBlockStart, IS_NOT_LINEWISE );
   ADDMOTION("]]", motionToNextBraceBlockStart, IS_NOT_LINEWISE );
-  ADDMOTION("[]", motionToPreviousBraceBlockEnd, 0 );
+  ADDMOTION("[]", motionToPreviousBraceBlockEnd, IS_NOT_LINEWISE );
   ADDMOTION("][", motionToNextBraceBlockEnd, IS_NOT_LINEWISE );
   ADDMOTION("*", motionToNextOccurrence, 0 );
   ADDMOTION("#", motionToPrevOccurrence, 0 );

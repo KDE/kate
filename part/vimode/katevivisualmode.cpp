@@ -378,6 +378,7 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("[]", motionToPreviousBraceBlockEnd, 0 );
   ADDMOTION("][", motionToNextBraceBlockEnd, 0 );
   ADDMOTION("*", motionToNextOccurrence, 0 );
+  ADDMOTION("#", motionToPrevOccurrence, 0 );
   ADDMOTION("<c-f>", motionPageDown, 0 );
   ADDMOTION("<pagedown>", motionPageDown, 0 );
   ADDMOTION("<c-b>", motionPageUp, 0 );

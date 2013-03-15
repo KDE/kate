@@ -3374,7 +3374,6 @@ void KateViNormalMode::executeMapping()
 
 void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range)
 {
-  kDebug() << "text inserted: " << range << " m_currentChangeEndMarker: " << m_currentChangeEndMarker << " [ marker: " << m_viInputModeManager->getMarkPosition('[') << " cursor " <<  m_view->cursorPosition();
   const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
   const bool continuesInsertion = range.start().line() == m_currentChangeEndMarker.line() && range.start().column() == m_currentChangeEndMarker.column();
   const bool beginsWithNewline = doc()->text(range)[0] == '\n';
@@ -3428,7 +3427,6 @@ void KateViNormalMode::textRemoved(KTextEditor::Document* document , Range range
     m_currentChangeEndMarker = range.start();
   }
   m_viInputModeManager->addMark(doc(), ']', range.start());
-  kDebug() << "text removed: " << range;
   if (m_isUndo)
   {
     // Slavishly follow Vim's weird rules: if an undo removes several lines, then all markers should

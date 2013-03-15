@@ -799,6 +799,7 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("", "5ofoo\\escgg`.r.", "\nfoo\nfoo\nfoo\nfoo\n.oo");
   DoTest("foo", "yyp`[r[", "foo\n[oo");
   DoTest("xyz\nfoo", "ja\nbar\\esc`[r[", "xyz\n[\nbaroo");
+  DoTest("foo", "lrayypgg`[r[", "fao\n[ao");
 }
 
 

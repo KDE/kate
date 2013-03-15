@@ -3367,23 +3367,29 @@ void KateViNormalMode::executeMapping()
 
 void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range)
 {
-  kDebug() << "text inserted: " << range << " m_currentChangeEndMarker: " << m_currentChangeEndMarker;
-  const bool beginningMarkerIsBeingMovedByInserts = (m_viInputModeManager->getMarkPosition('[') == m_view->cursorPosition());
-  if (beginningMarkerIsBeingMovedByInserts)
-  {
-    // We've deleted during this insertion in such a way that the '[' marker is being automatically
-    // moved around by Kate's MovingCursor mechanism: manually put it behind the cursor,
-    // out of harm's way.
-    Cursor beforeInsertPoint = m_view->cursorPosition();
-    beforeInsertPoint.setColumn(beforeInsertPoint.column() - 1);
-    m_viInputModeManager->addMark(doc(), '[', beforeInsertPoint);
-  }
+  kDebug() << "text inserted: " << range << " m_currentChangeEndMarker: " << m_currentChangeEndMarker << " [ marker: " << m_viInputModeManager->getMarkPosition('[') << " cursor " <<  m_view->cursorPosition();
   const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
   const bool continuesInsertion = range.start().line() == m_currentChangeEndMarker.line() && range.start().column() == m_currentChangeEndMarker.column();
   const bool beginsWithNewline = doc()->text(range)[0] == '\n';
-  if (!continuesInsertion && (!beginsWithNewline || isInsertMode))
+  if (!continuesInsertion)
   {
-    m_viInputModeManager->addMark(doc(), '[', range.start());
+    Cursor newBeginMarkerPos = range.start();
+    if (beginsWithNewline)
+    {
+      if (isInsertMode)
+      {
+        newBeginMarkerPos = range.start();
+      }
+      else
+      {
+        newBeginMarkerPos = Cursor(newBeginMarkerPos.line() + 1, 0);
+      }
+    }
+    else
+    {
+        newBeginMarkerPos = range.start();
+    }
+    m_viInputModeManager->addMark(doc(), '[', newBeginMarkerPos, false);
   }
   m_viInputModeManager->addMark(doc(), '.', range.start());
   Cursor editEndMarker = range.end();

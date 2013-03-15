@@ -281,6 +281,9 @@ void ViModeTest::VisualModeTests() {
     DoTest("{foo}", "lvb%x", "{");
     DoTest("foo bar", "wvbfax", "foo r");
     DoTest("(foo bar)", "wwv^%x", "(foo ");
+
+    // * and #
+    DoTest("foo foo", "v*x", "oo");
 }
 
 void ViModeTest::InsertModeTests() {

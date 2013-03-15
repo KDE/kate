@@ -752,8 +752,10 @@ function tryTemplate(cursor)
     // Check for 'template' keyword at line start
     var currentString = document.line(line);
     var prevWord = document.wordAt(line, column - 1);
+    dbg("tryTemplate: prevWord='"+prevWord+"'");
+    dbg("tryTemplate: prevWord.match="+prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/));
     var isCloseAngleBracketNeeded = currentString.match(/^\s*template\s*<$/)
-      || prevWord.match(/[A-Za-z_][A-Za-z0-9_]*/)           // Does a word before '<' looks like identifier?
+      || prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/)         // Does a word before '<' looks like identifier?
       ;
     if (isCloseAngleBracketNeeded)
     {
@@ -854,7 +856,7 @@ function tryCloseBracket(cursor, ch)
             braceCursor = document.anchor(line, column - 1, gBraceMap[ch]);
             // TODO Otherwise, it seems we have a template parameters list...
         if (braceCursor.isValid())
-            result = document.firstColumn(braceCursor.line);
+            result = document.firstColumn(braceCursor.line) + 2;
     }
 
     return result;

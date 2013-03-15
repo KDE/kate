@@ -121,6 +121,10 @@ void ViModeTest::TestPressKey(QString str) {
           code = code - 'a' + Qt::Key_A;
         }
       }
+      if (key == "\n")
+      {
+        code = Qt::Key_Enter;
+      }
     }
     else {
       code = Qt::Key_Escape;
@@ -371,6 +375,9 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo\nbar", "ji\\ctrl-j","foo\n\nbar");
   DoTest("foobar", "A\\ctrl-j","foobar\n" );
   DoTest("foobar", "li\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-c","f\no\no\nb\na\nr");
+
+  // Test that our test driver can handle newlines during insert mode :)
+  DoTest("", "ia\nb", "a\nb");
 }
 
 void ViModeTest::NormalModeMotionsTest() {

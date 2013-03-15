@@ -2321,9 +2321,6 @@ KateViRange KateViNormalMode::motionToMatchingItem()
 
   Cursor c( m_view->cursorPosition() );
 
-  r.startColumn = c.column();
-  r.startLine   = c.line();
-
   QString l = getLine();
   int n1 = l.indexOf( m_matchItemRegex, c.column() );
 

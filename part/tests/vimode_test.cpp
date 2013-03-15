@@ -277,6 +277,10 @@ void ViModeTest::VisualModeTests() {
     // Regression test for ][ in Visual Mode.
     DoTest("foo {\n\n}", "lV][d", "");
 
+    // Misc tests for motions starting in front of the Visual Mode start point.
+    DoTest("{foo}", "lvb%x", "{");
+    DoTest("foo bar", "wvbfax", "foo r", ShouldFail, "Weirdness with motions when the cursor is before the Visual Mode start point");
+    DoTest("(foo bar)", "wwv^%x", "(foo ");
 }
 
 void ViModeTest::InsertModeTests() {

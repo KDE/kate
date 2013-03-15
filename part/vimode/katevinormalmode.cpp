@@ -3374,20 +3374,10 @@ void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range
   if (!continuesInsertion)
   {
     Cursor newBeginMarkerPos = range.start();
-    if (beginsWithNewline)
+    if (beginsWithNewline && !isInsertMode)
     {
-      if (isInsertMode)
-      {
-        newBeginMarkerPos = range.start();
-      }
-      else
-      {
-        newBeginMarkerPos = Cursor(newBeginMarkerPos.line() + 1, 0);
-      }
-    }
-    else
-    {
-        newBeginMarkerPos = range.start();
+      // Presumably a linewise paste, in which case we ignore the leading '\n'
+      newBeginMarkerPos = Cursor(newBeginMarkerPos.line() + 1, 0);
     }
     m_viInputModeManager->addMark(doc(), '[', newBeginMarkerPos, false);
   }

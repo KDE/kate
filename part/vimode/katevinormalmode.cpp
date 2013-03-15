@@ -29,6 +29,7 @@
 #include "kateglobal.h"
 #include "katebuffer.h"
 #include "kateviewhelpers.h"
+#include <kateundomanager.h>
 
 #include <QApplication>
 #include <QList>
@@ -70,6 +71,12 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_pendingResetIsDueToExit = false;
   m_isRepeatedTFcommand = false;
   resetParser(); // initialise with start configuration
+
+  m_isUndo = false;
+  connect(doc()->undoManager(), SIGNAL(undoStart(KTextEditor::Document*)),
+          this, SLOT(undoBeginning()));
+  connect(doc()->undoManager(), SIGNAL(undoEnd(KTextEditor::Document*)),
+          this, SLOT(undoEnded()));
 }
 
 KateViNormalMode::~KateViNormalMode()
@@ -3389,6 +3396,21 @@ void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range
   }
   m_viInputModeManager->addMark(doc(), ']', editEndMarker);
   m_currentChangeEndMarker = range.end();
+  if (m_isUndo)
+  {
+    const bool addsMultipleLines = range.start().line() != range.end().line();
+    m_viInputModeManager->addMark(doc(), '[', Cursor(m_viInputModeManager->getMarkPosition('[').line(), 0));
+    if (addsMultipleLines)
+    {
+      m_viInputModeManager->addMark(doc(), ']', Cursor(m_viInputModeManager->getMarkPosition(']').line() + 1, 0));
+      m_viInputModeManager->addMark(doc(), '.', Cursor(m_viInputModeManager->getMarkPosition('.').line() + 1, 0));
+    }
+    else
+    {
+      m_viInputModeManager->addMark(doc(), ']', Cursor(m_viInputModeManager->getMarkPosition(']').line(), 0));
+      m_viInputModeManager->addMark(doc(), '.', Cursor(m_viInputModeManager->getMarkPosition('.').line(), 0));
+    }
+  }
 }
 
 void KateViNormalMode::textRemoved(KTextEditor::Document* document , Range range)
@@ -3407,4 +3429,24 @@ void KateViNormalMode::textRemoved(KTextEditor::Document* document , Range range
   }
   m_viInputModeManager->addMark(doc(), ']', range.start());
   kDebug() << "text removed: " << range;
+  if (m_isUndo)
+  {
+    // Slavishly follow Vim's weird rules: if an undo removes several lines, then all markers should
+    // be at the beginning of the line after the last line removed, else they should at the beginning
+    // of the line above that.
+    const int markerLineAdjustment = (range.start().line() != range.end().line()) ? 1 : 0;
+    m_viInputModeManager->addMark(doc(), '[', Cursor(m_viInputModeManager->getMarkPosition('[').line() + markerLineAdjustment, 0));
+    m_viInputModeManager->addMark(doc(), ']', Cursor(m_viInputModeManager->getMarkPosition(']').line() + markerLineAdjustment, 0));
+    m_viInputModeManager->addMark(doc(), '.', Cursor(m_viInputModeManager->getMarkPosition('.').line() + markerLineAdjustment, 0));
+  }
+}
+
+void KateViNormalMode::undoBeginning()
+{
+  m_isUndo = true;
+}
+
+void KateViNormalMode::undoEnded()
+{
+  m_isUndo = false;
 }

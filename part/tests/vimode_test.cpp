@@ -800,6 +800,20 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("foo", "yyp`[r[", "foo\n[oo");
   DoTest("xyz\nfoo", "ja\nbar\\esc`[r[", "xyz\n[\nbaroo");
   DoTest("foo", "lrayypgg`[r[", "fao\n[ao");
+  DoTest("foo", "l~u`[r[", "[oo");
+  DoTest("foo", "l~u`.r.", ".oo");
+  DoTest("foo", "l~u`]r]", "]oo");
+  DoTest("foo", "lia\\escu`[r[", "[oo");
+  DoTest("foo", "lia\\escu`.r.", ".oo");
+  DoTest("foo", "lia\\escu`]r]", "]oo");
+  DoTest("foo", "l~u~`[r[", "f[o");
+  DoTest("foo\nbar\nxyz", "jyypu`[r[", "foo\nbar\n[yz");
+  DoTest("foo\nbar\nxyz", "jyypu`.r.", "foo\nbar\n.yz");
+  DoTest("foo\nbar\nxyz", "jyypu`]r]", "foo\nbar\n]yz");
+  DoTest("foo\nbar\nxyz\n123", "jdju`[r[", "foo\n[ar\nxyz\n123");
+  DoTest("foo\nbar\nxyz\n123", "jdju`.r.", "foo\n.ar\nxyz\n123");
+  DoTest("foo\nbar\nxyz\n123", "jdju`]r]", "foo\nbar\n]yz\n123");
+  DoTest("foo\nbar\nxyz\n123", "jVj~u\\esc`[r[", "foo\n[ar\nxyz\n123", ShouldFail, "Vim is weird.");
 }
 
 

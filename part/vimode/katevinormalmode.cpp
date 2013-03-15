@@ -3380,7 +3380,8 @@ void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range
   }
   const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
   const bool continuesInsertion = range.start().line() == m_currentChangeEndMarker.line() && range.start().column() == m_currentChangeEndMarker.column();
-  if (!continuesInsertion)
+  const bool beginsWithNewline = doc()->text(range)[0] == '\n';
+  if (!continuesInsertion && !beginsWithNewline)
   {
     m_viInputModeManager->addMark(doc(), '[', range.start());
   }

@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 2
+ * revision: 3
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4
@@ -35,7 +35,6 @@
  * indent-width 4;
  * space-indent true;
  * auto-brackets true;
- * replace-tabs true;
  * replace-tabs true;
  * replace-tabs-save true;
  *
@@ -176,22 +175,48 @@ function alignInlineComment(line)
  */
 function tryToKeepInlineComment(line)
 {
+    // Make sure that there is some text still present on a prev line
+    // i.e. it was jsut splitted and same-line-comment must be moved back to it
+    if (document.line(line - 1).trim().length == 0)
+        return;
+
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
     var sc = splitByComment(currentLineText);
-    if (sc.hasComment && isNotStringOrComment(line, sc.before.length - 1) && sc.before.length > 0)
+    if (sc.hasComment && isNotStringOrComment(line, sc.before.length - 1) && sc.after.length > 0)
     {
-        // Yep, try to move it on a previous line.
-        // NOTE The latter can't have a comment!
-        var lastPos = document.lastColumn(line - 1);
-        document.insertText(
-            line - 1
-          , lastPos + 1
-          , String().fill(' ', gSameLineCommentStartAt - lastPos - 1)
-              + "//"
-              + sc.after.rtrim()
-          );
-        document.removeText(line, sc.before.rtrim().length, line, currentLineText.length);
+        // Ok, here is few cases possible when ENTER pressed in different positions
+        // |  |smth|was here; |        |// comment
+        //
+        // If sc.before has some text, it means that cursor was in the middle of some
+        // non-commented text, and part of it left on a prev line, so we have to move
+        // the comment back to that line...
+        if (sc.before.trim().length > 0)                    // Is there some text before comment?
+        {
+            var lastPos = document.lastColumn(line - 1);    // Get last position of non space char @ prev line
+            // Put the comment text to the prev line w/ padding
+            document.insertText(
+                line - 1
+              , lastPos + 1
+              , String().fill(' ', gSameLineCommentStartAt - lastPos - 1)
+                  + "//"
+                  + sc.after.rtrim()
+              );
+            // Remove it from current line starting from current position
+            // 'till the line end
+            document.removeText(line, sc.before.rtrim().length, line, currentLineText.length);
+        }
+        else
+        {
+            // No text before comment. Need to remove possible spaces from prev line...
+            var prevLine = line - 1;
+            document.removeText(
+                prevLine
+              , document.lastColumn(prevLine) + 1
+              , prevLine
+              , document.lineLength(prevLine)
+              );
+        }
     }
 }
 

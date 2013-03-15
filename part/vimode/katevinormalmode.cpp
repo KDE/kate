@@ -2042,8 +2042,6 @@ KateViRange KateViNormalMode::motionFindChar()
 
   KateViRange r;
 
-  r.startColumn = cursor.column();
-  r.startLine = cursor.line();
   r.endColumn = matchColumn;
   r.endLine = cursor.line();
 

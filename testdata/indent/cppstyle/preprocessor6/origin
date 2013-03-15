@@ -1,0 +1,2 @@
+#define MACRO \
+    define smth long

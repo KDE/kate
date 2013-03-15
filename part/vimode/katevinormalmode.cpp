@@ -1148,7 +1148,9 @@ bool KateViNormalMode::commandYank()
   OperationMode m = getOperationMode();
   yankedText = getRange( m_commandRange, m );
 
-  fillRegister( getChosenRegister( '0' ), yankedText, m );
+  QChar  chosen_register =  getChosenRegister( '0' );
+  fillRegister(chosen_register, yankedText, m );
+  yankToClipBoard(chosen_register, yankedText);
 
   return r;
 }
@@ -1162,7 +1164,9 @@ bool KateViNormalMode::commandYankLine()
   for ( unsigned int i = 0; i < getCount(); i++ ) {
       lines.append( getLine( linenum + i ) + '\n' );
   }
-  fillRegister( getChosenRegister( '0' ), lines, LineWise );
+  QChar  chosen_register =  getChosenRegister( '0' );
+  fillRegister(chosen_register, lines, LineWise );
+  yankToClipBoard(chosen_register, lines);
 
   return true;
 }
@@ -1195,7 +1199,9 @@ bool KateViNormalMode::commandYankToEOL()
 
   yankedText = getRange( m_commandRange, m );
 
-  fillRegister( getChosenRegister( '0' ), yankedText, m );
+  QChar  chosen_register =  getChosenRegister( '0' );
+  fillRegister(chosen_register,  yankedText, m );
+  yankToClipBoard(chosen_register, yankedText);
 
   return r;
 }

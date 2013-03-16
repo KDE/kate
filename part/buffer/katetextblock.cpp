@@ -208,12 +208,8 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
 
     /**
      * cursor and range handling below
+     * we need to to this even without any cursors, as ranges might no span in this block!
      */
-
-    // no cursors in this and previous block, no work to do..
-    // no need to touch ranges-cache, without cursors, no range could end between this blocks!
-    if (previousBlock->m_cursors.empty() && m_cursors.empty())
-      return;
 
     // move all cursors because of the unwrapped line
     // remember all ranges modified
@@ -238,17 +234,16 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
         cursor->m_line = 0;
         cursor->m_block = this;
         m_cursors.insert (cursor);
-
-        // remember ranges moved over block boundary
-        if (cursor->kateRange())
-          rangesMoved.insert (cursor->kateRange());
       }
       else
         newPreviousCursors.insert (cursor);
     }
     previousBlock->m_cursors = newPreviousCursors;
 
-    foreach (TextRange *range, rangesMoved) {
+    // fixup ALL ranges
+    QList<TextRange*> allRanges = m_uncachedRanges.toList() + m_cachedLineForRanges.keys()
+     + previousBlock->m_uncachedRanges.toList() + previousBlock->m_cachedLineForRanges.keys();
+    foreach (TextRange *range, allRanges) {
         // update both blocks
         updateRange (range);
         previousBlock->updateRange (range);

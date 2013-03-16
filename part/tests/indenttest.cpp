@@ -126,7 +126,6 @@ void IndentTest::cppstyle()
     runTest(
         ExpectedFailures()
           /// \todo Fix (smth) to make failed test cases really work!
-          << FAILURE( "lab5", "dunno why it failed in test! in manual mode everything works fine..." )
           << FAILURE( "parens1", "dunno why it failed in test! in manual mode everything works fine..." )
       );
 }

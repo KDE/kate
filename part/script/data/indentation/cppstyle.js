@@ -93,6 +93,10 @@ function isInsideBraces(line, column, ch)
  *   \li \c hasComment -- boolean: \c true if comment present on the line, \c false otherwise
  *   \li \c before -- text before the comment
  *   \li \c after -- text of the comment
+ *
+ * \todo Make it smart and check highlighting style where \c '//' string is found.
+ * \todo Possible it would be quite reasonable to analyze a type of the comment:
+ * Is it C++ or Doxygen? Is it single or w/ some text before?
  */
 function splitByComment(text)
 {
@@ -109,6 +113,10 @@ function splitByComment(text)
     return {hasComment: found, before: before, after: after};
 }
 
+/**
+ * \brief Remove possible comment from text
+ * \todo Unused?
+ */
 function stripComment(text)
 {
     return splitByComment(text).before.rstrip();
@@ -176,7 +184,7 @@ function alignInlineComment(line)
 function tryToKeepInlineComment(line)
 {
     // Make sure that there is some text still present on a prev line
-    // i.e. it was jsut splitted and same-line-comment must be moved back to it
+    // i.e. it was just splitted and same-line-comment must be moved back to it
     if (document.line(line - 1).trim().length == 0)
         return;
 
@@ -689,6 +697,9 @@ function caretPressed(cursor)
  *     position.
  * \li just entered \c '/' is a 3rd in a sequence. If there is some text before and no after,
  *     it looks like inlined doxygen comment, so append \c '<' char after. Do nothing otherwise.
+ * \li if there is a <tt>'// '</tt> string right before just entered \c '/', form a
+ *     doxygen comment <tt>'///'</tt> or <tt>'///<'</tt> depending on presence of some text
+ *     on a line before the comment.
  *
  * \todo Due a BUG in a current version of Kate, this code doesn't work as expected!
  * It always returns a <em>"NormalText"</em>!
@@ -716,32 +727,39 @@ function trySameLineComment(cursor)
     if (cm.indexOf("String") != -1)
        return;
 
-    var match = /^([^\/]*)(\/\/+)(.*)$/.exec(document.line(line));
-
-    if (match != null)                                      // Is matched?
+    var sc = splitByComment(document.line(line));
+    if (sc.hasComment)                                      // Is there any comment on a line?
     {
-        //dbg("match_before  = '" + match[1] + "'");
-        //dbg("match_comment = '" + match[2] + "'");
-        //dbg("match_after   = '" + match[3] + "'");
-        if (match[2] == "///" && match[3].trim().length == 0)
+        // If no text after the comment and it still not aligned
+        var text_len = sc.before.rtrim().length;
+        if (text_len != 0 && sc.after.length == 0 && text_len < gSameLineCommentStartAt)
         {
-            // 3rd case here!
-            var filler = (match[1].trim().length > 0)       // Is there any text before comment?
-                ? "< "                                      // turn it into inline-doxygen comment
-                : " ";                                      // just usual doxygen comment
-            document.insertText(cursor, filler);
+            // Align it!
+            document.insertText(
+                line
+              , column - 2
+              , String().fill(' ', gSameLineCommentStartAt - text_len)
+              );
+            document.insertText(line, gSameLineCommentStartAt + 2, ' ');
         }
-        else if (match[2] == "//" && 0 < match[1].trim().length && match[3].length == 0)
+        // If text in a comment equals to '/' or ' /' -- it looks like a 3rd '/' pressed
+        else if (sc.after == " /" || sc.after == "/")
         {
-            // 2nd case here! Check if padding required
-            if (match[1].length < gSameLineCommentStartAt)
-            {
-                var filler = String().fill(' ', gSameLineCommentStartAt - match[1].length) + "//";
-                document.editBegin();
-                document.removeText(line, column - 2, line, column);
-                document.insertText(line, column - 2, filler);
-                document.editEnd();
-            }
+            // Form a Doxygen comment!
+            document.removeText(line, column - sc.after.length, line, column);
+            document.insertText(line, column - sc.after.length, text_len != 0 ? "/< " : "/ ");
+        }
+        // If right trimmed text in a comment equals to '/' -- it seems user moves cursor
+        // one char left (through space) to add one more '/'
+        else if (sc.after.rtrim() == "/")
+        {
+            // Form a Doxygen comment!
+            document.removeText(line, column, line, column + sc.after.length);
+            document.insertText(line, column, text_len != 0 ? "< " : " ");
+        }
+        else if (text_len == 0 && sc.after.length == 0)
+        {
+            document.insertText(line, column, ' ');
         }
     }
 }
@@ -1100,7 +1118,7 @@ function processChar(line, ch)
         case '?':
         case '|':
         case '%':
-        case '/':
+        case '/':                                           // TODO Useless! Code review needed.
         case '.':
             result = tryOperator(cursor, ch);               // Possible need to align some operator
             break;

@@ -2898,7 +2898,7 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
         // Shrink the endpoint of the range so that it ends at the end of the line above,
         // leaving the closing bracket on its own line.
         innerCurlyBracket.endLine--;
-        innerCurlyBracket.endColumn = doc()->line(innerCurlyBracket.endLine).length() - 1;
+        innerCurlyBracket.endColumn = doc()->line(innerCurlyBracket.endLine).length();
       }
     }
 

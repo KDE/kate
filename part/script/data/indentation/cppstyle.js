@@ -397,7 +397,9 @@ function tryMultilineCommentStart_ch(line)
         result = filler.length;
     }
     if (result != -1)
+    {
         //dbg("tryMultilineCommentStart_ch result="+result);
+    }
     return result;
 }
 
@@ -427,7 +429,9 @@ function tryMultilineCommentCont_ch(line)
         }
     }
     if (result != -1)
+    {
         //dbg("tryMultilineCommentCont_ch result="+result);
+    }
     return result;
 }
 
@@ -466,7 +470,9 @@ function trySplitComment_ch(line)
         }
     }
     if (result != -1)
+    {
         //dbg("trySplitComment_ch result="+result);
+    }
     return result;
 }
 
@@ -544,7 +550,9 @@ function tryMacroDefinition_ch(line)
     if (prevString.search(/^\s*#\s*define\s+.*\\$/) != -1)
         result = gIndentWidth;
     if (result != -1)
+    {
         //dbg("tryMacroDefinition_ch result="+result);
+    }
     return result;
 }
 
@@ -618,7 +626,9 @@ function tryPreprocessor_ch(line)
         }
     }
     if (result != -1)
+    {
         //dbg("tryPreprocessor_ch result="+result);
+    }
     return result;
 }
 

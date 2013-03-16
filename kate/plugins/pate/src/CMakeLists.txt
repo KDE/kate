@@ -52,13 +52,19 @@ install(DIRECTORY
     plugins/django_utils
     plugins/expand
     plugins/gid
-    plugins/js_utils
     plugins/libkatepate
     plugins/python_console_classic
-    plugins/python_console_ipython
     plugins/python_utils
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json")
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")
 
 install(DIRECTORY
     plugins/expand
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.expand")
+
+install(DIRECTORY
+    plugins/js_utils
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json")
+
+install(DIRECTORY
+    plugins/python_console_ipython
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.css")

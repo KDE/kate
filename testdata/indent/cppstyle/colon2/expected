@@ -1,0 +1,9 @@
+class test
+{
+private:
+    void ok();
+public:
+    void ok();
+protected:
+    void ok();
+};

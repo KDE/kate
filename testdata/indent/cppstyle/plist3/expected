@@ -1,0 +1,3 @@
+typedef boost::mpl::eval_if<
+    ok
+  >

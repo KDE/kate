@@ -1,0 +1,5 @@
+#ifdef NDEBUG
+# ifdef linux
+#   define OK
+# endif
+#endif

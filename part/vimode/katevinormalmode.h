@@ -301,6 +301,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     QVector<int> m_matchingCommands;
     QVector<int> m_matchingMotions;
     QStack<int> m_awaitingMotionOrTextObject;
+    bool motionWillBeUsedWithCommand() { return !m_awaitingMotionOrTextObject.isEmpty(); };
 
     int m_motionOperatorIndex;
 
@@ -344,9 +345,13 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool m_pendingResetIsDueToExit;
 
     Cursor m_currentChangeEndMarker;
+
+    bool m_isUndo;
 private slots:
     void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
     void textRemoved(KTextEditor::Document*,KTextEditor::Range);
+    void undoBeginning();
+    void undoEnded();
 };
 
 #endif

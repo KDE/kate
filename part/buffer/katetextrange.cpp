@@ -33,8 +33,6 @@ TextRange::TextRange (TextBuffer &buffer, const KTextEditor::Range &range, Inser
   , m_view (0)
   , m_feedback (0)
   , m_zDepth (0.0)
-  , m_cachedStartLine (-1)
-  , m_cachedEndLine (-1)
   , m_attributeOnlyForViews (false)
   , m_invalidateIfEmpty (emptyBehavior == InvalidateIfEmpty)
 {
@@ -52,26 +50,10 @@ TextRange::~TextRange ()
    */
   m_feedback = 0;
 
-  /**
-   * save position for later use!
-   */
-  const int oldStartLine = m_start.line();
-  const int oldEndLine = m_end.line();
+  // remove range from m_ranges
+  fixLookup (m_start.line(), m_end.line(), -1, -1);
 
-  /**
-   * invalidate cursors, for later fixLookup
-   */
-  m_start.setPosition (-1, -1);
-  m_end.setPosition (-1, -1);
-
-  /**
-   * fix lookup for this range, will remove it from any mappings!
-   */
-  fixLookup ();
-
-  /**
-   * remove this range from the buffer
-   */
+  // remove this range from the buffer
   m_buffer.m_ranges.remove (this);
 
   /**
@@ -80,7 +62,7 @@ TextRange::~TextRange ()
    * here we can ignore feedback, even with feedback, we want none if the range is deleted!
    */
   if (m_attribute)
-    m_buffer.notifyAboutRangeChange (m_view, oldStartLine, oldEndLine, true /* we have a attribute */);
+    m_buffer.notifyAboutRangeChange (m_view, m_start.line(), m_end.line(), true /* we have a attribute */);
 }
 
 void TextRange::setInsertBehaviors (InsertBehaviors _insertBehaviors)
@@ -153,7 +135,7 @@ void TextRange::setRange (const KTextEditor::Range &range)
 
   // check if range now invalid, don't emit feedback here, will be handled below
   // otherwise you can't delete ranges in feedback!
-  checkValidity (false);
+  checkValidity (oldStartLine, oldEndLine, false);
 
   // no attribute or feedback set, be done
   if (!m_attribute && !m_feedback)
@@ -184,7 +166,7 @@ void TextRange::setRange (const KTextEditor::Range &range)
   }
 }
 
-void TextRange::checkValidity (bool notifyAboutChange)
+void TextRange::checkValidity (int oldStartLine, int oldEndLine, bool notifyAboutChange)
 {
   /**
    * check if any cursor is invalid or the range is zero size and it should be invalidated then
@@ -201,7 +183,7 @@ void TextRange::checkValidity (bool notifyAboutChange)
     m_end.setPosition (m_start);
 
   // fix lookup
-  fixLookup ();
+  fixLookup (oldStartLine, oldEndLine, m_start.line(), m_end.line());
 
   // perhaps need to notify stuff!
   if (notifyAboutChange && m_feedback) {
@@ -215,45 +197,24 @@ void TextRange::checkValidity (bool notifyAboutChange)
   }
 }
 
-void TextRange::fixLookup ()
+void TextRange::fixLookup (int oldStartLine, int oldEndLine, int startLine, int endLine)
 {
-  /**
-   * get current position
-   */
-  const int startLine = m_start.line ();
-  const int endLine = m_end.line ();
-
-  /**
-   * nothing changed? be DONE
-   */
-  if (m_cachedStartLine == startLine && m_cachedEndLine == endLine)
+  // nothing changed?
+  if (oldStartLine == startLine && oldEndLine == endLine)
     return;
 
-  /**
-   * now, not both can be invalid
-   */
-  Q_ASSERT (m_cachedStartLine >= 0 || startLine >= 0);
-  Q_ASSERT (m_cachedEndLine >= 0 || endLine >= 0);
+  // now, not both can be invalid
+  Q_ASSERT (oldStartLine >= 0 || startLine >= 0);
+  Q_ASSERT (oldEndLine >= 0 || endLine >= 0);
 
-  /**
-   * get minimum start
-   */
-  int startLineMin = m_cachedStartLine;
-  if (m_cachedStartLine == -1 || (startLine != -1 && startLine < m_cachedStartLine))
+  // get full range
+  int startLineMin = oldStartLine;
+  if (oldStartLine == -1 || (startLine != -1 && startLine < oldStartLine))
     startLineMin = startLine;
 
-  /**
-   * get maximum end
-   */
-  int endLineMax = m_cachedEndLine;
-  if (m_cachedEndLine == -1 || endLine > m_cachedEndLine)
+  int endLineMax = oldEndLine;
+  if (oldEndLine == -1 || endLine > oldEndLine)
     endLineMax = endLine;
-
-  /**
-   * both shall be now valid!
-   */
-  Q_ASSERT (startLineMin >= 0);
-  Q_ASSERT (endLineMax >= 0);
 
   // get start block
   int blockIndex = m_buffer.blockForLine (startLineMin);
@@ -265,17 +226,14 @@ void TextRange::fixLookup ()
     TextBlock *block = m_buffer.m_blocks[blockIndex];
 
     // either insert or remove range
-    block->updateRange (this);
+    if ((endLine < block->startLine()) || (startLine >= (block->startLine() + block->lines())))
+      block->removeRange (this);
+    else
+      block->updateRange (this);
 
     // ok, reached end block
-    if (endLineMax < (block->startLine() + block->lines())) {
-      /**
-       * remember new cached positions!
-       */
-      m_cachedStartLine = startLine;
-      m_cachedEndLine = endLine;
+    if (endLineMax < (block->startLine() + block->lines()))
       return;
-    }
   }
 
   // we should not be here, really, then endLine is wrong

@@ -224,11 +224,14 @@ void TextBuffer::wrapLine (const KTextEditor::Cursor &position)
   // get block, this will assert on invalid line
   int blockIndex = blockForLine (position.line());
 
-  // let the block handle the wrapLine
-  // this can only lead to one more line in this block
-  // no other blocks will change
+  /**
+   * let the block handle the wrapLine
+   * this can only lead to one more line in this block
+   * no other blocks will change
+   * this call will trigger fixStartLines
+   */
   ++m_lines; // first alter the line counter, as functions called will need the valid one
-  m_blocks.at(blockIndex)->wrapLine (position);
+  m_blocks.at(blockIndex)->wrapLine (position, blockIndex);
 
   // remember changes
   ++m_revision;
@@ -241,9 +244,6 @@ void TextBuffer::wrapLine (const KTextEditor::Cursor &position)
     ++m_editingMaximalLineChanged;
   else
     m_editingMaximalLineChanged = position.line() + 1;
-
-  // fixup all following blocks
-  fixStartLines (blockIndex);
 
   // balance the changed block if needed
   balanceBlock (blockIndex);
@@ -269,10 +269,13 @@ void TextBuffer::unwrapLine (int line)
   // is this the first line in the block?
   bool firstLineInBlock = (line == m_blocks.at(blockIndex)->startLine());
 
-  // let the block handle the unwrapLine
-  // this can either lead to one line less in this block or the previous one
-  // the previous one could even end up with zero lines
-  m_blocks.at(blockIndex)->unwrapLine (line, (blockIndex > 0) ? m_blocks.at(blockIndex-1) : 0);
+  /**
+   * let the block handle the unwrapLine
+   * this can either lead to one line less in this block or the previous one
+   * the previous one could even end up with zero lines
+   * this call will trigger fixStartLines
+   */
+  m_blocks.at(blockIndex)->unwrapLine (line, (blockIndex > 0) ? m_blocks.at(blockIndex-1) : 0, firstLineInBlock ? (blockIndex - 1) : blockIndex);
   --m_lines;
 
   // decrement index for later fixup, if we modified the block in front of the found one
@@ -290,9 +293,6 @@ void TextBuffer::unwrapLine (int line)
     --m_editingMaximalLineChanged;
   else
     m_editingMaximalLineChanged = line -1;
-
-  // fixup all following blocks
-  fixStartLines (blockIndex);
 
   // balance the changed block if needed
   balanceBlock (blockIndex);
@@ -382,7 +382,7 @@ int TextBuffer::blockForLine (int line) const
   // we need blocks and last used block should not be negative
   Q_ASSERT (!m_blocks.isEmpty());
   Q_ASSERT (m_lastUsedBlock >= 0);
-  
+
   /**
    * shortcut: try last block first
    */
@@ -594,7 +594,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
 
       // get unicode data for this line
       const QChar *unicodeData = file.unicode () + offset;
-      
+
       /**
        * split lines, if too large
        */
@@ -617,7 +617,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
                     break;
                 }
             }
-            
+
             /**
              * wrap the line
              */
@@ -704,10 +704,10 @@ void TextBuffer::setDigest (const QByteArray & md5sum)
   m_digest = md5sum;
 }
 
-void TextBuffer::setTextCodec (QTextCodec *codec) 
+void TextBuffer::setTextCodec (QTextCodec *codec)
 {
   m_textCodec = codec;
-      
+
   // enforce bom for some encodings
   int mib = m_textCodec->mibEnum ();
   if (mib == 1013 || mib == 1014 || mib == 1015) // utf16
@@ -720,7 +720,7 @@ bool TextBuffer::save (const QString &filename)
 {
   // codec must be set!
   Q_ASSERT (m_textCodec);
-  
+
   /**
    * use KSaveFile for save write + rename
    */
@@ -795,7 +795,7 @@ bool TextBuffer::save (const QString &filename)
     file->close ();
     delete file;
   }
-  
+
   // flush file
   if (!saveFile.flush())
     return false;
@@ -808,7 +808,7 @@ bool TextBuffer::save (const QString &filename)
   fsync (saveFile.handle());
 #endif
 #endif
-  
+
   // did save work?
   // only finalize if stream status == OK
   bool ok = (stream.status() == QTextStream::Ok) && saveFile.finalize();

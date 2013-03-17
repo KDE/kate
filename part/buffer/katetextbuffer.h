@@ -48,6 +48,7 @@ namespace Kate {
 class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
   friend class TextCursor;
   friend class TextRange;
+  friend class TextBlock;
 
   Q_OBJECT
 
@@ -152,7 +153,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * @param newlineAtEof should newline be added if non-existing
      */
     void setNewLineAtEof(bool newlineAtEof) { m_newLineAtEof = newlineAtEof; }
-    
+
     /**
      * Set line length limit
      * @param lineLengthLimit new line length limit
@@ -556,7 +557,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
      * End of line mode, default is Unix
      */
     EndOfLineMode m_endOfLineMode;
-    
+
     /**
      * Insert newline character at the end of the file?
      */

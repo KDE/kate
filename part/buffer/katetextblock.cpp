@@ -74,7 +74,7 @@ void TextBlock::text (QString &text) const
   }
 }
 
-void TextBlock::wrapLine (const KTextEditor::Cursor &position)
+void TextBlock::wrapLine (const KTextEditor::Cursor &position, int fixStartLinesStartIndex)
 {
   // calc internal line
   int line = position.line () - startLine ();
@@ -111,6 +111,12 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
     m_lines.at(line)->markAsModified(true);
   }
 
+  /**
+   * fix all start lines
+   * we need to do this NOW, else the range update will FAIL!
+   * bug 313759
+   */
+  m_buffer->fixStartLines (fixStartLinesStartIndex);
 
   /**
    * notify the text history
@@ -168,7 +174,7 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
     range->checkValidity ();
 }
 
-void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
+void TextBlock::unwrapLine (int line, TextBlock *previousBlock, int fixStartLinesStartIndex)
 {
   // calc internal line
   line = line - startLine ();
@@ -200,6 +206,13 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
 
     // patch startLine of this block
     --m_startLine;
+
+    /**
+     * fix all start lines
+     * we need to do this NOW, else the range update will FAIL!
+     * bug 313759
+     */
+    m_buffer->fixStartLines (fixStartLinesStartIndex);
 
     /**
      * notify the text history in advance
@@ -275,6 +288,13 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
     m_lines.at(line-1)->markAsSavedOnDisk(true);
 
   m_lines.erase (m_lines.begin () + line);
+
+  /**
+   * fix all start lines
+   * we need to do this NOW, else the range update will FAIL!
+   * bug 313759
+   */
+  m_buffer->fixStartLines (fixStartLinesStartIndex);
 
   /**
    * notify the text history in advance

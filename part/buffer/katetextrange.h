@@ -215,23 +215,23 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * @param onlyForViews attribute only valid for views
      */
     void setAttributeOnlyForViews (bool onlyForViews);
-    
+
     /**
      * Gets the current Z-depth of this range.
      * Ranges with smaller Z-depth than others will win during rendering.
      * Default is 0.0.
-     * 
+     *
      * \return current Z-depth of this range
      */
     qreal zDepth () const { return m_zDepth; }
-    
+
     /**
      * Set the current Z-depth of this range.
      * Ranges with smaller Z-depth than others will win during rendering.
      * This will trigger update of the relevant view parts, if the depth changed.
      * Set depth before the attribute, that will avoid not needed redraws.
      * Default is 0.0.
-     * 
+     *
      * \param zDepth new Z-depth of this range
      */
     void setZDepth (qreal zDepth);
@@ -246,25 +246,20 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * no assignment operator, no copying around.
      */
     TextRange &operator= (const TextRange &);
-    
+
     /**
      * Check if range is valid, used by constructor and setRange.
      * If at least one cursor is invalid, both will set to invalid.
      * Same if range itself is invalid (start >= end).
-     * @param oldStartLine old start line of this range before changing of cursors, needed to add/remove range from m_ranges in blocks
-     * @param oldEndLine old end line of this range
      * @param notifyAboutChange should feedback be emitted or not?
      */
-    void checkValidity (int oldStartLine = -1, int oldEndLine = -1, bool notifyAboutChange = true);
+    void checkValidity (bool notifyAboutChange = true);
 
     /**
-     * Add/Remove range from the lookup m_ranges hash of each block
-     * @param oldStartLine old start line of this range before changing of cursors, needed to add/remove range from m_ranges in blocks
-     * @param oldEndLine old end line of this range
-     * @param startLine start line to start looking for the range to remove
-     * @param endLine end line of this range
+     * Add/Remove range from the lookup m_ranges hash of each block.
+     * This will use the current range position and the last cached position.
      */
-    void fixLookup (int oldStartLine, int oldEndLine, int startLine, int endLine);
+    void fixLookup ();
 
   private:
     /**
@@ -297,21 +292,33 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
      * pointer to the active MovingRangeFeedback
      */
     KTextEditor::MovingRangeFeedback *m_feedback;
-    
+
     /**
      * Z-depth of this range for rendering
      */
     qreal m_zDepth;
 
     /**
+     * With which start line this range is registered in the buffer?
+     * This is needed to keep the caching up-to-date in the individual buffer blocks.
+     * -1 means not registered
+     */
+    int m_cachedStartLine;
+
+    /**
+     * Same for end line
+     */
+    int m_cachedEndLine;
+
+    /**
      * Is this range's attribute only visible in views, not for example prints?
      */
-    bool m_attributeOnlyForViews;
+    bool m_attributeOnlyForViews : 1;
 
     /**
      * Will this range invalidate itself if it becomes empty?
      */
-    bool m_invalidateIfEmpty;
+    bool m_invalidateIfEmpty : 1;
 };
 
 }

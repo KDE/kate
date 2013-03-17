@@ -1,0 +1,5 @@
+    if (smth)
+    {
+        smth_else();
+    }
+    ok

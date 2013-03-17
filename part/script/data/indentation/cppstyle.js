@@ -884,7 +884,7 @@ function tryCloseBracket(cursor, ch)
             braceCursor = document.anchor(line, column - 1, gBraceMap[ch]);
             // TODO Otherwise, it seems we have a template parameters list...
         if (braceCursor.isValid())
-            result = document.firstColumn(braceCursor.line) + 2;
+            result = document.firstColumn(braceCursor.line) + (ch != '}' ? 2 : 0);
     }
 
     return result;
@@ -893,7 +893,12 @@ function tryCloseBracket(cursor, ch)
 /**
  * \brief Indent new scope block
  *
- * ... try to unindent to be precise...
+ * ... try to unindent to be precise... First of all check that open
+ * \c '{' is a first symbol on a line, and if it doesn't, make sure
+ * there is a space before, except if previous char is not a \c '{'.
+ * Otherwise, look at the previous line for dangling <tt>')'</tt> or
+ * a line started w/ one of flow control keywords.
+ *
  */
 function tryBlock(cursor)
 {
@@ -901,18 +906,32 @@ function tryBlock(cursor)
     var line = cursor.line;
     var column = cursor.column;
 
-    // Check for a dangling close brace on a previous line
-    // (this may mean that `for' or `if' or `while' w/ looong parameters list on it)
-    if (document.firstChar(line - 1) == ')')
-        result = Math.floor(document.firstColumn(line - 1) / gIndentWidth) * gIndentWidth;
+    if (document.firstColumn(line) == (column - 1) && document.firstChar(line) == '{')
+    {
+        // Check for a dangling close brace on a previous line
+        // (this may mean that `for' or `if' or `while' w/ looong parameters list on it)
+        if (document.firstChar(line - 1) == ')')
+            result = Math.floor(document.firstColumn(line - 1) / gIndentWidth) * gIndentWidth;
+        else
+        {
+            // Otherwise, check for a keyword on the previous line and
+            // indent the started block to it...
+            var prevString = document.line(line - 1);
+            var r = /^(\s*)((catch|if|for|while)\s*\(|do|else|try|(default|case\s+.*)\s*:).*$/.exec(prevString);
+            if (r != null)
+                result = r[1].length;
+        }
+    }
     else
     {
-        // Otherwise, check for a keyword on the previous line and
-        // indent the started block to it...
-        var prevString = document.line(line - 1);
-        var r = /^(\s*)((catch|if|for|while)\s*\(|do|else|try|(default|case\s+.*)\s*:).*$/.exec(prevString);
-        if (r != null)
-            result = r[1].length;
+        // '{' is not a first char. Check for previous one...
+        if (1 < column)
+        {
+            var prevChar = document.charAt(line, column - 2);
+            dbg("tryBlock: prevChar='"+prevChar+"'");
+            if (prevChar != ' ' && prevChar != '{' && prevChar != '(')
+                document.insertText(line, column - 1, ' ');
+        }
     }
     return result;
 }

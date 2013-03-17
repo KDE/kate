@@ -232,11 +232,11 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock, int fixStartLine
         if (cursor->lineInBlock() == 0) {
           // patch column
           cursor->m_column += oldSizeOfPreviousLine;
-        }
 
-        // remember range, if any
-        if (cursor->kateRange())
-          changedRanges.insert (cursor->kateRange());
+          // remember range, if any
+          if (cursor->kateRange())
+            changedRanges.insert (cursor->kateRange());
+        }
     }
 
     // move cursors of the moved line from previous block to this block now
@@ -247,16 +247,18 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock, int fixStartLine
         cursor->m_line = 0;
         cursor->m_block = this;
         m_cursors.insert (cursor);
+
+        // remember range, if any
+        if (cursor->kateRange())
+          changedRanges.insert (cursor->kateRange());
       }
       else
         newPreviousCursors.insert (cursor);
     }
     previousBlock->m_cursors = newPreviousCursors;
 
-    // fixup ALL ranges
-    QList<TextRange*> allRanges = m_uncachedRanges.toList() + m_cachedLineForRanges.keys()
-     + previousBlock->m_uncachedRanges.toList() + previousBlock->m_cachedLineForRanges.keys();
-    foreach (TextRange *range, allRanges) {
+    // fixup the ranges that might be effected, because they moved from last line to this block
+    foreach (TextRange *range, changedRanges) {
         // update both blocks
         updateRange (range);
         previousBlock->updateRange (range);

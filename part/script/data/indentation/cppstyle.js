@@ -128,7 +128,7 @@ function isNotStringOrComment(line, column)
     // Check if we are not withning a string or a comment
     var c = new Cursor(line, column);
     var mode = document.attributeName(c);
-    //dbg("isNotStringOrComment: Check mode @ " + c + ": " + mode);
+    dbg("isNotStringOrComment: Check mode @ " + c + ": " + mode);
     return !(document.isString(c) || document.isComment(c));
 }
 
@@ -288,7 +288,7 @@ function tryBraceSplit_ch(line)
     }
     if (result != -1)
     {
-        //dbg("tryBraceSplit_ch result="+result);
+        dbg("tryBraceSplit_ch result="+result);
         tryToKeepInlineComment(line);
     }
     return result;
@@ -327,7 +327,7 @@ function tryToAlignAfterOpenBrace_ch(line)
     if (result != -1)
     {
         tryToKeepInlineComment(line);
-        //dbg("tryToAlignOpenBrace_ch result="+result);
+        dbg("tryToAlignOpenBrace_ch result="+result);
     }
     return result;
 }
@@ -341,7 +341,7 @@ function tryToAlignBeforeCloseBrace_ch(line)
     if (ch == '}' || ch == ')' || ch == ']')
     {
         var openBracePos = document.anchor(line, pos, ch);
-        //dbg("Found open brace @ "+openBracePos)
+        dbg("Found open brace @ "+openBracePos)
         if (openBracePos.isValid())
             result = document.firstColumn(openBracePos.line) + (ch == '}' ? 0 : 2);
     }
@@ -353,7 +353,7 @@ function tryToAlignBeforeCloseBrace_ch(line)
     if (result != -1)
     {
         tryToKeepInlineComment(line);
-        //dbg("tryToAlignBeforeCloseBrace_ch result="+result);
+        dbg("tryToAlignBeforeCloseBrace_ch result="+result);
     }
     return result;
 }
@@ -377,7 +377,7 @@ function tryToAlignBeforeComma_ch(line)
     if (result != -1)
     {
         tryToKeepInlineComment(line);
-        //dbg("tryToAlignBeforeComma_ch result="+result);
+        dbg("tryToAlignBeforeComma_ch result="+result);
     }
     return result;
 }
@@ -406,7 +406,7 @@ function tryMultilineCommentStart_ch(line)
     }
     if (result != -1)
     {
-        //dbg("tryMultilineCommentStart_ch result="+result);
+        dbg("tryMultilineCommentStart_ch result="+result);
     }
     return result;
 }
@@ -438,7 +438,7 @@ function tryMultilineCommentCont_ch(line)
     }
     if (result != -1)
     {
-        //dbg("tryMultilineCommentCont_ch result="+result);
+        dbg("tryMultilineCommentCont_ch result="+result);
     }
     return result;
 }
@@ -479,7 +479,7 @@ function trySplitComment_ch(line)
     }
     if (result != -1)
     {
-        //dbg("trySplitComment_ch result="+result);
+        dbg("trySplitComment_ch result="+result);
     }
     return result;
 }
@@ -494,13 +494,13 @@ function tryIndentAfterSomeKeywords_ch(line)
       .exec(prevString);
     if (r != null)
     {
-        //dbg("r=",r);
+        dbg("r=",r);
         result = r[1].length + gIndentWidth;
     }
     if (result != -1)
     {
         tryToKeepInlineComment(line);
-        //dbg("tryIndentAfterSomeKeywords_ch result="+result);
+        dbg("tryIndentAfterSomeKeywords_ch result="+result);
     }
     return result;
 }
@@ -524,7 +524,7 @@ function tryAfterDanglingSemicolon_ch(line)
     if (result != -1)
     {
         tryToKeepInlineComment(line);
-        //dbg("tryDanglingSemicolon_ch result="+result);
+        dbg("tryDanglingSemicolon_ch result="+result);
     }
     return result;
 }
@@ -545,7 +545,7 @@ function tryAfterEqualChar_ch(line)
     if (result != -1)
     {
         tryToKeepInlineComment(line);
-        //dbg("tryAfterEqualChar_ch result="+result);
+        dbg("tryAfterEqualChar_ch result="+result);
     }
     return result;
 }
@@ -559,7 +559,7 @@ function tryMacroDefinition_ch(line)
         result = gIndentWidth;
     if (result != -1)
     {
-        //dbg("tryMacroDefinition_ch result="+result);
+        dbg("tryMacroDefinition_ch result="+result);
     }
     return result;
 }
@@ -571,7 +571,7 @@ function tryMacroDefinition_ch(line)
 function tryBeforeDanglingDelimiter_ch(line)
 {
     var result = -1;
-    //dbg("text='"+document.line(line)+"'");
+    dbg("text='"+document.line(line)+"'");
     var halfTabNeeded =
         // current line do not starts w/ a comment
         !document.line(line).ltrim().startsWith("//")
@@ -589,7 +589,7 @@ function tryBeforeDanglingDelimiter_ch(line)
     if (result != -1)
     {
         tryToKeepInlineComment(line);
-        //dbg("tryBeforeDanglingDelimiter_ch result="+result);
+        dbg("tryBeforeDanglingDelimiter_ch result="+result);
     }
     return result;
 }
@@ -616,7 +616,7 @@ function tryPreprocessor_ch(line)
                 spacesCnt++;
             }
             var wordAfterHash = document.wordAt(line, i);
-            //dbg("wordAfterHash='"+wordAfterHash+"'");
+            dbg("wordAfterHash='"+wordAfterHash+"'");
             if (wordAfterHash[0] == '#')
                 wordAfterHash = wordAfterHash.substring(1, wordAfterHash.length);
             if (wordAfterHash == "else" || wordAfterHash == "elif" || wordAfterHash == "endif")
@@ -635,7 +635,7 @@ function tryPreprocessor_ch(line)
     }
     if (result != -1)
     {
-        //dbg("tryPreprocessor_ch result="+result);
+        dbg("tryPreprocessor_ch result="+result);
     }
     return result;
 }
@@ -780,8 +780,8 @@ function tryTemplate(cursor)
     // Check for 'template' keyword at line start
     var currentString = document.line(line);
     var prevWord = document.wordAt(line, column - 1);
-    //dbg("tryTemplate: prevWord='"+prevWord+"'");
-    //dbg("tryTemplate: prevWord.match="+prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/));
+    dbg("tryTemplate: prevWord='"+prevWord+"'");
+    dbg("tryTemplate: prevWord.match="+prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/));
     var isCloseAngleBracketNeeded = currentString.match(/^\s*template\s*<$/)
       || prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/)         // Does a word before '<' looks like identifier?
       ;
@@ -851,14 +851,14 @@ function tryOperator(cursor, ch)
       && document.firstColumn(line) == (column - 1)
       && document.line(line - 1).search(/^\s*[A-Za-z_][A-Za-z0-9_]*/) != -1
       ;
-    //dbg("halfTabNeeded=",halfTabNeeded);
+    dbg("halfTabNeeded=",halfTabNeeded);
     if (halfTabNeeded)
     {
         // check if we r at function call or array index
         var insideBraces = document.anchor(line, document.firstColumn(line), '(').isValid()
           || document.anchor(line, document.firstColumn(line), '[').isValid()
           ;
-        //dbg("insideBraces=",insideBraces);
+        dbg("insideBraces=",insideBraces);
         result = document.firstColumn(line - 1) + (insideBraces && ch != '.' ? -2 : 2);
     }
     if (ch == '?')
@@ -970,13 +970,33 @@ function tryColon(cursor)
     }
     else
     {
-        var currentString = document.line(line);
-        if (currentString.search(/^\s*((public|protected|private)\s*(slots|Q_SLOTS)?|(signals|Q_SIGNALS)\s*):\s*$/) != -1)
+        var currentLine = document.line(line);
+        if (currentLine.search(/^\s*((public|protected|private)\s*(slots|Q_SLOTS)?|(signals|Q_SIGNALS)\s*):\s*$/) != -1)
         {
             var definitionCursor = document.anchor(line, 0, '{');
             if (definitionCursor.isValid())
             {
                 result = document.firstVirtualColumn(definitionCursor.line);
+                dbg("tryColon: result="+result);
+                if (0 < line)                               // Is there any line before?
+                {
+                    // Check if previous line is not empty and not starts w/ '{'
+                    var prevLine = document.line(line - 1).trim()
+                    if (prevLine.length && !prevLine.startsWith("{"))
+                    {
+                        // Cuz a new line will be added in place of current, returning
+                        // result will not affect indentation. So do it manually.
+                        var firstColumn = document.firstColumn(line);
+                        var padding = "";
+                        if (firstColumn < result)
+                            padding = String().fill(' ', result - firstColumn);
+                        else if (result < firstColumn)
+                            document.removeText(line, 0, line, firstColumn - result);
+                        // Add an empty line before the current
+                        document.insertText(line, 0, "\n" + padding);
+                        result = 0;
+                    }
+                }
             }
         }
     }
@@ -991,7 +1011,7 @@ function tryOpenBrace(cursor)
     var line = cursor.line;
     var column = cursor.column;
     var wordBefore = document.wordAt(line, column - 1);
-    //dbg("word before: '"+wordBefore+"'");
+    dbg("word before: '"+wordBefore+"'");
     if (wordBefore.search(/\b(catch|for|if|switch|while)\b/) != -1)
         document.insertText(line, column - 1, " ");
 }
@@ -1008,7 +1028,7 @@ function getMacroRange(line)
     for (var i = line; i >= 0; --i)
     {
         var currentLineText = document.line(i);
-        //dbg("up: '"+currentLineText+"'");
+        dbg("up: '"+currentLineText+"'");
         if (currentLineText.search(/^\s*#\s*define\s+.*\\$/) != -1)
         {
             macroStartLine = i;
@@ -1028,7 +1048,7 @@ function getMacroRange(line)
     for (var i = line; i < document.lines(); ++i)
     {
         var currentLineText = document.line(i);
-        //dbg("dw: '"+currentLineText+"'");
+        dbg("dw: '"+currentLineText+"'");
         if (currentLineText.search(/\\$/) != -1)            // Make sure the current line have a '\' at the end
         {
             macroEndLine = i;
@@ -1058,8 +1078,8 @@ function tryBackslash(cursor)
     var result = getMacroRange(line);                       // Look up and down for macro definition range
     if (result != null)
     {
-        //dbg("macroRange:",result.range);
-        //dbg("maxLength:",result.max);
+        dbg("macroRange:",result.range);
+        dbg("maxLength:",result.max);
         // Iterate over macro definition, strip backslash
         // and add a padding string up to result.max length + backslash
         document.editBegin();
@@ -1092,7 +1112,7 @@ function processChar(line, ch)
     // TODO Is there any `assert' in JS?
     if (line != cursor.line)
     {
-        //dbg("ASSERTION FAILURE: line != cursor.line");
+        dbg("ASSERTION FAILURE: line != cursor.line");
         return result;
     }
 
@@ -1252,7 +1272,7 @@ function alignInsideBraces(line)
     var isSingleLineComment = false;
     if (currentLineText.startsWith('//'))                   // Is single line comment on this line?
     {
-        //dbg("found a single-line comment");
+        dbg("found a single-line comment");
         // Yep, go to find a next non-comment line...
         nextNonCommentLine = findSingleLineCommentBlockEnd(line);
         isSingleLineComment = true;
@@ -1260,7 +1280,7 @@ function alignInsideBraces(line)
     else if (currentLineText.startsWith('/*'))              // Is multiline comment starts on this line?
     {
         // Yep, go to find a next non-comment line...
-        //dbg("found start of a multiline comment");
+        dbg("found start of a multiline comment");
         nextNonCommentLine = findMultiLineCommentBlockEnd(line);
     }
     // Are we already inside of a multiline comment?
@@ -1277,16 +1297,16 @@ function alignInsideBraces(line)
     // So indenters based on a higlighting info will not work! BUT THEY DEFINITELY SHOULD!
     else if (currentLineText.startsWith("*") && document.isComment(line, 0))
     {
-        //dbg("found middle of a multiline comment");
+        dbg("found middle of a multiline comment");
         // Yep, go to find a next non-comment line...
         nextNonCommentLine = findMultiLineCommentBlockEnd(line);
         middleOfMultilineBlock = true;
     }
-    //dbg("line="+line);
-    //dbg("document.isComment(line, 0)="+document.isComment(line, 0));
-    //dbg("document.defStyleNum(line, 0)="+document.defStyleNum(line-1, 0));
-    //dbg("currentLineText='"+currentLineText+"'");
-    //dbg("middleOfMultilineBlock="+middleOfMultilineBlock);
+    dbg("line="+line);
+    dbg("document.isComment(line, 0)="+document.isComment(line, 0));
+    dbg("document.defStyleNum(line, 0)="+document.defStyleNum(line-1, 0));
+    dbg("currentLineText='"+currentLineText+"'");
+    dbg("middleOfMultilineBlock="+middleOfMultilineBlock);
 
     if (nextNonCommentLine == 0)                            // End of comment not found?
         // ... possible due temporary invalid code...
@@ -1313,7 +1333,7 @@ function alignInsideBraces(line)
       , document.anchor(line, document.firstColumn(line), '{')
       , document.anchor(line, document.firstColumn(line), '[')
       ].sort();
-    //dbg("Found open brackets @ "+brackets);
+    dbg("Found open brackets @ "+brackets);
 
     // Check if we are at some brackets, otherwise do nothing
     var nearestBracket = brackets[brackets.length - 1];
@@ -1355,17 +1375,17 @@ function alignInsideBraces(line)
               );
             result = desiredIndent;                         // Reassign a result w/ desired value!
             //BEGIN SPAM
-            //dbg("parentIndent="+parentIndent);
-            //dbg("openBraceIsFirst="+openBraceIsFirst);
-            //dbg("firstChar="+firstChar);
-            //dbg("isCloseBraceFirst="+isCloseBraceFirst);
-            //dbg("doNotAddAnything="+doNotAddAnything);
-            //dbg("mustAddHalfTab="+mustAddHalfTab);
-            //dbg("desiredIndent="+desiredIndent);
+            dbg("parentIndent="+parentIndent);
+            dbg("openBraceIsFirst="+openBraceIsFirst);
+            dbg("firstChar="+firstChar);
+            dbg("isCloseBraceFirst="+isCloseBraceFirst);
+            dbg("doNotAddAnything="+doNotAddAnything);
+            dbg("mustAddHalfTab="+mustAddHalfTab);
+            dbg("desiredIndent="+desiredIndent);
             //END SPAM
             break;
         default:
-            //dbg("Dunno how to align this line...");
+            dbg("Dunno how to align this line...");
             break;
     }
     return result;
@@ -1420,7 +1440,7 @@ function alignCase(line)
  */
 function indentLine(line)
 {
-    //dbg(">> Going to indent line "+line);
+    dbg(">> Going to indent line "+line);
     var result = alignPreprocessor(line);                   // Try to align a preprocessor directive
     if (result == -2)                                       // Nothing has changed?
         result = alignAccessSpecifier(line);                // Try to align access specifiers in a class
@@ -1430,7 +1450,7 @@ function indentLine(line)
         result = alignInsideBraces(line);                   // Try to align a generic line
     alignInlineComment(line);                               // Always try to align inline comments
 
-    //dbg("indentLine result="+result);
+    dbg("indentLine result="+result);
 
     if (result == -2)                                       // Still dunno what to do?
         result = -1;                                        // ... just align according a previous non empty line
@@ -1455,11 +1475,11 @@ function indent(line, indentWidth, ch)
     gMode = document.highlightingModeAt(view.cursorPosition());
     gAttr = document.attributeName(view.cursorPosition());
 
-    //dbg("indentWidth: " + indentWidth);
-    //dbg("      gMode: " + gMode);
-    //dbg("      gAttr: " + gAttr);
-    //dbg("       line: " + line);
-    //dbg("         ch: '" + ch + "'");
+    dbg("indentWidth: " + indentWidth);
+    dbg("      gMode: " + gMode);
+    dbg("      gAttr: " + gAttr);
+    dbg("       line: " + line);
+    dbg("         ch: '" + ch + "'");
 
     if (ch != "")
         return processChar(line, ch);

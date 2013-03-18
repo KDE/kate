@@ -56,7 +56,7 @@ require ("string.js");
 // TBD <others>
 triggerCharacters = "{}()<>/:;,#\\?|/%.";
 
-var debugMode = true;
+var debugMode = false;
 
 /// \todo Move to a separate library?
 function dbg()
@@ -875,16 +875,69 @@ function tryCloseBracket(cursor, ch)
     var line = cursor.line;
     var column = cursor.column;
 
+    var braceCursor = Cursor.invalid();
+    if (ch != '>')
+    {
+        // TODO Make sure a given `ch` in the gBraceMap
+        braceCursor = document.anchor(line, column - 1, gBraceMap[ch]);
+        // TODO Otherwise, it seems we have a template parameters list...
+    }
+
     // Check if a given closing brace is a first char on a line
     // (i.e. it is 'dangling' brace)...
-    if (document.firstChar(line) == ch && document.firstColumn(line) == (column - 1))
+    if (document.firstChar(line) == ch && document.firstColumn(line) == (column - 1) && braceCursor.isValid())
     {
-        var braceCursor = Cursor.invalid();
-        if (ch != '>')
-            braceCursor = document.anchor(line, column - 1, gBraceMap[ch]);
-            // TODO Otherwise, it seems we have a template parameters list...
-        if (braceCursor.isValid())
-            result = document.firstColumn(braceCursor.line) + (ch != '}' ? 2 : 0);
+        // Move to one half-TAB right, if anything but not closing '}', else
+        // align to the corresponding open char
+        result = document.firstColumn(braceCursor.line) + (ch != '}' ? 2 : 0);
+        dbg("tryCloseBracket: setting result="+result);
+    }
+
+    // Check if ';' required after closing '}'
+    if (ch == '}' && braceCursor.isValid())
+    {
+        var is_check_needed = false;
+        // Check if corresponding anchor is a class/struct/union/enum,
+        // (possible keyword located on same or prev line)
+        // and check for trailing ';'...
+        var anchoredString = document.line(braceCursor.line);
+        dbg("tryCloseBracket: anchoredString='"+anchoredString+"'");
+        var regex = /^(\s*)(class|struct|union|enum).*$/;
+        var r = regex.exec(anchoredString);
+        if (r != null)
+        {
+            dbg("tryCloseBracket: same line");
+            is_check_needed = true;
+        }
+        else (!is_check_needed && 0 < braceCursor.line)     // Is there any line before?
+        {
+            dbg("tryCloseBracket: cheking prev line");
+
+            // Ok, lets check it!
+            anchoredString = document.line(braceCursor.line - 1);
+            dbg("tryCloseBracket: anchoredString-1='"+anchoredString+"'");
+            r = regex.exec(anchoredString);
+            if (r != null)
+            {
+                is_check_needed = true;
+                dbg("tryCloseBracket: prev line");
+            }
+        }
+        dbg("tryCloseBracket: is_check_needed="+is_check_needed);
+        if (is_check_needed)
+        {
+            var is_ok = document.line(line)
+              .substring(column, document.lineLength(line))
+              .ltrim()
+              .startsWith(';')
+              ;
+            if (!is_ok)
+            {
+                document.insertText(line, column, ';');
+                view.setCursorPosition(line, column + 1);
+            }
+        }
+
     }
 
     return result;

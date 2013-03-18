@@ -221,8 +221,11 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock, int fixStartLine
 
     /**
      * cursor and range handling below
-     * we need to to this even without any cursors, as ranges might no span in this block!
      */
+
+    // no cursors in this block and the previous one, no work to do..
+    if (m_cursors.empty() && previousBlock->m_cursors.empty())
+      return;
 
     // move all cursors because of the unwrapped line
     // remember all ranges modified
@@ -241,7 +244,6 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock, int fixStartLine
 
     // move cursors of the moved line from previous block to this block now
     QSet<TextCursor *> newPreviousCursors;
-    QSet<TextRange *> rangesMoved;
     foreach (TextCursor *cursor, previousBlock->m_cursors) {
       if (cursor->lineInBlock() == lastLineOfPreviousBlock) {
         cursor->m_line = 0;

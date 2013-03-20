@@ -863,6 +863,10 @@ void KateViewManager::restoreViewConfiguration (const KConfigGroup& config)
   qDeleteAll( m_viewSpaceList );
   m_viewSpaceList.clear();
   m_activeStates.clear();
+  
+#ifdef KActivities_FOUND
+  m_activityResources.clear();
+#endif
 
   // reset lru history, too!
   m_lruViews.clear();

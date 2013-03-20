@@ -54,9 +54,9 @@ require ("string.js");
 // ')' is for align dangling close bracket
 // ';' is for align `for' parts
 // TBD <others>
-triggerCharacters = "{}()<>/:;,#\\?|/%.";
+triggerCharacters = "{}()<>/:;,#\\?|/%.@";
 
-var debugMode = false;
+var debugMode = true;
 
 /// \todo Move to a separate library?
 function dbg()
@@ -122,14 +122,14 @@ function stripComment(text)
     return splitByComment(text).before.rstrip();
 }
 
-/// Return \c true if attribute at given position is not a \e String or \e Comment
-function isNotStringOrComment(line, column)
+/// Return \c true if attribute at given position is a \e String or \e Comment
+function isStringOrComment(line, column)
 {
     // Check if we are not withning a string or a comment
     var c = new Cursor(line, column);
     var mode = document.attributeName(c);
-    dbg("isNotStringOrComment: Check mode @ " + c + ": " + mode);
-    return !(document.isString(c) || document.isComment(c));
+    dbg("isStringOrComment: Check mode @ " + c + ": " + mode);
+    return gMode == "Doxygen" || document.isString(c) || document.isComment(c);
 }
 
 /// Try to (re)align (to 60th position) inline comment if present
@@ -139,7 +139,7 @@ function alignInlineComment(line)
     var currentLineText = document.line(line);
     var sc = splitByComment(currentLineText);
     // Did we found smth and if so, make sure it is not a string or comment...
-    if (sc.hasComment && isNotStringOrComment(line, sc.before.length - 1))
+    if (sc.hasComment && !isStringOrComment(line, sc.before.length - 1))
     {
         var rbefore = sc.before.rtrim();
         /// \attention Kate has a BUG: even if everything is Ok and no realign
@@ -191,7 +191,7 @@ function tryToKeepInlineComment(line)
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
     var sc = splitByComment(currentLineText);
-    if (sc.hasComment && isNotStringOrComment(line, sc.before.length - 1) && sc.after.length > 0)
+    if (sc.hasComment && !isStringOrComment(line, sc.before.length - 1) && sc.after.length > 0)
     {
         // Ok, here is few cases possible when ENTER pressed in different positions
         // |  |smth|was here; |        |// comment
@@ -571,7 +571,7 @@ function tryMacroDefinition_ch(line)
 function tryBeforeDanglingDelimiter_ch(line)
 {
     var result = -1;
-    dbg("text='"+document.line(line)+"'");
+    dbg("tryBeforeDanglingDelimiter_ch: text='"+document.line(line)+"'");
     var halfTabNeeded =
         // current line do not starts w/ a comment
         !document.line(line).ltrim().startsWith("//")
@@ -701,7 +701,7 @@ function caretPressed(cursor)
  *     doxygen comment <tt>'///'</tt> or <tt>'///<'</tt> depending on presence of some text
  *     on a line before the comment.
  *
- * \todo Due a BUG in a current version of Kate, this code doesn't work as expected!
+ * \todo Due the BUG #316809 in a current version of Kate, this code doesn't work as expected!
  * It always returns a <em>"NormalText"</em>!
  * \code
  * var cm = document.attributeName(cursor);
@@ -722,14 +722,16 @@ function trySameLineComment(cursor)
     var column = cursor.column;
 
     // Fisrt of all check that we r not withing a string
-    // BUG See note in a function's documentation
-    var cm = document.attributeName(cursor);
-    if (cm.indexOf("String") != -1)
+    // (previous char checked, i.e. not just entered, due the BUG #316809)
+    if (document.isString(line, column - 2))
        return;
 
     var sc = splitByComment(document.line(line));
     if (sc.hasComment)                                      // Is there any comment on a line?
     {
+        // Make sure we r not in a comment already
+        if (document.isComment(line, document.firstColumn(line)))
+            return;
         // If no text after the comment and it still not aligned
         var text_len = sc.before.rtrim().length;
         if (text_len != 0 && sc.after.length == 0 && text_len < gSameLineCommentStartAt)
@@ -937,7 +939,6 @@ function tryCloseBracket(cursor, ch)
                 view.setCursorPosition(line, column + 1);
             }
         }
-
     }
 
     return result;
@@ -958,6 +959,11 @@ function tryBlock(cursor)
     var result = -2;
     var line = cursor.line;
     var column = cursor.column;
+
+    // Make sure we r not in a comment or string
+    dbg("tryBlock: isStringOrComment(line, column - 2)="+isStringOrComment(line, column - 2))
+    if (isStringOrComment(line, column - 2))
+        return result;
 
     if (document.firstColumn(line) == (column - 1) && document.firstChar(line) == '{')
     {
@@ -1169,6 +1175,30 @@ function tryBackslash(cursor)
 }
 
 /**
+ * \brief Handle a <tt>@</tt> symbol
+ *
+ * Possible user wants to add a Doxygen group
+ */
+function tryDoxygenGrouping(cursor)
+{
+    var line = cursor.line;
+    var column = cursor.column;
+    var firstColumn = document.firstColumn(line);
+    // Check the symbol before the just entered
+    var looks_like_doxgorup = isStringOrComment(line, column - 2)// ")
+      && firstColumn == (column - 4)
+      && document.line(line).ltrim().startsWith("// ")
+      ;
+    if (looks_like_doxgorup)
+    {
+        document.removeText(line, column - 2, line, column - 1);
+        var padding = String().fill(' ', firstColumn);
+        document.insertText(line, column - 1, "{\n" + padding + "\n" + padding + "//@}");
+        view.setCursorPosition(line + 1, document.lineLength(line + 1));
+    }
+}
+
+/**
  * \brief Process one character
  *
  * NOTE Cursor positioned right after just entered character and has +1 in column.
@@ -1234,6 +1264,9 @@ function processChar(line, ch)
             break;
         case '\\':
             tryBackslash(cursor);
+            break;
+        case '@':
+            tryDoxygenGrouping(cursor);
             break;
         default:
             break;                                          // Nothing to do...
@@ -1558,5 +1591,9 @@ function indent(line, indentWidth, ch)
 
     return indentLine(line);
 }
+
+/**
+ * \todo Better to use \c defStyleNum() instead of \c attributeName() and string comparision
+ */
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

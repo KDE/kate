@@ -1,6 +1,6 @@
 /*   Kate search plugin
  * 
- * Copyright (C) 2011 by Kåre Särs <kare.sars@iki.fi>
+ * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

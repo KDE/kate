@@ -1,6 +1,6 @@
 /*   Kate search plugin
  *
- * Copyright (C) 2011-2012 by Kåre Särs <kare.sars@iki.fi>
+ * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,46 +69,35 @@ static QAction *menuEntry(QMenu *menu,
     return action;
 }
 
+class TreeWidgetItem : public QTreeWidgetItem {
+public:
+    TreeWidgetItem(QTreeWidget* parent):QTreeWidgetItem(parent){}
+    TreeWidgetItem(QTreeWidget* parent, const QStringList &list):QTreeWidgetItem(parent, list){}
+    TreeWidgetItem(QTreeWidgetItem* parent, const QStringList &list):QTreeWidgetItem(parent, list){}
+private:
+    bool operator<(const QTreeWidgetItem &other)const {
+        if (parent()) {
+            int line = data(1, Qt::UserRole).toInt();
+            int column = data(2, Qt::UserRole).toInt();
+            int oLine = other.data(1, Qt::UserRole).toInt();
+            int oColumn = other.data(2, Qt::UserRole).toInt();
+            if (line < oLine) {
+                return true;
+            }
+            if ((line == oLine) && (column < oColumn)) {
+                return true;
+            }
+            return false;
+        }
+        return data(0, Qt::UserRole).toString().toLower() < other.data(0, Qt::UserRole).toString().toLower();
+    }
+};
+
 Results::Results(QWidget *parent): QWidget(parent), matches(0)
 {
     setupUi(this);
 
     tree->setItemDelegate(new SPHtmlDelegate(tree));
-    selectAllCB->setText(i18n("Select all 9999 matches"));
-    selectAllCB->setFixedWidth(selectAllCB->sizeHint().width());
-    selectAllCB->setText(i18n("Select all"));
-    buttonContainer->setDisabled(true);
-
-    connect(selectAllCB, SIGNAL(clicked(bool)), this, SLOT(selectAll(bool)));
-}
-
-void Results::selectAll(bool)
-{
-    disconnect(tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(checkCheckedState()));
-    Qt::CheckState state = selectAllCB->checkState();
-    if (state == Qt::PartiallyChecked) state = Qt::Checked;
-    selectAllCB->setCheckState(state);
-    for (int i=0; i<tree->topLevelItemCount(); i++) {
-        if (tree->topLevelItem(i)->flags() == Qt::NoItemFlags) continue;
-        tree->topLevelItem(i)->setCheckState(0, state);
-    }
-    connect(tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(checkCheckedState()));
-}
-
-void Results::checkCheckedState()
-{
-    Qt::CheckState state;
-    for (int i=0; i<tree->topLevelItemCount(); i++) {
-        if (tree->topLevelItem(i)->flags() == Qt::NoItemFlags) continue;
-        if (i==0) {
-            state = tree->topLevelItem(i)->checkState(0);
-        }
-        else if (state != tree->topLevelItem(i)->checkState(0)) {
-            selectAllCB->setCheckState(Qt::PartiallyChecked);
-            return;
-        }
-    }
-    selectAllCB->setCheckState(state);
 }
 
 
@@ -151,42 +140,45 @@ Kate::PluginView *KatePluginSearch::createView(Kate::MainWindow *mainWindow)
 }
 
 
-// This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
-class ContainerWidget:public QWidget
-{
-public:
-    ContainerWidget(QWidget* parent):QWidget(parent), searchCombo(0), firstFocusWidget(0), lastFocusWidget(0) {}
-    void setWidgets(QComboBox* theSearchBox, QWidget* theFirstFocusWidget, QWidget* theLastFocusWidget);
-protected:
-    virtual bool focusNextPrevChild (bool next);
-    QComboBox* searchCombo;
-    QWidget* firstFocusWidget;
-    QWidget* lastFocusWidget;
-};
-
-void ContainerWidget::setWidgets(QComboBox* theSearchCombo, QWidget* theFirstFocusWidget, QWidget* theLastFocusWidget)
-{
-    searchCombo = theSearchCombo;
-    firstFocusWidget = theFirstFocusWidget;
-    lastFocusWidget = theLastFocusWidget;
-}
-
 bool ContainerWidget::focusNextPrevChild (bool next)
 {
-    const QWidget* fw = focusWidget();
-    // we use the object names here because there can be multiple replaceButtons (on multiple result tabs)
-    if (next && ((fw->objectName() == "binaryCheckBox") || (fw->objectName() == "replaceButton"))) {
-        firstFocusWidget->setFocus();
-        return true;
-    }
-    if (!next && focusWidget() == firstFocusWidget) {
-        // this is not really good, but still kind of ok if the result-tab is visible
-        lastFocusWidget->setFocus();
+    QWidget* fw = focusWidget();
+    bool found = false;
+    emit nextFocus(fw, &found, next);
+
+    if (found) {
         return true;
     }
     return QWidget::focusNextPrevChild(next);
 }
 
+void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool next)
+{
+    *found = false;
+
+    if (!currentWidget) {
+        return;
+    }
+
+    // we use the object names here because there can be multiple replaceButtons (on multiple result tabs)
+    if (next) {
+        if (!m_ui.displayOptions->isChecked() && (currentWidget->objectName() == "tree")) {
+            m_ui.newTabButton->setFocus();
+            *found = true;
+            return;
+        }
+        if (currentWidget == m_ui.displayOptions) {
+            m_ui.newTabButton->setFocus();
+            *found = true;
+            return;
+        }
+    }
+    else if (currentWidget == m_ui.newTabButton) {
+        m_ui.displayOptions->setFocus();
+        *found = true;
+        return;
+    }
+}
 
 KatePluginSearchView::KatePluginSearchView(Kate::MainWindow *mainWin, Kate::Application* application)
 : Kate::PluginView(mainWin),
@@ -205,7 +197,7 @@ m_projectPluginView(0)
     ContainerWidget *container = new ContainerWidget(m_toolView);
     m_ui.setupUi(container);
     container->setFocusProxy(m_ui.searchCombo);
-    container->setWidgets(m_ui.searchCombo, m_ui.newTabButton, m_ui.binaryCheckBox);
+    connect(container, SIGNAL(nextFocus(QWidget*,bool*,bool)), this, SLOT(nextFocus(QWidget*,bool*,bool)));
 
     KAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));
@@ -238,12 +230,6 @@ m_projectPluginView(0)
 
     m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"));
     m_ui.excludeCombo->setToolTip(i18n("Comma separated list of files and directories to exclude from the search. Example: \"build*\""));
-
-    int padWidth = m_ui.folderLabel->sizeHint().width();
-    padWidth = qMax(padWidth, m_ui.filterLabel->sizeHint().width());
-    m_ui.topLayout->setColumnMinimumWidth(0, padWidth);
-    m_ui.topLayout->setAlignment(m_ui.newTabButton, Qt::AlignHCenter);
-    m_ui.optionsLayout->setColumnMinimumWidth(0, padWidth);
 
     // the order here is important to get the tabBar hidden for only one tab
     addTab();
@@ -278,6 +264,14 @@ m_projectPluginView(0)
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchDiskFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_folderFilesList, SLOT(cancelSearch()));
+
+    connect(m_ui.nextButton,       SIGNAL(clicked()), this, SLOT(goToNextMatch()));
+
+    connect(m_ui.replaceButton,     SIGNAL(clicked(bool)),   this, SLOT(replaceSingleMatch()));
+    connect(m_ui.replaceCheckedBtn, SIGNAL(clicked(bool)),   this, SLOT(replaceChecked()));
+    connect(m_ui.replaceCombo,      SIGNAL(returnPressed()), this, SLOT(replaceChecked()));
+
+
 
     m_ui.displayOptions->setChecked(true);
 
@@ -318,11 +312,15 @@ m_projectPluginView(0)
     connect(mainWindow(), SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
         , this, SLOT(slotPluginViewDeleted (const QString &, Kate::PluginView *)));
 
+    connect(mainWindow(), SIGNAL(viewChanged()), this, SLOT(docViewChanged()));
+
+
     // update once project plugin state manually
     m_projectPluginView = mainWindow()->pluginView ("kateprojectplugin");
     slotProjectFileNameChanged ();
 
     m_replacer.setDocumentManager(m_kateApp->documentManager());
+    connect(&m_replacer, SIGNAL(replaceDone()), this, SLOT(replaceDone()));
 
     searchPlaceChanged();
 
@@ -498,9 +496,13 @@ void KatePluginSearchView::startSearch()
     m_ui.newTabButton->setDisabled(true);
     m_ui.searchCombo->setDisabled(true);
     m_ui.searchButton->setDisabled(true);
-    m_ui.locationAndStop->setCurrentIndex(1);
+    m_ui.nextAndStop->setCurrentIndex(1);
     m_ui.displayOptions->setChecked (false);
     m_ui.displayOptions->setDisabled(true);
+    m_ui.replaceCheckedBtn->setDisabled(true);
+    m_ui.replaceButton->setDisabled(true);
+    m_ui.nextButton->setDisabled(true);
+
 
     QRegExp reg(m_ui.searchCombo->currentText(),
                 m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
@@ -509,11 +511,7 @@ void KatePluginSearchView::startSearch()
 
     clearMarks();
     m_curResults->tree->clear();
-    m_curResults->buttonContainer->setEnabled(false);
     m_curResults->matches = 0;
-    m_curResults->selectAllCB->setText(i18n("Select all"));
-    m_curResults->selectAllCB->setChecked(true);
-    disconnect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
     m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
                                      m_ui.searchCombo->currentText());
@@ -570,7 +568,6 @@ void KatePluginSearchView::startSearch()
     }
     m_toolView->setCursor(Qt::WaitCursor);
 
-    m_curResults->matches = 0;
 }
 
 void KatePluginSearchView::toggleOptions(bool show)
@@ -590,7 +587,6 @@ void KatePluginSearchView::searchPlaceChanged()
     const bool inFolder = (m_ui.searchPlaceCombo->currentIndex() == 1);
     const bool inProject = (m_ui.searchPlaceCombo->currentIndex() == 2);
 
-    m_ui.folderOptions->setEnabled(inFolder || inProject);
     m_ui.filterCombo->setEnabled(inFolder || inProject);
 
     m_ui.excludeCombo->setEnabled(inFolder || inProject);
@@ -623,6 +619,10 @@ void KatePluginSearchView::searchPatternChanged()
         return;
     }
 
+    m_ui.replaceCheckedBtn->setDisabled(true);
+    m_ui.replaceButton->setDisabled(true);
+    m_ui.nextButton->setDisabled(true);
+
     QRegExp reg(m_ui.searchCombo->currentText(),
                 m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
                 m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
@@ -631,11 +631,7 @@ void KatePluginSearchView::searchPatternChanged()
 
     clearMarks();
     m_curResults->tree->clear();
-    m_curResults->buttonContainer->setEnabled(false);
     m_curResults->matches = 0;
-    m_curResults->selectAllCB->setText(i18n("Select all"));
-    m_curResults->selectAllCB->setChecked(true);
-    disconnect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
     m_resultBaseDir.clear();
     if (m_ui.searchCombo->currentText().length() >= 3) {
@@ -705,7 +701,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
     // file item not found create a new one
     QString tmpUrl = QString("%1<b>%2</b>: <b>%3</b>").arg(path).arg(name).arg(1);
 
-    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResults->tree, QStringList(tmpUrl));
+    TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList(tmpUrl));
     item->setData(0, Qt::UserRole, url);
     item->setData(1, Qt::UserRole, 1);
     item->setCheckState (0, Qt::Checked);
@@ -720,7 +716,9 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
     KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(mainWindow()->activeView());
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
-    if (sender() == &m_replacer) {
+
+    bool replace = ((sender() == &m_replacer) || (sender() == 0) || (sender() == m_ui.replaceButton));
+    if (replace) {
         QColor replaceColor(Qt::green);
         if (ciface) replaceColor = ciface->configValue("replace-highlight-color").value<QColor>();
         attr->setBackground(replaceColor);
@@ -738,7 +736,15 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
         endColumn--; // remove one for '\n'
         endLine++;
     }
+
     KTextEditor::Range range(line, column, endLine, endColumn);
+    if (m_curResults && !replace) {
+        if (!m_curResults->regExp.exactMatch(doc->text(range))) {
+            kDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
+            return;
+        }
+    }
+
     KTextEditor::MovingRange* mr = miface->newMovingRange(range);
     mr->setAttribute(attr);
     mr->setZDepth(-90000.0); // Set the z-depth to slightly worse than the selection
@@ -770,7 +776,7 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     QStringList row;
     row << i18n("Line: <b>%1</b>: %2", line+1, pre+"<b>"+match+"</b>"+post);
 
-    QTreeWidgetItem *item = new QTreeWidgetItem(rootFileItem(url), row);
+    TreeWidgetItem *item = new TreeWidgetItem(rootFileItem(url), row);
     item->setData(0, Qt::UserRole, url);
     item->setData(0, Qt::ToolTipRole, url);
     item->setData(1, Qt::UserRole, line);
@@ -782,9 +788,6 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     item->setCheckState (0, Qt::Checked);
 
     m_curResults->matches++;
-    m_curResults->selectAllCB->setText(i18np("Select %1 match",
-                                            "Select all %1 matches",
-                                            m_curResults->matches));
 
     // Add mark if the document is open
     KTextEditor::Document* doc = m_kateApp->documentManager()->findUrl(url);
@@ -842,6 +845,98 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
     }
 }
 
+void KatePluginSearchView::replaceSingleMatch()
+{
+    // check if the cursor is at the current item if not jump there
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+    QTreeWidgetItem *item = res->tree->currentItem();
+    if (!item || !item->parent()) {
+        // nothing was selected
+        goToNextMatch();
+        return;
+    }
+
+    if (!mainWindow()->activeView() || !mainWindow()->activeView()->cursorPosition().isValid()) {
+        itemSelected(item);
+        return;
+    }
+
+    int dLine = mainWindow()->activeView()->cursorPosition().line();
+    int dColumn = mainWindow()->activeView()->cursorPosition().column();
+
+    int iLine = item->data(1, Qt::UserRole).toInt();
+    int iColumn = item->data(2, Qt::UserRole).toInt();
+
+    if ((dLine != iLine) || (dColumn != iColumn)) {
+        itemSelected(item);
+        return;
+    }
+
+    KTextEditor::Document *doc = mainWindow()->activeView()->document();
+    // Find the corresponding range
+    int i;
+    for (i=0; i<m_matchRanges.size(); i++) {
+        if (m_matchRanges[i]->document() != doc) continue;
+        if (m_matchRanges[i]->start().line() != iLine) continue;
+        if (m_matchRanges[i]->start().column() != iColumn) continue;
+        break;
+    }
+
+    if (i >=m_matchRanges.size()) {
+        goToNextMatch();
+        return;
+    }
+
+    if (!res->regExp.exactMatch(doc->text(m_matchRanges[i]->toRange()))) {
+        kDebug() << doc->text(m_matchRanges[i]->toRange()) << "Does not match" << res->regExp.pattern();
+        goToNextMatch();
+        return;
+    }
+
+    if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
+        m_ui.replaceCombo->insertItem(0, m_ui.replaceCombo->currentText());
+        m_ui.replaceCombo->setCurrentIndex(0);
+    }
+
+
+    QString replaceText = m_ui.replaceCombo->currentText();
+    replaceText.replace("\\\\", "¤Search&Replace¤");
+    for (int j=1; j<=res->regExp.captureCount(); j++) {
+        replaceText.replace(QString("\\%1").arg(j), res->regExp.cap(j));
+    }
+    replaceText.replace("\\n", "\n");
+    replaceText.replace("¤Search&Replace¤", "\\\\");
+
+    doc->replaceText(m_matchRanges[i]->toRange(), replaceText);
+    addMatchMark(doc, dLine, dColumn, replaceText.size());
+
+    replaceText.replace('\n', "\\n");
+    QString html = item->data(1, Qt::ToolTipRole).toString();
+    html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
+    html += "<b>" + replaceText + "</b>";
+    html += item->data(3, Qt::ToolTipRole).toString();
+    item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",m_matchRanges[i]->start().line()+1, html));
+
+    // now update the rest of the tree items for this file (they are sorted in ascending order
+    i++;
+    for (; i<m_matchRanges.size(); i++) {
+        if (m_matchRanges[i]->document() != doc) continue;
+        item = res->tree->itemBelow(item);
+        if (!item) break;
+        if (item->data(0, Qt::UserRole).toString() != doc->url().pathOrUrl()) break;
+        iLine = item->data(1, Qt::UserRole).toInt();
+        iColumn = item->data(2, Qt::UserRole).toInt();
+        if ((m_matchRanges[i]->start().line() == iLine) && (m_matchRanges[i]->start().column() == iColumn)) {
+            break;
+        }
+        item->setData(1, Qt::UserRole, m_matchRanges[i]->start().line());
+        item->setData(2, Qt::UserRole, m_matchRanges[i]->start().column());
+    }
+    goToNextMatch();
+}
 
 void KatePluginSearchView::searchDone()
 {
@@ -851,12 +946,19 @@ void KatePluginSearchView::searchDone()
     m_ui.newTabButton->setDisabled(false);
     m_ui.searchCombo->setDisabled(false);
     m_ui.searchButton->setDisabled(false);
-    m_ui.locationAndStop->setCurrentIndex(0);
+    m_ui.nextAndStop->setCurrentIndex(0);
     m_ui.displayOptions->setDisabled(false);
 
     if (!m_curResults) {
         return;
     }
+
+    m_ui.replaceCheckedBtn->setDisabled(m_curResults->matches < 1);
+    m_ui.replaceButton->setDisabled(m_curResults->matches < 1);
+    m_ui.nextButton->setDisabled(m_curResults->matches < 1);
+
+    m_curResults->tree->sortItems(0, Qt::AscendingOrder);
+
     if (m_curResults->tree->topLevelItemCount() > 1) {
         m_curResults->tree->setCurrentItem(m_curResults->tree->topLevelItem(1));
         m_curResults->tree->setFocus(Qt::OtherFocusReason);
@@ -866,12 +968,9 @@ void KatePluginSearchView::searchDone()
     if (m_curResults->tree->columnWidth(0) < m_curResults->tree->width()-30) {
         m_curResults->tree->setColumnWidth(0, m_curResults->tree->width()-30);
     }
-    if (!m_ui.u_expandResults->isChecked()) {
+    if (!m_ui.expandResults->isChecked()) {
         m_curResults->tree->collapseAll();
     }
-    m_curResults->buttonContainer->setEnabled(true);
-
-    connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
     indicateMatch(m_curResults->tree->topLevelItemCount() > 0);
     m_curResults = 0;
@@ -885,14 +984,15 @@ void KatePluginSearchView::searchWhileTypingDone()
         return;
     }
 
+    m_ui.replaceCheckedBtn->setDisabled(m_curResults->matches < 1);
+    m_ui.replaceButton->setDisabled(m_curResults->matches < 1);
+    m_ui.nextButton->setDisabled(m_curResults->matches < 1);
+
     m_curResults->tree->expandAll();
     m_curResults->tree->resizeColumnToContents(0);
     if (m_curResults->tree->columnWidth(0) < m_curResults->tree->width()-30) {
         m_curResults->tree->setColumnWidth(0, m_curResults->tree->width()-30);
     }
-    m_curResults->buttonContainer->setEnabled(true);
-
-    connect(m_curResults->tree, SIGNAL(itemChanged(QTreeWidgetItem*,int)), m_curResults, SLOT(checkCheckedState()));
 
     if (!m_searchJustOpened && (m_curResults->tree->topLevelItemCount() > 0)) {
         itemSelected(m_curResults->tree->topLevelItem(0));
@@ -969,6 +1069,48 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(toLine, toColumn));
     mainWindow()->activeView()->setFocus();
 }
+
+void KatePluginSearchView::docViewChanged()
+{
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+
+    m_curResults = res;
+
+    if (!mainWindow()->activeView()) {
+        return;
+    }
+
+    // add the marks if it is not already open
+    KTextEditor::Document *doc = mainWindow()->activeView()->document();
+    if (doc) {
+        QTreeWidgetItem *rootItem = 0;
+        for (int i=0; i<res->tree->topLevelItemCount(); i++) {
+            if (res->tree->topLevelItem(i)->data(0, Qt::UserRole).toString() == doc->url().pathOrUrl()) {
+                rootItem = res->tree->topLevelItem(i);
+                break;
+            }
+        }
+        if (rootItem) {
+
+            int line;
+            int column;
+            int len;
+            QTreeWidgetItem *item;
+            for (int i=0; i<rootItem->childCount(); i++) {
+                item = rootItem->child(i);
+                line = item->data(1, Qt::UserRole).toInt();
+                column = item->data(2, Qt::UserRole).toInt();
+                len = item->data(3, Qt::UserRole).toInt();
+                addMatchMark(doc, line, column, len);
+            }
+        }
+    }
+}
+
+
 
 void KatePluginSearchView::goToNextMatch()
 {
@@ -1054,7 +1196,7 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     m_ui.searchCombo->setHistoryItems(cg.readEntry("Search", QStringList()), true);
     m_ui.matchCase->setChecked(cg.readEntry("MatchCase", false));
     m_ui.useRegExp->setChecked(cg.readEntry("UseRegExp", false));
-    m_ui.u_expandResults->setChecked(cg.readEntry("ExpandSearchResults", false));
+    m_ui.expandResults->setChecked(cg.readEntry("ExpandSearchResults", false));
 
     int searchPlaceIndex = cg.readEntry("Place", 1);
     if (searchPlaceIndex < 0) {
@@ -1088,7 +1230,7 @@ void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString
     cg.writeEntry("Search", m_ui.searchCombo->historyItems());
     cg.writeEntry("MatchCase", m_ui.matchCase->isChecked());
     cg.writeEntry("UseRegExp", m_ui.useRegExp->isChecked());
-    cg.writeEntry("ExpandSearchResults", m_ui.u_expandResults->isChecked());
+    cg.writeEntry("ExpandSearchResults", m_ui.expandResults->isChecked());
 
     cg.writeEntry("Place", m_ui.searchPlaceCombo->currentIndex());
     cg.writeEntry("Recursive", m_ui.recursiveCheckBox->isChecked());
@@ -1129,10 +1271,6 @@ void KatePluginSearchView::addTab()
 
     connect(res->tree, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)),
             this,      SLOT  (itemSelected(QTreeWidgetItem*)), Qt::QueuedConnection);
-
-    connect(res->replaceButton, SIGNAL(clicked(bool)), this, SLOT(replaceChecked()));
-    connect(res->replaceCombo,  SIGNAL(returnPressed()), this, SLOT(replaceChecked()));
-    connect(&m_replacer,        SIGNAL(replaceDone()), this, SLOT(replaceDone()));
 
     m_ui.resultTabWidget->addTab(res, "");
     m_ui.resultTabWidget->setCurrentIndex(m_ui.resultTabWidget->count()-1);
@@ -1289,23 +1427,22 @@ void KatePluginSearchView::replaceChecked()
         return;
     }
 
-    if(m_curResults->replaceCombo->findText(m_curResults->replaceCombo->currentText()) == -1) {
-        m_curResults->replaceCombo->insertItem(0, m_curResults->replaceCombo->currentText());
-        m_curResults->replaceCombo->setCurrentIndex(0);
+    if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
+        m_ui.replaceCombo->insertItem(0, m_ui.replaceCombo->currentText());
+        m_ui.replaceCombo->setCurrentIndex(0);
     }
+
+    m_curResults->replace = m_ui.replaceCombo->currentText();
 
     m_replacer.replaceChecked(m_curResults->tree,
                               m_curResults->regExp,
-                              m_curResults->replaceCombo->currentText());
+                              m_curResults->replace);
 }
 
 void KatePluginSearchView::replaceDone()
 {
-    if (m_curResults) {
-        m_curResults->buttonStack->setCurrentIndex(0);
-        m_curResults->replaceCombo->setDisabled(false);
-        m_curResults = 0;
-    }
+    m_ui.replaceBtnStack->setCurrentIndex(0);
+    m_ui.replaceCombo->setDisabled(false);
 }
 
 void KatePluginSearchView::slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView)

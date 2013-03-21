@@ -151,7 +151,7 @@ function moveLinesDown()
 {
     var blockRange = _getBlockForAction();
     // Check is there a space to move?
-    if (blockRange.end.line < (document.lines() - 1)) {
+    if (blockRange.end.line < document.lines()) {
         document.editBegin();
         // Move a block to one line down:
         // 0) take one line after the block

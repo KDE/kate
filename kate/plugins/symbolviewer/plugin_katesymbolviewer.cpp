@@ -97,6 +97,9 @@ m_plugin(plugin)
   treeMode = false;
   lsorting = false;
 
+  m_plugin->types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
+  m_plugin->expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
+
   m_updateTimer.setSingleShot(true);
   connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(slotRefreshSymbol()));
 

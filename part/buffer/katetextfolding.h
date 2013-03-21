@@ -69,7 +69,7 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * @param state state after creation, e.g. folded or unfolded
      * @return success, might fail if the range can not be nested in the existing ones!
      */
-    bool createFoldingRange (const KTextEditor::Range &range, FoldingRangeState state);
+    bool newFoldingRange (const KTextEditor::Range &range, FoldingRangeState state);
   
   private:
     /**

@@ -30,7 +30,7 @@ TextFolding::TextFolding (const TextBuffer &buffer)
 {
 }
 
-bool TextFolding::createFoldingRange (const KTextEditor::Range &range, FoldingRangeState state)
+bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeState state)
 {
   return false;
 }

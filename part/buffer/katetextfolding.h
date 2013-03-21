@@ -78,9 +78,9 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     class FoldingRange {
       public:
         /**
-         * Vector of ranges
+         * Vector of range pointers
          */
-        typedef QVector<FoldingRange> Vector;
+        typedef QVector<FoldingRange*> Vector;
         
         /**
          * start moving cursor
@@ -93,6 +93,11 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
          * NO range to be more efficient
          */
         Kate::TextCursor *end;
+        
+        /**
+         * parent range, if any
+         */
+        FoldingRange *parent;
         
         /**
          * nested ranges, if any

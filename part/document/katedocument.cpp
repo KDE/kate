@@ -5387,6 +5387,9 @@ Kate::SwapFile* KateDocument::swapFile()
 
 int KateDocument::defStyleNum(int line, int column)
 {
+  if (line < 0 || line >= lines() || column < 0)
+    return -1;
+
   QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(static_cast<KateView*> (activeView())->renderer()->config()->schema());
   KTextEditor::Attribute::Ptr a = attributes[plainKateTextLine(line)->attribute(column)];
   return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();

@@ -20,6 +20,7 @@
 
 #include "katetextfolding.h"
 #include "katetextbuffer.h"
+#include "katetextrange.h"
 
 namespace Kate {
   
@@ -27,6 +28,11 @@ TextFolding::TextFolding (const TextBuffer &buffer)
   : QObject ()
   , m_buffer (buffer)
 {
+}
+
+bool TextFolding::createFoldingRange (const KTextEditor::Range &range, FoldingRangeState state)
+{
+  return false;
 }
   
 }

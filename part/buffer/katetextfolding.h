@@ -23,11 +23,14 @@
 
 #include "katepartprivate_export.h"
 
+#include "ktexteditor/range.h"
+
 #include <QObject>
 
 namespace Kate {
 
 class TextBuffer;
+class TextCursor;
 
 /**
  * Class representing the folding information for a TextBuffer.
@@ -44,6 +47,65 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * @param buffer text buffer we want to provide folding info for
      */
     TextFolding (const TextBuffer &buffer);
+
+    /**
+     * Folding state of a range
+     */
+    enum FoldingRangeState {
+      /**
+       * Range is folded away
+       */
+      Folded,
+      
+      /**
+       * Range is visible
+       */
+      Visible
+    };
+    
+    /**
+     * Create a new folding range.
+     * @param range folding range
+     * @param state state after creation, e.g. folded or unfolded
+     * @return success, might fail if the range can not be nested in the existing ones!
+     */
+    bool createFoldingRange (const KTextEditor::Range &range, FoldingRangeState state);
+  
+  private:
+    /**
+     * Data holder for text folding range and its nested children
+     */
+    class FoldingRange {
+      public:
+        /**
+         * Vector of ranges
+         */
+        typedef QVector<FoldingRange> Vector;
+        
+        /**
+         * start moving cursor
+         * NO range to be more efficient
+         */
+        Kate::TextCursor *start;
+        
+        /**
+         * end moving cursor
+         * NO range to be more efficient
+         */
+        Kate::TextCursor *end;
+        
+        /**
+         * nested ranges, if any
+         * this will always be sorted and non-overlapping
+         * nested ranges are inside these ranges
+         */
+        FoldingRange::Vector nestedRanges;
+        
+        /**
+         * Folding state
+         */
+        FoldingRangeState rstate;
+    };
   
   private:
     /**
@@ -52,6 +114,13 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * can be const, we don't alter the buffer!
      */
     const TextBuffer &m_buffer;
+    
+    /**
+     * toplevel folding ranges
+     * this will always be sorted and non-overlapping
+     * nested ranges are inside these ranges
+     */
+    FoldingRange::Vector m_foldingRanges;
 };
 
 }

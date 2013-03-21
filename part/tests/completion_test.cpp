@@ -31,6 +31,7 @@
 #include <kateview.h>
 #include <katecompletionwidget.h>
 #include <katecompletionmodel.h>
+#include <katecompletiontree.h>
 #include <katerenderer.h>
 #include <kateconfig.h>
 
@@ -360,6 +361,18 @@ void CompletionTest::testAbortImmideatelyAfterStart()
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
     emit m_view->userInvokedCompletion();
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
+}
+
+void CompletionTest::testJumpToListBottomAfterCursorUpWhileAtTop()
+{
+    KateCompletionModel *model = m_view->completionWidget()->model();
+    CodeCompletionTestModel* testModel1 = new CodeCompletionTestModel(m_view, "aa");
+    invokeCompletionBox(m_view);
+
+    m_view->completionWidget()->cursorUp();
+    m_view->completionWidget()->bottom();
+    // TODO - better way of finding the index?
+    QCOMPARE(m_view->completionWidget()->treeView()->selectionModel()->currentIndex().row(), 39);
 }
 
 #include "completion_test.moc"

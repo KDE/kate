@@ -1151,6 +1151,7 @@ void KateCompletionWidget::switchList() {
       if( m_argumentHintModel->rowCount(QModelIndex()) != 0 ) {
         m_entryList->setCurrentIndex(QModelIndex());
         m_argumentHintTree->setCurrentIndex(m_argumentHintModel->index(m_argumentHintModel->rowCount(QModelIndex())-1, 0));
+        m_inCompletionList = false;
       }
   } else {
       if( m_presentationModel->rowCount(QModelIndex()) != 0 ) {
@@ -1158,9 +1159,9 @@ void KateCompletionWidget::switchList() {
         m_entryList->setCurrentIndex(m_presentationModel->index(0, 0));
         if(model()->hasGroups()) //If we have groups we have to move on, because the first item is a label
           m_entryList->nextCompletion();
+        m_inCompletionList = true;
       }
   }
-  m_inCompletionList = !m_inCompletionList;
 }
 
 void KateCompletionWidget::showConfig( )

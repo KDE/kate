@@ -16,7 +16,7 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
- 
+
 #ifndef KATE_COMPLETIONTEST_H
 #define KATE_COMPLETIONTEST_H
 
@@ -51,7 +51,8 @@ class CompletionTest : public QObject
     void testUpdateCompletionRange();
     void testCustomStartCompl();
     void testKateCompletionModel();
-    void testAbortImmideatelyAfterStart(); 
+    void testAbortImmideatelyAfterStart();
+    void testJumpToListBottomAfterCursorUpWhileAtTop();
 
   private:
     KTextEditor::Document* m_doc;

@@ -32,6 +32,11 @@ TextFolding::TextFolding (const TextBuffer &buffer)
 
 bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeState state)
 {
+  // use qLowerBound + qUpperBound to find all ranges we overlap toplevel
+  // if we overlap none => insert toplevel
+  // if we contain one or multiple => either try to move the inside the new one or if that fails abort
+  // if we are containted in one => descend and do this again for the new vector!
+  
   return false;
 }
   

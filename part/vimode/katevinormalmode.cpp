@@ -31,6 +31,7 @@
 #include "kateviewhelpers.h"
 #include <kateundomanager.h>
 #include <ktexteditor/attribute.h>
+#include <katecompletionwidget.h>
 #include "kateconfig.h"
 
 #include <QApplication>
@@ -3501,6 +3502,10 @@ void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range
       m_viInputModeManager->addMark(doc(), ']', Cursor(m_viInputModeManager->getMarkPosition(']').line(), 0));
       m_viInputModeManager->addMark(doc(), '.', Cursor(m_viInputModeManager->getMarkPosition('.').line(), 0));
     }
+  }
+  if (m_view->completionWidget()->isCompletionActive())
+  {
+    m_viInputModeManager->setTextualRepeat(true);
   }
 }
 

@@ -33,6 +33,9 @@
 #include <katevinormalmode.h>
 #include "kateviewhelpers.h"
 #include "ktexteditor/attribute.h"
+#include <ktexteditor/codecompletionmodel.h>
+#include <katewordcompletion.h>
+#include <katecompletionwidget.h>
 
 QTEST_KDEMAIN(ViModeTest, GUI)
 
@@ -1078,6 +1081,122 @@ void ViModeTest::yankHighlightingTests()
   FinishTest("");
 }
 
+class VimCodeCompletionTestModel : public CodeCompletionModel
+{
+public:
+    VimCodeCompletionTestModel(KTextEditor::View* parent)
+      : KTextEditor::CodeCompletionModel(parent)
+    {
+        setRowCount(3);
+        cc()->setAutomaticInvocationEnabled(true);
+        cc()->unregisterCompletionModel(KateGlobal::self()->wordCompletionModel()); //would add additional items, we don't want that in tests
+        cc()->registerCompletionModel(this);
+    }
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
+    {
+      // Order is important, here, as the completion widget seems to do its own sorting.
+      const char* completions[] = { "completion1", "completion2", "completion3" };
+      if (role == Qt::DisplayRole)
+      {
+        if (index.column() == Name)
+            return QString(completions[index.row()]);
+      }
+      return QVariant();
+    }
+    KTextEditor::CodeCompletionInterface * cc( ) const
+    {
+      return dynamic_cast<KTextEditor::CodeCompletionInterface*>(const_cast<QObject*>(QObject::parent()));
+    }
+};
+
+class FailTestOnInvocationModel : public CodeCompletionModel
+{
+public:
+    FailTestOnInvocationModel(KTextEditor::View* parent)
+      : KTextEditor::CodeCompletionModel(parent)
+    {
+        setRowCount(3);
+        cc()->setAutomaticInvocationEnabled(true);
+        cc()->unregisterCompletionModel(KateGlobal::self()->wordCompletionModel()); //would add additional items, we don't want that in tests
+        cc()->registerCompletionModel(this);
+    }
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
+    {
+      Q_UNUSED(index);
+      Q_UNUSED(role);
+      failTest();
+      return QVariant();
+    }
+    void failTest() const
+    {
+      QFAIL("Shouldn't be invoking me!");
+    }
+    KTextEditor::CodeCompletionInterface * cc( ) const
+    {
+      return dynamic_cast<KTextEditor::CodeCompletionInterface*>(const_cast<QObject*>(QObject::parent()));
+    }
+};
+
+void ViModeTest::CompletionTests()
+{
+    KateViewConfig::global()->setViInputModeStealKeys(true); // For Ctrl-P, Ctrl-N etc
+    ensureKateViewVisible(); // KateView needs to be visible for the completion widget.
+    VimCodeCompletionTestModel *testModel = new VimCodeCompletionTestModel(kate_view);
+
+    BeginTest("");
+    TestPressKey("i\\ctrl-p");
+    waitForCompletionWidgetToActivate();
+    TestPressKey("\n");
+    FinishTest("completion3");
+
+    BeginTest("");
+    TestPressKey("i\\ctrl- ");
+    waitForCompletionWidgetToActivate();
+    TestPressKey("\n");
+    FinishTest("completion1");
+
+    BeginTest("");
+    TestPressKey("i\\ctrl-n");
+    waitForCompletionWidgetToActivate();
+    TestPressKey("\n");
+    FinishTest("completion1");
+
+    // Test wraps around from top to bottom.
+    BeginTest("");
+    TestPressKey("i\\ctrl- \\ctrl-p");
+    waitForCompletionWidgetToActivate();
+    TestPressKey("\n");
+    FinishTest("completion3", ShouldFail, "Need to wait for https://git.reviewboard.kde.org/r/109647/ to be committed.");
+
+    // Test wraps around from top to bottom.
+    BeginTest("");
+    TestPressKey("i\\ctrl- \\ctrl-n\\ctrl-n\\ctrl-n");
+    waitForCompletionWidgetToActivate();
+    TestPressKey("\n");
+    FinishTest("completion1");
+
+    // Test does not re-invoke completion when doing a "." repeat.
+    BeginTest("");
+    TestPressKey("i\\ctrl- ");
+    waitForCompletionWidgetToActivate();
+    TestPressKey("\n\\ctrl-c");
+    kate_view->unregisterCompletionModel(testModel);
+    FailTestOnInvocationModel *failsTestOnInvocation = new FailTestOnInvocationModel(kate_view);
+    TestPressKey(".");
+    FinishTest("completioncompletion11");
+    kate_view->unregisterCompletionModel(failsTestOnInvocation);
+    kate_view->registerCompletionModel(testModel);
+
+    // Test that the full completion is repeated when repeat an insert that uses completion,
+    // where the completion list was not manually invoked.
+    BeginTest("");
+    TestPressKey("i");
+    // Simulate "automatic" invoking of completion.
+    kate_view->completionWidget()->userInvokedCompletion();
+    waitForCompletionWidgetToActivate();
+    TestPressKey("\n\\ctrl-c.");
+    FinishTest("completioncompletion11");
+}
 
 // Special area for tests where you want to set breakpoints etc without all the other tests
 // triggering them.  Run with ./vimode_test debuggingTests
@@ -1090,5 +1209,28 @@ QList< Kate::TextRange* > ViModeTest::rangesOnFirstLine()
 {
   return kate_document->buffer().rangesForLine(0, kate_view, true);
 }
+
+void ViModeTest::ensureKateViewVisible()
+{
+    kate_view->show();
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
+    QApplication::setActiveWindow(kate_view);
+}
+
+void ViModeTest::waitForCompletionWidgetToActivate()
+{
+    const QDateTime start = QDateTime::currentDateTime();
+    while (start.msecsTo(QDateTime::currentDateTime()) < 1000)
+    {
+      if (kate_view->isCompletionActive())
+        break;
+      QApplication::processEvents();
+    }
+    QVERIFY(kate_view->isCompletionActive());
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

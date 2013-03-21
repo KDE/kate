@@ -46,6 +46,7 @@ private Q_SLOTS:
 
   void MappingTests();
   void yankHighlightingTests();
+  void CompletionTests();
 
   void debuggingTests();
 private:
@@ -68,6 +69,8 @@ private:
   KateViInputModeManager *vi_input_mode_manager;
 
   QList<Kate::TextRange*> rangesOnFirstLine();
+  void ensureKateViewVisible();
+  void waitForCompletionWidgetToActivate();
 };
 
 #endif

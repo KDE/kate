@@ -271,6 +271,7 @@ m_projectPluginView(0)
     connect(m_ui.matchCase,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
     connect(m_ui.useRegExp,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
     m_changeTimer.setInterval(300);
+    m_changeTimer.setSingleShot(true);
     connect(&m_changeTimer, SIGNAL(timeout()), this, SLOT(searchPatternChanged()));
 
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
@@ -508,12 +509,11 @@ void KatePluginSearchView::startSearch()
     m_ui.newTabButton->setDisabled(true);
     m_ui.searchCombo->setDisabled(true);
     m_ui.searchButton->setDisabled(true);
-    m_ui.nextAndStop->setCurrentIndex(1);
     m_ui.displayOptions->setChecked (false);
     m_ui.displayOptions->setDisabled(true);
     m_ui.replaceCheckedBtn->setDisabled(true);
     m_ui.replaceButton->setDisabled(true);
-    m_ui.nextButton->setDisabled(true);
+    m_ui.nextAndStop->setCurrentIndex(1);
 
 
     QRegExp reg(m_ui.searchCombo->currentText(),
@@ -1444,6 +1444,8 @@ void KatePluginSearchView::replaceChecked()
         m_ui.replaceCombo->setCurrentIndex(0);
     }
 
+    m_ui.nextAndStop->setCurrentIndex(1);
+
     m_curResults->replace = m_ui.replaceCombo->currentText();
 
     m_replacer.replaceChecked(m_curResults->tree,
@@ -1453,7 +1455,7 @@ void KatePluginSearchView::replaceChecked()
 
 void KatePluginSearchView::replaceDone()
 {
-    m_ui.replaceBtnStack->setCurrentIndex(0);
+    m_ui.nextAndStop->setCurrentIndex(0);
     m_ui.replaceCombo->setDisabled(false);
 }
 

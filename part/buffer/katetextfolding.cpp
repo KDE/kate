@@ -24,11 +24,11 @@
 
 namespace Kate {
   
-TextFolding::FoldingRange::FoldingRange (TextBuffer &buffer, const KTextEditor::Range &range, FoldingRangeState _state)
+TextFolding::FoldingRange::FoldingRange (TextBuffer &buffer, const KTextEditor::Range &range, FoldingRangeFlags _flags)
   : start (new TextCursor (buffer, range.start(), KTextEditor::MovingCursor::MoveOnInsert))
   , end (new TextCursor (buffer, range.end(), KTextEditor::MovingCursor::MoveOnInsert))
   , parent (0)
-  , state (_state)
+  , flags (_flags)
 {
 }
   
@@ -49,7 +49,7 @@ TextFolding::TextFolding (TextBuffer &buffer)
 {
 }
 
-bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeState state)
+bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags)
 {
   /**
    * sort out invalid and empty ranges
@@ -62,7 +62,7 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
    * create new folding region that we want to insert
    * this will internally create moving cursors!
    */
-  FoldingRange *newRange = new FoldingRange (m_buffer, range, state);
+  FoldingRange *newRange = new FoldingRange (m_buffer, range, flags);
   
   /**
    * the construction of the text cursors might have invalidated this
@@ -109,7 +109,7 @@ QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges)
     if (!dump.isEmpty())
       dump += " ";
     
-    dump += QString ("[%1:%2 ").arg (range->start->line()).arg(range->start->column());
+    dump += QString ("[%1:%2 %3%4 ").arg (range->start->line()).arg(range->start->column()).arg((range->flags & Persistent) ? "p" : "").arg((range->flags & Folded) ? "f" : "");
     
     /**
      * recurse
@@ -214,11 +214,32 @@ bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, F
    * check if we contain other folds!
    */
   FoldingRange::Vector::iterator it = lowerBound;
-  while (true) {
+  bool includeUpperBound = false;
+  FoldingRange::Vector nestedRanges;
+  while (it != existingRanges.end()) {
     /**
-     * overlap check?
+     * do we need to take look at upper bound, too?
+     * if not break
      */
+    if (it == upperBound) {
+      if (newRange->end->toCursor() <= (*upperBound)->start->toCursor())
+        break;
+      else
+        includeUpperBound = true;
+    }
     
+    /**
+     * if one region is not contained in the new one, abort!
+     * then this is not well nested!
+     */
+    if (!((newRange->start->toCursor() <= (*it)->start->toCursor()) && (newRange->end->toCursor() >= (*it)->end->toCursor())))
+      return false;
+    
+    /**
+     * include into new nested ranges
+     */
+    nestedRanges.push_back ((*it));
+      
     /**
      * end reached
      */
@@ -231,7 +252,14 @@ bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, F
     ++it;
   }
   
-  return false;
+  /**
+   * if we arrive here, all is nicely nested into our new range
+   * remove the contained ones here, insert new range with new nested ranges we already constructed
+   */
+  it = existingRanges.erase (lowerBound, includeUpperBound ? (upperBound+1) : upperBound);
+  existingRanges.insert (it, newRange);
+  newRange->nestedRanges = nestedRanges;
+  return true;
 }
 
 bool TextFolding::compareRangeByStart (FoldingRange *a, FoldingRange *b)

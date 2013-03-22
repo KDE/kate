@@ -26,7 +26,8 @@
 #include "ktexteditor/range.h"
 
 #include <QObject>
-
+#include <QFlags>
+ 
 namespace Kate {
 
 class TextBuffer;
@@ -51,25 +52,26 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     /**
      * Folding state of a range
      */
-    enum FoldingRangeState {
+    enum FoldingRangeFlag {
+      /**
+       * Range is persistent, e.g. it should not auto-delete after unfolding!
+       */
+      Persistent = 0x1,
+      
       /**
        * Range is folded away
        */
-      Folded,
-      
-      /**
-       * Range is visible
-       */
-      Visible
+      Folded = 0x2
     };
+    Q_DECLARE_FLAGS(FoldingRangeFlags, FoldingRangeFlag);
     
     /**
      * Create a new folding range.
      * @param range folding range
-     * @param state state after creation, e.g. folded or unfolded
+     * @param flags flags for the new folding range
      * @return success, might fail if the range can not be nested in the existing ones!
      */
-    bool newFoldingRange (const KTextEditor::Range &range, FoldingRangeState state);
+    bool newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags);
     
     /**
      * Dump folding state as string, for unit testing and debugging
@@ -92,9 +94,9 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
          * Construct new one
          * @param buffer text buffer to use
          * @param range folding range
-         * @param state state after creation, e.g. folded or unfolded
+         * @param flags flags for the new folding range
          */
-        FoldingRange (TextBuffer &buffer, const KTextEditor::Range &range, FoldingRangeState state);
+        FoldingRange (TextBuffer &buffer, const KTextEditor::Range &range, FoldingRangeFlags flags);
         
         /**
          * Cleanup
@@ -131,9 +133,9 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
         FoldingRange::Vector nestedRanges;
         
         /**
-         * Folding state
+         * Folding range flags
          */
-        FoldingRangeState state;
+        FoldingRangeFlags flags;
     };
     
     /**
@@ -186,5 +188,7 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
 };
 
 }
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(Kate::TextFolding::FoldingRangeFlags)
 
 #endif

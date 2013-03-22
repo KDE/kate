@@ -87,12 +87,94 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
 
 bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, FoldingRange *newRange)
 {
+  /**
+   * kill empty ranges
+   * might exist because we removed the text inside a range or cleared buffer
+   */
+  if (!existingRanges.isEmpty()) {
+    /**
+     * construct brute force new ranges vector
+     * this can be OPTIMIZED!
+     */
+    FoldingRange::Vector newRanges;
+    Q_FOREACH (FoldingRange *range, existingRanges) {
+      /**
+       * there shall be never invalid cursors!
+       */
+      Q_ASSERT (range->start->isValid() && range->end->isValid());
+      
+      /**
+       * start <= end!
+       */
+      Q_ASSERT (range->start->toCursor() <= range->end->toCursor());
+      
+      /**
+       * sort out empty ranges
+       * DELETE them, transfer the others
+       */
+      if (range->start->toCursor() < range->end->toCursor())
+        newRanges.push_back (range);
+      else
+        delete range;
+    }
+    
+    /**
+     * overwrite old vector in any case!
+     */
+    existingRanges = newRanges;
+  }
+  
+  /**
+   * NOW: we know, we have no empty ranges inside our vector
+   */
+  
+  /**
+   * shortcut for empty case, just insert!
+   */
+  if (existingRanges.isEmpty()) {
+    /**
+     * ok append and be done
+     */
+    existingRanges.append (newRange);
+    return true;
+  }
+  
+  /**
+   * NOW: we know, at least one range is in existingRanges!
+   */
+  
+  /**
+   * existing ranges is non-overlapping and sorted
+   * that means now, we can search for lower bound of start of range and upper bound of end of range to
+   * find all "overlapping" ranges.
+   */
+  
+  /**
+   * first: lower bound of start
+   */
+  FoldingRange::Vector::iterator lowerBound = qLowerBound (existingRanges.begin(), existingRanges.end(), newRange, compareRangeByStart);
+  
+  /**
+   * second: upper bound of end
+   */
+  FoldingRange::Vector::iterator upperBound = qUpperBound (existingRanges.begin(), existingRanges.end(), newRange, compareRangeByEnd);
+  
   // use qLowerBound + qUpperBound to find all ranges we overlap toplevel
   // if we overlap none => insert toplevel
   // if we contain one or multiple => either try to move the inside the new one or if that fails abort
   // if we are containted in one => descend and do this again for the new vector!
   
   return false;
+}
+
+bool TextFolding::compareRangeByStart (FoldingRange *a, FoldingRange *b)
+{
+  return a->start->toCursor() < b->start->toCursor();
+}
+
+bool TextFolding::compareRangeByEnd (FoldingRange *a, FoldingRange *b)
+{
+  return a->end->toCursor() < b->end->toCursor();
 }
 
 }

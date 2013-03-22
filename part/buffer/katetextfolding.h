@@ -129,12 +129,27 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * Helper to insert folding range into existing ones.
      * Might fail, if not correctly nested.
      * Then the outside must take care of the passed pointer, e.g. delete it.
+     * Will sanitize the ranges vectors, purge invalid/empty ranges.
      * @param existingRanges ranges into which we want to insert the new one
      * @param newRange new folding range
      * @return success, if false, newRange should be deleted afterwards, else it is registered internally
      */
     bool insertNewFoldingRange (TextFolding::FoldingRange::Vector &existingRanges, TextFolding::FoldingRange *newRange);
   
+    /**
+     * Compare two ranges by their start cursor.
+     * @param a first range
+     * @param b second range
+     */
+    static bool compareRangeByStart (FoldingRange *a, FoldingRange *b);
+
+    /**
+     * Compare two ranges by their end cursor.
+     * @param a first range
+     * @param b second range
+     */
+    static bool compareRangeByEnd (FoldingRange *a, FoldingRange *b);
+    
   private:
     /**
      * parent text buffer

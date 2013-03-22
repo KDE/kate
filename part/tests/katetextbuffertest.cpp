@@ -258,4 +258,8 @@ void KateTextBufferTest::foldingTest()
     
     // we shall be able to insert new range, should lead to nested folds!
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (0,0), KTextEditor::Cursor (50,0)), Kate::TextFolding::Folded));
+    
+    // we shall have now exactly one range toplevel and many embedded fold
+    folding.debugPrint ("One Toplevel + Embedded Folds");
+    QVERIFY (folding.debugDump() == "[0:0 f [0:0 f 10:0] [15:0 f [20:0 f 30:0] 35:0] 50:0]");
 }

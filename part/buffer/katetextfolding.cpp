@@ -24,13 +24,68 @@
 
 namespace Kate {
   
-TextFolding::TextFolding (const TextBuffer &buffer)
+TextFolding::FoldingRange::FoldingRange (TextBuffer &buffer, const KTextEditor::Range &range, FoldingRangeState _state)
+  : start (new TextCursor (buffer, range.start(), KTextEditor::MovingCursor::MoveOnInsert))
+  , end (new TextCursor (buffer, range.end(), KTextEditor::MovingCursor::MoveOnInsert))
+  , parent (0)
+  , state (_state)
+{
+}
+  
+TextFolding::FoldingRange::~FoldingRange ()
+{
+  /**
+   * kill all our data!
+   * this will recurse all sub-structures!
+   */
+  delete start;
+  delete end;
+  qDeleteAll (nestedRanges);
+}
+  
+TextFolding::TextFolding (TextBuffer &buffer)
   : QObject ()
   , m_buffer (buffer)
 {
 }
 
 bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeState state)
+{
+  /**
+   * sort out invalid and empty ranges
+   * that makes no sense, they will never grow again!
+   */
+  if (!range.isValid() || range.isEmpty())
+    return false;
+  
+  /**
+   * create new folding region that we want to insert
+   * this will internally create moving cursors!
+   */
+  FoldingRange *newRange = new FoldingRange (m_buffer, range, state);
+  
+  /**
+   * the construction of the text cursors might have invalidated this
+   * check and bail out if that happens
+   * bail out, too, if it can't be inserted!
+   */
+  if (    !newRange->start->isValid()
+       || !newRange->end->isValid()
+       || !insertNewFoldingRange (m_foldingRanges, newRange)) {
+    /**
+     * cleanup and be done
+     */
+    delete newRange;
+    return false;
+  }
+  
+  /**
+   * all went fine, newRange is now registered internally!
+   */
+  return true;
+}
+
+bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, FoldingRange *newRange)
 {
   // use qLowerBound + qUpperBound to find all ranges we overlap toplevel
   // if we overlap none => insert toplevel
@@ -39,5 +94,5 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
   
   return false;
 }
-  
+
 }

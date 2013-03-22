@@ -46,7 +46,7 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * Create folding object for given buffer.
      * @param buffer text buffer we want to provide folding info for
      */
-    TextFolding (const TextBuffer &buffer);
+    TextFolding (TextBuffer &buffer);
 
     /**
      * Folding state of a range
@@ -77,6 +77,19 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      */
     class FoldingRange {
       public:
+        /**
+         * Construct new one
+         * @param buffer text buffer to use
+         * @param range folding range
+         * @param state state after creation, e.g. folded or unfolded
+         */
+        FoldingRange (TextBuffer &buffer, const KTextEditor::Range &range, FoldingRangeState state);
+        
+        /**
+         * Cleanup
+         */
+        ~FoldingRange ();
+        
         /**
          * Vector of range pointers
          */
@@ -109,16 +122,26 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
         /**
          * Folding state
          */
-        FoldingRangeState rstate;
+        FoldingRangeState state;
     };
+    
+    /**
+     * Helper to insert folding range into existing ones.
+     * Might fail, if not correctly nested.
+     * Then the outside must take care of the passed pointer, e.g. delete it.
+     * @param existingRanges ranges into which we want to insert the new one
+     * @param newRange new folding range
+     * @return success, if false, newRange should be deleted afterwards, else it is registered internally
+     */
+    bool insertNewFoldingRange (TextFolding::FoldingRange::Vector &existingRanges, TextFolding::FoldingRange *newRange);
   
   private:
     /**
      * parent text buffer
      * is a reference, and no pointer, as this must always exist and can't change
-     * can be const, we don't alter the buffer!
+     * can't be const, as we create text cursors!
      */
-    const TextBuffer &m_buffer;
+    TextBuffer &m_buffer;
     
     /**
      * toplevel folding ranges

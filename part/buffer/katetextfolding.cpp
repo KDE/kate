@@ -85,6 +85,44 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
   return true;
 }
 
+QString TextFolding::debugDump () const
+{
+  /**
+   * dump toplevel ranges recursively
+   */
+  return debugDump (m_foldingRanges);
+}
+
+void TextFolding::debugPrint (const QString &title) const
+{
+  // print title + content
+  printf ("%s\n    %s\n", qPrintable (title), qPrintable(debugDump()));
+}
+
+QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges)
+{
+  /**
+   * dump all ranges recursively
+   */
+  QString dump;
+  Q_FOREACH (FoldingRange *range, ranges) {
+    if (!dump.isEmpty())
+      dump += " ";
+    
+    dump += QString ("[%1:%2 ").arg (range->start->line()).arg(range->start->column());
+    
+    /**
+     * recurse
+     */
+    QString inner = debugDump (range->nestedRanges);
+    if (!inner.isEmpty())
+      dump += inner + " ";
+    
+    dump += QString ("%1:%2]").arg (range->end->line()).arg(range->end->column());
+  }
+  return dump;
+}
+
 bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, FoldingRange *newRange)
 {
   /**
@@ -125,25 +163,6 @@ bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, F
   }
   
   /**
-   * NOW: we know, we have no empty ranges inside our vector
-   */
-  
-  /**
-   * shortcut for empty case, just insert!
-   */
-  if (existingRanges.isEmpty()) {
-    /**
-     * ok append and be done
-     */
-    existingRanges.append (newRange);
-    return true;
-  }
-  
-  /**
-   * NOW: we know, at least one range is in existingRanges!
-   */
-  
-  /**
    * existing ranges is non-overlapping and sorted
    * that means now, we can search for lower bound of start of range and upper bound of end of range to
    * find all "overlapping" ranges.
@@ -158,11 +177,59 @@ bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, F
    * second: upper bound of end
    */
   FoldingRange::Vector::iterator upperBound = qUpperBound (existingRanges.begin(), existingRanges.end(), newRange, compareRangeByEnd);
+
+  /**
+   * we may need to go one to the left, if not already at the begin, as we might overlap with the one in front of us!
+   */
+  if ((lowerBound != existingRanges.begin()) && ((*(lowerBound-1))->end->toCursor() > newRange->start->toCursor()))
+    --lowerBound;
   
-  // use qLowerBound + qUpperBound to find all ranges we overlap toplevel
-  // if we overlap none => insert toplevel
-  // if we contain one or multiple => either try to move the inside the new one or if that fails abort
-  // if we are containted in one => descend and do this again for the new vector!
+  /**
+   * now: first case, we overlap with nothing or hit exactly one range!
+   */
+  if (lowerBound == upperBound) {
+    /**
+     * nothing we overlap with?
+     * then just insert and be done!
+     */
+    if ((lowerBound == existingRanges.end()) || (newRange->start->toCursor() >= (*lowerBound)->end->toCursor()) || (newRange->end->toCursor() <= (*lowerBound)->start->toCursor())) {
+      existingRanges.insert (lowerBound, newRange);
+      return true;
+    }
+    
+    /**
+     * we are contained in this one range?
+     * then recurse!
+     */
+    if ((newRange->start->toCursor() >= (*lowerBound)->start->toCursor()) && (newRange->end->toCursor() <= (*lowerBound)->end->toCursor()))
+      return insertNewFoldingRange ((*lowerBound)->nestedRanges, newRange);
+    
+    /**
+     * else: we might contain at least this fold, or many more, if this if block is not taken at all
+     * use the general code that checks for "we contain stuff" below!
+     */
+  }
+  
+  /**
+   * check if we contain other folds!
+   */
+  FoldingRange::Vector::iterator it = lowerBound;
+  while (true) {
+    /**
+     * overlap check?
+     */
+    
+    /**
+     * end reached
+     */
+    if (it == upperBound)
+      break;
+    
+    /**
+     * else increment
+     */
+    ++it;
+  }
   
   return false;
 }

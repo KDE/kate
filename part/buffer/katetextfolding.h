@@ -70,6 +70,17 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * @return success, might fail if the range can not be nested in the existing ones!
      */
     bool newFoldingRange (const KTextEditor::Range &range, FoldingRangeState state);
+    
+    /**
+     * Dump folding state as string, for unit testing and debugging
+     * @return current state as text
+     */
+    QString debugDump () const;
+    
+    /**
+     * Print state to stdout for testing
+     */
+    void debugPrint (const QString &title) const;
   
   private:
     /**
@@ -124,6 +135,14 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
          */
         FoldingRangeState state;
     };
+    
+    /**
+     * Dump folding state of given vector as string, for unit testing and debugging.
+     * Will recurse.
+     * @param ranges ranges vector to dump
+     * @return current state as text
+     */
+    static QString debugDump (const TextFolding::FoldingRange::Vector &ranges);
     
     /**
      * Helper to insert folding range into existing ones.

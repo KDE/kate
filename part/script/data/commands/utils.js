@@ -203,27 +203,34 @@ function moveLinesUp()
     }
 }
 
-function duplicateLinesUp()
+function duplicateLinesDown()
 {
+    var selection = view.selection();
     var blockRange = _getBlockForAction();
     document.editBegin();
     document.insertText(blockRange.start, document.text(blockRange));
+    _adjustSelection(selection, 1);
     document.editEnd();
 }
 
-function duplicateLinesDown()
+function duplicateLinesUp()
 {
+    var cursor = view.cursorPosition();
+    var selection = view.selection();
     var blockRange = _getBlockForAction();
     document.editBegin();
-    document.insertText(blockRange.end, document.text(blockRange));
-    // NOTE Inserting a text after the selected block (if any) will extend it and moves a cursor...
-    // So we have to shrink it and return the cursor back.
-    if (view.selection().isValid()) {
-        view.setSelection(blockRange);
-        var cursorPosition = view.cursorPosition();
-        cursorPosition.line = blockRange.end.line;
-        view.setCursorPosition(cursorPosition);
+    if (blockRange.end.line == document.lines()) {
+        var lastLine = document.lines() - 1;
+        var lastCol = document.lineLength(document.lines() - 1);
+        blockRange.end.line = lastLine;
+        blockRange.end.column = lastCol;
+        document.insertText(lastLine, lastCol, document.text(blockRange));
+        document.wrapLine(lastLine, lastCol);
+    } else {
+        document.insertText(blockRange.end, document.text(blockRange));
     }
+    view.setCursorPosition(cursor.line, cursor.column);
+    _adjustSelection(selection, 0);
     document.editEnd();
 }
 

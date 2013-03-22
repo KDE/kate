@@ -672,21 +672,23 @@ bool KateViNormalMode::commandReselectVisual()
 
   if ( c1.isValid() && c2.isValid() ) {
     m_viInputModeManager->getViVisualMode()->setStart( c1 );
-    updateCursor( c2 );
+    bool returnValue = false;
 
     switch ( m_viInputModeManager->getViVisualMode()->getLastVisualMode() ) {
     case VisualMode:
-      return commandEnterVisualMode();
+      returnValue = commandEnterVisualMode();
       break;
     case VisualLineMode:
-      return commandEnterVisualLineMode();
+      returnValue = commandEnterVisualLineMode();
       break;
     case VisualBlockMode:
-      return commandEnterVisualBlockMode();
+      returnValue = commandEnterVisualBlockMode();
       break;
     default:
       Q_ASSERT( "invalid visual mode" );
     }
+    m_viInputModeManager->getViVisualMode()->goToPos(c2);
+    return returnValue;
   } else {
     error("No previous visual selection");
   }
@@ -2940,7 +2942,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("v", commandEnterVisualMode, 0 );
   ADDCMD("V", commandEnterVisualLineMode, 0 );
   ADDCMD("<c-v>", commandEnterVisualBlockMode, 0 );
-  ADDCMD("gv", commandReselectVisual, 0 );
+  ADDCMD("gv", commandReselectVisual, SHOULD_NOT_RESET );
   ADDCMD("o", commandOpenNewLineUnder, IS_CHANGE );
   ADDCMD("O", commandOpenNewLineOver, IS_CHANGE );
   ADDCMD("J", commandJoinLines, IS_CHANGE );

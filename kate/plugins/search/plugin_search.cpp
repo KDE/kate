@@ -267,9 +267,12 @@ m_projectPluginView(0)
 
     connect(m_ui.displayOptions,   SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
     connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(searchPlaceChanged()));
-    connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), this, SLOT(searchPatternChanged()));
-    connect(m_ui.matchCase,        SIGNAL(stateChanged(int)), this, SLOT(searchPatternChanged()));
-    connect(m_ui.useRegExp,        SIGNAL(stateChanged(int)), this, SLOT(searchPatternChanged()));
+    connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), &m_changeTimer, SLOT(start()));
+    connect(m_ui.matchCase,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
+    connect(m_ui.useRegExp,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
+    m_changeTimer.setInterval(300);
+    connect(&m_changeTimer, SIGNAL(timeout()), this, SLOT(searchPatternChanged()));
+
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchDiskFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_folderFilesList, SLOT(cancelSearch()));
@@ -643,7 +646,7 @@ void KatePluginSearchView::searchPatternChanged()
     m_curResults->matches = 0;
 
     m_resultBaseDir.clear();
-    if (m_ui.searchCombo->currentText().length() >= 3) {
+    if (m_ui.searchCombo->currentText().length() >= 2) {
         m_searchOpenFiles.searchOpenFile(doc, reg, 0);
     }
     searchWhileTypingDone();

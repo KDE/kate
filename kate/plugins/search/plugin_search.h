@@ -27,6 +27,7 @@
 #include <kaction.h>
 
 #include <QTreeWidget>
+#include <QTimer>
 
 #include "ui_search.h"
 #include "ui_results.h"
@@ -171,6 +172,7 @@ private:
     bool                               m_switchToProjectModeWhenAvailable;
     QString                            m_resultBaseDir;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
+    QTimer                             m_changeTimer;
 
     /**
      * current project plugin view, if any

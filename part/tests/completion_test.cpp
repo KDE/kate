@@ -169,8 +169,7 @@ void CompletionTest::testAbortInvalidText()
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
     m_view->insertText(".");
-    QTest::qWait(1000); // process events
-    QVERIFY(!m_view->completionWidget()->isCompletionActive());
+    verifyCompletionAborted(m_view);
 }
 
 void CompletionTest::testCustomRange1()

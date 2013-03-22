@@ -162,19 +162,28 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
 
     // we use the object names here because there can be multiple replaceButtons (on multiple result tabs)
     if (next) {
-        if (!m_ui.displayOptions->isChecked() && (currentWidget->objectName() == "tree")) {
+        if (currentWidget->objectName() == "tree") {
             m_ui.newTabButton->setFocus();
             *found = true;
             return;
         }
-        if (currentWidget == m_ui.displayOptions) {
+        if ((currentWidget == m_ui.displayOptions) && m_ui.displayOptions->isChecked()) {
             m_ui.newTabButton->setFocus();
             *found = true;
             return;
         }
     }
     else if (currentWidget == m_ui.newTabButton) {
-        m_ui.displayOptions->setFocus();
+        if(m_ui.displayOptions->isChecked()) {
+            m_ui.displayOptions->setFocus();
+        }
+        else {
+            Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+            if (!res) {
+                return;
+            }
+            res->tree->setFocus();
+        }
         *found = true;
         return;
     }

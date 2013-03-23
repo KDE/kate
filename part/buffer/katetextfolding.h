@@ -140,22 +140,30 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     
     /**
      * Dump folding state of given vector as string, for unit testing and debugging.
-     * Will recurse.
+     * Will recurse if wanted.
      * @param ranges ranges vector to dump
+     * @param recurse recurse to nestedRanges?
      * @return current state as text
      */
-    static QString debugDump (const TextFolding::FoldingRange::Vector &ranges);
+    static QString debugDump (const TextFolding::FoldingRange::Vector &ranges, bool recurse);
     
     /**
      * Helper to insert folding range into existing ones.
      * Might fail, if not correctly nested.
      * Then the outside must take care of the passed pointer, e.g. delete it.
      * Will sanitize the ranges vectors, purge invalid/empty ranges.
+     * @param parent parent folding range if any
      * @param existingRanges ranges into which we want to insert the new one
      * @param newRange new folding range
      * @return success, if false, newRange should be deleted afterwards, else it is registered internally
      */
-    bool insertNewFoldingRange (TextFolding::FoldingRange::Vector &existingRanges, TextFolding::FoldingRange *newRange);
+    bool insertNewFoldingRange (FoldingRange *parent, TextFolding::FoldingRange::Vector &existingRanges, TextFolding::FoldingRange *newRange);
+    
+    /**
+     * Helper to update the folded ranges if we insert a new range is inserted into the tree.
+     * @param newRange new folding range that was inserted, will already contain its new nested ranges, if any!
+     */
+    void updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange);
   
     /**
      * Compare two ranges by their start cursor.
@@ -185,6 +193,13 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * nested ranges are inside these ranges
      */
     FoldingRange::Vector m_foldingRanges;
+
+    /**
+     * folded folding ranges
+     * this is a sorted vector of ranges
+     * all non-overlapping
+     */
+    FoldingRange::Vector m_foldedFoldingRanges;
 };
 
 }

@@ -71,13 +71,18 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
    */
   if (    !newRange->start->isValid()
        || !newRange->end->isValid()
-       || !insertNewFoldingRange (m_foldingRanges, newRange)) {
+       || !insertNewFoldingRange (0 /* no parent here */, m_foldingRanges, newRange)) {
     /**
      * cleanup and be done
      */
     delete newRange;
     return false;
   }
+  
+  /**
+   * update our folded ranges vector!
+   */
+  updateFoldedRangesForNewRange (newRange);
   
   /**
    * all went fine, newRange is now registered internally!
@@ -90,7 +95,7 @@ QString TextFolding::debugDump () const
   /**
    * dump toplevel ranges recursively
    */
-  return debugDump (m_foldingRanges);
+  return QString ("tree %1 - folded %2").arg (debugDump (m_foldingRanges, true)).arg(debugDump (m_foldedFoldingRanges, false));
 }
 
 void TextFolding::debugPrint (const QString &title) const
@@ -99,7 +104,7 @@ void TextFolding::debugPrint (const QString &title) const
   printf ("%s\n    %s\n", qPrintable (title), qPrintable(debugDump()));
 }
 
-QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges)
+QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges, bool recurse)
 {
   /**
    * dump all ranges recursively
@@ -114,20 +119,23 @@ QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges)
     /**
      * recurse
      */
-    QString inner = debugDump (range->nestedRanges);
-    if (!inner.isEmpty())
-      dump += inner + " ";
+    if (recurse) {
+      QString inner = debugDump (range->nestedRanges, recurse);
+      if (!inner.isEmpty())
+        dump += inner + " ";
+    }
     
     dump += QString ("%1:%2]").arg (range->end->line()).arg(range->end->column());
   }
   return dump;
 }
 
-bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, FoldingRange *newRange)
+bool TextFolding::insertNewFoldingRange (FoldingRange *parent, FoldingRange::Vector &existingRanges, FoldingRange *newRange)
 {
   /**
    * kill empty ranges
    * might exist because we removed the text inside a range or cleared buffer
+   * TODO: OPTIMIZE, perhaps really use MovingRange, not Cursor!
    */
   if (!existingRanges.isEmpty()) {
     /**
@@ -193,7 +201,15 @@ bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, F
      * then just insert and be done!
      */
     if ((lowerBound == existingRanges.end()) || (newRange->start->toCursor() >= (*lowerBound)->end->toCursor()) || (newRange->end->toCursor() <= (*lowerBound)->start->toCursor())) {
+      /**
+       * insert + fix parent
+       */
       existingRanges.insert (lowerBound, newRange);
+      newRange->parent = parent;
+      
+      /**
+       * all done
+       */
       return true;
     }
     
@@ -202,7 +218,7 @@ bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, F
      * then recurse!
      */
     if ((newRange->start->toCursor() >= (*lowerBound)->start->toCursor()) && (newRange->end->toCursor() <= (*lowerBound)->end->toCursor()))
-      return insertNewFoldingRange ((*lowerBound)->nestedRanges, newRange);
+      return insertNewFoldingRange ((*lowerBound), (*lowerBound)->nestedRanges, newRange);
     
     /**
      * else: we might contain at least this fold, or many more, if this if block is not taken at all
@@ -259,6 +275,17 @@ bool TextFolding::insertNewFoldingRange (FoldingRange::Vector &existingRanges, F
   it = existingRanges.erase (lowerBound, includeUpperBound ? (upperBound+1) : upperBound);
   existingRanges.insert (it, newRange);
   newRange->nestedRanges = nestedRanges;
+  
+  /**
+   * correct parent mapping!
+   */
+  newRange->parent = parent;
+  Q_FOREACH (FoldingRange *range, newRange->nestedRanges)
+    range->parent = newRange;
+  
+  /**
+   * all nice
+   */
   return true;
 }
 
@@ -270,6 +297,72 @@ bool TextFolding::compareRangeByStart (FoldingRange *a, FoldingRange *b)
 bool TextFolding::compareRangeByEnd (FoldingRange *a, FoldingRange *b)
 {
   return a->end->toCursor() < b->end->toCursor();
+}
+
+void TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange)
+{
+  /**
+   * not folded? not interesting! we don't need to touch out m_foldedFoldingRanges vector
+   */
+  if (!(newRange->flags & Folded))
+    return;
+  
+  /**
+   * any of the parents folded? not interesting, too!
+   */
+  TextFolding::FoldingRange *parent = newRange->parent;
+  while (parent) {
+    /**
+     * parent folded => be done
+     */
+    if (parent->flags & Folded)
+      return;
+    
+    /**
+     * walk up
+     */
+    parent = parent->parent;
+  }
+  
+  /**
+   * ok, if we arrive here, we are a folded range and we have no folded parent
+   * we now want to add this range to the m_foldedFoldingRanges vector, just removing any ranges that is included in it!
+   * TODO: OPTIMIZE
+   */
+  FoldingRange::Vector newFoldedFoldingRanges;
+  bool newRangeInserted = false;
+  Q_FOREACH (FoldingRange *range, m_foldedFoldingRanges) {
+    /**
+     * contained? kill
+     */
+    if ((newRange->start->toCursor() <= range->start->toCursor()) && (newRange->end->toCursor() >= range->end->toCursor()))
+      continue;
+    
+    /**
+     * range is behind newRange?
+     * insert newRange
+     */
+    if (range->start->toCursor() >= newRange->end->toCursor()) {
+      newFoldedFoldingRanges.push_back (newRange);
+      newRangeInserted = true;
+    }
+    
+    /**
+     * just transfer range
+     */
+    newFoldedFoldingRanges.push_back (range);
+  }
+  
+  /**
+   * last: insert new range, if not done
+   */
+  if (!newRangeInserted)
+    newFoldedFoldingRanges.push_back (newRange);
+  
+  /**
+   * fixup folded ranges
+   */
+  m_foldedFoldingRanges = newFoldedFoldingRanges;
 }
 
 }

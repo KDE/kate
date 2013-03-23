@@ -74,9 +74,9 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * Create a new folding range.
      * @param range folding range
      * @param flags flags for the new folding range
-     * @return success, might fail if the range can not be nested in the existing ones!
+     * @return on success, id of new range >= 0, else -1, we return no pointer as folding ranges might be auto-deleted internally!
      */
-    bool newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags);
+    qint64 newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags);
     
     /**
      * Query if a given line is visible.
@@ -175,6 +175,11 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
          * Folding range flags
          */
         FoldingRangeFlags flags;
+        
+        /**
+         * id of this range
+         */
+        qint64 id;
     };
     
     /**
@@ -246,6 +251,11 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * all non-overlapping
      */
     FoldingRange::Vector m_foldedFoldingRanges;
+    
+    /**
+     * global id counter for the created ranges
+     */
+    qint64 m_idCounter;
 };
 
 }

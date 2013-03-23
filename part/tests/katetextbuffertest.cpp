@@ -235,7 +235,7 @@ void KateTextBufferTest::foldingTest()
     QVERIFY (folding.visibleLines() == 100);
     
     // we shall be able to insert new range
-    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (5,0), KTextEditor::Cursor (10,0)), Kate::TextFolding::Folded));
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (5,0), KTextEditor::Cursor (10,0)), Kate::TextFolding::Folded) == 0);
     
     // we shall have now exactly one range toplevel
     folding.debugPrint ("One Toplevel Fold");
@@ -256,7 +256,7 @@ void KateTextBufferTest::foldingTest()
       QVERIFY (folding.visibleLineToLine (i) == (i + 5));
     
     // we shall be able to insert new range
-    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (20,0), KTextEditor::Cursor (30,0)), Kate::TextFolding::Folded));
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (20,0), KTextEditor::Cursor (30,0)), Kate::TextFolding::Folded) == 1);
     
     // we shall have now exactly two range toplevel
     folding.debugPrint ("Two Toplevel Folds");
@@ -291,10 +291,10 @@ void KateTextBufferTest::foldingTest()
       QVERIFY (folding.lineToVisibleLine (i) == (i - 15));
     
     // this shall fail to be inserted, as it badly overlaps with the first range!
-    QVERIFY (!folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (6,0), KTextEditor::Cursor (15,0)), Kate::TextFolding::Folded));
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (6,0), KTextEditor::Cursor (15,0)), Kate::TextFolding::Folded) == -1);
     
     // this shall fail to be inserted, as it badly overlaps with the second range!
-    QVERIFY (!folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (15,0), KTextEditor::Cursor (25,0)), Kate::TextFolding::Folded));
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (15,0), KTextEditor::Cursor (25,0)), Kate::TextFolding::Folded) == -1);
     
     // we shall still have now exactly two range toplevel
     folding.debugPrint ("Still Two Toplevel Folds");
@@ -304,7 +304,7 @@ void KateTextBufferTest::foldingTest()
     QVERIFY (folding.visibleLines() == (100 - 5 - 10));
     
     // we shall be able to insert new range, should lead to nested folds!
-    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (15,0), KTextEditor::Cursor (35,0)), Kate::TextFolding::Folded));
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (15,0), KTextEditor::Cursor (35,0)), Kate::TextFolding::Folded) == 2);
     
     // we shall have now exactly two range toplevel and one embedded fold
     folding.debugPrint ("Two Toplevel Folds, One Nested Fold");
@@ -326,7 +326,7 @@ void KateTextBufferTest::foldingTest()
       QVERIFY (folding.lineToVisibleLine (i) == (i - 25));
     
     // we shall be able to insert new range, should lead to nested folds!
-    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (0,0), KTextEditor::Cursor (50,0)), Kate::TextFolding::Folded));
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (0,0), KTextEditor::Cursor (50,0)), Kate::TextFolding::Folded) == 3);
     
     // we shall have now exactly one range toplevel and many embedded fold
     folding.debugPrint ("One Toplevel + Embedded Folds");

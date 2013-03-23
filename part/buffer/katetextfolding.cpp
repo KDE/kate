@@ -29,6 +29,7 @@ TextFolding::FoldingRange::FoldingRange (TextBuffer &buffer, const KTextEditor::
   , end (new TextCursor (buffer, range.end(), KTextEditor::MovingCursor::MoveOnInsert))
   , parent (0)
   , flags (_flags)
+  , id (-1)
 {
 }
   
@@ -46,6 +47,7 @@ TextFolding::FoldingRange::~FoldingRange ()
 TextFolding::TextFolding (TextBuffer &buffer)
   : QObject ()
   , m_buffer (buffer)
+  , m_idCounter (-1)
 {
 }
 
@@ -57,14 +59,14 @@ TextFolding::~TextFolding ()
   qDeleteAll (m_foldingRanges);
 }
 
-bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags)
+qint64 TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags)
 {
   /**
    * sort out invalid and empty ranges
    * that makes no sense, they will never grow again!
    */
   if (!range.isValid() || range.isEmpty())
-    return false;
+    return -1;
   
   /**
    * create new folding region that we want to insert
@@ -84,8 +86,15 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
      * cleanup and be done
      */
     delete newRange;
-    return false;
+    return -1;
   }
+
+  /**
+   * set id, catch overflows, even if they shall not happen
+   */
+  newRange->id = ++m_idCounter;
+  if (newRange->id < 0)
+    newRange->id = m_idCounter = 0;
   
   /**
    * update our folded ranges vector!
@@ -95,7 +104,7 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
   /**
    * all went fine, newRange is now registered internally!
    */
-  return true;
+  return newRange->id;
 }
 
 bool TextFolding::isLineVisible (int line) const

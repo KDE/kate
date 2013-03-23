@@ -315,8 +315,13 @@ void KateTextBufferTest::foldingTest()
     
     // check line mapping
     QVERIFY (folding.lineToVisibleLine (5) == 5);
-    for (int i = 11; i <= 20; ++i)
+    for (int i = 11; i <= 15; ++i)
       QVERIFY (folding.lineToVisibleLine (i) == (i - 5));
+    
+    // special case: hidden lines, should fall ack to last visible one!
+    for (int i = 16; i <= 35; ++i)
+      QVERIFY (folding.lineToVisibleLine (i) == 10);
+    
     for (int i = 36; i <= 40; ++i)
       QVERIFY (folding.lineToVisibleLine (i) == (i - 25));
     
@@ -325,7 +330,7 @@ void KateTextBufferTest::foldingTest()
     
     // we shall have now exactly one range toplevel and many embedded fold
     folding.debugPrint ("One Toplevel + Embedded Folds");
-    QVERIFY (folding.debugDump() == "tree [0:0 f [0:0 f 10:0] [15:0 f [20:0 f 30:0] 35:0] 50:0] - folded [0:0 f 50:0]");
+    QVERIFY (folding.debugDump() == "tree [0:0 f [5:0 f 10:0] [15:0 f [20:0 f 30:0] 35:0] 50:0] - folded [0:0 f 50:0]");
     
     // 50 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 50));

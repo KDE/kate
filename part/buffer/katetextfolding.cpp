@@ -558,6 +558,11 @@ void TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newR
    * fixup folded ranges
    */
   m_foldedFoldingRanges = newFoldedFoldingRanges;
+  
+  /**
+   * emit that something may have changed
+   */
+  emit foldedRangesChanged ();
 }
 
 }

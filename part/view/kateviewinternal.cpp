@@ -25,14 +25,11 @@
    the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
 */
-#include<stdio.h>
-
 
 #include "kateviewinternal.h"
 #include "kateviewinternal.moc"
 
 #include "kateview.h"
-#include "katecodefolding.h"
 #include "kateviewhelpers.h"
 #include "katehighlight.h"
 #include "katebuffer.h"
@@ -177,6 +174,8 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_leftBorder = new KateIconBorder( this, m_view );
   m_leftBorder->show ();
 
+  //FIXME: FOLDING
+#if 0
   connect( m_leftBorder, SIGNAL(toggleRegionVisibility(int)),
            doc()->foldingTree(), SLOT(toggleRegionVisibility(int)));
 
@@ -184,6 +183,7 @@ KateViewInternal::KateViewInternal(KateView *view)
            this, SLOT(slotRegionVisibilityChanged()));
   connect( doc(), SIGNAL(codeFoldingUpdated()),
            this, SLOT(slotCodeFoldingChanged()) );
+#endif
 
   m_displayCursor.setPosition(0, 0);
 
@@ -297,9 +297,9 @@ KTextEditor::Cursor KateViewInternal::endPos() const
 
     if (thisLine.line() == -1) continue;
 
-    if (thisLine.virtualLine() >= doc()->numVisLines()) {
+    if (thisLine.virtualLine() >= m_view->textFolding().visibleLines()) {
       // Cache is too out of date
-      return KTextEditor::Cursor(doc()->numVisLines() - 1, doc()->lineLength(doc()->getRealLine(doc()->numVisLines() - 1)));
+      return KTextEditor::Cursor(m_view->textFolding().visibleLines() - 1, doc()->lineLength(m_view->textFolding().visibleLineToLine(m_view->textFolding().visibleLines() - 1)));
     }
 
     return KTextEditor::Cursor(thisLine.virtualLine(), thisLine.wrap() ? thisLine.endCol() - 1 : thisLine.endCol());
@@ -420,7 +420,7 @@ KTextEditor::Cursor KateViewInternal::maxStartPos(bool changed)
 
   if (m_cachedMaxStartPos.line() == -1 || changed)
   {
-    KTextEditor::Cursor end(doc()->numVisLines() - 1, doc()->lineLength(doc()->getRealLine(doc()->numVisLines() - 1)));
+    KTextEditor::Cursor end(m_view->textFolding().visibleLines() - 1, doc()->lineLength(m_view->textFolding().visibleLineToLine(m_view->textFolding().visibleLines() - 1)));
 
     if (m_view->config()->scrollPastEnd())
       m_cachedMaxStartPos = viewLineOffset(end, -m_minLinesVisible);
@@ -472,8 +472,8 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
   if (viewLinesScrolledUsable)
   {
     int lines = linesDisplayed();
-    if (doc()->numVisLines() < lines) {
-      KTextEditor::Cursor end(doc()->numVisLines() - 1, doc()->lineLength(doc()->getRealLine(doc()->numVisLines() - 1)));
+    if (m_view->textFolding().visibleLines() < lines) {
+      KTextEditor::Cursor end(m_view->textFolding().visibleLines() - 1, doc()->lineLength(m_view->textFolding().visibleLineToLine(m_view->textFolding().visibleLines() - 1)));
       lines = qMin(linesDisplayed(), cache()->displayViewLine(end) + 1);
     }
 
@@ -1257,7 +1257,7 @@ KateTextLayout KateViewInternal::previousLayout() const
   if (currentViewLine)
     return cache()->textLayout(m_cursor.line(), currentViewLine - 1);
   else
-    return cache()->textLayout(doc()->getRealLine(m_displayCursor.line() - 1), -1);
+    return cache()->textLayout(m_view->textFolding().visibleLineToLine(m_displayCursor.line() - 1), -1);
 }
 
 KateTextLayout KateViewInternal::nextLayout() const
@@ -1266,7 +1266,7 @@ KateTextLayout KateViewInternal::nextLayout() const
 
   if (currentViewLine >= cache()->line(m_cursor.line())->viewLineCount()) {
     currentViewLine = 0;
-    return cache()->textLayout(doc()->getRealLine(m_displayCursor.line() + 1), currentViewLine);
+    return cache()->textLayout(m_view->textFolding().visibleLineToLine(m_displayCursor.line() + 1), currentViewLine);
   } else {
     return cache()->textLayout(m_cursor.line(), currentViewLine);
   }
@@ -1283,13 +1283,13 @@ KateTextLayout KateViewInternal::nextLayout() const
 KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& virtualCursor, int offset, bool keepX)
 {
   if (!m_view->dynWordWrap()) {
-    KTextEditor::Cursor ret(qMin((int)doc()->visibleLines() - 1, virtualCursor.line() + offset), 0);
+    KTextEditor::Cursor ret(qMin((int)m_view->textFolding().visibleLines() - 1, virtualCursor.line() + offset), 0);
 
     if (ret.line() < 0)
       ret.setLine(0);
 
     if (keepX) {
-      int realLine = doc()->getRealLine(ret.line());
+      int realLine = m_view->textFolding().visibleLineToLine(ret.line());
       KateTextLayout t = cache()->textLayout(realLine, 0);
       Q_ASSERT(t.isValid());
 
@@ -1300,7 +1300,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
   }
 
   KTextEditor::Cursor realCursor = virtualCursor;
-  realCursor.setLine(doc()->getRealLine(doc()->getVirtualLine(virtualCursor.line())));
+  realCursor.setLine(m_view->textFolding().visibleLineToLine(m_view->textFolding().lineToVisibleLine(virtualCursor.line())));
 
   int cursorViewLine = cache()->viewLine(realCursor);
 
@@ -1326,7 +1326,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
     if (offset <= currentOffset) {
       // the answer is on the same line
       KateTextLayout thisLine = cache()->textLayout(realCursor.line(), cursorViewLine - offset);
-      Q_ASSERT(thisLine.virtualLine() == (int) doc()->getVirtualLine(virtualCursor.line()));
+      Q_ASSERT(thisLine.virtualLine() == (int) m_view->textFolding().lineToVisibleLine(virtualCursor.line()));
       return KTextEditor::Cursor(virtualCursor.line(), thisLine.startCol());
     }
 
@@ -1335,9 +1335,9 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
 
   currentOffset++;
 
-  while (virtualLine >= 0 && virtualLine < (int)doc()->visibleLines())
+  while (virtualLine >= 0 && virtualLine < (int)m_view->textFolding().visibleLines())
   {
-    int realLine = doc()->getRealLine(virtualLine);
+    int realLine = m_view->textFolding().visibleLineToLine(virtualLine);
     KateLineLayoutPtr thisLine = cache()->line(realLine, virtualLine);
     if (!thisLine)
       break;
@@ -1381,7 +1381,7 @@ KTextEditor::Cursor KateViewInternal::viewLineOffset(const KTextEditor::Cursor& 
   // Looks like we were asked for something a bit exotic.
   // Return the max/min valid position.
   if (forwards)
-    return KTextEditor::Cursor(doc()->visibleLines() - 1, doc()->lineLength(doc()->getRealLine (doc()->visibleLines() - 1)));
+    return KTextEditor::Cursor(m_view->textFolding().visibleLines() - 1, doc()->lineLength(m_view->textFolding().visibleLineToLine (m_view->textFolding().visibleLines() - 1)));
   else
     return KTextEditor::Cursor(0, 0);
 }
@@ -1445,7 +1445,7 @@ void KateViewInternal::cursorDown(bool sel)
     return;
   }
 
-  if ((m_displayCursor.line() >= doc()->numVisLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
+  if ((m_displayCursor.line() >= m_view->textFolding().visibleLines() - 1) && (!m_view->dynWordWrap() || cache()->viewLine(m_cursor) == cache()->lastViewLine(m_cursor.line())))
     return;
 
   m_preserveX = true;
@@ -1495,7 +1495,7 @@ void KateViewInternal::scrollLines( int lines, bool sel )
   KTextEditor::Cursor c = viewLineOffset(m_displayCursor, lines, true);
 
   // Fix the virtual cursor -> real cursor
-  c.setLine(doc()->getRealLine(c.line()));
+  c.setLine(m_view->textFolding().visibleLineToLine(c.line()));
 
   updateSelection( c, sel );
   updateCursor( c );
@@ -1617,10 +1617,10 @@ int KateViewInternal::maxLen(int startLine)
   for (int z = 0; z < displayLines; z++) {
     int virtualLine = startLine + z;
 
-    if (virtualLine < 0 || virtualLine >= (int)doc()->visibleLines())
+    if (virtualLine < 0 || virtualLine >= (int)m_view->textFolding().visibleLines())
       break;
 
-    maxLen = qMax(maxLen, cache()->line(doc()->getRealLine(virtualLine))->width());
+    maxLen = qMax(maxLen, cache()->line(m_view->textFolding().visibleLineToLine(virtualLine))->width());
   }
 
   return maxLen;
@@ -1857,8 +1857,11 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
     m_displayCursor = toVirtualCursor(newCursor);
     if ( !m_madeVisible && m_view == doc()->activeView() )
     {
+#if 0
+  // FIXME: FOLDING
       // unfold if required
       doc()->foldingTree()->ensureVisible( newCursor.line() );
+#endif
 
       makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
     }
@@ -1866,8 +1869,11 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
     return;
   }
 
-  // unfold if required
+#if 0
+  //FIXME FOLDING
+// unfold if required
   doc()->foldingTree()->ensureVisible( newCursor.line() );
+#endif
 
   KTextEditor::Cursor oldDisplayCursor = m_displayCursor;
 
@@ -1961,7 +1967,7 @@ void KateViewInternal::updateBracketMarks()
 bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)
 {
   // FIXME may be a more efficient way for this
-  if ((int)doc()->getRealLine(virtualCursor.line()) > doc()->lastLine())
+  if ((int)m_view->textFolding().visibleLineToLine(virtualCursor.line()) > doc()->lastLine())
     return false;
   // End FIXME
 
@@ -2028,7 +2034,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
     int y = lineToY( start.line() );
     // FIXME is this enough for when multiple lines are deleted
     int h = (end.line() - start.line() + 2) * renderer()->lineHeight();
-    if (end.line() >= doc()->numVisLines() - 1)
+    if (end.line() >= m_view->textFolding().visibleLines() - 1)
       h = height();
 
     m_leftBorder->update (0, y, m_leftBorder->width(), h);
@@ -3356,7 +3362,7 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
   }  
   m_startPos.setPosition (m_startPos.line(), col);
 
-  if (tagFrom && (editTagLineStart <= int(doc()->getRealLine(startLine()))))
+  if (tagFrom && (editTagLineStart <= int(m_view->textFolding().visibleLineToLine(startLine()))))
     tagAll();
   else
     tagLines (editTagLineStart, tagFrom ? qMax(doc()->lastLine() + 1, editTagLineEnd) : editTagLineEnd, true);
@@ -3406,12 +3412,16 @@ KateLayoutCache* KateViewInternal::cache( ) const
 
 KTextEditor::Cursor KateViewInternal::toRealCursor( const KTextEditor::Cursor & virtualCursor ) const
 {
-  return KTextEditor::Cursor(doc()->getRealLine(virtualCursor.line()), virtualCursor.column());
+  return KTextEditor::Cursor(m_view->textFolding().visibleLineToLine(virtualCursor.line()), virtualCursor.column());
 }
 
 KTextEditor::Cursor KateViewInternal::toVirtualCursor( const KTextEditor::Cursor & realCursor ) const
 {
-  return KTextEditor::Cursor(doc()->getVirtualLine(realCursor.line()), realCursor.column());
+  // only convert valid cursors!
+  if (!realCursor.isValid())
+    return KTextEditor::Cursor::invalid ();
+  
+  return KTextEditor::Cursor(m_view->textFolding().lineToVisibleLine(realCursor.line()), realCursor.column());
 }
 
 KateRenderer * KateViewInternal::renderer( ) const
@@ -3441,8 +3451,8 @@ bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range, bool re
   int endLine = startLine + (int)m_visibleLineCount;
 
   if ( realCursors ) {
-    startLine = (int)doc()->getRealLine(startLine);
-    endLine = (int)doc()->getRealLine(endLine);
+    startLine = (int)m_view->textFolding().visibleLineToLine(startLine);
+    endLine = (int)m_view->textFolding().visibleLineToLine(endLine);
   }
 
   return (range.end().line() >= startLine) || (range.start().line() <= endLine);

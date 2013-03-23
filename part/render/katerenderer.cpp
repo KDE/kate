@@ -45,8 +45,9 @@ static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
 static const QChar nbSpaceChar(0xa0); // non-breaking space
 
-KateRenderer::KateRenderer(KateDocument* doc, KateView *view)
+KateRenderer::KateRenderer(KateDocument* doc, Kate::TextFolding &folding, KateView *view)
   : m_doc(doc)
+  , m_folding (folding)
     , m_view (view)
     , m_tabWidth(m_doc->config()->tabWidth())
     , m_indentWidth(m_doc->config()->indentationWidth())

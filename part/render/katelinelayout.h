@@ -29,11 +29,12 @@
 class QTextLayout;
 class KateDocument;
 class KateTextLayout;
+class KateRenderer;
 
 class KateLineLayout : public KShared
 {
   public:
-    KateLineLayout(KateDocument* doc = 0L);
+    KateLineLayout(KateRenderer &renderer);
     ~KateLineLayout();
 
     KateDocument* doc() const;
@@ -103,7 +104,7 @@ private:
 
     QTextLayout* takeLayout() const;
 
-    KateDocument* m_doc;
+    KateRenderer &m_renderer;
     mutable Kate::TextLine m_textLine;
     int m_line;
     int m_virtualLine;

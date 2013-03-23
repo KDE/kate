@@ -21,7 +21,6 @@
 #define __KATE_BUFFER_H__
 
 #include "katetextbuffer.h"
-#include "katecodefolding.h"
 
 #include "katepartprivate_export.h"
 
@@ -183,14 +182,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      inline void updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent);
 
   public:
-    inline int countVisible () const { return lines() - m_regionTree.getHiddenLinesCount(lines()); }
-
-    inline int lineNumber (int visibleLine) const { return m_regionTree.getRealLine (visibleLine); }
-
-    inline int lineVisibleNumber (int line) const { return m_regionTree.getVirtualLine (line); }
-
-    inline void lineInfo (KateLineInfo *info, int line) const { m_regionTree.getLineInfo(info,line); }
-
     inline int tabWidth () const { return m_tabWidth; }
 
   public:
@@ -210,8 +201,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * Invalidate highlighting of whole buffer.
      */
     void invalidateHighlighting();
-
-    KateCodeFoldingTree *foldingTree () { return &m_regionTree; }
 
     const KateDocument* getDocument () { return m_doc; }
 
@@ -262,11 +251,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * current highlighting mode or 0
      */
     KateHighlighting *m_highlight;
-
-    /**
-     * folding tree
-     */
-    KateCodeFoldingTree m_regionTree;
 
     // for the scrapty indent sensitive langs
     int m_tabWidth;

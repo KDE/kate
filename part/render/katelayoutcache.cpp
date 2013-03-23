@@ -168,9 +168,9 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
 
   int realLine;
   if (newViewLineCount == -1)
-    realLine = m_renderer->doc()->getRealLine(m_renderer->doc()->getVirtualLine(startPos.line()));
+    realLine = m_renderer->folding().visibleLineToLine(m_renderer->folding().lineToVisibleLine(startPos.line()));
   else
-    realLine = m_renderer->doc()->getRealLine(startPos.line());
+    realLine = m_renderer->folding().visibleLineToLine(startPos.line());
   int _viewLine = 0;
 
   if (wrap()) {
@@ -264,7 +264,7 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
 
     if (_viewLine > l->viewLineCount() - 1) {
       int virtualLine = l->virtualLine() + 1;
-      realLine = m_renderer->doc()->getRealLine(virtualLine);
+      realLine = m_renderer->folding().visibleLineToLine(virtualLine);
       _viewLine = 0;
       if (realLine < m_renderer->doc()->lines()) {
         l = line(realLine, virtualLine);
@@ -311,7 +311,7 @@ KateLineLayoutPtr KateLayoutCache::line( int realLine, int virtualLine )
   if (realLine < 0 || realLine >= m_renderer->doc()->lines())
     return KateLineLayoutPtr();
 
-  KateLineLayoutPtr l(new KateLineLayout(m_renderer->doc()));
+  KateLineLayoutPtr l(new KateLineLayout(*m_renderer));
   l->setLine(realLine, virtualLine);
 
   // Mark it dirty, because it may not have the syntax highlighting applied
@@ -404,7 +404,7 @@ int KateLayoutCache::viewLine(const KTextEditor::Cursor& realCursor)
 int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, bool limitToVisible)
 {
   KTextEditor::Cursor work = viewCacheStart();
-  work.setLine(m_renderer->doc()->getVirtualLine(work.line()));
+  work.setLine(m_renderer->folding().lineToVisibleLine(work.line()));
 
   if (!work.isValid())
     return virtualCursor.line();
@@ -430,7 +430,7 @@ int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, b
   // FIXME switch to using ranges? faster?
   if (forwards) {
     while (work.line() != virtualCursor.line()) {
-      ret += viewLineCount(m_renderer->doc()->getRealLine(work.line()));
+      ret += viewLineCount(m_renderer->folding().visibleLineToLine(work.line()));
       work.setLine(work.line() + 1);
       if (limitToVisible && ret > limit)
         return -1;
@@ -438,7 +438,7 @@ int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, b
   } else {
     while (work.line() != virtualCursor.line()) {
       work.setLine(work.line() - 1);
-      ret -= viewLineCount(m_renderer->doc()->getRealLine(work.line()));
+      ret -= viewLineCount(m_renderer->folding().visibleLineToLine(work.line()));
       if (limitToVisible && ret < 0)
         return -1;
     }
@@ -446,7 +446,7 @@ int KateLayoutCache::displayViewLine(const KTextEditor::Cursor& virtualCursor, b
 
   // final difference
   KTextEditor::Cursor realCursor = virtualCursor;
-  realCursor.setLine(m_renderer->doc()->getRealLine(realCursor.line()));
+  realCursor.setLine(m_renderer->folding().visibleLineToLine(realCursor.line()));
   if (realCursor.column() == -1) realCursor.setColumn(m_renderer->doc()->lineLength(realCursor.line()));
   ret += viewLine(realCursor);
 

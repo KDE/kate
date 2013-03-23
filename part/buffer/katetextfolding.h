@@ -131,6 +131,13 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      */
     void debugPrint (const QString &title) const;
   
+  Q_SIGNALS:
+    /**
+     * If the folding state of existing ranges changes or
+     * folded ranges are added/removed, this signal is emited.
+     */
+    void foldedRangesChanged ();
+      
   private:
     /**
      * Data holder for text folding range and its nested children

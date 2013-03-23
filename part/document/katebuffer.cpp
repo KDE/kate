@@ -63,7 +63,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_brokenEncoding (false),
    m_tooLongLinesWrapped (false),
    m_highlight (0),
-   m_regionTree (this),
    m_tabWidth (8),
    m_lineHighlighted (0),
    m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
@@ -150,8 +149,6 @@ void KateBuffer::clear()
   // call original clear function
   Kate::TextBuffer::clear ();
 
-  m_regionTree.clear();
-
   // reset the state
   m_brokenEncoding = false;
   m_tooLongLinesWrapped = false;
@@ -192,9 +189,6 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
   // generate a bom?
   if (generateByteOrderMark())
     m_doc->config()->setBom (true);
-
-  // fix region tree
-  m_regionTree.fixRoot (lines ());
 
   // okay, loading did work
   return true;
@@ -276,9 +270,6 @@ void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
 
   if (m_lineHighlighted > position.line()+1)
     m_lineHighlighted++;
-
-  m_regionTree.lineHasBeenInserted (position.line(), position.column());
-
 }
 
 void KateBuffer::unwrapLines (int from, int to)
@@ -306,8 +297,6 @@ void KateBuffer::unwrapLines (int from, int to)
             --m_lineHighlighted;
       }
   }
-
-  m_regionTree.linesHaveBeenRemoved (from, to);
 }
 
 void KateBuffer::unwrapLine (int line)
@@ -317,8 +306,6 @@ void KateBuffer::unwrapLine (int line)
 
   if (m_lineHighlighted > line)
     --m_lineHighlighted;
-
-  m_regionTree.linesHaveBeenRemoved (line, line);
 }
 
 void KateBuffer::setTabWidth (int w)
@@ -348,10 +335,6 @@ void KateBuffer::setHighlight(int hlMode)
     }
 
     h->use();
-
-    // Clear code folding tree (see bug #124102)
-    m_regionTree.clear();
-    m_regionTree.fixRoot(lines());
 
     m_highlight = h;
 
@@ -392,8 +375,11 @@ void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int 
   addIndentBasedFoldingInformation(foldingList,textLine->length(),addindent,deindent);
   textLine->setFoldingList(foldingList);
 
+#if 0
+  // FIXME: FOLDING
   bool retVal_folding = false;
   m_regionTree.updateLine(current_line, foldingList, &retVal_folding, true,false);
+#endif
 
   // tagLines() is emitted from KatBuffer::doHighlight()!
 }
@@ -729,8 +715,13 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
       } else textLine->setFoldingColumnsOutdated(false);
     }
     bool retVal_folding = false;
+    
+#if 0
+    
+  // FIXME: FOLDING
     //perhaps make en enums out of the change flags
     m_regionTree.updateLine(current_line, foldingList, &retVal_folding, foldingChanged,foldingColChanged);
+#endif
 
     codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
 

@@ -19,15 +19,17 @@
 
 #include "katelinelayout.h"
 #include "katetextlayout.h"
+#include "katetextfolding.h"
 
 #include <QtGui/QTextLine>
 
 #include <kdebug.h>
 
 #include "katedocument.h"
+#include "katerenderer.h"
 
-KateLineLayout::KateLineLayout(KateDocument* doc)
-  : m_doc(doc)
+KateLineLayout::KateLineLayout(KateRenderer &renderer)
+  : m_renderer(renderer)
   , m_textLine(0L)
   , m_line(-1)
   , m_virtualLine(-1)
@@ -36,7 +38,6 @@ KateLineLayout::KateLineLayout(KateDocument* doc)
   , m_layoutDirty(true)
   , m_usePlainTextLine(false)
 {
-  Q_ASSERT(doc);
 }
 
 KateLineLayout::~KateLineLayout()
@@ -64,7 +65,7 @@ bool KateLineLayout::includesCursor(const KTextEditor::Cursor& realCursor) const
 const Kate::TextLine& KateLineLayout::textLine(bool reloadForce) const
 {
   if (reloadForce || !m_textLine)
-    m_textLine = usePlainTextLine() ? m_doc->plainKateTextLine (line()) : m_doc->kateTextLine(line());
+    m_textLine = usePlainTextLine() ? m_renderer.doc()->plainKateTextLine (line()) : m_renderer.doc()->kateTextLine(line());
 
   Q_ASSERT(m_textLine);
 
@@ -79,7 +80,7 @@ int KateLineLayout::line( ) const
 void KateLineLayout::setLine( int line, int virtualLine )
 {
   m_line = line;
-  m_virtualLine = (virtualLine == -1) ? m_doc->getVirtualLine(line) : virtualLine;
+  m_virtualLine = (virtualLine == -1) ? m_renderer.folding().lineToVisibleLine (line) : virtualLine;
   m_textLine = Kate::TextLine ();
 }
 
@@ -98,7 +99,7 @@ bool KateLineLayout::startsInvisibleBlock() const
   if (!isValid())
     return false;
 
-  return (virtualLine() + 1) != (int)m_doc->getVirtualLine(line() + 1);
+  return (virtualLine() + 1) != m_renderer.folding().lineToVisibleLine (line() + 1);
 }
 
 int KateLineLayout::shiftX() const
@@ -113,7 +114,7 @@ void KateLineLayout::setShiftX(int shiftX)
 
 KateDocument* KateLineLayout::doc() const
 {
-  return m_doc;
+  return m_renderer.doc();
 }
 
 bool KateLineLayout::isValid( ) const
@@ -200,7 +201,7 @@ int KateLineLayout::widthOfLastLine( ) const
 
 bool KateLineLayout::isOutsideDocument( ) const
 {
-  return line() < 0 || line() >= m_doc->lines();
+  return line() < 0 || line() >= m_renderer.doc()->lines();
 }
 
 void KateLineLayout::debugOutput() const

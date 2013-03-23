@@ -90,6 +90,24 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     int visibleLines () const;
     
     /**
+     * Convert a text buffer line to a visible line number.
+     * Very fast, if nothing is folded, else walks over all folded regions
+     * O(n) for n == number of folded ranges
+     * @param line line index in the text buffer
+     * @return index in visible lines
+     */
+    int lineToVisibleLine (int line) const;
+    
+    /**
+     * Convert a visible line number to a line number in the text buffer.
+     * Very fast, if nothing is folded, else walks over all folded regions
+     * O(n) for n == number of folded ranges
+     * @param visibleLine visible line index
+     * @return index in text buffer lines
+     */
+    int visibleLineToLine (int visibleLine) const;
+    
+    /**
      * Dump folding state as string, for unit testing and debugging
      * @return current state as text
      */

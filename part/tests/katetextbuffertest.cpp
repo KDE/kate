@@ -271,6 +271,13 @@ void KateTextBufferTest::foldingTest()
     // 20 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 10 - 10));
     
+    // check line mapping
+    QVERIFY (folding.lineToVisibleLine (0) == 0);
+    for (int i = 11; i <= 20; ++i)
+      QVERIFY (folding.lineToVisibleLine (i) == (i - 10));
+    for (int i = 31; i <= 40; ++i)
+      QVERIFY (folding.lineToVisibleLine (i) == (i - 20));
+    
     // this shall fail to be inserted, as it badly overlaps with the first range!
     QVERIFY (!folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (5,0), KTextEditor::Cursor (15,0)), Kate::TextFolding::Folded));
     
@@ -293,6 +300,13 @@ void KateTextBufferTest::foldingTest()
     
     // 30 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 10 - 20));
+    
+    // check line mapping
+    QVERIFY (folding.lineToVisibleLine (0) == 0);
+    for (int i = 11; i <= 15; ++i)
+      QVERIFY (folding.lineToVisibleLine (i) == (i - 10));
+    for (int i = 36; i <= 40; ++i)
+      QVERIFY (folding.lineToVisibleLine (i) == (i - 30));
     
     // we shall be able to insert new range, should lead to nested folds!
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (0,0), KTextEditor::Cursor (50,0)), Kate::TextFolding::Folded));

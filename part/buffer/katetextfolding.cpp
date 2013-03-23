@@ -136,6 +136,68 @@ int TextFolding::visibleLines () const
   return visibleLines;
 }
 
+int TextFolding::lineToVisibleLine (int line) const
+{
+  /**
+   * valid input needed!
+   */
+  Q_ASSERT (line >= 0);
+  
+  /**
+   * start with identity
+   */
+  int visibleLine = line;
+  
+  /**
+   * skip if nothing folded
+   */
+  if (m_foldedFoldingRanges.isEmpty())
+    return visibleLine;
+  
+  /**
+   * walk over all folded ranges until we reach the line
+   */
+  Q_FOREACH (FoldingRange *range, m_foldedFoldingRanges) {
+    /**
+     * abort if we reach our line!
+     */
+    if (range->start->line() >= line)
+      break;
+    
+    /**
+     * subtrace folded lines
+     */
+    visibleLine -= (range->end->line() - range->start->line());
+  }
+  
+  /**
+   * be done, assert we did no trash
+   */
+  Q_ASSERT (visibleLine >= 0);
+  return visibleLine;
+}
+    
+int TextFolding::visibleLineToLine (int visibleLine) const
+{
+  /**
+   * valid input needed!
+   */
+  Q_ASSERT (visibleLine >= 0);
+  
+  /**
+   * start with identity
+   */
+  int line = visibleLine;
+  
+  /**
+   * skip if nothing folded
+   */
+  if (m_foldedFoldingRanges.isEmpty())
+    return line;
+  
+  return line;
+}
+
 QString TextFolding::debugDump () const
 {
   /**

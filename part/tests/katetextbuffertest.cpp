@@ -235,36 +235,36 @@ void KateTextBufferTest::foldingTest()
     QVERIFY (folding.visibleLines() == 100);
     
     // we shall be able to insert new range
-    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (0,0), KTextEditor::Cursor (10,0)), Kate::TextFolding::Folded));
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (5,0), KTextEditor::Cursor (10,0)), Kate::TextFolding::Folded));
     
     // we shall have now exactly one range toplevel
     folding.debugPrint ("One Toplevel Fold");
-    QVERIFY (folding.debugDump() == "tree [0:0 f 10:0] - folded [0:0 f 10:0]");
+    QVERIFY (folding.debugDump() == "tree [5:0 f 10:0] - folded [5:0 f 10:0]");
     
     // check visibility
-    QVERIFY (folding.isLineVisible (0));
-    for (int i = 1; i <= 10; ++i)
+    QVERIFY (folding.isLineVisible (5));
+    for (int i = 6; i <= 10; ++i)
       QVERIFY (!folding.isLineVisible (i));
     QVERIFY (folding.isLineVisible (11));
     
-    // 10 lines are hidden
-    QVERIFY (folding.visibleLines() == (100 - 10));
+    // 5 lines are hidden
+    QVERIFY (folding.visibleLines() == (100 - 5));
     
     // check line mapping
-    QVERIFY (folding.visibleLineToLine (0) == 0);
-    for (int i = 1; i <= 50; ++i)
-      QVERIFY (folding.visibleLineToLine (i) == (i + 10));
+    QVERIFY (folding.visibleLineToLine (5) == 5);
+    for (int i = 6; i <= 50; ++i)
+      QVERIFY (folding.visibleLineToLine (i) == (i + 5));
     
     // we shall be able to insert new range
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (20,0), KTextEditor::Cursor (30,0)), Kate::TextFolding::Folded));
     
     // we shall have now exactly two range toplevel
     folding.debugPrint ("Two Toplevel Folds");
-    QVERIFY (folding.debugDump() == "tree [0:0 f 10:0] [20:0 f 30:0] - folded [0:0 f 10:0] [20:0 f 30:0]");
+    QVERIFY (folding.debugDump() == "tree [5:0 f 10:0] [20:0 f 30:0] - folded [5:0 f 10:0] [20:0 f 30:0]");
     
     // check visibility
-    QVERIFY (folding.isLineVisible (0));
-    for (int i = 1; i <= 10; ++i)
+    QVERIFY (folding.isLineVisible (5));
+    for (int i = 6; i <= 10; ++i)
       QVERIFY (!folding.isLineVisible (i));
     QVERIFY (folding.isLineVisible (11));
     
@@ -273,52 +273,52 @@ void KateTextBufferTest::foldingTest()
       QVERIFY (!folding.isLineVisible (i));
     QVERIFY (folding.isLineVisible (31));
     
-    // 20 lines are hidden
-    QVERIFY (folding.visibleLines() == (100 - 10 - 10));
+    // 15 lines are hidden
+    QVERIFY (folding.visibleLines() == (100 - 5 - 10));
     
     // check line mapping
-    QVERIFY (folding.visibleLineToLine (0) == 0);
-    for (int i = 1; i <= 10; ++i)
-      QVERIFY (folding.visibleLineToLine (i) == (i + 10));
-    for (int i = 11; i <= 50; ++i)
-      QVERIFY (folding.visibleLineToLine (i) == (i + 20));
+    QVERIFY (folding.visibleLineToLine (5) == 5);
+    for (int i = 6; i <= 15; ++i)
+      QVERIFY (folding.visibleLineToLine (i) == (i + 5));
+    for (int i = 16; i <= 50; ++i)
+      QVERIFY (folding.visibleLineToLine (i) == (i + 15));
     
     // check line mapping
-    QVERIFY (folding.lineToVisibleLine (0) == 0);
+    QVERIFY (folding.lineToVisibleLine (5) == 5);
     for (int i = 11; i <= 20; ++i)
-      QVERIFY (folding.lineToVisibleLine (i) == (i - 10));
+      QVERIFY (folding.lineToVisibleLine (i) == (i - 5));
     for (int i = 31; i <= 40; ++i)
-      QVERIFY (folding.lineToVisibleLine (i) == (i - 20));
+      QVERIFY (folding.lineToVisibleLine (i) == (i - 15));
     
     // this shall fail to be inserted, as it badly overlaps with the first range!
-    QVERIFY (!folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (5,0), KTextEditor::Cursor (15,0)), Kate::TextFolding::Folded));
+    QVERIFY (!folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (6,0), KTextEditor::Cursor (15,0)), Kate::TextFolding::Folded));
     
     // this shall fail to be inserted, as it badly overlaps with the second range!
     QVERIFY (!folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (15,0), KTextEditor::Cursor (25,0)), Kate::TextFolding::Folded));
     
     // we shall still have now exactly two range toplevel
     folding.debugPrint ("Still Two Toplevel Folds");
-    QVERIFY (folding.debugDump() == "tree [0:0 f 10:0] [20:0 f 30:0] - folded [0:0 f 10:0] [20:0 f 30:0]");
+    QVERIFY (folding.debugDump() == "tree [5:0 f 10:0] [20:0 f 30:0] - folded [5:0 f 10:0] [20:0 f 30:0]");
     
-    // still 20 lines are hidden
-    QVERIFY (folding.visibleLines() == (100 - 10 - 10));
+    // still 15 lines are hidden
+    QVERIFY (folding.visibleLines() == (100 - 5 - 10));
     
     // we shall be able to insert new range, should lead to nested folds!
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (15,0), KTextEditor::Cursor (35,0)), Kate::TextFolding::Folded));
     
     // we shall have now exactly two range toplevel and one embedded fold
     folding.debugPrint ("Two Toplevel Folds, One Nested Fold");
-    QVERIFY (folding.debugDump() == "tree [0:0 f 10:0] [15:0 f [20:0 f 30:0] 35:0] - folded [0:0 f 10:0] [15:0 f 35:0]");
+    QVERIFY (folding.debugDump() == "tree [5:0 f 10:0] [15:0 f [20:0 f 30:0] 35:0] - folded [5:0 f 10:0] [15:0 f 35:0]");
     
-    // 30 lines are hidden
-    QVERIFY (folding.visibleLines() == (100 - 10 - 20));
+    // 25 lines are hidden
+    QVERIFY (folding.visibleLines() == (100 - 5 - 20));
     
     // check line mapping
-    QVERIFY (folding.lineToVisibleLine (0) == 0);
-    for (int i = 11; i <= 15; ++i)
-      QVERIFY (folding.lineToVisibleLine (i) == (i - 10));
+    QVERIFY (folding.lineToVisibleLine (5) == 5);
+    for (int i = 11; i <= 20; ++i)
+      QVERIFY (folding.lineToVisibleLine (i) == (i - 5));
     for (int i = 36; i <= 40; ++i)
-      QVERIFY (folding.lineToVisibleLine (i) == (i - 30));
+      QVERIFY (folding.lineToVisibleLine (i) == (i - 25));
     
     // we shall be able to insert new range, should lead to nested folds!
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (0,0), KTextEditor::Cursor (50,0)), Kate::TextFolding::Folded));

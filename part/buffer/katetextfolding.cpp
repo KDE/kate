@@ -90,13 +90,13 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
   return true;
 }
 
-bool TextFolding::isLineFolded (int line) const
+bool TextFolding::isLineVisible (int line) const
 {
   /**
    * skip if nothing folded
    */
   if (m_foldedFoldingRanges.isEmpty())
-    return false;
+    return true;
   
   /**
    * search upper bound, index to item with start line higher than our one
@@ -107,7 +107,7 @@ bool TextFolding::isLineFolded (int line) const
   /**
    * check if we overlap with the range in front of us
    */
-  return ((*upperBound)->end->line() >= line) && (line > (*upperBound)->start->line());
+  return !(((*upperBound)->end->line() >= line) && (line > (*upperBound)->start->line()));
 }
 
 int TextFolding::visibleLines () const

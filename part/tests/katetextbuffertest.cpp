@@ -228,8 +228,8 @@ void KateTextBufferTest::foldingTest()
     QVERIFY (folding.debugDump() == "tree  - folded ");
     
     // check visibility
-    QVERIFY (!folding.isLineFolded (0));
-    QVERIFY (!folding.isLineFolded (99));
+    QVERIFY (folding.isLineVisible (0));
+    QVERIFY (folding.isLineVisible (99));
     
     // all visible
     QVERIFY (folding.visibleLines() == 100);
@@ -242,10 +242,10 @@ void KateTextBufferTest::foldingTest()
     QVERIFY (folding.debugDump() == "tree [0:0 f 10:0] - folded [0:0 f 10:0]");
     
     // check visibility
-    QVERIFY (!folding.isLineFolded (0));
+    QVERIFY (folding.isLineVisible (0));
     for (int i = 1; i <= 10; ++i)
-      QVERIFY (folding.isLineFolded (i));
-    QVERIFY (!folding.isLineFolded (11));
+      QVERIFY (!folding.isLineVisible (i));
+    QVERIFY (folding.isLineVisible (11));
     
     // 10 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 10));
@@ -258,15 +258,15 @@ void KateTextBufferTest::foldingTest()
     QVERIFY (folding.debugDump() == "tree [0:0 f 10:0] [20:0 f 30:0] - folded [0:0 f 10:0] [20:0 f 30:0]");
     
     // check visibility
-    QVERIFY (!folding.isLineFolded (0));
+    QVERIFY (folding.isLineVisible (0));
     for (int i = 1; i <= 10; ++i)
-      QVERIFY (folding.isLineFolded (i));
-    QVERIFY (!folding.isLineFolded (11));
+      QVERIFY (!folding.isLineVisible (i));
+    QVERIFY (folding.isLineVisible (11));
     
-    QVERIFY (!folding.isLineFolded (20));
+    QVERIFY (folding.isLineVisible (20));
     for (int i = 21; i <= 30; ++i)
-      QVERIFY (folding.isLineFolded (i));
-    QVERIFY (!folding.isLineFolded (31));
+      QVERIFY (!folding.isLineVisible (i));
+    QVERIFY (folding.isLineVisible (31));
     
     // 20 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 10 - 10));

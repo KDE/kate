@@ -74,13 +74,13 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     bool newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags);
     
     /**
-     * Query if a given line is folded.
+     * Query if a given line is visible.
      * Very fast, if nothing is folded, else does binary search
      * log(n) for n == number of folded ranges
      * @param line line to query
-     * @return is that line folded?
+     * @return is that line visible?
      */
-    bool isLineFolded (int line) const;
+    bool isLineVisible (int line) const;
     
     /**
      * Query number of visible lines.

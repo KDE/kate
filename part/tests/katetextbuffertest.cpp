@@ -300,4 +300,7 @@ void KateTextBufferTest::foldingTest()
     // we shall have now exactly one range toplevel and many embedded fold
     folding.debugPrint ("One Toplevel + Embedded Folds");
     QVERIFY (folding.debugDump() == "tree [0:0 f [0:0 f 10:0] [15:0 f [20:0 f 30:0] 35:0] 50:0] - folded [0:0 f 50:0]");
+    
+    // 50 lines are hidden
+    QVERIFY (folding.visibleLines() == (100 - 50));
 }

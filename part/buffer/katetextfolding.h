@@ -75,11 +75,19 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     
     /**
      * Query if a given line is folded.
-     * Very fast, if nothing is folded, else log(n) for n == number of folded ranges
+     * Very fast, if nothing is folded, else does binary search
+     * log(n) for n == number of folded ranges
      * @param line line to query
      * @return is that line folded?
      */
     bool isLineFolded (int line) const;
+    
+    /**
+     * Query number of visible lines.
+     * Very fast, if nothing is folded, else walks over all folded regions
+     * O(n) for n == number of folded ranges
+     */
+    int visibleLines () const;
     
     /**
      * Dump folding state as string, for unit testing and debugging

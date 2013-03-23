@@ -110,6 +110,32 @@ bool TextFolding::isLineFolded (int line) const
   return ((*upperBound)->end->line() >= line) && (line > (*upperBound)->start->line());
 }
 
+int TextFolding::visibleLines () const
+{
+  /**
+   * start with all lines we have
+   */
+  int visibleLines = m_buffer.lines();
+  
+  /**
+   * skip if nothing folded
+   */
+  if (m_foldedFoldingRanges.isEmpty())
+    return visibleLines;
+  
+  /**
+   * count all folded lines and subtract them from visible lines
+   */
+  Q_FOREACH (FoldingRange *range, m_foldedFoldingRanges)
+    visibleLines -= (range->end->line() - range->start->line());
+    
+  /**
+   * be done, assert we did no trash
+   */
+  Q_ASSERT (visibleLines > 0);
+  return visibleLines;
+}
+
 QString TextFolding::debugDump () const
 {
   /**

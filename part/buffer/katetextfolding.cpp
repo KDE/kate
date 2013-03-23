@@ -156,13 +156,28 @@ int TextFolding::lineToVisibleLine (int line) const
   
   /**
    * walk over all folded ranges until we reach the line
+   * keep track of seen visible lines, for the case we want to convert a hidden line!
    */
+  int seenVisibleLines = 0;
+  int lastLine = 0;
   Q_FOREACH (FoldingRange *range, m_foldedFoldingRanges) {
     /**
      * abort if we reach our line!
      */
     if (range->start->line() >= line)
       break;
+    
+    /**
+     * count visible lines
+     */
+    seenVisibleLines += (range->start->line() - lastLine);
+    lastLine = range->end->line();
+    
+    /**
+     * we might be contained in the region, then we return last visible line
+     */
+    if (line <= range->end->line())
+      return seenVisibleLines;
     
     /**
      * subtrace folded lines

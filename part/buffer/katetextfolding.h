@@ -75,8 +75,16 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * @param range folding range
      * @param flags flags for the new folding range
      * @return on success, id of new range >= 0, else -1, we return no pointer as folding ranges might be auto-deleted internally!
+     *         the ids are stable for one Kate::TextFolding, e.g. you can rely in unit tests that you get 0,1,.... for successfully created ranges!
      */
     qint64 newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags);
+    
+    /**
+     * Remove a folding range.
+     * @param id folding range id
+     * @return success
+     */
+    bool removeFoldingRange (qint64 id);
     
     /**
      * Query if a given line is visible.
@@ -256,6 +264,11 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * global id counter for the created ranges
      */
     qint64 m_idCounter;
+    
+    /**
+     * mapping: id => range
+     */
+    QHash<qint64, FoldingRange *> m_idToFoldingRange;
 };
 
 }

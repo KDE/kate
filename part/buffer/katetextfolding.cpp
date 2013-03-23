@@ -97,6 +97,11 @@ qint64 TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRan
     newRange->id = m_idCounter = 0;
   
   /**
+   * remember the range
+   */
+  m_idToFoldingRange.insert (newRange->id, newRange);
+  
+  /**
    * update our folded ranges vector!
    */
   updateFoldedRangesForNewRange (newRange);
@@ -105,6 +110,18 @@ qint64 TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRan
    * all went fine, newRange is now registered internally!
    */
   return newRange->id;
+}
+
+bool TextFolding::removeFoldingRange (qint64 id)
+{
+  /**
+   * try to find the range, else bail out
+   */
+  FoldingRange *range = m_idToFoldingRange.value (id);
+  if (!range)
+    return false;
+  
+  return true;
 }
 
 bool TextFolding::isLineVisible (int line) const

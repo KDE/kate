@@ -74,6 +74,14 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     bool newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags);
     
     /**
+     * Query if a given line is folded.
+     * Very fast, if nothing is folded, else log(n) for n == number of folded ranges
+     * @param line line to query
+     * @return is that line folded?
+     */
+    bool isLineFolded (int line) const;
+    
+    /**
      * Dump folding state as string, for unit testing and debugging
      * @return current state as text
      */
@@ -178,6 +186,13 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * @param b second range
      */
     static bool compareRangeByEnd (FoldingRange *a, FoldingRange *b);
+    
+    /**
+     * Compare range start with line
+     * @param line line
+     * @param range range
+     */
+    static bool compareRangeByStartWithLine (int line, FoldingRange *range);
     
   private:
     /**

@@ -225,6 +225,10 @@ void KateTextBufferTest::foldingTest()
     folding.debugPrint ("Empty Folding");
     QVERIFY (folding.debugDump() == "tree  - folded ");
     
+    // check visibility
+    QVERIFY (!folding.isLineFolded (0));
+    QVERIFY (!folding.isLineFolded (99));
+    
     // we shall be able to insert new range
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (0,0), KTextEditor::Cursor (10,0)), Kate::TextFolding::Folded));
     
@@ -232,12 +236,29 @@ void KateTextBufferTest::foldingTest()
     folding.debugPrint ("One Toplevel Fold");
     QVERIFY (folding.debugDump() == "tree [0:0 f 10:0] - folded [0:0 f 10:0]");
     
+    // check visibility
+    QVERIFY (!folding.isLineFolded (0));
+    for (int i = 1; i <= 10; ++i)
+      QVERIFY (folding.isLineFolded (i));
+    QVERIFY (!folding.isLineFolded (11));
+    
     // we shall be able to insert new range
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (20,0), KTextEditor::Cursor (30,0)), Kate::TextFolding::Folded));
     
     // we shall have now exactly two range toplevel
     folding.debugPrint ("Two Toplevel Folds");
     QVERIFY (folding.debugDump() == "tree [0:0 f 10:0] [20:0 f 30:0] - folded [0:0 f 10:0] [20:0 f 30:0]");
+    
+    // check visibility
+    QVERIFY (!folding.isLineFolded (0));
+    for (int i = 1; i <= 10; ++i)
+      QVERIFY (folding.isLineFolded (i));
+    QVERIFY (!folding.isLineFolded (11));
+    
+    QVERIFY (!folding.isLineFolded (20));
+    for (int i = 21; i <= 30; ++i)
+      QVERIFY (folding.isLineFolded (i));
+    QVERIFY (!folding.isLineFolded (31));
     
     // this shall fail to be inserted, as it badly overlaps with the first range!
     QVERIFY (!folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (5,0), KTextEditor::Cursor (15,0)), Kate::TextFolding::Folded));

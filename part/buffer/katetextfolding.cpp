@@ -90,6 +90,26 @@ bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRange
   return true;
 }
 
+bool TextFolding::isLineFolded (int line) const
+{
+  /**
+   * skip if nothing folded
+   */
+  if (m_foldedFoldingRanges.isEmpty())
+    return false;
+  
+  /**
+   * search upper bound, index to item with start line higher than our one
+   */
+  FoldingRange::Vector::const_iterator upperBound = qUpperBound (m_foldedFoldingRanges.begin(), m_foldedFoldingRanges.end(), line, compareRangeByStartWithLine);
+  --upperBound;
+  
+  /**
+   * check if we overlap with the range in front of us
+   */
+  return ((*upperBound)->end->line() >= line) && (line > (*upperBound)->start->line());
+}
+
 QString TextFolding::debugDump () const
 {
   /**
@@ -297,6 +317,11 @@ bool TextFolding::compareRangeByStart (FoldingRange *a, FoldingRange *b)
 bool TextFolding::compareRangeByEnd (FoldingRange *a, FoldingRange *b)
 {
   return a->end->toCursor() < b->end->toCursor();
+}
+
+bool TextFolding::compareRangeByStartWithLine (int line, FoldingRange *range)
+{
+  return (line < range->start->line());
 }
 
 void TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange)

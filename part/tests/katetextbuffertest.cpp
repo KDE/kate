@@ -250,6 +250,11 @@ void KateTextBufferTest::foldingTest()
     // 10 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 10));
     
+    // check line mapping
+    QVERIFY (folding.visibleLineToLine (0) == 0);
+    for (int i = 1; i <= 50; ++i)
+      QVERIFY (folding.visibleLineToLine (i) == (i + 10));
+    
     // we shall be able to insert new range
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (20,0), KTextEditor::Cursor (30,0)), Kate::TextFolding::Folded));
     
@@ -270,6 +275,13 @@ void KateTextBufferTest::foldingTest()
     
     // 20 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 10 - 10));
+    
+    // check line mapping
+    QVERIFY (folding.visibleLineToLine (0) == 0);
+    for (int i = 1; i <= 10; ++i)
+      QVERIFY (folding.visibleLineToLine (i) == (i + 10));
+    for (int i = 11; i <= 50; ++i)
+      QVERIFY (folding.visibleLineToLine (i) == (i + 20));
     
     // check line mapping
     QVERIFY (folding.lineToVisibleLine (0) == 0);

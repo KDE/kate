@@ -149,9 +149,9 @@ int TextFolding::lineToVisibleLine (int line) const
   int visibleLine = line;
   
   /**
-   * skip if nothing folded
+   * skip if nothing folded or first line
    */
-  if (m_foldedFoldingRanges.isEmpty())
+  if (m_foldedFoldingRanges.isEmpty() || (line == 0))
     return visibleLine;
   
   /**
@@ -190,11 +190,44 @@ int TextFolding::visibleLineToLine (int visibleLine) const
   int line = visibleLine;
   
   /**
-   * skip if nothing folded
+   * skip if nothing folded or first line
    */
-  if (m_foldedFoldingRanges.isEmpty())
+  if (m_foldedFoldingRanges.isEmpty() || (visibleLine == 0))
     return line;
   
+  /**
+   * last visible line seen, as line in buffer
+   */
+  int seenVisibleLines = 0;
+  int lastLine = 0;
+  int lastLineVisibleLines = 0;
+  Q_FOREACH (FoldingRange *range, m_foldedFoldingRanges) {
+    /**
+     * else compute visible lines and move last seen
+     */
+    lastLineVisibleLines = seenVisibleLines;
+    seenVisibleLines += (range->start->line() - lastLine);
+    
+    /**
+     * bail out if enough seen
+     */
+    if (seenVisibleLines >= visibleLine)
+      break;
+    
+    lastLine = range->end->line();
+  }
+  
+  /**
+   * check if still no enough visible!
+   */
+  if (seenVisibleLines < visibleLine)
+    lastLineVisibleLines = seenVisibleLines;
+  
+  /**
+   * compute visible line
+   */
+  line = (lastLine + (visibleLine - lastLineVisibleLines));
+  Q_ASSERT (line >= 0);
   return line;
 }
 

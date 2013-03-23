@@ -48,6 +48,11 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * @param buffer text buffer we want to provide folding info for
      */
     TextFolding (TextBuffer &buffer);
+    
+    /**
+     * Cleanup
+     */
+    ~TextFolding ();
 
     /**
      * Folding state of a range

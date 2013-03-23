@@ -49,6 +49,14 @@ TextFolding::TextFolding (TextBuffer &buffer)
 {
 }
 
+TextFolding::~TextFolding ()
+{
+  /**
+   * only delete the folding ranges, the folded ranges are the same objects
+   */
+  qDeleteAll (m_foldingRanges);
+}
+
 bool TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags)
 {
   /**

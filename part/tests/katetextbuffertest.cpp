@@ -235,10 +235,16 @@ void KateTextBufferTest::foldingTest()
     QVERIFY (folding.visibleLines() == 100);
     
     // we shall be able to insert new range
-    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (5,0), KTextEditor::Cursor (10,0)), Kate::TextFolding::Folded) == 0);
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (5,0), KTextEditor::Cursor (10,0))) == 0);
     
-    // we shall have now exactly one range toplevel
+    // we shall have now exactly one range toplevel, that is not folded!
     folding.debugPrint ("One Toplevel Fold");
+    QVERIFY (folding.debugDump() == "tree [5:0  10:0] - folded ");
+    
+    // fold the range!
+    QVERIFY(folding.foldRange (0));
+    
+    folding.debugPrint ("One Toplevel Fold - Folded");
     QVERIFY (folding.debugDump() == "tree [5:0 f 10:0] - folded [5:0 f 10:0]");
     
     // check visibility

@@ -77,7 +77,7 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * @return on success, id of new range >= 0, else -1, we return no pointer as folding ranges might be auto-deleted internally!
      *         the ids are stable for one Kate::TextFolding, e.g. you can rely in unit tests that you get 0,1,.... for successfully created ranges!
      */
-    qint64 newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags);
+    qint64 newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags = FoldingRangeFlags());
     
     /**
      * Fold the given range.

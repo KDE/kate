@@ -159,17 +159,19 @@ bool TextFolding::unfoldRange (qint64 id, bool remove)
     return true;
   
   /**
-   * first: unfold the range, if needed!
+   * do we need to delete the range?
    */
-  if (range->flags & Folded) {
-    range->flags &= ~Folded;
-    //...
-  }
+  const bool deleteRange = remove || !(range->flags & Persistent);
   
   /**
-   * second: remove the range, if forced or non-persistent!
+   * first: remove the range, if forced or non-persistent!
    */
-  if (remove || !(range->flags & Persistent)) {
+  if (deleteRange) {
+    /**
+     * remove from outside visible mapping!
+     */
+    m_idToFoldingRange.remove (id);
+    
     /**
      * remove from folding vectors!
      * FIXME: OPTIMIZE
@@ -193,11 +195,32 @@ bool TextFolding::unfoldRange (qint64 id, bool remove)
       newParentVector.push_back (curRange);
     }
     parentVector = newParentVector;
-    
+  }
+  
+  /**
+   * second: unfold the range, if needed!
+   */
+  bool updated = false;
+  if (range->flags & Folded) {
+    range->flags &= ~Folded;
+    updated = updateFoldedRangesForRemovedRange (range);
+  }
+  
+  /**
+   * emit that something may have changed
+   * do that only, if updateFoldedRangesForRemoveRange did not already do the job!
+   */
+  if (!updated)
+    emit foldingRangesChanged ();
+  
+  /**
+   * really delete the range, if needed!
+   */
+  if (deleteRange) {
     /**
-     * remove from mapping + delete!
+     * clear ranges first, they got moved!
      */
-    m_idToFoldingRange.remove (id);
+    range->nestedRanges.clear ();
     delete range;
   }
   
@@ -644,7 +667,7 @@ bool TextFolding::compareRangeByLineWithStart (FoldingRange *range, int line)
 bool TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange)
 {
   /**
-   * not folded? not interesting! we don't need to touch out m_foldedFoldingRanges vector
+   * not folded? not interesting! we don't need to touch our m_foldedFoldingRanges vector
    */
   if (!(newRange->flags & Folded))
     return false;
@@ -717,4 +740,87 @@ bool TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newR
   return true;
 }
 
+bool TextFolding::updateFoldedRangesForRemovedRange (TextFolding::FoldingRange *oldRange)
+{
+  /**
+   * folded? not interesting! we don't need to touch our m_foldedFoldingRanges vector
+   */
+  if (oldRange->flags & Folded)
+    return false;
+  
+  /**
+   * any of the parents folded? not interesting, too!
+   */
+  TextFolding::FoldingRange *parent = oldRange->parent;
+  while (parent) {
+    /**
+     * parent folded => be done
+     */
+    if (parent->flags & Folded)
+      return false;
+    
+    /**
+     * walk up
+     */
+    parent = parent->parent;
+  }
+  
+    /**
+   * ok, if we arrive here, we are a unfolded range and we have no folded parent
+   * we now want to remove this range from the m_foldedFoldingRanges vector and include our nested folded ranges!
+   * TODO: OPTIMIZE
+   */
+  FoldingRange::Vector newFoldedFoldingRanges;
+  Q_FOREACH (FoldingRange *range, m_foldedFoldingRanges) {
+    /**
+     * right range? insert folded nested ranges
+     */
+    if (range == oldRange) {
+      appendFoldedRanges (newFoldedFoldingRanges, oldRange->nestedRanges);
+      continue;
+    }
+    
+    /**
+     * just transfer range
+     */
+    newFoldedFoldingRanges.push_back (range);
+  }
+  
+  /**
+   * fixup folded ranges
+   */
+  m_foldedFoldingRanges = newFoldedFoldingRanges;
+  
+  /**
+   * folding changed!
+   */
+  emit foldingRangesChanged ();
+  
+  /**
+   * all fine, stuff done, signal emited
+   */
+  return true;
+}
+
+void TextFolding::appendFoldedRanges (TextFolding::FoldingRange::Vector &newFoldedFoldingRanges, const TextFolding::FoldingRange::Vector &ranges) const
+{
+  /**
+   * search for folded ranges and append them
+   */
+  Q_FOREACH (FoldingRange *range, ranges) {
+    /**
+     * itself folded? append
+     */
+    if (range->flags & Folded) {
+      newFoldedFoldingRanges.push_back (range);
+      continue;
+    }
+    
+    /**
+     * else: recurse!
+     */
+    appendFoldedRanges (newFoldedFoldingRanges, range->nestedRanges);
+  }
+}
+    
 }

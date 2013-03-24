@@ -2110,20 +2110,15 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     }
 
     if ( area == FoldingMarkers) {
-      
-#if 0
-    //FIXME FOLDING
-      // if a folding range exists, fold this one, -> use start line of the range
-      int lineToFold = cursorOnLine;
-      if (m_foldingRange && m_foldingRange->start().line() >= 0) {
-        lineToFold = m_foldingRange->start().line();
-      }
-      KateLineInfo info;
-      m_doc->lineInfo(&info, lineToFold);
-      if ((info.startsVisibleBlock) || (info.startsInVisibleBlock)) {
-        emit toggleRegionVisibility(lineToFold);
-      }
-#endif
+        QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = m_view->textFolding().foldingRangesStartingOnLine (cursorOnLine);
+        bool anyFolded = false;
+        for (int i = 0; i < startingRanges.size(); ++i)
+          if (startingRanges[i].second & Kate::TextFolding::Folded)
+            anyFolded = true;
+        
+        // fold or unfold all ranges!
+        for (int i = 0; i < startingRanges.size(); ++i)
+          anyFolded ? m_view->textFolding().unfoldRange (startingRanges[i].first) : m_view->textFolding().foldRange (startingRanges[i].first);
     }
 
     if ( area == AnnotationBorder ) {

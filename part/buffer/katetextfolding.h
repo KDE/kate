@@ -236,11 +236,25 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     bool insertNewFoldingRange (FoldingRange *parent, TextFolding::FoldingRange::Vector &existingRanges, TextFolding::FoldingRange *newRange);
     
     /**
-     * Helper to update the folded ranges if we insert a new range is inserted into the tree.
+     * Helper to update the folded ranges if we insert a new range into the tree.
      * @param newRange new folding range that was inserted, will already contain its new nested ranges, if any!
      * @return any updated done? if yes, the foldingRangesChanged() signal got emited!
      */
     bool updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange);
+    
+    /**
+     * Helper to update the folded ranges if we remove a new range from the tree.
+     * @param oldRange new folding range that is removed, will still contain its new nested ranges, if any!
+     * @return any updated done? if yes, the foldingRangesChanged() signal got emited!
+     */
+    bool updateFoldedRangesForRemovedRange (TextFolding::FoldingRange *oldRange);
+    
+    /**
+     * Helper to append recursively topmost folded ranges from input to output vector.
+     * @param newFoldedFoldingRanges output vector for folded ranges
+     * @param ranges input vector to search recursively folded ranges inside
+     */
+    void appendFoldedRanges (TextFolding::FoldingRange::Vector &newFoldedFoldingRanges, const TextFolding::FoldingRange::Vector &ranges) const;
   
     /**
      * Compare two ranges by their start cursor.

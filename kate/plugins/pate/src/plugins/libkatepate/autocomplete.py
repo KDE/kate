@@ -78,11 +78,11 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
         self.invocationType = invocationType
         if line_start != line_end:
             return None
-        mimetype = unicode(view.document().mimeType())
+        mimetype = view.document().mimeType()
         if not mimetype in self.MIMETYPES:
             return None
         doc = view.document()
-        line = unicode(doc.line(line_start))
+        line = doc.line(line_start)
         if not line:
             return line
         return self.parseLine(line, column_end)

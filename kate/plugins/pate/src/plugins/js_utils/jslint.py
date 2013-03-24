@@ -44,11 +44,11 @@ def checkJslint(currentDocument=None):
     mark_iface = currentDocument.markInterface()
     clearMarksOfError(currentDocument, mark_iface)
     hideOldPopUps()
-    path = unicode(currentDocument.url().path())
+    path = currentDocument.url().path()
     mark_key = '%s-jslint' % path
 
-    text = unicode(currentDocument.text())
-    errors = check_JSLint(text.encode('utf-8', 'ignore'))
+    text = currentDocument.text()
+    errors = check_JSLint(text)
     errors_to_show = []
 
     # Prepare errors found for painting
@@ -72,7 +72,7 @@ def checkJslint(currentDocument=None):
 
 
 def is_mymetype_js(doc, text_plain=False):
-    mimetype = unicode(doc.mimeType())
+    mimetype = doc.mimeType()
     if mimetype == 'application/javascript':
         return True
     elif mimetype == 'text/plain' and text_plain:

@@ -62,7 +62,7 @@ def showErrors(message, errors, key_mark, doc, time=10, icon='dialog-warning',
         messages[pos].append(error_message)
         mark_iface.setMark(line - 1, mark_iface.Error)
 
-    messages_items = messages.items()
+    messages_items = list(messages.items())  # Python 3 compatible
     messages_items.sort()
     if move_cursor:
         first_error, messages_show = _getErrorMessagesOrder(messages_items,

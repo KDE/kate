@@ -256,6 +256,14 @@ void KateViVisualMode::switchStartEnd()
   m_stickyColumn = -1;
 }
 
+void KateViVisualMode::goToPos(const Cursor& c)
+{
+  KateViRange r;
+  r.endColumn = c.column();
+  r.endLine = c.line();
+  goToPos(r);
+}
+
 void KateViVisualMode::updateSelection( ) {
   if(!m_view->viInputMode() || m_selection_is_changed_inside_ViMode)
     return;

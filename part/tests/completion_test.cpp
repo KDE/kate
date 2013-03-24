@@ -48,14 +48,39 @@ int countItems(KateCompletionModel *model)
     return ret;
 }
 
-static void invokeCompletionBox(KateView* view)
+static void verifyCompletionStarted(KateView* view)
 {
-    QTest::qWait(1000); // needed, otherwise, test fails
-    view->userInvokedCompletion();
-    QTest::qWait(1000); // wait until code completion pops up
-    QVERIFY(view->completionWidget()->isCompletionActive());
+  const QDateTime startTime = QDateTime::currentDateTime();
+  while (startTime.msecsTo(QDateTime::currentDateTime()) < 1000)
+  {
+    QApplication::processEvents();
+    if (view->completionWidget()->isCompletionActive())
+    {
+      break;
+    }
+  }
+  QVERIFY(view->completionWidget()->isCompletionActive());
 }
 
+static void verifyCompletionAborted(KateView* view)
+{
+  const QDateTime startTime = QDateTime::currentDateTime();
+  while (startTime.msecsTo(QDateTime::currentDateTime()) < 1000)
+  {
+    QApplication::processEvents();
+    if (!view->completionWidget()->isCompletionActive())
+    {
+      break;
+    }
+  }
+  QVERIFY(!view->completionWidget()->isCompletionActive());
+}
+
+static void invokeCompletionBox(KateView* view)
+{
+  view->userInvokedCompletion();
+  verifyCompletionStarted(view);
+}
 
 void CompletionTest::init()
 {
@@ -144,8 +169,7 @@ void CompletionTest::testAbortInvalidText()
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
     m_view->insertText(".");
-    QTest::qWait(1000); // process events
-    QVERIFY(!m_view->completionWidget()->isCompletionActive());
+    verifyCompletionAborted(m_view);
 }
 
 void CompletionTest::testCustomRange1()
@@ -225,8 +249,7 @@ void CompletionTest::testAbortController()
     QVERIFY(m_view->completionWidget()->isCompletionActive());
 
     m_view->insertText(".");
-    QTest::qWait(1000); // process events
-    QVERIFY(!m_view->completionWidget()->isCompletionActive());
+    verifyCompletionAborted(m_view);
 }
 
 void CompletionTest::testAbortControllerMultipleModels()

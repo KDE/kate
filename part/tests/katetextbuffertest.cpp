@@ -255,6 +255,12 @@ void KateTextBufferTest::foldingTest()
     for (int i = 6; i <= 50; ++i)
       QVERIFY (folding.visibleLineToLine (i) == (i + 5));
     
+    // there shall be one range starting at 5
+    QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > forLine = folding.foldingRangesStartingOnLine (5);
+    QVERIFY (forLine.size() == 1);
+    QVERIFY (forLine[0].first == 0);
+    QVERIFY (forLine[0].second & Kate::TextFolding::Folded);
+    
     // we shall be able to insert new range
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (20,0), KTextEditor::Cursor (30,0)), Kate::TextFolding::Folded) == 1);
     
@@ -289,6 +295,12 @@ void KateTextBufferTest::foldingTest()
       QVERIFY (folding.lineToVisibleLine (i) == (i - 5));
     for (int i = 31; i <= 40; ++i)
       QVERIFY (folding.lineToVisibleLine (i) == (i - 15));
+    
+    // there shall be one range starting at 20
+    forLine = folding.foldingRangesStartingOnLine (20);
+    QVERIFY (forLine.size() == 1);
+    QVERIFY (forLine[0].first == 1);
+    QVERIFY (forLine[0].second & Kate::TextFolding::Folded);
     
     // this shall fail to be inserted, as it badly overlaps with the first range!
     QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (6,0), KTextEditor::Cursor (15,0)), Kate::TextFolding::Folded) == -1);
@@ -331,6 +343,27 @@ void KateTextBufferTest::foldingTest()
     // we shall have now exactly one range toplevel and many embedded fold
     folding.debugPrint ("One Toplevel + Embedded Folds");
     QVERIFY (folding.debugDump() == "tree [0:0 f [5:0 f 10:0] [15:0 f [20:0 f 30:0] 35:0] 50:0] - folded [0:0 f 50:0]");
+    
+    // there shall still be one range starting at 20
+    forLine = folding.foldingRangesStartingOnLine (20);
+    QVERIFY (forLine.size() == 1);
+    QVERIFY (forLine[0].first == 1);
+    QVERIFY (forLine[0].second & Kate::TextFolding::Folded);
+    
+    // add more regions starting at 20
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (20,5), KTextEditor::Cursor (24,0)), Kate::TextFolding::Folded) == 4);
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (20,3), KTextEditor::Cursor (25,0)), Kate::TextFolding::Folded) == 5);
+    folding.debugPrint ("More ranges at 20");
+    
+    // there shall still be three ranges starting at 20
+    forLine = folding.foldingRangesStartingOnLine (20);
+    QVERIFY (forLine.size() == 3);
+    QVERIFY (forLine[0].first == 1);
+    QVERIFY (forLine[0].second & Kate::TextFolding::Folded);
+    QVERIFY (forLine[1].first == 5);
+    QVERIFY (forLine[1].second & Kate::TextFolding::Folded);
+    QVERIFY (forLine[2].first == 4);
+    QVERIFY (forLine[2].second & Kate::TextFolding::Folded);
     
     // 50 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 50));

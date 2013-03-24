@@ -280,6 +280,65 @@ int TextFolding::visibleLineToLine (int visibleLine) const
   return line;
 }
 
+QVector<QPair<qint64, TextFolding::FoldingRangeFlags> > TextFolding::foldingRangesStartingOnLine (int line) const
+{
+  /**
+   * results vector
+   */
+  QVector<QPair<qint64, TextFolding::FoldingRangeFlags> > results;
+  
+  /**
+   * recursively do binary search
+   */
+  foldingRangesStartingOnLine (results, m_foldingRanges, line);
+  
+  /**
+   * return found results
+   */
+  return results;
+}
+
+void TextFolding::foldingRangesStartingOnLine (QVector<QPair<qint64, FoldingRangeFlags> > &results, const TextFolding::FoldingRange::Vector &ranges, int line) const
+{
+  /**
+   * early out for no folds
+   */
+  if (ranges.isEmpty())
+    return;
+  
+  /**
+   * first: lower bound of start
+   */
+  FoldingRange::Vector::const_iterator lowerBound = qLowerBound (ranges.begin(), ranges.end(), line, compareRangeByLineWithStart);
+  
+  /**
+   * second: upper bound of end
+   */
+  FoldingRange::Vector::const_iterator upperBound = qUpperBound (ranges.begin(), ranges.end(), line, compareRangeByStartWithLine);
+
+  /**
+   * we may need to go one to the left, if not already at the begin, as we might overlap with the one in front of us!
+   */
+  if ((lowerBound != ranges.begin()) && ((*(lowerBound-1))->end->line() >= line))
+    --lowerBound;
+  
+  /**
+   * for all of them, check if we start at right line and recurse
+   */
+  for (FoldingRange::Vector::const_iterator it = lowerBound; it != upperBound; ++it) {
+    /**
+     * this range already ok? add it to results
+     */
+    if ((*it)->start->line() == line)
+      results.push_back (qMakePair((*it)->id, (*it)->flags));
+    
+    /**
+     * recurse anyway
+     */
+    foldingRangesStartingOnLine (results, (*it)->nestedRanges, line);
+  }
+}
+
 QString TextFolding::debugDump () const
 {
   /**
@@ -492,6 +551,11 @@ bool TextFolding::compareRangeByEnd (FoldingRange *a, FoldingRange *b)
 bool TextFolding::compareRangeByStartWithLine (int line, FoldingRange *range)
 {
   return (line < range->start->line());
+}
+
+bool TextFolding::compareRangeByLineWithStart (FoldingRange *range, int line)
+{
+  return (range->start->line() < line);
 }
 
 void TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange)

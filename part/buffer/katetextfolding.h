@@ -121,6 +121,14 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     int visibleLineToLine (int visibleLine) const;
     
     /**
+     * Queries which folding ranges start at the given line and returns the id + flags for all
+     * of them. Very fast if nothing is folded, else binary search.
+     * @param line line to query starting folding ranges
+     * @return vector of id's + flags
+     */
+    QVector<QPair<qint64, FoldingRangeFlags> > foldingRangesStartingOnLine (int line) const;
+    
+    /**
      * Dump folding state as string, for unit testing and debugging
      * @return current state as text
      */
@@ -244,6 +252,22 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
      * @param range range
      */
     static bool compareRangeByStartWithLine (int line, FoldingRange *range);
+    
+    /**
+     * Compare range start with line
+     * @param range range
+     * @param line line
+     */
+    static bool compareRangeByLineWithStart (FoldingRange *range, int line);
+    
+    /**
+     * Internal helper that queries which folding ranges start at the given line and returns the id + flags for all
+     * of them. Will recursively dive down starting with given vector
+     * @param results vector that is filled with id's + flags
+     * @param ranges ranges vector to search in
+     * @param line line to query starting folding ranges
+     */
+    void foldingRangesStartingOnLine (QVector<QPair<qint64, FoldingRangeFlags> > &results, const TextFolding::FoldingRange::Vector &ranges, int line) const;
     
   private:
     /**

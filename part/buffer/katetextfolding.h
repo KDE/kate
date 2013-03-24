@@ -73,18 +73,27 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     /**
      * Create a new folding range.
      * @param range folding range
-     * @param flags flags for the new folding range
+     * @param flags initial flags for the new folding range
      * @return on success, id of new range >= 0, else -1, we return no pointer as folding ranges might be auto-deleted internally!
      *         the ids are stable for one Kate::TextFolding, e.g. you can rely in unit tests that you get 0,1,.... for successfully created ranges!
      */
     qint64 newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags);
     
     /**
-     * Remove a folding range.
-     * @param id folding range id
+     * Fold the given range.
+     * @param id id of the range to fold
      * @return success
      */
-    bool removeFoldingRange (qint64 id);
+    bool foldRange (qint64 id);
+    
+    /**
+     * Unfold the given range.
+     * In addition it can be forced to remove the region, even if it is persistent.
+     * @param id id of the range to unfold
+     * @param remove should the range be removed from the folding after unfolding? ranges that are not persistent auto-remove themself on unfolding
+     * @return success
+     */
+    bool unfoldRange (qint64 id, bool remove = false);
     
     /**
      * Query if a given line is visible.
@@ -229,8 +238,9 @@ class KATEPART_TESTS_EXPORT TextFolding : QObject {
     /**
      * Helper to update the folded ranges if we insert a new range is inserted into the tree.
      * @param newRange new folding range that was inserted, will already contain its new nested ranges, if any!
+     * @return any updated done? if yes, the foldingRangesChanged() signal got emited!
      */
-    void updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange);
+    bool updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange);
   
     /**
      * Compare two ranges by their start cursor.

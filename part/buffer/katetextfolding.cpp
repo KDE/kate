@@ -104,12 +104,14 @@ qint64 TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRan
   /**
    * update our folded ranges vector!
    */
-  updateFoldedRangesForNewRange (newRange);
+  bool updated = updateFoldedRangesForNewRange (newRange);
   
   /**
    * emit that something may have changed
+   * do that only, if updateFoldedRangesForNewRange did not already do the job!
    */
-  emit foldingRangesChanged ();
+  if (!updated)
+    emit foldingRangesChanged ();
   
   /**
    * all went fine, newRange is now registered internally!
@@ -117,7 +119,29 @@ qint64 TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRan
   return newRange->id;
 }
 
-bool TextFolding::removeFoldingRange (qint64 id)
+bool TextFolding::foldRange (qint64 id)
+{
+  /**
+   * try to find the range, else bail out
+   */
+  FoldingRange *range = m_idToFoldingRange.value (id);
+  if (!range)
+    return false;
+  
+  /**
+   * already folded? nothing to do
+   */
+  if (range->flags & Folded)
+    return true;
+  
+  /**
+   * fold and be done
+   */
+  range->flags |= Folded;
+  return updateFoldedRangesForNewRange (range);
+}
+                      
+bool TextFolding::unfoldRange (qint64 id, bool remove)
 {
   /**
    * try to find the range, else bail out
@@ -128,7 +152,7 @@ bool TextFolding::removeFoldingRange (qint64 id)
   
   return true;
 }
-
+    
 bool TextFolding::isLineVisible (int line) const
 {
   /**
@@ -563,13 +587,13 @@ bool TextFolding::compareRangeByLineWithStart (FoldingRange *range, int line)
   return (range->start->line() < line);
 }
 
-void TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange)
+bool TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange)
 {
   /**
    * not folded? not interesting! we don't need to touch out m_foldedFoldingRanges vector
    */
   if (!(newRange->flags & Folded))
-    return;
+    return false;
   
   /**
    * any of the parents folded? not interesting, too!
@@ -580,7 +604,7 @@ void TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newR
      * parent folded => be done
      */
     if (parent->flags & Folded)
-      return;
+      return false;
     
     /**
      * walk up
@@ -627,6 +651,16 @@ void TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newR
    * fixup folded ranges
    */
   m_foldedFoldingRanges = newFoldedFoldingRanges;
+  
+  /**
+   * folding changed!
+   */
+  emit foldingRangesChanged ();
+  
+  /**
+   * all fine, stuff done, signal emited
+   */
+  return true;
 }
 
 }

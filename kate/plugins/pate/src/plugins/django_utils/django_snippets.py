@@ -31,7 +31,7 @@ from django_settings import (KATE_ACTIONS, TEXT_URLS, TEXT_VIEWS,
 def importUrls():
     """Insert the typical code of the urls.py file"""
     currentDocument = kate.activeDocument()
-    path = unicode(currentDocument.url().directory())
+    path = currentDocument.url().directory()
     path_split = path.split('/')
     application = path_split[len(path_split) - 1] or TEXT_TO_CHANGE
     insertText(TEXT_URLS % {'app': application,
@@ -49,7 +49,6 @@ def create_frame(pattern_str='', title='', name_field=''):
     view = kate.activeView()
     class_name, ok = QtGui.QInputDialog.getText(view, title, name_field)
     if ok:
-        class_name = unicode(class_name)
         class_model = class_name.replace('Form', '')
         text = pattern_str % {'class_name': class_name,
                               'class_model': class_model}

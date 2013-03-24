@@ -107,6 +107,11 @@ qint64 TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRan
   updateFoldedRangesForNewRange (newRange);
   
   /**
+   * emit that something may have changed
+   */
+  emit foldingRangesChanged ();
+  
+  /**
    * all went fine, newRange is now registered internally!
    */
   return newRange->id;
@@ -622,11 +627,6 @@ void TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newR
    * fixup folded ranges
    */
   m_foldedFoldingRanges = newFoldedFoldingRanges;
-  
-  /**
-   * emit that something may have changed
-   */
-  emit foldedRangesChanged ();
 }
 
 }

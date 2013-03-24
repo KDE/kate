@@ -138,7 +138,8 @@ bool TextFolding::foldRange (qint64 id)
    * fold and be done
    */
   range->flags |= Folded;
-  return updateFoldedRangesForNewRange (range);
+  updateFoldedRangesForNewRange (range);
+  return true;
 }
                       
 bool TextFolding::unfoldRange (qint64 id, bool remove)

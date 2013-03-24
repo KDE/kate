@@ -151,6 +151,59 @@ bool TextFolding::unfoldRange (qint64 id, bool remove)
   if (!range)
     return false;
   
+  /**
+   * nothing to do?
+   * range is already unfolded and we need not to remove it!
+   */
+  if (!remove && !(range->flags & Folded))
+    return true;
+  
+  /**
+   * first: unfold the range, if needed!
+   */
+  if (range->flags & Folded) {
+    range->flags &= ~Folded;
+    //...
+  }
+  
+  /**
+   * second: remove the range, if forced or non-persistent!
+   */
+  if (remove || !(range->flags & Persistent)) {
+    /**
+     * remove from folding vectors!
+     * FIXME: OPTIMIZE
+     */
+    FoldingRange::Vector &parentVector = range->parent ? range->parent->nestedRanges : m_foldingRanges;
+    FoldingRange::Vector newParentVector;
+    Q_FOREACH (FoldingRange *curRange, parentVector) {
+      /**
+       * insert our nested ranges
+       */
+      if (curRange == range) {
+        Q_FOREACH (FoldingRange *newRange, range->nestedRanges)
+          newParentVector.push_back (newRange);
+      
+        continue;
+      }
+      
+      /**
+       * else just transfer elements
+       */
+      newParentVector.push_back (curRange);
+    }
+    parentVector = newParentVector;
+    
+    /**
+     * remove from mapping + delete!
+     */
+    m_idToFoldingRange.remove (id);
+    delete range;
+  }
+  
+  /**
+   * be done ;)
+   */
   return true;
 }
     

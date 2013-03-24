@@ -177,10 +177,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      */
     void wrapLine (const KTextEditor::Cursor &position);
 
-  private:
-     inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent);
-     inline void updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent);
-
   public:
     inline int tabWidth () const { return m_tabWidth; }
 
@@ -213,7 +209,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * @param invalidat should the rehighlighted lines be tagged ?
      */
     void doHighlight (int from, int to, bool invalidate);
-    bool isEmptyLine(Kate::TextLine textline);
 
   Q_SIGNALS:
     /**

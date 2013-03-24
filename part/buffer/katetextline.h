@@ -49,11 +49,9 @@ class KATEPART_TESTS_EXPORT TextLineData {
     {
       flagHlContinue = 1,
       flagAutoWrapped = 2,
-      flagFoldingColumnsOutdated = 4,
-      flagNoIndentationBasedFolding = 8,
-      flagNoIndentationBasedFoldingAtStart = 16,
-      flagLineModified = 32,
-      flagLineSavedOnDisk = 64
+      flagFoldingStart = 4,
+      flagLineModified = 8,
+      flagLineSavedOnDisk = 16
     };
 
     /**
@@ -163,22 +161,27 @@ class KATEPART_TESTS_EXPORT TextLineData {
       return m_flags & flagLineSavedOnDisk;
     }
 
-
     /**
-     * Set the flag that only positions have changed, not folding region begins/ends themselve
-     * @param set folding columns our of date?
+     * Mark as folding start line.
+     * @param foldingStart folding start line or nor?
      */
-    void setFoldingColumnsOutdated(bool set)
+    void markAsFoldingStart(bool foldingStart)
     {
-      if (set) m_flags |= flagFoldingColumnsOutdated;
-      else m_flags &= (~flagFoldingColumnsOutdated);
+      if (foldingStart) {
+        m_flags |= flagFoldingStart;
+      } else {
+        m_flags &= (~flagFoldingStart);
+      }
     }
 
     /**
-     * Returns \e true, if the folding columns are outdated, otherwise returns \e false.
-     * @return folding columns our of date?
+     * Is on this line a folding start?
+     * @return folding start line or nor?
      */
-    bool foldingColumnsOutdated() const { return m_flags & flagFoldingColumnsOutdated; }
+    bool markedAsFoldingStart() const
+    {
+      return m_flags & flagFoldingStart;
+    }
 
     /**
      * Returns the line's length.
@@ -285,28 +288,6 @@ class KATEPART_TESTS_EXPORT TextLineData {
     const QVector<short> &ctxArray () const { return m_ctx; }
 
     /**
-     * @return true if any context at the line end has the noIndentBasedFolding flag set
-     */
-    bool noIndentBasedFolding() const { return m_flags & flagNoIndentationBasedFolding; }
-
-    /**
-     * @return true if any context at the line end has the noIndentationBasedFoldingAtStart flag set
-     */
-    bool noIndentBasedFoldingAtStart() const { return m_flags & flagNoIndentationBasedFoldingAtStart; }
-
-    /**
-     * folding list
-     * @return folding array
-     */
-    const QVector<int> &foldingListArray () const { return m_foldingList; }
-
-    /**
-     * indentation stack
-     * @return indentation array
-     */
-    const QVector<unsigned short> &indentationDepthArray () const { return m_indentationDepth; }
-
-    /**
      * Add attribute for given start + length to this line
      * @param start start column of this attribute
      * @param length length in chars this attribute should span
@@ -351,38 +332,6 @@ class KATEPART_TESTS_EXPORT TextLineData {
      */
     void setContext (QVector<short> &val) { m_ctx = val; }
 
-    /**
-     * sets if for the next line indent based folding should be disabled
-     * @param val should indent folding be disabled
-     */
-    void setNoIndentBasedFolding(bool val)
-    {
-      if (val) m_flags = m_flags | flagNoIndentationBasedFolding;
-      else m_flags = m_flags & ~ flagNoIndentationBasedFolding;
-    }
-
-    /**
-     * sets if indent based folding should be disabled at start
-     * @param val should indent based folding be disabled at start
-     */
-    void setNoIndentBasedFoldingAtStart(bool val)
-    {
-      if (val) m_flags = m_flags | flagNoIndentationBasedFoldingAtStart;
-      else m_flags = m_flags & ~ flagNoIndentationBasedFoldingAtStart;
-    }
-
-    /**
-     * update folding list
-     * @param val new folding list
-     */
-    void setFoldingList (QVector<int> &val) { m_foldingList = val; }
-
-    /**
-     * update indentation stack
-     * @param val new indentation stack
-     */
-    void setIndentationDepth (QVector<unsigned short> &val) { m_indentationDepth = val; }
-
   private:
     /**
      * Accessor to the text contained in this line.
@@ -411,19 +360,9 @@ class KATEPART_TESTS_EXPORT TextLineData {
     QVector<short> m_ctx;
 
     /**
-     * list of folding starts/ends
-     */
-    QVector<int> m_foldingList;
-
-    /**
-     * indentation stack
-     */
-    QVector<unsigned short> m_indentationDepth;
-
-    /**
      * flags
      */
-    uchar m_flags;
+    unsigned int m_flags;
 };
 
 /**

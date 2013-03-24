@@ -1848,7 +1848,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         }
 #endif
 
-        if (!startingRanges.isEmpty() )
+        Kate::TextLine tl = m_doc->kateTextLine(realLine);
+
+        if (!startingRanges.isEmpty() || tl->markedAsFoldingStart())
         {
           if (anyFolded)
           {

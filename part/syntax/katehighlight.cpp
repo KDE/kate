@@ -517,6 +517,8 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
   // write hl continue flag
   textLine->setHlLineContinue (item && item->lineContinue());
 
+#if 0
+  //FIXME FOLDING
   if (m_foldingIndentationSensitive) {
     bool noindent=false;
     for(int i=ctx.size()-1; i>=0; --i) {
@@ -527,6 +529,7 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
     }
     textLine->setNoIndentBasedFolding(noindent);
   }
+#endif
 
   //set the dsNormal attribute if we haven't found anything else
   if(textLine->attributesList().empty()) {

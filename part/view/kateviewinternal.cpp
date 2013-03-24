@@ -179,11 +179,13 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect( m_leftBorder, SIGNAL(toggleRegionVisibility(int)),
            doc()->foldingTree(), SLOT(toggleRegionVisibility(int)));
 
-  connect( doc()->foldingTree(), SIGNAL(regionVisibilityChanged()),
-           this, SLOT(slotRegionVisibilityChanged()));
+ 
   connect( doc(), SIGNAL(codeFoldingUpdated()),
            this, SLOT(slotCodeFoldingChanged()) );
-#endif
+#endif 
+
+  // update view if folding ranges change
+  connect( &m_view->textFolding(), SIGNAL(foldingRangesChanged()), SLOT(slotRegionVisibilityChanged()));
 
   m_displayCursor.setPosition(0, 0);
 

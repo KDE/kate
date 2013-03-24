@@ -39,7 +39,7 @@ class TextCursor;
  * as they are well nested.
  * Multiple instances of this class can exist for the same buffer.
  */
-class KATEPART_TESTS_EXPORT TextFolding : QObject {
+class KATEPART_TESTS_EXPORT TextFolding : public QObject {
   Q_OBJECT
   
   public: 

@@ -72,7 +72,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
   static QStringList l;
 
   if (l.isEmpty())
-  l << "indent" << "unindent" << "cleanindent" << "fold"
+  l << "indent" << "unindent" << "cleanindent" << "fold" << "tfold"
     << "comment" << "uncomment" << "goto" << "kill-line"
     << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
     << "set-indent-width"
@@ -276,9 +276,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   }
   else if ( cmd == "fold" )
   {
-    v->textFolding().newFoldingRange (range.isValid() ? range : v->selectionRange(), Kate::TextFolding::Persistent | Kate::TextFolding::Folded);
-    v->textFolding().debugPrint ("new fold");
-    return true;
+    return (v->textFolding().newFoldingRange (range.isValid() ? range : v->selectionRange(), Kate::TextFolding::Persistent | Kate::TextFolding::Folded) != -1);
+  }
+  else if ( cmd == "tfold" )
+  {
+    return (v->textFolding().newFoldingRange (range.isValid() ? range : v->selectionRange(), Kate::TextFolding::Folded) != -1);
   }
   else if ( cmd == "comment" )
   {
@@ -478,7 +480,7 @@ bool KateCommands::CoreCommands::supportsRange(const QString &range)
 
   if (l.isEmpty())
   l << "indent" << "unindent" << "cleanindent"
-    << "comment" << "uncomment" << "kill-line" << "fold";
+    << "comment" << "uncomment" << "kill-line" << "fold" << "tfold";
 
   return l.contains(range);
 }

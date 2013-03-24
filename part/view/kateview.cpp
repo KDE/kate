@@ -1730,11 +1730,11 @@ void KateView::updateRendererConfig()
 void KateView::updateFoldingConfig ()
 {
   // folding bar
-  bool doit = config()->foldingBar() && m_doc->highlight() && m_doc->highlight()->allowsFolding();
-  m_viewInternal->m_leftBorder->setFoldingMarkersOn(doit);
-  m_toggleFoldingMarkers->setChecked( doit );
-  m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
+  m_viewInternal->m_leftBorder->setFoldingMarkersOn(config()->foldingBar());
+  m_toggleFoldingMarkers->setChecked( config()->foldingBar() );
 
+#if 0 
+  // FIXME: FOLDING
   QStringList l;
 
   l << "folding_toplevel" << "folding_expandtoplevel"
@@ -1744,6 +1744,7 @@ void KateView::updateFoldingConfig ()
   for (int z = 0; z < l.size(); z++)
     if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->highlight() && m_doc->highlight()->allowsFolding());
+#endif
 }
 
 void KateView::ensureCursorColumnValid()

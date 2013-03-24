@@ -734,11 +734,6 @@ void KateScrollBar::recomputeMarksPositions()
   int realHeight = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddPage, this).bottom() - topMargin - 1;
 
   const QHash<int, KTextEditor::Mark*> &marks = m_doc->marks();
-  
-#if 0
-    //FIXME FOLDING
-  KateCodeFoldingTree *tree = m_doc->foldingTree();
-#endif
 
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = marks.constBegin(); i != marks.constEnd(); ++i)
   {
@@ -1807,19 +1802,20 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     }
 
     // folding markers
-    if( m_foldingMarkersOn )
+    if( m_foldingMarkersOn)
     {
-      
-      
-#if 0
-    //FIXME FOLDING
-      if( realLine > -1 )
+      if ((realLine >= 0) && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
       {
-        KateLineInfo info;
-        m_doc->lineInfo(&info,realLine);
-
+        QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = m_view->textFolding().foldingRangesStartingOnLine (realLine);
+        bool anyFolded = false;
+        for (int i = 0; i < startingRanges.size(); ++i)
+          if (startingRanges[i].second & Kate::TextFolding::Folded)
+            anyFolded = true;
+      
         // first icon border background
         p.fillRect(lnX, y, iconPaneWidth, h, m_view->renderer()->config()->iconBarColor());
+
+        #if 0
         // ... with possible additional folding highlighting
         if (m_foldingRange && m_foldingRange->overlapsLine (realLine)) {
           p.save();
@@ -1850,30 +1846,20 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
           }
           p.restore();
         }
+#endif
 
-        if (!info.topLevel)
+        if (!startingRanges.isEmpty() )
         {
-          if (info.startsInVisibleBlock && m_viewInternal->cache()->viewLine(z).startCol() == 0)
+          if (anyFolded)
           {
             paintTriangle (p, m_view->renderer()->config()->foldingColor(), lnX, y, iconPaneWidth, h, false);
           }
-          else if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
+          else
           {
             paintTriangle (p, m_view->renderer()->config()->foldingColor(), lnX, y, iconPaneWidth, h, true);
           }
-          else
-          {
-           // p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
-
-           // if (info.endsBlock && !m_viewInternal->cache()->viewLine(z).wrap())
-            //  p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
-          }
         }
-
-        oldInfo = info;
       }
-      
-#endif
 
       lnX += iconPaneWidth;
     }

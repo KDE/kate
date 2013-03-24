@@ -17,7 +17,10 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/check_plugins/parse_plugins.py>
 
-import compiler
+try:
+    from compiler import parse
+except ImportError:
+    from ast import parse
 
 import kate
 
@@ -37,15 +40,15 @@ def parseCode(doc=None, refresh=True):
         checkAll.f(doc, ['parseCode'], exclude_all=not doc)
     move_cursor = not doc
     doc = doc or kate.activeDocument()
-    text = unicode(doc.text())
+    text = doc.text()
     text = text.encode('utf-8', 'ignore')
-    mark_key = '%s-parse-python' % unicode(doc.url().path())
+    mark_key = '%s-parse-python' % doc.url().path()
     try:
-        compiler.parse(text)
+        parse(text)
         showOk('Parse code Ok')
-    except SyntaxError, e:
+    except SyntaxError as e:
         error = {}
         error['text'] = e.text
         error['line'] = e.lineno
         showErrors('Parse code Errors:', [error], mark_key, doc,
-                    move_cursor=move_cursor)
+                   move_cursor=move_cursor)

@@ -21,6 +21,8 @@
 import _ast
 
 import kate
+import re
+import sys
 
 from pyflakes.checker import Checker
 from pyflakes.messages import Message
@@ -31,6 +33,8 @@ from python_checkers.all_checker import checkAll
 from python_checkers.utils import canCheckDocument
 from python_settings import KATE_ACTIONS
 
+encoding_line = re.compile("#( )*-\*-( )*(encoding|coding):( )*(?P<encoding>[\w-]+)( )*-\*-")
+
 
 def pyflakes(codeString, filename):
     """
@@ -38,6 +42,13 @@ def pyflakes(codeString, filename):
     """
     # First, compile into an AST and handle syntax errors.
     try:
+        if sys.version_info.major == 2 and codeString:
+            first_line = codeString.split("\n")[0]
+            m = encoding_line.match(first_line)
+            if m:
+                encoding = m.groupdict().get('encoding', None)
+                if encoding:
+                    codeString = codeString.encode(encoding)
         tree = compile(codeString, filename, "exec", _ast.PyCF_ONLY_AST)
     except SyntaxError as value:
         msg = value.args[0]

@@ -57,7 +57,7 @@ void ReplaceMatches::cancelReplace()
 
 void ReplaceMatches::doReplaceNextMatch()
 {
-    if ((!m_manager) || (m_cancelReplace)) {
+    if ((!m_manager) || (m_cancelReplace) || (m_tree->topLevelItemCount() != 1)) {
         m_rootIndex = -1;
         emit replaceDone();
         return;
@@ -67,7 +67,7 @@ void ReplaceMatches::doReplaceNextMatch()
     // cancelReplace(). A closed file could lead to a crash if it is not handled.
 
     // Open the file
-    QTreeWidgetItem *rootItem = m_tree->topLevelItem(m_rootIndex);
+    QTreeWidgetItem *rootItem = m_tree->topLevelItem(0)->child(m_rootIndex);
     if (!rootItem) {
         m_rootIndex = -1;
         emit replaceDone();

@@ -865,8 +865,9 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
     regionId++;
 
+#ifdef HIGHLIGHTING_DEBUG
     kDebug(13010) << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId;
-
+#endif
   }
 
   if (!endRegionStr.isEmpty())
@@ -881,8 +882,9 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
     regionId2 = -regionId2 - 1;
 
+#ifdef HIGHLIGHTING_DEBUG
     kDebug(13010) << "########### END REG: "  << endRegionStr << " NUM: " << regionId2;
-
+#endif
   }
 
   int attr = 0;

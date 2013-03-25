@@ -422,12 +422,14 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
               foldingStartToCount = new QHash<short, int> ();
             
             // for each end region, decrement counter for that type, erase if count reaches 0!
-            QHash<short, int>::iterator end = foldingStartToCount->find (-item->region2);
-            if (end != foldingStartToCount->end()) {
-              if (end.value() > 1)
-                --(end.value());
-              else
-                foldingStartToCount->erase (end);
+            if (item->region2) {
+              QHash<short, int>::iterator end = foldingStartToCount->find (-item->region2);
+              if (end != foldingStartToCount->end()) {
+                if (end.value() > 1)
+                  --(end.value());
+                else
+                  foldingStartToCount->erase (end);
+              }
             }
             
             // increment counter for each begin region!

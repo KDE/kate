@@ -44,6 +44,7 @@ public:
     KTextEditor::View*   activeView ();
     KTextEditor::View*   activateView (KTextEditor::Document*);
     KTextEditor::View*   openUrl (const KUrl&, const QString& = QString ());
+    Kate::PluginView*    pluginView (const QString&);
 
 signals:
     void                 viewChanged ();

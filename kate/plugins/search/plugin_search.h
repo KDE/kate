@@ -170,6 +170,8 @@ private:
     Results                           *m_curResults;
     bool                               m_searchJustOpened;
     bool                               m_switchToProjectModeWhenAvailable;
+    bool                               m_searchDiskFilesDone;
+    bool                               m_searchOpenFilesDone;
     QString                            m_resultBaseDir;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
     QTimer                             m_changeTimer;

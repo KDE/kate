@@ -337,10 +337,10 @@ QList<QTextLayout::FormatRange> KateRenderer::decorationsForLine( const Kate::Te
 
     // Add the inbuilt highlighting to the list
     NormalRenderRange* inbuiltHighlight = new NormalRenderRange();
-    const QVector<int> &al = textLine->attributesList();
-    for (int i = 0; i+2 < al.count(); i += 3) {
-      inbuiltHighlight->addRange(new KTextEditor::Range(KTextEditor::Cursor(line, al[i]), al[i+1]), specificAttribute(al[i+2]));
-    }
+    const QVector<Kate::TextLineData::Attribute> &al = textLine->attributesList();
+    for (int i = 0; i < al.count(); ++i)
+      if (al[i].length > 0 && al[i].attributeValue > 0)
+        inbuiltHighlight->addRange(new KTextEditor::Range(KTextEditor::Cursor(line, al[i].offset), al[i].length), specificAttribute(al[i].attributeValue));
     renderRanges.append(inbuiltHighlight);
 
     if (!completionHighlight) {

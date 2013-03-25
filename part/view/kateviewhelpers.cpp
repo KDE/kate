@@ -268,7 +268,7 @@ void KateScrollBar::paintEvent(QPaintEvent *e)
 }
 
 // This function is optimized for bing called in sequence.
-const QColor KateScrollBar::charColor(const QVector<int> &attributes, int &attributeIndex,
+const QColor KateScrollBar::charColor(const QVector<Kate::TextLineData::Attribute> &attributes, int &attributeIndex,
                                       const QList<QTextLayout::FormatRange> &decorations,
                                       const QColor &defaultColor, int x, QChar ch)
 {
@@ -298,12 +298,12 @@ const QColor KateScrollBar::charColor(const QVector<int> &attributes, int &attri
   if (!styleFound) {
     // go to the block containing x
     while ((attributeIndex < attributes.size()) &&
-      ((attributes[attributeIndex] + attributes[attributeIndex+1]) < x))
+      ((attributes[attributeIndex].offset + attributes[attributeIndex].length) < x))
     {
-      attributeIndex += 3;
+      ++attributeIndex;
     }
-    if ((attributeIndex < attributes.size()) && (x < attributes[attributeIndex] + attributes[attributeIndex+1])) {
-      color = m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color();
+    if ((attributeIndex < attributes.size()) && (x < attributes[attributeIndex].offset + attributes[attributeIndex].length)) {
+      color = m_view->renderer()->attribute(attributes[attributeIndex].attributeValue)->foreground().color();
     }
   }
 
@@ -399,7 +399,7 @@ void KateScrollBar::updatePixmap()
       }
       const Kate::TextLine& kateline = m_doc->plainKateTextLine(realLineNumber);
 
-      QVector<int> attributes = kateline->attributesList();
+      const QVector<Kate::TextLineData::Attribute> &attributes = kateline->attributesList();
       QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(kateline, realLineNumber);
       int attributeIndex = 0;
 

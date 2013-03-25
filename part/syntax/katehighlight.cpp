@@ -250,17 +250,8 @@ void KateHighlighting::dropDynamicContexts()
   startctx = base_startctx;
 }
 
-/**
- * Parse the text and fill in the context array and folding list array
- *
- * @param prevLine The previous line, the context array is picked up from that if present.
- * @param textLine The text line to parse
- * @param foldingList will be filled
- * @param ctxChanged will be set to reflect if the context changed
- */
 void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
                                      Kate::TextLineData *textLine,
-                                     QVector<int> &foldingList,
                                      bool &ctxChanged )
 {
   if (!textLine)
@@ -270,10 +261,8 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
   textLine->clearAttributes ();
 
   // no hl set, nothing to do more than the above cleaning ;)
-  if (noHl) {
-    textLine->addAttribute (0, textLine->length(), KTextEditor::HighlightInterface::dsNormal);
+  if (noHl)
     return;
-  }
 
   // duplicate the ctx stack, only once !
   QVector<short> ctx (prevLine->ctxArray());
@@ -383,49 +372,11 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
 
         if (offset2 <= offset)
           continue;
+
         // BUG 144599: Ignore a context change that would push the same context
         // without eating anything... this would be an infinite loop!
         if ( item->lookAhead && ( item->ctx.pops < 2 && item->ctx.newContext == ( ctx.isEmpty() ? 0 : ctx.last() ) ) )
           continue;
-
-        if (item->region2)
-        {
-          // kDebug(13010)<<QString("Region mark 2 detected: %1").arg(item->region2);
-          if ( !foldingList.isEmpty() && ((item->region2 < 0) && (int)foldingList[foldingList.size()-2] == -item->region2 ) )
-          {
-            foldingList.resize (foldingList.size()-2);
-          }
-          else
-          {
-            foldingList.resize (foldingList.size()+2);
-            foldingList[foldingList.size()-2] = (uint)item->region2;
-            if (item->region2<0) //check not really needed yet
-              foldingList[foldingList.size()-1] = offset2;
-            else
-              foldingList[foldingList.size()-1] = offset;
-          }
-
-        }
-
-        if (item->region)
-        {
-          // kDebug(13010)<<QString("Region mark detected: %1").arg(item->region);
-
-        /* if ( !foldingList->isEmpty() && ((item->region < 0) && (*foldingList)[foldingList->size()-1] == -item->region ) )
-          {
-            foldingList->resize (foldingList->size()-1, QGArray::SpeedOptim);
-          }
-          else*/
-          {
-            foldingList.resize (foldingList.size()+2);
-            foldingList[foldingList.size()-2] = item->region;
-            if (item->region<0) //check not really needed yet
-              foldingList[foldingList.size()-1] = offset2;
-            else
-              foldingList[foldingList.size()-1] = offset;
-          }
-
-        }
 
         // regenerate context stack if needed
         context = generateContextStack (ctx, item->ctx, previousLine);
@@ -452,11 +403,15 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
         {
           if (offset2 > len)
             offset2 = len;
-
-          // even set attributes ;)
+          
+          // even set attributes or end of region! ;)
           int attribute = item->onlyConsume ? context->attr : item->attr;
-          if (attribute > 0)
-            textLine->addAttribute (offset, offset2-offset, attribute);
+          if (attribute > 0 || item->region2)
+            textLine->addAttribute (Kate::TextLineData::Attribute (offset, offset2-offset, attribute, item->region2));
+          
+          // create 0 length attribute for begin of region, if any!
+          if (item->region)
+            textLine->addAttribute (Kate::TextLineData::Attribute (offset2, 0, attribute, item->region));
 
           offset = offset2;
           lastChar = text[offset-1];
@@ -493,7 +448,7 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
       {
         // set attribute if any
         if (context->attr > 0)
-          textLine->addAttribute (offset, 1, context->attr);
+          textLine->addAttribute (Kate::TextLineData::Attribute (offset, 1, context->attr, 0));
 
         lastChar = text[offset];
         offset++;
@@ -530,11 +485,6 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
     textLine->setNoIndentBasedFolding(noindent);
   }
 #endif
-
-  //set the dsNormal attribute if we haven't found anything else
-  if(textLine->attributesList().empty()) {
-    textLine->addAttribute (0, textLine->length(), KTextEditor::HighlightInterface::dsNormal);
-  }
 
   // invalidate caches
   for ( int i = 0; i < cachingItems.size(); ++i) {

@@ -440,10 +440,8 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     // current line
     Kate::TextLine textLine = plainLine (current_line);
 
-    QVector<int> foldingList;
     ctxChanged = false;
-
-    m_highlight->doHighlight (prevLine.data(), textLine.data(), foldingList, ctxChanged);
+    m_highlight->doHighlight (prevLine.data(), textLine.data(), ctxChanged);
 
 #ifdef BUFFER_DEBUGGING
     // debug stuff
@@ -462,8 +460,9 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
      * check if that is a folding start line
      */
     bool foldingStart = false;
-    for (int i = 0; i < foldingList.size(); i += 2) {
-      if (foldingList[i] > 0)
+    const QVector<Kate::TextLineData::Attribute> &intAttrs = textLine->attributesList();
+    for ( int i = 0; i < intAttrs.size(); ++i ) {
+      if (intAttrs[i].foldingValue > 0)
         foldingStart = true;
     }
     textLine->markAsFoldingStart (foldingStart);

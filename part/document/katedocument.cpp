@@ -5305,21 +5305,17 @@ QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttri
   }
 
   Kate::TextLine kateLine = kateTextLine(line);
-
-  if ( !kateLine ) {
+  if ( !kateLine )
     return attribs;
-  }
 
-  const QVector<int> & intAttrs = kateLine->attributesList();
-
-  Q_ASSERT(intAttrs.size() % 3 == 0);
-
-  for ( int i = 0; i < intAttrs.size(); i += 3 ) {
-    attribs << KTextEditor::HighlightInterface::AttributeBlock(
-      intAttrs.at(i),
-      intAttrs.at(i+1),
-      view->renderer()->attribute(intAttrs.at(i+2))
-    );
+  const QVector<Kate::TextLineData::Attribute> &intAttrs = kateLine->attributesList();
+  for ( int i = 0; i < intAttrs.size(); ++i ) {
+    if (intAttrs[i].length > 0 && intAttrs[i].attributeValue > 0)
+      attribs << KTextEditor::HighlightInterface::AttributeBlock(
+        intAttrs.at(i).offset,
+        intAttrs.at(i).length,
+        view->renderer()->attribute(intAttrs.at(i).attributeValue)
+      );
   }
 
   return attribs;

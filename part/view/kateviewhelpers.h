@@ -37,6 +37,7 @@
 #include <ktexteditor/containerinterface.h>
 #include <ktexteditor/cursor.h>
 #include "katepartprivate_export.h"
+#include "katetextline.h"
 
 class KateDocument;
 class KateView;
@@ -113,7 +114,7 @@ Q_SIGNALS:
 
     int minimapYToStdY(int y);
 
-    const QColor charColor(const QVector<int> &attributes, int &attributeIndex,
+    const QColor charColor(const QVector<Kate::TextLineData::Attribute> &attributes, int &attributeIndex,
                            const QList<QTextLayout::FormatRange> &decorations,
                            const QColor &defaultColor, int x, QChar ch);
 

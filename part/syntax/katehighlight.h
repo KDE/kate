@@ -132,9 +132,15 @@ class KateHighlighting
     void cleanup ();
 
   public:
+    /**
+     * Parse the text and fill in the context array and folding list array
+     *
+     * @param prevLine The previous line, the context array is picked up from that if present.
+     * @param textLine The text line to parse
+     * @param ctxChanged will be set to reflect if the context changed
+     */
     void doHighlight ( Kate::TextLineData *prevLine,
                        Kate::TextLineData *textLine,
-                       QVector<int> &foldingList,
                        bool &ctxChanged );
 
     void setKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &,

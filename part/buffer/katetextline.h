@@ -43,6 +43,47 @@ class KATEPART_TESTS_EXPORT TextLineData {
 
   public:
     /**
+     * Attribute storage
+     */
+    class Attribute {
+      public:
+        /**
+         * Attribute constructor
+         * @param _offset offset
+         * @param _length length
+         * @param _attributeValue attribute value
+         * @param _foldingValue folding value
+         */
+        Attribute (int _offset = 0, int _length = 0, short _attributeValue = 0, short _foldingValue = 0)
+          : offset (_offset)
+          , length (_length)
+          , attributeValue (_attributeValue)
+          , foldingValue (_foldingValue)
+        {
+        }
+        
+        /**
+         * offset
+         */  
+        int offset;
+        
+        /**
+         * length
+         */
+        int length;
+        
+        /**
+         * attribute value (to encode type of this range)
+         */
+        short attributeValue;
+        
+        /**
+         * folding value (begin/end type)
+         */
+        short foldingValue;
+    };
+    
+    /**
      * Flags of TextLineData
      */
     enum Flags
@@ -261,39 +302,16 @@ class KATEPART_TESTS_EXPORT TextLineData {
     bool endsWith(const QString& match) const { return m_text.endsWith (match); }
 
     /**
-     * Gets the attribute at the given position
-     * use KRenderer::attributes  to get the KTextAttribute for this.
-     *
-     * @param pos position of attribute requested
-     * @return value of attribute
-     */
-    int attribute (int pos) const
-    {
-      for (int i=0; i < m_attributesList.size(); i+=3)
-      {
-        if (pos >= m_attributesList[i] && pos < m_attributesList[i]+m_attributesList[i+1])
-          return m_attributesList[i+2];
-
-        if (pos < m_attributesList[i])
-          break;
-      }
-
-      return 0;
-    }
-
-    /**
      * context stack
      * @return context stack
      */
     const QVector<short> &ctxArray () const { return m_ctx; }
 
     /**
-     * Add attribute for given start + length to this line
-     * @param start start column of this attribute
-     * @param length length in chars this attribute should span
-     * @param attribute attribute to use
+     * Add attribute to this line.
+     * @param attribute new attribute to append
      */
-    void addAttribute (int start, int length, int attribute);
+    void addAttribute (const Attribute &attribute);
 
     /**
      * Clear attributes of this line
@@ -304,7 +322,28 @@ class KATEPART_TESTS_EXPORT TextLineData {
      * Accessor to attributes
      * @return attributes of this line
      */
-    const QVector<int> &attributesList () const { return m_attributesList; }
+    const QVector<Attribute> &attributesList () const { return m_attributesList; }
+
+    /**
+     * Gets the attribute at the given position
+     * use KRenderer::attributes  to get the KTextAttribute for this.
+     *
+     * @param pos position of attribute requested
+     * @return value of attribute
+     */
+    short attribute (int pos) const
+    {
+      for (int i=0; i < m_attributesList.size(); ++i)
+      {
+        if (pos >= m_attributesList[i].offset && pos < (m_attributesList[i].offset + m_attributesList[i].length))
+          return m_attributesList[i].attributeValue;
+
+        if (pos < m_attributesList[i].offset)
+          break;
+      }
+
+      return 0;
+    }
 
     /**
      * set hl continue flag
@@ -347,20 +386,17 @@ class KATEPART_TESTS_EXPORT TextLineData {
     QString m_text;
 
     /**
-     * store the attribs, int array
-     * one int start, next one len, next one attrib
-     *
-     * TODO: KDE5 replace with movable struct of three ints.
+     * attributes of this line
      */
-    QVector<int> m_attributesList;
+    QVector<Attribute> m_attributesList;
 
     /**
-     * context stack
+     * context stack of this line
      */
     QVector<short> m_ctx;
 
     /**
-     * flags
+     * flags of this line
      */
     unsigned int m_flags;
 };

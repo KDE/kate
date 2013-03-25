@@ -182,21 +182,18 @@ int TextLineData::virtualLength (int tabWidth) const
   return x;
 }
 
-void TextLineData::addAttribute (int start, int length, int attribute)
+void TextLineData::addAttribute (const Attribute &attribute)
 {
-  // try to append to previous range
-  if ((m_attributesList.size() > 2) && (m_attributesList[m_attributesList.size()-1] == attribute)
-      && (m_attributesList[m_attributesList.size()-3]+m_attributesList[m_attributesList.size()-2]
-         == start))
+  // try to append to previous range, if no folding info + same attribute value
+  if ((attribute.foldingValue == 0) && !m_attributesList.isEmpty() && (m_attributesList.back().foldingValue == 0)
+       && (m_attributesList.back().attributeValue == attribute.attributeValue)
+        && ((m_attributesList.back().offset + m_attributesList.back().length) == attribute.offset))
   {
-    m_attributesList[m_attributesList.size()-2] += length;
+    m_attributesList.back().length += attribute.length;
     return;
   }
 
-  m_attributesList.resize (m_attributesList.size()+3);
-  m_attributesList[m_attributesList.size()-3] = start;
-  m_attributesList[m_attributesList.size()-2] = length;
-  m_attributesList[m_attributesList.size()-1] = attribute;
+  m_attributesList.append (attribute);
 }
 
 }

@@ -135,9 +135,8 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
       else
         previousLine = Kate::TextLine (new Kate::TextLineData());
 
-      QVector<int> foldingList;
       bool ctxChanged = false;
-      document()->highlight()->doHighlight(previousLine.data(), thisLine.data(), foldingList, ctxChanged);
+      document()->highlight()->doHighlight(previousLine.data(), thisLine.data(), ctxChanged);
     }
 
   m_currentColumnStart = m_cachedColumnStarts[index.column()];

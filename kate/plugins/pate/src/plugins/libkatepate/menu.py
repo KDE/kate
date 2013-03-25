@@ -43,7 +43,7 @@ def move_menu_submenu(menu_slug, submenu_slug):
 def findMenu(menu_parent_slug):
     window = kate.mainWindow()
     for menu in window.findChildren(QtGui.QMenu):
-        if str(menu.objectName()) == menu_parent_slug:
+        if menu.objectName() == menu_parent_slug:
             return menu
     return None
 

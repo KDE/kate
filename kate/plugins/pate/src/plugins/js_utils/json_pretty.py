@@ -20,7 +20,10 @@
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/json_plugins.py>
 
 import kate
-import simplejson
+try:
+    import simplejson as json
+except ImportError:
+    import json
 
 from libkatepate import text
 from js_settings import KATE_ACTIONS
@@ -38,10 +41,10 @@ def togglePrettyJsonFormat():
                        minTextWidth=200)
     else:
         try:
-            target = simplejson.dumps(simplejson.loads(source), indent=2)
+            target = json.dumps(json.loads(source), indent=2)
             view.removeSelectionText()
             text.insertText(target)
-        except simplejson.JSONDecodeError:
+        except ValueError:
             kate.gui.popup('This text is not a valid json text', 2,
-                        icon='dialog-warning',
-                        minTextWidth=200)
+                           icon='dialog-warning',
+                           minTextWidth=200)

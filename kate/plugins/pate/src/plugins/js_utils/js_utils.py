@@ -23,29 +23,20 @@
 NEED_PACKAGES = {}
 
 try:
-    import simplejson
-except ImportError:
-    NEED_PACKAGES["simplejson"] = "3.0.7"
-
-try:
     import pyjslint
 except ImportError:
-    NEED_PACKAGES["pyjslint"] = "0.3.3"
-
+    NEED_PACKAGES["pyjslint"] = "0.3.4"
 
 from js_snippets import *
-
-if not "simplejson" in NEED_PACKAGES:
-    from js_autocomplete import *
-    from json_pretty import *
+from js_autocomplete import *
+from json_pretty import *
 
 if not "pyjslint" in NEED_PACKAGES:
     from jslint import *
 
-
 if NEED_PACKAGES:
     msg = "You need install the next packages:\n"
     for package in NEED_PACKAGES:
-        msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s" % {'package': package,
-                                                                               'version': NEED_PACKAGES[package]}
+        msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s \n" % {'package': package,
+                                                                                  'version':   NEED_PACKAGES[package]}
     raise ImportError(msg)

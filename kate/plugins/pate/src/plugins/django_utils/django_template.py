@@ -39,7 +39,7 @@ def closeTemplateTag():
     currentLine = currentPosition.line()
     tag = ''
     while currentLine >= 0:
-        text = unicode(currentDocument.line(currentLine))
+        text = currentDocument.line(currentLine)
         match_open = pattern_tag_open.match(text)
         if match_open:
             tag_name = match_open.groups()[1]

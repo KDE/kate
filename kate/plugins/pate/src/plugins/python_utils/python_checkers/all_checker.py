@@ -65,14 +65,11 @@ def checkAll(doc=None, excludes=None, exclude_all=False):
             except ImportError:
                 pass
         if not 'checkPep8' in excludes:
-            try:
-                from python_checkers.pep8_checker import checkPep8
-                checkPep8.f(currentDoc, refresh=False)
-            except ImportError:
-                import pdb; pdb.set_trace()
+            from python_checkers.pep8_checker import checkPep8
+            checkPep8.f(currentDoc, refresh=False)
     if not doc and currentDoc.isModified() and not excludes:
         kate.gui.popup('You must save the file first', 3,
-                        icon='dialog-warning', minTextWidth=200)
+                       icon='dialog-warning', minTextWidth=200)
 
 
 @kate.init

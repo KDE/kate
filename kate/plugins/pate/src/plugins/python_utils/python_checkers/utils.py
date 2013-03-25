@@ -17,7 +17,7 @@
 
 
 def is_mymetype_python(doc, text_plain=False):
-    mimetype = unicode(doc.mimeType())
+    mimetype = doc.mimeType()
     if mimetype == 'text/x-python':
         return True
     elif mimetype == 'text/plain' and text_plain:

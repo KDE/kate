@@ -95,11 +95,11 @@ def checkPep8(currentDocument=None, refresh=True):
     if currentDocument.isModified():
         saveFirst()
         return
-    path = unicode(currentDocument.url().path())
+    path = currentDocument.url().path()
     if not path:
         saveFirst()
         return
-    mark_key = '%s-pep8' % unicode(currentDocument.url().path())
+    mark_key = '%s-pep8' % currentDocument.url().path()
     # Check the file for errors with PEP8
     sys.argv = [path]
     pep8.process_options([path])

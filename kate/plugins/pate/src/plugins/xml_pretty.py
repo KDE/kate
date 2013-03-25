@@ -36,7 +36,7 @@ def togglePrettyJsonFormat():
     """Pretty format of a XML code"""
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
-    source = unicode(view.selectionText()).encode('utf-8', 'ignore')
+    source = view.selectionText()
     if not source:
         kate.gui.popup('Select a xml text', 2,
                        icon='dialog-warning',

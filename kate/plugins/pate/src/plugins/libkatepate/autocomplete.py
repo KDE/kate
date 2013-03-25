@@ -25,6 +25,11 @@ from PyKDE4.kdeui import KIcon
 from PyKDE4.ktexteditor import KTextEditor
 from PyQt4.QtCore import QModelIndex, QSize, Qt
 
+try:
+    import simplejson as json
+except ImportError:
+    import json
+
 
 class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
 
@@ -40,10 +45,10 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
 
     roles = {
         KTextEditor.CodeCompletionModel.CompletionRole:
-            KTextEditor.CodeCompletionModel.FirstProperty |
-            KTextEditor.CodeCompletionModel.Public |
-            KTextEditor.CodeCompletionModel.LastProperty |
-            KTextEditor.CodeCompletionModel.Prefix,
+        KTextEditor.CodeCompletionModel.FirstProperty |
+        KTextEditor.CodeCompletionModel.Public |
+        KTextEditor.CodeCompletionModel.LastProperty |
+        KTextEditor.CodeCompletionModel.Prefix,
         KTextEditor.CodeCompletionModel.ScopeIndex: 0,
         KTextEditor.CodeCompletionModel.MatchQuality: 10,
         KTextEditor.CodeCompletionModel.HighlightingMethod: None,
@@ -78,11 +83,11 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
         self.invocationType = invocationType
         if line_start != line_end:
             return None
-        mimetype = unicode(view.document().mimeType())
+        mimetype = view.document().mimeType()
         if not mimetype in self.MIMETYPES:
             return None
         doc = view.document()
-        line = unicode(doc.line(line_start))
+        line = doc.line(line_start)
         if not line:
             return line
         return self.parseLine(line, column_end)
@@ -161,10 +166,9 @@ class AbstractJSONFileCodeCompletionModel(AbstractCodeCompletionModel):
         class_path = inspect.getfile(self.__class__)
         class_dir = os.sep.join(class_path.split(os.sep)[:-1])
         abs_file_path = os.path.join(class_dir,
-                                  self.FILE_PATH)
+                                     self.FILE_PATH)
         json_str = open(abs_file_path).read()
-        from simplejson import loads
-        self.json = loads(json_str)
+        self.json = json.loads(json_str)
 
     def getJSON(self, lastExpression, line):
         return self.json
@@ -179,9 +183,9 @@ class AbstractJSONFileCodeCompletionModel(AbstractCodeCompletionModel):
             return
         for child, attrs in children.items():
             index = self.createItemAutoComplete(text=child,
-                                    category=attrs.get('category', None),
-                                    args=attrs.get('args', None),
-                                    description=attrs.get('description', None))
+                                                category=attrs.get('category', None),
+                                                args=attrs.get('args', None),
+                                                description=attrs.get('description', None))
             if not index:
                 continue
             self.resultList.append(index)

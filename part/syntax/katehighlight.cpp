@@ -259,6 +259,9 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
 
   // in all cases, remove old hl, or we will grow to infinite ;)
   textLine->clearAttributes ();
+  
+  // reset folding start
+  textLine->markAsFoldingStart (false);
 
   // no hl set, nothing to do more than the above cleaning ;)
   if (noHl)
@@ -324,6 +327,15 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
     if (context->emptyLineContext)
         context = generateContextStack (ctx, context->emptyLineContextModification, previousLine);
   } else {
+    /**
+     * check if the folding begin/ends are balanced!
+     * constructed on demand!
+     */
+    QHash<short, int> *foldingStartToCount = 0;
+    
+    /**
+     * loop over line content!
+     */
     QChar lastDelimChar = 0;
     while (offset < len)
     {
@@ -404,6 +416,25 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
           if (offset2 > len)
             offset2 = len;
           
+          // handle folding end or begin
+          if (item->region || item->region2) {
+            if (!foldingStartToCount)
+              foldingStartToCount = new QHash<short, int> ();
+            
+            // for each end region, decrement counter for that type, erase if count reaches 0!
+            QHash<short, int>::iterator end = foldingStartToCount->find (-item->region2);
+            if (end != foldingStartToCount->end()) {
+              if (end.value() > 1)
+                --(end.value());
+              else
+                foldingStartToCount->erase (end);
+            }
+            
+            // increment counter for each begin region!
+            if (item->region)
+              ++(*foldingStartToCount)[item->region];
+          }
+          
           // even set attributes or end of region! ;)
           int attribute = item->onlyConsume ? context->attr : item->attr;
           if (attribute > 0 || item->region2)
@@ -453,6 +484,23 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
         lastChar = text[offset];
         offset++;
       }
+    }
+    
+    /**
+     * check if folding is not balanced and we have more starts then ends
+     * then this line is a possible folding start!
+     */
+    if (foldingStartToCount) {
+      /**
+       * possible folding start, if imbalanced, aka hash not empty!
+       */
+      textLine->markAsFoldingStart (!foldingStartToCount->isEmpty());
+      
+      /**
+       * kill hash
+       */
+      delete foldingStartToCount;
+      foldingStartToCount = 0;
     }
   }
   
@@ -815,9 +863,8 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
     regionId++;
 
-#ifdef HIGHLIGHTING_DEBUG
     kDebug(13010) << "########### BEG REG: "  << beginRegionStr << " NUM: " << regionId;
-#endif
+
   }
 
   if (!endRegionStr.isEmpty())
@@ -832,9 +879,8 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
 
     regionId2 = -regionId2 - 1;
 
-#ifdef HIGHLIGHTING_DEBUG
     kDebug(13010) << "########### END REG: "  << endRegionStr << " NUM: " << regionId2;
-#endif
+
   }
 
   int attr = 0;

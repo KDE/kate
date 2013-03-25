@@ -456,17 +456,6 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     kDebug( 13020 );
 #endif
     
-    /**
-     * check if that is a folding start line
-     */
-    bool foldingStart = false;
-    const QVector<Kate::TextLineData::Attribute> &intAttrs = textLine->attributesList();
-    for ( int i = 0; i < intAttrs.size(); ++i ) {
-      if (intAttrs[i].foldingValue > 0)
-        foldingStart = true;
-    }
-    textLine->markAsFoldingStart (foldingStart);
-    
     // need we to continue ?
     bool stillcontinue =  ctxChanged;
     if (stillcontinue && start_spellchecking < 0) {

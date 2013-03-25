@@ -160,16 +160,17 @@ def projectFileNameChanged(*args, **kwargs):
     projectMap = projectPlugin.property("projectMap")
     if "python" in projectMap:
         projectName = projectPlugin.property("projectName")
-        version = projectMap.get("version", None)
+        projectMapPython = projectMap["python"]
+        version = projectMapPython.get("version", None)
         kernel_app = default_kernel_app()
         # Check Python version
         if not can_load_project(version):
             msg = 'print("Can not load this project: %s. Python Version incompatible")' % projectName
             kernel_app.shell.run_cell(msg)
             sys.stdout.flush()
+            return
         kernel_app.shell.reset()
         kernel_app.shell.run_cell('print("Change project %s")' % projectName)
-        projectMapPython = projectMap["python"]
         extraPath = projectMapPython.get("extraPath", [])
         environs = projectMapPython.get("environs", {})
         # Add Extra path
@@ -220,6 +221,8 @@ def terminal_widget(parent=None, **kwargs):
     if projectPlugin:
         projectPlugin.projectFileNameChanged.connect(projectFileNameChanged)
         projectFileNameChanged()
+    kernel_app.start()
+    sys.stdout.flush()
     return widget
 
 

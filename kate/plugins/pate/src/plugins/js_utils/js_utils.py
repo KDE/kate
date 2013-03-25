@@ -20,50 +20,23 @@
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/jste_plugins/>
 # The original author of the jslint checker is Alejandro Blanco <alejandro.b.e@gmail.com>
 
-import sys
-
 NEED_PACKAGES = {}
-NEED_PYTHON_VERSION = {}
-
-class PythonVersionError(Exception):
-    pass
-
-try:
-    version = sys.version_info
-    if version.major == 3 and version.minor < 3:
-        NEED_PYTHON_VERSION["simplejson"] = "This package only is compatible with Python 2 and Python 3.3 or higher"
-    if not "simplejson" in NEED_PYTHON_VERSION:
-        import simplejson
-except ImportError:
-    NEED_PACKAGES["simplejson"] = "3.0.7"
 
 try:
     import pyjslint
 except ImportError:
     NEED_PACKAGES["pyjslint"] = "0.3.4"
 
-
 from js_snippets import *
+from js_autocomplete import *
+from json_pretty import *
 
-if not "simplejson" in NEED_PACKAGES and not "simplejson" in NEED_PYTHON_VERSION:
-    from js_autocomplete import *
-    from json_pretty import *
-
-if not "pyjslint" in NEED_PACKAGES and not "pyjslint" in NEED_PYTHON_VERSION:
+if not "pyjslint" in NEED_PACKAGES:
     from jslint import *
-
 
 if NEED_PACKAGES:
     msg = "You need install the next packages:\n"
     for package in NEED_PACKAGES:
         msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s \n" % {'package': package,
-                                                                                  'version': NEED_PACKAGES[package]}
+                                                                                  'version':   NEED_PACKAGES[package]}
     raise ImportError(msg)
-
-if NEED_PYTHON_VERSION:
-    msg = "Some package is not compatible with your python version" 
-    for package in NEED_PYTHON_VERSION:
-        msg += "\t\t%(package)s. %(msg)s" % {'package': package,
-                                             'msg': NEED_PYTHON_VERSION[package]}
-    raise PythonVersionError(msg)
-    

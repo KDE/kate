@@ -51,6 +51,8 @@ class KateViVisualMode : public KateViNormalMode {
     void setStart( const Cursor& c ) { m_start = c; }
     Cursor getStart() { return m_start; }
 
+    void goToPos( const Cursor& c);
+
     ViMode getLastVisualMode() const { return m_lastVisualMode; }
     Cursor getStart() const { return m_start; }
 

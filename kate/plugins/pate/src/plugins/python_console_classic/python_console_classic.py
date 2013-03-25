@@ -23,12 +23,15 @@ library module tokenize.'''
 
 from __future__ import print_function
 import code
-from io import StringIO
 import keyword
 import os.path
 import sys
 import tokenize
 import token # for constants
+if sys.version_info.major >= 3:
+    from io import StringIO
+else:
+    from StringIO import *
 
 from PyQt4 import uic
 from PyQt4.QtCore import *
@@ -197,7 +200,8 @@ class Console(code.InteractiveConsole):
         stdout = sys.stdout
         sys.stdout = StringIO()
         try:
-            exec(c, self.locals)
+            #super(Console, self).runcode(c)
+            code.InteractiveConsole.runcode(self, c)
         except SystemExit:
             raise
         except:

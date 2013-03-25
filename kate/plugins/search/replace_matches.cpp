@@ -162,4 +162,3 @@ void ReplaceMatches::doReplaceNextMatch()
     m_rootIndex++;
     emit replaceNextMatch();
 }
- 

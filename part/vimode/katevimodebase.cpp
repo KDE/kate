@@ -51,6 +51,13 @@ using KTextEditor::Range;
 // HELPER METHODS
 ////////////////////////////////////////////////////////////////////////////////
 
+void KateViModeBase::yankToClipBoard(QChar chosen_register, QString text)
+{
+ if ((chosen_register == '0' || chosen_register == '-')  && text.length() > 1) { //only yank to the clipboard if no register was specified and textlength > 1
+   KateGlobal::self()->copyToClipboard(text);
+ }
+}
+
 bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addToRegister)
 {
   r.normalize();
@@ -67,13 +74,16 @@ bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addTo
       res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), mode == Block );
   }
 
+  QChar chosenRegister = getChosenRegister( '0' );
   if ( addToRegister ) {
     if ( r.startLine == r.endLine ) {
-      fillRegister( getChosenRegister( '-' ), removedText, mode );
+      chosenRegister = getChosenRegister( '-' );
+      fillRegister( chosenRegister    , removedText, mode );
     } else {
-      fillRegister( getChosenRegister( '0' ), removedText, mode );
+      fillRegister(chosenRegister,  removedText, mode );
     }
   }
+  yankToClipBoard(chosenRegister, removedText);
 
   return res;
 }

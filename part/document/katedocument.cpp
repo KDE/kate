@@ -5399,11 +5399,25 @@ Kate::SwapFile* KateDocument::swapFile()
     return m_swapfile;
 }
 
+/**
+ * \return \c -1 if \c line or \c column invalid, otherwise one of
+ * standard style attribute number
+ */
 int KateDocument::defStyleNum(int line, int column)
 {
-  QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(static_cast<KateView*> (activeView())->renderer()->config()->schema());
-  KTextEditor::Attribute::Ptr a = attributes[plainKateTextLine(line)->attribute(column)];
-  return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+  // Validate parameters to prevent out of range access
+  if (0 <= line && line < lines() && 0 <= column)
+  {
+    QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(
+        static_cast<KateView*>(activeView())
+          ->renderer()
+          ->config()
+          ->schema()
+      );
+    KTextEditor::Attribute::Ptr a = attributes[plainKateTextLine(line)->attribute(column)];
+    return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
+  }
+  return -1;
 }
 
 bool KateDocument::isComment(int line, int column)

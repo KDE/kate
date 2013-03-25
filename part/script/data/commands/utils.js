@@ -1,7 +1,7 @@
 /* kate-script
- * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>
+ * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>, Gerald Senarclens de Grancy <oss@senarclens.eu>
  * license: LGPL
- * revision: 5
+ * revision: 6
  * kate-version: 3.4
  * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown, rewrap
  */
@@ -131,14 +131,13 @@ function unwrap ()
 function _getBlockForAction()
 {
     // Check if selection present in a view...
-    var blockRange = view.selection();
+    var blockRange = Range(view.selection());
     var cursorPosition = view.cursorPosition();
     if (blockRange.isValid()) {
         blockRange.start.column = 0;
         if (blockRange.end.column != 0)
             blockRange.end.line++;
         blockRange.end.column = 0;
-        view.setSelection(blockRange);
     } else {
         // No, it doesn't! Ok, lets select the current line only
         // from current position to the end
@@ -147,11 +146,27 @@ function _getBlockForAction()
     return blockRange;
 }
 
+// Adjusts ("moves") the current selection by offset.
+// Positive offsets move down, negatives up.
+function _adjustSelection(selection, offset)
+{
+    if (selection.end.line + offset < document.lines()) {
+        selection = new Range(selection.start.line + offset, selection.start.column,
+                              selection.end.line + offset, selection.end.column);
+    } else {
+        selection = new Range(selection.start.line + offset, selection.start.column,
+                              selection.end.line + offset - 1,
+                              document.lineLength(selection.end.line + offset - 1));
+    }
+    view.setSelection(selection);
+}
+
 function moveLinesDown()
 {
+    var selection = view.selection();
     var blockRange = _getBlockForAction();
     // Check is there a space to move?
-    if (blockRange.end.line < (document.lines() - 1)) {
+    if (blockRange.end.line < document.lines()) {
         document.editBegin();
         // Move a block to one line down:
         // 0) take one line after the block
@@ -161,17 +176,15 @@ function moveLinesDown()
         // 2) insert a line before the block
         document.insertLine(blockRange.start.line, text);
         document.editEnd();
-        if (view.selection().isValid())
-        {
-            blockRange.start.line++;
-            blockRange.end.line++;
-            view.setSelection(blockRange);
-        }
+        if (view.hasSelection())
+            _adjustSelection(selection, 1);
     }
 }
 
 function moveLinesUp()
 {
+    var cursor = view.cursorPosition();
+    var selection = view.selection();
     var blockRange = _getBlockForAction();
     // Check is there a space to move?
     if (0 < blockRange.start.line) {
@@ -183,36 +196,41 @@ function moveLinesUp()
         document.insertLine(blockRange.end.line, text);
         // 2) remove the original line
         document.removeLine(blockRange.start.line - 1);
-        blockRange.start.line--;
-        blockRange.end.line--;
-        view.setCursorPosition(blockRange.start);
-        if (view.selection().isValid())
-            view.setSelection(blockRange);
+        view.setCursorPosition(cursor.line - 1, cursor.column);
+        if (view.hasSelection())
+            _adjustSelection(selection, -1);
         document.editEnd();
     }
 }
 
-function duplicateLinesUp()
+function duplicateLinesDown()
 {
+    var selection = view.selection();
     var blockRange = _getBlockForAction();
     document.editBegin();
     document.insertText(blockRange.start, document.text(blockRange));
+    _adjustSelection(selection, 1);
     document.editEnd();
 }
 
-function duplicateLinesDown()
+function duplicateLinesUp()
 {
+    var cursor = view.cursorPosition();
+    var selection = view.selection();
     var blockRange = _getBlockForAction();
     document.editBegin();
-    document.insertText(blockRange.end, document.text(blockRange));
-    // NOTE Inserting a text after the selected block (if any) will extend it and moves a cursor...
-    // So we have to shrink it and return the cursor back.
-    if (view.selection().isValid()) {
-        view.setSelection(blockRange);
-        var cursorPosition = view.cursorPosition();
-        cursorPosition.line = blockRange.end.line;
-        view.setCursorPosition(cursorPosition);
+    if (blockRange.end.line == document.lines()) {
+        var lastLine = document.lines() - 1;
+        var lastCol = document.lineLength(document.lines() - 1);
+        blockRange.end.line = lastLine;
+        blockRange.end.column = lastCol;
+        document.insertText(lastLine, lastCol, document.text(blockRange));
+        document.wrapLine(lastLine, lastCol);
+    } else {
+        document.insertText(blockRange.end, document.text(blockRange));
     }
+    view.setCursorPosition(cursor.line, cursor.column);
+    _adjustSelection(selection, 0);
     document.editEnd();
 }
 

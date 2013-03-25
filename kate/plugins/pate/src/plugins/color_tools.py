@@ -202,7 +202,11 @@ class PaletteView(QObject):
         if view:
             document = view.document()
         else:
-            document = kate.activeDocument()
+            try:
+                document = kate.activeDocument()
+            except kate.NoActiveView:
+                return                                      # Do nothing if we can't get a current document
+        # Iterate over document's lines trying to find #colors
         for l in range(0, document.lines()):
             line = document.line(l)                         # Get the current line
             start = 0                                       # Set initial position to 0 (line start)

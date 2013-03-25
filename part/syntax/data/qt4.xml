@@ -11,7 +11,7 @@
 <language
     name="C++11/Qt4"
     section="Sources"
-    version="0.10"
+    version="1.0"
     kateversion="2.4"
     indenter="cstyle"
     extensions="*.moc"

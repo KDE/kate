@@ -289,6 +289,9 @@ void ViModeTest::VisualModeTests() {
     // * and #
     DoTest("foo foo", "v*x", "oo");
     DoTest("foo foo", "wv#x", "oo");
+    
+    // Regression test for gv.
+    DoTest("foo\nbar\nxyz", "l\\ctrl-vjj\\ctrl-cgvr.", "f.o\nb.r\nx.z");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -593,6 +596,8 @@ void ViModeTest::NormalModeMotionsTest() {
   // Quick test to see whether inner curly bracket works in visual mode.
   DoTest( "{\nfoo}", "jviBd", "{\n}");
   DoTest( "{\nfoo}", "jvaBd", "");
+  // Regression test for viB not working if there is a blank line before the closing }.
+  DoTest( "{\nfoo\n\n}", "viBd", "{\n}");
 
   DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",
           "jda}xr;",

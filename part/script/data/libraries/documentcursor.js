@@ -183,4 +183,8 @@ DocumentCursor.prototype.toCursor = function() {
   return new Cursor(this.line, this.column);
 }
 
+DocumentCursor.prototype.toVirtualCursor = function() {
+  return document.toVirtualCursor(this);
+}
+
 // kate: indent-width 2; replace-tabs on;

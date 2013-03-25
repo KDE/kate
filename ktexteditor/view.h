@@ -624,7 +624,9 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
  *
  * \see KTextEditor::View
  * \since 4.2
- * \note KDE5: merge into KTextEditor::View
+ * \note KDE5: merge into KTextEditor::View (or name it ViewportInterface
+ *       and add accessors to the QScrollBars and convenience functions like
+ *       cursorToCoordinate(), scollLines(int count), etc.
  */
 class KTEXTEDITOR_EXPORT CoordinatesToCursorInterface
 {

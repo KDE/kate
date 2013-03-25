@@ -1,0 +1,12 @@
+v.setCursorPosition(2,0);
+v.type("private:");
+v.enter();
+v.type("void ok();");
+v.enter();
+v.type("public:");
+v.enter();
+v.type("void ok();");
+v.enter();
+v.type("protected:");
+v.enter();
+v.type("void ok();");

@@ -74,7 +74,7 @@ void TextBlock::text (QString &text) const
   }
 }
 
-void TextBlock::wrapLine (const KTextEditor::Cursor &position)
+void TextBlock::wrapLine (const KTextEditor::Cursor &position, int fixStartLinesStartIndex)
 {
   // calc internal line
   int line = position.line () - startLine ();
@@ -111,6 +111,12 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
     m_lines.at(line)->markAsModified(true);
   }
 
+  /**
+   * fix all start lines
+   * we need to do this NOW, else the range update will FAIL!
+   * bug 313759
+   */
+  m_buffer->fixStartLines (fixStartLinesStartIndex);
 
   /**
    * notify the text history
@@ -168,7 +174,7 @@ void TextBlock::wrapLine (const KTextEditor::Cursor &position)
     range->checkValidity ();
 }
 
-void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
+void TextBlock::unwrapLine (int line, TextBlock *previousBlock, int fixStartLinesStartIndex)
 {
   // calc internal line
   line = line - startLine ();
@@ -202,6 +208,13 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
     --m_startLine;
 
     /**
+     * fix all start lines
+     * we need to do this NOW, else the range update will FAIL!
+     * bug 313759
+     */
+    m_buffer->fixStartLines (fixStartLinesStartIndex);
+
+    /**
      * notify the text history in advance
      */
     m_buffer->history().unwrapLine (startLine () + line, oldSizeOfPreviousLine);
@@ -210,9 +223,8 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
      * cursor and range handling below
      */
 
-    // no cursors in this and previous block, no work to do..
-    // no need to touch ranges-cache, without cursors, no range could end between this blocks!
-    if (previousBlock->m_cursors.empty() && m_cursors.empty())
+    // no cursors in this block and the previous one, no work to do..
+    if (m_cursors.empty() && previousBlock->m_cursors.empty())
       return;
 
     // move all cursors because of the unwrapped line
@@ -223,38 +235,35 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
         if (cursor->lineInBlock() == 0) {
           // patch column
           cursor->m_column += oldSizeOfPreviousLine;
-        }
 
-        // remember range, if any
-        if (cursor->kateRange())
-          changedRanges.insert (cursor->kateRange());
+          // remember range, if any
+          if (cursor->kateRange())
+            changedRanges.insert (cursor->kateRange());
+        }
     }
 
     // move cursors of the moved line from previous block to this block now
     QSet<TextCursor *> newPreviousCursors;
-    QSet<TextRange *> rangesMoved;
     foreach (TextCursor *cursor, previousBlock->m_cursors) {
       if (cursor->lineInBlock() == lastLineOfPreviousBlock) {
         cursor->m_line = 0;
         cursor->m_block = this;
         m_cursors.insert (cursor);
 
-        // remember ranges moved over block boundary
+        // remember range, if any
         if (cursor->kateRange())
-          rangesMoved.insert (cursor->kateRange());
+          changedRanges.insert (cursor->kateRange());
       }
       else
         newPreviousCursors.insert (cursor);
     }
     previousBlock->m_cursors = newPreviousCursors;
 
-    foreach (TextRange *range, rangesMoved) {
-        // either now only in new block
-        if (range->start().line () >= startLine())
-          previousBlock->removeRange (range);
-
-        // or now in both
+    // fixup the ranges that might be effected, because they moved from last line to this block
+    foreach (TextRange *range, changedRanges) {
+        // update both blocks
         updateRange (range);
+        previousBlock->updateRange (range);
     }
 
     // check validity of all ranges, might invalidate them...
@@ -273,7 +282,7 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
     QVector<int> tmp=m_lines.at(line-1)->foldingListArray();
     tmp+=m_lines.at(line)->foldingListArray();
     m_lines.at(line-1)->setFoldingList(tmp); //JOWENN MERGE CORRECTLY
-    
+
   }
 
   const bool lineChanged = (oldSizeOfPreviousLine > 0 && m_lines.at(line - 1)->markedAsModified())
@@ -283,6 +292,13 @@ void TextBlock::unwrapLine (int line, TextBlock *previousBlock)
     m_lines.at(line-1)->markAsSavedOnDisk(true);
 
   m_lines.erase (m_lines.begin () + line);
+
+  /**
+   * fix all start lines
+   * we need to do this NOW, else the range update will FAIL!
+   * bug 313759
+   */
+  m_buffer->fixStartLines (fixStartLinesStartIndex);
 
   /**
    * notify the text history in advance
@@ -371,7 +387,7 @@ void TextBlock::insertText (const KTextEditor::Cursor &position, const QString &
       // patch column of cursor
       if (cursor->m_column <= oldLength)
         cursor->m_column += text.size ();
-      
+
       // special handling if cursor behind the real line, e.g. non-wrapping cursor in block selection mode
       else if (cursor->m_column < textOfLine.size())
         cursor->m_column = textOfLine.size();
@@ -473,11 +489,7 @@ TextBlock *TextBlock::splitBlock (int fromLine)
 
   // move cursors
   QSet<TextCursor*> oldBlockSet;
-  QSet<TextRange*> rangesInteresting;
   foreach (TextCursor *cursor, m_cursors) {
-      if (cursor->kateRange())
-        rangesInteresting.insert (cursor->kateRange());
-
       if (cursor->lineInBlock() >= fromLine) {
         cursor->m_line = cursor->lineInBlock() - fromLine;
         cursor->m_block = newBlock;
@@ -488,12 +500,12 @@ TextBlock *TextBlock::splitBlock (int fromLine)
   }
   m_cursors = oldBlockSet;
 
-  foreach (TextRange *range, rangesInteresting) {
-      // only in new block
-      if (range->start().line () >= newBlock->startLine()) {
-        removeRange (range);
-        newBlock->updateRange (range);
-      }
+  // fix ALL ranges!
+  QList<TextRange*> allRanges = m_uncachedRanges.toList() + m_cachedLineForRanges.keys();
+  foreach (TextRange *range, allRanges) {
+      // update both blocks
+      updateRange (range);
+      newBlock->updateRange (range);
   }
 
   // return the new generated block
@@ -516,10 +528,12 @@ void TextBlock::mergeBlock (TextBlock *targetBlock)
     targetBlock->m_lines.append (m_lines.at(i));
   m_lines.clear ();
 
+  // fix ALL ranges!
   QList<TextRange*> allRanges = m_uncachedRanges.toList() + m_cachedLineForRanges.keys();
   foreach(TextRange* range, allRanges) {
-    removeRange(range);
-    targetBlock->updateRange(range);
+    // update both blocks
+    updateRange (range);
+    targetBlock->updateRange (range);
   }
 }
 
@@ -571,13 +585,21 @@ void TextBlock::updateRange (TextRange* range)
   const int startLine = range->startInternal().lineInternal();
   const int endLine = range->endInternal().lineInternal();
   const bool isSingleLine = startLine == endLine;
-  
+
+  /**
+   * perhaps remove range and be done
+   */
+  if ((endLine < m_startLine) || (startLine >= (m_startLine + lines()))) {
+    removeRange (range);
+    return;
+  }
+
   /**
    * The range is still a single-line range, and is still cached to the correct line.
    */
   if(isSingleLine && m_cachedLineForRanges.contains (range) && (m_cachedLineForRanges.value(range) == startLine - m_startLine))
     return;
-  
+
   /**
    * The range is still a multi-line range, and is already in the correct set.
    */
@@ -587,9 +609,8 @@ void TextBlock::updateRange (TextRange* range)
   /**
    * remove, if already there!
    */
-  if(containsRange(range))
-    removeRange(range);
-  
+  removeRange(range);
+
   /**
    * simple case: multi-line range
    */
@@ -600,18 +621,18 @@ void TextBlock::updateRange (TextRange* range)
     m_uncachedRanges.insert(range);
     return;
   }
-    
+
   /**
-   * The range is contained by a single line, put it into the line-cache 
+   * The range is contained by a single line, put it into the line-cache
    */
   const int lineOffset = startLine - m_startLine;
-  
+
   /**
    * enlarge cache if needed
    */
   if (m_cachedRangesForLine.size() <= lineOffset)
     m_cachedRangesForLine.resize(lineOffset+1);
-    
+
   /**
    * insert into mapping
    */
@@ -629,10 +650,9 @@ void TextBlock::removeRange (TextRange* range)
      * must be only uncached!
      */
     Q_ASSERT (!m_cachedLineForRanges.contains(range));
-
     return;
   }
-  
+
   /**
    * cached range?
    */
@@ -642,12 +662,12 @@ void TextBlock::removeRange (TextRange* range)
      * must be only cached!
      */
     Q_ASSERT (!m_uncachedRanges.contains(range));
-    
+
     /**
      * query the range from cache, must be there
      */
     Q_ASSERT (m_cachedRangesForLine.at(*it).contains(range));
-    
+
     /**
      * remove it and be done
      */
@@ -655,9 +675,9 @@ void TextBlock::removeRange (TextRange* range)
     m_cachedLineForRanges.erase(it);
     return;
   }
-  
+
   /**
-   * else: perhaps later see if we can assert, that this is not allowed?
+   * else: range was not for this block, just do nothing, removeRange should be "safe" to use
    */
 }
 

@@ -1,6 +1,6 @@
 /*   Kate search plugin
  *
- * Copyright (C) 2011 by Kåre Särs <kare.sars@iki.fi>
+ * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 #include <kaction.h>
 
 #include <QTreeWidget>
+#include <QTimer>
 
 #include "ui_search.h"
 #include "ui_results.h"
@@ -48,11 +49,23 @@ public:
     Results(QWidget *parent = 0);
     int     matches;
     QRegExp regExp;
-
-public Q_SLOTS:
-    void selectAll(bool checked);
-    void checkCheckedState();
+    QString replace;
 };
+
+// This class keeps the focus inside the S&R plugin when pressing tab/shift+tab by overriding focusNextPrevChild()
+class ContainerWidget:public QWidget
+{
+    Q_OBJECT
+public:
+    ContainerWidget(QWidget *parent): QWidget(parent) {}
+
+Q_SIGNALS:
+    void nextFocus(QWidget *currentWidget, bool *found, bool next);
+
+protected:
+    virtual bool focusNextPrevChild (bool next);
+};
+
 
 class KatePluginSearch : public Kate::Plugin
 {
@@ -93,6 +106,8 @@ public Q_SLOTS:
 private Q_SLOTS:
     void openSearchView();
     void handleEsc(QEvent *e);
+    void nextFocus(QWidget *currentWidget, bool *found, bool next);
+
     void addTab();
     void closeTab(QWidget *widget);
     void toggleOptions(bool show);
@@ -118,9 +133,13 @@ private Q_SLOTS:
     void clearMarks();
     void clearDocMarks(KTextEditor::Document* doc);
 
+    void replaceSingleMatch();
     void replaceChecked();
 
     void replaceDone();
+
+    void docViewChanged();
+
 
     void resultTabChanged(int index);
 
@@ -153,6 +172,7 @@ private:
     bool                               m_switchToProjectModeWhenAvailable;
     QString                            m_resultBaseDir;
     QList<KTextEditor::MovingRange*>   m_matchRanges;
+    QTimer                             m_changeTimer;
 
     /**
      * current project plugin view, if any

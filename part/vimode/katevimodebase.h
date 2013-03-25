@@ -91,6 +91,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 
   protected:
     // helper methods
+    void yankToClipBoard(QChar chosen_register, QString text);
     bool deleteRange( KateViRange &r, OperationMode mode = LineWise, bool addToRegister = true );
     const QString getRange( KateViRange &r, OperationMode mode = LineWise ) const;
     const QString getLine( int lineNumber = -1 ) const;

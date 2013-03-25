@@ -358,6 +358,9 @@ def configPage(name, fullName, icon):
 
 # API functions and objects
 
+class NoActiveView(Exception):
+    pass
+
 application = Kate.application()
 """Global accessor to the application object. Equivalent to Kate::application().
 
@@ -394,8 +397,12 @@ def activeView():
     return application.activeMainWindow().activeView()
 
 def activeDocument():
-    ''' The document for the currently active view '''
-    return activeView().document()
+    ''' The document for the currently active view.
+    Throws NoActiveView if no active view available.'''
+    view = activeView()
+    if view:
+        return view.document()
+    raise NoActiveView
 
 def centralWidget():
     ''' The central widget that holds the tab bar and the editor.
@@ -493,3 +500,5 @@ pate._sessionCreated = pateSessionInit
 del pateSessionInit
 
 kate.gui.loadIcon = lambda s: kdeui.KIcon(s).pixmap(32, 32)
+
+# kate: space-indent on; indent-width 4;

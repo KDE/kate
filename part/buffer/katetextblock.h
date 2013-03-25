@@ -96,16 +96,17 @@ class KATEPART_TESTS_EXPORT TextBlock {
     /**
      * Wrap line at given cursor position.
      * @param position line/column as cursor where to wrap
-     * @param nextBlock next block, if any
+     * @param fixStartLinesStartIndex start index to fix start lines, normally this is this block
      */
-    void wrapLine (const KTextEditor::Cursor &position);
+    void wrapLine (const KTextEditor::Cursor &position, int fixStartLinesStartIndex);
 
     /**
      * Unwrap given line.
      * @param line line to unwrap
      * @param previousBlock previous block, if any, if we unwrap first line in block, we need to have this
+     * @param fixStartLinesStartIndex start index to fix start lines, normally this is this block or the previous one
      */
-    void unwrapLine (int line, TextBlock *previousBlock);
+    void unwrapLine (int line, TextBlock *previousBlock, int fixStartLinesStartIndex);
 
     /**
      * Insert text at given cursor position.
@@ -154,7 +155,7 @@ class KATEPART_TESTS_EXPORT TextBlock {
      * @param targetBlock empty target block for cursors
      */
     void clearBlockContent (TextBlock *targetBlock);
-    
+
     /**
      * Return all ranges in this block which might intersect the given line.
      * @param line line to check intersection
@@ -185,13 +186,13 @@ class KATEPART_TESTS_EXPORT TextBlock {
      * @param range range to update
      */
     void updateRange(TextRange* range);
-    
+
     /**
      * Remove a range from this block.
      * @param range range to remove
      */
     void removeRange (TextRange* range);
-    
+
     /**
      * Return all ranges in this block which might intersect the given line and only span one line.
      * For them an internal fast lookup cache is hold.
@@ -232,12 +233,12 @@ class KATEPART_TESTS_EXPORT TextBlock {
      * These ranges are fully contained by the line.
      */
     QVector<QSet<TextRange *> > m_cachedRangesForLine;
-    
+
     /**
      * Maps for each cached range the line into which the range was cached.
      */
     QHash<TextRange *, int> m_cachedLineForRanges;
-    
+
     /**
      * This contains all the ranges that are not cached.
      */

@@ -677,8 +677,8 @@ def show():
         idDatabase = Lookup()
         searchBar = SearchBar(kate.mainWindow(), idDatabase)
     global completionModel
-    #if completionModel is None:
-    #    completionModel = CompletionModel(kate.mainWindow(), idDatabase)
+    if completionModel is None:
+        completionModel = CompletionModel(kate.mainWindow(), idDatabase)
     viewChanged()
     return searchBar.show()
 

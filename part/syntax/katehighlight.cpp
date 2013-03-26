@@ -263,7 +263,7 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
   textLine->clearAttributes ();
   
   // reset folding start
-  textLine->markAsFoldingStart (false);
+  textLine->clearMarkedAsFoldingStart ();
 
   // no hl set, nothing to do more than the above cleaning ;)
   if (noHl)
@@ -504,7 +504,8 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
       /**
        * possible folding start, if imbalanced, aka hash not empty!
        */
-      textLine->markAsFoldingStart (!foldingStartToCount->isEmpty());
+      if (!foldingStartToCount->isEmpty())
+        textLine->markAsFoldingStartAttribute ();
       
       /**
        * kill hash
@@ -531,7 +532,7 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
   textLine->setHlLineContinue (item && item->lineContinue());
 
   // check for indentation based folding
-  if (m_foldingIndentationSensitive && (tabWidth > 0)) {
+  if (m_foldingIndentationSensitive && (tabWidth > 0) && !textLine->markedAsFoldingStartAttribute ()) {
     bool skipIndentationBasedFolding = false;
     for(int i = ctx.size() - 1; i >= 0; --i) {
       if (contextNum(ctx[i])->noIndentationBasedFolding) {
@@ -543,8 +544,9 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
     /**
      * compute if we increase indentation in next line
      */
-    if (!skipIndentationBasedFolding && !isEmptyLine (textLine) && !isEmptyLine (nextLine)) 
-       textLine->markAsFoldingStart (textLine->indentDepth (tabWidth) < nextLine->indentDepth (tabWidth));
+    if (!skipIndentationBasedFolding && !isEmptyLine (textLine) && !isEmptyLine (nextLine)
+        && (textLine->indentDepth (tabWidth) < nextLine->indentDepth (tabWidth))) 
+       textLine->markAsFoldingStartIndentation ();
   }
   
   // invalidate caches

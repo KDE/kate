@@ -90,9 +90,10 @@ class KATEPART_TESTS_EXPORT TextLineData {
     {
       flagHlContinue = 1,
       flagAutoWrapped = 2,
-      flagFoldingStart = 4,
-      flagLineModified = 8,
-      flagLineSavedOnDisk = 16
+      flagFoldingStartAttribute = 4,
+      flagFoldingStartIndentation = 8,
+      flagLineModified = 16,
+      flagLineSavedOnDisk = 32
     };
 
     /**
@@ -203,25 +204,56 @@ class KATEPART_TESTS_EXPORT TextLineData {
     }
 
     /**
-     * Mark as folding start line.
-     * @param foldingStart folding start line or nor?
-     */
-    void markAsFoldingStart(bool foldingStart)
-    {
-      if (foldingStart) {
-        m_flags |= flagFoldingStart;
-      } else {
-        m_flags &= (~flagFoldingStart);
-      }
-    }
-
-    /**
      * Is on this line a folding start?
-     * @return folding start line or nor?
+     * @return folding start line or not?
      */
     bool markedAsFoldingStart() const
     {
-      return m_flags & flagFoldingStart;
+      return m_flags & (flagFoldingStartAttribute | flagFoldingStartIndentation);
+    }
+
+    /**
+     * Clear folding start status.
+     */
+    void clearMarkedAsFoldingStart ()
+    {
+      m_flags &= ~(flagFoldingStartAttribute | flagFoldingStartIndentation);
+    }
+
+    /**
+     * Is on this line a folding start per attribute?
+     * @return folding start line per attribute? or not?
+     */
+    bool markedAsFoldingStartAttribute() const
+    {
+      return m_flags & flagFoldingStartAttribute;
+    }
+
+    /**
+     * Is on this line a folding start per indentation?
+     * @return folding start line per indentation? or not?
+     */
+    bool markedAsFoldingStartIndentation() const
+    {
+      return m_flags & flagFoldingStartIndentation;
+    }
+
+    /**
+     * Mark as folding start line of an attribute based folding.
+     */
+    void markAsFoldingStartAttribute ()
+    {
+      clearMarkedAsFoldingStart ();
+      m_flags |= flagFoldingStartAttribute;
+    }
+
+    /**
+     * Mark as folding start line of an indentation based folding.
+     */
+    void markAsFoldingStartIndentation ()
+    {
+      clearMarkedAsFoldingStart ();
+      m_flags |= flagFoldingStartIndentation;
     }
 
     /**

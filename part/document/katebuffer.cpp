@@ -509,23 +509,16 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
   Kate::TextLine startTextLine = plainLine (startLine);
   
   /**
-   * now: decided if indentation based folding or not!
-   * FIXME: do this for line context, not globally!
+   * return if no folding start!
    */
-  if (m_highlight->foldingIndentationSensitive()) {
-    
-#if 0
-  if (m_foldingIndentationSensitive) {
-    bool noindent=false;
-    for(int i=ctx.size()-1; i>=0; --i) {
-      if (contextNum(ctx[i])->noIndentationBasedFolding) {
-        noindent=true;
-        break;
-      }
-    }
-    textLine->setNoIndentBasedFolding(noindent);
-  }
-#endif
+  if (!startTextLine->markedAsFoldingStart ())
+    return KTextEditor::Range::invalid(); 
+  
+  /**
+   * now: decided if indentation based folding or not!
+   */
+  if (startTextLine->markedAsFoldingStartIndentation ()) {
+   
     
     /**
      * be done now
@@ -534,7 +527,7 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
   }
   
   /**
-   * 'normal' folding, aka token based like '{' BLUB '}'
+   * 'normal' attribute based folding, aka token based like '{' BLUB '}'
    */
   
   /**

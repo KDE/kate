@@ -250,8 +250,9 @@ void KateHighlighting::dropDynamicContexts()
   startctx = base_startctx;
 }
 
-void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
+void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
                                      Kate::TextLineData *textLine,
+                                     const Kate::TextLineData *nextLine,
                                      bool &ctxChanged )
 {
   if (!textLine)

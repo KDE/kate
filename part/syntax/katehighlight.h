@@ -137,10 +137,12 @@ class KateHighlighting
      *
      * @param prevLine The previous line, the context array is picked up from that if present.
      * @param textLine The text line to parse
+     * @param nextLine The next line, to check if indentation changed for indentation based folding.
      * @param ctxChanged will be set to reflect if the context changed
      */
-    void doHighlight ( Kate::TextLineData *prevLine,
+    void doHighlight ( const Kate::TextLineData *prevLine,
                        Kate::TextLineData *textLine,
+                       const Kate::TextLineData *nextLine,
                        bool &ctxChanged );
 
     void setKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &,

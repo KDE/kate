@@ -407,7 +407,6 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
   // get previous line, if any
   Kate::TextLine prevLine;
-
   if (startLine >= 1)
     prevLine = plainLine (startLine-1);
   else
@@ -418,15 +417,20 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   int start_spellchecking = -1;
   int last_line_spellchecking = -1;
   bool ctxChanged = false;
+  Kate::TextLine textLine = plainLine (current_line);
+  Kate::TextLine nextLine;
   // loop over the lines of the block, from startline to endline or end of block
   // if stillcontinue forces us to do so
   for (; current_line < qMin (endLine+1, lines()); ++current_line)
   {
-    // current line
-    Kate::TextLine textLine = plainLine (current_line);
-
+    // get next line, if any    
+    if ((current_line + 1) < lines())
+      nextLine = plainLine (current_line+1);
+    else
+      nextLine = Kate::TextLine (new Kate::TextLineData ());
+    
     ctxChanged = false;
-    m_highlight->doHighlight (prevLine.data(), textLine.data(), ctxChanged);
+    m_highlight->doHighlight (prevLine.data(), textLine.data(), nextLine.data(), ctxChanged);
 
 #ifdef BUFFER_DEBUGGING
     // debug stuff
@@ -452,6 +456,7 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
     // move around the lines
     prevLine = textLine;
+    textLine = nextLine;
   }
 
   /**

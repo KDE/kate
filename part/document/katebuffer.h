@@ -198,8 +198,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      */
     void invalidateHighlighting();
 
-    const KateDocument* getDocument () { return m_doc; }
-
   private:
     /**
      * Highlight information needs to be updated.

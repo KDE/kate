@@ -25,7 +25,11 @@ import kate
 from PyKDE4.ktexteditor import KTextEditor
 
 from libkatepate.autocomplete import AbstractCodeCompletionModel, reset
-from libkatepate.session import get_session
+from libkatepate.project_utils import (get_project_plugin,
+                                       is_version_compatible,
+                                       add_extra_path,
+                                       add_environs)
+
 from python_settings import PYTHON_AUTOCOMPLETE_ENABLED
 from pyplete import PyPlete
 from python_autocomplete.parse import (import_complete,
@@ -46,31 +50,10 @@ class PythonCodeCompletionModel(AbstractCodeCompletionModel):
     OPERATORS = ["=", " ", "[", "]", "(", ")", "{", "}", ":", ">", "<",
                  "+", "-", "*", "/", "%", " and ", " or ", ","]
 
-    def __init__(self, session=None, *args, **kwargs):
-        super(PythonCodeCompletionModel, self).__init__(*args, **kwargs)
-        self.session = session
-
-    @classmethod
-    def getPythonPath(cls, recalculeSession=False):
-        global python_path
-        if python_path and not recalculeSession:
-            return python_path
-        python_path = sys.path
-        try:
-            from pyte_plugins.autocomplete import autocomplete_path
-            doc = kate.activeDocument()
-            view = doc.activeView()
-            python_path = autocomplete_path.path(recalculeSession, doc, view) + python_path
-        except ImportError:
-            pass
-        return python_path
-
     def completionInvoked(self, view, word, invocationType):
         line = super(PythonCodeCompletionModel, self).completionInvoked(view,
-                                                       word, invocationType)
-        session = get_session()
-        if self.session != session:
-            self.setSession(session)
+                                                                        word,
+                                                                        invocationType)
         if line is None:
             return
         is_auto = False
@@ -159,14 +142,6 @@ class PythonCodeCompletionModel(AbstractCodeCompletionModel):
             message = '%s\n  * line: %s' % (message, line)
         kate.gui.popup(message, 2, icon='dialog-warning', minTextWidth=200)
 
-    def setSession(self, session):
-        global pyplete
-        if pyplete and session == self.session:
-            return
-        self.session = session
-        pyplete = PyPlete(PythonCodeCompletionModel.createItemAutoComplete,
-                          PythonCodeCompletionModel.getPythonPath(recalculeSession=self.session))
-
     def _parseText(self, view, word, line):
         doc = view.document()
         text = unicode(doc.text())
@@ -183,6 +158,26 @@ class PythonCodeCompletionModel(AbstractCodeCompletionModel):
         return text
 
 
+def projectFileNameChanged(*args, **kwargs):
+    projectPlugin = get_project_plugin()
+    projectMap = projectPlugin.property("projectMap")
+    if "python" in projectMap:
+        projectMapPython = projectMap["python"]
+        version = projectMapPython.get("version", None)
+        # Check Python version
+        if not is_version_compatible(version):
+            return
+        extraPath = projectMapPython.get("extraPath", [])
+        environs = projectMapPython.get("environs", {})
+        # Add Extra path
+        add_extra_path(extraPath)
+        # Add environs
+        add_environs(environs)
+        global pyplete
+        pyplete = PyPlete(PythonCodeCompletionModel.createItemAutoComplete,
+                          sys.path)
+
+
 @kate.init
 @kate.viewCreated
 def createSignalAutocompleteDocument(view=None, *args, **kwargs):
@@ -196,9 +191,12 @@ def createSignalAutocompleteDocument(view=None, *args, **kwargs):
     if not PYTHON_AUTOCOMPLETE_ENABLED:
         return
     view = view or kate.activeView()
+    projectPlugin = get_project_plugin()
+    if projectPlugin:
+        projectPlugin.projectFileNameChanged.connect(projectFileNameChanged)
     global pyplete
-    session = get_session()
-    codecompletationmodel.setSession(session)
+    pyplete = PyPlete(PythonCodeCompletionModel.createItemAutoComplete,
+                      sys.path)
     cci = view.codeCompletionInterface()
     cci.registerCompletionModel(codecompletationmodel)
 

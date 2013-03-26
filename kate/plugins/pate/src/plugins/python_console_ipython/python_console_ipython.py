@@ -51,8 +51,6 @@ if NEED_PACKAGES:
 
 import atexit
 
-from copy import copy
-
 from IPython.zmq.ipkernel import IPKernelApp
 from IPython.lib.kernel import find_connection_file
 from IPython.frontend.qt.kernelmanager import QtKernelManager
@@ -60,6 +58,11 @@ from IPython.frontend.qt.console.rich_ipython_widget import RichIPythonWidget
 
 from PyQt4 import uic
 from PyQt4.QtGui import QWidget
+
+from libkatepate.project_utils import (get_project_plugin,
+                                       is_version_compatible,
+                                       add_extra_path,
+                                       add_environs)
 
 _SCROLLBACK_LINES_COUNT_CFG = 'ipythonConsole:scrollbackLinesCount'
 _GUI_COMPLETION_TYPE_CFG = 'ipythonConsole:guiCompletionType'
@@ -90,12 +93,6 @@ def default_manager(kernel_app):
     manager.start_channels()
     atexit.register(manager.cleanup_connection_file)
     return manager
-
-
-def getProjectPlugin():
-    mainWindow = kate.mainInterfaceWindow()
-    projectPluginView = mainWindow.pluginView("kateprojectplugin")
-    return projectPluginView
 
 
 def django_project_filename_changed(kernel_app):
@@ -138,25 +135,8 @@ def django_project_filename_changed(kernel_app):
     return imported_objects
 
 
-def can_load_project(version):
-    if not version:
-        return True
-    version_info = version.split(".")
-    if len(version_info) == 0:
-        return False
-    elif len(version_info) == 1:
-        return int(version_info[0]) == sys.version_info.major
-    elif len(version_info) == 2:
-        return int(version_info[0]) == sys.version_info.major and \
-            int(version_info[1]) == sys.version_info.minor
-    else:
-        return int(version_info[0]) == sys.version_info.major and \
-            int(version_info[1]) == sys.version_info.minor and \
-            int(version_info[2]) == sys.version_info.micro
-
-
 def projectFileNameChanged(*args, **kwargs):
-    projectPlugin = getProjectPlugin()
+    projectPlugin = get_project_plugin()
     projectMap = projectPlugin.property("projectMap")
     if "python" in projectMap:
         projectName = projectPlugin.property("projectName")
@@ -164,7 +144,7 @@ def projectFileNameChanged(*args, **kwargs):
         version = projectMapPython.get("version", None)
         kernel_app = default_kernel_app()
         # Check Python version
-        if not can_load_project(version):
+        if not is_version_compatible(version):
             msg = 'print("Can not load this project: %s. Python Version incompatible")' % projectName
             kernel_app.shell.run_cell(msg)
             sys.stdout.flush()
@@ -174,20 +154,9 @@ def projectFileNameChanged(*args, **kwargs):
         extraPath = projectMapPython.get("extraPath", [])
         environs = projectMapPython.get("environs", {})
         # Add Extra path
-        if not getattr(sys, "original_path", None):
-            sys.original_path = copy(sys.path)
-            sys.original_modules = sys.modules.keys()
-        else:
-            for module in sys.modules.keys():
-                if not module in sys.original_modules:
-                    del sys.modules[module]
-        sys.path = extraPath + sys.original_path
-        sys.path_importer_cache = {}
+        add_extra_path(extraPath)
         # Add environs
-        for key, value in environs.items():
-            if key in os.environ:
-                os.environ.pop(key)
-            os.environ.setdefault(key, value)
+        add_environs(environs)
         # Special treatment
         if projectMapPython.get("projectType", "").lower() == "django":
             kernel_app = default_kernel_app()
@@ -217,7 +186,7 @@ def terminal_widget(parent=None, **kwargs):
     kernel_app.shell.run_cell(
         'print("\\nAvailable variables are everything from pylab, “{}”, and this console as “console”")'
         .format('”, “'.join(kwargs.keys())))
-    projectPlugin = getProjectPlugin()
+    projectPlugin = get_project_plugin()
     if projectPlugin:
         projectPlugin.projectFileNameChanged.connect(projectFileNameChanged)
         projectFileNameChanged()

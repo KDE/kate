@@ -46,13 +46,13 @@ def togglePrettyJsonFormat():
         showError('Select a xml text')
     else:
         try:
-            encoding = None
+            encoding = 'utf-8'
             m = encoding_pattern.match(source)
             if m:
                 encoding = m.groups()[0]
             target = minidom.parseString(source)
             view.removeSelectionText()
-            xml_pretty = target.toprettyxml(encoding=encoding)
+            xml_pretty = target.toprettyxml(encoding=encoding).decode(encoding)
             xml_pretty = '\n'.join([line for line in xml_pretty.split("\n") if line.replace(' ', '').replace('\t', '')])
             text.insertText(xml_pretty)
         except (ExpatError, LookupError) as e:

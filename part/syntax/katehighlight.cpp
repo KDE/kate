@@ -2144,10 +2144,13 @@ QStringList KateHighlighting::getEmbeddedHighlightingModes() const
 
 bool KateHighlighting::isEmptyLine(const Kate::TextLineData *textline) const
 {
+  const QString &txt=textline->string();
+  if (txt.isEmpty())
+    return true;
+  
   QLinkedList<QRegExp> l;
   l=emptyLines(textline->attribute(0));
   if (l.isEmpty()) return false;
-  QString txt=textline->string();
   foreach(const QRegExp &re,l) {
     if (re.exactMatch(txt)) return true;
   }

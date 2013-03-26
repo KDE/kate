@@ -518,12 +518,54 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
    * now: decided if indentation based folding or not!
    */
   if (startTextLine->markedAsFoldingStartIndentation ()) {
-   
+    /**
+     * get our start indentation level
+     */
+    const int startIndentation = startTextLine->indentDepth (tabWidth());
+    
+    /**
+     * search next line with indentation level <= our one
+     */
+    int lastLine = startLine + 1;
+    for (; lastLine < lines(); ++lastLine) {
+      /**
+       * get line
+       */
+      Kate::TextLine textLine = plainLine (lastLine);
+  
+      /**
+       * indentation higher than our start line? continue
+       */
+      if (startIndentation < textLine->indentDepth (tabWidth()))
+        continue;
+      
+      /**
+       * empty line? continue
+       */
+      if (m_highlight->isEmptyLine (textLine.data()))
+        continue;
+      
+      /**
+       * else, break
+       */
+      break;
+    }
+    
+    /**
+     * lastLine is always one too much
+     */
+    --lastLine;
+    
+    /**
+     * we shall not fold one-liners
+     */
+    if (lastLine == startLine)
+      return KTextEditor::Range::invalid(); 
     
     /**
      * be done now
      */
-    return KTextEditor::Range::invalid();
+    return KTextEditor::Range (KTextEditor::Cursor (startLine, 0), KTextEditor::Cursor (lastLine, plainLine (lastLine)->length()));
   }
   
   /**

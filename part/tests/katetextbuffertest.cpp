@@ -374,3 +374,28 @@ void KateTextBufferTest::foldingTest()
     // 50 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 50));
 }
+
+void KateTextBufferTest::nestedFoldingTest()
+{
+    // construct an empty text buffer & folding info
+    Kate::TextBuffer buffer (0, 1);
+    Kate::TextFolding folding (buffer);
+
+    // insert two nested folds in 5 lines
+    buffer.startEditing ();
+    for (int i = 0; i < 4; ++i)
+      buffer.wrapLine(KTextEditor::Cursor(0, 0));
+    buffer.finishEditing ();
+
+    QVERIFY (buffer.lines() == 5);
+
+    // folding for line 1
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (0,0), KTextEditor::Cursor (3,0)), Kate::TextFolding::Folded) == 0);
+    QVERIFY (folding.newFoldingRange (KTextEditor::Range (KTextEditor::Cursor (1,0), KTextEditor::Cursor (2,0)), Kate::TextFolding::Folded) == 1);
+
+    QVERIFY(folding.foldRange (1));
+    QVERIFY(folding.foldRange (0));
+
+    QVERIFY(folding.unfoldRange (0));
+    QVERIFY(folding.unfoldRange (1));
+}

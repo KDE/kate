@@ -133,9 +133,7 @@ void KateScrollBar::setShowMiniMap(bool b)
     connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()), Qt::UniqueConnection);
-    
-    // FIXME: FOLDING
-    //connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+    connect(&(m_view->textFolding()), SIGNAL(foldingRangesChanged()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
   }
   else if (!b) {
     disconnect(&m_updateTimer);

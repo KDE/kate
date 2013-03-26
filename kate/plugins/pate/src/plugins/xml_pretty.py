@@ -37,7 +37,7 @@ encoding_pattern = re.compile("<\?xml[\w =\"\.]*encoding=[\"']([\w-]+)[\"'][\w =
 
 
 @kate.action(**KATE_ACTIONS['togglePrettyXMLFormat'])
-def togglePrettyJsonFormat():
+def togglePrettyXMLFormat():
     """Pretty format of a XML code"""
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()

@@ -3419,8 +3419,11 @@ KTextEditor::Cursor KateViewInternal::toRealCursor( const KTextEditor::Cursor & 
 
 KTextEditor::Cursor KateViewInternal::toVirtualCursor( const KTextEditor::Cursor & realCursor ) const
 {
-  // only convert valid cursors!
-  if (!realCursor.isValid())
+  /**
+   * only convert valid lines, folding doesn't like invalid input!
+   * don't validate whole cursor, column might be -1
+   */
+  if (realCursor.line() < 0)
     return KTextEditor::Cursor::invalid ();
   
   return KTextEditor::Cursor(m_view->textFolding().lineToVisibleLine(realCursor.line()), realCursor.column());

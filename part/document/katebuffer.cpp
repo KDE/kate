@@ -509,9 +509,21 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
    */
   if (m_highlight->foldingIndentationSensitive()) {
     
+#if 0
+  if (m_foldingIndentationSensitive) {
+    bool noindent=false;
+    for(int i=ctx.size()-1; i>=0; --i) {
+      if (contextNum(ctx[i])->noIndentationBasedFolding) {
+        noindent=true;
+        break;
+      }
+    }
+    textLine->setNoIndentBasedFolding(noindent);
+  }
+#endif
+
     
 #if 0
-//FIXME FOLDING
 bool KateBuffer::isEmptyLine(Kate::TextLine textline)
 {
   QLinkedList<QRegExp> l;
@@ -524,7 +536,6 @@ bool KateBuffer::isEmptyLine(Kate::TextLine textline)
   return false;
 }
 #endif
-
     
     /**
      * be done now

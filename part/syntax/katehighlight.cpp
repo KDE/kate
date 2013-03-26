@@ -528,20 +528,6 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
   // write hl continue flag
   textLine->setHlLineContinue (item && item->lineContinue());
 
-#if 0
-  //FIXME FOLDING
-  if (m_foldingIndentationSensitive) {
-    bool noindent=false;
-    for(int i=ctx.size()-1; i>=0; --i) {
-      if (contextNum(ctx[i])->noIndentationBasedFolding) {
-        noindent=true;
-        break;
-      }
-    }
-    textLine->setNoIndentBasedFolding(noindent);
-  }
-#endif
-
   // invalidate caches
   for ( int i = 0; i < cachingItems.size(); ++i) {
     cachingItems[i]->cachingHandled = false;

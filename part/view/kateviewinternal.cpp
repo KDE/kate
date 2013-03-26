@@ -174,16 +174,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   m_leftBorder = new KateIconBorder( this, m_view );
   m_leftBorder->show ();
 
-  //FIXME: FOLDING
-#if 0
-  connect( m_leftBorder, SIGNAL(toggleRegionVisibility(int)),
-           doc()->foldingTree(), SLOT(toggleRegionVisibility(int)));
-
- 
-  connect( doc(), SIGNAL(codeFoldingUpdated()),
-           this, SLOT(slotCodeFoldingChanged()) );
-#endif 
-
   // update view if folding ranges change
   connect( &m_view->textFolding(), SIGNAL(foldingRangesChanged()), SLOT(slotRegionVisibilityChanged()));
 
@@ -690,11 +680,6 @@ void KateViewInternal::slotRegionVisibilityChanged()
   update();
   m_leftBorder->update();
   emit m_view->displayRangeChanged(m_view);
-}
-
-void KateViewInternal::slotCodeFoldingChanged()
-{
-  m_leftBorder->update();
 }
 
 void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)

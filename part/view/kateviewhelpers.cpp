@@ -2118,11 +2118,14 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
           if (startingRanges[i].second & Kate::TextFolding::Folded)
             anyFolded = true;
         
-        // fold or unfold all ranges!
+        // fold or unfold all ranges, remember if any action happened!
+        bool actionDone = false;
         for (int i = 0; i < startingRanges.size(); ++i)
-          anyFolded ? m_view->textFolding().unfoldRange (startingRanges[i].first) : m_view->textFolding().foldRange (startingRanges[i].first);
+          actionDone = (anyFolded ? m_view->textFolding().unfoldRange (startingRanges[i].first) : m_view->textFolding().foldRange (startingRanges[i].first)) || actionDone;
         
-        m_view->doc()->buffer().computeFoldingRangeForStartLine (cursorOnLine);
+        // if no action done, try to fold it, create non-persistent folded range, if possible!
+        if (!actionDone)
+          m_view->textFolding().newFoldingRange (m_view->doc()->buffer().computeFoldingRangeForStartLine (cursorOnLine), Kate::TextFolding::Folded);
     }
 
     if ( area == AnnotationBorder ) {

@@ -624,30 +624,29 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
         nbSpaceIndex = text.indexOf(nbSpaceChar, nbSpaceIndex + 1);
       }
 
-      // Draw tab stops and trailing spaces
-      if (showTabs() || showTrailingSpaces()) {
-        if (showTabs()) {
-          int tabIndex = text.indexOf(tabChar, line.lineLayout().xToCursor(xStart));
-          while (tabIndex != -1 && tabIndex < line.endCol()) {
-            int x = line.lineLayout().cursorToX(tabIndex);
-            if (x > xEnd)
-              break;
-            paintTabstop(paint, x - xStart + spaceWidth()/2.0, y);
-            tabIndex = text.indexOf(tabChar, tabIndex + 1);
-          }
+      // draw tab stop indicators
+      if (showTabs()) {
+        int tabIndex = text.indexOf(tabChar, line.lineLayout().xToCursor(xStart));
+        while (tabIndex != -1 && tabIndex < line.endCol()) {
+          int x = line.lineLayout().cursorToX(tabIndex);
+          if (x > xEnd)
+            break;
+          paintTabstop(paint, x - xStart + spaceWidth()/2.0, y);
+          tabIndex = text.indexOf(tabChar, tabIndex + 1);
         }
+      }
 
-        if (showTrailingSpaces()) {
-          int spaceIndex = line.endCol() - 1;
-          int trailingPos = range->textLine()->lastChar();
-          if (trailingPos < 0)
-            trailingPos = 0;
-          if (spaceIndex >= trailingPos) {
-            while (spaceIndex >= line.startCol() && text.at(spaceIndex).isSpace()) {
-              if (text.at(spaceIndex) != '\t' || !showTabs())
-                paintTrailingSpace(paint, line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2.0, y);
-              --spaceIndex;
-            }
+      // draw trailing spaces
+      if (showTrailingSpaces()) {
+        int spaceIndex = line.endCol() - 1;
+        int trailingPos = range->textLine()->lastChar();
+        if (trailingPos < 0)
+          trailingPos = 0;
+        if (spaceIndex >= trailingPos) {
+          while (spaceIndex >= line.startCol() && text.at(spaceIndex).isSpace()) {
+            if (text.at(spaceIndex) != '\t' || !showTabs())
+              paintTrailingSpace(paint, line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2.0, y);
+            --spaceIndex;
           }
         }
       }

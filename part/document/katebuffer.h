@@ -218,7 +218,7 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     void tagLines(int start, int end);
     void respellCheckBlock(int start, int end);
   
-private:
+  private:
     /**
      * document we belong to
      */
@@ -234,10 +234,6 @@ private:
      */
     bool m_tooLongLinesWrapped;
 
-  /**
-   * highlighting & folding relevant stuff
-   */
-  private:
     /**
      * current highlighting mode or 0
      */

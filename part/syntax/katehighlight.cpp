@@ -253,7 +253,8 @@ void KateHighlighting::dropDynamicContexts()
 void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
                                      Kate::TextLineData *textLine,
                                      const Kate::TextLineData *nextLine,
-                                     bool &ctxChanged )
+                                     bool &ctxChanged,
+                                     int tabWidth )
 {
   if (!textLine)
     return;
@@ -529,6 +530,23 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
   // write hl continue flag
   textLine->setHlLineContinue (item && item->lineContinue());
 
+  // check for indentation based folding
+  if (m_foldingIndentationSensitive && (tabWidth > 0)) {
+    bool skipIndentationBasedFolding = false;
+    for(int i = ctx.size() - 1; i >= 0; --i) {
+      if (contextNum(ctx[i])->noIndentationBasedFolding) {
+        skipIndentationBasedFolding = true;
+        break;
+      }
+    }
+    
+    /**
+     * compute if we increase indentation in next line
+     */
+    if (!skipIndentationBasedFolding && !isEmptyLine (textLine) && !isEmptyLine (nextLine)) 
+       textLine->markAsFoldingStart (textLine->indentDepth (tabWidth) < nextLine->indentDepth (tabWidth));
+  }
+  
   // invalidate caches
   for ( int i = 0; i < cachingItems.size(); ++i) {
     cachingItems[i]->cachingHandled = false;
@@ -2118,6 +2136,18 @@ QList<KTextEditor::Attribute::Ptr> KateHighlighting::attributes (const QString &
 QStringList KateHighlighting::getEmbeddedHighlightingModes() const
 {
   return embeddedHighlightingModes;
+}
+
+bool KateHighlighting::isEmptyLine(const Kate::TextLineData *textline) const
+{
+  QLinkedList<QRegExp> l;
+  l=emptyLines(textline->attribute(0));
+  if (l.isEmpty()) return false;
+  QString txt=textline->string();
+  foreach(const QRegExp &re,l) {
+    if (re.exactMatch(txt)) return true;
+  }
+  return false;
 }
 
 //END

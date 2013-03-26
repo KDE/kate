@@ -430,7 +430,7 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
       nextLine = Kate::TextLine (new Kate::TextLineData ());
     
     ctxChanged = false;
-    m_highlight->doHighlight (prevLine.data(), textLine.data(), nextLine.data(), ctxChanged);
+    m_highlight->doHighlight (prevLine.data(), textLine.data(), nextLine.data(), ctxChanged, tabWidth());
 
 #ifdef BUFFER_DEBUGGING
     // debug stuff
@@ -525,21 +525,6 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
     }
     textLine->setNoIndentBasedFolding(noindent);
   }
-#endif
-
-    
-#if 0
-bool KateBuffer::isEmptyLine(Kate::TextLine textline)
-{
-  QLinkedList<QRegExp> l;
-  l=m_highlight->emptyLines(textline->attribute(0));
-  if (l.isEmpty()) return false;
-  QString txt=textline->string();
-  foreach(const QRegExp &re,l) {
-    if (re.exactMatch(txt)) return true;
-  }
-  return false;
-}
 #endif
     
     /**

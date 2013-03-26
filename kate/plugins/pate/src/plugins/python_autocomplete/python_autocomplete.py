@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+'''Autocomplete Python (beta)'''
+
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify
@@ -17,10 +19,14 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/autocomplete/autocomplete.py>
 
+from libkatepate.errors import needs_python_version, needs_packages
 
-import sys
+needs_python_version(major=2, text="The python autocomplete plugin only is available to Python 2")
+needs_packages({"pysmell": "0.7.3",
+                "pyplete": "0.0.3"})
 
 import kate
+import sys
 
 from PyKDE4.ktexteditor import KTextEditor
 
@@ -30,9 +36,8 @@ from libkatepate.project_utils import (get_project_plugin,
                                        add_extra_path,
                                        add_environs)
 
-from python_settings import PYTHON_AUTOCOMPLETE_ENABLED
 from pyplete import PyPlete
-from python_autocomplete.parse import (import_complete,
+from python_autocomplete_parse import (import_complete,
                                        from_first_imporable,
                                        from_other_imporables,
                                        from_complete)
@@ -188,8 +193,6 @@ def createSignalAutocompleteDocument(view=None, *args, **kwargs):
     # http://code.google.com/p/lilykde/source/browse/trunk/frescobaldi/python/frescobaldi_app/mainapp.py#1391
     # http://api.kde.org/4.0-api/kdelibs-apidocs/kate/html/katecompletionmodel_8cpp_source.html
     # https://svn.reviewboard.kde.org/r/1640/diff/?expand=1
-    if not PYTHON_AUTOCOMPLETE_ENABLED:
-        return
     view = view or kate.activeView()
     projectPlugin = get_project_plugin()
     if projectPlugin:
@@ -201,7 +204,5 @@ def createSignalAutocompleteDocument(view=None, *args, **kwargs):
     cci.registerCompletionModel(codecompletationmodel)
 
 
-if PYTHON_AUTOCOMPLETE_ENABLED:
-    session = None
-    codecompletationmodel = PythonCodeCompletionModel(session, kate.application)
-    codecompletationmodel.modelReset.connect(reset)
+codecompletationmodel = PythonCodeCompletionModel(kate.application)
+codecompletationmodel.modelReset.connect(reset)

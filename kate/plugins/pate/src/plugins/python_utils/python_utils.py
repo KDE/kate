@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Utils to Python: Autocomplete, Checker Parse, Checker Pep8, Checker Pyflakes, Snippets'''
+'''Utils to Python: Checker Parse, Checker Pep8, Checker Pyflakes, Snippets'''
 
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #
@@ -20,47 +20,22 @@
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/>
 # The original author of the pep8 and pyflakes checker is Alejandro Blanco <alejandro.b.e@gmail.com>
 
-NEED_PACKAGES = {}
-
-try:
-    import pep8
-except ImportError:
-    NEED_PACKAGES["pep8"] = "1.4.2"
-
-try:
-    import pyflakes
-except ImportError:
-    NEED_PACKAGES["pyflakes"] = "0.6.1"
-
-
-try:
-    import pysmell
-except ImportError:
-    NEED_PACKAGES["pysmell"] = "0.0.2"
-
-
-if not "pysmell" in NEED_PACKAGES:
-    try:
-        import pyplete
-    except ImportError:
-        NEED_PACKAGES["pyplete"] = "0.0.2"
-
+from libkatepate.errors import needs_packages
 
 from python_snippets import *
 from python_checkers.parse_checker import *
 
-if not "pep8" in NEED_PACKAGES:
+msg_error = ""
+
+try:
+    needs_packages({"pep8": "1.4.2"})
     from python_checkers.pep8_checker import *
-
-if not "pyflakes" in NEED_PACKAGES:
-    from python_checkers.pyflakes_checker import *
-
-if not "pysmell" in NEED_PACKAGES and not "pyplete" in NEED_PACKAGES:
-    from python_autocomplete.autocomplete import *
-
-if NEED_PACKAGES:
-    msg = "You need install the next packages:\n"
-    for package in NEED_PACKAGES:
-        msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s" % {'package': package,
-                                                                               'version': NEED_PACKAGES[package]}
-    raise ImportError(msg)
+except ImportError as e:
+    msg_error += e.message + "\n"
+finally:
+    try:
+        needs_packages({"pyflakes": "0.6.1"})
+        from python_checkers.pyflakes_checker import *
+    except ImportError as e:
+        msg_error += e.message
+        raise ImportError(msg_error)

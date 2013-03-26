@@ -20,23 +20,12 @@
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/jste_plugins/>
 # The original author of the jslint checker is Alejandro Blanco <alejandro.b.e@gmail.com>
 
-NEED_PACKAGES = {}
+from libkatepate.errors import needs_packages
 
-try:
-    import pyjslint
-except ImportError:
-    NEED_PACKAGES["pyjslint"] = "0.3.4"
 
 from js_snippets import *
 from js_autocomplete import *
 from json_pretty import *
 
-if not "pyjslint" in NEED_PACKAGES:
-    from jslint import *
-
-if NEED_PACKAGES:
-    msg = "You need install the next packages:\n"
-    for package in NEED_PACKAGES:
-        msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s \n" % {'package': package,
-                                                                                  'version':   NEED_PACKAGES[package]}
-    raise ImportError(msg)
+needs_packages({"pyjslint": "0.3.4"})
+from jslint import *

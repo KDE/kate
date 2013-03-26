@@ -8,48 +8,27 @@ May need reworking with IPython 1.0 due to changed event loop
 
 # TODO: fix help() by fixing input()
 
-import kate
-
-import os
 import sys
+
+from libkatepate.errors import needs_packages
+
 sys.argv = [__file__]
 
-
-NEED_PACKAGES = {}
-
-try:
-    import IPython
-except ImportError:
-    NEED_PACKAGES["ipython"] = "0.13.1"
-
-try:
-    from IPython import zmq
-except ImportError:
-    if sys.version_info.major == 3:
-        NEED_PACKAGES["pyzmq"] = "13.0.0"
-    else:
-        NEED_PACKAGES["pyzmq"] = "2.0.10.1"
-
-try:
-    import readline
-except ImportError:
-    NEED_PACKAGES["readline"] = "6.2.4.1"
-
-try:
-    import pygments
-except ImportError:
-    NEED_PACKAGES["Pygments"] = "1.6"
+NEED_PACKAGES = {"IPython": "ipython==0.13.1",
+                 "readline": "6.2.4.1",
+                 "pygments": "Pygments==1.6"}
 
 
-if NEED_PACKAGES:
-    msg = "You need install the next packages:\n"
-    for package in NEED_PACKAGES:
-        msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s \n" % {'package': package,
-                                                                                  'version':   NEED_PACKAGES[package]}
-    raise ImportError(msg)
+if sys.version_info.major == 3:
+    NEED_PACKAGES["zmq"] = "pyzmq==13.0.0"
+else:
+    NEED_PACKAGES["zmq"] = "pyzmq==2.0.10.1"
 
+needs_packages(NEED_PACKAGES)
 
 import atexit
+import kate
+import os
 
 from IPython.zmq.ipkernel import IPKernelApp
 from IPython.lib.kernel import find_connection_file

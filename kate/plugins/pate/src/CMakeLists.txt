@@ -56,6 +56,7 @@ install(DIRECTORY
     plugins/libkatepate
     plugins/python_console_classic
     plugins/python_utils
+    plugins/python_autocomplete
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")
 
 install(DIRECTORY

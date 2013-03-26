@@ -180,11 +180,13 @@ bool TextFolding::unfoldRange (qint64 id, bool remove)
     FoldingRange::Vector newParentVector;
     Q_FOREACH (FoldingRange *curRange, parentVector) {
       /**
-       * insert our nested ranges
+       * insert our nested ranges and reparent them
        */
       if (curRange == range) {
-        Q_FOREACH (FoldingRange *newRange, range->nestedRanges)
+        Q_FOREACH (FoldingRange *newRange, range->nestedRanges) {
+          newRange->parent = range->parent;
           newParentVector.push_back (newRange);
+        }
       
         continue;
       }

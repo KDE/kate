@@ -356,21 +356,6 @@ void KateBuffer::invalidateHighlighting()
   m_lineHighlighted = 0;
 }
 
-#if 0
-//FIXME FOLDING
-bool KateBuffer::isEmptyLine(Kate::TextLine textline)
-{
-  QLinkedList<QRegExp> l;
-  l=m_highlight->emptyLines(textline->attribute(0));
-  if (l.isEmpty()) return false;
-  QString txt=textline->string();
-  foreach(const QRegExp &re,l) {
-    if (re.exactMatch(txt)) return true;
-  }
-  return false;
-}
-#endif
-
 void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 {
   // no hl around, no stuff to do
@@ -523,6 +508,23 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
    * FIXME: do this for line context, not globally!
    */
   if (m_highlight->foldingIndentationSensitive()) {
+    
+    
+#if 0
+//FIXME FOLDING
+bool KateBuffer::isEmptyLine(Kate::TextLine textline)
+{
+  QLinkedList<QRegExp> l;
+  l=m_highlight->emptyLines(textline->attribute(0));
+  if (l.isEmpty()) return false;
+  QString txt=textline->string();
+  foreach(const QRegExp &re,l) {
+    if (re.exactMatch(txt)) return true;
+  }
+  return false;
+}
+#endif
+
     
     /**
      * be done now

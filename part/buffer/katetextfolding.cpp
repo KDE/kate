@@ -230,7 +230,7 @@ bool TextFolding::unfoldRange (qint64 id, bool remove)
   return true;
 }
     
-bool TextFolding::isLineVisible (int line) const
+bool TextFolding::isLineVisible (int line, qint64 *foldedRangeId) const
 {
   /**
    * skip if nothing folded
@@ -242,12 +242,50 @@ bool TextFolding::isLineVisible (int line) const
    * search upper bound, index to item with start line higher than our one
    */
   FoldingRange::Vector::const_iterator upperBound = qUpperBound (m_foldedFoldingRanges.begin(), m_foldedFoldingRanges.end(), line, compareRangeByStartWithLine);
-  --upperBound;
+  if (upperBound != m_foldedFoldingRanges.begin())
+    --upperBound;
   
   /**
    * check if we overlap with the range in front of us
    */
-  return !(((*upperBound)->end->line() >= line) && (line > (*upperBound)->start->line()));
+  const bool hidden = (((*upperBound)->end->line() >= line) && (line > (*upperBound)->start->line()));
+  
+  /**
+   * fill in folded range id, if needed
+   */
+  if (foldedRangeId)
+    (*foldedRangeId) = hidden ? (*upperBound)->id : -1;
+  
+  /**
+   * visible == !hidden
+   */
+  return !hidden;
+}
+
+void TextFolding::ensureLineIsVisible (int line)
+{
+  /**
+   * skip if nothing folded
+   */
+  if (m_foldedFoldingRanges.isEmpty())
+    return;
+  
+  /**
+   * while not visible, unfold
+   */
+  qint64 foldedRangeId = -1;
+  while (!isLineVisible (line, &foldedRangeId)) {
+    /**
+     * id should be valid!
+     */
+    Q_ASSERT (foldedRangeId >= 0);
+    
+    /**
+     * unfold shall work!
+     */
+    bool unfolded = unfoldRange (foldedRangeId);
+    Q_ASSERT (unfolded);
+  }
 }
 
 int TextFolding::visibleLines () const

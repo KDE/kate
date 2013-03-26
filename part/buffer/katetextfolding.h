@@ -100,9 +100,17 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
      * Very fast, if nothing is folded, else does binary search
      * log(n) for n == number of folded ranges
      * @param line line to query
+     * @param foldedRangeId if the line is not visible and that pointer is not 0, will be filled with id of range hiding the line or -1
      * @return is that line visible?
      */
-    bool isLineVisible (int line) const;
+    bool isLineVisible (int line, qint64 *foldedRangeId = 0) const;
+    
+    /**
+     * Ensure that a given line will be visible.
+     * Potentially unfold recursively all folds hiding this line, else just returns.
+     * @param line line to make visible
+     */
+    void ensureLineIsVisible (int line);
     
     /**
      * Query number of visible lines.

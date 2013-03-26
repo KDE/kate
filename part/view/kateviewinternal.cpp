@@ -1844,11 +1844,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
     m_displayCursor = toVirtualCursor(newCursor);
     if ( !m_madeVisible && m_view == doc()->activeView() )
     {
-#if 0
-  // FIXME: FOLDING
       // unfold if required
-      doc()->foldingTree()->ensureVisible( newCursor.line() );
-#endif
+      m_view->textFolding().ensureLineIsVisible ( newCursor.line() );
 
       makeVisible ( m_displayCursor, m_displayCursor.column(), false, center, calledExternally );
     }
@@ -1856,11 +1853,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
     return;
   }
 
-#if 0
-  //FIXME FOLDING
-// unfold if required
-  doc()->foldingTree()->ensureVisible( newCursor.line() );
-#endif
+  // unfold if required
+  m_view->textFolding().ensureLineIsVisible ( newCursor.line() );
 
   KTextEditor::Cursor oldDisplayCursor = m_displayCursor;
 

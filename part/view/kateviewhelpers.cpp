@@ -2121,6 +2121,8 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
         // fold or unfold all ranges!
         for (int i = 0; i < startingRanges.size(); ++i)
           anyFolded ? m_view->textFolding().unfoldRange (startingRanges[i].first) : m_view->textFolding().foldRange (startingRanges[i].first);
+        
+        m_view->doc()->buffer().computeFoldingRangeForStartLine (cursorOnLine);
     }
 
     if ( area == AnnotationBorder ) {

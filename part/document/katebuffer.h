@@ -197,6 +197,14 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * Invalidate highlighting of whole buffer.
      */
     void invalidateHighlighting();
+    
+    /**
+     * For a given line, compute the folding range that starts there
+     * to be used to fold e.g. from the icon border
+     * @param startLine start line
+     * @return folding range starting at the given line or invalid range
+     */
+    KTextEditor::Range computeFoldingRangeForStartLine (int startLine);
 
   private:
     /**

@@ -418,11 +418,10 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
           
           // handle folding end or begin
           if (item->region || item->region2) {
-            if (!foldingStartToCount)
-              foldingStartToCount = new QHash<short, int> ();
-            
-            // for each end region, decrement counter for that type, erase if count reaches 0!
-            if (item->region2) {
+            /**
+             * for each end region, decrement counter for that type, erase if count reaches 0!
+             */
+            if (item->region2 && foldingStartToCount) {
               QHash<short, int>::iterator end = foldingStartToCount->find (-item->region2);
               if (end != foldingStartToCount->end()) {
                 if (end.value() > 1)
@@ -432,9 +431,16 @@ void KateHighlighting::doHighlight ( Kate::TextLineData *prevLine,
               }
             }
             
-            // increment counter for each begin region!
-            if (item->region)
+            /**
+             * increment counter for each begin region!
+             */
+            if (item->region) {
+              // construct on demand!
+              if (!foldingStartToCount)
+                foldingStartToCount = new QHash<short, int> ();
+              
               ++(*foldingStartToCount)[item->region];
+            }
           }
           
           // even set attributes or end of region! ;)

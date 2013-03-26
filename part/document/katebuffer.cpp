@@ -498,4 +498,157 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 #endif
 }
 
+KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
+{
+  /**
+   * ensure valid input
+   */
+  Q_ASSERT (startLine >= 0);
+  Q_ASSERT (startLine < lines());
+  
+  /**
+   * no highlighting, no folding, ATM
+   */
+  if (!m_highlight || m_highlight->noHighlighting())
+    return KTextEditor::Range::invalid();
+  
+  /**
+   * first: get the wanted start line highlighted
+   */
+  ensureHighlighted (startLine);
+  Kate::TextLine startTextLine = plainLine (startLine);
+  
+  /**
+   * now: decided if indentation based folding or not!
+   * FIXME: do this for line context, not globally!
+   */
+  if (m_highlight->foldingIndentationSensitive()) {
+    
+    /**
+     * be done now
+     */
+    return KTextEditor::Range::invalid();
+  }
+  
+  /**
+   * 'normal' folding, aka token based like '{' BLUB '}'
+   */
+  
+  /**
+   * first step: search the first region type, that stays open for the start line
+   */
+  short openedRegionType = 0;
+  int openedRegionOffset = -1;
+  {
+    /**
+     * mapping of type to "first" offset of it and current number of not matched openings
+     */
+    QHash<short, QPair<int, int> > foldingStartToOffsetAndCount;
+    
+    /**
+     * walk over all attributes of the line and compute the matchings
+     */
+    const QVector<Kate::TextLineData::Attribute> &startLineAttributes = startTextLine->attributesList();
+    for ( int i = 0; i < startLineAttributes.size(); ++i ) {
+      /**
+       * folding close?
+       */
+      if (startLineAttributes[i].foldingValue < 0) {
+        /**
+         * search for this type, try to decrement counter, perhaps erase element!
+         */
+        QHash<short, QPair<int, int> >::iterator end = foldingStartToOffsetAndCount.find (-startLineAttributes[i].foldingValue);
+        if (end != foldingStartToOffsetAndCount.end()) {
+          if (end.value().second > 1)
+            --(end.value().second);
+          else
+            foldingStartToOffsetAndCount.erase (end);
+        }
+      }
+      
+      /**
+       * folding open?
+       */
+      if (startLineAttributes[i].foldingValue > 0) {
+        /**
+         * search for this type, either insert it, with current offset or increment counter!
+         */
+        QHash<short, QPair<int, int> >::iterator start = foldingStartToOffsetAndCount.find (startLineAttributes[i].foldingValue);
+        if (start != foldingStartToOffsetAndCount.end())
+          ++(start.value().second);
+        else
+          foldingStartToOffsetAndCount.insert (startLineAttributes[i].foldingValue, qMakePair (startLineAttributes[i].offset, 1));
+      }
+    }
+    
+    /**
+     * compute first type with offset
+     */
+    QHashIterator<short, QPair<int, int> > hashIt (foldingStartToOffsetAndCount);
+    while (hashIt.hasNext()) {
+       hashIt.next();
+       if (openedRegionOffset == -1 || hashIt.value().first < openedRegionOffset) {
+          openedRegionType = hashIt.key();
+          openedRegionOffset = hashIt.value().first;
+       }
+    }
+  }
+  
+  /**
+   * no opening region found, bad, nothing to do
+   */
+  if (openedRegionType == 0)
+    return KTextEditor::Range::invalid();
+ 
+  printf ("opening type %d offset %d\n", openedRegionType, openedRegionOffset);
+
+  /**
+   * second step: search for matching end region marker!
+   */
+  KTextEditor::Cursor foldingEnd = KTextEditor::Cursor::invalid();
+  int countOfOpenRegions = 1;
+  for (int line = startLine + 1; (line < lines()) && !foldingEnd.isValid(); ++line) {
+    /**
+     * ensure line is highlighted
+     */
+    ensureHighlighted (line);
+    Kate::TextLine textLine = plainLine (line);
+    
+    /**
+     * search for matching end marker
+     */
+    const QVector<Kate::TextLineData::Attribute> &lineAttributes = textLine->attributesList();
+    for (int i = 0; i < lineAttributes.size(); ++i) {
+      /**
+       * matching folding close?
+       */
+      if (lineAttributes[i].foldingValue == -openedRegionType) {
+        --countOfOpenRegions;
+        
+        /**
+         * end reached?
+         * remember folding end cursor and break out of loop
+         */
+        if (countOfOpenRegions == 0) {
+          foldingEnd = KTextEditor::Cursor (line, lineAttributes[i].offset);
+          break;
+        }
+      }
+    
+      /**
+       * matching folding open?
+       */
+      if (lineAttributes[i].foldingValue == openedRegionType)
+        ++countOfOpenRegions;
+    }
+  }
+  
+  printf ("end found at %d:%d\n", foldingEnd.line(), foldingEnd.column());
+  
+  /**
+   * all done, perhaps we have a range
+   */
+  return KTextEditor::Range::invalid();
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

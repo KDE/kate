@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+'''Autocomplete Python (beta)'''
+
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify
@@ -17,8 +19,35 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/autocomplete/autocomplete.py>
 
-
 import sys
+NEED_PACKAGES = {}
+
+
+class PythonVersionException(Exception):
+    pass
+
+if sys.version_info.major != 2:
+    raise PythonVersionException("The python autocomplete plugin only is available to Python 2")
+
+try:
+    import pysmell
+except ImportError:
+    NEED_PACKAGES["pysmell"] = "0.7.3"
+
+
+if not "pysmell" in NEED_PACKAGES:
+    try:
+        import pyplete
+    except ImportError:
+        NEED_PACKAGES["pyplete"] = "0.0.3"
+
+
+if NEED_PACKAGES:
+    msg = "You need install the next packages:\n"
+    for package in NEED_PACKAGES:
+        msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s" % {'package': package,
+                                                                               'version': NEED_PACKAGES[package]}
+    raise ImportError(msg)
 
 import kate
 
@@ -30,9 +59,8 @@ from libkatepate.project_utils import (get_project_plugin,
                                        add_extra_path,
                                        add_environs)
 
-from python_settings import PYTHON_AUTOCOMPLETE_ENABLED
 from pyplete import PyPlete
-from python_autocomplete.parse import (import_complete,
+from python_autocomplete_parse import (import_complete,
                                        from_first_imporable,
                                        from_other_imporables,
                                        from_complete)
@@ -188,8 +216,6 @@ def createSignalAutocompleteDocument(view=None, *args, **kwargs):
     # http://code.google.com/p/lilykde/source/browse/trunk/frescobaldi/python/frescobaldi_app/mainapp.py#1391
     # http://api.kde.org/4.0-api/kdelibs-apidocs/kate/html/katecompletionmodel_8cpp_source.html
     # https://svn.reviewboard.kde.org/r/1640/diff/?expand=1
-    if not PYTHON_AUTOCOMPLETE_ENABLED:
-        return
     view = view or kate.activeView()
     projectPlugin = get_project_plugin()
     if projectPlugin:
@@ -201,7 +227,5 @@ def createSignalAutocompleteDocument(view=None, *args, **kwargs):
     cci.registerCompletionModel(codecompletationmodel)
 
 
-if PYTHON_AUTOCOMPLETE_ENABLED:
-    session = None
-    codecompletationmodel = PythonCodeCompletionModel(session, kate.application)
-    codecompletationmodel.modelReset.connect(reset)
+codecompletationmodel = PythonCodeCompletionModel(kate.application)
+codecompletationmodel.modelReset.connect(reset)

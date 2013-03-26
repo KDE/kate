@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Utils to Python: Autocomplete, Checker Parse, Checker Pep8, Checker Pyflakes, Snippets'''
+'''Utils to Python: Checker Parse, Checker Pep8, Checker Pyflakes, Snippets'''
 
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #
@@ -33,19 +33,6 @@ except ImportError:
     NEED_PACKAGES["pyflakes"] = "0.6.1"
 
 
-try:
-    import pysmell
-except ImportError:
-    NEED_PACKAGES["pysmell"] = "0.0.2"
-
-
-if not "pysmell" in NEED_PACKAGES:
-    try:
-        import pyplete
-    except ImportError:
-        NEED_PACKAGES["pyplete"] = "0.0.2"
-
-
 from python_snippets import *
 from python_checkers.parse_checker import *
 
@@ -55,8 +42,6 @@ if not "pep8" in NEED_PACKAGES:
 if not "pyflakes" in NEED_PACKAGES:
     from python_checkers.pyflakes_checker import *
 
-if not "pysmell" in NEED_PACKAGES and not "pyplete" in NEED_PACKAGES:
-    from python_autocomplete.autocomplete import *
 
 if NEED_PACKAGES:
     msg = "You need install the next packages:\n"

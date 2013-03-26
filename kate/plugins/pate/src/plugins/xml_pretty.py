@@ -19,16 +19,21 @@
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/xhtml_plugins/xml_plugins.py>
 
 import kate
+import re
 
 from xml.dom import minidom
 from xml.parsers.expat import ExpatError
 
 from libkatepate import text
+from libkatepate.errors import showError
+
 
 KATE_ACTIONS = {'togglePrettyXMLFormat': {'text': 'Pretty XML',
                                           'shortcut': 'Ctrl+Alt+X',
                                           'menu': 'XML', 'icon': None},
 }
+
+encoding_pattern = re.compile("<\?xml[\w =\"\.]*encoding=[\"']([\w-]+)[\"'][\w =\"\.]*\?>")
 
 
 @kate.action(**KATE_ACTIONS['togglePrettyXMLFormat'])
@@ -38,17 +43,17 @@ def togglePrettyJsonFormat():
     view = currentDocument.activeView()
     source = view.selectionText()
     if not source:
-        kate.gui.popup('Select a xml text', 2,
-                       icon='dialog-warning',
-                       minTextWidth=200)
+        showError('Select a xml text')
     else:
         try:
+            encoding = None
+            m = encoding_pattern.match(source)
+            if m:
+                encoding = m.groups()[0]
             target = minidom.parseString(source)
             view.removeSelectionText()
-            xml_pretty = target.toprettyxml()
+            xml_pretty = target.toprettyxml(encoding=encoding)
             xml_pretty = '\n'.join([line for line in xml_pretty.split("\n") if line.replace(' ', '').replace('\t', '')])
             text.insertText(xml_pretty)
-        except ExpatError:
-            kate.gui.popup('This text is not a valid xml text', 2,
-                        icon='dialog-warning',
-                        minTextWidth=200)
+        except (ExpatError, LookupError) as e:
+            showError('This text is not a valid xml text: %s' % e.message)

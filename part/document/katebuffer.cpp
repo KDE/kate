@@ -557,6 +557,16 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
     --lastLine;
     
     /**
+     * backtrack all empty lines, we don't want to add them to the fold!
+     */
+    while (lastLine > startLine) {
+      if (m_highlight->isEmptyLine (plainLine (lastLine).data()))
+        --lastLine;
+      else
+        break;
+    }
+    
+    /**
      * we shall not fold one-liners
      */
     if (lastLine == startLine)

@@ -18,8 +18,39 @@
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/pyte_plugins/check_plugins/commons.py>
 
 import kate
+import sys
 
 from PyKDE4.ktexteditor import KTextEditor
+
+
+class PythonVersionException(Exception):
+    pass
+
+
+def needs_python_version(major, minor=None, micro=None, text=''):
+    if major != sys.version_info.major:
+        raise PythonVersionException(text)
+    elif minor and minor != sys.version_info.minor:
+        raise PythonVersionException(text)
+    elif micro and micro != sys.version_info.micro:
+        raise PythonVersionException(text)
+
+
+def needs_packages(packages):
+    msg = "You need install the next packages:\n"
+    import_error = False
+    for package, version in packages.items():
+        try:
+            __import__(package)
+        except ImportError:
+            import_error = True
+            if '==' in version:
+                package = version.split('==')[0]
+                version = version.split('==')[1]
+            msg += "\t%(package)s. Use easy_install (or pip install) %(package)s==%(version)s" % {'package': package,
+                                                                                                  'version': version}
+    if import_error:
+        raise ImportError(msg)
 
 
 def clearMarksOfError(doc, mark_iface):
@@ -77,7 +108,11 @@ def showErrors(message, errors, key_mark, doc, time=10, icon='dialog-warning',
         message = '%s\n%s' % (message, '\n'.join(messages_show))
         if len(messages_show) < len(errors):
             message += '\n\nAnd other errors'
-        kate.gui.popup(message, time, icon, minTextWidth=300)
+        showError(message, time, icon, minTextWidth=300)
+
+
+def showError(message="error", time=10, icon="dialog-warning", minTextWidth=300):
+    kate.gui.popup(message, time, icon, minTextWidth=300)
 
 
 def showOk(message="Ok", time=3, icon='dialog-ok'):

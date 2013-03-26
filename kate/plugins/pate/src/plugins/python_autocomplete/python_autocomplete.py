@@ -19,37 +19,14 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/autocomplete/autocomplete.py>
 
-import sys
-NEED_PACKAGES = {}
+from libkatepate.errors import needs_python_version, needs_packages
 
-
-class PythonVersionException(Exception):
-    pass
-
-if sys.version_info.major != 2:
-    raise PythonVersionException("The python autocomplete plugin only is available to Python 2")
-
-try:
-    import pysmell
-except ImportError:
-    NEED_PACKAGES["pysmell"] = "0.7.3"
-
-
-if not "pysmell" in NEED_PACKAGES:
-    try:
-        import pyplete
-    except ImportError:
-        NEED_PACKAGES["pyplete"] = "0.0.3"
-
-
-if NEED_PACKAGES:
-    msg = "You need install the next packages:\n"
-    for package in NEED_PACKAGES:
-        msg += "\t\t%(package)s. Use easy_install %(package)s==%(version)s" % {'package': package,
-                                                                               'version': NEED_PACKAGES[package]}
-    raise ImportError(msg)
+needs_python_version(major=2, text="The python autocomplete plugin only is available to Python 2")
+needs_packages({"pysmell": "0.7.3",
+                "pyplete": "0.0.3"})
 
 import kate
+import sys
 
 from PyKDE4.ktexteditor import KTextEditor
 

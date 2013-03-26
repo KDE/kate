@@ -283,7 +283,7 @@ void TextFolding::ensureLineIsVisible (int line)
     /**
      * unfold shall work!
      */
-    bool unfolded = unfoldRange (foldedRangeId);
+    const bool unfolded = unfoldRange (foldedRangeId);
     Q_ASSERT (unfolded);
   }
 }

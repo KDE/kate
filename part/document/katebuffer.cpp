@@ -599,15 +599,12 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
    */
   if (openedRegionType == 0)
     return KTextEditor::Range::invalid();
- 
-  printf ("opening type %d offset %d\n", openedRegionType, openedRegionOffset);
 
   /**
    * second step: search for matching end region marker!
    */
-  KTextEditor::Cursor foldingEnd = KTextEditor::Cursor::invalid();
   int countOfOpenRegions = 1;
-  for (int line = startLine + 1; (line < lines()) && !foldingEnd.isValid(); ++line) {
+  for (int line = startLine + 1; line < lines(); ++line) {
     /**
      * ensure line is highlighted
      */
@@ -627,12 +624,10 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
         
         /**
          * end reached?
-         * remember folding end cursor and break out of loop
+         * return resulting range!
          */
-        if (countOfOpenRegions == 0) {
-          foldingEnd = KTextEditor::Cursor (line, lineAttributes[i].offset);
-          break;
-        }
+        if (countOfOpenRegions == 0)
+          return KTextEditor::Range (KTextEditor::Cursor (startLine, openedRegionOffset), KTextEditor::Cursor (line, lineAttributes[i].offset));
       }
     
       /**
@@ -643,10 +638,8 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
     }
   }
   
-  printf ("end found at %d:%d\n", foldingEnd.line(), foldingEnd.column());
-  
   /**
-   * all done, perhaps we have a range
+   * if we arrive here, no range was found!
    */
   return KTextEditor::Range::invalid();
 }

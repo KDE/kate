@@ -1854,7 +1854,9 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   readGlobalKeywordConfig();
   readWordWrapConfig();
 
-  readFoldingConfig ();
+  // only read for ourself
+  if (identifier == ident)
+    readFoldingConfig ();
 
   readSpellCheckingConfig();
 

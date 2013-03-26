@@ -212,17 +212,13 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
 
   Q_SIGNALS:
     /**
-     * Emittend if codefolding returned with a changed list
-     */
-    void codeFoldingUpdated();
-
-    /**
      * Emitted when the highlighting of a certain range has
      * changed.
      */
     void tagLines(int start, int end);
     void respellCheckBlock(int start, int end);
-  private:
+  
+private:
     /**
      * document we belong to
      */

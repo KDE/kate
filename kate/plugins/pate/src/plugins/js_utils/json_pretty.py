@@ -26,6 +26,7 @@ except ImportError:
     import json
 
 from libkatepate import text
+from libkatepate.errors import showError
 from js_settings import KATE_ACTIONS
 
 
@@ -36,15 +37,11 @@ def togglePrettyJsonFormat():
     view = currentDocument.activeView()
     source = view.selectionText()
     if not source:
-        kate.gui.popup('Select a json text', 2,
-                       icon='dialog-warning',
-                       minTextWidth=200)
+        showError('Select a json text')
     else:
         try:
             target = json.dumps(json.loads(source), indent=2)
             view.removeSelectionText()
             text.insertText(target)
-        except ValueError:
-            kate.gui.popup('This text is not a valid json text', 2,
-                           icon='dialog-warning',
-                           minTextWidth=200)
+        except ValueError as e:
+            showError('This text is not a valid json text: %s' % e.message)

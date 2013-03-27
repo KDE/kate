@@ -156,6 +156,13 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
      */
     void debugPrint (const QString &title) const;
   
+  public Q_SLOTS:
+    /**
+     * Clear the complete folding.
+     * This is automatically triggered if the buffer is cleared.
+     */
+    void clear ();
+    
   Q_SIGNALS:
     /**
      * If the folding state of existing ranges changes or
@@ -300,13 +307,6 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
      * @param line line to query starting folding ranges
      */
     void foldingRangesStartingOnLine (QVector<QPair<qint64, FoldingRangeFlags> > &results, const TextFolding::FoldingRange::Vector &ranges, int line) const;
-    
-  private Q_SLOTS:
-    /**
-     * Is triggered if cleared() of TextBuffer is emitted.
-     * Will kill all existing folding ranges.
-     */
-    void slotTextBufferCleared ();
     
   private:
     /**

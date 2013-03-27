@@ -52,7 +52,7 @@ TextFolding::TextFolding (TextBuffer &buffer)
   /**
    * connect needed signals from buffer
    */
-  connect (&m_buffer, SIGNAL(cleared()), SLOT(slotTextBufferCleared()));
+  connect (&m_buffer, SIGNAL(cleared()), SLOT(clear()));
 }
 
 TextFolding::~TextFolding ()
@@ -61,6 +61,34 @@ TextFolding::~TextFolding ()
    * only delete the folding ranges, the folded ranges and mapped ranges are the same objects
    */
   qDeleteAll (m_foldingRanges);
+}
+
+void TextFolding::clear ()
+{
+  /**
+   * no ranges, no work
+   */
+  if (m_foldingRanges.isEmpty()) {
+    /**
+     * assert all stuff is consistent and return!
+     */
+    Q_ASSERT (m_idToFoldingRange.isEmpty());
+    Q_ASSERT (m_foldedFoldingRanges.isEmpty());
+    return;
+  }
+  
+  /**
+   * cleanup
+   */
+  m_idToFoldingRange.clear();
+  m_foldedFoldingRanges.clear();
+  qDeleteAll (m_foldingRanges);
+  m_foldingRanges.clear ();
+  
+  /**
+   * folding changed!
+   */
+  emit foldingRangesChanged ();
 }
 
 qint64 TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags)
@@ -871,15 +899,4 @@ void TextFolding::appendFoldedRanges (TextFolding::FoldingRange::Vector &newFold
   }
 }
 
-void TextFolding::slotTextBufferCleared ()
-{
-  /**
-   * global cleanup
-   */
-  m_idToFoldingRange.clear();
-  m_foldedFoldingRanges.clear();
-  qDeleteAll (m_foldingRanges);
-  m_foldingRanges.clear ();
-}
-    
 }

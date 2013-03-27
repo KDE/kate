@@ -149,28 +149,6 @@ target_link_libraries( kateview_test
   katepartinterfaces
 )
 
-########### folding test ###############
-
-#kde4_add_unit_test(katefolding_test TESTNAME kate-katefolding_test katefolding_test.cpp)
-
-#target_link_libraries( katefolding_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-#)
-
-########### folded selection test ###############
-
-#kde4_add_unit_test(katefoldedselection_test TESTNAME kate-katefoldedselection_test foldedselection_test.cpp)
-
-#target_link_libraries( katefoldedselection_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-#)
-
 ########### revision test ###############
 
 kde4_add_unit_test(revision_test TESTNAME kate-revision_test revision_test.cpp)
@@ -228,50 +206,6 @@ kde4_add_unit_test(commands_test TESTNAME kate-commands_test ${commands_test_SRC
 
 target_link_libraries(commands_test ${KATE_TEST_LINK_LIBS})
 
-########### bug 213964 test ###############
-
-#kde4_add_unit_test(bug213964_test TESTNAME kate-bug213964_test bug213964.cpp)
-
-#target_link_libraries( bug213964_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-#)
-
-########### bug 294241 test ###############
-
-#kde4_add_unit_test(bug294241_test TESTNAME kate-bug294241_test bug294241.cpp)
-
-#target_link_libraries( bug294241_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-#)
-
-########### bug 294756 test ###############
-
-#kde4_add_unit_test(bug294756_test TESTNAME kate-bug294756_test bug294756.cpp)
-
-#target_link_libraries( bug294756_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-#)
-
-########### bug 294750 test ###############
-
-#kde4_add_unit_test(bug294750_test TESTNAME kate-bug294750_test bug294750.cpp)
-
-#target_link_libraries( bug294750_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-#)
-
 ########### bug 286887 test ###############
 
 kde4_add_unit_test(bug286887_test TESTNAME kate-bug286887_test bug286887.cpp)
@@ -283,17 +217,6 @@ target_link_libraries( bug286887_test
   ${KATE_TEST_LINK_LIBS}
   katepartinterfaces
 )
-
-########### bug 309093 test ###############
-
-#kde4_add_unit_test(bug309093_test TESTNAME kate-bug309093_test bug309093.cpp)
-
-#target_link_libraries( bug309093_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-#)
 
 ########### bug 313759 test ###############
 

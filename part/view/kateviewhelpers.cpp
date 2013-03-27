@@ -1623,19 +1623,6 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   p.setRenderHints (QPainter::TextAntialiasing);
   p.setFont ( m_view->renderer()->config()->font() ); // for line numbers
 
-  
-#if 0
-    //FIXME FOLDING
-  KateLineInfo oldInfo;
-  if (startz < lineRangesSize)
-  {
-    if ((m_viewInternal->cache()->viewLine(startz).line()-1) < 0)
-      oldInfo.topLevel = true;
-    else
-      m_doc->lineInfo(&oldInfo,m_viewInternal->cache()->viewLine(startz).line()-1);
-  }
-#endif
-
   KTextEditor::AnnotationModel *model = m_view->annotationModel() ?
       m_view->annotationModel() : m_doc->annotationModel();
 

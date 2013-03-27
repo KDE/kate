@@ -231,7 +231,6 @@ class KateViewInternal : public QWidget
   private Q_SLOTS:
     void slotRegionVisibilityChanged();
     void slotRegionBeginEndAddedRemoved(unsigned int);
-    void slotCodeFoldingChanged();
 
   private:
     void moveChar( Bias bias, bool sel );

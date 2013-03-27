@@ -36,7 +36,8 @@ class KateDocument;
 class KateView;
 class KateRendererConfig;
 class KateRenderRange;
-namespace  KTextEditor { class Range; }
+namespace KTextEditor { class Range; }
+namespace Kate { class TextFolding; }
 
 class KateLineLayout;
 typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;
@@ -75,9 +76,10 @@ public:
     /**
      * Constructor
      * @param doc document to render
+     * @param folding folding information
      * @param view view which is output (0 for example for rendering to print)
      */
-    explicit KateRenderer(KateDocument* doc, KateView *view = 0);
+    explicit KateRenderer(KateDocument* doc, Kate::TextFolding &folding, KateView *view = 0);
 
     /**
      * Destructor
@@ -88,6 +90,12 @@ public:
      * Returns the document to which this renderer is bound
      */
     KateDocument* doc() const { return m_doc; }
+
+    /**
+     * Returns the folding info to which this renderer is bound
+     * @return folding info
+     */
+    Kate::TextFolding &folding() const { return m_folding; }
 
     /**
      * Returns the view to which this renderer is bound
@@ -327,6 +335,7 @@ public:
     void assignSelectionBrushesFromAttribute(QTextLayout::FormatRange& target, const KTextEditor::Attribute& attribute) const;
 
     KateDocument *const m_doc;
+    Kate::TextFolding &m_folding;
     KateView *const m_view;
 
     // cache of config values

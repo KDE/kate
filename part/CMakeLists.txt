@@ -41,13 +41,14 @@ include_directories(
 # our sources
 set(katepart_PART_SRCS
 
-# text buffer
+# text buffer & buffer helpers
 buffer/katetextbuffer.cpp
 buffer/katetextblock.cpp
 buffer/katetextline.cpp
 buffer/katetextcursor.cpp
 buffer/katetextrange.cpp
 buffer/katetexthistory.cpp
+buffer/katetextfolding.cpp
 
 # completion (widget, model, delegate, ...)
 completion/codecompletionmodelcontrollerinterfacev4.cpp
@@ -119,13 +120,12 @@ search/kateregexpsearch.cpp
 search/katematch.cpp
 search/katesearchbar.cpp
 
-# syntax related stuff (highlighting, xml file parsing, folding, ...)
+# syntax related stuff (highlighting, xml file parsing, ...)
 syntax/katesyntaxmanager.cpp
 syntax/katehighlight.cpp
 syntax/katehighlighthelpers.cpp
 syntax/katehighlightmenu.cpp
 syntax/katesyntaxdocument.cpp
-syntax/katecodefolding.cpp
 syntax/kateextendedattribute.cpp
 
 # view stuff (THE view and its helpers)

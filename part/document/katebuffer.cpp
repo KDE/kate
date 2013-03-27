@@ -63,7 +63,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_brokenEncoding (false),
    m_tooLongLinesWrapped (false),
    m_highlight (0),
-   m_regionTree (this),
    m_tabWidth (8),
    m_lineHighlighted (0),
    m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
@@ -150,8 +149,6 @@ void KateBuffer::clear()
   // call original clear function
   Kate::TextBuffer::clear ();
 
-  m_regionTree.clear();
-
   // reset the state
   m_brokenEncoding = false;
   m_tooLongLinesWrapped = false;
@@ -192,9 +189,6 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
   // generate a bom?
   if (generateByteOrderMark())
     m_doc->config()->setBom (true);
-
-  // fix region tree
-  m_regionTree.fixRoot (lines ());
 
   // okay, loading did work
   return true;
@@ -276,9 +270,6 @@ void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
 
   if (m_lineHighlighted > position.line()+1)
     m_lineHighlighted++;
-
-  m_regionTree.lineHasBeenInserted (position.line(), position.column());
-
 }
 
 void KateBuffer::unwrapLines (int from, int to)
@@ -306,8 +297,6 @@ void KateBuffer::unwrapLines (int from, int to)
             --m_lineHighlighted;
       }
   }
-
-  m_regionTree.linesHaveBeenRemoved (from, to);
 }
 
 void KateBuffer::unwrapLine (int line)
@@ -317,8 +306,6 @@ void KateBuffer::unwrapLine (int line)
 
   if (m_lineHighlighted > line)
     --m_lineHighlighted;
-
-  m_regionTree.linesHaveBeenRemoved (line, line);
 }
 
 void KateBuffer::setTabWidth (int w)
@@ -349,10 +336,6 @@ void KateBuffer::setHighlight(int hlMode)
 
     h->use();
 
-    // Clear code folding tree (see bug #124102)
-    m_regionTree.clear();
-    m_regionTree.fixRoot(lines());
-
     m_highlight = h;
 
     if (invalidate)
@@ -371,71 +354,6 @@ void KateBuffer::setHighlight(int hlMode)
 void KateBuffer::invalidateHighlighting()
 {
   m_lineHighlighted = 0;
-}
-
-void KateBuffer::updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent)
-{
-  Kate::TextLine textLine;
-  do {
-    if (current_line == 0) return;
-
-    --current_line;
-
-    textLine = plainLine (current_line);
-  } while (textLine->firstChar()==-1);
-
-  kDebug(13020)<<"updatePreviousNotEmptyLine: updating line:"<<current_line;
-  QVector<int> foldingList=textLine->foldingListArray();
-  while ( !foldingList.isEmpty() && abs(foldingList.at(foldingList.size()-2)) == 1) {
-    foldingList.resize(foldingList.size()-2);
-  }
-  addIndentBasedFoldingInformation(foldingList,textLine->length(),addindent,deindent);
-  textLine->setFoldingList(foldingList);
-
-  bool retVal_folding = false;
-  m_regionTree.updateLine(current_line, foldingList, &retVal_folding, true,false);
-
-  // tagLines() is emitted from KatBuffer::doHighlight()!
-}
-
-void KateBuffer::addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent)
-{
-  if (addindent) {
-    //kDebug(13020)<<"adding indent for line :"<<current_line + buf->startLine()<<"  textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart();
-    //kDebug(13020)<<"adding ident";
-    foldingList.resize (foldingList.size() + 2);
-    foldingList[foldingList.size()-2] = 1;
-    foldingList[foldingList.size()-1] = 0;
-  }
-  //kDebug(13020)<<"DEINDENT: "<<deindent;
-  if (deindent > 0)
-  {
-    //foldingList.resize (foldingList.size() + (deindent*2));
-
-    //Make the whole last line marked as still belonging to the block
-    for (int z=0;z<deindent;z++) {
-      foldingList << -1 << linelength+1;
-    }
-
-/*    for (int z= foldingList.size()-(deindent*2); z < foldingList.size(); z=z+2)
-    {
-      foldingList[z] = -1;
-      foldingList[z+1] = 0;
-    }*/
-  }
-}
-
-
-bool KateBuffer::isEmptyLine(Kate::TextLine textline)
-{
-  QLinkedList<QRegExp> l;
-  l=m_highlight->emptyLines(textline->attribute(0));
-  if (l.isEmpty()) return false;
-  QString txt=textline->string();
-  foreach(const QRegExp &re,l) {
-    if (re.exactMatch(txt)) return true;
-  }
-  return false;
 }
 
 void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
@@ -489,33 +407,30 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
   // get previous line, if any
   Kate::TextLine prevLine;
-
   if (startLine >= 1)
     prevLine = plainLine (startLine-1);
   else
     prevLine = Kate::TextLine (new Kate::TextLineData ());
 
-  // does we need to emit a signal for the folding changes ?
-  bool codeFoldingUpdate = false;
-
   // here we are atm, start at start line in the block
   int current_line = startLine;
   int start_spellchecking = -1;
   int last_line_spellchecking = -1;
-  bool indentContinueWhitespace=false;
-  bool indentContinueNextWhitespace=false;
   bool ctxChanged = false;
+  Kate::TextLine textLine = plainLine (current_line);
+  Kate::TextLine nextLine;
   // loop over the lines of the block, from startline to endline or end of block
   // if stillcontinue forces us to do so
   for (; current_line < qMin (endLine+1, lines()); ++current_line)
   {
-    // current line
-    Kate::TextLine textLine = plainLine (current_line);
-
-    QVector<int> foldingList;
+    // get next line, if any    
+    if ((current_line + 1) < lines())
+      nextLine = plainLine (current_line+1);
+    else
+      nextLine = Kate::TextLine (new Kate::TextLineData ());
+    
     ctxChanged = false;
-
-    m_highlight->doHighlight (prevLine.data(), textLine.data(), foldingList, ctxChanged);
+    m_highlight->doHighlight (prevLine.data(), textLine.data(), nextLine.data(), ctxChanged, tabWidth());
 
 #ifdef BUFFER_DEBUGGING
     // debug stuff
@@ -529,213 +444,9 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     }
     kDebug( 13020 );
 #endif
-
-    //
-    // indentation sensitive folding
-    //
-    bool indentChanged = false;
-    if (m_highlight->foldingIndentationSensitive())
-    {
-      // get the indentation array of the previous line to start with !
-      QVector<unsigned short> indentDepth (prevLine->indentationDepthArray());
-
-      // current indentation of this line
-      int iDepth = textLine->indentDepth(m_tabWidth);
-      if (current_line==0)
-      {
-          indentDepth.resize (1);
-          indentDepth[0] = iDepth;
-      }
-
-      textLine->setNoIndentBasedFoldingAtStart(prevLine->noIndentBasedFolding());
-
-      // this line is empty, beside spaces, or has indentaion based folding disabled, use indentation depth of the previous line !
-
-#ifdef BUFFER_DEBUGGING
-      kDebug(13020)<<"current_line:"<<current_line<<" textLine->noIndentBasedFoldingAtStart"<<textLine->noIndentBasedFoldingAtStart();
-#endif
-
-      if ( (textLine->firstChar() == -1) || textLine->noIndentBasedFoldingAtStart() || isEmptyLine(textLine) )
-      {
-        // do this to get skipped empty lines indent right, which was given in the indenation array
-        if (!prevLine->indentationDepthArray().isEmpty())
-        {
-          iDepth = prevLine->indentationDepthArray().last();
-
-#ifdef BUFFER_DEBUGGING
-          kDebug(13020)<<"reusing old depth as current";
-#endif
-        }
-        else
-        {
-          iDepth = prevLine->indentDepth(m_tabWidth);
-
-#ifdef BUFFER_DEBUGGING
-          kDebug(13020)<<"creating indentdepth for previous line";
-#endif
-        }
-      }
-
-#ifdef BUFFER_DEBUGGING
-      kDebug(13020)<<"iDepth:"<<iDepth;
-#endif
-
-      // query the next line indentation, if we are at the end of the block
-      // use the first line of the next buf block
-      int nextLineIndentation = 0;
-      bool nextLineIndentationValid=true;
-      indentContinueNextWhitespace=false;
-      if ((current_line+1) < lines())
-      {
-        if ( (plainLine (current_line+1)->firstChar() == -1) || isEmptyLine(plainLine (current_line+1)) )
-        {
-          nextLineIndentation = iDepth;
-          indentContinueNextWhitespace=true;
-        }
-        else
-          nextLineIndentation = plainLine (current_line+1)->indentDepth(m_tabWidth);
-      }
-      else
-      {
-        nextLineIndentationValid=false;
-      }
-
-      if  (!textLine->noIndentBasedFoldingAtStart()) {
-
-        if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth.last() < iDepth)))
-        {
-#ifdef BUFFER_DEBUGGING
-          kDebug(13020)<<"adding depth to \"stack\":"<<iDepth;
-#endif
-
-          indentDepth.append (iDepth);
-        } else {
-          if (!indentDepth.isEmpty())
-          {
-            for (int z=indentDepth.size()-1; z > -1; z--)
-              if (indentDepth.at(z) > iDepth)
-                indentDepth.resize(z);
-            if ((iDepth > 0) && (indentDepth.isEmpty() || (indentDepth.last() < iDepth)))
-            {
-#ifdef BUFFER_DEBUGGING
-              kDebug(13020)<<"adding depth to \"stack\":"<<iDepth;
-#endif
-
-              indentDepth.append (iDepth);
-              if (prevLine->firstChar()==-1) {
-
-              }
-            }
-          }
-        }
-      }
-
-      if (!textLine->noIndentBasedFolding())
-      {
-        if (nextLineIndentationValid)
-        {
-          //if (textLine->firstChar()!=-1)
-          {
-#ifdef BUFFER_DEBUGGING
-            kDebug(13020)<<"nextLineIndentation:"<<nextLineIndentation;
-#endif
-
-            bool addindent=false;
-            int deindent=0;
-
-#ifdef BUFFER_DEBUGGING
-            if (!indentDepth.isEmpty())
-              kDebug(13020)<<"indentDepth.last():"<<indentDepth.last();
-#endif
-
-            if (nextLineIndentation > 0 && ( indentDepth.isEmpty() || indentDepth.last() < nextLineIndentation))
-            {
-#ifdef BUFFER_DEBUGGING
-              kDebug(13020)<<"addindent==true";
-#endif
-
-              addindent=true;
-            } else {
-            if (!indentDepth.isEmpty() && indentDepth.last() > nextLineIndentation)
-              {
-#ifdef BUFFER_DEBUGGING
-                kDebug(13020)<<"....";
-#endif
-
-                for (int z=indentDepth.size()-1; z > -1; z--)
-                {
-#ifdef BUFFER_DEBUGGING
-                  kDebug(13020)<<indentDepth.at(z)<<"  "<<nextLineIndentation;
-#endif
-
-                  if (indentDepth.at(z) > nextLineIndentation)
-                    deindent++;
-                }
-              }
-            }
-/*        }
-        if (textLine->noIndentBasedFolding()) kDebug(13020)<<"=============================indentation based folding disabled======================";
-        if (!textLine->noIndentBasedFolding()) {*/
-            if ((textLine->firstChar()==-1)) {
-              updatePreviousNotEmptyLine(current_line,addindent,deindent);
-              codeFoldingUpdate=true;
-            }
-            else
-            {
-              addIndentBasedFoldingInformation(foldingList,textLine->length(),addindent,deindent);
-            }
-          }
-        }
-      }
-      indentChanged = !(indentDepth == textLine->indentationDepthArray());
-
-      // assign the new array to the textline !
-      if (indentChanged)
-        textLine->setIndentationDepth (indentDepth);
-
-      indentContinueWhitespace=textLine->firstChar()==-1;
-    }
     
-    //if ((current_line>=90) && (current_line<=100))
-    //  kDebug (13020)<<"current line:"<<current_line<<"old folding elements:"<<textLine->foldingListArray().count()/2<<"new folding elements:"<<foldingList.size()/2;
-    bool foldingColChanged=false;
-    bool foldingChanged = false; //!(foldingList == textLine->foldingListArray());
-    if (foldingList.size()!=textLine->foldingListArray().size()) {
-      foldingChanged=true;
-    } else {
-      QVector<int>::ConstIterator it=foldingList.constBegin();
-      QVector<int>::ConstIterator it1=textLine->foldingListArray().constBegin();
-      bool markerType=true;
-      for(;it!=foldingList.constEnd();++it,++it1) {
-        if  (markerType) {
-          if ( ((*it)!=(*it1))) {
-            foldingChanged=true;
-            foldingColChanged=false;
-            break;
-          }
-        } else {
-            if ((*it)!=(*it1)) {
-              foldingColChanged=true;
-            }
-        }
-        markerType=!markerType;
-      }
-    }
-
-    if (foldingChanged || foldingColChanged) {
-      textLine->setFoldingList(foldingList);
-      if (foldingChanged==false){
-        textLine->setFoldingColumnsOutdated(textLine->foldingColumnsOutdated() | foldingColChanged);
-      } else textLine->setFoldingColumnsOutdated(false);
-    }
-    bool retVal_folding = false;
-    //perhaps make en enums out of the change flags
-    m_regionTree.updateLine(current_line, foldingList, &retVal_folding, foldingChanged,foldingColChanged);
-
-    codeFoldingUpdate = codeFoldingUpdate | retVal_folding;
-
     // need we to continue ?
-    bool stillcontinue =  ctxChanged || indentChanged || indentContinueWhitespace || indentContinueNextWhitespace;
+    bool stillcontinue =  ctxChanged;
     if (stillcontinue && start_spellchecking < 0) {
       start_spellchecking=current_line;
     }
@@ -745,6 +456,7 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
     // move around the lines
     prevLine = textLine;
+    textLine = nextLine;
   }
 
   /**
@@ -767,9 +479,6 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
                              qMin(lines()-1, (last_line_spellchecking==-1)?qMax (current_line, oldHighlighted):last_line_spellchecking));
     }
   }
-  // emit that we have changed the folding
-  if (codeFoldingUpdate)
-    emit codeFoldingUpdated();
 
 #ifdef BUFFER_DEBUGGING
   kDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
@@ -779,6 +488,208 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 #endif
 }
 
+KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
+{
+  /**
+   * ensure valid input
+   */
+  Q_ASSERT (startLine >= 0);
+  Q_ASSERT (startLine < lines());
+  
+  /**
+   * no highlighting, no folding, ATM
+   */
+  if (!m_highlight || m_highlight->noHighlighting())
+    return KTextEditor::Range::invalid();
+  
+  /**
+   * first: get the wanted start line highlighted
+   */
+  ensureHighlighted (startLine);
+  Kate::TextLine startTextLine = plainLine (startLine);
+  
+  /**
+   * return if no folding start!
+   */
+  if (!startTextLine->markedAsFoldingStart ())
+    return KTextEditor::Range::invalid(); 
+  
+  /**
+   * now: decided if indentation based folding or not!
+   */
+  if (startTextLine->markedAsFoldingStartIndentation ()) {
+    /**
+     * get our start indentation level
+     */
+    const int startIndentation = startTextLine->indentDepth (tabWidth());
+    
+    /**
+     * search next line with indentation level <= our one
+     */
+    int lastLine = startLine + 1;
+    for (; lastLine < lines(); ++lastLine) {
+      /**
+       * get line
+       */
+      Kate::TextLine textLine = plainLine (lastLine);
+  
+      /**
+       * indentation higher than our start line? continue
+       */
+      if (startIndentation < textLine->indentDepth (tabWidth()))
+        continue;
+      
+      /**
+       * empty line? continue
+       */
+      if (m_highlight->isEmptyLine (textLine.data()))
+        continue;
+      
+      /**
+       * else, break
+       */
+      break;
+    }
+    
+    /**
+     * lastLine is always one too much
+     */
+    --lastLine;
+    
+    /**
+     * backtrack all empty lines, we don't want to add them to the fold!
+     */
+    while (lastLine > startLine) {
+      if (m_highlight->isEmptyLine (plainLine (lastLine).data()))
+        --lastLine;
+      else
+        break;
+    }
+    
+    /**
+     * we shall not fold one-liners
+     */
+    if (lastLine == startLine)
+      return KTextEditor::Range::invalid(); 
+    
+    /**
+     * be done now
+     */
+    return KTextEditor::Range (KTextEditor::Cursor (startLine, 0), KTextEditor::Cursor (lastLine, plainLine (lastLine)->length()));
+  }
+  
+  /**
+   * 'normal' attribute based folding, aka token based like '{' BLUB '}'
+   */
+  
+  /**
+   * first step: search the first region type, that stays open for the start line
+   */
+  short openedRegionType = 0;
+  int openedRegionOffset = -1;
+  {
+    /**
+     * mapping of type to "first" offset of it and current number of not matched openings
+     */
+    QHash<short, QPair<int, int> > foldingStartToOffsetAndCount;
+    
+    /**
+     * walk over all attributes of the line and compute the matchings
+     */
+    const QVector<Kate::TextLineData::Attribute> &startLineAttributes = startTextLine->attributesList();
+    for ( int i = 0; i < startLineAttributes.size(); ++i ) {
+      /**
+       * folding close?
+       */
+      if (startLineAttributes[i].foldingValue < 0) {
+        /**
+         * search for this type, try to decrement counter, perhaps erase element!
+         */
+        QHash<short, QPair<int, int> >::iterator end = foldingStartToOffsetAndCount.find (-startLineAttributes[i].foldingValue);
+        if (end != foldingStartToOffsetAndCount.end()) {
+          if (end.value().second > 1)
+            --(end.value().second);
+          else
+            foldingStartToOffsetAndCount.erase (end);
+        }
+      }
+      
+      /**
+       * folding open?
+       */
+      if (startLineAttributes[i].foldingValue > 0) {
+        /**
+         * search for this type, either insert it, with current offset or increment counter!
+         */
+        QHash<short, QPair<int, int> >::iterator start = foldingStartToOffsetAndCount.find (startLineAttributes[i].foldingValue);
+        if (start != foldingStartToOffsetAndCount.end())
+          ++(start.value().second);
+        else
+          foldingStartToOffsetAndCount.insert (startLineAttributes[i].foldingValue, qMakePair (startLineAttributes[i].offset, 1));
+      }
+    }
+    
+    /**
+     * compute first type with offset
+     */
+    QHashIterator<short, QPair<int, int> > hashIt (foldingStartToOffsetAndCount);
+    while (hashIt.hasNext()) {
+       hashIt.next();
+       if (openedRegionOffset == -1 || hashIt.value().first < openedRegionOffset) {
+          openedRegionType = hashIt.key();
+          openedRegionOffset = hashIt.value().first;
+       }
+    }
+  }
+  
+  /**
+   * no opening region found, bad, nothing to do
+   */
+  if (openedRegionType == 0)
+    return KTextEditor::Range::invalid();
 
+  /**
+   * second step: search for matching end region marker!
+   */
+  int countOfOpenRegions = 1;
+  for (int line = startLine + 1; line < lines(); ++line) {
+    /**
+     * ensure line is highlighted
+     */
+    ensureHighlighted (line);
+    Kate::TextLine textLine = plainLine (line);
+    
+    /**
+     * search for matching end marker
+     */
+    const QVector<Kate::TextLineData::Attribute> &lineAttributes = textLine->attributesList();
+    for (int i = 0; i < lineAttributes.size(); ++i) {
+      /**
+       * matching folding close?
+       */
+      if (lineAttributes[i].foldingValue == -openedRegionType) {
+        --countOfOpenRegions;
+        
+        /**
+         * end reached?
+         * return resulting range!
+         */
+        if (countOfOpenRegions == 0)
+          return KTextEditor::Range (KTextEditor::Cursor (startLine, openedRegionOffset), KTextEditor::Cursor (line, lineAttributes[i].offset));
+      }
+    
+      /**
+       * matching folding open?
+       */
+      if (lineAttributes[i].foldingValue == openedRegionType)
+        ++countOfOpenRegions;
+    }
+  }
+  
+  /**
+   * if we arrive here, no range was found!
+   */
+  return KTextEditor::Range::invalid();
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

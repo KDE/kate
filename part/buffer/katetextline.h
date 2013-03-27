@@ -43,17 +43,57 @@ class KATEPART_TESTS_EXPORT TextLineData {
 
   public:
     /**
+     * Attribute storage
+     */
+    class Attribute {
+      public:
+        /**
+         * Attribute constructor
+         * @param _offset offset
+         * @param _length length
+         * @param _attributeValue attribute value
+         * @param _foldingValue folding value
+         */
+        Attribute (int _offset = 0, int _length = 0, short _attributeValue = 0, short _foldingValue = 0)
+          : offset (_offset)
+          , length (_length)
+          , attributeValue (_attributeValue)
+          , foldingValue (_foldingValue)
+        {
+        }
+        
+        /**
+         * offset
+         */  
+        int offset;
+        
+        /**
+         * length
+         */
+        int length;
+        
+        /**
+         * attribute value (to encode type of this range)
+         */
+        short attributeValue;
+        
+        /**
+         * folding value (begin/end type)
+         */
+        short foldingValue;
+    };
+    
+    /**
      * Flags of TextLineData
      */
     enum Flags
     {
       flagHlContinue = 1,
       flagAutoWrapped = 2,
-      flagFoldingColumnsOutdated = 4,
-      flagNoIndentationBasedFolding = 8,
-      flagNoIndentationBasedFoldingAtStart = 16,
-      flagLineModified = 32,
-      flagLineSavedOnDisk = 64
+      flagFoldingStartAttribute = 4,
+      flagFoldingStartIndentation = 8,
+      flagLineModified = 16,
+      flagLineSavedOnDisk = 32
     };
 
     /**
@@ -163,22 +203,58 @@ class KATEPART_TESTS_EXPORT TextLineData {
       return m_flags & flagLineSavedOnDisk;
     }
 
-
     /**
-     * Set the flag that only positions have changed, not folding region begins/ends themselve
-     * @param set folding columns our of date?
+     * Is on this line a folding start?
+     * @return folding start line or not?
      */
-    void setFoldingColumnsOutdated(bool set)
+    bool markedAsFoldingStart() const
     {
-      if (set) m_flags |= flagFoldingColumnsOutdated;
-      else m_flags &= (~flagFoldingColumnsOutdated);
+      return m_flags & (flagFoldingStartAttribute | flagFoldingStartIndentation);
     }
 
     /**
-     * Returns \e true, if the folding columns are outdated, otherwise returns \e false.
-     * @return folding columns our of date?
+     * Clear folding start status.
      */
-    bool foldingColumnsOutdated() const { return m_flags & flagFoldingColumnsOutdated; }
+    void clearMarkedAsFoldingStart ()
+    {
+      m_flags &= ~(flagFoldingStartAttribute | flagFoldingStartIndentation);
+    }
+
+    /**
+     * Is on this line a folding start per attribute?
+     * @return folding start line per attribute? or not?
+     */
+    bool markedAsFoldingStartAttribute() const
+    {
+      return m_flags & flagFoldingStartAttribute;
+    }
+
+    /**
+     * Is on this line a folding start per indentation?
+     * @return folding start line per indentation? or not?
+     */
+    bool markedAsFoldingStartIndentation() const
+    {
+      return m_flags & flagFoldingStartIndentation;
+    }
+
+    /**
+     * Mark as folding start line of an attribute based folding.
+     */
+    void markAsFoldingStartAttribute ()
+    {
+      clearMarkedAsFoldingStart ();
+      m_flags |= flagFoldingStartAttribute;
+    }
+
+    /**
+     * Mark as folding start line of an indentation based folding.
+     */
+    void markAsFoldingStartIndentation ()
+    {
+      clearMarkedAsFoldingStart ();
+      m_flags |= flagFoldingStartIndentation;
+    }
 
     /**
      * Returns the line's length.
@@ -258,61 +334,16 @@ class KATEPART_TESTS_EXPORT TextLineData {
     bool endsWith(const QString& match) const { return m_text.endsWith (match); }
 
     /**
-     * Gets the attribute at the given position
-     * use KRenderer::attributes  to get the KTextAttribute for this.
-     *
-     * @param pos position of attribute requested
-     * @return value of attribute
-     */
-    int attribute (int pos) const
-    {
-      for (int i=0; i < m_attributesList.size(); i+=3)
-      {
-        if (pos >= m_attributesList[i] && pos < m_attributesList[i]+m_attributesList[i+1])
-          return m_attributesList[i+2];
-
-        if (pos < m_attributesList[i])
-          break;
-      }
-
-      return 0;
-    }
-
-    /**
      * context stack
      * @return context stack
      */
     const QVector<short> &ctxArray () const { return m_ctx; }
 
     /**
-     * @return true if any context at the line end has the noIndentBasedFolding flag set
+     * Add attribute to this line.
+     * @param attribute new attribute to append
      */
-    bool noIndentBasedFolding() const { return m_flags & flagNoIndentationBasedFolding; }
-
-    /**
-     * @return true if any context at the line end has the noIndentationBasedFoldingAtStart flag set
-     */
-    bool noIndentBasedFoldingAtStart() const { return m_flags & flagNoIndentationBasedFoldingAtStart; }
-
-    /**
-     * folding list
-     * @return folding array
-     */
-    const QVector<int> &foldingListArray () const { return m_foldingList; }
-
-    /**
-     * indentation stack
-     * @return indentation array
-     */
-    const QVector<unsigned short> &indentationDepthArray () const { return m_indentationDepth; }
-
-    /**
-     * Add attribute for given start + length to this line
-     * @param start start column of this attribute
-     * @param length length in chars this attribute should span
-     * @param attribute attribute to use
-     */
-    void addAttribute (int start, int length, int attribute);
+    void addAttribute (const Attribute &attribute);
 
     /**
      * Clear attributes of this line
@@ -323,7 +354,28 @@ class KATEPART_TESTS_EXPORT TextLineData {
      * Accessor to attributes
      * @return attributes of this line
      */
-    const QVector<int> &attributesList () const { return m_attributesList; }
+    const QVector<Attribute> &attributesList () const { return m_attributesList; }
+
+    /**
+     * Gets the attribute at the given position
+     * use KRenderer::attributes  to get the KTextAttribute for this.
+     *
+     * @param pos position of attribute requested
+     * @return value of attribute
+     */
+    short attribute (int pos) const
+    {
+      for (int i=0; i < m_attributesList.size(); ++i)
+      {
+        if (pos >= m_attributesList[i].offset && pos < (m_attributesList[i].offset + m_attributesList[i].length))
+          return m_attributesList[i].attributeValue;
+
+        if (pos < m_attributesList[i].offset)
+          break;
+      }
+
+      return 0;
+    }
 
     /**
      * set hl continue flag
@@ -351,38 +403,6 @@ class KATEPART_TESTS_EXPORT TextLineData {
      */
     void setContext (QVector<short> &val) { m_ctx = val; }
 
-    /**
-     * sets if for the next line indent based folding should be disabled
-     * @param val should indent folding be disabled
-     */
-    void setNoIndentBasedFolding(bool val)
-    {
-      if (val) m_flags = m_flags | flagNoIndentationBasedFolding;
-      else m_flags = m_flags & ~ flagNoIndentationBasedFolding;
-    }
-
-    /**
-     * sets if indent based folding should be disabled at start
-     * @param val should indent based folding be disabled at start
-     */
-    void setNoIndentBasedFoldingAtStart(bool val)
-    {
-      if (val) m_flags = m_flags | flagNoIndentationBasedFoldingAtStart;
-      else m_flags = m_flags & ~ flagNoIndentationBasedFoldingAtStart;
-    }
-
-    /**
-     * update folding list
-     * @param val new folding list
-     */
-    void setFoldingList (QVector<int> &val) { m_foldingList = val; }
-
-    /**
-     * update indentation stack
-     * @param val new indentation stack
-     */
-    void setIndentationDepth (QVector<unsigned short> &val) { m_indentationDepth = val; }
-
   private:
     /**
      * Accessor to the text contained in this line.
@@ -398,32 +418,19 @@ class KATEPART_TESTS_EXPORT TextLineData {
     QString m_text;
 
     /**
-     * store the attribs, int array
-     * one int start, next one len, next one attrib
-     *
-     * TODO: KDE5 replace with movable struct of three ints.
+     * attributes of this line
      */
-    QVector<int> m_attributesList;
+    QVector<Attribute> m_attributesList;
 
     /**
-     * context stack
+     * context stack of this line
      */
     QVector<short> m_ctx;
 
     /**
-     * list of folding starts/ends
+     * flags of this line
      */
-    QVector<int> m_foldingList;
-
-    /**
-     * indentation stack
-     */
-    QVector<unsigned short> m_indentationDepth;
-
-    /**
-     * flags
-     */
-    uchar m_flags;
+    unsigned int m_flags;
 };
 
 /**

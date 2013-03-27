@@ -132,10 +132,20 @@ class KateHighlighting
     void cleanup ();
 
   public:
-    void doHighlight ( Kate::TextLineData *prevLine,
+    /**
+     * Parse the text and fill in the context array and folding list array
+     *
+     * @param prevLine The previous line, the context array is picked up from that if present.
+     * @param textLine The text line to parse
+     * @param nextLine The next line, to check if indentation changed for indentation based folding.
+     * @param ctxChanged will be set to reflect if the context changed
+     * @param tabWidth tab width for indentation based folding, if wanted, else 0
+     */
+    void doHighlight ( const Kate::TextLineData *prevLine,
                        Kate::TextLineData *textLine,
-                       QVector<int> &foldingList,
-                       bool &ctxChanged );
+                       const Kate::TextLineData *nextLine,
+                       bool &ctxChanged,
+                       int tabWidth = 0);
 
     void setKateExtendedAttributeList(const QString &schema, QList<KateExtendedAttribute::Ptr> &,
       KConfig* cfg=0 /*if 0  standard kate config*/, bool writeDefaultsToo=false);
@@ -163,11 +173,13 @@ class KateHighlighting
      * in the general keyword section of the xml file.
      */
     bool canBreakAt( QChar c, int attrib=0 ) const;
-
     /**
      *
      */
     QLinkedList<QRegExp> emptyLines(int attribute=0) const;
+
+    bool isEmptyLine(const Kate::TextLineData *textline) const;
+
     /**
     * @return true if @p beginAttr and @p endAttr are members of the same
     * highlight, and there are comment markers of either type in that.

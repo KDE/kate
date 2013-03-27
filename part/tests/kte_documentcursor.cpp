@@ -23,7 +23,6 @@
 #include <qtest_kde.h>
 
 #include <katedocument.h>
-#include <katecodefolding.h>
 #include <katebuffer.h>
 #include <kateglobal.h>
 #include <kateview.h>

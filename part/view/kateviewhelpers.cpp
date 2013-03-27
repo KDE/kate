@@ -29,7 +29,6 @@
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/containerinterface.h>
 #include <ktexteditor/highlightinterface.h>
-#include "katecodefolding.h"
 #include "kateconfig.h"
 #include "katedocument.h"
 #include <katebuffer.h>
@@ -134,7 +133,7 @@ void KateScrollBar::setShowMiniMap(bool b)
     connect(m_doc, SIGNAL(textChanged(KTextEditor::Document*)), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(m_view, SIGNAL(delayedUpdateOfView()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
     connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(updatePixmap()), Qt::UniqueConnection);
-    connect(m_doc->foldingTree(), SIGNAL(regionVisibilityChanged()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
+    connect(&(m_view->textFolding()), SIGNAL(foldingRangesChanged()), &m_updateTimer, SLOT(start()), Qt::UniqueConnection);
   }
   else if (!b) {
     disconnect(&m_updateTimer);
@@ -267,7 +266,7 @@ void KateScrollBar::paintEvent(QPaintEvent *e)
 }
 
 // This function is optimized for bing called in sequence.
-const QColor KateScrollBar::charColor(const QVector<int> &attributes, int &attributeIndex,
+const QColor KateScrollBar::charColor(const QVector<Kate::TextLineData::Attribute> &attributes, int &attributeIndex,
                                       const QList<QTextLayout::FormatRange> &decorations,
                                       const QColor &defaultColor, int x, QChar ch)
 {
@@ -297,12 +296,12 @@ const QColor KateScrollBar::charColor(const QVector<int> &attributes, int &attri
   if (!styleFound) {
     // go to the block containing x
     while ((attributeIndex < attributes.size()) &&
-      ((attributes[attributeIndex] + attributes[attributeIndex+1]) < x))
+      ((attributes[attributeIndex].offset + attributes[attributeIndex].length) < x))
     {
-      attributeIndex += 3;
+      ++attributeIndex;
     }
-    if ((attributeIndex < attributes.size()) && (x < attributes[attributeIndex] + attributes[attributeIndex+1])) {
-      color = m_view->renderer()->attribute(attributes[attributeIndex+2])->foreground().color();
+    if ((attributeIndex < attributes.size()) && (x < attributes[attributeIndex].offset + attributes[attributeIndex].length)) {
+      color = m_view->renderer()->attribute(attributes[attributeIndex].attributeValue)->foreground().color();
     }
   }
 
@@ -328,7 +327,7 @@ void KateScrollBar::updatePixmap()
 
   // For performance reason, only every n-th line will be drawn if the widget is
   // sufficiently small compared to the amount of lines in the document.
-  int docLineCount = m_doc->visibleLines();
+  int docLineCount = m_view->textFolding().visibleLines();
   int pixmapLineCount = docLineCount;
   if (m_view->config()->scrollPastEnd()) {
     pixmapLineCount += pageStep();
@@ -352,7 +351,7 @@ void KateScrollBar::updatePixmap()
   int pixmapLineWidth = s_pixelMargin + s_lineWidth/charIncrement;
 
   //kDebug(13040) << "l" << lineIncrement << "c" << charIncrement << "d" << lineDivisor;
-  //kDebug(13040) << "pixmap" << pixmapLineCount << pixmapLineWidth << "docLines" << m_doc->visibleLines() << "height" << m_grooveHeight;
+  //kDebug(13040) << "pixmap" << pixmapLineCount << pixmapLineWidth << "docLines" << m_view->textFolding().visibleLines() << "height" << m_grooveHeight;
 
   QColor backgroundColor;
   QColor defaultTextColor;
@@ -387,7 +386,7 @@ void KateScrollBar::updatePixmap()
     // Iterate over all visible lines, drawing them.
     for (int virtualLine=0; virtualLine < docLineCount; virtualLine += lineIncrement) {
 
-      int realLineNumber = m_doc->getRealLine(virtualLine);
+      int realLineNumber = m_view->textFolding().visibleLineToLine(virtualLine);
       QString lineText = m_doc->line(realLineNumber);
 
       // use this to control the offset of the text from the left
@@ -398,7 +397,7 @@ void KateScrollBar::updatePixmap()
       }
       const Kate::TextLine& kateline = m_doc->plainKateTextLine(realLineNumber);
 
-      QVector<int> attributes = kateline->attributesList();
+      const QVector<Kate::TextLineData::Attribute> &attributes = kateline->attributesList();
       QList< QTextLayout::FormatRange > decorations = m_view->renderer()->decorationsForLine(kateline, realLineNumber);
       int attributeIndex = 0;
 
@@ -454,7 +453,7 @@ void KateScrollBar::updatePixmap()
     // since it requires querying every line.
     if ( m_doc->lines() < 50000 ) {
       for ( int lineno = 0; lineno < docLineCount; lineno++ ) {
-        int realLineNo = m_doc->getRealLine(lineno);
+        int realLineNo = m_view->textFolding().visibleLineToLine(lineno);
         const Kate::TextLine& line = m_doc->plainKateTextLine(realLineNo);
         if ( line->markedAsModified() ) {
           painter.setPen(modifiedLineColor);
@@ -724,7 +723,7 @@ void KateScrollBar::redrawMarks()
 void KateScrollBar::recomputeMarksPositions()
 {
   m_lines.clear();
-  int visibleLines = m_doc->visibleLines();
+  int visibleLines = m_view->textFolding().visibleLines();
 
   QStyleOptionSlider opt;
   initStyleOption(&opt);
@@ -733,7 +732,6 @@ void KateScrollBar::recomputeMarksPositions()
   int realHeight = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddPage, this).bottom() - topMargin - 1;
 
   const QHash<int, KTextEditor::Mark*> &marks = m_doc->marks();
-  KateCodeFoldingTree *tree = m_doc->foldingTree();
 
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = marks.constBegin(); i != marks.constEnd(); ++i)
   {
@@ -741,6 +739,8 @@ void KateScrollBar::recomputeMarksPositions()
 
     uint line = mark->line;
 
+#if 0
+    //FIXME FOLDING
     if (tree)
     {
       KateCodeFoldingNode *node = tree->findNodeForLine(line);
@@ -752,8 +752,9 @@ void KateScrollBar::recomputeMarksPositions()
         node = node->getParentNode();
       }
     }
+#endif
 
-    line = m_doc->getVirtualLine(line);
+    line = m_view->textFolding().lineToVisibleLine(line);
 
     double d = (double)line / (visibleLines - 1);
     m_lines.insert(topMargin + (int)(d * realHeight),
@@ -1637,6 +1638,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
   p.setRenderHints (QPainter::TextAntialiasing);
   p.setFont ( m_view->renderer()->config()->font() ); // for line numbers
 
+  
+#if 0
+    //FIXME FOLDING
   KateLineInfo oldInfo;
   if (startz < lineRangesSize)
   {
@@ -1645,6 +1649,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     else
       m_doc->lineInfo(&oldInfo,m_viewInternal->cache()->viewLine(startz).line()-1);
   }
+#endif
 
   KTextEditor::AnnotationModel *model = m_view->annotationModel() ?
       m_view->annotationModel() : m_doc->annotationModel();
@@ -1795,15 +1800,20 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     }
 
     // folding markers
-    if( m_foldingMarkersOn )
+    if( m_foldingMarkersOn)
     {
-      if( realLine > -1 )
+      if ((realLine >= 0) && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
       {
-        KateLineInfo info;
-        m_doc->lineInfo(&info,realLine);
-
+        QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = m_view->textFolding().foldingRangesStartingOnLine (realLine);
+        bool anyFolded = false;
+        for (int i = 0; i < startingRanges.size(); ++i)
+          if (startingRanges[i].second & Kate::TextFolding::Folded)
+            anyFolded = true;
+      
         // first icon border background
         p.fillRect(lnX, y, iconPaneWidth, h, m_view->renderer()->config()->iconBarColor());
+
+        #if 0
         // ... with possible additional folding highlighting
         if (m_foldingRange && m_foldingRange->overlapsLine (realLine)) {
           p.save();
@@ -1834,27 +1844,21 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
           }
           p.restore();
         }
+#endif
 
-        if (!info.topLevel)
+        Kate::TextLine tl = m_doc->kateTextLine(realLine);
+
+        if (!startingRanges.isEmpty() || tl->markedAsFoldingStart())
         {
-          if (info.startsInVisibleBlock && m_viewInternal->cache()->viewLine(z).startCol() == 0)
+          if (anyFolded)
           {
             paintTriangle (p, m_view->renderer()->config()->foldingColor(), lnX, y, iconPaneWidth, h, false);
           }
-          else if (info.startsVisibleBlock && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
+          else
           {
             paintTriangle (p, m_view->renderer()->config()->foldingColor(), lnX, y, iconPaneWidth, h, true);
           }
-          else
-          {
-           // p.drawLine(lnX+halfIPW,y,lnX+halfIPW,y+h-1);
-
-           // if (info.endsBlock && !m_viewInternal->cache()->viewLine(z).wrap())
-            //  p.drawLine(lnX+halfIPW,y+h-1,lnX+iconPaneWidth-2,y+h-1);
-          }
         }
-
-        oldInfo = info;
       }
 
       lnX += iconPaneWidth;
@@ -1947,6 +1951,8 @@ void KateIconBorder::showDelayedBlock(int line)
 
 void KateIconBorder::showBlock()
 {
+#if 0
+    //FIXME FOLDING
   if (m_nextHighlightBlock == m_currentBlockLine) return;
   m_currentBlockLine = m_nextHighlightBlock;
 
@@ -2006,10 +2012,14 @@ void KateIconBorder::showBlock()
    * repaint
    */
   repaint ();
+#endif
 }
 
 void KateIconBorder::hideBlock()
 {
+  
+#if 0
+    //FIXME FOLDING
   if (m_delayFoldingHlTimer.isActive()) {
     m_delayFoldingHlTimer.stop();
   }
@@ -2018,6 +2028,7 @@ void KateIconBorder::hideBlock()
   m_currentBlockLine = -1;
   delete m_foldingRange;
   m_foldingRange = 0;
+#endif
 }
 
 void KateIconBorder::leaveEvent(QEvent *event)
@@ -2099,16 +2110,20 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     }
 
     if ( area == FoldingMarkers) {
-      // if a folding range exists, fold this one, -> use start line of the range
-      int lineToFold = cursorOnLine;
-      if (m_foldingRange && m_foldingRange->start().line() >= 0) {
-        lineToFold = m_foldingRange->start().line();
-      }
-      KateLineInfo info;
-      m_doc->lineInfo(&info, lineToFold);
-      if ((info.startsVisibleBlock) || (info.startsInVisibleBlock)) {
-        emit toggleRegionVisibility(lineToFold);
-      }
+        QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = m_view->textFolding().foldingRangesStartingOnLine (cursorOnLine);
+        bool anyFolded = false;
+        for (int i = 0; i < startingRanges.size(); ++i)
+          if (startingRanges[i].second & Kate::TextFolding::Folded)
+            anyFolded = true;
+        
+        // fold or unfold all ranges, remember if any action happened!
+        bool actionDone = false;
+        for (int i = 0; i < startingRanges.size(); ++i)
+          actionDone = (anyFolded ? m_view->textFolding().unfoldRange (startingRanges[i].first) : m_view->textFolding().foldRange (startingRanges[i].first)) || actionDone;
+        
+        // if no action done, try to fold it, create non-persistent folded range, if possible!
+        if (!actionDone)
+          m_view->textFolding().newFoldingRange (m_view->doc()->buffer().computeFoldingRangeForStartLine (cursorOnLine), Kate::TextFolding::Folded);
     }
 
     if ( area == AnnotationBorder ) {

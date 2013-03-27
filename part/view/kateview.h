@@ -40,6 +40,7 @@
 
 #include "kateviinputmodemanager.h"
 #include "katetextrange.h"
+#include "katetextfolding.h"
 #include "katerenderer.h"
 
 namespace KTextEditor
@@ -561,6 +562,16 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void dropEventPass(QDropEvent*);
 
   public:
+    /**
+     * Folding handler for this view.
+     * @return folding handler
+     */
+    Kate::TextFolding &textFolding ()
+    {
+      return m_textFolding;
+    }
+    
+  public:
     void slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text);
 
   protected:
@@ -617,6 +628,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     bool m_hasWrap;
 
     KateDocument     *const m_doc;
+    Kate::TextFolding m_textFolding;
     KateViewConfig   *const m_config;
     KateRenderer     *const m_renderer;
     KateViewInternal *const m_viewInternal;

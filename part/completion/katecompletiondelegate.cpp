@@ -134,10 +134,15 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
         previousLine = document()->kateTextLine(completionStart.line() - 1);
       else
         previousLine = Kate::TextLine (new Kate::TextLineData());
+      
+      Kate::TextLine nextLine;
+      if ((completionStart.line() + 1) < document()->lines())
+        nextLine = document()->kateTextLine(completionStart.line() + 1);
+      else
+        nextLine = Kate::TextLine (new Kate::TextLineData());
 
-      QVector<int> foldingList;
       bool ctxChanged = false;
-      document()->highlight()->doHighlight(previousLine.data(), thisLine.data(), foldingList, ctxChanged);
+      document()->highlight()->doHighlight(previousLine.data(), thisLine.data(), nextLine.data(), ctxChanged);
     }
 
   m_currentColumnStart = m_cachedColumnStarts[index.column()];

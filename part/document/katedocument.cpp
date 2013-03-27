@@ -168,9 +168,10 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // some nice signals from the buffer
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(m_buffer, SIGNAL(respellCheckBlock(int,int)), this , SLOT(respellCheckBlock(int,int)));
-  connect(m_buffer, SIGNAL(codeFoldingUpdated()),this,SIGNAL(codeFoldingUpdated()));
-  connect(this,SIGNAL(aboutToReload(KTextEditor::Document*)),foldingTree(),SLOT(saveFoldingState()));
-  connect(this,SIGNAL(reloaded(KTextEditor::Document*)),foldingTree(),SLOT(applyFoldingState()));
+  
+  // FIXME: FOLDING
+  //connect(this,SIGNAL(aboutToReload(KTextEditor::Document*)),foldingTree(),SLOT(saveFoldingState()));
+  //connect(this,SIGNAL(reloaded(KTextEditor::Document*)),foldingTree(),SLOT(applyFoldingState()));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
@@ -750,11 +751,6 @@ int KateDocument::totalCharacters() const
 int KateDocument::lines() const
 {
   return m_buffer->count();
-}
-
-int KateDocument::numVisLines() const
-{
-  return m_buffer->countVisible ();
 }
 
 int KateDocument::lineLength ( int line ) const
@@ -1597,7 +1593,8 @@ void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
 
   if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipFolding)) {
       // restore folding nodes
-      foldingTree()->readSessionConfig(kconfig);
+      // FIXME: FOLDING
+      // foldingTree()->readSessionConfig(kconfig);
   }
 }
 
@@ -1649,7 +1646,8 @@ void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
 
   if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipFolding)) {
     // save folding
-    foldingTree()->writeSessionConfig(kconfig);
+    // FIXME: FOLDING
+    //foldingTree()->writeSessionConfig(kconfig);
   }
 }
 
@@ -3283,6 +3281,9 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
                   && removeStartLineCommentFromSingleLine( line, startAttrib ) )
         || ( hasStartStopCommentMark
              && removeStartStopCommentFromSingleLine( line, startAttrib ) );
+      
+#if 0
+        // FIXME: FOLDING
       if ((!removed) && foldingTree()) {
         kDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)";
         int commentRegion=(highlight()->commentRegion(startAttrib));
@@ -3301,6 +3302,7 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
           } else kDebug(13020)<<"No enclosing region found";
         } else kDebug(13020)<<"No comment region specified for current hl";
       }
+#endif
     }
     else
     {
@@ -3897,22 +3899,7 @@ bool KateDocument::pageUpDownMovesCursor () const
 {
   return config()->pageUpDownMovesCursor ();
 }
-
-void KateDocument::dumpRegionTree()
-{
-  m_buffer->foldingTree()->debugDump();
-}
 //END
-
-void KateDocument::lineInfo (KateLineInfo *info, int line) const
-{
-  m_buffer->lineInfo(info,line);
-}
-
-KateCodeFoldingTree *KateDocument::foldingTree ()
-{
-  return m_buffer->foldingTree();
-}
 
 bool KateDocument::setEncoding (const QString &e)
 {
@@ -4645,21 +4632,6 @@ KateHighlighting * KateDocument::highlight( ) const
   return m_buffer->highlight();
 }
 
-uint KateDocument::getRealLine( unsigned int virtualLine )
-{
-  return m_buffer->lineNumber (virtualLine);
-}
-
-uint KateDocument::getVirtualLine( unsigned int realLine )
-{
-  return m_buffer->lineVisibleNumber (realLine);
-}
-
-uint KateDocument::visibleLines( )
-{
-  return m_buffer->countVisible ();
-}
-
 Kate::TextLine KateDocument::kateTextLine( uint i )
 {
   m_buffer->ensureHighlighted (i);
@@ -5333,21 +5305,17 @@ QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttri
   }
 
   Kate::TextLine kateLine = kateTextLine(line);
-
-  if ( !kateLine ) {
+  if ( !kateLine )
     return attribs;
-  }
 
-  const QVector<int> & intAttrs = kateLine->attributesList();
-
-  Q_ASSERT(intAttrs.size() % 3 == 0);
-
-  for ( int i = 0; i < intAttrs.size(); i += 3 ) {
-    attribs << KTextEditor::HighlightInterface::AttributeBlock(
-      intAttrs.at(i),
-      intAttrs.at(i+1),
-      view->renderer()->attribute(intAttrs.at(i+2))
-    );
+  const QVector<Kate::TextLineData::Attribute> &intAttrs = kateLine->attributesList();
+  for ( int i = 0; i < intAttrs.size(); ++i ) {
+    if (intAttrs[i].length > 0 && intAttrs[i].attributeValue > 0)
+      attribs << KTextEditor::HighlightInterface::AttributeBlock(
+        intAttrs.at(i).offset,
+        intAttrs.at(i).length,
+        view->renderer()->attribute(intAttrs.at(i).attributeValue)
+      );
   }
 
   return attribs;

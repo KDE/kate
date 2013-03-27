@@ -2071,6 +2071,7 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     }
 
     if ( area == FoldingMarkers) {
+        // ask the folding info for this line, if any folds are around!
         QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = m_view->textFolding().foldingRangesStartingOnLine (cursorOnLine);
         bool anyFolded = false;
         for (int i = 0; i < startingRanges.size(); ++i)
@@ -2083,8 +2084,13 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
           actionDone = (anyFolded ? m_view->textFolding().unfoldRange (startingRanges[i].first) : m_view->textFolding().foldRange (startingRanges[i].first)) || actionDone;
         
         // if no action done, try to fold it, create non-persistent folded range, if possible!
-        if (!actionDone)
-          m_view->textFolding().newFoldingRange (m_view->doc()->buffer().computeFoldingRangeForStartLine (cursorOnLine), Kate::TextFolding::Folded);
+        if (!actionDone) {
+          // either use the fold for this line or the range that is highlighted ATM if any!
+          KTextEditor::Range foldingRange = m_view->doc()->buffer().computeFoldingRangeForStartLine (cursorOnLine);
+          if (!foldingRange.isValid() && m_foldingRange)
+            foldingRange = m_foldingRange->toRange ();
+          m_view->textFolding().newFoldingRange (foldingRange, Kate::TextFolding::Folded);
+        }
     }
 
     if ( area == AnnotationBorder ) {

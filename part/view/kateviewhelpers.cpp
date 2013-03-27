@@ -1989,9 +1989,6 @@ void KateIconBorder::showBlock()
 
 void KateIconBorder::hideBlock()
 {
-  
-#if 0
-    //FIXME FOLDING
   if (m_delayFoldingHlTimer.isActive()) {
     m_delayFoldingHlTimer.stop();
   }
@@ -2000,7 +1997,6 @@ void KateIconBorder::hideBlock()
   m_currentBlockLine = -1;
   delete m_foldingRange;
   m_foldingRange = 0;
-#endif
 }
 
 void KateIconBorder::leaveEvent(QEvent *event)

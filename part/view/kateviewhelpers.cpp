@@ -739,21 +739,6 @@ void KateScrollBar::recomputeMarksPositions()
 
     uint line = mark->line;
 
-#if 0
-    //FIXME FOLDING
-    if (tree)
-    {
-      KateCodeFoldingNode *node = tree->findNodeForLine(line);
-
-      while (node)
-      {
-        if (!node->isVisible())
-          line = tree->getStartLine(node);
-        node = node->getParentNode();
-      }
-    }
-#endif
-
     line = m_view->textFolding().lineToVisibleLine(line);
 
     double d = (double)line / (visibleLines - 1);

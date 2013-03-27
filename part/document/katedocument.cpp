@@ -3234,8 +3234,8 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
 
   if ( c < ln->length() )
     startAttrib = ln->attribute( c );
-  else if ( !ln->ctxArray().isEmpty() )
-    startAttrib = highlight()->attribute( ln->ctxArray().last() );
+  else if ( !ln->contextStack().isEmpty() )
+    startAttrib = highlight()->attribute( ln->contextStack().last() );
 
   bool hasStartLineCommentMark = !(highlight()->getCommentSingleLineStart( startAttrib ).isEmpty());
   bool hasStartStopCommentMark = ( !(highlight()->getCommentStart( startAttrib ).isEmpty())
@@ -5341,7 +5341,7 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
   int len = kateLine->length();
   int pos = position.column();
   if ( pos >= len ) {
-    const QVector< short >& ctxs = kateLine->ctxArray();
+    const Kate::TextLineData::ContextStack &ctxs = kateLine->contextStack();
     int ctxcnt = ctxs.count();
     if ( ctxcnt == 0 ) {
       return highlightingMode();

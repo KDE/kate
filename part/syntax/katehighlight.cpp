@@ -126,7 +126,7 @@ void KateHighlighting::cleanup ()
   internalIDList.clear();
 }
 
-KateHlContext *KateHighlighting::generateContextStack (QVector<short> &contextStack,
+KateHlContext *KateHighlighting::generateContextStack (Kate::TextLineData::ContextStack &contextStack,
                                                        KateHlContextModification modification,
                                                        int &indexLastContextPreviousLine)
 {
@@ -270,7 +270,7 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
     return;
 
   // duplicate the ctx stack, only once !
-  QVector<short> ctx (prevLine->ctxArray());
+  Kate::TextLineData::ContextStack ctx (prevLine->contextStack());
 
   int previousLine = -1;
   KateHlContext *context;
@@ -516,7 +516,7 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
   }
   
   // has the context stack changed ?
-  if (ctx == textLine->ctxArray())
+  if (ctx == textLine->contextStack())
   {
     ctxChanged = false;
   }
@@ -525,7 +525,7 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
     ctxChanged = true;
 
     // assign ctx stack !
-    textLine->setContext(ctx);
+    textLine->setContextStack(ctx);
   }
 
   // write hl continue flag

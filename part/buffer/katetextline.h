@@ -43,6 +43,11 @@ class KATEPART_TESTS_EXPORT TextLineData {
 
   public:
     /**
+     * Context stack
+     */
+    typedef QVector<short> ContextStack;
+    
+    /**
      * Attribute storage
      */
     class Attribute {
@@ -337,7 +342,13 @@ class KATEPART_TESTS_EXPORT TextLineData {
      * context stack
      * @return context stack
      */
-    const QVector<short> &ctxArray () const { return m_ctx; }
+    const ContextStack &contextStack () const { return m_contextStack; }
+
+    /**
+     * Sets the syntax highlight context number
+     * @param val new context array
+     */
+    void setContextStack (const ContextStack &val) { m_contextStack = val; }
 
     /**
      * Add attribute to this line.
@@ -397,12 +408,6 @@ class KATEPART_TESTS_EXPORT TextLineData {
       else m_flags = m_flags & ~ flagAutoWrapped;
     }
 
-    /**
-     * Sets the syntax highlight context number
-     * @param val new context array
-     */
-    void setContext (QVector<short> &val) { m_ctx = val; }
-
   private:
     /**
      * Accessor to the text contained in this line.
@@ -425,7 +430,7 @@ class KATEPART_TESTS_EXPORT TextLineData {
     /**
      * context stack of this line
      */
-    QVector<short> m_ctx;
+    ContextStack m_contextStack;
 
     /**
      * flags of this line

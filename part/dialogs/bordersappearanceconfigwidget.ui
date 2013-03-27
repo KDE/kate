@@ -20,10 +20,10 @@
       <item>
        <widget class="QCheckBox" name="chkShowFoldingMarkers">
         <property name="whatsThis">
-         <string>If this option is checked, every new view will display marks for code folding, if code folding is available.</string>
+         <string>If this option is checked, every new view will display marks for folding.</string>
         </property>
         <property name="text">
-         <string>Show &amp;folding markers (if available)</string>
+         <string>Show &amp;folding markers</string>
         </property>
        </widget>
       </item>

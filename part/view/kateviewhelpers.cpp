@@ -1923,35 +1923,29 @@ void KateIconBorder::showDelayedBlock(int line)
 
 void KateIconBorder::showBlock()
 {
-#if 0
-    //FIXME FOLDING
   if (m_nextHighlightBlock == m_currentBlockLine) return;
   m_currentBlockLine = m_nextHighlightBlock;
-
-  // get the new range, that should be highlighted
+  
+  /**
+   * compute to which folding range we belong
+   * FIXME: optimize + perhaps have some better threshold or use timers!
+   */
   KTextEditor::Range newRange = KTextEditor::Range::invalid();
-  KateCodeFoldingTree *tree = m_doc->foldingTree();
-  if (tree) {
-    KateCodeFoldingNode *node = tree->findNodeForLine(m_currentBlockLine);
-    KTextEditor::Cursor beg;
-    KTextEditor::Cursor end;
-    if (node != tree->rootNode () && node->getBegin(tree, &beg)) {
-      if (node->getEnd(tree, &end))
-        newRange = KTextEditor::Range(beg, end);
-      else
-        newRange = KTextEditor::Range(beg, m_viewInternal->doc()->documentEnd());
+  for (int line = m_currentBlockLine; line >= qMax(0, m_currentBlockLine-1024); --line) {
+    /**
+     * try if we have folding range from that line, should be fast per call
+     */
+    KTextEditor::Range foldingRange = m_doc->buffer().computeFoldingRangeForStartLine (line);
+    if (!foldingRange.isValid())
+      continue;
+    
+    /**
+     * does the range reach us?
+     */
+    if (foldingRange.overlapsLine (m_currentBlockLine)) {
+      newRange = foldingRange;
+      break;
     }
-    KateLineInfo info;
-    tree->getLineInfo(&info, m_currentBlockLine);
-    if ((info.startsVisibleBlock)) {
-      node=tree->findNodeStartingAt(m_currentBlockLine);
-      if (node) {
-        if (node != tree->rootNode () && node->getBegin(tree, &beg) && node->getEnd(tree, &end)) {
-          newRange = KTextEditor::Range(beg, end);
-        }
-      }
-    }
-
   }
 
   if (newRange.isValid() && m_foldingRange && *m_foldingRange == newRange) {
@@ -1984,7 +1978,6 @@ void KateIconBorder::showBlock()
    * repaint
    */
   repaint ();
-#endif
 }
 
 void KateIconBorder::hideBlock()

@@ -301,6 +301,13 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
      */
     void foldingRangesStartingOnLine (QVector<QPair<qint64, FoldingRangeFlags> > &results, const TextFolding::FoldingRange::Vector &ranges, int line) const;
     
+  private Q_SLOTS:
+    /**
+     * Is triggered if cleared() of TextBuffer is emitted.
+     * Will kill all existing folding ranges.
+     */
+    void slotTextBufferCleared ();
+    
   private:
     /**
      * parent text buffer

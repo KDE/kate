@@ -49,12 +49,16 @@ TextFolding::TextFolding (TextBuffer &buffer)
   , m_buffer (buffer)
   , m_idCounter (-1)
 {
+  /**
+   * connect needed signals from buffer
+   */
+  connect (&m_buffer, SIGNAL(cleared()), SLOT(slotTextBufferCleared()));
 }
 
 TextFolding::~TextFolding ()
 {
   /**
-   * only delete the folding ranges, the folded ranges are the same objects
+   * only delete the folding ranges, the folded ranges and mapped ranges are the same objects
    */
   qDeleteAll (m_foldingRanges);
 }
@@ -865,6 +869,17 @@ void TextFolding::appendFoldedRanges (TextFolding::FoldingRange::Vector &newFold
      */
     appendFoldedRanges (newFoldedFoldingRanges, range->nestedRanges);
   }
+}
+
+void TextFolding::slotTextBufferCleared ()
+{
+  /**
+   * global cleanup
+   */
+  m_idToFoldingRange.clear();
+  m_foldedFoldingRanges.clear();
+  qDeleteAll (m_foldingRanges);
+  m_foldingRanges.clear ();
 }
     
 }

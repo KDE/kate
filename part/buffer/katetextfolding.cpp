@@ -527,10 +527,13 @@ QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges,
 
 bool TextFolding::insertNewFoldingRange (FoldingRange *parent, FoldingRange::Vector &existingRanges, FoldingRange *newRange)
 {
+#if 0
   /**
    * kill empty ranges
    * might exist because we removed the text inside a range or cleared buffer
    * TODO: OPTIMIZE, perhaps really use MovingRange, not Cursor!
+   * FIXME: we can't do this that way, else the m_foldedFoldingRanges is containing dangling pointers!
+   *        same for m_idToFoldingRange
    */
   if (!existingRanges.isEmpty()) {
     /**
@@ -564,6 +567,7 @@ bool TextFolding::insertNewFoldingRange (FoldingRange *parent, FoldingRange::Vec
      */
     existingRanges = newRanges;
   }
+#endif
   
   /**
    * existing ranges is non-overlapping and sorted

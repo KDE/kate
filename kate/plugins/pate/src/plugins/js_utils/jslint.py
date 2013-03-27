@@ -25,7 +25,9 @@ import kate
 
 from pyjslint import check_JSLint
 
-from js_settings import KATE_ACTIONS, CHECK_WHEN_SAVE
+from js_settings import (KATE_ACTIONS,
+                         _JSLINT_CHECK_WHEN_SAVE,
+                         DEFAULT_CHECK_JSLINT_WHEN_SAVE)
 from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
                                 showErrors, showOk)
 
@@ -36,8 +38,13 @@ pattern = re.compile(r"Lint at line (\d+) character (\d+): (.*)")
 @kate.action(**KATE_ACTIONS['checkJslint'])
 def checkJslint(currentDocument=None):
     """Check your js code with the jslint tool"""
+    js_utils_conf = kate.configuration.root.get('js_utils')
+    check_when_save = js_utils_conf.get(_JSLINT_CHECK_WHEN_SAVE,
+                                        DEFAULT_CHECK_JSLINT_WHEN_SAVE)
+
     if not (not currentDocument or (is_mymetype_js(currentDocument) and
-                                    not currentDocument.isModified())):
+                                    not currentDocument.isModified() and
+                                    check_when_save)):
         return
     move_cursor = not currentDocument
     currentDocument = currentDocument or kate.activeDocument()
@@ -59,16 +66,16 @@ def checkJslint(currentDocument=None):
                 "message": matches.groups()[2],
                 "line": int(matches.groups()[0]),
                 "column": int(matches.groups()[1]) + 1,
-                })
+            })
 
     if len(errors_to_show) == 0:
         showOk("JSLint Ok")
         return
 
     showErrors('JSLint Errors:',
-                errors_to_show,
-                mark_key, currentDocument,
-                move_cursor=move_cursor)
+               errors_to_show,
+               mark_key, currentDocument,
+               move_cursor=move_cursor)
 
 
 def is_mymetype_js(doc, text_plain=False):
@@ -83,8 +90,8 @@ def is_mymetype_js(doc, text_plain=False):
 @kate.init
 @kate.viewCreated
 def createSignalCheckDocument(view=None, *args, **kwargs):
-    if not CHECK_WHEN_SAVE:
-        return
     view = view or kate.activeView()
     doc = view.document()
     doc.modifiedChanged.connect(checkJslint.f)
+
+# kate: space-indent on; indent-width 4;

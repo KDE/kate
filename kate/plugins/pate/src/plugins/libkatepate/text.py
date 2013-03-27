@@ -18,7 +18,7 @@
 import kate
 from libkatepate.selection import setSelectionFromCurrentPosition
 
-TEXT_TO_CHANGE = 'XXX'
+TEXT_TO_CHANGE = '${cursor}'
 
 
 def insertText(text, strip_line=False,
@@ -42,7 +42,7 @@ def insertText(text, strip_line=False,
     text_to_change_len = len(TEXT_TO_CHANGE)
     if move_to and TEXT_TO_CHANGE in text:
         currentPosition = view.cursorPosition()
-        pos_xxx = text.index(TEXT_TO_CHANGE)
-        lines = text[pos_xxx + text_to_change_len:].count('\n')
-        column = len(text[:pos_xxx].split('\n')[-1]) - currentPosition.column()
+        pos_cursor = text.index(TEXT_TO_CHANGE)
+        lines = text[pos_cursor + text_to_change_len:].count('\n')
+        column = len(text[:pos_cursor].split('\n')[-1]) - currentPosition.column()
         setSelectionFromCurrentPosition((-lines, column), (-lines, column + text_to_change_len))

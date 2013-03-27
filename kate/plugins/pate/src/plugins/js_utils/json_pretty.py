@@ -27,7 +27,11 @@ except ImportError:
 
 from libkatepate import text
 from libkatepate.errors import showError
-from js_settings import KATE_ACTIONS
+from js_settings import (KATE_ACTIONS,
+                         _INDENT_JSON_CFG,
+                         _ENCODING_JSON_CFG,
+                         DEFAULT_INDENT_JSON,
+                         DEFAULT_ENCODING_JSON)
 
 
 @kate.action(**KATE_ACTIONS['togglePrettyJsonFormat'])
@@ -36,12 +40,17 @@ def togglePrettyJsonFormat():
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     source = view.selectionText()
+    js_utils_conf = kate.configuration.root.get('js_utils')
     if not source:
-        showError('Select a json text')
+        showError('Please select a json text and press: %s' % KATE_ACTIONS['togglePrettyJsonFormat']['shortcut'])
     else:
+        indent = js_utils_conf.get(_INDENT_JSON_CFG, DEFAULT_INDENT_JSON)
+        encoding = js_utils_conf.get(_ENCODING_JSON_CFG, DEFAULT_ENCODING_JSON)
         try:
-            target = json.dumps(json.loads(source), indent=2)
+            target = json.dumps(json.loads(source),
+                                indent=indent,
+                                encoding=encoding)
             view.removeSelectionText()
             text.insertText(target)
         except ValueError as e:
-            showError('This text is not a valid json text: %s' % e.message)
+            showError('This selected text is not a valid json text: %s' % e.message)

@@ -21,8 +21,10 @@ import kate
 import re
 
 from libkatepate.autocomplete import AbstractJSONFileCodeCompletionModel, reset
-from js_settings import (JAVASCRIPT_AUTOCOMPLETE_ENABLED,
-                         JQUERY_AUTOCOMPLETE_ENABLED)
+from js_settings import (DEFAULT_ENABLE_JS_AUTOCOMPLETE,
+                         DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE,
+                         _ENABLE_JS_AUTOCOMPLETE,
+                         _ENABLE_JQUERY_AUTOCOMPLETE)
 
 
 class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):
@@ -82,7 +84,8 @@ class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
 @kate.init
 @kate.viewCreated
 def createSignalAutocompleteJS(view=None, *args, **kwargs):
-    if not JAVASCRIPT_AUTOCOMPLETE_ENABLED:
+    global ENABLE_JS_AUTOCOMPLETE
+    if not ENABLE_JS_AUTOCOMPLETE:
         return
     view = view or kate.activeView()
     cci = view.codeCompletionInterface()
@@ -92,18 +95,26 @@ def createSignalAutocompleteJS(view=None, *args, **kwargs):
 @kate.init
 @kate.viewCreated
 def createSignalAutocompletejQuery(view=None, *args, **kwargs):
-    if not JQUERY_AUTOCOMPLETE_ENABLED:
+    global ENABLE_JQUERY_AUTOCOMPLETE
+    if not ENABLE_JQUERY_AUTOCOMPLETE:
         return
     view = view or kate.activeView()
     cci = view.codeCompletionInterface()
     cci.registerCompletionModel(jquerycodecompletationmodel)
 
 
-if JAVASCRIPT_AUTOCOMPLETE_ENABLED or JQUERY_AUTOCOMPLETE_ENABLED:
-    if JAVASCRIPT_AUTOCOMPLETE_ENABLED:
-        jscodecompletationmodel = StaticJSCodeCompletionModel(kate.application)
-        jscodecompletationmodel.modelReset.connect(reset)
+js_utils_conf = kate.configuration.root.get('js_utils')
+ENABLE_JS_AUTOCOMPLETE = js_utils_conf.get(_ENABLE_JS_AUTOCOMPLETE,
+                                           DEFAULT_ENABLE_JS_AUTOCOMPLETE)
+ENABLE_JQUERY_AUTOCOMPLETE = js_utils_conf.get(_ENABLE_JQUERY_AUTOCOMPLETE,
+                                               DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE)
 
-    if JQUERY_AUTOCOMPLETE_ENABLED:
-        jquerycodecompletationmodel = StaticJQueryCompletionModel(kate.application)
-        jquerycodecompletationmodel.modelReset.connect(reset)
+if ENABLE_JS_AUTOCOMPLETE:
+    jscodecompletationmodel = StaticJSCodeCompletionModel(kate.application)
+    jscodecompletationmodel.modelReset.connect(reset)
+
+if ENABLE_JQUERY_AUTOCOMPLETE:
+    jquerycodecompletationmodel = StaticJQueryCompletionModel(kate.application)
+    jquerycodecompletationmodel.modelReset.connect(reset)
+
+# kate: space-indent on; indent-width 4;

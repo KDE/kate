@@ -14,8 +14,9 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-JS_MENU = 'JavaScript'
+from libkatepate import text
 
+JS_MENU = 'JavaScript'
 
 KATE_ACTIONS = {'insertReady': {'text': 'jQuery Ready',
                                 'shortcut': 'Ctrl+J',
@@ -31,10 +32,21 @@ KATE_ACTIONS = {'insertReady': {'text': 'jQuery Ready',
                                            'icon': None},
                 }
 
-JAVASCRIPT_AUTOCOMPLETE_ENABLED = True
-JQUERY_AUTOCOMPLETE_ENABLED = True
-CHECK_WHEN_SAVE = True
-TEXT_JQUERY = """<script type="text/javascript">
+KATE_CONFIG = {'name': 'js_utils',
+               'fullName': 'JavaScript Utils',
+               'icon': 'application-x-javascript'}
+_INDENT_JSON_CFG = 'JSUtils:indentJSON'
+_ENCODING_JSON_CFG = 'JSUtils:encodingJSON'
+_JSLINT_CHECK_WHEN_SAVE = 'JSUtils:jslintCheckSave'
+_ENABLE_JS_AUTOCOMPLETE = 'JSUtils:jsAutoComplete'
+_ENABLE_JQUERY_AUTOCOMPLETE = 'JSUtils:JQueryAutoComplete'
+_ENABLE_TEXT_JQUERY = 'JSUtils:textJQuery'
+DEFAULT_INDENT_JSON = 4
+DEFAULT_ENCODING_JSON = 'utf-8'
+DEFAULT_CHECK_JSLINT_WHEN_SAVE = True
+DEFAULT_ENABLE_JS_AUTOCOMPLETE = True
+DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE = True
+DEFAULT_TEXT_JQUERY = """<script type="text/javascript">
     (function($){
         $(document).ready(function () {
             $("%s").click(function(){
@@ -43,4 +55,7 @@ TEXT_JQUERY = """<script type="text/javascript">
         });
       })(jQuery);
 </script>
-"""
+""" % text.TEXT_TO_CHANGE
+
+
+# kate: space-indent on; indent-width 4;

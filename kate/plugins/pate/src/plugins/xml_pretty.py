@@ -42,8 +42,11 @@ KATE_CONFIG = {'name': 'xml_pretty',
                'icon': 'text-xml'}
 
 _CONFIG_UI = 'xml_pretty.ui'
-_INDENT_CFG = 'XMLPretty:indent'
-_NEWL_CFG = 'XMLPretty:newl'
+_INDENT_CFG = 'XMLPretty:indentXXX'
+_NEWL_CFG = 'XMLPretty:newlXXX'
+
+DEFAULT_INDENT = '\\t'
+DEFAULT_NEWL = '\\n'
 
 encoding_pattern = re.compile("<\?xml[\w =\"\.]*encoding=[\"']([\w-]+)[\"'][\w =\"\.]*\?>")
 
@@ -64,8 +67,8 @@ def togglePrettyXMLFormat():
                 encoding = m.groups()[0]
             target = minidom.parseString(source)
             view.removeSelectionText()
-            indent = kate.configuration[_INDENT_CFG].decode("string_escape")
-            newl = kate.configuration[_NEWL_CFG].decode("string_escape")
+            indent = kate.configuration.get(_INDENT_CFG, DEFAULT_INDENT).decode("string_escape")
+            newl = kate.configuration.get(_NEWL_CFG, DEFAULT_NEWL).decode("string_escape")
             xml_pretty = target.toprettyxml(indent=indent, newl=newl, encoding=encoding).decode(encoding)
             xml_pretty = newl.join([line for line in xml_pretty.split(newl) if line.replace(' ', '').replace(indent, '')])
             text.insertText(xml_pretty)
@@ -96,8 +99,8 @@ class ConfigWidget(QWidget):
             self.newl.setText(kate.configuration[_NEWL_CFG])
 
     def defaults(self):
-        self.indent.setText('\\t')
-        self.newl.setText('\\n')
+        self.indent.setText(DEFAULT_INDENT)
+        self.newl.setText(DEFAULT_NEWL)
 
 
 class ConfigPage(kate.Kate.PluginConfigPage, QWidget):

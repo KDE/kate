@@ -515,17 +515,28 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
     }
   }
   
-  // has the context stack changed ?
-  if (ctx == textLine->contextStack())
-  {
-    ctxChanged = false;
-  }
-  else
-  {
-    ctxChanged = true;
-
-    // assign ctx stack !
-    textLine->setContextStack(ctx);
+  /**
+   * has the context stack changed?
+   */
+  if ((ctxChanged = (ctx != textLine->contextStack()))) {
+    /**
+     * try to share the simple stack that contains only 0
+     */
+    static const Kate::TextLineData::ContextStack onlyDefaulContext (1, 0);
+    if (ctx == onlyDefaulContext)
+      textLine->setContextStack(onlyDefaulContext);
+    
+    /**
+     * next try: try to share data with last line
+     */
+    else if (ctx == prevLine->contextStack())
+      textLine->setContextStack(prevLine->contextStack());
+    
+    /**
+     * ok, really use newly constructed stack!
+     */
+    else
+      textLine->setContextStack(ctx);
   }
 
   // write hl continue flag

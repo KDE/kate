@@ -559,52 +559,9 @@ QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges,
 
 bool TextFolding::insertNewFoldingRange (FoldingRange *parent, FoldingRange::Vector &existingRanges, FoldingRange *newRange)
 {
-#if 0
   /**
-   * kill empty ranges
-   * might exist because we removed the text inside a range or cleared buffer
-   * TODO: OPTIMIZE, perhaps really use MovingRange, not Cursor!
-   * FIXME: we can't do this that way, else the m_foldedFoldingRanges is containing dangling pointers!
-   *        same for m_idToFoldingRange
-   */
-  if (!existingRanges.isEmpty()) {
-    /**
-     * construct brute force new ranges vector
-     * this can be OPTIMIZED!
-     */
-    FoldingRange::Vector newRanges;
-    Q_FOREACH (FoldingRange *range, existingRanges) {
-      /**
-       * there shall be never invalid cursors!
-       */
-      Q_ASSERT (range->start->isValid() && range->end->isValid());
-      
-      /**
-       * start <= end!
-       */
-      Q_ASSERT (range->start->toCursor() <= range->end->toCursor());
-      
-      /**
-       * sort out empty ranges
-       * DELETE them, transfer the others
-       */
-      if (range->start->toCursor() < range->end->toCursor())
-        newRanges.push_back (range);
-      else
-        delete range;
-    }
-    
-    /**
-     * overwrite old vector in any case!
-     */
-    existingRanges = newRanges;
-  }
-#endif
-  
-  /**
-   * existing ranges is non-overlapping and sorted
-   * that means now, we can search for lower bound of start of range and upper bound of end of range to
-   * find all "overlapping" ranges.
+   * existing ranges are non-overlapping and sorted
+   * that means, we can search for lower bound of start of range and upper bound of end of range to find all "overlapping" ranges.
    */
   
   /**

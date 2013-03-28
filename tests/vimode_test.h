@@ -26,6 +26,8 @@
 #include <kateviinputmodemanager.h>
 #include <kateview.h>
 
+class QLineEdit;
+class QLabel;
 class ViModeTest : public QObject
 {
   Q_OBJECT
@@ -43,6 +45,7 @@ private Q_SLOTS:
   void InsertModeTests();
   void VisualModeTests();
   void CommandModeTests();
+  void VimStyleCommandBarTests();
 
   void MappingTests();
   void yankHighlightingTests();
@@ -69,8 +72,10 @@ private:
   KateViInputModeManager *vi_input_mode_manager;
 
   QList<Kate::TextRange*> rangesOnFirstLine();
-  void ensureKateViewVisible();
   void waitForCompletionWidgetToActivate();
+
+  QLabel *emulatedCommandTypeIndicator();
+  QLineEdit *emulatedCommandBarTextEdit();
 
   QMap<QString, Qt::KeyboardModifier> m_codesToModifiers;
   Qt::KeyboardModifier parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier);

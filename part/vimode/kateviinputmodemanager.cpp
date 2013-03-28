@@ -37,6 +37,7 @@
 #include "katevivisualmode.h"
 #include "katevireplacemode.h"
 #include "katevikeyparser.h"
+#include "kateviemulatedcommandbar.h"
 
 KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal* viewInternal)
 {

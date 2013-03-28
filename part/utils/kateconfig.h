@@ -495,6 +495,9 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool viInputModeStealKeys () const;
     void setViInputModeStealKeys (bool on);
 
+    bool viInputModeEmulateCommandBar() const;
+    void setViInputModeEmulateCommandBar(bool on);
+
     // Do we still need the enum and related functions below?
     enum TextToSearch
     {
@@ -545,6 +548,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_persistentSelection;
     bool m_viInputMode;
     bool m_viInputModeStealKeys;
+    bool m_viInputModeEmulateCommandBar;
     bool m_automaticCompletionInvocation;
     bool m_wordCompletion;
     int m_wordCompletionMinimalWordLength;
@@ -570,6 +574,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     bool m_persistentSelectionSet : 1;
     bool m_viInputModeSet : 1;
     bool m_viInputModeStealKeysSet : 1;
+    bool m_viInputModeEmulateCommandBarSet : 1;
     bool m_automaticCompletionInvocationSet : 1;
     bool m_wordCompletionSet : 1;
     bool m_wordCompletionMinimalWordLengthSet : 1;

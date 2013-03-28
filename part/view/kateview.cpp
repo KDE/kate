@@ -45,6 +45,7 @@
 #include "kateautoindent.h"
 #include "katecompletionwidget.h"
 #include "katesearchbar.h"
+#include "kateviemulatedcommandbar.h"
 #include "katepartpluginmanager.h"
 #include "katewordcompletion.h"
 #include "katelayoutcache.h"
@@ -126,6 +127,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_cmdLine (0)
     , m_console (0)
     , m_searchBar (0)
+    , m_viModeEmulatedCommandBar(0)
     , m_gotoBar (0)
     , m_dictionaryBar(NULL)
     , m_spellingMenu( new KateSpellingMenu( this ) )
@@ -1509,6 +1511,14 @@ void KateView::toggleViInputMode()
   emit viewEditModeChanged(this,viewEditMode());
 }
 
+void KateView::showViModeEmulatedCommandBar()
+{
+  if (viInputMode() && config()->viInputModeEmulateCommandBar()) {
+    bottomViewBar()->addBarWidget(viModeEmulatedCommandBar());
+    bottomViewBar()->showBarWidget(viModeEmulatedCommandBar());
+  }
+}
+
 void KateView::updateViModeBarMode()
 {  
   // view mode changed => status bar in container apps might change!
@@ -1767,7 +1777,7 @@ void KateView::updateFoldingConfig ()
   m_viewInternal->m_leftBorder->setFoldingMarkersOn(config()->foldingBar());
   m_toggleFoldingMarkers->setChecked( config()->foldingBar() );
 
-#if 0 
+#if 0
   // FIXME: FOLDING
   QStringList l;
 
@@ -2923,6 +2933,16 @@ KateDictionaryBar *KateView::dictionaryBar ()
   }
 
   return m_dictionaryBar;
+}
+
+KateViEmulatedCommandBar* KateView::viModeEmulatedCommandBar()
+{
+  if (!m_viModeEmulatedCommandBar) {
+    m_viModeEmulatedCommandBar = new KateViEmulatedCommandBar(this);
+    m_viModeEmulatedCommandBar->hide ();
+  }
+
+  return m_viModeEmulatedCommandBar;
 }
 
 void KateView::setAnnotationModel( KTextEditor::AnnotationModel* model )

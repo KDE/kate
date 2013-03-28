@@ -26,7 +26,9 @@
 #include "kateviinsertmode.h"
 #include "kateviinputmodemanager.h"
 #include "kateviglobal.h"
+#include "kateviemulatedcommandbar.h"
 #include "kateglobal.h"
+#include "kateconfig.h"
 #include "katebuffer.h"
 #include "kateviewhelpers.h"
 #include <kateundomanager.h>
@@ -1385,7 +1387,12 @@ bool KateViNormalMode::commandSearchBackward()
 
 bool KateViNormalMode::commandSearchForward()
 {
-    m_view->find();
+    m_view->showViModeEmulatedCommandBar();
+    m_view->viModeEmulatedCommandBar()->init();
+    if (!KateViewConfig::global()->viInputModeEmulateCommandBar())
+    {
+      m_view->find();
+    }
     m_viInputModeManager->setLastSearchBackwards( false );
     return true;
 }

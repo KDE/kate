@@ -31,11 +31,14 @@
 #include "katevikeyparser.h"
 #include <kateviglobal.h>
 #include <katevinormalmode.h>
+#include <kateviemulatedcommandbar.h>
 #include "kateviewhelpers.h"
 #include "ktexteditor/attribute.h"
 #include <ktexteditor/codecompletionmodel.h>
 #include <katewordcompletion.h>
 #include <katecompletionwidget.h>
+
+#include <QtGui/QLabel>
 
 QTEST_KDEMAIN(ViModeTest, GUI)
 
@@ -1128,6 +1131,57 @@ void ViModeTest::yankHighlightingTests()
   FinishTest("");
 }
 
+class VimStyleCommandBarTestsSetUpAndTearDown
+{
+public:
+  VimStyleCommandBarTestsSetUpAndTearDown(KateView *kateView)
+    : m_kateView(kateView)
+  {
+    m_kateView->show();
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
+    QApplication::setActiveWindow(m_kateView);
+    KateViewConfig::global()->setViInputModeEmulateCommandBar(true);
+    QVERIFY(KateViewConfig::global()->viInputModeEmulateCommandBar());
+  }
+  ~VimStyleCommandBarTestsSetUpAndTearDown()
+  {
+    m_kateView->hide();
+    KateViewConfig::global()->setViInputModeEmulateCommandBar(false);
+  }
+private:
+  KateView *m_kateView;
+};
+
+void ViModeTest::VimStyleCommandBarTests()
+{
+  // Ensure that some preconditions for these tests are setup, and (more importantly)
+  // ensure that they are reverted no matter how these tests end.
+  VimStyleCommandBarTestsSetUpAndTearDown vimStyleCommandBarTestsSetUpAndTearDown(kate_view);
+
+
+  // Verify that we can get a non-null pointer to the emulated command bar.
+  KateViEmulatedCommandBar *emulatedCommandBar = kate_view->viModeEmulatedCommandBar();
+  QVERIFY(emulatedCommandBar);
+
+  // Should initially be hidden.
+  QVERIFY(!emulatedCommandBar->isVisible());
+
+  // Test that "/" invokes the emulated command bar (if we are configured to use it)
+  BeginTest("");
+  TestPressKey("/");
+  QVERIFY(emulatedCommandBar->isVisible());
+  QCOMPARE(emulatedCommandTypeIndicator()->text(), QString("/"));
+  QVERIFY(emulatedCommandTypeIndicator()->isVisible());
+  QVERIFY(emulatedCommandBarTextEdit());
+  QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
+  QVERIFY(emulatedCommandBarTextEdit()->isVisible());
+  TestPressKey("foo");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
+}
+
 class VimCodeCompletionTestModel : public CodeCompletionModel
 {
 public:
@@ -1277,7 +1331,20 @@ void ViModeTest::waitForCompletionWidgetToActivate()
       QApplication::processEvents();
     }
     QVERIFY(kate_view->isCompletionActive());
+QLabel* ViModeTest::emulatedCommandTypeIndicator()
+{
+  KateViEmulatedCommandBar *emulatedCommandBar = kate_view->viModeEmulatedCommandBar();
+  return emulatedCommandBar->findChild<QLabel*>("bartypeindicator");
 }
+
+QLineEdit* ViModeTest::emulatedCommandBarTextEdit()
+{
+  KateViEmulatedCommandBar *emulatedCommandBar = kate_view->viModeEmulatedCommandBar();
+  QLineEdit *emulatedCommandBarText = emulatedCommandBar->findChild<QLineEdit*>("commandtext");
+  return emulatedCommandBarText;
+}
+
+
 
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

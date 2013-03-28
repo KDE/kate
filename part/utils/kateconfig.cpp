@@ -1032,6 +1032,7 @@ KateViewConfig::KateViewConfig ()
    m_persistentSelectionSet (true),
    m_viInputModeSet (true),
    m_viInputModeStealKeysSet (true),
+   m_viInputModeEmulateCommandBarSet(false),
    m_automaticCompletionInvocationSet (true),
    m_wordCompletionSet (true),
    m_wordCompletionMinimalWordLengthSet (true),
@@ -1070,6 +1071,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_persistentSelectionSet (false),
    m_viInputModeSet (false),
    m_viInputModeStealKeysSet (false),
+   m_viInputModeEmulateCommandBarSet(false),
    m_automaticCompletionInvocationSet (false),
    m_wordCompletionSet (false),
    m_wordCompletionMinimalWordLengthSet (false),
@@ -1133,6 +1135,7 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setViInputMode (config.readEntry( "Vi Input Mode", false));
   setViInputModeStealKeys (config.readEntry( "Vi Input Mode Steal Keys", false));
+  setViInputModeEmulateCommandBar (config.readEntry( "Vi Input Mode Emulate Command Bar", false));
 
   setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
   setWordCompletion (config.readEntry( "Word Completion", true ));
@@ -1201,6 +1204,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( "Vi Input Mode", viInputMode());
 
   config.writeEntry( "Vi Input Mode Steal Keys", viInputModeStealKeys());
+
+  config.writeEntry( "Vi Input Mode Emulate Command Bar", viInputModeEmulateCommandBar());
 
 
   if (isGlobal()) {
@@ -1590,6 +1595,23 @@ void KateViewConfig::setViInputModeStealKeys (bool on)
   m_viInputModeStealKeys = on;
 
   configEnd ();
+}
+
+
+bool KateViewConfig::viInputModeEmulateCommandBar() const
+{
+  if (m_viInputModeEmulateCommandBarSet || isGlobal())
+    return m_viInputModeEmulateCommandBar;
+
+  return s_global->viInputModeEmulateCommandBar();
+}
+
+void KateViewConfig::setViInputModeEmulateCommandBar(bool on)
+{
+  configStart();
+  m_viInputModeEmulateCommandBarSet = true;
+  m_viInputModeEmulateCommandBar = on;
+  configEnd();
 }
 
 bool KateViewConfig::automaticCompletionInvocation () const

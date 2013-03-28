@@ -58,6 +58,7 @@ class KateSpellCheckDialog;
 class KateCompletionWidget;
 class KateViewInternal;
 class KateSearchBar;
+class KateViEmulatedCommandBar;
 class KateViewBar;
 class KateGotoBar;
 class KateDictionaryBar;
@@ -528,6 +529,9 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void toggleDynWordWrap ();
     void toggleViInputMode ();
 
+
+    void showViModeEmulatedCommandBar();
+
     void setDynWrapIndicators(int mode);
 
   public:
@@ -581,7 +585,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     {
       return m_textFolding;
     }
-    
+
   public:
     void slotTextInserted ( KTextEditor::View *view, const KTextEditor::Cursor &position, const QString &text);
 
@@ -691,6 +695,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateCommandLineBar *cmdLineBar ();
     KateScriptConsole *consoleBar ();
     KateDictionaryBar *dictionaryBar();
+    KateViEmulatedCommandBar *viModeEmulatedCommandBar();
 
   private:
     KateSearchBar *searchBar (bool initHintAsPower = false);
@@ -709,6 +714,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateCommandLineBar *m_cmdLine;
     KateScriptConsole *m_console;
     KateSearchBar *m_searchBar;
+    KateViEmulatedCommandBar *m_viModeEmulatedCommandBar;
     KateGotoBar *m_gotoBar;
     KateDictionaryBar *m_dictionaryBar;
 

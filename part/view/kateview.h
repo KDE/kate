@@ -191,6 +191,20 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
   Q_SIGNALS:
     void configChanged();
+    
+  public:
+    /**
+     * Try to fold starting at the given line.
+     * This will both try to fold existing folding ranges of this line and to query the highlighting what to fold.
+     * @param startLine start line to fold at
+     */
+    void foldLine (int startLine);
+
+     /**
+     * Try to unfold all foldings starting at the given line.
+     * @param startLine start line to unfold at
+     */
+    void unfoldLine (int startLine);
 
   //
   // KTextEditor::CodeCompletionInterface2

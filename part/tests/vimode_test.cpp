@@ -289,7 +289,7 @@ void ViModeTest::VisualModeTests() {
     // * and #
     DoTest("foo foo", "v*x", "oo");
     DoTest("foo foo", "wv#x", "oo");
-    
+
     // Regression test for gv.
     DoTest("foo\nbar\nxyz", "l\\ctrl-vjj\\ctrl-cgvr.", "f.o\nb.r\nx.z");
 }
@@ -343,6 +343,7 @@ void ViModeTest::InsertModeTests() {
 
   // Testing "Ctrl-R"
   DoTest("barbaz", "\"ay3li\\ctrl-ra", "barbarbaz");
+  DoTest("barbaz", "\"ay3li\\ctrl-raX", "barXbarbaz");
   DoTest("bar\nbaz", "\"byylli\\ctrl-rb", "bar\nbar\nbaz" );
 
   // Testing "Ctrl-O"

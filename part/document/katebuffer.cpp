@@ -687,9 +687,9 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
   }
   
   /**
-   * if we arrive here, no range was found!
+   * if we arrive here, the opened range spans to the end of the document!
    */
-  return KTextEditor::Range::invalid();
+  return KTextEditor::Range (KTextEditor::Cursor (startLine, openedRegionOffset), KTextEditor::Cursor (lines()-1, plainLine (lines()-1)->length()));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

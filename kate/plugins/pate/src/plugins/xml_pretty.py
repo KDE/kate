@@ -18,6 +18,7 @@
 # This plugin originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/xhtml_plugins/xml_plugins.py>
 
+import codecs
 import kate
 import os
 import re
@@ -66,9 +67,10 @@ def togglePrettyXMLFormat():
             if m:
                 encoding = m.groups()[0]
             target = minidom.parseString(source)
+            unicode_escape = codecs.getdecoder('unicode_escape')
             view.removeSelectionText()
-            indent = kate.configuration.get(_INDENT_CFG, DEFAULT_INDENT).decode("string_escape")
-            newl = kate.configuration.get(_NEWL_CFG, DEFAULT_NEWL).decode("string_escape")
+            indent = unicode_escape(kate.configuration.get(_INDENT_CFG, DEFAULT_INDENT))[0]
+            newl = unicode_escape(kate.configuration.get(_NEWL_CFG, DEFAULT_NEWL))[0]
             xml_pretty = target.toprettyxml(indent=indent, newl=newl, encoding=encoding).decode(encoding)
             xml_pretty = newl.join([line for line in xml_pretty.split(newl) if line.replace(' ', '').replace(indent, '')])
             text.insertText(xml_pretty)

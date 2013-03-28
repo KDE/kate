@@ -23,7 +23,7 @@ from libkatepate.errors import needs_python_version, needs_packages
 
 needs_python_version(major=2, text="The python autocomplete plugin only is available to Python 2")
 needs_packages({"pysmell": "0.7.3",
-                "pyplete": "0.0.3"})
+                "pyplete": "0.0.4"})
 
 import kate
 import sys

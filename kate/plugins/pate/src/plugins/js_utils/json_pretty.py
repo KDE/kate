@@ -20,10 +20,13 @@
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/json_plugins.py>
 
 import kate
+import sys
 try:
     import simplejson as json
+    LIB_JSON = 'simplejson'
 except ImportError:
     import json
+    LIB_JSON = 'standard'
 
 from libkatepate import text
 from libkatepate.errors import showError
@@ -47,9 +50,13 @@ def togglePrettyJsonFormat():
         indent = js_utils_conf.get(_INDENT_JSON_CFG, DEFAULT_INDENT_JSON)
         encoding = js_utils_conf.get(_ENCODING_JSON_CFG, DEFAULT_ENCODING_JSON)
         try:
-            target = json.dumps(json.loads(source),
-                                indent=indent,
-                                encoding=encoding)
+            if LIB_JSON == 'simplejson' or sys.version_info.major == 2:
+                target = json.dumps(json.loads(source),
+                                    indent=indent,
+                                    encoding=encoding)
+            else:
+                target = json.dumps(json.loads(source),
+                                    indent=indent)
             view.removeSelectionText()
             text.insertText(target)
         except ValueError as e:

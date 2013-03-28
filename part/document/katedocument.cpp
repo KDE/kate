@@ -85,6 +85,7 @@
 #include <QtGui/QClipboard>
 #include <QtCore/QTextStream>
 #include <QtCore/QTextCodec>
+#include <QtCore/QCryptographicHash>
 #include <QtCore/QMap>
 //END  includes
 
@@ -4370,10 +4371,10 @@ bool KateDocument::createDigest ()
     QFile f ( url().toLocalFile() );
     if ( f.open( QIODevice::ReadOnly) )
     {
-      KMD5 md5;
-      md5.update( f );
-      md5.hexDigest( md5sum );
-      f.close();
+      QCryptographicHash crypto(QCryptographicHash::Md5);
+      while(!f.atEnd())
+        crypto.addData (f.read(256 * 1024));
+      md5sum = crypto.result();
     }
   }
 

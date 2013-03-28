@@ -23,11 +23,11 @@
 
 #include <QtCore/QString>
 #include <QtCore/QFile>
+#include <QtCore/QCryptographicHash>
 
 // on the fly compression
 #include <kfilterdev.h>
 #include <kmimetype.h>
-#include <kcodecs.h> // KMD5
 
 namespace Kate {
 
@@ -58,6 +58,7 @@ class TextLoader
       , m_lastLineStart (0)
       , m_eol (TextBuffer::eolUnknown) // no eol type detected atm
       , m_buffer (KATE_FILE_LOADER_BS, 0)
+      , m_digest (QCryptographicHash::Md5)
       , m_converterState (0)
       , m_bomFound (false)
       , m_firstRead (true)
@@ -182,7 +183,7 @@ class TextLoader
             int c = m_file->read (m_buffer.data(), m_buffer.size());
 
             // update md5 hash sum
-            m_digest.update(m_buffer.data(), c);
+            m_digest.addData (m_buffer.data(), c);
 
             // kill the old lines...
             m_text.remove (0, m_lastLineStart);
@@ -354,7 +355,7 @@ class TextLoader
 
     QByteArray digest ()
     {
-      return m_digest.hexDigest();
+      return m_digest.result ();
     }
 
   private:
@@ -368,7 +369,7 @@ class TextLoader
     QString m_mimeType;
     QIODevice *m_file;
     QByteArray m_buffer;
-    KMD5 m_digest;
+    QCryptographicHash m_digest;
     QString m_text;
     QTextCodec::ConverterState *m_converterState;
     bool m_bomFound;

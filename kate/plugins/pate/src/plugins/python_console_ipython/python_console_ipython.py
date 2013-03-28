@@ -129,7 +129,7 @@ def projectFileNameChanged(*args, **kwargs):
             sys.stdout.flush()
             return
         kernel_app.shell.reset()
-        kernel_app.shell.run_cell('print("Change project %s")' % projectName)
+        kernel_app.shell.run_cell('print("Load project: %s")' % projectName)
         extraPath = projectMapPython.get("extraPath", [])
         environs = projectMapPython.get("environs", {})
         # Add Extra path

@@ -44,6 +44,7 @@ public:
     KTextEditor::View*   activeView ();
     KTextEditor::View*   activateView (KTextEditor::Document*);
     KTextEditor::View*   openUrl (const KUrl&, const QString& = QString ());
+    // http://kde.6490.n7.nabble.com/Can-I-know-the-project-configuration-from-python-plugin-td1523455.html
     Kate::PluginView*    pluginView (const QString&);
 
 signals:

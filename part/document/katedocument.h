@@ -46,7 +46,6 @@
 #include "katetextline.h"
 #include "katetextcursor.h"
 #include "katetextrange.h"
-#include "katecodefolding.h"
 #include "messageinterface.h"
 
 namespace KTextEditor {
@@ -192,7 +191,6 @@ Q_SIGNALS:
     virtual QChar character(const KTextEditor::Cursor& position) const;
     virtual int lines() const;
     virtual KTextEditor::Cursor documentEnd() const;
-    int numVisLines() const;
     virtual int totalCharacters() const;
     virtual int lineLength(int line) const;
 
@@ -905,14 +903,10 @@ Q_SIGNALS:
 
    // code folding
   public:
-    uint getRealLine(unsigned int virtualLine);
-    uint getVirtualLine(unsigned int realLine);
-    uint visibleLines ();
     Kate::TextLine kateTextLine(uint i);
     Kate::TextLine plainKateTextLine(uint i);
 
   Q_SIGNALS:
-    void codeFoldingUpdated();
     void aboutToRemoveText(const KTextEditor::Range&);
 
   private Q_SLOTS:
@@ -1117,9 +1111,6 @@ Q_SIGNALS:
   private:
     QHash<KTextEditor::Message *, QList<QSharedPointer<QAction> > > m_messageHash;
   //END KTextEditor::MessageInterface
-
-  protected Q_SLOTS:
-      void dumpRegionTree();
 
   public:
       QString defaultDictionary() const;

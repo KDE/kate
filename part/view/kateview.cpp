@@ -38,7 +38,6 @@
 #include "katehighlightmenu.h"
 #include "katedialogs.h"
 #include "katetextline.h"
-#include "katecodefolding.h"
 #include "kateschema.h"
 #include "katebookmarks.h"
 #include "kateconfig.h"
@@ -113,8 +112,9 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_annotationModel(0)
     , m_hasWrap( false )
     , m_doc( doc )
+    , m_textFolding (doc->buffer())
     , m_config( new KateViewConfig( this ) )
-    , m_renderer( new KateRenderer( doc, this ) )
+    , m_renderer( new KateRenderer( doc, m_textFolding, this ) )
     , m_viewInternal( new KateViewInternal( this ) )
     , m_spell( new KateSpellCheckDialog( this ) )
     , m_bookmarks( new KateBookmarks( this ) )
@@ -993,6 +993,8 @@ void KateView::setupEditActions()
 
 void KateView::setupCodeFolding()
 {
+  //FIXME: FOLDING
+#if 0
   KActionCollection *ac=this->actionCollection();
 
   KAction* a = ac->addAction("folding_toplevel");
@@ -1035,20 +1037,29 @@ void KateView::setupCodeFolding()
     a->setData(i);
     connect(a, SIGNAL(triggered()), this, SLOT(slotExpandLevel()));
   }
+#endif
 }
 
 void KateView::slotCollapseLocal()
 {
+  //FIXME: FOLDING
+#if 0
   m_doc->foldingTree()->collapseOne(cursorPosition().line(), cursorPosition().column());
+#endif
 }
 
 void KateView::slotExpandLocal()
 {
+  //FIXME: FOLDING
+#if 0
   m_doc->foldingTree()->expandOne(cursorPosition().line(), cursorPosition().column());
+#endif
 }
 
 void KateView::slotCollapseLevel()
 {
+  //FIXME: FOLDING
+#if 0
   if (!sender()) return;
   QAction *action = qobject_cast<QAction*>(sender());
   if (!action) return;
@@ -1056,10 +1067,13 @@ void KateView::slotCollapseLevel()
   const int level = action->data().toInt();
   Q_ASSERT(level > 0);
   m_doc->foldingTree()->collapseLevel(level);
+#endif
 }
 
 void KateView::slotExpandLevel()
 {
+  //FIXME: FOLDING
+#if 0
   if (!sender()) return;
   QAction *action = qobject_cast<QAction*>(sender());
   if (!action) return;
@@ -1067,6 +1081,7 @@ void KateView::slotExpandLevel()
   const int level = action->data().toInt();
   Q_ASSERT(level > 0);
   m_doc->foldingTree()->expandLevel(level);
+#endif
 }
 
 QString KateView::viewMode () const
@@ -1715,11 +1730,11 @@ void KateView::updateRendererConfig()
 void KateView::updateFoldingConfig ()
 {
   // folding bar
-  bool doit = config()->foldingBar() && m_doc->highlight() && m_doc->highlight()->allowsFolding();
-  m_viewInternal->m_leftBorder->setFoldingMarkersOn(doit);
-  m_toggleFoldingMarkers->setChecked( doit );
-  m_toggleFoldingMarkers->setEnabled( m_doc->highlight() && m_doc->highlight()->allowsFolding() );
+  m_viewInternal->m_leftBorder->setFoldingMarkersOn(config()->foldingBar());
+  m_toggleFoldingMarkers->setChecked( config()->foldingBar() );
 
+#if 0 
+  // FIXME: FOLDING
   QStringList l;
 
   l << "folding_toplevel" << "folding_expandtoplevel"
@@ -1729,6 +1744,7 @@ void KateView::updateFoldingConfig ()
   for (int z = 0; z < l.size(); z++)
     if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->highlight() && m_doc->highlight()->allowsFolding());
+#endif
 }
 
 void KateView::ensureCursorColumnValid()

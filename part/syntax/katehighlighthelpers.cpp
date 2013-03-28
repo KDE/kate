@@ -681,7 +681,7 @@ KateHlItem *KateHlRegExpr::clone(const QStringList *args)
   ret->dynamicChild = true;
   return ret;
 }
-//END
+// //END
 
 //BEGIN KateHlLineContinue
 KateHlLineContinue::KateHlLineContinue(int attribute, KateHlContextModification context, signed char regionId,signed char regionId2)

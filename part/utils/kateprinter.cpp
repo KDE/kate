@@ -31,6 +31,8 @@
 #include "kateschema.h"
 #include "katetextline.h"
 #include "kateview.h"
+#include "katebuffer.h"
+#include "katetextfolding.h"
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
@@ -130,7 +132,8 @@ bool KatePrinter::print (KateDocument *doc)
   {
     writeSettings(printer);
 
-    KateRenderer renderer(doc, doc->activeKateView());
+    Kate::TextFolding folding (doc->buffer());
+    KateRenderer renderer(doc, folding, doc->activeKateView());
     renderer.config()->setSchema (kpl->colorScheme());
     renderer.setPrinterFriendly(true);
 
@@ -355,7 +358,7 @@ bool KatePrinter::print (KateDocument *doc)
         int totalLines = 0;
         // TODO: right now ignores selection printing
         for (unsigned int i = firstline; i <= lastline; ++i) {
-          KateLineLayoutPtr rangeptr(new KateLineLayout(doc));
+          KateLineLayoutPtr rangeptr(new KateLineLayout(renderer));
           rangeptr->setLine(i);
           renderer.layoutLine(rangeptr, (int)maxWidth, false);
           totalLines += rangeptr->viewLineCount();
@@ -604,7 +607,7 @@ bool KatePrinter::print (KateDocument *doc)
 
       // HA! this is where we print [part of] a line ;]]
       // FIXME Convert this function + related functionality to a separate KatePrintView
-      KateLineLayoutPtr rangeptr(new KateLineLayout(doc));
+      KateLineLayoutPtr rangeptr(new KateLineLayout(renderer));
       rangeptr->setLine(lineCount);
       renderer.layoutLine(rangeptr, (int)maxWidth, false);
 

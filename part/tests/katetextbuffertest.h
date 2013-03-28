@@ -37,6 +37,8 @@ class KateTextBufferTest : public QObject
     void wrapLineTest();
     void insertRemoveTextTest();
     void cursorTest();
+    void foldingTest();
+    void nestedFoldingTest();
 };
 
 #endif // KATEBUFFERTEST_H

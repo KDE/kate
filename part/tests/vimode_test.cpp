@@ -289,9 +289,13 @@ void ViModeTest::VisualModeTests() {
     // * and #
     DoTest("foo foo", "v*x", "oo");
     DoTest("foo foo", "wv#x", "oo");
-    
+
     // Regression test for gv.
     DoTest("foo\nbar\nxyz", "l\\ctrl-vjj\\ctrl-cgvr.", "f.o\nb.r\nx.z");
+
+    // Quick test that "{" and "}" motions work in visual mode
+    DoTest("foo\n\n\nbar\n","v}}d","");
+    DoTest("\n\nfoo\nbar\n","jjjv{d","\nar\n");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -343,6 +347,7 @@ void ViModeTest::InsertModeTests() {
 
   // Testing "Ctrl-R"
   DoTest("barbaz", "\"ay3li\\ctrl-ra", "barbarbaz");
+  DoTest("barbaz", "\"ay3li\\ctrl-raX", "barXbarbaz");
   DoTest("bar\nbaz", "\"byylli\\ctrl-rb", "bar\nbar\nbaz" );
 
   // Testing "Ctrl-O"
@@ -681,6 +686,18 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("{\nfoo\n}", "jld[[", "oo\n}");
   DoTest("bar\n{\nfoo\n}", "ld]]", "b\n{\nfoo\n}");
   DoTest("{\nfoo\n}\nbar", "jjjld[]", "{\nfoo\nar");
+
+  // Testing "{" and "}" motions
+  DoTest("","{}","");
+  DoTest("foo","{}dd","");
+  DoTest("foo\n\nbar","}dd","foo\nbar");
+  DoTest("foo\n\nbar\n\nbaz","3}x","foo\n\nbar\n\nba");
+  DoTest("foo\n\nbar\n\nbaz","3}{dd{dd","foo\nbar\nbaz");
+  DoTest("foo\nfoo\n\nbar\n\nbaz","5}{dd{dd","foo\nfoo\nbar\nbaz");
+  DoTest("foo\nfoo\n\nbar\n\nbaz","5}3{x","oo\nfoo\n\nbar\n\nbaz");
+  DoTest("foo\n\n\nbar","10}{{x","oo\n\n\nbar");
+  DoTest("foo\n\n\nbar","}}x","foo\n\n\nba");
+  DoTest("foo\n\n\nbar\n","}}dd","foo\n\n\nbar");
 }
 
 void ViModeTest::NormalModeCommandsTest() {
@@ -918,21 +935,6 @@ void ViModeTest::CommandModeTests() {
     DoTest("1\n2\n3\n4","2j\\:.,.-1d\\","1\n4");
     DoTest("1\n2\n3\n4","\\:.+200-100-100+20-5-5-5-5+.-.,$-1+1-2+2-3+3-4+4-5+5-6+6-7+7-1000+1000+0-0-$+$-.+.-1d\\","4");
     DoTest("1\n2\n3\n4","majmbjmcjmdgg\\:'a+'b+'d-'c,.d\\","");
-
-    // Testing "{" and "}" motions
-    DoTest("","{}","");
-    DoTest("foo","{}dd","");
-    DoTest("foo\n\nbar","}dd","foo\nbar");
-    DoTest("foo\n\nbar\n\nbaz","3}x","foo\n\nbar\n\nba");
-    DoTest("foo\n\nbar\n\nbaz","3}{dd{dd","foo\nbar\nbaz");
-    DoTest("foo\nfoo\n\nbar\n\nbaz","5}{dd{dd","foo\nfoo\nbar\nbaz");
-    DoTest("foo\nfoo\n\nbar\n\nbaz","5}3{x","oo\nfoo\n\nbar\n\nbaz");
-    DoTest("foo\n\n\nbar","10}{{x","oo\n\n\nbar");
-    DoTest("foo\n\n\nbar","}}x","foo\n\n\nba");
-    DoTest("foo\n\n\nbar\n","}}dd","foo\n\n\nbar");
-    // Quick test that "{" and "}" motions work in visual mode
-    DoTest("foo\n\n\nbar\n","v}}d","");
-    DoTest("\n\nfoo\nbar\n","jjjv{d","\nar\n");
 }
 
 void ViModeTest::MappingTests()

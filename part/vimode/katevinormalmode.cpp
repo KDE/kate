@@ -327,8 +327,8 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // jump over folding regions since we are just moving the cursor
             int currLine = m_view->cursorPosition().line();
             int delta = r.endLine - currLine;
-            int vline = doc()->foldingTree()->getVirtualLine( currLine );
-            r.endLine = doc()->foldingTree()->getRealLine( vline+delta );
+            int vline = m_view->textFolding().lineToVisibleLine( currLine );
+            r.endLine = m_view->textFolding().visibleLineToLine( qMax (vline+delta, 0) /* ensure we have a valid line */ );
             if ( r.endLine >= doc()->lines() ) r.endLine = doc()->lines()-1;
 
             // make sure the position is valid before moving the cursor there
@@ -1694,33 +1694,48 @@ bool KateViNormalMode::commandFormatLines()
 
 bool KateViNormalMode::commandCollapseToplevelNodes()
 {
+#if 0
+  //FIXME FOLDING
   doc()->foldingTree()->collapseToplevelNodes();
+#endif
   return true;
 }
 
 bool KateViNormalMode::commandCollapseLocal()
 {
+#if 0
+  //FIXME FOLDING
   Cursor c( m_view->cursorPosition() );
   doc()->foldingTree()->collapseOne( c.line(), c.column() );
+#endif
   return true;
 }
 
 bool KateViNormalMode::commandExpandAll() {
+#if 0
+  //FIXME FOLDING
   doc()->foldingTree()->expandAll();
+#endif
   return true;
 }
 
 bool KateViNormalMode::commandExpandLocal()
 {
+#if 0
+  //FIXME FOLDING
   Cursor c( m_view->cursorPosition() );
   doc()->foldingTree()->expandOne( c.line() + 1, c.column() );
+#endif
   return true;
 }
 
 bool KateViNormalMode::commandToggleRegionVisibility()
 {
+#if 0
+  //FIXME FOLDING
   Cursor c( m_view->cursorPosition() );
   doc()->foldingTree()->toggleRegionVisibility( c.line() );
+#endif
   return true;
 }
 

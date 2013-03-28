@@ -21,7 +21,6 @@
 #define __KATE_BUFFER_H__
 
 #include "katetextbuffer.h"
-#include "katecodefolding.h"
 
 #include "katepartprivate_export.h"
 
@@ -178,19 +177,7 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      */
     void wrapLine (const KTextEditor::Cursor &position);
 
-  private:
-     inline void addIndentBasedFoldingInformation(QVector<int> &foldingList,int linelength,bool addindent,int deindent);
-     inline void updatePreviousNotEmptyLine(int current_line,bool addindent,int deindent);
-
   public:
-    inline int countVisible () const { return lines() - m_regionTree.getHiddenLinesCount(lines()); }
-
-    inline int lineNumber (int visibleLine) const { return m_regionTree.getRealLine (visibleLine); }
-
-    inline int lineVisibleNumber (int line) const { return m_regionTree.getVirtualLine (line); }
-
-    inline void lineInfo (KateLineInfo *info, int line) const { m_regionTree.getLineInfo(info,line); }
-
     inline int tabWidth () const { return m_tabWidth; }
 
   public:
@@ -210,10 +197,14 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * Invalidate highlighting of whole buffer.
      */
     void invalidateHighlighting();
-
-    KateCodeFoldingTree *foldingTree () { return &m_regionTree; }
-
-    const KateDocument* getDocument () { return m_doc; }
+    
+    /**
+     * For a given line, compute the folding range that starts there
+     * to be used to fold e.g. from the icon border
+     * @param startLine start line
+     * @return folding range starting at the given line or invalid range
+     */
+    KTextEditor::Range computeFoldingRangeForStartLine (int startLine);
 
   private:
     /**
@@ -224,20 +215,15 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      * @param invalidat should the rehighlighted lines be tagged ?
      */
     void doHighlight (int from, int to, bool invalidate);
-    bool isEmptyLine(Kate::TextLine textline);
 
   Q_SIGNALS:
-    /**
-     * Emittend if codefolding returned with a changed list
-     */
-    void codeFoldingUpdated();
-
     /**
      * Emitted when the highlighting of a certain range has
      * changed.
      */
     void tagLines(int start, int end);
     void respellCheckBlock(int start, int end);
+  
   private:
     /**
      * document we belong to
@@ -254,19 +240,10 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
      */
     bool m_tooLongLinesWrapped;
 
-  /**
-   * highlighting & folding relevant stuff
-   */
-  private:
     /**
      * current highlighting mode or 0
      */
     KateHighlighting *m_highlight;
-
-    /**
-     * folding tree
-     */
-    KateCodeFoldingTree m_regionTree;
 
     // for the scrapty indent sensitive langs
     int m_tabWidth;

@@ -560,15 +560,16 @@ void KatePluginSearchView::startSearch()
          */
         m_resultBaseDir.clear();
         QStringList files;
+        QString projectName;
         if (m_projectPluginView) {
-            QString projectName = m_projectPluginView->property ("projectName").toString();
+            projectName = m_projectPluginView->property ("projectName").toString();
             m_resultBaseDir = m_projectPluginView->property ("projectBaseDir").toString();
             if (!m_resultBaseDir.endsWith("/"))
                 m_resultBaseDir += "/";
-            addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>", projectName, m_resultBaseDir));
             QStringList projectFiles = m_projectPluginView->property ("projectFiles").toStringList();
             files = filterFiles(projectFiles);
         }
+        addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>", projectName, m_resultBaseDir));
 
         QList<KTextEditor::Document*> openList;
         for (int i=0; i<m_kateApp->documentManager()->documents().size(); i++) {
@@ -704,7 +705,6 @@ void KatePluginSearchView::addHeaderItem(const QString& text)
     QTreeWidgetItem *item = new QTreeWidgetItem(m_curResults->tree, QStringList(text));
     item->setCheckState(0, Qt::Checked);
     item->setFlags(item->flags() | Qt::ItemIsTristate);
-    m_curResults->tree->expandItem(item);
 }
 
 
@@ -917,7 +917,7 @@ void KatePluginSearchView::searchDone()
 
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
     m_curResults->tree->expandItem(root);
-    if ((root->childCount() > 1) && (!m_ui.expandResults->isChecked())) {
+    if (root && (root->childCount() > 1) && (!m_ui.expandResults->isChecked())) {
         for (int i=0; i<root->childCount(); i++) {
             m_curResults->tree->collapseItem(root->child(i));
         }

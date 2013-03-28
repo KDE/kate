@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="C" section="Sources"
-          version="1.44" kateversion="2.4"
+          version="1.45" kateversion="2.4"
           indenter="cstyle"
           extensions="*.c;*.C;*.h"
           mimetype="text/x-csrc;text/x-c++src;text/x-chdr"
@@ -123,6 +123,11 @@
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*if(?:def|ndef)?(?=\s+\S)" insensitive="true" beginRegion="PP" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*endif" insensitive="true" endRegion="PP" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Define" String="#\s*define.*((?=\\))" insensitive="true" firstNonSpace="true" />
+        
+        <!-- folding for apple style #pragma mark - label -->
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*pragma\s+mark\s+-\s*$" insensitive="true" firstNonSpace="true" endRegion="pragma_mark" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*pragma\s+mark" insensitive="true" firstNonSpace="true" endRegion="pragma_mark" beginRegion="pragma_mark" />
+        
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s*(?:el(?:se|if)|include(?:_next)?|define|undef|line|error|warning|pragma)" insensitive="true" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="#\s+[0-9]+" insensitive="true" firstNonSpace="true" />
       </context>

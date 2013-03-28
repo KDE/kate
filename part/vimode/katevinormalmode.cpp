@@ -328,7 +328,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             int currLine = m_view->cursorPosition().line();
             int delta = r.endLine - currLine;
             int vline = m_view->textFolding().lineToVisibleLine( currLine );
-            r.endLine = m_view->textFolding().visibleLineToLine( vline+delta );
+            r.endLine = m_view->textFolding().visibleLineToLine( qMax (vline+delta, 0) /* ensure we have a valid line */ );
             if ( r.endLine >= doc()->lines() ) r.endLine = doc()->lines()-1;
 
             // make sure the position is valid before moving the cursor there

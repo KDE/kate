@@ -546,7 +546,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
      */
     for (int b = 1; b < m_blocks.size(); ++b) {
       TextBlock* block = m_blocks.at(b);
-      block->m_lines.clear ();
+      block->clearLines ();
       delete block;
     }
     m_blocks.resize (1);
@@ -554,7 +554,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
     /**
      * remove lines in first block
      */
-    m_blocks.last()->m_lines.clear ();
+    m_blocks.last()->clearLines ();
     m_lines = 0;
 
     /**

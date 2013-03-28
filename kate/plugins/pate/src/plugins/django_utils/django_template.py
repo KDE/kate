@@ -78,3 +78,6 @@ def createBlock():
     view.removeSelectionText()
     insertText("{%% %(block_type)s %(block_source)s %%}XXX{%% end%(block_type)s %%}" %
                {'block_type': block_type, 'block_source': block_source})
+
+
+# kate: space-indent on; indent-width 4;

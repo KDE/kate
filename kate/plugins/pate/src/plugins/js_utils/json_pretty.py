@@ -61,3 +61,5 @@ def togglePrettyJsonFormat():
             text.insertText(target)
         except ValueError as e:
             showError('This selected text is not a valid json text: %s' % e.message)
+
+# kate: space-indent on; indent-width 4;

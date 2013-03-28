@@ -89,3 +89,5 @@ DEFAULT_PATTERN_MODEL = """class %(class_name)s(models.Model):
         pass
 
 """
+
+# kate: space-indent on; indent-width 4;

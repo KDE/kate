@@ -52,3 +52,6 @@ from_complete = re.compile(_from_complete + "$")
 
 import_begin = re.compile(_import_begin + "$")
 import_complete = re.compile(_import_complete + "?$")
+
+
+# kate: space-indent on; indent-width 4;

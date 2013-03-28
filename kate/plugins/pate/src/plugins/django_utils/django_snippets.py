@@ -82,3 +82,6 @@ def createModel():
     pattern_model = django_utils_conf.get(_PATTERN_MODEL, DEFAULT_PATTERN_MODEL)
     create_frame(pattern_str=pattern_model, title='Create Model',
                  name_field='Name Model')
+
+
+# kate: space-indent on; indent-width 4;

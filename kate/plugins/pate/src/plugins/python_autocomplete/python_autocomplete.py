@@ -205,3 +205,5 @@ def createSignalAutocompleteDocument(view=None, *args, **kwargs):
 
 codecompletationmodel = PythonCodeCompletionModel(kate.application)
 codecompletationmodel.modelReset.connect(reset)
+
+# kate: space-indent on; indent-width 4;

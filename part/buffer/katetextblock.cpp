@@ -27,6 +27,8 @@ TextBlock::TextBlock (TextBuffer *buffer, int startLine)
   : m_buffer (buffer)
   , m_startLine (startLine)
 {
+  // reserve the block size
+  m_lines.reserve (m_buffer->m_blockSize);
 }
 
 TextBlock::~TextBlock ()

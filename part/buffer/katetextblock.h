@@ -73,15 +73,15 @@ class KATEPART_TESTS_EXPORT TextBlock {
     TextLine line (int line) const;
 
     /**
-     * Append a new line.
-     * @param line line to append
+     * Append a new line with given text.
+     * @param textOfLine text of the line to append
      */
-    void appendLine (TextLine line) { m_lines.append (line); }
+    void appendLine (const QString &textOfLine);
     
     /**
      * Clear the lines.
      */
-    void clearLines () { m_lines.clear (); }
+    void clearLines ();
 
     /**
      * Number of lines in this block.

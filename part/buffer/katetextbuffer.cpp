@@ -112,7 +112,7 @@ void TextBuffer::clear ()
 
   // new block for empty buffer
   TextBlock *newBlock = new TextBlock (this, 0);
-  newBlock->appendLine (TextLine (new TextLineData()));
+  newBlock->appendLine (QString());
 
   // clean out all cursors and lines, either move them to newBlock or invalidate them, if belonging to a range
   foreach(TextBlock* block, m_blocks)
@@ -571,7 +571,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
 
     if (!file.open (codec)) {
       // create one dummy textline, in any case
-      m_blocks.last()->appendLine (TextLine (new TextLineData()));
+      m_blocks.last()->appendLine (QString());
       m_lines++;
       return false;
     }
@@ -635,7 +635,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
          * construct new text line with content from file
          * move data pointer
          */
-        TextLine textLine = TextLine (new TextLineData(QString (unicodeData, lineLength)));
+        QString textLine (unicodeData, lineLength);
         unicodeData += lineLength;
 
         /**

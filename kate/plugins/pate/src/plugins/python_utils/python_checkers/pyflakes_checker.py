@@ -102,3 +102,5 @@ def checkPyflakes(currentDocument=None, refresh=True):
     showErrors('Pyflakes Errors:', errors_to_show,
                mark_key, currentDocument,
                move_cursor=move_cursor)
+
+# kate: space-indent on; indent-width 4;

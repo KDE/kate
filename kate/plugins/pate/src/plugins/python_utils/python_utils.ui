@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>jsUtilsConfigWidget</class>
+    <class>pythonUtilsConfigWidget</class>
     <widget class="QWidget" name="commentarConfigWidget">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
@@ -10,93 +10,73 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>JSON Indent</string>
+                                        <string>Check PEP8 when save</string>
                                     </property>
                                 </widget>
                             </item>
                             <item>
-                                <widget class="KIntNumInput" name="indentJSON">
+                                <widget class="QCheckBox" name="checkPEP8WhenSave">
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QLabel" name="label">
+                                    <property name="text">
+                                        <string>Ignore PEP8 errors</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QLineEdit" name="ignorePEP8Errors">
                                     <property name="value">
-                                        <number>4</number>
+                                        <string>XXX</string>
                                     </property>
                                 </widget>
                             </item>
+                        </layout>
+                    </item>
+                    <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout">
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>JSON encoding</string>
+                                        <string>Check PyFlakes when save</string>
                                     </property>
                                 </widget>
                             </item>
                             <item>
-                                <widget class="QLineEdit" name="encodingJSON">
+                                <widget class="QCheckBox" name="checkPyFlakesWhenSave">
+                                </widget>
+                            </item>
+                        </layout>
+                    </item>
+                    <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout">
+                            <item>
+                                <widget class="QLabel" name="label">
+                                    <property name="text">
+                                        <string>Check Syntax Errors when save</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QCheckBox" name="checkParseCode">
+                                </widget>
+                            </item>
+                        </layout>
+                    </item>
+                    <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout">
+                            <item>
+                                <widget class="QLabel" name="label">
+                                    <property name="text">
+                                        <string>IPython pdb snippet</string>
+                                    </property>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QLineEdit" name="ipdbSnippet">
                                     <property name="value">
-                                        <string>utf-8</string>
-                                    </property>
-                                </widget>
-                            </item>
-                        </layout>
-                    </item>
-                    <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout">
-                            <item>
-                                <widget class="QLabel" name="label">
-                                    <property name="text">
-                                        <string>Check JSLint when save</string>
-                                    </property>
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QCheckBox" name="checkJSLintWhenSave">
-                                </widget>
-                            </item>
-                        </layout>
-                    </item>
-                    <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout">
-                            <item>
-                                <widget class="QLabel" name="label">
-                                    <property name="text">
-                                        <string>Enable JavaScript Autocomplete (needs close and open kate editor)</string>
-                                    </property>
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QCheckBox" name="enableJSAutoComplete">
-                                </widget>
-                            </item>
-                        </layout>
-                    </item>
-                    <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout">
-                            <item>
-                                <widget class="QLabel" name="label">
-                                    <property name="text">
-                                        <string>Enable JQuery Autocomplete (needs close and open kate editor)</string>
-                                    </property>
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QCheckBox" name="enableJQueryAutoComplete">
-                                </widget>
-                            </item> 
-                        </layout>
-                    </item>
-                    <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout">
-                            <item>
-                                <widget class="QLabel" name="label">
-                                    <property name="text">
-                                        <string>Ready JQuery Text</string>
-                                    </property>
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QTextEdit" name="readyJQuery">
-                                    <property name="text">
-                                        <string>XXX
-                                            YYYYYYyyyyyy
-                                        </string>
+                                        <string>import ipdb; ipdb.set_trace()</string>
                                     </property>
                                 </widget>
                             </item>
@@ -119,13 +99,6 @@
             </item>
         </layout>
     </widget>
-    <customwidgets>
-        <customwidget>
-            <class>KIntNumInput</class>
-            <extends>QWidget</extends>
-            <header>knuminput.h</header>
-        </customwidget>
-    </customwidgets>
     <resources/>
     <connections/>
 </ui>

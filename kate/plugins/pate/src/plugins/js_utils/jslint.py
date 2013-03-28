@@ -38,7 +38,7 @@ pattern = re.compile(r"Lint at line (\d+) character (\d+): (.*)")
 @kate.action(**KATE_ACTIONS['checkJslint'])
 def checkJslint(currentDocument=None):
     """Check your js code with the jslint tool"""
-    js_utils_conf = kate.configuration.root.get('js_utils')
+    js_utils_conf = kate.configuration.root.get('js_utils', {})
     check_when_save = js_utils_conf.get(_JSLINT_CHECK_WHEN_SAVE,
                                         DEFAULT_CHECK_JSLINT_WHEN_SAVE)
 

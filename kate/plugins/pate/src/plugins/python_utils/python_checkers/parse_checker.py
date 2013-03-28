@@ -52,3 +52,5 @@ def parseCode(doc=None, refresh=True):
         error['line'] = e.lineno
         showErrors('Parse code Errors:', [error], mark_key, doc,
                    move_cursor=move_cursor)
+
+# kate: space-indent on; indent-width 4;

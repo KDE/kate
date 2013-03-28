@@ -40,7 +40,7 @@ def togglePrettyJsonFormat():
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     source = view.selectionText()
-    js_utils_conf = kate.configuration.root.get('js_utils')
+    js_utils_conf = kate.configuration.root.get('js_utils', {})
     if not source:
         showError('Please select a json text and press: %s' % KATE_ACTIONS['togglePrettyJsonFormat']['shortcut'])
     else:

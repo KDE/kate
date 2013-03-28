@@ -24,7 +24,9 @@ from libkatepate.text import insertText, TEXT_TO_CHANGE
 from python_settings import (KATE_ACTIONS, PYTHON_SPACES,
                              TEXT_INIT, TEXT_SUPER,
                              TEXT_RECURSIVE_CLASS,
-                             TEXT_RECURSIVE_NO_CLASS)
+                             TEXT_RECURSIVE_NO_CLASS,
+                             _IPDB_SNIPPET,
+                             DEFAULT_IPDB_SNIPPET)
 
 str_blank = "(?:\ |\t|\n)*"
 str_espaces = "([\ |\t|\n]*)"
@@ -47,11 +49,12 @@ pattern_param = re.compile("%(espaces)s(\w+)%(blank)s\=%(blank)s(.*)" % {
                                                 re.MULTILINE | re.DOTALL)
 
 
-
 @kate.action(**KATE_ACTIONS['insertIPDB'])
 def insertIPDB():
     """Insert the instructions to debug the python code"""
-    insertText("import ipdb; ipdb.set_trace()")
+    python_utils_conf = kate.configuration.root.get('python_utils', {})
+    ipdb_snippet = python_utils_conf and python_utils_conf.get(_IPDB_SNIPPET, DEFAULT_IPDB_SNIPPET) or DEFAULT_IPDB_SNIPPET
+    insertText(ipdb_snippet)
 
 
 @kate.action(**KATE_ACTIONS['insertInit'])
@@ -197,3 +200,6 @@ def callRecursive():
     if currentLine == currentDocument.lines():
         text_recursive_template = '\n%s' % text_recursive_template
     insertText(text_recursive_template)
+
+
+# kate: space-indent on; indent-width 4;

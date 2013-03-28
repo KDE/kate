@@ -28,3 +28,5 @@ def is_mymetype_python(doc, text_plain=False):
 def canCheckDocument(doc, text_plain=False):
     return not doc or (is_mymetype_python(doc, text_plain) and
                        not doc.isModified())
+
+# kate: space-indent on; indent-width 4;

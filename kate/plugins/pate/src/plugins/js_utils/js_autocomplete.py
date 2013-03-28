@@ -103,7 +103,7 @@ def createSignalAutocompletejQuery(view=None, *args, **kwargs):
     cci.registerCompletionModel(jquerycodecompletationmodel)
 
 
-js_utils_conf = kate.configuration.root.get('js_utils')
+js_utils_conf = kate.configuration.root.get('js_utils', {})
 ENABLE_JS_AUTOCOMPLETE = js_utils_conf.get(_ENABLE_JS_AUTOCOMPLETE,
                                            DEFAULT_ENABLE_JS_AUTOCOMPLETE)
 ENABLE_JQUERY_AUTOCOMPLETE = js_utils_conf.get(_ENABLE_JQUERY_AUTOCOMPLETE,

@@ -219,7 +219,7 @@ QString Pate::Plugin::configPageFullName(uint number) const
 KIcon Pate::Plugin::configPageIcon(uint number) const
 {
     if (!number) {
-        return KIcon("applications-development");
+        return KIcon("preferences-plugin");
     }
     if (number > (uint)m_moduleConfigPages.size()) {
         return KIcon();

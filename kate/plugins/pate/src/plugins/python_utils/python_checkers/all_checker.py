@@ -21,7 +21,13 @@
 import kate
 
 from python_checkers.utils import is_mymetype_python
-from python_settings import KATE_ACTIONS, CHECK_WHEN_SAVE
+from python_settings import (KATE_ACTIONS,
+                             _PEP8_CHECK_WHEN_SAVE,
+                             _PYFLAKES_CHECK_WHEN_SAVE,
+                             _PARSECODE_CHECK_WHEN_SAVE,
+                             DEFAULT_CHECK_PEP8_WHEN_SAVE,
+                             DEFAULT_CHECK_PYFLAKES_WHEN_SAVE,
+                             DEFAULT_PARSECODE_CHECK_WHEN_SAVE)
 
 
 def clearMarksOfError(doc, mark_iface):
@@ -46,9 +52,11 @@ def hideOldPopUps():
 @kate.action(**KATE_ACTIONS['checkAll'])
 def checkAll(doc=None, excludes=None, exclude_all=False):
     """Check the syntax, pep8 and pyflakes errors of the document"""
+    python_utils_conf = kate.configuration.root.get('python_utils', {})
     if not (not doc or (is_mymetype_python(doc) and
                         not doc.isModified())):
         return
+    is_called = not bool(doc)
     from python_checkers.parse_checker import parseCode
     excludes = excludes or []
     currentDoc = doc or kate.activeDocument()
@@ -56,15 +64,15 @@ def checkAll(doc=None, excludes=None, exclude_all=False):
     clearMarksOfError(currentDoc, mark_iface)
     hideOldPopUps()
     if not exclude_all:
-        if not 'parseCode' in excludes:
+        if not 'parseCode' in excludes and (is_called or python_utils_conf.get(_PARSECODE_CHECK_WHEN_SAVE, DEFAULT_PARSECODE_CHECK_WHEN_SAVE)):
             parseCode.f(currentDoc, refresh=False)
-        if not 'checkPyflakes' in excludes:
+        if not 'checkPyflakes' in excludes and (is_called or python_utils_conf.get(_PYFLAKES_CHECK_WHEN_SAVE, DEFAULT_CHECK_PYFLAKES_WHEN_SAVE)):
             try:
                 from python_checkers.pyflakes_checker import checkPyflakes
                 checkPyflakes.f(currentDoc, refresh=False)
             except ImportError:
                 pass
-        if not 'checkPep8' in excludes:
+        if not 'checkPep8' in excludes and (is_called or python_utils_conf.get(_PEP8_CHECK_WHEN_SAVE, DEFAULT_CHECK_PEP8_WHEN_SAVE)):
             from python_checkers.pep8_checker import checkPep8
             checkPep8.f(currentDoc, refresh=False)
     if not doc and currentDoc.isModified() and not excludes:
@@ -75,8 +83,8 @@ def checkAll(doc=None, excludes=None, exclude_all=False):
 @kate.init
 @kate.viewCreated
 def createSignalCheckDocument(view=None, *args, **kwargs):
-    if not CHECK_WHEN_SAVE:
-        return
     view = view or kate.activeView()
     doc = view.document()
     doc.modifiedChanged.connect(checkAll.f)
+
+# kate: space-indent on; indent-width 4;

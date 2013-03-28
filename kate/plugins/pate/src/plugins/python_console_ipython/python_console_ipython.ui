@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>commentarConfigWidget</class>
+    <class>pythonConsoleIPythonConfigWidget</class>
     <widget class="QWidget" name="commentarConfigWidget">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
@@ -10,7 +10,7 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>Scrollback lines count (needs kate restart)</string>
+                                        <string>Scrollback lines count (needs close and open kate editor)</string>
                                     </property>
                                 </widget>
                             </item>
@@ -28,7 +28,7 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>GUI completion type (needs kate restart)</string>
+                                        <string>GUI completion type (needs close and open kate editor)</string>
                                     </property>
                                 </widget>
                             </item>

@@ -23,11 +23,13 @@ import sys
 import kate
 import pep8
 
-from libkatepate.errors import showOk, showErrors
+from libkatepate.errors import showOk, showErrors, showError
 
 from python_checkers.all_checker import checkAll
 from python_checkers.utils import canCheckDocument
-from python_settings import KATE_ACTIONS, IGNORE_PEP8_ERRORS
+from python_settings import (KATE_ACTIONS,
+                             DEFAULT_IGNORE_PEP8_ERRORS,
+                             _IGNORE_PEP8_ERRORS)
 
 OLD_PEP8_VERSIONS = ['1.0.1', '1.1', '1.2']
 
@@ -77,8 +79,7 @@ else:
 
 
 def saveFirst():
-    kate.gui.popup('You must save the file first', 3,
-                    icon='dialog-warning', minTextWidth=200)
+    showError('You must save the file first')
 
 
 @kate.action(**KATE_ACTIONS['checkPep8'])
@@ -88,7 +89,7 @@ def checkPep8(currentDocument=None, refresh=True):
         return
     if refresh:
         checkAll.f(currentDocument, ['checkPep8'],
-                 exclude_all=not currentDocument)
+                   exclude_all=not currentDocument)
     move_cursor = not currentDocument
     currentDocument = currentDocument or kate.activeDocument()
 
@@ -103,13 +104,15 @@ def checkPep8(currentDocument=None, refresh=True):
     # Check the file for errors with PEP8
     sys.argv = [path]
     pep8.process_options([path])
+    python_utils_conf = kate.configuration.root.get('python_utils', {})
+    ignore_pep8_versions = python_utils_conf.get(_IGNORE_PEP8_ERRORS, DEFAULT_IGNORE_PEP8_ERRORS).split(",")
     if pep8.__version__ in OLD_PEP8_VERSIONS:
         checker = StoreErrorsChecker(path)
-        pep8.options.ignore = IGNORE_PEP8_ERRORS
+        pep8.options.ignore = ignore_pep8_versions
         checker.check_all()
         errors = checker.get_errors()
     else:
-        checker = pep8.Checker(path, reporter=KateReport, ignore=IGNORE_PEP8_ERRORS)
+        checker = pep8.Checker(path, reporter=KateReport, ignore=ignore_pep8_versions)
         checker.check_all()
         errors = checker.report.get_errors()
     if len(errors) == 0:
@@ -122,9 +125,11 @@ def checkPep8(currentDocument=None, refresh=True):
             "line": error[0],
             "column": error[1] + 1,
             "message": error[3],
-            })
+        })
     showErrors('Pep8 Errors:',
                errors_to_show,
                mark_key,
                currentDocument,
                move_cursor=move_cursor)
+
+# kate: space-indent on; indent-width 4;

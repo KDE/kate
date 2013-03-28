@@ -29,24 +29,37 @@ KATE_ACTIONS = {
     'insertSuper': {'text': 'super', 'shortcut': 'Alt+-',
                     'menu': PY_MENU, 'icon': None},
     'callRecursive': {'text': 'call recursive', 'shortcut': 'Ctrl+Alt+-',
-                    'menu': PY_MENU, 'icon': None},
+                      'menu': PY_MENU, 'icon': None},
     'checkAll': {'text': 'Check all', 'shortcut': 'Alt+5',
                  'menu': PY_CHECKERS, 'icon': None},
     'checkPyflakes': {'text': 'Pyflakes', 'shortcut': 'Alt+7',
                       'menu': PY_CHECKERS, 'icon': None},
-    'parseCode': {'text': 'Parse code python', 'shortcut': 'Alt+6',
+    'parseCode': {'text': 'Syntax Errors', 'shortcut': 'Alt+6',
                   'menu': PY_CHECKERS, 'icon': None},
     'checkPep8': {'text': 'Pep8', 'shortcut': 'Alt+8',
                   'menu': PY_CHECKERS, 'icon': None},
 }
 
-PYTHON_AUTOCOMPLETE_ENABLED = True
-CHECK_WHEN_SAVE = True
+KATE_CONFIG = {'name': 'python_utils',
+               'fullName': 'Python Utils',
+               'icon': 'text-x-python'}
+
+_PEP8_CHECK_WHEN_SAVE = 'PythonUtils:checkPEP8WhenSave'
+_IGNORE_PEP8_ERRORS = 'PythonUtils:ignorePEP8Errors'
+_PYFLAKES_CHECK_WHEN_SAVE = 'PythonUtils:checkPyFlakesWhenSave'
+_PARSECODE_CHECK_WHEN_SAVE = 'PythonUtils:checkParseCode'
+_IPDB_SNIPPET = 'PythonUtils:ipdbSnippet'
+
+DEFAULT_CHECK_PEP8_WHEN_SAVE = True
 try:
     import pep8
-    IGNORE_PEP8_ERRORS = pep8.DEFAULT_IGNORE.split(",")
+    DEFAULT_IGNORE_PEP8_ERRORS = pep8.DEFAULT_IGNORE
 except ImportError:
-    IGNORE_PEP8_ERRORS = []
+    DEFAULT_IGNORE_PEP8_ERRORS = ''
+DEFAULT_CHECK_PYFLAKES_WHEN_SAVE = True
+DEFAULT_PARSECODE_CHECK_WHEN_SAVE = True
+DEFAULT_IPDB_SNIPPET = "import ipdb; ipdb.set_trace()"
+
 PYTHON_SPACES = 4
 TEXT_INIT = """
     def __init__(self, *args, **kwargs):
@@ -63,3 +76,6 @@ def move_menus():
     py_checkers_slug = PY_CHECKERS.lower()
     separated_menu(py_menu_slug)
     move_menu_submenu(py_menu_slug, py_checkers_slug)
+
+
+# kate: space-indent on; indent-width 4;

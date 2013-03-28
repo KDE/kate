@@ -27,15 +27,25 @@ KATE_ACTIONS = {
     'importViews': {'text': 'Template import views', 'shortcut': 'Ctrl+Alt+I',
                     'menu': DJ_MENU, 'icon': None},
     'createBlock': {'text': 'Template block', 'shortcut': 'Ctrl+Alt+B',
-                              'menu': DJ_MENU, 'icon': None},
+                    'menu': DJ_MENU, 'icon': None},
     'closeTemplateTag': {'text': 'Close Template tag', 'shortcut': 'Ctrl+Alt+C',
-                              'menu': DJ_MENU, 'icon': None},
+                         'menu': DJ_MENU, 'icon': None},
 }
 
-TEMPLATE_TAGS_CLOSE = ["autoescape", "block", "comment", "filter", "for",
-                       "ifchanged", "ifequal", "if", "spaceless", "with"]
+KATE_CONFIG = {'name': 'django_utils',
+               'fullName': 'Django Utils',
+               'icon': 'text-x-python'}
 
-TEXT_URLS = """from django.conf.urls.defaults import patterns, url
+_TEMPLATE_TAGS_CLOSE = 'DjangoUtils:tagsClose'
+_TEMPLATE_TEXT_URLS = 'DjangoUtils:textURLS'
+_TEMPLATE_TEXT_VIEWS = 'DjangoUtils:textViews'
+_PATTERN_MODEL_FORM = 'DjangoUtils:patternModelForm'
+_PATTERN_MODEL = 'DjangoUtils:patternModel'
+
+
+DEFAULT_TEMPLATE_TAGS_CLOSE = "autoescape, block, comment, filter, for, ifchanged, ifequal, if, spaceless, with"
+
+DEFAULT_TEXT_URLS = """from django.conf.urls.defaults import patterns, url
 
 
 urlpatterns = patterns('%(app)s.views',
@@ -43,15 +53,13 @@ urlpatterns = patterns('%(app)s.views',
 )
 """
 
-TEXT_VIEWS = """from django.core.urlresolvers import reverse
+DEFAULT_TEXT_VIEWS = """from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 """
 
-PATTERN_MODEL_FORM = """
-
-class %(class_name)s(forms.ModelForm):
+DEFAULT_PATTERN_MODEL_FORM = """class %(class_name)s(forms.ModelForm):
 
     class Meta:
         model = %(class_model)s
@@ -67,9 +75,7 @@ class %(class_name)s(forms.ModelForm):
 
 """
 
-PATTERN_MODEL = """
-
-class %(class_name)s(models.Model):
+DEFAULT_PATTERN_MODEL = """class %(class_name)s(models.Model):
 
     class Meta:
         verbose_name = _('%(class_name)s')

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
     <class>jsUtilsConfigWidget</class>
-    <widget class="QWidget" name="commentarConfigWidget">
+    <widget class="QWidget" name="jsConfigWidget">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
                 <layout class="QVBoxLayout" name="verticalLayout">
@@ -95,7 +95,6 @@
                                 <widget class="QTextEdit" name="readyJQuery">
                                     <property name="text">
                                         <string>XXX
-                                            YYYYYYyyyyyy
                                         </string>
                                     </property>
                                 </widget>

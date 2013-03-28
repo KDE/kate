@@ -21,7 +21,9 @@ import kate
 import re
 
 from libkatepate.text import insertText
-from django_settings import KATE_ACTIONS, TEMPLATE_TAGS_CLOSE
+from django_settings import (KATE_ACTIONS,
+                             _TEMPLATE_TAGS_CLOSE,
+                             DEFAULT_TEMPLATE_TAGS_CLOSE)
 
 str_blank = "(?:\ |\t|\n)*"
 
@@ -29,7 +31,10 @@ str_blank = "(?:\ |\t|\n)*"
 @kate.action(**KATE_ACTIONS['closeTemplateTag'])
 def closeTemplateTag():
     """Close the last templatetag open"""
-    template_tags = '|'.join(TEMPLATE_TAGS_CLOSE)
+    django_utils_conf = kate.configuration.root.get('django_utils', {})
+    template_tags_close = django_utils_conf.get(_TEMPLATE_TAGS_CLOSE, DEFAULT_TEMPLATE_TAGS_CLOSE).split(",")
+    template_tags_close = [tag.strip() for tag in template_tags_close]
+    template_tags = '|'.join(template_tags_close)
     pattern_tag_open = re.compile("(.)*{%%%(espaces)s(%(tags)s)%(espaces)s(.)*%(espaces)s%%}(.)*" % {'espaces': str_blank, 'tags': template_tags})
     pattern_tag_close = re.compile("(.)*{%%%(espaces)send(%(tags)s)%(espaces)s%(espaces)s%%}(.)*" % {'espaces': str_blank, 'tags': template_tags})
     tag_closes = {}
@@ -72,4 +77,4 @@ def createBlock():
         block_source = source
     view.removeSelectionText()
     insertText("{%% %(block_type)s %(block_source)s %%}XXX{%% end%(block_type)s %%}" %
-                {'block_type': block_type, 'block_source': block_source})
+               {'block_type': block_type, 'block_source': block_source})

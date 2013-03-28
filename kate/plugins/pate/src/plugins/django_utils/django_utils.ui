@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
     <class>pythonUtilsConfigWidget</class>
-    <widget class="QWidget" name="pythonConfigWidget">
+    <widget class="QWidget" name="djangoConfigWidget">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
                 <layout class="QVBoxLayout" name="verticalLayout">
@@ -10,23 +10,12 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>Check PEP8 when save</string>
+                                        <string>Django tags to close when call the "Close Template tag" action</string>
                                     </property>
                                 </widget>
                             </item>
                             <item>
-                                <widget class="QCheckBox" name="checkPEP8WhenSave">
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QLabel" name="label">
-                                    <property name="text">
-                                        <string>Ignore PEP8 errors</string>
-                                    </property>
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QLineEdit" name="ignorePEP8Errors">
+                                <widget class="QLineEdit" name="templateTagsClose">
                                 </widget>
                             </item>
                         </layout>
@@ -36,12 +25,12 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>Check PyFlakes when save</string>
+                                        <string>URL template file</string>
                                     </property>
                                 </widget>
                             </item>
                             <item>
-                                <widget class="QCheckBox" name="checkPyFlakesWhenSave">
+                                <widget class="QTextEdit" name="templateTextURLs">
                                 </widget>
                             </item>
                         </layout>
@@ -51,12 +40,12 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>Check Syntax Errors when save</string>
+                                        <string>View import snippet</string>
                                     </property>
                                 </widget>
                             </item>
                             <item>
-                                <widget class="QCheckBox" name="checkParseCode">
+                                <widget class="QTextEdit" name="templateTextViews">
                                 </widget>
                             </item>
                         </layout>
@@ -66,15 +55,27 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>IPython pdb snippet</string>
+                                        <string>Pattern Model Form</string>
                                     </property>
                                 </widget>
                             </item>
                             <item>
-                                <widget class="QLineEdit" name="ipdbSnippet">
-                                    <property name="value">
-                                        <string>import ipdb; ipdb.set_trace()</string>
+                                <widget class="QTextEdit" name="patternModelForm">
+                                </widget>
+                            </item>
+                        </layout>
+                    </item>
+                    <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout">
+                            <item>
+                                <widget class="QLabel" name="label">
+                                    <property name="text">
+                                        <string>Pattern Model</string>
                                     </property>
+                                </widget>
+                            </item>
+                            <item>
+                                <widget class="QTextEdit" name="patternModel">
                                 </widget>
                             </item>
                         </layout>

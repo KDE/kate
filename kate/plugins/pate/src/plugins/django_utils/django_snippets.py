@@ -23,8 +23,15 @@ import kate
 from PyQt4 import QtGui
 
 from libkatepate.text import insertText, TEXT_TO_CHANGE
-from django_settings import (KATE_ACTIONS, TEXT_URLS, TEXT_VIEWS,
-                             PATTERN_MODEL_FORM, PATTERN_MODEL)
+from django_settings import (KATE_ACTIONS,
+                             _TEMPLATE_TEXT_URLS,
+                             _TEMPLATE_TEXT_VIEWS,
+                             _PATTERN_MODEL_FORM,
+                             _PATTERN_MODEL,
+                             DEFAULT_TEXT_URLS,
+                             DEFAULT_TEXT_VIEWS,
+                             DEFAULT_PATTERN_MODEL_FORM,
+                             DEFAULT_PATTERN_MODEL)
 
 
 @kate.action(**KATE_ACTIONS['importUrls'])
@@ -34,14 +41,18 @@ def importUrls():
     path = currentDocument.url().directory()
     path_split = path.split('/')
     application = path_split[len(path_split) - 1] or TEXT_TO_CHANGE
-    insertText(TEXT_URLS % {'app': application,
+    django_utils_conf = kate.configuration.root.get('django_utils', {})
+    text_urls = django_utils_conf.get(_TEMPLATE_TEXT_URLS, DEFAULT_TEXT_URLS)
+    insertText(text_urls % {'app': application,
                             'change': TEXT_TO_CHANGE})
 
 
 @kate.action(**KATE_ACTIONS['importViews'])
 def importViews():
     """Insert the usual imports of the views.py file"""
-    insertText(TEXT_VIEWS)
+    django_utils_conf = kate.configuration.root.get('django_utils', {})
+    text_views = django_utils_conf.get(_TEMPLATE_TEXT_VIEWS, DEFAULT_TEXT_VIEWS)
+    insertText(text_views)
 
 
 def create_frame(pattern_str='', title='', name_field=''):
@@ -58,12 +69,16 @@ def create_frame(pattern_str='', title='', name_field=''):
 @kate.action(**KATE_ACTIONS['createForm'])
 def createForm():
     """Create a form class from its name"""
-    create_frame(pattern_str=PATTERN_MODEL_FORM, title='Create Form',
+    django_utils_conf = kate.configuration.root.get('django_utils', {})
+    pattern_model_form = django_utils_conf.get(_PATTERN_MODEL_FORM, DEFAULT_PATTERN_MODEL_FORM)
+    create_frame(pattern_str=pattern_model_form, title='Create Form',
                  name_field='Name Form')
 
 
 @kate.action(**KATE_ACTIONS['createModel'])
 def createModel():
     """Create a model class from its name"""
-    create_frame(pattern_str=PATTERN_MODEL, title='Create Model',
+    django_utils_conf = kate.configuration.root.get('django_utils', {})
+    pattern_model = django_utils_conf.get(_PATTERN_MODEL, DEFAULT_PATTERN_MODEL)
+    create_frame(pattern_str=pattern_model, title='Create Model',
                  name_field='Name Model')

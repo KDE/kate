@@ -53,7 +53,7 @@ pattern_param = re.compile("%(espaces)s(\w+)%(blank)s\=%(blank)s(.*)" % {
 def insertIPDB():
     """Insert the instructions to debug the python code"""
     python_utils_conf = kate.configuration.root.get('python_utils', {})
-    ipdb_snippet = python_utils_conf and python_utils_conf.get(_IPDB_SNIPPET, DEFAULT_IPDB_SNIPPET) or DEFAULT_IPDB_SNIPPET
+    ipdb_snippet = python_utils_conf.get(_IPDB_SNIPPET, DEFAULT_IPDB_SNIPPET)
     insertText(ipdb_snippet)
 
 

@@ -49,6 +49,12 @@ def add_extra_path(extra_path):
         sys.original_path = copy(sys.path)
         sys.original_modules = sys.modules.keys()
     else:
+        i = len(sys.path) - 1
+        while i >= 0:
+            path = sys.path[i]
+            if not path in sys.original_path:
+                del sys.path[i]
+            i = i - 1
         for module in sys.modules.keys():
             if not module in sys.original_modules:
                 del sys.modules[module]

@@ -109,7 +109,7 @@ def django_project_filename_changed(kernel_app):
             except AttributeError as e:
                 kernel_app.shell.run_cell('print("Failed to import \'%s\' from \'%s\' reason: %s)' % (model.__name__, app_name, str(e)))
                 continue
-        print_imports += 'print("From \'%s\' autoload: %s");' % (app_mod.__name__.split('.')[-2], ", ".join(model_labels)) 
+        print_imports += 'print("From \'%s\' autoload: %s");' % (app_mod.__name__.split('.')[-2], ", ".join(model_labels))
     kernel_app.shell.run_cell(print_imports)
     return imported_objects
 

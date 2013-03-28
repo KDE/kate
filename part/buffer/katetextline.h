@@ -36,9 +36,8 @@ namespace Kate {
  */
 class KATEPART_TESTS_EXPORT TextLineData {
   /**
-   * TextBuffer/Block are friend classes, only ones allowed to touch the text content.
+   * TexBlock is a friend class, only one allowed to touch the text content.
    */
-  friend class TextBuffer;
   friend class TextBlock;
 
   public:

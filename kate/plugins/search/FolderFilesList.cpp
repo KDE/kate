@@ -59,7 +59,11 @@ void FolderFilesList::generateList(const QString &folder,
     m_hidden       = hidden;
     m_symlinks     = symlinks;
     m_binary       = binary;
-    m_types        = types.split(',');
+    m_types        = types.split(',', QString::SkipEmptyParts);
+
+    if (m_types.isEmpty()) {
+        m_types << "*";
+    }
 
     QStringList tmpExcludes = excludes.split(',');
     m_excludeList.clear();

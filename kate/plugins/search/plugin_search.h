@@ -115,7 +115,7 @@ private Q_SLOTS:
     void searchContextMenu(const QPoint& pos);
 
     void searchPlaceChanged();
-    void searchPatternChanged();
+    void startSearchWhileTyping();
 
     void folderFileListChanged();
 

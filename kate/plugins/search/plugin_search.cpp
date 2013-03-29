@@ -258,23 +258,25 @@ m_projectPluginView(0)
     connect(m_ui.newTabButton,     SIGNAL(clicked()), this, SLOT(addTab()));
     connect(m_ui.resultTabWidget,  SIGNAL(closeRequest(QWidget*)), this, SLOT(closeTab(QWidget*)));
     connect(m_ui.resultTabWidget,  SIGNAL(currentChanged(int)), this, SLOT(resultTabChanged(int)));
-    connect(m_ui.searchButton,     SIGNAL(clicked()), this, SLOT(startSearch()));
-    connect(m_ui.searchCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
-    connect(m_ui.folderRequester,  SIGNAL(returnPressed()), this, SLOT(startSearch()));
+
     connect(m_ui.folderUpButton,   SIGNAL(clicked()), this, SLOT(navigateFolderUp()));
     connect(m_ui.currentFolderButton, SIGNAL(clicked()), this, SLOT(setCurrentFolder()));
 
-    connect(m_ui.filterCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
-    connect(m_ui.excludeCombo,     SIGNAL(returnPressed()), this, SLOT(startSearch()));
-
-    connect(m_ui.displayOptions,   SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
-    connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(searchPlaceChanged()));
     connect(m_ui.searchCombo,      SIGNAL(editTextChanged(QString)), &m_changeTimer, SLOT(start()));
     connect(m_ui.matchCase,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
     connect(m_ui.useRegExp,        SIGNAL(stateChanged(int)), &m_changeTimer, SLOT(start()));
     m_changeTimer.setInterval(300);
     m_changeTimer.setSingleShot(true);
-    connect(&m_changeTimer, SIGNAL(timeout()), this, SLOT(searchPatternChanged()));
+    connect(&m_changeTimer, SIGNAL(timeout()), this, SLOT(startSearchWhileTyping()));
+
+    connect(m_ui.searchCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.folderRequester,  SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.filterCombo,      SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.excludeCombo,     SIGNAL(returnPressed()), this, SLOT(startSearch()));
+    connect(m_ui.searchButton,     SIGNAL(clicked()),       this, SLOT(startSearch()));
+
+    connect(m_ui.displayOptions,   SIGNAL(toggled(bool)), this, SLOT(toggleOptions(bool)));
+    connect(m_ui.searchPlaceCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(searchPlaceChanged()));
 
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchDiskFiles, SLOT(cancelSearch()));
@@ -401,7 +403,7 @@ void KatePluginSearchView::openSearchView()
         }
         m_ui.searchCombo->lineEdit()->selectAll();
         m_searchJustOpened = true;
-        searchPatternChanged();
+        startSearchWhileTyping();
     }
 }
 
@@ -481,7 +483,6 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
     }
     return filteredFiles;
 }
-
 
 
 void KatePluginSearchView::startSearch()
@@ -626,8 +627,12 @@ void KatePluginSearchView::searchPlaceChanged()
     m_ui.excludeLabel->setEnabled(m_ui.excludeCombo->isEnabled());
 }
 
-void KatePluginSearchView::searchPatternChanged()
+void KatePluginSearchView::startSearchWhileTyping()
 {
+    if (!m_searchDiskFilesDone || !m_searchOpenFilesDone) {
+        return;
+    }
+
     m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
 
     if (!mainWindow()->activeView()) return;
@@ -882,6 +887,8 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
 
 void KatePluginSearchView::searchDone()
 {
+    m_changeTimer.stop(); // avoid "while you type" search directly after
+
     if (sender() == &m_searchDiskFiles) {
         m_searchDiskFilesDone = true;
     }

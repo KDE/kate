@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Autocomplete Python (beta)'''
+'''Autocomplete Python (beta, only to Python2)'''
 
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #
@@ -23,7 +23,7 @@ from libkatepate.errors import needs_python_version, needs_packages
 
 needs_python_version(major=2, text="The python autocomplete plugin only is available to Python 2")
 needs_packages({"pysmell": "0.7.3",
-                "pyplete": "0.0.4"})
+                "pyplete": "0.0.5"})
 
 import kate
 import sys
@@ -35,6 +35,8 @@ from libkatepate.project_utils import (get_project_plugin,
                                        is_version_compatible,
                                        add_extra_path,
                                        add_environs)
+from libkatepate.errors import showError
+
 
 from pyplete import PyPlete
 from python_autocomplete_parse import (import_complete,
@@ -145,7 +147,7 @@ class PythonCodeCompletionModel(AbstractCodeCompletionModel):
             message = '%s\n  * text: %s' % (message, text)
         if line:
             message = '%s\n  * line: %s' % (message, line)
-        kate.gui.popup(message, 2, icon='dialog-warning', minTextWidth=200)
+        showError(message)
 
     def _parseText(self, view, word, line):
         doc = view.document()

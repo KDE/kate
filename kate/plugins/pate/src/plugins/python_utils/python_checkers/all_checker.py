@@ -20,6 +20,8 @@
 
 import kate
 
+from libkatepate.errors import showError
+
 from python_checkers.utils import is_mymetype_python
 from python_settings import (KATE_ACTIONS,
                              _PEP8_CHECK_WHEN_SAVE,
@@ -76,8 +78,7 @@ def checkAll(doc=None, excludes=None, exclude_all=False):
             from python_checkers.pep8_checker import checkPep8
             checkPep8.f(currentDoc, refresh=False)
     if not doc and currentDoc.isModified() and not excludes:
-        kate.gui.popup('You must save the file first', 3,
-                       icon='dialog-warning', minTextWidth=200)
+        showError('You must save the file first')
 
 
 @kate.init

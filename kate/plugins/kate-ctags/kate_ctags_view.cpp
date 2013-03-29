@@ -407,8 +407,18 @@ QString KateCTagsView::currentWord( )
         return QString();
     }
 
-    //kDebug() << linestr.mid(startPos+1, endPos-startPos-1);
-    return linestr.mid(startPos+1, endPos-startPos-1);
+    linestr = linestr.mid(startPos+1, endPos-startPos-1);
+
+    while (linestr.endsWith(':')) {
+      linestr.remove(linestr.size()-1, 1);
+    }
+
+    while (linestr.startsWith(':')) {
+      linestr.remove(0, 1);
+    }
+
+    //kDebug() << linestr;
+    return linestr;
 }
 
 /******************************************************************/

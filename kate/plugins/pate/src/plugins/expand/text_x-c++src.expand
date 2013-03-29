@@ -196,20 +196,17 @@ def cl(name, *templateParams):
 
 
 def t(*params):
-    ''' Render template header w/ given template parameters list
-    '''
+    ''' Render template header w/ given template parameters list '''
     return 'template <typename ' + ', typename '.join(params) + '>'
 
 
 def brief():
-    ''' Render a Doxygen brief header
-    '''
+    '''Render a Doxygen brief header'''
     return _PURE_BRIEF_DOC_TPL
 
 
 def ns(name = None):
-    ''' Insert named or anonymous namespace
-    '''
+    ''' Insert named or anonymous namespace '''
     params = []
     if bool(name):
         nsList = [ns.strip() for ns in name.split('::')]
@@ -224,7 +221,7 @@ def ns(name = None):
 
 
 def gs(typeT, name, ref = None):
-    ''' Insert getter/setter for member
+    ''' Insert getter/setter for a member
 
         NOTE If member has a one of "standard" prefix 'm_' or suffix '_',
             accessor name will be w/o it!
@@ -247,16 +244,14 @@ def gs(typeT, name, ref = None):
 
 
 def main(args=True):
-    ''' Render main() function
-    '''
+    ''' Render main() function '''
     if args:
         return _MAIN_WITH_ARGS_TPL
     return _MAIN_TPL
 
 
 def sw(expr = None, *caseList):
-    ''' Render switch() statement w/ a list of cases
-    '''
+    ''' Render switch() statement w/ a list of cases '''
     if expr:
         if caseList:
             caseStr = ''
@@ -271,8 +266,5 @@ def sw(expr = None, *caseList):
         return _SWITCH_TPL.format(expr, caseStr)
     else:
         return _EMPTY_SWITCH_TPL
-
-def test(expr):
-    return '{\n\t%{cursor}' + expr + '\n}'
 
 # kate: hl python; indent-width 4;

@@ -27,6 +27,8 @@ TextBlock::TextBlock (TextBuffer *buffer, int startLine)
   : m_buffer (buffer)
   , m_startLine (startLine)
 {
+  // reserve the block size
+  m_lines.reserve (m_buffer->m_blockSize);
 }
 
 TextBlock::~TextBlock ()
@@ -62,6 +64,16 @@ TextLine TextBlock::line (int line) const
   return m_lines.at(line);
 }
 
+void TextBlock::appendLine (const QString &textOfLine)
+{
+  m_lines.append (TextLine (new TextLineData(textOfLine)));
+}
+
+void TextBlock::clearLines ()
+{
+  m_lines.clear ();
+}
+    
 void TextBlock::text (QString &text) const
 {
   // combine all lines

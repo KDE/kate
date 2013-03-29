@@ -994,10 +994,11 @@ void KateView::setupEditActions()
 void KateView::setupCodeFolding()
 {
   //FIXME: FOLDING
-#if 0
   KActionCollection *ac=this->actionCollection();
 
-  KAction* a = ac->addAction("folding_toplevel");
+  KAction* a;
+  
+  /*= ac->addAction("folding_toplevel");
   a->setText(i18n("Fold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseToplevelNodes()));
@@ -1014,7 +1015,7 @@ void KateView::setupCodeFolding()
   a = ac->addAction("folding_collapse_dsComment");
   a->setText(i18n("Fold Multiline Comments"));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseAll_dsComments()));
-
+*/
   a = ac->addAction("folding_collapselocal");
   a->setText(i18n("Fold Current Node"));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotCollapseLocal()));
@@ -1022,38 +1023,16 @@ void KateView::setupCodeFolding()
   a = ac->addAction("folding_expandlocal");
   a->setText(i18n("Unfold Current Node"));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
-
-  // Explicit folding is allowed for level 2 to 4
-  for (int i = 2 ; i < 5 ; ++i) {
-    // Collapse level connections
-    a = ac->addAction(QString("collapse_level_%1").arg(i));
-    a->setText(i18n("Fold Nodes in Level %1", i));
-    a->setData(i);
-    connect(a, SIGNAL(triggered()), this, SLOT(slotCollapseLevel()));
-
-    // Expand level connections
-    a = ac->addAction(QString("expand_level_%1").arg(i));
-    a->setText(i18n("Unfold Nodes in Level %1", i));
-    a->setData(i);
-    connect(a, SIGNAL(triggered()), this, SLOT(slotExpandLevel()));
-  }
-#endif
 }
 
 void KateView::slotCollapseLocal()
 {
-  //FIXME: FOLDING
-#if 0
-  m_doc->foldingTree()->collapseOne(cursorPosition().line(), cursorPosition().column());
-#endif
+  foldLine (cursorPosition().line());
 }
 
 void KateView::slotExpandLocal()
 {
-  //FIXME: FOLDING
-#if 0
-  m_doc->foldingTree()->expandOne(cursorPosition().line(), cursorPosition().column());
-#endif
+  unfoldLine (cursorPosition().line());
 }
 
 void KateView::slotCollapseLevel()
@@ -1082,6 +1061,33 @@ void KateView::slotExpandLevel()
   Q_ASSERT(level > 0);
   m_doc->foldingTree()->expandLevel(level);
 #endif
+}
+
+void KateView::foldLine (int startLine)
+{
+  // only for valid lines
+  if (startLine < 0)
+    return;
+  
+  // try to fold all known ranges
+  QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = textFolding().foldingRangesStartingOnLine (startLine);
+  for (int i = 0; i < startingRanges.size(); ++i)
+    textFolding().foldRange (startingRanges[i].first);
+        
+  // try if the highlighting can help us and create a fold
+  textFolding().newFoldingRange (doc()->buffer().computeFoldingRangeForStartLine (startLine), Kate::TextFolding::Folded);
+}
+
+void KateView::unfoldLine (int startLine)
+{
+  // only for valid lines
+  if (startLine < 0)
+    return;
+  
+  // try to unfold all known ranges
+  QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = textFolding().foldingRangesStartingOnLine (startLine);
+  for (int i = 0; i < startingRanges.size(); ++i)
+    textFolding().unfoldRange (startingRanges[i].first);
 }
 
 QString KateView::viewMode () const

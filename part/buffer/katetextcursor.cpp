@@ -54,7 +54,7 @@ TextCursor::~TextCursor ()
 {
   // remove cursor from block or buffer
   if (m_block)
-    m_block->m_cursors.remove (this);
+    m_block->removeCursor (this);
 
   // only cursors without range are here!
   else if (!m_range)
@@ -64,14 +64,14 @@ TextCursor::~TextCursor ()
 void TextCursor::setPosition( const TextCursor& position )
 {
     if (m_block && m_block != position.m_block)
-        m_block->m_cursors.remove(this);
+        m_block->removeCursor (this);
 
     m_line = position.m_line;
     m_column = position.m_column;
 
     m_block = position.m_block;
     if (m_block)
-        m_block->m_cursors.insert(this);
+        m_block->insertCursor (this);
 }
 
 void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
@@ -82,7 +82,7 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
 
   // remove cursor from old block in any case
   if (m_block)
-    m_block->m_cursors.remove (this);
+    m_block->removeCursor (this);
 
   // first: validate the line and column, else invalid
   if (position.column() < 0 || position.line () < 0 || position.line () >= m_buffer.lines ()) {
@@ -114,7 +114,7 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
   m_block = block;
   m_line = position.line () - m_block->startLine ();
   m_column = position.column ();
-  m_block->m_cursors.insert (this);
+  m_block->insertCursor (this);
 }
 
 void TextCursor::setPosition(const KTextEditor::Cursor& position)

@@ -52,6 +52,7 @@ public:
 
 import kate
 
+import inspect
 import os
 import sys
 import re
@@ -62,7 +63,7 @@ import traceback
 from PyKDE4.kdecore import KConfig
 
 from libkatepate import ui, common
-
+from libkatepate.autocomplete import AbstractCodeCompletionModel
 
 class ParseError(Exception):
     pass
@@ -164,7 +165,8 @@ def loadFileExpansions(path):
         # to set the expansion key so you are free to reset it to something
         # starting with two underscores (or more importantly, a Python
         # keyword)
-        if not name.startswith('__') and callable(o):
+        # NOTE Detect ONLY a real function!
+        if not name.startswith('__') and inspect.isfunction(o):
             expansions[o.__name__] = o
     return expansions
 
@@ -342,5 +344,58 @@ def expandAtCursor():
         insertPosition.setColumn(insertPosition.column() + cursorAdvancement)
         view.setCursorPosition(insertPosition)
 
+
+
+class ExpandsCompletionModel(AbstractCodeCompletionModel):
+    TITLE_AUTOCOMPLETION = "Expands Available"
+
+    def completionInvoked(self, view, word, invocationType):
+        self.reset()
+        # NOTE Do not allow automatic popup cuz most of expanders are short
+        # and it will annoying when typing code...
+        if invocationType == 0:
+            return
+
+        expansions = loadExpansions(str(view.document().mimeType()))
+        for exp, fn in expansions.items():
+            # Try to get a function description (very first line)
+            d = fn.__doc__
+            if d != None:
+                lines = d.splitlines()
+                d = lines[0].strip()
+            # Get function parameters
+            fp = inspect.getargspec(fn)
+            args = fp[0]
+            params=''
+            if len(args) != 0:
+                params = ", ".join(args)
+            if fp[1] != None:
+                if len(params):
+                    params += ', '
+                params += '['+fp[1]+']'
+            # Append to result completions list
+            self.resultList.append(
+                self.createItemAutoComplete(text=exp, description=d, args='('+params+')')
+              )
+
+    def reset(self):
+        self.resultList = []
+
+
+def _reset(*args, **kwargs):
+    expands_completation_model.reset()
+
+
+@kate.init
+@kate.viewCreated
+def createSignalAutocompleteExpands(view=None, *args, **kwargs):
+    view = view or kate.activeView()
+    if view:
+        cci = view.codeCompletionInterface()
+        cci.registerCompletionModel(expands_completation_model)
+
+
+expands_completation_model = ExpandsCompletionModel(kate.application)
+expands_completation_model.modelReset.connect(_reset)
 
 # kate: space-indent on; indent-width 4;

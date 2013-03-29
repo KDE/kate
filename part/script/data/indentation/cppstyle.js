@@ -1409,7 +1409,7 @@ function alignInsideBraces(line)
     }
     dbg("line="+line);
     dbg("document.isComment(line, 0)="+document.isComment(line, 0));
-    dbg("document.defStyleNum(line, 0)="+document.defStyleNum(line-1, 0));
+    //dbg("document.defStyleNum(line, 0)="+document.defStyleNum(line-1, 0));
     dbg("currentLineText='"+currentLineText+"'");
     dbg("middleOfMultilineBlock="+middleOfMultilineBlock);
 

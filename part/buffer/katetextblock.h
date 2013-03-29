@@ -37,12 +37,9 @@ class TextRange;
 /**
  * Class representing a text block.
  * This is used to build up a Kate::TextBuffer.
+ * This class should only be used by TextBuffer/Cursor/Range.
  */
 class KATEPART_TESTS_EXPORT TextBlock {
-  friend class TextCursor;
-  friend class TextRange;
-  friend class TextBuffer;
-
   public:
     /**
      * Construct an empty text block.
@@ -76,10 +73,15 @@ class KATEPART_TESTS_EXPORT TextBlock {
     TextLine line (int line) const;
 
     /**
-     * Append a new line.
-     * @param line line to append
+     * Append a new line with given text.
+     * @param textOfLine text of the line to append
      */
-    void appendLine (TextLine line) { m_lines.append (line); }
+    void appendLine (const QString &textOfLine);
+    
+    /**
+     * Clear the lines.
+     */
+    void clearLines ();
 
     /**
      * Number of lines in this block.
@@ -178,8 +180,19 @@ class KATEPART_TESTS_EXPORT TextBlock {
      * Flag all modified text lines as saved on disk.
      */
     void markModifiedLinesAsSaved ();
+    
+    /**
+     * Insert cursor into this block.
+     * @param cursor cursor to insert
+     */
+    void insertCursor (Kate::TextCursor *cursor) { m_cursors.insert (cursor); }
+    
+    /**
+     * Remove cursor from this block.
+     * @param cursor cursor to remove
+     */
+    void removeCursor (Kate::TextCursor *cursor) { m_cursors.remove (cursor); }
 
-  private:
     /**
      * Update a range from this block.
      * Will move the range to right set, either cached for one-line ranges or not.

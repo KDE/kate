@@ -131,35 +131,26 @@ void ViModeTest::TestPressKey(QString str) {
     }
 
     key_event = new QKeyEvent(QEvent::KeyPress, code, keyboard_modifier, key);
-    if (key == QString(Qt::Key_Escape))
+    // Attempt to simulate how Qt usually sends events - typically, we want to send them
+    // to kate_view->focusProxy() (which is a KateViewInternal).
+    QWidget *destWidget = NULL;
+    if (QApplication::focusWidget())
     {
-      // Sending ESC to KateViewInternal has unfortunate side-effects like cancelling the selection,
-      // etc, so send it to the input manager instead.
-      kate_view->getViInputModeManager()->handleKeypress(key_event);
-    }
-    else
-    {
-      // Attempt to simulate how Qt usually sends events - typically, we want to send them
-      // to kate_view->focusProxy() (which is a KateViewInternal).
-      QWidget *destWidget = NULL;
-      if (QApplication::focusWidget())
+      if (QApplication::focusWidget()->focusProxy())
       {
-        if (QApplication::focusWidget()->focusProxy())
-        {
-          destWidget = QApplication::focusWidget()->focusProxy();
-        }
-        else
-        {
-          destWidget = QApplication::focusWidget();
-        }
+        destWidget = QApplication::focusWidget()->focusProxy();
       }
       else
       {
-        destWidget = kate_view->focusProxy();
+        destWidget = QApplication::focusWidget();
       }
-      QApplication::postEvent(destWidget, key_event);
-      QApplication::sendPostedEvents();
     }
+    else
+    {
+      destWidget = kate_view->focusProxy();
+    }
+    QApplication::postEvent(destWidget, key_event);
+    QApplication::sendPostedEvents();
   }
 }
 
@@ -198,10 +189,6 @@ void ViModeTest::VisualModeTests() {
     DoTest("ABCD\nABCD\nABCD\nABCD","lj\\ctrl-vjlgux","ABCD\nAcD\nAbcD\nABCD");
     DoTest("abcd\nabcd\nabcd\nabcd","jjjlll\\ctrl-vkkhgUx","abcd\nabD\nabCD\nabCD");
     // Cancelling visual mode should not reset the cursor.
-    // TODO - due to a rather weird bit of code in KateViewInternal's Escape handling,
-    // this will only work if the Vi bar is not hidden! (If and only if it is hidden, a
-    // clearSelection() call is emitted when ESC is pressed).
-    // Investigate whether this is the intention - I suspect not!
     DoTest("12345678", "lv3l\\escx", "1234678");
     DoTest("12345678", "lv3l\\ctrl-cx", "1234678");
     // Don't forget to clear the flag that says we shouldn't reset the cursor, though!

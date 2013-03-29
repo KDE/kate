@@ -2155,7 +2155,10 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
           //kDebug() << obj << "shortcut override" << k->key() << "closing view bar";
           return true;
         } else if (!m_view->config()->persistentSelection() && m_view->selection()) {
-          m_view->clearSelection();
+          if (!m_view->viInputMode()) // Vim mode handles clearing selections itself.
+          {
+            m_view->clearSelection();
+          }
           k->accept();
           //kDebug() << obj << "shortcut override" << k->key() << "clearing selection";
           return true;
@@ -3340,7 +3343,7 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
       if (index >= 0 && index < layout->viewLineCount())
         col = layout->viewLine (index).startCol();
     }
-  }  
+  }
   m_startPos.setPosition (m_startPos.line(), col);
 
   if (tagFrom && (editTagLineStart <= int(m_view->textFolding().visibleLineToLine(startLine()))))
@@ -3404,7 +3407,7 @@ KTextEditor::Cursor KateViewInternal::toVirtualCursor( const KTextEditor::Cursor
    */
   if (realCursor.line() < 0)
     return KTextEditor::Cursor::invalid ();
-  
+
   return KTextEditor::Cursor(m_view->textFolding().lineToVisibleLine(realCursor.line()), realCursor.column());
 }
 

@@ -139,13 +139,26 @@ void ViModeTest::TestPressKey(QString str) {
     }
     else
     {
-      // Allow InsertMode to handle the keys - this has to be done by sending the keys
-      // to KateViewInternal's keyPressed handler, which is is unfortunately protected;
-      // however, KateViewInternal is kate_view's focus proxy, so  we can achieve this
-      // by posting a KeyPress event to it.
-      QApplication::postEvent(kate_view->focusProxy(), key_event);
+      // Attempt to simulate how Qt usually sends events - typically, we want to send them
+      // to kate_view->focusProxy() (which is a KateViewInternal).
+      QWidget *destWidget = NULL;
+      if (QApplication::focusWidget())
+      {
+        if (QApplication::focusWidget()->focusProxy())
+        {
+          destWidget = QApplication::focusWidget()->focusProxy();
+        }
+        else
+        {
+          destWidget = QApplication::focusWidget();
+        }
+      }
+      else
+      {
+        destWidget = kate_view->focusProxy();
+      }
+      QApplication::postEvent(destWidget, key_event);
       QApplication::sendPostedEvents();
-      // TODO - add test to show why old version was wrong (something like "isausage\\ctrl-c.", perhaps ... ?)
     }
   }
 }

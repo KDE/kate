@@ -11,6 +11,7 @@ public:
   void init();
 private:
   QLineEdit *m_edit;
+  virtual bool eventFilter(QObject* object, QEvent* event);
 };
 
 #endif

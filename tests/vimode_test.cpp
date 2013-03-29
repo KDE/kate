@@ -1148,6 +1148,8 @@ public:
   }
   ~VimStyleCommandBarTestsSetUpAndTearDown()
   {
+    // Use invokeMethod to avoid having to export KateViewBar for testing.
+    QMetaObject::invokeMethod(m_kateView->viModeEmulatedCommandBar(), "hideMe");
     m_kateView->hide();
     KateViewConfig::global()->setViInputModeEmulateCommandBar(false);
   }
@@ -1177,9 +1179,39 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(emulatedCommandTypeIndicator()->isVisible());
   QVERIFY(emulatedCommandBarTextEdit());
   QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
+  // Make sure the keypresses end up changing the text.
   QVERIFY(emulatedCommandBarTextEdit()->isVisible());
   TestPressKey("foo");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
+  KateViewConfig::global()->setViInputModeStealKeys(true);
+  // Make sure ctrl-c dismisses it (assuming we allow Vim to steal the ctrl-c shortcut).
+  TestPressKey("\\ctrl-c");
+  QVERIFY(!emulatedCommandBar->isVisible());
+  KateViewConfig::global()->setViInputModeStealKeys(false);
+
+  // Ensure that ESC dismisses it, too.
+  BeginTest("");
+  TestPressKey("/");
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\esc");
+  QVERIFY(!emulatedCommandBar->isVisible());
+  FinishTest("");
+
+  // Ensure that Ctrl-[ dismisses it, too.
+  BeginTest("");
+  TestPressKey("/");
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\ctrl-[");
+  QVERIFY(!emulatedCommandBar->isVisible());
+  FinishTest("");
+
+  // Ensure that Enter dismisses it, too.
+  BeginTest("");
+  TestPressKey("/");
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\n");
+  QVERIFY(!emulatedCommandBar->isVisible());
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -1331,6 +1363,8 @@ void ViModeTest::waitForCompletionWidgetToActivate()
       QApplication::processEvents();
     }
     QVERIFY(kate_view->isCompletionActive());
+}
+
 QLabel* ViModeTest::emulatedCommandTypeIndicator()
 {
   KateViEmulatedCommandBar *emulatedCommandBar = kate_view->viModeEmulatedCommandBar();

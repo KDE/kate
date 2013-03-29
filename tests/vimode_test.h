@@ -72,6 +72,7 @@ private:
   KateViInputModeManager *vi_input_mode_manager;
 
   QList<Kate::TextRange*> rangesOnFirstLine();
+  void ensureKateViewVisible();
   void waitForCompletionWidgetToActivate();
 
   QLabel *emulatedCommandTypeIndicator();

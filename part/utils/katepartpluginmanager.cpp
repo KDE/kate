@@ -216,7 +216,10 @@ void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
   }
 
   // try to load, else reset load flag!
-  item.plugin = item.service()->createInstance<KTextEditor::Plugin>(this);
+  QString error;
+  item.plugin = item.service()->createInstance<KTextEditor::Plugin>(this, QVariantList(), &error);
+  if ( !item.plugin )
+    kWarning() << "failed to load plugin" << item.service()->name() << ":" << error;
   item.load = (item.plugin != 0);
 }
 

@@ -3467,6 +3467,7 @@ KTextEditor::MovingRange*& KateViNormalMode::highlightedYankForDocument()
 
 void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range)
 {
+  Q_UNUSED(document);
   const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
   const bool continuesInsertion = range.start().line() == m_currentChangeEndMarker.line() && range.start().column() == m_currentChangeEndMarker.column();
   const bool beginsWithNewline = doc()->text(range)[0] == '\n';
@@ -3514,6 +3515,7 @@ void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range
 
 void KateViNormalMode::textRemoved(KTextEditor::Document* document , Range range)
 {
+  Q_UNUSED(document);
   const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
   m_viInputModeManager->addMark(doc(), '.', range.start());
   if (!isInsertMode)

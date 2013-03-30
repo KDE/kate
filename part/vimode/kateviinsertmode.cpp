@@ -192,10 +192,6 @@ bool KateViInsertMode::commandMoveOneWordRight()
 
 bool KateViInsertMode::commandCompleteNext()
 {
-  // Completion may yield different results when performed
-  // other places in the document. Therefore, repeat the
-  // inserted text instead of the typed keystrokes.
-  m_viInputModeManager->setTextualRepeat();
   if(m_view->completionWidget()->isCompletionActive()) {
     const QModelIndex oldCompletionItem = m_view->completionWidget()->treeView()->selectionModel()->currentIndex();
     m_view->completionWidget()->cursorDown();
@@ -213,7 +209,6 @@ bool KateViInsertMode::commandCompleteNext()
 
 bool KateViInsertMode::commandCompletePrevious()
 {
-  m_viInputModeManager->setTextualRepeat();
   if(m_view->completionWidget()->isCompletionActive()) {
     const QModelIndex oldCompletionItem = m_view->completionWidget()->treeView()->selectionModel()->currentIndex();
     m_view->completionWidget()->cursorUp();

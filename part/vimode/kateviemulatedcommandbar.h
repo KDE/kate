@@ -13,11 +13,13 @@ public:
   explicit KateViEmulatedCommandBar(KateView *view, QWidget* parent = 0);
   void init();
   virtual void closed();
+  bool handleKeyPress(const QKeyEvent* keyEvent);
 private:
   KateView *m_view;
   QLineEdit *m_edit;
   KTextEditor::Cursor m_startingCursorPos;
   bool m_pendingCloseIsDueToEnter;
+  bool m_suspendEditEventFiltering;
   virtual bool eventFilter(QObject* object, QEvent* event);
 private slots:
   void editTextChanged(const QString& newText);

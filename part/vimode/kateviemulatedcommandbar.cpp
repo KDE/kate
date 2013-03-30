@@ -4,11 +4,13 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
+#include <QApplication>
 
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
     : KateViewBarWidget(false, parent),
       m_view(view),
-      m_pendingCloseIsDueToEnter(false)
+      m_pendingCloseIsDueToEnter(false),
+      m_suspendEditEventFiltering(false)
 {
   QVBoxLayout * layout = new QVBoxLayout();
   centralWidget()->setLayout(layout);
@@ -47,27 +49,45 @@ void KateViEmulatedCommandBar::closed()
 
 bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
 {
+  if (m_suspendEditEventFiltering)
+  {
+    return false;
+  }
   Q_UNUSED(object);
   if (event->type() == QEvent::KeyPress)
   {
-     QKeyEvent *keyEvent = static_cast<QKeyEvent*>(event);
-     if (keyEvent->modifiers() == Qt::ControlModifier)
-     {
-       if (keyEvent->key() == Qt::Key_C || keyEvent->key() == Qt::Key_BracketLeft)
-       {
-         emit hideMe();
-         return true;
-       }
-     }
-     else if (keyEvent->key() == Qt::Key_Enter)
-     {
-       m_pendingCloseIsDueToEnter =  true;
-       emit hideMe();
-       return true;
-     }
+    m_view->getViInputModeManager()->handleKeypress(static_cast<QKeyEvent*>(event));
+    return true;
   }
   return false;
 }
+
+bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
+{
+  if (keyEvent->modifiers() == Qt::ControlModifier)
+  {
+    if (keyEvent->key() == Qt::Key_C || keyEvent->key() == Qt::Key_BracketLeft)
+    {
+      emit hideMe();
+      return true;
+    }
+  }
+  else if (keyEvent->key() == Qt::Key_Enter)
+  {
+    m_pendingCloseIsDueToEnter =  true;
+    emit hideMe();
+    return true;
+  }
+  else
+  {
+    m_suspendEditEventFiltering = true;
+    QKeyEvent keyEventCopy(keyEvent->type(), keyEvent->key(), keyEvent->modifiers(), keyEvent->text(), keyEvent->isAutoRepeat(), keyEvent->count());
+    qApp->notify(m_edit, &keyEventCopy);
+    m_suspendEditEventFiltering = false;
+  }
+  return false;
+}
+
 
 void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {

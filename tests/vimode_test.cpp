@@ -1255,6 +1255,14 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("acbcd");
   TestPressKey("ll/c\nrX");
   FinishTest("acbXd");
+
+  // Should work with mappings.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "/c<enter>rX");
+  BeginTest("acbcd");
+  TestPressKey("'testmapping");
+  FinishTest("aXbcd");
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

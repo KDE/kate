@@ -92,6 +92,9 @@ void ViModeTest::TestPressKey(QString str) {
         } else if (str.mid(i,5) == QString("\\meta-")) {
             keyboard_modifier = Qt::MetaModifier;
             i+=5;
+        } else if (str.mid(i,8) == QString("\\keypad-")) {
+            keyboard_modifier = Qt::KeypadModifier;
+            i+=8;
         } else if (str.mid(i,4) == QString("\\esc")) {
             key = QString(Qt::Key_Escape);
             // Move to the end of the esc; next time round the loop will move
@@ -257,6 +260,9 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo\nbar","jlvklrx","fox\nxxr");
     DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
     DoTest("a", "r\\ctrl-c", "a");
+    DoTest("a", "r\\keypad-0", "0");
+    DoTest("a", "r\\keypad-9", "9");
+    DoTest("foo\nbar", "l\\ctrl-vjr\\keypad-9", "f9o\nb9r");
 
     // Testing "gq"
     DoTest("foo\nbar\nbaz","Vgq","foo\nbar\nbaz");

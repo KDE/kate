@@ -765,7 +765,7 @@ const QChar KateViKeyParser::KeyEventToQChar(int keyCode, const QString &text,
   }
 
   if ( text.isEmpty() || ( text.length() == 1 && text.at(0) < 0x20 )
-      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
+      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier && mods != Qt::KeypadModifier ) ) {
     QString keyPress;
 
     keyPress.append( '<' );
@@ -782,6 +782,11 @@ const QChar KateViKeyParser::KeyEventToQChar(int keyCode, const QString &text,
       //note that non-latin letter in Latin layout can be a punctuation character (also some punctuation differs too)
       QChar tempChar(text.at(0));
       //don't touch latin keys
+      if (mods == Qt::KeypadModifier && keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9)
+      {
+        // Keypad numbers to ordinary numbers.
+        key = tempChar;
+      }
       if ((keyCode < Qt::Key_A || keyCode > Qt::Key_Z) && tempChar.isLetter()) {
           char ch = scanCodeToChar(nativeScanCode, mods, tempChar.isLetter());
           if (ch != 0) {

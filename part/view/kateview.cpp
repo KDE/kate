@@ -338,10 +338,10 @@ void KateView::setupActions()
 
   m_copy = a = ac->addAction(KStandardAction::Copy, this, SLOT(copy()));
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
-  
+
   m_pasteMenu = ac->addAction("edit_paste_menu", new KatePasteMenu (i18n("Clipboard &History"), this));
   connect (KateGlobal::self(), SIGNAL(clipboardHistoryChanged()), this, SLOT(slotClipboardHistoryChanged()));
-   
+
   if (!m_doc->readOnly())
   {
     a = ac->addAction(KStandardAction::Save, m_doc, SLOT(documentSave()));
@@ -1165,7 +1165,7 @@ void KateView::slotReadWriteChanged ()
     if ((a = actionCollection()->action( l[z].toAscii().constData() )))
       a->setEnabled (m_doc->isReadWrite());
   slotUpdateUndo();
-  
+
   // inform search bar
   if (m_searchBar)
     m_searchBar->slotReadWriteChanged ();
@@ -1731,6 +1731,7 @@ void KateView::updateRendererConfig()
 
 // @@ showIndentLines is not cached anymore.
 //  m_renderer->setShowIndentLines (m_renderer->config()->showIndentationLines());
+  emit configChanged();
 }
 
 void KateView::updateFoldingConfig ()

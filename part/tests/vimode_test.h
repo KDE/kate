@@ -45,6 +45,7 @@ private Q_SLOTS:
   void CommandModeTests();
 
   void MappingTests();
+  void yankHighlightingTests();
 
   void debuggingTests();
 private:
@@ -65,6 +66,8 @@ private:
   KateDocument *kate_document;
   KateView *kate_view;
   KateViInputModeManager *vi_input_mode_manager;
+
+  QList<Kate::TextRange*> rangesOnFirstLine();
 };
 
 #endif

@@ -588,7 +588,7 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     KateView *m_view;
 };
 
-class KateRendererConfig : public KateConfig
+class KATEPART_TESTS_EXPORT KateRendererConfig : public KateConfig
 {
   private:
     friend class KateGlobal;
@@ -631,7 +631,7 @@ class KateRendererConfig : public KateConfig
   public:
     const QString &schema () const;
     void setSchema (const QString &schema);
-    
+
     /**
      * Reload the schema from the schema manager.
      * For the global instance, have all other instances reload.

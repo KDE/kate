@@ -32,6 +32,7 @@
 #include <kateviglobal.h>
 #include <katevinormalmode.h>
 #include "kateviewhelpers.h"
+#include "ktexteditor/attribute.h"
 
 QTEST_KDEMAIN(ViModeTest, GUI)
 
@@ -1027,11 +1028,67 @@ void ViModeTest::MappingTests()
   DoTest("bar", "5'au", "bar");
 }
 
+void ViModeTest::yankHighlightingTests()
+{
+  const QColor yankHighlightColour = kate_view->renderer()->config()->savedLineColor();
+
+  BeginTest("foo bar xyz");
+  const QList<Kate::TextRange*> rangesInitial = rangesOnFirstLine();
+  Q_ASSERT(rangesInitial.isEmpty() && "Assumptions about ranges are wrong - this test is invalid and may need updating!");
+  TestPressKey("wyiw");
+  {
+    const QList<Kate::TextRange*> rangesAfterYank = rangesOnFirstLine();
+    QCOMPARE(rangesAfterYank.size(), rangesInitial.size() + 1);
+    QCOMPARE(rangesAfterYank.first()->attribute()->background().color(), yankHighlightColour);
+    QCOMPARE(rangesAfterYank.first()->start().line(), 0);
+    QCOMPARE(rangesAfterYank.first()->start().column(), 4);
+    QCOMPARE(rangesAfterYank.first()->end().line(), 0);
+    QCOMPARE(rangesAfterYank.first()->end().column(), 7);
+  }
+  FinishTest("foo bar xyz");
+
+  // Unhighlight on keypress.
+  DoTest("foo bar xyz", "yiww", "foo bar xyz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+
+  // Update colour on config change.
+  DoTest("foo bar xyz", "yiw", "foo bar xyz");
+  const QColor newYankHighlightColour = QColor(255, 0, 0);
+  kate_view->renderer()->config()->setSavedLineColor(newYankHighlightColour);
+  QCOMPARE(rangesOnFirstLine().first()->attribute()->background().color(), newYankHighlightColour);
+
+  // Visual Mode.
+  DoTest("foo", "viwy", "foo");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+
+  // Unhighlight on keypress in Visual Mode
+  DoTest("foo", "viwyw", "foo");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+
+  // Add a yank highlight and directly (i.e. without using Vim commmands,
+  // which would clear the highlight) delete all text; if this deletes the yank highlight behind our back
+  // and we don't respond correctly to this, it will be double-deleted by KateViNormalMode.
+  // Currently, this seems like it doesn't occur, but better safe than sorry :)
+  BeginTest("foo bar xyz");
+  TestPressKey("yiw");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  kate_document->documentReload();
+  kate_document->clear();
+  vi_input_mode_manager = kate_view->resetViInputModeManager(); // This implicitly deletes KateViNormal
+  FinishTest("");
+}
+
+
 // Special area for tests where you want to set breakpoints etc without all the other tests
 // triggering them.  Run with ./vimode_test debuggingTests
 void ViModeTest::debuggingTests()
 {
 
+}
+
+QList< Kate::TextRange* > ViModeTest::rangesOnFirstLine()
+{
+  return kate_document->buffer().rangesForLine(0, kate_view, true);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

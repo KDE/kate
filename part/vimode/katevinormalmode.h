@@ -344,6 +344,12 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     // Ctrl-c or ESC have been pressed, leading to a call to reset().
     bool m_pendingResetIsDueToExit;
 
+    KTextEditor::Attribute::Ptr m_highlightYankAttribute;
+    KTextEditor::MovingRange* m_highlightedYank;
+
+    void highlightYank(const KateViRange& range);
+    KTextEditor::MovingRange*& highlightedYankForDocument();
+
     Cursor m_currentChangeEndMarker;
 
     bool m_isUndo;
@@ -352,6 +358,10 @@ private slots:
     void textRemoved(KTextEditor::Document*,KTextEditor::Range);
     void undoBeginning();
     void undoEnded();
+
+    void updateYankHighlightAttrib();
+    void clearYankHighlight();
+    void aboutToDeleteMovingInterfaceContent();
 };
 
 #endif

@@ -1016,7 +1016,7 @@ void KateView::setupCodeFolding()
   KActionCollection *ac=this->actionCollection();
 
   KAction* a;
-  
+
   /*= ac->addAction("folding_toplevel");
   a->setText(i18n("Fold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus));
@@ -1087,12 +1087,12 @@ void KateView::foldLine (int startLine)
   // only for valid lines
   if (startLine < 0)
     return;
-  
+
   // try to fold all known ranges
   QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = textFolding().foldingRangesStartingOnLine (startLine);
   for (int i = 0; i < startingRanges.size(); ++i)
     textFolding().foldRange (startingRanges[i].first);
-        
+
   // try if the highlighting can help us and create a fold
   textFolding().newFoldingRange (doc()->buffer().computeFoldingRangeForStartLine (startLine), Kate::TextFolding::Folded);
 }
@@ -1102,7 +1102,7 @@ void KateView::unfoldLine (int startLine)
   // only for valid lines
   if (startLine < 0)
     return;
-  
+
   // try to unfold all known ranges
   QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = textFolding().foldingRangesStartingOnLine (startLine);
   for (int i = 0; i < startingRanges.size(); ++i)
@@ -2938,7 +2938,7 @@ KateDictionaryBar *KateView::dictionaryBar ()
 KateViEmulatedCommandBar* KateView::viModeEmulatedCommandBar()
 {
   if (!m_viModeEmulatedCommandBar) {
-    m_viModeEmulatedCommandBar = new KateViEmulatedCommandBar(this);
+    m_viModeEmulatedCommandBar = new KateViEmulatedCommandBar(this, this);
     m_viModeEmulatedCommandBar->hide ();
   }
 

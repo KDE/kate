@@ -1212,6 +1212,49 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\n");
   QVERIFY(!emulatedCommandBar->isVisible());
   FinishTest("");
+
+  BeginTest("");
+  TestPressKey("/a\n");
+  TestPressKey("/");
+  QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
+  TestPressKey("\n");
+  FinishTest("");
+
+   // Ensure that we actually perform a search while typing.
+  BeginTest("abcd");
+  TestPressKey("/c");
+  QCOMPARE(kate_view->cursorPosition().line(), 0);
+  QCOMPARE(kate_view->cursorPosition().column(), 2);
+  TestPressKey("\n");
+  FinishTest("abcd");
+
+  // Ensure that the search is from the cursor.
+  BeginTest("acbcd");
+  TestPressKey("ll/c");
+  QCOMPARE(kate_view->cursorPosition().line(), 0);
+  QCOMPARE(kate_view->cursorPosition().column(), 3);
+  TestPressKey("\n");
+  FinishTest("acbcd");
+
+  // Reset the cursor to the original position on Ctrl-C
+  BeginTest("acbcd");
+  TestPressKey("ll/c\\ctrl-crX");
+  FinishTest("acXcd");
+
+  // Reset the cursor to the original position on Ctrl-[
+  BeginTest("acbcd");
+  TestPressKey("ll/c\\ctrl-[rX");
+  FinishTest("acXcd");
+
+  // Reset the cursor to the original position on ESC
+  BeginTest("acbcd");
+  TestPressKey("ll/c\\escrX");
+  FinishTest("acXcd");
+
+  // *Do not* reset the cursor to the original position on Enter.
+  BeginTest("acbcd");
+  TestPressKey("ll/c\nrX");
+  FinishTest("acbXd");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

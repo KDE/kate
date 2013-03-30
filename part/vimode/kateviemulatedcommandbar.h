@@ -2,16 +2,25 @@
 #define KATEVIEMULATEDCOMMANDBAR_H
 
 #include "kateviewhelpers.h"
+#include <ktexteditor/cursor.h>
+
+class KateView;
 
 class KATEPART_TESTS_EXPORT KateViEmulatedCommandBar : public KateViewBarWidget
 {
   Q_OBJECT
 public:
-  explicit KateViEmulatedCommandBar(QWidget* parent = 0);
+  explicit KateViEmulatedCommandBar(KateView *view, QWidget* parent = 0);
   void init();
+  virtual void closed();
 private:
+  KateView *m_view;
   QLineEdit *m_edit;
+  KTextEditor::Cursor m_startingCursorPos;
+  bool m_pendingCloseIsDueToEnter;
   virtual bool eventFilter(QObject* object, QEvent* event);
+private slots:
+  void editTextChanged(const QString& newText);
 };
 
 #endif

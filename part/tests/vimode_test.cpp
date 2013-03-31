@@ -1172,9 +1172,9 @@ void ViModeTest::CompletionTests()
     TestPressKey("i\\ctrl- \\ctrl-p");
     waitForCompletionWidgetToActivate();
     TestPressKey("\n");
-    FinishTest("completion3", ShouldFail, "Need to wait for https://git.reviewboard.kde.org/r/109647/ to be committed.");
+    FinishTest("completion3");
 
-    // Test wraps around from top to bottom.
+    // Test wraps around from bottom to top.
     BeginTest("");
     TestPressKey("i\\ctrl- \\ctrl-n\\ctrl-n\\ctrl-n");
     waitForCompletionWidgetToActivate();

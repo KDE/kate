@@ -30,6 +30,7 @@ namespace KTextEditor
 }
 
 class KMessageWidget;
+class KateFadeEffect;
 
 /**
  * This class implements a message widget based on KMessageWidget.
@@ -43,7 +44,7 @@ class KateMessageWidget : public QWidget
     /**
      * Constructor. By default, the widget is hidden.
      */
-    KateMessageWidget(QWidget* parent = 0);
+    KateMessageWidget(QWidget* parent, bool applyFadeEffect = false);
 
     /**
      * Post a new incoming message. Show either directly, or queue
@@ -75,6 +76,8 @@ class KateMessageWidget : public QWidget
     QHash<KTextEditor::Message*, QList<QSharedPointer<QAction> > > m_messageHash;
     // the message widget, showing the actual contents
     KMessageWidget* m_messageWidget;
+    // the fade effect to show/hide the widget, if wanted
+    KateFadeEffect* m_fadeEffect;
 };
 
 #endif

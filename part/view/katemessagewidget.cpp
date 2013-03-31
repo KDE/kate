@@ -20,6 +20,7 @@
 
 #include "katemessagewidget.h"
 #include "katemessagewidget.moc"
+#include "katefadeeffect.h"
 
 #include <messageinterface.h>
 #include <kmessagewidget.h>
@@ -30,8 +31,9 @@
 #include <QtCore/QTimer>
 #include <QtGui/QVBoxLayout>
 
-KateMessageWidget::KateMessageWidget(QWidget* parent)
+KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   : QWidget(parent)
+  , m_fadeEffect(0)
 {
   QVBoxLayout* l = new QVBoxLayout();
   l->setMargin(0);
@@ -51,6 +53,10 @@ KateMessageWidget::KateMessageWidget(QWidget* parent)
   // by default, hide widgets
   m_messageWidget->hide();
   hide();
+
+  if (applyFadeEffect) {
+    m_fadeEffect = new KateFadeEffect(m_messageWidget);
+  }
 }
 
 bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
@@ -102,12 +108,15 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
 
   // finally show us
   show();
+  if (m_fadeEffect) {
+    m_fadeEffect->fadeIn();
+  } else {
 #if KDE_VERSION >= KDE_MAKE_VERSION(4,10,0)   // work around KMessageWidget bugs
-  m_messageWidget->animatedShow();
+    m_messageWidget->animatedShow();
 #else
-  QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
+    QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
 #endif
-
+  }
   // start auto-hide timer, if requrested
   const int autoHide = message->autoHide();
   if (autoHide >= 0) {
@@ -170,7 +179,11 @@ void KateMessageWidget::messageDestroyed(KTextEditor::Message* message)
 
   // start hide animation, or show next message
   if (m_messageWidget->isVisible()) {
-    m_messageWidget->animatedHide();
+    if (m_fadeEffect) {
+      m_fadeEffect->fadeOut();
+    } else {
+      m_messageWidget->animatedHide();
+    }
   } else if (i == 0 && m_messageList.count()) {
     showMessage(m_messageList[0]);
   }

@@ -24,6 +24,7 @@
 #include <QWidget>
 #include <QTimeLine>
 #include <QGraphicsOpacityEffect>
+#include <QDebug>
 
 static const int frameRange = 40;
 
@@ -31,7 +32,7 @@ KateFadeEffect::KateFadeEffect(QWidget* widget)
   : QObject(widget)
   , m_widget(widget)
 {
-  m_timeLine = new QTimeLine(10000, this);
+  m_timeLine = new QTimeLine(500, this);
   m_timeLine->setFrameRange(0, frameRange);
   m_effect = new QGraphicsOpacityEffect(this);
   m_effect->setOpacity(1.0);

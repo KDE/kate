@@ -24,6 +24,8 @@ private:
   bool m_doNotResetCursorOnClose;
   bool m_suspendEditEventFiltering;
   virtual bool eventFilter(QObject* object, QEvent* event);
+  void deleteSpacesToLeftOfCursor();
+  void deleteNonSpacesToLeftOfCursor();
 private slots:
   void editTextChanged(const QString& newText);
 };

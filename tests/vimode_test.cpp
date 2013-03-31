@@ -60,6 +60,7 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("esc", Qt::Key_Escape);
   m_codesToSpecialKeys.insert("return", Qt::Key_Return);
   m_codesToSpecialKeys.insert("enter", Qt::Key_Enter);
+  m_codesToSpecialKeys.insert("left", Qt::Key_Left);
 }
 
 Qt::KeyboardModifier ViModeTest::parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier)
@@ -1232,6 +1233,76 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("");
 
+  // Check backspace works.
+  BeginTest("");
+  TestPressKey("/foo\\backspace");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("fo"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-h works.
+  BeginTest("");
+  TestPressKey("/bar\\ctrl-h");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("ba"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w works.
+  BeginTest("");
+  TestPressKey("/foo bar\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo "));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w works on empty command bar.
+  BeginTest("");
+  TestPressKey("/\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(""));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w works in middle of word.
+  BeginTest("");
+  TestPressKey("/foo bar\\left\\left\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo ar"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w leaves the cursor in the right place when in the middle of word.
+  BeginTest("");
+  TestPressKey("/foo bar\\left\\left\\ctrl-wX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo Xar"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w works when at the beginning of the text.
+  BeginTest("");
+  TestPressKey("/foo\\left\\left\\left\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w works when the character to the left is a space.
+  BeginTest("");
+  TestPressKey("/foo bar   \\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo "));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w works when all characters to the left of the cursor are spaces.
+  BeginTest("");
+  TestPressKey("/   \\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(""));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w works when all characters to the left of the cursor are non-spaces.
+  BeginTest("");
+  TestPressKey("/foo\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(""));
+  TestPressKey("\\enter");
+  FinishTest("");
+
    // Ensure that we actually perform a search while typing.
   BeginTest("abcd");
   TestPressKey("/c");
@@ -1278,7 +1349,6 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("'testmapping");
   FinishTest("aXbcd");
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  TestPressKey("\\enter");
 
   // Incremental searching from the original position.
   BeginTest("foo bar foop fool food");

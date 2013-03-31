@@ -73,6 +73,23 @@ bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
   return false;
 }
 
+void KateViEmulatedCommandBar::deleteSpacesToLeftOfCursor()
+{
+  while (m_edit->cursorPosition() != 0 && m_edit->text()[m_edit->cursorPosition() - 1] == ' ')
+  {
+    m_edit->backspace();
+  }
+}
+
+void KateViEmulatedCommandBar::deleteNonSpacesToLeftOfCursor()
+{
+  while (m_edit->cursorPosition() != 0 && m_edit->text()[m_edit->cursorPosition() - 1] != ' ')
+  {
+    m_edit->backspace();
+  }
+}
+
+
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
   if (keyEvent->modifiers() == Qt::ControlModifier)
@@ -81,6 +98,15 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     {
       emit hideMe();
       return true;
+    }
+    else if (keyEvent->key() == Qt::Key_H)
+    {
+      m_edit->backspace();
+    }
+    else if (keyEvent->key() == Qt::Key_W)
+    {
+      deleteSpacesToLeftOfCursor();
+      deleteNonSpacesToLeftOfCursor();
     }
   }
   else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)

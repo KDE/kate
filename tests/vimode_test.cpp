@@ -334,6 +334,12 @@ void ViModeTest::VisualModeTests() {
     // * and #
     DoTest("foo foo", "v*x", "oo");
     DoTest("foo foo", "wv#x", "oo");
+    DoTest("foo bar foobar foo", "*rX", "foo bar foobar Xoo"); // Whole word only.
+    DoTest("foo bar foobar foo", "$#rX", "Xoo bar foobar foo"); // Whole word only.
+    DoTest("fOo foo fOo", "*rX", "fOo foo XOo"); // Case sensitive.
+    DoTest("fOo foo fOo", "$#rX", "XOo foo fOo"); // Case sensitive.
+    DoTest("fOo foo fOo", "*ggnrX", "fOo foo XOo"); // Flag that the search to repeat is case sensitive.
+    DoTest("fOo foo fOo", "$#$nrX", "XOo foo fOo"); // Flag that the search to repeat is case sensitive.
 
     // Regression test for gv.
     DoTest("foo\nbar\nxyz", "l\\ctrl-vjj\\ctrl-cgvr.", "f.o\nb.r\nx.z");
@@ -1298,7 +1304,38 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("afoom bar foop fool food");
   TestPressKey("lll/foom");
   verifyCursorAt(Cursor(0, 1));
+  TestPressKey("\\enter");
   FinishTest("afoom bar foop fool food");
+
+  // SmartCase: match case-insensitively if the search text is all lower-case.
+  DoTest("foo BaR", "ll/bar\\enterrX", "foo XaR");
+
+  // SmartCase: match case-sensitively if the search text is mixed case.
+  DoTest("foo BaR bAr", "ll/bAr\\enterrX", "foo BaR XAr");
+
+  // Assume regex by default.
+  DoTest("foo bwibblear", "ll/b.*ar\\enterrX", "foo Xwibblear");
+
+  // Set the last search pattern.
+  DoTest("foo bar", "ll/bar\\enterggnrX", "foo Xar");
+
+  // Make sure the last search pattern is a regex, too.
+  DoTest("foo bwibblear", "ll/b.*ar\\enterggnrX", "foo Xwibblear");
+
+  // 'n' should search case-insensitively if the original search was case-insensitive.
+  DoTest("foo bAR", "ll/bar\\enterggnrX", "foo XAR");
+
+  // 'n' should search case-sensitively if the original search was case-sensitive.
+  DoTest("foo bar bAR", "ll/bAR\\enterggnrX", "foo bar XAR");
+
+  // 'N' should search case-insensitively if the original search was case-insensitive.
+  DoTest("foo bAR xyz", "ll/bar\\enter$NrX", "foo XAR xyz");
+
+  // 'N' should search case-sensitively if the original search was case-sensitive.
+  DoTest("foo bAR bar", "ll/bAR\\enter$NrX", "foo XAR bar");
+
+  // Don't forget to set the last search to case-insensitive.
+  DoTest("foo bAR bar", "ll/bAR\\enter^/bar\\enter^nrX", "foo XAR bar");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

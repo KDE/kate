@@ -205,6 +205,10 @@ public:
    */
   void setLastSearchBackwards( bool b ) { m_lastSearchBackwards = b; }
 
+  void setLastSearchCaseSensitive(bool caseSensitive) { m_lastSearchCaseSensitive = caseSensitive; };
+
+  bool lastSearchCaseSensitive() { return m_lastSearchCaseSensitive; };
+
   bool getTemporaryNormalMode() { return m_temporaryNormalMode; }
 
   void setTemporaryNormalMode(bool b) {  m_temporaryNormalMode = b; }
@@ -295,6 +299,10 @@ private:
    * keeps track of whether the last search was done backwards or not.
    */
   bool m_lastSearchBackwards;
+  /**
+   * keeps track of whether the last search was case-sensitive or not.
+   */
+  bool m_lastSearchCaseSensitive;
 
   /**
    * true when normal mode was started by Ctrl-O command in insert mode.

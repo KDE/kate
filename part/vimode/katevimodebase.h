@@ -97,7 +97,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     const QString getLine( int lineNumber = -1 ) const;
     const QChar getCharUnderCursor() const;
     const QString getWordUnderCursor() const;
-    KateViRange findPattern( const QString &pattern, bool backwards = false, int count = 1 ) const;
+    KateViRange findPattern( const QString& pattern, bool backwards, bool caseSensitive, int count = 1 ) const;
     Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     Cursor findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;

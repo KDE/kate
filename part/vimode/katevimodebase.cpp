@@ -174,10 +174,10 @@ const QString KateViModeBase::getWordUnderCursor() const
   return doc()->text( Range( c1, c2 ) );
 }
 
-KateViRange KateViModeBase::findPattern( const QString &pattern, bool backwards, int count ) const
+KateViRange KateViModeBase::findPattern( const QString &pattern, bool backwards, bool caseSensitive, int count ) const
 {
   kDebug( 13070 ) << "searching for pattern \"" << pattern << "\", backwards = " << backwards
-    << ", count = " << count;
+    << ", caseSensitive = " << caseSensitive << ", count = " << count;
   if ( pattern.isEmpty() ) {
     return KateViRange();
   }
@@ -188,6 +188,10 @@ KateViRange KateViModeBase::findPattern( const QString &pattern, bool backwards,
 
   if ( backwards ) {
     flags |= KTextEditor::Search::Backwards;
+  }
+  if (!caseSensitive)
+  {
+    flags |= KTextEditor::Search::CaseInsensitive;
   }
 
   for ( int i = count; i > 0; i-- ) {

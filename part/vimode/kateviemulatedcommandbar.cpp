@@ -92,7 +92,19 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {
   qDebug() << "New text: " << newText;
+  m_view->getViInputModeManager()->setLastSearchPattern(newText);
   KTextEditor::Search::SearchOptions searchOptions;
+
+  if (newText.toLower() == newText)
+  {
+    searchOptions |= KTextEditor::Search::CaseInsensitive;
+    m_view->getViInputModeManager()->setLastSearchCaseSensitive(false);
+  }
+  else
+  {
+    m_view->getViInputModeManager()->setLastSearchCaseSensitive(true);
+  }
+  searchOptions |= KTextEditor::Search::Regex;
   const KTextEditor::Cursor matchPos = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentEnd()), newText, searchOptions).first().start();
   m_view->setCursorPosition(matchPos);
 

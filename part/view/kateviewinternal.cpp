@@ -51,11 +51,9 @@
 
 #include <QtCore/QMimeData>
 #include <QtGui/QPainter>
-#include <QtGui/QLayout>
 #include <QtGui/QClipboard>
 #include <QtGui/QPixmap>
 #include <QtGui/QKeyEvent>
-#include <QtCore/QStack>
 
 static const bool debugPainting = false;
 

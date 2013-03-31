@@ -1223,16 +1223,14 @@ void ViModeTest::VimStyleCommandBarTests()
    // Ensure that we actually perform a search while typing.
   BeginTest("abcd");
   TestPressKey("/c");
-  QCOMPARE(kate_view->cursorPosition().line(), 0);
-  QCOMPARE(kate_view->cursorPosition().column(), 2);
+  verifyCursorAt(Cursor(0, 2));
   TestPressKey("\n");
   FinishTest("abcd");
 
   // Ensure that the search is from the cursor.
   BeginTest("acbcd");
   TestPressKey("ll/c");
-  QCOMPARE(kate_view->cursorPosition().line(), 0);
-  QCOMPARE(kate_view->cursorPosition().column(), 3);
+  verifyCursorAt(Cursor(0, 3));
   TestPressKey("\n");
   FinishTest("acbcd");
 
@@ -1429,7 +1427,10 @@ QLineEdit* ViModeTest::emulatedCommandBarTextEdit()
   return emulatedCommandBarText;
 }
 
-
-
+void ViModeTest::verifyCursorAt(const Cursor& expectedCursorPos)
+{
+  QCOMPARE(kate_view->cursorPosition().line(), expectedCursorPos.line());
+  QCOMPARE(kate_view->cursorPosition().column(), expectedCursorPos.column());
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

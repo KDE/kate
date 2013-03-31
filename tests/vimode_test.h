@@ -77,6 +77,7 @@ private:
 
   QLabel *emulatedCommandTypeIndicator();
   QLineEdit *emulatedCommandBarTextEdit();
+  void verifyCursorAt(const KTextEditor::Cursor& expectedCursorPos);
 
   QMap<QString, Qt::KeyboardModifier> m_codesToModifiers;
   Qt::KeyboardModifier parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier);

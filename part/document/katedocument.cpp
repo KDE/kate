@@ -5411,8 +5411,8 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
   message->setParent(this);
   message->setDocument(this);
 
-  // if there are no actions, add a close action by default
-  if (message->actions().count() == 0) {
+  // if there are no actions, add a close action by default if widget does not auto-hide
+  if (message->actions().count() == 0 && message->autoHide() < 0) {
     QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
     closeAction->setToolTip(i18n("Close message"));
     message->addAction(closeAction);

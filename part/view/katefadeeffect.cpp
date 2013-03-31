@@ -26,17 +26,13 @@
 #include <QGraphicsOpacityEffect>
 #include <QDebug>
 
-static const int frameRange = 40;
-
 KateFadeEffect::KateFadeEffect(QWidget* widget)
   : QObject(widget)
   , m_widget(widget)
+  , m_effect(0) // effect only exists during fading animation
 {
   m_timeLine = new QTimeLine(500, this);
-  m_timeLine->setFrameRange(0, frameRange);
-  m_effect = new QGraphicsOpacityEffect(this);
-  m_effect->setOpacity(1.0);
-  m_widget->setGraphicsEffect(m_effect);
+  m_timeLine->setUpdateInterval(40);
 
   connect(m_timeLine, SIGNAL(valueChanged(qreal)), this, SLOT(opacityChanged(qreal)));
   connect(m_timeLine, SIGNAL(finished()), this, SLOT(animationFinished()));
@@ -44,39 +40,50 @@ KateFadeEffect::KateFadeEffect(QWidget* widget)
 
 void KateFadeEffect::fadeIn()
 {
-  if (!m_widget || m_widget->isVisible()) {
-    return;
+  // stop time line if still running
+  if (m_timeLine->state() == QTimeLine::Running) {
+    m_timeLine->stop();
   }
 
-  m_timeLine->setDirection(QTimeLine::Forward);
+  // assign new graphics effect, old one is deleted in setGraphicsEffect()
+  m_effect = new QGraphicsOpacityEffect(this);
   m_effect->setOpacity(0.0);
+  m_widget->setGraphicsEffect(m_effect);
+
+  // show widget and start fade in animation
   m_widget->show();
+  m_timeLine->setDirection(QTimeLine::Forward);
   m_timeLine->start();
 }
 
 void KateFadeEffect::fadeOut()
 {
-  if (!m_widget || !m_widget->isVisible()) {
-    return;
+  // stop time line if still running
+  if (m_timeLine->state() == QTimeLine::Running) {
+    m_timeLine->stop();
   }
 
+  // assign new graphics effect, old one is deleted in setGraphicsEffect()
+  m_effect = new QGraphicsOpacityEffect(this);
   m_effect->setOpacity(1.0);
+  m_widget->setGraphicsEffect(m_effect);
+
+  // start fade out animation
   m_timeLine->setDirection(QTimeLine::Backward);
   m_timeLine->start();
 }
 
 void KateFadeEffect::opacityChanged(qreal value)
 {
-  if (m_widget) {
-    m_effect->setOpacity(value);
-  }
+  Q_ASSERT(m_effect);
+  m_effect->setOpacity(value);
 }
 
 void KateFadeEffect::animationFinished()
 {
-  if (!m_widget) {
-    return;
-  }
+  // fading finished: remove graphics effect, deletes the effect as well
+  m_widget->setGraphicsEffect(0);
+  Q_ASSERT(m_effect);
 
   if (m_timeLine->direction() == QTimeLine::Backward) {
     m_widget->hide();

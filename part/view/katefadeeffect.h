@@ -71,7 +71,7 @@ class KateFadeEffect : public QObject
   private:
     QPointer<QWidget> m_widget;         ///< the fading widget
     QTimeLine* m_timeLine;              ///< update time line
-    QGraphicsOpacityEffect* m_effect;   ///< graphics opacity effect
+    QPointer<QGraphicsOpacityEffect> m_effect; ///< graphics opacity effect
 };
 
 #endif

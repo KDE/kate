@@ -231,6 +231,16 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   else
     m_vBox->addWidget(m_bottomViewBar);
 
+  // add grid layout for floating message widget to ViewInternal
+  QGridLayout* gridLayout = new QGridLayout(m_viewInternal);
+  gridLayout->setContentsMargins(20, 20, 20, 20);
+  m_overlayMessageWidget = new KateMessageWidget(m_viewInternal, true);
+  m_overlayMessageWidget->hide();
+  gridLayout->setRowStretch(0, 1);
+  gridLayout->setColumnStretch(0, 1);
+  gridLayout->addWidget(m_overlayMessageWidget, 1, 1);
+  m_viewInternal->setLayout(gridLayout);
+
   // this really is needed :)
   m_viewInternal->updateView ();
 
@@ -270,6 +280,16 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     deactivateEditActions();
     showViModeBar();
   }
+
+  // user interaction (scrollling) starts notification auto-hide timer
+  connect(this, SIGNAL(displayRangeChanged(KateView*)), m_topMessageWidget, SLOT(startAutoHideTimer()));
+  connect(this, SIGNAL(displayRangeChanged(KateView*)), m_bottomMessageWidget, SLOT(startAutoHideTimer()));
+  connect(this, SIGNAL(displayRangeChanged(KateView*)), m_overlayMessageWidget, SLOT(startAutoHideTimer()));
+
+  // user interaction (cursor navigation) starts notification auto-hide timer
+  connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_topMessageWidget, SLOT(startAutoHideTimer()));
+  connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_bottomMessageWidget, SLOT(startAutoHideTimer()));
+  connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_overlayMessageWidget, SLOT(startAutoHideTimer()));
 }
 
 KateView::~KateView()
@@ -3086,8 +3106,10 @@ void KateView::postMessage(KTextEditor::Message* message,
   // just forward to KateMessageWidget :-)
   if (message->position() == KTextEditor::Message::AboveView) {
     m_topMessageWidget->postMessage(message, actions);
-  } else {
+  } else if (message->position() == KTextEditor::Message::BelowView) {
     m_bottomMessageWidget->postMessage(message, actions);
+  } else {
+    m_overlayMessageWidget->postMessage(message, actions);
   }
 }
 

@@ -838,6 +838,10 @@ public:
      * Message widget showing KTextEditor::Messages below the View.
      */
     KateMessageWidget* m_bottomMessageWidget;
+    /**
+     * Message widget showing KTextEditor::Messages as view overlay.
+     */
+    KateMessageWidget* m_overlayMessageWidget;
 };
 
 /**

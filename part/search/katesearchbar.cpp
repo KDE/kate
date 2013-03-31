@@ -216,6 +216,8 @@ void KateSearchBar::closed()
     if (viewBar()) {
         viewBar()->removeBarWidget(this);
     }
+
+    clearHighlights();
 }
 
 
@@ -275,34 +277,11 @@ void KateSearchBar::showInfoMessage(const QString& text)
     delete m_infoMessage;
 
     m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive, text);
-    m_infoMessage->setPosition(KTextEditor::Message::BelowView);
-    m_infoMessage->setAutoHide(0);
+    m_infoMessage->setPosition(KTextEditor::Message::FloatInView);
+    m_infoMessage->setAutoHide(3000); // 3 seconds
     m_infoMessage->setView(m_view);
 
-    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
-    closeAction->setToolTip(i18n("Close message (Escape)"));
-
-    QAction* hlAction = new QAction(i18n("&Keep highlighting"), 0);
-    hlAction->setToolTip(i18n("Keep search and replace highlighting marks"));
-
-    m_infoMessage->addAction(hlAction);
-    m_infoMessage->addAction(closeAction);
-
-    // the closed() signal is emitted in the Message::destructor, clearHighlights()
-    // calls delete m_infoMessage, which leads to a double delete. Thus, use a
-    // Qt::QueuedConnection.
-    connect(m_infoMessage, SIGNAL(closed(KTextEditor::Message*)), SLOT(clearHighlights()), Qt::QueuedConnection);
-    connect(hlAction, SIGNAL(triggered()), SLOT(keepHighlights()));
-
     m_view->doc()->postMessage(m_infoMessage);
-}
-
-void KateSearchBar::keepHighlights()
-{
-    if (m_infoMessage) {
-        // kill the Message::closed() <-> clearHighlights() connection
-        disconnect(m_infoMessage, 0, this, 0);
-    }
 }
 
 void KateSearchBar::highlightMatch(const Range & range) {
@@ -669,7 +648,6 @@ void KateSearchBar::findAll()
 
     // send passive notification to view
     showInfoMessage(i18np("1 match found", "%1 matches found", occurrences));
-
     indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
 
@@ -1529,8 +1507,6 @@ void KateSearchBar::enterIncrementalMode() {
 bool KateSearchBar::clearHighlights()
 {
     if (m_infoMessage) {
-        // highlightings already cleared -> remove clear connection
-        disconnect(m_infoMessage, 0, this, 0);
         delete m_infoMessage;
     }
 

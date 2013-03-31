@@ -145,8 +145,6 @@ private Q_SLOTS:
     void onPowerReplacmentContextMenuRequest();
     void onPowerReplacmentContextMenuRequest(const QPoint&);
 
-    void keepHighlights();
-
 private:
     // Helpers
     bool find(SearchDirection searchDirection = SearchForward, const QString * replacement = 0);

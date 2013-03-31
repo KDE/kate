@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
  *
- *   Copyright (C) 2012 Dominik Haumann <dhaumann@kde.org>
+ *   Copyright (C) 2012-2013 Dominik Haumann <dhaumann@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -31,6 +31,7 @@ class MessagePrivate
     QString text;
     bool wordWrap;
     int autoHide;
+    KTextEditor::Message::AutoHideMode autoHideMode;
     int priority;
     KTextEditor::View* view;
     KTextEditor::Document* document;
@@ -44,6 +45,7 @@ Message::Message(MessageType type, const QString& richtext)
   d->text = richtext;
   d->wordWrap = false;
   d->autoHide = -1;
+  d->autoHideMode = KTextEditor::Message::AfterUserInteraction;
   d->priority = 0;
   d->view = 0;
   d->document = 0;
@@ -59,6 +61,14 @@ Message::~Message()
 QString Message::text() const
 {
   return d->text;
+}
+
+void Message::setText(const QString& text)
+{
+  if (d->text != text) {
+    d->text = text;
+    emit textChanged(text);
+  }
 }
 
 Message::MessageType Message::messageType() const
@@ -90,6 +100,16 @@ void Message::setAutoHide(int autoHideTimer)
 int Message::autoHide() const
 {
   return d->autoHide;
+}
+
+void Message::setAutoHideMode(KTextEditor::Message::AutoHideMode mode)
+{
+  d->autoHideMode = mode;
+}
+
+KTextEditor::Message::AutoHideMode Message::autoHideMode() const
+{
+  return d->autoHideMode;
 }
 
 void Message::setWordWrap(bool wordWrap)

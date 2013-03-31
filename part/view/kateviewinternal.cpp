@@ -54,11 +54,10 @@
 
 #include <QtCore/QMimeData>
 #include <QtGui/QPainter>
-#include <QtGui/QLayout>
 #include <QtGui/QClipboard>
 #include <QtGui/QPixmap>
 #include <QtGui/QKeyEvent>
-#include <QtCore/QStack>
+#include <QtGui/QLayout>
 
 static const bool debugPainting = false;
 
@@ -485,7 +484,8 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
 
       int scrollHeight = -(viewLinesScrolled * (int)renderer()->lineHeight());
 
-      scroll(0, scrollHeight);
+      // scroll excluding child widgets (floating notifications)
+      scroll(0, scrollHeight, rect());
       m_leftBorder->scroll(0, scrollHeight);
 
       emit m_view->verticalScrollPositionChanged( m_view, c );
@@ -512,9 +512,10 @@ void KateViewInternal::scrollColumns ( int x )
   int dx = m_startX - x;
   m_startX = x;
 
-  if (qAbs(dx) < width())
-    scroll(dx, 0);
-  else
+  if (qAbs(dx) < width()) {
+    // scroll excluding child widgets (floating notifications)
+    scroll(dx, 0, rect());
+  } else
     update();
 
   emit m_view->horizontalScrollPositionChanged( m_view );
@@ -2172,13 +2173,6 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
           k->accept();
           //kDebug() << obj << "shortcut override" << k->key() << "clearing selection";
           return true;
-        } else if (m_view->hasSearchBar()) {
-          // hide search&replace highlights
-          if (m_view->searchBar()->clearHighlights()) {
-            k->accept();
-            //kDebug() << obj << "shortcut override" << k->key() << "hide search&replace highlights";
-            return true;
-          }
         }
       }
 

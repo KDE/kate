@@ -30,6 +30,7 @@ namespace KTextEditor
 }
 
 class KMessageWidget;
+class KateFadeEffect;
 
 /**
  * This class implements a message widget based on KMessageWidget.
@@ -43,7 +44,7 @@ class KateMessageWidget : public QWidget
     /**
      * Constructor. By default, the widget is hidden.
      */
-    KateMessageWidget(QWidget* parent = 0);
+    KateMessageWidget(QWidget* parent, bool applyFadeEffect = false);
 
     /**
      * Post a new incoming message. Show either directly, or queue
@@ -67,6 +68,10 @@ class KateMessageWidget : public QWidget
      * catch when a message is deleted, then show next one, if applicable.
      */
     void messageDestroyed(KTextEditor::Message* message);
+    /**
+     * Start autoHide timer if requested
+     */
+    void startAutoHideTimer();
 
   private:
     // sorted list of pending messages
@@ -75,6 +80,17 @@ class KateMessageWidget : public QWidget
     QHash<KTextEditor::Message*, QList<QSharedPointer<QAction> > > m_messageHash;
     // the message widget, showing the actual contents
     KMessageWidget* m_messageWidget;
+    // the fade effect to show/hide the widget, if wanted
+    KateFadeEffect* m_fadeEffect;
+
+  private: // some state variables
+    // flag: hide animation is running. needed to avoid flickering
+    // when showMessage() is called during hide-animation
+    bool m_hideAnimationRunning : 1;
+    // flag: start autohide only once user interaction took place
+    bool m_autoHideTimerRunning : 1;
+    // flag: save message's autohide time
+    int m_autoHideTime;
 };
 
 #endif

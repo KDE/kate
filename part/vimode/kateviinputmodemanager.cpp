@@ -258,12 +258,25 @@ void KateViInputModeManager::repeatLastChange(int count)
 
 const QString KateViInputModeManager::getLastSearchPattern() const
 {
-  return m_view->searchPattern();
+  if (!KateViewConfig::global()->viInputModeEmulateCommandBar())
+  {
+    return m_view->searchPattern();
+  }
+  else
+  {
+    return m_lastSearchPattern;
+  }
 }
 
 void KateViInputModeManager::setLastSearchPattern( const QString &p )
 {
-  m_view->setSearchPattern(p);
+  if (!KateViewConfig::global()->viInputModeEmulateCommandBar())
+  {
+    // This actually triggers a search, so we definitely don't want it to be called
+    // if we are handle searches ourselves in the Emulated Command Bar.
+    m_view->setSearchPattern(p);
+  }
+  m_lastSearchPattern = p;
 }
 
 void KateViInputModeManager::changeViMode(ViMode newMode)

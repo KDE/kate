@@ -295,6 +295,7 @@ private:
    */
   QString m_lastChange;
 
+  QString m_lastSearchPattern;
   /**
    * keeps track of whether the last search was done backwards or not.
    */

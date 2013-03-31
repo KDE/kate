@@ -14,20 +14,31 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
 {
   QVBoxLayout * layout = new QVBoxLayout();
   centralWidget()->setLayout(layout);
-  QLabel *barTypeIndicator = new QLabel(this);
-  barTypeIndicator->setObjectName("bartypeindicator");
-  barTypeIndicator->setText("/");
+  m_barTypeIndicator = new QLabel(this);
+  m_barTypeIndicator->setObjectName("bartypeindicator");
 
   m_edit = new QLineEdit(this);
   m_edit->setObjectName("commandtext");
   layout->addWidget(m_edit);
 
+  m_searchBackwards = false;
+
   m_edit->installEventFilter(this);
   connect(m_edit, SIGNAL(textChanged(QString)), this, SLOT(editTextChanged(QString)));
 }
 
-void KateViEmulatedCommandBar::init()
+void KateViEmulatedCommandBar::init(bool backwards)
 {
+  if (backwards)
+  {
+    m_barTypeIndicator->setText("?");
+    m_searchBackwards = true;
+  }
+  else
+  {
+    m_barTypeIndicator->setText("/");
+    m_searchBackwards = false;
+  }
   m_edit->setFocus();
   m_edit->clear();
   m_startingCursorPos = m_view->cursorPosition();
@@ -105,24 +116,51 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     m_view->getViInputModeManager()->setLastSearchCaseSensitive(true);
   }
   searchOptions |= KTextEditor::Search::Regex;
-  const KTextEditor::Cursor matchPos = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentEnd()), newText, searchOptions).first().start();
-  m_view->setCursorPosition(matchPos);
 
-  if (matchPos.isValid())
+  if (!m_searchBackwards)
   {
+    m_view->getViInputModeManager()->setLastSearchBackwards(false);
+    const KTextEditor::Cursor matchPos = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentEnd()), newText, searchOptions).first().start();
     m_view->setCursorPosition(matchPos);
-  }
-  else
-  {
-    // Wrap around.
-    const KTextEditor::Cursor wrappedMatchPos = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), newText, searchOptions).first().start();
-    if (wrappedMatchPos.isValid())
+
+    if (matchPos.isValid())
     {
-      m_view->setCursorPosition(wrappedMatchPos);
+      m_view->setCursorPosition(matchPos);
     }
     else
     {
-      m_view->setCursorPosition(m_startingCursorPos);
+      // Wrap around.
+      const KTextEditor::Cursor wrappedMatchPos = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), newText, searchOptions).first().start();
+      if (wrappedMatchPos.isValid())
+      {
+        m_view->setCursorPosition(wrappedMatchPos);
+      }
+      else
+      {
+        m_view->setCursorPosition(m_startingCursorPos);
+      }
+    }
+  }
+  else
+  {
+    m_view->getViInputModeManager()->setLastSearchBackwards(true);
+    searchOptions |= KTextEditor::Search::Backwards;
+    const KTextEditor::Cursor matchPos = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentRange().start()), newText, searchOptions).first().start();
+    if (matchPos.isValid())
+    {
+      m_view->setCursorPosition(matchPos);
+    }
+    else
+    {
+      const KTextEditor::Cursor wrappedMatchPos = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentEnd(), m_startingCursorPos), newText, searchOptions).first().start();
+      if (wrappedMatchPos.isValid())
+      {
+        m_view->setCursorPosition(wrappedMatchPos);
+      }
+      else
+      {
+        m_view->setCursorPosition(m_startingCursorPos);
+      }
     }
   }
 }

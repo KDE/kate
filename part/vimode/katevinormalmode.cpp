@@ -1380,15 +1380,20 @@ bool KateViNormalMode::commandSwitchToCmdLine()
 
 bool KateViNormalMode::commandSearchBackward()
 {
-    m_view->find();
-    m_viInputModeManager->setLastSearchBackwards( true );
+    m_view->showViModeEmulatedCommandBar();
+    m_view->viModeEmulatedCommandBar()->init(true);
+    if (!KateViewConfig::global()->viInputModeEmulateCommandBar())
+    {
+      m_viInputModeManager->setLastSearchBackwards( true );
+      m_view->find();
+    }
     return true;
 }
 
 bool KateViNormalMode::commandSearchForward()
 {
     m_view->showViModeEmulatedCommandBar();
-    m_view->viModeEmulatedCommandBar()->init();
+    m_view->viModeEmulatedCommandBar()->init(false);
     if (!KateViewConfig::global()->viInputModeEmulateCommandBar())
     {
       m_view->find();

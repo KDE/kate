@@ -1336,6 +1336,45 @@ void ViModeTest::VimStyleCommandBarTests()
 
   // Don't forget to set the last search to case-insensitive.
   DoTest("foo bAR bar", "ll/bAR\\enter^/bar\\enter^nrX", "foo XAR bar");
+
+  // Some mirror tests for "?"
+
+  // Test that "?" summons the search bar, with empty text and with the "?" indicator.
+  QVERIFY(!emulatedCommandBar->isVisible());
+  BeginTest("");
+  TestPressKey("?");
+  QVERIFY(emulatedCommandBar->isVisible());
+  QCOMPARE(emulatedCommandTypeIndicator()->text(), QString("?"));
+  QVERIFY(emulatedCommandTypeIndicator()->isVisible());
+  QVERIFY(emulatedCommandBarTextEdit());
+  QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Search backwards.
+  DoTest("foo foo bar foo foo", "ww?foo\\enterrX", "foo Xoo bar foo foo");
+
+  // Reset cursor if we find nothing.
+  BeginTest("foo foo bar foo foo");
+  TestPressKey("ww?foo");
+  verifyCursorAt(Cursor(0, 4));
+  TestPressKey("d");
+  verifyCursorAt(Cursor(0, 8));
+  TestPressKey("\\enter");
+  FinishTest("foo foo bar foo foo");
+
+  // Wrap to the end if we find nothing.
+  DoTest("foo foo bar xyz xyz", "ww?xyz\\enterrX", "foo foo bar xyz Xyz");
+
+  // Specify that the last was backwards when using '?'
+  DoTest("foo foo bar foo foo", "ww?foo\\enter^wwnrX", "foo Xoo bar foo foo");
+
+  // ... and make sure we do  the equivalent with "/"
+  BeginTest("foo foo bar foo foo");
+  TestPressKey("ww?foo\\enter^ww/foo");
+  QCOMPARE(emulatedCommandTypeIndicator()->text(), QString("/"));
+  TestPressKey("\\enter^wwnrX");
+  FinishTest("foo foo bar Xoo foo");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

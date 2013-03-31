@@ -279,14 +279,10 @@ void KateSearchBar::showInfoMessage(const QString& text)
     m_infoMessage->setAutoHide(0);
     m_infoMessage->setView(m_view);
 
-    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
-    closeAction->setToolTip(i18n("Close message (Escape)"));
-
     QAction* hlAction = new QAction(i18n("&Keep highlighting"), 0);
     hlAction->setToolTip(i18n("Keep search and replace highlighting marks"));
 
     m_infoMessage->addAction(hlAction);
-    m_infoMessage->addAction(closeAction);
 
     // the closed() signal is emitted in the Message::destructor, clearHighlights()
     // calls delete m_infoMessage, which leads to a double delete. Thus, use a

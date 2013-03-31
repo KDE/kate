@@ -275,7 +275,7 @@ void KateSearchBar::showInfoMessage(const QString& text)
     delete m_infoMessage;
 
     m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive, text);
-    m_infoMessage->setPosition(KTextEditor::Message::BelowView);
+    m_infoMessage->setPosition(KTextEditor::Message::FloatInView);
     m_infoMessage->setAutoHide(0);
     m_infoMessage->setView(m_view);
 

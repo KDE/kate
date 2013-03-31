@@ -98,6 +98,7 @@ class Message : public QObject
     enum MessagePosition {
       AboveView = 0, ///< show message above view
       BelowView,     ///< show message below view
+      FloatInView    ///< show message as view overlay
     };
 
   public:

@@ -1,5 +1,8 @@
 #include "kateviemulatedcommandbar.h"
+#include "katevikeyparser.h"
 #include "kateview.h"
+#include "kateviglobal.h"
+#include "kateglobal.h"
 
 #include <QtGui/QLineEdit>
 #include <QtGui/QVBoxLayout>
@@ -10,7 +13,8 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
     : KateViewBarWidget(false, parent),
       m_view(view),
       m_doNotResetCursorOnClose(false),
-      m_suspendEditEventFiltering(false)
+      m_suspendEditEventFiltering(false),
+      m_waitingForRegister(false)
 {
   QVBoxLayout * layout = new QVBoxLayout();
   centralWidget()->setLayout(layout);
@@ -92,7 +96,19 @@ void KateViEmulatedCommandBar::deleteNonSpacesToLeftOfCursor()
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
-  if (keyEvent->modifiers() == Qt::ControlModifier)
+  if (m_waitingForRegister)
+  {
+      const QChar key = KateViKeyParser::self()->KeyEventToQChar(
+                  keyEvent->key(),
+                  keyEvent->text(),
+                  keyEvent->modifiers(),
+                  keyEvent->nativeScanCode() ).toLower();
+      const QString registerContents = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( key );
+      const int oldCursorPosition = m_edit->cursorPosition();
+      m_edit->setText(m_edit->text().insert(m_edit->cursorPosition(), registerContents));
+      m_edit->setCursorPosition(oldCursorPosition + registerContents.length());
+      m_waitingForRegister = false;
+  } else if (keyEvent->modifiers() == Qt::ControlModifier)
   {
     if (keyEvent->key() == Qt::Key_C || keyEvent->key() == Qt::Key_BracketLeft)
     {
@@ -112,6 +128,10 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     {
       deleteSpacesToLeftOfCursor();
       deleteNonSpacesToLeftOfCursor();
+    }
+    else if (keyEvent->key() == Qt::Key_R)
+    {
+      m_waitingForRegister = true;
     }
   }
   else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)

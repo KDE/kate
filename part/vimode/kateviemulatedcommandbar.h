@@ -23,6 +23,7 @@ private:
   KTextEditor::Cursor m_startingCursorPos;
   bool m_doNotResetCursorOnClose;
   bool m_suspendEditEventFiltering;
+  bool m_waitingForRegister;
   virtual bool eventFilter(QObject* object, QEvent* event);
   void deleteSpacesToLeftOfCursor();
   void deleteNonSpacesToLeftOfCursor();

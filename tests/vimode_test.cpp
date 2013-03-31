@@ -1323,6 +1323,27 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("");
 
+  // Check ctrl-r works with registers.
+  BeginTest("xyz");
+  TestPressKey("\"ayiw/foo\\ctrl-ra");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("fooxyz"));
+  TestPressKey("\\enter");
+  FinishTest("xyz");
+
+  // Check ctrl-r inserts text at the current cursor position.
+  BeginTest("xyz");
+  TestPressKey("\"ayiw/foo\\left\\ctrl-ra");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foxyzo"));
+  TestPressKey("\\enter");
+  FinishTest("xyz");
+
+  // Cursor position is at the end of the inserted register contents after ctrl-r.
+  BeginTest("xyz");
+  TestPressKey("\"ayiw/foo\\left\\ctrl-raX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foxyzXo"));
+  TestPressKey("\\enter");
+  FinishTest("xyz");
+
    // Ensure that we actually perform a search while typing.
   BeginTest("abcd");
   TestPressKey("/c");

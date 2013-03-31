@@ -18,7 +18,7 @@ private:
   KateView *m_view;
   QLineEdit *m_edit;
   KTextEditor::Cursor m_startingCursorPos;
-  bool m_pendingCloseIsDueToEnter;
+  bool m_doNotResetCursorOnClose;
   bool m_suspendEditEventFiltering;
   virtual bool eventFilter(QObject* object, QEvent* event);
 private slots:

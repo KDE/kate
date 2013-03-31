@@ -58,6 +58,8 @@ ViModeTest::ViModeTest() {
 
   m_codesToSpecialKeys.insert("backspace", Qt::Key_Backspace);
   m_codesToSpecialKeys.insert("esc", Qt::Key_Escape);
+  m_codesToSpecialKeys.insert("return", Qt::Key_Return);
+  m_codesToSpecialKeys.insert("enter", Qt::Key_Enter);
 }
 
 Qt::KeyboardModifier ViModeTest::parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier)
@@ -167,10 +169,6 @@ void ViModeTest::TestPressKey(QString str) {
         {
           keyCode = keyCode - 'a' + Qt::Key_A;
         }
-      }
-      if (key == "\n")
-      {
-        keyCode = Qt::Key_Enter;
       }
     }
 
@@ -432,7 +430,7 @@ void ViModeTest::InsertModeTests() {
   DoTest("foobar", "li\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-c","f\no\no\nb\na\nr");
 
   // Test that our test driver can handle newlines during insert mode :)
-  DoTest("", "ia\nb", "a\nb");
+  DoTest("", "ia\\returnb", "a\nb");
 }
 
 void ViModeTest::NormalModeMotionsTest() {
@@ -867,7 +865,7 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("", "5ofoo\\escgg`]r]", "\nfoo\nfoo\nfoo\nfoo\nfo]");
   DoTest("", "5ofoo\\escgg`.r.", "\nfoo\nfoo\nfoo\nfoo\n.oo");
   DoTest("foo", "yyp`[r[", "foo\n[oo");
-  DoTest("xyz\nfoo", "ja\nbar\\esc`[r[", "xyz\n[\nbaroo");
+  DoTest("xyz\nfoo", "ja\\returnbar\\esc`[r[", "xyz\n[\nbaroo");
   DoTest("foo", "lrayypgg`[r[", "fao\n[ao");
   DoTest("foo", "l~u`[r[", "[oo");
   DoTest("foo", "l~u`.r.", ".oo");
@@ -1209,29 +1207,37 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("");
   TestPressKey("/");
   QVERIFY(emulatedCommandBar->isVisible());
-  TestPressKey("\n");
+  TestPressKey("\\enter");
+  QVERIFY(!emulatedCommandBar->isVisible());
+  FinishTest("");
+
+  // Ensure that Return dismisses it, too.
+  BeginTest("");
+  TestPressKey("/");
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\return");
   QVERIFY(!emulatedCommandBar->isVisible());
   FinishTest("");
 
   BeginTest("");
-  TestPressKey("/a\n");
+  TestPressKey("/a\\enter");
   TestPressKey("/");
   QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
-  TestPressKey("\n");
+  TestPressKey("\\enter");
   FinishTest("");
 
    // Ensure that we actually perform a search while typing.
   BeginTest("abcd");
   TestPressKey("/c");
   verifyCursorAt(Cursor(0, 2));
-  TestPressKey("\n");
+  TestPressKey("\\enter");
   FinishTest("abcd");
 
   // Ensure that the search is from the cursor.
   BeginTest("acbcd");
   TestPressKey("ll/c");
   verifyCursorAt(Cursor(0, 3));
-  TestPressKey("\n");
+  TestPressKey("\\enter");
   FinishTest("acbcd");
 
   // Reset the cursor to the original position on Ctrl-C
@@ -1251,7 +1257,12 @@ void ViModeTest::VimStyleCommandBarTests()
 
   // *Do not* reset the cursor to the original position on Enter.
   BeginTest("acbcd");
-  TestPressKey("ll/c\nrX");
+  TestPressKey("ll/c\\enterrX");
+  FinishTest("acbXd");
+
+  // *Do not* reset the cursor to the original position on Return.
+  BeginTest("acbcd");
+  TestPressKey("ll/c\\returnrX");
   FinishTest("acbXd");
 
   // Should work with mappings.
@@ -1261,6 +1272,33 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("'testmapping");
   FinishTest("aXbcd");
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  TestPressKey("\\enter");
+
+  // Incremental searching from the original position.
+  BeginTest("foo bar foop fool food");
+  TestPressKey("ll/foo");
+  verifyCursorAt(Cursor(0, 8));
+  TestPressKey("l");
+  verifyCursorAt(Cursor(0, 13));
+  TestPressKey("\\backspace");
+  verifyCursorAt(Cursor(0, 8));
+  TestPressKey("\\enter");
+  FinishTest("foo bar foop fool food");
+
+  // End up back at the start if no match found
+  BeginTest("foo bar foop fool food");
+  TestPressKey("ll/fool");
+  verifyCursorAt(Cursor(0, 13));
+  TestPressKey("\\backspacex");
+  verifyCursorAt(Cursor(0, 2));
+  TestPressKey("\\enter");
+  FinishTest("foo bar foop fool food");
+
+  // Wrap around if no match found.
+  BeginTest("afoom bar foop fool food");
+  TestPressKey("lll/foom");
+  verifyCursorAt(Cursor(0, 1));
+  FinishTest("afoom bar foop fool food");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -1328,40 +1366,40 @@ void ViModeTest::CompletionTests()
     BeginTest("");
     TestPressKey("i\\ctrl-p");
     waitForCompletionWidgetToActivate();
-    TestPressKey("\n");
+    TestPressKey("\\return");
     FinishTest("completion3");
 
     BeginTest("");
     TestPressKey("i\\ctrl- ");
     waitForCompletionWidgetToActivate();
-    TestPressKey("\n");
+    TestPressKey("\\return");
     FinishTest("completion1");
 
     BeginTest("");
     TestPressKey("i\\ctrl-n");
     waitForCompletionWidgetToActivate();
-    TestPressKey("\n");
+    TestPressKey("\\return");
     FinishTest("completion1");
 
     // Test wraps around from top to bottom.
     BeginTest("");
     TestPressKey("i\\ctrl- \\ctrl-p");
     waitForCompletionWidgetToActivate();
-    TestPressKey("\n");
+    TestPressKey("\\return");
     FinishTest("completion3");
 
     // Test wraps around from bottom to top.
     BeginTest("");
     TestPressKey("i\\ctrl- \\ctrl-n\\ctrl-n\\ctrl-n");
     waitForCompletionWidgetToActivate();
-    TestPressKey("\n");
+    TestPressKey("\\return");
     FinishTest("completion1");
 
     // Test does not re-invoke completion when doing a "." repeat.
     BeginTest("");
     TestPressKey("i\\ctrl- ");
     waitForCompletionWidgetToActivate();
-    TestPressKey("\n\\ctrl-c");
+    TestPressKey("\\return\\ctrl-c");
     kate_view->unregisterCompletionModel(testModel);
     FailTestOnInvocationModel *failsTestOnInvocation = new FailTestOnInvocationModel(kate_view);
     TestPressKey(".");
@@ -1376,7 +1414,7 @@ void ViModeTest::CompletionTests()
     // Simulate "automatic" invoking of completion.
     kate_view->completionWidget()->userInvokedCompletion();
     waitForCompletionWidgetToActivate();
-    TestPressKey("\n\\ctrl-c.");
+    TestPressKey("\\return\\ctrl-c.");
     FinishTest("completioncompletion11");
 }
 

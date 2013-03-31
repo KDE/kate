@@ -9,7 +9,7 @@
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
     : KateViewBarWidget(false, parent),
       m_view(view),
-      m_pendingCloseIsDueToEnter(false),
+      m_doNotResetCursorOnClose(false),
       m_suspendEditEventFiltering(false)
 {
   QVBoxLayout * layout = new QVBoxLayout();
@@ -38,13 +38,13 @@ void KateViEmulatedCommandBar::closed()
   // Close can be called multiple times between init()'s, so only reset the cursor once!
   if (m_startingCursorPos.isValid())
   {
-    if (!m_pendingCloseIsDueToEnter)
+    if (!m_doNotResetCursorOnClose)
     {
       m_view->setCursorPosition(m_startingCursorPos);
     }
   }
   m_startingCursorPos = KTextEditor::Cursor::invalid();
-  m_pendingCloseIsDueToEnter = false;
+  m_doNotResetCursorOnClose = false;
 }
 
 bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
@@ -72,9 +72,9 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       return true;
     }
   }
-  else if (keyEvent->key() == Qt::Key_Enter)
+  else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
   {
-    m_pendingCloseIsDueToEnter =  true;
+    m_doNotResetCursorOnClose =  true;
     emit hideMe();
     return true;
   }
@@ -93,5 +93,24 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {
   qDebug() << "New text: " << newText;
   KTextEditor::Search::SearchOptions searchOptions;
-  m_view->setCursorPosition(m_view->doc()->searchText(KTextEditor::Range(m_view->cursorPosition(), m_view->doc()->documentEnd()), newText, searchOptions).first().start());
+  const KTextEditor::Cursor matchPos = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentEnd()), newText, searchOptions).first().start();
+  m_view->setCursorPosition(matchPos);
+
+  if (matchPos.isValid())
+  {
+    m_view->setCursorPosition(matchPos);
+  }
+  else
+  {
+    // Wrap around.
+    const KTextEditor::Cursor wrappedMatchPos = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), newText, searchOptions).first().start();
+    if (wrappedMatchPos.isValid())
+    {
+      m_view->setCursorPosition(wrappedMatchPos);
+    }
+    else
+    {
+      m_view->setCursorPosition(m_startingCursorPos);
+    }
+  }
 }

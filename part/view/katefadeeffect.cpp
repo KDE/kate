@@ -83,7 +83,7 @@ void KateFadeEffect::animationFinished()
 {
   // fading finished: remove graphics effect, deletes the effect as well
   m_widget->setGraphicsEffect(0);
-  Q_ASSERT(m_effect);
+  Q_ASSERT(!m_effect);
 
   if (m_timeLine->direction() == QTimeLine::Backward) {
     m_widget->hide();

@@ -47,6 +47,51 @@ ViModeTest::ViModeTest() {
   kate_view->toggleViInputMode();
   Q_ASSERT(kate_view->viInputMode());
   vi_input_mode_manager = kate_view->getViInputModeManager();
+
+  m_codesToModifiers.insert("ctrl", Qt::ControlModifier);
+  m_codesToModifiers.insert("alt", Qt::AltModifier);
+  m_codesToModifiers.insert("meta", Qt::MetaModifier);
+  m_codesToModifiers.insert("keypad", Qt::KeypadModifier);
+
+  m_codesToSpecialKeys.insert("backspace", Qt::Key_Backspace);
+  m_codesToSpecialKeys.insert("esc", Qt::Key_Escape);
+}
+
+Qt::KeyboardModifier ViModeTest::matchesCodedModifier(const QString& string, int startPos, int* destEndOfCodeModifier)
+{
+  foreach(const QString& codedModifier, m_codesToModifiers.keys())
+  {
+    qDebug() << string.mid(startPos, codedModifier.length() + 2) << "|" << (QString("\\") + codedModifier + "-");
+    // The "+2" is from the leading '\' and the trailing '-'
+    if (string.mid(startPos, codedModifier.length() + 2) == QString("\\") + codedModifier + "-")
+    {
+      if (destEndOfCodeModifier)
+      {
+        // destEndOfCodeModifier lies on the trailing '-'.
+        *destEndOfCodeModifier = startPos + codedModifier.length() + 1;
+        Q_ASSERT(string[*destEndOfCodeModifier] == '-');
+      }
+      return m_codesToModifiers.value(codedModifier);
+    }
+  }
+  return Qt::NoModifier;
+}
+
+Qt::Key ViModeTest::parseSpecialKey(const QString& string, int startPos, int* destEndOfCodedKey)
+{
+  foreach (const QString& specialKeyCode, m_codesToSpecialKeys.keys())
+  {
+    // "+1" is for the leading '\'.
+    if (string.mid(startPos, specialKeyCode.length() + 1) == QString("\\") + specialKeyCode)
+    {
+      if (destEndOfCodedKey)
+      {
+        *destEndOfCodedKey = startPos + specialKeyCode.length();
+      }
+      return m_codesToSpecialKeys.value(specialKeyCode);
+    }
+  }
+  return Qt::Key_unknown;
 }
 
 
@@ -75,31 +120,26 @@ void ViModeTest::FinishTest(const QString& expected_text, ViModeTest::Expectatio
 
 void ViModeTest::TestPressKey(QString str) {
   qDebug() << "\n\n>>> running command " << str << " on text " << kate_document->text();
-  QKeyEvent *key_event;
-  QString key;
-  Qt::KeyboardModifiers keyboard_modifier;
 
   for (int i = 0; i< str.length(); i++) {
-    key.clear();
+    Qt::KeyboardModifiers keyboard_modifier = Qt::NoModifier;
+    QString key;
+    int keyCode = -1;
     // Looking for keyboard modifiers
     if (str[i] == QChar('\\')) {
-        if (str.mid(i,6) == QString("\\ctrl-")){
-            keyboard_modifier = Qt::ControlModifier;
-            i+=6;
-        } else if (str.mid(i,4) == QString("\\alt-")) {
-            keyboard_modifier = Qt::AltModifier;
-            i+=4;
-        } else if (str.mid(i,5) == QString("\\meta-")) {
-            keyboard_modifier = Qt::MetaModifier;
-            i+=5;
-        } else if (str.mid(i,8) == QString("\\keypad-")) {
-            keyboard_modifier = Qt::KeypadModifier;
-            i+=8;
-        } else if (str.mid(i,4) == QString("\\esc")) {
-            key = QString(Qt::Key_Escape);
-            // Move to the end of the esc; next time round the loop will move
-            // onto the character after the esc.
-            i += 3;
+        int endOfModifier = -1;
+        Qt::KeyboardModifier parsedModifier = matchesCodedModifier(str, i, &endOfModifier);
+        int endOfSpecialKey = -1;
+        Qt::Key parsedSpecialKey = parseSpecialKey(str, i, &endOfSpecialKey);
+        if (parsedModifier != Qt::NoModifier)
+        {
+          keyboard_modifier = parsedModifier;
+          // Move to the character after the '-' in the modifier.
+          i = endOfModifier + 1;
+        } else if (parsedSpecialKey != Qt::Key_unknown) {
+            key = QString(parsedSpecialKey);
+            keyCode = parsedSpecialKey;
+            i = endOfSpecialKey;
         } else if (str.mid(i,2) == QString("\\:")) {
            int start_cmd = i+2;
            for( i+=2 ; str.at(i) != '\\' ; i++ ) {}
@@ -110,34 +150,28 @@ void ViModeTest::TestPressKey(QString str) {
         } else {
             assert(false); //Do not use "\" in tests except for modifiers and command mode.
         }
-    } else {
-        keyboard_modifier = Qt::NoModifier;
     }
 
-    int code;
-    if (key != QString(Qt::Key_Escape))
+    if (keyCode == -1)
     {
       key = str[i];
-      code = key[0].unicode();
+      keyCode = key[0].unicode();
       if (keyboard_modifier != Qt::NoModifier)
       {
         // Kate Vim mode's internals identifier e.g. CTRL-C by Qt::Key_C plus the control modifier,
         // so we need to translate e.g. 'c' to Key_C.
         if (key[0].isLetter())
         {
-          code = code - 'a' + Qt::Key_A;
+          keyCode = keyCode - 'a' + Qt::Key_A;
         }
       }
       if (key == "\n")
       {
-        code = Qt::Key_Enter;
+        keyCode = Qt::Key_Enter;
       }
     }
-    else {
-      code = Qt::Key_Escape;
-    }
 
-    key_event = new QKeyEvent(QEvent::KeyPress, code, keyboard_modifier, key);
+    QKeyEvent *key_event = new QKeyEvent(QEvent::KeyPress, keyCode, keyboard_modifier, key);
     // Attempt to simulate how Qt usually sends events - typically, we want to send them
     // to kate_view->focusProxy() (which is a KateViewInternal).
     QWidget *destWidget = NULL;

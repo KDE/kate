@@ -71,6 +71,12 @@ private:
   QList<Kate::TextRange*> rangesOnFirstLine();
   void ensureKateViewVisible();
   void waitForCompletionWidgetToActivate();
+
+  QMap<QString, Qt::KeyboardModifier> m_codesToModifiers;
+  Qt::KeyboardModifier matchesCodedModifier(const QString& string, int startPos, int* destEndOfCodeModifier);
+
+  QMap<QString, Qt::Key> m_codesToSpecialKeys;
+    Qt::Key parseSpecialKey(const QString& string, int startPos, int* destEndOfCodedKey);
 };
 
 #endif

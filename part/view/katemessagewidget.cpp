@@ -30,11 +30,6 @@
 #include <QtCore/QTimer>
 #include <QtGui/QVBoxLayout>
 
-
-/**
- * This class implements a message widget based on KMessageWidget.
- * It is used to show messages through the KTextEditior::MessageInterface.
- */
 KateMessageWidget::KateMessageWidget(QWidget* parent)
   : QWidget(parent)
 {

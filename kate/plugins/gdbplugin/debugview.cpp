@@ -451,6 +451,16 @@ void DebugView::processLine( QString line )
                 emit infoLocal( line );
             }
             break;
+        case printThis:
+            if( PromptStr == line )
+            {
+                m_state = ready;
+                QTimer::singleShot(0, this, SLOT(issueNextCommand()));
+            }
+            else {
+                emit infoLocal( line );
+            }
+            break;
         case infoLocals:
             if( PromptStr == line )
             {
@@ -548,6 +558,10 @@ void DebugView::processErrors()
             m_nextCommands.clear();
             emit programEnded();
         }
+
+        if ((m_lastCommand == "(Q)print *this") && error.contains("No symbol \"this\" in current context.")) {
+            continue;
+        }
         emit outputError( error + '\n' );
     }
  }
@@ -563,6 +577,9 @@ void DebugView::issueCommand( QString const& cmd )
         }
         else if (cmd == "(Q)info args") {
             m_state = infoArgs;
+        }
+        else if (cmd == "(Q)print *this") {
+            m_state = printThis;
         }
         else if (cmd == "(Q)info stack") {
             m_state = infoStack;
@@ -604,6 +621,7 @@ void DebugView::issueNextCommand()
                     m_nextCommands << "(Q)info stack";
                     m_nextCommands << "(Q)frame";
                     m_nextCommands << "(Q)info args";
+                    m_nextCommands << "(Q)print *this";
                     m_nextCommands << "(Q)info locals";
                     m_nextCommands << "(Q)info thread";
                     issueNextCommand();

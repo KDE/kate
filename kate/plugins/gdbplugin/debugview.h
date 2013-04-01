@@ -92,6 +92,7 @@ private:
         listingBreakpoints,
         infoStack,
         infoArgs,
+        printThis,
         infoLocals,
         infoThreads
     };

@@ -61,7 +61,8 @@ void LocalsView::addLocal(const QString &vString)
     static QRegExp isStartPartial("\\S*\\s=\\s\\S*\\s=\\s\\{");
     static QRegExp isPrettyQList("\\s*\\[\\S*\\]\\s=\\s\\S*");
     static QRegExp isPrettyValue("(\\S*)\\s=\\s(\\S*)\\s=\\s(.*)");
-    
+    static QRegExp isThisValue("\\$\\d+");
+
     if (m_allAdded) {
         clear();
         m_allAdded = false;
@@ -96,6 +97,10 @@ void LocalsView::addLocal(const QString &vString)
             return;
         }
         symbolAndValue << isValue.cap(1);
+        // check out for "print *this"
+        if (isThisValue.exactMatch(symbolAndValue[0])) {
+            symbolAndValue[0] = "*this";
+        }
         value = isValue.cap(2);
     }
     else {

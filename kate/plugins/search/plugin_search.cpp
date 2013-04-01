@@ -661,6 +661,14 @@ void KatePluginSearchView::startSearchWhileTyping()
     m_curResults->matches = 0;
 
     m_resultBaseDir.clear();
+
+    // add header item
+    TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
+    item->setData(0, Qt::UserRole, doc->url().pathOrUrl());
+    item->setData(1, Qt::UserRole, 0);
+    item->setCheckState(0, Qt::Checked);
+    item->setFlags(item->flags() | Qt::ItemIsTristate);
+
     if (m_ui.searchCombo->currentText().length() >= 2) {
         m_searchOpenFiles.searchOpenFile(doc, reg, 0);
     }
@@ -724,10 +732,16 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
     path.replace(m_resultBaseDir, "");
     QString name = kurl.fileName();
 
+    // make sure we have a root item
     if (m_curResults->tree->topLevelItemCount() == 0) {
         addHeaderItem(i18n("<b><i>Results</i></b>"));
     }
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+
+    if (root->data(0, Qt::UserRole).toString() == url) {
+        // this is seach as you type, return the root item
+        return root;
+    }
 
     for (int i=0; i<root->childCount(); i++) {
         if (root->child(i)->data(0, Qt::UserRole).toString() == url) {
@@ -922,6 +936,7 @@ void KatePluginSearchView::searchDone()
         m_curResults->tree->setColumnWidth(0, m_curResults->tree->width()-30);
     }
 
+    // expand the "header item " to display all files and all results if configured
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
     m_curResults->tree->expandItem(root);
     if (root && (root->childCount() > 1) && (!m_ui.expandResults->isChecked())) {
@@ -929,8 +944,37 @@ void KatePluginSearchView::searchDone()
             m_curResults->tree->collapseItem(root->child(i));
         }
     }
+
     m_curResults->tree->setCurrentItem(root);
     m_curResults->tree->setFocus(Qt::OtherFocusReason);
+
+    if (root) {
+        switch (m_ui.searchPlaceCombo->currentIndex())
+        {
+            case 0:
+                root->setData(0, Qt::DisplayRole, i18np("<b><i>One match found in open files</i></b>",
+                                                        "<b><i>%1 matches found in open files</i></b>",
+                                                        m_curResults->matches));
+                break;
+            case 1:
+                root->setData(0, Qt::DisplayRole, i18np("<b><i>One match found in folder %2</i></b>",
+                                                        "<b><i>%1 matches found in folder %2</i></b>",
+                                                        m_curResults->matches,
+                                                        m_resultBaseDir));
+                break;
+            case 2:
+                QString projectName;
+                if (m_projectPluginView) {
+                    projectName = m_projectPluginView->property("projectName").toString();
+                }
+                root->setData(0, Qt::DisplayRole, i18np("<b><i>One match found in project %2 (%3)</i></b>",
+                                                        "<b><i>%1 matches found in project %2 (%3)</i></b>",
+                                                        m_curResults->matches,
+                                                        projectName,
+                                                        m_resultBaseDir));
+                break;
+        }
+    }
 
     indicateMatch(m_curResults->matches > 0);
     m_curResults = 0;
@@ -954,10 +998,18 @@ void KatePluginSearchView::searchWhileTypingDone()
         m_curResults->tree->setColumnWidth(0, m_curResults->tree->width()-30);
     }
 
-    if (!m_searchJustOpened && (m_curResults->tree->topLevelItemCount() > 0)) {
-        itemSelected(m_curResults->tree->topLevelItem(0));
+    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+    if (root) {
+        QTreeWidgetItem *child = root->child(0);
+        if (!m_searchJustOpened) {
+            itemSelected(child);
+        }
+        indicateMatch(child);
+
+        root->setData(0, Qt::DisplayRole, i18np("<b><i>One match found</i></b>",
+                                                "<b><i>%1 matches found</i></b>",
+                                                m_curResults->matches));
     }
-    indicateMatch(m_curResults->tree->topLevelItemCount() > 0);
     m_curResults = 0;
     m_ui.searchCombo->lineEdit()->setFocus();
     m_searchJustOpened = false;

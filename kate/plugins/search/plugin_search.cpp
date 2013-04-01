@@ -428,6 +428,15 @@ void KatePluginSearchView::setSearchString(const QString &pattern)
     m_ui.searchCombo->lineEdit()->setText(pattern);
 }
 
+void KatePluginSearchView::toggleOptions(bool show)
+{
+    m_ui.stackedWidget->setCurrentIndex((show) ? 1:0);
+}
+
+void KatePluginSearchView::setSearchPlace(int place)
+{
+    m_ui.searchPlaceCombo->setCurrentIndex(place);
+}
 
 QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
 {
@@ -484,198 +493,6 @@ QStringList KatePluginSearchView::filterFiles(const QStringList& files) const
     return filteredFiles;
 }
 
-
-void KatePluginSearchView::startSearch()
-{
-    m_changeTimer.stop(); // make sure not to start a "while you type" search now
-    mainWindow()->showToolView(m_toolView); // in case we are invoked from the command interface
-    m_switchToProjectModeWhenAvailable = false; // now that we started, don't switch back automatically
-
-    if (m_ui.searchCombo->currentText().isEmpty()) {
-        // return pressed in the folder combo or filter combo
-        return;
-    }
-    m_ui.searchCombo->addToHistory(m_ui.searchCombo->currentText());
-    if(m_ui.filterCombo->findText(m_ui.filterCombo->currentText()) == -1) {
-        m_ui.filterCombo->insertItem(0, m_ui.filterCombo->currentText());
-        m_ui.filterCombo->setCurrentIndex(0);
-    }
-    if(m_ui.excludeCombo->findText(m_ui.excludeCombo->currentText()) == -1) {
-        m_ui.excludeCombo->insertItem(0, m_ui.excludeCombo->currentText());
-        m_ui.excludeCombo->setCurrentIndex(0);
-    }
-    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!m_curResults) {
-        kWarning() << "This is a bug";
-        return;
-    }
-
-    m_ui.newTabButton->setDisabled(true);
-    m_ui.searchCombo->setDisabled(true);
-    m_ui.searchButton->setDisabled(true);
-    m_ui.displayOptions->setChecked (false);
-    m_ui.displayOptions->setDisabled(true);
-    m_ui.replaceCheckedBtn->setDisabled(true);
-    m_ui.replaceButton->setDisabled(true);
-    m_ui.nextAndStop->setCurrentIndex(1);
-
-
-    QRegExp reg(m_ui.searchCombo->currentText(),
-                m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
-                m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
-    m_curResults->regExp = reg;
-
-    clearMarks();
-    m_curResults->tree->clear();
-    m_curResults->matches = 0;
-
-    m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
-                                     m_ui.searchCombo->currentText());
-
-    m_toolView->setCursor(Qt::WaitCursor);
-    m_searchDiskFilesDone = false;
-    m_searchOpenFilesDone = false;
-
-    if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
-        m_searchDiskFilesDone = true;
-        m_resultBaseDir.clear();
-        const QList<KTextEditor::Document*> & documents = m_kateApp->documentManager()->documents();
-        addHeaderItem(i18np("<b><i>Results from 1 open file</i></b>", "<b><i>Results from %1 open files</i></b>", documents.size()));
-        m_searchOpenFiles.startSearch(documents, reg);
-    }
-    else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
-        m_resultBaseDir = m_ui.folderRequester->text();
-        addHeaderItem(i18n("<b><i>Results in folder %1</i></b>", m_resultBaseDir));
-        m_folderFilesList.generateList(m_ui.folderRequester->text(),
-                                       m_ui.recursiveCheckBox->isChecked(),
-                                       m_ui.hiddenCheckBox->isChecked(),
-                                       m_ui.symLinkCheckBox->isChecked(),
-                                       m_ui.binaryCheckBox->isChecked(),
-                                       m_ui.filterCombo->currentText(),
-                                       m_ui.excludeCombo->currentText());
-        // the file list will be ready when the thread returns (connected to folderFileListChanged)
-    }
-    else {
-        /**
-         * init search with file list from current project, if any
-         */
-        m_resultBaseDir.clear();
-        QStringList files;
-        QString projectName;
-        if (m_projectPluginView) {
-            projectName = m_projectPluginView->property ("projectName").toString();
-            m_resultBaseDir = m_projectPluginView->property ("projectBaseDir").toString();
-            if (!m_resultBaseDir.endsWith("/"))
-                m_resultBaseDir += "/";
-            QStringList projectFiles = m_projectPluginView->property ("projectFiles").toStringList();
-            files = filterFiles(projectFiles);
-        }
-        addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>", projectName, m_resultBaseDir));
-
-        QList<KTextEditor::Document*> openList;
-        for (int i=0; i<m_kateApp->documentManager()->documents().size(); i++) {
-            int index = files.indexOf(m_kateApp->documentManager()->documents()[i]->url().pathOrUrl());
-            if (index != -1) {
-                openList << m_kateApp->documentManager()->documents()[i];
-                files.removeAt(index);
-            }
-        }
-        // search order is important: Open files starts immediately and should finish
-        // earliest after first event loop.
-        // The DiskFile might finish immediately
-        if (openList.size() > 0) {
-            m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
-        }
-        else {
-            m_searchOpenFilesDone = true;
-        }
-        m_searchDiskFiles.startSearch(files, reg);
-    }
-}
-
-void KatePluginSearchView::toggleOptions(bool show)
-{
-    m_ui.stackedWidget->setCurrentIndex((show) ? 1:0);
-}
-
-void KatePluginSearchView::setSearchPlace(int place)
-{
-    m_ui.searchPlaceCombo->setCurrentIndex(place);
-}
-
-void KatePluginSearchView::searchPlaceChanged()
-{
-    m_ui.displayOptions->setChecked(true);
-
-    const bool inFolder = (m_ui.searchPlaceCombo->currentIndex() == 1);
-    const bool inProject = (m_ui.searchPlaceCombo->currentIndex() == 2);
-
-    m_ui.filterCombo->setEnabled(inFolder || inProject);
-
-    m_ui.excludeCombo->setEnabled(inFolder || inProject);
-    m_ui.folderRequester->setEnabled(inFolder);
-    m_ui.folderUpButton->setEnabled(inFolder);
-    m_ui.currentFolderButton->setEnabled(inFolder);
-    m_ui.recursiveCheckBox->setEnabled(inFolder);
-    m_ui.hiddenCheckBox->setEnabled(inFolder);
-    m_ui.symLinkCheckBox->setEnabled(inFolder);
-    m_ui.binaryCheckBox->setEnabled(inFolder);
-
-    // ... and the labels:
-    m_ui.folderLabel->setEnabled(m_ui.folderRequester->isEnabled());
-    m_ui.filterLabel->setEnabled(m_ui.filterCombo->isEnabled());
-    m_ui.excludeLabel->setEnabled(m_ui.excludeCombo->isEnabled());
-}
-
-void KatePluginSearchView::startSearchWhileTyping()
-{
-    if (!m_searchDiskFilesDone || !m_searchOpenFilesDone) {
-        return;
-    }
-
-    m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
-
-    if (!mainWindow()->activeView()) return;
-
-    KTextEditor::Document *doc = mainWindow()->activeView()->document();
-    if (!doc) return;
-
-    m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!m_curResults) {
-        kWarning() << "This is a bug";
-        return;
-    }
-
-    m_ui.replaceCheckedBtn->setDisabled(true);
-    m_ui.replaceButton->setDisabled(true);
-    m_ui.nextButton->setDisabled(true);
-
-    QRegExp reg(m_ui.searchCombo->currentText(),
-                m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
-                m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
-
-    m_curResults->regExp = reg;
-
-    clearMarks();
-    m_curResults->tree->clear();
-    m_curResults->matches = 0;
-
-    m_resultBaseDir.clear();
-
-    // add header item
-    TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
-    item->setData(0, Qt::UserRole, doc->url().pathOrUrl());
-    item->setData(1, Qt::UserRole, 0);
-    item->setCheckState(0, Qt::Checked);
-    item->setFlags(item->flags() | Qt::ItemIsTristate);
-
-    if (m_ui.searchCombo->currentText().length() >= 2) {
-        m_searchOpenFiles.searchOpenFile(doc, reg, 0);
-    }
-    searchWhileTypingDone();
-}
-
-
 void KatePluginSearchView::folderFileListChanged()
 {
     m_searchDiskFilesDone = false;
@@ -712,6 +529,30 @@ void KatePluginSearchView::folderFileListChanged()
     m_searchDiskFiles.startSearch(fileList, m_curResults->regExp);
 }
 
+
+void KatePluginSearchView::searchPlaceChanged()
+{
+    m_ui.displayOptions->setChecked(true);
+
+    const bool inFolder = (m_ui.searchPlaceCombo->currentIndex() == 1);
+    const bool inProject = (m_ui.searchPlaceCombo->currentIndex() == 2);
+
+    m_ui.filterCombo->setEnabled(inFolder || inProject);
+
+    m_ui.excludeCombo->setEnabled(inFolder || inProject);
+    m_ui.folderRequester->setEnabled(inFolder);
+    m_ui.folderUpButton->setEnabled(inFolder);
+    m_ui.currentFolderButton->setEnabled(inFolder);
+    m_ui.recursiveCheckBox->setEnabled(inFolder);
+    m_ui.hiddenCheckBox->setEnabled(inFolder);
+    m_ui.symLinkCheckBox->setEnabled(inFolder);
+    m_ui.binaryCheckBox->setEnabled(inFolder);
+
+    // ... and the labels:
+    m_ui.folderLabel->setEnabled(m_ui.folderRequester->isEnabled());
+    m_ui.filterLabel->setEnabled(m_ui.filterCombo->isEnabled());
+    m_ui.excludeLabel->setEnabled(m_ui.excludeCombo->isEnabled());
+}
 
 void KatePluginSearchView::addHeaderItem(const QString& text)
 {
@@ -899,6 +740,163 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
     }
 }
 
+void KatePluginSearchView::startSearch()
+{
+    m_changeTimer.stop(); // make sure not to start a "while you type" search now
+    mainWindow()->showToolView(m_toolView); // in case we are invoked from the command interface
+    m_switchToProjectModeWhenAvailable = false; // now that we started, don't switch back automatically
+
+    if (m_ui.searchCombo->currentText().isEmpty()) {
+        // return pressed in the folder combo or filter combo
+        return;
+    }
+    m_ui.searchCombo->addToHistory(m_ui.searchCombo->currentText());
+    if(m_ui.filterCombo->findText(m_ui.filterCombo->currentText()) == -1) {
+        m_ui.filterCombo->insertItem(0, m_ui.filterCombo->currentText());
+        m_ui.filterCombo->setCurrentIndex(0);
+    }
+    if(m_ui.excludeCombo->findText(m_ui.excludeCombo->currentText()) == -1) {
+        m_ui.excludeCombo->insertItem(0, m_ui.excludeCombo->currentText());
+        m_ui.excludeCombo->setCurrentIndex(0);
+    }
+    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResults) {
+        kWarning() << "This is a bug";
+        return;
+    }
+
+    m_ui.newTabButton->setDisabled(true);
+    m_ui.searchCombo->setDisabled(true);
+    m_ui.searchButton->setDisabled(true);
+    m_ui.displayOptions->setChecked (false);
+    m_ui.displayOptions->setDisabled(true);
+    m_ui.replaceCheckedBtn->setDisabled(true);
+    m_ui.replaceButton->setDisabled(true);
+    m_ui.nextAndStop->setCurrentIndex(1);
+
+
+    QRegExp reg(m_ui.searchCombo->currentText(),
+                m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
+                m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
+    m_curResults->regExp = reg;
+
+    clearMarks();
+    m_curResults->tree->clear();
+    m_curResults->matches = 0;
+
+    m_ui.resultTabWidget->setTabText(m_ui.resultTabWidget->currentIndex(),
+                                     m_ui.searchCombo->currentText());
+
+    m_toolView->setCursor(Qt::WaitCursor);
+    m_searchDiskFilesDone = false;
+    m_searchOpenFilesDone = false;
+
+    if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
+        m_searchDiskFilesDone = true;
+        m_resultBaseDir.clear();
+        const QList<KTextEditor::Document*> & documents = m_kateApp->documentManager()->documents();
+        addHeaderItem(i18np("<b><i>Results from 1 open file</i></b>", "<b><i>Results from %1 open files</i></b>", documents.size()));
+        m_searchOpenFiles.startSearch(documents, reg);
+    }
+    else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
+        m_resultBaseDir = m_ui.folderRequester->text();
+        addHeaderItem(i18n("<b><i>Results in folder %1</i></b>", m_resultBaseDir));
+        m_folderFilesList.generateList(m_ui.folderRequester->text(),
+                                       m_ui.recursiveCheckBox->isChecked(),
+                                       m_ui.hiddenCheckBox->isChecked(),
+                                       m_ui.symLinkCheckBox->isChecked(),
+                                       m_ui.binaryCheckBox->isChecked(),
+                                       m_ui.filterCombo->currentText(),
+                                       m_ui.excludeCombo->currentText());
+        // the file list will be ready when the thread returns (connected to folderFileListChanged)
+    }
+    else {
+        /**
+         * init search with file list from current project, if any
+         */
+        m_resultBaseDir.clear();
+        QStringList files;
+        QString projectName;
+        if (m_projectPluginView) {
+            projectName = m_projectPluginView->property ("projectName").toString();
+            m_resultBaseDir = m_projectPluginView->property ("projectBaseDir").toString();
+            if (!m_resultBaseDir.endsWith("/"))
+                m_resultBaseDir += "/";
+            QStringList projectFiles = m_projectPluginView->property ("projectFiles").toStringList();
+            files = filterFiles(projectFiles);
+        }
+        addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>", projectName, m_resultBaseDir));
+
+        QList<KTextEditor::Document*> openList;
+        for (int i=0; i<m_kateApp->documentManager()->documents().size(); i++) {
+            int index = files.indexOf(m_kateApp->documentManager()->documents()[i]->url().pathOrUrl());
+            if (index != -1) {
+                openList << m_kateApp->documentManager()->documents()[i];
+                files.removeAt(index);
+            }
+        }
+        // search order is important: Open files starts immediately and should finish
+        // earliest after first event loop.
+        // The DiskFile might finish immediately
+        if (openList.size() > 0) {
+            m_searchOpenFiles.startSearch(openList, m_curResults->regExp);
+        }
+        else {
+            m_searchOpenFilesDone = true;
+        }
+        m_searchDiskFiles.startSearch(files, reg);
+    }
+}
+
+void KatePluginSearchView::startSearchWhileTyping()
+{
+    if (!m_searchDiskFilesDone || !m_searchOpenFilesDone) {
+        return;
+    }
+
+    m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
+
+    if (!mainWindow()->activeView()) return;
+
+    KTextEditor::Document *doc = mainWindow()->activeView()->document();
+    if (!doc) return;
+
+    m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResults) {
+        kWarning() << "This is a bug";
+        return;
+    }
+
+    m_ui.replaceCheckedBtn->setDisabled(true);
+    m_ui.replaceButton->setDisabled(true);
+    m_ui.nextButton->setDisabled(true);
+
+    QRegExp reg(m_ui.searchCombo->currentText(),
+                m_ui.matchCase->isChecked() ? Qt::CaseSensitive : Qt::CaseInsensitive,
+                m_ui.useRegExp->isChecked() ? QRegExp::RegExp : QRegExp::FixedString);
+
+    m_curResults->regExp = reg;
+
+    clearMarks();
+    m_curResults->tree->clear();
+    m_curResults->matches = 0;
+
+    m_resultBaseDir.clear();
+
+    // add header item
+    TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
+    item->setData(0, Qt::UserRole, doc->url().pathOrUrl());
+    item->setData(1, Qt::UserRole, 0);
+    item->setCheckState(0, Qt::Checked);
+    item->setFlags(item->flags() | Qt::ItemIsTristate);
+
+    if (m_ui.searchCombo->currentText().length() >= 2) {
+        m_searchOpenFiles.searchOpenFile(doc, reg, 0);
+    }
+    searchWhileTypingDone();
+}
+
+
 void KatePluginSearchView::searchDone()
 {
     m_changeTimer.stop(); // avoid "while you type" search directly after
@@ -1033,6 +1031,128 @@ void KatePluginSearchView::indicateMatch(bool hasMatch) {
     //KColorScheme::adjustBackground(background, KColorScheme::NeutralBackground);
 
     lineEdit->setPalette(background);
+}
+
+void KatePluginSearchView::replaceSingleMatch()
+{
+    // check if the cursor is at the current item if not jump there
+    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!res) {
+        return;
+    }
+    QTreeWidgetItem *item = res->tree->currentItem();
+    if (!item || !item->parent()) {
+        // nothing was selected
+        goToNextMatch();
+        return;
+    }
+
+    if (!mainWindow()->activeView() || !mainWindow()->activeView()->cursorPosition().isValid()) {
+        itemSelected(item);
+        return;
+    }
+
+    int dLine = mainWindow()->activeView()->cursorPosition().line();
+    int dColumn = mainWindow()->activeView()->cursorPosition().column();
+
+    int iLine = item->data(1, Qt::UserRole).toInt();
+    int iColumn = item->data(2, Qt::UserRole).toInt();
+
+    if ((dLine != iLine) || (dColumn != iColumn)) {
+        itemSelected(item);
+        return;
+    }
+
+    KTextEditor::Document *doc = mainWindow()->activeView()->document();
+    // Find the corresponding range
+    int i;
+    for (i=0; i<m_matchRanges.size(); i++) {
+        if (m_matchRanges[i]->document() != doc) continue;
+        if (m_matchRanges[i]->start().line() != iLine) continue;
+        if (m_matchRanges[i]->start().column() != iColumn) continue;
+        break;
+    }
+
+    if (i >=m_matchRanges.size()) {
+        goToNextMatch();
+        return;
+    }
+
+    if (!res->regExp.exactMatch(doc->text(m_matchRanges[i]->toRange()))) {
+        kDebug() << doc->text(m_matchRanges[i]->toRange()) << "Does not match" << res->regExp.pattern();
+        goToNextMatch();
+        return;
+    }
+
+    if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
+        m_ui.replaceCombo->insertItem(0, m_ui.replaceCombo->currentText());
+        m_ui.replaceCombo->setCurrentIndex(0);
+    }
+
+
+    QString replaceText = m_ui.replaceCombo->currentText();
+    replaceText.replace("\\\\", "¤Search&Replace¤");
+    for (int j=1; j<=res->regExp.captureCount(); j++) {
+        replaceText.replace(QString("\\%1").arg(j), res->regExp.cap(j));
+    }
+    replaceText.replace("\\n", "\n");
+    replaceText.replace("¤Search&Replace¤", "\\\\");
+
+    doc->replaceText(m_matchRanges[i]->toRange(), replaceText);
+    addMatchMark(doc, dLine, dColumn, replaceText.size());
+
+    replaceText.replace('\n', "\\n");
+    QString html = item->data(1, Qt::ToolTipRole).toString();
+    html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
+    html += "<b>" + replaceText + "</b>";
+    html += item->data(3, Qt::ToolTipRole).toString();
+    item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",m_matchRanges[i]->start().line()+1, html));
+
+    // now update the rest of the tree items for this file (they are sorted in ascending order
+    i++;
+    for (; i<m_matchRanges.size(); i++) {
+        if (m_matchRanges[i]->document() != doc) continue;
+        item = res->tree->itemBelow(item);
+        if (!item) break;
+        if (item->data(0, Qt::UserRole).toString() != doc->url().pathOrUrl()) break;
+        iLine = item->data(1, Qt::UserRole).toInt();
+        iColumn = item->data(2, Qt::UserRole).toInt();
+        if ((m_matchRanges[i]->start().line() == iLine) && (m_matchRanges[i]->start().column() == iColumn)) {
+            break;
+        }
+        item->setData(1, Qt::UserRole, m_matchRanges[i]->start().line());
+        item->setData(2, Qt::UserRole, m_matchRanges[i]->start().column());
+    }
+    goToNextMatch();
+}
+
+void KatePluginSearchView::replaceChecked()
+{
+    m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResults) {
+        kWarning() << "Results not found";
+        return;
+    }
+
+    if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
+        m_ui.replaceCombo->insertItem(0, m_ui.replaceCombo->currentText());
+        m_ui.replaceCombo->setCurrentIndex(0);
+    }
+
+    m_ui.nextAndStop->setCurrentIndex(1);
+    m_ui.displayOptions->setChecked(false);
+
+    m_curResults->replace = m_ui.replaceCombo->currentText();
+
+    m_replacer.replaceChecked(m_curResults->tree,
+                              m_curResults->regExp,
+                              m_curResults->replace);
+}
+
+void KatePluginSearchView::replaceDone()
+{
+    m_ui.nextAndStop->setCurrentIndex(0);
+    m_ui.replaceCombo->setDisabled(false);
 }
 
 void KatePluginSearchView::docViewChanged()
@@ -1410,128 +1530,6 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
         lineEdit->setCursorPosition(cursorPos + beforeAfter[0].count());
         lineEdit->setFocus();
     }
-}
-
-void KatePluginSearchView::replaceSingleMatch()
-{
-    // check if the cursor is at the current item if not jump there
-    Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!res) {
-        return;
-    }
-    QTreeWidgetItem *item = res->tree->currentItem();
-    if (!item || !item->parent()) {
-        // nothing was selected
-        goToNextMatch();
-        return;
-    }
-
-    if (!mainWindow()->activeView() || !mainWindow()->activeView()->cursorPosition().isValid()) {
-        itemSelected(item);
-        return;
-    }
-
-    int dLine = mainWindow()->activeView()->cursorPosition().line();
-    int dColumn = mainWindow()->activeView()->cursorPosition().column();
-
-    int iLine = item->data(1, Qt::UserRole).toInt();
-    int iColumn = item->data(2, Qt::UserRole).toInt();
-
-    if ((dLine != iLine) || (dColumn != iColumn)) {
-        itemSelected(item);
-        return;
-    }
-
-    KTextEditor::Document *doc = mainWindow()->activeView()->document();
-    // Find the corresponding range
-    int i;
-    for (i=0; i<m_matchRanges.size(); i++) {
-        if (m_matchRanges[i]->document() != doc) continue;
-        if (m_matchRanges[i]->start().line() != iLine) continue;
-        if (m_matchRanges[i]->start().column() != iColumn) continue;
-        break;
-    }
-
-    if (i >=m_matchRanges.size()) {
-        goToNextMatch();
-        return;
-    }
-
-    if (!res->regExp.exactMatch(doc->text(m_matchRanges[i]->toRange()))) {
-        kDebug() << doc->text(m_matchRanges[i]->toRange()) << "Does not match" << res->regExp.pattern();
-        goToNextMatch();
-        return;
-    }
-
-    if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
-        m_ui.replaceCombo->insertItem(0, m_ui.replaceCombo->currentText());
-        m_ui.replaceCombo->setCurrentIndex(0);
-    }
-
-
-    QString replaceText = m_ui.replaceCombo->currentText();
-    replaceText.replace("\\\\", "¤Search&Replace¤");
-    for (int j=1; j<=res->regExp.captureCount(); j++) {
-        replaceText.replace(QString("\\%1").arg(j), res->regExp.cap(j));
-    }
-    replaceText.replace("\\n", "\n");
-    replaceText.replace("¤Search&Replace¤", "\\\\");
-
-    doc->replaceText(m_matchRanges[i]->toRange(), replaceText);
-    addMatchMark(doc, dLine, dColumn, replaceText.size());
-
-    replaceText.replace('\n', "\\n");
-    QString html = item->data(1, Qt::ToolTipRole).toString();
-    html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
-    html += "<b>" + replaceText + "</b>";
-    html += item->data(3, Qt::ToolTipRole).toString();
-    item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",m_matchRanges[i]->start().line()+1, html));
-
-    // now update the rest of the tree items for this file (they are sorted in ascending order
-    i++;
-    for (; i<m_matchRanges.size(); i++) {
-        if (m_matchRanges[i]->document() != doc) continue;
-        item = res->tree->itemBelow(item);
-        if (!item) break;
-        if (item->data(0, Qt::UserRole).toString() != doc->url().pathOrUrl()) break;
-        iLine = item->data(1, Qt::UserRole).toInt();
-        iColumn = item->data(2, Qt::UserRole).toInt();
-        if ((m_matchRanges[i]->start().line() == iLine) && (m_matchRanges[i]->start().column() == iColumn)) {
-            break;
-        }
-        item->setData(1, Qt::UserRole, m_matchRanges[i]->start().line());
-        item->setData(2, Qt::UserRole, m_matchRanges[i]->start().column());
-    }
-    goToNextMatch();
-}
-
-void KatePluginSearchView::replaceChecked()
-{
-    m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-    if (!m_curResults) {
-        kWarning() << "Results not found";
-        return;
-    }
-
-    if (m_ui.replaceCombo->findText(m_ui.replaceCombo->currentText()) == -1) {
-        m_ui.replaceCombo->insertItem(0, m_ui.replaceCombo->currentText());
-        m_ui.replaceCombo->setCurrentIndex(0);
-    }
-
-    m_ui.nextAndStop->setCurrentIndex(1);
-    m_ui.displayOptions->setChecked(false);
-
-    m_curResults->replace = m_ui.replaceCombo->currentText();
-
-    m_replacer.replaceChecked(m_curResults->tree,
-                              m_curResults->regExp,
-                              m_curResults->replace);
-}
-
-void KatePluginSearchView::replaceDone()
-{
-    m_ui.nextAndStop->setCurrentIndex(0);
-    m_ui.replaceCombo->setDisabled(false);
 }
 
 void KatePluginSearchView::slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView)

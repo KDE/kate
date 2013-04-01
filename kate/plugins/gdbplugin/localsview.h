@@ -38,6 +38,8 @@ public Q_SLOTS:
     void addArray(QTreeWidgetItem *parent, const QString &vString);
     
 private:
+    void createWrappedItem(QTreeWidgetItem *parent, const QString &name, const QString &value);
+    void createWrappedItem(QTreeWidget *parent, const QString &name, const QString &value);
     bool    m_allAdded;
     QString m_local;
 };

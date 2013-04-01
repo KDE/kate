@@ -18,6 +18,7 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "localsview.h"
+#include <QLabel>
 #include <klocale.h>
 #include <kdebug.h>
 
@@ -36,6 +37,23 @@ LocalsView::~LocalsView()
 {
 }
 
+void LocalsView::createWrappedItem(QTreeWidgetItem *parent, const QString &name, const QString &value)
+{
+    QTreeWidgetItem *item = new QTreeWidgetItem(parent, QStringList(name));
+    QLabel *label = new QLabel(value);
+    label->setWordWrap(true);
+    setItemWidget(item, 1, label);
+    item->setData(1, Qt::UserRole, value);
+}
+
+void LocalsView::createWrappedItem(QTreeWidget *parent, const QString &name, const QString &value)
+{
+    QTreeWidgetItem *item = new QTreeWidgetItem(parent, QStringList(name));
+    QLabel *label = new QLabel(value);
+    label->setWordWrap(true);
+    setItemWidget(item, 1, label);
+}
+
 void LocalsView::addLocal(const QString &vString)
 {
     static QRegExp isValue("(\\S*)\\s=\\s(.*)");
@@ -51,7 +69,6 @@ void LocalsView::addLocal(const QString &vString)
     
     if (vString.isEmpty()) {
         m_allAdded = true;
-        resizeColumnToContents(1);
         return;
     }
     if (isStartPartial.exactMatch(vString)) {
@@ -103,16 +120,14 @@ void LocalsView::addLocal(const QString &vString)
                 addStruct(item, value.mid(1, value.size()-2));
             }
             else {
-                symbolAndValue << value;
-                new QTreeWidgetItem(this, symbolAndValue);
+                createWrappedItem(this, symbolAndValue[0], value);
             }
         }
     }
     else {
-        symbolAndValue << value;
-        new QTreeWidgetItem(this, symbolAndValue);
+        createWrappedItem(this, symbolAndValue[0], value);
     }
-    
+
     m_local.clear();
 }
 
@@ -132,8 +147,7 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
         end = vString.indexOf(" = ", start);
         if (end < 0) {
             // error situation -> bail out
-            symbolAndValue << vString.right(start);
-            new QTreeWidgetItem(parent, symbolAndValue);
+            createWrappedItem(parent, symbolAndValue[0], vString.right(start));
             break;
         }
         symbolAndValue << vString.mid(start, end-start);
@@ -171,8 +185,7 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
                 addStruct(item, subValue);
             }
             else {
-                symbolAndValue << vString.mid(start, end-start);
-                new QTreeWidgetItem(parent, symbolAndValue);
+                createWrappedItem(parent, symbolAndValue[0], vString.mid(start, end-start));
             }
             start = end + 3; // },_
         }
@@ -191,8 +204,7 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
                 }
                 end++;
             }
-            symbolAndValue << vString.mid(start, end-start);
-            new QTreeWidgetItem(parent, symbolAndValue);
+            createWrappedItem(parent, symbolAndValue[0], vString.mid(start, end-start));
             start = end + 2; // ,_
         }
     }

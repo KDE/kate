@@ -142,7 +142,11 @@ void KateMessageWidget::postMessage(KTextEditor::Message* message,
 
   if (i == 0) {
     if (m_messageWidget->isVisible()) {
-      m_messageWidget->animatedHide();
+      if (m_fadeEffect) {
+        m_fadeEffect->fadeOut();
+      } else {
+        m_messageWidget->animatedHide();
+      }
     } else {
       showMessage(m_messageList[0]);
     }

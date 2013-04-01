@@ -3,7 +3,7 @@
 //
 //
 // Copyright (c) 2010 Ian Wakeling <ian.wakeling@ntlworld.com>
-// Copyright (c) 2010 Kåre Särs <kare.sars@iki.fi>
+// Copyright (c) 2010-2013 Kåre Särs <kare.sars@iki.fi>
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Library General Public
@@ -102,8 +102,7 @@ private:
 
     Kate::Application*    m_kateApplication;
     QWidget*              m_toolView;
-    QWidget*              m_localsToolView;
-    QWidget*              m_stackToolView;
+    QWidget*              m_localsStackToolView;
     QTabWidget*           m_tabWidget;
     QTextEdit*            m_outputArea;
     KHistoryComboBox*     m_inputArea;

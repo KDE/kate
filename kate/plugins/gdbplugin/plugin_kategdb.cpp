@@ -3,7 +3,7 @@
 //
 //
 // Copyright (c) 2010 Ian Wakeling <ian.wakeling@ntlworld.com>
-// Copyright (c) 2010 Kåre Särs <kare.sars@iki.fi>
+// Copyright (c) 2010-2013 Kåre Särs <kare.sars@iki.fi>
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Library General Public
@@ -26,6 +26,7 @@
 #include <QtCore/QFileInfo>
 #include <QtGui/QTabWidget>
 #include <QtGui/QToolBar>
+#include <QtGui/QSplitter>
 #include <QtGui/QLayout>
 #include <QtGui/QTextEdit>
 #include <QtGui/QScrollBar>
@@ -89,15 +90,10 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
                                               SmallIcon("debug"),
                                               i18n("Debug View"));
 
-    m_localsToolView = mainWindow()->createToolView(i18n("Locals"),
+    m_localsStackToolView = mainWindow()->createToolView(i18n("Locals and Stack"),
                                                     Kate::MainWindow::Right,
                                                     SmallIcon("debug"),
-                                                    i18n("Locals"));
-
-    m_stackToolView = mainWindow()->createToolView(i18n("Call Stack"),
-                                                   Kate::MainWindow::Right,
-                                                   SmallIcon("debug"),
-                                                   i18n("Call Stack"));
+                                                    i18n("Locals and Stack"));
 
     m_tabWidget = new QTabWidget( m_toolView );
     // Output
@@ -132,7 +128,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     layout->setSpacing(0);
 
     // stack page
-    QWidget *stackContainer = new QWidget(m_stackToolView);
+    QWidget *stackContainer = new QWidget();
     QVBoxLayout *stackLayout = new QVBoxLayout( stackContainer );
     m_threadCombo = new QComboBox();
     m_stackTree = new QTreeWidget();
@@ -155,6 +151,13 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
              this, SLOT(threadSelected(int)) );
 
 
+    m_localsView = new LocalsView();
+
+    QSplitter *locStackSplitter = new QSplitter(m_localsStackToolView);
+    locStackSplitter->addWidget(m_localsView);
+    locStackSplitter->addWidget(stackContainer);
+    locStackSplitter->setOrientation(Qt::Vertical);
+
     // config page
     m_configView = new ConfigView( NULL, mainWin );
 
@@ -164,8 +167,6 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
 
     m_tabWidget->addTab( m_gdbPage, i18nc( "Tab label", "GDB Output" ) );
     m_tabWidget->addTab( m_configView, i18nc( "Tab label", "Settings" ) );
-
-    m_localsView = new LocalsView(m_localsToolView);
 
     m_debugView  = new DebugView( this );
     connect( m_debugView, SIGNAL(readyForInput(bool)),
@@ -307,8 +308,7 @@ KatePluginGDBView::~KatePluginGDBView()
 {
     mainWindow()->guiFactory()->removeClient( this );
     delete m_toolView;
-    delete m_localsToolView;
-    delete m_stackToolView;
+    delete m_localsStackToolView;
 }
 
 void KatePluginGDBView::readSessionConfig(  KConfigBase*    config,

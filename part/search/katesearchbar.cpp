@@ -1524,8 +1524,11 @@ void KateSearchBar::enterIncrementalMode() {
 
 bool KateSearchBar::clearHighlights()
 {
-    if (m_infoMessage)
+    if (m_infoMessage) {
+        // highlightings already cleared -> remove clear connection
+        disconnect(m_infoMessage, 0, this, 0);
         delete m_infoMessage;
+    }
 
     if (m_hlRanges.isEmpty()) {
         return false;

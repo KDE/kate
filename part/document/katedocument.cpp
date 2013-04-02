@@ -1671,7 +1671,7 @@ void KateDocument::setMark( int line, uint markType )
 
 void KateDocument::clearMark( int line )
 {
-  if( line > lastLine() )
+  if( line < 0 || line > lastLine() )
     return;
 
   if( !m_marks.value(line) )
@@ -1689,7 +1689,7 @@ void KateDocument::addMark( int line, uint markType )
 {
   KTextEditor::Mark *mark;
 
-  if( line > lastLine())
+  if( line < 0 || line > lastLine())
     return;
 
   if( markType == 0 )
@@ -1724,7 +1724,7 @@ void KateDocument::addMark( int line, uint markType )
 
 void KateDocument::removeMark( int line, uint markType )
 {
-  if( line > lastLine() )
+  if( line < 0 || line > lastLine() )
     return;
 
   KTextEditor::Mark* mark = m_marks.value(line);

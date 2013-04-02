@@ -53,6 +53,7 @@
 #include <QtGui/QClipboard>
 #include <QtGui/QPixmap>
 #include <QtGui/QKeyEvent>
+#include <QtGui/QLayout>
 
 static const bool debugPainting = false;
 
@@ -477,6 +478,9 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
       scroll(0, scrollHeight);
       m_leftBorder->scroll(0, scrollHeight);
 
+      // update grid layout that contains the floating notifications
+      if (layout()) layout()->update();
+
       emit m_view->verticalScrollPositionChanged( m_view, c );
       emit m_view->displayRangeChanged(m_view);
       return;
@@ -505,6 +509,9 @@ void KateViewInternal::scrollColumns ( int x )
     scroll(dx, 0);
   else
     update();
+
+  // update grid layout that contains the floating notifications
+  if (layout()) layout()->update();
 
   emit m_view->horizontalScrollPositionChanged( m_view );
   emit m_view->displayRangeChanged(m_view);

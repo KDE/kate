@@ -1133,7 +1133,6 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setViInputMode (config.readEntry( "Vi Input Mode", false));
   setViInputModeStealKeys (config.readEntry( "Vi Input Mode Steal Keys", false));
-  setViInputModeHideStatusBar (config.readEntry( "Vi Input Mode Hide Status Bar", false));
 
   setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
   setWordCompletion (config.readEntry( "Word Completion", true ));
@@ -1202,8 +1201,6 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( "Vi Input Mode", viInputMode());
 
   config.writeEntry( "Vi Input Mode Steal Keys", viInputModeStealKeys());
-
-  config.writeEntry( "Vi Input Mode Hide Status Bar", viInputModeHideStatusBar());
 
 
   if (isGlobal()) {
@@ -1594,25 +1591,6 @@ void KateViewConfig::setViInputModeStealKeys (bool on)
 
   configEnd ();
 }
-
-bool KateViewConfig::viInputModeHideStatusBar () const
-{
-  if (m_viInputModeHideStatusBarSet || isGlobal())
-    return m_viInputModeHideStatusBar;
-
-  return s_global->viInputModeHideStatusBar();
-}
-
-void KateViewConfig::setViInputModeHideStatusBar (bool on)
-{
-  configStart ();
-
-  m_viInputModeHideStatusBarSet = true;
-  m_viInputModeHideStatusBar = on;
-
-  configEnd ();
-}
-
 
 bool KateViewConfig::automaticCompletionInvocation () const
 {

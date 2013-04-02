@@ -350,7 +350,6 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
 
   connect(ui->chkViInputModeDefault, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->chkViCommandsOverride, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(ui->chkViStatusBarHide, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(ui->tblNormalModeMappings, SIGNAL(cellChanged(int,int)), this, SLOT(slotChanged()));
   connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(addNewNormalModeMappingRow()));
   connect(ui->btnAddNewNormal, SIGNAL(clicked()), this, SLOT(slotChanged()));
@@ -383,7 +382,6 @@ void KateViInputModeConfigTab::apply ()
   KateViewConfig::global()->configStart ();
   KateViewConfig::global()->setViInputMode (ui->chkViInputModeDefault->isChecked());
   KateViewConfig::global()->setViInputModeStealKeys (ui->chkViCommandsOverride->isChecked());
-  KateViewConfig::global()->setViInputModeHideStatusBar (ui->chkViStatusBarHide->isChecked());
   KateGlobal::self()->viInputModeGlobal()->clearMappings( NormalMode );
   for ( int i = 0; i < ui->tblNormalModeMappings->rowCount(); i++ ) {
     QTableWidgetItem* from = ui->tblNormalModeMappings->item( i, 0 );
@@ -400,10 +398,8 @@ void KateViInputModeConfigTab::reload ()
 {
   ui->chkViInputModeDefault->setChecked( KateViewConfig::global()->viInputMode () );
   ui->chkViCommandsOverride->setChecked( KateViewConfig::global()->viInputModeStealKeys () );
-  ui->chkViStatusBarHide->setChecked( KateViewConfig::global()->viInputModeHideStatusBar () );
 
   ui->chkViCommandsOverride->setEnabled(ui->chkViInputModeDefault->isChecked());
-  ui->chkViStatusBarHide->setEnabled(ui->chkViInputModeDefault->isChecked());
 
   QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
   ui->tblNormalModeMappings->setRowCount( l.size() );

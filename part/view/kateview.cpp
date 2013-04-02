@@ -274,7 +274,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   slotHlChanged();
   KCursor::setAutoHideCursor( m_viewInternal, true );
 
-  if ( viInputMode() && !config()->viInputModeHideStatusBar() ) {
+  if ( viInputMode() /* && FIXME: HAEHH? !config()->viInputModeHideStatusBar() */ ) {
     deactivateEditActions();
   }
 }

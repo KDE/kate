@@ -1114,10 +1114,8 @@ QString KateView::viewMode () const
      * perhaps append the current keys of a command not finalized
      */
     QString cmd = m_viewInternal->getViInputModeManager()->getVerbatimKeys();
-    if (!cmd.isEmpty()) {
-      currentMode.append (" - ");
-      currentMode.append (cmd);
-    }
+    if (!cmd.isEmpty())
+      currentMode.append (QString (" - <b>%1</b>").arg (cmd));
   }
   
   /**

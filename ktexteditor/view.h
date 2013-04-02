@@ -192,6 +192,7 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      * whatever other edit modes are supported. The string should be
      * translated (i18n), as this is a user aimed representation of the view
      * state, which should be shown in the GUI, for example in the status bar.
+     * This string may be rich-text.
      * \return
      * \see viewModeChanged()
      */

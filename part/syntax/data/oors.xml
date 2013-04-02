@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="OORS" version="1.0" kateversion="2.4" section="Sources" extensions="*.oors" author="Gernot Gebhard (gebhard@cs.uni-sb.de)" license="LGPL">
+<language name="OORS" version="1.1" kateversion="2.4" section="Sources" extensions="*.oors" author="Gernot Gebhard (gebhard@cs.uni-sb.de)" license="LGPL">
   <highlighting>
     <list name="oors">
       <item>allow</item>
       <item>apply</item>
+      <item>backtrack</item>
       <item>copy</item>
       <item>condition</item>
       <item>deny</item>
       <item>extends</item>
       <item>graph</item>
+      <item>if</item>
+      <item>else</item>
       <item>linear</item>
       <item>profile</item>
       <item>rule</item>

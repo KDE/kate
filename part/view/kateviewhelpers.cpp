@@ -1773,6 +1773,9 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     // folding markers
     if( m_foldingMarkersOn)
     {
+      // first icon border background
+      p.fillRect(lnX, y, iconPaneWidth, h, m_view->renderer()->config()->iconBarColor());
+        
       if ((realLine >= 0) && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
       {
         QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = m_view->textFolding().foldingRangesStartingOnLine (realLine);
@@ -1780,42 +1783,6 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         for (int i = 0; i < startingRanges.size(); ++i)
           if (startingRanges[i].second & Kate::TextFolding::Folded)
             anyFolded = true;
-      
-        // first icon border background
-        p.fillRect(lnX, y, iconPaneWidth, h, m_view->renderer()->config()->iconBarColor());
-
-        #if 0
-        // ... with possible additional folding highlighting
-        if (m_foldingRange && m_foldingRange->overlapsLine (realLine)) {
-          p.save();
-
-          // use linear gradient as brush
-          QLinearGradient g(lnX, y, lnX + iconPaneWidth, y);
-          const QColor foldingColor(m_view->renderer()->config()->foldingColor());
-          g.setColorAt(0, foldingColor);
-          g.setColorAt(0.3, foldingColor.lighter(110));
-          g.setColorAt(1, foldingColor);
-          p.setBrush(g);
-          p.setPen(foldingColor);
-
-          p.setClipRect(lnX, y, iconPaneWidth, h);
-          p.setRenderHint(QPainter::Antialiasing);
-
-          const qreal r = 4.0;
-          if (m_foldingRange->start().line() == realLine &&
-              m_viewInternal->cache()->viewLine(z).viewLine() == 0)
-          {
-            p.drawRect(lnX, y, iconPaneWidth, h + r);
-          } else if (m_foldingRange->end().line() == realLine &&
-              m_viewInternal->cache()->viewLine(z).viewLine() == m_viewInternal->cache()->viewLineCount(realLine)-1)
-          {
-            p.drawRect(lnX, y-r, iconPaneWidth, h + r);
-          } else {
-            p.drawRect(lnX, y-r, iconPaneWidth, h+2*r);
-          }
-          p.restore();
-        }
-#endif
 
         Kate::TextLine tl = m_doc->kateTextLine(realLine);
 

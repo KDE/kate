@@ -27,6 +27,7 @@
 #include "katedocument.h"
 #include "kateview.h"
 
+// fdatasync
 #include <kde_file.h>
 
 #include <KSaveFile>
@@ -520,13 +521,6 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
    * first: clear buffer in any case!
    */
   clear ();
-
-  /**
-   * check if this is a normal file or not, else exit
-   */
-  KDE_struct_stat sbuf;
-  if (KDE::stat(filename, &sbuf) != 0 || !S_ISREG(sbuf.st_mode))
-    return false;
 
   /**
    * construct the file loader for the given file, with correct prober type

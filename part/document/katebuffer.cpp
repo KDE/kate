@@ -40,6 +40,7 @@
 // on the fly compression
 #include <kfilterdev.h>
 #include <kmimetype.h>
+#include <kde_file.h>
 
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
@@ -176,6 +177,31 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
   // then, try to load the file
   m_brokenEncoding = false;
   m_tooLongLinesWrapped = false;
+
+  /**
+   * allow non-existant files without error, if local file!
+   * will allow to do "kate newfile.txt" without error messages but still fail if e.g. you mistype a url
+   * and it can't be fetched via fish:// or other strange things in kio happen...
+   * just clear() + exit with success!
+   */  
+  if (m_doc->url().isLocalFile() && !QFile::exists (m_file)) {
+    clear ();
+    return true;
+  }
+  
+  /**
+   * check if this is a normal file or not, avoids to open char devices or directories!
+   * else clear buffer and break out with error
+   */
+  KDE_struct_stat sbuf;
+  if (KDE::stat(m_file, &sbuf) != 0 || !S_ISREG(sbuf.st_mode)) {
+    clear ();
+    return false;
+  }
+  
+  /**
+   * try to load
+   */
   if (!load (m_file, m_brokenEncoding, m_tooLongLinesWrapped, enforceTextCodec))
     return false;
 

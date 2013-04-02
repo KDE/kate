@@ -34,7 +34,6 @@
 #include "kateconfig.h"
 #include "katedocument.h"
 #include "kateviewinternal.h"
-#include "katevimodebar.h"
 #include <ktexteditor/view.h>
 #include "katerenderer.h"
 

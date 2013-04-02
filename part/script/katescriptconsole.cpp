@@ -133,7 +133,6 @@ void KateScriptConsole::closed()
 {
   if (viewBar())
     viewBar()->removeBarWidget(this);
-  m_view->showViModeBar();
 }
 
 void KateScriptConsole::executePressed()

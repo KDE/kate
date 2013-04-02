@@ -1569,15 +1569,6 @@ void KateViewConfig::setViInputMode (bool on)
   m_viInputModeSet = true;
   m_viInputMode = on;
 
-  // update all views and show/hide the status bar
-  foreach (KateView* view, KateGlobal::self()->views() ) {
-    if (on && !m_viInputModeHideStatusBar) {
-      view->showViModeBar();
-    } else {
-      view->hideViModeBar();
-    }
-  }
-
   // make sure to turn off edits mergin when leaving vi input mode
   if (!on && m_view) {
     m_view->doc()->setUndoMergeAllEdits(false);
@@ -1618,15 +1609,6 @@ void KateViewConfig::setViInputModeHideStatusBar (bool on)
 
   m_viInputModeHideStatusBarSet = true;
   m_viInputModeHideStatusBar = on;
-
-  // update all views and show/hide the status bar
-  foreach (KateView* view, KateGlobal::self()->views() ) {
-    if (on && m_viInputMode) {
-      view->hideViModeBar();
-    } else if (viInputMode()) {
-      view->showViModeBar();
-    }
-  }
 
   configEnd ();
 }

@@ -657,3 +657,31 @@ QString KateViInputModeManager::getMarksOnTheLine(int line) {
 
   return res;
 }
+
+
+QString KateViInputModeManager::modeToString(ViMode mode)
+{
+  QString modeStr;
+  switch (mode) {
+    case InsertMode:
+      modeStr = i18n("VI: INSERT MODE");
+      break;
+    case NormalMode:
+      modeStr = i18n("VI: NORMAL MODE");
+      break;
+    case VisualMode:
+      modeStr = i18n("VI: VISUAL");
+      break;
+    case VisualBlockMode:
+      modeStr = i18n("VI: VISUAL BLOCK");
+      break;
+    case VisualLineMode:
+      modeStr = i18n("VI: VISUAL LINE");
+      break;
+    case ReplaceMode:
+      modeStr = i18n("VI: REPLACE");
+      break;
+  }
+
+  return modeStr;
+}

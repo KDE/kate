@@ -38,7 +38,6 @@
 #include "katelayoutcache.h"
 #include "katecompletionwidget.h"
 #include "kateviinputmodemanager.h"
-#include "katevimodebar.h"
 #include "katesearchbar.h"
 #include "spellcheck/spellingmenu.h"
 #include "kateviewaccessible.h"
@@ -2278,10 +2277,6 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   }
 
   if ( m_view->viInputMode() ) {
-    if ( !m_view->config()->viInputModeHideStatusBar() ) {
-      m_view->viModeBar()->clearMessage(); // clear [error] message
-    }
-
     if ( getViInputModeManager()->getCurrentViMode() == InsertMode
         || getViInputModeManager()->getCurrentViMode() == ReplaceMode ) {
       if ( getViInputModeManager()->handleKeypress( e ) ) {

@@ -147,7 +147,6 @@ vimode/katevikeyparser.cpp
 vimode/kateviglobal.cpp
 vimode/katevivisualmode.cpp
 vimode/katevireplacemode.cpp
-vimode/katevimodebar.cpp
 
 # spell checking
 spellcheck/prefixstore.h

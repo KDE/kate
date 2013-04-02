@@ -240,6 +240,12 @@ public:
   void syncViMarksAndBookmarks();
   QString getMarksOnTheLine(int line);
 
+  /**
+   * convert mode to string representation for user
+   * @param mode mode enum value
+   * @return user visible string
+   */
+  static QString modeToString(ViMode mode);
 
 private Q_SLOTS:
   void markChanged (KTextEditor::Document* doc,

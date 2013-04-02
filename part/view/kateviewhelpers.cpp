@@ -882,7 +882,6 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
 void KateCmdLineEdit::hideEvent(QHideEvent *e)
 {
   Q_UNUSED(e);
-  m_view->showViModeBar();
 }
 
 

@@ -45,7 +45,6 @@
 #include "kateautoindent.h"
 #include "katecompletionwidget.h"
 #include "katesearchbar.h"
-#include "katevimodebar.h"
 #include "katepartpluginmanager.h"
 #include "katewordcompletion.h"
 #include "katelayoutcache.h"
@@ -127,7 +126,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_cmdLine (0)
     , m_console (0)
     , m_searchBar (0)
-    , m_viModeBar (0)
     , m_gotoBar (0)
     , m_dictionaryBar(NULL)
     , m_spellingMenu( new KateSpellingMenu( this ) )
@@ -278,7 +276,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   if ( viInputMode() && !config()->viInputModeHideStatusBar() ) {
     deactivateEditActions();
-    showViModeBar();
   }
 }
 
@@ -1111,7 +1108,7 @@ QString KateView::viewMode () const
    * if we are in vi mode, this will be overwritten by current vi mode
    */
   if (viInputMode()) {
-    currentMode = KateViModeBar::modeToString (getCurrentViMode());
+    currentMode = KateViInputModeManager::modeToString (getCurrentViMode());
     
     /**
      * perhaps append the current keys of a command not finalized
@@ -1481,14 +1478,8 @@ void KateView::toggleViInputMode()
 
   if ( viInputMode() ) {
     m_viewInternal->getViInputModeManager()->viEnterNormalMode();
-
-    if ( !config()->viInputModeHideStatusBar() ) {
-      showViModeBar();
-    }
-
     deactivateEditActions();
   } else { // disabling the vi input mode
-    hideViModeBar();
     activateEditActions();
   }
 
@@ -1496,42 +1487,16 @@ void KateView::toggleViInputMode()
   emit viewEditModeChanged(this,viewEditMode());
 }
 
-void KateView::showViModeBar()
-{
-  if (viInputMode() && !config()->viInputModeHideStatusBar()) {
-    bottomViewBar()->addPermanentBarWidget(viModeBar());
-    updateViModeBarMode();
-  }
-}
-
-void KateView::hideViModeBar()
-{
-  if (bottomViewBar() && m_viModeBar) {
-    bottomViewBar()->removePermanentBarWidget(viModeBar());
-  }
-}
-
 void KateView::updateViModeBarMode()
 {  
   // view mode changed => status bar in container apps might change!
   emit viewModeChanged (this);
-  
-  if (config()->viInputModeHideStatusBar())
-    return;
-
-  viModeBar()->updateViMode(getCurrentViMode());
 }
 
 void KateView::updateViModeBarCmd()
 {
   // view mode changed => status bar in container apps might change!
   emit viewModeChanged (this);
-  
-  if (config()->viInputModeHideStatusBar())
-    return;
-
-  QString cmd = m_viewInternal->getViInputModeManager()->getVerbatimKeys();
-  viModeBar()->updatePartialCommand(cmd);
 }
 
 ViMode KateView::getCurrentViMode() const
@@ -1614,7 +1579,6 @@ void KateView::switchToCmdLine ()
   }
   bottomViewBar()->showBarWidget(cmdLineBar());
   cmdLineBar()->setFocus ();
-  hideViModeBar();
 }
 
 void KateView::switchToConsole ()
@@ -1624,7 +1588,6 @@ void KateView::switchToConsole ()
   bottomViewBar()->addBarWidget(m_console);
   bottomViewBar()->showBarWidget(m_console);
   m_console->setFocus ();
-  hideViModeBar();
 }
 
 KateRenderer *KateView::renderer ()
@@ -2918,16 +2881,6 @@ KateSearchBar *KateView::searchBar (bool initHintAsPower)
     m_searchBar = new KateSearchBar(initHintAsPower, this, KateViewConfig::global());
   }
   return m_searchBar;
-}
-
-KateViModeBar *KateView::viModeBar()
-{
-  if (!m_viModeBar) {
-    m_viModeBar = new KateViModeBar(this);
-    m_viModeBar->hide ();
-  }
-
-  return m_viModeBar;
 }
 
 KateGotoBar *KateView::gotoBar ()

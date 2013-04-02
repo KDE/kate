@@ -86,8 +86,8 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     void setCount(unsigned int count) { m_count = count; }
     void setRegister(QChar reg) {m_register =  reg;}
 
-    void error( const QString &errorMsg ) const;
-    void message( const QString &msg ) const;
+    void error( const QString &errorMsg );
+    void message( const QString &msg );
 
   protected:
     // helper methods
@@ -144,7 +144,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     bool startReplaceMode();
 
     QChar getChosenRegister( const QChar &defaultReg ) const;
-    QString getRegisterContent( const QChar &reg ) const;
+    QString getRegisterContent( const QChar &reg );
     OperationMode getRegisterFlag( const QChar &reg ) const;
     void fillRegister( const QChar &reg, const QString &text, OperationMode flag = CharWise);
 
@@ -175,6 +175,9 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     KateView *m_view;
     KateViewInternal *m_viewInternal;
     KateViInputModeManager* m_viInputModeManager;
+    
+    // info message of vi mode
+    QPointer<KTextEditor::Message> m_infoMessage;
 };
 
 #endif

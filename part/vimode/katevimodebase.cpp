@@ -866,7 +866,7 @@ QChar KateViModeBase::getChosenRegister( const QChar &defaultReg ) const
   return reg;
 }
 
-QString KateViModeBase::getRegisterContent( const QChar &reg ) const
+QString KateViModeBase::getRegisterContent( const QChar &reg )
 {
   QString r = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( reg );
 
@@ -1092,14 +1092,28 @@ bool KateViModeBase::startVisualLineMode()
   return true;
 }
 
-void KateViModeBase::error( const QString &errorMsg ) const
+void KateViModeBase::error( const QString &errorMsg )
 {
-  m_view->viModeBar()->showErrorMessage(errorMsg);
+  delete m_infoMessage;
+
+  m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Error, errorMsg);
+  m_infoMessage->setPosition(KTextEditor::Message::FloatInView);
+  m_infoMessage->setAutoHide(2000); // 2 seconds
+  m_infoMessage->setView(m_view);
+
+  m_view->doc()->postMessage(m_infoMessage);
 }
 
-void KateViModeBase::message( const QString &msg ) const
+void KateViModeBase::message( const QString &msg )
 {
-  m_view->viModeBar()->showMessage(msg);
+  delete m_infoMessage;
+
+  m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive, msg);
+  m_infoMessage->setPosition(KTextEditor::Message::FloatInView);
+  m_infoMessage->setAutoHide(2000); // 2 seconds
+  m_infoMessage->setView(m_view);
+
+  m_view->doc()->postMessage(m_infoMessage);
 }
 
 QString KateViModeBase::getVerbatimKeys() const

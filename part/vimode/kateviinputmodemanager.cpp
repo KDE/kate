@@ -558,7 +558,7 @@ void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, cons
           KTextEditor::MarkInterface::markType01 );
     }
 
-    m_viNormalMode->message("Mark set: " + mark);
+    m_viNormalMode->message(i18n ("Mark set: %1").arg(mark));
   }
 
   m_mark_set_inside_viinputmodemanager = false;
@@ -596,7 +596,7 @@ void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
         }
       }
       if (!char_exist)
-        m_viNormalMode->error("There no more chars for the next bookmark");
+        m_viNormalMode->error(i18n ("There are no more chars for the next bookmark."));
     }
   }
 }

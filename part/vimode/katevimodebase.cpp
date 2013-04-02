@@ -1094,6 +1094,10 @@ bool KateViModeBase::startVisualLineMode()
 void KateViModeBase::error( const QString &errorMsg )
 {
   delete m_infoMessage;
+  
+  // nop if no vi mode around
+  if (!m_view->viInputMode())
+    return;
 
   m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Error, errorMsg);
   m_infoMessage->setPosition(KTextEditor::Message::FloatInView);
@@ -1106,6 +1110,10 @@ void KateViModeBase::error( const QString &errorMsg )
 void KateViModeBase::message( const QString &msg )
 {
   delete m_infoMessage;
+  
+  // nop if no vi mode around
+  if (!m_view->viInputMode())
+    return;
 
   m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive, msg);
   m_infoMessage->setPosition(KTextEditor::Message::FloatInView);

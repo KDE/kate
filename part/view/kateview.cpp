@@ -1110,9 +1110,19 @@ QString KateView::viewMode () const
   /**
    * if we are in vi mode, this will be overwritten by current vi mode
    */
-  if (viInputMode())
+  if (viInputMode()) {
     currentMode = KateViModeBar::modeToString (getCurrentViMode());
-
+    
+    /**
+     * perhaps append the current keys of a command not finalized
+     */
+    QString cmd = m_viewInternal->getViInputModeManager()->getVerbatimKeys();
+    if (!cmd.isEmpty()) {
+      currentMode.append (" - ");
+      currentMode.append (cmd);
+    }
+  }
+  
   /**
    * append read-only if needed
    */
@@ -1514,6 +1524,9 @@ void KateView::updateViModeBarMode()
 
 void KateView::updateViModeBarCmd()
 {
+  // view mode changed => status bar in container apps might change!
+  emit viewModeChanged (this);
+  
   if (config()->viInputModeHideStatusBar())
     return;
 

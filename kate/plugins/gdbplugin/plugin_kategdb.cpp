@@ -619,11 +619,11 @@ void KatePluginGDBView::insertThread( int number, bool active )
     }
     if (!active) {
         m_threadCombo->addItem(KIcon("").pixmap(10,10),
-                               i18n("Thread %1").arg(number), number);
+                               i18n("Thread %1", number), number);
     }
     else {
         m_threadCombo->addItem(KIcon("arrow-right").pixmap(10,10),
-                               QString("Thread %1").arg(number), number);
+                               i18n("Thread %1", number), number);
         m_activeThread = m_threadCombo->count()-1;
     }
     m_threadCombo->setCurrentIndex(m_activeThread);

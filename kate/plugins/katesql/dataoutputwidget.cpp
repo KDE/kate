@@ -275,7 +275,7 @@ void DataOutputWidget::slotExport()
     }
     else
     {
-      KMessageBox::error(this, i18nc("@info", "Unable to open file <filename>%1</filename>").arg(url));
+      KMessageBox::error(this, i18nc("@info", "Unable to open file <filename>%1</filename>", url));
     }
   }
 }

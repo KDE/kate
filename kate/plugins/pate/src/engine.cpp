@@ -436,7 +436,7 @@ void Pate::Engine::loadModules()
                     directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(comment.split("\n")[0]));
                 } else {
                     pluginItem->setBroken(true);
-                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1").arg(py.lastTraceback())));
+                    directoryItem->setChild(pluginItem->row(), 1, new QStandardItem(i18n("Not Loaded: %1", py.lastTraceback())));
                 }
             } else {
                 // Remove any previously set status.

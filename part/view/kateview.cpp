@@ -1117,7 +1117,7 @@ QString KateView::viewMode () const
    * append read-only if needed
    */
   if (!m_doc->isReadWrite())
-    currentMode = i18n ("%1 (R/O)").arg (currentMode);
+    currentMode = i18n ("%1 (R/O)", currentMode);
   
   /**
    * return full mode

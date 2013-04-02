@@ -117,7 +117,7 @@ void KateViModeBar::_clearMessage()
   m_labelMessage->clear();
 }
 
-QString KateViModeBar::modeToString(ViMode mode) const
+QString KateViModeBar::modeToString(ViMode mode)
 {
   QString modeStr;
   switch (mode) {

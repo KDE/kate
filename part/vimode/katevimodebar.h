@@ -47,12 +47,12 @@ public:
   void clearMessage();
   void setForegroundColor(KColorScheme::ForegroundRole role);
 
+public:
+  // move to some common place? seems it may be useful for others.
+  static QString modeToString(ViMode mode);
+
 private Q_SLOTS:
   void _clearMessage();
-
-private:
-  // move to some common place? seems it may be useful for others.
-  QString modeToString(ViMode mode) const;
 
 private:
   QLabel* m_labelStatus;

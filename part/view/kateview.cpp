@@ -1102,16 +1102,27 @@ void KateView::unfoldLine (int startLine)
 
 QString KateView::viewMode () const
 {
+  /**
+   * normal two modes
+   */
+  QString currentMode = isOverwriteMode() ? i18n("OVR") : i18n ("INS");
+  
+  /**
+   * if we are in vi mode, this will be overwritten by current vi mode
+   */
+  if (viInputMode())
+    currentMode = KateViModeBar::modeToString (getCurrentViMode());
+
+  /**
+   * append read-only if needed
+   */
   if (!m_doc->isReadWrite())
-    return i18n ("R/O");
-
-  if (viInputMode()) {
-      // vi mode has different notion of OVR/INS.
-      // vi mode's status is shown in viModeBar() instead
-      return QString();
-  }
-
-  return isOverwriteMode() ? i18n("OVR") : i18n ("INS");
+    currentMode = i18n ("%1 (R/O)").arg (currentMode);
+  
+  /**
+   * return full mode
+   */
+  return currentMode;
 }
 
 void KateView::slotGotFocus()
@@ -1163,7 +1174,7 @@ void KateView::slotReadWriteChanged ()
 
   QStringList l;
 
-  l << "edit_replace" << "set_insert" << "tools_spelling" << "tools_indent"
+  l << "edit_replace" << "tools_spelling" << "tools_indent"
       << "tools_unindent" << "tools_cleanIndent" << "tools_align"  << "tools_comment"
       << "tools_uncomment" << "tools_toggle_comment" << "tools_uppercase" << "tools_lowercase"
       << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap"
@@ -1179,6 +1190,9 @@ void KateView::slotReadWriteChanged ()
   // inform search bar
   if (m_searchBar)
     m_searchBar->slotReadWriteChanged ();
+    
+  // => view mode changed
+  emit viewModeChanged(this);
 }
 
 void KateView::slotClipboardHistoryChanged ()
@@ -1488,7 +1502,10 @@ void KateView::hideViModeBar()
 }
 
 void KateView::updateViModeBarMode()
-{
+{  
+  // view mode changed => status bar in container apps might change!
+  emit viewModeChanged (this);
+  
   if (config()->viInputModeHideStatusBar())
     return;
 

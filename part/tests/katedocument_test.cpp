@@ -340,8 +340,9 @@ void KateDocumentTest::testDigest()
   QVERIFY(doc.createDigest());
   const QByteArray docDigest(doc.digest());
 
-  QCOMPARE(bufferDigest, fileDigest);
-  QCOMPARE(docDigest, fileDigest);
+  // QCryptographicHash is used, therefore we need toHex here in comparison
+  QCOMPARE(bufferDigest, fileDigest.toHex());
+  QCOMPARE(docDigest, fileDigest.toHex());
 }
 
 #include "katedocument_test.moc"

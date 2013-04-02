@@ -276,7 +276,7 @@ void KateSearchBar::showInfoMessage(const QString& text)
 
     m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive, text);
     m_infoMessage->setPosition(KTextEditor::Message::FloatInView);
-    m_infoMessage->setAutoHide(0);
+    m_infoMessage->setAutoHide(3000); // 3 seconds
     m_infoMessage->setView(m_view);
 
     QAction* hlAction = new QAction(i18n("&Keep highlighting"), 0);
@@ -664,7 +664,7 @@ void KateSearchBar::findAll()
     const int occurrences = findAll(inputRange, NULL);
 
     // send passive notification to view
-    showInfoMessage(i18np("1 match found", "%1 matches found", occurrences));
+    showInfoMessage(i18ncp("short translation", "1 match found", "%1 matches found", occurrences));
 
     indicateMatch(occurrences > 0 ? MatchFound : MatchMismatch);
 }
@@ -908,7 +908,7 @@ void KateSearchBar::replaceAll()
     int replacementsDone=findAll(inputRange, &replacement);
 
     // send passive notification to view
-    showInfoMessage(i18np("1 replacement has been made", "%1 replacements have been made", replacementsDone));
+    showInfoMessage(i18ncp("short translation", "1 replacement made", "%1 replacements made", replacementsDone));
 
     // Never merge replace actions with other replace actions/user actions
     m_view->doc()->undoManager()->undoSafePoint();

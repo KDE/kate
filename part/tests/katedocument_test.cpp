@@ -331,7 +331,8 @@ void KateDocumentTest::testInsertNewline()
 void KateDocumentTest::testDigest()
 {
   // md5sum of data/md5checksum.txt: ff6e0fddece03adeb8f902e8c540735a
-  const QByteArray fileDigest("ff6e0fddece03adeb8f902e8c540735a");
+  // QCryptographicHash is used, therefore we need fromHex here
+  const QByteArray fileDigest = QByteArray::fromHex("ff6e0fddece03adeb8f902e8c540735a");
 
   // make sure, Kate::TextBuffer and KateDocument::createDigest() equal
   KateDocument doc(false, false, false);
@@ -340,9 +341,8 @@ void KateDocumentTest::testDigest()
   QVERIFY(doc.createDigest());
   const QByteArray docDigest(doc.digest());
 
-  // QCryptographicHash is used, therefore we need toHex here in comparison
-  QCOMPARE(bufferDigest, fileDigest.toHex());
-  QCOMPARE(docDigest, fileDigest.toHex());
+  QCOMPARE(bufferDigest, fileDigest);
+  QCOMPARE(docDigest, fileDigest);
 }
 
 #include "katedocument_test.moc"

@@ -166,6 +166,9 @@
         <property name="text">
          <string>Disable swap files syncing</string>
         </property>
+        <property name="whatsThis">
+         <string>If checked, the swap file is not forcibly written to disk each 15 seconds. Be aware, that disabling the swap file synchronization may lead to data loss in case of a system crash.</string>
+        </property>
        </widget>
       </item>
      </layout>

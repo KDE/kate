@@ -79,6 +79,10 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
   m_messageWidget->setText(message->text());
   m_messageWidget->setWordWrap(message->wordWrap());
 
+  // connect textChanged(), so it's possible to change text on the fly
+  connect(message, SIGNAL(textChanged(const QString&)),
+          m_messageWidget, SLOT(setText(const QString&)));
+
   // the enums values do not necessarily match, hence translate with switch
   switch (message->messageType()) {
     case KTextEditor::Message::Positive:

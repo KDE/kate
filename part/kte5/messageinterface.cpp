@@ -61,6 +61,14 @@ QString Message::text() const
   return d->text;
 }
 
+void Message::setText(const QString& text)
+{
+  if (d->text != text) {
+    d->text = text;
+    emit textChanged(text);
+  }
+}
+
 Message::MessageType Message::messageType() const
 {
   return d->messageType;

@@ -256,6 +256,19 @@ class Message : public QObject
      */
     MessagePosition position() const;
 
+  public Q_SLOTS:
+    /**
+     * Sets the notification contents to @p text.
+     * If the message was already sent through MessageInterface::postMessage(),
+     * the displayed text changes on the fly.
+     * @note Use this with care, since changing the text may resize the
+     *       notification widget, which may result in a distracting user
+     *       experience.
+     * @param richtext new notification text (rich text supported)
+     * @see textChanged()
+     */
+    void setText(const QString& richtext);
+
   Q_SIGNALS:
     /**
      * This signal is emitted before the message is deleted. Afterwards, this
@@ -266,6 +279,19 @@ class Message : public QObject
      * @param message closed/processed message
      */
     void closed(KTextEditor::Message* message);
+
+    /**
+     * This signal is emitted whenever setText() is called.
+     * If the message was already sent through MessageInterface::postMessage(),
+     * the displayed text changes on the fly.
+     * @note Use this with care, since changing the text may resize the
+     *       notification widget, which may result in a distracting user
+     *       experience.
+     *
+     * @param text new notification text (rich text supported)
+     * @see setText()
+     */
+    void textChanged(const QString& text);
 
 private:
     class MessagePrivate * const d;

@@ -1,6 +1,6 @@
 /*   Kate search plugin
  * 
- * Copyright (C) 2011 by Kåre Särs <kare.sars@iki.fi>
+ * Copyright (C) 2011-2013 by Kåre Särs <kare.sars@iki.fi>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -72,6 +72,12 @@ void ReplaceMatches::doReplaceNextMatch()
         m_rootIndex = -1;
         emit replaceDone();
         return;
+    }
+
+    if (!rootItem->data(2, Qt::UserRole).toString().isEmpty()) {
+        // this is a search as you type replace
+        rootItem = m_tree->topLevelItem(0);
+        m_cancelReplace = true; // only one document...
     }
 
     if (rootItem->checkState(0) == Qt::Unchecked) {

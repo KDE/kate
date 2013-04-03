@@ -475,11 +475,9 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
 
       int scrollHeight = -(viewLinesScrolled * (int)renderer()->lineHeight());
 
-      scroll(0, scrollHeight);
+      // scroll excluding child widgets (floating notifications)
+      scroll(0, scrollHeight, rect());
       m_leftBorder->scroll(0, scrollHeight);
-
-      // update grid layout that contains the floating notifications
-      if (layout()) layout()->update();
 
       emit m_view->verticalScrollPositionChanged( m_view, c );
       emit m_view->displayRangeChanged(m_view);
@@ -505,13 +503,11 @@ void KateViewInternal::scrollColumns ( int x )
   int dx = m_startX - x;
   m_startX = x;
 
-  if (qAbs(dx) < width())
-    scroll(dx, 0);
-  else
+  if (qAbs(dx) < width()) {
+    // scroll excluding child widgets (floating notifications)
+    scroll(dx, 0, rect());
+  } else
     update();
-
-  // update grid layout that contains the floating notifications
-  if (layout()) layout()->update();
 
   emit m_view->horizontalScrollPositionChanged( m_view );
   emit m_view->displayRangeChanged(m_view);

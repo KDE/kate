@@ -25,7 +25,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.8.10.2" -->
-<language name="CMake" version="1.15" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.16" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <list name = "commands">
@@ -572,22 +572,22 @@
         <DetectSpaces/>
         
         <!-- handle folding for if else elseif endif blocks -->
-        <StringDetect String="if" attribute="Commands" context="Command Args" beginRegion="ifthenelse" insensitive="true" />
-        <StringDetect String="else" attribute="Commands" context="Command Args" endRegion="ifthenelse" beginRegion="ifthenelse" insensitive="true" />
-        <StringDetect String="elseif" attribute="Commands" context="Command Args" endRegion="ifthenelse" beginRegion="ifthenelse" insensitive="true" />
-        <StringDetect String="endif" attribute="Commands" context="Command Args" endRegion="ifthenelse" insensitive="true" />
+        <RegExpr String="\bif\b" attribute="Commands" context="Command Args" beginRegion="ifthenelse" insensitive="true" />
+        <RegExpr String="\belse\b" attribute="Commands" context="Command Args" endRegion="ifthenelse" beginRegion="ifthenelse" insensitive="true" />
+        <RegExpr String="\belseif\b" attribute="Commands" context="Command Args" endRegion="ifthenelse" beginRegion="ifthenelse" insensitive="true" />
+        <RegExpr String="\bendif\b" attribute="Commands" context="Command Args" endRegion="ifthenelse" insensitive="true" />
         
         <!-- handle folding for macro endmacro blocks -->
-        <StringDetect String="macro" attribute="Commands" context="Command Args" beginRegion="macro" insensitive="true" />
-        <StringDetect String="endmacro" attribute="Commands" context="Command Args" endRegion="macro" insensitive="true" />
+        <RegExpr String="\bmacro\b" attribute="Commands" context="Command Args" beginRegion="macro" insensitive="true" />
+        <RegExpr String="\bendmacro\b" attribute="Commands" context="Command Args" endRegion="macro" insensitive="true" />
         
         <!-- handle folding for foreach endforeach blocks -->
-        <StringDetect String="foreach" attribute="Commands" context="Command Args" beginRegion="foreach" insensitive="true" />
-        <StringDetect String="endforeach" attribute="Commands" context="Command Args" endRegion="foreach" insensitive="true" />
+        <RegExpr String="\bforeach\b" attribute="Commands" context="Command Args" beginRegion="foreach" insensitive="true" />
+        <RegExpr String="\bendforeach\b" attribute="Commands" context="Command Args" endRegion="foreach" insensitive="true" />
         
         <!-- handle folding for while endwhile blocks -->
-        <StringDetect String="while" attribute="Commands" context="Command Args" beginRegion="while" insensitive="true" />
-        <StringDetect String="endwhile" attribute="Commands" context="Command Args" endRegion="while" insensitive="true" />
+        <RegExpr String="\bwhile\b" attribute="Commands" context="Command Args" beginRegion="while" insensitive="true" />
+        <RegExpr String="\bendwhile\b" attribute="Commands" context="Command Args" endRegion="while" insensitive="true" />
         
         <keyword attribute="Commands" context="Command Args" String="commands" insensitive="true"/>
         <keyword attribute="Third-Party Commands" context="#stay" String="itkvtk_commands" insensitive="true"/>

@@ -1115,7 +1115,12 @@ QString KateView::viewMode () const
      */
     QString cmd = m_viewInternal->getViInputModeManager()->getVerbatimKeys();
     if (!cmd.isEmpty())
-      currentMode.append (QString (" - <b>%1</b>").arg (cmd));
+      currentMode.append (QString (" - %1").arg (cmd));
+    
+    /**
+     * make it bold
+     */
+    currentMode = QString ("<b>%1</b>").arg (currentMode);
   }
   
   /**

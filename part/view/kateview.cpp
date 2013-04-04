@@ -1097,6 +1097,14 @@ void KateView::unfoldLine (int startLine)
     textFolding().unfoldRange (startingRanges[i].first);
 }
 
+KTextEditor::View::EditMode KateView::viewEditMode() const
+{
+  if (viInputMode())
+    return EditViMode;
+  
+  return isOverwriteMode() ? EditOverwrite : EditInsert;
+}
+
 QString KateView::viewMode () const
 {
   /**
@@ -1203,6 +1211,7 @@ void KateView::slotReadWriteChanged ()
     
   // => view mode changed
   emit viewModeChanged(this);
+  emit viewEditModeChanged(this,viewEditMode());
 }
 
 void KateView::slotClipboardHistoryChanged ()
@@ -1494,12 +1503,14 @@ void KateView::updateViModeBarMode()
 {  
   // view mode changed => status bar in container apps might change!
   emit viewModeChanged (this);
+  emit viewEditModeChanged(this,viewEditMode());
 }
 
 void KateView::updateViModeBarCmd()
 {
   // view mode changed => status bar in container apps might change!
   emit viewModeChanged (this);
+  emit viewEditModeChanged(this,viewEditMode());
 }
 
 ViMode KateView::getCurrentViMode() const

@@ -394,7 +394,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
      Return values for "save" related commands.
     */
     bool isOverwriteMode() const;
-    enum KTextEditor::View::EditMode viewEditMode() const {return isOverwriteMode() ? KTextEditor::View::EditOverwrite : KTextEditor::View::EditInsert;}
+    EditMode viewEditMode() const;
     QString currentTextLine();
 
     /**

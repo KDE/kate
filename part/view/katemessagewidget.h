@@ -78,6 +78,11 @@ class KateMessageWidget : public QWidget
     KMessageWidget* m_messageWidget;
     // the fade effect to show/hide the widget, if wanted
     KateFadeEffect* m_fadeEffect;
+
+  private: // some state variables
+    // flag: hide animation is running. needed to avoid flickering
+    // when showMessage() is called during hide-animation
+    bool m_hideAnimationRunning;
 };
 
 #endif

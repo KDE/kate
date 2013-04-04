@@ -34,6 +34,7 @@
 KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   : QWidget(parent)
   , m_fadeEffect(0)
+  , m_hideAnimationRunning(false)
 {
   QVBoxLayout* l = new QVBoxLayout();
   l->setMargin(0);
@@ -62,6 +63,10 @@ KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
 bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
 {
   if (obj == m_messageWidget && event->type() == QEvent::Hide) {
+
+    // hide animation is finished
+    m_hideAnimationRunning = false;
+
     // if there are other messages in the queue, show next one, else hide us
     if (m_messageList.count()) {
       showMessage(m_messageList[0]);
@@ -144,8 +149,11 @@ void KateMessageWidget::postMessage(KTextEditor::Message* message,
   // queue message
   m_messageList.insert(i, message);
 
-  if (i == 0) {
+  if (i == 0 && !m_hideAnimationRunning) {
+    // if message has higher priority than the one currently shown,
+    // then hide the current one and then show the new one.
     if (m_messageWidget->isVisible()) {
+      m_hideAnimationRunning = true;
       if (m_fadeEffect) {
         m_fadeEffect->fadeOut();
       } else {
@@ -187,6 +195,7 @@ void KateMessageWidget::messageDestroyed(KTextEditor::Message* message)
 
   // start hide animation, or show next message
   if (m_messageWidget->isVisible()) {
+    m_hideAnimationRunning = true;
     if (m_fadeEffect) {
       m_fadeEffect->fadeOut();
     } else {

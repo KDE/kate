@@ -90,6 +90,7 @@ class KateViewInternal : public QWidget
     uint editSessionNumber;
     bool editIsRunning;
     KTextEditor::Cursor editOldCursor;
+    KTextEditor::Range editOldSelection;
   //END
 
   //BEGIN TAG & CLEAR & UPDATE STUFF

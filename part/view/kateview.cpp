@@ -2312,8 +2312,6 @@ void KateView::sendCompletionAborted()
 void KateView::paste(const QString *textToPaste)
 {
   m_doc->paste( this, textToPaste ? *textToPaste : QApplication::clipboard()->text(QClipboard::Clipboard) );
-  emit selectionChanged (this);
-  m_viewInternal->repaint();
 }
 
 void KateView::setCaretStyle( KateRenderer::caretStyles style, bool repaint )

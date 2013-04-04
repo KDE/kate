@@ -3311,6 +3311,7 @@ void KateViewInternal::editStart()
 
   editIsRunning = true;
   editOldCursor = m_cursor;
+  editOldSelection = m_view->selectionRange();
 }
 
 void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool tagFrom)
@@ -3350,6 +3351,14 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
     m_madeVisible = false;
     updateCursor ( m_cursor, true );
   }
+  
+  /**
+   * selection changed?
+   * fixes bug 316226
+   */
+  if (editOldSelection != m_view->selectionRange()
+      || (editOldSelection.isValid() && !editOldSelection.isEmpty() && !(editTagLineStart > editOldSelection.end().line() && editTagLineEnd < editOldSelection.start().line())))
+    emit m_view->selectionChanged (m_view);
 
   editIsRunning = false;
 }

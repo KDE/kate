@@ -205,7 +205,7 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     enum EditMode {
       EditInsert = 0,    /**< Insert mode. Characters will be added. */
       EditOverwrite = 1, /**< Overwrite mode. Characters will be replaced. */
-      EditViMode = 2     /**< Vi mode. The view will behave like the editor vi(m) */
+      EditViMode = 2     /**< Vi mode. The view will behave like the editor vi(m) @since 4.11 */
     };
 
     /**

@@ -42,21 +42,33 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
 {
   config.writeEntry( "Normal Mode Mapping Keys", getMappings( NormalMode, true ) );
   QStringList l;
+  QList<bool> isRecursive;
   foreach( const QString &s, getMappings( NormalMode ) ) {
     l << KateViKeyParser::self()->decodeKeySequence( getMapping( NormalMode, s ) );
+    isRecursive << isMappingRecursive( NormalMode, s );
   }
   config.writeEntry( "Normal Mode Mappings", l );
+  config.writeEntry( "Normal Mode Mappings Recursion", isRecursive );
 }
 
 void KateViGlobal::readConfig( const KConfigGroup &config )
 {
     QStringList keys = config.readEntry( "Normal Mode Mapping Keys", QStringList() );
     QStringList mappings = config.readEntry( "Normal Mode Mappings", QStringList() );
+    QList<bool> isRecursive = config.readEntry( "Normal Mode Mappings Recursion", QList<bool>());
 
     // sanity check
     if ( keys.length() == mappings.length() ) {
       for ( int i = 0; i < keys.length(); i++ ) {
-        addMapping( NormalMode, keys.at( i ), mappings.at( i ) );
+        // "Recursion" is a newly-introduced part of the config that some users won't have,
+        // so rather than abort (and lose our mappings) if there are not enough entries, simply
+        // treat any missing ones as Recursive (for backwards compatibility).
+        KateViModeBase::MappingRecursion recursion = KateViModeBase::Recursive;
+        if (isRecursive.size() > i && !isRecursive.at(i))
+        {
+          recursion = KateViModeBase::NonRecursive;
+        }
+        addMapping( NormalMode, keys.at( i ), mappings.at( i ), recursion);
         kDebug( 13070 ) << "Mapping " << keys.at( i ) << " -> " << mappings.at( i );
       }
     } else {
@@ -139,13 +151,14 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text, Operatio
   }
 }
 
-void KateViGlobal::addMapping( ViMode mode, const QString &from, const QString &to )
+void KateViGlobal::addMapping( ViMode mode, const QString &from, const QString &to, KateViModeBase::MappingRecursion recursion )
 {
   if ( !from.isEmpty() ) {
     switch ( mode ) {
     case NormalMode:
       m_normalModeMappings[ KateViKeyParser::self()->encodeKeySequence( from ) ]
         = KateViKeyParser::self()->encodeKeySequence( to );
+      m_normalModeMappingRecursion [ KateViKeyParser::self()->encodeKeySequence( from ) ] = recursion;
       break;
     default:
       kDebug( 13070 ) << "Mapping not supported for given mode";
@@ -189,6 +202,17 @@ const QStringList KateViGlobal::getMappings( ViMode mode, bool decode ) const
   }
 
   return l;
+}
+
+bool KateViGlobal::isMappingRecursive(ViMode mode, const QString& from) const
+{
+    switch ( mode ) {
+    case NormalMode:
+      return (m_normalModeMappingRecursion.value( from ) == KateViModeBase::Recursive);
+    default:
+      kDebug( 13070 ) << "Mapping not supported for given mode";
+      return false;
+    }
 }
 
 void KateViGlobal::clearMappings( ViMode mode )

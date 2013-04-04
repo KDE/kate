@@ -594,7 +594,8 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
         msg = i18n( "\"%1\" is mapped to \"%2\"", args.at( 0 ), msg );
       }
     } else if ( args.count() == 2 ) {
-      KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ) );
+      KateViModeBase::MappingRecursion mappingRecursion = (cmd == "nnoremap") ? KateViModeBase::NonRecursive : KateViModeBase::Recursive;
+      KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ), mappingRecursion);
     } else {
       msg = i18n("Missing argument(s). Usage: %1 <from> [<to>]",  cmd );
       return false;
@@ -1054,7 +1055,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
 KateCommands::Character* KateCommands::Character::m_instance = 0;
 
 bool KateCommands::Character::help (class KTextEditor::View *, const QString &cmd, QString &msg)
-{     
+{
       if (cmd.trimmed()=="char") {
         msg = i18n("<p> char <b>identifier</b> </p>"
         "<p>This command allows you to insert literal characters by their numerical identifier, in decimal, octal or hexadecimal form.</p>"
@@ -1115,7 +1116,7 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
 KateCommands::Date* KateCommands::Date::m_instance = 0;
 
 bool KateCommands::Date::help (class KTextEditor::View *, const QString &cmd, QString &msg)
-{     
+{
       if (cmd.trimmed()=="date") {
         msg = i18n("<p>date or date <b>format</b></p>"
         "<p>Inserts a date/time string as defined by the specified format, or the format yyyy-MM-dd hh:mm:ss if none is specified.</p>"

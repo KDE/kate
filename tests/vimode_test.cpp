@@ -1035,12 +1035,24 @@ void ViModeTest::CommandModeTests() {
 void ViModeTest::MappingTests()
 {
   const int mappingTimeoutMS = 100;
+  {
+    // Check storage and retrieval of mapping recursion.
+    KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
 
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "<esc>ihello<esc>^aworld<esc>");
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "ihello", KateViModeBase::Recursive);
+    QVERIFY(KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(NormalMode, "'"));
+
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "ihello", KateViModeBase::NonRecursive);
+    QVERIFY(!KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(NormalMode, "a"));
+  }
+
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "<esc>ihello<esc>^aworld<esc>", KateViModeBase::Recursive);
   DoTest("", "'", "hworldello");
 
   // Ensure that the non-mapping logged keypresses are cleared before we execute a mapping
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "rO");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "rO", KateViModeBase::Recursive);
   DoTest("X", "'a", "O");
 
   {
@@ -1053,7 +1065,7 @@ void ViModeTest::MappingTests()
     for (int i = 1; i < 9; i++)
     {
       consectiveDigits += QString::number(i);
-      KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'" + consectiveDigits, "iMapped from " + consectiveDigits + "<esc>");
+      KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'" + consectiveDigits, "iMapped from " + consectiveDigits + "<esc>", KateViModeBase::Recursive);
     }
     TestPressKey("'123");
     QCOMPARE(kate_document->text(), QString("")); // Shouldn't add anything until after the timeout!
@@ -1064,7 +1076,7 @@ void ViModeTest::MappingTests()
   // Make mappings countable; the count should be applied to the whole mapped sequence, not
   // just the first command in the sequence.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO", KateViModeBase::Recursive);
   DoTest("XXXX\nXXXX\nXXXX\nXXXX", "3'testmapping", "XXXX\nXOXX\nXXOX\nXXXO");
 
   // Regression test for a weird mistake I made: *completely* remove all counting for the
@@ -1072,13 +1084,13 @@ void ViModeTest::MappingTests()
   // will mean "go to position 1 percent of the way through the document" rather than
   // go to matching item.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gl", "%");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gl", "%", KateViModeBase::Recursive);
   DoTest("0\n1\n2\n3\n4\n5\nfoo bar(xyz) baz", "jjjjjjwdgl", "0\n1\n2\n3\n4\n5\nfoo  baz");
 
   // Test that countable mappings work even when triggered by timeouts.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO", KateViModeBase::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy", KateViModeBase::Recursive);
   BeginTest("XXXX\nXXXX\nXXXX\nXXXX");
   kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("3'testmapping");
@@ -1086,8 +1098,8 @@ void ViModeTest::MappingTests()
   FinishTest("XXXX\nXOXX\nXXOX\nXXXO");
 
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO", KateViModeBase::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy", KateViModeBase::Recursive);
   BeginTest("XXXX\nXXXX\nXXXX\nXXXX");
   kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("3'testmapping");
@@ -1097,21 +1109,21 @@ void ViModeTest::MappingTests()
   // Test that telescoping mappings don't interfere with built-in commands. Assumes that gp
   // is implemented and working.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gdummy", "idummy");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gdummy", "idummy", KateViModeBase::Recursive);
   DoTest("hello", "yiwgpx", "hhellollo");
 
   // Test that we can map a sequence of keys that extends a built-in command and use
   // that sequence without the built-in command firing.
   // Once again, assumes that gp is implemented and working.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gpa", "idummy");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gpa", "idummy", KateViModeBase::Recursive);
   DoTest("hello", "yiwgpa", "dummyhello");
 
   // Test that we can map a sequence of keys that extends a built-in command and still
   // have the original built-in command fire if we timeout after entering that command.
   // Once again, assumes that gp is implemented and working.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gpa", "idummy");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gpa", "idummy", KateViModeBase::Recursive);
   BeginTest("hello");
   kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("yiwgp");
@@ -1123,18 +1135,62 @@ void ViModeTest::MappingTests()
   // (the "g" in the first "dg" is a partial mapping of "gj"), when extended to something
   // that is definitely not a mapping ("gg"), results in the full command being executed ("dgg").
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gj", "aj");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gj", "aj", KateViModeBase::Recursive);
   DoTest("foo\nbar\nxyz", "jjdgg", "");
 
   // Make sure that a mapped sequence of commands is merged into a single undo-able edit.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "ofoo<esc>ofoo<esc>ofoo<esc>");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "ofoo<esc>ofoo<esc>ofoo<esc>", KateViModeBase::Recursive);
   DoTest("bar", "'au", "bar");
 
   // Make sure that a counted mapping is merged into a single undoable edit.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "ofoo<esc>");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "ofoo<esc>", KateViModeBase::Recursive);
   DoTest("bar", "5'au", "bar");
+
+  // Some test setup for non-recursive mapping g -> gj (cf: bug:314415)
+  // Firstly: work out the expected result of gj (this might be fragile as default settings
+  // change, etc.).  We use BeginTest & FinishTest for the setup and teardown etc, but this is
+  // not an actual test - it's just computing the expected result of the real test!
+  const QString multiVirtualLineText = "foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo foo";
+  ensureKateViewVisible(); // Needs to be visible in order for virtual lines to make sense.
+  KateViewConfig::global()->setDynWordWrap(true);
+  BeginTest(multiVirtualLineText);
+  TestPressKey("gjrX");
+  const QString expectedAfterVirtualLineDownAndChange = kate_document->text();
+  qDebug() << "afterVirtualLineDownAndChange: " << expectedAfterVirtualLineDownAndChange;
+  Q_ASSERT_X(expectedAfterVirtualLineDownAndChange.contains("X") && !expectedAfterVirtualLineDownAndChange.startsWith("X"), "setting up j->gj testcase data", "gj doesn't seem to have worked correctly!");
+  FinishTest(expectedAfterVirtualLineDownAndChange);
+
+  // Test that non-recursive mappings are not expanded.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "j", "gj", KateViModeBase::NonRecursive);
+  DoTest(multiVirtualLineText, "jrX", expectedAfterVirtualLineDownAndChange);
+  KateViewConfig::global()->setDynWordWrap(false);
+
+  // Test that recursive mappings are expanded.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "X", KateViModeBase::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "X", "rx", KateViModeBase::Recursive);
+  DoTest("foo", "la", "fxo");
+
+  // Test that the flag that stops mappings being expanded is reset after the mapping has been executed.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "j", "gj", KateViModeBase::NonRecursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "X", KateViModeBase::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "X", "rx", KateViModeBase::Recursive);
+  DoTest("foo", "jla", "fxo");
+
+  // Even if we start with a recursive mapping, as soon as we hit one that is not recursive, we should stop
+  // expanding.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "X", KateViModeBase::NonRecursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "X", "r.", KateViModeBase::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "i", "a", KateViModeBase::Recursive);
+  DoTest("foo", "li", "oo");
+
+  // Clear mappings for subsequent tests.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
 }
 
 void ViModeTest::yankHighlightingTests()
@@ -1465,7 +1521,7 @@ void ViModeTest::VimStyleCommandBarTests()
 
   // Should work with mappings.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "/c<enter>rX");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "/c<enter>rX", KateViModeBase::Recursive);
   BeginTest("acbcd");
   TestPressKey("'testmapping");
   FinishTest("aXbcd");

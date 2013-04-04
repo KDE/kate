@@ -265,9 +265,10 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     void addCurrentPositionToJumpList();
 
-    void addMapping( const QString &from, const QString &to );
+    void addMapping( const QString& from, const QString& to, KateViModeBase::MappingRecursion recursion );
     const QString getMapping( const QString &from ) const;
     const QStringList getMappings() const;
+    bool isMappingRecursive(const QString& from) const;
     virtual void reset();
 
     void setMappingTimeout(int timeoutMS);
@@ -336,8 +337,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     // "'123", and to choose between them.)
     QString m_fullMappingMatch;
     // set after f/F/t/T/r so the following character isn't translated
-    bool m_ignoreMapping;
+    bool m_doNotMapNextKeyPress;
     QString m_mappingKeys;
+    bool m_doNotExpandFurtherMappings;
     void executeMapping();
 
     KateViKeyParser *m_keyParser;

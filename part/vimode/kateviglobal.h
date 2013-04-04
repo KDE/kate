@@ -57,9 +57,10 @@ public:
     const QMap<QChar, KateViRegister>* getRegisters() const { return &m_registers; }
 
     void clearMappings( ViMode mode );
-    void addMapping( ViMode mode, const QString &from, const QString &to );
+    void addMapping( ViMode mode, const QString& from, const QString& to, KateViModeBase::MappingRecursion recursion );
     const QString getMapping( ViMode mode, const QString &from, bool decode = false ) const;
     const QStringList getMappings( ViMode mode, bool decode = false ) const;
+    bool isMappingRecursive(ViMode mode, const QString& from) const;
 
     QStringList searchHistory();
     void clearSearchHistory();
@@ -74,7 +75,9 @@ private:
     KateViRegister getRegister( const QChar &reg ) const;
 
     // mappings
+    // TODO - maybe combine these into a struct?
     QHash <QString, QString> m_normalModeMappings;
+    QHash <QString, KateViModeBase::MappingRecursion> m_normalModeMappingRecursion;
 
     QStringList m_searchHistory;
 

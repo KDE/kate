@@ -71,7 +71,7 @@ This will prepend &quot;-- &quot; to a line when pressing F2.</string>
              <enum>QAbstractItemView::SelectRows</enum>
             </property>
             <property name="columnCount">
-             <number>2</number>
+             <number>3</number>
             </property>
             <column>
              <property name="text">
@@ -81,6 +81,11 @@ This will prepend &quot;-- &quot; to a line when pressing F2.</string>
             <column>
              <property name="text">
               <string>Replacement</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Recursive?</string>
              </property>
             </column>
            </widget>

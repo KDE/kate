@@ -69,10 +69,11 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_timeoutlen = 1000; // FIXME: make configurable
   m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
   m_mappingTimer = new QTimer( this );
+  m_doNotExpandFurtherMappings = false;
   connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
 
   initializeCommands();
-  m_ignoreMapping = false;
+  m_doNotMapNextKeyPress = false;
   m_pendingResetIsDueToExit = false;
   m_isRepeatedTFcommand = false;
   resetParser(); // initialise with start configuration
@@ -152,7 +153,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   QChar key = KateViKeyParser::self()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   // check for matching mappings
-  if ( !m_mappingKeyPress && !m_ignoreMapping) {
+  if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !m_doNotMapNextKeyPress) {
     m_mappingKeys.append( key );
 
     bool isPartialMapping = false;
@@ -193,12 +194,12 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
   }
 
-  if ( m_ignoreMapping ) m_ignoreMapping = false;
+  if ( m_doNotMapNextKeyPress ) m_doNotMapNextKeyPress = false;
 
   if ( key == 'f' || key == 'F' || key == 't' || key == 'T' || key == 'r' ) {
       // don't translate next character, we need the actual character so that
       // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
-      m_ignoreMapping = true;
+      m_doNotMapNextKeyPress = true;
   }
 
   // Use replace caret when reading a character for "r"
@@ -1349,7 +1350,7 @@ if ( m_viInputModeManager->getCurrentViMode() == VisualMode
     updateCursor( c1 );
 
 }
-  m_ignoreMapping = false;
+  m_doNotMapNextKeyPress = false;
 
   return r;
 }
@@ -3200,9 +3201,9 @@ QRegExp KateViNormalMode::generateMatchingItemRegex()
   return QRegExp( pattern );
 }
 
-void KateViNormalMode::addMapping( const QString &from, const QString &to )
+void KateViNormalMode::addMapping( const QString& from, const QString& to, KateViModeBase::MappingRecursion recursion )
 {
-    KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from, to );
+    KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from, to, recursion );
 }
 
 const QString KateViNormalMode::getMapping( const QString &from ) const
@@ -3213,6 +3214,11 @@ const QString KateViNormalMode::getMapping( const QString &from ) const
 const QStringList KateViNormalMode::getMappings() const
 {
     return KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
+}
+
+bool KateViNormalMode::isMappingRecursive(const QString& from) const
+{
+    return KateGlobal::self()->viInputModeGlobal()->isMappingRecursive( NormalMode, from );
 }
 
 // returns the operation mode that should be used. this is decided by using the following heuristic:
@@ -3433,11 +3439,16 @@ void KateViNormalMode::executeMapping()
   m_countTemp = 0; // Ensure that the first command in the mapping is not repeated.
   m_mappingTimer->stop();
   const QString mappedKeypresses = getMapping(m_fullMappingMatch);
+  if (!isMappingRecursive(m_fullMappingMatch))
+  {
+    m_doNotExpandFurtherMappings = true;
+  }
   doc()->editBegin();
   for(int count = 1; count <= numberRepeats; count++)
   {
     m_viInputModeManager->feedKeyPresses(mappedKeypresses);
   }
+  m_doNotExpandFurtherMappings = false;
   doc()->editEnd();
 }
 

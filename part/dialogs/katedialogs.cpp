@@ -386,9 +386,13 @@ void KateViInputModeConfigTab::apply ()
   for ( int i = 0; i < ui->tblNormalModeMappings->rowCount(); i++ ) {
     QTableWidgetItem* from = ui->tblNormalModeMappings->item( i, 0 );
     QTableWidgetItem* to = ui->tblNormalModeMappings->item( i, 1 );
+    QTableWidgetItem* recursive = ui->tblNormalModeMappings->item( i, 2 );
 
-    if ( from && to ) {
-      KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from->text(), to->text() );
+    if ( from && to && recursive) {
+      const KateViModeBase::MappingRecursion recursion = recursive->checkState() == Qt::Checked ?
+        KateViModeBase::Recursive :
+        KateViModeBase::NonRecursive;
+      KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from->text(), to->text(), recursion);
     }
   }
   KateViewConfig::global()->configEnd ();
@@ -404,9 +408,12 @@ void KateViInputModeConfigTab::reload ()
   QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
   ui->tblNormalModeMappings->setRowCount( l.size() );
 
-  // make the two columns fill the entire table width
-  ui->tblNormalModeMappings->setColumnWidth( 0, ui->tblNormalModeMappings->width()/3 );
-  ui->tblNormalModeMappings->horizontalHeader()->setStretchLastSection( true );
+  // Make the two columns fill most of the width.
+  // TODO - note that this has never worked, except by fluke: we don't actual know the table
+  // width at this point.
+  ui->tblNormalModeMappings->setColumnWidth( 0, 4 * ui->tblNormalModeMappings->width()/16 );
+  ui->tblNormalModeMappings->setColumnWidth( 1, 4 * ui->tblNormalModeMappings->width()/16 );
+  ui->tblNormalModeMappings->horizontalHeader()->setStretchLastSection(true);
 
   int i = 0;
   foreach( const QString &f, l ) {
@@ -415,9 +422,17 @@ void KateViInputModeConfigTab::reload ()
     QString s = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, f );
     QTableWidgetItem *to =
       new QTableWidgetItem( KateViKeyParser::self()->decodeKeySequence( s ) );
+    QTableWidgetItem *recursive =
+      new QTableWidgetItem();
+    recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+    const bool isRecursive = KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(NormalMode, f);
+    recursive->setCheckState(isRecursive ? Qt::Checked : Qt::Unchecked);
 
     ui->tblNormalModeMappings->setItem(i, 0, from);
-    ui->tblNormalModeMappings->setItem(i++, 1, to);
+    ui->tblNormalModeMappings->setItem(i, 1, to);
+    ui->tblNormalModeMappings->setItem(i, 2, recursive);
+
+    i++;
   }
 }
 
@@ -425,6 +440,10 @@ void KateViInputModeConfigTab::addNewNormalModeMappingRow()
 {
   int rows = ui->tblNormalModeMappings->rowCount();
   ui->tblNormalModeMappings->insertRow( rows );
+  QTableWidgetItem *recursive = new QTableWidgetItem();
+  recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+  recursive->setCheckState(Qt::Unchecked);
+  ui->tblNormalModeMappings->setItem(rows, 2, recursive);
   ui->tblNormalModeMappings->setCurrentCell( rows, 0 );
   ui->tblNormalModeMappings->editItem( ui->tblNormalModeMappings->currentItem() );
 }
@@ -442,12 +461,17 @@ void KateViInputModeConfigTab::importNormalMappingRow()
   while(! stream.atEnd()) {
     QStringList line = stream.readLine().split(" ");
 
+    // TODO - allow recursive mappings to be read.
     if(line.size() > 2 && (line[0] == "noremap" || line[0] == "no"
           || line[0] == "nnoremap" || line [0] == "nn")) {
       int rows = ui->tblNormalModeMappings->rowCount();
       ui->tblNormalModeMappings->insertRow( rows );
       ui->tblNormalModeMappings->setItem(rows, 0, new QTableWidgetItem(line[1]));
       ui->tblNormalModeMappings->setItem(rows, 1, new QTableWidgetItem(line[2]));
+      QTableWidgetItem *recursive = new QTableWidgetItem();
+      recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+      recursive->setCheckState(Qt::Unchecked);
+      ui->tblNormalModeMappings->setItem(rows, 2, recursive);
     }
   }
 }

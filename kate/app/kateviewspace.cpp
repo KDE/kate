@@ -302,7 +302,7 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
 
   m_insertModeLabel = new QLabel( i18n(" INS "), this );
   addWidget( m_insertModeLabel, 0 );
-  m_insertModeLabel->setAlignment( Qt::AlignLeft );
+  m_insertModeLabel->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
   m_insertModeLabel->installEventFilter( this );
 
   m_fileNameLabel = new KSqueezedTextLabel( this );
@@ -310,7 +310,7 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   m_fileNameLabel->setTextFormat(Qt::PlainText);
   m_fileNameLabel->setMinimumSize( 0, 0 );
   m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
-  m_fileNameLabel->setAlignment(Qt::AlignRight);
+  m_fileNameLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
   m_fileNameLabel->installEventFilter( this );
 
   m_encodingLabel = new QLabel( "", this );

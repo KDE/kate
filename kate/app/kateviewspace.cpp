@@ -295,28 +295,28 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   m_modifiedLabel->setAlignment( Qt::AlignCenter );
   m_modifiedLabel->installEventFilter( this );
 
-  m_insertModeLabel = new QLabel( i18n(" INS "), this );
-  addWidget( m_insertModeLabel, 0 );
-  m_insertModeLabel->setAlignment( Qt::AlignCenter );
-  m_insertModeLabel->installEventFilter( this );
-
   m_selectModeLabel = new QLabel( i18n(" LINE "), this );
   addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
   m_selectModeLabel->installEventFilter( this );
 
-  m_encodingLabel = new QLabel( "", this );
-  addWidget( m_encodingLabel, 0 );
-  m_encodingLabel->setAlignment( Qt::AlignCenter );
-  m_encodingLabel->installEventFilter( this );
+  m_insertModeLabel = new QLabel( i18n(" INS "), this );
+  addWidget( m_insertModeLabel, 0 );
+  m_insertModeLabel->setAlignment( Qt::AlignLeft );
+  m_insertModeLabel->installEventFilter( this );
 
   m_fileNameLabel = new KSqueezedTextLabel( this );
   addPermanentWidget( m_fileNameLabel, 1 );
   m_fileNameLabel->setTextFormat(Qt::PlainText);
   m_fileNameLabel->setMinimumSize( 0, 0 );
   m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
-  m_fileNameLabel->setAlignment( /*Qt::AlignRight*/Qt::AlignLeft );
+  m_fileNameLabel->setAlignment(Qt::AlignRight);
   m_fileNameLabel->installEventFilter( this );
+
+  m_encodingLabel = new QLabel( "", this );
+  addPermanentWidget( m_encodingLabel, 0 );
+  m_encodingLabel->setAlignment( Qt::AlignCenter );
+  m_encodingLabel->installEventFilter( this );
 
 #ifdef Q_WS_MAC
   setSizeGripEnabled( false );
@@ -376,7 +376,7 @@ void KateVSStatusBar::viewModeChanged ( KTextEditor::View *view )
   if (view != m_viewSpace->currentView())
     return;
 
-  m_insertModeLabel->setText( view->viewMode() );
+  m_insertModeLabel->setText( QString (" %1 ").arg (view->viewMode()) );
 }
 
 void KateVSStatusBar::cursorPositionChanged ( KTextEditor::View *view )
@@ -454,7 +454,7 @@ void KateVSStatusBar::documentConfigChanged ()
   KTextEditor::View *v = m_viewSpace->currentView();
 
   if ( v )
-    m_encodingLabel->setText( v->document()->encoding() );
+    m_encodingLabel->setText( QString (" %1 ").arg (v->document()->encoding()) );
 }
 
 void KateVSStatusBar::cursorPositionItemVisibilityChanged(bool visible)

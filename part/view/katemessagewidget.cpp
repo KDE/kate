@@ -122,6 +122,10 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
   // start auto-hide timer, if requested
   m_autoHideTime = message->autoHide();
   m_autoHideTimerRunning = false;
+  if (m_autoHideTime >= 0 && message->autoHideMode() == KTextEditor::Message::Immediate) {
+    QTimer::singleShot(m_autoHideTime == 0 ? (6*1000) : m_autoHideTime, message, SLOT(deleteLater()));
+    m_autoHideTimerRunning = true;
+  }
 
   // finally show us
   show();

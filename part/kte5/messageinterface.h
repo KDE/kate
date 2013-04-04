@@ -1,6 +1,6 @@
 /* This file is part of the KDE project
  *
- *   Copyright (C) 2012 Dominik Haumann <dhaumann@kde.org>
+ *   Copyright (C) 2012-2013 Dominik Haumann <dhaumann@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -32,7 +32,6 @@ class Document;
 
 //
 // TODOs and Ideas:
-//   is less likely to go unnoticed.
 // - turn FloatInView into TopRightInView, BottomRightInView, or Qt::Alignment?
 //
 
@@ -53,6 +52,9 @@ class Document;
  * // ...
  * @endcode
  *
+ * Although discouraged in general, the text of the Message can be changed
+ * on the fly when it is already visible with setText().
+ *
  * Once you posted the Message through MessageInterface::postMessage(), the
  * lifetime depends on the user interaction. The Message gets automatically
  * deleted either if the user clicks a closing action in the message, or for
@@ -70,8 +72,19 @@ class Document;
  * By default, the Message appears right above of the View. However, if desired,
  * the position can be changed through setPosition(). For instance, the
  * search-and-replace code in Kate Part shows the number of performed replacements
- * in a message below the view. For further information, have a look at the enum
- * MessagePosition.
+ * in a message floating in the view. For further information, have a look at
+ * the enum MessagePosition.
+ *
+ * @section message_hiding Autohiding Messages
+ *
+ * Message%s can be shown for only a short amount of time by using the autohide
+ * feature. With setAutoHide() a timeout in milliseconds can be set after which
+ * the Message is automatically hidden. Further, use setAutoHideMode() to either
+ * trigger the autohide timer as soon as the widget is shown (AutoHideMode::Immediate),
+ * or only after user interaction with the view (AutoHideMode::AfterUserInteraction).
+ *
+ * The default autohide mode is set to AutoHideMode::AfterUserInteraction.
+ * This way, it is unlikely the user misses a notification.
  *
  * @see MessageInterface
  * @author Dominik Haumann \<dhaumann@kde.org\>
@@ -105,6 +118,15 @@ class Message : public QObject
       AboveView = 0, ///< show message above view
       BelowView,     ///< show message below view
       FloatInView    ///< show message as view overlay
+    };
+
+    /**
+     * The AutoHideMode determines when to trigger the autoHide timer.
+     * @see setAutoHide(), autoHide()
+     */
+    enum AutoHideMode {
+      Immediate = 0,       ///< auto-hide is triggered as soon as the message is shown
+      AfterUserInteraction ///< auto-hide is triggered only after the user interacted with the view
     };
 
   public:
@@ -166,7 +188,7 @@ class Message : public QObject
      *
      * By default, auto hide is disabled.
      *
-     * @see autoHide()
+     * @see autoHide(), setAutoHideMode()
      */
     void setAutoHide(int autoHideTimer = 0);
 
@@ -174,9 +196,24 @@ class Message : public QObject
      * Returns the auto hide time in milliseconds.
      * Please refer to setAutoHide() for an explanation of the return value.
      *
-     * @see setAutoHide()
+     * @see setAutoHide(), autoHideMode()
      */
     int autoHide() const;
+
+    /**
+     * Sets the autoHide mode to @p mode.
+     * The default mode is set to AutoHideMode::AfterUserInteraction.
+     * @param mode autoHide mode
+     * @see autoHideMode(), setAutoHide()
+     */
+    void setAutoHideMode(KTextEditor::Message::AutoHideMode mode);
+
+    /**
+     * Get the Message's autoHide mode.
+     * The default mode is set to AutoHideMode::AfterUserInteraction.
+     * @see setAutoHideMode(), autoHide()
+     */
+    KTextEditor::Message::AutoHideMode autoHideMode() const;
 
     /**
      * Enabled word wrap according to @p wordWrap.

@@ -2708,10 +2708,7 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
       placeCursor( e->pos() );
 
       if( doc()->isReadWrite() )
-      {
         doc()->paste( m_view, QApplication::clipboard()->text(QClipboard::Selection) );
-        repaint();
-      }
 
       e->accept ();
       break;

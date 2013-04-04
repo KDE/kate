@@ -31,6 +31,7 @@
 #include <kde_file.h>
 
 #include <KSaveFile>
+#include <kdeversion.h>
 
 #if 0
 #define EDIT_DEBUG kDebug()
@@ -719,6 +720,18 @@ bool TextBuffer::save (const QString &filename)
    * use KSaveFile for save write + rename
    */
   KSaveFile saveFile (filename);
+  
+#if KDE_IS_VERSION(4,10,3)
+  /**
+   * allow fallback if directory not writable
+   * fixes bug 312415
+   */
+  saveFile.setDirectWriteFallback (true);
+#endif
+  
+  /**
+   * try to open or fail
+   */
   if (!saveFile.open())
     return false;
 

@@ -207,27 +207,24 @@ void KWrite::setupStatusBar()
   statusBar()->addWidget( m_modifiedLabel, 0 );
   m_modifiedLabel->setAlignment( Qt::AlignCenter );
 
-  m_insertModeLabel = new QLabel( i18n(" INS "), statusBar() );
-  statusBar()->addWidget( m_insertModeLabel, 0 );
-  m_insertModeLabel->setAlignment( Qt::AlignCenter );
-
   m_selectModeLabel = new QLabel( i18nc("@info:status Statusbar label for line selection mode", " LINE "), statusBar() );
   statusBar()->addWidget( m_selectModeLabel, 0 );
   m_selectModeLabel->setAlignment( Qt::AlignCenter );
 
+  m_insertModeLabel = new QLabel( i18n(" INS "), statusBar() );
+  statusBar()->addWidget( m_insertModeLabel, 0 );
+  m_insertModeLabel->setAlignment( Qt::AlignCenter );
+
   m_modeLabel = new QLabel( QString(), statusBar() );
   statusBar()->addWidget( m_modeLabel, 0 );
-  m_modeLabel->setAlignment( Qt::AlignCenter );
+  m_modeLabel->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
 
   m_fileNameLabel=new KSqueezedTextLabel( statusBar() );
   statusBar()->addPermanentWidget( m_fileNameLabel, 1 );
   m_fileNameLabel->setTextFormat(Qt::PlainText);
   m_fileNameLabel->setMinimumSize( 0, 0 );
   m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
-  m_fileNameLabel->setAlignment( /*Qt::AlignRight*/Qt::AlignLeft );
-
-//   m_modDiscPm = KIcon("drive-harddisk").pixmap(16);
-//   m_modmodPm = KIcon("modmod").pixmap(16); // is it still required? icon is broken.
+  m_fileNameLabel->setAlignment( Qt::AlignVCenter | Qt::AlignRight );
 }
 
 // load on url
@@ -607,7 +604,7 @@ void KWrite::modifiedChanged()
 
 void KWrite::documentNameChanged ()
 {
-  m_fileNameLabel->setText( KStringHandler::lsqueeze(m_view->document()->documentName (), 64) );
+  m_fileNameLabel->setText( QString (" %1 ").arg (KStringHandler::lsqueeze(m_view->document()->documentName (), 64)));
 
   QString readOnlyCaption;
   if  (!m_view->document()->isReadWrite())

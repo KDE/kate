@@ -35,6 +35,8 @@ KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   : QWidget(parent)
   , m_fadeEffect(0)
   , m_hideAnimationRunning(false)
+  , m_autoHideTimerRunning(false)
+  , m_autoHideTime(-1)
 {
   QVBoxLayout* l = new QVBoxLayout();
   l->setMargin(0);
@@ -66,6 +68,8 @@ bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
 
     // hide animation is finished
     m_hideAnimationRunning = false;
+    m_autoHideTimerRunning = false;
+    m_autoHideTime = -1;
 
     // if there are other messages in the queue, show next one, else hide us
     if (m_messageList.count()) {
@@ -115,6 +119,10 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
   foreach (QAction* a, message->actions())
     m_messageWidget->addAction(a);
 
+  // start auto-hide timer, if requested
+  m_autoHideTime = message->autoHide();
+  m_autoHideTimerRunning = false;
+
   // finally show us
   show();
   if (m_fadeEffect) {
@@ -125,11 +133,6 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
 #else
     QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
 #endif
-  }
-  // start auto-hide timer, if requested
-  const int autoHide = message->autoHide();
-  if (autoHide >= 0) {
-    QTimer::singleShot(autoHide == 0 ? (6*1000) : autoHide, message, SLOT(deleteLater()));
   }
 }
 
@@ -204,6 +207,26 @@ void KateMessageWidget::messageDestroyed(KTextEditor::Message* message)
   } else if (i == 0 && m_messageList.count()) {
     showMessage(m_messageList[0]);
   }
+}
+
+void KateMessageWidget::startAutoHideTimer()
+{
+  // message does not want autohide, or timer already running
+  if (!isVisible()            // not visible, no message shown
+    || m_autoHideTime < 0     // message does not want auto-hide
+    || m_autoHideTimerRunning // auto-hide timer is already active
+    || m_hideAnimationRunning // widget is in hide animation phase
+  ) {
+    return;
+  }
+
+  // remember that auto hide timer is running
+  m_autoHideTimerRunning = true;
+
+  // the message must still still be valid
+  Q_ASSERT(m_messageList.size());
+  KTextEditor::Message* message = m_messageList[0];
+  QTimer::singleShot(m_autoHideTime == 0 ? (6*1000) : m_autoHideTime, message, SLOT(deleteLater()));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

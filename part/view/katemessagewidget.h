@@ -68,6 +68,10 @@ class KateMessageWidget : public QWidget
      * catch when a message is deleted, then show next one, if applicable.
      */
     void messageDestroyed(KTextEditor::Message* message);
+    /**
+     * Start autoHide timer if requested
+     */
+    void startAutoHideTimer();
 
   private:
     // sorted list of pending messages
@@ -82,7 +86,11 @@ class KateMessageWidget : public QWidget
   private: // some state variables
     // flag: hide animation is running. needed to avoid flickering
     // when showMessage() is called during hide-animation
-    bool m_hideAnimationRunning;
+    bool m_hideAnimationRunning : 1;
+    // flag: start autohide only once user interaction took place
+    bool m_autoHideTimerRunning : 1;
+    // flag: save message's autohide time
+    int m_autoHideTime;
 };
 
 #endif

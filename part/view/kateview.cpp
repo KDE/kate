@@ -277,6 +277,16 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   if ( viInputMode() /* && FIXME: HAEHH? !config()->viInputModeHideStatusBar() */ ) {
     deactivateEditActions();
   }
+
+  // user interaction (scrollling) starts notification auto-hide timer
+  connect(this, SIGNAL(displayRangeChanged(KateView*)), m_topMessageWidget, SLOT(startAutoHideTimer()));
+  connect(this, SIGNAL(displayRangeChanged(KateView*)), m_bottomMessageWidget, SLOT(startAutoHideTimer()));
+  connect(this, SIGNAL(displayRangeChanged(KateView*)), m_overlayMessageWidget, SLOT(startAutoHideTimer()));
+
+  // user interaction (cursor navigation) starts notification auto-hide timer
+  connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_topMessageWidget, SLOT(startAutoHideTimer()));
+  connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_bottomMessageWidget, SLOT(startAutoHideTimer()));
+  connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_overlayMessageWidget, SLOT(startAutoHideTimer()));
 }
 
 KateView::~KateView()

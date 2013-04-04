@@ -32,9 +32,6 @@ class Document;
 
 //
 // TODOs and Ideas:
-// - setText() could emit signal textChanged(QString), so you can change text
-//   on the fly.
-// - trigger auto-hide on i) cursor navigation, ii) scrolling, so a message
 //   is less likely to go unnoticed.
 // - turn FloatInView into TopRightInView, BottomRightInView, or Qt::Alignment?
 //

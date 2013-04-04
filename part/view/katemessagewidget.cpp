@@ -111,7 +111,7 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
   foreach (QAction* a, m_messageWidget->actions())
     m_messageWidget->removeAction(a);
 
-  // add new actions to the message wdiget
+  // add new actions to the message widget
   foreach (QAction* a, message->actions())
     m_messageWidget->addAction(a);
 
@@ -126,7 +126,7 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
     QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
 #endif
   }
-  // start auto-hide timer, if requrested
+  // start auto-hide timer, if requested
   const int autoHide = message->autoHide();
   if (autoHide >= 0) {
     QTimer::singleShot(autoHide == 0 ? (6*1000) : autoHide, message, SLOT(deleteLater()));

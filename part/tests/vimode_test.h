@@ -73,10 +73,10 @@ private:
   void waitForCompletionWidgetToActivate();
 
   QMap<QString, Qt::KeyboardModifier> m_codesToModifiers;
-  Qt::KeyboardModifier matchesCodedModifier(const QString& string, int startPos, int* destEndOfCodeModifier);
+  Qt::KeyboardModifier parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier);
 
   QMap<QString, Qt::Key> m_codesToSpecialKeys;
-    Qt::Key parseSpecialKey(const QString& string, int startPos, int* destEndOfCodedKey);
+    Qt::Key parseCodedSpecialKey(const QString& string, int startPos, int* destEndOfCodedKey);
 };
 
 #endif

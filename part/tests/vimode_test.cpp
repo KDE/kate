@@ -57,27 +57,27 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("esc", Qt::Key_Escape);
 }
 
-Qt::KeyboardModifier ViModeTest::matchesCodedModifier(const QString& string, int startPos, int* destEndOfCodeModifier)
+Qt::KeyboardModifier ViModeTest::parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier)
 {
-  foreach(const QString& codedModifier, m_codesToModifiers.keys())
+  foreach(const QString& modifierCode, m_codesToModifiers.keys())
   {
-    qDebug() << string.mid(startPos, codedModifier.length() + 2) << "|" << (QString("\\") + codedModifier + "-");
+    qDebug() << string.mid(startPos, modifierCode.length() + 2) << "|" << (QString("\\") + modifierCode + "-");
     // The "+2" is from the leading '\' and the trailing '-'
-    if (string.mid(startPos, codedModifier.length() + 2) == QString("\\") + codedModifier + "-")
+    if (string.mid(startPos, modifierCode.length() + 2) == QString("\\") + modifierCode + "-")
     {
-      if (destEndOfCodeModifier)
+      if (destEndOfCodedModifier)
       {
         // destEndOfCodeModifier lies on the trailing '-'.
-        *destEndOfCodeModifier = startPos + codedModifier.length() + 1;
-        Q_ASSERT(string[*destEndOfCodeModifier] == '-');
+        *destEndOfCodedModifier = startPos + modifierCode.length() + 1;
+        Q_ASSERT(string[*destEndOfCodedModifier] == '-');
       }
-      return m_codesToModifiers.value(codedModifier);
+      return m_codesToModifiers.value(modifierCode);
     }
   }
   return Qt::NoModifier;
 }
 
-Qt::Key ViModeTest::parseSpecialKey(const QString& string, int startPos, int* destEndOfCodedKey)
+Qt::Key ViModeTest::parseCodedSpecialKey(const QString& string, int startPos, int* destEndOfCodedKey)
 {
   foreach (const QString& specialKeyCode, m_codesToSpecialKeys.keys())
   {
@@ -128,9 +128,9 @@ void ViModeTest::TestPressKey(QString str) {
     // Looking for keyboard modifiers
     if (str[i] == QChar('\\')) {
         int endOfModifier = -1;
-        Qt::KeyboardModifier parsedModifier = matchesCodedModifier(str, i, &endOfModifier);
+        Qt::KeyboardModifier parsedModifier = parseCodedModifier(str, i, &endOfModifier);
         int endOfSpecialKey = -1;
-        Qt::Key parsedSpecialKey = parseSpecialKey(str, i, &endOfSpecialKey);
+        Qt::Key parsedSpecialKey = parseCodedSpecialKey(str, i, &endOfSpecialKey);
         if (parsedModifier != Qt::NoModifier)
         {
           keyboard_modifier = parsedModifier;

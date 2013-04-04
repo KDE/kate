@@ -64,7 +64,7 @@ KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
 
 bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
 {
-  if (obj == m_messageWidget && event->type() == QEvent::Hide) {
+  if (obj == m_messageWidget && event->type() == QEvent::Hide && !event->spontaneous()) {
 
     // hide animation is finished
     m_hideAnimationRunning = false;

@@ -1287,42 +1287,6 @@ void KateCompletionWidget::removeText (const KTextEditor::Range &)
   m_automaticInvocationTimer->stop();
 }
 
-#if 0
-void KateCompletionWidget::editDone(KateEditInfo * edit)
-{
-  return;
-  
-  if(!edit->newText().join("\n").trimmed().isEmpty())
-  m_lastInsertionByUser = edit->editSource() == Kate::UserInputEdit;
-
-  if (!view()->config()->automaticCompletionInvocation()
-       || (edit->editSource() != Kate::UserInputEdit)
-       || edit->isRemoval()
-       || (edit->editSource() != Kate::UserInputEdit && edit->editSource() != Kate::CodeCompletionEdit)
-       || edit->newText().isEmpty() )
-  {
-    m_automaticInvocationLine.clear();
-    m_automaticInvocationTimer->stop();
-    return;
-  }
-
-  if(m_automaticInvocationAt != edit->newRange().start()) {
-    m_automaticInvocationLine.clear();
-    m_lastInsertionByUser = edit->editSource() == Kate::UserInputEdit;
-  }
-
-  m_automaticInvocationLine += edit->newText().last();
-  m_automaticInvocationAt = edit->newRange().end();
-
-  if (m_automaticInvocationLine.isEmpty()) {
-    m_automaticInvocationTimer->stop();
-    return;
-  }
-
-  m_automaticInvocationTimer->start(m_automaticInvocationDelay);
-}
-#endif
-
 void KateCompletionWidget::automaticInvocation()
 {
   //kDebug()<<"m_automaticInvocationAt:"<<m_automaticInvocationAt;

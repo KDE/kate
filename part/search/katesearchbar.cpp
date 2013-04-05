@@ -531,6 +531,9 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         return false; // == Pattern error
     }
 
+    // don't let selectionChanged signal mess around in this routine
+    disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelectionOnly()));
+    
     const Search::SearchOptions enabledOptions = searchOptions(searchDirection);
 
     // Where to find?
@@ -630,6 +633,9 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         highlightReplacement(afterReplace);
     }
 
+    // restore connection
+    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelectionOnly()));
+    
     return true; // == No pattern error
 }
 
@@ -780,6 +786,9 @@ void KateSearchBar::replaceNext() {
 // replacement != NULL --> Replace and highlight all matches
 int KateSearchBar::findAll(Range inputRange, const QString * replacement)
 {
+    // don't let selectionChanged signal mess around in this routine
+    disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelectionOnly()));
+    
     const Search::SearchOptions enabledOptions = searchOptions(SearchForward);
 
     const bool regexMode = enabledOptions.testFlag(Search::Regex);
@@ -866,6 +875,9 @@ int KateSearchBar::findAll(Range inputRange, const QString * replacement)
 
     delete workingRange;
 
+    // restore connection
+    connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelectionOnly()));
+    
     return matchCounter;
 }
 

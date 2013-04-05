@@ -141,7 +141,7 @@ QString KateBtBrowserPlugin::configPageFullName (uint number) const
   return QString();
 }
 
-KIcon KateBtBrowserPlugin::configPageIcon (uint number) const
+KIcon KateBtBrowserPlugin::configPageIcon (uint) const
 {
   return KIcon("kbugbuster");
 }
@@ -173,11 +173,11 @@ KateBtBrowserPluginView::~KateBtBrowserPluginView ()
   delete toolView;
 }
 
-void KateBtBrowserPluginView::readSessionConfig(KConfigBase* config, const QString& group)
+void KateBtBrowserPluginView::readSessionConfig(KConfigBase*, const QString&)
 {
 }
 
-void KateBtBrowserPluginView::writeSessionConfig(KConfigBase* config, const QString& group)
+void KateBtBrowserPluginView::writeSessionConfig(KConfigBase*, const QString&)
 {
 }
 

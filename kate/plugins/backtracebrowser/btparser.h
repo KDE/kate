@@ -31,6 +31,16 @@ class BtInfo
       Unknown,
       Invalid
     };
+    
+    /**
+     * Default constructor => invalid element
+     */
+    BtInfo ()
+      : step (-1)
+      , line (-1)
+      , type (Invalid)
+    {
+    }
 
   public:
     QString original;

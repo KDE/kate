@@ -1,9 +1,9 @@
 /* kate-script
- * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>, Gerald Senarclens de Grancy <oss@senarclens.eu>
+ * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>, Gerald Senarclens de Grancy <oss@senarclens.eu>, Alex Turbov <i.zaufi@gmail.com>
  * license: LGPL
- * revision: 6
+ * revision: 7
  * kate-version: 3.4
- * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown, rewrap
+ * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown, rewrap, encodeURISelection, decodeURISelection
  */
 
 // required katepart js libraries
@@ -291,6 +291,38 @@ function rewrap()
     document.editEnd();
 }
 
+function _uri_transform_selection(transformer)
+{
+    var selection = view.selection();
+    var cursor = view.cursorPosition();
+    // TODO Multiline conversions are meaningless!?
+    if (selection.isValid() && selection.start.line == selection.end.line) {
+        var text = document.text(selection);
+        var coded_text = transformer(text);
+        document.editBegin();
+        document.removeText(selection);
+        document.insertText(selection.start, coded_text);
+        document.editEnd();
+        var size_diff = coded_text.length - text.length;
+        selection.end.column += size_diff;
+        view.setSelection(selection);
+        if (selection.start.column < cursor.column) {
+            cursor.column += size_diff;
+        }
+        view.setCursorPosition(cursor);
+    }
+}
+
+function encodeURISelection()
+{
+    _uri_transform_selection(encodeURIComponent);
+}
+
+function decodeURISelection()
+{
+    _uri_transform_selection(decodeURIComponent);
+}
+
 function action(cmd)
 {
     var a = new Object();
@@ -312,6 +344,12 @@ function action(cmd)
     } else if (cmd == "duplicateLinesDown") {
         a.text = i18n("Duplicate Selected Lines Down");
         a.shortcut = "Ctrl+Alt+Down";
+    } else if (cmd == "encodeURISelection") {
+        a.text = i18n("URI-encode Selected Text")
+        a.shortcut = "";
+    } else if (cmd == "decodeURISelection") {
+        a.text = i18n("URI-decode Selected Text")
+        a.shortcut = "";
     }
 
     return a;
@@ -351,6 +389,10 @@ function help(cmd)
         return i18n("Duplicates the selected lines up.");
     } else if (cmd == "duplicateLinesDown") {
         return i18n("Duplicates the selected lines down.");
+    } else if (cmd == "encodeURISelection") {
+        return i18n("Encode special chars in a single line selection, so the result text can be used as URI.");
+    } else if (cmd == "decodeURISelection") {
+        return i18n("Reverse action of URI encode.");
     }
 }
 

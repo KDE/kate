@@ -106,7 +106,7 @@ void PluginKateTextFilter::slotFilterReceivedStderr ()
   m_strFilterOutput += QString::fromLocal8Bit(m_pFilterProcess->readAllStandardError());
 }
 
-void PluginKateTextFilter::slotFilterProcessExited (int exitCode, QProcess::ExitStatus exitStatus)
+void PluginKateTextFilter::slotFilterProcessExited (int, QProcess::ExitStatus)
 {
   KTextEditor::View * kv (application()->activeMainWindow()->activeView());
   if (!kv) return;

@@ -139,20 +139,22 @@
         git@github.com:zaufi/kate-stuff.git/support/genpredefmacrolist.sh
     -->
   <list name="GNUMacros">
-    <item> __FUNCTION__ </item>
-    <item> __PRETTY_FUNCTION__ </item>
     <item> _FORTIFY_SOURCE </item>
     <item> _GNU_SOURCE </item>
     <item> _ILP32 </item>
     <item> _LP64 </item>
     <item> _REENTRANT </item>
+    <item> _STDC_PREDEF_H </item>
     <item> __3dNOW_A__ </item>
     <item> __3dNOW__ </item>
     <item> __ABM__ </item>
+    <item> __ADX__ </item>
     <item> __AES__ </item>
     <item> __ATOMIC_ACQUIRE </item>
     <item> __ATOMIC_ACQ_REL </item>
     <item> __ATOMIC_CONSUME </item>
+    <item> __ATOMIC_HLE_ACQUIRE </item>
+    <item> __ATOMIC_HLE_RELEASE </item>
     <item> __ATOMIC_RELAXED </item>
     <item> __ATOMIC_RELEASE </item>
     <item> __ATOMIC_SEQ_CST </item>
@@ -234,6 +236,8 @@
     <item> __FP_FAST_FMA </item>
     <item> __FP_FAST_FMAF </item>
     <item> __FSGSBASE__ </item>
+    <item> __FUNCTION__ </item>
+    <item> __FXSR__ </item>
     <item> __GCC_ATOMIC_BOOL_LOCK_FREE </item>
     <item> __GCC_ATOMIC_CHAR16_T_LOCK_FREE </item>
     <item> __GCC_ATOMIC_CHAR32_T_LOCK_FREE </item>
@@ -329,10 +333,15 @@
     <item> __PIE__ </item>
     <item> __POPCNT__ </item>
     <item> __PRAGMA_REDEFINE_EXTNAME </item>
+    <item> __PRETTY_FUNCTION__ </item>
+    <item> __PRFCHW__ </item>
     <item> __PTRDIFF_MAX__ </item>
     <item> __PTRDIFF_TYPE__ </item>
     <item> __RDRND__ </item>
+    <item> __RDSEED__ </item>
     <item> __REGISTER_PREFIX__ </item>
+    <item> __RTM__ </item>
+    <item> __SANITIZE_ADDRESS__ </item>
     <item> __SCHAR_MAX__ </item>
     <item> __SHRT_MAX__ </item>
     <item> __SIG_ATOMIC_MAX__ </item>
@@ -365,6 +374,10 @@
     <item> __SSP__ </item>
     <item> __SSSE3__ </item>
     <item> __STDC_HOSTED__ </item>
+    <item> __STDC_IEC_559_COMPLEX__ </item>
+    <item> __STDC_IEC_559__ </item>
+    <item> __STDC_ISO_10646__ </item>
+    <item> __STDC_NO_THREADS__ </item>
     <item> __STDC_UTF_16__ </item>
     <item> __STDC_UTF_32__ </item>
     <item> __STDC_VERSION__ </item>
@@ -417,6 +430,8 @@
     <item> __WINT_MIN__ </item>
     <item> __WINT_TYPE__ </item>
     <item> __XOP__ </item>
+    <item> __XSAVEOPT__ </item>
+    <item> __XSAVE__ </item>
     <item> __amd64 </item>
     <item> __amd64__ </item>
     <item> __amdfam10 </item>
@@ -430,10 +445,18 @@
     <item> __bdver1__ </item>
     <item> __bdver2 </item>
     <item> __bdver2__ </item>
+    <item> __bdver3 </item>
+    <item> __bdver3__ </item>
     <item> __btver1 </item>
     <item> __btver1__ </item>
+    <item> __btver2 </item>
+    <item> __btver2__ </item>
+    <item> __code_model_32__ </item>
+    <item> __code_model_small__ </item>
     <item> __core2 </item>
     <item> __core2__ </item>
+    <item> __core_avx2 </item>
+    <item> __core_avx2__ </item>
     <item> __corei7 </item>
     <item> __corei7__ </item>
     <item> __cplusplus </item>
@@ -473,8 +496,11 @@
     <item> __tune_atom__ </item>
     <item> __tune_bdver1__ </item>
     <item> __tune_bdver2__ </item>
+    <item> __tune_bdver3__ </item>
     <item> __tune_btver1__ </item>
+    <item> __tune_btver2__ </item>
     <item> __tune_core2__ </item>
+    <item> __tune_core_avx2__ </item>
     <item> __tune_corei7__ </item>
     <item> __tune_geode__ </item>
     <item> __tune_i386__ </item>

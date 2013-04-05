@@ -296,7 +296,7 @@ function _uri_transform_selection(transformer)
     var selection = view.selection();
     var cursor = view.cursorPosition();
     // TODO Multiline conversions are meaningless!?
-    if (selection.isValid() && selection.start.line == selection.end.line) {
+    if (selection.isValid() && selection.onSingleLine()) {
         var text = document.text(selection);
         var coded_text = transformer(text);
         document.editBegin();

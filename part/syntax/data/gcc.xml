@@ -13,7 +13,7 @@
   -->
 <language
     name="GCCExtensions"
-    version="0.2"
+    version="0.3"
     kateversion="2.4"
     section="Sources"
     extensions="*.c++;*.cxx;*.cpp;*.cc;*.C;*.h;*.hh;*.H;*.h++;*.hxx;*.hpp;*.hcc;"

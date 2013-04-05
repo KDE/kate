@@ -3,6 +3,7 @@
 #include "kateview.h"
 #include "kateviglobal.h"
 #include "kateglobal.h"
+#include "kateconfig.h"
 
 #include <QtGui/QLineEdit>
 #include <QtGui/QVBoxLayout>
@@ -27,8 +28,23 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
 
   m_searchBackwards = false;
 
+  updateMatchHighlightAttrib();
+  m_highlightedMatch = m_view->doc()->newMovingRange(Range(), Kate::TextRange::DoNotExpand);
+  m_highlightedMatch->setView(m_view); // show only in this view
+  m_highlightedMatch->setAttributeOnlyForViews(true);
+  // use z depth defined in moving ranges interface
+  m_highlightedMatch->setZDepth (-10000.0);
+  m_highlightedMatch->setAttribute(m_highlightMatchAttribute);
+
   m_edit->installEventFilter(this);
   connect(m_edit, SIGNAL(textChanged(QString)), this, SLOT(editTextChanged(QString)));
+  connect(m_view, SIGNAL(configChanged()),
+          this, SLOT(updateMatchHighlightAttrib()));
+}
+
+KateViEmulatedCommandBar::~KateViEmulatedCommandBar()
+{
+  delete m_highlightedMatch;
 }
 
 void KateViEmulatedCommandBar::init(bool backwards)
@@ -60,6 +76,28 @@ void KateViEmulatedCommandBar::closed()
   }
   m_startingCursorPos = KTextEditor::Cursor::invalid();
   m_doNotResetCursorOnClose = false;
+  updateMatchHighlight(Range::invalid());
+}
+
+void KateViEmulatedCommandBar::updateMatchHighlightAttrib()
+{
+  const QColor& matchColour = m_view->renderer()->config()->searchHighlightColor();
+  if (!m_highlightMatchAttribute)
+  {
+    m_highlightMatchAttribute = new KTextEditor::Attribute;
+  }
+  qDebug() << "matchColour:" << matchColour;
+  m_highlightMatchAttribute->setBackground(matchColour);
+  KTextEditor::Attribute::Ptr mouseInAttribute(new KTextEditor::Attribute());
+  m_highlightMatchAttribute->setDynamicAttribute (KTextEditor::Attribute::ActivateMouseIn, mouseInAttribute);
+  m_highlightMatchAttribute->dynamicAttribute (KTextEditor::Attribute::ActivateMouseIn)->setBackground(matchColour);
+}
+
+void KateViEmulatedCommandBar::updateMatchHighlight(const Range& matchRange)
+{
+  // Note that if matchRange is invalid, the highlight will not be shown, so we
+  // don't need to check for that explicitly.
+  m_highlightedMatch->setRange(matchRange);
 }
 
 bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
@@ -177,23 +215,26 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   }
   searchOptions |= KTextEditor::Search::Regex;
 
+  // TODO - merge some of this with KateViNormalMode::findPattern(...)
   if (!m_searchBackwards)
   {
     m_view->getViInputModeManager()->setLastSearchBackwards(false);
-    const KTextEditor::Cursor matchPos = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentEnd()), newText, searchOptions).first().start();
-    m_view->setCursorPosition(matchPos);
+    const KTextEditor::Range matchRange = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentEnd()), newText, searchOptions).first();
 
-    if (matchPos.isValid())
+    updateMatchHighlight(matchRange);
+
+    if (matchRange.isValid())
     {
-      m_view->setCursorPosition(matchPos);
+      m_view->setCursorPosition(matchRange.start());
     }
     else
     {
       // Wrap around.
-      const KTextEditor::Cursor wrappedMatchPos = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), newText, searchOptions).first().start();
-      if (wrappedMatchPos.isValid())
+      const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), newText, searchOptions).first();
+      if (wrappedMatchRange.isValid())
       {
-        m_view->setCursorPosition(wrappedMatchPos);
+        m_view->setCursorPosition(wrappedMatchRange.start());
+        updateMatchHighlight(wrappedMatchRange);
       }
       else
       {
@@ -205,17 +246,23 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   {
     m_view->getViInputModeManager()->setLastSearchBackwards(true);
     searchOptions |= KTextEditor::Search::Backwards;
-    const KTextEditor::Cursor matchPos = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentRange().start()), newText, searchOptions).first().start();
-    if (matchPos.isValid())
+    const KTextEditor::Range matchRange = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentRange().start()), newText, searchOptions).first();
+
+    updateMatchHighlight(matchRange);
+
+    if (matchRange.isValid())
     {
-      m_view->setCursorPosition(matchPos);
+      m_view->setCursorPosition(matchRange.start());
     }
     else
     {
-      const KTextEditor::Cursor wrappedMatchPos = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentEnd(), m_startingCursorPos), newText, searchOptions).first().start();
-      if (wrappedMatchPos.isValid())
+      const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentEnd(), m_startingCursorPos), newText, searchOptions).first();
+
+
+      if (wrappedMatchRange.isValid())
       {
-        m_view->setCursorPosition(wrappedMatchPos);
+        m_view->setCursorPosition(wrappedMatchRange.start());
+        updateMatchHighlight(wrappedMatchRange);
       }
       else
       {

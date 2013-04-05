@@ -1226,6 +1226,7 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(!emulatedCommandBar->isVisible());
   FinishTest("");
 
+  // Ensure that text is always initially empty.
   BeginTest("");
   TestPressKey("/a\\enter");
   TestPressKey("/");
@@ -1514,6 +1515,106 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandTypeIndicator()->text(), QString("/"));
   TestPressKey("\\enter^wwnrX");
   FinishTest("foo foo bar Xoo foo");
+
+  // Search-highlighting tests.
+  const QColor searchHighlightColour = kate_view->renderer()->config()->searchHighlightColor();
+  BeginTest("foo bar xyz");
+  // Sanity test.
+  const QList<Kate::TextRange*> rangesInitial = rangesOnFirstLine();
+  Q_ASSERT(rangesInitial.isEmpty() && "Assumptions about ranges are wrong - this test is invalid and may need updating!");
+  FinishTest("foo bar xyz");
+
+  // Test highlighting single character match.
+  BeginTest("foo bar xyz");
+  TestPressKey("/b");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->attribute()->background().color(), searchHighlightColour);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 4);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 5);
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
+
+  // Test highlighting two character match.
+  BeginTest("foo bar xyz");
+  TestPressKey("/ba");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 4);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 6);
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
+
+  // Test no highlighting if no longer a match.
+  BeginTest("foo bar xyz");
+  TestPressKey("/baz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
+
+ // Test highlighting on wraparound.
+  BeginTest(" foo bar xyz");
+  TestPressKey("ww/foo");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 1);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 4);
+  TestPressKey("\\enter");
+  FinishTest(" foo bar xyz");
+
+  // Test highlighting backwards
+  BeginTest("foo bar xyz");
+  TestPressKey("$?ba");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 4);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 6);
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
+
+  // Test no highlighting when no match is found searching backwards
+  BeginTest("foo bar xyz");
+  TestPressKey("$?baz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
+
+  // Test highlight when wrapping around after searching backwards.
+  BeginTest("foo bar xyz");
+  TestPressKey("w?xyz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 8);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 11);
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
+
+  // Test no highlighting when bar is dismissed.
+  DoTest("foo bar xyz", "/bar\\ctrl-c", "foo bar xyz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  DoTest("foo bar xyz", "/bar\\enter", "foo bar xyz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  DoTest("foo bar xyz", "/bar\\ctrl-[", "foo bar xyz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  DoTest("foo bar xyz", "/bar\\return", "foo bar xyz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  DoTest("foo bar xyz", "/bar\\esc", "foo bar xyz");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+
+  // Update colour on config change.
+  BeginTest("foo bar xyz");
+  TestPressKey("/xyz");
+  const QColor newSearchHighlightColour = QColor(255, 0, 0);
+  kate_view->renderer()->config()->setSearchHighlightColor(newSearchHighlightColour);
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->attribute()->background().color(), newSearchHighlightColour);
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

@@ -206,6 +206,18 @@ kde4_add_unit_test(commands_test TESTNAME kate-commands_test ${commands_test_SRC
 
 target_link_libraries(commands_test ${KATE_TEST_LINK_LIBS})
 
+########### scripting test ################
+
+set(scripting_test_SRCS
+  scripting_test.cpp
+  script_test_base.cpp
+  testutils.cpp
+)
+
+kde4_add_unit_test(scripting_test TESTNAME kate-scripting_test ${scripting_test_SRCS})
+
+target_link_libraries(scripting_test ${KATE_TEST_LINK_LIBS})
+
 ########### bug 286887 test ###############
 
 kde4_add_unit_test(bug286887_test TESTNAME kate-bug286887_test bug286887.cpp)

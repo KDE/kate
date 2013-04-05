@@ -121,14 +121,16 @@ void ScriptTestBase::getTestData(const QString& script)
   QTest::addColumn<QString>("testcase");
 
   // make sure the script files are valid
-  QFile scriptFile(srcPath + "/../part/script/data/" + m_script_dir + "/" + script + ".js");
-  if (!scriptFile.exists()) {
-    QSKIP(qPrintable(QString(scriptFile.fileName() + " does not exist")), SkipAll);
+  if (m_script_dir != "") {
+    QFile scriptFile(srcPath + "/../part/script/data/" + m_script_dir + "/" + script + ".js");
+    if (!scriptFile.exists()) {
+      QSKIP(qPrintable(QString(scriptFile.fileName() + " does not exist")), SkipAll);
+    }
+    QVERIFY(scriptFile.open(QFile::ReadOnly));
+    QScriptValue result = m_env->engine()->evaluate(scriptFile.readAll(), scriptFile.fileName());
+    QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + "\nat "
+                                            + m_env->engine()->uncaughtExceptionBacktrace().join("\n"))) );
   }
-  QVERIFY(scriptFile.open(QFile::ReadOnly));
-  QScriptValue result = m_env->engine()->evaluate(scriptFile.readAll(), scriptFile.fileName());
-  QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + "\nat "
-                                          + m_env->engine()->uncaughtExceptionBacktrace().join("\n"))) );
 
   const QString testDir(testDataPath + m_section + '/' + script + '/');
   if ( !QFile::exists(testDir) ) {

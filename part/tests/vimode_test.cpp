@@ -1060,6 +1060,13 @@ void ViModeTest::MappingTests()
   TestPressKey("x");
   FinishTest("hhellollo");
 
+  // Test that something that starts off as a partial mapping following a command
+  // (the "g" in the first "dg" is a partial mapping of "gj"), when extended to something
+  // that is definitely not a mapping ("gg"), results in the full command being executed ("dgg").
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gj", "aj");
+  DoTest("foo\nbar\nxyz", "jjdgg", "");
+
   // Make sure that a mapped sequence of commands is merged into a single undo-able edit.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'a", "ofoo<esc>ofoo<esc>ofoo<esc>");

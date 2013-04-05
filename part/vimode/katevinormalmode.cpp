@@ -184,8 +184,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     // We've been swallowing all the keypresses meant for m_keys for our mapping keys; now that we know
     // this cannot be a mapping, restore them. The current key will be appended further down.
     Q_ASSERT(!isPartialMapping && !isFullMapping);
-    if (m_keys.isEmpty())
-      m_keys = m_mappingKeys.mid(0, m_mappingKeys.length() - 1);
+     m_keys += m_mappingKeys.mid(0, m_mappingKeys.length() - 1);
     m_mappingKeys.clear();
   } else {
     // FIXME:

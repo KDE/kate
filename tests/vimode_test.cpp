@@ -1247,6 +1247,26 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("");
 
+  // ctrl-h should dismiss bar when empty.
+  BeginTest("");
+  TestPressKey("/\\ctrl-h");
+  QVERIFY(!emulatedCommandBar->isVisible());
+  FinishTest("");
+
+  // ctrl-h should not dismiss bar when there is stuff to the left of cursor.
+  BeginTest("");
+  TestPressKey("/a\\ctrl-h");
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // ctrl-h should not dismiss bar when bar is not empty, even if there is nothing to the left of cursor.
+  BeginTest("");
+  TestPressKey("/a\\left\\ctrl-h");
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\enter");
+  FinishTest("");
+
   // Check ctrl-w works.
   BeginTest("");
   TestPressKey("/foo bar\\ctrl-w");

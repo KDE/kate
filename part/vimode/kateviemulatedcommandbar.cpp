@@ -101,7 +101,12 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     }
     else if (keyEvent->key() == Qt::Key_H)
     {
+      if (m_edit->text().isEmpty())
+      {
+        emit hideMe();
+      }
       m_edit->backspace();
+      return true;
     }
     else if (keyEvent->key() == Qt::Key_W)
     {

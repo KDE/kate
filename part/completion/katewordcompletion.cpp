@@ -245,20 +245,39 @@ void KateWordCompletionModel::executeCompletionItem2(
   ) const
 {
   KateView *v = qobject_cast<KateView*> (document->activeView());
-  KTextEditor::Range r = word;
   if (v->config()->wordCompletionRemoveTail())
   {
+    int tailStart = word.end().column();
     const QString& line = document->line(word.end().line());
-    int real_word_size = line.length();
-    for (int i = word.end().column(); i < real_word_size; ++i)
+    int tailEnd = line.length();
+    for (int i = word.end().column(); i < tailEnd; ++i)
+    {
       // Letters, numbers and underscore are part of a word!
       /// \todo Introduce configurable \e word-separators??
       if (!line[i].isLetterOrNumber() && line[i] != '_')
-        real_word_size = i;
-    r.end().setColumn(real_word_size);
-  }
+      {
+        tailEnd = i;
+      }
+    }
 
-  document->replaceText(r, m_matches.at(index.row()));
+    int sizeDiff = m_matches.at(index.row()).size() - (word.end().column() - word.start().column());
+
+    tailStart += sizeDiff;
+    tailEnd += sizeDiff;
+
+    KTextEditor::Range tail = word;
+    tail.start().setColumn(tailStart);
+    tail.end().setColumn(tailEnd);
+
+    document->replaceText(word, m_matches.at(index.row()));
+    v->doc()->editEnd();
+    v->doc()->editStart();
+    document->replaceText(tail, "");
+  }
+  else
+  {
+    document->replaceText(word, m_matches.at(index.row()));
+  }
 }
 
 KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateWordCompletionModel::matchingItem(const QModelIndex& /*matched*/)

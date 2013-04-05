@@ -354,9 +354,7 @@ void CompletionTest::testKateCompletionModel()
 
 void CompletionTest::testAbortImmideatelyAfterStart()
 {
-    KateCompletionModel *model = m_view->completionWidget()->model();
-
-    CodeCompletionTestModel* testModel = new ImmideatelyAbortCompletionModel(m_view);
+    new ImmideatelyAbortCompletionModel(m_view);
     m_view->setCursorPosition(Cursor(0, 3));
     QVERIFY(!m_view->completionWidget()->isCompletionActive());
     emit m_view->userInvokedCompletion();
@@ -365,8 +363,7 @@ void CompletionTest::testAbortImmideatelyAfterStart()
 
 void CompletionTest::testJumpToListBottomAfterCursorUpWhileAtTop()
 {
-    KateCompletionModel *model = m_view->completionWidget()->model();
-    CodeCompletionTestModel* testModel1 = new CodeCompletionTestModel(m_view, "aa");
+    new CodeCompletionTestModel(m_view, "aa");
     invokeCompletionBox(m_view);
 
     m_view->completionWidget()->cursorUp();

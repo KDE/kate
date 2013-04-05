@@ -1,22 +1,22 @@
 set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 
 include_directories(
-  ${CMAKE_CURRENT_SOURCE_DIR}/..
-  ${CMAKE_CURRENT_SOURCE_DIR}/../buffer
-  ${CMAKE_CURRENT_SOURCE_DIR}/../completion
-  ${CMAKE_CURRENT_SOURCE_DIR}/../dialogs
-  ${CMAKE_CURRENT_SOURCE_DIR}/../document
-  ${CMAKE_CURRENT_SOURCE_DIR}/../script
-  ${CMAKE_CURRENT_SOURCE_DIR}/../mode
-  ${CMAKE_CURRENT_SOURCE_DIR}/../render
-  ${CMAKE_CURRENT_SOURCE_DIR}/../search
-  ${CMAKE_CURRENT_SOURCE_DIR}/../syntax
-  ${CMAKE_CURRENT_SOURCE_DIR}/../undo
-  ${CMAKE_CURRENT_SOURCE_DIR}/../utils
-  ${CMAKE_CURRENT_SOURCE_DIR}/../vimode
-  ${CMAKE_CURRENT_SOURCE_DIR}/../view
-  ${CMAKE_CURRENT_SOURCE_DIR}/../kte5 # KDE5 remove
-  ${CMAKE_CURRENT_BINARY_DIR}/..
+  ${CMAKE_SOURCE_DIR}/part
+  ${CMAKE_SOURCE_DIR}/part/buffer
+  ${CMAKE_SOURCE_DIR}/part/completion
+  ${CMAKE_SOURCE_DIR}/part/dialogs
+  ${CMAKE_SOURCE_DIR}/part/document
+  ${CMAKE_SOURCE_DIR}/part/script
+  ${CMAKE_SOURCE_DIR}/part/mode
+  ${CMAKE_SOURCE_DIR}/part/render
+  ${CMAKE_SOURCE_DIR}/part/search
+  ${CMAKE_SOURCE_DIR}/part/syntax
+  ${CMAKE_SOURCE_DIR}/part/undo
+  ${CMAKE_SOURCE_DIR}/part/utils
+  ${CMAKE_SOURCE_DIR}/part/vimode
+  ${CMAKE_SOURCE_DIR}/part/view
+  ${CMAKE_SOURCE_DIR}/part/kte5 # KDE5 remove
+  ${CMAKE_BINARY_DIR}/part
   ${KDE4_KIO_INCLUDES}
 )
 

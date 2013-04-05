@@ -85,7 +85,7 @@
 
 
 const QString srcPath(KDESRCDIR);
-const QString testDataPath(KDESRCDIR "../../testdata/");
+const QString testDataPath(KDESRCDIR "/data/");
 
 
 QtMsgHandler ScriptTestBase::m_msgHandler = 0;
@@ -121,7 +121,7 @@ void ScriptTestBase::getTestData(const QString& script)
   QTest::addColumn<QString>("testcase");
 
   // make sure the script files are valid
-  QFile scriptFile(srcPath + "/../script/data/" + m_script_dir + "/" + script + ".js");
+  QFile scriptFile(srcPath + "/../part/script/data/" + m_script_dir + "/" + script + ".js");
   if (!scriptFile.exists()) {
     QSKIP(qPrintable(QString(scriptFile.fileName() + " does not exist")), SkipAll);
   }

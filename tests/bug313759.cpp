@@ -17,7 +17,7 @@
  *   Boston, MA 02110-1301, USA.
  */
 
-#include "bug317111.h"
+#include "bug313759.h"
 
 #include <qtest_kde.h>
 
@@ -64,33 +64,39 @@ void BugTest::tryCrash()
   KateView* view = static_cast<KateView *>(doc->createView(0));
   bool outputWasCustomised = false;
   TestScriptEnv* env = new TestScriptEnv(doc, outputWasCustomised);
-  QString url = KDESRCDIR + QString("data/bug317111.txt");
+  QString url = KDESRCDIR + QString("data/bug313759.txt");
   doc->openUrl(url);
 
-  // load buggy script
-  QFile scriptFile(KDESRCDIR + QString("/../script/data/commands/utils.js"));
+  // load moveLinesDown and moveLinesUp
+  QFile scriptFile(KDESRCDIR + QString("/../part/script/data/commands/utils.js"));
   QVERIFY(scriptFile.exists());
   QVERIFY(scriptFile.open(QFile::ReadOnly));
   QScriptValue result = env->engine()->evaluate(scriptFile.readAll(), scriptFile.fileName());
   QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + "\nat "
   + env->engine()->uncaughtExceptionBacktrace().join("\n"))) );
 
+  // enable on the fly spell checking
+  doc->onTheFlySpellCheckingEnabled(true);
+
   // view must be visible...
   view->show();
   view->resize(900, 800);
   view->setCursorPosition(Cursor(0, 0));
+  doc->editBegin();
+  // QTest::qWait(200);
 
   // evaluate test-script
-  qDebug() << "attempting crash by calling KateDocument::defStyle(-1, 0)";
-  QFile sourceFile(KDESRCDIR + QString("data/bug317111.js"));
+  qDebug() << "attempting crash by moving lines w/ otf spell checking enabled";
+  QFile sourceFile(KDESRCDIR + QString("data/bug313759.js"));
   QVERIFY(sourceFile.open(QFile::ReadOnly));
   QTextStream stream(&sourceFile);
   stream.setCodec("UTF8");
   QString code = stream.readAll();
   sourceFile.close();
   // execute script
-  result = env->engine()->evaluate(code, KDESRCDIR + QString("data/bug317111.txt"), 1);
+  result = env->engine()->evaluate(code, KDESRCDIR + QString("data/bug313759.txt"), 1);
   QVERIFY2( !result.isError(), result.toString().toUtf8().constData() );
 
+  doc->editEnd();
   qDebug() << "PASS (no crash)";
 }

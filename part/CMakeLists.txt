@@ -12,9 +12,6 @@ add_subdirectory( script/data )
 
 add_subdirectory( plugins )
 
-# tests
-add_subdirectory( tests )
-
 # includes
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}

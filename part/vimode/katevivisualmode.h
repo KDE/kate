@@ -86,7 +86,7 @@ public Q_SLOTS:
     ViMode m_mode;
     Cursor m_start;
     ViMode m_lastVisualMode; // used when reselecting a visual selection
-    bool m_selection_is_changed_inside_ViMode;
+    bool m_selection_is_changed_inside_ViMode; // TODO - check whether this is still needed now that we have m_commandBeingExecuted.
 };
 
 #endif

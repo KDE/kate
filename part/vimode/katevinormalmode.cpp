@@ -482,6 +482,7 @@ void KateViNormalMode::resetParser()
   m_motionOperatorIndex = 0;
 
   m_commandWithMotion = false;
+  m_isCommandBeingExecuted = false;
   m_linewiseCommand = true;
   m_deleteCommand = false;
 
@@ -530,7 +531,9 @@ void KateViNormalMode::goToPos( const KateViRange &r )
 
 void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 {
+  m_isCommandBeingExecuted = true;
   cmd->execute();
+  m_isCommandBeingExecuted = false;
 
   // if normal mode was started by using Ctrl-O in insert mode,
   // it's time to go back to insert mode.

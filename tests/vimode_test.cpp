@@ -1337,6 +1337,34 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("xyz");
 
+  // Check ctrl-r ctrl-w inserts word under the cursor.
+  BeginTest("foo bar xyz");
+  TestPressKey("w/\\left\\ctrl-r\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("bar"));
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
+
+  // Check ctrl-r ctrl-w doesn't insert the contents of register w!
+  BeginTest("foo baz xyz");
+  TestPressKey("\"wyiww/\\left\\ctrl-r\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("baz"));
+  TestPressKey("\\enter");
+  FinishTest("foo baz xyz");
+
+  // Check ctrl-r ctrl-w inserts at the current cursor position.
+  BeginTest("foo nose xyz");
+  TestPressKey("w/bar\\left\\ctrl-r\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("banoser"));
+  TestPressKey("\\enter");
+  FinishTest("foo nose xyz");
+
+  // Cursor position is at the end of the inserted text after ctrl-r ctrl-w.
+  BeginTest("foo nose xyz");
+  TestPressKey("w/bar\\left\\ctrl-r\\ctrl-wX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("banoseXr"));
+  TestPressKey("\\enter");
+  FinishTest("foo nose xyz");
+
   // Cursor position is at the end of the inserted register contents after ctrl-r.
   BeginTest("xyz");
   TestPressKey("\"ayiw/foo\\left\\ctrl-raX");

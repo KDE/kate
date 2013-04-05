@@ -103,10 +103,19 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
                   keyEvent->text(),
                   keyEvent->modifiers(),
                   keyEvent->nativeScanCode() ).toLower();
-      const QString registerContents = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( key );
+
       const int oldCursorPosition = m_edit->cursorPosition();
-      m_edit->setText(m_edit->text().insert(m_edit->cursorPosition(), registerContents));
-      m_edit->setCursorPosition(oldCursorPosition + registerContents.length());
+      QString textToInsert;
+      if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_W)
+      {
+        textToInsert = m_view->doc()->getWord(m_view->cursorPosition());
+      }
+      else
+      {
+        textToInsert = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( key );
+      }
+      m_edit->setText(m_edit->text().insert(m_edit->cursorPosition(), textToInsert));
+      m_edit->setCursorPosition(oldCursorPosition + textToInsert.length());
       m_waitingForRegister = false;
   } else if (keyEvent->modifiers() == Qt::ControlModifier)
   {

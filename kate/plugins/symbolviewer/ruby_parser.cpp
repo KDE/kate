@@ -32,8 +32,8 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
  QString name;
 
  QTreeWidgetItem *node = NULL;
- QTreeWidgetItem *mcrNode = NULL, *mtdNode = NULL, *clsNode = NULL;
- QTreeWidgetItem *lastMcrNode = NULL, *lastMtdNode = NULL, *lastClsNode = NULL;
+ QTreeWidgetItem *mtdNode = NULL, *clsNode = NULL;
+ QTreeWidgetItem *lastMtdNode = NULL, *lastClsNode = NULL;
 
  KTextEditor::Document *kv = mainWindow()->activeView()->document();
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
@@ -45,7 +45,6 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
     clsNode->setIcon(0, QIcon(cls));
     if (m_plugin->expanded_on) m_symbols->expandItem(clsNode);
     lastClsNode = clsNode;
-    lastMcrNode = mcrNode;
     mtdNode = clsNode;
     lastMtdNode = clsNode;
     m_symbols->setRootIsDecorated(1);

@@ -173,7 +173,6 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       ) && (args->count()==0)) force_new=true;
   }
     
-  bool start_session_set=false;
   QString start_session;
   bool session_already_opened=false;
   
@@ -184,7 +183,6 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   }
   else if (args->isSet("start"))
   {
-    start_session_set=true;
     start_session=args->getOption("start");
     if (mapSessionRii.contains(start_session)) {
       serviceName=mapSessionRii[start_session]->serviceName;

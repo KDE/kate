@@ -1024,6 +1024,14 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");
   DoTest("XXXX\nXXXX\nXXXX\nXXXX", "3'testmapping", "XXXX\nXOXX\nXXOX\nXXXO");
 
+  // Regression test for a weird mistake I made: *completely* remove all counting for the
+  // first command in the sequence; don't just set it to 1! If it is set to 1, then "%"
+  // will mean "go to position 1 percent of the way through the document" rather than
+  // go to matching item.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gl", "%");
+  DoTest("0\n1\n2\n3\n4\n5\nfoo bar(xyz) baz", "jjjjjjwdgl", "0\n1\n2\n3\n4\n5\nfoo  baz");
+
   // Test that countable mappings work even when triggered by timeouts.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO");

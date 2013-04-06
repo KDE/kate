@@ -3423,7 +3423,7 @@ void KateViNormalMode::executeMapping()
 {
   m_mappingKeys.clear();
   const int numberRepeats = m_countTemp == 0 ? 1 : m_countTemp;
-  m_countTemp = 1; // Ensure that the first command in the mapping is not repeated.
+  m_countTemp = 0; // Ensure that the first command in the mapping is not repeated.
   m_mappingTimer->stop();
   const QString mappedKeypresses = getMapping(m_fullMappingMatch);
   doc()->editBegin();

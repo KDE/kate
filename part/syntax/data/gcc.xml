@@ -130,6 +130,7 @@
     <item> __atomic_fetch_nand </item>
     <item> __atomic_test_and_set </item>
     <item> __atomic_clear </item>
+    <item> __atomic_signal_fence </item>
     <item> __atomic_thread_fence </item>
     <item> __atomic_always_lock_free </item>
     <item> __atomic_is_lock_free </item>

@@ -23,7 +23,6 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
-#include "katedocmanageradaptor.h"
 #include "katecontainer.h"
 #include "katesavemodifieddialog.h"
 
@@ -76,14 +75,11 @@ KateDocManager::KateDocManager (QObject *parent)
   } else {
     kDebug()<<"Editor does not support the container interface";
   }
+  
   // read in editor config
   m_editor->readConfig(KGlobal::config().data());
 
   m_documentManager = new Kate::DocumentManager (this);
-
-  ( void ) new KateDocManagerAdaptor( this );
-  m_dbusObjectPath = "/DocumentManager";
-  QDBusConnection::sessionBus().registerObject( m_dbusObjectPath, this );
 
   m_metaInfos = new KConfig("metainfos", KConfig::NoGlobals, "appdata" );
 

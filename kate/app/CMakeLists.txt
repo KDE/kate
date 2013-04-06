@@ -1,6 +1,6 @@
 ########### next target ###############
 
-set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
+set(kateinterfaces_LIB_SRCS kateappadaptor.cpp
    ../interfaces/kate/application.cpp
    ../interfaces/kate/mainwindow.cpp
    ../interfaces/kate/documentmanager.cpp
@@ -19,7 +19,6 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp katemainwindowadaptor.cpp
    katemwmodonhddialog.cpp
    katesession.cpp
    katemdi.cpp
-   katedocmanageradaptor.cpp
    katecontainer.cpp
    katerunninginstanceinfo.cpp
    kateappcommands.cpp

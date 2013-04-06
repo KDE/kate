@@ -108,11 +108,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
       return m_viewManager;
     }
 
-    QString dbusObjectPath() const
-    {
-      return m_dbusObjectPath;
-    }
-
     /**
      * get a plugin view with identifier \p name.
      * \param name the plugin's name
@@ -295,8 +290,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     KToggleAction* settingsShowFileselector;
 
     bool m_modignore;
-
-    QString m_dbusObjectPath;
 
     // all plugin views for this mainwindow, used by the pluginmanager
     QHash<Kate::Plugin*, Kate::PluginView*> m_pluginViews;

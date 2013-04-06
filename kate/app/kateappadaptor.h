@@ -38,15 +38,6 @@ class KateAppAdaptor : public QDBusAbstractAdaptor
     void emitDocumentClosed(const QString& token);
     
   public Q_SLOTS:
-    QDBusObjectPath documentManager ();
-
-    QDBusObjectPath activeMainWindow ();
-
-    uint activeMainWindowNumber ();
-
-    uint mainWindows ();
-    QDBusObjectPath mainWindow (uint n = 0);
-
     /**
      * open a file with given url and encoding
      * will get view created

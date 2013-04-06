@@ -48,47 +48,6 @@ void KateAppAdaptor::activate ()
 #endif
 }
 
-QDBusObjectPath KateAppAdaptor::documentManager ()
-{
-  return QDBusObjectPath (m_app->documentManager()->dbusObjectPath ());
-}
-
-QDBusObjectPath KateAppAdaptor::activeMainWindow ()
-{
-  KateMainWindow *win = m_app->activeMainWindow();
-
-  if (win)
-    return QDBusObjectPath (win->dbusObjectPath());
-
-  return QDBusObjectPath ();
-}
-
-uint KateAppAdaptor::activeMainWindowNumber ()
-{
-  KateMainWindow *win = m_app->activeMainWindow();
-
-  if (win)
-    return win->mainWindowNumber ();
-
-  return 0;
-}
-
-
-uint KateAppAdaptor::mainWindows ()
-{
-  return m_app->mainWindows ();
-}
-
-QDBusObjectPath KateAppAdaptor::mainWindow (uint n)
-{
-  KateMainWindow *win = m_app->mainWindow(n);
-
-  if (win)
-    return QDBusObjectPath (win->dbusObjectPath ());
-
-  return QDBusObjectPath ();
-}
-
 bool KateAppAdaptor::openUrl (QString url, QString encoding)
 {
   return m_app->openUrl (url, encoding, false);

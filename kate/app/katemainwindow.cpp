@@ -32,7 +32,6 @@
 #include "katesavemodifieddialog.h"
 #include "katemwmodonhddialog.h"
 #include "katesession.h"
-#include "katemainwindowadaptor.h"
 #include "kateviewspace.h"
 #include "katequickopen.h"
 
@@ -108,10 +107,6 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   // first the very important id
   myID = uniqueID;
   uniqueID++;
-
-  new KateMainWindowAdaptor( this );
-  m_dbusObjectPath = "/MainWindow/" + QString::number( myID );
-  QDBusConnection::sessionBus().registerObject( m_dbusObjectPath, this );
 
   m_modignore = false;
 

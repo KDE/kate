@@ -102,10 +102,6 @@ class KateDocManager : public QObject
 
     bool isOpen(KUrl url);
 
-    QString dbusObjectPath()
-    {
-      return m_dbusObjectPath;
-    }
     uint documents ();
 
     const QList<KTextEditor::Document*> &documentList () const
@@ -214,7 +210,6 @@ class KateDocManager : public QObject
 
     typedef QPair<KUrl, QDateTime> TPair;
     QMap<KTextEditor::Document *, TPair> m_tempFiles;
-    QString m_dbusObjectPath;
     QString m_openingErrors;
     int m_documentStillToRestore;
 

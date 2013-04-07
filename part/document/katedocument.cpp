@@ -3283,28 +3283,6 @@ void KateDocument::comment( KateView *v, uint line,uint column, int change)
                   && removeStartLineCommentFromSingleLine( line, startAttrib ) )
         || ( hasStartStopCommentMark
              && removeStartStopCommentFromSingleLine( line, startAttrib ) );
-      
-#if 0
-        // FIXME: FOLDING
-      if ((!removed) && foldingTree()) {
-        kDebug(13020)<<"easy approach for uncommenting did not work, trying harder (folding tree)";
-        int commentRegion=(highlight()->commentRegion(startAttrib));
-        if (commentRegion){
-           KateCodeFoldingNode *n=foldingTree()->findNodeForPosition(line,column);
-           if (n) {
-            KTextEditor::Cursor start,end;
-            if ((n->nodeType()==(int)commentRegion) && n->getBegin(foldingTree(), &start) && n->getEnd(foldingTree(), &end)) {
-                kDebug(13020)<<"Enclosing region found:"<<start.column()<<"/"<<start.line()<<"-"<<end.column()<<"/"<<end.line();
-                removed = removeStartStopCommentFromRegion(start,end,startAttrib);
-             } else {
-                  kDebug(13020)<<"Enclosing region found, but not valid";
-                  kDebug(13020)<<"Region found: "<<n->nodeType()<<" region needed: "<<commentRegion;
-             }
-            //perhaps nested regions should be hadled here too...
-          } else kDebug(13020)<<"No enclosing region found";
-        } else kDebug(13020)<<"No comment region specified for current hl";
-      }
-#endif
     }
     else
     {

@@ -66,6 +66,11 @@ TextFolding::~TextFolding ()
 void TextFolding::clear ()
 {
   /**
+   * reset counter
+   */
+  m_idCounter = -1;
+  
+  /**
    * no ranges, no work
    */
   if (m_foldingRanges.isEmpty()) {
@@ -854,6 +859,71 @@ void TextFolding::appendFoldedRanges (TextFolding::FoldingRange::Vector &newFold
      * else: recurse!
      */
     appendFoldedRanges (newFoldedFoldingRanges, range->nestedRanges);
+  }
+}
+
+QVariantList TextFolding::exportFoldingRanges () const
+{
+  QVariantList folds;
+  exportFoldingRanges (m_foldingRanges, folds);
+  return folds;
+}
+
+void TextFolding::exportFoldingRanges (const TextFolding::FoldingRange::Vector &ranges, QVariantList &folds)
+{
+  /**
+   * dump all ranges recursively
+   */
+  Q_FOREACH (FoldingRange *range, ranges) {
+    /**
+     * construct one range and dump to folds
+     */
+    QVariantMap rangeMap;
+    rangeMap["startLine"] = range->start->line();
+    rangeMap["startColumn"] = range->start->column();
+    rangeMap["endLine"] = range->end->line();
+    rangeMap["endColumn"] = range->end->column();
+    rangeMap["flags"] = (int)range->flags;
+    folds.append (rangeMap);
+    
+    /**
+     * recurse
+     */
+    exportFoldingRanges (range->nestedRanges, folds);
+  }
+}
+
+void TextFolding::importFoldingRanges (const QVariantList &folds)
+{
+  /**
+   * try to create all folding ranges
+   */
+  Q_FOREACH (QVariant rangeVariant, folds) {
+    /**
+     * get map
+     */
+    QVariantMap rangeMap = rangeVariant.toMap ();
+    
+    /**
+     * construct range start/end
+     */
+    KTextEditor::Cursor start (rangeMap["startLine"].toInt(), rangeMap["startColumn"].toInt());
+    KTextEditor::Cursor end (rangeMap["endLine"].toInt(), rangeMap["endColumn"].toInt());
+    
+    /**
+     * get flags
+     */
+    int rawFlags = rangeMap["flags"].toInt();
+    FoldingRangeFlags flags;
+    if (rawFlags & Persistent)
+      flags = Persistent;
+    if (rawFlags & Folded)
+      flags = Folded;
+    
+    /**
+     * create folding range
+     */
+    newFoldingRange (KTextEditor::Range (start, end), flags);
   }
 }
 

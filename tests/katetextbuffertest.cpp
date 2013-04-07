@@ -373,6 +373,19 @@ void KateTextBufferTest::foldingTest()
     
     // 50 lines are hidden
     QVERIFY (folding.visibleLines() == (100 - 50));
+    
+    // save state
+    QVariantList folds = folding.exportFoldingRanges ();
+    QString textDump = folding.debugDump();
+    
+    // clear folds
+    folding.clear ();
+    QVERIFY (folding.debugDump() == "tree  - folded ");
+    
+    // restore state
+    folding.importFoldingRanges (folds);
+    QVERIFY (folding.debugDump() == textDump);
+    
 }
 
 void KateTextBufferTest::nestedFoldingTest()

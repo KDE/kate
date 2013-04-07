@@ -146,6 +146,18 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
     QVector<QPair<qint64, FoldingRangeFlags> > foldingRangesStartingOnLine (int line) const;
     
     /**
+     * Return the current known folding ranges a QVariantList to store in configs.
+     * @return current folds as variant list
+     */
+    QVariantList exportFoldingRanges () const;
+    
+    /**
+     * Import the folding ranges given as a QVariantList like read from configs.
+     * @param folds list of folds to import
+     */
+    void importFoldingRanges (const QVariantList &folds);
+    
+    /**
      * Dump folding state as string, for unit testing and debugging
      * @return current state as text
      */
@@ -228,6 +240,13 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
          */
         qint64 id;
     };
+    
+    /**
+     * Fill known folding ranges in a QVariantList to store in configs.
+     * @param ranges ranges vector to dump
+     * @param folds current folds as variant list, will be filled
+     */
+    static void exportFoldingRanges (const TextFolding::FoldingRange::Vector &ranges, QVariantList &folds);
     
     /**
      * Dump folding state of given vector as string, for unit testing and debugging.

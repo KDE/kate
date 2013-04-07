@@ -27,6 +27,7 @@
     <Action name="file_close"/>
     <Action name="file_close_other"/>
     <Action name="file_close_all"/>
+    <DefineGroup name="close_merge" />
     <Separator />
 
     <Action name="file_quit"/>

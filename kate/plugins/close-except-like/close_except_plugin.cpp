@@ -205,9 +205,9 @@ void CloseExceptPluginView::updateMenu()
 {
     kDebug() << "... updating menu ...";
     const QList<KTextEditor::Document*>& docs = m_plugin->application()->documentManager()->documents();
-    if (docs.empty())
+    if (docs.size() < 2)
     {
-        kDebug() << "No docs r opened right now --> disable menu";
+        kDebug() << "No docs r (or the only) opened right now --> disable menu";
         m_except_menu->setEnabled(false);
         m_like_menu->setEnabled(false);
         /// \note It seems there is always a document present... it named \em 'Untitled'

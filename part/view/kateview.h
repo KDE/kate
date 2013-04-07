@@ -777,6 +777,23 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateSpellingMenu* spellingMenu();
   private:
     bool m_userContextMenuSet;
+    
+  private Q_SLOTS:
+    /**
+     * save folding state before document reload
+     */
+    void saveFoldingState ();
+    
+    /**
+     * restore folding state after document reload
+     */
+    void applyFoldingState ();
+    
+  private:
+    /**
+     * saved folding state
+     */
+    QVariantList m_savedFoldingState;
 
 public:
     /**

@@ -289,6 +289,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_topMessageWidget, SLOT(startAutoHideTimer()));
   connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_bottomMessageWidget, SLOT(startAutoHideTimer()));
   connect(this, SIGNAL(cursorPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)), m_overlayMessageWidget, SLOT(startAutoHideTimer()));
+  
+  // folding restoration on reload
+  connect(m_doc, SIGNAL(aboutToReload(KTextEditor::Document*)), SLOT(saveFoldingState()));
+  connect(m_doc, SIGNAL(reloaded(KTextEditor::Document*)), SLOT(applyFoldingState()));
 }
 
 KateView::~KateView()
@@ -3149,6 +3153,17 @@ void KateView::postMessage(KTextEditor::Message* message,
   } else {
     m_overlayMessageWidget->postMessage(message, actions);
   }
+}
+
+void KateView::saveFoldingState ()
+{
+  m_savedFoldingState = m_textFolding.exportFoldingRanges ();
+}
+    
+void KateView::applyFoldingState ()
+{
+  m_textFolding.importFoldingRanges (m_savedFoldingState);
+  m_savedFoldingState.clear ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

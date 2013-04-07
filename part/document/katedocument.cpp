@@ -170,10 +170,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   // some nice signals from the buffer
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
   connect(m_buffer, SIGNAL(respellCheckBlock(int,int)), this , SLOT(respellCheckBlock(int,int)));
-  
-  // FIXME: FOLDING
-  //connect(this,SIGNAL(aboutToReload(KTextEditor::Document*)),foldingTree(),SLOT(saveFoldingState()));
-  //connect(this,SIGNAL(reloaded(KTextEditor::Document*)),foldingTree(),SLOT(applyFoldingState()));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));
@@ -1592,12 +1588,6 @@ void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
   const QList<int> marks = kconfig.readEntry("Bookmarks", QList<int>());
   for( int i = 0; i < marks.count(); i++ )
     addMark( marks.at(i), KateDocument::markType01 );
-
-  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipFolding)) {
-      // restore folding nodes
-      // FIXME: FOLDING
-      // foldingTree()->readSessionConfig(kconfig);
-  }
 }
 
 void KateDocument::writeSessionConfig(KConfigGroup &kconfig)
@@ -1645,12 +1635,6 @@ void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
       marks << i.value()->line;
 
   kconfig.writeEntry( "Bookmarks", marks );
-
-  if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipFolding)) {
-    // save folding
-    // FIXME: FOLDING
-    //foldingTree()->writeSessionConfig(kconfig);
-  }
 }
 
 //END KTextEditor::SessionConfigInterface and KTextEditor::ParameterizedSessionConfigInterface stuff

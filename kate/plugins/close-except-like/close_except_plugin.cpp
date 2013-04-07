@@ -209,7 +209,9 @@ void CloseExceptPluginView::updateMenu()
     {
         kDebug() << "No docs r (or the only) opened right now --> disable menu";
         m_except_menu->setEnabled(false);
+        m_except_menu->addSeparator();
         m_like_menu->setEnabled(false);
+        m_like_menu->addSeparator();
         /// \note It seems there is always a document present... it named \em 'Untitled'
     }
     else

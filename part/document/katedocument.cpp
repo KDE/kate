@@ -31,6 +31,7 @@
 #include "kateautoindent.h"
 #include "katetextline.h"
 #include "katedocumenthelpers.h"
+#include "katehighlighthelpers.h"
 #include "kateprinter.h"
 #include "katerenderer.h"
 #include "kateregexp.h"
@@ -5383,7 +5384,23 @@ int KateDocument::defStyleNum(int line, int column)
           ->config()
           ->schema()
       );
-    KTextEditor::Attribute::Ptr a = attributes[plainKateTextLine(line)->attribute(column)];
+    
+    // get highlighted line
+    Kate::TextLine tl = kateTextLine(line);
+    
+    /**
+     * either get char attribute or attribute of context still active at end of line
+     */
+    int attribute = 0;
+    if (column < tl->length())
+      attribute = tl->attribute (column);
+    else if (column == tl->length()) {
+      KateHlContext *context = tl->contextStack().isEmpty() ? highlight()->contextNum(0) : highlight()->contextNum (tl->contextStack().back());
+      attribute = context->attr;
+    } else
+      return -1;
+    
+    KTextEditor::Attribute::Ptr a = attributes[attribute];
     return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
   }
   return -1;

@@ -68,7 +68,6 @@ class KateMessageWidget;
 
 class KToggleAction;
 class KAction;
-class KRecentFilesAction;
 class KSelectAction;
 
 class QVBoxLayout;
@@ -613,7 +612,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KAction*               m_editUndo;
     KAction*               m_editRedo;
     KAction*               m_pasteMenu;
-    KRecentFilesAction*    m_fileRecent;
     KToggleAction*         m_toggleFoldingMarkers;
     KToggleAction*         m_toggleIconBar;
     KToggleAction*         m_toggleLineNumbers;

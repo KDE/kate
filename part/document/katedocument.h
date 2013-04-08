@@ -58,10 +58,8 @@ namespace KIO { class TransferJob; }
 
 namespace Kate { class SwapFile; }
 
-class KateCodeFoldingTree;
 class KateBuffer;
 class KateView;
-class KateLineInfo;
 class KateDocumentConfig;
 class KateHighlighting;
 class KateUndoManager;
@@ -823,11 +821,6 @@ Q_SIGNALS:
 
   private:
     void updateDocName ();
-
-  public:
-    void lineInfo (KateLineInfo *info, int line) const;
-
-    KateCodeFoldingTree *foldingTree ();
 
   public:
     /**

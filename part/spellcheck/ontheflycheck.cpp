@@ -30,6 +30,7 @@
 #include "kateconfig.h"
 #include "kateglobal.h"
 #include "katerenderer.h"
+#include "katebuffer.h"
 #include "kateview.h"
 #include "spellcheck.h"
 #include "spellingmenu.h"
@@ -57,7 +58,7 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
           this, SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
   connect(document, SIGNAL(highlightingModeChanged(KTextEditor::Document*)),
           this, SLOT(updateConfig()));
-  connect(document, SIGNAL(respellCheckBlock(KateDocument*,int,int)),
+  connect(&document->buffer(), SIGNAL(respellCheckBlock(KateDocument*,int,int)),
           this, SLOT(handleRespellCheckBlock(KateDocument*,int,int)));
 
   // load the settings for the speller

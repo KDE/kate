@@ -1126,11 +1126,9 @@ Q_SIGNALS:
       void revertToDefaultDictionary(const KTextEditor::Range &range);
       void setDefaultDictionary(const QString& dict);
       void onTheFlySpellCheckingEnabled(bool enable);
-      void respellCheckBlock(int start, int end) {respellCheckBlock(this,start,end);}
       void refreshOnTheFlyCheck(const KTextEditor::Range &range = KTextEditor::Range::invalid());
 
   Q_SIGNALS:
-      void respellCheckBlock(KateDocument *document,int start, int end);
       void dictionaryRangesPresent(bool yesNo);
       void defaultDictionaryChanged(KateDocument *document);
 

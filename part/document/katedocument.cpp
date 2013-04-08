@@ -169,7 +169,6 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
 
   // some nice signals from the buffer
   connect(m_buffer, SIGNAL(tagLines(int,int)), this, SLOT(tagLines(int,int)));
-  connect(m_buffer, SIGNAL(respellCheckBlock(int,int)), this , SLOT(respellCheckBlock(int,int)));
 
   // if the user changes the highlight with the dialog, notify the doc
   connect(KateHlManager::self(),SIGNAL(changed()),SLOT(internalHlChanged()));

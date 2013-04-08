@@ -3462,19 +3462,6 @@ void KateDocument::tagLines(int start, int end)
     view->tagLines (start, end, true);
 }
 
-void KateDocument::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor end)
-{
-  // May need to switch start/end cols if in block selection mode
-/*  if (blockSelectionMode() && start.column() > end.column()) {
-    int sc = start.column();
-    start.setColumn(end.column());
-    end.setColumn(sc);
-  }
-*/
-  foreach (KateView* view, m_views)
-    view->tagLines(start, end, true);
-}
-
 void KateDocument::repaintViews(bool paintOnlyDirty)
 {
   foreach(KateView *view,m_views)

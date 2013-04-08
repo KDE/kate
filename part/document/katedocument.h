@@ -693,16 +693,8 @@ Q_SIGNALS:
 
     KateHighlighting *highlight () const;
 
-  public Q_SLOTS:    //please keep prototypes and implementations in same order
-    void tagLines(int start, int end);
-    void tagLines(KTextEditor::Cursor start, KTextEditor::Cursor end);
-
-  //export feature, obsolute
   public Q_SLOTS:
-     void exportAs(const QString&) { }
-
-  Q_SIGNALS:
-    void preHighlightChanged(uint);
+    void tagLines(int start, int end);
 
   private Q_SLOTS:
     void internalHlChanged();

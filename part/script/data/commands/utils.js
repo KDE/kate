@@ -209,7 +209,7 @@ function duplicateLinesDown()
     var blockRange = _getBlockForAction();
     document.editBegin();
     document.insertText(blockRange.start, document.text(blockRange));
-    _adjustSelection(selection, 1);
+    _adjustSelection(selection, blockRange.end.line - blockRange.start.line);
     document.editEnd();
 }
 

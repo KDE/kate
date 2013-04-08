@@ -294,8 +294,6 @@ class KateViewInternal : public QWidget
       QDrag*   dragObject;
     } m_dragInfo;
 
-    uint m_iconBorderHeight;
-
     //
     // line scrollbar + first visible (virtual) line in the current view
     //

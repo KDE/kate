@@ -744,9 +744,9 @@ bool TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newR
     
     /**
      * range is behind newRange?
-     * insert newRange
+     * insert newRange if not already done
      */
-    if (range->start->toCursor() >= newRange->end->toCursor()) {
+    if (!newRangeInserted && (range->start->toCursor() >= newRange->end->toCursor())) {
       newFoldedFoldingRanges.push_back (newRange);
       newRangeInserted = true;
     }

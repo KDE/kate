@@ -1,7 +1,7 @@
 /* kate-script
  * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>, Gerald Senarclens de Grancy <oss@senarclens.eu>, Alex Turbov <i.zaufi@gmail.com>
  * license: LGPL
- * revision: 7
+ * revision: 8
  * kate-version: 3.4
  * functions: sort, moveLinesDown, moveLinesUp, natsort, uniq, rtrim, ltrim, trim, join, rmblank, unwrap, each, filter, map, duplicateLinesUp, duplicateLinesDown, rewrap, encodeURISelection, decodeURISelection
  */
@@ -209,7 +209,7 @@ function duplicateLinesDown()
     var blockRange = _getBlockForAction();
     document.editBegin();
     document.insertText(blockRange.start, document.text(blockRange));
-    _adjustSelection(selection, 1);
+    _adjustSelection(selection, blockRange.end.line - blockRange.start.line);
     document.editEnd();
 }
 

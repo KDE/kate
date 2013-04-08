@@ -2584,10 +2584,11 @@ bool KateDocument::typeChars ( KateView *view, const QString &realChars )
 
   insertText(view->cursorPosition(), chars);
 
+  // end edit session here, to have updated HL in userTypedChar!
+  editEnd();
+  
   KTextEditor::Cursor b(view->cursorPosition());
   m_indenter->userTypedChar (view, b, chars.isEmpty() ? QChar() :  chars.at(chars.length() - 1));
-
-  editEnd ();
 
   view->slotTextInserted (view, oldCur, chars);
   return true;
@@ -2618,11 +2619,12 @@ void KateDocument::newLine( KateView *v )
 
   // first: wrap line
   editWrapLine (c.line(), c.column());
+  
+  // end edit session here, to have updated HL in userTypedChar!
+  editEnd();
 
   // second: indent the new line, if needed...
   m_indenter->userTypedChar(v, v->cursorPosition(), '\n');
-
-  editEnd();
 }
 
 void KateDocument::transpose( const KTextEditor::Cursor& cursor)

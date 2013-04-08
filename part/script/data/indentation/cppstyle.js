@@ -721,17 +721,19 @@ function trySameLineComment(cursor)
     var line = cursor.line;
     var column = cursor.column;
 
-    // Fisrt of all check that we r not withing a string
-    // (previous char checked, i.e. not just entered, due the BUG #316809)
-    if (document.isString(line, column - 2))
-       return;
+    // First of all check that we are not withing a string
+    if (document.isString(line, column)) {
+        return;
+    }
 
     var sc = splitByComment(document.line(line));
     if (sc.hasComment)                                      // Is there any comment on a line?
     {
         // Make sure we r not in a comment already
-        if (document.isComment(line, document.firstColumn(line)))
+        if (document.isComment(line, document.firstColumn(line)) &&
+          (document.line(line) != '///')) {
             return;
+        }
         // If no text after the comment and it still not aligned
         var text_len = sc.before.rtrim().length;
         if (text_len != 0 && sc.after.length == 0 && text_len < gSameLineCommentStartAt)

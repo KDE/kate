@@ -97,7 +97,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
 
   if (m_view->viModeEmulatedCommandBar()->isVisible())
   {
-    m_view->viModeEmulatedCommandBar()->handleKeyPress(e);
+    res = m_view->viModeEmulatedCommandBar()->handleKeyPress(e);
   }
   else
   {

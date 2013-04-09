@@ -30,6 +30,7 @@
 #include <QtCore/QEvent>
 #include <QtCore/QTimer>
 #include <QtGui/QVBoxLayout>
+#include <QToolTip>
 
 KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   : QWidget(parent)
@@ -60,6 +61,8 @@ KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   if (applyFadeEffect) {
     m_fadeEffect = new KateFadeEffect(m_messageWidget);
   }
+
+  connect(m_messageWidget, SIGNAL(linkActivated(const QString&)), SLOT(linkActivated(const QString&)));
 }
 
 bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
@@ -231,6 +234,11 @@ void KateMessageWidget::startAutoHideTimer()
   Q_ASSERT(m_messageList.size());
   KTextEditor::Message* message = m_messageList[0];
   QTimer::singleShot(m_autoHideTime == 0 ? (6*1000) : m_autoHideTime, message, SLOT(deleteLater()));
+}
+
+void KateMessageWidget::linkActivated(const QString& link)
+{
+  QToolTip::showText(QCursor::pos(), link, m_messageWidget);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

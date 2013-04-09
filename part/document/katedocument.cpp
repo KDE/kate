@@ -4819,9 +4819,10 @@ void KateDocument::slotTriggerLoadingMessage ()
    */
   delete m_loadingMessage;
   m_loadingMessage = new KTextEditor::Message(KTextEditor::Message::Information
-          , i18n ("The file %1 is still loading.", this->url().pathOrUrl()));
+          , i18n ("The file <a href=\"%1\">%2</a> is still loading.", url().pathOrUrl(), url().fileName()));
   m_loadingMessage->setWordWrap(true);
-  
+  m_loadingMessage->setPosition(KTextEditor::Message::TopInView);
+
   /**
    * if around job: add cancel action
    */

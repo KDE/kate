@@ -579,7 +579,10 @@ void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, cons
           KTextEditor::MarkInterface::markType01 );
     }
 
-    m_viNormalMode->message(i18n ("Mark set: %1", mark));
+    // only show message for active view
+    if (m_view->doc()->activeView() == m_view) {
+      m_viNormalMode->message(i18n ("Mark set: %1", mark));
+    }
   }
 
   m_mark_set_inside_viinputmodemanager = false;

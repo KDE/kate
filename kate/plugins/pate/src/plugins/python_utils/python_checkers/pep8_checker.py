@@ -105,14 +105,18 @@ def checkPep8(currentDocument=None, refresh=True):
     sys.argv = [path]
     pep8.process_options([path])
     python_utils_conf = kate.configuration.root.get('python_utils', {})
-    ignore_pep8_versions = python_utils_conf.get(_IGNORE_PEP8_ERRORS, DEFAULT_IGNORE_PEP8_ERRORS).split(",")
+    ignore_pep8_errors = python_utils_conf.get(_IGNORE_PEP8_ERRORS, DEFAULT_IGNORE_PEP8_ERRORS)
+    if ignore_pep8_errors:
+        ignore_pep8_errors = ignore_pep8_errors.split(",")
+    else:
+        ignore_pep8_errors = []
     if pep8.__version__ in OLD_PEP8_VERSIONS:
         checker = StoreErrorsChecker(path)
-        pep8.options.ignore = ignore_pep8_versions
+        pep8.options.ignore = ignore_pep8_errors
         checker.check_all()
         errors = checker.get_errors()
     else:
-        checker = pep8.Checker(path, reporter=KateReport, ignore=ignore_pep8_versions)
+        checker = pep8.Checker(path, reporter=KateReport, ignore=ignore_pep8_errors)
         checker.check_all()
         errors = checker.report.get_errors()
     if len(errors) == 0:

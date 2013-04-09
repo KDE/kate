@@ -1997,8 +1997,19 @@ bool KateDocument::openFile()
       = new KTextEditor::Message(KTextEditor::Message::Error
           , i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().pathOrUrl()));
     message->setWordWrap(true);
+    QAction* tryAgainAction = new QAction(KIcon("view-refresh"), i18n("Try Again"), 0);
+    connect(tryAgainAction, SIGNAL(triggered()), SLOT(documentReload()), Qt::QueuedConnection);
+
+    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
+    closeAction->setToolTip(i18n("Close message"));
+
+    // add try again and close actions
+    message->addAction(tryAgainAction);
+    message->addAction(closeAction);
+
+    // finally post message
     postMessage(message);
-    
+
     // remember error
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().pathOrUrl()));

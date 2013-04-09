@@ -30,11 +30,6 @@ namespace KTextEditor {
 class View;
 class Document;
 
-//
-// TODOs and Ideas:
-// - turn FloatInView into TopRightInView, BottomRightInView, or Qt::Alignment?
-//
-
 /**
  * @brief This class holds a Message to display in View%s.
  *
@@ -117,7 +112,8 @@ class Message : public QObject
     enum MessagePosition {
       AboveView = 0, ///< show message above view
       BelowView,     ///< show message below view
-      FloatInView    ///< show message as view overlay
+      TopInView,     ///< show message as view overlay in the top right corner
+      BottomInView   ///< show message as view overlay om the bottom right corner
     };
 
     /**

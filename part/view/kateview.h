@@ -872,18 +872,16 @@ public:
     void postMessage(KTextEditor::Message* message, QList<QSharedPointer<QAction> > actions);
 
   private:
-    /**
-     * Message widget showing KTextEditor::Messages above the View.
-     */
+    /** Message widget showing KTextEditor::Messages above the View. */
     KateMessageWidget* m_topMessageWidget;
-    /**
-     * Message widget showing KTextEditor::Messages below the View.
-     */
+    /** Message widget showing KTextEditor::Messages below the View. */
     KateMessageWidget* m_bottomMessageWidget;
-    /**
-     * Message widget showing KTextEditor::Messages as view overlay.
-     */
-    KateMessageWidget* m_overlayMessageWidget;
+    /** Message widget showing KTextEditor::Messages as view overlay in top right corner. */
+    KateMessageWidget* m_floatTopMessageWidget;
+    /** Message widget showing KTextEditor::Messages as view overlay in bottom left corner. */
+    KateMessageWidget* m_floatBottomMessageWidget;
+    /** Layout for floating notifications */
+    QVBoxLayout* m_notificationLayout;
 };
 
 /**

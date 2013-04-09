@@ -1104,7 +1104,7 @@ void KateViModeBase::error( const QString &errorMsg )
     return;
 
   m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Error, errorMsg);
-  m_infoMessage->setPosition(KTextEditor::Message::FloatInView);
+  m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
   m_infoMessage->setAutoHide(2000); // 2 seconds
   m_infoMessage->setView(m_view);
 
@@ -1120,7 +1120,7 @@ void KateViModeBase::message( const QString &msg )
     return;
 
   m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive, msg);
-  m_infoMessage->setPosition(KTextEditor::Message::FloatInView);
+  m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
   m_infoMessage->setAutoHide(2000); // 2 seconds
   m_infoMessage->setView(m_view);
 

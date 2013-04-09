@@ -103,6 +103,9 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
           this, SLOT(slotTemplateInserted(KTextEditor::Document*,KTextEditor::Range)));
 
   ///TODO: maybe use Kate::CutCopyPasteEdit or similar?
+
+  // we want one undo action >= START
+  doc()->setUndoMergeAllEdits(true);
   doc()->editStart();
 
   /**
@@ -110,6 +113,7 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
    */
   if (!doc()->insertText(m_lastCaretPosition, templateString)) {
     doc()->editEnd();
+    doc()->setUndoMergeAllEdits(false);
     cleanupAndExit();
   }
 
@@ -117,6 +121,9 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
    * now there must be a range
    */
   Q_ASSERT(m_wholeTemplateRange);
+
+  // end edit here, we need correct syntax highlighting in align!
+  doc()->editEnd();
 
   // indent the inserted template properly, this makes it possible
   // to share snippets e.g. via GHNS without caring about
@@ -129,9 +136,11 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
   /// - create view => ranges are added
   /// for now simply "just insert" the code when we have no active view
 
+  doc()->editStart();
   handleTemplateString(initial_Values);
   m_undoManager->undoSafePoint();
   doc()->editEnd();
+  doc()->setUndoMergeAllEdits(false);
 
   if (!initialValues.isEmpty()) {
     // only do complex stuff when required

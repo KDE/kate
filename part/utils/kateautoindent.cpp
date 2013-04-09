@@ -261,29 +261,38 @@ void KateAutoIndent::reloadScript()
 
 void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
 {
-//   view->doc()->buffer().ensureHighlighted(position.line(), 0);
+  // start edit
+  doc->pushEditState();
+  doc->editStart();
+
   QPair<int, int> result = m_script->indent (view, position, typedChar, indentWidth);
   int newIndentInChars = result.first;
 
   // handle negative values special
-  if (newIndentInChars < -1)
-    return;
+  if (newIndentInChars < -1) {
+    // do nothing atm
+  }
 
   // reuse indentation of the previous line, just like the "normal" indenter
-  if (newIndentInChars == -1)
+  else if (newIndentInChars == -1)
   {
     // keep indent of previous line
     keepIndent (position.line());
-
-    return;
   }
 
-  int align = result.second;
-  if (align > 0)
-    kDebug (13060) << "Align: " << align;
+  // get align
+  else {
+    int align = result.second;
+    if (align > 0)
+      kDebug (13060) << "Align: " << align;
 
-  // we got a positive or zero indent to use...
-  doIndent (position.line(), newIndentInChars, align);
+    // we got a positive or zero indent to use...
+    doIndent (position.line(), newIndentInChars, align);
+  }
+
+  // end edit in all cases
+  doc->editEnd ();
+  doc->popEditState();
 }
 
 bool KateAutoIndent::isStyleProvided(const KateIndentScript *script, const KateHighlighting *highlight)
@@ -409,8 +418,9 @@ void KateAutoIndent::indent (KateView *view, const KTextEditor::Range &range)
   if (!m_script)
     return;
 
-  doc->pushEditState();
-  doc->editStart();
+  // we want one undo action >= START
+  doc->setUndoMergeAllEdits(true);
+
   // loop over all lines given...
   for (int line = range.start().line () < 0 ? 0 : range.start().line ();
        line <= qMin (range.end().line (), doc->lines()-1); ++line)
@@ -418,8 +428,9 @@ void KateAutoIndent::indent (KateView *view, const KTextEditor::Range &range)
     // let the script indent for us...
     scriptIndent (view, KTextEditor::Cursor (line, 0), QChar());
   }
-  doc->editEnd ();
-  doc->popEditState();
+
+  // we want one undo action => END
+  doc->setUndoMergeAllEdits(false);
 }
 
 void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &position, QChar typedChar)
@@ -433,7 +444,6 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
 
     // keep indent of previous line
     keepIndent (position.line());
-
     return;
   }
 

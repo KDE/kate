@@ -123,26 +123,8 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
   foreach (QAction* a, message->actions())
     m_messageWidget->addAction(a);
 
-  // enable word wrap if it breaks the layout otherwise
-  if (!message->wordWrap() && parentWidget()) {
-    int margin = 0;
-    if (parentWidget() && parentWidget()->layout()) {
-      int leftMargin = 0, rightMargin = 0;
-      parentWidget()->layout()->getContentsMargins(&leftMargin, 0, &rightMargin, 0);
-      margin = leftMargin + rightMargin;
-    }
-    if (m_messageWidget->wordWrap())
-      m_messageWidget->setWordWrap(false);
-    m_messageWidget->ensurePolished();
-    m_messageWidget->adjustSize();
-    const int freeSpace = (parentWidget()->width() - margin) - m_messageWidget->width();
-    if (freeSpace < 0) {
-//       kDebug() << "force word wrap to avoid breaking the layout" << freeSpace;
-      m_messageWidget->setWordWrap(true);
-    }
-  } else {
-    m_messageWidget->setWordWrap(message->wordWrap());
-  }
+  // set word wrap of the message
+  setWordWrap(message);
 
   // start auto-hide timer, if requested
   m_autoHideTime = message->autoHide();
@@ -162,6 +144,45 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
 #else
     QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
 #endif
+  }
+}
+
+void KateMessageWidget::setWordWrap(KTextEditor::Message* message)
+{
+  // want word wrap anyway? -> ok
+  if (message->wordWrap()) {
+    m_messageWidget->setWordWrap(message->wordWrap());
+    return;
+  }
+
+  // word wrap not wanted, that's ok if a parent widget does not exist
+  if (!parentWidget()) {
+    m_messageWidget->setWordWrap(false);
+    return;
+  }
+
+  // word wrap not wanted -> enable word wrap if it breaks the layout otherwise
+  int margin = 0;
+  if (parentWidget()->layout()) {
+    // get left/right margin of the layout, since we need to subtract these
+    int leftMargin = 0, rightMargin = 0;
+    parentWidget()->layout()->getContentsMargins(&leftMargin, 0, &rightMargin, 0);
+    margin = leftMargin + rightMargin;
+  }
+
+  // if word wrap enabled, first disable it
+  if (m_messageWidget->wordWrap())
+    m_messageWidget->setWordWrap(false);
+
+  // make sure the widget's size is up-to-date in its hidden state
+  m_messageWidget->ensurePolished();
+  m_messageWidget->adjustSize();
+
+  // finally enable word wrap, if there is not enough free horizontal space
+  const int freeSpace = (parentWidget()->width() - margin) - m_messageWidget->width();
+  if (freeSpace < 0) {
+//       kDebug() << "force word wrap to avoid breaking the layout" << freeSpace;
+    m_messageWidget->setWordWrap(true);
   }
 }
 

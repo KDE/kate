@@ -56,6 +56,10 @@ class KateMessageWidget : public QWidget
      * Show the @p message and launch show animation
      */
     void showMessage(KTextEditor::Message* message);
+    /**
+     * Helper that enables word wrap to avoid breaking the layout
+     */
+    void setWordWrap(KTextEditor::Message* message);
 
   protected:
     /**

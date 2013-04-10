@@ -91,7 +91,6 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
 {
   // set text etc.
   m_messageWidget->setText(message->text());
-  m_messageWidget->setWordWrap(message->wordWrap());
 
   // connect textChanged(), so it's possible to change text on the fly
   connect(message, SIGNAL(textChanged(const QString&)),
@@ -123,6 +122,27 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
   // add new actions to the message widget
   foreach (QAction* a, message->actions())
     m_messageWidget->addAction(a);
+
+  // enable word wrap if it breaks the layout otherwise
+  if (!message->wordWrap() && parentWidget()) {
+    int margin = 0;
+    if (parentWidget() && parentWidget()->layout()) {
+      int leftMargin = 0, rightMargin = 0;
+      parentWidget()->layout()->getContentsMargins(&leftMargin, 0, &rightMargin, 0);
+      margin = leftMargin + rightMargin;
+    }
+    if (m_messageWidget->wordWrap())
+      m_messageWidget->setWordWrap(false);
+    m_messageWidget->ensurePolished();
+    m_messageWidget->adjustSize();
+    const int freeSpace = (parentWidget()->width() - margin) - m_messageWidget->width();
+    if (freeSpace < 0) {
+//       kDebug() << "force word wrap to avoid breaking the layout" << freeSpace;
+      m_messageWidget->setWordWrap(true);
+    }
+  } else {
+    m_messageWidget->setWordWrap(message->wordWrap());
+  }
 
   // start auto-hide timer, if requested
   m_autoHideTime = message->autoHide();

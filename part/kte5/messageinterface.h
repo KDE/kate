@@ -215,8 +215,8 @@ class Message : public QObject
      * Enabled word wrap according to @p wordWrap.
      * By default, auto wrap is disabled.
      *
-     * If the text of the message is long, always enable auto wrap, as
-     * otherwise the layout of the gui breaks.
+     * Word wrap is enabled automatically, if the Message's width is larger than
+     * the parent widget's width to avoid breaking the gui layout.
      *
      * @see wordWrap()
      */

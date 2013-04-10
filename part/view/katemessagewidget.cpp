@@ -63,7 +63,7 @@ KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   }
 
 #if KDE_VERSION >= KDE_MAKE_VERSION(4,10,60) // KMessageWidget::linkHovered() is new in KDE 4.11
-  connect(m_messageWidget, SIGNAL(linkHovered(const QString&)), SLOT(linkActivated(const QString&)));
+  connect(m_messageWidget, SIGNAL(linkHovered(const QString&)), SLOT(linkHovered(const QString&)));
 #endif
 }
 
@@ -279,7 +279,7 @@ void KateMessageWidget::startAutoHideTimer()
   QTimer::singleShot(m_autoHideTime == 0 ? (6*1000) : m_autoHideTime, message, SLOT(deleteLater()));
 }
 
-void KateMessageWidget::linkActivated(const QString& link)
+void KateMessageWidget::linkHovered(const QString& link)
 {
   QToolTip::showText(QCursor::pos(), link, m_messageWidget);
 }

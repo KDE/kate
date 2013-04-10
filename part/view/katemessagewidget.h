@@ -77,9 +77,9 @@ class KateMessageWidget : public QWidget
      */
     void startAutoHideTimer();
     /**
-     * User clicked on a link in the message widget.
+     * User hovers on a link in the message widget.
      */
-    void linkActivated(const QString& link);
+    void linkHovered(const QString& link);
 
   private:
     // sorted list of pending messages

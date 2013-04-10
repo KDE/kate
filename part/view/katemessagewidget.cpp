@@ -62,7 +62,9 @@ KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
     m_fadeEffect = new KateFadeEffect(m_messageWidget);
   }
 
-  connect(m_messageWidget, SIGNAL(linkActivated(const QString&)), SLOT(linkActivated(const QString&)));
+#if KDE_VERSION >= KDE_MAKE_VERSION(4,10,60) // KMessageWidget::linkHovered() is new in KDE 4.11
+  connect(m_messageWidget, SIGNAL(linkHovered(const QString&)), SLOT(linkActivated(const QString&)));
+#endif
 }
 
 bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)

@@ -385,7 +385,10 @@ function tryBrace(line)
     var lastPos = document.lastColumn(currentLine);
     var indentation = -1;
 
-    if (document.charAt(currentLine, lastPos) == '{') {
+
+    var currentString = document.line(currentLine);
+    if (currentString.search(/\{[^\}]*$/) != -1) {
+        dbg("tryBrace: Closing bracket in line " + currentLine);
         var cursor = tryParenthesisBeforeBrace(currentLine, lastPos);
         if (cursor.isValid()) {
             indentation = document.firstVirtualColumn(cursor.line) + gIndentWidth;

@@ -166,8 +166,14 @@ void ViModeTest::TestPressKey(QString str) {
            // We've handled the command; go back round the loop, avoiding sending
            // the closing \ to vi_input_mode_manager.
            continue;
-        } else {
-            assert(false); //Do not use "\" in tests except for modifiers and command mode.
+        } else if (str.mid(i, 2) == QString("\\\\"))
+        {
+            key = QString("\\");
+            keyCode = Qt::Key_Backslash;
+            i++;
+        }
+        else {
+            assert(false); //Do not use "\" in tests except for modifiers, command mode (\\:) and literal backslashes "\\\\")
         }
     }
 
@@ -1650,6 +1656,51 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(rangesOnFirstLine().first()->attribute()->background().color(), newSearchHighlightColour);
   TestPressKey("\\enter");
   FinishTest("foo bar xyz");
+
+  // Escape regex's in a Vim-ish style.
+  // Unescaped ( and ) are always literals.
+  DoTest("foo bar( xyz", "/bar(\\enterrX", "foo Xar( xyz");
+  DoTest("foo bar) xyz", "/bar)\\enterrX", "foo Xar) xyz");
+  // + is literal, unless it is already escaped.
+  DoTest("foo bar+ xyz", "/bar+ \\enterrX", "foo Xar+ xyz");
+  DoTest("  foo+AAAAbar", "/foo+A\\\\+bar\\enterrX", "  Xoo+AAAAbar");
+  DoTest("  foo++++bar", "/foo+\\\\+bar\\enterrX", "  Xoo++++bar");
+  DoTest("  foo++++bar", "/+\\enterrX", "  fooX+++bar");
+  // ( and ), if escaped, are not literals.
+  DoTest("foo  barbarxyz", "/ \\\\(bar\\\\)\\\\+xyz\\enterrX", "foo Xbarbarxyz");
+  // |, if unescaped, is literal.
+  DoTest("foo |bar", "/|\\enterrX", "foo Xbar");
+  // |, if escaped, is not a literal.
+  DoTest("foo xfoo\\y xbary", "/x\\\\(foo\\\\|bar\\\\)y\\enterrX", "foo xfoo\\y Xbary");
+  // A single [ is a literal.
+  DoTest("foo bar[", "/bar[\\enterrX", "foo Xar[");
+  // A single ] is a literal.
+  DoTest("foo bar]", "/bar]\\enterrX", "foo Xar]");
+  // A matching [ and ] are *not* literals.
+  DoTest("foo xbcay", "/x[abc]\\\\+y\\enterrX", "foo Xbcay");
+  DoTest("foo xbcay", "/[abc]\\\\+y\\enterrX", "foo xXcay");
+  // Need to be an unescaped match, though.
+  DoTest("foo xbcay", "/x[abc\\\\]\\\\+y\\enterrX", "Xoo xbcay");
+  DoTest("foo xbcay", "/x\\\\[abc]\\\\+y\\enterrX", "Xoo xbcay");
+  // An escaped '[' between matching unescaped '[' and ']' is treated as a literal '['
+  DoTest("foo xb[cay", "/x[a\\\\[bc]\\\\+y\\enterrX", "foo Xb[cay");
+  DoTest("foo xb]cay", "/x[a\\\\]bc]\\\\+y\\enterrX", "foo Xb]cay");
+  // An escaped '[' not between other square brackets is a literal.
+  DoTest("foo xb[cay", "/xb\\\\[\\enterrX", "foo Xb[cay");
+  DoTest("foo xb[cay", "/\\\\[ca\\enterrX", "foo xbXcay");
+  // An escaped ']' not between other square brackets is a literal.
+  DoTest("foo xb]cay", "/xb\\\\]\\enterrX", "foo Xb]cay");
+  DoTest("foo xb]cay", "/\\\\]ca\\enterrX", "foo xbXcay");
+  // A dot is not a literal, nor is a star.
+  DoTest("foo bar", "/o.*b\\enterrX", "fXo bar");
+  // Vim's '\<' and '\>' map, roughly, to Qt's '\b'
+  DoTest("foo xbar barx bar", "/bar\\\\>\\enterrX", "foo xXar barx bar");
+  DoTest("foo xbar barx bar", "/\\\\<bar\\enterrX", "foo xbar Xarx bar");
+  DoTest("foo xbar barx bar ", "/\\\\<bar\\\\>\\enterrX", "foo xbar barx Xar ");
+  DoTest("foo xbar barx bar", "/\\\\<bar\\\\>\\enterrX", "foo xbar barx Xar");
+  DoTest("foo xbar barx\nbar", "/\\\\<bar\\\\>\\enterrX", "foo xbar barx\nXar");
+  // Ensure that it is the escaped version of the pattern that is recorded as the last search pattern.
+  DoTest("foo bar( xyz", "/bar(\\enterggnrX", "foo Xar( xyz");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

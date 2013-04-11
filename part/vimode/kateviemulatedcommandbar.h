@@ -35,6 +35,9 @@ private:
   virtual bool eventFilter(QObject* object, QEvent* event);
   void deleteSpacesToLeftOfCursor();
   void deleteNonSpacesToLeftOfCursor();
+  QString vimRegexToQtRegexPattern(const QString& vimRegexPattern);
+  QString toggledEscaped(const QString& string, QChar escapeChar);
+  QString ensuredCharEscaped(const QString& string, QChar charToEscape);
 private slots:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();

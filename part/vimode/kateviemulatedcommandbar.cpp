@@ -131,6 +131,80 @@ void KateViEmulatedCommandBar::deleteNonSpacesToLeftOfCursor()
   }
 }
 
+QString KateViEmulatedCommandBar::vimRegexToQtRegexPattern(const QString& vimRegexPattern)
+{
+  QString qtRegexPattern = vimRegexPattern;
+  qtRegexPattern = toggledEscaped(qtRegexPattern, '(');
+  qtRegexPattern = toggledEscaped(qtRegexPattern, ')');
+  qtRegexPattern = toggledEscaped(qtRegexPattern, '+');
+  qtRegexPattern = toggledEscaped(qtRegexPattern, '|');
+
+  bool lookingForMatchingCloseBracket = false;
+  bool treatSquareBracketsAsLiterals = true;
+  for (int i = 0; i < qtRegexPattern.length(); i++)
+  {
+    if (qtRegexPattern[i] == '[')
+    {
+      lookingForMatchingCloseBracket = true;
+    }
+    if (qtRegexPattern[i] == ']' && lookingForMatchingCloseBracket)
+    {
+      treatSquareBracketsAsLiterals = false;
+    }
+  }
+  if(treatSquareBracketsAsLiterals)
+  {
+    qtRegexPattern = ensuredCharEscaped(qtRegexPattern, '[');
+    qtRegexPattern = ensuredCharEscaped(qtRegexPattern, ']');
+  }
+
+  qtRegexPattern = qtRegexPattern.replace("\\>", "\\b");
+  qtRegexPattern = qtRegexPattern.replace("\\<", "\\b");
+
+  return qtRegexPattern;
+}
+
+QString KateViEmulatedCommandBar::toggledEscaped(const QString& originalString, QChar escapeChar)
+{
+  int searchFrom = 0;
+  QString toggledEscapedString = originalString;
+  do
+  {
+    int indexOfEscapeChar = toggledEscapedString.indexOf(escapeChar , searchFrom);
+    if (indexOfEscapeChar == -1)
+    {
+      break;
+    }
+    if (indexOfEscapeChar == 0 || toggledEscapedString[indexOfEscapeChar - 1] != '\\')
+    {
+      // Escape.
+      toggledEscapedString.replace(indexOfEscapeChar, 1, QString("\\") + escapeChar);
+      searchFrom = indexOfEscapeChar + 2;
+    }
+    else
+    {
+      // Unescape.
+      toggledEscapedString.remove(indexOfEscapeChar - 1, 1);
+      searchFrom = indexOfEscapeChar + 1;
+    }
+  } while (true);
+
+  return toggledEscapedString;
+}
+
+QString KateViEmulatedCommandBar::ensuredCharEscaped(const QString& originalString, QChar charToEscape)
+{
+    QString escapedString = originalString;
+    for (int i = 0; i < escapedString.length(); i++)
+    {
+      if (escapedString[i] == charToEscape && (i == 0 || escapedString[i - 1] != '\\'))
+      {
+        escapedString.replace(i, 1, QString("\\") + charToEscape);
+      }
+    }
+    return escapedString;
+}
+
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
@@ -201,10 +275,13 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {
   qDebug() << "New text: " << newText;
-  m_view->getViInputModeManager()->setLastSearchPattern(newText);
-  KTextEditor::Search::SearchOptions searchOptions;
+  const QString qtRegexPattern = vimRegexToQtRegexPattern(newText);
 
-  if (newText.toLower() == newText)
+  qDebug() << "Final regex: " << qtRegexPattern;
+  m_view->getViInputModeManager()->setLastSearchPattern(qtRegexPattern);
+
+  KTextEditor::Search::SearchOptions searchOptions;
+  if (qtRegexPattern.toLower() == qtRegexPattern)
   {
     searchOptions |= KTextEditor::Search::CaseInsensitive;
     m_view->getViInputModeManager()->setLastSearchCaseSensitive(false);
@@ -219,7 +296,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   if (!m_searchBackwards)
   {
     m_view->getViInputModeManager()->setLastSearchBackwards(false);
-    const KTextEditor::Range matchRange = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentEnd()), newText, searchOptions).first();
+    const KTextEditor::Range matchRange = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentEnd()), qtRegexPattern, searchOptions).first();
 
     updateMatchHighlight(matchRange);
 
@@ -230,7 +307,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     else
     {
       // Wrap around.
-      const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), newText, searchOptions).first();
+      const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), qtRegexPattern, searchOptions).first();
       if (wrappedMatchRange.isValid())
       {
         m_view->setCursorPosition(wrappedMatchRange.start());
@@ -246,7 +323,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   {
     m_view->getViInputModeManager()->setLastSearchBackwards(true);
     searchOptions |= KTextEditor::Search::Backwards;
-    const KTextEditor::Range matchRange = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentRange().start()), newText, searchOptions).first();
+    const KTextEditor::Range matchRange = m_view->doc()->searchText(KTextEditor::Range(m_startingCursorPos, m_view->doc()->documentRange().start()), qtRegexPattern, searchOptions).first();
 
     updateMatchHighlight(matchRange);
 
@@ -256,7 +333,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     }
     else
     {
-      const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentEnd(), m_startingCursorPos), newText, searchOptions).first();
+      const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentEnd(), m_startingCursorPos), qtRegexPattern, searchOptions).first();
 
 
       if (wrappedMatchRange.isValid())

@@ -182,6 +182,17 @@ target_link_libraries( templatehandler_test
   katepartinterfaces
 )
 
+########### text folding test ###############
+
+kde4_add_unit_test(katecodefoldingtest TESTNAME codefoldingtest katefoldingtest.cpp)
+
+target_link_libraries( katecodefoldingtest
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 ########### indenting test ################
 
 set(indenttest_SRCS

@@ -95,6 +95,7 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
 
   // else, find block
   TextBlock *block = m_buffer.blockForIndex (m_buffer.blockForLine (position.line()));
+  Q_ASSERT(block);
 
   // get line
   TextLine textLine = block->line (position.line());
@@ -109,6 +110,12 @@ void TextCursor::setPosition(const KTextEditor::Cursor& position, bool init)
     return;
   }
 #endif
+
+  // if cursor was invalid before, remove it from invalid cursor list
+  if (!m_range && !m_block && !init) {
+    Q_ASSERT(m_buffer.m_invalidCursors.contains (this));
+    m_buffer.m_invalidCursors.remove (this);
+  }
 
   // else: valid cursor
   m_block = block;

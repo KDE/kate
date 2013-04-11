@@ -1016,12 +1016,12 @@ void KateView::setupCodeFolding()
 
   KAction* a;
 
-  /*= ac->addAction("folding_toplevel");
+  a = ac->addAction("folding_toplevel");
   a->setText(i18n("Fold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus));
-  connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseToplevelNodes()));
+  connect(a, SIGNAL(triggered(bool)), SLOT(slotFoldToplevelNodes()));
 
-  a = ac->addAction("folding_expandtoplevel");
+  /*a = ac->addAction("folding_expandtoplevel");
   a->setText(i18n("Unfold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(expandToplevelNodes()));
@@ -1041,6 +1041,16 @@ void KateView::setupCodeFolding()
   a = ac->addAction("folding_expandlocal");
   a->setText(i18n("Unfold Current Node"));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
+}
+
+void KateView::slotFoldToplevelNodes()
+{
+  // FIXME: more performant implementation
+  for (int line = 0; line < doc()->lines(); ++line) {
+    if (textFolding().isLineVisible(line)) {
+      foldLine(line);
+    }
+  }
 }
 
 void KateView::slotCollapseLocal()

@@ -596,11 +596,14 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void slotLostFocus();
     void slotDropEventPass( QDropEvent* ev );
     void slotSaveCanceled( const QString& error );
+    void slotConfigDialog ();
+
+  public Q_SLOTS: // TODO: turn into good interface, see kte5/foldinginterface.h
+    void slotFoldToplevelNodes();
     void slotCollapseLocal();
     void slotCollapseLevel();
     void slotExpandLevel();
     void slotExpandLocal();
-    void slotConfigDialog ();
 
   private:
     void setupConnections();

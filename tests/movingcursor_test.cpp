@@ -325,3 +325,22 @@ void MovingCursorTest::testOperators()
     QVERIFY(c14 > *m02);
     QVERIFY(c14 != *m02);
 }
+
+void MovingCursorTest::testInvalidMovingCursor()
+{
+  KateDocument* doc = new KateDocument(false, false, false);
+
+  // add invalid MovingCursor. Inserts c into KateBuffer::m_invalidCursors
+  MovingCursor* c = doc->newMovingCursor(Cursor(-1, -1));
+  QVERIFY(Cursor(-1, -1) == *c);
+
+  c->setPosition(Cursor(0, 0));
+  QVERIFY(Cursor(0, 0) == *c);
+
+  // now c should be removed from KateBuffer::m_invalidCursors
+  delete c;
+
+  // crash in bug https://bugs.kde.org/show_bug.cgi?id=248926
+  // if it crashes: c is still in KateBuffer::m_invalidCursors -> double deletion
+  delete doc;
+}

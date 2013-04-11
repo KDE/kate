@@ -34,6 +34,7 @@ private Q_SLOTS:
   void testMovingCursor();
   void testConvenienceApi();
   void testOperators();
+  void testInvalidMovingCursor();
 };
 
 #endif // KATE_MOVINGCURSOR_TEST_H

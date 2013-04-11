@@ -909,6 +909,12 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("5", "5\\ctrl-a2.10\\ctrl-a","22");
   DoTest(" 5 ", "l\\ctrl-ax","  ");
 
+  // Test "Ctrl-a/x" on a blank document/ blank line.
+  DoTest("", "\\ctrl-a","");
+  DoTest("", "\\ctrl-x","");
+  DoTest("foo\n", "j\\ctrl-x","foo\n");
+  DoTest("foo\n", "j\\ctrl-a","foo\n");
+
   // Testing "Ctrl-r"
   DoTest("foobar", "d3lu\\ctrl-r", "bar");
   DoTest("line 1\nline 2\n","ddu\\ctrl-r","line 2\n");

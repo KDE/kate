@@ -1098,7 +1098,7 @@ bool KateViModeBase::startVisualLineMode()
 void KateViModeBase::error( const QString &errorMsg )
 {
   delete m_infoMessage;
-  
+
   // nop if no vi mode around
   if (!m_view->viInputMode())
     return;
@@ -1114,7 +1114,7 @@ void KateViModeBase::error( const QString &errorMsg )
 void KateViModeBase::message( const QString &msg )
 {
   delete m_infoMessage;
-  
+
   // nop if no vi mode around
   if (!m_view->viInputMode())
     return;
@@ -1169,6 +1169,11 @@ void KateViModeBase::addToNumberUnderCursor( int count )
 {
     Cursor c( m_view->cursorPosition() );
     QString line = getLine();
+
+    if (line.isEmpty())
+    {
+      return;
+    }
 
     int wordStart = findPrevWordStart( c.line(), c.column()+1, true ).column();
     int wordEnd = findWordEnd( c.line(), c.column()-1, true ).column();

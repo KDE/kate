@@ -371,6 +371,8 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("G", motionToLineLast, 0 );
   ADDMOTION("w", motionWordForward, 0 );
   ADDMOTION("W", motionWORDForward, 0 );
+  ADDMOTION("<c-right>", motionWordForward, IS_NOT_LINEWISE);
+  ADDMOTION("<c-left>", motionWordBackward, IS_NOT_LINEWISE);
   ADDMOTION("b", motionWordBackward, 0 );
   ADDMOTION("B", motionWORDBackward, 0 );
   ADDMOTION("e", motionToEndOfWord, 0 );

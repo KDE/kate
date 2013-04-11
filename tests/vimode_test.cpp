@@ -61,6 +61,7 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("return", Qt::Key_Return);
   m_codesToSpecialKeys.insert("enter", Qt::Key_Enter);
   m_codesToSpecialKeys.insert("left", Qt::Key_Left);
+  m_codesToSpecialKeys.insert("right", Qt::Key_Right);
 }
 
 Qt::KeyboardModifier ViModeTest::parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier)
@@ -142,6 +143,18 @@ void ViModeTest::TestPressKey(QString str) {
           keyboard_modifier = parsedModifier;
           // Move to the character after the '-' in the modifier.
           i = endOfModifier + 1;
+          // Is this a modifier plus special key?
+          int endOfSpecialKeyAfterModifier = -1;
+          qDebug() << "After modifier: " << str.mid(i);
+          const Qt::Key parsedCodedSpecialKeyAfterModifier = parseCodedSpecialKey(str, i, &endOfSpecialKeyAfterModifier);
+          qDebug() << "parsedCodedSpecialKeyAfterModifier: " << parsedCodedSpecialKeyAfterModifier;
+          if (parsedCodedSpecialKeyAfterModifier != Qt::Key_unknown)
+          {
+             key = QString(parsedCodedSpecialKeyAfterModifier);
+             keyCode = parsedCodedSpecialKeyAfterModifier;
+             i = endOfSpecialKeyAfterModifier;
+             qDebug() << "i now : " << i << " (remainder: " << str.mid(i) << ")";
+          }
         } else if (parsedSpecialKey != Qt::Key_unknown) {
             key = QString(parsedSpecialKey);
             keyCode = parsedSpecialKey;
@@ -348,6 +361,10 @@ void ViModeTest::VisualModeTests() {
     // Quick test that "{" and "}" motions work in visual mode
     DoTest("foo\n\n\nbar\n","v}}d","");
     DoTest("\n\nfoo\nbar\n","jjjv{d","\nar\n");
+
+    // ctrl-left and ctrl-right
+    DoTest("foo bar xyz", "v\\ctrl-\\rightd", "ar xyz");
+    DoTest("foo bar xyz", "$v\\ctrl-\\leftd", "foo bar ");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -578,6 +595,10 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("10%\n20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%",
          "5j10%dd",
          "20%\n30%\n40%\n50%\n60%\n70%\n80%\n90%\n100%");
+
+  // ctrl-left and ctrl-right.
+  DoTest("foo bar xyz", "\\ctrl-\\rightrX", "foo Xar xyz");
+  DoTest("foo bar xyz", "$\\ctrl-\\leftrX", "foo bar Xyz");
 
    // TEXT OBJECTS
   DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",

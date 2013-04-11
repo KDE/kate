@@ -3121,6 +3121,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("G", motionToLineLast, 0 );
   ADDMOTION("w", motionWordForward, IS_NOT_LINEWISE );
   ADDMOTION("W", motionWORDForward, IS_NOT_LINEWISE );
+  ADDMOTION("<c-right>", motionWordForward, IS_NOT_LINEWISE);
+  ADDMOTION("<c-left>", motionWordBackward, IS_NOT_LINEWISE);
   ADDMOTION("b", motionWordBackward, 0 );
   ADDMOTION("B", motionWORDBackward, 0 );
   ADDMOTION("e", motionToEndOfWord, 0 );

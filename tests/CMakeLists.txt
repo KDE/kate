@@ -248,14 +248,14 @@ target_link_libraries(bug313759_test
 
 ########### bug 313769 test ###############
 
-#kde4_add_unit_test(bug313769_test TESTNAME kate-bug313769_test bug313769.cpp)
+kde4_add_unit_test(bug313769_test TESTNAME kate-bug313769_test bug313769.cpp)
 
-#target_link_libraries( bug313769_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-#)
+target_link_libraries( bug313769_test
+ ${KDE4_KDEUI_LIBS}
+ ${QT_QTTEST_LIBRARY}
+ ${KATE_TEST_LINK_LIBS}
+ katepartinterfaces
+)
 
 ########### bug 317111 test ###############
 

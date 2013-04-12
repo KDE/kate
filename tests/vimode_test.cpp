@@ -39,6 +39,7 @@
 #include <katecompletionwidget.h>
 
 #include <QtGui/QLabel>
+#include <kcolorscheme.h>
 
 QTEST_KDEMAIN(ViModeTest, GUI)
 
@@ -1673,6 +1674,23 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("foo bar xyz");
 
+  // Set the background colour appropriately.
+  KColorScheme currentColorScheme(QPalette::Normal);
+  const QColor normalBackgroundColour = QPalette().brush(QPalette::Base).color();
+  const QColor matchBackgroundColour =  currentColorScheme.background(KColorScheme::PositiveBackground).color();
+  const QColor noMatchBackgroundColour =  currentColorScheme.background(KColorScheme::NegativeBackground).color();
+  BeginTest("foo bar xyz");
+  TestPressKey("/xyz");
+  verifyTextEditBackgroundColour(matchBackgroundColour);
+  TestPressKey("a");
+  verifyTextEditBackgroundColour(noMatchBackgroundColour);
+  TestPressKey("\\ctrl-w");
+  verifyTextEditBackgroundColour(normalBackgroundColour);
+  TestPressKey("/xyz\\enter/");
+  verifyTextEditBackgroundColour(normalBackgroundColour);
+  TestPressKey("\\enter");
+  FinishTest("foo bar xyz");
+
   // Escape regex's in a Vim-ish style.
   // Unescaped ( and ) are always literals.
   DoTest("foo bar( xyz", "/bar(\\enterrX", "foo Xar( xyz");
@@ -1888,5 +1906,11 @@ void ViModeTest::verifyCursorAt(const Cursor& expectedCursorPos)
   QCOMPARE(kate_view->cursorPosition().line(), expectedCursorPos.line());
   QCOMPARE(kate_view->cursorPosition().column(), expectedCursorPos.column());
 }
+
+void ViModeTest::verifyTextEditBackgroundColour(const QColor& expectedBackgroundColour)
+{
+  QCOMPARE(emulatedCommandBarTextEdit()->palette().brush(QPalette::Base).color(), expectedBackgroundColour);
+}
+
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

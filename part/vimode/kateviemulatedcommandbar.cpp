@@ -10,6 +10,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
 #include <QApplication>
+#include <KDE/KColorScheme>
 
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
     : KateViewBarWidget(false, parent),
@@ -293,14 +294,26 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 
   Range match = m_view->getViInputModeManager()->getViNormalMode()->findPattern(qtRegexPattern, m_searchBackwards, caseSensitive, m_startingCursorPos);
 
+  QPalette barBackground(m_edit->palette());
   if (match.isValid())
   {
     m_view->setCursorPosition(match.start());
+    KColorScheme::adjustBackground(barBackground, KColorScheme::PositiveBackground);
   }
   else
   {
     m_view->setCursorPosition(m_startingCursorPos);
+    if (!m_edit->text().isEmpty())
+    {
+      KColorScheme::adjustBackground(barBackground, KColorScheme::NegativeBackground);
+    }
+    else
+    {
+      // Reset to back to normal.
+      barBackground = QPalette();
+    }
   }
+  m_edit->setPalette(barBackground);
 
   updateMatchHighlight(match);
 

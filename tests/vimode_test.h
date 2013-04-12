@@ -79,6 +79,8 @@ private:
   QLineEdit *emulatedCommandBarTextEdit();
   void verifyCursorAt(const KTextEditor::Cursor& expectedCursorPos);
 
+  void verifyTextEditBackgroundColour(const QColor& expectedBackgroundColour);
+
   QMap<QString, Qt::KeyboardModifier> m_codesToModifiers;
   Qt::KeyboardModifier parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier);
 

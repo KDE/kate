@@ -144,6 +144,12 @@ const QChar KateViModeBase::getCharUnderCursor() const
 
 const QString KateViModeBase::getWordUnderCursor() const
 {
+
+  return doc()->text( getWordRangeUnderCursor() );
+}
+
+const Range KateViModeBase::getWordRangeUnderCursor() const
+{
   Cursor c( m_view->cursorPosition() );
 
   // find first character that is a “word letter” and start the search there
@@ -171,19 +177,12 @@ const QString KateViModeBase::getWordUnderCursor() const
   Cursor c2 = findWordEnd( c1.line(), c1.column()+i-1, true );
   c2.setColumn( c2.column()+1 );
 
-  return doc()->text( Range( c1, c2 ) );
+  return Range(c1, c2);
 }
 
-KateViRange KateViModeBase::findPattern( const QString &pattern, bool backwards, bool caseSensitive, int count ) const
+Range KateViModeBase::findPattern(const QString& pattern, bool backwards, bool caseSensitive, const Cursor& startFrom, int count) const
 {
-  kDebug( 13070 ) << "searching for pattern \"" << pattern << "\", backwards = " << backwards
-    << ", caseSensitive = " << caseSensitive << ", count = " << count;
-  if ( pattern.isEmpty() ) {
-    return KateViRange();
-  }
-
-  Cursor c( m_view->cursorPosition() );
-
+  Cursor searchBegin = startFrom;
   KTextEditor::Search::SearchOptions flags = KTextEditor::Search::Regex;
 
   if ( backwards ) {
@@ -193,41 +192,116 @@ KateViRange KateViModeBase::findPattern( const QString &pattern, bool backwards,
   {
     flags |= KTextEditor::Search::CaseInsensitive;
   }
+  Range finalMatch;
+  for (int i = 0; i < count; i++)
+  {
+    if (!backwards)
+    {
+      const KTextEditor::Range matchRange = m_view->doc()->searchText(KTextEditor::Range(Cursor(searchBegin.line(), searchBegin.column() + 1), m_view->doc()->documentEnd()), pattern, flags).first();
 
-  for ( int i = count; i > 0; i-- ) {
-    // prepare two ranges, one from start → cursor and one from cursor → end
-    Range r1 = Range( Cursor( 0,0 ), c );
-
-    // we want to search from current position + one
-    if ( c.column() < doc()->lineLength( c.line() ) ) {
-      c.setColumn( c.column()+1 );
-    } else if ( c.line() < doc()->lines() ) {
-      c.setColumn( 0 );
-      c.setLine( c.line()+1 );
+      if (matchRange.isValid())
+      {
+        finalMatch = matchRange;
+      }
+      else
+      {
+        // Wrap around.
+        const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), pattern, flags).first();
+        if (wrappedMatchRange.isValid())
+        {
+          finalMatch = wrappedMatchRange;
+        }
+        else
+        {
+          return Range::invalid();
+        }
+      }
     }
+    else
+    {
+      // Ok - this is trickier: we can't search in the range from doc start to searchBegin, because
+      // the match might extend *beyond* searchBegin.
+      // We could search through the entire document and then filter out only those matches that are
+      // after searchBegin, but it's more efficient to instead search from the start of the
+      // document until the beginning of the line after searchBegin, and then filter.
+      // Unfortunately, searchText doesn't necessarily turn up all matches (just the first one, sometimes)
+      // so we must repeatedly search in such a way that the previous match isn't found, until we either
+      // find no matches at all, or the first match that is before searchBegin.
+      Cursor newSearchBegin = Cursor(searchBegin.line(), m_view->doc()->lineLength(searchBegin.line()));
+      Range bestMatch = Range::invalid();
+      while (true)
+      {
+        QVector<Range> matchesUnfiltered = m_view->doc()->searchText(Range(newSearchBegin, m_view->doc()->documentRange().start()), pattern, flags);
+        kDebug(13070) << "matchesUnfiltered: " << matchesUnfiltered << " searchBegin: " << newSearchBegin;
 
-    Range r2 = Range( c, doc()->documentEnd() );
+        if (matchesUnfiltered.size() == 1 && !matchesUnfiltered.first().isValid())
+        {
+          break;
+        }
 
-    //kDebug( 13070 ) << "r1: " << r1;
-    //kDebug( 13070 ) << "r2: " << r2;
+        // After sorting, the last element in matchesUnfiltered is the last match position.
+        qSort(matchesUnfiltered);
 
-    //// see if we can find the term before the end of the document (opposite if backwards)
-    //kDebug( 13070 ) << "searching for " << pattern << " in " << (backwards ? "r1" : "r2") << " backwards = " << backwards;
-    Range result = doc()->searchText( backwards ? r1 : r2, pattern, flags ).first();
-    //kDebug( 13070 ) << "result: " << result;
+        QVector<Range> filteredMatches;
+        foreach(Range unfilteredMatch, matchesUnfiltered)
+        {
+          if (unfilteredMatch.start() < searchBegin)
+          {
+            filteredMatches.append(unfilteredMatch);
+          }
+        }
+        if (!filteredMatches.isEmpty())
+        {
+          // Want the latest matching range that is before searchBegin.
+          bestMatch = filteredMatches.last();
+          break;
+        }
 
-    if ( result.isValid() ) {
-      c = result.start();
-    } else {
+        // We found some unfiltered matches, but none were suitable. In case matchesUnfiltered wasn't
+        // all matching elements, search again, starting from before the earliest matching range.
+        if (filteredMatches.isEmpty())
+        {
+          newSearchBegin = matchesUnfiltered.first().start();
+        }
+      }
 
-      // no hits, continue from the top
-      result = doc()->searchText( backwards ? r2 : r1, pattern, flags ).first();
+      Range matchRange = bestMatch;
 
-      c = result.start();
+      if (matchRange.isValid())
+      {
+        finalMatch = matchRange;
+      }
+      else
+      {
+        const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentEnd(), m_view->doc()->documentRange().start()), pattern, flags).first();
+
+
+        if (wrappedMatchRange.isValid())
+        {
+          finalMatch = wrappedMatchRange;
+        }
+        else
+        {
+          return Range::invalid();
+        }
+      }
     }
+    searchBegin = finalMatch.start();
+  }
+  return finalMatch;
+}
+
+KateViRange KateViModeBase::findPatternForMotion( const QString& pattern, bool backwards, bool caseSensitive, const Cursor& startFrom, int count ) const
+{
+  kDebug( 13070 ) << "searching for pattern \"" << pattern << "\", backwards = " << backwards
+    << ", caseSensitive = " << caseSensitive << ", count = " << count;
+  if ( pattern.isEmpty() ) {
+    return KateViRange();
   }
 
-  return KateViRange( c.line(), c.column(), ViMotion::ExclusiveMotion );
+  Range match = findPattern(pattern, backwards, caseSensitive, startFrom, count);
+
+  return KateViRange( match.start().line(), match.start().column(), ViMotion::ExclusiveMotion );
 }
 
 Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const

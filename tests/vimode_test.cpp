@@ -360,6 +360,8 @@ void ViModeTest::VisualModeTests() {
     DoTest("fOo foo fOo", "$#rX", "fOo Xoo fOo"); // Case insensitive.
     DoTest("fOo foo fOo", "*ggnrX", "fOo Xoo fOo"); // Flag that the search to repeat is case insensitive.
     DoTest("fOo foo fOo", "$#ggNrX", "fOo Xoo fOo"); // Flag that the search to repeat is case insensitive.
+    DoTest("bar foo", "$*rX", "bar Xoo");
+    DoTest("bar foo", "$#rX", "bar Xoo");
 
     // Regression test for gv.
     DoTest("foo\nbar\nxyz", "l\\ctrl-vjj\\ctrl-cgvr.", "f.o\nb.r\nx.z");

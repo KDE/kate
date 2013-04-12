@@ -89,6 +89,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     void error( const QString &errorMsg );
     void message( const QString &msg );
 
+    Range findPattern( const QString& pattern, bool backwards, bool caseSensitive, const Cursor& startFrom, int count = 1 ) const;
   protected:
     // helper methods
     void yankToClipBoard(QChar chosen_register, QString text);
@@ -97,7 +98,8 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     const QString getLine( int lineNumber = -1 ) const;
     const QChar getCharUnderCursor() const;
     const QString getWordUnderCursor() const;
-    KateViRange findPattern( const QString& pattern, bool backwards, bool caseSensitive, int count = 1 ) const;
+    const Range getWordRangeUnderCursor() const;
+    KateViRange findPatternForMotion( const QString& pattern, bool backwards, bool caseSensitive, const Cursor& startFrom, int count = 1 ) const;
     Cursor findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     Cursor findNextWORDStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
     Cursor findPrevWordStart( int fromLine, int fromColumn, bool onlyCurrentLine = false ) const;
@@ -175,7 +177,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     KateView *m_view;
     KateViewInternal *m_viewInternal;
     KateViInputModeManager* m_viInputModeManager;
-    
+
     // info message of vi mode
     QPointer<KTextEditor::Message> m_infoMessage;
 };

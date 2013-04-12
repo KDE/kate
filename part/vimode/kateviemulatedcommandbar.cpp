@@ -2,6 +2,7 @@
 #include "katevikeyparser.h"
 #include "kateview.h"
 #include "kateviglobal.h"
+#include "katevinormalmode.h"
 #include "kateglobal.h"
 #include "kateconfig.h"
 
@@ -278,118 +279,29 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   const QString qtRegexPattern = vimRegexToQtRegexPattern(newText);
 
   qDebug() << "Final regex: " << qtRegexPattern;
-  m_view->getViInputModeManager()->setLastSearchPattern(qtRegexPattern);
 
-  KTextEditor::Search::SearchOptions searchOptions;
+  // Decide case-sensitivity via SmartCase.
+  bool caseSensitive = true;
   if (qtRegexPattern.toLower() == qtRegexPattern)
   {
-    searchOptions |= KTextEditor::Search::CaseInsensitive;
-    m_view->getViInputModeManager()->setLastSearchCaseSensitive(false);
+    caseSensitive = false;
+  }
+
+  m_view->getViInputModeManager()->setLastSearchPattern(qtRegexPattern);
+  m_view->getViInputModeManager()->setLastSearchCaseSensitive(caseSensitive);
+  m_view->getViInputModeManager()->setLastSearchBackwards(m_searchBackwards);
+
+  Range match = m_view->getViInputModeManager()->getViNormalMode()->findPattern(qtRegexPattern, m_searchBackwards, caseSensitive, m_startingCursorPos);
+
+  if (match.isValid())
+  {
+    m_view->setCursorPosition(match.start());
   }
   else
   {
-    m_view->getViInputModeManager()->setLastSearchCaseSensitive(true);
+    m_view->setCursorPosition(m_startingCursorPos);
   }
-  searchOptions |= KTextEditor::Search::Regex;
 
-  // TODO - merge some of this with KateViNormalMode::findPattern(...)
-  if (!m_searchBackwards)
-  {
-    m_view->getViInputModeManager()->setLastSearchBackwards(false);
-    const KTextEditor::Range matchRange = m_view->doc()->searchText(KTextEditor::Range(Cursor(m_startingCursorPos.line(), m_startingCursorPos.column() + 1), m_view->doc()->documentEnd()), qtRegexPattern, searchOptions).first();
+  updateMatchHighlight(match);
 
-    updateMatchHighlight(matchRange);
-
-    if (matchRange.isValid())
-    {
-      m_view->setCursorPosition(matchRange.start());
-    }
-    else
-    {
-      // Wrap around.
-      const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentRange().start(), m_view->doc()->documentEnd()), qtRegexPattern, searchOptions).first();
-      if (wrappedMatchRange.isValid())
-      {
-        m_view->setCursorPosition(wrappedMatchRange.start());
-        updateMatchHighlight(wrappedMatchRange);
-      }
-      else
-      {
-        m_view->setCursorPosition(m_startingCursorPos);
-      }
-    }
-  }
-  else
-  {
-    m_view->getViInputModeManager()->setLastSearchBackwards(true);
-    searchOptions |= KTextEditor::Search::Backwards;
-    // Ok - this is trickier: we can't search in the range from doc start to m_startingCursorPos, because
-    // the match might extend *beyond* m_startingCursorPos.
-    // We could search through the entire document and then filter out only those matches that are
-    // after m_startingCursorPos, but it's more efficient to instead search from the start of the
-    // document until the beginning of the line after m_startingCursorPos, and then filter.
-    // Unfortunately, searchText doesn't necessarily turn up all matches (just the first one, sometimes)
-    // so we must repeatedly search in such a way that the previous match isn't found, until we either
-    // find no matches at all, or the first match that is before m_startingCursorPos.
-    Cursor searchBegin = Cursor(m_startingCursorPos.line(), m_view->doc()->lineLength(m_startingCursorPos.line()));
-    Range bestMatch = Range::invalid();
-    while (true)
-    {
-      QVector<Range> matchesUnfiltered = m_view->doc()->searchText(Range(searchBegin, m_view->doc()->documentRange().start()), qtRegexPattern, searchOptions);
-
-      if (matchesUnfiltered.size() == 1 && !matchesUnfiltered.first().isValid())
-      {
-        break;
-      }
-
-      // After sorting, the last element in matchesUnfiltered is the last match position.
-      qSort(matchesUnfiltered);
-
-      QVector<Range> filteredMatches;
-      foreach(Range unfilteredMatch, matchesUnfiltered)
-      {
-        if (unfilteredMatch.start() < m_startingCursorPos)
-        {
-          filteredMatches.append(unfilteredMatch);
-        }
-      }
-      if (!filteredMatches.isEmpty())
-      {
-        // Want the latest matching range that is before m_startingCursorPos.
-        bestMatch = filteredMatches.last();
-        break;
-      }
-
-      // We found some unfiltered matches, but none were suitable. In case matchesUnfiltered wasn't
-      // all matching elements, search again, starting from before the earliest matching range.
-      if (filteredMatches.isEmpty())
-      {
-        searchBegin = matchesUnfiltered.first().start();
-      }
-    }
-
-    Range matchRange = bestMatch;
-
-    updateMatchHighlight(matchRange);
-
-    if (matchRange.isValid())
-    {
-      m_view->setCursorPosition(matchRange.start());
-    }
-    else
-    {
-      const KTextEditor::Range wrappedMatchRange = m_view->doc()->searchText(KTextEditor::Range(m_view->doc()->documentEnd(), m_view->doc()->documentRange().start()), qtRegexPattern, searchOptions).first();
-
-
-      if (wrappedMatchRange.isValid())
-      {
-        m_view->setCursorPosition(wrappedMatchRange.start());
-        updateMatchHighlight(wrappedMatchRange);
-      }
-      else
-      {
-        m_view->setCursorPosition(m_startingCursorPos);
-      }
-    }
-  }
 }

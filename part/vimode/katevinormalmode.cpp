@@ -2269,7 +2269,7 @@ KateViRange KateViNormalMode::motionFindPrev()
   bool backwards = m_viInputModeManager->lastSearchBackwards();
   const bool caseSensitive = m_viInputModeManager->lastSearchCaseSensitive();
 
-  return findPattern( pattern, !backwards, caseSensitive, getCount() );
+  return findPatternForMotion( pattern, !backwards, caseSensitive, m_view->cursorPosition(), getCount() );
 }
 
 KateViRange KateViNormalMode::motionFindNext()
@@ -2278,7 +2278,7 @@ KateViRange KateViNormalMode::motionFindNext()
   bool backwards = m_viInputModeManager->lastSearchBackwards();
   const bool caseSensitive = m_viInputModeManager->lastSearchCaseSensitive();
 
-  return findPattern( pattern, backwards, caseSensitive, getCount() );
+  return findPatternForMotion( pattern, backwards, caseSensitive, m_view->cursorPosition(), getCount() );
 }
 
 
@@ -2614,7 +2614,7 @@ KateViRange KateViNormalMode::motionToNextOccurrence()
   m_viInputModeManager->setLastSearchBackwards( false );
   m_viInputModeManager->setLastSearchCaseSensitive( false );
 
-  return findPattern( word, false, false, getCount() );
+  return findPatternForMotion( word, false, false, m_view->cursorPosition(), getCount() );
 }
 
 KateViRange KateViNormalMode::motionToPrevOccurrence()
@@ -2626,7 +2626,9 @@ KateViRange KateViNormalMode::motionToPrevOccurrence()
   m_viInputModeManager->setLastSearchBackwards( true );
   m_viInputModeManager->setLastSearchCaseSensitive( false );
 
-  return findPattern( word, true, false, getCount() );
+  // Search from the beginning of the word under the cursor, so that the current word isn't found
+  // first.
+  return findPatternForMotion( word, true, false, getWordRangeUnderCursor().start(), getCount() );
 }
 
 KateViRange KateViNormalMode::motionToFirstLineOfWindow() {

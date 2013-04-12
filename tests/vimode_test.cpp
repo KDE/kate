@@ -1557,6 +1557,20 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter^wwnrX");
   FinishTest("foo foo bar Xoo foo");
 
+  // If we are at the beginning of a word, that word is not the first match in a search
+  // for that word.
+  DoTest("foo foo foo", "w/foo\\enterrX", "foo foo Xoo");
+  DoTest("foo foo foo", "w?foo\\enterrX", "Xoo foo foo");
+  // When searching backwards, ensure we can find a match whose range includes the starting cursor position,
+  // if we allow it to wrap around.
+  DoTest("foo foofoofoo bar", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo bar");
+  // When searching backwards, ensure we can find a match whose range includes the starting cursor position,
+  // even if we don't allow it to wrap around.
+  DoTest("foo foofoofoo foofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo foofoofoo");
+  // The same, but where we the match ends at the end of the line or document.
+  DoTest("foo foofoofoo\nfoofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo\nfoofoofoo");
+  DoTest("foo foofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo");
+
   // Search-highlighting tests.
   const QColor searchHighlightColour = kate_view->renderer()->config()->searchHighlightColor();
   BeginTest("foo bar xyz");

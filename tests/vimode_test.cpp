@@ -355,14 +355,6 @@ void ViModeTest::VisualModeTests() {
     // * and #
     DoTest("foo foo", "v*x", "oo");
     DoTest("foo foo", "wv#x", "oo");
-    DoTest("foo bar foobar foo", "*rX", "foo bar foobar Xoo"); // Whole word only.
-    DoTest("foo bar foobar foo", "$#rX", "Xoo bar foobar foo"); // Whole word only.
-    DoTest("fOo foo fOo", "*rX", "fOo Xoo fOo"); // Case insensitive.
-    DoTest("fOo foo fOo", "$#rX", "fOo Xoo fOo"); // Case insensitive.
-    DoTest("fOo foo fOo", "*ggnrX", "fOo Xoo fOo"); // Flag that the search to repeat is case insensitive.
-    DoTest("fOo foo fOo", "$#ggNrX", "fOo Xoo fOo"); // Flag that the search to repeat is case insensitive.
-    DoTest("bar foo", "$*rX", "bar Xoo");
-    DoTest("bar foo", "$#rX", "bar Xoo");
 
     // Regression test for gv.
     DoTest("foo\nbar\nxyz", "l\\ctrl-vjj\\ctrl-cgvr.", "f.o\nb.r\nx.z");
@@ -543,13 +535,19 @@ void ViModeTest::NormalModeMotionsTest() {
   // Testing "0"
   DoTest(" foo", "$0x","foo");
 
-  // Testing "#"
+  // Testing "#" & "*"
   DoTest("1 1 1", "2#x","1  1");
   DoTest("foo bar foo bar", "#xlll#x","foo ar oo bar");
   DoTest("(foo (bar (foo( bar))))", "#xll#x","(foo (ar (oo( bar))))");
-
-  // Testing "*"
   DoTest("(foo (bar (foo( bar))))", "*x","(foo (bar (oo( bar))))");
+  DoTest("foo bar foobar foo", "*rX", "foo bar foobar Xoo"); // Whole word only.
+  DoTest("foo bar foobar foo", "$#rX", "Xoo bar foobar foo"); // Whole word only.
+  DoTest("fOo foo fOo", "*rX", "fOo Xoo fOo"); // Case insensitive.
+  DoTest("fOo foo fOo", "$#rX", "fOo Xoo fOo"); // Case insensitive.
+  DoTest("fOo foo fOo", "*ggnrX", "fOo Xoo fOo"); // Flag that the search to repeat is case insensitive.
+  DoTest("fOo foo fOo", "$#ggNrX", "fOo Xoo fOo"); // Flag that the search to repeat is case insensitive.
+  DoTest("bar foo", "$*rX", "bar Xoo");
+  DoTest("bar foo", "$#rX", "bar Xoo");
 
   // Testing "-"
   DoTest("0\n1\n2\n3\n4\n5", "5j-x2-x", "0\n1\n\n3\n\n5");

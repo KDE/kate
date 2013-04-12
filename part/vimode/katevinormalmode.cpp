@@ -2612,9 +2612,9 @@ KateViRange KateViNormalMode::motionToNextOccurrence()
 
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( false );
-  m_viInputModeManager->setLastSearchCaseSensitive( true );
+  m_viInputModeManager->setLastSearchCaseSensitive( false );
 
-  return findPattern( word, false, true, getCount() );
+  return findPattern( word, false, false, getCount() );
 }
 
 KateViRange KateViNormalMode::motionToPrevOccurrence()
@@ -2624,9 +2624,9 @@ KateViRange KateViNormalMode::motionToPrevOccurrence()
 
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( true );
-  m_viInputModeManager->setLastSearchCaseSensitive( true );
+  m_viInputModeManager->setLastSearchCaseSensitive( false );
 
-  return findPattern( word, true, true, getCount() );
+  return findPattern( word, true, false, getCount() );
 }
 
 KateViRange KateViNormalMode::motionToFirstLineOfWindow() {

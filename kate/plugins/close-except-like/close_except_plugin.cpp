@@ -43,8 +43,8 @@ K_EXPORT_PLUGIN(
     CloseExceptPluginFactory(
         KAboutData(
             "katecloseexceptplugin"
-          , "kate_closeexcept_plugin"
-          , ki18n("Close documents depending on path")
+          , "katecloseexceptplugin"
+          , ki18n("Close Except/Like Plugin")
           , PLUGIN_VERSION
           , ki18n("Close all documents started from specified path")
           , KAboutData::License_LGPL_V3
@@ -58,7 +58,7 @@ CloseExceptPlugin::CloseExceptPlugin(
     QObject* application
   , const QList<QVariant>&
   )
-  : Kate::Plugin(static_cast<Kate::Application*>(application), "kate_closeexcept_plugin")
+  : Kate::Plugin(static_cast<Kate::Application*>(application), "katecloseexceptplugin")
 {
 }
 

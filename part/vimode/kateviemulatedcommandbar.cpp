@@ -51,6 +51,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_completer->setObjectName("completer");
   m_searchHistoryModel = new QStringListModel;
   m_completer->setModel(m_searchHistoryModel);
+  m_completer->popup()->installEventFilter(this);
 }
 
 KateViEmulatedCommandBar::~KateViEmulatedCommandBar()
@@ -221,6 +222,15 @@ QString KateViEmulatedCommandBar::ensuredCharEscaped(const QString& originalStri
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
+  if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
+  {
+    if (m_completer->popup()->isVisible())
+    {
+      m_edit->setText(m_completer->currentCompletion());
+      m_completer->popup()->hide();
+      return true;
+    }
+  }
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_P)
   {
     if (!m_completer->popup()->isVisible())

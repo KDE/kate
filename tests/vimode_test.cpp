@@ -198,7 +198,13 @@ void ViModeTest::TestPressKey(QString str) {
     // Attempt to simulate how Qt usually sends events - typically, we want to send them
     // to kate_view->focusProxy() (which is a KateViewInternal).
     QWidget *destWidget = NULL;
-    if (QApplication::focusWidget())
+    if (QApplication::activePopupWidget())
+    {
+      // According to the docs, the activePopupWidget, if present, takes all events.
+      destWidget = QApplication::activePopupWidget();
+    }
+    else
+      if (QApplication::focusWidget())
     {
       if (QApplication::focusWidget()->focusProxy())
       {
@@ -1766,9 +1772,11 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-p");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
-  // Will activate the current completion item.
+  // Will activate the current completion item, and hide the completion (but not the bar)
   TestPressKey("\\enter");
-  // Should hide everything.
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBar->isVisible());
+  // Close the command bar.
   TestPressKey("\\enter");
   QVERIFY(!emulatedCommandBar->isVisible());
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
@@ -1812,6 +1820,8 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("/\\ctrl-p");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
   TestPressKey("\\ctrl-p");
+  // Make sure we're not redirecting our ctrl-p to the line edit!
+  QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
   TestPressKey("\\ctrl-p");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz"));
@@ -1837,6 +1847,17 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-n");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz")); // Wrap-around.
   TestPressKey("\\enter"); // Dismiss completer.
+  TestPressKey("\\enter");
+  FinishTest("foo bar");
+
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("bar");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
+  BeginTest("foo bar");
+  TestPressKey("/\\ctrl-n\\ctrl-n");
+  TestPressKey("\\return"); // Choose completion, and dismiss completer.
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("bar"));
   TestPressKey("\\enter");
   FinishTest("foo bar");
 }

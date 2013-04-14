@@ -9,7 +9,5 @@ add_subdirectory( app )
 add_subdirectory( plugins )
 add_subdirectory( data )
 add_subdirectory( pics )
- 
-add_subdirectory(plasma)
 
 install( FILES kate_export.h DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)

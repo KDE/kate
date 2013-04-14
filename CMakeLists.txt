@@ -54,14 +54,14 @@ macro_optional_add_subdirectory (kate)
 # kwrite
 macro_optional_add_subdirectory (kwrite)
 
-# plugins
-macro_optional_add_subdirectory (plugins)
+# addons, e.g. ktexteditor plugins, kate plugins, plasma applets, ...
+macro_optional_add_subdirectory (addons)
 
 # docs
 macro_optional_add_subdirectory (doc)
 
 # tests
-macro_optional_add_subdirectory( tests )
+macro_optional_add_subdirectory (tests)
 
 # display features ;)
 macro_display_feature_log()

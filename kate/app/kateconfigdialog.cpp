@@ -77,6 +77,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   KPageWidgetItem *item = addSubPage( applicationItem, generalFrame, i18n("General") );
   item->setHeader( i18n("General Options") );
   item->setIcon( KIcon( "go-home" ) );
+  setCurrentPage (item);
 
   QVBoxLayout *layout = new QVBoxLayout( generalFrame );
   layout->setMargin(0);

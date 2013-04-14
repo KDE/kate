@@ -49,14 +49,17 @@ if (BUILD_KTEXTEDITOR)
   macro_optional_add_subdirectory (ktexteditor)
 endif (BUILD_KTEXTEDITOR)
 
-# kate part, copy from kdelibs/kate
+# kate part
 macro_optional_add_subdirectory (part)
 
-# kate, copy from kdesdk/kate
+# kate application
 macro_optional_add_subdirectory (kate)
 
-# kwrite, copy from kdebase/apps/kwrite
+# kwrite
 macro_optional_add_subdirectory (kwrite)
+
+# plugins
+macro_optional_add_subdirectory (plugins)
 
 # docs
 # need current enough KDELIBS

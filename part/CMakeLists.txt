@@ -10,8 +10,6 @@ add_subdirectory( syntax/data )
 # jscripts for the part
 add_subdirectory( script/data )
 
-add_subdirectory( plugins )
-
 # includes
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}

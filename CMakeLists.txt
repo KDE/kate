@@ -5,7 +5,7 @@ project (kate)
 set (LIBRARY_TYPE SHARED)
 
 # search packages used by KDE
-find_package(KDE4 4.7.0 REQUIRED)
+find_package(KDE4 4.8.0 REQUIRED)
 include (KDE4Defaults)
 include (MacroLibrary)
 include (CheckFunctionExists)
@@ -32,11 +32,7 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -DKTEXTEDITOR_NO_DEPRECATED)
 include_directories (${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES} ${KACTIVITIES_INCLUDE_DIRS})
 
-# some stuff to have it compile for KDE 4.4
-if (NOT KDE_NO_DEPRECATED)
-  set (KDE_4_4_LIBS_NEEDED ${KDE4_KUTILS_LIBS})
-endif()
-
+# allow to build own ktexteditor
 option(BUILD_KTEXTEDITOR "Build KTextEditor interfaces, instead of reusing the system version" OFF)
 if (BUILD_KTEXTEDITOR)
   # use our own copies of some stuff
@@ -62,12 +58,7 @@ macro_optional_add_subdirectory (kwrite)
 macro_optional_add_subdirectory (plugins)
 
 # docs
-# need current enough KDELIBS
-if (${KDE_VERSION_MINOR} GREATER 7 OR (${KDE_VERSION_MINOR} EQUAL 7 AND ${KDE_VERSION_RELEASE} GREATER 2))
-    macro_optional_add_subdirectory (doc)
-else (${KDE_VERSION_MINOR} GREATER 7 OR (${KDE_VERSION_MINOR} EQUAL 7 AND ${KDE_VERSION_RELEASE} GREATER 2))
-    message ("Documentation generation skipped, at least kdelibs version 4.7.3 needed for documentation.")
-endif (${KDE_VERSION_MINOR} GREATER 7 OR (${KDE_VERSION_MINOR} EQUAL 7 AND ${KDE_VERSION_RELEASE} GREATER 2))
+macro_optional_add_subdirectory (doc)
 
 # tests
 macro_optional_add_subdirectory( tests )

@@ -43,6 +43,8 @@ private:
   QString vimRegexToQtRegexPattern(const QString& vimRegexPattern);
   QString toggledEscaped(const QString& string, QChar escapeChar);
   QString ensuredCharEscaped(const QString& string, QChar charToEscape);
+
+  void populateAndShowSearchHistoryCompletion();
 private slots:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();

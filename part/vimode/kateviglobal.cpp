@@ -214,6 +214,16 @@ QStringList KateViGlobal::searchHistory()
 
 void KateViGlobal::appendSearchHistoryItem(const QString& searchHistoryItem)
 {
+  if (searchHistoryItem.isEmpty())
+  {
+    return;
+  }
+  const int HISTORY_SIZE_LIMIT = 100;
+  m_searchHistory.removeAll(searchHistoryItem);
+  if (m_searchHistory.size() == HISTORY_SIZE_LIMIT)
+  {
+    m_searchHistory.removeFirst();
+  }
   m_searchHistory.append(searchHistoryItem);
 }
 

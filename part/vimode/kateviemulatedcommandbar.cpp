@@ -219,6 +219,17 @@ QString KateViEmulatedCommandBar::ensuredCharEscaped(const QString& originalStri
     return escapedString;
 }
 
+void KateViEmulatedCommandBar::populateAndShowSearchHistoryCompletion()
+{
+    QStringList searchHistoryReversed;
+    foreach(QString searchHistoryItem, KateGlobal::self()->viInputModeGlobal()->searchHistory())
+    {
+      searchHistoryReversed.prepend(searchHistoryItem);
+    }
+    m_searchHistoryModel->setStringList(searchHistoryReversed);
+    m_completer->complete();
+}
+
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
@@ -235,13 +246,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (!m_completer->popup()->isVisible())
     {
-      QStringList searchHistoryReversed;
-      foreach(QString searchHistoryItem, KateGlobal::self()->viInputModeGlobal()->searchHistory())
-      {
-        searchHistoryReversed.prepend(searchHistoryItem);
-      }
-      m_searchHistoryModel->setStringList(searchHistoryReversed);
-      m_completer->popup()->show();
+      populateAndShowSearchHistoryCompletion();
     }
     else
     {
@@ -260,13 +265,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (!m_completer->popup()->isVisible())
     {
-      QStringList searchHistoryReversed;
-      foreach(QString searchHistoryItem, KateGlobal::self()->viInputModeGlobal()->searchHistory())
-      {
-        searchHistoryReversed.prepend(searchHistoryItem);
-      }
-      m_searchHistoryModel->setStringList(searchHistoryReversed);
-      m_completer->popup()->show();
+      populateAndShowSearchHistoryCompletion();
       m_completer->setCurrentRow(m_completer->completionCount() - 1);
     }
     else

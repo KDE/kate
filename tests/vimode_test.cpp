@@ -1772,6 +1772,11 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-p");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  // Make sure the completion appears in roughly the correct place: this is a little fragile :/
+  const QPoint completerRectTopLeft = emulatedCommandBarCompleter()->popup()->mapToGlobal(emulatedCommandBarCompleter()->popup()->rect().topLeft()) ;
+  const QPoint barEditBottomLeft = emulatedCommandBarTextEdit()->mapToGlobal(emulatedCommandBarTextEdit()->rect().bottomLeft());
+  QCOMPARE(completerRectTopLeft.x(), barEditBottomLeft.x());
+  QVERIFY(qAbs(completerRectTopLeft.y() - barEditBottomLeft.y()) <= 1);
   // Will activate the current completion item, and hide the completion (but not the bar)
   TestPressKey("\\enter");
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
@@ -1860,6 +1865,37 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("bar"));
   TestPressKey("\\enter");
   FinishTest("foo bar");
+
+  // If we add something to the history, remove any earliest occurrences (this is what Vim appears to do)
+  // and append to the end.
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("bar");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
+  QCOMPARE(searchHistory(), QStringList() << "bar" << "foo" << "xyz");
+
+  // Push out older entries if we have too many search items in the history.
+  const int HISTORY_SIZE_LIMIT = 100;
+  clearSearchHistory();
+  for (int i = 1; i <= HISTORY_SIZE_LIMIT; i++)
+  {
+    KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(QString("searchhistoryitem %1").arg(i));
+  }
+  QCOMPARE(searchHistory().size(), HISTORY_SIZE_LIMIT);
+  QCOMPARE(searchHistory().first(), QString("searchhistoryitem 1"));
+  QCOMPARE(searchHistory().last(), QString("searchhistoryitem 100"));
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(QString("searchhistoryitem %1").arg(HISTORY_SIZE_LIMIT + 1));
+  QCOMPARE(searchHistory().size(), HISTORY_SIZE_LIMIT);
+  QCOMPARE(searchHistory().first(), QString("searchhistoryitem 2"));
+  QCOMPARE(searchHistory().last(), QString("searchhistoryitem %1").arg(HISTORY_SIZE_LIMIT + 1));
+
+
+
+  // Don't add empty searches to the history.
+  clearSearchHistory();
+  DoTest("foo bar", "/\\enter", "foo bar");
+  QVERIFY(searchHistory().isEmpty());
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

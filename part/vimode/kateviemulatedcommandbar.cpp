@@ -230,6 +230,12 @@ void KateViEmulatedCommandBar::populateAndShowSearchHistoryCompletion()
     m_completer->complete();
 }
 
+void KateViEmulatedCommandBar::setCompletionIndex(int index)
+{
+  // Need to set both of these, for some reason.
+  m_completer->popup()->setCurrentIndex(m_searchHistoryModel->index(index, 0));
+  m_completer->setCurrentRow(index);
+}
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
@@ -247,17 +253,18 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     if (!m_completer->popup()->isVisible())
     {
       populateAndShowSearchHistoryCompletion();
+      setCompletionIndex(0);
     }
     else
     {
-      // Descend to next row, if necessary.
+      // Descend to next row, wrapping around if necessary.
       if (m_completer->currentRow() + 1 == m_completer->completionCount())
       {
-        m_completer->setCurrentRow(0);
+        setCompletionIndex(0);
       }
       else
       {
-        m_completer->setCurrentRow(m_completer->currentRow() + 1);
+        setCompletionIndex(m_completer->currentRow() + 1);
       }
     }
   }
@@ -266,17 +273,18 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     if (!m_completer->popup()->isVisible())
     {
       populateAndShowSearchHistoryCompletion();
-      m_completer->setCurrentRow(m_completer->completionCount() - 1);
+      setCompletionIndex(m_completer->completionCount() - 1);
     }
     else
     {
+      // Ascend to previous row, wrapping around if necessary.
       if (m_completer->currentRow() == 0)
       {
-        m_completer->setCurrentRow(m_completer->completionCount() - 1);
+        setCompletionIndex(m_completer->completionCount() - 1);
       }
       else
       {
-        m_completer->setCurrentRow(m_completer->currentRow() - 1);
+        setCompletionIndex(m_completer->currentRow() - 1);
       }
     }
   }

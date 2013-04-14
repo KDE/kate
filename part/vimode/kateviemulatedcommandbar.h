@@ -45,6 +45,7 @@ private:
   QString ensuredCharEscaped(const QString& string, QChar charToEscape);
 
   void populateAndShowSearchHistoryCompletion();
+  void setCompletionIndex(int index);
 private slots:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();

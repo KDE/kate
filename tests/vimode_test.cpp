@@ -1824,14 +1824,18 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-p");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
+  QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 0);
   TestPressKey("\\ctrl-p");
   // Make sure we're not redirecting our ctrl-p to the line edit!
   QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
+  QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 1);
   TestPressKey("\\ctrl-p");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz"));
+  QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 2);
   TestPressKey("\\ctrl-p");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo")); // Wrap-around
+  QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 0);
   TestPressKey("\\enter"); // Dismiss completer.
   TestPressKey("\\enter");
   FinishTest("foo bar");
@@ -1845,12 +1849,16 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("/\\ctrl-n");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz"));
+  QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 2);
   TestPressKey("\\ctrl-n");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
+  QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 1);
   TestPressKey("\\ctrl-n");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
+  QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 0);
   TestPressKey("\\ctrl-n");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz")); // Wrap-around.
+  QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 2);
   TestPressKey("\\enter"); // Dismiss completer.
   TestPressKey("\\enter");
   FinishTest("foo bar");

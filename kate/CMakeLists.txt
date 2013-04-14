@@ -8,7 +8,6 @@ add_subdirectory( interfaces/kate )
 add_subdirectory( app )
 add_subdirectory( filetree )
 add_subdirectory( data )
-add_subdirectory( pics )
 
 
 install( FILES kate_export.h DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)

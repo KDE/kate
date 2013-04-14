@@ -37,8 +37,6 @@ add_subdirectory( tabify )
 
 add_subdirectory( katesql )
 
-add_subdirectory( filetree )
-
 add_subdirectory( close-except-like )
 
 macro_optional_add_subdirectory(pate)

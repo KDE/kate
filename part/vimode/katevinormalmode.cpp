@@ -2608,11 +2608,13 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
 KateViRange KateViNormalMode::motionToNextOccurrence()
 {
   QString word = getWordUnderCursor();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("\\<" + word + "\\>");
   word.prepend("\\b").append("\\b");
 
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( false );
   m_viInputModeManager->setLastSearchCaseSensitive( false );
+
 
   return findPatternForMotion( word, false, false, m_view->cursorPosition(), getCount() );
 }
@@ -2620,6 +2622,7 @@ KateViRange KateViNormalMode::motionToNextOccurrence()
 KateViRange KateViNormalMode::motionToPrevOccurrence()
 {
   QString word = getWordUnderCursor();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("\\<" + word + "\\>");
   word.prepend("\\b").append("\\b");
 
   m_viInputModeManager->setLastSearchPattern( word );

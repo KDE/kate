@@ -1896,6 +1896,16 @@ void ViModeTest::VimStyleCommandBarTests()
   clearSearchHistory();
   DoTest("foo bar", "/\\enter", "foo bar");
   QVERIFY(searchHistory().isEmpty());
+  
+  // "*" and "#" should add the relevant word to the search history, enclosed between \< and \>
+  clearSearchHistory();
+  BeginTest("foo bar");
+  TestPressKey("*");
+  QVERIFY(!searchHistory().isEmpty());
+  QCOMPARE(searchHistory().last(), QString("\\<foo\\>"));
+  TestPressKey("w#");
+  QCOMPARE(searchHistory().size(), 2);
+  QCOMPARE(searchHistory().last(), QString("\\<bar\\>"));
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

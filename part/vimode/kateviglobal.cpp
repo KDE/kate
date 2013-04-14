@@ -201,3 +201,20 @@ void KateViGlobal::clearMappings( ViMode mode )
     kDebug( 13070 ) << "Mapping not supported for given mode";
   }
 }
+
+void KateViGlobal::clearSearchHistory()
+{
+  m_searchHistory.clear();
+}
+
+QStringList KateViGlobal::searchHistory()
+{
+  return m_searchHistory;
+}
+
+void KateViGlobal::appendSearchHistoryItem(const QString& searchHistoryItem)
+{
+  m_searchHistory.append(searchHistoryItem);
+}
+
+

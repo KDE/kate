@@ -61,6 +61,10 @@ public:
     const QString getMapping( ViMode mode, const QString &from, bool decode = false ) const;
     const QStringList getMappings( ViMode mode, bool decode = false ) const;
 
+    QStringList searchHistory();
+    void clearSearchHistory();
+    void appendSearchHistoryItem(const QString& searchHistoryItem);
+
 private:
     // registers
     QList<KateViRegister> m_numberedRegisters;
@@ -71,6 +75,8 @@ private:
 
     // mappings
     QHash <QString, QString> m_normalModeMappings;
+
+    QStringList m_searchHistory;
 
 };
 

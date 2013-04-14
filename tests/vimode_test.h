@@ -28,6 +28,8 @@
 
 class QLineEdit;
 class QLabel;
+class QCompleter;
+
 class ViModeTest : public QObject
 {
   Q_OBJECT
@@ -86,6 +88,10 @@ private:
 
   QMap<QString, Qt::Key> m_codesToSpecialKeys;
     Qt::Key parseCodedSpecialKey(const QString& string, int startPos, int* destEndOfCodedKey);
+
+  void clearSearchHistory();
+  QStringList searchHistory();
+  QCompleter *emulatedCommandBarCompleter();
 };
 
 #endif

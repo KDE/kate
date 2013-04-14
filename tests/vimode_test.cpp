@@ -39,6 +39,7 @@
 #include <katecompletionwidget.h>
 
 #include <QtGui/QLabel>
+#include <QtGui/QCompleter>
 #include <kcolorscheme.h>
 
 QTEST_KDEMAIN(ViModeTest, GUI)
@@ -1733,6 +1734,111 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo xbar barx\nbar", "/\\\\<bar\\\\>\\enterrX", "foo xbar barx\nXar");
   // Ensure that it is the escaped version of the pattern that is recorded as the last search pattern.
   DoTest("foo bar( xyz", "/bar(\\enterggnrX", "foo Xar( xyz");
+
+  // History auto-completion tests.
+  clearSearchHistory();
+  QVERIFY(searchHistory().isEmpty());
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("bar");
+  QCOMPARE(searchHistory(), QStringList() << "foo" << "bar");
+  clearSearchHistory();
+  QVERIFY(searchHistory().isEmpty());
+
+  // Ensure current search bar text is added to the history if we press enter.
+  DoTest("foo bar", "/bar\\enter", "foo bar");
+  DoTest("foo bar", "/xyz\\enter", "foo bar");
+  QCOMPARE(searchHistory(), QStringList() << "bar" << "xyz");
+  // Interesting - Vim adds the search bar text to the history even if we abort via e.g. ctrl-c, ctrl-[, etc.
+  clearSearchHistory();
+  DoTest("foo bar", "/baz\\ctrl-[", "foo bar");
+  QCOMPARE(searchHistory(), QStringList() << "baz");
+  clearSearchHistory();
+  DoTest("foo bar", "/foo\\esc", "foo bar");
+  QCOMPARE(searchHistory(), QStringList() << "foo");
+  clearSearchHistory();
+  DoTest("foo bar", "/nose\\ctrl-c", "foo bar");
+  QCOMPARE(searchHistory(), QStringList() << "nose");
+
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("bar");
+  QVERIFY(emulatedCommandBarCompleter() != NULL);
+  BeginTest("foo bar");
+  TestPressKey("/\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  // Will activate the current completion item.
+  TestPressKey("\\enter");
+  // Should hide everything.
+  TestPressKey("\\enter");
+  QVERIFY(!emulatedCommandBar->isVisible());
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  FinishTest("foo bar");
+
+  // Don't show completion with an empty search bar.
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
+  BeginTest("foo bar");
+  TestPressKey("/");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\enter");
+  FinishTest("foo bar");
+
+  // Don't auto-complete, either.
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
+  BeginTest("foo bar");
+  TestPressKey("/f");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\enter");
+  FinishTest("foo bar");
+
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("bar");
+  QVERIFY(emulatedCommandBarCompleter() != NULL);
+  BeginTest("foo bar");
+  TestPressKey("/\\ctrl-p");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
+  TestPressKey("\\enter"); // Dismiss completer.
+  TestPressKey("\\enter");
+  FinishTest("foo bar");
+
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("bar");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
+  QVERIFY(emulatedCommandBarCompleter() != NULL);
+  BeginTest("foo bar");
+  TestPressKey("/\\ctrl-p");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo")); // Wrap-around
+  TestPressKey("\\enter"); // Dismiss completer.
+  TestPressKey("\\enter");
+  FinishTest("foo bar");
+
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("bar");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
+  QVERIFY(emulatedCommandBarCompleter() != NULL);
+  BeginTest("foo bar");
+  TestPressKey("/\\ctrl-n");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz"));
+  TestPressKey("\\ctrl-n");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
+  TestPressKey("\\ctrl-n");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
+  TestPressKey("\\ctrl-n");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz")); // Wrap-around.
+  TestPressKey("\\enter"); // Dismiss completer.
+  TestPressKey("\\enter");
+  FinishTest("foo bar");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -1910,5 +2016,19 @@ void ViModeTest::verifyTextEditBackgroundColour(const QColor& expectedBackground
   QCOMPARE(emulatedCommandBarTextEdit()->palette().brush(QPalette::Base).color(), expectedBackgroundColour);
 }
 
+void ViModeTest::clearSearchHistory()
+{
+  KateGlobal::self()->viInputModeGlobal()->clearSearchHistory();
+}
+
+QStringList ViModeTest::searchHistory()
+{
+  return KateGlobal::self()->viInputModeGlobal()->searchHistory();
+}
+
+QCompleter* ViModeTest::emulatedCommandBarCompleter()
+{
+  return kate_view->viModeEmulatedCommandBar()->findChild<QCompleter*>("completer");
+}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

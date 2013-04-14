@@ -8,6 +8,8 @@
 
 class KateView;
 class QLabel;
+class QCompleter;
+class QStringListModel;
 
 class KATEPART_TESTS_EXPORT KateViEmulatedCommandBar : public KateViewBarWidget
 {
@@ -27,6 +29,9 @@ private:
   bool m_doNotResetCursorOnClose;
   bool m_suspendEditEventFiltering;
   bool m_waitingForRegister;
+
+  QCompleter *m_completer;
+  QStringListModel *m_searchHistoryModel;
 
   KTextEditor::Attribute::Ptr m_highlightMatchAttribute;
   KTextEditor::MovingRange* m_highlightedMatch;

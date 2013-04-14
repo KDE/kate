@@ -9,6 +9,7 @@
 #include <QtGui/QLineEdit>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QCompleter>
 #include <QApplication>
 #include <KDE/KColorScheme>
 
@@ -42,6 +43,14 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   connect(m_edit, SIGNAL(textChanged(QString)), this, SLOT(editTextChanged(QString)));
   connect(m_view, SIGNAL(configChanged()),
           this, SLOT(updateMatchHighlightAttrib()));
+
+  m_completer = new QCompleter(QStringList() << "foo", m_edit);
+  // Can't find a way to stop the QCompleter from auto-completing when attached to a QLineEdit,
+  // so don't actually set it as the QLineEdit's completer.
+  m_completer->setWidget(m_edit);
+  m_completer->setObjectName("completer");
+  m_searchHistoryModel = new QStringListModel;
+  m_completer->setModel(m_searchHistoryModel);
 }
 
 KateViEmulatedCommandBar::~KateViEmulatedCommandBar()
@@ -75,10 +84,12 @@ void KateViEmulatedCommandBar::closed()
     {
       m_view->setCursorPosition(m_startingCursorPos);
     }
+    KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
   m_startingCursorPos = KTextEditor::Cursor::invalid();
   m_doNotResetCursorOnClose = false;
   updateMatchHighlight(Range::invalid());
+  m_completer->popup()->hide();
 }
 
 void KateViEmulatedCommandBar::updateMatchHighlightAttrib()
@@ -210,6 +221,56 @@ QString KateViEmulatedCommandBar::ensuredCharEscaped(const QString& originalStri
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
+  if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_P)
+  {
+    if (!m_completer->popup()->isVisible())
+    {
+      QStringList searchHistoryReversed;
+      foreach(QString searchHistoryItem, KateGlobal::self()->viInputModeGlobal()->searchHistory())
+      {
+        searchHistoryReversed.prepend(searchHistoryItem);
+      }
+      m_searchHistoryModel->setStringList(searchHistoryReversed);
+      m_completer->popup()->show();
+    }
+    else
+    {
+      // Descend to next row, if necessary.
+      if (m_completer->currentRow() + 1 == m_completer->completionCount())
+      {
+        m_completer->setCurrentRow(0);
+      }
+      else
+      {
+        m_completer->setCurrentRow(m_completer->currentRow() + 1);
+      }
+    }
+  }
+  if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_N)
+  {
+    if (!m_completer->popup()->isVisible())
+    {
+      QStringList searchHistoryReversed;
+      foreach(QString searchHistoryItem, KateGlobal::self()->viInputModeGlobal()->searchHistory())
+      {
+        searchHistoryReversed.prepend(searchHistoryItem);
+      }
+      m_searchHistoryModel->setStringList(searchHistoryReversed);
+      m_completer->popup()->show();
+      m_completer->setCurrentRow(m_completer->completionCount() - 1);
+    }
+    else
+    {
+      if (m_completer->currentRow() == 0)
+      {
+        m_completer->setCurrentRow(m_completer->completionCount() - 1);
+      }
+      else
+      {
+        m_completer->setCurrentRow(m_completer->currentRow() - 1);
+      }
+    }
+  }
   if (m_waitingForRegister)
   {
       const QChar key = KateViKeyParser::self()->KeyEventToQChar(

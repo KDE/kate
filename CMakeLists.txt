@@ -62,3 +62,6 @@ macro_optional_add_subdirectory (doc)
 
 # tests
 macro_optional_add_subdirectory( tests )
+
+# display features ;)
+macro_display_feature_log()

@@ -4,8 +4,6 @@ include_directories (${CMAKE_SOURCE_DIR}/kate/interfaces)
 # default debug area
 add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13040 )
 
-remove_definitions(-DQT3_SUPPORT)
-
 if(NOT WIN32)
    add_subdirectory( gdbplugin )   # reading /proc/...
 endif(NOT WIN32)

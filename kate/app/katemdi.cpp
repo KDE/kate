@@ -23,7 +23,7 @@
 #include "katemdi.h"
 #include "katemdi.moc"
 
-#include "interfaces/kate/pluginconfigpageinterface.h"
+#include "kate/pluginconfigpageinterface.h"
 
 #include <kactioncollection.h>
 #include <kactionmenu.h>

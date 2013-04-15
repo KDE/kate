@@ -42,6 +42,9 @@ private slots:
   void haskell_data();
   void haskell();
 
+  void xml_data();
+  void xml();
+
   void normal_data();
   void normal();
 };

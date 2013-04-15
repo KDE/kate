@@ -1,7 +1,8 @@
 /*
  * name: Helper String Functions (copied from cstyle.js to be reused by other indenters)
  * license: LGPL v3
- * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>
+ * author: Dominik Haumann <dhdev@gmx.de>, Milian Wolff <mail@milianw.de>,
+ *         Gerald Senarclens de Grancy <oss@senarclens.eu>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -92,4 +93,19 @@ String.prototype.contains = function(needle)
 {
     return this.indexOf(needle) !== -1;
 }
+
+/**
+ * \return number of occurrences of \c needle in \c this string
+ * \c needle can be either a string of regular expression
+ */
+String.prototype.countMatches = function(needle)
+{
+    if (typeof needle === 'string')
+        return this.split(needle).length - 1;
+    // the correct type of regular expression in ECMAScript is 'object', but
+    // qtscript seems to use 'function' instead
+    else if (typeof needle === 'object' || typeof needle === 'function')
+        return this.match(needle) ? this.match(RegExp(needle.source, 'g')).length : 0;
+}
+
 //END String functions

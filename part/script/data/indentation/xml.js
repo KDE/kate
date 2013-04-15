@@ -1,9 +1,9 @@
 /** kate-script
  * name: XML Style
  * license: LGPL
- * author: Milian Wolff <mail@milianw.de>
- * revision: 1
- * kate-version: 3.4
+ * author: Milian Wolff <mail@milianw.de>, Gerald Senarclens de Grancy <oss@senarclens.eu>
+ * revision: 2
+ * kate-version: 3.10
  *
  * This file is part of the Kate Project.
  *
@@ -22,140 +22,147 @@
  * Boston, MA 02110-1301, USA.
  */
 
+
 // required katepart js libraries
 require ("range.js");
+require ("string.js");
 
-var debugMode = true;
-
-// specifies the characters which should trigger indent, beside the default '\n'
-triggerCharacters = "/>";
+var DEBUG = false;  // disable before checking in!
 
 function dbg(s) {
-    if (debugMode)
+    if (DEBUG)
         debug(s);
 }
 
-/**
- * Process a newline character.
- * This function is called whenever the user hits <return/enter>.
- *
- * It gets three arguments: line, indentwidth in spaces, typed character.
- */
-function indent(line, indentWidth, char)
-{
-    var prevLine = line;
-    var prevLineString = " ";
-    while (prevLine >= 0 && prevLineString.match(/^\s+$/)) {
-        prevLine--;
-        prevLineString = document.line(prevLine);
+// specifies the characters which should trigger indent, beside the default '\n'
+triggerCharacters = ">";
+
+// used regular expressions
+// dear reader, please forgive me for using regular expressions in relation
+// with xml/html
+
+// match the beginning of any opening tag; special tags (<?..., <[... and <!...)
+// are ignored
+opening = /<[^\/?\[!]/g;
+// matches the beginning of any closing tag
+closing = /<\//g;
+// matches if there is nothing but a single closing tag
+single_closing_tag = /^<\/[^<>]*>$/;
+open_tag = /<[^\[]/;  // starting of a non-CDATA tag
+close_tag = /[^\]]>|^>/;  // end of a non-CDATA tag
+// ignore indenting if a line is started with one of the following tags
+ignore_tags = [/^<html/, /^<body/];
+
+
+// Return the code string of the given lineNr (no comments or strings etc).
+// Also strips self-closing tags.
+// Eg.
+// if document.line(x) is "  <p id="go">test</p> "
+//   getCode(x) -> "<p>test</p>"
+// if document.line(x) == "  <p id="go">test<br /></p> "
+//   getCode(x) -> "<p>test</p>"
+// if document.line(x) == "<p>test<!-- <em>comment</em> --></p>"
+//   getCode(x) -> "<p>test</p>"
+function getCode(lineNr) {
+    var line = document.line(lineNr);
+    var code = "";
+    for (var col = 0; col < line.length; ++col) {
+        if (document.isCode(lineNr, col))
+            code += line[col];
     }
-    var prevIndent = document.firstVirtualColumn(prevLine);
-    var lineString = document.line(line);
-
-    var alignOnly = (char == "");
-    if (alignOnly) {
-        // XML might be all in one line, in which case we
-        // want to break that up.
-        var tokens = lineString.split(/>\s*</);
-        if (tokens.length > 1) {
-            var oldLine = line;
-            var oldPrevIndent = prevIndent;
-            for (var l in tokens) {
-                var newLine = tokens[l];
-                if (l > 0) {
-                    newLine = '<' + newLine;
-                }
-                if (l < tokens.length - 1) {
-                    newLine += '>';
-                }
-
-                if (newLine.match(/^\s*<\//)) {
-                    char = '/';
-                } else if (newLine.match(/\>[^<>]*$/)) {
-                    char = '>';
-                } else {
-                    char = '\n';
-                }
-                var indentation = processChar(line, newLine, prevLineString, prevIndent, char, indentWidth);
-                prevIndent = indentation;
-                while (indentation > 0) {
-                    //TODO: what about tabs
-                    newLine = " " + newLine;
-                    --indentation;
-                }
-                ++line;
-                prevLineString = newLine;
-                tokens[l] = newLine;
-            }
-            dbg(tokens.join('\n'));
-            dbg(oldLine);
-            document.editBegin();
-            document.truncate(oldLine, 0);
-            document.insertText(oldLine, 0, tokens.join('\n'));
-            document.editEnd();
-            return oldPrevIndent;
-        } else {
-            if (lineString.match(/^\s*<\//)) {
-                char = '/';
-            } else if (lineString.match(/\>[^<>]*$/)) {
-                char = '>';
-            } else {
-                char = '\n';
-            }
-        }
-    }
-
-    dbg(line);
-    dbg(lineString);
-    dbg(prevLineString);
-    dbg(prevIndent);
-    dbg(char);
-    return processChar(line, lineString, prevLineString, prevIndent, char, indentWidth);
+    code = removeSelfClosing(code);
+    return code.trim();
 }
 
-function processChar(line, lineString, prevLineString, prevIndent, char, indentWidth)
-{
-    if (char == '/') {
-        if (!lineString.match(/^\s*<\//)) {
-            // might happen when we have something like <foo bar="asdf/ycxv">
-            // don't change indentation then
-            return document.firstVirtualColumn(line);
+
+// Return given code with all self-closing tags removed.
+function removeSelfClosing(code) {
+    return code.replace(/<[^<>]*\/>/g, '');
+}
+
+
+// Check if the last line was endet inside a tag and return appropriate indent.
+// If the last line wasn't endet inside a tag, return -1.
+// Otherwise, return appropriate indent so that attributes are aligned.
+function _calcAttributeIndent(lineNr, indentWidth) {
+    var text = document.line(lineNr);
+    var num_open_tag = text.countMatches(open_tag);
+    var num_close_tag = text.countMatches(close_tag);
+    if (num_open_tag > num_close_tag) {
+        dbg("unfinished tag");
+        for (col = text.lastIndexOf("<"); col < text.length; ++col) {
+            if (document.isOthers(lineNr, col) &&
+                document.isSpace(lineNr, col))
+                return col + 1;
         }
-        if (!prevLineString.match(/<[^\/][^>]*[^\/]>[^<>]*$/)) {
-            // decrease indent when we write </ and prior line did not start a tag
-            return prevIndent - indentWidth;
-        }
-    } else if (char == '>') {
-        // increase indent width when we write <...> or <.../> but not </...>
-        // and the prior line didn't close a tag
-        if (line == 0) {
+    } else if (num_open_tag < num_close_tag) {
+        dbg("closing unfinished tag");
+        code = getCode(lineNr);
+        do {
+            lineNr--;
+            var line = document.line(lineNr);
+            code = getCode(lineNr) + code;
+        } while ((line.countMatches(open_tag) <= line.countMatches(close_tag)) &&
+                 (lineNr > 0));
+        var prevIndent = Math.max(document.firstVirtualColumn(lineNr), 0);
+        code = removeSelfClosing(code);
+        var steps = calcSteps(code);
+        return prevIndent + indentWidth * steps;
+    }
+    return -1;  // by default, keep last line's indent (-1)
+}
+
+
+// Return the number of steps to indent/ un-indent.
+// If the code is matched by any element of ignore_tags, 0 is returned.
+function calcSteps(code) {
+    for (var key in ignore_tags) {
+        if (code.match(ignore_tags[key]))
             return 0;
-        } else if (prevLineString.match(/^<(\?xml|!DOCTYPE)/)) {
-            return 0;
-        } else if (lineString.match(/^\s*<\//)) {
-            // closing tag, decrease indentation when previous didn't open a tag
-            if (prevLineString.match(/<[^\/][^>]*[^\/]>[^<>]*$/)) {
-                // keep indent when prev line opened a tag
-                return prevIndent;
-            } else {
-                return prevIndent - indentWidth;
-            }
-        } else if (prevLineString.match(/<([\/!][^>]+|[^>]+\/)>\s*$/)) {
-            // keep indent when prev line closed a tag or was empty or a comment
-            return prevIndent;
-        }
-        return prevIndent + indentWidth;
-    } else if (char == '\n') {
-        if (prevLineString.match(/^<(\?xml|!DOCTYPE)/)) {
-            return 0;
-        }
-        if (prevLineString.match(/<[^\/!][^>]*[^\/]>[^<>]*$/)) {
-            // increase indent when prev line opened a tag (but not for comments)
-            return prevIndent + indentWidth;
+    }
+    var num_opening = code.match(opening) ? code.match(opening).length : 0;
+    var num_closing = code.match(closing) ? code.match(closing).length : 0;
+    return num_opening - num_closing;
+}
+
+
+// Return the amount of characters (in spaces) to be indented.
+// Called for each newline (ch == '\n') and all characters specified in
+// the global variable triggerCharacters. When calling Tools → Align
+// the variable ch is empty, i.e. ch == ''.
+// Special indent() return values:
+//   -1: keep last indent
+//   -2: do nothing
+function indent(lineNr, indentWidth, char) {
+    dbg("lineNr: " + lineNr);
+    dbg("char: " + char);
+    if (lineNr == 0)  // don't ever act on document's first line
+        return -2;
+
+    // default action (for char == '\n' or char == '')
+    var indent = _calcAttributeIndent(lineNr - 1, indentWidth);
+    if (indent != -1)
+        return indent;
+
+    indent = Math.max(document.firstVirtualColumn(lineNr - 1), 0);
+    var lastLine = getCode(lineNr - 1);
+    dbg("lastLine: " + lastLine);
+
+    var steps = calcSteps(lastLine);
+    // unindenting separate closing tags are dealt with by last line
+    if (steps && !lastLine.match(single_closing_tag))
+        indent += indentWidth * steps;
+
+    // set char if required (eg. in case of align or copy and paste)
+    if (char == ">" || !char) {  // ok b/c of inner if
+        // if there is nothing but a separate closing tag, unindent
+        var curLine = getCode(lineNr);
+        dbg("curLine: " + curLine);
+        if (curLine.match(single_closing_tag)) {
+            return Math.max(indent - indentWidth, 0);
         }
     }
-
-    return prevIndent;
+    return Math.max(indent, -1);
 }
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

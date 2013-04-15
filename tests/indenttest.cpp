@@ -177,6 +177,18 @@ void IndentTest::ruby()
   );
 }
 
+
+void IndentTest::xml_data()
+{
+  getTestData( "xml" );
+}
+
+void IndentTest::xml()
+{
+  runTest( ExpectedFailures() );
+}
+
+
 void IndentTest::normal_data()
 {
   getTestData( "normal" );

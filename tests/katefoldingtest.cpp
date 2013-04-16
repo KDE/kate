@@ -79,8 +79,13 @@ void KateFoldingTest::testCrash311866()
   view->up();
 }
 
-// when text is folded, and you set the text selection from top to bottom and
-// type a character, the resulting text is borked.
+// This test makes sure that,
+// - if you have selected text
+// - that spans a folded range,
+// - and the cursor is at the end of the text selection,
+// - and you type a char, e.g. 'x',
+// then the resulting text is correct, and changing region
+// visibility does not mess around with the text cursor.
 //
 // See https://bugs.kde.org/show_bug.cgi?id=295632
 void KateFoldingTest::testBug295632()

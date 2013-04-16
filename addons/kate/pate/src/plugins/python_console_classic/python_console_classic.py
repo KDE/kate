@@ -238,7 +238,7 @@ class Helper:
         self.console = console
 
     def __repr__(self):
-        return i18n('Type help(object) for help on  object.\nType an expression to evaluate the expression.')
+        return i18n('Type help(object) for help on object.\nType an expression to evaluate the expression.')
 
     def __str__(self):
         return repr(self)

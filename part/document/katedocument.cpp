@@ -5396,6 +5396,9 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
     message->addAction(closeAction);
   }
 
+  // make sure the message is registered even if no actions and no views exist
+  m_messageHash[message] = QList<QSharedPointer<QAction> >();
+
   // reparent actions, as we want full control over when they are deleted
   foreach (QAction *action, message->actions()) {
     action->setParent(0);

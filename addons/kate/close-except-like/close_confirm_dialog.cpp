@@ -58,7 +58,7 @@ CloseConfirmDialog::CloseConfirmDialog(
 {
     assert("Documents container expected to be non empty" && !docs.isEmpty());
 
-    setCaption(i18n("Close files confirmation"));
+    setCaption(i18nc("a dialog title", "Close files confirmation"));
     setButtons(Ok | Cancel);
     setModal(true);
     setDefaultButton(KDialog::Ok);
@@ -74,10 +74,7 @@ CloseConfirmDialog::CloseConfirmDialog(
     icon->setPixmap(DesktopIcon("dialog-warning"));
 
     QLabel* t = new QLabel(
-        i18n(
-            "<qt>You are about to close the following documents..."
-            "<p>It is last chance to uncheck those you don't want to close ;-)</p></qt>"
-          )
+        i18nc("a list label", "You are about to close the following documents:")
       , lo1
       );
     lo1->setStretchFactor(t, 1000);
@@ -85,7 +82,7 @@ CloseConfirmDialog::CloseConfirmDialog(
     // document list
     m_docs_tree = new QTreeWidget(w);
     QStringList headers;
-    headers << i18n("Document") << i18n("Location");
+    headers << i18nc("a column title", "Document") << i18nc("a column title", "Location");
     m_docs_tree->setHeaderLabels(headers);
     m_docs_tree->setSelectionMode(QAbstractItemView::SingleSelection);
     m_docs_tree->setRootIsDecorated(false);
@@ -98,7 +95,7 @@ CloseConfirmDialog::CloseConfirmDialog(
     m_docs_tree->header()->setResizeMode(0, QHeaderView::ResizeToContents);
     m_docs_tree->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 
-    m_dont_ask_again = new QCheckBox(i18n("Do not ask again"), w);
+    m_dont_ask_again = new QCheckBox(i18nc("a checkbox title", "Do not ask again"), w);
     // NOTE If we are here, it means that 'Show Confirmation' action is enabled,
     // so not needed to read config...
     assert("Sanity check" && show_confirmation_action->isChecked());

@@ -633,8 +633,17 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     }
 
     KTextEditor::Range range(line, column, endLine, endColumn);
+
     if (m_curResults && !replace) {
-        if (!m_curResults->regExp.exactMatch(doc->text(range))) {
+        // special handling for "(?=\\n)" in multi-line search
+        QRegExp tmpReg = m_curResults->regExp;
+        if (m_curResults->regExp.pattern().endsWith("(?=\\n)")) {
+            QString newPatern = tmpReg.pattern();
+            newPatern.replace("(?=\\n)", "$");
+            tmpReg.setPattern(newPatern);
+        }
+
+        if (tmpReg.indexIn(doc->text(range)) != 0) {
             kDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
             return;
         }
@@ -1198,6 +1207,11 @@ void KatePluginSearchView::docViewChanged()
 void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 {
     if (!item) return;
+
+    m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+    if (!m_curResults) {
+        return;
+    }
 
     while (item->data(2, Qt::UserRole).toString().isEmpty()) {
         item->treeWidget()->expandItem(item);

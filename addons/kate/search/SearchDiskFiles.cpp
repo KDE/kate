@@ -108,7 +108,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
     int line = 0;
     static QString fullDoc;
     static QVector<int> lineStart;
-
+    QRegExp tmpRegExp = m_regExp;
 
     if (!file.open(QFile::ReadOnly)) {
         return;
@@ -125,11 +125,17 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
             lineStart << i+1;
         }
     }
+    if (tmpRegExp.pattern().endsWith("$")) {
+        fullDoc += '\n';
+        QString newPatern = tmpRegExp.pattern();
+        newPatern.replace("$", "(?=\\n)");
+        tmpRegExp.setPattern(newPatern);
+    }
 
-    column = m_regExp.indexIn(fullDoc, column);
+    column = tmpRegExp.indexIn(fullDoc, column);
     while (column != -1) {
         if (m_cancelSearch) break;
-        if (m_regExp.cap().isEmpty()) break;
+        if (tmpRegExp.cap().isEmpty()) break;
         // search for the line number of the match
         int i;
         line = -1;
@@ -145,9 +151,9 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         emit matchFound(fileName,
                         line,
                         (column - lineStart[line]),
-                        fullDoc.mid(lineStart[line], column - lineStart[line])+m_regExp.cap(),
-                        m_regExp.matchedLength());
-        column = m_regExp.indexIn(fullDoc, column + m_regExp.matchedLength());
+                        fullDoc.mid(lineStart[line], column - lineStart[line])+tmpRegExp.cap(),
+                        tmpRegExp.matchedLength());
+        column = tmpRegExp.indexIn(fullDoc, column + tmpRegExp.matchedLength());
     }
 }
 

@@ -112,6 +112,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
     int line = 0;
     QTime time;
     time.start();
+    QRegExp tmpRegExp = regExp;
 
     if (startLine == 0) {
         // Copy the whole file to a temporary buffer to be able to search newlines
@@ -122,7 +123,11 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
             m_fullDoc += doc->line(i) + '\n';
             m_lineStart << m_fullDoc.size();
         }
-        m_fullDoc.remove(m_fullDoc.size()-1, 1);
+        if (!regExp.pattern().endsWith("$")) {
+            // if regExp ends with '$' leave the extra newline at the end as
+            // '$' will be replaced with (?=\\n), which needs the extra newline
+            m_fullDoc.remove(m_fullDoc.size()-1, 1);
+        }
     }
     else {
         if (startLine>0 && startLine<m_lineStart.size()) {
@@ -134,9 +139,15 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         }
     }
 
-    column = regExp.indexIn(m_fullDoc, column);
+    if (regExp.pattern().endsWith("$")) {
+        QString newPatern = tmpRegExp.pattern();
+        newPatern.replace("$", "(?=\\n)");
+        tmpRegExp.setPattern(newPatern);
+    }
+
+    column = tmpRegExp.indexIn(m_fullDoc, column);
     while (column != -1) {
-        if (regExp.cap().isEmpty()) break;
+        if (tmpRegExp.cap().isEmpty()) break;
         // search for the line number of the match
         int i;
         line = -1;
@@ -152,9 +163,9 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         emit matchFound(doc->url().pathOrUrl(),
                         line,
                         (column - m_lineStart[line]),
-                        doc->line(line).left(column - m_lineStart[line])+regExp.cap(),
-                        regExp.matchedLength());
-        column = regExp.indexIn(m_fullDoc, column + regExp.matchedLength());
+                        doc->line(line).left(column - m_lineStart[line])+tmpRegExp.cap(),
+                        tmpRegExp.matchedLength());
+        column = tmpRegExp.indexIn(m_fullDoc, column + tmpRegExp.matchedLength());
 
         if (time.elapsed() > 100) {
             //kDebug() << "Search time exceeded" << time.elapsed() << line;

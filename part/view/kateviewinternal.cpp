@@ -668,13 +668,15 @@ void KateViewInternal::slotRegionVisibilityChanged()
   if (startPos() > max)
     scrollPos(max);
 
-#if 0 // DON'T MESS WITH THE CURSORS https://bugs.kde.org/show_bug.cgi?id=295632 and foldedselection_test
-  m_preserveX = true;
-  KTextEditor::Cursor newPos = toRealCursor(toVirtualCursor(m_cursor));
-  KateTextLayout newLine = cache()->textLayout(newPos);
-  newPos = renderer()->xToCursor(newLine, m_preservedX, !m_view->wrapCursor());
-  updateCursor(newPos, true);
-#endif
+  // if text was folded: make sure the cursor is on a visible line
+  qint64 foldedRangeId = -1;
+  if (!m_view->textFolding().isLineVisible (m_cursor.line(), &foldedRangeId)) {
+    KTextEditor::Range foldingRange = m_view->textFolding().foldingRange(foldedRangeId);
+    Q_ASSERT(foldingRange.start().isValid());
+
+    // set cursor to start of folding region
+    updateCursor(foldingRange.start(), true);
+  }
 
   updateView();
   update();

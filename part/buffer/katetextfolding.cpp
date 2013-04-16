@@ -156,6 +156,15 @@ qint64 TextFolding::newFoldingRange (const KTextEditor::Range &range, FoldingRan
   return newRange->id;
 }
 
+KTextEditor::Range TextFolding::foldingRange(qint64 id) const
+{
+  FoldingRange* range = m_idToFoldingRange.value (id);
+  if (!range)
+    return KTextEditor::Range::invalid();
+
+  return KTextEditor::Range(range->start->toCursor(), range->end->toCursor());
+}
+
 bool TextFolding::foldRange (qint64 id)
 {
   /**

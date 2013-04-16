@@ -78,7 +78,17 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
      *         the ids are stable for one Kate::TextFolding, e.g. you can rely in unit tests that you get 0,1,.... for successfully created ranges!
      */
     qint64 newFoldingRange (const KTextEditor::Range &range, FoldingRangeFlags flags = FoldingRangeFlags());
-    
+
+    /**
+     * Returns the folding range associated with @p id.
+     * If @p id is not a valid id, the returned range matches KTextEditor::Range::invalid().
+     * @note This works for either persistend ranges or folded ranges.
+     *       Note, that the highlighting does not add folds unless text is folded.
+     *
+     * @return the folding range for @p id
+     */
+    KTextEditor::Range foldingRange(qint64 id) const;
+
     /**
      * Fold the given range.
      * @param id id of the range to fold

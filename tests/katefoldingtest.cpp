@@ -27,6 +27,7 @@
 #include <katedocument.h>
 #include <kateview.h>
 #include <kateconfig.h>
+#include <katetextfolding.h>
 
 using namespace KTextEditor;
 
@@ -76,4 +77,42 @@ void KateFoldingTest::testCrash311866()
 
   qDebug() << "!!! Does the next line crash?";
   view->up();
+}
+
+// when text is folded, and you set the text selection from top to bottom and
+// type a character, the resulting text is borked.
+//
+// See https://bugs.kde.org/show_bug.cgi?id=295632
+void KateFoldingTest::testBug295632()
+{
+  KateDocument doc(false, false, false);
+  QString text = "oooossssssss\n"
+                 "{\n"
+                 "\n"
+                 "}\n"
+                 "ssssss----------";
+  doc.setText(text);
+  
+  // view must be visible...
+  KateView* view = static_cast<KateView*>(doc.createView(0));
+  view->show();
+  view->resize(400, 300);
+  
+  qint64 foldId = view->textFolding().newFoldingRange (KTextEditor::Range(1, 0, 3, 1));
+  view->textFolding().foldRange(foldId);
+  QVERIFY(view->textFolding().isLineVisible(0));
+  QVERIFY(view->textFolding().isLineVisible(1));
+  QVERIFY(!view->textFolding().isLineVisible(2));
+  QVERIFY(!view->textFolding().isLineVisible(3));
+  QVERIFY(view->textFolding().isLineVisible(4));
+
+  view->setSelection(Range(Cursor(0,4), Cursor(4, 6)));
+  view->setCursorPosition(Cursor(4, 6));
+
+  QTest::qWait(100);
+  doc.typeChars(view, "x");
+  QTest::qWait(100);
+
+  QString line = doc.line(0);
+  QCOMPARE(line, QString("oooox----------"));
 }

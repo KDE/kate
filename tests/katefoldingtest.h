@@ -32,6 +32,7 @@ public Q_SLOTS:
 
 private Q_SLOTS:
   void testCrash311866();
+  void testBug295632();
 };
 
 #endif // KATE_FOLDING_TEST_H

@@ -104,12 +104,17 @@ open documents. You can switch modes by right-clicking on the list and selecting
 from the <guisubmenu>View Mode</guisubmenu> menu.</para>
 
 <para>If two or more files with the same name (located in different
-folders) are open, the names of the second will be prepended
-<quote>&lt;2&gt;</quote> and so on. The tool-tip for the file will
+folders) are open in <guimenuitem>List Mode</guimenuitem>, the names of the second will be prepended
+<quote>(2)</quote> and so on. The tool-tip for the file will
 display its full name including the path, allowing you to choose the
 desired one.</para> <para>To display a document in the currently
 active frame, click the document name in the list.</para>
 
+<!-- FIXME missing options in 4.11 context menu:
+Close
+Copy Filename -> full doc path to clipboard
+Open With submenu
+-->
 <para>You can sort the list in a few different ways by rightclicking the
 list and selecting from the <guisubmenu>Sort By</guisubmenu> menu.
 
@@ -140,7 +145,7 @@ entries for the most recent documents with a background color. If the document
 was edited, an extra color is blended in. The most recent document has the
 strongest color, so that you can easily find the documents you are working on.
 This feature can be disabled in the
-<link linkend="config-dialog-treeview">Tree View</link> page
+<link linkend="config-dialog-treeview">Documents</link> page
 of the configuration dialog.</para>
 <!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
 <para>The default location of the document list in the &kate; window is to the left of the

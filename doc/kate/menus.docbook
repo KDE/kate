@@ -597,7 +597,7 @@ The new instance will be identical to your previous instance.
 <menuchoice>
 <shortcut><keycombo action="simul">&Alt;<keysym>Left</keysym></keycombo></shortcut>
 <guimenu>View</guimenu>
-<guimenuitem>Back</guimenuitem>
+<guimenuitem>Previous Document</guimenuitem>
 </menuchoice>
 </term>
 <listitem>
@@ -611,7 +611,7 @@ The new instance will be identical to your previous instance.
 <menuchoice>
 <shortcut><keycombo action="simul">&Alt;<keysym>Right</keysym></keycombo></shortcut>
 <guimenu>View</guimenu>
-<guimenuitem>Forward</guimenuitem>
+<guimenuitem>Next Document</guimenuitem>
 </menuchoice>
 </term>
 <listitem>

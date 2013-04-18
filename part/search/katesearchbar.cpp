@@ -232,7 +232,8 @@ void KateSearchBar::setReplacementPattern(const QString &replacementPattern) {
 
 
 
-QString KateSearchBar::replacementPattern() const {
+QString KateSearchBar::replacementPattern() const
+{
     Q_ASSERT(isPower());
 
     return m_powerUi->replacement->currentText();
@@ -240,7 +241,8 @@ QString KateSearchBar::replacementPattern() const {
 
 
 
-void KateSearchBar::setSearchMode(KateSearchBar::SearchMode mode) {
+void KateSearchBar::setSearchMode(KateSearchBar::SearchMode mode)
+{
     Q_ASSERT(isPower());
 
     m_powerUi->searchMode->setCurrentIndex(mode);
@@ -248,7 +250,8 @@ void KateSearchBar::setSearchMode(KateSearchBar::SearchMode mode) {
 
 
 
-void KateSearchBar::findNext() {
+void KateSearchBar::findNext()
+{
     const bool found = find();
 
     if (found) {
@@ -553,19 +556,19 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         }
     } else {
         // No selection
-            const Cursor cursorPos = m_view->cursorPosition();
-            if (searchDirection == SearchForward) {
-                // if the vi input mode is used, the cursor will stay a the first character of the
-                // matched pattern (no selection will be made), so the next search should start from
-                // match column + 1
-                if (!m_view->viInputMode()) {
-                    inputRange.setRange(cursorPos, m_view->document()->documentEnd());
-                } else {
-                    inputRange.setRange(Cursor(cursorPos.line(), cursorPos.column()+1), m_view->document()->documentEnd());
-                }
+        const Cursor cursorPos = m_view->cursorPosition();
+        if (searchDirection == SearchForward) {
+            // if the vi input mode is used, the cursor will stay a the first character of the
+            // matched pattern (no selection will be made), so the next search should start from
+            // match column + 1
+            if (!m_view->viInputMode()) {
+                inputRange.setRange(cursorPos, m_view->document()->documentEnd());
             } else {
-                inputRange.setRange(Cursor(0, 0), cursorPos);
+                inputRange.setRange(Cursor(cursorPos.line(), cursorPos.column()+1), m_view->document()->documentEnd());
             }
+        } else {
+            inputRange.setRange(Cursor(0, 0), cursorPos);
+        }
     }
     FAST_DEBUG("Search range is" << inputRange);
 
@@ -585,30 +588,30 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     // Find, first try
     match.searchText(inputRange, searchPattern());
     if (match.isValid() && match.range() == selection) {
-            // Same match again
-            if (replacement != 0) {
-                // Selection is match -> replace
-                KTextEditor::MovingRange *smartInputRange = m_view->doc()->newMovingRange (inputRange, KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
-                afterReplace = match.replace(*replacement, m_view->blockSelection());
-                inputRange = *smartInputRange;
-                delete smartInputRange;
+        // Same match again
+        if (replacement != 0) {
+            // Selection is match -> replace
+            KTextEditor::MovingRange *smartInputRange = m_view->doc()->newMovingRange (inputRange, KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
+            afterReplace = match.replace(*replacement, m_view->blockSelection());
+            inputRange = *smartInputRange;
+            delete smartInputRange;
+        }
+
+        if (!selectionOnly()) {
+            // Find, second try after old selection
+            if (searchDirection == SearchForward) {
+                const Cursor start = (replacement != 0) ? afterReplace.end() : selection.end();
+                inputRange.setRange(start, inputRange.end());
+            } else {
+                const Cursor end = (replacement != 0) ? afterReplace.start() : selection.start();
+                inputRange.setRange(inputRange.start(), end);
             }
+        }
 
-            if (!selectionOnly()) {
-                // Find, second try after old selection
-                if (searchDirection == SearchForward) {
-                    const Cursor start = (replacement != 0) ? afterReplace.end() : selection.end();
-                    inputRange.setRange(start, inputRange.end());
-                } else {
-                    const Cursor end = (replacement != 0) ? afterReplace.start() : selection.start();
-                    inputRange.setRange(inputRange.start(), end);
-                }
-            }
+        // Single-line pattern workaround
+        fixForSingleLine(inputRange, searchDirection);
 
-            // Single-line pattern workaround
-            fixForSingleLine(inputRange, searchDirection);
-
-            match.searchText(inputRange, searchPattern());
+        match.searchText(inputRange, searchPattern());
     }
 
     const bool wrap = !match.isValid() && (!selection.isValid() || !selectionOnly());

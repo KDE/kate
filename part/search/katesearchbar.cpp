@@ -536,7 +536,10 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
     // don't let selectionChanged signal mess around in this routine
     disconnect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelectionOnly()));
-    
+
+    // clear previous highlights if there are any
+    clearHighlights();
+
     const Search::SearchOptions enabledOptions = searchOptions(searchDirection);
 
     // Where to find?
@@ -630,8 +633,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
                                                                        MatchWrappedBackward;
     indicateMatch(matchResult);
 
-    // Reset highlighting for all matches and highlight replacement if there is one
-    clearHighlights();
+    // highlight replacements if applicable
     if (afterReplace.isValid()) {
         highlightReplacement(afterReplace);
     }

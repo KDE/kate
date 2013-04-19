@@ -58,6 +58,7 @@ private:
     QRegExp          m_regExp;
     QStringList      m_files;
     bool             m_cancelSearch;
+    int              m_matchCount;
 };
 
 

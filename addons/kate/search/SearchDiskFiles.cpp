@@ -25,7 +25,10 @@
 #include <QDir>
 #include <QTextStream>
 
-SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent), m_cancelSearch(true) {}
+SearchDiskFiles::SearchDiskFiles(QObject *parent) : QThread(parent)
+,m_cancelSearch(true)
+,m_matchCount(0)
+{}
 
 SearchDiskFiles::~SearchDiskFiles()
 {
@@ -43,7 +46,7 @@ void SearchDiskFiles::startSearch(const QStringList &files,
     m_cancelSearch = false;
     m_files = files;
     m_regExp = regexp;
-
+    m_matchCount = 0;
     start();
 }
 
@@ -96,6 +99,10 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
             if (line.length() > 512) line = line.left(512);
             emit matchFound(fileName, i, column, line, m_regExp.matchedLength());
             column = m_regExp.indexIn(line, column + m_regExp.cap().size());
+            m_matchCount++;
+            // NOTE: This sleep is here so that the main thread will get a chance to
+            // handle any stop button clicks if there are a lot of matches
+            if (m_matchCount%100) msleep(0);
         }
         i++;
     }
@@ -154,6 +161,10 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
                         fullDoc.mid(lineStart[line], column - lineStart[line])+tmpRegExp.cap(),
                         tmpRegExp.matchedLength());
         column = tmpRegExp.indexIn(fullDoc, column + tmpRegExp.matchedLength());
+        m_matchCount++;
+        // NOTE: This sleep is here so that the main thread will get a chance to
+        // handle any stop button clicks if there are a lot of matches
+        if (m_matchCount%100) msleep(0);
     }
 }
 

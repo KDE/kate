@@ -76,7 +76,7 @@ public:
     TreeWidgetItem(QTreeWidgetItem* parent, const QStringList &list):QTreeWidgetItem(parent, list){}
 private:
     bool operator<(const QTreeWidgetItem &other)const {
-        if (parent()) {
+        if (childCount() == 0) {
             int line = data(1, Qt::UserRole).toInt();
             int column = data(2, Qt::UserRole).toInt();
             int oLine = other.data(1, Qt::UserRole).toInt();
@@ -281,6 +281,7 @@ m_projectPluginView(0)
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchOpenFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_searchDiskFiles, SLOT(cancelSearch()));
     connect(m_ui.stopButton,       SIGNAL(clicked()), &m_folderFilesList, SLOT(cancelSearch()));
+    connect(m_ui.stopButton,       SIGNAL(clicked()), &m_replacer,        SLOT(cancelReplace()));
 
     connect(m_ui.nextButton,       SIGNAL(clicked()), this, SLOT(goToNextMatch()));
 
@@ -559,6 +560,7 @@ void KatePluginSearchView::addHeaderItem(const QString& text)
     QTreeWidgetItem *item = new QTreeWidgetItem(m_curResults->tree, QStringList(text));
     item->setCheckState(0, Qt::Checked);
     item->setFlags(item->flags() | Qt::ItemIsTristate);
+    m_curResults->tree->expandItem(item);
 }
 
 
@@ -782,6 +784,7 @@ void KatePluginSearchView::startSearch()
     m_ui.replaceCheckedBtn->setDisabled(true);
     m_ui.replaceButton->setDisabled(true);
     m_ui.nextAndStop->setCurrentIndex(1);
+    m_ui.replaceCombo->setDisabled(true);
 
 
     QRegExp reg(m_ui.searchCombo->currentText(),
@@ -926,6 +929,7 @@ void KatePluginSearchView::searchDone()
     m_ui.searchButton->setDisabled(false);
     m_ui.nextAndStop->setCurrentIndex(0);
     m_ui.displayOptions->setDisabled(false);
+    m_ui.replaceCombo->setDisabled(false);
 
     if (!m_curResults) {
         return;

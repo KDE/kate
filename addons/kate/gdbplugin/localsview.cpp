@@ -152,7 +152,7 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
         end = vString.indexOf(" = ", start);
         if (end < 0) {
             // error situation -> bail out
-            createWrappedItem(parent, symbolAndValue[0], vString.right(start));
+            createWrappedItem(parent, QString(), vString.right(start));
             break;
         }
         symbolAndValue << vString.mid(start, end-start);

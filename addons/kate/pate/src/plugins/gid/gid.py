@@ -629,6 +629,7 @@ class SearchBar(QObject):
                     insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
                 transformOK = True
             except ValueError as detail:
+                # xgettext: no-python-format
                 KMessageBox.error(self.parent(), i18n("'%1' does not contain '%2'", kate.configuration["idFile"], transformationKey), i18n("Cannot use %i"))
         return fileSet and transformOK
 

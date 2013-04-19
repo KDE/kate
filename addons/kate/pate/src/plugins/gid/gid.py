@@ -358,7 +358,7 @@ class MatchesModel(HistoryModel):
             try:
                 filterRe = re.compile(filter)
             except re.error:
-                KMessageBox.error(parent.parent(), i18n("Filter '{}' is not a valid regular expression").format(filter), i18n("Invalid filter"))
+                KMessageBox.error(parent.parent(), i18n("Filter '%1' is not a valid regular expression", filter), i18n("Invalid filter"))
                 return None
         else:
             filterRe = None
@@ -390,7 +390,7 @@ class MatchesModel(HistoryModel):
             # Time to query the user's boredom level?
             #
             if time.time() - previousBoredomQuery > self._boredomInterval:
-                r = KMessageBox.questionYesNoCancel(parent.parent(), i18n("Scanned {} of {} files in {} seconds").format(filesListed, len(files), int(time.time() - startBoredomQuery)),
+                r = KMessageBox.questionYesNoCancel(parent.parent(), i18n("Scanned %1 of %2 files in %3 seconds", filesListed, len(files), int(time.time() - startBoredomQuery)),
                         i18n("Scan more files?"), KGuiItem(i18n("All Files")), KGuiItem(i18n("More Files")), KStandardGuiItem.cancel())
                 if r == KMessageBox.Yes:
                     previousBoredomQuery = time.time() + 10 * self._boredomInterval
@@ -629,7 +629,7 @@ class SearchBar(QObject):
                     insertLeft, discard = kate.configuration["idFile"].split(transformationKey, 1)
                 transformOK = True
             except ValueError as detail:
-                KMessageBox.error(self.parent(), i18n("'{}' does not contain '{}'").format(kate.configuration["idFile"], transformationKey), i18n("Cannot use %i"))
+                KMessageBox.error(self.parent(), i18n("'%1' does not contain '%2'", kate.configuration["idFile"], transformationKey), i18n("Cannot use %i"))
         return fileSet and transformOK
 
     def show(self):

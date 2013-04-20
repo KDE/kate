@@ -118,10 +118,11 @@ bool DocumentAdaptor::removeLine(int line) {
 class KTextEditor::DocumentPrivate {
   public:
     DocumentPrivate()
-      : openingError(false), suppressOpeningErrorDialogs(false) { }
+      : openingError(false), suppressOpeningErrorDialogs(false),isOrphaned(false) { }
     bool openingError;
     bool suppressOpeningErrorDialogs;
     QString openingErrorMessage;
+    bool isOrphaned;
 };
 
 Document::Document( QObject *parent)
@@ -159,6 +160,14 @@ void Document::setOpeningError(bool errors) {
 
 void Document::setOpeningErrorMessage(const QString& message) {
   d->openingErrorMessage=message;
+}
+
+bool Document::isOrphaned() const {
+  return d->isOrphaned;
+}
+
+void Document::setOrphaned(bool value) {
+    d->isOrphaned=value;
 }
 
 bool Document::cursorInText(const Cursor& cursor)

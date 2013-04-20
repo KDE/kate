@@ -464,7 +464,7 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
 
     case Qt::ForegroundRole: {
       KColorScheme colors(QPalette::Active);
-      if(!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) return colors.foreground(KColorScheme::InactiveText).color();
+      if(!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError() || item->doc()->isOrphaned())) return colors.foreground(KColorScheme::InactiveText).color();
     } break;
       
     case Qt::BackgroundRole:

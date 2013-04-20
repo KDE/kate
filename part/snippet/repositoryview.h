@@ -104,6 +104,13 @@ namespace KTextEditor {
           UploadNowRole,
           ForExtension=Qt::UserRole+100
         };
+        
+        //for the kdevelop based view
+        enum ItemType {
+          NullItem=0,
+          RepositoryItem=1,
+          SnippetItem=2
+        };
       private:
         void createOrUpdateList(bool update);
         void tokenNewHandled(const QString& token, const QString& filepath);
@@ -113,6 +120,8 @@ namespace KTextEditor {
         static long s_id;
         QDBusConnection m_connection;
       public:
+        void typeAndDisplay(const QModelIndex &index, enum ItemType* itemType,QVariant *display);
+        
         virtual int rowCount(const QModelIndex & parent = QModelIndex()) const;
         virtual QVariant data(const QModelIndex & index, int role = Qt::DisplayRole) const;
         virtual bool setData ( const QModelIndex & index, const QVariant & value, int role = Qt::EditRole );

@@ -38,6 +38,7 @@ void SearchOpenFiles::startSearch(const QList<KTextEditor::Document*> &list, con
     m_nextIndex = 0;
     m_regExp = regexp;
     m_cancelSearch = false;
+    m_statusTime.restart();
     emit searchNextFile(0);
 }
 
@@ -77,6 +78,11 @@ void SearchOpenFiles::doSearchNextFile(int startLine)
 
 int SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegExp &regExp, int startLine)
 {
+    if (m_statusTime.elapsed() > 100) {
+        m_statusTime.restart();
+        emit searching(doc->url().pathOrUrl());
+    }
+
     if (regExp.pattern().contains("\\n")) {
         return searchMultiLineRegExp(doc, regExp, startLine);
     }

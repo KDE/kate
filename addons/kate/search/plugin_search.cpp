@@ -300,12 +300,14 @@ m_projectPluginView(0)
     connect(&m_searchOpenFiles, SIGNAL(matchFound(QString,int,int,QString,int)),
             this,                 SLOT(matchFound(QString,int,int,QString,int)));
     connect(&m_searchOpenFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
+    connect(&m_searchOpenFiles, SIGNAL(searching(QString)), this, SLOT(searching(QString)));
 
     connect(&m_folderFilesList, SIGNAL(finished()),  this, SLOT(folderFileListChanged()));
 
     connect(&m_searchDiskFiles, SIGNAL(matchFound(QString,int,int,QString,int)),
             this,              SLOT(matchFound(QString,int,int,QString,int)));
     connect(&m_searchDiskFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
+    connect(&m_searchDiskFiles, SIGNAL(searching(QString)), this, SLOT(searching(QString)));
 
     connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
@@ -1028,6 +1030,24 @@ void KatePluginSearchView::searchWhileTypingDone()
     m_curResults = 0;
     m_ui.searchCombo->lineEdit()->setFocus();
     m_searchJustOpened = false;
+}
+
+
+void KatePluginSearchView::searching(const QString &file)
+{
+    if (!m_curResults) {
+        return;
+    }
+
+    QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
+    if (root) {
+        if (file.size() > 70) {
+            root->setData(0, Qt::DisplayRole, i18n("<b>Searching: ...%1</b>", file.right(70)));
+        }
+        else {
+            root->setData(0, Qt::DisplayRole, i18n("<b>Searching: %1</b>", file));
+        }
+    }
 }
 
 void KatePluginSearchView::indicateMatch(bool hasMatch) {

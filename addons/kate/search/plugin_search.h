@@ -128,6 +128,8 @@ private Q_SLOTS:
     void searchWhileTypingDone();
     void indicateMatch(bool hasMatch);
 
+    void searching(const QString &file);
+
     void itemSelected(QTreeWidgetItem *item);
 
     void clearMarks();

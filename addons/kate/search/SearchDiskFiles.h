@@ -27,6 +27,7 @@
 #include <QVector>
 #include <QMutex>
 #include <QStringList>
+#include <QTime>
 
 class SearchDiskFiles: public QThread
 {
@@ -53,12 +54,14 @@ Q_SIGNALS:
     void matchFound(const QString &url, int line, int column,
                     const QString &lineContent, int matchLen);
     void searchDone();
+    void searching(const QString &file);
 
 private:
     QRegExp          m_regExp;
     QStringList      m_files;
     bool             m_cancelSearch;
     int              m_matchCount;
+    QTime            m_statusTime;
 };
 
 

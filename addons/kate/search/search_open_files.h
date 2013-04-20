@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QRegExp>
+#include <QTime>
 #include <ktexteditor/document.h>
 
 class SearchOpenFiles: public QObject
@@ -52,7 +53,8 @@ Q_SIGNALS:
     void searchNextFile(int startLine);
     void matchFound(const QString &url, int line, int column, const QString &lineContent, int matchLen);
     void searchDone();
-    
+    void searching(const QString &file);
+
 private:
     QList<KTextEditor::Document*> m_docList;
     int                           m_nextIndex;
@@ -60,6 +62,7 @@ private:
     bool                          m_cancelSearch;
     QString                       m_fullDoc;
     QVector<int>                  m_lineStart;
+    QTime                         m_statusTime;
 };
 
 

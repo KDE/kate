@@ -47,6 +47,7 @@ void SearchDiskFiles::startSearch(const QStringList &files,
     m_files = files;
     m_regExp = regexp;
     m_matchCount = 0;
+    m_statusTime.restart();
     start();
 }
 
@@ -55,6 +56,11 @@ void SearchDiskFiles::run()
     foreach (QString fileName, m_files) {
         if (m_cancelSearch) {
             break;
+        }
+
+        if (m_statusTime.elapsed() > 100) {
+            m_statusTime.restart();
+            emit searching(fileName);
         }
 
         if (m_regExp.pattern().contains("\\n")) {
@@ -102,7 +108,7 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
             m_matchCount++;
             // NOTE: This sleep is here so that the main thread will get a chance to
             // handle any stop button clicks if there are a lot of matches
-            if (m_matchCount%100) msleep(0);
+            if (m_matchCount%50) msleep(1);
         }
         i++;
     }
@@ -164,7 +170,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         m_matchCount++;
         // NOTE: This sleep is here so that the main thread will get a chance to
         // handle any stop button clicks if there are a lot of matches
-        if (m_matchCount%100) msleep(0);
+        if (m_matchCount%50) msleep(1);
     }
 }
 

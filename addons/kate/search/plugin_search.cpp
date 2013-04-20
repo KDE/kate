@@ -89,6 +89,10 @@ private:
             }
             return false;
         }
+        int sepCount = data(0, Qt::UserRole).toString().count(QDir::separator());
+        int oSepCount = other.data(0, Qt::UserRole).toString().count(QDir::separator());
+        if (sepCount < oSepCount) return true;
+        if (sepCount > oSepCount) return false;
         return data(0, Qt::UserRole).toString().toLower() < other.data(0, Qt::UserRole).toString().toLower();
     }
 };

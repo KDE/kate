@@ -32,12 +32,14 @@
 #include <QtCore/QTimer>
 #include <QtGui/QVBoxLayout>
 #include <QToolTip>
+#include <QShowEvent>
 
 static const int s_defaultAutoHideTime = 6 * 1000;
 
 KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   : QWidget(parent)
   , m_fadeEffect(0)
+  , m_showMessageRunning(false)
   , m_hideAnimationRunning(false)
   , m_autoHideTimer(new QTimer(this))
   , m_autoHideTime(-1)
@@ -84,13 +86,24 @@ bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
 
     // if there are other messages in the queue, show next one, else hide us
     if (m_messageList.count()) {
-      showMessage(m_messageList[0]);
+      if (isVisible())
+        showMessage(m_messageList[0]);
     } else {
       hide();
     }
   }
 
   return QWidget::eventFilter(obj, event);
+}
+
+void KateMessageWidget::showEvent(QShowEvent *event)
+{
+  if (!m_showMessageRunning &&
+      !event->spontaneous() &&
+      !m_messageList.isEmpty())
+  {
+    showMessage(m_messageList[0]);
+  }
 }
 
 void KateMessageWidget::showMessage(KTextEditor::Message* message)
@@ -143,7 +156,9 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
   }
 
   // finally show us
+  m_showMessageRunning = true;
   show();
+  m_showMessageRunning = false;
   if (m_fadeEffect) {
     m_fadeEffect->fadeIn();
   } else {

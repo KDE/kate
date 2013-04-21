@@ -72,6 +72,11 @@ class KATEPART_TESTS_EXPORT KateMessageWidget : public QWidget
      */
     virtual bool eventFilter(QObject *obj, QEvent *event);
 
+    /**
+     * Reimplement show event to show notification if needed.
+     */
+    virtual void showEvent(QShowEvent *event);
+
   private Q_SLOTS:
     /**
      * catch when a message is deleted, then show next one, if applicable.
@@ -97,6 +102,8 @@ class KATEPART_TESTS_EXPORT KateMessageWidget : public QWidget
     KateFadeEffect* m_fadeEffect;
 
   private: // some state variables
+    // flag: if true, showEvent() will do nothing. otherwise, it calls showMessage()
+    bool m_showMessageRunning : 1;
     // flag: hide animation is running. needed to avoid flickering
     // when showMessage() is called during hide-animation
     bool m_hideAnimationRunning : 1;

@@ -200,7 +200,7 @@ void MessageTest::testMessageQueue()
     QVERIFY(!view->messageWidget()->isVisible());
 }
 
-void MessageTest::testSimplePriority()
+void MessageTest::testPriority()
 {
     KateDocument doc(false, false, false);
 
@@ -260,4 +260,150 @@ void MessageTest::testSimplePriority()
     QTest::qWait(1000);
     QCOMPARE(view->messageWidget()->text(), QString("m1 changed"));
 }
+
+void MessageTest::testCreateView()
+{
+    KateDocument doc(false, false, false);
+
+    //
+    // - first post a message
+    // - then create two views
+    //
+    // test:
+    // - verify that both views get the message
+    // - verify that, once the message is deleted, both views hide the message
+    //
+    QPointer<Message> m1 = new Message(Message::Positive, "message");
+    m1->setPosition(Message::TopInView);
+    QVERIFY(m1->priority() == 0);
+
+    // first post message to doc without views
+    QVERIFY(doc.postMessage(m1));
+
+    // now create views
+    KateView* v1 = static_cast<KateView*>(doc.createView(0));
+    KateView* v2 = static_cast<KateView*>(doc.createView(0));
+    v1->show();
+    v2->show();
+    v1->resize(400, 300);
+    v2->resize(400, 300);
+
+    // make sure both views show the message
+    QTest::qWait(500);
+    QVERIFY(v1->messageWidget()->isVisible());
+    QVERIFY(v2->messageWidget()->isVisible());
+    QCOMPARE(v1->messageWidget()->text(), QString("message"));
+    QCOMPARE(v2->messageWidget()->text(), QString("message"));
+    QVERIFY(m1.data() != 0);
+
+    // delete message, then check after fadeout time 0f 0.5s whether message is gone
+    delete m1;
+    QTest::qWait(600);
+    QVERIFY(!v1->messageWidget()->isVisible());
+    QVERIFY(!v2->messageWidget()->isVisible());
+}
+
+void MessageTest::testHideView()
+{
+    KateDocument doc(false, false, false);
+
+    KateView* view = static_cast<KateView*>(doc.createView(0));
+    view->show();
+    view->resize(400, 300);
+
+    // create message that hides after 2s immediately
+    QPointer<Message> message = new Message(Message::Information, "Message text");
+    message->setAutoHide(2000);
+    message->setAutoHideMode(Message::Immediate);
+    message->setPosition(Message::TopInView);
+
+    // posting message should succeed
+    QVERIFY(doc.postMessage(message));
+
+    //
+    // test:
+    // - show the message for 1.5s, then hide the view
+    // - this should stop the autoHide timer
+    // - showing the view again should restart the autoHide timer (again 2s)
+    //
+    QTest::qWait(1500);
+    QVERIFY(view->messageWidget()->isVisible());
+    QCOMPARE(view->messageWidget()->text(), QString("Message text"));
+
+    // hide view
+    view->hide();
+
+    // wait 1s, check that message is still valid
+    QTest::qWait(1000);
+    QVERIFY(message.data() != 0);
+
+    // show view again, wait 1.5s and check that message is still displayed
+    view->show();
+    QTest::qWait(1500);
+    QVERIFY(message.data() != 0);
+    QVERIFY(view->messageWidget()->isVisible());
+    QCOMPARE(view->messageWidget()->text(), QString("Message text"));
+
+    // wait another 0.6s, then the message is deleted
+    QTest::qWait(600);
+    QVERIFY(message.data() == 0);
+    QVERIFY(view->messageWidget()->isVisible());
+
+    // another 0.5s, and the message widget should be hidden
+    QTest::qWait(600);
+    QVERIFY(!view->messageWidget()->isVisible());
+}
+
+void MessageTest::testHideViewAfterUserInteraction()
+{
+    KateDocument doc(false, false, false);
+
+    KateView* view = static_cast<KateView*>(doc.createView(0));
+    view->show();
+    view->resize(400, 300);
+
+    // create message that hides after 2s immediately
+    QPointer<Message> message = new Message(Message::Information, "Message text");
+    message->setAutoHide(2000);
+    QVERIFY(message->autoHideMode() == Message::AfterUserInteraction);
+    message->setPosition(Message::TopInView);
+
+    // posting message should succeed
+    QVERIFY(doc.postMessage(message));
+
+    //
+    // test:
+    // - show the message for 1.5s, then hide the view
+    // - this should stop the autoHide timer
+    // - showing the view again should restart the autoHide timer (again 2s)
+    //
+    QTest::qWait(1500);
+    QVERIFY(view->messageWidget()->isVisible());
+    QCOMPARE(view->messageWidget()->text(), QString("Message text"));
+
+    // hide view
+    view->hide();
+
+    // wait 1s, check that message is still valid
+    QTest::qWait(1000);
+    QVERIFY(message.data() != 0);
+
+    // show view again, wait 1.5s and check that message is still displayed
+    view->show();
+    view->resize(400, 310);
+    QTest::qWait(1500);
+    QVERIFY(message.data() != 0);
+    QVERIFY(view->messageWidget()->isVisible());
+    QCOMPARE(view->messageWidget()->text(), QString("Message text"));
+
+    // wait another 0.6s, then the message is deleted
+    QTest::qWait(600);
+    QVERIFY(message.data() == 0);
+    QVERIFY(view->messageWidget()->isVisible());
+
+    // another 0.5s, and the message widget should be hidden
+    QTest::qWait(600);
+    QVERIFY(!view->messageWidget()->isVisible());
+}
+
 // kate: indent-width 4; remove-trailing-spaces all;

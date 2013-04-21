@@ -35,7 +35,10 @@ private Q_SLOTS:
   void testAutoHide();
   void testAutoHideAfterUserInteraction();
   void testMessageQueue();
-  void testSimplePriority();
+  void testPriority();
+  void testCreateView();
+  void testHideView();
+  void testHideViewAfterUserInteraction();
 };
 
 #endif // KTEXTEDITOR_MESSAGE_TEST_H

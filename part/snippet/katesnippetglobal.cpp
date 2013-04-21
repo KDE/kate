@@ -241,7 +241,7 @@ void KateSnippetGlobal::createSnippet (KateView *view)
     }
     KTextEditor::CodesnippetsCore::CategorizedSnippetModel *mod;
     m_document_categorized_hash.insert(document,mod=new KTextEditor::CodesnippetsCore::CategorizedSnippetModel(list));
-    connect(mod,SIGNAL(needView(KTextEditor::View**)),this,SLOT(provideView(KTextEditor::View**)));
+//     connect(mod,SIGNAL(needView(KTextEditor::View**)),this,SLOT(provideView(KTextEditor::View**)));
 
 
     //Q_ASSERT(modelForDocument(document));

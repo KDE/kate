@@ -154,7 +154,7 @@ private Q_SLOTS:
 
 protected:
     bool eventFilter(QObject *obj, QEvent *ev);
-    void addHeaderItem(const QString& text);
+    void addHeaderItem();
 
 private:
     QTreeWidgetItem *rootFileItem(const QString &url);

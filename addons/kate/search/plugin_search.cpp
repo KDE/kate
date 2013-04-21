@@ -561,9 +561,9 @@ void KatePluginSearchView::searchPlaceChanged()
     m_ui.excludeLabel->setEnabled(m_ui.excludeCombo->isEnabled());
 }
 
-void KatePluginSearchView::addHeaderItem(const QString& text)
+void KatePluginSearchView::addHeaderItem()
 {
-    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResults->tree, QStringList(text));
+    QTreeWidgetItem *item = new QTreeWidgetItem(m_curResults->tree, QStringList());
     item->setCheckState(0, Qt::Checked);
     item->setFlags(item->flags() | Qt::ItemIsTristate);
     m_curResults->tree->expandItem(item);
@@ -583,7 +583,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
 
     // make sure we have a root item
     if (m_curResults->tree->topLevelItemCount() == 0) {
-        addHeaderItem(i18n("<b><i>Results</i></b>"));
+        addHeaderItem();
     }
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
 
@@ -813,12 +813,12 @@ void KatePluginSearchView::startSearch()
         m_searchDiskFilesDone = true;
         m_resultBaseDir.clear();
         const QList<KTextEditor::Document*> & documents = m_kateApp->documentManager()->documents();
-        addHeaderItem(i18np("<b><i>Results from 1 open file</i></b>", "<b><i>Results from %1 open files</i></b>", documents.size()));
+        addHeaderItem();
         m_searchOpenFiles.startSearch(documents, reg);
     }
     else if (m_ui.searchPlaceCombo->currentIndex() == 1) {
         m_resultBaseDir = m_ui.folderRequester->text();
-        addHeaderItem(i18n("<b><i>Results in folder %1</i></b>", m_resultBaseDir));
+        addHeaderItem();
         m_folderFilesList.generateList(m_ui.folderRequester->text(),
                                        m_ui.recursiveCheckBox->isChecked(),
                                        m_ui.hiddenCheckBox->isChecked(),
@@ -843,7 +843,7 @@ void KatePluginSearchView::startSearch()
             QStringList projectFiles = m_projectPluginView->property ("projectFiles").toStringList();
             files = filterFiles(projectFiles);
         }
-        addHeaderItem(i18n("<b><i>Results in project %1 (%2)</i></b>", projectName, m_resultBaseDir));
+        addHeaderItem();
 
         QList<KTextEditor::Document*> openList;
         for (int i=0; i<m_kateApp->documentManager()->documents().size(); i++) {

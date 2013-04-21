@@ -213,7 +213,9 @@ void MessageTest::testSimplePriority()
     // add two messages
     // - m1: no auto hide timer, priority 0
     // - m2: auto hide timer of 1 second, priority 1
-    // test: m1 should be hidden in favour of m2
+    // test:
+    // - m1 should be hidden in favour of m2
+    // - changing text of m1 while m2 is displayed should not change the displayed text
     //
     QPointer<Message> m1 = new Message(Message::Positive, "m1");
     m1->setPosition(Message::TopInView);
@@ -239,19 +241,23 @@ void MessageTest::testSimplePriority()
     QVERIFY(doc.postMessage(m2));
     QVERIFY(m2.data() != 0);
 
-    // after 0.6 seconds, m2 is visible
+    // alter text of m1 when m2 is visible, shouldn't influence m2
     QTest::qWait(600);
+    m1->setText("m1 changed");
+
+    // after 0.7 seconds, m2 is visible
+    QTest::qWait(100);
     QCOMPARE(view->messageWidget()->text(), QString("m2"));
     QVERIFY(m2.data() != 0);
 
     // after 1.6 seconds, m2 is hidden again and m1 is visible again
-    QTest::qWait(1000);
+    QTest::qWait(900);
     QVERIFY(view->messageWidget()->isVisible());
     QVERIFY(m1.data() != 0);
     QVERIFY(m2.data() == 0);
 
     // finally check m1 agagin
     QTest::qWait(1000);
-    QCOMPARE(view->messageWidget()->text(), QString("m1"));
+    QCOMPARE(view->messageWidget()->text(), QString("m1 changed"));
 }
 // kate: indent-width 4; remove-trailing-spaces all;

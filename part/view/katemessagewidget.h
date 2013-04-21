@@ -24,6 +24,8 @@
 #include <QtGui/QWidget>
 #include <QtCore/QHash>
 
+#include "katepartprivate_export.h"
+
 namespace KTextEditor
 {
   class Message;
@@ -36,7 +38,7 @@ class KateFadeEffect;
  * This class implements a message widget based on KMessageWidget.
  * It is used to show messages through the KTextEditior::MessageInterface.
  */
-class KateMessageWidget : public QWidget
+class KATEPART_TESTS_EXPORT KateMessageWidget : public QWidget
 {
   Q_OBJECT
 
@@ -50,6 +52,9 @@ class KateMessageWidget : public QWidget
      * Post a new incoming message. Show either directly, or queue
      */
     void postMessage(KTextEditor::Message* message, QList<QSharedPointer<QAction> > actions);
+
+    // for unit test
+    QString text() const;
 
   protected:
     /**

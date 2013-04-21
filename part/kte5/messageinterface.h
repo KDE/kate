@@ -25,6 +25,8 @@
 #include <QtCore/QList>
 #include <QtGui/QAction>
 
+#include "katepartprivate_export.h"
+
 namespace KTextEditor {
 
 class View;
@@ -85,7 +87,7 @@ class Document;
  * @author Dominik Haumann \<dhaumann@kde.org\>
  * @since KDE 4.10
  */
-class Message : public QObject
+class KATEPART_TESTS_EXPORT Message : public QObject
 {
   Q_OBJECT
 

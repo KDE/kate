@@ -220,6 +220,11 @@ void KateMessageWidget::postMessage(KTextEditor::Message* message,
       disconnect(m_autoHideTimer, SIGNAL(timeout()), 0, 0);
       m_autoHideTimer->stop();
 
+      // a bit unnice: disconnetc textChanged() signal of previously visible message
+      Q_ASSERT(m_messageList.size() > 1);
+      disconnect(m_messageList[1], SIGNAL(textChanged(const QString&)),
+                 m_messageWidget, SLOT(setText(const QString&)));
+
       m_hideAnimationRunning = true;
       if (m_fadeEffect) {
         m_fadeEffect->fadeOut();
@@ -298,4 +303,8 @@ void KateMessageWidget::linkHovered(const QString& link)
   QToolTip::showText(QCursor::pos(), link, m_messageWidget);
 }
 
+QString KateMessageWidget::text() const
+{
+  return m_messageWidget->text();
+}
 // kate: space-indent on; indent-width 2; replace-tabs on;

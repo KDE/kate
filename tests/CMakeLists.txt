@@ -295,6 +295,17 @@ target_link_libraries( kte_documentcursor_test
   katepartinterfaces
 )
 
+########### KTextEditor::MessageInterface test ###############
+
+kde4_add_unit_test(kte_messageinterface_test TESTNAME kte-messageinterface messagetest.cpp)
+
+target_link_libraries( kte_messageinterface_test
+  ${KDE4_KDEUI_LIBS}
+  ${QT_QTTEST_LIBRARY}
+  ${KATE_TEST_LINK_LIBS}
+  katepartinterfaces
+)
+
 endif(NOT MINGW)
 
 # encoding tets

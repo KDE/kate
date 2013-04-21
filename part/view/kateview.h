@@ -885,6 +885,10 @@ public:
     KateMessageWidget* m_floatBottomMessageWidget;
     /** Layout for floating notifications */
     QVBoxLayout* m_notificationLayout;
+
+  // for unit test 'tests/messagetest.cpp'
+  public:
+    KateMessageWidget* messageWidget() { return m_floatTopMessageWidget; }
 };
 
 /**

@@ -95,8 +95,8 @@ class KateMessageWidget : public QWidget
     // flag: hide animation is running. needed to avoid flickering
     // when showMessage() is called during hide-animation
     bool m_hideAnimationRunning : 1;
-    // flag: start autohide only once user interaction took place
-    bool m_autoHideTimerRunning : 1;
+    // autoHide only once user interaction took place
+    QTimer *m_autoHideTimer;
     // flag: save message's autohide time
     int m_autoHideTime;
 };

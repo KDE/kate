@@ -724,9 +724,6 @@ void KateDocManager::documentOpened()
     if (info) {
       info->openSuccess = false;
     }
-  } else if (doc->isOrphaned()) {
-    KateDocumentInfo* info=documentInfo(doc);
-    info->openSuccess=false;
   }
   --m_documentStillToRestore;
 

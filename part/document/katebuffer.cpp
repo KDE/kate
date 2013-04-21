@@ -160,8 +160,6 @@ void KateBuffer::clear()
 
 bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
 {
-  
-  m_doc->setOrphaned(false);
   // first: setup fallback and normal encoding
   setEncodingProberType (KateGlobalConfig::global()->proberType ());
   setFallbackTextCodec (KateGlobalConfig::global()->fallbackCodec ());
@@ -193,7 +191,6 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
     message->setPosition(KTextEditor::Message::TopInView);
     message->setAutoHide(1000);
     m_doc->postMessage(message);
-    m_doc->setOrphaned(true);
     return true;
   }
   
@@ -272,7 +269,6 @@ bool KateBuffer::saveFile (const QString &m_file)
   if (!save (m_file))
     return false;
 
-  m_doc->setOrphaned(false);
   // no longer broken encoding, or we don't care
   m_brokenEncoding = false;
   m_tooLongLinesWrapped = false;

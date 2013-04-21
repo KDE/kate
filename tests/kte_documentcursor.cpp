@@ -151,6 +151,7 @@ void DocumentCursorTest::testOperators()
   m14.setPosition(Cursor(1, 4));
 
   // invalid comparison
+  //cppcheck-suppress duplicateExpression
   QVERIFY(invalid == invalid);
   QVERIFY(invalid <= c02);
   QVERIFY(invalid < c02);
@@ -170,11 +171,17 @@ void DocumentCursorTest::testOperators()
   QVERIFY(m02 >= invalid);
   
   // DocumentCursor <-> DocumentCursor
+  //cppcheck-suppress duplicateExpression
   QVERIFY(m02 == m02);
+  //cppcheck-suppress duplicateExpression
   QVERIFY(m02 <= m02);
+  //cppcheck-suppress duplicateExpression
   QVERIFY(m02 >= m02);
+  //cppcheck-suppress duplicateExpression
   QVERIFY(!(m02 < m02));
+  //cppcheck-suppress duplicateExpression
   QVERIFY(!(m02 > m02));
+  //cppcheck-suppress duplicateExpression
   QVERIFY(!(m02 != m02));
   
   QVERIFY(!(m02 == m04));

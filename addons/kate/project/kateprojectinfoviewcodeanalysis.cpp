@@ -87,6 +87,11 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
   QStringList files = m_project->files ().filter (QRegExp ("\\.(cpp|cxx|cc|c\\+\\+|c|tpp|txx)$"));
 
   /**
+   * clear existing entries
+   */
+  m_model->removeRows(0,m_model->rowCount(),QModelIndex());
+  
+  /**
    * launch cppcheck
    */
   m_analyzer = new QProcess (this);
@@ -95,7 +100,7 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
   connect (m_analyzer, SIGNAL(readyRead()), this, SLOT(slotReadyRead()));
 
   QStringList args;
-  args << "-q" << "--enable=all" << "--template={file}////{line}////{severity}////{message}" << "--file-list=-";
+  args << "-q" << "--inline-suppr" << "--enable=all" << "--template={file}////{line}////{severity}////{message}" << "--file-list=-";
   m_analyzer->start("cppcheck", args);
   
   if (m_messageWidget) {
@@ -111,7 +116,6 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
     m_messageWidget->setText(i18n("Please install 'cppcheck'."));
     static_cast<QVBoxLayout*>(layout ())->insertWidget(0, m_messageWidget);
     m_messageWidget->animatedShow (); 
-    
     return;
   }
   /**

@@ -191,6 +191,10 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
     message->setPosition(KTextEditor::Message::TopInView);
     message->setAutoHide(1000);
     m_doc->postMessage(message);
+    
+    // remember error
+    m_doc->setOpeningError(true);
+    m_doc->setOpeningErrorMessage(i18n ("The file %1 does not exist.", m_doc->url().pathOrUrl()));
     return true;
   }
   

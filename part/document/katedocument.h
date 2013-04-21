@@ -101,6 +101,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   Q_INTERFACES(KTextEditor::MessageInterface)
 
   friend class KateDocumentTest;
+  friend class KateBuffer;
 
   public:
     explicit KateDocument (bool bSingleViewMode=false, bool bBrowserView=false, bool bReadOnly=false,

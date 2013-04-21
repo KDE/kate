@@ -161,6 +161,8 @@ namespace Kate
       /**
        * This signal is emitted whenever the active view changes.
        */
+      // TODO: KDE5 add View* parameter:
+      // void viewChanged (KTextEditor::View* view);
       void viewChanged ();
 
       /**

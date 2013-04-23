@@ -44,6 +44,9 @@ The available application plugins are:
 </para>
 <itemizedlist>
 <listitem>
+<para>Close Except/Like - Close group of documents</para>
+</listitem>
+<listitem>
 <para>Backtrace Browser - Backtrace navigation tool view</para>
 </listitem>
 <listitem>
@@ -88,7 +91,7 @@ simple &gdb; frontend</para>
 <!-- FIXME add info from http://kate-editor.org/2011/06/28/kate-plugin-updates-part-3/-->
 </listitem>
 <listitem>
-<para>Snippets tool view - Toolview embedding the snippets management</para>
+<para><link linkend="kate-application-plugin-snippets">Snippets tool view</link> - Toolview embedding the snippets management</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-sql">SQL Plugin</link> - Execute

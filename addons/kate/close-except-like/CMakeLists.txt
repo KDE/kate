@@ -21,4 +21,4 @@ configure_file(config.h.in config.h)
 
 install(TARGETS katecloseexceptplugin DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katecloseexceptplugin)
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/katecloseexceptplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+install(FILES katecloseexceptplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})

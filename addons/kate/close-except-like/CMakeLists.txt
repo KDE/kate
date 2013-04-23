@@ -18,7 +18,6 @@ target_link_libraries(katecloseexceptplugin
   )
 
 configure_file(config.h.in config.h)
-configure_file(katecloseexceptplugin.desktop.in katecloseexceptplugin.desktop)
 
 install(TARGETS katecloseexceptplugin DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katecloseexceptplugin)

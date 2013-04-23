@@ -1,0 +1,10 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Service
+ServiceTypes=Kate/Plugin
+X-KDE-Library=katecloseexceptplugin
+X-KDE-Version=4.0
+X-Kate-Version=2.9
+X-Kate-Load=True
+Name=Close Except/Like
+Comment=Close group of documents based on a common path or file extension

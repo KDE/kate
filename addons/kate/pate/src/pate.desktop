@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/Plugin
-X-KDE-Library=pateplugin
+X-KDE-Library=katepateplugin
 X-Kate-Version=2.8
 Name=Python Plugins
 Name[ca]=Connectors del Python

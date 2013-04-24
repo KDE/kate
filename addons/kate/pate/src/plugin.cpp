@@ -53,7 +53,7 @@
 // The Pate plugin
 //
 
-K_EXPORT_COMPONENT_FACTORY(pateplugin, KGenericFactory<Pate::Plugin>("pate"))
+K_EXPORT_COMPONENT_FACTORY(katepateplugin, KGenericFactory<Pate::Plugin>("pate"))
 
 Pate::Plugin::Plugin(QObject *parent, const QStringList &) :
     Kate::Plugin((Kate::Application *)parent),

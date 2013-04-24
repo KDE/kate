@@ -64,6 +64,17 @@ class KateSnippetsPluginView : public Kate::PluginView
     KateSnippetsPlugin *m_plugin;
     QWidget *m_toolView;
     QWidget *m_snippets;
+    /**
+     * main window of this console
+     */
+    Kate::MainWindow *m_mw;
+
+    
+  private Q_SLOTS:
+    void slotViewChanged();
+  Q_SIGNALS:
+    void viewChanged(KTextEditor::View*);
+  
 };
 
 #endif

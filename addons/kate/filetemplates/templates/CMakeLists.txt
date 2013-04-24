@@ -9,6 +9,6 @@ install(
       cppgpl.hh.katetemplate
       docbookchapter.xml.katetemplate
       language.xml.katetemplate
-      FindXXX.xml.katetemplate
+      FindXXX.cmake.katetemplate
     DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/katefiletemplates/templates
   )

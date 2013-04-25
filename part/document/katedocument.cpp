@@ -258,7 +258,7 @@ KateDocument::~KateDocument()
 
   
   // de-register from snippet stuff
-  KateSnippetGlobal::self()->addDocument(this);
+  KateSnippetGlobal::self()->removeDocument(this);
   // de-register from plugin
   KatePartPluginManager::self()->removeDocument(this);
 

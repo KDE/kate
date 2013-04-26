@@ -326,4 +326,200 @@ def register_command_completer(completers):
       , get_directory_property_sig_2
       )
 
+    completers['get_filename_component'] = [
+        Value([(ANY, 1), (FILE, 1)])
+      , OneOf(
+            Option('PATH')
+          , Option('ABSOLUTE')
+          , Option('NAME')
+          , Option('EXT')
+          , Option('NAME_WE')
+          , Option('RELPATH')
+          , Option('PROGRAM', 1, [(ANY, ONE_OR_MORE)])
+          )
+      , Option('CACHE', ZERO_OR_ONE)
+      ]
+
+    completers['get_property'] = [
+        Value([(ANY, 1)])
+      , OneOf(
+            Option('GLOBAL')
+          , Option('DIRECTORY', 1, [(DIR, 1)])
+          , Option('TARGET', 1, [(ANY, 1)])
+          , Option('SOURCE', 1, [(ANY, 1)])
+          , Option('TEST', 1, [(ANY, 1)])
+          , Option('CACHE', 1, [(ANY, 1)])
+          , Option('VARIABLE')
+          )
+      , Option('PROPERTY', 1, [(PROPERTY, 1)])
+      , OneOf(
+            Option('SET')
+          , Option('DEFINED')
+          , Option('BRIEF_DOCS')
+          , Option('FULL_DOCS')
+          )
+      ]
+
+    completers['get_source_file_property'] = [
+        Value([(ANY, 1), (FILE, 1), (PROPERTY, 1)])
+      ]
+
+    completers['get_target_property'] = [
+        Value([(ANY, 2), (PROPERTY, 1)])
+      ]
+
+    completers['get_test_property'] = [
+        Value([(ANY, 2), (PROPERTY, 1)])
+      ]
+
+    # TODO implement if() as a separate module due complexity
+
+    # TODO Better to implement include() as a separate module
+    completers['include'] = [
+        Value([(FILE, 1)])
+      , Option('OPTIONAL', ZERO_OR_ONE)
+      , Option('RESULT_VARIABLE', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('NO_POLICY_SCOPE', ZERO_OR_ONE)
+      ]
+
+    completers['include_directories'] = [
+        OneOf(Option('AFTER'), Option('BEFORE'))
+      , Option('SYSTEM', ZERO_OR_ONE)
+      , Value([(DIR, ONE_OR_MORE)])
+      ]
+
+    # TODO include_external_msproject
+
+    completers['include_regular_expression'] = [Value([(ANY, 2)])]
+
+    # TODO implement if() as a separate module due complexity
+
+    completers['link_directories'] = [Value([(DIR, ONE_OR_MORE)])]
+
+    completers['list'] = [
+        OneOf(
+            Option('LENGTH', 1, [(ANY, 2)])
+          , Option('GET', 1, [(ANY, ONE_OR_MORE)])
+          , Option('APPEND', 1, [(ANY, ONE_OR_MORE)])
+          , Option('FIND', 1, [(ANY, ONE_OR_MORE)])
+          , Option('INSERT', 1, [(ANY, ONE_OR_MORE)])
+          , Option('REMOVE_ITEM', 1, [(ANY, ONE_OR_MORE)])
+          , Option('REMOVE_AT', 1, [(ANY, ONE_OR_MORE)])
+          , Option('REMOVE_DUPLICATES', 1, [(ANY, ONE_OR_MORE)])
+          , Option('REVERSE', 1, [(ANY, ONE_OR_MORE)])
+          , Option('SORT', 1, [(ANY, ONE_OR_MORE)])
+          )
+      ]
+
+    # TODO load_cache
+
+    completers['load_command'] = [Value([(ANY, 1), (DIR, ONE_OR_MORE)])]
+
+    completers['macro'] = [Value([(ANY, ONE_OR_MORE)])]
+
+    completers['mark_as_advanced'] = [
+        OneOf(Option('CLEAR'), Option('FORCE'))
+      , Value([(ANY, ONE_OR_MORE)])
+      ]
+
+    completers['math'] = [
+        Option('EXPR', 1, [(ANY, 1), (STRING, 1)])
+      ]
+
+
+    completers['message'] = [
+        OneOf(
+            Option('STATUS', ZERO_OR_ONE)
+          , Option('WARNING', ZERO_OR_ONE)
+          , Option('AUTHOR_WARNING', ZERO_OR_ONE)
+          , Option('FATAL_ERROR', ZERO_OR_ONE)
+          , Option('SEND_ERROR', ZERO_OR_ONE)
+          )
+      , Value([(STRING, ONE_OR_MORE)])
+      ]
+
+    completers['option'] = [Value([(ANY, 1), (STRING, 1), (ANY, 1)])]
+
+    completers['project'] = [Value([(ANY, 1), (ANY, ONE_OR_MORE)])]
+
+    completers['qt_wrap_cpp'] = [Value([(ANY, 1), (ANY, 1), (ANY, ONE_OR_MORE)])]
+
+    completers['qt_wrap_ui'] = [Value([(ANY, 1), (ANY, 1), (ANY, ONE_OR_MORE)])]
+
+    completers['remove_definitions'] = [Value([(ANY, ONE_OR_MORE)])]
+
+    # NOTE Nothing to complete for return()
+
+    completers['separate_arguments'] = [
+        Value([(ANY, 1)])
+      , OneOf(
+            Option('UNIX_COMMAND', 1, [(STRING, 1)])
+          , Option('WINDOWS_COMMAND', 1, [(STRING, 1)])
+          )
+      ]
+
+    # TODO implement set() as a separate module
+
+    # TODO implement set_directory_properties() as a separate module
+
+    completers['set_property'] = [
+        OneOf(
+            Option('GLOBAL')
+          , Option('DIRECTORY', 1, [(DIR, 1)])
+          , Option('TARGET', 1, [(ANY, ONE_OR_MORE)])
+          , Option('SOURCE', 1, [(ANY, ONE_OR_MORE)])
+          , Option('TEST', 1, [(ANY, ONE_OR_MORE)])
+          , Option('CACHE', 1, [(ANY, ONE_OR_MORE)])
+          )
+      , Option('APPEND', ZERO_OR_ONE)
+      , Option('APPEND_STRING', ZERO_OR_ONE)
+      , Option('PROPERTY', 1, [(ANY, ONE_OR_MORE)])
+      ]
+
+    # TODO implement set_source_file_properties() as a separate module
+
+    # TODO implement set_target_properties() as a separate module
+
+    # TODO implement set_test_properties() as a separate module
+
+    completers['site_name'] = [Value([(ANY, 1)])]
+
+    completers['source_group'] = [
+        Value([(ANY, 1)])
+      , Option('REGULAR_EXPRESSION', 1, [(ANY, 1)])
+      , Option('FILES', 1, [(FILE, ONE_OR_MORE)])
+      ]
+
+    # TODO implement string() as a separate module due complexity
+
+    # TODO implement target_compile_definitions() as a separate module
+
+    # TODO implement target_include_directories() as a separate module
+
+    # TODO implement target_link_libraries() as a separate module
+
+    # TODO implement target_link_libraries() as a separate module
+
+    # TODO implement try_compile() as a separate module
+
+    completers['try_run'] = [
+        Option('RUN_RESULT_VAR', 1, [(ANY, 1)])
+      , Value([(DIR, 1), (FILE, 1)])
+      , Option('CMAKE_FLAGS', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
+      , Option('COMPILE_DEFINITIONS', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
+      , Option('COMPILE_OUTPUT_VARIABLE', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('RUN_OUTPUT_VARIABLE', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('OUTPUT_VARIABLE', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('ARGS', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
+      ]
+
+    completers['unset'] = [
+        Value([(ANY, 1)])
+      , Option('CACHE', ZERO_OR_ONE)
+      ]
+
+    completers['variable_watch'] = [Value([(ANY, ONE_OR_MORE)])]
+
+    # NOTE Nothing to complete for while()
+
 # kate: indent-width 4;

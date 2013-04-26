@@ -66,9 +66,10 @@ class Option(object):
         self.exppos = exppos
 
     def complete(self, document, cursor, word, comp_list, sid):
+        #print('CMakeCC: name={}, count={}, args={}'.format(self.name, self.count, self.args))
         # Check if some particular position for this option is expected
         if self.exppos is not None and (len(comp_list) <= self.exppos or comp_list[self.exppos] != self.name):
-            print('CMakeCC: option={}, expected-position={}'.format(self.name, self.exppos))
+            #print('CMakeCC: option={}, expected-position={}'.format(self.name, self.exppos))
             # Disallow to complete other options
             return ([(self.name, self.description)], True)
         # Check if option is optional or mandatory one w/ count == 1 and
@@ -89,7 +90,7 @@ class Option(object):
 
             # Check expected argument types and try to complete them
             pp = self.args[opt_params_after]
-            print('CMakeCC: args='+repr(self.args))
+            #print('CMakeCC: args='+repr(self.args))
             if pp[0] == FILE:
                 # TODO Try to complete a file relative to the current CMakeLists.txt
                 print('TODO: Try to complete a file relative to the current CMakeLists.txt')

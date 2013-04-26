@@ -72,3 +72,7 @@ install(DIRECTORY
 install(DIRECTORY
     plugins/python_console_ipython
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.css")
+
+install(DIRECTORY
+    plugins/cmake_utils
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py")

@@ -253,13 +253,13 @@ def register_command_completer(completers):
     file_sig_6 = [
         Option('GLOB', 1)
       , Option('RELATIVE', ZERO_OR_ONE, [(DIR, 1)])
-      , Value((ANY, ONE_OR_MORE)])
+      , Value([(ANY, ONE_OR_MORE)])
       ]
     file_sig_7 = [
         Option('GLOB_RECURSE', 1)
       , Option('RELATIVE', ZERO_OR_ONE, [(DIR, 1)])
       , Option('FOLLOW_SYMLINS', ZERO_OR_ONE)
-      , Value((ANY, ONE_OR_MORE)])
+      , Value([(ANY, ONE_OR_MORE)])
       ]
     file_sig_8 = [
         Option('RENAME', 1, [(ANY, 2)])
@@ -411,11 +411,11 @@ def register_command_completer(completers):
         Value([(ANY, 1), (ANY, ONE_OR_MORE)])
       ]
     foreach_sig_2 = [
-        Value([(ANY, 1))
+        Value([(ANY, 1)])
       , Option('RANGE', 1, [(ANY, ONE_OR_MORE)])
       ]
     foreach_sig_3 = [
-        Value([(ANY, 1))
+        Value([(ANY, 1)])
       , Option('IN')
       , Option('LISTS', ZERO_OR_ONE, [(ANY, ZERO_OR_MORE)])
       , Option('ITEMS', ZERO_OR_ONE, [(ANY, ZERO_OR_MORE)])

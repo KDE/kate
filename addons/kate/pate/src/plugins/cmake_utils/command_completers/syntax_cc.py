@@ -282,7 +282,7 @@ def register_command_completer(completers):
     file_sig_14 = [
         Option('TO_NATIVE_PATH', 1, [(DIR, 1), (ANY, 1)])
       ]
-    file_sig_14 = [
+    file_sig_15 = [
         Option('DOWNLOAD', 1, [(ANY, 1), (FILE, 1)])
       , Option('INACTIVITY_TIMEOUT', ZERO_OR_ONE, [(ANY, 1)])
       , Option('TIMEOUT', ZERO_OR_ONE, [(ANY, 1)])
@@ -294,7 +294,7 @@ def register_command_completer(completers):
       , Option('TLS_VERIFY', ZERO_OR_ONE, [(ONE_OF, ['on', 'off'])])
       , Option('TLS_CAINFO', ZERO_OR_ONE, [(FILE, 1)])
       ]
-    file_sig_15 = [
+    file_sig_16 = [
         Option('UPLOAD', 1, [(FILE, 1), (ANY, 1)])
       , Option('INACTIVITY_TIMEOUT', ZERO_OR_ONE, [(ANY, 1)])
       , Option('TIMEOUT', ZERO_OR_ONE, [(ANY, 1)])
@@ -302,7 +302,7 @@ def register_command_completer(completers):
       , Option('LOG', ZERO_OR_ONE, [(ANY, 1)])
       , Option('SHOW_PROGRESS', ZERO_OR_ONE)
       ]
-    file_sig_16 = [
+    file_sig_17 = [
         Option('TIMESTAMP', 1, [(FILE, 1), (ANY, 1), (ANY, ZERO_OR_MORE)])
       , Option('UTC', ZERO_OR_ONE)
       ]
@@ -329,6 +329,7 @@ def register_command_completer(completers):
       , file_sig_5,  file_sig_6,  file_sig_7,  file_sig_8
       , file_sig_9,  file_sig_10, file_sig_11, file_sig_12
       , file_sig_13, file_sig_14, file_sig_15, file_sig_16
+      , file_sig_17
       )
 
     completers['find_file'] = [

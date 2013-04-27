@@ -7,13 +7,13 @@
 
         List values which are current ignored by the keyword identifier are commented.
 -->
-<language name="CubeScript" section="Scripts" version="0.72" kateversion="3.7" extensions=".cfg" mimetype="" casesensitive="true" author="Kevin Meyer" license="zlib/libpng" indenter="normal">
+<language name="CubeScript" section="Scripts" version="0.77" kateversion="3.7" extensions="*.cfg" mimetype="" casesensitive="true" author="Kevin Meyer" license="zlib/libpng" indenter="normal">
   <highlighting>
     <!--
         There are far more commands than these, these are just guaranteed to be in all forks.
     -->
     <list name="commands">
-      <!--<item> ? </item>-->
+      <item> ? </item>
       <item> alias </item>
       <item> at </item>
       <item> case </item>
@@ -90,11 +90,9 @@
     <list name="operators">
       <!--
         listed in the same order as in src/engine/command.cpp
-        Includes advanced oeprators and basic operators that are not highlighted at present.
-        A mostly suitable regex form for the commented operators is as follows, let's not go there.
-        (?!\w)([\&gt;\&lt;]\=?[fs]?|[\+\*\-\=]f?|\!?\=s|\~|\!\=?f?|[\^\&amp;\|]\~?|\|\||\&amp;\&amp;|\&lt;\&lt;|\&gt;\&gt;)(?!\S)
+        Includes all available operators, both basic and advanced
       -->
-      <!--<item> + </item>
+      <item> + </item>
       <item> * </item>
       <item> - </item>
       <item> +f </item>
@@ -123,7 +121,7 @@
       <item> &lt;&lt; </item>
       <item> &gt;&gt; </item>
       <item> &amp;&amp; </item>
-      <item> || </item>-->
+      <item> || </item>
       <item> abs </item>
       <item> absf </item>
       <item> div </item>
@@ -146,19 +144,31 @@
       <item> max </item>
       <item> minf </item>
       <item> maxf </item>
-      <!--<item> =s </item>
+      <item> =s </item>
       <item> !=s </item>
       <item> &lt;s </item>
       <item> &gt;s </item>
       <item> &lt;=s </item>
-      <item> &gt;=s </item>-->
+      <item> &gt;=s </item>
     </list>
     <list name="keys">
+      <!-- SDL 2.0 Standard Mose Buttons -->
+      <item> MOUSELEFT </item>
+      <item> MOUSEMIDDLE </item>
+      <item> MOUSERIGHT </item>
+      <item> MOUSEWHEELUP </item>
+      <item> MOUSEWHEELDOWN </item>
+      <item> MOUSEX1 </item>
+      <item> MOUSEX2 </item>
+
+      <!-- SDL 1.2, Standard Mouse Buttons -->
       <item> MOUSE1 </item>
       <item> MOUSE2 </item>
       <item> MOUSE3 </item>
       <item> MOUSE4 </item>
       <item> MOUSE5 </item>
+
+
       <item> BACKSPACE </item>
       <item> TAB </item>
       <item> CLEAR </item>
@@ -301,8 +311,9 @@
     </list>
     <!--
         TODO list for Cubescript contexts
-        1) proper nesting of brackets and block tokens for lookups, it opens with a [ and be closed by ) and vice versa, can be bad if interpreted by the wrong context.
-        2) highlight some reserved aliases like arg#, numargs, commandbuf, etc. (partial)
+        1) Add GLSL support for shader commands, It's vanilla GLSL, the cubescript witchcraft aside.
+        2) Improve alias highlighting eg foo@[bar]baz; do not highlight baz, but make sure to still highlight all of $foo[bar]baz, will probably need a special context.
+
     -->
 
     <contexts>
@@ -339,30 +350,40 @@
         <Int attribute="Int10" context="#stay"/>
       </context>
 
-      <context name="Comment" attribute="Comment" lineEndContext="#pop" />
+      <context name="Comment" attribute="Comment" lineEndContext="#pop">
+        <IncludeRules context="##Alerts" />
+      </context>
+
+      <context name="__Lookup" attribute="Lookup" lineEndContext="#pop">
+        <DetectChar attribute="String" context="String" char="&quot;" />
+        <DetectChar attribute="LookupBrackets" context="LookupEncBlock" char="[" />
+        <DetectChar attribute="LookupBrackets" context="LookupEncBrackets" char="(" />
+        <RegExpr attribute="Error" context="#stay" String="[^\$\s]+\$[^\[\]\(\)\s]*" />
+        <RegExpr attribute="Error" context="#stay" String="\S+(?![\s\[\(])[^\$@](?=[\[\(])" />
+        <RegExpr attribute="Key" context="#stay" String="[@\$]*arg[0-9]+" />
+      </context>
 
       <context name="Lookup" attribute="Lookup" lineEndContext="#pop">
         <DetectSpaces attribute="Normal" context="#pop" />
         <AnyChar lookAhead="true" context="#pop" String=")];" />
         <Detect2Chars lookAhead="true" context="#pop" char="/" char1="/"/>
-        <DetectChar attribute="String" context="String" char="&quot;" />
-        <AnyChar attribute="LookupBrackets" context="LookupEnc" String="[(" />
-        <RegExpr attribute="Error" context="#stay" String="[^\$\s]+\$[^\[\]\(\)\s]*" />
-        <RegExpr attribute="Error" context="#stay" String="\S+(?![\s\[\(])[^\$@](?=[\[\(])" />
-        <RegExpr attribute="Key" context="#stay" String="[@\$]*arg[0-9]+" />
-        <!-- FIXME keyword doth not highlight thine reserved aliases-->
-        <!--<keyword  attribute="Key" context="#stay" String="aliases" />-->
+        <keyword attribute="Key" context="#stay" String="aliases" />
+        <IncludeRules context="__Lookup" />
       </context>
 
-      <context name="LookupEnc" attribute="Lookup" lineEndContext="#stay">
-        <AnyChar attribute="LookupBrackets" context="LookupEnc" String="[(" />
-        <AnyChar attribute="LookupBrackets" context="#pop" String=")]" />
+      <context name="LookupEncBrackets" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="LookupBrackets" context="#pop" char=")" />
+        <DetectChar attribute="Error" context="#stay" char="]" />
         <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
-        <DetectChar attribute="String" context="String" char="&quot;" />
-        <RegExpr attribute="Error" context="#stay" String="[^\$\s]+\$[^\[\]\(\)\s]*" />
-        <RegExpr attribute="Error" context="#stay" String="\S+(?!\s)[^\$@](?=[\[\(])" />
-        <RegExpr attribute="Key" context="#stay" String="[@\$]*arg[0-9]+" />
+        <IncludeRules context="__Basic" />
+      </context>
+
+      <context name="LookupEncBlock" attribute="Lookup" lineEndContext="#stay">
+        <Detect2Chars attribute="Comment" context="Comment" char="/" char1="/"/>
+        <DetectChar attribute="Error" context="#stay" char=")" />
+        <DetectChar attribute="LookupBrackets" context="#pop" char="]" />
         <keyword attribute="Key" context="#stay" String="aliases" />
+        <IncludeRules context="__Lookup" />
       </context>
 
       <context name="String" attribute="String" lineEndContext="#pop">
@@ -391,10 +412,9 @@
 
       <context name="Bind" attribute="Error" lineEndContext="#pop">
         <DetectSpaces attribute="Normal" />
-        <AnyChar lookAhead="true" context="#pop" String="[(&quot;$@" />
+        <AnyChar lookAhead="true" context="#pop" String="[]();&quot;$@" />
         <keyword insensitive="true" attribute="Key" context="#pop" String="keys" />
         <Detect2Chars lookAhead="true" context="#pop" char="/" char1="/"/>
-        <DetectChar lookAhead="true" context="#pop" char=";"/>
       </context>
     </contexts>
 
@@ -402,7 +422,7 @@
       <itemData name="Normal"      defStyleNum="dsNormal" spellChecking="false"/>
       <itemData name="Lookup"      defStyleNum="dsDataType" spellChecking="false"/>
       <itemData name="Error"       defStyleNum="dsError" spellChecking="false"/>
-      <itemData name="Int10"         defStyleNum="dsDecVal" spellChecking="false"/>
+      <itemData name="Int10"       defStyleNum="dsDecVal" spellChecking="false"/>
       <itemData name="IntOther"    defStyleNum="dsBaseN" spellChecking="false"/>
       <itemData name="Float"       defStyleNum="dsFloat" spellChecking="false"/>
       <itemData name="String"      defStyleNum="dsString"/>
@@ -425,6 +445,7 @@
     </itemDatas>
   </highlighting>
   <general>
+    <keywords casesensitive="true" wordWrapDeliminator="[(;" additionalDeliminator="$@" weakDeliminator="!=&lt;&gt;|&amp;^~+*"/>
     <comments>
       <comment name="singleLine" start="//" />
     </comments>

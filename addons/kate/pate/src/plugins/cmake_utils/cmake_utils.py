@@ -38,6 +38,7 @@ from libkatepate.autocomplete import AbstractCodeCompletionModel
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import cmake_help_parser
 
+
 class CMakeCompletionModel(AbstractCodeCompletionModel):
     '''Completion model for CMake files'''
     # TODO Unit tests
@@ -236,8 +237,8 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
 
     def _try_syntactic_completer(self, syntax, document, cursor, word, comp_list):
-        print('CMakeCC: syntax='+str(syntax))
-        print('CMakeCC: comp_list='+str(comp_list))
+        print('CMakeCC: generic completer: syntax='+str(syntax))
+        print('CMakeCC: generic completer: comp_list='+str(comp_list))
         result = []
         if isinstance(syntax, list):
             for sid, s in enumerate(syntax):
@@ -248,7 +249,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         else:
             (items, stop) = syntax.complete(document, cursor, word, comp_list)
             result = items
-        print('CMakeCC: result='+str(result))
+        print('CMakeCC: generic completer result={}'.format(result))
         # TODO sort | uniq
         return result
 

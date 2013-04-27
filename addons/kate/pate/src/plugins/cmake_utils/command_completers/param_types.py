@@ -72,31 +72,46 @@ class Option(object):
         self.exppos = exppos
 
     def complete(self, document, cursor, word, comp_list, sid):
-        #print('CMakeCC: name={}, count={}, args={}'.format(self.name, self.count, self.args))
+        print(
+            'CMakeCC: name={}, count={}, args={}, exppos={}'
+              .format(self.name, self.count, self.args, self.exppos)
+          )
         # Check if some particular position for this option is expected
         if self.exppos is not None and (len(comp_list) <= self.exppos or comp_list[self.exppos] != self.name):
             #print('CMakeCC: option={}, expected-position={}'.format(self.name, self.exppos))
             # Disallow to complete other options
             return ([(self.name, self.description)], True)
+
         # Check if option is optional or mandatory one w/ count == 1 and
         # it still not completed
-        elif (self.count == ZERO_OR_ONE or self.count == 1) and self.name not in comp_list:
+        if self.name not in comp_list or not (self.count == ZERO_OR_ONE or self.count == 1):
+            print('CMakeCC: option not in a comp_list or allowed to be more than once')
             return ([(self.name, self.description)], False)
+
         # Check if this option already in the completions list and must have some parameters
-        elif self.name in comp_list and self.args is not None:
+        if self.name in comp_list and self.args is not None:
             assert(0 < len(comp_list))
-            # Get actual parameters count after the option keyword
-            opt_index = comp_list.index(self.name)
-            opt_params_after = len(comp_list) - opt_index - 1
+
+            result = []
+            # If option allowed more than once append its name to the result
+            if self.count == ZERO_OR_MORE or self.count == ONE_OR_MORE:
+                print('CMakeCC: append self to result')
+                result = [(self.name, self.description)]
+
+            # Get actual parameters count after last occurrence of the option keyword
+            opt_index = len(comp_list) - 1 - comp_list[::-1].index(self.name)
+            opt_params_after = len(comp_list) - 1 - opt_index
+            print('CMakeCC: opt_index='+repr(opt_index))
+            print('CMakeCC: opt_params_after='+repr(opt_params_after))
 
             # Check if expected value exceeded
             if _minimum_expected_params(self.args) <= opt_params_after:
-                return ([], False)                          # Ok, allow other options to complete
+                print('CMakeCC: option args seem Ok')
+                return (result, False)                      # Ok, allow other options to complete
             assert(opt_params_after < len(self.args))
 
             # Check expected argument types and try to complete them
             pp = self.args[opt_params_after]
-            #print('CMakeCC: args='+repr(self.args))
             if pp[0] == FILE:
                 # TODO Try to complete a file relative to the current CMakeLists.txt
                 print('TODO: Try to complete a file relative to the current CMakeLists.txt')
@@ -114,10 +129,10 @@ class Option(object):
                 return (cmake_help_parser.get_cmake_properties(), True)
             elif pp[0] == ONE_OF:
                 assert(isinstance(pp[1], list))
-                return (pp[1], True)
+                return (result + pp[1], True)
             # Disallow to complete other options while not all required params
             # are entered for the current option
-            return ([], True)
+            return (result, True)
         return ([], False)
 
     def __str__(self):
@@ -132,10 +147,15 @@ class Value(object):
         self.args = args
 
     def complete(self, document, cursor, word, comp_list, sid):
+        print('CMakeCC: value completer: args={}'.format(self.args))
         # If given value expected to be the first param and it's still not here
         if sid == 0 and len(comp_list) < _minimum_expected_params(self.args):
             # Do not even try to complete anything else
+            # TODO Complete various arg types
             return ([], True)
+        if self.args is not None and len(self.args) == 1 and self.args[0][0] == ONE_OF:
+            # Show completion for enum type in case of unambiguous arg position
+            return (self.args[0][1], False)
         # NOTE It doesn't cover all cases, but it is the best we can do here...
         return ([], False)
 
@@ -169,11 +189,13 @@ class MultiSignature(object):
             syntax = self.syntaxes[signature]
             for sid, s in enumerate(syntax):
                 (items, stop) = s.complete(document, cursor, word, comp_list, sid)
+                print('CMakeCC: MSD: partial result={}, stop={}'.format(items, stop))
                 if stop:
                     return (items, True)
                 result += items
         elif isinstance(signature, list):
             result = signature
+        print('CMakeCC: MSD: final result={}'.format(result))
         return (result, False)
 
 

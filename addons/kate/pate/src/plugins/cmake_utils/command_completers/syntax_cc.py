@@ -317,8 +317,10 @@ def register_command_completer(completers):
     def file_sig_dispatch(comp_list):
         if comp_list and comp_list[0] in _file_subcommands:
             return _file_subcommands.index(comp_list[0])
-        elif comp_list and comp_list[0] in _file_digest_subcommands:
+        if comp_list and comp_list[0] in _file_digest_subcommands:
             return 3
+        if not comp_list or len(comp_list) == 1:
+            return _file_subcommands + _file_digest_subcommands
         return None
 
     completers['file'] = MultiSignature(
@@ -530,7 +532,95 @@ def register_command_completer(completers):
 
     completers['include_regular_expression'] = [Value([(ANY, 2)])]
 
-    # TODO implement if() as a separate module due complexity
+    # TODO Need a better way. Current syntax DSL too simple for this case...
+    install_sig_1 = [
+        Option('TARGETS', 1, [(ANY, ONE_OR_MORE)])
+      , Value([(ONE_OF, [
+            'ARCHIVE'
+          , 'LIBRARY'
+          , 'RUNTIME'
+          , 'FRAMEWORK'
+          , 'BUNDLE'
+          , 'PRIVATE_HEADER'
+          , 'PUBLIC_HEADER'
+          , 'RESOURCE'
+          ])])
+      , Option('DESTINATION', ZERO_OR_ONE, [(DIR, 1)])
+      , Option('PERMISSIONS', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('CONFIGURATIONS', ZERO_OR_ONE, [(ANY, 1)])   # TODO Try to complete configurations?
+      , Option('COMPONENT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('OPTIONAL', ZERO_OR_ONE)
+      , OneOf(Option('NAMELINK_ONLY', ZERO_OR_ONE), Option('NAMELINK_SKIP', ZERO_OR_ONE))
+      ]
+    install_sig_2 = [
+        Option('FILES', 1, [(FILE, ONE_OR_MORE)])
+      , Option('DESTINATION', 1, [(DIR, 1)])
+      , Option('PERMISSIONS', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('CONFIGURATIONS', ZERO_OR_ONE, [(ANY, 1)])   # TODO Try to complete configurations?
+      , Option('COMPONENT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('RENAME', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('OPTIONAL', ZERO_OR_ONE)
+      ]
+    install_sig_3 = [
+        Option('PROGRAMS', 1, [(FILE, ONE_OR_MORE)])
+      , Option('DESTINATION', 1, [(DIR, 1)])
+      , Option('PERMISSIONS', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('CONFIGURATIONS', ZERO_OR_ONE, [(ANY, 1)])   # TODO Try to complete configurations?
+      , Option('COMPONENT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('RENAME', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('OPTIONAL', ZERO_OR_ONE)
+      ]
+    install_sig_4 = [
+        Option('DIRECTORY', 1, [(FILE, ONE_OR_MORE)])
+      , Option('DESTINATION', 1, [(DIR, 1)])
+      , Option('FILE_PERMISSIONS', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('DIRECTORY_PERMISSIONS', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('USE_SOURCE_PERMISSIONS', ZERO_OR_ONE)
+      , Option('OPTIONAL', ZERO_OR_ONE)
+      , Option('CONFIGURATIONS', ZERO_OR_ONE, [(ANY, 1)])   # TODO Try to complete configurations?
+      , Option('COMPONENT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('FILES_MATCHING', ZERO_OR_ONE)
+      # TODO If 'PATTERN' option used, the rest options shouldn't appear,
+      # but DSL nowadays is not flexible enough to express that ;-(
+      # It is why it would be better to implement this completer as
+      # a separate module.
+      , Option('PATTERN', ZERO_OR_MORE, [(ANY, 1)])
+      , Option('REGEX', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('EXCLUDE', ZERO_OR_ONE)
+      , Option('PERMISSIONS', ZERO_OR_ONE, [(ANY, 1)])
+      ]
+    install_sig_5 = [
+        Option('EXPORT', 1, [(FILE, 1)])
+      , Option('DESTINATION', 1, [(DIR, 1)])
+      , Option('NAMESPACE', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('FILE', ZERO_OR_ONE, [(FILE, 1)])
+      , Option('PERMISSIONS', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('CONFIGURATIONS', ZERO_OR_ONE, [(ANY, 1)])   # TODO Try to complete configurations?
+      , Option('COMPONENT', ZERO_OR_ONE, [(ANY, 1)])
+      ]
+    install_sig_6 = [
+        Option('SCRIPT', ZERO_OR_MORE, [(FILE, 1)])
+      , Option('CODE', ZERO_OR_MORE, [(ANY, 1)])
+      ]
+
+    _install_signatures = ['TARGETS', 'FILES', 'PROGRAMS', 'DIRECTORY', 'EXPORT']
+    def install_sig_dispatch(comp_list):
+        if comp_list:
+            if comp_list[0] in _install_signatures:
+                return _install_signatures.index(comp_list[0])
+            if comp_list[0] == 'CODE' or comp_list[0] == 'SCRIPT':
+                return 5
+        return _install_signatures + ['CODE', 'SCRIPT']
+
+    completers['install'] = MultiSignature(
+        install_sig_dispatch
+      , install_sig_1
+      , install_sig_2
+      , install_sig_3
+      , install_sig_4
+      , install_sig_5
+      , install_sig_6
+      )
 
     completers['link_directories'] = [Value([(DIR, ONE_OR_MORE)])]
 
@@ -629,6 +719,88 @@ def register_command_completer(completers):
       ]
 
     # TODO implement string() as a separate module due complexity
+    string_sig_1 = [
+        Option('REGEX')
+      , OneOf(Option('MATCH'), Option('MATCHALL'), Option('REPLACE'))
+      , Value([(ANY, 1), (ANY, 1), (ANY, ONE_OR_MORE)])
+      ]
+    string_sig_2 = [
+        OneOf(
+            Option('MD5')
+          , Option('SHA1')
+          , Option('SHA224')
+          , Option('SHA256')
+          , Option('SHA384')
+          , Option('SHA512')
+          )
+      , Value([(ANY, 2)])
+      ]
+    string_sig_3 = [
+        Option('COMPARE')
+      , OneOf(Option('EQUAL'), Option('NOTEQUAL'), Option('LESS'), Option('GREATER'))
+      , Value([(ANY, 3)])
+      ]
+    string_sig_4 = [
+        Option('ASCII', 1, [(ANY, ONE_OR_MORE)])
+      , Value([(ANY, 1)])
+      ]
+    string_sig_5 = [
+        Option('CONFIGURE', 1, [(ANY, 2)])
+      , Option('@ONLY', ZERO_OR_MORE)
+      , Option('ESCAPE_QUOTES', ZERO_OR_MORE)
+      ]
+    string_sig_6 = [
+        Option('TOUPPER', 1, [(ANY, 2)])
+      ]
+    string_sig_7 = [
+        Option('TOLOWER', 1, [(ANY, 2)])
+      ]
+    string_sig_8 = [
+        Option('LENGTH', 1, [(ANY, 2)])
+      ]
+    string_sig_9 = [
+        Option('SUBSTRING', 1, [(ANY, 4)])
+      ]
+    string_sig_10 = [
+        Option('STRIP', 1, [(ANY, 2)])
+      ]
+    string_sig_11 = [
+        Option('RANDOM')
+      , Option('LENGTH', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('ALPHABET', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('RANDOM_SEED', ZERO_OR_ONE, [(ANY, 1)])
+      , Value([(ANY, 1)])
+      ]
+    string_sig_12 = [
+        Option('FIND', 1, [(ANY, 3)])
+      , Option('REVERSE', ZERO_OR_ONE)
+      ]
+    string_sig_13 = [
+        Option('TIMESTAMP', 1, [(ANY, ONE_OR_MORE)])
+      , Option('UTC', ZERO_OR_ONE)
+      ]
+    _string_subcommands = [
+        'REGEX', 'MD5', 'COMPARE', 'ASCII', 'CONFIGURE', 'TOUPPER', 'TOLOWER', 'LENGTH'
+      , 'SUBSTRING', 'STRIP', 'RANDOM', 'FIND', 'TIMESTAMP'
+      ]
+    _string_digest_subcommands = ['MD5', 'SHA1', 'SHA224', 'SHA256', 'SHA384', 'SHA512']
+
+    def string_sig_dispatch(comp_list):
+        if comp_list and comp_list[0] in _string_subcommands:
+            return _string_subcommands.index(comp_list[0])
+        if comp_list and comp_list[0] in _string_digest_subcommands:
+            return 3
+        if not comp_list or len(comp_list) == 1:
+            return _string_subcommands + _string_digest_subcommands
+        return None
+
+    completers['string'] = MultiSignature(
+        string_sig_dispatch
+      , string_sig_1, string_sig_2,  string_sig_3,  string_sig_4
+      , string_sig_5, string_sig_6,  string_sig_7,  string_sig_8
+      , string_sig_9, string_sig_10, string_sig_11, string_sig_12
+      , string_sig_13
+      )
 
     # TODO implement target_compile_definitions() as a separate module
 

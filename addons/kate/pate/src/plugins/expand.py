@@ -299,7 +299,7 @@ def expandAtCursor():
             text = match.group()
             filePath = match.group(1)
             fileName = os.path.basename(filePath)
-            text = text.replace(filePath, i18nc('@info', '<link url="{}">{}</link>'.format(filePath, fileName))
+            text = text.replace(filePath, i18nc('@info', '<link url="{}">{}</link>'.format(filePath, fileName)))
             return text
         s = ''.join(l).strip()
         s = re.sub(

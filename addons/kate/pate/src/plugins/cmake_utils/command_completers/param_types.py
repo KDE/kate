@@ -17,7 +17,13 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+import sys
 import types
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import cmake_help_parser
+
 
 ANY = 0
 IDENTIFIER = 1
@@ -105,7 +111,7 @@ class Option(object):
                 print('TODO: Try to complete a module name to include')
             elif pp[0] == PROPERTY:
                 # TODO Try to complete a property name
-                print('TODO: Try to complete a property name')
+                return (cmake_help_parser.get_cmake_properties(), True)
             elif pp[0] == ONE_OF:
                 assert(isinstance(pp[1], list))
                 return (pp[1], True)

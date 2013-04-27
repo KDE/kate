@@ -65,5 +65,10 @@ def get_cmake_policies():
     out = _spawn_cmake_grab_stdout(["--help-policies"])
     return _parse_cmake_help(out)
 
+@functools.lru_cache(maxsize=1)
+def get_cmake_properties():
+    out = _spawn_cmake_grab_stdout(["--help-properties"])
+    return _parse_cmake_help(out)
+
 
 # kate: indent-width 4;

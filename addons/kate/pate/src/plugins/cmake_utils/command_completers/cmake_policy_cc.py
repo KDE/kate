@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''CMake `cmake_policy()` command completers and registrar'''
+'''CMake `cmake_policy()` command completer and registrar'''
 
 #
 # Copyright 2013 by Alex Turbov <i.zaufi@gmail.com>

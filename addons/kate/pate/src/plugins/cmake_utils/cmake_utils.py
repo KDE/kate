@@ -66,7 +66,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         if mimetype != 'text/x-cmake':
             return
 
-        print('CMake CC: current word: "{}"'.format(word))
+        print('CMakeCC [{}]: current word: "{}"'.format(mimetype, word))
 
         self.reset()                                        # Drop previously collected completions
 
@@ -79,7 +79,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
         if in_a_var:
             # Try to complete a variable name
-            self.TITLE_AUTOCOMPLETION = "CMake Variables Completion"
+            self.TITLE_AUTOCOMPLETION = 'CMake Variables Completion'
             for var in cmake_help_parser.get_cmake_vars():
                 self.resultList.append(
                     self.createItemAutoComplete(
@@ -96,7 +96,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         # Try to complete a command
         if not command:
             # Try to complete a variable name
-            self.TITLE_AUTOCOMPLETION = "CMake Commands Completion"
+            self.TITLE_AUTOCOMPLETION = 'CMake Commands Completion'
             for cmd in cmake_help_parser.get_cmake_commands():
                 self.resultList.append(
                     self.createItemAutoComplete(
@@ -182,44 +182,6 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         else:
             fn_params_range = KTextEditor.Range(-1, -1, -1, -1)
         return (command, in_a_string, nested_var_level != 0, fn_params_range)
-
-
-    @functools.lru_cache(maxsize=2)
-    def get_cmake_vars(self):
-        out = self._spawn_cmake_grab_stdout(["--help-variables"])
-        return self._parse_cmake_help(out)
-
-
-    @functools.lru_cache(maxsize=2)
-    def get_cmake_commands(self):
-        out = self._spawn_cmake_grab_stdout(["--help-commands"])
-        return self._parse_cmake_help(out)
-
-
-    def _parse_cmake_help(self, out):
-        # NOTE Ignore the 1st line wich is 'cmake version blah-blah' string
-        lines = out.decode('utf-8').splitlines()[1:]
-        found_item = None
-        result = []
-        for line in lines:
-            if len(line.strip()) < 3:
-                continue
-            if line[0] == ' ' and line[1] == ' ' and line[2:].isidentifier():
-                found_item = line.strip()
-            elif found_item is not None:
-                result.append((found_item, line.strip()))
-                print('CMakeCC: append: ' + found_item + ' -- ' + line.strip())
-                found_item = None
-        return result
-
-
-    def _spawn_cmake_grab_stdout(self, args):
-        # TODO Find `cmake` (at program start) before spawn it!
-        p = subprocess.Popen(["/usr/bin/cmake"] + args, stdout=subprocess.PIPE)
-        out, err = p.communicate()
-        if err:
-            print('CMake helper: running `{}` finished with errors:\n{}'.format('/usr/bin/cmake', err))
-        return out
 
 
     def _loadCompleters(self):

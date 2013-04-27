@@ -217,7 +217,117 @@ def register_command_completer(completers):
 
     completers['export'] = MultiSignature(export_sig_dispatch, export_sig_1, export_sig_2)
 
-    # TODO Make completer for file() as a separate module (too complex for this primitive syntax)
+    file_sig_1 = [
+        Option('WRITE', 1, [(FILE, 1), (STRING, ONE_OR_MORE)])
+      ]
+    file_sig_2 = [
+        Option('APPEND', 1, [(FILE, 1), (STRING, ONE_OR_MORE)])
+      ]
+    file_sig_3 = [
+        Option('READ', 1, [(FILE, 1), (ANY, 1)])
+      , Option('LIMIT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('OFFSET', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('HEX', ZERO_OR_ONE)
+      ]
+    file_sig_4 = [
+        OneOf(
+            Option('MD5', 1, [(FILE, 1), (ANY, 1)])
+          , Option('SHA1', 1, [(FILE, 1), (ANY, 1)])
+          , Option('SHA224', 1, [(FILE, 1), (ANY, 1)])
+          , Option('SHA256', 1, [(FILE, 1), (ANY, 1)])
+          , Option('SHA384', 1, [(FILE, 1), (ANY, 1)])
+          , Option('SHA512', 1, [(FILE, 1), (ANY, 1)])
+          )
+      ]
+    file_sig_5 = [
+        Option('STRINGS', 1, [(FILE, 1), (ANY, 1)])
+      , Option('LIMIT_COUNT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('LIMIT_INPUT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('LIMIT_OUTPUT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('LENGTH_MINIMUM', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('LENGTH_MAXIMUM', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('NEWLINE_CONSUME', ZERO_OR_ONE)
+      , Option('REGEX', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('NO_HEX_CONVERSION', ZERO_OR_ONE)
+      ]
+    file_sig_6 = [
+        Option('GLOB', 1)
+      , Option('RELATIVE', ZERO_OR_ONE, [(DIR, 1)])
+      , Value((ANY, ONE_OR_MORE)])
+      ]
+    file_sig_7 = [
+        Option('GLOB_RECURSE', 1)
+      , Option('RELATIVE', ZERO_OR_ONE, [(DIR, 1)])
+      , Option('FOLLOW_SYMLINS', ZERO_OR_ONE)
+      , Value((ANY, ONE_OR_MORE)])
+      ]
+    file_sig_8 = [
+        Option('RENAME', 1, [(ANY, 2)])
+      ]
+    file_sig_9 = [
+        Option('REMOVE', 1, [(FILE, ONE_OR_MORE)])
+      ]
+    file_sig_10 = [
+        Option('REMOVE_RECURSE', 1, [(FILE, ONE_OR_MORE)])
+      ]
+    file_sig_11 = [
+        Option('MAKE_DIRECTORY', 1, [(DIR, ONE_OR_MORE)])
+      ]
+    file_sig_12 = [
+        Option('RELATIVE_PATH', 1, [(ANY, 1), (DIR, 1), (FILE, 1)])
+      ]
+    file_sig_13 = [
+        Option('TO_CMAKE_PATH', 1, [(DIR, 1), (ANY, 1)])
+      ]
+    file_sig_14 = [
+        Option('TO_NATIVE_PATH', 1, [(DIR, 1), (ANY, 1)])
+      ]
+    file_sig_14 = [
+        Option('DOWNLOAD', 1, [(ANY, 1), (FILE, 1)])
+      , Option('INACTIVITY_TIMEOUT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('TIMEOUT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('STATUS', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('LOG', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('SHOW_PROGRESS', ZERO_OR_ONE)
+      , Option('EXPECTED_HASH', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('EXPECTED_MD5', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('TLS_VERIFY', ZERO_OR_ONE, [(ONE_OF, ['on', 'off'])])
+      , Option('TLS_CAINFO', ZERO_OR_ONE, [(FILE, 1)])
+      ]
+    file_sig_15 = [
+        Option('UPLOAD', 1, [(FILE, 1), (ANY, 1)])
+      , Option('INACTIVITY_TIMEOUT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('TIMEOUT', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('STATUS', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('LOG', ZERO_OR_ONE, [(ANY, 1)])
+      , Option('SHOW_PROGRESS', ZERO_OR_ONE)
+      ]
+    file_sig_16 = [
+        Option('TIMESTAMP', 1, [(FILE, 1), (ANY, 1), (ANY, ZERO_OR_MORE)])
+      , Option('UTC', ZERO_OR_ONE)
+      ]
+
+    _file_subcommands = [
+        'WRITE', 'APPEND', 'READ', 'MD5', 'STRINGS', 'GLOB', 'GLOB_RECURSE', 'RENAME'
+      , 'REMOVE', 'REMOVE_RECURSE', 'MAKE_DIRECTORY', 'RELATIVE_PATH', 'TO_CMAKE_PATH'
+      , 'TO_NATIVE_PATH', 'DOWNLOAD', 'UPLOAD', 'TIMESTAMP'
+      ]
+    _file_digest_subcommands = ['MD5', 'SHA1', 'SHA224', 'SHA256', 'SHA384', 'SHA512']
+
+    def file_sig_dispatch(comp_list):
+        if comp_list and comp_list[0] in _file_subcommands:
+            return _file_subcommands.index(comp_list[0])
+        elif comp_list and comp_list[0] in _file_digest_subcommands:
+            return 3
+        return None
+
+    completers['file'] = MultiSignature(
+        file_sig_dispatch
+      , file_sig_1,  file_sig_2,  file_sig_3,  file_sig_4
+      , file_sig_5,  file_sig_6,  file_sig_7,  file_sig_8
+      , file_sig_9,  file_sig_10, file_sig_11, file_sig_12
+      , file_sig_13, file_sig_14, file_sig_15, file_sig_16
+      )
 
     completers['find_file'] = [
         Value([(ANY, 1)])                                   # Variable
@@ -297,7 +407,35 @@ def register_command_completer(completers):
 
     # TODO fltk_wrap_ui
 
-    # TODO implement for() as a separate module due complexity
+    foreach_sig_1 = [
+        Value([(ANY, 1), (ANY, ONE_OR_MORE)])
+      ]
+    foreach_sig_2 = [
+        Value([(ANY, 1))
+      , Option('RANGE', 1, [(ANY, ONE_OR_MORE)])
+      ]
+    foreach_sig_3 = [
+        Value([(ANY, 1))
+      , Option('IN')
+      , Option('LISTS', ZERO_OR_ONE, [(ANY, ZERO_OR_MORE)])
+      , Option('ITEMS', ZERO_OR_ONE, [(ANY, ZERO_OR_MORE)])
+      ]
+
+    def foreach_sig_dispatch(comp_list):
+        if comp_list and 2 <= len(comp_list):
+            if comp_list[1] == 'RANGE':
+                return 1
+            if comp_list[1] == 'IN':
+                return 2
+            return 0
+        return None
+
+    completers['foreach'] = MultiSignature(
+        foreach_sig_dispatch
+      , foreach_sig_1
+      , foreach_sig_2
+      , foreach_sig_3
+      )
 
     completers['function'] = [Value([(ANY, ONE_OR_MORE)])]
 
@@ -500,11 +638,33 @@ def register_command_completer(completers):
 
     # TODO implement target_link_libraries() as a separate module
 
-    # TODO implement try_compile() as a separate module
+    try_compile_sig_1 = [
+        Value([(ANY, 1), (DIR, 2), (ANY, 1), (ANY, ZERO_OR_ONE)])
+      , Option('CMAKE_FLAGS', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
+      , Option('OUTPUT_VARIABLE', ZERO_OR_ONE, [(ANY, 1)])
+      ]
+    try_compile_sig_2 = [
+        Value([(ANY, 1), (DIR, 2)])
+      , Option('CMAKE_FLAGS', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
+      , Option('COMPILE_DEFINITIONS', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
+      , Option('LINK_LIBRARIES', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
+      , Option('COPY_FILE', ZERO_OR_ONE, [(FILE, 1)])
+      , Option('OUTPUT_VARIABLE', ZERO_OR_ONE, [(ANY, 1)])
+      ]
+
+    def try_compile_sig_dispatch(comp_list):
+        if {'COMPILE_DEFINITIONS', 'LINK_LIBRARIES', 'COPY_FILE'}.intersection(set(comp_list)):
+            return 1
+        return None
+
+    completers['try_compile'] = MultiSignature(
+        try_compile_sig_dispatch
+      , try_compile_sig_1
+      , try_compile_sig_2
+      )
 
     completers['try_run'] = [
-        Option('RUN_RESULT_VAR', 1, [(ANY, 1)])
-      , Value([(DIR, 1), (FILE, 1)])
+        Value([(ANY, 2), (DIR, 1), (FILE, 1)])
       , Option('CMAKE_FLAGS', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
       , Option('COMPILE_DEFINITIONS', ZERO_OR_ONE, [(ANY, ONE_OR_MORE)])
       , Option('COMPILE_OUTPUT_VARIABLE', ZERO_OR_ONE, [(ANY, 1)])

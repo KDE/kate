@@ -29,7 +29,7 @@ import traceback
 import functools
 import pydoc
 from inspect import getmembers, isfunction
-from PyKDE4.kdecore import i18n
+from PyKDE4.kdecore import i18nc
 from PyKDE4.kdeui import KMessageBox
 
 import pate
@@ -278,11 +278,12 @@ class catchAllHandler(object):
         except _HandledException:
             raise
         except Exception as e:
-            txt = "".join(traceback.format_exception(*sys.exc_info()))
-            # TODO: Use the i18n() wrapper here. Unfortunately, Python3 currently
-            # says "TypeError: i18n(): argument 1 has unexpected type 'str'",
-            # and that is rather unfortunate for the catch-all handler.
-            KMessageBox.error(None, txt, "Error in action '{}'".format(self.f.__name__))
+            txt = ''.join(traceback.format_exception(*sys.exc_info()))
+            KMessageBox.error(
+                None
+              , txt
+              , i18nc('@title:window', 'Error in action <icode>{}</icode>'.format(self.f.__name__))
+              )
             raise _HandledException(txt)
 
 @_attribute(actions=set())
@@ -417,7 +418,7 @@ def focusEditor():
 
 def applicationDirectories(*path):
     path = os.path.join('pate', *path)
-    return kdecore.KGlobal.dirs().findDirs("appdata", path)
+    return kdecore.KGlobal.dirs().findDirs('appdata', path)
 
 def objectIsAlive(obj):
     ''' Test whether an object is alive; that is, whether the pointer

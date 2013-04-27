@@ -60,7 +60,7 @@ import imp
 import time
 import traceback
 
-from PyKDE4.kdecore import KConfig
+from PyKDE4.kdecore import KConfig, i18nc
 
 from libkatepate import ui, common
 from libkatepate.autocomplete import AbstractCodeCompletionModel
@@ -143,10 +143,15 @@ def matchingParenthesisPosition(document, position, opening='('):
                 position.setColumn(document.lineLength(position.line()) - 1)
             # failure again => EOF
             if document.character(position) == None:
-                raise ParseError('end of file reached')
+                raise ParseError(i18nc('@info', 'end of file reached'))
             else:
                 if state in ('"', "'"):
-                    raise ParseError('end of line while searching for %s' % state)
+                    raise ParseError(
+                        i18nc(
+                            '@info'
+                          , "end of line reached while searching for <icode>{}</icode>".format(state)
+                          )
+                      )
     return position
 
 # map of 'all' => {'name': func1, ....}
@@ -223,7 +228,7 @@ def indentationCharacters(document):
             return ' ' * indentationCharacters.configurationIndentWidth
 
 
-@kate.action('Expand', shortcut='Ctrl+E', menu='Edit')
+@kate.action(i18nc('@action:inmenu a verb', 'Expand'), shortcut='Ctrl+E', menu='Edit')
 def expandAtCursor():
     """Attempt text expansion on the word at the cursor.
     The expansions available are based firstly on the mimetype of the
@@ -235,7 +240,7 @@ def expandAtCursor():
     try:
         word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
     except ParseError as e:
-        kate.popup('Parse error:', e)
+        ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
         return
     word = document.text(word_range)
     mime = str(document.mimeType())
@@ -243,7 +248,11 @@ def expandAtCursor():
     try:
         func = expansions[word]
     except KeyError:
-        ui.popup('Error', 'Expansion "%s" not found :(' % word, 'dialog-warning')
+        ui.popup(
+            i18nc('@title:window', 'Error')
+          , i18nc('@info:tooltip', 'Expansion "<icode>{}</icode>" not found'.format(word))
+          , 'dialog-warning'
+          )
         return
     arguments = []
     namedArgs = {}
@@ -281,7 +290,7 @@ def expandAtCursor():
             del tblist[:1]
             l = traceback.format_list(tblist)
             if l:
-                l.insert(0, 'Traceback (most recent call last):\n')
+                l.insert(0, i18nc('@info', 'Traceback (most recent call last):<nl/>'))
             l[len(l):] = traceback.format_exception_only(type, value)
         finally:
             tblist = tb = None
@@ -290,11 +299,19 @@ def expandAtCursor():
             text = match.group()
             filePath = match.group(1)
             fileName = os.path.basename(filePath)
-            text = text.replace(filePath, '<a href="%s">%s</a>' % (filePath, fileName))
+            text = text.replace(filePath, i18nc('@info', '<link url="{}">{}</link>'.format(filePath, fileName))
             return text
         s = ''.join(l).strip()
-        s = re.sub('File "(/[^\n]+)", line', replaceAbsolutePathWithLinkCallback, s)
-        ui.popup('Error', '<p style="white-space:pre">%s</p>' % s, 'dialog-error')
+        s = re.sub(
+            i18nc('@info', 'File <filename>"(/[^\n]+)"</filename>, line')
+          , replaceAbsolutePathWithLinkCallback
+          , s
+          )
+        ui.popup(
+            i18nc('@title:window', 'Error')
+          , i18nc('@info:tooltip', '<bcode>{}</bcode>'.format(s))
+          , 'dialog-error'
+          )
         return
 
     #KateDocumentConfig::cfReplaceTabsDyn
@@ -347,7 +364,7 @@ def expandAtCursor():
 
 
 class ExpandsCompletionModel(AbstractCodeCompletionModel):
-    TITLE_AUTOCOMPLETION = "Expands Available"
+    TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'Expands Available')
 
     def completionInvoked(self, view, word, invocationType):
         self.reset()

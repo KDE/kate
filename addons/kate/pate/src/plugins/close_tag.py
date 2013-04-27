@@ -1,9 +1,11 @@
 
 import kate
-import kate.gui
+from libkatepate import ui, common
+
+from PyKDE4.kdecore import i18nc
 
 import re
-# <html>
+
 
 def openingTagBeforeCursor(document, position):
     currentLine = document.line(position.line())
@@ -17,7 +19,7 @@ def openingTagBeforeCursor(document, position):
     return None
 
 
-@kate.action('Close Tag', shortcut='Ctrl+Shift+K', menu='Edit')
+@kate.action(i18nc('@action:inmenu', 'Close Tag'), shortcut='Ctrl+Shift+K', menu='Edit')
 def closeTagAtCursor():
     document = kate.activeDocument()
     view = document.activeView()
@@ -37,7 +39,11 @@ def closeTagAtCursor():
                 insertionPosition.setLine(currentPosition.line() + 1)
                 insertionPosition.setColumn(0)
     if tag is None:
-        kate.gui.popup('No opening tag found', 2, icon='dialog-warning', minTextWidth=200)
+        ui.popup(
+            i18nc('@title:window', 'Parse error')
+          , i18nc('@info:tooltip', 'No opening tag found')
+          , 'dialog-warning'
+          )
         return
 
     currentLine = document.line(currentPosition.line())
@@ -50,3 +56,4 @@ def closeTagAtCursor():
     view.setCursorPosition(currentPosition)
     document.endEditing()
 
+# kate: space-indent on; indent-width 4;

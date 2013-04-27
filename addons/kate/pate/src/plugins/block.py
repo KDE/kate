@@ -23,11 +23,12 @@
 import kate
 import kate.gui
 
+from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
-from libkatepate import ui, common
+from libkatepate import common
 
-@kate.action('Insert Char From Line Above', shortcut='Meta+E')
+@kate.action(i18nc('@action:inmenu', 'Insert Char From Line Above'), shortcut='Meta+E')
 def insertCharFromLineAbove():
     '''Add the same char to the current cursor position as at the line above'''
     doc = kate.activeDocument()
@@ -47,7 +48,7 @@ def insertCharFromLineAbove():
     doc.endEditing()
 
 
-@kate.action('Insert Char From Line Below', shortcut='Meta+W')
+@kate.action(i18nc('@action:inmenu', 'Insert Char From Line Below'), shortcut='Meta+W')
 def insertCharFromLineBelow():
     '''Add the same char to the current cursor position as at the line below'''
     doc = kate.activeDocument()
@@ -67,7 +68,7 @@ def insertCharFromLineBelow():
     doc.endEditing()
 
 
-@kate.action('Kill Text After Cursor', shortcut='Meta+K')
+@kate.action(i18nc('@action:inmenu', 'Kill Text After Cursor'), shortcut='Meta+K')
 def killRestOfLine():
     '''Remove text from cursor position to the end of the current line'''
     doc = kate.activeDocument()
@@ -82,7 +83,7 @@ def killRestOfLine():
     doc.endEditing()
 
 
-@kate.action('Kill Text Before Cursor', shortcut='Meta+U')
+@kate.action(i18nc('@action:inmenu', 'Kill Text Before Cursor'), shortcut='Meta+U')
 def killLeadOfLine():
     ''' Remove text from a start of a line to the current cursor position
         but keep leading spaces (to avoid breaking indentation)
@@ -162,27 +163,27 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
             view.setSelection(r)
 
 
-@kate.action('Wrap into Braces', shortcut='Ctrl+(')
+@kate.action(i18nc('@action:inmenu', 'Wrap into Braces'), shortcut='Ctrl+(')
 def wrapBlockWithBraces():
     '''Wrap current word (identifier) or selection into pair of '(' and ')' characters'''
     _wrapBlockWithChar('(', ')')
 
-@kate.action('Wrap into Brackets', shortcut='Ctrl+{')
+@kate.action(i18nc('@action:inmenu', 'Wrap into Brackets'), shortcut='Ctrl+{')
 def wrapBlockWithBraces():
     '''Wrap current word (identifier) or selection into pair of '[' and ']' characters'''
     _wrapBlockWithChar('[', ']')
 
-@kate.action('Wrap into Curve Brackets', shortcut='Meta+{')
+@kate.action(i18nc('@action:inmenu', 'Wrap into Curve Brackets'), shortcut='Meta+{')
 def wrapBlockWithBraces():
     '''Wrap current word (identifier) or selection into pair of '{' and '}' characters'''
     _wrapBlockWithChar('{', '}')
 
-@kate.action('Wrap into Angle Brackets', shortcut='Ctrl+<')
+@kate.action(i18nc('@action:inmenu', 'Wrap into Angle Brackets'), shortcut='Ctrl+<')
 def wrapBlockWithBraces():
     '''Wrap current word (identifier) or selection into pair of '<' and '>' characters'''
     _wrapBlockWithChar('<', '>')
 
-@kate.action('Wrap into Quotes', shortcut='Ctrl+\'')
+@kate.action(i18nc('@action:inmenu', 'Wrap into Quotes'), shortcut='Ctrl+\'')
 def wrapBlockWithBraces():
     '''Wrap current word (identifier) or selection into pair of '"' characters'''
     _wrapBlockWithChar('"', '"', False)

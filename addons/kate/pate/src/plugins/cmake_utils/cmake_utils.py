@@ -28,6 +28,7 @@ import subprocess
 import sys
 import types
 
+from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
@@ -43,7 +44,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
     '''Completion model for CMake files'''
     # TODO Unit tests
 
-    TITLE_AUTOCOMPLETION = "CMake Auto Completion"
+    TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'CMake Auto Completion')
     MAX_DESCRIPTION = 100
 
     _cc_registrar_fn_name = 'register_command_completer'
@@ -80,7 +81,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
         if in_a_var:
             # Try to complete a variable name
-            self.TITLE_AUTOCOMPLETION = 'CMake Variables Completion'
+            self.TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'CMake Variables Completion')
             for var in cmake_help_parser.get_cmake_vars():
                 self.resultList.append(
                     self.createItemAutoComplete(
@@ -97,7 +98,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         # Try to complete a command
         if not command:
             # Try to complete a variable name
-            self.TITLE_AUTOCOMPLETION = 'CMake Commands Completion'
+            self.TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'CMake Commands Completion')
             for cmd in cmake_help_parser.get_cmake_commands():
                 self.resultList.append(
                     self.createItemAutoComplete(
@@ -216,12 +217,20 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
                   , comp_list
                   )
         else:
-            print('CMake completer: No completer registered for command `{}()`'.format(command))
+            ui.popup(
+                i18nc('@title:window', 'Attention')
+              , i18nc('@info:tooltip', 'Sorry, no completion for <command>{}()</command>'.format(command))
+              , 'dialog-information'
+              )
+
             completions = []
 
         # Result of a completion function must be a list type
         if completions and isinstance(completions, list):
-            self.TITLE_AUTOCOMPLETION = "CMake {}() Completion".format(command)
+            self.TITLE_AUTOCOMPLETION = i18nc(
+                '@label:listbox'
+              , 'CMake <command>{}()</command> Completion'.format(command)
+              )
             for c in completions:
                 # If completion item is a tuple, we expect to have 2 items in it:
                 # 0 is a 'text' and 1 is a 'description'

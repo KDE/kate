@@ -24,10 +24,10 @@ import kate
 from PyKDE4.ktexteditor import KTextEditor
 
 _COMMENT_STRINGS_MAP = {
-    'Python'        : '# '
-  , 'Perl'          : '# '
-  , 'CMake'         : '# '
-  , 'Bash'          : '# '
+    'Python'        : '#'
+  , 'Perl'          : '#'
+  , 'CMake'         : '#'
+  , 'Bash'          : '#'
   , 'C++'           : '//'
   , 'C++11'         : '//'
   , 'C++11/Qt4'     : '//'

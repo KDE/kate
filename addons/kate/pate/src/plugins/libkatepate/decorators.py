@@ -20,9 +20,14 @@
 ''' Reusable code for Kate/Pâté plugins: decorators for actions '''
 
 import functools
+
+from PyKDE4.kdecore import i18nc
+
 import kate
+
 from libkatepate import ui
 from libkatepate import common
+
 
 def append_constraint(action, constraint):
     if not hasattr(action, 'constraints'):
@@ -53,9 +58,12 @@ def restrict_doc_type(*doc_types):
             doc_type = document.highlightingMode()
             if doc_type not in doc_types:
                 ui.popup(
-                    "Alert"
-                  , "This action have no sense for " + doc_type + " documents!"
-                  , "face-wink"
+                    i18nc('@title:window', 'Alert')
+                  , i18nc(
+                        '@info:tooltip placeholder is a mime-type'
+                      , 'This action have no sense for <command>{}</command> documents!'.format(doc_type)
+                      )
+                  , 'dialog-information'
                   )
                 return False
             return True
@@ -73,9 +81,12 @@ def comment_char_must_be_known(dummy = None):
             result = common.isKnownCommentStyle(doc_type)
             if not result:
                 ui.popup(
-                    "Oops!"
-                  , "Don't know how comments look like for " + doc_type + " documents!"
-                  , "face-uncertain"
+                    i18nc('@title:window', 'Sorry...')
+                  , i18nc(
+                        '@info:tooltip placeholder is a mime-type'
+                      , '<command>{}</command> is unsupported document type!'.format(doc_type)
+                      )
+                  , 'dialog-information'
                   )
             return result
         binded_predicate = functools.partial(comment_char_checker, dummy)
@@ -96,14 +107,15 @@ def selection_mode(selectionMode):
             view = document.activeView()
             result = selectionMode == view.blockSelection()
             if not result:
-                if selectionMode:
-                    mode = 'block'
-                else:
-                    mode = 'normal'
+                mode = i18nc('@item selection mode', 'block') if selectionMode \
+                  else i18nc('@item selection mode', 'normal')
                 ui.popup(
-                    "Oops!"
-                  , "This operation is for %s selection mode!" % mode
-                  , "face-sad"
+                    i18nc('@title:window', 'Alert')
+                  , i18nc(
+                        '@info:tooltip'
+                      , 'This operation is for {} selection mode!'.format(mode)
+                      )
+                  , 'dialog-information'
                   )
             return result
         binded_predicate = functools.partial(selection_mode_checker, selectionMode)
@@ -120,14 +132,10 @@ def has_selection(selectionState):
             print("*** has_selection: result=%s" % repr(result))
             if not result:
                 if not selectionState:
-                    should = "n't"
+                    should = i18nc('@info:tooltip', "Document shouldn't have selection to perform this operation")
                 else:
-                    should = ''
-                ui.popup(
-                    "Oops!"
-                  , "Document should%s have selection to perform this operation" % should
-                  , "face-sad"
-                  )
+                    should = i18nc('@info:tooltip', "Document should have selection to perform this operation")
+                ui.popup(i18nc('@title:window', 'Alert'), should, 'dialog-information')
             return result
         binded_predicate = functools.partial(has_selection_checker, selectionState)
         append_constraint(action, binded_predicate)
@@ -137,3 +145,5 @@ def has_selection(selectionState):
 
 # TODO All decorators are look same...
 # It seems we need another one decorator to produce decorators of decorators :-)
+
+# kate: indent-width 4;

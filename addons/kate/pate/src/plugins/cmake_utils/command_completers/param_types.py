@@ -21,7 +21,6 @@ import os
 import sys
 import types
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 import cmake_help_parser
 
 

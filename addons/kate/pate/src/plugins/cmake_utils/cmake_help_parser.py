@@ -19,7 +19,14 @@
 
 
 import functools
+import os
 import subprocess
+
+from PyKDE4.kdecore import i18nc
+
+import kate
+
+from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, CMAKE_BINARY_DEFAULT)
 
 
 def _parse_cmake_help(out):
@@ -39,35 +46,81 @@ def _parse_cmake_help(out):
     return result
 
 
-def _spawn_cmake_grab_stdout(args):
-    # TODO Find `cmake` (at program start) before spawn it!
-    p = subprocess.Popen(["/usr/bin/cmake"] + args, stdout=subprocess.PIPE)
+def _spawn_cmake_grab_stdout(args, cmake_executable = None):
+    if cmake_executable is None:
+        cmake_utils_conf = kate.configuration.root.get('cmake_utils', {})
+
+        if CMAKE_BINARY in cmake_utils_conf:
+            cmake_bin = cmake_utils_conf[CMAKE_BINARY]
+        else:
+            raise ValueError(
+                i18nc(
+                    '@info:tooltip'
+                  , 'CMake executable is not configured'
+                  )
+              )
+    else:
+        cmake_bin = cmake_executable
+
+    p = subprocess.Popen([cmake_bin] + args, stdout=subprocess.PIPE)
     out, err = p.communicate()
     if err:
-        print('CMake helper: running `{}` finished with errors:\n{}'.format('/usr/bin/cmake', err))
+        print('CMake helper: running `{}` finished with errors:\n{}'.format(cmake_bin, err))
+        raise ValueError(
+            i18nc(
+                '@info:tooltip'
+                , 'Running <command>{}</command> finished with errors:<nl/>{}'.format(cmake_bin, err)
+                )
+            )
     return out
+
+
+def validate_cmake_executable(cmake_executable):
+    # Make sure specified binary exists
+    print('CMakeCC: validate cmake: bin={}'.format(cmake_executable))
+    print('CMakeCC: validate cmake: os.path.isabs(cmake_executable)={}'.format(os.path.isabs(cmake_executable)))
+    print('CMakeCC: validate cmake: os.path.exists(cmake_executable)={}'.format(os.path.exists(cmake_executable)))
+    if os.path.isabs(cmake_executable) and os.path.exists(cmake_executable):
+        out = _spawn_cmake_grab_stdout(['--version'], cmake_executable)
+        lines = out.decode('utf-8').splitlines()
+        # We expect a word 'cmake' in a very first line
+        if not lines or lines[0].count('cmake') == 0:
+            raise ValueError(
+                i18nc(
+                    '@info:tooltip'
+                  , 'Specified CMake executable <command>{}</command> looks invalid'.format(cmake_executable)
+                  )
+              )
+    else:
+        raise ValueError(
+            i18nc(
+                '@info:tooltip'
+              , 'Specified CMake executable <command>{}</command> not found'.format(cmake_executable)
+              )
+          )
 
 
 @functools.lru_cache(maxsize=1)
 def get_cmake_vars():
-    out = _spawn_cmake_grab_stdout(["--help-variables"])
+    out = _spawn_cmake_grab_stdout(['--help-variables'])
     return _parse_cmake_help(out)
 
 
 @functools.lru_cache(maxsize=1)
 def get_cmake_commands():
-    out = _spawn_cmake_grab_stdout(["--help-commands"])
+    out = _spawn_cmake_grab_stdout(['--help-commands'])
     return _parse_cmake_help(out)
 
 
 @functools.lru_cache(maxsize=1)
 def get_cmake_policies():
-    out = _spawn_cmake_grab_stdout(["--help-policies"])
+    out = _spawn_cmake_grab_stdout(['--help-policies'])
     return _parse_cmake_help(out)
+
 
 @functools.lru_cache(maxsize=1)
 def get_cmake_properties():
-    out = _spawn_cmake_grab_stdout(["--help-properties"])
+    out = _spawn_cmake_grab_stdout(['--help-properties'])
     return _parse_cmake_help(out)
 
 

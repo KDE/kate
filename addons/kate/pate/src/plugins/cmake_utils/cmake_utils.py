@@ -28,6 +28,9 @@ import subprocess
 import sys
 import types
 
+from PyQt4 import uic
+from PyQt4.QtGui import *
+
 from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
@@ -36,7 +39,7 @@ import kate
 from libkatepate import ui, common
 from libkatepate.autocomplete import AbstractCodeCompletionModel
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, CMAKE_BINARY_DEFAULT, CMAKE_UTILS_SETTINGS_UI)
 import cmake_help_parser
 
 
@@ -267,9 +270,79 @@ def _reset(*args, **kwargs):
     cmake_completation_model.reset()
 
 
-@kate.init
+# ----------------------------------------------------------
+# Plugin configuration stuff
+# ----------------------------------------------------------
+
+class CMakeConfigWidget(QWidget):
+    '''Configuration widget for this plugin.'''
+
+    cmakeBinary = None
+    projectBuildDir = None
+
+    def __init__(self, parent=None, name=None):
+        super(CMakeConfigWidget, self).__init__(parent)
+
+        # Set up the user interface from Designer.
+        uic.loadUi(os.path.join(os.path.dirname(__file__), CMAKE_UTILS_SETTINGS_UI), self)
+
+        self.reset();
+
+    def apply(self):
+        kate.configuration[CMAKE_BINARY] = self.cmakeBinary.text()
+        try:
+            cmake_help_parser.validate_cmake_executable(kate.configuration[CMAKE_BINARY])
+        except ValueError as error:
+            ui.popup(
+                i18nc('@title:window', 'Error')
+              , i18nc('@info:tooltip', 'CMake executable test run failed:<nl/><message>{}</message>'.format(error))
+              , 'dialog-error'
+              )
+        # TODO Store the following for a current session!
+        kate.configuration[PROJECT_DIR] = self.projectBuildDir.text()
+        kate.configuration.save()
+
+    def reset(self):
+        self.defaults()
+        if CMAKE_BINARY in kate.configuration:
+            self.cmakeBinary.setText(kate.configuration[CMAKE_BINARY])
+
+    def defaults(self):
+        # TODO Dectect it!
+        self.cmakeBinary.setText(CMAKE_BINARY_DEFAULT)
+        self.projectBuildDir.setText('')
+
+
+class CMakeConfigPage(kate.Kate.PluginConfigPage, QWidget):
+    '''Kate configuration page for this plugin.'''
+    def __init__(self, parent=None, name=None):
+        super(CMakeConfigPage, self).__init__(parent, name)
+        self.widget = CMakeConfigWidget(parent)
+        lo = parent.layout()
+        lo.addWidget(self.widget)
+
+    def apply(self):
+        self.widget.apply()
+
+    def reset(self):
+        self.widget.reset()
+
+    def defaults(self):
+        self.widget.defaults()
+        self.changed.emit()
+
+
+@kate.configPage(
+    i18nc('@action:inmenu', 'CMake Helper Plugin')
+  , i18nc('@title:group', 'CMake Helper Settings')
+  , icon='preferences-other'
+  )
+def cmakeConfigPage(parent=None, name=None):
+    return CMakeConfigPage(parent, name)
+
 @kate.viewCreated
 def createSignalAutocompleteCMake(view=None, *args, **kwargs):
+    print('CMakeCC: Register completion model')
     try:
         view = view or kate.activeView()
         if view:
@@ -280,13 +353,24 @@ def createSignalAutocompleteCMake(view=None, *args, **kwargs):
         pass
 
 
+@kate.init
+def init():
+    pass
+    # Set default value if not configured yet
+    print('CMakeCC: enter init')
+    if CMAKE_BINARY not in kate.configuration:
+        kate.configuration[CMAKE_BINARY] = CMAKE_BINARY_DEFAULT
+    if PROJECT_DIR not in kate.configuration:
+        kate.configuration[PROJECT_DIR] = ''
+
+    print('CMakeCC: init: cmakeBinary='.format(kate.configuration[CMAKE_BINARY]))
+
+    # Initialize completion model
+    createSignalAutocompleteCMake()
+
+
 cmake_completation_model = CMakeCompletionModel(kate.application)
 cmake_completation_model.modelReset.connect(_reset)
 
-@kate.init
-def init():
-    # Set default value if not configured yet
-    if 'CMakeExecutable' not in kate.configuration:
-        kate.configuration['CMakeExecutable'] = '/usr/bin/cmake'
 
 # kate: indent-width 4;

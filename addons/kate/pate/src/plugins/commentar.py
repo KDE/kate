@@ -42,7 +42,7 @@ BLOCK_ELSE_SEARCH_RE = re.compile('^\s*#\s*else.*$')
 BLOCK_END_SEARCH_RE = re.compile('^\s*#\s*endif.*$')
 BLOCK_ELSE_ENDIF_MATCH_RE = re.compile('^\s*#\s*(endif|else).*$')
 BLOCK_START_GET_COND_RE = re.compile('^\s*#\s*(if((n)?def)?)\s+(.*)\s*$')
-
+COMMENT_START_POS = 'commentStartPos'
 
 def buildIfEndifMap(document):
     '''
@@ -105,7 +105,7 @@ def locateBlock(currentLine, blockRanges, ignoreComments = False):
 
 def processLine(line, commentCh):
     result = []
-    column = kate.configuration['commentStartPos']
+    column = kate.configuration[COMMENT_START_POS]
     # Split line before and after a comment
     (before, comment, after) = line.partition(commentCh)
     before_s = before.rstrip()
@@ -114,9 +114,9 @@ def processLine(line, commentCh):
         # Is there is any text before inline comment position?
         if bool(before_s):
             # Yes! Is text before not longer than desired comment position
-            if len(before_s) < (kate.configuration['commentStartPos'] + 1):
+            if len(before_s) < (kate.configuration[COMMENT_START_POS] + 1):
                 # Yep, just reformat the line...
-                result.append(before_s + (' ' * (kate.configuration['commentStartPos'] - len(before_s))) + commentCh + after.rstrip())
+                result.append(before_s + (' ' * (kate.configuration[COMMENT_START_POS] - len(before_s))) + commentCh + after.rstrip())
             else:
                 # Move comment to the line above
                 column = len(before) - len(before.lstrip())
@@ -128,9 +128,9 @@ def processLine(line, commentCh):
         else:
             # No! The line contains only whitespaces...
             # Is comment after or 'close before' to inline comment position?
-            if len(before) > (kate.configuration['commentStartPos'] / 6):
+            if len(before) > (kate.configuration[COMMENT_START_POS] / 6):
                 # Align comment to desired position...
-                result.append(' ' * kate.configuration['commentStartPos'] + commentCh + after.rstrip())
+                result.append(' ' * kate.configuration[COMMENT_START_POS] + commentCh + after.rstrip())
             else:
                 # TODO Align comment to closest to div 4 position...
                 result.append(line.rstrip())
@@ -138,12 +138,12 @@ def processLine(line, commentCh):
         # There is no comments... What about any text?
         if bool(before_s):
             # Is it longer that inline comment position?
-            if len(before_s) > (kate.configuration['commentStartPos']):
+            if len(before_s) > (kate.configuration[COMMENT_START_POS]):
                 column = len(before) - len(before.lstrip())
                 result.append(' ' * column + commentCh + ' ')
                 result.append(before_s)
             else:
-                result.append(before_s + ' ' * (kate.configuration['commentStartPos'] - len(before_s)) + commentCh + ' ')
+                result.append(before_s + ' ' * (kate.configuration[COMMENT_START_POS] - len(before_s)) + commentCh + ' ')
             # Check for preprocessor directives #else/#endif and try to append
             # corresponding #if condition as a comment for current line
             if bool(BLOCK_ELSE_ENDIF_MATCH_RE.search(before_s)):
@@ -161,7 +161,7 @@ def processLine(line, commentCh):
                         result[-1] += matchObj.group(4)
         else:
             # No text! Just add a comment...
-            result.append(' ' * kate.configuration['commentStartPos'] + commentCh + ' ')
+            result.append(' ' * kate.configuration[COMMENT_START_POS] + commentCh + ' ')
     return (result, column + len(commentCh) + 1)
 
 
@@ -314,7 +314,7 @@ def moveInline():
                     # Just text.... no comment. Ok lets work!
                     # (if there is some space remains for inline comment)
                     b_before_s = b_before.rstrip()
-                    if len(b_before_s) > kate.configuration['commentStartPos']:
+                    if len(b_before_s) > kate.configuration[COMMENT_START_POS]:
                         # Oops! No space remains! Get outa here
                         return
                     else:
@@ -323,9 +323,9 @@ def moveInline():
                             after = '/< ' + after[2:]
                             doxCommentOffset = 2
                         insertionText.append(
-                            b_before_s + ' ' * (kate.configuration['commentStartPos'] - len(b_before_s)) + commentCh + after.rstrip()
+                            b_before_s + ' ' * (kate.configuration[COMMENT_START_POS] - len(b_before_s)) + commentCh + after.rstrip()
                             )
-                        column = kate.configuration['commentStartPos'] + 3 + doxCommentOffset
+                        column = kate.configuration[COMMENT_START_POS] + 3 + doxCommentOffset
             else:
                 # No text on the line below! Dunno what damn user wants...
                 return
@@ -766,13 +766,13 @@ class ConfigWidget(QWidget):
         self.reset();
 
     def apply(self):
-        kate.configuration['commentStartPos'] = self.commentStartPos.value()
+        kate.configuration[COMMENT_START_POS] = self.commentStartPos.value()
         kate.configuration.save()
 
     def reset(self):
         self.defaults()
-        if 'commentStartPos' in kate.configuration:
-            self.commentStartPos.setValue(kate.configuration['commentStartPos'])
+        if COMMENT_START_POS in kate.configuration:
+            self.commentStartPos.setValue(kate.configuration[COMMENT_START_POS])
 
     def defaults(self):
         self.commentStartPos.setValue(60)
@@ -808,7 +808,7 @@ def commentarConfigPage(parent=None, name=None):
 @kate.init
 def init():
     # Set default value if not configured yet
-    if 'commentStartPos' not in kate.configuration:
-        kate.configuration['commentStartPos'] = 60
+    if COMMENT_START_POS not in kate.configuration:
+        kate.configuration[COMMENT_START_POS] = 60
 
 # kate: indent-width 4;

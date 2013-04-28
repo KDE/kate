@@ -19,6 +19,7 @@
 
 from param_types import *
 
+
 def register_command_completer(completers):
     add_custom_command_sig_1 = [
         Option('OUTPUT', 1, [(ANY, ONE_OR_MORE)])

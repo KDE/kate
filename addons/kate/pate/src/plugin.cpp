@@ -259,6 +259,7 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
     m_manager.setupUi(this);
     m_manager.tree->setModel(Pate::Engine::self());
     reset();
+    connect(m_manager.tree->model(), SIGNAL(itemChanged(QStandardItem *)), SIGNAL(changed()));
     connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage(bool)));
 
     // Add a tab for reference information.
@@ -272,13 +273,13 @@ Pate::ConfigPage::ConfigPage(QWidget *parent, Plugin *plugin) :
 
     Pate::Engine *engine=Pate::Engine::self();
     if (engine) {
-      m_manager.errorLabel->setVisible(false);
-      m_manager.tabWidget->setEnabled(true);
-      m_manager.reload->setEnabled(true);
+        m_manager.errorLabel->setVisible(false);
+        m_manager.tabWidget->setEnabled(true);
+        m_manager.reload->setEnabled(true);
     } else {
-      m_manager.errorLabel->setVisible(true);
-      m_manager.tabWidget->setEnabled(false);
-      m_manager.reload->setEnabled(false);
+        m_manager.errorLabel->setVisible(true);
+        m_manager.tabWidget->setEnabled(false);
+        m_manager.reload->setEnabled(false);
     }
 }
 

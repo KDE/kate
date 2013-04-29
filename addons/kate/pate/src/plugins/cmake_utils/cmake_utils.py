@@ -362,13 +362,14 @@ class CMakeToolView(QObject):
         # TODO Store check-boxes state to configuration
 
         # Connect signals
+        self.cacheItems.itemActivated.connect(self.insertIntoCurrentDocument)
         self.buildDir.returnPressed.connect(self.updateCacheView)
         self.buildDir.urlSelected.connect(self.updateCacheView)
         self.mode.toggled.connect(self.updateCacheView)
         self.mode.toggled.connect(self.saveSettings)
         self.htmlize.toggled.connect(self.updateHelpText)
         self.htmlize.toggled.connect(self.saveSettings)
-        self.helpTargets.itemClicked.connect(self.updateHelpText)
+        self.helpTargets.itemActivated.connect(self.updateHelpText)
 
         # Refresh the cache view
         self._updateCacheView(self.buildDir.text())
@@ -515,6 +516,15 @@ class CMakeToolView(QObject):
                     para = True
         self.helpPage.setText('\n'.join(lines))
 
+
+    @pyqtSlot(QTreeWidgetItem, int)
+    def insertIntoCurrentDocument(self, item, column):
+        if item is not None and column == 0:
+            view = kate.activeView()
+            document = kate.activeDocument()
+            document.startEditing()
+            document.insertText(view.cursorPosition(), item.text(0))
+            document.endEditing()
 
 # ----------------------------------------------------------
 # CMake utils: configuration stuff

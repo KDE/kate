@@ -667,7 +667,7 @@ def wordAtCursor(document, view):
     start, end = wordAtCursorPosition(line, cursor)
     return line[start:end]
 
-@kate.action("Browse Tokens", shortcut = "Alt+1", menu = "&Gid")
+@kate.action(i18nc("@action:inmenu", "Browse Tokens"), shortcut = "Alt+1", menu = i18nc("@action:inmenu", "&Gid"))
 def show():
     """Browse the tokens in the ID file."""
     # Make all our config is initialised.
@@ -683,7 +683,7 @@ def show():
     viewChanged()
     return searchBar.show()
 
-@kate.action("Lookup Current Token", shortcut = "Alt+2", menu = "&Gid", icon = "edit-find")
+@kate.action(i18nc("@action:inmenu", "Lookup Current Token"), shortcut = "Alt+2", menu = i18nc("@action:inmenu", "&Gid"), icon = "edit-find")
 def lookup():
     """Lookup the currently selected token.
     Find the token, filter the results.
@@ -700,7 +700,7 @@ def lookup():
         return searchBar.literalSearch()
     return None
 
-@kate.action("Go to Definition", shortcut = "Alt+3", menu = "&Gid", icon = "go-jump-definition")
+@kate.action(i18nc("@action:inmenu", "Go to Definition"), shortcut = "Alt+3", menu = i18nc("@action:inmenu", "&Gid"), icon = "go-jump-definition")
 def gotoDefinition():
     """Go to the definition of the currently selected token.
     Find the token, search for definitions using etags, jump to the definition.
@@ -710,7 +710,7 @@ def gotoDefinition():
     if definitionIndex:
         searchBar.navigateToMatch(definitionIndex)
 
-@kate.configPage("gid", "gid(1) token Lookup and Navigation", icon = "edit-find")
+@kate.configPage(i18nc("@action:inmenu", "gid"), i18nc("@title:group", "gid(1) token Lookup and Navigation"), icon = "edit-find")
 def configPage(parent = None, name = None):
     return ConfigPage(parent, name)
 

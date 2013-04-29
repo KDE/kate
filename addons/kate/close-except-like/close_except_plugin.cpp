@@ -92,9 +92,15 @@ CloseExceptPluginView::CloseExceptPluginView(
   : Kate::PluginView(mw)
   , Kate::XMLGUIClient(data)
   , m_plugin(plugin)
-  , m_show_confirmation_action(new KToggleAction(i18nc("an action", "Show Confirmation"), this))
-  , m_except_menu(new KActionMenu(i18nc("a menu w/ submenus", "Close Except"), this))
-  , m_like_menu(new KActionMenu(i18nc("a menu w/ submenus", "Close Like"), this))
+  , m_show_confirmation_action(new KToggleAction(i18nc("@action:inmenu", "Show Confirmation"), this))
+  , m_except_menu(new KActionMenu(
+        i18nc("@action:inmenu close docs except the following...", "Close Except")
+      , this
+      ))
+  , m_like_menu(new KActionMenu(
+        i18nc("@action:inmenu close docs like the following...", "Close Like")
+      , this
+      ))
 {
     actionCollection()->addAction("file_close_except", m_except_menu);
     actionCollection()->addAction("file_close_like", m_like_menu);
@@ -287,8 +293,8 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
     if (docs2close.isEmpty())
     {
         KPassivePopup::message(
-            i18nc("a title of a passive popup", "Error")
-          , i18nc("an error reason", "No files to close ...")
+            i18nc("@title:window", "Error")
+          , i18nc("@info:tooltip", "No files to close ...")
           , qobject_cast<QWidget*>(this)
           );
         return;
@@ -301,8 +307,8 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
         if (docs2close.isEmpty())
         {
             KPassivePopup::message(
-                i18nc("a title of a passive popup", "Error")
-              , i18nc("an error reason", "No files to close ...")
+                i18nc("@title:window", "Error")
+              , i18nc("@info:tooltip", "No files to close ...")
               , qobject_cast<QWidget*>(this)
               );
         }
@@ -312,7 +318,7 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
             m_plugin->application()->documentManager()->closeDocumentList(docs2close);
             updateMenu();
             KPassivePopup::message(
-                i18nc("a title of a passive popup", "Done")
+                i18nc("@title:window", "Done")
               , i18np("%1 file closed", "%1 files closed", docs2close.size())
               , qobject_cast<QWidget*>(this)
               );

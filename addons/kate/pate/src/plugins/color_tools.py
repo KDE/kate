@@ -41,7 +41,7 @@ from PyQt4 import uic
 from PyQt4.QtCore import QEvent, QObject, QTimer, Qt, pyqtSlot
 from PyQt4.QtGui import QColor, QPalette, QToolTip, QWidget
 
-from PyKDE4.kdecore import i18n
+from PyKDE4.kdecore import i18nc
 from PyKDE4.kdeui import KColorDialog, KColorCells
 from PyKDE4.ktexteditor import KTextEditor
 
@@ -54,7 +54,7 @@ _INSERT_COLOR_LCC = 'insertColor:lastUsedColor'
 _CELLS_COUNT_PER_ROW = 5
 paletteView = None
 
-@kate.action('Insert Color', shortcut='Meta+Shift+C', icon='color', menu='Tools')
+@kate.action(i18nc('@action:inmenu', 'Insert Color'), shortcut='Meta+Shift+C', icon='color', menu='Tools')
 def insertColor():
     """Insert/edit color string using color chooser dialog
 
@@ -65,7 +65,7 @@ def insertColor():
     view = kate.activeView()
     cursor = view.cursorPosition()
 
-    if view.selection(): # Some text selected, just use it as input...
+    if view.selection():                                    # Some text selected, just use it as input...
         color_range = view.selectionRange()
     else:                                                   # If no selection, try to get a #color under cursor
         color_range = common.getBoundTextRangeSL(
@@ -156,7 +156,7 @@ class ColorRangePair:
 
 
 class PaletteView(QObject):
-    """A toolvide to display palette of the current document"""
+    """A toolview to display palette of the current document"""
     colors = []
     toolView = None
     colorCellsWidget = None
@@ -164,10 +164,10 @@ class PaletteView(QObject):
     def __init__(self, parent):
         super(PaletteView, self).__init__(parent)
         self.toolView = kate.mainInterfaceWindow().createToolView(
-            "color_tools_pate_plugin"
+            'color_tools_pate_plugin'
           , kate.Kate.MainWindow.Bottom
           , kate.gui.loadIcon('color')
-          , i18n("Palette")
+          , i18nc('@title:tab', 'Palette')
           )
         self.toolView.installEventFilter(self)
         # By default, the toolview has box layout, which is not easy to delete.
@@ -226,7 +226,7 @@ class PaletteView(QObject):
                 color = QColor(color_str)
                 if color.isValid():
                     self.colors.append(ColorRangePair(color, color_range))
-                    print('PALETTE VIEW: Found %s' % color_str)
+                    print('PALETTE VIEW: Found {}'.format(color_str))
                 start = end
 
     def updateColorCells(self):

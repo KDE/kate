@@ -26,16 +26,16 @@ kde4_add_ui_files(sources info.ui manager.ui)
 
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
-kde4_add_plugin(pateplugin ${sources})
+kde4_add_plugin(katepateplugin ${sources})
 
 target_link_libraries(
-    pateplugin
+    katepateplugin
     ${KDE4_KDEUI_LIBS}
     ${PYTHON_LIBRARY}
     ${QT_QTWEBKIT_LIBRARY}
     kateinterfaces)
 
-install(TARGETS pateplugin DESTINATION ${PLUGIN_INSTALL_DIR})
+install(TARGETS katepateplugin DESTINATION ${PLUGIN_INSTALL_DIR})
 install(FILES pate.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 install(DIRECTORY kate DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate FILES_MATCHING PATTERN "*.py")
 
@@ -72,3 +72,7 @@ install(DIRECTORY
 install(DIRECTORY
     plugins/python_console_ipython
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.css")
+
+install(DIRECTORY
+    plugins/cmake_utils
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py")

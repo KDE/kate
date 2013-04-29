@@ -27,6 +27,7 @@ import re
 import textwrap
 from PyQt4 import uic
 from PyQt4.QtGui import *
+from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
 from libkatepate.decorators import *
@@ -41,7 +42,7 @@ BLOCK_ELSE_SEARCH_RE = re.compile('^\s*#\s*else.*$')
 BLOCK_END_SEARCH_RE = re.compile('^\s*#\s*endif.*$')
 BLOCK_ELSE_ENDIF_MATCH_RE = re.compile('^\s*#\s*(endif|else).*$')
 BLOCK_START_GET_COND_RE = re.compile('^\s*#\s*(if((n)?def)?)\s+(.*)\s*$')
-
+COMMENT_START_POS = 'commentStartPos'
 
 def buildIfEndifMap(document):
     '''
@@ -81,6 +82,7 @@ def buildIfEndifMap(document):
     return blockRanges
 
 
+
 def locateBlock(currentLine, blockRanges, ignoreComments = False):
     '''Find an index of a current block
 
@@ -103,7 +105,7 @@ def locateBlock(currentLine, blockRanges, ignoreComments = False):
 
 def processLine(line, commentCh):
     result = []
-    column = kate.configuration["commentStartPos"]
+    column = kate.configuration[COMMENT_START_POS]
     # Split line before and after a comment
     (before, comment, after) = line.partition(commentCh)
     before_s = before.rstrip()
@@ -112,9 +114,9 @@ def processLine(line, commentCh):
         # Is there is any text before inline comment position?
         if bool(before_s):
             # Yes! Is text before not longer than desired comment position
-            if len(before_s) < (kate.configuration["commentStartPos"] + 1):
+            if len(before_s) < (kate.configuration[COMMENT_START_POS] + 1):
                 # Yep, just reformat the line...
-                result.append(before_s + (' ' * (kate.configuration["commentStartPos"] - len(before_s))) + commentCh + after.rstrip())
+                result.append(before_s + (' ' * (kate.configuration[COMMENT_START_POS] - len(before_s))) + commentCh + after.rstrip())
             else:
                 # Move comment to the line above
                 column = len(before) - len(before.lstrip())
@@ -126,9 +128,9 @@ def processLine(line, commentCh):
         else:
             # No! The line contains only whitespaces...
             # Is comment after or 'close before' to inline comment position?
-            if len(before) > (kate.configuration["commentStartPos"] / 6):
+            if len(before) > (kate.configuration[COMMENT_START_POS] / 6):
                 # Align comment to desired position...
-                result.append(' ' * kate.configuration["commentStartPos"] + commentCh + after.rstrip())
+                result.append(' ' * kate.configuration[COMMENT_START_POS] + commentCh + after.rstrip())
             else:
                 # TODO Align comment to closest to div 4 position...
                 result.append(line.rstrip())
@@ -136,12 +138,12 @@ def processLine(line, commentCh):
         # There is no comments... What about any text?
         if bool(before_s):
             # Is it longer that inline comment position?
-            if len(before_s) > (kate.configuration["commentStartPos"]):
+            if len(before_s) > (kate.configuration[COMMENT_START_POS]):
                 column = len(before) - len(before.lstrip())
                 result.append(' ' * column + commentCh + ' ')
                 result.append(before_s)
             else:
-                result.append(before_s + ' ' * (kate.configuration["commentStartPos"] - len(before_s)) + commentCh + ' ')
+                result.append(before_s + ' ' * (kate.configuration[COMMENT_START_POS] - len(before_s)) + commentCh + ' ')
             # Check for preprocessor directives #else/#endif and try to append
             # corresponding #if condition as a comment for current line
             if bool(BLOCK_ELSE_ENDIF_MATCH_RE.search(before_s)):
@@ -159,11 +161,11 @@ def processLine(line, commentCh):
                         result[-1] += matchObj.group(4)
         else:
             # No text! Just add a comment...
-            result.append(' ' * kate.configuration["commentStartPos"] + commentCh + ' ')
+            result.append(' ' * kate.configuration[COMMENT_START_POS] + commentCh + ' ')
     return (result, column + len(commentCh) + 1)
 
 
-@kate.action('Inline Comment', shortcut='Alt+D', menu='Edit')
+@kate.action(i18nc('@action:inmenu', 'Inline Comment'), shortcut='Alt+D', menu='Edit')
 @check_constraints
 @comment_char_must_be_known()
 @selection_mode(selection.NORMAL)
@@ -223,7 +225,7 @@ def commentar():
         view.setCursorPosition(pos)
 
 
-@kate.action('Move Comment Above', shortcut='Meta+Left')
+@kate.action(i18nc('@action:inmenu', 'Move Comment Above'), shortcut='Meta+Left')
 @check_constraints
 @comment_char_must_be_known()
 def moveAbove():
@@ -274,7 +276,7 @@ def moveAbove():
         document.endEditing()                               # End transaction
 
 
-@kate.action('Move Comment Inline', shortcut='Meta+Right')
+@kate.action(i18nc('@action:inmenu', 'Move Comment Inline'), shortcut='Meta+Right')
 @check_constraints
 @comment_char_must_be_known()
 def moveInline():
@@ -312,7 +314,7 @@ def moveInline():
                     # Just text.... no comment. Ok lets work!
                     # (if there is some space remains for inline comment)
                     b_before_s = b_before.rstrip()
-                    if len(b_before_s) > kate.configuration["commentStartPos"]:
+                    if len(b_before_s) > kate.configuration[COMMENT_START_POS]:
                         # Oops! No space remains! Get outa here
                         return
                     else:
@@ -321,9 +323,9 @@ def moveInline():
                             after = '/< ' + after[2:]
                             doxCommentOffset = 2
                         insertionText.append(
-                            b_before_s + ' ' * (kate.configuration["commentStartPos"] - len(b_before_s)) + commentCh + after.rstrip()
+                            b_before_s + ' ' * (kate.configuration[COMMENT_START_POS] - len(b_before_s)) + commentCh + after.rstrip()
                             )
-                        column = kate.configuration["commentStartPos"] + 3 + doxCommentOffset
+                        column = kate.configuration[COMMENT_START_POS] + 3 + doxCommentOffset
             else:
                 # No text on the line below! Dunno what damn user wants...
                 return
@@ -349,7 +351,11 @@ def moveInline():
         document.endEditing()                               # End transaction
 
 
-@kate.action('Comment Block w/ `#if0`', shortcut='Meta+D', menu='Edit')
+@kate.action(
+    i18nc('@action:inmenu', 'Comment Block with <command>#if0</command>')
+  , shortcut='Meta+D'
+  , menu='Edit'
+  )
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def commentBlock():
@@ -373,13 +379,17 @@ def commentBlock():
     document = kate.activeDocument()
     if start != -1 and end != -1:
         document.startEditing()                             # Start edit transaction
-        document.insertLine(start, "#if 0")
-        document.insertLine(end, "#endif")
+        document.insertLine(start, '#if 0')
+        document.insertLine(end, '#endif')
         view.removeSelection()
         document.endEditing()                               # End transaction
 
 
-@kate.action('Toggle `#if0/#if1` Block', shortcut='Meta+Shift+D', menu='Edit')
+@kate.action(
+    i18nc('@action:inmenu', 'Toggle <icode>#if0</icode>/<icode>#if1</icode> Block')
+  , shortcut='Meta+Shift+D'
+  , menu='Edit'
+  )
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def toggleBlock():
@@ -411,13 +421,20 @@ def toggleBlock():
         document.startEditing()                                 # Start edit transaction
         document.removeLine(blocksList[idx][0])
         # TODO Do not lose formatting!
-        document.insertLine(blocksList[idx][0], "#if " + newValue)
+        document.insertLine(blocksList[idx][0], '#if ' + newValue)
         document.endEditing()                                   # End transaction
     else:
-        ui.popup("Oops", "It seems cursor positioned out of any #if0/#if1 block", "face-sad")
+        ui.popup(
+            i18nc('@title:window', 'Alert')
+          , i18nc(
+                '@info:tooltip'
+              , 'It seems cursor positioned out of any <icode>#if0<icode>/</icode>#if1</icode> block'
+              )
+          , 'dialog-information'
+          )
 
 
-@kate.action('Remove `#if0` Block', shortcut='Meta+R', menu='Edit')
+@kate.action(i18nc('@action:inmenu', 'Remove <icode>#if0</icode> Block'), shortcut='Meta+R', menu='Edit')
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def removeBlock():
@@ -461,10 +478,21 @@ def removeBlock():
                 document.removeLine(blocksList[idx][0])
         document.endEditing()                                   # End transaction
     else:
-        ui.popup("Oops", "It seems cursor positioned out of any #if0/#if1 block", "face-sad")
+        ui.popup(
+            i18nc('@title:window', 'Alert')
+          , i18nc(
+                '@info:tooltip'
+              , 'It seems cursor positioned out of any <icode>#if0<icode>/</icode>#if1</icode> block'
+              )
+          , 'dialog-information'
+          )
 
 
-@kate.action('Select Current `#if0/#if1` Block', shortcut='Meta+S', menu='Edit')
+@kate.action(
+    i18nc('@action:inmenu', 'Select Current <icode>#if0</icode>/<icode>#if1</icode> Block')
+  , shortcut='Meta+S'
+  , menu='Edit'
+  )
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def selectBlock():
@@ -482,7 +510,14 @@ def selectBlock():
         r = KTextEditor.Range(blocksList[idx][0], 0, blocksList[idx][1] + 1, 0)
         view.setSelection(r)
     else:
-        ui.popup("Oops", "It seems cursor positioned out of any #if0/#if1 block", "face-sad")
+        ui.popup(
+            i18nc('@title:window', 'Alert')
+          , i18nc(
+                '@info:tooltip'
+              , 'It seems cursor positioned out of any <icode>#if0<icode>/</icode>#if1</icode> block'
+              )
+          , 'dialog-information'
+          )
 
 
 def turnToBlockComment():
@@ -582,7 +617,7 @@ def turnFromBlockComment():
         document.endEditing()                               # End transaction
 
 
-@kate.action('Transform Doxygen Comments', shortcut='Meta+X', menu='Edit')
+@kate.action(i18nc('@action:inmenu', 'Transform Doxygen Comments'), shortcut='Meta+X', menu='Edit')
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 @has_selection(False)
@@ -635,7 +670,14 @@ def changeParagraphWidth(step):
 
     originRange, isBlock = getParagraphRange(doc, pos)
     if originRange.isEmpty():
-        ui.popup("Sorry", "can't detect commented paragraph at cursor...", "face-sad")
+        ui.popup(
+            i18nc('@title:window', 'Alert')
+          , i18nc(
+                '@info:tooltip'
+              , 'Unable detect a commented paragraph at cursor...'
+              )
+          , 'dialog-information'
+          )
         return                                              # Dunno what to do on empty range!
 
     indent = common.getCurrentLineIndentation(view)         # detect current align
@@ -671,7 +713,7 @@ def changeParagraphWidth(step):
                 currentMax = lineSize
         newSize = currentMax + delta
     else:
-        assert(not "Incorrect step specified")
+        assert(not 'Incorrect step specified')
 
     # 4) wrap the text
     res = textwrap.wrap(' '.join(lines), newSize, break_long_words=False)
@@ -688,7 +730,7 @@ def changeParagraphWidth(step):
         doc.endEditing()                                    # End transaction
 
 
-@kate.action('Shrink Comment Paragraph', shortcut='Meta+[', menu='Edit')
+@kate.action(i18nc('@action:inmenu', 'Shrink Comment Paragraph'), shortcut='Meta+[', menu='Edit')
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 def shrinkParagraph():
@@ -696,7 +738,7 @@ def shrinkParagraph():
     changeParagraphWidth(-1)
 
 
-@kate.action('Extend Comment Paragraph', shortcut='Meta+]', menu='Edit')
+@kate.action(i18nc('@action:inmenu', 'Extend Comment Paragraph'), shortcut='Meta+]', menu='Edit')
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 def extendParagraph():
@@ -719,18 +761,18 @@ class ConfigWidget(QWidget):
         super(ConfigWidget, self).__init__(parent)
 
         # Set up the user interface from Designer.
-        uic.loadUi(os.path.join(os.path.dirname(__file__), "commentar_config.ui"), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), 'commentar_config.ui'), self)
 
         self.reset();
 
     def apply(self):
-        kate.configuration["commentStartPos"] = self.commentStartPos.value()
+        kate.configuration[COMMENT_START_POS] = self.commentStartPos.value()
         kate.configuration.save()
 
     def reset(self):
         self.defaults()
-        if "commentStartPos" in kate.configuration:
-            self.commentStartPos.setValue(kate.configuration["commentStartPos"])
+        if COMMENT_START_POS in kate.configuration:
+            self.commentStartPos.setValue(kate.configuration[COMMENT_START_POS])
 
     def defaults(self):
         self.commentStartPos.setValue(60)
@@ -755,14 +797,18 @@ class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
         self.changed.emit()
 
 
-@kate.configPage("Commentar Plugin", "Commentar Plugin Settings", icon="preferences-other")
+@kate.configPage(
+    i18nc('@action:inmenu', 'Commentar Plugin')
+  , i18nc('@title:group', 'Commentar Plugin Settings')
+  , icon="preferences-other"
+  )
 def commentarConfigPage(parent=None, name=None):
     return ConfigPage(parent, name)
 
 @kate.init
 def init():
     # Set default value if not configured yet
-    if "commentStartPos" not in kate.configuration:
-        kate.configuration["commentStartPos"] = 60
+    if COMMENT_START_POS not in kate.configuration:
+        kate.configuration[COMMENT_START_POS] = 60
 
 # kate: indent-width 4;

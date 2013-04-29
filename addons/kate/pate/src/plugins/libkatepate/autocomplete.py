@@ -38,6 +38,7 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
     MIMETYPES = []
     OPERATORS = []
     SEPARATOR = '.'
+    MAX_DESCRIPTION = 80
 
     def __init__(self, model, resultList=None):
         self.model = model
@@ -46,35 +47,38 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
 
     roles = {
         KTextEditor.CodeCompletionModel.CompletionRole:
-        KTextEditor.CodeCompletionModel.FirstProperty |
-        KTextEditor.CodeCompletionModel.Public |
-        KTextEditor.CodeCompletionModel.LastProperty |
-        KTextEditor.CodeCompletionModel.Prefix,
-        KTextEditor.CodeCompletionModel.ScopeIndex: 0,
-        KTextEditor.CodeCompletionModel.MatchQuality: 10,
-        KTextEditor.CodeCompletionModel.HighlightingMethod: None,
-        KTextEditor.CodeCompletionModel.InheritanceDepth: 0,
+            KTextEditor.CodeCompletionModel.FirstProperty
+          | KTextEditor.CodeCompletionModel.Public
+          | KTextEditor.CodeCompletionModel.LastProperty
+          | KTextEditor.CodeCompletionModel.Prefix
+      , KTextEditor.CodeCompletionModel.ScopeIndex: 0
+      , KTextEditor.CodeCompletionModel.MatchQuality: 10
+      , KTextEditor.CodeCompletionModel.HighlightingMethod: None
+      , KTextEditor.CodeCompletionModel.InheritanceDepth: 0
     }
 
     @classmethod
     def createItemAutoComplete(cls, text, category='unknown', args=None, description=None):
-        icon_converter = {'package': 'code-block',
-                          'module': 'code-context',
-                          'unknown': 'unknown',
-                          'constant': 'code-variable',
-                          'class': 'code-class',
-                          'function': 'code-function',
-                          'pointer': 'unknown'}
-        max_description = 50
-        if description and len(description) > max_description:
+        icon_converter = {
+            'package' : 'code-block'
+          , 'module'  : 'code-context'
+          , 'unknown' : 'unknown'
+          , 'constant': 'code-variable'
+          , 'class'   : 'code-class'
+          , 'function': 'code-function'
+          , 'pointer' : 'unknown'
+          }
+        if description and 0 < cls.MAX_DESCRIPTION and len(description) > cls.MAX_DESCRIPTION:
             description = description.strip()
-            description = '%s...' % description[:max_description]
-        return {'text': text,
-                'icon': icon_converter[category],
-                'category': category,
-                'args': args or '',
-                'type': category,
-                'description': description or ''}
+            description = description[:cls.MAX_DESCRIPTION] + '...'
+        return {
+            'text'       : text
+          , 'icon'       : icon_converter[category]
+          , 'category'   : category
+          , 'args'       : args or ''
+          , 'type'       : category
+          , 'description': description or ''
+          }
 
     def completionInvoked(self, view, word, invocationType):
         line_start = word.start().line()
@@ -145,6 +149,10 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
             return QModelIndex()
 
         return self.createIndex(row, column, 1)
+
+    def executeCompletionItem(self, document, word, row):
+        # TODO Why this method is not called???
+        pass
 
     def getLastExpression(self, line, operators=None):
         operators = operators or self.OPERATORS

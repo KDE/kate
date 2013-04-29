@@ -43,9 +43,9 @@ class FunctionIntervalTimer(QTimer):
         QTimer.__init__(self, parent)
         self.func = func
         self.args = args
-        self.connect(self, SIGNAL("timeout()"), self.timeOut)
+        self.connect(self, SIGNAL('timeout()'), self.timeOut)
         self.start(interval)
-    
+
     def timeOut(self):
         self.func(*self.args)
 
@@ -160,7 +160,7 @@ class TimeoutPassivePopup(QFrame):
         self.interval = None
         self.hasMouseOver = False
         self.timer = QTimer(self)
-        self.connect(self.timer, SIGNAL("timeout()"), self.updateProgress)
+        self.connect(self.timer, SIGNAL('timeout()'), self.updateProgress)
         layout = QVBoxLayout(self)
         layout.setMargin(self.frameWidth() + 7)
         layout.setSpacing(0)
@@ -210,13 +210,13 @@ class TimeoutPassivePopup(QFrame):
             self.timer.start(self.interval)
 
     def effectFinished(self, name):
-        if name == "slideInFromBottomLeft":
+        if name == 'slideInFromBottomLeft':
             # kickstart timeout
             interval = int(self.timeout * 1000) / 100
             self.interval = interval
             if not self.hasMouseOver:
                 self.timer.start(interval)
-        elif name == "slideOutFromBottomLeft":
+        elif name == 'slideOutFromBottomLeft':
             self.stackList.remove(self)
             self.deleteLater()
 
@@ -245,3 +245,4 @@ def popup(message, timeout, icon=None, maxTextWidth=None, minTextWidth=None, par
     popup.show()
     return popup
 
+# kate: space-indent on; indent-width 4;

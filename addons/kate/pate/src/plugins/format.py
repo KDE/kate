@@ -22,6 +22,7 @@
 
 import kate
 
+from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
 from libkatepate import ui
 
@@ -116,8 +117,11 @@ def getRangeTopology(breakChars):
                           )
                     else:
                         raise LookupError(
-                            "Misbalanced brackets: '(' @" + str(cl + 1) + ',' + str(cc + 1) +
-                            " and '>' @ " + str(nrl + 1) + ',' + str(nrc + 1)
+                            i18nc(
+                                '@info'
+                              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
+                                  .format(cl + 1, cc + 1, nrl + 1, nrc + 1)
+                              )
                           )
                 else:                                       # otherwise,
                     openPos = (cl, cc + 1, False)           # remember range start (exclude an open char)
@@ -145,10 +149,12 @@ def getRangeTopology(breakChars):
                         )
                     else:
                         raise LookupError(
-                            "Misbalanced brackets: '<' @" + str(cl + 1) + ',' + str(cc + 1) +
-                            " and ')' @ " + str(nrl + 1) + ',' + str(nrc + 1)
+                            i18nc(
+                                '@info'
+                              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
+                                  .format(cl + 1, cc + 1, nrl + 1, nrc + 1)
+                              )
                           )
-                        raise LookupError("Misbalanced brackets")
                 else:
                     openPos = (cl, cc + 1, True)            # remember range start (exclude an open char)
                     print("o< Found position: " + str(openPos))
@@ -195,8 +201,11 @@ def getRangeTopology(breakChars):
                         )
                     else:
                         raise LookupError(
-                            "Misbalanced brackets: '<' @" + str(nrl + 1) + ',' + str(nrc + 1) +
-                            " and ')' @ " + str(cl + 1) + ',' + str(cc + 1)
+                            i18nc(
+                                '@info'
+                              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
+                                  .format(nrl + 1, nrc + 1, cl + 1, cc + 1)
+                              )
                           )
                 else:
                     closePos = (cl, cc, False)              # remember the range end
@@ -224,8 +233,11 @@ def getRangeTopology(breakChars):
                         )
                     else:
                         raise LookupError(
-                            "Misbalanced brackets: '(' @" + str(nrl + 1) + ',' + str(nrc + 1) +
-                            " and '>' @ " + str(cl + 1) + ',' + str(cc + 1)
+                            i18nc(
+                                '@info'
+                              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
+                                  .format(nrl + 1, nrc + 1, cl + 1, cc + 1)
+                              )
                           )
                 else:
                     closePos = (cl, cc, True)               # remember the range end
@@ -246,8 +258,11 @@ def getRangeTopology(breakChars):
 
     if openPos[2] != closePos[2]:
         raise LookupError(
-            "Misbalanced brackets: at " + str(openPos[0] + 1) + ',' + str(openPos[1] + 1) +
-            " and " + str(closePos[0] + 1) + ',' + str(closePos[1] + 1)
+            i18nc(
+                '@info'
+              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
+                  .format(openPos[0] + 1, openPos[1] + 1, closePos[0] + 1, closePos[1] + 1)
+              )
           )
 
     return (KTextEditor.Range(openPos[0], openPos[1], closePos[0], closePos[1]), nestedRanges, breakPositions)
@@ -287,7 +302,10 @@ def boostFormatText(textRange, indent, breakPositions):
         document.replaceText(textRange, outText)
         document.endEditing()
 
-@kate.action('Boost-like Format Params', shortcut='Meta+F')
+@kate.action(
+    i18nc('@action:inmenu `boost`, means http://boost.org library', 'Boost-like Format Params')
+  , shortcut='Meta+F'
+  )
 @check_constraints
 @has_selection(False)
 @selection_mode(selection.NORMAL)
@@ -303,14 +321,25 @@ def boostFormat():
     try:
         r, nestedRanges, breakPositions = getRangeTopology(',')
     except LookupError as error:
-        ui.popup("Failed to parse C++ expression", str(error), "face-sad")
+        ui.popup(
+            i18nc('@title:window', 'Alert')
+          , i18nc(
+                '@info:tooltip'
+              , 'Failed to parse C++ expression:<nl/><message>{}</message>'.format(error)
+              )
+          , 'dialog-information'
+          )
         return
 
     if r.isEmpty():                                         # Is range empty?
         ui.popup(
-            "Failed to parse C++ expression"
-          , "Didn't found anything to format. Sorry..."
-          , "face-sad"
+            i18nc('@title:window', 'Alert')
+          , i18nc(
+                '@info:tooltip'
+              , 'Failed to parse C++ expression:<nl/><message>{}</message>'
+                  .format(i18nc('@info:tooltip', "Didn't found anything to format"))
+              )
+          , 'dialog-information'
           )
         return                                              # Nothing interesting wasn't found...
 
@@ -319,7 +348,14 @@ def boostFormat():
         try:
             r, nestedRanges, breakPositions = getRangeTopology(',;')
         except LookupError as error:
-            ui.popup("Failed to parse C++ expression", str(error), "face-sad")
+            ui.popup(
+                i18nc('@title:window', 'Alert')
+              , i18nc(
+                    '@info:tooltip'
+                  , 'Failed to parse C++ expression:<nl/><message>{}</message>'.format(error)
+                  )
+              , 'dialog-information'
+              )
             return
 
     # Going to format a text whithin a selected range
@@ -347,7 +383,7 @@ def boostUnformatText(textRange, breakPositions):
         document.endEditing()
 
 
-@kate.action('Unformat Function Params', shortcut='Meta+Shift+F')
+@kate.action(i18nc('@action:inmenu', 'Unformat Function Params'), shortcut='Meta+Shift+F')
 @check_constraints
 @has_selection(False)
 @selection_mode(selection.NORMAL)
@@ -359,14 +395,25 @@ def boostUnformat():
     try:
         r, nestedRanges, breakPositions = getRangeTopology(',')
     except LookupError as error:
-        ui.popup("Failed to parse C++ expression", str(error), "face-sad")
+        ui.popup(
+            i18nc('@title:window', 'Alert')
+          , i18nc(
+                '@info:tooltip'
+              , 'Failed to parse C++ expression:<nl/><message>{}</message>'.format(error)
+              )
+          , 'dialog-information'
+          )
         return
 
     if r.isEmpty():                                         # Is range empty?
         ui.popup(
-            "Failed to parse C++ expression"
-          , "Didn't found anything to format. Sorry"
-          , "face-sad"
+            i18nc('@title:window', 'Alert')
+          , i18nc(
+                '@info:tooltip'
+              , 'Failed to parse C++ expression:<nl/><message>{}</message>'
+                  .format(i18nc('@info:tooltip', "Didn't found anything to format"))
+              )
+          , 'dialog-information'
           )
         return                                              # Nothing interesting wasn't found...
 
@@ -375,7 +422,14 @@ def boostUnformat():
         try:
             r, nestedRanges, breakPositions = getRangeTopology(',;')
         except LookupError as error:
-            ui.popup("Failed to parse C++ expression", str(error), "face-sad")
+            ui.popup(
+                i18nc('@title:window', 'Alert')
+              , i18nc(
+                    '@info:tooltip'
+                  , 'Failed to parse C++ expression:<nl/><message>{}</message>'.format(error)
+                  )
+              , 'dialog-information'
+              )
             return
 
     # Going to unformat a text whithin a selected range

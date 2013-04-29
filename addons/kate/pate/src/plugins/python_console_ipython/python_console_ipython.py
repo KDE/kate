@@ -10,6 +10,7 @@ May need reworking with IPython 1.0 due to changed event loop
 
 import sys
 
+from PyKDE4.kdecore import i18n
 from libkatepate.errors import needs_packages
 
 sys.argv = [__file__]
@@ -107,9 +108,11 @@ def django_project_filename_changed(kernel_app):
                 else:
                     model_labels.append("%s (as %s)" % (model_name, alias))
             except AttributeError as e:
-                kernel_app.shell.run_cell('print("Failed to import \'%s\' from \'%s\' reason: %s)' % (model.__name__, app_name, str(e)))
+                msg = i18n("Failed to import \'%s\' from \'%s\' reason: %s") % (model.__name__, app_name, str(e))
+                kernel_app.shell.run_cell('print("%s")' % msg)
                 continue
-        print_imports += 'print("From \'%s\' autoload: %s");' % (app_mod.__name__.split('.')[-2], ", ".join(model_labels))
+        msg = i18n("From \'%s\' autoload: %s") % (app_mod.__name__.split('.')[-2], ", ".join(model_labels))
+        print_imports += 'print("%s");' % msg
     kernel_app.shell.run_cell(print_imports)
     return imported_objects
 
@@ -124,12 +127,13 @@ def projectFileNameChanged(*args, **kwargs):
         kernel_app = default_kernel_app()
         # Check Python version
         if not is_version_compatible(version):
-            msg = 'print("Can not load this project: %s. Python Version incompatible")' % projectName
-            kernel_app.shell.run_cell(msg)
+            msg = i18n("Can not load this project: %s. Python Version incompatible") % projectName
+            kernel_app.shell.run_cell('print("%s")' % msg)
             sys.stdout.flush()
             return
         kernel_app.shell.reset()
-        kernel_app.shell.run_cell('print("Load project: %s")' % projectName)
+        msg = i18n("Load project: %s") % projectName
+        kernel_app.shell.run_cell('print("%s")' % msg)
         extraPath = projectMapPython.get("extraPath", [])
         environs = projectMapPython.get("environs", {})
         # Add Extra path
@@ -162,9 +166,8 @@ def terminal_widget(parent=None, **kwargs):
     #update namespace
     kernel_app.shell.user_ns.update(kwargs)
     kernel_app.shell.user_ns['console'] = widget
-    kernel_app.shell.run_cell(
-        'print("\\nAvailable variables are everything from pylab, “{}”, and this console as “console”")'
-        .format('”, “'.join(kwargs.keys())))
+    msg = i18n("\\nAvailable variables are everything from pylab, “{}”, and this console as “console”").format('”, “'.join(kwargs.keys()))
+    kernel_app.shell.run_cell('print("%s")' % msg)
     projectPlugin = get_project_plugin()
     if projectPlugin:
         projectPlugin.projectFileNameChanged.connect(projectFileNameChanged)

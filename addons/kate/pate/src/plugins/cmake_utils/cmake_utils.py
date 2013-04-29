@@ -32,6 +32,8 @@ from PyQt4 import uic
 from PyQt4.QtCore import QEvent, QObject, Qt, pyqtSlot
 from PyQt4.QtGui import (
     QCheckBox
+  , QSizePolicy
+  , QSpacerItem
   , QSplitter
   , QTabWidget
   , QTextBrowser
@@ -50,12 +52,7 @@ import kate
 from libkatepate import ui, common
 from libkatepate.autocomplete import AbstractCodeCompletionModel
 
-from cmake_utils_settings import (
-    CMAKE_BINARY
-  , CMAKE_BINARY_DEFAULT
-  , CMAKE_UTILS_SETTINGS_UI
-  , PROJECT_DIR
-  )
+from cmake_utils_settings import *
 import cmake_help_parser
 
 
@@ -336,11 +333,9 @@ class CMakeToolView(QObject):
           ))
         self.cacheItems.setSortingEnabled(True)
         self.cacheItems.sortItems(0, Qt.AscendingOrder)
-        self.mode = QCheckBox('Advanced mode', cacheViewPage)
         layout_p1 = QVBoxLayout(cacheViewPage)
         layout_p1.addWidget(self.buildDir)
         layout_p1.addWidget(self.cacheItems)
-        layout_p1.addWidget(self.mode)
         tabs.addTab(cacheViewPage, i18nc('@title:tab', 'CMake Cache Viewer'))
         # Make a page w/ cmake help
         splitter = QSplitter(Qt.Horizontal, tabs)
@@ -352,11 +347,27 @@ class CMakeToolView(QObject):
         splitter.addWidget(self.helpTargets)
         splitter.addWidget(self.helpPage)
         tabs.addTab(splitter, i18nc('@title:tab', 'CMake Help'))
+        # Make a page w/ some instant settings
+        cfgPage = QWidget(tabs)
+        self.mode = QCheckBox(i18nc('@option:check', 'Show cache items marked as advanced'), cfgPage)
+        self.mode.setChecked(kate.configuration[TOOLVIEW_ADVANCED_MODE])
+        self.htmlize = QCheckBox(i18nc('@option:check', 'Try to beautify the help output'), cfgPage)
+        self.htmlize.setChecked(kate.configuration[TOOLVIEW_BEAUTIFY])
+        layout_p3 = QVBoxLayout(cfgPage)
+        layout_p3.addSpacerItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Minimum))
+        layout_p3.addWidget(self.mode)
+        layout_p3.addWidget(self.htmlize)
+        layout_p3.addSpacerItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Expanding))
+        tabs.addTab(cfgPage, i18nc('@title:tab', 'Toolview Settings'))
+        # TODO Store check-boxes state to configuration
 
         # Connect signals
         self.buildDir.returnPressed.connect(self.updateCacheView)
         self.buildDir.urlSelected.connect(self.updateCacheView)
         self.mode.toggled.connect(self.updateCacheView)
+        self.mode.toggled.connect(self.saveSettings)
+        self.htmlize.toggled.connect(self.updateHelpText)
+        self.htmlize.toggled.connect(self.saveSettings)
         self.helpTargets.itemClicked.connect(self.updateHelpText)
 
         # Refresh the cache view
@@ -379,9 +390,9 @@ class CMakeToolView(QObject):
 
 
     @pyqtSlot()
-    def updateCacheViewWithMode(self, is_advanced):
-        print('CMakeCC: TV: checked={}'.format(is_advanced))
-        self.updateCacheView()
+    def saveSettings(self):
+        kate.configuration[TOOLVIEW_ADVANCED_MODE] = self.mode.isChecked()
+        kate.configuration[TOOLVIEW_BEAUTIFY] = self.htmlize.isChecked()
 
 
     @pyqtSlot()
@@ -464,12 +475,45 @@ class CMakeToolView(QObject):
     @pyqtSlot()
     def updateHelpText(self):
         tgt = self.helpTargets.currentItem()
+        if tgt is None:
+            return
         parent = tgt.parent()
-        if parent is not None:
-            category = parent.type()
-            text = cmake_help_parser.get_help_on(category, tgt.text(0))
-            # TODO How we can buitify the text?
-            self.helpPage.setText('\n'.join(text.splitlines()[1:]))
+        if parent is None:
+            return
+
+        category = parent.type()
+        text = cmake_help_parser.get_help_on(category, tgt.text(0))
+
+        if not self.htmlize.isChecked():
+            self.helpPage.setText(text[text.index('\n') + 1:])
+            return
+
+        # TODO How *else* we can beautify the text?
+        lines = text.splitlines()[1:]
+        pre = False
+        para = True
+        for i, line in enumerate(lines):
+            # Remove '&', '<' and '>' from text
+            # TODO Use some HTML encoder instead of this...
+            lines[i] = line.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            #
+            if i == 0:
+                lines[0] = '<h1>{}</h1>'.format(line)
+            if line.startswith(' ' * cmake_help_parser.CMAKE_HELP_VARBATIM_TEXT_PADDING_SIZE):
+                if not pre:
+                    lines[i] = '<pre>' + line
+                    pre = True
+            elif len(line.strip()) == 0:
+                if pre:
+                    lines[i] = line + '</pre>'
+                    pre = False
+                elif para:
+                    lines[i] = line + '</p>'
+                    para = False
+                else:
+                    lines[i] = '<p>' + line
+                    para = True
+        self.helpPage.setText('\n'.join(lines))
 
 
 # ----------------------------------------------------------
@@ -562,6 +606,10 @@ def init():
         kate.configuration[CMAKE_BINARY] = CMAKE_BINARY_DEFAULT
     if PROJECT_DIR not in kate.configuration:
         kate.configuration[PROJECT_DIR] = ''
+    if TOOLVIEW_ADVANCED_MODE not in kate.configuration:
+        kate.configuration[TOOLVIEW_ADVANCED_MODE] = False
+    if TOOLVIEW_BEAUTIFY not in kate.configuration:
+        kate.configuration[TOOLVIEW_BEAUTIFY] = True
 
     print('CMakeCC: init: cmakeBinary='.format(kate.configuration[CMAKE_BINARY]))
 

@@ -28,6 +28,9 @@ import kate
 
 from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, CMAKE_BINARY_DEFAULT)
 
+
+CMAKE_HELP_VARBATIM_TEXT_PADDING_SIZE = 9
+
 _HELP_TARGETS = [
     'command', 'module', 'policy', 'property', 'variable'
   ]

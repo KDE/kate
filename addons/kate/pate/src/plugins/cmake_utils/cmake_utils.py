@@ -457,7 +457,11 @@ class CMakeToolView(QObject):
           , cmake_help_parser.help_category.COMMAND
           )
         for cmd in cmake_help_parser.get_cmake_commands_list():
-            c = QTreeWidgetItem(commands, [cmd])
+            c = QTreeWidgetItem(
+                commands
+              , [cmd]
+              , cmake_help_parser.help_category.HELP_ITEM
+              )
         #
         modules = QTreeWidgetItem(
             self.helpTargets
@@ -465,7 +469,11 @@ class CMakeToolView(QObject):
           , cmake_help_parser.help_category.MODULE
           )
         for mod in cmake_help_parser.get_cmake_modules_list():
-            m = QTreeWidgetItem(modules, [mod])
+            m = QTreeWidgetItem(
+                modules
+              , [mod]
+              , cmake_help_parser.help_category.HELP_ITEM
+              )
         #
         policies = QTreeWidgetItem(
             self.helpTargets
@@ -473,23 +481,49 @@ class CMakeToolView(QObject):
           , cmake_help_parser.help_category.POLICY
           )
         for pol in cmake_help_parser.get_cmake_policies_list():
-            p = QTreeWidgetItem(policies, [pol])
+            p = QTreeWidgetItem(
+                policies
+              , [pol]
+              , cmake_help_parser.help_category.HELP_ITEM
+              )
         #
         properties = QTreeWidgetItem(
             self.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Properties')]
           , cmake_help_parser.help_category.PROPERTY
           )
-        for prop in cmake_help_parser.get_cmake_properties_list():
-            p = QTreeWidgetItem(properties, [prop])
+        for subsection, props_list in cmake_help_parser.get_cmake_properties_list().items():
+            ss_item = QTreeWidgetItem(
+                properties
+              , [subsection]
+              , cmake_help_parser.help_category.PROPERTY
+              )
+            for prop in props_list:
+                v = QTreeWidgetItem(
+                    ss_item
+                  , [prop[0]]
+                  , cmake_help_parser.help_category.HELP_ITEM
+                  )
+                v.setToolTip(0, prop[1])
         #
         variables = QTreeWidgetItem(
             self.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Variables')]
           , cmake_help_parser.help_category.VARIABLE
           )
-        for var in cmake_help_parser.get_cmake_vars_list():
-            v = QTreeWidgetItem(variables, [var])
+        for subsection, vars_list in cmake_help_parser.get_cmake_vars_list().items():
+            ss_item = QTreeWidgetItem(
+                variables
+              , [subsection]
+              , cmake_help_parser.help_category.VARIABLE
+              )
+            for var in vars_list:
+                v = QTreeWidgetItem(
+                    ss_item
+                  , [var[0]]
+                  , cmake_help_parser.help_category.HELP_ITEM
+                  )
+                v.setToolTip(0, var[1])
 
         self.helpTargets.resizeColumnToContents(0)
 
@@ -497,7 +531,7 @@ class CMakeToolView(QObject):
     @pyqtSlot()
     def updateHelpText(self):
         tgt = self.helpTargets.currentItem()
-        if tgt is None:
+        if tgt is None or tgt.type() != cmake_help_parser.help_category.HELP_ITEM:
             return
         parent = tgt.parent()
         if parent is None:
@@ -553,9 +587,10 @@ class CMakeToolView(QObject):
             document.insertText(view.cursorPosition(), item.text(0))
             document.endEditing()
 
+
     @pyqtSlot(QTreeWidgetItem, int)
     def insertHelpItemIntoCurrentDocument(self,item, column):
-        if item is not None and item.parent() is not None and column == 0:
+        if item is not None and item.type() == cmake_help_parser.help_category.HELP_ITEM and column == 0:
             view = kate.activeView()
             document = kate.activeDocument()
             document.startEditing()

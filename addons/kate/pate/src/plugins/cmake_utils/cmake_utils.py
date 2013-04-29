@@ -430,9 +430,11 @@ class CMakeToolView(QObject):
         except ValueError as error:
             ui.popup(
                 i18nc('@title:window', 'Error')
-              , i18nc('@info:tooltip', 'Unable to get cache content:<nl/><message>{}</message>'.format(error))
+              , i18nc('@info:tooltip', 'Unable to get CMake cache content:<nl/><message>{}</message>'.format(error))
               , 'dialog-error'
               )
+            return
+
         # Add items to a list
         for key, value in items.items():
             item = QTreeWidgetItem(self.cacheItems, [key, value[1], value[0]])
@@ -511,24 +513,25 @@ class CMakeToolView(QObject):
         for i, line in enumerate(lines):
             # Remove '&', '<' and '>' from text
             # TODO Use some HTML encoder instead of this...
-            lines[i] = line.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            line = line.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
             #
             if i == 0:
-                lines[0] = '<h1>{}</h1>'.format(line)
-            if line.startswith(' ' * cmake_help_parser.CMAKE_HELP_VARBATIM_TEXT_PADDING_SIZE):
+                line = '<h1>{}</h1>'.format(line)
+            elif line.startswith(' ' * cmake_help_parser.CMAKE_HELP_VARBATIM_TEXT_PADDING_SIZE):
                 if not pre:
-                    lines[i] = '<pre>' + line
+                    line = '<pre>' + line
                     pre = True
             elif len(line.strip()) == 0:
                 if pre:
-                    lines[i] = line + '</pre>'
+                    line = line + '</pre>'
                     pre = False
                 elif para:
-                    lines[i] = line + '</p>'
+                    line = line + '</p>'
                     para = False
                 else:
-                    lines[i] = '<p>' + line
+                    line = '<p>' + line
                     para = True
+            lines[i] = line
         self.helpPage.setText('\n'.join(lines))
 
 

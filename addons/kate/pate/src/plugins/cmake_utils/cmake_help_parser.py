@@ -31,6 +31,7 @@ from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, CMAKE_BINARY_DEFAUL
 
 CMAKE_HELP_VARBATIM_TEXT_PADDING_SIZE = 9
 
+_CMAKE_CACHE_FILE = 'CMakeCache.txt'
 _HELP_TARGETS = [
     'command', 'module', 'policy', 'property', 'variable'
   ]
@@ -80,11 +81,12 @@ def _spawn_cmake_grab_stdout(args, cmake_executable = None):
     p = subprocess.Popen([cmake_bin] + args, stdout=subprocess.PIPE)
     out, err = p.communicate()
     if err:
-        print('CMake helper: running `{}` finished with errors:\n{}'.format(cmake_bin, err))
+        print('CMake helper: running `{} {}` finished with errors:\n{}'.format(cmake_bin, ' '.join(args), err))
         raise ValueError(
             i18nc(
                 '@item:intext'
-                , 'Running <command>{}</command> finished with errors:<nl/>{}'.format(cmake_bin, err)
+                , 'Running <command>{}</command> finished with errors:<nl/><message>{}</message>' \
+                    .format(cmake_bin, err)
                 )
             )
     return out
@@ -177,7 +179,7 @@ def get_help_on(category, target):
 
 @functools.lru_cache(maxsize=32)
 def get_cache_content(build_dir, is_advanced = False):
-    if os.path.isdir(build_dir):
+    if os.path.isdir(build_dir) and os.path.exists(os.path.join(build_dir, _CMAKE_CACHE_FILE)):
         cwd = os.path.abspath(os.curdir)                    # Store current directory
         os.chdir(build_dir)                                 # Change to the build dir
         out = _spawn_cmake_grab_stdout(['-N'] + ['-LAH'] if is_advanced else ['-LH'])
@@ -204,8 +206,18 @@ def get_cache_content(build_dir, is_advanced = False):
     else:
         raise ValueError(
             i18nc(
-                '@item:intext'
-              , 'Specified project directory <filename>{}</filename> is invalid'.format(build_dir)
+                '@item:intext/plain'
+                # BUG Using <filename> tag here leads to the following error:
+                # (in cmake_utils.py @ _updateCacheView() around line 433)
+                #
+                # UnicodeEncodeError: 'ascii' codec can't encode character '\u2018' in position 57:
+                # ordinal not in range(128)
+                #
+                # Cuz it transformed to UTF chars, and next call to i18nc() fails due assume
+                # the string must be ASCII? Looks like i18nc() is not unicode aware...
+                #
+                # TODO WTF? What to do?
+              , "Specified path {} doesn't looks like a CMake build directory".format(build_dir)
               )
           )
 

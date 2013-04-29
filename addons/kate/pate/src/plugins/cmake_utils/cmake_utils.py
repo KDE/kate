@@ -24,12 +24,13 @@ import imp
 import functools
 import glob
 import os
+import re
 import subprocess
 import sys
 import types
 
 from PyQt4 import uic
-from PyQt4.QtCore import QEvent, QObject, Qt, pyqtSlot
+from PyQt4.QtCore import QEvent, QObject, QUrl, Qt, pyqtSlot
 from PyQt4.QtGui import (
     QCheckBox
   , QSizePolicy
@@ -43,7 +44,7 @@ from PyQt4.QtGui import (
   , QWidget
   )
 
-from PyKDE4.kdecore import i18nc
+from PyKDE4.kdecore import i18nc, KUrl
 from PyKDE4.kio import KFile, KUrlRequester
 from PyKDE4.ktexteditor import KTextEditor
 
@@ -347,6 +348,8 @@ class CMakeToolView(QObject):
         self.updateHelpIndex()                              # Prepare Help view
         self.helpPage = QTextBrowser(splitter)
         self.helpPage.setReadOnly(True)
+        self.helpPage.setOpenExternalLinks(False)
+        self.helpPage.setOpenLinks(False)
         splitter.addWidget(self.helpTargets)
         splitter.addWidget(self.helpPage)
         tabs.addTab(splitter, i18nc('@title:tab', 'CMake Help'))
@@ -385,6 +388,7 @@ class CMakeToolView(QObject):
         self.htmlize.toggled.connect(self.saveSettings)
         self.helpTargets.itemActivated.connect(self.updateHelpText)
         self.helpTargets.itemDoubleClicked.connect(self.insertHelpItemIntoCurrentDocument)
+        self.helpPage.anchorClicked.connect(self.openDocument)
 
         # Refresh the cache view
         self._updateCacheView(self.buildDir.text())
@@ -508,12 +512,17 @@ class CMakeToolView(QObject):
 
         # TODO How *else* we can beautify the text?
         lines = text.splitlines()[1:]
+        file_link_re = re.compile('Defined in: (.*)')
+        file_link_sb = 'Defined in: <a href="file://\\1">\\1</a>'
         pre = False
         para = True
         for i, line in enumerate(lines):
             # Remove '&', '<' and '>' from text
             # TODO Use some HTML encoder instead of this...
             line = line.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            #
+            if line.lstrip().startswith('Defined in: '):
+                line = file_link_re.sub(file_link_sb, line)
             #
             if i == 0:
                 line = '<h1>{}</h1>'.format(line)
@@ -552,6 +561,22 @@ class CMakeToolView(QObject):
             document.startEditing()
             document.insertText(view.cursorPosition(), item.text(0))
             document.endEditing()
+
+
+    @pyqtSlot(QUrl)
+    def openDocument(self, url):
+        local_file = url.toLocalFile()
+        print('CMakeCC: going to open the document: {}'.format(local_file))
+        if os.access(local_file, os.R_OK):
+            document = kate.documentManager.openUrl(KUrl(url))
+            document.setReadWrite(os.access(local_file, os.W_OK))
+            kate.application.activeMainWindow().activateView(document)
+        else:
+            ui.popup(
+                i18nc('@title:window', 'Error')
+              , i18nc('@info:tooltip', 'Unable to open the document: <filename>{}</filename>'.format(local_file))
+              , 'dialog-error'
+              )
 
 
 # ----------------------------------------------------------

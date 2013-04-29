@@ -340,6 +340,9 @@ class CMakeToolView(QObject):
         # Make a page w/ cmake help
         splitter = QSplitter(Qt.Horizontal, tabs)
         self.helpTargets = QTreeWidget(splitter)
+        self.helpTargets.setToolTip(
+            i18nc('@info:tooltip', 'Double-click to insert the current item to a document')
+          )
         self.helpTargets.headerItem().setHidden(True)
         self.updateHelpIndex()                              # Prepare Help view
         self.helpPage = QTextBrowser(splitter)
@@ -381,6 +384,7 @@ class CMakeToolView(QObject):
         self.htmlize.toggled.connect(self.updateHelpText)
         self.htmlize.toggled.connect(self.saveSettings)
         self.helpTargets.itemActivated.connect(self.updateHelpText)
+        self.helpTargets.itemDoubleClicked.connect(self.insertHelpItemIntoCurrentDocument)
 
         # Refresh the cache view
         self._updateCacheView(self.buildDir.text())
@@ -536,6 +540,16 @@ class CMakeToolView(QObject):
             document.startEditing()
             document.insertText(view.cursorPosition(), item.text(0))
             document.endEditing()
+
+    @pyqtSlot(QTreeWidgetItem, int)
+    def insertHelpItemIntoCurrentDocument(self,item, column):
+        if item is not None and item.parent() is not None and column == 0:
+            view = kate.activeView()
+            document = kate.activeDocument()
+            document.startEditing()
+            document.insertText(view.cursorPosition(), item.text(0))
+            document.endEditing()
+
 
 # ----------------------------------------------------------
 # CMake utils: configuration stuff

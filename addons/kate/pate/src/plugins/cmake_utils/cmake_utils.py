@@ -29,9 +29,11 @@ import sys
 import types
 
 from PyQt4 import uic
-from PyQt4.QtGui import *
+from PyQt4.QtCore import QEvent, QObject, Qt, pyqtSlot
+from PyQt4.QtGui import QWidget, QCheckBox, QTextBrowser, QTreeWidget, QTreeWidgetItem, QTabWidget, QVBoxLayout
 
 from PyKDE4.kdecore import i18nc
+from PyKDE4.kio import KFile, KUrlRequester
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
@@ -39,9 +41,20 @@ import kate
 from libkatepate import ui, common
 from libkatepate.autocomplete import AbstractCodeCompletionModel
 
-from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, CMAKE_BINARY_DEFAULT, CMAKE_UTILS_SETTINGS_UI)
+from cmake_utils_settings import (
+    CMAKE_BINARY
+  , PROJECT_DIR
+  , CMAKE_BINARY_DEFAULT
+  , CMAKE_UTILS_SETTINGS_UI
+  )
 import cmake_help_parser
 
+
+cmakeToolView = None
+
+# ----------------------------------------------------------
+# CMake utils: completion stuff
+# ----------------------------------------------------------
 
 class CMakeCompletionModel(AbstractCodeCompletionModel):
     '''Completion model for CMake files'''
@@ -271,7 +284,125 @@ def _reset(*args, **kwargs):
 
 
 # ----------------------------------------------------------
-# Plugin configuration stuff
+# CMake utils: toolview
+# ----------------------------------------------------------
+
+class CMakeToolView(QObject):
+    '''CMake tool view class
+
+        TODO Remember last dir/position/is-advanced?
+        TODO Make the cache view editable and run `cmake` to reconfigure
+    '''
+    cmakeCache = []
+
+    def __init__(self, parent):
+        super(CMakeToolView, self).__init__(parent)
+        self.toolView = kate.mainInterfaceWindow().createToolView(
+            'cmake_utils'
+          , kate.Kate.MainWindow.Bottom
+          , kate.gui.loadIcon('cmake')
+          , i18nc('@title:tab', 'CMake')
+          )
+        self.toolView.installEventFilter(self)
+        # By default, the toolview has box layout, which is not easy to delete.
+        # For now, just add an extra widget.
+        tabs = QTabWidget(self.toolView)
+        # Make a page to view cmake cache
+        cacheViewPage = QWidget(tabs)
+        self.buildDir = KUrlRequester(cacheViewPage)
+        self.buildDir.setText(kate.configuration[PROJECT_DIR])
+        # TODO It seems not only KTextEditor's SIP files are damn out of date...
+        # KUrlRequester actually *HAS* setPlaceholderText() method... but damn SIP
+        # files for KIO are damn out of date either! A NEW BUG NEEDS TO BE ADDED!
+        # (but I have fraking doubts that it will be closed next few damn years)
+        #
+        #self.buildDir.setPlaceholderText(i18nc('@info', 'Project build directory'))
+        self.buildDir.lineEdit().setPlaceholderText(i18nc('@info/plain', 'Project build directory'))
+        self.buildDir.setMode(KFile.Mode(KFile.Directory | KFile.ExistingOnly | KFile.LocalOnly))
+        self.cacheItems = QTreeWidget(cacheViewPage)
+        self.cacheItems.setHeaderLabels((
+            i18nc('@title:column', 'Name')
+          , i18nc('@title:column', 'Type')
+          , i18nc('@title:column', 'Value')
+          ))
+        self.cacheItems.setSortingEnabled(True)
+        self.cacheItems.sortItems(0, Qt.AscendingOrder)
+        self.mode = QCheckBox('Advanced mode', cacheViewPage)
+        layout_p1 = QVBoxLayout(cacheViewPage)
+        layout_p1.addWidget(self.buildDir)
+        layout_p1.addWidget(self.cacheItems)
+        layout_p1.addWidget(self.mode)
+        tabs.addTab(cacheViewPage, i18nc('@title:tab', 'CMake Cache Viewer'))
+        # Make a page w/ cmake help
+        helpViewPage = QWidget(tabs)
+        self.helpPage = QTextBrowser(helpViewPage)
+        layout_p2 = QVBoxLayout(helpViewPage)
+        layout_p2.addWidget(self.helpPage)
+        tabs.addTab(helpViewPage, i18nc('@title:tab', 'CMake Help'))
+
+        # Connect signals
+        self.buildDir.returnPressed.connect(self.updateCacheView)
+        self.buildDir.urlSelected.connect(self.updateCacheView)
+        self.mode.toggled.connect(self.updateCacheView)
+        # Refresh the view
+        self._updateCacheView(self.buildDir.text())
+
+
+    def __del__(self):
+        """Plugins that use a toolview need to delete it for reloading to work."""
+        if self.toolView:
+            self.toolView.deleteLater()
+            self.toolView = None
+
+
+    def eventFilter(self, obj, event):
+        """Hide the Palette tool view on ESCAPE key"""
+        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Escape:
+            kate.mainInterfaceWindow().hideToolView(self.toolView)
+            return True
+        return self.toolView.eventFilter(obj, event)
+
+
+    @pyqtSlot()
+    def updateCacheViewWithMode(self, is_advanced):
+        print('CMakeCC: TV: checked={}'.format(is_advanced))
+        self.updateCacheView()
+
+
+    @pyqtSlot()
+    def updateCacheView(self):
+        self._updateCacheView(self.buildDir.text())
+
+
+    def _updateCacheView(self, build_dir):
+        # Do nothing if build dir is not configured
+        if not build_dir:
+            return
+
+        self.cacheItems.clear()                             # Remove previously collected cache
+        is_advanced = self.mode.isChecked()
+
+        try:
+            items = cmake_help_parser.get_cache_content(build_dir, is_advanced)
+            print('CMakeCC: update cache view: result={}'.format(items))
+        except ValueError as error:
+            ui.popup(
+                i18nc('@title:window', 'Error')
+              , i18nc('@info:tooltip', 'Unable to get cache content:<nl/><message>{}</message>'.format(error))
+              , 'dialog-error'
+              )
+        # Add items to a list
+        for key, value in items.items():
+            item = QTreeWidgetItem(self.cacheItems, [key, value[1], value[0]])
+            item.setToolTip(0, value[2])
+
+        self.cacheItems.resizeColumnToContents(0)
+        self.cacheItems.resizeColumnToContents(1)
+        self.cacheItems.resizeColumnToContents(2)
+
+
+# ----------------------------------------------------------
+# CMake utils: configuration stuff
 # ----------------------------------------------------------
 
 class CMakeConfigWidget(QWidget):
@@ -335,7 +466,7 @@ class CMakeConfigPage(kate.Kate.PluginConfigPage, QWidget):
 @kate.configPage(
     i18nc('@action:inmenu', 'CMake Helper Plugin')
   , i18nc('@title:group', 'CMake Helper Settings')
-  , icon='preferences-other'
+  , icon='cmake'
   )
 def cmakeConfigPage(parent=None, name=None):
     return CMakeConfigPage(parent, name)
@@ -350,12 +481,10 @@ def createSignalAutocompleteCMake(view=None, *args, **kwargs):
             cci.registerCompletionModel(cmake_completation_model)
     except:
         print('CMake Helper Plugin: Unable to get an active view')
-        pass
 
 
 @kate.init
 def init():
-    pass
     # Set default value if not configured yet
     print('CMakeCC: enter init')
     if CMAKE_BINARY not in kate.configuration:
@@ -368,6 +497,19 @@ def init():
     # Initialize completion model
     createSignalAutocompleteCMake()
 
+    # Make an instance of a cmake tool view
+    global cmakeToolView
+    if cmakeToolView is None:
+        cmakeToolView = CMakeToolView(kate.mainWindow())
+
+
+@kate.unload
+def destroy():
+    '''Plugins that use a toolview need to delete it for reloading to work.'''
+    global cmakeToolView
+    if cmakeToolView:
+        cmakeToolView.__del__()
+        cmakeToolView = None
 
 cmake_completation_model = CMakeCompletionModel(kate.application)
 cmake_completation_model.modelReset.connect(_reset)

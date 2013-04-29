@@ -55,7 +55,7 @@ def _spawn_cmake_grab_stdout(args, cmake_executable = None):
         else:
             raise ValueError(
                 i18nc(
-                    '@info:tooltip'
+                    '@item:intext'
                   , 'CMake executable is not configured'
                   )
               )
@@ -68,7 +68,7 @@ def _spawn_cmake_grab_stdout(args, cmake_executable = None):
         print('CMake helper: running `{}` finished with errors:\n{}'.format(cmake_bin, err))
         raise ValueError(
             i18nc(
-                '@info:tooltip'
+                '@item:intext'
                 , 'Running <command>{}</command> finished with errors:<nl/>{}'.format(cmake_bin, err)
                 )
             )
@@ -87,14 +87,14 @@ def validate_cmake_executable(cmake_executable):
         if not lines or lines[0].count('cmake') == 0:
             raise ValueError(
                 i18nc(
-                    '@info:tooltip'
+                    '@item:intext'
                   , 'Specified CMake executable <command>{}</command> looks invalid'.format(cmake_executable)
                   )
               )
     else:
         raise ValueError(
             i18nc(
-                '@info:tooltip'
+                '@item:intext'
               , 'Specified CMake executable <command>{}</command> not found'.format(cmake_executable)
               )
           )
@@ -123,5 +123,39 @@ def get_cmake_properties():
     out = _spawn_cmake_grab_stdout(['--help-properties'])
     return _parse_cmake_help(out)
 
+
+@functools.lru_cache(maxsize=32)
+def get_cache_content(build_dir, is_advanced = False):
+    if os.path.isdir(build_dir):
+        cwd = os.path.abspath(os.curdir)                    # Store current directory
+        os.chdir(build_dir)                                 # Change to the build dir
+        out = _spawn_cmake_grab_stdout(['-N'] + ['-LAH'] if is_advanced else ['-LH'])
+        # Back to the previous dir
+        os.chdir(cwd)
+        # Parse cache
+        result = {}
+        comment = None
+        for line in out.decode('utf-8').splitlines():
+            sline = line.strip()
+            if sline.startswith('// '):
+                comment = sline[3:]
+            elif comment != None:
+                assert(sline)                               # Line expected to be non empty
+                key_end_idx= sline.index(':')
+                type_end_idx = sline.index('=')
+                result[sline[:key_end_idx]] = (
+                    sline[type_end_idx + 1:]
+                  , sline[key_end_idx + 1:type_end_idx]
+                  , comment
+                  )
+                comment = None
+        return result
+    else:
+        raise ValueError(
+            i18nc(
+                '@item:intext'
+              , 'Specified project directory <filename>{}</filename> is invalid'.format(build_dir)
+              )
+          )
 
 # kate: indent-width 4;

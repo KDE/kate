@@ -155,7 +155,7 @@ class ColorRangePair:
 
 
 class PaletteView(QObject):
-    """A toolvide to display palette of the current document"""
+    """A toolview to display palette of the current document"""
     colors = []
     toolView = None
     colorCellsWidget = None

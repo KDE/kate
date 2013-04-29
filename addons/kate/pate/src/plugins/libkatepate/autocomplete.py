@@ -24,6 +24,7 @@ import os
 from PyKDE4.kdecore import i18n
 from PyKDE4.kdeui import KIcon
 from PyKDE4.ktexteditor import KTextEditor
+
 from PyQt4.QtCore import QModelIndex, QSize, Qt
 
 try:
@@ -32,7 +33,10 @@ except ImportError:
     import json
 
 
-class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
+CCM = KTextEditor.CodeCompletionModel
+
+
+class AbstractCodeCompletionModel(CCM):
 
     TITLE_AUTOCOMPLETION = i18n('Autopate')
     MIMETYPES = []
@@ -46,39 +50,35 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
         self.resultList = []
 
     roles = {
-        KTextEditor.CodeCompletionModel.CompletionRole:
-            KTextEditor.CodeCompletionModel.FirstProperty
-          | KTextEditor.CodeCompletionModel.Public
-          | KTextEditor.CodeCompletionModel.LastProperty
-          | KTextEditor.CodeCompletionModel.Prefix
-      , KTextEditor.CodeCompletionModel.ScopeIndex: 0
-      , KTextEditor.CodeCompletionModel.MatchQuality: 10
-      , KTextEditor.CodeCompletionModel.HighlightingMethod: None
-      , KTextEditor.CodeCompletionModel.InheritanceDepth: 0
+        CCM.CompletionRole: CCM.FirstProperty | CCM.Public | CCM.LastProperty | CCM.Prefix,
+        CCM.ScopeIndex: 0,
+        CCM.MatchQuality: 10,
+        CCM.HighlightingMethod: None,
+        CCM.InheritanceDepth: 0
     }
 
     @classmethod
     def createItemAutoComplete(cls, text, category='unknown', args=None, description=None):
         icon_converter = {
-            'package' : 'code-block'
-          , 'module'  : 'code-context'
-          , 'unknown' : 'unknown'
-          , 'constant': 'code-variable'
-          , 'class'   : 'code-class'
-          , 'function': 'code-function'
-          , 'pointer' : 'unknown'
-          }
+            'package': 'code-block',
+            'module': 'code-context',
+            'unknown': 'unknown',
+            'constant': 'code-variable',
+            'class': 'code-class',
+            'function': 'code-function',
+            'pointer': 'unknown'
+        }
         if description and 0 < cls.MAX_DESCRIPTION and len(description) > cls.MAX_DESCRIPTION:
             description = description.strip()
             description = description[:cls.MAX_DESCRIPTION] + '...'
         return {
-            'text'       : text
-          , 'icon'       : icon_converter[category]
-          , 'category'   : category
-          , 'args'       : args or ''
-          , 'type'       : category
-          , 'description': description or ''
-          }
+            'text': text,
+            'icon': icon_converter[category],
+            'category': category,
+            'args': args or '',
+            'type': category,
+            'description': description or ''
+        }
 
     def completionInvoked(self, view, word, invocationType):
         line_start = word.start().line()
@@ -101,21 +101,21 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
         if not index.parent().isValid():
             return self.TITLE_AUTOCOMPLETION
         item = self.resultList[index.row()]
-        if index.column() == KTextEditor.CodeCompletionModel.Name:
+        if index.column() == CCM.Name:
             if role == Qt.DisplayRole:
                 return item['text']
             try:
                 return self.roles[role]
             except KeyError:
                 pass
-        elif index.column() == KTextEditor.CodeCompletionModel.Icon:
+        elif index.column() == CCM.Icon:
             if role == Qt.DecorationRole:
                 return KIcon(item["icon"]).pixmap(QSize(16, 16))
-        elif index.column() == KTextEditor.CodeCompletionModel.Arguments:
+        elif index.column() == CCM.Arguments:
             item_args = item.get("args", None)
             if role == Qt.DisplayRole and item_args:
                 return item_args
-        elif index.column() == KTextEditor.CodeCompletionModel.Postfix:
+        elif index.column() == CCM.Postfix:
             item_description = item.get("description", None)
             if role == Qt.DisplayRole and item_description:
                 return item_description
@@ -145,7 +145,7 @@ class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
                 return QModelIndex()
         elif parent.parent().isValid():
             return QModelIndex()
-        if row < 0 or row >= len(self.resultList) or column < 0 or column >= KTextEditor.CodeCompletionModel.ColumnCount:
+        if row < 0 or row >= len(self.resultList) or column < 0 or column >= CCM.ColumnCount:
             return QModelIndex()
 
         return self.createIndex(row, column, 1)

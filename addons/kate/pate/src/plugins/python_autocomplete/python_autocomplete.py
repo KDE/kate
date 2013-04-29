@@ -19,9 +19,10 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/autocomplete/autocomplete.py>
 
+from PyKDE4.kdecore import i18n
 from libkatepate.errors import needs_python_version, needs_packages
 
-needs_python_version(major=2, text="The python autocomplete plugin only is available to Python 2")
+needs_python_version(major=2, text=i18n("The python autocomplete plugin only is available to Python 2"))
 needs_packages({"pysmell": "0.7.3",
                 "pyplete": "0.0.5"})
 
@@ -52,7 +53,7 @@ python_path = []
 
 class PythonCodeCompletionModel(AbstractCodeCompletionModel):
 
-    TITLE_AUTOCOMPLETION = "Python Auto Complete"
+    TITLE_AUTOCOMPLETION = i18n("Python autocomplete")
     MIMETYPES = ['text/plain', 'text/x-python']
     OPERATORS = ["=", " ", "[", "]", "(", ")", "{", "}", ":", ">", "<",
                  "+", "-", "*", "/", "%", " and ", " or ", ","]
@@ -140,13 +141,13 @@ class PythonCodeCompletionModel(AbstractCodeCompletionModel):
         f = e.filename or ''
         text = e.text
         line = e.lineno
-        message = 'There was a syntax error in this file:'
+        message = i18n('There was a syntax error in this file:')
         if f:
-            message = '%s\n  * file: %s' % (message, f)
+            message = i18n('%s\n  * file: %s') % (message, f)
         if text:
-            message = '%s\n  * text: %s' % (message, text)
+            message = i18n('%s\n  * text: %s') % (message, text)
         if line:
-            message = '%s\n  * line: %s' % (message, line)
+            message = i18n('%s\n  * line: %s') % (message, line)
         showError(message)
 
     def _parseText(self, view, word, line):

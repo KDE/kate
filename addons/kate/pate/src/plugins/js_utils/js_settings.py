@@ -14,6 +14,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+from PyKDE4.kdecore import i18n
+
 from libkatepate import text
 
 JS_MENU = 'JavaScript'
@@ -26,14 +28,14 @@ KATE_ACTIONS = {'insertReady': {'text': 'jQuery Ready',
                                 'shortcut': 'Alt+9',
                                 'menu': JS_MENU,
                                 'icon': None},
-                'togglePrettyJsonFormat': {'text': 'Pretty Json',
+                'togglePrettyJsonFormat': {'text': i18n('Pretty Json'),
                                            'shortcut': 'Ctrl+Alt+J',
                                            'menu': JS_MENU,
                                            'icon': None},
                 }
 
 KATE_CONFIG = {'name': 'js_utils',
-               'fullName': 'JavaScript Utils',
+               'fullName': i18n('JavaScript Utils'),
                'icon': 'application-x-javascript'}
 _INDENT_JSON_CFG = 'JSUtils:indentJSON'
 _ENCODING_JSON_CFG = 'JSUtils:encodingJSON'

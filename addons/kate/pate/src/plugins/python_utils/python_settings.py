@@ -16,32 +16,33 @@
 
 import kate
 
+from PyKDE4.kdecore import i18n
 from libkatepate.menu import move_menu_submenu, separated_menu
 
 PY_MENU = "Python"
-PY_CHECKERS = "Checkers"
+PY_CHECKERS = i18n("Checkers")
 
 KATE_ACTIONS = {
     'insertIPDB': {'text': 'ipdb', 'shortcut': 'Ctrl+I',
                    'menu': PY_MENU, 'icon': 'tools-report-bug'},
-    'insertInit': {'text': '__init__', 'shortcut': 'Ctrl+-',
+    'insertInit': {'text': i18n('__init__ method'), 'shortcut': 'Ctrl+-',
                    'menu': PY_MENU, 'icon': None},
-    'insertSuper': {'text': 'super', 'shortcut': 'Alt+-',
+    'insertSuper': {'text': i18n('call super'), 'shortcut': 'Alt+-',
                     'menu': PY_MENU, 'icon': None},
-    'callRecursive': {'text': 'call recursive', 'shortcut': 'Ctrl+Alt+-',
+    'callRecursive': {'text': i18n('call recursive'), 'shortcut': 'Ctrl+Alt+-',
                       'menu': PY_MENU, 'icon': None},
-    'checkAll': {'text': 'Check all', 'shortcut': 'Alt+5',
+    'checkAll': {'text': i18n('Check all'), 'shortcut': 'Alt+5',
                  'menu': PY_CHECKERS, 'icon': None},
     'checkPyflakes': {'text': 'Pyflakes', 'shortcut': 'Alt+7',
                       'menu': PY_CHECKERS, 'icon': None},
-    'parseCode': {'text': 'Syntax Errors', 'shortcut': 'Alt+6',
+    'parseCode': {'text': i18n('Syntax Errors'), 'shortcut': 'Alt+6',
                   'menu': PY_CHECKERS, 'icon': None},
     'checkPep8': {'text': 'Pep8', 'shortcut': 'Alt+8',
                   'menu': PY_CHECKERS, 'icon': None},
 }
 
 KATE_CONFIG = {'name': 'python_utils',
-               'fullName': 'Python Utils',
+               'fullName': i18n('Python Utils'),
                'icon': 'text-x-python'}
 
 _PEP8_CHECK_WHEN_SAVE = 'PythonUtils:checkPEP8WhenSave'

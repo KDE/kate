@@ -20,6 +20,8 @@
 import kate
 import re
 
+from PyKDE4.kdecore import i18n
+
 from libkatepate.autocomplete import AbstractJSONFileCodeCompletionModel, reset
 from js_settings import (DEFAULT_ENABLE_JS_AUTOCOMPLETE,
                          DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE,
@@ -30,7 +32,7 @@ from js_settings import (DEFAULT_ENABLE_JS_AUTOCOMPLETE,
 class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):
 
     MIMETYPES = ['application/javascript', 'text/html']
-    TITLE_AUTOCOMPLETION = "JS Auto Complete"
+    TITLE_AUTOCOMPLETION = i18n("JS autocomplete")
     # generated with autocomplete_js.gen
     FILE_PATH = 'js_autocomplete.json'
     OPERATORS = ["=", " ", "[", "]", "(", ")", "{", "}", ":", ">", "<",
@@ -42,14 +44,14 @@ class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):
 
     def getLastExpression(self, line, operators=None):
         expr = super(StaticJSCodeCompletionModel, self).getLastExpression(line,
-                                                           operators=operators)
+                                                                          operators=operators)
         if expr.startswith("window."):
             expr = expr.replace('window.', '', 1)
         return expr
 
 
 class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
-    TITLE_AUTOCOMPLETION = "jQuery Auto Complete"
+    TITLE_AUTOCOMPLETION = i18n("jQuery autocomplete")
     FILE_PATH = 'jquery_autocomplete.json'
     # generated with autocomplete_jquery.gen
 
@@ -70,7 +72,7 @@ class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
         if m:
             return m.groups()[1] or ''
         expr = super(StaticJSCodeCompletionModel, self).getLastExpression(line,
-                                                           operators=operators)
+                                                                          operators=operators)
         if expr.startswith("$."):
             expr = expr.replace('$.', 'jQuery.', 1)
         return expr

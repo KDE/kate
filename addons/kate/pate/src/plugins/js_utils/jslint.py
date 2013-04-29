@@ -23,6 +23,8 @@ import re
 
 import kate
 
+from PyKDE4.kdecore import i18n
+
 from pyjslint import check_JSLint
 
 from js_settings import (KATE_ACTIONS,
@@ -69,10 +71,10 @@ def checkJslint(currentDocument=None):
             })
 
     if len(errors_to_show) == 0:
-        showOk("JSLint Ok")
+        showOk(i18n("JSLint Ok"))
         return
 
-    showErrors('JSLint Errors:',
+    showErrors(i18n('JSLint Errors:'),
                errors_to_show,
                mark_key, currentDocument,
                move_cursor=move_cursor)

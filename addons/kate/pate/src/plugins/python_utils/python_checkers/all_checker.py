@@ -20,6 +20,7 @@
 
 import kate
 
+from PyKDE4.kdecore import i18n
 from libkatepate.errors import showError
 
 from python_checkers.utils import is_mymetype_python
@@ -78,7 +79,7 @@ def checkAll(doc=None, excludes=None, exclude_all=False):
             from python_checkers.pep8_checker import checkPep8
             checkPep8.f(currentDoc, refresh=False)
     if not doc and currentDoc.isModified() and not excludes:
-        showError('You must save the file first')
+        showError(i18n('You must save the file first'))
 
 
 @kate.init

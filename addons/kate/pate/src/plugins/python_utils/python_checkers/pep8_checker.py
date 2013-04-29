@@ -23,6 +23,8 @@ import sys
 import kate
 import pep8
 
+from PyKDE4.kdecore import i18n
+
 from libkatepate.errors import showOk, showErrors, showError
 
 from python_checkers.all_checker import checkAll
@@ -79,7 +81,7 @@ else:
 
 
 def saveFirst():
-    showError('You must save the file first')
+    showError(i18n('You must save the file first'))
 
 
 @kate.action(**KATE_ACTIONS['checkPep8'])
@@ -120,7 +122,7 @@ def checkPep8(currentDocument=None, refresh=True):
         checker.check_all()
         errors = checker.report.get_errors()
     if len(errors) == 0:
-        showOk('Pep8 Ok')
+        showOk(i18n('Pep8 Ok'))
         return
     errors_to_show = []
     # Paint errors found
@@ -130,7 +132,7 @@ def checkPep8(currentDocument=None, refresh=True):
             "column": error[1] + 1,
             "message": error[3],
         })
-    showErrors('Pep8 Errors:',
+    showErrors(i18n('Pep8 Errors:'),
                errors_to_show,
                mark_key,
                currentDocument,

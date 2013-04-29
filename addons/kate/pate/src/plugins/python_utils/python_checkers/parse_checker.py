@@ -17,13 +17,14 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/check_plugins/parse_plugins.py>
 
+import kate
+
 try:
     from compiler import parse
 except ImportError:
     from ast import parse
 
-import kate
-
+from PyKDE4.kdecore import i18n
 from libkatepate.errors import showOk, showErrors
 
 from python_checkers.all_checker import checkAll
@@ -45,12 +46,12 @@ def parseCode(doc=None, refresh=True):
     mark_key = '%s-parse-python' % doc.url().path()
     try:
         parse(text)
-        showOk('Parse code Ok')
+        showOk(i18n('Parse code Ok'))
     except SyntaxError as e:
         error = {}
         error['text'] = e.text
         error['line'] = e.lineno
-        showErrors('Parse code Errors:', [error], mark_key, doc,
+        showErrors(i18n('Parse code Errors:'), [error], mark_key, doc,
                    move_cursor=move_cursor)
 
 # kate: space-indent on; indent-width 4;

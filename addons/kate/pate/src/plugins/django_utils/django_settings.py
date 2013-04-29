@@ -14,26 +14,27 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
+from PyKDE4.kdecore import i18n
 
 DJ_MENU = "Django"
 
 KATE_ACTIONS = {
-    'createForm': {'text': 'Create Django Form', 'shortcut': 'Ctrl+Alt+F',
+    'createForm': {'text': i18n('Create Django Form'), 'shortcut': 'Ctrl+Alt+F',
                    'menu': DJ_MENU, 'icon': None},
-    'createModel': {'text': 'Create Django Model', 'shortcut': 'Ctrl+Alt+M',
+    'createModel': {'text': i18n('Create Django Model'), 'shortcut': 'Ctrl+Alt+M',
                     'menu': DJ_MENU, 'icon': None},
-    'importUrls': {'text': 'Template Django urls', 'shortcut': 'Ctrl+Alt+7',
+    'importUrls': {'text': i18n('Template Django urls'), 'shortcut': 'Ctrl+Alt+7',
                    'menu': DJ_MENU, 'icon': None},
-    'importViews': {'text': 'Template import views', 'shortcut': 'Ctrl+Alt+I',
+    'importViews': {'text': i18n('Template import views'), 'shortcut': 'Ctrl+Alt+I',
                     'menu': DJ_MENU, 'icon': None},
-    'createBlock': {'text': 'Template block', 'shortcut': 'Ctrl+Alt+B',
+    'createBlock': {'text': i18n('Template block'), 'shortcut': 'Ctrl+Alt+B',
                     'menu': DJ_MENU, 'icon': None},
-    'closeTemplateTag': {'text': 'Close Template tag', 'shortcut': 'Ctrl+Alt+C',
+    'closeTemplateTag': {'text': i18n('Close Template tag'), 'shortcut': 'Ctrl+Alt+C',
                          'menu': DJ_MENU, 'icon': None},
 }
 
 KATE_CONFIG = {'name': 'django_utils',
-               'fullName': 'Django Utils',
+               'fullName': i18n('Django Utils'),
                'icon': 'text-x-python'}
 
 _TEMPLATE_TAGS_CLOSE = 'DjangoUtils:tagsClose'

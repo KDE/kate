@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 # Kate/Pâté color plugins
 # Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>

@@ -21,6 +21,7 @@
 import inspect
 import os
 
+from PyKDE4.kdecore import i18n
 from PyKDE4.kdeui import KIcon
 from PyKDE4.ktexteditor import KTextEditor
 from PyQt4.QtCore import QModelIndex, QSize, Qt
@@ -33,7 +34,7 @@ except ImportError:
 
 class AbstractCodeCompletionModel(KTextEditor.CodeCompletionModel):
 
-    TITLE_AUTOCOMPLETION = 'Autopate'
+    TITLE_AUTOCOMPLETION = i18n('Autopate')
     MIMETYPES = []
     OPERATORS = []
     SEPARATOR = '.'

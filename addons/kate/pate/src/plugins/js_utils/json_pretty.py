@@ -28,6 +28,8 @@ except ImportError:
     import json
     LIB_JSON = 'standard'
 
+from PyKDE4.kdecore import i18n
+
 from libkatepate import text
 from libkatepate.errors import showError
 from js_settings import (KATE_ACTIONS,
@@ -45,7 +47,7 @@ def togglePrettyJsonFormat():
     source = view.selectionText()
     js_utils_conf = kate.configuration.root.get('js_utils', {})
     if not source:
-        showError('Please select a json text and press: %s' % KATE_ACTIONS['togglePrettyJsonFormat']['shortcut'])
+        showError(i18n('Please select a json text and press: %s') % KATE_ACTIONS['togglePrettyJsonFormat']['shortcut'])
     else:
         indent = js_utils_conf.get(_INDENT_JSON_CFG, DEFAULT_INDENT_JSON)
         encoding = js_utils_conf.get(_ENCODING_JSON_CFG, DEFAULT_ENCODING_JSON)
@@ -60,6 +62,6 @@ def togglePrettyJsonFormat():
             view.removeSelectionText()
             text.insertText(target)
         except ValueError as e:
-            showError('This selected text is not a valid json text: %s' % e.message)
+            showError(i18n('This selected text is not a valid json text: %s') % e.message)
 
 # kate: space-indent on; indent-width 4;

@@ -24,6 +24,8 @@ import kate
 import re
 import sys
 
+from PyKDE4.kdecore import i18n
+
 from pyflakes.checker import Checker
 from pyflakes.messages import Message
 
@@ -58,7 +60,7 @@ def pyflakes(codeString, filename):
             # Avoid using msg, since for the only known case, it contains a
             # bogus message that claims the encoding the file declared was
             # unknown.
-            msg = "Problem decoding source"
+            msg = i18n("Problem decoding source")
             lineno = 1
         error = Message(filename, lineno)
         error.message = msg + "%s"
@@ -89,7 +91,7 @@ def checkPyflakes(currentDocument=None, refresh=True):
     errors_to_show = []
 
     if len(errors) == 0:
-        showOk("Pyflakes Ok")
+        showOk(i18n("Pyflakes Ok"))
         return
 
     # Prepare errors found for painting
@@ -99,7 +101,7 @@ def checkPyflakes(currentDocument=None, refresh=True):
             "line": error.lineno,
         })
 
-    showErrors('Pyflakes Errors:', errors_to_show,
+    showErrors(i18n('Pyflakes Errors:'), errors_to_show,
                mark_key, currentDocument,
                move_cursor=move_cursor)
 

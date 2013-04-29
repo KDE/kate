@@ -20,6 +20,7 @@
 import kate
 import sys
 
+from PyKDE4.kdecore import i18n
 from PyKDE4.ktexteditor import KTextEditor
 
 
@@ -37,7 +38,7 @@ def needs_python_version(major, minor=None, micro=None, text=''):
 
 
 def needs_packages(packages):
-    msg = "You need install the next packages:\n"
+    msg = i18n("You need install the next packages:\n")
     import_error = False
     for package, version in packages.items():
         try:
@@ -47,8 +48,8 @@ def needs_packages(packages):
             if '==' in version:
                 package = version.split('==')[0]
                 version = version.split('==')[1]
-            msg += "\t%(package)s. Use easy_install (or pip install) %(package)s==%(version)s" % {'package': package,
-                                                                                                  'version': version}
+            msg += i18n("\t%(package)s. Use easy_install (or pip install) %(package)s==%(version)s") % {'package': package,
+                                                                                                        'version': version}
     if import_error:
         raise ImportError(msg)
 
@@ -107,7 +108,7 @@ def showErrors(message, errors, key_mark, doc, time=10, icon='dialog-warning',
     if show_popup:
         message = '%s\n%s' % (message, '\n'.join(messages_show))
         if len(messages_show) < len(errors):
-            message += '\n\nAnd other errors'
+            message += i18n('\n\nAnd other errors')
         showError(message, time, icon, minTextWidth=300)
 
 
@@ -140,9 +141,9 @@ def _generateErrorMessage(error, key_line='line', key_column='column', header=Tr
     if header or column:
         column = error.get(key_column, None)
         if column:
-            message = '~*~ Position: (%s, %s)' % (line, column)
+            message = i18n('~*~ Position: (%s, %s)') % (line, column)
         else:
-            message = '~*~ Line: %s' % line
+            message = i18n('~*~ Line: %s') % line
         message += ' ~*~'
     for key, value in error.items():
         if value and key not in exclude_keys:

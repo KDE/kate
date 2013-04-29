@@ -28,6 +28,18 @@ import kate
 
 from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, CMAKE_BINARY_DEFAULT)
 
+_HELP_TARGETS = [
+    'command', 'module', 'policy', 'property', 'variable'
+  ]
+
+
+class help_category:
+    COMMAND = _HELP_TARGETS.index('command')
+    MODULE = _HELP_TARGETS.index('module')
+    POLICY = _HELP_TARGETS.index('policy')
+    PROPERTY = _HELP_TARGETS.index('property')
+    VARIABLE = _HELP_TARGETS.index('variable')
+
 
 def _parse_cmake_help(out):
     # NOTE Ignore the 1st line wich is 'cmake version blah-blah' string
@@ -122,6 +134,42 @@ def get_cmake_policies():
 def get_cmake_properties():
     out = _spawn_cmake_grab_stdout(['--help-properties'])
     return _parse_cmake_help(out)
+
+
+@functools.lru_cache(maxsize=1)
+def get_cmake_vars_list():
+    out = _spawn_cmake_grab_stdout(['--help-variable-list'])
+    return out.decode('utf-8').splitlines()[1:]
+
+
+@functools.lru_cache(maxsize=1)
+def get_cmake_commands_list():
+    out = _spawn_cmake_grab_stdout(['--help-command-list'])
+    return out.decode('utf-8').splitlines()[1:]
+
+
+@functools.lru_cache(maxsize=1)
+def get_cmake_policies_list():
+    return [p[0] for p in get_cmake_policies()]
+
+
+@functools.lru_cache(maxsize=1)
+def get_cmake_properties_list():
+    out = _spawn_cmake_grab_stdout(['--help-property-list'])
+    return out.decode('utf-8').splitlines()[1:]
+
+
+@functools.lru_cache(maxsize=1)
+def get_cmake_modules_list():
+    out = _spawn_cmake_grab_stdout(['--help-module-list'])
+    return out.decode('utf-8').splitlines()[1:]
+
+
+@functools.lru_cache(maxsize=128)
+def get_help_on(category, target):
+    assert(0 <= category  and category < len(_HELP_TARGETS))
+    out = _spawn_cmake_grab_stdout(['--help-{}'.format(_HELP_TARGETS[category]), target])
+    return out.decode('utf-8')
 
 
 @functools.lru_cache(maxsize=32)

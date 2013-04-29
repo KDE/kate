@@ -30,7 +30,16 @@ import types
 
 from PyQt4 import uic
 from PyQt4.QtCore import QEvent, QObject, Qt, pyqtSlot
-from PyQt4.QtGui import QWidget, QCheckBox, QTextBrowser, QTreeWidget, QTreeWidgetItem, QTabWidget, QVBoxLayout
+from PyQt4.QtGui import (
+    QCheckBox
+  , QSplitter
+  , QTabWidget
+  , QTextBrowser
+  , QTreeWidget
+  , QTreeWidgetItem
+  , QVBoxLayout
+  , QWidget
+  )
 
 from PyKDE4.kdecore import i18nc
 from PyKDE4.kio import KFile, KUrlRequester
@@ -43,9 +52,9 @@ from libkatepate.autocomplete import AbstractCodeCompletionModel
 
 from cmake_utils_settings import (
     CMAKE_BINARY
-  , PROJECT_DIR
   , CMAKE_BINARY_DEFAULT
   , CMAKE_UTILS_SETTINGS_UI
+  , PROJECT_DIR
   )
 import cmake_help_parser
 
@@ -334,17 +343,23 @@ class CMakeToolView(QObject):
         layout_p1.addWidget(self.mode)
         tabs.addTab(cacheViewPage, i18nc('@title:tab', 'CMake Cache Viewer'))
         # Make a page w/ cmake help
-        helpViewPage = QWidget(tabs)
-        self.helpPage = QTextBrowser(helpViewPage)
-        layout_p2 = QVBoxLayout(helpViewPage)
-        layout_p2.addWidget(self.helpPage)
-        tabs.addTab(helpViewPage, i18nc('@title:tab', 'CMake Help'))
+        splitter = QSplitter(Qt.Horizontal, tabs)
+        self.helpTargets = QTreeWidget(splitter)
+        self.helpTargets.setHeaderLabel(i18nc('@title:column noun, the help', 'Help Targets'))
+        self.updateHelpIndex()                              # Prepare Help view
+        self.helpPage = QTextBrowser(splitter)
+        self.helpPage.setReadOnly(True)
+        splitter.addWidget(self.helpTargets)
+        splitter.addWidget(self.helpPage)
+        tabs.addTab(splitter, i18nc('@title:tab', 'CMake Help'))
 
         # Connect signals
         self.buildDir.returnPressed.connect(self.updateCacheView)
         self.buildDir.urlSelected.connect(self.updateCacheView)
         self.mode.toggled.connect(self.updateCacheView)
-        # Refresh the view
+        self.helpTargets.itemClicked.connect(self.updateHelpText)
+
+        # Refresh the cache view
         self._updateCacheView(self.buildDir.text())
 
 
@@ -399,6 +414,62 @@ class CMakeToolView(QObject):
         self.cacheItems.resizeColumnToContents(0)
         self.cacheItems.resizeColumnToContents(1)
         self.cacheItems.resizeColumnToContents(2)
+
+
+    def updateHelpIndex(self):
+        #
+        commands = QTreeWidgetItem(
+            self.helpTargets
+          , [i18nc('@item::inlistbox/plain', 'Commands')]
+          , cmake_help_parser.help_category.COMMAND
+          )
+        for cmd in cmake_help_parser.get_cmake_commands_list():
+            c = QTreeWidgetItem(commands, [cmd])
+        #
+        modules = QTreeWidgetItem(
+            self.helpTargets
+          , [i18nc('@item::inlistbox/plain', 'Modules')]
+          , cmake_help_parser.help_category.MODULE
+          )
+        for mod in cmake_help_parser.get_cmake_modules_list():
+            m = QTreeWidgetItem(modules, [mod])
+        #
+        policies = QTreeWidgetItem(
+            self.helpTargets
+          , [i18nc('@item::inlistbox/plain', 'Policies')]
+          , cmake_help_parser.help_category.POLICY
+          )
+        for pol in cmake_help_parser.get_cmake_policies_list():
+            p = QTreeWidgetItem(policies, [pol])
+        #
+        properties = QTreeWidgetItem(
+            self.helpTargets
+          , [i18nc('@item::inlistbox/plain', 'Properties')]
+          , cmake_help_parser.help_category.PROPERTY
+          )
+        for prop in cmake_help_parser.get_cmake_properties_list():
+            p = QTreeWidgetItem(properties, [prop])
+        #
+        variables = QTreeWidgetItem(
+            self.helpTargets
+          , [i18nc('@item::inlistbox/plain', 'Variables')]
+          , cmake_help_parser.help_category.VARIABLE
+          )
+        for var in cmake_help_parser.get_cmake_vars_list():
+            v = QTreeWidgetItem(variables, [var])
+
+        self.helpTargets.resizeColumnToContents(0)
+
+
+    @pyqtSlot()
+    def updateHelpText(self):
+        tgt = self.helpTargets.currentItem()
+        parent = tgt.parent()
+        if parent is not None:
+            category = parent.type()
+            text = cmake_help_parser.get_help_on(category, tgt.text(0))
+            # TODO How we can buitify the text?
+            self.helpPage.setText('\n'.join(text.splitlines()[1:]))
 
 
 # ----------------------------------------------------------

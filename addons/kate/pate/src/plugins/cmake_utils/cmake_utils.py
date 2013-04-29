@@ -340,7 +340,7 @@ class CMakeToolView(QObject):
         # Make a page w/ cmake help
         splitter = QSplitter(Qt.Horizontal, tabs)
         self.helpTargets = QTreeWidget(splitter)
-        self.helpTargets.setHeaderLabel(i18nc('@title:column noun, the help', 'Help Targets'))
+        self.helpTargets.headerItem().setHidden(True)
         self.updateHelpIndex()                              # Prepare Help view
         self.helpPage = QTextBrowser(splitter)
         self.helpPage.setReadOnly(True)
@@ -351,8 +351,19 @@ class CMakeToolView(QObject):
         cfgPage = QWidget(tabs)
         self.mode = QCheckBox(i18nc('@option:check', 'Show cache items marked as advanced'), cfgPage)
         self.mode.setChecked(kate.configuration[TOOLVIEW_ADVANCED_MODE])
+        self.mode.setToolTip(
+            i18nc('@info:tooltip', 'Same as <emphasis>advanced mode</emphasis> in <command>ccmake</command>')
+          )
         self.htmlize = QCheckBox(i18nc('@option:check', 'Try to beautify the help output'), cfgPage)
         self.htmlize.setChecked(kate.configuration[TOOLVIEW_BEAUTIFY])
+        self.htmlize.setToolTip(
+            i18nc(
+                '@info:tooltip'
+              , 'Try to turn plain ASCII text into HTML using simple structured text rules. ' \
+                'It works quite well for builtins, but sometimes may distorts results for others ' \
+                '(custom modules)!'
+              )
+          )
         layout_p3 = QVBoxLayout(cfgPage)
         layout_p3.addSpacerItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Minimum))
         layout_p3.addWidget(self.mode)

@@ -37,6 +37,16 @@ LocalsView::~LocalsView()
 {
 }
 
+void LocalsView::showEvent(QShowEvent *)
+{
+    emit localsVisible(true);
+}
+
+void LocalsView::hideEvent(QHideEvent *)
+{
+    emit localsVisible(false);
+}
+
 void LocalsView::createWrappedItem(QTreeWidgetItem *parent, const QString &name, const QString &value)
 {
     QTreeWidgetItem *item = new QTreeWidgetItem(parent, QStringList(name));

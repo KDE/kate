@@ -59,6 +59,8 @@ public Q_SLOTS:
     void slotKill();
     void slotReRun();
 
+    void slotQueryLocals(bool display);
+
 private Q_SLOTS:
     void slotError();
     void slotReadDebugStdOut();
@@ -135,6 +137,7 @@ private:
     QString             m_outBuffer;
     QString             m_errBuffer;
     QStringList         m_errorList;
+    bool                m_queryLocals;
 };
 
 #endif

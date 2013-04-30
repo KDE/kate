@@ -36,7 +36,14 @@ public Q_SLOTS:
     void addLocal(const QString &vString);
     void addStruct(QTreeWidgetItem *parent, const QString &vString);
     void addArray(QTreeWidgetItem *parent, const QString &vString);
-    
+
+Q_SIGNALS:
+    void localsVisible(bool visible);
+
+protected:
+    void showEvent(QShowEvent *event);
+    void hideEvent(QHideEvent *event);
+
 private:
     void createWrappedItem(QTreeWidgetItem *parent, const QString &name, const QString &value);
     void createWrappedItem(QTreeWidget *parent, const QString &name, const QString &value);

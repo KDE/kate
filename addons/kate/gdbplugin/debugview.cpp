@@ -44,7 +44,8 @@ DebugView::DebugView( QObject* parent )
     m_debugProcess(0),
     m_state( none ),
     m_subState( normal ),
-    m_debugLocationChanged( true )
+    m_debugLocationChanged( true ),
+    m_queryLocals( false )
 {
 }
 
@@ -617,7 +618,7 @@ void DebugView::issueNextCommand()
             // FIXME "thread" needs a better generic solution 
             if (m_debugLocationChanged || m_lastCommand.startsWith("thread")) {
                 m_debugLocationChanged = false;
-                if (!m_lastCommand.startsWith("(Q)")) {
+                if (m_queryLocals && !m_lastCommand.startsWith("(Q)")) {
                     m_nextCommands << "(Q)info stack";
                     m_nextCommands << "(Q)frame";
                     m_nextCommands << "(Q)info args";
@@ -664,5 +665,21 @@ void DebugView::outputTextMaybe( const QString &text )
     if ( !m_lastCommand.startsWith( "(Q)" )  && !text.contains( PromptStr ) )
     {
         emit outputText( text + '\n' );
+    }
+}
+
+
+void DebugView::slotQueryLocals(bool query)
+{
+    m_queryLocals = query;
+    if ( query && ( m_state == ready ) && ( m_nextCommands.size() == 0 ) )
+    {
+        m_nextCommands << "(Q)info stack";
+        m_nextCommands << "(Q)frame";
+        m_nextCommands << "(Q)info args";
+        m_nextCommands << "(Q)print *this";
+        m_nextCommands << "(Q)info locals";
+        m_nextCommands << "(Q)info thread";
+        issueNextCommand();
     }
 }

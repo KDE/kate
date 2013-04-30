@@ -211,6 +211,9 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
     connect( m_debugView, SIGNAL(threadInfo(int,bool)),
              this,        SLOT(insertThread(int,bool)) );
 
+    connect( m_localsView, SIGNAL(localsVisible(bool)),
+             m_debugView,  SLOT(slotQueryLocals(bool)) );
+
     // Actions
     m_configView->registerActions( actionCollection() );
 

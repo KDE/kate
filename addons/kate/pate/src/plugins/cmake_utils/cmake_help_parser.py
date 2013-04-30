@@ -35,9 +35,11 @@ _CMAKE_CACHE_FILE = 'CMakeCache.txt'
 _HELP_TARGETS = [
     'command', 'module', 'policy', 'property', 'variable'
   ]
+_CMAKE_HELP_SUBSECTION_DELIMITER_LENGTH = 78
 
 
 class help_category:
+    HELP_ITEM = -1
     COMMAND = _HELP_TARGETS.index('command')
     MODULE = _HELP_TARGETS.index('module')
     POLICY = _HELP_TARGETS.index('policy')
@@ -46,7 +48,7 @@ class help_category:
 
 
 def _parse_cmake_help(out):
-    # NOTE Ignore the 1st line wich is 'cmake version blah-blah' string
+    # NOTE Ignore the 1st line which is 'cmake version blah-blah' string
     lines = out.decode('utf-8').splitlines()[1:]
     found_item = None
     result = []
@@ -62,11 +64,44 @@ def _parse_cmake_help(out):
     return result
 
 
+def _parse_cmake_help_2(out, subsection_first_word):
+    # NOTE Ignore the 1st line which is 'cmake version blah-blah' string
+    lines = out.decode('utf-8').splitlines()[1:]
+    found_item = None
+    result = {}
+    partial = []
+    subsection = None
+    next_is_subsection = False
+    for line in lines:
+        if len(line.strip()) < 3:
+            continue
+        if line[0] == ' ' and line[1] == ' ' and line[2:].isidentifier():
+            found_item = line.strip()
+        elif found_item is not None:
+            partial.append((found_item, line.strip()))
+            print('CMakeCC: [{}] append: {} -- {}'.format(subsection, found_item, line.strip()))
+            found_item = None
+        elif line.startswith(_CMAKE_HELP_SUBSECTION_DELIMITER_LENGTH * '-'):
+            next_is_subsection = True
+        elif next_is_subsection:
+            if line.startswith(subsection_first_word):
+                if subsection is not None:
+                    result[subsection] = partial
+                    partial = []
+                subsection = line
+            next_is_subsection = None
+    if partial:
+        assert(subsection is not None)
+        result[subsection] = partial
+    return result
+
+
 def _spawn_cmake_grab_stdout(args, cmake_executable = None):
     if cmake_executable is None:
         cmake_utils_conf = kate.configuration.root.get('cmake_utils', {})
 
         if CMAKE_BINARY in cmake_utils_conf:
+            # TODO Set locale "C" before run cmake
             cmake_bin = cmake_utils_conf[CMAKE_BINARY]
         else:
             raise ValueError(
@@ -143,8 +178,8 @@ def get_cmake_properties():
 
 @functools.lru_cache(maxsize=1)
 def get_cmake_vars_list():
-    out = _spawn_cmake_grab_stdout(['--help-variable-list'])
-    return out.decode('utf-8').splitlines()[1:]
+    out = _spawn_cmake_grab_stdout(['--help-variables'])
+    return _parse_cmake_help_2(out, 'Variables ')
 
 
 @functools.lru_cache(maxsize=1)
@@ -160,8 +195,8 @@ def get_cmake_policies_list():
 
 @functools.lru_cache(maxsize=1)
 def get_cmake_properties_list():
-    out = _spawn_cmake_grab_stdout(['--help-property-list'])
-    return out.decode('utf-8').splitlines()[1:]
+    out = _spawn_cmake_grab_stdout(['--help-properties'])
+    return _parse_cmake_help_2(out, 'Properties ')
 
 
 @functools.lru_cache(maxsize=1)

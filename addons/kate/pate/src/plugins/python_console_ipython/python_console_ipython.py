@@ -108,10 +108,13 @@ def django_project_filename_changed(kernel_app):
                 else:
                     model_labels.append("%s (as %s)" % (model_name, alias))
             except AttributeError as e:
-                msg = i18n("Failed to import \'%s\' from \'%s\' reason: %s") % (model.__name__, app_name, str(e))
+                msg = i18n("Failed to import \'%(model)s\' from \'%(app)s\' reason: %(reason)s") % {'model': model.__name__,
+                                                                                                    'app': app_name,
+                                                                                                    'reason': str(e)}
                 kernel_app.shell.run_cell('print("%s")' % msg)
                 continue
-        msg = i18n("From \'%s\' autoload: %s") % (app_mod.__name__.split('.')[-2], ", ".join(model_labels))
+        msg = i18n("From \'%(app)s\' autoload: %(models)s") % {'app': app_mod.__name__.split('.')[-2],
+                                                               'models': ", ".join(model_labels)}
         print_imports += 'print("%s");' % msg
     kernel_app.shell.run_cell(print_imports)
     return imported_objects

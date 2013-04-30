@@ -141,7 +141,8 @@ def _generateErrorMessage(error, key_line='line', key_column='column', header=Tr
     if header or column:
         column = error.get(key_column, None)
         if column:
-            message = i18n('~*~ Position: (%s, %s)') % (line, column)
+            message = i18n('~*~ Position: (%(line)s, %(column)s)') % {'line': line,
+                                                                      'column': column}
         else:
             message = i18n('~*~ Line: %s') % line
         message += ' ~*~'

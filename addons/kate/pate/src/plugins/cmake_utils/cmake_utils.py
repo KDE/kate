@@ -149,7 +149,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
             else:
                 comp_list.append(tok)
         # 1) call command completer
-        self.try_complete_command(command, document, cursor, word, comp_list)
+        self.try_complete_command(command, document, cursor, word, comp_list, invocationType)
 
 
     def executeCompletionItem(self, document, word, row):
@@ -224,7 +224,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
                         r(self.__command_completers)
 
 
-    def try_complete_command(self, command, document, cursor, word, comp_list):
+    def try_complete_command(self, command, document, cursor, word, comp_list, invocationType):
         '''Try to complete a command'''
         if command in self.__command_completers:
             if isinstance(self.__command_completers[command], types.FunctionType):
@@ -240,11 +240,13 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
                   , comp_list
                   )
         else:
-            ui.popup(
-                i18nc('@title:window', 'Attention')
-              , i18nc('@info:tooltip', 'Sorry, no completion for <command>{}()</command>'.format(command))
-              , 'dialog-information'
-              )
+            if invocationType != KTextEditor.CodeCompletionModel.AutomaticInvocation:
+                # Show popup only if user explictly requested code completion
+                ui.popup(
+                    i18nc('@title:window', 'Attention')
+                  , i18nc('@info:tooltip', 'Sorry, no completion for <command>{}()</command>'.format(command))
+                  , 'dialog-information'
+                  )
 
             completions = []
 

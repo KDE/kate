@@ -336,23 +336,26 @@ class CMakeToolView(QObject):
         tabs.addTab(self.cacheViewPage, i18nc('@title:tab', 'CMake Cache Viewer'))
         # Make a page w/ cmake help
         splitter = QSplitter(Qt.Horizontal, tabs)
-        self.helpTargets = QTreeWidget(splitter)
-        self.helpTargets.setToolTip(
-            i18nc('@info:tooltip', 'Double-click to insert the current item to a document')
+        self.vewHelpPage = uic.loadUi(
+            os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_HELP_UI)
           )
-        self.helpTargets.headerItem().setHidden(True)
+        self.vewHelpPage.helpFilter.setTreeWidget(self.vewHelpPage.helpTargets)
         self.updateHelpIndex()                              # Prepare Help view
         self.helpPage = QTextBrowser(splitter)
         self.helpPage.setReadOnly(True)
         self.helpPage.setOpenExternalLinks(False)
         self.helpPage.setOpenLinks(False)
-        splitter.addWidget(self.helpTargets)
+        splitter.addWidget(self.vewHelpPage)
         splitter.addWidget(self.helpPage)
+        splitter.setStretchFactor(0, 10)
+        splitter.setStretchFactor(1, 20)
         tabs.addTab(splitter, i18nc('@title:tab', 'CMake Help'))
         # Make a page w/ some instant settings
         self.cfgPage = uic.loadUi(
             os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_SETTINGS_UI)
           )
+        self.cfgPage.mode.setChecked(kate.configuration[TOOLVIEW_ADVANCED_MODE])
+        self.cfgPage.htmlize.setChecked(kate.configuration[TOOLVIEW_BEAUTIFY])
         tabs.addTab(self.cfgPage, i18nc('@title:tab', 'Toolview Settings'))
         # TODO Store check-boxes state to configuration
 
@@ -364,8 +367,8 @@ class CMakeToolView(QObject):
         self.cfgPage.mode.toggled.connect(self.saveSettings)
         self.cfgPage.htmlize.toggled.connect(self.updateHelpText)
         self.cfgPage.htmlize.toggled.connect(self.saveSettings)
-        self.helpTargets.itemActivated.connect(self.updateHelpText)
-        self.helpTargets.itemDoubleClicked.connect(self.insertHelpItemIntoCurrentDocument)
+        self.vewHelpPage.helpTargets.itemActivated.connect(self.updateHelpText)
+        self.vewHelpPage.helpTargets.itemDoubleClicked.connect(self.insertHelpItemIntoCurrentDocument)
         self.helpPage.anchorClicked.connect(self.openDocument)
 
         # Refresh the cache view
@@ -430,7 +433,7 @@ class CMakeToolView(QObject):
     def updateHelpIndex(self):
         #
         commands = QTreeWidgetItem(
-            self.helpTargets
+            self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Commands')]
           , cmake_help_parser.help_category.COMMAND
           )
@@ -442,7 +445,7 @@ class CMakeToolView(QObject):
               )
         #
         modules = QTreeWidgetItem(
-            self.helpTargets
+            self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Modules')]
           , cmake_help_parser.help_category.MODULE
           )
@@ -454,7 +457,7 @@ class CMakeToolView(QObject):
               )
         #
         policies = QTreeWidgetItem(
-            self.helpTargets
+            self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Policies')]
           , cmake_help_parser.help_category.POLICY
           )
@@ -466,7 +469,7 @@ class CMakeToolView(QObject):
               )
         #
         properties = QTreeWidgetItem(
-            self.helpTargets
+            self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Properties')]
           , cmake_help_parser.help_category.PROPERTY
           )
@@ -485,7 +488,7 @@ class CMakeToolView(QObject):
                 v.setToolTip(0, prop[1])
         #
         variables = QTreeWidgetItem(
-            self.helpTargets
+            self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Variables')]
           , cmake_help_parser.help_category.VARIABLE
           )
@@ -503,12 +506,12 @@ class CMakeToolView(QObject):
                   )
                 v.setToolTip(0, var[1])
 
-        self.helpTargets.resizeColumnToContents(0)
+        self.vewHelpPage.helpTargets.resizeColumnToContents(0)
 
 
     @pyqtSlot()
     def updateHelpText(self):
-        tgt = self.helpTargets.currentItem()
+        tgt = self.vewHelpPage.helpTargets.currentItem()
         if tgt is None or tgt.type() != cmake_help_parser.help_category.HELP_ITEM:
             return
         parent = tgt.parent()

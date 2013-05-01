@@ -45,7 +45,7 @@ from PyQt4.QtGui import (
   )
 
 from PyKDE4.kdecore import i18nc, KUrl
-from PyKDE4.kio import KFile, KUrlRequester
+from PyKDE4.kio import KFile
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
@@ -315,29 +315,25 @@ class CMakeToolView(QObject):
         # For now, just add an extra widget.
         tabs = QTabWidget(self.toolView)
         # Make a page to view cmake cache
-        cacheViewPage = QWidget(tabs)
-        self.buildDir = KUrlRequester(cacheViewPage)
-        self.buildDir.setText(kate.configuration[PROJECT_DIR])
+        self.cacheViewPage = uic.loadUi(
+            os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_CACHEVIEW_UI)
+          )
+        self.cacheViewPage.buildDir.setText(kate.configuration[PROJECT_DIR])
         # TODO It seems not only KTextEditor's SIP files are damn out of date...
         # KUrlRequester actually *HAS* setPlaceholderText() method... but damn SIP
         # files for KIO are damn out of date either! A NEW BUG NEEDS TO BE ADDED!
         # (but I have fraking doubts that it will be closed next few damn years)
         #
         #self.buildDir.setPlaceholderText(i18nc('@info', 'Project build directory'))
-        self.buildDir.lineEdit().setPlaceholderText(i18nc('@info/plain', 'Project build directory'))
-        self.buildDir.setMode(KFile.Mode(KFile.Directory | KFile.ExistingOnly | KFile.LocalOnly))
-        self.cacheItems = QTreeWidget(cacheViewPage)
-        self.cacheItems.setHeaderLabels((
-            i18nc('@title:column', 'Name')
-          , i18nc('@title:column', 'Type')
-          , i18nc('@title:column', 'Value')
-          ))
-        self.cacheItems.setSortingEnabled(True)
-        self.cacheItems.sortItems(0, Qt.AscendingOrder)
-        layout_p1 = QVBoxLayout(cacheViewPage)
-        layout_p1.addWidget(self.buildDir)
-        layout_p1.addWidget(self.cacheItems)
-        tabs.addTab(cacheViewPage, i18nc('@title:tab', 'CMake Cache Viewer'))
+        self.cacheViewPage.buildDir.lineEdit().setPlaceholderText(
+            i18nc('@info/plain', 'Project build directory')
+          )
+        self.cacheViewPage.buildDir.setMode(
+            KFile.Mode(KFile.Directory | KFile.ExistingOnly | KFile.LocalOnly)
+          )
+        self.cacheViewPage.cacheItems.sortItems(0, Qt.AscendingOrder)
+        self.cacheViewPage.cacheFilter.setTreeWidget(self.cacheViewPage.cacheItems)
+        tabs.addTab(self.cacheViewPage, i18nc('@title:tab', 'CMake Cache Viewer'))
         # Make a page w/ cmake help
         splitter = QSplitter(Qt.Horizontal, tabs)
         self.helpTargets = QTreeWidget(splitter)
@@ -354,44 +350,26 @@ class CMakeToolView(QObject):
         splitter.addWidget(self.helpPage)
         tabs.addTab(splitter, i18nc('@title:tab', 'CMake Help'))
         # Make a page w/ some instant settings
-        cfgPage = QWidget(tabs)
-        self.mode = QCheckBox(i18nc('@option:check', 'Show cache items marked as advanced'), cfgPage)
-        self.mode.setChecked(kate.configuration[TOOLVIEW_ADVANCED_MODE])
-        self.mode.setToolTip(
-            i18nc('@info:tooltip', 'Same as <emphasis>advanced mode</emphasis> in <command>ccmake</command>')
+        self.cfgPage = uic.loadUi(
+            os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_SETTINGS_UI)
           )
-        self.htmlize = QCheckBox(i18nc('@option:check', 'Try to beautify the help output'), cfgPage)
-        self.htmlize.setChecked(kate.configuration[TOOLVIEW_BEAUTIFY])
-        self.htmlize.setToolTip(
-            i18nc(
-                '@info:tooltip'
-              , 'Try to turn plain ASCII text into HTML using simple structured text rules. ' \
-                'It works quite well for builtins, but sometimes may distorts results for others ' \
-                '(custom modules)!'
-              )
-          )
-        layout_p3 = QVBoxLayout(cfgPage)
-        layout_p3.addSpacerItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Minimum))
-        layout_p3.addWidget(self.mode)
-        layout_p3.addWidget(self.htmlize)
-        layout_p3.addSpacerItem(QSpacerItem(10, 10, QSizePolicy.Minimum, QSizePolicy.Expanding))
-        tabs.addTab(cfgPage, i18nc('@title:tab', 'Toolview Settings'))
+        tabs.addTab(self.cfgPage, i18nc('@title:tab', 'Toolview Settings'))
         # TODO Store check-boxes state to configuration
 
         # Connect signals
-        self.cacheItems.itemActivated.connect(self.insertIntoCurrentDocument)
-        self.buildDir.returnPressed.connect(self.updateCacheView)
-        self.buildDir.urlSelected.connect(self.updateCacheView)
-        self.mode.toggled.connect(self.updateCacheView)
-        self.mode.toggled.connect(self.saveSettings)
-        self.htmlize.toggled.connect(self.updateHelpText)
-        self.htmlize.toggled.connect(self.saveSettings)
+        self.cacheViewPage.cacheItems.itemActivated.connect(self.insertIntoCurrentDocument)
+        self.cacheViewPage.buildDir.returnPressed.connect(self.updateCacheView)
+        self.cacheViewPage.buildDir.urlSelected.connect(self.updateCacheView)
+        self.cfgPage.mode.toggled.connect(self.updateCacheView)
+        self.cfgPage.mode.toggled.connect(self.saveSettings)
+        self.cfgPage.htmlize.toggled.connect(self.updateHelpText)
+        self.cfgPage.htmlize.toggled.connect(self.saveSettings)
         self.helpTargets.itemActivated.connect(self.updateHelpText)
         self.helpTargets.itemDoubleClicked.connect(self.insertHelpItemIntoCurrentDocument)
         self.helpPage.anchorClicked.connect(self.openDocument)
 
         # Refresh the cache view
-        self._updateCacheView(self.buildDir.text())
+        self._updateCacheView(self.cacheViewPage.buildDir.text())
 
 
     def __del__(self):
@@ -411,13 +389,13 @@ class CMakeToolView(QObject):
 
     @pyqtSlot()
     def saveSettings(self):
-        kate.configuration[TOOLVIEW_ADVANCED_MODE] = self.mode.isChecked()
-        kate.configuration[TOOLVIEW_BEAUTIFY] = self.htmlize.isChecked()
+        kate.configuration[TOOLVIEW_ADVANCED_MODE] = self.cfgPage.mode.isChecked()
+        kate.configuration[TOOLVIEW_BEAUTIFY] = self.cfgPage.htmlize.isChecked()
 
 
     @pyqtSlot()
     def updateCacheView(self):
-        self._updateCacheView(self.buildDir.text())
+        self._updateCacheView(self.cacheViewPage.buildDir.text())
 
 
     def _updateCacheView(self, build_dir):
@@ -425,8 +403,8 @@ class CMakeToolView(QObject):
         if not build_dir:
             return
 
-        self.cacheItems.clear()                             # Remove previously collected cache
-        is_advanced = self.mode.isChecked()
+        self.cacheViewPage.cacheItems.clear()               # Remove previously collected cache
+        is_advanced = self.cfgPage.mode.isChecked()
 
         try:
             items = cmake_help_parser.get_cache_content(build_dir, is_advanced)
@@ -441,12 +419,12 @@ class CMakeToolView(QObject):
 
         # Add items to a list
         for key, value in items.items():
-            item = QTreeWidgetItem(self.cacheItems, [key, value[1], value[0]])
+            item = QTreeWidgetItem(self.cacheViewPage.cacheItems, [key, value[1], value[0]])
             item.setToolTip(0, value[2])
 
-        self.cacheItems.resizeColumnToContents(0)
-        self.cacheItems.resizeColumnToContents(1)
-        self.cacheItems.resizeColumnToContents(2)
+        self.cacheViewPage.cacheItems.resizeColumnToContents(0)
+        self.cacheViewPage.cacheItems.resizeColumnToContents(1)
+        self.cacheViewPage.cacheItems.resizeColumnToContents(2)
 
 
     def updateHelpIndex(self):

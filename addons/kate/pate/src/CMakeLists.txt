@@ -75,4 +75,4 @@ install(DIRECTORY
 
 install(DIRECTORY
     plugins/cmake_utils
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py")
+    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")

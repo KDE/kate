@@ -518,7 +518,7 @@ class CMakeToolView(QObject):
         category = parent.type()
         text = cmake_help_parser.get_help_on(category, tgt.text(0))
 
-        if not self.htmlize.isChecked():
+        if not self.cfgPage.htmlize.isChecked():
             self.helpPage.setText(text[text.index('\n') + 1:])
             return
 

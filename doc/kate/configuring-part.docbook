@@ -695,9 +695,9 @@ level aligns a line to a multiple of the width specified in
 <guilabel>Indentation width</guilabel>.</para></listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Adjust indentation of code pasted from the clipboard</guilabel></term>
+<term><guilabel>Adjust indentation of text pasted from the clipboard</guilabel></term>
 <listitem>
-<para>If this option is selected, pasted code from the clipboard is indented.
+<para>If this option is selected, text pasted from the clipboard is indented.
 Triggering the <guimenuitem>Undo</guimenuitem> action removes the indentation.</para>
 </listitem>
 </varlistentry>

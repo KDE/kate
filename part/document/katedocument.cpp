@@ -5,6 +5,7 @@
    Copyright (C) 2006 Hamish Rodda <rodda@kde.org>
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
    Copyright (C) 2009-2010 Michel Ludwig <michel.ludwig@kdemail.net>
+   Copyright (C) 2013 Gerald Senarclens de Grancy <oss@senarclens.eu>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -4043,6 +4044,8 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
       // FIXME should this be optimized to only a few calls? how?
       else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
         m_config->setBackspaceIndents( state );
+      else if ( var == "indent-pasted-text" && checkBoolValue( val, &state ) )
+        m_config->setIndentPastedText( state );
       else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )
       {
         m_config->setReplaceTabsDyn( state );
@@ -4529,6 +4532,8 @@ QVariant KateDocument::configValue(const QString &key)
     return m_config->backupPrefix();
   } else if (key == "replace-tabs") {
     return m_config->replaceTabsDyn();
+  } else if (key == "indent-pasted-text") {
+    return m_config->indentPastedText();
   }
 
   // return invalid variant
@@ -4565,6 +4570,8 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
       m_config->setBackupFlags(f);
     } else if (key == "replace-tabs") {
       m_config->setReplaceTabsDyn(bValue);
+    } else if (key == "indent-pasted-text") {
+      m_config->setIndentPastedText(bValue);
     }
   }
 }

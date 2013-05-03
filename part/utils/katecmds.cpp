@@ -78,7 +78,7 @@ const QStringList &KateCommands::CoreCommands::cmds()
     << "set-indent-width"
     << "set-indent-mode" << "set-auto-indent"
     << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
-    << "set-word-wrap" << "set-word-wrap-column"
+    << "set-indent-pasted-text" << "set-word-wrap" << "set-word-wrap-column"
     << "set-replace-tabs-save" << "set-remove-trailing-spaces"
     << "set-highlight" << "set-mode" << "set-show-indent"
     << "print";
@@ -112,6 +112,12 @@ bool KateCommands::CoreCommands::help(KTextEditor::View *, const QString &cmd, Q
   } else   if (realcmd=="goto") {
     msg=i18n("<p>goto <b>line number</b></p>"
       "<p>This command navigates to the specified line number.</p>");
+    return true;
+  } else   if (realcmd=="set-indent-pasted-text") {
+    msg=i18n("<p>set-indent-pasted-text <b>enable</b></p>"
+      "<p>If enabled, indentation of text pasted from the clipboard is adjusted using the current indenter.</p>"
+      "<p>Possible true values: 1 on true<br/>"
+      "possible false values: 0 off false</p>");
     return true;
   } else   if (realcmd=="kill-line") {
     msg=i18n("Deletes the current line.");
@@ -429,6 +435,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   // ALL commands that takes 1 boolean argument.
   else if ( cmd == "set-icon-border" ||
             cmd == "set-folding-markers" ||
+            cmd == "set-indent-pasted-text" ||
             cmd == "set-line-numbers" ||
             cmd == "set-replace-tabs" ||
             cmd == "set-show-tabs" ||
@@ -451,6 +458,8 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
         v->setLineNumbersOn( enable );
       else if ( cmd == "set-show-indent" )
         v->renderer()->setShowIndentLines( enable );
+      else if (cmd == "set-indent-pasted-text")
+        config->setIndentPastedText( enable );
       else if ( cmd == "set-replace-tabs" )
         config->setReplaceTabsDyn( enable );
       else if ( cmd == "set-show-tabs" )

@@ -1,6 +1,7 @@
 /* This file is part of the KDE project
 
    Copyright (C) 2011 Dominik Haumann <dhaumann kde org>
+   Copyright (C) 2013 Gerald Senarclens de Grancy <oss@senarclens.eu>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -234,6 +235,11 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   // Add 'indent-mode' to list
   item = new VariableStringListItem("indent-mode", KateAutoIndent::listIdentifiers(), docConfig->indentationMode());
   item->setHelpText(i18nc("short translation please", "Set the auto indentation style."));
+  listview->addItem(item);
+
+  // Add 'indent-pasted-text' to list
+  item = new VariableBoolItem("indent-pasted-text", docConfig->indentPastedText());
+  item->setHelpText(i18nc("short translation please", "Adjust indentation of text pasted from the clipboard."));
   listview->addItem(item);
 
   // Add 'indent-width' to list

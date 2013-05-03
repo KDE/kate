@@ -483,6 +483,12 @@ be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para
 <xref linkend="kate-part-autoindent"/> for details.</para></listitem>
 </varlistentry>
 
+<varlistentry id="variable-indent-pasted-text">
+<term><cmdsynopsis><command>indent-pasted-text</command><arg>BOOL</arg></cmdsynopsis></term>
+<listitem><para>Enable/disable adjusting indentation of text pasted from the clipboard.</para>
+<para>Since: Kate 3.11 (KDE 4.11)</para></listitem>
+</varlistentry>
+
 <varlistentry id="variable-indent-width">
 <term><cmdsynopsis><command>indent-width</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the indentation width.</para></listitem>

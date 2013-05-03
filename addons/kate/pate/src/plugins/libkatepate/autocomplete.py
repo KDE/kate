@@ -24,7 +24,6 @@ import os
 from PyKDE4.kdecore import i18n
 from PyKDE4.kdeui import KIcon
 from PyKDE4.ktexteditor import KTextEditor
-
 from PyQt4.QtCore import QModelIndex, QSize, Qt
 
 try:
@@ -36,7 +35,62 @@ except ImportError:
 CCM = KTextEditor.CodeCompletionModel
 
 
-class AbstractCodeCompletionModel(CCM):
+class CodeCompletionBase(CCM):
+    """A base class for code completion models that provides the most basic functionality
+
+    Used for code completion systems that can’t be given information about the cursor’s surroundings
+    """
+    TITLE_AUTOCOMPLETION = i18n('Autopate')
+    MIMETYPES = []
+    MAX_DESCRIPTION = 80
+
+    roles = {  # fixed roles that don’t get changed per request
+        CCM.CompletionRole: CCM.FirstProperty | CCM.Public | CCM.LastProperty | CCM.Prefix,
+        CCM.ScopeIndex: 0,
+        CCM.MatchQuality: 10,          # highest. 0: lowest
+        CCM.HighlightingMethod: None,  # let editor choose
+        CCM.InheritanceDepth: 0,       # comes from base class
+    }
+
+    def __init__(self, parent, resultList=None):
+        super(CodeCompletionBase, self).__init__(parent)
+        self.resultList = resultList or []
+
+    def parent(self, index):
+        if index.internalId():
+            return self.createIndex(0, 0, 0)
+        else:
+            return QModelIndex()
+
+    def rowCount(self, parent):
+        num_comps = len(self.resultList)
+        if not parent.isValid() and num_comps:  # name
+            return 1
+        elif parent.parent().isValid():  # only for hierarchical models
+            return 0
+        else:
+            return num_comps
+
+    # http://api.kde.org/4.5-api/kdelibs-apidocs/interfaces/ktexteditor/html/classKTextEditor_1_1CodeCompletionModel.html#3bd60270a94fe2001891651b5332d42b
+    def index(self, row, col, parent):
+        """Returns a QModelIndex telling where we are"""
+        if not parent.isValid():
+            if row == 0:  # name
+                return self.createIndex(row, col, 0)
+            else:
+                return QModelIndex()
+        elif parent.parent().isValid():  # only for hierarchical models
+            return QModelIndex()
+        if not (0 <= row < len(self.resultList) and 0 <= col < CCM.ColumnCount):
+            return QModelIndex()
+        return self.createIndex(row, col, 1)
+
+
+class AbstractCodeCompletionModel(CodeCompletionBase):
+    """An abstract part-implementation of the CodeCompletionModel
+
+    It provides functionality to get information about the surroundings of the cursor.
+    """
 
     class GroupPosition:
         BEST_MATCHES = 1
@@ -47,8 +101,6 @@ class AbstractCodeCompletionModel(CCM):
         NAMESPACE = 500
         GLOBAL = 600
 
-    TITLE_AUTOCOMPLETION = i18n('Autopate')
-    MIMETYPES = []
     OPERATORS = []
     SEPARATOR = '.'
     MAX_DESCRIPTION = 80
@@ -66,15 +118,10 @@ class AbstractCodeCompletionModel(CCM):
         'pointer': 'unknown'
     }
 
-    def __init__(self, model, resultList=None):
-        self.model = model
-        super(AbstractCodeCompletionModel, self).__init__(model)
-        self.resultList = []
-
     @classmethod
     def createItemAutoComplete(cls, text, category='unknown', args=None, description=None):
         # TODO Add `prefix` parameter
-        if description and 0 < cls.MAX_DESCRIPTION and len(description) > cls.MAX_DESCRIPTION:
+        if description and 0 < cls.MAX_DESCRIPTION < len(description):
             description = description.strip()
             description = description[:cls.MAX_DESCRIPTION] + '...'
         return {
@@ -149,35 +196,6 @@ class AbstractCodeCompletionModel(CCM):
             pass
         return None
 
-    def parent(self, index):
-        if index.internalId():
-            return self.createIndex(0, 0, 0)
-        else:
-            return QModelIndex()
-
-    def rowCount(self, parent):
-        lenResultList = len(self.resultList)
-        if not parent.isValid() and lenResultList:
-            return 1
-        elif parent.parent().isValid():
-            return 0  # Do not make the model look hierarchical
-        else:
-            return lenResultList
-
-    #http://api.kde.org/4.5-api/kdelibs-apidocs/interfaces/ktexteditor/html/classKTextEditor_1_1CodeCompletionModel.html#3bd60270a94fe2001891651b5332d42b
-    def index(self, row, column, parent):
-        if not parent.isValid():
-            if row == 0:
-                return self.createIndex(row, column, 0)
-            else:
-                return QModelIndex()
-        elif parent.parent().isValid():
-            return QModelIndex()
-        if row < 0 or row >= len(self.resultList) or column < 0 or column >= CCM.ColumnCount:
-            return QModelIndex()
-
-        return self.createIndex(row, column, 1)
-
     def getLastExpression(self, line, operators=None):
         operators = operators or self.OPERATORS
         opmax = max(operators, key=lambda e: line.rfind(e))
@@ -191,7 +209,6 @@ class AbstractCodeCompletionModel(CCM):
 
 
 class AbstractJSONFileCodeCompletionModel(AbstractCodeCompletionModel):
-
     FILE_PATH = None
 
     def __init__(self, *args, **kwargs):
@@ -235,3 +252,5 @@ class AbstractJSONFileCodeCompletionModel(AbstractCodeCompletionModel):
 
 def reset(*args, **kwargs):
     pass
+
+# kate: space-indent on; indent-width 4;

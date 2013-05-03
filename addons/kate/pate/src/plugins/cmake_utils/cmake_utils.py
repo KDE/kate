@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- codincmakeToolViewg: utf-8 -*-
 '''CMake helper plugin'''
 
 #
@@ -45,7 +45,7 @@ from PyQt4.QtGui import (
   )
 
 from PyKDE4.kdecore import i18nc, KUrl
-from PyKDE4.kio import KFile
+from PyKDE4.kio import KFile, KFileDialog
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
@@ -58,6 +58,7 @@ import cmake_help_parser
 
 
 cmakeToolView = None
+
 
 # ----------------------------------------------------------
 # CMake utils: completion stuff
@@ -446,12 +447,14 @@ class CMakeToolView(QObject):
               , cmake_help_parser.help_category.HELP_ITEM
               )
         #
+        modules_list = cmake_help_parser.get_cmake_modules_list()
         modules = QTreeWidgetItem(
             self.vewHelpPage.helpTargets
-          , [i18nc('@item::inlistbox/plain', 'Modules')]
+          , [i18nc('@item::inlistbox/plain', 'Modules ({})'.format(len(modules_list)))]
           , cmake_help_parser.help_category.MODULE
           )
-        for mod in cmake_help_parser.get_cmake_modules_list():
+        modules_list.sort()
+        for mod in modules_list:
             m = QTreeWidgetItem(
                 modules
               , [mod]
@@ -615,6 +618,11 @@ class CMakeConfigWidget(QWidget):
 
         self.reset();
 
+        # Connect signals
+        self.addButton.clicked.connect(self.addDir)
+        self.removeButton.clicked.connect(self.removeDir)
+
+
     def apply(self):
         kate.configuration[CMAKE_BINARY] = self.cmakeBinary.text()
         try:
@@ -627,17 +635,49 @@ class CMakeConfigWidget(QWidget):
               )
         # TODO Store the following for a current session!
         kate.configuration[PROJECT_DIR] = self.projectBuildDir.text()
+        kate.configuration[AUX_MODULE_DIRS] = []
+        for i in range(0, self.moduleDirs.count()):
+            kate.configuration[AUX_MODULE_DIRS].append(self.moduleDirs.item(i).text())
+
+        # Show some spam
+        print('CMakeCC: config save: CMAKE_BINARY={}'.format(kate.configuration[CMAKE_BINARY]))
+        print('CMakeCC: config save: AUX_MODULE_DIRS={}'.format(kate.configuration[AUX_MODULE_DIRS]))
+        print('CMakeCC: config save: PROJECT_DIR={}'.format(kate.configuration[PROJECT_DIR]))
         kate.configuration.save()
+
 
     def reset(self):
         self.defaults()
         if CMAKE_BINARY in kate.configuration:
             self.cmakeBinary.setText(kate.configuration[CMAKE_BINARY])
+        if PROJECT_DIR in kate.configuration:
+            self.projectBuildDir.setText(kate.configuration[PROJECT_DIR])
+        if AUX_MODULE_DIRS in kate.configuration:
+            self.moduleDirs.addItems(kate.configuration[AUX_MODULE_DIRS])
+
 
     def defaults(self):
         # TODO Dectect it!
         self.cmakeBinary.setText(CMAKE_BINARY_DEFAULT)
-        self.projectBuildDir.setText('')
+
+
+    @pyqtSlot()
+    def addDir(self):
+        path = KFileDialog.getExistingDirectory(
+            KUrl('')
+          , self
+          , i18nc('@title:window', 'Select a Directory with CMake Modules')
+          )
+        print('CMakeCC: got path={}'.format(path))
+        self.moduleDirs.addItem(str(path))
+
+
+    @pyqtSlot()
+    def removeDir(self):
+        # Damn UGLY! Smth wrong w/ Qt definitely...
+        item = self.moduleDirs.takeItem(self.moduleDirs.currentRow())
+        item = None
+
 
 
 class CMakeConfigPage(kate.Kate.PluginConfigPage, QWidget):
@@ -685,6 +725,8 @@ def init():
     print('CMakeCC: enter init')
     if CMAKE_BINARY not in kate.configuration:
         kate.configuration[CMAKE_BINARY] = CMAKE_BINARY_DEFAULT
+    if AUX_MODULE_DIRS not in kate.configuration:
+        kate.configuration[AUX_MODULE_DIRS] = []
     if PROJECT_DIR not in kate.configuration:
         kate.configuration[PROJECT_DIR] = ''
     if TOOLVIEW_ADVANCED_MODE not in kate.configuration:

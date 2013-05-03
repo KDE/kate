@@ -4,6 +4,7 @@
 # Configuration keys
 CMAKE_BINARY = 'cmakeBinary'
 PROJECT_DIR = 'projectBuildDir'
+AUX_MODULE_DIRS = 'auxModuleDirs'
 
 TOOLVIEW_ADVANCED_MODE = 'toolvewAdvancedMode'
 TOOLVIEW_BEAUTIFY = 'toolviewBeautifyHelp'

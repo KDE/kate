@@ -26,7 +26,7 @@ from PyKDE4.kdecore import i18nc
 
 import kate
 
-from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, CMAKE_BINARY_DEFAULT)
+from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, AUX_MODULE_DIRS, CMAKE_BINARY_DEFAULT)
 
 
 CMAKE_HELP_VARBATIM_TEXT_PADDING_SIZE = 9
@@ -47,6 +47,16 @@ class help_category:
     VARIABLE = _HELP_TARGETS.index('variable')
 
 
+def _get_aux_dirs_if_any():
+    cmake_utils_conf = kate.configuration.root.get('cmake_utils', {})
+    aux_dirs = []
+    if AUX_MODULE_DIRS in cmake_utils_conf and cmake_utils_conf[AUX_MODULE_DIRS]:
+        aux_dirs.append(
+            '-DCMAKE_MODULE_PATH=' + ';'.join(cmake_utils_conf[AUX_MODULE_DIRS])
+          )
+    return aux_dirs
+
+
 def _parse_cmake_help(out):
     # NOTE Ignore the 1st line which is 'cmake version blah-blah' string
     lines = out.decode('utf-8').splitlines()[1:]
@@ -59,7 +69,7 @@ def _parse_cmake_help(out):
             found_item = line.strip()
         elif found_item is not None:
             result.append((found_item, line.strip()))
-            print('CMakeCC: append: ' + found_item + ' -- ' + line.strip())
+            #print('CMakeCC: append: ' + found_item + ' -- ' + line.strip())
             found_item = None
     return result
 
@@ -79,7 +89,7 @@ def _parse_cmake_help_2(out, subsection_first_word):
             found_item = line.strip()
         elif found_item is not None:
             partial.append((found_item, line.strip()))
-            print('CMakeCC: [{}] append: {} -- {}'.format(subsection, found_item, line.strip()))
+            #print('CMakeCC: [{}] append: {} -- {}'.format(subsection, found_item, line.strip()))
             found_item = None
         elif line.startswith(_CMAKE_HELP_SUBSECTION_DELIMITER_LENGTH * '-'):
             next_is_subsection = True
@@ -113,6 +123,7 @@ def _spawn_cmake_grab_stdout(args, cmake_executable = None):
     else:
         cmake_bin = cmake_executable
 
+    #print('CMakeCC: going to spawn `{} {}`'.format(cmake_bin, ' '.join(args)))
     p = subprocess.Popen([cmake_bin] + args, stdout=subprocess.PIPE)
     out, err = p.communicate()
     if err:
@@ -129,9 +140,6 @@ def _spawn_cmake_grab_stdout(args, cmake_executable = None):
 
 def validate_cmake_executable(cmake_executable):
     # Make sure specified binary exists
-    print('CMakeCC: validate cmake: bin={}'.format(cmake_executable))
-    print('CMakeCC: validate cmake: os.path.isabs(cmake_executable)={}'.format(os.path.isabs(cmake_executable)))
-    print('CMakeCC: validate cmake: os.path.exists(cmake_executable)={}'.format(os.path.exists(cmake_executable)))
     if os.path.isabs(cmake_executable) and os.path.exists(cmake_executable):
         out = _spawn_cmake_grab_stdout(['--version'], cmake_executable)
         lines = out.decode('utf-8').splitlines()
@@ -201,14 +209,17 @@ def get_cmake_properties_list():
 
 @functools.lru_cache(maxsize=1)
 def get_cmake_modules_list():
-    out = _spawn_cmake_grab_stdout(['--help-module-list'])
+    out = _spawn_cmake_grab_stdout(_get_aux_dirs_if_any() + ['--help-module-list'])
     return out.decode('utf-8').splitlines()[1:]
 
 
 @functools.lru_cache(maxsize=128)
 def get_help_on(category, target):
     assert(0 <= category  and category < len(_HELP_TARGETS))
-    out = _spawn_cmake_grab_stdout(['--help-{}'.format(_HELP_TARGETS[category]), target])
+    aux_dirs = []
+    if category == help_category.MODULE:
+        aux_dirs = _get_aux_dirs_if_any()
+    out = _spawn_cmake_grab_stdout(aux_dirs + ['--help-{}'.format(_HELP_TARGETS[category]), target])
     return out.decode('utf-8')
 
 

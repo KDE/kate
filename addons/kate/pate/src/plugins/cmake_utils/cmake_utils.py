@@ -32,7 +32,9 @@ import types
 from PyQt4 import uic
 from PyQt4.QtCore import QEvent, QObject, QUrl, Qt, pyqtSlot
 from PyQt4.QtGui import (
-    QCheckBox
+    QBrush
+  , QCheckBox
+  , QColor
   , QSizePolicy
   , QSpacerItem
   , QSplitter
@@ -225,9 +227,13 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
                         r(self.__command_completers)
 
 
+    def has_completion_for_command(self, command):
+        return command in self.__command_completers
+
+
     def try_complete_command(self, command, document, cursor, word, comp_list, invocationType):
         '''Try to complete a command'''
-        if command in self.__command_completers:
+        if self.has_completion_for_command(command):
             if isinstance(self.__command_completers[command], types.FunctionType):
                 # If a function registered as a completer, just call it...
                 completions = self.__command_completers[command](document, cursor, word, comp_list)
@@ -290,7 +296,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
 
 def _reset(*args, **kwargs):
-    cmake_completation_model.reset()
+    cmake_completion_model.reset()
 
 
 # ----------------------------------------------------------
@@ -360,7 +366,6 @@ class CMakeToolView(QObject):
         self.cfgPage.mode.setChecked(kate.configuration[TOOLVIEW_ADVANCED_MODE])
         self.cfgPage.htmlize.setChecked(kate.configuration[TOOLVIEW_BEAUTIFY])
         tabs.addTab(self.cfgPage, i18nc('@title:tab', 'Toolview Settings'))
-        # TODO Store check-boxes state to configuration
 
         # Connect signals
         self.cacheViewPage.cacheItems.itemActivated.connect(self.insertIntoCurrentDocument)
@@ -434,33 +439,63 @@ class CMakeToolView(QObject):
 
 
     def updateHelpIndex(self):
-        #
+        # Add commands group
         commands = QTreeWidgetItem(
             self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Commands')]
           , cmake_help_parser.help_category.COMMAND
           )
+        deprecated = [cmd[0] for cmd in cmake_help_parser.get_cmake_deprecated_commands_list()]
         for cmd in cmake_help_parser.get_cmake_commands_list():
             c = QTreeWidgetItem(
                 commands
               , [cmd]
               , cmake_help_parser.help_category.HELP_ITEM
               )
+            global cmake_completion_model
+            if cmake_completion_model.has_completion_for_command(cmd):
+                c.setForeground(0, QBrush(QColor(Qt.green)))
+            else:
+                if cmd in deprecated:
+                    c.setForeground(0, QBrush(QColor(Qt.yellow)))
+                else:
+                    c.setForeground(0, QBrush(QColor(Qt.red)))
+
+        # Add modules group
+        standard_modules = cmake_help_parser.get_cmake_modules_list()
+        total_modules_count = len(standard_modules)
+        custom_modules = {}
+        for path in kate.configuration[AUX_MODULE_DIRS]:
+            modules_list = cmake_help_parser.get_cmake_modules_list(path)
+            filtered_modules_list = [mod for mod in modules_list if mod not in standard_modules]
+            filtered_modules_list.sort()
+            custom_modules[
+                i18nc('@item:inlistbox', 'Modules from {} ({})'.format(path, len(path)))
+              ] = filtered_modules_list
+            total_modules_count += len(filtered_modules_list)
+        custom_modules[
+            i18nc('@item:inlistbox', 'Standard modules ({})'.format(len(standard_modules)))
+          ] = standard_modules
         #
-        modules_list = cmake_help_parser.get_cmake_modules_list()
         modules = QTreeWidgetItem(
             self.vewHelpPage.helpTargets
-          , [i18nc('@item::inlistbox/plain', 'Modules ({})'.format(len(modules_list)))]
+          , [i18nc('@item::inlistbox/plain', 'Modules ({})'.format(total_modules_count))]
           , cmake_help_parser.help_category.MODULE
           )
-        modules_list.sort()
-        for mod in modules_list:
-            m = QTreeWidgetItem(
+        for from_path, modules_list in custom_modules.items():
+            ss_item = QTreeWidgetItem(
                 modules
-              , [mod]
-              , cmake_help_parser.help_category.HELP_ITEM
+              , [from_path]
+              , cmake_help_parser.help_category.MODULE
               )
-        #
+            for mod in modules_list:
+                m = QTreeWidgetItem(
+                    ss_item
+                  , [mod]
+                  , cmake_help_parser.help_category.HELP_ITEM
+                  )
+
+        # Add policies group
         policies = QTreeWidgetItem(
             self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Policies')]
@@ -472,7 +507,8 @@ class CMakeToolView(QObject):
               , [pol]
               , cmake_help_parser.help_category.HELP_ITEM
               )
-        #
+
+        # Add properties group
         properties = QTreeWidgetItem(
             self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Properties')]
@@ -491,7 +527,8 @@ class CMakeToolView(QObject):
                   , cmake_help_parser.help_category.HELP_ITEM
                   )
                 v.setToolTip(0, prop[1])
-        #
+
+        # Add variables group
         variables = QTreeWidgetItem(
             self.vewHelpPage.helpTargets
           , [i18nc('@item::inlistbox/plain', 'Variables')]
@@ -510,7 +547,7 @@ class CMakeToolView(QObject):
                   , cmake_help_parser.help_category.HELP_ITEM
                   )
                 v.setToolTip(0, var[1])
-
+        #
         self.vewHelpPage.helpTargets.resizeColumnToContents(0)
 
 
@@ -714,7 +751,7 @@ def createSignalAutocompleteCMake(view=None, *args, **kwargs):
         view = view or kate.activeView()
         if view:
             cci = view.codeCompletionInterface()
-            cci.registerCompletionModel(cmake_completation_model)
+            cci.registerCompletionModel(cmake_completion_model)
     except:
         print('CMake Helper Plugin: Unable to get an active view')
 
@@ -753,8 +790,8 @@ def destroy():
         cmakeToolView.__del__()
         cmakeToolView = None
 
-cmake_completation_model = CMakeCompletionModel(kate.application)
-cmake_completation_model.modelReset.connect(_reset)
+cmake_completion_model = CMakeCompletionModel(kate.application)
+cmake_completion_model.modelReset.connect(_reset)
 
 
 # kate: indent-width 4;

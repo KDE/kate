@@ -169,7 +169,8 @@ def register_command_completer(completers):
       , Option('FULL_DOCS', 1, [(STRING, ONE_OR_MORE)])
       ]
 
-    # NOTE Nothing to complete for else(), elseif()
+    # NOTE Nothing to complete for else()
+    # NOTE elseif() implemented as a separate module
 
     completers['enable_language'] = [
         OneOf(
@@ -514,7 +515,7 @@ def register_command_completer(completers):
         Value([(ANY, 2), (PROPERTY, 1)])
       ]
 
-    # TODO implement if() as a separate module due complexity
+    # NOTE if() implemented as a separate module
 
     # TODO Better to implement include() as a separate module
     completers['include'] = [
@@ -854,6 +855,6 @@ def register_command_completer(completers):
 
     completers['variable_watch'] = [Value([(ANY, ONE_OR_MORE)])]
 
-    # NOTE Nothing to complete for while()
+    # NOTE while() implemented as a separate module
 
 # kate: indent-width 4;

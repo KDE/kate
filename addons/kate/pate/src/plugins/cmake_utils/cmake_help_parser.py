@@ -47,13 +47,15 @@ class help_category:
     VARIABLE = _HELP_TARGETS.index('variable')
 
 
+def _form_cmake_aux_arg(paths):
+    return ['-DCMAKE_MODULE_PATH=' + ';'.join(paths)]
+
+
 def _get_aux_dirs_if_any():
     cmake_utils_conf = kate.configuration.root.get('cmake_utils', {})
     aux_dirs = []
     if AUX_MODULE_DIRS in cmake_utils_conf and cmake_utils_conf[AUX_MODULE_DIRS]:
-        aux_dirs.append(
-            '-DCMAKE_MODULE_PATH=' + ';'.join(cmake_utils_conf[AUX_MODULE_DIRS])
-          )
+        aux_dirs += _form_cmake_aux_arg(cmake_utils_conf[AUX_MODULE_DIRS])
     return aux_dirs
 
 
@@ -197,6 +199,12 @@ def get_cmake_commands_list():
 
 
 @functools.lru_cache(maxsize=1)
+def get_cmake_deprecated_commands_list():
+    out = _spawn_cmake_grab_stdout(['--help-compatcommands'])
+    return _parse_cmake_help(out)
+
+
+@functools.lru_cache(maxsize=1)
 def get_cmake_policies_list():
     return [p[0] for p in get_cmake_policies()]
 
@@ -208,8 +216,12 @@ def get_cmake_properties_list():
 
 
 @functools.lru_cache(maxsize=1)
-def get_cmake_modules_list():
-    out = _spawn_cmake_grab_stdout(_get_aux_dirs_if_any() + ['--help-module-list'])
+def get_cmake_modules_list(aux_path = None):
+    aux_dirs = []
+    if aux_path is not None:
+        if isinstance(aux_path, str):
+            aux_dirs = _form_cmake_aux_arg([aux_path])
+    out = _spawn_cmake_grab_stdout(aux_dirs + ['--help-module-list'])
     return out.decode('utf-8').splitlines()[1:]
 
 

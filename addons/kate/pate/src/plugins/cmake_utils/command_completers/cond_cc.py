@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''CMake `if()` and `elseif()` command completers and registrar'''
+'''CMake `if()`, `elseif()` and `while()` command completers and registrar'''
 
 #
 # Copyright 2013 by Alex Turbov <i.zaufi@gmail.com>
@@ -35,27 +35,27 @@ _BINOP_KW_OPTIONS = [
   , 'STRLESS', 'STRGREATER', 'STREQUAL'
   , 'VERSION_LESS', 'VERSION_GREATER', 'VERSION_EQUAL'
   ]
-def _if_elsif_completer(document, cursor, word, comp_list):
+def _conditions_completer(document, cursor, word, comp_list):
     '''Function to complete if() and elseif() commands'''
 
     comp_idx = len(comp_list) - int(bool(document.text(word)))
     # NOTE If comp_idx == len(comp_list), then user tries to
     # complete an empty word right after the last form `comp_list`
 
-    print('CMakeCC: if_cc: comp_idx={}, comp_list={}'.format(comp_idx, comp_list))
+    print('CMakeCC: cond_cc: comp_idx={}, comp_list={}'.format(comp_idx, comp_list))
 
     first_arg_idx = int(1 <= comp_idx and comp_list[0] == 'NOT')
-    first_arg = comp_list[first_arg_idx]
-    print('CMakeCC: if_cc: first_arg_idx={}, first_arg={}'.format(first_arg_idx, first_arg))
-
 
     # If nothing entered yet or just the only word...
     if comp_idx == 0 or comp_idx == first_arg_idx:
         # Return a list of available options that can occur at 0th position
-        print('CMakeCC: if_cc: return 1st kw-list')
+        print('CMakeCC: cond_cc: return 1st kw-list')
         return _FIRST_KW_OPTIONS
 
     assert(1 <= len(comp_list))                             # At least one word in a list expected
+
+    first_arg = comp_list[first_arg_idx]
+    print('CMakeCC: cond_cc: first_arg_idx={}, first_arg={}'.format(first_arg_idx, first_arg))
 
     # Try to complete the word next to one of _FIRST_KW_OPTIONS
     if (first_arg_idx + 1) == comp_idx:
@@ -76,8 +76,9 @@ def _if_elsif_completer(document, cursor, word, comp_list):
 
 
 def register_command_completer(completers):
-    completers['if'] = _if_elsif_completer
-    completers['elseif'] = _if_elsif_completer
+    completers['if'] = _conditions_completer
+    completers['elseif'] = _conditions_completer
+    completers['while'] = _conditions_completer
 
 
 # kate: indent-width 4;

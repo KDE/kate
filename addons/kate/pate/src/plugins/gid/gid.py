@@ -520,6 +520,7 @@ class SearchBar(QObject):
     def literalSearch(self):
         """Lookup a single token and return the modelIndex of any definition."""
         definitionIndex = self.matchesModel.literalTokenSearch(self.toolView, self.token.currentText(), self.filter.currentText())
+        self.matchesWidget.resizeColumnsToContents()
         if definitionIndex:
             #
             # Set the navigation starting point to (the last of) any
@@ -573,6 +574,7 @@ class SearchBar(QObject):
         # Add this new point to the history.
         #
         self.historyModel.add(fileName, icon, text, nextLine, column, fileAndLine)
+        self.historyWidget.resizeColumnsToContents()
 
     @pyqtSlot("QModelIndex &")
     def navigateToHistory(self, index):

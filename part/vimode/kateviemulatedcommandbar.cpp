@@ -13,12 +13,21 @@
 #include <QApplication>
 #include <KDE/KColorScheme>
 
+namespace
+{
+  bool caseInsensitiveLessThan(const QString &s1, const QString &s2)
+  {
+    return s1.toLower() < s2.toLower();
+  }
+}
+
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
     : KateViewBarWidget(false, parent),
       m_view(view),
       m_doNotResetCursorOnClose(false),
       m_suspendEditEventFiltering(false),
-      m_waitingForRegister(false)
+      m_waitingForRegister(false),
+      m_currentCompletionType(None)
 {
   QVBoxLayout * layout = new QVBoxLayout();
   centralWidget()->setLayout(layout);
@@ -51,6 +60,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_completer->setObjectName("completer");
   m_searchHistoryModel = new QStringListModel;
   m_completer->setModel(m_searchHistoryModel);
+  m_completer->setCaseSensitivity(Qt::CaseInsensitive);
   m_completer->popup()->installEventFilter(this);
 }
 
@@ -145,6 +155,25 @@ void KateViEmulatedCommandBar::deleteNonSpacesToLeftOfCursor()
   }
 }
 
+QString KateViEmulatedCommandBar::wordBeforeCursor()
+{
+  int wordBeforeCursorBegin = m_edit->cursorPosition() - 1;
+  while (wordBeforeCursorBegin >= 0 && (m_edit->text()[wordBeforeCursorBegin].isLetterOrNumber() || m_edit->text()[wordBeforeCursorBegin] == '_' ))
+  {
+    wordBeforeCursorBegin--;
+  }
+  wordBeforeCursorBegin++;
+  return m_edit->text().mid(wordBeforeCursorBegin, m_edit->cursorPosition() - wordBeforeCursorBegin);
+}
+
+void KateViEmulatedCommandBar::replaceWordBeforeCursorWith(const QString& newWord)
+{
+  const QString newText = m_edit->text().left(m_edit->cursorPosition() - wordBeforeCursor().length()) +
+  newWord +
+  m_edit->text().mid(m_edit->cursorPosition());
+  m_edit->setText(newText);
+}
+
 QString KateViEmulatedCommandBar::vimRegexToQtRegexPattern(const QString& vimRegexPattern)
 {
   QString qtRegexPattern = vimRegexPattern;
@@ -221,13 +250,70 @@ QString KateViEmulatedCommandBar::ensuredCharEscaped(const QString& originalStri
 
 void KateViEmulatedCommandBar::populateAndShowSearchHistoryCompletion()
 {
-    QStringList searchHistoryReversed;
-    foreach(QString searchHistoryItem, KateGlobal::self()->viInputModeGlobal()->searchHistory())
+  m_currentCompletionType = SearchHistory;
+  QStringList searchHistoryReversed;
+  foreach(QString searchHistoryItem, KateGlobal::self()->viInputModeGlobal()->searchHistory())
+  {
+    searchHistoryReversed.prepend(searchHistoryItem);
+  }
+  m_searchHistoryModel->setStringList(searchHistoryReversed);
+  updateCompletionPrefix();
+  m_completer->complete();
+}
+
+void KateViEmulatedCommandBar::populateAndShowWordFromDocumentCompletion()
+{
+    m_currentCompletionType = WordFromDocument;
+    QRegExp wordRegEx("\\w{1,}");
+    QStringList foundWords;
+    // Narrow the range of lines we search around the cursor so that we don't die on huge files.
+    const int startLine = qMax(0, m_view->cursorPosition().line() - 4096);
+    const int endLine = qMin(m_view->document()->lines(), m_view->cursorPosition().line() + 4096);
+    for (int lineNum = startLine; lineNum < endLine; lineNum++)
     {
-      searchHistoryReversed.prepend(searchHistoryItem);
+      const QString line = m_view->document()->line(lineNum);
+      int wordSearchBeginPos = 0;
+      while (wordRegEx.indexIn(line, wordSearchBeginPos) != -1)
+      {
+        const QString foundWord = wordRegEx.cap(0);
+        foundWords << foundWord;
+        wordSearchBeginPos = wordRegEx.indexIn(line, wordSearchBeginPos) + wordRegEx.matchedLength();
+      }
     }
-    m_searchHistoryModel->setStringList(searchHistoryReversed);
+    foundWords = QSet<QString>::fromList(foundWords).toList();
+    qSort(foundWords.begin(), foundWords.end(), caseInsensitiveLessThan);
+    m_searchHistoryModel->setStringList(foundWords);
+    updateCompletionPrefix();
     m_completer->complete();
+}
+
+void KateViEmulatedCommandBar::updateCompletionPrefix()
+{
+  if (m_currentCompletionType == WordFromDocument)
+  {
+    m_completer->setCompletionPrefix(wordBeforeCursor());
+  }
+  else if (m_currentCompletionType == SearchHistory)
+  {
+    m_completer->setCompletionPrefix(m_edit->text());
+  }
+}
+
+void KateViEmulatedCommandBar::completionChosen()
+{
+  if (m_currentCompletionType == WordFromDocument)
+  {
+    replaceWordBeforeCursorWith(m_completer->currentCompletion());
+  }
+  else if (m_currentCompletionType == SearchHistory)
+  {
+    m_edit->setText(m_completer->currentCompletion());
+  }
+  else
+  {
+    Q_ASSERT("Something went wrong, here - completion with unrecognised completion type");
+  }
+  m_completer->popup()->hide();
 }
 
 void KateViEmulatedCommandBar::setCompletionIndex(int index)
@@ -243,10 +329,13 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (m_completer->popup()->isVisible())
     {
-      m_edit->setText(m_completer->currentCompletion());
-      m_completer->popup()->hide();
+      completionChosen();
       return true;
     }
+  }
+  if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_Space)
+  {
+    populateAndShowWordFromDocumentCompletion();
   }
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_P)
   {
@@ -395,4 +484,5 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 
   updateMatchHighlight(match);
 
+  updateCompletionPrefix();
 }

@@ -32,6 +32,10 @@ private:
 
   QCompleter *m_completer;
   QStringListModel *m_searchHistoryModel;
+  enum CompletionType { None, SearchHistory, WordFromDocument };
+  CompletionType m_currentCompletionType;
+  void updateCompletionPrefix();
+  void completionChosen();
 
   KTextEditor::Attribute::Ptr m_highlightMatchAttribute;
   KTextEditor::MovingRange* m_highlightedMatch;
@@ -40,11 +44,14 @@ private:
   virtual bool eventFilter(QObject* object, QEvent* event);
   void deleteSpacesToLeftOfCursor();
   void deleteNonSpacesToLeftOfCursor();
+  QString wordBeforeCursor();
+  void replaceWordBeforeCursorWith(const QString& newWord);
   QString vimRegexToQtRegexPattern(const QString& vimRegexPattern);
   QString toggledEscaped(const QString& string, QChar escapeChar);
   QString ensuredCharEscaped(const QString& string, QChar charToEscape);
 
   void populateAndShowSearchHistoryCompletion();
+  void populateAndShowWordFromDocumentCompletion();
   void setCompletionIndex(int index);
 private slots:
   void editTextChanged(const QString& newText);

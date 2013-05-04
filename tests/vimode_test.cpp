@@ -1916,6 +1916,145 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("w#");
   QCOMPARE(searchHistory().size(), 2);
   QCOMPARE(searchHistory().last(), QString("\\<bar\\>"));
+
+  // Auto-complete words from the document on ctrl-space.
+  // Test that we can actually find a single word and add it to the list of completions.
+  BeginTest("foo");
+  TestPressKey("/\\ctrl- ");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
+  TestPressKey("\\enter\\enter");
+  FinishTest("foo");
+
+  // Count digits and underscores as being part of a word.
+  BeginTest("foo_12");
+  TestPressKey("/\\ctrl- ");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo_12"));
+  TestPressKey("\\enter\\enter");
+  FinishTest("foo_12");
+
+  // Check that we can find multiple words on one line.
+  BeginTest("bar (foo) [xyz]");
+  TestPressKey("/\\ctrl- ");
+  QStringListModel *completerStringListModel = dynamic_cast<QStringListModel*>(emulatedCommandBarCompleter()->model());
+  Q_ASSERT(completerStringListModel);
+  QCOMPARE(completerStringListModel->stringList(), QStringList() << "bar" << "foo" << "xyz");
+  TestPressKey("\\enter\\enter");
+  FinishTest("bar (foo) [xyz]");
+
+  // Check that we arrange the found words in case-insensitive sorted order.
+  BeginTest("D c e a b f");
+  TestPressKey("/\\ctrl- ");
+  verifyCommandBarCompletionsMatches(QStringList() << "a" << "b" << "c" << "D" << "e" << "f");
+  TestPressKey("\\enter\\enter");
+  FinishTest("D c e a b f");
+
+  // Check that we don't include the same word multiple times.
+  BeginTest("foo bar bar bar foo");
+  TestPressKey("/\\ctrl- ");
+  verifyCommandBarCompletionsMatches(QStringList() << "bar" << "foo");
+  TestPressKey("\\enter\\enter");
+  FinishTest("foo bar bar bar foo");
+
+  // Check that we search only a narrow portion of the document, around the cursor (4096 lines either
+  // side, say).
+  QStringList manyLines;
+  for (int i = 1; i < 2 * 4096 + 3; i++)
+  {
+    // Pad the digits so that when sorted alphabetically, they are also sorted numerically.
+    manyLines << QString("word%1").arg(i, 5, 10, QChar('0'));
+  }
+  QStringList allButFirstAndLastOfManyLines = manyLines;
+  allButFirstAndLastOfManyLines.removeFirst();
+  allButFirstAndLastOfManyLines.removeLast();
+
+  BeginTest(manyLines.join("\n"));
+  TestPressKey("4097j/\\ctrl- ");
+  verifyCommandBarCompletionsMatches(allButFirstAndLastOfManyLines);
+  TestPressKey("\\enter\\enter");
+  FinishTest(manyLines.join("\n"));
+
+
+  // "The current word" means the word before the cursor in the command bar, and includes numbers
+  // and underscores. Make sure also that the completion prefix is set when the completion is first invoked.
+  BeginTest("foo fee foa_11 foa_11b");
+  // Write "bar(foa112$nose" and position cursor before the "2", then invoke completion.
+  TestPressKey("/bar(foa_112$nose\\left\\left\\left\\left\\left\\left\\ctrl- ");
+  verifyCommandBarCompletionsMatches(QStringList() << "foa_11" << "foa_11b");
+  TestPressKey("\\enter\\enter");
+  FinishTest("foo fee foa_11 foa_11b");
+
+  // Be case insensitive.
+  BeginTest("foo Fo12 fOo13 FO45");
+  TestPressKey("/fo\\ctrl- ");
+  verifyCommandBarCompletionsMatches(QStringList() << "Fo12" << "FO45" << "foo" << "fOo13");
+  TestPressKey("\\enter\\enter");
+  FinishTest("foo Fo12 fOo13 FO45");
+
+  // Feed the current word to complete to the completer as we type/ edit.
+  BeginTest("foo fee foa foab");
+  TestPressKey("/xyz|f\\ctrl- o");
+  verifyCommandBarCompletionsMatches(QStringList() << "foa" << "foab" << "foo");
+  TestPressKey("a");
+  verifyCommandBarCompletionsMatches(QStringList() << "foa" << "foab");
+  TestPressKey("\\ctrl-h");
+  verifyCommandBarCompletionsMatches(QStringList() << "foa" << "foab" << "foo");
+  TestPressKey("o");
+  verifyCommandBarCompletionsMatches(QStringList() << "foo");
+  TestPressKey("\\enter\\enter");
+  FinishTest("foo fee foa foab");
+
+  // Upon choosing a completion with an empty command bar, add the completed text to the command bar and
+  // hide the completion.
+  BeginTest("foo fee fob foables");
+  TestPressKey("/\\ctrl- foa\\enter\\enter");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foables"));
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  FinishTest("foo fee fob foables");
+
+  // If bar is non-empty, replace the word under the cursor.
+  BeginTest("foo fee foa foab");
+  TestPressKey("/xyz|f$nose\\left\\left\\left\\left\\left\\ctrl- oa\\ctrl-p\\enter");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("xyz|foab$nose"));
+  TestPressKey("\\enter");
+  FinishTest("foo fee foa foab");
+
+  // If we're completing from history, though, the entire text gets set, and the completion prefix
+  // is the beginning of the entire text, not the current word before the cursor.
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(bar");
+  BeginTest("");
+  TestPressKey("/foo(b\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
+  TestPressKey("\\enter");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo(bar"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Set the completion prefix for the search history completion as soon as it is shown.
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(bar");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
+  BeginTest("");
+  TestPressKey("/f\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
+  TestPressKey("\\enter\\enter");
+  FinishTest("");
+
+  // Set the completion prefix for the search history completion as we edit, and ensure
+  // we use the whole entered text, not just the current word under the cursor.
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(bar");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
+  BeginTest("");
+  TestPressKey("/\\ctrl-pfoo(b");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
+  TestPressKey("\\enter\\enter");
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -2106,6 +2245,16 @@ QStringList ViModeTest::searchHistory()
 QCompleter* ViModeTest::emulatedCommandBarCompleter()
 {
   return kate_view->viModeEmulatedCommandBar()->findChild<QCompleter*>("completer");
+}
+
+void ViModeTest::verifyCommandBarCompletionsMatches(const QStringList& expectedCompletionList)
+{
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QStringList actualCompletionList;
+  for (int i = 0; emulatedCommandBarCompleter()->setCurrentRow(i); i++)
+    actualCompletionList << emulatedCommandBarCompleter()->currentCompletion();
+
+  QCOMPARE(actualCompletionList, expectedCompletionList);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -519,7 +519,7 @@ def register_command_completer(completers):
 
     # TODO Better to implement include() as a separate module
     completers['include'] = [
-        Value([(FILE, 1)])
+        Value([(MODULE, 1)])
       , Option('OPTIONAL', ZERO_OR_ONE)
       , Option('RESULT_VARIABLE', ZERO_OR_ONE, [(ANY, 1)])
       , Option('NO_POLICY_SCOPE', ZERO_OR_ONE)

@@ -47,7 +47,7 @@ from PyQt4.QtGui import (
   )
 
 from PyKDE4.kdecore import i18nc, KUrl
-from PyKDE4.kio import KFile, KFileDialog
+from PyKDE4.kio import KFile, KFileDialog, KUrlRequesterDialog
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
@@ -61,6 +61,225 @@ import cmake_help_parser
 
 cmakeToolView = None
 
+# ----------------------------------------------------------
+# CMake utils: open CMakeLists.txt action
+# ----------------------------------------------------------
+
+_CMAKE_LISTS = 'CMakeLists.txt'
+_CMAKE_MIME_TYPE = 'text/x-cmake'
+
+_ADD_SUB_RE = re.compile('^[^#]*add_subdirectory\((.*)\).*$')
+_SUBDIR_OPT = 'EXCLUDE_FROM_ALL'
+
+
+def _get_1st_arg_if_add_subdirectory_cmd(document, line):
+    # TODO WTF? '\badd_subdirectory' doesn't match! Just wanted to
+    # make sure that 'add_subdirectory' is not a part of some other word...
+    match = _ADD_SUB_RE.search(document.line(line))
+    if match:
+        print('CMakeHelper: line[{}] "{}" match: {}'.format(line, document.line(line), match.groups()))
+        return [subdir for subdir in match.group(1).split() if subdir != _SUBDIR_OPT][0]
+    return None
+
+
+def _find_current_context(document, cursor):
+    '''Determinate current context under cursor'''
+    # Parse whole document starting from a very first line!
+    in_a_string = False
+    in_a_command = False
+    skip_next = False
+    nested_var_level = 0
+    command = None
+    fn_params_start = None
+    for current_line in range(0, cursor.line() + 1):
+        line_str = document.line(current_line)
+        prev = None
+        should_count_pos = (current_line == cursor.line())
+        for pos, c in enumerate(line_str):
+            if should_count_pos and pos == cursor.column():
+                break
+            if c == '#' and not in_a_string:
+                # TODO Syntax error if we r in a var expansion
+                break                                       # Ignore everything till the end of line
+            if skip_next:                                   # Should we skip current char?
+                skip_next = False                           # Yep!
+            elif c == '\\':                                 # Found a backslash:
+                skip_next = True                            #  skip next char!
+            elif c == '"':                                  # Found a quote char
+                in_a_string = not in_a_string               # Switch 'in a string' state
+                # TODO Syntax error if we r in a var expansion
+            elif c == '{' and prev == '$':                  # Looks like a variable expansion?
+                nested_var_level += 1                       # Yep, incrase var level
+            elif c == '}':                                  # End of a variable expansion
+                nested_var_level -= 1
+            elif c == '(' and not in_a_string:              # Command params started
+                command = line_str[0:pos].strip()
+                # TODO Syntax error if we r in a var expansion
+                in_a_command = True
+                fn_params_start = KTextEditor.Cursor(current_line, pos + 1)
+            elif c == ')' and not in_a_string:
+                # TODO Syntax error if we r in a var expansion
+                in_a_command = False
+                command = None
+                fn_params_start = None
+
+            # TODO Handle generator expressions
+
+            # Remember current char in a `prev' for next iteration
+            prev = c
+    if fn_params_start is not None:
+        fn_params_range = KTextEditor.Range(fn_params_start, cursor)
+    else:
+        fn_params_range = KTextEditor.Range(-1, -1, -1, -1)
+    return (command, in_a_string, nested_var_level != 0, fn_params_range)
+
+
+def _is_there_CMakeLists(path):
+    '''Try to find `CMakeLists.txt` in a given path'''
+    print('CMakeHelper: checking `{}` for CMakeLists.txt'.format(path))
+    assert(isinstance(path, str))
+    if os.access(os.path.join(path, _CMAKE_LISTS), os.R_OK):
+        return True
+    return False
+
+
+def _find_CMakeLists(start_dir, parent_cnt = 0):
+    '''Try to find `CMakeLists.txt` startring form a given path'''
+    if _is_there_CMakeLists(start_dir):
+        return os.path.join(start_dir, _CMAKE_LISTS)
+    if parent_cnt < kate.configuration[PARENT_DIRS_LOOKUP_CNT]:
+        return _find_CMakeLists(os.path.dirname(start_dir), parent_cnt + 1)
+    return None
+
+
+def _openDocumentNoCheck(url):
+    document = kate.documentManager.openUrl(KUrl(url))
+    document.setReadWrite(os.access(url.toLocalFile(), os.W_OK))
+    kate.application.activeMainWindow().activateView(document)
+
+
+@pyqtSlot(QUrl)
+def openDocument(url):
+    local_file = url.toLocalFile()
+    print('CMakeCC: going to open the document: {}'.format(local_file))
+    if os.access(local_file, os.R_OK):
+        _openDocumentNoCheck(url)
+    else:
+        ui.popup(
+            i18nc('@title:window', 'Error')
+          , i18nc('@info:tooltip', 'Unable to open the document: <filename>{}</filename>'.format(local_file))
+          , 'dialog-error'
+          )
+
+
+def _ask_for_CMakeLists_location_and_try_open(start_dir_to_show, cur_doc_dir):
+    selected_dir = KUrlRequesterDialog.getUrl(
+        start_dir_to_show
+      , kate.mainInterfaceWindow().window()
+      , i18nc('@title:window', '<filename>CMakeLists.txt</filename> location')
+      )
+    print('CMakeHelper: selected_dir={}'.format(selected_dir))
+
+    if selected_dir.isEmpty():
+        return                                              # User pressed 'Cancel'
+
+    selected_dir = selected_dir.toLocalFile()               # Get selected path
+    # Is it relative?
+    if not os.path.isabs(selected_dir):
+        # Yep, join w/ a path of the current doc
+        selected_dir = os.path.abspath(os.path.join(cur_doc_dir, selected_dir))
+
+    # Check if there CMakeLists.txt present
+    cmakelists = os.path.join(selected_dir, _CMAKE_LISTS)
+    if _is_there_CMakeLists(selected_dir):
+        # Open it!
+        _openDocumentNoCheck(QUrl.fromLocalFile(cmakelists))
+    else:
+        ui.popup(
+            i18nc('@title:window', 'Error')
+          , i18nc('@info:tooltip', 'No such file <filename>{}</filename>'.format(cmakelists))
+          , 'dialog-error'
+          )
+
+
+def _try_open_CMakeLists(start_dir):
+    '''Check if given dir has CMakeLists.txt, try to open it'''
+    if _is_there_CMakeLists(start_dir):
+        _openDocumentNoCheck(QUrl.fromLocalFile(os.path.join(start_dir, _CMAKE_LISTS)))
+        return True
+    return False
+
+
+@kate.action(i18nc('@action:inmenu', 'Open CMakeLists...'), menu='Tools', shortcut='Meta+M')
+def openCMakeList():
+    # TODO Handle unnamed docs
+    # First of all check the document's MIME-type
+    document = kate.activeDocument()
+    cur_dir = os.path.dirname(document.url().toLocalFile())
+    mimetype = document.mimeType()
+    if mimetype != _CMAKE_MIME_TYPE:
+        # Ok, current document is not a CMakeLists.txt, lets try to open
+        # it in a current directory
+        if not _try_open_CMakeLists(cur_dir):
+            # Ok, no CMakeLists.txt found, lets ask a user
+            _ask_for_CMakeLists_location_and_try_open(cur_dir, cur_dir)
+        return
+
+    # Ok, we are in some CMake module...
+    # Check if there smth selected by user?
+    view = kate.activeView()
+    selectedRange = view.selectionRange()
+    if not selectedRange.isEmpty():
+        selected_dir = document.text(selectedRange)
+    else:
+        # Ok, nothing selected. Lets check the context: are we inside a command?
+        cursor = view.cursorPosition()
+        command, in_a_string, in_a_var, fn_params_range = _find_current_context(document, cursor)
+        print('CMakeHelper: command="{}", in_a_string={}, in_a_var={}'.format(command, in_a_string, in_a_var))
+        selected_dir = cur_dir
+        if command == 'add_subdirectory':
+            # Check if the command have some parameters already entered
+            if fn_params_range.isValid():
+                # Ok, get the arg right under cursor
+                wordRange = common.getBoundTextRangeSL(' \n()', ' \n()', cursor, document)
+                selected_dir = document.text(wordRange)
+                print('CMakeHelper: word@cursor={}'.format(selected_dir))
+        # TODO Try to handle cursor pointed in `include()` command?
+        else:
+            # Huh, lets find a nearest add_subdirectory command
+            # and get its first arg
+            if cursor.line() == 0:
+                back_line = -1
+                fwd_line = cursor.line()
+            elif cursor.line() == (document.lines() - 1):
+                back_line = cursor.line()
+                fwd_line = document.lines()
+            else:
+                back_line = cursor.line()
+                fwd_line = cursor.line() + 1
+            found = None
+            while not found and (back_line != -1 or fwd_line != document.lines()):
+                # Try to match a line towards a document's start
+                if 0 <= back_line:
+                    found = _get_1st_arg_if_add_subdirectory_cmd(document, back_line)
+                    back_line -= 1
+                # Try to match a line towards a document's end
+                if not found and fwd_line < document.lines():
+                    found = _get_1st_arg_if_add_subdirectory_cmd(document, fwd_line)
+                    fwd_line += 1
+            # Let to user specify anything he wants.
+            if found:
+                selected_dir = found
+            _ask_for_CMakeLists_location_and_try_open(selected_dir, cur_dir)
+            return
+
+    if not os.path.isabs(selected_dir):
+        selected_dir = os.path.join(cur_dir, selected_dir)
+
+    # Try to open
+    if not _try_open_CMakeLists(selected_dir):
+        # Yep, show a location dialog w/ an initial dir equal to a selected text
+        _ask_for_CMakeLists_location_and_try_open(selected_dir, cur_dir)
 
 # ----------------------------------------------------------
 # CMake utils: completion stuff
@@ -91,7 +310,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         # First of all check the document's MIME-type
         document = view.document()
         mimetype = document.mimeType()
-        if mimetype != 'text/x-cmake':
+        if mimetype != _CMAKE_MIME_TYPE:
             return
 
         print('CMakeCC [{}]: current word: "{}"'.format(mimetype, word))
@@ -100,7 +319,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
         cursor = view.cursorPosition()
         # Try to detect completion context
-        command, in_a_string, in_a_var, fn_params_range = self.find_current_context(document, cursor)
+        command, in_a_string, in_a_var, fn_params_range = _find_current_context(document, cursor)
         print('CMakeCC: command="{}", in_a_string={}, in_a_var={}'.format(command, in_a_string, in_a_var))
         if fn_params_range.isValid():
             print('CMakeCC: params="{}"'.format(document.text(fn_params_range)))
@@ -158,58 +377,6 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
     def executeCompletionItem(self, document, word, row):
         # TODO Why this method is not called???
         print('CMakeCC: executeCompletionItem: ' + repr(word)+', row='+str(row))
-
-
-    def find_current_context(self, document, cursor):
-        '''Determinate current context under cursor'''
-        # Parse whole document starting from a very first line!
-        in_a_string = False
-        in_a_command = False
-        skip_next = False
-        nested_var_level = 0
-        command = None
-        fn_params_start = None
-        for current_line in range(0, cursor.line() + 1):
-            line_str = document.line(current_line)
-            prev = None
-            should_count_pos = (current_line == cursor.line())
-            for pos, c in enumerate(line_str):
-                if should_count_pos and pos == cursor.column():
-                    break
-                if c == '#' and not in_a_string:
-                    # TODO Syntax error if we r in a var expansion
-                    break                                   # Ignore everything till the end of line
-                if skip_next:                               # Should we skip current char?
-                    skip_next = False                       # Yep!
-                elif c == '\\':                             # Found a backslash:
-                    skip_next = True                        #  skip next char!
-                elif c == '"':                              # Found a quote char
-                    in_a_string = not in_a_string           # Switch 'in a string' state
-                    # TODO Syntax error if we r in a var expansion
-                elif c == '{' and prev == '$':              # Looks like a variable expansion?
-                    nested_var_level += 1                   # Yep, incrase var level
-                elif c == '}':                              # End of a variable expansion
-                    nested_var_level -= 1
-                elif c == '(' and not in_a_string:          # Command params started
-                    command = line_str[0:pos].strip()
-                    # TODO Syntax error if we r in a var expansion
-                    in_a_command = True
-                    fn_params_start = KTextEditor.Cursor(current_line, pos + 1)
-                elif c == ')' and not in_a_string:
-                    # TODO Syntax error if we r in a var expansion
-                    in_a_command = False
-                    command = None
-                    fn_params_start = None
-
-                # TODO Handle generator expressions
-
-                # Remember current char in a `prev' for next iteration
-                prev = c
-        if fn_params_start is not None:
-            fn_params_range = KTextEditor.Range(fn_params_start, cursor)
-        else:
-            fn_params_range = KTextEditor.Range(-1, -1, -1, -1)
-        return (command, in_a_string, nested_var_level != 0, fn_params_range)
 
 
     def _loadCompleters(self):
@@ -270,9 +437,9 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
                     self.resultList.append(
                         self.createItemAutoComplete(
                             text=c[0]
-                        , description=c[1]
-                        )
-                    )
+                          , description=c[1]
+                          )
+                      )
                 else:
                     self.resultList.append(self.createItemAutoComplete(text=c))
 
@@ -377,7 +544,7 @@ class CMakeToolView(QObject):
         self.cfgPage.htmlize.toggled.connect(self.saveSettings)
         self.vewHelpPage.helpTargets.itemActivated.connect(self.updateHelpText)
         self.vewHelpPage.helpTargets.itemDoubleClicked.connect(self.insertHelpItemIntoCurrentDocument)
-        self.helpPage.anchorClicked.connect(self.openDocument)
+        self.helpPage.anchorClicked.connect(openDocument)
 
         # Refresh the cache view
         self._updateCacheView(self.cacheViewPage.buildDir.text())
@@ -621,22 +788,6 @@ class CMakeToolView(QObject):
             document.endEditing()
 
 
-    @pyqtSlot(QUrl)
-    def openDocument(self, url):
-        local_file = url.toLocalFile()
-        print('CMakeCC: going to open the document: {}'.format(local_file))
-        if os.access(local_file, os.R_OK):
-            document = kate.documentManager.openUrl(KUrl(url))
-            document.setReadWrite(os.access(local_file, os.W_OK))
-            kate.application.activeMainWindow().activateView(document)
-        else:
-            ui.popup(
-                i18nc('@title:window', 'Error')
-              , i18nc('@info:tooltip', 'Unable to open the document: <filename>{}</filename>'.format(local_file))
-              , 'dialog-error'
-              )
-
-
 # ----------------------------------------------------------
 # CMake utils: configuration stuff
 # ----------------------------------------------------------
@@ -662,6 +813,7 @@ class CMakeConfigWidget(QWidget):
 
     def apply(self):
         kate.configuration[CMAKE_BINARY] = self.cmakeBinary.text()
+        kate.configuration[PARENT_DIRS_LOOKUP_CNT] = self.parentDirsLookupCnt.value()
         try:
             cmake_help_parser.validate_cmake_executable(kate.configuration[CMAKE_BINARY])
         except ValueError as error:
@@ -687,15 +839,18 @@ class CMakeConfigWidget(QWidget):
         self.defaults()
         if CMAKE_BINARY in kate.configuration:
             self.cmakeBinary.setText(kate.configuration[CMAKE_BINARY])
-        if PROJECT_DIR in kate.configuration:
-            self.projectBuildDir.setText(kate.configuration[PROJECT_DIR])
+        if PARENT_DIRS_LOOKUP_CNT in kate.configuration:
+            self.parentDirsLookupCnt.setValue(kate.configuration[PARENT_DIRS_LOOKUP_CNT])
         if AUX_MODULE_DIRS in kate.configuration:
             self.moduleDirs.addItems(kate.configuration[AUX_MODULE_DIRS])
+        if PROJECT_DIR in kate.configuration:
+            self.projectBuildDir.setText(kate.configuration[PROJECT_DIR])
 
 
     def defaults(self):
         # TODO Dectect it!
         self.cmakeBinary.setText(CMAKE_BINARY_DEFAULT)
+        self.parentDirsLookupCnt.setValue(0)
 
 
     @pyqtSlot()
@@ -762,6 +917,8 @@ def init():
     print('CMakeCC: enter init')
     if CMAKE_BINARY not in kate.configuration:
         kate.configuration[CMAKE_BINARY] = CMAKE_BINARY_DEFAULT
+    if PARENT_DIRS_LOOKUP_CNT not in kate.configuration:
+        kate.configuration[PARENT_DIRS_LOOKUP_CNT] = 0
     if AUX_MODULE_DIRS not in kate.configuration:
         kate.configuration[AUX_MODULE_DIRS] = []
     if PROJECT_DIR not in kate.configuration:
@@ -770,8 +927,6 @@ def init():
         kate.configuration[TOOLVIEW_ADVANCED_MODE] = False
     if TOOLVIEW_BEAUTIFY not in kate.configuration:
         kate.configuration[TOOLVIEW_BEAUTIFY] = True
-
-    print('CMakeCC: init: cmakeBinary='.format(kate.configuration[CMAKE_BINARY]))
 
     # Initialize completion model
     createSignalAutocompleteCMake()

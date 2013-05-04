@@ -23,7 +23,6 @@ import types
 
 import cmake_help_parser
 
-
 ANY = 0
 IDENTIFIER = 1
 STRING = 2
@@ -119,9 +118,11 @@ class Option(object):
                 print('TODO: Try to complete a directory name relative to the current CMakeLists.txt')
             elif pp[0] == PACKAGE:
                 # TODO Try to complete a package name to find
+                # NOTE Nowadays there is no options w/ such type of arg
                 print('TODO: Try to complete a package name to find')
             elif pp[0] == MODULE:
                 # TODO Try to complete a module name to include
+                # NOTE Nowadays there is no options w/ such type of arg
                 print('TODO: Try to complete a module name to include')
             elif pp[0] == PROPERTY:
                 # TODO Try to complete a property name
@@ -146,13 +147,22 @@ class Value(object):
         self.args = args
 
     def complete(self, document, cursor, word, comp_list, sid):
-        print('CMakeCC: value completer: args={}'.format(self.args))
+        comp_idx = len(comp_list) - int(bool(document.text(word)))
+        print('CMakeCC: value completer: args={}, comp_idx={}'.format(self.args, comp_idx))
         # If given value expected to be the first param and it's still not here
-        if sid == 0 and len(comp_list) < _minimum_expected_params(self.args):
+        if sid == 0 and comp_idx < _minimum_expected_params(self.args):
+            if comp_idx < len(self.args):                    # Not all values are entered yet
+                arg = self.args[comp_idx]
+                if arg[0] == PACKAGE:
+                    modules = cmake_help_parser.get_cmake_modules_list_all()
+                    packages = [pkg[4:] for pkg in modules if pkg.startswith('Find')]
+                    return (packages, True)
+                if arg[0] == MODULE:
+                    return (cmake_help_parser.get_cmake_modules_list_all(), True)
+            # TODO Complete other arg types?
             # Do not even try to complete anything else
-            # TODO Complete various arg types
             return ([], True)
-        if self.args is not None and len(self.args) == 1 and self.args[0][0] == ONE_OF:
+        if len(self.args) == 1 and self.args[0][0] == ONE_OF:
             # Show completion for enum type in case of unambiguous arg position
             return (self.args[0][1], False)
         # NOTE It doesn't cover all cases, but it is the best we can do here...

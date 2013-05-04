@@ -26,7 +26,7 @@ from PyKDE4.kdecore import i18nc
 
 import kate
 
-from cmake_utils_settings import (CMAKE_BINARY, PROJECT_DIR, AUX_MODULE_DIRS, CMAKE_BINARY_DEFAULT)
+import cmake_utils_settings
 
 
 CMAKE_HELP_VARBATIM_TEXT_PADDING_SIZE = 9
@@ -48,15 +48,16 @@ class help_category:
 
 
 def _form_cmake_aux_arg(paths):
-    return ['-DCMAKE_MODULE_PATH=' + ';'.join(paths)]
+    if paths:
+        return ['-DCMAKE_MODULE_PATH=' + ';'.join(paths)]
+    return []
 
 
 def _get_aux_dirs_if_any():
-    cmake_utils_conf = kate.configuration.root.get('cmake_utils', {})
-    aux_dirs = []
-    if AUX_MODULE_DIRS in cmake_utils_conf and cmake_utils_conf[AUX_MODULE_DIRS]:
-        aux_dirs += _form_cmake_aux_arg(cmake_utils_conf[AUX_MODULE_DIRS])
-    return aux_dirs
+    aux_dirs = cmake_utils_settings.get_aux_dirs()
+    if aux_dirs:
+        return _form_cmake_aux_arg(aux_dirs)
+    return []
 
 
 def _parse_cmake_help(out):
@@ -112,9 +113,9 @@ def _spawn_cmake_grab_stdout(args, cmake_executable = None):
     if cmake_executable is None:
         cmake_utils_conf = kate.configuration.root.get('cmake_utils', {})
 
-        if CMAKE_BINARY in cmake_utils_conf:
+        if cmake_utils_settings.CMAKE_BINARY in cmake_utils_conf:
             # TODO Set locale "C" before run cmake
-            cmake_bin = cmake_utils_conf[CMAKE_BINARY]
+            cmake_bin = cmake_utils_conf[cmake_utils_settings.CMAKE_BINARY]
         else:
             raise ValueError(
                 i18nc(
@@ -215,13 +216,19 @@ def get_cmake_properties_list():
     return _parse_cmake_help_2(out, 'Properties ')
 
 
-@functools.lru_cache(maxsize=1)
+@functools.lru_cache(maxsize=16)
 def get_cmake_modules_list(aux_path = None):
     aux_dirs = []
     if aux_path is not None:
-        if isinstance(aux_path, str):
+        if isinstance(aux_path, str) and aux_path:
             aux_dirs = _form_cmake_aux_arg([aux_path])
     out = _spawn_cmake_grab_stdout(aux_dirs + ['--help-module-list'])
+    return out.decode('utf-8').splitlines()[1:]
+
+
+@functools.lru_cache(maxsize=1)
+def get_cmake_modules_list_all():
+    out = _spawn_cmake_grab_stdout(_get_aux_dirs_if_any() + ['--help-module-list'])
     return out.decode('utf-8').splitlines()[1:]
 
 

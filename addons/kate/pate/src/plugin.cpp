@@ -381,7 +381,7 @@ void Pate::ConfigPage::infoPluginActionsChanged(int actionIndex)
 {
     Python py = Python();
     if (!m_pluginActions) {
-        // This is a bit wierd.
+        // This is a bit weird.
         return;
     }
     PyObject *tuple = PyList_GetItem(m_pluginActions, actionIndex);
@@ -425,7 +425,7 @@ void Pate::ConfigPage::infoPluginConfigPagesChanged(int pageIndex)
 {
     Python py = Python();
     if (!m_pluginConfigPages) {
-        // This is a bit wierd.
+        // This is a bit weird.
         return;
     }
     PyObject *tuple = PyList_GetItem(m_pluginConfigPages, pageIndex);

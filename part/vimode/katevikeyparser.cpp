@@ -515,7 +515,7 @@ const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
       else {
         // contains modifiers
         if ( keys.mid( i ).indexOf( '-' ) != -1 && keys.mid( i ).indexOf( '-' ) < keys.mid( i ).indexOf( '>' ) ) {
-          // Perform something similar to a split on '-', except that we want to keep the occurences of '-'
+          // Perform something similar to a split on '-', except that we want to keep the occurrences of '-'
           // e.g. <c-s-a> will equate to the list of tokens "c-", "s-", "a".
           // A straight split on '-' would give us "c", "s", "a", in which case we lose the piece of information that
           // 'a' is just the 'a' key, not the 'alt' modifier.

@@ -223,19 +223,19 @@ class KateProject : public QObject
 
   signals:
     /**
-     * Emited on project map changes.
+     * Emitted on project map changes.
      * This includes the name!
      */
     void projectMapChanged ();
 
     /**
-     * Emited on model changes.
+     * Emitted on model changes.
      * This includes the files list, itemForFile mapping!
      */
     void modelChanged ();
 
     /**
-     * Emited when the index creation is finished.
+     * Emitted when the index creation is finished.
      * This includes the ctags index.
      */
     void indexChanged ();

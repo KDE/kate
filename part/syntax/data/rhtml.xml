@@ -875,7 +875,7 @@
 				<IncludeRules context="dq_string_rules" />
 			</context>
 			
-			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
+			<!-- this format doesn't allow nesting. it is terminated by the next occurrence of the
 				delimiter character
 				-->
 			<context name="gdl_dq_string_5" attribute="String" lineEndContext="#stay" dynamic="true">
@@ -940,7 +940,7 @@
 				<DetectChar attribute="String" context="#pop" char="&gt;" />
 			</context>
 			
-			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
+			<!-- this format doesn't allow nesting. it is terminated by the next occurrence of the
 				delimiter character
 				-->
 			<context name="gdl_token_array_5" attribute="String" lineEndContext="#stay" dynamic="true">
@@ -1004,7 +1004,7 @@
 				<DetectChar attribute="Raw String" context="#pop" char="&gt;" />
 			</context>
 			
-			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
+			<!-- this format doesn't allow nesting. it is terminated by the next occurrence of the
 				delimiter character
 				-->
 			<context name="gdl_apostrophed_5" attribute="Raw String" lineEndContext="#stay" dynamic="true">
@@ -1068,7 +1068,7 @@
 				<DetectChar attribute="Command" context="#pop" char="&gt;" />
 			</context>
 			
-			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
+			<!-- this format doesn't allow nesting. it is terminated by the next occurrence of the
 				delimiter character
 				-->
 			<context name="gdl_shell_command_5" attribute="Command" lineEndContext="#stay" dynamic="true">
@@ -1134,7 +1134,7 @@
 				<DetectChar attribute="Regular Expression" context="#pop" char="&gt;" />
 			</context>
 			
-			<!-- this format doesn't allow nesting. it is terminated by the next occurence of the
+			<!-- this format doesn't allow nesting. it is terminated by the next occurrence of the
 				delimiter character
 				-->
 			<context name="gdl_regexpr_5" attribute="Regular Expression" lineEndContext="#stay" dynamic="true">

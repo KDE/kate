@@ -783,7 +783,7 @@ bool TextFolding::updateFoldedRangesForNewRange (TextFolding::FoldingRange *newR
   emit foldingRangesChanged ();
   
   /**
-   * all fine, stuff done, signal emited
+   * all fine, stuff done, signal emitted
    */
   return true;
 }
@@ -845,7 +845,7 @@ bool TextFolding::updateFoldedRangesForRemovedRange (TextFolding::FoldingRange *
   emit foldingRangesChanged ();
   
   /**
-   * all fine, stuff done, signal emited
+   * all fine, stuff done, signal emitted
    */
   return true;
 }

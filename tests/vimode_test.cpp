@@ -1172,7 +1172,7 @@ void ViModeTest::yankHighlightingTests()
   DoTest("foo", "viwyw", "foo");
   QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
 
-  // Add a yank highlight and directly (i.e. without using Vim commmands,
+  // Add a yank highlight and directly (i.e. without using Vim commands,
   // which would clear the highlight) delete all text; if this deletes the yank highlight behind our back
   // and we don't respond correctly to this, it will be double-deleted by KateViNormalMode.
   // Currently, this seems like it doesn't occur, but better safe than sorry :)

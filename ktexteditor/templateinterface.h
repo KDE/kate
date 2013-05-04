@@ -76,7 +76,7 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * @since 4.5
      * if a placeholder is a mirror, the place holder name may contain additional information
      * ${something/regexp/replacement/} takes the value of the placeholder something and replaces the match with the replacement before inserting the mirrored value
-     * ${something/regexp/replacement/g} like above, but for all occurences
+     * ${something/regexp/replacement/g} like above, but for all occurrences
      *                          The syntax of the regexp and the replacement are the ones from kateparts regexp search/replace
      * ${something/regexp/replacement/i} like above, but case insensitive
      *                          The syntax of the regexp and the replacement are the ones from kateparts regexp search/replace
@@ -84,14 +84,14 @@ class KTEXTEDITOR_EXPORT TemplateInterface //should be named AbstractTemplateInt
      * If a literal / should appear in the regexp, it has to be escaped \/,
      * literal \ has to be escaped too 
      * 
-     * If you have mirrored ranges and want another occurence than the first one as the master
+     * If you have mirrored ranges and want another occurrence than the first one as the master
      * you can add @ directly after the placeholder name.
      * 
      * The interface2 version invokes the function specified by functionName within the script specified
      * by the scriptToken, if a placeholder is specified with backticks like
      * ${placeholder`functionName`}
      * The function has a global environment containing "view", "document" and "debug", at 
-     * least in the katepart implementation. The function invokation is not allowed to be mixed with other replacements
+     * least in the katepart implementation. The function invocation is not allowed to be mixed with other replacements
      * 
      * If a / or ` replacement is done on a master the initial value is modified and therefor
      * also all mirrored placeholders are affected too, later on the replacement is not done anymore on master ranges

@@ -353,7 +353,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     //
     KApplication app(true);
 
-    // do no session managment for this app, just client
+    // do no session management for this app, just client
     app.disableSessionManagement ();
     
     // connect dbus signal

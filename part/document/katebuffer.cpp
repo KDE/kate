@@ -179,7 +179,7 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
   m_tooLongLinesWrapped = false;
 
   /**
-   * allow non-existant files without error, if local file!
+   * allow non-existent files without error, if local file!
    * will allow to do "kate newfile.txt" without error messages but still fail if e.g. you mistype a url
    * and it can't be fetched via fish:// or other strange things in kio happen...
    * just clear() + exit with success!

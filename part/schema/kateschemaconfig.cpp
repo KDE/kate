@@ -480,7 +480,7 @@ KateSchemaConfigDefaultStylesTab::KateSchemaConfigDefaultStylesTab(KateSchemaCon
 {
   m_colorTab = colorTab;
 
-  // sizemanagment
+  // size management
   QGridLayout *grid = new QGridLayout( this );
 
   m_defaultStyles = new KateStyleTreeWidget( this );

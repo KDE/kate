@@ -381,7 +381,7 @@
       </context>
 
       <!-- This context handles quoted strings in %if statements. WARNING: Make sure that you
-      switch to this context _after_ parsing the starting ", because at the first occurence
+      switch to this context _after_ parsing the starting ", because at the first occurrence
       of " this context switches back. -->
       <context attribute="String" lineEndContext="#pop" name="quoted strings in if statements">
         <!-- Handle \ -->

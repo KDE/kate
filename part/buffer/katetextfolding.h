@@ -188,7 +188,7 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
   Q_SIGNALS:
     /**
      * If the folding state of existing ranges changes or
-     * ranges are added/removed, this signal is emited.
+     * ranges are added/removed, this signal is emitted.
      */
     void foldingRangesChanged ();
       
@@ -282,14 +282,14 @@ class KATEPART_TESTS_EXPORT TextFolding : public QObject {
     /**
      * Helper to update the folded ranges if we insert a new range into the tree.
      * @param newRange new folding range that was inserted, will already contain its new nested ranges, if any!
-     * @return any updated done? if yes, the foldingRangesChanged() signal got emited!
+     * @return any updated done? if yes, the foldingRangesChanged() signal got emitted!
      */
     bool updateFoldedRangesForNewRange (TextFolding::FoldingRange *newRange);
     
     /**
      * Helper to update the folded ranges if we remove a new range from the tree.
      * @param oldRange new folding range that is removed, will still contain its new nested ranges, if any!
-     * @return any updated done? if yes, the foldingRangesChanged() signal got emited!
+     * @return any updated done? if yes, the foldingRangesChanged() signal got emitted!
      */
     bool updateFoldedRangesForRemovedRange (TextFolding::FoldingRange *oldRange);
     

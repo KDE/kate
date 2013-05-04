@@ -335,7 +335,7 @@ class KATEPART_TESTS_EXPORT TextBuffer : public QObject {
 
     /**
      * A line got wrapped.
-     * @param position position where the wrap occured
+     * @param position position where the wrap occurred
      */
     void lineWrapped (const KTextEditor::Cursor &position);
 

@@ -225,7 +225,7 @@ def _attribute(**attributes):
 
 def _simpleEventListener(func):
     # automates the most common decorator pattern: calling a bunch
-    # of functions when an event has occured
+    # of functions when an event has occurred
     func.functions = set()
     func.fire = functools.partial(_callAll, func.functions)
     func.clear = func.functions.clear

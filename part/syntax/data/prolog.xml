@@ -183,7 +183,7 @@ AL GUSTO (simple changes):
       may safely remove/comment out the rules in "term/nested/list/curly" below
       and handle it in the context "operator".
     - Disable arith_expr: replace "context="arith_expr"" w/ "context="#stay""
-      in the rules in contexts "atomic" and "operator" (two or three occurences).
+      in the rules in contexts "atomic" and "operator" (two or three occurrences).
     - Disable indentation-based folding: in the section "general"@EOF:"folding".
     - General guidelines: Be nice to slow/old hardware: avoid RegExpr (start w/
       a RegExpr, test, then find a replacement), else match a RegExpr as late as
@@ -678,7 +678,7 @@ TODO sorted by priority
 
 	    This is only a goody to highlight arith ops and detect syntax errors.
 	    If it causes problems, disable it: exchange context="arith_expr" in
-	    "atomic" and "operator" below with context="#stay" (two or three occurences) -->
+	    "atomic" and "operator" below with context="#stay" (two or three occurrences) -->
 	    <context name="arith_expr" lineEndContext="#stay" attribute="Syntax Error" noIndentationBasedFolding="true" >
 		<DetectChar char="(" context="nested_expr" beginRegion="nested" attribute="( ) [ ]" />
 		<DetectChar lookAhead="true" char=")" context="#pop" attribute="( ) [ ]" />

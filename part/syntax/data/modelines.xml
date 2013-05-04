@@ -10,7 +10,7 @@
   Homepage: http://kde-files.org/content/show.php?content=90660
   -->
 <language name="Modelines"
-          version="0.50"
+          version="1.0"
           kateversion="2.4"
           section="Other"
           extensions=""
@@ -42,9 +42,12 @@
     <item> byte-order-marker </item>
     <item> folding-markers </item>
     <item> icon-border </item>
+    <!-- Since KDE 4.11 -->
+    <item> indent-pasted-text </item>
     <item> keep-extra-spaces </item>
     <item> line-numbers </item>
-    <item> newline-at-eof </item>                           <!-- Since KDE 4.9 -->
+    <!-- Since KDE 4.9 -->
+    <item> newline-at-eof </item>
     <item> overwrite-mode </item>
     <item> persistent-selection </item>
     <!-- NOTE Deprecated since KDE 4.10 -->

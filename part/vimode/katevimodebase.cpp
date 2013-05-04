@@ -163,6 +163,10 @@ const Range KateViModeBase::getWordRangeUnderCursor() const
     if ( c.column() > doc()->lineLength( c.line() ) ) {
       c.setColumn(0);
       c.setLine( c.line()+1 );
+      if (c.line() == doc()->lines())
+      {
+        return Range::invalid();
+      }
     }
 
     ch = doc()->character( c );

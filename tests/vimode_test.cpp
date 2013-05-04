@@ -555,6 +555,8 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("fOo foo fOo", "$#ggNrX", "fOo Xoo fOo"); // Flag that the search to repeat is case insensitive.
   DoTest("bar foo", "$*rX", "bar Xoo");
   DoTest("bar foo", "$#rX", "bar Xoo");
+  // Test that calling # on the last, blank line of a document does not go into an infinite loop.
+  DoTest("foo\n", "j#", "foo\n");
 
   // Testing "-"
   DoTest("0\n1\n2\n3\n4\n5", "5j-x2-x", "0\n1\n\n3\n\n5");
@@ -1904,7 +1906,7 @@ void ViModeTest::VimStyleCommandBarTests()
   clearSearchHistory();
   DoTest("foo bar", "/\\enter", "foo bar");
   QVERIFY(searchHistory().isEmpty());
-  
+
   // "*" and "#" should add the relevant word to the search history, enclosed between \< and \>
   clearSearchHistory();
   BeginTest("foo bar");

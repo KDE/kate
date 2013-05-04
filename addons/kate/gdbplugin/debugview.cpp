@@ -62,6 +62,9 @@ DebugView::~DebugView()
 
 void DebugView::runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos)
 {
+    if (conf.executable.isEmpty()) {
+        return;
+    }
     m_targetConf = conf;
     if (ioFifos.size() == 3) {
         m_ioPipeString = QString("< %1 1> %2 2> %3")

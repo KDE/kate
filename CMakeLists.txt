@@ -46,6 +46,11 @@ if (BUILD_KTEXTEDITOR)
 
   # ktexteditor interfaces, copy from kdelibs/interfaces/ktexteditor
   macro_optional_add_subdirectory (ktexteditor)
+else()
+  # kdelibs 4.11 is required
+  if("${KDE_VERSION}" VERSION_LESS 4.10.60)
+    message(FATAL_ERROR "kdelibs version ${KDE_VERSION}, but 4.11 is required. Set the option BUILD_KTEXTEDITOR to ON to build anyway.")
+  endif()
 endif (BUILD_KTEXTEDITOR)
 
 # kate part

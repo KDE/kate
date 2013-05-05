@@ -64,7 +64,7 @@
       <item>
        <widget class="QListWidget" name="moduleDirs">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;/body&gt;Aux paths with CMake modules. CMake will try to parse initial comment for every module found, so you can see a help screen for custom modules in the toolview.&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;body&gt;Aux paths with CMake modules. CMake will try to parse initial comment for every module found, so you can see a help screen for custom modules in the toolview.&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>

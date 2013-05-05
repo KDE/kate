@@ -365,6 +365,7 @@ def expandAtCursor():
 
 class ExpandsCompletionModel(AbstractCodeCompletionModel):
     TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'Expands Available')
+    GROUP_POSITION = AbstractCodeCompletionModel.GroupPosition.GLOBAL
 
     def completionInvoked(self, view, word, invocationType):
         self.reset()

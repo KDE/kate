@@ -291,6 +291,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
     TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'CMake Auto Completion')
     MAX_DESCRIPTION = 100
+    GROUP_POSITION = AbstractCodeCompletionModel.GroupPosition.BEST_MATCHES
 
     _cc_registrar_fn_name = 'register_command_completer'
 

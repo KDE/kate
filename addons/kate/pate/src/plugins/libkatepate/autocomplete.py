@@ -38,42 +38,48 @@ CCM = KTextEditor.CodeCompletionModel
 
 class AbstractCodeCompletionModel(CCM):
 
+    class GroupPosition:
+        BEST_MATCHES = 1
+        LOCAL_SCOPE = 100
+        PUBLIC = 200
+        PROTECTED = 300
+        PRIVATE = 400
+        NAMESPACE = 500
+        GLOBAL = 600
+
     TITLE_AUTOCOMPLETION = i18n('Autopate')
     MIMETYPES = []
     OPERATORS = []
     SEPARATOR = '.'
     MAX_DESCRIPTION = 80
+    GROUP_POSITION = GroupPosition.BEST_MATCHES
+
+    # NOTE Allow to derived classes to override categories set,
+    # as well as its mapping to an icon
+    CATEGORY_2_ICON = {
+        'package': 'code-block',
+        'module': 'code-context',
+        'unknown': None,
+        'constant': 'code-variable',
+        'class': 'code-class',
+        'function': 'code-function',
+        'pointer': 'unknown'
+    }
 
     def __init__(self, model, resultList=None):
         self.model = model
         super(AbstractCodeCompletionModel, self).__init__(model)
         self.resultList = []
 
-    roles = {
-        CCM.CompletionRole: CCM.FirstProperty | CCM.Public | CCM.LastProperty | CCM.Prefix,
-        CCM.ScopeIndex: 0,
-        CCM.MatchQuality: 10,
-        CCM.HighlightingMethod: None,
-        CCM.InheritanceDepth: 0
-    }
-
     @classmethod
     def createItemAutoComplete(cls, text, category='unknown', args=None, description=None):
-        icon_converter = {
-            'package': 'code-block',
-            'module': 'code-context',
-            'unknown': 'unknown',
-            'constant': 'code-variable',
-            'class': 'code-class',
-            'function': 'code-function',
-            'pointer': 'unknown'
-        }
+        # TODO Add `prefix` parameter
         if description and 0 < cls.MAX_DESCRIPTION and len(description) > cls.MAX_DESCRIPTION:
             description = description.strip()
             description = description[:cls.MAX_DESCRIPTION] + '...'
         return {
             'text': text,
-            'icon': icon_converter[category],
+            'icon': cls.CATEGORY_2_ICON[category] if category in cls.CATEGORY_2_ICON else None,
             'category': category,
             'args': args or '',
             'type': category,
@@ -98,27 +104,49 @@ class AbstractCodeCompletionModel(CCM):
         return self.parseLine(line, column_end)
 
     def data(self, index, role):
+        # Check if 'gorup' node requested
         if not index.parent().isValid():
-            return self.TITLE_AUTOCOMPLETION
+            # Yep, return title and some other gorup props
+            if role == CCM.InheritanceDepth:
+                return self.GROUP_POSITION
+            # ATTENTION TODO NOTE
+            # Due this BUG (https://bugs.kde.org/show_bug.cgi?id=247896)
+            # we can't use CCM.GroupRole, so hardcoded value 47 is here!
+            if role == 47:
+                return Qt.DisplayRole
+            if role == Qt.DisplayRole:
+                return self.TITLE_AUTOCOMPLETION
+            # Return 'invalid' for other roles
+            return None
+
+        # Leaf item props are requested
         item = self.resultList[index.row()]
         if index.column() == CCM.Name:
             if role == Qt.DisplayRole:
                 return item['text']
-            try:
-                return self.roles[role]
-            except KeyError:
-                pass
+            if role == CCM.CompletionRole:
+                return CCM.GlobalScope
+            if role == CCM.ScopeIndex:
+                return -1
+            # Return 'invalid' for other roles
+            pass
         elif index.column() == CCM.Icon:
             if role == Qt.DecorationRole:
-                return KIcon(item["icon"]).pixmap(QSize(16, 16))
+                # Show icon only if specified by a completer!
+                if 'icon' in item and item['icon'] is not None:
+                    return KIcon(item['icon']).pixmap(QSize(16, 16))
+                pass
         elif index.column() == CCM.Arguments:
-            item_args = item.get("args", None)
+            item_args = item.get('args', None)
             if role == Qt.DisplayRole and item_args:
                 return item_args
         elif index.column() == CCM.Postfix:
-            item_description = item.get("description", None)
+            item_description = item.get('description', None)
             if role == Qt.DisplayRole and item_description:
                 return item_description
+        elif index.column() == CCM.Prefix:
+            # TODO Handle a `prefix`
+            pass
         return None
 
     def parent(self, index):

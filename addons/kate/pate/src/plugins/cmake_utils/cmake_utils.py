@@ -308,15 +308,17 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
     def completionInvoked(self, view, word, invocationType):
         '''Completion has been inviked for given view and word'''
+
+        self.reset()                                        # Drop previously collected completions
+
         # First of all check the document's MIME-type
         document = view.document()
         mimetype = document.mimeType()
+
         if mimetype != _CMAKE_MIME_TYPE:
             return
 
         print('CMakeCC [{}]: current word: "{}"'.format(mimetype, word))
-
-        self.reset()                                        # Drop previously collected completions
 
         cursor = view.cursorPosition()
         # Try to detect completion context

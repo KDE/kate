@@ -152,7 +152,7 @@ void ProxyItem::initDisplay()
       m_display.replace(0, QDir::homePath().length(), "~");
     }
   } else {
-    m_display = m_path.section(QLatin1String("/"), -1, -1);
+    m_display = m_path.section(QLatin1Char("/"), -1, -1);
   }
     
 }
@@ -970,9 +970,9 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 
 ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
 {
-  QString base = name.section(QLatin1String("/"), 0, -2);
+  QString base = name.section(QLatin1Char("/"), 0, -2);
   foreach(ProxyItem *item, m_root->children()) {
-    QString path = item->path().section(QLatin1String("/"), 0, -r);
+    QString path = item->path().section(QLatin1Char("/"), 0, -r);
     if(!QFileInfo(path).isAbsolute()) {
       continue;
     }
@@ -982,7 +982,7 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
     // and return /foo/x rather than /foo/xy
     // this seems a bit hackish, but is the simplest way to solve the
     // current issue.
-    path += QLatin1String("/");
+    path += QLatin1Char("/");
 
     if(name.startsWith(path) && item->flag(ProxyItem::Dir)) {
       return static_cast<ProxyItemDir*>(item);
@@ -1027,7 +1027,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
   QString sep;
   QString tail = item->path();
   tail.remove(0, root->path().length());
-  QStringList parts = tail.split(QLatin1String("/"), QString::SkipEmptyParts);
+  QStringList parts = tail.split(QLatin1Char("/"), QString::SkipEmptyParts);
   ProxyItemDir *ptr = root;
   QStringList current_parts;
   current_parts.append(root->path());
@@ -1041,7 +1041,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
     current_parts.append(part);
     ProxyItemDir *find = findChildNode(ptr, part);
     if(!find) {
-      QString new_name = current_parts.join(QLatin1String("/"));
+      QString new_name = current_parts.join(QLatin1Char("/"));
       QModelIndex parent_index = createIndex(ptr->row(), 0, ptr);
       kDebug(debugArea()) << "adding" << part << "to" << ptr;
       beginInsertRows(ptr == m_root ? QModelIndex() : parent_index, ptr->childCount(), ptr->childCount());
@@ -1092,7 +1092,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     kDebug(debugArea()) << "creating a new root";
 
     // trim off trailing file and dir
-    QString base = item->path().section(QLatin1String("/"), 0, -2);
+    QString base = item->path().section(QLatin1Char("/"), 0, -2);
 
     // create new root
     ProxyItemDir *new_root = new ProxyItemDir(base, 0);
@@ -1104,7 +1104,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
     endInsertRows();
     
     // same fix as in findRootNode, try to match a full dir, instead of a partial path
-    base += QLatin1String("/");
+    base += QLatin1Char("/");
     
     // try and merge existing roots with the new root node.
     kDebug(debugArea()) << "attempting to merge some existing roots";

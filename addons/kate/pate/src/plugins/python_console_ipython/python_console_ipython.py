@@ -129,7 +129,7 @@ def django_project_filename_changed(kernel_app):
         msg = i18n('From “%1” autoload: %2', app_mod.__name__.split('.')[-2], ', '.join(model_labels))
         imports.append(msg)
     for import_msg in imports:
-        print_to_shell(kernel_app, msg)
+        print_to_shell(kernel_app, import_msg)
     return imported_objects
 
 

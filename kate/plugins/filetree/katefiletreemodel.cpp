@@ -1041,7 +1041,7 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
     current_parts.append(part);
     ProxyItemDir *find = findChildNode(ptr, part);
     if(!find) {
-      QString new_name = current_parts.join(QLatin1Char('/'));
+      QString new_name = current_parts.join(QLatin1String("/"));
       QModelIndex parent_index = createIndex(ptr->row(), 0, ptr);
       kDebug(debugArea()) << "adding" << part << "to" << ptr;
       beginInsertRows(ptr == m_root ? QModelIndex() : parent_index, ptr->childCount(), ptr->childCount());

@@ -29,9 +29,12 @@
 #       Select a color string of any kind to display its color in a tooltip
 #
 
-"""Shows a preview of a of a selected color string (like e.g. #fe57a1) in a tooltip \
-and/or all parsed #colors in a 'Palette' tool view, ability to edit/insert #color strings.
-"""
+'''Utilities to work with #colors in documents
+
+    Shows a preview of a of a selected color string (like e.g. #fe57a1) in a tooltip
+    and/or all parsed #colors in a 'Palette' tool view, ability to edit/insert #color strings.
+
+'''
 
 import os
 import math

@@ -18,7 +18,10 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-'''Plugins to work with C++ comments'''
+'''Plugins to work with comments
+
+    Supported languages are C++, JS, Python, CMake, Bash
+'''
 
 import kate
 import kate.gui

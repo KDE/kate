@@ -1,3 +1,4 @@
+'''Plugin to close opened tag'''
 
 import kate
 from libkatepate import ui, common
@@ -6,12 +7,13 @@ from PyKDE4.kdecore import i18nc
 
 import re
 
+_TAG_FIND_RE = re.compile('<\s*([^/][^ ]*)(?:\s+[^>]+)?>')
+
 
 def openingTagBeforeCursor(document, position):
     currentLine = document.line(position.line())
     currentLine = currentLine[:position.column()].rstrip()
-    tag = re.compile('<\s*([^/][^ ]*)(?:\s+[^>]+)?>')
-    openTags = list(tag.finditer(currentLine))
+    openTags = list(_TAG_FIND_RE.finditer(currentLine))
     if openTags:
         lastMatch = max(openTags, key=lambda x: x.end())
         if lastMatch.end() == len(currentLine):

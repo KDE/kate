@@ -82,6 +82,8 @@ namespace KTextEditor
  *  - backup-on-save-remote [bool], enable/disable backup when saving remote files
  *  - backup-on-save-suffix [string], set the suffix for file backups, e.g. "~"
  *  - backup-on-save-prefix [string], set the prefix for file backups, e.g. "."
+ *  - tab-width [int], read/set the width for tabs
+ *  - indent-width [int], read/set the indentation width
  *
  * Either interface should emit the \p configChanged signal when appropriate.
  * TODO: Add to interface in KDE 5.

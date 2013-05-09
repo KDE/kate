@@ -4517,7 +4517,7 @@ bool KateDocument::checkOverwrite( KUrl u, QWidget *parent )
 // BEGIN ConfigInterface stff
 QStringList KateDocument::configKeys() const
 {
-  return QStringList();
+  return QStringList() << "tab-width" << "indent-width";
 }
 
 QVariant KateDocument::configValue(const QString &key)
@@ -4534,6 +4534,10 @@ QVariant KateDocument::configValue(const QString &key)
     return m_config->replaceTabsDyn();
   } else if (key == "indent-pasted-text") {
     return m_config->indentPastedText();
+  } else if (key == "tab-width") {
+    return m_config->tabWidth();
+  } else if (key == "indent-width") {
+    return m_config->indentationWidth();
   }
 
   // return invalid variant
@@ -4572,6 +4576,12 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
       m_config->setReplaceTabsDyn(bValue);
     } else if (key == "indent-pasted-text") {
       m_config->setIndentPastedText(bValue);
+    }
+  } else if (value.canConvert(QVariant::Int)) {
+    if (key == "tab-width") {
+      config()->setTabWidth(value.toInt());
+    } else if (key == "indent-width") {
+      config()->setIndentationWidth(value.toInt());
     }
   }
 }

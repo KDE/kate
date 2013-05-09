@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 3
+ * revision: 4
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4
@@ -786,18 +786,29 @@ function tryTemplate(cursor)
     var prevWord = document.wordAt(line, column - 1);
     dbg("tryTemplate: prevWord='"+prevWord+"'");
     dbg("tryTemplate: prevWord.match="+prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/));
-    var isCloseAngleBracketNeeded = currentString.match(/^\s*template\s*<$/)
-      || prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/)         // Does a word before '<' looks like identifier?
+    // Add a closing angle bracket if a prev word is not a 'operator'
+    // and it looks like an identifier or current line starts w/ 'template' keyword
+    var isCloseAngleBracketNeeded = (prevWord != "operator")
+      && (currentString.match(/^\s*template\s*<$/) || prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/))
       ;
     if (isCloseAngleBracketNeeded)
     {
         document.insertText(cursor, ">");
         view.setCursorPosition(cursor);
     }
+    // Add a space after 2nd '<' if a word before is not a 'operator'
     else if (document.charAt(line, column - 2) == '<')
     {
-        // Looks like case 3... add a space after operator<<
-        document.insertText(line, column, " ");
+        if (document.wordAt(line, column - 3) != "operator")
+        {
+            // Looks like case 3... add a space after operator<<
+            document.insertText(line, column, " ");
+        }
+        else
+        {
+            document.insertText(line, column, "()");
+            view.setCursorPosition(line, column + 1);
+        }
     }
 }
 

@@ -61,7 +61,7 @@ def restrict_doc_type(*doc_types):
                     i18nc('@title:window', 'Alert')
                   , i18nc(
                         '@info:tooltip placeholder is a mime-type'
-                      , 'This action have no sense for <command>{}</command> documents!'.format(doc_type)
+                      , 'This action have no sense for <command>%1</command> documents!', doc_type
                       )
                   , 'dialog-information'
                   )
@@ -84,7 +84,7 @@ def comment_char_must_be_known(dummy = None):
                     i18nc('@title:window', 'Sorry...')
                   , i18nc(
                         '@info:tooltip placeholder is a mime-type'
-                      , '<command>{}</command> is unsupported document type!'.format(doc_type)
+                      , '<command>%1</command> is unsupported document type!', doc_type
                       )
                   , 'dialog-information'
                   )
@@ -113,7 +113,7 @@ def selection_mode(selectionMode):
                     i18nc('@title:window', 'Alert')
                   , i18nc(
                         '@info:tooltip'
-                      , 'This operation is for {} selection mode!'.format(mode)
+                      , 'This operation is for %1 selection mode!', mode
                       )
                   , 'dialog-information'
                   )

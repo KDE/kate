@@ -282,7 +282,7 @@ class catchAllHandler(object):
             KMessageBox.error(
                 None
               , txt
-              , i18nc('@title:window', 'Error in action <icode>{}</icode>'.format(self.f.__name__))
+              , i18nc('@title:window', 'Error in action <icode>%1</icode>', self.f.__name__)
               )
             raise _HandledException(txt)
 

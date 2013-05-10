@@ -167,7 +167,7 @@ def openDocument(url):
     else:
         ui.popup(
             i18nc('@title:window', 'Error')
-          , i18nc('@info:tooltip', 'Unable to open the document: <filename>{}</filename>'.format(local_file))
+          , i18nc('@info:tooltip', 'Unable to open the document: <filename>%1</filename>', local_file)
           , 'dialog-error'
           )
 
@@ -197,7 +197,7 @@ def _ask_for_CMakeLists_location_and_try_open(start_dir_to_show, cur_doc_dir):
     else:
         ui.popup(
             i18nc('@title:window', 'Error')
-          , i18nc('@info:tooltip', 'No such file <filename>{}</filename>'.format(cmakelists))
+          , i18nc('@info:tooltip', 'No such file <filename>%1</filename>', cmakelists)
           , 'dialog-error'
           )
 
@@ -421,7 +421,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
                 # Show popup only if user explictly requested code completion
                 ui.popup(
                     i18nc('@title:window', 'Attention')
-                  , i18nc('@info:tooltip', 'Sorry, no completion for <command>{}()</command>'.format(command))
+                  , i18nc('@info:tooltip', 'Sorry, no completion for <command>%1()</command>', command)
                   , 'dialog-information'
                   )
 
@@ -431,7 +431,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         if completions and isinstance(completions, list):
             self.TITLE_AUTOCOMPLETION = i18nc(
                 '@label:listbox'
-              , 'CMake <command>{}()</command> Completion'.format(command)
+              , 'CMake <command>%1()</command> Completion', command
               )
             for c in completions:
                 # If completion item is a tuple, we expect to have 2 items in it:
@@ -593,7 +593,7 @@ class CMakeToolView(QObject):
         except ValueError as error:
             ui.popup(
                 i18nc('@title:window', 'Error')
-              , i18nc('@info:tooltip', 'Unable to get CMake cache content:<nl/><message>{}</message>'.format(error))
+              , i18nc('@info:tooltip', 'Unable to get CMake cache content:<nl/><message>%1</message>', error)
               , 'dialog-error'
               )
             return
@@ -640,16 +640,16 @@ class CMakeToolView(QObject):
             filtered_modules_list = [mod for mod in modules_list if mod not in standard_modules]
             filtered_modules_list.sort()
             custom_modules[
-                i18nc('@item:inlistbox', 'Modules from {} ({})'.format(path, len(path)))
+                i18nc('@item:inlistbox', 'Modules from %1 (%2)', path, len(path))
               ] = filtered_modules_list
             total_modules_count += len(filtered_modules_list)
         custom_modules[
-            i18nc('@item:inlistbox', 'Standard modules ({})'.format(len(standard_modules)))
+            i18nc('@item:inlistbox', 'Standard modules (%1)', len(standard_modules))
           ] = standard_modules
         #
         modules = QTreeWidgetItem(
             self.vewHelpPage.helpTargets
-          , [i18nc('@item::inlistbox/plain', 'Modules ({})'.format(total_modules_count))]
+          , [i18nc('@item::inlistbox/plain', 'Modules (%1)', total_modules_count)]
           , cmake_help_parser.help_category.MODULE
           )
         for from_path, modules_list in custom_modules.items():
@@ -822,7 +822,7 @@ class CMakeConfigWidget(QWidget):
         except ValueError as error:
             ui.popup(
                 i18nc('@title:window', 'Error')
-              , i18nc('@info:tooltip', 'CMake executable test run failed:<nl/><message>{}</message>'.format(error))
+              , i18nc('@info:tooltip', 'CMake executable test run failed:<nl/><message>%1</message>', error)
               , 'dialog-error'
               )
         # TODO Store the following for a current session!

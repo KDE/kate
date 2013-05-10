@@ -149,7 +149,7 @@ def matchingParenthesisPosition(document, position, opening='('):
                     raise ParseError(
                         i18nc(
                             '@info'
-                          , "end of line reached while searching for <icode>{}</icode>".format(state)
+                          , "end of line reached while searching for <icode>%1</icode>", state
                           )
                       )
     return position
@@ -250,7 +250,7 @@ def expandAtCursor():
     except KeyError:
         ui.popup(
             i18nc('@title:window', 'Error')
-          , i18nc('@info:tooltip', 'Expansion "<icode>{}</icode>" not found'.format(word))
+          , i18nc('@info:tooltip', 'Expansion "<icode>%1</icode>" not found', word)
           , 'dialog-warning'
           )
         return
@@ -299,7 +299,7 @@ def expandAtCursor():
             text = match.group()
             filePath = match.group(1)
             fileName = os.path.basename(filePath)
-            text = text.replace(filePath, i18nc('@info', '<link url="{}">{}</link>'.format(filePath, fileName)))
+            text = text.replace(filePath, i18nc('@info', '<link url="%1">%2</link>', filePath, fileName))
             return text
         s = ''.join(l).strip()
         s = re.sub(
@@ -309,7 +309,7 @@ def expandAtCursor():
           )
         ui.popup(
             i18nc('@title:window', 'Error')
-          , i18nc('@info:tooltip', '<bcode>{}</bcode>'.format(s))
+          , i18nc('@info:tooltip', '<bcode>%1</bcode>', s)
           , 'dialog-error'
           )
         return

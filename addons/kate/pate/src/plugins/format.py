@@ -119,8 +119,8 @@ def getRangeTopology(breakChars):
                         raise LookupError(
                             i18nc(
                                 '@info'
-                              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
-                                  .format(cl + 1, cc + 1, nrl + 1, nrc + 1)
+                              , 'Misbalanced brackets: at <numid>%1</numid>,<numid>%2</numid> and <numid>%3</numid>,<numid>%4</numid>'
+                              , cl + 1, cc + 1, nrl + 1, nrc + 1
                               )
                           )
                 else:                                       # otherwise,
@@ -151,8 +151,8 @@ def getRangeTopology(breakChars):
                         raise LookupError(
                             i18nc(
                                 '@info'
-                              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
-                                  .format(cl + 1, cc + 1, nrl + 1, nrc + 1)
+                              , 'Misbalanced brackets: at <numid>%1</numid>,<numid>%2</numid> and <numid>%3</numid>,<numid>%4</numid>'
+                              , cl + 1, cc + 1, nrl + 1, nrc + 1
                               )
                           )
                 else:
@@ -203,8 +203,8 @@ def getRangeTopology(breakChars):
                         raise LookupError(
                             i18nc(
                                 '@info'
-                              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
-                                  .format(nrl + 1, nrc + 1, cl + 1, cc + 1)
+                              , 'Misbalanced brackets: at <numid>%1</numid>,<numid>%2</numid> and <numid>%3</numid>,<numid>%4</numid>'
+                              , nrl + 1, nrc + 1, cl + 1, cc + 1
                               )
                           )
                 else:
@@ -235,8 +235,8 @@ def getRangeTopology(breakChars):
                         raise LookupError(
                             i18nc(
                                 '@info'
-                              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
-                                  .format(nrl + 1, nrc + 1, cl + 1, cc + 1)
+                              , 'Misbalanced brackets: at <numid>%1</numid>,<numid>%2</numid> and <numid>%3</numid>,<numid>%4</numid>'
+                              , nrl + 1, nrc + 1, cl + 1, cc + 1
                               )
                           )
                 else:
@@ -260,8 +260,8 @@ def getRangeTopology(breakChars):
         raise LookupError(
             i18nc(
                 '@info'
-              , 'Misbalanced brackets: at <numid>{}</numid>,<numid>{}</numid> and <numid>{}</numid>,<numid>{}</numid>'
-                  .format(openPos[0] + 1, openPos[1] + 1, closePos[0] + 1, closePos[1] + 1)
+              , 'Misbalanced brackets: at <numid>%1</numid>,<numid>%2</numid> and <numid>%3</numid>,<numid>%4</numid>'
+              , openPos[0] + 1, openPos[1] + 1, closePos[0] + 1, closePos[1] + 1
               )
           )
 
@@ -325,7 +325,7 @@ def boostFormat():
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
-              , 'Failed to parse C++ expression:<nl/><message>{}</message>'.format(error)
+              , 'Failed to parse C++ expression:<nl/><message>%1</message>', error
               )
           , 'dialog-information'
           )
@@ -336,8 +336,8 @@ def boostFormat():
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
-              , 'Failed to parse C++ expression:<nl/><message>{}</message>'
-                  .format(i18nc('@info:tooltip', "Didn't found anything to format"))
+              , 'Failed to parse C++ expression:<nl/><message>%1</message>'
+              , i18nc('@info:tooltip', "Didn't found anything to format")
               )
           , 'dialog-information'
           )
@@ -352,7 +352,7 @@ def boostFormat():
                 i18nc('@title:window', 'Alert')
               , i18nc(
                     '@info:tooltip'
-                  , 'Failed to parse C++ expression:<nl/><message>{}</message>'.format(error)
+                  , 'Failed to parse C++ expression:<nl/><message>%1</message>', error
                   )
               , 'dialog-information'
               )
@@ -399,7 +399,7 @@ def boostUnformat():
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
-              , 'Failed to parse C++ expression:<nl/><message>{}</message>'.format(error)
+              , 'Failed to parse C++ expression:<nl/><message>%1</message>', error
               )
           , 'dialog-information'
           )
@@ -410,8 +410,8 @@ def boostUnformat():
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
-              , 'Failed to parse C++ expression:<nl/><message>{}</message>'
-                  .format(i18nc('@info:tooltip', "Didn't found anything to format"))
+              , 'Failed to parse C++ expression:<nl/><message>%1</message>'
+              , i18nc('@info:tooltip', "Didn't found anything to format")
               )
           , 'dialog-information'
           )
@@ -426,7 +426,7 @@ def boostUnformat():
                 i18nc('@title:window', 'Alert')
               , i18nc(
                     '@info:tooltip'
-                  , 'Failed to parse C++ expression:<nl/><message>{}</message>'.format(error)
+                  , 'Failed to parse C++ expression:<nl/><message>%1</message>', error
                   )
               , 'dialog-information'
               )

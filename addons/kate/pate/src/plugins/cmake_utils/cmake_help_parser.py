@@ -134,8 +134,8 @@ def _spawn_cmake_grab_stdout(args, cmake_executable = None):
         raise ValueError(
             i18nc(
                 '@item:intext'
-                , 'Running <command>{}</command> finished with errors:<nl/><message>{}</message>' \
-                    .format(cmake_bin, err)
+                , 'Running <command>%1</command> finished with errors:<nl/><message>%2</message>'
+                , cmake_bin, err
                 )
             )
     return out
@@ -151,14 +151,14 @@ def validate_cmake_executable(cmake_executable):
             raise ValueError(
                 i18nc(
                     '@item:intext'
-                  , 'Specified CMake executable <command>{}</command> looks invalid'.format(cmake_executable)
+                  , 'Specified CMake executable <command>%1</command> looks invalid', cmake_executable
                   )
               )
     else:
         raise ValueError(
             i18nc(
                 '@item:intext'
-              , 'Specified CMake executable <command>{}</command> not found'.format(cmake_executable)
+              , 'Specified CMake executable <command>%1</command> not found', cmake_executable
               )
           )
 
@@ -282,7 +282,7 @@ def get_cache_content(build_dir, is_advanced = False):
                 # the string must be ASCII? Looks like i18nc() is not unicode aware...
                 #
                 # TODO WTF? What to do?
-              , "Specified path {} doesn't looks like a CMake build directory".format(build_dir)
+              , "Specified path %1 doesn't looks like a CMake build directory", build_dir
               )
           )
 

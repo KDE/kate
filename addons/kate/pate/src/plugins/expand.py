@@ -50,20 +50,24 @@ public:
 """
 # -*- coding: utf-8 -*-
 
-import kate
-
+import functools
+import imp
 import inspect
 import os
-import sys
 import re
-import imp
+import sys
 import time
 import traceback
 
+from PyQt4.QtGui import QToolTip
+
 from PyKDE4.kdecore import KConfig, i18nc
+
+import kate
 
 from libkatepate import ui, common
 from libkatepate.autocomplete import AbstractCodeCompletionModel
+
 
 class ParseError(Exception):
     pass
@@ -149,17 +153,14 @@ def matchingParenthesisPosition(document, position, opening='('):
                     raise ParseError(
                         i18nc(
                             '@info'
-                          , "end of line reached while searching for <icode>%1</icode>", state
+                          , 'end of line reached while searching for <icode>%1</icode>', state
                           )
                       )
     return position
 
-# map of 'all' => {'name': func1, ....}
-# map of 'mime/type' => {'name': func1, 'name2': func2}
-expansionCache = {}
 
-
-def loadFileExpansions(path):
+def loadExpansionsFromFile(path):
+    print('ExpandPlugin: loading expansions from {}'.format(path))
     name = os.path.basename(path).split('.')[0]
     module = imp.load_source(name, path)
     expansions = {}
@@ -172,21 +173,42 @@ def loadFileExpansions(path):
         # keyword)
         # NOTE Detect ONLY a real function!
         if not name.startswith('__') and inspect.isfunction(o):
-            expansions[o.__name__] = o
+            expansions[o.__name__] = (o, path)
+            print('ExpandPlugin: adding expansion `{}`'.format(o.__name__))
     return expansions
 
-def loadExpansions(mime):
-    if mime not in expansionCache:
-        expansions = {}
-        # explicit is better than implicit
-        mimeFileName = mime.replace('/', '_') + '.expand'
-        for directory in kate.applicationDirectories('expand'):
-            if os.path.exists(os.path.join(directory, mimeFileName)):
-                expansions.update(loadFileExpansions(os.path.join(directory, mimeFileName)))
-        # load global expansions if necessary``
-        expansionCache[mime] = loadExpansions('all') if mime != 'all' else {}
-        expansionCache[mime].update(expansions)
-    return expansionCache[mime]
+
+def mergeExpansions(left, right):
+    assert(isinstance(left, dict) and isinstance(right, dict))
+    result = left
+    for exp_key, exp_tuple in right.items():
+        if exp_key not in result:
+            result[exp_key] = exp_tuple
+        else:
+            result[exp_key] = result[exp_key]
+            print('ExpandPlugin: WARNING: Ignore duplicate expansion `{}` from {}'.format(exp_key, exp_tuple[1]))
+            print('ExpandPlugin: WARNING: First defined here {}'.format(result[exp_key][1]))
+    return result
+
+
+def _getExpansionsFor(mime):
+    expansions = {}
+    mime_filename = mime.replace('/', '_') + '.expand'
+    for directory in kate.applicationDirectories('expand'):
+        if os.path.exists(os.path.join(directory, mime_filename)):
+            expansions = mergeExpansions(
+                expansions
+              , loadExpansionsFromFile(os.path.join(directory, mime_filename))
+              )
+    return expansions
+
+
+@functools.lru_cache()
+def getExpansionsFor(mime):
+    print('ExpandPlugin: collecting expansions for MIME {}'.format(mime))
+    result = mergeExpansions(_getExpansionsFor(mime), _getExpansionsFor('all'))
+    print('ExpandPlugin: got {} expansions at the end'.format(len(result)))
+    return result
 
 
 def indentationCharacters(document):
@@ -228,6 +250,29 @@ def indentationCharacters(document):
             return ' ' * indentationCharacters.configurationIndentWidth
 
 
+@kate.action(i18nc('@action:inmenu', 'Expand Usage'), shortcut='Shift+Ctrl+E')
+def getHelpOnExpandAtCursor():
+    document = kate.activeDocument()
+    view = document.activeView()
+    try:
+        word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
+    except ParseError as e:
+        ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
+        return
+    word = document.text(word_range)
+    expansions = getExpansionsFor(document.mimeType())
+    if word in expansions:
+        func = expansions[word][0]
+        cursor_pos = view.cursorPositionCoordinates()
+        tooltip_text = '\n'.join([
+            line[8:] if line.startswith(' ' * 8) else line for line in func.__doc__.splitlines()
+          ])
+        print("Expand: help on {}: {}".format(word, tooltip_text))
+        QToolTip.showText(cursor_pos, tooltip_text)
+    else:
+        print('ExpandPlugin: WARNING: undefined expansion `{}`'.format(word))
+
+
 @kate.action(i18nc('@action:inmenu a verb', 'Expand'), shortcut='Ctrl+E', menu='Edit')
 def expandAtCursor():
     """Attempt text expansion on the word at the cursor.
@@ -243,11 +288,10 @@ def expandAtCursor():
         ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
         return
     word = document.text(word_range)
-    mime = str(document.mimeType())
-    expansions = loadExpansions(mime)
-    try:
-        func = expansions[word]
-    except KeyError:
+    expansions = getExpansionsFor(document.mimeType())
+    if word in expansions:
+        func = expansions[word][0]
+    else:
         ui.popup(
             i18nc('@title:window', 'Error')
           , i18nc('@info:tooltip', 'Expansion "<icode>%1</icode>" not found', word)
@@ -259,22 +303,19 @@ def expandAtCursor():
     if argument_range is not None:
         # strip parentheses and split arguments by comma
         preArgs = [arg.strip() for arg in document.text(argument_range)[1:-1].split(',') if bool(arg.strip())]
-        print('>> EXPAND: arguments = ' + repr(arguments))
+        print('ExpandPlugin: arguments = {}'.format(arguments))
         # form a dictionary from args w/ '=' character, leave others in a list
         for arg in preArgs:
-            print('>> EXPAND: current arg = ' + repr(arg))
             if '=' in arg:
                 key, value = [item.strip() for item in arg.split('=')]
-                print('>> EXPAND: key = ' + repr(key))
-                print('>> EXPAND: value = ' + repr(value))
                 namedArgs[key] = value
             else:
                 arguments.append(arg)
     # Call user expand function w/ parsed arguments and
     # possible w/ named params dict
     try:
-        print('>> EXPAND: arguments = ' + repr(arguments))
-        print('>> EXPAND: named arguments = ' + repr(namedArgs))
+        print('ExpandPlugin: arguments = {}'.format(arguments))
+        print('ExpandPlugin: named arguments = {}'.format(namedArgs))
         if len(namedArgs):
             replacement = func(*arguments, **namedArgs)
         else:
@@ -374,7 +415,7 @@ class ExpandsCompletionModel(AbstractCodeCompletionModel):
         if invocationType == 0:
             return
 
-        expansions = loadExpansions(str(view.document().mimeType()))
+        expansions = getExpansionsFor(view.document().mimeType())
         for exp, fn in expansions.items():
             # Try to get a function description (very first line)
             d = fn.__doc__

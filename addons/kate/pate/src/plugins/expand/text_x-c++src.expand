@@ -131,17 +131,21 @@ _SWITCH_TPL = '''switch ({0})
 
 
 def st(name, *templateParams):
-    ''' Insert a structure definition
+    ''' Insert a structure definition<br/>
 
         A first mandatory parameter is a structure name.
         Everything after that will be template parameters.
+        <pre>
           st(foo, T, U, V)
+        </pre>
 
         will expand into:
+        <pre>
           template <typename T, typename U, typename V>
           struct foo
           {
           };
+        </pre>
     '''
     params = [name]
     if len(templateParams):
@@ -153,20 +157,24 @@ def st(name, *templateParams):
 
 
 def mfc(name, *templateParams):
-    ''' Insert a metafunction class definition
+    ''' Insert a metafunction class definition<br/>
 
         A first mandatory parameter is a structure name.
         Everything after that will be template parameters.
+        <pre>
           mfc(foo, T, U, V)
+        </pre>
 
         will expand into:
-            struct foo
+        <pre>
+        struct foo
+        {
+            template <typename T, typename U, typename V>
+            struct apply
             {
-                template <typename T, typename U, typename V>
-                struct apply
-                {
-                }
-            };
+            }
+        };
+        </pre>
     '''
     params = [name]
     if len(templateParams):
@@ -176,16 +184,21 @@ def mfc(name, *templateParams):
 
 
 def cl(name, *templateParams):
-    ''' Insert a class definition
+    ''' Insert a class definition<br/>
 
-        TODO It would be neat to have syntax like this:
-            cl(test, T, U, d=v, cc=del, mv=def)
-          i.e. define a class 'test' w/ template params T and U,
-          w/ virtual dtor, w/ deleted copy ctor/assign and w/
-          defaulted move ctor/assign.
+        <pre>
+        cl(name, [type1, ..., typeN])
+        </pre>
 
-          Isn't it?
+        If there some type(s) specified, class will be turned into a template
+        with given template parameters.
     '''
+    # TODO It would be neat to have syntax like this:
+    #   cl(test, T, U, d=v, cc=del, mv=def)
+    # i.e. define a class 'test' w/ template params T and U,
+    # w/ virtual dtor, w/ deleted copy ctor/assign and w/
+    # defaulted move ctor/assign.
+    # Isn't it?
     params = [name]
     if len(templateParams):
         template = _BRIEF_DOC_TPL + _TEMPLATE_PARAMS_TPL + _CLASS_BODY_TPL
@@ -196,17 +209,27 @@ def cl(name, *templateParams):
 
 
 def t(*params):
-    ''' Render template header w/ given template parameters list '''
+    ''' Render template header w/ given template's parameters list<br/>
+
+        <pre>
+        t(type1, ..., typeN)
+        </pre>
+    '''
     return 'template <typename ' + ', typename '.join(params) + '>'
 
 
 def brief():
-    '''Render a Doxygen brief header'''
+    '''Render a Doxygen <code>brief</code> header'''
     return _PURE_BRIEF_DOC_TPL
 
 
 def ns(name = None):
-    ''' Insert named or anonymous namespace '''
+    ''' Insert named or anonymous namespace<br/>
+
+        <pre>
+        ns([name])
+        </pre>
+    '''
     params = []
     if bool(name):
         nsList = [ns.strip() for ns in name.split('::')]
@@ -221,10 +244,14 @@ def ns(name = None):
 
 
 def gs(typeT, name, ref = None):
-    ''' Insert getter/setter for a member
+    ''' Insert getter/setter for a data member<br/>
 
-        NOTE If member has a one of "standard" prefix 'm_' or suffix '_',
-            accessor name will be w/o it!
+        <pre>
+        gs(type, member-name, [set-by-ref=1])
+        </pre>
+
+    NOTE If the member has a one of "standard" prefix <code>'m_'</code> or suffix <code>'_'</code>,
+        accessor name will be w/o it!
     '''
     template = _GET_SET_TPL
 
@@ -243,15 +270,26 @@ def gs(typeT, name, ref = None):
     return template.format(arg, pure_name, name)
 
 
-def main(args=True):
-    ''' Render main() function '''
-    if args:
+def main(need_args=True):
+    ''' Render a <code>main()</code> function
+
+        <pre>
+        main([1|0])
+        </pre>
+        if arg is <code>0</code> main will be w/o parameters, default <code>1</code>
+    '''
+    if need_args != '0':
         return _MAIN_WITH_ARGS_TPL
     return _MAIN_TPL
 
 
 def sw(expr = None, *caseList):
-    ''' Render switch() statement w/ a list of cases '''
+    ''' Render a <code>switch()</code> statement w/ a list of cases
+
+        <pre>
+        sw(expr, case1, ..., caseN)
+        </pre>
+    '''
     if expr:
         if caseList:
             caseStr = ''

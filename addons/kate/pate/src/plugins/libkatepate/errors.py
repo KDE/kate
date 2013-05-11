@@ -48,8 +48,7 @@ def needs_packages(packages):
             if '==' in version:
                 package = version.split('==')[0]
                 version = version.split('==')[1]
-            msg += i18n("\t%(package)s. Use easy_install (or pip install) %(package)s==%(version)s") % {'package': package,
-                                                                                                        'version': version}
+            msg += i18n("\t%1. Use easy_install (or pip install) %1==%2", package, version)
     if import_error:
         raise ImportError(msg)
 
@@ -141,8 +140,7 @@ def _generateErrorMessage(error, key_line='line', key_column='column', header=Tr
     if header or column:
         column = error.get(key_column, None)
         if column:
-            message = i18n('~*~ Position: (%(line)s, %(column)s)') % {'line': line,
-                                                                      'column': column}
+            message = i18n('~*~ Position: (%1, %2)', line, column)
         else:
             message = i18n('~*~ Line: %1', line)
         message += ' ~*~'

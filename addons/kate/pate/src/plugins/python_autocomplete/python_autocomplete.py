@@ -143,11 +143,11 @@ class PythonCodeCompletionModel(AbstractCodeCompletionModel):
         line = e.lineno
         message = i18n('There was a syntax error in this file:')
         if f:
-            message = i18n('%(message)s\n  * file: %(file)s') % {'message': message, 'file': f}
+            message = i18nc('%1 is error message', '%1\n  * file: %2', message, f)
         if text:
-            message = i18n('%(message)s\n  * text: %(text)s') % {'message': message, 'text': text}
+            message = i18nc('%1 is error message', '%1\n  * text: %2', message, text)
         if line:
-            message = i18n('%(message)s\n  * line: %(line)s') % {'message': message, 'line': line}
+            message = i18nc('%1 is error message', '%1\n  * line: %2', message, line)
         showError(message)
 
     def _parseText(self, view, word, line):

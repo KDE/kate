@@ -60,7 +60,7 @@ def togglePrettyXMLFormat():
     view = currentDocument.activeView()
     source = view.selectionText()
     if not source:
-        showError(i18n('Please select a xml text and press: %s') % KATE_ACTIONS['togglePrettyXMLFormat']['shortcut'])
+        showError(i18n('Please select a xml text and press: %s', KATE_ACTIONS['togglePrettyXMLFormat']['shortcut']))
     else:
         try:
             encoding = 'utf-8'
@@ -76,7 +76,7 @@ def togglePrettyXMLFormat():
             xml_pretty = newl.join([line for line in xml_pretty.split(newl) if line.replace(' ', '').replace(indent, '')])
             text.insertText(xml_pretty)
         except (ExpatError, LookupError) as e:
-            showError(i18n('The selected text is not a valid xml text: %s') % e.message)
+            showError(i18n('The selected text is not a valid xml text: %s', e.message))
 
 
 class ConfigWidget(QWidget):

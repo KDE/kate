@@ -144,7 +144,7 @@ def _generateErrorMessage(error, key_line='line', key_column='column', header=Tr
             message = i18n('~*~ Position: (%(line)s, %(column)s)') % {'line': line,
                                                                       'column': column}
         else:
-            message = i18n('~*~ Line: %s') % line
+            message = i18n('~*~ Line: %1', line)
         message += ' ~*~'
     for key, value in error.items():
         if value and key not in exclude_keys:

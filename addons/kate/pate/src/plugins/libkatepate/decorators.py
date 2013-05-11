@@ -107,13 +107,16 @@ def selection_mode(selectionMode):
             view = document.activeView()
             result = selectionMode == view.blockSelection()
             if not result:
-                mode = i18nc('@item selection mode', 'block') if selectionMode \
-                  else i18nc('@item selection mode', 'normal')
                 ui.popup(
                     i18nc('@title:window', 'Alert')
                   , i18nc(
                         '@info:tooltip'
-                      , 'This operation is for %1 selection mode!', mode
+                      , 'This operation is for block selection mode!'
+                      )
+                    if selectionMode else
+                    i18nc(
+                        '@info:tooltip'
+                      , 'This operation is for normal selection mode!'
                       )
                   , 'dialog-information'
                   )

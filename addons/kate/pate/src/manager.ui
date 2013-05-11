@@ -20,7 +20,7 @@
       </font>
      </property>
      <property name="text">
-      <string>ERROR: The Python engine could not be initialised!</string>
+      <string>ERROR: The Python engine could not be initialised</string>
      </property>
     </widget>
    </item>

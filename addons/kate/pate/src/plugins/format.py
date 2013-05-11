@@ -337,7 +337,7 @@ def boostFormat():
           , i18nc(
                 '@info:tooltip'
               , 'Failed to parse C++ expression:<nl/><message>%1</message>'
-              , i18nc('@info:tooltip', "Didn't found anything to format")
+              , i18nc('@info:tooltip', "Did not find anything to format")
               )
           , 'dialog-information'
           )
@@ -411,7 +411,7 @@ def boostUnformat():
           , i18nc(
                 '@info:tooltip'
               , 'Failed to parse C++ expression:<nl/><message>%1</message>'
-              , i18nc('@info:tooltip', "Didn't found anything to format")
+              , i18nc('@info:tooltip', "Did not find anything to format")
               )
           , 'dialog-information'
           )

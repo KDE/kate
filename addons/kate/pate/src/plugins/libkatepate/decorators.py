@@ -61,7 +61,7 @@ def restrict_doc_type(*doc_types):
                     i18nc('@title:window', 'Alert')
                   , i18nc(
                         '@info:tooltip placeholder is a mime-type'
-                      , 'This action have no sense for <command>%1</command> documents!', doc_type
+                      , 'This action has no sense for <command>%1</command> documents', doc_type
                       )
                   , 'dialog-information'
                   )
@@ -84,7 +84,7 @@ def comment_char_must_be_known(dummy = None):
                     i18nc('@title:window', 'Sorry...')
                   , i18nc(
                         '@info:tooltip placeholder is a mime-type'
-                      , '<command>%1</command> is unsupported document type!', doc_type
+                      , '<command>%1</command> is unsupported document type.', doc_type
                       )
                   , 'dialog-information'
                   )
@@ -111,12 +111,12 @@ def selection_mode(selectionMode):
                     i18nc('@title:window', 'Alert')
                   , i18nc(
                         '@info:tooltip'
-                      , 'This operation is for block selection mode!'
+                      , 'This operation is for block selection mode'
                       )
                     if selectionMode else
                     i18nc(
                         '@info:tooltip'
-                      , 'This operation is for normal selection mode!'
+                      , 'This operation is for normal selection mode'
                       )
                   , 'dialog-information'
                   )
@@ -135,7 +135,7 @@ def has_selection(selectionState):
             print("*** has_selection: result=%s" % repr(result))
             if not result:
                 if not selectionState:
-                    should = i18nc('@info:tooltip', "Document shouldn't have selection to perform this operation")
+                    should = i18nc('@info:tooltip', "Document should not have selection to perform this operation")
                 else:
                     should = i18nc('@info:tooltip', "Document should have selection to perform this operation")
                 ui.popup(i18nc('@title:window', 'Alert'), should, 'dialog-information')

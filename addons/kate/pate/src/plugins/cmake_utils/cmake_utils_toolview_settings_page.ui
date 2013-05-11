@@ -20,7 +20,7 @@
     <widget class="QCheckBox" name="htmlize">
      <property name="toolTip">
       <string>Try to turn plain ASCII text into HTML using simple structured text rules.
-It works quite well for builtins, but sometimes may distorts results for others (custom modules)!</string>
+It works quite well for builtins, but sometimes may distorts results for others (custom modules).</string>
      </property>
      <property name="text">
       <string>Try to beautify the help output</string>

@@ -343,6 +343,7 @@ def expandAtCursor():
             text = text.replace(filePath, i18nc('@info', '<link url="%1">%2</link>', filePath, fileName))
             return text
         s = ''.join(l).strip()
+        # FIXME: extract the filename and then use i18nc, instead of manipulate the i18nc text
         s = re.sub(
             i18nc('@info', 'File <filename>"(/[^\n]+)"</filename>, line')
           , replaceAbsolutePathWithLinkCallback

@@ -1,43 +1,11 @@
 # -*- coding: utf-8 -*-
 #
-# Expansions in this file:
-#
-#   cl(name[, T0[, T1[, ...[, Tn]]]])
-#       Insert a class definition, possible w/ template parameters
-#
-#
-#   st(name[, T0[, T1[, ...[, Tn]]]])
-#       Insert a structure definition, possible w/ template parameters
-#
-#
-#   t(T0[, T1[, ...[, Tn]]])
-#       Insert a `template <typename T0, ..., typename Tn>' string
-#
-#
-#   brief
-#       Render a Doxygen \brief header
-#
-#
-#   gs(type, member-name[, ref = No])
-#       Insert simple getter/setter implementation for given member and type
-#
-#
-#   main([args=True])
-#       Insert simple main() function.
-#
-#
-#   ns([name[::nested[::name]]])
-#       Insert namespace(s). If name ommited anonymous namespace will be rendered.
-#
-#
-#   sw(expr[, case1[, case2[, ..., caseN]]])
-#       Render switch statement w/ a given expression and possible cases.
-#       If caseX == 'd' or 'default' --> render `default: break;' instead of case,
-#       so its better to put 'd' at the end of parameters list.
+# NOTE Expansion plugin can complete available expansion functions for current
+# document. To get help (via tooltip) for the selected expansion function use
+# Ctrl+Shift+E shotcut.
 #
 
-
-from libkatepate import ui
+import kate
 
 _BRIEF_DOC_TPL = '''/**
  * \\brief Class \c {0}
@@ -227,15 +195,19 @@ def ns(name = None):
     ''' Insert named or anonymous namespace<br/>
 
         <pre>
-        ns([name])
+        ns([name[::nested[::name]]])
         </pre>
     '''
     params = []
     if bool(name):
+        pos = 60
+        if 'commentStartPos' in kate.configuration:
+            pos = kate.configuration['commentStartPos']
+
         nsList = [ns.strip() for ns in name.split('::')]
         params.append(' { namespace '.join(nsList))         # NS header
         params.append('}' * len(nsList))                    # NS close curve brackets
-        params.append(' ' * (60 - len(nsList)))             # space padding before comment
+        params.append(' ' * (pos - len(nsList)))            # space padding before comment
         params.append(', '.join(reversed(nsList)))          # NS close comment line
         template = _NS_TPL
     else:
@@ -289,6 +261,8 @@ def sw(expr = None, *caseList):
         <pre>
         sw(expr, case1, ..., caseN)
         </pre>
+        If caseX == <code>d</code> or <code>default</code> --> render <code>default: break;</code>
+        instead of case, so it is better to put <code>d</code> at the end of parameters list.
     '''
     if expr:
         if caseList:

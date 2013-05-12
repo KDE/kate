@@ -163,29 +163,34 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
             view.setSelection(r)
 
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Braces'), shortcut='Ctrl+(')
-def wrapBlockWithBraces():
+@kate.action(i18nc('@action:inmenu', 'Wrap into Round Brackets'), shortcut='Ctrl+(')
+def wrapBlockWithRoundBrackets():
     '''Wrap current word (identifier) or selection into pair of '(' and ')' characters'''
     _wrapBlockWithChar('(', ')')
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Brackets'), shortcut='Ctrl+{')
-def wrapBlockWithBraces():
+@kate.action(i18nc('@action:inmenu', 'Wrap into Square Brackets'), shortcut='Ctrl+{')
+def wrapBlockWithSquareBrackets():
     '''Wrap current word (identifier) or selection into pair of '[' and ']' characters'''
     _wrapBlockWithChar('[', ']')
 
 @kate.action(i18nc('@action:inmenu', 'Wrap into Curve Brackets'), shortcut='Meta+{')
-def wrapBlockWithBraces():
+def wrapBlockWithCurveBrackets():
     '''Wrap current word (identifier) or selection into pair of '{' and '}' characters'''
     _wrapBlockWithChar('{', '}')
 
 @kate.action(i18nc('@action:inmenu', 'Wrap into Angle Brackets'), shortcut='Ctrl+<')
-def wrapBlockWithBraces():
+def wrapBlockWithAngleBrackets():
     '''Wrap current word (identifier) or selection into pair of '<' and '>' characters'''
     _wrapBlockWithChar('<', '>')
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Quotes'), shortcut='Ctrl+\'')
-def wrapBlockWithBraces():
+@kate.action(i18nc('@action:inmenu', 'Wrap into Double Quotes'), shortcut='Ctrl+\'')
+def wrapBlockWithQuotes():
     '''Wrap current word (identifier) or selection into pair of '"' characters'''
     _wrapBlockWithChar('"', '"', False)
+
+@kate.action(i18nc('@action:inmenu', 'Wrap into Quotes'), shortcut='Meta+\'')
+def wrapBlockWithQuotes():
+    '''Wrap current word (identifier) or selection into pair of '"' characters'''
+    _wrapBlockWithChar("'", "'", False)
 
 # kate: indent-width 4;

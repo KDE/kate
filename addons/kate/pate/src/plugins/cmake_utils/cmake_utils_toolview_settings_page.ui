@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>cfgPage</class>
  <widget class="QWidget" name="cfgPage">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>290</width>
+    <height>104</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>Toolview Settings</string>
   </property>
@@ -9,7 +17,7 @@
    <item>
     <widget class="QCheckBox" name="mode">
      <property name="toolTip">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Same as &lt;span style=&quot;font-style:italic;&quot;&gt;advanced mode&lt;/span&gt; in &lt;span style=&quot; font-family:'Courier New,courier';&quot;&gt;ccmake&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;p&gt;Same as &lt;i&gt;advanced mode&lt;/i&gt; in &lt;span style=&quot; font-family:'Courier New,courier';&quot;&gt;ccmake&lt;/span&gt;&lt;/p&gt;</string>
      </property>
      <property name="text">
       <string>Show cache items marked as advanced</string>

@@ -34,7 +34,7 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label">
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reloading a running plugin may have unpredictable effects. Consider saving your work before using this command.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>Reloading a running plugin may have unpredictable effects. Consider saving your work before using this command.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>

@@ -282,7 +282,7 @@ def get_cache_content(build_dir, is_advanced = False):
                 # the string must be ASCII? Looks like i18nc() is not unicode aware...
                 #
                 # TODO WTF? What to do?
-              , "Specified path %1 does not looks like a CMake build directory", build_dir
+              , "Specified path %1 does not look like a CMake build directory", build_dir
               )
           )
 

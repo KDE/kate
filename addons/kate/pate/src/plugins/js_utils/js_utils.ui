@@ -77,7 +77,7 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>Enable JQuery Autocomplete (needs close and open kate editor)</string>
+                                        <string>Enable jQuery Autocomplete (needs close and open kate editor)</string>
                                     </property>
                                 </widget>
                             </item>
@@ -92,7 +92,7 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>Ready JQuery Snippet</string>
+                                        <string>Ready jQuery Snippet</string>
                                     </property>
                                 </widget>
                             </item>

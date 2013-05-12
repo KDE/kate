@@ -21,7 +21,7 @@
      <item>
       <widget class="KUrlRequester" name="buildDir">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;body&gt;Select &lt;i&gt;top build dir&lt;/i&gt; controlled by CMake&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;p&gt;Select &lt;i&gt;top build dir&lt;/i&gt; controlled by CMake&lt;/p&gt;</string>
        </property>
       </widget>
      </item>

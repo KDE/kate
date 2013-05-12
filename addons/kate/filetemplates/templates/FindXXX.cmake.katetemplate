@@ -1,4 +1,4 @@
-katetemplate: Template=FindXXX Group=Other Highlight=CMake
+katetemplate: Template=FindXXX.cmake Group=Other Highlight=CMake
 katetemplate: Author=Alex Turbov <i.zaufi@gmail.com>
 katetemplate: Description=CMake finder skeleton wrapper based on pkg-config
 # - Find ${package} package using `pkg-config`
@@ -49,6 +49,8 @@ if(%{package}_LIBRARIES)
         # Copy other than `-I' flags to `XXX_DEFINITIONS' variable,
         # according CMake guide (/usr/share/cmake/Modules/readme.txt)
         set(%{package}_DEFINITIONS \${%{package}_CFLAGS_OTHER})
+        # Unset non-standard variable
+        unset(%{package}_CFLAGS_OTHER)
     endif()
 endif()
 

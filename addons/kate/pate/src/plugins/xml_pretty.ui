@@ -1,63 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
-    <class>xmlPrettyConfigWidget</class>
-    <widget class="QWidget" name="xmlConfigWidget">
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-                <layout class="QVBoxLayout" name="verticalLayout">
-                    <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout">
-                            <item>
-                                <widget class="QLabel" name="label">
-                                    <property name="text">
-                                        <string>Indent</string>
-                                    </property>
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QLineEdit" name="indent">
-                                    <property name="value">
-                                        <string>\\t</string>
-                                    </property>
-                                </widget>
-                            </item>
-                        </layout>
-                    </item>
-                    <item>
-                        <layout class="QHBoxLayout" name="horizontalLayout">
-                            <item>
-                                <widget class="QLabel" name="label">
-                                    <property name="text">
-                                        <string>New Line</string>
-                                    </property>
-                                </widget>
-                            </item>
-                            <item>
-                                <widget class="QLineEdit" name="newl">
-                                    <property name="value">
-                                        <string>\\n</string>
-                                    </property>
-                                </widget>
-                            </item>
-                        </layout>
-                    </item>
-                    <item>
-                        <spacer name="verticalSpacer">
-                            <property name="orientation">
-                                <enum>Qt::Vertical</enum>
-                            </property>
-                            <property name="sizeHint" stdset="0">
-                                <size>
-                                    <width>20</width>
-                                    <height>40</height>
-                                </size>
-                            </property>
-                        </spacer>
-                    </item>
-                </layout>
-            </item>
-        </layout>
+ <class>xmlConfigWidget</class>
+ <widget class="QWidget" name="xmlConfigWidget">
+  <layout class="QFormLayout" name="formLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Indent:</string>
+     </property>
     </widget>
-    <resources/>
-    <connections/>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="indent">
+     <property name="value" stdset="0">
+      <string>\\t</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="newl">
+     <property name="value" stdset="0">
+      <string>\\n</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>New line:</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
 </ui>

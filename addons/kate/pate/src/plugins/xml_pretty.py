@@ -27,7 +27,6 @@ from PyKDE4.kdecore import i18n
 from PyQt4 import uic
 from PyQt4.QtGui import QWidget
 
-from libkatepate import text
 from libkatepate.errors import showError
 
 from xml.dom import minidom
@@ -54,27 +53,29 @@ encoding_pattern = re.compile("<\?xml[\w =\"\.]*encoding=[\"']([\w-]+)[\"'][\w =
 
 
 @kate.action(**KATE_ACTIONS['togglePrettyXMLFormat'])
+#@check_constraints
+#@has_selection(True)
 def togglePrettyXMLFormat():
     """Pretty format of a XML code"""
-    currentDocument = kate.activeDocument()
-    view = currentDocument.activeView()
-    source = view.selectionText()
-    if not source:
+    # TODO Use decorators to apply constraints
+    document = kate.activeDocument()
+    view = document.activeView()
+    if not view.selection():
         showError(i18n('Please select a XML text and press: %s', KATE_ACTIONS['togglePrettyXMLFormat']['shortcut']))
     else:
         try:
             encoding = 'utf-8'
+            source = view.selectionText()
             m = encoding_pattern.match(source)
             if m:
                 encoding = m.groups()[0]
             target = minidom.parseString(source)
             unicode_escape = codecs.getdecoder('unicode_escape')
-            view.removeSelectionText()
             indent = unicode_escape(kate.configuration.get(_INDENT_CFG, DEFAULT_INDENT))[0]
             newl = unicode_escape(kate.configuration.get(_NEWL_CFG, DEFAULT_NEWL))[0]
             xml_pretty = target.toprettyxml(indent=indent, newl=newl, encoding=encoding).decode(encoding)
             xml_pretty = newl.join([line for line in xml_pretty.split(newl) if line.replace(' ', '').replace(indent, '')])
-            text.insertText(xml_pretty)
+            document.replaceText(view.selectionRange(), xml_pretty)
         except (ExpatError, LookupError) as e:
             showError(i18n('The selected text is not a valid XML text: %s', e.message))
 

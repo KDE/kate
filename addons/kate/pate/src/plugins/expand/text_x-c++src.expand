@@ -32,6 +32,7 @@ public:
 _STRUCT_BODY_TPL = '''
 struct {0}
 {{
+\t%{cursor}
 }};
 '''
 
@@ -82,6 +83,7 @@ _MAIN_WITH_ARGS_TPL = '''int main(int argc, const char* const argv[])
 
 _MAIN_TPL = '''int main()
 {
+\t%{cursor}
 \treturn 0;
 }'''
 

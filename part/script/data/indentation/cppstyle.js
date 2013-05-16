@@ -574,13 +574,33 @@ function tryMacroDefinition_ch(line)
 }
 
 /**
+ * Do not incrase indent if ENTER pressed before access
+ * specifier (i.e. public/private/protected)
+ */
+function tryBeforeAccessSpecifier_ch(line)
+{
+    var result = -1;
+    if (document.line(line).match(/(public|protected|private):/))
+    {
+        var openPos = document.anchor(line, 0, '{');
+        if (openPos.isValid())
+            result = document.firstColumn(openPos.line);
+    }
+    if (result != -1)
+    {
+        tryToKeepInlineComment(line);
+        dbg("tryBeforeAccessSpecifier_ch result="+result);
+    }
+    return result;
+}
+
+/**
  * Try to align a line w/ a leading (word) delimiter symbol
  * (i.e. not an identifier and a brace)
  */
 function tryBeforeDanglingDelimiter_ch(line)
 {
     var result = -1;
-    dbg("tryBeforeDanglingDelimiter_ch: text='"+document.line(line)+"'");
     var halfTabNeeded =
         // current line do not starts w/ a comment
         !document.line(line).ltrim().startsWith("//")
@@ -681,6 +701,7 @@ function caretPressed(cursor)
       , tryAfterDanglingSemicolon_ch
       , tryMacroDefinition_ch
       , tryBeforeDanglingDelimiter_ch
+      , tryBeforeAccessSpecifier_ch
       , tryAfterEqualChar_ch
       , tryPreprocessor_ch
       , tryToKeepInlineComment_ch                           // NOTE This must be a last checker!

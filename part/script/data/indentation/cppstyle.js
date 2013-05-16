@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 4
+ * revision: 5
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4

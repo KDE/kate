@@ -87,6 +87,7 @@ def _find_current_context(document, cursor):
     # Parse whole document starting from a very first line!
     in_a_string = False
     in_a_command = False
+    in_a_comment = False
     skip_next = False
     nested_var_level = 0
     command = None
@@ -94,11 +95,13 @@ def _find_current_context(document, cursor):
     for current_line in range(0, cursor.line() + 1):
         line_str = document.line(current_line)
         prev = None
+        in_a_comment = False
         should_count_pos = (current_line == cursor.line())
         for pos, c in enumerate(line_str):
             if should_count_pos and pos == cursor.column():
                 break
             if c == '#' and not in_a_string:
+                in_a_comment = True
                 # TODO Syntax error if we r in a var expansion
                 break                                       # Ignore everything till the end of line
             if skip_next:                                   # Should we skip current char?
@@ -131,7 +134,7 @@ def _find_current_context(document, cursor):
         fn_params_range = KTextEditor.Range(fn_params_start, cursor)
     else:
         fn_params_range = KTextEditor.Range(-1, -1, -1, -1)
-    return (command, in_a_string, nested_var_level != 0, fn_params_range)
+    return (command, in_a_string, nested_var_level != 0, in_a_comment, fn_params_range)
 
 
 def _is_there_CMakeLists(path):
@@ -234,7 +237,7 @@ def openCMakeList():
     else:
         # Ok, nothing selected. Lets check the context: are we inside a command?
         cursor = view.cursorPosition()
-        command, in_a_string, in_a_var, fn_params_range = _find_current_context(document, cursor)
+        command, in_a_string, in_a_var, in_a_comment, fn_params_range = _find_current_context(document, cursor)
         print('CMakeHelper: command="{}", in_a_string={}, in_a_var={}'.format(command, in_a_string, in_a_var))
         selected_dir = cur_dir
         if command == 'add_subdirectory':
@@ -322,10 +325,17 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
         cursor = view.cursorPosition()
         # Try to detect completion context
-        command, in_a_string, in_a_var, fn_params_range = _find_current_context(document, cursor)
-        print('CMakeCC: command="{}", in_a_string={}, in_a_var={}'.format(command, in_a_string, in_a_var))
+        command, in_a_string, in_a_var, in_a_comment, fn_params_range = _find_current_context(document, cursor)
+        print(
+            'CMakeCC: command="{}", in_a_string={}, in_a_var={}, in_a_comment={}'.
+            format(command, in_a_string, in_a_var, in_a_comment)
+          )
         if fn_params_range.isValid():
             print('CMakeCC: params="{}"'.format(document.text(fn_params_range)))
+
+        if in_a_comment:
+            # Nothing to complete if we r in a comment
+            return
 
         if in_a_var:
             # Try to complete a variable name

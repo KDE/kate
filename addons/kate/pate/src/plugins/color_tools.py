@@ -29,10 +29,11 @@
 #       Select a color string of any kind to display its color in a tooltip
 #
 
-'''Utilities to work with #colors in documents
+'''Utilities to work with hexadecimal colors in documents
 
-    Shows a preview of a of a selected color string (like e.g. #fe57a1) in a tooltip
-    and/or all parsed #colors in a 'Palette' tool view, ability to edit/insert #color strings.
+    Shows a preview of a selected hexadecimal color string (e.g. #fe57a1) in a tooltip
+    and/or all parsed hexadecimal colors in a 'Palette' tool view, ability to edit/insert 
+    hexadecimal color strings.
 
 '''
 

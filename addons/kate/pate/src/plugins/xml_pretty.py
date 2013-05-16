@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''A simple XML pretty printer. XML formatter which a good indents'''
+'''A simple XML pretty printer. It formats XML with good indentiation.'''
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify

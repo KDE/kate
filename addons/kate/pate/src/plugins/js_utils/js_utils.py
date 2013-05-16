@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Utils to JavaScript: Autocomplete, Autocomplete jQuery, Checker JSLint, Pretty JSON, Snippets'''
+'''JavaScript utilities: Autocomplete, Autocomplete jQuery, Checker JSLint, Pretty JSON, Snippets'''
 
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #

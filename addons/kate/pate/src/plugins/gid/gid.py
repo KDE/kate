@@ -1,8 +1,8 @@
 """Browse the tokens in a GNU idutils ID file, and use it to navigate within a codebase.
 
 The necessary parts of the ID file are held in memory to allow sufficient performance
-for token completion, and When looking up the usage of a token, or jumping to the
-definition, etags(1) is used to locate the definition.
+for token completion, when looking up the usage of a token, or jumping to the
+definition. etags(1) is used to locate the definition.
 """
 #
 # Copyright (C) 2012 Shaheed Haque <srhaque@theiet.org>

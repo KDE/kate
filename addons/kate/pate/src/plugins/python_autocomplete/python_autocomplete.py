@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Autocomplete Python (beta, only to Python2)'''
+'''Python Autocompletion (beta, only for Python 2)'''
 
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-'''Utils to Python: Checker Parse, Checker Pep8, Checker Pyflakes, Snippets'''
+'''Python Utilities: Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets'''
 
 # Copyright (c) 2013 by Pablo Martín <goinnn@gmail.com>
 #

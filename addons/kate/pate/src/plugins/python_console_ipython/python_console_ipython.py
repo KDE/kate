@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""IPython console for hacking kate and doing science
+"""IPython console for hacking kate and doing science"""
 
-Uses this: http://stackoverflow.com/a/11525205/247482
+# Uses this: http://stackoverflow.com/a/11525205/247482
+#
+# May need reworking with IPython 1.0 due to changed event loop
 
-May need reworking with IPython 1.0 due to changed event loop
-"""
 
 # TODO: fix help() by fixing input()
 

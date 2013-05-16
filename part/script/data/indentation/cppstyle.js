@@ -396,7 +396,8 @@ function tryMultilineCommentStart_ch(line)
 {
     var result = -1;
     // Check if multiline comment was started on the line
-    if (document.startsWith(line - 1, "/*", true))
+    // and ENTER wan't pressed right after a /*C-style comment*/
+    if (document.startsWith(line - 1, "/*", true) && !document.endsWith(line - 1, "*/", true))
     {
         var filler = String().fill(' ', document.firstVirtualColumn(line - 1) + 1);
         var padding = filler + "* ";
@@ -404,14 +405,31 @@ function tryMultilineCommentStart_ch(line)
         // then append a comment closer also...
         if ((line + 1) < document.lines())
         {
+            // Maybe user wants to extend a multiline C-style/Doxygen comment
+            // by pressing ENTER at start of it?
             if (!document.startsWith(line + 1, "*", true))
-                padding += "\n" + filler + "*/";
+            {
+                // ... doesn't looks like a multiline comment
+                padding += "\n" + filler;
+                // Maybe user just splits a C-style comment?
+                if (!document.startsWith(line, "*/", true))
+                    padding += document.endsWith(line, "*/", true) ? "* " : "*/";
+                else
+                    document.removeText(line, 0, line, document.firstColumn(line))
+            }                                               // else, no need to append a closing */
         }
-        else padding += "\n" + filler + "*/\n";             // There is no a next line...
+        else                                                // There is no a next line...
+        {
+            padding += "\n" + filler;
+            if (!document.startsWith(line, "*/", true))
+                padding += document.endsWith(line, "*/", true) ? "* " : "*/";
+            else
+                document.removeText(line, 0, line, document.firstColumn(line))
+        }
 
         document.insertText(line, 0, padding);
-        view.setCursorPosition(line, padding.length + 4);
-        result = filler.length;
+        view.setCursorPosition(line, filler.length + 2);
+        result = -2;
     }
     if (result != -1)
     {
@@ -448,6 +466,20 @@ function tryMultilineCommentCont_ch(line)
     if (result != -1)
     {
         dbg("tryMultilineCommentCont_ch result="+result);
+    }
+    return result;
+}
+
+function tryAfterCloseMultilineComment_ch(line)
+{
+    var result = -1;
+    if (document.startsWith(line - 1, "*/", true))
+    {
+        result = document.firstColumn(line - 1) - 1;
+    }
+    if (result != -1)
+    {
+        dbg("tryAfterCloseMultilineComment_ch result="+result);
     }
     return result;
 }
@@ -693,6 +725,7 @@ function caretPressed(cursor)
         tryBraceSplit_ch                                    // Handle ENTER between braces
       , tryMultilineCommentStart_ch
       , tryMultilineCommentCont_ch
+      , tryAfterCloseMultilineComment_ch
       , trySplitComment_ch
       , tryToAlignAfterOpenBrace_ch                         // Handle {,[,(,< on a previous line
       , tryToAlignBeforeCloseBrace_ch                       // Handle },],),> on a current line before cursor
@@ -1446,7 +1479,7 @@ function alignInsideBraces(line)
     // NOTE Yep, it is expected (hardcoeded) that multiline comment has
     // all lines strarted w/ a star symbol!
     // TODO BUG Kate has a bug: when multiline code snippet gets inserted into
-    // a multilibe comment block (like Doxygen's @code/@endcode)
+    // a multiline comment block (like Doxygen's @code/@endcode)
     // document.isComment() returns true *only& for the first line of it!
     // So some other way needs to be found to indent comments properly...
     // TODO DAMN... it doesn't work that way also... for snippets longer than 2 lines.

@@ -56,7 +56,7 @@ require ("string.js");
 // TBD <others>
 triggerCharacters = "{}()<>/:;,#\\?|/%.@";
 
-var debugMode = true;
+var debugMode = false;
 
 /// \todo Move to a separate library?
 function dbg()
@@ -313,8 +313,17 @@ function tryToAlignAfterOpenBrace_ch(line)
     var pos = document.lastColumn(line - 1);
     var ch = document.charAt(line - 1, pos);
 
-    if (ch == '{' || ch == '(' || ch == '[')
+    if (ch == '(' || ch == '[')
+    {
         result = document.firstColumn(line - 1) + gIndentWidth;
+    }
+    else if (ch == '{')
+    {
+        if (document.startsWith(line - 1, "namespace", true))
+            result = 0
+        else
+            result = document.firstColumn(line - 1) + gIndentWidth
+    }
     else if (ch == '<')
     {
         // Does it looks like 'operator<<'?

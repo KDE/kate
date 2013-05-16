@@ -320,9 +320,9 @@ function tryToAlignAfterOpenBrace_ch(line)
     else if (ch == '{')
     {
         if (document.startsWith(line - 1, "namespace", true))
-            result = 0
+            result = 0;
         else
-            result = document.firstColumn(line - 1) + gIndentWidth
+            result = document.firstColumn(line - 1) + gIndentWidth;
     }
     else if (ch == '<')
     {
@@ -1121,7 +1121,7 @@ function tryOpenBrace(cursor)
     var column = cursor.column;
     var wordBefore = document.wordAt(line, column - 1);
     dbg("word before: '"+wordBefore+"'");
-    if (wordBefore.search(/\b(catch|for|if|switch|while)\b/) != -1)
+    if (wordBefore.search(/\b(catch|for|if|switch|while|return)\b/) != -1)
         document.insertText(line, column - 1, " ");
 }
 

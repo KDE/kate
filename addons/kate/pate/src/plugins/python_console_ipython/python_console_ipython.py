@@ -143,7 +143,7 @@ def projectFileNameChanged(*args, **kwargs):
         kernel_app = default_kernel_app()
         # Check Python version
         if not is_version_compatible(version):
-            msg = i18n('Can not load this project: %1. Python Version incompatible', projectName)
+            msg = i18n('Cannot load this project: %1. Python Version incompatible', projectName)
             print_to_shell(kernel_app, msg)
             sys.stdout.flush()
             return

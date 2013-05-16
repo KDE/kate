@@ -42,7 +42,7 @@
          <item row="4" column="1" rowspan="5">
           <widget class="QLabel" name="shortcut">
            <property name="whatsThis">
-            <string>The shortcut to fire this action such as 'Ctrl+1', or a QKeySequence instance, or None.</string>
+            <string>The shortcut to fire this action, such as 'Ctrl+1', or a QKeySequence instance, or None.</string>
            </property>
           </widget>
          </item>
@@ -89,7 +89,7 @@
          <item row="1" column="1" rowspan="2">
           <widget class="QLabel" name="menu">
            <property name="whatsThis">
-            <string>The menu under which to place this item such as 'tools' or 'settings', or None.</string>
+            <string>The menu under which to place this item, such as 'tools' or 'settings', or None.</string>
            </property>
           </widget>
          </item>

@@ -23,13 +23,13 @@ KATE_ACTIONS = {
                    'menu': DJ_MENU, 'icon': None},
     'createModel': {'text': i18n('Create Django Model'), 'shortcut': 'Ctrl+Alt+M',
                     'menu': DJ_MENU, 'icon': None},
-    'importUrls': {'text': i18n('Template Django urls'), 'shortcut': 'Ctrl+Alt+7',
+    'importUrls': {'text': i18n('Template Django URLs'), 'shortcut': 'Ctrl+Alt+7',
                    'menu': DJ_MENU, 'icon': None},
-    'importViews': {'text': i18n('Template import views'), 'shortcut': 'Ctrl+Alt+I',
+    'importViews': {'text': i18n('Template Import Views'), 'shortcut': 'Ctrl+Alt+I',
                     'menu': DJ_MENU, 'icon': None},
-    'createBlock': {'text': i18n('Template block'), 'shortcut': 'Ctrl+Alt+B',
+    'createBlock': {'text': i18n('Template Block'), 'shortcut': 'Ctrl+Alt+B',
                     'menu': DJ_MENU, 'icon': None},
-    'closeTemplateTag': {'text': i18n('Close Template tag'), 'shortcut': 'Ctrl+Alt+C',
+    'closeTemplateTag': {'text': i18n('Close Template Tag'), 'shortcut': 'Ctrl+Alt+C',
                          'menu': DJ_MENU, 'icon': None},
 }
 

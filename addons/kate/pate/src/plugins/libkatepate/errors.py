@@ -38,7 +38,7 @@ def needs_python_version(major, minor=None, micro=None, text=''):
 
 
 def needs_packages(packages):
-    msg = i18n("You need install the next packages:\n")
+    msg = i18n("You need install the following packages:\n")
     import_error = False
     for package, version in packages.items():
         try:

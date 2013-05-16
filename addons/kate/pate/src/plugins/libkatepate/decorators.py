@@ -135,9 +135,9 @@ def has_selection(selectionState):
             print("*** has_selection: result=%s" % repr(result))
             if not result:
                 if not selectionState:
-                    should = i18nc('@info:tooltip', "Document should not have selection to perform this operation")
+                    should = i18nc('@info:tooltip', "This operation cannot be performed while text is selected")
                 else:
-                    should = i18nc('@info:tooltip', "Document should have selection to perform this operation")
+                    should = i18nc('@info:tooltip', "Text must be selected to perform this operation")
                 ui.popup(i18nc('@title:window', 'Alert'), should, 'dialog-information')
             return result
         binded_predicate = functools.partial(has_selection_checker, selectionState)

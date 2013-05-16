@@ -47,7 +47,7 @@
                             <item>
                                 <widget class="QLabel" name="label">
                                     <property name="text">
-                                        <string>Check JSLint when save</string>
+                                        <string>Check JSLint when saving</string>
                                     </property>
                                 </widget>
                             </item>

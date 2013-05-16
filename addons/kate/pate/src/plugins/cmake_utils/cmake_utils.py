@@ -545,7 +545,7 @@ class CMakeToolView(QObject):
           )
         self.cfgPage.mode.setChecked(kate.configuration[TOOLVIEW_ADVANCED_MODE])
         self.cfgPage.htmlize.setChecked(kate.configuration[TOOLVIEW_BEAUTIFY])
-        tabs.addTab(self.cfgPage, i18nc('@title:tab', 'Toolview Settings'))
+        tabs.addTab(self.cfgPage, i18nc('@title:tab', 'Tool View Settings'))
 
         # Connect signals
         self.cacheViewPage.cacheItems.itemActivated.connect(self.insertIntoCurrentDocument)

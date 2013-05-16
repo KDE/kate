@@ -431,7 +431,7 @@ def toggleBlock():
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
-              , 'It seems cursor positioned out of any <icode>#if0<icode>/</icode>#if1</icode> block'
+              , 'The cursor is not positioned in any <icode>#if0<icode>/</icode>#if1</icode> block'
               )
           , 'dialog-information'
           )
@@ -485,7 +485,7 @@ def removeBlock():
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
-              , 'It seems cursor positioned out of any <icode>#if0<icode>/</icode>#if1</icode> block'
+              , 'The cursor is not positioned in any <icode>#if0<icode>/</icode>#if1</icode> block'
               )
           , 'dialog-information'
           )
@@ -517,7 +517,7 @@ def selectBlock():
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
-              , 'It seems cursor positioned out of any <icode>#if0<icode>/</icode>#if1</icode> block'
+              , 'The cursor is not positioned in any <icode>#if0<icode>/</icode>#if1</icode> block'
               )
           , 'dialog-information'
           )
@@ -677,7 +677,7 @@ def changeParagraphWidth(step):
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
-              , 'Unable detect a commented paragraph at cursor...'
+              , 'Unable to detect a commented paragraph at cursor...'
               )
           , 'dialog-information'
           )

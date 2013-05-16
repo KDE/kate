@@ -56,7 +56,7 @@ require ("string.js");
 // TBD <others>
 triggerCharacters = "{}()<>/:;,#\\?|/%.@";
 
-var debugMode = false;
+var debugMode = true;
 
 /// \todo Move to a separate library?
 function dbg()
@@ -775,11 +775,16 @@ function trySameLineComment(cursor)
  * \li user entered <em>"template &gt;</em>
  * \li user entered smth like <em>std::map&gt;</em>
  * \li user wants to output smth to C++ I/O stream by typing <em>&gt;&gt;</em>
+ *
+ * But, do not add '>' if there some text after cursor.
  */
 function tryTemplate(cursor)
 {
     var line = cursor.line;
     var column = cursor.column;
+
+    if (isStringOrComment(line, column))
+        return;                                             // Do nothing for comments and strings
 
     // Check for 'template' keyword at line start
     var currentString = document.line(line);
@@ -790,6 +795,7 @@ function tryTemplate(cursor)
     // and it looks like an identifier or current line starts w/ 'template' keyword
     var isCloseAngleBracketNeeded = (prevWord != "operator")
       && (currentString.match(/^\s*template\s*<$/) || prevWord.match(/\b[A-Za-z_][A-Za-z0-9_]*/))
+      && (column == document.lineLength(line) || document.charAt(cursor).match(/\W/))
       ;
     if (isCloseAngleBracketNeeded)
     {
@@ -832,7 +838,10 @@ function tryComma(cursor)
         var mustMove = !(prevLineFirstChar == ',' || prevLineFirstChar == ':');
         result = document.firstColumn(line - 1) - (mustMove ? 2 : 0);
     }
-    document.insertText(cursor, " ");                       // Always add one space after comma
+    if (document.charAt(cursor) != ' ')
+        document.insertText(cursor, " ");                   // Add space only if not present
+    else
+        view.setCursorPosition(line, column + 1);           // Otherwise just move cursor after it
     return result;
 }
 

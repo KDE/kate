@@ -190,7 +190,7 @@ Python Utilities: Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
 <varlistentry id="pate-plugin-commentar">
 <term><guilabel>commentar</guilabel></term>
 <listitem><para>
-Move an inlined comment before the current line w/ same indentation level
+Move an inlined comment before the current line with the same indentation level
 </para></listitem>
 </varlistentry>
 
@@ -211,14 +211,14 @@ Django utilities: Snippets, and template utilities
 <varlistentry id="pate-plugin-python_console_ipython">
 <term><guilabel>python_console_ipython</guilabel></term>
 <listitem><para>
-IPython console for hacking kate and doing science
+IPython console for hacking &kate; and doing science
 </para></listitem>
 </varlistentry>
 
 <varlistentry id="pate-plugin-gdb">
 <term><guilabel>gdb</guilabel></term>
 <listitem><para>
-Use gdb, the GNU debugger, from Kate
+Use <application>gdb</application>, the GNU debugger, from &kate;
 </para></listitem>
 </varlistentry>
 
@@ -252,7 +252,7 @@ def foo:
 <para>after typing <quote>foo</quote>, the action will replace <quote>foo</quote>
 with <quote>Hello from foo!</quote>. The expansion function may have parameters
 as well. For example, the <filename>text_x-c++src.expand</filename> file 
-contains the "cl" function which creates a class (or class template). This will
+contains the <function>cl</function> function which creates a class (or class template). This will
 expand <quote>cl(test)</quote> into:</para>
 
 <informalexample><programlisting>
@@ -299,7 +299,7 @@ public:
 <varlistentry id="pate-plugin-xml_pretty">
 <term><guilabel>xml_pretty</guilabel></term>
 <listitem><para>
-A simple &XML; pretty printer. It formats &XML; with good indentiation.
+A simple &XML; pretty printer. It formats &XML; with good indentation.
 </para></listitem>
 </varlistentry>
 

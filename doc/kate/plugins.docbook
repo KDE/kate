@@ -244,10 +244,10 @@ This string will be inserted into a document by the expandAtCursor action.
 For example if you have a function <quote>foo</quote> in the 
 <filename>all.expand</filename> file which is defined as:</para>
 
-<example><programlisting>
+<informalexample><programlisting>
 def foo:
   return 'Hello from foo!'
-</programlisting></example>
+</programlisting></informalexample>
 
 <para>after typing <quote>foo</quote>, the action will replace <quote>foo</quote>
 with <quote>Hello from foo!</quote>. The expansion function may have parameters
@@ -255,7 +255,7 @@ as well. For example, the <filename>text_x-c++src.expand</filename> file
 contains the "cl" function which creates a class (or class template). This will
 expand <quote>cl(test)</quote> into:</para>
 
-<example><programlisting>
+<informalexample><programlisting>
 /**
  * \\brief Class \c test
  */
@@ -271,11 +271,11 @@ public:
     {
     }
 };
-</programlisting></example>
+</programlisting></informalexample>
 
 <para>but <quote>cl(test, T1, T2, T3)</quote> will expand to:</para>
 
-<example><programlisting>
+<informalexample><programlisting>
 /**
  * \\brief Class \c test
  */
@@ -292,7 +292,7 @@ public:
     {
     }
 };
-</programlisting></example>
+</programlisting></informalexample>
 </listitem>
 </varlistentry>
 

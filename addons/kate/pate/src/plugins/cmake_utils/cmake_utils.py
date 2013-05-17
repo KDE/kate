@@ -33,16 +33,12 @@ from PyQt4 import uic
 from PyQt4.QtCore import QEvent, QObject, QUrl, Qt, pyqtSlot
 from PyQt4.QtGui import (
     QBrush
-  , QCheckBox
   , QColor
-  , QSizePolicy
-  , QSpacerItem
   , QSplitter
   , QTabWidget
   , QTextBrowser
   , QTreeWidget
   , QTreeWidgetItem
-  , QVBoxLayout
   , QWidget
   )
 

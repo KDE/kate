@@ -9,21 +9,24 @@
 
 <title>Working with Plugins</title>
 
-<para>Kate is using two different forms of plugins, namely plugins for the
-&kate; application and plugins for the &kate; editor component. The latter are
-available to any application using the editor component, such as KDevelop,
-Quanta, Kile, Kwrite and many others, while application plugins are specific
-to the &kate; application.</para>
+<para>&kate; offers several types of plugins.  There are plugins for &kate; editor 
+component, which are available to any application using the editor component, 
+such as KDevelop, Quanta, Kile, &kwrite; and many others.  There are also plugins
+only available in the &kate; editor itself.  There are two types of these plugins:
+some are written in native C++, while others are written in the Python programming
+language.  There are subtle differences in these, described below.</para>
 
-<para>You can enable both types of plugins in the <link
+<para>You can enable any type of plugin in the <link
 linkend="configuring-kate-configdialog">configuration dialog</link>, which also
-provides access to additional configuration options for plugins that requires
+provides access to additional configuration options for plugins that require
 that.</para>
 
 <para>There are many plugins for various purposes available
 and you can search the web for more. A few plugins are shipped with the
 editor component, for inserting automatic braces, insert files,
 and exporting text as &HTML;.</para>
+
+&plugins-part-sections;
 
 <sect1 id="kate-application-plugins">
 <title>&kate; Application Plugins</title>
@@ -44,13 +47,13 @@ The available application plugins are:
 </para>
 <itemizedlist>
 <listitem>
-<para>Close Except/Like - Close group of documents</para>
-</listitem>
-<listitem>
 <para>Backtrace Browser - Backtrace navigation tool view</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
+</listitem>
+<listitem>
+<para>Close Except/Like - Close group of documents</para>
 </listitem>
 <listitem>
 <para>CTags Plugin - Look up definitions/declarations with CTags</para>
@@ -84,7 +87,7 @@ simple &gdb; frontend</para>
 <para>Project Plugin - Project plugin for kate</para>
 </listitem>
 <listitem>
-<para>Python Plugins - Pâté host for Python plugins</para>
+<para>Python Plugins - &pate; host for Python plugins</para>
 </listitem>
 <listitem>
 <para>Search and Replace Plugin - Search or replace patterns in all open files or all files in a folder</para>
@@ -138,7 +141,249 @@ http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/
 </itemizedlist>
 </sect1>
 
-&plugins-part-sections;
+<sect1 id="pate">
+<title>Python &pate; Plugins</title>
+
+<para>The &pate; Python Plugin host makes available many plugins written in the
+<ulink url="http://www.python.org/">Python programming language</ulink>.</para>
+
+<para>To enable &pate; plugins, you must first enable the 
+<guilabel>Python Plugins</guilabel> plugin in the 
+<link linkend="config-dialog-plugins"><guilabel>Plugins</guilabel> page of
+&kate;'s configuration dialog</link>.  You may then enable, disable, and
+configure them in the <guilabel>Python Plugins</guilabel> page of the
+configuration dialog.  For more information about configuring &pate; plugins, see
+<xref linkend="pate-config"/>.</para>
+
+<sect2 id="pate-plugins">
+<title>Available Plugins</title>
+
+<variablelist>
+<varlistentry id="pate-plugin-cmake_utils">
+<term><guilabel>cmake_utils</guilabel></term>
+<listitem><para>
+CMake helper plugin
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-python_autocomplete">
+<term><guilabel>python_autocomplete</guilabel></term>
+<listitem><para>
+Python Autocompletion (beta, only for Python 2)
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-python_console_classic">
+<term><guilabel>python_console_classic</guilabel></term>
+<listitem><para>
+Configuration widget for this plugin.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-python_utils">
+<term><guilabel>python_utils</guilabel></term>
+<listitem><para>
+Python Utilities: Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-commentar">
+<term><guilabel>commentar</guilabel></term>
+<listitem><para>
+Move an inlined comment before the current line w/ same indentation level
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-format">
+<term><guilabel>format</guilabel></term>
+<listitem><para>
+Plugins to work with C++ code formatting
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-django_utils">
+<term><guilabel>django_utils</guilabel></term>
+<listitem><para>
+Django utilities: Snippets, and template utilities
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-python_console_ipython">
+<term><guilabel>python_console_ipython</guilabel></term>
+<listitem><para>
+IPython console for hacking kate and doing science
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-gdb">
+<term><guilabel>gdb</guilabel></term>
+<listitem><para>
+Use gdb, the GNU debugger, from Kate
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-gid">
+<term><guilabel>gid</guilabel></term>
+<listitem>
+<para>Browse the tokens in a <application>GNU idutils</application> ID file, and 
+use it to navigate within a codebase.</para>
+
+<para>The necessary parts of the ID file are held in memory to allow sufficient 
+performance for token completion, when looking up the usage of a token, or 
+jumping to the definition. <command>etags(1)</command> is used to locate the 
+definition.</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-expand">
+<term><guilabel>expand</guilabel></term>
+<listitem>
+<para>User-defined text expansions.</para>
+
+<para>Each text expansion is a simple function which must return a string.
+This string will be inserted into a document by the expandAtCursor action.
+For example if you have a function <quote>foo</quote> in the 
+<filename>all.expand</filename> file which is defined as:</para>
+
+<example><programlisting>
+def foo:
+  return 'Hello from foo!'
+</programlisting></example>
+
+<para>after typing <quote>foo</quote>, the action will replace <quote>foo</quote>
+with <quote>Hello from foo!</quote>. The expansion function may have parameters
+as well. For example, the <filename>text_x-c++src.expand</filename> file 
+contains the "cl" function which creates a class (or class template). This will
+expand <quote>cl(test)</quote> into:</para>
+
+<example><programlisting>
+/**
+ * \\brief Class \c test
+ */
+class test
+{
+public:
+    /// Default constructor
+    explicit test()
+    {
+    }
+    /// Destructor
+    virtual ~test()
+    {
+    }
+};
+</programlisting></example>
+
+<para>but <quote>cl(test, T1, T2, T3)</quote> will expand to:</para>
+
+<example><programlisting>
+/**
+ * \\brief Class \c test
+ */
+template &lt;typename T1, typename T2, typename T3&gt;
+class test
+{
+public:
+    /// Default constructor
+    explicit test()
+    {
+    }
+    /// Destructor
+    virtual ~test()
+    {
+    }
+};
+</programlisting></example>
+</listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-xml_pretty">
+<term><guilabel>xml_pretty</guilabel></term>
+<listitem><para>
+A simple &XML; pretty printer. It formats &XML; with good indentiation.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-color_tools">
+<term><guilabel>color_tools</guilabel></term>
+<listitem><para>
+Class encapsuling the ability to show color swatches (colored tooltips)
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-block">
+<term><guilabel>block</guilabel></term>
+<listitem><para>
+Plugins to help code editing
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-js_utils">
+<term><guilabel>js_utils</guilabel></term>
+<listitem><para>
+JavaScript utilities: Autocomplete, Autocomplete jQuery, Checker JSLint, Pretty 
+JSON, Snippets
+</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="pate-config">
+<title>Configuring &pate;</title>
+
+<sect3 id="pate-config-manager">
+<title>The <guilabel>Manager</guilabel> Tab</title>
+
+<para>This tab contains a list of &pate; plugins.  To enable or disable them,
+simply select or unselect the checkbox to the left of the plugin name.</para>
+
+<para>To refresh the list of plugins, reload any currently running plugins, or
+start any newly selected plugins, select the 
+<guibutton>Reload Plugins</guibutton> button at the bottom of the window.</para>
+
+<warning><para>Reloading a plugin may have unpredictable effects. Consider
+saving your work before using this command.</para></warning>
+
+</sect3>
+
+<sect3 id="pate-config-documentation">
+<title>The <guilabel>Documentation</guilabel> Tab</title>
+
+<para>The <guilabel>Documentation</guilabel> tab contains information about the
+actions, menu items, keyboard shortcuts, and configuration pages offered by 
+&pate; plugins, as well as a reference for programmers using the functionality 
+of the plugins.</para>
+
+<para>The following tabs are available:</para>
+
+<variablelist>
+
+<varlistentry>
+<term><guilabel>Actions</guilabel></term>
+<listitem><para>Lists all the actions offered by the plugin, including the menu
+item, icon, and keyboard shortcut that will invoke the action.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Configuration Pages</guilabel></term>
+<listitem><para>Lists all the configuration pages offered by the plugin,
+including their titles and icons.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Programmer's Reference</guilabel></term>
+<listitem><para>Includes information about all the modules, classes, and
+functions offered by a plugin, as generated by <command>pydoc</command>.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect3>
+
+</sect2>
+
+</sect1>
 
 <!-- from doc/kate-addons/filetemplates.docbook -->
 <sect1 id="kate-application-plugin-filetemplate">

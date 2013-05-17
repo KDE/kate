@@ -8,6 +8,7 @@
   <!ENTITY imgpath "./">
   <!ENTITY rcfile "katerc">
   <!ENTITY gdb "<acronym>GDB</acronym>">
+  <!ENTITY pate "Pâté">
   <!ENTITY configuring-chapter SYSTEM "configuring.docbook">
   <!ENTITY configuring-part-sections SYSTEM "configuring-part.docbook">
   <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">

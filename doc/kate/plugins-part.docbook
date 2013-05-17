@@ -1,6 +1,11 @@
 <!--pulled in by kwrite-->
 <sect1 id="editor-component-plugins">
 <title>Editor Component Extensions</title>
+
+<para>These plugins are available to any program using the &kate; Editor
+Component.  To learn how to enable, disable, or configure them, see 
+<xref linkend="pref-plugins"/>.</para>
+
 <variablelist>
 
 <!-- not released with 4.7

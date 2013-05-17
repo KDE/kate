@@ -69,7 +69,7 @@ def _calc_dimensions_for_items_count(count):
 
 
 class ColorChooser(QFrame):
-
+    '''Completion-like widget to quick select hexadecimal colors used in a document'''
     colorSelected = pyqtSignal(QColor)
 
     def __init__(self, parent):
@@ -123,6 +123,7 @@ class ColorChooser(QFrame):
 
     @pyqtSlot(bool)
     def show_color_dialog(self, f):
+        '''Get color using KColorDialog'''
         print('ColorUtils: Dialog requested')
         # Preselect last used color
         color = QColor(kate.configuration[_INSERT_COLOR_LCC])
@@ -133,6 +134,7 @@ class ColorChooser(QFrame):
 
     @pyqtSlot(int, int)
     def color_selected(self, row, column):
+        '''Smth has selected in KColorCells'''
         color = self.colors.item(row, column).data(Qt.BackgroundRole)
         print('ColorUtils: activated row={}, column={}, color={}'.format(row, column, color))
         self.emitSelectedColorHideSelf(color)
@@ -146,6 +148,7 @@ class ColorChooser(QFrame):
 
 
     def eventFilter(self, obj, event):
+        '''Hide self on Esc key'''
         if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Escape:
             self.hide()
             return True
@@ -153,6 +156,7 @@ class ColorChooser(QFrame):
 
 
     def moveAround(self, position):
+        '''Smart positioning self around cursor'''
         print('ColorUtils: cursor position={}'.format(position))
         print('ColorUtils: kwm.geo={}'.format(kate.mainWindow().geometry()))
         print('ColorUtils: kwm.geo.center={}'.format(kate.mainWindow().geometry().center()))

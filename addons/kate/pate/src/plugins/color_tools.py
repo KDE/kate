@@ -68,6 +68,22 @@ def _calc_dimensions_for_items_count(count):
     return (rows, columns)
 
 
+def _set_tooltips(rows, columns, colors):
+    '''Set tool tips for color cells in a KColorCells widget'''
+    stop = False
+    for r in range(0, rows):
+        for c in range(0, columns):
+            item = colors.item(r, c)
+            if item is None:
+                stop = True
+                break
+            color = item.data(Qt.BackgroundRole)
+            if color.isValid():
+                item.setToolTip(color.name())
+        if stop:
+            break
+
+
 class ColorChooser(QFrame):
     '''Completion-like widget to quick select hexadecimal colors used in a document'''
     colorSelected = pyqtSignal(QColor)
@@ -116,9 +132,9 @@ class ColorChooser(QFrame):
         # Fill color cells
         for i, color in enumerate(colors):
             self.colors.setColor(i, color)
-        #
-        self.colors.setFocus()
-        self.show()
+        _set_tooltips(rows, columns, self.colors)           # Set tooltips for all valid color cells
+        self.colors.setFocus()                              # Give a focus to widget
+        self.show()                                         # Show it!
 
 
     @pyqtSlot(bool)
@@ -422,6 +438,7 @@ class PaletteView(QObject):
             self.colorCellsWidget.setColor(i, crp.color)
         for i in range(len(self.colors), columns * rows):
             self.colorCellsWidget.setColor(i, QColor())
+        _set_tooltips(rows, columns, self.colorCellsWidget)
 
 
     @pyqtSlot()

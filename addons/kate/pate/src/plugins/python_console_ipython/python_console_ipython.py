@@ -18,7 +18,7 @@ from libkatepate.errors import needs_packages
 sys.argv = [__file__]
 
 NEED_PACKAGES = {
-    'IPython': 'ipython==0.13.1',
+    'IPython': 'ipython>=0.13.1',
     'readline': '6.2.4.1',
     'pygments': 'Pygments==1.6',
 }
@@ -42,9 +42,15 @@ import atexit
 import kate
 import os
 
-from IPython.zmq.ipkernel import IPKernelApp
-from IPython.lib.kernel import find_connection_file
-from IPython.frontend.qt.kernelmanager import QtKernelManager
+try:  # ≥1.0
+    from IPython.kernel.inprocess.ipkernel import InProcessKernel
+    from IPython.frontend.qt.inprocess import QtInProcessKernelManager
+    ipython_1 = True
+except ImportError:  # ≤0.13
+    from IPython.zmq.ipkernel import IPKernelApp
+    from IPython.frontend.qt.kernelmanager import QtKernelManager
+    from IPython.lib.kernel import find_connection_file
+    ipython_1 = False
 from IPython.frontend.qt.console.rich_ipython_widget import RichIPythonWidget
 
 from PyQt4 import uic
@@ -55,6 +61,11 @@ from libkatepate.project_utils import (
     is_version_compatible,
     add_extra_path,
     add_environs)
+
+try: #fix for Kate 4.10
+    get_project_plugin()
+except AttributeError:
+    get_project_plugin = lambda: None
 
 _SCROLLBACK_LINES_COUNT_CFG = 'ipythonConsole:scrollbackLinesCount'
 _GUI_COMPLETION_TYPE_CFG = 'ipythonConsole:guiCompletionType'
@@ -72,7 +83,7 @@ def event_loop(kernel):
 def default_kernel_app():
     app = IPKernelApp.instance()
     if not app.config:
-        app.initialize(['python', '--pylab=qt'])
+        app.initialize(['python', '--pylab=qt']) #at this point, print() won’t work anymore
     app.kernel.eventloop = event_loop
     return app
 
@@ -166,8 +177,6 @@ def projectFileNameChanged(*args, **kwargs):
 
 
 def terminal_widget(parent=None, **kwargs):
-    kernel_app = default_kernel_app()
-    manager = default_manager(kernel_app)
     try:
         gui_completion = _GUI_COMPLETION_CONVERT[kate.configuration[_GUI_COMPLETION_TYPE_CFG]]
     except KeyError:
@@ -176,15 +185,40 @@ def terminal_widget(parent=None, **kwargs):
         widget = RichIPythonWidget(parent=parent, gui_completion=gui_completion)
     else:
         widget = RichIPythonWidget(parent=parent)
-    widget.kernel_manager = manager
-
-    #update namespace
-    kernel_app.shell.user_ns.update(kwargs)
-    kernel_app.shell.user_ns['console'] = widget
-    kernel_app.start()
 
     msg = i18n('\\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(kwargs.keys()))
-    print_to_shell(kernel_app, msg)
+
+    if ipython_1: #https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
+        manager = QtInProcessKernelManager()
+        manager.start_kernel()
+        kernel = manager.kernel
+        kernel.gui = 'qt4'
+        kernel.shell.push(kwargs)
+        kernel.shell.push({'console': widget})
+        
+        client = manager.client()
+        client.start_channels()
+
+        def stop():
+            client.stop_channels()
+            manager.shutdown_kernel()
+        
+        widget.kernel_manager = manager
+        widget.kernel_client  = client
+        widget.exit_requested.connect(stop)
+
+        print_to_shell(kernel, msg)
+    else:
+        kernel_app = default_kernel_app()
+        manager = default_manager(kernel_app)
+        widget.kernel_manager = manager
+
+        #update namespace
+        kernel_app.shell.user_ns.update(kwargs)
+        kernel_app.shell.user_ns['console'] = widget
+        kernel_app.start()
+
+        print_to_shell(kernel_app, msg)
 
     projectPlugin = get_project_plugin()
     if projectPlugin:
@@ -274,6 +308,7 @@ def init():
                     break
             except IOError:
                 pass
+    
     if css_string:
         console.style_sheet = css_string
 

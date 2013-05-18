@@ -22,3 +22,8 @@ QPlainTextEdit, QTextEdit
 {
     font-weight: bold;
 }
+
+RichIPythonWidget
+{
+    background-color: transparent;
+}

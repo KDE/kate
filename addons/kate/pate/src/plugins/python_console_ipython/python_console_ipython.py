@@ -33,10 +33,12 @@ else:
 
 needs_packages(NEED_PACKAGES)
 
+
 def i18n(msg, *args):
     if isinstance(msg, _u):
         msg = msg.encode('utf-8')
     return _translate(msg, *args) if args else _translate(msg)
+
 
 import atexit
 import kate
@@ -62,7 +64,7 @@ from libkatepate.project_utils import (
     add_extra_path,
     add_environs)
 
-try: #fix for Kate 4.10
+try:  # fix for Kate 4.10
     get_project_plugin()
 except AttributeError:
     get_project_plugin = lambda: None
@@ -83,7 +85,7 @@ def event_loop(kernel):
 def default_kernel_app():
     app = IPKernelApp.instance()
     if not app.config:
-        app.initialize(['python', '--pylab=qt']) #at this point, print() won’t work anymore
+        app.initialize(['python', '--pylab=qt'])  # at this point, print() won’t work anymore
     app.kernel.eventloop = event_loop
     return app
 
@@ -93,15 +95,23 @@ def default_manager(kernel_app):
     manager = QtKernelManager(connection_file=connection_file)
     manager.load_connection_file()
     manager.start_channels()
-    atexit.register(manager.cleanup_connection_file)
     return manager
 
 
-def print_to_shell(kernel_app, msg):
-    kernel_app.shell.run_cell('print("{}")'.format(msg))
+if ipython_1:
+    manager = QtInProcessKernelManager()
+    manager.start_kernel()
+    kernel = manager.kernel
+    kernel.gui = 'qt4'
+    client = manager.client()
+    client.start_channels()
+else:
+    kernel = default_kernel_app()
+    manager = default_manager(kernel)
+    kernel.start()
 
 
-def django_project_filename_changed(kernel_app):
+def django_project_filename_changed():
     # Uses this: https://github.com/django-extensions/django-extensions/blob/master/django_extensions/management/shells.py#L7
     from django.db.models.loading import get_models, get_apps
     loaded_models = get_models()  # NOQA
@@ -135,12 +145,12 @@ def django_project_filename_changed(kernel_app):
                     model_labels.append('{} (as {})'.format(model_name, alias))
             except AttributeError as reason:
                 msg = i18n('Failed to import “%1” from “%2” reason: %3', model_name, app_name, reason)
-                print_to_shell(kernel_app, msg)
+                kernel.shell.write(msg)
                 continue
         msg = i18n('From “%1” autoload: %2', app_mod.__name__.split('.')[-2], ', '.join(model_labels))
         imports.append(msg)
     for import_msg in imports:
-        print_to_shell(kernel_app, import_msg)
+        kernel.shell.write(import_msg)
     return imported_objects
 
 
@@ -151,15 +161,14 @@ def projectFileNameChanged(*args, **kwargs):
         projectName = projectPlugin.property('projectName')
         projectMapPython = projectMap['python']
         version = projectMapPython.get('version', None)
-        kernel_app = default_kernel_app()
         # Check Python version
         if not is_version_compatible(version):
             msg = i18n('Cannot load this project: %1. Python Version incompatible', projectName)
-            print_to_shell(kernel_app, msg)
+            kernel.shell.write(msg)
             sys.stdout.flush()
             return
-        kernel_app.shell.reset()
-        print_to_shell(kernel_app, i18n('Load project: %1', projectName))
+        kernel.shell.reset()
+        kernel.shell.write(i18n('Load project: %1', projectName))
         extraPath = projectMapPython.get('extraPath', [])
         environs = projectMapPython.get('environs', {})
         # Add Extra path
@@ -168,11 +177,9 @@ def projectFileNameChanged(*args, **kwargs):
         add_environs(environs)
         # Special treatment
         if projectMapPython.get('projectType', '').lower() == 'django':
-            kernel_app = default_kernel_app()
-            imported_objects = django_project_filename_changed(kernel_app)
-            kernel_app.shell.user_ns.update(imported_objects)
+            imported_objects = django_project_filename_changed()
+            kernel.shell.user_ns.update(imported_objects)
         # Print details
-        kernel_app.start()
         sys.stdout.flush()
 
 
@@ -186,39 +193,26 @@ def terminal_widget(parent=None, **kwargs):
     else:
         widget = RichIPythonWidget(parent=parent)
 
-    msg = i18n('\\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(kwargs.keys()))
+    widget.kernel_manager = manager
 
-    if ipython_1: #https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
-        manager = QtInProcessKernelManager()
-        manager.start_kernel()
-        kernel = manager.kernel
-        kernel.gui = 'qt4'
-        kernel.shell.push(kwargs)
-        kernel.shell.push({'console': widget})
-        
-        client = manager.client()
-        client.start_channels()
+    if ipython_1:  # https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
+        widget.kernel_client = client
 
         def stop():
             client.stop_channels()
             manager.shutdown_kernel()
-        
-        widget.kernel_manager = manager
-        widget.kernel_client  = client
+
         widget.exit_requested.connect(stop)
-
-        print_to_shell(kernel, msg)
     else:
-        kernel_app = default_kernel_app()
-        manager = default_manager(kernel_app)
-        widget.kernel_manager = manager
+        widget.exit_requested.connect(manager.cleanup_connection_file)
 
-        #update namespace
-        kernel_app.shell.user_ns.update(kwargs)
-        kernel_app.shell.user_ns['console'] = widget
-        kernel_app.start()
+    # update namespace
+    kernel.shell.user_ns.update(kwargs)
+    kernel.shell.user_ns['console'] = widget
 
-        print_to_shell(kernel_app, msg)
+    msg = i18n('\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(kwargs.keys()))
+
+    kernel.shell.write(msg)  # TODO: this only gets shown after the user presses return: a way to flush the shell?
 
     projectPlugin = get_project_plugin()
     if projectPlugin:
@@ -308,7 +302,7 @@ def init():
                     break
             except IOError:
                 pass
-    
+
     if css_string:
         console.style_sheet = css_string
 

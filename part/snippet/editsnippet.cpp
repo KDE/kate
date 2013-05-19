@@ -196,7 +196,7 @@ void EditSnippet::slotSnippetDocumentation()
 
 void EditSnippet::slotScriptDocumentation()
 {
-    KToolInvocation::invokeHelp("advanced-editing-tools-scripting-api", "kate");
+    KToolInvocation::invokeHelp("dev-scripting-api", "kate");
 }
 
 void EditSnippet::reject()

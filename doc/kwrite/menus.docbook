@@ -520,7 +520,7 @@ Component Command Line</ulink>.</para>
 </menuchoice> (Power user mode)</term>
 <listitem><para>This opens a tool view that allows you to run Javascript code
 interactively. For more information, see
-<ulink url="help:/kate/advanced-editing-tools-scripting.html">Extending &kate; with Scripts</ulink>
+<ulink url="help:/kate/dev-scripting.html">Extending &kate; with Scripts</ulink>
 </para></listitem>
 </varlistentry>
 

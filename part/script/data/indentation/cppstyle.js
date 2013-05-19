@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 5
+ * revision: 6
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4
@@ -115,11 +115,13 @@ function splitByComment(text)
 
 /**
  * \brief Remove possible comment from text
- * \todo Unused?
  */
 function stripComment(text)
 {
-    return splitByComment(text).before.rstrip();
+    var result = splitByComment(text);
+    if (result.hasComment)
+        return result.before.rtrim();
+    return text.rtrim();
 }
 
 /// Return \c true if attribute at given position is a \e String or \e Comment
@@ -531,12 +533,35 @@ function tryIndentAfterSomeKeywords_ch(line)
     var result = -1;
     // Check if ENTER was pressed after some keywords...
     var prevString = document.line(line - 1);
-    var r = /^(\s*)((if|for|while)\s*\(|\bdo\b|\belse\b|(public|protected|private|default|case\s+.*)\s*:).*$/
+    var r = /^(\s*)((if|for|while)\s*\(|\bdo\b|(public|protected|private|default|case\s+.*)\s*:).*$/
       .exec(prevString);
     if (r != null)
     {
         dbg("r=",r);
         result = r[1].length + gIndentWidth;
+    }
+    else
+    {
+        r = /^\s*\belse\b.*$/.exec(prevString)
+        if (r != null)
+        {
+            var prevPrevString = document.line(line - 2);
+            prevPrevString = stripComment(prevPrevString);
+            dbg("tryIndentAfterSomeKeywords_ch prevPrevString="+prevPrevString);
+            if (prevPrevString.endsWith('}'))
+                result = document.firstColumn(line - 2);
+            else if (prevPrevString.match(/^\s*[\])>]/))
+                result = document.firstColumn(line - 2) - gIndentWidth - (gIndentWidth/2);
+            else
+                result = document.firstColumn(line - 2) - gIndentWidth;
+            // Realign 'else' statement if needed
+            var pp = document.firstColumn(line - 1);
+            if (pp < result)
+                document.insertText(line - 1, 0, String().fill(' ', result - pp));
+            else if (result < pp)
+                document.removeText(line - 1, 0, line - 1, pp - result);
+            result += gIndentWidth;
+        }
     }
     if (result != -1)
     {

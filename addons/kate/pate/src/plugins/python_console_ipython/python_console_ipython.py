@@ -193,6 +193,8 @@ def terminal_widget(parent=None, **kwargs):
     else:
         widget = RichIPythonWidget(parent=parent)
 
+    widget.banner += i18n('\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(kwargs.keys()))
+
     widget.kernel_manager = manager
 
     if ipython_1:  # https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
@@ -209,10 +211,6 @@ def terminal_widget(parent=None, **kwargs):
     # update namespace
     kernel.shell.user_ns.update(kwargs)
     kernel.shell.user_ns['console'] = widget
-
-    msg = i18n('\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(kwargs.keys()))
-
-    kernel.shell.write(msg)  # TODO: this only gets shown after the user presses return: a way to flush the shell?
 
     projectPlugin = get_project_plugin()
     if projectPlugin:

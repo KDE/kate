@@ -87,12 +87,12 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
 
     m_toolView = mainWindow()->createToolView(i18n("Debug View"),
                                               Kate::MainWindow::Bottom,
-                                              SmallIcon("debug"),
+                                              SmallIcon("debug-kategdb"),
                                               i18n("Debug View"));
 
     m_localsStackToolView = mainWindow()->createToolView(i18n("Locals and Stack"),
                                                     Kate::MainWindow::Right,
-                                                    SmallIcon("debug"),
+                                                    SmallIcon("debug-kategdb"),
                                                     i18n("Locals and Stack"));
 
     m_tabWidget = new QTabWidget( m_toolView );
@@ -219,7 +219,7 @@ KatePluginGDBView::KatePluginGDBView( Kate::MainWindow* mainWin, Kate::Applicati
 
     KAction* a = actionCollection()->addAction( "debug" );
     a->setText( i18n( "Start Debugging" ) );
-    a->setIcon( KIcon( "debug" ) );
+    a->setIcon( KIcon( "debug-kategdb" ) );
     connect(    a,      SIGNAL(triggered(bool)),
                 this,   SLOT(slotDebug()) );
 

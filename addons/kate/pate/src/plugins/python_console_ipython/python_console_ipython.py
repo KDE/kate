@@ -103,6 +103,7 @@ if ipython_1:
     manager.start_kernel()
     kernel = manager.kernel
     kernel.gui = 'qt4'
+    kernel.shell.run_cell('%pylab inline')
     client = manager.client()
     client.start_channels()
 else:

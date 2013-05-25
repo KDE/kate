@@ -64,10 +64,6 @@ from libkatepate.project_utils import (
     add_extra_path,
     add_environs)
 
-try:  # fix for Kate 4.10
-    get_project_plugin()
-except AttributeError:
-    get_project_plugin = lambda: None
 
 _SCROLLBACK_LINES_COUNT_CFG = 'ipythonConsole:scrollbackLinesCount'
 _GUI_COMPLETION_TYPE_CFG = 'ipythonConsole:guiCompletionType'

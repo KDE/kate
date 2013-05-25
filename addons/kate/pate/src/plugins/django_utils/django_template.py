@@ -20,7 +20,7 @@
 import kate
 import re
 
-from libkatepate.text import insertText
+from libkatepate.text import insertText, TEXT_TO_CHANGE
 from django_settings import (KATE_ACTIONS,
                              _TEMPLATE_TAGS_CLOSE,
                              DEFAULT_TEMPLATE_TAGS_CLOSE)
@@ -76,8 +76,10 @@ def createBlock():
         block_type = 'block'
         block_source = source
     view.removeSelectionText()
-    insertText("{%% %(block_type)s %(block_source)s %%}XXX{%% end%(block_type)s %%}" %
-               {'block_type': block_type, 'block_source': block_source})
+    insertText("{%% %(block_type)s %(block_source)s %%}%(cursor)s{%% end%(block_type)s %%}" %
+               {'block_type': block_type,
+                'block_source': block_source,
+                'cursor': TEXT_TO_CHANGE})
 
 
 # kate: space-indent on; indent-width 4;

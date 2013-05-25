@@ -141,10 +141,10 @@ def django_project_filename_changed():
                 else:
                     model_labels.append('{} (as {})'.format(model_name, alias))
             except AttributeError as reason:
-                msg = i18n('Failed to import “%1” from “%2” reason: %3', model_name, app_name, reason)
+                msg = i18n('\nFailed to import “%1” from “%2” reason: %3', model_name, app_name, reason)
                 kernel.shell.write(msg)
                 continue
-        msg = i18n('From “%1” autoload: %2', app_mod.__name__.split('.')[-2], ', '.join(model_labels))
+        msg = i18n('\nFrom “%1” autoload: %2', app_mod.__name__.split('.')[-2], ', '.join(model_labels))
         imports.append(msg)
     for import_msg in imports:
         kernel.shell.write(import_msg)
@@ -160,12 +160,12 @@ def projectFileNameChanged(*args, **kwargs):
         version = projectMapPython.get('version', None)
         # Check Python version
         if not is_version_compatible(version):
-            msg = i18n('Cannot load this project: %1. Python Version incompatible', projectName)
+            msg = i18n('\nCannot load this project: %1. Python Version incompatible', projectName)
             kernel.shell.write(msg)
             sys.stdout.flush()
             return
         kernel.shell.reset()
-        kernel.shell.write(i18n('Load project: %1', projectName))
+        kernel.shell.write(i18n('\nLoad project: %1', projectName))
         extraPath = projectMapPython.get('extraPath', [])
         environs = projectMapPython.get('environs', {})
         # Add Extra path

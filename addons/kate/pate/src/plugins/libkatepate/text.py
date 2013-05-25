@@ -21,6 +21,13 @@ from libkatepate.selection import setSelectionFromCurrentPosition
 TEXT_TO_CHANGE = '${cursor}'
 
 
+def convertToValidIndent(indent):
+    for char in indent:
+        if char not in ('\t', ''):
+            return ' ' * len(indent)
+    return indent
+
+
 def insertText(text, strip_line=False,
                start_in_current_column=False,
                delete_spaces_initial=False,
@@ -28,14 +35,14 @@ def insertText(text, strip_line=False,
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     currentPosition = view.cursorPosition()
-    spaces = ''
     if strip_line:
         text = '\n'.join([line.strip() for line in text.splitlines()])
     if start_in_current_column:
-        number_of_spaces = currentPosition.position()[1]
-        spaces = ' ' * number_of_spaces
-        text = '\n'.join([i > 0 and '%s%s' % (spaces, line) or line
-                            for i, line in enumerate(text.splitlines())])
+        line = currentPosition.line()
+        column = currentPosition.column()
+        ident = convertToValidIndent(currentDocument.line(line)[:column])
+        text = '\n'.join([i > 0 and '%s%s' % (ident, line) or line
+                          for i, line in enumerate(text.splitlines())])
     if delete_spaces_initial:
         currentPosition.setColumn(0)
     currentDocument.insertText(currentPosition, text)

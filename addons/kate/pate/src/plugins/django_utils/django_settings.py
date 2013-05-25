@@ -50,7 +50,7 @@ DEFAULT_TEXT_URLS = """from django.conf.urls.defaults import patterns, url
 
 
 urlpatterns = patterns('%(app)s.views',
-    url(r'^$', '%(change)s', name='%(change)s'),
+\turl(r'^$', '%(change)s', name='%(change)s'),
 )
 """
 
@@ -62,32 +62,32 @@ from django.template import RequestContext
 
 DEFAULT_PATTERN_MODEL_FORM = """class %(class_name)s(forms.ModelForm):
 
-    class Meta:
-        model = %(class_model)s
+\tclass Meta:
+\t\tmodel = %(class_model)s
 
-    def __init__(self, *args, **kwargs):
-        super(%(class_name)s, self).__init__(*args, **kwargs)
+\tdef __init__(self, *args, **kwargs):
+\t\tsuper(%(class_name)s, self).__init__(*args, **kwargs)
 
-    def clean(self):
-        return super(%(class_name)s, self).clean()
+\tdef clean(self):
+\t\treturn super(%(class_name)s, self).clean()
 
-    def save(self, commit=True):
-        return super(%(class_name)s, self).save(commit)
+\tdef save(self, commit=True):
+\t\treturn super(%(class_name)s, self).save(commit)
 
 """
 
 DEFAULT_PATTERN_MODEL = """class %(class_name)s(models.Model):
 
-    class Meta:
-        verbose_name = _('%(class_name)s')
-        verbose_name_plural = _('%(class_name)ss')
+\tclass Meta:
+\t\tverbose_name = _('%(class_name)s')
+\t\tverbose_name_plural = _('%(class_name)ss')
 
-    @permalink
-    def get_absolute_url(self):
-        pass
+\t@permalink
+\tdef get_absolute_url(self):
+\t\tpass
 
-    def __unicode__(self):
-        pass
+\tdef __unicode__(self):
+\t\tpass
 
 """
 

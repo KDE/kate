@@ -49,13 +49,13 @@ DEFAULT_CHECK_JSLINT_WHEN_SAVE = True
 DEFAULT_ENABLE_JS_AUTOCOMPLETE = True
 DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE = True
 DEFAULT_TEXT_JQUERY = """<script type="text/javascript">
-    (function($){
-        $(document).ready(function () {
-            $("%s").click(function(){
-                // Write here
-            });
-        });
-      })(jQuery);
+\t(function($){
+\t\t$(document).ready(function () {
+\t\t\t$("%s").click(function(){
+\t\t\t\t// Write here
+\t\t\t});
+\t\t});
+\t\t})(jQuery);
 </script>
 """ % text.TEXT_TO_CHANGE
 

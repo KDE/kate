@@ -29,23 +29,24 @@ from python_settings import (KATE_ACTIONS,
                              DEFAULT_IPDB_SNIPPET)
 
 str_blank = "(?:\ |\t|\n)*"
-str_espaces = "([\ |\t]*)"
-pattern_espaces = re.compile("%s(.*)" % str_espaces)
-pattern_class = re.compile("%(str_blank)sclass %(str_blank)s(\w+)\(([\w|., ]*)\):" % {'str_blank': str_blank})
+str_indent = "([\ |\t]*)"
+pattern_indent = re.compile("%s(.*)" % str_indent)
+pattern_class = re.compile("%(str_indent)sclass %(str_blank)s(\w+)\(([\w|., ]*)\):" % {'str_blank': str_blank,
+                                                                                       'str_indent': str_indent})
 
 str_params = "(.*)"
-str_def_init = "%(espaces)sdef %(blank)s(\w+)%(blank)s\(%(param)s" % {
+str_def_init = "%(indent)sdef %(blank)s(\w+)%(blank)s\(%(param)s" % {
                "blank": str_blank,
-               "espaces": str_espaces,
+               "indent": str_indent,
                "param": str_params}
 str_def_finish = "(?:.*)\):"
 pattern_def_init = re.compile(str_def_init, re.MULTILINE | re.DOTALL)
 pattern_def_finish = re.compile(str_def_finish, re.MULTILINE | re.DOTALL)
 pattern_def = re.compile("%s\):" % str_def_init, re.MULTILINE | re.DOTALL)
 
-pattern_param = re.compile("%(espaces)s(\w+)%(blank)s\=%(blank)s(.*)" % {
+pattern_param = re.compile("%(indent)s(\w+)%(blank)s\=%(blank)s(.*)" % {
                            "blank": str_blank,
-                           "espaces": str_espaces},
+                           "indent": str_indent},
                            re.MULTILINE | re.DOTALL)
 
 
@@ -60,6 +61,7 @@ def insertIPDB():
 @kate.action(**KATE_ACTIONS['insertInit'])
 def insertInit():
     """Insert the __init__ function (Into a class)"""
+    indent = ''
     class_name = TEXT_TO_CHANGE
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
@@ -69,10 +71,14 @@ def insertInit():
         text = currentDocument.line(currentLine)
         match = pattern_class.match(text)
         if match:
-            class_name = match.groups()[0]
+            indent = match.groups()[0]
+            class_name = match.groups()[1]
             break
         currentLine = currentLine - 1
-    insertText(TEXT_INIT % class_name)
+    text_init = TEXT_INIT % class_name
+    if indent:
+        text_init = '\n'.join(['%s%s' % (indent, l) for l in text_init.split('\n')])
+    insertText('\n%s' % text_init)
 
 
 def change_kwargs(param):
@@ -91,7 +97,7 @@ def get_indent(currentDocument, currentLine,
         return get_indent(currentDocument, currentLine - 1,
                           parentheses=parentheses,
                           initial_instruct=initial_instruct)
-    match = pattern_espaces.match(line_before)
+    match = pattern_indent.match(line_before)
     if match:
         if line_before.endswith(":") or parentheses > 0 or initial_instruct:
             parentheses += line_before.count(")") - line_before.count("(")
@@ -117,7 +123,7 @@ def get_prototype_of_current_func():
     currentDocument = kate.activeDocument()
     currentPosition = view.cursorPosition()
     currentLine = currentPosition.line()
-    func_def_espaces = None
+    func_def_indent = None
     while currentLine >= 0:
         text = currentDocument.line(currentLine)
         if find_finish_def:
@@ -133,7 +139,7 @@ def get_prototype_of_current_func():
                                     currentPosition.line())
                 if not indent:
                     indent = match.groups()[0] + '\t'
-                func_def_espaces = match.groups()[0]
+                func_def_indent = match.groups()[0]
                 function_name = match.groups()[1]
                 params = match.groups()[2].split(',')
                 params = [change_kwargs(param.strip(' \t'))
@@ -146,10 +152,10 @@ def get_prototype_of_current_func():
                 find_finish_def = False
         match = pattern_class.match(text)
         if match:
-            if func_def_espaces:
-                current_spaces = len(text) - len(text.lstrip())
-                if current_spaces < len(func_def_espaces):
-                    class_name = match.groups()[0]
+            if func_def_indent:
+                current_indent = len(text) - len(text.lstrip())
+                if current_indent < len(func_def_indent):
+                    class_name = match.groups()[1]
                     break
         currentLine = currentLine - 1
     return (indent, class_name, function_name, params)
@@ -162,16 +168,16 @@ def insertSuper():
     view = currentDocument.activeView()
     currentPosition = view.cursorPosition()
     currentLine = currentPosition.line()
-    espaces, class_name, func_name, params = get_prototype_of_current_func()
+    indent, class_name, func_name, params = get_prototype_of_current_func()
     text = currentDocument.line(currentLine).strip()
     text_super_template = TEXT_SUPER
     if not text:
         currentDocument.removeLine(currentPosition.line())
     else:
-        espaces = ''
+        indent = ''
     if currentLine == currentDocument.lines():
         text_super_template = '\n%s' % text_super_template
-    insertText(text_super_template % (espaces, class_name, params[0],
+    insertText(text_super_template % (indent, class_name, params[0],
                                       func_name, ', '.join(params[1:])))
 
 
@@ -182,12 +188,12 @@ def callRecursive():
     view = currentDocument.activeView()
     currentPosition = view.cursorPosition()
     currentLine = currentPosition.line()
-    espaces, class_name, func_name, params = get_prototype_of_current_func()
+    indent, class_name, func_name, params = get_prototype_of_current_func()
     text = currentDocument.line(currentLine).strip()
     if class_name != TEXT_TO_CHANGE:
-        text_recursive_template = TEXT_RECURSIVE_CLASS % (espaces, params[0], func_name, ', '.join(params[1:]))
+        text_recursive_template = TEXT_RECURSIVE_CLASS % (indent, params[0], func_name, ', '.join(params[1:]))
     else:
-        text_recursive_template = TEXT_RECURSIVE_NO_CLASS % (espaces, func_name, ', '.join(params))
+        text_recursive_template = TEXT_RECURSIVE_NO_CLASS % (indent, func_name, ', '.join(params))
     if not text:
         currentDocument.removeLine(currentPosition.line())
     else:

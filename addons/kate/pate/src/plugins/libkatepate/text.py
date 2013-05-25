@@ -16,7 +16,7 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #
 import kate
-from libkatepate.selection import setSelectionFromCurrentPosition
+from libkatepate.selection import setSelection
 
 TEXT_TO_CHANGE = '${cursor}'
 
@@ -30,8 +30,7 @@ def convertToValidIndent(indent):
 
 def insertText(text, strip_line=False,
                start_in_current_column=False,
-               delete_spaces_initial=False,
-               move_to=True):
+               select_text=True):
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     currentPosition = view.cursorPosition()
@@ -43,13 +42,11 @@ def insertText(text, strip_line=False,
         ident = convertToValidIndent(currentDocument.line(line)[:column])
         text = '\n'.join([i > 0 and '%s%s' % (ident, line) or line
                           for i, line in enumerate(text.splitlines())])
-    if delete_spaces_initial:
-        currentPosition.setColumn(0)
     currentDocument.insertText(currentPosition, text)
-    text_to_change_len = len(TEXT_TO_CHANGE)
-    if move_to and TEXT_TO_CHANGE in text:
-        currentPosition = view.cursorPosition()
+    if select_text and TEXT_TO_CHANGE in text:
+        text_to_change_len = len(TEXT_TO_CHANGE)
         pos_cursor = text.index(TEXT_TO_CHANGE)
-        lines = text[pos_cursor + text_to_change_len:].count('\n')
-        column = len(text[:pos_cursor].split('\n')[-1]) - currentPosition.column()
-        setSelectionFromCurrentPosition((-lines, column), (-lines, column + text_to_change_len))
+        line = text[:pos_cursor].count("\n") + currentPosition.line()
+        text_line = currentDocument.line(line)
+        column = text_line.index(TEXT_TO_CHANGE)
+        setSelection((line, column), (line, column + text_to_change_len))

@@ -61,9 +61,8 @@ DEFAULT_CHECK_PYFLAKES_WHEN_SAVE = True
 DEFAULT_PARSECODE_CHECK_WHEN_SAVE = True
 DEFAULT_IPDB_SNIPPET = "import ipdb; ipdb.set_trace()"
 
-TEXT_INIT = """
-    def __init__(self, *args, **kwargs):
-        super(%s, self).__init__(*args, **kwargs)
+TEXT_INIT = """\tdef __init__(self, *args, **kwargs):
+\t\tsuper(%s, self).__init__(*args, **kwargs)
 """
 TEXT_SUPER = """%ssuper(%s, %s).%s(%s)\n"""
 TEXT_RECURSIVE_CLASS = """%s%s.%s(%s)\n"""

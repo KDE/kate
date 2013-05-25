@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
 # Copyright 2010-2012 by Alex Turbov <i.zaufi@gmail.com> and
@@ -36,5 +35,13 @@ def setSelectionFromCurrentPosition(start, end, pos=None):
     pos = pos or view.cursorPosition()
     cursor1 = KTextEditor.Cursor(pos.line() + start[0], pos.column() + start[1])
     cursor2 = KTextEditor.Cursor(pos.line() + end[0], pos.column() + end[1])
+    view.setSelection(KTextEditor.Range(cursor1, cursor2))
+    view.setCursorPosition(cursor1)
+
+
+def setSelection(start, end):
+    view = kate.activeView()
+    cursor1 = KTextEditor.Cursor(start[0], start[1])
+    cursor2 = KTextEditor.Cursor(end[0], end[1])
     view.setSelection(KTextEditor.Range(cursor1, cursor2))
     view.setCursorPosition(cursor1)

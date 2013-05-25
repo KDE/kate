@@ -21,7 +21,7 @@ import kate
 import re
 
 from libkatepate.text import insertText, TEXT_TO_CHANGE
-from python_settings import (KATE_ACTIONS, PYTHON_SPACES,
+from python_settings import (KATE_ACTIONS,
                              TEXT_INIT, TEXT_SUPER,
                              TEXT_RECURSIVE_CLASS,
                              TEXT_RECURSIVE_NO_CLASS,
@@ -29,24 +29,24 @@ from python_settings import (KATE_ACTIONS, PYTHON_SPACES,
                              DEFAULT_IPDB_SNIPPET)
 
 str_blank = "(?:\ |\t|\n)*"
-str_espaces = "([\ |\t|\n]*)"
+str_espaces = "([\ |\t]*)"
 pattern_espaces = re.compile("%s(.*)" % str_espaces)
 pattern_class = re.compile("%(str_blank)sclass %(str_blank)s(\w+)\(([\w|., ]*)\):" % {'str_blank': str_blank})
 
 str_params = "(.*)"
 str_def_init = "%(espaces)sdef %(blank)s(\w+)%(blank)s\(%(param)s" % {
-                                                "blank": str_blank,
-                                                "espaces": str_espaces,
-                                                "param": str_params}
+               "blank": str_blank,
+               "espaces": str_espaces,
+               "param": str_params}
 str_def_finish = "(?:.*)\):"
 pattern_def_init = re.compile(str_def_init, re.MULTILINE | re.DOTALL)
 pattern_def_finish = re.compile(str_def_finish, re.MULTILINE | re.DOTALL)
 pattern_def = re.compile("%s\):" % str_def_init, re.MULTILINE | re.DOTALL)
 
 pattern_param = re.compile("%(espaces)s(\w+)%(blank)s\=%(blank)s(.*)" % {
-                                                "blank": str_blank,
-                                                "espaces": str_espaces},
-                                                re.MULTILINE | re.DOTALL)
+                           "blank": str_blank,
+                           "espaces": str_espaces},
+                           re.MULTILINE | re.DOTALL)
 
 
 @kate.action(**KATE_ACTIONS['insertIPDB'])
@@ -84,33 +84,29 @@ def change_kwargs(param):
     return param
 
 
-def get_number_espaces(currentDocument, currentLine,
-                       parentheses=0, initial_instruct=False):
+def get_indent(currentDocument, currentLine,
+               parentheses=0, initial_instruct=False):
     line_before = currentDocument.line(currentLine - 1)
     if not line_before.strip() and currentLine >= 0:
-        return get_number_espaces(currentDocument, currentLine - 1,
-                                  parentheses=parentheses,
-                                  initial_instruct=initial_instruct)
+        return get_indent(currentDocument, currentLine - 1,
+                          parentheses=parentheses,
+                          initial_instruct=initial_instruct)
     match = pattern_espaces.match(line_before)
     if match:
         if line_before.endswith(":") or parentheses > 0 or initial_instruct:
             parentheses += line_before.count(")") - line_before.count("(")
             line_before = line_before.strip()
-            if parentheses == 0 and (line_before.startswith("for") or
-                                     line_before.startswith("if") or
-                                     line_before.startswith("while") or
-                                     line_before.startswith("def")):
-                return PYTHON_SPACES + len(match.groups()[0])
-            return get_number_espaces(currentDocument, currentLine - 1,
-                                      parentheses=parentheses,
-                                      initial_instruct=True)
-        return len(match.groups()[0])
-    return PYTHON_SPACES * 2
+            if parentheses == 0 and line_before.startswith(("for", "if", "while", "def", "with")):
+                return match.groups()[0] + '\t'
+            return get_indent(currentDocument, currentLine - 1,
+                              parentheses=parentheses,
+                              initial_instruct=True)
+        return match.groups()[0]
+    return '\t\t'
 
 
 def get_prototype_of_current_func():
-    espaces = ' ' * PYTHON_SPACES
-    number_espaces = PYTHON_SPACES * 2
+    indent = '\t'
     parentheses = 0
     class_name = TEXT_TO_CHANGE
     function_name = TEXT_TO_CHANGE
@@ -133,16 +129,15 @@ def get_prototype_of_current_func():
             match_init = pattern_def_init.match(text_def)
             if match_finish and match_init:
                 match = pattern_def.match(text_def)
-                number_espaces = get_number_espaces(currentDocument,
-                                                    currentPosition.line())
-                if not number_espaces:
-                    number_espaces = len(match.groups()[0]) + 1
+                indent = get_indent(currentDocument,
+                                    currentPosition.line())
+                if not indent:
+                    indent = match.groups()[0] + '\t'
                 func_def_espaces = match.groups()[0]
-                espaces = ' ' * number_espaces
                 function_name = match.groups()[1]
                 params = match.groups()[2].split(',')
                 params = [change_kwargs(param.strip(' \t'))
-                            for param in params]
+                          for param in params]
             elif match_finish:
                 find_finish_def = True
                 parentheses += text_def.count(")") - text_def.count("(")
@@ -157,7 +152,7 @@ def get_prototype_of_current_func():
                     class_name = match.groups()[0]
                     break
         currentLine = currentLine - 1
-    return (espaces, class_name, function_name, params)
+    return (indent, class_name, function_name, params)
 
 
 @kate.action(**KATE_ACTIONS['insertSuper'])

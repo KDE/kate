@@ -61,7 +61,6 @@ DEFAULT_CHECK_PYFLAKES_WHEN_SAVE = True
 DEFAULT_PARSECODE_CHECK_WHEN_SAVE = True
 DEFAULT_IPDB_SNIPPET = "import ipdb; ipdb.set_trace()"
 
-PYTHON_SPACES = 4
 TEXT_INIT = """
     def __init__(self, *args, **kwargs):
         super(%s, self).__init__(*args, **kwargs)

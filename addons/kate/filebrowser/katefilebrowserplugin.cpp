@@ -31,6 +31,8 @@
 
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
+
+#include <QtGui/QKeyEvent>
 //END Includes
 
 K_PLUGIN_FACTORY(KateFileBrowserFactory, registerPlugin<KateFileBrowserPlugin>();)
@@ -91,14 +93,20 @@ KIcon KateFileBrowserPlugin::configPageIcon (uint number) const
 
 
 
-
 //BEGIN KateFileBrowserPluginView
 KateFileBrowserPluginView::KateFileBrowserPluginView (Kate::MainWindow *mainWindow)
-: Kate::PluginView (mainWindow)
+  : Kate::PluginView (mainWindow)
+  , m_toolView(
+        mainWindow->createToolView(
+            "kate_private_plugin_katefileselectorplugin"
+          , Kate::MainWindow::Left
+          , SmallIcon("document-open")
+          , i18n("Filesystem Browser")
+          )
+      )
+  , m_fileBrowser(new KateFileBrowser(mainWindow, m_toolView))
 {
-  // init console
-  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katefileselectorplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Filesystem Browser"));
-  m_fileBrowser = new KateFileBrowser(mainWindow, toolview);
+  m_toolView->installEventFilter(this);
 }
 
 KateFileBrowserPluginView::~KateFileBrowserPluginView ()
@@ -115,6 +123,21 @@ void KateFileBrowserPluginView::readSessionConfig(KConfigBase* config, const QSt
 void KateFileBrowserPluginView::writeSessionConfig(KConfigBase* config, const QString& group)
 {
   m_fileBrowser->writeSessionConfig(config, group);
+}
+
+bool KateFileBrowserPluginView::eventFilter(QObject* obj, QEvent* event)
+{
+  if (event->type() == QEvent::KeyPress)
+  {
+    QKeyEvent* ke = static_cast<QKeyEvent*>(event);
+    if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape))
+    {
+      mainWindow()->hideToolView(m_toolView);
+      event->accept();
+      return true;
+    }
+  }
+  return QObject::eventFilter(obj, event);
 }
 //ENDKateFileBrowserPluginView
 

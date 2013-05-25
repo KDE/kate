@@ -92,6 +92,9 @@ class KateFileBrowserPluginView : public Kate::PluginView
     virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
   private:
+    bool eventFilter(QObject*, QEvent*);
+
+    QWidget *m_toolView;
     KateFileBrowser *m_fileBrowser;
     friend class KateFileBrowserPlugin;
 };

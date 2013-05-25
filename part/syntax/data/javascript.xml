@@ -108,7 +108,10 @@
         <RegExpr attribute="Objects" context="Object Member" String="[a-zA-Z_$][\w$]*(?=\s*\.)" />
         <!--DetectIdentifier-->
         <RegExpr attribute="Object Member" String="[a-zA-Z_$][\w$]*" />
-        <IncludeRules context="NoRegExp" />
+        <!-- NoRegExp without DetectSpaces. TODO: code reuse without detecting spaces as object member? -->
+        <Detect2Chars context="#pop" lookAhead="true" char="/" char1="/" />
+        <Detect2Chars context="#pop" lookAhead="true" char="/" char1="*" />
+        <DetectChar context="#pop" char="/" />
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop" name="NoRegExp">

@@ -178,10 +178,6 @@ class AbstractCodeCompletionModel(CCM):
 
         return self.createIndex(row, column, 1)
 
-    def executeCompletionItem(self, document, word, row):
-        # TODO Why this method is not called???
-        pass
-
     def getLastExpression(self, line, operators=None):
         operators = operators or self.OPERATORS
         opmax = max(operators, key=lambda e: line.rfind(e))

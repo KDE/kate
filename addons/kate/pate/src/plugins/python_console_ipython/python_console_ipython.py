@@ -40,7 +40,6 @@ def i18n(msg, *args):
     return _translate(msg, *args) if args else _translate(msg)
 
 
-import atexit
 import kate
 import os
 
@@ -93,7 +92,7 @@ def default_manager(kernel_app):
     manager.start_channels()
     return manager
 
-
+global kernel, manager
 if ipython_1:
     manager = QtInProcessKernelManager()
     manager.start_kernel()
@@ -102,10 +101,6 @@ if ipython_1:
     kernel.shell.run_cell('%pylab inline')
     client = manager.client()
     client.start_channels()
-else:
-    kernel = default_kernel_app()
-    manager = default_manager(kernel)
-    kernel.start()
 
 
 def django_project_filename_changed():
@@ -152,6 +147,7 @@ def django_project_filename_changed():
 
 
 def projectFileNameChanged(*args, **kwargs):
+    global kernel
     projectPlugin = get_project_plugin()
     projectMap = projectPlugin.property('projectMap')
     if 'python' in projectMap:
@@ -159,13 +155,15 @@ def projectFileNameChanged(*args, **kwargs):
         projectMapPython = projectMap['python']
         version = projectMapPython.get('version', None)
         # Check Python version
+        if not ipython_1:
+            kernel = default_kernel_app()
         if not is_version_compatible(version):
-            msg = i18n('\nCannot load this project: %1. Python Version incompatible', projectName)
+            msg = i18n('\n\nCannot load this project: %1. Python Version incompatible', projectName)
             kernel.shell.write(msg)
             sys.stdout.flush()
             return
         kernel.shell.reset()
-        kernel.shell.write(i18n('\nLoad project: %1', projectName))
+        kernel.shell.write(i18n('\n\nLoad project: %1', projectName))
         extraPath = projectMapPython.get('extraPath', [])
         environs = projectMapPython.get('environs', {})
         # Add Extra path
@@ -192,9 +190,9 @@ def terminal_widget(parent=None, **kwargs):
 
     widget.banner += i18n('\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(kwargs.keys()))
 
-    widget.kernel_manager = manager
 
     if ipython_1:  # https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
+        widget.kernel_manager = manager
         widget.kernel_client = client
 
         def stop():
@@ -203,6 +201,10 @@ def terminal_widget(parent=None, **kwargs):
 
         widget.exit_requested.connect(stop)
     else:
+        kernel = default_kernel_app()
+        manager = default_manager(kernel)
+        kernel.start()
+        widget.kernel_manager = manager
         widget.exit_requested.connect(manager.cleanup_connection_file)
 
     # update namespace

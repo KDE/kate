@@ -55,7 +55,7 @@ DEFAULT_TEXT_JQUERY = """<script type="text/javascript">
 \t\t\t\t// Write here
 \t\t\t});
 \t\t});
-\t\t})(jQuery);
+\t})(jQuery);
 </script>
 """ % text.TEXT_TO_CHANGE
 

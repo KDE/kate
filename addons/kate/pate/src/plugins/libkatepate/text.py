@@ -21,9 +21,36 @@ from libkatepate.selection import setSelection
 TEXT_TO_CHANGE = '${cursor}'
 
 
-def convertToValidIndent(indent):
+def checkValidIndent(indent):
     for char in indent:
         if char not in ('\t', ''):
+            return False
+    return True
+
+
+def convertToValidIndent(indent, doc):
+    if not checkValidIndent(indent):
+        try:
+            ci = doc.configInterface()
+            if ci.configValue("replace-tabs"):
+                return ' ' * len(indent)
+            chars = 0
+            tabs = 0
+            last_pos_char = -1
+            for i, char in enumerate(indent):
+                if not char in (' ', '\t'):
+                    last_pos_char = i
+            for char in indent[:last_pos_char + 1]:
+                if char == '\t':
+                    tabs += 1
+                else:
+                    chars += 1
+            width = ci.configValue('tab-width')
+            tabs += chars / width
+            chars = chars % width
+            valid_indent = '\t' * tabs + ' ' * chars + indent[last_pos_char + 1:]
+            return valid_indent.replace(' ' * width, '\t')
+        except AttributeError:
             return ' ' * len(indent)
     return indent
 
@@ -39,9 +66,9 @@ def insertText(text, strip_line=False,
     if start_in_current_column:
         line = currentPosition.line()
         column = currentPosition.column()
-        ident = convertToValidIndent(currentDocument.line(line)[:column])
-        text = '\n'.join([i > 0 and '%s%s' % (ident, line) or line
-                          for i, line in enumerate(text.splitlines())])
+        ident = convertToValidIndent(currentDocument.line(line)[:column], currentDocument)
+        text = '\n'.join([i > 0 and '%s%s' % (ident, l) or l
+                          for i, l in enumerate(text.splitlines())])
     currentDocument.insertText(currentPosition, text)
     if select_text and TEXT_TO_CHANGE in text:
         text_to_change_len = len(TEXT_TO_CHANGE)

@@ -1735,17 +1735,55 @@ bool document.isOthers(<parameter>Cursor <replaceable>cursor</replaceable></para
 </sect1>
 
 <sect1 id="dev-part">
-<title>Editor Component Plugins</title>
+<title>Editor Component Extensions</title>
+
+<para><link linkend="editor-component-plugins">Editor Component Extensions</link>
+extend KatePart, the Advanced Text Editor component used within many KDE
+applications, such as &kate;, &kwrite;, Kile, and KDevelop.  Creating an Editor
+Component Plugin will allow you to extend the editor's functionality in any and
+all of these programs.</para>
+
+<para>To get started, see the
+<ulink url="http://techbase.kde.org/Development/Tutorials/Kate/KTextEditor_Plugins">
+KTextEditor Plugin Tutorial on &kde; TechBase</ulink>.  For even more, see the
+<ulink url="http://techbase.kde.org/Development/Tutorials/Kate/KTextEditor_Plugins_Advanced">
+Advanced Tutorial, also on TechBase</ulink>.</para>
+
+<para>You can find the
+<ulink url="http://api.kde.org/4.10-api/kdelibs-apidocs/interfaces/ktexteditor/html/">
+complete API documentation in the &kde; API Reference</ulink>.</para>
 
 </sect1>
 
 <sect1 id="dev-app">
-<title>&kate; Application Plugins</title>
+<title>&kate; (C++) Application Plugins</title>
+
+<para><link linkend="kate-application-plugins">Kate Application Plugins</link>
+extend the functionality of the &kate; editor itself in any way you can imagine,
+using the same programming language &kate; is written in, C++.</para>
+
+<para>To get started, see the 
+<ulink url="http://kate-editor.org/2004/01/06/writing-a-kate-plugin/">Writing a
+&kate; Plugin tutorial on the &kate; website</ulink>.  There is also
+<ulink url="http://quickgit.kde.org/?p=kate.git&amp;a=tree&amp;f=addons%2Fkate%2Fhelloworld">
+a classic <quote>Hello, world!</quote> example plugin included with the &kate;
+source code</ulink>.</para>
 
 </sect1>
 
 <sect1 id="dev-pate">
 <title>&pate; Python Plugins</title>
+
+<para><link linkend="pate">&pate; Plugins</link> also allow you to extend the
+functionality of &kate; in any way you like, using the Python programming
+language.</para>
+
+<para>To get started, see the 
+<ulink url="http://kate-editor.org/2012/07/01/python-plugin-developer-guide-part-1/">
+Python plugin developer guide on the &kate; website</ulink>.</para>
+
+<para>You can also access the API reference in the 
+<link linkend="pate-config">&pate; Configuration</link> screen.</para>
 
 </sect1>
 

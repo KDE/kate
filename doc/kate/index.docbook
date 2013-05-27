@@ -14,7 +14,6 @@
   <!ENTITY highlighting-appendix SYSTEM "highlighting.docbook">
   <!ENTITY advanced-chapter SYSTEM "advanced.docbook">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
-  <!ENTITY mdi-chapter SYSTEM "mdi.docbook">
   <!ENTITY menu-chapter SYSTEM "menus.docbook">
   <!ENTITY part-chapter SYSTEM "part.docbook">
   <!ENTITY plugins-chapter SYSTEM "plugins.docbook">
@@ -116,8 +115,6 @@ configuration files.  This document was written in &kate;.
 </chapter>
 
 &fundamentals-chapter;
-
-&mdi-chapter;
 
 &part-chapter;
 

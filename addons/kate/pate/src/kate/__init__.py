@@ -1,6 +1,7 @@
 # This file is part of Pate, Kate' Python scripting plugin.
 #
 # Copyright (C) 2006 Paul Giannaros <paul@giannaros.org>
+# Copyright (C) 2013 Shaheed Haque <srhaque@theiet.org>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library General Public
@@ -19,7 +20,22 @@
 
 """Namespace for Kate application interfaces.
 
-This namespace contains interfaces for plugin developers for the Kate application.
+This package provides support for Python plugin developers for the Kate
+editor. In addition to the C++ APIs exposed via PyKDE4.ktexteditor and
+PyKate4.kate, Python plugins can:
+
+    - Hook into Kate’s menus and shortcuts.
+    - Have Kate configuration pages.
+    - Use Python pickling to save configuration data, so arbitrary Python
+      objects can be part of a plugin’s configuration.
+    - Use threaded Python.
+    - Use Python2 or Python3 (from Kate 4.11 onwards), depending on how Kate
+      was built.
+    - Support i18n.
+
+Also, plugins are found using a search path. This is intended to encourage
+user-hacking by allowing a user to simply copy a system-installed plugin to
+a directory under $HOME and then modify it.
 """
 
 from __future__ import print_function
@@ -41,20 +57,14 @@ from PyKDE4 import kdecore, kdeui
 from PyKate4.kate import Kate
 from PyKDE4.ktexteditor import KTextEditor
 
-# Plugin API
-
-# Configuration
-
 class Configuration:
-    '''Configuration objects provide plugin-specific configuration dictionary.
+    '''A Configuration object provides a plugin-specific persistent
+    configuration dictionary. The configuration is saved and loaded from disk
+    automatically.
 
-    In other words, each plugin uses kate.configuration and the class
-    automatically creates a plugin-specific dictionary to support it.
-
-    The config is saved and loaded from disk automatically for minimal user
-    hassle. Just go ahead and use kate.configuration as a persistent dictionary.
-    Do not instantiate your own Configuration object; use kate.configuration
-    instead.
+    Do not instantiate your own Configuration object; a plugin simply uses
+    kate.configuration and the class automatically creates a plugin-specific
+    dictionary to support it.
 
     Use a string key. Any Python type that can be pickled is can be used as a
     value -- dictionaries, lists, numbers, strings, sets, and so on.
@@ -98,18 +108,31 @@ class Configuration:
         return repr(self.root.get(plugin, {}))
 
     def keys(self):
+        """Return the keys from the configuration dictionary."""
         plugin = sys._getframe(1).f_globals['__name__']
         return self.root.get(plugin, {}).keys()
 
     def values(self):
+        """Return the values from the configuration dictionary."""
         plugin = sys._getframe(1).f_globals['__name__']
         return self.root.get(plugin, {}).values()
 
     def items(self):
+        """Return the items from the configuration dictionary."""
         plugin = sys._getframe(1).f_globals['__name__']
         return self.root.get(plugin, {}).items()
 
     def get(self, key, default=None):
+        """Fetch a configuration item using it's string key, returning
+        a given default if not found.
+
+        Parameters:
+            * key -             String key for item.
+            * default -         Value to return if key is not found.
+
+        Returns:
+            The item value for key, or the given default if not found.
+        """
         plugin = sys._getframe(1).f_globals['__name__']
         try:
             return self[plugin][key]
@@ -117,6 +140,11 @@ class Configuration:
             return default
 
     def pop(self, key):
+        """Delete a configuration item using it's string key.
+
+        Parameters:
+            * key -             String key for item.
+        """
         value = self[key]
         del self[key]
         return value
@@ -134,7 +162,7 @@ This can also be used by one plugin to access another plugin's configurations.
 """
 
 configuration = Configuration(pate.configuration)
-"""Configuration for this plugin."""
+"""Persistent configuration dictionary for this plugin."""
 
 def sessionConfiguration():
     """Deprecated. Use globalConfiguration instead."""
@@ -146,7 +174,7 @@ def plugins():
     return pate.plugins
 
 def pluginDirectories():
-    """ The list of plugin directories."""
+    """ The search path for Python plugin directories."""
     return pate.pluginDirectories
 
 def moduleGetHelp(module):

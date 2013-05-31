@@ -25,7 +25,7 @@ import os
 from PyQt4 import uic
 from PyQt4.QtGui import QWidget
 
-from libkatepate.errors import needs_packages
+from libkatepate.errors import needs_packages, error_message
 
 from python_snippets import *
 from python_checkers.parse_checker import *
@@ -48,13 +48,13 @@ try:
     needs_packages({"pep8": "1.4.2"})
     from python_checkers.pep8_checker import *
 except ImportError as e:
-    msg_error += e.message + "\n"
+    msg_error += error_message(e) + "\n"
 finally:
     try:
         needs_packages({"pyflakes": "0.6.1"})
         from python_checkers.pyflakes_checker import *
     except ImportError as e:
-        msg_error += e.message
+        msg_error += error_message(e)
         raise ImportError(msg_error)
 
 

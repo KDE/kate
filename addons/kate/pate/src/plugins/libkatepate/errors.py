@@ -119,6 +119,14 @@ def showOk(message="Ok", time=3, icon='dialog-ok'):
     kate.gui.popup(message, time, icon='dialog-ok', minTextWidth=200)
 
 
+def error_message(e):
+    """Python 3 has another attribute name for the message"""
+    try:
+        return e.msg      # py3
+    except AttributeError:
+        return e.message  # py2
+
+
 def _compress_key(line, column):
     doc = kate.activeDocument()
     cipher = len('%s' % doc.lines())

@@ -44,7 +44,6 @@ import kate
 import os
 
 try:  # ≥1.0
-    from IPython.kernel.inprocess.ipkernel import InProcessKernel
     from IPython.frontend.qt.inprocess import QtInProcessKernelManager
     ipython_1 = True
 except ImportError:  # ≤0.13
@@ -91,6 +90,7 @@ def default_manager(kernel_app):
     manager.load_connection_file()
     manager.start_channels()
     return manager
+
 
 global kernel, manager
 if ipython_1:
@@ -179,6 +179,7 @@ def projectFileNameChanged(*args, **kwargs):
 
 
 def terminal_widget(parent=None, **kwargs):
+    global kernel, manager
     try:
         gui_completion = _GUI_COMPLETION_CONVERT[kate.configuration[_GUI_COMPLETION_TYPE_CFG]]
     except KeyError:
@@ -190,28 +191,27 @@ def terminal_widget(parent=None, **kwargs):
 
     widget.banner += i18n('\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(kwargs.keys()))
 
-
     if ipython_1:  # https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
-        widget.kernel_manager = manager
         widget.kernel_client = client
 
-        def stop():
-            client.stop_channels()
-            manager.shutdown_kernel()
-
-        widget.exit_requested.connect(stop)
+        widget.exit_requested.connect(client.stop_channels)
+        widget.exit_requested.connect(manager.shutdown_kernel)
     else:
         kernel = default_kernel_app()
         manager = default_manager(kernel)
         kernel.start()
-        widget.kernel_manager = manager
         widget.exit_requested.connect(manager.cleanup_connection_file)
+
+    widget.kernel_manager = manager
 
     # update namespace
     kernel.shell.user_ns.update(kwargs)
     kernel.shell.user_ns['console'] = widget
 
-    projectPlugin = get_project_plugin()
+    try:
+        projectPlugin = get_project_plugin()
+    except AttributeError:
+        projectPlugin = None
     if projectPlugin:
         projectPlugin.projectFileNameChanged.connect(projectFileNameChanged)
         projectFileNameChanged()
@@ -301,7 +301,7 @@ def init():
                 pass
 
     if css_string:
-        console.style_sheet = css_string
+        console.setStyleSheet(css_string)
 
     if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
         console.buffer_size = kate.configuration[_SCROLLBACK_LINES_COUNT_CFG]

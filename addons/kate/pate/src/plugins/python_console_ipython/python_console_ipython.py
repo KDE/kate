@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """IPython console for hacking kate and doing science"""
 
-# Uses this: http://stackoverflow.com/a/11525205/247482
-#
-# May need reworking with IPython 1.0 due to changed event loop
-
-
-# TODO: fix help() by fixing input()
+# Uses this for IPython 0.13: http://stackoverflow.com/a/11525205/247482
+# TODO: remove Ipython 0.13 support as soon as IPython 1.0 final is released:
+#       IPython 1 is much nicer in code, stability, and it handles input() and help()
 
 from __future__ import unicode_literals
 
@@ -69,40 +66,44 @@ _CONSOLE_CSS = 'python_console_ipython.css'
 _GUI_COMPLETION_CONVERT = ['droplist', None]
 
 
-def event_loop(kernel):
-    kernel.timer = kate.gui.QTimer()
-    kernel.timer.timeout.connect(kernel.do_one_iteration)
-    kernel.timer.start(1000 * kernel._poll_interval)
+def init_ipython():
+    """
+    Encapsulate Kernel creation logic: Only the kernel client, manager and shell are exposed
+    This is in order to ensure interoperability between major IPython changes
+    """
+    if ipython_1:
+        manager = QtInProcessKernelManager()
+        manager.start_kernel()
+        manager.kernel.gui = 'qt4'
+        shell = manager.kernel.shell
+        shell.run_cell('%pylab inline')
+        client = manager.client()
+        client.start_channels()
+    else:
+        def event_loop(kernel):
+            kernel.timer = kate.gui.QTimer()
+            kernel.timer.timeout.connect(kernel.do_one_iteration)
+            kernel.timer.start(1000 * kernel._poll_interval)
+
+        kernel_app = IPKernelApp.instance()
+        kernel_app.initialize(['python', '--pylab=qt'])  # at this point, print() won’t work anymore
+        kernel_app.kernel.eventloop = event_loop
+
+        connection_file = find_connection_file(kernel_app.connection_file)
+        manager = QtKernelManager(connection_file=connection_file)
+        manager.load_connection_file()
+        manager.start_channels()
+
+        kernel_app.start()
+
+        client = None
+        shell = kernel_app.shell
+
+    return client, manager, shell
 
 
-def default_kernel_app():
-    app = IPKernelApp.instance()
-    if not app.config:
-        app.initialize(['python', '--pylab=qt'])  # at this point, print() won’t work anymore
-    app.kernel.eventloop = event_loop
-    return app
-
-
-def default_manager(kernel_app):
-    connection_file = find_connection_file(kernel_app.connection_file)
-    manager = QtKernelManager(connection_file=connection_file)
-    manager.load_connection_file()
-    manager.start_channels()
-    return manager
-
-
-global kernel, manager
-if ipython_1:
-    manager = QtInProcessKernelManager()
-    manager.start_kernel()
-    kernel = manager.kernel
-    kernel.gui = 'qt4'
-    kernel.shell.run_cell('%pylab inline')
-    client = manager.client()
-    client.start_channels()
-
-
-def django_project_filename_changed():
+def insert_django_objects(shell):
+    """ Imports settings and models into the shell """
     # Uses this: https://github.com/django-extensions/django-extensions/blob/master/django_extensions/management/shells.py#L7
     from django.db.models.loading import get_models, get_apps
     loaded_models = get_models()  # NOQA
@@ -136,33 +137,34 @@ def django_project_filename_changed():
                     model_labels.append('{} (as {})'.format(model_name, alias))
             except AttributeError as reason:
                 msg = i18n('\nFailed to import “%1” from “%2” reason: %3', model_name, app_name, reason)
-                kernel.shell.write(msg)
+                shell.write(msg)
                 continue
         msg = i18n('\nFrom “%1” autoload: %2', app_mod.__name__.split('.')[-2], ', '.join(model_labels))
         imports.append(msg)
     for import_msg in imports:
-        kernel.shell.write(import_msg)
-    return imported_objects
+        shell.write(import_msg)
+    shell.user_ns.update(imported_objects)
 
 
-def projectFileNameChanged(*args, **kwargs):
-    global kernel
+def reset_shell(shell, base_ns):
+    """ Resets shell and loads project settings for Python """
     projectPlugin = get_project_plugin()
     projectMap = projectPlugin.property('projectMap')
     if 'python' in projectMap:
         projectName = projectPlugin.property('projectName')
         projectMapPython = projectMap['python']
-        version = projectMapPython.get('version', None)
         # Check Python version
-        if not ipython_1:
-            kernel = default_kernel_app()
+        version = projectMapPython.get('version', None)
         if not is_version_compatible(version):
             msg = i18n('\n\nCannot load this project: %1. Python Version incompatible', projectName)
-            kernel.shell.write(msg)
+            shell.write(msg)
             sys.stdout.flush()
             return
-        kernel.shell.reset()
-        kernel.shell.write(i18n('\n\nLoad project: %1', projectName))
+
+        shell.reset()
+        shell.user_ns.update(base_ns)
+
+        shell.write(i18n('\n\nLoad project: %1', projectName))
         extraPath = projectMapPython.get('extraPath', [])
         environs = projectMapPython.get('environs', {})
         # Add Extra path
@@ -171,14 +173,12 @@ def projectFileNameChanged(*args, **kwargs):
         add_environs(environs)
         # Special treatment
         if projectMapPython.get('projectType', '').lower() == 'django':
-            imported_objects = django_project_filename_changed()
-            kernel.shell.user_ns.update(imported_objects)
+            insert_django_objects(shell)
         # Print details
         sys.stdout.flush()
 
 
-def terminal_widget(parent=None, **kwargs):
-    global kernel, manager
+def terminal_widget(parent=None, **base_ns):
     try:
         gui_completion = _GUI_COMPLETION_CONVERT[kate.configuration[_GUI_COMPLETION_TYPE_CFG]]
     except KeyError:
@@ -188,32 +188,32 @@ def terminal_widget(parent=None, **kwargs):
     else:
         widget = RichIPythonWidget(parent=parent)
 
-    widget.banner += i18n('\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(kwargs.keys()))
+    widget.banner += i18n('\nAvailable variables are everything from pylab, “%1”, and this console as “console”', '”, “'.join(base_ns.keys()))
+
+    client, manager, shell = init_ipython()
 
     if ipython_1:  # https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
         widget.kernel_client = client
 
-        widget.exit_requested.connect(client.stop_channels)
+        widget.exit_requested.connect(widget.kernel_client.stop_channels)
         widget.exit_requested.connect(manager.shutdown_kernel)
     else:
-        kernel = default_kernel_app()
-        manager = default_manager(kernel)
-        kernel.start()
         widget.exit_requested.connect(manager.cleanup_connection_file)
 
     widget.kernel_manager = manager
 
-    # update namespace
-    kernel.shell.user_ns.update(kwargs)
-    kernel.shell.user_ns['console'] = widget
+    base_ns['console'] = widget
+    shell.user_ns.update(base_ns)
 
     try:
         projectPlugin = get_project_plugin()
     except AttributeError:
         projectPlugin = None
     if projectPlugin:
-        projectPlugin.projectFileNameChanged.connect(projectFileNameChanged)
-        projectFileNameChanged()
+        def project_changed(*args, **kwargs):
+            reset_shell(shell, base_ns)
+        projectPlugin.projectFileNameChanged.connect(project_changed)
+        project_changed()
 
     sys.stdout.flush()
     return widget
@@ -291,16 +291,17 @@ def init():
     for appdir in search_dirs:
         # TODO Make a CSS file configurable?
         css_file = os.path.join(appdir, _CONSOLE_CSS)
-        if os.path.isfile(css_file):
-            try:
-                with open(css_file, 'r') as f:
-                    css_string = f.read()
-                    break
-            except IOError:
-                pass
+        try:
+            with open(css_file, 'r') as f:
+                css_string = f.read()
+                break
+        except IOError:
+            pass
 
     if css_string:
-        console.setStyleSheet(css_string)
+        console.style_sheet = css_string
+        if ipython_1:  # For seamless borders
+            console.setStyleSheet(css_string)
 
     if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
         console.buffer_size = kate.configuration[_SCROLLBACK_LINES_COUNT_CFG]

@@ -77,6 +77,7 @@ var zen_editor = function(document, view) {
 	this.createSelection = function(start, end) {
 		var selection = rangeFromIntervals(start, end);
 		view.setSelection(selection);
+		view.setCursorPosition(cursorFromDistance(end));
 	}
 	
 	/**

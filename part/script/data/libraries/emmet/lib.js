@@ -1060,21 +1060,26 @@ var _ = (function() {
 /**
  * Core Emmet object, available in global scope
  */
-var emmet = (function(global, _) {
+var emmet = (function(global) {
 	var defaultSyntax = 'html';
 	var defaultProfile = 'plain';
 	
-	if (!_) {
+	if (typeof _ == 'undefined') {
 		try {
-			_ = require('underscore');
-		} catch(e) {
-			console.log(e);
-		}
+			// avoid collisions with RequireJS loader
+			// also, JS obfuscators tends to translate
+			// a["name"] to a.name, which also breaks RequireJS
+			_ = global[['require'][0]]('underscore'); // node.js
+		} catch (e) {}
 	}
-	
+
+	if (typeof _ == 'undefined') {
+		throw 'Cannot access to Underscore.js lib';
+	}
+
 	/** List of registered modules */
 	var modules = {
-		_: _
+		_ : _
 	};
 	
 	/**
@@ -1131,12 +1136,24 @@ var emmet = (function(global, _) {
 		child.__super__ = parent.prototype;
 
 		return child;
-	};
+	}
 	
 	/**
 	 * @type Function Function that loads module definition if it's not defined
 	 */
 	var moduleLoader = null;
+	
+	/**
+	 * Generic Emmet module loader (actually, it doesn’t load anything, just 
+	 * returns module reference). Not using `require` name to avoid conflicts
+	 * with Node.js and RequireJS
+	 */
+	function r(name) {
+		if (!(name in modules) && moduleLoader)
+			moduleLoader(name);
+		
+		return modules[name];
+	}
 	
 	return {
 		/**
@@ -1160,12 +1177,7 @@ var emmet = (function(global, _) {
 		 * Returns reference to Emmet module
 		 * @param {String} name Module name
 		 */
-		require: function(name) {
-			if (!(name in modules) && moduleLoader)
-				moduleLoader(name);
-			
-			return modules[name];
-		},
+		require: r,
 		
 		/**
 		 * Helper method that just executes passed function but with all 
@@ -1174,7 +1186,7 @@ var emmet = (function(global, _) {
 		 * @param {Object} context Execution context
 		 */
 		exec: function(fn, context) {
-			return fn.call(context || global, _.bind(this.require, this), _, this);
+			return fn.call(context || global, _.bind(r, this), _, this);
 		},
 		
 		/**
@@ -1198,7 +1210,7 @@ var emmet = (function(global, _) {
 		 * @param {String} abbr Abbreviation to parse
 		 * @param {String} syntax Abbreviation's context syntax
 		 * @param {String} profile Output profile (or its name)
-		 * @param {TreeNode} contextNode Contextual node where abbreviation is
+		 * @param {Object} contextNode Contextual node where abbreviation is
 		 * written
 		 * @return {String}
 		 */
@@ -1206,23 +1218,23 @@ var emmet = (function(global, _) {
 			if (!abbr) return '';
 			
 			syntax = syntax || defaultSyntax;
-			profile = profile || defaultProfile;
+//			profile = profile || defaultProfile;
 			
-			var filters = this.require('filters');
-			var utils = this.require('utils');
-			var parser = this.require('abbreviationParser');
+			var filters = r('filters');
+			var parser = r('abbreviationParser');
 			
-			profile = this.require('profile').get(profile, syntax);
-			this.require('tabStops').resetTabstopIndex();
+			profile = r('profile').get(profile, syntax);
+			r('tabStops').resetTabstopIndex();
 			
 			var data = filters.extractFromAbbreviation(abbr);
 			var outputTree = parser.parse(data[0], {
 				syntax: syntax, 
 				contextNode: contextNode
 			});
+			
 			var filtersList = filters.composeList(syntax, profile, data[1]);
 			filters.apply(outputTree, filtersList, profile);
-			return utils.replaceVariables(outputTree.toString());
+			return outputTree.valueOf();
 		},
 		
 		/**
@@ -1257,7 +1269,7 @@ var emmet = (function(global, _) {
 			moduleLoader = fn;
 		}
 	};
-})(this, this._);
+})(this);
 
 // export core for Node.JS
 if (typeof exports !== 'undefined') {
@@ -1266,7 +1278,11 @@ if (typeof exports !== 'undefined') {
 	}
 	exports.emmet = emmet;
 }
-/**
+
+// export as Require.js module
+if (typeof define !== 'undefined') {
+	define(emmet);
+}/**
  * Emmet abbreviation parser.
  * Takes string abbreviation and recursively parses it into a tree. The parsed 
  * tree can be transformed into a string representation with 
@@ -1287,8 +1303,8 @@ if (typeof exports !== 'undefined') {
  * @param {Underscore} _
  */
 emmet.define('abbreviationParser', function(require, _) {
-	var reValidName = /^[\w\-\$\:@\!]+\+?$/i;
-	var reWord = /[\w\-:\$]/;
+	var reValidName = /^[\w\-\$\:@\!%]+\+?$/i;
+	var reWord = /[\w\-:\$@]/;
 	
 	var pairs = {
 		'[': ']',
@@ -1338,7 +1354,7 @@ emmet.define('abbreviationParser', function(require, _) {
 		 * @return {AbbreviationNode}
 		 */
 		addChild: function(child, position) {
-			child = child || new AbbreviationNode;
+			child = child || new AbbreviationNode();
 			child.parent = this;
 			
 			if (_.isUndefined(position)) {
@@ -1417,6 +1433,8 @@ emmet.define('abbreviationParser', function(require, _) {
 			_.each(this.children, function(child) {
 				child.updateProperty(name, value);
 			});
+			
+			return this;
 		},
 		
 		/**
@@ -1531,6 +1549,11 @@ emmet.define('abbreviationParser', function(require, _) {
 				var ix = _.indexOf(_.pluck(this._attributes, 'name'), name.toLowerCase());
 				if (~ix) {
 					this._attributes[ix].value = value;
+				} else {
+					this._attributes.push({
+						name: name,
+						value: value
+					});
 				}
 			}
 			
@@ -1609,7 +1632,7 @@ emmet.define('abbreviationParser', function(require, _) {
 		 * Returns string representation of current node
 		 * @return {String}
 		 */
-		toString: function() {
+		valueOf: function() {
 			var utils = require('utils');
 			
 			var start = this.start;
@@ -1626,7 +1649,7 @@ emmet.define('abbreviationParser', function(require, _) {
 			
 			
 			var innerContent = _.map(this.children, function(child) {
-				return child.toString();
+				return child.valueOf();
 			}).join('');
 			
 			content = require('abbreviationUtils').insertChildContent(content, innerContent, {
@@ -1634,6 +1657,10 @@ emmet.define('abbreviationParser', function(require, _) {
 			});
 			
 			return start + utils.padString(content, this.padding) + end;
+		},
+
+		toString: function() {
+			return this.valueOf();
 		},
 		
 		/**
@@ -1726,7 +1753,7 @@ emmet.define('abbreviationParser', function(require, _) {
 	
 	function consumeQuotedValue(stream, quote) {
 		var ch;
-		while (ch = stream.next()) {
+		while ((ch = stream.next())) {
 			if (ch === quote)
 				return true;
 			
@@ -1745,12 +1772,39 @@ emmet.define('abbreviationParser', function(require, _) {
 	function parseAbbreviation(abbr) {
 		abbr = require('utils').trim(abbr);
 		
-		var root = new AbbreviationNode;
+		var root = new AbbreviationNode();
 		var context = root.addChild(), ch;
 		
 		/** @type StringStream */
 		var stream = require('stringStream').create(abbr);
 		var loopProtector = 1000, multiplier;
+		var addChild = function(child) {
+			context.addChild(child);
+		};
+
+		var consumeAbbr = function() {
+			stream.start = stream.pos;
+			stream.eatWhile(function(c) {
+				if (c == '[' || c == '{') {
+					if (stream.skipToPair(c, pairs[c])) {
+						stream.backUp(1);
+						return true;
+					}
+					
+					throw 'Invalid abbreviation: mo matching "' + pairs[c] + '" found for character at ' + stream.pos;
+				}
+				
+				if (c == '+') {
+					// let's see if this is an expando marker
+					stream.next();
+					var isMarker = stream.eol() ||  ~'+>^*'.indexOf(stream.peek());
+					stream.backUp(1);
+					return isMarker;
+				}
+				
+				return c != '(' && isAllowedChar(c);
+			});
+		};
 		
 		while (!stream.eol() && --loopProtector > 0) {
 			ch = stream.peek();
@@ -1760,13 +1814,11 @@ emmet.define('abbreviationParser', function(require, _) {
 					stream.start = stream.pos;
 					if (stream.skipToPair('(', ')')) {
 						var inner = parseAbbreviation(stripped(stream.current()));
-						if (multiplier = stream.match(/^\*(\d+)?/, true)) {
+						if ((multiplier = stream.match(/^\*(\d+)?/, true))) {
 							context._setRepeat(multiplier[1]);
 						}
 						
-						_.each(inner.children, function(child) {
-							context.addChild(child);
-						});
+						_.each(inner.children, addChild);
 					} else {
 						throw 'Invalid abbreviation: mo matching ")" found for character at ' + stream.pos;
 					}
@@ -1789,28 +1841,7 @@ emmet.define('abbreviationParser', function(require, _) {
 					break;
 					
 				default: // consume abbreviation
-					stream.start = stream.pos;
-					stream.eatWhile(function(c) {
-						if (c == '[' || c == '{') {
-							if (stream.skipToPair(c, pairs[c])) {
-								stream.backUp(1);
-								return true;
-							}
-							
-							throw 'Invalid abbreviation: mo matching "' + pairs[c] + '" found for character at ' + stream.pos;
-						}
-						
-						if (c == '+') {
-							// let's see if this is an expando marker
-							stream.next();
-							var isMarker = stream.eol() ||  ~'+>^*'.indexOf(stream.peek());
-							stream.backUp(1);
-							return isMarker;
-						}
-						
-						return c != '(' && isAllowedChar(c);
-					});
-					
+					consumeAbbr();
 					context.setAbbreviation(stream.current());
 					stream.start = stream.pos;
 			}
@@ -2010,16 +2041,18 @@ emmet.define('abbreviationParser', function(require, _) {
 	 * @returns {AbbreviationNode}
 	 */
 	function unroll(node) {
-		for (var i = node.children.length - 1, j, child; i >= 0; i--) {
+		for (var i = node.children.length - 1, j, child, maxCount; i >= 0; i--) {
 			child = node.children[i];
 			
 			if (child.isRepeating()) {
-				j = child.repeatCount;
+				maxCount = j = child.repeatCount;
 				child.repeatCount = 1;
 				child.updateProperty('counter', 1);
+				child.updateProperty('maxCount', maxCount);
 				while (--j > 0) {
 					child.parent.addChild(child.clone(), i + 1)
-						.updateProperty('counter', j + 1);
+						.updateProperty('counter', j + 1)
+						.updateProperty('maxCount', maxCount);
 				}
 			}
 		}
@@ -2054,7 +2087,7 @@ emmet.define('abbreviationParser', function(require, _) {
 	
 	function isAllowedChar(ch) {
 		var charCode = ch.charCodeAt(0);
-		var specialChars = '#.*:$-_!@|';
+		var specialChars = '#.*:$-_!@|%';
 		
 		return (charCode > 64 && charCode < 91)       // uppercase letter
 				|| (charCode > 96 && charCode < 123)  // lowercase letter
@@ -2064,7 +2097,7 @@ emmet.define('abbreviationParser', function(require, _) {
 	
 	// XXX add counter replacer function as output processor
 	outputProcessors.push(function(text, node) {
-		return require('utils').replaceCounter(text, node.counter);
+		return require('utils').replaceCounter(text, node.counter, node.maxCount);
 	});
 	
 	return {
@@ -2141,7 +2174,7 @@ emmet.define('abbreviationParser', function(require, _) {
 		 * Removes registered preprocessor
 		 */
 		removeFilter: function(fn) {
-			preprocessor = _.without(preprocessors, fn);
+			_.without(preprocessors, fn);
 		},
 		
 		/**
@@ -2246,6 +2279,14 @@ emmet.exec(function(require, _) {
 						deepestChild.addChild(c);
 					});
 				}
+				
+				// copy current attributes to children
+				_.each(subtree.children, function(node) {
+					_.each(child.attributeList(), function(attr) {
+						node.attribute(attr.name, attr.value);
+					});
+				});
+				
 				child.replace(subtree.children);
 			} else {
 				child.data('resource', r);
@@ -2343,8 +2384,10 @@ emmet.exec(function(require, _) {
 	 * Insert pasted content into correct positions of parsed node
 	 * @param {AbbreviationNode} node
 	 * @param {String} content
+	 * @param {Boolean} overwrite Overwrite node content if no value placeholders
+	 * found instead of appending to existing content
 	 */
-	function insertPastedContent(node, content) {
+	function insertPastedContent(node, content, overwrite) {
 		var nodesWithPlaceholders = node.findAll(function(item) {
 			return hasOutputPlaceholder(item);
 		});
@@ -2363,7 +2406,11 @@ emmet.exec(function(require, _) {
 			// on output placeholders in subtree, insert content in the deepest
 			// child node
 			var deepest = node.deepestChild() || node;
-			deepest.content = require('abbreviationUtils').insertChildContent(deepest.content, content);
+			if (overwrite) {
+				deepest.content = content;
+			} else {
+				deepest.content = require('abbreviationUtils').insertChildContent(deepest.content, content);
+			}
 		}
 	}
 	
@@ -2373,13 +2420,13 @@ emmet.exec(function(require, _) {
 	 */
 	parser.addPreprocessor(function(tree, options) {
 		if (options.pastedContent) {
-			var lines = require('utils').splitByLines(options.pastedContent, true);
+			var utils = require('utils');
+			var lines = _.map(utils.splitByLines(options.pastedContent, true), utils.trim);
+			
 			// set repeat count for implicitly repeated elements before
 			// tree is unrolled
 			tree.findAll(function(item) {
 				if (item.hasImplicitRepeat) {
-					// TODO replace $# tokens
-//					(item.deepestChild() || item).data('paste', lines);
 					item.data('paste', lines);
 					return item.repeatCount = lines.length;
 				}
@@ -2405,11 +2452,11 @@ emmet.exec(function(require, _) {
 			}
 			
 			if (pastedContent) {
-				insertPastedContent(item, pastedContent);
+				insertPastedContent(item, pastedContent, !!item.data('pasteOverwrites'));
 			}
 			
 			item.data('paste', null);
-			return !_.isUndefined(pastedContentObj);
+			return !!pastedContentObj;
 		});
 		
 		if (!targets.length && options.pastedContent) {
@@ -2446,364 +2493,375 @@ emmet.exec(function(require, _) {
 
 emmet.define('cssParser', function(require, _) {
 var walker, tokens = [], isOp, isNameChar, isDigit;
-    
-    // walks around the source
-    walker = {
-        lines: null,
-        total_lines: 0,
-        linenum: -1,
-        line: '',
-        ch: '',
-        chnum: -1,
-        init: function (source) {
-            var me = walker;
-        
-            // source, yumm
-            me.lines = source
-                .replace(/\r\n/g, '\n')
-                .replace(/\r/g, '\n')
-                .split('\n');
-            me.total_lines = me.lines.length;
-        
-            // reset
-            me.chnum = -1;
-            me.linenum = -1;
-            me.ch = '';
-            me.line = '';
-        
-            // advance
-            me.nextLine();
-            me.nextChar();
-        },
-        nextLine: function () {
-            var me = this;
-            me.linenum += 1;
-            if (me.total_lines <= me.linenum) {
-                me.line = false;
-            } else {
-                me.line = me.lines[me.linenum];
-            }
-            if (me.chnum !== -1) {
-                me.chnum = 0;
-            }
-            return me.line;
-        }, 
-        nextChar: function () {
-            var me = this;
-            me.chnum += 1;
-            while (me.line.charAt(me.chnum) === '') {
-                if (this.nextLine() === false) {
-                    me.ch = false;
-                    return false; // end of source
-                }
-                me.chnum = -1;
-                me.ch = '\n';
-                return '\n';
-            }
-            me.ch = me.line.charAt(me.chnum);
-            return me.ch;
-        },
-        peek: function() {
-            return this.line.charAt(this.chnum + 1);
-        }
-    };
+	
+	// walks around the source
+	walker = {
+		lines: null,
+		total_lines: 0,
+		linenum: -1,
+		line: '',
+		ch: '',
+		chnum: -1,
+		init: function (source) {
+			var me = walker;
+		
+			// source, yumm
+			me.lines = source
+				.replace(/\r\n/g, '\n')
+				.replace(/\r/g, '\n')
+				.split('\n');
+			me.total_lines = me.lines.length;
+		
+			// reset
+			me.chnum = -1;
+			me.linenum = -1;
+			me.ch = '';
+			me.line = '';
+		
+			// advance
+			me.nextLine();
+			me.nextChar();
+		},
+		nextLine: function () {
+			var me = this;
+			me.linenum += 1;
+			if (me.total_lines <= me.linenum) {
+				me.line = false;
+			} else {
+				me.line = me.lines[me.linenum];
+			}
+			if (me.chnum !== -1) {
+				me.chnum = 0;
+			}
+			return me.line;
+		}, 
+		nextChar: function () {
+			var me = this;
+			me.chnum += 1;
+			while (me.line.charAt(me.chnum) === '') {
+				if (this.nextLine() === false) {
+					me.ch = false;
+					return false; // end of source
+				}
+				me.chnum = -1;
+				me.ch = '\n';
+				return '\n';
+			}
+			me.ch = me.line.charAt(me.chnum);
+			return me.ch;
+		},
+		peek: function() {
+			return this.line.charAt(this.chnum + 1);
+		}
+	};
 
-    // utility helpers
-    isNameChar = function (c) {
-    	// be more tolerate for name tokens: allow & character for LESS syntax
-        return (c == '&' || c === '_' || c === '-' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
-    };
+	// utility helpers
+	isNameChar = function (c) {
+		// be more tolerate for name tokens: allow & character for LESS syntax
+		return (c == '&' || c === '_' || c === '-' || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+	};
 
-    isDigit = function (ch) {
-        return (ch !== false && ch >= '0' && ch <= '9');
-    };  
+	isDigit = function (ch) {
+		return (ch !== false && ch >= '0' && ch <= '9');
+	};  
 
-    isOp = (function () {
-        var opsa = "{}[]()+*=.,;:>~|\\%$#@^!".split(''),
-            opsmatcha = "*^|$~".split(''),
-            ops = {},
-            opsmatch = {},
-            i = 0;
-        for (; i < opsa.length; i += 1) {
-            ops[opsa[i]] = true;
-        }
-        for (i = 0; i < opsmatcha.length; i += 1) {
-            opsmatch[opsmatcha[i]] = true;
-        }
-        return function (ch, matchattr) {
-            if (matchattr) {
-                return !!opsmatch[ch];
-            }
-            return !!ops[ch];
-        };
-    }());
-    
-    // shorthands
-    function isset(v) {
-        return typeof v !== 'undefined';
-    }
-    function getConf() {
-        return {
-            'char': walker.chnum,
-            line: walker.linenum
-        };
-    }
-
-
-    // creates token objects and pushes them to a list
-    function tokener(value, type, conf) {
-        var w = walker, c = conf || {};
-        tokens.push({
-            charstart: isset(c['char']) ? c['char'] : w.chnum,
-            charend:   isset(c.charend) ? c.charend : w.chnum,
-            linestart: isset(c.line)    ? c.line    : w.linenum,
-            lineend:   isset(c.lineend) ? c.lineend : w.linenum,
-            value:     value,
-            type:      type || value
-        });
-    }
-    
-    // oops
-    function error(m, config) { 
-        var w = walker,
-            conf = config || {},
-            c = isset(conf['char']) ? conf['char'] : w.chnum,
-            l = isset(conf.line) ? conf.line : w.linenum;
-        return {
-            name: "ParseError",
-            message: m + " at line " + (l + 1) + ' char ' + (c + 1),
-            walker: w,
-            tokens: tokens
-        };
-    }
+	isOp = (function () {
+		var opsa = "{}[]()+*=.,;:>~|\\%$#@^!".split(''),
+			opsmatcha = "*^|$~".split(''),
+			ops = {},
+			opsmatch = {},
+			i = 0;
+		for (; i < opsa.length; i += 1) {
+			ops[opsa[i]] = true;
+		}
+		for (i = 0; i < opsmatcha.length; i += 1) {
+			opsmatch[opsmatcha[i]] = true;
+		}
+		return function (ch, matchattr) {
+			if (matchattr) {
+				return !!opsmatch[ch];
+			}
+			return !!ops[ch];
+		};
+	}());
+	
+	// shorthands
+	function isset(v) {
+		return typeof v !== 'undefined';
+	}
+	function getConf() {
+		return {
+			'char': walker.chnum,
+			line: walker.linenum
+		};
+	}
 
 
-    // token handlers follow for:
-    // white space, comment, string, identifier, number, operator
-    function white() {
-    
-        var c = walker.ch,
-            token = '',
-            conf = getConf();
-    
-        while (c === " " || c === "\t") {
-            token += c;
-            c = walker.nextChar();
-        }
-    
-        tokener(token, 'white', conf);
-    
-    }
-
-    function comment() {
-    
-        var w = walker,
-            c = w.ch,
-            token = c,
-            cnext,
-            conf = getConf();    
-     
-        cnext = w.nextChar();
-        
-        if (cnext !== '*') {
-            // oops, not a comment, just a /
-            conf.charend = conf['char'];
-            conf.lineend = conf.line;
-            return tokener(token, token, conf);
-        }
-    
-        while (!(c === "*" && cnext === "/")) {
-            token += cnext;
-            c = cnext;
-            cnext = w.nextChar();        
-        }
-        token += cnext;
-        w.nextChar();
-        tokener(token, 'comment', conf);
-    }
-
-    function str() {
-        var w = walker,
-            c = w.ch,
-            q = c,
-            token = c,
-            cnext,
-            conf = getConf();
-    
-        c = w.nextChar();
-    
-        while (c !== q) {
-            
-            if (c === '\n') {
-                cnext = w.nextChar();
-                if (cnext === "\\") {
-                    token += c + cnext;
-                } else {
-                    // end of line with no \ escape = bad
-                    throw error("Unterminated string", conf);
-                }
-            } else {
-                if (c === "\\") {
-                    token += c + w.nextChar();
-                } else {
-                    token += c;
-                }
-            }
-        
-            c = w.nextChar();
-        
-        }
-        token += c;
-        w.nextChar();
-        tokener(token, 'string', conf);
-    }
-    
-    function brace() {
-        var w = walker,
-            c = w.ch,
-            depth = 0,
-            token = c,
-            conf = getConf();
-    
-        c = w.nextChar();
-    
-        while (c !== ')' && !depth) {
-        	if (c === '(') {
-        		depth++;
-        	} else if (c === ')') {
-        		depth--;
-        	} else if (c === false) {
-        		throw error("Unterminated brace", conf);
-        	}
-        	
-        	token += c;
-            c = w.nextChar();
-        }
-        
-        token += c;
-        w.nextChar();
-        tokener(token, 'brace', conf);
-    }
-
-    function identifier(pre) {
-        var w = walker,
-            c = w.ch,
-            conf = getConf(),
-            token = (pre) ? pre + c : c;
-            
-        c = w.nextChar();
-    
-        if (pre) { // adjust token position
-        	conf['char'] -= pre.length;
-        }
-        
-        while (isNameChar(c) || isDigit(c)) {
-            token += c;
-            c = w.nextChar();
-        }
-    
-        tokener(token, 'identifier', conf);    
-    }
-
-    function num() {
-        var w = walker,
-            c = w.ch,
-            conf = getConf(),
-            token = c,
-            point = token === '.',
-            nondigit;
-        
-        c = w.nextChar();
-        nondigit = !isDigit(c);
-    
-        // .2px or .classname?
-        if (point && nondigit) {
-            // meh, NaN, could be a class name, so it's an operator for now
-            conf.charend = conf['char'];
-            conf.lineend = conf.line;
-            return tokener(token, '.', conf);    
-        }
-        
-        // -2px or -moz-something
-        if (token === '-' && nondigit) {
-            return identifier('-');
-        }
-    
-        while (c !== false && (isDigit(c) || (!point && c === '.'))) { // not end of source && digit or first instance of .
-            if (c === '.') {
-                point = true;
-            }
-            token += c;
-            c = w.nextChar();
-        }
-
-        tokener(token, 'number', conf);    
-    
-    }
-
-    function op() {
-        var w = walker,
-            c = w.ch,
-            conf = getConf(),
-            token = c,
-            next = w.nextChar();
-            
-        if (next === "=" && isOp(token, true)) {
-            token += next;
-            tokener(token, 'match', conf);
-            w.nextChar();
-            return;
-        } 
-        
-        conf.charend = conf['char'] + 1;
-        conf.lineend = conf.line;    
-        tokener(token, token, conf);
-    }
+	// creates token objects and pushes them to a list
+	function tokener(value, type, conf) {
+		var w = walker, c = conf || {};
+		tokens.push({
+			charstart: isset(c['char']) ? c['char'] : w.chnum,
+			charend:   isset(c.charend) ? c.charend : w.chnum,
+			linestart: isset(c.line)    ? c.line    : w.linenum,
+			lineend:   isset(c.lineend) ? c.lineend : w.linenum,
+			value:     value,
+			type:      type || value
+		});
+	}
+	
+	// oops
+	function error(m, config) { 
+		var w = walker,
+			conf = config || {},
+			c = isset(conf['char']) ? conf['char'] : w.chnum,
+			l = isset(conf.line) ? conf.line : w.linenum;
+		return {
+			name: "ParseError",
+			message: m + " at line " + (l + 1) + ' char ' + (c + 1),
+			walker: w,
+			tokens: tokens
+		};
+	}
 
 
-    // call the appropriate handler based on the first character in a token suspect
-    function tokenize() {
+	// token handlers follow for:
+	// white space, comment, string, identifier, number, operator
+	function white() {
+	
+		var c = walker.ch,
+			token = '',
+			conf = getConf();
+	
+		while (c === " " || c === "\t") {
+			token += c;
+			c = walker.nextChar();
+		}
+	
+		tokener(token, 'white', conf);
+	
+	}
 
-        var ch = walker.ch;
-    
-        if (ch === " " || ch === "\t") {
-            return white();
-        }
+	function comment() {
+	
+		var w = walker,
+			c = w.ch,
+			token = c,
+			cnext,
+			conf = getConf();    
+	 
+		cnext = w.nextChar();
 
-        if (ch === '/') {
-            return comment();
-        } 
+		if (cnext === '/') {
+			// inline comment in SCSS and such
+			token += cnext;
+			var pk = w.peek();
+			while (pk && pk !== '\n') {
+				token += cnext;
+				cnext = w.nextChar();
+				pk = w.peek();
+			}
+		} else if (cnext === '*') {
+			// multiline CSS commment
+			while (!(c === "*" && cnext === "/")) {
+				token += cnext;
+				c = cnext;
+				cnext = w.nextChar();        
+			}            
+		} else {
+			// oops, not a comment, just a /
+			conf.charend = conf['char'];
+			conf.lineend = conf.line;
+			return tokener(token, token, conf);
+		}
+		
+		token += cnext;
+		w.nextChar();
+		tokener(token, 'comment', conf);
+	}
 
-        if (ch === '"' || ch === "'") {
-            return str();
-        }
-        
-        if (ch === '(') {
-            return brace();
-        }
-    
-        if (ch === '-' || ch === '.' || isDigit(ch)) { // tricky - char: minus (-1px) or dash (-moz-stuff)
-            return num();
-        }
-    
-        if (isNameChar(ch)) {
-            return identifier();
-        }
+	function str() {
+		var w = walker,
+			c = w.ch,
+			q = c,
+			token = c,
+			cnext,
+			conf = getConf();
+	
+		c = w.nextChar();
+	
+		while (c !== q) {
+			
+			if (c === '\n') {
+				cnext = w.nextChar();
+				if (cnext === "\\") {
+					token += c + cnext;
+				} else {
+					// end of line with no \ escape = bad
+					throw error("Unterminated string", conf);
+				}
+			} else {
+				if (c === "\\") {
+					token += c + w.nextChar();
+				} else {
+					token += c;
+				}
+			}
+		
+			c = w.nextChar();
+		
+		}
+		token += c;
+		w.nextChar();
+		tokener(token, 'string', conf);
+	}
+	
+	function brace() {
+		var w = walker,
+			c = w.ch,
+			depth = 0,
+			token = c,
+			conf = getConf();
+	
+		c = w.nextChar();
+	
+		while (c !== ')' && !depth) {
+			if (c === '(') {
+				depth++;
+			} else if (c === ')') {
+				depth--;
+			} else if (c === false) {
+				throw error("Unterminated brace", conf);
+			}
+			
+			token += c;
+			c = w.nextChar();
+		}
+		
+		token += c;
+		w.nextChar();
+		tokener(token, 'brace', conf);
+	}
 
-        if (isOp(ch)) {
-            return op();
-        }
-        
-        if (ch === "\n") {
-            tokener("line");
-            walker.nextChar();
-            return;
-        }
-        
-        throw error("Unrecognized character");
-    }
-    
-    /**
+	function identifier(pre) {
+		var w = walker,
+			c = w.ch,
+			conf = getConf(),
+			token = (pre) ? pre + c : c;
+			
+		c = w.nextChar();
+	
+		if (pre) { // adjust token position
+			conf['char'] -= pre.length;
+		}
+		
+		while (isNameChar(c) || isDigit(c)) {
+			token += c;
+			c = w.nextChar();
+		}
+	
+		tokener(token, 'identifier', conf);    
+	}
+
+	function num() {
+		var w = walker,
+			c = w.ch,
+			conf = getConf(),
+			token = c,
+			point = token === '.',
+			nondigit;
+		
+		c = w.nextChar();
+		nondigit = !isDigit(c);
+	
+		// .2px or .classname?
+		if (point && nondigit) {
+			// meh, NaN, could be a class name, so it's an operator for now
+			conf.charend = conf['char'];
+			conf.lineend = conf.line;
+			return tokener(token, '.', conf);    
+		}
+		
+		// -2px or -moz-something
+		if (token === '-' && nondigit) {
+			return identifier('-');
+		}
+	
+		while (c !== false && (isDigit(c) || (!point && c === '.'))) { // not end of source && digit or first instance of .
+			if (c === '.') {
+				point = true;
+			}
+			token += c;
+			c = w.nextChar();
+		}
+
+		tokener(token, 'number', conf);    
+	
+	}
+
+	function op() {
+		var w = walker,
+			c = w.ch,
+			conf = getConf(),
+			token = c,
+			next = w.nextChar();
+			
+		if (next === "=" && isOp(token, true)) {
+			token += next;
+			tokener(token, 'match', conf);
+			w.nextChar();
+			return;
+		} 
+		
+		conf.charend = conf['char'] + 1;
+		conf.lineend = conf.line;    
+		tokener(token, token, conf);
+	}
+
+
+	// call the appropriate handler based on the first character in a token suspect
+	function tokenize() {
+
+		var ch = walker.ch;
+	
+		if (ch === " " || ch === "\t") {
+			return white();
+		}
+
+		if (ch === '/') {
+			return comment();
+		} 
+
+		if (ch === '"' || ch === "'") {
+			return str();
+		}
+		
+		if (ch === '(') {
+			return brace();
+		}
+	
+		if (ch === '-' || ch === '.' || isDigit(ch)) { // tricky - char: minus (-1px) or dash (-moz-stuff)
+			return num();
+		}
+	
+		if (isNameChar(ch)) {
+			return identifier();
+		}
+
+		if (isOp(ch)) {
+			return op();
+		}
+		
+		if (ch === "\n") {
+			tokener("line");
+			walker.nextChar();
+			return;
+		}
+		
+		throw error("Unrecognized character");
+	}
+	
+	/**
 	 * Returns newline character at specified position in content
 	 * @param {String} content
 	 * @param {Number} pos
@@ -2815,55 +2873,55 @@ var walker, tokens = [], isOp, isNameChar, isDigit;
 			: content.charAt(pos);
 	}
 
-    return {
-    	/**
-    	 * @param source
-    	 * @returns
-    	 * @memberOf emmet.cssParser
-    	 */
-        lex: function (source) {
-            walker.init(source);
-            tokens = [];
-            while (walker.ch !== false) {
-                tokenize();            
-            }
-            return tokens;
-        },
-        
-        /**
-         * Tokenizes CSS source
-         * @param {String} source
-         * @returns {Array}
-         */
-        parse: function(source) {
-        	// transform tokens
-	 		var pos = 0;
-	 		return _.map(this.lex(source), function(token) {
-	 			if (token.type == 'line') {
-	 				token.value = getNewline(source, pos);
-	 			}
-	 			
-	 			return {
-	 				type: token.type,
-	 				start: pos,
-	 				end: (pos += token.value.length)
-	 			};
+	return {
+		/**
+		 * @param source
+		 * @returns
+		 * @memberOf emmet.cssParser
+		 */
+		lex: function (source) {
+			walker.init(source);
+			tokens = [];
+			while (walker.ch !== false) {
+				tokenize();            
+			}
+			return tokens;
+		},
+		
+		/**
+		 * Tokenizes CSS source
+		 * @param {String} source
+		 * @returns {Array}
+		 */
+		parse: function(source) {
+			// transform tokens
+			var pos = 0;
+			return _.map(this.lex(source), function(token) {
+				if (token.type == 'line') {
+					token.value = getNewline(source, pos);
+				}
+				
+				return {
+					type: token.type,
+					start: pos,
+					end: (pos += token.value.length)
+				};
 			});
 		},
-        
-        toSource: function (toks) {
-            var i = 0, max = toks.length, t, src = '';
-            for (; i < max; i += 1) {
-                t = toks[i];
-                if (t.type === 'line') {
-                    src += '\n';
-                } else {
-                    src += t.value;
-                }
-            }
-            return src;
-        }
-    };
+		
+		toSource: function (toks) {
+			var i = 0, max = toks.length, t, src = '';
+			for (; i < max; i += 1) {
+				t = toks[i];
+				if (t.type === 'line') {
+					src += '\n';
+				} else {
+					src += t.value;
+				}
+			}
+			return src;
+		}
+	};
 });/**
  * HTML tokenizer by Marijn Haverbeke
  * http://codemirror.net/
@@ -2984,7 +3042,7 @@ emmet.define('xmlParser', function(require, _) {
 	function doctype(depth) {
 		return function(stream, state) {
 			var ch;
-			while ((ch = stream.next()) != null) {
+			while ((ch = stream.next()) !== null) {
 				if (ch == "<") {
 					state.tokenize = doctype(depth + 1);
 					return state.tokenize(stream, state);
@@ -3197,7 +3255,125 @@ emmet.define('xmlParser', function(require, _) {
 		}		
 	};
 });
+/*!
+ * string_score.js: String Scoring Algorithm 0.1.10 
+ *
+ * http://joshaven.com/string_score
+ * https://github.com/joshaven/string_score
+ *
+ * Copyright (C) 2009-2011 Joshaven Potter <yourtech@gmail.com>
+ * Special thanks to all of the contributors listed here https://github.com/joshaven/string_score
+ * MIT license: http://www.opensource.org/licenses/mit-license.php
+ *
+ * Date: Tue Mar 1 2011
+*/
+
 /**
+ * Scores a string against another string.
+ *  'Hello World'.score('he');     //=> 0.5931818181818181
+ *  'Hello World'.score('Hello');  //=> 0.7318181818181818
+ */
+emmet.define('string-score', function(require, _) {
+	return {
+		score: function(string, abbreviation, fuzziness) {
+			// If the string is equal to the abbreviation, perfect match.
+			  if (string == abbreviation) {return 1;}
+			  //if it's not a perfect match and is empty return 0
+			  if(abbreviation == "") {return 0;}
+
+			  var total_character_score = 0,
+			      abbreviation_length = abbreviation.length,
+			      string_length = string.length,
+			      start_of_string_bonus,
+			      abbreviation_score,
+			      fuzzies=1,
+			      final_score;
+			  
+			  // Walk through abbreviation and add up scores.
+			  for (var i = 0,
+			         character_score/* = 0*/,
+			         index_in_string/* = 0*/,
+			         c/* = ''*/,
+			         index_c_lowercase/* = 0*/,
+			         index_c_uppercase/* = 0*/,
+			         min_index/* = 0*/;
+			     i < abbreviation_length;
+			     ++i) {
+			    
+			    // Find the first case-insensitive match of a character.
+			    c = abbreviation.charAt(i);
+			    
+			    index_c_lowercase = string.indexOf(c.toLowerCase());
+			    index_c_uppercase = string.indexOf(c.toUpperCase());
+			    min_index = Math.min(index_c_lowercase, index_c_uppercase);
+			    index_in_string = (min_index > -1) ? min_index : Math.max(index_c_lowercase, index_c_uppercase);
+			    
+			    if (index_in_string === -1) { 
+			      if (fuzziness) {
+			        fuzzies += 1-fuzziness;
+			        continue;
+			      } else {
+			        return 0;
+			      }
+			    } else {
+			      character_score = 0.1;
+			    }
+			    
+			    // Set base score for matching 'c'.
+			    
+			    // Same case bonus.
+			    if (string[index_in_string] === c) { 
+			      character_score += 0.1; 
+			    }
+			    
+			    // Consecutive letter & start-of-string Bonus
+			    if (index_in_string === 0) {
+			      // Increase the score when matching first character of the remainder of the string
+			      character_score += 0.6;
+			      if (i === 0) {
+			        // If match is the first character of the string
+			        // & the first character of abbreviation, add a
+			        // start-of-string match bonus.
+			        start_of_string_bonus = 1; //true;
+			      }
+			    }
+			    else {
+			  // Acronym Bonus
+			  // Weighing Logic: Typing the first character of an acronym is as if you
+			  // preceded it with two perfect character matches.
+			  if (string.charAt(index_in_string - 1) === ' ') {
+			    character_score += 0.8; // * Math.min(index_in_string, 5); // Cap bonus at 0.4 * 5
+			  }
+			    }
+			    
+			    // Left trim the already matched part of the string
+			    // (forces sequential matching).
+			    string = string.substring(index_in_string + 1, string_length);
+			    
+			    total_character_score += character_score;
+			  } // end of for loop
+			  
+			  // Uncomment to weigh smaller words higher.
+			  // return total_character_score / string_length;
+			  
+			  abbreviation_score = total_character_score / abbreviation_length;
+			  //percentage_of_matched_string = abbreviation_length / string_length;
+			  //word_score = abbreviation_score * percentage_of_matched_string;
+			  
+			  // Reduce penalty for longer strings.
+			  //final_score = (word_score + abbreviation_score) / 2;
+			  final_score = ((abbreviation_score * (abbreviation_length / string_length)) + abbreviation_score) / 2;
+			  
+			  final_score = final_score / fuzzies;
+			  
+			  if (start_of_string_bonus && (final_score + 0.15 < 1)) {
+			    final_score += 0.15;
+			  }
+			  
+			  return final_score;
+		}
+	};
+});/**
  * Utility module for Emmet
  * @param {Function} require
  * @param {Underscore} _
@@ -3208,43 +3384,6 @@ emmet.define('utils', function(require, _) {
 	 * generated output 
 	 */
 	var caretPlaceholder = '${0}';
-	
-	/**
-	 * A simple string builder, optimized for faster text concatenation
-	 * @param {String} value Initial value
-	 */
-	function StringBuilder(value) {
-		this._data = [];
-		this.length = 0;
-		
-		if (value)
-			this.append(value);
-	}
-	
-	StringBuilder.prototype = {
-		/**
-		 * Append string
-		 * @param {String} text
-		 */
-		append: function(text) {
-			this._data.push(text);
-			this.length += text.length;
-		},
-		
-		/**
-		 * @returns {String}
-		 */
-		toString: function() {
-			return this._data.join('');
-		},
-		
-		/**
-		 * @returns {String}
-		 */
-		valueOf: function() {
-			return this.toString();
-		}
-	};
 	
 	return {
 		/** @memberOf utils */
@@ -3359,6 +3498,23 @@ emmet.define('utils', function(require, _) {
 		},
 		
 		/**
+		 * Returns list of paddings that should be used to align passed string
+		 * @param {Array} strings
+		 * @returns {Array}
+		 */
+		getStringsPads: function(strings) {
+			var lengths = _.map(strings, function(s) {
+				return _.isString(s) ? s.length : +s;
+			});
+			
+			var max = _.max(lengths);
+			return _.map(lengths, function(l) {
+				var pad = max - l;
+				return pad ? this.repeatString(' ', pad) : '';
+			}, this);
+		},
+		
+		/**
 		 * Indents text with padding
 		 * @param {String} text Text to indent
 		 * @param {String} pad Padding size (number) or padding itself (string)
@@ -3403,7 +3559,7 @@ emmet.define('utils', function(require, _) {
 		unindentString: function(text, pad) {
 			var lines = this.splitByLines(text);
 			for (var i = 0; i < lines.length; i++) {
-				if (lines[i].search(pad) == 0)
+				if (lines[i].search(pad) === 0)
 					lines[i] = lines[i].substr(pad.length);
 			}
 			
@@ -3493,16 +3649,22 @@ emmet.define('utils', function(require, _) {
 		
 		/**
 		 * Replaces '$' character in string assuming it might be escaped with '\'
-		 * @param {String} str String where caracter should be replaced
-		 * @param {String} value Replace value. Might be a <code>Function</code>
+		 * @param {String} str String where character should be replaced
+		 * @param {String} value New value
 		 * @return {String}
 		 */
-		replaceCounter: function(str, value) {
+		replaceCounter: function(str, value, total) {
 			var symbol = '$';
 			// in case we received strings from Java, convert the to native strings
 			str = String(str);
 			value = String(value);
+			
+			if (/^\-?\d+$/.test(value)) {
+				value = +value;
+			}
+			
 			var that = this;
+			
 			return this.replaceUnescapedSymbol(str, symbol, function(str, symbol, pos, matchNum){
 				if (str.charAt(pos + 1) == '{' || that.isNumeric(str.charAt(pos + 1)) ) {
 					// it's a variable, skip it
@@ -3512,7 +3674,27 @@ emmet.define('utils', function(require, _) {
 				// replace sequense of $ symbols with padded number  
 				var j = pos + 1;
 				while(str.charAt(j) == '$' && str.charAt(j + 1) != '{') j++;
-				return [str.substring(pos, j), that.zeroPadString(value, j - pos)];
+				var pad = j - pos;
+				
+				// get counter base
+				var base = 0, decrement = false, m;
+				if ((m = str.substr(j).match(/^@(\-?)(\d*)/))) {
+					j += m[0].length;
+					
+					if (m[1]) {
+						decrement = true;
+					}
+					
+					base = parseInt(m[2] || 1, 10) - 1;
+				}
+				
+				if (decrement && total && _.isNumber(value)) {
+					value = total - value + 1;
+				}
+				
+				value += base;
+				
+				return [str.substring(pos, j), that.zeroPadString(value + '', pad)];
 			});
 		},
 		
@@ -3609,15 +3791,6 @@ emmet.define('utils', function(require, _) {
 		},
 		
 		/**
-		 * A simple mutable string shim, optimized for faster text concatenation
-		 * @param {String} value Initial value
-		 * @returns {StringBuilder}
-		 */
-		stringBuilder: function(value) {
-			return new StringBuilder(value);
-		},
-		
-		/**
 		 * Replace substring of <code>str</code> with <code>value</code>
 		 * @param {String} str String where to replace substring
 		 * @param {String} value New substring value
@@ -3684,11 +3857,13 @@ emmet.define('utils', function(require, _) {
 		findNewlineBounds: function(text, from) {
 			var len = text.length,
 				start = 0,
-				end = len - 1;
+				end = len - 1, 
+				ch;
+
 			
 			// search left
 			for (var i = from - 1; i > 0; i--) {
-				var ch = text.charAt(i);
+				ch = text.charAt(i);
 				if (ch == '\n' || ch == '\r') {
 					start = i + 1;
 					break;
@@ -3696,7 +3871,7 @@ emmet.define('utils', function(require, _) {
 			}
 			// search right
 			for (var j = from; j < len; j++) {
-				var ch = text.charAt(j);
+				ch = text.charAt(j);
 				if (ch == '\n' || ch == '\r') {
 					end = j;
 					break;
@@ -3723,7 +3898,7 @@ emmet.define('utils', function(require, _) {
 
 			for ( ; i < length; i++ ) {
 				// Only deal with non-null/undefined values
-				if ( (options = arguments[ i ]) != null ) {
+				if ( (options = arguments[ i ]) !== null ) {
 					// Extend the base object
 					for ( name in options ) {
 						src = target[ name ];
@@ -3768,6 +3943,27 @@ emmet.define('utils', function(require, _) {
  * @param {Underscore} _
  */
 emmet.define('range', function(require, _) {
+	function cmp(a, b, op) {
+		switch (op) {
+			case 'eq':
+			case '==':
+				return a === b;
+			case 'lt':
+			case '<':
+				return a < b;
+			case 'lte':
+			case '<=':
+				return a <= b;
+			case 'gt':
+			case '>':
+				return a > b;
+			case 'gte':
+			case '>=':
+				return a >= b;
+		}
+	}
+	
+	
 	/**
 	 * @type Range
 	 * @constructor
@@ -3800,7 +3996,8 @@ emmet.define('range', function(require, _) {
 		 * @returns {Boolean}
 		 */
 		equal: function(range) {
-			return this.start === range.start && this.end === range.end;
+			return this.cmp(range, 'eq', 'eq');
+//			return this.start === range.start && this.end === range.end;
 		},
 		
 		/**
@@ -3859,7 +4056,17 @@ emmet.define('range', function(require, _) {
 		 * @param {Number} loc
 		 */
 		inside: function(loc) {
-			return this.start <= loc && this.end > loc;
+			return this.cmp(loc, 'lte', 'gt');
+//			return this.start <= loc && this.end > loc;
+		},
+		
+		/**
+		 * Returns a Boolean value that indicates whether a specified position 
+		 * is in a given range, but not equals bounds.
+		 * @param {Number} loc
+		 */
+		contains: function(loc) {
+			return this.cmp(loc, 'lt', 'gt');
 		},
 		
 		/**
@@ -3868,7 +4075,26 @@ emmet.define('range', function(require, _) {
 		 * @returns {Boolean} 
 		 */
 		include: function(r) {
-			return this.start <= r.start && this.end >= r.end;
+			return this.cmp(r, 'lte', 'gte');
+//			return this.start <= r.start && this.end >= r.end;
+		},
+		
+		/**
+		 * Low-level comparision method
+		 * @param {Number} loc
+		 * @param {String} left Left comparison operator
+		 * @param {String} right Right comaprison operator
+		 */
+		cmp: function(loc, left, right) {
+			var a, b;
+			if (loc instanceof Range) {
+				a = loc.start;
+				b = loc.end;
+			} else {
+				a = b = loc;
+			}
+			
+			return cmp(this.start, a, left || '<=') && cmp(this.end, b, right || '>');
 		},
 		
 		/**
@@ -3898,6 +4124,10 @@ emmet.define('range', function(require, _) {
 		},
 		
 		toString: function() {
+			return this.valueOf();
+		},
+
+		valueOf: function() {
 			return '{' + this.start + ', ' + this.length() + '}';
 		}
 	};
@@ -3917,6 +4147,11 @@ emmet.define('range', function(require, _) {
 			
 			if (start instanceof Range)
 				return start;
+			
+			if (_.isObject(start) && 'start' in start && 'end' in start) {
+				len = start.end - start.start;
+				start = start.start;
+			}
 				
 			return new Range(start, len);
 		},
@@ -4092,7 +4327,7 @@ emmet.define('tokenIterator', function(require, _) {
 				? function(t){return t.type == type;} 
 				: type;
 			
-			while (token = this.next()) {
+			while ((token = this.next())) {
 				if (callback)
 					callback.call(this, token);
 				if (test.call(this, token))
@@ -4134,7 +4369,7 @@ emmet.define('stringStream', function(require, _) {
 		 * @returns {Boolean}
 		 */
 		sol: function() {
-			return this.pos == 0;
+			return this.pos === 0;
 		},
 		
 		/**
@@ -4316,14 +4551,14 @@ emmet.define('stringStream', function(require, _) {
  * @author Sergey Chikuyonok (serge.che@gmail.com)
  * @link http://chikuyonok.ru
  * 
- * XXX This module is over-complicated, should provide better implementation
- * 
  * @param {Function} require
  * @param {Underscore} _
  */
 emmet.define('resources', function(require, _) {
 	var VOC_SYSTEM = 'system';
 	var VOC_USER = 'user';
+	
+	var cache = {};
 		
 	/** Regular expression for XML tag matching */
 	var reTag = /^<(\w+\:?[\w\-]*)((?:\s+[\w\:\-]+\s*=\s*(['"]).*?\3)*)\s*(\/?)>/;
@@ -4333,105 +4568,6 @@ emmet.define('resources', function(require, _) {
 	
 	/** @type HandlerList List of registered abbreviation resolvers */
 	var resolvers = require('handlerList').create();
-	
-	/**
-	 * Check if specified resource is parsed by Emmet
-	 * @param {Object} obj
-	 * @return {Boolean}
-	 */
-	function isParsed(obj) {
-		return obj && obj.__emmet_parsed__;
-	}
-	
-	/**
-	 * Marks object as parsed by Emmet
-	 * @param {Object}
-	 */
-	function setParsed(obj) {
-		obj.__emmet_parsed__ = true;
-	}
-	
-	/**
-	 * Returns resource vocabulary by its name
-	 * @param {String} name Vocabulary name ('system' or 'user')
-	 */
-	function getVocabulary(name) {
-		return name == VOC_SYSTEM ? systemSettings : userSettings;
-	}
-		
-	/**
-	 * Helper function that transforms string into hash
-	 * @return {Object}
-	 */
-	function stringToHash(str){
-		var obj = {}, items = str.split(",");
-		for ( var i = 0; i < items.length; i++ )
-			obj[ items[i] ] = true;
-		return obj;
-	}
-	
-	/**
-	 * Creates resource inheritance chain for lookups
-	 * @param {String} vocabulary Resource vocabulary
-	 * @param {String} syntax Syntax name
-	 * @param {String} name Resource name
-	 * @return {Array}
-	 */
-	function createResourceChain(vocabulary, syntax, name) {
-		var voc = getVocabulary(vocabulary),
-			result = [],
-			resource = null;
-		
-		if (voc && syntax in voc) {
-			resource = voc[syntax];
-			if (name in resource)
-				result.push(resource[name]);
-		}
-		
-		// get inheritance definition
-		// in case of user-defined vocabulary, resource dependency
-		// may be defined in system vocabulary only, so we have to correctly
-		// handle this case
-		var chain_source = null;
-		if (resource && 'extends' in resource)
-			chain_source = resource;
-		else if (vocabulary == VOC_USER && syntax in systemSettings 
-			&& 'extends' in systemSettings[syntax] )
-			chain_source = systemSettings[syntax];
-			
-		if (chain_source) {
-			if (!isParsed(chain_source['extends'])) {
-				var ar = chain_source['extends'].split(',');
-				var utils = require('utils');
-				for (var i = 0; i < ar.length; i++) 
-					ar[i] = utils.trim(ar[i]);
-				chain_source['extends'] = ar;
-				setParsed(chain_source['extends']);
-			}
-			
-			// find resource in ancestors
-			for (var i = 0; i < chain_source['extends'].length; i++) {
-				var type = chain_source['extends'][i];
-				if (voc[type] && voc[type][name])
-					result.push(voc[type][name]);
-			}
-		}
-		
-		return result;
-	}
-	
-	/**
-	 * Get resource collection from settings vocbulary for specified syntax. 
-	 * It follows inheritance chain if resource wasn't directly found in
-	 * syntax settings
-	 * @param {String} vocabulary Resource vocabulary
-	 * @param {String} syntax Syntax name
-	 * @param {String} name Resource name
-	 */
-	function getSubset(vocabulary, syntax, name) {
-		var chain = createResourceChain(vocabulary, syntax, name);
-		return chain[0];
-	}
 	
 	/**
 	 * Normalizes caret plceholder in passed text: replaces | character with
@@ -4444,44 +4580,16 @@ emmet.define('resources', function(require, _) {
 		return utils.replaceUnescapedSymbol(text, '|', utils.getCaretPlaceholder());
 	}
 	
-	/**
-	 * Returns parsed item located in specified vocabulary by its syntax and
-	 * name
-	 * @param {String} vocabulary Resource vocabulary
-	 * @param {String} syntax Syntax name
-	 * @param {String} name Resource name ('abbreviation', 'snippet')
-	 * @param {String} item Abbreviation or snippet name
-	 * @return {Object}
-	 */
-	function getParsedItem(vocabulary, syntax, name, item) {
-		var chain = createResourceChain(vocabulary, syntax, name);
-		var result = null, res;
-		var elements = require('elements');
+	function parseItem(name, value, type) {
+		value = normalizeCaretPlaceholder(value);
 		
-		for (var i = 0, il = chain.length; i < il; i++) {
-			res = chain[i];
-			if (item in res) {
-				if (!isParsed(res[item])) {
-					var value = normalizeCaretPlaceholder(res[item]);
-					switch(name) {
-						case 'abbreviations':
-							res[item] = parseAbbreviation(item, value);
-							res[item].__ref = value;
-							break;
-						case 'snippets':
-							res[item] = elements.create('snippet', value);
-							break;
-					}
-					
-					setParsed(res[item]);
-				}
-				
-				result = res[item];
-				break;
-			}
+		if (type == 'snippets') {
+			return require('elements').create('snippet', value);
 		}
 		
-		return result;
+		if (type == 'abbreviations') {
+			return parseAbbreviation(name, value);
+		}
 	}
 	
 	/**
@@ -4494,12 +4602,21 @@ emmet.define('resources', function(require, _) {
 		key = require('utils').trim(key);
 		var elements = require('elements');
 		var m;
-		if (m = reTag.exec(value)) {
+		if ((m = reTag.exec(value))) {
 			return elements.create('element', m[1], m[2], m[4] == '/');
 		} else {
 			// assume it's reference to another abbreviation
 			return elements.create('reference', value);
 		}
+	}
+	
+	/**
+	 * Normalizes snippet key name for better fuzzy search
+	 * @param {String} str
+	 * @returns {String}
+	 */
+	function normalizeName(str) {
+		return str.replace(/:$/, '').replace(/:/g, '-');
 	}
 	
 	return {
@@ -4510,6 +4627,7 @@ emmet.define('resources', function(require, _) {
 		 * @memberOf resources
 		 */
 		setVocabulary: function(data, type) {
+			cache = {};
 			if (type == VOC_SYSTEM)
 				systemSettings = data;
 			else
@@ -4517,59 +4635,24 @@ emmet.define('resources', function(require, _) {
 		},
 		
 		/**
-		 * Get data from specified vocabulary. Can contain parsed entities
-		 * @param {String} name Vocabulary type ('system' or 'user')
+		 * Returns resource vocabulary by its name
+		 * @param {String} name Vocabulary name ('system' or 'user')
 		 * @return {Object}
 		 */
-		getVocabulary: getVocabulary,
-		
-		/**
-		 * Returns resource value from data set with respect of inheritance
-		 * @param {String} syntax Resource syntax (html, css, ...)
-		 * @param {String} name Resource name ('snippets' or 'abbreviation')
-		 * @param {String} item Resource item name
-		 * @return {Object}
-		 */
-		getResource: function(syntax, name, item) {
-			return getParsedItem(VOC_USER, syntax, name, item) 
-				|| getParsedItem(VOC_SYSTEM, syntax, name, item);
-		},
-		
-		/**
-		 * Returns abbreviation value from data set
-		 * @param {String} type Resource type (html, css, ...)
-		 * @param {String} name Abbreviation name
-		 * @return {Object}
-		 */
-		getAbbreviation: function(type, name) {
-			name = name || '';
-			return this.getResource(type, 'abbreviations', name) 
-				|| this.getResource(type, 'abbreviations', name.replace(/\-/g, ':'));
-		},
-		
-		/**
-		 * Returns snippet value from data set
-		 * @param {String} type Resource type (html, css, ...)
-		 * @param {String} name Snippet name
-		 * @return {Object}
-		 */
-		getSnippet: function(type, name) {
-			name = name || '';
-			return this.getResource(type, 'snippets', name)
-				|| this.getResource(type, 'snippets', name.replace(/\-/g, ':'));
+		getVocabulary: function(name) {
+			return name == VOC_SYSTEM ? systemSettings : userSettings;
 		},
 		
 		/**
 		 * Returns resource (abbreviation, snippet, etc.) matched for passed 
 		 * abbreviation
-		 * @param {TreeNode} node
+		 * @param {AbbreviationNode} node
 		 * @param {String} syntax
 		 * @returns {Object}
 		 */
 		getMatchedResource: function(node, syntax) {
 			return resolvers.exec(null, _.toArray(arguments)) 
-				|| this.getAbbreviation(syntax, node.name()) 
-				|| this.getSnippet(syntax, node.name());
+				|| this.findSnippet(syntax, node.name());
 		},
 		
 		/**
@@ -4577,8 +4660,7 @@ emmet.define('resources', function(require, _) {
 		 * @return {String}
 		 */
 		getVariable: function(name) {
-			return getSubset(VOC_USER, 'variables', name) 
-				|| getSubset(VOC_SYSTEM, 'variables', name);
+			return (this.getSection('variables') || {})[name];
 		},
 		
 		/**
@@ -4587,7 +4669,7 @@ emmet.define('resources', function(require, _) {
 		 * @param {String} value Variable value
 		 */
 		setVariable: function(name, value){
-			var voc = getVocabulary('user') || {};
+			var voc = this.getVocabulary('user') || {};
 			if (!('variables' in voc))
 				voc.variables = {};
 				
@@ -4596,24 +4678,13 @@ emmet.define('resources', function(require, _) {
 		},
 		
 		/**
-		 * Returns resource subset from settings vocabulary
-		 * @param {String} syntax Syntax name
-		 * @param {String} name Resource name
-		 * @return {Object}
-		 */
-		getSubset: function(syntax, name) {
-			return getSubset(VOC_USER, syntax, name) 
-				|| getSubset(VOC_SYSTEM, syntax, name);
-		},
-		
-		/**
 		 * Check if there are resources for specified syntax
 		 * @param {String} syntax
 		 * @return {Boolean}
 		 */
 		hasSyntax: function(syntax) {
-			return syntax in getVocabulary(VOC_USER) 
-				|| syntax in getVocabulary(VOC_SYSTEM);
+			return syntax in this.getVocabulary(VOC_USER) 
+				|| syntax in this.getVocabulary(VOC_SYSTEM);
 		},
 		
 		/**
@@ -4631,6 +4702,160 @@ emmet.define('resources', function(require, _) {
 		
 		removeResolver: function(fn) {
 			resolvers.remove(fn);
+		},
+		
+		/**
+		 * Returns actual section data, merged from both
+		 * system and user data
+		 * @param {String} name Section name (syntax)
+		 * @param {String} ...args Subsections
+		 * @returns
+		 */
+		getSection: function(name) {
+			if (!name)
+				return null;
+			
+			if (!(name in cache)) {
+				cache[name] = require('utils').deepMerge({}, systemSettings[name], userSettings[name]);
+			}
+			
+			var data = cache[name], subsections = _.rest(arguments), key;
+			while (data && (key = subsections.shift())) {
+				if (key in data) {
+					data = data[key];
+				} else {
+					return null;
+				}
+			}
+			
+			return data;
+		},
+		
+		/**
+		 * Recursively searches for a item inside top level sections (syntaxes)
+		 * with respect of `extends` attribute
+		 * @param {String} topSection Top section name (syntax)
+		 * @param {String} subsection Inner section name
+		 * @returns {Object}
+		 */
+		findItem: function(topSection, subsection) {
+			var data = this.getSection(topSection);
+			while (data) {
+				if (subsection in data)
+					return data[subsection];
+				
+				data = this.getSection(data['extends']);
+			}
+		},
+		
+		/**
+		 * Recursively searches for a snippet definition inside syntax section.
+		 * Definition is searched inside `snippets` and `abbreviations` 
+		 * subsections  
+		 * @param {String} syntax Top-level section name (syntax)
+		 * @param {String} name Snippet name
+		 * @returns {Object}
+		 */
+		findSnippet: function(syntax, name, memo) {
+			if (!syntax || !name)
+				return null;
+			
+			memo = memo || [];
+			
+			var names = [name];
+			// create automatic aliases to properties with colons,
+			// e.g. pos-a == pos:a
+			if (~name.indexOf('-'))
+				names.push(name.replace(/\-/g, ':'));
+			
+			var data = this.getSection(syntax), matchedItem = null;
+			_.find(['snippets', 'abbreviations'], function(sectionName) {
+				var data = this.getSection(syntax, sectionName);
+				if (data) {
+					return _.find(names, function(n) {
+						if (data[n])
+							return matchedItem = parseItem(n, data[n], sectionName);
+					});
+				}
+			}, this);
+			
+			memo.push(syntax);
+			if (!matchedItem && data['extends'] && !_.include(memo, data['extends'])) {
+				// try to find item in parent syntax section
+				return this.findSnippet(data['extends'], name, memo);
+			}
+			
+			return matchedItem;
+		},
+		
+		/**
+		 * Performs fuzzy search of snippet definition
+		 * @param {String} syntax Top-level section name (syntax)
+		 * @param {String} name Snippet name
+		 * @returns
+		 */
+		fuzzyFindSnippet: function(syntax, name, minScore) {
+			minScore = minScore || 0.3;
+			
+			var payload = this.getAllSnippets(syntax);
+			var sc = require('string-score');
+			
+			name = normalizeName(name);
+			var scores = _.map(payload, function(value, key) {
+				return {
+					key: key,
+					score: sc.score(value.nk, name, 0.1)
+				};
+			});
+			
+			var result = _.last(_.sortBy(scores, 'score'));
+			if (result && result.score >= minScore) {
+				var k = result.key;
+				return payload[k].parsedValue;
+//				return parseItem(k, payload[k].value, payload[k].type);
+			}
+		},
+		
+		/**
+		 * Returns plain dictionary of all available abbreviations and snippets
+		 * for specified syntax with respect of inheritance
+		 * @param {String} syntax
+		 * @returns {Object}
+		 */
+		getAllSnippets: function(syntax) {
+			var cacheKey = 'all-' + syntax;
+			if (!cache[cacheKey]) {
+				var stack = [], sectionKey = syntax;
+				var memo = [];
+				
+				do {
+					var section = this.getSection(sectionKey);
+					if (!section)
+						break;
+					
+					_.each(['snippets', 'abbreviations'], function(sectionName) {
+						var stackItem = {};
+						_.each(section[sectionName] || null, function(v, k) {
+							stackItem[k] = {
+								nk: normalizeName(k),
+								value: v,
+								parsedValue: parseItem(k, v, sectionName),
+								type: sectionName
+							};
+						});
+						
+						stack.push(stackItem);
+					});
+					
+					memo.push(sectionKey);
+					sectionKey = section['extends'];
+				} while (sectionKey && !_.include(memo, sectionKey));
+				
+				
+				cache[cacheKey] = _.extend.apply(_, stack.reverse());
+			}
+			
+			return cache[cacheKey];
 		}
 	};
 });/**
@@ -4639,7 +4864,7 @@ emmet.define('resources', function(require, _) {
  * @param {Function} require
  * @param {Underscore} _
  */
-emmet.define('actions', function(require, _, zc) {
+emmet.define('actions', function(require, _) {
 	var actions = {};
 	
 	/**
@@ -4755,7 +4980,7 @@ emmet.define('actions', function(require, _, zc) {
 					
 					// create submenus, if needed
 					var menuName, submenu;
-					while (menuName = parts.shift()) {
+					while ((menuName = parts.shift())) {
 						submenu = _.find(ctx, function(item) {
 							return item.type == 'submenu' && item.name == menuName;
 						});
@@ -4837,7 +5062,12 @@ emmet.define('profile', function(require, _) {
 		self_closing_tag: 'xhtml',
 		
 		// Profile-level output filters, re-defines syntax filters 
-		filters: ''
+		filters: '',
+		
+		// Additional filters applied to abbreviation.
+		// Unlike "filters", this preference doesn't override default filters
+		// but add the instead every time given profile is chosen
+		extraFilters: ''
 	};
 	
 	/**
@@ -4878,10 +5108,9 @@ emmet.define('profile', function(require, _) {
 		
 		/**
 		 * Returns self-closing tag symbol for current profile
-		 * @param {String} param
 		 * @returns {String}
 		 */
-		selfClosing: function(param) {
+		selfClosing: function() {
 			if (this.self_closing_tag == 'xhtml')
 				return ' /';
 			
@@ -4928,12 +5157,15 @@ emmet.define('profile', function(require, _) {
 		return profiles[name.toLowerCase()] = new OutputProfile(options);
 	}
 	
-	// create default profiles
-	createProfile('xhtml');
-	createProfile('html', {self_closing_tag: false});
-	createProfile('xml', {self_closing_tag: true, tag_nl: true});
-	createProfile('plain', {tag_nl: false, indent: false, place_cursor: false});
-	createProfile('line', {tag_nl: false, indent: false});
+	function createDefaultProfiles() {
+		createProfile('xhtml');
+		createProfile('html', {self_closing_tag: false});
+		createProfile('xml', {self_closing_tag: true, tag_nl: true});
+		createProfile('plain', {tag_nl: false, indent: false, place_cursor: false});
+		createProfile('line', {tag_nl: false, indent: false, extraFilters: 's'});
+	}
+	
+	createDefaultProfiles();
 	
 	return  {
 		/**
@@ -4960,22 +5192,25 @@ emmet.define('profile', function(require, _) {
 		 * @returns {Object}
 		 */
 		get: function(name, syntax) {
-			if (syntax && _.isString(name)) {
+			if (!name && syntax) {
 				// search in user resources first
-				var profile = require('resources').getSubset(syntax, 'profile');
+				var profile = require('resources').findItem(syntax, 'profile');
 				if (profile) {
 					name = profile;
 				}
 			}
 			
-			if (!name)
+			if (!name) {
 				return profiles.plain;
+			}
 			
-			if (name instanceof OutputProfile)
+			if (name instanceof OutputProfile) {
 				return name;
+			}
 			
-			if (_.isString(name) && name.toLowerCase() in profiles)
+			if (_.isString(name) && name.toLowerCase() in profiles) {
 				return profiles[name.toLowerCase()];
+			}
 			
 			return this.create(name);
 		},
@@ -4988,6 +5223,14 @@ emmet.define('profile', function(require, _) {
 			name = (name || '').toLowerCase();
 			if (name in profiles)
 				delete profiles[name];
+		},
+		
+		/**
+		 * Resets all user-defined profiles
+		 */
+		reset: function() {
+			profiles = {};
+			createDefaultProfiles();
 		},
 		
 		/**
@@ -5042,10 +5285,15 @@ emmet.define('editorUtils', function(require, _) {
 		 * @param {String} profile
 		 */
 		outputInfo: function(editor, syntax, profile) {
+			// most of this code makes sense for Java/Rhino environment
+			// because string that comes from Java are not actually JS string
+			// but Java String object so the have to be explicitly converted
+			// to native string
+			profile = profile || editor.getProfileName();
 			return  {
 				/** @memberOf outputInfo */
 				syntax: String(syntax || editor.getSyntax()),
-				profile: String(profile || editor.getProfileName()),
+				profile: profile || null,
 				content: String(editor.getContent())
 			};
 		},
@@ -5151,8 +5399,9 @@ emmet.define('actionUtils', function(require, _) {
 			}
 			
 			if (startIndex != -1 && !textCount && !braceCount && !groupCount) 
-				// found something, return abbreviation
-				return str.substring(startIndex);
+				// found something, remove some invalid symbols from the 
+				// beginning and return abbreviation
+				return str.substring(startIndex).replace(/^[\*\+\>\^]+/, '');
 			else
 				return '';
 		},
@@ -5167,18 +5416,19 @@ emmet.define('actionUtils', function(require, _) {
 			var pngMagicNum = "\211PNG\r\n\032\n",
 				jpgMagicNum = "\377\330",
 				gifMagicNum = "GIF8",
+				pos = 0,
 				nextByte = function() {
 					return stream.charCodeAt(pos++);
 				};
 		
 			if (stream.substr(0, 8) === pngMagicNum) {
 				// PNG. Easy peasy.
-				var pos = stream.indexOf('IHDR') + 4;
+				pos = stream.indexOf('IHDR') + 4;
 			
-				return { width:  (nextByte() << 24) | (nextByte() << 16) |
-								 (nextByte() <<  8) | nextByte(),
-						 height: (nextByte() << 24) | (nextByte() << 16) |
-								 (nextByte() <<  8) | nextByte() };
+				return {
+					width:  (nextByte() << 24) | (nextByte() << 16) | (nextByte() <<  8) | nextByte(),
+					height: (nextByte() << 24) | (nextByte() << 16) | (nextByte() <<  8) | nextByte()
+				};
 			
 			} else if (stream.substr(0, 4) === gifMagicNum) {
 				pos = 6;
@@ -5202,8 +5452,10 @@ emmet.define('actionUtils', function(require, _) {
 				
 					if (marker >= 0xC0 && marker <= 0xCF && !(marker & 0x4) && !(marker & 0x8)) {
 						pos += 1;
-						return { height:  (nextByte() << 8) | nextByte(),
-								 width: (nextByte() << 8) | nextByte() };
+						return {
+							height: (nextByte() << 8) | nextByte(),
+							width: (nextByte() << 8) | nextByte()
+						};
 				
 					} else {
 						pos += size - 2;
@@ -5216,32 +5468,30 @@ emmet.define('actionUtils', function(require, _) {
 		 * Captures context XHTML element from editor under current caret position.
 		 * This node can be used as a helper for abbreviation extraction
 		 * @param {IEmmetEditor} editor
-		 * @returns {TreeNode}
+		 * @returns {Object}
 		 */
 		captureContext: function(editor) {
 			var allowedSyntaxes = {'html': 1, 'xml': 1, 'xsl': 1};
 			var syntax = String(editor.getSyntax());
 			if (syntax in allowedSyntaxes) {
-				var tags = require('html_matcher').getTags(
-						String(editor.getContent()), 
-						editor.getCaretPos(), 
-						String(editor.getProfileName()));
+				var content = String(editor.getContent());
+				var tag = require('htmlMatcher').find(content, editor.getCaretPos());
 				
-				if (tags && tags[0] && tags[0].type == 'tag') {
-					var reAttr = /([\w\-:]+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
-					var startTag = tags[0];
-					var tagAttrs = startTag.full_tag.replace(/^<[\w\-\:]+/, '');
+				if (tag && tag.type == 'tag') {
+					var startTag = tag.open;
 					var contextNode = {
 						name: startTag.name,
 						attributes: []
 					};
 					
 					// parse attributes
-					var m;
-					while (m = reAttr.exec(tagAttrs)) {
-						contextNode.attributes.push({
-							name: m[1],
-							value: m[2]
+					var tagTree = require('xmlEditTree').parse(startTag.range.substring(content));
+					if (tagTree) {
+						contextNode.attributes = _.map(tagTree.getAll(), function(item) {
+							return {
+								name: item.name(),
+								value: item.value()
+							};
 						});
 					}
 					
@@ -5292,6 +5542,109 @@ emmet.define('actionUtils', function(require, _) {
 			}
 			
 			return false;
+		},
+		
+		/**
+		 * Common syntax detection method for editors that doesn’t provide any
+		 * info about current syntax scope. 
+		 * @param {IEmmetEditor} editor Current editor
+		 * @param {String} hint Any syntax hint that editor can provide 
+		 * for syntax detection. Default is 'html'
+		 * @returns {String} 
+		 */
+		detectSyntax: function(editor, hint) {
+			var syntax = hint || 'html';
+			
+			if (!require('resources').hasSyntax(syntax)) {
+				syntax = 'html';
+			}
+			
+			if (syntax == 'html' && (this.isStyle(editor) || this.isInlineCSS(editor))) {
+				syntax = 'css';
+			}
+
+			if (syntax == 'styl') {
+				syntax = 'stylus';
+			}
+			
+			return syntax;
+		},
+		
+		/**
+		 * Common method for detecting output profile
+		 * @param {IEmmetEditor} editor
+		 * @returns {String}
+		 */
+		detectProfile: function(editor) {
+			var syntax = editor.getSyntax();
+			
+			// get profile from syntax definition
+			var profile = require('resources').findItem(syntax, 'profile');
+			if (profile) {
+				return profile;
+			}
+			
+			switch(syntax) {
+				case 'xml':
+				case 'xsl':
+					return 'xml';
+				case 'css':
+					if (this.isInlineCSS(editor)) {
+						return 'line';
+					}
+					break;
+				case 'html':
+					profile = require('resources').getVariable('profile');
+					if (!profile) { // no forced profile, guess from content
+						// html or xhtml?
+						profile = this.isXHTML(editor) ? 'xhtml': 'html';
+					}
+
+					return profile;
+			}
+
+			return 'xhtml';
+		},
+		
+		/**
+		 * Tries to detect if current document is XHTML one.
+		 * @param {IEmmetEditor} editor
+		 * @returns {Boolean}
+		 */
+		isXHTML: function(editor) {
+			return editor.getContent().search(/<!DOCTYPE[^>]+XHTML/i) != -1;
+		},
+		
+		/**
+		 * Check if current caret position is inside &lt;style&gt; tag
+		 * @param {IEmmetEditor} editor
+		 * @returns
+		 */
+		isStyle: function(editor) {
+			var content = String(editor.getContent());
+			var caretPos = editor.getCaretPos();
+			var tag = require('htmlMatcher').tag(content, caretPos);
+			return tag && tag.open.name.toLowerCase() == 'style' 
+				&& tag.innerRange.cmp(caretPos, 'lte', 'gte');
+		},
+		
+		/**
+		 * Check if current caret position is inside "style" attribute of HTML
+		 * element
+		 * @param {IEmmetEditor} editor
+		 * @returns {Boolean}
+		 */
+		isInlineCSS: function(editor) {
+			var content = String(editor.getContent());
+			var caretPos = editor.getCaretPos();
+			var tree = require('xmlEditTree').parseFromPosition(content, caretPos, true);
+			if (tree) {
+				var attr = tree.itemFromPosition(caretPos, true);
+				return attr && attr.name().toLowerCase() == 'style' 
+					&& attr.valueRange(true).cmp(caretPos, 'lte', 'gte');
+			}
+            
+            return false;
 		}
 	};
 });/**
@@ -5302,26 +5655,17 @@ emmet.define('actionUtils', function(require, _) {
 emmet.define('abbreviationUtils', function(require, _) {
 	return {
 		/**
-		 * Check if passed abbreviation node has matched snippet resource
-		 * @param {AbbreviationNode} node
-		 * @returns {Boolean}
-		 * @memberOf abbreviationUtils
-		 */
-		isSnippet: function(node) {
-			return require('elements').is(node.matchedResource(), 'snippet');
-		},
-		
-		/**
 		 * Test if passed node is unary (no closing tag)
 		 * @param {AbbreviationNode} node
 		 * @return {Boolean}
 		 */
 		isUnary: function(node) {
-			var r = node.matchedResource();
-			if (node.children.length || this.isSnippet(node))
+			if (node.children.length || node._text || this.isSnippet(node)) {
 				return false;
+			}
 			
-			return r && r.is_empty || require('tagName').isEmptyElement(node.name());
+			var r = node.matchedResource();
+			return r && r.is_empty;
 		},
 		
 		/**
@@ -5341,8 +5685,16 @@ emmet.define('abbreviationUtils', function(require, _) {
 		 * @return {Boolean}
 		 */
 		isBlock: function(node) {
-			return require('elements').is(node.matchedResource(), 'snippet') 
-				|| !this.isInline(node);
+			return this.isSnippet(node) || !this.isInline(node);
+		},
+		
+		/**
+		 * Test if given node is a snippet
+		 * @param {AbbreviationNode} node
+		 * @return {Boolean}
+		 */
+		isSnippet: function(node) {
+			return require('elements').is(node.matchedResource(), 'snippet');
 		},
 		
 		/**
@@ -5492,306 +5844,283 @@ emmet.define('base64', function(require, _) {
 		}
 	};
 });/**
- * @author Sergey Chikuyonok (serge.che@gmail.com)
- * @link http://chikuyonok.ru
+ * HTML matcher: takes string and searches for HTML tag pairs for given position 
+ * 
+ * Unlike “classic” matchers, it parses content from the specified 
+ * position, not from the start, so it may work even outside HTML documents
+ * (for example, inside strings of programming languages like JavaScript, Python 
+ * etc.)
+ * @constructor
+ * @memberOf __htmlMatcherDefine
  */
-(function(){
+emmet.define('htmlMatcher', function(require, _) {
 	// Regular Expressions for parsing tags and attributes
-	var start_tag = /^<([\w\:\-]+)((?:\s+[\w\-:]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
-		end_tag = /^<\/([\w\:\-]+)[^>]*>/,
-		attr = /([\w\-:]+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
-		
-	// Empty Elements - HTML 4.01
-	var empty = makeMap("area,base,basefont,br,col,frame,hr,img,input,isindex,link,meta,param,embed");
-
-	// Block Elements - HTML 4.01
-	var block = makeMap("address,applet,blockquote,button,center,dd,dir,div,dl,dt,fieldset,form,frameset,hr,iframe,isindex,li,map,menu,noframes,noscript,object,ol,p,pre,script,table,tbody,td,tfoot,th,thead,tr,ul");
-
-	// Inline Elements - HTML 4.01
-	var inline = makeMap("a,abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,select,small,span,strike,strong,sub,sup,textarea,tt,u,var");
-
-	// Elements that you can, intentionally, leave open
-	// (and which close themselves)
-	var close_self = makeMap("colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr");
+	var reOpenTag = /^<([\w\:\-]+)((?:\s+[\w\-:]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/;
+	var reCloseTag = /^<\/([\w\:\-]+)[^>]*>/;
 	
-	/** Current matching mode */
-	var cur_mode = 'xhtml';
-	
-	/** Last matched HTML pair */
-	var last_match = {
-		opening_tag: null, // tag() or comment() object
-		closing_tag: null, // tag() or comment() object
-		start_ix: -1,
-		end_ix: -1
-	};
-	
-	function setMode(new_mode) {
-		if (!new_mode || new_mode != 'html')
-			new_mode = 'xhtml';
-			
-		cur_mode = new_mode;
-	}
-	
-	function tag(match, ix) {
-		var name = match[1].toLowerCase();
-		return  {
-			name: name,
-			full_tag: match[0],
-			start: ix,
-			end: ix + match[0].length,
-			unary: Boolean(match[3]) || (name in empty && cur_mode == 'html'),
-			has_close: Boolean(match[3]),
-			type: 'tag',
-			close_self: (name in close_self && cur_mode == 'html')
+	function openTag(i, match) {
+		return {
+			name: match[1],
+			selfClose: !!match[3],
+			/** @type Range */
+			range: require('range').create(i, match[0]),
+			type: 'open'
 		};
 	}
 	
-	function comment(start, end) {
+	function closeTag(i, match) {
 		return {
-			start: start,
-			end: end,
+			name: match[1],
+			/** @type Range */
+			range: require('range').create(i, match[0]),
+			type: 'close'
+		};
+	}
+	
+	function comment(i, match) {
+		return {
+			/** @type Range */
+			range: require('range').create(i, _.isNumber(match) ? match - i : match[0]),
 			type: 'comment'
 		};
 	}
 	
-	function makeMap(str){
-		var obj = {}, items = str.split(",");
-		for ( var i = 0; i < items.length; i++ )
-			obj[ items[i] ] = true;
-		return obj;
-	}
-	
 	/**
-	 * Makes selection ranges for matched tag pair
-	 * @param {tag} opening_tag
-	 * @param {tag} closing_tag
-	 * @param {Number} ix
-	 */
-	function makeRange(opening_tag, closing_tag, ix) {
-		ix = ix || 0;
-		
-		var start_ix = -1, 
-			end_ix = -1;
-		
-		if (opening_tag && !closing_tag) { // unary element
-			start_ix = opening_tag.start;
-			end_ix = opening_tag.end;
-		} else if (opening_tag && closing_tag) { // complete element
-			if (
-				(opening_tag.start < ix && opening_tag.end > ix) || 
-				(closing_tag.start <= ix && closing_tag.end > ix)
-			) {
-				start_ix = opening_tag.start;
-				end_ix = closing_tag.end;
-			} else {
-				start_ix = opening_tag.end;
-				end_ix = closing_tag.start;
-			}
-		}
-		
-		return [start_ix, end_ix];
-	}
-	
-	/**
-	 * Save matched tag for later use and return found indexes
-	 * @param {tag} opening_tag
-	 * @param {tag} closing_tag
-	 * @param {Number} ix
-	 * @return {Array}
-	 */
-	function saveMatch(opening_tag, closing_tag, ix) {
-		ix = ix || 0;
-		last_match.opening_tag = opening_tag; 
-		last_match.closing_tag = closing_tag;
-		
-		var range = makeRange(opening_tag, closing_tag, ix);
-		last_match.start_ix = range[0];
-		last_match.end_ix = range[1];
-		
-		return last_match.start_ix != -1 ? [last_match.start_ix, last_match.end_ix] : null;
-	}
-	
-	/**
-	 * Handle unary tag: find closing tag if needed
+	 * Creates new tag matcher session
 	 * @param {String} text
-	 * @param {Number} ix
-	 * @param {tag} open_tag
-	 * @return {tag|null} Closing tag (or null if not found) 
 	 */
-	function handleUnaryTag(text, ix, open_tag) {
-		if (open_tag.has_close)
-			return null;
-		else {
-			// TODO finish this method
-		}
+	function createMatcher(text) {
+		var memo = {}, m;
+		return {
+			/**
+			 * Test if given position matches opening tag
+			 * @param {Number} i
+			 * @returns {Object} Matched tag object
+			 */
+			open: function(i) {
+				var m = this.matches(i);
+				return m && m.type == 'open' ? m : null;
+			},
+			
+			/**
+			 * Test if given position matches closing tag
+			 * @param {Number} i
+			 * @returns {Object} Matched tag object
+			 */
+			close: function(i) {
+				var m = this.matches(i);
+				return m && m.type == 'close' ? m : null;
+			},
+			
+			/**
+			 * Matches either opening or closing tag for given position
+			 * @param i
+			 * @returns
+			 */
+			matches: function(i) {
+				var key = 'p' + i;
+				
+				if (!(key in memo)) {
+					if (text.charAt(i) == '<') {
+						var substr = text.slice(i);
+						if ((m = substr.match(reOpenTag))) {
+							memo[key] = openTag(i, m);
+						} else if ((m = substr.match(reCloseTag))) {
+							memo[key] = closeTag(i, m);
+						} else {
+							// remember that given position contains no valid tag
+							memo[key] = false;
+						}
+					}
+				}
+				
+				return memo[key];
+			},
+			
+			/**
+			 * Returns original text
+			 * @returns {String}
+			 */
+			text: function() {
+				return text;
+			}
+		};
+	}
+	
+	function matches(text, pos, pattern) {
+		return text.substring(pos, pos + pattern.length) == pattern;
 	}
 	
 	/**
-	 * Search for matching tags in <code>html</code>, starting from 
-	 * <code>start_ix</code> position
-	 * @param {String} html Code to search
-	 * @param {Number} start_ix Character index where to start searching pair 
-	 * (commonly, current caret position)
-	 * @param {Function} action Function that creates selection range
-	 * @return {Array}
+	 * Search for closing pair of opening tag
+	 * @param {Object} open Open tag instance
+	 * @param {Object} matcher Matcher instance
 	 */
-	function findPair(html, start_ix, mode, action) {
-		action = action || makeRange;
-		setMode(mode);
+	function findClosingPair(open, matcher) {
+		var stack = [], tag = null;
+		var text = matcher.text();
 		
-		var forward_stack = [],
-			backward_stack = [],
-			/** @type {tag()} */
-			opening_tag = null,
-			/** @type {tag()} */
-			closing_tag = null,
-			html_len = html.length,
-			m,
-			ix,
-			tmp_tag;
-			
-		forward_stack.last = backward_stack.last = function() {
-			return this[this.length - 1];
-		};
-		
-		function hasMatch(str, start) {
-			if (arguments.length == 1)
-				start = ix;
-			return html.substr(start, str.length) == str;
-		}
-		
-		function searchCommentStart(from) {
-			while (from--) {
-				if (html.charAt(from) == '<' && hasMatch('<!--', from))
-					break;
-			}
-			
-			return from;
-		}
-		
-		// find opening tag
-		ix = start_ix;
-		while (ix-- && ix >= 0) {
-			var ch = html.charAt(ix);
-			if (ch == '<') {
-				var check_str = html.substring(ix, html_len);
-				
-				if ( (m = check_str.match(end_tag)) ) { // found closing tag
-					tmp_tag = tag(m, ix);
-					if (tmp_tag.start < start_ix && tmp_tag.end > start_ix) // direct hit on searched closing tag
-						closing_tag = tmp_tag;
-					else
-						backward_stack.push(tmp_tag);
-				} else if ( (m = check_str.match(start_tag)) ) { // found opening tag
-					tmp_tag = tag(m, ix);
-					
-					if (tmp_tag.unary) {
-						if (tmp_tag.start < start_ix && tmp_tag.end > start_ix) // exact match
-							// TODO handle unary tag 
-							return action(tmp_tag, null, start_ix);
-					} else if (backward_stack.last() && backward_stack.last().name == tmp_tag.name) {
-						backward_stack.pop();
-					} else { // found nearest unclosed tag
-						opening_tag = tmp_tag;
+		for (var pos = open.range.end, len = text.length; pos < len; pos++) {
+			if (matches(text, pos, '<!--')) {
+				// skip to end of comment
+				for (var j = pos; j < len; j++) {
+					if (matches(text, j, '-->')) {
+						pos = j + 3;
 						break;
 					}
-				} else if (check_str.indexOf('<!--') == 0) { // found comment start
-					var end_ix = check_str.search('-->') + ix + 3;
-					if (ix < start_ix && end_ix >= start_ix)
-						return action( comment(ix, end_ix) );
 				}
-			} else if (ch == '-' && hasMatch('-->')) { // found comment end
-				// search left until comment start is reached
-				ix = searchCommentStart(ix);
 			}
-		}
-		
-		if (!opening_tag)
-			return action(null);
-		
-		// find closing tag
-		if (!closing_tag) {
-			for (ix = start_ix; ix < html_len; ix++) {
-				var ch = html.charAt(ix);
-				if (ch == '<') {
-					var check_str = html.substring(ix, html_len);
+			
+			if ((tag = matcher.matches(pos))) {
+				if (tag.type == 'open' && !tag.selfClose) {
+					stack.push(tag.name);
+				} else if (tag.type == 'close') {
+					if (!stack.length) { // found valid pair?
+						return tag.name == open.name ? tag : null;
+					}
 					
-					if ( (m = check_str.match(start_tag)) ) { // found opening tag
-						tmp_tag = tag(m, ix);
-						if (!tmp_tag.unary)
-							forward_stack.push( tmp_tag );
-					} else if ( (m = check_str.match(end_tag)) ) { // found closing tag
-						var tmp_tag = tag(m, ix);
-						if (forward_stack.last() && forward_stack.last().name == tmp_tag.name)
-							forward_stack.pop();
-						else { // found matched closing tag
-							closing_tag = tmp_tag;
-							break;
+					// check if current closing tag matches previously opened one
+					if (_.last(stack) == tag.name) {
+						stack.pop();
+					} else {
+						var found = false;
+						while (stack.length && !found) {
+							var last = stack.pop();
+							if (last == tag.name) {
+								found = true;
+							}
 						}
-					} else if (hasMatch('<!--')) { // found comment
-						ix += check_str.search('-->') + 2;
-					}
-				} else if (ch == '-' && hasMatch('-->')) {
-					// looks like cursor was inside comment with invalid HTML
-					if (!forward_stack.last() || forward_stack.last().type != 'comment') {
-						var end_ix = ix + 3;
-						return action(comment( searchCommentStart(ix), end_ix ));
+						
+						if (!stack.length && !found) {
+							return tag.name == open.name ? tag : null;
+						}
 					}
 				}
 			}
+			
 		}
-		
-		return action(opening_tag, closing_tag, start_ix);
 	}
 	
-	/**
-	 * Search for matching tags in <code>html</code>, starting 
-	 * from <code>start_ix</code> position. The result is automatically saved in 
-	 * <code>last_match</code> property
-	 * 
-	 * @return {Array|null}
-	 */
-	var HTMLPairMatcher = function(/* String */ html, /* Number */ start_ix, /*  */ mode){
-		return findPair(html, start_ix, mode, saveMatch);
+	return {
+		/**
+		 * Main function: search for tag pair in <code>text</code> for given 
+		 * position
+		 * @memberOf htmlMatcher
+		 * @param {String} text 
+		 * @param {Number} pos
+		 * @returns {Object}
+		 */
+		find: function(text, pos) {
+			var range = require('range');
+			var matcher = createMatcher(text); 
+			var open = null, close = null;
+			var j, jl;
+			
+			for (var i = pos; i >= 0; i--) {
+				if ((open = matcher.open(i))) {
+					// found opening tag
+					if (open.selfClose) {
+						if (open.range.cmp(pos, 'lt', 'gt')) {
+							// inside self-closing tag, found match
+							break;
+						}
+						
+						// outside self-closing tag, continue
+						continue;
+					}
+					
+					close = findClosingPair(open, matcher);
+					if (close) {
+						// found closing tag.
+						var r = range.create2(open.range.start, close.range.end);
+						if (r.contains(pos)) {
+							break;
+						}
+					} else if (open.range.contains(pos)) {
+						// we inside empty HTML tag like <br>
+						break;
+					}
+					
+					open = null;
+				} else if (matches(text, i, '-->')) {
+					// skip back to comment start
+					for (j = i - 1; j >= 0; j--) {
+						if (matches(text, j, '-->')) {
+							// found another comment end, do nothing
+							break;
+						} else if (matches(text, j, '<!--')) {
+							i = j;
+							break;
+						}
+					}
+				} else if (matches(text, i, '<!--')) {
+					// we're inside comment, match it
+					for (j = i + 4, jl = text.length; j < jl; j++) {
+						if (matches(text, j, '-->')) {
+							j += 3;
+							break;
+						}
+					}
+					
+					open = comment(i, j);
+					break;
+				}
+			}
+			
+			if (open) {
+				var outerRange = null;
+				var innerRange = null;
+				
+				if (close) {
+					outerRange = range.create2(open.range.start, close.range.end);
+					innerRange = range.create2(open.range.end, close.range.start);
+				} else {
+					outerRange = innerRange = range.create2(open.range.start, open.range.end);
+				}
+				
+				if (open.type == 'comment') {
+					// adjust positions of inner range for comment
+					var _c = outerRange.substring(text);
+					innerRange.start += _c.length - _c.replace(/^<\!--\s*/, '').length;
+					innerRange.end -= _c.length - _c.replace(/\s*-->$/, '').length;
+				}
+				
+				return {
+					open: open,
+					close: close,
+					type: open.type == 'comment' ? 'comment' : 'tag',
+					innerRange: innerRange,
+					innerContent: function() {
+						return this.innerRange.substring(text);
+					},
+					outerRange: outerRange,
+					outerContent: function() {
+						return this.outerRange.substring(text);
+					},
+					range: !innerRange.length() || !innerRange.cmp(pos, 'lte', 'gte') ? outerRange : innerRange,
+					content: function() {
+						return this.range.substring(text);
+					},
+					source: text
+				};
+			}
+		},
+		
+		/**
+		 * The same as <code>find()</code> method, but restricts matched result 
+		 * to <code>tag</code> type
+		 * @param {String} text 
+		 * @param {Number} pos
+		 * @returns {Object}
+		 */
+		tag: function(text, pos) {
+			var result = this.find(text, pos);
+			if (result && result.type == 'tag') {
+				return result;
+			}
+		}
 	};
-	
-	HTMLPairMatcher.start_tag = start_tag;
-	HTMLPairMatcher.end_tag = end_tag;
-	
-	/**
-	 * Search for matching tags in <code>html</code>, starting from 
-	 * <code>start_ix</code> position. The difference between 
-	 * <code>HTMLPairMatcher</code> function itself is that <code>find</code> 
-	 * method doesn't save matched result in <code>last_match</code> property.
-	 * This method is generally used for lookups 
-	 */
-	HTMLPairMatcher.find = function(html, start_ix, mode) {
-		return findPair(html, start_ix, mode);
-	};
-	
-	/**
-	 * Search for matching tags in <code>html</code>, starting from 
-	 * <code>start_ix</code> position. The difference between 
-	 * <code>HTMLPairMatcher</code> function itself is that <code>getTags</code> 
-	 * method doesn't save matched result in <code>last_match</code> property 
-	 * and returns array of opening and closing tags
-	 * This method is generally used for lookups 
-	 */
-	HTMLPairMatcher.getTags = function(html, start_ix, mode) {
-		return findPair(html, start_ix, mode, function(opening_tag, closing_tag){
-			return [opening_tag, closing_tag];
-		});
-	};
-	
-	HTMLPairMatcher.last_match = last_match;
-	
-	try {
-		emmet.define('html_matcher', function() {
-			return HTMLPairMatcher;
-		});
-	} catch(e){}
-	
-})();/**
+});/**
  * Utility module for handling tabstops tokens generated by Emmet's 
  * "Expand Abbreviation" action. The main <code>extract</code> method will take
  * raw text (for example: <i>${0} some ${1:text}</i>), find all tabstops 
@@ -5833,20 +6162,26 @@ emmet.define('tabStops', function(require, _) {
 		var tabstops = require('tabStops');
 		var utils = require('utils');
 		
-		// upgrade tabstops
-		text = tabstops.processText(text, {
+		var tsOptions = {
 			tabstop: function(data) {
-				var group = parseInt(data.group);
-				if (group == 0)
+				var group = parseInt(data.group, 10);
+				if (group === 0)
 					return '${0}';
 				
 				if (group > maxNum) maxNum = group;
-				if (data.placeholder)
-					return '${' + (group + tabstopIndex) + ':' + data.placeholder + '}';
-				else
+				if (data.placeholder) {
+					// respect nested placeholders
+					var ix = group + tabstopIndex;
+					var placeholder = tabstops.processText(data.placeholder, tsOptions);
+					return '${' + ix + ':' + placeholder + '}';
+				} else {
 					return '${' + (group + tabstopIndex) + '}';
+				}
 			}
-		});
+		};
+		
+		// upgrade tabstops
+		text = tabstops.processText(text, tsOptions);
 		
 		// resolve variables
 		text = utils.replaceVariables(text, tabstops.variablesResolver(node));
@@ -5932,14 +6267,14 @@ emmet.define('tabStops', function(require, _) {
 			text = this.processText(text, options);
 			
 			// now, replace all tabstops with placeholders
-			var buf = utils.stringBuilder(), lastIx = 0;
+			var buf = '', lastIx = 0;
 			var tabStops = _.map(marks, function(mark) {
-				buf.append(text.substring(lastIx, mark.start));
+				buf += text.substring(lastIx, mark.start);
 				
 				var pos = buf.length;
 				var ph = placeholders[mark.group] || '';
 				
-				buf.append(ph);
+				buf += ph;
 				lastIx = mark.end;
 				
 				return {
@@ -5949,10 +6284,10 @@ emmet.define('tabStops', function(require, _) {
 				};
 			});
 			
-			buf.append(text.substring(lastIx));
+			buf += text.substring(lastIx);
 			
 			return {
-				text: buf.toString(),
+				text: buf,
 				tabstops: _.sortBy(tabStops, 'start')
 			};
 		},
@@ -5969,15 +6304,15 @@ emmet.define('tabStops', function(require, _) {
 		processText: function(text, options) {
 			options = _.extend({}, defaultOptions, options);
 			
-			var buf = require('utils').stringBuilder();
+			var buf = '';
 			/** @type StringStream */
 			var stream = require('stringStream').create(text);
 			var ch, m, a;
 			
-			while (ch = stream.next()) {
+			while ((ch = stream.next())) {
 				if (ch == '\\' && !stream.eol()) {
 					// handle escaped character
-					buf.append(options.escape(stream.next()));
+					buf += options.escape(stream.next());
 					continue;
 				}
 				
@@ -5987,40 +6322,45 @@ emmet.define('tabStops', function(require, _) {
 					// looks like a tabstop
 					stream.start = stream.pos - 1;
 					
-					if (m = stream.match(/^[0-9]+/)) {
+					if ((m = stream.match(/^[0-9]+/))) {
 						// it's $N
 						a = options.tabstop({
 							start: buf.length, 
 							group: stream.current().substr(1),
 							token: stream.current()
 						});
-					} else if (m = stream.match(/^\{([a-z_\-][\w\-]*)\}/)) {
+					} else if ((m = stream.match(/^\{([a-z_\-][\w\-]*)\}/))) {
 						// ${variable}
 						a = options.variable({
 							start: buf.length, 
 							name: m[1],
 							token: stream.current()
 						});
-					} else if (m = stream.match(/^\{([0-9]+)(:.+?)?\}/)) {
+					} else if ((m = stream.match(/^\{([0-9]+)(:.+?)?\}/, false))) {
 						// ${N:value} or ${N} placeholder
+						// parse placeholder, including nested ones
+						stream.skipToPair('{', '}');
+						
 						var obj = {
 							start: buf.length, 
 							group: m[1],
 							token: stream.current()
 						};
 						
-						if (m[2]) {
-							obj.placeholder = m[2].substr(1);
+						var placeholder = obj.token.substring(obj.group.length + 2, obj.token.length - 1);
+						
+						if (placeholder) {
+							obj.placeholder = placeholder.substr(1);
 						}
 						
 						a = options.tabstop(obj);
 					}
 				}
 				
-				buf.append(a);
+				buf += a;
 			}
 			
-			return buf.toString();
+			return buf;
 		},
 		
 		/**
@@ -6033,7 +6373,7 @@ emmet.define('tabStops', function(require, _) {
 			var maxNum = 0;
 			var options = {
 				tabstop: function(data) {
-					var group = parseInt(data.group);
+					var group = parseInt(data.group, 10);
 					if (group > maxNum) maxNum = group;
 						
 					if (data.placeholder)
@@ -6072,8 +6412,9 @@ emmet.define('tabStops', function(require, _) {
 					return require('utils').getCaretPlaceholder();
 				
 				var attr = node.attribute(varName);
-				if (!_.isUndefined(attr))
+				if (!_.isUndefined(attr) && attr !== str) {
 					return attr;
+				}
 				
 				var varValue = res.getVariable(varName);
 				if (varValue)
@@ -6085,11 +6426,6 @@ emmet.define('tabStops', function(require, _) {
 					
 				return '${' + placeholderMemo[varName] + ':' + varName + '}';
 			};
-		},
-		
-		resetPlaceholderCounter: function() {
-			console.log('deprecated');
-			startPlaceholderNum = 100;
 		},
 		
 		/**
@@ -6199,12 +6535,14 @@ emmet.define('preferences', function(require, _) {
 							v = parseInt(v + '', 10) || 0;
 							break;
 						default: // convert to string
-							v += '';
+							if (v !== null) {
+								v += '';
+							}
 					}
 
 					preferences[k] = v;
 				} else if  (k in preferences) {
-					delete preferences[p];
+					delete preferences[k];
 				}
 			});
 		},
@@ -6233,13 +6571,31 @@ emmet.define('preferences', function(require, _) {
 		 */
 		getArray: function(name) {
 			var val = this.get(name);
-			if (!_.isUndefined(val)) {
-				val = _.map(val.split(','), require('utils').trim);
-				if (!val.length)
-					val = null;
+			if (_.isUndefined(val) || val === null || val === '')  {
+				return null;
+			}
+
+			val = _.map(val.split(','), require('utils').trim);
+			if (!val.length) {
+				return null;
 			}
 			
 			return val;
+		},
+		
+		/**
+		 * Returns comma and colon-separated preference value as dictionary
+		 * @param {String} name
+		 * @returns {Object}
+		 */
+		getDict: function(name) {
+			var result = {};
+			_.each(this.getArray(name), function(val) {
+				var parts = val.split(':');
+				result[parts[0]] = parts[1];
+			});
+			
+			return result;
 		},
 		
 		/**
@@ -6397,14 +6753,20 @@ emmet.define('filters', function(require, _) {
 		 */
 		composeList: function(syntax, profile, additionalFilters) {
 			profile = require('profile').get(profile);
-			var filters = list(profile.filters || require('resources').getSubset(syntax, 'filters') || basicFilters);
+			var filters = list(profile.filters || require('resources').findItem(syntax, 'filters') || basicFilters);
+			
+			if (profile.extraFilters) {
+				filters = filters.concat(list(profile.extraFilters));
+			}
 				
-			if (additionalFilters)
+			if (additionalFilters) {
 				filters = filters.concat(list(additionalFilters));
+			}
 				
-			if (!filters || !filters.length)
+			if (!filters || !filters.length) {
 				// looks like unknown syntax, apply basic filters
 				filters = list(basicFilters);
+			}
 				
 			return filters;
 		},
@@ -6432,7 +6794,7 @@ emmet.define('filters', function(require, _) {
  */
 emmet.define('elements', function(require, _) {
 	var factories = {};
-	var reAttrs = /([\w\-]+)\s*=\s*(['"])(.*?)\2/g;
+	var reAttrs = /([\w\-:]+)\s*=\s*(['"])(.*?)\2/g;
 	
 	var result = {
 		/**
@@ -6512,7 +6874,7 @@ emmet.define('elements', function(require, _) {
 				ret.attributes = attrs;
 			} else if (_.isString(attrs)) {
 				var m;
-				while (m = reAttrs.exec(attrs)) {
+				while ((m = reAttrs.exec(attrs))) {
 					ret.attributes.push({
 						name: m[1],
 						value: m[3]
@@ -6556,9 +6918,9 @@ emmet.define('elements', function(require, _) {
  * @example
  * <pre><code>
  * var MyClass = require('editTree').EditElement.extend({
- * 	initialize: function() {
- * 		// constructor code here
- * 	}
+ *     initialize: function() {
+ *     // constructor code here
+ *   }
  * });
  * 
  * var elem = new MyClass(); 
@@ -6793,7 +7155,7 @@ emmet.define('editTree', function(require, _, core) {
 		 * @param {Boolean} isAbsolute
 		 */
 		range: function(isAbsolute) {
-			return range(isAbsolute ? this.options.offset : 0, this.toString());
+			return range(isAbsolute ? this.options.offset : 0, this.valueOf());
 		},
 		
 		/**
@@ -6813,6 +7175,10 @@ emmet.define('editTree', function(require, _, core) {
 		 * @returns {String}
 		 */
 		toString: function() {
+			return this.valueOf();
+		},
+
+		valueOf: function() {
 			return this.source;
 		}
 	};
@@ -6914,7 +7280,7 @@ emmet.define('editTree', function(require, _, core) {
 		 * @returns {Range}
 		 */
 		range: function(isAbsolute) {
-			return range(this.namePosition(isAbsolute), this.toString());
+			return range(this.namePosition(isAbsolute), this.valueOf());
 		},
 		
 		/**
@@ -6949,11 +7315,11 @@ emmet.define('editTree', function(require, _, core) {
 		 * @returns {String}
 		 */
 		toString: function() {
-			return this.name() + this.value();
+			return this.valueOf();
 		},
 		
 		valueOf: function() {
-			return this.toString();
+			return this.name() + this.value();
 		}
 	};
 	
@@ -7023,7 +7389,7 @@ emmet.define('cssEditTree', function(require, _) {
 		if ((mask & WHITESPACE_REMOVE_FROM_END) == WHITESPACE_REMOVE_FROM_END)
 			while (tokens.length && _.include(whitespace, _.last(tokens).type)) {
 				tokens.pop();
-	 		}
+			}
 		
 		if ((mask & WHITESPACE_REMOVE_FROM_START) == WHITESPACE_REMOVE_FROM_START)
 			while (tokens.length && _.include(whitespace, tokens[0].type)) {
@@ -7040,24 +7406,24 @@ emmet.define('cssEditTree', function(require, _) {
 	 */
 	function findSelectorRange(it) {
 		var tokens = [], token;
- 		var start = it.position(), end;
- 		
- 		while (token = it.next()) {
+		var start = it.position(), end;
+		
+		while ((token = it.next())) {
 			if (token.type == '{')
 				break;
 			tokens.push(token);
 		}
- 		
- 		trimWhitespaceTokens(tokens);
- 		
- 		if (tokens.length) {
- 			start = tokens[0].start;
- 			end = _.last(tokens).end;
- 		} else {
- 			end = start;
- 		}
- 		
- 		return range(start, end - start);
+		
+		trimWhitespaceTokens(tokens);
+		
+		if (tokens.length) {
+			start = tokens[0].start;
+			end = _.last(tokens).end;
+		} else {
+			end = start;
+		}
+		
+		return range(start, end - start);
 	}
 	
 	/**
@@ -7071,13 +7437,13 @@ emmet.define('cssEditTree', function(require, _) {
 		var skipTokens = ['white', 'line', ':'];
 		var tokens = [], token, start, end;
 		
-		it.nextUntil(function(tok) {
+		it.nextUntil(function() {
 			return !_.include(skipTokens, this.itemNext().type);
 		});
 		
 		start = it.current().end;
 		// consume value
-		while (token = it.next()) {
+		while ((token = it.next())) {
 			if (token.type == '}' || token.type == ';') {
 				// found value end
 				trimWhitespaceTokens(tokens, WHITESPACE_REMOVE_FROM_START 
@@ -7124,7 +7490,7 @@ emmet.define('cssEditTree', function(require, _) {
 		stream.eatSpace();
 		stream.start = stream.pos;
 		
-		while (ch = stream.next()) {
+		while ((ch = stream.next())) {
 			if (ch == '"' || ch == "'") {
 				stream.next();
 				if (!stream.skipTo(ch)) break;
@@ -7187,21 +7553,21 @@ emmet.define('cssEditTree', function(require, _) {
 			var editTree = require('editTree');
 			
 			/** @type TokenIterator */
-	 		var it = require('tokenIterator').create(
-	 				require('cssParser').parse(source));
-	 		
-	 		var selectorRange = findSelectorRange(it);
-	 		this._positions.name = selectorRange.start;
-	 		this._name = selectorRange.substring(source);
-	 		
-	 		if (!it.current() || it.current().type != '{')
-	 			throw 'Invalid CSS rule';
-	 		
-	 		this._positions.contentStart = it.position() + 1;
-	 		
-	 		// consume properties
-	 		var propertyRange, valueRange, token;
-			while (token = it.next()) {
+			var it = require('tokenIterator').create(
+					require('cssParser').parse(source));
+			
+			var selectorRange = findSelectorRange(it);
+			this._positions.name = selectorRange.start;
+			this._name = selectorRange.substring(source);
+			
+			if (!it.current() || it.current().type != '{')
+				throw 'Invalid CSS rule';
+			
+			this._positions.contentStart = it.position() + 1;
+			
+			// consume properties
+			var propertyRange, valueRange, token;
+			while ((token = it.next())) {
 				if (token.type == 'identifier' && isValidIdentifier(it)) {
 					propertyRange = range(token);
 					valueRange = findValueRange(it);
@@ -7273,7 +7639,7 @@ emmet.define('cssEditTree', function(require, _) {
 			var donor = list[pos];
 			if (donor) {
 				start = donor.fullRange().start;
-			} else if (donor = list[pos - 1]) {
+			} else if ((donor = list[pos - 1])) {
 				// make sure that donor has terminating semicolon
 				donor.end(';');
 				start = donor.range().end;
@@ -7360,7 +7726,7 @@ emmet.define('cssEditTree', function(require, _) {
 		 * Returns item string representation
 		 * @returns {String}
 		 */
-		toString: function() {
+		valueOf: function() {
 			return this.name() + this.styleSeparator + this.value() + this.end();
 		}
 	});
@@ -7455,20 +7821,20 @@ emmet.define('cssEditTree', function(require, _) {
 		},
 		
 		/**
-	 	 * Removes vendor prefix from CSS property
-	 	 * @param {String} name CSS property
-	 	 * @return {String}
-	 	 */
-	 	baseName: function(name) {
-	 		return name.replace(/^\s*\-\w+\-/, '');
-	 	},
-	 	
-	 	/**
-	 	 * Finds parts of complex CSS value
-	 	 * @param {String} str
-	 	 * @returns {Array}
-	 	 */
-	 	findParts: findParts
+		 * Removes vendor prefix from CSS property
+		 * @param {String} name CSS property
+		 * @return {String}
+		 */
+		baseName: function(name) {
+			return name.replace(/^\s*\-\w+\-/, '');
+		},
+		
+		/**
+		 * Finds parts of complex CSS value
+		 * @param {String} str
+		 * @returns {Array}
+		 */
+		findParts: findParts
 	};
 });/**
  * XML EditTree is a module that can parse an XML/HTML element into a tree with 
@@ -7571,7 +7937,7 @@ emmet.define('xmlEditTree', function(require, _) {
 			var donor = list[pos];
 			if (donor) {
 				start = donor.fullRange().start;
-			} else if (donor = list[pos - 1]) {
+			} else if ((donor = list[pos - 1])) {
 				start = donor.range().end;
 			}
 			
@@ -7636,7 +8002,7 @@ emmet.define('xmlEditTree', function(require, _) {
 			return r;
 		},
 		
-		toString: function() {
+		valueOf: function() {
 			return this.name() + this.styleSeparator
 				+ this.styleQuote + this.value() + this.styleQuote;
 		}
@@ -7698,7 +8064,7 @@ emmet.define('xmlEditTree', function(require, _) {
 			
 			// lookup backward, in case we are inside tag already
 			for (i = pos; i >= 0; i--) {
-				if (r = match(i)) break;
+				if ((r = match(i))) break;
 			}
 			
 			if (r && (r.inside(pos) || isBackward))
@@ -7709,7 +8075,7 @@ emmet.define('xmlEditTree', function(require, _) {
 			
 			// search forward
 			for (i = pos; i < len; i++) {
-				if (r = match(i))
+				if ((r = match(i)))
 					return r;
 			}
 		}
@@ -7765,8 +8131,26 @@ emmet.define('expandAbbreviation', function(require, _) {
 	 * @param {String} profile Output profile name (html, xml, xhtml)
 	 */
 	actions.add('expand_abbreviation_with_tab', function(editor, syntax, profile) {
-		if (!actions.run('expand_abbreviation', editor, syntax, profile))
-			editor.replaceContent(require('resources').getVariable('indentation'), editor.getCaretPos());
+		var sel = editor.getSelection();
+		var indent = require('resources').getVariable('indentation');
+		if (sel) {
+			// indent selection
+			var utils = require('utils');
+			var selRange = require('range').create(editor.getSelectionRange());
+			var content = utils.padString(sel, indent);
+			
+			editor.replaceContent(indent + '${0}', editor.getCaretPos());
+			var replaceRange = require('range').create(editor.getCaretPos(), selRange.length());
+			editor.replaceContent(content, replaceRange.start, replaceRange.end, true);
+			editor.createSelection(replaceRange.start, replaceRange.start + content.length);
+			return true;
+		}
+		
+		if (!actions.run('expand_abbreviation', editor, syntax, profile)) {
+			editor.replaceContent(indent, editor.getCaretPos());
+		}
+		
+		return true;
 	}, {hidden: true});
 	
 	// XXX setup default handler
@@ -7816,7 +8200,7 @@ emmet.define('expandAbbreviation', function(require, _) {
 		 * @returns
 		 */
 		removeHandler: function(fn) {
-			handlers.remove(fn, options);
+			handlers.remove(fn);
 		},
 		
 		/**
@@ -7845,6 +8229,9 @@ emmet.define('expandAbbreviation', function(require, _) {
  * @memberOf __wrapWithAbbreviationDefine
  */
 emmet.define('wrapWithAbbreviation', function(require, _) {
+	/** Back-references to current module */
+	var module = null;
+	
 	/**
 	 * Wraps content with abbreviation
 	 * @param {IEmmetEditor} Editor instance
@@ -7857,8 +8244,6 @@ emmet.define('wrapWithAbbreviation', function(require, _) {
 		var utils = require('utils');
 		/** @type emmet.editorUtils */
 		var editorUtils = require('editorUtils');
-		var matcher = require('html_matcher');
-		
 		abbr = abbr || editor.prompt("Enter abbreviation");
 		
 		if (!abbr) 
@@ -7866,66 +8251,65 @@ emmet.define('wrapWithAbbreviation', function(require, _) {
 		
 		abbr = String(abbr);
 		
-		var range = editor.getSelectionRange();
-		var startOffset = range.start;
-		var endOffset = range.end;
+		var range = require('range').create(editor.getSelectionRange());
 		
-		if (startOffset == endOffset) {
+		if (!range.length()) {
 			// no selection, find tag pair
-			range = matcher(info.content, startOffset, info.profile);
-			
-			if (!range || range[0] == -1) // nothing to wrap
+			var match = require('htmlMatcher').tag(info.content, range.start);
+			if (!match) {  // nothing to wrap
 				return false;
+			}
 			
-			/** @type Range */
-			var narrowedSel = utils.narrowToNonSpace(info.content, range[0], range[1] - range[0]);
-			startOffset = narrowedSel.start;
-			endOffset = narrowedSel.end;
+			range = utils.narrowToNonSpace(info.content, match.range);
 		}
 		
-		var newContent = utils.escapeText(info.content.substring(startOffset, endOffset));
-		var result = require('wrapWithAbbreviation').wrap(abbr, editorUtils.unindent(editor, newContent), info.syntax, info.profile);
+		var newContent = utils.escapeText(range.substring(info.content));
+		var result = module
+			.wrap(abbr, editorUtils.unindent(editor, newContent), info.syntax, 
+					info.profile, require('actionUtils').captureContext(editor));
 		
 		if (result) {
-//			editor.setCaretPos(endOffset);
-			editor.replaceContent(result, startOffset, endOffset);
+			editor.replaceContent(result, range.start, range.end);
 			return true;
 		}
 		
 		return false;
 	});
 	
-	return {
+	return module = {
 		/**
 		 * Wraps passed text with abbreviation. Text will be placed inside last
 		 * expanded element
-		 * @memberOf emmet.wrapWithAbbreviation
+		 * @memberOf wrapWithAbbreviation
 		 * @param {String} abbr Abbreviation
 		 * @param {String} text Text to wrap
 		 * @param {String} syntax Document type (html, xml, etc.). Default is 'html'
 		 * @param {String} profile Output profile's name. Default is 'plain'
+		 * @param {Object} contextNode Context node inside which abbreviation
+		 * is wrapped. It will be used as a reference for node name resolvers
 		 * @return {String}
 		 */
-		wrap: function(abbr, text, syntax, profile) {
+		wrap: function(abbr, text, syntax, profile, contextNode) {
 			/** @type emmet.filters */
 			var filters = require('filters');
 			/** @type emmet.utils */
 			var utils = require('utils');
 			
 			syntax = syntax || emmet.defaultSyntax();
-			profile = profile || emmet.defaultProfile();
+			profile = require('profile').get(profile, syntax);
 			
 			require('tabStops').resetTabstopIndex();
 			
 			var data = filters.extractFromAbbreviation(abbr);
 			var parsedTree = require('abbreviationParser').parse(data[0], {
 				syntax: syntax,
-				pastedContent: text
+				pastedContent: text,
+				contextNode: contextNode
 			});
 			if (parsedTree) {
 				var filtersList = filters.composeList(syntax, profile, data[1]);
 				filters.apply(parsedTree, filtersList, profile);
-				return utils.replaceVariables(parsedTree.toString());
+				return utils.replaceVariables(parsedTree.valueOf());
 			}
 			
 			return null;
@@ -7954,10 +8338,9 @@ emmet.exec(function(require, _) {
 			
 		if (!range.length()) {
 			// no selection, find matching tag
-			var pair = require('html_matcher').getTags(info.content, editor.getCaretPos(), info.profile);
-			if (pair && pair[0]) { // found pair
-				range.start = pair[0].start;
-				range.end = pair[1] ? pair[1].end : pair[0].end;
+			var tag = require('htmlMatcher').tag(info.content, editor.getCaretPos());
+			if (tag) { // found pair
+				range = tag.outerRange;
 			}
 		}
 		
@@ -8109,6 +8492,7 @@ emmet.exec(function(require, _) {
 
 		// replace editor content
 		if (newContent !== null) {
+			newContent = utils.escapeText(newContent);
 			editor.setCaretPos(range.start);
 			editor.replaceContent(editorUtils.unindent(editor, newContent), range.start, range.end);
 			editor.setCaretPos(caretPos);
@@ -8129,9 +8513,8 @@ emmet.exec(function(require, _) {
 			// current token, we have to make sure that cursor is not inside
 			// 'style' attribute of html element
 			var caretPos = editor.getCaretPos();
-			var pair = require('html_matcher').getTags(info.content, caretPos);
-			if (pair && pair[0] && pair[0].type == 'tag' && 
-					pair[0].start <= caretPos && pair[0].end >= caretPos) {
+			var tag = require('htmlMatcher').tag(info.content, caretPos);
+			if (tag && tag.open.range.inside(caretPos)) {
 				info.syntax = 'html';
 			}
 		}
@@ -8245,8 +8628,12 @@ emmet.exec(function(require, _) {
 	 */
 	actions.add('next_edit_point', function(editor) {
 		var newPoint = findNewEditPoint(editor, 1);
-		if (newPoint != -1)
+		if (newPoint != -1) {
 			editor.setCaretPos(newPoint);
+			return true;
+		}
+		
+		return false;
 	});
 });/**
  * Actions that use stream parsers and tokenizers for traversing:
@@ -8363,24 +8750,24 @@ emmet.exec(function(require, _) {
 				case 'string':
 					// attribute value
 					// push full attribute first
-					 result.push(range.create(attrStart, tok.end - attrStart));
-					 
-					 attrValueRange = range.create(tok);
-					 attrValue = attrValueRange.substring(source);
-					 
-					 // is this a quoted attribute?
-					 if (isQuote(attrValue.charAt(0)))
-						 attrValueRange.start++;
-					 
-					 if (isQuote(attrValue.charAt(attrValue.length - 1)))
-						 attrValueRange.end--;
-					 
-					 result.push(attrValueRange);
-					 
-					 if (attrName == 'class') {
-						 result = result.concat(classNameRanges(attrValueRange.substring(source), attrValueRange.start));
-					 }
-					 
+					result.push(range.create(attrStart, tok.end - attrStart));
+					
+					attrValueRange = range.create(tok);
+					attrValue = attrValueRange.substring(source);
+					
+					// is this a quoted attribute?
+					if (isQuote(attrValue.charAt(0)))
+						attrValueRange.start++;
+					
+					if (isQuote(attrValue.charAt(attrValue.length - 1)))
+						attrValueRange.end--;
+					
+					result.push(attrValueRange);
+					
+					if (attrName == 'class') {
+						result = result.concat(classNameRanges(attrValueRange.substring(source), attrValueRange.start));
+					}
+					
 					break;
 			}
 		});
@@ -8417,7 +8804,7 @@ emmet.exec(function(require, _) {
 		stream.start = stream.pos;
 		
 		var ch;
-		while (ch = stream.next()) {
+		while ((ch = stream.next())) {
 			if (/[\s\u00a0]/.test(ch)) {
 				result.push(range.create(stream.start + offset, stream.pos - stream.start - 1));
 				stream.eatSpace();
@@ -8490,7 +8877,7 @@ emmet.exec(function(require, _) {
 	function findOpeningTagFromPosition(html, pos) {
 		var tag;
 		while (pos >= 0) {
-			if (tag = getOpeningTagFromPosition(html, pos))
+			if ((tag = getOpeningTagFromPosition(html, pos)))
 				return tag;
 			pos--;
 		}
@@ -8599,28 +8986,30 @@ emmet.exec(function(require, _) {
 		}
 		
 		// search for nearest to selection CSS property
-		while (property = _.find(list, searchFn)) {
+		var eqSel = function(r) {
+			return r.equal(selRange);
+		};
+		var inSel = function(r) {
+			return r.inside(selRange.end);
+		};
+		while ((property = _.find(list, searchFn))) {
 			possibleRanges = makePossibleRangesCSS(property);
 			if (isBackward)
 				possibleRanges.reverse();
 			
 			// check if any possible range is already selected
-			curRange = _.find(possibleRanges, function(r) {
-				return r.equal(selRange);
-			});
+			curRange = _.find(possibleRanges, eqSel);
 			
 			if (!curRange) {
 				// no selection, select nearest item
-				var matchedRanges = _.filter(possibleRanges, function(r) {
-					return r.inside(selRange.end);
-				});
+				var matchedRanges = _.filter(possibleRanges, inSel);
 				
 				if (matchedRanges.length > 1) {
 					curRange = matchedRanges[1];
 					break;
 				}
 				
-				if (curRange = _.find(possibleRanges, nearestItemFn))
+				if ((curRange = _.find(possibleRanges, nearestItemFn)))
 					break;
 			} else {
 				ix = _.indexOf(possibleRanges, curRange);
@@ -8720,7 +9109,8 @@ emmet.exec(function(require, _) {
 emmet.exec(function(require, _) {
 	/** @type emmet.actions */
 	var actions = require('actions');
-	var matcher = require('html_matcher');
+	var matcher = require('htmlMatcher');
+	var lastMatch = null;
 	
 	/**
 	 * Find and select HTML tag pair
@@ -8728,54 +9118,60 @@ emmet.exec(function(require, _) {
 	 * @param {String} direction Direction of pair matching: 'in' or 'out'. 
 	 * Default is 'out'
 	 */
-	function matchPair(editor, direction, syntax) {
+	function matchPair(editor, direction) {
 		direction = String((direction || 'out').toLowerCase());
-		var info = require('editorUtils').outputInfo(editor, syntax);
-		syntax = info.syntax;
+		var info = require('editorUtils').outputInfo(editor);
 		
 		var range = require('range');
 		/** @type Range */
-		var selRange = range.create(editor.getSelectionRange());
+		var sel = range.create(editor.getSelectionRange());
 		var content = info.content;
-		/** @type Range */
-		var tagRange = null;
-		/** @type Range */
-		var _r;
 		
-		var oldOpenTag = matcher.last_match['opening_tag'];
-		var oldCloseTag = matcher.last_match['closing_tag'];
-			
-		if (direction == 'in' && oldOpenTag && selRange.length()) {
-//			user has previously selected tag and wants to move inward
-			if (!oldCloseTag) {
-//				unary tag was selected, can't move inward
-				return false;
-			} else if (oldOpenTag.start == selRange.start) {
-				if (content.charAt(oldOpenTag.end) == '<') {
-//					test if the first inward tag matches the entire parent tag's content
-					_r = range.create(matcher.find(content, oldOpenTag.end + 1, syntax));
-					if (_r.start == oldOpenTag.end && _r.end == oldCloseTag.start) {
-						tagRange = range.create(matcher(content, oldOpenTag.end + 1, syntax));
-					} else {
-						tagRange = range.create(oldOpenTag.end, oldCloseTag.start - oldOpenTag.end);
-					}
-				} else {
-					tagRange = range.create(oldOpenTag.end, oldCloseTag.start - oldOpenTag.end);
-				}
-			} else {
-				var newCursor = content.substring(0, oldCloseTag.start).indexOf('<', oldOpenTag.end);
-				var searchPos = newCursor != -1 ? newCursor + 1 : oldOpenTag.end;
-				tagRange = range.create(matcher(content, searchPos, syntax));
-			}
-		} else {
-			tagRange = range.create(matcher(content, selRange.end, syntax));
+		// validate previous match
+		if (lastMatch && !lastMatch.range.equal(sel)) {
+			lastMatch = null;
 		}
 		
-		if (tagRange && tagRange.start != -1) {
-			editor.createSelection(tagRange.start, tagRange.end);
+		if (lastMatch && sel.length()) {
+			if (direction == 'in') {
+				// user has previously selected tag and wants to move inward
+				if (lastMatch.type == 'tag' && !lastMatch.close) {
+					// unary tag was selected, can't move inward
+					return false;
+				} else {
+					if (lastMatch.range.equal(lastMatch.outerRange)) {
+						lastMatch.range = lastMatch.innerRange;
+					} else {
+						var narrowed = require('utils').narrowToNonSpace(content, lastMatch.innerRange);
+						lastMatch = matcher.find(content, narrowed.start + 1);
+						if (lastMatch && lastMatch.range.equal(sel) && lastMatch.outerRange.equal(sel)) {
+							lastMatch.range = lastMatch.innerRange;
+						}
+					}
+				}
+			} else {
+				if (
+						!lastMatch.innerRange.equal(lastMatch.outerRange) 
+						&& lastMatch.range.equal(lastMatch.innerRange) 
+						&& sel.equal(lastMatch.range)) {
+					lastMatch.range = lastMatch.outerRange;
+				} else {
+					lastMatch = matcher.find(content, sel.start);
+					if (lastMatch && lastMatch.range.equal(sel) && lastMatch.innerRange.equal(sel)) {
+						lastMatch.range = lastMatch.outerRange;
+					}
+				}
+			}
+		} else {
+			lastMatch = matcher.find(content, sel.start);
+		}
+		
+		if (lastMatch && !lastMatch.range.equal(sel)) {
+			editor.createSelection(lastMatch.range.start, lastMatch.range.end);
 			return true;
 		}
 		
+		lastMatch = null;
 		return false;
 	}
 	
@@ -8800,22 +9196,15 @@ emmet.exec(function(require, _) {
 			// looks like caret is outside of tag pair  
 			caretPos++;
 			
-		var tags = matcher.getTags(content, caretPos, String(editor.getProfileName()));
-			
-		if (tags && tags[0]) {
-			// match found
-			var openTag = tags[0];
-			var closeTag = tags[1];
-				
-			if (closeTag) { // exclude unary tags
-				if (openTag.start <= caretPos && openTag.end >= caretPos) {
-					editor.setCaretPos(closeTag.start);
-					return true;
-				} else if (closeTag.start <= caretPos && closeTag.end >= caretPos){
-					editor.setCaretPos(openTag.start);
-					return true;
-				}
+		var tag = matcher.tag(content, caretPos);
+		if (tag && tag.close) { // exclude unary tags
+			if (tag.open.range.inside(caretPos)) {
+				editor.setCaretPos(tag.close.range.start);
+			} else {
+				editor.setCaretPos(tag.open.range.start);
 			}
+			
+			return true;
 		}
 		
 		return false;
@@ -8832,22 +9221,22 @@ emmet.exec(function(require, _) {
 		var info = require('editorUtils').outputInfo(editor);
 		
 		// search for tag
-		var pair = require('html_matcher').getTags(info.content, editor.getCaretPos(), info.profile);
-		if (pair && pair[0]) {
-			if (!pair[1]) {
+		var tag = require('htmlMatcher').tag(info.content, editor.getCaretPos());
+		if (tag) {
+			if (!tag.close) {
 				// simply remove unary tag
-				editor.replaceContent(utils.getCaretPlaceholder(), pair[0].start, pair[0].end);
+				editor.replaceContent(utils.getCaretPlaceholder(), tag.range.start, tag.range.end);
 			} else {
 				// remove tag and its newlines
 				/** @type Range */
-				var tagContentRange = utils.narrowToNonSpace(info.content, pair[0].end, pair[1].start - pair[0].end);
+				var tagContentRange = utils.narrowToNonSpace(info.content, tag.innerRange);
 				/** @type Range */
 				var startLineBounds = utils.findNewlineBounds(info.content, tagContentRange.start);
 				var startLinePad = utils.getLinePadding(startLineBounds.substring(info.content));
 				var tagContent = tagContentRange.substring(info.content);
 				
 				tagContent = utils.unindentString(tagContent, startLinePad);
-				editor.replaceContent(utils.getCaretPlaceholder() + utils.escapeText(tagContent), pair[0].start, pair[1].end);
+				editor.replaceContent(utils.getCaretPlaceholder() + utils.escapeText(tagContent), tag.outerRange.start, tag.outerRange.end);
 			}
 			
 			return true;
@@ -8869,56 +9258,61 @@ emmet.exec(function(require, _) {
 	/**
 	 * @param {IEmmetEditor} editor
 	 * @param {Object} profile
-	 * @param {Object} htmlMatch
+	 * @param {Object} tag
 	 */
-	function joinTag(editor, profile, htmlMatch) {
+	function joinTag(editor, profile, tag) {
 		/** @type emmet.utils */
 		var utils = require('utils');
 		
-		var closingSlash = (profile.self_closing_tag === true) ? '/' : ' /';
-		var content = htmlMatch[0].full_tag.replace(/\s*>$/, closingSlash + '>');
+		// empty closing slash is a nonsense for this action
+		var slash = profile.selfClosing() || ' /';
+		var content = tag.open.range.substring(tag.source).replace(/\s*>$/, slash + '>');
 		
-		// add caret placeholder
-		if (content.length + htmlMatch[0].start < editor.getCaretPos())
-			content += utils.getCaretPlaceholder();
-		else {
-			var d = editor.getCaretPos() - htmlMatch[0].start;
-			content = utils.replaceSubstring(content, utils.getCaretPlaceholder(), d);
+		var caretPos = editor.getCaretPos();
+		
+		// update caret position
+		if (content.length + tag.outerRange.start < caretPos) {
+			caretPos = content.length + tag.outerRange.start;
 		}
 		
-		editor.replaceContent(content, htmlMatch[0].start, htmlMatch[1].end);
+		content = utils.escapeText(content);
+		editor.replaceContent(content, tag.outerRange.start, tag.outerRange.end);
+		editor.setCaretPos(caretPos);
 		return true;
 	}
 	
-	function splitTag(editor, profile, htmlMatch) {
+	function splitTag(editor, profile, tag) {
 		/** @type emmet.utils */
 		var utils = require('utils');
 		
 		var nl = utils.getNewline();
 		var pad = require('resources').getVariable('indentation');
-		var caret = utils.getCaretPlaceholder();
+		var caretPos = editor.getCaretPos();
 		
 		// define tag content depending on profile
-		var tagContent = (profile.tag_nl === true) ? nl + pad + caret + nl : caret;
-				
-		var content = htmlMatch[0].full_tag.replace(/\s*\/>$/, '>') + tagContent + '</' + htmlMatch[0].name + '>';
-		editor.replaceContent(content, htmlMatch[0].start, htmlMatch[0].end);
+		var tagContent = (profile.tag_nl === true) ? nl + pad + nl : '';
+		var content = tag.outerContent().replace(/\s*\/>$/, '>');
+		caretPos = tag.outerRange.start + content.length;
+		content += tagContent + '</' + tag.open.name + '>';
+		
+		content = utils.escapeText(content);
+		editor.replaceContent(content, tag.outerRange.start, tag.outerRange.end);
+		editor.setCaretPos(caretPos);
 		return true;
 	}
 	
 	require('actions').add('split_join_tag', function(editor, profileName) {
-		var matcher = require('html_matcher');
+		var matcher = require('htmlMatcher');
 		
 		var info = require('editorUtils').outputInfo(editor, null, profileName);
 		var profile = require('profile').get(info.profile);
 		
 		// find tag at current position
-		var pair = matcher.getTags(info.content, editor.getCaretPos(), info.profile);
-		if (pair && pair[0]) {
-			if (pair[1]) { // join tag
-				return joinTag(editor, profile, pair);
-			}
-			return splitTag(editor, profile, pair);
+		var tag = matcher.tag(info.content, editor.getCaretPos());
+		if (tag) {
+			return tag.close 
+				? joinTag(editor, profile, tag) 
+				: splitTag(editor, profile, tag);
 		}
 		
 		return false;
@@ -8983,10 +9377,10 @@ emmet.define('reflectCSSValue', function(require, _) {
 		
 		if (name == 'opacity' || name == 'filter') {
 			return new RegExp(vendorPrefix + '(?:opacity|filter)$');
-		} else if (m = name.match(/^border-radius-(top|bottom)(left|right)/)) {
+		} else if ((m = name.match(/^border-radius-(top|bottom)(left|right)/))) {
 			// Mozilla-style border radius
 			return new RegExp(vendorPrefix + '(?:' + name + '|border-' + m[1] + '-' + m[2] + '-radius)$');
-		} else if (m = name.match(/^border-(top|bottom)-(left|right)-radius/)) { 
+		} else if ((m = name.match(/^border-(top|bottom)-(left|right)-radius/))) { 
 			return new RegExp(vendorPrefix + '(?:' + name + '|border-radius-' + m[1] + m[2] + ')$');
 		}
 		
@@ -9031,7 +9425,7 @@ emmet.define('reflectCSSValue', function(require, _) {
 			return refValue.replace(/opacity=[^)]*/i, 'opacity=' + Math.floor(parseFloat(curValue) * 100));
 		} else if (curName == 'filter' && refName == 'opacity') {
 			var m = curValue.match(/opacity=([^)]*)/i);
-			return m ? utils.prettifyNumber(parseInt(m[1]) / 100) : refValue;
+			return m ? utils.prettifyNumber(parseInt(m[1], 10) / 100) : refValue;
 		}
 		
 		return curValue;
@@ -9065,7 +9459,7 @@ emmet.define('reflectCSSValue', function(require, _) {
 		 * @returns
 		 */
 		removeHandler: function(fn) {
-			handlers.remove(fn, options);
+			handlers.remove(fn);
 		}
 	};
 });/**
@@ -9203,7 +9597,7 @@ emmet.exec(function(require, _) {
 	
 	// setup default preferences
 	prefs.define('css.closeBraceIndentation', '\n',
-			'Indentation before closing brace of CSS rule. Some users prefere' 
+			'Indentation before closing brace of CSS rule. Some users prefere ' 
 			+ 'indented closing brace of CSS rule for better readability. '
 			+ 'This preference’s value will be automatically inserted before '
 			+ 'closing brace when user adds newline in newly created CSS rule '
@@ -9224,13 +9618,13 @@ emmet.exec(function(require, _) {
 		var info = require('editorUtils').outputInfo(editor);
 		var caretPos = editor.getCaretPos();
 		var nl = utils.getNewline();
+		var pad;
 		
 		if (_.include(['html', 'xml', 'xsl'], info.syntax)) {
-			var pad = res.getVariable('indentation');
+			pad = res.getVariable('indentation');
 			// let's see if we're breaking newly created tag
-			var pair = require('html_matcher').getTags(info.content, caretPos, info.profile);
-			
-			if (pair[0] && pair[1] && pair[0].type == 'tag' && pair[0].end == caretPos && pair[1].start == caretPos) {
+			var tag = require('htmlMatcher').tag(info.content, caretPos);
+			if (tag && !tag.innerRange.length()) {
 				editor.replaceContent(nl + pad + utils.getCaretPlaceholder() + nl, caretPos);
 				return true;
 			}
@@ -9239,7 +9633,7 @@ emmet.exec(function(require, _) {
 			var content = info.content;
 			if (caretPos && content.charAt(caretPos - 1) == '{') {
 				var append = prefs.get('css.closeBraceIndentation');
-				var pad = res.getVariable('indentation');
+				pad = res.getVariable('indentation');
 				
 				var hasCloseBrace = content.charAt(caretPos) == '}';
 				if (!hasCloseBrace) {
@@ -9319,7 +9713,7 @@ emmet.exec(function(require, _) {
  */
 emmet.exec(function(require, _) {
 	require('actions').add('merge_lines', function(editor) {
-		var matcher = require('html_matcher');
+		var matcher = require('htmlMatcher');
 		var utils = require('utils');
 		var editorUtils = require('editorUtils');
 		var info = editorUtils.outputInfo(editor);
@@ -9328,10 +9722,9 @@ emmet.exec(function(require, _) {
 		var selection = require('range').create(editor.getSelectionRange());
 		if (!selection.length()) {
 			// find matching tag
-			var pair = matcher(info.content, editor.getCaretPos(), info.profile);
+			var pair = matcher.find(info.content, editor.getCaretPos());
 			if (pair) {
-				selection.start = pair[0];
-				selection.end = pair[1];
+				selection = pair.outerRange;
 			}
 		}
 		
@@ -9345,8 +9738,10 @@ emmet.exec(function(require, _) {
 			}
 			
 			text = lines.join('').replace(/\s{2,}/, ' ');
+			var textLen = text.length;
+			text = utils.escapeText(text);
 			editor.replaceContent(text, selection.start, selection.end);
-			editor.createSelection(selection.start, selection.start + text.length);
+			editor.createSelection(selection.start, selection.start + textLen);
 			
 			return true;
 		}
@@ -9373,13 +9768,13 @@ emmet.exec(function(require, _) {
 			var text = String(editor.getContent()),  m;
 			while (caretPos-- >= 0) {
 				if (startsWith('src=', text, caretPos)) { // found <img src="">
-					if (m = text.substr(caretPos).match(/^(src=(["'])?)([^'"<>\s]+)\1?/)) {
+					if ((m = text.substr(caretPos).match(/^(src=(["'])?)([^'"<>\s]+)\1?/))) {
 						data = m[3];
 						caretPos += m[1].length;
 					}
 					break;
 				} else if (startsWith('url(', text, caretPos)) { // found CSS url() pattern
-					if (m = text.substr(caretPos).match(/^(url\((['"])?)([^'"\)\s]+)\1?/)) {
+					if ((m = text.substr(caretPos).match(/^(url\((['"])?)([^'"\)\s]+)\1?/))) {
 						data = m[3];
 						caretPos += m[1].length;
 					}
@@ -9437,15 +9832,23 @@ emmet.exec(function(require, _) {
 			throw "Can't find " + imgPath + ' file';
 		}
 		
-		var b64 = require('base64').encode(String(file.read(realImgPath)));
-		if (!b64) {
-			throw "Can't encode file content to base64";
-		}
-		
-		b64 = 'data:' + (actionUtils.mimeTypes[String(file.getExt(realImgPath))] || defaultMimeType) +
-			';base64,' + b64;
+		file.read(realImgPath, function(err, content) {
+			if (err) {
+				throw 'Unable to read ' + realImgPath + ': ' + err;
+			}
 			
-		editor.replaceContent('$0' + b64, pos, pos + imgPath.length);
+			var b64 = require('base64').encode(String(content));
+			if (!b64) {
+				throw "Can't encode file content to base64";
+			}
+			
+			b64 = 'data:' + (actionUtils.mimeTypes[String(file.getExt(realImgPath))] || defaultMimeType) +
+				';base64,' + b64;
+				
+			editor.replaceContent('$0' + b64, pos, pos + imgPath.length);
+		});
+		
+		
 		return true;
 	}
 
@@ -9491,22 +9894,20 @@ emmet.exec(function(require, _) {
 		// find tag from current caret position
 		var info = require('editorUtils').outputInfo(editor);
 		var xmlElem = require('xmlEditTree').parseFromPosition(info.content, offset, true);
-		if (xmlElem && xmlElem.name().toLowerCase() == 'img') {
-			
-			var size = getImageSizeForSource(editor, xmlElem.value('src'));
-			if (size) {
-				var compoundData = xmlElem.range(true);
-				xmlElem.value('width', size.width);
-				xmlElem.value('height', size.height, xmlElem.indexOf('width') + 1);
-				
-				return _.extend(compoundData, {
-					data: xmlElem.toString(),
-					caret: offset
-				});
-			}
+		if (xmlElem && (xmlElem.name() || '').toLowerCase() == 'img') {
+			getImageSizeForSource(editor, xmlElem.value('src'), function(size) {
+				if (size) {
+					var compoundData = xmlElem.range(true);
+					xmlElem.value('width', size.width);
+					xmlElem.value('height', size.height, xmlElem.indexOf('width') + 1);
+					
+					require('actionUtils').compoundUpdate(editor, _.extend(compoundData, {
+						data: xmlElem.toString(),
+						caret: offset
+					}));
+				}
+			});
 		}
-		
-		return null;
 	}
 	
 	/**
@@ -9523,21 +9924,20 @@ emmet.exec(function(require, _) {
 			// check if there is property with image under caret
 			var prop = cssRule.itemFromPosition(offset, true), m;
 			if (prop && (m = /url\((["']?)(.+?)\1\)/i.exec(prop.value() || ''))) {
-				var size = getImageSizeForSource(editor, m[2]);
-				if (size) {
-					var compoundData = cssRule.range(true);
-					cssRule.value('width', size.width + 'px');
-					cssRule.value('height', size.height + 'px', cssRule.indexOf('width') + 1);
-					
-					return _.extend(compoundData, {
-						data: cssRule.toString(),
-						caret: offset
-					});
-				}
+				getImageSizeForSource(editor, m[2], function(size) {
+					if (size) {
+						var compoundData = cssRule.range(true);
+						cssRule.value('width', size.width + 'px');
+						cssRule.value('height', size.height + 'px', cssRule.indexOf('width') + 1);
+						
+						require('actionUtils').compoundUpdate(editor, _.extend(compoundData, {
+							data: cssRule.toString(),
+							caret: offset
+						}));
+					}
+				});
 			}
 		}
-		
-		return null;
 	}
 	
 	/**
@@ -9545,35 +9945,43 @@ emmet.exec(function(require, _) {
 	 * @param {IEmmetEditor} editor
 	 * @param {String} src Image source (path or data:url)
 	 */
-	function getImageSizeForSource(editor, src) {
+	function getImageSizeForSource(editor, src, callback) {
 		var fileContent;
+		var au = require('actionUtils');
 		if (src) {
 			// check if it is data:url
 			if (/^data:/.test(src)) {
 				fileContent = require('base64').decode( src.replace(/^data\:.+?;.+?,/, '') );
-			} else {
-				var file = require('file');
-				var absPath = file.locateFile(editor.getFilePath(), src);
-				if (absPath === null) {
-					throw "Can't find " + src + ' file';
-				}
-				
-				fileContent = String(file.read(absPath));
+				return callback(au.getImageSize(fileContent));
 			}
 			
-			return require('actionUtils').getImageSize(fileContent);
+			var file = require('file');
+			var absPath = file.locateFile(editor.getFilePath(), src);
+			if (absPath === null) {
+				throw "Can't find " + src + ' file';
+			}
+			
+			file.read(absPath, function(err, content) {
+				if (err) {
+					throw 'Unable to read ' + absPath + ': ' + err;
+				}
+				
+				content = String(content);
+				callback(au.getImageSize(content));
+			});
 		}
 	}
 	
 	require('actions').add('update_image_size', function(editor) {
-		var result;
-		if (String(editor.getSyntax()) == 'css') {
-			result = updateImageSizeCSS(editor);
+		// this action will definitely won’t work in SASS dialect,
+		// but may work in SCSS or LESS
+		if (_.include(['css', 'less', 'scss'], String(editor.getSyntax()))) {
+			updateImageSizeCSS(editor);
 		} else {
-			result = updateImageSizeHTML(editor);
+			updateImageSizeHTML(editor);
 		}
 		
-		return require('actionUtils').compoundUpdate(editor, result);
+		return true;
 	});
 });/**
  * Resolver for fast CSS typing. Handles abbreviations with the following 
@@ -9647,10 +10055,21 @@ emmet.define('cssResolver', function(require, _) {
 		},
 		
 		/**
-		 * @type {Array} List of unprefixed CSS properties that supported by 
-		 * current prefix. This list is used to generate all-prefixed property 
+		 * List of unprefixed CSS properties that supported by 
+		 * current prefix. This list is used to generate all-prefixed property
+		 * @returns {Array} 
 		 */
-		supports: null
+		properties: function() {
+			return getProperties('css.' + this.prefix + 'Properties') || [];
+		},
+		
+		/**
+		 * Check if given property is supported by current prefix
+		 * @param name
+		 */
+		supports: function(name) {
+			return _.include(this.properties(), name);
+		}
 	};
 	
 	
@@ -9660,12 +10079,6 @@ emmet.define('cssResolver', function(require, _) {
 	 */
 	var vendorPrefixes = {};
 	
-	var unitAliases = {
-		'p': '%',
-		'e': 'em',
-		'x': 'ex'
-	};
-	
 	var defaultValue = '${1};';
 	
 	// XXX module preferences
@@ -9673,10 +10086,27 @@ emmet.define('cssResolver', function(require, _) {
 	prefs.define('css.valueSeparator', ': ',
 			'Defines a symbol that should be placed between CSS property and ' 
 			+ 'value when expanding CSS abbreviations.');
+	prefs.define('css.propertyEnd', ';',
+			'Defines a symbol that should be placed at the end of CSS property  ' 
+			+ 'when expanding CSS abbreviations.');
+	
+	prefs.define('stylus.valueSeparator', ' ',
+			'Defines a symbol that should be placed between CSS property and ' 
+			+ 'value when expanding CSS abbreviations in Stylus dialect.');
+	prefs.define('stylus.propertyEnd', '',
+			'Defines a symbol that should be placed at the end of CSS property  ' 
+			+ 'when expanding CSS abbreviations in Stylus dialect.');
+	
+	prefs.define('sass.propertyEnd', '',
+			'Defines a symbol that should be placed at the end of CSS property  ' 
+			+ 'when expanding CSS abbreviations in SASS dialect.');
+
+	prefs.define('css.syntaxes', 'css, less, sass, scss, stylus, styl',
+			'List of syntaxes that should be treated as CSS dialects.');
 	
 	prefs.define('css.autoInsertVendorPrefixes', true,
 			'Automatically generate vendor-prefixed copies of expanded CSS ' 
-			+ 'property. By default, Emmet will generate vendor-prefixed ' +
+			+ 'property. By default, Emmet will generate vendor-prefixed '
 			+ 'properties only when you put dash before abbreviation ' 
 			+ '(e.g. <code>-bxsh</code>). With this option enabled, you don’t ' 
 			+ 'need dashes before abbreviations: Emmet will produce ' 
@@ -9688,20 +10118,74 @@ emmet.define('cssResolver', function(require, _) {
 		+ 'abbreviations. Empty list means that all possible CSS values may ' 
 		+ 'have <code><%= vendor %></code> prefix.');
 	
+	var descAddonTemplate = _.template('A comma-separated list of <em>additional</em> CSS properties ' 
+			+ 'for <code>css.<%= vendor %>Preperties</code> preference. ' 
+			+ 'You should use this list if you want to add or remove a few CSS ' 
+			+ 'properties to original set. To add a new property, simply write its name, '
+			+ 'to remove it, precede property with hyphen.<br>'
+			+ 'For example, to add <em>foo</em> property and remove <em>border-radius</em> one, '
+			+ 'the preference value will look like this: <code>foo, -border-radius</code>.');
+	
 	// properties list is created from cssFeatures.html file
 	var props = {
-		'webkit': 'animation-delay, animation-direction, animation-duration, animation-fill-mode, animation-iteration-count, animation-name, animation-play-state, animation-timing-function, appearance, backface-visibility, background-clip, background-composite, background-origin, background-size, border-fit, border-horizontal-spacing, border-image, border-vertical-spacing, box-align, box-direction, box-flex, box-flex-group, box-lines, box-ordinal-group, box-orient, box-pack, box-reflect, box-shadow, color-correction, column-break-after, column-break-before, column-break-inside, column-count, column-gap, column-rule-color, column-rule-style, column-rule-width, column-span, column-width, dashboard-region, font-smoothing, highlight, hyphenate-character, hyphenate-limit-after, hyphenate-limit-before, hyphens, line-box-contain, line-break, line-clamp, locale, margin-before-collapse, margin-after-collapse, marquee-direction, marquee-increment, marquee-repetition, marquee-style, mask-attachment, mask-box-image, mask-box- image-outset, mask-box-image-repeat, mask-box-image-slice, mask-box-image-source, mask-box-image-width, mask-clip, mask-composite, mask-image, mask-origin, mask-position, mask-repeat, mask-size, nbsp-mode, perspective, perspective-origin, rtl-ordering, text-combine, text-decorations-in-effect, text-emphasis-color, text-emphasis-position, text-emphasis-style, text-fill-color, text-orientation, text-security, text-stroke-color, text-stroke-width, transform, transition, transform-origin, transform-style, transition-delay, transition-duration, transition-property, transition-timing-function, user-drag, user-modify, user-select, writing-mode, svg-shadow',
-		'moz': 'animation-delay, animation-direction, animation-duration, animation-fill-mode, animation-iteration-count, animation-name, animation-play-state, animation-timing-function, appearance, backface-visibility, background-inline-policy, binding, border-bottom-colors, border-image, border-left-colors, border-right-colors, border-top-colors, box-align, box-direction, box-flex, box-ordinal-group, box-orient, box-pack, box-shadow, box-sizing, column-count, column-gap, column-rule-color, column-rule-style, column-rule-width, column-width, float-edge, font-feature-settings, font-language-override, force-broken-image-icon, hyphens, image-region, orient, outline-radius-bottomleft, outline-radius-bottomright, outline-radius-topleft, outline-radius-topright, perspective, perspective-origin, stack-sizing, tab-size, text-blink, text-decoration-color, text-decoration-line, text-decoration-style, text-size-adjust, transform, transform-origin, transform-style, transition, transition-delay, transition-duration, transition-property, transition-timing-function, user-focus, user-input, user-modify, user-select, window-shadow',
-		'ms': 'accelerator, animation, animation-delay, animation-direction, animation-duration, animation-fill-mode, animation-iteration-count, animation-name, animation-play-state, animation-timing-function, backface-visibility, background-position-x, background-position-y, behavior, block-progression, box-align, box-direction, box-flex, box-line-progression, box-lines, box-ordinal-group, box-orient, box-pack, content-zoom-boundary, content-zoom-boundary-max, content-zoom-boundary-min, content-zoom-chaining, content-zoom-snap, content-zoom-snap-points, content-zoom-snap-type, content-zooming, filter, flow-from, flow-into, font-feature-settings, grid-column, grid-column-align, grid-column-span, grid-columns, grid-layer, grid-row, grid-row-align, grid-row-span, grid-rows, high-contrast-adjust, hyphenate-limit-chars, hyphenate-limit-lines, hyphenate-limit-zone, hyphens, ime-mode, interpolation-mode, layout-flow, layout-grid, layout-grid-char, layout-grid-line, layout-grid-mode, layout-grid-type, line-break, overflow-style, overflow-x, overflow-y, perspective, perspective-origin, perspective-origin-x, perspective-origin-y, scroll-boundary, scroll-boundary-bottom, scroll-boundary-left, scroll-boundary-right, scroll-boundary-top, scroll-chaining, scroll-rails, scroll-snap-points-x, scroll-snap-points-y, scroll-snap-type, scroll-snap-x, scroll-snap-y, scrollbar-arrow-color, scrollbar-base-color, scrollbar-darkshadow-color, scrollbar-face-color, scrollbar-highlight-color, scrollbar-shadow-color, scrollbar-track-color, text-align-last, text-autospace, text-justify, text-kashida-space, text-overflow, text-size-adjust, text-underline-position, touch-action, transform, transform-origin, transform-origin-x, transform-origin-y, transform-origin-z, transform-style, transition, transition-delay, transition-duration, transition-property, transition-timing-function, user-select, word-break, word-wrap, wrap-flow, wrap-margin, wrap-through, writing-mode, zoom',
+		'webkit': 'animation, animation-delay, animation-direction, animation-duration, animation-fill-mode, animation-iteration-count, animation-name, animation-play-state, animation-timing-function, appearance, backface-visibility, background-clip, background-composite, background-origin, background-size, border-fit, border-horizontal-spacing, border-image, border-vertical-spacing, box-align, box-direction, box-flex, box-flex-group, box-lines, box-ordinal-group, box-orient, box-pack, box-reflect, box-shadow, color-correction, column-break-after, column-break-before, column-break-inside, column-count, column-gap, column-rule-color, column-rule-style, column-rule-width, column-span, column-width, dashboard-region, font-smoothing, highlight, hyphenate-character, hyphenate-limit-after, hyphenate-limit-before, hyphens, line-box-contain, line-break, line-clamp, locale, margin-before-collapse, margin-after-collapse, marquee-direction, marquee-increment, marquee-repetition, marquee-style, mask-attachment, mask-box-image,
+ mask-box-image-outset, mask-box-image-repeat, mask-box-image-slice, mask-box-image-source, mask-box-image-width, mask-clip, mask-composite, mask-image, mask-origin, mask-position, mask-repeat, mask-size, nbsp-mode, perspective, perspective-origin, rtl-ordering, text-combine, text-decorations-in-effect, text-emphasis-color, text-emphasis-position, text-emphasis-style, text-fill-color, text-orientation, text-security, text-stroke-color, text-stroke-width, transform, transition, transform-origin, transform-style, transition-delay, transition-duration, transition-property, transition-timing-function, user-drag, user-modify, user-select, writing-mode, svg-shadow, box-sizing, border-radius',
+		'moz': 'animation-delay, animation-direction, animation-duration, animation-fill-mode, animation-iteration-count, animation-name, animation-play-state, animation-timing-function, appearance, backface-visibility, background-inline-policy, binding, border-bottom-colors, border-image, border-left-colors, border-right-colors, border-top-colors, box-align, box-direction, box-flex, box-ordinal-group, box-orient, box-pack, box-shadow, box-sizing, column-count, column-gap, column-rule-color, column-rule-style, column-rule-width, column-width, float-edge, font-feature-settings, font-language-override, force-broken-image-icon, hyphens, image-region, orient, outline-radius-bottomleft, outline-radius-bottomright, outline-radius-topleft, outline-radius-topright, perspective, perspective-origin, stack-sizing, tab-size, text-blink, text-decoration-color, text-decoration-line, text-decoration-style, text-size-adjust, transform, transform-origin, transform-style, transition, transition-delay, transition-duration, 
+transition-property, transition-timing-function, user-focus, user-input, user-modify, user-select, window-shadow, background-clip, border-radius',
+		'ms': 'accelerator, backface-visibility, background-position-x, background-position-y, behavior, block-progression, box-align, box-direction, box-flex, box-line-progression, box-lines, box-ordinal-group, box-orient, box-pack, content-zoom-boundary, content-zoom-boundary-max, content-zoom-boundary-min, content-zoom-chaining, content-zoom-snap, content-zoom-snap-points, content-zoom-snap-type, content-zooming, filter, flow-from, flow-into, font-feature-settings, grid-column, grid-column-align, grid-column-span, grid-columns, grid-layer, grid-row, grid-row-align, grid-row-span, grid-rows, high-contrast-adjust, hyphenate-limit-chars, hyphenate-limit-lines, hyphenate-limit-zone, hyphens, ime-mode, interpolation-mode, layout-flow, layout-grid, layout-grid-char, layout-grid-line, layout-grid-mode, layout-grid-type, line-break, overflow-style, perspective, perspective-origin, perspective-origin-x, perspective-origin-y, scroll-boundary, scroll-boundary-bottom, scroll-boundary-left, scroll-boundary-right, scroll-
+boundary-top, scroll-chaining, scroll-rails, scroll-snap-points-x, scroll-snap-points-y, scroll-snap-type, scroll-snap-x, scroll-snap-y, scrollbar-arrow-color, scrollbar-base-color, scrollbar-darkshadow-color, scrollbar-face-color, scrollbar-highlight-color, scrollbar-shadow-color, scrollbar-track-color, text-align-last, text-autospace, text-justify, text-kashida-space, text-overflow, text-size-adjust, text-underline-position, touch-action, transform, transform-origin, transform-origin-x, transform-origin-y, transform-origin-z, transform-style, transition, transition-delay, transition-duration, transition-property, transition-timing-function, user-select, word-break, word-wrap, wrap-flow, wrap-margin, wrap-through, writing-mode',
 		'o': 'dashboard-region, animation, animation-delay, animation-direction, animation-duration, animation-fill-mode, animation-iteration-count, animation-name, animation-play-state, animation-timing-function, border-image, link, link-source, object-fit, object-position, tab-size, table-baseline, transform, transform-origin, transition, transition-delay, transition-duration, transition-property, transition-timing-function, accesskey, input-format, input-required, marquee-dir, marquee-loop, marquee-speed, marquee-style'
 	};
 	
 	_.each(props, function(v, k) {
 		prefs.define('css.' + k + 'Properties', v, descTemplate({vendor: k}));
+		prefs.define('css.' + k + 'PropertiesAddon', '', descAddonTemplate({vendor: k}));
 	});
 	
-	prefs.define('css.unitlessProperties', 'z-index, line-height, opacity, font-weight', 
+	prefs.define('css.unitlessProperties', 'z-index, line-height, opacity, font-weight, zoom', 
 			'The list of properties whose values ​​must not contain units.');
+	
+	prefs.define('css.intUnit', 'px', 'Default unit for integer values');
+	prefs.define('css.floatUnit', 'em', 'Default unit for float values');
+	
+	prefs.define('css.keywords', 'auto, inherit', 
+			'A comma-separated list of valid keywords that can be used in CSS abbreviations.');
+	
+	prefs.define('css.keywordAliases', 'a:auto, i:inherit, s:solid, da:dashed, do:dotted, t:transparent', 
+			'A comma-separated list of keyword aliases, used in CSS abbreviation. '
+			+ 'Each alias should be defined as <code>alias:keyword_name</code>.');
+	
+	prefs.define('css.unitAliases', 'e:em, p:%, x:ex, r:rem', 
+			'A comma-separated list of unit aliases, used in CSS abbreviation. '
+			+ 'Each alias should be defined as <code>alias:unit_value</code>.');
+	
+	prefs.define('css.color.short', true, 
+			'Should color values like <code>#ffffff</code> be shortened to '
+			+ '<code>#fff</code> after abbreviation with color was expanded.');
+	
+	prefs.define('css.color.case', 'keep', 
+			'Letter case of color values generated by abbreviations with color '
+			+ '(like <code>c#0</code>). Possible values are <code>upper</code>, '
+			+ '<code>lower</code> and <code>keep</code>.');
+	
+	prefs.define('css.fuzzySearch', true, 
+			'Enable fuzzy search among CSS snippet names. When enabled, every ' 
+			+ '<em>unknown</em> snippet will be scored against available snippet '
+			+ 'names (not values or CSS properties!). The match with best score '
+			+ 'will be used to resolve snippet value. For example, with this ' 
+			+ 'preference enabled, the following abbreviations are equal: '
+			+ '<code>ov:h</code> == <code>ov-h</code> == <code>o-h</code> == '
+			+ '<code>oh</code>');
+	
+	prefs.define('css.fuzzySearchMinScore', 0.3, 
+			'The minium score (from 0 to 1) that fuzzy-matched abbreviation should ' 
+			+ 'achive. Lower values may produce many false-positive matches, '
+			+ 'higher values may reduce possible matches.');
+	
+	prefs.define('css.alignVendor', false, 
+			'If set to <code>true</code>, all generated vendor-prefixed properties ' 
+			+ 'will be aligned by real property name.');
+	
 	
 	function isNumeric(ch) {
 		var code = ch && ch.charCodeAt(0);
@@ -9717,9 +10201,15 @@ emmet.define('cssResolver', function(require, _) {
 		var utils = require('utils');
 		snippet = utils.trim(snippet);
 		
-		// check if it doesn't contain a comment
-		if (~snippet.indexOf('/*'))
+		// check if it doesn't contain a comment and a newline
+		if (~snippet.indexOf('/*') || /[\n\r]/.test(snippet)) {
 			return false;
+		}
+		
+		// check if it's a valid snippet definition
+		if (!/^[a-z0-9\-]+\s*\:/i.test(snippet)) {
+			return false;
+		}
 		
 		snippet = require('tabStops').processText(snippet, {
 			replaceCarets: true,
@@ -9732,27 +10222,83 @@ emmet.define('cssResolver', function(require, _) {
 	}
 	
 	/**
-	 * Split snippet into a CSS property-value pair
-	 * @param {String} snippet
+	 * Normalizes abbreviated value to final CSS one
+	 * @param {String} value
+	 * @returns {String}
 	 */
-	function splitSnippet(snippet) {
-		var utils = require('utils');
-		snippet = utils.trim(snippet);
-		if (snippet.indexOf(':') == -1) {
-			return {
-				name: snippet,
-				value: defaultValue
-			};
+	function normalizeValue(value) {
+		if (value.charAt(0) == '-' && !/^\-[\.\d]/.test(value)) {
+			value = value.replace(/^\-+/, '');
 		}
 		
-		var pair = snippet.split(':');
+		if (value.charAt(0) == '#') {
+			return normalizeHexColor(value);
+		}
 		
-		return {
-			name: utils.trim(pair.shift()),
-			// replace ${0} tabstop to produce valid vendor-prefixed values
-			// where possible
-			value: utils.trim(pair.join(':')).replace(/^(\$\{0\}|\$0)(\s*;?)$/, '${1}$2')
-		};
+		return getKeyword(value);
+	}
+	
+	function normalizeHexColor(value) {
+		var hex = value.replace(/^#+/, '') || '0';
+		if (hex.toLowerCase() == 't') {
+			return 'transparent';
+		}
+		
+		var repeat = require('utils').repeatString;
+		var color = null;
+		switch (hex.length) {
+			case 1:
+				color = repeat(hex, 6);
+				break;
+			case 2:
+				color = repeat(hex, 3);
+				break;
+			case 3:
+				color = hex.charAt(0) + hex.charAt(0) + hex.charAt(1) + hex.charAt(1) + hex.charAt(2) + hex.charAt(2);
+				break;
+			case 4:
+				color = hex + hex.substr(0, 2);
+				break;
+			case 5:
+				color = hex + hex.charAt(0);
+				break;
+			default:
+				color = hex.substr(0, 6);
+		}
+		
+		// color must be shortened?
+		if (prefs.get('css.color.short')) {
+			var p = color.split('');
+			if (p[0] == p[1] && p[2] == p[3] && p[4] == p[5]) {
+				color = p[0] + p[2] + p[4];
+			}
+		}
+		
+		// should transform case?
+		switch (prefs.get('css.color.case')) {
+			case 'upper':
+				color = color.toUpperCase();
+				break;
+			case 'lower':
+				color = color.toLowerCase();
+				break;
+		}
+		
+		return '#' + color;
+	}
+	
+	function getKeyword(name) {
+		var aliases = prefs.getDict('css.keywordAliases');
+		return name in aliases ? aliases[name] : name;
+	}
+	
+	function getUnit(name) {
+		var aliases = prefs.getDict('css.unitAliases');
+		return name in aliases ? aliases[name] : name;
+	}
+	
+	function isValidKeyword(keyword) {
+		return _.include(prefs.getArray('css.keywords'), getKeyword(keyword));
 	}
 	
 	/**
@@ -9768,7 +10314,7 @@ emmet.define('cssResolver', function(require, _) {
 				return data.prefix == prefix;
 			});
 		
-		return info && info.supports && _.include(info.supports, property);
+		return info && info.supports(property);
 	}
 	
 	/**
@@ -9803,6 +10349,36 @@ emmet.define('cssResolver', function(require, _) {
 		vendorPrefixes[name] = _.extend({}, prefixObj, obj);
 	}
 	
+	function getSyntaxPreference(name, syntax) {
+		if (syntax) {
+			// hacky alias for Stylus dialect
+			if (syntax == 'styl') {
+				syntax = 'stylus';
+			}
+
+			var val = prefs.get(syntax + '.' + name);
+			if (!_.isUndefined(val))
+				return val;
+		}
+		
+		return prefs.get('css.' + name);
+	}
+	
+	/**
+	 * Format CSS property according to current syntax dialect
+	 * @param {String} property
+	 * @param {String} syntax
+	 * @returns {String}
+	 */
+	function formatProperty(property, syntax) {
+		var ix = property.indexOf(':');
+		property = property.substring(0, ix).replace(/\s+$/, '') 
+			+ getSyntaxPreference('valueSeparator', syntax)
+			+ require('utils').trim(property.substring(ix + 1));
+		
+		return property.replace(/\s*;\s*$/, getSyntaxPreference('propertyEnd', syntax));
+	}
+	
 	/**
 	 * Transforms snippet value if required. For example, this transformation
 	 * may add <i>!important</i> declaration to CSS property
@@ -9810,7 +10386,7 @@ emmet.define('cssResolver', function(require, _) {
 	 * @param {Boolean} isImportant
 	 * @returns {String}
 	 */
-	function transformSnippet(snippet, isImportant) {
+	function transformSnippet(snippet, isImportant, syntax) {
 		if (!_.isString(snippet))
 			snippet = snippet.data;
 		
@@ -9825,45 +10401,39 @@ emmet.define('cssResolver', function(require, _) {
 			}
 		}
 		
-		// format value separator
-		var ix = snippet.indexOf(':');
-		snippet = snippet.substring(0, ix).replace(/\s+$/, '') 
-			+ prefs.get('css.valueSeparator')
-			+ require('utils').trim(snippet.substring(ix + 1));
+		return formatProperty(snippet, syntax);
+	}
+	
+	function getProperties(key) {
+		var list = prefs.getArray(key);
+		_.each(prefs.getArray(key + 'Addon'), function(prop) {
+			if (prop.charAt(0) == '-') {
+				list = _.without(list, prop.substr(1));
+			} else {
+				if (prop.charAt(0) == '+')
+					prop = prop.substr(1);
+				
+				list.push(prop);
+			}
+		});
 		
-		return snippet;
+		return list;
 	}
 	
-	/**
-	 * Helper function that parses comma-separated list of elements into array
-	 * @param {String} list
-	 * @returns {Array}
-	 */
-	function parseList(list) {
-		var result = _.map((list || '').split(','), require('utils').trim);
-		return result.length ? result : null;
-	}
 	
+	// TODO refactor, this looks awkward now
 	addPrefix('w', {
-		prefix: 'webkit',
-		supports: prefs.getArray('css.webkitProperties')
+		prefix: 'webkit'
 	});
 	addPrefix('m', {
-		prefix: 'moz',
-		supports: prefs.getArray('css.mozProperties')
+		prefix: 'moz'
 	});
 	addPrefix('s', {
-		prefix: 'ms',
-		supports: prefs.getArray('css.msProperties')
+		prefix: 'ms'
 	});
 	addPrefix('o', {
-		prefix: 'o',
-		supports: prefs.getArray('css.oProperties')
+		prefix: 'o'
 	});
-	
-	var unitlessProps = prefs.getArray('css.unitlessProperties');
-	var floatUnit = 'em';
-	var intUnit = 'px';
 	
 	// I think nobody uses it
 //	addPrefix('k', {
@@ -9871,16 +10441,15 @@ emmet.define('cssResolver', function(require, _) {
 //		obsolete: true
 //	});
 	
-	var cssSyntaxes = ['css', 'less', 'sass', 'scss'];
-	
 	/**
 	 * XXX register resolver
 	 * @param {TreeNode} node
 	 * @param {String} syntax
 	 */
 	require('resources').addResolver(function(node, syntax) {
+		var cssSyntaxes = prefs.getArray('css.syntaxes');
 		if (_.include(cssSyntaxes, syntax) && node.isElement()) {
-			return module.expandToSnippet(node.abbreviation);
+			return module.expandToSnippet(node.abbreviation, syntax);
 		}
 		
 		return null;
@@ -9897,6 +10466,7 @@ emmet.define('cssResolver', function(require, _) {
 	 * @param {String} profile
 	 */
 	ea.addHandler(function(editor, syntax, profile) {
+		var cssSyntaxes = prefs.getArray('css.syntaxes');
 		if (!_.include(cssSyntaxes, syntax)) {
 			return false;
 		}
@@ -9979,33 +10549,6 @@ emmet.define('cssResolver', function(require, _) {
 		},
 		
 		/**
-		 * Adds CSS unit shorthand and its full value
-		 * @param {String} alias
-		 * @param {String} value
-		 */
-		addUnitAlias: function(alias, value) {
-			unitAliases[alias] = value;
-		},
-		
-		/**
-		 * Get unit name for alias
-		 * @param {String} alias
-		 * @returns {String}
-		 */
-		getUnitAlias: function(alias) {
-			return unitAliases[alias];
-		},
-		
-		/**
-		 * Removes unit alias
-		 * @param {String} alias
-		 */
-		removeUnitAlias: function(alias) {
-			if (alias in unitAliases)
-				delete unitAliases[alias];
-		},
-		
-		/**
 		 * Extract vendor prefixes from abbreviation
 		 * @param {String} abbr
 		 * @returns {Object} Object containing array of prefixes and clean 
@@ -10063,57 +10606,67 @@ emmet.define('cssResolver', function(require, _) {
 		 * @param {String} abbr
 		 * @returns {String} Value substring
 		 */
-		findValuesInAbbreviation: function(abbr) {
-			var i = 0, il = abbr.length, ch;
+		findValuesInAbbreviation: function(abbr, syntax) {
+			syntax = syntax || 'css';
 			
+			var i = 0, il = abbr.length, value = '', ch;
 			while (i < il) {
 				ch = abbr.charAt(i);
-				if (isNumeric(ch) || (ch == '-' && isNumeric(abbr.charAt(i + 1)))) {
-					return abbr.substring(i);
+				if (isNumeric(ch) || ch == '#' || (ch == '-' && isNumeric(abbr.charAt(i + 1)))) {
+					value = abbr.substring(i);
+					break;
 				}
 				
 				i++;
 			}
 			
-			return '';
+			// try to find keywords in abbreviation
+			var property = abbr.substring(0, abbr.length - value.length);
+			var res = require('resources');
+			var keywords = [];
+			// try to extract some commonly-used properties
+			while (~property.indexOf('-') && !res.findSnippet(syntax, property)) {
+				var parts = property.split('-');
+				var lastPart = parts.pop();
+				if (!isValidKeyword(lastPart)) {
+					break;
+				}
+				
+				keywords.unshift(lastPart);
+				property = parts.join('-');
+			}
+			
+			return keywords.join('-') + value;
 		},
 		
-		/**
-		 * Parses values defined in abbreviations
-		 * @param {String} abbrValues Values part of abbreviations (can be 
-		 * extracted with <code>findValuesInAbbreviation</code>)
-		 * @returns {Array}
-		 */
-		parseValues: function(abbrValues) {
-			var valueStack = '';
+		parseValues: function(str) {
+			/** @type StringStream */
+			var stream = require('stringStream').create(str);
 			var values = [];
-			var i = 0, il = abbrValues.length, ch, nextCh;
+			var ch = null;
 			
-			while (i < il) {
-				ch = abbrValues.charAt(i);
-				if (ch == '-' && valueStack) {
-					// next value found
-					values.push(valueStack);
-					valueStack = '';
-					i++;
-					continue;
+			while ((ch = stream.next())) {
+				if (ch == '#') {
+					stream.match(/^t|[0-9a-f]+/i, true);
+					values.push(stream.current());
+				} else if (ch == '-') {
+					if (isValidKeyword(_.last(values)) || 
+							( stream.start && isNumeric(str.charAt(stream.start - 1)) )
+						) {
+						stream.start = stream.pos;
+					}
+					
+					stream.match(/^\-?[0-9]*(\.[0-9]+)?[a-z%\.]*/, true);
+					values.push(stream.current());
+				} else {
+					stream.match(/^[0-9]*(\.[0-9]*)?[a-z%]*/, true);
+					values.push(stream.current());
 				}
 				
-				valueStack += ch;
-				i++;
-				
-				nextCh = abbrValues.charAt(i);
-				if (ch != '-' && !isNumeric(ch) && (isNumeric(nextCh) || nextCh == '-')) {
-					values.push(valueStack);
-					valueStack = '';
-				}
+				stream.start = stream.pos;
 			}
 			
-			if (valueStack) {
-				values.push(valueStack);
-			}
-			
-			return values;
+			return _.map(_.compact(values), normalizeValue);
 		},
 		
 		/**
@@ -10133,7 +10686,7 @@ emmet.define('cssResolver', function(require, _) {
 			}
 			
 			return {
-				property: abbr.substring(0, abbr.length - abbrValues.length),
+				property: abbr.substring(0, abbr.length - abbrValues.length).replace(/-$/, ''),
 				values: this.parseValues(abbrValues)
 			};
 		},
@@ -10146,14 +10699,15 @@ emmet.define('cssResolver', function(require, _) {
 		 */
 		normalizeValue: function(value, property) {
 			property = (property || '').toLowerCase();
+			var unitlessProps = prefs.getArray('css.unitlessProperties');
 			return value.replace(/^(\-?[0-9\.]+)([a-z]*)$/, function(str, val, unit) {
 				if (!unit && (val == '0' || _.include(unitlessProps, property)))
 					return val;
 				
 				if (!unit)
-					return val + (~val.indexOf('.') ? floatUnit : intUnit);
+					return val.replace(/\.$/, '') + prefs.get(~val.indexOf('.') ? 'css.floatUnit' : 'css.intUnit');
 				
-				return val + (unit in unitAliases ? unitAliases[unit] : unit);
+				return val + getUnit(unit);
 			});
 		},
 		
@@ -10161,23 +10715,25 @@ emmet.define('cssResolver', function(require, _) {
 		 * Expands abbreviation into a snippet
 		 * @param {String} abbr Abbreviation name to expand
 		 * @param {String} value Abbreviation value
+		 * @param {String} syntax Currect syntax or dialect. Default is 'css'
 		 * @returns {Object} Array of CSS properties and values or predefined
 		 * snippet (string or element)
 		 */
-		expand: function(abbr, value) {
+		expand: function(abbr, value, syntax) {
+			syntax = syntax || 'css';
 			var resources = require('resources');
 			var autoInsertPrefixes = prefs.get('css.autoInsertVendorPrefixes');
 			
 			// check if snippet should be transformed to !important
-			var isImportant;
-			if (isImportant = /^(.+)\!$/.test(abbr)) {
+			var isImportant = /^(.+)\!$/.test(abbr);
+			if (isImportant) {
 				abbr = RegExp.$1;
 			}
 			
 			// check if we have abbreviated resource
-			var snippet = resources.getSnippet('css', abbr);
+			var snippet = resources.findSnippet(syntax, abbr);
 			if (snippet && !autoInsertPrefixes) {
-				return transformSnippet(snippet, isImportant);
+				return transformSnippet(snippet, isImportant, syntax);
 			}
 			
 			// no abbreviated resource, parse abbreviation
@@ -10185,7 +10741,16 @@ emmet.define('cssResolver', function(require, _) {
 			var valuesData = this.extractValues(prefixData.property);
 			var abbrData = _.extend(prefixData, valuesData);
 			
-			snippet = resources.getSnippet('css', abbrData.property);
+			if (!snippet) {
+				snippet = resources.findSnippet(syntax, abbrData.property);
+			} else {
+				abbrData.values = null;
+			}
+			
+			if (!snippet && prefs.get('css.fuzzySearch')) {
+				// let’s try fuzzy search
+				snippet = resources.fuzzyFindSnippet(syntax, abbrData.property, parseFloat(prefs.get('css.fuzzySearchMinScore')));
+			}
 			
 			if (!snippet) {
 				snippet = abbrData.property + ':' + defaultValue;
@@ -10197,7 +10762,7 @@ emmet.define('cssResolver', function(require, _) {
 				return snippet;
 			}
 			
-			var snippetObj = splitSnippet(snippet);
+			var snippetObj = this.splitSnippet(snippet);
 			var result = [];
 			if (!value && abbrData.values) {
 				value = _.map(abbrData.values, function(val) {
@@ -10207,35 +10772,44 @@ emmet.define('cssResolver', function(require, _) {
 			
 			snippetObj.value = value || snippetObj.value;
 			
-			var prefixes = abbrData.prefixes == 'all' || autoInsertPrefixes 
+			var prefixes = abbrData.prefixes == 'all' || (!abbrData.prefixes && autoInsertPrefixes) 
 				? findPrefixes(snippetObj.name, autoInsertPrefixes && abbrData.prefixes != 'all')
 				: abbrData.prefixes;
 				
-				_.each(prefixes, function(p) {
-					if (p in vendorPrefixes) {
-						result.push(transformSnippet(
-								vendorPrefixes[p].transformName(snippetObj.name) 
-								+ ':' + snippetObj.value,
-								isImportant));
-						
-					}
-				});
+				
+			var names = [], propName;
+			_.each(prefixes, function(p) {
+				if (p in vendorPrefixes) {
+					propName = vendorPrefixes[p].transformName(snippetObj.name);
+					names.push(propName);
+					result.push(transformSnippet(propName + ':' + snippetObj.value,
+							isImportant, syntax));
+				}
+			});
 			
 			// put the original property
-			result.push(transformSnippet(snippetObj.name + ':' + snippetObj.value, isImportant));
+			result.push(transformSnippet(snippetObj.name + ':' + snippetObj.value, isImportant, syntax));
+			names.push(snippetObj.name);
+			
+			if (prefs.get('css.alignVendor')) {
+				var pads = require('utils').getStringsPads(names);
+				result = _.map(result, function(prop, i) {
+					return pads[i] + prop;
+				});
+			}
 			
 			return result;
 		},
 		
 		/**
-		 * Same as <code>expand</code> method but transforms output into a 
+		 * Same as <code>expand</code> method but transforms output into 
 		 * Emmet snippet
 		 * @param {String} abbr
-		 * @param {String} value
+		 * @param {String} syntax
 		 * @returns {String}
 		 */
-		expandToSnippet: function(abbr, value) {
-			var snippet = this.expand(abbr, value);
+		expandToSnippet: function(abbr, syntax) {
+			var snippet = this.expand(abbr, null, syntax);
 			if (_.isArray(snippet)) {
 				return snippet.join('\n');
 			}
@@ -10244,10 +10818,36 @@ emmet.define('cssResolver', function(require, _) {
 				return snippet.data;
 			
 			return String(snippet);
-		}
+		},
+		
+		/**
+		 * Split snippet into a CSS property-value pair
+		 * @param {String} snippet
+		 */
+		splitSnippet: function(snippet) {
+			var utils = require('utils');
+			snippet = utils.trim(snippet);
+			if (snippet.indexOf(':') == -1) {
+				return {
+					name: snippet,
+					value: defaultValue
+				};
+			}
+			
+			var pair = snippet.split(':');
+			
+			return {
+				name: utils.trim(pair.shift()),
+				// replace ${0} tabstop to produce valid vendor-prefixed values
+				// where possible
+				value: utils.trim(pair.join(':')).replace(/^(\$\{0\}|\$0)(\s*;?)$/, '${1}$2')
+			};
+		},
+		
+		getSyntaxPreference: getSyntaxPreference,
+		transformSnippet: transformSnippet
 	};
 });
-
 /**
  * 'Expand Abbreviation' handler that parses gradient definition from under 
  * cursor and updates CSS rule with vendor-prefixed values.
@@ -10258,6 +10858,10 @@ emmet.define('cssResolver', function(require, _) {
  */
 emmet.define('cssGradient', function(require, _) {
 	var defaultLinearDirections = ['top', 'to bottom', '0deg'];
+	/** Back-reference to current module */
+	var module = null;
+	
+	var cssSyntaxes = ['css', 'less', 'sass', 'scss', 'stylus', 'styl'];
 	
 	var reDeg = /\d+deg/i;
 	var reKeyword = /top|bottom|left|right/i;
@@ -10275,6 +10879,15 @@ emmet.define('cssGradient', function(require, _) {
 	prefs.define('css.gradient.omitDefaultDirection', true,
 		'Do not output default direction definition in generated gradients.');
 	
+	prefs.define('css.gradient.defaultProperty', 'background-image',
+		'When gradient expanded outside CSS value context, it will produce '
+			+ 'properties with this name.');
+	
+	prefs.define('css.gradient.fallback', false,
+			'With this option enabled, CSS gradient generator will produce '
+			+ '<code>background-color</code> property with gradient first color '
+			+ 'as fallback for old browsers.');
+	
 	function normalizeSpace(str) {
 		return require('utils').trim(str).replace(/\s+/g, ' ');
 	}
@@ -10290,7 +10903,7 @@ emmet.define('cssGradient', function(require, _) {
 		/** @type StringStream */
 		var stream = require('stringStream').create(require('utils').trim(gradient));
 		var colorStops = [], ch;
-		while (ch = stream.next()) {
+		while ((ch = stream.next())) {
 			if (stream.peek() == ',') {
 				colorStops.push(stream.current());
 				stream.next();
@@ -10366,6 +10979,29 @@ emmet.define('cssGradient', function(require, _) {
 	}
 	
 	/**
+	 * Resolves property name (abbreviation): searches for snippet definition in 
+	 * 'resources' and returns new name of matched property
+	 */
+	function resolvePropertyName(name, syntax) {
+		var res = require('resources');
+		var prefs = require('preferences');
+		var snippet = res.findSnippet(syntax, name);
+		
+		if (!snippet && prefs.get('css.fuzzySearch')) {
+			snippet = res.fuzzyFindSnippet(syntax, name, 
+					parseFloat(prefs.get('css.fuzzySearchMinScore')));
+		}
+		
+		if (snippet) {
+			if (!_.isString(snippet)) {
+				snippet = snippet.data;
+			}
+			
+			return require('cssResolver').splitSnippet(snippet).name;
+		}
+	}
+	
+	/**
 	 * Fills-out implied positions in color-stops. This function is useful for
 	 * old Webkit gradient definitions
 	 */
@@ -10432,12 +11068,54 @@ emmet.define('cssGradient', function(require, _) {
 	
 	function getPrefixedNames(name) {
 		var prefixes = prefs.getArray('css.gradient.prefixes');
-		var names = _.map(prefixes, function(p) {
-			return '-' + p + '-' + name;
-		});
+		var names = prefixes 
+			? _.map(prefixes, function(p) {
+				return '-' + p + '-' + name;
+			}) 
+			: [];
+		
 		names.push(name);
 		
 		return names;
+	}
+	
+	/**
+	 * Returns list of CSS properties with gradient
+	 * @param {Object} gradient
+	 * @param {String} propertyName Original CSS property name
+	 * @returns {Array}
+	 */
+	function getPropertiesForGradient(gradient, propertyName) {
+		var props = [];
+		var css = require('cssResolver');
+		
+		if (prefs.get('css.gradient.fallback') && ~propertyName.toLowerCase().indexOf('background')) {
+			props.push({
+				name: 'background-color',
+				value: '${1:' + gradient.colorStops[0].color + '}'
+			});
+		}
+		
+		_.each(prefs.getArray('css.gradient.prefixes'), function(prefix) {
+			var name = css.prefixed(propertyName, prefix);
+			if (prefix == 'webkit' && prefs.get('css.gradient.oldWebkit')) {
+				try {
+					props.push({
+						name: name,
+						value: module.oldWebkitLinearGradient(gradient)
+					});
+				} catch(e) {}
+			}
+			
+			props.push({
+				name: name,
+				value: module.toString(gradient, prefix)
+			});
+		});
+		
+		return props.sort(function(a, b) {
+			return b.name.length - a.name.length;
+		});
 	}
 	
 	/**
@@ -10451,17 +11129,41 @@ emmet.define('cssGradient', function(require, _) {
 	function pasteGradient(property, gradient, valueRange) {
 		var rule = property.parent;
 		var utils = require('utils');
-		var css = require('cssResolver');
-		/** @type Array */
-		var prefixes = prefs.getArray('css.gradient.prefixes');
+		var alignVendor = require('preferences').get('css.alignVendor');
+		
+		// we may have aligned gradient definitions: find the smallest value
+		// separator
+		var sep = property.styleSeparator;
+		var before = property.styleBefore;
 		
 		// first, remove all properties within CSS rule with the same name and
 		// gradient definition
 		_.each(rule.getAll(getPrefixedNames(property.name())), function(item) {
 			if (item != property && /gradient/i.test(item.value())) {
+				if (item.styleSeparator.length < sep.length) {
+					sep = item.styleSeparator;
+				}
+				if (item.styleBefore.length < before.length) {
+					before = item.styleBefore;
+				}
 				rule.remove(item);
 			}
 		});
+		
+		if (alignVendor) {
+			// update prefix
+			if (before != property.styleBefore) {
+				var fullRange = property.fullRange();
+				rule._updateSource(before, fullRange.start, fullRange.start + property.styleBefore.length);
+				property.styleBefore = before;
+			}
+			
+			// update separator value
+			if (sep != property.styleSeparator) {
+				rule._updateSource(sep, property.nameRange().end, property.valueRange().start);
+				property.styleSeparator = sep;
+			}
+		}
 		
 		var value = property.value();
 		if (!valueRange)
@@ -10472,32 +11174,32 @@ emmet.define('cssGradient', function(require, _) {
 		};
 		
 		// put vanilla-clean gradient definition into current rule
-		var cssGradient = require('cssGradient');
-		property.value(val(cssGradient.toString(gradient)));
+		property.value(val(module.toString(gradient)) + '${2}');
 		
 		// create list of properties to insert
-		var propsToInsert = [];
-		_.each(prefixes, function(prefix) {
-			var name = css.prefixed(property.name(), prefix);
-			if (prefix == 'webkit' && prefs.get('css.gradient.oldWebkit')) {
-				try {
-					propsToInsert.push({
-						name: name,
-						value: val(cssGradient.oldWebkitLinearGradient(gradient))
-					});
-				} catch(e) {}
-			}
-			
-			propsToInsert.push({
-				name: name,
-				value: val(cssGradient.toString(gradient, prefix))
-			});
-		});
+		var propsToInsert = getPropertiesForGradient(gradient, property.name());
 		
-		// sort properties by name length
-		propsToInsert = propsToInsert.sort(function(a, b) {
-			return b.name.length - a.name.length;
-		});
+		// align prefixed values
+		if (alignVendor) {
+			var values = _.pluck(propsToInsert, 'value');
+			var names = _.pluck(propsToInsert, 'name');
+			values.push(property.value());
+			names.push(property.name());
+			
+			var valuePads = utils.getStringsPads(_.map(values, function(v) {
+				return v.substring(0, v.indexOf('('));
+			}));
+			
+			var namePads = utils.getStringsPads(names);
+			property.name(_.last(namePads) + property.name());
+			
+			_.each(propsToInsert, function(prop, i) {
+				prop.name = namePads[i] + prop.name;
+				prop.value = valuePads[i] + prop.value;
+			});
+			
+			property.value(_.last(valuePads) + property.value());
+		}
 		
 		// put vendor-prefixed definitions before current rule
 		_.each(propsToInsert, function(prop) {
@@ -10510,10 +11212,9 @@ emmet.define('cssGradient', function(require, _) {
 	 */
 	function findGradient(cssProp) {
 		var value = cssProp.value();
-		var cssGradient = require('cssGradient');
 		var gradient = null;
 		var matchedPart = _.find(cssProp.valueParts(), function(part) {
-			return gradient = cssGradient.parse(part.substring(value));
+			return gradient = module.parse(part.substring(value));
 		});
 		
 		if (matchedPart && gradient) {
@@ -10526,6 +11227,94 @@ emmet.define('cssGradient', function(require, _) {
 		return null;
 	}
 	
+	/**
+	 * Tries to expand gradient outside CSS value 
+	 * @param {IEmmetEditor} editor
+	 * @param {String} syntax
+	 */
+	function expandGradientOutsideValue(editor, syntax) {
+		var propertyName = prefs.get('css.gradient.defaultProperty');
+		
+		if (!propertyName)
+			return false;
+		
+		// assuming that gradient definition is written on new line,
+		// do a simplified parsing
+		var content = String(editor.getContent());
+		/** @type Range */
+		var lineRange = require('range').create(editor.getCurrentLineRange());
+		
+		// get line content and adjust range with padding
+		var line = lineRange.substring(content)
+			.replace(/^\s+/, function(pad) {
+				lineRange.start += pad.length;
+				return '';
+			})
+			.replace(/\s+$/, function(pad) {
+				lineRange.end -= pad.length;
+				return '';
+			});
+		
+		var css = require('cssResolver');
+		var gradient = module.parse(line);
+		if (gradient) {
+			var props = getPropertiesForGradient(gradient, propertyName);
+			props.push({
+				name: propertyName,
+				value: module.toString(gradient) + '${2}'
+			});
+			
+			var sep = css.getSyntaxPreference('valueSeparator', syntax);
+			var end = css.getSyntaxPreference('propertyEnd', syntax);
+			
+			if (require('preferences').get('css.alignVendor')) {
+				var pads = require('utils').getStringsPads(_.map(props, function(prop) {
+					return prop.value.substring(0, prop.value.indexOf('('));
+				}));
+				_.each(props, function(prop, i) {
+					prop.value = pads[i] + prop.value;
+				});
+			}
+			
+			props = _.map(props, function(item) {
+				return item.name + sep + item.value + end;
+			});
+			
+			editor.replaceContent(props.join('\n'), lineRange.start, lineRange.end);
+			return true;
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Search for gradient definition inside CSS value under cursor
+	 * @param {String} content
+	 * @param {Number} pos
+	 * @returns {Object}
+	 */
+	function findGradientFromPosition(content, pos) {
+		var cssProp = null;
+		/** @type EditContainer */
+		var cssRule = require('cssEditTree').parseFromPosition(content, pos, true);
+		
+		if (cssRule) {
+			cssProp = cssRule.itemFromPosition(pos, true);
+			if (!cssProp) {
+				// in case user just started writing CSS property
+				// and didn't include semicolon–try another approach
+				cssProp = _.find(cssRule.list(), function(elem) {
+					return elem.range(true).end == pos;
+				});
+			}
+		}
+		
+		return {
+			rule: cssRule,
+			property: cssProp
+		};
+	}
+	
 	// XXX register expand abbreviation handler
 	/**
 	 * @param {IEmmetEditor} editor
@@ -10534,43 +11323,54 @@ emmet.define('cssGradient', function(require, _) {
 	 */
 	require('expandAbbreviation').addHandler(function(editor, syntax, profile) {
 		var info = require('editorUtils').outputInfo(editor, syntax, profile);
-		if (info.syntax != 'css')
+		if (!_.include(cssSyntaxes, info.syntax))
 			return false;
 		
 		// let's see if we are expanding gradient definition
 		var caret = editor.getCaretPos();
-		/** @type EditContainer */
-		var cssRule = require('cssEditTree').parseFromPosition(info.content, caret, true);
-		if (cssRule) {
-			var cssProp = cssRule.itemFromPosition(caret, true);
-			if (!cssProp) {
-				// in case user just started writing CSS property
-				// and didn't include semicolon–try another approach
-				cssProp = _.find(cssRule.list(), function(elem) {
-					return elem.range(true).end == caret;
-				});
-			}
-			
-			if (cssProp) {
-				// make sure that caret is inside property value with gradient 
-				// definition
-				var g = findGradient(cssProp);
-				if (g) {
-					// make sure current property has terminating semicolon
-					cssProp.end(';');
-					
-					var ruleStart = cssRule.options.offset || 0;
-					var ruleEnd = ruleStart + cssRule.toString().length;
-					
-					pasteGradient(cssProp, g.gradient, g.valueRange);
-					editor.replaceContent(cssRule.toString(), ruleStart, ruleEnd, true);
-					editor.setCaretPos(cssProp.valueRange(true).end);
-					return true;
+		var content = info.content;
+		var css = findGradientFromPosition(content, caret);
+		
+		if (css.property) {
+			// make sure that caret is inside property value with gradient 
+			// definition
+			var g = findGradient(css.property);
+			if (g) {
+				var ruleStart = css.rule.options.offset || 0;
+				var ruleEnd = ruleStart + css.rule.toString().length;
+				
+				// Handle special case:
+				// user wrote gradient definition between existing CSS 
+				// properties and did not finished it with semicolon.
+				// In this case, we have semicolon right after gradient 
+				// definition and re-parse rule again
+				if (/[\n\r]/.test(css.property.value())) {
+					// insert semicolon at the end of gradient definition
+					var insertPos = css.property.valueRange(true).start + g.valueRange.end;
+					content = require('utils').replaceSubstring(content, ';', insertPos);
+					var newCss = findGradientFromPosition(content, caret);
+					if (newCss.property) {
+						g = findGradient(newCss.property);
+						css = newCss;
+					}
 				}
+				
+				// make sure current property has terminating semicolon
+				css.property.end(';');
+				
+				// resolve CSS property name
+				var resolvedName = resolvePropertyName(css.property.name(), syntax);
+				if (resolvedName) {
+					css.property.name(resolvedName);
+				}
+				
+				pasteGradient(css.property, g.gradient, g.valueRange);
+				editor.replaceContent(css.rule.toString(), ruleStart, ruleEnd, true);
+				return true;
 			}
 		}
 		
-		return false;
+		return expandGradientOutsideValue(editor, syntax);
 	});
 	
 	// XXX register "Reflect CSS Value" action delegate
@@ -10578,7 +11378,6 @@ emmet.define('cssGradient', function(require, _) {
 	 * @param {EditElement} property
 	 */
 	require('reflectCSSValue').addHandler(function(property) {
-		var cssGradient = require('cssGradient');
 		var utils = require('utils');
 		
 		var g = findGradient(property);
@@ -10598,17 +11397,17 @@ emmet.define('cssGradient', function(require, _) {
 			// check if property value starts with gradient definition
 			var m = prop.value().match(/^\s*(\-([a-z]+)\-)?linear\-gradient/);
 			if (m) {
-				prop.value(val(cssGradient.toString(g.gradient, m[2] || '')));
-			} else if (m = prop.value().match(/\s*\-webkit\-gradient/)) {
+				prop.value(val(module.toString(g.gradient, m[2] || '')));
+			} else if ((m = prop.value().match(/\s*\-webkit\-gradient/))) {
 				// old webkit gradient definition
-				prop.value(val(cssGradient.oldWebkitLinearGradient(g.gradient)));
+				prop.value(val(module.oldWebkitLinearGradient(g.gradient)));
 			}
 		});
 		
 		return true;
 	});
 	
-	return {
+	return module = {
 		/**
 		 * Parses gradient definition
 		 * @param {String} gradient
@@ -10616,7 +11415,7 @@ emmet.define('cssGradient', function(require, _) {
 		 */
 		parse: function(gradient) {
 			var result = null;
-			gradient = require('utils').trim(gradient).replace(/^([\w\-]+)\((.+?)\)$/, function(str, type, definition) {
+			require('utils').trim(gradient).replace(/^([\w\-]+)\((.+?)\)$/, function(str, type, definition) {
 				// remove vendor prefix
 				type = type.toLowerCase().replace(/^\-[a-z]+\-/, '');
 				if (type == 'linear-gradient' || type == 'lg') {
@@ -10741,7 +11540,7 @@ emmet.exec(function(require, _) {
 		}
 	});
 	
-	resources.addResolver(function(node, syntax) {
+	resources.addResolver(function() {
 		return generators.exec(null, _.toArray(arguments));
 	});
 });/**
@@ -10753,12 +11552,14 @@ emmet.exec(function(require, _) {
  */
 emmet.define('tagName', function(require, _) {
 	var elementTypes = {
-		empty: 'area,base,basefont,br,col,frame,hr,img,input,isindex,link,meta,param,embed,keygen,command'.split(','),
+//		empty: 'area,base,basefont,br,col,frame,hr,img,input,isindex,link,meta,param,embed,keygen,command'.split(','),
+		empty: [],
 		blockLevel: 'address,applet,blockquote,button,center,dd,del,dir,div,dl,dt,fieldset,form,frameset,hr,iframe,ins,isindex,li,link,map,menu,noframes,noscript,object,ol,p,pre,script,table,tbody,td,tfoot,th,thead,tr,ul,h1,h2,h3,h4,h5,h6'.split(','),
 		inlineLevel: 'a,abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,select,small,span,strike,strong,sub,sup,textarea,tt,u,var'.split(',')
 	};
 	
 	var elementMap = {
+		'p': 'span',
 		'ul': 'li',
 		'ol': 'li',
 		'table': 'tr',
@@ -10957,9 +11758,11 @@ emmet.exec(function(require, _) {
 			.map(function(name) {return processClassName(name, item);})
 			.flatten()
 			.uniq()
-			.value();
+			.value()
+			.join(' ');
 		
-		item.attribute('class', classNames.join(' '));
+		if (classNames)
+			item.attribute('class', classNames);
 		
 		return item;
 	}
@@ -11065,7 +11868,7 @@ emmet.exec(function(require, _) {
 		var reSep = new RegExp('^(' + separators[entityType] + ')+', 'g');
 		if (reSep.test(name)) {
 			var depth = 0; // parent lookup depth
-			var cleanName = name.replace(reSep, function(str, p1) {
+			var cleanName = name.replace(reSep, function(str) {
 				depth = str.length / separators[entityType].length;
 				return '';
 			});
@@ -11134,7 +11937,7 @@ emmet.exec(function(require, _) {
 		});
 		
 		return tree;
-	};
+	}
 	
 	require('filters').add('bem', function(tree, profile) {
 		shouldRunHtmlFilter = false;
@@ -11298,7 +12101,24 @@ emmet.exec(function(require, _) {
 emmet.exec(function(require, _){
 	var placeholder = '%s';
 	
-	function getIndentation() {
+	/** @type preferences */
+	var prefs = require('preferences');
+	prefs.define('format.noIndentTags', 'html', 
+			'A comma-separated list of tag names that should not get inner indentation.');
+	
+	prefs.define('format.forceIndentationForTags', 'body', 
+		'A comma-separated list of tag names that should <em>always</em> get inner indentation.');
+	
+	/**
+	 * Get indentation for given node
+	 * @param {AbbreviationNode} node
+	 * @returns {String}
+	 */
+	function getIndentation(node) {
+		if (_.include(prefs.getArray('format.noIndentTags') || [], node.name())) {
+			return '';
+		}
+		
 		return require('resources').getVariable('indentation');
 	}
 	
@@ -11334,17 +12154,8 @@ emmet.exec(function(require, _){
 			return false;
 		
 		// check if there are required amount of adjacent inline element
-		var nodeCount = 0;
-		return !!_.find(node.parent.children, function(child) {
-			if (child.isTextNode() || !abbrUtils.isInline(child))
-				nodeCount = 0;
-			else if (abbrUtils.isInline(child))
-				nodeCount++;
-			
-			if (nodeCount >= profile.inline_break)
-				return true;
-		});
-	}
+		return shouldFormatInline(node.parent, profile);
+}
 	
 	/**
 	 * Need to add newline because <code>item</code> has too many inline children
@@ -11357,36 +12168,82 @@ emmet.exec(function(require, _){
 		return node.children.length && shouldAddLineBreak(node.children[0], profile);
 	}
 	
+	function shouldFormatInline(node, profile) {
+		var nodeCount = 0;
+		var abbrUtils = require('abbreviationUtils');
+		return !!_.find(node.children, function(child) {
+			if (child.isTextNode() || !abbrUtils.isInline(child))
+				nodeCount = 0;
+			else if (abbrUtils.isInline(child))
+				nodeCount++;
+			
+			if (nodeCount >= profile.inline_break)
+				return true;
+		});
+	}
+	
+	function isRoot(item) {
+		return !item.parent;
+	}
+	
 	/**
 	 * Processes element with matched resource of type <code>snippet</code>
 	 * @param {AbbreviationNode} item
 	 * @param {OutputProfile} profile
-	 * @param {Number} level Depth level
 	 */
-	function processSnippet(item, profile, level) {
-		if (!isVeryFirstChild(item)) {
-			item.start = require('utils').getNewline() + item.start;
+	function processSnippet(item, profile) {
+		item.start = item.end = '';
+		if (!isVeryFirstChild(item) && profile.tag_nl !== false && shouldAddLineBreak(item, profile)) {
+			// check if we’re not inside inline element
+			if (isRoot(item.parent) || !require('abbreviationUtils').isInline(item.parent)) {
+				item.start = require('utils').getNewline() + item.start;
+			}
 		}
 		
 		return item;
 	}
 	
 	/**
+	 * Check if we should add line breaks inside inline element
+	 * @param {AbbreviationNode} node
+	 * @param {OutputProfile} profile
+	 * @return {Boolean}
+	 */
+	function shouldBreakInsideInline(node, profile) {
+		var abbrUtils = require('abbreviationUtils');
+		var hasBlockElems = _.any(node.children, function(child) {
+			if (abbrUtils.isSnippet(child))
+				return false;
+			
+			return !abbrUtils.isInline(child);
+		});
+		
+		if (!hasBlockElems) {
+			return shouldFormatInline(node, profile);
+		}
+		
+		return true;
+	}
+	
+	/**
 	 * Processes element with <code>tag</code> type
 	 * @param {AbbreviationNode} item
 	 * @param {OutputProfile} profile
-	 * @param {Number} level Depth level
 	 */
-	function processTag(item, profile, level) {
+	function processTag(item, profile) {
 		item.start = item.end = placeholder;
 		var utils = require('utils');
 		var abbrUtils = require('abbreviationUtils');
 		var isUnary = abbrUtils.isUnary(item);
 		var nl = utils.getNewline();
+		var indent = getIndentation(item);
 			
 		// formatting output
 		if (profile.tag_nl !== false) {
 			var forceNl = profile.tag_nl === true && (profile.tag_nl_leaf || item.children.length);
+			if (!forceNl) {
+				forceNl = _.include(prefs.getArray('format.forceIndentationForTags') || [], item.name());
+			}
 			
 			// formatting block-level elements
 			if (!item.isTextNode()) {
@@ -11400,14 +12257,14 @@ emmet.exec(function(require, _){
 						item.end = nl + item.end;
 						
 					if (abbrUtils.hasTagsInContent(item) || (forceNl && !item.children.length && !isUnary))
-						item.start += nl + getIndentation();
+						item.start += nl + indent;
 				} else if (abbrUtils.isInline(item) && hasBlockSibling(item) && !isVeryFirstChild(item)) {
 					item.start = nl + item.start;
-				} else if (abbrUtils.isInline(item) && abbrUtils.hasBlockChildren(item)) {
+				} else if (abbrUtils.isInline(item) && shouldBreakInsideInline(item, profile)) {
 					item.end = nl + item.end;
 				}
 				
-				item.padding = getIndentation() ;
+				item.padding = indent;
 			}
 		}
 		
@@ -11445,8 +12302,6 @@ emmet.exec(function(require, _){
  * @param {Underscore} _
  */
 emmet.exec(function(require, _) {
-	var childToken = '${child}';
-	
 	function transformClassName(className) {
 		return require('utils').trim(className).replace(/\s+/g, '.');
 	}
@@ -11485,21 +12340,11 @@ emmet.exec(function(require, _) {
 	}
 	
 	/**
-	 * Test if passed node has block-level sibling element
-	 * @param {AbbreviationNode} item
-	 * @return {Boolean}
-	 */
-	function hasBlockSibling(item) {
-		return item.parent && item.parent.hasBlockChildren();
-	}
-	
-	/**
 	 * Processes element with <code>tag</code> type
 	 * @param {AbbreviationNode} item
 	 * @param {OutputProfile} profile
-	 * @param {Number} level Depth level
 	 */
-	function processTag(item, profile, level) {
+	function processTag(item, profile) {
 		if (!item.parent)
 			// looks like it's root element
 			return item;
@@ -11586,9 +12431,8 @@ emmet.exec(function(require, _) {
 	 * Processes element with <code>tag</code> type
 	 * @param {AbbreviationNode} item
 	 * @param {OutputProfile} profile
-	 * @param {Number} level Depth level
 	 */
-	function processTag(item, profile, level) {
+	function processTag(item, profile) {
 		if (!item.parent) // looks like it's root element
 			return item;
 		
@@ -11620,8 +12464,15 @@ emmet.exec(function(require, _) {
 		item.start = utils.replaceSubstring(item.start, start, item.start.indexOf(placeholder), placeholder);
 		item.end = utils.replaceSubstring(item.end, end, item.end.indexOf(placeholder), placeholder);
 		
-		if (!item.children.length && !isUnary && item.content.indexOf(cursor) == -1)
+		// should we put caret placeholder after opening tag?
+		if (
+				!item.children.length 
+				&& !isUnary 
+				&& !~item.content.indexOf(cursor)
+				&& !require('tabStops').extract(item.content).tabstops.length
+			) {
 			item.start += cursor;
+		}
 		
 		return item;
 	}
@@ -11662,7 +12513,7 @@ emmet.exec(function(require, _) {
 	var rePad = /^\s+/;
 	var reNl = /[\n\r]/g;
 	
-	require('filters').add('s', function process(tree, profile, level) {
+	require('filters').add('s', function process(tree) {
 		var abbrUtils = require('abbreviationUtils');
 		
 		_.each(tree.children, function(item) {
@@ -11775,62 +12626,98 @@ emmet.exec(function(require, _) {
  * @constructor
  * @memberOf __loremIpsumGeneratorDefine
  */
-emmet.exec(function(require, _) {
+emmet.define('lorem', function(require, _) {
+	var langs = {
+		en: {
+			common: ['lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipisicing', 'elit'],
+			words: ['exercitationem', 'perferendis', 'perspiciatis', 'laborum', 'eveniet',
+				'sunt', 'iure', 'nam', 'nobis', 'eum', 'cum', 'officiis', 'excepturi',
+				'odio', 'consectetur', 'quasi', 'aut', 'quisquam', 'vel', 'eligendi',
+				'itaque', 'non', 'odit', 'tempore', 'quaerat', 'dignissimos',
+				'facilis', 'neque', 'nihil', 'expedita', 'vitae', 'vero', 'ipsum',
+				'nisi', 'animi', 'cumque', 'pariatur', 'velit', 'modi', 'natus',
+				'iusto', 'eaque', 'sequi', 'illo', 'sed', 'ex', 'et', 'voluptatibus',
+				'tempora', 'veritatis', 'ratione', 'assumenda', 'incidunt', 'nostrum',
+				'placeat', 'aliquid', 'fuga', 'provident', 'praesentium', 'rem',
+				'necessitatibus', 'suscipit', 'adipisci', 'quidem', 'possimus',
+				'voluptas', 'debitis', 'sint', 'accusantium', 'unde', 'sapiente',
+				'voluptate', 'qui', 'aspernatur', 'laudantium', 'soluta', 'amet',
+				'quo', 'aliquam', 'saepe', 'culpa', 'libero', 'ipsa', 'dicta',
+				'reiciendis', 'nesciunt', 'doloribus', 'autem', 'impedit', 'minima',
+				'maiores', 'repudiandae', 'ipsam', 'obcaecati', 'ullam', 'enim',
+				'totam', 'delectus', 'ducimus', 'quis', 'voluptates', 'dolores',
+				'molestiae', 'harum', 'dolorem', 'quia', 'voluptatem', 'molestias',
+				'magni', 'distinctio', 'omnis', 'illum', 'dolorum', 'voluptatum', 'ea',
+				'quas', 'quam', 'corporis', 'quae', 'blanditiis', 'atque', 'deserunt',
+				'laboriosam', 'earum', 'consequuntur', 'hic', 'cupiditate',
+				'quibusdam', 'accusamus', 'ut', 'rerum', 'error', 'minus', 'eius',
+				'ab', 'ad', 'nemo', 'fugit', 'officia', 'at', 'in', 'id', 'quos',
+				'reprehenderit', 'numquam', 'iste', 'fugiat', 'sit', 'inventore',
+				'beatae', 'repellendus', 'magnam', 'recusandae', 'quod', 'explicabo',
+				'doloremque', 'aperiam', 'consequatur', 'asperiores', 'commodi',
+				'optio', 'dolor', 'labore', 'temporibus', 'repellat', 'veniam',
+				'architecto', 'est', 'esse', 'mollitia', 'nulla', 'a', 'similique',
+				'eos', 'alias', 'dolore', 'tenetur', 'deleniti', 'porro', 'facere',
+				'maxime', 'corrupti']
+		},
+		ru: {
+			common: ['далеко-далеко', 'за', 'словесными', 'горами', 'в стране', 'гласных', 'и согласных', 'живут', 'рыбные', 'тексты'],
+			words: ['вдали', 'от всех', 'они', 'буквенных', 'домах', 'на берегу', 'семантика', 
+				'большого', 'языкового', 'океана', 'маленький', 'ручеек', 'даль', 
+				'журчит', 'по всей', 'обеспечивает', 'ее','всеми', 'необходимыми', 
+				'правилами', 'эта', 'парадигматическая', 'страна', 'которой', 'жаренные', 
+				'предложения', 'залетают', 'прямо', 'рот', 'даже', 'всемогущая', 
+				'пунктуация', 'не', 'имеет', 'власти', 'над', 'рыбными', 'текстами', 
+				'ведущими', 'безорфографичный', 'образ', 'жизни', 'однажды', 'одна', 
+				'маленькая', 'строчка','рыбного', 'текста', 'имени', 'lorem', 'ipsum', 
+				'решила', 'выйти', 'большой', 'мир', 'грамматики', 'великий', 'оксмокс', 
+				'предупреждал', 'о', 'злых', 'запятых', 'диких', 'знаках', 'вопроса', 
+				'коварных', 'точках', 'запятой', 'но', 'текст', 'дал', 'сбить', 
+				'себя', 'толку', 'он', 'собрал', 'семь', 'своих', 'заглавных', 'букв', 
+				'подпоясал', 'инициал', 'за', 'пояс', 'пустился', 'дорогу', 
+				'взобравшись', 'первую', 'вершину', 'курсивных', 'гор', 'бросил', 
+				'последний', 'взгляд', 'назад', 'силуэт', 'своего', 'родного', 'города', 
+				'буквоград', 'заголовок', 'деревни', 'алфавит', 'подзаголовок', 'своего', 
+				'переулка', 'грустный', 'реторический', 'вопрос', 'скатился', 'его', 
+				'щеке', 'продолжил', 'свой', 'путь', 'дороге', 'встретил', 'рукопись', 
+				'она', 'предупредила',  'моей', 'все', 'переписывается', 'несколько', 
+				'раз', 'единственное', 'что', 'меня', 'осталось', 'это', 'приставка', 
+				'возвращайся', 'ты', 'лучше', 'свою', 'безопасную', 'страну', 'послушавшись', 
+				'рукописи', 'наш', 'продолжил', 'свой', 'путь', 'вскоре', 'ему', 
+				'повстречался', 'коварный', 'составитель', 'рекламных', 'текстов', 
+				'напоивший', 'языком', 'речью', 'заманивший', 'свое', 'агенство', 
+				'которое', 'использовало', 'снова', 'снова', 'своих', 'проектах', 
+				'если', 'переписали', 'то', 'живет', 'там', 'до', 'сих', 'пор']
+		}
+	};
+
+	var prefs = require('preferences');
+	prefs.define('lorem.defaultLang', 'en');
+
 	/**
 	 * @param {AbbreviationNode} tree
-	 * @param {Object} options
 	 */
-	require('abbreviationParser').addPreprocessor(function(tree, options) {
-		var re = /^(?:lorem|lipsum)(\d*)$/i, match;
+	require('abbreviationParser').addPreprocessor(function(tree) {
+		var re = /^(?:lorem|lipsum)([a-z]{2})?(\d*)$/i, match;
 		
 		/** @param {AbbreviationNode} node */
 		tree.findAll(function(node) {
 			if (node._name && (match = node._name.match(re))) {
-				var wordCound = match[1] || 30;
+				var wordCound = match[2] || 30;
+				var lang = match[1] || prefs.get('lorem.defaultLang') || 'en';
 				
 				// force node name resolving if node should be repeated
-				// or contains attributes. In this case, node should be outputtet
+				// or contains attributes. In this case, node should be outputed
 				// as tag, otherwise as text-only node
 				node._name = '';
 				node.data('forceNameResolving', node.isRepeating() || node.attributeList().length);
-				node.data('paste', function(i, content) {
-					return paragraph(wordCound, !i);
+				node.data('pasteOverwrites', true);
+				node.data('paste', function(i) {
+					return paragraph(lang, wordCound, !i);
 				});
 			}
 		});
 	});
-	
-	var COMMON_P = 'lorem ipsum dolor sit amet consectetur adipisicing elit'.split(' ');
-	
-	var WORDS = ['exercitationem', 'perferendis', 'perspiciatis', 'laborum', 'eveniet',
-	             'sunt', 'iure', 'nam', 'nobis', 'eum', 'cum', 'officiis', 'excepturi',
-	             'odio', 'consectetur', 'quasi', 'aut', 'quisquam', 'vel', 'eligendi',
-	             'itaque', 'non', 'odit', 'tempore', 'quaerat', 'dignissimos',
-	             'facilis', 'neque', 'nihil', 'expedita', 'vitae', 'vero', 'ipsum',
-	             'nisi', 'animi', 'cumque', 'pariatur', 'velit', 'modi', 'natus',
-	             'iusto', 'eaque', 'sequi', 'illo', 'sed', 'ex', 'et', 'voluptatibus',
-	             'tempora', 'veritatis', 'ratione', 'assumenda', 'incidunt', 'nostrum',
-	             'placeat', 'aliquid', 'fuga', 'provident', 'praesentium', 'rem',
-	             'necessitatibus', 'suscipit', 'adipisci', 'quidem', 'possimus',
-	             'voluptas', 'debitis', 'sint', 'accusantium', 'unde', 'sapiente',
-	             'voluptate', 'qui', 'aspernatur', 'laudantium', 'soluta', 'amet',
-	             'quo', 'aliquam', 'saepe', 'culpa', 'libero', 'ipsa', 'dicta',
-	             'reiciendis', 'nesciunt', 'doloribus', 'autem', 'impedit', 'minima',
-	             'maiores', 'repudiandae', 'ipsam', 'obcaecati', 'ullam', 'enim',
-	             'totam', 'delectus', 'ducimus', 'quis', 'voluptates', 'dolores',
-	             'molestiae', 'harum', 'dolorem', 'quia', 'voluptatem', 'molestias',
-	             'magni', 'distinctio', 'omnis', 'illum', 'dolorum', 'voluptatum', 'ea',
-	             'quas', 'quam', 'corporis', 'quae', 'blanditiis', 'atque', 'deserunt',
-	             'laboriosam', 'earum', 'consequuntur', 'hic', 'cupiditate',
-	             'quibusdam', 'accusamus', 'ut', 'rerum', 'error', 'minus', 'eius',
-	             'ab', 'ad', 'nemo', 'fugit', 'officia', 'at', 'in', 'id', 'quos',
-	             'reprehenderit', 'numquam', 'iste', 'fugiat', 'sit', 'inventore',
-	             'beatae', 'repellendus', 'magnam', 'recusandae', 'quod', 'explicabo',
-	             'doloremque', 'aperiam', 'consequatur', 'asperiores', 'commodi',
-	             'optio', 'dolor', 'labore', 'temporibus', 'repellat', 'veniam',
-	             'architecto', 'est', 'esse', 'mollitia', 'nulla', 'a', 'similique',
-	             'eos', 'alias', 'dolore', 'tenetur', 'deleniti', 'porro', 'facere',
-	             'maxime', 'corrupti'];
 	
 	/**
 	 * Returns random integer between <code>from</code> and <code>to</code> values
@@ -11893,9 +12780,11 @@ emmet.exec(function(require, _) {
 		} else {
 			totalCommas = randint(1, 4);
 		}
-		
-		_.each(sample(_.range(totalCommas)), function(ix) {
-			words[ix] += ',';
+
+		_.each(_.range(totalCommas), function(ix) {
+			if (ix < words.length - 1) {
+				words[ix] += ',';
+			}
 		});
 	}
 	
@@ -11906,13 +12795,20 @@ emmet.exec(function(require, _) {
 	 * "lorem ipsum" sentence.
 	 * @returns {String}
 	 */
-	function paragraph(wordCount, startWithCommon) {
+	function paragraph(lang, wordCount, startWithCommon) {
+		var data = langs[lang];
+		if (!data) {
+			return '';
+		}
+
 		var result = [];
 		var totalWords = 0;
 		var words;
 		
-		if (startWithCommon) {
-			words = COMMON_P.slice(0, wordCount + 1);
+		wordCount = parseInt(wordCount, 10);
+		
+		if (startWithCommon && data.common) {
+			words = data.common.slice(0, wordCount);
 			if (words.length > 5)
 				words[4] += ',';
 			totalWords += words.length;
@@ -11920,7 +12816,7 @@ emmet.exec(function(require, _) {
 		}
 		
 		while (totalWords < wordCount) {
-			words = sample(WORDS, Math.min(randint(3, 12) * randint(1, 5), wordCount - totalWords));
+			words = sample(data.words, Math.min(randint(3, 12) * randint(1, 5), wordCount - totalWords));
 			totalWords += words.length;
 			insertCommas(words);
 			result.push(sentence(words));
@@ -11928,14 +12824,35 @@ emmet.exec(function(require, _) {
 		
 		return result.join(' ');
 	}
+
+	return {
+		/**
+		 * Adds new language words for Lorem Ipsum generator
+		 * @param {String} lang Two-letter lang definition
+		 * @param {Object} data Words for language. Maight be either a space-separated 
+		 * list of words (String), Array of words or object with <code>text</code> and
+		 * <code>common</code> properties
+		 */
+		addLang: function(lang, data) {
+			if (_.isString(data)) {
+				data = {words: _.compact(data.split(' '))};
+			} else if (_.isArray(data)) {
+				data = {words: data};
+			}
+
+			langs[lang] = data;
+		}
+	};
 });/**
  * Select current line (for simple editors like browser's &lt;textarea&gt;)
  */
-emmet.require('actions').add('select_line', function(editor) {
-	var range = editor.getCurrentLineRange();
-	editor.createSelection(range.start, range.end);
-	return true;
-});emmet.require('resources').setVocabulary({
+emmet.exec(function(require, _) {
+	require('actions').add('select_line', function(editor) {
+		var range = editor.getCurrentLineRange();
+		editor.createSelection(range.start, range.end);
+		return true;
+	});
+});emmet.exec(function(require, _){require('resources').setVocabulary({
 	"variables": {
 		"lang": "en",
 		"locale": "en-US",
@@ -11948,10 +12865,54 @@ emmet.require('actions').add('select_line', function(editor) {
 		"filters": "html",
 		"snippets": {
 			"@i": "@import url(|);",
-			"@m": "@media print {\n\t|\n}",
+			"@import": "@import url(|);",
+			"@m": "@media ${1:screen} {\n\t|\n}",
+			"@media": "@media ${1:screen} {\n\t|\n}",
 			"@f": "@font-face {\n\tfont-family:|;\n\tsrc:url(|);\n}",
+			"@f+": "@font-face {\n\tfont-family: '${1:FontName}';\n\tsrc: url('${2:FileName}.eot');\n\tsrc: url('${2:FileName}.eot?#iefix') format('embedded-opentype'),\n\t\t url('${2:FileName}.woff') format('woff'),\n\t\t url('${2:FileName}.ttf') format('truetype'),\n\t\t url('${2:FileName}.svg#${1:FontName}') format('svg');\n\tfont-style: ${3:normal};\n\tfont-weight: ${4:normal};\n}",
+
+			"@kf": "@-webkit-keyframes ${1:identifier} {\n\t${2:from} { ${3} }${6}\n\t${4:to} { ${5} }\n}\n@-o-keyframes ${1:identifier} {\n\t${2:from} { ${3} }${6}\n\t${4:to} { ${5} }\n}\n@-moz-keyframes ${1:identifier} {\n\t${2:from} { ${3} }${6}\n\t${4:to} { ${5} }\n}\n@keyframes ${1:identifier} {\n\t${2:from} { ${3} }${6}\n\t${4:to} { ${5} }\n}",
+
+
+			"anim": "animation:|;",
+			"anim-": "animation:${1:name} ${2:duration} ${3:timing-function} ${4:delay} ${5:iteration-count} ${6:direction} ${7:fill-mode};",
+			"animdel": "animation-delay:${1:time};",
+			
+			"animdir": "animation-direction:${1:normal};",
+			"animdir:n": "animation-direction:normal;",
+			"animdir:r": "animation-direction:reverse;",
+			"animdir:a": "animation-direction:alternate;",
+			"animdir:ar": "animation-direction:alternate-reverse;",
+			
+			"animdur": "animation-duration:${1:0}s;",
+			
+			"animfm": "animation-fill-mode:${1:both};",
+			"animfm:f": "animation-fill-mode:forwards;",
+			"animfm:b": "animation-fill-mode:backwards;",
+			"animfm:bt": "animation-fill-mode:both;",
+			"animfm:bh": "animation-fill-mode:both;",
+			
+			"animic": "animation-iteration-count:${1:1};",
+			"animic:i": "animation-iteration-count:infinite;",
+			
+			"animn": "animation-name:${1:none};",
+
+			"animps": "animation-play-state:${1:running};",
+			"animps:p": "animation-play-state:paused;",
+			"animps:r": "animation-play-state:running;",
+
+			"animtf": "animation-timing-function:${1:linear};",
+			"animtf:e": "animation-timing-function:ease;",
+			"animtf:ei": "animation-timing-function:ease-in;",
+			"animtf:eo": "animation-timing-function:ease-out;",
+			"animtf:eio": "animation-timing-function:ease-in-out;",
+			"animtf:l": "animation-timing-function:linear;",
+			"animtf:cb": "animation-timing-function:cubic-bezier(${1:0.1}, ${2:0.7}, ${3:1.0}, ${3:0.1});",
+			
+			"ap": "appearance:${none};",
+
 			"!": "!important",
-			"pos": "position:|;",
+			"pos": "position:${1:relative};",
 			"pos:s": "position:static;",
 			"pos:a": "position:absolute;",
 			"pos:r": "position:relative;",
@@ -11962,22 +12923,32 @@ emmet.require('actions').add('select_line', function(editor) {
 			"r:a": "right:auto;",
 			"b": "bottom:|;",
 			"b:a": "bottom:auto;",
-			"brad": "-webkit-border-radius: ${1:radius};\n-moz-border-radius: $1;\nborder-radius: $1;",
-			"bsha": "-webkit-box-shadow: ${1:hoff} ${2:voff} ${3:blur} ${4:rgba(0,0,0,0.5)};\n-moz-box-shadow: $1 $2 $3 $4;\nbox-shadow: $1 $2 $3 $4;",
 			"l": "left:|;",
 			"l:a": "left:auto;",
 			"z": "z-index:|;",
 			"z:a": "z-index:auto;",
-			"fl": "float:|;",
+			"fl": "float:${1:left};",
 			"fl:n": "float:none;",
 			"fl:l": "float:left;",
 			"fl:r": "float:right;",
-			"cl": "clear:|;",
+			"cl": "clear:${1:both};",
 			"cl:n": "clear:none;",
 			"cl:l": "clear:left;",
 			"cl:r": "clear:right;",
 			"cl:b": "clear:both;",
-			"d": "display:|;",
+
+			"colm": "columns:|;",
+			"colmc": "column-count:|;",
+			"colmf": "column-fill:|;",
+			"colmg": "column-gap:|;",
+			"colmr": "column-rule:|;",
+			"colmrc": "column-rule-color:|;",
+			"colmrs": "column-rule-style:|;",
+			"colmrw": "column-rule-width:|;",
+			"colms": "column-span:|;",
+			"colmw": "column-width:|;",
+
+			"d": "display:${1:block};",
 			"d:n": "display:none;",
 			"d:b": "display:block;",
 			"d:i": "display:inline;",
@@ -12000,39 +12971,42 @@ emmet.require('actions').add('select_line', function(editor) {
 			"d:rbbg": "display:ruby-base-group;",
 			"d:rbt": "display:ruby-text;",
 			"d:rbtg": "display:ruby-text-group;",
-			"v": "visibility:|;",
+			"v": "visibility:${1:hidden};",
 			"v:v": "visibility:visible;",
 			"v:h": "visibility:hidden;",
 			"v:c": "visibility:collapse;",
-			"ov": "overflow:|;",
+			"ov": "overflow:${1:hidden};",
 			"ov:v": "overflow:visible;",
 			"ov:h": "overflow:hidden;",
 			"ov:s": "overflow:scroll;",
 			"ov:a": "overflow:auto;",
-			"ovx": "overflow-x:|;",
+			"ovx": "overflow-x:${1:hidden};",
 			"ovx:v": "overflow-x:visible;",
 			"ovx:h": "overflow-x:hidden;",
 			"ovx:s": "overflow-x:scroll;",
 			"ovx:a": "overflow-x:auto;",
-			"ovy": "overflow-y:|;",
+			"ovy": "overflow-y:${1:hidden};",
 			"ovy:v": "overflow-y:visible;",
 			"ovy:h": "overflow-y:hidden;",
 			"ovy:s": "overflow-y:scroll;",
 			"ovy:a": "overflow-y:auto;",
-			"ovs": "overflow-style:|;",
+			"ovs": "overflow-style:${1:scrollbar};",
 			"ovs:a": "overflow-style:auto;",
 			"ovs:s": "overflow-style:scrollbar;",
 			"ovs:p": "overflow-style:panner;",
 			"ovs:m": "overflow-style:move;",
 			"ovs:mq": "overflow-style:marquee;",
 			"zoo": "zoom:1;",
+			"zm": "zoom:1;",
 			"cp": "clip:|;",
 			"cp:a": "clip:auto;",
-			"cp:r": "clip:rect(|);",
-			"bxz": "box-sizing:|;",
+			"cp:r": "clip:rect(${1:top} ${2:right} ${3:bottom} ${4:left});",
+			"bxz": "box-sizing:${1:border-box};",
 			"bxz:cb": "box-sizing:content-box;",
 			"bxz:bb": "box-sizing:border-box;",
-			"bxsh": "box-shadow:${1:hoff} ${2:voff} ${3:radius} ${4:color};",
+			"bxsh": "box-shadow:${1:inset }${2:hoff} ${3:voff} ${4:blur} ${5:color};",
+			"bxsh:r": "box-shadow:${1:inset }${2:hoff} ${3:voff} ${4:blur} ${5:spread }rgb(${6:0}, ${7:0}, ${8:0});",
+			"bxsh:ra": "box-shadow:${1:inset }${2:h} ${3:v} ${4:blur} ${5:spread }rgba(${6:0}, ${7:0}, ${8:0}, .${9:5});",
 			"bxsh:n": "box-shadow:none;",
 			"m": "margin:|;",
 			"m:a": "margin:auto;",
@@ -12059,22 +13033,37 @@ emmet.require('actions').add('select_line', function(editor) {
 			"mah:n": "max-height:none;",
 			"miw": "min-width:|;",
 			"mih": "min-height:|;",
-			"o": "outline:|;",
-			"o:n": "outline:none;",
-			"oo": "outline-offset:|;",
-			"ow": "outline-width:|;",
-			"os": "outline-style:|;",
-			"oc": "outline-color:${1:#000};",
-			"oc:i": "outline-color:invert;",
+			"mar": "max-resolution:${1:res};",
+			"mir": "min-resolution:${1:res};",
+			"ori": "orientation:|;",
+			"ori:l": "orientation:landscape;",
+			"ori:p": "orientation:portrait;",
+			"ol": "outline:|;",
+			"ol:n": "outline:none;",
+			"olo": "outline-offset:|;",
+			"olw": "outline-width:|;",
+			"ols": "outline-style:|;",
+			"ols:n": "outline-style:none;",
+			"ols:dt": "outline-style:dotted;",
+			"ols:ds": "outline-style:dashed;",
+			"ols:s": "outline-style:solid;",
+			"ols:db": "outline-style:double;",
+			"ols:g": "outline-style:groove;",
+			"ols:r": "outline-style:ridge;",
+			"ols:i": "outline-style:inset;",
+			"ols:o": "outline-style:outset;",
+			"olc": "outline-color:#${1:000};",
+			"olc:i": "outline-color:invert;",
 			"bd": "border:|;",
 			"bd+": "border:${1:1px} ${2:solid} ${3:#000};",
 			"bd:n": "border:none;",
-			"bdbk": "border-break:|;",
+			"bdbk": "border-break:${1:close};",
 			"bdbk:c": "border-break:close;",
 			"bdcl": "border-collapse:|;",
 			"bdcl:c": "border-collapse:collapse;",
 			"bdcl:s": "border-collapse:separate;",
-			"bdc": "border-color:${1:#000};",
+			"bdc": "border-color:#${1:000};",
+			"bdc:t": "border-color:transparent;",
 			"bdi": "border-image:url(|);",
 			"bdi:n": "border-image:none;",
 			"bdti": "border-top-image:url(|);",
@@ -12100,7 +13089,7 @@ emmet.require('actions').add('select_line', function(editor) {
 			"bdbli": "border-bottom-left-image:url(|);",
 			"bdbli:n": "border-bottom-left-image:none;",
 			"bdbli:c": "border-bottom-left-image:continue;",
-			"bdf": "border-fit:|;",
+			"bdf": "border-fit:${1:repeat};",
 			"bdf:c": "border-fit:clip;",
 			"bdf:r": "border-fit:repeat;",
 			"bdf:sc": "border-fit:scale;",
@@ -12108,8 +13097,8 @@ emmet.require('actions').add('select_line', function(editor) {
 			"bdf:ow": "border-fit:overwrite;",
 			"bdf:of": "border-fit:overflow;",
 			"bdf:sp": "border-fit:space;",
-			"bdl": "border-length:|;",
-			"bdl:a": "border-length:auto;",
+			"bdlen": "border-length:|;",
+			"bdlen:a": "border-length:auto;",
 			"bdsp": "border-spacing:|;",
 			"bds": "border-style:|;",
 			"bds:n": "border-style:none;",
@@ -12126,34 +13115,42 @@ emmet.require('actions').add('select_line', function(editor) {
 			"bds:i": "border-style:inset;",
 			"bds:o": "border-style:outset;",
 			"bdw": "border-width:|;",
+			"bdtw": "border-top-width:|;",
+			"bdrw": "border-right-width:|;",
+			"bdbw": "border-bottom-width:|;",
+			"bdlw": "border-left-width:|;",
 			"bdt": "border-top:|;",
+			"bt": "border-top:|;",
 			"bdt+": "border-top:${1:1px} ${2:solid} ${3:#000};",
 			"bdt:n": "border-top:none;",
-			"bdtw": "border-top-width:|;",
 			"bdts": "border-top-style:|;",
 			"bdts:n": "border-top-style:none;",
-			"bdtc": "border-top-color:${1:#000};",
+			"bdtc": "border-top-color:#${1:000};",
+			"bdtc:t": "border-top-color:transparent;",
 			"bdr": "border-right:|;",
+			"br": "border-right:|;",
 			"bdr+": "border-right:${1:1px} ${2:solid} ${3:#000};",
 			"bdr:n": "border-right:none;",
-			"bdrw": "border-right-width:|;",
-			"bdrs": "border-right-style:|;",
-			"bdrs:n": "border-right-style:none;",
-			"bdrc": "border-right-color:${1:#000};",
+			"bdrst": "border-right-style:|;",
+			"bdrst:n": "border-right-style:none;",
+			"bdrc": "border-right-color:#${1:000};",
+			"bdrc:t": "border-right-color:transparent;",
 			"bdb": "border-bottom:|;",
+			"bb": "border-bottom:|;",
 			"bdb+": "border-bottom:${1:1px} ${2:solid} ${3:#000};",
 			"bdb:n": "border-bottom:none;",
-			"bdbw": "border-bottom-width:|;",
 			"bdbs": "border-bottom-style:|;",
 			"bdbs:n": "border-bottom-style:none;",
-			"bdbc": "border-bottom-color:${1:#000};",
+			"bdbc": "border-bottom-color:#${1:000};",
+			"bdbc:t": "border-bottom-color:transparent;",
 			"bdl": "border-left:|;",
+			"bl": "border-left:|;",
 			"bdl+": "border-left:${1:1px} ${2:solid} ${3:#000};",
 			"bdl:n": "border-left:none;",
-			"bdlw": "border-left-width:|;",
 			"bdls": "border-left-style:|;",
 			"bdls:n": "border-left-style:none;",
-			"bdlc": "border-left-color:${1:#000};",
+			"bdlc": "border-left-color:#${1:000};",
+			"bdlc:t": "border-left-color:transparent;",
 			"bdrs": "border-radius:|;",
 			"bdtrrs": "border-top-right-radius:|;",
 			"bdtlrs": "border-top-left-radius:|;",
@@ -12163,13 +13160,16 @@ emmet.require('actions').add('select_line', function(editor) {
 			"bg+": "background:${1:#fff} url(${2}) ${3:0} ${4:0} ${5:no-repeat};",
 			"bg:n": "background:none;",
 			"bg:ie": "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='${1:x}.png',sizingMethod='${2:crop}');",
-			"bgc": "background-color:${1:#fff};",
+			"bgc": "background-color:#${1:fff};",
+			"bgc:t": "background-color:transparent;",
 			"bgi": "background-image:url(|);",
 			"bgi:n": "background-image:none;",
 			"bgr": "background-repeat:|;",
 			"bgr:n": "background-repeat:no-repeat;",
 			"bgr:x": "background-repeat:repeat-x;",
 			"bgr:y": "background-repeat:repeat-y;",
+			"bgr:sp": "background-repeat:space;",
+			"bgr:rd": "background-repeat:round;",
 			"bga": "background-attachment:|;",
 			"bga:f": "background-attachment:fixed;",
 			"bga:s": "background-attachment:scroll;",
@@ -12180,7 +13180,7 @@ emmet.require('actions').add('select_line', function(editor) {
 			"bgbk:bb": "background-break:bounding-box;",
 			"bgbk:eb": "background-break:each-box;",
 			"bgbk:c": "background-break:continuous;",
-			"bgcp": "background-clip:|;",
+			"bgcp": "background-clip:${1:padding-box};",
 			"bgcp:bb": "background-clip:border-box;",
 			"bgcp:pb": "background-clip:padding-box;",
 			"bgcp:cb": "background-clip:content-box;",
@@ -12189,11 +13189,25 @@ emmet.require('actions').add('select_line', function(editor) {
 			"bgo:pb": "background-origin:padding-box;",
 			"bgo:bb": "background-origin:border-box;",
 			"bgo:cb": "background-origin:content-box;",
-			"bgz": "background-size:|;",
-			"bgz:a": "background-size:auto;",
-			"bgz:ct": "background-size:contain;",
-			"bgz:cv": "background-size:cover;",
-			"c": "color:${1:#000};",
+			"bgsz": "background-size:|;",
+			"bgsz:a": "background-size:auto;",
+			"bgsz:ct": "background-size:contain;",
+			"bgsz:cv": "background-size:cover;",
+			"c": "color:#${1:000};",
+			"c:r": "color:rgb(${1:0}, ${2:0}, ${3:0});",
+			"c:ra": "color:rgba(${1:0}, ${2:0}, ${3:0}, .${4:5});",
+			"cm": "/* |${child} */",
+			"cnt": "content:'|';",
+			"cnt:n": "content:normal;",
+			"cnt:oq": "content:open-quote;",
+			"cnt:noq": "content:no-open-quote;",
+			"cnt:cq": "content:close-quote;",
+			"cnt:ncq": "content:no-close-quote;",
+			"cnt:a": "content:attr(|);",
+			"cnt:c": "content:counter(|);",
+			"cnt:cs": "content:counters(|);",
+
+
 			"tbl": "table-layout:|;",
 			"tbl:a": "table-layout:auto;",
 			"tbl:f": "table-layout:fixed;",
@@ -12234,7 +13248,7 @@ emmet.require('actions').add('select_line', function(editor) {
 			"ct:cs": "content:counters(|);",
 			"coi": "counter-increment:|;",
 			"cor": "counter-reset:|;",
-			"va": "vertical-align:|;",
+			"va": "vertical-align:${1:top};",
 			"va:sup": "vertical-align:super;",
 			"va:t": "vertical-align:top;",
 			"va:tt": "vertical-align:text-top;",
@@ -12243,16 +13257,17 @@ emmet.require('actions').add('select_line', function(editor) {
 			"va:b": "vertical-align:bottom;",
 			"va:tb": "vertical-align:text-bottom;",
 			"va:sub": "vertical-align:sub;",
-			"ta": "text-align:|;",
+			"ta": "text-align:${1:left};",
 			"ta:l": "text-align:left;",
 			"ta:c": "text-align:center;",
 			"ta:r": "text-align:right;",
-			"tal": "text-align-last:|;",
+			"ta:j": "text-align:justify;",
+			"ta-lst": "text-align-last:|;",
 			"tal:a": "text-align-last:auto;",
 			"tal:l": "text-align-last:left;",
 			"tal:c": "text-align-last:center;",
 			"tal:r": "text-align-last:right;",
-			"td": "text-decoration:|;",
+			"td": "text-decoration:${1:none};",
 			"td:n": "text-decoration:none;",
 			"td:u": "text-decoration:underline;",
 			"td:o": "text-decoration:overline;",
@@ -12280,12 +13295,15 @@ emmet.require('actions').add('select_line', function(editor) {
 			"tj:d": "text-justify:distribute;",
 			"tj:k": "text-justify:kashida;",
 			"tj:t": "text-justify:tibetan;",
+			"tov": "text-overflow:${ellipsis};",
+			"tov:e": "text-overflow:ellipsis;",
+			"tov:c": "text-overflow:clip;",
 			"to": "text-outline:|;",
 			"to+": "text-outline:${1:0} ${2:0} ${3:#000};",
 			"to:n": "text-outline:none;",
 			"tr": "text-replace:|;",
 			"tr:n": "text-replace:none;",
-			"tt": "text-transform:|;",
+			"tt": "text-transform:${1:uppercase};",
 			"tt:n": "text-transform:none;",
 			"tt:c": "text-transform:capitalize;",
 			"tt:u": "text-transform:uppercase;",
@@ -12296,6 +13314,8 @@ emmet.require('actions').add('select_line', function(editor) {
 			"tw:u": "text-wrap:unrestricted;",
 			"tw:s": "text-wrap:suppress;",
 			"tsh": "text-shadow:${1:hoff} ${2:voff} ${3:blur} ${4:#000};",
+			"tsh:r": "text-shadow:${1:h} ${2:v} ${3:blur} rgb(${4:0}, ${5:0}, ${6:0});",
+			"tsh:ra": "text-shadow:${1:h} ${2:v} ${3:blur} rgba(${4:0}, ${5:0}, ${6:0}, .${7:5});",
 			"tsh+": "text-shadow:${1:0} ${2:0} ${3:0} ${4:#000};",
 			"tsh:n": "text-shadow:none;",
 			"trf": "transform:|;",
@@ -12308,6 +13328,13 @@ emmet.require('actions').add('select_line', function(editor) {
 			"trf:t": "transform: translate(${1:x}, ${2:y});",
 			"trf:tx": "transform: translateX(${1:x});",
 			"trf:ty": "transform: translateY(${1:y});",
+			"trfo": "transform-origin:|;",
+			"trfs": "transform-style:${1:preserve-3d};",
+			"trs": "transition:${1:prop} ${2:time};",
+			"trsde": "transition-delay:${1:time};",
+			"trsdu": "transition-duration:${1:time};",
+			"trsp": "transition-property:${1:prop};",
+			"trstf": "transition-timing-function:${1:tfunc};",
 			"lh": "line-height:|;",
 			"whs": "white-space:|;",
 			"whs:n": "white-space:normal;",
@@ -12324,8 +13351,6 @@ emmet.require('actions').add('select_line', function(editor) {
 			"wob": "word-break:|;",
 			"wob:n": "word-break:normal;",
 			"wob:k": "word-break:keep-all;",
-			"wob:l": "word-break:loose;",
-			"wob:bs": "word-break:break-strict;",
 			"wob:ba": "word-break:break-all;",
 			"wos": "word-spacing:|;",
 			"wow": "word-wrap:|;",
@@ -12333,7 +13358,9 @@ emmet.require('actions').add('select_line', function(editor) {
 			"wow:n": "word-wrap:none;",
 			"wow:u": "word-wrap:unrestricted;",
 			"wow:s": "word-wrap:suppress;",
+			"wow:b": "word-wrap:break-word;",
 			"lts": "letter-spacing:|;",
+			"lts-n": "letter-spacing:normal;",
 			"f": "font:|;",
 			"f+": "font:${1:1em} ${2:Arial,sans-serif};",
 			"fw": "font-weight:|;",
@@ -12341,7 +13368,7 @@ emmet.require('actions').add('select_line', function(editor) {
 			"fw:b": "font-weight:bold;",
 			"fw:br": "font-weight:bolder;",
 			"fw:lr": "font-weight:lighter;",
-			"fs": "font-style:|;",
+			"fs": "font-style:${italic};",
 			"fs:n": "font-style:normal;",
 			"fs:i": "font-style:italic;",
 			"fs:o": "font-style:oblique;",
@@ -12357,6 +13384,8 @@ emmet.require('actions').add('select_line', function(editor) {
 			"ff:c": "font-family:cursive;",
 			"ff:f": "font-family:fantasy;",
 			"ff:m": "font-family:monospace;",
+			"ff:a": "font-family: Arial, \"Helvetica Neue\", Helvetica, sans-serif;",
+			"ff:t": "font-family: \"Times New Roman\", Times, Baskerville, Georgia, serif;",
 			"fef": "font-effect:|;",
 			"fef:n": "font-effect:none;",
 			"fef:eg": "font-effect:engrave;",
@@ -12389,12 +13418,12 @@ emmet.require('actions').add('select_line', function(editor) {
 			"op": "opacity:|;",
 			"op:ie": "filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);",
 			"op:ms": "-ms-filter:'progid:DXImageTransform.Microsoft.Alpha(Opacity=100)';",
-			"rz": "resize:|;",
-			"rz:n": "resize:none;",
-			"rz:b": "resize:both;",
-			"rz:h": "resize:horizontal;",
-			"rz:v": "resize:vertical;",
-			"cur": "cursor:|;",
+			"rsz": "resize:|;",
+			"rsz:n": "resize:none;",
+			"rsz:b": "resize:both;",
+			"rsz:h": "resize:horizontal;",
+			"rsz:v": "resize:vertical;",
+			"cur": "cursor:${pointer};",
 			"cur:a": "cursor:auto;",
 			"cur:d": "cursor:default;",
 			"cur:c": "cursor:crosshair;",
@@ -12417,43 +13446,60 @@ emmet.require('actions').add('select_line', function(editor) {
 			"pgba:l": "page-break-after:left;",
 			"pgba:r": "page-break-after:right;",
 			"orp": "orphans:|;",
-			"wid": "widows:|;"
+			"us": "user-select:${none};",
+			"wid": "widows:|;",
+			"wfsm": "-webkit-font-smoothing:${antialiased};",
+			"wfsm:a": "-webkit-font-smoothing:antialiased;",
+			"wfsm:s": "-webkit-font-smoothing:subpixel-antialiased;",
+			"wfsm:sa": "-webkit-font-smoothing:subpixel-antialiased;",
+			"wfsm:n": "-webkit-font-smoothing:none;"
 		}
 	},
 	
 	"html": {
 		"filters": "html",
+		"profile": "html",
 		"snippets": {
+			"!!!":    "<!doctype html>",
+			"!!!4t":  "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">",
+			"!!!4s":  "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">",
+			"!!!xt":  "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">",
+			"!!!xs":  "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">",
+			"!!!xxs": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">",
+
+			"c": "<!-- |${child} -->",
 			"cc:ie6": "<!--[if lte IE 6]>\n\t${child}|\n<![endif]-->",
 			"cc:ie": "<!--[if IE]>\n\t${child}|\n<![endif]-->",
-			"cc:noie": "<!--[if !IE]><!-->\n\t${child}|\n<!--<![endif]-->",
-			"html:4t": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<html lang=\"${lang}\">\n<head>\n\t<meta http-equiv=\"Content-Type\" content=\"text/html;charset=${charset}\">\n\t<title></title>\n</head>\n<body>\n\t${child}|\n</body>\n</html>",
-			"html:4s": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n<html lang=\"${lang}\">\n<head>\n\t<meta http-equiv=\"Content-Type\" content=\"text/html;charset=${charset}\">\n\t<title></title>\n</head>\n<body>\n\t${child}|\n</body>\n</html>",
-			"html:xt": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"${lang}\">\n<head>\n\t<meta http-equiv=\"Content-Type\" content=\"text/html;charset=${charset}\" />\n\t<title></title>\n</head>\n<body>\n\t${child}|\n</body>\n</html>",
-			"html:xs": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"${lang}\">\n<head>\n\t<meta http-equiv=\"Content-Type\" content=\"text/html;charset=${charset}\" />\n\t<title></title>\n</head>\n<body>\n\t${child}|\n</body>\n</html>",
-			"html:xxs": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"${lang}\">\n<head>\n\t<meta http-equiv=\"Content-Type\" content=\"text/html;charset=${charset}\" />\n\t<title></title>\n</head>\n<body>\n\t${child}|\n</body>\n</html>",
-			"html:5": "<!doctype html>\n<html lang=\"${lang}\">\n<head>\n\t<meta charset=\"${charset}\">\n\t<title></title>\n</head>\n<body>\n\t${child}|\n</body>\n</html>"
+			"cc:noie": "<!--[if !IE]><!-->\n\t${child}|\n<!--<![endif]-->"
 		},
 		
 		"abbreviations": {
+			"!": "html:5",
 			"a": "<a href=\"\">",
 			"a:link": "<a href=\"http://|\">",
 			"a:mail": "<a href=\"mailto:|\">",
 			"abbr": "<abbr title=\"\">",
 			"acronym": "<acronym title=\"\">",
 			"base": "<base href=\"\" />",
+			"basefont": "<basefont/>",
+			"br": "<br/>",
+			"frame": "<frame/>",
+			"hr": "<hr/>",
 			"bdo": "<bdo dir=\"\">",
 			"bdo:r": "<bdo dir=\"rtl\">",
 			"bdo:l": "<bdo dir=\"ltr\">",
+			"col": "<col/>",
 			"link": "<link rel=\"stylesheet\" href=\"\" />",
-			"link:css": "<link rel=\"stylesheet\" href=\"${1:style}.css\" media=\"all\" />",
+			"link:css": "<link rel=\"stylesheet\" href=\"${1:style}.css\" />",
 			"link:print": "<link rel=\"stylesheet\" href=\"${1:print}.css\" media=\"print\" />",
 			"link:favicon": "<link rel=\"shortcut icon\" type=\"image/x-icon\" href=\"${1:favicon.ico}\" />",
 			"link:touch": "<link rel=\"apple-touch-icon\" href=\"${1:favicon.png}\" />",
 			"link:rss": "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"RSS\" href=\"${1:rss.xml}\" />",
 			"link:atom": "<link rel=\"alternate\" type=\"application/atom+xml\" title=\"Atom\" href=\"${1:atom.xml}\" />",
+			"meta": "<meta/>",
 			"meta:utf": "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\" />",
 			"meta:win": "<meta http-equiv=\"Content-Type\" content=\"text/html;charset=windows-1251\" />",
+			"meta:vp": "<meta name=\"viewport\" content=\"width=${1:device-width}, user-scalable=${2:no}, initial-scale=${3:1.0}, maximum-scale=${4:1.0}, minimum-scale=${5:1.0}\" />",
 			"meta:compat": "<meta http-equiv=\"X-UA-Compatible\" content=\"${1:IE=7}\" />",
 			"style": "<style>",
 			"script": "<script>",
@@ -12473,79 +13519,96 @@ emmet.require('actions').add('select_line', function(editor) {
 			"form:get": "<form action=\"\" method=\"get\">",
 			"form:post": "<form action=\"\" method=\"post\">",
 			"label": "<label for=\"\">",
-			"input": "<input type=\"\" />",
-			"input:hidden": "<input type=\"hidden\" name=\"\" />",
-			"input:h": "<input type=\"hidden\" name=\"\" />",
-			"input:text": "<input type=\"text\" name=\"\" id=\"\" />",
-			"input:t": "<input type=\"text\" name=\"\" id=\"\" />",
-			"input:search": "<input type=\"search\" name=\"\" id=\"\" />",
-			"input:email": "<input type=\"email\" name=\"\" id=\"\" />",
-			"input:url": "<input type=\"url\" name=\"\" id=\"\" />",
-			"input:password": "<input type=\"password\" name=\"\" id=\"\" />",
-			"input:p": "<input type=\"password\" name=\"\" id=\"\" />",
-			"input:datetime": "<input type=\"datetime\" name=\"\" id=\"\" />",
-			"input:date": "<input type=\"date\" name=\"\" id=\"\" />",
-			"input:datetime-local": "<input type=\"datetime-local\" name=\"\" id=\"\" />",
-			"input:month": "<input type=\"month\" name=\"\" id=\"\" />",
-			"input:week": "<input type=\"week\" name=\"\" id=\"\" />",
-			"input:time": "<input type=\"time\" name=\"\" id=\"\" />",
-			"input:number": "<input type=\"number\" name=\"\" id=\"\" />",
-			"input:color": "<input type=\"color\" name=\"\" id=\"\" />",
-			"input:checkbox": "<input type=\"checkbox\" name=\"\" id=\"\" />",
-			"input:c": "<input type=\"checkbox\" name=\"\" id=\"\" />",
-			"input:radio": "<input type=\"radio\" name=\"\" id=\"\" />",
-			"input:r": "<input type=\"radio\" name=\"\" id=\"\" />",
-			"input:range": "<input type=\"range\" name=\"\" id=\"\" />",
-			"input:file": "<input type=\"file\" name=\"\" id=\"\" />",
-			"input:f": "<input type=\"file\" name=\"\" id=\"\" />",
+			"input": "<input type=\"${1:text}\" />",
+			"inp": "<input type=\"${1:text}\" name=\"\" id=\"\" />",
+			"input:hidden": "input[type=hidden name]",
+			"input:h": "input:hidden",
+			"input:text": "inp",
+			"input:t": "inp",
+			"input:search": "inp[type=search]",
+			"input:email": "inp[type=email]",
+			"input:url": "inp[type=url]",
+			"input:password": "inp[type=password]",
+			"input:p": "input:password",
+			"input:datetime": "inp[type=datetime]",
+			"input:date": "inp[type=date]",
+			"input:datetime-local": "inp[type=datetime-local]",
+			"input:month": "inp[type=month]",
+			"input:week": "inp[type=week]",
+			"input:time": "inp[type=time]",
+			"input:number": "inp[type=number]",
+			"input:color": "inp[type=color]",
+			"input:checkbox": "inp[type=checkbox]",
+			"input:c": "input:checkbox",
+			"input:radio": "inp[type=radio]",
+			"input:r": "input:radio",
+			"input:range": "inp[type=range]",
+			"input:file": "inp[type=file]",
+			"input:f": "input:file",
 			"input:submit": "<input type=\"submit\" value=\"\" />",
-			"input:s": "<input type=\"submit\" value=\"\" />",
+			"input:s": "input:submit",
 			"input:image": "<input type=\"image\" src=\"\" alt=\"\" />",
-			"input:i": "<input type=\"image\" src=\"\" alt=\"\" />",
-			"input:reset": "<input type=\"reset\" value=\"\" />",
+			"input:i": "input:image",
 			"input:button": "<input type=\"button\" value=\"\" />",
-			"input:b": "<input type=\"button\" value=\"\" />",
-			"select": "<select name=\"\" id=\"\"></select>",
-			"option": "<option value=\"\"></option>",
+			"input:b": "input:button",
+			"isindex": "<isindex/>",
+			"input:reset": "input:button[type=reset]",
+			"select": "<select name=\"\" id=\"\">",
+			"option": "<option value=\"\">",
 			"textarea": "<textarea name=\"\" id=\"\" cols=\"${1:30}\" rows=\"${2:10}\">",
-			"menu:context": "<menu type=\"context\">",
-			"menu:c": "<menu type=\"context\">",
-			"menu:toolbar": "<menu type=\"toolbar\">",
-			"menu:t": "<menu type=\"toolbar\">",
+			"menu:context": "menu[type=context]>",
+			"menu:c": "menu:context",
+			"menu:toolbar": "menu[type=toolbar]>",
+			"menu:t": "menu:toolbar",
 			"video": "<video src=\"\">",
 			"audio": "<audio src=\"\">",
 			"html:xml": "<html xmlns=\"http://www.w3.org/1999/xhtml\">",
-			"bq": "<blockquote>",
-			"acr": "<acronym>",
-			"fig": "<figure>",
-			"figc": "<figcaption>",
-			"ifr": "<iframe>",
-			"emb": "<embed>",
-			"obj": "<object>",
-			"src": "<source>",
-			"cap": "<caption>",
-			"colg": "<colgroup>",
-			"fst": "<fieldset>",
-			"btn": "<button>",
-			"optg": "<optgroup>",
-			"opt": "<option>",
-			"tarea": "<textarea>",
-			"leg": "<legend>",
-			"sect": "<section>",
-			"art": "<article>",
-			"hdr": "<header>",
-			"ftr": "<footer>",
-			"adr": "<address>",
-			"dlg": "<dialog>",
-			"str": "<strong>",
-			"prog": "<progress>",
-			"fset": "<fieldset>",
-			"datag": "<datagrid>",
-			"datal": "<datalist>",
-			"kg": "<keygen>",
-			"out": "<output>",
-			"det": "<details>",
-			"cmd": "<command>",
+			"keygen": "<keygen/>",
+			"command": "<command/>",
+			
+			"bq": "blockquote",
+			"acr": "acronym",
+			"fig": "figure",
+			"figc": "figcaption",
+			"ifr": "iframe",
+			"emb": "embed",
+			"obj": "object",
+			"src": "source",
+			"cap": "caption",
+			"colg": "colgroup",
+			"fst": "fieldset",
+			"btn": "button",
+			"btn:b": "button[type=button]",
+			"btn:r": "button[type=reset]",
+			"btn:s": "button[type=submit]",
+			"optg": "optgroup",
+			"opt": "option",
+			"tarea": "textarea",
+			"leg": "legend",
+			"sect": "section",
+			"art": "article",
+			"hdr": "header",
+			"ftr": "footer",
+			"adr": "address",
+			"dlg": "dialog",
+			"str": "strong",
+			"prog": "progress",
+			"fset": "fieldset",
+			"datag": "datagrid",
+			"datal": "datalist",
+			"kg": "keygen",
+			"out": "output",
+			"det": "details",
+			"cmd": "command",
+			"doc": "html>(head>meta[charset=UTF-8]+title{${1:Document}})+body",
+			"doc4": "html>(head>meta[http-equiv=\"Content-Type\" content=\"text/html;charset=${charset}\"]+title{${1:Document}})+body",
+
+			"html:4t":  "!!!4t+doc4[lang=${lang}]",
+			"html:4s":  "!!!4s+doc4[lang=${lang}]",
+			"html:xt":  "!!!xt+doc4[xmlns=http://www.w3.org/1999/xhtml xml:lang=${lang}]",
+			"html:xs":  "!!!xs+doc4[xmlns=http://www.w3.org/1999/xhtml xml:lang=${lang}]",
+			"html:xxs": "!!!xxs+doc4[xmlns=http://www.w3.org/1999/xhtml xml:lang=${lang}]",
+			"html:5":   "!!!+doc[lang=${lang}]",
 			
 			"ol+": "ol>li",
 			"ul+": "ul>li",
@@ -12569,6 +13632,7 @@ emmet.require('actions').add('select_line', function(editor) {
 	
 	"xsl": {
 		"extends": "html",
+		"profile": "xml",
 		"filters": "html, xsl",
 		"abbreviations": {
 			"tm": "<xsl:template match=\"\" mode=\"\">",
@@ -12615,27 +13679,38 @@ emmet.require('actions').add('select_line', function(editor) {
 			"proc": "<xsl:processing-instruction name=\"\">",
 			"sort": "<xsl:sort select=\"\" order=\"\"/>",
 
-			"choose+": "xsl:choose>xsl:when+xsl:otherwise"
+			"choose+": "xsl:choose>xsl:when+xsl:otherwise",
+			"xsl": "!!!+xsl:stylesheet[version=1.0 xmlns:xsl=http://www.w3.org/1999/XSL/Transform]>{\n|}"
+		}, 
+		"snippets": {
+			"!!!": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 		}
 	},
 	
 	"haml": {
 		"filters": "haml",
-		"extends": "html"
+		"extends": "html",
+		"profile": "xml"
 	},
 	
 	"scss": {
-		"filters": "haml",
 		"extends": "css"
 	},
 	
 	"sass": {
-		"filters": "haml",
 		"extends": "css"
 	},
 	
 	"less": {
-		"filters": "haml",
 		"extends": "css"
+	},
+	
+	"stylus": {
+		"extends": "css"
+	},
+
+	"styl": {
+		"extends": "stylus"
 	}
-}, 'system');
+}
+, 'system');});

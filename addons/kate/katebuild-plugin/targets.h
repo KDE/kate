@@ -6,7 +6,9 @@
 #include <QtGui/QFrame>
 #include <QtGui/QGridLayout>
 #include <QtGui/QLabel>
+#include <QtGui/QPushButton>
 #include <QtGui/QToolButton>
+#include <QtGui/QTreeWidget>
 #include <QtGui/QWidget>
 #include "klineedit.h"
 #include "kpushbutton.h"
@@ -28,12 +30,16 @@ public:
     QLabel      *dirLabel;
     KLineEdit   *buildDir;
     QToolButton *browse;
-    QLabel      *buildLabel;
-    KLineEdit   *buildCmd;
-    QLabel      *cleanLabel;
-    KLineEdit   *cleanCmd;
     QLabel      *quickLabel;
     KLineEdit   *quickCmd;
+    QTreeWidget *targetsList;
+
+    QPushButton *addButton;
+    QPushButton *editButton;
+    QPushButton *deleteButton;
+    QPushButton *buildButton;
+    QPushButton *defButton;
+    QPushButton *cleanButton;
 
 protected:
     void resizeEvent(QResizeEvent *event);

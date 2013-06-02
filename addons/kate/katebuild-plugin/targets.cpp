@@ -53,23 +53,31 @@ QWidget(parent)
     browse = new QToolButton(this);
     browse->setIcon(KIcon("inode-directory"));
 
-    buildLabel = new QLabel(i18n("Build"), this);
-    buildCmd = new KLineEdit(this);
-    buildCmd->setClearButtonShown(true);
-
-    cleanLabel = new QLabel(i18n("Clean"), this);
-    cleanCmd = new KLineEdit(this);
-    cleanCmd->setClearButtonShown(true);
-
     quickLabel = new QLabel(i18n("Quick compile"), this);
     quickCmd = new KLineEdit(this);
     quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
     quickCmd->setClearButtonShown(true);
 
     dirLabel->setBuddy(buildDir);
-    buildLabel->setBuddy(buildCmd);
-    cleanLabel->setBuddy(cleanCmd);
     quickLabel->setBuddy(quickCmd);
+
+    targetsList = new QTreeWidget(this);
+    targetsList->setAllColumnsShowFocus(true);
+    targetsList->setRootIsDecorated(false);
+    targetsList->setSelectionMode(QAbstractItemView::SingleSelection);
+    targetsList->setSelectionBehavior(QAbstractItemView::SelectRows);
+    targetsList->setSortingEnabled(true);
+    targetsList->sortByColumn(2, Qt::AscendingOrder);
+    QStringList headerLabels;
+    headerLabels << QString("Def") << QString("Clean") << QString("Name") << QString("Command") << QString("Directory");
+    targetsList->setHeaderLabels(headerLabels);
+
+    addButton = new QPushButton(i18n("Add..."), this);
+    editButton = new QPushButton(i18n("Edit..."), this);
+    deleteButton = new QPushButton(i18n("Delete..."), this);
+    buildButton = new QPushButton(i18n("Build"), this);
+    defButton = new QPushButton(i18n("Set as Default"), this);
+    cleanButton = new QPushButton(i18n("Set as Clean"), this);
 
     // calculate the approximate height to exceed before going to "Side Layout"
     setSideLayout();
@@ -111,20 +119,28 @@ void TargetsUi::setSideLayout()
 
     line->setFrameShape(QFrame::HLine);
     layout->addWidget(line, 1, 0, 1, 4);
-    
+
     layout->addWidget(dirLabel, 2, 0, Qt::AlignLeft);
     layout->addWidget(buildDir, 3, 0, 1, 3);
     layout->addWidget(browse, 3, 3);
-    
-    layout->addWidget(buildLabel, 4, 0, Qt::AlignLeft);
-    layout->addWidget(buildCmd, 5, 0, 1, 4);
-    
-    layout->addWidget(cleanLabel, 6, 0, Qt::AlignLeft);
-    layout->addWidget(cleanCmd, 7, 0, 1, 4);
-    
-    layout->addWidget(quickLabel, 8, 0, Qt::AlignLeft);
-    layout->addWidget(quickCmd, 9, 0, 1, 4);
-    
+
+    layout->addWidget(quickLabel, 4, 0, Qt::AlignLeft);
+    layout->addWidget(quickCmd, 5, 0, 1, 4);
+
+    layout->addWidget(targetsList, 6, 0, 1, 4);
+
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    buttonsLayout->addStretch();
+    buttonsLayout->addWidget(addButton);
+    buttonsLayout->addWidget(editButton);
+    buttonsLayout->addWidget(deleteButton);
+    buttonsLayout->addWidget(buildButton);
+    buttonsLayout->addWidget(defButton);
+    buttonsLayout->addWidget(cleanButton);
+
+    layout->addLayout(buttonsLayout, 7, 0,  1, 4);
+
+
     layout->addItem(new QSpacerItem(1, 1), 10, 0);
     layout->setColumnStretch(0, 1);
     layout->setRowStretch(12, 1);
@@ -134,34 +150,39 @@ void TargetsUi::setBottomLayout()
 {
     QGridLayout* layout = new QGridLayout(this);
     layout->addWidget(targetCombo, 0, 0);
-    
+
     QHBoxLayout* tLayout = new QHBoxLayout();
     tLayout->addWidget(newTarget, 0);
     tLayout->addWidget(copyTarget, 0);
     tLayout->addWidget(deleteTarget, 0);
     tLayout->setContentsMargins(0,0,0,0);
-    
+
     layout->addLayout(tLayout, 1, 0);
-    
+
     line->setFrameShape(QFrame::VLine);
     layout->addWidget(line, 0, 1, 5, 1);
 
     layout->addWidget(dirLabel, 0, 2, Qt::AlignRight);
     layout->addWidget(buildDir, 0, 3, 1, 2);
     layout->addWidget(browse, 0, 5);
-    
-    layout->addWidget(buildLabel, 1, 2, Qt::AlignRight);
-    layout->addWidget(buildCmd, 1, 3, 1, 3);
-    
-    layout->addWidget(cleanLabel, 2, 2, Qt::AlignRight);
-    layout->addWidget(cleanCmd, 2, 3, 1, 3);
-    
-    layout->addWidget(quickLabel, 3, 2, Qt::AlignRight);
-    layout->addWidget(quickCmd, 3, 3, 1, 3);
-    
-    layout->addItem(new QSpacerItem(1, 1), 4, 0 );
+
+    layout->addWidget(quickLabel, 1, 2, Qt::AlignRight);
+    layout->addWidget(quickCmd, 1, 3, 1, 3);
+
+    layout->addWidget(targetsList, 2, 2, 1, 4);
+
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    buttonsLayout->addStretch();
+    buttonsLayout->addWidget(addButton);
+    buttonsLayout->addWidget(editButton);
+    buttonsLayout->addWidget(deleteButton);
+    buttonsLayout->addWidget(buildButton);
+    buttonsLayout->addWidget(defButton);
+    buttonsLayout->addWidget(cleanButton);
+
+    layout->addLayout(buttonsLayout, 3, 2,  1, 4);
+
     layout->setColumnStretch(3, 1);
-    layout->setRowStretch(5, 1);
 }
 
 void TargetsUi::editTarget(const QString &text)

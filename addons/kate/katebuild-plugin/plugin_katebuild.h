@@ -42,6 +42,8 @@ class QRegExp;
 #include <kprocess.h>
 #include <kselectaction.h>
 
+#include <map>
+
 #include "ui_build.h"
 #include "targets.h"
 
@@ -51,14 +53,21 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
     Q_OBJECT
 
     private:
-        typedef struct {
-            QString name;
+        struct Target {
             QString buildDir;
             QString buildCmd;
-            QString cleanCmd;
-            QString quickCmd;
-       } Target;
+       };
 
+       struct TargetSet {
+         QString name;
+         QString quickCmd;
+         QString defaultDir;
+         QString defaultTarget;
+         QString cleanTarget;
+         QString prevTarget;
+         std::map<QString, Target> targets;
+       };
+       
     public:
         KateBuildView(Kate::MainWindow *mw);
         ~KateBuildView();
@@ -68,6 +77,10 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void writeSessionConfig(KConfigBase* config, const QString& groupPrefix);
 
         QWidget *toolView() const;
+
+        TargetSet* currentTargetSet();
+
+        bool buildTarget(const QString& targetName, bool keepAsPrevTarget);
 
     private Q_SLOTS:
         // selecting warnings
@@ -83,6 +96,9 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);
         void slotReadReadyStdErr();
         void slotReadReadyStdOut();
+
+        void slotSelectTarget();
+        void slotBuildPreviousTarget();
 
         // settings
         void slotBrowseClicked();
@@ -108,6 +124,13 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void slotAddProjectTarget();
         void slotRemoveProjectTarget();
 
+        void slotAddTargetClicked();
+        void slotEditTargetClicked();
+        void slotBuildTargetClicked();
+        void slotDeleteTargetClicked();
+        void slotDefTargetClicked();
+        void slotCleanTargetClicked();
+
     protected:
         bool eventFilter(QObject *obj, QEvent *ev);
 
@@ -118,6 +141,8 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         bool startProcess(const KUrl &dir, const QString &command);
         KUrl docUrl();
         bool checkLocal(const KUrl &dir);
+        void setTargetItemContents(QTreeWidgetItem* item, const TargetSet& tgtSet, const QString& name, const Target& tgt);
+        void fillTargetList(const TargetSet* targetSet, QStringList* stringList) const;
 
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;
@@ -131,7 +156,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         QRegExp           m_newDirDetector;
         unsigned int      m_numErrors;
         unsigned int      m_numWarnings;
-        QList<Target>     m_targetList;
+        QList<TargetSet>  m_targetList;
         int               m_targetIndex;
         KSelectAction*    m_targetSelectAction;
 

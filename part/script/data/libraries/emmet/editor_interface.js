@@ -187,6 +187,8 @@ var zen_editor = function(document, view) {
 	this.getSyntax = function(){
 		var syntax = document.highlightingModeAt(view.cursorPosition()).toLowerCase();
 		if (syntax == 'haml with ruby') syntax = 'haml'; //fixes a common syntax highlighting verbosity
+		if (syntax == 'none')
+			syntax = 'html';
 		return syntax;
 	}
 	

@@ -59,8 +59,8 @@ QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
     hlayout->addStretch();
 
     QToolButton* button = new QToolButton;
-    button->setText(i18n("Show Documentation"));
-    button->setIcon(KIcon("help-about"));
+    button->setText(i18n("Help"));
+    button->setIcon(KIcon("help-contents"));
     button->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     hlayout->addWidget(button);
     layout->addLayout(hlayout);
@@ -191,7 +191,7 @@ void EditSnippet::save()
 
 void EditSnippet::slotSnippetDocumentation()
 {
-    KToolInvocation::invokeHelp("katefiletemplates-format", "kate");
+    KToolInvocation::invokeHelp("kate-application-plugin-snippets", "kate");
 }
 
 void EditSnippet::slotScriptDocumentation()

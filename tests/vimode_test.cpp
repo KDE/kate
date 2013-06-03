@@ -701,6 +701,8 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("{\nfoo\n}", "jdiBiX", "{\nX}");
   // Yanking and pasting such a text object should be treated as linewise.
   DoTest("{\nfoo\nbar\n}", "jyiBjp", "{\nfoo\nbar\nfoo\nbar\n}");
+  // Changing such a text object should delete everything but one line, which we will begin insertion at.
+  DoTest("{\nfoo\nbar\n}", "jciBbaz\\esc", "{\nbaz\n}");
 
 
   DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",

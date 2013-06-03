@@ -61,6 +61,12 @@ bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addTo
 {
   r.normalize();
   bool res = false;
+  if (r.endColumn == doc()->lineLength(r.endLine) + 1 && r.startColumn == 0)
+  {
+    // Bit of a hack, but sometimes we want to delete up to the beginning of the line following r.endLine
+    // while leaving r.endLine unchanged; we set the end column to the length of the line plus one for this.
+    mode = LineWise;
+  }
   QString removedText = getRange( r, mode );
 
   if ( mode == LineWise ) {

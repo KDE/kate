@@ -692,6 +692,13 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "{\nfoo}", "jvaBd", "");
   // Regression test for viB not working if there is a blank line before the closing }.
   DoTest( "{\nfoo\n\n}", "viBd", "{\n}");
+  // The inner block text object does not include the line containing the opening brace if
+  // the opening brace is the last character on its line and there is only whitespace before the closing brace.
+  // (In particular: >iB should not indent the line containing the opening brace under these conditions).
+  DoTest("{\nfoo\n}", "j>iB", "{\n  foo\n}");
+  // Similarly, in such conditions, deleting the inner block should leave the cursor on closing brace line, not the
+  // opening.
+  DoTest("{\nfoo\n}", "jdiBiX", "{\nX}");
 
   DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",
           "jda}xr;",

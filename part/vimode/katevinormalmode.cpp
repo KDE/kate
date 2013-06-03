@@ -2938,7 +2938,8 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
 
   if (innerCurlyBracket.startLine != innerCurlyBracket.endLine)
   {
-    const bool stuffToDeleteIsAllOnEndLine = innerCurlyBracket.startColumn == doc()->line(innerCurlyBracket.startLine).length() &&
+    const bool openingBraceIsLastCharOnLine = innerCurlyBracket.startColumn == doc()->line(innerCurlyBracket.startLine).length();
+    const bool stuffToDeleteIsAllOnEndLine = openingBraceIsLastCharOnLine &&
     innerCurlyBracket.endLine == innerCurlyBracket.startLine + 1;
     const QString textLeadingClosingBracket = doc()->line(innerCurlyBracket.endLine).mid(0, innerCurlyBracket.endColumn + 1);
     const bool closingBracketHasLeadingNonWhitespace = !textLeadingClosingBracket.trimmed().isEmpty();
@@ -2959,18 +2960,33 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
     }
     else
     {
-      // The line containing the end bracket is left alone if the end bracket is preceded by just whitespace,
-      // else we need to delete everything (i.e. end up with "{}")
-      if (!closingBracketHasLeadingNonWhitespace)
+      if (openingBraceIsLastCharOnLine && !closingBracketHasLeadingNonWhitespace)
       {
-        // Shrink the endpoint of the range so that it ends at the end of the line above,
-        // leaving the closing bracket on its own line.
+        // Right - in this case, the range is basically everything from the beginning of the line
+        // after the opening bracket to the end of the line before the closing bracket.
+        // However, deleteRange won't delete the last line in this case (which we want it to), so
+        // we add a hack-ish code that says "please delete the last line".  See deleteRange for more details.
+        innerCurlyBracket.startLine++;
+        innerCurlyBracket.startColumn = 0;
         innerCurlyBracket.endLine--;
-        innerCurlyBracket.endColumn = doc()->line(innerCurlyBracket.endLine).length();
+        // Code that means "delete up to the beginning of endColumn + 1".
+        innerCurlyBracket.endColumn = doc()->line(innerCurlyBracket.endLine).length() + 1;
+      }
+      else {
+        // The line containing the end bracket is left alone if the end bracket is preceded by just whitespace,
+        // else we need to delete everything (i.e. end up with "{}")
+        if (!closingBracketHasLeadingNonWhitespace)
+        {
+          // Shrink the endpoint of the range so that it ends at the end of the line above,
+          // leaving the closing bracket on its own line.
+          innerCurlyBracket.endLine--;
+          innerCurlyBracket.endColumn = doc()->line(innerCurlyBracket.endLine).length();
+        }
       }
     }
 
   }
+  kDebug(13070) << "innerCurlyBracket start line: " << innerCurlyBracket.startLine << " innerCurlyBracket end line: " << innerCurlyBracket.endLine;
   return innerCurlyBracket;
 }
 
@@ -3238,7 +3254,7 @@ OperationMode KateViNormalMode::getOperationMode() const
     m = LineWise;
   }
 
-  if ( m_commandWithMotion && !m_linewiseCommand )
+  if ( m_commandWithMotion && !m_linewiseCommand)
         m = CharWise;
 
   return m;

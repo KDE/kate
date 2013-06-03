@@ -699,6 +699,9 @@ void ViModeTest::NormalModeMotionsTest() {
   // Similarly, in such conditions, deleting the inner block should leave the cursor on closing brace line, not the
   // opening.
   DoTest("{\nfoo\n}", "jdiBiX", "{\nX}");
+  // Yanking and pasting such a text object should be treated as linewise.
+  DoTest("{\nfoo\nbar\n}", "jyiBjp", "{\nfoo\nbar\nfoo\nbar\n}");
+
 
   DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",
           "jda}xr;",

@@ -76,6 +76,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_doNotMapNextKeyPress = false;
   m_pendingResetIsDueToExit = false;
   m_isRepeatedTFcommand = false;
+  m_lastMotionWasLinewiseInnerBlock = false;
   resetParser(); // initialise with start configuration
 
   m_isUndo = false;
@@ -2962,17 +2963,11 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
     {
       if (openingBraceIsLastCharOnLine && !closingBracketHasLeadingNonWhitespace)
       {
-        // Right - in this case, the range is basically everything from the beginning of the line
-        // after the opening bracket to the end of the line before the closing bracket.
-        // However, deleteRange won't delete the last line in this case (which we want it to), so
-        // we add a hack-ish code that says "please delete the last line".  See deleteRange for more details.
         innerCurlyBracket.startLine++;
         innerCurlyBracket.startColumn = 0;
-        innerCurlyBracket.endLine--;
-        // Code that means "delete up to the beginning of endColumn + 1".
-        innerCurlyBracket.endColumn = doc()->line(innerCurlyBracket.endLine).length() + 1;
+        m_lastMotionWasLinewiseInnerBlock = true;
       }
-      else {
+      {
         // The line containing the end bracket is left alone if the end bracket is preceded by just whitespace,
         // else we need to delete everything (i.e. end up with "{}")
         if (!closingBracketHasLeadingNonWhitespace)
@@ -3256,6 +3251,9 @@ OperationMode KateViNormalMode::getOperationMode() const
 
   if ( m_commandWithMotion && !m_linewiseCommand)
         m = CharWise;
+
+  if (m_lastMotionWasLinewiseInnerBlock)
+    m = LineWise;
 
   return m;
 }

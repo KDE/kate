@@ -286,7 +286,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
   return doc;
 }
 
-bool KateDocManager::closeDocument(class KTextEditor::Document *doc, bool closeUrl)
+bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
 {
   if (!doc) return false;
 

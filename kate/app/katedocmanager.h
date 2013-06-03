@@ -114,7 +114,7 @@ class KateDocManager : public QObject
                                    bool isTempFile = false,
                                    const KateDocumentInfo& docInfo = KateDocumentInfo());
 
-    bool closeDocument(class KTextEditor::Document *, bool closeUrl = true);
+    bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
     bool closeDocument(uint);
     bool closeDocumentList(QList<KTextEditor::Document*> documents);
     bool closeAllDocuments(bool closeUrl = true);
@@ -124,8 +124,8 @@ class KateDocManager : public QObject
     QList<KTextEditor::Document*> modifiedDocumentList();
     bool queryCloseDocuments(KateMainWindow *w);
 
-    void saveDocumentList (class KConfig *config);
-    void restoreDocumentList (class KConfig *config);
+    void saveDocumentList (KConfig *config);
+    void restoreDocumentList (KConfig *config);
 
     inline bool getSaveMetaInfos()
     {

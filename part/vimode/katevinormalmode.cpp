@@ -332,6 +332,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     for ( int i = 0; i < m_motions.size(); i++ ) {
       //kDebug( 13070 )  << "\tchecking " << m_keys.mid( checkFrom )  << " against " << m_motions.at( i )->pattern();
       if ( m_motions.at( i )->matches( m_keys.mid( checkFrom ) ) ) {
+        m_lastMotionWasLinewiseInnerBlock = false;
         //kDebug( 13070 )  << m_keys.mid( checkFrom ) << " matches!";
         m_matchingMotions.push_back( i );
 
@@ -2981,7 +2982,6 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
     }
 
   }
-  kDebug(13070) << "innerCurlyBracket start line: " << innerCurlyBracket.startLine << " innerCurlyBracket end line: " << innerCurlyBracket.endLine;
   return innerCurlyBracket;
 }
 
@@ -3249,7 +3249,7 @@ OperationMode KateViNormalMode::getOperationMode() const
     m = LineWise;
   }
 
-  if ( m_commandWithMotion && !m_linewiseCommand)
+  if ( m_commandWithMotion && !m_linewiseCommand )
         m = CharWise;
 
   if (m_lastMotionWasLinewiseInnerBlock)

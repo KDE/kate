@@ -703,6 +703,9 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("{\nfoo\nbar\n}", "jyiBjp", "{\nfoo\nbar\nfoo\nbar\n}");
   // Changing such a text object should delete everything but one line, which we will begin insertion at.
   DoTest("{\nfoo\nbar\n}", "jciBbaz\\esc", "{\nbaz\n}");
+  // Make sure we remove the "last motion was a *linewise* curly text object" flag when we next parse a motion!
+  DoTest("{\nfoo\n}", "jciBbaz xyz\\escdiw", "{\nbaz \n}");
+  DoTest("{\nfoo\nbar\n}", "jviBbd", "{\nar\n}");
 
 
   DoTest( "int main() {\n  printf( \"HelloWorld!\\n\" );\n  return 0;\n} ",

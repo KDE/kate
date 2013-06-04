@@ -53,11 +53,6 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
     Q_OBJECT
 
     private:
-        struct Target {
-            QString buildDir;
-            QString buildCmd;
-       };
-
        struct TargetSet {
          QString name;
          QString quickCmd;
@@ -65,7 +60,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
          QString defaultTarget;
          QString cleanTarget;
          QString prevTarget;
-         std::map<QString, Target> targets;
+         std::map<QString, QString> targets;
        };
        
     public:
@@ -141,7 +136,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         bool startProcess(const KUrl &dir, const QString &command);
         KUrl docUrl();
         bool checkLocal(const KUrl &dir);
-        void setTargetItemContents(QTreeWidgetItem* item, const TargetSet& tgtSet, const QString& name, const Target& tgt);
+        void setTargetItemContents(QTreeWidgetItem* item, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
         void fillTargetList(const TargetSet* targetSet, QStringList* stringList) const;
 
         Kate::MainWindow *m_win;

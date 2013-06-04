@@ -69,7 +69,7 @@ QWidget(parent)
     targetsList->setSortingEnabled(true);
     targetsList->sortByColumn(2, Qt::AscendingOrder);
     QStringList headerLabels;
-    headerLabels << QString("Def") << QString("Clean") << QString("Name") << QString("Command") << QString("Directory");
+    headerLabels << QString("Def") << QString("Clean") << QString("Name") << QString("Command");
     targetsList->setHeaderLabels(headerLabels);
 
     addButton = new QPushButton(i18n("Add..."), this);

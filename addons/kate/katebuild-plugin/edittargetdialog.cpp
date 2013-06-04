@@ -29,9 +29,6 @@ EditTargetDialog::EditTargetDialog(const QStringList& existingTargets, QWidget* 
 ,m_name(0)
 ,m_cmdLabel(0)
 ,m_cmd(0)
-,m_dirLabel(0)
-,m_buildDir(0)
-,m_browseButton(0)
 {
     setButtons(KDialog::Ok | KDialog::Cancel);
 
@@ -45,16 +42,6 @@ EditTargetDialog::EditTargetDialog(const QStringList& existingTargets, QWidget* 
     m_cmd->setMinimumWidth(300);
 
 
-    m_dirLabel = new QLabel(i18n("Working directory"), this);
-
-    m_buildDir = new KLineEdit(this);
-    m_buildDir->setToolTip(i18n("Leave empty to use the default build directory. "));
-    m_buildDir->setClearButtonShown(true);
-
-    m_browseButton = new QToolButton(this);
-    m_browseButton->setIcon(KIcon("inode-directory"));
-
-
     QGridLayout* layout = new QGridLayout(this);
     layout->addWidget(m_nameLabel, 0, 0);
     layout->addWidget(m_name, 0, 1, 1, 2);
@@ -62,10 +49,7 @@ EditTargetDialog::EditTargetDialog(const QStringList& existingTargets, QWidget* 
     layout->addWidget(m_cmdLabel, 1, 0);
     layout->addWidget(m_cmd, 1, 1, 1, 2);
 
-    layout->addWidget(m_dirLabel, 2, 0);
-    layout->addWidget(m_buildDir, 2, 1);
-    layout->addWidget(m_browseButton, 2, 2);
-    layout->setRowStretch(3, 1);
+    layout->setRowStretch(2, 1);
 
     QWidget* container = new QWidget(this);
     container->setLayout(layout);
@@ -91,12 +75,6 @@ void EditTargetDialog::setTargetName(const QString& name)
 }
 
 
-void EditTargetDialog::setTargetDir(const QString& dir)
-{
-    m_buildDir->setText(dir);
-}
-
-
 QString EditTargetDialog::targetCommand() const
 {
     return m_cmd->text();
@@ -106,12 +84,6 @@ QString EditTargetDialog::targetCommand() const
 QString EditTargetDialog::targetName() const
 {
     return m_name->text();
-}
-
-
-QString EditTargetDialog::targetDir() const
-{
-    return m_buildDir->text();
 }
 
 

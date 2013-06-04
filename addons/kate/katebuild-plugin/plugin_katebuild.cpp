@@ -264,18 +264,9 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
 
         m_targetList[0].prevTarget = m_targetList[0].defaultTarget;
 
-        Target tgt;
-        tgt.buildDir = QString();
-        tgt.buildCmd = DefConfigCmd;
-        m_targetList[0].targets["config"] = tgt;
-
-        tgt.buildDir = QString();
-        tgt.buildCmd = cg.readEntry(QString("Make Command"), DefBuildCmd);
-        m_targetList[0].targets["build"] = tgt;
-
-        tgt.buildDir = QString();
-        tgt.buildCmd = cg.readEntry(QString("Make Command"), DefCleanCmd);
-        m_targetList[0].targets["clean"] = tgt;
+        m_targetList[0].targets["config"] = DefConfigCmd;
+        m_targetList[0].targets["build"] = cg.readEntry(QString("Make Command"), DefBuildCmd);
+        m_targetList[0].targets["clean"] = cg.readEntry(QString("Make Command"), DefCleanCmd);
 
         tmpIndex = 0;
     }
@@ -299,14 +290,8 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
                 m_targetList[i].prevTarget = m_targetList[i].defaultTarget;
                 m_targetList[i].defaultDir = defaultDir;
 
-                Target tgt;
-                tgt.buildDir = QString();
-                tgt.buildCmd = cg.readEntry(QString("%1 BuildCmd").arg(i), DefBuildCmd);
-                m_targetList[i].targets["build"] = tgt;
-
-                tgt.buildDir = QString();
-                tgt.buildCmd = cg.readEntry(QString("%1 CleanCmd").arg(i), DefCleanCmd);
-                m_targetList[i].targets["clean"] = tgt;
+                m_targetList[i].targets["build"] = cg.readEntry(QString("%1 BuildCmd").arg(i), DefBuildCmd);
+                m_targetList[i].targets["clean"] = cg.readEntry(QString("%1 CleanCmd").arg(i), DefCleanCmd);
             }
             else {
                 for (int tn=0; tn<targetNames.size(); ++tn) {
@@ -314,10 +299,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
                     if (defaultTarget.isEmpty() && (tn==0)) {
                         defaultTarget = targetName;
                     }
-                    Target tgt;
-                    tgt.buildDir = cg.readEntry(QString("%1 BuildPath %2").arg(i).arg(targetName), QString());
-                    tgt.buildCmd = cg.readEntry(QString("%1 BuildCmd %2").arg(i).arg(targetName), DefBuildCmd);
-                    m_targetList[i].targets[targetName] = tgt;
+                    m_targetList[i].targets[targetName] = cg.readEntry(QString("%1 BuildCmd %2").arg(i).arg(targetName), DefBuildCmd);
                 }
 
                 m_targetList[i].quickCmd = quickCmd;
@@ -365,15 +347,14 @@ void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& grou
 
         QStringList targetNames;
 
-        for(std::map<QString, Target>::const_iterator tgtIt = m_targetList[i].targets.begin();
+        for(std::map<QString, QString>::const_iterator tgtIt = m_targetList[i].targets.begin();
             tgtIt != m_targetList[i].targets.end(); ++tgtIt) {
             const QString& tgtName = tgtIt->first;
-            const Target& tgt = tgtIt->second;
+            const QString& buildCmd = tgtIt->second;
 
             targetNames << tgtName;
 
-            cg.writeEntry(QString("%1 BuildPath %2").arg(i).arg(tgtName), tgt.buildDir);
-            cg.writeEntry(QString("%1 BuildCmd %2").arg(i).arg(tgtName), tgt.buildCmd);
+            cg.writeEntry(QString("%1 BuildCmd %2").arg(i).arg(tgtName), buildCmd);
         }
 
         cg.writeEntry(QString("%1 Target Names").arg(i), targetNames);
@@ -659,7 +640,7 @@ bool KateBuildView::slotStop()
 /******************************************************************/
 void KateBuildView::fillTargetList(const TargetSet* targetSet, QStringList* stringList) const
 {
-    for(std::map<QString, Target>::const_iterator tgtIt = targetSet->targets.begin(); tgtIt != targetSet->targets.end(); ++tgtIt) {
+    for(std::map<QString, QString>::const_iterator tgtIt = targetSet->targets.begin(); tgtIt != targetSet->targets.end(); ++tgtIt) {
         (*stringList) << tgtIt->first;
     }
 }
@@ -705,32 +686,27 @@ bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget
         return false;
     }
 
-    std::map<QString, Target>::const_iterator tgtIt = targetSet->targets.find(targetName);
+    std::map<QString, QString>::const_iterator tgtIt = targetSet->targets.find(targetName);
     if (tgtIt == targetSet->targets.end()) {
         return false;
     }
 
-    const Target& tgt = tgtIt->second;
+    const QString& buildCmd = tgtIt->second;
 
-    if (tgt.buildDir.isEmpty()) {
-        if (targetSet->defaultDir.isEmpty()) {
-            if (!checkLocal(dir)) return false;
-            // dir is a file -> remove the file with upUrl().
-            dir = dir.upUrl();
-        }
-        else {
-            dir = KUrl(targetSet->defaultDir);
-        }
+    if (targetSet->defaultDir.isEmpty()) {
+        if (!checkLocal(dir)) return false;
+        // dir is a file -> remove the file with upUrl().
+        dir = dir.upUrl();
     }
     else {
-        dir = KUrl(tgt.buildDir);
+        dir = KUrl(targetSet->defaultDir);
     }
 
     if (keepAsPrevTarget) {
         targetSet->prevTarget = targetName;
     }
 
-    return startProcess(dir, tgt.buildCmd);
+    return startProcess(dir, buildCmd);
 }
 
 
@@ -918,15 +894,14 @@ void KateBuildView::slotAddTargetClicked()
     int result = dlg->exec();
     if (result == QDialog::Accepted) {
         QString name = dlg->targetName();
-        Target newTarget;
-        newTarget.buildCmd = dlg->targetCommand();
-        newTarget.buildDir = dlg->targetDir();
-        m_targetList[m_targetIndex].targets[name] = newTarget;
+        QString buildCmd = dlg->targetCommand();
+
+        m_targetList[m_targetIndex].targets[name] = buildCmd;
 
         QTreeWidgetItem* item = new QTreeWidgetItem();
         m_targetsUi->targetsList->addTopLevelItem(item);
 
-        setTargetItemContents(item, m_targetList[m_targetIndex], name, newTarget);
+        setTargetItemContents(item, m_targetList[m_targetIndex], name, buildCmd);
 
         m_targetsUi->deleteButton->setEnabled(true);
         m_targetsUi->buildButton->setEnabled(true);
@@ -960,17 +935,14 @@ void KateBuildView::slotEditTargetClicked()
     dlg->setCaption(QString(i18n("Edit target %1")).arg(oldName));
     dlg->setTargetName(oldName);
     dlg->setTargetCommand(currentItem->text(3));
-    dlg->setTargetDir(currentItem->text(4));
     int result = dlg->exec();
     if (result == QDialog::Accepted) {
         QString newName = dlg->targetName();
-        Target newTarget;
-        newTarget.buildCmd = dlg->targetCommand();
-        newTarget.buildDir = dlg->targetDir();
+        QString buildCmd = dlg->targetCommand();
         m_targetList[m_targetIndex].targets.erase(oldName);
-        m_targetList[m_targetIndex].targets[newName] = newTarget;
+        m_targetList[m_targetIndex].targets[newName] = buildCmd;
 
-        setTargetItemContents(currentItem, m_targetList[m_targetIndex], newName, newTarget);
+        setTargetItemContents(currentItem, m_targetList[m_targetIndex], newName, buildCmd);
 
     }
     delete dlg;
@@ -1089,7 +1061,7 @@ void KateBuildView::targetSelected(int index)
 
     m_targetsUi->targetsList->clear();
 
-    for(std::map<QString, Target>::const_iterator it = m_targetList[index].targets.begin(); it != m_targetList[index].targets.end(); ++it) {
+    for(std::map<QString, QString>::const_iterator it = m_targetList[index].targets.begin(); it != m_targetList[index].targets.end(); ++it) {
         QTreeWidgetItem* item = new QTreeWidgetItem();
         m_targetsUi->targetsList->addTopLevelItem(item);
         setTargetItemContents(item, m_targetList[index], it->first, it->second);
@@ -1098,7 +1070,7 @@ void KateBuildView::targetSelected(int index)
         }
     }
 
-    for(int i=0; i<5; i++) {
+    for(int i=0; i<4; i++) {
         m_targetsUi->targetsList->resizeColumnToContents(i);
     }
 
@@ -1119,13 +1091,12 @@ void KateBuildView::targetSelected(int index)
 
 
 /******************************************************************/
-void KateBuildView::setTargetItemContents(QTreeWidgetItem* item, const TargetSet& tgtSet, const QString& name, const Target& tgt)
+void KateBuildView::setTargetItemContents(QTreeWidgetItem* item, const TargetSet& tgtSet, const QString& name, const QString& buildCmd)
 {
     item->setText(0, (name == tgtSet.defaultTarget) ? QString("X") : QString (""));
     item->setText(1, (name == tgtSet.cleanTarget) ? QString("X") : QString (""));
     item->setText(2, name);
-    item->setText(3, tgt.buildCmd);
-    item->setText(4, tgt.buildDir);
+    item->setText(3, buildCmd);
 }
 
 
@@ -1153,18 +1124,9 @@ void KateBuildView::targetNew()
     m_targetList[m_targetIndex].cleanTarget = "Clean";
     m_targetList[m_targetIndex].defaultDir = QString();
 
-    Target tgt;
-    tgt.buildDir = QString();
-    tgt.buildCmd = DefBuildCmd;
-    m_targetList[m_targetIndex].targets[QString("Build")] = tgt;
-
-    tgt.buildDir = QString();
-    tgt.buildCmd = DefCleanCmd;
-    m_targetList[m_targetIndex].targets[QString("Clean")] = tgt;
-
-    tgt.buildDir = QString();
-    tgt.buildCmd = DefConfigCmd;
-    m_targetList[m_targetIndex].targets[QString("Config")] = tgt;
+    m_targetList[m_targetIndex].targets[QString("Build")] = DefBuildCmd;
+    m_targetList[m_targetIndex].targets[QString("Clean")] = DefCleanCmd;
+    m_targetList[m_targetIndex].targets[QString("Config")] = DefConfigCmd;
 
     m_targetsUi->targetCombo->addItem(m_targetList[m_targetIndex].name);
     m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);
@@ -1214,19 +1176,10 @@ void KateBuildView::targetDelete()
         m_targetList[0].prevTarget = m_targetList[0].defaultTarget;
         m_targetList[0].defaultDir = QString();
 
-        Target tgt;
-
-        tgt.buildCmd = DefBuildCmd;
-        m_targetList[0].targets["Build"] = tgt;
-
-        tgt.buildCmd = DefCleanCmd;
-        m_targetList[0].targets["Clean"] = tgt;
-
-        tgt.buildCmd = DefConfigCmd;
-        m_targetList[0].targets["Config"] = tgt;
-
-        tgt.buildCmd = DefConfClean;
-        m_targetList[0].targets["ConfigClean"] = tgt;
+        m_targetList[0].targets["Build"] = DefBuildCmd;
+        m_targetList[0].targets["Clean"] = DefCleanCmd;
+        m_targetList[0].targets["Config"] = DefConfigCmd;
+        m_targetList[0].targets["ConfigClean"] = DefConfClean;
 
         m_targetsUi->targetCombo->addItem(m_targetList[0].name);
 
@@ -1388,19 +1341,13 @@ void KateBuildView::slotAddProjectTarget()
     foreach (const QVariant &targetVariant, targets) {
         QVariantMap targetMap = targetVariant.toMap();
         QString tgtName = targetMap["name"].toString();
-        Target tgt;
-        tgt.buildDir = targetMap["build_dir"].toString();
-        tgt.buildCmd = targetMap["build_cmd"].toString();
+        QString buildCmd = targetMap["build_cmd"].toString();
 
-        if (tgt.buildDir.isEmpty()) {
-            tgt.buildDir = defaultBuildDir;
-        }
-
-        if (tgtName.isEmpty() || tgt.buildCmd.isEmpty()) {
+        if (tgtName.isEmpty() || buildCmd.isEmpty()) {
             continue;
         }
 
-        m_targetList[index].targets[tgtName] = tgt;
+        m_targetList[index].targets[tgtName] = buildCmd;
     }
 
     m_targetsUi->targetCombo->addItem(m_targetList[index].name);

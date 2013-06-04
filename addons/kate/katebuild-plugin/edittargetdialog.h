@@ -19,11 +19,9 @@ class EditTargetDialog : public KDialog
 
         void setTargetCommand(const QString& cmd);
         void setTargetName(const QString& name);
-        void setTargetDir(const QString& dir);
 
         QString targetCommand() const;
         QString targetName() const;
-        QString targetDir() const;
 
     private Q_SLOTS:
         void checkTargetName(const QString& name);
@@ -35,9 +33,6 @@ class EditTargetDialog : public KDialog
         KLineEdit   * m_name;
         QLabel      * m_cmdLabel;
         KLineEdit   * m_cmd;
-        QLabel      * m_dirLabel;
-        KLineEdit   * m_buildDir;
-        QToolButton * m_browseButton;
 };
 
 #endif

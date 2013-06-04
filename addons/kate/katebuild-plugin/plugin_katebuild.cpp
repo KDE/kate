@@ -189,6 +189,12 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     dirCompleter->setModel(new QDirModel(filter, QDir::AllDirs|QDir::NoDotAndDotDot, QDir::Name, this));
     m_targetsUi->buildDir->setCompleter(dirCompleter);
 
+    m_targetsUi->deleteButton->setEnabled(false);
+    m_targetsUi->buildButton->setEnabled(false);
+    m_targetsUi->editButton->setEnabled(false);
+    m_targetsUi->defButton->setEnabled(false);
+    m_targetsUi->cleanButton->setEnabled(false);
+
     m_proc = new KProcess();
 
     connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotProcExited(int,QProcess::ExitStatus)));
@@ -900,6 +906,10 @@ void KateBuildView::slotBrowseClicked()
 void KateBuildView::slotAddTargetClicked()
 {
     TargetSet* targetSet = currentTargetSet();
+    if (targetSet == 0) {
+        return;
+    }
+
     QStringList targets;
     fillTargetList(targetSet, &targets);
 
@@ -933,10 +943,18 @@ void KateBuildView::slotAddTargetClicked()
 void KateBuildView::slotEditTargetClicked()
 {
     TargetSet* targetSet = currentTargetSet();
+    if (targetSet == 0) {
+        return;
+    }
+
+    QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
+    if (currentItem == 0) {
+        return;
+    }
+
     QStringList targets;
     fillTargetList(targetSet, &targets);
 
-    QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
     QString oldName = currentItem->text(2);
     EditTargetDialog* dlg = new EditTargetDialog(targets);
     dlg->setCaption(QString(i18n("Edit target %1")).arg(oldName));
@@ -962,7 +980,12 @@ void KateBuildView::slotEditTargetClicked()
 /******************************************************************/
 void KateBuildView::slotBuildTargetClicked()
 {
-    QString target = m_targetsUi->targetsList->currentItem()->text(2);
+    const QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
+    if (currentItem == 0) {
+        return;
+    }
+
+    QString target = currentItem->text(2);
     buildTarget(target, true);
 }
 
@@ -975,6 +998,10 @@ void KateBuildView::slotDeleteTargetClicked()
     }
 
     QTreeWidgetItem* item = m_targetsUi->targetsList->currentItem();
+    if (item == 0) {
+        return;
+    }
+
     QString target = item->text(2);
 
     int result = KMessageBox::questionYesNo(0, QString(i18n("Really delete target %1 ?")).arg(target));
@@ -1006,11 +1033,18 @@ void KateBuildView::slotDeleteTargetClicked()
 /******************************************************************/
 void KateBuildView::slotDefTargetClicked()
 {
-    QString target = m_targetsUi->targetsList->currentItem()->text(2);
     TargetSet* tgtSet = currentTargetSet();
     if (tgtSet == 0) {
         return;
     }
+
+    QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
+    if (currentItem == 0) {
+        return;
+    }
+
+    QString target = currentItem->text(2);
+
     tgtSet->defaultTarget = target;
     for(int i=0; i<m_targetsUi->targetsList->topLevelItemCount(); i++) {
         QTreeWidgetItem* item = m_targetsUi->targetsList->topLevelItem(i);
@@ -1021,11 +1055,18 @@ void KateBuildView::slotDefTargetClicked()
 /******************************************************************/
 void KateBuildView::slotCleanTargetClicked()
 {
-    QString target = m_targetsUi->targetsList->currentItem()->text(2);
     TargetSet* tgtSet = currentTargetSet();
     if (tgtSet == 0) {
         return;
     }
+
+    QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
+    if (currentItem == 0) {
+        return;
+    }
+
+    QString target = currentItem->text(2);
+
     tgtSet->cleanTarget = target;
     for(int i=0; i<m_targetsUi->targetsList->topLevelItemCount(); i++) {
         QTreeWidgetItem* item = m_targetsUi->targetsList->topLevelItem(i);
@@ -1052,6 +1093,9 @@ void KateBuildView::targetSelected(int index)
         QTreeWidgetItem* item = new QTreeWidgetItem();
         m_targetsUi->targetsList->addTopLevelItem(item);
         setTargetItemContents(item, m_targetList[index], it->first, it->second);
+        if (m_targetsUi->targetsList->topLevelItemCount() == 1) {
+            m_targetsUi->targetsList->setCurrentItem(item);
+        }
     }
 
     for(int i=0; i<5; i++) {
@@ -1063,6 +1107,14 @@ void KateBuildView::targetSelected(int index)
     // make sure that both the combo box and the menu are updated
     m_targetsUi->targetCombo->setCurrentIndex(index);
     m_targetSelectAction->setCurrentItem(index);
+
+    const bool enableButtons = (m_targetsUi->targetsList->currentItem() != 0);
+
+    m_targetsUi->deleteButton->setEnabled(enableButtons);
+    m_targetsUi->buildButton->setEnabled(enableButtons);
+    m_targetsUi->editButton->setEnabled(enableButtons);
+    m_targetsUi->defButton->setEnabled(enableButtons);
+    m_targetsUi->cleanButton->setEnabled(enableButtons);
 }
 
 

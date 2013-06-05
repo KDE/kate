@@ -63,6 +63,7 @@ Comment[bg]=Валидиране на XML-файлове с помощта на 
 Comment[bs]=Overava XML datoteke naredbom xmllint
 Comment[ca]=Valida els fitxers XML usant el xmllint
 Comment[ca@valencia]=Valida els fitxers XML usant el xmllint
+Comment[cs]=Ověřuje soubory XML pomocí xmllint
 Comment[da]=Validerer XML-filer ved brug af xmllint
 Comment[de]=Überprüft XML-Dateien mit xmllint
 Comment[el]=Ελέγχει την εγκυρότητα XML αρχείων με χρήση του xmllint

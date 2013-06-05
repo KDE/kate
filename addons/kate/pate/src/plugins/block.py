@@ -18,7 +18,7 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-'''Plugins to help code editting'''
+'''Plugins to help code editing'''
 
 import kate
 import kate.gui

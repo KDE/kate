@@ -63,6 +63,7 @@ Comment[bg]=Списък с XML елементи, атрибути, стойно
 Comment[bs]=Nabraja IksML elemente, atribute, vrijednosti atributa i entitete koje DTD dozvoljava
 Comment[ca]=Llista els elements XML, atributs, valors dels atributs i entitats permeses pel DTD
 Comment[ca@valencia]=Llista els elements XML, atributs, valors dels atributs i entitats permeses pel DTD
+Comment[cs]=Vypisuje prvky, atributy, hodnoty atributů a entity XML povolené DTD
 Comment[da]=Lister XML-elementer, attributter, attributværdier og elementer tilladt af DTD
 Comment[de]=Zeigt XML-Elemente, Attribute, Attributwerte und Entitäten an, die von der DTD definiert werden
 Comment[el]=Εμφάνιση στοιχείων XML, ιδιοτήτων, τιμών ιδιοτήτων και οντοτήτων που επιτρέπονται από το DTD

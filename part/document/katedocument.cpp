@@ -4860,7 +4860,7 @@ void KateDocument::slotTriggerLoadingMessage ()
    * if around job: add cancel action
    */
   if (m_loadingJob) {
-    QAction *cancel = new QAction ("&Abort Loading", 0);
+    QAction *cancel = new QAction ( i18n ("&Abort Loading"), 0);
     connect (cancel, SIGNAL(triggered()), this, SLOT(slotAbortLoading()));
     m_loadingMessage->addAction (cancel);
   }

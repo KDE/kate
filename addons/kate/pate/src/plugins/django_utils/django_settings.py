@@ -44,7 +44,7 @@ _PATTERN_MODEL_FORM = 'DjangoUtils:patternModelForm'
 _PATTERN_MODEL = 'DjangoUtils:patternModel'
 
 
-DEFAULT_TEMPLATE_TAGS_CLOSE = "autoescape, block, comment, filter, for, ifchanged, ifequal, if, spaceless, with"
+DEFAULT_TEMPLATE_TAGS_CLOSE = "autoescape, blocktrans, block, comment, filter, for, ifchanged, ifequal, if, spaceless, with"
 
 DEFAULT_TEXT_URLS = """from django.conf.urls.defaults import patterns, url
 

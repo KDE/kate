@@ -393,6 +393,8 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("<pagedown>", motionPageDown, 0 );
   ADDMOTION("<c-b>", motionPageUp, 0 );
   ADDMOTION("<pageup>", motionPageUp, 0 );
+  ADDMOTION("gj", motionToNextVisualLine, 0 );
+  ADDMOTION("gk", motionToPrevVisualLine, 0);
   ADDMOTION("{", motionToBeforeParagraph, 0 );
   ADDMOTION("}", motionToAfterParagraph, 0 );
 

@@ -1074,20 +1074,31 @@ KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
   if (r.endColumn == -1 || r.endLine == -1 || r.valid == false)
     return r;
 
-  Kate::TextLine startLine = doc()->plainKateTextLine( c.line() );
-  Kate::TextLine endLine = doc()->plainKateTextLine( r.endLine );
-
-  int virtColumnStart = startLine->toVirtualColumn(c.column(), tabstop);
-
-  int view_line = m_viewInternal->cache()->viewLine(c);
-  int visualColumnStart = virtColumnStart - m_viewInternal->cache()->viewLine(view_line).startCol();
-
-  if ( m_stickyColumn == -1 ) {
-     m_stickyColumn = visualColumnStart;
+  if ( m_stickyColumn == -1) {
+    // Compute new sticky column.
+    const Kate::TextLine startLine = doc()->plainKateTextLine( c.line() );
+    const int virtColumnStart = startLine->toVirtualColumn(c.column(), tabstop);
+    const int visualColumnStart = virtColumnStart - m_viewInternal->cache()->textLayout(c).startCol();
+    //Q_ASSERT(m_stickyColumn >= 0);
+    m_stickyColumn = visualColumnStart;
+    Q_ASSERT(m_stickyColumn >= 0);
   } else {
-    int end_view_line = m_viewInternal->cache()->viewLine(res);
-    int s_c = m_viewInternal->cache()->textLayout(res.line(), end_view_line).startCol();
-    r.endColumn = endLine->fromVirtualColumn( m_stickyColumn + s_c, tabstop );
+    const int end_view_line = m_viewInternal->cache()->viewLine(res);
+    const int s_c = m_viewInternal->cache()->textLayout(res.line(), end_view_line).startCol();
+    const Kate::TextLine endLine = doc()->plainKateTextLine( r.endLine );
+    // Adjust for the fact that if the portion of the line before wrapping is indented,
+    // the continuations are also "invisibly" (i.e. without any spaces in the text itself) indented.
+    const bool isWrappedContinuation = (m_viewInternal->cache()->textLayout(res.line(), end_view_line).lineLayout().lineNumber() != 0);
+    const int numInvisibleIndentChars = isWrappedContinuation ? endLine->toVirtualColumn(m_viewInternal->cache()->line(res.line())->textLine()->nextNonSpaceChar(0), tabstop) : 0;
+    if (m_stickyColumn == (unsigned int)KateVi::EOL)
+    {
+      const int visualEndColumn = m_viewInternal->cache()->textLayout(res.line(), end_view_line).lineLayout().textLength() - 1;
+      r.endColumn = endLine->fromVirtualColumn( visualEndColumn + s_c - numInvisibleIndentChars, tabstop );
+    }
+    else
+    {
+      r.endColumn = endLine->fromVirtualColumn( m_stickyColumn + s_c - numInvisibleIndentChars, tabstop );
+    }
   }
 
   return r;

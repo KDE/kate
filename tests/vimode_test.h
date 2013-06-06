@@ -52,6 +52,7 @@ private Q_SLOTS:
   void MappingTests();
   void yankHighlightingTests();
   void CompletionTests();
+  void visualLineUpDownTests();
 
   void debuggingTests();
 private:

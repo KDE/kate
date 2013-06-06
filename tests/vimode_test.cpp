@@ -2245,6 +2245,102 @@ void ViModeTest::CompletionTests()
     FinishTest("completioncompletion11");
 }
 
+void ViModeTest::visualLineUpDownTests()
+{
+  // Need to ensure we have dynamic wrap, a fixed width font, and a decent size kate_view.
+  ensureKateViewVisible();
+  const QSize oldSize = kate_view->size();
+  kate_view->resize(400, 400); // Default size is too cramped to have interesting text in.
+  const QFont oldFont = kate_view->renderer()->config()->font();
+  QFont fixedWidthFont("Monospace");
+  fixedWidthFont.setStyleHint(QFont::TypeWriter);
+  Q_ASSERT_X(QFontInfo(fixedWidthFont).fixedPitch(), "setting up visual line up down tests", "Need a fixed pitch font!");
+  kate_view->renderer()->config()->setFont(fixedWidthFont);
+  const bool oldDynWordWrap = KateViewConfig::global()->dynWordWrap();
+  KateViewConfig::global()->setDynWordWrap(true);
+
+  // Compute the maximum width of text before line-wrapping sets it.
+  int textWrappingLength = 1;
+  while (true)
+  {
+    QString text = QString("X").repeated(textWrappingLength) + " " + "O";
+    const int posOfO = text.length() - 1;
+    kate_document->setText(text);
+    if (kate_view->cursorToCoordinate(Cursor(0, posOfO)).y() != kate_view->cursorToCoordinate(Cursor(0, 0)).y())
+    {
+      textWrappingLength++; // Number of x's, plus space.
+      break;
+    }
+    textWrappingLength++;
+  }
+  const QString fillsLineAndEndsOnSpace = QString("X").repeated(textWrappingLength - 1) + " ";
+
+  {
+    // gk when sticky bit is set to the end.
+    const QString originalText = fillsLineAndEndsOnSpace.repeated(2);
+    QString expectedText = originalText;
+    kate_document->setText(originalText);
+    Q_ASSERT(expectedText[textWrappingLength - 1] == ' ');
+    expectedText[textWrappingLength - 1] = '.';
+    DoTest(originalText, "$gkr.", expectedText);
+  }
+
+  {
+    // Regression test: more than fill the view up, go to end, and do gk on wrapped text (used to crash).
+    // First work out the text that will fill up the view.
+    QString fillsView = fillsLineAndEndsOnSpace;
+    while (true)
+    {
+      kate_document->setText(fillsView);
+      const QString visibleText = kate_document->text(kate_view->visibleRange());
+      if (fillsView.length() > visibleText.length() * 2) // Overkill.
+      {
+        break;
+      }
+      fillsView += fillsLineAndEndsOnSpace;
+    }
+    QString expectedText = fillsView;
+    Q_ASSERT(expectedText[expectedText.length() - textWrappingLength - 1] == ' ');
+    expectedText[expectedText.length() - textWrappingLength - 1] = '.';
+
+    DoTest(fillsView, "$gkr.", expectedText);
+  }
+
+  {
+    // Deal with dynamic wrapping and indented blocks - continuations of a line are "invisibly" idented by
+    // the same amount as the beginning of the line, and we have to subtract this indentation.
+    const QString unindentedFirstLine = "stickyhelper\n";
+    const int  numIndentationSpaces = 5;
+    Q_ASSERT(textWrappingLength >  numIndentationSpaces * 2 /* keep some wriggle room */);
+    const QString indentedFillsLineEndsOnSpace = QString(" ").repeated( numIndentationSpaces) + QString("X").repeated(textWrappingLength - 1 - numIndentationSpaces) + " ";
+    DoTest(unindentedFirstLine + indentedFillsLineEndsOnSpace + "LINE3", QString("l").repeated(numIndentationSpaces) + "jgjr.", unindentedFirstLine + indentedFillsLineEndsOnSpace + ".INE3");
+
+    // The first, non-wrapped portion of the line is not invisibly indented, though, so ensure we don't mess that up.
+    QString expectedSecondLine = indentedFillsLineEndsOnSpace;
+    expectedSecondLine[numIndentationSpaces] = '.';
+    DoTest(unindentedFirstLine + indentedFillsLineEndsOnSpace + "LINE3", QString("l").repeated(numIndentationSpaces) + "jgjgkr.", unindentedFirstLine + expectedSecondLine + "LINE3");
+  }
+
+  {
+    // Ensure gj works in Visual mode.
+    Q_ASSERT(fillsLineAndEndsOnSpace.toLower() != fillsLineAndEndsOnSpace);
+    QString expectedText = fillsLineAndEndsOnSpace.toLower() + fillsLineAndEndsOnSpace;
+    expectedText[textWrappingLength] = expectedText[textWrappingLength].toLower();
+    DoTest(fillsLineAndEndsOnSpace.repeated(2), "vgjgu", expectedText);
+  }
+
+  {
+    // Ensure gk works in Visual mode.
+    Q_ASSERT(fillsLineAndEndsOnSpace.toLower() != fillsLineAndEndsOnSpace);
+    DoTest(fillsLineAndEndsOnSpace.repeated(2), "$vgkgu", fillsLineAndEndsOnSpace + fillsLineAndEndsOnSpace.toLower());
+  }
+
+  // Restore back to how we were before.
+  kate_view->resize(oldSize);
+  kate_view->renderer()->config()->setFont(oldFont);
+  KateViewConfig::global()->setDynWordWrap(oldDynWordWrap);
+}
+
 // Special area for tests where you want to set breakpoints etc without all the other tests
 // triggering them.  Run with ./vimode_test debuggingTests
 void ViModeTest::debuggingTests()

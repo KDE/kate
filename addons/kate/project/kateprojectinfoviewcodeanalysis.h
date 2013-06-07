@@ -77,6 +77,12 @@ class KateProjectInfoViewCodeAnalysis : public QWidget
      */
     void slotClicked (const QModelIndex &index);
 
+    /**
+     * called whenever the index of the project was updated. Here,
+     * it's used to show a warning, if ctags is not installed.
+     */
+    void indexAvailable ();
+
   private:
     /**
      * our plugin view

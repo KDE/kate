@@ -130,8 +130,6 @@ void KateContainer::setActiveView(KTextEditor::View *view)
 
 KTextEditor::View *KateContainer::activeView()
 {
-  if (KateApp::self()->activeMainWindow()==0) return 0;
-  if (KateApp::self()->activeMainWindow()->viewManager()==0) return 0;
   return KateApp::self()->activeMainWindow()->viewManager()->activeView();
 }
 

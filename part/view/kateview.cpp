@@ -58,8 +58,6 @@
 #include "script/katescriptconsole.h"
 #include "snippet/katesnippetglobal.h"
 
-#include "katetemplatehandler.h"
-
 #include "katemessagewidget.h"
 #include "messageinterface.h"
 

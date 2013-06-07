@@ -20,13 +20,14 @@
  *  Boston, MA 02110-1301, USA.
  */
 #include "snippetfilterproxymodel.h"
-#include "katesnippetglobal.h"
-#include "repositoryview.h"
+
+#include "snippetstore.h"
+#include "snippet.h"
 
 SnippetFilterProxyModel::SnippetFilterProxyModel(QObject *parent)
  : QSortFilterProxyModel(parent)
 {
-    connect(KateSnippetGlobal::self()->repositoryModel(),
+    connect(SnippetStore::self(),
             SIGNAL(dataChanged(QModelIndex,QModelIndex)),
             this,
             SLOT(dataChanged(QModelIndex,QModelIndex)));
@@ -37,6 +38,18 @@ SnippetFilterProxyModel::~SnippetFilterProxyModel()
 {
 }
 
+QVariant SnippetFilterProxyModel::data(const QModelIndex& index, int role) const
+{
+    if (role == Qt::DisplayRole && index.parent().isValid()) {
+        // in the view, also show prefix, postfix and arguments
+        Snippet* snippet = dynamic_cast<Snippet*>( SnippetStore::self()->itemFromIndex(mapToSource(index)) );
+        if (snippet) {
+            QString ret = snippet->prefix() + ' ' + snippet->text() + snippet->arguments() + ' ' + snippet->postfix();
+            return ret.trimmed();
+        }
+    }
+    return QSortFilterProxyModel::data(index, role);
+}
 
 void SnippetFilterProxyModel::changeFilter(const QString& filter)
 {
@@ -53,10 +66,19 @@ bool SnippetFilterProxyModel::filterAcceptsRow(int sourceRow, const QModelIndex 
 
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
-    if (sourceParent.isValid()) {
-      return sourceModel()->data(index,Qt::DisplayRole).toString().contains(filter_);
+    QStandardItem* item = SnippetStore::self()->itemFromIndex( index );
+    if (!item)
+        return false;
+
+    Snippet* snippet = dynamic_cast<Snippet*>( item );
+    if (snippet) {
+        if ( snippet->text().contains( filter_) )
+            return true;
+        else
+            return false;
     }
-    
+
+    // if it's not a snippet; allow it...
     return true;
 }
 

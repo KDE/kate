@@ -29,12 +29,13 @@
 #include <KAction>
 #include <KDebug>
 
+#include "snippet.h"
 #include "katesnippetglobal.h"
-#warning fixme
-//#include "editrepository.h"
-//#include "editsnippet.h"
+#include "snippetrepository.h"
+#include "snippetstore.h"
+#include "editrepository.h"
+#include "editsnippet.h"
 #include "snippetfilterproxymodel.h"
-#include "repositoryview.h"
 
 #include <KGlobalSettings>
 
@@ -61,7 +62,7 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
 
     m_proxy = new SnippetFilterProxyModel(this);
 
-    m_proxy->setSourceModel( KateSnippetGlobal::self()->repositoryModel() );
+    m_proxy->setSourceModel( SnippetStore::self() );
 
     snippetTree->setModel( m_proxy );
 //     snippetTree->setModel( SnippetStore::instance() );
@@ -112,8 +113,7 @@ SnippetView::~SnippetView()
 
 void SnippetView::validateActions()
 {
-#warning fixme
-#if 0
+
     QStandardItem* item = currentItem();
 
     Snippet* selectedSnippet = dynamic_cast<Snippet*>( item );
@@ -127,36 +127,31 @@ void SnippetView::validateActions()
     m_addSnippetAction->setEnabled(selectedRepo || selectedSnippet);
     m_editSnippetAction->setEnabled(selectedSnippet);
     m_removeSnippetAction->setEnabled(selectedSnippet);
-#endif
-  
 }
 
 QStandardItem* SnippetView::currentItem()
 {
-return 0;
-#warning FIXME
-#if 0
-///TODO: support multiple selected items
+    ///TODO: support multiple selected items
     QModelIndex index = snippetTree->currentIndex();
     index = m_proxy->mapToSource(index);
     return SnippetStore::self()->itemFromIndex( index );
-#endif
 }
 
 void SnippetView::slotSnippetClicked (const QModelIndex & index)
 {
-    KateView* view=KateSnippetGlobal::self()->getCurrentView();
-    if (!view) return;
-    view->insertTemplateText (view->cursorPosition(), snippetTree->model()->data(index,KTextEditor::CodesnippetsCore::SnippetSelectorModel::FillInRole).toString(),QMap<QString,QString>(),
-                               (KTextEditor::TemplateScript*)qvariant_cast<void*>(snippetTree->model()->data(index,KTextEditor::CodesnippetsCore::SnippetSelectorModel::ScriptTokenRole)));
+    QStandardItem* item = SnippetStore::self()->itemFromIndex( m_proxy->mapToSource(index) );
+    if (!item)
+        return;
 
-    view->setFocus();
+    Snippet* snippet = dynamic_cast<Snippet*>( item );
+    if (!snippet)
+        return;
+
+    m_plugin->insertSnippet( snippet );
 }
 
 void SnippetView::contextMenu (const QPoint& pos)
 {
-#warning fixme
-#if 0
     QModelIndex index = snippetTree->indexAt( pos );
     index = m_proxy->mapToSource(index);
     QStandardItem* item = SnippetStore::self()->itemFromIndex( index );
@@ -190,13 +185,10 @@ void SnippetView::contextMenu (const QPoint& pos)
 
         menu.exec(snippetTree->mapToGlobal(pos));
     }
-#endif
 }
 
 void SnippetView::slotEditSnippet()
 {
-#warning FIXME
-#if 0
     QStandardItem* item = currentItem();
     if (!item)
         return;
@@ -211,14 +203,10 @@ void SnippetView::slotEditSnippet()
 
     EditSnippet dlg(repo, snippet, this);
     dlg.exec();
-#endif
-  
 }
 
 void SnippetView::slotAddSnippet()
 {
-#warning FIXME
-#if 0
     QStandardItem* item = currentItem();
     if (!item)
         return;
@@ -232,13 +220,10 @@ void SnippetView::slotAddSnippet()
 
     EditSnippet dlg(repo, 0, this);
     dlg.exec();
-#endif  
 }
 
 void SnippetView::slotRemoveSnippet()
 {
-#warning fixme
-#if 0
     QStandardItem* item = currentItem();
     if (!item)
         return;
@@ -255,23 +240,17 @@ void SnippetView::slotRemoveSnippet()
         item->parent()->removeRow(item->row());
         repo->save();
     }
-#endif
 }
 
 void SnippetView::slotAddRepo()
 {
-#warning fixme
-#if 0
     EditRepository dlg(0, this);
     dlg.exec();
-#endif
 }
 
 void SnippetView::slotEditRepo()
 {
-#warning fixme
-#if 0
-  QStandardItem* item = currentItem();
+    QStandardItem* item = currentItem();
     if (!item)
         return;
 
@@ -281,14 +260,10 @@ void SnippetView::slotEditRepo()
 
     EditRepository dlg(repo, this);
     dlg.exec();
-#endif
 }
 
 void SnippetView::slotRemoveRepo()
 {
-#warning fixme
-#if 0
-
     QStandardItem* item = currentItem();
     if (!item)
         return;
@@ -304,7 +279,6 @@ void SnippetView::slotRemoveRepo()
     if ( ans == KMessageBox::Continue ) {
         repo->remove();
     }
-#endif
 }
 
 void SnippetView::slotFilterChanged()
@@ -314,8 +288,6 @@ void SnippetView::slotFilterChanged()
 
 void SnippetView::slotGHNS()
 {
-#warning fixme
-#if 0
     KNS3::DownloadDialog dialog("ktexteditor_codesnippets_core.knsrc", this);
     dialog.exec();
     foreach ( const KNS3::Entry& entry, dialog.changedEntries() ) {
@@ -332,13 +304,10 @@ void SnippetView::slotGHNS()
             }
         }
     }
-#endif
 }
 
 void SnippetView::slotSnippetToGHNS()
 {
-#warning fixme
-#if 0
     QStandardItem* item = currentItem();
     if ( !item)
         return;
@@ -351,7 +320,6 @@ void SnippetView::slotSnippetToGHNS()
     dialog.setUploadFile(KUrl::fromPath(repo->file()));
     dialog.setUploadName(repo->text());
     dialog.exec();
-#endif
 }
 
 bool SnippetView::eventFilter(QObject* obj, QEvent* e)

@@ -181,16 +181,14 @@ swapfile/kateswapfile.cpp
 # snippets
 snippet/katesnippetglobal.cpp
 snippet/snippetview.cpp
+snippet/snippetstore.cpp
+snippet/snippetrepository.cpp
 snippet/snippetfilterproxymodel.cpp
-#not for now snippet/editrepository.cpp
-#not for now snippet/editsnippet.cpp
-
-#from plugin
-snippet/repositoryview.cpp
-snippet/completionmodel.cpp
-snippet/dbus_helpers.cpp
-snippet/categorizedsnippetselector.cpp
-snippet/katecombinedsnippetselector.cpp
+snippet/snippetcompletionmodel.cpp
+snippet/snippetcompletionitem.cpp
+snippet/snippet.cpp
+snippet/editrepository.cpp
+snippet/editsnippet.cpp
 
 # KDE5: move to KTextEditor
 kte5/messageinterface.cpp
@@ -219,8 +217,6 @@ schema/howtoimportschema.ui
 snippet/snippetview.ui
 snippet/editrepository.ui
 snippet/editsnippet.ui
-snippet/snippet_repository.ui
-snippet/snippet_selector.ui
 )
 
 add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )

@@ -57,9 +57,10 @@
 #include "script/katescriptaction.h"
 #include "script/katescriptconsole.h"
 #include "snippet/katesnippetglobal.h"
-
+#include "snippet/snippetcompletionmodel.h"
 #include "katemessagewidget.h"
 #include "messageinterface.h"
+#include "katetemplatehandler.h"
 
 #include <kparts/event.h>
 
@@ -260,9 +261,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // auto word completion
   new KateWordCompletionView (this, actionCollection ());
 
-  
-  // register with snippet stuff
-  KateSnippetGlobal::self()->addView(doc,this);
   // enable the plugins of this view
   KatePartPluginManager::self()->addView(this);
 
@@ -1709,6 +1707,11 @@ void KateView::updateConfig ()
   unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
   if (config()->wordCompletion ())
     registerCompletionModel (KateGlobal::self()->wordCompletionModel());
+
+  // add snippet completion, later with option
+  unregisterCompletionModel (KateGlobal::self()->snippetGlobal()->completionModel());
+  if (1)
+    registerCompletionModel (KateGlobal::self()->snippetGlobal()->completionModel());
 
   m_cut->setEnabled(m_doc->isReadWrite() && (selection() || m_config->smartCopyCut()));
   m_copy->setEnabled(selection() || m_config->smartCopyCut());

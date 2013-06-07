@@ -34,6 +34,8 @@ public:
     SnippetFilterProxyModel(QObject *parent);
     ~SnippetFilterProxyModel();
 
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+
 public slots:
     void changeFilter(const QString& filter);
 

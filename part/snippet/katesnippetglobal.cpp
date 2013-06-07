@@ -37,106 +37,100 @@
 #include <KTextEditor/HighlightInterface>
 
 #include "snippetview.h"
-#include "categorizedsnippetselector.h"
+#include "snippetcompletionmodel.h"
+#include "snippetstore.h"
 
+#include "snippet.h"
+#include "snippetrepository.h"
+#include "snippetcompletionitem.h"
 #include "editsnippet.h"
-#include "repositoryview.h"
-#include "completionmodel.h"
-#include "katecombinedsnippetselector.h"
 
 KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)
 {
-    //m_model = new SnippetCompletionModel;
-    m_snippetsMode=FileModeBasedMode;
-    m_repositoryModel=new KTextEditor::CodesnippetsCore::SnippetRepositoryModel(this,KateGlobal::self());
-    connect(m_repositoryModel,SIGNAL(typeChanged(QStringList)),this,SLOT(slotTypeChanged(QStringList)));
+    SnippetStore::init(this);
+    m_model = new SnippetCompletionModel;
 }
 
 KateSnippetGlobal::~KateSnippetGlobal ()
 {
-
-}
-
-enum KateSnippetGlobal::Mode KateSnippetGlobal::snippetsMode() {
-  return m_snippetsMode;
-}
-
-void KateSnippetGlobal::setSnippetsMode(enum Mode mode) {
-    if (mode!=m_snippetsMode) {
-      m_snippetsMode=mode;
-      emit snippetsModeChanged();
-#warning update snippetviews
-    }
+    delete m_model;
+    delete SnippetStore::self();
 }
 
 void KateSnippetGlobal::showDialog (KateView *view)
 {
-  if (m_activeViewForDialog) {
-    kDebug()<<"There is already a dialog open -> m_activeViewForDialog would be ambigious";
-    return;
-  }
-  
-  
   KDialog dialog;
-  dialog.setCaption(i18n("Snippets"));
+  dialog.setCaption("Snippets");
   dialog.setButtons(KDialog::Ok);
   dialog.setDefaultButton(KDialog::Ok);
-  
-  QWidget *widget=snippetWidget(&dialog,view);
-  dialog.setMainWidget(widget);
+
+  QWidget *mainWidget = new QWidget (&dialog);
+  dialog.setMainWidget(mainWidget);
+  QVBoxLayout *layout = new QVBoxLayout(mainWidget);
+
+  KToolBar *topToolbar = new KToolBar (&dialog, "snippetsToolBar");
+  topToolbar->setToolButtonStyle (Qt::ToolButtonIconOnly);
+  layout->addWidget(topToolbar);
+
+  QWidget* widget = snippetWidget ();
+  layout->addWidget(widget);
+
+  // add actions
+  topToolbar->addActions (widget->actions());
+
+  /**
+   * set document to work on and trigger dialog
+   */
   m_activeViewForDialog = view;
   dialog.exec();
   m_activeViewForDialog = 0;
 }
 
-QWidget *KateSnippetGlobal::snippetWidget (QWidget *parent,KateView *initialView)
+QWidget *KateSnippetGlobal::snippetWidget ()
 {
-  return new KateCombinedSnippetSelector(parent,initialView);
- /*
-  QTabWidget *widget=new QTabWidget(0);
-  widget->addTab(new SnippetView (this,0),"KDevView");
-  JoWenn::KateCategorizedSnippetSelector *tmp;
-  widget->addTab(tmp=new JoWenn::KateCategorizedSnippetSelector((QWidget*)0),"KATE");
-  tmp->viewChanged(currentView);
-  return widget;
-  //return new SnippetView (this, 0);
-  */
+  return new SnippetView (this, 0);
 }
 
-KTextEditor::CodesnippetsCore::SnippetRepositoryModel *KateSnippetGlobal::repositoryModel () {
-  return m_repositoryModel;
-}
-
-KateView* KateSnippetGlobal::getCurrentView() {
-  KateView *view=0;
-  view = m_activeViewForDialog; // a dialog is open ? use that
-  if (view) return view;
-  
+void KateSnippetGlobal::insertSnippet(Snippet* snippet)
+{
+  // query active view, always prefer that!
+  KTextEditor::View *view = 0;
   KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
   if (iface && iface->activeView())
-    view = qobject_cast<KateView*>(iface->activeView());
+    view = iface->activeView();
   
-  return view;
-}
+  // fallback to stuff set for dialog
+  if (!view)
+    view = m_activeViewForDialog;
+ 
+  // no view => nothing to do
+  if (!view)
+    return;
 
+  // try to insert snippet
+  SnippetCompletionItem item(snippet, static_cast<SnippetRepository*>(snippet->parent()));
+  KTextEditor::Range range = view->selectionRange();
+  if ( !range.isValid() ) {
+      range = KTextEditor::Range(view->cursorPosition(), view->cursorPosition());
+  }
+  item.execute(view, range);
+  
+  // set focus to view
+  view->setFocus ();
+}
 
 void KateSnippetGlobal::insertSnippetFromActionData()
 {
-#warning FIXME
-  /*
     KAction* action = dynamic_cast<KAction*>(sender());
     Q_ASSERT(action);
     Snippet* snippet = action->data().value<Snippet*>();
     Q_ASSERT(snippet);
     insertSnippet(snippet);
-    */
 }
 
 void KateSnippetGlobal::createSnippet (KateView *view)
 {
-#warning FIXME
-#if 0
    // invalid range? skip to do anything, it will fail!
    if (!view->selectionRange().isValid())
      return;
@@ -171,138 +165,6 @@ void KateSnippetGlobal::createSnippet (KateView *view)
         // cleanup
         match->remove();
     }
-#endif
 }
 
-
-  void KateSnippetGlobal::addDocument(KTextEditor::Document* document)
-  {
-    KTextEditor::HighlightInterface *hli=qobject_cast<KTextEditor::HighlightInterface*>(document);
-    if (!hli) return;
-    QStringList modes;
-    modes<<document->mode();
-    modes<<hli->embeddedHighlightingModes();
-    kDebug(13040)<<modes;
-    kDebug(13040)<<"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!";
-    QList<KTextEditor::CodesnippetsCore::SnippetCompletionModel> models;
-    foreach (const QString& mode, modes)
-    {
-      QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> completionModel;
-      QHash<QString,QWeakPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::iterator it=m_mode_model_hash.find(mode);
-      if (it!=m_mode_model_hash.end()) {
-        completionModel=it.value();
-      }
-      if (completionModel.isNull()) {
-        completionModel=QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(m_repositoryModel->completionModel(mode));
-        m_mode_model_hash.insert(mode,completionModel);
-      }
-      m_document_model_multihash.insert(document,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>(completionModel));
-    }
-
-
-    QList <QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >models2=m_document_model_multihash.values(document);
-    QList<KTextEditor::CodesnippetsCore::SnippetSelectorModel*> list;
-    foreach (const QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>& model, models2)
-    {
-      list.append(model->selectorModel());
-    }
-    KTextEditor::CodesnippetsCore::CategorizedSnippetModel *mod;
-    m_document_categorized_hash.insert(document,mod=new KTextEditor::CodesnippetsCore::CategorizedSnippetModel(list));
-//     connect(mod,SIGNAL(needView(KTextEditor::View**)),this,SLOT(provideView(KTextEditor::View**)));
-
-
-    //Q_ASSERT(modelForDocument(document));
-    const QList<KTextEditor::View*>& views=document->views();
-    foreach (KTextEditor::View *view,views) {
-      addView(document,view);
-    }
-
-    disconnect(document,SIGNAL(modeChanged(KTextEditor::Document*)),this,SLOT(updateDocument(KTextEditor::Document*)));
-    disconnect(document,SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
-
-    connect(document,SIGNAL(modeChanged(KTextEditor::Document*)),this,SLOT(updateDocument(KTextEditor::Document*)));
-    connect(document,SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
-  }
-
-  
-  void KateSnippetGlobal::removeDocument(KTextEditor::Document* document)
-  {
-    //if (!m_document_model_hash.contains(document)) return;
-    delete m_document_categorized_hash.take(document);
-    QList<QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >models=m_document_model_multihash.values(document);
-    const QList<KTextEditor::View*>& views=document->views();
-    foreach (const QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>& model,models)
-    {
-      foreach (KTextEditor::View *view,views) {
-        KTextEditor::CodeCompletionInterface *iface =
-          qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
-        if (iface) {
-          iface->unregisterCompletionModel(model.data());
-        }
-      }
-    }
-    m_document_model_multihash.remove(document);
-    disconnect(document,SIGNAL(modeChanged(KTextEditor::Document*)),this,SLOT(updateDocument(KTextEditor::Document*)));
-    disconnect(document,SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),this,SLOT(addView(KTextEditor::Document*,KTextEditor::View*)));
-    Q_ASSERT(m_document_model_multihash.find(document)==m_document_model_multihash.end());
-  }
-
-  KTextEditor::CodesnippetsCore::CategorizedSnippetModel* KateSnippetGlobal::modelForDocument(KTextEditor::Document *document)
-  {
-    return m_document_categorized_hash[document];
-  }
-
-  void KateSnippetGlobal::addView(KTextEditor::Document* document,KTextEditor::View* view)
-  {
-    QList<QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> > models=m_document_model_multihash.values(document);
-    foreach (const QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>& model, models) {
-      KTextEditor::CodeCompletionInterface *iface =
-        qobject_cast<KTextEditor::CodeCompletionInterface*>( view );
-      if (iface) {
-        iface->unregisterCompletionModel(model.data());
-        iface->registerCompletionModel(model.data());
-      }
-    }
-  }
-
-  void KateSnippetGlobal::updateDocument(KTextEditor::Document* document)
-  {
-/*    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_d=m_document_model_multihash[document];
-    QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_t=m_mode_model_hash[document->mode()];
-    if (model_t==model_d) return;*/
-    removeDocument(document);
-    addDocument(document);
-    kDebug(13040)<<"invoking typeHasChanged(doc)";
-    emit typeHasChanged(document);
-
-  }
-
-  void KateSnippetGlobal::slotTypeChanged(const QStringList& fileType)
-  {
-    QSet<KTextEditor::Document*> refreshList;
-    if (fileType.contains("*")) {
-      QList<KTextEditor::Document*> tmp_list(m_document_model_multihash.keys());
-      foreach(KTextEditor::Document *doc,tmp_list) {
-      refreshList.insert(doc);
-      }
-    } else {
-      foreach(const QString& ft, fileType) {
-        QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel>model_t=m_mode_model_hash[ft];
-        QMultiHash<KTextEditor::Document*,QSharedPointer<KTextEditor::CodesnippetsCore::SnippetCompletionModel> >::const_iterator it;
-        for(it=m_document_model_multihash.constBegin();it!=m_document_model_multihash.constEnd();++it) {
-          if (it.value()==model_t) {
-            refreshList<<it.key();
-          }
-        }
-      }
-    }
-    foreach(KTextEditor::Document* doc,refreshList) {
-      removeDocument(doc);
-    }
-    foreach(KTextEditor::Document* doc,refreshList) {
-      addDocument(doc);
-      kDebug(13040)<<"invoking typeHasChanged(doc)";
-      emit typeHasChanged(doc);
-    }
-  }
 #include "katesnippetglobal.moc"

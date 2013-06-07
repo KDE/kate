@@ -108,7 +108,10 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * Set session config
      * @param sessionConfig new session config
      */
-    void setSessionConfig (KSharedConfig::Ptr sessionConfig);
+    void setSessionConfig (KSharedConfig::Ptr sessionConfig)
+    {
+      m_sessionConfig = sessionConfig;
+    }
 
   // for setDefaultEncoding
   friend class KateDocumentConfig;

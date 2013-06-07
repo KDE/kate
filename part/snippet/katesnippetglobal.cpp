@@ -47,14 +47,10 @@
 KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)
 {
- //   qRegisterMetaType<KateSnippetGlobal::Mode>("KateSnippetGlobal::Mode");
     //m_model = new SnippetCompletionModel;
     m_snippetsMode=FileModeBasedMode;
     m_repositoryModel=new KTextEditor::CodesnippetsCore::SnippetRepositoryModel(this,KateGlobal::self());
     connect(m_repositoryModel,SIGNAL(typeChanged(QStringList)),this,SLOT(slotTypeChanged(QStringList)));
-
-    reloadSessionConfig();
-    
 }
 
 KateSnippetGlobal::~KateSnippetGlobal ()
@@ -72,26 +68,6 @@ void KateSnippetGlobal::setSnippetsMode(enum Mode mode) {
       emit snippetsModeChanged();
 #warning update snippetviews
     }
-}
-
-KConfigGroup KateSnippetGlobal::sessionConfig() {
-  return KateGlobal::self()->sessionConfig()->group("Snippets");
-}
-
-void KateSnippetGlobal::internalUpdateSessionConfig() {
-  KConfigGroup group=sessionConfig();
-  group.writeEntry("snippetsmode",(int)m_snippetsMode);
-  m_repositoryModel->writeSessionConfig(&group,"repositorySettings");
-  
-}
-
-void KateSnippetGlobal::reloadSessionConfig() {
-  
-    KConfigGroup group=sessionConfig();
-    setSnippetsMode((KateSnippetGlobal::Mode)group.readEntry("snippetsmode",(int)FileModeBasedMode));
-
-    m_repositoryModel->readSessionConfig(&group,"repositorySettings");
-    
 }
 
 void KateSnippetGlobal::showDialog (KateView *view)

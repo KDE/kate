@@ -62,15 +62,14 @@
 
   void KatePartSnippetsConfigPage::apply()
   {
-    KateSnippetGlobal::self()->internalUpdateSessionConfig();
-    //KConfigGroup config(KGlobal::config(), "Kate Snippets");
+    KConfigGroup config(KGlobal::config(), "Kate Snippets");
     //config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
-    //config.sync();
+    config.sync();
   }
 
   void KatePartSnippetsConfigPage::reset()
   {
-    //KConfigGroup config(KGlobal::config(), "Kate Snippets");
+    KConfigGroup config(KGlobal::config(), "Kate Snippets");
     //cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
   }
 //END: CONFIG PAGE
@@ -454,7 +453,6 @@ namespace KTextEditor {
               entry.enabled=value.toBool();
               emit dataChanged(index,index);
               emit typeChanged(entry.fileType());
-              KateSnippetGlobal::self()->internalUpdateSessionConfig();
               return true;
               break;
           case DeleteNowRole:
@@ -583,7 +581,6 @@ namespace KTextEditor {
     }
   
     void SnippetRepositoryModel::readSessionConfig (KConfigBase* config, const QString& groupPrefix) {
-      kDebug()<<"loading enabled/disabled states";
       QSet<QString> enabledSet;
       KConfigGroup group(config,groupPrefix+"enabled-snippets");
       int enabledCount=group.readEntry("count",0);
@@ -596,7 +593,6 @@ namespace KTextEditor {
     }
     
     void SnippetRepositoryModel::writeSessionConfig (KConfigBase* config, const QString& groupPrefix) {
-      kDebug()<<"saving enabled/disabled states";
       KConfigGroup group(config,groupPrefix+"enabled-snippets");
       group.deleteGroup();
       int enabledCount=0;

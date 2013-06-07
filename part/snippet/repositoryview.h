@@ -74,8 +74,7 @@ namespace KTextEditor {
       public Q_SLOTS:
         void enabledChanged(int state);
         void editEntry();
-        void deleteEntry();
-        void uploadEntry();
+        void deleteEntry();      
       private:
         SnippetRepositoryItemDelegatePrivate* d;
     };
@@ -101,7 +100,6 @@ namespace KTextEditor {
           EnabledRole,
           DeleteNowRole,
           EditNowRole,
-          UploadNowRole,
           ForExtension=Qt::UserRole+100
         };
       private:

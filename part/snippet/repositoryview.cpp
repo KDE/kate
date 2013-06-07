@@ -578,7 +578,6 @@ namespace KTextEditor {
           l<<entry.filename;
         }
       }
-      kDebug(13040)<<l;
       return new SnippetCompletionModel(filetype,l, m_scriptRegistrar);
 
     }

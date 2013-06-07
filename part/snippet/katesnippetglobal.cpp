@@ -82,7 +82,7 @@ void KateSnippetGlobal::internalUpdateSessionConfig() {
   KConfigGroup group=sessionConfig();
   group.writeEntry("snippetsmode",(int)m_snippetsMode);
   m_repositoryModel->writeSessionConfig(&group,"repositorySettings");
-  slotTypeChanged(QStringList()<<"*");
+  
 }
 
 void KateSnippetGlobal::reloadSessionConfig() {
@@ -92,7 +92,6 @@ void KateSnippetGlobal::reloadSessionConfig() {
 
     m_repositoryModel->readSessionConfig(&group,"repositorySettings");
     
-    slotTypeChanged(QStringList()<<"*");
 }
 
 void KateSnippetGlobal::showDialog (KateView *view)

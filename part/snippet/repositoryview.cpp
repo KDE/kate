@@ -419,24 +419,8 @@ namespace KTextEditor {
       return false;
     }
     
-    void SnippetRepositoryModel::typeAndDisplay(const QModelIndex &index, enum ItemType* itemType,QVariant *display) {
-      if (!index.isValid()) {
-        *itemType=NullItem;
-        return;
-      }
-      *display=data(index,Qt::DisplayRole);
-      if (display->isValid()) {
-        if (index.parent().isValid())
-          *itemType=SnippetItem;
-        else
-          *itemType=RepositoryItem;
-      } else *itemType=NullItem;
-      
-    }
     
     QVariant SnippetRepositoryModel::data(const QModelIndex & index, int role) const {
-      if (!index.isValid()) return QVariant();
-      
       //kDebug()<<index;
       if (index.parent().isValid()) {
         //kDebug()<<"index.parent().valid:"<<index.parent().isValid();

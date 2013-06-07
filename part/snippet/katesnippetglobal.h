@@ -86,11 +86,6 @@ public Q_SLOTS:
     void createSnippet (KateView *view);
 
     /**
-     * signal wrapper around getCurrentView
-     */
-    void provideView(KTextEditor::View**);
-    
-    /**
      * Show the snippet dialog, used by most simple apps using just
      * KatePart.
      * @param view view to show dialog for

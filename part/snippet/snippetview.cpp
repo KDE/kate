@@ -157,16 +157,12 @@ void SnippetView::slotSnippetClicked (const QModelIndex & index)
 
 void SnippetView::contextMenu (const QPoint& pos)
 {
-
+#warning fixme
+#if 0
     QModelIndex index = snippetTree->indexAt( pos );
     index = m_proxy->mapToSource(index);
-    
-    enum KTextEditor::CodesnippetsCore::SnippetRepositoryModel::ItemType itemType=KTextEditor::CodesnippetsCore::SnippetRepositoryModel::NullItem;
-    QVariant displayVariant;
-    if (index.isValid())
-      KateSnippetGlobal::self()->repositoryModel()->typeAndDisplay( index, &itemType, &displayVariant );
-    switch(itemType) {
-      case KTextEditor::CodesnippetsCore::SnippetRepositoryModel::NullItem: {
+    QStandardItem* item = SnippetStore::self()->itemFromIndex( index );
+    if (!item) {
         // User clicked into an empty place of the tree
         KMenu menu(this);
         menu.addTitle(i18n("Snippets"));
@@ -174,22 +170,18 @@ void SnippetView::contextMenu (const QPoint& pos)
         menu.addAction(m_addRepoAction);
         menu.addAction(m_getNewStuffAction);
 
-        menu.exec(snippetTree->mapToGlobal(pos)); 
-      }
-      break;
-      case KTextEditor::CodesnippetsCore::SnippetRepositoryModel::SnippetItem: {
+        menu.exec(snippetTree->mapToGlobal(pos));
+    } else if (Snippet* snippet = dynamic_cast<Snippet*>( item )) {
         KMenu menu(this);
-        menu.addTitle(i18n("Snippet: %1", displayVariant.toString()));
+        menu.addTitle(i18n("Snippet: %1", snippet->text()));
 
         menu.addAction(m_editSnippetAction);
         menu.addAction(m_removeSnippetAction);
 
         menu.exec(snippetTree->mapToGlobal(pos));
-      }
-      break;
-      case KTextEditor::CodesnippetsCore::SnippetRepositoryModel::RepositoryItem: {
+    } else if (SnippetRepository* repo = dynamic_cast<SnippetRepository*>( item )) {
         KMenu menu(this);
-        menu.addTitle(i18n("Repository: %1", displayVariant.toString()));
+        menu.addTitle(i18n("Repository: %1", repo->text()));
 
         menu.addAction(m_editRepoAction);
         menu.addAction(m_removeRepoAction);
@@ -199,11 +191,8 @@ void SnippetView::contextMenu (const QPoint& pos)
         menu.addAction(m_addSnippetAction);
 
         menu.exec(snippetTree->mapToGlobal(pos));
-        
-      }
-      break;  
     }
-
+#endif
 }
 
 void SnippetView::slotEditSnippet()

@@ -147,13 +147,6 @@ KateView* KateSnippetGlobal::getCurrentView() {
 }
 
 
-void KateSnippetGlobal::provideView(KTextEditor::View** pView) {
-  *pView=getCurrentView();
-  
-}
-
-
-
 void KateSnippetGlobal::insertSnippetFromActionData()
 {
 #warning FIXME

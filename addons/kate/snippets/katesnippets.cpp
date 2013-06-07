@@ -54,17 +54,17 @@ Kate::PluginView *KateSnippetsPlugin::createView (Kate::MainWindow *mainWindow)
 }
 
 KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, Kate::MainWindow *mainWindow)
-    : Kate::PluginView (mainWindow), m_plugin(plugin), m_toolView (0), m_snippets(0),m_mw(mainWindow)
+    : Kate::PluginView (mainWindow), m_plugin(plugin), m_toolView (0), m_snippets(0)
 {
   // use snippets widget provided by editor component, if any
   if ((m_snippets = Kate::application()->editor()->property("snippetWidget").value<QWidget*>())) {
     // Toolview for snippets
     m_toolView = mainWindow->createToolView (0,"kate_private_plugin_katesnippetsplugin", Kate::MainWindow::Right, SmallIcon("document-new"), i18n("Snippets"));
     
- 
-    connect(mainWindow,SIGNAL(viewChanged()),this, SLOT(slotViewChanged()));
-    connect(this,SIGNAL(viewChanged(KTextEditor::View*)),m_snippets,SLOT(setCurrentEditorView(KTextEditor::View*)));
-   
+    // snippets toolbar
+    KToolBar *topToolbar = new KToolBar (m_toolView, "snippetsToolBar");
+    topToolbar->setToolButtonStyle (Qt::ToolButtonIconOnly);
+    topToolbar->addActions (m_snippets->actions());
 
     // add snippets widget
     m_snippets->setParent (m_toolView);
@@ -72,11 +72,6 @@ KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, Kate
   
   // register this view
   m_plugin->mViews.append ( this );
-}
-
-void KateSnippetsPluginView::slotViewChanged() {
-  KTextEditor::View* view=m_mw->activeView();
-  emit viewChanged(view);
 }
 
 KateSnippetsPluginView::~KateSnippetsPluginView ()

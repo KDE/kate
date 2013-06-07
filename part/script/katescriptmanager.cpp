@@ -401,7 +401,7 @@ void KateScriptManager::slotTemplateScriptOwnerDestroyed(QObject* owner)
 {
   while (m_ownerScript.contains(owner)) {
     KTextEditor::TemplateScript* templateScript = m_ownerScript.take(owner);
-    //kDebug() << "Destroying template script" << templateScript;
+    kDebug() << "Destroying template script" << templateScript;
     m_templateScripts.removeAll(templateScript);
     delete templateScript;
   }

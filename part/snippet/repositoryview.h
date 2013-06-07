@@ -26,10 +26,7 @@
 #include <ktexteditor/templateinterface2.h>
 #include <qdbusabstractadaptor.h>
 #include <QDBusConnection>
-#include <QSortFilterProxyModel>
 #include "katedialogs.h"
-#include "ui_snippet_repository.h"
-
 class KConfigBase;
 class KConfig;
 
@@ -47,6 +44,10 @@ class KatePartSnippetsConfigPage : public KateConfigPage {
   private:
 };
 
+
+namespace Ui {
+  class KTESnippetRepository;
+}
 
 namespace KTextEditor {
   namespace CodesnippetsCore {
@@ -166,28 +167,10 @@ namespace KTextEditor {
       void slotGHNS();
     private:
       SnippetRepositoryModel *m_repository;
-      Ui::KTESnippetRepository m_ui;
-      KTextEditor::CodesnippetsCore::SnippetRepositoryItemDelegate *m_delegate;
+      Ui::KTESnippetRepository *m_ui;
       SnippetRepositoryConfigWidgetPrivate *d;
   };
 
-  
-  
-  // since the repository is now a tree to please the kdevelop like view, the config page now needs a filter
-  class SnippetRepositoryViewFilterModel: public QSortFilterProxyModel {
-    Q_OBJECT
-  public:
-    SnippetRepositoryViewFilterModel(QObject *parent);
-    ~SnippetRepositoryViewFilterModel();
-    void setSourceModel ( QAbstractItemModel * _sourceModel );
-
-  private slots:
-    void dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
-
-  private:
-    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const;
-
-  };
     
 
   }

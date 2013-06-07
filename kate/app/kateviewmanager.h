@@ -124,7 +124,6 @@ class KateViewManager : public QSplitter
   Q_SIGNALS:
     void statChanged ();
     void viewChanged ();
-    void viewChanged (KTextEditor::View *);
     void viewCreated (KTextEditor::View *);
 
     void cursorPositionItemVisibilityChanged(bool);

@@ -604,7 +604,6 @@ void KateViewManager::activateView ( KTextEditor::View *view )
     m_lruViews[view] = m_minAge--;
 
     emit viewChanged();
-    emit viewChanged(view);
   }
 }
 
@@ -812,7 +811,6 @@ void KateViewManager::removeViewSpace (KateViewSpace *viewspace)
   updateViewSpaceActions ();
 
   emit viewChanged();
-  emit viewChanged(v);
 }
 
 void KateViewManager::slotCloseCurrentViewSpace()

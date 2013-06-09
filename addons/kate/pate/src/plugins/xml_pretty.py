@@ -38,7 +38,7 @@ KATE_ACTIONS = {'togglePrettyXMLFormat': {'text': 'Pretty XML',
                                           'menu': 'XML', 'icon': None},
                 }
 
-KATE_CONFIG = {'name': 'xml_pretty',
+KATE_CONFIG = {'name': 'XML Pretty',
                'fullName': 'XML Pretty',
                'icon': 'text-xml'}
 

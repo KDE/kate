@@ -10,13 +10,6 @@
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="indent">
-     <property name="value" stdset="0">
-      <string>\\t</string>
-     </property>
-    </widget>
-   </item>
    <item row="4" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
@@ -30,13 +23,6 @@
      </property>
     </spacer>
    </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="newl">
-     <property name="value" stdset="0">
-      <string>\\n</string>
-     </property>
-    </widget>
-   </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label">
      <property name="text">
@@ -44,8 +30,35 @@
      </property>
     </widget>
    </item>
+   <item row="0" column="1">
+    <widget class="KLineEdit" name="indent">
+     <property name="value" stdset="0">
+      <string>\\t</string>
+     </property>
+     <property name="showClearButton" stdset="0">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="KLineEdit" name="newl">
+     <property name="value" stdset="0">
+      <string>\\t</string>
+     </property>
+     <property name="showClearButton" stdset="0">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

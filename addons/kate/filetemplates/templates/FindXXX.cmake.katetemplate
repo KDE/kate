@@ -1,8 +1,8 @@
 katetemplate: Template=FindXXX.cmake Group=Other Highlight=CMake
 katetemplate: Author=Alex Turbov <i.zaufi@gmail.com>
 katetemplate: Description=CMake finder skeleton wrapper based on pkg-config
-# - Find ${package} package using `pkg-config`
-# Search for %{package} package and set the following variables:
+# - Find ${package_description} using `pkg-config`
+# Search for %{package_description} and set the following variables:
 #  %{package}_FOUND        - is package found
 #  %{package}_VERSION      - found package version
 #  %{package}_INCLUDE_DIRS - dir w/ header files
@@ -39,7 +39,7 @@ if(%{package}_LIBRARIES)
 
     include(FindPackageHandleStandardArgs)
     find_package_handle_standard_args(
-        %{package}
+        %{package_finder_name}
         FOUND_VAR %{package}_FOUND
         REQUIRED_VARS %{package}_LIBRARIES
         VERSION_VAR %{package}_VERSION

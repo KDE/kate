@@ -1280,44 +1280,41 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     }
 
     int wordStart = findPrevWordStart( c.line(), c.column()+1, true ).column();
-    int wordEnd = findWordEnd( c.line(), c.column()-1, true ).column();
 
     if (wordStart > 0 && line.at(wordStart - 1) == '-') wordStart--;
 
     QRegExp number( "(0x)([0-9a-fA-F]+)|\\-?\\d+" );
 
     int start = number.indexIn( line, wordStart );
-    if ( start <= wordEnd ) {
-        // FIXME: ignore leading zeroes
-        QString nString = number.cap();
-        bool ok = false;
-        int base = number.cap( 1 ).isEmpty() ? 10 : 16;
-        int n = nString.toInt( &ok, base );
-        const QString withoutBase = number.cap(2);
+    // FIXME: ignore leading zeroes
+    QString nString = number.cap();
+    bool ok = false;
+    int base = number.cap( 1 ).isEmpty() ? 10 : 16;
+    int n = nString.toInt( &ok, base );
+    const QString withoutBase = number.cap(2);
 
-        kDebug( 13070 ) << "base: " << base;
-        kDebug( 13070 ) << "n: " << n;
+    kDebug( 13070 ) << "base: " << base;
+    kDebug( 13070 ) << "n: " << n;
 
-        if ( !ok ) {
-            // conversion to int failed. give up.
-            return;
-        }
-
-        // increase/decrease number
-        n += count;
-
-        // create the new text string to be inserted. prepend with “0x” if in base 16
-        // Try to keep the length of the number the same (including leading 0's).
-        QString newNumberPadded = QString("%1").arg(n, withoutBase.length(), base, QChar('0'));
-        QString newText = (base == 16 ? "0x" : "") + newNumberPadded;
-
-        // replace the old number string with the new
-        doc()->editStart();
-        doc()->removeText( KTextEditor::Range( c.line(), start , c.line(), start+nString.length() ) );
-        doc()->insertText( KTextEditor::Cursor( c.line(), start ), newText );
-        doc()->editEnd();
-        updateCursor(Cursor(m_view->cursorPosition().line(), start + newText.length() - 1));
+    if ( !ok ) {
+        // conversion to int failed. give up.
+        return;
     }
+
+    // increase/decrease number
+    n += count;
+
+    // create the new text string to be inserted. prepend with “0x” if in base 16
+    // Try to keep the length of the number the same (including leading 0's).
+    QString newNumberPadded = QString("%1").arg(n, withoutBase.length(), base, QChar('0'));
+    QString newText = (base == 16 ? "0x" : "") + newNumberPadded;
+
+    // replace the old number string with the new
+    doc()->editStart();
+    doc()->removeText( KTextEditor::Range( c.line(), start , c.line(), start+nString.length() ) );
+    doc()->insertText( KTextEditor::Cursor( c.line(), start ), newText );
+    doc()->editEnd();
+    updateCursor(Cursor(m_view->cursorPosition().line(), start + newText.length() - 1));
 }
 
 void KateViModeBase::switchView(Direction direction) {

@@ -966,6 +966,8 @@ void ViModeTest::NormalModeControlTests() {
   DoTest(" 5 ", "l\\ctrl-ax","  ");
   // If there's no parseable number under the cursor, look to the right to see if we can find one.
   DoTest("aaaa0xbcX", "\\ctrl-a", "aaaa0xbdX");
+  // We can skip across word boundaries in our search if need be.
+  DoTest("aaaa 0xbcX", "\\ctrl-a", "aaaa 0xbdX");
 
   // Test "Ctrl-a/x" on a blank document/ blank line.
   DoTest("", "\\ctrl-a","");

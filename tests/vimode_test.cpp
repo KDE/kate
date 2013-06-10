@@ -2258,6 +2258,11 @@ void ViModeTest::visualLineUpDownTests()
   kate_view->renderer()->config()->setFont(fixedWidthFont);
   const bool oldDynWordWrap = KateViewConfig::global()->dynWordWrap();
   KateViewConfig::global()->setDynWordWrap(true);
+  const bool oldReplaceTabsDyn = kate_document->config()->replaceTabsDyn();
+  kate_document->config()->setReplaceTabsDyn(false);
+  const int oldTabWidth = kate_document->config()->tabWidth();
+  const int tabWidth = 5;
+  kate_document->config()->setTabWidth(tabWidth);
 
   // Compute the maximum width of text before line-wrapping sets it.
   int textWrappingLength = 1;
@@ -2335,10 +2340,37 @@ void ViModeTest::visualLineUpDownTests()
     DoTest(fillsLineAndEndsOnSpace.repeated(2), "$vgkgu", fillsLineAndEndsOnSpace + fillsLineAndEndsOnSpace.toLower());
   }
 
+  {
+    // Some tests for how well we handle things with real tabs.
+    QString beginsWithTabFillsLineEndsOnSpace = "\t";
+    while (beginsWithTabFillsLineEndsOnSpace.length() + (tabWidth - 1) < textWrappingLength - 1)
+    {
+      beginsWithTabFillsLineEndsOnSpace += "X";
+    }
+    beginsWithTabFillsLineEndsOnSpace += " ";
+    const QString unindentedFirstLine = "stockyhelper\n";
+    const int posOnThirdLineToChange = 3;
+    QString expectedThirdLine = fillsLineAndEndsOnSpace;
+    expectedThirdLine[posOnThirdLineToChange] = '.';
+    DoTest(unindentedFirstLine + beginsWithTabFillsLineEndsOnSpace + fillsLineAndEndsOnSpace,
+           QString("l").repeated(tabWidth + posOnThirdLineToChange) + "gjgjr.",
+           unindentedFirstLine + beginsWithTabFillsLineEndsOnSpace + expectedThirdLine);
+
+    // As above, but go down twice and return to the middle line.
+    const int posOnSecondLineToChange = 2;
+    QString expectedSecondLine = beginsWithTabFillsLineEndsOnSpace;
+    expectedSecondLine[posOnSecondLineToChange + 1 /* "+1" as we're not counting the leading tab as a pos */] = '.';
+    DoTest(unindentedFirstLine + beginsWithTabFillsLineEndsOnSpace + fillsLineAndEndsOnSpace,
+           QString("l").repeated(tabWidth + posOnSecondLineToChange) + "gjgjgkr.",
+           unindentedFirstLine + expectedSecondLine + fillsLineAndEndsOnSpace);
+  }
+
   // Restore back to how we were before.
   kate_view->resize(oldSize);
   kate_view->renderer()->config()->setFont(oldFont);
   KateViewConfig::global()->setDynWordWrap(oldDynWordWrap);
+  kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);
+  kate_document->config()->setTabWidth(oldTabWidth);
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

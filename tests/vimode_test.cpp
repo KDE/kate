@@ -616,6 +616,10 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("foo bar xyz", "\\ctrl-\\rightrX", "foo Xar xyz");
   DoTest("foo bar xyz", "$\\ctrl-\\leftrX", "foo bar Xyz");
 
+  // Enter/ Return.
+  DoTest("foo\n\t \t bar", "\\enterr.", "foo\n\t \t .ar");
+  DoTest("foo\n\t \t bar", "\\returnr.", "foo\n\t \t .ar");
+
    // TEXT OBJECTS
   DoTest( "foo \"bar baz ('first', 'second' or 'third')\"",
           "8w2lci'",

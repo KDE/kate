@@ -3115,6 +3115,7 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("j", motionDown, 0 );
   ADDMOTION("<down>", motionDown, 0 );
   ADDMOTION("<enter>", motionDownToFirstNonBlank, 0 );
+  ADDMOTION("<return>", motionDownToFirstNonBlank, 0 );
   ADDMOTION("k", motionUp, 0 );
   ADDMOTION("<up>", motionUp, 0 );
   ADDMOTION("-", motionUpToFirstNonBlank, 0 );

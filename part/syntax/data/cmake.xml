@@ -26,7 +26,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.8.11.1" -->
-<language name="CMake" version="1.20" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.21" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
@@ -142,7 +142,6 @@
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
     <list name="special_args">
       <!-- generated list -->
-      <item> A </item>
       <item> AFTER </item>
       <item> ALL </item>
       <item> ALPHABET </item>
@@ -153,11 +152,11 @@
       <item> ARGS </item>
       <item> ASCII </item>
       <item> AUTHOR_WARNING </item>
-      <item> B </item>
       <item> BEFORE </item>
       <item> BRIEF_DOCS </item>
       <item> BUNDLE </item>
       <item> CACHE </item>
+      <item> CACHED_VARIABLE </item>
       <item> CLEAR </item>
       <item> CMAKE_FIND_ROOT_PATH_BOTH </item>
       <item> CMAKE_FLAGS </item>
@@ -176,6 +175,7 @@
       <item> CONFIGURATION </item>
       <item> CONFIGURATIONS </item>
       <item> CONFIGURE </item>
+      <item> COPY </item>
       <item> COPYONLY </item>
       <item> COPY_FILE </item>
       <item> CRLF </item>
@@ -211,7 +211,6 @@
       <item> FILE_PERMISSIONS </item>
       <item> FIND </item>
       <item> FOLLOW_SYMLINKS </item>
-      <item> FOO </item>
       <item> FORCE </item>
       <item> FRAMEWORK </item>
       <item> FULL_DOCS </item>
@@ -234,6 +233,8 @@
       <item> INHERITED </item>
       <item> INPUT_FILE </item>
       <item> INSERT </item>
+      <item> INSTALL </item>
+      <item> INTERFACE </item>
       <item> IS_ABSOLUTE </item>
       <item> IS_DIRECTORY </item>
       <item> IS_NEWER_THAN </item>
@@ -251,6 +252,8 @@
       <item> LIMIT_OUTPUT </item>
       <item> LINK_INTERFACE_LIBRARIES </item>
       <item> LINK_LIBRARIES </item>
+      <item> LINK_PRIVATE </item>
+      <item> LINK_PUBLIC </item>
       <item> LISTS </item>
       <item> LOG </item>
       <item> MACOSX_BUNDLE </item>
@@ -259,6 +262,7 @@
       <item> MATCH </item>
       <item> MATCHALL </item>
       <item> MATCHES </item>
+      <item> MD5 </item>
       <item> MODULE </item>
       <item> NAME </item>
       <item> NAMELINK_ONLY </item>
@@ -314,6 +318,7 @@
       <item> PREORDER </item>
       <item> PRE_BUILD </item>
       <item> PRE_LINK </item>
+      <item> PRIVATE </item>
       <item> PRIVATE_HEADER </item>
       <item> PROGRAM </item>
       <item> PROGRAMS </item>
@@ -360,6 +365,7 @@
       <item> SHA224 </item>
       <item> SHA256 </item>
       <item> SHA384 </item>
+      <item> SHA512 </item>
       <item> SHARED </item>
       <item> SHOW_PROGRESS </item>
       <item> SORT </item>
@@ -388,12 +394,12 @@
       <item> TO_NATIVE_PATH </item>
       <item> TYPE </item>
       <item> UNIX </item>
+      <item> UNIX_COMMAND </item>
+      <item> UNKNOWN </item>
       <item> UPLOAD </item>
       <item> USE_SOURCE_PERMISSIONS </item>
       <item> UTC </item>
       <item> VALUE </item>
-      <item> VAR </item>
-      <item> VAR2 </item>
       <item> VARIABLE </item>
       <item> VERBATIM </item>
       <item> VERSION </item>
@@ -402,6 +408,7 @@
       <item> VERSION_LESS </item>
       <item> WARNING </item>
       <item> WIN32 </item>
+      <item> WINDOWS_COMMAND </item>
       <item> WORKING_DIRECTORY </item>
       <item> WRITE </item>
     </list>
@@ -584,17 +591,32 @@
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
     <list name="cmake_vars">
       <!-- generated list -->
+      <item> APPLE </item>
+      <item> BORLAND </item>
+      <item> BUILD_SHARED_LIBS </item>
+      <item> CMAKE_ABSOLUTE_DESTINATION_FILES </item>
       <item> CMAKE_AR </item>
+      <item> CMAKE_ARCHIVE_OUTPUT_DIRECTORY </item>
       <item> CMAKE_ARGC </item>
       <item> CMAKE_ARGV0 </item>
+      <item> CMAKE_AUTOMOC </item>
+      <item> CMAKE_AUTOMOC_MOC_OPTIONS </item>
+      <item> CMAKE_AUTOMOC_RELAXED_MODE </item>
+      <item> CMAKE_BACKWARDS_COMPATIBILITY </item>
       <item> CMAKE_BINARY_DIR </item>
       <item> CMAKE_BUILD_TOOL </item>
+      <item> CMAKE_BUILD_TYPE </item>
+      <item> CMAKE_BUILD_WITH_INSTALL_RPATH </item>
       <item> CMAKE_CACHEFILE_DIR </item>
       <item> CMAKE_CACHE_MAJOR_VERSION </item>
       <item> CMAKE_CACHE_MINOR_VERSION </item>
       <item> CMAKE_CACHE_PATCH_VERSION </item>
       <item> CMAKE_CFG_INTDIR </item>
+      <item> CMAKE_CL_64 </item>
+      <item> CMAKE_COLOR_MAKEFILE </item>
       <item> CMAKE_COMMAND </item>
+      <item> CMAKE_COMPILER_2005 </item>
+      <item> CMAKE_CONFIGURATION_TYPES </item>
       <item> CMAKE_CROSSCOMPILING </item>
       <item> CMAKE_CTEST_COMMAND </item>
       <item> CMAKE_CURRENT_BINARY_DIR </item>
@@ -602,78 +624,27 @@
       <item> CMAKE_CURRENT_LIST_FILE </item>
       <item> CMAKE_CURRENT_LIST_LINE </item>
       <item> CMAKE_CURRENT_SOURCE_DIR </item>
+      <item> CMAKE_DEBUG_POSTFIX </item>
+      <item> CMAKE_DEBUG_TARGET_PROPERTIES </item>
       <item> CMAKE_DL_LIBS </item>
       <item> CMAKE_EDIT_COMMAND </item>
+      <item> CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION </item>
       <item> CMAKE_EXECUTABLE_SUFFIX </item>
+      <item> CMAKE_EXE_LINKER_FLAGS </item>
       <item> CMAKE_EXTRA_GENERATOR </item>
       <item> CMAKE_EXTRA_SHARED_LIBRARY_SUFFIXES </item>
-      <item> CMAKE_GENERATOR </item>
-      <item> CMAKE_GENERATOR_TOOLSET </item>
-      <item> CMAKE_HOME_DIRECTORY </item>
-      <item> CMAKE_IMPORT_LIBRARY_PREFIX </item>
-      <item> CMAKE_IMPORT_LIBRARY_SUFFIX </item>
-      <item> CMAKE_LINK_LIBRARY_SUFFIX </item>
-      <item> CMAKE_MAJOR_VERSION </item>
-      <item> CMAKE_MAKE_PROGRAM </item>
-      <item> CMAKE_MINOR_VERSION </item>
-      <item> CMAKE_PARENT_LIST_FILE </item>
-      <item> CMAKE_PATCH_VERSION </item>
-      <item> CMAKE_PROJECT_NAME </item>
-      <item> CMAKE_RANLIB </item>
-      <item> CMAKE_ROOT </item>
-      <item> CMAKE_SCRIPT_MODE_FILE </item>
-      <item> CMAKE_SHARED_LIBRARY_PREFIX </item>
-      <item> CMAKE_SHARED_LIBRARY_SUFFIX </item>
-      <item> CMAKE_SHARED_MODULE_PREFIX </item>
-      <item> CMAKE_SHARED_MODULE_SUFFIX </item>
-      <item> CMAKE_SIZEOF_VOID_P </item>
-      <item> CMAKE_SKIP_RPATH </item>
-      <item> CMAKE_SOURCE_DIR </item>
-      <item> CMAKE_STANDARD_LIBRARIES </item>
-      <item> CMAKE_STATIC_LIBRARY_PREFIX </item>
-      <item> CMAKE_STATIC_LIBRARY_SUFFIX </item>
-      <item> CMAKE_TWEAK_VERSION </item>
-      <item> CMAKE_VERBOSE_MAKEFILE </item>
-      <item> CMAKE_VERSION </item>
-      <item> CMAKE_VS_PLATFORM_TOOLSET </item>
-      <item> CMAKE_XCODE_PLATFORM_TOOLSET </item>
-      <item> PROJECT_BINARY_DIR </item>
-      <item> PROJECT_NAME </item>
-      <item> PROJECT_SOURCE_DIR </item>
-      <item> BUILD_SHARED_LIBS </item>
-      <item> CMAKE_ABSOLUTE_DESTINATION_FILES </item>
-      <item> CMAKE_AUTOMOC_RELAXED_MODE </item>
-      <item> CMAKE_BACKWARDS_COMPATIBILITY </item>
-      <item> CMAKE_BUILD_TYPE </item>
-      <item> CMAKE_COLOR_MAKEFILE </item>
-      <item> CMAKE_CONFIGURATION_TYPES </item>
-      <item> CMAKE_DEBUG_TARGET_PROPERTIES </item>
-      <item> CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION </item>
       <item> CMAKE_FIND_LIBRARY_PREFIXES </item>
       <item> CMAKE_FIND_LIBRARY_SUFFIXES </item>
       <item> CMAKE_FIND_PACKAGE_WARN_NO_MODULE </item>
-      <item> CMAKE_IGNORE_PATH </item>
-      <item> CMAKE_INCLUDE_PATH </item>
-      <item> CMAKE_INSTALL_DEFAULT_COMPONENT_NAME </item>
-      <item> CMAKE_INSTALL_PREFIX </item>
-      <item> CMAKE_LIBRARY_PATH </item>
-      <item> CMAKE_MFC_FLAG </item>
-      <item> CMAKE_MODULE_PATH </item>
-      <item> CMAKE_NOT_USING_CONFIG_FLAGS </item>
-      <item> CMAKE_PREFIX_PATH </item>
-      <item> CMAKE_PROGRAM_PATH </item>
-      <item> CMAKE_SKIP_INSTALL_ALL_DEPENDENCY </item>
-      <item> CMAKE_SYSTEM_IGNORE_PATH </item>
-      <item> CMAKE_SYSTEM_INCLUDE_PATH </item>
-      <item> CMAKE_SYSTEM_LIBRARY_PATH </item>
-      <item> CMAKE_SYSTEM_PREFIX_PATH </item>
-      <item> CMAKE_SYSTEM_PROGRAM_PATH </item>
-      <item> CMAKE_USER_MAKE_RULES_OVERRIDE </item>
-      <item> CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION </item>
-      <item> APPLE </item>
-      <item> BORLAND </item>
-      <item> CMAKE_CL_64 </item>
-      <item> CMAKE_COMPILER_2005 </item>
+      <item> CMAKE_Fortran_FORMAT </item>
+      <item> CMAKE_Fortran_MODDIR_DEFAULT </item>
+      <item> CMAKE_Fortran_MODDIR_FLAG </item>
+      <item> CMAKE_Fortran_MODOUT_FLAG </item>
+      <item> CMAKE_Fortran_MODULE_DIRECTORY </item>
+      <item> CMAKE_GENERATOR </item>
+      <item> CMAKE_GENERATOR_TOOLSET </item>
+      <item> CMAKE_GNUtoMS </item>
+      <item> CMAKE_HOME_DIRECTORY </item>
       <item> CMAKE_HOST_APPLE </item>
       <item> CMAKE_HOST_SYSTEM </item>
       <item> CMAKE_HOST_SYSTEM_NAME </item>
@@ -681,14 +652,84 @@
       <item> CMAKE_HOST_SYSTEM_VERSION </item>
       <item> CMAKE_HOST_UNIX </item>
       <item> CMAKE_HOST_WIN32 </item>
+      <item> CMAKE_IGNORE_PATH </item>
+      <item> CMAKE_IMPORT_LIBRARY_PREFIX </item>
+      <item> CMAKE_IMPORT_LIBRARY_SUFFIX </item>
+      <item> CMAKE_INCLUDE_CURRENT_DIR </item>
+      <item> CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE </item>
+      <item> CMAKE_INCLUDE_PATH </item>
+      <item> CMAKE_INSTALL_DEFAULT_COMPONENT_NAME </item>
+      <item> CMAKE_INSTALL_NAME_DIR </item>
+      <item> CMAKE_INSTALL_PREFIX </item>
+      <item> CMAKE_INSTALL_RPATH </item>
+      <item> CMAKE_INSTALL_RPATH_USE_LINK_PATH </item>
+      <item> CMAKE_INTERNAL_PLATFORM_ABI </item>
       <item> CMAKE_LIBRARY_ARCHITECTURE </item>
       <item> CMAKE_LIBRARY_ARCHITECTURE_REGEX </item>
+      <item> CMAKE_LIBRARY_OUTPUT_DIRECTORY </item>
+      <item> CMAKE_LIBRARY_PATH </item>
+      <item> CMAKE_LIBRARY_PATH_FLAG </item>
+      <item> CMAKE_LINK_DEF_FILE_FLAG   </item>
+      <item> CMAKE_LINK_DEPENDS_NO_SHARED </item>
+      <item> CMAKE_LINK_INTERFACE_LIBRARIES </item>
+      <item> CMAKE_LINK_LIBRARY_FILE_FLAG </item>
+      <item> CMAKE_LINK_LIBRARY_FLAG </item>
+      <item> CMAKE_LINK_LIBRARY_SUFFIX </item>
+      <item> CMAKE_MACOSX_BUNDLE </item>
+      <item> CMAKE_MAJOR_VERSION </item>
+      <item> CMAKE_MAKE_PROGRAM </item>
+      <item> CMAKE_MFC_FLAG </item>
+      <item> CMAKE_MINOR_VERSION </item>
+      <item> CMAKE_MODULE_PATH </item>
+      <item> CMAKE_NOT_USING_CONFIG_FLAGS </item>
+      <item> CMAKE_NO_BUILTIN_CHRPATH </item>
       <item> CMAKE_OBJECT_PATH_MAX </item>
+      <item> CMAKE_PARENT_LIST_FILE </item>
+      <item> CMAKE_PATCH_VERSION </item>
+      <item> CMAKE_PDB_OUTPUT_DIRECTORY </item>
+      <item> CMAKE_POSITION_INDEPENDENT_CODE </item>
+      <item> CMAKE_PREFIX_PATH </item>
+      <item> CMAKE_PROGRAM_PATH </item>
+      <item> CMAKE_PROJECT_NAME </item>
+      <item> CMAKE_RANLIB </item>
+      <item> CMAKE_ROOT </item>
+      <item> CMAKE_RUNTIME_OUTPUT_DIRECTORY </item>
+      <item> CMAKE_SCRIPT_MODE_FILE </item>
+      <item> CMAKE_SHARED_LIBRARY_PREFIX </item>
+      <item> CMAKE_SHARED_LIBRARY_SUFFIX </item>
+      <item> CMAKE_SHARED_MODULE_PREFIX </item>
+      <item> CMAKE_SHARED_MODULE_SUFFIX </item>
+      <item> CMAKE_SIZEOF_VOID_P </item>
+      <item> CMAKE_SKIP_BUILD_RPATH </item>
+      <item> CMAKE_SKIP_INSTALL_ALL_DEPENDENCY </item>
+      <item> CMAKE_SKIP_INSTALL_RPATH </item>
+      <item> CMAKE_SKIP_RPATH </item>
+      <item> CMAKE_SOURCE_DIR </item>
+      <item> CMAKE_STANDARD_LIBRARIES </item>
+      <item> CMAKE_STATIC_LIBRARY_PREFIX </item>
+      <item> CMAKE_STATIC_LIBRARY_SUFFIX </item>
       <item> CMAKE_SYSTEM </item>
+      <item> CMAKE_SYSTEM_IGNORE_PATH </item>
+      <item> CMAKE_SYSTEM_INCLUDE_PATH </item>
+      <item> CMAKE_SYSTEM_LIBRARY_PATH </item>
       <item> CMAKE_SYSTEM_NAME </item>
+      <item> CMAKE_SYSTEM_PREFIX_PATH </item>
       <item> CMAKE_SYSTEM_PROCESSOR </item>
+      <item> CMAKE_SYSTEM_PROGRAM_PATH </item>
       <item> CMAKE_SYSTEM_VERSION </item>
+      <item> CMAKE_TRY_COMPILE_CONFIGURATION </item>
+      <item> CMAKE_TWEAK_VERSION </item>
+      <item> CMAKE_USER_MAKE_RULES_OVERRIDE </item>
+      <item> CMAKE_USE_RELATIVE_PATHS </item>
+      <item> CMAKE_VERBOSE_MAKEFILE </item>
+      <item> CMAKE_VERSION </item>
+      <item> CMAKE_VS_PLATFORM_TOOLSET </item>
+      <item> CMAKE_WARN_ON_ABSOLUTE_INSTALL_DESTINATION </item>
+      <item> CMAKE_WIN32_EXECUTABLE </item>
+      <item> CMAKE_XCODE_PLATFORM_TOOLSET </item>
       <item> CYGWIN </item>
+      <item> EXECUTABLE_OUTPUT_PATH </item>
+      <item> LIBRARY_OUTPUT_PATH </item>
       <item> MSVC </item>
       <item> MSVC10 </item>
       <item> MSVC11 </item>
@@ -699,46 +740,12 @@
       <item> MSVC90 </item>
       <item> MSVC_IDE </item>
       <item> MSVC_VERSION </item>
+      <item> PROJECT_BINARY_DIR </item>
+      <item> PROJECT_NAME </item>
+      <item> PROJECT_SOURCE_DIR </item>
       <item> UNIX </item>
       <item> WIN32 </item>
       <item> XCODE_VERSION </item>
-      <item> CMAKE_ARCHIVE_OUTPUT_DIRECTORY </item>
-      <item> CMAKE_AUTOMOC </item>
-      <item> CMAKE_AUTOMOC_MOC_OPTIONS </item>
-      <item> CMAKE_BUILD_WITH_INSTALL_RPATH </item>
-      <item> CMAKE_DEBUG_POSTFIX </item>
-      <item> CMAKE_EXE_LINKER_FLAGS </item>
-      <item> CMAKE_Fortran_FORMAT </item>
-      <item> CMAKE_Fortran_MODULE_DIRECTORY </item>
-      <item> CMAKE_GNUtoMS </item>
-      <item> CMAKE_INCLUDE_CURRENT_DIR </item>
-      <item> CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE </item>
-      <item> CMAKE_INSTALL_NAME_DIR </item>
-      <item> CMAKE_INSTALL_RPATH </item>
-      <item> CMAKE_INSTALL_RPATH_USE_LINK_PATH </item>
-      <item> CMAKE_LIBRARY_OUTPUT_DIRECTORY </item>
-      <item> CMAKE_LIBRARY_PATH_FLAG </item>
-      <item> CMAKE_LINK_DEF_FILE_FLAG   </item>
-      <item> CMAKE_LINK_DEPENDS_NO_SHARED </item>
-      <item> CMAKE_LINK_INTERFACE_LIBRARIES </item>
-      <item> CMAKE_LINK_LIBRARY_FILE_FLAG </item>
-      <item> CMAKE_LINK_LIBRARY_FLAG </item>
-      <item> CMAKE_MACOSX_BUNDLE </item>
-      <item> CMAKE_NO_BUILTIN_CHRPATH </item>
-      <item> CMAKE_PDB_OUTPUT_DIRECTORY </item>
-      <item> CMAKE_POSITION_INDEPENDENT_CODE </item>
-      <item> CMAKE_RUNTIME_OUTPUT_DIRECTORY </item>
-      <item> CMAKE_SKIP_BUILD_RPATH </item>
-      <item> CMAKE_SKIP_INSTALL_RPATH </item>
-      <item> CMAKE_TRY_COMPILE_CONFIGURATION </item>
-      <item> CMAKE_USE_RELATIVE_PATHS </item>
-      <item> CMAKE_WIN32_EXECUTABLE </item>
-      <item> EXECUTABLE_OUTPUT_PATH </item>
-      <item> LIBRARY_OUTPUT_PATH </item>
-      <item> CMAKE_Fortran_MODDIR_DEFAULT </item>
-      <item> CMAKE_Fortran_MODDIR_FLAG </item>
-      <item> CMAKE_Fortran_MODOUT_FLAG </item>
-      <item> CMAKE_INTERNAL_PLATFORM_ABI </item>
     </list>
 
     <list name="simple_generator_expr">
@@ -804,10 +811,11 @@
       <!-- ATTENTION Do not change the context name! Or change a generation script accordingly -->
       <context attribute="Normal Text" lineEndContext="#stay" name="Detect More Builtin Variables">
         <!-- generated rules -->
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_COMPILER_IS_GNU[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_DISABLE_FIND_PACKAGE_[A-Za-z_][A-Za-z_0-9]*\b" />
-        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_POLICY_DEFAULT_CMP[0-9]+\b" />
-        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_POSTFIX\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_EXE_LINKER_FLAGS_[A-Za-z_][A-Za-z_0-9]*\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_POLICY_DEFAULT_CMP[0-9]+\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_USER_MAKE_RULES_OVERRIDE_[A-Za-z_][A-Za-z_0-9]*\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_ARCHIVE_APPEND\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_ARCHIVE_CREATE\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_ARCHIVE_FINISH\b" />
@@ -835,10 +843,9 @@
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_LINK_EXECUTABLE \b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_OUTPUT_EXTENSION\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_PLATFORM_ID\b" />
+        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_POSTFIX\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_SIZEOF_DATA_PTR\b" />
         <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_[A-Za-z_][A-Za-z_0-9]*_SOURCE_FILE_EXTENSIONS\b" />
-        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_COMPILER_IS_GNU[A-Za-z_][A-Za-z_0-9]*\b" />
-        <RegExpr attribute="Builtin CMake Variable" context="#stay" String="\bCMAKE_USER_MAKE_RULES_OVERRIDE_[A-Za-z_][A-Za-z_0-9]*\b" />
       </context>
       <context attribute="Normal Text" lineEndContext="#stay" name="Detect Builtin Variables">
         <keyword attribute="Builtin CMake Variable" context="#stay" String="cmake_vars" insensitive="false"/>
@@ -870,6 +877,8 @@
       <context attribute="Normal Text" lineEndContext="#stay" name="Command Args">
         <keyword attribute="Special Args" context="#stay" String="special_args"/>
         <keyword attribute="Special Args" context="#stay" String="extra_special_args"/>
+        <!-- NOTE Handle CMP<NNN> as a special arg -->
+        <RegExpr attribute="Special Args" context="#stay" String="\bCMP[0-9]+\b" />
         <keyword attribute="Properties" context="#stay" String="properties"/>
         <keyword attribute="Properties" context="#stay" String="extra_properties"/>
         <IncludeRules context="Detect Builtin Variables"/>

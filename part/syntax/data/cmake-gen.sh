@@ -34,19 +34,27 @@ cmake --help-command-list | sed '1d' | sort > $t.commands
 echo "$(count commands) commands"
 
 extract_args() {
-    sed -e '/'"$1"'(/ba' \
+    sed -e '/^\s\+'"$1"'(/ba' \
         -e 'd' \
         -e ':a' \
         -e '/)/{s/^.*(\(.*\)).*$/\1/p;d}' \
         -e 'N;s/\n/ /;ba' | \
-    sed -e 's/[][]//g' -e 's/|\| \+/\n/g' | \
-    sed -n '/^[[:upper:][:digit:]_]\+$/p' >> $t.args
+    sed -e 's/[][]//g' -e 's/|\| \+/\n/g' -e 's/<[[:upper:][:digit:]_]\+>//g' -e 's/[<>]//g' | \
+    sed -n '/^[[:upper:][:digit:]_]\+$/p' | \
+    # NOTE Remove some false-positives:
+    # 0) one-letter-commands -- found from usage examples
+    # 1) CMP<NNN> from cmake_policy will be handled individually
+    # 2) fix incorrect parsing of separate_arguments(): append UNIX_COMMAND
+    # 3) 'VAR' actually is not a part of any command!
+    sed -e '/^[A-Z]$/d' -e '/^CMP$/d' -e 's/\(WINDOWS_COMMAND\)/\1\nUNIX_COMMAND/' -e '/^VAR[0-9]*$/d' \
+    >> $t.args
 }
 
 while read COMMAND ; do
+    echo "# Getting args of '$COMMAND' command" >>$t.args
     "$CMAKE" --help-command $COMMAND | extract_args $COMMAND
 done < $t.commands
-sort -u $t.args > $t.argsu
+sed '/^#/d' $t.args | sort -u > $t.argsu
 echo "$(count args) arguments, $(count argsu) unique"
 cmake --help-property-list | sed -e '1d' -e '/[<>]/d' | sort -u > $t.props
 echo "$(count props) properties"
@@ -85,7 +93,7 @@ echo "$(count all_vars) builtin variables"
     cat $t.6
 } > cmake.xml
 
-#rm -f $t.*
+rm -f $t.*
 echo "Remember to update the version!"
 
 # kate: tab-width 4; indent-mode normal; indent-width 4;

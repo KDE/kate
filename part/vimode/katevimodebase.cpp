@@ -1290,8 +1290,29 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     QString nString = number.cap();
     bool ok = false;
     int base = number.cap( 1 ).isEmpty() ? 10 : 16;
+    if (base != 16 && nString.startsWith("0") && nString != "0")
+    {
+      nString.toInt( &ok, 8 );
+      if (ok)
+      {
+        // Octal.
+        base = 8;
+      }
+    }
     int n = nString.toInt( &ok, base );
-    const QString withoutBase = number.cap(2);
+    QString withoutBase;
+    if (base == 16)
+    {
+      withoutBase = number.cap(2);
+    }
+    else if (base == 8)
+    {
+      withoutBase = nString.mid(1); // Strip off leading 0.
+    }
+    else
+    {
+      withoutBase = nString;
+    }
 
     kDebug( 13070 ) << "base: " << base;
     kDebug( 13070 ) << "n: " << n;
@@ -1304,10 +1325,18 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     // increase/decrease number
     n += count;
 
-    // create the new text string to be inserted. prepend with “0x” if in base 16
+    // create the new text string to be inserted. prepend with “0x” if in base 16, and "0" if base 8.
     // For non-decimal numbers, try to keep the length of the number the same (including leading 0's).
-    QString newNumberPadded = (base == 16) ? QString("%1").arg(n, withoutBase.length(), base, QChar('0')) : QString("%1").arg(n);
-    QString newText = (base == 16 ? "0x" : "") + newNumberPadded;
+    QString newNumberPadded = (base == 16 || base == 8) ? QString("%1").arg(n, withoutBase.length(), base, QChar('0')) : QString("%1").arg(n, 0, base);
+    QString newText = newNumberPadded;
+    if (base == 16)
+    {
+      newText = "0x" + newText;
+    }
+    else if (base == 8)
+    {
+      newText = "0" + newText;
+    }
 
     // replace the old number string with the new
     doc()->editStart();

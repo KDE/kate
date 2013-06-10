@@ -953,6 +953,8 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("1", "\\ctrl-x\\ctrl-x\\ctrl-x\\ctrl-x", "-3");
   DoTest("0xabcdef", "1000000\\ctrl-x","0x9c8baf" );
   DoTest("0x0000f", "\\ctrl-x","0x0000e" );
+  // Octal numbers should retain leading 0's.
+  DoTest("00010", "\\ctrl-x","00007" );
 
   // Testing "Ctrl-a"
   DoTest("150", "101\\ctrl-a", "251");
@@ -962,6 +964,9 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("0x0000f", "\\ctrl-a","0x00010" );
   // Decimal with leading 0's - increment, and strip leading 0's, like Vim.
   DoTest("0000193", "\\ctrl-a","194" );
+  // If a number begins with 0, parse it as octal if we can. The resulting number should retain the
+  // leadingi 0.
+  DoTest("07", "\\ctrl-a","010" );
   DoTest("5", "5\\ctrl-a.","15" );
   DoTest("5", "5\\ctrl-a2.","12");
   DoTest("5", "5\\ctrl-a2.10\\ctrl-a","22");

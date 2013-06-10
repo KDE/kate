@@ -57,7 +57,7 @@ function action(cmd)
 		} else if (cmd == "emmetSelectTagPairOutwards") {
 			a.text = i18n("Select HTML/XML tag contents outwards");
 		} else if (cmd == "emmetToggleComment") {
-			a.text = i18n("Toggle comment");
+			a.text = i18n("Toggle comment"); // FIXME Action w/ that name already exists @ part/view/kateview.cpp:411
 		} else if (cmd == "emmetNext") {
 			a.text = i18n("Go to next edit point");
 		} else if (cmd == "emmetPrev") {

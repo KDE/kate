@@ -26,7 +26,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.8.11.1" -->
-<language name="CMake" version="1.21" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.22" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
@@ -415,7 +415,18 @@
 
     <!-- these are "special" and don't show up in the generated lists -->
     <list name="extra_special_args">
-      <item> GLOBAL </item>
+      <!-- get_filename_component() has <COMP> placeholder for the following special args -->
+      <item> PATH </item>
+      <item> NAME </item>
+      <item> EXT </item>
+      <item> NAME_WE </item>
+      <item> ABSOLUTE </item>
+      <item> REALPATH </item>
+      <!-- set() has <type> placeholder for the following special args -->
+      <item> FILEPATH </item>
+      <!-- PATH already present above -->
+      <item> STRING </item>
+      <item> BOOL </item>
       <item> INTERNAL </item>
     </list>
 

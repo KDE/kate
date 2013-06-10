@@ -960,6 +960,8 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("-1", "1\\ctrl-a", "0");
   DoTest("-1", "l1\\ctrl-a", "0");
   DoTest("0x0000f", "\\ctrl-a","0x00010" );
+  // Decimal with leading 0's - increment, and strip leading 0's, like Vim.
+  DoTest("0000193", "\\ctrl-a","194" );
   DoTest("5", "5\\ctrl-a.","15" );
   DoTest("5", "5\\ctrl-a2.","12");
   DoTest("5", "5\\ctrl-a2.10\\ctrl-a","22");

@@ -236,24 +236,19 @@ class ConfigWidget(QWidget):
 
     def apply(self):
         kate.configuration[_SCROLLBACK_LINES_COUNT_CFG] = self.scrollbackLinesCount.value()
-        seletecItems = self.guiCompletionType.selectedItems()
-        if seletecItems:
-            index = self.guiCompletionType.indexFromItem(seletecItems[0])
-            kate.configuration[_GUI_COMPLETION_TYPE_CFG] = index.row()
+        kate.configuration[_GUI_COMPLETION_TYPE_CFG] = self.guiCompletionType.currentIndex()
         kate.configuration.save()
 
     def reset(self):
         self.defaults()
         if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
             self.scrollbackLinesCount.setValue(kate.configuration[_SCROLLBACK_LINES_COUNT_CFG])
-        if _GUI_COMPLETION_TYPE_CFG in kate.configuration and isinstance(kate.configuration[_GUI_COMPLETION_TYPE_CFG], int):
-            item = self.guiCompletionType.item(kate.configuration[_GUI_COMPLETION_TYPE_CFG])
-            self.guiCompletionType.setItemSelected(item, True)
+        if _GUI_COMPLETION_TYPE_CFG in kate.configuration and isinstance(kate.configuration[_GUI_COMPLETION_TYPE_CFG], int) and kate.configuration[_GUI_COMPLETION_TYPE_CFG] < 2:
+            self.guiCompletionType.setCurrentIndex(kate.configuration[_GUI_COMPLETION_TYPE_CFG])
 
     def defaults(self):
         self.scrollbackLinesCount.setValue(10000)
-        completionDefault = self.guiCompletionType.item(0)
-        self.guiCompletionType.setItemSelected(completionDefault, True)
+        self.guiCompletionType.setCurrentIndex(0)
 
 
 class ConfigPage(kate.Kate.PluginConfigPage, QWidget):

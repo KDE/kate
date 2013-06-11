@@ -13,6 +13,7 @@ from __future__ import unicode_literals
 import sys
 
 from PyKDE4.kdecore import i18n as _translate
+from libkatepate.compat import PY2, text_type
 from libkatepate.errors import needs_packages
 
 sys.argv = [__file__]
@@ -24,18 +25,16 @@ NEED_PACKAGES = {
 }
 
 
-if sys.version_info.major == 3:
-    NEED_PACKAGES['zmq'] = 'pyzmq==13.0.0'
-    _u = str
-else:
+if PY2:
     NEED_PACKAGES['zmq'] = 'pyzmq==2.0.10.1'
-    _u = unicode
+else:
+    NEED_PACKAGES['zmq'] = 'pyzmq==13.0.0'
 
 needs_packages(NEED_PACKAGES)
 
 
 def i18n(msg, *args):
-    if isinstance(msg, _u):
+    if isinstance(msg, text_type):
         msg = msg.encode('utf-8')
     return _translate(msg, *args) if args else _translate(msg)
 

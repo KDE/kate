@@ -497,12 +497,12 @@ def destroy():
     '''Plugins that use a toolview need to delete it for reloading to work.'''
     global paletteView
     if paletteView:
-        paletteView.__del__()
+        del paletteView
         paletteView = None
 
     global colorChooserWidget
     if colorChooserWidget:
-        colorChooserWidget.__del__()
+        del colorChooserWidget
         colorChooserWidget = None
 
 

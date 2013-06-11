@@ -383,11 +383,6 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         self.try_complete_command(command, document, cursor, word, comp_list, invocationType)
 
 
-    def executeCompletionItem(self, document, word, row):
-        # TODO Why this method is not called???
-        print('CMakeCC: executeCompletionItem: ' + repr(word)+', row='+str(row))
-
-
     def _loadCompleters(self):
         # Load available command completers
         for directory in kate.applicationDirectories('cmake_utils/command_completers'):
@@ -595,7 +590,6 @@ class CMakeToolView(QObject):
 
         try:
             items = cmake_help_parser.get_cache_content(build_dir, is_advanced)
-            print('CMakeCC: update cache view: result={}'.format(items))
         except ValueError as error:
             ui.popup(
                 i18nc('@title:window', 'Error')
@@ -910,7 +904,6 @@ def cmakeConfigPage(parent=None, name=None):
 
 @kate.viewCreated
 def createSignalAutocompleteCMake(view=None, *args, **kwargs):
-    print('CMakeCC: Register completion model')
     try:
         view = view or kate.activeView()
         if view:

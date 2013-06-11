@@ -1064,7 +1064,8 @@ void ViModeTest::CommandModeTests() {
 
 void ViModeTest::MappingTests()
 {
-  const int mappingTimeoutMS = 100;
+  const int mappingTimeoutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_MAPPINGTIMEOUTMS")).toInt();
+  const int mappingTimeoutMS = (mappingTimeoutMSOverride > 0) ? mappingTimeoutMSOverride : 2000;
   {
     // Check storage and retrieval of mapping recursion.
     KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);

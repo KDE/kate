@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 # This file is part of Pate, Kate' Python scripting plugin.
 #
 # Copyright (C) 2006 Paul Giannaros <paul@giannaros.org>

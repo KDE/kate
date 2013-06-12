@@ -24,6 +24,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QList>
 #include <QtGui/QAction>
+#include <QtGui/QIcon>
 
 #include "katepartprivate_export.h"
 
@@ -85,7 +86,7 @@ class Document;
  *
  * @see MessageInterface
  * @author Dominik Haumann \<dhaumann@kde.org\>
- * @since KDE 4.10
+ * @since KDE 4.11
  */
 class KATEPART_TESTS_EXPORT Message : public QObject
 {
@@ -144,6 +145,12 @@ class KATEPART_TESTS_EXPORT Message : public QObject
      * Returns the text set in the constructor.
      */
     QString text() const;
+
+    /**
+     * Returns the icon of this message.
+     * If the message has no icon set, a null icon is returned.
+     */
+    QIcon icon() const;
 
     /**
      * Returns the message type set in the constructor.
@@ -293,13 +300,20 @@ class KATEPART_TESTS_EXPORT Message : public QObject
      * Sets the notification contents to @p text.
      * If the message was already sent through MessageInterface::postMessage(),
      * the displayed text changes on the fly.
-     * @note Use this with care, since changing the text may resize the
-     *       notification widget, which may result in a distracting user
-     *       experience.
+     * @note Change text on the fly with care, since changing the text may
+     *       resize the notification widget, which may result in a distracting
+     *       user experience.
      * @param richtext new notification text (rich text supported)
      * @see textChanged()
      */
     void setText(const QString& richtext);
+
+    /**
+     * Optionally set an icon for this notification.
+     * The icon is shown next to the message text.
+     * @param icon the icon to be displayed
+     */
+    void setIcon(const QIcon& icon);
 
   Q_SIGNALS:
     /**
@@ -316,14 +330,27 @@ class KATEPART_TESTS_EXPORT Message : public QObject
      * This signal is emitted whenever setText() is called.
      * If the message was already sent through MessageInterface::postMessage(),
      * the displayed text changes on the fly.
-     * @note Use this with care, since changing the text may resize the
-     *       notification widget, which may result in a distracting user
-     *       experience.
+     * @note Change text on the fly with care, since changing the text may
+     *       resize the notification widget, which may result in a distracting
+     *       user experience.
      *
      * @param text new notification text (rich text supported)
      * @see setText()
      */
     void textChanged(const QString& text);
+
+    /**
+     * This signal is emitted whenever setIcon() is called.
+     * If the message was already sent through MessageInterface::postMessage(),
+     * the displayed icon changes on the fly.
+     * @note Change the icon on the fly with care, since changing the text may
+     *       resize the notification widget, which may result in a distracting
+     *       user experience.
+     *
+     * @param icon new notification icon
+     * @see setIcon()
+     */
+    void iconChanged(const QIcon& icon);
 
 private:
     class MessagePrivate * const d;
@@ -367,7 +394,7 @@ private:
  *
  * @see Message
  * @author Dominik Haumann \<dhaumann@kde.org\>
- * @since KDE 4.10
+ * @since KDE 4.11
  */
 class MessageInterface
 {

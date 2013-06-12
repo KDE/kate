@@ -29,6 +29,7 @@ class MessagePrivate
     Message::MessageType messageType;
     Message::MessagePosition position;
     QString text;
+    QIcon icon;
     bool wordWrap;
     int autoHide;
     KTextEditor::Message::AutoHideMode autoHideMode;
@@ -69,6 +70,17 @@ void Message::setText(const QString& text)
     d->text = text;
     emit textChanged(text);
   }
+}
+
+void Message::setIcon(const QIcon& newIcon)
+{
+  d->icon = newIcon;
+  emit iconChanged(d->icon);
+}
+
+QIcon Message::icon() const
+{
+  return d->icon;
 }
 
 Message::MessageType Message::messageType() const

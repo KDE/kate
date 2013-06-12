@@ -9,6 +9,7 @@ from __future__ import unicode_literals
 
 import sys
 
+from PyQt4.QtCore import QEvent, QObject, Qt
 from PyKDE4.kdecore import i18n as _translate
 from libkatepate.compat import PY2, text_type
 from libkatepate.errors import needs_packages
@@ -65,6 +66,7 @@ _CONFIG_UI = 'python_console_ipython.ui'
 _CONSOLE_CSS = 'python_console_ipython.css'
 _GUI_COMPLETION_CONVERT = ['droplist', None]
 
+consoleToolView = None
 
 def init_ipython():
     """
@@ -86,7 +88,7 @@ def init_ipython():
             kernel.timer.start(1000 * kernel._poll_interval)
 
         kernel_app = IPKernelApp.instance()
-        kernel_app.initialize(['python', '--pylab=qt'])  # at this point, print() won’t work anymore
+        kernel_app.initialize(['python', '--pylab=qt'])     # at this point, print() won’t work anymore
         kernel_app.kernel.eventloop = event_loop
 
         connection_file = find_connection_file(kernel_app.connection_file)
@@ -106,7 +108,7 @@ def insert_django_objects(shell):
     """ Imports settings and models into the shell """
     # Uses this: https://github.com/django-extensions/django-extensions/blob/master/django_extensions/management/shells.py#L7
     from django.db.models.loading import get_models, get_apps
-    loaded_models = get_models()  # NOQA
+    loaded_models = get_models()                            # NOQA
 
     from django.conf import settings
     imported_objects = {'settings': settings}
@@ -178,7 +180,7 @@ def reset_shell(shell, base_ns):
         sys.stdout.flush()
 
 
-def terminal_widget(parent=None, **base_ns):
+def make_terminal_widget(parent=None, **base_ns):
     try:
         gui_completion = _GUI_COMPLETION_CONVERT[kate.configuration[_GUI_COMPLETION_TYPE_CFG]]
     except KeyError:
@@ -192,7 +194,8 @@ def terminal_widget(parent=None, **base_ns):
 
     client, manager, shell = init_ipython()
 
-    if ipython_1:  # https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
+    # https://github.com/ipython/ipython/blob/master/examples/inprocess/embedded_qtconsole.py
+    if ipython_1:
         widget.kernel_client = client
 
         widget.exit_requested.connect(widget.kernel_client.stop_channels)
@@ -243,7 +246,10 @@ class ConfigWidget(QWidget):
         self.defaults()
         if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
             self.scrollbackLinesCount.setValue(kate.configuration[_SCROLLBACK_LINES_COUNT_CFG])
-        if _GUI_COMPLETION_TYPE_CFG in kate.configuration and isinstance(kate.configuration[_GUI_COMPLETION_TYPE_CFG], int) and kate.configuration[_GUI_COMPLETION_TYPE_CFG] < 2:
+        key_exists = _GUI_COMPLETION_TYPE_CFG in kate.configuration
+        has_valid_type = isinstance(kate.configuration[_GUI_COMPLETION_TYPE_CFG], int)
+        has_valid_value = kate.configuration[_GUI_COMPLETION_TYPE_CFG] < 2
+        if key_exists and has_valid_type and has_valid_value:
             self.guiCompletionType.setCurrentIndex(kate.configuration[_GUI_COMPLETION_TYPE_CFG])
 
     def defaults(self):
@@ -275,30 +281,72 @@ def configPage(parent=None, name=None):
     return ConfigPage(parent, name)
 
 
+class ConsoleToolView(QObject):
+
+    def __init__(self, parent):
+        super(ConsoleToolView, self).__init__(parent)
+        self.toolView = kate.mainInterfaceWindow().createToolView(
+            'ipython_console'
+          , kate.Kate.MainWindow.Bottom
+          , kate.gui.loadIcon('text-x-python')
+          , 'IPython Console'                               # TODO i18nc('@title:tab', ...)
+          )
+        self.toolView.installEventFilter(self)
+        self.console = make_terminal_widget(parent=self.toolView, kate=kate)
+
+        # Load CSS from file '${appdir}/ipython_console.css'
+        css_string = None
+        search_dirs = kate.applicationDirectories() + [os.path.dirname(__file__)]
+        for appdir in search_dirs:
+            # TODO Make a CSS file configurable?
+            css_file = os.path.join(appdir, _CONSOLE_CSS)
+            try:
+                with open(css_file, 'r') as f:
+                    css_string = f.read()
+                    break
+            except IOError:
+                pass
+
+        if css_string:
+            self.console.style_sheet = css_string
+            if ipython_1:                                   # For seamless borders
+                self.console.setStyleSheet(css_string)
+
+        if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
+            self.console.buffer_size = kate.configuration[_SCROLLBACK_LINES_COUNT_CFG]
+
+
+    def __del__(self):
+        """Plugins that use a toolview need to delete it for reloading to work."""
+        if self.toolView:
+            self.toolView.deleteLater()
+            self.toolView = None
+
+
+    def eventFilter(self, obj, event):
+        """Hide the IPython console tool view on ESCAPE key"""
+        # TODO This doesn't work if cursor (focus) inside of ipython prompt :(
+        if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Escape:
+            kate.mainInterfaceWindow().hideToolView(self.toolView)
+            return True
+        return self.toolView.eventFilter(obj, event)
+
+
 @kate.init
 def init():
-    kate_window = kate.mainInterfaceWindow()
-    v = kate_window.createToolView('ipython_console', kate_window.Bottom, kate.gui.loadIcon('text-x-python'), 'IPython Console')
-    console = terminal_widget(parent=v, kate=kate)
-    # Load CSS from file '${appdir}/ipython_console.css'
-    css_string = None
-    search_dirs = kate.applicationDirectories() + [os.path.dirname(__file__)]
-    for appdir in search_dirs:
-        # TODO Make a CSS file configurable?
-        css_file = os.path.join(appdir, _CONSOLE_CSS)
-        try:
-            with open(css_file, 'r') as f:
-                css_string = f.read()
-                break
-        except IOError:
-            pass
+    # Make an instance of a console tool view
+    global consoleToolView
+    if consoleToolView is None:
+        consoleToolView = ConsoleToolView(kate.mainWindow())
 
-    if css_string:
-        console.style_sheet = css_string
-        if ipython_1:  # For seamless borders
-            console.setStyleSheet(css_string)
 
-    if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
-        console.buffer_size = kate.configuration[_SCROLLBACK_LINES_COUNT_CFG]
+@kate.unload
+def destroy():
+    '''Plugins that use a toolview need to delete it for reloading to work.'''
+    global consoleToolView
+    if consoleToolView:
+        del consoleToolView
+        consoleToolView = None
+
 
 # kate: space-indent on; indent-width 4;

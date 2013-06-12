@@ -562,7 +562,7 @@ class CMakeToolView(QObject):
 
 
     def eventFilter(self, obj, event):
-        """Hide the Palette tool view on ESCAPE key"""
+        """Hide the CMake tool view on ESCAPE key"""
         if event.type() == QEvent.KeyPress and event.key() == Qt.Key_Escape:
             kate.mainInterfaceWindow().hideToolView(self.toolView)
             return True
@@ -944,7 +944,7 @@ def destroy():
     '''Plugins that use a toolview need to delete it for reloading to work.'''
     global cmakeToolView
     if cmakeToolView:
-        cmakeToolView.__del__()
+        del cmakeToolView
         cmakeToolView = None
 
 cmake_completion_model = CMakeCompletionModel(kate.application)

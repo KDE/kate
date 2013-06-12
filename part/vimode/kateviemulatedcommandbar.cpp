@@ -110,7 +110,6 @@ void KateViEmulatedCommandBar::updateMatchHighlightAttrib()
   {
     m_highlightMatchAttribute = new KTextEditor::Attribute;
   }
-  qDebug() << "matchColour:" << matchColour;
   m_highlightMatchAttribute->setBackground(matchColour);
   KTextEditor::Attribute::Ptr mouseInAttribute(new KTextEditor::Attribute());
   m_highlightMatchAttribute->setDynamicAttribute (KTextEditor::Attribute::ActivateMouseIn, mouseInAttribute);

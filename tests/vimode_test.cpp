@@ -70,7 +70,6 @@ Qt::KeyboardModifier ViModeTest::parseCodedModifier(const QString& string, int s
 {
   foreach(const QString& modifierCode, m_codesToModifiers.keys())
   {
-    qDebug() << string.mid(startPos, modifierCode.length() + 2) << "|" << (QString("\\") + modifierCode + "-");
     // The "+2" is from the leading '\' and the trailing '-'
     if (string.mid(startPos, modifierCode.length() + 2) == QString("\\") + modifierCode + "-")
     {
@@ -147,15 +146,12 @@ void ViModeTest::TestPressKey(QString str) {
           i = endOfModifier + 1;
           // Is this a modifier plus special key?
           int endOfSpecialKeyAfterModifier = -1;
-          qDebug() << "After modifier: " << str.mid(i);
           const Qt::Key parsedCodedSpecialKeyAfterModifier = parseCodedSpecialKey(str, i, &endOfSpecialKeyAfterModifier);
-          qDebug() << "parsedCodedSpecialKeyAfterModifier: " << parsedCodedSpecialKeyAfterModifier;
           if (parsedCodedSpecialKeyAfterModifier != Qt::Key_unknown)
           {
              key = QString(parsedCodedSpecialKeyAfterModifier);
              keyCode = parsedCodedSpecialKeyAfterModifier;
              i = endOfSpecialKeyAfterModifier;
-             qDebug() << "i now : " << i << " (remainder: " << str.mid(i) << ")";
           }
         } else if (parsedSpecialKey != Qt::Key_unknown) {
             key = QString(parsedSpecialKey);
@@ -1189,7 +1185,6 @@ void ViModeTest::MappingTests()
   BeginTest(multiVirtualLineText);
   TestPressKey("gjrX");
   const QString expectedAfterVirtualLineDownAndChange = kate_document->text();
-  qDebug() << "afterVirtualLineDownAndChange: " << expectedAfterVirtualLineDownAndChange;
   Q_ASSERT_X(expectedAfterVirtualLineDownAndChange.contains("X") && !expectedAfterVirtualLineDownAndChange.startsWith("X"), "setting up j->gj testcase data", "gj doesn't seem to have worked correctly!");
   FinishTest(expectedAfterVirtualLineDownAndChange);
 

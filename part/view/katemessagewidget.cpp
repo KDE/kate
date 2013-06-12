@@ -225,11 +225,28 @@ void KateMessageWidget::startAutoHideTimer()
     return;
   }
 
+  // switching KateViews may result isVisible() == true and still m_messageList.size() == 0.
+  // The problem is that the hideEvent is never called for the KMessageWidget, if the
+  // parent widget is hidden. In that case, we 'miss' that the notification is gone...
+  if (m_messageList.size() == 0) {
+    m_hideAnimationRunning = false;
+    m_autoHideTimerRunning = false;
+    m_autoHideTime = -1;
+
+    if (isVisible()) {
+      m_hideAnimationRunning = true;
+      if (m_fadeEffect) {
+        m_fadeEffect->fadeOut();
+      } else {
+        m_messageWidget->animatedHide();
+      }
+    }
+    return;
+  }
+
   // remember that auto hide timer is running
   m_autoHideTimerRunning = true;
 
-  // the message must still still be valid
-  Q_ASSERT(m_messageList.size());
   KTextEditor::Message* message = m_messageList[0];
   QTimer::singleShot(m_autoHideTime == 0 ? (6*1000) : m_autoHideTime, message, SLOT(deleteLater()));
 }

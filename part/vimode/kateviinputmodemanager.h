@@ -179,7 +179,7 @@ public:
   /**
    * repeat last change by feeding the contents of m_lastChange to feedKeys()
    */
-  void repeatLastChange(int count);
+  void repeatLastChange();
 
   /**
    * The current search pattern.

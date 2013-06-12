@@ -1564,7 +1564,7 @@ bool KateViNormalMode::commandRepeatLastChange()
     m_oneTimeCountOverride = repeatCount;
   }
   doc()->editStart();
-  m_viInputModeManager->repeatLastChange(repeatCount);
+  m_viInputModeManager->repeatLastChange();
   doc()->editEnd();
 
   return true;

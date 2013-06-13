@@ -1,0 +1,3 @@
+    typedef foo<
+        bar
+      > some;

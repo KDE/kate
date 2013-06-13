@@ -584,9 +584,22 @@ function tryAfterDanglingSemicolon_ch(line)
 {
     var result = -1;
     var prevString = document.line(line - 1);
-    var r = /^(\s*)(([\)\]}]?\s*)*([\)\]]\s*))?;(\s*\/\/.*)?$/.exec(prevString);
+    var r = /^(\s*)(([\)\]}]?\s*)*([\)\]]\s*))?;/.exec(prevString);
     if (r != null)
-        result = r[1].length - 2;
+    {
+        result = Math.floor(r[1].length / 4) * 4;           /// TODO JS highlighter BUG
+    }
+    else
+    {
+        // Does it looks like a template tail?
+        // i.e. smth like this:
+        // typedef boost::mpl::blah<
+        //    params
+        //  > type;|
+        r = /^(\s*)([>]+).*;/.exec(prevString);
+        if (r != null)
+            result = Math.floor(r[1].length / 4) * 4;       /// TODO JS highlighter BUG
+    }
     if (result != -1)
     {
         tryToKeepInlineComment(line);

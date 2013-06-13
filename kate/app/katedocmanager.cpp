@@ -672,6 +672,8 @@ void KateDocManager::saveMetaInfos(KTextEditor::Document *doc)
   }
 }
 
+// TODO: KDE 5: KateDocument computes the md5 digest when loading a file, and
+//       when saving a file. Maybe add "QString KTextEditor::Document::md5sum()" const?
 bool KateDocManager::computeUrlMD5(const KUrl &url, QByteArray &result)
 {
   QFile f(url.toLocalFile());

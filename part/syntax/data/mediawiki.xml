@@ -5,12 +5,15 @@
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
-        <RegExpr String="([=]{2,2}[^=]+[=]{2,2}|[=]{3,3}[^=]+[=]{3,3}|[=]{4,4}[^=]+[=]{4,4}|[=]{5,5}[^=]+[=]{5,5})" attribute="Section" column="0" />
+        <RegExpr String="[=]{5,5}(?!=)" context="Section5" attribute="Section" column="0" />
+        <RegExpr String="[=]{4,4}(?!=)" context="Section4" attribute="Section" column="0" />
+        <RegExpr String="[=]{3,3}(?!=)" context="Section3" attribute="Section" column="0" />
+        <RegExpr String="[=]{2,2}(?!=)" context="Section2" attribute="Section" column="0" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <DetectChar char=";" attribute="Wiki-Tag" context="DefinitionListHeader" column="0" />
         <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
         <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
-        <RegExpr String="(http:|ftp:|mailto:)[\S]*($|[\s])" attribute="URL" context="#stay" />
+        <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
@@ -26,11 +29,14 @@
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="Table" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" />
-        <RegExpr String="([=]{2,2}[^=]+[=]{2,2}|[=]{3,3}[^=]+[=]{3,3}|[=]{4,4}[^=]+[=]{4,4}|[=]{5,5}[^=]+[=]{5,5})" attribute="Section" context="#stay" column="0" />
+        <RegExpr String="[=]{5,5}(?!=)" context="Section5" attribute="Section" column="0" />
+        <RegExpr String="[=]{4,4}(?!=)" context="Section4" attribute="Section" column="0" />
+        <RegExpr String="[=]{3,3}(?!=)" context="Section3" attribute="Section" column="0" />
+        <RegExpr String="[=]{2,2}(?!=)" context="Section2" attribute="Section" column="0" />
         <DetectChar char=";" attribute="Wiki-Tag" context="DefinitionListHeader" column="0" />
         <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
         <RegExpr String="[[](?![[])" context="URL" attribute="Wiki-Tag" />
-        <RegExpr String="(http:|ftp:|mailto:)[\S]*($|[\s])" attribute="URL" context="#stay" />
+        <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
         <Detect2Chars char="|" char1="}" context="#pop" attribute="Wiki-Tag" column="0" endRegion="table" />
@@ -48,6 +54,87 @@
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <RegExpr String="[-]{4,}" attribute="Wiki-Tag" context="#stay" />
         <DetectChar char="!" attribute="Wiki-Tag" context="#stay" column="0" />
+      </context>
+      <context attribute="Section" lineEndContext="#pop" name="Section5" >
+        <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
+        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
+        <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
+        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
+        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <RegExpr String="={6,}$" context="#pop" attribute="Normal" />
+        <RegExpr String="={5,5}$" context="#pop" attribute="Section" />
+        <RegExpr String="={1,4}$" context="#pop" attribute="Normal" />
+        <RegExpr String="={1,4}$" context="#pop" attribute="Normal" />
+        <RegExpr String="=*[^=]+$" context="#pop" attribute="Normal" />
+      </context>
+      <context attribute="Section" lineEndContext="#pop" name="Section4" >
+        <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
+        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
+        <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
+        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
+        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <RegExpr String="={5,}$" context="#pop" attribute="Normal" />
+        <RegExpr String="={4,4}$" context="#pop" attribute="Section" />
+        <RegExpr String="={1,3}$" context="#pop" attribute="Normal" />
+        <RegExpr String="=*[^=]+$" context="#pop" attribute="Normal" />
+      </context>
+      <context attribute="Section" lineEndContext="#pop" name="Section3" >
+        <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
+        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
+        <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
+        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
+        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <RegExpr String="={4,}$" context="#pop" attribute="Normal" />
+        <RegExpr String="={3,3}$" context="#pop" attribute="Section" />
+        <RegExpr String="={1,2}$" context="#pop" attribute="Normal" />
+        <RegExpr String="=*[^=]+$" context="#pop" attribute="Normal" />
+      </context>
+      <context attribute="Section" lineEndContext="#pop" name="Section2" >
+        <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
+        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
+        <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
+        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
+        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <RegExpr String="={3,}$" context="#pop" attribute="Normal" />
+        <RegExpr String="={2,2}$" context="#pop" attribute="Section" />
+        <RegExpr String="={1,1}$" context="#pop" attribute="Normal" />
+        <RegExpr String="=*[^=]+$" context="#pop" attribute="Normal" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="comment" >
         <StringDetect String="--&gt;" context="#pop" attribute="Comment" endRegion="comment" />
@@ -72,26 +159,55 @@
       </context>
       <context attribute="Error" lineEndContext="#pop" name="Error" />
       <context attribute="TemplateName" lineEndContext="#stay" name="Template" >
-        <StringDetect String="|" context="TemplateContent" attribute="Wiki-Tag" lookAhead="true" />
-        <!-- End of Template context: -->
+        <StringDetect String="|" context="TemplateParameterSlot" attribute="Wiki-Tag" />
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" />
       </context>
-      <context attribute="Normal" lineEndContext="#stay" name="TemplateContent" >
-        <!-- If you were using a template inside another, you could find parameters: -->
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <!-- Separator for template arguments with parameter definition: -->
-        <RegExpr String="[|][^|=]+[=]" context="TemplateArgumentDefinition" lookAhead="true" />
-        <!-- Separator for template arguments: -->
-        <StringDetect String="|" context="#stay" attribute="Wiki-Tag" />
-        <!-- End of TemplateContent context without parameter definition: -->
+      <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlot" >
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
+        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
+        <RegExpr String="(http:|https:|ftp:|mailto:)[^ |]*(?=$|[ |])" attribute="URL" context="#stay" />
+        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
+        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <RegExpr String="[^{}|=]+(?=[=])" attribute="Parameter" context="TemplateParameterSlotEqual" />
+      </context>
+      <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlotEqual" >
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <StringDetect String="=" context="TemplateParameterSlotValue" attribute="Wiki-Tag" />
+      </context>
+      <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlotValue" >
+        <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
+        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
+        <RegExpr String="(http:|https:|ftp:|mailto:)[^ |]*(?=$|[ |])" attribute="URL" context="#stay" />
+        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
+        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
       </context>
       <context attribute="Parameter" lineEndContext="#stay" name="TemplateParameter" >
         <StringDetect String="}}}" context="#pop" attribute="Wiki-Tag" />
-      </context>
-      <context attribute="Parameter" lineEndContext="#stay" name="TemplateArgumentDefinition" >
-        <StringDetect String="|" context="#stay" attribute="Wiki-Tag" />
-        <StringDetect String="=" context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="NoWiki" lineEndContext="#stay" name="NoWiki" >
         <RegExpr String="&lt;!--[^-]*--&gt;" attribute="NoWiki" />

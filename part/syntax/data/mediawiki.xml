@@ -14,7 +14,7 @@
         <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
         <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
-        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindBoldAndItalic" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
@@ -37,7 +37,7 @@
         <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
         <RegExpr String="[[](?![[])" context="URL" attribute="Wiki-Tag" />
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
-        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindBoldAndItalic" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
         <Detect2Chars char="|" char1="}" context="#pop" attribute="Wiki-Tag" column="0" endRegion="table" />
         <DetectChar char="|" attribute="Wiki-Tag" context="#stay"/>
@@ -60,7 +60,7 @@
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
-        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindBoldAndItalicBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -81,7 +81,7 @@
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
-        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindBoldAndItalicBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -101,7 +101,7 @@
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
-        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindBoldAndItalicBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -121,7 +121,7 @@
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
-        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindBoldAndItalicBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -164,7 +164,7 @@
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ |]*(?=$|[ |])" attribute="URL" context="#stay" />
-        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindBoldAndItalic" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -187,7 +187,7 @@
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <RegExpr String="[[](?![[])" attribute="Wiki-Tag" context="URL" />
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ |]*(?=$|[ |])" attribute="URL" context="#stay" />
-        <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindBoldAndItalic" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -222,6 +222,31 @@
       <context attribute="DefinitionListHeader" lineEndContext="#pop" name="DefinitionListHeader" >
         <DetectChar char=":" context="#pop" attribute="Wiki-Tag" />
       </context>
+      <context attribute="Bold" lineEndContext="#pop" name="Bold" >
+        <StringDetect String="'''" context="#pop" attribute="Wiki-Tag" />
+        <StringDetect String="''" context="BoldItalic" attribute="Wiki-Tag" />
+      </context>
+      <context attribute="Italic" lineEndContext="#pop" name="Italic" >
+        <StringDetect String="'''" context="ItalicBold" attribute="Wiki-Tag" />
+        <StringDetect String="''" context="#pop" attribute="Wiki-Tag" />
+      </context>
+      <context attribute="BoldItalic" lineEndContext="#pop" name="BoldItalic" >
+        <StringDetect String="''" context="#pop" attribute="Wiki-Tag" />
+      </context>
+      <context attribute="BoldItalic" lineEndContext="#pop" name="ItalicBold" >
+        <StringDetect String="'''" context="#pop" attribute="Wiki-Tag" />
+      </context>
+
+      <!-- Contexts for inclusion. -->
+      <context attribute="Normal" lineEndContext="#stay" name="FindBoldAndItalic" >
+        <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
+        <StringDetect String="''" attribute="Wiki-Tag" context="Italic" />
+      </context>
+      <context attribute="Normal" lineEndContext="#stay" name="FindBoldAndItalicBeingBold" >
+        <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
+        <StringDetect String="''" attribute="Wiki-Tag" context="BoldItalic" />
+      </context>
+
     </contexts>
     <itemDatas>
       <itemData name="Normal" defStyleNum="dsNormal" />
@@ -238,6 +263,9 @@
       <itemData name="Unformatted" defStyleNum="dsNormal" />
       <itemData name="Parameter" defStyleNum="dsNormal" bold="true" />
       <itemData name="TemplateName" defStyleNum="dsOthers" bold="true" />
+      <itemData name="Bold" defStyleNum="dsNormal" bold="true" />
+      <itemData name="Italic" defStyleNum="dsNormal" italic="true" />
+      <itemData name="BoldItalic" defStyleNum="dsNormal" bold="true" italic="true" />
     </itemDatas>
   </highlighting>
   <general>

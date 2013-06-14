@@ -17,7 +17,7 @@
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
@@ -42,7 +42,7 @@
         <Detect2Chars char="|" char1="}" context="#pop" attribute="Wiki-Tag" column="0" endRegion="table" />
         <DetectChar char="|" attribute="Wiki-Tag" context="#stay"/>
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
@@ -62,7 +62,7 @@
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -83,7 +83,7 @@
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -103,7 +103,7 @@
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -123,7 +123,7 @@
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ ]*($|[\s])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -140,27 +140,23 @@
         <StringDetect String="--&gt;" context="#pop" attribute="Comment" endRegion="comment" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="URL" >
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <DetectChar char="]" context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLink" >
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <DetectChar char="#" attribute="Wiki-Tag" context="#stay"/>
         <DetectChar char="|" attribute="Wiki-Tag" context="WikiLinkDescription" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLinkDescription" >
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
-      </context>
-      <context attribute="Template" lineEndContext="#stay" name="Link" >
-        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" />
-        <AnyChar String="'[]" context="Error" attribute="Error" />
       </context>
       <context attribute="Error" lineEndContext="#pop" name="Error" />
       <context attribute="TemplateName" lineEndContext="#stay" name="Template" >
         <StringDetect String="|" context="TemplateParameterSlot" attribute="Wiki-Tag" />
-        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" />
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" endRegion="template" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlot" >
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
@@ -170,7 +166,7 @@
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ |]*(?=$|[ |])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -193,7 +189,7 @@
         <RegExpr String="(http:|https:|ftp:|mailto:)[^ |]*(?=$|[ |])" attribute="URL" context="#stay" />
         <RegExpr String="[']{2,}" attribute="Wiki-Tag" context="#stay" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -203,8 +199,6 @@
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
         <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" />
       </context>
       <context attribute="Parameter" lineEndContext="#stay" name="TemplateParameter" >
         <StringDetect String="}}}" context="#pop" attribute="Wiki-Tag" />
@@ -251,5 +245,6 @@
       <comment end="//-->" start="&lt;!--" name="multiLine" />
     </comments>
     <keywords casesensitive="0" />
+    <indentation mode="normal" />
   </general>
 </language>

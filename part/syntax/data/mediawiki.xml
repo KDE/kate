@@ -22,8 +22,8 @@
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
         <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
-        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
+        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <RegExpr String="[\s]" context="Unformatted" column="0" />
       </context>
@@ -47,8 +47,8 @@
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
         <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
-        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
+        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <RegExpr String="[\s]" context="Unformatted" column="0" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
@@ -67,8 +67,8 @@
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
         <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
-        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
+        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <RegExpr String="={6,}$" context="#pop" attribute="Normal" />
         <RegExpr String="={5,5}$" context="#pop" attribute="Section" />
@@ -88,8 +88,8 @@
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
         <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
-        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
+        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <RegExpr String="={5,}$" context="#pop" attribute="Normal" />
         <RegExpr String="={4,4}$" context="#pop" attribute="Section" />
@@ -108,8 +108,8 @@
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
         <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
-        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
+        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <RegExpr String="={4,}$" context="#pop" attribute="Normal" />
         <RegExpr String="={3,3}$" context="#pop" attribute="Section" />
@@ -128,8 +128,8 @@
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
         <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
-        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
+        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <RegExpr String="={3,}$" context="#pop" attribute="Normal" />
         <RegExpr String="={2,2}$" context="#pop" attribute="Section" />
@@ -175,8 +175,8 @@
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
         <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
-        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
+        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
         <RegExpr String="[^{}|=]+(?=[=])" attribute="Parameter" context="TemplateParameterSlotEqual" />
@@ -198,8 +198,8 @@
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
         <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <StringDetect String="&lt;source&gt;" context="Source" attribute="HTML-Tag" />
-        <StringDetect String="&lt;syntaxhighlight&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
+        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
+        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
         <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
         <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
@@ -223,7 +223,7 @@
         <StringDetect String="&lt;/source&gt;" context="#pop" attribute="HTML-Tag" />
       </context>
       <context attribute="NoWiki" lineEndContext="#stay" name="SyntaxHighlight" >
-        <StringDetect String="&lt;/source&gt;" context="#pop" attribute="HTML-Tag" />
+        <StringDetect String="&lt;/syntaxhighlight&gt;" context="#pop" attribute="HTML-Tag" />
       </context>
       <context attribute="DefinitionListHeader" lineEndContext="#pop" name="DefinitionListHeader" >
         <DetectChar char=":" context="#pop" attribute="Wiki-Tag" />

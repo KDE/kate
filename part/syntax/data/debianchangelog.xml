@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Changelog" version="0.66" kateversion="2.4" section="Other" extensions="" mimetype="">
+<language name="Debian Changelog" version="0.67" kateversion="2.4" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
             <item>urgency</item>
@@ -17,18 +17,27 @@
             <item>testing-proposed-updates</item>
             <item>frozen</item>
             <item>unstable</item>
+            <item>sid</item>
             <item>experimental</item>
             <item>UNRELEASED</item>
             <!-- Debian releases -->
+            <item>sarge</item>
             <item>sarge-backports</item>
             <item>sarge-volatile</item>
+            <item>etch</item>
             <item>etch-backports</item>
             <item>etch-volatile</item>
+            <item>lenny</item>
             <item>lenny-backports</item>
             <item>lenny-backports-sloppy</item>
             <item>lenny-volatile</item>
+            <item>squeeze</item>
             <item>squeeze-backports</item>
             <item>squeeze-volatile</item>
+            <item>wheezy</item>
+            <item>wheezy-backports</item>
+            <item>jessie</item>
+            <item>jessie-backports</item>
             <!-- Ubuntu releases -->
             <item>dapper</item>
             <item>dapper-security</item>
@@ -102,6 +111,21 @@
             <item>precise-proposed</item>
             <item>precise-updates</item>
             <item>precise-backports</item>
+            <item>quantal</item>
+            <item>quantal-security</item>
+            <item>quantal-proposed</item>
+            <item>quantal-updates</item>
+            <item>quantal-backports</item>
+            <item>raring</item>
+            <item>raring-security</item>
+            <item>raring-proposed</item>
+            <item>raring-updates</item>
+            <item>raring-backports</item>
+            <item>saucy</item>
+            <item>saucy-security</item>
+            <item>saucy-proposed</item>
+            <item>saucy-updates</item>
+            <item>saucy-backports</item>
         </list>
 
         <list name="urgencies">

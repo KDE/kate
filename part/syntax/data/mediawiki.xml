@@ -18,7 +18,7 @@
         <IncludeRules context="FindBoldAndItalic" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
@@ -42,7 +42,7 @@
         <Detect2Chars char="|" char1="}" context="#pop" attribute="Wiki-Tag" column="0" endRegion="table" />
         <DetectChar char="|" attribute="Wiki-Tag" context="#stay"/>
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
@@ -61,7 +61,7 @@
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindBoldAndItalicBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -81,7 +81,7 @@
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindBoldAndItalicBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -100,7 +100,7 @@
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindBoldAndItalicBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -119,7 +119,7 @@
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindBoldAndItalicBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -136,19 +136,29 @@
         <StringDetect String="--&gt;" context="#pop" attribute="Comment" endRegion="comment" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="URL" >
-        <DetectChar char="[" context="#stay" attribute="Wiki-Tag" />
-        <RegExpr String="&url;" attribute="URL" context="#stay" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
         <DetectChar char="]" context="#pop" attribute="Wiki-Tag" />
+        <DetectChar char="[" context="#stay" attribute="Wiki-Tag" />
+        <RegExpr String="&url;" context="URLLink" lookAhead="true" />
+        <DetectChar char=" " context="URLTag" attribute="Wiki-Tag" />
+      </context>
+      <context attribute="Link" lineEndContext="#stay" name="URLLink" >
+        <IncludeRules context="FindTemplate" />
+        <DetectChar char=" " context="#pop" lookAhead="true" />
+        <DetectChar char="]" context="#pop" lookAhead="true" />
+      </context>
+      <context attribute="dsNormal" lineEndContext="#stay" name="URLTag" >
+        <IncludeRules context="FindBoldAndItalic" />
+        <IncludeRules context="FindTemplate" />
+        <DetectChar char="]" context="#pop" lookAhead="true" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLink" >
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <DetectChar char="#" attribute="Wiki-Tag" context="#stay"/>
         <DetectChar char="|" attribute="Wiki-Tag" context="WikiLinkDescription" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLinkDescription" >
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
       </context>
       <context attribute="Error" lineEndContext="#pop" name="Error" />
@@ -163,7 +173,7 @@
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindBoldAndItalic" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -185,7 +195,7 @@
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindBoldAndItalic" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
         <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
         <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
@@ -219,17 +229,21 @@
         <DetectChar char=":" context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="Bold" lineEndContext="#pop" name="Bold" >
+        <IncludeRules context="FindTemplate" />
         <StringDetect String="'''" context="#pop" attribute="Wiki-Tag" />
         <StringDetect String="''" context="BoldItalic" attribute="Wiki-Tag" />
       </context>
       <context attribute="Italic" lineEndContext="#pop" name="Italic" >
+        <IncludeRules context="FindTemplate" />
         <StringDetect String="'''" context="ItalicBold" attribute="Wiki-Tag" />
         <StringDetect String="''" context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="BoldItalic" lineEndContext="#pop" name="BoldItalic" >
+        <IncludeRules context="FindTemplate" />
         <StringDetect String="''" context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="BoldItalic" lineEndContext="#pop" name="ItalicBold" >
+        <IncludeRules context="FindTemplate" />
         <StringDetect String="'''" context="#pop" attribute="Wiki-Tag" />
       </context>
 
@@ -245,6 +259,9 @@
       <context attribute="Normal" lineEndContext="#stay" name="FindUrl" >
         <RegExpr String="\[&url;" attribute="Wiki-Tag" context="URL" lookAhead="true" />
         <RegExpr String="&url;" attribute="URL" context="#stay" />
+      </context>
+      <context attribute="Normal" lineEndContext="#stay" name="FindTemplate" >
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
       </context>
 
     </contexts>

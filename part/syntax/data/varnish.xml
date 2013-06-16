@@ -70,6 +70,36 @@
       <item>dns</item>
       <item>fallback</item>
     </list>
+    <!-- 
+      2013-06-16
+      This list was generated from https://www.varnish-cache.org/vmods, taking
+      only vmods having the "Used in production" status, excluding the
+      non-free ones.
+    -->
+    <list name="knownVMods">
+      <item>std</item>
+      <item>example</item>
+      <item>abtest</item>
+      <item>threescale</item>
+      <item>authentication</item>
+      <item>boltsort</item>
+      <item>crashhandler</item>
+      <item>curl</item>
+      <item>digest</item>
+      <item>dns</item>
+      <item>header</item>
+      <item>memcached</item>
+      <item>null</item>
+      <item>querystring</item>
+      <item>shield</item>
+      <item>softpurge</item>
+      <item>statsd</item>
+      <item>throttle</item>
+      <item>timeutils</item>
+      <item>urlcode</item>
+      <item>var</item>
+      <item>timers</item>
+    </list>
     <contexts>
       <context name="normal_text" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="comments" />
@@ -78,6 +108,16 @@
         <RegExpr attribute="Keyword" context="backend_declaration"  String="^\s*backend\s+" />
         <RegExpr attribute="Keyword" context="director_declaration" String="^\s*director\s+" />
         <RegExpr attribute="Keyword" context="acl_declaration"      String="^\s*acl\s+" />
+        <RegExpr attribute="Keyword" context="import_declaration"   String="^\s*import\s+" />
+        <RegExpr attribute="Keyword" context="include_declaration"  String="^\s*include\s+" />
+        <IncludeRules context="embedded-c" />
+      </context>
+      <context name="embedded-c" attribute="Normal Text" lineEndContext="#stay">
+        <Detect2Chars char="C" char1="{" context="embedded-c_enclosure" attribute="Region Marker" beginRegion="embedded_c_block" />
+      </context>
+      <context name="embedded-c_enclosure" attribute="Normal Text" lineEndContext="#stay">
+        <Detect2Chars char="}" char1="C" context="#pop" attribute="Region Marker" endRegion="embedded_c_block" />
+        <IncludeRules context="##C" />
       </context>
       <context name="shell-like-comment" attribute="Comment" lineEndContext="#pop">
       </context>
@@ -147,6 +187,7 @@
         <keyword attribute="Standard VCL Function" context="#stay" String="vclStandardFunctions" />
         <keyword attribute="Condition Keyword" context="condition_part" String="vclConditionalKeywords" />
         <StringDetect attribute="Keyword" context="return_statement" String="return" />
+        <IncludeRules context="embedded-c" />
       </context>
       <context name="return_statement" attribute="Normal Text" lineEndContext="#stay">
         <keyword attribute="Action Keyword" context="#stay" String="vclModes" />
@@ -194,6 +235,7 @@
       </context>
       <context name="backend_declaration" attribute="Normal Text" lineEndContext="#stay">
         <DetectSpaces />
+        <DetectChar attribute="Operator" context="#stay" char="=" />
         <DetectChar attribute="Region Marker" context="backend_definition" char="{" beginRegion="backend_block" />
         <DetectChar attribute="Normal Text" context="#pop" char=";" />
       </context>
@@ -230,6 +272,32 @@
         <DetectChar attribute="Logical Operator" context="#stay" char="/" />
         <DetectChar attribute="Region Marker" context="#pop#pop" char="}" endRegion="acl_block" />
       </context>
+      <context name="import_declaration" attribute="Normal Text" lineEndContext="#stay">
+        <keyword attribute="Well-known VMod" context="import_identified" String="knownVMods" />
+        <DetectIdentifier attribute="VMod Identifier" context="import_identified" />
+      </context>
+      <context name="import_identified" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar attribute="Normal Text" context="#pop#pop" char=";" />
+        <StringDetect attribute="Keyword" context="import_from" String="from" />
+      </context>
+      <context name="import_from" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar char="&quot;" context="import_from_path" attribute="String" />
+      </context>
+      <context name="import_from_path" attribute="String" lineEndContext="#stay">
+        <DetectChar char="&quot;" context="import_from_path_complete" attribute="String" />
+      </context>
+      <context name="import_from_path_complete" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar attribute="Normal Text" context="#pop#pop#pop#pop#pop" char=";" />
+      </context>
+      <context name="include_declaration" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar char="&quot;" context="include_path" attribute="String" />
+      </context>
+      <context name="include_path" attribute="String" lineEndContext="#stay">
+        <DetectChar char="&quot;" context="include_path_complete" attribute="String" />
+      </context>
+      <context name="include_path_complete" attribute="Normal Text" lineEndContext="#stay">
+        <DetectChar attribute="Normal Text" context="#pop#pop#pop" char=";" />
+      </context>
     </contexts>
     <itemDatas>
       <itemData name="Normal Text"               defStyleNum="dsNormal" />
@@ -256,6 +324,8 @@
       <itemData name="HTTP X- Header"            defStyleNum="dsDataType" color="#0D62FF" selColor="#0D62FF" bold="0" italic="1" />
       <itemData name="Decimal"                   defStyleNum="dsDecVal" />
       <itemData name="Duration"                  defStyleNum="dsDecVal" />
+      <itemData name="VMod Identifier"           defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" />
+      <itemData name="Well-known VMod"           defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" bold="1" />
     </itemDatas>
   </highlighting>
   <general>

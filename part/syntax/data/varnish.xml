@@ -10,7 +10,7 @@
 [2] http://kate-editor.org/2005/03/24/writing-a-syntax-highlighting-file/
 [3] https://www.varnish-cache.org/docs/3.0/reference/vcl.html
 //-->
-<language name="Varnish Configuration Language" version="0.1" kateversion="2.4" section="Configuration" extensions="*.vcl;" mimetype="" author="Xavier Guerrin (xavier@tuxfamily.org)" license="WTFPL">
+<language name="Varnish Configuration Language" version="0.2" kateversion="2.4" section="Configuration" extensions="*.vcl;" mimetype="" author="Xavier Guerrin (xavier@tuxfamily.org)" license="WTFPL">
   <highlighting>
     <list name="vclStandardSubs">
       <item>vcl_recv</item>

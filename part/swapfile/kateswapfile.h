@@ -32,7 +32,7 @@
 #include "katebuffer.h"
 #include "katedocument.h"
 
-#include <messageinterface.h>
+#include <ktexteditor/messageinterface.h>
 
 class KateView;
 

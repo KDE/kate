@@ -22,7 +22,7 @@
 #include "katemessagewidget.moc"
 #include "katefadeeffect.h"
 
-#include <messageinterface.h>
+#include <ktexteditor/messageinterface.h>
 #include <kmessagewidget.h>
 
 #include <kdeversion.h>

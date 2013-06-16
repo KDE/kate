@@ -1995,8 +1995,8 @@ bool KateDocument::openFile()
   //
   if (!success) {
     QPointer<KTextEditor::Message> message
-      = new KTextEditor::Message(KTextEditor::Message::Error
-          , i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().pathOrUrl()));
+      = new KTextEditor::Message(i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().pathOrUrl()),
+                                 KTextEditor::Message::Error);
     message->setWordWrap(true);
     QAction* tryAgainAction = new QAction(KIcon("view-refresh"), i18nc("translators: you can also translate 'Try Again' with 'Reload'", "Try Again"), 0);
     connect(tryAgainAction, SIGNAL(triggered()), SLOT(documentReload()), Qt::QueuedConnection);
@@ -2022,11 +2022,11 @@ bool KateDocument::openFile()
     setReadWrite( false );
     
     QPointer<KTextEditor::Message> message
-      = new KTextEditor::Message(KTextEditor::Message::Warning
-          , i18n ("The file %1 was opened with %2 encoding but contained invalid characters.<br />"
-                "It is set to read-only mode, as saving might destroy its content.<br />"
-                "Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(),
-                QString (m_buffer->textCodec()->name ())));
+      = new KTextEditor::Message(i18n ("The file %1 was opened with %2 encoding but contained invalid characters.<br />"
+                                       "It is set to read-only mode, as saving might destroy its content.<br />"
+                                       "Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(),
+                                       QString (m_buffer->textCodec()->name ())),
+                                 KTextEditor::Message::Warning);
     message->setWordWrap(true);
     postMessage(message);
 
@@ -2043,9 +2043,10 @@ bool KateDocument::openFile()
     setReadWrite( false );
     
     QPointer<KTextEditor::Message> message
-      = new KTextEditor::Message(KTextEditor::Message::Warning
-          , i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters).<br />"
-                "Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit()));
+      = new KTextEditor::Message(i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters).<br />"
+                                       "Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.",
+                                       this->url().pathOrUrl(),config()->lineLengthLimit()),
+                                 KTextEditor::Message::Warning);
     message->setWordWrap(true);
     postMessage(message);
 
@@ -4846,8 +4847,7 @@ void KateDocument::slotTriggerLoadingMessage ()
    * create message about file loading in progress
    */
   delete m_loadingMessage;
-  m_loadingMessage = new KTextEditor::Message(KTextEditor::Message::Information
-          , i18n ("The file <a href=\"%1\">%2</a> is still loading.", url().pathOrUrl(), url().fileName()));
+  m_loadingMessage = new KTextEditor::Message(i18n ("The file <a href=\"%1\">%2</a> is still loading.", url().pathOrUrl(), url().fileName()));
   m_loadingMessage->setPosition(KTextEditor::Message::TopInView);
 
   /**

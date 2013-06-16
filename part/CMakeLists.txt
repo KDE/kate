@@ -191,7 +191,6 @@ snippet/editrepository.cpp
 snippet/editsnippet.cpp
 
 # KDE5: move to KTextEditor
-kte5/messageinterface.cpp
 kte5/documentcursor.cpp
 )
 

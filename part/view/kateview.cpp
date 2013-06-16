@@ -59,8 +59,9 @@
 #include "snippet/katesnippetglobal.h"
 #include "snippet/snippetcompletionmodel.h"
 #include "katemessagewidget.h"
-#include "messageinterface.h"
 #include "katetemplatehandler.h"
+
+#include <ktexteditor/messageinterface.h>
 
 #include <kparts/event.h>
 

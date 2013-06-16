@@ -541,8 +541,8 @@ void SwapFile::writeFileToDisk()
 
 void SwapFile::showSwapFileMessage()
 {
-  m_swapMessage = new KTextEditor::Message(KTextEditor::Message::Warning,
-    i18n("The file was not closed properly."));
+  m_swapMessage = new KTextEditor::Message(i18n("The file was not closed properly."),
+                                           KTextEditor::Message::Warning);
   m_swapMessage->setWordWrap(true);
 
   QAction* diffAction = new QAction(KIcon("split"), i18n("View Changes"), 0);

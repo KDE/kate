@@ -41,12 +41,12 @@
 #include <ktexteditor/highlightinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/recoveryinterface.h>
+#include <ktexteditor/messageinterface.h>
 
 #include "katepartprivate_export.h"
 #include "katetextline.h"
 #include "katetextcursor.h"
 #include "katetextrange.h"
-#include "messageinterface.h"
 
 namespace KTextEditor {
   class Plugin;

@@ -32,7 +32,7 @@
 
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>
-#include <kte5/messageinterface.h> // KDE5 rename kte5 to ktexteditor
+#include <ktexteditor/messageinterface.h>
 
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
@@ -279,7 +279,7 @@ void KateSearchBar::showInfoMessage(const QString& text)
 {
     delete m_infoMessage;
 
-    m_infoMessage = new KTextEditor::Message(KTextEditor::Message::Positive, text);
+    m_infoMessage = new KTextEditor::Message(text, KTextEditor::Message::Positive);
     m_infoMessage->setPosition(KTextEditor::Message::BottomInView);
     m_infoMessage->setAutoHide(3000); // 3 seconds
     m_infoMessage->setView(m_view);

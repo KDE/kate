@@ -186,8 +186,8 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
    */  
   if (m_doc->url().isLocalFile() && !QFile::exists (m_file)) {
     clear ();
-    KTextEditor::Message* message = new KTextEditor::Message(KTextEditor::Message::Warning,
-                                                             i18nc("short translation, user created new file", "New file"));
+    KTextEditor::Message* message = new KTextEditor::Message(i18nc("short translation, user created new file", "New file"),
+                                                             KTextEditor::Message::Warning);
     message->setPosition(KTextEditor::Message::TopInView);
     message->setAutoHide(1000);
     m_doc->postMessage(message);

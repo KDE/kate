@@ -25,7 +25,7 @@
 #include <kateglobal.h>
 #include <katedocument.h>
 #include <kateview.h>
-#include <messageinterface.h>
+#include <ktexteditor/messageinterface.h>
 #include <katemessagewidget.h>
 
 using namespace KTextEditor;
@@ -50,7 +50,7 @@ void MessageTest::testPostMessage()
     view->show();
     view->resize(400, 300);
 
-    QPointer<Message> message = new Message(Message::Information, "Message text");
+    QPointer<Message> message = new Message("Message text", Message::Information);
     message->setPosition(Message::TopInView);
 
     // posing message should succeed
@@ -82,7 +82,7 @@ void MessageTest::testAutoHide()
     // show a message with autoHide. Check, if it's deleted correctly
     // auto hide mode: Message::Immediate
     //
-    QPointer<Message> message = new Message(Message::Information, "Message text");
+    QPointer<Message> message = new Message("Message text", Message::Information);
     message->setPosition(Message::TopInView);
     message->setAutoHide(2000);
     message->setAutoHideMode(Message::Immediate);
@@ -114,7 +114,7 @@ void MessageTest::testAutoHideAfterUserInteraction()
     // show a message with autoHide. Check, if it's deleted correctly
     // auto hide mode: Message::AfterUserInteraction
     //
-    QPointer<Message> message = new Message(Message::Information, "Message text");
+    QPointer<Message> message = new Message("Message text", Message::Information);
     message->setPosition(Message::TopInView);
     message->setAutoHide(2000);
     QVERIFY(message->autoHideMode() == Message::AfterUserInteraction);
@@ -156,12 +156,12 @@ void MessageTest::testMessageQueue()
     // add two messages, both with autoHide to 1 second, and check that the queue is processed correctly
     // auto hide mode: Message::Immediate
     //
-    QPointer<Message> m1 = new Message(Message::Information, "Info text");
+    QPointer<Message> m1 = new Message("Info text", Message::Information);
     m1->setPosition(Message::TopInView);
     m1->setAutoHide(1000);
     m1->setAutoHideMode(Message::Immediate);
 
-    QPointer<Message> m2 = new Message(Message::Error, "Error text");
+    QPointer<Message> m2 = new Message("Error text", Message::Error);
     m2->setPosition(Message::TopInView);
     m2->setAutoHide(1000);
     m2->setAutoHideMode(Message::Immediate);
@@ -217,11 +217,11 @@ void MessageTest::testPriority()
     // - m1 should be hidden in favour of m2
     // - changing text of m1 while m2 is displayed should not change the displayed text
     //
-    QPointer<Message> m1 = new Message(Message::Positive, "m1");
+    QPointer<Message> m1 = new Message("m1", Message::Positive);
     m1->setPosition(Message::TopInView);
     QVERIFY(m1->priority() == 0);
 
-    QPointer<Message> m2 = new Message(Message::Error, "m2");
+    QPointer<Message> m2 = new Message("m2", Message::Error);
     m2->setPosition(Message::TopInView);
     m2->setAutoHide(1000);
     m2->setAutoHideMode(Message::Immediate);
@@ -273,7 +273,7 @@ void MessageTest::testCreateView()
     // - verify that both views get the message
     // - verify that, once the message is deleted, both views hide the message
     //
-    QPointer<Message> m1 = new Message(Message::Positive, "message");
+    QPointer<Message> m1 = new Message("message", Message::Positive);
     m1->setPosition(Message::TopInView);
     QVERIFY(m1->priority() == 0);
 
@@ -312,7 +312,7 @@ void MessageTest::testHideView()
     view->resize(400, 300);
 
     // create message that hides after 2s immediately
-    QPointer<Message> message = new Message(Message::Information, "Message text");
+    QPointer<Message> message = new Message("Message text", Message::Information);
     message->setAutoHide(2000);
     message->setAutoHideMode(Message::Immediate);
     message->setPosition(Message::TopInView);
@@ -363,7 +363,7 @@ void MessageTest::testHideViewAfterUserInteraction()
     view->resize(400, 300);
 
     // create message that hides after 2s immediately
-    QPointer<Message> message = new Message(Message::Information, "Message text");
+    QPointer<Message> message = new Message("Message text", Message::Information);
     message->setAutoHide(2000);
     QVERIFY(message->autoHideMode() == Message::AfterUserInteraction);
     message->setPosition(Message::TopInView);

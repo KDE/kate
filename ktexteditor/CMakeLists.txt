@@ -25,6 +25,7 @@ set(ktexteditor_LIB_SRCS
    movingcursor.cpp
    movingrange.cpp
    movingrangefeedback.cpp
+   messageinterface.cpp
    )
 
 
@@ -86,6 +87,7 @@ install( FILES
     movingrange.h
     movingrangefeedback.h
     recoveryinterface.h
+    messageinterface.h
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )

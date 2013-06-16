@@ -359,7 +359,7 @@ private:
 /**
  * \brief Message interface for posting interactive Message%s to a Document and its View%s.
  *
- * \ingroup kte_group_document_extension
+ * \ingroup kte_group_doc_extensions
  *
  * This interface allows to post Message%s to a Document. The Message then
  * is shown either the specified View if Message::setView() was called, or

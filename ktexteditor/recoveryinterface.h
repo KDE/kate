@@ -27,7 +27,7 @@ namespace KTextEditor
 /**
  * \brief Document extension interface to control crash recovery.
  *
- * \ingroup kte_group_document_extensions
+ * \ingroup kte_group_doc_extensions
  *
  * When the system or the application using the editor component crashed
  * with unsaved changes in the Document, the View notifies the user about

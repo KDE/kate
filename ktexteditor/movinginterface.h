@@ -35,7 +35,7 @@ namespace KTextEditor
 /**
  * \brief Document interface for MovingCursor%s and MovingRange%s.
  *
- * \ingroup kte_group_document_extension
+ * \ingroup kte_group_doc_extensions
  * \ingroup kte_group_moving_classes
  *
  * This class provides the interface for KTextEditor::Documents to create MovingCursors/Ranges.

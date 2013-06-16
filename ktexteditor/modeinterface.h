@@ -23,6 +23,9 @@
 #include <ktexteditor/ktexteditor_export.h>
 
 
+// TODO KDE5: The ModeInterface is not implemented by any class KatePart
+//            --> remove?
+
 namespace KTextEditor
 {
 

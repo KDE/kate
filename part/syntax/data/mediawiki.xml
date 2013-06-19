@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd" [
   <!ENTITY url "(http:|https:|ftp:|mailto:)[^]| ]*(?=$|[]|\s])">
 ]>
-<language name="MediaWiki" section="Markup" version="1.04" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
+<language name="MediaWiki" section="Markup" version="1.05" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
@@ -135,16 +135,20 @@
       <context attribute="Comment" lineEndContext="#stay" name="comment" >
         <StringDetect String="--&gt;" context="#pop" attribute="Comment" endRegion="comment" />
       </context>
-      <context attribute="Link" lineEndContext="#stay" name="URL" >
+      <context attribute="Link" lineEndContext="#stay" name="DelimitedURL" >
         <DetectChar char="]" context="#pop" attribute="Wiki-Tag" />
         <DetectChar char="[" context="#stay" attribute="Wiki-Tag" />
-        <RegExpr String="&url;" context="URLLink" lookAhead="true" />
+        <RegExpr String="&url;" context="DelimitedUrlLink" lookAhead="true" />
         <DetectChar char=" " context="URLTag" attribute="Wiki-Tag" />
       </context>
-      <context attribute="Link" lineEndContext="#stay" name="URLLink" >
+      <context attribute="Link" lineEndContext="#stay" name="DelimitedUrlLink" >
         <IncludeRules context="FindTemplate" />
         <DetectChar char=" " context="#pop" lookAhead="true" />
         <DetectChar char="]" context="#pop" lookAhead="true" />
+      </context>
+      <context attribute="Link" lineEndContext="#pop" name="LooseURL" >
+        <IncludeRules context="FindTemplate" />
+        <DetectChar char=" " context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="dsNormal" lineEndContext="#stay" name="URLTag" >
         <IncludeRules context="FindBoldAndItalic" />
@@ -157,7 +161,7 @@
         <DetectChar char="|" attribute="Wiki-Tag" context="WikiLinkDescription" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" />
       </context>
-      <context attribute="Link" lineEndContext="#stay" name="WikiLinkDescription" >
+      <context attribute="dsNormal" lineEndContext="#stay" name="WikiLinkDescription" >
         <IncludeRules context="FindTemplate" />
         <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
       </context>
@@ -257,8 +261,8 @@
         <StringDetect String="''" attribute="Wiki-Tag" context="BoldItalic" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="FindUrl" >
-        <RegExpr String="\[&url;" attribute="Wiki-Tag" context="URL" lookAhead="true" />
-        <RegExpr String="&url;" attribute="URL" context="#stay" />
+        <RegExpr String="\[&url;" attribute="Wiki-Tag" context="DelimitedURL" lookAhead="true" />
+        <RegExpr String="&url;" attribute="URL" context="LooseURL" lookAhead="true" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="FindTemplate" >
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />

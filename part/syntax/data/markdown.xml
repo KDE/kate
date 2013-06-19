@@ -35,7 +35,7 @@
 <!ENTITY strikeoutregex "[~]{2}[^~].*[^~][~]{2}">
 <!-- pandoc style -->
 ]>
-<language name="Markdown" version="1.2" kateversion="3.7" section="Markup" extensions="*.md;*.mmd;*.markdown" priority="15" author="Darrin Yeager, Claes Holmerson" license="GPL,BSD">
+<language name="Markdown" version="1.3" kateversion="3.7" section="Markup" extensions="*.md;*.mmd;*.markdown" priority="15" author="Darrin Yeager, Claes Holmerson" license="GPL,BSD">
   <highlighting>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
@@ -45,6 +45,7 @@
         <RegExpr attribute="h3" String="^###\s.*[#]?$"/>
         <RegExpr attribute="h4" String="^####\s.*[#]?$"/>
         <RegExpr attribute="h5" String="^#####\s.*[#]?$"/>
+        <RegExpr attribute="h6" String="^######\s.*[#]?$"/>
         <RegExpr attribute="ruler" String="&rulerregex;"/>
         <RegExpr attribute="strong" String="&strongregex;"/>
         <RegExpr attribute="emphasis" String="&emphasisregex;"/>
@@ -102,6 +103,7 @@
       <itemData name="h3" defStyleNum="dsFunction" bold="true"/>
       <itemData name="h4" defStyleNum="dsFunction" bold="true"/>
       <itemData name="h5" defStyleNum="dsFunction" bold="true"/>
+      <itemData name="h6" defStyleNum="dsFunction" bold="true"/>
       <itemData name="blockquote" defStyleNum="dsDataType"/>
       <itemData name="bq-emphasis" defStyleNum="dsDataType" italic="true"/>
       <itemData name="bq-strong" defStyleNum="dsDataType" bold="true"/>

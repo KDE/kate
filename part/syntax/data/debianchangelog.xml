@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Debian Changelog" version="0.67" kateversion="2.4" section="Other" extensions="" mimetype="">
+<language name="Debian Changelog" version="0.68" kateversion="2.4" section="Other" extensions="" mimetype="">
     <highlighting>
         <list name="keywords">
             <item>urgency</item>
@@ -12,6 +12,7 @@
             <item>oldstable-proposed-updates</item>
             <item>stable</item>
             <item>stable-security</item>
+            <item>stable-proposed-updates</item>
             <item>testing</item>
             <item>testing-security</item>
             <item>testing-proposed-updates</item>
@@ -33,11 +34,14 @@
             <item>lenny-volatile</item>
             <item>squeeze</item>
             <item>squeeze-backports</item>
+            <item>squeeze-backports-sloppy</item>
             <item>squeeze-volatile</item>
             <item>wheezy</item>
             <item>wheezy-backports</item>
+            <item>wheezy-backports-sloppy</item>
             <item>jessie</item>
             <item>jessie-backports</item>
+            <item>jessie-backports-sloppy</item>
             <!-- Ubuntu releases -->
             <item>dapper</item>
             <item>dapper-security</item>

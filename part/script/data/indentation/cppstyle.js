@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 6
+ * revision: 7
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4
@@ -1429,15 +1429,17 @@ function findMultiLineCommentBlockEnd(line)
             break;
     }
     line++;                                                 // Move to *next* line
-    // Make sure it is not another one comment, and if so,
-    // going to find it's end as well...
-    var currentLineText = document.line(line).ltrim();
-    if (currentLineText.startsWith("//"))
-        line = findSingleLineCommentBlockEnd(line);
-    else if (currentLineText.startsWith("/*"))
-        line = findMultiLineCommentBlockEnd(line);
-    else if (document.lines() <= line)
-        line = 0;
+    if (line < document.lines())
+    {
+        // Make sure it is not another one comment, and if so,
+        // going to find it's end as well...
+        var currentLineText = document.line(line).ltrim();
+        if (currentLineText.startsWith("//"))
+            line = findSingleLineCommentBlockEnd(line);
+        else if (currentLineText.startsWith("/*"))
+            line = findMultiLineCommentBlockEnd(line);
+    }
+    else line = 0;                                          // EOF found
     return line;
 }
 
@@ -1458,20 +1460,22 @@ function findSingleLineCommentBlockEnd(line)
         if (text.length == 0) continue;                     // Skip empty lines...
         if (!text.startsWith("//")) break;                  // Yeah! Smth was found finally.
     }
-    var currentLineText = document.line(line).ltrim();      // Get text of the found line
-    while (currentLineText.length == 0)                     // Skip empty lines if any
-        currentLineText = document.line(line).ltrim();
-    // Make sure it is not another one multiline comment, and if so,
-    // going to find it's end as well...
-    if (currentLineText.startsWith("/*"))
-        line = findMultiLineCommentBlockEnd(line);
-    else if (document.lines() <= line)
-        line = 0;
+    if (line < document.lines())
+    {
+        var currentLineText = document.line(line).ltrim();  // Get text of the found line
+        while (currentLineText.length == 0)                 // Skip empty lines if any
+            currentLineText = document.line(++line).ltrim();
+        // Make sure it is not another one multiline comment, and if so,
+        // going to find it's end as well...
+        if (currentLineText.startsWith("/*"))
+            line = findMultiLineCommentBlockEnd(line);
+    }
+    else line = 0;                                          // EOF found
     return line;
 }
 
 /**
- * Almost anything in a code is places whithin a some brackets.
+ * Almost anything in a code is placed whithin some brackets.
  * So the ideas is simple:
  * \li find nearest open bracket of any kind
  * \li depending on its type and presence of leading delimiters (non identifier charscters)

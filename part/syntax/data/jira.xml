@@ -1,0 +1,58 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE language SYSTEM "language.dtd" [
+  <!ENTITY deleted "(\s|^)\-[^\s]{1}[^\-]+\-(?=\s|\.|,|;|:|\-|\?|$)">
+  <!ENTITY emphasis "(\s|^)[^\s]{1}[^_]+_(?=\s|\.|,|;|:|\-|\?|$)">
+  <!ENTITY inserted "(\s|^)\+[^\s]{1}[^\+]+\+(?=\s|\.|,|;|:|\-|\?|$)">
+  <!ENTITY strong "(\s|^)\*[^\s]{1}[^\*]+\*(?=\s|\.|,|;|:|\-|\?|$)">
+  <!ENTITY url "(http:|https:|ftp:|mailto:)[^]| ]*(?=$|[]|\s])">
+]>
+<language name="Jira" section="Markup" version="0.1" kateversion="3.10.1" extensions="*.jira" mimetype="" license="FDL" >
+  <highlighting>
+    <contexts>
+
+      <!-- Main Context -->
+      <context name="Main" attribute="Normal" lineEndContext="#stay" >
+        <IncludeRules context="FindHeader" />
+        <IncludeRules context="FindTextEffects" />
+      </context>
+
+
+      <!-- Contexts -->
+
+      <!-- Headings -->
+      <context name="Header" attribute="Header" lineEndContext="#pop" />
+
+
+      <!-- Rules to Include -->
+
+      <!-- Headings -->
+      <context name="FindHeader" attribute="Normal" lineEndContext="#stay" >
+        <RegExpr String="h[1-6]\. " context="Header" attribute="Special Character" column="0" />
+      </context>
+
+      <!-- Text Effects -->
+      <context name="FindTextEffects" attribute="Normal" lineEndContext="#stay" >
+        <RegExpr String="&strong;" attribute="Bold" />
+        <RegExpr String="&emphasis;" attribute="Italic" />
+        <Detect2Chars char="?" char1="?" attribute="Special Character" />
+        <RegExpr String="&deleted;" attribute="Stroked Out" />
+        <RegExpr String="&inserted;" attribute="Underlined" />
+      </context>
+
+    </contexts>
+    <itemDatas>
+      <itemData name="Normal" defStyleNum="dsNormal" /><!-- Must be first. -->
+      <itemData name="Bold" defStyleNum="dsNormal" bold="true" />
+      <itemData name="Header" defStyleNum="dsKeyword" />
+      <itemData name="Italic" defStyleNum="dsNormal" italic="true" />
+      <itemData name="Keyword" defStyleNum="dsKeyword" />
+      <itemData name="Special Character" defStyleNum="dsDecVal" bold="true" />
+      <itemData name="Stroked Out" defStyleNum="dsNormal" strikeout="true" />
+      <itemData name="Underlined" defStyleNum="dsNormal" underline="true" />
+    </itemDatas>
+  </highlighting>
+  <general>
+    <keywords casesensitive="0" />
+    <indentation mode="normal" />
+  </general>
+</language>

@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd" [
   <!ENTITY url "(http:|https:|ftp:|mailto:)[^]| ]*(?=$|[]|\s])">
 ]>
-<language name="MediaWiki" section="Markup" version="1.06" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
+<language name="MediaWiki" section="Markup" version="1.07" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
@@ -146,10 +146,17 @@
         <DetectChar char=" " context="#pop" lookAhead="true" />
         <DetectChar char="]" context="#pop" lookAhead="true" />
       </context>
+
       <context attribute="Link" lineEndContext="#pop" name="LooseURL" >
         <IncludeRules context="FindTemplate" />
         <DetectChar char=" " context="#pop" attribute="Wiki-Tag" />
       </context>
+      <context attribute="Link" lineEndContext="#pop" name="LooseURLWithinTemplate" >
+        <IncludeRules context="FindTemplate" />
+        <Detect2Chars char="}" char1="}" context="#pop" lookAhead="true" />
+        <DetectChar char=" " context="#pop" attribute="Wiki-Tag" />
+      </context>
+
       <context attribute="dsNormal" lineEndContext="#stay" name="URLTag" >
         <IncludeRules context="FindTextDecorations" />
         <IncludeRules context="FindTemplate" />
@@ -174,7 +181,7 @@
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
-        <IncludeRules context="FindUrl" />
+        <IncludeRules context="FindUrlWithinTemplate" />
         <IncludeRules context="FindTextDecorations" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
@@ -196,7 +203,7 @@
       <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlotValue" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
-        <IncludeRules context="FindUrl" />
+        <IncludeRules context="FindUrlWithinTemplate" />
         <IncludeRules context="FindTextDecorations" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
@@ -256,6 +263,7 @@
       </context>
 
       <!-- Contexts for inclusion. -->
+
       <context attribute="Normal" lineEndContext="#stay" name="FindTextDecorations" >
         <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
         <StringDetect String="''" attribute="Wiki-Tag" context="Italic" />
@@ -265,10 +273,16 @@
         <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
         <StringDetect String="''" attribute="Wiki-Tag" context="BoldItalic" />
       </context>
+
       <context attribute="Normal" lineEndContext="#stay" name="FindUrl" >
         <RegExpr String="\[&url;" attribute="Wiki-Tag" context="DelimitedURL" lookAhead="true" />
         <RegExpr String="&url;" attribute="URL" context="LooseURL" lookAhead="true" />
       </context>
+      <context attribute="Normal" lineEndContext="#stay" name="FindUrlWithinTemplate" >
+        <RegExpr String="\[&url;" attribute="Wiki-Tag" context="DelimitedURL" lookAhead="true" />
+        <RegExpr String="&url;" attribute="URL" context="LooseURLWithinTemplate" lookAhead="true" />
+      </context>
+
       <context attribute="Normal" lineEndContext="#stay" name="FindTemplate" >
         <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
       </context>

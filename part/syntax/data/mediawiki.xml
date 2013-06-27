@@ -1,8 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <!DOCTYPE language SYSTEM "language.dtd" [
-  <!ENTITY url "(http:|https:|ftp:|mailto:)[^]| ]*(?=$|[]|\s])">
+  <!ENTITY url          "(http:|https:|ftp:|mailto:)[^]| ]*(?=$|[]|\s])">
+  <!ENTITY htmlTagName  "(?![0-9])[\w_:][\w.:_-]*">
+  <!ENTITY htmlEntity   "&amp;(#[0-9]+|#[xX][0-9A-Fa-f]+|&htmlTagName;);">
 ]>
-<language name="MediaWiki" section="Markup" version="1.08" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
+<language name="MediaWiki" section="Markup" version="1.9" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
@@ -11,21 +13,20 @@
         <RegExpr String="[=]{4,4}(?!=)" context="Section4" attribute="Section" column="0" />
         <RegExpr String="[=]{3,3}(?!=)" context="Section3" attribute="Section" column="0" />
         <RegExpr String="[=]{2,2}(?!=)" context="Section2" attribute="Section" column="0" />
-        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
-        <DetectChar char=";" attribute="Wiki-Tag" context="DefinitionListHeader" column="0" />
+        <RegExpr String="[~]{3,4}" attribute="WikiTag" context="#stay" />
+        <DetectChar char=";" attribute="WikiTag" context="DefinitionListHeader" column="0" />
         <IncludeRules context="FindListItem" />
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindTextDecorations" />
-        <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="|" context="Table" attribute="WikiTag" column="0" beginRegion="table" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="WikiTag" />
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
-        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
-        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
-        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="WikiTag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HtmlEntity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="WikiTag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
+        <IncludeRules context="FindSyntaxHighlightingHtmlElement" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
         <RegExpr String="[\s]" context="Unformatted" column="0" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="Table" >
@@ -34,41 +35,39 @@
         <RegExpr String="[=]{4,4}(?!=)" context="Section4" attribute="Section" column="0" />
         <RegExpr String="[=]{3,3}(?!=)" context="Section3" attribute="Section" column="0" />
         <RegExpr String="[=]{2,2}(?!=)" context="Section2" attribute="Section" column="0" />
-        <DetectChar char=";" attribute="Wiki-Tag" context="DefinitionListHeader" column="0" />
+        <DetectChar char=";" attribute="WikiTag" context="DefinitionListHeader" column="0" />
         <IncludeRules context="FindListItem" />
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindTextDecorations" />
-        <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
-        <Detect2Chars char="|" char1="}" context="#pop" attribute="Wiki-Tag" column="0" endRegion="table" />
-        <DetectChar char="|" attribute="Wiki-Tag" context="#stay"/>
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <Detect2Chars char="{" char1="|" context="Table" attribute="WikiTag" column="0" beginRegion="table" />
+        <Detect2Chars char="|" char1="}" context="#pop" attribute="WikiTag" column="0" endRegion="table" />
+        <DetectChar char="|" attribute="WikiTag" context="#stay"/>
+        <StringDetect String="{{{" context="TemplateParameter" attribute="WikiTag" />
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
-        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
-        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="Wiki-Tag" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
-        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="WikiTag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HtmlEntity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="WikiTag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
+        <IncludeRules context="FindSyntaxHighlightingHtmlElement" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
         <RegExpr String="[\s]" context="Unformatted" column="0" />
-        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
-        <RegExpr String="[-]{4,}" attribute="Wiki-Tag" context="#stay" />
-        <DetectChar char="!" attribute="Wiki-Tag" context="#stay" column="0" />
+        <RegExpr String="[~]{3,4}" attribute="WikiTag" context="#stay" />
+        <RegExpr String="[-]{4,}" attribute="WikiTag" context="#stay" />
+        <DetectChar char="!" attribute="WikiTag" context="#stay" column="0" />
       </context>
       <context attribute="Section" lineEndContext="#pop" name="Section5" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
-        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[~]{3,4}" attribute="WikiTag" context="#stay" />
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindTextDecorationsBeingBold" />
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="WikiTag" />
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
-        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
-        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
-        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="WikiTag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HtmlEntity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HtmlTag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
+        <IncludeRules context="FindSyntaxHighlightingHtmlElement" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
         <RegExpr String="={6,}$" context="#pop" attribute="Normal" />
         <RegExpr String="={5,5}$" context="#pop" attribute="Section" />
         <RegExpr String="={1,4}$" context="#pop" attribute="Normal" />
@@ -77,18 +76,17 @@
       </context>
       <context attribute="Section" lineEndContext="#pop" name="Section4" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
-        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[~]{3,4}" attribute="WikiTag" context="#stay" />
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindTextDecorationsBeingBold" />
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="WikiTag" />
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
-        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
-        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
-        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="WikiTag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HtmlEntity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HtmlTag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
+        <IncludeRules context="FindSyntaxHighlightingHtmlElement" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
         <RegExpr String="={5,}$" context="#pop" attribute="Normal" />
         <RegExpr String="={4,4}$" context="#pop" attribute="Section" />
         <RegExpr String="={1,3}$" context="#pop" attribute="Normal" />
@@ -96,18 +94,17 @@
       </context>
       <context attribute="Section" lineEndContext="#pop" name="Section3" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
-        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[~]{3,4}" attribute="WikiTag" context="#stay" />
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindTextDecorationsBeingBold" />
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="WikiTag" />
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
-        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
-        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
-        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="WikiTag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HtmlEntity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HtmlTag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
+        <IncludeRules context="FindSyntaxHighlightingHtmlElement" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
         <RegExpr String="={4,}$" context="#pop" attribute="Normal" />
         <RegExpr String="={3,3}$" context="#pop" attribute="Section" />
         <RegExpr String="={1,2}$" context="#pop" attribute="Normal" />
@@ -115,18 +112,17 @@
       </context>
       <context attribute="Section" lineEndContext="#pop" name="Section2" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
-        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[~]{3,4}" attribute="WikiTag" context="#stay" />
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindTextDecorationsBeingBold" />
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="WikiTag" />
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
-        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
-        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
-        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="WikiTag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HtmlEntity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HtmlTag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
+        <IncludeRules context="FindSyntaxHighlightingHtmlElement" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
         <RegExpr String="={3,}$" context="#pop" attribute="Normal" />
         <RegExpr String="={2,2}$" context="#pop" attribute="Section" />
         <RegExpr String="={1,1}$" context="#pop" attribute="Normal" />
@@ -136,10 +132,10 @@
         <StringDetect String="--&gt;" context="#pop" attribute="Comment" endRegion="comment" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="DelimitedURL" >
-        <DetectChar char="]" context="#pop" attribute="Wiki-Tag" />
-        <DetectChar char="[" context="#stay" attribute="Wiki-Tag" />
+        <DetectChar char="]" context="#pop" attribute="WikiTag" />
+        <DetectChar char="[" context="#stay" attribute="WikiTag" />
         <RegExpr String="&url;" context="DelimitedUrlLink" lookAhead="true" />
-        <DetectChar char=" " context="URLTag" attribute="Wiki-Tag" />
+        <DetectChar char=" " context="URLTag" attribute="WikiTag" />
       </context>
       <context attribute="Link" lineEndContext="#stay" name="DelimitedUrlLink" >
         <IncludeRules context="FindTemplate" />
@@ -149,12 +145,12 @@
 
       <context attribute="Link" lineEndContext="#pop" name="LooseURL" >
         <IncludeRules context="FindTemplate" />
-        <DetectChar char=" " context="#pop" attribute="Wiki-Tag" />
+        <DetectChar char=" " context="#pop" attribute="WikiTag" />
       </context>
       <context attribute="Link" lineEndContext="#pop" name="LooseURLWithinTemplate" >
         <IncludeRules context="FindTemplate" />
         <Detect2Chars char="}" char1="}" context="#pop" lookAhead="true" />
-        <DetectChar char=" " context="#pop" attribute="Wiki-Tag" />
+        <DetectChar char=" " context="#pop" attribute="WikiTag" />
       </context>
 
       <context attribute="dsNormal" lineEndContext="#stay" name="URLTag" >
@@ -164,132 +160,222 @@
       </context>
       <context attribute="Link" lineEndContext="#stay" name="WikiLink" >
         <IncludeRules context="FindTemplate" />
-        <DetectChar char="#" attribute="Wiki-Tag" context="#stay"/>
-        <DetectChar char="|" attribute="Wiki-Tag" context="WikiLinkDescription" />
-        <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" />
+        <DetectChar char="#" attribute="WikiTag" context="#stay"/>
+        <DetectChar char="|" attribute="WikiTag" context="WikiLinkDescription" />
+        <Detect2Chars char="]" char1="]" context="#pop" attribute="WikiTag" />
       </context>
       <context attribute="dsNormal" lineEndContext="#stay" name="WikiLinkDescription" >
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="]" char1="]" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <Detect2Chars char="]" char1="]" context="#pop" attribute="WikiTag" lookAhead="true" />
       </context>
       <context attribute="Error" lineEndContext="#pop" name="Error" />
       <context attribute="TemplateName" lineEndContext="#stay" name="Template" >
-        <StringDetect String="|" context="TemplateParameterSlot" attribute="Wiki-Tag" />
-        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" endRegion="template" />
+        <StringDetect String="|" context="TemplateParameterSlot" attribute="WikiTag" />
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="WikiTag" endRegion="template" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlot" >
-        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="WikiTag" lookAhead="true" />
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
-        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[~]{3,4}" attribute="WikiTag" context="#stay" />
         <IncludeRules context="FindListItem" />
         <IncludeRules context="FindUrlWithinTemplate" />
         <IncludeRules context="FindTextDecorations" />
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="WikiTag" />
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
-        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
-        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
-        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
-        <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="WikiTag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HtmlEntity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HtmlTag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
+        <IncludeRules context="FindSyntaxHighlightingHtmlElement" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
+        <StringDetect String="|" context="#pop" attribute="WikiTag" lookAhead="true" />
         <RegExpr String="[^{}|=]+(?=[=])" attribute="Parameter" context="TemplateParameterSlotEqual" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlotEqual" >
-        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
-        <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
-        <StringDetect String="=" context="TemplateParameterSlotValue" attribute="Wiki-Tag" />
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="WikiTag" lookAhead="true" />
+        <StringDetect String="|" context="#pop" attribute="WikiTag" lookAhead="true" />
+        <StringDetect String="=" context="TemplateParameterSlotValue" attribute="WikiTag" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlotValue" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
-        <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <RegExpr String="[~]{3,4}" attribute="WikiTag" context="#stay" />
         <IncludeRules context="FindListItem" />
         <IncludeRules context="FindUrlWithinTemplate" />
         <IncludeRules context="FindTextDecorations" />
-        <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
+        <StringDetect String="{{{" context="TemplateParameter" attribute="WikiTag" />
         <IncludeRules context="FindTemplate" />
-        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
-        <RangeDetect char="&amp;" char1=";" attribute="HTML-Entity" context="#stay" />
-        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HTML-Tag" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
-        <RegExpr String="&lt;source[^&gt;]*&gt;" context="Source" attribute="HTML-Tag" />
-        <RegExpr String="&lt;syntaxhighlight[^&gt;]*&gt;" context="SyntaxHighlight" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
-        <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
-        <StringDetect String="|" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
+        <Detect2Chars char="[" char1="[" context="WikiLink" attribute="WikiTag" />
+        <RangeDetect char="&amp;" char1=";" attribute="HtmlEntity" context="#stay" />
+        <StringDetect String="&lt;nowiki&gt;" context="NoWiki" attribute="HtmlTag" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
+        <IncludeRules context="FindSyntaxHighlightingHtmlElement" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
+        <Detect2Chars char="}" char1="}" context="#pop" attribute="WikiTag" lookAhead="true" />
+        <StringDetect String="|" context="#pop" attribute="WikiTag" lookAhead="true" />
       </context>
       <context attribute="Parameter" lineEndContext="#stay" name="TemplateParameter" >
-        <StringDetect String="}}}" context="#pop" attribute="Wiki-Tag" />
+        <StringDetect String="}}}" context="#pop" attribute="WikiTag" />
       </context>
       <context attribute="NoWiki" lineEndContext="#stay" name="NoWiki" >
         <RegExpr String="&lt;!--[^-]*--&gt;" attribute="NoWiki" />
-        <StringDetect String="&lt;/nowiki&gt;" context="#pop" attribute="HTML-Tag" />
-        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HTML-Tag" context="#stay" />
-        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HTML-Tag" />
+        <StringDetect String="&lt;/nowiki&gt;" context="#pop" attribute="HtmlTag" />
+        <RegExpr String="[&lt;][^&gt;]+[&gt;]" attribute="HtmlTag" context="#stay" />
+        <StringDetect String="&lt;pre&gt;" context="Pre" attribute="HtmlTag" />
       </context>
       <context attribute="Unformatted" lineEndContext="#pop" name="Unformatted" />
       <context attribute="NoWiki" lineEndContext="#stay" name="Pre" >
-        <StringDetect String="&lt;/pre&gt;" context="#pop" attribute="HTML-Tag" />
+        <StringDetect String="&lt;/pre&gt;" context="#pop" attribute="HtmlTag" />
       </context>
-      <context attribute="NoWiki" lineEndContext="#stay" name="Source" >
-        <StringDetect String="&lt;/source&gt;" context="#pop" attribute="HTML-Tag" />
+
+
+
+      <!-- <source> and <syntaxhighlight> tags. -->
+
+      <context name="SourceStartTag" attribute="Normal" lineEndContext="#stay">
+        <RegExpr String="(^|\s+)lang\=(&quot;javascript&quot;|&apos;javascript&apos;)" context="JavaScriptSourceStartTag" lookAhead="true" />
+        <DetectChar attribute="HtmlTag" context="UnsupportedLanguageSourceStartTag" char="&gt;" lookAhead="true" />
+        <IncludeRules context="FindHtmlStartTagAttributes" />
       </context>
-      <context attribute="NoWiki" lineEndContext="#stay" name="SyntaxHighlight" >
-        <StringDetect String="&lt;/syntaxhighlight&gt;" context="#pop" attribute="HTML-Tag" />
+      <context name="SyntaxHighlightStartTag" attribute="Normal" lineEndContext="#stay">
+        <RegExpr String="(^|\s+)lang\=(&quot;javascript&quot;|&apos;javascript&apos;)" context="JavaScriptSyntaxHighlightStartTag" lookAhead="true" />
+        <DetectChar attribute="HtmlTag" context="UnsupportedLanguageSyntaxHighlightStartTag" char="&gt;" lookAhead="true" />
+        <IncludeRules context="FindHtmlStartTagAttributes" />
       </context>
+
+
+      <context name="UnsupportedLanguageSourceStartTag" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="HtmlTag" context="UnsupportedLanguageSourceContent" char="&gt;" />
+        <IncludeRules context="FindHtmlStartTagAttributes" />
+      </context>
+      <context name="UnsupportedLanguageSyntaxHighlightStartTag" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="HtmlTag" context="UnsupportedLanguageSyntaxHighlightContent" char="&gt;" />
+        <IncludeRules context="FindHtmlStartTagAttributes" />
+      </context>
+
+      <context name="JavaScriptSourceStartTag" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="HtmlTag" context="JavaScriptSourceContent" char="&gt;" />
+        <IncludeRules context="FindHtmlStartTagAttributes" />
+      </context>
+      <context name="JavaScriptSyntaxHighlightStartTag" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="HtmlTag" context="JavaScriptSyntaxHighlightContent" char="&gt;" />
+        <IncludeRules context="FindHtmlStartTagAttributes" />
+      </context>
+
+
+      <context name="UnsupportedLanguageSourceContent" attribute="NoWiki" lineEndContext="#stay">
+        <IncludeRules context="SourceEnd" />
+      </context>
+      <context name="UnsupportedLanguageSyntaxHighlightContent" attribute="NoWiki" lineEndContext="#stay">
+        <IncludeRules context="SyntaxHighlightEnd" />
+      </context>
+
+      <context name="JavaScriptSourceContent" attribute="NoWiki" lineEndContext="#stay">
+        <IncludeRules context="SourceEnd" />
+        <IncludeRules context="##JavaScript" />
+      </context>
+      <context name="JavaScriptSyntaxHighlightContent" attribute="NoWiki" lineEndContext="#stay">
+        <StringDetect String="&lt;/syntaxhighlight&gt;" context="#pop#pop#pop" attribute="HtmlTag" />
+        <IncludeRules context="SyntaxHighlightEnd" />
+        <IncludeRules context="##JavaScript" />
+      </context>
+
+
+      <context name="SourceEnd" >
+        <StringDetect String="&lt;/source&gt;" context="#pop#pop#pop" attribute="HtmlTag" />
+      </context>
+      <context name="SyntaxHighlightEnd" >
+        <StringDetect String="&lt;/syntaxhighlight&gt;" context="#pop#pop#pop" attribute="HtmlTag" />
+      </context>
+
+
+      <context name="HtmlAttribute" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="HtmlAttribute" context="HtmlValue" char="=" />
+        <RegExpr attribute="Error" context="#stay" String="\S" />
+      </context>
+      <context name="HtmlValue" attribute="Normal" lineEndContext="#stay">
+        <DetectChar attribute="HtmlValue" context="ValueWithDoubleQuotes" char="&quot;" />
+        <DetectChar attribute="HtmlValue" context="ValueWithSingleQuotes" char="&apos;" />
+        <RegExpr attribute="Error" context="#stay" String="\S" />
+      </context>
+      <context name="ValueWithDoubleQuotes" attribute="HtmlValue" lineEndContext="#stay">
+        <DetectChar attribute="HtmlValue" context="#pop#pop#pop" char="&quot;" />
+        <IncludeRules context="FindHtmlEntities" />
+      </context>
+      <context name="ValueWithSingleQuotes" attribute="HtmlValue" lineEndContext="#stay">
+        <DetectChar attribute="HtmlValue" context="#pop#pop#pop" char="&apos;" />
+        <IncludeRules context="FindHtmlEntities" />
+      </context>
+
+
+
       <context attribute="DefinitionListHeader" lineEndContext="#pop" name="DefinitionListHeader" >
-        <DetectChar char=":" context="#pop" attribute="Wiki-Tag" />
+        <DetectChar char=":" context="#pop" attribute="WikiTag" />
       </context>
       <context attribute="Bold" lineEndContext="#pop" name="Bold" >
         <IncludeRules context="FindTemplate" />
-        <StringDetect String="'''" context="#pop" attribute="Wiki-Tag" />
-        <StringDetect String="''" context="BoldItalic" attribute="Wiki-Tag" />
+        <StringDetect String="'''" context="#pop" attribute="WikiTag" />
+        <StringDetect String="''" context="BoldItalic" attribute="WikiTag" />
       </context>
       <context attribute="Italic" lineEndContext="#pop" name="Italic" >
         <IncludeRules context="FindTemplate" />
-        <StringDetect String="'''" context="ItalicBold" attribute="Wiki-Tag" />
-        <StringDetect String="''" context="#pop" attribute="Wiki-Tag" />
+        <StringDetect String="'''" context="ItalicBold" attribute="WikiTag" />
+        <StringDetect String="''" context="#pop" attribute="WikiTag" />
       </context>
       <context attribute="BoldItalic" lineEndContext="#pop" name="BoldItalic" >
         <IncludeRules context="FindTemplate" />
-        <StringDetect String="''" context="#pop" attribute="Wiki-Tag" />
+        <StringDetect String="''" context="#pop" attribute="WikiTag" />
       </context>
       <context attribute="BoldItalic" lineEndContext="#pop" name="ItalicBold" >
         <IncludeRules context="FindTemplate" />
-        <StringDetect String="'''" context="#pop" attribute="Wiki-Tag" />
+        <StringDetect String="'''" context="#pop" attribute="WikiTag" />
       </context>
       <context attribute="Underlined" lineEndContext="#stay" name="Underlined" >
         <IncludeRules context="FindTemplate" />
-        <RegExpr String="&lt;/u *&gt;" context="#pop" attribute="HTML-Tag" />
+        <RegExpr String="&lt;/u *&gt;" context="#pop" attribute="HtmlTag" />
       </context>
 
       <!-- Contexts for inclusion. -->
 
+      <context name="FindHtmlEntities" attribute="Normal" lineEndContext="#stay">
+        <RegExpr attribute="HtmlEntity" context="#stay" String="&htmlEntity;" />
+        <AnyChar attribute="Error" context="#stay" String="&amp;&lt;" />
+      </context>
+
+      <context name="FindHtmlStartTagAttributes">
+        <RegExpr attribute="HtmlAttribute" context="HtmlAttribute" String="^&htmlTagName;" />
+        <RegExpr attribute="HtmlAttribute" context="HtmlAttribute" String="\s+&htmlTagName;" />
+        <RegExpr attribute="Error" context="#stay" String="\S" />
+      </context>
+
       <context attribute="Normal" lineEndContext="#stay" name="FindListItem" >
-        <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
+        <RegExpr String="[*#;:\s]*[*#:]+" attribute="WikiTag" context="#stay" column="0" />
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="FindSyntaxHighlightingHtmlElement" >
+        <RegExpr String="&lt;source(?=\s)" context="SourceStartTag" attribute="HtmlTag" />
+        <RegExpr String="&lt;syntaxhighlight(?=\s)" context="SyntaxHighlightStartTag" attribute="HtmlTag" />
       </context>
 
       <context attribute="Normal" lineEndContext="#stay" name="FindTemplate" >
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+        <Detect2Chars char="{" char1="{" context="Template" attribute="WikiTag" beginRegion="template" />
       </context>
 
       <context attribute="Normal" lineEndContext="#stay" name="FindTextDecorations" >
-        <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
-        <StringDetect String="''" attribute="Wiki-Tag" context="Italic" />
-        <RegExpr String="&lt;u *&gt;" attribute="HTML-Tag" context="Underlined" />
+        <StringDetect String="'''" attribute="WikiTag" context="Bold" />
+        <StringDetect String="''" attribute="WikiTag" context="Italic" />
+        <RegExpr String="&lt;u *&gt;" attribute="HtmlTag" context="Underlined" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="FindTextDecorationsBeingBold" >
-        <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
-        <StringDetect String="''" attribute="Wiki-Tag" context="BoldItalic" />
+        <StringDetect String="'''" attribute="WikiTag" context="Bold" />
+        <StringDetect String="''" attribute="WikiTag" context="BoldItalic" />
       </context>
 
       <context attribute="Normal" lineEndContext="#stay" name="FindUrl" >
-        <RegExpr String="\[&url;" attribute="Wiki-Tag" context="DelimitedURL" lookAhead="true" />
+        <RegExpr String="\[&url;" attribute="WikiTag" context="DelimitedURL" lookAhead="true" />
         <RegExpr String="&url;" attribute="URL" context="LooseURL" lookAhead="true" />
       </context>
       <context attribute="Normal" lineEndContext="#stay" name="FindUrlWithinTemplate" >
-        <RegExpr String="\[&url;" attribute="Wiki-Tag" context="DelimitedURL" lookAhead="true" />
+        <RegExpr String="\[&url;" attribute="WikiTag" context="DelimitedURL" lookAhead="true" />
         <RegExpr String="&url;" attribute="URL" context="LooseURLWithinTemplate" lookAhead="true" />
       </context>
 
@@ -301,9 +387,9 @@
       <itemData name="Comment" defStyleNum="dsComment" />
       <itemData name="Section" defStyleNum="dsKeyword" />
       <itemData name="DefinitionListHeader" defStyleNum="dsKeyword" />
-      <itemData name="HTML-Entity" defStyleNum="dsDecVal" />
-      <itemData name="HTML-Tag" defStyleNum="dsKeyword" />
-      <itemData name="Wiki-Tag" defStyleNum="dsDecVal" bold="true" />
+      <itemData name="HtmlEntity" defStyleNum="dsDecVal" />
+      <itemData name="HtmlTag" defStyleNum="dsKeyword" />
+      <itemData name="WikiTag" defStyleNum="dsDecVal" bold="true" />
       <itemData name="Error" defStyleNum="dsError" />
       <itemData name="NoWiki" defStyleNum="dsNormal" />
       <itemData name="Unformatted" defStyleNum="dsNormal" />
@@ -313,6 +399,8 @@
       <itemData name="Italic" defStyleNum="dsNormal" italic="true" />
       <itemData name="BoldItalic" defStyleNum="dsNormal" bold="true" italic="true" />
       <itemData name="Underlined" defStyleNum="dsNormal" underline="true" />
+      <itemData name="HtmlAttribute" defStyleNum="dsOthers" spellChecking="false" />
+      <itemData name="HtmlValue" defStyleNum="dsString" color="#a00" spellChecking="false" />
     </itemDatas>
   </highlighting>
   <general>

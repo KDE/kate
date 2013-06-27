@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd" [
   <!ENTITY url "(http:|https:|ftp:|mailto:)[^]| ]*(?=$|[]|\s])">
 ]>
-<language name="MediaWiki" section="Markup" version="1.07" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
+<language name="MediaWiki" section="Markup" version="1.08" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
@@ -13,7 +13,7 @@
         <RegExpr String="[=]{2,2}(?!=)" context="Section2" attribute="Section" column="0" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <DetectChar char=";" attribute="Wiki-Tag" context="DefinitionListHeader" column="0" />
-        <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
+        <IncludeRules context="FindListItem" />
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindTextDecorations" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
@@ -35,7 +35,7 @@
         <RegExpr String="[=]{3,3}(?!=)" context="Section3" attribute="Section" column="0" />
         <RegExpr String="[=]{2,2}(?!=)" context="Section2" attribute="Section" column="0" />
         <DetectChar char=";" attribute="Wiki-Tag" context="DefinitionListHeader" column="0" />
-        <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
+        <IncludeRules context="FindListItem" />
         <IncludeRules context="FindUrl" />
         <IncludeRules context="FindTextDecorations" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
@@ -181,6 +181,7 @@
         <Detect2Chars char="}" char1="}" context="#pop" attribute="Wiki-Tag" lookAhead="true" />
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindListItem" />
         <IncludeRules context="FindUrlWithinTemplate" />
         <IncludeRules context="FindTextDecorations" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
@@ -203,6 +204,7 @@
       <context attribute="Normal" lineEndContext="#stay" name="TemplateParameterSlotValue" >
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
+        <IncludeRules context="FindListItem" />
         <IncludeRules context="FindUrlWithinTemplate" />
         <IncludeRules context="FindTextDecorations" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
@@ -264,6 +266,14 @@
 
       <!-- Contexts for inclusion. -->
 
+      <context attribute="Normal" lineEndContext="#stay" name="FindListItem" >
+        <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
+      </context>
+
+      <context attribute="Normal" lineEndContext="#stay" name="FindTemplate" >
+        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
+      </context>
+
       <context attribute="Normal" lineEndContext="#stay" name="FindTextDecorations" >
         <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
         <StringDetect String="''" attribute="Wiki-Tag" context="Italic" />
@@ -281,10 +291,6 @@
       <context attribute="Normal" lineEndContext="#stay" name="FindUrlWithinTemplate" >
         <RegExpr String="\[&url;" attribute="Wiki-Tag" context="DelimitedURL" lookAhead="true" />
         <RegExpr String="&url;" attribute="URL" context="LooseURLWithinTemplate" lookAhead="true" />
-      </context>
-
-      <context attribute="Normal" lineEndContext="#stay" name="FindTemplate" >
-        <Detect2Chars char="{" char1="{" context="Template" attribute="Wiki-Tag" beginRegion="template" />
       </context>
 
     </contexts>

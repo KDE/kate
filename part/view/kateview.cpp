@@ -2341,7 +2341,16 @@ void KateView::sendCompletionAborted()
 
 void KateView::paste(const QString *textToPaste)
 {
+  const bool completionEnabled = isAutomaticInvocationEnabled();
+  if (completionEnabled) {
+    setAutomaticInvocationEnabled(false);
+  }
+
   m_doc->paste( this, textToPaste ? *textToPaste : QApplication::clipboard()->text(QClipboard::Clipboard) );
+
+  if (completionEnabled) {
+    setAutomaticInvocationEnabled(true);
+  }
 }
 
 void KateView::setCaretStyle( KateRenderer::caretStyles style, bool repaint )

@@ -2709,8 +2709,10 @@ void KateViewInternal::mouseReleaseEvent( QMouseEvent* e )
     case Qt::MidButton:
       placeCursor( e->pos() );
 
-      if( doc()->isReadWrite() )
-        doc()->paste( m_view, QApplication::clipboard()->text(QClipboard::Selection) );
+      if( doc()->isReadWrite() ) {
+        QString clipboard = QApplication::clipboard()->text(QClipboard::Selection);
+        m_view->paste( &clipboard );
+      }
 
       e->accept ();
       break;

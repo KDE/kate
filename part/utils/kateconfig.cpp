@@ -1566,17 +1566,19 @@ bool KateViewConfig::viInputMode () const
 
 void KateViewConfig::setViInputMode (bool on)
 {
-  configStart ();
+  if (!m_viInputModeSet || m_viInputMode != on) {
+    configStart ();
 
-  m_viInputModeSet = true;
-  m_viInputMode = on;
+    m_viInputModeSet = true;
+    m_viInputMode = on;
 
-  // make sure to turn off edits mergin when leaving vi input mode
-  if (!on && m_view) {
-    m_view->doc()->setUndoMergeAllEdits(false);
+    // make sure to turn off edits mergin when leaving vi input mode
+    if (!on && m_view) {
+      m_view->doc()->setUndoMergeAllEdits(false);
+    }
+
+    configEnd ();
   }
-
-  configEnd ();
 }
 
 bool KateViewConfig::viInputModeStealKeys () const
@@ -1589,12 +1591,12 @@ bool KateViewConfig::viInputModeStealKeys () const
 
 void KateViewConfig::setViInputModeStealKeys (bool on)
 {
-  configStart ();
-
-  m_viInputModeStealKeysSet = true;
-  m_viInputModeStealKeys = on;
-
-  configEnd ();
+  if (!m_viInputModeStealKeysSet || m_viInputModeStealKeys != on) {
+    configStart ();
+    m_viInputModeStealKeysSet = true;
+    m_viInputModeStealKeys = on;
+    configEnd ();
+  }
 }
 
 
@@ -1608,10 +1610,12 @@ bool KateViewConfig::viInputModeEmulateCommandBar() const
 
 void KateViewConfig::setViInputModeEmulateCommandBar(bool on)
 {
-  configStart();
-  m_viInputModeEmulateCommandBarSet = true;
-  m_viInputModeEmulateCommandBar = on;
-  configEnd();
+  if (!m_viInputModeEmulateCommandBarSet || m_viInputModeEmulateCommandBar != on) {
+    configStart();
+    m_viInputModeEmulateCommandBarSet = true;
+    m_viInputModeEmulateCommandBar = on;
+    configEnd();
+  }
 }
 
 bool KateViewConfig::automaticCompletionInvocation () const
@@ -1624,12 +1628,12 @@ bool KateViewConfig::automaticCompletionInvocation () const
 
 void KateViewConfig::setAutomaticCompletionInvocation (bool on)
 {
-  configStart ();
-
-  m_automaticCompletionInvocationSet = true;
-  m_automaticCompletionInvocation = on;
-
-  configEnd ();
+  if (!m_automaticCompletionInvocationSet || m_automaticCompletionInvocation != on) {
+    configStart ();
+    m_automaticCompletionInvocationSet = true;
+    m_automaticCompletionInvocation = on;
+    configEnd ();
+  }
 }
 
 bool KateViewConfig::wordCompletion () const
@@ -1642,12 +1646,12 @@ bool KateViewConfig::wordCompletion () const
 
 void KateViewConfig::setWordCompletion (bool on)
 {
-  configStart ();
-
-  m_wordCompletionSet = true;
-  m_wordCompletion = on;
-
-  configEnd ();
+  if (!m_wordCompletionSet || m_wordCompletion != on) {
+    configStart ();
+    m_wordCompletionSet = true;
+    m_wordCompletion = on;
+    configEnd ();
+  }
 }
 
 int KateViewConfig::wordCompletionMinimalWordLength () const

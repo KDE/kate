@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd" [
   <!ENTITY url "(http:|https:|ftp:|mailto:)[^]| ]*(?=$|[]|\s])">
 ]>
-<language name="MediaWiki" section="Markup" version="1.05" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
+<language name="MediaWiki" section="Markup" version="1.06" kateversion="2.4" extensions="*.mediawiki" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
       <context attribute="Normal" lineEndContext="#stay" name="normal" >
@@ -15,7 +15,7 @@
         <DetectChar char=";" attribute="Wiki-Tag" context="DefinitionListHeader" column="0" />
         <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
         <IncludeRules context="FindUrl" />
-        <IncludeRules context="FindBoldAndItalic" />
+        <IncludeRules context="FindTextDecorations" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
@@ -37,7 +37,7 @@
         <DetectChar char=";" attribute="Wiki-Tag" context="DefinitionListHeader" column="0" />
         <RegExpr String="[*#;:\s]*[*#:]+" attribute="Wiki-Tag" context="#stay" column="0" />
         <IncludeRules context="FindUrl" />
-        <IncludeRules context="FindBoldAndItalic" />
+        <IncludeRules context="FindTextDecorations" />
         <Detect2Chars char="{" char1="|" context="Table" attribute="Wiki-Tag" column="0" beginRegion="table" />
         <Detect2Chars char="|" char1="}" context="#pop" attribute="Wiki-Tag" column="0" endRegion="table" />
         <DetectChar char="|" attribute="Wiki-Tag" context="#stay"/>
@@ -59,7 +59,7 @@
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <IncludeRules context="FindUrl" />
-        <IncludeRules context="FindBoldAndItalicBeingBold" />
+        <IncludeRules context="FindTextDecorationsBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -79,7 +79,7 @@
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <IncludeRules context="FindUrl" />
-        <IncludeRules context="FindBoldAndItalicBeingBold" />
+        <IncludeRules context="FindTextDecorationsBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -98,7 +98,7 @@
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <IncludeRules context="FindUrl" />
-        <IncludeRules context="FindBoldAndItalicBeingBold" />
+        <IncludeRules context="FindTextDecorationsBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -117,7 +117,7 @@
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <IncludeRules context="FindUrl" />
-        <IncludeRules context="FindBoldAndItalicBeingBold" />
+        <IncludeRules context="FindTextDecorationsBeingBold" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -151,7 +151,7 @@
         <DetectChar char=" " context="#pop" attribute="Wiki-Tag" />
       </context>
       <context attribute="dsNormal" lineEndContext="#stay" name="URLTag" >
-        <IncludeRules context="FindBoldAndItalic" />
+        <IncludeRules context="FindTextDecorations" />
         <IncludeRules context="FindTemplate" />
         <DetectChar char="]" context="#pop" lookAhead="true" />
       </context>
@@ -175,7 +175,7 @@
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <IncludeRules context="FindUrl" />
-        <IncludeRules context="FindBoldAndItalic" />
+        <IncludeRules context="FindTextDecorations" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -197,7 +197,7 @@
         <StringDetect String="&lt;!--" context="comment" attribute="Comment" beginRegion="comment" />
         <RegExpr String="[~]{3,4}" attribute="Wiki-Tag" context="#stay" />
         <IncludeRules context="FindUrl" />
-        <IncludeRules context="FindBoldAndItalic" />
+        <IncludeRules context="FindTextDecorations" />
         <StringDetect String="{{{" context="TemplateParameter" attribute="Wiki-Tag" />
         <IncludeRules context="FindTemplate" />
         <Detect2Chars char="[" char1="[" context="WikiLink" attribute="Wiki-Tag" />
@@ -250,13 +250,18 @@
         <IncludeRules context="FindTemplate" />
         <StringDetect String="'''" context="#pop" attribute="Wiki-Tag" />
       </context>
+      <context attribute="Underlined" lineEndContext="#stay" name="Underlined" >
+        <IncludeRules context="FindTemplate" />
+        <RegExpr String="&lt;/u *&gt;" context="#pop" attribute="HTML-Tag" />
+      </context>
 
       <!-- Contexts for inclusion. -->
-      <context attribute="Normal" lineEndContext="#stay" name="FindBoldAndItalic" >
+      <context attribute="Normal" lineEndContext="#stay" name="FindTextDecorations" >
         <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
         <StringDetect String="''" attribute="Wiki-Tag" context="Italic" />
+        <RegExpr String="&lt;u *&gt;" attribute="HTML-Tag" context="Underlined" />
       </context>
-      <context attribute="Normal" lineEndContext="#stay" name="FindBoldAndItalicBeingBold" >
+      <context attribute="Normal" lineEndContext="#stay" name="FindTextDecorationsBeingBold" >
         <StringDetect String="'''" attribute="Wiki-Tag" context="Bold" />
         <StringDetect String="''" attribute="Wiki-Tag" context="BoldItalic" />
       </context>
@@ -287,6 +292,7 @@
       <itemData name="Bold" defStyleNum="dsNormal" bold="true" />
       <itemData name="Italic" defStyleNum="dsNormal" italic="true" />
       <itemData name="BoldItalic" defStyleNum="dsNormal" bold="true" italic="true" />
+      <itemData name="Underlined" defStyleNum="dsNormal" underline="true" />
     </itemDatas>
   </highlighting>
   <general>

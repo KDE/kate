@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="B-Method" version="0.1" kateversion="2.4" section="Scientific" extensions="*.mch;*.imp;*.ref" author="Ivo Anjo (knuckles@gmail.com)" license="LGPL">
+<language name="B-Method" version="0.2" kateversion="2.4" section="Scientific" extensions="*.mch;*.imp;*.ref" author="Ivo Anjo (knuckles@gmail.com)" license="LGPL">
 
 <highlighting>
 	<list name="sections">
@@ -59,7 +59,7 @@
 		<item> NAT1 </item>
 	</list>
 	<contexts>
-		<context attribute="Normal Text" lineEndContext="#pop" name="Normal Text">
+		<context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
 			<keyword attribute="SectionKeyword" context="#stay" String="sections" column="0"/>
 			<keyword attribute="SectionKeyword" context="#stay" String="sectionsBlockStart" column="0" beginRegion="sectionsBlock"/>
 			<keyword attribute="SectionKeyword" context="#stay" String="sectionsBlockEnd" column="0" endRegion="sectionsBlock"/>

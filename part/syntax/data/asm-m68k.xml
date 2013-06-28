@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 
-<language name="Motorola 68k (VASM/Devpac)" section="Assembler" version="1.00" kateversion="2.4"  extensions="*.s;*.i;*.S;*.I" author="Miro Kropacek (miro.kropacek@gmail.com)" license="LGPL">
+<language name="Motorola 68k (VASM/Devpac)" section="Assembler" version="1.01" kateversion="2.4"  extensions="*.s;*.i;*.S;*.I" author="Miro Kropacek (miro.kropacek@gmail.com)" license="LGPL">
 
   <highlighting>
     <list name="Data Registers">
@@ -530,27 +530,27 @@
 
     <contexts>
       <!-- name = name of context, attribute = name of item data -->
-      <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
-	<keyword attribute="Data Registers" context="#pop" String="Data Registers"/>
-	<keyword attribute="Address Registers" context="#pop" String="Address Registers"/>
-	<keyword attribute="Control Registers" context="#pop" String="Control Registers"/>
-	<keyword attribute="FPU Registers" context="#pop" String="FPU Registers"/>
-	<keyword attribute="Instructions (CPU)" context="#pop" String="Instructions (CPU)"/>
-	<keyword attribute="Instructions (FPU)" context="#pop" String="Instructions (FPU)"/>
-	<keyword attribute="Directives" context="#pop" String="Directives"/>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
+	<keyword attribute="Data Registers" context="#stay" String="Data Registers"/>
+	<keyword attribute="Address Registers" context="#stay" String="Address Registers"/>
+	<keyword attribute="Control Registers" context="#stay" String="Control Registers"/>
+	<keyword attribute="FPU Registers" context="#stay" String="FPU Registers"/>
+	<keyword attribute="Instructions (CPU)" context="#stay" String="Instructions (CPU)"/>
+	<keyword attribute="Instructions (FPU)" context="#stay" String="Instructions (FPU)"/>
+	<keyword attribute="Directives" context="#stay" String="Directives"/>
 
 	<!-- precedes ".[bwlsdqpx]" match -->
-	<RegExpr attribute="Label" context="#pop" String="^[A-Za-z_][A-Za-z_.0-9]*:?"/>
-	<RegExpr attribute="Local label" context="#pop" String="^\.[A-Za-z_][A-Za-z_.0-9]*:?"/>
+	<RegExpr attribute="Label" context="#stay" String="^[A-Za-z_][A-Za-z_.0-9]*:?"/>
+	<RegExpr attribute="Local label" context="#stay" String="^\.[A-Za-z_][A-Za-z_.0-9]*:?"/>
 
-	<RegExpr attribute="Operand sizes (CPU)" context="#pop" insensitive="true" String="\.b[\s,]"/>
-	<RegExpr attribute="Operand sizes (CPU)" context="#pop" insensitive="true" String="\.w[\s,]"/>
-	<RegExpr attribute="Operand sizes (CPU)" context="#pop" insensitive="true" String="\.l[\s,]"/>
-	<RegExpr attribute="Operand sizes (FPU)" context="#pop" insensitive="true" String="\.s[\s,]"/>
-	<RegExpr attribute="Operand sizes (FPU)" context="#pop" insensitive="true" String="\.d[\s,]"/>
-	<RegExpr attribute="Operand sizes (FPU)" context="#pop" insensitive="true" String="\.p[\s,]"/>
-	<RegExpr attribute="Operand sizes (FPU)" context="#pop" insensitive="true" String="\.q[\s,]"/>
-	<RegExpr attribute="Operand sizes (FPU)" context="#pop" insensitive="true" String="\.x[\s,]"/>
+	<RegExpr attribute="Operand sizes (CPU)" context="#stay" insensitive="true" String="\.b[\s,]"/>
+	<RegExpr attribute="Operand sizes (CPU)" context="#stay" insensitive="true" String="\.w[\s,]"/>
+	<RegExpr attribute="Operand sizes (CPU)" context="#stay" insensitive="true" String="\.l[\s,]"/>
+	<RegExpr attribute="Operand sizes (FPU)" context="#stay" insensitive="true" String="\.s[\s,]"/>
+	<RegExpr attribute="Operand sizes (FPU)" context="#stay" insensitive="true" String="\.d[\s,]"/>
+	<RegExpr attribute="Operand sizes (FPU)" context="#stay" insensitive="true" String="\.p[\s,]"/>
+	<RegExpr attribute="Operand sizes (FPU)" context="#stay" insensitive="true" String="\.q[\s,]"/>
+	<RegExpr attribute="Operand sizes (FPU)" context="#stay" insensitive="true" String="\.x[\s,]"/>
 
 	<DetectChar attribute="Comment" context="Comment" char=";"/>
 	<DetectChar attribute="Comment" context="Comment" char="*" firstNonSpace="true"/>
@@ -558,9 +558,9 @@
 	<DetectChar attribute="BaseN" context="Number16" char="$"/>
 	<DetectChar attribute="BaseN" context="Number2" char="%"/>
 	<DetectChar attribute="BaseN" context="Number8" char="@"/>
-	<Float attribute="Float" context="#pop"/>
-	<Int attribute="Number" context="#pop"/>
-	<RangeDetect attribute="Char" context="#pop" char="'"  char1="'"/>
+	<Float attribute="Float" context="#stay"/>
+	<Int attribute="Number" context="#stay"/>
+	<RangeDetect attribute="Char" context="#stay" char="'"  char1="'"/>
 	<AnyChar attribute="String" context="String" String="&quot;'"/>
       </context>
 

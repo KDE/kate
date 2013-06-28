@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="SiSU" version="1.01" section="Markup" kateversion="2.4" extensions="*.sst;*.ssm;*.ssi;*._sst;*.-sst;" author="Ralph Amissah (ralph.amissah@gmail.com)" license="LGPL" >
+<language name="SiSU" version="1.02" section="Markup" kateversion="2.4" extensions="*.sst;*.ssm;*.ssi;*._sst;*.-sst;" author="Ralph Amissah (ralph.amissah@gmail.com)" license="LGPL" >
   <highlighting>
     <list name="somename">
       <item> class </item>
       <item> const </item>
     </list>
     <contexts>
-    <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
+    <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
       <keyword attribute="Keyword" context="#stay" String="somename" />
       <DetectChar attribute="String" context="string" char="&quot;" />
       <RegExpr String="^(0~\S+|@\S+)\s.+$" attribute="Header" context="#pop" />

@@ -20,7 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
 -->
 
-<language name="MEL" section="Scripts" version="1.00" kateversion="2.4" extensions="*.mel" mimetype="" author="Karl Erlandsen (karlerlandsen@yahoo.com)" license="GPL">
+<language name="MEL" section="Scripts" version="1.01" kateversion="2.4" extensions="*.mel" mimetype="" author="Karl Erlandsen (karlerlandsen@yahoo.com)" license="GPL">
   <highlighting>
     <list name="keywords">
       <item> break </item>
@@ -1310,7 +1310,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
     </list>
     
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Normal" >
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal" >
         <DetectSpaces />
         <Detect2Chars attribute="Block comments" context="Block comments" char="/" char1="*" beginRegion="Block comments" />
         <Detect2Chars attribute="Line comments" context="Line comments" char="/" char1="/" />

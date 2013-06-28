@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="q" version="1.00" kateversion="3.8" section="Scripts" extensions="*.q" license="LGPL2+" author="James Schmitz (james.schmitz@gmail.com)">
+<language name="q" version="1.01" kateversion="3.8" section="Scripts" extensions="*.q" license="LGPL2+" author="James Schmitz (james.schmitz@gmail.com)">
 <highlighting>
     <list name="DotQ">
       <item>.Q.addmonths</item>
@@ -188,7 +188,7 @@
       <item>xrank</item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
         <keyword attribute="qKeyword" context="#stay" String="qkeywords" />
         <keyword attribute="DotQfunctions" context="#stay" String="DotQ" />
         <IncludeRules context="##k" />

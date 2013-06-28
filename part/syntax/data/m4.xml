@@ -38,7 +38,7 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -->
-<language name="GNU M4" version="1.0" section="Sources" kateversion="2.5" extensions="*.m4;" author="Jaak Ristioja" license="New BSD License">
+<language name="GNU M4" version="1.1" section="Sources" kateversion="2.5" extensions="*.m4;" author="Jaak Ristioja" license="New BSD License">
   <highlighting>
     <list name="optbuiltins">
       <item> __gnu__ </item>
@@ -153,7 +153,7 @@
       <item> m4_undivert </item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text">
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text">
         <keyword attribute="Builtins" String="builtins" context="#stay"/>
         <keyword attribute="Builtins (prefixed with m4_)" String="m4_builtins" context="#stay"/>
         <keyword attribute="Optional builtins" String="optbuiltins" context="#stay"/>

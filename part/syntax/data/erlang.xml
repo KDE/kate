@@ -36,7 +36,7 @@
                                    - fixed highlighting problem when '@' at end of atom/variable
 -->
 
-<language name="Erlang" version="1.02" kateversion="2.5" section="Scripts" extensions="*.erl" mimetype="" author="Bill Ross (bill@emailme.net.au)" license="LGPL">
+<language name="Erlang" version="1.03" kateversion="2.5" section="Scripts" extensions="*.erl" mimetype="" author="Bill Ross (bill@emailme.net.au)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <!-- ====== s3.8 p 24 of erlang spec ===== -->
@@ -164,7 +164,7 @@
       <item>whereis</item>
    </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
         <RegExpr attribute="Pragma" context="#stay" column="0" String="&pragmas;" />
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <keyword attribute="Operator" context="#stay" String="operators" />
@@ -176,26 +176,26 @@
 
         <!-- Functions (in addition to named functions dealt with above) -->
         <!-- simple version - got to be in form module:function -->
-        <RegExpr attribute="Function" context="#pop" String="&atomstr;:&atomstr;" />
-        <RegExpr attribute="Functon" context="isfunction" String="&atomstr;\(" lookAhead="true" />
+        <RegExpr attribute="Function" context="#stay" String="&atomstr;:&atomstr;" />
+        <RegExpr attribute="Function" context="isfunction" String="&atomstr;\(" lookAhead="true" />
 
         <!-- Variables - begin with upper case, or between single quotes -->
-        <RegExpr attribute="Variable" context="#pop" String="&varstr;" />
+        <RegExpr attribute="Variable" context="#stay" String="&varstr;" />
 
         <!-- atoms - begin with lower case (letters, numbers, @), 
              or anything between single quotes -->
         <DetectChar attribute="Atom" context="atomquote" char="'" /> 
-        <RegExpr attribute="Atom" context="#pop" String="&atomstr;" />
+        <RegExpr attribute="Atom" context="#stay" String="&atomstr;" />
         
         <DetectChar attribute="String" context="stringquote" char="&quot;" />
         
         <!-- numbers - these work -->
         <!-- integers have three forms 7, 3#22, $A -->
         <!-- float must have a number after the decimal point, or it doesn't count -->
-        <RegExpr attribute="Float" context="#pop" String="[0-9]+\.[0-9]+(?:[eE][+-]?[0-9]+)?" />
-        <RegExpr attribute="Number" context="#pop" String="\d+#[a-zA-Z0-9]+" />
-        <RegExpr attribute="Integer" context="#pop" String="\$\S" />
-        <RegExpr attribute="Integer" context="#pop" String="[0-9]+" />
+        <RegExpr attribute="Float" context="#stay" String="[0-9]+\.[0-9]+(?:[eE][+-]?[0-9]+)?" />
+        <RegExpr attribute="Number" context="#stay" String="\d+#[a-zA-Z0-9]+" />
+        <RegExpr attribute="Integer" context="#stay" String="\$\S" />
+        <RegExpr attribute="Integer" context="#stay" String="[0-9]+" />
 
       </context>
 

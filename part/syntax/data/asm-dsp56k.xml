@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 
-<language name="Motorola DSP56k" section="Assembler" version="1.00" kateversion="2.4"  extensions="*.asm;*.inc;*.ASM;*.INC" author="Miro Kropacek (miro.kropacek@gmail.com)" license="LGPL">
+<language name="Motorola DSP56k" section="Assembler" version="1.01" kateversion="2.4"  extensions="*.asm;*.inc;*.ASM;*.INC" author="Miro Kropacek (miro.kropacek@gmail.com)" license="LGPL">
 
   <highlighting>
     <list name="Data Registers">
@@ -219,18 +219,18 @@
 
     <contexts>
       <!-- name = name of context, attribute = name of item data -->
-      <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
-	<RegExpr attribute="Memory" context="#pop" String="[xylpXYLP]:"/>
-	<keyword attribute="Data Registers" context="#pop" String="Data Registers"/>
-	<keyword attribute="Address Registers" context="#pop" String="Address Registers"/>
-	<keyword attribute="Offset Registers" context="#pop" String="Offset Registers"/>
-	<keyword attribute="Modifier Registers" context="#pop" String="Modifier Registers"/>
-	<keyword attribute="Control Registers" context="#pop" String="Control Registers"/>
-	<keyword attribute="Instructions" context="#pop" String="Instructions"/>
-	<keyword attribute="Directives" context="#pop" String="Directives"/>
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
+	<RegExpr attribute="Memory" context="#stay" String="[xylpXYLP]:"/>
+	<keyword attribute="Data Registers" context="#stay" String="Data Registers"/>
+	<keyword attribute="Address Registers" context="#stay" String="Address Registers"/>
+	<keyword attribute="Offset Registers" context="#stay" String="Offset Registers"/>
+	<keyword attribute="Modifier Registers" context="#stay" String="Modifier Registers"/>
+	<keyword attribute="Control Registers" context="#stay" String="Control Registers"/>
+	<keyword attribute="Instructions" context="#stay" String="Instructions"/>
+	<keyword attribute="Directives" context="#stay" String="Directives"/>
 
-	<RegExpr attribute="Label" context="#pop" String="^[A-Za-z][A-Za-z_.0-9]*:?"/>
-	<RegExpr attribute="Local label" context="#pop" String="^_[A-Za-z_][A-Za-z_.0-9]*:?"/>
+	<RegExpr attribute="Label" context="#stay" String="^[A-Za-z][A-Za-z_.0-9]*:?"/>
+	<RegExpr attribute="Local label" context="#stay" String="^_[A-Za-z_][A-Za-z_.0-9]*:?"/>
 
 	<DetectChar attribute="Comment" context="Comment" char=";"/>
 	<DetectChar attribute="Comment" context="Comment" char="*" firstNonSpace="true"/>
@@ -238,9 +238,9 @@
 	<DetectChar attribute="BaseN" context="Number16" char="$"/>
 	<DetectChar attribute="BaseN" context="Number2" char="%"/>
 	<DetectChar attribute="BaseN" context="Number8" char="@"/>
-	<Float attribute="Float" context="#pop"/>
-	<Int attribute="Number" context="#pop"/>
-	<RangeDetect attribute="Char" context="#pop" char="'"  char1="'"/>
+	<Float attribute="Float" context="#stay"/>
+	<Int attribute="Number" context="#stay"/>
+	<RangeDetect attribute="Char" context="#stay" char="'"  char1="'"/>
 	<AnyChar attribute="String" context="String" String="&quot;'"/>
       </context>
 

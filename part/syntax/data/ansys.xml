@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Ansys" version="1.1" kateversion="2.0" section="Scientific" extensions="*.ans" author="Giovanni Bacci (giovanni@castellodilari.it)" license="LGPL" >
+<language name="Ansys" version="1.2" kateversion="2.0" section="Scientific" extensions="*.ans" author="Giovanni Bacci (giovanni@castellodilari.it)" license="LGPL" >
 <highlighting>
 	<list name="session_cmds">
 		<item>/BATCH</item>
@@ -1967,7 +1967,7 @@
 	</list>
 
 	<contexts>
-		<context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
+		<context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
 			<StringDetect attribute="comment" context="comment" String="C***" insensitive="true" firstNonSpace="true" />
 			<DetectChar attribute ="comment" context="comment" char="!" />
 			<keyword attribute="MatProp" context="#stay" String="various_labels" />

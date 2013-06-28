@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="k" version="1.00" kateversion="3.8" section="Scripts" extensions="*.k" license="LGPL2+" author="James Schmitz (james.schmitz@gmail.com)">
+<language name="k" version="1.01" kateversion="3.8" section="Scripts" extensions="*.k" license="LGPL2+" author="James Schmitz (james.schmitz@gmail.com)">
 <highlighting>
     <list name="flowcontrol" >
       <item>while</item>
@@ -349,7 +349,7 @@
       <item>GOTCHA</item>
     </list>
     <contexts>
-      <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
+      <context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
         <RegExpr attribute="kSystemCommand" String="^\\[^\s].*$" context="#stay" />
         <DetectChar attribute="String" context="string" char="&quot;" />
         <RegExpr attribute="kSeparators" String="[{|(|[|\]|)|}]" context="#stay" />

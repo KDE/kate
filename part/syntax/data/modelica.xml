@@ -16,7 +16,7 @@
 -->
 
 
-<language name="Modelica" version="3.1" kateversion="2.0" casesensitive="1" section="Sources" extensions="*.mo" author="Federico Zenith" >
+<language name="Modelica" version="3.2" kateversion="2.0" casesensitive="1" section="Sources" extensions="*.mo" author="Federico Zenith" >
 
 	<highlighting>
 		<!-- Classes in Modelica can be called different names; "class" is the
@@ -188,7 +188,7 @@
 		</list>
 
 		<contexts>
-			<context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
+			<context attribute="Normal Text" lineEndContext="#stay" name="Normal Text" >
 				<RegExpr attribute="Keyword" String="\bend\s+(for|while|loop)\b" endRegion="loopBlock"/>
 				<RegExpr attribute="Keyword" String="\bloop\b" beginRegion="loopBlock"/>
 				<RegExpr attribute="Keyword" String="\bend\s+(if|when)\b" endRegion="thenBlock"/>

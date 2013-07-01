@@ -215,7 +215,7 @@ int KateHlWordDetect::checkHgl(const QString& text, int offset, int len)
   //NOTE: word boundary means: any non-word character.
 
   // make sure there is no letter or number before the word starts
-  if (offset > 0 && isWordCharacter(text.at(offset))) {
+  if (offset > 0 && isWordCharacter(text.at(offset - 1))) {
     return 0;
   }
   offset = KateHlStringDetect::checkHgl(text, offset, len);

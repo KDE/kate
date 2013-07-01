@@ -250,7 +250,7 @@ void KateHighlighting::dropDynamicContexts()
   startctx = base_startctx;
 }
 
-void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
+void KateHighlighting::doHighlight ( const Kate::TextLineData *_prevLine,
                                      Kate::TextLineData *textLine,
                                      const Kate::TextLineData *nextLine,
                                      bool &ctxChanged,
@@ -269,16 +269,24 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *prevLine,
   if (noHl)
     return;
 
-  // duplicate the ctx stack, only once !
-  Kate::TextLineData::ContextStack ctx (prevLine->contextStack());
+  const bool firstLine = (_prevLine == 0);
+  const Kate::TextLine dummy = Kate::TextLine (new Kate::TextLineData ());
+  const Kate::TextLineData * prevLine = firstLine ? dummy.data() : _prevLine;
 
   int previousLine = -1;
   KateHlContext *context;
 
+  // duplicate the ctx stack, only once !
+  Kate::TextLineData::ContextStack ctx (prevLine->contextStack());
+
   if (ctx.isEmpty())
   {
     // If the stack is empty, we assume to be in Context 0 (Normal)
-    context = contextNum(0);
+    if (firstLine) {
+      context = contextNum(0);
+    } else {
+      context = generateContextStack(ctx, contextNum(0)->lineEndContext, previousLine); //get stack ID to use
+    }
   }
   else
   {

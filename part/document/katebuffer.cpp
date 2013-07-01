@@ -440,12 +440,8 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
     }
   }
 
-  // get previous line, if any
-  Kate::TextLine prevLine;
-  if (startLine >= 1)
-    prevLine = plainLine (startLine-1);
-  else
-    prevLine = Kate::TextLine (new Kate::TextLineData ());
+  // if possible get previous line, otherwise create 0 line.
+  Kate::TextLine prevLine = (startLine >= 1) ? plainLine (startLine - 1) : Kate::TextLine ();
 
   // here we are atm, start at start line in the block
   int current_line = startLine;

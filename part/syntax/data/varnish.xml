@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<!--
-2012-11-04 - Frankenstein'd from:
-  * Kate Perl syntax highlighting
-  * Vim Varnish syntax highlighting [1]
-  * "Writing a Syntax Highlighting File" [2]
-  * the Varnish documentation [3]
-[1] http://cvs.pld-linux.org/cgi-bin/viewvc.cgi/cvs/packages/vim-syntax-vcl/vcl.vim
-[2] http://kate-editor.org/2005/03/24/writing-a-syntax-highlighting-file/
-[3] https://www.varnish-cache.org/docs/3.0/reference/vcl.html
-//-->
-<language name="Varnish Configuration Language" version="0.2" kateversion="2.4" section="Configuration" extensions="*.vcl;" mimetype="" author="Xavier Guerrin (xavier@tuxfamily.org)" license="WTFPL">
+<language name="Varnish Configuration Language" version="0.3" kateversion="2.4" section="Configuration" extensions="*.vcl;" mimetype="" author="Xavier Guerrin (xavier@tuxfamily.org)" license="WTFPL">
   <highlighting>
     <list name="vclStandardSubs">
       <item>vcl_recv</item>
@@ -41,6 +31,7 @@
       <item> unset </item>
       <item> panic </item>
       <item> rollback </item>
+      <item> purge </item>
       <item> synthetic </item>
     </list>
     <list name="vclStandardFunctions">
@@ -70,7 +61,7 @@
       <item>dns</item>
       <item>fallback</item>
     </list>
-    <!-- 
+    <!--
       2013-06-16
       This list was generated from https://www.varnish-cache.org/vmods, taking
       only vmods having the "Used in production" status, excluding the
@@ -133,12 +124,13 @@
       </context>
       <context name="vcl_variables" attribute="Normal Text" lineEndContext="#stay">
         <RegExpr attribute="Variable"       context="#stay" String="now" />
+        <RegExpr attribute="Storage"        context="#stay" String="storage\.[a-zA-Z0-9]+(?:\.(?:free_space|used_space|happy))?" />
         <RegExpr attribute="TCP Property"   context="#stay" String="client\.(ip|identity)" />
-        <RegExpr attribute="TCP Property"   context="#stay" String="server\.(identity|hostname|ip|port)" />
-        <RegExpr attribute="HTTP Property"  context="#stay" String="req\.(hash|request|url|proto|backend\.healthy|backend|grace|xid|restarts|hash_always_miss|hash_ignore_busy|can_gzip|esi|esi_level)" />
+        <RegExpr attribute="TCP Property"   context="#stay" String="server\.(ip|hostname|identity|port)" />
+        <RegExpr attribute="HTTP Property"  context="#stay" String="req\.(request|url|proto|backend|restarts|esi_level|ttl|grace|keep|xid|esi|can_gzip|backend\.healthy|hash_ignore_busy|hash_always_miss)" />
         <RegExpr attribute="HTTP Property"  context="#stay" String="bereq\.(request|url|proto|connect_timeout|first_byte_timeout|between_bytes_timeout)" />
-        <RegExpr attribute="HTTP Property"  context="#stay" String="obj\.(proto|status|response|cacheable|ttl|lastuse|hits|hash|grace|prefetch)" />
-        <RegExpr attribute="HTTP Property"  context="#stay" String="beresp\.(do_stream|do_esi|do_gzip|do_gunzip|proto|status|response|cacheable|ttl|lastuse|hits|hash|grace|prefetch|saintmode|backend\.(name|ip|port)|storage)" />
+        <RegExpr attribute="HTTP Property"  context="#stay" String="obj\.(proto|status|response|hits|ttl|grace|keep|lastuse)" />
+        <RegExpr attribute="HTTP Property"  context="#stay" String="beresp\.(proto|saintmode|status|response|do_esi|do_stream|do_gzip|do_gunzip|ttl|grace|keep|backend\.(name|ip|port)|storage|cacheable)" />
         <RegExpr attribute="HTTP Property"  context="#stay" String="resp\.(proto|status|response)" />
         <RegExpr attribute="HTTP X- Header" context="#stay" String="(req|bereq|resp|beresp|obj)\.http\.X-[-_A-Za-z0-9]*" />
         <RegExpr attribute="HTTP Header"    context="#stay" String="(req|bereq|resp|beresp|obj)\.http\.[A-Za-z][-_A-Za-z0-9]*" />
@@ -147,7 +139,7 @@
         <DetectChar   attribute="Logical Operator" context="#stay" char="!" />
         <Detect2Chars attribute="Logical Operator" context="#stay" char="&amp;" char1="&amp;" />
         <Detect2Chars attribute="Logical Operator" context="#stay" char="|" char1="|" />
-        
+
         <Detect2Chars attribute="Comparison Operator" context="#stay" char="=" char1="=" />
         <Detect2Chars attribute="Comparison Operator" context="#stay" char="!" char1="=" />
         <Detect2Chars attribute="Comparison Operator" context="#stay" char="&lt;" char1="=" />
@@ -156,18 +148,33 @@
         <DetectChar   attribute="Comparison Operator" context="#stay" char="&gt;" />
         <DetectChar   attribute="Comparison Operator" context="#stay" char="~" />
         <Detect2Chars attribute="Comparison Operator" context="#stay" char="!" char1="~" />
-        
+
         <DetectChar   attribute="Arithmetic Operator" context="#stay" char="+" />
         <DetectChar   attribute="Arithmetic Operator" context="#stay" char="-" />
         <DetectChar   attribute="Arithmetic Operator" context="#stay" char="*" />
         <DetectChar   attribute="Arithmetic Operator" context="#stay" char="/" />
-        
+
+        <Detect2Chars attribute="Arithmetic Operator" context="#stay" char="+" char1="=" />
+        <Detect2Chars attribute="Arithmetic Operator" context="#stay" char="-" char1="=" />
+        <Detect2Chars attribute="Arithmetic Operator" context="#stay" char="*" char1="=" />
+        <Detect2Chars attribute="Arithmetic Operator" context="#stay" char="/" char1="=" />
+
+        <Detect2Chars attribute="Arithmetic Operator" context="#stay" char="+" char1="+" />
+        <Detect2Chars attribute="Arithmetic Operator" context="#stay" char="-" char1="-" />
+
+        <Detect2Chars attribute="Arithmetic Operator" context="#stay" char="&gt;" char1="&gt;" />
+        <Detect2Chars attribute="Arithmetic Operator" context="#stay" char="&lt;" char1="&lt;" />
+
         <DetectChar   attribute="Operator" context="#stay" char="=" />
       </context>
       <context name="minimal_code" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="comments" />
-        <RegExpr attribute="Duration" context="#stay" String="[0-9.]+\s*(d|h|m|s|ms)" />
+        <RegExpr attribute="Duration" context="#stay" String="([0-9]+|[0-9]+\.[0-9]+|[0-9]+\.|\.[0-9]+)\s*(w|d|h|m|s|ms)" />
+        <RegExpr attribute="Data Size" context="#stay" String="([0-9]+|[0-9]+\.[0-9]+|[0-9]+\.|\.[0-9]+)\s*[KMGT]?B" />
+        <Float attribute="Float" context="#stay" />
         <Int attribute="Decimal" context="#stay" />
+        <StringDetect attribute="Keyword" context="#stay" String="true" />
+        <StringDetect attribute="Keyword" context="#stay" String="false" />
         <DetectChar char="&quot;" context="string" attribute="String" />
         <Detect2Chars attribute="String" char="{" char1="&quot;" context="string_enclosure" beginRegion="string_enclosure_block" />
       </context>
@@ -240,7 +247,7 @@
         <DetectChar attribute="Normal Text" context="#pop" char=";" />
       </context>
       <context name="backend_definition" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Backend Property" context="#stay" String="\.(host|port|first_byte_timeout|between_bytes_timeout|max_connections)" />
+        <RegExpr attribute="Backend Property" context="#stay" String="\.(host|port|host_header|connect_timeout|first_byte_timeout|between_bytes_timeout|max_connections|saintmode_threshold)" />
         <IncludeRules context="definition_code" />
         <StringDetect attribute="Backend Property" context="probe_declaration" String=".probe" />
         <DetectChar attribute="Region Marker" context="#pop#pop" char="}" endRegion="backend_block" />
@@ -254,6 +261,7 @@
       <context name="director_definition" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="definition_code" />
         <RegExpr attribute="Director Property" context="#stay" String="\.(retries|ttl|suffix)" />
+        <StringDetect attribute="Director Property" context="backend_declaration" String=".list" />
         <DetectChar attribute="Region Marker" context="director_backend" char="{" beginRegion="director_backend_block" />
         <DetectChar attribute="Region Marker" context="#pop#pop" char="}" endRegion="backend_block" />
       </context>
@@ -318,12 +326,15 @@
       <itemData name="Probe Property"            defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" bold="1" italic="0" />
       <itemData name="Backend Property"          defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" bold="1" italic="0" />
       <itemData name="Director Property"         defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" bold="1" italic="0" />
+      <itemData name="Storage"                   defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" bold="0" italic="0" />
       <itemData name="TCP Property"              defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" bold="0" italic="1" />
       <itemData name="HTTP Property"             defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" bold="0" italic="0" />
       <itemData name="HTTP Header"               defStyleNum="dsDataType" color="#0D62FF" selColor="#0D62FF" bold="0" italic="0" />
       <itemData name="HTTP X- Header"            defStyleNum="dsDataType" color="#0D62FF" selColor="#0D62FF" bold="0" italic="1" />
       <itemData name="Decimal"                   defStyleNum="dsDecVal" />
       <itemData name="Duration"                  defStyleNum="dsDecVal" />
+      <itemData name="Data Size"                 defStyleNum="dsDecVal" />
+      <itemData name="Float"                     defStyleNum="dsFloat" spellChecking="false"/>
       <itemData name="VMod Identifier"           defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" />
       <itemData name="Well-known VMod"           defStyleNum="dsDataType" color="#0000FF" selColor="#0000FF" bold="1" />
     </itemDatas>

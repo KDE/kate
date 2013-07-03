@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 7
+ * revision: 8
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4
@@ -53,8 +53,9 @@ require ("string.js");
 // '#' is for preprocessor directives
 // ')' is for align dangling close bracket
 // ';' is for align `for' parts
+// ' ' is to add a '()' after `if', `while', `for', ...
 // TBD <others>
-triggerCharacters = "{}()<>/:;,#\\?|/%.@";
+triggerCharacters = "{}()<>/:;,#\\?|/%.@ ";
 
 var debugMode = false;
 
@@ -1322,6 +1323,30 @@ function tryDoxygenGrouping(cursor)
 }
 
 /**
+ * \brief Handle a space
+ *
+ * Add '()' pair after some keywords like: \c if, \c while, \c for, \c switch
+ */
+function tryKeywordsWithBrackets(cursor)
+{
+    var line = cursor.line;
+    var column = cursor.column;
+    var text = document.line(line).ltrim();
+    dbg("text="+text);
+    var need_brackets = text == "if "
+      || text == "else if "
+      || text == "while "
+      || text == "for "
+      || text == "switch "
+      ;
+    if (need_brackets)
+    {
+        document.insertText(cursor, "()");
+        view.setCursorPosition(line, column + 1);
+    }
+}
+
+/**
  * \brief Process one character
  *
  * NOTE Cursor positioned right after just entered character and has +1 in column.
@@ -1390,6 +1415,9 @@ function processChar(line, ch)
             break;
         case '@':
             tryDoxygenGrouping(cursor);
+            break;
+        case ' ':
+            tryKeywordsWithBrackets(cursor);
             break;
         default:
             break;                                          // Nothing to do...

@@ -361,7 +361,7 @@ options "Highlight all" + "From cursor" removed only "Match case" left-->
 <varlistentry>
 <term><anchor id="find-again"/><menuchoice>
 <shortcut><keycombo action="simul"><keycap>F3</keycap></keycombo></shortcut>
-<guimenu>Edit</guimenu><guimenuitem>Find Next</guimenuitem></menuchoice></term>
+<guimenu>Edit</guimenu><guisubmenu>Find Variants</guisubmenu><guimenuitem>Find Next</guimenuitem></menuchoice></term>
  <listitem>
 <para>This repeats the last find operation, if any, without calling the incremental
 search bar.
@@ -375,7 +375,7 @@ search bar.
 <shortcut>
 <keycombo action="simul">&Shift;<keycap>F3</keycap></keycombo>
 </shortcut>
-<guimenu>Edit</guimenu>
+<guimenu>Edit</guimenu><guisubmenu>Find Variants</guisubmenu>
 <guimenuitem>Find Previous</guimenuitem>
 </menuchoice>
 </term>
@@ -385,6 +385,28 @@ This repeats the last find operation, if any, without calling the incremental
 search bar, and searching backwards instead of forwards through the
 document.
 </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term id="find-selected">
+<menuchoice>
+<shortcut><keycombo
+action="simul">&Ctrl;<keycap>H</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu><guisubmenu>Find Variants</guisubmenu><guimenuitem>Find Selected</guimenuitem></menuchoice></term>
+<listitem>
+<para>Finds next occurrence of selected text.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term id="find-selected-backwards">
+<menuchoice>
+<shortcut><keycombo
+action="simul">&Ctrl;&Shift;<keycap>H</keycap></keycombo></shortcut>
+<guimenu>Edit</guimenu><guisubmenu>Find Variants</guisubmenu><guimenuitem>Find Selected Backwards</guimenuitem></menuchoice></term>
+<listitem>
+<para>Finds previous occurrence of selected text.</para>
 </listitem>
 </varlistentry>
 
@@ -425,28 +447,6 @@ switch to the incremental search bar.
 options "Highlight all" + "From cursor" removed only "Match case" left
 -->
 </para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term id="find-selected">
-<menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;<keycap>H</keycap></keycombo></shortcut>
-<guimenu>Edit</guimenu><guimenuitem>Find Selected</guimenuitem></menuchoice></term>
-<listitem>
-<para>Finds next occurrence of selected text.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term id="find-selected-backwards">
-<menuchoice>
-<shortcut><keycombo
-action="simul">&Ctrl;&Shift;<keycap>H</keycap></keycombo></shortcut>
-<guimenu>Edit</guimenu><guimenuitem>Find Selected Backwards</guimenuitem></menuchoice></term>
-<listitem>
-<para>Finds previous occurrence of selected text.</para>
 </listitem>
 </varlistentry>
 
@@ -633,6 +633,14 @@ linkend="view-show-icon-border">Icon Border</link>.</para>
 </varlistentry>
 
 <varlistentry><!-- only in power user mode -->
+<term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Scrollbar
+Minimap</guimenuitem></menuchoice> (Power user mode)</term>
+<listitem><para>This will replace the scrollbar with a visualization of the
+current document. For more information on the scrollbar minimap, see
+<xref linkend="kate-part-scrollbar-minimap"/></para></listitem>
+</varlistentry>
+
+<varlistentry><!-- only in power user mode -->
 <term>
 <anchor id="view-hide-folding-markers"/>
 <menuchoice>
@@ -659,32 +667,28 @@ shown.</para>
 <variablelist>
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-&Shift;<keycap>-</keycap></keycombo></shortcut>
-<guimenuitem>Collapse Toplevel</guimenuitem></menuchoice>
-</term>
-<listitem><para>Collapse all toplevel regions in the document.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-&Shift;<keycap>+</keycap></keycombo></shortcut>
-<guimenuitem>Expand Toplevel</guimenuitem></menuchoice>
-</term>
-<listitem><para>Expand all toplevel regions in the document.</para></listitem>
-</varlistentry>
-<varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 <keycap>-</keycap></keycombo></shortcut>
-<guimenuitem>Collapse One Local Level</guimenuitem></menuchoice>
+<guimenuitem>Fold Current Node</guimenuitem></menuchoice>
 </term>
-<listitem><para>Collapse the region closest to the cursor.</para></listitem>
+<listitem><para>Collapse the region that contains the cursor.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 <keycap>+</keycap></keycombo></shortcut>
-<guimenuitem>Expand One Local Level</guimenuitem></menuchoice>
+<guimenuitem>Unfold Current Node</guimenuitem></menuchoice>
 </term>
-<listitem><para>Expand the region closest to the cursor.</para></listitem>
+<listitem><para>Expand the region that contains the cursor.</para></listitem>
 </varlistentry>
+
+<varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+&Shift;<keycap>-</keycap></keycombo></shortcut>
+<guimenuitem>Fold Toplevel Nodes</guimenuitem></menuchoice>
+</term>
+<listitem><para>Collapse all toplevel regions in the document.</para></listitem>
+</varlistentry>
+
 </variablelist>
 </listitem>
 </varlistentry>
@@ -869,7 +873,22 @@ the endianness (byte order) of a text file or stream, for more information see
 <ulink url="http://en.wikipedia.org/wiki/Byte_Order_Mark">Byte Order Mark</ulink>.</para>
 </listitem>
 </varlistentry>
+<!--FIXME broken links
+<varlistentry>
+<term><anchor id="tools-scripts"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guisubmenu>Scripts</guisubmenu></menuchoice></term>
+ <listitem>
+<para>This submenu contains a list of all scripted actions. The list can easily be
+modified by <link linkend="dev-scripting-command-line">writing
+own scripts</link>. This way, &kate; can be extended with user-defined tools.
+</para>
 
+<para>For more information about the scripts included with kate, see
+<xref linkend="scripts"/>.</para>
+</listitem>
+</varlistentry>
+-->
 <varlistentry>
 <term><menuchoice>
 <shortcut>
@@ -903,7 +922,7 @@ Completion</guimenuitem> pops up a completion box with matching entries.</para>
 <shortcut>
 <keycombo action="simul">&Ctrl;&Shift;<keycap>O</keycap></keycombo>
 </shortcut>
-<guimenu>Tools</guimenu>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Automatic Spell Checking</guimenuitem>
 </menuchoice></term>
 <listitem>
@@ -914,7 +933,7 @@ is underlined in the document on-the-fly.</para>
 
 <varlistentry>
 <term><anchor id="Spelling..."/><menuchoice>
-<guimenu>Tools</guimenu><guimenuitem>Spelling...</guimenuitem></menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu><guimenuitem>Spelling...</guimenuitem></menuchoice>
 </term>
 
 <!--para>These options are described in the documentation for the
@@ -1026,7 +1045,7 @@ are reverted, and you will return to your document.</para></listitem>
 <variablelist>
 <varlistentry>
 <term><anchor id="tools-spelling-from-cursor"/><menuchoice>
-<guimenu>Tools</guimenu>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Spelling (from cursor)...</guimenuitem></menuchoice></term>
  <listitem>
 <para>This initiates the spellchecking program but it starts where your cursor
@@ -1036,7 +1055,7 @@ is instead of at the beginning of the document.</para>
 
 <varlistentry>
 <term><anchor id="tools-spellcheck-selection"/><menuchoice>
-<guimenu>Tools</guimenu>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Spellcheck Selection...</guimenuitem></menuchoice></term>
  <listitem>
 <para>Spellchecks the current selection.</para>
@@ -1045,7 +1064,7 @@ is instead of at the beginning of the document.</para>
 
 <varlistentry>
 <term><anchor id="tools-change-dictionary"/><menuchoice>
-<guimenu>Tools</guimenu>
+<guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Change Dictionary</guimenuitem></menuchoice></term>
  <listitem>
 <para>Displays a drop down box with all available dictionaries for spellchecking
@@ -1190,7 +1209,7 @@ in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
-
+<!--FIXME Create Snippet + Snippets missing-->
 </variablelist>
 <para>If the <link linkend="pref-plugins">plugin</link> Insert File is enabled, you will
 find here an additional menu item <guimenuitem>Insert File...</guimenuitem>.

@@ -962,15 +962,6 @@ current document. For more information on the scrollbar minimap, see
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Scrollbar
-Marks</guimenuitem></menuchoice></term>
-<listitem><para>Toggles the visualization of bookmarks (and other marks) on the
-vertical scrollbar. When enabled, marks are represented by a thin line in the
-mark color at the scrollbar, middleclicking on the lines will scroll the view
-to a position near the mark.</para></listitem>
-</varlistentry>
-
-<varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul"><keycap>F9</keycap>
 </keycombo></shortcut>
 <guimenu>View</guimenu><guimenuitem>Show Folding Markers</guimenuitem>
@@ -1001,7 +992,7 @@ Code Folding</link>.</para></listitem>
 <varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 <keycap>+</keycap></keycombo></shortcut>
-<guimenuitem>Unfold current node</guimenuitem></menuchoice>
+<guimenuitem>Unfold Current Node</guimenuitem></menuchoice>
 </term>
 <listitem><para>Expand the region that contains the cursor.</para></listitem>
 </varlistentry>
@@ -1435,10 +1426,6 @@ section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.
  <listitem>
 <para>This initiates the spellchecking program but it starts where your cursor
 is instead of at the beginning of the document.</para>
-
-<para>For more information on how to use the &kde; spellchecking program, see the
-<ulink url="help:/fundamentals/spellcheck.html"><emphasis>Check Spelling</emphasis>
-section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
  </listitem>
 </varlistentry>
 
@@ -1448,9 +1435,6 @@ section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</p
 <guimenuitem>Spellcheck Selection...</guimenuitem></menuchoice></term>
  <listitem>
 <para>Spellchecks the current selection.</para>
-<para>For more information on how to use the &kde; spellchecking program, see the
-<ulink url="help:/fundamentals/spellcheck.html"><emphasis>Check Spelling</emphasis>
-section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.</para>
  </listitem>
 </varlistentry>
 

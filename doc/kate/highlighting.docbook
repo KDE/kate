@@ -351,7 +351,8 @@ system switches to if it reaches the end of a line. This may either be a name
 of another context, <userinput>#stay</userinput> to not switch the context
 (&eg;. do nothing) or <userinput>#pop</userinput> which will cause to leave this
 context. It is possible to use for example <userinput>#pop#pop#pop</userinput>
-to pop three times.</para>
+to pop three times, or even <userinput>#pop#pop!OtherContext</userinput> to pop
+two times and switch to the context named <userinput>OtherContext</userinput>.</para>
 <para><userinput>lineEmptyContext</userinput> defines the context if an empty
 line is encountered. Default: #stay.</para>
 <para><userinput>fallthrough</userinput> defines if the highlight system switches
@@ -539,6 +540,12 @@ previous context used in the string (<userinput>#pop</userinput>).</para>
 <para>To go back more steps, the #pop keyword can be repeated:
 <userinput>#pop#pop#pop</userinput></para>
 </listitem>
+<listitem>
+<para>An <emphasis>order</emphasis> followed by an exclamation mark
+(<emphasis>!</emphasis>) and an <emphasis>identifier</emphasis>, which
+will make the engine first follow the order and then switch to the
+other context.</para>
+</listitem>
 </itemizedlist>
 
 <para>Some rules can have <emphasis>child rules</emphasis> which are
@@ -708,6 +715,15 @@ for more information on those.</para>
 <programlisting>&lt;keyword String=&quot;(list name)&quot; (common attributes) /&gt;</programlisting>
 <para>The <userinput>String</userinput> attribute identifies the
 keyword list by name. A list with that name must exist.</para>
+<para>The highlighting system processes keyword rules in a very optimized way.
+This makes it an absolute neccessity that any keywords to be matched need to be
+surrounded by defined deliminators, either implied (the default deliminators),
+or explicitly specified within the <emphasis>additionalDeliminator</emphasis>
+property of the <emphasis>keywords</emphasis> tag.</para>
+<para>If a keyword to be matched shall contain a deliminator character, this
+respective character must be added to the <emphasis>weakDeliminator</emphasis>
+property of the <emphasis>keywords</emphasis> tag.  This character will then
+loose its deliminator property in all <emphasis>keyword</emphasis> rules.</para>
 </listitem>
 </varlistentry>
 
@@ -827,13 +843,16 @@ example in C/C++ to continue macros or strings.</para>
 <programlisting>&lt;IncludeRules context=&quot;contextlink&quot; [includeAttrib=&quot;true|false&quot;] /&gt;</programlisting>
 
 <para>The <userinput>context</userinput> attribute defines which context to include.</para>
-<para>If it a simple string it includes all defined rules into the current context, example:
+<para>If it is a simple string it includes all defined rules into the current context, example:
 <programlisting>&lt;IncludeRules context=&quot;anotherContext&quot; /&gt;</programlisting></para>
 
 <para>
-If the string begins with <userinput>##</userinput> the highlight system
-will look for another language definition with the given name, example:
-<programlisting>&lt;IncludeRules context=&quot;##C++&quot; /&gt;</programlisting></para>
+If the string contains a <userinput>##</userinput> the highlight system
+will look for a context from another language definition with the given name,
+for example
+<programlisting>&lt;IncludeRules context=&quot;String##C++&quot; /&gt;</programlisting>
+would include the context <emphasis>String</emphasis> from the <emphasis>C++</emphasis>
+highlighting definition.</para>
 <para>If <userinput>includeAttrib</userinput> attribute is
 <emphasis>true</emphasis>, change the destination attribute to the one of
 the source. This is required to make for example commenting work, if text

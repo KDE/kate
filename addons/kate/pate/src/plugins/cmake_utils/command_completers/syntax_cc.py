@@ -783,7 +783,7 @@ def register_command_completer(completers):
       , Option('UTC', ZERO_OR_ONE)
       ]
     _string_subcommands = [
-        'REGEX', 'MD5', 'COMPARE', 'ASCII', 'CONFIGURE', 'TOUPPER', 'TOLOWER', 'LENGTH'
+        'REGEX', 'REPLACE', 'MD5', 'COMPARE', 'ASCII', 'CONFIGURE', 'TOUPPER', 'TOLOWER', 'LENGTH'
       , 'SUBSTRING', 'STRIP', 'RANDOM', 'FIND', 'TIMESTAMP'
       ]
     _string_digest_subcommands = ['MD5', 'SHA1', 'SHA224', 'SHA256', 'SHA384', 'SHA512']

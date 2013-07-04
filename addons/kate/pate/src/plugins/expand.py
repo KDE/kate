@@ -417,19 +417,19 @@ class ExpandsCompletionModel(AbstractCodeCompletionModel):
             return
 
         expansions = getExpansionsFor(view.document().mimeType())
-        for exp, fn in expansions.items():
+        for exp, fn_tuple in expansions.items():
             # Try to get a function description (very first line)
-            d = fn.__doc__
-            if d != None:
+            d = fn_tuple[0].__doc__
+            if d is not None:
                 lines = d.splitlines()
-                d = lines[0].strip()
+                d = lines[0].strip().replace('<br/>', '')
             # Get function parameters
-            fp = inspect.getargspec(fn)
+            fp = inspect.getargspec(fn_tuple[0])
             args = fp[0]
             params=''
             if len(args) != 0:
                 params = ", ".join(args)
-            if fp[1] != None:
+            if fp[1] is not None:
                 if len(params):
                     params += ', '
                 params += '['+fp[1]+']'

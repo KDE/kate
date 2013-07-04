@@ -1,0 +1,4 @@
+    switch (blah)
+    {
+    case 1:
+    break

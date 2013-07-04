@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 8
+ * revision: 9
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4
@@ -947,6 +947,33 @@ function tryComma(cursor)
     return result;
 }
 
+function tryBreakContinue(line, is_break)
+{
+    var result = -2;
+    // Ok, look backward and find a loop/switch statement
+    for (; 0 <= line; --line)
+    {
+        var text = document.line(line).ltrim();
+        var is_loop_or_switch = text.startsWith("for ")
+          || text.startsWith("do ")
+          || text.startsWith("while ")
+          || text.startsWith("if ")
+          || text.startsWith("else if ")
+          ;
+        if (is_break)
+            is_loop_or_switch =  is_loop_or_switch
+              || text.startsWith("case ")
+              || text.startsWith("default:")
+              ;
+        if (is_loop_or_switch)
+            break;
+    }
+    if (line != -1)                                     // Found smth?
+        result = document.firstColumn(line) + gIndentWidth;
+
+    return result;
+}
+
 function trySemicolon(cursor)
 {
     var result = -2;
@@ -962,6 +989,18 @@ function trySemicolon(cursor)
             // Add a half-tab relative '('
             result = document.firstColumn(openBracePos.line) + 2;
             document.insertText(cursor, " ");
+        }
+    }
+    else
+    {
+        var text = document.line(line).ltrim();
+        var is_break = text.startsWith("break;");
+        var should_proceed = is_break || text.startsWith("continue;")
+        if (should_proceed)
+        {
+            result = tryBreakContinue(line - 1, is_break);
+            if (result == -2)
+                result = -1;
         }
     }
     return result;
@@ -1670,15 +1709,6 @@ function alignAccessSpecifier(line)
 
 /**
  * Try to align \c case statements in a \c switch
- *
- * \todo Nowadays it is badly required a function, similar to \c anchor(),
- * to get a \c Range starting from open brace 'till corresponding close brace.
- * Without such fucntion if would be kinda hard to implement what I want
- * to do w/ \c case indenter... so let it be damn simple/stupid for awhile...
- *
- * \bug Due a lack of required functions in Kate (and yes, I'm lazy to write it
- * using pure JS), it's incorrectly indent \c break statement (actually it doesn't
- * care about \c break at all nowadays).
  */
 function alignCase(line)
 {
@@ -1695,6 +1725,29 @@ function alignCase(line)
 }
 
 /**
+ * Try to align \c break or \c continue statements in a loop or \c switch.
+ *
+ * Also it take care about the following case:
+ * \code
+ *  for (blah-blah)
+ *  {
+ *      if (smth)
+ *          break;
+ *  }
+ * \endcode
+ */
+function alignBreakContinue(line)
+{
+    var result = -2;
+    var currentLineText = document.line(line).ltrim();
+    var is_break = currentLineText.startsWith("break;");
+    var should_proceed = is_break || currentLineText.startsWith("continue;")
+    if (should_proceed)
+        result = tryBreakContinue(line - 1, is_break);
+    return result;
+}
+
+/**
  * Try to align a given line
  * \todo More actions
  */
@@ -1706,6 +1759,8 @@ function indentLine(line)
         result = alignAccessSpecifier(line);                // Try to align access specifiers in a class
     if (result == -2)                                       // Nothing has changed?
         result = alignCase(line);                           // Try to align `case' statements in a `switch'
+    if (result == -2)                                       // Nothing has changed?
+        result = alignBreakContinue(line);                  // Try to align `break' or `continue' statements
     if (result == -2)                                       // Nothing has changed?
         result = alignInsideBraces(line);                   // Try to align a generic line
     alignInlineComment(line);                               // Always try to align inline comments

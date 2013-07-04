@@ -32,7 +32,7 @@ public:
 _STRUCT_BODY_TPL = '''
 struct {0}
 {{
-\t%{cursor}
+\t%{{cursor}}
 }};
 '''
 
@@ -50,7 +50,7 @@ struct {0}
 '''
 
 _PURE_BRIEF_DOC_TPL = '''/**
- * \\brief %{cursor}
+ * \\brief %{{cursor}}
  *
  */'''
 
@@ -76,14 +76,14 @@ void {1}({0} value)
 
 _MAIN_WITH_ARGS_TPL = '''int main(int argc, const char* const argv[])
 {
-\t%{cursor}
+\t%{{cursor}}
 \treturn 0;
 }
 '''
 
 _MAIN_TPL = '''int main()
 {
-\t%{cursor}
+\t%{{cursor}}
 \treturn 0;
 }'''
 
@@ -95,9 +95,10 @@ _EMPTY_SWITCH_TPL = '''switch (%{cursor})
 \t\tbreak;
 }'''
 
-_SWITCH_TPL = '''switch ({0})
+_SWITCH_TPL = '''switch ({})
 {{
-{1}}}'''
+{}
+}}'''
 
 
 def st(name, *templateParams):
@@ -123,6 +124,7 @@ def st(name, *templateParams):
         params.append('typename ' + ', typename '.join(templateParams))
     else:
         template = _BRIEF_DOC_TPL + _STRUCT_BODY_TPL
+    print('template="{}", params={}'.format(template, repr(params)))
     return template.format(*params)
 
 
@@ -276,9 +278,8 @@ def sw(expr = None, *caseList):
                     caseStr += '\tcase ' + case +':\n\t\tbreak;\n'
             caseStr += '%{cursor}'
         else:
-            caseStr = '\tcase :%{cursor}\n\t\tbreak;\n'
+            caseStr = '\tcase %{cursor}:\n\t\tbreak;\n'
         return _SWITCH_TPL.format(expr, caseStr)
-    else:
-        return _EMPTY_SWITCH_TPL
+    return _EMPTY_SWITCH_TPL
 
 # kate: hl python; indent-width 4;

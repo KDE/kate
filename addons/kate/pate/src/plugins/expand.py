@@ -211,45 +211,6 @@ def getExpansionsFor(mime):
     return result
 
 
-def indentationCharacters(document):
-    ''' The characters used to indent in a document as set by variables in the
-        document or in the configuration. Will be something like '\t' or '    '
-    '''
-    v = document.variableInterface()
-    # cache
-    if not hasattr(indentationCharacters, 'configurationUseTabs'):
-        config = KConfig('katerc')
-        group = config.group('Kate Document Defaults')
-        flags = str(group.readEntry('Basic Config Flags'))
-        # gross, but there's no public API for this. Growl.
-        indentationCharacters.configurationUseTabs = True
-        if flags and int(flags) & 0x2000000:
-            print('insert spaces instead of tabulators')
-            indentationCharacters.configurationUseTabs = False
-
-        indentWidth = str(group.readEntry('Indentation Width'))
-        indentationCharacters.configurationIndentWidth = int(indentWidth) if indentWidth else 4
-    # indent with tabs or spaces
-    useTabs = True
-    spaceIndent = v.variable('space-indent')
-    if spaceIndent == 'on':
-        useTabs = False
-    elif spaceIndent == 'off':
-        useTabs = True
-    else:
-        useTabs = indentationCharacters.configurationUseTabs
-
-    if useTabs:
-        return '\t'
-    else:
-        indentWidth = v.variable('indent-width')
-        if indentWidth and indentWidth.isdigit():
-            return ' ' * int(indentWidth)
-        else:
-            # default
-            return ' ' * indentationCharacters.configurationIndentWidth
-
-
 @kate.action(i18nc('@action:inmenu', 'Expand Usage'), shortcut='Shift+Ctrl+E')
 def getHelpOnExpandAtCursor():
     document = kate.activeDocument()
@@ -349,6 +310,7 @@ def expandAtCursor():
           , replaceAbsolutePathWithLinkCallback
           , s
           )
+        print('EXPAND FAILURE: {}'.format(s))
         ui.popup(
             i18nc('@title:window', 'Error')
           , i18nc('@info:tooltip', '<bcode>%1</bcode>', s)
@@ -356,53 +318,14 @@ def expandAtCursor():
           )
         return
 
-    #KateDocumentConfig::cfReplaceTabsDyn
-    indentCharacters = indentationCharacters(document)
-    # convert newlines followed by tab characters to whatever spacing
-    # the user... uses.
-    for i in range(100):
-        if '\n' + (indentCharacters * i) + '\t' in replacement:
-            replacement = replacement.replace('\n' + (indentCharacters * i) + '\t', '\n' + (indentCharacters * (i + 1)))
-    insertPosition = word_range.start()
-    line = document.line(insertPosition.line())
-    # autoindent: add the line's leading whitespace for each newline
-    # in the expansion
-    whitespace = ''
-    for character in line:
-        if character in ' \t':
-            whitespace += character
-        else:
-            break
-    replacement = replacement.replace('\n', '\n' + whitespace)
-    # is desired cursor position set?
-    cursorAdvancement = None
-    if '%{cursor}' in replacement:
-        cursorAdvancement = replacement.index('%{cursor}')
-        # strip around that word
-        replacement = replacement[:cursorAdvancement] + replacement[cursorAdvancement + 9:]
-    # make the removal and insertion an atomic operation
+    # Use TemplateInterface2 to insert a code snippet
+    ti2 = view.templateInterface2()
     document.startEditing()
     if argument_range is not None:
         document.removeText(argument_range)
     document.removeText(word_range)
-    document.insertText(insertPosition, replacement)
-    # end before moving the cursor to avoid a crash
+    ti2.insertTemplateText(word_range.start(), replacement, {}, None)
     document.endEditing()
-
-    if cursorAdvancement is not None:
-        # TODO The smartInterface isn't available anymore!
-        #      But it's successor (movingInterface) isn't available yet in
-        #      PyKDE4 <= 4.8.3 (at least) :( -- so, lets move a cursor manually...
-        while True:
-            currentLength = document.lineLength(insertPosition.line())
-            if cursorAdvancement <= currentLength:
-                break
-            else:
-                insertPosition.setLine(insertPosition.line() + 1)
-                cursorAdvancement -= currentLength + 1      # NOTE +1 for every \n char
-        insertPosition.setColumn(insertPosition.column() + cursorAdvancement)
-        view.setCursorPosition(insertPosition)
-
 
 
 class ExpandsCompletionModel(AbstractCodeCompletionModel):

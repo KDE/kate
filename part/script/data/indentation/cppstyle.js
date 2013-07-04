@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 9
+ * revision: 10
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4
@@ -1191,6 +1191,7 @@ function tryPreprocessor(cursor)
  *     Check a previous line and if it is not starts w/ \c '{' add a new line before.
  * \li \c ':' is a first char on the line, then it looks like a class initialization
  *     list or 2nd line of trenary operator.
+ * \li \c ':' is pressed on a line started w/ \c for statement and after a space
  */
 function tryColon(cursor)
 {
@@ -1239,6 +1240,12 @@ function tryColon(cursor)
                     }
                 }
             }
+        }
+        else if (document.charAt(line, column - 2) == ' ' && currentLine.ltrim().startsWith("for ("))
+        {
+            // Looks like a range based `for'!
+            // Add a space after ':'
+            document.insertText(line, column, " ");
         }
     }
     return result;

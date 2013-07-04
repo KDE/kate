@@ -716,7 +716,7 @@ for more information on those.</para>
 <para>The <userinput>String</userinput> attribute identifies the
 keyword list by name. A list with that name must exist.</para>
 <para>The highlighting system processes keyword rules in a very optimized way.
-This makes it an absolute neccessity that any keywords to be matched need to be
+This makes it an absolute necessity that any keywords to be matched need to be
 surrounded by defined deliminators, either implied (the default deliminators),
 or explicitly specified within the <emphasis>additionalDeliminator</emphasis>
 property of the <emphasis>keywords</emphasis> tag.</para>

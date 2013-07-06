@@ -83,6 +83,12 @@ public:
   void feedKeyPresses(const QString &keyPresses) const;
 
   /**
+   * Determines whether we are currently processing a Vi keypress
+   * @return true if we are still in a call to handleKeypress, false otherwise
+   */
+  bool isHandlingKeypress() const;
+
+  /**
    * @return The current vi mode
    */
   ViMode getCurrentViMode() const;
@@ -268,6 +274,8 @@ private:
   KateView *m_view;
   KateViewInternal *m_viewInternal;
   KateViKeyParser *m_keyParser;
+
+  int m_insideHandlingKeyPressCount;
 
   /**
    * set to true when replaying the last change (due to e.g. pressing ".")

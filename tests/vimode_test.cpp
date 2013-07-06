@@ -389,6 +389,13 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo[hello]", "fhlvli[\\escrX", "foo[hellX]");
     // Ensure we reset the flag that says that the current motion is a text object!
     DoTest("foo[hello]", "jfhlvli[^d", "ello]");
+
+    // Test that selecting a range "externally" to Vim (i.e. via the mouse, or one of the ktexteditor api's)
+    // switches us into Visual Mode.
+    BeginTest("foo bar");
+    kate_view->setSelection(Range(0, 1, 0 , 4));
+    TestPressKey("d");
+    FinishTest("far");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -1259,6 +1266,16 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "X", "r.", KateViModeBase::Recursive);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "i", "a", KateViModeBase::Recursive);
   DoTest("foo", "li", "oo");
+
+  // Regression test: Using a mapping may trigger a call to updateSelection(), which can change the mode
+  // from VisualLineMode to plain VisualMode. TODO - technically, the "gA" mapping is used in VisualMode;
+  // however, this is not implemented for Kate Vi Mode so we have to pick NormalMode instead :/
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gA", "%", KateViModeBase::NonRecursive);
+  DoTest("xyz\nfoo\n{\nbar\n}", "jVjgAdgglP", "foo\n{\nbar\n}\nxyz");
+  // Piggy back on the previous test with a regression test for issue where, if gA is mapped to %, vgly
+  // will yank one more character than it should.
+  DoTest("foo(bar)X", "vgAyp", "ffoo(bar)oo(bar)X");
 
   // Clear mappings for subsequent tests.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);

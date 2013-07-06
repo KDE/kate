@@ -54,6 +54,8 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
 
   m_view->setCaretStyle( KateRenderer::Block, true );
 
+  m_insideHandlingKeyPressCount = 0;
+
   m_replayingLastChange = false;
   m_textualRepeat = false;
 
@@ -88,6 +90,7 @@ KateViInputModeManager::~KateViInputModeManager()
 
 bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
 {
+  m_insideHandlingKeyPressCount++;
   bool res;
   const bool isSyntheticSearchCompletedKeyPress = (m_view->viModeEmulatedCommandBar()->isVisible() && !m_view->viModeEmulatedCommandBar()->isActive());
   // record key press so that it can be repeated via "."
@@ -124,6 +127,8 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
         res = false;
     }
   }
+
+  m_insideHandlingKeyPressCount--;
 
   return res;
 }
@@ -199,6 +204,11 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 
     QCoreApplication::sendEvent(m_viewInternal, &k);
   }
+}
+
+bool KateViInputModeManager::isHandlingKeypress() const
+{
+  return m_insideHandlingKeyPressCount > 0;
 }
 
 void KateViInputModeManager::appendKeyEventToLog(const QKeyEvent &e)

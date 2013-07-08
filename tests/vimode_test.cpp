@@ -2142,6 +2142,19 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("foo fee foa foab");
 
+  // If we're completing from history, though, the entire text gets set, and the completion prefix
+  // is the beginning of the entire text, not the current word before the cursor.
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(bar");
+  BeginTest("");
+  TestPressKey("/foo(b\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
+  TestPressKey("\\enter");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo(bar"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
   // Scroll completion list if necessary so that currently selected completion is visible.
   BeginTest("a b c d e f g h i j k l m n o p q r s t u v w x y z");
   TestPressKey("/\\ctrl- ");
@@ -2201,18 +2214,6 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("a ab abc");
 
-  // If we're completing from history, though, the entire text gets set, and the completion prefix
-  // is the beginning of the entire text, not the current word before the cursor.
-  clearSearchHistory();
-  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(bar");
-  BeginTest("");
-  TestPressKey("/foo(b\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
-  verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
-  TestPressKey("\\enter");
-  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo(bar"));
-  TestPressKey("\\enter");
-  FinishTest("");
 
   // Set the completion prefix for the search history completion as soon as it is shown.
   clearSearchHistory();

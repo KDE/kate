@@ -340,9 +340,12 @@ void KateViEmulatedCommandBar::completionChosen()
 
 void KateViEmulatedCommandBar::setCompletionIndex(int index)
 {
+  QModelIndex modelIndex = m_completer->popup()->model()->index(index, 0);
   // Need to set both of these, for some reason.
-  m_completer->popup()->setCurrentIndex(m_searchHistoryModel->index(index, 0));
+  m_completer->popup()->setCurrentIndex(modelIndex);
   m_completer->setCurrentRow(index);
+
+  m_completer->popup()->scrollTo(modelIndex);
 }
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)

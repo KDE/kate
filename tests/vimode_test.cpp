@@ -2142,6 +2142,20 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("foo fee foa foab");
 
+  // Scroll completion list if necessary so that currently selected completion is visible.
+  BeginTest("a b c d e f g h i j k l m n o p q r s t u v w x y z");
+  TestPressKey("/\\ctrl- ");
+  const int lastItemRow = 25;
+  const QRect initialLastCompletionItemRect = emulatedCommandBarCompleter()->popup()->visualRect(emulatedCommandBarCompleter()->popup()->model()->index(lastItemRow, 0));
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->rect().contains(initialLastCompletionItemRect)); // If this fails, then we have an error in the test setup: initally, the last item in the list should be outside of the bounds of the popup.
+  TestPressKey("\\ctrl-n");
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("z"));
+  const QRect lastCompletionItemRect = emulatedCommandBarCompleter()->popup()->visualRect(emulatedCommandBarCompleter()->popup()->model()->index(lastItemRow, 0));
+  QVERIFY(emulatedCommandBarCompleter()->popup()->rect().contains(lastCompletionItemRect));
+  TestPressKey("\\enter"); // Dismiss completer.
+  TestPressKey("\\enter");
+  FinishTest("a b c d e f g h i j k l m n o p q r s t u v w x y z");
+
   // If we're completing from history, though, the entire text gets set, and the completion prefix
   // is the beginning of the entire text, not the current word before the cursor.
   clearSearchHistory();

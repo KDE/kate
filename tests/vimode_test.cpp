@@ -1825,6 +1825,9 @@ void ViModeTest::VimStyleCommandBarTests()
   // Ensure that it is the escaped version of the pattern that is recorded as the last search pattern.
   DoTest("foo bar( xyz", "/bar(\\enterggnrX", "foo Xar( xyz");
 
+  // Don't log keypresses sent to the emulated command bar as commands to be repeated via "."!
+  DoTest("foo", "/diw\\enterciwbar\\ctrl-c.", "bar");
+
   // History auto-completion tests.
   clearSearchHistory();
   QVERIFY(searchHistory().isEmpty());

@@ -89,18 +89,17 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
 {
   bool res;
 
-  // record key press so that it can be repeated
-  if (!isReplayingLastChange()) {
-    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
-    appendKeyEventToLog( copy );
-  }
-
   if (m_view->viModeEmulatedCommandBar()->isVisible())
   {
     res = m_view->viModeEmulatedCommandBar()->handleKeyPress(e);
   }
   else
   {
+    // record key press so that it can be repeated via "."
+    if (!isReplayingLastChange()) {
+      QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
+      appendKeyEventToLog( copy );
+    }
     // FIXME: I think we're making things difficult for ourselves here.  Maybe some
     //        more thought needs to go into the inheritance hierarchy.
     switch(m_currentViMode) {

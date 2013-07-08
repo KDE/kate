@@ -71,6 +71,7 @@ KateViEmulatedCommandBar::~KateViEmulatedCommandBar()
 
 void KateViEmulatedCommandBar::init(bool backwards)
 {
+  m_currentCompletionType = None;
   if (backwards)
   {
     m_barTypeIndicator->setText("?");
@@ -319,11 +320,8 @@ void KateViEmulatedCommandBar::updateCompletionPrefix()
   {
     m_completer->setCompletionPrefix(m_edit->text());
   }
-  if (m_completer->popup()->isVisible())
-  {
-    // Seem to need this to alter the size of the popup box appropriately.
-    m_completer->complete();
-  }
+  // Seem to need this to alter the size of the popup box appropriately.
+  m_completer->complete();
 }
 
 void KateViEmulatedCommandBar::completionChosen()
@@ -517,5 +515,8 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 
   updateMatchHighlight(match);
 
-  updateCompletionPrefix();
+  if (m_currentCompletionType != None)
+  {
+    updateCompletionPrefix();
+  }
 }

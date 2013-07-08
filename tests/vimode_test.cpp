@@ -2167,6 +2167,18 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("a ab abc");
 
+  // Ensure that the completion list disappears when no candidate completions are found, but re-appears
+  // when some are found.
+  BeginTest("a ab abc");
+  TestPressKey("/\\ctrl- ");
+  TestPressKey("abd");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-h");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\enter"); // Dismiss completer.
+  TestPressKey("\\enter");
+  FinishTest("a ab abc");
+
 
   // If we're completing from history, though, the entire text gets set, and the completion prefix
   // is the beginning of the entire text, not the current word before the cursor.

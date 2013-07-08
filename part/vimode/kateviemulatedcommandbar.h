@@ -36,6 +36,7 @@ private:
   CompletionType m_currentCompletionType;
   void updateCompletionPrefix();
   void completionChosen();
+  bool m_completionActive;
 
   KTextEditor::Attribute::Ptr m_highlightMatchAttribute;
   KTextEditor::MovingRange* m_highlightedMatch;

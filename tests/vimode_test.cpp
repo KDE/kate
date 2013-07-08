@@ -2179,7 +2179,20 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("a ab abc");
 
-  // If we choose an element from the summoned completion list, is should not re-appear unless explicitly summoned
+  // ctrl-c and ctrl-[ when the completion list is visible should dismiss the completion list, but *not*
+  // the emulated command bar. TODO - same goes for ESC, but this is harder as KateViewInternal dismisses it
+  // itself.
+  BeginTest("a ab abc");
+  TestPressKey("/\\ctrl- \\ctrl-cdiw");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\enter"); // Dismiss bar.
+  TestPressKey("/\\ctrl- \\ctrl-[diw");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBar->isVisible());
+  FinishTest("a ab abc");
+
+  // If we choose an element from the summoned completion list, it should not re-appear unless explicitly summoned
   // again, even if the current word has a valid completion.
   BeginTest("a ab abc");
   TestPressKey("/\\ctrl- \\ctrl-p\\enter");

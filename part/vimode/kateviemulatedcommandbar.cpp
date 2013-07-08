@@ -431,7 +431,14 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (keyEvent->key() == Qt::Key_C || keyEvent->key() == Qt::Key_BracketLeft)
     {
-      emit hideMe();
+      if (m_currentCompletionType == None)
+      {
+        emit hideMe();
+      }
+      else
+      {
+        m_completer->popup()->hide();
+      }
       return true;
     }
     else if (keyEvent->key() == Qt::Key_H)

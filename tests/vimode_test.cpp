@@ -1457,6 +1457,43 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("");
 
+  // Check ctrl-w does not continue to delete subsequent alphanumerics if the characters to the left of the cursor
+  // are non-space, non-alphanumerics.
+  BeginTest("");
+  TestPressKey("/foo!!!\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
+  TestPressKey("\\enter");
+  FinishTest("");
+  // Check ctrl-w does not continue to delete subsequent alphanumerics if the characters to the left of the cursor
+  // are non-space, non-alphanumerics.
+  BeginTest("");
+  TestPressKey("/foo!!!\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w deletes underscores and alphanumerics to the left of the cursor, but stops when it reaches a
+  // character that is none of these.
+  BeginTest("");
+  TestPressKey("/foo!!!_d1\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo!!!"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w doesn't swallow the spaces preceding the block of non-word chars.
+  BeginTest("");
+  TestPressKey("/foo !!!\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo "));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Check ctrl-w doesn't swallow the spaces preceding the word.
+  BeginTest("");
+  TestPressKey("/foo 1d_\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo "));
+  TestPressKey("\\enter");
+  FinishTest("");
+
   // Check ctrl-r works with registers.
   BeginTest("xyz");
   TestPressKey("\"ayiw/foo\\ctrl-ra");

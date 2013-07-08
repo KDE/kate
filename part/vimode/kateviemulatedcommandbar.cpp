@@ -146,12 +146,35 @@ void KateViEmulatedCommandBar::deleteSpacesToLeftOfCursor()
   }
 }
 
-void KateViEmulatedCommandBar::deleteNonSpacesToLeftOfCursor()
+void KateViEmulatedCommandBar::deleteWordCharsToLeftOfCursor()
 {
-  while (m_edit->cursorPosition() != 0 && m_edit->text()[m_edit->cursorPosition() - 1] != ' ')
+  while (m_edit->cursorPosition() != 0)
   {
+    const QChar charToTheLeftOfCursor = m_edit->text()[m_edit->cursorPosition() - 1];
+    if (!charToTheLeftOfCursor.isLette jjrOrNumber() && charToTheLeftOfCursor != '_')
+    {
+      break;
+    }
+
     m_edit->backspace();
   }
+}
+
+bool KateViEmulatedCommandBar::deleteNonWordCharsToLeftOfCursor()
+{
+  bool deletionsMade = false;
+  while (m_edit->cursorPosition() != 0)
+  {
+    const QChar charToTheLeftOfCursor = m_edit->text()[m_edit->cursorPosition() - 1];
+    if (charToTheLeftOfCursor.isLetterOrNumber() || charToTheLeftOfCursor == '_' || charToTheLeftOfCursor == ' ')
+    {
+      break;
+    }
+
+    m_edit->backspace();
+    deletionsMade = true;
+  }
+  return deletionsMade;
 }
 
 QString KateViEmulatedCommandBar::wordBeforeCursor()
@@ -416,7 +439,10 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     else if (keyEvent->key() == Qt::Key_W)
     {
       deleteSpacesToLeftOfCursor();
-      deleteNonSpacesToLeftOfCursor();
+      if(!deleteNonWordCharsToLeftOfCursor())
+      {
+        deleteWordCharsToLeftOfCursor();
+      }
     }
     else if (keyEvent->key() == Qt::Key_R)
     {

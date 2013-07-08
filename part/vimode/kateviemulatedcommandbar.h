@@ -43,7 +43,8 @@ private:
 
   virtual bool eventFilter(QObject* object, QEvent* event);
   void deleteSpacesToLeftOfCursor();
-  void deleteNonSpacesToLeftOfCursor();
+  void deleteWordCharsToLeftOfCursor();
+  bool deleteNonWordCharsToLeftOfCursor();
   QString wordBeforeCursor();
   void replaceWordBeforeCursorWith(const QString& newWord);
   QString vimRegexToQtRegexPattern(const QString& vimRegexPattern);

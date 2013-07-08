@@ -438,6 +438,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       else
       {
         m_completer->popup()->hide();
+        m_currentCompletionType = None;
       }
       return true;
     }

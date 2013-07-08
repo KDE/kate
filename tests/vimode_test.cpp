@@ -2214,6 +2214,19 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("a ab abc");
 
+  // If we dismiss the summoned completion list via ctrl-c or ctrl-[, it should not re-appear unless explicitly summoned
+  // again, even if the current word has a valid completion.
+  // ESC won't dismiss the com
+  BeginTest("a ab abc");
+  TestPressKey("/\\ctrl- \\ctrl-c");
+  TestPressKey(".a");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\enter");
+  TestPressKey("/\\ctrl- \\ctrl-[");
+  TestPressKey(".a");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\enter");
+  FinishTest("a ab abc");
 
   // Set the completion prefix for the search history completion as soon as it is shown.
   clearSearchHistory();

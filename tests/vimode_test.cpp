@@ -2156,6 +2156,18 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("a b c d e f g h i j k l m n o p q r s t u v w x y z");
 
+  // Ensure that the completion list changes size appropriately as the number of candidate completions changes.
+  BeginTest("a ab abc");
+  TestPressKey("/\\ctrl- ");
+  const int initialPopupHeight = emulatedCommandBarCompleter()->popup()->height();
+  TestPressKey("ab");
+  const int popupHeightAfterEliminatingOne = emulatedCommandBarCompleter()->popup()->height();
+  QVERIFY(popupHeightAfterEliminatingOne < initialPopupHeight);
+  TestPressKey("\\enter"); // Dismiss completer.
+  TestPressKey("\\enter");
+  FinishTest("a ab abc");
+
+
   // If we're completing from history, though, the entire text gets set, and the completion prefix
   // is the beginning of the entire text, not the current word before the cursor.
   clearSearchHistory();

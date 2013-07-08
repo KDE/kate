@@ -319,6 +319,11 @@ void KateViEmulatedCommandBar::updateCompletionPrefix()
   {
     m_completer->setCompletionPrefix(m_edit->text());
   }
+  if (m_completer->popup()->isVisible())
+  {
+    // Seem to need this to alter the size of the popup box appropriately.
+    m_completer->complete();
+  }
 }
 
 void KateViEmulatedCommandBar::completionChosen()

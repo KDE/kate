@@ -2179,6 +2179,14 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("a ab abc");
 
+  // If we choose an element from the summoned completion list, is should not re-appear unless explicitly summoned
+  // again, even if the current word has a valid completion.
+  BeginTest("a ab abc");
+  TestPressKey("/\\ctrl- \\ctrl-p\\enter");
+  TestPressKey(".a");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\enter");
+  FinishTest("a ab abc");
 
   // If we're completing from history, though, the entire text gets set, and the completion prefix
   // is the beginning of the entire text, not the current word before the cursor.

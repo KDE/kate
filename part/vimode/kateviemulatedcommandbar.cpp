@@ -339,6 +339,7 @@ void KateViEmulatedCommandBar::completionChosen()
     Q_ASSERT("Something went wrong, here - completion with unrecognised completion type");
   }
   m_completer->popup()->hide();
+  m_currentCompletionType = None;
 }
 
 void KateViEmulatedCommandBar::setCompletionIndex(int index)

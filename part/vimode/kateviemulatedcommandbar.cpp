@@ -151,7 +151,7 @@ void KateViEmulatedCommandBar::deleteWordCharsToLeftOfCursor()
   while (m_edit->cursorPosition() != 0)
   {
     const QChar charToTheLeftOfCursor = m_edit->text()[m_edit->cursorPosition() - 1];
-    if (!charToTheLeftOfCursor.isLette jjrOrNumber() && charToTheLeftOfCursor != '_')
+    if (!charToTheLeftOfCursor.isLetterOrNumber() && charToTheLeftOfCursor != '_')
     {
       break;
     }

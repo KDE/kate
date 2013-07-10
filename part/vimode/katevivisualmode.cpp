@@ -100,7 +100,19 @@ void KateViVisualMode::goToPos( const KateViRange &r )
     m_start.setColumn( r.startColumn );
     c.setLine( r.endLine );
     c.setColumn( r.endColumn );
-  } else {
+  }
+  else if ( r.startLine != -1 && r.startColumn != -1 && m_motionCanChangeWholeVisualModeSelection )
+  {
+    const Cursor textObjectBegin(r.startLine, r.startColumn);
+    if (textObjectBegin < m_start)
+    {
+      m_start.setLine( r.startLine );
+      m_start.setColumn( r.startColumn );
+      c.setLine( r.endLine );
+      c.setColumn( r.endColumn );
+    }
+  }
+  else {
     c.setLine( r.endLine );
     c.setColumn( r.endColumn );
   }
@@ -396,15 +408,16 @@ void KateViVisualMode::initializeCommands()
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );
   ADDMOTION("aw", textObjectAWord, 0 );
-  ADDMOTION("i\"", textObjectInnerQuoteDouble, 0 );
+  ADDMOTION("i\"", textObjectInnerQuoteDouble, CAN_CHANGE_WHOLE_VISUAL_MODE_SELECTION);
   ADDMOTION("a\"", textObjectAQuoteDouble, 0 );
-  ADDMOTION("i'", textObjectInnerQuoteSingle, 0 );
+  ADDMOTION("i'", textObjectInnerQuoteSingle, CAN_CHANGE_WHOLE_VISUAL_MODE_SELECTION );
   ADDMOTION("a'", textObjectAQuoteSingle, 0 );
-  ADDMOTION("i[()b]", textObjectInnerParen, REGEX_PATTERN );
+  ADDMOTION("i[()b]", textObjectInnerParen, REGEX_PATTERN | CAN_CHANGE_WHOLE_VISUAL_MODE_SELECTION );
   ADDMOTION("a[()b]", textObjectAParen, REGEX_PATTERN );
-  ADDMOTION("i[{}B]", textObjectInnerCurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
+  ADDMOTION("i[{}B]", textObjectInnerCurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE | CAN_CHANGE_WHOLE_VISUAL_MODE_SELECTION);
   ADDMOTION("a[{}B]", textObjectACurlyBracket, REGEX_PATTERN | IS_NOT_LINEWISE);
-  ADDMOTION("i[\\[\\]]", textObjectInnerBracket, REGEX_PATTERN );
+  ADDMOTION("i[><]", textObjectInnerInequalitySign, REGEX_PATTERN | IS_NOT_LINEWISE | CAN_CHANGE_WHOLE_VISUAL_MODE_SELECTION);
+  ADDMOTION("i[\\[\\]]", textObjectInnerBracket, REGEX_PATTERN | CAN_CHANGE_WHOLE_VISUAL_MODE_SELECTION);
   ADDMOTION("a[\\[\\]]", textObjectABracket, REGEX_PATTERN );
   ADDMOTION("i,", textObjectInnerComma, 0 );
   ADDMOTION("a,", textObjectAComma, 0 );

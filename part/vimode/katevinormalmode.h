@@ -318,6 +318,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool m_commandWithMotion;
     bool m_isCommandBeingExecuted;
     bool m_lastMotionWasLinewiseInnerBlock;
+    bool m_motionCanChangeWholeVisualModeSelection;
 
     bool m_commandShouldKeepSelection;
 

@@ -77,6 +77,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_pendingResetIsDueToExit = false;
   m_isRepeatedTFcommand = false;
   m_lastMotionWasLinewiseInnerBlock = false;
+  m_motionCanChangeWholeVisualModeSelection = false;
   resetParser(); // initialise with start configuration
 
   m_isUndo = false;
@@ -363,6 +364,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // no command given before motion, just move the cursor to wherever
             // the motion says it should go to
             KateViRange r = m_motions.at( i )->execute();
+            m_motionCanChangeWholeVisualModeSelection = m_motions.at( i )->canChangeWholeVisualModeSelection();
 
             // jump over folding regions since we are just moving the cursor
             int currLine = m_view->cursorPosition().line();

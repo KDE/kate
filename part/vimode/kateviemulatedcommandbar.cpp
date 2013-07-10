@@ -3,6 +3,7 @@
 #include "kateview.h"
 #include "kateviglobal.h"
 #include "katevinormalmode.h"
+#include "katevivisualmode.h"
 #include "kateglobal.h"
 #include "kateconfig.h"
 
@@ -23,6 +24,7 @@ namespace
 
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
     : KateViewBarWidget(false, parent),
+      m_isActive(false),
       m_view(view),
       m_doNotResetCursorOnClose(false),
       m_suspendEditEventFiltering(false),
@@ -85,6 +87,12 @@ void KateViEmulatedCommandBar::init(bool backwards)
   m_edit->setFocus();
   m_edit->clear();
   m_startingCursorPos = m_view->cursorPosition();
+  m_isActive = true;
+}
+
+bool KateViEmulatedCommandBar::isActive()
+{
+  return m_isActive;
 }
 
 void KateViEmulatedCommandBar::closed()
@@ -99,9 +107,17 @@ void KateViEmulatedCommandBar::closed()
     KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
   m_startingCursorPos = KTextEditor::Cursor::invalid();
+  const bool wasDismissed = !m_doNotResetCursorOnClose;
   m_doNotResetCursorOnClose = false;
   updateMatchHighlight(Range::invalid());
   m_completer->popup()->hide();
+  m_isActive = false;
+
+  // Send a synthetic keypress through the system that signals whether the search was aborted or
+  // not.  If not, the keypress will "complete" the search motion, thus triggering it.
+  const Qt::Key syntheticSearchCompletedKey = (wasDismissed ? Qt::Key_Escape : Qt::Key_Enter);
+  QKeyEvent syntheticSearchCompletedKeyPress(QEvent::KeyPress, syntheticSearchCompletedKey, Qt::NoModifier);
+  m_view->getViInputModeManager()->handleKeypress(&syntheticSearchCompletedKeyPress);
 }
 
 void KateViEmulatedCommandBar::updateMatchHighlightAttrib()
@@ -499,7 +515,8 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   m_view->getViInputModeManager()->setLastSearchCaseSensitive(caseSensitive);
   m_view->getViInputModeManager()->setLastSearchBackwards(m_searchBackwards);
 
-  Range match = m_view->getViInputModeManager()->getViNormalMode()->findPattern(qtRegexPattern, m_searchBackwards, caseSensitive, m_startingCursorPos);
+  KateViModeBase* currentModeHandler = (m_view->getCurrentViMode() == NormalMode) ? static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViNormalMode()) : static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViVisualMode());
+  Range match = currentModeHandler->findPattern(qtRegexPattern, m_searchBackwards, caseSensitive, m_startingCursorPos);
 
   QPalette barBackground(m_edit->palette());
   if (match.isValid())

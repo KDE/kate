@@ -233,6 +233,27 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   m_keys.append( key );
 
+  if (key == '/' || key == '?')
+  {
+    // Special case for "/" and "?": these should be motions, but this is complicated by
+    // the fact that the user must interact with the search bar before the range of the
+    // motion can be determined.
+    // We hack around this by showing the search bar immediately, and, when the user has
+    // finished interacting with it, have the search bar send a "synthetic" keypresses
+    // that will either abort everything (if the search was aborted) or "complete" the motion
+    // otherwise.
+    m_positionWhenIncrementalSearchBegan = m_view->cursorPosition();
+    if (key == '/')
+    {
+      commandSearchForward();
+    }
+    else
+    {
+      commandSearchBackward();
+    }
+    return true;
+  }
+
   // Special case: "cw" and "cW" work the same as "ce" and "cE" if the cursor is
   // on a non-blank.  This is because Vim interprets "cw" as change-word, and a
   // word does not include the following white space. (:help cw in vim)
@@ -2770,6 +2791,14 @@ KateViRange KateViNormalMode::motionToAfterParagraph()
     return r;
 }
 
+KateViRange KateViNormalMode::motionToIncrementalSearchMatch()
+{
+  return KateViRange(m_positionWhenIncrementalSearchBegan.line(),
+                     m_positionWhenIncrementalSearchBegan.column(),
+                     m_view->cursorPosition().line(),
+                     m_view->cursorPosition().column(), ViMotion::ExclusiveMotion);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // TEXT OBJECTS
 ////////////////////////////////////////////////////////////////////////////////
@@ -3059,8 +3088,6 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD("R", commandEnterReplaceMode, IS_CHANGE );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
-  ADDCMD("/", commandSearchForward, 0 );
-  ADDCMD("?", commandSearchBackward, 0 );
   ADDCMD("u", commandUndo, 0);
   ADDCMD("<c-r>", commandRedo, 0 );
   ADDCMD("U", commandRedo, 0 );
@@ -3196,6 +3223,9 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("a[\\[\\]]", textObjectABracket, REGEX_PATTERN  | IS_NOT_LINEWISE);
   ADDMOTION("i,", textObjectInnerComma, IS_NOT_LINEWISE );
   ADDMOTION("a,", textObjectAComma, IS_NOT_LINEWISE);
+
+  ADDMOTION("/<enter>", motionToIncrementalSearchMatch, 0);
+  ADDMOTION("?<enter>", motionToIncrementalSearchMatch, 0);
 }
 
 QRegExp KateViNormalMode::generateMatchingItemRegex()

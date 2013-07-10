@@ -18,9 +18,11 @@ public:
   explicit KateViEmulatedCommandBar(KateView *view, QWidget* parent = 0);
   virtual ~KateViEmulatedCommandBar();
   void init(bool backwards);
+  bool isActive();
   virtual void closed();
   bool handleKeyPress(const QKeyEvent* keyEvent);
 private:
+  bool m_isActive;
   KateView *m_view;
   QLineEdit *m_edit;
   QLabel *m_barTypeIndicator;

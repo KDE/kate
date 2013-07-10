@@ -100,9 +100,6 @@ void KateViVisualMode::goToPos( const KateViRange &r )
     m_start.setColumn( r.startColumn );
     c.setLine( r.endLine );
     c.setColumn( r.endColumn );
-  } else if ( r.startLine != -1 && r.startColumn != -1 && c < m_start ) {
-    c.setLine( r.startLine );
-    c.setColumn( r.startColumn );
   } else {
     c.setLine( r.endLine );
     c.setColumn( r.endColumn );
@@ -326,8 +323,6 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("P", commandPasteBefore, IS_CHANGE );
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
-  ADDCMD("/", commandSearchForward, 0 );
-  ADDCMD("?", commandSearchBackward, 0 );
   ADDCMD("m.", commandSetMark, REGEX_PATTERN | SHOULD_NOT_RESET );
   ADDCMD(">", commandIndentLines, 0 );
   ADDCMD("<", commandUnindentLines, 0 );
@@ -413,4 +408,7 @@ void KateViVisualMode::initializeCommands()
   ADDMOTION("a[\\[\\]]", textObjectABracket, REGEX_PATTERN );
   ADDMOTION("i,", textObjectInnerComma, 0 );
   ADDMOTION("a,", textObjectAComma, 0 );
+
+  ADDMOTION("/<enter>", motionToIncrementalSearchMatch, 0);
+  ADDMOTION("?<enter>", motionToIncrementalSearchMatch, 0);
 }

@@ -91,7 +91,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     void error( const QString &errorMsg );
     void message( const QString &msg );
 
-    Range findPattern( const QString& pattern, bool backwards, bool caseSensitive, const Cursor& startFrom, int count = 1 ) const;
+    Range findPattern( const QString& pattern, bool backwards, bool caseSensitive, const Cursor& startFrom, int count = -1 /* i.e use getCount() */ ) const;
   protected:
     // helper methods
     void yankToClipBoard(QChar chosen_register, QString text);

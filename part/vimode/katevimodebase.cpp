@@ -189,6 +189,11 @@ Range KateViModeBase::findPattern(const QString& pattern, bool backwards, bool c
   Cursor searchBegin = startFrom;
   KTextEditor::Search::SearchOptions flags = KTextEditor::Search::Regex;
 
+  if (count == -1)
+  {
+    count = getCount();
+  }
+
   if ( backwards ) {
     flags |= KTextEditor::Search::Backwards;
   }

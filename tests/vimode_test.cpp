@@ -1725,6 +1725,29 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo foofoofoo\nfoofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo\nfoofoofoo");
   DoTest("foo foofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo");
 
+  // "/" and "?" should be usable as motions.
+  DoTest("foo bar", "ld/bar\\enter", "fbar");
+  // Should be usable in Visual Mode without aborting Visual Mode.
+  DoTest("foo bar", "lv/bar\\enterd", "far");
+  // Same for ?.
+  DoTest("foo bar", "$hd?oo\\enter", "far");
+  DoTest("foo bar", "$hv?oo\\enterd", "fr");
+  DoTest("foo bar", "lv?bar\\enterd", "far");
+  // If we abort the "/" / "?" motion, the command should be aborted, too.
+  DoTest("foo bar", "d/bar\\esc", "foo bar");
+  DoTest("foo bar", "d/bar\\ctrl-c", "foo bar");
+  DoTest("foo bar", "d/bar\\ctrl-[", "foo bar");
+  // We should be able to repeat a command using "/" or "?" as the motion.
+  DoTest("foo bar bar bar", "d/bar\\enter.", "bar bar");
+  // The "synthetic" Enter keypress should not be logged as part of the command to be repeated.
+  DoTest("foo bar bar bar\nxyz", "d/bar\\enter.rX", "Xar bar\nxyz");
+  // Counting.
+  DoTest("foo bar bar bar", "2/bar\\enterrX", "foo bar Xar bar");
+  // Counting with wraparound.
+  DoTest("foo bar bar bar", "4/bar\\enterrX", "foo Xar bar bar");
+  // Counting in Visual Mode.
+  DoTest("foo bar bar bar", "v2/bar\\enterd", "ar bar");
+
   // Search-highlighting tests.
   const QColor searchHighlightColour = kate_view->renderer()->config()->searchHighlightColor();
   BeginTest("foo bar xyz");

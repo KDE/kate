@@ -369,6 +369,21 @@ void ViModeTest::VisualModeTests() {
     // ctrl-left and ctrl-right
     DoTest("foo bar xyz", "v\\ctrl-\\rightd", "ar xyz");
     DoTest("foo bar xyz", "$v\\ctrl-\\leftd", "foo bar ");
+
+    // Set the *whole* selection to the given text object, even if the cursor is no
+    // longer at the position where Visual Mode was started.
+    // This seems to work (in Vim) only when the start of the given text object occurs before them
+    // start position of Visual Mode.
+    DoTest("{\nfoo\nbar\nxyz\n}", "jjvliBd", "{\n}", ShouldFail, "Someone (probably me :/) broke the relevant stuff in KateViVisualMode::goToPos - will need to rethink");
+    DoTest("foo[hello]", "fhlvli[d", "foo[]", ShouldFail, "Someone (probably me :/) broke the relevant stuff in KateViVisualMode::goToPos - will need to rethink");
+    DoTest("foo(hello)", "fhlvli(d", "foo()", ShouldFail, "Someone (probably me :/) broke the relevant stuff in KateViVisualMode::goToPos - will need to rethink");
+    DoTest("foo<hello>", "fhlvli<d", "foo<>", ShouldFail, "Someone (probably me :/) broke the relevant stuff in KateViVisualMode::goToPos - will need to rethink");
+    DoTest("foo\"hello\"", "fhlvli\"d", "foo\"\"", ShouldFail, "Someone (probably me :/) broke the relevant stuff in KateViVisualMode::goToPos - will need to rethink");
+    DoTest("foo'hello'", "fhlvli'd", "foo''", ShouldFail, "Someone (probably me :/) broke the relevant stuff in KateViVisualMode::goToPos - will need to rethink");
+    // A couple of spot tests, where the beginning of the text object occurs after the start position of Visual Mode;
+    // the selection should  remain unchanged if we the text object motion is triggered, here.
+    DoTest("foobarxyz\n(12345)", "llvjibd", "fo345)", ShouldFail, "Someone (probably me :/) broke the relevant stuff in KateViVisualMode::goToPos - will need to rethink");
+    DoTest("foobarxyz\n{12345}", "llvjiBd", "fo345}", ShouldFail, "Someone (probably me :/) broke the relevant stuff in KateViVisualMode::goToPos - will need to rethink");
 }
 
 void ViModeTest::InsertModeTests() {

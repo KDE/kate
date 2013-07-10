@@ -1242,13 +1242,13 @@ bool KateViNormalMode::commandYankToEOL()
 // If linewise, will paste after the current line.
 bool KateViNormalMode::commandPaste()
 {
-  return paste(AfterCurrentPosition, false);
+  return paste(AfterCurrentPosition, false, false);
 }
 
 // As with commandPaste, except that the text is pasted *at* the cursor position
 bool KateViNormalMode::commandPasteBefore()
 {
-  return paste(AtCurrentPosition, false);
+  return paste(AtCurrentPosition, false, false);
 }
 
 // As with commandPaste, except that the cursor will generally be placed *after* the
@@ -1258,14 +1258,24 @@ bool KateViNormalMode::commandPasteBefore()
 // last line pasted.
 bool KateViNormalMode::commandgPaste()
 {
-  return paste(AfterCurrentPosition, true);
+  return paste(AfterCurrentPosition, true, false);
 }
 
 // As with commandgPaste, except that it pastes *at* the current cursor position or, if linewise,
 // at the current line.
 bool KateViNormalMode::commandgPasteBefore()
 {
-  return paste(AtCurrentPosition, true);
+  return paste(AtCurrentPosition, true, false);
+}
+
+bool KateViNormalMode::commandIndentedPaste()
+{
+  return paste(AfterCurrentPosition, false, true);
+}
+
+bool KateViNormalMode::commandIndentedPasteBefore()
+{
+  return paste(AtCurrentPosition, false, true);
 }
 
 bool KateViNormalMode::commandDeleteChar()
@@ -3044,6 +3054,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("P", commandPasteBefore, IS_CHANGE );
   ADDCMD("gp", commandgPaste, IS_CHANGE );
   ADDCMD("gP", commandgPasteBefore, IS_CHANGE );
+  ADDCMD("]p", commandIndentedPaste, IS_CHANGE );
+  ADDCMD("[p", commandIndentedPasteBefore, IS_CHANGE );
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD("R", commandEnterReplaceMode, IS_CHANGE );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
@@ -3259,7 +3271,7 @@ OperationMode KateViNormalMode::getOperationMode() const
   return m;
 }
 
-bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste)
+bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste, bool isIndentedPaste)
 {
   Cursor pasteAt( m_view->cursorPosition() );
   Cursor cursorAfterPaste = pasteAt;
@@ -3284,6 +3296,17 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste)
 
   if ( m == LineWise ) {
     pasteAt.setColumn( 0 );
+    if (isIndentedPaste)
+    {
+      // Note that this does indeed work if there is no non-whitespace on the current line or if
+      // the line is empty!
+      const QString leadingWhiteSpaceOnCurrentLine = doc()->line(pasteAt.line()).mid(0, doc()->line(pasteAt.line()).indexOf(QRegExp("[^\\s]")));
+      textToInsert.prepend(leadingWhiteSpaceOnCurrentLine);
+      textToInsert.chop( 1 ); // Remove the last \n, temporarily, while we prepend to each line by
+      // replacing '\n' with '\n' followed by the leading whitespace.
+      textToInsert.replace('\n', QString('\n') + leadingWhiteSpaceOnCurrentLine);
+      textToInsert.append('\n'); // Re-add the temporarily removed last '\n'.
+    }
     if (pasteLocation == AfterCurrentPosition)
     {
       textToInsert.chop( 1 ); // remove the last \n

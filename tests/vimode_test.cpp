@@ -893,6 +893,31 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fop\nbar", "yiwjlpx", "fop\nbafor");
   DoTest("fop\nbar", "yiwjlPx", "fop\nbfoar");
 
+  // Indented paste.
+  // ]p behaves as ordinary paste if not linewise, and on unindented line.
+  DoTest("foo bar", "wyiwgg]p", "fbaroo bar");
+  // ]p behaves as ordinary paste if not linewise, even on indented line.
+  DoTest("  foo bar", "wwyiwggw]p", "  fbaroo bar");
+  // [p behaves as ordinary Paste (P) if not linewise, and on unindented line.
+  DoTest("foo bar", "wyiwgg[p", "barfoo bar");
+  // [p behaves as ordinary Paste (P) if not linewise, even on indented line.
+  DoTest("  foo bar", "wwyiw0w[p",   "  barfoo bar");
+  // Prepend the spaces from the current line to the beginning of a single, pasted line.
+  DoTest("  foo bar\nxyz", "jVygg]p", "  foo bar\n  xyz\nxyz");
+  // Prepend the spaces from the current line to the beginning of each pasted line.
+  DoTest("  foo bar\nxyz\nnose", "jVjygg]p", "  foo bar\n  xyz\n  nose\nxyz\nnose");
+  const bool oldReplaceTabsDyn = kate_document->config()->replaceTabsDyn();
+  kate_document->config()->setReplaceTabsDyn(false);
+  // Tabs as well as spaces!
+  DoTest("  \tfoo bar\nxyz\nnose", "jVjygg]p", "  \tfoo bar\n  \txyz\n  \tnose\nxyz\nnose");
+  // Same for [p.
+  DoTest("  \tfoo bar\nxyz\nnose", "jVjygg[p", "  \txyz\n  \tnose\n  \tfoo bar\nxyz\nnose");
+  // Test if everything works if the current line has no non-whitespace.
+  DoTest("\t \nbar", "jVygg]p", "\t \n\t bar\nbar");
+  // Test if everything works if the current line is empty.
+  DoTest("\nbar", "jVygg]p", "\nbar\nbar");
+  kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);
+
   // Last edit markers.
   DoTest("foo", "ean\\escgg`.r.", "foo.");
   DoTest("foo", "ean\\escgg`[r[", "foo[");

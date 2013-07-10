@@ -103,6 +103,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandgPaste();
     bool commandgPasteBefore();
 
+    bool commandIndentedPaste();
+    bool commandIndentedPasteBefore();
+
     bool commandDeleteChar();
     bool commandDeleteCharBackward();
 
@@ -284,7 +287,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     // The 'current position' is the current cursor position for non-linewise pastes, and the current
     // line for linewise.
     enum PasteLocation { AtCurrentPosition, AfterCurrentPosition };
-    bool paste(PasteLocation pasteLocation, bool isgPaste);
+    bool paste(KateViNormalMode::PasteLocation pasteLocation, bool isgPaste, bool isIndentedPaste);
     Cursor cursorPosAtEndOfPaste(const Cursor& pasteLocation, const QString& pastedText);
 
     void joinLines(unsigned int from, unsigned int to) const;

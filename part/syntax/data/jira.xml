@@ -10,7 +10,7 @@
   <!ENTITY superscript "(\s|^)\^[^\s]{1}[^\^]+\^(?=\s|\.|,|;|:|\-|\?|$)">
   <!ENTITY url "(http:|https:|ftp:|mailto:)[^]| ]*(?=$|[]|\s])">
 ]>
-<language name="Jira" section="Markup" version="0.2" kateversion="3.10.4" extensions="*.jira" mimetype="" license="FDL" >
+<language name="Jira" section="Markup" version="0.2" kateversion="3.10" extensions="*.jira" mimetype="" license="FDL" >
   <highlighting>
     <contexts>
 

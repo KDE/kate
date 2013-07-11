@@ -1946,6 +1946,14 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo xbaba]dcdcy", "/x[ab]\\\\+][cd]\\\\+y\\enterrX", "foo Xbaba]dcdcy");
   // A dot is not a literal, nor is a star.
   DoTest("foo bar", "/o.*b\\enterrX", "fXo bar");
+  // Unescaped curly braces are literals.
+  DoTest("foo x{}y", "/x{}y\\enterrX", "foo X{}y");
+  // Escaped curly brackets are quantifers.
+  DoTest("foo xaaaaay", "/xa\\\\{5\\\\}y\\enterrX", "foo Xaaaaay");
+  // Matching curly brackets where only the first is escaped are also quantifiers.
+  DoTest("foo xaaaaaybbbz", "/xa\\\\{5}yb\\\\{3}z\\enterrX", "foo Xaaaaaybbbz");
+  // Don't crash if the first character is a }
+  DoTest("foo aaaaay", "/{\\enterrX", "Xoo aaaaay");
   // Vim's '\<' and '\>' map, roughly, to Qt's '\b'
   DoTest("foo xbar barx bar", "/bar\\\\>\\enterrX", "foo xXar barx bar");
   DoTest("foo xbar barx bar", "/\\\\<bar\\enterrX", "foo xbar Xarx bar");

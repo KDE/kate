@@ -88,6 +88,54 @@ namespace
     qtRegexPattern = toggledEscaped(qtRegexPattern, ')');
     qtRegexPattern = toggledEscaped(qtRegexPattern, '+');
     qtRegexPattern = toggledEscaped(qtRegexPattern, '|');
+    {
+      // All curly brackets, except the closing curly bracket of a matching pair where the opening bracket is escaped,
+      // must have their escaping toggled.
+      bool lookingForMatchingCloseBracket = false;
+      QList<int> matchingClosedCurlyBracketPositions;
+      for (int i = 0; i < qtRegexPattern.length(); i++)
+      {
+        if (qtRegexPattern[i] == '{' && i > 0 && qtRegexPattern[i - 1] == '\\')
+        {
+          lookingForMatchingCloseBracket = true;
+        }
+        if (qtRegexPattern[i] == '}' && lookingForMatchingCloseBracket && qtRegexPattern[i - 1] != '\\')
+        {
+          matchingClosedCurlyBracketPositions.append(i);
+        }
+      }
+      if (matchingClosedCurlyBracketPositions.isEmpty())
+      {
+        // Escape all {'s and }'s - there are no matching pairs.
+        qtRegexPattern = toggledEscaped(qtRegexPattern, '{');
+        qtRegexPattern = toggledEscaped(qtRegexPattern, '}');
+      }
+      else
+      {
+        // Ensure that every chunk of qtRegexPattern that does *not* contain a curly closing bracket
+        // that is matched have their { and } escaping toggled.
+        QString qtRegexPatternNonMatchingCurliesToggled;
+        int previousNonMatchingClosedCurlyPos = 0; // i.e. the position of the last character which is either
+                                                   // not a curly closing bracket, or is a curly closing bracket
+                                                   // that is not matched.
+        foreach (int matchingClosedCurlyPos, matchingClosedCurlyBracketPositions)
+        {
+          QString chunkExcludingMatchingCurlyClosed = qtRegexPattern.mid(previousNonMatchingClosedCurlyPos, matchingClosedCurlyPos - previousNonMatchingClosedCurlyPos);
+          chunkExcludingMatchingCurlyClosed = toggledEscaped(chunkExcludingMatchingCurlyClosed, '{');
+          chunkExcludingMatchingCurlyClosed = toggledEscaped(chunkExcludingMatchingCurlyClosed, '}');
+          qtRegexPatternNonMatchingCurliesToggled += chunkExcludingMatchingCurlyClosed +
+                                                     qtRegexPattern[matchingClosedCurlyPos];
+          previousNonMatchingClosedCurlyPos = matchingClosedCurlyPos + 1;
+        }
+        QString chunkAfterLastMatchingClosedCurly = qtRegexPattern.mid(matchingClosedCurlyBracketPositions.last() + 1);
+        chunkAfterLastMatchingClosedCurly = toggledEscaped(chunkAfterLastMatchingClosedCurly, '{');
+        chunkAfterLastMatchingClosedCurly = toggledEscaped(chunkAfterLastMatchingClosedCurly, '}');
+        qtRegexPatternNonMatchingCurliesToggled += chunkAfterLastMatchingClosedCurly;
+
+        qtRegexPattern = qtRegexPatternNonMatchingCurliesToggled;
+      }
+
+    }
 
     // All square brackets, *except* for those that are a) unescaped; and b) form a matching pair, must be
     // escaped.
@@ -120,7 +168,9 @@ namespace
       // Ensure that every chunk of qtRegexPattern that does *not* contain one of the matching pairs of
       // square brackets have their square brackets escaped.
       QString qtRegexPatternNonMatchingSquaresMadeLiteral;
-      int previousNonMatchingSquareBracketPos = 0;
+      int previousNonMatchingSquareBracketPos = 0; // i.e. the position of the last character which is
+                                                   // either not a square bracket, or is a square bracket but
+                                                   // which is not matched.
       foreach (int matchingSquareBracketPos, matchingSquareBracketPositions)
       {
         QString chunkExcludingMatchingSquareBrackets = qtRegexPattern.mid(previousNonMatchingSquareBracketPos, matchingSquareBracketPos - previousNonMatchingSquareBracketPos);

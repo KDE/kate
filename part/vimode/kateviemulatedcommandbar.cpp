@@ -240,24 +240,54 @@ QString KateViEmulatedCommandBar::vimRegexToQtRegexPattern(const QString& vimReg
   qtRegexPattern = toggledEscaped(qtRegexPattern, '+');
   qtRegexPattern = toggledEscaped(qtRegexPattern, '|');
 
+  // All square brackets, *except* for those that are a) unescaped; and b) form a matching pair, must be
+  // escaped.
   bool lookingForMatchingCloseBracket = false;
-  bool treatSquareBracketsAsLiterals = true;
+  int openingBracketPos = -1;
+  QList<int> matchingSquareBracketPositions;
   for (int i = 0; i < qtRegexPattern.length(); i++)
   {
-    if (qtRegexPattern[i] == '[')
+    if (qtRegexPattern[i] == '[' && !lookingForMatchingCloseBracket)
     {
       lookingForMatchingCloseBracket = true;
+      openingBracketPos = i;
     }
-    if (qtRegexPattern[i] == ']' && lookingForMatchingCloseBracket)
+    if (qtRegexPattern[i] == ']' && lookingForMatchingCloseBracket && qtRegexPattern[i - 1] != '\\')
     {
-      treatSquareBracketsAsLiterals = false;
+      lookingForMatchingCloseBracket = false;
+      matchingSquareBracketPositions.append(openingBracketPos);
+      matchingSquareBracketPositions.append(i);
     }
   }
-  if(treatSquareBracketsAsLiterals)
+
+  if (matchingSquareBracketPositions.isEmpty())
   {
+    // Escape all ['s and ]'s - there are no matching pairs.
     qtRegexPattern = ensuredCharEscaped(qtRegexPattern, '[');
     qtRegexPattern = ensuredCharEscaped(qtRegexPattern, ']');
   }
+  else
+  {
+    // Ensure that every chunk of qtRegexPattern that does *not* contain one of the matching pairs of
+    // square brackets have their square brackets escaped.
+    QString qtRegexPatternNonMatchingSquaresMadeLiteral;
+    int previousNonMatchingSquareBracketPos = 0;
+    foreach (int matchingSquareBracketPos, matchingSquareBracketPositions)
+    {
+      QString chunkExcludingMatchingSquareBrackets = qtRegexPattern.mid(previousNonMatchingSquareBracketPos, matchingSquareBracketPos - previousNonMatchingSquareBracketPos);
+      chunkExcludingMatchingSquareBrackets = ensuredCharEscaped(chunkExcludingMatchingSquareBrackets, '[');
+      chunkExcludingMatchingSquareBrackets = ensuredCharEscaped(chunkExcludingMatchingSquareBrackets, ']');
+      qtRegexPatternNonMatchingSquaresMadeLiteral += chunkExcludingMatchingSquareBrackets + qtRegexPattern[matchingSquareBracketPos];
+      previousNonMatchingSquareBracketPos = matchingSquareBracketPos + 1;
+    }
+    QString chunkAfterLastMatchingSquareBracket = qtRegexPattern.mid(matchingSquareBracketPositions.last() + 1);
+    chunkAfterLastMatchingSquareBracket = ensuredCharEscaped(chunkAfterLastMatchingSquareBracket, '[');
+    chunkAfterLastMatchingSquareBracket = ensuredCharEscaped(chunkAfterLastMatchingSquareBracket, ']');
+    qtRegexPatternNonMatchingSquaresMadeLiteral += chunkAfterLastMatchingSquareBracket;
+
+    qtRegexPattern = qtRegexPatternNonMatchingSquaresMadeLiteral;
+  }
+
 
   qtRegexPattern = qtRegexPattern.replace("\\>", "\\b");
   qtRegexPattern = qtRegexPattern.replace("\\<", "\\b");

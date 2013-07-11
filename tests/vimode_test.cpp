@@ -1924,11 +1924,13 @@ void ViModeTest::VimStyleCommandBarTests()
   // A matching [ and ] are *not* literals.
   DoTest("foo xbcay", "/x[abc]\\\\+y\\enterrX", "foo Xbcay");
   DoTest("foo xbcay", "/[abc]\\\\+y\\enterrX", "foo xXcay");
+  DoTest("foo xbaadcdcy", "/x[ab]\\\\+[cd]\\\\+y\\enterrX", "foo Xbaadcdcy");
   // Need to be an unescaped match, though.
   DoTest("foo xbcay", "/x[abc\\\\]\\\\+y\\enterrX", "Xoo xbcay");
   DoTest("foo xbcay", "/x\\\\[abc]\\\\+y\\enterrX", "Xoo xbcay");
   // An escaped '[' between matching unescaped '[' and ']' is treated as a literal '['
   DoTest("foo xb[cay", "/x[a\\\\[bc]\\\\+y\\enterrX", "foo Xb[cay");
+  // An escaped ']' between matching unescaped '[' and ']' is treated as a literal ']'
   DoTest("foo xb]cay", "/x[a\\\\]bc]\\\\+y\\enterrX", "foo Xb]cay");
   // An escaped '[' not between other square brackets is a literal.
   DoTest("foo xb[cay", "/xb\\\\[\\enterrX", "foo Xb[cay");
@@ -1936,6 +1938,12 @@ void ViModeTest::VimStyleCommandBarTests()
   // An escaped ']' not between other square brackets is a literal.
   DoTest("foo xb]cay", "/xb\\\\]\\enterrX", "foo Xb]cay");
   DoTest("foo xb]cay", "/\\\\]ca\\enterrX", "foo xbXcay");
+  // An unescaped '[' not between other square brackets is a literal.
+  DoTest("foo xbaba[y", "/x[ab]\\\\+[y\\enterrX", "foo Xbaba[y");
+  DoTest("foo xbaba[dcdcy", "/x[ab]\\\\+[[cd]\\\\+y\\enterrX", "foo Xbaba[dcdcy");
+  // An unescaped ']' not between other square brackets is a literal.
+  DoTest("foo xbaba]y", "/x[ab]\\\\+]y\\enterrX", "foo Xbaba]y");
+  DoTest("foo xbaba]dcdcy", "/x[ab]\\\\+][cd]\\\\+y\\enterrX", "foo Xbaba]dcdcy");
   // A dot is not a literal, nor is a star.
   DoTest("foo bar", "/o.*b\\enterrX", "fXo bar");
   // Vim's '\<' and '\>' map, roughly, to Qt's '\b'

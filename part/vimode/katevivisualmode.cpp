@@ -293,7 +293,8 @@ void KateViVisualMode::updateSelection( ) {
   m_commandRange.startLine = r.start().line();
   m_commandRange.startColumn = r.start().column();
   m_commandRange.endLine = r.end().line();
-  m_commandRange.endColumn = r.end().column();
+  // The end of the selectionRange seems to be one space forward of where it should be.
+  m_commandRange.endColumn = r.end().column() - 1;
 }
 
 void KateViVisualMode::initializeCommands()

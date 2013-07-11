@@ -393,15 +393,18 @@ void ViModeTest::VisualModeTests() {
     // Test that selecting a range "externally" to Vim (i.e. via the mouse, or one of the ktexteditor api's)
     // switches us into Visual Mode.
     BeginTest("foo bar");
-    kate_view->setSelection(Range(0, 1, 0 , 4));
+    kate_view->setSelection(Range(0, 1, 0 , 4)); // Actually selects "oo " (i.e. without the "b").
     TestPressKey("d");
-    FinishTest("far");
+    FinishTest("fbar");
     // Undoing a command that we executed in Visual Mode should also return us to Visual Mode.
     BeginTest("foo bar");
     TestPressKey("lvllldu");
     QCOMPARE(kate_view->getCurrentViMode(), VisualMode);
     QCOMPARE(kate_view->selectionText(), QString("oo b"));
     FinishTest("foo bar");
+
+    // Regression test for bug 309191
+    DoTest("foo bar", "vedud", " bar");
 }
 
 void ViModeTest::InsertModeTests() {

@@ -140,7 +140,13 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
             _wrapRange(selectedRange, openCh, closeCh, doc)
 
             # extend current selection
-            selectedRange.end().setColumn(selectedRange.end().column() + len(openCh) + len(closeCh))
+            selectedRange = KTextEditor.Range(
+                selectedRange.start()
+              , KTextEditor.Cursor(
+                    selectedRange.end().line()
+                  , selectedRange.end().column() + len(openCh) + len(closeCh)
+                  )
+              )
             view.setSelection(selectedRange)
         else:
             # Try to extend selection to be started from 0 columns at both ends

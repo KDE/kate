@@ -42,8 +42,6 @@ KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, 
 
   m_mode = VisualMode;
 
-  m_selection_is_changed_inside_ViMode = false;
-
   initializeCommands();
   connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(updateSelection()));
 }
@@ -53,21 +51,15 @@ KateViVisualMode::~KateViVisualMode()
 }
 
 void KateViVisualMode::SelectInclusive(Cursor c1, Cursor c2) {
-  m_selection_is_changed_inside_ViMode = true;
-
   if ( c1 >= c2 )
     m_view->setSelection(Range(c1.line(), c1.column() + 1,
                                c2.line(), c2.column()));
   else
     m_view->setSelection(Range(c1.line(), c1.column(),
                                c2.line(), c2.column() + 1));
-
-  m_selection_is_changed_inside_ViMode = false;
 }
 
 void KateViVisualMode::SelectBlockInclusive(Cursor c1, Cursor c2) {
-  m_selection_is_changed_inside_ViMode = true;
-
   m_view->setBlockSelection(true);
   if ( c1.column() >= c2.column() )
     m_view->setSelection(Range(c1.line(), c1.column() + 1,
@@ -75,21 +67,15 @@ void KateViVisualMode::SelectBlockInclusive(Cursor c1, Cursor c2) {
   else
     m_view->setSelection(Range(c1.line(), c1.column(),
                                c2.line(), c2.column() + 1));
-
-  m_selection_is_changed_inside_ViMode = false;
 }
 
 
 
 void KateViVisualMode::SelectLines(Range range) {
-  m_selection_is_changed_inside_ViMode = true;
-
     int startline = qMin(range.start().line(),range.end().line());
     int endline   = qMax(range.start().line(),range.end().line());
     m_view->setSelection(Range(Cursor(startline,0),
                                Cursor(endline,m_view->doc()->lineLength(endline)+1)));
-
-    m_selection_is_changed_inside_ViMode = false;
 }
 
 void KateViVisualMode::goToPos( const KateViRange &r )
@@ -187,14 +173,10 @@ void KateViVisualMode::reset()
       startNormalMode();
     }
 
-    m_selection_is_changed_inside_ViMode = true;
-
     if (!m_commandShouldKeepSelection)
         m_view->removeSelection();
     else
         m_commandShouldKeepSelection = false;
-
-    m_selection_is_changed_inside_ViMode = false;
 
     m_start.setPosition( -1, -1 );
 
@@ -220,9 +202,7 @@ void KateViVisualMode::init()
 
     if (isVisualLine()){
       Cursor c = m_view->cursorPosition();
-      m_selection_is_changed_inside_ViMode = true;
       SelectLines(Range(c,c));
-      m_selection_is_changed_inside_ViMode = false;
 
     }
 

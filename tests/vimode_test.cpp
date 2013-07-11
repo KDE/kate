@@ -943,6 +943,13 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("\t \nbar", "jVygg]p", "\t \n\t bar\nbar");
   // Test if everything works if the current line is empty.
   DoTest("\nbar", "jVygg]p", "\nbar\nbar");
+  // Unindent a pasted indented line if the current line has no indent.
+  DoTest("foo\n  \tbar", "jVygg]p", "foo\nbar\n  \tbar");
+  // Unindent subsequent lines, too - TODO - this assumes that each subsequent line has
+  // *indentical* trailing whitespace to the first pasted line: Vim seems to be able to
+  // deal with cases where this does not hold.
+  DoTest("foo\n  \tbar\n  \txyz", "jVjygg]p", "foo\nbar\nxyz\n  \tbar\n  \txyz");
+  DoTest("foo\n  \tbar\n  \t  xyz", "jVjygg]p", "foo\nbar\n  xyz\n  \tbar\n  \t  xyz");
   kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);
 
   // Last edit markers.

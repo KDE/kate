@@ -3331,10 +3331,17 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste, bool is
       // Note that this does indeed work if there is no non-whitespace on the current line or if
       // the line is empty!
       const QString leadingWhiteSpaceOnCurrentLine = doc()->line(pasteAt.line()).mid(0, doc()->line(pasteAt.line()).indexOf(QRegExp("[^\\s]")));
+      const QString leadingWhiteSpaceOnFirstPastedLine = textToInsert.mid(0, textToInsert.indexOf(QRegExp("[^\\s]")));
+      // QString has no "left trim" method, bizarrely.
+      while (textToInsert[0].isSpace())
+      {
+        textToInsert = textToInsert.mid(1);
+      }
       textToInsert.prepend(leadingWhiteSpaceOnCurrentLine);
-      textToInsert.chop( 1 ); // Remove the last \n, temporarily, while we prepend to each line by
-      // replacing '\n' with '\n' followed by the leading whitespace.
-      textToInsert.replace('\n', QString('\n') + leadingWhiteSpaceOnCurrentLine);
+      // Remove the last \n, temporarily: we're going to alter the indentation of each pasted line
+      // by doing a search and replace on '\n's, but don't want to alter this one.
+      textToInsert.chop( 1 );
+      textToInsert.replace(QString('\n') + leadingWhiteSpaceOnFirstPastedLine, QString('\n') + leadingWhiteSpaceOnCurrentLine);
       textToInsert.append('\n'); // Re-add the temporarily removed last '\n'.
     }
     if (pasteLocation == AfterCurrentPosition)

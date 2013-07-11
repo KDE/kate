@@ -396,6 +396,12 @@ void ViModeTest::VisualModeTests() {
     kate_view->setSelection(Range(0, 1, 0 , 4));
     TestPressKey("d");
     FinishTest("far");
+    // Undoing a command that we executed in Visual Mode should also return us to Visual Mode.
+    BeginTest("foo bar");
+    TestPressKey("lvllldu");
+    QCOMPARE(kate_view->getCurrentViMode(), VisualMode);
+    QCOMPARE(kate_view->selectionText(), QString("oo b"));
+    FinishTest("foo bar");
 }
 
 void ViModeTest::InsertModeTests() {

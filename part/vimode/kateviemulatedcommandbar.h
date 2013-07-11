@@ -69,9 +69,6 @@ private:
   bool deleteNonWordCharsToLeftOfCursor();
   QString wordBeforeCursor();
   void replaceWordBeforeCursorWith(const QString& newWord);
-  QString vimRegexToQtRegexPattern(const QString& vimRegexPattern);
-  QString toggledEscaped(const QString& string, QChar escapeChar);
-  QString ensuredCharEscaped(const QString& string, QChar charToEscape);
 
   void populateAndShowSearchHistoryCompletion();
   void populateAndShowWordFromDocumentCompletion();

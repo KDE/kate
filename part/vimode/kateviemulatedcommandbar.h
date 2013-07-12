@@ -34,26 +34,31 @@ class KATEPART_TESTS_EXPORT KateViEmulatedCommandBar : public KateViewBarWidget
 {
   Q_OBJECT
 public:
+  enum Mode { NoMode, SearchForward, SearchBackward, Command };
   explicit KateViEmulatedCommandBar(KateView *view, QWidget* parent = 0);
   virtual ~KateViEmulatedCommandBar();
-  void init(bool backwards);
+  void init(Mode mode, const QString& initialText = QString());
   bool isActive();
+  void setCommandResponseMessageTimeout(long commandResponseMessageTimeOutMS);
   virtual void closed();
   bool handleKeyPress(const QKeyEvent* keyEvent);
 private:
   bool m_isActive;
+  Mode m_mode;
   KateView *m_view;
   QLineEdit *m_edit;
   QLabel *m_barTypeIndicator;
-  bool m_searchBackwards;
   KTextEditor::Cursor m_startingCursorPos;
   bool m_doNotResetCursorOnClose;
   bool m_suspendEditEventFiltering;
   bool m_waitingForRegister;
+  QLabel* m_commandResponseMessageDisplay;
+  long m_commandResponseMessageTimeOutMS;
+  QString m_commandResponseMessage;
 
   QCompleter *m_completer;
-  QStringListModel *m_searchHistoryModel;
-  enum CompletionType { None, SearchHistory, WordFromDocument };
+  QStringListModel *m_completionModel;
+  enum CompletionType { None, SearchHistory, WordFromDocument, Commands };
   CompletionType m_currentCompletionType;
   void updateCompletionPrefix();
   void completionChosen();
@@ -70,8 +75,10 @@ private:
   QString wordBeforeCursor();
   void replaceWordBeforeCursorWith(const QString& newWord);
 
-  void populateAndShowSearchHistoryCompletion();
-  void populateAndShowWordFromDocumentCompletion();
+  void activateSearchHistoryCompletion();
+  void activateWordFromDocumentCompletion();
+  void activateCommandCompletion();
+  void deactivateCompletion();
   void setCompletionIndex(int index);
 private slots:
   void editTextChanged(const QString& newText);

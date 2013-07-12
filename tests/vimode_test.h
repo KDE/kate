@@ -79,8 +79,11 @@ private:
   void ensureKateViewVisible();
   void waitForCompletionWidgetToActivate();
 
-  QLabel *emulatedCommandTypeIndicator();
   QLineEdit *emulatedCommandBarTextEdit();
+  QLabel *emulatedCommandTypeIndicator();
+  KateViEmulatedCommandBar *emulatedCommandBar();
+  QLabel *commandResponseMessageDisplay();
+  void waitForEmulatedCommandBarToHide(long timeout);
   void verifyCursorAt(const KTextEditor::Cursor& expectedCursorPos);
 
   void verifyTextEditBackgroundColour(const QColor& expectedBackgroundColour);
@@ -96,6 +99,7 @@ private:
   QCompleter *emulatedCommandBarCompleter();
 
   void verifyCommandBarCompletionsMatches(const QStringList& expectedCompletionList);
+  void verifyCommandBarCompletionContains(const QStringList& expectedCompletionList);
 };
 
 #endif

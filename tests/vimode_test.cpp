@@ -2392,6 +2392,150 @@ void ViModeTest::VimStyleCommandBarTests()
   verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
   TestPressKey("\\enter\\enter");
   FinishTest("");
+
+  // Command Mode (:) tests.
+  // ":" should summon the command bar, with ":" as the label.
+  BeginTest("");
+  TestPressKey(":");
+  QVERIFY(emulatedCommandBar->isVisible());
+  QCOMPARE(emulatedCommandTypeIndicator()->text(), QString(":"));
+  QVERIFY(emulatedCommandTypeIndicator()->isVisible());
+  QVERIFY(emulatedCommandBarTextEdit());
+  QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
+  TestPressKey("\\esc");
+  FinishTest("");
+
+  // If we have a selection, it should be encoded as a range in the text edit.
+  BeginTest("d\nb\na\nc");
+  TestPressKey("Vjjj:");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("'<,'>"));
+  TestPressKey("\\esc");
+  FinishTest("d\nb\na\nc");
+
+  // If we have a count, it should be encoded as a range in the text edit.
+  BeginTest("d\nb\na\nc");
+  TestPressKey("7:");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(".,.+6"));
+  TestPressKey("\\esc");
+  FinishTest("d\nb\na\nc");
+
+  // Don't go doing an incremental search when we press keys!
+  BeginTest("foo bar xyz");
+  TestPressKey(":bar");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  TestPressKey("\\esc");
+  FinishTest("foo bar xyz");
+
+  // Execute the command on 2nd Enter (the first clears the completion list).
+  // TODO - this is clunky - need to rework how this works!
+  DoTest("d\nb\na\nc", "Vjjj:sort\\enter\\enter", "a\nb\nc\nd");
+
+  const long commandResponseMessageTimeOutMS = 2000;
+  {
+  // If there is any output from the command, show it in a label for a short amount of time.
+  emulatedCommandBar->setCommandResponseMessageTimeout(commandResponseMessageTimeOutMS);
+  BeginTest("foo bar xyz");
+  const QDateTime timeJustBeforeCommandExecuted = QDateTime::currentDateTime();
+  TestPressKey(":commandthatdoesnotexist\\enter");
+  QVERIFY(emulatedCommandBar->isVisible());
+  QVERIFY(commandResponseMessageDisplay());
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  QVERIFY(!emulatedCommandBarTextEdit()->isVisible());
+  // Be a bit vague about the exact message, due to i18n, etc.
+  QVERIFY(commandResponseMessageDisplay()->text().contains("commandthatdoesnotexist"));
+  waitForEmulatedCommandBarToHide(4 * commandResponseMessageTimeOutMS);
+  QVERIFY(timeJustBeforeCommandExecuted.msecsTo(QDateTime::currentDateTime()) >= commandResponseMessageTimeOutMS);
+  QVERIFY(!emulatedCommandBar->isVisible());
+  // Piggy-back on this test, as the bug we're about to test for would actually make setting
+  // up the conditions again in a separate test impossible ;)
+  // When we next summon the bar, the response message should be invisible and the editor visible & editable.
+  TestPressKey("/");
+  QVERIFY(!commandResponseMessageDisplay()->isVisible());
+  QVERIFY(emulatedCommandBarTextEdit()->isVisible());
+  QVERIFY(emulatedCommandBarTextEdit()->isEnabled());
+  TestPressKey("\\esc"); // Dismiss the bar.
+  FinishTest("foo bar xyz");
+  }
+
+  {
+    // Show the same message twice in a row.
+    BeginTest("foo bar xyz");
+    TestPressKey(":othercommandthatdoesnotexist\\enter");
+    QDateTime startWaitingForMessageToHide = QDateTime::currentDateTime();
+    waitForEmulatedCommandBarToHide(4 * commandResponseMessageTimeOutMS);
+    TestPressKey(":othercommandthatdoesnotexist\\enter");
+    QVERIFY(commandResponseMessageDisplay()->isVisible());
+    // Wait for it to disappear again, as a courtesy for the next test.
+    waitForEmulatedCommandBarToHide(4 * commandResponseMessageTimeOutMS);
+  }
+
+  {
+    // Emulated command bar should not steal keypresses when it is merely showing the results of an executed command.
+    BeginTest("foo bar");
+    TestPressKey(":commandthatdoesnotexist\\enterrX");
+    Q_ASSERT_X(commandResponseMessageDisplay()->isVisible(), "running test", "Need to increase timeJustBeforeCommandExecuted!");
+    FinishTest("Xoo bar");
+  }
+
+  {
+    // Don't send the synthetic "enter" keypress (for making search-as-a-motion work) when we finally hide.
+    BeginTest("foo bar\nbar");
+    TestPressKey(":commandthatdoesnotexist\\enter");
+    Q_ASSERT_X(commandResponseMessageDisplay()->isVisible(), "running test", "Need to increase timeJustBeforeCommandExecuted!");
+    waitForEmulatedCommandBarToHide(commandResponseMessageTimeOutMS * 4);
+    TestPressKey("rX");
+    FinishTest("Xoo bar\nbar");
+  }
+
+  {
+    // Completion of commands should be enabled as soon as the bar is shown.
+    BeginTest("");
+    TestPressKey(":s");
+    QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+    // A random sprinkling of commands that begin with s.
+    verifyCommandBarCompletionContains(QStringList() << "sort" << "set-auto-indent");
+    TestPressKey("\\ctrl-c"); // Dismiss completer
+    TestPressKey("\\ctrl-c"); // Dismiss bar
+    FinishTest("");
+  }
+
+  {
+    // Should be able to switch to completion from document, even when we have a completion from commands.
+    BeginTest("soggy1 soggy2");
+    TestPressKey(":so");
+    verifyCommandBarCompletionContains(QStringList() << "sort");
+    TestPressKey("\\ctrl- ");
+    verifyCommandBarCompletionsMatches(QStringList() << "soggy1" << "soggy2");
+    TestPressKey("\\ctrl-c"); // Dismiss completer
+    TestPressKey("\\ctrl-c"); // Dismiss bar
+    FinishTest("soggy1 soggy2");
+  }
+
+  {
+    // If we dismiss the command completion then change the text, it should summon the completion
+    // again.
+    BeginTest("");
+    TestPressKey(":so");
+    TestPressKey("\\ctrl-c"); // Dismiss completer
+    TestPressKey("r");
+    QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+    verifyCommandBarCompletionContains(QStringList() << "sort");
+    TestPressKey("\\ctrl-c"); // Dismiss completer
+    TestPressKey("\\ctrl-c"); // Dismiss bar
+    FinishTest("");
+  }
+
+  {
+    // Don't switch from word-from-document to command-completion just because we press a key, though!
+    BeginTest("soggy1 soggy2");
+    TestPressKey(":\\ctrl- s");
+    TestPressKey("o");
+    QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+    verifyCommandBarCompletionsMatches(QStringList() << "soggy1" << "soggy2");
+    TestPressKey("\\ctrl-c"); // Dismiss completer
+    TestPressKey("\\ctrl-c"); // Dismiss bar
+    FinishTest("soggy1 soggy2");
+  }
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -2673,18 +2817,42 @@ void ViModeTest::waitForCompletionWidgetToActivate()
     QVERIFY(kate_view->isCompletionActive());
 }
 
-QLabel* ViModeTest::emulatedCommandTypeIndicator()
+KateViEmulatedCommandBar* ViModeTest::emulatedCommandBar()
 {
   KateViEmulatedCommandBar *emulatedCommandBar = kate_view->viModeEmulatedCommandBar();
-  return emulatedCommandBar->findChild<QLabel*>("bartypeindicator");
+  Q_ASSERT(emulatedCommandBar);
+  return emulatedCommandBar;
+}
+
+QLabel* ViModeTest::emulatedCommandTypeIndicator()
+{
+  return emulatedCommandBar()->findChild<QLabel*>("bartypeindicator");
 }
 
 QLineEdit* ViModeTest::emulatedCommandBarTextEdit()
 {
-  KateViEmulatedCommandBar *emulatedCommandBar = kate_view->viModeEmulatedCommandBar();
-  QLineEdit *emulatedCommandBarText = emulatedCommandBar->findChild<QLineEdit*>("commandtext");
+  QLineEdit *emulatedCommandBarText = emulatedCommandBar()->findChild<QLineEdit*>("commandtext");
+  Q_ASSERT(emulatedCommandBarText);
   return emulatedCommandBarText;
 }
+
+QLabel* ViModeTest::commandResponseMessageDisplay()
+{
+  QLabel* commandResponseMessageDisplay = emulatedCommandBar()->findChild<QLabel*>("commandresponsemessage");
+  Q_ASSERT(commandResponseMessageDisplay);
+  return commandResponseMessageDisplay;
+}
+
+void ViModeTest::waitForEmulatedCommandBarToHide(long int timeout)
+{
+  const QDateTime waitStartedTime = QDateTime::currentDateTime();
+  while(emulatedCommandBar()->isVisible() && waitStartedTime.msecsTo(QDateTime::currentDateTime()) < timeout)
+  {
+    QApplication::processEvents();
+  }
+  QVERIFY(!emulatedCommandBar()->isVisible());
+}
+
 
 void ViModeTest::verifyCursorAt(const Cursor& expectedCursorPos)
 {
@@ -2720,6 +2888,26 @@ void ViModeTest::verifyCommandBarCompletionsMatches(const QStringList& expectedC
     actualCompletionList << emulatedCommandBarCompleter()->currentCompletion();
 
   QCOMPARE(actualCompletionList, expectedCompletionList);
+}
+
+void ViModeTest::verifyCommandBarCompletionContains(const QStringList& expectedCompletionList)
+{
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QStringList actualCompletionList;
+
+  for (int i = 0; emulatedCommandBarCompleter()->setCurrentRow(i); i++)
+  {
+    actualCompletionList << emulatedCommandBarCompleter()->currentCompletion();
+  }
+
+  foreach(const QString& expectedCompletion, expectedCompletionList)
+  {
+    if (!actualCompletionList.contains(expectedCompletion))
+    {
+      qDebug() << "Whoops: " << actualCompletionList << " does not contain " << expectedCompletion;
+    }
+    QVERIFY(actualCompletionList.contains(expectedCompletion));
+  }
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

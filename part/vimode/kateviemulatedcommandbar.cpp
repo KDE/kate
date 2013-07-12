@@ -25,6 +25,7 @@
 #include "katevivisualmode.h"
 #include "kateglobal.h"
 #include "kateconfig.h"
+#include "katecmd.h"
 
 #include <QtGui/QLineEdit>
 #include <QtGui/QVBoxLayout>
@@ -198,10 +199,12 @@ namespace
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
     : KateViewBarWidget(false, parent),
       m_isActive(false),
+      m_mode(NoMode),
       m_view(view),
       m_doNotResetCursorOnClose(false),
       m_suspendEditEventFiltering(false),
       m_waitingForRegister(false),
+      m_commandResponseMessageTimeOutMS(4000),
       m_currentCompletionType(None)
 {
   QVBoxLayout * layout = new QVBoxLayout();
@@ -213,7 +216,9 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_edit->setObjectName("commandtext");
   layout->addWidget(m_edit);
 
-  m_searchBackwards = false;
+  m_commandResponseMessageDisplay = new QLabel(this);
+  m_commandResponseMessageDisplay->setObjectName("commandresponsemessage");
+  layout->addWidget(m_commandResponseMessageDisplay);
 
   updateMatchHighlightAttrib();
   m_highlightedMatch = m_view->doc()->newMovingRange(Range(), Kate::TextRange::DoNotExpand);
@@ -233,8 +238,8 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   // so don't actually set it as the QLineEdit's completer.
   m_completer->setWidget(m_edit);
   m_completer->setObjectName("completer");
-  m_searchHistoryModel = new QStringListModel;
-  m_completer->setModel(m_searchHistoryModel);
+  m_completionModel = new QStringListModel;
+  m_completer->setModel(m_completionModel);
   m_completer->setCaseSensitivity(Qt::CaseInsensitive);
   m_completer->popup()->installEventFilter(this);
 }
@@ -244,28 +249,50 @@ KateViEmulatedCommandBar::~KateViEmulatedCommandBar()
   delete m_highlightedMatch;
 }
 
-void KateViEmulatedCommandBar::init(bool backwards)
+void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const QString& initialText)
 {
   m_currentCompletionType = None;
-  if (backwards)
+  QChar barTypeIndicator = QChar::Null;
+  switch(mode)
   {
-    m_barTypeIndicator->setText("?");
-    m_searchBackwards = true;
+    case SearchForward:
+      barTypeIndicator = '/';
+      break;
+    case SearchBackward:
+      barTypeIndicator = '?';
+      break;
+    case Command:
+      barTypeIndicator = ':';
+      break;
+    default:
+      Q_ASSERT("Unknown mode!");
   }
-  else
-  {
-    m_barTypeIndicator->setText("/");
-    m_searchBackwards = false;
-  }
+  m_barTypeIndicator->setText(barTypeIndicator);
+
+  m_mode = mode;
   m_edit->setFocus();
-  m_edit->clear();
+  m_edit->setText(initialText);
+  m_edit->show();
+
+  m_commandResponseMessageDisplay->hide();
+
   m_startingCursorPos = m_view->cursorPosition();
   m_isActive = true;
+
+  if (mode == Command)
+  {
+    activateCommandCompletion();
+  }
 }
 
 bool KateViEmulatedCommandBar::isActive()
 {
   return m_isActive;
+}
+
+void KateViEmulatedCommandBar::setCommandResponseMessageTimeout(long int commandResponseMessageTimeOutMS)
+{
+  m_commandResponseMessageTimeOutMS = commandResponseMessageTimeOutMS;
 }
 
 void KateViEmulatedCommandBar::closed()
@@ -286,11 +313,14 @@ void KateViEmulatedCommandBar::closed()
   m_completer->popup()->hide();
   m_isActive = false;
 
-  // Send a synthetic keypress through the system that signals whether the search was aborted or
-  // not.  If not, the keypress will "complete" the search motion, thus triggering it.
-  const Qt::Key syntheticSearchCompletedKey = (wasDismissed ? Qt::Key_Escape : Qt::Key_Enter);
-  QKeyEvent syntheticSearchCompletedKeyPress(QEvent::KeyPress, syntheticSearchCompletedKey, Qt::NoModifier);
-  m_view->getViInputModeManager()->handleKeypress(&syntheticSearchCompletedKeyPress);
+  if (m_mode == SearchForward || m_mode == SearchBackward)
+  {
+    // Send a synthetic keypress through the system that signals whether the search was aborted or
+    // not.  If not, the keypress will "complete" the search motion, thus triggering it.
+    const Qt::Key syntheticSearchCompletedKey = (wasDismissed ? Qt::Key_Escape : Qt::Key_Enter);
+    QKeyEvent syntheticSearchCompletedKeyPress(QEvent::KeyPress, syntheticSearchCompletedKey, Qt::NoModifier);
+    m_view->getViInputModeManager()->handleKeypress(&syntheticSearchCompletedKeyPress);
+  }
 }
 
 void KateViEmulatedCommandBar::updateMatchHighlightAttrib()
@@ -386,7 +416,7 @@ void KateViEmulatedCommandBar::replaceWordBeforeCursorWith(const QString& newWor
   m_edit->setText(newText);
 }
 
-void KateViEmulatedCommandBar::populateAndShowSearchHistoryCompletion()
+void KateViEmulatedCommandBar::activateSearchHistoryCompletion()
 {
   m_currentCompletionType = SearchHistory;
   QStringList searchHistoryReversed;
@@ -394,12 +424,12 @@ void KateViEmulatedCommandBar::populateAndShowSearchHistoryCompletion()
   {
     searchHistoryReversed.prepend(searchHistoryItem);
   }
-  m_searchHistoryModel->setStringList(searchHistoryReversed);
+  m_completionModel->setStringList(searchHistoryReversed);
   updateCompletionPrefix();
   m_completer->complete();
 }
 
-void KateViEmulatedCommandBar::populateAndShowWordFromDocumentCompletion()
+void KateViEmulatedCommandBar::activateWordFromDocumentCompletion()
 {
     m_currentCompletionType = WordFromDocument;
     QRegExp wordRegEx("\\w{1,}");
@@ -420,9 +450,21 @@ void KateViEmulatedCommandBar::populateAndShowWordFromDocumentCompletion()
     }
     foundWords = QSet<QString>::fromList(foundWords).toList();
     qSort(foundWords.begin(), foundWords.end(), caseInsensitiveLessThan);
-    m_searchHistoryModel->setStringList(foundWords);
+    m_completionModel->setStringList(foundWords);
     updateCompletionPrefix();
     m_completer->complete();
+}
+
+void KateViEmulatedCommandBar::activateCommandCompletion()
+{
+    m_completionModel->setStringList(KateCmd::self()->commandCompletionObject()->items());
+    m_currentCompletionType = Commands;
+}
+
+void KateViEmulatedCommandBar::deactivateCompletion()
+{
+  m_completer->popup()->hide();
+  m_currentCompletionType = None;
 }
 
 void KateViEmulatedCommandBar::updateCompletionPrefix()
@@ -434,6 +476,10 @@ void KateViEmulatedCommandBar::updateCompletionPrefix()
   else if (m_currentCompletionType == SearchHistory)
   {
     m_completer->setCompletionPrefix(m_edit->text());
+  }
+  else if (m_currentCompletionType == Commands)
+  {
+    m_completer->setCompletionPrefix(wordBeforeCursor());
   }
   // Seem to need this to alter the size of the popup box appropriately.
   m_completer->complete();
@@ -453,8 +499,7 @@ void KateViEmulatedCommandBar::completionChosen()
   {
     Q_ASSERT("Something went wrong, here - completion with unrecognised completion type");
   }
-  m_completer->popup()->hide();
-  m_currentCompletionType = None;
+  deactivateCompletion();
 }
 
 void KateViEmulatedCommandBar::setCompletionIndex(int index)
@@ -479,13 +524,13 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   }
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_Space)
   {
-    populateAndShowWordFromDocumentCompletion();
+    activateWordFromDocumentCompletion();
   }
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_P)
   {
     if (!m_completer->popup()->isVisible())
     {
-      populateAndShowSearchHistoryCompletion();
+      activateSearchHistoryCompletion();
       setCompletionIndex(0);
     }
     else
@@ -505,7 +550,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (!m_completer->popup()->isVisible())
     {
-      populateAndShowSearchHistoryCompletion();
+      activateSearchHistoryCompletion();
       setCompletionIndex(m_completer->completionCount() - 1);
     }
     else
@@ -555,8 +600,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       }
       else
       {
-        m_completer->popup()->hide();
-        m_currentCompletionType = None;
+        deactivateCompletion();
       }
       return true;
     }
@@ -585,7 +629,36 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
   {
     m_doNotResetCursorOnClose =  true;
-    emit hideMe();
+    if (m_mode == Command)
+    {
+      kDebug(13070) << "Executing: " << m_edit->text();
+      m_commandResponseMessage.clear();
+      // TODO - this is a hack-ish way of finding the response from the command; maybe
+      // add another overload of "execute" to KateCommandLineBar that returns the
+      // response message ... ?
+      m_view->cmdLineBar()->setText("");
+      m_view->cmdLineBar()->execute(m_edit->text());
+      KateCmdLineEdit *kateCommandLineEdit = m_view->cmdLineBar()->findChild<KateCmdLineEdit*>();
+      Q_ASSERT(kateCommandLineEdit);
+      const QString commandResponseMessage = kateCommandLineEdit->text();
+      if (commandResponseMessage.isEmpty())
+      {
+        emit hideMe();
+      }
+      else
+      {
+        // Display the message for a while.  Become inactive, so we don't steal keys in the meantime.
+        m_isActive = false;
+        m_edit->hide();
+        m_commandResponseMessageDisplay->show();
+        m_commandResponseMessageDisplay->setText(commandResponseMessage);
+        QTimer::singleShot(m_commandResponseMessageTimeOutMS, this, SIGNAL(hideMe()));
+      }
+    }
+    else
+    {
+      emit hideMe();
+    }
     return true;
   }
   else
@@ -601,46 +674,57 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {
   qDebug() << "New text: " << newText;
-  const QString qtRegexPattern = vimRegexToQtRegexPattern(newText);
-
-  qDebug() << "Final regex: " << qtRegexPattern;
-
-  // Decide case-sensitivity via SmartCase.
-  bool caseSensitive = true;
-  if (qtRegexPattern.toLower() == qtRegexPattern)
+  if (m_mode == SearchForward || m_mode == SearchBackward)
   {
-    caseSensitive = false;
-  }
+    const QString qtRegexPattern = vimRegexToQtRegexPattern(newText);
 
-  m_view->getViInputModeManager()->setLastSearchPattern(qtRegexPattern);
-  m_view->getViInputModeManager()->setLastSearchCaseSensitive(caseSensitive);
-  m_view->getViInputModeManager()->setLastSearchBackwards(m_searchBackwards);
+    qDebug() << "Final regex: " << qtRegexPattern;
 
-  KateViModeBase* currentModeHandler = (m_view->getCurrentViMode() == NormalMode) ? static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViNormalMode()) : static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViVisualMode());
-  Range match = currentModeHandler->findPattern(qtRegexPattern, m_searchBackwards, caseSensitive, m_startingCursorPos);
-
-  QPalette barBackground(m_edit->palette());
-  if (match.isValid())
-  {
-    m_view->setCursorPosition(match.start());
-    KColorScheme::adjustBackground(barBackground, KColorScheme::PositiveBackground);
-  }
-  else
-  {
-    m_view->setCursorPosition(m_startingCursorPos);
-    if (!m_edit->text().isEmpty())
+    // Decide case-sensitivity via SmartCase.
+    bool caseSensitive = true;
+    if (qtRegexPattern.toLower() == qtRegexPattern)
     {
-      KColorScheme::adjustBackground(barBackground, KColorScheme::NegativeBackground);
+      caseSensitive = false;
+    }
+
+    const bool searchBackwards = (m_mode == SearchBackward);
+
+    m_view->getViInputModeManager()->setLastSearchPattern(qtRegexPattern);
+    m_view->getViInputModeManager()->setLastSearchCaseSensitive(caseSensitive);
+    m_view->getViInputModeManager()->setLastSearchBackwards(searchBackwards);
+
+    KateViModeBase* currentModeHandler = (m_view->getCurrentViMode() == NormalMode) ? static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViNormalMode()) : static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViVisualMode());
+    Range match = currentModeHandler->findPattern(qtRegexPattern, searchBackwards, caseSensitive, m_startingCursorPos);
+
+    QPalette barBackground(m_edit->palette());
+    if (match.isValid())
+    {
+      m_view->setCursorPosition(match.start());
+      KColorScheme::adjustBackground(barBackground, KColorScheme::PositiveBackground);
     }
     else
     {
-      // Reset to back to normal.
-      barBackground = QPalette();
+      m_view->setCursorPosition(m_startingCursorPos);
+      if (!m_edit->text().isEmpty())
+      {
+        KColorScheme::adjustBackground(barBackground, KColorScheme::NegativeBackground);
+      }
+      else
+      {
+        // Reset to back to normal.
+        barBackground = QPalette();
+      }
     }
-  }
-  m_edit->setPalette(barBackground);
+    m_edit->setPalette(barBackground);
 
-  updateMatchHighlight(match);
+    updateMatchHighlight(match);
+  }
+
+  // Command completion mode should be automatically invoked, if we are in Command mode.
+  if (m_mode == Command && m_currentCompletionType == None)
+  {
+    activateCommandCompletion();
+  }
 
   if (m_currentCompletionType != None)
   {

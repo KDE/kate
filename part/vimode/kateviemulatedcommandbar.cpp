@@ -523,6 +523,8 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   }
   if (m_waitingForRegister)
   {
+    if (keyEvent->key() != Qt::Key_Shift)
+    {
       const QChar key = KateViKeyParser::self()->KeyEventToQChar(
                   keyEvent->key(),
                   keyEvent->text(),
@@ -542,6 +544,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       m_edit->setText(m_edit->text().insert(m_edit->cursorPosition(), textToInsert));
       m_edit->setCursorPosition(oldCursorPosition + textToInsert.length());
       m_waitingForRegister = false;
+    }
   } else if (keyEvent->modifiers() == Qt::ControlModifier)
   {
     if (keyEvent->key() == Qt::Key_C || keyEvent->key() == Qt::Key_BracketLeft)

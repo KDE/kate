@@ -1621,6 +1621,23 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("xyz");
 
+  // Insert clipboard contents on ctrl-r +.  We implicitly need to test the ability to handle
+  // shift key key events when waiting for register (they should be ignored).
+  BeginTest("xyz");
+  QApplication::clipboard()->setText("vimodetestclipboardtext");
+  TestPressKey("/\\ctrl-r");
+  QKeyEvent *shiftKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Shift, Qt::NoModifier);
+  QApplication::postEvent(emulatedCommandBarTextEdit(), shiftKeyDown);
+  QApplication::sendPostedEvents();
+  TestPressKey("+");
+  QKeyEvent *shiftKeyUp = new QKeyEvent(QEvent::KeyPress, Qt::Key_Shift, Qt::NoModifier);
+  QApplication::postEvent(emulatedCommandBarTextEdit(), shiftKeyUp);
+  QApplication::sendPostedEvents();
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("vimodetestclipboardtext"));
+  TestPressKey("\\enter");
+  FinishTest("xyz");
+
+
    // Ensure that we actually perform a search while typing.
   BeginTest("abcd");
   TestPressKey("/c");

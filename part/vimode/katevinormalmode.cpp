@@ -155,8 +155,13 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   QChar key = KateViKeyParser::self()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
-  // check for matching mappings
-  if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !m_doNotMapNextKeyPress) {
+  const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
+  const bool waitingForRegisterOrCharToSearch = m_keys.size() > 0 && (lastChar == 'f' || lastChar == 't' || lastChar == 'F' || lastChar == 'T' || lastChar == 'r');
+
+  // Check for matching mappings - if we are waiting for a char to search or a new register,
+  // don't translate next character; we need the actual character so that e.g.
+  // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
+  if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !waitingForRegisterOrCharToSearch) {
     m_mappingKeys.append( key );
 
     bool isPartialMapping = false;
@@ -199,27 +204,16 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   if ( m_doNotMapNextKeyPress ) m_doNotMapNextKeyPress = false;
 
-  if ( key == 'f' || key == 'F' || key == 't' || key == 'T' || key == 'r' ) {
-      // don't translate next character, we need the actual character so that
-      // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
-      m_doNotMapNextKeyPress = true;
-  }
-
   // Use replace caret when reading a character for "r"
-  if ( key == 'r' ) {
+  if ( key == 'r' && !waitingForRegisterOrCharToSearch) {
     m_view->setCaretStyle( KateRenderer::Underline, true );
   }
 
   m_keysVerbatim.append( KateViKeyParser::self()->decodeKeySequence( key ) );
 
-  QChar c = QChar::Null;
-  if ( m_keys.size() > 0 ) {
-    c = m_keys.at( m_keys.size()-1 ); // last char
-  }
-
-  if ( ( keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9 && c != '"' )       // key 0-9
+  if ( ( keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9 && lastChar != '"' )       // key 0-9
       && ( m_countTemp != 0 || keyCode != Qt::Key_0 )                     // first digit can't be 0
-      && ( c != 'f' && c != 't' && c != 'F' && c != 'T' && c != 'r' ) ) { // "find char" motions
+      && (!waitingForRegisterOrCharToSearch) ) { // "find char" motions
 
     m_countTemp *= 10;
     m_countTemp += keyCode-Qt::Key_0;
@@ -235,7 +229,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   m_keys.append( key );
 
-  if (key == '/' || key == '?')
+  if ((key == '/' || key == '?') && !waitingForRegisterOrCharToSearch)
   {
     // Special case for "/" and "?": these should be motions, but this is complicated by
     // the fact that the user must interact with the search bar before the range of the

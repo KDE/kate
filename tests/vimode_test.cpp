@@ -815,6 +815,9 @@ void ViModeTest::NormalModeMotionsTest() {
   // Don't move if we can't find any matches at all.
   DoTest("nocapitalc", "lltCx", "noapitalc");
   DoTest("nocapitalc", "llTCx", "noapitalc");
+  // Regression test for special-handling of "/" and "?" keys: these shouldn't interfere
+  // with character searches.
+  DoTest("foo /", "f/rX", "foo X");
 
   // Motion to lines starting with { or }
   DoTest("{\nfoo\n}", "][x", "{\nfoo\n");

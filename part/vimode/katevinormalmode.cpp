@@ -74,7 +74,6 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
 
   initializeCommands();
-  m_doNotMapNextKeyPress = false;
   m_pendingResetIsDueToExit = false;
   m_isRepeatedTFcommand = false;
   m_lastMotionWasLinewiseInnerBlock = false;
@@ -201,8 +200,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     // FIXME:
     //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
   }
-
-  if ( m_doNotMapNextKeyPress ) m_doNotMapNextKeyPress = false;
 
   // Use replace caret when reading a character for "r"
   if ( key == 'r' && !waitingForRegisterOrCharToSearch) {
@@ -1377,8 +1374,6 @@ if ( m_viInputModeManager->getCurrentViMode() == VisualMode
     updateCursor( c1 );
 
 }
-  m_doNotMapNextKeyPress = false;
-
   return r;
 }
 

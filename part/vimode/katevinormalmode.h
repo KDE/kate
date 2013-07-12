@@ -343,8 +343,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     // (Essentially, this allows us to have mappings that extend each other e.g. "'12" and
     // "'123", and to choose between them.)
     QString m_fullMappingMatch;
-    // set after f/F/t/T/r so the following character isn't translated
-    bool m_doNotMapNextKeyPress;
     QString m_mappingKeys;
     bool m_doNotExpandFurtherMappings;
     void executeMapping();

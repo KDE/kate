@@ -124,6 +124,7 @@ void ViModeTest::FinishTest(const QString& expected_text, ViModeTest::Expectatio
     qDebug() << "Actual text:\n\t" << kate_document->text() << "\nShould be (for this test to pass):\n\t" << expected_text;
   }
   QCOMPARE(kate_document->text(), expected_text);
+  Q_ASSERT(!emulatedCommandBarTextEdit()->isVisible() && "Make sure you close the command bar before the end of a test!");
 }
 
 
@@ -2337,6 +2338,7 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("/\\ctrl- \\ctrl-[diw");
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
   QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("a ab abc");
 
   // If we choose an element from the summoned completion list, it should not re-appear unless explicitly summoned

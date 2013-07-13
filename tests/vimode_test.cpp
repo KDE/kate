@@ -1798,6 +1798,9 @@ void ViModeTest::VimStyleCommandBarTests()
 
   // "/" and "?" should be usable as motions.
   DoTest("foo bar", "ld/bar\\enter", "fbar");
+  // They are not linewise.
+  DoTest("foo bar\nxyz", "ld/yz\\enter", "fyz");
+  DoTest("foo bar\nxyz", "jld?oo\\enter", "fyz");
   // Should be usable in Visual Mode without aborting Visual Mode.
   DoTest("foo bar", "lv/bar\\enterd", "far");
   // Same for ?.

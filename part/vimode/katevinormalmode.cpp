@@ -3230,8 +3230,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("i,", textObjectInnerComma, IS_NOT_LINEWISE );
   ADDMOTION("a,", textObjectAComma, IS_NOT_LINEWISE);
 
-  ADDMOTION("/<enter>", motionToIncrementalSearchMatch, 0);
-  ADDMOTION("?<enter>", motionToIncrementalSearchMatch, 0);
+  ADDMOTION("/<enter>", motionToIncrementalSearchMatch, IS_NOT_LINEWISE);
+  ADDMOTION("?<enter>", motionToIncrementalSearchMatch, IS_NOT_LINEWISE);
 }
 
 QRegExp KateViNormalMode::generateMatchingItemRegex()

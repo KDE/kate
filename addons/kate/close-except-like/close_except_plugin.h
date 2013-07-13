@@ -56,6 +56,7 @@ public:
     ~CloseExceptPluginView();
 
 private Q_SLOTS:
+    void viewCreated(KTextEditor::View*);
     void documentCreated(KTextEditor::Editor*, KTextEditor::Document*);
     void updateMenuSlotStub(KTextEditor::Document*);
     void close(const QString&, const bool);
@@ -69,6 +70,7 @@ private Q_SLOTS:
     }
 
 private:
+    void connectToDocument(KTextEditor::Document*);
     void updateMenu();
     QPointer<QSignalMapper> updateMenu(
         const std::set<QString>&

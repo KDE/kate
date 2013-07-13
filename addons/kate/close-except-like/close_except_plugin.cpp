@@ -120,6 +120,13 @@ CloseExceptPluginView::CloseExceptPluginView(
       , m_plugin
       , SLOT(toggleShowConfirmation(bool))
       );
+    //
+    connect(
+        mainWindow()
+      , SIGNAL(viewCreated(KTextEditor::View*))
+      , this
+      , SLOT(viewCreated(KTextEditor::View*))
+      );
     // Fill menu w/ currently opened document masks/groups
     updateMenu();
 
@@ -131,7 +138,19 @@ CloseExceptPluginView::~CloseExceptPluginView()
     mainWindow()->guiFactory()->removeClient(this);
 }
 
+void CloseExceptPluginView::viewCreated(KTextEditor::View* view)
+{
+    connectToDocument(view->document());
+    updateMenu();
+}
+
 void CloseExceptPluginView::documentCreated(KTextEditor::Editor*, KTextEditor::Document* document)
+{
+    connectToDocument(document);
+    updateMenu();
+}
+
+void CloseExceptPluginView::connectToDocument(KTextEditor::Document* document)
 {
     // Subscribe self to document close and name changes
     connect(
@@ -209,7 +228,6 @@ QPointer<QSignalMapper> CloseExceptPluginView::updateMenu(
 
 void CloseExceptPluginView::updateMenu()
 {
-    kDebug() << "... updating menu ...";
     const QList<KTextEditor::Document*>& docs = m_plugin->application()->documentManager()->documents();
     if (docs.size() < 2)
     {

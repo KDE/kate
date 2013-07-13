@@ -73,7 +73,6 @@ KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis (KateProjectPlu
    */
   connect (m_startStopAnalysis, SIGNAL(clicked (bool)), this, SLOT(slotStartStopClicked ()));
   connect (m_treeView, SIGNAL(clicked (const QModelIndex &)), this, SLOT(slotClicked (const QModelIndex &)));
-  connect (m_project, SIGNAL(indexChanged ()), this, SLOT(indexAvailable ()));
 }
 
 KateProjectInfoViewCodeAnalysis::~KateProjectInfoViewCodeAnalysis ()
@@ -98,9 +97,23 @@ void KateProjectInfoViewCodeAnalysis::slotStartStopClicked ()
   QStringList args;
   args << "-q" << "--enable=all" << "--template={file}////{line}////{severity}////{message}" << "--file-list=-";
   m_analyzer->start("cppcheck", args);
-  if (!m_analyzer->waitForStarted())
+  
+  if (m_messageWidget) {
+    delete m_messageWidget;
+    m_messageWidget=0;
+  }
+  
+  if (!m_analyzer->waitForStarted()) {
+    m_messageWidget = new KMessageWidget();
+    m_messageWidget->setCloseButtonVisible(true);
+    m_messageWidget->setMessageType(KMessageWidget::Warning);
+    m_messageWidget->setWordWrap(false);
+    m_messageWidget->setText(i18n("Please install 'cppcheck'."));
+    static_cast<QVBoxLayout*>(layout ())->insertWidget(0, m_messageWidget);
+    m_messageWidget->animatedShow (); 
+    
     return;
-
+  }
   /**
    * write files list and close write channel
    */
@@ -167,32 +180,5 @@ void KateProjectInfoViewCodeAnalysis::slotClicked (const QModelIndex &index)
     view->setCursorPosition (KTextEditor::Cursor (line - 1, 0));
 }
 
-void KateProjectInfoViewCodeAnalysis::indexAvailable ()
-{
-  /**
-   * update enabled state of widgets
-   */
-  const bool valid = m_project->projectIndex ()->isValid ();
- // m_lineEdit->setEnabled(valid);
-  m_treeView->setEnabled(valid);
-
-  /**
-   * if index exists, hide possible message widget, else create it
-   */
-  if (valid) {
-    if (m_messageWidget && m_messageWidget->isVisible ()) {
-      m_messageWidget->animatedHide ();
-    }
-  } else if (!m_messageWidget) {
-    m_messageWidget = new KMessageWidget();
-    m_messageWidget->setCloseButtonVisible(true);
-    m_messageWidget->setMessageType(KMessageWidget::Warning);
-    m_messageWidget->setWordWrap(false);
-    m_messageWidget->setText(i18n("The index could not be created. Please install 'ctags'."));
-    static_cast<QVBoxLayout*>(layout ())->insertWidget(0, m_messageWidget);
-  } else {
-    m_messageWidget->animatedShow ();
-  }
-}
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

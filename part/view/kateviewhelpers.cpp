@@ -514,7 +514,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
 
   // calculate the document size and position
   int docHeight = qMin(grooveRect.height(), m_pixmap.height()*2) - 2*docXMargin;
-  int yoffset = (grooveRect.height() - docHeight) / 2;
+  int yoffset = 0; // top-aligned in stead of center-aligned (grooveRect.height() - docHeight) / 2;
   QRect docRect(QPoint(grooveRect.left()+docXMargin, yoffset+grooveRect.top()), QSize(grooveRect.width()-2*docXMargin, docHeight));
   m_mapGroveRect = docRect;
 

@@ -110,10 +110,13 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
 {
   // set text etc.
   m_messageWidget->setText(message->text());
+  m_messageWidget->setIcon(message->icon());
 
-  // connect textChanged(), so it's possible to change text on the fly
+  // connect textChanged() and iconChanged(), so it's possible to change this on the fly
   connect(message, SIGNAL(textChanged(const QString&)),
           m_messageWidget, SLOT(setText(const QString&)), Qt::UniqueConnection);
+  connect(message, SIGNAL(iconChanged(const QIcon&)),
+          m_messageWidget, SLOT(setIcon(const QIcon&)), Qt::UniqueConnection);
 
   // the enums values do not necessarily match, hence translate with switch
   switch (message->messageType()) {
@@ -235,10 +238,12 @@ void KateMessageWidget::postMessage(KTextEditor::Message* message,
       disconnect(m_autoHideTimer, SIGNAL(timeout()), 0, 0);
       m_autoHideTimer->stop();
 
-      // a bit unnice: disconnetc textChanged() signal of previously visible message
+      // a bit unnice: disconnect textChanged() and iconChanged() signals of previously visible message
       Q_ASSERT(m_messageList.size() > 1);
       disconnect(m_messageList[1], SIGNAL(textChanged(const QString&)),
                  m_messageWidget, SLOT(setText(const QString&)));
+      disconnect(m_messageList[1], SIGNAL(iconChanged(const QIcon&)),
+                 m_messageWidget, SLOT(setIcon(const QIcon&)));
 
       m_hideAnimationRunning = true;
       if (m_fadeEffect) {

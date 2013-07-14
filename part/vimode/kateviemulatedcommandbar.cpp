@@ -205,6 +205,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
       m_suspendEditEventFiltering(false),
       m_waitingForRegister(false),
       m_commandResponseMessageTimeOutMS(4000),
+      m_nextTextChangeDueToCompletionChange(false),
       m_currentCompletionType(None)
 {
   QVBoxLayout * layout = new QVBoxLayout();
@@ -400,12 +401,24 @@ bool KateViEmulatedCommandBar::deleteNonWordCharsToLeftOfCursor()
 QString KateViEmulatedCommandBar::wordBeforeCursor()
 {
   int wordBeforeCursorBegin = m_edit->cursorPosition() - 1;
-  while (wordBeforeCursorBegin >= 0 && (m_edit->text()[wordBeforeCursorBegin].isLetterOrNumber() || m_edit->text()[wordBeforeCursorBegin] == '_' ))
+  while (wordBeforeCursorBegin >= 0 && (m_edit->text()[wordBeforeCursorBegin].isLetterOrNumber() || m_edit->text()[wordBeforeCursorBegin] == '_'))
   {
     wordBeforeCursorBegin--;
   }
   wordBeforeCursorBegin++;
   return m_edit->text().mid(wordBeforeCursorBegin, m_edit->cursorPosition() - wordBeforeCursorBegin);
+}
+
+QString KateViEmulatedCommandBar::commandBeforeCursor()
+{
+  int commandBeforeCursorBegin = m_edit->cursorPosition() - 1;
+  while (commandBeforeCursorBegin >= 0 && (m_edit->text()[commandBeforeCursorBegin].isLetterOrNumber() || m_edit->text()[commandBeforeCursorBegin] == '_' || m_edit->text()[commandBeforeCursorBegin] == '-'))
+  {
+    commandBeforeCursorBegin--;
+  }
+  commandBeforeCursorBegin++;
+  return m_edit->text().mid(commandBeforeCursorBegin, m_edit->cursorPosition() - commandBeforeCursorBegin);
+
 }
 
 void KateViEmulatedCommandBar::replaceWordBeforeCursorWith(const QString& newWord)
@@ -479,14 +492,15 @@ void KateViEmulatedCommandBar::updateCompletionPrefix()
   }
   else if (m_currentCompletionType == Commands)
   {
-    m_completer->setCompletionPrefix(wordBeforeCursor());
+    m_completer->setCompletionPrefix(commandBeforeCursor());
   }
   // Seem to need this to alter the size of the popup box appropriately.
   m_completer->complete();
 }
 
-void KateViEmulatedCommandBar::completionChosen()
+void KateViEmulatedCommandBar::currentCompletionChanged()
 {
+  m_nextTextChangeDueToCompletionChange = true;
   if (m_currentCompletionType == WordFromDocument)
   {
     replaceWordBeforeCursorWith(m_completer->currentCompletion());
@@ -495,11 +509,15 @@ void KateViEmulatedCommandBar::completionChosen()
   {
     m_edit->setText(m_completer->currentCompletion());
   }
+  else if (m_currentCompletionType == Commands)
+  {
+    m_edit->setText(m_completer->currentCompletion());
+  }
   else
   {
     Q_ASSERT("Something went wrong, here - completion with unrecognised completion type");
   }
-  deactivateCompletion();
+  m_nextTextChangeDueToCompletionChange = false;
 }
 
 void KateViEmulatedCommandBar::setCompletionIndex(int index)
@@ -510,18 +528,12 @@ void KateViEmulatedCommandBar::setCompletionIndex(int index)
   m_completer->setCurrentRow(index);
 
   m_completer->popup()->scrollTo(modelIndex);
+
+  currentCompletionChanged();
 }
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
-  if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
-  {
-    if (m_completer->popup()->isVisible())
-    {
-      completionChosen();
-      return true;
-    }
-  }
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_Space)
   {
     activateWordFromDocumentCompletion();
@@ -594,13 +606,24 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (keyEvent->key() == Qt::Key_C || keyEvent->key() == Qt::Key_BracketLeft)
     {
-      if (m_currentCompletionType == None)
+      if (m_currentCompletionType == None || !m_completer->popup()->isVisible())
       {
         emit hideMe();
       }
       else
       {
+        const CompletionType abortedCompletionType = m_currentCompletionType;
         deactivateCompletion();
+        m_nextTextChangeDueToCompletionChange = true;
+        if (abortedCompletionType == SearchHistory || abortedCompletionType == Commands)
+        {
+          m_edit->setText(m_revertToIfCompletionAborted);
+        }
+        else
+        {
+          replaceWordBeforeCursorWith(m_revertToIfCompletionAborted);
+        }
+        m_nextTextChangeDueToCompletionChange = false;
       }
       return true;
     }
@@ -628,37 +651,44 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   }
   else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
   {
-    m_doNotResetCursorOnClose =  true;
-    if (m_mode == Command)
+    if (m_completer->popup()->isVisible() && m_currentCompletionType == KateViEmulatedCommandBar::WordFromDocument)
     {
-      kDebug(13070) << "Executing: " << m_edit->text();
-      m_commandResponseMessage.clear();
-      // TODO - this is a hack-ish way of finding the response from the command; maybe
-      // add another overload of "execute" to KateCommandLineBar that returns the
-      // response message ... ?
-      m_view->cmdLineBar()->setText("");
-      m_view->cmdLineBar()->execute(m_edit->text());
-      KateCmdLineEdit *kateCommandLineEdit = m_view->cmdLineBar()->findChild<KateCmdLineEdit*>();
-      Q_ASSERT(kateCommandLineEdit);
-      const QString commandResponseMessage = kateCommandLineEdit->text();
-      if (commandResponseMessage.isEmpty())
-      {
-        emit hideMe();
-      }
-      else
-      {
-        // Display the message for a while.  Become inactive, so we don't steal keys in the meantime.
-        m_isActive = false;
-        m_edit->hide();
-        m_commandResponseMessageDisplay->show();
-        m_commandResponseMessageDisplay->setText(commandResponseMessage);
-        QTimer::singleShot(m_commandResponseMessageTimeOutMS, this, SIGNAL(hideMe()));
-      }
-      KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(m_edit->text());
+      deactivateCompletion();
     }
     else
     {
-      emit hideMe();
+      m_doNotResetCursorOnClose =  true;
+      if (m_mode == Command)
+      {
+        kDebug(13070) << "Executing: " << m_edit->text();
+        m_commandResponseMessage.clear();
+        // TODO - this is a hack-ish way of finding the response from the command; maybe
+        // add another overload of "execute" to KateCommandLineBar that returns the
+        // response message ... ?
+        m_view->cmdLineBar()->setText("");
+        m_view->cmdLineBar()->execute(m_edit->text());
+        KateCmdLineEdit *kateCommandLineEdit = m_view->cmdLineBar()->findChild<KateCmdLineEdit*>();
+        Q_ASSERT(kateCommandLineEdit);
+        const QString commandResponseMessage = kateCommandLineEdit->text();
+        if (commandResponseMessage.isEmpty())
+        {
+          emit hideMe();
+        }
+        else
+        {
+          // Display the message for a while.  Become inactive, so we don't steal keys in the meantime.
+          m_isActive = false;
+          m_edit->hide();
+          m_commandResponseMessageDisplay->show();
+          m_commandResponseMessageDisplay->setText(commandResponseMessage);
+          QTimer::singleShot(m_commandResponseMessageTimeOutMS, this, SIGNAL(hideMe()));
+        }
+        KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(m_edit->text());
+      }
+      else
+      {
+        emit hideMe();
+      }
     }
     return true;
   }
@@ -675,6 +705,17 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {
   qDebug() << "New text: " << newText;
+  if (!m_nextTextChangeDueToCompletionChange)
+  {
+    if (m_currentCompletionType != WordFromDocument)
+    {
+      m_revertToIfCompletionAborted = newText;
+    }
+    else
+    {
+      m_revertToIfCompletionAborted = wordBeforeCursor();
+    }
+  }
   if (m_mode == SearchForward || m_mode == SearchBackward)
   {
     const QString qtRegexPattern = vimRegexToQtRegexPattern(newText);
@@ -721,14 +762,31 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     updateMatchHighlight(match);
   }
 
-  // Command completion mode should be automatically invoked, if we are in Command mode.
+  // Command completion doesn't need to be manually invoked.
   if (m_mode == Command && m_currentCompletionType == None)
   {
     activateCommandCompletion();
   }
 
-  if (m_currentCompletionType != None)
+  // Command completion mode should be automatically invoked if we are in Command mode, but
+  // only if this is the leading word in the text edit (it gets annoying if completion pops up
+  // after ":s/se" etc).
+  const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == 0);
+  if (m_mode == Command && !commandBeforeCursorIsLeading)
+  {
+    deactivateCompletion();
+  }
+
+  // If we edit the text after having selected a completion, this means we implicitly accept it,
+  // and so we should dismiss it.
+  if (!m_nextTextChangeDueToCompletionChange && m_completer->popup()->currentIndex().row() != -1)
+  {
+    deactivateCompletion();
+  }
+
+  if (m_currentCompletionType != None && !m_nextTextChangeDueToCompletionChange)
   {
     updateCompletionPrefix();
   }
+
 }

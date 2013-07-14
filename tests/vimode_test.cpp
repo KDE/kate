@@ -2042,14 +2042,10 @@ void ViModeTest::VimStyleCommandBarTests()
   const QPoint barEditBottomLeft = emulatedCommandBarTextEdit()->mapToGlobal(emulatedCommandBarTextEdit()->rect().bottomLeft());
   QCOMPARE(completerRectTopLeft.x(), barEditBottomLeft.x());
   QVERIFY(qAbs(completerRectTopLeft.y() - barEditBottomLeft.y()) <= 1);
-  // Will activate the current completion item, and hide the completion (but not the bar)
+  // Will activate the current completion item, activating the search, and dismissing the bar.
   TestPressKey("\\enter");
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
-  QVERIFY(emulatedCommandBar->isVisible());
   // Close the command bar.
-  TestPressKey("\\enter");
-  QVERIFY(!emulatedCommandBar->isVisible());
-  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
   FinishTest("foo bar");
 
   // Don't show completion with an empty search bar.
@@ -2077,8 +2073,7 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-p");
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
-  TestPressKey("\\enter"); // Dismiss completer.
-  TestPressKey("\\enter");
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("foo bar");
 
   clearSearchHistory();
@@ -2088,21 +2083,22 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(emulatedCommandBarCompleter() != NULL);
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 0);
   TestPressKey("\\ctrl-p");
-  // Make sure we're not redirecting our ctrl-p to the line edit!
-  QVERIFY(emulatedCommandBarTextEdit()->text().isEmpty());
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("bar"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 1);
   TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("xyz"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz"));
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 2);
   TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo")); // Wrap-around
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 0);
-  TestPressKey("\\enter"); // Dismiss completer.
-  TestPressKey("\\enter");
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("foo bar");
 
   clearSearchHistory();
@@ -2113,19 +2109,22 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-n");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("xyz"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz"));
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 2);
   TestPressKey("\\ctrl-n");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("bar"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("bar"));
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 1);
   TestPressKey("\\ctrl-n");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 0);
   TestPressKey("\\ctrl-n");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("xyz"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz")); // Wrap-around.
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 2);
-  TestPressKey("\\enter"); // Dismiss completer.
-  TestPressKey("\\enter");
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("foo bar");
 
   clearSearchHistory();
@@ -2134,9 +2133,8 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo");
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-n\\ctrl-n");
-  TestPressKey("\\return"); // Choose completion, and dismiss completer.
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("bar"));
-  TestPressKey("\\enter");
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("foo bar");
 
   // If we add something to the history, remove any earliest occurrences (this is what Vim appears to do)
@@ -2186,7 +2184,7 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("/\\ctrl- ");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo");
 
   // Count digits and underscores as being part of a word.
@@ -2194,7 +2192,17 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("/\\ctrl- ");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo_12"));
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
+  FinishTest("foo_12");
+
+  // This feels a bit better to me, usability-wise: in the special case of completion from document, where
+  // the completion list is manually summoned, allow one to press Enter without the bar being dismissed
+  // (just dismiss the completion list instead).
+  BeginTest("foo_12");
+  TestPressKey("/\\ctrl- \\ctrl-p\\enter");
+  QVERIFY(emulatedCommandBar->isVisible());
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("foo_12");
 
   // Check that we can find multiple words on one line.
@@ -2203,21 +2211,21 @@ void ViModeTest::VimStyleCommandBarTests()
   QStringListModel *completerStringListModel = dynamic_cast<QStringListModel*>(emulatedCommandBarCompleter()->model());
   Q_ASSERT(completerStringListModel);
   QCOMPARE(completerStringListModel->stringList(), QStringList() << "bar" << "foo" << "xyz");
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("bar (foo) [xyz]");
 
   // Check that we arrange the found words in case-insensitive sorted order.
   BeginTest("D c e a b f");
   TestPressKey("/\\ctrl- ");
   verifyCommandBarCompletionsMatches(QStringList() << "a" << "b" << "c" << "D" << "e" << "f");
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("D c e a b f");
 
   // Check that we don't include the same word multiple times.
   BeginTest("foo bar bar bar foo");
   TestPressKey("/\\ctrl- ");
   verifyCommandBarCompletionsMatches(QStringList() << "bar" << "foo");
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo bar bar bar foo");
 
   // Check that we search only a narrow portion of the document, around the cursor (4096 lines either
@@ -2235,7 +2243,7 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest(manyLines.join("\n"));
   TestPressKey("4097j/\\ctrl- ");
   verifyCommandBarCompletionsMatches(allButFirstAndLastOfManyLines);
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest(manyLines.join("\n"));
 
 
@@ -2245,14 +2253,22 @@ void ViModeTest::VimStyleCommandBarTests()
   // Write "bar(foa112$nose" and position cursor before the "2", then invoke completion.
   TestPressKey("/bar(foa_112$nose\\left\\left\\left\\left\\left\\left\\ctrl- ");
   verifyCommandBarCompletionsMatches(QStringList() << "foa_11" << "foa_11b");
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo fee foa_11 foa_11b");
+
+  // But don't count "-" as being part of the current word.
+  BeginTest("foo_12");
+  TestPressKey("/bar-foo\\ctrl- ");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo_12"));
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
+  FinishTest("foo_12");
 
   // Be case insensitive.
   BeginTest("foo Fo12 fOo13 FO45");
   TestPressKey("/fo\\ctrl- ");
   verifyCommandBarCompletionsMatches(QStringList() << "Fo12" << "FO45" << "foo" << "fOo13");
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo Fo12 fOo13 FO45");
 
   // Feed the current word to complete to the completer as we type/ edit.
@@ -2265,22 +2281,22 @@ void ViModeTest::VimStyleCommandBarTests()
   verifyCommandBarCompletionsMatches(QStringList() << "foa" << "foab" << "foo");
   TestPressKey("o");
   verifyCommandBarCompletionsMatches(QStringList() << "foo");
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo fee foa foab");
 
-  // Upon choosing a completion with an empty command bar, add the completed text to the command bar and
-  // hide the completion.
+  // Upon selecting a completion with an empty command bar, add the completed text to the command bar.
   BeginTest("foo fee fob foables");
-  TestPressKey("/\\ctrl- foa\\enter\\enter");
+  TestPressKey("/\\ctrl- foa\\ctrl-p");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foables"));
-  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo fee fob foables");
 
   // If bar is non-empty, replace the word under the cursor.
   BeginTest("foo fee foa foab");
-  TestPressKey("/xyz|f$nose\\left\\left\\left\\left\\left\\ctrl- oa\\ctrl-p\\enter");
+  TestPressKey("/xyz|f$nose\\left\\left\\left\\left\\left\\ctrl- oa\\ctrl-p");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("xyz|foab$nose"));
-  TestPressKey("\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo fee foa foab");
 
   // If we're completing from history, though, the entire text gets set, and the completion prefix
@@ -2291,9 +2307,22 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("/foo(b\\ctrl-p");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
   verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
-  TestPressKey("\\enter");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo(bar"));
-  TestPressKey("\\enter");
+  TestPressKey("\\enter"); // Dismiss bar.
+  FinishTest("");
+
+  // If we're completing from history and we abort the completion via ctrl-c or ctrl-[, we revert the whole
+  // text to the last manually typed text.
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(b|ar");
+  BeginTest("");
+  TestPressKey("/foo(b\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionsMatches(QStringList() << "foo(b|ar");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo(b|ar"));
+  TestPressKey("\\ctrl-c"); // Dismiss completion.
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo(b"));
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("");
 
   // Scroll completion list if necessary so that currently selected completion is visible.
@@ -2306,8 +2335,7 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("z"));
   const QRect lastCompletionItemRect = emulatedCommandBarCompleter()->popup()->visualRect(emulatedCommandBarCompleter()->popup()->model()->index(lastItemRow, 0));
   QVERIFY(emulatedCommandBarCompleter()->popup()->rect().contains(lastCompletionItemRect));
-  TestPressKey("\\enter"); // Dismiss completer.
-  TestPressKey("\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("a b c d e f g h i j k l m n o p q r s t u v w x y z");
 
   // Ensure that the completion list changes size appropriately as the number of candidate completions changes.
@@ -2317,8 +2345,7 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("ab");
   const int popupHeightAfterEliminatingOne = emulatedCommandBarCompleter()->popup()->height();
   QVERIFY(popupHeightAfterEliminatingOne < initialPopupHeight);
-  TestPressKey("\\enter"); // Dismiss completer.
-  TestPressKey("\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("a ab abc");
 
   // Ensure that the completion list disappears when no candidate completions are found, but re-appears
@@ -2329,8 +2356,7 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
   TestPressKey("\\ctrl-h");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
-  TestPressKey("\\enter"); // Dismiss completer.
-  TestPressKey("\\enter");
+  TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("a ab abc");
 
   // ctrl-c and ctrl-[ when the completion list is visible should dismiss the completion list, but *not*
@@ -2347,18 +2373,18 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("a ab abc");
 
-  // If we choose an element from the summoned completion list, it should not re-appear unless explicitly summoned
+  // If we implicitly choose an element from the summoned completion list (by highlighting it, then
+  // continuing to edit the text), the completion box should not re-appear unless explicitly summoned
   // again, even if the current word has a valid completion.
   BeginTest("a ab abc");
-  TestPressKey("/\\ctrl- \\ctrl-p\\enter");
+  TestPressKey("/\\ctrl- \\ctrl-p");
   TestPressKey(".a");
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
-  TestPressKey("\\enter");
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("a ab abc");
 
   // If we dismiss the summoned completion list via ctrl-c or ctrl-[, it should not re-appear unless explicitly summoned
   // again, even if the current word has a valid completion.
-  // ESC won't dismiss the com
   BeginTest("a ab abc");
   TestPressKey("/\\ctrl- \\ctrl-c");
   TestPressKey(".a");
@@ -2367,8 +2393,50 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("/\\ctrl- \\ctrl-[");
   TestPressKey(".a");
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
-  TestPressKey("\\enter");
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("a ab abc");
+
+  // If we select a completion from an empty bar, but then dismiss it via ctrl-c or ctrl-[, then we
+  // should restore the empty text.
+  BeginTest("foo");
+  TestPressKey("/\\ctrl- \\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
+  TestPressKey("\\ctrl-c");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBar->isVisible());
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(""));
+  TestPressKey("\\enter"); // Dismiss bar.
+  FinishTest("foo");
+  BeginTest("foo");
+  TestPressKey("/\\ctrl- \\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo"));
+  TestPressKey("\\ctrl-[");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBar->isVisible());
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(""));
+  TestPressKey("\\enter"); // Dismiss bar.
+  FinishTest("foo");
+
+  // If we select a completion but then dismiss it via ctrl-c or ctrl-[, then we
+  // should restore the last manually typed word.
+  BeginTest("fooabc");
+  TestPressKey("/f\\ctrl- o\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("fooabc"));
+  TestPressKey("\\ctrl-c");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBar->isVisible());
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("fo"));
+  TestPressKey("\\enter"); // Dismiss bar.
+  FinishTest("fooabc");
+
+  // If we select a completion but then dismiss it via ctrl-c or ctrl-[, then we
+  // should restore the word currently being typed to the last manually typed word.
+  BeginTest("fooabc");
+  TestPressKey("/ab\\ctrl- |fo\\ctrl-p");
+  TestPressKey("\\ctrl-c");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("ab|fo"));
+  TestPressKey("\\enter"); // Dismiss bar.
+  FinishTest("fooabc");
 
   // Set the completion prefix for the search history completion as soon as it is shown.
   clearSearchHistory();
@@ -2378,19 +2446,7 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("/f\\ctrl-p");
   QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
   verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
-  TestPressKey("\\enter\\enter");
-  FinishTest("");
-
-  // Set the completion prefix for the search history completion as we edit, and ensure
-  // we use the whole entered text, not just the current word under the cursor.
-  clearSearchHistory();
-  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(bar");
-  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
-  BeginTest("");
-  TestPressKey("/\\ctrl-pfoo(b");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
-  verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
-  TestPressKey("\\enter\\enter");
+  TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("");
 
   // Command Mode (:) tests.
@@ -2426,9 +2482,8 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\esc");
   FinishTest("foo bar xyz");
 
-  // Execute the command on 2nd Enter (the first clears the completion list).
-  // TODO - this is clunky - need to rework how this works!
-  DoTest("d\nb\na\nc", "Vjjj:sort\\enter\\enter", "a\nb\nc\nd");
+  // Execute the command on Enter.
+  DoTest("d\nb\na\nc", "Vjjj:sort\\enter", "a\nb\nc\nd");
 
   const int commandResponseMessageTimeOutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_COMMANDRESPONSEMESSAGETIMEOUTMS")).toInt();
   const long commandResponseMessageTimeOutMS = (commandResponseMessageTimeOutMSOverride > 0) ? commandResponseMessageTimeOutMSOverride : 2000;
@@ -2496,6 +2551,7 @@ void ViModeTest::VimStyleCommandBarTests()
     // A random sprinkling of commands that begin with s.
     verifyCommandBarCompletionContains(QStringList() << "sort" << "set-auto-indent");
     TestPressKey("\\ctrl-c"); // Dismiss completer
+    QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
     TestPressKey("\\ctrl-c"); // Dismiss bar
     FinishTest("");
   }
@@ -2526,6 +2582,36 @@ void ViModeTest::VimStyleCommandBarTests()
     FinishTest("");
   }
 
+  // If we abort completion via ctrl-c or ctrl-[, we should revert the current word to the last
+  // manually entered word.
+  BeginTest("");
+  TestPressKey(":se\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBarTextEdit()->text() != "se");
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("se"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("");
+
+  // In practice, it's annoying if, as we enter ":s/se", completions pop up after the "se":
+  // for now, only summon completion if we are on the first word in the text.
+  BeginTest("");
+  TestPressKey(":s/se");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("");
+
+  // "The current word", for Commands, can contain "-".
+  BeginTest("");
+  TestPressKey(":set-\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QVERIFY(emulatedCommandBarTextEdit()->text() != "set-");
+  QVERIFY(emulatedCommandBarCompleter()->currentCompletion().startsWith("set-"));
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
+  TestPressKey("\\ctrl-c"); // Dismiss completion.
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
   {
     // Don't switch from word-from-document to command-completion just because we press a key, though!
     BeginTest("soggy1 soggy2");
@@ -2549,11 +2635,11 @@ void ViModeTest::VimStyleCommandBarTests()
 
   clearCommandHistory();
   BeginTest("");
-  TestPressKey(":sort\\enter\\enter");
+  TestPressKey(":sort\\enter");
   QCOMPARE(commandHistory(), QStringList() << "sort");
-  TestPressKey(":yank\\enter\\enter");
+  TestPressKey(":yank\\enter");
   QCOMPARE(commandHistory(), QStringList() << "sort" << "yank");
-  TestPressKey(":commandthatdoesnotexist\\enter\\enter");
+  TestPressKey(":commandthatdoesnotexist\\enter");
   QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist");
   TestPressKey(":abortedcommand\\ctrl-c\\ctrl-c");
   QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist");
@@ -2918,6 +3004,10 @@ void ViModeTest::verifyCommandBarCompletionsMatches(const QStringList& expectedC
   QStringList actualCompletionList;
   for (int i = 0; emulatedCommandBarCompleter()->setCurrentRow(i); i++)
     actualCompletionList << emulatedCommandBarCompleter()->currentCompletion();
+  if (expectedCompletionList != actualCompletionList)
+  {
+    qDebug() << "Actual completions:\n " << actualCompletionList << "\n\ndo not match expected:\n" << expectedCompletionList;
+  }
 
   QCOMPARE(actualCompletionList, expectedCompletionList);
 }

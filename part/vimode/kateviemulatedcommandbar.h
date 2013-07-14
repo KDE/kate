@@ -58,11 +58,13 @@ private:
 
   QCompleter *m_completer;
   QStringListModel *m_completionModel;
+  bool m_nextTextChangeDueToCompletionChange;
   enum CompletionType { None, SearchHistory, WordFromDocument, Commands };
   CompletionType m_currentCompletionType;
   void updateCompletionPrefix();
-  void completionChosen();
+  void currentCompletionChanged();
   bool m_completionActive;
+  QString m_revertToIfCompletionAborted;
 
   KTextEditor::Attribute::Ptr m_highlightMatchAttribute;
   KTextEditor::MovingRange* m_highlightedMatch;
@@ -73,6 +75,7 @@ private:
   void deleteWordCharsToLeftOfCursor();
   bool deleteNonWordCharsToLeftOfCursor();
   QString wordBeforeCursor();
+  QString commandBeforeCursor();
   void replaceWordBeforeCursorWith(const QString& newWord);
 
   void activateSearchHistoryCompletion();

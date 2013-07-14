@@ -2430,7 +2430,8 @@ void ViModeTest::VimStyleCommandBarTests()
   // TODO - this is clunky - need to rework how this works!
   DoTest("d\nb\na\nc", "Vjjj:sort\\enter\\enter", "a\nb\nc\nd");
 
-  const long commandResponseMessageTimeOutMS = 2000;
+  const int commandResponseMessageTimeOutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_COMMANDRESPONSEMESSAGETIMEOUTMS")).toInt();
+  const long commandResponseMessageTimeOutMS = (commandResponseMessageTimeOutMSOverride > 0) ? commandResponseMessageTimeOutMSOverride : 2000;
   {
   // If there is any output from the command, show it in a label for a short amount of time.
   emulatedCommandBar->setCommandResponseMessageTimeout(commandResponseMessageTimeOutMS);

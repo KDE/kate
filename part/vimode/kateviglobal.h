@@ -67,6 +67,10 @@ public:
     void clearSearchHistory();
     void appendSearchHistoryItem(const QString& searchHistoryItem);
 
+    QStringList commandHistory();
+    void clearCommandHistory();
+    void appendCommandHistoryItem(const QString& commandHistoryItem);
+
 private:
     // registers
     QList<KateViRegister> m_numberedRegisters;
@@ -81,6 +85,7 @@ private:
     QHash <QString, KateViModeBase::MappingRecursion> m_normalModeMappingRecursion;
 
     QStringList m_searchHistory;
+    QStringList m_commandHistory;
 
 };
 

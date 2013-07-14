@@ -96,6 +96,10 @@ private:
 
   void clearSearchHistory();
   QStringList searchHistory();
+
+  void clearCommandHistory();
+  QStringList commandHistory();
+
   QCompleter *emulatedCommandBarCompleter();
 
   void verifyCommandBarCompletionsMatches(const QStringList& expectedCompletionList);

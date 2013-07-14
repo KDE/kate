@@ -252,4 +252,20 @@ void KateViGlobal::appendSearchHistoryItem(const QString& searchHistoryItem)
   m_searchHistory.append(searchHistoryItem);
 }
 
+QStringList KateViGlobal::commandHistory()
+{
+  return m_commandHistory;
+}
+
+void KateViGlobal::clearCommandHistory()
+{
+  m_commandHistory.clear();
+}
+
+void KateViGlobal::appendCommandHistoryItem(const QString& commandHistoryItem)
+{
+  m_commandHistory.append(commandHistoryItem);
+}
+
+
 

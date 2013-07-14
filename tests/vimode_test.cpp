@@ -2536,6 +2536,27 @@ void ViModeTest::VimStyleCommandBarTests()
     TestPressKey("\\ctrl-c"); // Dismiss bar
     FinishTest("soggy1 soggy2");
   }
+
+  // Command history tests.
+  clearCommandHistory();
+  QVERIFY(commandHistory().isEmpty());
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("foo");
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("bar");
+  QCOMPARE(commandHistory(), QStringList() << "foo" << "bar");
+  clearCommandHistory();
+  QVERIFY(commandHistory().isEmpty());
+
+  clearCommandHistory();
+  BeginTest("");
+  TestPressKey(":sort\\enter\\enter");
+  QCOMPARE(commandHistory(), QStringList() << "sort");
+  TestPressKey(":yank\\enter\\enter");
+  QCOMPARE(commandHistory(), QStringList() << "sort" << "yank");
+  TestPressKey(":commandthatdoesnotexist\\enter\\enter");
+  QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist");
+  TestPressKey(":abortedcommand\\ctrl-c\\ctrl-c");
+  QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist");
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -2873,6 +2894,16 @@ void ViModeTest::clearSearchHistory()
 QStringList ViModeTest::searchHistory()
 {
   return KateGlobal::self()->viInputModeGlobal()->searchHistory();
+}
+
+void ViModeTest::clearCommandHistory()
+{
+  KateGlobal::self()->viInputModeGlobal()->clearCommandHistory();
+}
+
+QStringList ViModeTest::commandHistory()
+{
+  return KateGlobal::self()->viInputModeGlobal()->commandHistory();
 }
 
 QCompleter* ViModeTest::emulatedCommandBarCompleter()

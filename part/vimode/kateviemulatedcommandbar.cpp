@@ -654,6 +654,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
         m_commandResponseMessageDisplay->setText(commandResponseMessage);
         QTimer::singleShot(m_commandResponseMessageTimeOutMS, this, SIGNAL(hideMe()));
       }
+      KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(m_edit->text());
     }
     else
     {

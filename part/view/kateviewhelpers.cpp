@@ -1523,7 +1523,7 @@ int KateIconBorder::lineNumberWidth() const
 
     if (m_cachedLNWidth != width || m_oldBackgroundColor != m_view->renderer()->config()->iconBarColor()) {
       int w = 16;// HACK: 16 == style().scrollBarExtent().width() style().scrollBarExtent().width();
-      int h = m_view->renderer()->config()->fontMetrics().height();
+      int h = m_view->renderer()->lineHeight();
 
       QSize newSize(w, h);
       if ((m_arrow.size() != newSize || m_oldBackgroundColor != m_view->renderer()->config()->iconBarColor()) && !newSize.isEmpty()) {
@@ -1602,7 +1602,7 @@ static void paintTriangle (QPainter &painter, QColor c, int xOffset, int yOffset
 
 void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 {
-  uint h = m_view->renderer()->config()->fontMetrics().height();
+  uint h = m_view->renderer()->lineHeight();
   uint startz = (y / h);
   uint endz = startz + 1 + (height / h);
   uint lineRangesSize = m_viewInternal->cache()->viewCacheLineCount();

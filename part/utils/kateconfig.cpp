@@ -509,7 +509,7 @@ void KateDocumentConfig::setWordWrap (bool on)
   configEnd ();
 }
 
-unsigned int KateDocumentConfig::wordWrapAt () const
+int KateDocumentConfig::wordWrapAt () const
 {
   if (m_wordWrapAtSet || isGlobal())
     return m_wordWrapAt;
@@ -517,7 +517,7 @@ unsigned int KateDocumentConfig::wordWrapAt () const
   return s_global->wordWrapAt();
 }
 
-void KateDocumentConfig::setWordWrapAt (unsigned int col)
+void KateDocumentConfig::setWordWrapAt (int col)
 {
   if (col < 1)
     return;

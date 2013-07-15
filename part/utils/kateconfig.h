@@ -203,8 +203,8 @@ class KATEPART_TESTS_EXPORT KateDocumentConfig : public KateConfig
     bool wordWrap () const;
     void setWordWrap (bool on);
 
-    unsigned int wordWrapAt () const;
-    void setWordWrapAt (unsigned int col);
+    int wordWrapAt () const;
+    void setWordWrapAt (int col);
 
     bool pageUpDownMovesCursor () const;
     void setPageUpDownMovesCursor (bool on);

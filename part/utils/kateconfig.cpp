@@ -1325,6 +1325,9 @@ bool KateViewConfig::dynWordWrap () const
 
 void KateViewConfig::setDynWordWrap (bool wrap)
 {
+  if (m_dynWordWrapSet && m_dynWordWrap == wrap)
+    return;
+
   configStart ();
 
   m_dynWordWrapSet = true;
@@ -1343,6 +1346,9 @@ int KateViewConfig::dynWordWrapIndicators () const
 
 void KateViewConfig::setDynWordWrapIndicators (int mode)
 {
+  if (m_dynWordWrapIndicatorsSet && m_dynWordWrapIndicators == mode)
+    return;
+
   configStart ();
 
   m_dynWordWrapIndicatorsSet = true;
@@ -1361,6 +1367,9 @@ int KateViewConfig::dynWordWrapAlignIndent () const
 
 void KateViewConfig::setDynWordWrapAlignIndent (int indent)
 {
+  if (m_dynWordWrapAlignIndentSet && m_dynWordWrapAlignIndent == indent)
+    return;
+
   configStart ();
 
   m_dynWordWrapAlignIndentSet = true;
@@ -1379,6 +1388,9 @@ bool KateViewConfig::lineNumbers () const
 
 void KateViewConfig::setLineNumbers (bool on)
 {
+  if (m_lineNumbersSet && m_lineNumbers == on)
+    return;
+
   configStart ();
 
   m_lineNumbersSet = true;
@@ -1397,6 +1409,9 @@ bool KateViewConfig::scrollBarMarks () const
 
 void KateViewConfig::setScrollBarMarks (bool on)
 {
+  if (m_scrollBarMarksSet && m_scrollBarMarks == on)
+    return;
+
   configStart ();
 
   m_scrollBarMarksSet = true;
@@ -1415,6 +1430,9 @@ bool KateViewConfig::scrollBarMiniMap () const
 
 void KateViewConfig::setScrollBarMiniMap (bool on)
 {
+  if (m_scrollBarMiniMapSet && m_scrollBarMiniMap == on)
+    return;
+
   configStart ();
 
   m_scrollBarMiniMapSet = true;
@@ -1433,6 +1451,9 @@ bool KateViewConfig::scrollBarMiniMapAll () const
 
 void KateViewConfig::setScrollBarMiniMapAll (bool on)
 {
+  if (m_scrollBarMiniMapAllSet && m_scrollBarMiniMapAll == on)
+    return;
+
   configStart ();
 
   m_scrollBarMiniMapAllSet = true;
@@ -1451,6 +1472,9 @@ int KateViewConfig::scrollBarMiniMapWidth () const
 
 void KateViewConfig::setScrollBarMiniMapWidth (int width)
 {
+  if (m_scrollBarMiniMapWidthSet && m_scrollBarMiniMapWidth == width)
+    return;
+
   configStart ();
 
   m_scrollBarMiniMapWidthSet = true;
@@ -1469,6 +1493,9 @@ bool KateViewConfig::iconBar () const
 
 void KateViewConfig::setIconBar (bool on)
 {
+  if (m_iconBarSet && m_iconBar == on)
+    return;
+
   configStart ();
 
   m_iconBarSet = true;
@@ -1487,6 +1514,9 @@ bool KateViewConfig::foldingBar () const
 
 void KateViewConfig::setFoldingBar (bool on)
 {
+  if (m_foldingBarSet && m_foldingBar == on)
+    return;
+
   configStart ();
 
   m_foldingBarSet = true;
@@ -1505,6 +1535,9 @@ bool KateViewConfig::lineModification () const
 
 void KateViewConfig::setLineModification (bool on)
 {
+  if (m_lineModificationSet && m_lineModification == on)
+    return;
+
   configStart ();
 
   m_lineModificationSet = true;
@@ -1523,6 +1556,9 @@ int KateViewConfig::bookmarkSort () const
 
 void KateViewConfig::setBookmarkSort (int mode)
 {
+  if (m_bookmarkSortSet && m_bookmarkSort == mode)
+    return;
+
   configStart ();
 
   m_bookmarkSortSet = true;
@@ -1544,6 +1580,9 @@ void KateViewConfig::setAutoCenterLines (int lines)
   if (lines < 0)
     return;
 
+  if (m_autoCenterLinesSet && m_autoCenterLines == lines)
+    return;
+
   configStart ();
 
   m_autoCenterLinesSet = true;
@@ -1561,7 +1600,10 @@ long KateViewConfig::searchFlags () const
 }
 
 void KateViewConfig::setSearchFlags (long flags)
- {
+{
+  if (m_searchFlagsSet && m_searchFlags == flags)
+    return;
+
   configStart ();
 
   m_searchFlagsSet = true;
@@ -1603,6 +1645,9 @@ uint KateViewConfig::defaultMarkType () const
 
 void KateViewConfig::setDefaultMarkType (uint type)
 {
+  if (m_defaultMarkTypeSet && m_defaultMarkType == type)
+    return;
+
   configStart ();
 
   m_defaultMarkTypeSet = true;
@@ -1631,6 +1676,9 @@ bool KateViewConfig::persistentSelection () const
 
 void KateViewConfig::setPersistentSelection (bool on)
 {
+  if (m_persistentSelectionSet && m_persistentSelection == on)
+    return;
+
   configStart ();
 
   m_persistentSelectionSet = true;
@@ -1649,19 +1697,20 @@ bool KateViewConfig::viInputMode () const
 
 void KateViewConfig::setViInputMode (bool on)
 {
-  if (!m_viInputModeSet || m_viInputMode != on) {
-    configStart ();
+  if (m_viInputModeSet && m_viInputMode == on)
+    return;
 
-    m_viInputModeSet = true;
-    m_viInputMode = on;
+  configStart ();
 
-    // make sure to turn off edits mergin when leaving vi input mode
-    if (!on && m_view) {
-      m_view->doc()->setUndoMergeAllEdits(false);
-    }
+  m_viInputModeSet = true;
+  m_viInputMode = on;
 
-    configEnd ();
+  // make sure to turn off edits mergin when leaving vi input mode
+  if (!on && m_view) {
+    m_view->doc()->setUndoMergeAllEdits(false);
   }
+
+  configEnd ();
 }
 
 bool KateViewConfig::viInputModeStealKeys () const
@@ -1674,12 +1723,13 @@ bool KateViewConfig::viInputModeStealKeys () const
 
 void KateViewConfig::setViInputModeStealKeys (bool on)
 {
-  if (!m_viInputModeStealKeysSet || m_viInputModeStealKeys != on) {
-    configStart ();
-    m_viInputModeStealKeysSet = true;
-    m_viInputModeStealKeys = on;
-    configEnd ();
-  }
+  if (m_viInputModeStealKeysSet && m_viInputModeStealKeys == on)
+    return;
+
+  configStart ();
+  m_viInputModeStealKeysSet = true;
+  m_viInputModeStealKeys = on;
+  configEnd ();
 }
 
 
@@ -1693,12 +1743,13 @@ bool KateViewConfig::viInputModeEmulateCommandBar() const
 
 void KateViewConfig::setViInputModeEmulateCommandBar(bool on)
 {
-  if (!m_viInputModeEmulateCommandBarSet || m_viInputModeEmulateCommandBar != on) {
-    configStart();
-    m_viInputModeEmulateCommandBarSet = true;
-    m_viInputModeEmulateCommandBar = on;
-    configEnd();
-  }
+  if (m_viInputModeEmulateCommandBarSet && m_viInputModeEmulateCommandBar == on)
+    return;
+
+  configStart();
+  m_viInputModeEmulateCommandBarSet = true;
+  m_viInputModeEmulateCommandBar = on;
+  configEnd();
 }
 
 bool KateViewConfig::automaticCompletionInvocation () const
@@ -1711,12 +1762,13 @@ bool KateViewConfig::automaticCompletionInvocation () const
 
 void KateViewConfig::setAutomaticCompletionInvocation (bool on)
 {
-  if (!m_automaticCompletionInvocationSet || m_automaticCompletionInvocation != on) {
-    configStart ();
-    m_automaticCompletionInvocationSet = true;
-    m_automaticCompletionInvocation = on;
-    configEnd ();
-  }
+  if (m_automaticCompletionInvocationSet && m_automaticCompletionInvocation == on)
+    return;
+
+  configStart ();
+  m_automaticCompletionInvocationSet = true;
+  m_automaticCompletionInvocation = on;
+  configEnd ();
 }
 
 bool KateViewConfig::wordCompletion () const
@@ -1729,12 +1781,13 @@ bool KateViewConfig::wordCompletion () const
 
 void KateViewConfig::setWordCompletion (bool on)
 {
-  if (!m_wordCompletionSet || m_wordCompletion != on) {
-    configStart ();
-    m_wordCompletionSet = true;
-    m_wordCompletion = on;
-    configEnd ();
-  }
+  if (m_wordCompletionSet && m_wordCompletion == on)
+    return;
+
+  configStart ();
+  m_wordCompletionSet = true;
+  m_wordCompletion = on;
+  configEnd ();
 }
 
 int KateViewConfig::wordCompletionMinimalWordLength () const
@@ -1747,6 +1800,9 @@ int KateViewConfig::wordCompletionMinimalWordLength () const
 
 void KateViewConfig::setWordCompletionMinimalWordLength (int length)
 {
+  if (m_wordCompletionMinimalWordLengthSet && m_wordCompletionMinimalWordLength == length)
+    return;
+
   configStart ();
 
   m_wordCompletionMinimalWordLengthSet = true;
@@ -1758,18 +1814,19 @@ void KateViewConfig::setWordCompletionMinimalWordLength (int length)
 bool KateViewConfig::wordCompletionRemoveTail () const
 {
   if (m_wordCompletionRemoveTailSet || isGlobal())
-  {
     return m_wordCompletionRemoveTail;
-    }
+
   return s_global->wordCompletionRemoveTail();
 }
 
 void KateViewConfig::setWordCompletionRemoveTail (bool on)
 {
+  if (m_wordCompletionRemoveTailSet && m_wordCompletionRemoveTail == on)
+    return;
+
   configStart ();
   m_wordCompletionRemoveTailSet = true;
   m_wordCompletionRemoveTail = on;
-
   configEnd ();
 }
 
@@ -1783,6 +1840,9 @@ bool KateViewConfig::smartCopyCut () const
 
 void KateViewConfig::setSmartCopyCut (bool on)
 {
+  if (m_smartCopyCutSet && m_smartCopyCut == on)
+    return;
+
   configStart ();
 
   m_smartCopyCutSet = true;
@@ -1801,6 +1861,9 @@ bool KateViewConfig::scrollPastEnd () const
 
 void KateViewConfig::setScrollPastEnd (bool on)
 {
+  if (m_scrollPastEndSet && m_scrollPastEnd == on)
+    return;
+
   configStart ();
 
   m_scrollPastEndSet = true;

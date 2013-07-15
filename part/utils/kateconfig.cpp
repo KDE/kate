@@ -413,6 +413,9 @@ void KateDocumentConfig::setTabWidth (int tabWidth)
   if (tabWidth < 1)
     return;
 
+  if (m_tabWidthSet && m_tabWidth == tabWidth)
+    return;
+
   configStart ();
 
   m_tabWidthSet = true;
@@ -434,6 +437,9 @@ void KateDocumentConfig::setIndentationWidth (int indentationWidth)
   if (indentationWidth < 1)
     return;
 
+  if (m_indentationWidthSet && m_indentationWidth == indentationWidth)
+    return;
+
   configStart ();
 
   m_indentationWidthSet = true;
@@ -452,6 +458,9 @@ const QString &KateDocumentConfig::indentationMode () const
 
 void KateDocumentConfig::setIndentationMode (const QString &indentationMode)
 {
+  if (m_indentationModeSet && m_indentationMode == indentationMode)
+    return;
+
   configStart ();
 
   m_indentationModeSet = true;
@@ -489,6 +498,9 @@ bool KateDocumentConfig::wordWrap () const
 
 void KateDocumentConfig::setWordWrap (bool on)
 {
+  if (m_wordWrapSet && m_wordWrap == on)
+    return;
+
   configStart ();
 
   m_wordWrapSet = true;
@@ -510,6 +522,9 @@ void KateDocumentConfig::setWordWrapAt (unsigned int col)
   if (col < 1)
     return;
 
+  if (m_wordWrapAtSet && m_wordWrapAt == col)
+    return;
+
   configStart ();
 
   m_wordWrapAtSet = true;
@@ -528,6 +543,9 @@ bool KateDocumentConfig::pageUpDownMovesCursor () const
 
 void KateDocumentConfig::setPageUpDownMovesCursor (bool on)
 {
+  if (m_pageUpDownMovesCursorSet && m_pageUpDownMovesCursor == on)
+    return;
+
   configStart ();
 
   m_pageUpDownMovesCursorSet = true;
@@ -538,6 +556,9 @@ void KateDocumentConfig::setPageUpDownMovesCursor (bool on)
 
 void KateDocumentConfig::setKeepExtraSpaces(bool on)
 {
+  if (m_keepExtraSpacesSet && m_keepExtraSpaces == on)
+    return;
+
   configStart ();
 
   m_keepExtraSpacesSet = true;
@@ -556,6 +577,9 @@ bool KateDocumentConfig::keepExtraSpaces() const
 
 void KateDocumentConfig::setIndentPastedText(bool on)
 {
+  if (m_indentPastedTextSet && m_indentPastedText == on)
+    return;
+
   configStart ();
 
   m_indentPastedTextSet = true;
@@ -574,6 +598,9 @@ bool KateDocumentConfig::indentPastedText() const
 
 void KateDocumentConfig::setBackspaceIndents(bool on)
 {
+  if (m_backspaceIndentsSet && m_backspaceIndents == on)
+    return;
+
   configStart ();
 
   m_backspaceIndentsSet = true;
@@ -592,6 +619,9 @@ bool KateDocumentConfig::backspaceIndents() const
 
 void KateDocumentConfig::setSmartHome(bool on)
 {
+  if (m_smartHomeSet && m_smartHome == on)
+    return;
+
   configStart ();
 
   m_smartHomeSet = true;
@@ -610,6 +640,9 @@ bool KateDocumentConfig::smartHome() const
 
 void KateDocumentConfig::setShowTabs(bool on)
 {
+  if (m_showTabsSet && m_showTabs == on)
+    return;
+
   configStart ();
 
   m_showTabsSet = true;
@@ -628,6 +661,9 @@ bool KateDocumentConfig::showTabs() const
 
 void KateDocumentConfig::setShowSpaces(bool on)
 {
+  if (m_showSpacesSet && m_showSpaces == on)
+    return;
+
   configStart ();
 
   m_showSpacesSet = true;
@@ -646,6 +682,9 @@ bool KateDocumentConfig::showSpaces() const
 
 void KateDocumentConfig::setReplaceTabsDyn(bool on)
 {
+  if (m_replaceTabsDynSet && m_replaceTabsDyn == on)
+    return;
+
   configStart ();
 
   m_replaceTabsDynSet = true;
@@ -664,6 +703,9 @@ bool KateDocumentConfig::replaceTabsDyn() const
 
 void KateDocumentConfig::setRemoveSpaces(int triState)
 {
+  if (m_removeSpacesSet && m_removeSpaces == triState)
+    return;
+
   configStart ();
 
   m_removeSpacesSet = true;
@@ -682,6 +724,9 @@ int KateDocumentConfig::removeSpaces() const
 
 void KateDocumentConfig::setNewLineAtEof (bool on)
 {
+  if (m_newLineAtEofSet && m_newLineAtEof == on)
+    return;
+
   configStart ();
 
   m_newLineAtEofSet = true;
@@ -700,6 +745,9 @@ bool KateDocumentConfig::newLineAtEof () const
 
 void KateDocumentConfig::setOvr(bool on)
 {
+  if (m_overwiteModeSet && m_overwiteMode == on)
+    return;
+
   configStart ();
 
   m_overwiteModeSet = true;
@@ -718,6 +766,9 @@ bool KateDocumentConfig::ovr() const
 
 void KateDocumentConfig::setTabIndents(bool on)
 {
+  if (m_tabIndentsSet && m_tabIndents == on)
+    return;
+
   configStart ();
 
   m_tabIndentsSet = true;
@@ -810,6 +861,9 @@ QString KateDocumentConfig::eolString ()
 
 void KateDocumentConfig::setEol (int mode)
 {
+  if (m_eolSet && m_eolSet == mode)
+    return;
+
   configStart ();
 
   m_eolSet = true;
@@ -820,6 +874,9 @@ void KateDocumentConfig::setEol (int mode)
 
 void KateDocumentConfig::setBom (bool bom)
 {
+  if (m_bomSet && m_bom == bom)
+    return;
+
   configStart ();
 
   m_bomSet = true;
@@ -830,11 +887,11 @@ void KateDocumentConfig::setBom (bool bom)
 
 bool KateDocumentConfig::bom() const
 {
-    if (m_bomSet || isGlobal())
-      return m_bom;
-    return s_global->bom();
-}
+  if (m_bomSet || isGlobal())
+    return m_bom;
 
+  return s_global->bom();
+}
 
 bool KateDocumentConfig::allowEolDetection () const
 {
@@ -846,6 +903,9 @@ bool KateDocumentConfig::allowEolDetection () const
 
 void KateDocumentConfig::setAllowEolDetection (bool on)
 {
+  if (m_allowEolDetectionSet && m_allowEolDetection == on)
+    return;
+
   configStart ();
 
   m_allowEolDetectionSet = true;
@@ -853,7 +913,6 @@ void KateDocumentConfig::setAllowEolDetection (bool on)
 
   configEnd ();
 }
-
 
 bool KateDocumentConfig::allowSimpleMode () const
 {
@@ -865,6 +924,9 @@ bool KateDocumentConfig::allowSimpleMode () const
 
 void KateDocumentConfig::setAllowSimpleMode (bool on)
 {
+  if (m_allowSimpleModeSet && m_allowSimpleMode == on)
+    return;
+
   configStart ();
 
   m_allowSimpleModeSet = true;
@@ -882,7 +944,10 @@ uint KateDocumentConfig::backupFlags () const
 }
 
 void KateDocumentConfig::setBackupFlags (uint flags)
- {
+{
+  if (m_backupFlagsSet && m_backupFlags == flags)
+    return;
+
   configStart ();
 
   m_backupFlagsSet = true;
@@ -909,6 +974,9 @@ const QString &KateDocumentConfig::backupSuffix () const
 
 void KateDocumentConfig::setBackupPrefix (const QString &prefix)
 {
+  if (m_backupPrefixSet && m_backupPrefix == prefix)
+    return;
+
   configStart ();
 
   m_backupPrefixSet = true;
@@ -919,6 +987,9 @@ void KateDocumentConfig::setBackupPrefix (const QString &prefix)
 
 void KateDocumentConfig::setBackupSuffix (const QString &suffix)
 {
+  if (m_backupSuffixSet && m_backupSuffix == suffix)
+    return;
+
   configStart ();
 
   m_backupSuffixSet = true;
@@ -937,6 +1008,9 @@ bool KateDocumentConfig::swapFileNoSync() const
 
 void KateDocumentConfig::setSwapFileNoSync(bool on)
 {
+  if (m_swapFileNoSyncSet && m_swapFileNoSync == on)
+    return;
+
   configStart();
 
   m_swapFileNoSyncSet = true;
@@ -955,6 +1029,9 @@ int KateDocumentConfig::searchDirConfigDepth () const
 
 void KateDocumentConfig::setSearchDirConfigDepth (int depth)
 {
+  if (m_searchDirConfigDepthSet && m_searchDirConfigDepth == depth)
+    return;
+
   configStart ();
 
   m_searchDirConfigDepthSet = true;
@@ -980,6 +1057,9 @@ bool KateDocumentConfig::onTheFlySpellCheck() const
 
 void KateDocumentConfig::setOnTheFlySpellCheck(bool on)
 {
+  if (m_onTheFlySpellCheckSet && m_onTheFlySpellCheck == on)
+    return;
+
   configStart ();
 
   m_onTheFlySpellCheckSet = true;
@@ -999,6 +1079,9 @@ int KateDocumentConfig::lineLengthLimit() const
 
 void KateDocumentConfig::setLineLengthLimit(int lineLengthLimit)
 {
+  if (m_lineLengthLimitSet && m_lineLengthLimit == lineLengthLimit)
+    return;
+
   configStart();
 
   m_lineLengthLimitSet = true;

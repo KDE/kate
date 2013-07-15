@@ -70,6 +70,10 @@ private:
   KTextEditor::MovingRange* m_highlightedMatch;
   void updateMatchHighlight(const KTextEditor::Range& matchRange);
 
+  QString m_currentSearchPattern;
+  bool m_currentSearchIsCaseSensitive;
+  bool m_currentSearchIsBackwards;
+
   virtual bool eventFilter(QObject* object, QEvent* event);
   void deleteSpacesToLeftOfCursor();
   void deleteWordCharsToLeftOfCursor();

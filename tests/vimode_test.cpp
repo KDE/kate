@@ -1746,6 +1746,14 @@ void ViModeTest::VimStyleCommandBarTests()
   // Don't forget to set the last search to case-insensitive.
   DoTest("foo bAR bar", "ll/bAR\\enter^/bar\\enter^nrX", "foo XAR bar");
 
+  // Don't set the last search parameters if we abort, though.
+  DoTest("foo bar xyz", "/bar\\enter/xyz\\ctrl-cggnrX", "foo Xar xyz");
+  DoTest("foo bar bAr", "/bar\\enter/bA\\ctrl-cggnrX", "foo Xar bAr");
+  DoTest("foo bar bar", "/bar\\enter?ba\\ctrl-cggnrX", "foo Xar bar");
+
+  // Don't let ":" trample all over the search parameters, either.
+  DoTest("foo bar xyz foo", "/bar\\entergg*:yank\\enterggnrX", "foo bar xyz Xoo");
+
   // Some mirror tests for "?"
 
   // Test that "?" summons the search bar, with empty text and with the "?" indicator.
@@ -1798,6 +1806,11 @@ void ViModeTest::VimStyleCommandBarTests()
   // The same, but where we the match ends at the end of the line or document.
   DoTest("foo foofoofoo\nfoofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo\nfoofoofoo");
   DoTest("foo foofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo");
+
+  // Searching for "/" repeats last search.
+  DoTest("foo bar", "/bar\\entergg//\\enterrX", "foo Xar");
+  // The "last search" can be one initiated via e.g. "*".
+  DoTest("foo bar foo", "/bar\\entergg*gg//\\enterrX", "foo bar Xoo");
 
   // "/" and "?" should be usable as motions.
   DoTest("foo bar", "ld/bar\\enter", "fbar");

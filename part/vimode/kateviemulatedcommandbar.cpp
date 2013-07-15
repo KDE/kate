@@ -222,7 +222,9 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
       m_waitingForRegister(false),
       m_commandResponseMessageTimeOutMS(4000),
       m_nextTextChangeDueToCompletionChange(false),
-      m_currentCompletionType(None)
+      m_currentCompletionType(None),
+      m_currentSearchIsCaseSensitive(false),
+      m_currentSearchIsBackwards(false)
 {
   QVBoxLayout * layout = new QVBoxLayout();
   centralWidget()->setLayout(layout);
@@ -337,7 +339,14 @@ void KateViEmulatedCommandBar::closed()
     const Qt::Key syntheticSearchCompletedKey = (wasDismissed ? Qt::Key_Escape : Qt::Key_Enter);
     QKeyEvent syntheticSearchCompletedKeyPress(QEvent::KeyPress, syntheticSearchCompletedKey, Qt::NoModifier);
     m_view->getViInputModeManager()->handleKeypress(&syntheticSearchCompletedKeyPress);
+    if (!wasDismissed)
+    {
+      m_view->getViInputModeManager()->setLastSearchPattern(m_currentSearchPattern);
+      m_view->getViInputModeManager()->setLastSearchCaseSensitive(m_currentSearchIsCaseSensitive);
+      m_view->getViInputModeManager()->setLastSearchBackwards(m_currentSearchIsBackwards);
+    }
   }
+
 }
 
 void KateViEmulatedCommandBar::updateMatchHighlightAttrib()
@@ -734,7 +743,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   }
   if (m_mode == SearchForward || m_mode == SearchBackward)
   {
-    const QString qtRegexPattern = vimRegexToQtRegexPattern(newText);
+    const QString qtRegexPattern = (newText == "/") ? m_view->getViInputModeManager()->getLastSearchPattern() : vimRegexToQtRegexPattern(newText);
 
     qDebug() << "Final regex: " << qtRegexPattern;
 
@@ -747,9 +756,9 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 
     const bool searchBackwards = (m_mode == SearchBackward);
 
-    m_view->getViInputModeManager()->setLastSearchPattern(qtRegexPattern);
-    m_view->getViInputModeManager()->setLastSearchCaseSensitive(caseSensitive);
-    m_view->getViInputModeManager()->setLastSearchBackwards(searchBackwards);
+    m_currentSearchPattern = qtRegexPattern;
+    m_currentSearchIsCaseSensitive = caseSensitive;
+    m_currentSearchIsBackwards = searchBackwards;
 
     KateViModeBase* currentModeHandler = (m_view->getCurrentViMode() == NormalMode) ? static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViNormalMode()) : static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViVisualMode());
     Range match = currentModeHandler->findPattern(qtRegexPattern, searchBackwards, caseSensitive, m_startingCursorPos);

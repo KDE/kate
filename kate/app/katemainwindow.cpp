@@ -725,16 +725,23 @@ KUrl KateMainWindow::activeDocumentUrl()
 
 void KateMainWindow::mSlotFixOpenWithMenu()
 {
+  // dh: in bug #307699, this slot is called when launching the Kate application
+  // unfortunately, noone ever could reproduce except users.
+  KTextEditor::View *activeView = m_viewManager->activeView();
+  if (! activeView)
+    return;
+
+  // cleanup menu
   KMenu *menu = documentOpenWith->menu();
   menu->clear();
+
   // get a list of appropriate services.
-  Q_ASSERT(m_viewManager->activeView() != 0);
-  KMimeType::Ptr mime = KMimeType::mimeType(m_viewManager->activeView()->document()->mimeType());
+  KMimeType::Ptr mime = KMimeType::mimeType(activeView->document()->mimeType());
   //kDebug(13001) << "mime type: " << mime->name();
 
   QAction *a = 0;
   KService::List offers = KMimeTypeTrader::self()->query(mime->name(), "Application");
-  // for each one, insert a menu item...
+  // add all default open-with-actions except "Kate"
   for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
   {
     KService::Ptr service = *it;

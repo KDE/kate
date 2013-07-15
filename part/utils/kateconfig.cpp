@@ -861,7 +861,7 @@ QString KateDocumentConfig::eolString ()
 
 void KateDocumentConfig::setEol (int mode)
 {
-  if (m_eolSet && m_eolSet == mode)
+  if (m_eolSet && m_eol == mode)
     return;
 
   configStart ();

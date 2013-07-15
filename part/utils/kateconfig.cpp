@@ -2001,6 +2001,9 @@ const QString &KateRendererConfig::schema () const
 
 void KateRendererConfig::setSchema (const QString &schema)
 {
+  if (m_schemaSet && m_schema == schema)
+    return;
+
   configStart ();
   m_schemaSet = true;
   m_schema = schema;
@@ -2139,6 +2142,9 @@ const QFontMetricsF& KateRendererConfig::fontMetrics() const
 
 void KateRendererConfig::setFont(const QFont &font)
 {
+  if (m_fontSet && m_font == font)
+    return;
+
   configStart ();
 
   m_fontSet = true;
@@ -2158,6 +2164,9 @@ bool KateRendererConfig::wordWrapMarker () const
 
 void KateRendererConfig::setWordWrapMarker (bool on)
 {
+  if (m_wordWrapMarkerSet && m_wordWrapMarker == on)
+    return;
+
   configStart ();
 
   m_wordWrapMarkerSet = true;
@@ -2176,6 +2185,9 @@ const QColor& KateRendererConfig::backgroundColor() const
 
 void KateRendererConfig::setBackgroundColor (const QColor &col)
 {
+  if (m_backgroundColorSet && m_backgroundColor == col)
+    return;
+
   configStart ();
 
   m_backgroundColorSet = true;
@@ -2194,6 +2206,9 @@ const QColor& KateRendererConfig::selectionColor() const
 
 void KateRendererConfig::setSelectionColor (const QColor &col)
 {
+  if (m_selectionColorSet && m_selectionColor == col)
+    return;
+
   configStart ();
 
   m_selectionColorSet = true;
@@ -2212,6 +2227,9 @@ const QColor& KateRendererConfig::highlightedLineColor() const
 
 void KateRendererConfig::setHighlightedLineColor (const QColor &col)
 {
+  if (m_highlightedLineColorSet && m_highlightedLineColor == col)
+    return;
+
   configStart ();
 
   m_highlightedLineColorSet = true;
@@ -2242,6 +2260,10 @@ void KateRendererConfig::setLineMarkerColor (const QColor &col, KTextEditor::Mar
 {
   int index = static_cast<int>( log(static_cast<double>(type)) / log(2.0) );
   Q_ASSERT( index >= 0 && index < KTextEditor::MarkInterface::reservedMarkersCount() );
+
+  if (m_lineMarkerColorSet[index] && m_lineMarkerColor[index] == col)
+    return;
+
   configStart ();
 
   m_lineMarkerColorSet[index] = true;
@@ -2260,6 +2282,9 @@ const QColor& KateRendererConfig::highlightedBracketColor() const
 
 void KateRendererConfig::setHighlightedBracketColor (const QColor &col)
 {
+  if (m_highlightedBracketColorSet && m_highlightedBracketColor == col)
+    return;
+
   configStart ();
 
   m_highlightedBracketColorSet = true;
@@ -2278,6 +2303,9 @@ const QColor& KateRendererConfig::wordWrapMarkerColor() const
 
 void KateRendererConfig::setWordWrapMarkerColor (const QColor &col)
 {
+  if (m_wordWrapMarkerColorSet && m_wordWrapMarkerColor == col)
+    return;
+
   configStart ();
 
   m_wordWrapMarkerColorSet = true;
@@ -2296,6 +2324,9 @@ const QColor& KateRendererConfig::tabMarkerColor() const
 
 void KateRendererConfig::setTabMarkerColor (const QColor &col)
 {
+  if (m_tabMarkerColorSet && m_tabMarkerColor == col)
+    return;
+
   configStart ();
 
   m_tabMarkerColorSet = true;
@@ -2314,6 +2345,9 @@ const QColor& KateRendererConfig::indentationLineColor() const
 
 void KateRendererConfig::setIndentationLineColor (const QColor &col)
 {
+  if (m_indentationLineColorSet && m_indentationLineColor == col)
+    return;
+
   configStart ();
 
   m_indentationLineColorSet = true;
@@ -2332,6 +2366,9 @@ const QColor& KateRendererConfig::iconBarColor() const
 
 void KateRendererConfig::setIconBarColor (const QColor &col)
 {
+  if (m_iconBarColorSet && m_iconBarColor == col)
+    return;
+
   configStart ();
 
   m_iconBarColorSet = true;
@@ -2350,6 +2387,9 @@ const QColor& KateRendererConfig::foldingColor() const
 
 void KateRendererConfig::setFoldingColor (const QColor &col)
 {
+  if (m_foldingColorSet && m_foldingColor == col)
+    return;
+
   configStart ();
 
   m_foldingColorSet = true;
@@ -2400,6 +2440,9 @@ const QColor& KateRendererConfig::lineNumberColor() const
 
 void KateRendererConfig::setLineNumberColor (const QColor &col)
 {
+  if (m_lineNumberColorSet && m_lineNumberColor == col)
+    return;
+
   configStart ();
 
   m_lineNumberColorSet = true;
@@ -2418,6 +2461,9 @@ const QColor& KateRendererConfig::separatorColor() const
 
 void KateRendererConfig::setSeparatorColor(const QColor& col)
 {
+  if (m_separatorColorSet && m_separatorColor == col)
+    return;
+
   configStart ();
 
   m_separatorColorSet = true;
@@ -2436,6 +2482,9 @@ const QColor& KateRendererConfig::spellingMistakeLineColor() const
 
 void KateRendererConfig::setSpellingMistakeLineColor (const QColor &col)
 {
+  if (m_spellingMistakeLineColorSet && m_spellingMistakeLineColor == col)
+    return;
+
   configStart ();
 
   m_spellingMistakeLineColorSet = true;
@@ -2454,6 +2503,9 @@ const QColor& KateRendererConfig::modifiedLineColor() const
 
 void KateRendererConfig::setModifiedLineColor(const QColor &col)
 {
+  if (m_modifiedLineColorSet && m_modifiedLineColor == col)
+    return;
+
   configStart ();
 
   m_modifiedLineColorSet = true;
@@ -2472,6 +2524,9 @@ const QColor& KateRendererConfig::savedLineColor() const
 
 void KateRendererConfig::setSavedLineColor(const QColor &col)
 {
+  if (m_savedLineColorSet && m_savedLineColor == col)
+    return;
+
   configStart ();
 
   m_savedLineColorSet = true;
@@ -2490,6 +2545,9 @@ const QColor& KateRendererConfig::searchHighlightColor() const
 
 void KateRendererConfig::setSearchHighlightColor(const QColor &col)
 {
+  if (m_searchHighlightColorSet && m_searchHighlightColor == col)
+    return;
+
   configStart ();
 
   m_searchHighlightColorSet = true;
@@ -2508,6 +2566,9 @@ const QColor& KateRendererConfig::replaceHighlightColor() const
 
 void KateRendererConfig::setReplaceHighlightColor(const QColor &col)
 {
+  if (m_replaceHighlightColorSet && m_replaceHighlightColor == col)
+    return;
+
   configStart ();
 
   m_replaceHighlightColorSet = true;
@@ -2527,6 +2588,9 @@ bool KateRendererConfig::showIndentationLines () const
 
 void KateRendererConfig::setShowIndentationLines (bool on)
 {
+  if (m_showIndentationLinesSet && m_showIndentationLines == on)
+    return;
+
   configStart ();
 
   m_showIndentationLinesSet = true;
@@ -2545,6 +2609,9 @@ bool KateRendererConfig::showWholeBracketExpression () const
 
 void KateRendererConfig::setShowWholeBracketExpression (bool on)
 {
+  if (m_showWholeBracketExpressionSet && m_showWholeBracketExpression == on)
+    return;
+
   configStart ();
 
   m_showWholeBracketExpressionSet = true;

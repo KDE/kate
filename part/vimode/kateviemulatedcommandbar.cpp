@@ -41,6 +41,22 @@ namespace
     return s1.toLower() < s2.toLower();
   }
 
+  bool isCharEscaped(const QString& string, int charPos)
+  {
+    if (charPos == 0)
+    {
+      return false;
+    }
+    int numContiguousBackslashesToLeft = 0;
+    charPos--;
+    while (charPos >= 0 && string[charPos] == '\\')
+    {
+      numContiguousBackslashesToLeft++;
+      charPos--;
+    }
+    return ((numContiguousBackslashesToLeft % 2) == 1);
+  }
+
   QString toggledEscaped(const QString& originalString, QChar escapeChar)
   {
     int searchFrom = 0;
@@ -52,7 +68,7 @@ namespace
       {
         break;
       }
-      if (indexOfEscapeChar == 0 || toggledEscapedString[indexOfEscapeChar - 1] != '\\')
+      if (!isCharEscaped(toggledEscapedString, indexOfEscapeChar))
       {
         // Escape.
         toggledEscapedString.replace(indexOfEscapeChar, 1, QString("\\") + escapeChar);
@@ -74,7 +90,7 @@ namespace
       QString escapedString = originalString;
       for (int i = 0; i < escapedString.length(); i++)
       {
-        if (escapedString[i] == charToEscape && (i == 0 || escapedString[i - 1] != '\\'))
+        if (escapedString[i] == charToEscape && !isCharEscaped(escapedString, i))
         {
           escapedString.replace(i, 1, QString("\\") + charToEscape);
         }
@@ -145,12 +161,12 @@ namespace
     QList<int> matchingSquareBracketPositions;
     for (int i = 0; i < qtRegexPattern.length(); i++)
     {
-      if (qtRegexPattern[i] == '[' && !lookingForMatchingCloseBracket)
+      if (qtRegexPattern[i] == '[' && !isCharEscaped(qtRegexPattern, i) && !lookingForMatchingCloseBracket)
       {
         lookingForMatchingCloseBracket = true;
         openingBracketPos = i;
       }
-      if (qtRegexPattern[i] == ']' && lookingForMatchingCloseBracket && qtRegexPattern[i - 1] != '\\')
+      if (qtRegexPattern[i] == ']' && lookingForMatchingCloseBracket && !isCharEscaped(qtRegexPattern, i))
       {
         lookingForMatchingCloseBracket = false;
         matchingSquareBracketPositions.append(openingBracketPos);

@@ -1951,6 +1951,8 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("  foo+AAAAbar", "/foo+A\\\\+bar\\enterrX", "  Xoo+AAAAbar");
   DoTest("  foo++++bar", "/foo+\\\\+bar\\enterrX", "  Xoo++++bar");
   DoTest("  foo++++bar", "/+\\enterrX", "  fooX+++bar");
+  // An escaped "\" is a literal, of course.
+  DoTest("foo x\\y", "/x\\\\\\\\y\\enterrX", "foo X\\y");
   // ( and ), if escaped, are not literals.
   DoTest("foo  barbarxyz", "/ \\\\(bar\\\\)\\\\+xyz\\enterrX", "foo Xbarbarxyz");
   // |, if unescaped, is literal.
@@ -1968,6 +1970,7 @@ void ViModeTest::VimStyleCommandBarTests()
   // Need to be an unescaped match, though.
   DoTest("foo xbcay", "/x[abc\\\\]\\\\+y\\enterrX", "Xoo xbcay");
   DoTest("foo xbcay", "/x\\\\[abc]\\\\+y\\enterrX", "Xoo xbcay");
+  DoTest("foo x[abc]]]]]y", "/x\\\\[abc]\\\\+y\\enterrX", "foo X[abc]]]]]y");
   // An escaped '[' between matching unescaped '[' and ']' is treated as a literal '['
   DoTest("foo xb[cay", "/x[a\\\\[bc]\\\\+y\\enterrX", "foo Xb[cay");
   // An escaped ']' between matching unescaped '[' and ']' is treated as a literal ']'
@@ -1984,6 +1987,16 @@ void ViModeTest::VimStyleCommandBarTests()
   // An unescaped ']' not between other square brackets is a literal.
   DoTest("foo xbaba]y", "/x[ab]\\\\+]y\\enterrX", "foo Xbaba]y");
   DoTest("foo xbaba]dcdcy", "/x[ab]\\\\+][cd]\\\\+y\\enterrX", "foo Xbaba]dcdcy");
+  // Be more clever about how we indentify escaping: the presence of a preceding
+  // backslash is not always sufficient!
+  DoTest("foo x\\babay", "/x\\\\\\\\[ab]\\\\+y\\enterrX", "foo X\\babay");
+  DoTest("foo x\\[abc]]]]y", "/x\\\\\\\\\\\\[abc]\\\\+y\\enterrX", "foo X\\[abc]]]]y");
+  DoTest("foo xa\\b\\c\\y", "/x[abc\\\\\\\\]\\\\+y\\enterrX", "foo Xa\\b\\c\\y");
+  DoTest("foo x[abc\\]]]]y", "/x[abc\\\\\\\\\\\\]\\\\+y\\enterrX", "foo X[abc\\]]]]y");
+  DoTest("foo xa[\\b\\[y", "/x[ab\\\\\\\\[]\\\\+y\\enterrX", "foo Xa[\\b\\[y");
+  DoTest("foo x\\[y", "/x\\\\\\\\[y\\enterrX", "foo X\\[y");
+  DoTest("foo x\\]y", "/x\\\\\\\\]y\\enterrX", "foo X\\]y");
+  DoTest("foo x\\+y", "/x\\\\\\\\+y\\enterrX", "foo X\\+y");
   // A dot is not a literal, nor is a star.
   DoTest("foo bar", "/o.*b\\enterrX", "fXo bar");
   // Unescaped curly braces are literals.

@@ -4183,7 +4183,7 @@ void KateDocument::setViewVariable( QString var, QString val )
     else if (var == "folding-markers" && checkBoolValue( val, &state ) )
       v->config()->setFoldingBar( state );
     else if ( var == "auto-center-lines" && checkIntValue( val, &n ) )
-      v->config()->setAutoCenterLines( n ); // FIXME uint, > N ??
+      v->config()->setAutoCenterLines( n );
     else if ( var == "icon-bar-color" && checkColorValue( val, c ) )
       v->renderer()->config()->setIconBarColor( c );
     // RENDERER

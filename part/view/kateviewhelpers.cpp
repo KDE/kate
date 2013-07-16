@@ -514,7 +514,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
 
   // calculate the document size and position
   int docHeight = qMin(grooveRect.height(), m_pixmap.height()*2) - 2*docXMargin;
-  int yoffset = 0; // top-aligned in stead of center-aligned (grooveRect.height() - docHeight) / 2;
+  int yoffset = 1; // top-aligned in stead of center-aligned (grooveRect.height() - docHeight) / 2;
   QRect docRect(QPoint(grooveRect.left()+docXMargin, yoffset+grooveRect.top()), QSize(grooveRect.width()-2*docXMargin, docHeight));
   m_mapGroveRect = docRect;
 
@@ -629,7 +629,7 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
     pen.setColor(it.value());
     painter.setPen(pen);
     int y = (it.key()-grooveRect.top()) * docHeight/grooveRect.height() + docRect.top();;
-    painter.drawLine(0, y, width(), y);
+    painter.drawLine(6, y, width()-6, y);
   }
 }
 

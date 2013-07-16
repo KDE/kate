@@ -124,8 +124,12 @@ class KateProject : public QObject
     {
       return m_fileName;
     }
-    
-    const QString baseDir () const
+   
+    /**
+     * Return the base directory of this project.
+     * @return base directory of project, might not be the directory of the fileName!
+     */
+    const QString &baseDir () const
     {
       return m_baseDir;
     }

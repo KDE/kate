@@ -257,6 +257,9 @@ void KateScrollBar::mouseMoveEvent(QMouseEvent* e)
 
 void KateScrollBar::paintEvent(QPaintEvent *e)
 {
+  if (m_doc->marks().size() != m_lines.size()) {
+    recomputeMarksPositions();
+  }
   if (m_showMiniMap) {
     miniMapPaintEvent(e);
   }
@@ -692,13 +695,15 @@ void KateScrollBar::resizeEvent(QResizeEvent *e)
 {
   QScrollBar::resizeEvent(e);
   m_updateTimer.start();
-  recomputeMarksPositions();
+  m_lines.clear();
+  update();
 }
 
 void KateScrollBar::styleChange(QStyle &s)
 {
   QScrollBar::styleChange(s);
-  recomputeMarksPositions();
+  m_lines.clear();
+  update();
 }
 
 void KateScrollBar::sliderChange ( SliderChange change )
@@ -712,7 +717,7 @@ void KateScrollBar::sliderChange ( SliderChange change )
   }
   else if (change == QAbstractSlider::SliderRangeChange)
   {
-    recomputeMarksPositions();
+    marksChanged();
   }
 
   if (m_leftMouseDown || m_middleMouseDown) {
@@ -724,7 +729,8 @@ void KateScrollBar::sliderChange ( SliderChange change )
 
 void KateScrollBar::marksChanged()
 {
-  recomputeMarksPositions();
+  m_lines.clear();
+  update();
 }
 
 void KateScrollBar::redrawMarks()
@@ -750,7 +756,7 @@ void KateScrollBar::recomputeMarksPositions()
   // get total visible (=without folded) lines in the document
   int visibleLines = m_view->textFolding().visibleLines() - 1;
   if (m_view->config()->scrollPastEnd()) {
-    visibleLines += m_viewInternal->linesDisplayed();
+    visibleLines += m_viewInternal->linesDisplayed() - 1;
     visibleLines -= m_view->config()->autoCenterLines();
   }
 
@@ -765,9 +771,6 @@ void KateScrollBar::recomputeMarksPositions()
     m_lines.insert(top + (int)(h * ratio),
                    KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type));
   }
-
-  // finally trigger a repaint
-  update();
 }
 
 void KateScrollBar::sliderMaybeMoved(int value)

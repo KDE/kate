@@ -105,7 +105,7 @@ class KateFileTreeModel : public QAbstractItemModel
     ProxyItemDir *findChildNode(ProxyItemDir *parent, const QString &name);
     void insertItemInto(ProxyItemDir *root, ProxyItem *item);
     void handleInsert(ProxyItem *item);
-    void handleNameChange(ProxyItem *item, const QString &new_name);
+    void handleNameChange(ProxyItem *item, const QString &new_name, const QString& new_host);
     void handleEmptyParents(ProxyItemDir *item);
     void setupIcon(ProxyItem *item);
 

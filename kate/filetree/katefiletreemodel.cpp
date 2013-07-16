@@ -173,13 +173,9 @@ int ProxyItem::addChild(ProxyItem *item)
   item->m_row = item_row;
   m_children.append(item);
   item->m_parent = static_cast<ProxyItemDir*>(this);
-  
-  // only update display if we've been added to the root,
-  // so ShowFullPath flag can take effect.
-  //if(!m_parent) {
-    item->initDisplay();
-  //}
-  
+
+  item->initDisplay();
+
   kDebug(debugArea()) << "added" << item << "to" << item->m_parent;
   return item_row;
 }

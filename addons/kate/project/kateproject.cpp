@@ -168,9 +168,11 @@ void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, Kate
   m_file2Item = file2Item;
   
   /**
-   * cleanups
+   * readd the documents that are open atm
    */
   m_documentsParent = 0;
+  foreach (KTextEditor::Document *document, m_documents.keys ())
+    registerDocument (document);
 
   /**
    * model changed
@@ -314,11 +316,17 @@ void KateProject::unregisterDocument (KTextEditor::Document *document)
     return;
   
   // perhaps kill the item we have generated
+  bool empty = false;
   if (QStandardItem *item = itemForFile (m_documents.value (document))) {
-    if (item->data (Qt::UserRole + 3).toBool ()) {
-      for (int i = 0; i < m_documentsParent->rowCount(); ++i)
-        if (m_documentsParent->child (i) == item)
+    if (m_documentsParent && item->data (Qt::UserRole + 3).toBool ()) {
+      for (int i = 0; i < m_documentsParent->rowCount(); ++i) {
+        if (m_documentsParent->child (i) == item) {
           m_documentsParent->removeRow (i);
+          break;
+        }
+      }
+      
+      empty = !m_documentsParent->rowCount();
       
       m_file2Item->remove (m_documents.value (document));
     }
@@ -328,7 +336,7 @@ void KateProject::unregisterDocument (KTextEditor::Document *document)
   m_documents.remove (document);
   
   // perhaps remove parent item
-  if (m_documents.isEmpty()) {
+  if (m_documentsParent && empty) {
     m_model.removeRow (0);
     m_documentsParent = 0;
   }

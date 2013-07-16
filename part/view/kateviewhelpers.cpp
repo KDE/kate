@@ -621,6 +621,19 @@ void KateScrollBar::miniMapPaintEvent(QPaintEvent *e)
   if (!m_showMarks) return;
 
   QHashIterator<int, QColor> it = m_lines;
+  QPen penBg;
+  penBg.setWidth(4);
+  lightShieldColor.setAlpha(180);
+  penBg.setColor(lightShieldColor);
+  painter.setPen(penBg);
+  while (it.hasNext())
+  {
+    it.next();
+    int y = (it.key()-grooveRect.top()) * docHeight/grooveRect.height() + docRect.top();;
+    painter.drawLine(6, y, width()-6, y);
+  }
+
+  it = m_lines;
   QPen pen;
   pen.setWidth(2);
   while (it.hasNext())

@@ -31,6 +31,12 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
  QPixmap sct( ( const char** ) struct_xpm );
  QPixmap mcr( ( const char** ) macro_xpm );
  QPixmap mtd( ( const char** ) method_xpm );
+ 
+ //It is necessary to change names to defaults
+ m_popup->changeItem( m_popup->idAt(2),i18n("Show Macros"));
+ m_popup->changeItem( m_popup->idAt(3),i18n("Show Structures"));
+ m_popup->changeItem( m_popup->idAt(4),i18n("Show Functions"));
+ 
  QTreeWidgetItem *node = NULL;
  QTreeWidgetItem *mcrNode = NULL, *sctNode = NULL, *clsNode = NULL, *mtdNode = NULL;
  QTreeWidgetItem *lastMcrNode = NULL, *lastSctNode = NULL, *lastClsNode = NULL, *lastMtdNode = NULL;

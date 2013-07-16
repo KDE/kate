@@ -95,12 +95,24 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
           stripped="";
          }
        //Modules
-       else if(currline.startsWith(modStr))
+        else if(currline.startsWith(modStr))
          {
           block=2;
           stripped="";
          }
-       else if(((currline.startsWith("real") || currline.startsWith("double") || currline.startsWith("integer") || currline.startsWith("character")) || currline.startsWith("logical")) && currline.indexOf(funcStr) > 0)
+       //Functions
+        else if(((( currline.startsWith("real") || 
+                    currline.startsWith("double") || 
+                    currline.startsWith("integer") || 
+                    currline.startsWith("character")) || 
+                    currline.startsWith("logical") || 
+                    currline.startsWith("pure") ||
+                    currline.startsWith("elemental") ||
+                    currline.startsWith("recursive") ||
+                    currline.startsWith("type")) &&   
+                    currline.indexOf(funcStr) > 0) || 
+                    currline.startsWith(funcStr)                    
+                )
          {
           block=3;
           stripped="";

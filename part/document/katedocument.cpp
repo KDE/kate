@@ -138,7 +138,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_fileChangedDialogsActivated(false),
   m_onTheFlyChecker(0),
   m_documentState (DocumentIdle),
-  m_readWriteStateBeforeLoading (false)
+  m_readWriteStateBeforeLoading (false),
+  m_isUntitled(true)
 {
   setComponentData ( KateGlobal::self()->componentData () );
   
@@ -2316,6 +2317,12 @@ void KateDocument::deactivateDirWatch ()
   m_dirWatchFile.clear();
 }
 
+bool KateDocument::openUrl( const KUrl &url ) {
+  bool res=KTextEditor::Document::openUrl(url);
+  updateDocName();
+  return res;
+}
+
 bool KateDocument::closeUrl()
 {
   //
@@ -3600,6 +3607,7 @@ void KateDocument::updateDocName ()
 
   int count = -1;
 
+  
   foreach(KateDocument* doc, KateGlobal::self()->kateDocuments())
   {
     if ( (doc != this) && (doc->url().fileName() == url().fileName()) )
@@ -3612,9 +3620,13 @@ void KateDocument::updateDocName ()
   QString oldName = m_docName;
   m_docName = removeNewLines(url().fileName());
 
-  if (m_docName.isEmpty())
+  
+  if (m_docName.isEmpty()) {
+    m_isUntitled=true;
     m_docName = i18n ("Untitled");
-
+  } else {
+    m_isUntitled=false;
+  }
   if (m_docNameNumber > 0)
     m_docName = QString(m_docName + " (%1)").arg(m_docNameNumber+1);
   
@@ -4825,6 +4837,8 @@ void KateDocument::slotCanceled() {
   if (m_documentState == DocumentLoading) {
     setReadWrite (m_readWriteStateBeforeLoading);
     delete m_loadingMessage;
+    
+    updateDocName();
   }
   
   /**

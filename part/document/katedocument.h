@@ -110,6 +110,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     
     using ReadWritePart::closeUrl;
     virtual bool closeUrl();
+    
+    virtual bool openUrl( const KUrl &url );
 
     virtual KTextEditor::Editor *editor ();
 
@@ -1217,6 +1219,10 @@ Q_SIGNALS:
      */
     bool m_readWriteStateBeforeLoading;
     
+    /**
+     * if the document is untitled
+     */
+    bool m_isUntitled;
     /**
      * loading job, we want to cancel with cancel in the loading message
      */

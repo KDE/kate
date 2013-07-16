@@ -132,7 +132,6 @@ def has_selection(selectionState):
         def has_selection_checker(selectionState, document):
             view = document.activeView()
             result = selectionState == view.selection()
-            print("*** has_selection: result=%s" % repr(result))
             if not result:
                 if not selectionState:
                     should = i18nc('@info:tooltip', "This operation cannot be performed while text is selected")

@@ -50,8 +50,7 @@ struct {0}
 '''
 
 _PURE_BRIEF_DOC_TPL = '''/**
- * \\brief %{{cursor}}
- *
+ * \\brief %{cursor}
  */'''
 
 _NS_TPL = '''namespace {0} {{

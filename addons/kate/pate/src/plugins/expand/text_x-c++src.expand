@@ -6,6 +6,7 @@
 #
 
 import kate
+from libkatepate import ui
 
 _BRIEF_DOC_TPL = '''/**
  * \\brief Class \c {0}
@@ -75,14 +76,14 @@ void {1}({0} value)
 
 _MAIN_WITH_ARGS_TPL = '''int main(int argc, const char* const argv[])
 {
-\t%{{cursor}}
+\t%{cursor}
 \treturn 0;
 }
 '''
 
 _MAIN_TPL = '''int main()
 {
-\t%{{cursor}}
+\t%{cursor}
 \treturn 0;
 }'''
 

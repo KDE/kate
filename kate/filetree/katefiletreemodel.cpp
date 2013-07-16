@@ -158,8 +158,11 @@ void ProxyItem::initDisplay()
     }
   } else {
     m_display = m_path.section(QLatin1Char('/'), -1, -1);
-    if (flag(ProxyItem::Host) && (!m_parent || (m_parent && !m_parent->m_parent)))
-      m_display="["+host()+"]"+m_display;
+    if (flag(ProxyItem::Host) && (!m_parent || (m_parent && !m_parent->m_parent))) {
+      QString hostPrefix="["+host()+"]";
+      if (hostPrefix!=m_display)
+        m_display=hostPrefix+m_display;
+    }
   }
     
 }

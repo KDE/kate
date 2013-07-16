@@ -277,8 +277,9 @@ void KateProject::saveNotesDocument ()
 
 void KateProject::registerDocument (KTextEditor::Document *document)
 {
-  // remember the document
-  m_documents[document] = document->url().toLocalFile ();
+  // remember the document, if not already there
+  if (!m_documents.contains(document))
+    m_documents[document] = document->url().toLocalFile ();
   
   // try to get item for the document
   QStandardItem *item = itemForFile (document->url().toLocalFile ());
@@ -304,15 +305,10 @@ void KateProject::registerDocument (KTextEditor::Document *document)
   if (!m_file2Item)
     m_file2Item = KateProjectSharedQMapStringItem (new QMap<QString, QStandardItem *> ());
   (*m_file2Item)[document->url().toLocalFile ()] = fileItem;
-  
-  printf ("new item %s\n", qPrintable (document->url().toLocalFile ()));
 }
     
 void KateProject::unregisterDocument (KTextEditor::Document *document)
 {
-  
-  printf ("try to remove item %s\n", qPrintable (document->url().toLocalFile ()));
-  
   // skip if no works
   if (!m_documents.contains (document))
     return;

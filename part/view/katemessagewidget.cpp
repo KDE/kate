@@ -110,7 +110,9 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
 {
   // set text etc.
   m_messageWidget->setText(message->text());
+#if KDE_VERSION >= KDE_MAKE_VERSION(4,10,60)   // KMessageWidget::setIcon() requires KDE >= 4.11
   m_messageWidget->setIcon(message->icon());
+#endif
 
   // connect textChanged() and iconChanged(), so it's possible to change this on the fly
   connect(message, SIGNAL(textChanged(const QString&)),

@@ -485,7 +485,7 @@ bool KateMainWindow::queryClose()
 
 void KateMainWindow::newWindow ()
 {
-  KateApp::self()->newMainWindow ();
+  KateApp::self()->newMainWindow (KateApp::self()->sessionManager()->activeSession()->configRead());
 }
 
 void KateMainWindow::slotEditToolbars()

@@ -210,8 +210,7 @@ void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *w
   // load session config if needed
   if (config && win->pluginViews().contains(item->plugin))
   {
-    int winID = KateApp::self()->mainWindowID(win);
-    win->pluginViews().value(item->plugin)->readSessionConfig(config, QString("Plugin:%1:MainWindow:%2").arg(item->saveName()).arg(winID));
+    win->pluginViews().value(item->plugin)->readSessionConfig(config, QString("Plugin:%1:MainWindow:0").arg(item->saveName()));
   }
 
   if (createdView)

@@ -735,32 +735,38 @@ void KateScrollBar::redrawMarks()
 
 void KateScrollBar::recomputeMarksPositions()
 {
-  m_lines.clear();
-  int visibleLines = m_view->textFolding().visibleLines();
-
+  // get the style options to compute the scrollbar pixels
   QStyleOptionSlider opt;
   initStyleOption(&opt);
+  QRect grooveRect = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarGroove, this);
 
-  int topMargin = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarSubPage, this).top() + 1;
-  int realHeight = style()->subControlRect(QStyle::CC_ScrollBar, &opt, QStyle::SC_ScrollBarAddPage, this).bottom() - topMargin - 1;
+  // cache top margin and groove height
+  const int top = grooveRect.top();
+  const int h = grooveRect.height() - 1;
 
+  // make sure we have a sane height
+  if (h <= 0) return;
+
+  // get total visible (=without folded) lines in the document
+  int visibleLines = m_view->textFolding().visibleLines() - 1;
+  if (m_view->config()->scrollPastEnd()) {
+    visibleLines += m_viewInternal->linesDisplayed();
+    visibleLines -= m_view->config()->autoCenterLines();
+  }
+
+  // now repopulate the scrollbar lines list
+  m_lines.clear();
   const QHash<int, KTextEditor::Mark*> &marks = m_doc->marks();
-
   for (QHash<int, KTextEditor::Mark*>::const_iterator i = marks.constBegin(); i != marks.constEnd(); ++i)
   {
     KTextEditor::Mark *mark = i.value();
-
-    uint line = mark->line;
-
-    line = m_view->textFolding().lineToVisibleLine(line);
-
-    double d = (double)line / (visibleLines - 1);
-    m_lines.insert(topMargin + (int)(d * realHeight),
-                   QColor(KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type)));
+    const int line = m_view->textFolding().lineToVisibleLine(mark->line);
+    const double ratio = static_cast<double>(line) / visibleLines;
+    m_lines.insert(top + (int)(h * ratio),
+                   KateRendererConfig::global()->lineMarkerColor((KTextEditor::MarkInterface::MarkTypes)mark->type));
   }
 
-  // with Qt4 we don't have the luxury of painting outside a paint event
-  // and a paint event wipes the widget... so just update
+  // finally trigger a repaint
   update();
 }
 

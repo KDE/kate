@@ -105,7 +105,7 @@ class KateProjectPlugin : public Kate::Plugin
      */
     void projectCreated (KateProject *project);
 
-  private slots:
+  public slots:
     /**
      * New document got created, we need to update our connections
      * @param document new created document

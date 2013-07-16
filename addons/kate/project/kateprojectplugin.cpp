@@ -208,6 +208,12 @@ void KateProjectPlugin::slotDocumentDestroyed (QObject *document)
   /**
    * remove mapping to project
    */
+  if (KateProject *project = m_document2Project.value (document))
+    project->unregisterDocument (static_cast<KTextEditor::Document *> (document));
+    
+  /**
+   * remove mapping
+   */
   m_document2Project.remove (document);
 }
 
@@ -219,12 +225,24 @@ void KateProjectPlugin::slotDocumentUrlChanged (KTextEditor::Document *document)
   KateProject *project = projectForUrl (document->url());
   
   /**
+   * remove mapping to project
+   */
+  if (KateProject *project = m_document2Project.value (document))
+    project->unregisterDocument (document);    
+  
+  /**
    * update mapping document => project
    */
   if (!project)
     m_document2Project.remove (document);
   else
     m_document2Project[document] = project;
+  
+  /**
+   * add mapping to project
+   */
+  if (KateProject *project = m_document2Project.value (document))
+    project->registerDocument (document);
 }
 
 void KateProjectPlugin::slotDirectoryChanged (const QString &path)

@@ -211,6 +211,18 @@ class KateProject : public QObject
      */
     void saveNotesDocument ();
     
+    /**
+     * Register a document for this project.
+     * @param document document to register
+     */
+    void registerDocument (KTextEditor::Document *document);
+    
+    /**
+     * Unregister a document for this project.
+     * @param document document to unregister
+     */
+    void unregisterDocument (KTextEditor::Document *document);
+    
   private Q_SLOTS:
     /**
      * Used for worker to send back the results of project loading
@@ -298,6 +310,16 @@ class KateProject : public QObject
      * notes buffer for project local notes
      */
     QTextDocument *m_notesDocument;
+    
+    /**
+     * Set of existing documents for this project.
+     */
+    QMap<KTextEditor::Document *, QString> m_documents;
+    
+    /**
+     * Parent item for existing documents that are not in the project tree
+     */
+    QStandardItem *m_documentsParent;
 };
 
 #endif

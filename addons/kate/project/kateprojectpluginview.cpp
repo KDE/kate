@@ -283,6 +283,11 @@ void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *docum
    */
   if (document->url().isEmpty() || !document->url().isLocalFile())
     return;
+  
+  /**
+   * inform plugin in any case first!
+   */
+  m_plugin->slotDocumentUrlChanged (document);
 
   /**
    * search matching project

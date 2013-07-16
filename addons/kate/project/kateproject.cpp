@@ -21,6 +21,8 @@
 #include "kateproject.h"
 #include "kateprojectworker.h"
 
+#include <klocale.h>
+
 #include <ktexteditor/document.h>
 
 #include <QDir>
@@ -33,7 +35,8 @@ KateProject::KateProject ()
   : QObject ()
   , m_worker (new KateProjectWorker (this))
   , m_thread (m_worker)
-  , m_notesDocument(0)
+  , m_notesDocument (0)
+  , m_documentsParent (0)
 {
   /**
    * move worker object over and start our worker thread
@@ -163,6 +166,11 @@ void KateProject::loadProjectDone (KateProjectSharedQStandardItem topLevel, Kate
    * setup file => item map
    */
   m_file2Item = file2Item;
+  
+  /**
+   * cleanups
+   */
+  m_documentsParent = 0;
 
   /**
    * model changed
@@ -267,4 +275,67 @@ void KateProject::saveNotesDocument ()
   }
 }
 
+void KateProject::registerDocument (KTextEditor::Document *document)
+{
+  // remember the document
+  m_documents[document] = document->url().toLocalFile ();
+  
+  // try to get item for the document
+  QStandardItem *item = itemForFile (document->url().toLocalFile ());
+  
+  // if we got one, we are done, else create a dummy!
+  if (item)
+    return;
+  
+  // perhaps create the parent item
+  if (!m_documentsParent) {
+    m_documentsParent = new KateProjectItem (KateProjectItem::Directory, i18n ("<untracked>"));
+    m_model.insertRow (0, m_documentsParent);
+  }
+  
+  // create document item
+  QFileInfo fileInfo (document->url().toLocalFile ());
+  QStandardItem *fileItem = new KateProjectItem (KateProjectItem::File, fileInfo.fileName());
+  fileItem->setData(document->url().toLocalFile (), Qt::ToolTipRole);
+  m_documentsParent->appendRow (fileItem);
+  fileItem->setData (document->url().toLocalFile (), Qt::UserRole);
+  fileItem->setData (QVariant (true), Qt::UserRole + 3);
+  
+  if (!m_file2Item)
+    m_file2Item = KateProjectSharedQMapStringItem (new QMap<QString, QStandardItem *> ());
+  (*m_file2Item)[document->url().toLocalFile ()] = fileItem;
+  
+  printf ("new item %s\n", qPrintable (document->url().toLocalFile ()));
+}
+    
+void KateProject::unregisterDocument (KTextEditor::Document *document)
+{
+  
+  printf ("try to remove item %s\n", qPrintable (document->url().toLocalFile ()));
+  
+  // skip if no works
+  if (!m_documents.contains (document))
+    return;
+  
+  // perhaps kill the item we have generated
+  if (QStandardItem *item = itemForFile (m_documents.value (document))) {
+    if (item->data (Qt::UserRole + 3).toBool ()) {
+      for (int i = 0; i < m_documentsParent->rowCount(); ++i)
+        if (m_documentsParent->child (i) == item)
+          m_documentsParent->removeRow (i);
+      
+      m_file2Item->remove (m_documents.value (document));
+    }
+  }
+  
+  // forget the document
+  m_documents.remove (document);
+  
+  // perhaps remove parent item
+  if (m_documents.isEmpty()) {
+    m_model.removeRow (0);
+    m_documentsParent = 0;
+  }
+}
+    
 // kate: space-indent on; indent-width 2; replace-tabs on;

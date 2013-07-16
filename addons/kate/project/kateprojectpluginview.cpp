@@ -285,11 +285,6 @@ void KateProjectPluginView::slotDocumentUrlChanged (KTextEditor::Document *docum
     return;
   
   /**
-   * inform plugin in any case first!
-   */
-  m_plugin->slotDocumentUrlChanged (document);
-
-  /**
    * search matching project
    */
   KateProject *project = m_plugin->projectForUrl (document->url());

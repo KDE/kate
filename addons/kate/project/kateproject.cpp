@@ -300,7 +300,18 @@ void KateProject::registerDocument (KTextEditor::Document *document)
   QFileInfo fileInfo (document->url().toLocalFile ());
   QStandardItem *fileItem = new KateProjectItem (KateProjectItem::File, fileInfo.fileName());
   fileItem->setData(document->url().toLocalFile (), Qt::ToolTipRole);
-  m_documentsParent->appendRow (fileItem);
+  
+  bool inserted = false;
+  for (int i = 0; i < m_documentsParent->rowCount(); ++i) {
+        if (m_documentsParent->child (i)->data(Qt::UserRole).toString() > document->url().toLocalFile ()) {
+          m_documentsParent->insertRow (i, fileItem);
+          inserted = true;
+          break;
+        }
+  }
+  if (!inserted)
+    m_documentsParent->appendRow (fileItem);
+  
   fileItem->setData (document->url().toLocalFile (), Qt::UserRole);
   fileItem->setData (QVariant (true), Qt::UserRole + 3);
   

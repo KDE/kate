@@ -615,7 +615,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
     KTextEditor::Cursor scroll = viewLineOffset(c, -int(linesDisplayed()) / 2);
     scrollPos(scroll, false, calledExternally);
   }
-  else if ( c > viewLineOffset(startPos(), linesDisplayed() - m_minLinesVisible - 1) )
+  else if ( c.line() > viewLineOffset(startPos(), linesDisplayed() - m_minLinesVisible - 1).line() )
   {
     KTextEditor::Cursor scroll = viewLineOffset(c, -(linesDisplayed() - m_minLinesVisible - 1));
     scrollPos(scroll, false, calledExternally);

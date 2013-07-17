@@ -2570,13 +2570,10 @@ void ViModeTest::VimStyleCommandBarTests()
   }
 
   {
-    // Completion of commands should be enabled as soon as the bar is shown.
+    // No completion should be shown when the bar is first shown: this gives us an opportunity
+    // to invoke command history via ctrl-p and ctrl-n.
     BeginTest("");
-    TestPressKey(":s");
-    QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
-    // A random sprinkling of commands that begin with s.
-    verifyCommandBarCompletionContains(QStringList() << "sort" << "set-auto-indent");
-    TestPressKey("\\ctrl-c"); // Dismiss completer
+    TestPressKey(":");
     QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
     TestPressKey("\\ctrl-c"); // Dismiss bar
     FinishTest("");
@@ -2665,10 +2662,39 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(commandHistory(), QStringList() << "sort");
   TestPressKey(":yank\\enter");
   QCOMPARE(commandHistory(), QStringList() << "sort" << "yank");
+  // Add to history immediately: don't wait for the command response display to timeout.
   TestPressKey(":commandthatdoesnotexist\\enter");
   QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist");
-  TestPressKey(":abortedcommand\\ctrl-c\\ctrl-c");
-  QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist");
+  // Vim adds aborted commands to the history too, oddly.
+  TestPressKey(":abortedcommand\\ctrl-c");
+  QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist" << "abortedcommand");
+  // Only add for commands, not searches!
+  TestPressKey("/donotaddme\\enter?donotaddmeeither\\enter/donotaddme\\ctrl-c?donotaddmeeither\\ctrl-c");
+  QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist" << "abortedcommand");
+  FinishTest("");
+
+  // With an empty command bar, ctrl-p / ctrl-n should go through history.
+  clearCommandHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("command1");
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("command2");
+  BeginTest("");
+  TestPressKey(":\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("command2"));
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("");
+  clearCommandHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("command1");
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("command2");
+  BeginTest("");
+  TestPressKey(":\\ctrl-n");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("command1"));
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar
   FinishTest("");
 }
 

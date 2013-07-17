@@ -217,7 +217,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
       m_isActive(false),
       m_mode(NoMode),
       m_view(view),
-      m_doNotResetCursorOnClose(false),
+      m_wasAborted(true),
       m_suspendEditEventFiltering(false),
       m_waitingForRegister(false),
       m_commandResponseMessageTimeOutMS(4000),
@@ -284,7 +284,7 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
       barTypeIndicator = ':';
       break;
     default:
-      Q_ASSERT("Unknown mode!");
+      Q_ASSERT(false && "Unknown mode!");
   }
   m_barTypeIndicator->setText(barTypeIndicator);
 
@@ -298,10 +298,7 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
   m_startingCursorPos = m_view->cursorPosition();
   m_isActive = true;
 
-  if (mode == Command)
-  {
-    activateCommandCompletion();
-  }
+  m_wasAborted = true;
 }
 
 bool KateViEmulatedCommandBar::isActive()
@@ -319,15 +316,13 @@ void KateViEmulatedCommandBar::closed()
   // Close can be called multiple times between init()'s, so only reset the cursor once!
   if (m_startingCursorPos.isValid())
   {
-    if (!m_doNotResetCursorOnClose)
+    if (m_wasAborted)
     {
       m_view->setCursorPosition(m_startingCursorPos);
     }
     KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
   m_startingCursorPos = KTextEditor::Cursor::invalid();
-  const bool wasDismissed = !m_doNotResetCursorOnClose;
-  m_doNotResetCursorOnClose = false;
   updateMatchHighlight(Range::invalid());
   m_completer->popup()->hide();
   m_isActive = false;
@@ -336,14 +331,23 @@ void KateViEmulatedCommandBar::closed()
   {
     // Send a synthetic keypress through the system that signals whether the search was aborted or
     // not.  If not, the keypress will "complete" the search motion, thus triggering it.
-    const Qt::Key syntheticSearchCompletedKey = (wasDismissed ? Qt::Key_Escape : Qt::Key_Enter);
+    const Qt::Key syntheticSearchCompletedKey = (m_wasAborted ? Qt::Key_Escape : Qt::Key_Enter);
     QKeyEvent syntheticSearchCompletedKeyPress(QEvent::KeyPress, syntheticSearchCompletedKey, Qt::NoModifier);
     m_view->getViInputModeManager()->handleKeypress(&syntheticSearchCompletedKeyPress);
-    if (!wasDismissed)
+    if (!m_wasAborted)
     {
       m_view->getViInputModeManager()->setLastSearchPattern(m_currentSearchPattern);
       m_view->getViInputModeManager()->setLastSearchCaseSensitive(m_currentSearchIsCaseSensitive);
       m_view->getViInputModeManager()->setLastSearchBackwards(m_currentSearchIsBackwards);
+    }
+  }
+  else
+  {
+    if (m_wasAborted)
+    {
+      // Appending the command to the history when it is executed is handled elsewhere; we can't
+      // do it inside closed() as we may still be showing the command response display.
+      KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(m_edit->text());
     }
   }
 
@@ -499,6 +503,19 @@ void KateViEmulatedCommandBar::activateCommandCompletion()
     m_currentCompletionType = Commands;
 }
 
+void KateViEmulatedCommandBar::activateCommandHistoryCompletion()
+{
+  m_currentCompletionType = CommandHistory;
+  QStringList commandHistoryReversed;
+  foreach(QString commandHistoryItem, KateGlobal::self()->viInputModeGlobal()->commandHistory())
+  {
+    commandHistoryReversed.prepend(commandHistoryItem);
+  }
+  m_completionModel->setStringList(commandHistoryReversed);
+  updateCompletionPrefix();
+  m_completer->complete();
+}
+
 void KateViEmulatedCommandBar::deactivateCompletion()
 {
   m_completer->popup()->hide();
@@ -515,9 +532,17 @@ void KateViEmulatedCommandBar::updateCompletionPrefix()
   {
     m_completer->setCompletionPrefix(m_edit->text());
   }
+  else if (m_currentCompletionType == CommandHistory)
+  {
+    m_completer->setCompletionPrefix(m_edit->text());
+  }
   else if (m_currentCompletionType == Commands)
   {
     m_completer->setCompletionPrefix(commandBeforeCursor());
+  }
+  else
+  {
+    Q_ASSERT(false && "Unhandled completion type");
   }
   // Seem to need this to alter the size of the popup box appropriately.
   m_completer->complete();
@@ -534,13 +559,17 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   {
     m_edit->setText(m_completer->currentCompletion());
   }
+  else if (m_currentCompletionType == CommandHistory)
+  {
+    m_edit->setText(m_completer->currentCompletion());
+  }
   else if (m_currentCompletionType == Commands)
   {
     m_edit->setText(m_completer->currentCompletion());
   }
   else
   {
-    Q_ASSERT("Something went wrong, here - completion with unrecognised completion type");
+    Q_ASSERT(false && "Something went wrong, here - completion with unrecognised completion type");
   }
   m_nextTextChangeDueToCompletionChange = false;
 }
@@ -567,7 +596,14 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (!m_completer->popup()->isVisible())
     {
-      activateSearchHistoryCompletion();
+      if (m_mode == Command)
+      {
+        activateCommandHistoryCompletion();
+      }
+      else
+      {
+        activateSearchHistoryCompletion();
+      }
       setCompletionIndex(0);
     }
     else
@@ -587,7 +623,14 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (!m_completer->popup()->isVisible())
     {
-      activateSearchHistoryCompletion();
+      if (m_mode == Command)
+      {
+        activateCommandHistoryCompletion();
+      }
+      else
+      {
+        activateSearchHistoryCompletion();
+      }
       setCompletionIndex(m_completer->completionCount() - 1);
     }
     else
@@ -682,7 +725,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     }
     else
     {
-      m_doNotResetCursorOnClose =  true;
+      m_wasAborted = false;
       if (m_mode == Command)
       {
         kDebug(13070) << "Executing: " << m_edit->text();
@@ -788,7 +831,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   }
 
   // Command completion doesn't need to be manually invoked.
-  if (m_mode == Command && m_currentCompletionType == None)
+  if (m_mode == Command && m_currentCompletionType == None && !m_edit->text().isEmpty())
   {
     activateCommandCompletion();
   }

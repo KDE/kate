@@ -49,7 +49,7 @@ private:
   QLineEdit *m_edit;
   QLabel *m_barTypeIndicator;
   KTextEditor::Cursor m_startingCursorPos;
-  bool m_doNotResetCursorOnClose;
+  bool m_wasAborted;
   bool m_suspendEditEventFiltering;
   bool m_waitingForRegister;
   QLabel* m_commandResponseMessageDisplay;
@@ -59,7 +59,7 @@ private:
   QCompleter *m_completer;
   QStringListModel *m_completionModel;
   bool m_nextTextChangeDueToCompletionChange;
-  enum CompletionType { None, SearchHistory, WordFromDocument, Commands };
+  enum CompletionType { None, SearchHistory, WordFromDocument, Commands, CommandHistory };
   CompletionType m_currentCompletionType;
   void updateCompletionPrefix();
   void currentCompletionChanged();
@@ -85,6 +85,7 @@ private:
   void activateSearchHistoryCompletion();
   void activateWordFromDocumentCompletion();
   void activateCommandCompletion();
+  void activateCommandHistoryCompletion();
   void deactivateCompletion();
   void setCompletionIndex(int index);
 private slots:

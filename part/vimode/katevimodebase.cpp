@@ -1064,62 +1064,104 @@ KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
   KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
   int tabstop = doc()->config()->tabWidth();
 
-  // if in an empty document, just return
   if ( lines == 0 ) {
+    // We're not moving anywhere.
     return r;
   }
 
-  int line_height = m_view->renderer()->lineHeight();
-
-  QPoint point = m_view->cursorToCoordinate(c);
-  Cursor res = m_view->coordinatesToCursor(QPoint(point.x(), point.y() + lines * line_height));
-
-  r.endColumn = res.column();
-  r.endLine = res.line();
-
-  if (r.endColumn == -1 || r.endLine == -1 || r.valid == false)
+  // Work out the real and visual line pair of the beginning of the visual line we'd end up
+  // on by moving lines visual lines.  We ignore the column, for now.
+  int finishVisualLine = m_viewInternal->cache()->viewLine(m_view->cursorPosition());
+  int finishRealLine = m_view->cursorPosition().line();
+  int count = qAbs(lines);
+  bool invalidPos = false;
+  if (lines > 0)
+  {
+    // Find the beginning of the visual line "lines" visual lines down.
+    while (count > 0)
+    {
+      finishVisualLine++;
+      if (finishVisualLine >= m_viewInternal->cache()->line(finishRealLine)->viewLineCount())
+      {
+        finishRealLine++;
+        finishVisualLine = 0;
+      }
+      if (finishRealLine >= doc()->lines())
+      {
+        invalidPos = true;
+        break;
+      }
+      count--;
+    }
+  }
+  else
+  {
+    // Find the beginning of the visual line "lines" visual lines up.
+    while (count > 0)
+    {
+      finishVisualLine--;
+      if (finishVisualLine < 0)
+      {
+        finishRealLine--;
+        finishVisualLine = m_viewInternal->cache()->line(finishRealLine)->viewLineCount() - 1;
+      }
+      if (finishRealLine < 0)
+      {
+        invalidPos = true;
+        break;
+      }
+      count--;
+    }
+  }
+  if (invalidPos)
+  {
+    r.endLine = -1;
+    r.endColumn = -1;
     return r;
+  }
+
+  // We know the final (real) line ...
+  r.endLine = finishRealLine;
+  // ... now work out the final (real) column.
 
   if ( m_stickyColumn == -1) {
     // Compute new sticky column.
     const Kate::TextLine startLine = doc()->plainKateTextLine( c.line() );
     const int virtColumnStart = startLine->toVirtualColumn(c.column(), tabstop);
     const int visualColumnStart = virtColumnStart - m_viewInternal->cache()->textLayout(c).startCol();
-    //Q_ASSERT(m_stickyColumn >= 0);
     m_stickyColumn = visualColumnStart;
     Q_ASSERT(m_stickyColumn >= 0);
-  } else {
-    const int endViewLine = m_viewInternal->cache()->viewLine(res);
-    // The "real" (non-virtual) beginning of the current "line", which might be a wrapped continuation of a
-    // "real" line.
-    const int realLineStartColumn = m_viewInternal->cache()->textLayout(res.line(), endViewLine).startCol();
-    const Kate::TextLine endLine = doc()->plainKateTextLine( r.endLine );
-    // Adjust for the fact that if the portion of the line before wrapping is indented,
-    // the continuations are also "invisibly" (i.e. without any spaces in the text itself) indented.
-    const bool isWrappedContinuation = (m_viewInternal->cache()->textLayout(res.line(), endViewLine).lineLayout().lineNumber() != 0);
-    const int numInvisibleIndentChars = isWrappedContinuation ? endLine->toVirtualColumn(m_viewInternal->cache()->line(res.line())->textLine()->nextNonSpaceChar(0), tabstop) : 0;
-    if (m_stickyColumn == (unsigned int)KateVi::EOL)
+  }
+
+  // The "real" (non-virtual) beginning of the current "line", which might be a wrapped continuation of a
+  // "real" line.
+  const int realLineStartColumn = m_viewInternal->cache()->textLayout(finishRealLine, finishVisualLine).startCol();
+  const Kate::TextLine endLine = doc()->plainKateTextLine( r.endLine );
+  // Adjust for the fact that if the portion of the line before wrapping is indented,
+  // the continuations are also "invisibly" (i.e. without any spaces in the text itself) indented.
+  const bool isWrappedContinuation = (m_viewInternal->cache()->textLayout(finishRealLine, finishVisualLine).lineLayout().lineNumber() != 0);
+  const int numInvisibleIndentChars = isWrappedContinuation ? endLine->toVirtualColumn(m_viewInternal->cache()->line(finishRealLine)->textLine()->nextNonSpaceChar(0), tabstop) : 0;
+  if (m_stickyColumn == (unsigned int)KateVi::EOL)
+  {
+    const int visualEndColumn = m_viewInternal->cache()->textLayout(finishRealLine, finishVisualLine).lineLayout().textLength() - 1;
+    r.endColumn = endLine->fromVirtualColumn( visualEndColumn + realLineStartColumn - numInvisibleIndentChars, tabstop );
+  }
+  else
+  {
+    // Algorithm: find the "real" column corresponding to the start of the line.  Offset from that
+    // until the "visual" column is equal to the "visual" sticky column.
+    int realOffsetToVisualStickyColumn = 0;
+    const int lineStartVirtualColumn = endLine->toVirtualColumn( realLineStartColumn, tabstop );
+    while (true)
     {
-      const int visualEndColumn = m_viewInternal->cache()->textLayout(res.line(), endViewLine).lineLayout().textLength() - 1;
-      r.endColumn = endLine->fromVirtualColumn( visualEndColumn + realLineStartColumn - numInvisibleIndentChars, tabstop );
-    }
-    else
-    {
-      // Algorithm: find the "real" column corresponding to the start of the line.  Offset from that
-      // until the "visual" column is equal to the "visual" sticky column.
-      int realOffsetToVisualStickyColumn = 0;
-      const int lineStartVirtualColumn = endLine->toVirtualColumn( realLineStartColumn, tabstop );
-      while (true)
+      const int visualColumn = endLine->toVirtualColumn( realLineStartColumn + realOffsetToVisualStickyColumn, tabstop ) - lineStartVirtualColumn + numInvisibleIndentChars;
+      if (visualColumn >= m_stickyColumn)
       {
-        const int visualColumn = endLine->toVirtualColumn( realLineStartColumn + realOffsetToVisualStickyColumn, tabstop ) - lineStartVirtualColumn + numInvisibleIndentChars;
-        if (visualColumn >= m_stickyColumn)
-        {
-          break;
-        }
-        realOffsetToVisualStickyColumn++;
+        break;
       }
-      r.endColumn = realLineStartColumn + realOffsetToVisualStickyColumn;
+      realOffsetToVisualStickyColumn++;
     }
+    r.endColumn = realLineStartColumn + realOffsetToVisualStickyColumn;
   }
 
   return r;

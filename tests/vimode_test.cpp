@@ -2850,6 +2850,21 @@ void ViModeTest::visualLineUpDownTests()
   }
   const QString fillsLineAndEndsOnSpace = QString("X").repeated(textWrappingLength - 1) + " ";
 
+  // Create a QString consisting of enough concatenated fillsLineAndEndsOnSpace to completely
+  // fill the viewport of the kate View.
+  QString fillsView = fillsLineAndEndsOnSpace;
+  while (true)
+  {
+    kate_document->setText(fillsView);
+    const QString visibleText = kate_document->text(kate_view->visibleRange());
+    if (fillsView.length() > visibleText.length() * 2) // Overkill.
+    {
+      break;
+    }
+    fillsView += fillsLineAndEndsOnSpace;
+  }
+  const int numVisibleLinesToFillView = fillsView.length() / fillsLineAndEndsOnSpace.length();
+
   {
     // gk when sticky bit is set to the end.
     const QString originalText = fillsLineAndEndsOnSpace.repeated(2);
@@ -2863,22 +2878,62 @@ void ViModeTest::visualLineUpDownTests()
   {
     // Regression test: more than fill the view up, go to end, and do gk on wrapped text (used to crash).
     // First work out the text that will fill up the view.
-    QString fillsView = fillsLineAndEndsOnSpace;
-    while (true)
-    {
-      kate_document->setText(fillsView);
-      const QString visibleText = kate_document->text(kate_view->visibleRange());
-      if (fillsView.length() > visibleText.length() * 2) // Overkill.
-      {
-        break;
-      }
-      fillsView += fillsLineAndEndsOnSpace;
-    }
     QString expectedText = fillsView;
     Q_ASSERT(expectedText[expectedText.length() - textWrappingLength - 1] == ' ');
     expectedText[expectedText.length() - textWrappingLength - 1] = '.';
 
     DoTest(fillsView, "$gkr.", expectedText);
+  }
+
+  {
+    // Jump down a few lines all in one go, where we have some variable length lines to navigate.
+    const int numVisualLinesOnLine[] = { 3, 5, 2, 3 };
+    const int numLines = sizeof(numVisualLinesOnLine) / sizeof(int);
+    const int startVisualLine = 2;
+    const int numberLinesToGoDownInOneGo = 10;
+
+    int totalVisualLines = 0;
+    for (int i = 0; i < numLines; i++)
+    {
+      totalVisualLines += numVisualLinesOnLine[i];
+    }
+
+    QString startText;
+    for (int i = 0; i < numLines; i++)
+    {
+      QString thisLine = fillsLineAndEndsOnSpace.repeated(numVisualLinesOnLine[i]);
+      // Replace trailing space with carriage return.
+      thisLine.chop(1);
+      thisLine.append('\n');
+      startText += thisLine;
+    }
+    QString expectedText = startText;
+    expectedText[((startVisualLine - 1) + numberLinesToGoDownInOneGo) * fillsLineAndEndsOnSpace.length()] = '.';
+
+    Q_ASSERT(numberLinesToGoDownInOneGo + startVisualLine < totalVisualLines);
+    Q_ASSERT(numberLinesToGoDownInOneGo + startVisualLine < numVisibleLinesToFillView);
+    DoTest(startText, QString("gj").repeated(startVisualLine - 1) + QString::number(numberLinesToGoDownInOneGo) + "gjr.", expectedText);
+    // Now go up a few lines.
+    const int numLinesToGoBackUp = 7;
+    expectedText = startText;
+    expectedText[((startVisualLine - 1) + numberLinesToGoDownInOneGo - numLinesToGoBackUp) * fillsLineAndEndsOnSpace.length()] = '.';
+    DoTest(startText, QString("gj").repeated(startVisualLine - 1) + QString::number(numberLinesToGoDownInOneGo) + "gj" + QString::number(numLinesToGoBackUp) + "gkr.", expectedText);
+  }
+
+  {
+    // Move down enough lines in one go to disappear off the view.
+    // About half-a-viewport past the end of the current viewport.
+    const int numberLinesToGoDown = numVisibleLinesToFillView * 3 / 2;
+    const int visualColumnNumber = 7;
+    Q_ASSERT(fillsLineAndEndsOnSpace.length() > visualColumnNumber);
+    QString expectedText = fillsView.repeated(2);
+    Q_ASSERT(expectedText[expectedText.length() - textWrappingLength - 1] == ' ');
+    expectedText[visualColumnNumber + fillsLineAndEndsOnSpace.length() * numberLinesToGoDown] = '.';
+
+    DoTest(fillsView.repeated(2), QString("l").repeated(visualColumnNumber) + QString::number(numberLinesToGoDown) + "gjr.", expectedText);
+
+    kDebug(13070) << "Glarb: " << expectedText.indexOf('.') << " glorb: " << kate_document->text().indexOf('.');
+    kDebug(13070) << kate_document->text();
   }
 
   {

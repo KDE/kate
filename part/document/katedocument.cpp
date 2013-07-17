@@ -3627,13 +3627,11 @@ void KateDocument::updateDocName ()
   QString oldName = m_docName;
   m_docName = removeNewLines(url().fileName());
 
-  
-  if (m_docName.isEmpty()) {
-    m_isUntitled=true;
+  m_isUntitled = m_docName.isEmpty();
+  if (m_isUntitled) {
     m_docName = i18n ("Untitled");
-  } else {
-    m_isUntitled=false;
   }
+
   if (m_docNameNumber > 0)
     m_docName = QString(m_docName + " (%1)").arg(m_docNameNumber+1);
   

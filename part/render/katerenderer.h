@@ -334,6 +334,9 @@ public:
 
     void assignSelectionBrushesFromAttribute(QTextLayout::FormatRange& target, const KTextEditor::Attribute& attribute) const;
 
+    // update font height
+    void updateFontHeight ();
+    
     KateDocument *const m_doc;
     Kate::TextFolding &m_folding;
     KateView *const m_view;

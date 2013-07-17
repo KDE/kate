@@ -1897,6 +1897,32 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 }
 //END KTextEditor::DocumentInfoInterface
 
+//BEGIN: error
+void KateDocument::showAndSetOpeningErrorAccess() {
+    QPointer<KTextEditor::Message> message
+      = new KTextEditor::Message(i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().pathOrUrl()),
+                                 KTextEditor::Message::Error);
+    message->setWordWrap(true);
+    QAction* tryAgainAction = new QAction(KIcon("view-refresh"), i18nc("translators: you can also translate 'Try Again' with 'Reload'", "Try Again"), 0);
+    connect(tryAgainAction, SIGNAL(triggered()), SLOT(documentReload()), Qt::QueuedConnection);
+
+    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
+    closeAction->setToolTip(i18n("Close message"));
+
+    // add try again and close actions
+    message->addAction(tryAgainAction);
+    message->addAction(closeAction);
+
+    // finally post message
+    postMessage(message);
+
+    // remember error
+    setOpeningError(true);
+    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().pathOrUrl()));
+
+}
+//END: error
+
 
 //BEGIN KParts::ReadWrite stuff
 bool KateDocument::openFile()
@@ -1995,26 +2021,7 @@ bool KateDocument::openFile()
   // display errors
   //
   if (!success) {
-    QPointer<KTextEditor::Message> message
-      = new KTextEditor::Message(i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().pathOrUrl()),
-                                 KTextEditor::Message::Error);
-    message->setWordWrap(true);
-    QAction* tryAgainAction = new QAction(KIcon("view-refresh"), i18nc("translators: you can also translate 'Try Again' with 'Reload'", "Try Again"), 0);
-    connect(tryAgainAction, SIGNAL(triggered()), SLOT(documentReload()), Qt::QueuedConnection);
-
-    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
-    closeAction->setToolTip(i18n("Close message"));
-
-    // add try again and close actions
-    message->addAction(tryAgainAction);
-    message->addAction(closeAction);
-
-    // finally post message
-    postMessage(message);
-
-    // remember error
-    setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().pathOrUrl()));
+    showAndSetOpeningErrorAccess();
   }
 
   // warn: broken encoding
@@ -4838,6 +4845,8 @@ void KateDocument::slotCanceled() {
     setReadWrite (m_readWriteStateBeforeLoading);
     delete m_loadingMessage;
     
+    showAndSetOpeningErrorAccess();
+    
     updateDocName();
   }
   
@@ -4846,6 +4855,8 @@ void KateDocument::slotCanceled() {
    */
   m_documentState = DocumentIdle;
   m_reloading = false;
+  
+  
 }
 
 void KateDocument::slotTriggerLoadingMessage ()

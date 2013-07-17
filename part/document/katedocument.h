@@ -117,7 +117,8 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
     KTextEditor::Range rangeOnLine(KTextEditor::Range range, int line) const;
 
-    
+  private:
+    void showAndSetOpeningErrorAccess();
   /*
    * Overload this to have on-demand view creation
    */

@@ -726,6 +726,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     else
     {
       m_wasAborted = false;
+      deactivateCompletion();
       if (m_mode == Command)
       {
         kDebug(13070) << "Executing: " << m_edit->text();

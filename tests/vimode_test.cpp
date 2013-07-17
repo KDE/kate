@@ -2605,6 +2605,16 @@ void ViModeTest::VimStyleCommandBarTests()
     FinishTest("");
   }
 
+  {
+    // Completion should be dismissed when we are showing command response text.
+    BeginTest("");
+    TestPressKey(":set-au\\enter");
+    QVERIFY(commandResponseMessageDisplay()->isVisible());
+    QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+    waitForEmulatedCommandBarToHide(commandResponseMessageTimeOutMS * 4);
+    FinishTest("");
+  }
+
   // If we abort completion via ctrl-c or ctrl-[, we should revert the current word to the last
   // manually entered word.
   BeginTest("");

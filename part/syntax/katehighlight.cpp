@@ -395,6 +395,15 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *_prevLine,
         if (offset2 <= offset)
           continue;
 
+        // dominik: on lookAhead, do not preocess any data by fixing offset2
+        if (item->lookAhead) {
+          offset2 = offset;
+        } else {
+          // make sure the rule does not violate the text line length
+          if (offset2 > len)
+            offset2 = len;
+        }
+
         // BUG 144599: Ignore a context change that would push the same context
         // without eating anything... this would be an infinite loop!
         if ( item->lookAhead && ( item->ctx.pops < 2 && item->ctx.newContext == ( ctx.isEmpty() ? 0 : ctx.last() ) ) )
@@ -419,49 +428,45 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *_prevLine,
             context = contextNum(newctx);
           }
         }
-
-        // dominik: look ahead w/o changing offset?
-        if (!item->lookAhead)
-        {
-          if (offset2 > len)
-            offset2 = len;
           
-          // handle folding end or begin
-          if (item->region || item->region2) {
-            /**
-             * for each end region, decrement counter for that type, erase if count reaches 0!
-             */
-            if (item->region2 && foldingStartToCount) {
-              QHash<short, int>::iterator end = foldingStartToCount->find (-item->region2);
-              if (end != foldingStartToCount->end()) {
-                if (end.value() > 1)
-                  --(end.value());
-                else
-                  foldingStartToCount->erase (end);
-              }
-            }
-            
-            /**
-             * increment counter for each begin region!
-             */
-            if (item->region) {
-              // construct on demand!
-              if (!foldingStartToCount)
-                foldingStartToCount = new QHash<short, int> ();
-              
-              ++(*foldingStartToCount)[item->region];
+        // handle folding end or begin
+        if (item->region || item->region2) {
+          /**
+           * for each end region, decrement counter for that type, erase if count reaches 0!
+           */
+          if (item->region2 && foldingStartToCount) {
+            QHash<short, int>::iterator end = foldingStartToCount->find (-item->region2);
+            if (end != foldingStartToCount->end()) {
+              if (end.value() > 1)
+                --(end.value());
+              else
+                foldingStartToCount->erase (end);
             }
           }
-          
-          // even set attributes or end of region! ;)
-          int attribute = item->onlyConsume ? context->attr : item->attr;
-          if (attribute > 0 || item->region2)
-            textLine->addAttribute (Kate::TextLineData::Attribute (offset, offset2-offset, attribute, item->region2));
-          
-          // create 0 length attribute for begin of region, if any!
-          if (item->region)
-            textLine->addAttribute (Kate::TextLineData::Attribute (offset2, 0, attribute, item->region));
 
+          /**
+           * increment counter for each begin region!
+           */
+          if (item->region) {
+            // construct on demand!
+            if (!foldingStartToCount)
+              foldingStartToCount = new QHash<short, int> ();
+
+            ++(*foldingStartToCount)[item->region];
+          }
+        }
+
+        // even set attributes or end of region! ;)
+        int attribute = item->onlyConsume ? context->attr : item->attr;
+        if ((attribute > 0 && !item->lookAhead) || item->region2)
+          textLine->addAttribute (Kate::TextLineData::Attribute (offset, offset2-offset, attribute, item->region2));
+
+        // create 0 length attribute for begin of region, if any!
+        if (item->region)
+          textLine->addAttribute (Kate::TextLineData::Attribute (offset2, 0, attribute, item->region));
+
+        // only process, if lookAhead is false
+        if (!item->lookAhead) {
           offset = offset2;
           lastChar = text[offset-1];
         }

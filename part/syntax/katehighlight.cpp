@@ -1750,8 +1750,10 @@ void KateHighlighting::handleKateHlIncludeRules()
   // itself includes context 2 and so on.
   //  In that case we have to handle context 2 first, then 1, 0
   //TODO: catch circular references: eg 0->1->2->3->1
-  while (!includeRules.isEmpty())
-    handleKateHlIncludeRulesRecursive(0, &includeRules);
+  for (int i=0; i<includeRules.count(); i++)
+       handleKateHlIncludeRulesRecursive(i, &includeRules);
+  qDeleteAll(includeRules);
+  includeRules.clear();
 }
 
 void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlIncludeRules *list)
@@ -1760,6 +1762,8 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlInclud
 
   int index1 = index;
   int ctx = list->at(index1)->ctx;
+
+  if (ctx == -1) return;  // skip already processed entries
 
   // find the last entry for the given context in the KateHlIncludeRules list
   // this is need if one context includes more than one. This saves us from
@@ -1828,7 +1832,7 @@ void KateHighlighting::handleKateHlIncludeRulesRecursive(int index, KateHlInclud
 
     index = index1; //backup the iterator
     --index1;  //move to the next entry, which has to be take care of
-    delete list->takeAt(index); //free + remove the already handled data structure
+    list->at(index)->ctx = -1;  // set ctx to -1 to mark already processed entries
   }
 }
 

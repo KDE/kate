@@ -27,6 +27,7 @@
 #include <QTextDocument>
 #include <KTextEditor/ModificationInterface>
 #include "kateprojectindex.h"
+#include "kateprojectitem.h"
 
 /**
  * Shared pointer data types.
@@ -35,7 +36,7 @@
 typedef QSharedPointer<QStandardItem> KateProjectSharedQStandardItem;
 Q_DECLARE_METATYPE(KateProjectSharedQStandardItem)
 
-typedef QSharedPointer<QMap<QString, QStandardItem *> > KateProjectSharedQMapStringItem;
+typedef QSharedPointer<QMap<QString, KateProjectItem *> > KateProjectSharedQMapStringItem;
 Q_DECLARE_METATYPE(KateProjectSharedQMapStringItem)
 
 typedef QSharedPointer<KateProjectIndex> KateProjectSharedProjectIndex;
@@ -175,7 +176,7 @@ class KateProject : public QObject
      * @param file file to get item for
      * @return item for given file or 0
      */
-    QStandardItem *itemForFile (const QString &file)
+    KateProjectItem *itemForFile (const QString &file)
     {
       return m_file2Item ? m_file2Item->value (file) : 0;
     }

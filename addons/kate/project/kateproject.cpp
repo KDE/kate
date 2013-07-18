@@ -279,7 +279,7 @@ void KateProject::saveNotesDocument ()
 
 
 void KateProject::slotModifiedChanged(KTextEditor::Document* document) {
-  KateProjectItem *item = (KateProjectItem*)itemForFile (document->url().toLocalFile ());
+  KateProjectItem *item = itemForFile (document->url().toLocalFile ());
   
   if (!item) return;
   
@@ -289,7 +289,7 @@ void KateProject::slotModifiedChanged(KTextEditor::Document* document) {
 void KateProject::slotModifiedOnDisk (KTextEditor::Document *document,
       bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason) {
   
-  KateProjectItem *item = (KateProjectItem*)itemForFile (document->url().toLocalFile ());
+  KateProjectItem *item = itemForFile (m_documents.value (document));
     
   if (!item) return;
   
@@ -351,7 +351,7 @@ void KateProject::registerDocument (KTextEditor::Document *document)
   fileItem->setData (QVariant (true), Qt::UserRole + 3);
   
   if (!m_file2Item)
-    m_file2Item = KateProjectSharedQMapStringItem (new QMap<QString, QStandardItem *> ());
+    m_file2Item = KateProjectSharedQMapStringItem (new QMap<QString, KateProjectItem *> ());
   (*m_file2Item)[document->url().toLocalFile ()] = fileItem;
 }
     

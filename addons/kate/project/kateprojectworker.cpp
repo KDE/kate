@@ -53,7 +53,7 @@ void KateProjectWorker::loadProject (QString baseDir, QVariantMap projectMap)
    * then load the project recursively
    */
   KateProjectSharedQStandardItem topLevel (new QStandardItem ());
-  KateProjectSharedQMapStringItem file2Item (new QMap<QString, QStandardItem *> ());
+  KateProjectSharedQMapStringItem file2Item (new QMap<QString, KateProjectItem *> ());
   loadProject (topLevel.data(), projectMap, file2Item.data());
 
   /**
@@ -72,7 +72,7 @@ void KateProjectWorker::loadProject (QString baseDir, QVariantMap projectMap)
   loadIndex (files);
 }
 
-void KateProjectWorker::loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, QStandardItem *> *file2Item)
+void KateProjectWorker::loadProject (QStandardItem *parent, const QVariantMap &project, QMap<QString, KateProjectItem *> *file2Item)
 {
   /**
    * recurse to sub-projects FIRST
@@ -157,7 +157,7 @@ static QStandardItem *directoryParent (QMap<QString, QStandardItem *> &dir2Item,
   return dir2Item[path];
 }
 
-void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, QStandardItem *> *file2Item)
+void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap &filesEntry, QMap<QString, KateProjectItem *> *file2Item)
 {
   /**
    * get directory to open or skip
@@ -367,7 +367,7 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
       * construct the item with right directory prefix
       * already hang in directories in tree
       */
-     QStandardItem *fileItem = new KateProjectItem (KateProjectItem::File, fileInfo.fileName());
+     KateProjectItem *fileItem = new KateProjectItem (KateProjectItem::File, fileInfo.fileName());
      fileItem->setData(filePath,Qt::ToolTipRole);
      item2ParentPath.append (QPair<QStandardItem *, QStandardItem *>(fileItem, directoryParent(dir2Item, dir.relativeFilePath (fileInfo.absolutePath()))));
      fileItem->setData (filePath, Qt::UserRole);

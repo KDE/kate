@@ -296,7 +296,6 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint y /*row*/)
 {
   QPen penBackup( paint.pen() );
   QPen myPen(config()->indentationLineColor());
-  //make class member
   static const QVector<qreal> dashPattern = QVector<qreal>() << 1 << 1;
   myPen.setDashPattern(dashPattern);
   if (y % 2)

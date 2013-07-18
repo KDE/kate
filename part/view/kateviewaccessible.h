@@ -323,6 +323,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             KTextEditor::Range range;
             range.setRange(cursorFromInt(startOffset), cursorFromInt(endOffset));
             view()->view()->setSelection(range);
+            view()->view()->setCursorPosition(cursorFromInt(endOffset));
         }
 
         virtual QString attributes(int offset, int* startOffset, int* endOffset)
@@ -377,9 +378,9 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
         {
             return view()->view()->selection() ? 1 : 0;
         }
-        virtual void setCursorPosition(int /*position*/)
+        virtual void setCursorPosition(int position)
         {
-            // FIXME
+            view()->view()->setCursorPosition(cursorFromInt(position));
         }
         virtual void setSelection(int selectionIndex, int startOffset, int endOffset)
         {

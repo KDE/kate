@@ -680,17 +680,9 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       }
       else
       {
-        const CompletionType abortedCompletionType = m_currentCompletionType;
         deactivateCompletion();
         m_nextTextChangeDueToCompletionChange = true;
-        if (abortedCompletionType == SearchHistory || abortedCompletionType == Commands)
-        {
-          m_edit->setText(m_revertToIfCompletionAborted);
-        }
-        else
-        {
-          replaceWordBeforeCursorWith(m_revertToIfCompletionAborted);
-        }
+        m_edit->setText(m_revertToIfCompletionAborted);
         m_nextTextChangeDueToCompletionChange = false;
       }
       return true;
@@ -776,14 +768,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   qDebug() << "New text: " << newText;
   if (!m_nextTextChangeDueToCompletionChange)
   {
-    if (m_currentCompletionType != WordFromDocument)
-    {
-      m_revertToIfCompletionAborted = newText;
-    }
-    else
-    {
-      m_revertToIfCompletionAborted = wordBeforeCursor();
-    }
+    m_revertToIfCompletionAborted = newText;
   }
   if (m_mode == SearchForward || m_mode == SearchBackward)
   {
@@ -841,7 +826,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   // only if this is the leading word in the text edit (it gets annoying if completion pops up
   // after ":s/se" etc).
   const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == 0);
-  if (m_mode == Command && !commandBeforeCursorIsLeading)
+  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType != WordFromDocument && m_currentCompletionType != CommandHistory)
   {
     deactivateCompletion();
   }

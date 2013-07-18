@@ -2657,6 +2657,18 @@ void ViModeTest::VimStyleCommandBarTests()
     FinishTest("soggy1 soggy2");
   }
 
+  {
+    // If we're in a place where there is no command completion allowed, don't go hiding the word
+    // completion as we type.
+    BeginTest("soggy1 soggy2");
+    TestPressKey(":s/s\\ctrl- o");
+    QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+    verifyCommandBarCompletionsMatches(QStringList() << "soggy1" << "soggy2");
+    TestPressKey("\\ctrl-c"); // Dismiss completer
+    TestPressKey("\\ctrl-c"); // Dismiss bar
+    FinishTest("soggy1 soggy2");
+  }
+
   // Command history tests.
   clearCommandHistory();
   QVERIFY(commandHistory().isEmpty());
@@ -2706,6 +2718,40 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar
   FinishTest("");
+
+  // If we're at a place where command completions are not allowed, ctrl-p/n should go through history.
+  clearCommandHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("s/command1");
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("s/command2");
+  BeginTest("");
+  TestPressKey(":s/\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("s/command2"));
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("");
+  clearCommandHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("s/command1");
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("s/command2");
+  BeginTest("");
+  TestPressKey(":s/\\ctrl-n");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("s/command1"));
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("");
+
+  // Cancelling word-from-document completion should revert the whole text to what it was before.
+  BeginTest("sausage bacon");
+  TestPressKey(":s/b\\ctrl- \\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/bacon"));
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/b"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("sausage bacon");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

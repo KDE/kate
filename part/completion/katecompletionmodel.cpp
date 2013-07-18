@@ -98,6 +98,7 @@ void HierarchicalModelHandler::takeRole(const QModelIndex& index) {
     QVariant value = index.data(v.toInt());
     if(v.toInt() == Qt::DisplayRole) {
       m_customGroup = index.data(Qt::DisplayRole).toString();
+      kDebug(13035) << "m_custom group is being set to:"<<m_customGroup;
       QVariant sortingKey = index.data(CodeCompletionModel::InheritanceDepth);
       if(sortingKey.canConvert(QVariant::Int))
         m_groupSortingKey = sortingKey.toInt();
@@ -184,6 +185,14 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
   if (!hasCompletionModel() || !index.isValid())
     return QVariant();
 
+  switch(role) {
+    case Qt::ForegroundRole:
+      kDebug(13035)<<"--FG";
+      break;
+    case Qt::BackgroundRole:
+      kDebug(13035)<<"--BG";
+  }  
+  
   if( role == Qt::DecorationRole && index.column() == KTextEditor::CodeCompletionModel::Prefix && isExpandable(index) )
   {
     cacheIcons();
@@ -259,7 +268,9 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
 
       return mergeCustomHighlighting( strings, highlights, 0 );
     }
-
+  
+      kDebug(13035)<<mapToSource(index).data(Qt::DisplayRole).toString();
+   
     QVariant v = mapToSource(index).data(role);
     if( v.isValid() )
       return v;
@@ -286,12 +297,24 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
         break;
 
       case Qt::ForegroundRole:
+        kDebug( 13035 ) << g->title<<"Returning forground colour:"<<KApplication::kApplication()->palette().toolTipText().color();
         return KApplication::kApplication()->palette().toolTipText().color();
       case Qt::BackgroundRole:
+        kDebug( 13035 ) << g->title<<"Returning background colour:"<<KApplication::kApplication()->palette().toolTipBase().color();
         return KApplication::kApplication()->palette().toolTipBase().color();
     }
   }
 
+  if (g && g->isEmpty)
+     kDebug(13035)<<"group is empty, returning invalid variant:"<<g->title;
+  switch(role) {
+    case Qt::ForegroundRole:
+      kDebug(13035)<<"FG";
+      break;
+    case Qt::BackgroundRole:
+      kDebug(13035)<<"BG";
+  }
+kDebug(13035)<<"returning QVariant()";
   return QVariant();
 }
 
@@ -621,7 +644,8 @@ KateCompletionModel::Group* KateCompletionModel::createItem(const HierarchicalMo
     g = m_argumentHints;
   } else{
     QString customGroup = handler.customGroup();
-    if(!customGroup.isNull() && m_hasGroups) {
+    kDebug(13035)<<"m_hasGroups"<<m_hasGroups;
+    if(!customGroup.isNull() /*&& m_hasGroups*/) {
       if(m_customGroupHash.contains(customGroup)) {
         g = m_customGroupHash[customGroup];
       }else{

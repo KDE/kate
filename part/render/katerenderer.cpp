@@ -294,13 +294,13 @@ void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
 
 void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint y /*row*/)
 {
-  
   QPen penBackup( paint.pen() );
   QPen myPen(config()->indentationLineColor());
-  QVector<qreal> dashPattern;
-  dashPattern<<1<<1;//make class member
+  //make class member
+  static const QVector<qreal> dashPattern = QVector<qreal>() << 1 << 1;
   myPen.setDashPattern(dashPattern);
-  if (y % 2) myPen.setDashOffset(1);
+  if (y % 2)
+    myPen.setDashOffset(1);
   paint.setPen(myPen);
 
   const int height = fontHeight();

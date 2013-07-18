@@ -279,7 +279,7 @@ void KateProject::saveNotesDocument ()
 
 
 void KateProject::slotModifiedChanged(KTextEditor::Document* document) {
-  KateProjectItem *item = itemForFile (document->url().toLocalFile ());
+  KateProjectItem *item = itemForFile (m_documents.value (document));
   
   if (!item) return;
   
@@ -305,7 +305,7 @@ void KateProject::registerDocument (KTextEditor::Document *document)
     m_documents[document] = document->url().toLocalFile ();
   
   // try to get item for the document
-  KateProjectItem *item = (KateProjectItem*)itemForFile (document->url().toLocalFile ());
+  KateProjectItem *item = itemForFile (document->url().toLocalFile ());
   
   // if we got one, we are done, else create a dummy!
   if (item) {

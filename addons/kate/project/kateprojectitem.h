@@ -22,6 +22,12 @@
 #define KATE_PROJECT_ITEM_H
 
 #include <QStandardItem>
+#include <KTextEditor/ModificationInterface>
+
+namespace KTextEditor {
+  class Document;
+  
+}
 
 /**
  * Class representing a item inside a project.
@@ -29,6 +35,7 @@
  */
 class KateProjectItem : public QStandardItem
 {
+
   public:
     /**
      * Possible Types
@@ -68,6 +75,18 @@ class KateProjectItem : public QStandardItem
      * cached icon
      */
     mutable QIcon *m_icon;
+  
+    /**
+     * for document icons
+     */
+    QString *m_emblem;
+    
+  public:
+    void slotModifiedChanged(KTextEditor::Document*);
+    void slotModifiedOnDisk (KTextEditor::Document *document,
+      bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+
+    
 };
 
 #endif

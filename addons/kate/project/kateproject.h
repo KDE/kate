@@ -25,7 +25,7 @@
 #include <QMap>
 #include <QSharedPointer>
 #include <QTextDocument>
-
+#include <KTextEditor/ModificationInterface>
 #include "kateprojectindex.h"
 
 /**
@@ -237,6 +237,13 @@ class KateProject : public QObject
      */
     void loadIndexDone (KateProjectSharedProjectIndex projectIndex);
 
+    void slotModifiedChanged(KTextEditor::Document*);
+    
+    
+    void slotModifiedOnDisk (KTextEditor::Document *document,
+      bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
+
+    
   signals:
     /**
      * Emitted on project map changes.

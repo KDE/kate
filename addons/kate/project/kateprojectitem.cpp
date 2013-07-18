@@ -28,11 +28,14 @@
 
 #include <KMimeType>
 #include <KIconLoader>
+#include <KTextEditor/Document>
+#include <KIcon>
 
 KateProjectItem::KateProjectItem (Type type, const QString &text)
   : QStandardItem (text)
   , m_type (type)
   , m_icon (0)
+  , m_emblem (0)
 {
 }
 
@@ -42,6 +45,41 @@ KateProjectItem::~KateProjectItem ()
    * cleanup
    */
   delete m_icon;
+  delete m_emblem;
+}
+
+void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc) {
+  if (m_icon) {
+    delete m_icon;
+    m_icon=0;
+  }
+  if (doc->isModified()) {
+    if (m_emblem) {
+      QStringList emblems;
+      emblems<<*m_emblem;
+      m_icon=new KIcon("document-save",0,emblems);
+    } else
+      m_icon=new KIcon("document-save",0);
+  }
+  emitDataChanged();
+}
+
+void KateProjectItem::slotModifiedOnDisk (KTextEditor::Document *document,
+      bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason) {
+  if (m_icon) {
+    delete m_icon;
+    m_icon=0;
+  }
+  
+  if (m_emblem) {
+    delete m_emblem;
+    m_emblem=0;
+  }
+
+  if (reason!=KTextEditor::ModificationInterface::OnDiskUnmodified)
+    m_emblem=new QString("emblem-important");
+  emitDataChanged();
+        
 }
 
 QVariant KateProjectItem::data (int role) const
@@ -75,7 +113,12 @@ QVariant KateProjectItem::data (int role) const
 
         case File: {
           QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(data(Qt::UserRole).toString()));
-          m_icon = new QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small));
+          QStringList emblems;
+          if (m_emblem) {
+            emblems<<*m_emblem;
+          }
+          kDebug( 13035 ) << emblems;
+          m_icon = new QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small,0,KIconLoader::DefaultState,emblems));
           break;
         }
       }

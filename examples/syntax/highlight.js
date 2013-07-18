@@ -10,9 +10,14 @@ var bar = 1E2
 var foo = bar.asdf;
 var foo = bar.asdf.bla;
 bar.func(adsf.bar);
-var foo = asdf. asdf . asdf ;
+var foo = bar
+  . asdf;
+var foo = asdf. asdf
+  . asdf ;
 var a = foo.bar
-var b = z // var here not an object
+var b = z // following var here not an object
+var asdf = someObject().bar()
+  .meh.bar;
 
 // no regular expression
 var foo = foo.i / 0;

@@ -306,7 +306,12 @@ void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint y /*row*/)
   const int top = 0;
   const int bottom = height-1;
 
+  QPainter::RenderHints renderHints = paint.renderHints();
+  paint.setRenderHints(renderHints, false);
+
   paint.drawLine(x + 2, top, x + 2, bottom);
+
+  paint.setRenderHints(renderHints, true);
 
   paint.setPen( penBackup );
 }

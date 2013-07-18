@@ -1103,12 +1103,12 @@ KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
       if (finishVisualLine < 0)
       {
         finishRealLine--;
+        if (finishRealLine < 0)
+        {
+          invalidPos = true;
+          break;
+        }
         finishVisualLine = m_viewInternal->cache()->line(finishRealLine)->viewLineCount() - 1;
-      }
-      if (finishRealLine < 0)
-      {
-        invalidPos = true;
-        break;
       }
       count--;
     }

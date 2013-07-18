@@ -2922,6 +2922,12 @@ void ViModeTest::visualLineUpDownTests()
   const int numVisibleLinesToFillView = fillsView.length() / fillsLineAndEndsOnSpace.length();
 
   {
+    // gk/ gj when there is only one line.
+    DoTest("foo", "lgkr.", "f.o");
+    DoTest("foo", "lgjr.", "f.o");
+  }
+
+  {
     // gk when sticky bit is set to the end.
     const QString originalText = fillsLineAndEndsOnSpace.repeated(2);
     QString expectedText = originalText;

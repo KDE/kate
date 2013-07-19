@@ -29,6 +29,8 @@
 #include <KRun>
 #include <KIcon>
 #include <QProcess>
+#include <QApplication>
+#include <QClipboard>
 
 KateProjectTreeViewContextMenu::KateProjectTreeViewContextMenu ()
 {
@@ -78,6 +80,8 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
    */
   QMenu menu;
 
+  QAction *copyAction=menu.addAction(KIcon("copy"),i18n("Copy Filename"));
+    
   /**
    * handle "open with"
    * find correct mimetype to query for possible applications
@@ -132,7 +136,9 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
   if (QAction *action = menu.exec (pos)) {
 
     // handle apps
-    if (appActions.contains(action)) {
+    if (copyAction == action) {
+      QApplication::clipboard()->setText(filename);
+    } else if (appActions.contains(action)) {
       launchApp(action->data().toString(), filename);
     } else {
       // handle "open with"

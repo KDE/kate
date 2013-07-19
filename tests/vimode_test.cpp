@@ -2638,6 +2638,22 @@ void ViModeTest::VimStyleCommandBarTests()
   }
 
   {
+    // The timeout should be cancelled when we invoke the command bar again.
+    BeginTest("");
+    TestPressKey(":commandthatdoesnotexist\\enter");
+    const QDateTime waitStartedTime = QDateTime::currentDateTime();
+    TestPressKey(":");
+    // Wait ample time for the timeout to fire.  Do not use waitForEmulatedCommandBarToHide for this!
+    while(waitStartedTime.msecsTo(QDateTime::currentDateTime()) < commandResponseMessageTimeOutMS * 2)
+    {
+      QApplication::processEvents();
+    }
+    QVERIFY(emulatedCommandBar->isVisible());
+    TestPressKey("\\esc"); // Dismiss the bar.
+    FinishTest("");
+  }
+
+  {
     // No completion should be shown when the bar is first shown: this gives us an opportunity
     // to invoke command history via ctrl-p and ctrl-n.
     BeginTest("");

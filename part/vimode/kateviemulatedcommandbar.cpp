@@ -267,6 +267,10 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_completer->setModel(m_completionModel);
   m_completer->setCaseSensitivity(Qt::CaseInsensitive);
   m_completer->popup()->installEventFilter(this);
+
+  m_commandResponseMessageDisplayHide = new QTimer(this);
+  connect(m_commandResponseMessageDisplayHide, SIGNAL(timeout()),
+          this, SIGNAL(hideMe()));
 }
 
 KateViEmulatedCommandBar::~KateViEmulatedCommandBar()
@@ -300,6 +304,7 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
   m_edit->show();
 
   m_commandResponseMessageDisplay->hide();
+  m_commandResponseMessageDisplayHide->stop();;
 
   m_startingCursorPos = m_view->cursorPosition();
   m_isActive = true;
@@ -750,7 +755,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
           m_edit->hide();
           m_commandResponseMessageDisplay->show();
           m_commandResponseMessageDisplay->setText(commandResponseMessage);
-          QTimer::singleShot(m_commandResponseMessageTimeOutMS, this, SIGNAL(hideMe()));
+          m_commandResponseMessageDisplayHide->start(m_commandResponseMessageTimeOutMS);
         }
         KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(m_edit->text());
       }

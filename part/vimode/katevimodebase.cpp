@@ -1327,43 +1327,65 @@ void KateViModeBase::addToNumberUnderCursor( int count )
       return;
     }
 
-    int wordStart = findPrevWordStart( c.line(), c.column()+1, true ).column();
-
-    if (wordStart > 0 && line.at(wordStart - 1) == '-') wordStart--;
-
-    QRegExp number( "(0x)([0-9a-fA-F]+)|\\-?\\d+" );
-
-    int start = number.indexIn( line, wordStart );
-
-    QString nString = number.cap();
-    bool ok = false;
-    int base = number.cap( 1 ).isEmpty() ? 10 : 16;
-    if (base != 16 && nString.startsWith("0") && nString != "0")
+    int numberStartPos = -1;
+    int searchOffsetFromCursor = 0;
+    QString numberAsString;
+    QRegExp numberRegex( "(0x)([0-9a-fA-F]+)|\\-?\\d+" );
+    while (numberStartPos == -1)
     {
-      nString.toInt( &ok, 8 );
+
+      const int searchFromColumn = c.column() + searchOffsetFromCursor;
+
+      if (searchFromColumn > doc()->line(c.line()).length())
+      {
+        // Can't find anything that even looks like a number.  Give up.
+        return;
+      }
+      int wordStartPos = findPrevWordStart(c.line(), searchFromColumn).column();
+
+      if (wordStartPos > 0 && line.at(wordStartPos - 1) == '-') wordStartPos--;
+
+      numberStartPos = numberRegex.indexIn( line, wordStartPos );
+
+      numberAsString = numberRegex.cap();
+
+      if (numberStartPos + numberAsString.length() <= c.column())
+      {
+        // This number is before the cursor; keep on searching.
+        numberStartPos = -1;
+        searchOffsetFromCursor++;
+        continue;
+      }
+
+    }
+    bool ok = false;
+    int base = numberRegex.cap( 1 ).isEmpty() ? 10 : 16;
+    if (base != 16 && numberAsString.startsWith("0") && numberAsString != "0")
+    {
+        numberAsString.toInt( &ok, 8 );
       if (ok)
       {
         // Octal.
         base = 8;
       }
     }
-    int n = nString.toInt( &ok, base );
+    int number = numberAsString.toInt( &ok, base );
     QString withoutBase;
     if (base == 16)
     {
-      withoutBase = number.cap(2);
+      withoutBase = numberRegex.cap(2);
     }
     else if (base == 8)
     {
-      withoutBase = nString.mid(1); // Strip off leading 0.
+      withoutBase = numberAsString.mid(1); // Strip off leading 0.
     }
     else
     {
-      withoutBase = nString;
+      withoutBase = numberAsString;
     }
 
     kDebug( 13070 ) << "base: " << base;
-    kDebug( 13070 ) << "n: " << n;
+    kDebug( 13070 ) << "n: " << number;
 
     if ( !ok ) {
         // conversion to int failed. give up.
@@ -1371,27 +1393,27 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     }
 
     // increase/decrease number
-    n += count;
+    number += count;
 
     // create the new text string to be inserted. prepend with “0x” if in base 16, and "0" if base 8.
     // For non-decimal numbers, try to keep the length of the number the same (including leading 0's).
-    QString newNumberPadded = (base == 16 || base == 8) ? QString("%1").arg(n, withoutBase.length(), base, QChar('0')) : QString("%1").arg(n, 0, base);
-    QString newText = newNumberPadded;
+    QString newNumberPadded = (base == 16 || base == 8) ? QString("%1").arg(number, withoutBase.length(), base, QChar('0')) : QString("%1").arg(number, 0, base);
+    QString newNumberText = newNumberPadded;
     if (base == 16)
     {
-      newText = "0x" + newText;
+      newNumberText = "0x" + newNumberText;
     }
     else if (base == 8)
     {
-      newText = "0" + newText;
+      newNumberText = "0" + newNumberText;
     }
 
     // replace the old number string with the new
     doc()->editStart();
-    doc()->removeText( KTextEditor::Range( c.line(), start , c.line(), start+nString.length() ) );
-    doc()->insertText( KTextEditor::Cursor( c.line(), start ), newText );
+    doc()->removeText( KTextEditor::Range( c.line(), numberStartPos , c.line(), numberStartPos+numberAsString.length() ) );
+    doc()->insertText( KTextEditor::Cursor( c.line(), numberStartPos ), newNumberText );
     doc()->editEnd();
-    updateCursor(Cursor(m_view->cursorPosition().line(), start + newText.length() - 1));
+    updateCursor(Cursor(m_view->cursorPosition().line(), numberStartPos + newNumberText.length() - 1));
 }
 
 void KateViModeBase::switchView(Direction direction) {

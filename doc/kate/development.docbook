@@ -330,7 +330,7 @@ the returned javascript object:
 <listitem><para><literal>a.icon</literal> [optional]: The icon appears next to the text in the menu. All KDE icon names can be used here.</para></listitem>
 <listitem><para><literal>a.category</literal> [optional]: If a category is specified, the script appears in a submenu. Make sure to use <literal>i18n</literal> for translation.</para></listitem>
 <listitem><para><literal>a.interactive</literal> [optional]: If the script needs user input, set this to <literal>true</literal>.</para></listitem>
-<listitem><para><literal>a.shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: Ctrl+Alt+t. See the <ulink url="http://doc.qt.nokia.com/latest/qt.html#Key-enum">Qt documentation</ulink> for further details.</para></listitem>
+<listitem><para><literal>a.shortcut</literal> [optional]: The shortcut given here is the default shortcut. Example: Ctrl+Alt+t. See the <ulink url="http://qt-project.org/doc/qt-4.8/qt.html#Key-enum">Qt documentation</ulink> for further details.</para></listitem>
 </itemizedlist>
 </para>
 

@@ -53,6 +53,7 @@ private:
   bool m_suspendEditEventFiltering;
   bool m_waitingForRegister;
   QLabel* m_commandResponseMessageDisplay;
+  QLabel *m_waitingForRegisterIndicator;
   long m_commandResponseMessageTimeOutMS;
   QString m_commandResponseMessage;
 

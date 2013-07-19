@@ -226,7 +226,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
       m_currentSearchIsCaseSensitive(false),
       m_currentSearchIsBackwards(false)
 {
-  QVBoxLayout * layout = new QVBoxLayout();
+  QHBoxLayout * layout = new QHBoxLayout();
   centralWidget()->setLayout(layout);
   m_barTypeIndicator = new QLabel(this);
   m_barTypeIndicator->setObjectName("bartypeindicator");
@@ -238,6 +238,12 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_commandResponseMessageDisplay = new QLabel(this);
   m_commandResponseMessageDisplay->setObjectName("commandresponsemessage");
   layout->addWidget(m_commandResponseMessageDisplay);
+
+  m_waitingForRegisterIndicator = new QLabel(this);
+  m_waitingForRegisterIndicator->setObjectName("waitingforregisterindicator");
+  m_waitingForRegisterIndicator->setVisible(false);
+  m_waitingForRegisterIndicator->setText("\"");
+  layout->addWidget(m_waitingForRegisterIndicator);
 
   updateMatchHighlightAttrib();
   m_highlightedMatch = m_view->doc()->newMovingRange(Range(), Kate::TextRange::DoNotExpand);
@@ -648,7 +654,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   }
   if (m_waitingForRegister)
   {
-    if (keyEvent->key() != Qt::Key_Shift)
+    if (keyEvent->key() != Qt::Key_Shift && keyEvent->key() != Qt::Key_Control)
     {
       const QChar key = KateViKeyParser::self()->KeyEventToQChar(
                   keyEvent->key(),
@@ -669,6 +675,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       m_edit->setText(m_edit->text().insert(m_edit->cursorPosition(), textToInsert));
       m_edit->setCursorPosition(oldCursorPosition + textToInsert.length());
       m_waitingForRegister = false;
+      m_waitingForRegisterIndicator->setVisible(false);
     }
   } else if (keyEvent->modifiers() == Qt::ControlModifier)
   {
@@ -707,6 +714,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     else if (keyEvent->key() == Qt::Key_R)
     {
       m_waitingForRegister = true;
+      m_waitingForRegisterIndicator->setVisible(true);
     }
   }
   else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)

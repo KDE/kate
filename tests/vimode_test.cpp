@@ -1576,10 +1576,63 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("");
 
-  // Check ctrl-r works with registers.
+  // Check there is a "waiting for register" indicator, initially hidden.
+  BeginTest("");
+  TestPressKey("/");
+  QLabel* waitingForRegisterIndicator = emulatedCommandBar->findChild<QLabel*>("waitingforregisterindicator");
+  QVERIFY(waitingForRegisterIndicator);
+  QVERIFY(!waitingForRegisterIndicator->isVisible());
+  QCOMPARE(waitingForRegisterIndicator->text(), QString("\""));
+  TestPressKey("\\enter");
+  FinishTest("");
+
+  // Test that ctrl-r causes it to become visible.  It is displayed to the right of the text edit.
+  BeginTest("");
+  TestPressKey("/\\ctrl-r");
+  QVERIFY(waitingForRegisterIndicator->isVisible());
+  QVERIFY(waitingForRegisterIndicator->x() >= emulatedCommandBarTextEdit()->x() + emulatedCommandBarTextEdit()->width());
+  TestPressKey("\\ctrl-c");
+  TestPressKey("\\ctrl-c");
+  FinishTest("");
+
+  // The first ctrl-c after ctrl-r (when no register entered) hides the waiting for register
+  // indicator, but not the bar.
+  BeginTest("");
+  TestPressKey("/\\ctrl-r");
+  QVERIFY(waitingForRegisterIndicator->isVisible());
+  TestPressKey("\\ctrl-c");
+  QVERIFY(!waitingForRegisterIndicator->isVisible());
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss the bar.
+  FinishTest("");
+
+  // The first ctrl-c after ctrl-r (when no register entered) aborts waiting for register.
+  BeginTest("foo");
+  TestPressKey("\"cyiw/\\ctrl-r\\ctrl-ca");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("a"));
+  TestPressKey("\\ctrl-c"); // Dismiss the bar.
+  FinishTest("foo");
+
+  // Same as above, but for ctrl-[ instead of ctrl-c.
+  BeginTest("");
+  TestPressKey("/\\ctrl-r");
+  QVERIFY(waitingForRegisterIndicator->isVisible());
+  TestPressKey("\\ctrl-[");
+  QVERIFY(!waitingForRegisterIndicator->isVisible());
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss the bar.
+  FinishTest("");
+  BeginTest("foo");
+  TestPressKey("\"cyiw/\\ctrl-r\\ctrl-[a");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("a"));
+  TestPressKey("\\ctrl-c"); // Dismiss the bar.
+  FinishTest("foo");
+
+  // Check ctrl-r works with registers, and hides the "waiting for register" indicator.
   BeginTest("xyz");
   TestPressKey("\"ayiw/foo\\ctrl-ra");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("fooxyz"));
+  QVERIFY(!waitingForRegisterIndicator->isVisible());
   TestPressKey("\\enter");
   FinishTest("xyz");
 
@@ -1590,10 +1643,11 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("xyz");
 
-  // Check ctrl-r ctrl-w inserts word under the cursor.
+  // Check ctrl-r ctrl-w inserts word under the cursor, and hides the "waiting for register" indicator.
   BeginTest("foo bar xyz");
   TestPressKey("w/\\left\\ctrl-r\\ctrl-w");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("bar"));
+  QVERIFY(!waitingForRegisterIndicator->isVisible());
   TestPressKey("\\enter");
   FinishTest("foo bar xyz");
 
@@ -1641,6 +1695,20 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("xyz");
 
+  // Similarly, test that we can press "ctrl" after ctrl-r without it being taken for a register.
+  BeginTest("wordundercursor");
+  TestPressKey("/\\ctrl-r");
+  QKeyEvent *ctrlKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Control, Qt::NoModifier);
+  QApplication::postEvent(emulatedCommandBarTextEdit(), ctrlKeyDown);
+  QApplication::sendPostedEvents();
+  QKeyEvent *ctrlKeyUp = new QKeyEvent(QEvent::KeyRelease, Qt::Key_Control, Qt::NoModifier);
+  QApplication::postEvent(emulatedCommandBarTextEdit(), ctrlKeyUp);
+  QApplication::sendPostedEvents();
+  QVERIFY(waitingForRegisterIndicator->isVisible());
+  TestPressKey("\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("wordundercursor"));
+  TestPressKey("\\ctrl-c"); // Dismiss the bar.
+  FinishTest("wordundercursor");
 
    // Ensure that we actually perform a search while typing.
   BeginTest("abcd");

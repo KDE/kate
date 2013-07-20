@@ -234,27 +234,17 @@ void KateViGlobal::clearSearchHistory()
 
 QStringList KateViGlobal::searchHistory()
 {
-  return m_searchHistory;
+  return m_searchHistory.items();
 }
 
 void KateViGlobal::appendSearchHistoryItem(const QString& searchHistoryItem)
 {
-  if (searchHistoryItem.isEmpty())
-  {
-    return;
-  }
-  const int HISTORY_SIZE_LIMIT = 100;
-  m_searchHistory.removeAll(searchHistoryItem);
-  if (m_searchHistory.size() == HISTORY_SIZE_LIMIT)
-  {
-    m_searchHistory.removeFirst();
-  }
-  m_searchHistory.append(searchHistoryItem);
+  m_searchHistory.appendItem(searchHistoryItem);
 }
 
 QStringList KateViGlobal::commandHistory()
 {
-  return m_commandHistory;
+  return m_commandHistory.items();
 }
 
 void KateViGlobal::clearCommandHistory()
@@ -264,8 +254,20 @@ void KateViGlobal::clearCommandHistory()
 
 void KateViGlobal::appendCommandHistoryItem(const QString& commandHistoryItem)
 {
-  m_commandHistory.append(commandHistoryItem);
+  m_commandHistory.appendItem(commandHistoryItem);
 }
 
+QStringList KateViGlobal::replaceHistory()
+{
+  return m_replaceHistory.items();
+}
 
+void KateViGlobal::appendReplaceHistoryItem(const QString& replaceHistoryItem)
+{
+  m_replaceHistory.appendItem(replaceHistoryItem);
+}
 
+void KateViGlobal::clearReplaceHistory()
+{
+  m_replaceHistory.clear();
+}

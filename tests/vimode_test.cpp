@@ -2767,6 +2767,35 @@ void ViModeTest::VimStyleCommandBarTests()
   clearCommandHistory();
   QVERIFY(commandHistory().isEmpty());
 
+
+  // If we add something to the history, remove any earliest occurrences (this is what Vim appears to do)
+  // and append to the end.
+  clearCommandHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("bar");
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("xyz");
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("foo");
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("xyz");
+  QCOMPARE(commandHistory(), QStringList() << "bar" << "foo" << "xyz");
+
+  // Push out older entries if we have too many command items in the history.
+  clearCommandHistory();
+  for (int i = 1; i <= HISTORY_SIZE_LIMIT; i++)
+  {
+    KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(QString("commandhistoryitem %1").arg(i));
+  }
+  QCOMPARE(commandHistory().size(), HISTORY_SIZE_LIMIT);
+  QCOMPARE(commandHistory().first(), QString("commandhistoryitem 1"));
+  QCOMPARE(commandHistory().last(), QString("commandhistoryitem 100"));
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(QString("commandhistoryitem %1").arg(HISTORY_SIZE_LIMIT + 1));
+  QCOMPARE(commandHistory().size(), HISTORY_SIZE_LIMIT);
+  QCOMPARE(commandHistory().first(), QString("commandhistoryitem 2"));
+  QCOMPARE(commandHistory().last(), QString("commandhistoryitem %1").arg(HISTORY_SIZE_LIMIT + 1));
+
+  // Don't add empty commands to the history.
+  clearCommandHistory();
+  DoTest("foo bar", ":\\enter", "foo bar");
+  QVERIFY(commandHistory().isEmpty());
+
   clearCommandHistory();
   BeginTest("");
   TestPressKey(":sort\\enter");
@@ -2841,6 +2870,43 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/b"));
   TestPressKey("\\ctrl-c"); // Dismiss bar
   FinishTest("sausage bacon");
+
+  // "Replace" history tests.
+  clearReplaceHistory();
+  QVERIFY(replaceHistory().isEmpty());
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("foo");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("bar");
+  QCOMPARE(replaceHistory(), QStringList() << "foo" << "bar");
+  clearReplaceHistory();
+  QVERIFY(replaceHistory().isEmpty());
+
+  // If we add something to the history, remove any earliest occurrences (this is what Vim appears to do)
+  // and append to the end.
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("bar");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("xyz");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("foo");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("xyz");
+  QCOMPARE(replaceHistory(), QStringList() << "bar" << "foo" << "xyz");
+
+  // Push out older entries if we have too many replace items in the history.
+  clearReplaceHistory();
+  for (int i = 1; i <= HISTORY_SIZE_LIMIT; i++)
+  {
+    KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem(QString("replacehistoryitem %1").arg(i));
+  }
+  QCOMPARE(replaceHistory().size(), HISTORY_SIZE_LIMIT);
+  QCOMPARE(replaceHistory().first(), QString("replacehistoryitem 1"));
+  QCOMPARE(replaceHistory().last(), QString("replacehistoryitem 100"));
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem(QString("replacehistoryitem %1").arg(HISTORY_SIZE_LIMIT + 1));
+  QCOMPARE(replaceHistory().size(), HISTORY_SIZE_LIMIT);
+  QCOMPARE(replaceHistory().first(), QString("replacehistoryitem 2"));
+  QCOMPARE(replaceHistory().last(), QString("replacehistoryitem %1").arg(HISTORY_SIZE_LIMIT + 1));
+
+  // Don't add empty replaces to the history.
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("");
+  QVERIFY(replaceHistory().isEmpty());
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -3286,6 +3352,16 @@ void ViModeTest::clearCommandHistory()
 QStringList ViModeTest::commandHistory()
 {
   return KateGlobal::self()->viInputModeGlobal()->commandHistory();
+}
+
+void ViModeTest::clearReplaceHistory()
+{
+  KateGlobal::self()->viInputModeGlobal()->clearReplaceHistory();
+}
+
+QStringList ViModeTest::replaceHistory()
+{
+  return KateGlobal::self()->viInputModeGlobal()->replaceHistory();
 }
 
 QCompleter* ViModeTest::emulatedCommandBarCompleter()

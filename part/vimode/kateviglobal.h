@@ -71,6 +71,10 @@ public:
     void clearCommandHistory();
     void appendCommandHistoryItem(const QString& commandHistoryItem);
 
+    QStringList replaceHistory();
+    void clearReplaceHistory();
+    void appendReplaceHistoryItem(const QString& replaceHistoryItem);
+
 private:
     // registers
     QList<KateViRegister> m_numberedRegisters;
@@ -84,8 +88,38 @@ private:
     QHash <QString, QString> m_normalModeMappings;
     QHash <QString, KateViModeBase::MappingRecursion> m_normalModeMappingRecursion;
 
-    QStringList m_searchHistory;
-    QStringList m_commandHistory;
+    class History
+    {
+    public:
+      void appendItem(const QString& historyItem)
+      {
+        if (historyItem.isEmpty())
+        {
+          return;
+        }
+        const int HISTORY_SIZE_LIMIT = 100;
+        m_items.removeAll(historyItem);
+        if (m_items.size() == HISTORY_SIZE_LIMIT)
+        {
+          m_items.removeFirst();
+        }
+        m_items.append(historyItem);
+      }
+      QStringList items() const
+      {
+        return m_items;
+      }
+      void clear()
+      {
+        m_items.clear();
+      }
+    private:
+      QStringList m_items;
+    };
+
+    History m_searchHistory;
+    History m_commandHistory;
+    History m_replaceHistory;
 
 };
 

@@ -3103,6 +3103,34 @@ void ViModeTest::visualLineUpDownTests()
   }
 
   {
+    // Take into account any invisible indentation when setting the sticky column.
+    const int  numIndentationSpaces = 5;
+    Q_ASSERT(textWrappingLength >  numIndentationSpaces * 2 /* keep some wriggle room */);
+    const QString indentedFillsLineEndsOnSpace = QString(" ").repeated( numIndentationSpaces) + QString("X").repeated(textWrappingLength - 1 - numIndentationSpaces) + " ";
+    const int posInSecondWrappedLineToChange = 3;
+    QString expectedText = indentedFillsLineEndsOnSpace + fillsLineAndEndsOnSpace;
+    expectedText[textWrappingLength + posInSecondWrappedLineToChange]= '.';
+    DoTest(indentedFillsLineEndsOnSpace + fillsLineAndEndsOnSpace, QString::number(textWrappingLength + posInSecondWrappedLineToChange) + "lgkgjr.", expectedText);
+    // Make sure we can do this more than once (i.e. clear any flags that need clearing).
+    DoTest(indentedFillsLineEndsOnSpace + fillsLineAndEndsOnSpace, QString::number(textWrappingLength + posInSecondWrappedLineToChange) + "lgkgjr.", expectedText);
+  }
+
+  {
+    // Deal with the fact that j/ k may set a sticky column that is impossible to adhere to in visual mode because
+    // it is too high.
+    // Here, we have one dummy line and one wrapped line.  We start from the beginning of the wrapped line and
+    // move right until we wrap and end up at posInWrappedLineToChange one the second line of the wrapped line.
+    // We then move up and down with j and k to set the sticky column to a value to large to adhere to in a
+    // visual line, and try to move a visual line up.
+    const QString dummyLineForUseWithK("dummylineforusewithk\n");
+    QString startText = dummyLineForUseWithK + fillsLineAndEndsOnSpace.repeated(2);
+    const int posInWrappedLineToChange = 3;
+    QString expectedText = startText;
+    expectedText[dummyLineForUseWithK.length() + posInWrappedLineToChange]= '.';
+    DoTest(startText, "j" + QString::number(textWrappingLength + posInWrappedLineToChange) + "lkjgkr.", expectedText);
+  }
+
+  {
     // Ensure gj works in Visual mode.
     Q_ASSERT(fillsLineAndEndsOnSpace.toLower() != fillsLineAndEndsOnSpace);
     QString expectedText = fillsLineAndEndsOnSpace.toLower() + fillsLineAndEndsOnSpace;

@@ -56,6 +56,8 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_viewInternal = viewInternal;
   m_viInputModeManager = viInputModeManager;
   m_stickyColumn = -1;
+  m_lastMotionWasVisualLineUpOrDown = false;
+  m_currentMotionWasVisualLineUpOrDown = false;
 
   // FIXME: make configurable
   m_extraWordCharacters = "";
@@ -352,6 +354,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
         // if it matches exact, we have found the motion command to execute
         if ( m_motions.at( i )->matchesExact( m_keys.mid( checkFrom ) ) ) {
+          m_currentMotionWasVisualLineUpOrDown = false;
           if ( checkFrom == 0 ) {
             // no command given before motion, just move the cursor to wherever
             // the motion says it should go to
@@ -392,6 +395,8 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
                 startInsertMode();
                 m_viewInternal->repaint();
             }
+
+            m_lastMotionWasVisualLineUpOrDown = m_currentMotionWasVisualLineUpOrDown;
 
             return true;
           } else {

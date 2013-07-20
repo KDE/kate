@@ -170,6 +170,8 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     QString m_keysVerbatim;
 
     int m_stickyColumn;
+    bool m_lastMotionWasVisualLineUpOrDown;
+    bool m_currentMotionWasVisualLineUpOrDown;
 
     inline KateDocument* doc() const { return m_view->doc(); };
 

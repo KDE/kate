@@ -1124,12 +1124,19 @@ KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
   r.endLine = finishRealLine;
   // ... now work out the final (real) column.
 
-  if ( m_stickyColumn == -1) {
-    // Compute new sticky column.
+  if ( m_stickyColumn == -1 || !m_lastMotionWasVisualLineUpOrDown) {
+    // Compute new sticky column. It is a *visual* sticky column.
+    int startVisualLine = m_viewInternal->cache()->viewLine(m_view->cursorPosition());
+    int startRealLine = m_view->cursorPosition().line();
     const Kate::TextLine startLine = doc()->plainKateTextLine( c.line() );
+    // Adjust for the fact that if the portion of the line before wrapping is indented,
+    // the continuations are also "invisibly" (i.e. without any spaces in the text itself) indented.
+    const bool isWrappedContinuation = (m_viewInternal->cache()->textLayout(startRealLine, startVisualLine).lineLayout().lineNumber() != 0);
+    const int numInvisibleIndentChars = isWrappedContinuation ? startLine->toVirtualColumn(m_viewInternal->cache()->line(startRealLine)->textLine()->nextNonSpaceChar(0), tabstop) : 0;
+
     const int virtColumnStart = startLine->toVirtualColumn(c.column(), tabstop);
     const int visualColumnStart = virtColumnStart - m_viewInternal->cache()->textLayout(c).startCol();
-    m_stickyColumn = visualColumnStart;
+    m_stickyColumn = visualColumnStart + numInvisibleIndentChars;
     Q_ASSERT(m_stickyColumn >= 0);
   }
 
@@ -1163,6 +1170,7 @@ KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
     }
     r.endColumn = realLineStartColumn + realOffsetToVisualStickyColumn;
   }
+  m_currentMotionWasVisualLineUpOrDown = true;
 
   return r;
 }

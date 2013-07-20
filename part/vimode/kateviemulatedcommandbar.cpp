@@ -269,8 +269,15 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_completer->popup()->installEventFilter(this);
 
   m_commandResponseMessageDisplayHide = new QTimer(this);
+  m_commandResponseMessageDisplayHide->setSingleShot(true);
   connect(m_commandResponseMessageDisplayHide, SIGNAL(timeout()),
           this, SIGNAL(hideMe()));
+  // make sure the timer is stopped when the user switches views. if not, focus will be given to the
+  // wrong view when KateViewBar::hideCurrentBarWidget() is called as a result of m_commandResponseMessageDisplayHide
+  // timing out.
+  connect(m_view, SIGNAL(focusOut(KTextEditor::View*)), m_commandResponseMessageDisplayHide, SLOT(stop()));
+  // We can restart the timer once the view has focus again, though.
+  connect(m_view, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(startHideCommandResponseTimer()));
 }
 
 KateViEmulatedCommandBar::~KateViEmulatedCommandBar()
@@ -310,6 +317,15 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
   m_isActive = true;
 
   m_wasAborted = true;
+
+  // A change in focus will have occurred: make sure we process it now, instead of having it
+  // occur later and stop() m_commandResponseMessageDisplayHide.
+  // This is generally only a problem when feeding a sequence of keys without human intervention,
+  // as when we execute a mapping, macro, or test case.
+  while(QApplication::hasPendingEvents())
+  {
+    QApplication::processEvents();
+  }
 }
 
 bool KateViEmulatedCommandBar::isActive()
@@ -856,4 +872,12 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     updateCompletionPrefix();
   }
 
+}
+
+void KateViEmulatedCommandBar::startHideCommandResponseTimer()
+{
+  if (m_commandResponseMessageDisplay->isVisible() && !m_commandResponseMessageDisplayHide->isActive())
+  {
+    m_commandResponseMessageDisplayHide->start(m_commandResponseMessageTimeOutMS);
+  }
 }

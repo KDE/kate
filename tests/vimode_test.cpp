@@ -41,6 +41,8 @@
 
 #include <QtGui/QLabel>
 #include <QtGui/QCompleter>
+#include <QtGui/QMainWindow>
+#include <qlayout.h>
 #include <kcolorscheme.h>
 
 QTEST_KDEMAIN(ViModeTest, GUI)
@@ -49,7 +51,13 @@ using namespace KTextEditor;
 
 ViModeTest::ViModeTest() {
   kate_document = new KateDocument(false, false, false, 0, NULL);
-  kate_view = new KateView(kate_document, 0);
+  mainWindow = new QMainWindow;
+  mainWindowLayout = new QVBoxLayout(mainWindow);
+  QWidget *centralWidget = new QWidget(mainWindow);
+  mainWindow->setCentralWidget(centralWidget);
+  kate_view = new KateView(kate_document, mainWindow);
+  mainWindowLayout->addWidget(kate_view);
+  mainWindow->setLayout(mainWindowLayout);
   kate_view->toggleViInputMode();
   Q_ASSERT(kate_view->viInputMode());
   vi_input_mode_manager = kate_view->getViInputModeManager();
@@ -1359,15 +1367,16 @@ void ViModeTest::yankHighlightingTests()
 class VimStyleCommandBarTestsSetUpAndTearDown
 {
 public:
-  VimStyleCommandBarTestsSetUpAndTearDown(KateView *kateView)
-    : m_kateView(kateView)
+  VimStyleCommandBarTestsSetUpAndTearDown(KateView *kateView, QMainWindow* mainWindow)
+    : m_kateView(kateView), m_mainWindow(mainWindow)
   {
+    m_mainWindow->show();
     m_kateView->show();
     while (QApplication::hasPendingEvents())
     {
       QApplication::processEvents();
     }
-    QApplication::setActiveWindow(m_kateView);
+    QApplication::setActiveWindow(m_mainWindow);
     KateViewConfig::global()->setViInputModeEmulateCommandBar(true);
     QVERIFY(KateViewConfig::global()->viInputModeEmulateCommandBar());
   }
@@ -1376,17 +1385,19 @@ public:
     // Use invokeMethod to avoid having to export KateViewBar for testing.
     QMetaObject::invokeMethod(m_kateView->viModeEmulatedCommandBar(), "hideMe");
     m_kateView->hide();
+    m_mainWindow->hide();
     KateViewConfig::global()->setViInputModeEmulateCommandBar(false);
   }
 private:
   KateView *m_kateView;
+  QMainWindow *m_mainWindow;
 };
 
 void ViModeTest::VimStyleCommandBarTests()
 {
   // Ensure that some preconditions for these tests are setup, and (more importantly)
   // ensure that they are reverted no matter how these tests end.
-  VimStyleCommandBarTestsSetUpAndTearDown vimStyleCommandBarTestsSetUpAndTearDown(kate_view);
+  VimStyleCommandBarTestsSetUpAndTearDown vimStyleCommandBarTestsSetUpAndTearDown(kate_view, mainWindow);
 
 
   // Verify that we can get a non-null pointer to the emulated command bar.
@@ -2659,6 +2670,52 @@ void ViModeTest::VimStyleCommandBarTests()
   }
 
   {
+    // The timeout should not cause kate_view to regain focus if we have manually taken it away.
+    qDebug()<< " NOTE: this test is weirdly fragile, so if it starts failing, comment it out and e-mail me:  it may well be more trouble that it's worth.";
+    BeginTest("");
+    TestPressKey(":commandthatdoesnotexist\\enter");
+    while (QApplication::hasPendingEvents())
+    {
+      // Wait for any focus changes to take effect.
+      QApplication::processEvents();
+    }
+    const QDateTime waitStartedTime = QDateTime::currentDateTime();
+    QLineEdit *dummyToFocus = new QLineEdit(QString("Sausage"), mainWindow);
+    // Take focus away from kate_view by giving it to dummyToFocus.
+    QApplication::setActiveWindow(mainWindow);
+    kate_view->setFocus();
+    mainWindowLayout->addWidget(dummyToFocus);
+    dummyToFocus->show();
+    dummyToFocus->setEnabled(true);
+    dummyToFocus->setFocus();
+    // Allow dummyToFocus to receive focus.
+    while(!dummyToFocus->hasFocus())
+    {
+      QApplication::processEvents();
+    }
+    QVERIFY(dummyToFocus->hasFocus());
+    // Wait ample time for the timeout to fire.  Do not use waitForEmulatedCommandBarToHide for this -
+    // the bar never actually hides in this instance, and I think it would take some deep changes in
+    // Kate to make it do so (the KateCommandLineBar as the same issue).
+    while(waitStartedTime.msecsTo(QDateTime::currentDateTime()) < commandResponseMessageTimeOutMS * 2)
+    {
+      QApplication::processEvents();
+    }
+    QVERIFY(dummyToFocus->hasFocus());
+    QVERIFY(emulatedCommandBar->isVisible());
+    mainWindowLayout->removeWidget(dummyToFocus);
+    // Restore focus to the kate_view.
+    kate_view->setFocus();
+    while(!kate_view->hasFocus())
+    {
+      QApplication::processEvents();
+    }
+    // *Now* wait for the command bar to disappear - giving kate_view focus should trigger it.
+    waitForEmulatedCommandBarToHide(commandResponseMessageTimeOutMS * 4);
+    FinishTest("");
+  }
+
+  {
     // No completion should be shown when the bar is first shown: this gives us an opportunity
     // to invoke command history via ctrl-p and ctrl-n.
     BeginTest("");
@@ -3266,12 +3323,13 @@ QList< Kate::TextRange* > ViModeTest::rangesOnFirstLine()
 
 void ViModeTest::ensureKateViewVisible()
 {
+    mainWindow->show();
     kate_view->show();
     while (QApplication::hasPendingEvents())
     {
       QApplication::processEvents();
     }
-    QApplication::setActiveWindow(kate_view);
+    QApplication::setActiveWindow(mainWindow);
 }
 
 void ViModeTest::waitForCompletionWidgetToActivate()

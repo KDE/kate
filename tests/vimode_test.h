@@ -30,6 +30,7 @@
 class QLineEdit;
 class QLabel;
 class QCompleter;
+class QMainWindow;
 
 class ViModeTest : public QObject
 {
@@ -73,6 +74,8 @@ private:
 
   KateDocument *kate_document;
   KateView *kate_view;
+  QMainWindow *mainWindow;
+  QVBoxLayout *mainWindowLayout;
   KateViInputModeManager *vi_input_mode_manager;
 
   QList<Kate::TextRange*> rangesOnFirstLine();

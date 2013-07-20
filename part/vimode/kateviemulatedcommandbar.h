@@ -94,6 +94,7 @@ private:
 private slots:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();
+  void startHideCommandResponseTimer();
 };
 
 #endif

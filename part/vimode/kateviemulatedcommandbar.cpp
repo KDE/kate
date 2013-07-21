@@ -210,6 +210,16 @@ namespace
 
     return qtRegexPattern;
   }
+
+  QStringList reversed(const QStringList& originalList)
+  {
+    QStringList reversedList;
+    foreach(QString item, originalList)
+    {
+      reversedList.prepend(item);
+    }
+    return reversedList;
+  }
 }
 
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
@@ -367,6 +377,7 @@ void KateViEmulatedCommandBar::closed()
       m_view->getViInputModeManager()->setLastSearchCaseSensitive(m_currentSearchIsCaseSensitive);
       m_view->getViInputModeManager()->setLastSearchBackwards(m_currentSearchIsBackwards);
     }
+    KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
   else
   {
@@ -375,16 +386,10 @@ void KateViEmulatedCommandBar::closed()
       // Appending the command to the history when it is executed is handled elsewhere; we can't
       // do it inside closed() as we may still be showing the command response display.
       KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(m_edit->text());
+      // With Vim, aborting a command returns us to Normal mode, even if we were in Visual Mode.
+      // If we switch from Visual to Normal mode, we need to clear the selection.
+      m_view->clearSelection();
     }
-  }
-
-  if (m_wasAborted && m_mode == Command)
-  {
-    m_view->clearSelection();
-  }
-  if (m_mode != Command)
-  {
-    KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
 }
 
@@ -410,6 +415,7 @@ void KateViEmulatedCommandBar::updateMatchHighlight(const Range& matchRange)
 
 bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
 {
+  Q_ASSERT(object == m_edit || object == m_completer->popup());
   if (m_suspendEditEventFiltering)
   {
     return false;
@@ -496,12 +502,7 @@ void KateViEmulatedCommandBar::replaceWordBeforeCursorWith(const QString& newWor
 void KateViEmulatedCommandBar::activateSearchHistoryCompletion()
 {
   m_currentCompletionType = SearchHistory;
-  QStringList searchHistoryReversed;
-  foreach(QString searchHistoryItem, KateGlobal::self()->viInputModeGlobal()->searchHistory())
-  {
-    searchHistoryReversed.prepend(searchHistoryItem);
-  }
-  m_completionModel->setStringList(searchHistoryReversed);
+  m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->searchHistory()));
   updateCompletionPrefix();
   m_completer->complete();
 }
@@ -541,12 +542,7 @@ void KateViEmulatedCommandBar::activateCommandCompletion()
 void KateViEmulatedCommandBar::activateCommandHistoryCompletion()
 {
   m_currentCompletionType = CommandHistory;
-  QStringList commandHistoryReversed;
-  foreach(QString commandHistoryItem, KateGlobal::self()->viInputModeGlobal()->commandHistory())
-  {
-    commandHistoryReversed.prepend(commandHistoryItem);
-  }
-  m_completionModel->setStringList(commandHistoryReversed);
+  m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->commandHistory()));
   updateCompletionPrefix();
   m_completer->complete();
 }
@@ -759,7 +755,6 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       if (m_mode == Command)
       {
         kDebug(13070) << "Executing: " << m_edit->text();
-        m_commandResponseMessage.clear();
         // TODO - this is a hack-ish way of finding the response from the command; maybe
         // add another overload of "execute" to KateCommandLineBar that returns the
         // response message ... ?

@@ -57,7 +57,6 @@ private:
   QTimer *m_commandResponseMessageDisplayHide;
   QLabel* m_commandResponseMessageDisplay;
   long m_commandResponseMessageTimeOutMS;
-  QString m_commandResponseMessage;
 
   void moveCursorTo(const KTextEditor::Cursor& cursorPos);
 

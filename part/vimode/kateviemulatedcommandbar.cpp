@@ -348,7 +348,6 @@ void KateViEmulatedCommandBar::closed()
     {
       moveCursorTo(m_startingCursorPos);
     }
-    KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
   m_startingCursorPos = KTextEditor::Cursor::invalid();
   updateMatchHighlight(Range::invalid());
@@ -382,6 +381,10 @@ void KateViEmulatedCommandBar::closed()
   if (m_wasAborted && m_mode == Command)
   {
     m_view->clearSelection();
+  }
+  if (m_mode != Command)
+  {
+    KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
 }
 

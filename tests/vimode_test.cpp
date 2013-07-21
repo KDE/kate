@@ -2924,6 +2924,14 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(commandHistory(), QStringList() << "sort" << "yank" << "commandthatdoesnotexist" << "abortedcommand");
   FinishTest("");
 
+  // Commands should not be added to the search history!
+  clearCommandHistory();
+  clearSearchHistory();
+  BeginTest("");
+  TestPressKey(":sort\\enter");
+  QVERIFY(searchHistory().isEmpty());
+  FinishTest("");
+
   // With an empty command bar, ctrl-p / ctrl-n should go through history.
   clearCommandHistory();
   KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("command1");

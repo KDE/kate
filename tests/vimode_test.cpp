@@ -3116,6 +3116,15 @@ void ViModeTest::visualLineUpDownTests()
   }
 
   {
+    // Take into account any invisible indentation when setting the sticky column as above, but use tabs.
+    const QString indentedFillsLineEndsOnSpace = QString("\t") + QString("X").repeated(textWrappingLength - 1 - tabWidth) + " ";
+    const int posInSecondWrappedLineToChange = 3;
+    QString expectedText = indentedFillsLineEndsOnSpace + fillsLineAndEndsOnSpace;
+    expectedText[textWrappingLength - tabWidth + posInSecondWrappedLineToChange]= '.';
+    DoTest(indentedFillsLineEndsOnSpace + fillsLineAndEndsOnSpace, QString("fXf ") + QString::number(posInSecondWrappedLineToChange) + "lgkgjr.", expectedText);
+  }
+
+  {
     // Deal with the fact that j/ k may set a sticky column that is impossible to adhere to in visual mode because
     // it is too high.
     // Here, we have one dummy line and one wrapped line.  We start from the beginning of the wrapped line and

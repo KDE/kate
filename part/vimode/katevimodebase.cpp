@@ -1134,9 +1134,10 @@ KateViRange KateViModeBase::goVisualLineUpDown(int lines) {
     const bool isWrappedContinuation = (m_viewInternal->cache()->textLayout(startRealLine, startVisualLine).lineLayout().lineNumber() != 0);
     const int numInvisibleIndentChars = isWrappedContinuation ? startLine->toVirtualColumn(m_viewInternal->cache()->line(startRealLine)->textLine()->nextNonSpaceChar(0), tabstop) : 0;
 
-    const int virtColumnStart = startLine->toVirtualColumn(c.column(), tabstop);
-    const int visualColumnStart = virtColumnStart - m_viewInternal->cache()->textLayout(c).startCol();
-    m_stickyColumn = visualColumnStart + numInvisibleIndentChars;
+    const int realLineStartColumn = m_viewInternal->cache()->textLayout(startRealLine, startVisualLine).startCol();
+    const int lineStartVirtualColumn = startLine->toVirtualColumn( realLineStartColumn, tabstop );
+    const int visualColumnNoInvisibleIndent  = startLine->toVirtualColumn(c.column(), tabstop) - lineStartVirtualColumn;
+    m_stickyColumn = visualColumnNoInvisibleIndent + numInvisibleIndentChars;
     Q_ASSERT(m_stickyColumn >= 0);
   }
 

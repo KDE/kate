@@ -305,6 +305,8 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
   }
   m_barTypeIndicator->setText(barTypeIndicator);
 
+  m_startingCursorPos = m_view->cursorPosition();
+
   m_mode = mode;
   m_edit->setFocus();
   m_edit->setText(initialText);
@@ -313,7 +315,6 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
   m_commandResponseMessageDisplay->hide();
   m_commandResponseMessageDisplayHide->stop();;
 
-  m_startingCursorPos = m_view->cursorPosition();
   m_isActive = true;
 
   m_wasAborted = true;
@@ -345,7 +346,7 @@ void KateViEmulatedCommandBar::closed()
   {
     if (m_wasAborted)
     {
-      m_view->setCursorPosition(m_startingCursorPos);
+      moveCursorTo(m_startingCursorPos);
     }
     KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
@@ -358,7 +359,7 @@ void KateViEmulatedCommandBar::closed()
   {
     // Send a synthetic keypress through the system that signals whether the search was aborted or
     // not.  If not, the keypress will "complete" the search motion, thus triggering it.
-    const Qt::Key syntheticSearchCompletedKey = (m_wasAborted ? Qt::Key_Escape : Qt::Key_Enter);
+    const Qt::Key syntheticSearchCompletedKey = (m_wasAborted ? static_cast<Qt::Key>(0) : Qt::Key_Enter);
     QKeyEvent syntheticSearchCompletedKeyPress(QEvent::KeyPress, syntheticSearchCompletedKey, Qt::NoModifier);
     m_view->getViInputModeManager()->handleKeypress(&syntheticSearchCompletedKeyPress);
     if (!m_wasAborted)
@@ -378,6 +379,10 @@ void KateViEmulatedCommandBar::closed()
     }
   }
 
+  if (m_wasAborted && m_mode == Command)
+  {
+    m_view->clearSelection();
+  }
 }
 
 void KateViEmulatedCommandBar::updateMatchHighlightAttrib()
@@ -792,6 +797,15 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   return false;
 }
 
+void KateViEmulatedCommandBar::moveCursorTo(const Cursor& cursorPos)
+{
+  m_view->setCursorPosition(cursorPos);
+  if (m_view->getCurrentViMode() == VisualMode || m_view->getCurrentViMode() == VisualLineMode)
+  {
+    m_view->getViInputModeManager()->getViVisualMode()->goToPos(cursorPos);
+  }
+}
+
 void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {
   qDebug() << "New text: " << newText;
@@ -818,18 +832,20 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     m_currentSearchIsCaseSensitive = caseSensitive;
     m_currentSearchIsBackwards = searchBackwards;
 
+    // The "count" for the current search is not shared between Visual & Normal mode, so we need to pick
+    // the right one to handle the counted search.
     KateViModeBase* currentModeHandler = (m_view->getCurrentViMode() == NormalMode) ? static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViNormalMode()) : static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViVisualMode());
     Range match = currentModeHandler->findPattern(qtRegexPattern, searchBackwards, caseSensitive, m_startingCursorPos);
 
     QPalette barBackground(m_edit->palette());
     if (match.isValid())
     {
-      m_view->setCursorPosition(match.start());
+      moveCursorTo(match.start());
       KColorScheme::adjustBackground(barBackground, KColorScheme::PositiveBackground);
     }
     else
     {
-      m_view->setCursorPosition(m_startingCursorPos);
+      moveCursorTo(m_startingCursorPos);
       if (!m_edit->text().isEmpty())
       {
         KColorScheme::adjustBackground(barBackground, KColorScheme::NegativeBackground);
@@ -843,6 +859,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     m_edit->setPalette(barBackground);
 
     updateMatchHighlight(match);
+
   }
 
   // Command completion doesn't need to be manually invoked.

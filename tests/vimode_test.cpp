@@ -1921,6 +1921,47 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo bar bar bar", "4/bar\\enterrX", "foo Xar bar bar");
   // Counting in Visual Mode.
   DoTest("foo bar bar bar", "v2/bar\\enterd", "ar bar");
+  // Should update the selection in Visual Mode as we search.
+  BeginTest("foo bar bbc");
+  TestPressKey("vl/b");
+  QCOMPARE(kate_view->selectionText(), QString("foo b"));
+  TestPressKey("b");
+  QCOMPARE(kate_view->selectionText(), QString("foo bar b"));
+  TestPressKey("\\ctrl-h");
+  QCOMPARE(kate_view->selectionText(), QString("foo b"));
+  TestPressKey("notexists");
+  QCOMPARE(kate_view->selectionText(), QString("fo"));
+  TestPressKey("\\enter"); // Dismiss bar.
+  QCOMPARE(kate_view->selectionText(), QString("fo"));
+  FinishTest("foo bar bbc");
+  BeginTest("foo\nxyz\nbar\nbbc");
+  TestPressKey("Vj/b");
+  QCOMPARE(kate_view->selectionText(), QString("foo\nxyz\nbar"));
+  TestPressKey("b");
+  QCOMPARE(kate_view->selectionText(), QString("foo\nxyz\nbar\nbbc"));
+  TestPressKey("\\ctrl-h");
+  QCOMPARE(kate_view->selectionText(), QString("foo\nxyz\nbar"));
+  TestPressKey("notexists");
+  QCOMPARE(kate_view->selectionText(), QString("foo\nxyz"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo\nxyz\nbar\nbbc");
+  // Dismissing the search bar in visual mode should leave original selection.
+  BeginTest("foo bar bbc");
+  TestPressKey("vl/\\ctrl-c");
+  QCOMPARE(kate_view->selectionText(), QString("fo"));
+  FinishTest("foo bar bbc");
+  BeginTest("foo bar bbc");
+  TestPressKey("vl?\\ctrl-c");
+  QCOMPARE(kate_view->selectionText(), QString("fo"));
+  FinishTest("foo bar bbc");
+  BeginTest("foo bar bbc");
+  TestPressKey("vl/b\\ctrl-c");
+  QCOMPARE(kate_view->selectionText(), QString("fo"));
+  FinishTest("foo bar bbc");
+  BeginTest("foo\nbar\nbbc");
+  TestPressKey("Vl/b\\ctrl-c");
+  QCOMPARE(kate_view->selectionText(), QString("foo"));
+  FinishTest("foo\nbar\nbbc");
 
   // Search-highlighting tests.
   const QColor searchHighlightColour = kate_view->renderer()->config()->searchHighlightColor();
@@ -2115,6 +2156,10 @@ void ViModeTest::VimStyleCommandBarTests()
 
   // Don't log keypresses sent to the emulated command bar as commands to be repeated via "."!
   DoTest("foo", "/diw\\enterciwbar\\ctrl-c.", "bar");
+
+  // Don't leave Visual mode on aborting a search.
+  DoTest("foo bar", "vw/\\ctrl-cd", "ar");
+  DoTest("foo bar", "vw/\\ctrl-[d", "ar");
 
   // History auto-completion tests.
   clearSearchHistory();
@@ -2813,6 +2858,15 @@ void ViModeTest::VimStyleCommandBarTests()
     TestPressKey("\\ctrl-c"); // Dismiss completer
     TestPressKey("\\ctrl-c"); // Dismiss bar
     FinishTest("soggy1 soggy2");
+  }
+
+  {
+    // Aborting ":" should leave us in normal mode with no selection.
+    BeginTest("foo bar");
+    TestPressKey("vw:\\ctrl-[");
+    QVERIFY(kate_view->selectionText().isEmpty());
+    TestPressKey("wdiw");
+    BeginTest("foo ");
   }
 
   // Command history tests.

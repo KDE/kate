@@ -59,6 +59,8 @@ private:
   long m_commandResponseMessageTimeOutMS;
   QString m_commandResponseMessage;
 
+  void moveCursorTo(const KTextEditor::Cursor& cursorPos);
+
   QCompleter *m_completer;
   QStringListModel *m_completionModel;
   bool m_nextTextChangeDueToCompletionChange;

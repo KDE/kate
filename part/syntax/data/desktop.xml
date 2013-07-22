@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name=".desktop" version="1.04" kateversion="2.4" section="Configuration" extensions="*.desktop;*.kdelnk" mimetype="application/x-desktop">
+<language name=".desktop" version="1.05" kateversion="2.4"
+          section="Configuration" extensions="*.desktop;*.kdelnk;*.desktop.cmake"
+          mimetype="application/x-desktop">
   <highlighting>
     <contexts>
       <context attribute="Key" lineEndContext="#stay" name="Normal">

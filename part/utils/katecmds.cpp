@@ -999,6 +999,11 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
   exchangeAbbrevs(replace);
   kDebug(13025) << "SedReplace: replace =" << replace;
 
+  if (find.isEmpty())
+  {
+    // Nothing to do.
+    return true;
+  }
   if ( find.contains("\\n") )
   {
     // FIXME: make replacing newlines work

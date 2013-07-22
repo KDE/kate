@@ -3108,6 +3108,8 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s::X:g"));
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("foo bar");
+  // Don't hang if we execute a sed replace with empty search term.
+  DoTest("foo bar", ":s//replace/g\\enter", "foo bar");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

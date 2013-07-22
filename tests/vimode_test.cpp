@@ -3026,6 +3026,11 @@ void ViModeTest::VimStyleCommandBarTests()
   clearReplaceHistory();
   KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("");
   QVERIFY(replaceHistory().isEmpty());
+
+  // Some misc SedReplace tests.
+  DoTest("x\\/y", ":s/\\\\//replace/g\\enter", "x\\replacey");
+  DoTest("x\\/y", ":s/\\\\\\\\\\\\//replace/g\\enter", "xreplacey");
+  DoTest("x\\/y", ":s:/:replace:g\\enter", "x\\replacey");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

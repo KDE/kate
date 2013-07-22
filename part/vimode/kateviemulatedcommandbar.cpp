@@ -26,6 +26,7 @@
 #include "kateglobal.h"
 #include "kateconfig.h"
 #include "katecmd.h"
+#include <katecmds.h>
 
 #include <QtGui/QLineEdit>
 #include <QtGui/QVBoxLayout>
@@ -740,6 +741,18 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     {
       m_waitingForRegister = true;
       m_waitingForRegisterIndicator->setVisible(true);
+    }
+    else if (keyEvent->key() == Qt::Key_D)
+    {
+      kDebug(13070) << "here!";
+      QString unused;
+      int findBeginPos = -1;
+      int findEndPos = -1;
+      int unused1 = -1;
+      int unused2 = -1;
+      KateCommands::SedReplace::parse(m_edit->text(), unused, findBeginPos, findEndPos, unused1, unused2);
+      const QString textWithFindTermCleared = m_edit->text().mid(0, findBeginPos) + m_edit->text().mid(findEndPos + 1);
+      m_edit->setText(textWithFindTermCleared);
     }
   }
   else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)

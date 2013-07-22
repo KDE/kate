@@ -978,24 +978,24 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
     kDebug(13025) << "Range: " << r;
   }
 
-  // valid delimiters are all non-word, non-space characters plus '_'
-  QRegExp delim("^s\\s*([^\\w\\s]|_)");
-  if ( delim.indexIn( cmd ) < 0 ) return false;
+  int findBeginPos = -1;
+  int findEndPos = -1;
+  int replaceBeginPos = -1;
+  int replaceEndPos = -1;
+  QString d;
+  if (!parse(cmd, d, findBeginPos, findEndPos, replaceBeginPos, replaceEndPos))
+  {
+    return false;
+  }
 
   bool noCase = cmd[cmd.length() - 1] == 'i' || cmd[cmd.length() - 2] == 'i';
   bool repeat = cmd[cmd.length() - 1] == 'g' || cmd[cmd.length() - 2] == 'g';
 
-  QString d = delim.cap(1);
-  kDebug(13025) << "SedReplace: delimiter is '" << d << "'";
 
-  QRegExp splitter( QString("^s\\s*") + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\"
-      + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)(\\" + d + "[ig]{0,2})?$" );
-  if (splitter.indexIn(cmd) < 0) return false;
-
-  QString find = splitter.cap(1);
+  QString find = cmd.mid(findBeginPos, findEndPos - findBeginPos + 1);
   kDebug(13025) << "SedReplace: find =" << find;
 
-  QString replace = splitter.cap(2);
+  QString replace = cmd.mid(replaceBeginPos, replaceEndPos - replaceBeginPos + 1);
   exchangeAbbrevs(replace);
   kDebug(13025) << "SedReplace: replace =" << replace;
 
@@ -1048,6 +1048,32 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
 
   return true;
 }
+
+bool KateCommands::SedReplace::parse(const QString& sedReplaceString, QString& destDelim, int& destFindBeginPos, int& destFindEndPos, int& destReplaceBeginPos, int& destReplaceEndPos)
+{
+  // valid delimiters are all non-word, non-space characters plus '_'
+  QRegExp delim("^s\\s*([^\\w\\s]|_)");
+  if ( delim.indexIn( sedReplaceString ) < 0 ) return false;
+
+  QString d = delim.cap(1);
+  kDebug(13025) << "SedReplace: delimiter is '" << d << "'";
+
+  QRegExp splitter( QString("^s\\s*") + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\"
+      + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)(\\" + d + "[ig]{0,2})?$" );
+  if (splitter.indexIn(sedReplaceString) < 0) return false;
+
+  const QString find = splitter.cap(1);
+  const QString replace = splitter.cap(2);
+
+  destDelim = d;
+  destFindBeginPos = splitter.pos(1);
+  destFindEndPos = splitter.pos(1) + find.length() - 1;
+  destReplaceBeginPos = splitter.pos(2);
+  destReplaceEndPos = splitter.pos(2) + replace.length() - 1;
+
+  return true;
+}
+
 
 //END SedReplace
 

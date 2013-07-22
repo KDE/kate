@@ -256,6 +256,15 @@ class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
       return m_instance;
     }
 
+    /**
+     * Parses @c sedReplaceString to see if it is a valid sed replace expression (e.g. "s/find/replace/gi").
+     * If it is, returns true and sets @c delimiter to the delimiter used in the expression;
+     *  @c destFindBeginPos and @c destFindEndPos to the positions in * @c sedReplaceString of the
+     * begin and end of the "find" term; and @c destReplaceBeginPos and @c destReplaceEndPos to the begin
+     * and end positions of the "replace" term.
+     */
+    static bool parse(const QString& sedReplaceString, QString& destDelim, int& destFindBeginPos, int& destFindEndPos, int& destReplaceBeginPos, int& destReplaceEndPos);
+
   private:
     /**
      * Searches one line and does the replacement in the document.

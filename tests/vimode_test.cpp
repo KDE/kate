@@ -3031,6 +3031,13 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("x\\/y", ":s/\\\\//replace/g\\enter", "x\\replacey");
   DoTest("x\\/y", ":s/\\\\\\\\\\\\//replace/g\\enter", "xreplacey");
   DoTest("x\\/y", ":s:/:replace:g\\enter", "x\\replacey");
+  // On ctrl-d, delete the "search" term in a s/search/replace/xx
+  BeginTest("foo bar");
+  TestPressKey(":s/x\\\\\\\\\\\\/yz/rep\\\\\\\\\\\\/lace/g\\ctrl-d");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s//rep\\\\\\/lace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

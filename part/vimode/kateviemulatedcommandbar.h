@@ -92,6 +92,18 @@ private:
   void activateCommandHistoryCompletion();
   void deactivateCompletion();
   void setCompletionIndex(int index);
+
+  struct ParsedSedReplace
+  {
+    bool parsedSuccessfully;
+    int findBeginPos;
+    int findEndPos;
+    int replaceBeginPos;
+    int replaceEndPos;
+  };
+  ParsedSedReplace parseAsSedReplaceExpression(const QString& text);
+  QString findTermInSedReplaceReplacedWith(const QString& sedReplaceExpression, const QString& newFindTerm);
+  QString replaceTermInSedReplaceReplacedWith(const QString& sedReplaceExpression, const QString& newReplaceTerm);
 private slots:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();

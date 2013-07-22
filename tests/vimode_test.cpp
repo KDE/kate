@@ -3037,7 +3037,77 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s//rep\\\\\\/lace/g"));
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("foo bar");
-
+  // Move cursor to position of deleted search term.
+  BeginTest("foo bar");
+  TestPressKey(":s/x\\\\\\\\\\\\/yz/rep\\\\\\\\\\\\/lace/g\\ctrl-dX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/X/rep\\\\\\/lace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+  // Do nothing on ctrl-d in search mode.
+  BeginTest("foo bar");
+  TestPressKey("/s/search/replace/g\\ctrl-d");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/replace/g"));
+  TestPressKey("\\ctrl-c?s/searchbackwards/replace/g\\ctrl-d");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/searchbackwards/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+  // On ctrl-f, delete "replace" term in a s/search/replace/xx
+  BeginTest("foo bar");
+  TestPressKey(":s/a\\\\\\\\\\\\/bc/rep\\\\\\\\\\\\/lace/g\\ctrl-f");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/a\\\\\\/bc//g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+  // Move cursor to position of deleted replace term.
+  BeginTest("foo bar");
+  TestPressKey(":s:a/bc:replace:g\\ctrl-fX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:a/bc:X:g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+  // Do nothing on ctrl-d in search mode.
+  BeginTest("foo bar");
+  TestPressKey("/s/search/replace/g\\ctrl-f");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/replace/g"));
+  TestPressKey("\\ctrl-c?s/searchbackwards/replace/g\\ctrl-f");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/searchbackwards/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+  // Do nothing on ctrl-d / ctrl-f if the current expression is not a sed expression.
+  BeginTest("foo bar");
+  TestPressKey(":s/notasedreplaceexpression::gi\\ctrl-f\\ctrl-dX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/notasedreplaceexpression::giX"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+  // Need to convert Vim-style regex's to Qt one's in Sed Replace.
+  DoTest("foo xbacba(boo)|[y", ":s/x[abc]\\\\+(boo)|[y/boo/g\\enter", "foo boo");
+  // Just convert the search term, please :)
+  DoTest("foo xbacba(boo)|[y", ":s/x[abc]\\\\+(boo)|[y/boo()/g\\enter", "foo boo()");
+  // With an empty search expression, ctrl-d should still position the cursor correctly.
+  BeginTest("foo bar");
+  TestPressKey(":s//replace/g\\ctrl-dX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/X/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  TestPressKey(":s::replace:g\\ctrl-dX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:X:replace:g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+  // With an empty replace expression, ctrl-f should still position the cursor correctly.
+  BeginTest("foo bar");
+  TestPressKey(":s/sear\\\\/ch//g\\ctrl-fX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/sear\\/ch/X/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  TestPressKey(":s:sear\\\\:ch::g\\ctrl-fX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:sear\\:ch:X:g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
+  // With both empty search *and* replace expressions, ctrl-f should still position the cursor correctly.
+  BeginTest("foo bar");
+  TestPressKey(":s///g\\ctrl-fX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s//X/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  TestPressKey(":s:::g\\ctrl-fX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s::X:g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

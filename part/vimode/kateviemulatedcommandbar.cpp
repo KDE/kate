@@ -618,6 +618,65 @@ void KateViEmulatedCommandBar::setCompletionIndex(int index)
   currentCompletionChanged();
 }
 
+KateViEmulatedCommandBar::ParsedSedReplace KateViEmulatedCommandBar::parseAsSedReplaceExpression(const QString& text)
+{
+  ParsedSedReplace parsedSedReplace;
+  QString delimiter;
+  parsedSedReplace.parsedSuccessfully = KateCommands::SedReplace::parse(text, delimiter, parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos, parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos);
+  if (parsedSedReplace.parsedSuccessfully)
+  {
+    if (parsedSedReplace.replaceBeginPos == -1)
+    {
+      if (parsedSedReplace.findBeginPos != -1)
+      {
+        // The replace term was empty, and a quirk of the regex used is that replaceBeginPos will be -1.
+        // It's actually the position after the first occurrence of the delimiter after the end of the find pos.
+        parsedSedReplace.replaceBeginPos = text.indexOf(delimiter, parsedSedReplace.findEndPos) + 1;
+        parsedSedReplace.replaceEndPos = parsedSedReplace.replaceBeginPos - 1;
+      }
+      else
+      {
+        // Both find and replace terms are empty; replace term is at the third occurrence of the delimiter.
+        parsedSedReplace.replaceBeginPos = 0;
+        for (int delimiterCount = 1; delimiterCount <= 3; delimiterCount++)
+        {
+          parsedSedReplace.replaceBeginPos = text.indexOf(delimiter, parsedSedReplace.replaceBeginPos + 1);
+        }
+        parsedSedReplace.replaceEndPos = parsedSedReplace.replaceBeginPos - 1;
+      }
+    }
+    if (parsedSedReplace.findBeginPos == -1)
+    {
+      // The find term was empty, and a quirk of the regex used is that findBeginPos will be -1.
+      // It's actually the position after the first occurrence of the delimiter.
+      parsedSedReplace.findBeginPos = text.indexOf(delimiter) + 1;
+      parsedSedReplace.findEndPos = parsedSedReplace.findBeginPos - 1;
+    }
+
+  }
+  return parsedSedReplace;
+}
+
+QString KateViEmulatedCommandBar::findTermInSedReplaceReplacedWith(const QString& sedReplaceExpression, const QString& newFindTerm)
+{
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression(sedReplaceExpression);
+  Q_ASSERT(parsedSedReplace.parsedSuccessfully);
+  return sedReplaceExpression.mid(0, parsedSedReplace.findBeginPos) +
+    newFindTerm +
+    sedReplaceExpression.mid(parsedSedReplace.findEndPos + 1);
+
+}
+
+QString KateViEmulatedCommandBar::replaceTermInSedReplaceReplacedWith(const QString& sedReplaceExpression, const QString& newReplaceTerm)
+{
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression(sedReplaceExpression);
+  Q_ASSERT(parsedSedReplace.parsedSuccessfully);
+  return sedReplaceExpression.mid(0, parsedSedReplace.replaceBeginPos) +
+    newReplaceTerm +
+    sedReplaceExpression.mid(parsedSedReplace.replaceEndPos + 1);
+}
+
+
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_Space)
@@ -742,17 +801,25 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       m_waitingForRegister = true;
       m_waitingForRegisterIndicator->setVisible(true);
     }
-    else if (keyEvent->key() == Qt::Key_D)
+    else if (keyEvent->key() == Qt::Key_D || keyEvent->key() == Qt::Key_F)
     {
-      kDebug(13070) << "here!";
-      QString unused;
-      int findBeginPos = -1;
-      int findEndPos = -1;
-      int unused1 = -1;
-      int unused2 = -1;
-      KateCommands::SedReplace::parse(m_edit->text(), unused, findBeginPos, findEndPos, unused1, unused2);
-      const QString textWithFindTermCleared = m_edit->text().mid(0, findBeginPos) + m_edit->text().mid(findEndPos + 1);
-      m_edit->setText(textWithFindTermCleared);
+      if (m_mode == Command)
+      {
+        QString unused;
+        ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression(m_edit->text());
+        if (parsedSedReplace.parsedSuccessfully)
+        {
+          const bool replaceFindTerm = (keyEvent->key() == Qt::Key_D);
+          const QString textWithTermCleared = (replaceFindTerm) ?
+                findTermInSedReplaceReplacedWith(m_edit->text(), "") :
+                replaceTermInSedReplaceReplacedWith(m_edit->text(), "");
+          m_edit->setText(textWithTermCleared);
+          ParsedSedReplace parsedSedReplaceAfter = parseAsSedReplaceExpression(m_edit->text());
+          const int newCursorPos = replaceFindTerm ? parsedSedReplaceAfter.findBeginPos :
+                                                    parsedSedReplaceAfter.replaceBeginPos;
+          m_edit->setCursorPosition(newCursorPos);
+        }
+      }
     }
   }
   else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
@@ -768,11 +835,23 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       if (m_mode == Command)
       {
         kDebug(13070) << "Executing: " << m_edit->text();
+        QString commandToExecute = m_edit->text();
+        ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression(commandToExecute);
+        qDebug() << "text:\n" << m_edit->text() << "\n is sed replace: " << parsedSedReplace.parsedSuccessfully;
+        if (parsedSedReplace.parsedSuccessfully)
+        {
+          const QString originalFindTerm = commandToExecute.mid(parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos - parsedSedReplace.findBeginPos + 1);
+          const QString convertedFindTerm = vimRegexToQtRegexPattern(originalFindTerm);
+          const QString commandWithSedSearchRegexConverted = findTermInSedReplaceReplacedWith(commandToExecute, convertedFindTerm);
+          commandToExecute = commandWithSedSearchRegexConverted;
+          kDebug(13070) << "Command to execute after replacing search term: "<< commandToExecute;
+        }
+
         // TODO - this is a hack-ish way of finding the response from the command; maybe
         // add another overload of "execute" to KateCommandLineBar that returns the
         // response message ... ?
         m_view->cmdLineBar()->setText("");
-        m_view->cmdLineBar()->execute(m_edit->text());
+        m_view->cmdLineBar()->execute(commandToExecute);
         KateCmdLineEdit *kateCommandLineEdit = m_view->cmdLineBar()->findChild<KateCmdLineEdit*>();
         Q_ASSERT(kateCommandLineEdit);
         const QString commandResponseMessage = kateCommandLineEdit->text();

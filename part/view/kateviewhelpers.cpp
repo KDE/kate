@@ -39,6 +39,7 @@
 #include "katetextlayout.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
+#include <kateviemulatedcommandbar.h>
 
 #include <kapplication.h>
 #include <kcharsets.h>
@@ -814,13 +815,13 @@ KateCommandLineBar::KateCommandLineBar (KateView *view, QWidget *parent)
     m_lineEdit = new KateCmdLineEdit (this, view);
     connect(m_lineEdit, SIGNAL(hideRequested()), SIGNAL(hideMe()));
     topLayout->addWidget (m_lineEdit);
-    
+
     QToolButton *helpButton = new QToolButton(this);
     helpButton->setAutoRaise(true);
     helpButton->setIcon(KIcon(KIcon ("help-contextual")));
     topLayout->addWidget(helpButton);
     connect (helpButton,SIGNAL(clicked()),this,SLOT(showHelpPage()));
-    
+
     setFocusProxy (m_lineEdit);
 }
 
@@ -861,34 +862,6 @@ KateCmdLineEdit::KateCmdLineEdit (KateCommandLineBar *bar, KateView *view)
 
   setCompletionObject(KateCmd::self()->commandCompletionObject());
   setAutoDeleteCompletionObject( false );
-
-  m_line.setPattern("\\d+");
-  m_lastLine.setPattern("\\$");
-  m_thisLine.setPattern("\\.");
-  m_mark.setPattern("\\'[0-9a-z><\\+\\*\\_]");
-  m_forwardSearch.setPattern("/([^/]*)/?");
-  m_forwardSearch2.setPattern("/[^/]*/?"); // no group
-  m_backwardSearch.setPattern("\\?([^?]*)\\??");
-  m_backwardSearch2.setPattern("\\?[^?]*\\??"); // no group
-  m_base.setPattern("(?:" + m_mark.pattern() + ")|(?:" +
-                        m_line.pattern() + ")|(?:" +
-                        m_thisLine.pattern() + ")|(?:" +
-                        m_lastLine.pattern() + ")|(?:" +
-                        m_forwardSearch2.pattern() + ")|(?:" +
-                        m_backwardSearch2.pattern() + ")");
-  m_offset.setPattern("[+-](?:" + m_base.pattern() + ")?");
-
-  // The position regexp contains two groups: the base and the offset.
-  // The offset may be empty.
-  m_position.setPattern("(" + m_base.pattern() + ")((?:" + m_offset.pattern() + ")*)");
-
-  // The range regexp contains seven groups: the first is the start position, the second is
-  // the base of the start position, the third is the offset of the start position, the
-  // fourth is the end position including a leading comma, the fifth is end position
-  // without the comma, the sixth is the base of the end position, and the seventh is the
-  // offset of the end position. The third and fourth groups may be empty, and the
-  // fifth, sixth and seventh groups are contingent on the fourth group.
-  m_cmdRange.setPattern("^(" + m_position.pattern() + ")((?:,(" + m_position.pattern() + "))?)");
 
   m_hideTimer = new QTimer(this);
   m_hideTimer->setSingleShot(true);
@@ -961,62 +934,6 @@ bool KateCmdLineEdit::event(QEvent *e) {
   return KLineEdit::event(e);
 }
 
-int KateCmdLineEdit::calculatePosition( QString string ) {
-
-  int pos = 0;
-  QList<bool> operators_list;
-  QStringList split = string.split(QRegExp("[-+](?!([+-]|$))"));
-  QList<int> values;
-
-  foreach ( QString line, split ) {
-    pos += line.size();
-
-    if ( pos < string.size() ) {
-      if ( string.at(pos) == '+' ) {
-        operators_list.push_back( true );
-      } else if ( string.at(pos) == '-' ) {
-        operators_list.push_back( false );
-      } else {
-        Q_ASSERT( false );
-      }
-    }
-
-    ++pos;
-
-    if ( m_line.exactMatch(line) ) {
-      values.push_back( line.toInt() );
-    } else if ( m_lastLine.exactMatch(line) ) {
-      values.push_back( m_view->doc()->lines() );
-    } else if ( m_thisLine.exactMatch(line) ) {
-      values.push_back( m_view->cursorPosition().line() + 1 );
-    } else if ( m_mark.exactMatch(line) ) {
-      values.push_back( m_view->getViInputModeManager()->getMarkPosition(line.at(1)).line() + 1 );
-    } else if ( m_forwardSearch.exactMatch(line) ) {
-      m_forwardSearch.indexIn(line);
-      QString pattern = m_forwardSearch.capturedTexts().at(1);
-      int match = m_view->doc()->searchText( Range( m_view->cursorPosition(), m_view->doc()->documentEnd() ),
-                                             pattern, KTextEditor::Search::Regex ).first().start().line();
-      values.push_back( (match < 0) ? -1 : match + 1 );
-    } else if ( m_backwardSearch.exactMatch(line) ) {
-      m_backwardSearch.indexIn(line);
-      QString pattern = m_backwardSearch.capturedTexts().at(1);
-      int match = m_view->doc()->searchText( Range( Cursor( 0, 0), m_view->cursorPosition() ),
-                                             pattern, KTextEditor::Search::Regex ).first().start().line();
-      values.push_back( (match < 0) ? -1 : match + 1 );
-    }
-  }
-
-  int result = values.at(0);
-  for (int i = 0; i < operators_list.size(); ++i) {
-    if ( operators_list.at(i) == true ) {
-      result += values.at(i + 1);
-    } else {
-      result -= values.at(i + 1);
-    }
-  }
-
-  return result;
-}
 
 /**
  * Parse the text as a command.
@@ -1056,36 +973,10 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
   QString cmd = text.mid( n );
 
-  // expand '%' to '1,$' ("all lines") if at the start of the line
-  if ( cmd.at( 0 ) == '%' ) {
-    cmd.replace( 0, 1, "1,$" );
-  }
 
-  KTextEditor::Range range(-1, 0, -1, 0);
-
-  if (m_cmdRange.indexIn(cmd) != -1 && m_cmdRange.matchedLength() > 0) {
-      cmd.remove(m_cmdRange);
-
-      QString position_string1 = m_cmdRange.capturedTexts().at(1);
-      QString position_string2 = m_cmdRange.capturedTexts().at(4);
-      int position1 = calculatePosition(position_string1);
-
-      int position2;
-      if (!position_string2.isEmpty()) {
-        // remove the comma
-        position_string2 = m_cmdRange.capturedTexts().at(5);
-        position2 = calculatePosition(position_string2);
-      } else {
-        position2 = position1;
-      }
-
-      // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
-      if (cmd.isEmpty()) {
-        cmd = QString("goto %1").arg(position1);
-      } else {
-        range.setRange(KTextEditor::Range(position1 - 1, 0, position2 - 1, 0));
-      }
-    }
+  // Parse any leading range expression, and strip it (and maybe do some other transforms on the command).
+  QString leadingRangeExpression;
+  KTextEditor::Range range = KateViEmulatedCommandBar::parseRangeExpression(cmd, m_view, leadingRangeExpression, cmd);
 
   // Built in help: if the command starts with "help", [try to] show some help
   if ( cmd.startsWith( QLatin1String("help") ) )
@@ -1103,7 +994,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     KTextEditor::Command *p = KateCmd::self()->queryCommand (cmd);
     KTextEditor::RangeCommand *ce = dynamic_cast<KTextEditor::RangeCommand*>(p);
 
-    m_oldText = m_cmdRange.capturedTexts().at(0) + cmd;
+    m_oldText = leadingRangeExpression + cmd;
     m_msgMode = true;
 
     // the following commands changes the focus themselves, so bar should be hidden before execution.
@@ -1126,7 +1017,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
         {
 
           // append command along with range (will be empty if none given) to history
-          KateCmd::self()->appendHistory( m_cmdRange.capturedTexts().at(0) + cmd );
+          KateCmd::self()->appendHistory( leadingRangeExpression + cmd );
           m_histpos = KateCmd::self()->historyLength();
           m_oldText.clear();
 
@@ -1797,7 +1688,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
     {
       // first icon border background
       p.fillRect(lnX, y, iconPaneWidth, h, m_view->renderer()->config()->iconBarColor());
-        
+
       // possible additional folding highlighting
       if ((realLine >= 0) && m_foldingRange && m_foldingRange->overlapsLine (realLine)) {
           p.save();
@@ -1828,7 +1719,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
           }
           p.restore();
       }
-          
+
       if ((realLine >= 0) && (m_viewInternal->cache()->viewLine(z).startCol() == 0))
       {
         QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = m_view->textFolding().foldingRangesStartingOnLine (realLine);
@@ -1944,7 +1835,7 @@ void KateIconBorder::showBlock()
 {
   if (m_nextHighlightBlock == m_currentBlockLine) return;
   m_currentBlockLine = m_nextHighlightBlock;
-  
+
   /**
    * compute to which folding range we belong
    * FIXME: optimize + perhaps have some better threshold or use timers!
@@ -1957,7 +1848,7 @@ void KateIconBorder::showBlock()
     KTextEditor::Range foldingRange = m_doc->buffer().computeFoldingRangeForStartLine (line);
     if (!foldingRange.isValid())
       continue;
-    
+
     /**
      * does the range reach us?
      */
@@ -2096,12 +1987,12 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
         for (int i = 0; i < startingRanges.size(); ++i)
           if (startingRanges[i].second & Kate::TextFolding::Folded)
             anyFolded = true;
-        
+
         // fold or unfold all ranges, remember if any action happened!
         bool actionDone = false;
         for (int i = 0; i < startingRanges.size(); ++i)
           actionDone = (anyFolded ? m_view->textFolding().unfoldRange (startingRanges[i].first) : m_view->textFolding().foldRange (startingRanges[i].first)) || actionDone;
-        
+
         // if no action done, try to fold it, create non-persistent folded range, if possible!
         if (!actionDone) {
           // either use the fold for this line or the range that is highlighted ATM if any!
@@ -2692,7 +2583,7 @@ KatePasteMenu::KatePasteMenu (const QString& text, KateView *view)
 void KatePasteMenu::slotAboutToShow()
 {
   menu()->clear ();
-  
+
   /**
    * insert complete paste history
    */
@@ -2711,16 +2602,16 @@ void KatePasteMenu::paste ()
 {
   if (!sender())
     return;
-  
+
   QAction *action = qobject_cast<QAction*>(sender());
   if (!action)
     return;
-  
+
   // get index
   int i = action->data().toInt();
   if (i >= KateGlobal::self()->clipboardHistory().size())
     return;
-  
+
   // paste
   m_view->paste (&KateGlobal::self()->clipboardHistory()[i]);
 }

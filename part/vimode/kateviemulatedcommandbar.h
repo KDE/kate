@@ -42,6 +42,18 @@ public:
   void setCommandResponseMessageTimeout(long commandResponseMessageTimeOutMS);
   virtual void closed();
   bool handleKeyPress(const QKeyEvent* keyEvent);
+
+  /**
+   * Attempt to parse any leading range expression (e.g. "%", "'<,'>", ".,+6" etc) in @c command and
+   * return it as a Range.  If parsing was successful, the range will be valid, the string
+   * making up the range expression will be placed in @c destRangeExpression, and the command with
+   * the range stripped will be placed in @c destTransformedCommand.  In some special cases,
+   * the @c destTransformedCommand will be further re-written e.g. a command in the form of just a number
+   * will be rewritten as "goto <number>".
+   *
+   * An invalid Range is returned if no leading range expression could be found.
+   */
+    static KTextEditor::Range parseRangeExpression(const QString& command, KateView* view, QString& destRangeExpression, QString& destTransformedCommand);
 private:
   bool m_isActive;
   Mode m_mode;

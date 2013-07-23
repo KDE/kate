@@ -409,7 +409,7 @@ class KateViewBar : public QWidget
 class KATEPART_TESTS_EXPORT KateCommandLineBar : public KateViewBarWidget
 {
   Q_OBJECT
-  
+
   public:
     explicit KateCommandLineBar(KateView *view, QWidget *parent = 0);
     ~KateCommandLineBar();
@@ -419,7 +419,7 @@ class KATEPART_TESTS_EXPORT KateCommandLineBar : public KateViewBarWidget
 
   public Q_SLOTS:
     void showHelpPage();
-    
+
   private:
     class KateCmdLineEdit *m_lineEdit;
 };
@@ -471,18 +471,6 @@ class KateCmdLineEdit : public KLineEdit
     KTextEditor::Command *m_command; ///< For completing flags/args and interactiveness
     class KateCmdLnWhatsThis *m_help;
 
-    QRegExp m_line;
-    QRegExp m_lastLine;
-    QRegExp m_thisLine;
-    QRegExp m_mark;
-    QRegExp m_forwardSearch;
-    QRegExp m_forwardSearch2;
-    QRegExp m_backwardSearch;
-    QRegExp m_backwardSearch2;
-    QRegExp m_base;
-    QRegExp m_offset;
-    QRegExp m_position;
-    QRegExp m_cmdRange;
     QTimer *m_hideTimer;
 };
 

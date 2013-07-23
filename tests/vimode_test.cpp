@@ -3031,6 +3031,9 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("x\\/y", ":s/\\\\//replace/g\\enter", "x\\replacey");
   DoTest("x\\/y", ":s/\\\\\\\\\\\\//replace/g\\enter", "xreplacey");
   DoTest("x\\/y", ":s:/:replace:g\\enter", "x\\replacey");
+  DoTest("foo\nbar\nxyz", ":%delete\\enter", "");
+  DoTest("foo\nbar\nxyz\nbaz", "jVj:delete\\enter", "foo\nbaz");
+  DoTest("foo\nbar\nxyz\nbaz", "j2:delete\\enter", "foo\nbaz");
   // On ctrl-d, delete the "search" term in a s/search/replace/xx
   BeginTest("foo bar");
   TestPressKey(":s/x\\\\\\\\\\\\/yz/rep\\\\\\\\\\\\/lace/g\\ctrl-d");
@@ -3110,6 +3113,22 @@ void ViModeTest::VimStyleCommandBarTests()
   FinishTest("foo bar");
   // Don't hang if we execute a sed replace with empty search term.
   DoTest("foo bar", ":s//replace/g\\enter", "foo bar");
+
+  // ctrl-f & ctrl-d should work even when there is a range expression at the beginning of the sed replace.
+  BeginTest("foo bar");
+  TestPressKey(":'<,'>s/search/replace/g\\ctrl-d");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("'<,'>s//replace/g"));
+  TestPressKey("\\ctrl-c:.,.+6s/search/replace/g\\ctrl-f");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(".,.+6s/search//g"));
+  TestPressKey("\\ctrl-c:%s/search/replace/g\\ctrl-f");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("%s/search//g"));
+  // Place the cursor in the right place even when there is a range expression.
+  TestPressKey("\\ctrl-c:.,.+6s/search/replace/g\\ctrl-fX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(".,.+6s/search/X/g"));
+  TestPressKey("\\ctrl-c:%s/search/replace/g\\ctrl-fX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("%s/search/X/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

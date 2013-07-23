@@ -34,6 +34,7 @@
 #include <QtGui/QCompleter>
 #include <QApplication>
 #include <KDE/KColorScheme>
+#include <algorithm>
 
 namespace
 {
@@ -214,11 +215,8 @@ namespace
 
   QStringList reversed(const QStringList& originalList)
   {
-    QStringList reversedList;
-    foreach(QString item, originalList)
-    {
-      reversedList.prepend(item);
-    }
+    QStringList reversedList = originalList;
+    std::reverse(reversedList.begin(), reversedList.end());
     return reversedList;
   }
 

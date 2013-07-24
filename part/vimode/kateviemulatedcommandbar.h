@@ -75,7 +75,7 @@ private:
   QCompleter *m_completer;
   QStringListModel *m_completionModel;
   bool m_nextTextChangeDueToCompletionChange;
-  enum CompletionType { None, SearchHistory, WordFromDocument, Commands, CommandHistory };
+  enum CompletionType { None, SearchHistory, WordFromDocument, Commands, CommandHistory, SedSearchHistory };
   CompletionType m_currentCompletionType;
   void updateCompletionPrefix();
   void currentCompletionChanged();
@@ -113,9 +113,13 @@ private:
     int replaceBeginPos;
     int replaceEndPos;
   };
-  ParsedSedReplace parseAsSedReplaceExpression(const QString& text);
-  QString findTermInSedReplaceReplacedWith(const QString& sedReplaceExpression, const QString& newFindTerm);
-  QString replaceTermInSedReplaceReplacedWith(const QString& sedReplaceExpression, const QString& newReplaceTerm);
+  ParsedSedReplace parseAsSedReplaceExpression();
+  QString findTermInSedReplaceReplacedWith(const QString& newFindTerm);
+  QString replaceTermInSedReplaceReplacedWith(const QString& newReplaceTerm);
+  QString findTermInSedReplace();
+  QString replaceTermInSedReplace();
+
+  bool isCursorInFindTermOfSedReplace();
 
   QString withoutLeadingRange(const QString& originalCommand);
   QString leadingRange(const QString& command);

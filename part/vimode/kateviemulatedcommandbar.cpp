@@ -614,11 +614,20 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   }
   else if (m_currentCompletionType == CommandHistory)
   {
-    m_edit->setText(m_completer->currentCompletion());
+    if (!m_completer->currentCompletion().isEmpty())
+    {
+      m_edit->setText(m_completer->currentCompletion());
+    }
   }
   else if (m_currentCompletionType == Commands)
   {
     m_edit->setText(m_completer->currentCompletion());
+  }
+  else if (m_currentCompletionType == SedSearchHistory)
+  {
+     m_edit->setText(findTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+     m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
   }
   else
   {
@@ -639,8 +648,9 @@ void KateViEmulatedCommandBar::setCompletionIndex(int index)
   currentCompletionChanged();
 }
 
-KateViEmulatedCommandBar::ParsedSedReplace KateViEmulatedCommandBar::parseAsSedReplaceExpression(const QString& text)
+KateViEmulatedCommandBar::ParsedSedReplace KateViEmulatedCommandBar::parseAsSedReplaceExpression()
 {
+  const QString text = withoutLeadingRange(m_edit->text());
   ParsedSedReplace parsedSedReplace;
   QString delimiter;
   parsedSedReplace.parsedSuccessfully = KateCommands::SedReplace::parse(text, delimiter, parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos, parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos);
@@ -675,26 +685,60 @@ KateViEmulatedCommandBar::ParsedSedReplace KateViEmulatedCommandBar::parseAsSedR
     }
 
   }
+
+  if (parsedSedReplace.parsedSuccessfully)
+  {
+    parsedSedReplace.findBeginPos += leadingRange(m_edit->text()).length();
+    parsedSedReplace.findEndPos += leadingRange(m_edit->text()).length();
+    parsedSedReplace.replaceBeginPos += leadingRange(m_edit->text()).length();
+    parsedSedReplace.replaceEndPos += leadingRange(m_edit->text()).length();
+  }
   return parsedSedReplace;
 }
 
-QString KateViEmulatedCommandBar::findTermInSedReplaceReplacedWith(const QString& sedReplaceExpression, const QString& newFindTerm)
+QString KateViEmulatedCommandBar::findTermInSedReplaceReplacedWith(const QString& newFindTerm)
 {
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression(sedReplaceExpression);
+  const QString command = m_edit->text();
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
   Q_ASSERT(parsedSedReplace.parsedSuccessfully);
-  return sedReplaceExpression.mid(0, parsedSedReplace.findBeginPos) +
+  return command.mid(0, parsedSedReplace.findBeginPos) +
     newFindTerm +
-    sedReplaceExpression.mid(parsedSedReplace.findEndPos + 1);
+    command.mid(parsedSedReplace.findEndPos + 1);
 
 }
 
-QString KateViEmulatedCommandBar::replaceTermInSedReplaceReplacedWith(const QString& sedReplaceExpression, const QString& newReplaceTerm)
+QString KateViEmulatedCommandBar::replaceTermInSedReplaceReplacedWith(const QString& newReplaceTerm)
 {
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression(sedReplaceExpression);
+  const QString command = m_edit->text();
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
   Q_ASSERT(parsedSedReplace.parsedSuccessfully);
-  return sedReplaceExpression.mid(0, parsedSedReplace.replaceBeginPos) +
+  return command.mid(0, parsedSedReplace.replaceBeginPos) +
     newReplaceTerm +
-    sedReplaceExpression.mid(parsedSedReplace.replaceEndPos + 1);
+    command.mid(parsedSedReplace.replaceEndPos + 1);
+}
+
+QString KateViEmulatedCommandBar::findTermInSedReplace()
+{
+  const QString command = m_edit->text();
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+  Q_ASSERT(parsedSedReplace.parsedSuccessfully);
+  return command.mid(parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos - parsedSedReplace.findBeginPos + 1);
+}
+
+QString KateViEmulatedCommandBar::replaceTermInSedReplace()
+{
+  const QString command = m_edit->text();
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+  Q_ASSERT(parsedSedReplace.parsedSuccessfully);
+  return command.mid(parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos - parsedSedReplace.replaceBeginPos + 1);
+}
+
+bool KateViEmulatedCommandBar::isCursorInFindTermOfSedReplace()
+{
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+  // If the "find" term is empty, findEndPos will be less than findBeginPos, so adjust for this.
+  const int adjustedEndPos = (parsedSedReplace.findEndPos < parsedSedReplace.findBeginPos) ? parsedSedReplace.findEndPos + 2 : parsedSedReplace.findEndPos + 1;
+  return parsedSedReplace.parsedSuccessfully && (m_edit->cursorPosition() >= parsedSedReplace.findBeginPos && m_edit->cursorPosition() <= adjustedEndPos);
 }
 
 QString KateViEmulatedCommandBar::withoutLeadingRange(const QString& originalCommand)
@@ -726,7 +770,17 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     {
       if (m_mode == Command)
       {
-        activateCommandHistoryCompletion();
+        if (isCursorInFindTermOfSedReplace())
+        {
+          m_currentCompletionType = SedSearchHistory;
+          m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->searchHistory()));
+          m_completer->setCompletionPrefix(findTermInSedReplace());
+          m_completer->complete();
+        }
+        else
+        {
+          activateCommandHistoryCompletion();
+        }
       }
       else
       {
@@ -846,22 +900,17 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     {
       if (m_mode == Command)
       {
-        QString command = m_edit->text();
-        // Strip any leading range expressions.
-        QString leadingRangeExpression;
-        parseRangeExpression(command, m_view, leadingRangeExpression, command);
-        ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression(command);
+        ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
         if (parsedSedReplace.parsedSuccessfully)
         {
           const bool replaceFindTerm = (keyEvent->key() == Qt::Key_D);
-          const QString textWithTermCleared =  leadingRangeExpression + ((replaceFindTerm) ?
-                findTermInSedReplaceReplacedWith(command, "") :
-                replaceTermInSedReplaceReplacedWith(command, ""));
+          const QString textWithTermCleared =  (replaceFindTerm) ?
+                findTermInSedReplaceReplacedWith("") :
+                replaceTermInSedReplaceReplacedWith("");
           m_edit->setText(textWithTermCleared);
-          ParsedSedReplace parsedSedReplaceAfter = parseAsSedReplaceExpression(command);
-          const int newCursorPos = leadingRangeExpression.length() +
-                                       (replaceFindTerm ? parsedSedReplaceAfter.findBeginPos :
-                                                         parsedSedReplaceAfter.replaceBeginPos);
+          ParsedSedReplace parsedSedReplaceAfter = parseAsSedReplaceExpression();
+          const int newCursorPos = replaceFindTerm ? parsedSedReplaceAfter.findBeginPos :
+                                                     parsedSedReplaceAfter.replaceBeginPos;
           m_edit->setCursorPosition(newCursorPos);
         }
       }
@@ -881,15 +930,15 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       {
         kDebug(13070) << "Executing: " << m_edit->text();
         QString commandToExecute = m_edit->text();
-        ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression(commandToExecute);
+        ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
         qDebug() << "text:\n" << m_edit->text() << "\n is sed replace: " << parsedSedReplace.parsedSuccessfully;
         if (parsedSedReplace.parsedSuccessfully)
         {
-          const QString originalFindTerm = commandToExecute.mid(parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos - parsedSedReplace.findBeginPos + 1);
+          const QString originalFindTerm = findTermInSedReplace();
           const QString convertedFindTerm = vimRegexToQtRegexPattern(originalFindTerm);
-          const QString commandWithSedSearchRegexConverted = findTermInSedReplaceReplacedWith(commandToExecute, convertedFindTerm);
+          const QString commandWithSedSearchRegexConverted = findTermInSedReplaceReplacedWith(convertedFindTerm);
           KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(originalFindTerm);
-          const QString replaceTerm = commandToExecute.mid(parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos - parsedSedReplace.replaceBeginPos + 1);
+          const QString replaceTerm = replaceTermInSedReplace();
           KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem(replaceTerm);
           commandToExecute = commandWithSedSearchRegexConverted;
           kDebug(13070) << "Command to execute after replacing search term: "<< commandToExecute;
@@ -1015,7 +1064,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   // only if this is the leading word in the text edit (it gets annoying if completion pops up
   // after ":s/se" etc).
   const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == leadingRange(m_edit->text()).length());
-  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType != WordFromDocument && m_currentCompletionType != CommandHistory)
+  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType != WordFromDocument && m_currentCompletionType != CommandHistory && m_currentCompletionType != SedSearchHistory)
   {
     deactivateCompletion();
   }

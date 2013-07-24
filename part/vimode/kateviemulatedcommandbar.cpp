@@ -888,6 +888,9 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
           const QString originalFindTerm = commandToExecute.mid(parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos - parsedSedReplace.findBeginPos + 1);
           const QString convertedFindTerm = vimRegexToQtRegexPattern(originalFindTerm);
           const QString commandWithSedSearchRegexConverted = findTermInSedReplaceReplacedWith(commandToExecute, convertedFindTerm);
+          KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(originalFindTerm);
+          const QString replaceTerm = commandToExecute.mid(parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos - parsedSedReplace.replaceBeginPos + 1);
+          KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem(replaceTerm);
           commandToExecute = commandWithSedSearchRegexConverted;
           kDebug(13070) << "Command to execute after replacing search term: "<< commandToExecute;
         }

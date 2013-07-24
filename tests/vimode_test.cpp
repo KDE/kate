@@ -3173,6 +3173,48 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
+
+  // A sed-replace should immediately add the search term to the search history.
+  clearSearchHistory();
+  BeginTest("");
+  TestPressKey(":s/search/replace/g\\enter");
+  QCOMPARE(searchHistory(), QStringList() << "search");
+  FinishTest("");
+
+  // An aborted sed-replace should not add the search term to the search history.
+  clearSearchHistory();
+  BeginTest("");
+  TestPressKey(":s/search/replace/g\\ctrl-c");
+  QCOMPARE(searchHistory(), QStringList());
+  FinishTest("");
+
+  // A non-sed-replace should leave the search history unchanged.
+  clearSearchHistory();
+  BeginTest("");
+  TestPressKey(":s,search/replace/g\\enter");
+  QCOMPARE(searchHistory(), QStringList());
+  FinishTest("");
+
+  // A sed-replace should immediately add the replace term to the replace history.
+  clearReplaceHistory();
+  BeginTest("");
+  TestPressKey(":s/search/replace/g\\enter");
+  QCOMPARE(replaceHistory(), QStringList() << "replace");
+  FinishTest("");
+
+  // An aborted sed-replace should not add the replace term to the replace history.
+  clearReplaceHistory();
+  BeginTest("");
+  TestPressKey(":s/search/replace/g\\ctrl-c");
+  QCOMPARE(replaceHistory(), QStringList());
+  FinishTest("");
+
+  // A non-sed-replace should leave the replace history unchanged.
+  clearReplaceHistory();
+  BeginTest("");
+  TestPressKey(":s,search/replace/g\\enter");
+  QCOMPARE(replaceHistory(), QStringList());
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

@@ -825,6 +825,10 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       m_edit->backspace();
       return true;
     }
+    else if (keyEvent->key() == Qt::Key_B)
+    {
+      m_edit->setCursorPosition(0);
+    }
     else if (keyEvent->key() == Qt::Key_W)
     {
       deleteSpacesToLeftOfCursor();

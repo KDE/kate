@@ -1499,6 +1499,13 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("");
 
+  // Check ctrl-b works.
+  BeginTest("");
+  TestPressKey("/bar foo xyz\\ctrl-bX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("Xbar foo xyz"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
   // Check ctrl-w works.
   BeginTest("");
   TestPressKey("/foo bar\\ctrl-w");

@@ -2824,6 +2824,11 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
   TestPressKey("\\ctrl-c"); // Dismiss bar
   FinishTest("");
+  BeginTest("");
+  TestPressKey(":.,.+7s/se");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("");
 
   // "The current word", for Commands, can contain "-".
   BeginTest("");

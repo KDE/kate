@@ -3129,6 +3129,8 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("%s/search/X/g"));
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("foo bar");
+  // Don't crash on ctrl-f/d if we have an empty command.
+  DoTest("", ":\\ctrl-f\\ctrl-d\\ctrl-c", "");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

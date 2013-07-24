@@ -1052,6 +1052,10 @@ RangeExpressionParser::RangeExpressionParser()
 Range RangeExpressionParser::parseRangeExpression(const QString& command, QString& destRangeExpression, QString& destTransformedCommand, KateView *view)
 {
   Range parsedRange(0, -1, 0, -1);
+  if (command.isEmpty())
+  {
+    return parsedRange;
+  }
   QString commandTmp = command;
   bool leadingRangeWasPercent = false;
   // expand '%' to '1,$' ("all lines") if at the start of the line

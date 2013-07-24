@@ -3131,6 +3131,8 @@ void ViModeTest::VimStyleCommandBarTests()
   FinishTest("foo bar");
   // Don't crash on ctrl-f/d if we have an empty command.
   DoTest("", ":\\ctrl-f\\ctrl-d\\ctrl-c", "");
+  // Parser regression test: Don't crash on ctrl-f/d with ".,.+".
+  DoTest("", ":.,.+\\ctrl-f\\ctrl-d\\ctrl-c", "");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

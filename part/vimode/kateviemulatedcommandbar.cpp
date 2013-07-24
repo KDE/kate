@@ -1138,6 +1138,11 @@ int RangeExpressionParser::calculatePosition(const QString& string, KateView* vi
     }
   }
 
+  if (values.isEmpty())
+  {
+    return -1;
+  }
+
   int result = values.at(0);
   for (int i = 0; i < operators_list.size(); ++i) {
     if ( operators_list.at(i) == true ) {

@@ -2861,6 +2861,18 @@ void ViModeTest::VimStyleCommandBarTests()
   }
 
   {
+    // Don't show command completion before we start typing a command: we want ctrl-p/n
+    // to go through command history instead (we'll test for that second part later).
+    BeginTest("soggy1 soggy2");
+    TestPressKey(":");
+    QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+    TestPressKey("\\ctrl-cvl:");
+    QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+    TestPressKey("\\ctrl-c"); // Dismiss bar
+    FinishTest("soggy1 soggy2");
+  }
+
+  {
     // Aborting ":" should leave us in normal mode with no selection.
     BeginTest("foo bar");
     TestPressKey("vw:\\ctrl-[");
@@ -3133,6 +3145,22 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("", ":\\ctrl-f\\ctrl-d\\ctrl-c", "");
   // Parser regression test: Don't crash on ctrl-f/d with ".,.+".
   DoTest("", ":.,.+\\ctrl-f\\ctrl-d\\ctrl-c", "");
+
+  // Command-completion should be invoked on the command being typed even when preceded by a range expression.
+  BeginTest("");
+  TestPressKey(":0,'>so");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // Command-completion should ignore the range expression.
+  BeginTest("");
+  TestPressKey(":.,.+6so");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

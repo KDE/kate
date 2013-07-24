@@ -501,13 +501,15 @@ QString KateViEmulatedCommandBar::wordBeforeCursor()
 
 QString KateViEmulatedCommandBar::commandBeforeCursor()
 {
-  int commandBeforeCursorBegin = m_edit->cursorPosition() - 1;
-  while (commandBeforeCursorBegin >= 0 && (m_edit->text()[commandBeforeCursorBegin].isLetterOrNumber() || m_edit->text()[commandBeforeCursorBegin] == '_' || m_edit->text()[commandBeforeCursorBegin] == '-'))
+  const QString textWithoutLeadingRange = withoutLeadingRange(m_edit->text());
+  const int cursorPositionWithoutLeadingRange = m_edit->cursorPosition() - leadingRange(m_edit->text()).length();
+  int commandBeforeCursorBegin = cursorPositionWithoutLeadingRange - 1;
+  while (commandBeforeCursorBegin >= 0 && (textWithoutLeadingRange[commandBeforeCursorBegin].isLetterOrNumber() || textWithoutLeadingRange[commandBeforeCursorBegin] == '_' || textWithoutLeadingRange[commandBeforeCursorBegin] == '-'))
   {
     commandBeforeCursorBegin--;
   }
   commandBeforeCursorBegin++;
-  return m_edit->text().mid(commandBeforeCursorBegin, m_edit->cursorPosition() - commandBeforeCursorBegin);
+  return textWithoutLeadingRange.mid(commandBeforeCursorBegin, cursorPositionWithoutLeadingRange - commandBeforeCursorBegin);
 
 }
 
@@ -695,6 +697,22 @@ QString KateViEmulatedCommandBar::replaceTermInSedReplaceReplacedWith(const QStr
     sedReplaceExpression.mid(parsedSedReplace.replaceEndPos + 1);
 }
 
+QString KateViEmulatedCommandBar::withoutLeadingRange(const QString& originalCommand)
+{
+  QString leadingRangeExpression;
+  QString withoutLeadingRange;
+  parseRangeExpression(originalCommand, m_view, leadingRangeExpression, withoutLeadingRange);
+  withoutLeadingRange = originalCommand.mid(leadingRangeExpression.length());
+  return withoutLeadingRange;
+}
+
+QString KateViEmulatedCommandBar::leadingRange(const QString& command)
+{
+  QString leadingRange;
+  QString unused;
+  parseRangeExpression(command, m_view, leadingRange, unused);
+  return leadingRange;
+}
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
@@ -981,7 +999,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   }
 
   // Command completion doesn't need to be manually invoked.
-  if (m_mode == Command && m_currentCompletionType == None && !m_edit->text().isEmpty())
+  if (m_mode == Command && m_currentCompletionType == None && !withoutLeadingRange(m_edit->text()).isEmpty())
   {
     activateCommandCompletion();
   }
@@ -989,7 +1007,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   // Command completion mode should be automatically invoked if we are in Command mode, but
   // only if this is the leading word in the text edit (it gets annoying if completion pops up
   // after ":s/se" etc).
-  const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == 0);
+  const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == leadingRange(m_edit->text()).length());
   if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType != WordFromDocument && m_currentCompletionType != CommandHistory)
   {
     deactivateCompletion();

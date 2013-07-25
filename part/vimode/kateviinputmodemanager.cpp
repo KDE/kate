@@ -25,7 +25,7 @@
 
 #include <QKeyEvent>
 #include <QString>
-#include <QCoreApplication>
+#include <QApplication>
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
@@ -200,9 +200,39 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
       text = decoded.at(0);
     }
 
-    QKeyEvent k(QEvent::KeyPress, key, mods, text);
-
-    QCoreApplication::sendEvent(m_viewInternal, &k);
+    // We have to be clever about which widget we dispatch to, as we can trigger
+    // shortcuts if we're not careful (even if Vim mode is configured to steal shortcuts).
+    // I haven't been able to get a reliable automated testcase for this, for some reason,
+    // so here's a manual regression test:
+    // ifoo bar foo bar<esc>/bar<enter>ggd/<ctrl-p><enter>.
+    // (Note the "." at the end!)
+    // If all goes well, the final text should be just
+    // bar
+    // but more importantly, the Ctrl-p shortcut (usually "Print") won't be triggered!
+    QKeyEvent *k = new QKeyEvent(QEvent::KeyPress, key, mods, text);
+    QWidget *destWidget = NULL;
+    if (QApplication::activePopupWidget())
+    {
+      // According to the docs, the activePopupWidget, if present, takes all events.
+      destWidget = QApplication::activePopupWidget();
+    }
+    else if (QApplication::focusWidget())
+    {
+      if (QApplication::focusWidget()->focusProxy())
+      {
+        destWidget = QApplication::focusWidget()->focusProxy();
+      }
+      else
+      {
+        destWidget = QApplication::focusWidget();
+      }
+    }
+    else
+    {
+      destWidget = m_view->focusProxy();
+    }
+    QApplication::postEvent(destWidget, k);
+    QApplication::sendPostedEvents();
   }
 }
 

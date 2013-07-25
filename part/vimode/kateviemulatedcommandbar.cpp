@@ -521,6 +521,15 @@ void KateViEmulatedCommandBar::replaceWordBeforeCursorWith(const QString& newWor
   m_edit->setText(newText);
 }
 
+void KateViEmulatedCommandBar::replaceCommandBeforeCursorWith(const QString& newCommand)
+{
+  const QString newText = m_edit->text().left(m_edit->cursorPosition() - commandBeforeCursor().length()) +
+  newCommand +
+  m_edit->text().mid(m_edit->cursorPosition());
+  m_edit->setText(newText);
+}
+
+
 void KateViEmulatedCommandBar::activateSearchHistoryCompletion()
 {
   m_currentCompletionType = SearchHistory;
@@ -621,7 +630,9 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   }
   else if (m_currentCompletionType == Commands)
   {
-    m_edit->setText(m_completer->currentCompletion());
+    const int newCursorPosition = m_edit->cursorPosition() + (m_completer->currentCompletion().length() - commandBeforeCursor().length());
+    replaceCommandBeforeCursorWith(m_completer->currentCompletion());
+    m_edit->setCursorPosition(newCursorPosition);
   }
   else if (m_currentCompletionType == SedSearchHistory)
   {

@@ -2846,6 +2846,24 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss bar
   FinishTest("");
 
+  // On completion, only update the command in front of the cursor.
+  BeginTest("");
+  clearCommandHistory();
+  TestPressKey(":.,.+6s/se\\left\\left\\leftet-auto-in\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(".,.+6set-auto-indent/se"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer.
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("");
+
+  // On completion, place the cursor after the new command.
+  BeginTest("");
+  clearCommandHistory();
+  TestPressKey(":.,.+6s/fo\\left\\left\\leftet-auto-in\\ctrl-pX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(".,.+6set-auto-indentX/fo"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer.
+  TestPressKey("\\ctrl-c"); // Dismiss bar
+  FinishTest("");
+
   // "The current word", for Commands, can contain "-".
   BeginTest("");
   TestPressKey(":set-\\ctrl-p");

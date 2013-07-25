@@ -97,6 +97,7 @@ private:
   QString wordBeforeCursor();
   QString commandBeforeCursor();
   void replaceWordBeforeCursorWith(const QString& newWord);
+  void replaceCommandBeforeCursorWith(const QString& newCommand);
 
   void activateSearchHistoryCompletion();
   void activateWordFromDocumentCompletion();

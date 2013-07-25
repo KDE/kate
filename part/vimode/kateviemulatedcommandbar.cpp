@@ -640,6 +640,12 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
   }
+  else if (m_currentCompletionType == SedReplaceHistory)
+  {
+    m_edit->setText(replaceTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+    ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+    m_edit->setCursorPosition(parsedSedReplace.replaceEndPos + 1);
+  }
   else
   {
     Q_ASSERT(false && "Something went wrong, here - completion with unrecognised completion type");
@@ -752,6 +758,12 @@ bool KateViEmulatedCommandBar::isCursorInFindTermOfSedReplace()
   return parsedSedReplace.parsedSuccessfully && (m_edit->cursorPosition() >= parsedSedReplace.findBeginPos && m_edit->cursorPosition() <= adjustedEndPos);
 }
 
+bool KateViEmulatedCommandBar::isCursorInReplaceTermOfSedReplace()
+{
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+  return parsedSedReplace.parsedSuccessfully && m_edit->cursorPosition() >= parsedSedReplace.replaceBeginPos && m_edit->cursorPosition() <= parsedSedReplace.replaceEndPos + 1;
+}
+
 QString KateViEmulatedCommandBar::withoutLeadingRange(const QString& originalCommand)
 {
   QString leadingRangeExpression;
@@ -788,6 +800,16 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
             m_currentCompletionType = SedSearchHistory;
             m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->searchHistory()));
             m_completer->setCompletionPrefix(findTermInSedReplace());
+            m_completer->complete();
+          }
+        }
+        else if (isCursorInReplaceTermOfSedReplace())
+        {
+          if (!KateGlobal::self()->viInputModeGlobal()->replaceHistory().isEmpty())
+          {
+            m_currentCompletionType = SedReplaceHistory;
+            m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->replaceHistory()));
+            m_completer->setCompletionPrefix(replaceTermInSedReplace());
             m_completer->complete();
           }
         }
@@ -1081,7 +1103,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   // only if this is the leading word in the text edit (it gets annoying if completion pops up
   // after ":s/se" etc).
   const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == leadingRange(m_edit->text()).length());
-  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType != WordFromDocument && m_currentCompletionType != CommandHistory && m_currentCompletionType != SedSearchHistory)
+  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType != WordFromDocument && m_currentCompletionType != CommandHistory && m_currentCompletionType != SedSearchHistory && m_currentCompletionType != SedReplaceHistory)
   {
     deactivateCompletion();
   }

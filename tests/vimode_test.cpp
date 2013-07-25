@@ -3293,11 +3293,12 @@ void ViModeTest::VimStyleCommandBarTests()
   FinishTest("");
 
   // ctrl-p on some character *after" the search term should
-  // *not* invoke search history completion (TODO - it should actually invoke replacement history).
+  // *not* invoke search history completion.
   // Note: in s/xyz/replace/g, the "/" after the "z" is counted as part of the find term;
   // this allows us to do xyz<ctrl-p> and get completions.
   clearSearchHistory();
   clearCommandHistory();
+  clearReplaceHistory();
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
   BeginTest("");
   TestPressKey(":s/xyz/replace/g\\ctrl-b\\right\\right\\right\\right\\right\\right\\ctrl-p");
@@ -3399,6 +3400,149 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/nXose/replace/g"));
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // ctrl-p on the first character of the replace term in a sed-replace should
+  // invoke replace history completion.
+  clearSearchHistory();
+  clearReplaceHistory();
+  clearCommandHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replace");
+  BeginTest("");
+  TestPressKey(":s/search/replace/g\\left\\left\\left\\left\\left\\left\\left\\left\\left\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  TestPressKey(":'<,'>s/search/replace/g\\left\\left\\left\\left\\left\\left\\left\\left\\left\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // ctrl-p on the last character of the replace term in a sed-replace should
+  // invoke replace history completion.
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replace");
+  BeginTest("");
+  TestPressKey(":s/xyz/replace/g\\left\\left\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  TestPressKey(":'<,'>s/xyz/replace/g\\left\\left\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // ctrl-p on some arbitrary character of the search term in a sed-replace should
+  // invoke search history completion.
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replaceaaaaaa");
+  BeginTest("");
+  TestPressKey(":s/xyzaaaaaa/replace/g\\left\\left\\left\\left\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  TestPressKey(":'<,'>s/xyzaaaaaa/replace/g\\left\\left\\left\\left\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // ctrl-p on some character *after" the replace term should
+  // *not* invoke replace history completion.
+  // Note: in s/xyz/replace/g, the "/" after the "e" is counted as part of the replace term;
+  // this allows us to do replace<ctrl-p> and get completions.
+  clearSearchHistory();
+  clearCommandHistory();
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("xyz");
+  BeginTest("");
+  TestPressKey(":s/xyz/replace/g\\left\\ctrl-p");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  clearSearchHistory();
+  clearCommandHistory();
+  TestPressKey(":'<,'>s/xyz/replace/g\\left\\ctrl-p");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+
+  // (Replace history should be reversed).
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("xyzaaaaaa");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("abc");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("def");
+  BeginTest("");
+  TestPressKey(":s/search//g\\left\\left\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionsMatches(QStringList()  << "def" << "abc" << "xyzaaaaaa");
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // Completion prefix is the current replace term.
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("xy:zaaaaaa");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("abc");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("def");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("xy:zbaaaaa");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("xy:zcaaaaa");
+  BeginTest("");
+  TestPressKey(":'<,'>s/replace/search/g\\ctrl-fxy:z\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionsMatches(QStringList()  << "xy:zcaaaaa" << "xy:zbaaaaa" << "xy:zaaaaaa");
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // Replace entire search term with completion.
+  clearReplaceHistory();
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("ab,cd");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("ab,xy");
+  BeginTest("");
+  TestPressKey(":s/search//g\\ctrl-fab,\\ctrl-p\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/ab,cd/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  TestPressKey(":'<,'>s/search//g\\ctrl-fab,\\ctrl-p\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("'<,'>s/search/ab,cd/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // Place the cursor at the end of replace term.
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("ab,xy");
+  BeginTest("");
+  TestPressKey(":s/search//g\\ctrl-fab,\\ctrl-pX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/ab,xyX/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  TestPressKey(":.,.+7s/search//g\\ctrl-fab,\\ctrl-pX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(".,.+7s/search/ab,xyX/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // Leave replace term unchanged if there is no replace history.
+  clearReplaceHistory();
+  BeginTest("");
+  TestPressKey(":s/nose/replace/g\\left\\left\\left\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/nose/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+
+  // Leave cursor position unchanged if there is no replace history.
+  clearSearchHistory();
+  BeginTest("");
+  TestPressKey(":s/nose/replace/g\\left\\left\\left\\left\\ctrl-pX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/nose/replaXce/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
   FinishTest("");
 }
 

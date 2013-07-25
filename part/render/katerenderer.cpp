@@ -866,19 +866,19 @@ void KateRenderer::updateConfig ()
 void KateRenderer::updateFontHeight ()
 {
   // first: get normal line spacing
-  m_fontHeight = config()->fontMetrics().lineSpacing();
+  m_fontHeight = config()->fontMetrics().height();
   
   // Sometimes the height of italic fonts is larger than for the non-italic
   // font. Since all our lines are of same/fixed height, use the maximum of
   // both heights (bug #302748)
   QFont italicFont = config()->font();
   italicFont.setItalic(true);
-  m_fontHeight = qMax (m_fontHeight, QFontMetrics(italicFont).lineSpacing());
+  m_fontHeight = qMax (m_fontHeight, QFontMetrics(italicFont).height());
   
   // same for bold font
   QFont boldFont = config()->font();
   boldFont.setBold (true);
-  m_fontHeight = qMax (m_fontHeight, QFontMetrics(boldFont).lineSpacing());
+  m_fontHeight = qMax (m_fontHeight, QFontMetrics(boldFont).height());
 }
 
 qreal KateRenderer::spaceWidth() const

@@ -3382,6 +3382,24 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
+
+  // Leave find term unchanged if there is no search history.
+  clearSearchHistory();
+  BeginTest("");
+  TestPressKey(":s/nose/replace/g\\ctrl-b\\right\\right\\right\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/nose/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // Leave cursor position unchanged if there is no search history.
+  clearSearchHistory();
+  BeginTest("");
+  TestPressKey(":s/nose/replace/g\\ctrl-b\\right\\right\\right\\ctrl-pX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/nXose/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

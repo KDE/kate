@@ -636,9 +636,9 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   }
   else if (m_currentCompletionType == SedSearchHistory)
   {
-     m_edit->setText(findTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
-     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-     m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
+    m_edit->setText(findTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+    ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+    m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
   }
   else
   {
@@ -783,10 +783,13 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       {
         if (isCursorInFindTermOfSedReplace())
         {
-          m_currentCompletionType = SedSearchHistory;
-          m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->searchHistory()));
-          m_completer->setCompletionPrefix(findTermInSedReplace());
-          m_completer->complete();
+          if (!KateGlobal::self()->viInputModeGlobal()->searchHistory().isEmpty())
+          {
+            m_currentCompletionType = SedSearchHistory;
+            m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->searchHistory()));
+            m_completer->setCompletionPrefix(findTermInSedReplace());
+            m_completer->complete();
+          }
         }
         else
         {
@@ -797,7 +800,10 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       {
         activateSearchHistoryCompletion();
       }
-      setCompletionIndex(0);
+      if (m_currentCompletionType != None)
+      {
+        setCompletionIndex(0);
+      }
     }
     else
     {

@@ -620,7 +620,10 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   }
   else if (m_currentCompletionType == SearchHistory)
   {
-    m_edit->setText(newCompletion);
+    if (!newCompletion.isEmpty())
+    {
+      m_edit->setText(newCompletion);
+    }
   }
   else if (m_currentCompletionType == CommandHistory)
   {

@@ -3588,6 +3588,17 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
+
+  // In search mode, don't blank current text on completion if there is no item in the search history which
+  // has the current text as a prefix.
+  BeginTest("");
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("doesnothavexyzasaprefix");
+  TestPressKey("/xyz\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("xyz"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

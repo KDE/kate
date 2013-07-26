@@ -80,7 +80,7 @@ namespace
       {
         // Unescape.
         toggledEscapedString.remove(indexOfEscapeChar - 1, 1);
-        searchFrom = indexOfEscapeChar + 1;
+        searchFrom = indexOfEscapeChar;
       }
     } while (true);
 

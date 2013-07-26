@@ -2122,6 +2122,8 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo x\\y", "/x\\\\\\\\y\\enterrX", "foo X\\y");
   // ( and ), if escaped, are not literals.
   DoTest("foo  barbarxyz", "/ \\\\(bar\\\\)\\\\+xyz\\enterrX", "foo Xbarbarxyz");
+  // Handle escaping correctly if we have an escaped and unescaped bracket next to each other.
+  DoTest("foo  x(A)y", "/x(\\\\(.\\\\))y\\enterrX", "foo  X(A)y");
   // |, if unescaped, is literal.
   DoTest("foo |bar", "/|\\enterrX", "foo Xbar");
   // |, if escaped, is not a literal.

@@ -602,6 +602,7 @@ void KateViEmulatedCommandBar::activateSedReplaceHistoryCompletion()
 
 void KateViEmulatedCommandBar::deactivateCompletion()
 {
+  kDebug(13070) << "Manually dismissing completions";
   m_completer->popup()->hide();
   m_currentCompletionType = None;
 }

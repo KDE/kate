@@ -2198,7 +2198,7 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(emulatedCommandBarCompleter() != NULL);
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   // Make sure the completion appears in roughly the correct place: this is a little fragile :/
   const QPoint completerRectTopLeft = emulatedCommandBarCompleter()->popup()->mapToGlobal(emulatedCommandBarCompleter()->popup()->rect().topLeft()) ;
   const QPoint barEditBottomLeft = emulatedCommandBarTextEdit()->mapToGlobal(emulatedCommandBarTextEdit()->rect().bottomLeft());
@@ -2270,7 +2270,7 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(emulatedCommandBarCompleter() != NULL);
   BeginTest("foo bar");
   TestPressKey("/\\ctrl-n");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("xyz"));
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("xyz"));
   QCOMPARE(emulatedCommandBarCompleter()->popup()->currentIndex().row(), 2);
@@ -2344,7 +2344,7 @@ void ViModeTest::VimStyleCommandBarTests()
   // Test that we can actually find a single word and add it to the list of completions.
   BeginTest("foo");
   TestPressKey("/\\ctrl- ");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo"));
   TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo");
@@ -2352,7 +2352,7 @@ void ViModeTest::VimStyleCommandBarTests()
   // Count digits and underscores as being part of a word.
   BeginTest("foo_12");
   TestPressKey("/\\ctrl- ");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo_12"));
   TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo_12");
@@ -2421,7 +2421,7 @@ void ViModeTest::VimStyleCommandBarTests()
   // But don't count "-" as being part of the current word.
   BeginTest("foo_12");
   TestPressKey("/bar-foo\\ctrl- ");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("foo_12"));
   TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo_12");
@@ -2450,7 +2450,7 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("foo fee fob foables");
   TestPressKey("/\\ctrl- foa\\ctrl-p");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foables"));
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo fee fob foables");
 
@@ -2467,7 +2467,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(bar");
   BeginTest("");
   TestPressKey("/foo(b\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo(bar"));
   TestPressKey("\\enter"); // Dismiss bar.
@@ -2479,7 +2479,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("foo(b|ar");
   BeginTest("");
   TestPressKey("/foo(b\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   verifyCommandBarCompletionsMatches(QStringList() << "foo(b|ar");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("foo(b|ar"));
   TestPressKey("\\ctrl-c"); // Dismiss completion.
@@ -2517,7 +2517,7 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("abd");
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
   TestPressKey("\\ctrl-h");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("a ab abc");
 
@@ -2606,7 +2606,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
   BeginTest("");
   TestPressKey("/f\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   verifyCommandBarCompletionsMatches(QStringList() << "foo(bar");
   TestPressKey("\\enter"); // Dismiss bar.
   FinishTest("");
@@ -2796,7 +2796,7 @@ void ViModeTest::VimStyleCommandBarTests()
     TestPressKey(":so");
     TestPressKey("\\ctrl-c"); // Dismiss completer
     TestPressKey("r");
-    QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+    verifyCommandBarCompletionVisible();
     verifyCommandBarCompletionContains(QStringList() << "sort");
     TestPressKey("\\ctrl-c"); // Dismiss completer
     TestPressKey("\\ctrl-c"); // Dismiss bar
@@ -2817,7 +2817,7 @@ void ViModeTest::VimStyleCommandBarTests()
   // manually entered word.
   BeginTest("");
   TestPressKey(":se\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QVERIFY(emulatedCommandBarTextEdit()->text() != "se");
   TestPressKey("\\ctrl-c"); // Dismiss completer
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("se"));
@@ -2867,7 +2867,7 @@ void ViModeTest::VimStyleCommandBarTests()
   // "The current word", for Commands, can contain "-".
   BeginTest("");
   TestPressKey(":set-\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QVERIFY(emulatedCommandBarTextEdit()->text() != "set-");
   QVERIFY(emulatedCommandBarCompleter()->currentCompletion().startsWith("set-"));
   QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
@@ -2880,7 +2880,7 @@ void ViModeTest::VimStyleCommandBarTests()
     BeginTest("soggy1 soggy2");
     TestPressKey(":\\ctrl- s");
     TestPressKey("o");
-    QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+    verifyCommandBarCompletionVisible();
     verifyCommandBarCompletionsMatches(QStringList() << "soggy1" << "soggy2");
     TestPressKey("\\ctrl-c"); // Dismiss completer
     TestPressKey("\\ctrl-c"); // Dismiss bar
@@ -2892,7 +2892,7 @@ void ViModeTest::VimStyleCommandBarTests()
     // completion as we type.
     BeginTest("soggy1 soggy2");
     TestPressKey(":s/s\\ctrl- o");
-    QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+    verifyCommandBarCompletionVisible();
     verifyCommandBarCompletionsMatches(QStringList() << "soggy1" << "soggy2");
     TestPressKey("\\ctrl-c"); // Dismiss completer
     TestPressKey("\\ctrl-c"); // Dismiss bar
@@ -2989,7 +2989,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("command2");
   BeginTest("");
   TestPressKey(":\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("command2"));
   QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
   TestPressKey("\\ctrl-c"); // Dismiss completer
@@ -3000,7 +3000,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("command2");
   BeginTest("");
   TestPressKey(":\\ctrl-n");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("command1"));
   QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
   TestPressKey("\\ctrl-c"); // Dismiss completer
@@ -3013,7 +3013,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("s/command2");
   BeginTest("");
   TestPressKey(":s/\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("s/command2"));
   QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
   TestPressKey("\\ctrl-c"); // Dismiss completer
@@ -3024,7 +3024,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("s/command2");
   BeginTest("");
   TestPressKey(":s/\\ctrl-n");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QCOMPARE(emulatedCommandBarCompleter()->currentCompletion(), QString("s/command1"));
   QCOMPARE(emulatedCommandBarTextEdit()->text(), emulatedCommandBarCompleter()->currentCompletion());
   TestPressKey("\\ctrl-c"); // Dismiss completer
@@ -3035,7 +3035,7 @@ void ViModeTest::VimStyleCommandBarTests()
   BeginTest("sausage bacon");
   TestPressKey(":s/b\\ctrl- \\ctrl-p");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/bacon"));
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/b"));
   TestPressKey("\\ctrl-c"); // Dismiss bar
@@ -3189,7 +3189,7 @@ void ViModeTest::VimStyleCommandBarTests()
   // Command-completion should be invoked on the command being typed even when preceded by a range expression.
   BeginTest("");
   TestPressKey(":0,'>so");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
@@ -3197,7 +3197,7 @@ void ViModeTest::VimStyleCommandBarTests()
   // Command-completion should ignore the range expression.
   BeginTest("");
   TestPressKey(":.,.+6so");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
@@ -3253,11 +3253,11 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("search");
   BeginTest("");
   TestPressKey(":s/search/replace/g\\ctrl-b\\right\\right\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   TestPressKey(":'<,'>s/search/replace/g\\ctrl-b\\right\\right\\right\\right\\right\\right\\right\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
@@ -3268,11 +3268,11 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyz");
   BeginTest("");
   TestPressKey(":s/xyz/replace/g\\ctrl-b\\right\\right\\right\\right\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   TestPressKey(":'<,'>s/xyz/replace/g\\ctrl-b\\right\\right\\right\\right\\right\\right\\right\\right\\right\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
@@ -3283,11 +3283,11 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyzaaaaaa");
   BeginTest("");
   TestPressKey(":s/xyzaaaaaa/replace/g\\ctrl-b\\right\\right\\right\\right\\right\\right\\right\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   TestPressKey(":'<,'>s/xyzaaaaaa/replace/g\\ctrl-b\\right\\right\\right\\right\\right\\right\\right\\right\\right\\right\\right\\right\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
@@ -3317,7 +3317,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xyzaaaaaa");
   BeginTest("");
   TestPressKey(":s//replace/g\\ctrl-b\\right\\right\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   verifyCommandBarCompletionsMatches(QStringList() << "xyzaaaaaa");
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
@@ -3334,7 +3334,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("def");
   BeginTest("");
   TestPressKey(":s//replace/g\\ctrl-b\\right\\right\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   verifyCommandBarCompletionsMatches(QStringList()  << "def" << "abc" << "xyzaaaaaa");
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
@@ -3349,7 +3349,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("xy:zcaaaaa");
   BeginTest("");
   TestPressKey(":s//replace/g\\ctrl-dxy:z\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   verifyCommandBarCompletionsMatches(QStringList()  << "xy:zcaaaaa" << "xy:zbaaaaa" << "xy:zaaaaaa");
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
@@ -3410,11 +3410,11 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replace");
   BeginTest("");
   TestPressKey(":s/search/replace/g\\left\\left\\left\\left\\left\\left\\left\\left\\left\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   TestPressKey(":'<,'>s/search/replace/g\\left\\left\\left\\left\\left\\left\\left\\left\\left\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
@@ -3425,11 +3425,11 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replace");
   BeginTest("");
   TestPressKey(":s/xyz/replace/g\\left\\left\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   TestPressKey(":'<,'>s/xyz/replace/g\\left\\left\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
@@ -3440,11 +3440,11 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replaceaaaaaa");
   BeginTest("");
   TestPressKey(":s/xyzaaaaaa/replace/g\\left\\left\\left\\left\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   TestPressKey(":'<,'>s/xyzaaaaaa/replace/g\\left\\left\\left\\left\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
@@ -3476,7 +3476,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("def");
   BeginTest("");
   TestPressKey(":s/search//g\\left\\left\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   verifyCommandBarCompletionsMatches(QStringList()  << "def" << "abc" << "xyzaaaaaa");
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
@@ -3491,7 +3491,7 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("xy:zcaaaaa");
   BeginTest("");
   TestPressKey(":'<,'>s/replace/search/g\\ctrl-fxy:z\\ctrl-p");
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   verifyCommandBarCompletionsMatches(QStringList()  << "xy:zcaaaaa" << "xy:zbaaaaa" << "xy:zaaaaaa");
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
@@ -4062,9 +4062,40 @@ QCompleter* ViModeTest::emulatedCommandBarCompleter()
   return kate_view->viModeEmulatedCommandBar()->findChild<QCompleter*>("completer");
 }
 
+void ViModeTest::verifyCommandBarCompletionVisible()
+{
+  if (!emulatedCommandBarCompleter()->popup()->isVisible())
+  {
+    qDebug() << "Emulated command bar completer not visible.";
+    QStringListModel *completionModel = qobject_cast<QStringListModel*>(emulatedCommandBarCompleter()->model());
+    Q_ASSERT(completionModel);
+    QStringList allAvailableCompletions = completionModel->stringList();
+    qDebug() << " Completion list: " << allAvailableCompletions;
+    qDebug() << " Completion prefix: " << emulatedCommandBarCompleter()->completionPrefix();
+    bool candidateCompletionFound = false;
+    foreach (const QString& availableCompletion, allAvailableCompletions)
+    {
+      if (availableCompletion.startsWith(emulatedCommandBarCompleter()->completionPrefix()))
+      {
+        candidateCompletionFound = true;
+        break;
+      }
+    }
+    if (candidateCompletionFound)
+    {
+      qDebug() << " The current completion prefix is a prefix of one of the available completions, so either complete() was not called, or the popup was manually hidden since then";
+    }
+    else
+    {
+      qDebug() << " The current completion prefix is not a prefix of one of the available completions; this may or may not be why it is not visible";
+    }
+  }
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+}
+
 void ViModeTest::verifyCommandBarCompletionsMatches(const QStringList& expectedCompletionList)
 {
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QStringList actualCompletionList;
   for (int i = 0; emulatedCommandBarCompleter()->setCurrentRow(i); i++)
     actualCompletionList << emulatedCommandBarCompleter()->currentCompletion();
@@ -4078,7 +4109,7 @@ void ViModeTest::verifyCommandBarCompletionsMatches(const QStringList& expectedC
 
 void ViModeTest::verifyCommandBarCompletionContains(const QStringList& expectedCompletionList)
 {
-  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  verifyCommandBarCompletionVisible();
   QStringList actualCompletionList;
 
   for (int i = 0; emulatedCommandBarCompleter()->setCurrentRow(i); i++)

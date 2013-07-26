@@ -108,6 +108,7 @@ private:
 
   QCompleter *emulatedCommandBarCompleter();
 
+  void verifyCommandBarCompletionVisible();
   void verifyCommandBarCompletionsMatches(const QStringList& expectedCompletionList);
   void verifyCommandBarCompletionContains(const QStringList& expectedCompletionList);
 };

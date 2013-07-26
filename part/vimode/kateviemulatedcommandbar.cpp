@@ -753,9 +753,7 @@ QString KateViEmulatedCommandBar::replaceTermInSedReplace()
 bool KateViEmulatedCommandBar::isCursorInFindTermOfSedReplace()
 {
   ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-  // If the "find" term is empty, findEndPos will be less than findBeginPos, so adjust for this.
-  const int adjustedEndPos = (parsedSedReplace.findEndPos < parsedSedReplace.findBeginPos) ? parsedSedReplace.findEndPos + 2 : parsedSedReplace.findEndPos + 1;
-  return parsedSedReplace.parsedSuccessfully && (m_edit->cursorPosition() >= parsedSedReplace.findBeginPos && m_edit->cursorPosition() <= adjustedEndPos);
+  return parsedSedReplace.parsedSuccessfully && (m_edit->cursorPosition() >= parsedSedReplace.findBeginPos && m_edit->cursorPosition() <= parsedSedReplace.findEndPos + 1);
 }
 
 bool KateViEmulatedCommandBar::isCursorInReplaceTermOfSedReplace()

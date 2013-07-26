@@ -3534,6 +3534,7 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/nose/replace/g"));
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
 
   // Leave cursor position unchanged if there is no replace history.
   clearSearchHistory();
@@ -3543,6 +3544,16 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
+
+  // Invoke replacement history even when the "find" term is empty.
+  clearReplaceHistory();
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("ab,xy");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("whoops");
+  TestPressKey(":s///g\\ctrl-f\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s//ab,xy/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
 }
 

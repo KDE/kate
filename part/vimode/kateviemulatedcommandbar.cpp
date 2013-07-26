@@ -903,6 +903,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
         deactivateCompletion();
         m_nextTextChangeDueToCompletionChange = true;
         m_edit->setText(m_revertToIfCompletionAborted);
+        m_edit->setCursorPosition(m_revertToCursorPosIfCompletionAborted);
         m_nextTextChangeDueToCompletionChange = false;
       }
       return true;
@@ -1041,6 +1042,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   if (!m_nextTextChangeDueToCompletionChange)
   {
     m_revertToIfCompletionAborted = newText;
+    m_revertToCursorPosIfCompletionAborted = m_edit->cursorPosition();
   }
   if (m_mode == SearchForward || m_mode == SearchBackward)
   {

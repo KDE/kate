@@ -81,6 +81,7 @@ private:
   void currentCompletionChanged();
   bool m_completionActive;
   QString m_revertToIfCompletionAborted;
+  int m_revertToCursorPosIfCompletionAborted;
 
   KTextEditor::Attribute::Ptr m_highlightMatchAttribute;
   KTextEditor::MovingRange* m_highlightedMatch;

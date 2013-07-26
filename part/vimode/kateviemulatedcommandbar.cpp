@@ -1143,7 +1143,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   // only if this is the leading word in the text edit (it gets annoying if completion pops up
   // after ":s/se" etc).
   const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == leadingRange().length());
-  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType == Commands)
+  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType == Commands && !m_nextTextChangeDueToCompletionChange)
   {
     deactivateCompletion();
   }

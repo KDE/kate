@@ -3609,6 +3609,15 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
+
+  // Don't dismiss the command completion just because the cursor ends up *temporarily* at a place where
+  // command completion is disallowed when cycling through completions.
+  BeginTest("");
+  TestPressKey(":set/se\\left\\left\\left-\\ctrl-p");
+  verifyCommandBarCompletionVisible();
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

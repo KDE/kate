@@ -612,42 +612,43 @@ void KateViEmulatedCommandBar::updateCompletionPrefix()
 
 void KateViEmulatedCommandBar::currentCompletionChanged()
 {
+  const QString newCompletion = m_completer->currentCompletion();
   m_nextTextChangeDueToCompletionChange = true;
   if (m_currentCompletionType == WordFromDocument)
   {
-    replaceWordBeforeCursorWith(m_completer->currentCompletion());
+    replaceWordBeforeCursorWith(newCompletion);
   }
   else if (m_currentCompletionType == SearchHistory)
   {
-    m_edit->setText(m_completer->currentCompletion());
+    m_edit->setText(newCompletion);
   }
   else if (m_currentCompletionType == CommandHistory)
   {
-    if (!m_completer->currentCompletion().isEmpty())
+    if (!newCompletion.isEmpty())
     {
-      m_edit->setText(m_completer->currentCompletion());
+      m_edit->setText(newCompletion);
     }
   }
   else if (m_currentCompletionType == Commands)
   {
-    const int newCursorPosition = m_edit->cursorPosition() + (m_completer->currentCompletion().length() - commandBeforeCursor().length());
-    replaceCommandBeforeCursorWith(m_completer->currentCompletion());
+    const int newCursorPosition = m_edit->cursorPosition() + (newCompletion.length() - commandBeforeCursor().length());
+    replaceCommandBeforeCursorWith(newCompletion);
     m_edit->setCursorPosition(newCursorPosition);
   }
   else if (m_currentCompletionType == SedSearchHistory)
   {
-    if (!m_completer->currentCompletion().isEmpty())
+    if (!newCompletion.isEmpty())
     {
-      m_edit->setText(findTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+      m_edit->setText(findTermInSedReplaceReplacedWith(newCompletion));
     }
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
   }
   else if (m_currentCompletionType == SedReplaceHistory)
   {
-    if (!m_completer->currentCompletion().isEmpty())
+    if (!newCompletion.isEmpty())
     {
-      m_edit->setText(replaceTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+      m_edit->setText(replaceTermInSedReplaceReplacedWith(newCompletion));
     }
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.replaceEndPos + 1);

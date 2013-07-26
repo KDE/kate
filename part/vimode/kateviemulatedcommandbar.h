@@ -86,6 +86,8 @@ private:
   KTextEditor::Attribute::Ptr m_highlightMatchAttribute;
   KTextEditor::MovingRange* m_highlightedMatch;
   void updateMatchHighlight(const KTextEditor::Range& matchRange);
+  enum BarBackgroundStatus { Normal, MatchFound, NoMatchFound };
+  void setBarBackground(BarBackgroundStatus status);
 
   QString m_currentSearchPattern;
   bool m_currentSearchIsCaseSensitive;

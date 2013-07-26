@@ -2647,6 +2647,16 @@ void ViModeTest::VimStyleCommandBarTests()
   // Execute the command on Enter.
   DoTest("d\nb\na\nc", "Vjjj:sort\\enter", "a\nb\nc\nd");
 
+  // Bar background should always be normal for command bar.
+  BeginTest("foo");
+  TestPressKey("/foo\\enter:");
+  verifyTextEditBackgroundColour(normalBackgroundColour);
+  TestPressKey("\\ctrl-c/bar\\enter:");
+  verifyTextEditBackgroundColour(normalBackgroundColour);
+  TestPressKey("\\esc");
+  FinishTest("foo");
+
+
   const int commandResponseMessageTimeOutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_COMMANDRESPONSEMESSAGETIMEOUTMS")).toInt();
   const long commandResponseMessageTimeOutMS = (commandResponseMessageTimeOutMSOverride > 0) ? commandResponseMessageTimeOutMSOverride : 2000;
   {

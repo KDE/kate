@@ -334,6 +334,7 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
       Q_ASSERT(false && "Unknown mode!");
   }
   m_barTypeIndicator->setText(barTypeIndicator);
+  setBarBackground(Normal);
 
   m_startingCursorPos = m_view->cursorPosition();
 
@@ -431,6 +432,30 @@ void KateViEmulatedCommandBar::updateMatchHighlight(const Range& matchRange)
   // Note that if matchRange is invalid, the highlight will not be shown, so we
   // don't need to check for that explicitly.
   m_highlightedMatch->setRange(matchRange);
+}
+
+void KateViEmulatedCommandBar::setBarBackground(KateViEmulatedCommandBar::BarBackgroundStatus status)
+{
+    QPalette barBackground(m_edit->palette());
+    switch (status)
+    {
+      case MatchFound:
+      {
+        KColorScheme::adjustBackground(barBackground, KColorScheme::PositiveBackground);
+        break;
+      }
+      case NoMatchFound:
+      {
+        KColorScheme::adjustBackground(barBackground, KColorScheme::NegativeBackground);
+        break;
+      }
+      case Normal:
+      {
+        barBackground = QPalette();
+        break;
+      }
+    }
+    m_edit->setPalette(barBackground);
 }
 
 bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
@@ -1079,26 +1104,23 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     KateViModeBase* currentModeHandler = (m_view->getCurrentViMode() == NormalMode) ? static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViNormalMode()) : static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViVisualMode());
     Range match = currentModeHandler->findPattern(qtRegexPattern, searchBackwards, caseSensitive, m_startingCursorPos);
 
-    QPalette barBackground(m_edit->palette());
     if (match.isValid())
     {
       moveCursorTo(match.start());
-      KColorScheme::adjustBackground(barBackground, KColorScheme::PositiveBackground);
+      setBarBackground(MatchFound);
     }
     else
     {
       moveCursorTo(m_startingCursorPos);
       if (!m_edit->text().isEmpty())
       {
-        KColorScheme::adjustBackground(barBackground, KColorScheme::NegativeBackground);
+        setBarBackground(NoMatchFound);
       }
       else
       {
-        // Reset to back to normal.
-        barBackground = QPalette();
+        setBarBackground(Normal);
       }
     }
-    m_edit->setPalette(barBackground);
 
     updateMatchHighlight(match);
 

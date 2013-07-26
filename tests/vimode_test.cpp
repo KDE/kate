@@ -1310,6 +1310,28 @@ void ViModeTest::MappingTests()
   // will yank one more character than it should.
   DoTest("foo(bar)X", "vgAyp", "ffoo(bar)oo(bar)X");
 
+  // Regression tests for BUG:260655
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode); // 'f'
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "f", KateViModeBase::NonRecursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "d", "i", KateViModeBase::NonRecursive);
+  DoTest("foo dar", "adr.", "foo .ar");
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode); // 'F'
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "F", KateViModeBase::NonRecursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "d", "i", KateViModeBase::NonRecursive);
+  DoTest("foo dar", "$adr.", "foo .ar");
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode); // 't'
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "t", KateViModeBase::NonRecursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "d", "i", KateViModeBase::NonRecursive);
+  DoTest("foo dar", "adr.", "foo.dar");
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode); // 'T'
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "T", KateViModeBase::NonRecursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "d", "i", KateViModeBase::NonRecursive);
+  DoTest("foo dar", "$adr.", "foo d.r");
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode); // 'r'
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "r", KateViModeBase::NonRecursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "d", "i", KateViModeBase::NonRecursive);
+  DoTest("foo dar", "ad", "doo dar");
+
   // Clear mappings for subsequent tests.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
 }

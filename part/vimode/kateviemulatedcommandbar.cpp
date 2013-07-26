@@ -501,8 +501,8 @@ QString KateViEmulatedCommandBar::wordBeforeCursor()
 
 QString KateViEmulatedCommandBar::commandBeforeCursor()
 {
-  const QString textWithoutLeadingRange = withoutLeadingRange(m_edit->text());
-  const int cursorPositionWithoutLeadingRange = m_edit->cursorPosition() - leadingRange(m_edit->text()).length();
+  const QString textWithoutLeadingRange = withoutLeadingRange();
+  const int cursorPositionWithoutLeadingRange = m_edit->cursorPosition() - leadingRange().length();
   int commandBeforeCursorBegin = cursorPositionWithoutLeadingRange - 1;
   while (commandBeforeCursorBegin >= 0 && (textWithoutLeadingRange[commandBeforeCursorBegin].isLetterOrNumber() || textWithoutLeadingRange[commandBeforeCursorBegin] == '_' || textWithoutLeadingRange[commandBeforeCursorBegin] == '-'))
   {
@@ -667,7 +667,7 @@ void KateViEmulatedCommandBar::setCompletionIndex(int index)
 
 KateViEmulatedCommandBar::ParsedSedReplace KateViEmulatedCommandBar::parseAsSedReplaceExpression()
 {
-  const QString text = withoutLeadingRange(m_edit->text());
+  const QString text = withoutLeadingRange();
   ParsedSedReplace parsedSedReplace;
   QString delimiter;
   parsedSedReplace.parsedSuccessfully = KateCommands::SedReplace::parse(text, delimiter, parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos, parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos);
@@ -705,10 +705,10 @@ KateViEmulatedCommandBar::ParsedSedReplace KateViEmulatedCommandBar::parseAsSedR
 
   if (parsedSedReplace.parsedSuccessfully)
   {
-    parsedSedReplace.findBeginPos += leadingRange(m_edit->text()).length();
-    parsedSedReplace.findEndPos += leadingRange(m_edit->text()).length();
-    parsedSedReplace.replaceBeginPos += leadingRange(m_edit->text()).length();
-    parsedSedReplace.replaceEndPos += leadingRange(m_edit->text()).length();
+    parsedSedReplace.findBeginPos += leadingRange().length();
+    parsedSedReplace.findEndPos += leadingRange().length();
+    parsedSedReplace.replaceBeginPos += leadingRange().length();
+    parsedSedReplace.replaceEndPos += leadingRange().length();
   }
   return parsedSedReplace;
 }
@@ -762,19 +762,21 @@ bool KateViEmulatedCommandBar::isCursorInReplaceTermOfSedReplace()
   return parsedSedReplace.parsedSuccessfully && m_edit->cursorPosition() >= parsedSedReplace.replaceBeginPos && m_edit->cursorPosition() <= parsedSedReplace.replaceEndPos + 1;
 }
 
-QString KateViEmulatedCommandBar::withoutLeadingRange(const QString& originalCommand)
+QString KateViEmulatedCommandBar::withoutLeadingRange()
 {
   QString leadingRangeExpression;
   QString withoutLeadingRange;
+  const QString originalCommand = m_edit->text();
   parseRangeExpression(originalCommand, m_view, leadingRangeExpression, withoutLeadingRange);
   withoutLeadingRange = originalCommand.mid(leadingRangeExpression.length());
   return withoutLeadingRange;
 }
 
-QString KateViEmulatedCommandBar::leadingRange(const QString& command)
+QString KateViEmulatedCommandBar::leadingRange()
 {
   QString leadingRange;
   QString unused;
+  const QString command = m_edit->text();
   parseRangeExpression(command, m_view, leadingRange, unused);
   return leadingRange;
 }
@@ -1094,7 +1096,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   }
 
   // Command completion doesn't need to be manually invoked.
-  if (m_mode == Command && m_currentCompletionType == None && !withoutLeadingRange(m_edit->text()).isEmpty())
+  if (m_mode == Command && m_currentCompletionType == None && !withoutLeadingRange().isEmpty())
   {
     activateCommandCompletion();
   }
@@ -1102,8 +1104,8 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   // Command completion mode should be automatically invoked if we are in Command mode, but
   // only if this is the leading word in the text edit (it gets annoying if completion pops up
   // after ":s/se" etc).
-  const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == leadingRange(m_edit->text()).length());
-  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType != WordFromDocument && m_currentCompletionType != CommandHistory && m_currentCompletionType != SedSearchHistory && m_currentCompletionType != SedReplaceHistory)
+  const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == leadingRange().length());
+  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType == Commands)
   {
     deactivateCompletion();
   }

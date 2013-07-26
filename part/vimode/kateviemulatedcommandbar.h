@@ -124,8 +124,8 @@ private:
   bool isCursorInFindTermOfSedReplace();
   bool isCursorInReplaceTermOfSedReplace();
 
-  QString withoutLeadingRange(const QString& originalCommand);
-  QString leadingRange(const QString& command);
+  QString withoutLeadingRange();
+  QString leadingRange();
 private slots:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();

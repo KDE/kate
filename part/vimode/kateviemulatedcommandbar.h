@@ -104,6 +104,8 @@ private:
   void activateWordFromDocumentCompletion();
   void activateCommandCompletion();
   void activateCommandHistoryCompletion();
+  void activateSedSearchHistoryCompletion();
+  void activateSedReplaceHistoryCompletion();
   void deactivateCompletion();
   void setCompletionIndex(int index);
 

@@ -468,8 +468,7 @@ bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
   Q_UNUSED(object);
   if (event->type() == QEvent::KeyPress)
   {
-    m_view->getViInputModeManager()->handleKeypress(static_cast<QKeyEvent*>(event));
-    return true;
+    return m_view->getViInputModeManager()->handleKeypress(static_cast<QKeyEvent*>(event));
   }
   return false;
 }
@@ -832,6 +831,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_Space)
   {
     activateWordFromDocumentCompletion();
+    return true;
   }
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_P)
   {
@@ -873,6 +873,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
         setCompletionIndex(m_completer->currentRow() + 1);
       }
     }
+    return true;
   }
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_N)
   {
@@ -900,6 +901,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
         setCompletionIndex(m_completer->currentRow() - 1);
       }
     }
+    return true;
   }
   if (m_waitingForRegister)
   {
@@ -956,6 +958,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     else if (keyEvent->key() == Qt::Key_B)
     {
       m_edit->setCursorPosition(0);
+      return true;
     }
     else if (keyEvent->key() == Qt::Key_W)
     {
@@ -964,11 +967,13 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       {
         deleteWordCharsToLeftOfCursor();
       }
+      return true;
     }
     else if (keyEvent->key() == Qt::Key_R)
     {
       m_waitingForRegister = true;
       m_waitingForRegisterIndicator->setVisible(true);
+      return true;
     }
     else if (keyEvent->key() == Qt::Key_D || keyEvent->key() == Qt::Key_F)
     {
@@ -988,7 +993,9 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
           m_edit->setCursorPosition(newCursorPos);
         }
       }
+      return true;
     }
+    return false;
   }
   else if (keyEvent->key() == Qt::Key_Enter || keyEvent->key() == Qt::Key_Return)
   {
@@ -1055,7 +1062,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     qApp->notify(m_edit, &keyEventCopy);
     m_suspendEditEventFiltering = false;
   }
-  return false;
+  return true;
 }
 
 Range KateViEmulatedCommandBar::parseRangeExpression(const QString& command, KateView *view, QString& destRangeExpression, QString& destTransformedCommand)

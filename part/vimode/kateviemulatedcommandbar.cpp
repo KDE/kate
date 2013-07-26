@@ -636,13 +636,19 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   }
   else if (m_currentCompletionType == SedSearchHistory)
   {
-    m_edit->setText(findTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+    if (!m_completer->currentCompletion().isEmpty())
+    {
+      m_edit->setText(findTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+    }
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
   }
   else if (m_currentCompletionType == SedReplaceHistory)
   {
-    m_edit->setText(replaceTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+    if (!m_completer->currentCompletion().isEmpty())
+    {
+      m_edit->setText(replaceTermInSedReplaceReplacedWith(m_completer->currentCompletion()));
+    }
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.replaceEndPos + 1);
   }

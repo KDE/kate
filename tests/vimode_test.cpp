@@ -3566,6 +3566,28 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
+
+  // Don't blank the "find" term if there is no search history that begins with the
+  // current "find" term.
+  BeginTest("");
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("doesnothavexyzasaprefix");
+  TestPressKey(":s//replace/g\\ctrl-dxyz\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/xyz/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // Don't blank the "replace" term if there is no search history that begins with the
+  // current "replace" term.
+  BeginTest("");
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("doesnothavexyzasaprefix");
+  TestPressKey(":s/search//g\\ctrl-fxyz\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/xyz/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

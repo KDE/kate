@@ -12,6 +12,11 @@
 ]>
 <language name="Jira" section="Markup" version="0.2" kateversion="3.10" extensions="*.jira" mimetype="" license="FDL" >
   <highlighting>
+
+    <!--
+    Documentation about the Jira syntax: https://jira.atlassian.com/secure/WikiRendererHelpAction.jspa?section=all
+    -->
+
     <contexts>
 
       <!-- Main Context -->
@@ -20,6 +25,7 @@
         <IncludeRules context="FindColor" />
         <IncludeRules context="FindHeader" />
         <IncludeRules context="FindQuote" />
+        <IncludeRules context="FindTextBreaks" />
         <IncludeRules context="FindTextEffects" />
       </context>
 
@@ -66,10 +72,10 @@
         <DetectChar char="}"  attribute="Special Character" context="UnhighlightedColorContent" />
       </context>
       <context name="UnhighlightedColorContent">
-        <StringDetect String="{color}" attribute="Special Character" context="#pop#pop" />
+        <StringDetect String="{color}" attribute="Special Character" context="#pop#pop#pop" />
       </context>
       <context name="HighlightedColorContent">
-        <StringDetect String="{color}" attribute="Special Character" context="#pop#pop#pop" />
+        <StringDetect String="{color}" attribute="Special Character" context="#pop#pop#pop#pop" />
       </context>
       <context name="ColorSilverTagColor">
         <StringDetect String="silver" attribute="Silver" />
@@ -229,6 +235,14 @@
       <!-- Quotes -->
       <context name="FindQuote" attribute="Normal" lineEndContext="#stay" >
         <StringDetect String="{quote}" context="Quote" attribute="Special Character" />
+      </context>
+
+      <!-- Text Breaks -->
+      <context name="FindTextBreaks" attribute="Normal" lineEndContext="#stay" >
+        <Detect2Chars char="\" char1="\" attribute="Special Character" />
+        <StringDetect String="----" attribute="Special Character" />
+        <StringDetect String="---" attribute="Special Character" />
+        <Detect2Chars char="-" char1="-" attribute="Special Character" />
       </context>
 
       <!-- Text Effects -->

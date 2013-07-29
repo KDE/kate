@@ -48,12 +48,6 @@ class KateViReplaceMode : public KateViModeBase
     void overwrittenChar( const QChar &s ) { m_overwritten += s; }
     void backspace();
 
-    // mappings aren't supported in replace mode
-    void addMapping( const QString &from, const QString &to, MappingRecursion recursion ) { Q_UNUSED(from) Q_UNUSED(to) Q_UNUSED(recursion)}
-    const QString getMapping( const QString &from ) const { Q_UNUSED(from) return QString(); }
-    const QStringList getMappings() const { return QStringList(); }
-    bool isMappingRecursive(const QString& from) const { Q_UNUSED(from) return false; };
-
   private:
     QString m_overwritten;
 };

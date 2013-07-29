@@ -594,7 +594,7 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
         msg = i18n( "\"%1\" is mapped to \"%2\"", args.at( 0 ), msg );
       }
     } else if ( args.count() == 2 ) {
-      KateViModeBase::MappingRecursion mappingRecursion = (cmd == "nnoremap") ? KateViModeBase::NonRecursive : KateViModeBase::Recursive;
+      KateViGlobal::MappingRecursion mappingRecursion = (cmd == "nnoremap") ? KateViGlobal::NonRecursive : KateViGlobal::Recursive;
       KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ), mappingRecursion);
     } else {
       msg = i18n("Missing argument(s). Usage: %1 <from> [<to>]",  cmd );

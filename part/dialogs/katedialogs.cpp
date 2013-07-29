@@ -389,9 +389,9 @@ void KateViInputModeConfigTab::apply ()
     QTableWidgetItem* recursive = ui->tblNormalModeMappings->item( i, 2 );
 
     if ( from && to && recursive) {
-      const KateViModeBase::MappingRecursion recursion = recursive->checkState() == Qt::Checked ?
-        KateViModeBase::Recursive :
-        KateViModeBase::NonRecursive;
+      const KateViGlobal::MappingRecursion recursion = recursive->checkState() == Qt::Checked ?
+        KateViGlobal::Recursive :
+        KateViGlobal::NonRecursive;
       KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from->text(), to->text(), recursion);
     }
   }

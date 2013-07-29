@@ -57,8 +57,9 @@ public:
     void fillRegister( const QChar &reg, const QString &text, OperationMode flag = CharWise);
     const QMap<QChar, KateViRegister>* getRegisters() const { return &m_registers; }
 
+    enum MappingRecursion { Recursive, NonRecursive };
     void clearMappings( ViMode mode );
-    void addMapping( ViMode mode, const QString& from, const QString& to, KateViModeBase::MappingRecursion recursion );
+    void addMapping( ViMode mode, const QString& from, const QString& to, MappingRecursion recursion );
     const QString getMapping( ViMode mode, const QString &from, bool decode = false ) const;
     const QStringList getMappings( ViMode mode, bool decode = false ) const;
     bool isMappingRecursive(ViMode mode, const QString& from) const;
@@ -86,13 +87,13 @@ private:
     // mappings
     // TODO - maybe combine these into a struct?
     QHash <QString, QString> m_normalModeMappings;
-    QHash <QString, KateViModeBase::MappingRecursion> m_normalModeMappingRecursion;
+    QHash <QString, MappingRecursion> m_normalModeMappingRecursion;
 
     QHash <QString, QString> m_visualModeMappings;
-    QHash <QString, KateViModeBase::MappingRecursion> m_visualModeMappingRecursion;
+    QHash <QString, MappingRecursion> m_visualModeMappingRecursion;
 
     QHash <QString, QString> m_insertModeMappings;
-    QHash <QString, KateViModeBase::MappingRecursion> m_insertModeMappingRecursion;
+    QHash <QString, MappingRecursion> m_insertModeMappingRecursion;
 
     class History
     {

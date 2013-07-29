@@ -268,10 +268,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     void addCurrentPositionToJumpList();
 
-    void addMapping( const QString& from, const QString& to, KateViModeBase::MappingRecursion recursion );
-    const QString getMapping( const QString &from ) const;
-    const QStringList getMappings() const;
-    bool isMappingRecursive(const QString& from) const;
     virtual void reset();
 
     void beginMonitoringDocumentChanges();

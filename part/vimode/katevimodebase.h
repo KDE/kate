@@ -82,11 +82,6 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     QString getVerbatimKeys() const;
     virtual bool handleKeypress( const QKeyEvent *e ) = 0;
 
-    enum MappingRecursion { Recursive, NonRecursive };
-    virtual void addMapping( const QString &from, const QString &to, MappingRecursion recursion ) = 0;
-    virtual const QString getMapping( const QString &from ) const = 0;
-    virtual const QStringList getMappings() const = 0;
-    virtual bool isMappingRecursive(const QString& from) const = 0;
     void setCount(unsigned int count) { m_count = count; }
     void setRegister(QChar reg) {m_register =  reg;}
 

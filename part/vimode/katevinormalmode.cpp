@@ -3219,26 +3219,6 @@ QRegExp KateViNormalMode::generateMatchingItemRegex()
   return QRegExp( pattern );
 }
 
-void KateViNormalMode::addMapping( const QString& from, const QString& to, KateViModeBase::MappingRecursion recursion )
-{
-    KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from, to, recursion );
-}
-
-const QString KateViNormalMode::getMapping( const QString &from ) const
-{
-    return KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, from );
-}
-
-const QStringList KateViNormalMode::getMappings() const
-{
-    return KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
-}
-
-bool KateViNormalMode::isMappingRecursive(const QString& from) const
-{
-    return KateGlobal::self()->viInputModeGlobal()->isMappingRecursive( NormalMode, from );
-}
-
 // returns the operation mode that should be used. this is decided by using the following heuristic:
 // 1. if we're in visual block mode, it should be Block
 // 2. if we're in visual line mode OR the range spans several lines, it should be LineWise

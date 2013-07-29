@@ -1305,6 +1305,15 @@ void ViModeTest::MappingTests()
   // Piggy back on the previous test with a regression test for issue where, if gA is mapped to %, vgly
   // will yank one more character than it should.
   DoTest("foo(bar)X", "vgAyp", "ffoo(bar)oo(bar)X");
+  // Make sure that a successful mapping does not break the "if we select stuff externally in Normal mode,
+  // we should switch to Visual Mode" thing.
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gA", "%", KateViGlobal::NonRecursive);
+  BeginTest("foo bar xyz()");
+  TestPressKey("gAr.");
+  kate_view->setSelection(Range(0, 1, 0 , 4)); // Actually selects "oo " (i.e. without the "b").
+  TestPressKey("d");
+  FinishTest("fbar xyz(.");
 
   // Regression tests for BUG:260655
   clearAllMappings();

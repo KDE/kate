@@ -666,16 +666,14 @@ shown.</para>
 <listitem>
 <variablelist>
 <varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-<keycap>-</keycap></keycombo></shortcut>
+<term><menuchoice>
 <guimenuitem>Fold Current Node</guimenuitem></menuchoice>
 </term>
 <listitem><para>Collapse the region that contains the cursor.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-<keycap>+</keycap></keycombo></shortcut>
+<term><menuchoice>
 <guimenuitem>Unfold Current Node</guimenuitem></menuchoice>
 </term>
 <listitem><para>Expand the region that contains the cursor.</para></listitem>
@@ -686,8 +684,18 @@ shown.</para>
 &Shift;<keycap>-</keycap></keycombo></shortcut>
 <guimenuitem>Fold Toplevel Nodes</guimenuitem></menuchoice>
 </term>
-<listitem><para>Collapse all toplevel regions in the document.</para></listitem>
+<listitem><para>Collapse all toplevel regions in the document.
+Click onto the right pointing triangle to expand all toplevel regions.</para></listitem>
 </varlistentry>
+
+<!--FIXME not implemented in 4.11
+varlistentry>
+<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
+&Shift;<keycap>+</keycap></keycombo></shortcut>
+<guimenuitem>Unfold Toplevel Nodes</guimenuitem></menuchoice>
+</term>
+<listitem><para>Expand all toplevel regions in the document.</para></listitem>
+</varlistentry-->
 
 </variablelist>
 </listitem>

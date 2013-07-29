@@ -88,6 +88,12 @@ private:
     QHash <QString, QString> m_normalModeMappings;
     QHash <QString, KateViModeBase::MappingRecursion> m_normalModeMappingRecursion;
 
+    QHash <QString, QString> m_visualModeMappings;
+    QHash <QString, KateViModeBase::MappingRecursion> m_visualModeMappingRecursion;
+
+    QHash <QString, QString> m_insertModeMappings;
+    QHash <QString, KateViModeBase::MappingRecursion> m_insertModeMappingRecursion;
+
     class History
     {
     public:

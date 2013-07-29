@@ -97,6 +97,8 @@ private:
   QMap<QString, Qt::Key> m_codesToSpecialKeys;
     Qt::Key parseCodedSpecialKey(const QString& string, int startPos, int* destEndOfCodedKey);
 
+  void clearAllMappings();
+
   void clearSearchHistory();
   QStringList searchHistory();
 

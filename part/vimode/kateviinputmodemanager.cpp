@@ -95,10 +95,25 @@ KateViInputModeManager::~KateViInputModeManager()
 bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
 {
   m_insideHandlingKeyPressCount++;
-  bool res;
+  bool res = false;
+  bool keyIsPartOfMapping = false;
+  if (!m_view->viModeEmulatedCommandBar()->isActive() && !isReplayingLastChange())
+  {
+    // Hand off to the key mapper, and decide if this key is part of a mapping.
+    if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
+    {
+      const QChar key = KateViKeyParser::self()->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
+      if (m_keyMapper->handleKeypress(key))
+      {
+        keyIsPartOfMapping = true;
+        res = true;
+      }
+    }
+  }
+
   const bool isSyntheticSearchCompletedKeyPress = (m_view->viModeEmulatedCommandBar()->isVisible() && !m_view->viModeEmulatedCommandBar()->isActive());
-  // record key press so that it can be repeated via "."
-  if (!isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress) {
+  if (!keyIsPartOfMapping && !isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress) {
+    // record key press so that it can be repeated via "."
     QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
     appendKeyEventToLog( copy );
   }
@@ -109,19 +124,14 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   }
   else
   {
-    // Hand off to the key mapper, and if it determines that this key is part of a mapping, go no further.
-    if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
+    if (!keyIsPartOfMapping)
     {
-      const QChar key = KateViKeyParser::self()->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
-      if (m_keyMapper->handleKeypress(key))
-      {
-        return true;
-      }
+      res = getCurrentViModeHandler()->handleKeypress(e);
     }
-    res = getCurrentViModeHandler()->handleKeypress(e);
   }
 
   m_insideHandlingKeyPressCount--;
+  Q_ASSERT(m_insideHandlingKeyPressCount >= 0);
 
   return res;
 }

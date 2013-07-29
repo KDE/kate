@@ -1474,6 +1474,14 @@ void ViModeTest::MappingTests()
     KateGlobal::self()->viInputModeGlobal()->clearMappings(InsertMode);
     DoTest("", "ia\\esc", "a");
   }
+
+  // Test that not *both* of the mapping and the mapped keys are logged for repetition via "."
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "ixyz", "iabc", KateViGlobal::NonRecursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gl", "%", KateViGlobal::NonRecursive);
+  DoTest("", "ixyz\\esc.", "ababcc");
+  DoTest("foo()X\nbarxyz()Y", "cglbaz\\escggj.", "bazX\nbazY");
+
   // Clear mappings for subsequent tests.
   clearAllMappings();
 }

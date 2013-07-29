@@ -3520,8 +3520,6 @@ KateViRange KateViNormalMode::textObjectComma(bool inner)
 void KateViNormalMode::executeMapping()
 {
   m_mappingKeys.clear();
-  const int numberRepeats = m_countTemp == 0 ? 1 : m_countTemp;
-  m_countTemp = 0; // Ensure that the first command in the mapping is not repeated.
   m_mappingTimer->stop();
   const QString mappedKeypresses = getMapping(m_fullMappingMatch);
   if (!isMappingRecursive(m_fullMappingMatch))
@@ -3529,10 +3527,7 @@ void KateViNormalMode::executeMapping()
     m_doNotExpandFurtherMappings = true;
   }
   doc()->editBegin();
-  for(int count = 1; count <= numberRepeats; count++)
-  {
-    m_viInputModeManager->feedKeyPresses(mappedKeypresses);
-  }
+  m_viInputModeManager->feedKeyPresses(mappedKeypresses);
   m_doNotExpandFurtherMappings = false;
   doc()->editEnd();
 }

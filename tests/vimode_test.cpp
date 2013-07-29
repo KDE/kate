@@ -1185,11 +1185,15 @@ void ViModeTest::MappingTests()
     FinishTest("Mapped from 123");
   }
 
-  // Make mappings countable; the count should be applied to the whole mapped sequence, not
-  // just the first command in the sequence.
+  // Mappings are not "counted": any count entered applies to the first command/ motion in the mapped sequence,
+  // and is not used to replay the entire mapped sequence <count> times in a row.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO", KateViModeBase::Recursive);
-  DoTest("XXXX\nXXXX\nXXXX\nXXXX", "3'testmapping", "XXXX\nXOXX\nXXOX\nXXXO");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'downmapping", "j", KateViModeBase::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ifoo<esc>ibar<esc>", KateViModeBase::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmotionmapping", "lj", KateViModeBase::Recursive);
+  DoTest("AAAA\nXXXX\nXXXX\nXXXX\nXXXX\nBBBB\nCCCC\nDDDD", "jd3'downmapping", "AAAA\nBBBB\nCCCC\nDDDD");
+  DoTest("", "5'testmapping", "foofoofoofoofobaro");
+  DoTest("XXXX\nXXXX\nXXXX\nXXXX", "3'testmotionmappingrO", "XXXX\nXXXO\nXXXX\nXXXX");
 
   // Regression test for a weird mistake I made: *completely* remove all counting for the
   // first command in the sequence; don't just set it to 1! If it is set to 1, then "%"
@@ -1207,16 +1211,7 @@ void ViModeTest::MappingTests()
   kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("3'testmapping");
   QTest::qWait(2 * mappingTimeoutMS);
-  FinishTest("XXXX\nXOXX\nXXOX\nXXXO");
-
-  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO", KateViModeBase::Recursive);
-  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy", KateViModeBase::Recursive);
-  BeginTest("XXXX\nXXXX\nXXXX\nXXXX");
-  kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
-  TestPressKey("3'testmapping");
-  QTest::qWait(2 * mappingTimeoutMS);
-  FinishTest("XXXX\nXOXX\nXXOX\nXXXO");
+  FinishTest("XXXX\nXXXO\nXXXX\nXXXX");
 
   // Test that telescoping mappings don't interfere with built-in commands. Assumes that gp
   // is implemented and working.

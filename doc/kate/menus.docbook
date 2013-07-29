@@ -312,7 +312,7 @@ all to work with the currently active document.</para>
 </term>
 <listitem>
 <para>Undo the last editing command (typing, copying, cutting etc.)</para>
-<!-- FIXME how/where to enable/disable grouped undo ?-->
+<!-- FIXME how/where to enable/disable grouped undo ? is this really valid for 4.11?-->
 <note><para>If grouped undo is enabled, this may undo several editing commands of the same type, like typing in characters.</para></note>
 </listitem>
 </varlistentry>
@@ -623,7 +623,6 @@ The new instance will be identical to your previous instance.
 <term>
 <anchor id="view-active"/>
 <menuchoice>
-<shortcut><keycombo action="simul">&Alt;<keycap>A</keycap></keycombo></shortcut>
 <guimenu>View</guimenu>
 <guimenuitem>Show Active</guimenuitem>
 </menuchoice>
@@ -1390,7 +1389,7 @@ at the bottom of the editor window. This allows easy switching of the spellcheck
 dictionary &eg; for automatic spellcheck of text in different languages.</para>
  </listitem>
 </varlistentry>
-<!-- Indent/Unindent no longer in the menu in 4.7???, but shortcuts work
+<!-- Indent/Unindent no longer in the menu in 4.11???, but shortcuts work
 <varlistentry>
 <term><anchor id="indent"/><menuchoice>
 <shortcut>
@@ -1525,7 +1524,10 @@ in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
-
+<!--FIXME
+Create Snippet - always enabled
+Snippet..
+-->
 </variablelist>
 <para>Menu items for the selected <link linkend="pref-plugins">plugins</link>
 are displayed at the end of this menu
@@ -1571,7 +1573,7 @@ the status bar is hidden.</para>
 <varlistentry>
 <term><anchor id="show-path"/><menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Show
-Path</guimenuitem></menuchoice></term>
+Path in Titlebar</guimenuitem></menuchoice></term>
 <listitem>
 <para>When selected, this displays in the titlebar the path (its location in the
 file system) of the current document.  When unchecked the path is hidden.</para>

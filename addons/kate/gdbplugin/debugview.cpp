@@ -288,7 +288,7 @@ void DebugView::slotContinue()
 static QRegExp breakpointList( "Num\\s+Type\\s+Disp\\s+Enb\\s+Address\\s+What.*" );
 static QRegExp breakpointListed( "(\\d)\\s+breakpoint\\s+keep\\sy\\s+0x[\\da-f]+\\sin\\s.+\\sat\\s([^:]+):(\\d+).*" );
 static QRegExp stackFrameAny( "#(\\d+)\\s(.*)" );
-static QRegExp stackFrameFile( "#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\([^)]*\\))\\sat\\s([^:]+):(\\d+).*" );
+static QRegExp stackFrameFile( "#(\\d+)\\s+(?:0x[\\da-f]+\\s*in\\s)*(\\S+)(\\s\\(.*\\)) at ([^:]+):(\\d+).*" );
 static QRegExp changeFile( "(?:(?:Temporary\\sbreakpoint|Breakpoint)\\s*\\d+,\\s*|0x[\\da-f]+\\s*in\\s*)?[^\\s]+\\s*\\([^)]*\\)\\s*at\\s*([^:]+):(\\d+).*" );
 static QRegExp changeLine( "(\\d+)\\s+.*" );
 static QRegExp breakPointReg( "Breakpoint\\s+(\\d+)\\s+at\\s+0x[\\da-f]+:\\s+file\\s+([^\\,]+)\\,\\s+line\\s+(\\d+).*" );

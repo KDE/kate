@@ -50,9 +50,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 {
   Q_OBJECT
 
-  public slots:
-    void mappingTimerTimeOut();
-
   public:
     KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );
     virtual ~KateViNormalMode();
@@ -277,8 +274,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool isMappingRecursive(const QString& from) const;
     virtual void reset();
 
-    void setMappingTimeout(int timeoutMS);
-
     void beginMonitoringDocumentChanges();
   protected:
     void resetParser();
@@ -333,19 +328,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     // item matching ('%' motion)
     QHash<QString, QString> m_matchingItems;
     QRegExp m_matchItemRegex;
-
-    // mappings
-    bool m_mappingKeyPress;
-    // Will be the mapping used if we decide that no extra mapping characters will be
-    // typed, either because we have a mapping that cannot be extended to another
-    // mapping by adding additional characters, or we have a mapping and timed out waiting
-    // for it to be extended to a longer mapping.
-    // (Essentially, this allows us to have mappings that extend each other e.g. "'12" and
-    // "'123", and to choose between them.)
-    QString m_fullMappingMatch;
-    QString m_mappingKeys;
-    bool m_doNotExpandFurtherMappings;
-    void executeMapping();
 
     KateViKeyParser *m_keyParser;
 

@@ -176,9 +176,6 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 
     inline KateDocument* doc() const { return m_view->doc(); };
 
-    // key mappings
-    int m_timeoutlen; // time to wait for the next keypress of a multi-key mapping (default: 1000 ms)
-    QTimer *m_mappingTimer;
 
     KateView *m_view;
     KateViewInternal *m_viewInternal;

@@ -38,6 +38,7 @@
 #include "katevivisualmode.h"
 #include "katevireplacemode.h"
 #include "katevikeyparser.h"
+#include "katevikeymapper.h"
 #include "kateviemulatedcommandbar.h"
 
 KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal* viewInternal)
@@ -58,6 +59,8 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
 
   m_replayingLastChange = false;
   m_textualRepeat = false;
+
+  m_keyMapper = new KateViKeyMapper(this, m_view->doc());
 
   m_lastSearchBackwards = false;
 
@@ -85,6 +88,7 @@ KateViInputModeManager::~KateViInputModeManager()
   delete m_viInsertMode;
   delete m_viVisualMode;
   delete m_viReplaceMode;
+  delete m_keyMapper;
   delete jump_list;
 }
 
@@ -747,4 +751,9 @@ QString KateViInputModeManager::modeToString(ViMode mode)
   }
 
   return modeStr;
+}
+
+KateViKeyMapper* KateViInputModeManager::keyMapper()
+{
+  return m_keyMapper;
 }

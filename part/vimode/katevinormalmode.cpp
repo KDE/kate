@@ -27,6 +27,7 @@
 #include "kateviinsertmode.h"
 #include "kateviinputmodemanager.h"
 #include "kateviglobal.h"
+#include "katevikeymapper.h"
 #include "kateviemulatedcommandbar.h"
 #include "kateglobal.h"
 #include "kateconfig.h"
@@ -69,11 +70,6 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_defaultRegister = '"';
 
   m_scroll_count_limit = 1000; // Limit of count for scroll commands.
-  m_timeoutlen = 1000; // FIXME: make configurable
-  m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
-  m_mappingTimer = new QTimer( this );
-  m_doNotExpandFurtherMappings = false;
-  connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
 
   initializeCommands();
   m_pendingResetIsDueToExit = false;
@@ -96,6 +92,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   connect(doc(), SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
           this, SLOT(aboutToDeleteMovingInterfaceContent()));
   m_highlightedYank = NULL;
+
 }
 
 KateViNormalMode::~KateViNormalMode()
@@ -103,22 +100,6 @@ KateViNormalMode::~KateViNormalMode()
   qDeleteAll( m_commands );
   qDeleteAll( m_motions) ;
   delete m_highlightedYank;
-}
-
-void KateViNormalMode::mappingTimerTimeOut()
-{
-  kDebug( 13070 ) << "timeout! key presses: " << m_mappingKeys;
-  m_mappingKeyPress = true;
-  if (!m_fullMappingMatch.isNull())
-  {
-    executeMapping();
-  }
-  else
-  {
-    m_viInputModeManager->feedKeyPresses( m_mappingKeys );
-  }
-  m_mappingKeyPress = false;
-  m_mappingKeys.clear();
 }
 
 /**
@@ -162,45 +143,12 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   // Check for matching mappings - if we are waiting for a char to search or a new register,
   // don't translate next character; we need the actual character so that e.g.
   // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
-  if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !waitingForRegisterOrCharToSearch) {
-    m_mappingKeys.append( key );
-
-    bool isPartialMapping = false;
-    bool isFullMapping = false;
-    m_fullMappingMatch.clear();
-    foreach ( const QString &mapping, getMappings() ) {
-      if ( mapping.startsWith( m_mappingKeys ) ) {
-        if ( mapping == m_mappingKeys ) {
-          isFullMapping = true;
-          m_fullMappingMatch = mapping;
-        } else {
-          isPartialMapping = true;
-        }
-      }
-    }
-    if (isFullMapping && !isPartialMapping)
+  if (!waitingForRegisterOrCharToSearch)
+  {
+    if (m_viInputModeManager->keyMapper()->handleKeypress(key, m_keys))
     {
-      // Great - m_mappingKeys is a mapping, and one that can't be extended to
-      // a longer one - execute it immediately.
-      executeMapping();
       return true;
     }
-    if (isPartialMapping)
-    {
-      // Need to wait for more characters (or a timeout) before we decide what to
-      // do with this.
-      m_mappingTimer->start( m_timeoutlen );
-      m_mappingTimer->setSingleShot( true );
-      return true;
-    }
-    // We've been swallowing all the keypresses meant for m_keys for our mapping keys; now that we know
-    // this cannot be a mapping, restore them. The current key will be appended further down.
-    Q_ASSERT(!isPartialMapping && !isFullMapping);
-     m_keys += m_mappingKeys.mid(0, m_mappingKeys.length() - 1);
-    m_mappingKeys.clear();
-  } else {
-    // FIXME:
-    //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
   }
 
   // Use replace caret when reading a character for "r"
@@ -520,11 +468,6 @@ void KateViNormalMode::reset()
     resetParser();
     m_commandRange.startLine = -1;
     m_commandRange.startColumn = -1;
-}
-
-void KateViNormalMode::setMappingTimeout(int timeoutMS)
-{
-  m_timeoutlen = timeoutMS;
 }
 
 void KateViNormalMode::beginMonitoringDocumentChanges()
@@ -3517,21 +3460,6 @@ KateViRange KateViNormalMode::textObjectComma(bool inner)
   return r;
 }
 
-void KateViNormalMode::executeMapping()
-{
-  m_mappingKeys.clear();
-  m_mappingTimer->stop();
-  const QString mappedKeypresses = getMapping(m_fullMappingMatch);
-  if (!isMappingRecursive(m_fullMappingMatch))
-  {
-    m_doNotExpandFurtherMappings = true;
-  }
-  doc()->editBegin();
-  m_viInputModeManager->feedKeyPresses(mappedKeypresses);
-  m_doNotExpandFurtherMappings = false;
-  doc()->editEnd();
-}
-
 void KateViNormalMode::updateYankHighlightAttrib()
 {
   if (!m_highlightYankAttribute)
@@ -3666,3 +3594,4 @@ void KateViNormalMode::undoEnded()
 {
   m_isUndo = false;
 }
+

@@ -32,6 +32,7 @@
 #include "katevikeyparser.h"
 #include <kateviglobal.h>
 #include <katevinormalmode.h>
+#include <katevikeymapper.h>
 #include <kateviemulatedcommandbar.h>
 #include "kateviewhelpers.h"
 #include "ktexteditor/attribute.h"
@@ -1172,7 +1173,7 @@ void ViModeTest::MappingTests()
     // extend it (e.g. '1234, '12345, etc) and which it itself extends ('1, '12, etc).
     KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
     BeginTest("");
-    kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
+    kate_view->getViInputModeManager()->keyMapper()->setMappingTimeout(mappingTimeoutMS);;
     QString consectiveDigits;
     for (int i = 1; i < 9; i++)
     {
@@ -1208,7 +1209,7 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmapping", "ljrO", KateViModeBase::Recursive);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'testmappingdummy", "dummy", KateViModeBase::Recursive);
   BeginTest("XXXX\nXXXX\nXXXX\nXXXX");
-  kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
+  kate_view->getViInputModeManager()->keyMapper()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("3'testmapping");
   QTest::qWait(2 * mappingTimeoutMS);
   FinishTest("XXXX\nXXXO\nXXXX\nXXXX");
@@ -1232,7 +1233,7 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gpa", "idummy", KateViModeBase::Recursive);
   BeginTest("hello");
-  kate_view->getViInputModeManager()->getViNormalMode()->setMappingTimeout(mappingTimeoutMS);;
+  kate_view->getViInputModeManager()->keyMapper()->setMappingTimeout(mappingTimeoutMS);;
   TestPressKey("yiwgp");
   QTest::qWait(2 * mappingTimeoutMS);
   TestPressKey("x");

@@ -14,9 +14,10 @@ class KATEPART_TESTS_EXPORT KateViKeyMapper : public QObject
   Q_OBJECT
 public:
   KateViKeyMapper(KateViInputModeManager *kateViInputModeManager, KateDocument *doc );
-  bool handleKeypress(QChar key, QString& currentKeys);
+  bool handleKeypress(QChar key);
   void executeMapping();
   void setMappingTimeout(int timeoutMS);
+  void setDoNotMapNextKeypress();
 public slots:
   void mappingTimerTimeOut();
 private:
@@ -34,6 +35,7 @@ private:
   KateViInputModeManager* m_viInputModeManager;
   KateDocument *m_doc;
   int m_timeoutlen; // time to wait for the next keypress of a multi-key mapping (default: 1000 ms)
+  bool m_doNotMapNextKeypress;
 };
 
 #endif

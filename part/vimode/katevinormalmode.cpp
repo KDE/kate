@@ -138,14 +138,14 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   QChar key = KateViKeyParser::self()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
-  const bool waitingForRegisterOrCharToSearch = m_keys.size() > 0 && (lastChar == 'f' || lastChar == 't' || lastChar == 'F' || lastChar == 'T' || lastChar == 'r');
+  const bool waitingForRegisterOrCharToSearch = this->waitingForRegisterOrCharToSearch();
 
   // Check for matching mappings - if we are waiting for a char to search or a new register,
   // don't translate next character; we need the actual character so that e.g.
   // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
-  if (!waitingForRegisterOrCharToSearch)
+  //if (!waitingForRegisterOrCharToSearch)
   {
-    if (m_viInputModeManager->keyMapper()->handleKeypress(key, m_keys))
+    if (m_viInputModeManager->keyMapper()->handleKeypress(key))
     {
       return true;
     }
@@ -175,6 +175,11 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   }
 
   m_keys.append( key );
+
+  if (this->waitingForRegisterOrCharToSearch())
+  {
+    m_viInputModeManager->keyMapper()->setDoNotMapNextKeypress();
+  }
 
   if ((key == '/' || key == '?') && !waitingForRegisterOrCharToSearch)
   {
@@ -3507,6 +3512,12 @@ KTextEditor::MovingRange*& KateViNormalMode::highlightedYankForDocument()
   // Work around the fact that both Normal and Visual mode will have their own m_highlightedYank -
   // make Normal's the canonical one.
   return m_viInputModeManager->getViNormalMode()->m_highlightedYank;
+}
+
+bool KateViNormalMode::waitingForRegisterOrCharToSearch()
+{
+  const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
+  return m_keys.size() > 0 && (lastChar == 'f' || lastChar == 't' || lastChar == 'F' || lastChar == 'T' || lastChar == 'r');
 }
 
 void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range)

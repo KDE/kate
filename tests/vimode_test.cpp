@@ -1327,6 +1327,8 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "a", "r", KateViModeBase::NonRecursive);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "d", "i", KateViModeBase::NonRecursive);
   DoTest("foo dar", "ad", "doo dar");
+  // Feel free to map the keypress after that, though.
+  DoTest("foo dar", "addbar\\esc", "bardoo dar");
 
   // Clear mappings for subsequent tests.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);

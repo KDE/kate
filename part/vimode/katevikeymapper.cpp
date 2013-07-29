@@ -12,6 +12,7 @@ KateViKeyMapper::KateViKeyMapper(KateViInputModeManager* kateViInputModeManager,
   m_mappingTimer = new QTimer( this );
   m_doNotExpandFurtherMappings = false;
   m_timeoutlen = 1000; // FIXME: make configurable
+  m_doNotMapNextKeypress = false;
   connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
 }
 
@@ -51,9 +52,9 @@ void KateViKeyMapper::mappingTimerTimeOut()
   m_mappingKeys.clear();
 }
 
-bool KateViKeyMapper::handleKeypress(QChar key, QString& currentKeys)
+bool KateViKeyMapper::handleKeypress(QChar key)
 {
-  if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress) {
+  if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !m_doNotMapNextKeypress) {
     m_mappingKeys.append( key );
 
     bool isPartialMapping = false;
@@ -87,11 +88,20 @@ bool KateViKeyMapper::handleKeypress(QChar key, QString& currentKeys)
     // We've been swallowing all the keypresses meant for m_keys for our mapping keys; now that we know
     // this cannot be a mapping, restore them. The current key will be appended further down.
     Q_ASSERT(!isPartialMapping && !isFullMapping);
-     currentKeys += m_mappingKeys.mid(0, m_mappingKeys.length() - 1);
+     //currentKeys += m_mappingKeys.mid(0, m_mappingKeys.length() - 1);
+    m_doNotExpandFurtherMappings = true;
+    m_viInputModeManager->feedKeyPresses(m_mappingKeys.mid(0, m_mappingKeys.length() - 1));
+    m_doNotExpandFurtherMappings = false;
     m_mappingKeys.clear();
   } else {
     // FIXME:
     //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
   }
+  m_doNotMapNextKeypress = false;
   return false;
+}
+
+void KateViKeyMapper::setDoNotMapNextKeypress()
+{
+  m_doNotMapNextKeypress = true;
 }

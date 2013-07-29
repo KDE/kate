@@ -345,6 +345,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool m_isUndo;
 
     Cursor m_positionWhenIncrementalSearchBegan;
+
+    bool waitingForRegisterOrCharToSearch();
 private slots:
     void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
     void textRemoved(KTextEditor::Document*,KTextEditor::Range);

@@ -1148,6 +1148,7 @@ void ViModeTest::MappingTests()
 {
   const int mappingTimeoutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_MAPPINGTIMEOUTMS")).toInt();
   const int mappingTimeoutMS = (mappingTimeoutMSOverride > 0) ? mappingTimeoutMSOverride : 2000;
+  KateViewConfig::global()->setViInputModeStealKeys(true); // For tests involving e.g. <c-a>
   {
     // Check storage and retrieval of mapping recursion.
     KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
@@ -1332,6 +1333,65 @@ void ViModeTest::MappingTests()
   // Also, be careful about how we interpret "waiting for find char/ replace char"
   DoTest("foo dar", "ffas", "soo dar");
 
+  // Ignore raw "Ctrl", "Shift", "Meta" and "Alt" keys, which will almost certainly end up being pressed as
+  // we try to trigger mappings that contain these keys.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  {
+    // Ctrl.
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "<c-a><c-b>", "ictrl<esc>", KateViModeBase::NonRecursive);
+    BeginTest("");
+    QKeyEvent *ctrlKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Control, Qt::NoModifier);
+    QApplication::postEvent(kate_view->focusProxy(), ctrlKeyDown);
+    QApplication::sendPostedEvents();
+    TestPressKey("\\ctrl-a");
+    ctrlKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Control, Qt::NoModifier);
+    QApplication::postEvent(kate_view->focusProxy(), ctrlKeyDown);
+    QApplication::sendPostedEvents();
+    TestPressKey("\\ctrl-b");
+    FinishTest("ctrl");
+  }
+  {
+    // Shift.
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "<c-a>C", "ishift<esc>", KateViModeBase::NonRecursive);
+    BeginTest("");
+    QKeyEvent *ctrlKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Control, Qt::NoModifier);
+    QApplication::postEvent(kate_view->focusProxy(), ctrlKeyDown);
+    QApplication::sendPostedEvents();
+    TestPressKey("\\ctrl-a");
+    QKeyEvent *shiftKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Shift, Qt::NoModifier);
+    QApplication::postEvent(kate_view->focusProxy(), shiftKeyDown);
+    QApplication::sendPostedEvents();
+    TestPressKey("C");
+    FinishTest("shift");
+  }
+  {
+    // Alt.
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "<c-a><a-b>", "ialt<esc>", KateViModeBase::NonRecursive);
+    BeginTest("");
+    QKeyEvent *ctrlKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Control, Qt::NoModifier);
+    QApplication::postEvent(kate_view->focusProxy(), ctrlKeyDown);
+    QApplication::sendPostedEvents();
+    TestPressKey("\\ctrl-a");
+    QKeyEvent *altKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Alt, Qt::NoModifier);
+    QApplication::postEvent(kate_view->focusProxy(), altKeyDown);
+    QApplication::sendPostedEvents();
+    TestPressKey("\\alt-b");
+    FinishTest("alt");
+  }
+  {
+    // Meta.
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "<c-a><m-b>", "imeta<esc>", KateViModeBase::NonRecursive);
+    BeginTest("");
+    QKeyEvent *ctrlKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Control, Qt::NoModifier);
+    QApplication::postEvent(kate_view->focusProxy(), ctrlKeyDown);
+    QApplication::sendPostedEvents();
+    TestPressKey("\\ctrl-a");
+    QKeyEvent *metaKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Meta, Qt::NoModifier);
+    QApplication::postEvent(kate_view->focusProxy(), metaKeyDown);
+    QApplication::sendPostedEvents();
+    TestPressKey("\\meta-b");
+    FinishTest("meta");
+  }
   // Clear mappings for subsequent tests.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
 }

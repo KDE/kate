@@ -231,12 +231,6 @@ from the &RMB; menu in the document list as well.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Show Full Path</guilabel></term>
-<listitem><para>When enabled, in tree mode, top level folders will show up
-with their full path rather than just the last folder name.</para></listitem>
-</varlistentry>
-
-<varlistentry>
 <term><guilabel>View Mode</guilabel></term>
 <listitem><para>This provides two options that effect the display of the
 Documents tool view.  The <guilabel>Tree View</guilabel> option will display

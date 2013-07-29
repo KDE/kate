@@ -5,6 +5,7 @@
    Copyright (C) 2001 Anders Lund <anders@alweb.dk>
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2011 Svyatoslav Kuzmich <svatoslav1@gmail.com>
+   Copyright (C) 2012 Kåre Särs <kare.sars@iki.fi> (Minimap)
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public

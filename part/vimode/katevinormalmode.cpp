@@ -140,15 +140,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
   const bool waitingForRegisterOrCharToSearch = this->waitingForRegisterOrCharToSearch();
 
-  // Check for matching mappings - if we are waiting for a char to search or a new register,
-  // don't translate next character; we need the actual character so that e.g.
-  // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
-  //if (!waitingForRegisterOrCharToSearch)
+  // Check for matching mappings.
+  if (m_viInputModeManager->keyMapper()->handleKeypress(key))
   {
-    if (m_viInputModeManager->keyMapper()->handleKeypress(key))
-    {
-      return true;
-    }
+    return true;
   }
 
   // Use replace caret when reading a character for "r"
@@ -175,11 +170,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   }
 
   m_keys.append( key );
-
-  if (this->waitingForRegisterOrCharToSearch())
-  {
-    m_viInputModeManager->keyMapper()->setDoNotMapNextKeypress();
-  }
 
   if ((key == '/' || key == '?') && !waitingForRegisterOrCharToSearch)
   {
@@ -297,6 +287,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   // look for matching motion commands from position 'checkFrom'
   // FIXME: if checkFrom hasn't changed, only motions whose index is in
   // m_matchingMotions should be checked
+  bool motionExecuted = false;
   if ( checkFrom < m_keys.size() ) {
     for ( int i = 0; i < m_motions.size(); i++ ) {
       //kDebug( 13070 )  << "\tchecking " << m_keys.mid( checkFrom )  << " against " << m_motions.at( i )->pattern();
@@ -308,6 +299,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
         // if it matches exact, we have found the motion command to execute
         if ( m_motions.at( i )->matchesExact( m_keys.mid( checkFrom ) ) ) {
           m_currentMotionWasVisualLineUpOrDown = false;
+          motionExecuted = true;
           if ( checkFrom == 0 ) {
             // no command given before motion, just move the cursor to wherever
             // the motion says it should go to
@@ -351,7 +343,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
             m_lastMotionWasVisualLineUpOrDown = m_currentMotionWasVisualLineUpOrDown;
 
-            return true;
+            break;
           } else {
             // execute the specified command and supply the position returned from
             // the motion
@@ -395,11 +387,25 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             }
             m_commandWithMotion = false;
             reset();
-            return true;
+            break;
           }
         }
       }
     }
+  }
+
+  if (this->waitingForRegisterOrCharToSearch())
+  {
+    // If we are waiting for a char to search or a new register,
+    // don't translate next character; we need the actual character so that e.g.
+    // 'ab' is translated to 'fb' if the mappings 'a' -> 'f' and 'b' -> something else
+    // exist.
+    m_viInputModeManager->keyMapper()->setDoNotMapNextKeypress();
+  }
+
+  if (motionExecuted)
+  {
+    return true;
   }
 
   //kDebug( 13070 ) << "'" << m_keys << "' MATCHING COMMANDS: " << m_matchingCommands.size();
@@ -3517,6 +3523,7 @@ KTextEditor::MovingRange*& KateViNormalMode::highlightedYankForDocument()
 bool KateViNormalMode::waitingForRegisterOrCharToSearch()
 {
   const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
+  kDebug(13070) << m_keys;
   return m_keys.size() > 0 && (lastChar == 'f' || lastChar == 't' || lastChar == 'F' || lastChar == 'T' || lastChar == 'r');
 }
 

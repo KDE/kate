@@ -1329,6 +1329,8 @@ void ViModeTest::MappingTests()
   DoTest("foo dar", "ad", "doo dar");
   // Feel free to map the keypress after that, though.
   DoTest("foo dar", "addbar\\esc", "bardoo dar");
+  // Also, be careful about how we interpret "waiting for find char/ replace char"
+  DoTest("foo dar", "ffas", "soo dar");
 
   // Clear mappings for subsequent tests.
   KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);

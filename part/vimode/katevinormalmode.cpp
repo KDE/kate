@@ -141,10 +141,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   const bool waitingForRegisterOrCharToSearch = this->waitingForRegisterOrCharToSearch();
 
   // Check for matching mappings.
-  if (m_viInputModeManager->keyMapper()->handleKeypress(key))
-  {
-    return true;
-  }
+//   if (m_viInputModeManager->keyMapper()->handleKeypress(key))
+//   {
+//     return true;
+//   }
 
   // Use replace caret when reading a character for "r"
   if ( key == 'r' && !waitingForRegisterOrCharToSearch) {

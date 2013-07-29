@@ -102,6 +102,11 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
     appendKeyEventToLog( copy );
   }
+  const QChar key = KateViKeyParser::self()->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
+  if (m_keyMapper->handleKeypress(key))
+  {
+    return true;
+  }
 
   if (m_view->viModeEmulatedCommandBar()->isActive())
   {

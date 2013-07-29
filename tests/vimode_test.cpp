@@ -3702,6 +3702,11 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
+
+  // Don't expand mappings meant for Normal mode in the emulated command bar.
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(NormalMode);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "foo", "xyz", KateViModeBase::NonRecursive);
+  DoTest("bar foo xyz", "/foo\\enterrX", "bar Xoo xyz");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

@@ -103,21 +103,21 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     appendKeyEventToLog( copy );
   }
 
-  if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
-  {
-    const QChar key = KateViKeyParser::self()->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
-    if (m_keyMapper->handleKeypress(key))
-    {
-      return true;
-    }
-  }
-
   if (m_view->viModeEmulatedCommandBar()->isActive())
   {
     res = m_view->viModeEmulatedCommandBar()->handleKeyPress(e);
   }
   else
   {
+    // Hand off to the key mapper, and if it determines that this key is part of a mapping, go no further.
+    if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
+    {
+      const QChar key = KateViKeyParser::self()->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
+      if (m_keyMapper->handleKeypress(key))
+      {
+        return true;
+      }
+    }
     res = getCurrentViModeHandler()->handleKeypress(e);
   }
 

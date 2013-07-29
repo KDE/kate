@@ -982,35 +982,17 @@ Code Folding</link>.</para></listitem>
 <variablelist>
 
 <varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-<keycap>-</keycap></keycombo></shortcut>
+<term><menuchoice>
 <guimenuitem>Fold Current Node</guimenuitem></menuchoice>
 </term>
 <listitem><para>Collapse the region that contains the cursor.</para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
-<keycap>+</keycap></keycombo></shortcut>
+<term><menuchoice>
 <guimenuitem>Unfold Current Node</guimenuitem></menuchoice>
 </term>
 <listitem><para>Expand the region that contains the cursor.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Unfold All Nodes</guimenuitem></menuchoice>
-</term>
-<listitem><para>Expand all regions in the document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Fold Multiline Comments</guimenuitem></menuchoice>
-</term>
-<listitem><para>Fold all multiline comments in the document.  (For example,
-this will fold all comments that use <quote>/* comment */</quote> syntax in C-like
-programming languages.)</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -1018,58 +1000,18 @@ programming languages.)</para></listitem>
 &Shift;<keycap>-</keycap></keycombo></shortcut>
 <guimenuitem>Fold Toplevel Nodes</guimenuitem></menuchoice>
 </term>
-<listitem><para>Collapse all toplevel regions in the document.</para></listitem>
+<listitem><para>Collapse all toplevel regions in the document.
+Click onto the right pointing triangle to expand all toplevel regions.</para></listitem>
 </varlistentry>
 
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Fold Nodes in Level 2</guimenuitem></menuchoice>
-</term>
-<listitem><para>Collapse all level 2 nodes in the document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Fold Nodes in Level 3</guimenuitem></menuchoice>
-</term>
-<listitem><para>Collapse all level 3 nodes in the document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Fold Nodes in Level 4</guimenuitem></menuchoice>
-</term>
-<listitem><para>Collapse all level 4 nodes in the document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
+<!--FIXME not implemented in 4.11
+varlistentry>
 <term><menuchoice><shortcut><keycombo action="simul">&Ctrl;
 &Shift;<keycap>+</keycap></keycombo></shortcut>
 <guimenuitem>Unfold Toplevel Nodes</guimenuitem></menuchoice>
 </term>
 <listitem><para>Expand all toplevel regions in the document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Unfold Nodes in Level 2</guimenuitem></menuchoice>
-</term>
-<listitem><para>Expand all level 2 nodes in the document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Unfold Nodes in Level 3</guimenuitem></menuchoice>
-</term>
-<listitem><para>Expand all level 3 nodes in the document.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><menuchoice>
-<guimenuitem>Unfold Nodes in Level 4</guimenuitem></menuchoice>
-</term>
-<listitem><para>Expand all level 4 nodes in the document.</para></listitem>
-</varlistentry>
+</varlistentry-->
 </variablelist>
 
 </listitem>

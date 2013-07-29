@@ -252,6 +252,22 @@ The clipboard is feature of &kde; that works invisibly to provide a way to
 transfer data between applications.</para>
 </listitem>
 </varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="edit-clipboard-history"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guisubmenu>Clipboard History</guisubmenu>
+</menuchoice>
+</term>
+<listitem>
+<para>This submenu will display the beginning of portions of text recently
+copied to the clipboard.  Select an item from this menu to paste it in the
+currently open file.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry><!-- from plugin Exporter -->
 <term><anchor id="copy-as-html"/><menuchoice>
 <guimenu>Edit</guimenu><guimenuitem>Copy as
@@ -352,8 +368,6 @@ case (upper or lower) of each of the characters in the search  pattern.
 </para>
 <para>Click on the button with a green arrow icon at the right side of the incremental search bar to
 switch to the power search and replace bar.
-<!--changed in 4.5 ???
-options "Highlight all" + "From cursor" removed only "Match case" left-->
 </para>
 </listitem>
 </varlistentry>
@@ -443,9 +457,6 @@ number of found matches in a small popup.
 </para>
 <para>Click on the button with a green arrow icon at the right side of the power search and replace bar to
 switch to the incremental search bar.
-<!--changed in 4.5 ???
-options "Highlight all" + "From cursor" removed only "Match case" left
--->
 </para>
 </listitem>
 </varlistentry>
@@ -881,22 +892,22 @@ the endianness (byte order) of a text file or stream, for more information see
 <ulink url="http://en.wikipedia.org/wiki/Byte_Order_Mark">Byte Order Mark</ulink>.</para>
 </listitem>
 </varlistentry>
-<!--FIXME broken links
+
 <varlistentry>
 <term><anchor id="tools-scripts"/><menuchoice>
 <guimenu>Tools</guimenu>
 <guisubmenu>Scripts</guisubmenu></menuchoice></term>
  <listitem>
 <para>This submenu contains a list of all scripted actions. The list can easily be
-modified by <link linkend="dev-scripting-command-line">writing
-own scripts</link>. This way, &kate; can be extended with user-defined tools.
+modified by <ulink url="help:/kate/dev-scripting.html#dev-scripting-command-line">writing
+own scripts</ulink>. This way, &kwrite; can be extended with user-defined tools.
 </para>
 
-<para>For more information about the scripts included with kate, see
-<xref linkend="scripts"/>.</para>
+<para>For more information about the scripts included with &kate;, see
+<ulink url="help:/kate/scripts.html">Scripts</ulink>.</para>
 </listitem>
 </varlistentry>
--->
+
 <varlistentry>
 <term><menuchoice>
 <shortcut>

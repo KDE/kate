@@ -80,6 +80,7 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
      * @return normal mode command accumulated so far
      */
     QString getVerbatimKeys() const;
+    virtual bool handleKeypress( const QKeyEvent *e ) = 0;
 
     enum MappingRecursion { Recursive, NonRecursive };
     virtual void addMapping( const QString &from, const QString &to, MappingRecursion recursion ) = 0;

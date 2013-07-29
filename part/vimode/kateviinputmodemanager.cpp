@@ -105,27 +105,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   }
   else
   {
-    // FIXME: I think we're making things difficult for ourselves here.  Maybe some
-    //        more thought needs to go into the inheritance hierarchy.
-    switch(m_currentViMode) {
-      case NormalMode:
-        res = m_viNormalMode->handleKeypress(e);
-        break;
-      case InsertMode:
-        res = m_viInsertMode->handleKeypress(e);
-        break;
-      case VisualMode:
-      case VisualLineMode:
-      case VisualBlockMode:
-        res = m_viVisualMode->handleKeypress(e);
-        break;
-      case ReplaceMode:
-        res = m_viReplaceMode->handleKeypress(e);
-        break;
-      default:
-        kDebug( 13070 ) << "WARNING: Unhandled keypress";
-        res = false;
-    }
+    res = getCurrentViModeHandler()->handleKeypress(e);
   }
 
   m_insideHandlingKeyPressCount--;
@@ -328,6 +308,24 @@ void KateViInputModeManager::changeViMode(ViMode newMode)
 ViMode KateViInputModeManager::getCurrentViMode() const
 {
   return m_currentViMode;
+}
+
+KateViModeBase* KateViInputModeManager::getCurrentViModeHandler() const
+{
+  switch(m_currentViMode) {
+    case NormalMode:
+      return m_viNormalMode;
+    case InsertMode:
+      return m_viInsertMode;
+    case VisualMode:
+    case VisualLineMode:
+    case VisualBlockMode:
+      return m_viVisualMode;
+    case ReplaceMode:
+      return m_viReplaceMode;
+  }
+  kDebug( 13070 ) << "WARNING: Unknown Vi mode.";
+  return NULL;
 }
 
 void KateViInputModeManager::viEnterNormalMode()

@@ -33,6 +33,7 @@ class KConfigGroup;
 class KateView;
 class KateDocument;
 class KateViewInternal;
+class KateViModeBase;
 class KateViNormalMode;
 class KateViInsertMode;
 class KateViVisualMode;
@@ -92,6 +93,11 @@ public:
    * @return The current vi mode
    */
   ViMode getCurrentViMode() const;
+
+  /**
+   * @return one of getViNormalMode(), getViVisualMode(), etc, depending on getCurrentViMode().
+   */
+  KateViModeBase* getCurrentViModeHandler() const;
 
   const QString getVerbatimKeys() const;
 

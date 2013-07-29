@@ -1108,8 +1108,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 
     // The "count" for the current search is not shared between Visual & Normal mode, so we need to pick
     // the right one to handle the counted search.
-    KateViModeBase* currentModeHandler = (m_view->getCurrentViMode() == NormalMode) ? static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViNormalMode()) : static_cast<KateViModeBase*>(m_view->getViInputModeManager()->getViVisualMode());
-    Range match = currentModeHandler->findPattern(qtRegexPattern, searchBackwards, caseSensitive, m_startingCursorPos);
+    Range match = m_view->getViInputModeManager()->getCurrentViModeHandler()->findPattern(qtRegexPattern, searchBackwards, caseSensitive, m_startingCursorPos);
 
     if (match.isValid())
     {

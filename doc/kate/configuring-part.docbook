@@ -66,6 +66,9 @@ whitespace at the end of lines.</para></listitem>
 </guilabel></term>
 <listitem><para>
 <variablelist>
+<!--FIXME missing
+Enable power user mode (KDE 3 mode)
+  -->
 <varlistentry>
 <term><guilabel>Show indentation lines
 </guilabel></term>
@@ -93,7 +96,7 @@ vertical lines to help identifying indent lines.</para></listitem>
 <listitem>
 <variablelist>
 <varlistentry>
-<term><guilabel>Show folding markers (if available)
+<term><guilabel>Show folding markers
 </guilabel></term>
 <listitem><para>If this option is checked, the current view will display marks
 for code folding, if code folding is available.</para></listitem>
@@ -265,7 +268,7 @@ marker borders in the left side of the editor view when they are displayed.
 the view when displayed.</para></listitem>
 </varlistentry>
 
-<!--FIXME: Missing Seperator - not sure what that is-->
+<!--FIXME: Missing Separator - not sure what that is-->
 
 <varlistentry>
 <term><guilabel>Word Wrap Marker</guilabel></term>
@@ -794,6 +797,11 @@ amount of characters that are needed to make the word completion active and pop
 up a completion box.</para></listitem>
 </varlistentry>
 
+<varlistentry>
+<term><guilabel>Remove tail on complete</guilabel></term>
+<listitem><para>Remove the tail of a previous word when the completion item is chosen from a list.</para></listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect3>
@@ -819,15 +827,6 @@ You can still toggle the vi input mode on/off for a particular view in the
 <para>When selected, Vi commands will override &kappname;'s built-in commands. For
 example: <keycombo action="simul">&Ctrl;<keycap>R</keycap></keycombo> will redo,
 and override the standard action (showing the search and replace dialog).</para>
-</listitem>
-</varlistentry>
-<varlistentry>
-<term><guilabel>Hide the Vi mode status bar</guilabel></term>
-<listitem>
-<para>By default, an extra status bar will be used when the Vi input mode is
-enabled. This status bar shows commands while they are being typed and
-messages/errors produced by Vi commands.</para>
-<para>Checking this option will hide this extra status line.</para>
 </listitem>
 </varlistentry>
 </variablelist>

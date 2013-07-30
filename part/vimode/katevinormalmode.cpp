@@ -27,6 +27,7 @@
 #include "kateviinsertmode.h"
 #include "kateviinputmodemanager.h"
 #include "kateviglobal.h"
+#include "katevikeymapper.h"
 #include "kateviemulatedcommandbar.h"
 #include "kateglobal.h"
 #include "kateconfig.h"
@@ -69,11 +70,6 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_defaultRegister = '"';
 
   m_scroll_count_limit = 1000; // Limit of count for scroll commands.
-  m_timeoutlen = 1000; // FIXME: make configurable
-  m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
-  m_mappingTimer = new QTimer( this );
-  m_doNotExpandFurtherMappings = false;
-  connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
 
   initializeCommands();
   m_pendingResetIsDueToExit = false;
@@ -96,6 +92,7 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   connect(doc(), SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
           this, SLOT(aboutToDeleteMovingInterfaceContent()));
   m_highlightedYank = NULL;
+
 }
 
 KateViNormalMode::~KateViNormalMode()
@@ -103,22 +100,6 @@ KateViNormalMode::~KateViNormalMode()
   qDeleteAll( m_commands );
   qDeleteAll( m_motions) ;
   delete m_highlightedYank;
-}
-
-void KateViNormalMode::mappingTimerTimeOut()
-{
-  kDebug( 13070 ) << "timeout! key presses: " << m_mappingKeys;
-  m_mappingKeyPress = true;
-  if (!m_fullMappingMatch.isNull())
-  {
-    executeMapping();
-  }
-  else
-  {
-    m_viInputModeManager->feedKeyPresses( m_mappingKeys );
-  }
-  m_mappingKeyPress = false;
-  m_mappingKeys.clear();
 }
 
 /**
@@ -157,51 +138,13 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   QChar key = KateViKeyParser::self()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
 
   const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
-  const bool waitingForRegisterOrCharToSearch = m_keys.size() > 0 && (lastChar == 'f' || lastChar == 't' || lastChar == 'F' || lastChar == 'T' || lastChar == 'r');
+  const bool waitingForRegisterOrCharToSearch = this->waitingForRegisterOrCharToSearch();
 
-  // Check for matching mappings - if we are waiting for a char to search or a new register,
-  // don't translate next character; we need the actual character so that e.g.
-  // 'ab' is translated to 'fb' if the mapping 'a' -> 'f' exists
-  if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !waitingForRegisterOrCharToSearch) {
-    m_mappingKeys.append( key );
-
-    bool isPartialMapping = false;
-    bool isFullMapping = false;
-    m_fullMappingMatch.clear();
-    foreach ( const QString &mapping, getMappings() ) {
-      if ( mapping.startsWith( m_mappingKeys ) ) {
-        if ( mapping == m_mappingKeys ) {
-          isFullMapping = true;
-          m_fullMappingMatch = mapping;
-        } else {
-          isPartialMapping = true;
-        }
-      }
-    }
-    if (isFullMapping && !isPartialMapping)
-    {
-      // Great - m_mappingKeys is a mapping, and one that can't be extended to
-      // a longer one - execute it immediately.
-      executeMapping();
-      return true;
-    }
-    if (isPartialMapping)
-    {
-      // Need to wait for more characters (or a timeout) before we decide what to
-      // do with this.
-      m_mappingTimer->start( m_timeoutlen );
-      m_mappingTimer->setSingleShot( true );
-      return true;
-    }
-    // We've been swallowing all the keypresses meant for m_keys for our mapping keys; now that we know
-    // this cannot be a mapping, restore them. The current key will be appended further down.
-    Q_ASSERT(!isPartialMapping && !isFullMapping);
-     m_keys += m_mappingKeys.mid(0, m_mappingKeys.length() - 1);
-    m_mappingKeys.clear();
-  } else {
-    // FIXME:
-    //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
-  }
+  // Check for matching mappings.
+//   if (m_viInputModeManager->keyMapper()->handleKeypress(key))
+//   {
+//     return true;
+//   }
 
   // Use replace caret when reading a character for "r"
   if ( key == 'r' && !waitingForRegisterOrCharToSearch) {
@@ -344,6 +287,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   // look for matching motion commands from position 'checkFrom'
   // FIXME: if checkFrom hasn't changed, only motions whose index is in
   // m_matchingMotions should be checked
+  bool motionExecuted = false;
   if ( checkFrom < m_keys.size() ) {
     for ( int i = 0; i < m_motions.size(); i++ ) {
       //kDebug( 13070 )  << "\tchecking " << m_keys.mid( checkFrom )  << " against " << m_motions.at( i )->pattern();
@@ -355,6 +299,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
         // if it matches exact, we have found the motion command to execute
         if ( m_motions.at( i )->matchesExact( m_keys.mid( checkFrom ) ) ) {
           m_currentMotionWasVisualLineUpOrDown = false;
+          motionExecuted = true;
           if ( checkFrom == 0 ) {
             // no command given before motion, just move the cursor to wherever
             // the motion says it should go to
@@ -398,7 +343,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
             m_lastMotionWasVisualLineUpOrDown = m_currentMotionWasVisualLineUpOrDown;
 
-            return true;
+            break;
           } else {
             // execute the specified command and supply the position returned from
             // the motion
@@ -442,11 +387,25 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             }
             m_commandWithMotion = false;
             reset();
-            return true;
+            break;
           }
         }
       }
     }
+  }
+
+  if (this->waitingForRegisterOrCharToSearch())
+  {
+    // If we are waiting for a char to search or a new register,
+    // don't translate next character; we need the actual character so that e.g.
+    // 'ab' is translated to 'fb' if the mappings 'a' -> 'f' and 'b' -> something else
+    // exist.
+    m_viInputModeManager->keyMapper()->setDoNotMapNextKeypress();
+  }
+
+  if (motionExecuted)
+  {
+    return true;
   }
 
   //kDebug( 13070 ) << "'" << m_keys << "' MATCHING COMMANDS: " << m_matchingCommands.size();
@@ -520,11 +479,6 @@ void KateViNormalMode::reset()
     resetParser();
     m_commandRange.startLine = -1;
     m_commandRange.startColumn = -1;
-}
-
-void KateViNormalMode::setMappingTimeout(int timeoutMS)
-{
-  m_timeoutlen = timeoutMS;
 }
 
 void KateViNormalMode::beginMonitoringDocumentChanges()
@@ -3265,26 +3219,6 @@ QRegExp KateViNormalMode::generateMatchingItemRegex()
   return QRegExp( pattern );
 }
 
-void KateViNormalMode::addMapping( const QString& from, const QString& to, KateViModeBase::MappingRecursion recursion )
-{
-    KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from, to, recursion );
-}
-
-const QString KateViNormalMode::getMapping( const QString &from ) const
-{
-    return KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, from );
-}
-
-const QStringList KateViNormalMode::getMappings() const
-{
-    return KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
-}
-
-bool KateViNormalMode::isMappingRecursive(const QString& from) const
-{
-    return KateGlobal::self()->viInputModeGlobal()->isMappingRecursive( NormalMode, from );
-}
-
 // returns the operation mode that should be used. this is decided by using the following heuristic:
 // 1. if we're in visual block mode, it should be Block
 // 2. if we're in visual line mode OR the range spans several lines, it should be LineWise
@@ -3517,26 +3451,6 @@ KateViRange KateViNormalMode::textObjectComma(bool inner)
   return r;
 }
 
-void KateViNormalMode::executeMapping()
-{
-  m_mappingKeys.clear();
-  const int numberRepeats = m_countTemp == 0 ? 1 : m_countTemp;
-  m_countTemp = 0; // Ensure that the first command in the mapping is not repeated.
-  m_mappingTimer->stop();
-  const QString mappedKeypresses = getMapping(m_fullMappingMatch);
-  if (!isMappingRecursive(m_fullMappingMatch))
-  {
-    m_doNotExpandFurtherMappings = true;
-  }
-  doc()->editBegin();
-  for(int count = 1; count <= numberRepeats; count++)
-  {
-    m_viInputModeManager->feedKeyPresses(mappedKeypresses);
-  }
-  m_doNotExpandFurtherMappings = false;
-  doc()->editEnd();
-}
-
 void KateViNormalMode::updateYankHighlightAttrib()
 {
   if (!m_highlightYankAttribute)
@@ -3584,6 +3498,13 @@ KTextEditor::MovingRange*& KateViNormalMode::highlightedYankForDocument()
   // Work around the fact that both Normal and Visual mode will have their own m_highlightedYank -
   // make Normal's the canonical one.
   return m_viInputModeManager->getViNormalMode()->m_highlightedYank;
+}
+
+bool KateViNormalMode::waitingForRegisterOrCharToSearch()
+{
+  const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
+  kDebug(13070) << m_keys;
+  return m_keys.size() > 0 && (lastChar == 'f' || lastChar == 't' || lastChar == 'F' || lastChar == 'T' || lastChar == 'r');
 }
 
 void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range)
@@ -3671,3 +3592,4 @@ void KateViNormalMode::undoEnded()
 {
   m_isUndo = false;
 }
+

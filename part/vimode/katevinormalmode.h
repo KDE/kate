@@ -50,9 +50,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 {
   Q_OBJECT
 
-  public slots:
-    void mappingTimerTimeOut();
-
   public:
     KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );
     virtual ~KateViNormalMode();
@@ -271,13 +268,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
 
     void addCurrentPositionToJumpList();
 
-    void addMapping( const QString& from, const QString& to, KateViModeBase::MappingRecursion recursion );
-    const QString getMapping( const QString &from ) const;
-    const QStringList getMappings() const;
-    bool isMappingRecursive(const QString& from) const;
     virtual void reset();
-
-    void setMappingTimeout(int timeoutMS);
 
     void beginMonitoringDocumentChanges();
   protected:
@@ -334,19 +325,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     QHash<QString, QString> m_matchingItems;
     QRegExp m_matchItemRegex;
 
-    // mappings
-    bool m_mappingKeyPress;
-    // Will be the mapping used if we decide that no extra mapping characters will be
-    // typed, either because we have a mapping that cannot be extended to another
-    // mapping by adding additional characters, or we have a mapping and timed out waiting
-    // for it to be extended to a longer mapping.
-    // (Essentially, this allows us to have mappings that extend each other e.g. "'12" and
-    // "'123", and to choose between them.)
-    QString m_fullMappingMatch;
-    QString m_mappingKeys;
-    bool m_doNotExpandFurtherMappings;
-    void executeMapping();
-
     KateViKeyParser *m_keyParser;
 
     // Ctrl-c or ESC have been pressed, leading to a call to reset().
@@ -363,6 +341,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool m_isUndo;
 
     Cursor m_positionWhenIncrementalSearchBegan;
+
+    bool waitingForRegisterOrCharToSearch();
 private slots:
     void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
     void textRemoved(KTextEditor::Document*,KTextEditor::Range);

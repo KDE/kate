@@ -64,10 +64,10 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
         // "Recursion" is a newly-introduced part of the config that some users won't have,
         // so rather than abort (and lose our mappings) if there are not enough entries, simply
         // treat any missing ones as Recursive (for backwards compatibility).
-        KateViModeBase::MappingRecursion recursion = KateViModeBase::Recursive;
+        MappingRecursion recursion = Recursive;
         if (isRecursive.size() > i && !isRecursive.at(i))
         {
-          recursion = KateViModeBase::NonRecursive;
+          recursion = NonRecursive;
         }
         addMapping( NormalMode, keys.at( i ), mappings.at( i ), recursion);
         kDebug( 13070 ) << "Mapping " << keys.at( i ) << " -> " << mappings.at( i );
@@ -152,7 +152,7 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text, Operatio
   }
 }
 
-void KateViGlobal::addMapping( ViMode mode, const QString &from, const QString &to, KateViModeBase::MappingRecursion recursion )
+void KateViGlobal::addMapping( ViMode mode, const QString &from, const QString &to, MappingRecursion recursion )
 {
   if ( !from.isEmpty() ) {
     switch ( mode ) {
@@ -160,6 +160,18 @@ void KateViGlobal::addMapping( ViMode mode, const QString &from, const QString &
       m_normalModeMappings[ KateViKeyParser::self()->encodeKeySequence( from ) ]
         = KateViKeyParser::self()->encodeKeySequence( to );
       m_normalModeMappingRecursion [ KateViKeyParser::self()->encodeKeySequence( from ) ] = recursion;
+      break;
+    case VisualMode:
+    case VisualLineMode:
+    case VisualBlockMode:
+      m_visualModeMappings[ KateViKeyParser::self()->encodeKeySequence( from ) ]
+        = KateViKeyParser::self()->encodeKeySequence( to );
+      m_visualModeMappingRecursion [ KateViKeyParser::self()->encodeKeySequence( from ) ] = recursion;
+      break;
+    case InsertMode:
+      m_insertModeMappings[ KateViKeyParser::self()->encodeKeySequence( from ) ]
+        = KateViKeyParser::self()->encodeKeySequence( to );
+      m_insertModeMappingRecursion [ KateViKeyParser::self()->encodeKeySequence( from ) ] = recursion;
       break;
     default:
       kDebug( 13070 ) << "Mapping not supported for given mode";
@@ -173,6 +185,14 @@ const QString KateViGlobal::getMapping( ViMode mode, const QString &from, bool d
     switch ( mode ) {
     case NormalMode:
       ret = m_normalModeMappings.value( from );
+      break;
+    case VisualMode:
+    case VisualLineMode:
+    case VisualBlockMode:
+      ret = m_visualModeMappings.value( from );
+      break;
+    case InsertMode:
+      ret = m_insertModeMappings.value( from );
       break;
     default:
       kDebug( 13070 ) << "Mapping not supported for given mode";
@@ -198,6 +218,26 @@ const QStringList KateViGlobal::getMappings( ViMode mode, bool decode ) const
       }
     }
     break;
+  case VisualMode:
+  case VisualLineMode:
+  case VisualBlockMode:
+    for (i = m_visualModeMappings.constBegin(); i != m_visualModeMappings.constEnd(); ++i) {
+      if ( decode ) {
+        l << KateViKeyParser::self()->decodeKeySequence( i.key() );
+      } else {
+        l << i.key();
+      }
+    }
+    break;
+  case InsertMode:
+    for (i = m_insertModeMappings.constBegin(); i != m_insertModeMappings.constEnd(); ++i) {
+      if ( decode ) {
+        l << KateViKeyParser::self()->decodeKeySequence( i.key() );
+      } else {
+        l << i.key();
+      }
+    }
+    break;
   default:
     kDebug( 13070 ) << "Mapping not supported for given mode";
   }
@@ -209,7 +249,13 @@ bool KateViGlobal::isMappingRecursive(ViMode mode, const QString& from) const
 {
     switch ( mode ) {
     case NormalMode:
-      return (m_normalModeMappingRecursion.value( from ) == KateViModeBase::Recursive);
+      return (m_normalModeMappingRecursion.value( from ) == Recursive);
+    case VisualMode:
+    case VisualLineMode:
+    case VisualBlockMode:
+      return (m_visualModeMappingRecursion.value( from ) == Recursive);
+    case InsertMode:
+      return (m_insertModeMappingRecursion.value( from ) == Recursive);
     default:
       kDebug( 13070 ) << "Mapping not supported for given mode";
       return false;
@@ -221,6 +267,14 @@ void KateViGlobal::clearMappings( ViMode mode )
   switch (mode ) {
   case NormalMode:
     m_normalModeMappings.clear();
+    break;
+  case VisualMode:
+  case VisualLineMode:
+  case VisualBlockMode:
+    m_visualModeMappings.clear();
+    break;
+  case InsertMode:
+    m_insertModeMappings.clear();
     break;
   default:
     kDebug( 13070 ) << "Mapping not supported for given mode";

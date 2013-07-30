@@ -72,12 +72,6 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     bool commandInsertContentOfRegister();
     bool commandSwitchToNormalModeForJustOneCommand();
 
-    // mappings not supported in insert mode yet
-    void addMapping( const QString &from, const QString &to, MappingRecursion recursion ) { Q_UNUSED(from) Q_UNUSED(to) Q_UNUSED(recursion)}
-    const QString getMapping( const QString &from ) const { Q_UNUSED(from) return QString(); }
-    const QStringList getMappings() const { return QStringList(); }
-    bool isMappingRecursive(const QString& from) const { Q_UNUSED(from) return false; };
-
     void setBlockPrependMode( KateViRange blockRange );
     void setBlockAppendMode( KateViRange blockRange, BlockInsert b );
 

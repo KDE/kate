@@ -33,11 +33,13 @@ class KConfigGroup;
 class KateView;
 class KateDocument;
 class KateViewInternal;
+class KateViModeBase;
 class KateViNormalMode;
 class KateViInsertMode;
 class KateViVisualMode;
 class KateViReplaceMode;
 class KateViKeyParser;
+class KateViKeyMapper;
 class QString;
 
 /**
@@ -92,6 +94,11 @@ public:
    * @return The current vi mode
    */
   ViMode getCurrentViMode() const;
+
+  /**
+   * @return one of getViNormalMode(), getViVisualMode(), etc, depending on getCurrentViMode().
+   */
+  KateViModeBase* getCurrentViModeHandler() const;
 
   const QString getVerbatimKeys() const;
 
@@ -258,6 +265,8 @@ public:
    */
   static QString modeToString(ViMode mode);
 
+  KateViKeyMapper* keyMapper();
+
 private Q_SLOTS:
   void markChanged (KTextEditor::Document* doc,
                     KTextEditor::Mark mark,
@@ -274,6 +283,8 @@ private:
   KateView *m_view;
   KateViewInternal *m_viewInternal;
   KateViKeyParser *m_keyParser;
+
+  KateViKeyMapper *m_keyMapper;
 
   int m_insideHandlingKeyPressCount;
 

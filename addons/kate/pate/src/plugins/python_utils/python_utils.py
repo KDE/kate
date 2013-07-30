@@ -52,7 +52,7 @@ except ImportError as e:
     msg_error += text_type(e) + "\n"
 finally:
     try:
-        needs_packages({"pyflakes": "0.6.1"})
+        needs_packages({"pyflakes": "0.7.3"})
         from python_checkers.pyflakes_checker import *
     except ImportError as e:
         msg_error += text_type(e)

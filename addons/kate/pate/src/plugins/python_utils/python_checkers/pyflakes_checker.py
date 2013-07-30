@@ -26,6 +26,7 @@ import sys
 
 from PyKDE4.kdecore import i18n
 
+from pyflakes import __version__ as pyflakesVersion
 from pyflakes.checker import Checker
 from pyflakes.messages import Message
 
@@ -36,6 +37,18 @@ from python_checkers.utils import canCheckDocument
 from python_settings import KATE_ACTIONS
 
 encoding_line = re.compile("#( )*-\*-( )*(encoding|coding):( )*(?P<encoding>[\w-]+)( )*-\*-")
+
+
+def is_old_pyflake_version():
+    version_split = pyflakesVersion.split('.')
+    if len(version_split) == 3:
+        try:
+            version_major = int(version_split[0])
+            version_minor = int(version_split[1])
+            return version_major == 0 and version_minor <= 6
+        except ValueError:
+            pass
+    return False
 
 
 def pyflakes(codeString, filename):
@@ -54,15 +67,17 @@ def pyflakes(codeString, filename):
         tree = compile(codeString, filename, "exec", _ast.PyCF_ONLY_AST)
     except SyntaxError as value:
         msg = value.args[0]
-        lineno = value.lineno
         # If there's an encoding problem with the file, the text is None.
         if value.text is None:
             # Avoid using msg, since for the only known case, it contains a
             # bogus message that claims the encoding the file declared was
             # unknown.
             msg = i18n("Problem decoding source")
-            lineno = 1
-        error = Message(filename, lineno)
+            value.lineno = 1
+        if not is_old_pyflake_version():
+            error = Message(filename, value)
+        else:
+            error = Message(filename, value.lineno)
         error.message = msg + "%s"
         error.message_args = ""
         return [error]
@@ -96,10 +111,13 @@ def checkPyflakes(currentDocument=None, refresh=True):
 
     # Prepare errors found for painting
     for error in errors:
-        errors_to_show.append({
+        error_to_show = {
             "message": error.message % error.message_args,
             "line": error.lineno,
-        })
+        }
+        if getattr(error, 'col', None) is not None:
+            error_to_show['column'] = error.col + 1
+        errors_to_show.append(error_to_show)
 
     showErrors(i18n('Pyflakes Errors:'), errors_to_show,
                mark_key, currentDocument,

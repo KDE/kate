@@ -234,8 +234,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
     {
       destWidget = m_view->focusProxy();
     }
-    QApplication::postEvent(destWidget, k);
-    QApplication::sendPostedEvents();
+    QApplication::sendEvent(destWidget, k);
   }
 }
 
@@ -392,7 +391,7 @@ void KateViInputModeManager::viEnterInsertMode()
   m_keyEventsBeforeInsert = m_keyEventsLog;
   m_view->setCaretStyle( KateRenderer::Line, true );
   setTemporaryNormalMode(false);
-  m_viewInternal->repaint ();
+  m_viewInternal->update ();
 }
 
 void KateViInputModeManager::viEnterVisualMode( ViMode mode )
@@ -402,7 +401,7 @@ void KateViInputModeManager::viEnterVisualMode( ViMode mode )
   // If the selection is inclusive, the caret should be a block.
   // If the selection is exclusive, the caret should be a line.
   m_view->setCaretStyle( KateRenderer::Block, true );
-  m_viewInternal->repaint ();
+  m_viewInternal->update();
   getViVisualMode()->setVisualModeType( mode );
   getViVisualMode()->init();
 }
@@ -411,7 +410,7 @@ void KateViInputModeManager::viEnterReplaceMode()
 {
   changeViMode(ReplaceMode);
   m_view->setCaretStyle( KateRenderer::Underline, true );
-  m_viewInternal->repaint ();
+  m_viewInternal->update();
 }
 
 

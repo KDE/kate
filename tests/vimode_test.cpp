@@ -62,6 +62,7 @@ ViModeTest::ViModeTest() {
   kate_view->toggleViInputMode();
   Q_ASSERT(kate_view->viInputMode());
   vi_input_mode_manager = kate_view->getViInputModeManager();
+  kate_document->config()->setShowSpaces(true); // Flush out some issues in the KateRenderer when rendering spaces.
 
   m_codesToModifiers.insert("ctrl", Qt::ControlModifier);
   m_codesToModifiers.insert("alt", Qt::AltModifier);

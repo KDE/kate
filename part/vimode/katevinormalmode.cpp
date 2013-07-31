@@ -1349,9 +1349,14 @@ if ( m_viInputModeManager->getCurrentViMode() == VisualMode
     Cursor c1( m_view->cursorPosition() );
     Cursor c2( m_view->cursorPosition() );
 
-    c2.setColumn( c2.column()+1 );
+    c2.setColumn( c2.column() + getCount() );
 
-    r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ) );
+    if (c2.column() > doc()->lineLength(m_view->cursorPosition().line()))
+    {
+      return false;
+    }
+
+    r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ).repeated(getCount()) );
     updateCursor( c1 );
 
 }

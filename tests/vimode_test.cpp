@@ -916,6 +916,12 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fOo BAr", "lf~fZ", "fOo BAr");
   DoTest("{\nfOo BAr\n}", "jg~iB", "{\nFoO baR\n}");
 
+  // Testing "r".
+  DoTest("foobar", "l2r.", "f..bar");
+  DoTest("foobar", "l5r.", "f.....");
+  // Do nothing if the count is too high.
+  DoTest("foobar", "l6r.", "foobar");
+
   // Testing "Ctrl-o" and "Ctrl-i"
   DoTest("abc\ndef\nghi","Gx\\ctrl-ox","bc\ndef\nhi");
   DoTest("{\n}","%\\ctrl-ox","\n}");

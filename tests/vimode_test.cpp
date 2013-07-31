@@ -2135,6 +2135,24 @@ void ViModeTest::VimStyleCommandBarTests()
   // Don't forget to set the last search to case-insensitive.
   DoTest("foo bAR bar", "ll/bAR\\enter^/bar\\enter^nrX", "foo XAR bar");
 
+  // Usage of \C for manually specifying case sensitivity.
+  // Strip occurrences of "\C" from the pattern to find.
+  DoTest("foo bar", "/\\\\Cba\\\\Cr\\enterrX", "foo Xar");
+  // Be careful about escaping, though!
+  DoTest("foo \\Cba\\Cr", "/\\\\\\\\Cb\\\\Ca\\\\\\\\C\\\\C\\\\Cr\\enterrX", "foo XCba\\Cr");
+  // The item added to the search history should contain all the original \C's.
+  clearSearchHistory();
+  BeginTest("foo \\Cba\\Cr");
+  TestPressKey("/\\\\\\\\Cb\\\\Ca\\\\\\\\C\\\\C\\\\Cr\\enterrX");
+  QCOMPARE(searchHistory().first(), QString("\\\\Cb\\Ca\\\\C\\C\\Cr"));
+  FinishTest("foo XCba\\Cr");
+  // If there is an escaped C, assume case sensitivity.
+  DoTest("foo bAr BAr bar", "/ba\\\\Cr\\enterrX", "foo bAr BAr Xar");
+  // The last search pattern should be the last search with escaped C's stripped.
+  DoTest("foo \\Cbar\nfoo \\Cbar", "/\\\\\\\\Cba\\\\C\\\\Cr\\enterggjnrX", "foo \\Cbar\nfoo XCbar");
+  // If the last search pattern had an escaped "\C", then the next search should be case-sensitive.
+  DoTest("foo bar\nfoo bAr BAr bar", "/ba\\\\Cr\\enterggjnrX", "foo bar\nfoo bAr BAr Xar");
+
   // Don't set the last search parameters if we abort, though.
   DoTest("foo bar xyz", "/bar\\enter/xyz\\ctrl-cggnrX", "foo Xar xyz");
   DoTest("foo bar bAr", "/bar\\enter/bA\\ctrl-cggnrX", "foo Xar bAr");

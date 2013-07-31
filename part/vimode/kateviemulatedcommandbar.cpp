@@ -240,6 +240,23 @@ namespace
     QRegExp m_position;
     QRegExp m_cmdRange;
   } rangeExpressionParser;
+
+  QString withCaseSensitivityMarkersStripped(const QString& originalSearchTerm)
+  {
+    // Only \C is handled, for now - I'll implement \c if someone asks for it.
+    int pos = 0;
+    QString caseSensitivityMarkersStripped = originalSearchTerm;
+    while (pos < caseSensitivityMarkersStripped.length())
+    {
+      if (caseSensitivityMarkersStripped.at(pos) == 'C' && isCharEscaped(caseSensitivityMarkersStripped, pos))
+      {
+        caseSensitivityMarkersStripped.replace(pos - 1, 2, "");
+        pos--;
+      }
+      pos++;
+    }
+    return caseSensitivityMarkersStripped;
+  }
 }
 
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
@@ -1094,16 +1111,19 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   }
   if (m_mode == SearchForward || m_mode == SearchBackward)
   {
-    const QString qtRegexPattern = (newText == "/") ? m_view->getViInputModeManager()->getLastSearchPattern() : vimRegexToQtRegexPattern(newText);
+    QString qtRegexPattern = (newText == "/") ? m_view->getViInputModeManager()->getLastSearchPattern() : vimRegexToQtRegexPattern(newText);
 
-    qDebug() << "Final regex: " << qtRegexPattern;
-
-    // Decide case-sensitivity via SmartCase.
+    // Decide case-sensitivity via SmartCase (note: if the expression contains \C, the "case-sensitive" marker, then
+    // we will be case-sensitive "by coincidence", as it were.).
     bool caseSensitive = true;
     if (qtRegexPattern.toLower() == qtRegexPattern)
     {
       caseSensitive = false;
     }
+
+    qtRegexPattern = withCaseSensitivityMarkersStripped(qtRegexPattern);
+
+    qDebug() << "Final regex: " << qtRegexPattern;
 
     const bool searchBackwards = (m_mode == SearchBackward);
 

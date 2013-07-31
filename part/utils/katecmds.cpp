@@ -551,7 +551,7 @@ const QStringList &KateCommands::ViCommands::cmds()
   static QStringList l;
 
   if (l.isEmpty())
-  l << "nnoremap" << "nn" << "d" << "delete" << "j" << "c" << "change" << "<" << ">" << "y" << "yank" <<
+  l << mappingCommands() << "d" << "delete" << "j" << "c" << "change" << "<" << ">" << "y" << "yank" <<
        "ma" << "mark" << "k";
 
   return l;
@@ -582,11 +582,12 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
   QStringList args(_cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
   QString cmd ( args.takeFirst() );
 
+
   // ALL commands that takes no arguments.
-  if ( cmd == "nnoremap" || cmd == "nn" )
+  if (mappingCommands().contains(cmd))
   {
     if ( args.count() == 1 ) {
-      msg = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, args.at( 0 ), true );
+      msg = KateGlobal::self()->viInputModeGlobal()->getMapping( modeForMapCommand(cmd), args.at( 0 ), true );
       if ( msg.isEmpty() ) {
         msg = i18n( "No mapping found for \"%1\"", args.at(0) );
         return false;
@@ -594,8 +595,8 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
         msg = i18n( "\"%1\" is mapped to \"%2\"", args.at( 0 ), msg );
       }
     } else if ( args.count() == 2 ) {
-      KateViGlobal::MappingRecursion mappingRecursion = (cmd == "nnoremap") ? KateViGlobal::NonRecursive : KateViGlobal::Recursive;
-      KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, args.at( 0 ), args.at( 1 ), mappingRecursion);
+      KateViGlobal::MappingRecursion mappingRecursion = (isMapCommandRecursive(cmd)) ? KateViGlobal::Recursive : KateViGlobal::NonRecursive;
+      KateGlobal::self()->viInputModeGlobal()->addMapping( modeForMapCommand(cmd), args.at( 0 ), args.at( 1 ), mappingRecursion);
     } else {
       msg = i18n("Missing argument(s). Usage: %1 <from> [<to>]",  cmd );
       return false;
@@ -714,6 +715,52 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
   }
   return 0L;
 }
+
+const QStringList& KateCommands::ViCommands::mappingCommands()
+{
+  static QStringList mappingsCommands;
+  if (mappingsCommands.isEmpty())
+  {
+    mappingsCommands << "nmap"  << "nm"  << "noremap" << "nnoremap" << "nn" << "no"
+                     << "vmap" << "vm" << "vnoremap" << "vn"
+                     << "imap" << "im" << "inoremap" << "ino";
+  }
+  return mappingsCommands;
+}
+
+ViMode KateCommands::ViCommands::modeForMapCommand(const QString& mapCommand)
+{
+  static QMap<QString, ViMode> modeForMapCommand;
+  if (modeForMapCommand.isEmpty())
+  {
+    // Normal is the default.
+    modeForMapCommand.insert("vmap", VisualMode);
+    modeForMapCommand.insert("vm", VisualMode);
+    modeForMapCommand.insert("vnoremap", VisualMode);
+    modeForMapCommand.insert("vn", VisualMode);
+    modeForMapCommand.insert("imap", InsertMode);
+    modeForMapCommand.insert("im", InsertMode);
+    modeForMapCommand.insert("inoremap", InsertMode);
+    modeForMapCommand.insert("ino", InsertMode);
+  }
+  return modeForMapCommand[mapCommand];
+}
+
+bool KateCommands::ViCommands::isMapCommandRecursive(const QString& mapCommand)
+{
+  static QMap<QString, bool> isMapCommandRecursive;
+  {
+    isMapCommandRecursive.insert("nmap", true);
+    isMapCommandRecursive.insert("nm", true);
+    isMapCommandRecursive.insert("vmap", true);
+    isMapCommandRecursive.insert("vm", true);
+    isMapCommandRecursive.insert("imap", true);
+    isMapCommandRecursive.insert("im", true);
+  }
+  return isMapCommandRecursive[mapCommand];
+}
+
+
 //END ViCommands
 
 // BEGIN AppCommands

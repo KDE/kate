@@ -62,6 +62,7 @@ ViModeTest::ViModeTest() {
   kate_view->toggleViInputMode();
   Q_ASSERT(kate_view->viInputMode());
   vi_input_mode_manager = kate_view->getViInputModeManager();
+  kate_document->config()->setShowSpaces(true); // Flush out some issues in the KateRenderer when rendering spaces.
 
   m_codesToModifiers.insert("ctrl", Qt::ControlModifier);
   m_codesToModifiers.insert("alt", Qt::AltModifier);
@@ -1481,6 +1482,91 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "gl", "%", KateViGlobal::NonRecursive);
   DoTest("", "ixyz\\esc.", "ababcc");
   DoTest("foo()X\nbarxyz()Y", "cglbaz\\escggj.", "bazX\nbazY");
+
+  // Regression test for a crash when executing a mapping that switches to Normal mode.
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(VisualMode, "h", "d", KateViGlobal::Recursive);
+  DoTest("foo", "vlh", "o");
+
+  {
+    // Test that we can set/ unset mappings from the command-line.
+    clearAllMappings();
+    DoTest("", "\\:nn foo ibar<esc>\\foo", "bar");
+
+    // "nn" is not recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "l", "iabc<esc>", KateViGlobal::NonRecursive);
+    DoTest("xxx", "\\:nn foo l\\foorX", "xXx");
+
+    // "no" is not recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "l", "iabc<esc>", KateViGlobal::NonRecursive);
+    DoTest("xxx", "\\:no foo l\\foorX", "xXx");
+
+    // "noremap" is not recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "l", "iabc<esc>", KateViGlobal::NonRecursive);
+    DoTest("xxx", "\\:noremap foo l\\foorX", "xXx");
+
+    // "nm" is recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "l", "iabc<esc>", KateViGlobal::NonRecursive);
+    DoTest("xxx", "\\:nm foo l\\foorX", "abXxxx");
+
+    // "nmap" is recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "l", "iabc<esc>", KateViGlobal::NonRecursive);
+    DoTest("xxx", "\\:nmap foo l\\foorX", "abXxxx");
+
+    // Unfortunately, "map" is a reserved word :/
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "l", "iabc<esc>", KateViGlobal::NonRecursive);
+    DoTest("xxx", "\\:map foo l\\foorX", "abXxxx", ShouldFail, "'map' is reserved for other stuff in Kate command line");
+
+    // vmap works in Visual mode and is recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(VisualMode, "l", "d", KateViGlobal::NonRecursive);
+    DoTest("abco", "\\:vmap foo l\\v\\rightfoogU", "co");
+
+    // vmap does not work in Normal mode.
+    clearAllMappings();
+    DoTest("xxx", "\\:vmap foo l\\foorX", "xxx\nrX");
+
+    // vm works in Visual mode and is recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(VisualMode, "l", "d", KateViGlobal::NonRecursive);
+    DoTest("abco", "\\:vm foo l\\v\\rightfoogU", "co");
+
+    // vn works in Visual mode and is not recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(VisualMode, "l", "d", KateViGlobal::NonRecursive);
+    DoTest("abco", "\\:vn foo l\\v\\rightfoogU", "ABCo");
+
+    // vnoremap works in Visual mode and is not recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(VisualMode, "l", "d", KateViGlobal::NonRecursive);
+    DoTest("abco", "\\:vnoremap foo l\\v\\rightfoogU", "ABCo");
+
+    // imap works in Insert mode and is recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(InsertMode, "l", "d", KateViGlobal::NonRecursive);
+    DoTest("", "\\:imap foo l\\ifoo\\esc", "d");
+
+    // im works in Insert mode and is recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(InsertMode, "l", "d", KateViGlobal::NonRecursive);
+    DoTest("", "\\:im foo l\\ifoo\\esc", "d");
+
+    // ino works in Insert mode and is not recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(InsertMode, "l", "d", KateViGlobal::NonRecursive);
+    DoTest("", "\\:ino foo l\\ifoo\\esc", "l");
+
+    // inoremap works in Insert mode and is not recursive.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(InsertMode, "l", "d", KateViGlobal::NonRecursive);
+    DoTest("", "\\:inoremap foo l\\ifoo\\esc", "l");
+  }
 
   // Clear mappings for subsequent tests.
   clearAllMappings();

@@ -958,6 +958,26 @@ bool KateViNormalMode::commandChangeCase()
   return true;
 }
 
+bool KateViNormalMode::commandChangeCaseRange()
+{
+  OperationMode m = getOperationMode();
+  QString changedCase = getRange( m_commandRange, m );
+  if (m == LineWise)
+    changedCase = changedCase.left(changedCase.size() - 1); // don't need '\n' at the end;
+  Range range = Range(m_commandRange.startLine, m_commandRange.startColumn, m_commandRange.endLine, m_commandRange.endColumn);
+  // get the text the command should operate on
+  // for every character, switch its case
+  for ( int i = 0; i < changedCase.length(); i++ ) {
+    if ( changedCase.at(i).isUpper() ) {
+      changedCase[i] = changedCase.at(i).toLower();
+    } else if ( changedCase.at(i).isLower() ) {
+      changedCase[i] = changedCase.at(i).toUpper();
+    }
+  }
+  doc()->replaceText( range, changedCase, m == Block );
+  return true;
+}
+
 bool KateViNormalMode::commandOpenNewLineUnder()
 {
   doc()->setUndoMergeAllEdits(true);
@@ -3074,6 +3094,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("==", commandAlignLine, IS_CHANGE );
   ADDCMD("=", commandAlignLines, IS_CHANGE | NEEDS_MOTION);
   ADDCMD("~", commandChangeCase, IS_CHANGE );
+  ADDCMD("g~", commandChangeCaseRange, IS_CHANGE | NEEDS_MOTION );
   ADDCMD("<c-a>", commandAddToNumber, IS_CHANGE );
   ADDCMD("<c-x>", commandSubtractFromNumber, IS_CHANGE );
   ADDCMD("<c-o>", commandGoToPrevJump, 0);

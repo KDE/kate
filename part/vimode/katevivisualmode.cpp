@@ -310,6 +310,7 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("gu", commandMakeLowercase, IS_CHANGE );
   ADDCMD("u", commandMakeLowercase, IS_CHANGE );
   ADDCMD("gU", commandMakeUppercase, IS_CHANGE );
+  ADDCMD("g~", commandChangeCaseRange, IS_CHANGE );
   ADDCMD("U", commandMakeUppercase, IS_CHANGE );
   ADDCMD("y", commandYank, 0 );
   ADDCMD("Y", commandYankToEOL, 0 );

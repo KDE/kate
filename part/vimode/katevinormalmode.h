@@ -79,6 +79,7 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandMakeUppercase();
     bool commandMakeUppercaseLine();
     bool commandChangeCase();
+    bool commandChangeCaseRange();
 
     bool commandOpenNewLineUnder();
     bool commandOpenNewLineOver();

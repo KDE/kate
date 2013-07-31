@@ -293,6 +293,10 @@ void ViModeTest::VisualModeTests() {
     DoTest("TeSt", "vlgu","teSt");
     DoTest("FOO\nBAR\nBAZ", "\\ctrl-vljju","foO\nbaR\nbaZ");
 
+    // Testing "g~"
+    DoTest("fOo bAr", "Vg~", "FoO BaR");
+    DoTest("foo\nbAr\nxyz", "l\\ctrl-vjjg~", "fOo\nbar\nxYz");
+
     // Testing "y"
     DoTest("foobar","Vypp","foobar\nfoobar\nfoobar");
     DoTest("foo\nbar","lvjlyp", "fooo\nbaro\nbar");
@@ -894,6 +898,12 @@ void ViModeTest::NormalModeCommandsTest() {
   // Testing "gUU"
   DoTest("foo", "gUU", "FOO");
   DoTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
+
+  // Testing "g~"
+  DoTest("fOo BAr", "lg~fA", "foO bar");
+  DoTest("fOo BAr", "$hg~FO", "foO bar");
+  DoTest("fOo BAr", "lf~fZ", "fOo BAr");
+  DoTest("{\nfOo BAr\n}", "jg~iB", "{\nFoO baR\n}");
 
   // Testing "Ctrl-o" and "Ctrl-i"
   DoTest("abc\ndef\nghi","Gx\\ctrl-ox","bc\ndef\nhi");

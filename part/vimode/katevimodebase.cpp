@@ -311,7 +311,7 @@ KateViRange KateViModeBase::findPatternForMotion( const QString& pattern, bool b
 
   Range match = findPattern(pattern, backwards, caseSensitive, startFrom, count);
 
-  return KateViRange( match.start().line(), match.start().column(), ViMotion::ExclusiveMotion );
+  return KateViRange( match.start().line(), match.start().column(), match.end().line(), match.end().column(), ViMotion::ExclusiveMotion );
 }
 
 Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onlyCurrentLine ) const

@@ -94,6 +94,7 @@ private:
   QString m_currentSearchPattern;
   bool m_currentSearchIsCaseSensitive;
   bool m_currentSearchIsBackwards;
+  bool m_currentSearchPlacesCursorAtEndOfMatch;
 
   virtual bool eventFilter(QObject* object, QEvent* event);
   void deleteSpacesToLeftOfCursor();

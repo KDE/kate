@@ -63,6 +63,8 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_keyMapper = new KateViKeyMapper(this, m_view->doc());
 
   m_lastSearchBackwards = false;
+  m_lastSearchCaseSensitive = false;
+  m_lastSearchPlacedCursorAtEndOfMatch = false;
 
   jump_list = new QList<KateViJump>;
   current_jump = jump_list->begin();

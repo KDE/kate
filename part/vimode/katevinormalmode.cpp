@@ -2304,8 +2304,18 @@ KateViRange KateViNormalMode::motionFindPrev()
   QString pattern = m_viInputModeManager->getLastSearchPattern();
   bool backwards = m_viInputModeManager->lastSearchBackwards();
   const bool caseSensitive = m_viInputModeManager->lastSearchCaseSensitive();
+  const bool placeCursorAtEndOfMatch = m_viInputModeManager->lastSearchPlacesCursorAtEndOfMatch();
 
-  return findPatternForMotion( pattern, !backwards, caseSensitive, m_view->cursorPosition(), getCount() );
+  KateViRange match = findPatternForMotion( pattern, !backwards, caseSensitive, m_view->cursorPosition(), getCount() );
+
+  if (!placeCursorAtEndOfMatch)
+  {
+    return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
+  }
+  else
+  {
+    return KateViRange(match.endLine, match.endColumn - 1, ViMotion::ExclusiveMotion);
+  }
 }
 
 KateViRange KateViNormalMode::motionFindNext()
@@ -2313,8 +2323,18 @@ KateViRange KateViNormalMode::motionFindNext()
   QString pattern = m_viInputModeManager->getLastSearchPattern();
   bool backwards = m_viInputModeManager->lastSearchBackwards();
   const bool caseSensitive = m_viInputModeManager->lastSearchCaseSensitive();
+  const bool placeCursorAtEndOfMatch = m_viInputModeManager->lastSearchPlacesCursorAtEndOfMatch();
 
-  return findPatternForMotion( pattern, backwards, caseSensitive, m_view->cursorPosition(), getCount() );
+  KateViRange match = findPatternForMotion( pattern, backwards, caseSensitive, m_view->cursorPosition(), getCount() );
+
+  if (!placeCursorAtEndOfMatch)
+  {
+    return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
+  }
+  else
+  {
+    return KateViRange(match.endLine, match.endColumn - 1, ViMotion::ExclusiveMotion);
+  }
 }
 
 
@@ -2650,9 +2670,10 @@ KateViRange KateViNormalMode::motionToNextOccurrence()
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( false );
   m_viInputModeManager->setLastSearchCaseSensitive( false );
+  m_viInputModeManager->setLastSearchPlacesCursorAtEndOfMatch( false );
 
-
-  return findPatternForMotion( word, false, false, m_view->cursorPosition(), getCount() );
+  const KateViRange match = findPatternForMotion( word, false, false, getWordRangeUnderCursor().start(), getCount() );
+  return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
 }
 
 KateViRange KateViNormalMode::motionToPrevOccurrence()
@@ -2664,10 +2685,12 @@ KateViRange KateViNormalMode::motionToPrevOccurrence()
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( true );
   m_viInputModeManager->setLastSearchCaseSensitive( false );
+  m_viInputModeManager->setLastSearchPlacesCursorAtEndOfMatch( false );
 
   // Search from the beginning of the word under the cursor, so that the current word isn't found
   // first.
-  return findPatternForMotion( word, true, false, getWordRangeUnderCursor().start(), getCount() );
+  const KateViRange match = findPatternForMotion( word, true, false, getWordRangeUnderCursor().start(), getCount() );
+  return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
 }
 
 KateViRange KateViNormalMode::motionToFirstLineOfWindow() {

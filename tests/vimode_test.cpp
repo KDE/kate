@@ -2214,10 +2214,58 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo foofoofoo\nfoofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo\nfoofoofoo");
   DoTest("foo foofoofoo", "wlll?foofoofoo\\enterrX", "foo Xoofoofoo");
 
-  // Searching for "/" repeats last search.
+  // Searching forwards for just "/" repeats last search.
   DoTest("foo bar", "/bar\\entergg//\\enterrX", "foo Xar");
   // The "last search" can be one initiated via e.g. "*".
   DoTest("foo bar foo", "/bar\\entergg*gg//\\enterrX", "foo bar Xoo");
+  // Searching backwards for just "?" repeats last search.
+  DoTest("foo bar bar", "/bar\\entergg??\\enterrX", "foo bar Xar");
+  // Search forwards treats "?" as a literal.
+  DoTest("foo ?ba?r", "/?ba?r\\enterrX", "foo Xba?r");
+  // As always, be careful with escaping!
+  DoTest("foo ?ba\\?r", "/?ba\\\\\\\\\\\\?r\\enterrX", "foo Xba\\?r");
+  // Searching forwards for just "?" finds literal question marks.
+  DoTest("foo ??", "/?\\enterrX", "foo X?");
+  // Searching backwards for just "/" finds literal forward slashes.
+  DoTest("foo //", "?/\\enterrX", "foo /X");
+  // Searching forwards, stuff after (and including) an unescaped "/" is ignored.
+  DoTest("foo ba bar bar/xyz", "/bar/xyz\\enterrX", "foo ba Xar bar/xyz");
+  // Needs to be unescaped, though!
+  DoTest("foo bar bar/xyz", "/bar\\\\/xyz\\enterrX", "foo bar Xar/xyz");
+  DoTest("foo bar bar\\/xyz", "/bar\\\\\\\\/xyz\\enterrX", "foo bar Xar\\/xyz");
+  // Searching backwards, stuff after (and including) an unescaped "?" is ignored.
+  DoTest("foo bar bar?xyz bar ba", "?bar?xyz\\enterrX", "foo bar bar?xyz Xar ba");
+  // Needs to be unescaped, though!
+  DoTest("foo bar bar?xyz bar ba", "?bar\\\\?xyz\\enterrX", "foo bar Xar?xyz bar ba");
+  DoTest("foo bar bar\\?xyz bar ba", "?bar\\\\\\\\?xyz\\enterrX", "foo bar Xar\\?xyz bar ba");
+  // If, in a forward search, the first character after the first unescaped "/" is an e, then
+  // we place the cursor at the end of the word.
+  DoTest("foo ba bar bar/eyz", "/bar/e\\enterrX", "foo ba baX bar/eyz");
+  // Needs to be unescaped, though!
+  DoTest("foo bar bar/eyz", "/bar\\\\/e\\enterrX", "foo bar Xar/eyz");
+  DoTest("foo bar bar\\/xyz", "/bar\\\\\\\\/e\\enterrX", "foo bar barX/xyz");
+  // If, in a backward search, the first character after the first unescaped "?" is an e, then
+  // we place the cursor at the end of the word.
+  DoTest("foo bar bar?eyz bar ba", "?bar?e\\enterrX", "foo bar bar?eyz baX ba");
+  // Needs to be unescaped, though!
+  DoTest("foo bar bar?eyz bar ba", "?bar\\\\?e\\enterrX", "foo bar Xar?eyz bar ba");
+  DoTest("foo bar bar\\?eyz bar ba", "?bar\\\\\\\\?e\\enterrX", "foo bar barX?eyz bar ba");
+  // Quick check that repeating the last search and placing the cursor at the end of the match works.
+  DoTest("foo bar bar", "/bar\\entergg//e\\enterrX", "foo baX bar");
+  DoTest("foo bar bar", "?bar\\entergg??e\\enterrX", "foo bar baX");
+  // When repeating a change, don't try to convert from Vim to Qt regex again.
+  DoTest("foo bar()", "/bar()\\entergg//e\\enterrX", "foo bar(X");
+  DoTest("foo bar()", "?bar()\\entergg??e\\enterrX", "foo bar(X");
+  // If the last search said that we should place the cursor at the end of the match, then
+  // do this with n & N.
+  DoTest("foo bar bar foo", "/bar/e\\enterggnrX", "foo baX bar foo");
+  DoTest("foo bar bar foo", "/bar/e\\enterggNrX", "foo bar baX foo");
+  // Don't do this if that search was aborted, though.
+  DoTest("foo bar bar foo", "/bar\\enter/bar/e\\ctrl-cggnrX", "foo Xar bar foo");
+  DoTest("foo bar bar foo", "/bar\\enter/bar/e\\ctrl-cggNrX", "foo bar Xar foo");
+  // "#" and "*" reset the "place cursor at the end of the match" to false.
+  DoTest("foo bar bar foo", "/bar/e\\enterggw*nrX", "foo Xar bar foo");
+  DoTest("foo bar bar foo", "/bar/e\\enterggw#nrX", "foo Xar bar foo");
 
   // "/" and "?" should be usable as motions.
   DoTest("foo bar", "ld/bar\\enter", "fbar");

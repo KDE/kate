@@ -221,7 +221,11 @@ public:
 
   void setLastSearchCaseSensitive(bool caseSensitive) { m_lastSearchCaseSensitive = caseSensitive; };
 
+  void setLastSearchPlacesCursorAtEndOfMatch(bool b) { m_lastSearchPlacedCursorAtEndOfMatch = b; };
+
   bool lastSearchCaseSensitive() { return m_lastSearchCaseSensitive; };
+
+  bool lastSearchPlacesCursorAtEndOfMatch() { return m_lastSearchPlacedCursorAtEndOfMatch; };
 
   bool getTemporaryNormalMode() { return m_temporaryNormalMode; }
 
@@ -324,6 +328,8 @@ private:
    * keeps track of whether the last search was case-sensitive or not.
    */
   bool m_lastSearchCaseSensitive;
+
+  bool m_lastSearchPlacedCursorAtEndOfMatch;
 
   /**
    * true when normal mode was started by Ctrl-O command in insert mode.

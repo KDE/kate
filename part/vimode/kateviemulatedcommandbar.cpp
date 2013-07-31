@@ -107,6 +107,7 @@ namespace
     qtRegexPattern = toggledEscaped(qtRegexPattern, ')');
     qtRegexPattern = toggledEscaped(qtRegexPattern, '+');
     qtRegexPattern = toggledEscaped(qtRegexPattern, '|');
+    qtRegexPattern = ensuredCharEscaped(qtRegexPattern, '?');
     {
       // All curly brackets, except the closing curly bracket of a matching pair where the opening bracket is escaped,
       // must have their escaping toggled.
@@ -257,6 +258,60 @@ namespace
     }
     return caseSensitivityMarkersStripped;
   }
+
+  int findPosOfFirstUnescaped(const QString& text, QChar charToFind)
+  {
+    for (int pos = 0; pos < text.length(); pos++)
+    {
+      if (text.at(pos) == charToFind)
+      {
+        if (!isCharEscaped(text, pos))
+        {
+          return pos;
+        }
+      }
+    }
+    return -1;
+  }
+
+  bool isRepeatLastSearch(const QString& searchText, const bool isSearchBackwards)
+  {
+    const int posOfSearchConfigMarker = findPosOfFirstUnescaped(searchText, (isSearchBackwards ? '?' : '/'));
+    if (posOfSearchConfigMarker != -1)
+    {
+      if (searchText.left(posOfSearchConfigMarker).isEmpty())
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  bool shouldPlaceCursorAtEndOfMatch(const QString& searchText, const bool isSearchBackwards)
+  {
+    const int posOfSearchConfigMarker = findPosOfFirstUnescaped(searchText, (isSearchBackwards ? '?' : '/'));
+    if (posOfSearchConfigMarker != -1)
+    {
+      if (searchText.length() > posOfSearchConfigMarker + 1 && searchText.at(posOfSearchConfigMarker + 1) == 'e')
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  QString withSearchConfigRemoved(const QString& originalSearchText, const bool isSearchBackwards)
+  {
+    const int posOfSearchConfigMarker = findPosOfFirstUnescaped(originalSearchText, (isSearchBackwards ? '?' : '/'));
+    if (posOfSearchConfigMarker == -1)
+    {
+      return originalSearchText;
+    }
+    else
+    {
+      return originalSearchText.left(posOfSearchConfigMarker);
+    }
+  }
 }
 
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
@@ -271,7 +326,8 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
       m_nextTextChangeDueToCompletionChange(false),
       m_currentCompletionType(None),
       m_currentSearchIsCaseSensitive(false),
-      m_currentSearchIsBackwards(false)
+      m_currentSearchIsBackwards(false),
+      m_currentSearchPlacesCursorAtEndOfMatch(false)
 {
   QHBoxLayout * layout = new QHBoxLayout();
   centralWidget()->setLayout(layout);
@@ -414,6 +470,7 @@ void KateViEmulatedCommandBar::closed()
       m_view->getViInputModeManager()->setLastSearchPattern(m_currentSearchPattern);
       m_view->getViInputModeManager()->setLastSearchCaseSensitive(m_currentSearchIsCaseSensitive);
       m_view->getViInputModeManager()->setLastSearchBackwards(m_currentSearchIsBackwards);
+      m_view->getViInputModeManager()->setLastSearchPlacesCursorAtEndOfMatch(m_currentSearchPlacesCursorAtEndOfMatch);
     }
     KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(m_edit->text());
   }
@@ -1131,7 +1188,17 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   }
   if (m_mode == SearchForward || m_mode == SearchBackward)
   {
-    QString qtRegexPattern = (newText == "/") ? m_view->getViInputModeManager()->getLastSearchPattern() : vimRegexToQtRegexPattern(newText);
+    QString qtRegexPattern = newText;
+    const bool placeCursorAtEndOfWord = shouldPlaceCursorAtEndOfMatch(qtRegexPattern, m_mode == SearchBackward);
+    if (isRepeatLastSearch(qtRegexPattern, m_mode == SearchBackward))
+    {
+      qtRegexPattern = m_view->getViInputModeManager()->getLastSearchPattern();
+    }
+    else
+    {
+      qtRegexPattern = withSearchConfigRemoved(qtRegexPattern, m_mode == SearchBackward);
+      qtRegexPattern = vimRegexToQtRegexPattern(qtRegexPattern);
+    }
 
     // Decide case-sensitivity via SmartCase (note: if the expression contains \C, the "case-sensitive" marker, then
     // we will be case-sensitive "by coincidence", as it were.).
@@ -1150,6 +1217,7 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     m_currentSearchPattern = qtRegexPattern;
     m_currentSearchIsCaseSensitive = caseSensitive;
     m_currentSearchIsBackwards = searchBackwards;
+    m_currentSearchPlacesCursorAtEndOfMatch = placeCursorAtEndOfWord;
 
     // The "count" for the current search is not shared between Visual & Normal mode, so we need to pick
     // the right one to handle the counted search.
@@ -1157,7 +1225,9 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 
     if (match.isValid())
     {
-      moveCursorTo(match.start());
+      // The returned range ends one past the last character of the match, so adjust.
+      const Cursor realMatchEnd = Cursor(match.end().line(),  match.end().column() - 1);
+      moveCursorTo(placeCursorAtEndOfWord ? realMatchEnd :  match.start());
       setBarBackground(MatchFound);
     }
     else

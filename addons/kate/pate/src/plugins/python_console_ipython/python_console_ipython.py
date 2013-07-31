@@ -11,7 +11,7 @@ import sys
 
 from PyQt4.QtCore import QEvent, QObject, Qt
 from PyKDE4.kdecore import i18n as _translate
-from libkatepate.compat import PY2, text_type
+from libkatepate.compat import text_type
 from libkatepate.errors import needs_packages
 
 sys.argv = [__file__]
@@ -20,13 +20,8 @@ NEED_PACKAGES = {
     'IPython': 'ipython>=0.13.1',
     'readline': '6.2.4.1',
     'pygments': 'Pygments==1.6',
+    'zmq': 'pyzmq==13.1.0'
 }
-
-
-if PY2:
-    NEED_PACKAGES['zmq'] = 'pyzmq==2.0.10.1'
-else:
-    NEED_PACKAGES['zmq'] = 'pyzmq==13.0.0'
 
 needs_packages(NEED_PACKAGES)
 
@@ -67,6 +62,7 @@ _CONSOLE_CSS = 'python_console_ipython.css'
 _GUI_COMPLETION_CONVERT = ['droplist', None]
 
 consoleToolView = None
+
 
 def init_ipython():
     """
@@ -246,11 +242,11 @@ class ConfigWidget(QWidget):
         self.defaults()
         if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
             self.scrollbackLinesCount.setValue(kate.configuration[_SCROLLBACK_LINES_COUNT_CFG])
-        key_exists = _GUI_COMPLETION_TYPE_CFG in kate.configuration
-        has_valid_type = isinstance(kate.configuration[_GUI_COMPLETION_TYPE_CFG], int)
-        has_valid_value = kate.configuration[_GUI_COMPLETION_TYPE_CFG] < 2
-        if key_exists and has_valid_type and has_valid_value:
-            self.guiCompletionType.setCurrentIndex(kate.configuration[_GUI_COMPLETION_TYPE_CFG])
+        if _GUI_COMPLETION_TYPE_CFG in kate.configuration:
+            has_valid_type = isinstance(kate.configuration[_GUI_COMPLETION_TYPE_CFG], int)
+            has_valid_value = kate.configuration[_GUI_COMPLETION_TYPE_CFG] < 2
+            if has_valid_type and has_valid_value:
+                self.guiCompletionType.setCurrentIndex(kate.configuration[_GUI_COMPLETION_TYPE_CFG])
 
     def defaults(self):
         self.scrollbackLinesCount.setValue(10000)
@@ -286,11 +282,11 @@ class ConsoleToolView(QObject):
     def __init__(self, parent):
         super(ConsoleToolView, self).__init__(parent)
         self.toolView = kate.mainInterfaceWindow().createToolView(
-            'ipython_console'
-          , kate.Kate.MainWindow.Bottom
-          , kate.gui.loadIcon('text-x-python')
-          , 'IPython Console'                               # TODO i18nc('@title:tab', ...)
-          )
+            'ipython_console',
+            kate.Kate.MainWindow.Bottom,
+            kate.gui.loadIcon('text-x-python'),
+            'IPython Console'                               # TODO i18nc('@title:tab', ...)
+        )
         self.toolView.installEventFilter(self)
         self.console = make_terminal_widget(parent=self.toolView, kate=kate)
 
@@ -315,13 +311,11 @@ class ConsoleToolView(QObject):
         if _SCROLLBACK_LINES_COUNT_CFG in kate.configuration:
             self.console.buffer_size = kate.configuration[_SCROLLBACK_LINES_COUNT_CFG]
 
-
     def __del__(self):
         """Plugins that use a toolview need to delete it for reloading to work."""
         if self.toolView:
             self.toolView.deleteLater()
             self.toolView = None
-
 
     def eventFilter(self, obj, event):
         """Hide the IPython console tool view on ESCAPE key"""

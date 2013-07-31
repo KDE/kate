@@ -24,6 +24,7 @@
 #define __KATE_CMDS_H__
 
 #include <ktexteditor/commandinterface.h>
+#include "kateviinputmodemanager.h"
 
 #include <QtCore/QStringList>
 
@@ -160,6 +161,10 @@ class ViCommands : public KTextEditor::Command, public KTextEditor::CommandExten
       }
       return m_instance;
     }
+private:
+  const QStringList& mappingCommands();
+  ViMode modeForMapCommand(const QString& mapCommand);
+  bool isMapCommandRecursive(const QString& mapCommand);
 };
 
 /**

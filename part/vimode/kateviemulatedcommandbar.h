@@ -118,6 +118,7 @@ private:
     int findEndPos;
     int replaceBeginPos;
     int replaceEndPos;
+    QChar delimiter;
   };
   ParsedSedReplace parseAsSedReplaceExpression();
   QString findTermInSedReplaceReplacedWith(const QString& newFindTerm);

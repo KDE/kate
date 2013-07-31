@@ -3888,6 +3888,35 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
 
+  // Escape the delimiter if it occurs in a search history term - searching for it likely won't
+  // work, but at least it won't crash!
+  BeginTest("");
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("search");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("aa/aa\\/a");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("ss/ss");
+  TestPressKey(":s//replace/g\\ctrl-d\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/ss\\/ss/replace/g"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/aa\\/aa\\/a/replace/g"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  clearSearchHistory(); // Now do the same, but with a different delimiter.
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("search");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("aa:aa\\:a");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("ss:ss");
+  TestPressKey(":s::replace:g\\ctrl-d\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:ss\\:ss:replace:g"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:aa\\:aa\\:a:replace:g"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:search:replace:g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
   // Don't blank the "replace" term if there is no search history that begins with the
   // current "replace" term.
   BeginTest("");
@@ -3895,6 +3924,35 @@ void ViModeTest::VimStyleCommandBarTests()
   KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("doesnothavexyzasaprefix");
   TestPressKey(":s/search//g\\ctrl-fxyz\\ctrl-p");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/xyz/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
+  // Escape the delimiter if it occurs in a replace history term - searching for it likely won't
+  // work, but at least it won't crash!
+  BeginTest("");
+  clearReplaceHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replace");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("aa/aa\\/a");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("ss/ss");
+  TestPressKey(":s/search//g\\ctrl-f\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/ss\\/ss/g"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/aa\\/aa\\/a/g"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/search/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  clearReplaceHistory(); // Now do the same, but with a different delimiter.
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replace");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("aa:aa\\:a");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("ss:ss");
+  TestPressKey(":s:search::g\\ctrl-f\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:search:ss\\:ss:g"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:search:aa\\:aa\\:a:g"));
+  TestPressKey("\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:search:replace:g"));
   TestPressKey("\\ctrl-c"); // Dismiss completer
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");

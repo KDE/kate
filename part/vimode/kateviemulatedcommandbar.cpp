@@ -685,14 +685,18 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   }
   else if (m_currentCompletionType == SedSearchHistory)
   {
-    m_edit->setText(findTermInSedReplaceReplacedWith(newCompletion));
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+    QString delimiterEscaped = ensuredCharEscaped(newCompletion, parsedSedReplace.delimiter);
+    m_edit->setText(findTermInSedReplaceReplacedWith(delimiterEscaped));
+    parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
   }
   else if (m_currentCompletionType == SedReplaceHistory)
   {
-    m_edit->setText(replaceTermInSedReplaceReplacedWith(newCompletion));
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+    QString delimiterEscaped = ensuredCharEscaped(newCompletion, parsedSedReplace.delimiter);
+    m_edit->setText(replaceTermInSedReplaceReplacedWith(delimiterEscaped));
+    parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.replaceEndPos + 1);
   }
   else
@@ -722,6 +726,7 @@ KateViEmulatedCommandBar::ParsedSedReplace KateViEmulatedCommandBar::parseAsSedR
   parsedSedReplace.parsedSuccessfully = KateCommands::SedReplace::parse(commandWithoutLeadingRange, delimiter, parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos, parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos);
   if (parsedSedReplace.parsedSuccessfully)
   {
+    parsedSedReplace.delimiter = delimiter.at(0);
     if (parsedSedReplace.replaceBeginPos == -1)
     {
       if (parsedSedReplace.findBeginPos != -1)

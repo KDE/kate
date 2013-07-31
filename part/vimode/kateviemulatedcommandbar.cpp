@@ -704,7 +704,7 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   {
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
     QString delimiterEscaped = ensuredCharEscaped(newCompletion, parsedSedReplace.delimiter);
-    m_edit->setText(findTermInSedReplaceReplacedWith(delimiterEscaped));
+    m_edit->setText(findTermInSedReplaceReplacedWith(withCaseSensitivityMarkersStripped(delimiterEscaped)));
     parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
   }

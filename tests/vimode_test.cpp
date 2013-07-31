@@ -3935,6 +3935,16 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("");
 
+  // Remove \C if occurs in search history.
+  BeginTest("");
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("s\\Cear\\\\Cch");
+  TestPressKey(":s::replace:g\\ctrl-d\\ctrl-p");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s:sear\\\\Cch:replace:g"));
+  TestPressKey("\\ctrl-c"); // Dismiss completer
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("");
+
   // Don't blank the "replace" term if there is no search history that begins with the
   // current "replace" term.
   BeginTest("");

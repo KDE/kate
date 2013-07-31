@@ -648,6 +648,15 @@ void KateViEmulatedCommandBar::deactivateCompletion()
   m_currentCompletionType = None;
 }
 
+void KateViEmulatedCommandBar::abortCompletionAndResetToPreCompletion()
+{
+  deactivateCompletion();
+  m_nextTextChangeDueToCompletionChange = true;
+  m_edit->setText(m_revertToIfCompletionAborted);
+  m_edit->setCursorPosition(m_revertToCursorPosIfCompletionAborted);
+  m_nextTextChangeDueToCompletionChange = false;
+}
+
 void KateViEmulatedCommandBar::updateCompletionPrefix()
 {
   if (m_currentCompletionType == WordFromDocument)
@@ -702,18 +711,14 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   }
   else if (m_currentCompletionType == SedSearchHistory)
   {
+    m_edit->setText(findTermInSedReplaceReplacedWith(withCaseSensitivityMarkersStripped(withSedReplaceDelimiterEscaped(newCompletion))));
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-    QString delimiterEscaped = ensuredCharEscaped(newCompletion, parsedSedReplace.delimiter);
-    m_edit->setText(findTermInSedReplaceReplacedWith(withCaseSensitivityMarkersStripped(delimiterEscaped)));
-    parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
   }
   else if (m_currentCompletionType == SedReplaceHistory)
   {
+    m_edit->setText(replaceTermInSedReplaceReplacedWith(withSedReplaceDelimiterEscaped(newCompletion)));
     ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-    QString delimiterEscaped = ensuredCharEscaped(newCompletion, parsedSedReplace.delimiter);
-    m_edit->setText(replaceTermInSedReplaceReplacedWith(delimiterEscaped));
-    parsedSedReplace = parseAsSedReplaceExpression();
     m_edit->setCursorPosition(parsedSedReplace.replaceEndPos + 1);
   }
   else
@@ -819,6 +824,13 @@ QString KateViEmulatedCommandBar::replaceTermInSedReplace()
   ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
   Q_ASSERT(parsedSedReplace.parsedSuccessfully);
   return command.mid(parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos - parsedSedReplace.replaceBeginPos + 1);
+}
+
+QString KateViEmulatedCommandBar::withSedReplaceDelimiterEscaped(const QString& text)
+{
+  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
+  QString delimiterEscaped = ensuredCharEscaped(text, parsedSedReplace.delimiter);
+  return delimiterEscaped;
 }
 
 bool KateViEmulatedCommandBar::isCursorInFindTermOfSedReplace()
@@ -960,11 +972,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       }
       else
       {
-        deactivateCompletion();
-        m_nextTextChangeDueToCompletionChange = true;
-        m_edit->setText(m_revertToIfCompletionAborted);
-        m_edit->setCursorPosition(m_revertToCursorPosIfCompletionAborted);
-        m_nextTextChangeDueToCompletionChange = false;
+        abortCompletionAndResetToPreCompletion();
       }
       return true;
     }
@@ -1047,26 +1055,14 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
           kDebug(13070) << "Command to execute after replacing search term: "<< commandToExecute;
         }
 
-        // TODO - this is a hack-ish way of finding the response from the command; maybe
-        // add another overload of "execute" to KateCommandLineBar that returns the
-        // response message ... ?
-        m_view->cmdLineBar()->setText("");
-        m_view->cmdLineBar()->execute(commandToExecute);
-        KateCmdLineEdit *kateCommandLineEdit = m_view->cmdLineBar()->findChild<KateCmdLineEdit*>();
-        Q_ASSERT(kateCommandLineEdit);
-        const QString commandResponseMessage = kateCommandLineEdit->text();
+        const QString commandResponseMessage = executeCommand(commandToExecute);
         if (commandResponseMessage.isEmpty())
         {
           emit hideMe();
         }
         else
         {
-          // Display the message for a while.  Become inactive, so we don't steal keys in the meantime.
-          m_isActive = false;
-          m_edit->hide();
-          m_commandResponseMessageDisplay->show();
-          m_commandResponseMessageDisplay->setText(commandResponseMessage);
-          m_commandResponseMessageDisplayHide->start(m_commandResponseMessageTimeOutMS);
+          switchToCommandResponseDisplay(commandResponseMessage);
         }
         KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(m_edit->text());
       }
@@ -1090,6 +1086,30 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 Range KateViEmulatedCommandBar::parseRangeExpression(const QString& command, KateView *view, QString& destRangeExpression, QString& destTransformedCommand)
 {
   return rangeExpressionParser.parseRangeExpression(command, destRangeExpression, destTransformedCommand, view);
+}
+
+QString KateViEmulatedCommandBar::executeCommand(const QString& commandToExecute)
+{
+  // TODO - this is a hack-ish way of finding the response from the command; maybe
+  // add another overload of "execute" to KateCommandLineBar that returns the
+  // response message ... ?
+  m_view->cmdLineBar()->setText("");
+  m_view->cmdLineBar()->execute(commandToExecute);
+  KateCmdLineEdit *kateCommandLineEdit = m_view->cmdLineBar()->findChild<KateCmdLineEdit*>();
+  Q_ASSERT(kateCommandLineEdit);
+  const QString commandResponseMessage = kateCommandLineEdit->text();
+  return commandResponseMessage;
+
+}
+
+void KateViEmulatedCommandBar::switchToCommandResponseDisplay(const QString& commandResponseMessage)
+{
+  // Display the message for a while.  Become inactive, so we don't steal keys in the meantime.
+  m_isActive = false;
+  m_edit->hide();
+  m_commandResponseMessageDisplay->show();
+  m_commandResponseMessageDisplay->setText(commandResponseMessage);
+  m_commandResponseMessageDisplayHide->start(m_commandResponseMessageTimeOutMS);
 }
 
 void KateViEmulatedCommandBar::moveCursorTo(const Cursor& cursorPos)

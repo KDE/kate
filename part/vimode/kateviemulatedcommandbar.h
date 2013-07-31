@@ -69,6 +69,8 @@ private:
   QTimer *m_commandResponseMessageDisplayHide;
   QLabel* m_commandResponseMessageDisplay;
   long m_commandResponseMessageTimeOutMS;
+  QString executeCommand(const QString& commandToExecute);
+  void switchToCommandResponseDisplay(const QString& commandResponseMessage);
 
   void moveCursorTo(const KTextEditor::Cursor& cursorPos);
 
@@ -109,6 +111,7 @@ private:
   void activateSedSearchHistoryCompletion();
   void activateSedReplaceHistoryCompletion();
   void deactivateCompletion();
+  void abortCompletionAndResetToPreCompletion();
   void setCompletionIndex(int index);
 
   struct ParsedSedReplace
@@ -125,6 +128,7 @@ private:
   QString replaceTermInSedReplaceReplacedWith(const QString& newReplaceTerm);
   QString findTermInSedReplace();
   QString replaceTermInSedReplace();
+  QString withSedReplaceDelimiterEscaped(const QString& text);
 
   bool isCursorInFindTermOfSedReplace();
   bool isCursorInReplaceTermOfSedReplace();

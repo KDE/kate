@@ -375,7 +375,7 @@ void KateViInputModeManager::viEnterNormalMode()
     m_viewInternal->cursorPrevChar();
   }
   m_view->setCaretStyle( KateRenderer::Block, true );
-  m_viewInternal->repaint ();
+  m_viewInternal->update ();
 }
 
 void KateViInputModeManager::viEnterInsertMode()

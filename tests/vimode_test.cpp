@@ -1483,6 +1483,11 @@ void ViModeTest::MappingTests()
   DoTest("", "ixyz\\esc.", "ababcc");
   DoTest("foo()X\nbarxyz()Y", "cglbaz\\escggj.", "bazX\nbazY");
 
+  // Regression test for a crash when executing a mapping that switches to Normal mode.
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(VisualMode, "h", "d", KateViGlobal::Recursive);
+  DoTest("foo", "vlh", "o");
+
   {
     // Test that we can set/ unset mappings from the command-line.
     clearAllMappings();

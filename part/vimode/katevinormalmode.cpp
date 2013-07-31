@@ -2171,8 +2171,10 @@ KateViRange KateViNormalMode::motionToChar()
   QString line = getLine();
 
   m_stickyColumn = -1;
+  KateViRange r;
+  r.endColumn = -1;
+  r.endLine = -1;
 
-  const int originalColumn = cursor.column();
   int matchColumn = cursor.column()+ (m_isRepeatedTFcommand ? 2 : 1);
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
@@ -2180,12 +2182,18 @@ KateViRange KateViNormalMode::motionToChar()
     matchColumn = line.indexOf( m_keys.right( 1 ), matchColumn + ((i > 0) ? 1 : 0));
     if ( matchColumn == -1 )
     {
-      matchColumn = (m_isRepeatedTFcommand) ? lastColumn : originalColumn + 1;
+      if (m_isRepeatedTFcommand)
+      {
+        matchColumn = lastColumn;
+      }
+      else
+      {
+        return r;
+      }
       break;
     }
   }
 
-  KateViRange r;
 
   r.endColumn = matchColumn-1;
   r.endLine = cursor.line();
@@ -2208,6 +2216,8 @@ KateViRange KateViNormalMode::motionToCharBackward()
   unsigned int hits = 0;
   int i = cursor.column()- (m_isRepeatedTFcommand ? 2 : 1);
 
+  KateViRange r;
+
   while ( hits != getCount() && i >= 0 ) {
     if ( line.at( i ) == m_keys.at( m_keys.size()-1 ) )
       hits++;
@@ -2218,10 +2228,11 @@ KateViRange KateViNormalMode::motionToCharBackward()
     i--;
   }
 
-  KateViRange r;
-
-  r.endColumn = matchColumn+1;
-  r.endLine = cursor.line();
+  if (hits == getCount())
+  {
+    r.endColumn = matchColumn+1;
+    r.endLine = cursor.line();
+  }
 
   m_isRepeatedTFcommand = false;
 

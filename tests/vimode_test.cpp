@@ -826,9 +826,20 @@ void ViModeTest::NormalModeMotionsTest() {
   // one that we do find.
   DoTest("aba bar", "ta2;x", "aba ar");
 
-  // Don't move if we can't find any matches at all.
+  // Don't move if we can't find any matches at all, or fewer than we require.
   DoTest("nocapitalc", "lltCx", "noapitalc");
   DoTest("nocapitalc", "llTCx", "noapitalc");
+
+  DoTest("123c456", "2tcx", "23c456");
+  DoTest("123c456", "$2Tcx", "123c45");
+  // Commands with searches that do not find anything, or find less than required, should do nothing.
+  DoTest("foo", "dtk", "foo");
+  DoTest("foomxyz", "d2tm", "foomxyz");
+  DoTest("foo", "dfk", "foo");
+  DoTest("foomxyz", "d2fm", "foomxyz");
+  DoTest("foo", "$dTk", "foo");
+  DoTest("foomxyz", "$d2Fm", "foomxyz");
+
   // Regression test for special-handling of "/" and "?" keys: these shouldn't interfere
   // with character searches.
   DoTest("foo /", "f/rX", "foo X");

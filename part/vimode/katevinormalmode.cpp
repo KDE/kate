@@ -1198,6 +1198,8 @@ bool KateViNormalMode::commandYankToEOL()
 
   yankedText = getRange( m_commandRange, m );
 
+  highlightYank(m_commandRange);
+
   QChar  chosen_register =  getChosenRegister( '0' );
   fillRegister(chosen_register,  yankedText, m );
   yankToClipBoard(chosen_register, yankedText);

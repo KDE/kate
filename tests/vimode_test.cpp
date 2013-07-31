@@ -1591,6 +1591,19 @@ void ViModeTest::yankHighlightingTests()
   }
   FinishTest("foo bar xyz");
 
+  BeginTest("foom bar xyz");
+  TestPressKey("wY");
+  {
+    const QList<Kate::TextRange*> rangesAfterYank = rangesOnFirstLine();
+    QCOMPARE(rangesAfterYank.size(), rangesInitial.size() + 1);
+    QCOMPARE(rangesAfterYank.first()->attribute()->background().color(), yankHighlightColour);
+    QCOMPARE(rangesAfterYank.first()->start().line(), 0);
+    QCOMPARE(rangesAfterYank.first()->start().column(), 5);
+    QCOMPARE(rangesAfterYank.first()->end().line(), 0);
+    QCOMPARE(rangesAfterYank.first()->end().column(), 12);
+  }
+  FinishTest("foom bar xyz");
+
   // Unhighlight on keypress.
   DoTest("foo bar xyz", "yiww", "foo bar xyz");
   QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());

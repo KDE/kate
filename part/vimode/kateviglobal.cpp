@@ -154,27 +154,26 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text, Operatio
 
 void KateViGlobal::addMapping( ViMode mode, const QString &from, const QString &to, MappingRecursion recursion )
 {
+  const QString encodedMapping = KateViKeyParser::self()->encodeKeySequence( from );
+  const QString encodedTo = KateViKeyParser::self()->encodeKeySequence( to );
   if ( !from.isEmpty() ) {
     switch ( mode ) {
-    case NormalMode:
-      m_normalModeMappings[ KateViKeyParser::self()->encodeKeySequence( from ) ]
-        = KateViKeyParser::self()->encodeKeySequence( to );
-      m_normalModeMappingRecursion [ KateViKeyParser::self()->encodeKeySequence( from ) ] = recursion;
-      break;
-    case VisualMode:
-    case VisualLineMode:
-    case VisualBlockMode:
-      m_visualModeMappings[ KateViKeyParser::self()->encodeKeySequence( from ) ]
-        = KateViKeyParser::self()->encodeKeySequence( to );
-      m_visualModeMappingRecursion [ KateViKeyParser::self()->encodeKeySequence( from ) ] = recursion;
-      break;
-    case InsertMode:
-      m_insertModeMappings[ KateViKeyParser::self()->encodeKeySequence( from ) ]
-        = KateViKeyParser::self()->encodeKeySequence( to );
-      m_insertModeMappingRecursion [ KateViKeyParser::self()->encodeKeySequence( from ) ] = recursion;
-      break;
-    default:
-      kDebug( 13070 ) << "Mapping not supported for given mode";
+      case NormalMode:
+        m_normalModeMappings[ encodedMapping ] = encodedTo;
+        m_normalModeMappingRecursion [ encodedMapping ] = recursion;
+        break;
+      case VisualMode:
+      case VisualLineMode:
+      case VisualBlockMode:
+        m_visualModeMappings[ encodedMapping ] = encodedTo;
+        m_visualModeMappingRecursion [ encodedMapping ] = recursion;
+        break;
+      case InsertMode:
+        m_insertModeMappings[ encodedMapping ] = encodedTo;
+        m_insertModeMappingRecursion [ encodedMapping ] = recursion;
+        break;
+      default:
+        kDebug( 13070 ) << "Mapping not supported for given mode";
     }
   }
 }
@@ -208,38 +207,34 @@ const QStringList KateViGlobal::getMappings( ViMode mode, bool decode ) const
 {
   QStringList l;
   QHash<QString, QString>::const_iterator i;
+
+  const QHash <QString, QString> *pMappingsForMode = NULL;
+
   switch (mode ) {
   case NormalMode:
-    for (i = m_normalModeMappings.constBegin(); i != m_normalModeMappings.constEnd(); ++i) {
-      if ( decode ) {
-        l << KateViKeyParser::self()->decodeKeySequence( i.key() );
-      } else {
-        l << i.key();
-      }
-    }
+    pMappingsForMode = &m_normalModeMappings;
     break;
   case VisualMode:
   case VisualLineMode:
   case VisualBlockMode:
-    for (i = m_visualModeMappings.constBegin(); i != m_visualModeMappings.constEnd(); ++i) {
-      if ( decode ) {
-        l << KateViKeyParser::self()->decodeKeySequence( i.key() );
-      } else {
-        l << i.key();
-      }
-    }
+    pMappingsForMode = &m_visualModeMappings;
     break;
   case InsertMode:
-    for (i = m_insertModeMappings.constBegin(); i != m_insertModeMappings.constEnd(); ++i) {
-      if ( decode ) {
-        l << KateViKeyParser::self()->decodeKeySequence( i.key() );
-      } else {
-        l << i.key();
-      }
-    }
+    pMappingsForMode = &m_insertModeMappings;
     break;
   default:
     kDebug( 13070 ) << "Mapping not supported for given mode";
+  }
+
+  if (pMappingsForMode)
+  {
+    for (i = pMappingsForMode->constBegin(); i != pMappingsForMode->constEnd(); ++i) {
+      if ( decode ) {
+        l << KateViKeyParser::self()->decodeKeySequence( i.key() );
+      } else {
+        l << i.key();
+      }
+    }
   }
 
   return l;

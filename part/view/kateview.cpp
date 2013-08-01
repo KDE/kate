@@ -531,7 +531,7 @@ void KateView::setupActions()
   ac->addAction("set_verticalSelect", a);
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
   a->setWhatsThis(i18n("This command allows switching between the normal (line based) selection mode and the block selection mode."));
-  connect(a, SIGNAL(triggered(bool)), SLOT(toggleBlockSelectionMode()));
+  connect(a, SIGNAL(triggered(bool)), SLOT(toggleBlockSelection()));
 
   a = m_toggleInsert = new KToggleAction(i18n("Overwr&ite Mode"), this);
   ac->addAction("set_insert", a);
@@ -1285,7 +1285,7 @@ bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, u
     if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 
-  if (blockSelectionMode())
+  if (blockSelection())
     if (z < position.column())
       x += position.column() - z;
 
@@ -1683,7 +1683,7 @@ void KateView::updateConfig ()
   m_viewInternal->m_lineScroll->setMiniMapWidth( config()->scrollBarMiniMapWidth() );
 
   // misc edit
-  m_toggleBlockSelection->setChecked( blockSelectionMode() );
+  m_toggleBlockSelection->setChecked( blockSelection() );
   m_toggleInsert->setChecked( isOverwriteMode() );
 
   // vi modes
@@ -2019,7 +2019,7 @@ bool KateView::removeSelectedText()
 
 bool KateView::selectAll()
 {
-  setBlockSelectionMode (false);
+  setBlockSelection (false);
   top();
   shiftBottom();
   return true;
@@ -2069,7 +2069,7 @@ void KateView::tagSelection(const KTextEditor::Range &oldSelection)
       //  a) it's new; or
       tagLines(m_selection, true);
 
-    } else if (blockSelectionMode() && (oldSelection.start().column() != m_selection.start().column() || oldSelection.end().column() != m_selection.end().column())) {
+    } else if (blockSelection() && (oldSelection.start().column() != m_selection.start().column() || oldSelection.end().column() != m_selection.end().column())) {
       //  b) we're in block selection mode and the columns have changed
       tagLines(m_selection, true);
       tagLines(oldSelection, true);
@@ -2161,12 +2161,12 @@ void KateView::applyWordWrap ()
 
 //BEGIN KTextEditor::BlockSelectionInterface stuff
 
-bool KateView::blockSelectionMode () const
+bool KateView::blockSelection () const
 {
   return blockSelect;
 }
 
-bool KateView::setBlockSelectionMode (bool on)
+bool KateView::setBlockSelection (bool on)
 {
   if (on != blockSelect)
   {
@@ -2178,7 +2178,7 @@ bool KateView::setBlockSelectionMode (bool on)
 
     setSelection(oldSelection);
 
-    m_toggleBlockSelection->setChecked( blockSelectionMode() );
+    m_toggleBlockSelection->setChecked( blockSelection() );
 
     // when leaving block selection mode, if cursor is at an invalid position or past the end of the
     // line, move the cursor to the last column of the current line unless cursor wrapping is off
@@ -2196,10 +2196,10 @@ bool KateView::setBlockSelectionMode (bool on)
   return true;
 }
 
-bool KateView::toggleBlockSelectionMode ()
+bool KateView::toggleBlockSelection ()
 {
   m_toggleBlockSelection->setChecked (!blockSelect);
-  return setBlockSelectionMode (!blockSelect);
+  return setBlockSelection (!blockSelect);
 }
 
 bool KateView::wrapCursor () const

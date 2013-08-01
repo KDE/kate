@@ -159,7 +159,7 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
 
   // Add 'block-selection' to list
   item = new VariableBoolItem("block-selection", false);
-  if (activeView) static_cast<VariableBoolItem*>(item)->setValue(activeView->blockSelectionMode());
+  if (activeView) static_cast<VariableBoolItem*>(item)->setValue(activeView->blockSelection());
   item->setHelpText(i18nc("short translation please", "Enable block selection mode."));
   listview->addItem(item);
 

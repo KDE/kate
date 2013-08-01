@@ -426,7 +426,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
       // check if reset() should be called. some commands in visual mode should not end visual mode
       if ( cmd->shouldReset() ) {
         reset();
-        m_view->setBlockSelectionMode(false);
+        m_view->setBlockSelection(false);
       }
       resetParser();
 

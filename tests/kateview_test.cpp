@@ -86,7 +86,7 @@ void KateViewTest::testLowerCaseBlockSelection()
     doc.setText("nY\nnYY\n");
 
     KateView* view1 = new KateView(&doc, 0);
-    view1->setBlockSelectionMode(true);
+    view1->setBlockSelection(true);
     view1->setSelection(Range(0, 1, 1, 3));
     view1->lowercase();
 

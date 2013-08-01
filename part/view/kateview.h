@@ -258,7 +258,8 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
     virtual bool removeSelectionText () { return removeSelectedText(); }
 
-    virtual bool setBlockSelection (bool on) { return setBlockSelectionMode (on); }
+    virtual bool setBlockSelection (bool on);
+    bool toggleBlockSelection ();
 
     bool clearSelection ();
     bool clearSelection (bool redraw, bool finishedChangingSelection = true);
@@ -270,7 +271,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   public:
     virtual bool selection() const;
     virtual QString selectionText() const;
-    virtual bool blockSelection() const { return blockSelectionMode(); }
+    virtual bool blockSelection() const;
     virtual const KTextEditor::Range &selectionRange() const;
 
     static void blockFix(KTextEditor::Range& range);
@@ -306,16 +307,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
 
     void selectWord(   const KTextEditor::Cursor& cursor );
     void selectLine(   const KTextEditor::Cursor& cursor );
-
-  //
-  // KTextEditor::BlockSelectionInterface stuff
-  //
-  public Q_SLOTS:
-    bool setBlockSelectionMode (bool on);
-    bool toggleBlockSelectionMode ();
-
-  public:
-    bool blockSelectionMode() const;
 
 
   //BEGIN EDIT STUFF

@@ -2789,7 +2789,7 @@ void KateDocument::paste ( KateView* view, const QString &s )
   if (config()->ovr()) {
     QStringList pasteLines = s.split(QLatin1Char('\n'));
 
-    if (!view->blockSelectionMode()) {
+    if (!view->blockSelection()) {
       int endColumn = (pasteLines.count() == 1 ? pos.column() : 0) + pasteLines.last().length();
       removeText(KTextEditor::Range(pos,
                                     pos.line()+pasteLines.count()-1, endColumn));
@@ -2805,14 +2805,14 @@ void KateDocument::paste ( KateView* view, const QString &s )
   }
 
 
-  insertText(pos, s, view->blockSelectionMode());
+  insertText(pos, s, view->blockSelection());
   editEnd();
 
   // move cursor right for block select, as the user is moved right internal
   // even in that case, but user expects other behavior in block selection
   // mode !
   // just let cursor stay, that was it before I changed to moving ranges!
-  if (view->blockSelectionMode())
+  if (view->blockSelection())
     view->setCursorPositionInternal(pos);
 
   if (config()->indentPastedText())
@@ -2823,7 +2823,7 @@ void KateDocument::paste ( KateView* view, const QString &s )
     m_indenter->indent(view, range);
   }
 
-  if (!view->blockSelectionMode())
+  if (!view->blockSelection())
     emit charactersSemiInteractivelyInserted (pos, s);
   m_undoManager->undoSafePoint();
 }
@@ -3332,10 +3332,10 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
       int start = 0;
       int end = lineLength( range.start().line() );
 
-      if (range.start().line() == selection.start().line() || v->blockSelectionMode())
+      if (range.start().line() == selection.start().line() || v->blockSelection())
         start = selection.start().column();
 
-      if (range.start().line() == selection.end().line() || v->blockSelectionMode())
+      if (range.start().line() == selection.end().line() || v->blockSelection())
         end = selection.end().column();
 
       if ( start > end )
@@ -3365,7 +3365,7 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
           // 2. if blockselect or first line, and p == 0 and start-1 is not in a word, upper
           // 3. if p-1 is not in a word, upper.
           if ( ( ! range.start().column() && ! p ) ||
-                   ( ( range.start().line() == selection.start().line() || v->blockSelectionMode() ) &&
+                   ( ( range.start().line() == selection.start().line() || v->blockSelection() ) &&
                    ! p && ! highlight()->isInWord( l->at( range.start().column() - 1 )) ) ||
                    ( p && ! highlight()->isInWord( s.at( p-1 ) ) )
              ) {
@@ -4191,7 +4191,7 @@ void KateDocument::setViewVariable( QString var, QString val )
     else if ( var == "persistent-selection" && checkBoolValue( val, &state ) )
       v->config()->setPersistentSelection( state );
     else if ( var == "block-selection"  && checkBoolValue( val, &state ) )
-          v->setBlockSelectionMode( state );
+          v->setBlockSelection( state );
     //else if ( var = "dynamic-word-wrap-indicators" )
     else if ( var == "line-numbers" && checkBoolValue( val, &state ) )
       v->config()->setLineNumbers( state );

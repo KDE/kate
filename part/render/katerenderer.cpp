@@ -808,7 +808,7 @@ bool KateRenderer::getSelectionBounds(int line, int lineLength, int &start, int 
 {
   bool hasSel = false;
 
-  if (m_view->selection() && !m_view->blockSelectionMode())
+  if (m_view->selection() && !m_view->blockSelection())
   {
     if (m_view->lineIsSelection(line))
     {

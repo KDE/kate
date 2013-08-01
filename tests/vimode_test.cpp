@@ -273,7 +273,7 @@ void ViModeTest::VisualModeTests() {
     DoTest("foobar", "vlllx", "ar");
     DoTest("foo\nbar", "Vd", "bar");
     DoTest("1234\n1234\n1234", "l\\ctrl-vljjd", "14\n14\n14");
-    QCOMPARE(kate_view->blockSelectionMode(), false);
+    QCOMPARE(kate_view->blockSelection(), false);
 
     DoTest("12345678", "lv3lyx", "1345678");
     DoTest("12345678", "$hv3hyx", "1235678");

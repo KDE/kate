@@ -723,7 +723,7 @@ Q_SIGNALS:
     void backspace(     KateView *view, const KTextEditor::Cursor& );
     void del(           KateView *view, const KTextEditor::Cursor& );
     void transpose(     const KTextEditor::Cursor& );
-    void paste ( KateView* view, const QString &s );
+    void paste ( KateView* view, const QString &text );
 
   public:
     void indent ( KTextEditor::Range range, int change );

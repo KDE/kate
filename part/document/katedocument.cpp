@@ -2825,12 +2825,15 @@ void KateDocument::del( KateView *view, const KTextEditor::Cursor& c )
   }
 }
 
-void KateDocument::paste ( KateView* view, const QString &s )
+void KateDocument::paste ( KateView* view, const QString &text )
 {
+  static const QChar newLineChar('\n');
+  QString s = text;
+
   if (s.isEmpty())
     return;
 
-  int lines = s.count (QChar::fromAscii ('\n'));
+  int lines = s.count (newLineChar);
 
   m_undoManager->undoSafePoint();
 
@@ -2839,13 +2842,19 @@ void KateDocument::paste ( KateView* view, const QString &s )
   KTextEditor::Cursor pos = view->cursorPosition();
   if (!view->config()->persistentSelection() && view->selection()) {
     pos = view->selectionRange().start();
-    if (view->blockSelection())
+    if (view->blockSelection()) {
       pos = rangeOnLine(view->selectionRange(), pos.line()).start();
+      if (lines == 0) {
+        s += newLineChar;
+        s = s.repeated(view->selectionRange().numberOfLines() + 1);
+        s.chop(1);
+      }
+    }
     view->removeSelectedText();
   }
 
   if (config()->ovr()) {
-    QStringList pasteLines = s.split(QLatin1Char('\n'));
+    QStringList pasteLines = s.split(newLineChar);
 
     if (!view->blockSelection()) {
       int endColumn = (pasteLines.count() == 1 ? pos.column() : 0) + pasteLines.last().length();

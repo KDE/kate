@@ -144,21 +144,23 @@ int KateWordCompletionModel::rowCount ( const QModelIndex & parent ) const
 bool KateWordCompletionModel::shouldStartCompletion(KTextEditor::View* view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position)
 {
     if (!userInsertion) return false;
-    if(insertedText.isEmpty())
+    if (insertedText.isEmpty())
         return false;
 
 
     KateView *v = qobject_cast<KateView*> (view);
 
-    QString text = view->document()->line(position.line()).left(position.column());
-    uint check=v->config()->wordCompletionMinimalWordLength();
-    if (check<=0) return true;
-    int start=text.length();
-    int end=text.length()-check;
-    if (end<0) return false;
-    for (int i=start-1;i>=end;i--) {
-      QChar c=text.at(i);
-      if (! (c.isLetter() || (c.isNumber()) || c=='_') ) return false;
+    const QString& text = view->document()->line(position.line()).left(position.column());
+    const uint check = v->config()->wordCompletionMinimalWordLength();
+    // Start completion immediately if min. word size is zero
+    if (!check) return true;
+    // Otherwise, check if user has typed long enough text...
+    const int start = text.length();
+    const int end = start - check;
+    if (end < 0) return false;
+    for (int i = start - 1; i >= end; i--) {
+      const QChar c = text.at(i);
+      if (!(c.isLetter() || (c.isNumber()) || c=='_')) return false;
     }
 
     return true;
@@ -200,13 +202,22 @@ void KateWordCompletionModel::completionInvoked(KTextEditor::View* view, const K
 }
 
 
-// Scan throughout the entire document for possible completions,
-// ignoring any dublets
-const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
+/**
+ * Scan throughout the entire document for possible completions,
+ * ignoring any dublets and words shorter than configured and/or
+ * reasonable minimum length.
+ */
+QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
 {
   QStringList l;
   QRegExp re( "\\b(" + view->document()->text( range ) + "\\w{1,})" );
   QSet<QString> seen;
+
+  KateView *v = qobject_cast<KateView*> (view);
+  // Get minimum word length to be appended to a completion list.
+  // Despite of configured value, it is definitely silly to append
+  // one and two letter "words"!
+  const uint min_size = qMax(v->config()->wordCompletionMinimalWordLength(), 2);
 
   /**
    * scan only a range of the document to not die for LARGE files
@@ -216,7 +227,7 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
   int end = qMin(view->document()->lines(), range.start().line() + lineLimit);
   for (int i = start; i < end; ++i)
   {
-    QString s = view->document()->line( i );
+    const QString& s = view->document()->line( i );
     int pos = 0;
     while ( pos >= 0 )
     {
@@ -226,8 +237,10 @@ const QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, 
         // typing in the middle of a word
         if ( ! ( i == range.start().line() && pos == range.start().column() ) )
         {
-          QString m = re.cap( 1 );
-          if ( ! seen.contains( m ) ) {
+          const QString& m = re.cap( 1 );
+          // Do not append words that we have seen before and
+          // everything shorter than configured minimum size
+          if ( ! seen.contains( m ) && min_size <= uint(m.size())) {
             seen.insert( m );
             l << m;
           }
@@ -302,7 +315,7 @@ KTextEditor::Range KateWordCompletionModel::completionRange(KTextEditor::View* v
   KTextEditor::Document *doc = view->document();
   while ( col > 0 )
   {
-    QChar c = ( doc->character( KTextEditor::Cursor( line, col-1 ) ) );
+    const QChar c = ( doc->character( KTextEditor::Cursor( line, col-1 ) ) );
     if ( c.isLetterOrNumber() || c.isMark() || c == '_' )
     {
       col--;
@@ -602,13 +615,13 @@ QString KateWordCompletionView::findLongestUnique( const QStringList &matches, i
 }
 
 // Return the string to complete (the letters behind the cursor)
-const QString KateWordCompletionView::word() const
+QString KateWordCompletionView::word() const
 {
   return m_view->document()->text( range() );
 }
 
 // Return the range containing the word behind the cursor
-const KTextEditor::Range KateWordCompletionView::range() const
+KTextEditor::Range KateWordCompletionView::range() const
 {
   return m_dWCompletionModel->completionRange(m_view, m_view->cursorPosition());
 }

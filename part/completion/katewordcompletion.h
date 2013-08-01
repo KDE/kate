@@ -74,7 +74,7 @@ class KateWordCompletionModel : public KTextEditor::CodeCompletionModel2, public
 
     virtual bool shouldHideItemsWithEqualNames() const;
 
-    const QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const;
+    QStringList allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const;
 
     virtual void executeCompletionItem2(KTextEditor::Document* document, const KTextEditor::Range& word, const QModelIndex& index) const;
 
@@ -103,8 +103,8 @@ class KateWordCompletionView : public QObject
   private:
     void complete( bool fw=true );
 
-    const QString word() const;
-    const KTextEditor::Range range() const;
+    QString word() const;
+    KTextEditor::Range range() const;
 
     QString findLongestUnique( const QStringList &matches, int lead ) const;
 

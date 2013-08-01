@@ -1593,6 +1593,10 @@ void ViModeTest::MappingTests()
     clearAllMappings();
     KateGlobal::self()->viInputModeGlobal()->addMapping(InsertMode, "l", "d", KateViGlobal::NonRecursive);
     DoTest("", "\\:inoremap foo l\\ifoo\\esc", "l");
+
+    // Can use <space> to signify a space.
+    clearAllMappings();
+    DoTest("", "\\:nn h<space> i<space>a<space>b<esc>\\h ", " a b");
   }
 
   // Clear mappings for subsequent tests.

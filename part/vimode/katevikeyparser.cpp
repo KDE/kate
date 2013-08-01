@@ -581,9 +581,16 @@ const QString KateViKeyParser::encodeKeySequence( const QString &keys ) const
     }
     else {
       if ( c == '<' ) {
-        // if there's no closing '>', or if there is an opening '<' before the next '>', interpret as a literal '<'
+        // If there's no closing '>', or if there is an opening '<' before the next '>', interpret as a literal '<'
+        // If we are <space>, encode as a literal " ".
         QString rest = keys.mid( i );
-        if ( rest.indexOf( '>', 1 ) == -1 || ( rest.indexOf( '<', 1 ) < rest.indexOf( '>', 1 ) && rest.indexOf( '<', 1 ) != -1 ) ) {
+        if (rest.indexOf('>', 1) != -1 && rest.mid(1, rest.indexOf('>', 1) - 1) == "space")
+        {
+          encodedSequence.append(" ");
+          i += rest.indexOf('>', 1);
+          continue;
+        }
+        else if ( rest.indexOf( '>', 1 ) == -1 || ( rest.indexOf( '<', 1 ) < rest.indexOf( '>', 1 ) && rest.indexOf( '<', 1 ) != -1 ) ) {
           encodedSequence.append( c );
           continue;
         }

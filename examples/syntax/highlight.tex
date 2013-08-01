@@ -71,3 +71,12 @@ normal
 \end{Verbatim*}
 
 normal
+
+% https://bugs.kde.org/show_bug.cgi?id=323048
+% cases should be highlighted the same
+\begin{align}
+ U_{bg}(z) = \begin{cases}
+              U_{max} e^{-(b(z-z_0))^4} &\mbox {if } z \leq z_0,\\
+              U_{max} &\mbox {if } z > z_0,\\
+             \end{cases}
+\end{align}

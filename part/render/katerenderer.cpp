@@ -677,7 +677,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     if (drawCaret() && cursor && range->includesCursor(*cursor)) {
       int caretWidth, lineWidth = 2;
       QColor color;
-      QTextLine line = range->layout()->lineForTextPosition(cursor->column());
+      QTextLine line = range->layout()->lineForTextPosition(qMin(cursor->column(), range->length()));
 
       // Determine the caret's style
       caretStyles style = caretStyle();
@@ -722,34 +722,33 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       switch(style) {
       case Line :
         paint.setPen(QPen(color, caretWidth));
-        range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
         break;
       case Block :
         // use a gray caret so it's possible to see the character
         color.setAlpha(128);
-        if (cursor->column() > range->length()) {
-          // Off the end of the line... must be block mode. Draw the caret ourselves.
-          const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
-          int x = range->widthOfLastLine() + spaceWidth() * (cursor->column() - range->length());
-          if ((x >= xStart) && (x <= xEnd)) {
-            paint.fillRect(x - xStart, (int)lastLine.lineLayout().y(), caretWidth, lineHeight(), color);
-          }
-        } else {
-          paint.setPen(QPen(color, caretWidth));
-          range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
-        }
+        paint.setPen(QPen(color, caretWidth));
         break;
       case Underline :
         paint.setClipRect(0, lineHeight() - lineWidth, xEnd - xStart, lineWidth);
-        range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
         break;
       case Half :
         color.setAlpha(128);
         paint.setPen(QPen(color, caretWidth));
         paint.setClipRect(0, lineHeight() / 2, xEnd - xStart, lineHeight() / 2);
-        range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
         break;
       }
+
+      if (cursor->column() <= range->length()) {
+        range->layout()->drawCursor(&paint, QPoint(-xStart,0), cursor->column(), caretWidth);
+      } else {
+        // Off the end of the line... must be block mode. Draw the caret ourselves.
+        const KateTextLayout& lastLine = range->viewLine(range->viewLineCount() - 1);
+        int x = cursorToX(lastLine, KTextEditor::Cursor(range->line(), cursor->column()), true);
+        if ((x >= xStart) && (x <= xEnd)) {
+          paint.fillRect(x - xStart, (int)lastLine.lineLayout().y(), caretWidth, lineHeight(), color);
+        }
+      }
+
       paint.restore();
     }
   }

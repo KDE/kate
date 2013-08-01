@@ -2726,6 +2726,9 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
       // ordinary backspace
       //c.cursor.col--;
       removeText(KTextEditor::Range(line, col-1, line, col));
+      // in most cases cursor is moved by removeText, but we should do it manually
+      // for past-end-of-line cursors in block mode
+      view->setCursorPosition(KTextEditor::Cursor(line, col-1));
     }
     else
     {
@@ -2747,7 +2750,12 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
         indent( KTextEditor::Range( line, 0, line, 0), -1);
       }
       else
+      {
         removeText(KTextEditor::Range(line, col-1, line, col));
+        // in most cases cursor is moved by removeText, but we should do it manually
+        // for past-end-of-line cursors in block mode
+        view->setCursorPosition(KTextEditor::Cursor(line, col-1));
+      }
     }
   }
   else

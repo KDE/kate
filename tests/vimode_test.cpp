@@ -171,8 +171,25 @@ void ViModeTest::TestPressKey(QString str) {
             i = endOfSpecialKey;
         } else if (str.mid(i,2) == QString("\\:")) {
            int start_cmd = i+2;
-           for( i+=2 ; str.at(i) != '\\' ; i++ ) {}
-           kate_view->cmdLineBar()->execute(str.mid(start_cmd,i-start_cmd));
+           for( i+=2 ; true ; i++ )
+           {
+             if (str.at(i) == '\\')
+             {
+               if (i + 1 < str.length() && str.at(i + 1) == '\\')
+               {
+                 // A backslash within a command; skip.
+                 i += 2;
+               }
+               else
+               {
+                 // End of command.
+                 break;
+               }
+             }
+           }
+           const QString commandToExecute = str.mid(start_cmd,i-start_cmd).replace("\\\\", "\\");
+           kDebug(13070) << "Executing command directly from ViModeTest:\n" << commandToExecute;
+           kate_view->cmdLineBar()->execute(commandToExecute);
            // We've handled the command; go back round the loop, avoiding sending
            // the closing \ to vi_input_mode_manager.
            continue;
@@ -1140,7 +1157,10 @@ void ViModeTest::CommandModeTests() {
     // Testing ":d", ":delete"
     DoTest("foo\nbar\nbaz","\\:2d\\","foo\nbaz");
     DoTest("foo\nbar\nbaz","\\:%d\\","");
-    DoTest("foo\nbar\nbaz","\\:$d\\\\:$d\\","foo");
+    BeginTest("foo\nbar\nbaz");
+    TestPressKey("\\:$d\\"); // Work around ambiguity in the code that parses commands to execute.
+    TestPressKey("\\:$d\\");
+    FinishTest("foo");
     DoTest("foo\nbar\nbaz","ma\\:2,'ad\\","baz");
     DoTest("foo\nbar\nbaz","\\:/foo/,/bar/d\\","baz");
     DoTest("foo\nbar\nbaz","\\:2,3delete\\","foo");
@@ -1162,7 +1182,10 @@ void ViModeTest::CommandModeTests() {
     // Testing ":c", ":change"
     DoTest("foo\nbar\nbaz","\\:2change\\","foo\n\nbaz");
     DoTest("foo\nbar\nbaz","\\:%c\\","");
-    DoTest("foo\nbar\nbaz","\\:$c\\\\:$change\\","foo\nbar\n");
+    BeginTest("foo\nbar\nbaz");
+    TestPressKey("\\:$c\\"); // Work around ambiguity in the code that parses commands to execute.
+    TestPressKey("\\:$change\\");
+    FinishTest("foo\nbar\n");
     DoTest("foo\nbar\nbaz","ma\\:2,'achange\\","\nbaz");
     DoTest("foo\nbar\nbaz","\\:2,3c\\","foo\n");
 
@@ -3693,6 +3716,39 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey(":s,search/replace/g\\enter");
   QCOMPARE(replaceHistory(), QStringList());
   FinishTest("");
+
+  // Misc tests for sed replace.  These are for the *generic* Kate sed replace; they should all
+  // use ViModeTests' built-in command execution stuff (\\:<commandtoexecute>\\\) rather than
+  // invoking a KateViEmulatedCommandBar and potentially doing some Vim-specific transforms to
+  // the command.
+  DoTest("foo foo foo", "\\:s/foo/bar/\\", "bar foo foo");
+  DoTest("foo foo xyz foo", "\\:s/foo/bar/g\\", "bar bar xyz bar");
+  DoTest("foofooxyzfoo", "\\:s/foo/bar/g\\", "barbarxyzbar");
+  DoTest("foofooxyzfoo", "\\:s/foo/b/g\\", "bbxyzb");
+  DoTest("ffxyzf", "\\:s/f/b/g\\", "bbxyzb");
+  DoTest("ffxyzf", "\\:s/f/bar/g\\", "barbarxyzbar");
+  DoTest("foo Foo fOO FOO foo", "\\:s/foo/bar/\\", "bar Foo fOO FOO foo");
+  DoTest("Foo foo fOO FOO foo", "\\:s/foo/bar/\\", "Foo bar fOO FOO foo");
+  DoTest("Foo foo fOO FOO foo", "\\:s/foo/bar/g\\", "Foo bar fOO FOO bar");
+  DoTest("foo Foo fOO FOO foo", "\\:s/foo/bar/i\\", "bar Foo fOO FOO foo");
+  DoTest("Foo foo fOO FOO foo", "\\:s/foo/bar/i\\", "bar foo fOO FOO foo");
+  DoTest("Foo foo fOO FOO foo", "\\:s/foo/bar/gi\\", "bar bar bar bar bar");
+  DoTest("Foo foo fOO FOO foo", "\\:s/foo/bar/ig\\", "bar bar bar bar bar");
+  // There are some oddities to do with how ViModeTest's "execute command directly" stuff works with selected ranges:
+  // basically, we need to do our selection in Visual mode, then exit back to Normal mode before running the
+  //command.
+  DoTest("foo foo\nbar foo foo\nxyz foo foo\nfoo bar foo", "jVj\\esc\\:'<,'>s/foo/bar/\\", "foo foo\nbar bar foo\nxyz bar foo\nfoo bar foo");
+  DoTest("foo foo\nbar foo foo\nxyz foo foo\nfoo bar foo", "jVj\\esc\\:'<,'>s/foo/bar/g\\", "foo foo\nbar bar bar\nxyz bar bar\nfoo bar foo");
+  DoTest("Foo foo fOO FOO foo", "\\:s/foo/barfoo/g\\", "Foo barfoo fOO FOO barfoo");
+  DoTest("Foo foo fOO FOO foo", "\\:s/foo/foobar/g\\", "Foo foobar fOO FOO foobar");
+  DoTest("axyzb", "\\:s/a(.*)b/d\\\\1f/\\", "dxyzf");
+  DoTest("ayxzzyxzfddeefdb", "\\:s/a([xyz]+)([def]+)b/<\\\\1|\\\\2>/\\", "<yxzzyxz|fddeefd>");
+  DoTest("foo", "\\:s/.*//g\\", "");
+  DoTest("foo", "\\:s/.*/f/g\\", "f");
+  DoTest("foo/bar", "\\:s/foo\\\\/bar/123\\\\/xyz/g\\", "123/xyz");
+  DoTest("foo:bar", "\\:s:foo\\\\:bar:123\\\\:xyz:g\\", "123:xyz");
+  // End "generic" (i.e. not involving any Vi mode tricks/ transformations) sed replace tests: the remaining
+  // ones should go via the KateViEmulatedCommandBar.
 
   // ctrl-p on the first character of the search term in a sed-replace should
   // invoke search history completion.

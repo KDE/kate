@@ -839,6 +839,11 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("foomxyz", "d2fm", "foomxyz");
   DoTest("foo", "$dTk", "foo");
   DoTest("foomxyz", "$d2Fm", "foomxyz");
+  // They should also return a range marked as invalid.
+  DoTest("foo bar", "gUF(", "foo bar");
+  DoTest("foo bar", "gUf(", "foo bar");
+  DoTest("foo bar", "gUt(", "foo bar");
+  DoTest("foo bar", "gUT(", "foo bar");
 
   // Regression test for special-handling of "/" and "?" keys: these shouldn't interfere
   // with character searches.

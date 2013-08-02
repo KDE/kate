@@ -851,6 +851,12 @@ bool KateViNormalMode::commandMakeLowercaseLine()
 
 bool KateViNormalMode::commandMakeUppercase()
 {
+  kDebug(13070) << "Heere!";
+  if (!m_commandRange.valid)
+  {
+    kDebug(13070) << "Here2";
+    return false;
+  }
   Cursor c = m_view->cursorPosition();
   OperationMode m = getOperationMode();
   QString text = getRange( m_commandRange, m );
@@ -2132,8 +2138,15 @@ KateViRange KateViNormalMode::motionFindChar()
 
   KateViRange r;
 
-  r.endColumn = matchColumn;
-  r.endLine = cursor.line();
+  if (matchColumn != -1)
+  {
+    r.endColumn = matchColumn;
+    r.endLine = cursor.line();
+  }
+  else
+  {
+    r.valid = false;
+  }
 
   return r;
 }
@@ -2163,8 +2176,15 @@ KateViRange KateViNormalMode::motionFindCharBackward()
 
   KateViRange r;
 
-  r.endColumn = matchColumn;
-  r.endLine = cursor.line();
+  if (matchColumn != -1)
+  {
+    r.endColumn = matchColumn;
+    r.endLine = cursor.line();
+  }
+  else
+  {
+    r.valid = false;
+  }
 
   return r;
 }
@@ -2193,6 +2213,7 @@ KateViRange KateViNormalMode::motionToChar()
       }
       else
       {
+        r.valid = false;
         return r;
       }
       break;
@@ -2237,6 +2258,10 @@ KateViRange KateViNormalMode::motionToCharBackward()
   {
     r.endColumn = matchColumn+1;
     r.endLine = cursor.line();
+  }
+  else
+  {
+    r.valid = false;
   }
 
   m_isRepeatedTFcommand = false;

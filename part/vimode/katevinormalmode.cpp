@@ -1030,24 +1030,52 @@ bool KateViNormalMode::commandJoinLines()
 {
   Cursor c( m_view->cursorPosition() );
 
-  // remember line length so the cursor can be put between the joined lines
-  int l = doc()->lineLength( c.line() );
-
   unsigned int from = c.line();
-  unsigned int to = c.line()+getCount();
+  unsigned int to = c.line() + ((getCount() == 1) ? 1 : getCount() - 1);
 
   // if we were given a range of lines, this information overrides the previous
   if ( m_commandRange.startLine != -1 && m_commandRange.endLine != -1 ) {
     m_commandRange.normalize();
     c.setLine ( m_commandRange.startLine );
+    from = m_commandRange.startLine;
     to = m_commandRange.endLine;
+  }
+
+  if (to >= (unsigned int)doc()->lines())
+  {
+    return false;
+  }
+
+  bool nonEmptyLineFound = false;
+  for (unsigned int lineNum = from; lineNum <= to; lineNum++)
+  {
+    if (!doc()->line(lineNum).isEmpty())
+    {
+      nonEmptyLineFound = true;
+    }
+  }
+
+  const int firstNonWhitespaceOnLastLine = doc()->kateTextLine(to)->firstChar();
+  QString leftTrimmedLastLine;
+  if (firstNonWhitespaceOnLastLine != -1)
+  {
+    leftTrimmedLastLine = doc()->line(to).mid(firstNonWhitespaceOnLastLine);
   }
 
   joinLines( from, to );
 
-  // position cursor between the joined lines
-  c.setColumn( l );
-  updateCursor( c );
+  if (nonEmptyLineFound && leftTrimmedLastLine.isEmpty())
+  {
+    // joinLines won't have added a trailing " ", whereas Vim does - follow suit.
+    doc()->insertText(Cursor(from, doc()->lineLength(from)), " ");
+  }
+
+  // Position cursor just before first non-whitesspace character of what was the last line joined.
+  c.setColumn(doc()->lineLength(from) - leftTrimmedLastLine.length() - 1);
+  if (c.column() != -1)
+  {
+    updateCursor( c );
+  }
 
   m_deleteCommand = true;
   return true;

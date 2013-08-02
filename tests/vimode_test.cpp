@@ -376,6 +376,12 @@ void ViModeTest::VisualModeTests() {
     DoTest("averyverylongline\nshortline\nshorter\n", "jjV$kkAb\\esc", "averyverylonglineb\nshortlineb\nshorterb\n");
     DoTest("averyverylongline\nshortline\n", "V$jAb\\esc", "averyverylonglineb\nshortlineb\n");
 
+    // Testing "J"
+    DoTest("foo\nbar\nxyz\nbaz\n123\n456", "jVjjjJ", "foo\nbar xyz baz 123\n456");
+    DoTest("foo\nbar\nxyz\nbaz\n123\n456", "jjjjVkkkJ", "foo\nbar xyz baz 123\n456");
+    DoTest("foo\nbar\nxyz\nbaz\n123456\n789", "jjjjVkkkJrX", "foo\nbar xyz bazX123456\n789");
+    DoTest("foo\nbar\nxyz\n", "VGJ", "foo bar xyz ");
+
     // Testing undo behaviour with c and cc
     DoTest("foo", "ciwbar\\escu", "foo");
     DoTest("foo", "ccbar\\escu", "foo");
@@ -895,6 +901,17 @@ void ViModeTest::NormalModeCommandsTest() {
 
   // Testing "J"
   DoTest("foo\nbar", "J", "foo bar");
+  DoTest("foo\nbar", "JrX", "fooXbar");
+  DoTest("foo\nbar\nxyz\n123", "3J", "foo bar xyz\n123");
+  DoTest("foo\nbar\nxyz\n123", "3JrX", "foo barXxyz\n123");
+  DoTest("foo\nbar\nxyz\n12345\n789", "4JrX", "foo bar xyzX12345\n789");
+  DoTest("foo\nbar\nxyz\n12345\n789", "6JrX", "Xoo\nbar\nxyz\n12345\n789");
+  DoTest("foo\nbar\nxyz\n12345\n789", "j5JrX", "foo\nXar\nxyz\n12345\n789");
+  DoTest("foo\nbar\nxyz\n12345\n789", "7JrX", "Xoo\nbar\nxyz\n12345\n789");
+  DoTest("\n\n", "J", "\n");
+  DoTest("foo\n\t   \t\t  bar", "JrX", "fooXbar");
+  DoTest("foo\n\t   \t\t", "J", "foo ");
+  DoTest("foo\n\t   \t\t", "JrX", "fooX");
 
   // Testing "dd"
   DoTest("foo\nbar", "dd", "bar");

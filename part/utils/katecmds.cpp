@@ -616,7 +616,6 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
     int count = 1;
     if (range.isValid()){
         count = qAbs(range.end().line() - range.start().line())+1;
-        if (cmd == "j") count-=1;
         v->setCursorPosition(KTextEditor::Cursor(qMin(range.start().line(),
                                                       range.end().line()),0));
     }

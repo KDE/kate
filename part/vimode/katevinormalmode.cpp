@@ -140,12 +140,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
   const bool waitingForRegisterOrCharToSearch = this->waitingForRegisterOrCharToSearch();
 
-  // Check for matching mappings.
-//   if (m_viInputModeManager->keyMapper()->handleKeypress(key))
-//   {
-//     return true;
-//   }
-
   // Use replace caret when reading a character for "r"
   if ( key == 'r' && !waitingForRegisterOrCharToSearch) {
     m_view->setCaretStyle( KateRenderer::Underline, true );

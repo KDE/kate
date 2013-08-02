@@ -214,6 +214,22 @@ namespace
     return qtRegexPattern;
   }
 
+  /**
+   * @return \a originalRegex but escaped in such a way that a Qt regex search for
+   * the resulting string will match the string \a originalRegex.
+   */
+  QString escapedForSearchingAsLiteral(const QString& originalQtRegex)
+  {
+    QString escapedForSearchingAsLiteral = originalQtRegex;
+    escapedForSearchingAsLiteral.replace('\\', "\\\\");
+    escapedForSearchingAsLiteral.replace('$', "\\$");
+    escapedForSearchingAsLiteral.replace('^', "\\^");
+    escapedForSearchingAsLiteral.replace('.', "\\.");
+    escapedForSearchingAsLiteral.replace('*', "\\*");
+    escapedForSearchingAsLiteral.replace('/', "\\/");
+    return escapedForSearchingAsLiteral;
+  }
+
   QStringList reversed(const QStringList& originalList)
   {
     QStringList reversedList = originalList;
@@ -323,6 +339,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
       m_wasAborted(true),
       m_suspendEditEventFiltering(false),
       m_waitingForRegister(false),
+      m_insertedTextShouldBeEscapedForSearchingAsLiteral(false),
       m_commandResponseMessageTimeOutMS(4000),
       m_nextTextChangeDueToCompletionChange(false),
       m_currentCompletionType(None),
@@ -1015,6 +1032,11 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       {
         textToInsert = KateGlobal::self()->viInputModeGlobal()->getRegisterContent( key );
       }
+      if (m_insertedTextShouldBeEscapedForSearchingAsLiteral)
+      {
+        textToInsert = escapedForSearchingAsLiteral(textToInsert);
+        m_insertedTextShouldBeEscapedForSearchingAsLiteral = false;
+      }
       m_edit->setText(m_edit->text().insert(m_edit->cursorPosition(), textToInsert));
       m_edit->setCursorPosition(oldCursorPosition + textToInsert.length());
       m_waitingForRegister = false;
@@ -1057,10 +1079,14 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       }
       return true;
     }
-    else if (keyEvent->key() == Qt::Key_R)
+    else if (keyEvent->key() == Qt::Key_R || keyEvent->key() == Qt::Key_E)
     {
       m_waitingForRegister = true;
       m_waitingForRegisterIndicator->setVisible(true);
+      if (keyEvent->key() == Qt::Key_E)
+      {
+        m_insertedTextShouldBeEscapedForSearchingAsLiteral = true;
+      }
       return true;
     }
     else if (keyEvent->key() == Qt::Key_D || keyEvent->key() == Qt::Key_F)

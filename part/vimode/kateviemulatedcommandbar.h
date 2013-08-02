@@ -65,6 +65,7 @@ private:
   bool m_suspendEditEventFiltering;
   bool m_waitingForRegister;
   QLabel *m_waitingForRegisterIndicator;
+  bool m_insertedTextShouldBeEscapedForSearchingAsLiteral;
 
   QTimer *m_commandResponseMessageDisplayHide;
   QLabel* m_commandResponseMessageDisplay;

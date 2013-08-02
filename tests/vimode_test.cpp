@@ -2040,6 +2040,55 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss the bar.
   FinishTest("wordundercursor");
 
+  // Begin tests for ctrl-e, which is almost identical to ctrl-r save that the contents, when added,
+  // are escaped for searching.
+  // Normal register contents/ word under cursor are added as normal.
+  BeginTest("wordinregisterb wordundercursor");
+  TestPressKey("\"byiw");
+  TestPressKey("/\\ctrl-e");
+  QVERIFY(waitingForRegisterIndicator->isVisible());
+  QVERIFY(waitingForRegisterIndicator->x() >= emulatedCommandBarTextEdit()->x() + emulatedCommandBarTextEdit()->width());
+  TestPressKey("b");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("wordinregisterb"));
+  QVERIFY(!waitingForRegisterIndicator->isVisible());
+  TestPressKey("\\ctrl-c\\ctrl-cw/\\ctrl-e\\ctrl-w");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("wordundercursor"));
+  QVERIFY(!waitingForRegisterIndicator->isVisible());
+  TestPressKey("\\ctrl-c");
+  TestPressKey("\\ctrl-c");
+  FinishTest("wordinregisterb wordundercursor");
+
+  // \'s must be escaped when inserted via ctrl-e.
+  DoTest("foo a\\b\\\\c\\\\\\d", "wYb/\\ctrl-e0\\enterrX", "foo X\\b\\\\c\\\\\\d");
+  // $'s must be escaped when inserted via ctrl-e.
+  DoTest("foo a$b", "wYb/\\ctrl-e0\\enterrX", "foo X$b");
+  DoTest("foo a$b$c", "wYb/\\ctrl-e0\\enterrX", "foo X$b$c");
+  DoTest("foo a\\$b\\$c", "wYb/\\ctrl-e0\\enterrX", "foo X\\$b\\$c");
+  // ^'s must be escaped when inserted via ctrl-e.
+  DoTest("foo a^b", "wYb/\\ctrl-e0\\enterrX", "foo X^b");
+  DoTest("foo a^b^c", "wYb/\\ctrl-e0\\enterrX", "foo X^b^c");
+  DoTest("foo a\\^b\\^c", "wYb/\\ctrl-e0\\enterrX", "foo X\\^b\\^c");
+  // .'s must be escaped when inserted via ctrl-e.
+  DoTest("foo axb a.b", "wwYgg/\\ctrl-e0\\enterrX", "foo axb X.b");
+  DoTest("foo a\\xb Na\\.b", "fNlYgg/\\ctrl-e0\\enterrX", "foo a\\xb NX\\.b");
+  // *'s must be escaped when inserted via ctrl-e
+  DoTest("foo axxxxb ax*b", "wwYgg/\\ctrl-e0\\enterrX", "foo axxxxb Xx*b");
+  DoTest("foo a\\xxxxb Na\\x*X", "fNlYgg/\\ctrl-e0\\enterrX", "foo a\\xxxxb NX\\x*X");
+  // /'s must be escaped when inserted via ctrl-e.
+  DoTest("foo a a/b", "wwYgg/\\ctrl-e0\\enterrX", "foo a X/b");
+  DoTest("foo a a/b/c", "wwYgg/\\ctrl-e0\\enterrX", "foo a X/b/c");
+  DoTest("foo a a\\/b\\/c", "wwYgg/\\ctrl-e0\\enterrX", "foo a X\\/b\\/c");
+  // Don't do any escaping for ctrl-r, though.
+  BeginTest("foo .*$^\\/");
+  TestPressKey("wY/\\ctrl-r0");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString(".*$^\\/"));
+  TestPressKey("\\ctrl-c");
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo .*$^\\/");
+  // Ensure that the flag that says "next register insertion should be escaped for searching"
+  // is cleared if we do ctrl-e but then abort with ctrl-c.
+  DoTest("foo a$b", "/\\ctrl-e\\ctrl-c\\ctrl-cwYgg/\\ctrl-r0\\enterrX", "Xoo a$b");
+
    // Ensure that we actually perform a search while typing.
   BeginTest("abcd");
   TestPressKey("/c");
@@ -2519,6 +2568,9 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo x\\+y", "/x\\\\\\\\+y\\enterrX", "foo X\\+y");
   // A dot is not a literal, nor is a star.
   DoTest("foo bar", "/o.*b\\enterrX", "fXo bar");
+  // Escaped dots and stars are literals, though.
+  DoTest("foo xay x.y", "/x\\\\.y\\enterrX", "foo xay X.y");
+  DoTest("foo xaaaay xa*y", "/xa\\\\*y\\enterrX", "foo xaaaay Xa*y");
   // Unescaped curly braces are literals.
   DoTest("foo x{}y", "/x{}y\\enterrX", "foo X{}y");
   // Escaped curly brackets are quantifers.
@@ -2533,6 +2585,8 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo xbar barx bar ", "/\\\\<bar\\\\>\\enterrX", "foo xbar barx Xar ");
   DoTest("foo xbar barx bar", "/\\\\<bar\\\\>\\enterrX", "foo xbar barx Xar");
   DoTest("foo xbar barx\nbar", "/\\\\<bar\\\\>\\enterrX", "foo xbar barx\nXar");
+  // Escaped "^" and "$" are treated as literals.
+  DoTest("foo x^$y", "/x\\\\^\\\\$y\\enterrX", "foo X^$y");
   // Ensure that it is the escaped version of the pattern that is recorded as the last search pattern.
   DoTest("foo bar( xyz", "/bar(\\enterggnrX", "foo Xar( xyz");
 

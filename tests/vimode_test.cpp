@@ -2078,6 +2078,14 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo a a/b", "wwYgg/\\ctrl-e0\\enterrX", "foo a X/b");
   DoTest("foo a a/b/c", "wwYgg/\\ctrl-e0\\enterrX", "foo a X/b/c");
   DoTest("foo a a\\/b\\/c", "wwYgg/\\ctrl-e0\\enterrX", "foo a X\\/b\\/c");
+  // ['s and ]'s must be escaped when inserted via ctrl-e.
+  DoTest("foo axb a[xyz]b", "wwYgg/\\ctrl-e0\\enterrX", "foo axb X[xyz]b");
+  DoTest("foo a[b", "wYb/\\ctrl-e0\\enterrX", "foo X[b");
+  DoTest("foo a[b[c", "wYb/\\ctrl-e0\\enterrX", "foo X[b[c");
+  DoTest("foo a\\[b\\[c", "wYb/\\ctrl-e0\\enterrX", "foo X\\[b\\[c");
+  DoTest("foo a]b", "wYb/\\ctrl-e0\\enterrX", "foo X]b");
+  DoTest("foo a]b]c", "wYb/\\ctrl-e0\\enterrX", "foo X]b]c");
+  DoTest("foo a\\]b\\]c", "wYb/\\ctrl-e0\\enterrX", "foo X\\]b\\]c");
   // Don't do any escaping for ctrl-r, though.
   BeginTest("foo .*$^\\/");
   TestPressKey("wY/\\ctrl-r0");

@@ -227,6 +227,8 @@ namespace
     escapedForSearchingAsLiteral.replace('.', "\\.");
     escapedForSearchingAsLiteral.replace('*', "\\*");
     escapedForSearchingAsLiteral.replace('/', "\\/");
+    escapedForSearchingAsLiteral.replace('[', "\\[");
+    escapedForSearchingAsLiteral.replace(']', "\\]");
     return escapedForSearchingAsLiteral;
   }
 

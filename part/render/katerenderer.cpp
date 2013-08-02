@@ -4,6 +4,7 @@
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2001 Joseph Wenninger <jowenn@kde.org>
    Copyright (C) 1999 Jochen Wilhelmy <digisnap@cs.tu-berlin.de>
+   Copyright (C) 2013 Andrey Matveyakin <a.matveyakin@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -518,6 +519,29 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
   paintTextLineBackground(paint, range, currentViewLine, xStart, xEnd);
 
   if (range->layout()) {
+    bool drawSelection = m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line());
+    // Draw selection in block selecton mode. We need 2 kinds of selections that QTextLayout::draw can't render:
+    //   - past-end-of-line selection and
+    //   - 0-column-wide selection (used to indicate where text will be typed)
+    if (drawSelection && m_view->blockSelection()) {
+      int selectionStartColumn = m_doc->fromVirtualColumn(range->line(), m_doc->toVirtualColumn(m_view->selectionRange().start()));
+      int selectionEndColumn   = m_doc->fromVirtualColumn(range->line(), m_doc->toVirtualColumn(m_view->selectionRange().end()));
+      QBrush selectionBrush = config()->selectionColor();
+      if (selectionStartColumn != selectionEndColumn) {
+        KateTextLayout lastLine = range->viewLine(range->viewLineCount() - 1);
+        if (selectionEndColumn > lastLine.startCol()) {
+          int selectionStartX = (selectionStartColumn > lastLine.startCol()) ? cursorToX(lastLine, selectionStartColumn, true) : 0;
+          int selectionEndX = cursorToX(lastLine, selectionEndColumn, true);
+          paint.fillRect(QRect(selectionStartX - xStart, (int)lastLine.lineLayout().y(), selectionEndX - selectionStartX, lineHeight()), selectionBrush);
+        }
+      } else {
+        const int selectStickWidth = 2;
+        KateTextLayout selectionLine = range->viewLine(range->viewLineForColumn(selectionStartColumn));
+        int selectionX = cursorToX(selectionLine, selectionStartColumn, true);
+        paint.fillRect(QRect(selectionX - xStart, (int)selectionLine.lineLayout().y(), selectStickWidth, lineHeight()), selectionBrush);
+      }
+    }
+
     QVector<QTextLayout::FormatRange> additionalFormats;
     if (range->length() > 0) {
       // We may have changed the pen, be absolutely sure it gets set back to
@@ -525,7 +549,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
       // set the pen color
       paint.setPen(attribute(KTextEditor::HighlightInterface::dsNormal)->foreground().color());
       // Draw the text :)
-      if (m_view->selection() && showSelections() && m_view->selectionRange().overlapsLine(range->line())) {
+      if (drawSelection) {
         // FIXME toVector() may be a performance issue
         additionalFormats = decorationsForLine(range->textLine(), range->line(), true).toVector();
         range->layout()->draw(&paint, QPoint(-xStart,0), additionalFormats);
@@ -1021,27 +1045,23 @@ bool KateRenderer::isLineRightToLeft( KateLineLayoutPtr lineLayout ) const
 #endif
 }
 
-int KateRenderer::cursorToX(const KateTextLayout& range, int col) const
+int KateRenderer::cursorToX(const KateTextLayout& range, int col, bool returnPastLine) const
 {
-  return cursorToX(range, KTextEditor::Cursor(range.line(), col));
-}
-
-int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Cursor & pos) const
-{
-  Q_ASSERT(range.isValid());
-
-  if (range.lineLayout().width() > 0) {
-    return (int)range.lineLayout().cursorToX(pos.column());
-  } else {
-    return 0;
-  }
+  return cursorToX(range, KTextEditor::Cursor(range.line(), col), returnPastLine);
 }
 
 int KateRenderer::cursorToX(const KateTextLayout& range, const KTextEditor::Cursor & pos, bool returnPastLine) const
 {
-  int x = cursorToX(range, pos);
-  int over = pos.column() - range.endCol();
+  Q_ASSERT(range.isValid());
 
+  int x;
+  if (range.lineLayout().width() > 0) {
+    x = (int)range.lineLayout().cursorToX(pos.column());
+  } else {
+    x = 0;
+  }
+
+  int over = pos.column() - range.endCol();
   if (returnPastLine && over > 0)
     x += over * spaceWidth();
 

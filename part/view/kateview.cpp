@@ -2012,10 +2012,19 @@ bool KateView::removeSelectedText()
   // Optimization: clear selection before removing text
   KTextEditor::Range selection = m_selection;
 
-  // don't redraw the cleared selection - that's done in editEnd().
-  clearSelection(false);
-
   m_doc->removeText(selection, blockSelect);
+
+  // don't redraw the cleared selection - that's done in editEnd().
+  if (blockSelect) {
+    int selectionColumn = qMin(m_doc->toVirtualColumn(selection.start()), m_doc->toVirtualColumn(selection.end()));
+    KTextEditor::Range newSelection = selection;
+    newSelection.start().setColumn(m_doc->fromVirtualColumn(newSelection.start().line(), selectionColumn));
+    newSelection.end().setColumn(m_doc->fromVirtualColumn(newSelection.end().line(), selectionColumn));
+    setSelection(newSelection);
+    setCursorPositionInternal(newSelection.start());
+  }
+  else
+    clearSelection(false);
 
   m_doc->editEnd ();
 

@@ -6,6 +6,7 @@
    Copyright (C) 2007 Mirko Stocker <me@misto.ch>
    Copyright (C) 2009-2010 Michel Ludwig <michel.ludwig@kdemail.net>
    Copyright (C) 2013 Gerald Senarclens de Grancy <oss@senarclens.eu>
+   Copyright (C) 2013 Andrey Matveyakin <a.matveyakin@gmail.com>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -2630,7 +2631,20 @@ bool KateDocument::typeChars ( KateView *view, const QString &realChars )
     removeText(r);
   }
 
-  insertText(view->cursorPosition(), chars);
+  if (view->blockSelection() && view->selection()) {
+    KTextEditor::Range selectionRange = view->selectionRange();
+    int startLine = qMax(0, selectionRange.start().line());
+    int endLine = qMin(selectionRange.end().line(), lastLine());
+    int column = toVirtualColumn(selectionRange.end());
+    for (int line = endLine; line >= startLine; --line)
+      editInsertText(line, fromVirtualColumn(line, column), chars);
+    int newSelectionColumn = toVirtualColumn(view->cursorPosition());
+    selectionRange.start().setColumn(fromVirtualColumn(selectionRange.start().line(), newSelectionColumn));
+    selectionRange.end().setColumn(fromVirtualColumn(selectionRange.end().line(), newSelectionColumn));
+    view->setSelection(selectionRange);
+  }
+  else
+    insertText(view->cursorPosition(), chars);
 
   // end edit session here, to have updated HL in userTypedChar!
   editEnd();
@@ -2646,8 +2660,10 @@ void KateDocument::newLine( KateView *v )
 {
   editStart();
 
-  if( !v->config()->persistentSelection() && v->selection() )
+  if( !v->config()->persistentSelection() && v->selection() ) {
     v->removeSelectedText();
+    v->clearSelection();
+  }
 
   // query cursor position
   KTextEditor::Cursor c = v->cursorPosition();
@@ -2709,6 +2725,12 @@ void KateDocument::transpose( const KTextEditor::Cursor& cursor)
 void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
 {
   if ( !view->config()->persistentSelection() && view->selection() ) {
+    if (view->blockSelection() && view->selection() && toVirtualColumn(view->selectionRange().start()) == toVirtualColumn(view->selectionRange().end())) {
+      // Remove one character after selection line
+      KTextEditor::Range range = view->selectionRange();
+      range.start().setColumn(range.start().column() - 1);
+      view->setSelection(range);
+    }
     view->removeSelectedText();
     return;
   }
@@ -2783,6 +2805,12 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
 void KateDocument::del( KateView *view, const KTextEditor::Cursor& c )
 {
   if ( !view->config()->persistentSelection() && view->selection() ) {
+    if (view->blockSelection() && view->selection() && toVirtualColumn(view->selectionRange().start()) == toVirtualColumn(view->selectionRange().end())) {
+      // Remove one character after selection line
+      KTextEditor::Range range = view->selectionRange();
+      range.end().setColumn(range.end().column() + 1);
+      view->setSelection(range);
+    }
     view->removeSelectedText();
     return;
   }

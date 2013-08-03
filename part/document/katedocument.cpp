@@ -317,12 +317,11 @@ KTextEditor::Editor *KateDocument::editor ()
 
 KTextEditor::Range KateDocument::rangeOnLine(KTextEditor::Range range, int line) const
 {
-  int col1 = const_cast<KateDocument*>(this)->toVirtualColumn(range.start());
-  int col2 = const_cast<KateDocument*>(this)->toVirtualColumn(range.end());
+  int col1 = toVirtualColumn(range.start());
+  int col2 = toVirtualColumn(range.end());
 
-  Kate::TextLine tl = const_cast<KateDocument*>(this)->kateTextLine(line);
-  col1 = tl->fromVirtualColumn(col1, config()->tabWidth());
-  col2 = tl->fromVirtualColumn(col2, config()->tabWidth());
+  col1 = fromVirtualColumn(line, col1);
+  col2 = fromVirtualColumn(line, col2);
 
   return KTextEditor::Range(line, col1, line, col2);
 }
@@ -684,9 +683,8 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
     int vc1 = toVirtualColumn(range.start());
     int vc2 = toVirtualColumn(range.end());
     for (int line = qMin(range.end().line(), lastLine()); line >= startLine; --line) {
-      Kate::TextLine tl = const_cast<KateDocument*>(this)->kateTextLine(line);
-      int col1 = tl->fromVirtualColumn(vc1, config()->tabWidth());
-      int col2 = tl->fromVirtualColumn(vc2, config()->tabWidth());
+      int col1 = fromVirtualColumn(line, vc1);
+      int col2 = fromVirtualColumn(line, vc2);
       editRemoveText(line, qMin(col1, col2), qAbs(col2 - col1));
     }
   }
@@ -2558,14 +2556,34 @@ bool KateDocument::ownedView(KateView *view) {
   return (m_views.contains(view));
 }
 
-uint KateDocument::toVirtualColumn( const KTextEditor::Cursor& cursor )
+int KateDocument::toVirtualColumn( int line, int column ) const
 {
-  Kate::TextLine textLine = m_buffer->plainLine(cursor.line());
+  Kate::TextLine textLine = m_buffer->plainLine(line);
 
   if (textLine)
-    return textLine->toVirtualColumn(cursor.column(), config()->tabWidth());
+    return textLine->toVirtualColumn(column, config()->tabWidth());
   else
     return 0;
+}
+
+int KateDocument::toVirtualColumn( const KTextEditor::Cursor& cursor ) const
+{
+  return toVirtualColumn(cursor.line(), cursor.column());
+}
+
+int KateDocument::fromVirtualColumn( int line, int column ) const
+{
+  Kate::TextLine textLine = m_buffer->plainLine(line);
+
+  if (textLine)
+    return textLine->fromVirtualColumn(column, config()->tabWidth());
+  else
+    return 0;
+}
+
+int KateDocument::fromVirtualColumn( const KTextEditor::Cursor& cursor ) const
+{
+  return fromVirtualColumn(cursor.line(), cursor.column());
 }
 
 bool KateDocument::typeChars ( KateView *view, const QString &realChars )

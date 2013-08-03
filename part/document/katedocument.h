@@ -714,12 +714,15 @@ Q_SIGNALS:
 
     bool ownedView(KateView *);
 
-    uint toVirtualColumn( const KTextEditor::Cursor& );
+    int toVirtualColumn( int line, int column ) const;
+    int toVirtualColumn( const KTextEditor::Cursor& ) const;
+    int fromVirtualColumn( int line, int column ) const;
+    int fromVirtualColumn( const KTextEditor::Cursor& ) const;
+
     void newLine( KateView*view ); // Changes input
     void backspace(     KateView *view, const KTextEditor::Cursor& );
     void del(           KateView *view, const KTextEditor::Cursor& );
     void transpose(     const KTextEditor::Cursor& );
-
     void paste ( KateView* view, const QString &s );
 
   public:

@@ -162,7 +162,7 @@ int TextLineData::fromVirtualColumn (int column, int tabWidth) const
     x += diff;
   }
 
-  return z;
+  return z + qMax(column - x, 0);
 }
 
 int TextLineData::virtualLength (int tabWidth) const

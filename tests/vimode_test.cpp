@@ -4032,6 +4032,7 @@ void ViModeTest::VimStyleCommandBarTests()
   const bool oldReplaceTabsDyn = kate_document->config()->replaceTabsDyn();
   kate_document->config()->setReplaceTabsDyn(false);
   DoTest("foo\tbar", "\\:s/foo\\\\tbar/replace/g\\", "replace");
+  DoTest("foo\tbar", "\\:s/foo\\\\tbar/rep\\\\tlace/g\\", "rep\tlace");
   kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);
   DoTest("foo", "\\:s/foo/replaceline1\\\\nreplaceline2/g\\", "replaceline1\nreplaceline2");
   DoTest("foofoo", "\\:s/foo/replaceline1\\\\nreplaceline2/g\\", "replaceline1\nreplaceline2replaceline1\nreplaceline2");

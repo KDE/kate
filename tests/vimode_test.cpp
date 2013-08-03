@@ -2186,6 +2186,12 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("'testmapping");
   FinishTest("aXbcd");
   clearAllMappings();
+  // Don't send keys that were part of a mapping to the emulated command bar.
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "H", "/a", KateViGlobal::Recursive);
+  BeginTest("foo a aH");
+  TestPressKey("H\\enterrX");
+  FinishTest("foo X aH");
+  clearAllMappings();
 
   // Incremental searching from the original position.
   BeginTest("foo bar foop fool food");

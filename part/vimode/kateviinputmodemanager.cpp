@@ -113,20 +113,20 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     }
   }
 
-  const bool isSyntheticSearchCompletedKeyPress = (m_view->viModeEmulatedCommandBar()->isVisible() && !m_view->viModeEmulatedCommandBar()->isActive());
-  if (!keyIsPartOfMapping && !isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress) {
-    // record key press so that it can be repeated via "."
-    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
-    appendKeyEventToLog( copy );
-  }
+  if (!keyIsPartOfMapping)
+  {
+    const bool isSyntheticSearchCompletedKeyPress = (m_view->viModeEmulatedCommandBar()->isVisible() && !m_view->viModeEmulatedCommandBar()->isActive());
+    if (!isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress) {
+      // record key press so that it can be repeated via "."
+      QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
+      appendKeyEventToLog( copy );
+    }
 
-  if (m_view->viModeEmulatedCommandBar()->isActive())
-  {
-    res = m_view->viModeEmulatedCommandBar()->handleKeyPress(e);
-  }
-  else
-  {
-    if (!keyIsPartOfMapping)
+    if (m_view->viModeEmulatedCommandBar()->isActive())
+    {
+      res = m_view->viModeEmulatedCommandBar()->handleKeyPress(e);
+    }
+    else
     {
       res = getCurrentViModeHandler()->handleKeypress(e);
     }

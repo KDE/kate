@@ -362,7 +362,10 @@ bool KateDocManager::closeDocumentList(QList<KTextEditor::Document*> documents)
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
   {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
-    KateApp::self()->mainWindow(i)->viewManager()->activateView (m_docList.at(0));
+    if (!KateApp::self()->mainWindow(i)->viewManager()->activeView())
+      KateApp::self()->mainWindow(i)->viewManager()->activateView (m_docList.at(0));
+    else
+      KateApp::self()->mainWindow(i)->viewManager()->reactivateActiveView();
   }
 
   return res;

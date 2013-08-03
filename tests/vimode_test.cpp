@@ -475,6 +475,9 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo\nbar", "j5Ohello\\esc", "foo\nhello\nhello\nhello\nhello\nhello\nbar");
   DoTest("bar", "5ohello\\esc2ixyz\\esc", "bar\nhello\nhello\nhello\nhello\nhellxyzxyzo");
   DoTest("", "ihello\\esc5.", "hellhellohellohellohellohelloo");
+  // Ensure that the flag that says that counted repeats should begin on a new line is reset.
+  DoTest("foo", "obar\\ctrl-c5ixyz\\esc", "foo\nbaxyzxyzxyzxyzxyzr");
+  DoTest("foo", "obar\\ctrl-cgg\\ctrl-vlljAxyz\\esc5i123\\esc", "fooxy123123123123123z\nbarxyz");
   DoTest("foo foo foo", "c3wbar\\esc", "bar");
   DoTest("abc", "lOxyz", "xyz\nabc");
 

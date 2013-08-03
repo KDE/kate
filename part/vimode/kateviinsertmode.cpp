@@ -501,9 +501,9 @@ void KateViInsertMode::leaveInsertMode( bool force )
                   doc()->insertText( m_view->cursorPosition(), added );
               }
           }
-          m_countedRepeatsBeginOnNewLine = false;
       }
     }
+    m_countedRepeatsBeginOnNewLine = false;
     startNormalMode();
 }
 

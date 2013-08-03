@@ -290,10 +290,9 @@ class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
      * @param endcol The last column in the line allowed in a match.
      * If it is -1, the whole line is used.
      */
-    static int sedMagic(KateDocument *doc, int &line,
-                        const QString &find, const QString &replace, const QString &delim,
-                        bool noCase, bool repeat,
-                        int startcol=0, int endcol=-1);
+    static int sedMagic(KateDocument* doc, int& line,
+                        const QString& find, const QString& replacePattern,
+                        bool caseSensitive, bool repeat);
 };
 
 /**

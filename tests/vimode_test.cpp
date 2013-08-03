@@ -3773,6 +3773,26 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo", "\\:s/.*/f/g\\", "f");
   DoTest("foo/bar", "\\:s/foo\\\\/bar/123\\\\/xyz/g\\", "123/xyz");
   DoTest("foo:bar", "\\:s:foo\\\\:bar:123\\\\:xyz:g\\", "123:xyz");
+  const bool oldReplaceTabsDyn = kate_document->config()->replaceTabsDyn();
+  kate_document->config()->setReplaceTabsDyn(false);
+  DoTest("foo\tbar", "\\:s/foo\\\\tbar/replace/g\\", "replace");
+  kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);
+  DoTest("foo", "\\:s/foo/replaceline1\\\\nreplaceline2/g\\", "replaceline1\nreplaceline2");
+  DoTest("foofoo", "\\:s/foo/replaceline1\\\\nreplaceline2/g\\", "replaceline1\nreplaceline2replaceline1\nreplaceline2");
+  DoTest("foofoo\nfoo", "\\:s/foo/replaceline1\\\\nreplaceline2/g\\", "replaceline1\nreplaceline2replaceline1\nreplaceline2\nfoo");
+  DoTest("fooafoob\nfooc\nfood", "Vj\\esc\\:'<,'>s/foo/replaceline1\\\\nreplaceline2/g\\", "replaceline1\nreplaceline2areplaceline1\nreplaceline2b\nreplaceline1\nreplaceline2c\nfood");
+  DoTest("fooafoob\nfooc\nfood", "Vj\\esc\\:'<,'>s/foo/replaceline1\\\\nreplaceline2/\\", "replaceline1\nreplaceline2afoob\nreplaceline1\nreplaceline2c\nfood");
+  DoTest("fooafoob\nfooc\nfood", "Vj\\esc\\:'<,'>s/foo/replaceline1\\\\nreplaceline2\\\\nreplaceline3/g\\", "replaceline1\nreplaceline2\nreplaceline3areplaceline1\nreplaceline2\nreplaceline3b\nreplaceline1\nreplaceline2\nreplaceline3c\nfood");
+  DoTest("foofoo", "\\:s/foo/replace\\\\nfoo/g\\", "replace\nfooreplace\nfoo");
+  DoTest("foofoo", "\\:s/foo/replacefoo\\\\nfoo/g\\", "replacefoo\nfooreplacefoo\nfoo");
+  DoTest("foofoo", "\\:s/foo/replacefoo\\\\n/g\\", "replacefoo\nreplacefoo\n");
+  DoTest("ff", "\\:s/f/f\\\\nf/g\\", "f\nff\nf");
+  DoTest("ff", "\\:s/f/f\\\\n/g\\", "f\nf\n");
+  DoTest("foo\nbar", "\\:s/foo\\\\n//g\\", "bar");
+  DoTest("foo\n\n\nbar", "\\:s/foo(\\\\n)*bar//g\\", "");
+  DoTest("foo\n\n\nbar", "\\:s/foo(\\\\n*)bar/123\\\\1456/g\\", "123\n\n\n456");
+  DoTest("xAbCy", "\\:s/x(.)(.)(.)y/\\\\L\\\\1\\\\U\\\\2\\\\3/g\\", "aBC");
+  DoTest("foo", "\\:s/foo/\\\\a/g\\", "\x07");
   // End "generic" (i.e. not involving any Vi mode tricks/ transformations) sed replace tests: the remaining
   // ones should go via the KateViEmulatedCommandBar.
 

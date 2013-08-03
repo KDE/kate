@@ -32,6 +32,7 @@
 #include "kateviglobal.h"
 #include "katevinormalmode.h"
 #include "katerenderer.h"
+#include "kateregexpsearch.h"
 #include "katecmd.h"
 
 #include <kdebug.h>
@@ -842,19 +843,6 @@ bool KateCommands::AppCommands::help(KTextEditor::View *view, const QString &cmd
 //BEGIN SedReplace
 KateCommands::SedReplace* KateCommands::SedReplace::m_instance = 0;
 
-static void replace(QString &s, const QString &needle, const QString &with)
-{
-  int pos = 0;
-  while (1)
-  {
-    pos = s.indexOf(needle, pos);
-    if (pos == -1) break;
-    s.replace(pos, needle.length(), with);
-    pos += with.length();
-  }
-
-}
-
 static int backslashString(const QString &haystack, const QString &needle, int index)
 {
   int len = haystack.length();
@@ -903,109 +891,56 @@ static void exchangeAbbrevs(QString &str)
 }
 
 int KateCommands::SedReplace::sedMagic( KateDocument *doc, int &line,
-                                        const QString &find, const QString &repOld, const QString &delim,
-                                        bool noCase, bool repeat,
-                                        int startcol, int endcol )
+                                        const QString &find, const QString &replacePattern,
+                                        bool caseSensitive, bool repeat
+                                        )
 {
   Kate::TextLine ln = doc->kateTextLine( line );
   if ( !ln || !ln->length() ) return 0;
-
-  // HANDLING "\n"s in PATTERN
-  // * Create a list of patterns, splitting PATTERN on (unescaped) "\n"
-  // * insert $s and ^s to match line ends/beginnings
-  // * When matching patterns after the first one, replace \N with the captured
-  //   text.
-  // * If all patterns in the list match sequential lines, there is a match, so
-  // * remove line/start to line + patterns.count()-1/patterns.last.length
-  // * handle captures by putting them in one list.
-  // * the existing insertion is fine, including the line calculation.
-
-  QStringList patterns(find.split( QRegExp("(^\\\\n|(?![^\\\\])\\\\n)"), QString::KeepEmptyParts));
-  if ( patterns.count() > 1 )
-  {
-    for ( int i = 0; i < patterns.count(); ++i )
-    {
-      if ( i < patterns.count() - 1 )
-        patterns[i].append("$");
-      if ( i )
-        patterns[i].prepend("^");
-
-       kDebug(13025) << "patterns[" << i << "] =" << patterns[i];
-    }
-  }
-
-  QRegExp matcher(patterns[0], noCase ?Qt::CaseSensitive:Qt::CaseInsensitive);
-
   int matches = 0;
-
-  while ( (startcol = matcher.indexIn(ln->string(), startcol)) >= 0 )
+  int startcol = 0;
+  // Optimisation: if a find pattern looks like it might possibly be multiline, then we have to search until the end
+  // of the document.  If we're *certain* it isn't, though, then we just need to search until the end of the line.
+  const bool possiblyMultiLine = find.contains(QChar::fromLatin1('\n')) || find.contains("\\n");
+  KateRegExpSearch regExpSearch(doc, caseSensitive ? Qt::CaseSensitive : Qt::CaseInsensitive);
+  while (true)
   {
-    const int len = matcher.matchedLength();
-
-    if ( endcol >= 0 && startcol + len > endcol )
+    Range searchRange = Range(Cursor(line, startcol), (possiblyMultiLine ? doc->documentEnd() : Cursor(line, doc->lineLength(line))));
+    const QVector<KTextEditor::Range> captureRanges = regExpSearch.search(find, searchRange);
+    const bool noMatchFound = captureRanges.size() == 1 && !captureRanges[0].isValid();
+    const bool firstMatchOccursAfterThisLine = captureRanges[0].isValid() && captureRanges[0].start().line() > line;
+    if (noMatchFound || firstMatchOccursAfterThisLine)
+    {
+      // No match.
       break;
-
-    ++matches;
-
-
-    QString rep = repOld;
-
-    // now set the backreferences in the replacement
-    const QStringList backrefs = matcher.capturedTexts();
-    int refnum = 1;
-
-    QStringList::ConstIterator i = backrefs.begin();
-    ++i;
-
-    for (; i != backrefs.end(); ++i)
-    {
-      // I need to match "\\" or "", but not "\"
-      QString number = QString::number(refnum);
-
-      int index = 0;
-      while (index != -1)
-      {
-        index = backslashString(rep, number, index);
-        if (index >= 0)
-        {
-          rep.replace(index, 2, *i);
-          index += (*i).length();
-        }
-      }
-
-      ++refnum;
     }
-
-    replace(rep, "\\\\", "\\");
-    replace(rep, "\\" + delim, delim);
-
-    doc->removeText( KTextEditor::Range (line, startcol, line, startcol + len) );
-    doc->insertText( KTextEditor::Cursor (line, startcol), rep );
-
-    // TODO if replace contains \n,
-    // change the line number and
-    // check for text that needs be searched behind the last inserted newline.
-    int lns = rep.count(QChar::fromLatin1('\n'));
-    if ( lns > 0 )
+    else
     {
-      line += lns;
-
-      if ( doc->lineLength( line ) > 0 && ( endcol < 0 || endcol >= startcol + len ) )
+      QStringList captureTexts;
+      foreach(const Range& captureRange, captureRanges)
       {
-      // if ( endcol >= startcol + len )
-          endcol -= (startcol + len);
-          uint sc = rep.length() - rep.lastIndexOf('\n') - 1;
-        matches += sedMagic( doc, line, find, repOld, delim, noCase, repeat, sc, endcol );
+        captureTexts << doc->text(captureRange);
+      }
+      const QString replacementText = regExpSearch.buildReplacement(replacePattern, captureTexts, 0);
+      doc->removeText(captureRanges.first());
+      doc->insertText(captureRanges.first().start(), replacementText);
+      startcol = captureRanges.first().start().column() + replacementText.length();
+
+      // If there were newlines in the replacement, then we need to start searching from
+      // the end of the last line added.
+      const int numNewLinesInReplacement = replacementText.count(QChar::fromLatin1('\n'));
+      line += numNewLinesInReplacement;
+      if (numNewLinesInReplacement > 0)
+      {
+        const QString lastLineAdded = replacementText.mid(replacementText.lastIndexOf(QChar::fromLatin1('\n')) + 1);
+        startcol = lastLineAdded.length();
+      }
+      matches++;
+      if (!repeat)
+      {
+        break;
       }
     }
-
-    if (!repeat) break;
-    startcol += rep.length();
-
-    // sanity check -- avoid infinite loops eg with %s,.*,,g ;)
-    int ll = ln->length();
-    if ( !ll || startcol > (ll - 1) )
-      break;
   }
 
   return matches;
@@ -1050,12 +985,6 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
     // Nothing to do.
     return true;
   }
-  if ( find.contains("\\n") )
-  {
-    // FIXME: make replacing newlines work
-    msg = i18n("Sorry, but Kate is not able to replace newlines, yet");
-    return false;
-  }
 
   KateDocument *doc = static_cast<KateView*>(view)->doc();
   if ( !doc ) return false;
@@ -1070,7 +999,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
   if (r.isValid()) { // given range
     for (int line = r.start().line(); line <= r.end().line() + linesAdded; ++line) {
       int temp = replacementsDone;
-      int r = sedMagic( doc, line, find, replace, d, !noCase, repeat );
+      int r = sedMagic( doc, line, find, replace, !noCase, repeat );
       replacementsDone += r;
 
       // if we replaced the text with n newlines, we have n new lines to look at
@@ -1084,7 +1013,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
     }
   } else { // current line
     int line = view->cursorPosition().line();
-    replacementsDone += sedMagic(doc, line, find, replace, d, !noCase, repeat);
+    replacementsDone += sedMagic(doc, line, find, replace, !noCase, repeat);
     if (replacementsDone > 0) {
       linesTouched = 1;
     }

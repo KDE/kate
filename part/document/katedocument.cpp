@@ -582,7 +582,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
       else
       {
         if ( currentLine == lastLine() )
-          editWrapLine(currentLine , insertColumn + pos - currentLineStart);
+          editInsertLine(currentLine + 1, QString());
         insertColumn = position.column(); // tab expansion might change this
       }
 

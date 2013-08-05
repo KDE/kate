@@ -559,9 +559,10 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   static const QChar spaceChar(' ');
 
   int insertColumnExpanded = insertColumn;
-  Kate::TextLine l = kateTextLine( currentLine );
+  Kate::TextLine l = plainKateTextLine( currentLine );
   if (l)
     insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
+  int positionColumnExpanded = insertColumnExpanded;
 
   int pos = 0;
   for (; pos < totalLength; pos++)
@@ -579,16 +580,20 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
         editWrapLine(currentLine, insertColumn + pos - currentLineStart);
         insertColumn = 0;
       }
-      else
-      {
-        if ( currentLine == lastLine() )
-          editInsertLine(currentLine + 1, QString());
-        insertColumn = position.column(); // tab expansion might change this
-      }
 
       currentLine++;
+      l = plainKateTextLine( currentLine );
+
+      if ( block )
+      {
+        if ( currentLine == lastLine() + 1 )
+          editInsertLine(currentLine, QString());
+        insertColumn = positionColumnExpanded;
+        if (l)
+          insertColumn = l->fromVirtualColumn( insertColumn, tabWidth );
+      }
+
       currentLineStart = pos + 1;
-      l = kateTextLine( currentLine );
       if (l)
         insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
     }
@@ -601,7 +606,6 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
 
         insertColumn += pos - currentLineStart + spacesRequired;
         currentLineStart = pos + 1;
-        l = kateTextLine( currentLine );
         if (l)
           insertColumnExpanded = l->toVirtualColumn( insertColumn, tabWidth );
       }

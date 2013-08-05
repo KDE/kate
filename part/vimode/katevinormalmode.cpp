@@ -193,16 +193,18 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   if ( ( m_keys == "cw" || m_keys == "cW" ) && !getCharUnderCursor().isSpace() ) {
     // Special case of the special case: :-)
     // If the cursor is at the end of the current word rewrite to "cl"
-    Cursor c1( m_view->cursorPosition() ); // current position
-    Cursor c2 = findWordEnd(c1.line(), c1.column()-1, true); // word end
+    const bool isWORD = (m_keys.at(1) == 'W');
+    const Cursor currentPosition( m_view->cursorPosition() );
+    const Cursor endOfWordOrWORD = (isWORD ? findWORDEnd(currentPosition.line(), currentPosition.column()-1, true) :
+                                             findWordEnd(currentPosition.line(), currentPosition.column()-1, true));
 
-    if ( c1 == c2 ) { // the cursor is at the end of a word
+    if ( currentPosition == endOfWordOrWORD ) {
       m_keys = "cl";
     } else {
-      if ( m_keys.at(1) == 'w' ) {
-        m_keys = "ce";
-      } else {
+      if (isWORD) {
         m_keys = "cE";
+      } else {
+        m_keys = "ce";
       }
     }
   }

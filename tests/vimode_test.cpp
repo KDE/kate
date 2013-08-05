@@ -588,6 +588,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("foo bar", "2lWx","foo ar");
   DoTest("quux(foo, bar, baz);", "WxWx","quux(foo, ar, az);");
   DoTest("foo\nbar\nbaz", "WxWx","foo\nar\naz");
+  DoTest(" foo(bar xyz", "Wx"," oo(bar xyz");
 
   // Testing "b"
   DoTest("bar", "lbx", "ar");
@@ -1043,6 +1044,15 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("foo\n  \tbar\n  \txyz", "jVjygg]p", "foo\nbar\nxyz\n  \tbar\n  \txyz");
   DoTest("foo\n  \tbar\n  \t  xyz", "jVjygg]p", "foo\nbar\n  xyz\n  \tbar\n  \t  xyz");
   kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);
+
+  // Some special cases of cw/ cW.
+  DoTest("foo bar", "cwxyz\\esc", "xyz bar");
+  DoTest("foo+baz bar", "cWxyz\\esc", "xyz bar");
+  DoTest("foo+baz bar", "cwxyz\\esc", "xyz+baz bar");
+  DoTest(" foo bar", "cwxyz\\esc", "xyzfoo bar");
+  DoTest(" foo+baz bar", "cWxyz\\esc", "xyzfoo+baz bar");
+  DoTest(" foo+baz bar", "cwxyz\\esc", "xyzfoo+baz bar");
+  DoTest("\\foo bar", "cWxyz\\esc", "xyz bar");
 
   // Last edit markers.
   DoTest("foo", "ean\\escgg`.r.", "foo.");

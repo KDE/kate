@@ -389,7 +389,7 @@ Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromColumn, bool onl
   QRegExp startOfWORD("\\s\\S");
 
   while ( !found ) {
-    c = startOfWORD.indexIn( line, c+1 );
+    c = startOfWORD.indexIn( line, c );
 
     if ( c == -1 ) {
       if ( onlyCurrentLine ) {

@@ -358,7 +358,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // special case: When using the "w" motion in combination with an operator and
             // the last word moved over is at the end of a line, the end of that word
             // becomes the end of the operated text, not the first word in the next line.
-            if ( m_keys.right(1) == "w" || m_keys.right(1) == "W" ) {
+            if ( m_motions.at(i)->pattern() == "w" || m_motions.at(i)->pattern() == "W" ) {
                if(m_commandRange.endLine != m_commandRange.startLine &&
                    m_commandRange.endColumn == getLine(m_commandRange.endLine).indexOf( QRegExp("\\S") )){
                      m_commandRange.endLine--;
@@ -370,12 +370,12 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
             if ( m_commandRange.valid ) {
               kDebug( 13070 ) << "Run command" << m_commands.at( m_motionOperatorIndex )->pattern()
-                << "from (" << m_commandRange.startLine << "," << m_commandRange.endLine << ")"
+                << "from (" << m_commandRange.startLine << "," << m_commandRange.startColumn << ")"
                 << "to (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
               executeCommand( m_commands.at( m_motionOperatorIndex ) );
             } else {
               kDebug( 13070 ) << "Invalid range: "
-                << "from (" << m_commandRange.startLine << "," << m_commandRange.endLine << ")"
+                << "from (" << m_commandRange.startLine << "," << m_commandRange.startColumn << ")"
                 << "to (" << m_commandRange.endLine << "," << m_commandRange.endColumn << ")";
             }
 
@@ -1946,7 +1946,8 @@ KateViRange KateViNormalMode::motionWordForward()
       c = findNextWordStart( c.line(), c.column() );
 
       // stop when at the last char in the document
-      if ( c.line() == doc()->lines()-1 && c.column() == doc()->lineLength( c.line() )-1 ) {
+      if (!c.isValid()) {
+        c = doc()->documentEnd();
         // if we still haven't "used up the count", make the motion inclusive, so that the last char
         // is included
         if ( i < getCount() ) {
@@ -1973,8 +1974,9 @@ KateViRange KateViNormalMode::motionWordBackward()
   for ( unsigned int i = 0; i < getCount(); i++ ) {
     c = findPrevWordStart( c.line(), c.column() );
 
-    // stop when at the first char in the document
-    if ( c.line() == 0 && c.column() == 0 ) {
+    if (!c.isValid())
+    {
+      c = Cursor(0, 0);
       break;
     }
   }
@@ -2017,9 +2019,9 @@ KateViRange KateViNormalMode::motionWORDBackward()
   for ( unsigned int i = 0; i < getCount(); i++ ) {
     c = findPrevWORDStart( c.line(), c.column() );
 
-    // stop when at the first char in the document
-    if ( c.line() == 0 && c.column() == 0 ) {
-      break;
+    if (!c.isValid())
+    {
+      c = Cursor(0, 0);
     }
   }
 
@@ -2057,6 +2059,11 @@ KateViRange KateViNormalMode::motionToEndOfWORD()
         c = findWORDEnd( c.line(), c.column() );
     }
 
+    if (!c.isValid())
+    {
+      c = doc()->documentEnd();
+    }
+
     r.endColumn = c.column();
     r.endLine = c.line();
 
@@ -2073,14 +2080,19 @@ KateViRange KateViNormalMode::motionToEndOfPrevWord()
     for ( unsigned int i = 0; i < getCount(); i++ ) {
       c = findPrevWordEnd( c.line(), c.column() );
 
-      // stop when at the first char in the document
-      if ( c.line() == 0 && c.column() == 0 ) {
+      if (c.isValid())
+      {
+        r.endColumn = c.column();
+        r.endLine = c.line();
+      }
+      else
+      {
+        r.endColumn = 0;
+        r.endLine = 0;
         break;
       }
-    }
 
-    r.endColumn = c.column();
-    r.endLine = c.line();
+    }
 
     return r;
 }
@@ -2882,25 +2894,76 @@ KateViRange KateViNormalMode::textObjectAWord()
 {
     Cursor c( m_view->cursorPosition() );
 
-    Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
-    Cursor c2( c );
+    Cursor c1 = c;
 
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-        c2 = findNextWordStart( c2.line(), c2.column(), true );
+    bool startedOnSpace = false;
+    if (doc()->character(c).isSpace())
+    {
+      startedOnSpace = true;
+    }
+    else
+    {
+      c1 = findPrevWordStart( c.line(), c.column()+1, true );
+      if (!c1.isValid())
+      {
+        c1 = Cursor(0, 0);
+      }
+    }
+    Cursor c2 = Cursor(c.line(), c.column() - 1);
+    for (unsigned int i = 1; i <= getCount(); i++)
+    {
+      c2 = findWordEnd(c2.line(), c2.column());
+    }
+    if (!c1.isValid() || !c2.isValid())
+    {
+      KateViRange r(-1, -1, ViMotion::ExclusiveMotion);
+      r.valid = false;
+      return r;
+    }
+    // Adhere to some of Vim's bizarre rules of whether to swallow ensuing spaces or not.
+    // Don't ask ;)
+    const Cursor nextWordStart = findNextWordStart(c2.line(), c2.column());
+    if (nextWordStart.isValid() && nextWordStart.line() == c2.line())
+    {
+      if (!startedOnSpace)
+      {
+        c2 = Cursor(nextWordStart.line(), nextWordStart.column() - 1);
+      }
+    }
+    else
+    {
+      c2 = Cursor(c2.line(), doc()->lineLength(c2.line()) - 1);
+    }
+    bool swallowCarriageReturnAtEndOfLine = false;
+    if (c2.line() != c.line() && c2.column() == doc()->lineLength(c2.line()) - 1)
+    {
+      // Greedily descend to the next line, so as to swallow the carriage return on this line.
+      c2 = Cursor(c2.line() + 1, 0);
+      swallowCarriageReturnAtEndOfLine = true;
+    }
+    const bool swallowPrecedingSpaces = (c2.column() == doc()->lineLength(c2.line()) - 1 && !doc()->character(c2).isSpace() ) || startedOnSpace || swallowCarriageReturnAtEndOfLine;
+    if (swallowPrecedingSpaces)
+    {
+      if (c1.column() != 0)
+      {
+        const Cursor previousNonSpace = findPrevWordEnd(c.line(), c.column());
+        if (previousNonSpace.isValid() && previousNonSpace.line() == c1.line())
+        {
+          c1 = Cursor(previousNonSpace.line(), previousNonSpace.column() + 1);
+        }
+        else if (startedOnSpace || swallowCarriageReturnAtEndOfLine)
+        {
+          c1 = Cursor(c1.line(), 0);
+        }
+      }
     }
 
-    c2.setColumn( c2.column()-1 ); // don't include the first char of the following word
-    KateViRange r( c.line(), c.column(), ViMotion::InclusiveMotion );
+    KateViRange r( c.line(), c.column(), !swallowCarriageReturnAtEndOfLine ? ViMotion::InclusiveMotion : ViMotion::ExclusiveMotion );
 
-    // sanity check
-    if ( c1.line() != c2.line() || c1.column() > c2.column() ) {
-        r.valid = false;
-    } else {
-        r.startLine = c1.line();
-        r.endLine = c2.line();
-        r.startColumn = c1.column();
-        r.endColumn = c2.column();
-    }
+    r.startLine = c1.line();
+    r.endLine = c2.line();
+    r.startColumn = c1.column();
+    r.endColumn = c2.column();
 
     return r;
 }
@@ -2910,11 +2973,20 @@ KateViRange KateViNormalMode::textObjectInnerWord()
     Cursor c( m_view->cursorPosition() );
 
     Cursor c1 = findPrevWordStart( c.line(), c.column()+1, true );
+    if (!c1.isValid())
+    {
+      c1 = Cursor(0, 0);
+    }
     // need to start search in column-1 because it might be a one-character word
     Cursor c2( c.line(), c.column()-1 );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         c2 = findWordEnd( c2.line(), c2.column(), true );
+    }
+
+    if (!c2.isValid())
+    {
+      c2 = doc()->documentEnd();
     }
 
     KateViRange r;
@@ -2936,24 +3008,76 @@ KateViRange KateViNormalMode::textObjectAWORD()
 {
     Cursor c( m_view->cursorPosition() );
 
-    Cursor c1 = findPrevWORDStart( c.line(), c.column()+1, true );
-    Cursor c2( c );
+    Cursor c1 = c;
 
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-        c2 = findNextWORDStart( c2.line(), c2.column(), true );
+    bool startedOnSpace = false;
+    if (doc()->character(c).isSpace())
+    {
+      startedOnSpace = true;
+    }
+    else
+    {
+      c1 = findPrevWORDStart( c.line(), c.column()+1, true );
+      if (!c1.isValid())
+      {
+        c1 = Cursor(0, 0);
+      }
+    }
+    Cursor c2 = Cursor(c.line(), c.column() - 1);
+    for (unsigned int i = 1; i <= getCount(); i++)
+    {
+      c2 = findWORDEnd(c2.line(), c2.column());
+    }
+    if (!c1.isValid() || !c2.isValid())
+    {
+      KateViRange r(-1, -1, ViMotion::ExclusiveMotion);
+      r.valid = false;
+      return r;
+    }
+    // Adhere to some of Vim's bizarre rules of whether to swallow ensuing spaces or not.
+    // Don't ask ;)
+    const Cursor nextWordStart = findNextWordStart(c2.line(), c2.column());
+    if (nextWordStart.isValid() && nextWordStart.line() == c2.line())
+    {
+      if (!startedOnSpace)
+      {
+        c2 = Cursor(nextWordStart.line(), nextWordStart.column() - 1);
+      }
+    }
+    else
+    {
+      c2 = Cursor(c2.line(), doc()->lineLength(c2.line()) - 1);
+    }
+    bool swallowCarriageReturnAtEndOfLine = false;
+    if (c2.line() != c.line() && c2.column() == doc()->lineLength(c2.line()) - 1)
+    {
+      // Greedily descend to the next line, so as to swallow the carriage return on this line.
+      c2 = Cursor(c2.line() + 1, 0);
+      swallowCarriageReturnAtEndOfLine = true;
+    }
+    const bool swallowPrecedingSpaces = (c2.column() == doc()->lineLength(c2.line()) - 1 && !doc()->character(c2).isSpace() ) || startedOnSpace || swallowCarriageReturnAtEndOfLine;
+    if (swallowPrecedingSpaces)
+    {
+      if (c1.column() != 0)
+      {
+        const Cursor previousNonSpace = findPrevWordEnd(c.line(), c.column());
+        if (previousNonSpace.isValid() && previousNonSpace.line() == c1.line())
+        {
+          c1 = Cursor(previousNonSpace.line(), previousNonSpace.column() + 1);
+        }
+        else if (startedOnSpace || swallowCarriageReturnAtEndOfLine)
+        {
+          c1 = Cursor(c1.line(), 0);
+        }
+      }
     }
 
-    KateViRange r( c.line(), c.column(), ViMotion::ExclusiveMotion );
+    KateViRange r( c.line(), c.column(), !swallowCarriageReturnAtEndOfLine ? ViMotion::InclusiveMotion : ViMotion::ExclusiveMotion );
 
-    // sanity check
-    if ( c1.line() != c2.line() || c1.column() > c2.column() ) {
-        r.valid = false;
-    } else {
-        r.startLine = c1.line();
-        r.endLine = c2.line();
-        r.startColumn = c1.column();
-        r.endColumn = c2.column();
-    }
+    r.startLine = c1.line();
+    r.endLine = c2.line();
+    r.startColumn = c1.column();
+    r.endColumn = c2.column();
 
     return r;
 }
@@ -2963,10 +3087,19 @@ KateViRange KateViNormalMode::textObjectInnerWORD()
     Cursor c( m_view->cursorPosition() );
 
     Cursor c1 = findPrevWORDStart( c.line(), c.column()+1, true );
+    if (!c1.isValid())
+    {
+      c1 = Cursor(0, 0);
+    }
     Cursor c2( c );
 
     for ( unsigned int i = 0; i < getCount(); i++ ) {
         c2 = findWORDEnd( c2.line(), c2.column(), true );
+    }
+
+    if (!c2.isValid())
+    {
+      c2 = doc()->documentEnd();
     }
 
     KateViRange r;
@@ -3282,7 +3415,9 @@ void KateViNormalMode::initializeCommands()
 
   // text objects
   ADDMOTION("iw", textObjectInnerWord, 0 );
-  ADDMOTION("aw", textObjectAWord, 0 );
+  ADDMOTION("aw", textObjectAWord, IS_NOT_LINEWISE );
+  ADDMOTION("iW", textObjectInnerWORD, 0 );
+  ADDMOTION("aW", textObjectAWORD, IS_NOT_LINEWISE );
   ADDMOTION("i\"", textObjectInnerQuoteDouble, IS_NOT_LINEWISE );
   ADDMOTION("a\"", textObjectAQuoteDouble, IS_NOT_LINEWISE );
   ADDMOTION("i'", textObjectInnerQuoteSingle, IS_NOT_LINEWISE );

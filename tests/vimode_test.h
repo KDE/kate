@@ -48,6 +48,7 @@ private Q_SLOTS:
 
   void InsertModeTests();
   void VisualModeTests();
+  void ReplaceModeTests();
   void CommandModeTests();
   void VimStyleCommandBarTests();
 

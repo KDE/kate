@@ -341,10 +341,10 @@ Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onl
 
     if ( c1 == -1 && c2 == -1 && c3 == -1 ) {
         if ( onlyCurrentLine ) {
-            return Cursor( l, c );
+            return Cursor::invalid();
         } else if ( l >= doc()->lines()-1 ) {
             c = qMax(line.length()-1, 0);
-            return Cursor( l, c );
+            return Cursor::invalid();
         } else {
             c = 0;
             l++;
@@ -443,15 +443,14 @@ Cursor KateViModeBase::findPrevWordEnd( int fromLine, int fromColumn, bool onlyC
           c = c1;
       } else {
           if ( onlyCurrentLine ) {
-              return Cursor( l, c );
+              return Cursor::invalid();
           } else if ( l > 0 ) {
               line = getLine( --l );
               c = line.length();
 
               continue;
           } else {
-              c = 0;
-              return Cursor( l, c );
+              return Cursor::invalid();
           }
       }
   }
@@ -525,9 +524,9 @@ Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromColumn, bool onl
 
     if ( c1 == -1 && c2 == -1 && c3 == -1 && c4 == -1 ) {
       if ( onlyCurrentLine ) {
-          return Cursor( l, c );
+          return Cursor::invalid();
       } else if ( l <= 0 ) {
-        return Cursor( 0, 0 );
+        return Cursor::invalid();
       } else {
         line = getLine( --l );
         c = line.length();
@@ -578,9 +577,9 @@ Cursor KateViModeBase::findPrevWORDStart( int fromLine, int fromColumn, bool onl
 
     if ( c1 == -1 && c2 == -1 ) {
       if ( onlyCurrentLine ) {
-          return Cursor( l, c );
+          return Cursor::invalid();
       } else if ( l <= 0 ) {
-        return Cursor( 0, 0 );
+        return Cursor::invalid();
       } else {
         line = getLine( --l );
         c = line.length();
@@ -632,10 +631,10 @@ Cursor KateViModeBase::findWordEnd( int fromLine, int fromColumn, bool onlyCurre
           c = c1;
       } else {
           if ( onlyCurrentLine ) {
-              return Cursor( l, c );
+              return Cursor::invalid();
           } else if ( l >= doc()->lines()-1 ) {
               c = line.length()-1;
-              return Cursor( l, c );
+              return Cursor::invalid();
           } else {
               c = -1;
               line = getLine( ++l );
@@ -667,10 +666,10 @@ Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, bool onlyCurre
           c = c1;
       } else {
           if ( onlyCurrentLine ) {
-              return Cursor( l, c );
+              return Cursor::invalid();
           } else if ( l >= doc()->lines()-1 ) {
               c = line.length()-1;
-              return Cursor( l, c );
+              return Cursor::invalid();
           } else {
               c = -1;
               line = getLine( ++l );

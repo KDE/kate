@@ -445,6 +445,15 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo bar", "vedud", " bar");
 }
 
+void ViModeTest::ReplaceModeTests()
+{
+  // TODO - more of these!
+  DoTest("foo bar", "R\\ctrl-\\rightX", "foo Xar");
+  DoTest("foo bar", "R\\ctrl-\\right\\ctrl-\\rightX", "foo barX");
+  DoTest("foo bar", "R\\ctrl-\\leftX", "Xoo bar");
+
+}
+
 void ViModeTest::InsertModeTests() {
 
   DoTest("bar", "s\\ctrl-c", "ar");
@@ -484,6 +493,8 @@ void ViModeTest::InsertModeTests() {
   // Testing "Ctrl-w"
   DoTest("foobar", "$i\\ctrl-w", "r");
   DoTest("foobar\n", "A\\ctrl-w", "\n");
+  DoTest("   foo", "i\\ctrl-wX\\esc", "X   foo");
+  DoTest("   foo", "lli\\ctrl-wX\\esc", "X foo");
 
   // Testing "Ctrl-e"
   DoTest("foo\nbar", "i\\ctrl-e", "bfoo\nbar");
@@ -534,6 +545,10 @@ void ViModeTest::InsertModeTests() {
   DoTest("foobar", "A\\ctrl-j","foobar\n" );
   DoTest("foobar", "li\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-cli\\ctrl-j\\ctrl-c","f\no\no\nb\na\nr");
 
+  // Testing ctrl-left and ctrl-right.
+  DoTest("foo bar", "i\\ctrl-\\rightX\\esc", "foo Xbar");
+  DoTest("foo bar", "i\\ctrl-\\right\\ctrl-\\rightX\\esc", "foo barX");
+
   // Test that our test driver can handle newlines during insert mode :)
   DoTest("", "ia\\returnb", "a\nb");
 }
@@ -580,6 +595,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("1 2 3\n4 5 6", "ld3w", "1\n4 5 6");
   DoTest("foo\nbar baz", "gU2w", "FOO\nBAR baz");
   DoTest("FOO\nBAR BAZ", "gu2w", "foo\nbar BAZ");
+  DoTest("bar(\n123", "llwrX", "barX\n123");
 
 
   // Testing "W"
@@ -596,6 +612,8 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("foo bar", "w20bx","oo bar");
   DoTest("quux(foo, bar, baz);", "2W4l2bx2bx","quux(foo, ar, az);");
   DoTest("foo\nbar\nbaz", "WWbx","foo\nar\nbaz");
+  DoTest("  foo", "lbrX", "X foo");
+  DoTest("  foo", "llbrX", "X foo");
 
   // Testing "B"
   DoTest("bar", "lBx", "ar");
@@ -646,6 +664,9 @@ void ViModeTest::NormalModeMotionsTest() {
 
   // Testing "ge"
   DoTest("quux(foo, bar, baz);", "9lgexgex$gex", "quux(fo bar, ba);");
+  DoTest("foo", "llgerX", "Xoo");
+  DoTest("   foo", "$gerX", "X  foo");
+  DoTest("   foo foo", "$2gerX", "X  foo foo");
 
   // Testing "gE"
   DoTest("quux(foo, bar, baz);", "9lgExgEx$gEx", "quux(fo bar baz);");
@@ -757,6 +778,221 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "{foo { bar { (baz) \"asd\" }} {1} {2} {3} {4} {5} }",
           "ldiB",
           "{}");
+
+  // Inner/ A Word.
+  DoTest("", "diw", "");
+  DoTest(" ", "diw", "");
+  DoTest("  ", "diw", "");
+  DoTest("foo", "daw", "");
+  DoTest("foo", "ldaw", "");
+  DoTest("foo", "cawxyz\\esc", "xyz");
+  DoTest("foo bar baz", "daw", "bar baz");
+  DoTest("foo bar baz", "cawxyz\\esc", "xyzbar baz");
+  DoTest("foo bar baz", "wdaw", "foo baz");
+  DoTest("foo bar baz", "wldaw", "foo baz");
+  DoTest("foo bar baz", "wlldaw", "foo baz");
+  DoTest("foo bar baz", "wcawxyz\\esc", "foo xyzbaz");
+  DoTest("foo bar baz", "wwdaw", "foo bar");
+  DoTest("foo bar baz   ", "wwdaw", "foo bar ");
+  DoTest("foo bar baz", "wwcawxyz\\esc", "foo barxyz");
+  DoTest("foo bar baz\n123", "jdaw", "foo bar baz\n");
+  DoTest("foo bar baz\n123", "jcawxyz\\esc", "foo bar baz\nxyz");
+  DoTest("foo bar baz\n123", "wwdaw", "foo bar\n123");
+  DoTest("foo bar baz\n123", "wwcawxyz\\esc", "foo barxyz\n123");
+  DoTest("foo bar      baz\n123", "wwdaw", "foo bar\n123");
+  DoTest("foo bar      baz\n123", "wwcawxyz\\esc", "foo barxyz\n123");
+  DoTest("foo bar baz \n123", "wwdaw", "foo bar \n123");
+  DoTest("foo bar baz \n123", "wwcawxyz\\esc", "foo bar xyz\n123");
+  DoTest("foo bar      baz \n123", "wwdaw", "foo bar      \n123");
+  DoTest("foo bar      baz \n123", "wwcawxyz\\esc", "foo bar      xyz\n123");
+  DoTest("foo    bar", "llldaw", "foo");
+  DoTest("foo    bar", "lllcawxyz\\esc", "fooxyz");
+  DoTest("foo    bar", "lllldaw", "foo");
+  DoTest("foo    bar", "llllcawxyz\\esc", "fooxyz");
+  DoTest("    bar", "daw", "");
+  DoTest("    bar", "ldaw", "");
+  DoTest("    bar", "llldaw", "");
+  DoTest("    bar", "lllldaw", "    ");
+  DoTest("    bar", "cawxyz\\esc", "xyz");
+  DoTest("    bar", "lcawxyz\\esc", "xyz");
+  DoTest("    bar", "lllcawxyz\\esc", "xyz");
+  DoTest("foo   ", "llldaw", "foo   ");
+  DoTest("foo   ", "lllldaw", "foo   ");
+  DoTest("foo   ", "llllldaw", "foo   ");
+  DoTest("foo   ", "lllcawxyz\\esc", "foo  ");
+  DoTest("foo   ", "llllcawxyz\\esc", "foo  ");
+  DoTest("foo   ", "lllllcawxyz\\esc", "foo  ");
+  DoTest("foo   \nbar", "llldaw", "foo");
+  DoTest("foo   \nbar", "lllldaw", "foo");
+  DoTest("foo   \nbar", "llllldaw", "foo");
+  DoTest("foo   \nbar", "lllcawxyz\\esc", "fooxyz");
+  DoTest("foo   \nbar", "llllcawxyz\\esc", "fooxyz");
+  DoTest("foo   \nbar", "lllllcawxyz\\esc", "fooxyz");
+  DoTest("foo   \n   bar", "jdaw", "foo   \n");
+  DoTest("foo   \n   bar", "jldaw", "foo   \n");
+  DoTest("foo   \n   bar", "jlldaw", "foo   \n");
+  DoTest("foo   \n   bar", "jcawxyz\\esc", "foo   \nxyz");
+  DoTest("foo   \n   bar", "jlcawxyz\\esc", "foo   \nxyz");
+  DoTest("foo   \n   bar", "jllcawxyz\\esc", "foo   \nxyz");
+  DoTest("foo bar", "2daw", "");
+  DoTest("foo bar", "2cawxyz\\esc", "xyz");
+  DoTest("foo bar baz", "2daw", "baz");
+  DoTest("foo bar baz", "2cawxyz\\esc", "xyzbaz");
+  DoTest("foo bar baz", "3daw", "");
+  DoTest("foo bar baz", "3cawxyz\\esc", "xyz");
+  DoTest("foo bar\nbaz", "2daw", "\nbaz");
+  DoTest("foo bar\nbaz", "2cawxyz\\esc", "xyz\nbaz");
+  DoTest("foo bar\nbaz 123", "3daw", "123");
+  DoTest("foo bar\nbaz 123", "3cawxyz\\esc", "xyz123");
+  DoTest("foo bar \nbaz 123", "3daw", "123");
+  DoTest("foo bar \nbaz 123", "3cawxyz\\esc", "xyz123");
+  DoTest("foo bar baz", "lll2daw", "foo");
+  DoTest("foo bar baz", "lll2cawxyz\\esc", "fooxyz");
+  DoTest("   bar baz", "2daw", "");
+  DoTest("   bar baz", "2cawxyz\\esc", "xyz");
+  DoTest("   bar baz 123", "2daw", " 123");
+  DoTest("   bar baz 123", "2cawxyz\\esc", "xyz 123");
+  DoTest("   bar baz\n123", "3daw", "");
+  DoTest("   bar baz\n123", "3cawxyz\\esc", "xyz");
+  DoTest("   bar baz\n  123", "3daw", "");
+  DoTest("   bar baz\n  123", "3cawxyz\\esc", "xyz");
+  DoTest("   bar baz\n  123", "2daw", "\n  123");
+  DoTest("   bar baz\n  123", "2cawxyz\\esc", "xyz\n  123");
+  DoTest("   bar baz\n  123 456 789", "j2daw", "   bar baz\n 789");
+  DoTest("   bar baz\n  123 456 789", "j2cawxyz\\esc", "   bar baz\nxyz 789");
+  DoTest("foo\nbar\n", "2daw", "");
+  DoTest("bar baz\n123 \n456\n789 abc \njkl", "j4daw", "bar baz\njkl");
+  DoTest("bar baz\n123 \n456\n789 abc \njkl", "j4cawxyz\\esc", "bar baz\nxyzjkl");
+  DoTest("   bar baz\n  123 \n456\n789 abc \njkl", "j4daw", "   bar baz\njkl");
+  DoTest("   bar baz\n  123 456 789", "j2cawxyz\\esc", "   bar baz\nxyz 789");
+  DoTest("foo b123r xyz", "wdaw", "foo xyz");
+  DoTest("foo b123r xyz", "wldaw", "foo xyz");
+  DoTest("foo b123r xyz", "wlldaw", "foo xyz");
+  DoTest("foo b123r xyz", "wllldaw", "foo xyz");
+  DoTest("foo b123r xyz", "wlllldaw", "foo xyz");
+  DoTest("1 2 3 4 5 6", "daw", "2 3 4 5 6");
+  DoTest("1 2 3 4 5 6", "ldaw", "1 3 4 5 6");
+  DoTest("1 2 3 4 5 6", "lldaw", "1 3 4 5 6");
+  DoTest("1 2 3 4 5 6", "llldaw", "1 2 4 5 6");
+  DoTest("!foo!", "ldaw", "!!");
+  DoTest("! foo !", "ldaw", "! !");
+  DoTest("! foo !", "lldaw", "! !");
+  DoTest("! foo (", "l2daw", "!");
+  DoTest("! foo(\n123", "l2daw", "!\n123");
+  DoTest("  !foo(\n123", "lll2daw", "  !\n123");
+  DoTest("  !!foo(\n123", "llll2daw", "  !!\n123");
+  DoTest("  !foo( \n123", "lll2daw", "  !\n123");
+  DoTest("  !!!!(", "llldaw", "  ");
+  DoTest("  !!!!(", "lll2daw", "  !!!!(");
+  DoTest("  !!!!(\n!!!", "lll2daw", "");
+  DoTest("  !!!!(\n!!!", "llll2daw", "");
+
+  // Inner/ A WORD
+  // Behave the same as a Word if there are no non-word chars.
+  DoTest("", "diW", "");
+  DoTest(" ", "diW", "");
+  DoTest("  ", "diW", "");
+  DoTest("foo", "daW", "");
+  DoTest("foo", "ldaW", "");
+  DoTest("foo", "caWxyz\\esc", "xyz");
+  DoTest("foo bar baz", "daW", "bar baz");
+  DoTest("foo bar baz", "caWxyz\\esc", "xyzbar baz");
+  DoTest("foo bar baz", "wdaW", "foo baz");
+  DoTest("foo bar baz", "wldaW", "foo baz");
+  DoTest("foo bar baz", "wlldaW", "foo baz");
+  DoTest("foo bar baz", "wcaWxyz\\esc", "foo xyzbaz");
+  DoTest("foo bar baz", "wwdaW", "foo bar");
+  DoTest("foo bar baz   ", "wwdaW", "foo bar ");
+  DoTest("foo bar baz", "wwcaWxyz\\esc", "foo barxyz");
+  DoTest("foo bar baz\n123", "jdaW", "foo bar baz\n");
+  DoTest("foo bar baz\n123", "jcaWxyz\\esc", "foo bar baz\nxyz");
+  DoTest("foo bar baz\n123", "wwdaW", "foo bar\n123");
+  DoTest("foo bar baz\n123", "wwcaWxyz\\esc", "foo barxyz\n123");
+  DoTest("foo bar      baz\n123", "wwdaW", "foo bar\n123");
+  DoTest("foo bar      baz\n123", "wwcaWxyz\\esc", "foo barxyz\n123");
+  DoTest("foo bar baz \n123", "wwdaW", "foo bar \n123");
+  DoTest("foo bar baz \n123", "wwcaWxyz\\esc", "foo bar xyz\n123");
+  DoTest("foo bar      baz \n123", "wwdaW", "foo bar      \n123");
+  DoTest("foo bar      baz \n123", "wwcaWxyz\\esc", "foo bar      xyz\n123");
+  DoTest("foo    bar", "llldaW", "foo");
+  DoTest("foo    bar", "lllcaWxyz\\esc", "fooxyz");
+  DoTest("foo    bar", "lllldaW", "foo");
+  DoTest("foo    bar", "llllcaWxyz\\esc", "fooxyz");
+  DoTest("    bar", "daW", "");
+  DoTest("    bar", "ldaW", "");
+  DoTest("    bar", "llldaW", "");
+  DoTest("    bar", "lllldaW", "    ");
+  DoTest("    bar", "caWxyz\\esc", "xyz");
+  DoTest("    bar", "lcaWxyz\\esc", "xyz");
+  DoTest("    bar", "lllcaWxyz\\esc", "xyz");
+  DoTest("foo   ", "llldaW", "foo   ");
+  DoTest("foo   ", "lllldaW", "foo   ");
+  DoTest("foo   ", "llllldaW", "foo   ");
+  DoTest("foo   ", "lllcaWxyz\\esc", "foo  ");
+  DoTest("foo   ", "llllcaWxyz\\esc", "foo  ");
+  DoTest("foo   ", "lllllcaWxyz\\esc", "foo  ");
+  DoTest("foo   \nbar", "llldaW", "foo");
+  DoTest("foo   \nbar", "lllldaW", "foo");
+  DoTest("foo   \nbar", "llllldaW", "foo");
+  DoTest("foo   \nbar", "lllcaWxyz\\esc", "fooxyz");
+  DoTest("foo   \nbar", "llllcaWxyz\\esc", "fooxyz");
+  DoTest("foo   \nbar", "lllllcaWxyz\\esc", "fooxyz");
+  DoTest("foo   \n   bar", "jdaW", "foo   \n");
+  DoTest("foo   \n   bar", "jldaW", "foo   \n");
+  DoTest("foo   \n   bar", "jlldaW", "foo   \n");
+  DoTest("foo   \n   bar", "jcaWxyz\\esc", "foo   \nxyz");
+  DoTest("foo   \n   bar", "jlcaWxyz\\esc", "foo   \nxyz");
+  DoTest("foo   \n   bar", "jllcaWxyz\\esc", "foo   \nxyz");
+  DoTest("foo bar", "2daW", "");
+  DoTest("foo bar", "2caWxyz\\esc", "xyz");
+  DoTest("foo bar baz", "2daW", "baz");
+  DoTest("foo bar baz", "2caWxyz\\esc", "xyzbaz");
+  DoTest("foo bar baz", "3daW", "");
+  DoTest("foo bar baz", "3caWxyz\\esc", "xyz");
+  DoTest("foo bar\nbaz", "2daW", "\nbaz");
+  DoTest("foo bar\nbaz", "2caWxyz\\esc", "xyz\nbaz");
+  DoTest("foo bar\nbaz 123", "3daW", "123");
+  DoTest("foo bar\nbaz 123", "3caWxyz\\esc", "xyz123");
+  DoTest("foo bar \nbaz 123", "3daW", "123");
+  DoTest("foo bar \nbaz 123", "3caWxyz\\esc", "xyz123");
+  DoTest("foo bar baz", "lll2daW", "foo");
+  DoTest("foo bar baz", "lll2caWxyz\\esc", "fooxyz");
+  DoTest("   bar baz", "2daW", "");
+  DoTest("   bar baz", "2caWxyz\\esc", "xyz");
+  DoTest("   bar baz 123", "2daW", " 123");
+  DoTest("   bar baz 123", "2caWxyz\\esc", "xyz 123");
+  DoTest("   bar baz\n123", "3daW", "");
+  DoTest("   bar baz\n123", "3caWxyz\\esc", "xyz");
+  DoTest("   bar baz\n  123", "3daW", "");
+  DoTest("   bar baz\n  123", "3caWxyz\\esc", "xyz");
+  DoTest("   bar baz\n  123", "2daW", "\n  123");
+  DoTest("   bar baz\n  123", "2caWxyz\\esc", "xyz\n  123");
+  DoTest("   bar baz\n  123 456 789", "j2daW", "   bar baz\n 789");
+  DoTest("   bar baz\n  123 456 789", "j2caWxyz\\esc", "   bar baz\nxyz 789");
+  DoTest("foo\nbar\n", "2daW", "");
+  DoTest("bar baz\n123 \n456\n789 abc \njkl", "j4daW", "bar baz\njkl");
+  DoTest("bar baz\n123 \n456\n789 abc \njkl", "j4caWxyz\\esc", "bar baz\nxyzjkl");
+  DoTest("   bar baz\n  123 \n456\n789 abc \njkl", "j4daW", "   bar baz\njkl");
+  DoTest("   bar baz\n  123 456 789", "j2caWxyz\\esc", "   bar baz\nxyz 789");
+  DoTest("foo b123r xyz", "wdaW", "foo xyz");
+  DoTest("foo b123r xyz", "wldaW", "foo xyz");
+  DoTest("foo b123r xyz", "wlldaW", "foo xyz");
+  DoTest("foo b123r xyz", "wllldaW", "foo xyz");
+  DoTest("foo b123r xyz", "wlllldaW", "foo xyz");
+  DoTest("1 2 3 4 5 6", "daW", "2 3 4 5 6");
+  DoTest("1 2 3 4 5 6", "ldaW", "1 3 4 5 6");
+  DoTest("1 2 3 4 5 6", "lldaW", "1 3 4 5 6");
+  DoTest("1 2 3 4 5 6", "llldaW", "1 2 4 5 6");
+  // Now with non-word characters.
+  DoTest("fo(o", "daW", "");
+  DoTest("fo(o", "ldaW", "");
+  DoTest("fo(o", "lldaW", "");
+  DoTest("fo(o", "llldaW", "");
+  DoTest("fo(o )!)!)ffo", "2daW", "");
+  DoTest("fo(o", "diW", "");
+  DoTest("fo(o", "ldiW", "");
+  DoTest("fo(o", "lldiW", "");
+  DoTest("fo(o", "llldiW", "");
 
   DoTest( "{\nfoo\n}", "jdiB", "{\n}");
   DoTest( "{\n}", "diB", "{\n}");
@@ -1053,6 +1289,7 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest(" foo+baz bar", "cWxyz\\esc", "xyzfoo+baz bar");
   DoTest(" foo+baz bar", "cwxyz\\esc", "xyzfoo+baz bar");
   DoTest("\\foo bar", "cWxyz\\esc", "xyz bar");
+  DoTest("foo   ", "lllcwxyz\\esc", "fooxyz");
 
   // Last edit markers.
   DoTest("foo", "ean\\escgg`.r.", "foo.");

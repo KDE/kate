@@ -1350,7 +1350,13 @@ void KateViModeBase::addToNumberUnderCursor( int count )
         // Can't find anything that even looks like a number.  Give up.
         return;
       }
-      int wordStartPos = findPrevWordStart(c.line(), searchFromColumn).column();
+      const Cursor prevWordStart = findPrevWordStart(c.line(), searchFromColumn);
+      int wordStartPos = prevWordStart.column();
+      if (prevWordStart.line() < c.line())
+      {
+        // The previous word starts on the previous line: ignore.
+        wordStartPos = searchFromColumn;
+      }
 
       if (wordStartPos > 0 && line.at(wordStartPos - 1) == '-') wordStartPos--;
 

@@ -1127,6 +1127,10 @@ void ViModeTest::NormalModeControlTests() {
   DoTest("foo", "\\ctrl-a", "foo");
   // Don't hang if the cursor is at the end of the line and the only number is to the immediate left of the cursor.
   DoTest("1 ", "l\\ctrl-a", "1 ");
+  // ctrl-a/x algorithm involves stepping back to the previous word: don't crash if this is on the previous line
+  // and at a column greater than the length of the current line.
+  DoTest(" a a\n1", "j\\ctrl-a", " a a\n2");
+  DoTest(" a a    a\n  1", "jll\\ctrl-a", " a a    a\n  2");
 
   // Test "Ctrl-a/x" on a blank document/ blank line.
   DoTest("", "\\ctrl-a","");

@@ -479,7 +479,7 @@ Cursor KateViModeBase::findPrevWORDEnd( int fromLine, int fromColumn, bool onlyC
           c = c1;
       } else {
           if ( onlyCurrentLine ) {
-              return Cursor( l, c );
+              return Cursor::invalid();
           } else if ( l > 0 ) {
               line = getLine( --l );
               c = line.length();
@@ -487,7 +487,7 @@ Cursor KateViModeBase::findPrevWORDEnd( int fromLine, int fromColumn, bool onlyC
               continue;
           } else {
               c = 0;
-              return Cursor( l, c );
+              return Cursor::invalid();
           }
       }
   }

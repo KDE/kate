@@ -670,6 +670,10 @@ void ViModeTest::NormalModeMotionsTest() {
 
   // Testing "gE"
   DoTest("quux(foo, bar, baz);", "9lgExgEx$gEx", "quux(fo bar baz);");
+  DoTest("   foo", "$gErX", "X  foo");
+  DoTest("   foo foo", "$2gErX", "X  foo foo");
+  DoTest("   !foo$!\"", "$gErX", "X  !foo$!\"");
+  DoTest("   !foo$!\"", "$2gErX", "X  !foo$!\"");
 
   // Testing "|"
   DoTest("123456789", "3|rx4|rx8|rx1|rx", "x2xx567x9");
@@ -993,6 +997,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("fo(o", "ldiW", "");
   DoTest("fo(o", "lldiW", "");
   DoTest("fo(o", "llldiW", "");
+  DoTest("foo \"\"B!!", "fBdaW", "foo");
 
   DoTest( "{\nfoo\n}", "jdiB", "{\n}");
   DoTest( "{\n}", "diB", "{\n}");

@@ -2107,14 +2107,18 @@ KateViRange KateViNormalMode::motionToEndOfPrevWORD()
     for ( unsigned int i = 0; i < getCount(); i++ ) {
       c = findPrevWORDEnd( c.line(), c.column() );
 
-      // stop when at the first char in the document
-      if ( c.line() == 0 && c.column() == 0 ) {
+      if (c.isValid())
+      {
+        r.endColumn = c.column();
+        r.endLine = c.line();
+      }
+      else
+      {
+        r.endColumn = 0;
+        r.endLine = 0;
         break;
       }
     }
-
-    r.endColumn = c.column();
-    r.endLine = c.line();
 
     return r;
 }
@@ -3060,7 +3064,7 @@ KateViRange KateViNormalMode::textObjectAWORD()
     {
       if (c1.column() != 0)
       {
-        const Cursor previousNonSpace = findPrevWordEnd(c.line(), c.column());
+        const Cursor previousNonSpace = findPrevWORDEnd(c.line(), c.column());
         if (previousNonSpace.isValid() && previousNonSpace.line() == c1.line())
         {
           c1 = Cursor(previousNonSpace.line(), previousNonSpace.column() + 1);

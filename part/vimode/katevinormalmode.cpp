@@ -2186,7 +2186,7 @@ KateViRange KateViNormalMode::motionFindChar()
   }
   else
   {
-    r.valid = false;
+    return KateViRange::invalid();
   }
 
   return r;
@@ -2224,7 +2224,7 @@ KateViRange KateViNormalMode::motionFindCharBackward()
   }
   else
   {
-    r.valid = false;
+    return KateViRange::invalid();
   }
 
   return r;
@@ -2254,8 +2254,7 @@ KateViRange KateViNormalMode::motionToChar()
       }
       else
       {
-        r.valid = false;
-        return r;
+        return KateViRange::invalid();
       }
       break;
     }
@@ -2330,11 +2329,7 @@ KateViRange KateViNormalMode::motionRepeatlastTF()
   }
 
   // there was no previous t/f command
-
-  KateViRange r;
-  r.valid = false;
-
-  return r;
+  return KateViRange::invalid();
 }
 
 KateViRange KateViNormalMode::motionRepeatlastTFBackward()
@@ -2357,11 +2352,7 @@ KateViRange KateViNormalMode::motionRepeatlastTFBackward()
   }
 
   // there was no previous t/f command
-
-  KateViRange r;
-  r.valid = false;
-
-  return r;
+  return KateViRange::invalid();
 }
 
 // FIXME: should honour the provided count
@@ -2514,8 +2505,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
   m_stickyColumn = -1;
 
   if ( n1 < 0 ) {
-    r.valid = false;
-    return r;
+    return KateViRange::invalid();
   }
 
   QRegExp brackets( "[(){}\\[\\]]" );
@@ -2621,8 +2611,7 @@ KateViRange KateViNormalMode::motionToNextBraceBlockStart()
   int line = findLineStartingWitchChar( '{', getCount() );
 
   if ( line == -1 ) {
-    r.valid = false;
-    return r;
+    return KateViRange::invalid();
   }
 
   r.endLine = line;
@@ -2653,8 +2642,7 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockStart()
   int line = findLineStartingWitchChar( '{', getCount(), false );
 
   if ( line == -1 ) {
-    r.valid = false;
-    return r;
+    return KateViRange::invalid();
   }
 
   r.endLine = line;
@@ -2679,8 +2667,7 @@ KateViRange KateViNormalMode::motionToNextBraceBlockEnd()
   int line = findLineStartingWitchChar( '}', getCount() );
 
   if ( line == -1 ) {
-    r.valid = false;
-    return r;
+    return KateViRange::invalid();
   }
 
   r.endLine = line;
@@ -2711,8 +2698,7 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
   int line = findLineStartingWitchChar( '}', getCount(), false );
 
   if ( line == -1 ) {
-    r.valid = false;
-    return r;
+    return KateViRange::invalid();
   }
 
   r.endLine = line;
@@ -2920,9 +2906,7 @@ KateViRange KateViNormalMode::textObjectAWord()
     }
     if (!c1.isValid() || !c2.isValid())
     {
-      KateViRange r(-1, -1, ViMotion::ExclusiveMotion);
-      r.valid = false;
-      return r;
+      return KateViRange::invalid();
     }
     // Adhere to some of Vim's bizarre rules of whether to swallow ensuing spaces or not.
     // Don't ask ;)
@@ -2997,7 +2981,7 @@ KateViRange KateViNormalMode::textObjectInnerWord()
 
     // sanity check
     if ( c1.line() != c2.line() || c1.column() > c2.column() ) {
-        r.valid = false;
+      return KateViRange::invalid();
     } else {
         r.startLine = c1.line();
         r.endLine = c2.line();
@@ -3034,9 +3018,7 @@ KateViRange KateViNormalMode::textObjectAWORD()
     }
     if (!c1.isValid() || !c2.isValid())
     {
-      KateViRange r(-1, -1, ViMotion::ExclusiveMotion);
-      r.valid = false;
-      return r;
+      return KateViRange::invalid();
     }
     // Adhere to some of Vim's bizarre rules of whether to swallow ensuing spaces or not.
     // Don't ask ;)
@@ -3110,7 +3092,7 @@ KateViRange KateViNormalMode::textObjectInnerWORD()
 
     // sanity check
     if ( c1.line() != c2.line() || c1.column() > c2.column() ) {
-        r.valid = false;
+      return KateViRange::invalid();
     } else {
         r.startLine = c1.line();
         r.endLine = c2.line();
@@ -3201,8 +3183,7 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
       if (!closingBracketHasLeadingNonWhitespace)
       {
         // Nothing there to select - abort.
-        innerCurlyBracket.valid = false;
-        return innerCurlyBracket;
+        return KateViRange::invalid();
       }
       else
       {

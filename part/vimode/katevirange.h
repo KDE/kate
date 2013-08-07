@@ -44,6 +44,8 @@ class KATEPART_TESTS_EXPORT  KateViRange
     ViMotion::MotionType motionType;
     bool valid;
     bool jump;
+
+    static KateViRange invalid() { KateViRange r; r.valid = false; return r; };
 };
 
 #endif

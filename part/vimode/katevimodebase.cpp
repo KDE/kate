@@ -690,7 +690,7 @@ KateViRange innerRange(KateViRange range, bool inner) {
     if ((r.startLine == r.endLine) && columnDistance == 1 )
     {
       // Start and end are right next to each other; there is nothing inside them.
-      r.valid = false;
+      return KateViRange::invalid();
     }
     r.startColumn++;
     r.endColumn--;
@@ -751,8 +751,7 @@ KateViRange KateViModeBase::findSurroundingQuotes( const QChar &c, bool inner ) 
     }
 
     // Nothing found - give up :)
-     r.valid = false;
-     return r;
+    return KateViRange::invalid();
   }
 
 
@@ -760,7 +759,7 @@ KateViRange KateViModeBase::findSurroundingQuotes( const QChar &c, bool inner ) 
   r.endColumn = line.indexOf( c, cursor.column() );
 
   if ( r.startColumn == -1 || r.endColumn == -1 || r.startColumn > r.endColumn ) {
-    r.valid = false;
+    return KateViRange::invalid();
   }
 
   return innerRange(r, inner);
@@ -820,8 +819,7 @@ KateViRange KateViModeBase::findSurroundingBrackets( const QChar &c1,
     }
 
     if (!should_break) {
-      r.valid = false;
-      return r;
+      return KateViRange::invalid();
     }
 
     r.endColumn = column;
@@ -870,8 +868,7 @@ KateViRange KateViModeBase::findSurroundingBrackets( const QChar &c1,
     }
 
     if (!should_break) {
-      r.valid = false;
-      return r;
+      return KateViRange::invalid();
     }
 
     r.startColumn = column;
@@ -893,7 +890,7 @@ KateViRange KateViModeBase::findSurrounding( const QRegExp &c1, const QRegExp &c
   KateViRange r( cursor.line(), col1, cursor.line(), col2, ViMotion::InclusiveMotion );
 
   if ( col1 == -1 || col2 == -1 || col1 > col2 ) {
-      r.valid = false;
+    return KateViRange::invalid();
   }
 
   if ( inner ) {

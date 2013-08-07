@@ -22,6 +22,7 @@
 #define KATE_VI_RANGE_INCLUDED
 
 #include "katepartprivate_export.h"
+#include <QtCore/QDebug>
 
 namespace ViMotion {
     enum MotionType {
@@ -44,6 +45,13 @@ class KATEPART_TESTS_EXPORT  KateViRange
     ViMotion::MotionType motionType;
     bool valid;
     bool jump;
+    /**
+     * kDebug() stream operator.  Writes this katevirange to the debug output in a nicely formatted way.
+     */
+    inline friend QDebug operator<< (QDebug s, const KateViRange& range) {
+      s << "[" << " (" << range.startLine << ", " << range.startColumn << ")" << " -> " << " (" << range.endLine << ", " << range.endColumn << ")" << "]" << " (" << (range.isInclusive() ? "Inclusive" : "Exclusive") << ") (jump: " << (range.jump ? "true" : "false") << ")";
+      return s;
+    }
 
     static KateViRange invalid() { KateViRange r; r.valid = false; return r; };
 };

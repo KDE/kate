@@ -213,7 +213,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
     // If all goes well, the final text should be just
     // bar
     // but more importantly, the Ctrl-p shortcut (usually "Print") won't be triggered!
-    QKeyEvent *k = new QKeyEvent(QEvent::KeyPress, key, mods, text);
+    QKeyEvent k(QEvent::KeyPress, key, mods, text);
     QWidget *destWidget = NULL;
     if (QApplication::activePopupWidget())
     {
@@ -235,7 +235,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
     {
       destWidget = m_view->focusProxy();
     }
-    QApplication::sendEvent(destWidget, k);
+    QApplication::sendEvent(destWidget, &k);
   }
 }
 

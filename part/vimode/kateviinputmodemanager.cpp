@@ -144,7 +144,6 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
   Qt::KeyboardModifiers mods;
   QString text;
 
-  kDebug( 13070 ) << "Repeating change";
   foreach(const QChar &c, keyPresses) {
     QString decoded = KateViKeyParser::self()->decodeKeySequence(QString(c));
     key = -1;

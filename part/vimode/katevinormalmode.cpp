@@ -3735,7 +3735,6 @@ KTextEditor::MovingRange*& KateViNormalMode::highlightedYankForDocument()
 bool KateViNormalMode::waitingForRegisterOrCharToSearch()
 {
   const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
-  kDebug(13070) << m_keys;
   return m_keys.size() > 0 && (lastChar == 'f' || lastChar == 't' || lastChar == 'F' || lastChar == 'T' || lastChar == 'r');
 }
 

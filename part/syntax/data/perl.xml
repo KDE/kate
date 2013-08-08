@@ -39,7 +39,7 @@
 
    Enhance tr/// and y/// support.
 -->
-<language name="Perl" version="1.26" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
+<language name="Perl" version="1.27" kateversion="2.4" section="Scripts" extensions="*.pl;*.pm" mimetype="application/x-perl;text/x-perl" author="Anders Lund (anders@alweb.dk)" license="LGPL">
   <highlighting>
     <list name="keywords">
       <item> if </item>
@@ -382,7 +382,7 @@
         <RegExpr attribute="Normal Text" context="#stay" String="[\w_]+\s*/" />
         <RegExpr attribute="Normal Text" context="#stay" String="[&lt;&gt;&quot;':]/" />
         <DetectChar attribute="Operator" context="pattern_slash" char="/" beginRegion="Pattern" />
-        <RegExpr attribute="Operator" context="#stay" String="-[rwxoRWXOeszfdlpSbctugkTBMAC]" />
+        <RegExpr attribute="Operator" context="#stay" String="-[rwxoRWXOeszfdlpSbctugkTBMAC]\b" />
 
         <DetectChar attribute="Normal Text" context="#stay" char="{" beginRegion="Block" />
         <DetectChar attribute="Normal Text" context="#stay" char="}" endRegion="Block" />

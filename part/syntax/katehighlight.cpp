@@ -1359,10 +1359,7 @@ void KateHighlighting::readFoldingConfig()
     kDebug(13010)<<"Found global keyword config";
 #endif
 
-    if ( IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("indentationsensitive")) ) )
-      m_foldingIndentationSensitive=true;
-    else
-      m_foldingIndentationSensitive=false;
+    m_foldingIndentationSensitive = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data, QString("indentationsensitive")) );
 
     KateHlManager::self()->syntax->freeGroupInfo(data);
   }

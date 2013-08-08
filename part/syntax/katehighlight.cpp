@@ -1240,10 +1240,7 @@ void KateHighlighting::readGlobalKeywordConfig()
     kDebug(13010)<<"Found global keyword config";
 #endif
 
-    if ( IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("casesensitive")) ) )
-      casesensitive=true;
-    else
-      casesensitive=false;
+    casesensitive = IS_TRUE( KateHlManager::self()->syntax->groupItemData(data,QString("casesensitive")) );
 
     //get the weak deliminators
     weakDeliminator=(KateHlManager::self()->syntax->groupItemData(data,QString("weakDeliminator")));

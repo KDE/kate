@@ -1846,9 +1846,6 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
   //kDebug(13010)<<"=== Adding hl with ident '"<<ident<<"' ctx0="<<ctx0;
 
   buildIdentifier=ident;
-  KateSyntaxContextData *data, *datasub;
-  KateHlItem *c;
-
   QString dummy;
 
   // Let the syntax document class know, which file we'd like to parse
@@ -1902,8 +1899,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 #endif
 
   //start the real work
-  data=KateHlManager::self()->syntax->getGroupInfo("highlighting","context");
   uint i=buildContext0Offset;
+  KateSyntaxContextData * data = KateHlManager::self()->syntax->getGroupInfo("highlighting", "context");
   if (data)
   {
     while (KateHlManager::self()->syntax->nextGroup(data))
@@ -1930,11 +1927,9 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       bool noIndentationBasedFolding=IS_TRUE(tmpNIBF);
 
       //BEGIN get fallthrough props
-      bool ft = false;
       KateHlContextModification ftc = 0; // fallthrough context
       QString tmpFt = KateHlManager::self()->syntax->groupData(data, QString("fallthrough") );
-      if ( IS_TRUE(tmpFt) )
-        ft = true;
+      const bool ft = IS_TRUE(tmpFt);
       if ( ft )
       {
         QString tmpFtc = KateHlManager::self()->syntax->groupData( data, QString("fallthroughContext") );
@@ -2048,14 +2043,14 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
                   continue; // while nextItem
                 }
 #endif
-        c=createKateHlItem(data,iDl,&RegionList,&ContextNameList);
+        KateHlItem * c = createKateHlItem(data, iDl, &RegionList, &ContextNameList);
         if (c)
         {
           m_contexts[i]->items.append(c);
 
           // Not supported completely atm and only one level. Subitems.(all have
           // to be matched to at once)
-          datasub=KateHlManager::self()->syntax->getSubItems(data);
+          KateSyntaxContextData * datasub = KateHlManager::self()->syntax->getSubItems(data);
           for (bool tmpbool=KateHlManager::self()->syntax->nextItem(datasub);
                tmpbool;
                tmpbool=KateHlManager::self()->syntax->nextItem(datasub))

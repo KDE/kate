@@ -143,6 +143,7 @@ vimode/kateviglobal.cpp
 vimode/katevivisualmode.cpp
 vimode/katevireplacemode.cpp
 vimode/kateviemulatedcommandbar.cpp
+vimode/katevicommandrangeexpressionparser.cpp
 vimode/katevikeymapper.cpp
 
 # spell checking

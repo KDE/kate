@@ -2065,9 +2065,10 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       }
       i++;
     }
+
+    KateHlManager::self()->syntax->freeGroupInfo(data);
   }
 
-  KateHlManager::self()->syntax->freeGroupInfo(data);
 
   if (RegionList.count()!=1)
     folding=true;

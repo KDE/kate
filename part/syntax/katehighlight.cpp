@@ -1447,19 +1447,19 @@ void  KateHighlighting::createContextNameList(QStringList *ContextNameList,int c
 
   if (data)
   {
-     while (KateHlManager::self()->syntax->nextGroup(data))
-     {
-          QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("name")).simplified();
-    if (tmpAttr.isEmpty())
+    while (KateHlManager::self()->syntax->nextGroup(data))
     {
-     tmpAttr=QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
-     errorsAndWarnings +=i18n("<b>%1</b>: Deprecated syntax. Context %2 has no symbolic name<br />", buildIdentifier, id-ctx0);
+      QString tmpAttr=KateHlManager::self()->syntax->groupData(data,QString("name")).simplified();
+      if (tmpAttr.isEmpty())
+      {
+        tmpAttr = QString("!KATE_INTERNAL_DUMMY! %1").arg(id);
+        errorsAndWarnings += i18n("<b>%1</b>: Deprecated syntax. Context %2 has no symbolic name<br />", buildIdentifier, id-ctx0);
+      }
+      else tmpAttr = buildPrefix + tmpAttr;
+      (*ContextNameList) << tmpAttr;
+      id++;
     }
-          else tmpAttr=buildPrefix+tmpAttr;
-    (*ContextNameList)<<tmpAttr;
-          id++;
-     }
-     KateHlManager::self()->syntax->freeGroupInfo(data);
+    KateHlManager::self()->syntax->freeGroupInfo(data);
   }
 
 #ifdef HIGHLIGHTING_DEBUG

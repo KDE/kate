@@ -41,22 +41,16 @@ class SmartCursor;
  * particular Document.
  *
  * If you want additional functionality such as the ability to maintain position
- * in a document, see SmartCursor.
- *
- * \note The Cursor class is designed to be passed via value, while SmartCursor
- * and derivatives must be passed via pointer or reference as they maintain a
- * connection with their document internally and cannot be copied.
+ * in a document, see MovingCursor.
  *
  * \note Lines and columns start at 0.
+ *
+ * \note The Cursor class is designed to be passed via value.
  *
  * \note Think of cursors as having their position at the start of a character,
  *       not in the middle of one.
  *
- * \note If a Cursor is associated with a Range the Range will be notified
- *       whenever the cursor (i.e. start or end position) changes its position.
- *       Read the class documentation about Range%s for further details.
- *
- * \sa SmartCursor
+ * \sa MovingCursor, Range
  */
 class KTEXTEDITOR_EXPORT Cursor
 {
@@ -87,30 +81,31 @@ class KTEXTEDITOR_EXPORT Cursor
     /**
      * Virtual destructor.
      */
-    //Do not remove! Needed for inheritance.
+    //TODO: KDE5 make non-virtual for maximum speed
     virtual ~Cursor();
 
     /**
      * Returns whether the current position of this cursor is a valid position
      * (line + column must both be >= 0).
-     *
-     * Smart cursors should override this to return whether the cursor is valid
-     * within the linked document.
      */
     virtual bool isValid() const;
 
     /**
      * Returns whether this cursor is a SmartCursor.
+     * \warning Always returns \e false. Will be removed for KDE5.
      */
     virtual bool isSmartCursor() const;
 
     /**
      * Returns this cursor as a SmartCursor, if it is one.
+     * \warning Always returns 0. Will be removed for KDE5.
      */
     virtual SmartCursor* toSmartCursor() const;
 
     /**
      * Returns an invalid cursor.
+     * The returned cursor position is set to (-1, -1).
+     * \see isValid()
      */
     static Cursor invalid();
 
@@ -129,8 +124,6 @@ class KTEXTEDITOR_EXPORT Cursor
      * Set the current cursor position to \e position.
      *
      * \param position new cursor position
-     *
-     * \todo add bool to indicate success or not, for smart cursors?
      */
     virtual void setPosition(const Cursor& position);
 
@@ -190,6 +183,7 @@ class KTEXTEDITOR_EXPORT Cursor
 
     /**
      * Returns the range that this cursor belongs to, if any.
+     * \todo will be removed in KDE5.
      */
     Range* range() const;
 
@@ -320,6 +314,7 @@ class KTEXTEDITOR_EXPORT Cursor
      * Sets the range that this cursor belongs to.
      *
      * \param range the range that this cursor is referenced from.
+     * \todo will be removed in KDE5.
      */
     virtual void setRange(Range* range);
 
@@ -327,6 +322,7 @@ class KTEXTEDITOR_EXPORT Cursor
      * \internal
      *
      * Notify the owning range, if any, that this cursor has changed directly.
+     * \todo will be removed in KDE5.
      */
     void cursorChangedDirectly(const Cursor& from);
 
@@ -348,6 +344,7 @@ class KTEXTEDITOR_EXPORT Cursor
      * \internal
      *
      * Range which owns this cursor, if any
+     * \todo will be removed in KDE5.
      */
     Range* m_range;
 };

@@ -247,7 +247,6 @@ class KateViewInternal : public QWidget
     void updateSelection( const KTextEditor::Cursor&, bool keepSel );
     void setSelection( const KTextEditor::Range& );
     void moveCursorToSelectionEdge();
-    //The smart-lock should not be locked when this is called
     void updateCursor( const KTextEditor::Cursor& newCursor, bool force = false, bool center = false, bool calledExternally = false );
     void updateBracketMarks();
 

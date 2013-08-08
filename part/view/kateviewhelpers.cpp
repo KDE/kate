@@ -1821,7 +1821,7 @@ void KateIconBorder::showDelayedBlock(int line)
 {
   // save the line over which the mouse hovers
   // either we start the timer for delay, or we show the block immediately
-  // if the smart range already exists
+  // if the moving range already exists
   m_nextHighlightBlock = line;
   if (!m_foldingRange) {
     if (!m_delayFoldingHlTimer.isActive()) {

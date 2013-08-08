@@ -49,7 +49,6 @@ class KateLineInfo;
 
 namespace KTextEditor {
   class Command;
-  class SmartRange;
   class AnnotationModel;
   class MovingRange;
 }

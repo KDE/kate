@@ -104,7 +104,7 @@ class View;
  * \see KParts::ReadWritePart, KTextEditor::Editor, KTextEditor::View,
  *      KTextEditor::MarkInterface,
  *      KTextEditor::ModificationInterface, KTextEditor::SearchInterface,
- *      KTextEditor::SessionConfigInterface, KTextEditor::SmartInterface,
+ *      KTextEditor::SessionConfigInterface, KTextEditor::MovingInterface,
  *      KTextEditor::VariableInterface
  * \author Christoph Cullmann \<cullmann@kde.org\>
  */
@@ -501,7 +501,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * It can optionally be overridden by an implementation.
      * \param cursor which should be checked
      * \return \e true, if the cursor is valid, otherwise \e false
-     * \see SmartCursor::isValid()
+     * \see DocumentCursor::isValid()
      */
     virtual bool cursorInText(const Cursor &cursor);
 

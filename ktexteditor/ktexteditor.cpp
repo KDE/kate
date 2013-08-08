@@ -118,6 +118,7 @@ bool View::isActiveView() const
   return this == document()->activeView();
 }
 
+// TODO ### KDE5: remove in favour of Range based setSelection()
 bool View::setSelection(const Cursor& position, int length,bool wrap)
 {
   KTextEditor::Document *doc=document();

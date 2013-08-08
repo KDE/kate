@@ -71,8 +71,6 @@ class KateLineLayoutMap
  * caches for separate views of the same document, even for view and printer
  * (if the renderer is made to support rendering onto different targets).
  *
- * @warning The smart-mutex must be locked whenever this is used
- *
  * @author Hamish Rodda \<rodda@kde.org\>
  */
 

@@ -389,7 +389,7 @@ private:
  * // The Message is deleted automatically if the Message gets closed,
  * // meaning that you usually can forget the pointer.
  * // If you really need to delete a message before the user processed it,
- * guard it with a QPointer!
+ * // guard it with a QPointer!
  * \endcode
  *
  * @see Message

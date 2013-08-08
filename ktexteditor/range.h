@@ -45,9 +45,9 @@ class SmartRange;
  * start and end will be swapped if necessary.
  *
  * If you want additional functionality such as the ability to maintain position
- * in a document, see SmartRange.
+ * in a document, see MovingRange.
  *
- * \sa SmartRange
+ * \sa MovingRange
  *
  * \author Hamish Rodda \<rodda@kde.org\>
  */
@@ -124,11 +124,13 @@ class KTEXTEDITOR_EXPORT Range
 
     /**
      * Returns whether this range is a SmartRange.
+     * \warning returns always \e false. Will be removed in KDE 5.
      */
     virtual bool isSmartRange() const;
 
     /**
      * Returns this range as a SmartRange, if it is one.
+     * \warning returns always 0. Will be removed in KDE 5.
      */
     virtual SmartRange* toSmartRange() const;
 
@@ -161,8 +163,6 @@ class KTEXTEDITOR_EXPORT Range
      * Get the start position of this range. This will always be <= end().
      *
      * \returns a const reference to the start position of this range.
-     *
-     * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
     const Cursor& start() const;
 
@@ -182,8 +182,6 @@ class KTEXTEDITOR_EXPORT Range
      *       \li any notifications needed will be performed multiple times for no benefit
      *
      * \returns a reference to the end position of this range.
-     *
-     * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
     Cursor& end();
 
@@ -191,8 +189,6 @@ class KTEXTEDITOR_EXPORT Range
      * Get the end position of this range. This will always be >= start().
      *
      * \returns a const reference to the end position of this range.
-     *
-     * \internal this function is virtual to allow for covariant return of SmartCursor%s.
      */
     const Cursor& end() const;
 

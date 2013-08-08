@@ -495,11 +495,10 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      * \param length if >0 \p position defines the start of the selection,
      *        if <0 \p position specifies the end
      * \param wrap if \e false the selection does not wrap lines and reaches
-     *        only to start/end of the cursors line. Default: \e true
+     *        only to start/end of the cursors line. Default: \e true.
+     *        Warning: \e true was never implemented in KDE 4.
      * \see selectionRange(), selection()
-     *
-     * \todo rodda - is this really needed? it can now be accomplished with
-     *       SmartCursor::advance()
+     * \todo remove in KDE5 in favour of Range based setSelection()
      */
     virtual bool setSelection ( const Cursor &position,
                                 int length,

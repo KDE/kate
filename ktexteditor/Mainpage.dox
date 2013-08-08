@@ -1,7 +1,7 @@
 /*
 This file is part of the KDE project
 
-Copyright (c) 2005-2006 by Dominik Haumann <dhdev@gmx.de>
+Copyright (c) 2005-2013 by Dominik Haumann <dhdev@gmx.de>
 Copyright (c) 2005 by Christoph Cullmann <cullmann@kde.org>
 
 Permission is granted to copy, distribute and/or modify this document
@@ -248,7 +248,8 @@ there are several \e moving classes available.
 
 Instances of the \e moving classes are bound to a specific Document, and
 maintain their position in that document regardless of changes to the text.
-Changes to MovingRange%s can be caught by using the class MovingRangeFeedback.
+Changes to KTextEditor::MovingRange%s can be caught by using the class
+KTextEditor::MovingRangeFeedback.
 
 The following is a list of all classes that are available when the document
 supports the KTextEditor::MovingInterface:
@@ -484,8 +485,8 @@ The following interfaces are new:
  - KTextEditor::ModificationInterface, support for handling external modified
    files
  - KTextEditor::SessionConfigInterface, support for session specific settings
- - KTextEditor::SmartInterface, support for smart cursors + ranges, plus their
-   uses such as arbitrary highlighting and action association
+ - KTextEditor::MovingInterface, support for MovingCursor%s and MovingRange%s,
+   plus their uses such as arbitrary highlighting
 
 \section kte_port_enhanced_classes Significantly Enhanced Classes
 The following classes have been significantly enhanced:
@@ -495,18 +496,17 @@ The following classes have been significantly enhanced:
 
 \section kte_port_new_classes New Classes
 The following classes are new:
- - KTextEditor::SmartCursor \n
+ - KTextEditor::MovingCursor \n
    A cursor which is bound to a specific KTextEditor::Document, and maintains
    its position.
- - KTextEditor::SmartCursorWatcher and KTextEditor::SmartCursorNotifier \n
-   Classes for providing notifications of changes to a SmartCursor.
  - KTextEditor::Range \n
    A tuple of start + end cursors with many convenience methods
- - KTextEditor::SmartRange \n
-   A KTextEditor::Range which is bound to a specific Document, and maintains its
-   position.
- - KTextEditor::SmartRangeWatcher and KTextEditor::SmartRangeNotifier \n
-   Classes for providing notifications of changes to a SmartRange.
+ - KTextEditor::MovingRange \n
+   A range which is bound to a specific Document, and maintains its position.
+ - KTextEditor::MovingRangeFeedback \n
+   Class providing notifications of changes to a KTextEditor::MovingRange.
+ - KTextEditor::MessageInterface \n
+   Class providing notifications to the user in a KTextEditor::View.
 
 \section kte_port_plugins Plugin Architecture Changes
 The KTextEditor::Plugin interface changed to support more than only one

@@ -21,7 +21,6 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
-#include <ktexteditor/smartrange.h>
 #include <kateglobal.h>
 #include <katewordcompletion.h>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.53" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;*.tikz" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+<language name="LaTeX" version="1.54" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;*.tikz" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -13,6 +13,7 @@
 	<RegExpr String="\\(cite|citet|citep|nocite|Cite|parencite|Parencite|footcite|Footcite|textcite|Textcite|supercite|autocite|Autocite|citeauthor|Citeauthor|citetitle|citeyear|citeurl|nocite|fullcite|footfullcite)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
 	<RegExpr String="\\(subref\*?|cref\*?|label|pageref|autoref|ref|vpageref|vref|pagecite|eqref)(?=[^a-zA-Z])" attribute="Structure" context="Label"/>
         <RegExpr String="\\(part|chapter|section|subsection|subsubsection|paragraph|subparagraph)\*?\s*(?=[\{\[])" attribute="Structure" context="Sectioning"/>
+	<RegExpr String="\\(input|hspace|hspace\*|vspace|vspace\*|rule|special|setlength|newboolean|setboolean|setcounter|geometry|textcolor|definecolor|column)(?=[^a-zA-Z])" attribute="Keyword" context="SpecialCommand"/>
         <RegExpr String="\\(footnote)\*?\s*(?=[\{\[])" attribute="Keyword" context="Footnoting"/>
 	<RegExpr String="\\(renewcommand|providenewcommand|newcommand)\*?(?=[^a-zA-Z])" attribute="Keyword" context="NewCommand"/>
         <RegExpr String="\\(e|g|x)?def(?=[^a-zA-Z])" attribute="Keyword" context="DefCommand"/>
@@ -175,15 +176,28 @@
       <!-- labels from biblatex commands -->
       <context name="FancyLabel" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
 	      <RegExpr String="\s*\{\s*" attribute="Normal Text" context="FancyLabelParameter"/>
-	      <RegExpr String="\s*\[\s*" attribute="Normal Text" context="LabelOption"/>
+	      <RegExpr String="\s*\[\s*" attribute="Normal Text" context="FancyLabelOption"/>
 	      <RegExpr String="\s*\(\s*" attribute="Normal Text" context="FancyLabelRoundBrackets"/>
       </context>
 
       <context name="FancyLabelParameter" attribute="Environment" lineEndContext="#stay">
-	      <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
-	      <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop"/>
+        <StringDetect String="\(" attribute="Math" context="MathMode" />
+        <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
+        <DetectChar char="$" attribute="Math" context="MathMode" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop"/>
       </context>
 
+      <context name="FancyLabelOption" attribute="Option Text" lineEndContext="#stay">
+        <StringDetect String="\(" attribute="Math" context="MathMode" />
+        <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
+        <DetectChar char="$" attribute="Math" context="MathMode" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="\s*\]\s*" attribute="Normal Text" context="#pop"/>
+      </context>
+      
       <context name="FancyLabelRoundBrackets" attribute="Normal Text" lineEndContext="#stay">
 	      <StringDetect String="\(" attribute="Math" context="MathMode" />
 	      <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
@@ -191,6 +205,20 @@
 	      <DetectChar char="%" attribute="Comment" context="Comment"/>
 	      <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
 	      <RegExpr String="\s*\)\s*" attribute="Normal Text" context="#pop"/>
+      </context>
+
+      <!-- Special commands -->
+      <context name="SpecialCommand" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop">
+	      <RegExpr String="\s*\{\s*" attribute="Normal Text" context="SpecialCommandParameterOption"/>
+      </context>
+
+      <context name="SpecialCommandParameterOption" attribute="Option Text" lineEndContext="#stay">
+        <StringDetect String="\(" attribute="Math" context="MathMode" />
+        <DetectChar char="\" attribute="Keyword" context="ContrSeq"/>
+        <DetectChar char="$" attribute="Math" context="MathMode" />
+        <DetectChar char="%" attribute="Comment" context="Comment"/>
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop"/>
       </context>
 
       <!-- end of an environment -->
@@ -504,8 +532,9 @@
 
     <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
+      <itemData name="Option Text" defStyleNum="dsNormal" spellChecking="false"/>
       <itemData name="Keyword" defStyleNum="dsNormal" color="#800000" selColor="#60FFFF" bold="0" italic="0" spellChecking="false"/>
-      <itemData name="Comment" defStyleNum="dsComment"/>
+      <itemData name="Comment" defStyleNum="dsComment" spellChecking="false"/>
       <itemData name="Error" defStyleNum="dsAlert" spellChecking="false"/>
       <itemData name="Math" defStyleNum="dsNormal" color="#00A000" selColor="#FF40FF"  bold="0" italic="0" spellChecking="false"/>
       <itemData name="Structure" defStyleNum="dsNormal" color="#F00000" selColor="#80FFD0" bold="0" italic="0" spellChecking="false"/>

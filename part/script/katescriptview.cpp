@@ -22,7 +22,6 @@
 #include "katedocument.h"
 #include "kateview.h"
 #include "katerenderer.h"
-#include "katehighlight.h"
 #include "katescript.h"
 
 KateScriptView::KateScriptView(QObject *parent)

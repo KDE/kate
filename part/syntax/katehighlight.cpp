@@ -1965,8 +1965,8 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         ident,
         attr,
         context,
-        ft, ftc, dynamic,noIndentationBasedFolding
-      , !emptyLineContext.isEmpty(), emptyLineContextModification);
+        ft, ftc, dynamic, noIndentationBasedFolding,
+        !emptyLineContext.isEmpty(), emptyLineContextModification);
 
       m_contexts.push_back (ctxNew);
 
@@ -1977,57 +1977,57 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
       //Let's create all items for the context
       while (KateHlManager::self()->syntax->nextItem(data))
       {
-//    kDebug(13010)<< "In make Contextlist: Item:";
+//         kDebug(13010)<< "In make Contextlist: Item:";
 
-      // KateHlIncludeRules : add a pointer to each item in that context
+        // KateHlIncludeRules : add a pointer to each item in that context
         // TODO add a attrib includeAttrib
-      QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
-      if ( tag == "IncludeRules" ) //if the new item is an Include rule, we have to take special care
-      {
-        QString incCtx = KateHlManager::self()->syntax->groupItemData( data, QString("context"));
-        QString incAttrib = KateHlManager::self()->syntax->groupItemData( data, QString("includeAttrib"));
-        bool includeAttrib = IS_TRUE( incAttrib );
-
-        // only context refernces of type Name, ##Name, and Subname##Name are allowed
-        if (incCtx.startsWith("##") || (!incCtx.startsWith('#')))
+        QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
+        if ( tag == "IncludeRules" ) //if the new item is an Include rule, we have to take special care
         {
-           int incCtxi = incCtx.indexOf ("##");
-           //#stay, #pop is not interesting here
-           if (incCtxi >= 0)
-           {
-             QString incSet = incCtx.mid(incCtxi + 2);
-             QString incCtxN = incSet + ':' + incCtx.left(incCtxi);
-
-             //a cross highlighting reference
-#ifdef HIGHLIGHTING_DEBUG
-             kDebug(13010)<<"Cross highlight reference <IncludeRules>, context "<<incCtxN;
-#endif
-
-             KateHlIncludeRule *ir=new KateHlIncludeRule(i,m_contexts[i]->items.count(),incCtxN,includeAttrib);
-
-             //use the same way to determine cross hl file references as other items do
-             if (!embeddedHls.contains(incSet))
-               embeddedHls.insert(incSet,KateEmbeddedHlInfo());
-#ifdef HIGHLIGHTING_DEBUG
-             else
-               kDebug(13010)<<"Skipping embeddedHls.insert for "<<incCtxN;
-#endif
-
-            unresolvedContextReferences.insert(&(ir->incCtx), incCtxN);
-
-            includeRules.append(ir);
-          }
-          else
+          QString incCtx = KateHlManager::self()->syntax->groupItemData( data, QString("context"));
+          QString incAttrib = KateHlManager::self()->syntax->groupItemData( data, QString("includeAttrib"));
+          bool includeAttrib = IS_TRUE( incAttrib );
+          
+          // only context refernces of type Name, ##Name, and Subname##Name are allowed
+          if (incCtx.startsWith("##") || (!incCtx.startsWith('#')))
           {
-            // a local reference -> just initialize the include rule structure
-            incCtx=buildPrefix+incCtx.simplified ();
-            includeRules.append(new KateHlIncludeRule(i,m_contexts[i]->items.count(),incCtx, includeAttrib));
-          }
-        }
+            int incCtxi = incCtx.indexOf ("##");
+            //#stay, #pop is not interesting here
+            if (incCtxi >= 0)
+            {
+              QString incSet = incCtx.mid(incCtxi + 2);
+              QString incCtxN = incSet + ':' + incCtx.left(incCtxi);
+              
+              //a cross highlighting reference
+#ifdef HIGHLIGHTING_DEBUG
+              kDebug(13010)<<"Cross highlight reference <IncludeRules>, context "<<incCtxN;
+#endif
 
-        continue;
-      }
-      // TODO -- can we remove the block below??
+              KateHlIncludeRule *ir=new KateHlIncludeRule(i,m_contexts[i]->items.count(),incCtxN,includeAttrib);
+
+              //use the same way to determine cross hl file references as other items do
+              if (!embeddedHls.contains(incSet))
+                embeddedHls.insert(incSet,KateEmbeddedHlInfo());
+#ifdef HIGHLIGHTING_DEBUG
+              else
+                kDebug(13010)<<"Skipping embeddedHls.insert for "<<incCtxN;
+#endif
+
+              unresolvedContextReferences.insert(&(ir->incCtx), incCtxN);
+
+              includeRules.append(ir);
+            }
+            else
+            {
+              // a local reference -> just initialize the include rule structure
+              incCtx=buildPrefix+incCtx.simplified ();
+              includeRules.append(new KateHlIncludeRule(i,m_contexts[i]->items.count(),incCtx, includeAttrib));
+            }
+          }
+
+          continue;
+        }
+// TODO -- can we remove the block below??
 #if 0
                 QString tag = KateHlManager::self()->syntax->groupKateExtendedAttribute(data,QString(""));
                 if ( tag == "IncludeRules" ) {
@@ -2048,23 +2048,23 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
                   continue; // while nextItem
                 }
 #endif
-      c=createKateHlItem(data,iDl,&RegionList,&ContextNameList);
-      if (c)
-      {
-        m_contexts[i]->items.append(c);
-
-        // Not supported completely atm and only one level. Subitems.(all have
-        // to be matched to at once)
-        datasub=KateHlManager::self()->syntax->getSubItems(data);
-        for (bool tmpbool=KateHlManager::self()->syntax->nextItem(datasub);
-             tmpbool;
-             tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
+        c=createKateHlItem(data,iDl,&RegionList,&ContextNameList);
+        if (c)
         {
-          c->subItems.resize (c->subItems.size()+1);
-          c->subItems[c->subItems.size()-1] = createKateHlItem(datasub,iDl,&RegionList,&ContextNameList);
+          m_contexts[i]->items.append(c);
+
+          // Not supported completely atm and only one level. Subitems.(all have
+          // to be matched to at once)
+          datasub=KateHlManager::self()->syntax->getSubItems(data);
+          for (bool tmpbool=KateHlManager::self()->syntax->nextItem(datasub);
+               tmpbool;
+               tmpbool=KateHlManager::self()->syntax->nextItem(datasub))
+          {
+            c->subItems.resize (c->subItems.size()+1);
+            c->subItems[c->subItems.size()-1] = createKateHlItem(datasub,iDl,&RegionList,&ContextNameList);
+          }
+          KateHlManager::self()->syntax->freeGroupInfo(datasub);
         }
-        KateHlManager::self()->syntax->freeGroupInfo(datasub);
-      }
       }
       i++;
     }

@@ -42,3 +42,6 @@ sub blah {
 
 &blah;
 prg("test");
+
+# highlighting '-f' as Operator.
+$cfg = Config::IniFiles->new( -file => "/path/to/config_file.ini" );

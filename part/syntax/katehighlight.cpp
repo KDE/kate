@@ -1431,6 +1431,8 @@ void KateHighlighting::readSpellCheckingConfig()
     }
 
     m_additionalData[buildIdentifier]->encodedCharactersInsertionPolicy = p;
+
+    KateHlManager::self()->syntax->freeGroupInfo(data);
   }
 }
 

@@ -1690,6 +1690,8 @@ void KateHighlighting::makeContextList()
 
   // we have finished
   building=false;
+  
+  Q_ASSERT(m_contexts.size() > 0);
 }
 
 void KateHighlighting::handleKateHlIncludeRules()
@@ -2061,6 +2063,10 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
     }
 
     KateHlManager::self()->syntax->freeGroupInfo(data);
+  } else {
+    // error handling: no "context" element at all in the xml file
+    noHl = true;
+    kWarning() << "There is no \"context\" in the highlighting file:" << buildIdentifier;
   }
 
 

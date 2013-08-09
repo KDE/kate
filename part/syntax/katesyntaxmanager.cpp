@@ -379,10 +379,8 @@ bool KateHlManager::hlHidden(int n)
 
 QString KateHlManager::identifierForName(const QString& name)
 {
-  KateHighlighting *hl = 0;
-
-  if ((hl = hlDict[name]))
-    return hl->getIdentifier ();
+  if (hlDict.contains(name))
+    return hlDict[name]->getIdentifier();
 
   return QString();
 }

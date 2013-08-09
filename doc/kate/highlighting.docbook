@@ -544,7 +544,7 @@ previous context used in the string (<userinput>#pop</userinput>).</para>
 <para>An <emphasis>order</emphasis> followed by an exclamation mark
 (<emphasis>!</emphasis>) and an <emphasis>identifier</emphasis>, which
 will make the engine first follow the order and then switch to the
-other context.</para>
+other context, e.g. <userinput>#pop#pop!OtherContext</userinput>.</para>
 </listitem>
 </itemizedlist>
 

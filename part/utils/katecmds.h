@@ -25,6 +25,7 @@
 
 #include <ktexteditor/commandinterface.h>
 #include "kateviinputmodemanager.h"
+#include "kateregexpsearch.h"
 
 #include <QtCore/QStringList>
 
@@ -270,29 +271,38 @@ class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
      */
     static bool parse(const QString& sedReplaceString, QString& destDelim, int& destFindBeginPos, int& destFindEndPos, int& destReplaceBeginPos, int& destReplaceEndPos);
 
+    class InteractiveSedReplacer
+    {
+    public:
+      InteractiveSedReplacer(KateDocument* doc, const QString& findPattern, const QString& replacePattern, bool caseSensitive, bool onlyOnePerLine, int startLine, int endLine);
+      /**
+       * Will return invalid Range if there are no further matches.
+       */
+      KTextEditor::Range currentMatch();
+      void skipCurrentMatch();
+      void replaceCurrentMatch();
+      void replaceAllRemaining();
+      QString currentMatchReplacementConfirmationMessage();
+      QString finalStatusReportMessage();
+    private:
+      const QString m_findPattern;
+      const QString m_replacePattern;
+      bool m_onlyOnePerLine;
+      int m_startLine;
+      int m_endLine;
+      KateDocument *m_doc;
+      KateRegExpSearch m_regExpSearch;
+
+      int m_numReplacementsDone;
+      int m_numLinesTouched;
+      int m_lastChangedLineNum;
+
+      KTextEditor::Cursor m_currentSearchPos;
+      const QVector<KTextEditor::Range> fullCurrentMatch();
+      QString replacementTextForCurrentMatch();
+    };
+
   private:
-    /**
-     * Searches one line and does the replacement in the document.
-     * If @p replace contains any newline characters, the reamaining part of the
-     * line is searched, and the @p line set to the last line number searched.
-     * @return the number of replacements performed.
-     * @param doc a pointer to the document to work on
-     * @param line the number of the line to search. This may be changed by the
-     * function, if newlines are inserted.
-     * @param find A regular expression pattern to use for searching
-     * @param replace a template for replacement. Backspaced integers are
-     * replaced with captured texts from the regular expression.
-     * @param delim the delimiter character from the command. In the replacement
-     * text backsplashes preceding this character are removed.
-     * @param nocase parameter for matching the reqular expression.
-     * @param repeat If false, the search is stopped after the first match.
-     * @param startcol The position in the line to start the search.
-     * @param endcol The last column in the line allowed in a match.
-     * If it is -1, the whole line is used.
-     */
-    static int sedMagic(KateDocument* doc, int& line,
-                        const QString& find, const QString& replacePattern,
-                        bool caseSensitive, bool repeat);
 };
 
 /**

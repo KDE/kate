@@ -208,13 +208,18 @@ void ViModeTest::TestPressKey(QString str) {
     {
       key = str[i];
       keyCode = key[0].unicode();
-      if (keyboard_modifier != Qt::NoModifier)
+      // Kate Vim mode's internals identifier e.g. CTRL-C by Qt::Key_C plus the control modifier,
+      // so we need to translate e.g. 'c' to Key_C.
+      if (key[0].isLetter())
       {
-        // Kate Vim mode's internals identifier e.g. CTRL-C by Qt::Key_C plus the control modifier,
-        // so we need to translate e.g. 'c' to Key_C.
-        if (key[0].isLetter())
+        if (key[0].toLower() == key[0])
         {
           keyCode = keyCode - 'a' + Qt::Key_A;
+        }
+        else
+        {
+          keyCode = keyCode - 'A' + Qt::Key_A;
+          keyboard_modifier |= Qt::ShiftModifier;
         }
       }
     }
@@ -4052,6 +4057,10 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo", "\\:s/foo/\\\\a/g\\", "\x07");
   // End "generic" (i.e. not involving any Vi mode tricks/ transformations) sed replace tests: the remaining
   // ones should go via the KateViEmulatedCommandBar.
+  BeginTest("foo foo\nxyz\nfoo");
+  TestPressKey(":%s/foo/bar/g\\enter");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(3, 2);
+  FinishTest("bar bar\nxyz\nbar");
 
   // ctrl-p on the first character of the search term in a sed-replace should
   // invoke search history completion.
@@ -4487,6 +4496,471 @@ void ViModeTest::VimStyleCommandBarTests()
   clearAllMappings();
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "foo", "xyz", KateViGlobal::NonRecursive);
   DoTest("bar foo xyz", "/foo\\enterrX", "bar Xoo xyz");
+  clearAllMappings();
+
+  // Incremental search and replace.
+  QLabel* interactiveSedReplaceLabel = emulatedCommandBar->findChild<QLabel*>("interactivesedreplace");
+  QVERIFY(interactiveSedReplaceLabel);
+
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  QVERIFY(interactiveSedReplaceLabel->isVisible());
+  QVERIFY(!commandResponseMessageDisplay()->isVisible());
+  QVERIFY(!emulatedCommandBarTextEdit()->isVisible());
+  QVERIFY(!emulatedCommandTypeIndicator()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss search and replace.
+  QVERIFY(!emulatedCommandBar->isVisible());
+  FinishTest("foo");
+
+  // Clear the flag that stops the command response from being shown after an incremental search and
+  // replace, and also make sure that the edit and bar type indicator are not forcibly hidden.
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter\\ctrl-c");
+  TestPressKey(":s/foo/bar/");
+  QVERIFY(emulatedCommandBarTextEdit()->isVisible());
+  QVERIFY(emulatedCommandTypeIndicator()->isVisible());
+  TestPressKey("\\enter");
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  FinishTest("bar");
+
+  // Hide the incremental search and replace label when we show the bar.
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter\\ctrl-c");
+  TestPressKey(":");
+  QVERIFY(!interactiveSedReplaceLabel->isVisible());
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+
+  // The "c" marker can be anywhere in the three chars following the delimiter.
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/cgi\\enter");
+  QVERIFY(interactiveSedReplaceLabel->isVisible());
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/igc\\enter");
+  QVERIFY(interactiveSedReplaceLabel->isVisible());
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/icg\\enter");
+  QVERIFY(interactiveSedReplaceLabel->isVisible());
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/ic\\enter");
+  QVERIFY(interactiveSedReplaceLabel->isVisible());
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/ci\\enter");
+  QVERIFY(interactiveSedReplaceLabel->isVisible());
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+
+  // Emulated command bar is still active during an incremental search and replace.
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  TestPressKey("idef\\esc");
+  FinishTest("foo");
+
+  // Emulated command bar text is not edited during an incremental search and replace.
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  TestPressKey("def");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/foo/bar/c"));
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+
+  // Pressing "n" when there is only a single  change we can make aborts incremental search
+  // and replace.
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  TestPressKey("n");
+  QVERIFY(!interactiveSedReplaceLabel->isVisible());
+  TestPressKey("ixyz\\esc");
+  FinishTest("xyzfoo");
+
+  // Pressing "n" when there is only a single  change we can make aborts incremental search
+  // and replace, and shows the no replacements on no lines.
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  TestPressKey("n");
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(0, 0);
+  FinishTest("foo");
+
+  // First possible match is highlighted when we start an incremental search and replace, and
+  // cleared if we press 'n'.
+  BeginTest(" xyz  123 foo bar");
+  TestPressKey(":s/foo/bar/gc\\enter");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 10);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 13);
+  TestPressKey("n");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  FinishTest(" xyz  123 foo bar");
+
+  // Second possible match highlighted if we start incremental search and replace and press 'n',
+  // cleared if we press 'n' again.
+  BeginTest(" xyz  123 foo foo bar");
+  TestPressKey(":s/foo/bar/gc\\enter");
+  TestPressKey("n");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 14);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 17);
+  TestPressKey("n");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size());
+  FinishTest(" xyz  123 foo foo bar");
+
+  // Perform replacement if we press 'y' on the first match.
+  BeginTest(" xyz  foo 123 foo bar");
+  TestPressKey(":s/foo/bar/gc\\enter");
+  TestPressKey("y");
+  TestPressKey("\\ctrl-c");
+  FinishTest(" xyz  bar 123 foo bar");
+
+  // Replacement uses grouping, etc.
+  BeginTest(" xyz  def 123 foo bar");
+  TestPressKey(":s/d\\\\(e\\\\)\\\\(f\\\\)/x\\\\1\\\\U\\\\2/gc\\enter");
+  TestPressKey("y");
+  TestPressKey("\\ctrl-c");
+  FinishTest(" xyz  xeF 123 foo bar");
+
+  // On replacement, highlight next match.
+  BeginTest(" xyz  foo 123 foo bar");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("y");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 14);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 17);
+  TestPressKey("\\ctrl-c");
+  FinishTest(" xyz  bar 123 foo bar");
+
+  // On replacement, if there is no further match, abort incremental search and replace.
+  BeginTest(" xyz  foo 123 foa bar");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("y");
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  TestPressKey("ggidone\\esc");
+  FinishTest("done xyz  bar 123 foa bar");
+
+  // After replacement, the next match is sought after the end of the replacement text.
+  BeginTest("foofoo");
+  TestPressKey(":s/foo/barfoo/cg\\enter");
+  TestPressKey("y");
+  QCOMPARE(rangesOnFirstLine().size(), rangesInitial.size() + 1);
+  QCOMPARE(rangesOnFirstLine().first()->start().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->start().column(), 6);
+  QCOMPARE(rangesOnFirstLine().first()->end().line(), 0);
+  QCOMPARE(rangesOnFirstLine().first()->end().column(), 9);
+  TestPressKey("\\ctrl-c");
+  FinishTest("barfoofoo");
+  BeginTest("xffy");
+  TestPressKey(":s/f/bf/cg\\enter");
+  TestPressKey("yy");
+  FinishTest("xbfbfy");
+
+  // Make sure the incremental search bar label contains the "instruction" keypresses.
+  const QString interactiveSedReplaceShortcuts = "(y/n/a/q/l)";
+  BeginTest("foofoo");
+  TestPressKey(":s/foo/barfoo/cg\\enter");
+  QVERIFY(interactiveSedReplaceLabel->text().contains(interactiveSedReplaceShortcuts));
+  TestPressKey("\\ctrl-c");
+  FinishTest("foofoo");
+
+  // Make sure the incremental search bar label contains a reference to the text we're going to
+  // replace with.
+  // We're going to be a bit vague about the precise text due to localisation issues.
+  BeginTest("fabababbbar");
+  TestPressKey(":s/f\\\\([ab]\\\\+\\\\)/1\\\\U\\\\12/c\\enter");
+  QVERIFY(interactiveSedReplaceLabel->text().contains("1ABABABBBA2"));
+  TestPressKey("\\ctrl-c");
+  FinishTest("fabababbbar");
+
+  // Replace newlines in the "replace?" message with "\\n"
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar\\\\nxyz\\\\n123/c\\enter");
+  kDebug(13070) << "Blah: " << interactiveSedReplaceLabel->text();
+  QVERIFY(interactiveSedReplaceLabel->text().contains("bar\\nxyz\\n123"));
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+
+  // Update the "confirm replace?" message on pressing "y".
+  BeginTest("fabababbbar fabbb");
+  TestPressKey(":s/f\\\\([ab]\\\\+\\\\)/1\\\\U\\\\12/gc\\enter");
+  TestPressKey("y");
+  QVERIFY(interactiveSedReplaceLabel->text().contains("1ABBB2"));
+  QVERIFY(interactiveSedReplaceLabel->text().contains(interactiveSedReplaceShortcuts));
+  TestPressKey("\\ctrl-c");
+  FinishTest("1ABABABBBA2r fabbb");
+
+  // Update the "confirm replace?" message on pressing "n".
+  BeginTest("fabababbbar fabab");
+  TestPressKey(":s/f\\\\([ab]\\\\+\\\\)/1\\\\U\\\\12/gc\\enter");
+  TestPressKey("n");
+  QVERIFY(interactiveSedReplaceLabel->text().contains("1ABAB2"));
+  QVERIFY(interactiveSedReplaceLabel->text().contains(interactiveSedReplaceShortcuts));
+  TestPressKey("\\ctrl-c");
+  FinishTest("fabababbbar fabab");
+
+  // Cursor is placed at the beginning of first match.
+  BeginTest("  foo foo foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  verifyCursorAt(Cursor(0, 2));
+  TestPressKey("\\ctrl-c");
+  FinishTest("  foo foo foo");
+
+  // "y" and "n" update the cursor pos.
+  BeginTest("  foo   foo foo");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("y");
+  verifyCursorAt(Cursor(0, 8));
+  TestPressKey("n");
+  verifyCursorAt(Cursor(0, 12));
+  TestPressKey("\\ctrl-c");
+  FinishTest("  bar   foo foo");
+
+  // If we end due to a "y" or "n" on the final match, leave the cursor at the beginning of the final match.
+  BeginTest("  foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  TestPressKey("y");
+  verifyCursorAt(Cursor(0, 2));
+  FinishTest("  bar");
+  BeginTest("  foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  TestPressKey("n");
+  verifyCursorAt(Cursor(0, 2));
+  FinishTest("  foo");
+
+  // Respect ranges.
+  BeginTest("foo foo\nfoo foo\nfoo foo\nfoo foo\n");
+  TestPressKey("jVj:s/foo/bar/gc\\enter");
+  TestPressKey("ynny");
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  TestPressKey("ggidone \\ctrl-c");
+  FinishTest("done foo foo\nbar foo\nfoo bar\nfoo foo\n");
+  BeginTest("foo foo\nfoo foo\nfoo foo\nfoo foo\n");
+  TestPressKey("jVj:s/foo/bar/gc\\enter");
+  TestPressKey("nyyn");
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  TestPressKey("ggidone \\ctrl-c");
+  FinishTest("done foo foo\nfoo bar\nbar foo\nfoo foo\n");
+  BeginTest("foo foo\nfoo foo\nfoo foo\nfoo foo\n");
+  TestPressKey("j:s/foo/bar/gc\\enter");
+  TestPressKey("ny");
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  TestPressKey("ggidone \\ctrl-c");
+  FinishTest("done foo foo\nfoo bar\nfoo foo\nfoo foo\n");
+  BeginTest("foo foo\nfoo foo\nfoo foo\nfoo foo\n");
+  TestPressKey("j:s/foo/bar/gc\\enter");
+  TestPressKey("yn");
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  TestPressKey("ggidone \\ctrl-c");
+  FinishTest("done foo foo\nbar foo\nfoo foo\nfoo foo\n");
+
+  // If no initial match can be found, abort and show a "no replacements" message.
+  // The cursor position should remain unnchanged.
+  BeginTest("fab");
+  TestPressKey("l:s/fee/bar/c\\enter");
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(0, 0);
+  QVERIFY(!interactiveSedReplaceLabel->isVisible());
+  TestPressKey("rX");
+  BeginTest("fXb");
+
+  // Case-sensitive by default.
+  BeginTest("foo Foo FOo foo foO");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donebar Foo FOo bar foO");
+
+  // Case-insensitive if "i" flag is used.
+  BeginTest("foo Foo FOo foo foO");
+  TestPressKey(":s/foo/bar/icg\\enter");
+  TestPressKey("yyyyyggidone\\esc");
+  FinishTest("donebar bar bar bar bar");
+
+  // Only one replacement per-line unless "g" flag is used.
+  BeginTest("boo foo 123 foo\nxyz foo foo\nfoo foo foo\nxyz\nfoo foo\nfoo 123 foo");
+  TestPressKey("jVjjj:s/foo/bar/c\\enter");
+  TestPressKey("yynggidone\\esc");
+  FinishTest("doneboo foo 123 foo\nxyz bar foo\nbar foo foo\nxyz\nfoo foo\nfoo 123 foo");
+  BeginTest("boo foo 123 foo\nxyz foo foo\nfoo foo foo\nxyz\nfoo foo\nfoo 123 foo");
+  TestPressKey("jVjjj:s/foo/bar/c\\enter");
+  TestPressKey("nnyggidone\\esc");
+  FinishTest("doneboo foo 123 foo\nxyz foo foo\nfoo foo foo\nxyz\nbar foo\nfoo 123 foo");
+
+  // If replacement contains new lines, adjust the end line down.
+  BeginTest("foo\nfoo1\nfoo2\nfoo3");
+  TestPressKey("jVj:s/foo/bar\\\\n/gc\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donefoo\nbar\n1\nbar\n2\nfoo3");
+  BeginTest("foo\nfoo1\nfoo2\nfoo3");
+  TestPressKey("jVj:s/foo/bar\\\\nboo\\\\n/gc\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donefoo\nbar\nboo\n1\nbar\nboo\n2\nfoo3");
+
+  // With "g" and a replacement that involves multiple lines, resume search from the end of the last line added.
+  BeginTest("foofoo");
+  TestPressKey(":s/foo/bar\\\\n/gc\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donebar\nbar\n");
+  BeginTest("foofoo");
+  TestPressKey(":s/foo/bar\\\\nxyz\\\\nfoo/gc\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donebar\nxyz\nfoobar\nxyz\nfoo");
+
+  // Without "g" and with a replacement that involves multiple lines, resume search from the line after the line just added.
+  BeginTest("foofoo1\nfoo2\nfoo3");
+  TestPressKey("Vj:s/foo/bar\\\\nxyz\\\\nfoo/c\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donebar\nxyz\nfoofoo1\nbar\nxyz\nfoo2\nfoo3");
+
+  // Regression test: handle 'g' when it occurs before 'i' and 'c'.
+  BeginTest("foo fOo");
+  TestPressKey(":s/foo/bar/gci\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donebar bar");
+
+  // When the search terms swallows several lines, move the endline up accordingly.
+  BeginTest("foo\nfoo1\nfoo\nfoo2\nfoo\nfoo3");
+  TestPressKey("V3j:s/foo\\\\nfoo/bar/cg\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donebar1\nbar2\nfoo\nfoo3");
+  BeginTest("foo\nfoo\nfoo1\nfoo\nfoo\nfoo2\nfoo\nfoo\nfoo3");
+  TestPressKey("V5j:s/foo\\\\nfoo\\\\nfoo/bar/cg\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donebar1\nbar2\nfoo\nfoo\nfoo3");
+  // Make sure we still adjust endline down if the replacement text has '\n's.
+  BeginTest("foo\nfoo\nfoo1\nfoo\nfoo\nfoo2\nfoo\nfoo\nfoo3");
+  TestPressKey("V5j:s/foo\\\\nfoo\\\\nfoo/bar\\\\n/cg\\enter");
+  TestPressKey("yyggidone\\esc");
+  FinishTest("donebar\n1\nbar\n2\nfoo\nfoo\nfoo3");
+
+  // Status reports.
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  TestPressKey("y");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(1, 1);
+  FinishTest("bar");
+  BeginTest("foo foo foo");
+  TestPressKey(":s/foo/bar/gc\\enter");
+  TestPressKey("yyy");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(3, 1);
+  FinishTest("bar bar bar");
+  BeginTest("foo foo foo");
+  TestPressKey(":s/foo/bar/gc\\enter");
+  TestPressKey("yny");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(2, 1);
+  FinishTest("bar foo bar");
+  BeginTest("foo\nfoo");
+  TestPressKey(":%s/foo/bar/gc\\enter");
+  TestPressKey("yy");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(2, 2);
+  FinishTest("bar\nbar");
+  BeginTest("foo foo\nfoo foo\nfoo foo");
+  TestPressKey(":%s/foo/bar/gc\\enter");
+  TestPressKey("yynnyy");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(4, 2);
+  FinishTest("bar bar\nfoo foo\nbar bar");
+  BeginTest("foofoo");
+  TestPressKey(":s/foo/bar\\\\nxyz/gc\\enter");
+  TestPressKey("yy");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(2, 1);
+  FinishTest("bar\nxyzbar\nxyz");
+  BeginTest("foofoofoo");
+  TestPressKey(":s/foo/bar\\\\nxyz\\\\nboo/gc\\enter");
+  TestPressKey("yyy");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(3, 1);
+  FinishTest("bar\nxyz\nboobar\nxyz\nboobar\nxyz\nboo");
+  // Tricky one: how many lines are "touched" if a single replacement
+  // swallows multiple lines? I'm going to say the number of lines swallowed.
+  BeginTest("foo\nfoo\nfoo");
+  TestPressKey(":s/foo\\\\nfoo\\\\nfoo/bar/c\\enter");
+  TestPressKey("y");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(1, 3);
+  FinishTest("bar");
+  BeginTest("foo\nfoo\nfoo\n");
+  TestPressKey(":s/foo\\\\nfoo\\\\nfoo\\\\n/bar/c\\enter");
+  TestPressKey("y");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(1, 4);
+  FinishTest("bar");
+
+  // "Undo" undoes last replacement.
+  BeginTest("foo foo foo foo");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("nyynu");
+  FinishTest("foo bar foo foo");
+
+  // "l" does the current replacement then exits.
+  BeginTest("foo foo foo foo foo foo");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("nnl");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(1, 1);
+  FinishTest("foo foo bar foo foo foo");
+
+  // "q" just exits.
+  BeginTest("foo foo foo foo foo foo");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("yyq");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(2, 1);
+  FinishTest("bar bar foo foo foo foo");
+
+  // "a" replaces all remaining, then exits.
+  BeginTest("foo foo foo foo foo foo");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("nna");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(4, 1);
+  FinishTest("foo foo bar bar bar bar");
+
+  // The results of "a" can be undone in one go.
+  BeginTest("foo foo foo foo foo foo");
+  TestPressKey(":s/foo/bar/cg\\enter");
+  TestPressKey("ya");
+  verifyShowsNumberOfReplacementsAcrossNumberOfLines(6, 1);
+  TestPressKey("u");
+  FinishTest("bar foo foo foo foo foo");
+
+  // The interactive search replace does not handle general keypresses like ctrl-p.
+  clearCommandHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("s/foo/bar/caa");
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\ctrl-b\\enter\\ctrl-p");
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+
+  // The interactive sed replace command is added to the history straight away.
+  clearCommandHistory();
+  BeginTest("foo");
+  TestPressKey(":s/foo/bar/c\\enter");
+  QCOMPARE(commandHistory(), QStringList() << "s/foo/bar/c");
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+  clearCommandHistory();
+  BeginTest("foo");
+  TestPressKey(":s/notfound/bar/c\\enter");
+  QCOMPARE(commandHistory(), QStringList() << "s/notfound/bar/c");
+  TestPressKey("\\ctrl-c");
+  FinishTest("foo");
+
+  // Should be usable in mappings.
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "H", ":s/foo/bar/gc<enter>nnyyl", KateViGlobal::Recursive);
+  DoTest("foo foo foo foo foo foo", "H", "foo foo bar bar bar foo");
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "H", ":s/foo/bar/gc<enter>nna", KateViGlobal::Recursive);
+  DoTest("foo foo foo foo foo foo", "H", "foo foo bar bar bar bar");
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "H", ":s/foo/bar/gc<enter>nnyqggidone<esc>", KateViGlobal::Recursive);
+  DoTest("foo foo foo foo foo foo", "H", "donefoo foo bar foo foo foo");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -4891,6 +5365,24 @@ QLabel* ViModeTest::commandResponseMessageDisplay()
   QLabel* commandResponseMessageDisplay = emulatedCommandBar()->findChild<QLabel*>("commandresponsemessage");
   Q_ASSERT(commandResponseMessageDisplay);
   return commandResponseMessageDisplay;
+}
+
+void ViModeTest::verifyShowsNumberOfReplacementsAcrossNumberOfLines(int numReplacements, int acrossNumLines)
+{
+  QLabel* commandResponseMessageDisplay = emulatedCommandBar()->findChild<QLabel*>("commandresponsemessage");
+  QVERIFY(commandResponseMessageDisplay->isVisible());
+  const QString commandMessageResponseText = commandResponseMessageDisplay->text();
+  const QString expectedNumReplacementsAsString = QString::number(numReplacements);
+  const QString expectedAcrossNumLinesAsString = QString::number(acrossNumLines);
+  // Be a bit vague about the actual contents due to e.g. localisation.
+  // TODO - see if we can insist that en_US is available on the Kate Jenkins server and
+  // insist that we use it ... ?
+  QRegExp numReplacementsMessageRegex("^.*(\\d+).*(\\d+).*$");
+  QVERIFY(numReplacementsMessageRegex.exactMatch(commandMessageResponseText));
+  const QString actualNumReplacementsAsString = numReplacementsMessageRegex.cap(1);
+  const QString actualAcrossNumLinesAsString = numReplacementsMessageRegex.cap(2);
+  QCOMPARE(actualNumReplacementsAsString, expectedNumReplacementsAsString);
+  QCOMPARE(actualAcrossNumLinesAsString, expectedAcrossNumLinesAsString);
 }
 
 void ViModeTest::waitForEmulatedCommandBarToHide(long int timeout)

@@ -336,6 +336,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   centralWidget()->setLayout(layout);
   m_barTypeIndicator = new QLabel(this);
   m_barTypeIndicator->setObjectName("bartypeindicator");
+  layout->addWidget(m_barTypeIndicator);
 
   m_edit = new QLineEdit(this);
   m_edit->setObjectName("commandtext");
@@ -343,6 +344,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
 
   m_commandResponseMessageDisplay = new QLabel(this);
   m_commandResponseMessageDisplay->setObjectName("commandresponsemessage");
+  m_commandResponseMessageDisplay->setAlignment(Qt::AlignLeft);
   layout->addWidget(m_commandResponseMessageDisplay);
 
   m_waitingForRegisterIndicator = new QLabel(this);
@@ -350,6 +352,12 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_waitingForRegisterIndicator->setVisible(false);
   m_waitingForRegisterIndicator->setText("\"");
   layout->addWidget(m_waitingForRegisterIndicator);
+
+  m_interactiveSedReplaceLabel = new QLabel(this);
+  m_interactiveSedReplaceLabel->setObjectName("interactivesedreplace");
+  m_interactiveSedReplaceLabel->setText("(y/n/a/q/l)");
+  m_interactiveSedReplaceActive = false;
+  layout->addWidget(m_interactiveSedReplaceLabel);
 
   updateMatchHighlightAttrib();
   m_highlightedMatch = m_view->doc()->newMovingRange(Range(), Kate::TextRange::DoNotExpand);
@@ -410,9 +418,14 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
       Q_ASSERT(false && "Unknown mode!");
   }
   m_barTypeIndicator->setText(barTypeIndicator);
+  m_barTypeIndicator->show();
+
   setBarBackground(Normal);
 
   m_startingCursorPos = m_view->cursorPosition();
+
+  m_interactiveSedReplaceActive = false;
+  m_interactiveSedReplaceLabel->hide();
 
   m_mode = mode;
   m_edit->setFocus();
@@ -425,6 +438,7 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
   m_isActive = true;
 
   m_wasAborted = true;
+
 
   // A change in focus will have occurred: make sure we process it now, instead of having it
   // occur later and stop() m_commandResponseMessageDisplayHide.
@@ -922,6 +936,64 @@ QString KateViEmulatedCommandBar::leadingRange()
 
 bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
 {
+  if (keyEvent->modifiers() == Qt::ControlModifier && (keyEvent->key() == Qt::Key_C || keyEvent->key() == Qt::Key_BracketLeft) && !m_waitingForRegister)
+  {
+    if (m_currentCompletionType == None || !m_completer->popup()->isVisible())
+    {
+      emit hideMe();
+    }
+    else
+    {
+      abortCompletionAndResetToPreCompletion();
+    }
+    return true;
+  }
+  if (m_interactiveSedReplaceActive)
+  {
+    // TODO - it would be better to use e.g. keyEvent->key() == Qt::Key_Y instead of keyEvent->text() == "y",
+    // but this would require some slightly dicey changes to the "feed key press" code in order to make it work
+    // with mappings and macros.
+    if (keyEvent->text() == "y" || keyEvent->text() == "n")
+    {
+      const Cursor cursorPosIfFinalMatch = m_interactiveSedReplacer->currentMatch().start();
+      if (keyEvent->text() == "y")
+      {
+        m_interactiveSedReplacer->replaceCurrentMatch();
+      }
+      else
+      {
+        m_interactiveSedReplacer->skipCurrentMatch();
+      }
+      updateMatchHighlight(m_interactiveSedReplacer->currentMatch());
+      updateInteractiveSedReplaceLabelText();
+      moveCursorTo(m_interactiveSedReplacer->currentMatch().start());
+
+      if (!m_interactiveSedReplacer->currentMatch().isValid())
+      {
+        moveCursorTo(cursorPosIfFinalMatch);
+        finishInteractiveSedReplace();
+      }
+      return true;
+    }
+    else if (keyEvent->text() == "l")
+    {
+      m_interactiveSedReplacer->replaceCurrentMatch();
+      finishInteractiveSedReplace();
+      return true;
+    }
+    else if (keyEvent->text() == "q")
+    {
+      finishInteractiveSedReplace();
+      return true;
+    }
+    else if (keyEvent->text() == "a")
+    {
+      m_interactiveSedReplacer->replaceAllRemaining();
+      finishInteractiveSedReplace();
+      return true;
+    }
+    return false;
+  }
   if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_Space)
   {
     activateWordFromDocumentCompletion();
@@ -1029,19 +1101,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     }
   } else if (keyEvent->modifiers() == Qt::ControlModifier)
   {
-    if (keyEvent->key() == Qt::Key_C || keyEvent->key() == Qt::Key_BracketLeft)
-    {
-      if (m_currentCompletionType == None || !m_completer->popup()->isVisible())
-      {
-        emit hideMe();
-      }
-      else
-      {
-        abortCompletionAndResetToPreCompletion();
-      }
-      return true;
-    }
-    else if (keyEvent->key() == Qt::Key_H)
+    if (keyEvent->key() == Qt::Key_H)
     {
       if (m_edit->text().isEmpty())
       {
@@ -1125,13 +1185,16 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
         }
 
         const QString commandResponseMessage = executeCommand(commandToExecute);
-        if (commandResponseMessage.isEmpty())
+        if (!m_interactiveSedReplaceActive)
         {
-          emit hideMe();
-        }
-        else
-        {
-          switchToCommandResponseDisplay(commandResponseMessage);
+          if (commandResponseMessage.isEmpty() && !m_interactiveSedReplaceActive)
+          {
+            emit hideMe();
+          }
+          else
+          {
+            switchToCommandResponseDisplay(commandResponseMessage);
+          }
         }
         KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem(m_edit->text());
       }
@@ -1146,10 +1209,34 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     m_suspendEditEventFiltering = true;
     QKeyEvent keyEventCopy(keyEvent->type(), keyEvent->key(), keyEvent->modifiers(), keyEvent->text(), keyEvent->isAutoRepeat(), keyEvent->count());
-    qApp->notify(m_edit, &keyEventCopy);
+    if (!m_interactiveSedReplaceActive)
+    {
+      qApp->notify(m_edit, &keyEventCopy);
+    }
     m_suspendEditEventFiltering = false;
   }
   return true;
+}
+
+void KateViEmulatedCommandBar::startInteractiveSearchAndReplace(QSharedPointer< KateCommands::SedReplace::InteractiveSedReplacer > interactiveSedReplace)
+{
+  m_interactiveSedReplaceActive = true;
+  m_interactiveSedReplacer = interactiveSedReplace;
+  if (!interactiveSedReplace->currentMatch().isValid())
+  {
+    // Bit of a hack, but we leave m_incrementalSearchAndReplaceActive true, here, else
+    // the bar would be immediately hidden and the "0 replacements made" message not shown.
+    finishInteractiveSedReplace();
+    return;
+  }
+  kDebug(13070) << "Starting incremental search and replace";
+  m_commandResponseMessageDisplay->hide();
+  m_edit->hide();
+  m_barTypeIndicator->hide();
+  m_interactiveSedReplaceLabel->show();
+  updateMatchHighlight(interactiveSedReplace->currentMatch());
+  updateInteractiveSedReplaceLabelText();
+  moveCursorTo(interactiveSedReplace->currentMatch().start());
 }
 
 Range KateViEmulatedCommandBar::parseRangeExpression(const QString& command, KateView *view, QString& destRangeExpression, QString& destTransformedCommand)
@@ -1176,9 +1263,21 @@ void KateViEmulatedCommandBar::switchToCommandResponseDisplay(const QString& com
   // Display the message for a while.  Become inactive, so we don't steal keys in the meantime.
   m_isActive = false;
   m_edit->hide();
+  m_interactiveSedReplaceLabel->hide();
   m_commandResponseMessageDisplay->show();
   m_commandResponseMessageDisplay->setText(commandResponseMessage);
   m_commandResponseMessageDisplayHide->start(m_commandResponseMessageTimeOutMS);
+}
+
+void KateViEmulatedCommandBar::updateInteractiveSedReplaceLabelText()
+{
+  m_interactiveSedReplaceLabel->setText(m_interactiveSedReplacer->currentMatchReplacementConfirmationMessage() + " (y/n/a/q/l)");
+}
+
+void KateViEmulatedCommandBar::finishInteractiveSedReplace()
+{
+  switchToCommandResponseDisplay(m_interactiveSedReplacer->finalStatusReportMessage());
+  m_interactiveSedReplacer.clear();
 }
 
 void KateViEmulatedCommandBar::moveCursorTo(const Cursor& cursorPos)
@@ -1192,6 +1291,7 @@ void KateViEmulatedCommandBar::moveCursorTo(const Cursor& cursorPos)
 
 void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {
+  Q_ASSERT(!m_interactiveSedReplaceActive);
   qDebug() << "New text: " << newText;
   if (!m_nextTextChangeDueToCompletionChange)
   {

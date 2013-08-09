@@ -21,6 +21,7 @@
 #define KATEVIEMULATEDCOMMANDBAR_H
 
 #include "kateviewhelpers.h"
+#include "katecmds.h"
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/movingrange.h>
@@ -42,6 +43,8 @@ public:
   void setCommandResponseMessageTimeout(long commandResponseMessageTimeOutMS);
   virtual void closed();
   bool handleKeyPress(const QKeyEvent* keyEvent);
+
+  void startInteractiveSearchAndReplace(QSharedPointer<KateCommands::SedReplace::InteractiveSedReplacer> interactiveSedReplace);
 
   /**
    * Attempt to parse any leading range expression (e.g. "%", "'<,'>", ".,+6" etc) in @c command and
@@ -72,6 +75,12 @@ private:
   long m_commandResponseMessageTimeOutMS;
   QString executeCommand(const QString& commandToExecute);
   void switchToCommandResponseDisplay(const QString& commandResponseMessage);
+
+  QLabel *m_interactiveSedReplaceLabel;
+  bool m_interactiveSedReplaceActive;
+  void updateInteractiveSedReplaceLabelText();
+  QSharedPointer<KateCommands::SedReplace::InteractiveSedReplacer> m_interactiveSedReplacer;
+  void finishInteractiveSedReplace();
 
   void moveCursorTo(const KTextEditor::Cursor& cursorPos);
 

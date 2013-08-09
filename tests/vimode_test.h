@@ -87,6 +87,7 @@ private:
   QLabel *emulatedCommandTypeIndicator();
   KateViEmulatedCommandBar *emulatedCommandBar();
   QLabel *commandResponseMessageDisplay();
+  void verifyShowsNumberOfReplacementsAcrossNumberOfLines(int numReplacements, int acrossNumLines);
   void waitForEmulatedCommandBarToHide(long timeout);
   void verifyCursorAt(const KTextEditor::Cursor& expectedCursorPos);
 

@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd" [
   <!ENTITY b "(?![A-Za-z])">
   <!ENTITY rest "\b[srR]&b;">
-  <!ENTITY pitch "\b([a-h]((iss){1,2}|(ess){1,2}|(is){1,2}|(es){1,2}|(sharp){1,2}|(flat){1,2}|ss?|ff?)?|(do|re|mi|fa|sol|la|si)(dd?|bb?|ss?|kk?)?)('+|,+|&b;)">
+  <!ENTITY pitch "\b([a-h]((iss){1,2}|(ess){1,2}|(is){1,2}|(es){1,2}|(sharp){1,2}|(flat){1,2}|ss?|ff?)?|(do|re|mi|fa|sol|la|si)(dd?|bb?|ss?|kk?)?|q)('+|,+|&b;)">
   <!ENTITY duration "(\\(longa|breve)\b|(1|2|4|8|16|32|64|128|256|512|1024|2048)(?!\d))(\s*\.+)?(\s*\*\s*\d+(/\d+)?)*">
   <!ENTITY dynamics "p{1,5}|mp|mf|f{1,5}|s?fp|sff?|spp?|[sr]?fz|cresc|decresc|dim">
   <!ENTITY scripts "\d+|accent|marcato|staccat(issim)?o|espressivo|tenuto|portato|(up|down)(bow|mordent|prall)|flageolet|thumb|[lr](heel|toe)|open|stopped|turn|reverseturn|trill|mordent|prall(prall|mordent|down|up)?|lineprall|signumcongruentiae|(short|long|verylong)?fermata|segno|(var)?coda|snappizzicato|halfopen">
@@ -42,7 +42,7 @@
 ]>
 <language name="LilyPond" section="Other"
           style="lilypond" indenter="lilypond"
-          version="3.06" kateversion="3.0"
+          version="3.07" kateversion="3.0"
           extensions="*.ly;*.LY;*.ily;*.ILY;*.lyi;*.LYI"
           mimetype="text/x-lilypond"
           author="Wilbert Berendsen (info@wilbertberendsen.nl)" license="LGPL">

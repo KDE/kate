@@ -1333,30 +1333,21 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     }
 
     int numberStartPos = -1;
-    int searchOffsetFromCursor = 0;
     QString numberAsString;
     QRegExp numberRegex( "(0x)([0-9a-fA-F]+)|\\-?\\d+" );
-    while (numberStartPos == -1)
+    const int cursorColumn = c.column();
+    const int currentLineLength = doc()->lineLength(c.line());
+    const Cursor prevWordStart = findPrevWordStart(c.line(), cursorColumn);
+    int wordStartPos = prevWordStart.column();
+    if (prevWordStart.line() < c.line())
     {
-
-      const int searchFromColumn = c.column() + searchOffsetFromCursor;
-
-      if (searchFromColumn > doc()->line(c.line()).length())
-      {
-        // Can't find anything that even looks like a number.  Give up.
-        return;
-      }
-      const Cursor prevWordStart = findPrevWordStart(c.line(), searchFromColumn);
-      int wordStartPos = prevWordStart.column();
-      if (prevWordStart.line() < c.line())
-      {
-        // The previous word starts on the previous line: ignore.
-        wordStartPos = searchFromColumn;
-      }
-
-      if (wordStartPos > 0 && line.at(wordStartPos - 1) == '-') wordStartPos--;
-
-      numberStartPos = numberRegex.indexIn( line, wordStartPos );
+      // The previous word starts on the previous line: ignore.
+      wordStartPos = 0;
+    }
+    if (wordStartPos > 0 && line.at(wordStartPos - 1) == '-') wordStartPos--;
+    for (int searchFromColumn = wordStartPos; searchFromColumn < currentLineLength; searchFromColumn++)
+    {
+      numberStartPos = numberRegex.indexIn( line, searchFromColumn );
 
       numberAsString = numberRegex.cap();
 
@@ -1364,24 +1355,33 @@ void KateViModeBase::addToNumberUnderCursor( int count )
       {
         // This number is before the cursor; keep on searching.
         numberStartPos = -1;
-        searchOffsetFromCursor++;
-        continue;
       }
-
+      else
+      {
+        // This'll do!
+        break;
+      }
     }
+
+    if (numberStartPos == -1)
+    {
+      // None found.
+      return;
+    }
+
     bool ok = false;
     int base = numberRegex.cap( 1 ).isEmpty() ? 10 : 16;
     if (base != 16 && numberAsString.startsWith("0") && numberAsString != "0")
     {
-        numberAsString.toInt( &ok, 8 );
+      numberAsString.toInt( &ok, 8 );
       if (ok)
       {
         // Octal.
         base = 8;
       }
     }
-    int number = numberAsString.toInt( &ok, base );
-    QString withoutBase;
+    const int originalNumber = numberAsString.toInt( &ok, base );
+    QString withoutBase = numberAsString;
     if (base == 16)
     {
       withoutBase = numberRegex.cap(2);
@@ -1390,13 +1390,9 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     {
       withoutBase = numberAsString.mid(1); // Strip off leading 0.
     }
-    else
-    {
-      withoutBase = numberAsString;
-    }
 
     kDebug( 13070 ) << "base: " << base;
-    kDebug( 13070 ) << "n: " << number;
+    kDebug( 13070 ) << "n: " << originalNumber;
 
     if ( !ok ) {
         // conversion to int failed. give up.
@@ -1404,11 +1400,11 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     }
 
     // increase/decrease number
-    number += count;
+    const int newNumber = originalNumber + count;
 
-    // create the new text string to be inserted. prepend with “0x” if in base 16, and "0" if base 8.
+    // Create the new text string to be inserted. Prepend with “0x” if in base 16, and "0" if base 8.
     // For non-decimal numbers, try to keep the length of the number the same (including leading 0's).
-    QString newNumberPadded = (base == 16 || base == 8) ? QString("%1").arg(number, withoutBase.length(), base, QChar('0')) : QString("%1").arg(number, 0, base);
+    QString newNumberPadded = (base == 16 || base == 8) ? QString("%1").arg(newNumber, withoutBase.length(), base, QChar('0')) : QString("%1").arg(newNumber, 0, base);
     QString newNumberText = newNumberPadded;
     if (base == 16)
     {
@@ -1419,7 +1415,7 @@ void KateViModeBase::addToNumberUnderCursor( int count )
       newNumberText = "0" + newNumberText;
     }
 
-    // replace the old number string with the new
+    // Replace the old number string with the new.
     doc()->editStart();
     doc()->removeText( KTextEditor::Range( c.line(), numberStartPos , c.line(), numberStartPos+numberAsString.length() ) );
     doc()->insertText( KTextEditor::Cursor( c.line(), numberStartPos ), newNumberText );

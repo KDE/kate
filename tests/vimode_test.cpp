@@ -1388,6 +1388,8 @@ void ViModeTest::NormalModeControlTests() {
   // and at a column greater than the length of the current line.
   DoTest(" a a\n1", "j\\ctrl-a", " a a\n2");
   DoTest(" a a    a\n  1", "jll\\ctrl-a", " a a    a\n  2");
+  // Regression test.
+  DoTest("1w3", "l\\ctrl-a", "1w4");
 
   // Test "Ctrl-a/x" on a blank document/ blank line.
   DoTest("", "\\ctrl-a","");

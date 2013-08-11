@@ -2390,6 +2390,14 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo a]b", "wYb/\\ctrl-e0\\enterrX", "foo X]b");
   DoTest("foo a]b]c", "wYb/\\ctrl-e0\\enterrX", "foo X]b]c");
   DoTest("foo a\\]b\\]c", "wYb/\\ctrl-e0\\enterrX", "foo X\\]b\\]c");
+  // Test that expressions involving {'s and }'s work when inserted via ctrl-e.
+  DoTest("foo {", "wYgg/\\ctrl-e0\\enterrX", "foo X");
+  DoTest("foo }", "wYgg/\\ctrl-e0\\enterrX", "foo X");
+  DoTest("foo aaaaa \\aaaaa a\\{5}", "WWWYgg/\\ctrl-e0\\enterrX", "foo aaaaa \\aaaaa X\\{5}");
+  DoTest("foo }", "wYgg/\\ctrl-e0\\enterrX", "foo X");
+  // Transform newlines into "\\n" when inserted via ctrl-e.
+  DoTest(" \nfoo\nfoo\nxyz\nbar\n123", "jjvjjllygg/\\ctrl-e0\\enterrX", " \nfoo\nXoo\nxyz\nbar\n123");
+  DoTest(" \nfoo\nfoo\nxyz\nbar\n123", "jjvjjllygg/\\ctrl-e0/e\\enterrX", " \nfoo\nfoo\nxyz\nbaX\n123");
   // Don't do any escaping for ctrl-r, though.
   BeginTest("foo .*$^\\/");
   TestPressKey("wY/\\ctrl-r0");
@@ -2895,6 +2903,8 @@ void ViModeTest::VimStyleCommandBarTests()
   DoTest("foo xaaaaay", "/xa\\\\{5\\\\}y\\enterrX", "foo Xaaaaay");
   // Matching curly brackets where only the first is escaped are also quantifiers.
   DoTest("foo xaaaaaybbbz", "/xa\\\\{5}yb\\\\{3}z\\enterrX", "foo Xaaaaaybbbz");
+  // Make sure it really is escaped, though!
+  DoTest("foo xa\\{5}", "/xa\\\\\\\\{5}\\enterrX", "foo Xa\\{5}");
   // Don't crash if the first character is a }
   DoTest("foo aaaaay", "/{\\enterrX", "Xoo aaaaay");
   // Vim's '\<' and '\>' map, roughly, to Qt's '\b'

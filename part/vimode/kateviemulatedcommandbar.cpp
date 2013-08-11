@@ -116,7 +116,7 @@ namespace
       QList<int> matchingClosedCurlyBracketPositions;
       for (int i = 0; i < qtRegexPattern.length(); i++)
       {
-        if (qtRegexPattern[i] == '{' && i > 0 && qtRegexPattern[i - 1] == '\\')
+        if (qtRegexPattern[i] == '{' && isCharEscaped(qtRegexPattern, i))
         {
           lookingForMatchingCloseBracket = true;
         }
@@ -230,6 +230,7 @@ namespace
     escapedForSearchingAsLiteral.replace('/', "\\/");
     escapedForSearchingAsLiteral.replace('[', "\\[");
     escapedForSearchingAsLiteral.replace(']', "\\]");
+    escapedForSearchingAsLiteral.replace('\n', "\\n");
     return escapedForSearchingAsLiteral;
   }
 

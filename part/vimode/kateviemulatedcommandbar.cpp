@@ -1142,15 +1142,17 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
         ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
         if (parsedSedReplace.parsedSuccessfully)
         {
-          const bool replaceFindTerm = (keyEvent->key() == Qt::Key_D);
-          const QString textWithTermCleared =  (replaceFindTerm) ?
-                findTermInSedReplaceReplacedWith("") :
-                replaceTermInSedReplaceReplacedWith("");
-          m_edit->setText(textWithTermCleared);
-          ParsedSedReplace parsedSedReplaceAfter = parseAsSedReplaceExpression();
-          const int newCursorPos = replaceFindTerm ? parsedSedReplaceAfter.findBeginPos :
-                                                     parsedSedReplaceAfter.replaceBeginPos;
-          m_edit->setCursorPosition(newCursorPos);
+          const bool clearFindTerm = (keyEvent->key() == Qt::Key_D);
+          if (clearFindTerm)
+          {
+            m_edit->setSelection(parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos - parsedSedReplace.findBeginPos + 1);
+            m_edit->insert("");
+          }
+          else
+          {
+            m_edit->setSelection(parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos - parsedSedReplace.replaceBeginPos + 1);
+            m_edit->insert("");
+          }
         }
       }
       return true;

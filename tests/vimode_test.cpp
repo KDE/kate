@@ -3934,6 +3934,16 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s::X:g"));
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("foo bar");
+  // Should be able to undo ctrl-f or ctrl-d.
+  BeginTest("foo bar");
+  TestPressKey(":s/find/replace/g\\ctrl-d");
+  emulatedCommandBarTextEdit()->undo();
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/find/replace/g"));
+  TestPressKey("\\ctrl-f");
+  emulatedCommandBarTextEdit()->undo();
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/find/replace/g"));
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
   // Don't hang if we execute a sed replace with empty search term.
   DoTest("foo bar", ":s//replace/g\\enter", "foo bar");
 

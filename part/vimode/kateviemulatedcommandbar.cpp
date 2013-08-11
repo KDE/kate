@@ -1100,18 +1100,19 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       m_waitingForRegister = false;
       m_waitingForRegisterIndicator->setVisible(false);
     }
-  } else if (keyEvent->modifiers() == Qt::ControlModifier)
+  }
+  else if ((keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_H) || keyEvent->key() == Qt::Key_Backspace)
   {
-    if (keyEvent->key() == Qt::Key_H)
+    if (m_edit->text().isEmpty())
     {
-      if (m_edit->text().isEmpty())
-      {
-        emit hideMe();
-      }
-      m_edit->backspace();
-      return true;
+      emit hideMe();
     }
-    else if (keyEvent->key() == Qt::Key_B)
+    m_edit->backspace();
+    return true;
+  }
+  else if (keyEvent->modifiers() == Qt::ControlModifier)
+  {
+    if (keyEvent->key() == Qt::Key_B)
     {
       m_edit->setCursorPosition(0);
       return true;

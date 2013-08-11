@@ -2110,6 +2110,27 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("");
 
+  // Same for backspace.
+  BeginTest("");
+  TestPressKey("/bar\\backspace");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("ba"));
+  TestPressKey("\\enter");
+  FinishTest("");
+  BeginTest("");
+  TestPressKey("/\\backspace");
+  QVERIFY(!emulatedCommandBar->isVisible());
+  FinishTest("");
+  BeginTest("");
+  TestPressKey("/a\\backspace");
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\enter");
+  FinishTest("");
+  BeginTest("");
+  TestPressKey("/a\\left\\backspace");
+  QVERIFY(emulatedCommandBar->isVisible());
+  TestPressKey("\\enter");
+  FinishTest("");
+
   // Check ctrl-b works.
   BeginTest("");
   TestPressKey("/bar foo xyz\\ctrl-bX");

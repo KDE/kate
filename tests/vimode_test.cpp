@@ -3944,6 +3944,23 @@ void ViModeTest::VimStyleCommandBarTests()
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/find/replace/g"));
   TestPressKey("\\ctrl-c"); // Dismiss bar.
   FinishTest("foo bar");
+  // ctrl-f / ctrl-d should cleanly finish sed find/ replace history completion.
+  clearReplaceHistory();
+  clearSearchHistory();
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("searchxyz");
+  KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem("replacexyz");
+  TestPressKey(":s///g\\ctrl-d\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-f");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s/searchxyz//g"));
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-p");
+  QVERIFY(emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-d");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("s//replacexyz/g"));
+  QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
+  TestPressKey("\\ctrl-c"); // Dismiss bar.
+  FinishTest("foo bar");
   // Don't hang if we execute a sed replace with empty search term.
   DoTest("foo bar", ":s//replace/g\\enter", "foo bar");
 

@@ -3417,7 +3417,8 @@ void ViModeTest::VimStyleCommandBarTests()
   const int commandResponseMessageTimeOutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_COMMANDRESPONSEMESSAGETIMEOUTMS")).toInt();
   const long commandResponseMessageTimeOutMS = (commandResponseMessageTimeOutMSOverride > 0) ? commandResponseMessageTimeOutMSOverride : 2000;
   {
-  // If there is any output from the command, show it in a label for a short amount of time.
+  // If there is any output from the command, show it in a label for a short amount of time
+  // (make sure the bar type indicator is hidden, here, as it looks messy).
   emulatedCommandBar->setCommandResponseMessageTimeout(commandResponseMessageTimeOutMS);
   BeginTest("foo bar xyz");
   const QDateTime timeJustBeforeCommandExecuted = QDateTime::currentDateTime();
@@ -3426,6 +3427,7 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(commandResponseMessageDisplay());
   QVERIFY(commandResponseMessageDisplay()->isVisible());
   QVERIFY(!emulatedCommandBarTextEdit()->isVisible());
+  QVERIFY(!emulatedCommandTypeIndicator()->isVisible());
   // Be a bit vague about the exact message, due to i18n, etc.
   QVERIFY(commandResponseMessageDisplay()->text().contains("commandthatdoesnotexist"));
   waitForEmulatedCommandBarToHide(4 * commandResponseMessageTimeOutMS);
@@ -3433,11 +3435,13 @@ void ViModeTest::VimStyleCommandBarTests()
   QVERIFY(!emulatedCommandBar->isVisible());
   // Piggy-back on this test, as the bug we're about to test for would actually make setting
   // up the conditions again in a separate test impossible ;)
-  // When we next summon the bar, the response message should be invisible and the editor visible & editable.
+  // When we next summon the bar, the response message should be invisible; the editor visible & editable;
+  // and the bar type indicator visible again.
   TestPressKey("/");
   QVERIFY(!commandResponseMessageDisplay()->isVisible());
   QVERIFY(emulatedCommandBarTextEdit()->isVisible());
   QVERIFY(emulatedCommandBarTextEdit()->isEnabled());
+  QVERIFY(emulatedCommandBar->isVisible());
   TestPressKey("\\esc"); // Dismiss the bar.
   FinishTest("foo bar xyz");
   }
@@ -5379,9 +5383,9 @@ QLabel* ViModeTest::commandResponseMessageDisplay()
 
 void ViModeTest::verifyShowsNumberOfReplacementsAcrossNumberOfLines(int numReplacements, int acrossNumLines)
 {
-  QLabel* commandResponseMessageDisplay = emulatedCommandBar()->findChild<QLabel*>("commandresponsemessage");
-  QVERIFY(commandResponseMessageDisplay->isVisible());
-  const QString commandMessageResponseText = commandResponseMessageDisplay->text();
+  QVERIFY(commandResponseMessageDisplay()->isVisible());
+  QVERIFY(!emulatedCommandTypeIndicator()->isVisible());
+  const QString commandMessageResponseText = commandResponseMessageDisplay()->text();
   const QString expectedNumReplacementsAsString = QString::number(numReplacements);
   const QString expectedAcrossNumLinesAsString = QString::number(acrossNumLines);
   // Be a bit vague about the actual contents due to e.g. localisation.

@@ -1265,6 +1265,7 @@ void KateViEmulatedCommandBar::switchToCommandResponseDisplay(const QString& com
   m_isActive = false;
   m_edit->hide();
   m_interactiveSedReplaceLabel->hide();
+  m_barTypeIndicator->hide();
   m_commandResponseMessageDisplay->show();
   m_commandResponseMessageDisplay->setText(commandResponseMessage);
   m_commandResponseMessageDisplayHide->start(m_commandResponseMessageTimeOutMS);

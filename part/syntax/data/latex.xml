@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="LaTeX" version="1.54" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;*.tikz" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
+<language name="LaTeX" version="1.55" section="Markup" kateversion="2.3" priority="10" extensions="*.tex;*.ltx;*.dtx;*.sty;*.cls;*.bbx;*.cbx;*.lbx;*.tikz" mimetype="text/x-tex" casesensitive="1" author="Jeroen Wijnhout (Jeroen.Wijnhout@kdemail.net)+Holger Danielsson (holger.danielsson@versanet.de)+Michel Ludwig (michel.ludwig@kdemail.net)+Thomas Braun (thomas.braun@virtuell-zuhause.de)" license="LGPL" >
   <highlighting>
     <contexts>
       <!-- Normal text -->
@@ -126,7 +126,8 @@
       <!-- LaTeX command in text mode -->
       <context name="ContrSeq" attribute="Keyword" lineEndContext="#pop">
         <StringDetect String="verb*" attribute="Keyword" context="Verb"/>
-        <RegExpr String="(Verb|verb|lstinline)(?=[^a-zA-Z])" attribute="Keyword" context="Verb"/>
+        <RegExpr String="(Verb|verb)(?=[^a-zA-Z])" attribute="Keyword" context="Verb"/>
+        <RegExpr String="(lstinline)(?=[^a-zA-Z])" attribute="Keyword" context="Lstinline"/>
         <RegExpr String="mint(?=[^a-zA-Z])" attribute="Keyword" context="MintParam"/>
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[a-zA-Z@]+(\+?|\*{0,3})" attribute="Keyword" context="#pop"/>
@@ -150,6 +151,21 @@
         <StringDetect String="%1" attribute="Normal Text" context="#pop#pop#pop" dynamic="true" />
         <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
         <RegExpr String="[^%1\xd7]*" attribute="Verbatim" context="#stay" dynamic="true" />
+      </context>
+
+      <!-- lstinline command, different from verb as it takes options -->
+      <context name="Lstinline" attribute="Verbatim" lineEndContext="#pop#pop" >
+        <RegExpr String="\s*\[\s*" attribute="Normal Text" context="FancyLabelOption"/>
+        <RegExpr String="\s*\{\s*" attribute="Normal Text" context="LstinlineParameter"/>
+        <RegExpr String="(.)" attribute="Normal Text" dynamic="true" context="LstinlineEnd" />
+      </context>
+      <context name="LstinlineEnd" attribute="Verbatim" lineEndContext="#pop#pop#pop" dynamic="true" >
+        <StringDetect String="%1" attribute="Normal Text" context="#pop#pop#pop" dynamic="true" />
+        <DetectChar char="&#xd7;" attribute="Bullet" context="#stay"/>
+        <RegExpr String="[^%1\xd7]*" attribute="Verbatim" context="#stay" dynamic="true" />
+      </context>
+      <context name="LstinlineParameter" attribute="Verbatim" lineEndContext="#stay">
+        <RegExpr String="\s*\}\s*" attribute="Normal Text" context="#pop#pop#pop"/>
       </context>
 
       <!-- label -->

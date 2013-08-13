@@ -176,6 +176,7 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
     return;
  m_symbols->clear();
  parseSymbols();
+ updateCurrTreeItem();
 }
 
 void KatePluginSymbolViewerView::slotChangeMode()

@@ -5479,6 +5479,11 @@ void ViModeTest::MacroTests()
   DoTest("", "qaixyz\\ctrl-cqqb@aq@b", "xyxyxyzzz");
   // Make macros "counted".
   DoTest("XXXX\nXXXX\nXXXX\nXXXX", "qarOljq3@a", "OXXX\nXOXX\nXXOX\nXXXO");
+
+  // A macro can be undone with one undo.
+  DoTest("foo bar", "qaciwxyz\\ctrl-ci123\\ctrl-cqw@au", "xy123z bar");
+  // As can a counted macro.
+  DoTest("XXXX\nXXXX\nXXXX\nXXXX", "qarOljq3@au", "OXXX\nXXXX\nXXXX\nXXXX");
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

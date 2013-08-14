@@ -54,6 +54,7 @@
 #include <QtGui/QPixmap>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QLayout>
+#include <QToolTip>
 
 static const bool debugPainting = false;
 
@@ -2827,9 +2828,12 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
     //and we will create invalid text hint requests if we don't check
     if (m_textHintEnabled && geometry().contains(parentWidget()->mapFromGlobal(e->globalPos())))
     {
-       m_textHintTimer.start(m_textHintTimeout);
-       m_textHintMouseX=e->x();
-       m_textHintMouseY=e->y();
+      if ( QToolTip::isVisible() ) {
+        QToolTip::hideText();
+      }
+      m_textHintTimer.start(m_textHintTimeout);
+      m_textHintMouseX=e->x();
+      m_textHintMouseY=e->y();
     }
   }
 }
@@ -3053,7 +3057,11 @@ void KateViewInternal::textHintTimeout ()
 
   emit m_view->needTextHint(c, tmp);
 
-  if (!tmp.isEmpty()) kDebug(13030)<<"Hint text: "<<tmp;
+  if (!tmp.isEmpty()) {
+    kDebug(13030) << "Hint text: " << tmp;
+    QPoint pos(startX() + m_textHintMouseX, m_textHintMouseY);
+    QToolTip::showText(mapToGlobal(pos), tmp);
+  }
 }
 
 void KateViewInternal::focusInEvent (QFocusEvent *)

@@ -336,6 +336,10 @@ bool KateViInputModeManager::isRecordingMacro()
 void KateViInputModeManager::replayMacro(QChar macroRegister)
 {
   QList<QKeyEvent> keyLog = m_macroKeyEventsLogForRegister[macroRegister];
+  if (keyLog.isEmpty())
+  {
+    return;
+  }
   keyLog.pop_back(); // Ditch the closing "q".
   kDebug(13070) << "Replaying macro: " << macroRegister << " " << keyLog.size() << " keypresses";
 

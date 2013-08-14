@@ -5474,6 +5474,9 @@ void ViModeTest::MacroTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "ihello<c-c>ixyz<c-c>", KateViGlobal::Recursive);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "ihello<c-c>", "irecursive<c-c>", KateViGlobal::Recursive);
   DoTest("", "qa'q@a", "recursivxyrecursivxyzeze");
+
+  // Don't save the trailing "q" with macros, and also test that we can call one macro from another.
+  DoTest("", "qaixyz\\ctrl-cqqb@aq@b", "xyxyxyzzz");
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

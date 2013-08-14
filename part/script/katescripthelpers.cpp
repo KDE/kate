@@ -28,6 +28,7 @@
 #include <QScriptEngine>
 #include <QScriptValue>
 #include <QScriptContext>
+#include <QFile>
 
 #include <kdebug.h>
 #include <klocale.h>

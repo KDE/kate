@@ -1811,8 +1811,12 @@ bool KateViNormalMode::commandStartRecordingMacro()
 bool KateViNormalMode::commandReplayMacro()
 {
   const QChar reg = m_keys[m_keys.size() - 1];
+  const unsigned int count = getCount();
   resetParser();
-  m_viInputModeManager->replayMacro(reg);
+  for ( unsigned int i = 0; i < count; i++ )
+  {
+    m_viInputModeManager->replayMacro(reg);
+  }
   return true;
 }
 

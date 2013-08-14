@@ -5477,6 +5477,8 @@ void ViModeTest::MacroTests()
 
   // Don't save the trailing "q" with macros, and also test that we can call one macro from another.
   DoTest("", "qaixyz\\ctrl-cqqb@aq@b", "xyxyxyzzz");
+  // Make macros "counted".
+  DoTest("XXXX\nXXXX\nXXXX\nXXXX", "qarOljq3@a", "OXXX\nXOXX\nXXOX\nXXXO");
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

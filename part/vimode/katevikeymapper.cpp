@@ -107,13 +107,14 @@ bool KateViKeyMapper::handleKeypress(QChar key)
       return true;
     }
     // We've been swallowing all the keypresses meant for m_keys for our mapping keys; now that we know
-    // this cannot be a mapping, restore them. The current key will be appended further down.
+    // this cannot be a mapping, restore them.
     Q_ASSERT(!isPartialMapping && !isFullMapping);
      //currentKeys += m_mappingKeys.mid(0, m_mappingKeys.length() - 1);
     m_doNotExpandFurtherMappings = true;
-    m_viInputModeManager->feedKeyPresses(m_mappingKeys.mid(0, m_mappingKeys.length() - 1));
+    m_viInputModeManager->feedKeyPresses(m_mappingKeys.mid(0, m_mappingKeys.length()));
     m_doNotExpandFurtherMappings = false;
     m_mappingKeys.clear();
+    return true;
   } else {
     // FIXME:
     //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress

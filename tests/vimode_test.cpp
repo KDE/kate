@@ -1910,6 +1910,14 @@ void ViModeTest::MappingTests()
     DoTest("", "\\:nn h<space> i<space>a<space>b<esc>\\h ", " a b");
   }
 
+  // More recursion tests - don't lose characters from a Recursive mapping if it looks like they might
+  // be part of a different mapping (but end up not being so).
+  // (Here, the leading "i" in "irecursive<c-c>" could be part of the mapping "ihello<c-c>").
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "ihello<c-c>", KateViGlobal::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "ihello<c-c>", "irecursive<c-c>", KateViGlobal::Recursive);
+  DoTest("", "'", "recursive");
+
   // Clear mappings for subsequent tests.
   clearAllMappings();
 }

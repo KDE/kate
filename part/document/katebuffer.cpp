@@ -703,10 +703,23 @@ KTextEditor::Range KateBuffer::computeFoldingRangeForStartLine (int startLine)
         
         /**
          * end reached?
-         * return resulting range!
+         * compute resulting range!
          */
-        if (countOfOpenRegions == 0)
-          return KTextEditor::Range (KTextEditor::Cursor (startLine, openedRegionOffset), KTextEditor::Cursor (line, lineAttributes[i].offset));
+        if (countOfOpenRegions == 0) {
+          /**
+           * special handling of end: if end is at column 0 of a line, move it to end of previous line!
+           * fixes folding for stuff like
+           * #pragma mark END_OLD_AND_START_NEW_REGION
+           */
+          KTextEditor::Cursor endCursor (line, lineAttributes[i].offset);
+          if (endCursor.column() == 0 && endCursor.line() > 0)
+            endCursor = KTextEditor::Cursor (endCursor.line()-1, plainLine (lines()-1)->length());
+          
+          /**
+           * return computed range
+           */
+          return KTextEditor::Range (KTextEditor::Cursor (startLine, openedRegionOffset), endCursor);
+        }
       }
     
       /**

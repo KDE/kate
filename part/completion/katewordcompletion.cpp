@@ -86,7 +86,6 @@ QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
     switch ( role )
     {
       case Qt::DisplayRole:
-        kDebug( 13035 ) << "Returning the auto word completion group header";
         return i18n("Auto Word Completion");
       case GroupRole:
         return Qt::DisplayRole;

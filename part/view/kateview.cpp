@@ -1139,7 +1139,12 @@ QString KateView::viewMode () const
    */
   if (viInputMode()) {
     currentMode = KateViInputModeManager::modeToString (getCurrentViMode());
-    
+
+    if (m_viewInternal->getViInputModeManager()->isRecordingMacro())
+    {
+      currentMode += " (" + i18n("recording") + ") ";
+    }
+
     /**
      * perhaps append the current keys of a command not finalized
      */

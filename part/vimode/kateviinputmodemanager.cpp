@@ -60,6 +60,8 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_replayingLastChange = false;
   m_textualRepeat = false;
 
+  m_isRecordingMacro = false;
+
   m_keyMapper = new KateViKeyMapper(this, m_view->doc());
 
   m_lastSearchBackwards = false;
@@ -99,6 +101,18 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   m_insideHandlingKeyPressCount++;
   bool res = false;
   bool keyIsPartOfMapping = false;
+  const bool isSyntheticSearchCompletedKeyPress = (m_view->viModeEmulatedCommandBar()->isVisible() && !m_view->viModeEmulatedCommandBar()->isActive());
+
+  // With macros, we want to record the keypresses *before* they are mapped, but if they end up *not* being part
+  // of a mapping, we don't want to record them when they are played back by m_keyMapper, hence
+  // the "!isPlayingBackRejectedKeys()". And obviously, since we're recording keys before they are mapped, we don't
+  // want to also record the executed mapping, as when we replayed the macro, we'd get duplication!
+  if (isRecordingMacro() && !isSyntheticSearchCompletedKeyPress && !m_keyMapper->isExecutingMapping() && !m_keyMapper->isPlayingBackRejectedKeys())
+  {
+    QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
+    m_macroKeyEventsLogForRegister[m_recordingMacroRegister].append(copy);
+  }
+
   if (!m_view->viModeEmulatedCommandBar()->isActive() && !isReplayingLastChange())
   {
     // Hand off to the key mapper, and decide if this key is part of a mapping.
@@ -115,7 +129,6 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
 
   if (!keyIsPartOfMapping)
   {
-    const bool isSyntheticSearchCompletedKeyPress = (m_view->viModeEmulatedCommandBar()->isVisible() && !m_view->viModeEmulatedCommandBar()->isActive());
     if (!isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress) {
       // record key press so that it can be repeated via "."
       QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
@@ -298,6 +311,66 @@ void KateViInputModeManager::repeatLastChange()
   m_replayingLastChange = true;
   feedKeyPresses(m_lastChange);
   m_replayingLastChange = false;
+}
+
+void KateViInputModeManager::startRecordingMacro(QChar macroRegister)
+{
+  Q_ASSERT(!m_isRecordingMacro);
+  kDebug(13070) << "Recording macro: " << macroRegister;
+  m_isRecordingMacro = true;
+  m_recordingMacroRegister = macroRegister;
+  m_macroKeyEventsLogForRegister[macroRegister].clear();
+}
+
+void KateViInputModeManager::finishRecordingMacro()
+{
+  Q_ASSERT(m_isRecordingMacro);
+  m_isRecordingMacro = false;
+}
+
+bool KateViInputModeManager::isRecordingMacro()
+{
+  return m_isRecordingMacro;
+}
+
+void KateViInputModeManager::replayMacro(QChar macroRegister)
+{
+  QList<QKeyEvent> keyLog = m_macroKeyEventsLogForRegister[macroRegister];
+  kDebug(13070) << "Replaying macro: " << macroRegister << " " << keyLog.size() << " keypresses";
+
+  QString macroAsFeedableKeypresses;
+
+  for (int i = 0; i < keyLog.size(); i++) {
+    int keyCode = keyLog.at(i).key();
+    QString text = keyLog.at(i).text();
+    int mods = keyLog.at(i).modifiers();
+    QChar key;
+
+   if ( text.length() > 0 ) {
+     key = text.at(0);
+   }
+
+    if ( text.isEmpty() || ( text.length() ==1 && text.at(0) < 0x20 )
+        || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
+      QString keyPress;
+
+      keyPress.append( '<' );
+      keyPress.append( ( mods & Qt::ShiftModifier ) ? "s-" : "" );
+      keyPress.append( ( mods & Qt::ControlModifier ) ? "c-" : "" );
+      keyPress.append( ( mods & Qt::AltModifier ) ? "a-" : "" );
+      keyPress.append( ( mods & Qt::MetaModifier ) ? "m-" : "" );
+      keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : KateViKeyParser::self()->qt2vi( keyCode ) );
+      keyPress.append( '>' );
+
+      key = KateViKeyParser::self()->encodeKeySequence( keyPress ).at( 0 );
+    }
+
+    macroAsFeedableKeypresses.append(key);
+  }
+
+  kDebug(13070) << "macro: " << macroAsFeedableKeypresses;
+
+  feedKeyPresses(macroAsFeedableKeypresses);
 }
 
 const QString KateViInputModeManager::getLastSearchPattern() const

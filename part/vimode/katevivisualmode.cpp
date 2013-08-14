@@ -333,6 +333,9 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("A", commandAppendToBlock, IS_CHANGE );
   ADDCMD("gq", commandFormatLines, IS_CHANGE );
 
+  ADDCMD("q.", commandStartRecordingMacro, REGEX_PATTERN | SHOULD_NOT_RESET);
+  ADDCMD("@.", commandReplayMacro, REGEX_PATTERN | SHOULD_NOT_RESET);
+
   // regular motions
   ADDMOTION("h", motionLeft, 0 );
   ADDMOTION("<left>", motionLeft, 0 );

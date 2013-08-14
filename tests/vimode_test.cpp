@@ -45,6 +45,7 @@
 #include <QtGui/QMainWindow>
 #include <qlayout.h>
 #include <kcolorscheme.h>
+#include <klocalizedstring.h>
 
 QTEST_KDEMAIN(ViModeTest, GUI)
 
@@ -5376,6 +5377,103 @@ void ViModeTest::visualLineUpDownTests()
   KateViewConfig::global()->setDynWordWrap(oldDynWordWrap);
   kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);
   kate_document->config()->setTabWidth(oldTabWidth);
+}
+
+void ViModeTest::MacroTests()
+{
+  // Update the status on qa.
+  const QString macroIsRecordingStatus = i18n("(recording)");
+  BeginTest("");
+  QVERIFY(!kate_view->viewMode().contains(macroIsRecordingStatus));
+  TestPressKey("qa");
+  QVERIFY(kate_view->viewMode().contains(macroIsRecordingStatus));
+  TestPressKey("q");
+  QVERIFY(!kate_view->viewMode().contains(macroIsRecordingStatus));
+  FinishTest("");
+
+  // The closing "q" is not treated as the beginning of a new "begin recording macro" command.
+  BeginTest("foo");
+  TestPressKey("qaqa");
+  QVERIFY(!kate_view->viewMode().contains(macroIsRecordingStatus));
+  TestPressKey("xyz\\esc");
+  FinishTest("fxyzoo");
+
+   // Record and playback a single keypress into macro register "a".
+  DoTest("foo bar", "qawqgg@arX", "foo Xar");
+  // Two macros - make sure the old one is cleared.
+  DoTest("123 foo bar xyz", "qawqqabqggww@arX", "123 Xoo bar xyz");
+
+  // Update the status on qb.
+  BeginTest("");
+  QVERIFY(!kate_view->viewMode().contains(macroIsRecordingStatus));
+  TestPressKey("qb");
+  QVERIFY(kate_view->viewMode().contains(macroIsRecordingStatus));
+  TestPressKey("q");
+  QVERIFY(!kate_view->viewMode().contains(macroIsRecordingStatus));
+  FinishTest("");
+
+   // Record and playback a single keypress into macro register "b".
+  DoTest("foo bar", "qbwqgg@brX", "foo Xar");
+
+  // More complex macros.
+  DoTest("foo", "qcrXql@c", "XXo");
+
+  // Re-recording a macro should only clear that macro.
+  DoTest("foo 123", "qaraqqbrbqqbrBqw@a", "Boo a23");
+
+  // Hold two macros in memory simultanenously so both can be played.
+  DoTest("foo 123", "qaraqqbrbqw@al@b", "boo ab3");
+
+  // Do more complex things, including switching modes and using ctrl codes.
+  DoTest("foo bar", "qainose\\ctrl-c~qw@a", "nosEfoo nosEbar");
+  DoTest("foo bar", "qayiwinose\\ctrl-r0\\ctrl-c~qw@a", "nosefoOfoo nosebaRbar");
+  DoTest("foo bar", "qavldqw@a", "o r");
+  // Make sure we can use "q" in insert mode while recording a macro.
+  DoTest("foo bar", "qaiqueequeg\\ctrl-cqw@a", "queequegfoo queequegbar");
+  // Can invoke a macro in Visual Mode.
+  DoTest("foo bar", "qa~qvlll@a", "FOO Bar");
+  // Invoking a macro in Visual Mode does not exit Visual Mode.
+  DoTest("foo bar", "qallqggv@a~", "FOO bar");;
+  // Can record & macros in Visual Mode for playback in Normal Mode.
+  DoTest("foo bar", "vqblq\\ctrl-c@b~", "foO bar");
+  // Recording a macro in Visual Mode does not exit Visual Mode.
+  DoTest("foo bar", "vqblql~", "FOO bar");
+
+  {
+    // Ensure that we can call emulated command bar searches, and that we don't record
+    // synthetic keypresses.
+    VimStyleCommandBarTestsSetUpAndTearDown vimStyleCommandBarTestsSetUpAndTearDown(kate_view, mainWindow);
+    DoTest("foo bar\nblank line", "qa/bar\\enterqgg@arX", "foo Xar\nblank line");
+    // More complex searching stuff.
+    DoTest("foo 123foo123\nbar 123bar123", "qayiw/\\ctrl-r0\\enterrXqggj@a", "foo 123Xoo123\nbar 123Xar123" );
+  }
+
+  // Expand mappings,  but don't do *both* original keypresses and executed keypresses.
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "ihello<c-c>", KateViGlobal::Recursive);
+  DoTest("", "qa'q@a", "hellhelloo");
+  // Actually, just do the mapped keypresses, not the executed mappings (like Vim).
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "ihello<c-c>", KateViGlobal::Recursive);
+  BeginTest("");
+  TestPressKey("qa'q");
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "igoodbye<c-c>", KateViGlobal::Recursive);
+  TestPressKey("@a");
+  FinishTest("hellgoodbyeo");
+  // Clear the "stop recording macro keypresses because we're executing a mapping" when the mapping has finished
+  // executing.
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "ihello<c-c>", KateViGlobal::Recursive);
+  DoTest("", "qa'ixyz\\ctrl-cq@a", "hellxyhellxyzozo");
+  // ... make sure that *all* mappings have finished, though: take into account recursion.
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "ihello<c-c>", KateViGlobal::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "ihello<c-c>", "irecursive<c-c>", KateViGlobal::Recursive);
+  DoTest("", "qa'q@a", "recursivrecursivee");
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "'", "ihello<c-c>ixyz<c-c>", KateViGlobal::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "ihello<c-c>", "irecursive<c-c>", KateViGlobal::Recursive);
+  DoTest("", "qa'q@a", "recursivxyrecursivxyzeze");
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

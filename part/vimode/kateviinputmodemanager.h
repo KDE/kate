@@ -195,6 +195,11 @@ public:
    */
   void repeatLastChange();
 
+  void startRecordingMacro(QChar macroRegister);
+  void finishRecordingMacro();
+  bool isRecordingMacro();
+  void replayMacro(QChar macroRegister);
+
   /**
    * The current search pattern.
    * This is set by the last search.
@@ -296,6 +301,12 @@ private:
    * set to true when replaying the last change (due to e.g. pressing ".")
    */
   bool m_replayingLastChange;
+
+  bool m_isRecordingMacro;
+
+  QChar m_recordingMacroRegister;
+
+  QHash<QChar, QList<QKeyEvent> > m_macroKeyEventsLogForRegister;
 
   /**
    * set to true when the insertion should be repeated as text

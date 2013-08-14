@@ -33,6 +33,9 @@ KateViKeyMapper::KateViKeyMapper(KateViInputModeManager* kateViInputModeManager,
   m_doNotExpandFurtherMappings = false;
   m_timeoutlen = 1000; // FIXME: make configurable
   m_doNotMapNextKeypress = false;
+  m_numMappingsBeingExecuted = 0;
+  m_isPlayingBackRejectedKeys = false;
+  m_doNotMapKeypressesCountDown = -1;
   connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
 }
 
@@ -40,6 +43,7 @@ void KateViKeyMapper::executeMapping()
 {
   m_mappingKeys.clear();
   m_mappingTimer->stop();
+  m_numMappingsBeingExecuted++;
   const QString mappedKeypresses = KateGlobal::self()->viInputModeGlobal()->getMapping(m_viInputModeManager->getCurrentViMode(), m_fullMappingMatch);
   if (!KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(m_viInputModeManager->getCurrentViMode(), m_fullMappingMatch))
   {
@@ -50,6 +54,7 @@ void KateViKeyMapper::executeMapping()
   m_viInputModeManager->feedKeyPresses(mappedKeypresses);
   m_doNotExpandFurtherMappings = false;
   m_doc->editEnd();
+  m_numMappingsBeingExecuted--;
 }
 
 void KateViKeyMapper::setMappingTimeout(int timeoutMS)
@@ -75,6 +80,11 @@ void KateViKeyMapper::mappingTimerTimeOut()
 
 bool KateViKeyMapper::handleKeypress(QChar key)
 {
+  if (m_doNotMapKeypressesCountDown > 0)
+  {
+    m_doNotMapKeypressesCountDown--;
+    return false;
+  }
   if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !m_doNotMapNextKeypress) {
     m_mappingKeys.append( key );
 
@@ -109,11 +119,22 @@ bool KateViKeyMapper::handleKeypress(QChar key)
     // We've been swallowing all the keypresses meant for m_keys for our mapping keys; now that we know
     // this cannot be a mapping, restore them.
     Q_ASSERT(!isPartialMapping && !isFullMapping);
-     //currentKeys += m_mappingKeys.mid(0, m_mappingKeys.length() - 1);
-    m_doNotExpandFurtherMappings = true;
-    m_viInputModeManager->feedKeyPresses(m_mappingKeys.mid(0, m_mappingKeys.length()));
-    m_doNotExpandFurtherMappings = false;
+    // The keypresses we replay will of course go back through KateViKeyMapper, so we need to set a flag that
+    // says "ignore (i.e. do not map) these keys".
+    // However, we can't just set e.g. m_doNotExpandFurtherMappings to true and then back to false on either
+    // side of feeding keypresses, as these keypresses may trigger a macro, which in turn will generate
+    // keypresses that may form a mapping that we need to expand.
+    // So instead, just say "ignore the next m_mappingKeys.length()" keypresses.
+    // Note that this is not technically enough: if there is a mapping from "@aaaaaaaaaaaa" to something,
+    // and we do "@aaab", and the macro in "a" contains keypresses that should be expanded into a mapping,
+    // then these keypresses *won't* be mapped, I don't think.  This is a horribly pathological example, though, so
+    // I'll ignore it for now.
+    m_isPlayingBackRejectedKeys = true;
+    m_doNotMapKeypressesCountDown = m_mappingKeys.length();
+    const QString mappingKeys = m_mappingKeys;
     m_mappingKeys.clear();
+    m_viInputModeManager->feedKeyPresses(mappingKeys);
+    m_isPlayingBackRejectedKeys = false;
     return true;
   } else {
     // FIXME:
@@ -126,4 +147,14 @@ bool KateViKeyMapper::handleKeypress(QChar key)
 void KateViKeyMapper::setDoNotMapNextKeypress()
 {
   m_doNotMapNextKeypress = true;
+}
+
+bool KateViKeyMapper::isExecutingMapping()
+{
+  return m_numMappingsBeingExecuted > 0;
+}
+
+bool KateViKeyMapper::isPlayingBackRejectedKeys()
+{
+  return m_isPlayingBackRejectedKeys;
 }

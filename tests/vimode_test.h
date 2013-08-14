@@ -57,6 +57,8 @@ private Q_SLOTS:
   void CompletionTests();
   void visualLineUpDownTests();
 
+  void MacroTests();
+
   void debuggingTests();
 private:
   enum Expectation { ShouldPass, ShouldFail };

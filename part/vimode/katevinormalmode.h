@@ -169,6 +169,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandExpandLocal();
     bool commandToggleRegionVisibility();
 
+    bool commandStartRecordingMacro();
+    bool commandReplayMacro();
+
     // MOTIONS
 
     KateViRange motionLeft();

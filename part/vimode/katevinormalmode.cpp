@@ -166,6 +166,15 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   m_keys.append( key );
 
+  if (m_viInputModeManager->isRecordingMacro() && key == 'q')
+  {
+    // Need to special case this "finish macro" q, as the "begin macro" q
+    // needs a parameter whereas the finish macro does not.
+    m_viInputModeManager->finishRecordingMacro();
+    resetParser();
+    return true;
+  }
+
   if ((key == '/' || key == '?') && !waitingForRegisterOrCharToSearch)
   {
     // Special case for "/" and "?": these should be motions, but this is complicated by
@@ -1792,6 +1801,21 @@ bool KateViNormalMode::commandCollapseToplevelNodes()
   return true;
 }
 
+bool KateViNormalMode::commandStartRecordingMacro()
+{
+  const QChar reg = m_keys[m_keys.size() - 1];
+  m_viInputModeManager->startRecordingMacro(reg);
+  return true;
+}
+
+bool KateViNormalMode::commandReplayMacro()
+{
+  const QChar reg = m_keys[m_keys.size() - 1];
+  resetParser();
+  m_viInputModeManager->replayMacro(reg);
+  return true;
+}
+
 bool KateViNormalMode::commandCollapseLocal()
 {
 #if 0
@@ -3340,6 +3364,8 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("zr", commandExpandAll, 0 );
   ADDCMD("zm", commandCollapseToplevelNodes, 0 );
 
+  ADDCMD("q.", commandStartRecordingMacro, REGEX_PATTERN);
+  ADDCMD("@.", commandReplayMacro, REGEX_PATTERN);
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

@@ -38,6 +38,8 @@ public:
   void executeMapping();
   void setMappingTimeout(int timeoutMS);
   void setDoNotMapNextKeypress();
+  bool isExecutingMapping();
+  bool isPlayingBackRejectedKeys();
 public slots:
   void mappingTimerTimeOut();
 private:
@@ -56,6 +58,9 @@ private:
   KateDocument *m_doc;
   int m_timeoutlen; // time to wait for the next keypress of a multi-key mapping (default: 1000 ms)
   bool m_doNotMapNextKeypress;
+  int m_numMappingsBeingExecuted;
+  bool m_isPlayingBackRejectedKeys;
+  int m_doNotMapKeypressesCountDown;
 };
 
 #endif

@@ -395,8 +395,7 @@ class KateViewInternal : public QWidget
  private:
    bool m_textHintEnabled;
    int m_textHintTimeout;
-   int m_textHintMouseX;
-   int m_textHintMouseY;
+   QPoint m_textHintPos;
 
   /**
    * IM input stuff

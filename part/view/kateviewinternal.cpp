@@ -93,8 +93,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_cursorTimer (this)
   , m_textHintTimer (this)
   , m_textHintEnabled(false)
-  , m_textHintMouseX(-1)
-  , m_textHintMouseY(-1)
+  , m_textHintPos(-1, -1)
   , m_imPreeditRange(0)
   , m_smartDirty(false)
   , m_viInputMode(false)
@@ -2832,8 +2831,7 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
         QToolTip::hideText();
       }
       m_textHintTimer.start(m_textHintTimeout);
-      m_textHintMouseX=e->x();
-      m_textHintMouseY=e->y();
+      m_textHintPos = e->pos();
     }
   }
 }
@@ -3045,13 +3043,13 @@ void KateViewInternal::textHintTimeout ()
 {
   m_textHintTimer.stop ();
 
-  KateTextLayout thisLine = yToKateTextLayout(m_textHintMouseY);
+  KateTextLayout thisLine = yToKateTextLayout(m_textHintPos.y());
 
   if (!thisLine.isValid()) return;
 
-  if (m_textHintMouseX> (lineMaxCursorX(thisLine) - thisLine.startX())) return;
+  if (m_textHintPos.x() > (lineMaxCursorX(thisLine) - thisLine.startX())) return;
 
-  KTextEditor::Cursor c = renderer()->xToCursor(cache()->textLayout(thisLine.start()), startX() + m_textHintMouseX, !m_view->wrapCursor());
+  KTextEditor::Cursor c = renderer()->xToCursor(cache()->textLayout(thisLine.start()), startX() + m_textHintPos.x(), !m_view->wrapCursor());
 
   QString tmp;
 
@@ -3059,7 +3057,7 @@ void KateViewInternal::textHintTimeout ()
 
   if (!tmp.isEmpty()) {
     kDebug(13030) << "Hint text: " << tmp;
-    QPoint pos(startX() + m_textHintMouseX, m_textHintMouseY);
+    QPoint pos(startX() + m_textHintPos.x(), m_textHintPos.y());
     QToolTip::showText(mapToGlobal(pos), tmp);
   }
 }

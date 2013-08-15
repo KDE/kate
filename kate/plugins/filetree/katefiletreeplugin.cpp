@@ -190,6 +190,8 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   
   m_documentModel->setShowFullPathOnRoots(m_plug->settings().showFullPathOnRoots());
   m_documentModel->setShadingEnabled(m_plug->settings().shadingEnabled());
+  m_documentModel->setViewShade(m_plug->settings().viewShade());
+  m_documentModel->setEditShade(m_plug->settings().editShade());
 
   Kate::DocumentManager *dm = Kate::application()->documentManager();
 

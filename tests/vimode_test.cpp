@@ -46,10 +46,58 @@
 #include <qlayout.h>
 #include <kcolorscheme.h>
 #include <klocalizedstring.h>
+#include <kstandardaction.h>
+#include <kactioncollection.h>
 
 QTEST_KDEMAIN(ViModeTest, GUI)
 
 using namespace KTextEditor;
+
+WindowKeepActive::WindowKeepActive(QMainWindow* mainWindow):  m_mainWindow(mainWindow)
+{
+
+}
+
+bool WindowKeepActive::eventFilter(QObject* object, QEvent* event)
+{
+  Q_UNUSED(object);
+  if (event->type() == QEvent::WindowDeactivate)
+  {
+    // With some combinations of Qt and Xvfb, invoking/ dismissing a popup
+    // will deactiveate the m_mainWindow, preventing it from receiving shortcuts.
+    // If we detect this, set it back to being the active window again.
+    event->ignore();
+    QApplication::setActiveWindow(m_mainWindow);
+    return true;
+  }
+  return false;
+}
+
+FailsIfSlotNotCalled::FailsIfSlotNotCalled(): QObject(), m_slotWasCalled(false)
+{
+
+}
+
+FailsIfSlotNotCalled::~FailsIfSlotNotCalled()
+{
+  QVERIFY(m_slotWasCalled);
+}
+
+void FailsIfSlotNotCalled::slot()
+{
+  m_slotWasCalled = true;
+}
+
+FailsIfSlotCalled::FailsIfSlotCalled(const QString& failureMessage): QObject(), m_failureMessage(failureMessage)
+{
+
+}
+
+void FailsIfSlotCalled::slot()
+{
+  kDebug(13070) << "Here";
+  QFAIL(m_failureMessage.toAscii());
+}
 
 ViModeTest::ViModeTest() {
   kate_document = new KateDocument(false, false, false, 0, NULL);
@@ -1990,7 +2038,7 @@ class VimStyleCommandBarTestsSetUpAndTearDown
 {
 public:
   VimStyleCommandBarTestsSetUpAndTearDown(KateView *kateView, QMainWindow* mainWindow)
-    : m_kateView(kateView), m_mainWindow(mainWindow)
+    : m_kateView(kateView), m_mainWindow(mainWindow), m_windowKeepActive(mainWindow)
   {
     m_mainWindow->show();
     m_kateView->show();
@@ -2002,19 +2050,26 @@ public:
     KateViewConfig::global()->setViInputModeEmulateCommandBar(true);
     QVERIFY(KateViewConfig::global()->viInputModeEmulateCommandBar());
     KateViewConfig::global()->setViInputModeStealKeys(true);
+    mainWindow->installEventFilter(&m_windowKeepActive);
   }
   ~VimStyleCommandBarTestsSetUpAndTearDown()
   {
+    m_mainWindow->removeEventFilter(&m_windowKeepActive);
     // Use invokeMethod to avoid having to export KateViewBar for testing.
     QMetaObject::invokeMethod(m_kateView->viModeEmulatedCommandBar(), "hideMe");
     m_kateView->hide();
     m_mainWindow->hide();
     KateViewConfig::global()->setViInputModeEmulateCommandBar(false);
     KateViewConfig::global()->setViInputModeStealKeys(false);
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
   }
 private:
   KateView *m_kateView;
   QMainWindow *m_mainWindow;
+  WindowKeepActive m_windowKeepActive;
 };
 
 void ViModeTest::VimStyleCommandBarTests()
@@ -2956,6 +3011,15 @@ void ViModeTest::VimStyleCommandBarTests()
   // Don't leave Visual mode on aborting a search.
   DoTest("foo bar", "vw/\\ctrl-cd", "ar");
   DoTest("foo bar", "vw/\\ctrl-[d", "ar");
+
+  // Don't crash on leaving Visual Mode on aborting a search. This is perhaps the most opaque regression
+  // test ever; what it's testing for is the situation where the synthetic keypress issue by the emulated
+  // command bar on the "ctrl-[" is sent to the key mapper.  This in turn converts it into a weird character
+  // which is then, upon not being recognised as part of a mapping, sent back around the keypress processing,
+  // where it ends up being sent to the emulated command bar's text edit, which in turn issues a "text changed"
+  // event where the text is still empty, which tries to move the cursor to (-1, -1), which causes a crash deep
+  // within Kate. So, in a nutshell: this test ensures that the keymapper never handles the synthetic keypress :)
+  DoTest("", "ifoo\\ctrl-cv/\\ctrl-[", "foo");
 
   // History auto-completion tests.
   clearSearchHistory();
@@ -5001,13 +5065,69 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("u");
   FinishTest("bar foo foo foo foo foo");
 
-  // The interactive search replace does not handle general keypresses like ctrl-p.
+  {
+    // Test the test suite: ensure that shortcuts are still being sent and received correctly.
+    FailsIfSlotNotCalled failsIfActionNotTriggered;
+    QAction *dummyAction = kate_view->actionCollection()->addAction("Woo");
+    dummyAction->setShortcut(QKeySequence("Ctrl+e"));
+    QVERIFY(connect(dummyAction, SIGNAL(triggered()), &failsIfActionNotTriggered, SLOT(slot())));
+    DoTest("foo", "\\ctrl-e", "foo");
+    // Processing shortcuts seems to require events to be processed.
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
+    delete dummyAction;
+  }
+
+  // Find the "Print" action for later use.
+  QAction *printAction = NULL;
+  foreach(QAction* action, kate_view->actionCollection()->actions())
+  {
+    if (action->shortcut() == QKeySequence("Ctrl+p"))
+    {
+      printAction = action;
+      break;
+    }
+  }
+
+  // Test that we don't inadvertantly trigger shortcuts in kate_view when typing them in the
+  // emulated command bar.  Requires the above test for shortcuts to be sent and received correctly
+  // to pass.
+  {
+    QVERIFY(mainWindow->isActiveWindow());
+    QVERIFY(printAction);
+    FailsIfSlotCalled failsIfActionTriggered("The kate_view shortcut should not be triggered by typing it in emulated  command bar!");
+    // Don't invoke Print on failure, as this hangs instead of failing.
+    //disconnect(printAction, SIGNAL(triggered(bool)), kate_document, SLOT(print()));
+    connect(printAction, SIGNAL(triggered(bool)), &failsIfActionTriggered, SLOT(slot()));
+    DoTest("foo bar foo bar", "/bar\\enterggd/\\ctrl-p\\enter.", "bar");
+    // Processing shortcuts seems to require events to be processed.
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
+  }
+
+  // Test that the interactive search replace does not handle general keypresses like ctrl-p ("invoke
+  // completion in emulated command bar").
+  // Unfortunately, "ctrl-p" in kate_view, which is what will be triggered if this
+  // test succeeds, hangs due to showing the print dialog, so we need to temporarily
+  // block the Print action.
   clearCommandHistory();
+  if (printAction)
+  {
+    printAction->blockSignals(true);
+  }
   KateGlobal::self()->viInputModeGlobal()->appendCommandHistoryItem("s/foo/bar/caa");
   BeginTest("foo");
   TestPressKey(":s/foo/bar/c\\ctrl-b\\enter\\ctrl-p");
   QVERIFY(!emulatedCommandBarCompleter()->popup()->isVisible());
   TestPressKey("\\ctrl-c");
+  if (printAction)
+  {
+    printAction->blockSignals(false);
+  }
   FinishTest("foo");
 
   // The interactive sed replace command is added to the history straight away.
@@ -5034,6 +5154,16 @@ void ViModeTest::VimStyleCommandBarTests()
   clearAllMappings();
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "H", ":s/foo/bar/gc<enter>nnyqggidone<esc>", KateViGlobal::Recursive);
   DoTest("foo foo foo foo foo foo", "H", "donefoo foo bar foo foo foo");
+
+  // Don't swallow "Ctrl+<key>" meant for the text edit.
+  if (QKeySequence::keyBindings(QKeySequence::Undo).contains(QKeySequence("Ctrl+Z")))
+  {
+    DoTest("foo bar", "/bar\\ctrl-z\\enterrX", "Xoo bar");
+  }
+  else
+  {
+    qWarning() << "Skipped test: Ctrl+Z is not Undo on this platform";
+  }
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel
@@ -5504,11 +5634,14 @@ void ViModeTest::ensureKateViewVisible()
 {
     mainWindow->show();
     kate_view->show();
+    QApplication::setActiveWindow(mainWindow);
+    kate_view->setFocus();
     while (QApplication::hasPendingEvents())
     {
       QApplication::processEvents();
     }
-    QApplication::setActiveWindow(mainWindow);
+    QVERIFY(kate_view->isVisible());
+    QVERIFY(mainWindow->isActiveWindow());
 }
 
 void ViModeTest::waitForCompletionWidgetToActivate()

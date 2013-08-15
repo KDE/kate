@@ -43,6 +43,7 @@ public:
   void setCommandResponseMessageTimeout(long commandResponseMessageTimeOutMS);
   virtual void closed();
   bool handleKeyPress(const QKeyEvent* keyEvent);
+  bool isSendingSyntheticSearchCompletedKeypress();
 
   void startInteractiveSearchAndReplace(QSharedPointer<KateCommands::SedReplace::InteractiveSedReplacer> interactiveSedReplace);
 
@@ -105,6 +106,8 @@ private:
   bool m_currentSearchIsCaseSensitive;
   bool m_currentSearchIsBackwards;
   bool m_currentSearchPlacesCursorAtEndOfMatch;
+
+  bool m_isSendingSyntheticSearchCompletedKeypress;
 
   virtual bool eventFilter(QObject* object, QEvent* event);
   void deleteSpacesToLeftOfCursor();

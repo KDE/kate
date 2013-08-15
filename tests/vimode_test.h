@@ -32,6 +32,40 @@ class QLabel;
 class QCompleter;
 class QMainWindow;
 
+class WindowKeepActive : public QObject
+{
+  Q_OBJECT
+public:
+  WindowKeepActive(QMainWindow *mainWindow);
+public slots:
+  bool eventFilter(QObject* object, QEvent* event);
+private:
+  QMainWindow *m_mainWindow;
+};
+
+class FailsIfSlotNotCalled : public QObject
+{
+  Q_OBJECT
+public:
+  FailsIfSlotNotCalled();
+  ~FailsIfSlotNotCalled();
+public slots:
+  void slot();
+private:
+  bool m_slotWasCalled;
+};
+
+class FailsIfSlotCalled : public QObject
+{
+  Q_OBJECT
+public:
+  FailsIfSlotCalled(const QString& failureMessage);
+public slots:
+  void slot();
+private:
+  const QString m_failureMessage;
+};
+
 class ViModeTest : public QObject
 {
   Q_OBJECT

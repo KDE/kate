@@ -101,7 +101,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   m_insideHandlingKeyPressCount++;
   bool res = false;
   bool keyIsPartOfMapping = false;
-  const bool isSyntheticSearchCompletedKeyPress = (m_view->viModeEmulatedCommandBar()->isVisible() && !m_view->viModeEmulatedCommandBar()->isActive());
+  const bool isSyntheticSearchCompletedKeyPress = m_view->viModeEmulatedCommandBar()->isSendingSyntheticSearchCompletedKeypress();
 
   // With macros, we want to record the keypresses *before* they are mapped, but if they end up *not* being part
   // of a mapping, we don't want to record them when they are played back by m_keyMapper, hence
@@ -113,7 +113,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     m_macroKeyEventsLogForRegister[m_recordingMacroRegister].append(copy);
   }
 
-  if (!m_view->viModeEmulatedCommandBar()->isActive() && !isReplayingLastChange())
+  if (!m_view->viModeEmulatedCommandBar()->isActive() && !isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress)
   {
     // Hand off to the key mapper, and decide if this key is part of a mapping.
     if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
@@ -219,13 +219,6 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 
     // We have to be clever about which widget we dispatch to, as we can trigger
     // shortcuts if we're not careful (even if Vim mode is configured to steal shortcuts).
-    // I haven't been able to get a reliable automated testcase for this, for some reason,
-    // so here's a manual regression test:
-    // ifoo bar foo bar<esc>/bar<enter>ggd/<ctrl-p><enter>.
-    // (Note the "." at the end!)
-    // If all goes well, the final text should be just
-    // bar
-    // but more importantly, the Ctrl-p shortcut (usually "Print") won't be triggered!
     QKeyEvent k(QEvent::KeyPress, key, mods, text);
     QWidget *destWidget = NULL;
     if (QApplication::activePopupWidget())

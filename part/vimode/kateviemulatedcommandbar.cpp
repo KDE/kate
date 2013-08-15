@@ -331,7 +331,8 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
       m_currentCompletionType(None),
       m_currentSearchIsCaseSensitive(false),
       m_currentSearchIsBackwards(false),
-      m_currentSearchPlacesCursorAtEndOfMatch(false)
+      m_currentSearchPlacesCursorAtEndOfMatch(false),
+      m_isSendingSyntheticSearchCompletedKeypress(false)
 {
   QHBoxLayout * layout = new QHBoxLayout();
   centralWidget()->setLayout(layout);
@@ -482,7 +483,9 @@ void KateViEmulatedCommandBar::closed()
     // not.  If not, the keypress will "complete" the search motion, thus triggering it.
     const Qt::Key syntheticSearchCompletedKey = (m_wasAborted ? static_cast<Qt::Key>(0) : Qt::Key_Enter);
     QKeyEvent syntheticSearchCompletedKeyPress(QEvent::KeyPress, syntheticSearchCompletedKey, Qt::NoModifier);
+    m_isSendingSyntheticSearchCompletedKeypress = true;
     m_view->getViInputModeManager()->handleKeypress(&syntheticSearchCompletedKeyPress);
+    m_isSendingSyntheticSearchCompletedKeypress = false;
     if (!m_wasAborted)
     {
       m_view->getViInputModeManager()->setLastSearchPattern(m_currentSearchPattern);
@@ -1220,6 +1223,11 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     m_suspendEditEventFiltering = false;
   }
   return true;
+}
+
+bool KateViEmulatedCommandBar::isSendingSyntheticSearchCompletedKeypress()
+{
+  return m_isSendingSyntheticSearchCompletedKeypress;
 }
 
 void KateViEmulatedCommandBar::startInteractiveSearchAndReplace(QSharedPointer< KateCommands::SedReplace::InteractiveSedReplacer > interactiveSedReplace)

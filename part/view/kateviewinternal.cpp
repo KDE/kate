@@ -3291,15 +3291,21 @@ void KateViewInternal::doDragScroll()
 
 void KateViewInternal::enableTextHints(int timeout)
 {
-  m_textHintTimeout=timeout;
-  m_textHintEnabled=true;
-  m_textHintTimer.start(timeout);
+  if (timeout >= 0) {
+    m_textHintTimeout = timeout;
+    m_textHintEnabled = true;
+    m_textHintTimer.start(timeout);
+  } else {
+    kWarning() << "Attempt to enable text hints with negative timeout:" << timeout;
+  }
 }
 
 void KateViewInternal::disableTextHints()
 {
-  m_textHintEnabled=false;
-  m_textHintTimer.stop ();
+  if (m_textHintEnabled) {
+    m_textHintEnabled = false;
+    m_textHintTimer.stop ();
+  }
 }
 
 //BEGIN EDIT STUFF

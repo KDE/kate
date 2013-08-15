@@ -63,12 +63,10 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  for (int i=0; i<kv->lines(); i++)
    {
     cl = kv->line(i);
-    cl = cl.trimmed();
-
     kDebug(13000)<<"Line " << i << " : "<< cl;
 
     if(cl.isEmpty() || cl.at(0) == '#') continue;
-    if(cl.indexOf(QRegExp("^=")) >= 0) comment = 1;
+    if(cl.indexOf(QRegExp("^=[a-zA-Z]")) >= 0) comment = 1;
     if(cl.indexOf(QRegExp("^=cut$")) >= 0)
        {
         comment = 0;
@@ -76,6 +74,9 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
        }
     if (comment==1)
         continue;
+    
+    cl = cl.trimmed();
+    kDebug(13000)<<"Trimmed line " << i << " : "<< cl;
 
     if(cl.indexOf(QRegExp("^use +[A-Z]")) == 0 && macro_on)
       {

@@ -897,7 +897,7 @@ void KateMainWindow::saveProperties(KConfigGroup& config)
 
 void KateMainWindow::readProperties(const KConfigGroup& config)
 {
-  // TODO startRestore should take a const KConfigBase*, or even just a const KConfigGroup&,
+  // KDE5: TODO startRestore should take a const KConfigBase*, or even just a const KConfigGroup&,
   // but this propagates down to interfaces/kate/plugin.h so all plugins have to be ported
   KConfigBase* configBase = const_cast<KConfig *>(config.config());
   startRestore(configBase, config.name());

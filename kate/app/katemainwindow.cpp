@@ -885,10 +885,10 @@ void KateMainWindow::saveProperties(KConfigGroup& config)
   int id = KateApp::self()->mainWindowID (this);
   foreach(const KatePluginInfo &item, KatePluginManager::self()->pluginList())
   {
-      if (item.plugin && pluginViews().value(item.plugin)) {
-          pluginViews().value(item.plugin)->writeSessionConfig (config.config(),
-              QString("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id) );
-      }
+    if (item.plugin && pluginViews().contains(item.plugin)) {
+      pluginViews().value(item.plugin)->writeSessionConfig (config.config(),
+        QString("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id) );
+    }
   }
 
   fileOpenRecent->saveEntries( KConfigGroup(config.config(), "Recent Files" ) );
@@ -1010,7 +1010,7 @@ Kate::PluginView *KateMainWindow::pluginView (const QString &name)
   if (!plugin)
     return 0;
 
-  return m_pluginViews.value (plugin);
+  return m_pluginViews.contains(plugin) ? m_pluginViews.value (plugin) : 0;
 }
 
 void KateMainWindow::slotQuickOpen ()

@@ -204,7 +204,8 @@ void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *w
   {
     // create the view + try to correctly load shortcuts, if it's a GUI Client
     createdView = item->plugin->createView(win->mainWindow());
-    win->pluginViews().insert (item->plugin, createdView);
+    if (createdView)
+      win->pluginViews().insert (item->plugin, createdView);
   }
 
   // load session config if needed

@@ -610,4 +610,23 @@ void SearchBarTest::testSearchHistoryPower()
   QCOMPARE(bar2.m_powerUi->pattern->findText("foo"), 1);
 }
 
+// Make sure Kate doesn't replace anything outside selection in block mode (see bug 253191)
+void SearchBarTest::testReplaceInBlockMode() {
+  KateDocument doc(false, false, false);
+  KateView view(&doc, 0);
+  KateViewConfig config(&view);
+
+  doc.setText("111\n111");
+  view.setBlockSelection(true);
+  view.setSelection(KTextEditor::Range(0, 1, 1, 2));
+
+  KateSearchBar bar(true, &view, &config);
+
+  bar.setSearchPattern("1");
+  bar.setReplacementPattern("2");
+  bar.replaceAll();
+
+  QCOMPARE(doc.text(), QString("121\n121"));
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

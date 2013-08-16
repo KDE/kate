@@ -65,6 +65,8 @@ private Q_SLOTS:
 
   void testSearchHistoryIncremental();
   void testSearchHistoryPower();
+
+  void testReplaceInBlockMode();
 };
 
 #endif

@@ -115,6 +115,8 @@ private:
   QVBoxLayout *mainWindowLayout;
   KateViInputModeManager *vi_input_mode_manager;
 
+  bool m_firstBatchOfKeypressesForTest;
+
   QList<Kate::TextRange*> rangesOnFirstLine();
   void ensureKateViewVisible();
   void waitForCompletionWidgetToActivate();

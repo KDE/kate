@@ -173,6 +173,7 @@ void ViModeTest::BeginTest(const QString& original_text) {
   vi_input_mode_manager = kate_view->resetViInputModeManager();
   kate_document->setText(original_text);
   kate_view->setCursorPosition(Cursor(0,0));
+  m_firstBatchOfKeypressesForTest = true;
 }
 
 void ViModeTest::FinishTest(const QString& expected_text, ViModeTest::Expectation expectation, const QString& failureReason)
@@ -188,7 +189,15 @@ void ViModeTest::FinishTest(const QString& expected_text, ViModeTest::Expectatio
 
 
 void ViModeTest::TestPressKey(QString str) {
-  qDebug() << "\n\n>>> running command " << str << " on text " << kate_document->text();
+  if (m_firstBatchOfKeypressesForTest)
+  {
+    qDebug() << "\n\n>>> running command " << str << " on text " << kate_document->text();
+  }
+  else
+  {
+    qDebug() << "\n>>> running further keypresses " << str << " on text " << kate_document->text();
+  }
+  m_firstBatchOfKeypressesForTest = false;
 
   for (int i = 0; i< str.length(); i++) {
     Qt::KeyboardModifiers keyboard_modifier = Qt::NoModifier;

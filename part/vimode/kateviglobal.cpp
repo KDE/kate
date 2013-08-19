@@ -67,9 +67,9 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
 
 void KateViGlobal::readConfig( const KConfigGroup &config )
 {
-    QStringList keys = config.readEntry( "Normal Mode Mapping Keys", QStringList() );
-    QStringList mappings = config.readEntry( "Normal Mode Mappings", QStringList() );
-    QList<bool> isRecursive = config.readEntry( "Normal Mode Mappings Recursion", QList<bool>());
+    const QStringList keys = config.readEntry( "Normal Mode Mapping Keys", QStringList() );
+    const QStringList mappings = config.readEntry( "Normal Mode Mappings", QStringList() );
+    const QList<bool> isRecursive = config.readEntry( "Normal Mode Mappings Recursion", QList<bool>());
 
     // sanity check
     if ( keys.length() == mappings.length() ) {
@@ -89,8 +89,6 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
       kDebug( 13070 ) << "Error when reading mappings from config: number of keys != number of values";
     }
 
-  const QString macros = config.readEntry("Macros", QString());
-  m_macroForRegister['a'] = KateViKeyParser::self()->encodeKeySequence( macros);
   const QStringList macroRegisters = config.readEntry("Macro Registers", QStringList());
   const QStringList macroContents = config.readEntry("Macro Contents", QStringList());
   if (macroRegisters.length() == macroContents.length())

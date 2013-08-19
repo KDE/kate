@@ -310,6 +310,7 @@ private:
   QList<QKeyEvent> m_currentMacroKeyEventsLog;
 
   bool m_isReplayingMacro;
+  QChar m_lastPlayedMacroRegister;
 
   QHash<QChar, QList<QKeyEvent> > m_macroKeyEventsLogForRegister;
 

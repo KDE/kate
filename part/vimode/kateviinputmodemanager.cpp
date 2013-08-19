@@ -62,6 +62,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
 
   m_isRecordingMacro = false;
   m_isReplayingMacro = false;
+  m_lastPlayedMacroRegister = QChar::Null;
 
   m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
 
@@ -330,6 +331,11 @@ bool KateViInputModeManager::isRecordingMacro()
 
 void KateViInputModeManager::replayMacro(QChar macroRegister)
 {
+  if (macroRegister == '@')
+  {
+    macroRegister = m_lastPlayedMacroRegister;
+  }
+  m_lastPlayedMacroRegister = macroRegister;
   QList<QKeyEvent> keyLog = m_macroKeyEventsLogForRegister[macroRegister];
   if (keyLog.isEmpty())
   {

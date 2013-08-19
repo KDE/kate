@@ -5690,6 +5690,16 @@ void ViModeTest::MacroTests()
 
   // Can't play the macro while recording it.
   DoTest("", "qaiaaa\\ctrl-c@aq", "aaa");
+
+  // "@@" plays back macro "a" if "a" was the last macro we played back.
+  DoTest("", "qaia\\ctrl-cq@adiw@@", "a");
+  // "@@" plays back macro "b" if "b" was the last macro we played back.
+  DoTest("", "qbib\\ctrl-cq@bdiw@@", "b");
+  // "@@" does nothing if no macro was previously played.
+  DoTest("", "qaia\\ctrl-cq@@", "a");
+  // Nitpick: "@@" replays the last played back macro, even if that macro had not been defined
+  // when it was first played back.
+  DoTest("", "@aqaia\\ctrl-cq@@", "aa");
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

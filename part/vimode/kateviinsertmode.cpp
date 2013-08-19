@@ -326,6 +326,13 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_PageDown:
       m_view->pageDown();
       return true;
+    case Qt::Key_Enter:
+    case Qt::Key_Return:
+      if (m_view->completionWidget()->isCompletionActive())
+      {
+        m_view->completionWidget()->execute();
+        return true;
+      }
     default:
       return false;
       break;

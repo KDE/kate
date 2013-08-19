@@ -612,6 +612,10 @@ void ViModeTest::InsertModeTests() {
   DoTest("foo bar", "i\\ctrl-\\rightX\\esc", "foo Xbar");
   DoTest("foo bar", "i\\ctrl-\\right\\ctrl-\\rightX\\esc", "foo barX");
 
+  // Enter/ Return.
+  DoTest("", "ifoo\\enterbar", "foo\nbar");
+  DoTest("", "ifoo\\returnbar", "foo\nbar");
+
   // Test that our test driver can handle newlines during insert mode :)
   DoTest("", "ia\\returnb", "a\nb");
 }
@@ -5290,6 +5294,27 @@ void ViModeTest::CompletionTests()
     waitForCompletionWidgetToActivate();
     TestPressKey("\\return\\ctrl-c.");
     FinishTest("completioncompletion11");
+
+    clearAllMappings();
+    // Make sure the "Enter"/ "Return" used when invoking completions is not swallowed before being
+    // passed to the key mapper.
+    kate_view->registerCompletionModel(testModel);
+    KateGlobal::self()->viInputModeGlobal()->addMapping(InsertMode, "cb", "mapped-shouldntbehere", KateViGlobal::Recursive);
+    BeginTest("");
+    TestPressKey("ic");
+    kate_view->userInvokedCompletion();
+    waitForCompletionWidgetToActivate();
+    QVERIFY(kate_view->completionWidget()->isCompletionActive());
+    TestPressKey("\\enterb");
+    FinishTest("completion1b");
+    BeginTest("");
+    TestPressKey("ic");
+    kate_view->userInvokedCompletion();
+    waitForCompletionWidgetToActivate();
+    QVERIFY(kate_view->completionWidget()->isCompletionActive());
+    TestPressKey("\\returnb");
+    FinishTest("completion1b");
+    kate_view->unregisterCompletionModel(testModel);
 }
 
 void ViModeTest::visualLineUpDownTests()

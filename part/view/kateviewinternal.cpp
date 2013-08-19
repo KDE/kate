@@ -2272,7 +2272,8 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
   // Note: AND'ing with <Shift> is a quick hack to fix Key_Enter
   const int key = e->key() | (e->modifiers() & Qt::ShiftModifier);
 
-  if (m_view->isCompletionActive())
+  if (m_view->isCompletionActive()
+     && !m_view->viInputMode() /* Vi input mode needs to handle completion keypresses itself for e.g. mappings */)
   {
     if( key == Qt::Key_Enter || key == Qt::Key_Return ) {
       m_view->completionWidget()->execute();
@@ -3364,7 +3365,7 @@ void KateViewInternal::editEnd(int editTagLineStart, int editTagLineEnd, bool ta
     m_madeVisible = false;
     updateCursor ( m_cursor, true );
   }
-  
+
   /**
    * selection changed?
    * fixes bug 316226

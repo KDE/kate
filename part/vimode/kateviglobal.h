@@ -80,7 +80,7 @@ public:
     void clearMacro(QChar macroRegister);
     void storeMacro(QChar macroRegister, const QList<QKeyEvent> macroKeyEventLog);
     /**
-     * Get the named macro in a  format suitable to passing to feedKeyPresses)
+     * Get the named macro in a format suitable for passing to feedKeyPresses.
      */
     QString getMacro(QChar macroRegister);
 
@@ -102,6 +102,9 @@ private:
 
     QHash <QString, QString> m_insertModeMappings;
     QHash <QString, MappingRecursion> m_insertModeMappingRecursion;
+
+    void writeMappingsToConfig(KConfigGroup& config, const QString& mappingModeName, ViMode mappingMode) const;
+    void readMappingsFromConfig(const KConfigGroup& config, const QString&, ViMode mappingMode);
 
     class History
     {

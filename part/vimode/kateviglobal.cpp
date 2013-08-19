@@ -41,15 +41,9 @@ KateViGlobal::~KateViGlobal()
 
 void KateViGlobal::writeConfig( KConfigGroup &config ) const
 {
-  config.writeEntry( "Normal Mode Mapping Keys", getMappings( NormalMode, true ) );
-  QStringList l;
-  QList<bool> isRecursive;
-  foreach( const QString &s, getMappings( NormalMode ) ) {
-    l << KateViKeyParser::self()->decodeKeySequence( getMapping( NormalMode, s ) );
-    isRecursive << isMappingRecursive( NormalMode, s );
-  }
-  config.writeEntry( "Normal Mode Mappings", l );
-  config.writeEntry( "Normal Mode Mappings Recursion", isRecursive );
+  writeMappingsToConfig(config, "Normal", NormalMode);
+  writeMappingsToConfig(config, "Visual", VisualMode);
+  writeMappingsToConfig(config, "Insert", InsertMode);
 
   QStringList macroRegisters;
   foreach(const QChar& macroRegister, m_macroForRegister.keys())
@@ -67,27 +61,9 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
 
 void KateViGlobal::readConfig( const KConfigGroup &config )
 {
-    const QStringList keys = config.readEntry( "Normal Mode Mapping Keys", QStringList() );
-    const QStringList mappings = config.readEntry( "Normal Mode Mappings", QStringList() );
-    const QList<bool> isRecursive = config.readEntry( "Normal Mode Mappings Recursion", QList<bool>());
-
-    // sanity check
-    if ( keys.length() == mappings.length() ) {
-      for ( int i = 0; i < keys.length(); i++ ) {
-        // "Recursion" is a newly-introduced part of the config that some users won't have,
-        // so rather than abort (and lose our mappings) if there are not enough entries, simply
-        // treat any missing ones as Recursive (for backwards compatibility).
-        MappingRecursion recursion = Recursive;
-        if (isRecursive.size() > i && !isRecursive.at(i))
-        {
-          recursion = NonRecursive;
-        }
-        addMapping( NormalMode, keys.at( i ), mappings.at( i ), recursion);
-        kDebug( 13070 ) << "Mapping " << keys.at( i ) << " -> " << mappings.at( i );
-      }
-    } else {
-      kDebug( 13070 ) << "Error when reading mappings from config: number of keys != number of values";
-    }
+  readMappingsFromConfig(config, "Normal", NormalMode);
+  readMappingsFromConfig(config, "Visual", VisualMode);
+  readMappingsFromConfig(config, "Insert", InsertMode);
 
   const QStringList macroRegisters = config.readEntry("Macro Registers", QStringList());
   const QStringList macroContents = config.readEntry("Macro Contents", QStringList());
@@ -374,4 +350,42 @@ void KateViGlobal::storeMacro(QChar macroRegister, const QList< QKeyEvent > macr
 QString KateViGlobal::getMacro(QChar macroRegister)
 {
   return m_macroForRegister[macroRegister];
+}
+
+void KateViGlobal::writeMappingsToConfig(KConfigGroup& config, const QString& mappingModeName, ViMode mappingMode) const
+{
+  config.writeEntry( mappingModeName + " Mode Mapping Keys", getMappings( mappingMode, true ) );
+  QStringList l;
+  QList<bool> isRecursive;
+  foreach( const QString &s, getMappings( mappingMode ) ) {
+    l << KateViKeyParser::self()->decodeKeySequence( getMapping( mappingMode, s ) );
+    isRecursive << isMappingRecursive( mappingMode, s );
+  }
+  config.writeEntry( mappingModeName + " Mode Mappings", l );
+  config.writeEntry( mappingModeName + " Mode Mappings Recursion", isRecursive );
+}
+
+void KateViGlobal::readMappingsFromConfig(const KConfigGroup& config, const QString& mappingModeName, ViMode mappingMode)
+{
+  const QStringList keys = config.readEntry( mappingModeName + " Mode Mapping Keys", QStringList() );
+  const QStringList mappings = config.readEntry( mappingModeName + " Mode Mappings", QStringList() );
+  const QList<bool> isRecursive = config.readEntry( mappingModeName + " Mode Mappings Recursion", QList<bool>());
+
+  // sanity check
+  if ( keys.length() == mappings.length() ) {
+    for ( int i = 0; i < keys.length(); i++ ) {
+      // "Recursion" is a newly-introduced part of the config that some users won't have,
+      // so rather than abort (and lose our mappings) if there are not enough entries, simply
+      // treat any missing ones as Recursive (for backwards compatibility).
+      MappingRecursion recursion = Recursive;
+      if (isRecursive.size() > i && !isRecursive.at(i))
+      {
+        recursion = NonRecursive;
+      }
+      addMapping( mappingMode, keys.at( i ), mappings.at( i ), recursion);
+      kDebug( 13070 ) <<  + " mapping " << keys.at( i ) << " -> " << mappings.at( i );
+    }
+  } else {
+    kDebug( 13070 ) << "Error when reading mappings from " + mappingModeName + " config: number of keys != number of values";
+  }
 }

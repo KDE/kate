@@ -35,7 +35,6 @@ class KATEPART_TESTS_EXPORT KateViKeyMapper : public QObject
 public:
   KateViKeyMapper(KateViInputModeManager *kateViInputModeManager, KateDocument *doc );
   bool handleKeypress(QChar key);
-  void executeMapping();
   void setMappingTimeout(int timeoutMS);
   void setDoNotMapNextKeypress();
   bool isExecutingMapping();
@@ -43,7 +42,6 @@ public:
 public slots:
   void mappingTimerTimeOut();
 private:
-  bool m_mappingKeyPress;
   // Will be the mapping used if we decide that no extra mapping characters will be
   // typed, either because we have a mapping that cannot be extended to another
   // mapping by adding additional characters, or we have a mapping and timed out waiting
@@ -60,6 +58,9 @@ private:
   bool m_doNotMapNextKeypress;
   int m_numMappingsBeingExecuted;
   bool m_isPlayingBackRejectedKeys;
+
+  void executeMapping();
+  void playBackRejectedKeys();
 };
 
 #endif

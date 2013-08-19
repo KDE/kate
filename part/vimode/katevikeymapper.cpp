@@ -28,7 +28,6 @@ KateViKeyMapper::KateViKeyMapper(KateViInputModeManager* kateViInputModeManager,
     : m_viInputModeManager(kateViInputModeManager),
       m_doc(doc)
 {
-  m_mappingKeyPress = false; // temporarily set to true when an aborted mapping sends key presses
   m_mappingTimer = new QTimer( this );
   m_doNotExpandFurtherMappings = false;
   m_timeoutlen = 1000; // FIXME: make configurable
@@ -56,6 +55,15 @@ void KateViKeyMapper::executeMapping()
   m_numMappingsBeingExecuted--;
 }
 
+void KateViKeyMapper::playBackRejectedKeys()
+{
+  m_isPlayingBackRejectedKeys = true;
+  const QString mappingKeys = m_mappingKeys;
+  m_mappingKeys.clear();
+  m_viInputModeManager->feedKeyPresses(mappingKeys);
+  m_isPlayingBackRejectedKeys = false;
+}
+
 void KateViKeyMapper::setMappingTimeout(int timeoutMS)
 {
   m_timeoutlen = timeoutMS;
@@ -64,22 +72,20 @@ void KateViKeyMapper::setMappingTimeout(int timeoutMS)
 void KateViKeyMapper::mappingTimerTimeOut()
 {
   kDebug( 13070 ) << "timeout! key presses: " << m_mappingKeys;
-  m_mappingKeyPress = true;
   if (!m_fullMappingMatch.isNull())
   {
     executeMapping();
   }
   else
   {
-    m_viInputModeManager->feedKeyPresses( m_mappingKeys );
+    playBackRejectedKeys();
   }
-  m_mappingKeyPress = false;
   m_mappingKeys.clear();
 }
 
 bool KateViKeyMapper::handleKeypress(QChar key)
 {
-  if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !m_doNotMapNextKeypress) {
+  if ( !m_doNotExpandFurtherMappings && !m_doNotMapNextKeypress && !m_isPlayingBackRejectedKeys) {
     m_mappingKeys.append( key );
 
     bool isPartialMapping = false;
@@ -113,17 +119,8 @@ bool KateViKeyMapper::handleKeypress(QChar key)
     // We've been swallowing all the keypresses meant for m_keys for our mapping keys; now that we know
     // this cannot be a mapping, restore them.
     Q_ASSERT(!isPartialMapping && !isFullMapping);
-    m_isPlayingBackRejectedKeys = true;
-    m_doNotExpandFurtherMappings = true;
-    const QString mappingKeys = m_mappingKeys;
-    m_mappingKeys.clear();
-    m_viInputModeManager->feedKeyPresses(mappingKeys);
-    m_doNotExpandFurtherMappings = false;
-    m_isPlayingBackRejectedKeys = false;
+    playBackRejectedKeys();
     return true;
-  } else {
-    // FIXME:
-    //m_mappingKeyPress = false; // key press ignored wrt mappings, re-set m_mappingKeyPress
   }
   m_doNotMapNextKeypress = false;
   return false;

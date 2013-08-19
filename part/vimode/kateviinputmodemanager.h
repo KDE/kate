@@ -307,6 +307,7 @@ private:
   bool m_isRecordingMacro;
 
   QChar m_recordingMacroRegister;
+  QList<QKeyEvent> m_currentMacroKeyEventsLog;
 
   bool m_isReplayingMacro;
 

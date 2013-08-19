@@ -5683,6 +5683,13 @@ void ViModeTest::MacroTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "@aaaa", "idummy<esc>", KateViGlobal::Recursive);
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "S", "ixyz<esc>", KateViGlobal::Recursive);
   DoTest("", "qaSq@abrX", "Xyxyzz");
+  clearAllMappings();
+
+  // Can't play old version of macro while recording new version.
+  DoTest("", "qaiaaa\\ctrl-cqqa@aq", "aaa");
+
+  // Can't play the macro while recording it.
+  DoTest("", "qaiaaa\\ctrl-c@aq", "aaa");
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

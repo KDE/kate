@@ -110,7 +110,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   if (isRecordingMacro() && !m_isReplayingMacro && !isSyntheticSearchCompletedKeyPress && !keyMapper()->isExecutingMapping() && !keyMapper()->isPlayingBackRejectedKeys())
   {
     QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
-    m_macroKeyEventsLogForRegister[m_recordingMacroRegister].append(copy);
+    m_currentMacroKeyEventsLog.append(copy);
   }
 
   if (!m_view->viModeEmulatedCommandBar()->isActive() && !isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress)
@@ -313,12 +313,14 @@ void KateViInputModeManager::startRecordingMacro(QChar macroRegister)
   m_isRecordingMacro = true;
   m_recordingMacroRegister = macroRegister;
   m_macroKeyEventsLogForRegister[macroRegister].clear();
+  m_currentMacroKeyEventsLog.clear();
 }
 
 void KateViInputModeManager::finishRecordingMacro()
 {
   Q_ASSERT(m_isRecordingMacro);
   m_isRecordingMacro = false;
+  m_macroKeyEventsLogForRegister[m_recordingMacroRegister] = m_currentMacroKeyEventsLog;
 }
 
 bool KateViInputModeManager::isRecordingMacro()

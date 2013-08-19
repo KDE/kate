@@ -387,8 +387,13 @@ void KateVSStatusBar::cursorPositionChanged ( KTextEditor::View *view )
   KTextEditor::Cursor position (view->cursorPositionVirtual());
 
   m_lineColLabel->setText(
-    i18n(" Line: %1 Col: %2 ", KGlobal::locale()->formatNumber(position.line() + 1, 0),
-         KGlobal::locale()->formatNumber(position.column() + 1, 0)) );
+      i18n(
+          " Line: %1 of %2 Col: %3 "
+        , KGlobal::locale()->formatNumber(position.line() + 1, 0)
+        , view->document()->lines()
+        , KGlobal::locale()->formatNumber(position.column() + 1, 0)
+        )
+    );
 
   if (!m_charsLabel->isHidden())
   {

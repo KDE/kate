@@ -2055,11 +2055,12 @@ public:
   {
     m_mainWindow->show();
     m_kateView->show();
+    QApplication::setActiveWindow(m_mainWindow);
+    m_kateView->setFocus();
     while (QApplication::hasPendingEvents())
     {
       QApplication::processEvents();
     }
-    QApplication::setActiveWindow(m_mainWindow);
     KateViewConfig::global()->setViInputModeEmulateCommandBar(true);
     QVERIFY(KateViewConfig::global()->viInputModeEmulateCommandBar());
     KateViewConfig::global()->setViInputModeStealKeys(true);
@@ -5650,6 +5651,15 @@ void ViModeTest::MacroTests()
   DoTest("foo bar", "qaciwxyz\\ctrl-ci123\\ctrl-cqw@au", "xy123z bar");
   // As can a counted macro.
   DoTest("XXXX\nXXXX\nXXXX\nXXXX", "qarOljq3@au", "OXXX\nXXXX\nXXXX\nXXXX");
+
+  {
+    VimStyleCommandBarTestsSetUpAndTearDown vimStyleCommandBarTestsSetUpAndTearDown(kate_view, mainWindow);
+    // Make sure we can macro-ise an interactive sed replace.
+    DoTest("foo foo foo foo\nfoo foo foo foo", "qa:s/foo/bar/gc\\enteryynyAdone\\escqggj@a", "bar bar foo bardone\nbar bar foo bardone");
+    // Make sure the closing "q" in the interactive sed replace isn't mistaken for a macro's closing "q".
+    DoTest("foo foo foo foo\nfoo foo foo foo", "qa:s/foo/bar/gc\\enteryyqAdone\\escqggj@a", "bar bar foo foodone\nbar bar foo foodone");
+    DoTest("foo foo foo foo\nfoo foo foo foo", "qa:s/foo/bar/gc\\enteryyqqAdone\\escggj@aAdone\\esc", "bar bar foo foodone\nbar bar foo foodone");
+  }
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

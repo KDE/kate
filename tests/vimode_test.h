@@ -148,6 +148,8 @@ private:
   void clearReplaceHistory();
   QStringList replaceHistory();
 
+  void clearAllMacros();
+
   QCompleter *emulatedCommandBarCompleter();
 
   void verifyCommandBarCompletionVisible();

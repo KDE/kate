@@ -76,6 +76,14 @@ public:
     void clearReplaceHistory();
     void appendReplaceHistoryItem(const QString& replaceHistoryItem);
 
+    void clearAllMacros();
+    void clearMacro(QChar macroRegister);
+    void storeMacro(QChar macroRegister, const QList<QKeyEvent> macroKeyEventLog);
+    /**
+     * Get the named macro in a  format suitable to passing to feedKeyPresses)
+     */
+    QString getMacro(QChar macroRegister);
+
 private:
     // registers
     QList<KateViRegister> m_numberedRegisters;
@@ -128,6 +136,7 @@ private:
     History m_commandHistory;
     History m_replaceHistory;
 
+    QHash<QChar, QString > m_macroForRegister;
 };
 
 #endif

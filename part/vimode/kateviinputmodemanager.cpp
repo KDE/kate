@@ -313,7 +313,7 @@ void KateViInputModeManager::startRecordingMacro(QChar macroRegister)
   kDebug(13070) << "Recording macro: " << macroRegister;
   m_isRecordingMacro = true;
   m_recordingMacroRegister = macroRegister;
-  m_macroKeyEventsLogForRegister[macroRegister].clear();
+  KateGlobal::self()->viInputModeGlobal()->clearMacro(macroRegister);
   m_currentMacroKeyEventsLog.clear();
 }
 
@@ -321,7 +321,7 @@ void KateViInputModeManager::finishRecordingMacro()
 {
   Q_ASSERT(m_isRecordingMacro);
   m_isRecordingMacro = false;
-  m_macroKeyEventsLogForRegister[m_recordingMacroRegister] = m_currentMacroKeyEventsLog;
+  KateGlobal::self()->viInputModeGlobal()->storeMacro(m_recordingMacroRegister, m_currentMacroKeyEventsLog);
 }
 
 bool KateViInputModeManager::isRecordingMacro()
@@ -336,45 +336,8 @@ void KateViInputModeManager::replayMacro(QChar macroRegister)
     macroRegister = m_lastPlayedMacroRegister;
   }
   m_lastPlayedMacroRegister = macroRegister;
-  QList<QKeyEvent> keyLog = m_macroKeyEventsLogForRegister[macroRegister];
-  if (keyLog.isEmpty())
-  {
-    return;
-  }
-  keyLog.pop_back(); // Ditch the closing "q".
-  kDebug(13070) << "Replaying macro: " << macroRegister << " " << keyLog.size() << " keypresses";
-
-  QString macroAsFeedableKeypresses;
-
-  for (int i = 0; i < keyLog.size(); i++) {
-    int keyCode = keyLog.at(i).key();
-    QString text = keyLog.at(i).text();
-    int mods = keyLog.at(i).modifiers();
-    QChar key;
-
-   if ( text.length() > 0 ) {
-     key = text.at(0);
-   }
-
-    if ( text.isEmpty() || ( text.length() ==1 && text.at(0) < 0x20 )
-        || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
-      QString keyPress;
-
-      keyPress.append( '<' );
-      keyPress.append( ( mods & Qt::ShiftModifier ) ? "s-" : "" );
-      keyPress.append( ( mods & Qt::ControlModifier ) ? "c-" : "" );
-      keyPress.append( ( mods & Qt::AltModifier ) ? "a-" : "" );
-      keyPress.append( ( mods & Qt::MetaModifier ) ? "m-" : "" );
-      keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : KateViKeyParser::self()->qt2vi( keyCode ) );
-      keyPress.append( '>' );
-
-      key = KateViKeyParser::self()->encodeKeySequence( keyPress ).at( 0 );
-    }
-
-    macroAsFeedableKeypresses.append(key);
-  }
-
-  kDebug(13070) << "macro: " << macroAsFeedableKeypresses;
+  const QString macroAsFeedableKeypresses = KateGlobal::self()->viInputModeGlobal()->getMacro(macroRegister);
+  kDebug(13070) << "macroAsFeedableKeypresses:  " << macroAsFeedableKeypresses;
 
   m_isReplayingMacro = true;
   m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));

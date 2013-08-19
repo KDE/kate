@@ -312,8 +312,6 @@ private:
   bool m_isReplayingMacro;
   QChar m_lastPlayedMacroRegister;
 
-  QHash<QChar, QList<QKeyEvent> > m_macroKeyEventsLogForRegister;
-
   /**
    * set to true when the insertion should be repeated as text
    */

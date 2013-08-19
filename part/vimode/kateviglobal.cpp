@@ -50,6 +50,19 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
   }
   config.writeEntry( "Normal Mode Mappings", l );
   config.writeEntry( "Normal Mode Mappings Recursion", isRecursive );
+
+  QStringList macroRegisters;
+  foreach(const QChar& macroRegister, m_macroForRegister.keys())
+  {
+    macroRegisters.append(macroRegister);
+  }
+  QStringList macroContents;
+  foreach(const QChar& macroRegister, m_macroForRegister.keys())
+  {
+    macroContents.append(KateViKeyParser::self()->decodeKeySequence(m_macroForRegister[macroRegister]));
+  }
+  config.writeEntry("Macro Registers", macroRegisters);
+  config.writeEntry("Macro Contents", macroContents);
 }
 
 void KateViGlobal::readConfig( const KConfigGroup &config )
@@ -75,6 +88,18 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
     } else {
       kDebug( 13070 ) << "Error when reading mappings from config: number of keys != number of values";
     }
+
+  const QString macros = config.readEntry("Macros", QString());
+  m_macroForRegister['a'] = KateViKeyParser::self()->encodeKeySequence( macros);
+  const QStringList macroRegisters = config.readEntry("Macro Registers", QStringList());
+  const QStringList macroContents = config.readEntry("Macro Contents", QStringList());
+  if (macroRegisters.length() == macroContents.length())
+  {
+    for (int i = 0; i < macroRegisters.length(); i++)
+    {
+      m_macroForRegister[macroRegisters[i].at(0)] = KateViKeyParser::self()->encodeKeySequence(macroContents[i]);
+    }
+  }
 }
 
 KateViRegister KateViGlobal::getRegister( const QChar &reg ) const
@@ -319,4 +344,36 @@ void KateViGlobal::appendReplaceHistoryItem(const QString& replaceHistoryItem)
 void KateViGlobal::clearReplaceHistory()
 {
   m_replaceHistory.clear();
+}
+
+void KateViGlobal::clearAllMacros()
+{
+  m_macroForRegister.clear();
+}
+
+void KateViGlobal::clearMacro(QChar macroRegister)
+{
+  m_macroForRegister[macroRegister].clear();
+}
+
+void KateViGlobal::storeMacro(QChar macroRegister, const QList< QKeyEvent > macroKeyEventLog)
+{
+  m_macroForRegister[macroRegister].clear();
+  QList <QKeyEvent> withoutClosingQ = macroKeyEventLog;
+  Q_ASSERT(!macroKeyEventLog.isEmpty() && macroKeyEventLog.last().key() == Qt::Key_Q);
+  withoutClosingQ.pop_back();
+  foreach(QKeyEvent keyEvent, withoutClosingQ)
+  {
+    const QChar key = KateViKeyParser::self()->KeyEventToQChar(
+                keyEvent.key(),
+                keyEvent.text(),
+                keyEvent.modifiers(),
+                keyEvent.nativeScanCode() );
+    m_macroForRegister[macroRegister].append(key);
+  }
+}
+
+QString KateViGlobal::getMacro(QChar macroRegister)
+{
+  return m_macroForRegister[macroRegister];
 }

@@ -55,7 +55,7 @@ require ("string.js");
 // ';' is for align `for' parts
 // ' ' is to add a '()' after `if', `while', `for', ...
 // TBD <others>
-triggerCharacters = "{}()<>/:;,#\\?|/%.@ ";
+triggerCharacters = "{}()<>/:;,#\\?|/%.@ \"";
 
 var debugMode = false;
 
@@ -1369,6 +1369,43 @@ function tryDoxygenGrouping(cursor)
 }
 
 /**
+ * \brief Handle quote character
+ *
+ * Look back for \c 'R' char right before \c '"' and if
+ * the next one (after \c '"') is not an alphanumeric,
+ * then add a delimiters.
+ *
+ * \attention If autobrace plugin used to add quotation marks,
+ * then next symbol after the current will be another one \c '"'
+ * if this is a new string. Otherwise, if it turned OFF, the simplest
+ * case we can detect (and the most typical), is that raw string started
+ * at fresh line, and current \c column equal to the line length.
+ */
+function tryRawStringLiteral(cursor)
+{
+    var line = cursor.line;
+    var column = cursor.column;
+    var is_abp_on = document.charAt(line, column) == '"';
+    var start_raw_string = 2 <= column
+      && document.charAt(line, column - 2) == 'R'
+      && (
+          is_abp_on                                         // Autobracket plugin On?
+        || column == (document.lineLength(line))            // Autobracket plugin Off? (and end of line)
+        );
+    if (start_raw_string)
+    {
+        document.editBegin();
+        /// \todo Make delimiter configurable... HOW?
+        /// It would be nice if indenters can have a configuration page somehow...
+        document.insertText(cursor, "~()~");
+        if (!is_abp_on)
+            document.insertText(line, column + 4, '"');
+        view.setCursorPosition(line, column + 2);
+        document.editEnd();
+    }
+}
+
+/**
  * \brief Handle a space
  *
  * Add '()' pair after some keywords like: \c if, \c while, \c for, \c switch
@@ -1461,6 +1498,9 @@ function processChar(line, ch)
             break;
         case '@':
             tryDoxygenGrouping(cursor);
+            break;
+        case '"':
+            tryRawStringLiteral(cursor);
             break;
         case ' ':
             tryKeywordsWithBrackets(cursor);

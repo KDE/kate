@@ -5744,6 +5744,9 @@ void ViModeTest::MacroTests()
   // when it was first played back.
   clearAllMacros();
   DoTest("", "@aqaia\\ctrl-cq@@", "aa");
+  // "@@" is counted.
+  clearAllMacros();
+  DoTest("", "qaia\\ctrl-cq@adiw5@@", "aaaaa");
 
   // Test that we can save and restore a single macro.
   const QString viTestKConfigFileName = "vimodetest-katevimoderc";

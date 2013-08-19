@@ -61,8 +61,9 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_textualRepeat = false;
 
   m_isRecordingMacro = false;
+  m_isReplayingMacro = false;
 
-  m_keyMapper = new KateViKeyMapper(this, m_view->doc());
+  m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
 
   m_lastSearchBackwards = false;
   m_lastSearchCaseSensitive = false;
@@ -92,7 +93,6 @@ KateViInputModeManager::~KateViInputModeManager()
   delete m_viInsertMode;
   delete m_viVisualMode;
   delete m_viReplaceMode;
-  delete m_keyMapper;
   delete jump_list;
 }
 
@@ -107,7 +107,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   // of a mapping, we don't want to record them when they are played back by m_keyMapper, hence
   // the "!isPlayingBackRejectedKeys()". And obviously, since we're recording keys before they are mapped, we don't
   // want to also record the executed mapping, as when we replayed the macro, we'd get duplication!
-  if (isRecordingMacro() && !isSyntheticSearchCompletedKeyPress && !m_keyMapper->isExecutingMapping() && !m_keyMapper->isPlayingBackRejectedKeys())
+  if (isRecordingMacro() && !m_isReplayingMacro && !isSyntheticSearchCompletedKeyPress && !keyMapper()->isExecutingMapping() && !keyMapper()->isPlayingBackRejectedKeys())
   {
     QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
     m_macroKeyEventsLogForRegister[m_recordingMacroRegister].append(copy);
@@ -119,7 +119,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
     {
       const QChar key = KateViKeyParser::self()->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
-      if (m_keyMapper->handleKeypress(key))
+      if (keyMapper()->handleKeypress(key))
       {
         keyIsPartOfMapping = true;
         res = true;
@@ -368,7 +368,11 @@ void KateViInputModeManager::replayMacro(QChar macroRegister)
 
   kDebug(13070) << "macro: " << macroAsFeedableKeypresses;
 
+  m_isReplayingMacro = true;
+  m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
   feedKeyPresses(macroAsFeedableKeypresses);
+  m_keyMapperStack.pop();
+  m_isReplayingMacro = false;
 }
 
 const QString KateViInputModeManager::getLastSearchPattern() const
@@ -845,5 +849,5 @@ QString KateViInputModeManager::modeToString(ViMode mode)
 
 KateViKeyMapper* KateViInputModeManager::keyMapper()
 {
-  return m_keyMapper;
+  return m_keyMapperStack.top().data();
 }

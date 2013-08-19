@@ -35,7 +35,6 @@ KateViKeyMapper::KateViKeyMapper(KateViInputModeManager* kateViInputModeManager,
   m_doNotMapNextKeypress = false;
   m_numMappingsBeingExecuted = 0;
   m_isPlayingBackRejectedKeys = false;
-  m_doNotMapKeypressesCountDown = -1;
   connect(m_mappingTimer, SIGNAL(timeout()), this, SLOT(mappingTimerTimeOut()));
 }
 
@@ -80,11 +79,6 @@ void KateViKeyMapper::mappingTimerTimeOut()
 
 bool KateViKeyMapper::handleKeypress(QChar key)
 {
-  if (m_doNotMapKeypressesCountDown > 0)
-  {
-    m_doNotMapKeypressesCountDown--;
-    return false;
-  }
   if ( !m_doNotExpandFurtherMappings && !m_mappingKeyPress && !m_doNotMapNextKeypress) {
     m_mappingKeys.append( key );
 
@@ -119,21 +113,12 @@ bool KateViKeyMapper::handleKeypress(QChar key)
     // We've been swallowing all the keypresses meant for m_keys for our mapping keys; now that we know
     // this cannot be a mapping, restore them.
     Q_ASSERT(!isPartialMapping && !isFullMapping);
-    // The keypresses we replay will of course go back through KateViKeyMapper, so we need to set a flag that
-    // says "ignore (i.e. do not map) these keys".
-    // However, we can't just set e.g. m_doNotExpandFurtherMappings to true and then back to false on either
-    // side of feeding keypresses, as these keypresses may trigger a macro, which in turn will generate
-    // keypresses that may form a mapping that we need to expand.
-    // So instead, just say "ignore the next m_mappingKeys.length()" keypresses.
-    // Note that this is not technically enough: if there is a mapping from "@aaaaaaaaaaaa" to something,
-    // and we do "@aaab", and the macro in "a" contains keypresses that should be expanded into a mapping,
-    // then these keypresses *won't* be mapped, I don't think.  This is a horribly pathological example, though, so
-    // I'll ignore it for now.
     m_isPlayingBackRejectedKeys = true;
-    m_doNotMapKeypressesCountDown = m_mappingKeys.length();
+    m_doNotExpandFurtherMappings = true;
     const QString mappingKeys = m_mappingKeys;
     m_mappingKeys.clear();
     m_viInputModeManager->feedKeyPresses(mappingKeys);
+    m_doNotExpandFurtherMappings = false;
     m_isPlayingBackRejectedKeys = false;
     return true;
   } else {

@@ -1980,6 +1980,17 @@ void ViModeTest::MappingTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "ihello<c-c>", "irecursive<c-c>", KateViGlobal::Recursive);
   DoTest("", "'", "recursive");
 
+  // Capslock in insert mode is not handled by Vim nor by KateViewInternal, and ends up
+  // being sent to KateViInputModeManager::handleKeypress twice (it could be argued that this is
+  // incorrect behaviour on the part of KateViewInternal), which can cause infinite
+  // recursion if we are not careful about identifying replayed rejected keypresses.
+  BeginTest("foo bar");
+  TestPressKey("i");
+  QKeyEvent *capslockKeyPress = new QKeyEvent(QEvent::KeyPress, Qt::Key_CapsLock, Qt::NoModifier);
+  QApplication::postEvent(kate_view->focusProxy(), capslockKeyPress);
+  QApplication::sendPostedEvents();
+  FinishTest("foo bar");
+
   // Clear mappings for subsequent tests.
   clearAllMappings();
 }
@@ -5644,6 +5655,7 @@ void ViModeTest::MacroTests()
   KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "ihello<c-c>", "irecursive<c-c>", KateViGlobal::Recursive);
   DoTest("", "qa'q@a", "recursivxyrecursivxyzeze");
 
+  clearAllMappings();
   // Don't save the trailing "q" with macros, and also test that we can call one macro from another.
   DoTest("", "qaixyz\\ctrl-cqqb@aq@b", "xyxyxyzzz");
   // Don't crash if we invoke a non-existent macro.
@@ -5664,6 +5676,13 @@ void ViModeTest::MacroTests()
     DoTest("foo foo foo foo\nfoo foo foo foo", "qa:s/foo/bar/gc\\enteryyqAdone\\escqggj@a", "bar bar foo foodone\nbar bar foo foodone");
     DoTest("foo foo foo foo\nfoo foo foo foo", "qa:s/foo/bar/gc\\enteryyqqAdone\\escggj@aAdone\\esc", "bar bar foo foodone\nbar bar foo foodone");
   }
+
+  clearAllMappings();
+  // Expand mapping in an executed macro, if the invocation of the macro "@a" is a prefix of a mapping M, and
+  // M ends up not being triggered.
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "@aaaa", "idummy<esc>", KateViGlobal::Recursive);
+  KateGlobal::self()->viInputModeGlobal()->addMapping(NormalMode, "S", "ixyz<esc>", KateViGlobal::Recursive);
+  DoTest("", "qaSq@abrX", "Xyxyzz");
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

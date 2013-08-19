@@ -293,7 +293,9 @@ private:
   KateViewInternal *m_viewInternal;
   KateViKeyParser *m_keyParser;
 
-  KateViKeyMapper *m_keyMapper;
+  // Create a new keymapper for each macro event, to simplify expansion of mappings in macros
+  // where the macro itself was triggered by expanding a mapping!
+  QStack<QSharedPointer<KateViKeyMapper> > m_keyMapperStack;
 
   int m_insideHandlingKeyPressCount;
 
@@ -305,6 +307,8 @@ private:
   bool m_isRecordingMacro;
 
   QChar m_recordingMacroRegister;
+
+  bool m_isReplayingMacro;
 
   QHash<QChar, QList<QKeyEvent> > m_macroKeyEventsLogForRegister;
 

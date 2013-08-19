@@ -60,7 +60,6 @@ private:
   bool m_doNotMapNextKeypress;
   int m_numMappingsBeingExecuted;
   bool m_isPlayingBackRejectedKeys;
-  int m_doNotMapKeypressesCountDown;
 };
 
 #endif

@@ -1351,7 +1351,11 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     if (match.isValid())
     {
       // The returned range ends one past the last character of the match, so adjust.
-      const Cursor realMatchEnd = Cursor(match.end().line(),  match.end().column() - 1);
+      Cursor realMatchEnd = Cursor(match.end().line(), match.end().column() - 1);
+      if (realMatchEnd.column() == -1)
+      {
+        realMatchEnd = Cursor(realMatchEnd.line() - 1, m_view->doc()->lineLength(realMatchEnd.line() - 1));
+      }
       moveCursorTo(placeCursorAtEndOfMatch ? realMatchEnd :  match.start());
       setBarBackground(MatchFound);
     }

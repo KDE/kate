@@ -5178,6 +5178,10 @@ void ViModeTest::VimStyleCommandBarTests()
   {
     qWarning() << "Skipped test: Ctrl+Z is not Undo on this platform";
   }
+
+  // Don't give invalid cursor position to updateCursor in Visual Mode: it will cause a crash!
+  DoTest("xyz\nfoo\nbar\n123", "/foo\\\\nbar\\\\n\\enterggv//e\\enter\\ctrl-crX", "xyz\nfoo\nbaX\n123");
+  DoTest("\nfooxyz\nbar;\n" , "/foo.*\\\\n.*;\\enterggv//e\\enter\\ctrl-crX", "\nfooxyz\nbarX\n");
 }
 
 class VimCodeCompletionTestModel : public CodeCompletionModel

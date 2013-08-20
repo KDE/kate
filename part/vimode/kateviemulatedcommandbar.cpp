@@ -634,10 +634,12 @@ QString KateViEmulatedCommandBar::commandBeforeCursor()
 
 void KateViEmulatedCommandBar::replaceWordBeforeCursorWith(const QString& newWord)
 {
+  const int wordBeforeCursorStart = m_edit->cursorPosition() - wordBeforeCursor().length();
   const QString newText = m_edit->text().left(m_edit->cursorPosition() - wordBeforeCursor().length()) +
   newWord +
   m_edit->text().mid(m_edit->cursorPosition());
   m_edit->setText(newText);
+  m_edit->setCursorPosition(wordBeforeCursorStart + newWord.length());
 }
 
 void KateViEmulatedCommandBar::replaceCommandBeforeCursorWith(const QString& newCommand)

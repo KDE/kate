@@ -3341,6 +3341,13 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter\\enter"); // Dismiss completion, then bar.
   FinishTest("foo fee foa foab");
 
+  // Place the cursor at the end of the completed text.
+  BeginTest("foo fee foa foab");
+  TestPressKey("/xyz|f$nose\\left\\left\\left\\left\\left\\ctrl- oa\\ctrl-p\\enterX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("xyz|foabX$nose"));
+  TestPressKey("\\ctrl-c"); // Dismiss completion, then bar.
+  FinishTest("foo fee foa foab");
+
   // If we're completing from history, though, the entire text gets set, and the completion prefix
   // is the beginning of the entire text, not the current word before the cursor.
   clearSearchHistory();

@@ -43,6 +43,8 @@ KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
   m_eolPos = 0;
   m_count = 1;
   m_countedRepeatsBeginOnNewLine = false;
+
+  m_isExecutingCompletion = false;
 }
 
 KateViInsertMode::~KateViInsertMode()
@@ -330,7 +332,9 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_Return:
       if (m_view->completionWidget()->isCompletionActive())
       {
+        m_isExecutingCompletion = true;
         m_view->completionWidget()->execute();
+        m_isExecutingCompletion = false;
         return true;
       }
     default:
@@ -542,4 +546,9 @@ void KateViInsertMode::setBlockAppendMode( KateViRange blockRange, BlockInsert b
     } else {
         kDebug( 13070 ) << "cursor moved. ignoring block append/prepend";
     }
+}
+
+bool KateViInsertMode::isExecutingCompletion()
+{
+  return m_isExecutingCompletion;
 }

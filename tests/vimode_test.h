@@ -79,6 +79,7 @@ private Q_SLOTS:
   void NormalModeCommandsTest();
   void NormalModeControlTests();
   void NormalModeNotYetImplementedFeaturesTest();
+  void FakeCodeCompletionTests();
 
   void InsertModeTests();
   void VisualModeTests();
@@ -155,6 +156,40 @@ private:
   void verifyCommandBarCompletionVisible();
   void verifyCommandBarCompletionsMatches(const QStringList& expectedCompletionList);
   void verifyCommandBarCompletionContains(const QStringList& expectedCompletionList);
+
+  void clearTrackedDocumentChanges();
+private slots:
+  void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
+  void textRemoved(KTextEditor::Document* document, KTextEditor::Range range);
+private:
+  class DocChange
+  {
+  public:
+    enum ChangeType { TextRemoved, TextInserted };
+    DocChange(ChangeType changeType, KTextEditor::Range changeRange, QString newText = QString())
+        : m_changeType(changeType),
+          m_changeRange(changeRange),
+          m_newText(newText)
+    {
+    }
+    ChangeType changeType() const
+    {
+      return m_changeType;
+    }
+    KTextEditor::Range changeRange() const
+    {
+      return m_changeRange;
+    }
+    QString newText() const
+    {
+      return m_newText;
+    }
+  private:
+    ChangeType m_changeType;
+    KTextEditor::Range m_changeRange;
+    QString m_newText;
+  };
+  QList<DocChange> m_docChanges;
 };
 
 #endif

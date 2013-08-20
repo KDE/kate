@@ -100,6 +100,142 @@ void FailsIfSlotCalled::slot()
   QFAIL(m_failureMessage.toAscii());
 }
 
+/**
+ * Helper class that mimics some of the behaviour of KDevelop's code completion, in particular
+ * whether it performs "bracket merging" on completed function calls e.g. if we complete a call
+ * to "functionCall(int a)" at the end of the -> here:
+ *
+ *  object->(
+ *
+ * we end up with
+ *
+ *  object->functionCall(
+ *
+ * and the cursor placed after the closing bracket: the opening bracket is merged with the existing
+ * bracket.
+ *
+ * However, if we do the same with
+ *
+ *  object->
+ *
+ * we end up with
+ *
+ *  object->functionCall()
+ *
+ * again with the cursor placed after the opening bracket.  This time, the brackets were not merged.
+ *
+ * This helper class is used to test how Macros and replaying of last changes works with complex
+ * code completion.
+ */
+class FakeCodeCompletionTestModel : public CodeCompletionModel
+{
+public:
+    FakeCodeCompletionTestModel(KTextEditor::View* parent)
+      : KTextEditor::CodeCompletionModel(parent),
+        m_kateView(parent),
+        m_removeTailOnCompletion(false)
+    {
+        setRowCount(3);
+        cc()->setAutomaticInvocationEnabled(false);
+        cc()->unregisterCompletionModel(KateGlobal::self()->wordCompletionModel()); //would add additional items, we don't want that in tests
+    }
+    /**
+     * List of completions, in sorted order.
+     * A string ending with "()" is treated as a call to a function with no arguments.
+     * A string ending with "(...)" is treated as a call to a function with at least one argument.  The "..." is not
+     * inserted into the text.
+     */
+    void setCompletions(const QStringList& completions)
+    {
+      QStringList sortedCompletions = completions;
+      qSort(sortedCompletions);
+      Q_ASSERT(completions == sortedCompletions && "QCompleter seems to sort the items, so it's best to provide them pre-sorted so it's easier to predict the order");
+      setRowCount(sortedCompletions.length());
+      m_completions = completions;
+    }
+    void setRemoveTailOnComplete(bool removeTailOnCompletion)
+    {
+      m_removeTailOnCompletion = removeTailOnCompletion;
+    }
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
+    {
+      // Order is important, here, as the completion widget seems to do its own sorting.
+      if (role == Qt::DisplayRole)
+      {
+        if (index.column() == Name)
+            return QString(m_completions[index.row()]);
+      }
+      return QVariant();
+    }
+    virtual void executeCompletionItem(Document* document, const Range& word, int row) const
+    {
+      kDebug(13070) << "word: " << word << "(" << document->text(word) << ")";
+      const Cursor origCursorPos = m_kateView->cursorPosition();
+      const QString textToInsert = m_completions[row];
+      const QString textAfterCursor = document->text(Range(word.end(), Cursor(word.end().line(), document->lineLength(word.end().line()))));
+      document->removeText(Range(word.start(), origCursorPos));
+      const int lengthStillToRemove = word.end().column() - origCursorPos.column();
+      QString actualTextInserted = textToInsert;
+      // Merge brackets?
+      const QString noArgFunctionCallMarker = "()";
+      const QString withArgFunctionCallMarker = "(...)";
+      if (textToInsert.endsWith(noArgFunctionCallMarker) || textToInsert.endsWith(withArgFunctionCallMarker))
+      {
+        const bool takesArgument = textToInsert.endsWith(withArgFunctionCallMarker);
+        // The code for a function call to a function taking no arguments.
+        const QString justFunctionName = textToInsert.left(textToInsert.length() -
+               (takesArgument ? withArgFunctionCallMarker.length() :
+                                noArgFunctionCallMarker.length()));
+
+        QRegExp whitespaceThenOpeningBracket("^\\s*(\\()");
+        int openingBracketPos = -1;
+        if (textAfterCursor.contains(whitespaceThenOpeningBracket))
+        {
+          openingBracketPos = whitespaceThenOpeningBracket.pos(1) + word.start().column() + justFunctionName.length() + 1 + lengthStillToRemove;
+        }
+        const bool mergeOpenBracketWithExisting = (openingBracketPos != -1);
+        // Add the function name, for now: we don't yet know if we'll be adding the "()", too.
+        document->insertText(word.start(), justFunctionName);
+        if (mergeOpenBracketWithExisting)
+        {
+          // Merge with opening bracket.
+          actualTextInserted = justFunctionName;
+          m_kateView->setCursorPosition(Cursor(word.start().line(), openingBracketPos));
+        }
+        else
+        {
+          // Don't merge.
+          document->insertText(Cursor(word.start().line(), word.start().column() + justFunctionName.length()), "()");
+          if (takesArgument)
+          {
+            // Place the cursor immediately after the opening "(" we just added.
+            m_kateView->setCursorPosition(Cursor(word.start().line(), word.start().column() + justFunctionName.length() + 1));
+          }
+        }
+      }
+      else
+      {
+        // Plain text.
+        document->insertText(word.start(), textToInsert);
+      }
+      if (m_removeTailOnCompletion)
+      {
+        const int tailLength = word.end().column() - origCursorPos.column();
+        const Cursor tailStart = Cursor(word.start().line(), word.start().column() + actualTextInserted.length());
+        const Cursor tailEnd = Cursor(tailStart.line(), tailStart.column() + tailLength);
+        document->removeText(Range(tailStart, tailEnd));
+      }
+    }
+
+    KTextEditor::CodeCompletionInterface * cc( ) const
+    {
+      return dynamic_cast<KTextEditor::CodeCompletionInterface*>(const_cast<QObject*>(QObject::parent()));
+    }
+private:
+  QStringList m_completions;
+  KTextEditor::View *m_kateView;
+  bool m_removeTailOnCompletion;
+};
 ViModeTest::ViModeTest() {
   kate_document = new KateDocument(false, false, false, 0, NULL);
   mainWindow = new QMainWindow;
@@ -125,6 +261,11 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("enter", Qt::Key_Enter);
   m_codesToSpecialKeys.insert("left", Qt::Key_Left);
   m_codesToSpecialKeys.insert("right", Qt::Key_Right);
+
+  connect(kate_document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+          this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
+  connect(kate_document, SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+          this, SLOT(textRemoved(KTextEditor::Document*,KTextEditor::Range)));
 }
 
 Qt::KeyboardModifier ViModeTest::parseCodedModifier(const QString& string, int startPos, int* destEndOfCodedModifier)
@@ -1473,6 +1614,289 @@ void ViModeTest::NormalModeNotYetImplementedFeaturesTest() {
 //    DoTest("Foo foo.\nBar bar.\nBaz baz.","))\\ctrl-ox\\ctrl-ix","Foo foo.\nBar bar.\naz baz.");
 //    DoTest("Foo foo.\nBar bar.\nBaz baz.","))\\ctrl-ox\\ctrl-ix","Foo foo.\nBar bar.\naz baz.");
 
+}
+
+void ViModeTest::FakeCodeCompletionTests()
+{
+  // Test that FakeCodeCompletionTestModel behaves similar to the code-completion in e.g. KDevelop.
+  const bool oldStealKeys = KateViewConfig::global()->viInputModeStealKeys();
+  KateViewConfig::global()->setViInputModeStealKeys(true); // For Ctrl-P, Ctrl-N etc
+  ensureKateViewVisible(); // KateView needs to be visible for the completion widget.
+  FakeCodeCompletionTestModel *fakeCodeCompletionModel = new FakeCodeCompletionTestModel(kate_view);
+  kate_view->registerCompletionModel(fakeCodeCompletionModel);
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  DoTest("", "i\\ctrl-p\\enter", "completionC");
+  DoTest("", "i\\ctrl-p\\ctrl-p\\enter", "completionB");
+  DoTest("", "i\\ctrl-p\\ctrl-p\\ctrl-p\\enter", "completionA");
+  DoTest("", "i\\ctrl-p\\ctrl-p\\ctrl-p\\ctrl-p\\enter", "completionC");
+  // If no word before cursor, don't delete any text.
+  BeginTest("");
+  clearTrackedDocumentChanges();
+  TestPressKey("i\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.length(), 1);
+  FinishTest("completionA");
+  // Apparently, we must delete the word before the cursor upon completion
+  // (even if we replace it with identical text!)
+  BeginTest("compl");
+  TestPressKey("ea");
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 0), Cursor(0, 5)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 0), Cursor(0, 11)));
+  QCOMPARE(m_docChanges[1].newText(), QString("completionA"));
+  FinishTest("completionA");
+  // A "word" is currently alphanumeric, plus underscore.
+  fakeCodeCompletionModel->setCompletions(QStringList() << "w_123completion");
+  BeginTest("(w_123");
+  TestPressKey("ea");
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 1), Cursor(0, 6)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 1), Cursor(0, 16)));
+  QCOMPARE(m_docChanges[1].newText(), QString("w_123completion"));
+  FinishTest("(w_123completion");
+  // "Removing tail on complete" is apparently done in three stages:
+  // delete word up to the cursor; insert new word; then delete remainder.
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  BeginTest("(w_123comp");
+  TestPressKey("6li");
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 3);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 1), Cursor(0, 6)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 1), Cursor(0, 16)));
+  QCOMPARE(m_docChanges[1].newText(), QString("w_123completion"));
+  QCOMPARE(m_docChanges[2].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[2].changeRange(), Range(Cursor(0, 16), Cursor(0, 20)));
+  FinishTest("(w_123completion");
+
+  // If we don't remove tail, just delete up to the cursor and insert.
+  fakeCodeCompletionModel->setRemoveTailOnComplete(false);
+  BeginTest("(w_123comp");
+  TestPressKey("6li");
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 1), Cursor(0, 6)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 1), Cursor(0, 16)));
+  QCOMPARE(m_docChanges[1].newText(), QString("w_123completion"));
+  FinishTest("(w_123completioncomp");
+
+  // If no opening bracket after the cursor, a function taking no arguments
+  // is added as "function()", and the cursor placed after the closing ")".
+  // The addition of "function()" is done in two steps: first "function", then "()".
+  BeginTest("object->");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall()");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("$a\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 20), Cursor(0, 22)));
+  QCOMPARE(m_docChanges[1].newText(), QString("()"));
+  TestPressKey("X");
+  FinishTest("object->functionCall()X");
+
+  // If no opening bracket after the cursor, a function taking at least one argument
+  // is added as "function()", and the cursor placed after the opening "(".
+  // The addition of "function()" is done in two steps: first "function", then "()".
+  kDebug(13070) << "Fleep";
+  BeginTest("object->");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...)");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("$a\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 20), Cursor(0, 22)));
+  QCOMPARE(m_docChanges[1].newText(), QString("()"));
+  TestPressKey("X");
+  FinishTest("object->functionCall(X)");
+
+  // If there is an opening bracket after the cursor, we merge the function call
+  // with that.
+  // Even if the function takes no arguments, we still place the cursor after the opening bracket,
+  // in contrast to the case where there is no opening bracket after the cursor.
+  // No brackets are added.  No removals occur if there is no word before the cursor.
+  BeginTest("object->(");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall()");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("f(i\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 1);
+  QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
+  TestPressKey("X");
+  FinishTest("object->functionCall(X");
+
+  // There can't be any non-whitespace between cursor position and opening bracket, though!
+  BeginTest("object->|(   (");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall()");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("f>a\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 20), Cursor(0, 22)));
+  QCOMPARE(m_docChanges[1].newText(), QString("()"));
+  TestPressKey("X");
+  FinishTest("object->functionCall()X|(   (");
+
+  // Whitespace before the bracket is fine, though.
+  BeginTest("object->    (<-Cursor here!");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall()");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("f>a\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 1);
+  QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
+  TestPressKey("X");
+  FinishTest("object->functionCall    (X<-Cursor here!");
+
+  // Be careful with positioning the cursor if we delete leading text!
+  BeginTest("object->    (<-Cursor here!");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall()");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("f>afunct");
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 13)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[1].newText(), QString("functionCall"));
+  TestPressKey("X");
+  FinishTest("object->functionCall    (X<-Cursor here!");
+
+  // If we're removing tail on complete, it's whether there is a suitable opening
+  // bracket *after* the word (not the cursor) that's important.
+  BeginTest("object->function    (<-Cursor here!");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall()");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("12li"); // Start inserting before the "t" in "function"
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 3);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 12)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[1].newText(), QString("functionCall"));
+  QCOMPARE(m_docChanges[2].changeType(), DocChange::TextRemoved);
+  kDebug(13070) << "m_docChanges[2].changeRange(): " << m_docChanges[2].changeRange();
+  QCOMPARE(m_docChanges[2].changeRange(), Range(Cursor(0, 20), Cursor(0, 24)));
+  TestPressKey("X");
+  FinishTest("object->functionCall    (X<-Cursor here!");
+
+  // Repeat of bracket-merging stuff, this time for functions that take at least one argument.
+  BeginTest("object->(");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...)");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("f(i\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 1);
+  QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
+  kDebug(13070) << "Range: " << m_docChanges[0].changeRange();
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
+  TestPressKey("X");
+  FinishTest("object->functionCall(X");
+
+  // There can't be any non-whitespace between cursor position and opening bracket, though!
+  BeginTest("object->|(   (");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...)");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("f>a\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 20), Cursor(0, 22)));
+  QCOMPARE(m_docChanges[1].newText(), QString("()"));
+  TestPressKey("X");
+  FinishTest("object->functionCall(X)|(   (");
+
+  // Whitespace before the bracket is fine, though.
+  BeginTest("object->    (<-Cursor here!");
+  qDebug() << "NooooO";
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...)");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("f>a\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 1);
+  QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
+  TestPressKey("X");
+  FinishTest("object->functionCall    (X<-Cursor here!");
+
+  // Be careful with positioning the cursor if we delete leading text!
+  BeginTest("object->    (<-Cursor here!");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...)");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("f>afunct");
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 2);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 13)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[1].newText(), QString("functionCall"));
+  TestPressKey("X");
+  FinishTest("object->functionCall    (X<-Cursor here!");
+
+  // If we're removing tail on complete, it's whether there is a suitable opening
+  // bracket *after* the word (not the cursor) that's important.
+  BeginTest("object->function    (<-Cursor here!");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...)");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  clearTrackedDocumentChanges();
+  TestPressKey("12li"); // Start inserting before the "t" in "function"
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 3);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 12)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
+  QCOMPARE(m_docChanges[1].newText(), QString("functionCall"));
+  QCOMPARE(m_docChanges[2].changeType(), DocChange::TextRemoved);
+  kDebug(13070) << "m_docChanges[2].changeRange(): " << m_docChanges[2].changeRange();
+  QCOMPARE(m_docChanges[2].changeRange(), Range(Cursor(0, 20), Cursor(0, 24)));
+  TestPressKey("X");
+  FinishTest("object->functionCall    (X<-Cursor here!");
+
+  KateViewConfig::global()->setViInputModeStealKeys(oldStealKeys);
+  kate_view->hide();
+  mainWindow->hide();
+  kate_view->unregisterCompletionModel(fakeCodeCompletionModel);
+  delete fakeCodeCompletionModel;
 }
 
 void ViModeTest::CommandModeTests() {
@@ -6033,6 +6457,22 @@ void ViModeTest::verifyCommandBarCompletionContains(const QStringList& expectedC
     }
     QVERIFY(actualCompletionList.contains(expectedCompletion));
   }
+}
+
+void ViModeTest::clearTrackedDocumentChanges()
+{
+  m_docChanges.clear();
+}
+
+void ViModeTest::textInserted(Document* document, Range range)
+{
+  m_docChanges.append(DocChange(DocChange::TextInserted, range, document->text(range)));
+}
+
+void ViModeTest::textRemoved(Document* document, Range range)
+{
+  Q_UNUSED(document);
+  m_docChanges.append(DocChange(DocChange::DocChange::TextRemoved, range));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

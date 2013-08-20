@@ -78,6 +78,8 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     void setCount(int count) { m_count = count;};
     void setCountedRepeatsBeginOnNewLine(bool countedRepeatsBeginOnNewLine) { m_countedRepeatsBeginOnNewLine = countedRepeatsBeginOnNewLine;};
 
+    bool isExecutingCompletion();
+
   protected:
     BlockInsert m_blockInsert;
     unsigned int m_eolPos; // length of first line in eol mode before text is appended
@@ -88,6 +90,8 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
 
     unsigned int m_count;
     bool m_countedRepeatsBeginOnNewLine;
+
+    bool m_isExecutingCompletion;
 
     void leaveInsertMode( bool force = false);
 };

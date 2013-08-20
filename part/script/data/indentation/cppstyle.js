@@ -740,6 +740,30 @@ function tryPreprocessor_ch(line)
     return result;
 }
 
+/**
+ * Check if \c ENTER was pressed on a start of line and
+ * after a block comment.
+ */
+function tryAfterBlockComment_ch(line)
+{
+    var result = -1;
+    if (0 < line)
+    {
+        var prev_non_empty_line = document.prevNonEmptyLine(line - 1);
+        if (prev_non_empty_line != -1 && document.line(prev_non_empty_line).trim().startsWith("*/"))
+        {
+            var p = document.firstColumn(prev_non_empty_line);
+            if ((p % gIndentWidth) != 0)
+                result = Math.floor(p / gIndentWidth) * gIndentWidth;
+        }
+    }
+    if (result != -1)
+    {
+        dbg("tryAfterBlockComment_ch result="+result);
+    }
+    return result;
+}
+
 /// Wrap \c tryToKeepInlineComment as \e caret-handler
 function tryToKeepInlineComment_ch(line)
 {
@@ -776,6 +800,7 @@ function caretPressed(cursor)
       , tryBeforeAccessSpecifier_ch
       , tryAfterEqualChar_ch
       , tryPreprocessor_ch
+      , tryAfterBlockComment_ch
       , tryToKeepInlineComment_ch                           // NOTE This must be a last checker!
     ];
 

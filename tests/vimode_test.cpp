@@ -416,6 +416,7 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo\nbar","jlvklrx","fox\nxxr");
     DoTest("123\n123","l\\ctrl-vljrx","1xx\n1xx");
     DoTest("a", "r\\ctrl-c", "a");
+    DoTest("a", "r\\ctrl-[", "a");
     DoTest("a", "r\\keypad-0", "0");
     DoTest("a", "r\\keypad-9", "9");
     DoTest("foo\nbar", "l\\ctrl-vjr\\keypad-9", "f9o\nb9r");

@@ -124,7 +124,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   clearYankHighlight();
 
-  if ( keyCode == Qt::Key_Escape || (keyCode == Qt::Key_C && e->modifiers() == Qt::ControlModifier)) {
+  if ( keyCode == Qt::Key_Escape || (keyCode == Qt::Key_C && e->modifiers() == Qt::ControlModifier) || (keyCode == Qt::Key_BracketLeft && e->modifiers() == Qt::ControlModifier)) {
     m_view->setCaretStyle( KateRenderer::Block, true );
     m_pendingResetIsDueToExit = true;
     // Vim in weird as if we e.g. i<ctrl-o><ctrl-c> it claims (in the status bar) to still be in insert mode,

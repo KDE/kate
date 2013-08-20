@@ -5106,6 +5106,34 @@ void ViModeTest::VimStyleCommandBarTests()
     }
     delete dummyAction;
   }
+  {
+    // Test that shortcuts involving ctrl+<digit> work correctly.
+    FailsIfSlotNotCalled failsIfActionNotTriggered;
+    QAction *dummyAction = kate_view->actionCollection()->addAction("Woo");
+    dummyAction->setShortcut(QKeySequence("Ctrl+1"));
+    QVERIFY(connect(dummyAction, SIGNAL(triggered()), &failsIfActionNotTriggered, SLOT(slot())));
+    DoTest("foo", "\\ctrl-1", "foo");
+    // Processing shortcuts seems to require events to be processed.
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
+    delete dummyAction;
+  }
+  {
+    // Test that shortcuts involving alt+<digit> work correctly.
+    FailsIfSlotNotCalled failsIfActionNotTriggered;
+    QAction *dummyAction = kate_view->actionCollection()->addAction("Woo");
+    dummyAction->setShortcut(QKeySequence("Alt+1"));
+    QVERIFY(connect(dummyAction, SIGNAL(triggered()), &failsIfActionNotTriggered, SLOT(slot())));
+    DoTest("foo", "\\alt-1", "foo");
+    // Processing shortcuts seems to require events to be processed.
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
+    delete dummyAction;
+  }
 
   // Find the "Print" action for later use.
   QAction *printAction = NULL;

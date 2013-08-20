@@ -475,6 +475,17 @@ void KateViKeyParser::initKeyTables()
   m_nameToKeyCode->insert( QString( "?" ), 338 );
   m_nameToKeyCode->insert( QString( " " ), 339 );
   //m_nameToKeyCode->insert( QString( "<" ), 341 );
+  m_nameToKeyCode->insert( QString("0"), 340);
+  m_nameToKeyCode->insert( QString("1"), 341);
+  m_nameToKeyCode->insert( QString("2"), 342);
+  m_nameToKeyCode->insert( QString("3"), 343);
+  m_nameToKeyCode->insert( QString("4"), 344);
+  m_nameToKeyCode->insert( QString("5"), 345);
+  m_nameToKeyCode->insert( QString("6"), 346);
+  m_nameToKeyCode->insert( QString("7"), 347);
+  m_nameToKeyCode->insert( QString("8"), 348);
+  m_nameToKeyCode->insert( QString("9"), 349);
+
 
   for (QHash<QString, int>::const_iterator i = m_nameToKeyCode->constBegin();
       i != m_nameToKeyCode->constEnd(); ++i) {

@@ -175,7 +175,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 
       // check if one or more modifier keys where used
       if (decoded.indexOf("s-") != -1 || decoded.indexOf("c-") != -1
-          || decoded.indexOf("m-") != -1 || decoded.indexOf("m-") != -1) {
+          || decoded.indexOf("m-") != -1 || decoded.indexOf("a-") != -1) {
 
         int s = decoded.indexOf("s-");
         if (s != -1) {

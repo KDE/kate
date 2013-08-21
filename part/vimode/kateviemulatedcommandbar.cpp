@@ -481,10 +481,11 @@ void KateViEmulatedCommandBar::closed()
   {
     // Send a synthetic keypress through the system that signals whether the search was aborted or
     // not.  If not, the keypress will "complete" the search motion, thus triggering it.
+    // We send to KateViewInternal as it updates the status bar and removes the "?".
     const Qt::Key syntheticSearchCompletedKey = (m_wasAborted ? static_cast<Qt::Key>(0) : Qt::Key_Enter);
     QKeyEvent syntheticSearchCompletedKeyPress(QEvent::KeyPress, syntheticSearchCompletedKey, Qt::NoModifier);
     m_isSendingSyntheticSearchCompletedKeypress = true;
-    m_view->getViInputModeManager()->handleKeypress(&syntheticSearchCompletedKeyPress);
+    QApplication::sendEvent(m_view->focusProxy(), &syntheticSearchCompletedKeyPress);
     m_isSendingSyntheticSearchCompletedKeypress = false;
     if (!m_wasAborted)
     {

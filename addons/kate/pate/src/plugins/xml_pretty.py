@@ -69,7 +69,7 @@ def togglePrettyXMLFormat():
             m = encoding_pattern.match(source)
             if m:
                 encoding = m.groups()[0]
-            target = minidom.parseString(source)
+            target = minidom.parseString(source.encode(encoding))
             unicode_escape = codecs.getdecoder('unicode_escape')
             indent = unicode_escape(kate.configuration.get(_INDENT_CFG, DEFAULT_INDENT))[0]
             newl = unicode_escape(kate.configuration.get(_NEWL_CFG, DEFAULT_NEWL))[0]

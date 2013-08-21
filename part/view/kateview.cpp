@@ -1341,7 +1341,12 @@ void KateView::joinLines()
 
 void KateView::readSessionConfig(const KConfigGroup& config)
 {
+  // cursor position
   setCursorPositionInternal(KTextEditor::Cursor(config.readEntry("CursorLine",0), config.readEntry("CursorColumn",0)));
+
+  // TODO: text folding state
+//   m_savedFoldingState = config.readEntry("TextFolding", QVariantList());
+//   applyFoldingState ();
 
   // save vi registers and jump list
   getViInputModeManager()->readSessionConfig( config );
@@ -1349,8 +1354,14 @@ void KateView::readSessionConfig(const KConfigGroup& config)
 
 void KateView::writeSessionConfig(KConfigGroup& config)
 {
+  // cursor position
   config.writeEntry("CursorLine",m_viewInternal->m_cursor.line());
   config.writeEntry("CursorColumn",m_viewInternal->m_cursor.column());
+
+  // TODO: text folding state
+//   saveFoldingState();
+//   config.writeEntry("TextFolding", m_savedFoldingState);
+//   m_savedFoldingState.clear ();
 
   // save vi registers and jump list
   getViInputModeManager()->writeSessionConfig( config );

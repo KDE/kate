@@ -36,7 +36,8 @@ from python_checkers.all_checker import checkAll
 from python_checkers.utils import canCheckDocument
 from python_settings import KATE_ACTIONS
 
-encoding_line = re.compile("#( )*-\*-( )*(encoding|coding):( )*(?P<encoding>[\w-]+)( )*-\*-")
+first_two_lines = re.compile(r'(?:[^\n]*\n){0,2}')
+encoding_line = re.compile(r"coding[=:]\s*(?P<encoding>[-\w.]+)")
 
 
 def is_old_pyflake_version():
@@ -58,12 +59,15 @@ def pyflakes(codeString, filename):
     # First, compile into an AST and handle syntax errors.
     try:
         if sys.version_info.major == 2 and codeString:
-            first_line = codeString.split("\n")[0]
-            m = encoding_line.match(first_line)
-            if m:
-                encoding = m.groupdict().get('encoding', None)
-                if encoding:
-                    codeString = codeString.encode(encoding)
+            lines_match = first_two_lines.match(codeString)
+            if lines_match:
+                lines = lines_match.group(0)
+                encoding_match = encoding_line.search(lines)
+                if encoding_match:
+                    encoding = encoding_match.groupdict().get('encoding', None)
+                    if encoding:
+                        codeString = codeString.encode(encoding)
+                        print encoding
         tree = compile(codeString, filename, "exec", _ast.PyCF_ONLY_AST)
     except SyntaxError as value:
         msg = value.args[0]

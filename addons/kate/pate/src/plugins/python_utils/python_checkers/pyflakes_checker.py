@@ -67,7 +67,6 @@ def pyflakes(codeString, filename):
                     encoding = encoding_match.groupdict().get('encoding', None)
                     if encoding:
                         codeString = codeString.encode(encoding)
-                        print encoding
         tree = compile(codeString, filename, "exec", _ast.PyCF_ONLY_AST)
     except SyntaxError as value:
         msg = value.args[0]

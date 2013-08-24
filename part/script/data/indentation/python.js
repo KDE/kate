@@ -13,7 +13,7 @@ require ("string.js");
 
 openings = ['(', '[', '{'];
 closings = [')', ']', '}'];  // requires same order as in openings
-unindenters = ['continue', 'pass', 'raise', 'return']
+unindenters = ['continue', 'pass', 'raise', 'return', 'break']
 
 
 // Return the given line without comments and leading or trailing whitespace.

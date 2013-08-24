@@ -680,13 +680,13 @@ void KateViEmulatedCommandBar::activateCommandHistoryCompletion()
   m_completer->complete();
 }
 
-void KateViEmulatedCommandBar::activateSedSearchHistoryCompletion()
+void KateViEmulatedCommandBar::activateSedFindHistoryCompletion()
 {
   if (!KateGlobal::self()->viInputModeGlobal()->searchHistory().isEmpty())
   {
-    m_currentCompletionType = SedSearchHistory;
+    m_currentCompletionType = SedFindHistory;
     m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->searchHistory()));
-    m_completer->setCompletionPrefix(findTermInSedReplace());
+    m_completer->setCompletionPrefix(sedFindTerm());
     m_completer->complete();
   }
 }
@@ -697,7 +697,7 @@ void KateViEmulatedCommandBar::activateSedReplaceHistoryCompletion()
   {
     m_currentCompletionType = SedReplaceHistory;
     m_completionModel->setStringList(reversed(KateGlobal::self()->viInputModeGlobal()->replaceHistory()));
-    m_completer->setCompletionPrefix(replaceTermInSedReplace());
+    m_completer->setCompletionPrefix(sedReplaceTerm());
     m_completer->complete();
   }
 }
@@ -770,17 +770,17 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
     replaceCommandBeforeCursorWith(newCompletion);
     m_edit->setCursorPosition(newCursorPosition);
   }
-  else if (m_currentCompletionType == SedSearchHistory)
+  else if (m_currentCompletionType == SedFindHistory)
   {
-    m_edit->setText(findTermInSedReplaceReplacedWith(withCaseSensitivityMarkersStripped(withSedReplaceDelimiterEscaped(newCompletion))));
-    ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-    m_edit->setCursorPosition(parsedSedReplace.findEndPos + 1);
+    m_edit->setText(withSedFindTermReplacedWith(withCaseSensitivityMarkersStripped(withSedDelimiterEscaped(newCompletion))));
+    ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+    m_edit->setCursorPosition(parsedSedExpression.findEndPos + 1);
   }
   else if (m_currentCompletionType == SedReplaceHistory)
   {
-    m_edit->setText(replaceTermInSedReplaceReplacedWith(withSedReplaceDelimiterEscaped(newCompletion)));
-    ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-    m_edit->setCursorPosition(parsedSedReplace.replaceEndPos + 1);
+    m_edit->setText(withSedReplaceTermReplacedWith(withSedDelimiterEscaped(newCompletion)));
+    ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+    m_edit->setCursorPosition(parsedSedExpression.replaceEndPos + 1);
   }
   else
   {
@@ -801,109 +801,109 @@ void KateViEmulatedCommandBar::setCompletionIndex(int index)
   currentCompletionChanged();
 }
 
-KateViEmulatedCommandBar::ParsedSedReplace KateViEmulatedCommandBar::parseAsSedReplaceExpression()
+KateViEmulatedCommandBar::ParsedSedExpression KateViEmulatedCommandBar::parseAsSedExpression()
 {
   const QString commandWithoutLeadingRange = withoutLeadingRange();
-  ParsedSedReplace parsedSedReplace;
+  ParsedSedExpression parsedSedExpression;
   QString delimiter;
-  parsedSedReplace.parsedSuccessfully = KateCommands::SedReplace::parse(commandWithoutLeadingRange, delimiter, parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos, parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos);
-  if (parsedSedReplace.parsedSuccessfully)
+  parsedSedExpression.parsedSuccessfully = KateCommands::SedReplace::parse(commandWithoutLeadingRange, delimiter, parsedSedExpression.findBeginPos, parsedSedExpression.findEndPos, parsedSedExpression.replaceBeginPos, parsedSedExpression.replaceEndPos);
+  if (parsedSedExpression.parsedSuccessfully)
   {
-    parsedSedReplace.delimiter = delimiter.at(0);
-    if (parsedSedReplace.replaceBeginPos == -1)
+    parsedSedExpression.delimiter = delimiter.at(0);
+    if (parsedSedExpression.replaceBeginPos == -1)
     {
-      if (parsedSedReplace.findBeginPos != -1)
+      if (parsedSedExpression.findBeginPos != -1)
       {
         // The replace term was empty, and a quirk of the regex used is that replaceBeginPos will be -1.
         // It's actually the position after the first occurrence of the delimiter after the end of the find pos.
-        parsedSedReplace.replaceBeginPos = commandWithoutLeadingRange.indexOf(delimiter, parsedSedReplace.findEndPos) + 1;
-        parsedSedReplace.replaceEndPos = parsedSedReplace.replaceBeginPos - 1;
+        parsedSedExpression.replaceBeginPos = commandWithoutLeadingRange.indexOf(delimiter, parsedSedExpression.findEndPos) + 1;
+        parsedSedExpression.replaceEndPos = parsedSedExpression.replaceBeginPos - 1;
       }
       else
       {
         // Both find and replace terms are empty; replace term is at the third occurrence of the delimiter.
-        parsedSedReplace.replaceBeginPos = 0;
+        parsedSedExpression.replaceBeginPos = 0;
         for (int delimiterCount = 1; delimiterCount <= 3; delimiterCount++)
         {
-          parsedSedReplace.replaceBeginPos = commandWithoutLeadingRange.indexOf(delimiter, parsedSedReplace.replaceBeginPos + 1);
+          parsedSedExpression.replaceBeginPos = commandWithoutLeadingRange.indexOf(delimiter, parsedSedExpression.replaceBeginPos + 1);
         }
-        parsedSedReplace.replaceEndPos = parsedSedReplace.replaceBeginPos - 1;
+        parsedSedExpression.replaceEndPos = parsedSedExpression.replaceBeginPos - 1;
       }
     }
-    if (parsedSedReplace.findBeginPos == -1)
+    if (parsedSedExpression.findBeginPos == -1)
     {
       // The find term was empty, and a quirk of the regex used is that findBeginPos will be -1.
       // It's actually the position after the first occurrence of the delimiter.
-      parsedSedReplace.findBeginPos = commandWithoutLeadingRange.indexOf(delimiter) + 1;
-      parsedSedReplace.findEndPos = parsedSedReplace.findBeginPos - 1;
+      parsedSedExpression.findBeginPos = commandWithoutLeadingRange.indexOf(delimiter) + 1;
+      parsedSedExpression.findEndPos = parsedSedExpression.findBeginPos - 1;
     }
 
   }
 
-  if (parsedSedReplace.parsedSuccessfully)
+  if (parsedSedExpression.parsedSuccessfully)
   {
-    parsedSedReplace.findBeginPos += leadingRange().length();
-    parsedSedReplace.findEndPos += leadingRange().length();
-    parsedSedReplace.replaceBeginPos += leadingRange().length();
-    parsedSedReplace.replaceEndPos += leadingRange().length();
+    parsedSedExpression.findBeginPos += leadingRange().length();
+    parsedSedExpression.findEndPos += leadingRange().length();
+    parsedSedExpression.replaceBeginPos += leadingRange().length();
+    parsedSedExpression.replaceEndPos += leadingRange().length();
   }
-  return parsedSedReplace;
+  return parsedSedExpression;
 }
 
-QString KateViEmulatedCommandBar::findTermInSedReplaceReplacedWith(const QString& newFindTerm)
+QString KateViEmulatedCommandBar::withSedFindTermReplacedWith(const QString& newFindTerm)
 {
   const QString command = m_edit->text();
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-  Q_ASSERT(parsedSedReplace.parsedSuccessfully);
-  return command.mid(0, parsedSedReplace.findBeginPos) +
+  ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+  Q_ASSERT(parsedSedExpression.parsedSuccessfully);
+  return command.mid(0, parsedSedExpression.findBeginPos) +
     newFindTerm +
-    command.mid(parsedSedReplace.findEndPos + 1);
+    command.mid(parsedSedExpression.findEndPos + 1);
 
 }
 
-QString KateViEmulatedCommandBar::replaceTermInSedReplaceReplacedWith(const QString& newReplaceTerm)
+QString KateViEmulatedCommandBar::withSedReplaceTermReplacedWith(const QString& newReplaceTerm)
 {
   const QString command = m_edit->text();
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-  Q_ASSERT(parsedSedReplace.parsedSuccessfully);
-  return command.mid(0, parsedSedReplace.replaceBeginPos) +
+  ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+  Q_ASSERT(parsedSedExpression.parsedSuccessfully);
+  return command.mid(0, parsedSedExpression.replaceBeginPos) +
     newReplaceTerm +
-    command.mid(parsedSedReplace.replaceEndPos + 1);
+    command.mid(parsedSedExpression.replaceEndPos + 1);
 }
 
-QString KateViEmulatedCommandBar::findTermInSedReplace()
+QString KateViEmulatedCommandBar::sedFindTerm()
 {
   const QString command = m_edit->text();
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-  Q_ASSERT(parsedSedReplace.parsedSuccessfully);
-  return command.mid(parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos - parsedSedReplace.findBeginPos + 1);
+  ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+  Q_ASSERT(parsedSedExpression.parsedSuccessfully);
+  return command.mid(parsedSedExpression.findBeginPos, parsedSedExpression.findEndPos - parsedSedExpression.findBeginPos + 1);
 }
 
-QString KateViEmulatedCommandBar::replaceTermInSedReplace()
+QString KateViEmulatedCommandBar::sedReplaceTerm()
 {
   const QString command = m_edit->text();
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-  Q_ASSERT(parsedSedReplace.parsedSuccessfully);
-  return command.mid(parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos - parsedSedReplace.replaceBeginPos + 1);
+  ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+  Q_ASSERT(parsedSedExpression.parsedSuccessfully);
+  return command.mid(parsedSedExpression.replaceBeginPos, parsedSedExpression.replaceEndPos - parsedSedExpression.replaceBeginPos + 1);
 }
 
-QString KateViEmulatedCommandBar::withSedReplaceDelimiterEscaped(const QString& text)
+QString KateViEmulatedCommandBar::withSedDelimiterEscaped(const QString& text)
 {
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-  QString delimiterEscaped = ensuredCharEscaped(text, parsedSedReplace.delimiter);
+  ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+  QString delimiterEscaped = ensuredCharEscaped(text, parsedSedExpression.delimiter);
   return delimiterEscaped;
 }
 
-bool KateViEmulatedCommandBar::isCursorInFindTermOfSedReplace()
+bool KateViEmulatedCommandBar::isCursorInFindTermOfSed()
 {
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-  return parsedSedReplace.parsedSuccessfully && (m_edit->cursorPosition() >= parsedSedReplace.findBeginPos && m_edit->cursorPosition() <= parsedSedReplace.findEndPos + 1);
+  ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+  return parsedSedExpression.parsedSuccessfully && (m_edit->cursorPosition() >= parsedSedExpression.findBeginPos && m_edit->cursorPosition() <= parsedSedExpression.findEndPos + 1);
 }
 
-bool KateViEmulatedCommandBar::isCursorInReplaceTermOfSedReplace()
+bool KateViEmulatedCommandBar::isCursorInReplaceTermOfSed()
 {
-  ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-  return parsedSedReplace.parsedSuccessfully && m_edit->cursorPosition() >= parsedSedReplace.replaceBeginPos && m_edit->cursorPosition() <= parsedSedReplace.replaceEndPos + 1;
+  ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+  return parsedSedExpression.parsedSuccessfully && m_edit->cursorPosition() >= parsedSedExpression.replaceBeginPos && m_edit->cursorPosition() <= parsedSedExpression.replaceEndPos + 1;
 }
 
 QString KateViEmulatedCommandBar::withoutLeadingRange()
@@ -992,11 +992,11 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     {
       if (m_mode == Command)
       {
-        if (isCursorInFindTermOfSedReplace())
+        if (isCursorInFindTermOfSed())
         {
-          activateSedSearchHistoryCompletion();
+          activateSedFindHistoryCompletion();
         }
-        else if (isCursorInReplaceTermOfSedReplace())
+        else if (isCursorInReplaceTermOfSed())
         {
           activateSedReplaceHistoryCompletion();
         }
@@ -1126,18 +1126,18 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     {
       if (m_mode == Command)
       {
-        ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-        if (parsedSedReplace.parsedSuccessfully)
+        ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+        if (parsedSedExpression.parsedSuccessfully)
         {
           const bool clearFindTerm = (keyEvent->key() == Qt::Key_D);
           if (clearFindTerm)
           {
-            m_edit->setSelection(parsedSedReplace.findBeginPos, parsedSedReplace.findEndPos - parsedSedReplace.findBeginPos + 1);
+            m_edit->setSelection(parsedSedExpression.findBeginPos, parsedSedExpression.findEndPos - parsedSedExpression.findBeginPos + 1);
             m_edit->insert("");
           }
           else
           {
-            m_edit->setSelection(parsedSedReplace.replaceBeginPos, parsedSedReplace.replaceEndPos - parsedSedReplace.replaceBeginPos + 1);
+            m_edit->setSelection(parsedSedExpression.replaceBeginPos, parsedSedExpression.replaceEndPos - parsedSedExpression.replaceBeginPos + 1);
             m_edit->insert("");
           }
         }
@@ -1160,15 +1160,15 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       {
         kDebug(13070) << "Executing: " << m_edit->text();
         QString commandToExecute = m_edit->text();
-        ParsedSedReplace parsedSedReplace = parseAsSedReplaceExpression();
-        qDebug() << "text:\n" << m_edit->text() << "\n is sed replace: " << parsedSedReplace.parsedSuccessfully;
-        if (parsedSedReplace.parsedSuccessfully)
+        ParsedSedExpression parsedSedExpression = parseAsSedExpression();
+        qDebug() << "text:\n" << m_edit->text() << "\n is sed replace: " << parsedSedExpression.parsedSuccessfully;
+        if (parsedSedExpression.parsedSuccessfully)
         {
-          const QString originalFindTerm = findTermInSedReplace();
+          const QString originalFindTerm = sedFindTerm();
           const QString convertedFindTerm = vimRegexToQtRegexPattern(originalFindTerm);
-          const QString commandWithSedSearchRegexConverted = findTermInSedReplaceReplacedWith(convertedFindTerm);
+          const QString commandWithSedSearchRegexConverted = withSedFindTermReplacedWith(convertedFindTerm);
           KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(originalFindTerm);
-          const QString replaceTerm = replaceTermInSedReplace();
+          const QString replaceTerm = sedReplaceTerm();
           KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem(replaceTerm);
           commandToExecute = commandWithSedSearchRegexConverted;
           kDebug(13070) << "Command to execute after replacing search term: "<< commandToExecute;

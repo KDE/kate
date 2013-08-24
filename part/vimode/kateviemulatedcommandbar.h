@@ -84,7 +84,7 @@ private:
   QCompleter *m_completer;
   QStringListModel *m_completionModel;
   bool m_nextTextChangeDueToCompletionChange;
-  enum CompletionType { None, SearchHistory, WordFromDocument, Commands, CommandHistory, SedSearchHistory, SedReplaceHistory };
+  enum CompletionType { None, SearchHistory, WordFromDocument, Commands, CommandHistory, SedFindHistory, SedReplaceHistory };
   CompletionType m_currentCompletionType;
   void updateCompletionPrefix();
   void currentCompletionChanged();
@@ -118,13 +118,18 @@ private:
   void activateWordFromDocumentCompletion();
   void activateCommandCompletion();
   void activateCommandHistoryCompletion();
-  void activateSedSearchHistoryCompletion();
+  void activateSedFindHistoryCompletion();
   void activateSedReplaceHistoryCompletion();
   void deactivateCompletion();
   void abortCompletionAndResetToPreCompletion();
   void setCompletionIndex(int index);
 
-  struct ParsedSedReplace
+  /**
+   * Stuff to do with expressions of the form:
+   *
+   *   s/find/replace/<sedflags>
+   */
+  struct ParsedSedExpression
   {
     bool parsedSuccessfully;
     int findBeginPos;
@@ -133,15 +138,15 @@ private:
     int replaceEndPos;
     QChar delimiter;
   };
-  ParsedSedReplace parseAsSedReplaceExpression();
-  QString findTermInSedReplaceReplacedWith(const QString& newFindTerm);
-  QString replaceTermInSedReplaceReplacedWith(const QString& newReplaceTerm);
-  QString findTermInSedReplace();
-  QString replaceTermInSedReplace();
-  QString withSedReplaceDelimiterEscaped(const QString& text);
+  ParsedSedExpression parseAsSedExpression();
+  QString withSedFindTermReplacedWith(const QString& newFindTerm);
+  QString withSedReplaceTermReplacedWith(const QString& newReplaceTerm);
+  QString sedFindTerm();
+  QString sedReplaceTerm();
+  QString withSedDelimiterEscaped(const QString& text);
 
-  bool isCursorInFindTermOfSedReplace();
-  bool isCursorInReplaceTermOfSedReplace();
+  bool isCursorInFindTermOfSed();
+  bool isCursorInReplaceTermOfSed();
 
   QString withoutLeadingRange();
   QString leadingRange();

@@ -1,2 +1,2 @@
-def some_function():
-    return
+while True:
+    break

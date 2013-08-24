@@ -13,7 +13,7 @@ require ("string.js");
 
 openings = ['(', '[', '{'];
 closings = [')', ']', '}'];  // requires same order as in openings
-unindenters = ['continue', 'pass', 'raise', 'return', 'break']
+unindenters = ['continue', 'pass', 'raise', 'return', 'break'];
 
 
 // Return the given line without comments and leading or trailing whitespace.
@@ -26,12 +26,13 @@ unindenters = ['continue', 'pass', 'raise', 'return', 'break']
 //     if document.line(x) == "for i in range(3):  # grand"
 function getCode(lineNr) {
     var line = document.line(lineNr);
-    var length = line.length;
-    while (length > 0 && document.isComment(lineNr, length - 1)) {
-        length--;
+    var code = '';
+    for (var position = 0; position < line.length; position++) {
+        if (document.isCode(lineNr, position)) {
+            code += line[position];
+        }
     }
-    line = line.substr(0, length);  // strip the comment
-    return line.trim();
+    return code.trim();
 }
 
 
@@ -64,7 +65,7 @@ function _calcOpeningIndent(lineNr) {
 // Return the indent if a closing bracket not opened (incomplete sequence).
 // The intent is the same as on the line with the unmatched opening bracket.
 // `lineNr`: the number of the line on which the brackets should be counted
-function _calcClosingIndent(lineNr) {
+function _calcClosingIndent(lineNr, indentWidth) {
     var line = document.line(lineNr);
     var countClosing = new Array();
     closings.forEach(function(elem) {
@@ -82,8 +83,12 @@ function _calcClosingIndent(lineNr) {
     for (var key in countClosing) {
         if (countClosing[key] > 0) {  // unmatched closing bracket
             for (--lineNr; lineNr >= 0; --lineNr) {
-                if (_calcOpeningIndent(lineNr) > -1)
-                    return document.firstVirtualColumn(lineNr)
+                if (_calcOpeningIndent(lineNr) > -1) {
+                    var indent = document.firstVirtualColumn(lineNr);
+                    if (shouldUnindent(lineNr + 1))
+                        return Math.max(0, indent - indentWidth);
+                    return indent;
+                }
             }
         }
     }
@@ -94,11 +99,11 @@ function _calcClosingIndent(lineNr) {
 // Returns the indent for mismatched (opening or closing) brackets.
 // If there are no mismatched brackets, -1 is returned.
 // `lineNr`: number of the line for which the indent is calculated
-function calcBracketIndent(lineNr) {
+function calcBracketIndent(lineNr, indentWidth) {
     var indent = _calcOpeningIndent(lineNr - 1);
     if (indent > -1)
         return indent
-    indent = _calcClosingIndent(lineNr - 1);
+    indent = _calcClosingIndent(lineNr - 1, indentWidth);
     if (indent > -1)
         return indent
     return -1;
@@ -108,9 +113,10 @@ function calcBracketIndent(lineNr) {
 // Return true if a single unindent should occur.
 function shouldUnindent(LineNr) {
     lastLine = getCode(LineNr - 1);
-    if (unindenters.indexOf(lastLine) >= 0 || lastLine.startsWith('raise ') ||
-        lastLine.startsWith('return '))
-        return 1;
+    for (var key in unindenters) {
+        if (lastLine.indexOf(unindenters[key]) >= 0)
+            return 1;
+    }
     // unindent if the last line was indented b/c of a backslash
     if (LineNr >= 2) {
         secondLastLine = getCode(LineNr - 2);
@@ -139,14 +145,16 @@ function indent(line, indentWidth, character) {
     if (openings.indexOf(lastChar) >= 0 || lastChar == "\\") {
         return document.firstVirtualColumn(line - 1) + indentWidth;
     }
-    // continue, pass, raise, return etc. should unindent
-    if (shouldUnindent(line))
-        return Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
-    var indent = calcBracketIndent(line);
+    var indent = calcBracketIndent(line, indentWidth);
     if (lastLine.endsWith(':')) {
         if (indent > -1)
-            return indent + indentWidth;
-        return document.firstVirtualColumn(line - 1) + indentWidth;
+            indent += indentWidth;
+        else
+            indent = document.firstVirtualColumn(line - 1) + indentWidth;
+    }
+    // continue, pass, raise, return etc. should unindent
+    if (shouldUnindent(line) && (indent == -1)) {
+        indent = Math.max(0, document.firstVirtualColumn(line - 1) - indentWidth);
     }
     return indent;
 }

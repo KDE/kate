@@ -313,8 +313,6 @@ namespace
       return originalSearchText.left(posOfSearchConfigMarker);
     }
   }
-
-  CommandRangeExpressionParser rangeExpressionParser;
 }
 
 KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* parent)
@@ -363,16 +361,16 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
 
   updateMatchHighlightAttrib();
   m_highlightedMatch = m_view->doc()->newMovingRange(Range(), Kate::TextRange::DoNotExpand);
-  m_highlightedMatch->setView(m_view); // show only in this view
+  m_highlightedMatch->setView(m_view); // Show only in this view.
   m_highlightedMatch->setAttributeOnlyForViews(true);
-  // use z depth defined in moving ranges interface
+  // Use z depth defined in moving ranges interface.
   m_highlightedMatch->setZDepth (-10000.0);
   m_highlightedMatch->setAttribute(m_highlightMatchAttribute);
+  connect(m_view, SIGNAL(configChanged()),
+          this, SLOT(updateMatchHighlightAttrib()));
 
   m_edit->installEventFilter(this);
   connect(m_edit, SIGNAL(textChanged(QString)), this, SLOT(editTextChanged(QString)));
-  connect(m_view, SIGNAL(configChanged()),
-          this, SLOT(updateMatchHighlightAttrib()));
 
   m_completer = new QCompleter(QStringList() << "foo", m_edit);
   // Can't find a way to stop the QCompleter from auto-completing when attached to a QLineEdit,
@@ -388,7 +386,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_commandResponseMessageDisplayHide->setSingleShot(true);
   connect(m_commandResponseMessageDisplayHide, SIGNAL(timeout()),
           this, SIGNAL(hideMe()));
-  // make sure the timer is stopped when the user switches views. if not, focus will be given to the
+  // Make sure the timer is stopped when the user switches views. If not, focus will be given to the
   // wrong view when KateViewBar::hideCurrentBarWidget() is called as a result of m_commandResponseMessageDisplayHide
   // timing out.
   connect(m_view, SIGNAL(focusOut(KTextEditor::View*)), m_commandResponseMessageDisplayHide, SLOT(stop()));
@@ -404,23 +402,11 @@ KateViEmulatedCommandBar::~KateViEmulatedCommandBar()
 void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const QString& initialText)
 {
   m_currentCompletionType = None;
-  QChar barTypeIndicator = QChar::Null;
-  switch(mode)
-  {
-    case SearchForward:
-      barTypeIndicator = '/';
-      break;
-    case SearchBackward:
-      barTypeIndicator = '?';
-      break;
-    case Command:
-      barTypeIndicator = ':';
-      break;
-    default:
-      Q_ASSERT(false && "Unknown mode!");
-  }
-  m_barTypeIndicator->setText(barTypeIndicator);
-  m_barTypeIndicator->show();
+  m_mode = mode;
+  m_isActive = true;
+  m_wasAborted = true;
+
+  showBarTypeIndicator(mode);
 
   setBarBackground(Normal);
 
@@ -429,18 +415,12 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
   m_interactiveSedReplaceActive = false;
   m_interactiveSedReplaceLabel->hide();
 
-  m_mode = mode;
   m_edit->setFocus();
   m_edit->setText(initialText);
   m_edit->show();
 
   m_commandResponseMessageDisplay->hide();
   m_commandResponseMessageDisplayHide->stop();;
-
-  m_isActive = true;
-
-  m_wasAborted = true;
-
 
   // A change in focus will have occurred: make sure we process it now, instead of having it
   // occur later and stop() m_commandResponseMessageDisplayHide.
@@ -937,7 +917,7 @@ QString KateViEmulatedCommandBar::leadingRange()
   QString leadingRange;
   QString unused;
   const QString command = m_edit->text();
-  parseRangeExpression(command, m_view, leadingRange, unused);
+  CommandRangeExpressionParser::parseRangeExpression(command, m_view, leadingRange, unused);
   return leadingRange;
 }
 
@@ -1218,6 +1198,12 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   else
   {
     m_suspendEditEventFiltering = true;
+    // Send the keypress back to the QLineEdit.  Ideally, instead of doing this, we would simply return "false"
+    // and let Qt re-dispatch the event itself; however, there is a corner case in that if the selection
+    // changes (as a result of e.g. incremental searches during Visual Mode), and the keypress that causes it
+    // is not dispatched from within KateViInputModeHandler::handleKeypress(...)
+    // (so KateViInputModeManager::isHandlingKeypress() returns false), we lost information about whether we are
+    // in Visual Mode, Visual Line Mode, etc.  See KateViVisualMode::updateSelection( ).
     QKeyEvent keyEventCopy(keyEvent->type(), keyEvent->key(), keyEvent->modifiers(), keyEvent->text(), keyEvent->isAutoRepeat(), keyEvent->count());
     if (!m_interactiveSedReplaceActive)
     {
@@ -1254,9 +1240,25 @@ void KateViEmulatedCommandBar::startInteractiveSearchAndReplace(QSharedPointer< 
   moveCursorTo(interactiveSedReplace->currentMatch().start());
 }
 
-Range KateViEmulatedCommandBar::parseRangeExpression(const QString& command, KateView *view, QString& destRangeExpression, QString& destTransformedCommand)
+void KateViEmulatedCommandBar::showBarTypeIndicator(KateViEmulatedCommandBar::Mode mode)
 {
-  return rangeExpressionParser.parseRangeExpression(command, destRangeExpression, destTransformedCommand, view);
+  QChar barTypeIndicator = QChar::Null;
+  switch(mode)
+  {
+    case SearchForward:
+      barTypeIndicator = '/';
+      break;
+    case SearchBackward:
+      barTypeIndicator = '?';
+      break;
+    case Command:
+      barTypeIndicator = ':';
+      break;
+    default:
+      Q_ASSERT(false && "Unknown mode!");
+  }
+  m_barTypeIndicator->setText(barTypeIndicator);
+  m_barTypeIndicator->show();
 }
 
 QString KateViEmulatedCommandBar::executeCommand(const QString& commandToExecute)

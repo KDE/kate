@@ -40,7 +40,7 @@
 #include "katetextlayout.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
-#include <kateviemulatedcommandbar.h>
+#include <katevicommandrangeexpressionparser.h>
 
 #include <kapplication.h>
 #include <kcharsets.h>
@@ -974,10 +974,9 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
 
   QString cmd = text.mid( n );
 
-
   // Parse any leading range expression, and strip it (and maybe do some other transforms on the command).
   QString leadingRangeExpression;
-  KTextEditor::Range range = KateViEmulatedCommandBar::parseRangeExpression(cmd, m_view, leadingRangeExpression, cmd);
+  KTextEditor::Range range = CommandRangeExpressionParser::parseRangeExpression(cmd, m_view, leadingRangeExpression, cmd);
 
   // Built in help: if the command starts with "help", [try to] show some help
   if ( cmd.startsWith( QLatin1String("help") ) )

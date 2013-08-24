@@ -31,6 +31,12 @@ class QLabel;
 class QCompleter;
 class QStringListModel;
 
+/**
+ * A KateViewBarWidget that attempts to emulate some of the features of Vim's own command bar,
+ * including insertion of register contents via ctr-r<registername>; dismissal via
+ * ctrl-c and ctrl-[; bi-directional incremental searching, with SmartCase; interactive sed-replace;
+ * plus a few extensions such as completion from document and navigable sed search and sed replace history.
+ */
 class KATEPART_TESTS_EXPORT KateViEmulatedCommandBar : public KateViewBarWidget
 {
   Q_OBJECT
@@ -47,23 +53,13 @@ public:
 
   void startInteractiveSearchAndReplace(QSharedPointer<KateCommands::SedReplace::InteractiveSedReplacer> interactiveSedReplace);
 
-  /**
-   * Attempt to parse any leading range expression (e.g. "%", "'<,'>", ".,+6" etc) in @c command and
-   * return it as a Range.  If parsing was successful, the range will be valid, the string
-   * making up the range expression will be placed in @c destRangeExpression, and the command with
-   * the range stripped will be placed in @c destTransformedCommand.  In some special cases,
-   * the @c destTransformedCommand will be further re-written e.g. a command in the form of just a number
-   * will be rewritten as "goto <number>".
-   *
-   * An invalid Range is returned if no leading range expression could be found.
-   */
-    static KTextEditor::Range parseRangeExpression(const QString& command, KateView* view, QString& destRangeExpression, QString& destTransformedCommand);
 private:
   bool m_isActive;
   Mode m_mode;
   KateView *m_view;
   QLineEdit *m_edit;
   QLabel *m_barTypeIndicator;
+  void showBarTypeIndicator(Mode mode);
   KTextEditor::Cursor m_startingCursorPos;
   bool m_wasAborted;
   bool m_suspendEditEventFiltering;

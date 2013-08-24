@@ -29,6 +29,11 @@
 using KTextEditor::Range;
 using KTextEditor::Cursor;
 
+namespace
+{
+  CommandRangeExpressionParser rangeExpressionParser;
+}
+
 CommandRangeExpressionParser::CommandRangeExpressionParser()
 {
   m_line.setPattern("\\d+");
@@ -60,7 +65,12 @@ CommandRangeExpressionParser::CommandRangeExpressionParser()
   m_cmdRange.setPattern("^(" + m_position.pattern() + ")((?:,(" + m_position.pattern() + "))?)");
 }
 
-Range CommandRangeExpressionParser::parseRangeExpression(const QString& command, QString& destRangeExpression, QString& destTransformedCommand, KateView *view)
+Range CommandRangeExpressionParser::parseRangeExpression(const QString& command, KateView* view, QString& destRangeExpression, QString& destTransformedCommand)
+{
+  return rangeExpressionParser.parseRangeExpression(command, destRangeExpression, destTransformedCommand, view);
+}
+
+Range CommandRangeExpressionParser::parseRangeExpression(const QString& command, QString& destRangeExpression, QString& destTransformedCommand, KateView* view)
 {
   Range parsedRange(0, -1, 0, -1);
   if (command.isEmpty())

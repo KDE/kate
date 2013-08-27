@@ -119,7 +119,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     // Hand off to the key mapper, and decide if this key is part of a mapping.
     if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
     {
-      const QChar key = KateViKeyParser::self()->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
+      const QChar key = KateViKeyParser::self()->KeyEventToQChar(*e);
       if (keyMapper()->handleKeypress(key))
       {
         keyIsPartOfMapping = true;

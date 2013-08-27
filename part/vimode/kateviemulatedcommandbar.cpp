@@ -642,34 +642,34 @@ void KateViEmulatedCommandBar::activateSearchHistoryCompletion()
 
 void KateViEmulatedCommandBar::activateWordFromDocumentCompletion()
 {
-    m_currentCompletionType = WordFromDocument;
-    QRegExp wordRegEx("\\w{1,}");
-    QStringList foundWords;
-    // Narrow the range of lines we search around the cursor so that we don't die on huge files.
-    const int startLine = qMax(0, m_view->cursorPosition().line() - 4096);
-    const int endLine = qMin(m_view->document()->lines(), m_view->cursorPosition().line() + 4096);
-    for (int lineNum = startLine; lineNum < endLine; lineNum++)
+  m_currentCompletionType = WordFromDocument;
+  QRegExp wordRegEx("\\w{1,}");
+  QStringList foundWords;
+  // Narrow the range of lines we search around the cursor so that we don't die on huge files.
+  const int startLine = qMax(0, m_view->cursorPosition().line() - 4096);
+  const int endLine = qMin(m_view->document()->lines(), m_view->cursorPosition().line() + 4096);
+  for (int lineNum = startLine; lineNum < endLine; lineNum++)
+  {
+    const QString line = m_view->document()->line(lineNum);
+    int wordSearchBeginPos = 0;
+    while (wordRegEx.indexIn(line, wordSearchBeginPos) != -1)
     {
-      const QString line = m_view->document()->line(lineNum);
-      int wordSearchBeginPos = 0;
-      while (wordRegEx.indexIn(line, wordSearchBeginPos) != -1)
-      {
-        const QString foundWord = wordRegEx.cap(0);
-        foundWords << foundWord;
-        wordSearchBeginPos = wordRegEx.indexIn(line, wordSearchBeginPos) + wordRegEx.matchedLength();
-      }
+      const QString foundWord = wordRegEx.cap(0);
+      foundWords << foundWord;
+      wordSearchBeginPos = wordRegEx.indexIn(line, wordSearchBeginPos) + wordRegEx.matchedLength();
     }
-    foundWords = QSet<QString>::fromList(foundWords).toList();
-    qSort(foundWords.begin(), foundWords.end(), caseInsensitiveLessThan);
-    m_completionModel->setStringList(foundWords);
-    updateCompletionPrefix();
-    m_completer->complete();
+  }
+  foundWords = QSet<QString>::fromList(foundWords).toList();
+  qSort(foundWords.begin(), foundWords.end(), caseInsensitiveLessThan);
+  m_completionModel->setStringList(foundWords);
+  updateCompletionPrefix();
+  m_completer->complete();
 }
 
 void KateViEmulatedCommandBar::activateCommandCompletion()
 {
-    m_completionModel->setStringList(KateCmd::self()->commandCompletionObject()->items());
-    m_currentCompletionType = Commands;
+  m_completionModel->setStringList(KateCmd::self()->commandCompletionObject()->items());
+  m_currentCompletionType = Commands;
 }
 
 void KateViEmulatedCommandBar::activateCommandHistoryCompletion()
@@ -1060,11 +1060,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
   {
     if (keyEvent->key() != Qt::Key_Shift && keyEvent->key() != Qt::Key_Control)
     {
-      const QChar key = KateViKeyParser::self()->KeyEventToQChar(
-                  keyEvent->key(),
-                  keyEvent->text(),
-                  keyEvent->modifiers(),
-                  keyEvent->nativeScanCode() ).toLower();
+      const QChar key = KateViKeyParser::self()->KeyEventToQChar(*keyEvent).toLower();
 
       const int oldCursorPosition = m_edit->cursorPosition();
       QString textToInsert;

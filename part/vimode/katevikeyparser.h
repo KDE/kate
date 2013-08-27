@@ -27,6 +27,8 @@
 #include <QHash>
 #include "katepartprivate_export.h"
 
+class QKeyEvent;
+
 /**
  * for encoding keypresses w/ modifiers into an internal QChar representation and back again to a
  * descriptive text string
@@ -46,7 +48,7 @@ public:
   QString qt2vi( int key ) const;
   int vi2qt( const QString &keypress ) const;
   char scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter) const;
-  const QChar KeyEventToQChar(int keyCode, const QString &text, Qt::KeyboardModifiers mods, quint32 nativeScanCode);
+  const QChar KeyEventToQChar(const QKeyEvent &keyEvent);
 
   void setAltGrStatus( bool active ) { m_altGrPressed = active; }
 

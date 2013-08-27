@@ -427,11 +427,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 
     // Was waiting for register for Ctrl-R
     if (m_keys == "cR"){
-        QChar key = KateViKeyParser::self()->KeyEventToQChar(
-                    e->key(),
-                    e->text(),
-                    e->modifiers(),
-                    e->nativeScanCode() );
+        QChar key = KateViKeyParser::self()->KeyEventToQChar(*e);
         key = key.toLower();
 
         // is it register ?

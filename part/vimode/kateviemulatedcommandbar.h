@@ -148,6 +148,10 @@ private:
   bool isCursorInFindTermOfSed();
   bool isCursorInReplaceTermOfSed();
 
+  /**
+   * The "range expression" is the (optional) expression before the command that describes
+   * the range over which the command should be run e.g. '<,'>.  @see CommandRangeExpressionParser
+   */
   QString withoutRangeExpression();
   QString rangeExpression();
 private slots:

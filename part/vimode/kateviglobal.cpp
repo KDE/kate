@@ -338,11 +338,7 @@ void KateViGlobal::storeMacro(QChar macroRegister, const QList< QKeyEvent > macr
   withoutClosingQ.pop_back();
   foreach(QKeyEvent keyEvent, withoutClosingQ)
   {
-    const QChar key = KateViKeyParser::self()->KeyEventToQChar(
-                keyEvent.key(),
-                keyEvent.text(),
-                keyEvent.modifiers(),
-                keyEvent.nativeScanCode() );
+    const QChar key = KateViKeyParser::self()->KeyEventToQChar(keyEvent);
     m_macroForRegister[macroRegister].append(key);
   }
 }

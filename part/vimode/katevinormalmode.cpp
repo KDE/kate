@@ -108,8 +108,8 @@ KateViNormalMode::~KateViNormalMode()
  */
 bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 {
-  int keyCode = e->key();
-  QString text = e->text();
+  const int keyCode = e->key();
+  const QString text = e->text();
 
   // ignore modifier keys alone
   if ( keyCode == Qt::Key_Shift || keyCode == Qt::Key_Control
@@ -135,7 +135,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
-  QChar key = KateViKeyParser::self()->KeyEventToQChar( keyCode, text, e->modifiers(), e->nativeScanCode() );
+  const QChar key = KateViKeyParser::self()->KeyEventToQChar(*e);
 
   const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
   const bool waitingForRegisterOrCharToSearch = this->waitingForRegisterOrCharToSearch();

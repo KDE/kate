@@ -148,8 +148,8 @@ private:
   bool isCursorInFindTermOfSed();
   bool isCursorInReplaceTermOfSed();
 
-  QString withoutLeadingRange();
-  QString leadingRange();
+  QString withoutRangeExpression();
+  QString rangeExpression();
 private slots:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();

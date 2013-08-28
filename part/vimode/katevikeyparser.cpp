@@ -21,6 +21,7 @@
 
 #include "katevikeyparser.h"
 #include <QStringList>
+#include <QKeyEvent>
 
 KateViKeyParser* KateViKeyParser::m_instance = NULL;
 
@@ -766,9 +767,13 @@ char KateViKeyParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifie
     return 0;
 }
 
-const QChar KateViKeyParser::KeyEventToQChar(int keyCode, const QString &text,
-    Qt::KeyboardModifiers mods, quint32 nativeScanCode)
+const QChar KateViKeyParser::KeyEventToQChar(const QKeyEvent& keyEvent)
 {
+  const int keyCode = keyEvent.key();
+  const QString &text = keyEvent.text();
+  const Qt::KeyboardModifiers mods = keyEvent.modifiers();
+  const quint32 nativeScanCode  = keyEvent.nativeScanCode();
+
   QChar key;
 
   if ( !text.isEmpty() ) {

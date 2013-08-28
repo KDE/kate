@@ -86,6 +86,13 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   // KateViVisualMode (which inherits from KateViNormalMode) to respond
   // to changes in the document as well.
   m_viNormalMode->beginMonitoringDocumentChanges();
+
+  if (view->selection())
+  {
+    changeViMode(VisualMode);
+    m_view->setCursorPosition(Cursor(view->selectionRange().end().line(), view->selectionRange().end().column() - 1));
+    m_viVisualMode->updateSelection();
+  }
 }
 
 KateViInputModeManager::~KateViInputModeManager()
@@ -119,7 +126,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     // Hand off to the key mapper, and decide if this key is part of a mapping.
     if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
     {
-      const QChar key = KateViKeyParser::self()->KeyEventToQChar( e->key(), e->text(), e->modifiers(), e->nativeScanCode() );
+      const QChar key = KateViKeyParser::self()->KeyEventToQChar(*e);
       if (keyMapper()->handleKeypress(key))
       {
         keyIsPartOfMapping = true;
@@ -711,7 +718,11 @@ void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
                                           KTextEditor::Mark mark,
                                           KTextEditor::MarkInterface::MarkChangeAction action) {
 
-    Q_UNUSED( doc )
+  Q_UNUSED( doc )
+  if (mark.type != KTextEditor::MarkInterface::Bookmark)
+  {
+    return;
+  }
   if (!m_mark_set_inside_viinputmodemanager) {
     if (action == 1) {
         foreach (QChar c, m_marks.keys()) {
@@ -721,7 +732,7 @@ void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
     } else if (action == 0) {
       bool char_exist = false;
       for( char c= 'a'; c <= 'z'; c++) {
-        if (!m_marks.value(c) && (mark.type == KTextEditor::MarkInterface::Bookmark)) {
+        if (!m_marks.value(c)) {
           addMark(m_view->doc(), c, KTextEditor::Cursor(mark.line,0));
           char_exist = true;
           break;

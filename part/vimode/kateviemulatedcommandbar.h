@@ -31,6 +31,12 @@ class QLabel;
 class QCompleter;
 class QStringListModel;
 
+/**
+ * A KateViewBarWidget that attempts to emulate some of the features of Vim's own command bar,
+ * including insertion of register contents via ctr-r<registername>; dismissal via
+ * ctrl-c and ctrl-[; bi-directional incremental searching, with SmartCase; interactive sed-replace;
+ * plus a few extensions such as completion from document and navigable sed search and sed replace history.
+ */
 class KATEPART_TESTS_EXPORT KateViEmulatedCommandBar : public KateViewBarWidget
 {
   Q_OBJECT
@@ -47,23 +53,13 @@ public:
 
   void startInteractiveSearchAndReplace(QSharedPointer<KateCommands::SedReplace::InteractiveSedReplacer> interactiveSedReplace);
 
-  /**
-   * Attempt to parse any leading range expression (e.g. "%", "'<,'>", ".,+6" etc) in @c command and
-   * return it as a Range.  If parsing was successful, the range will be valid, the string
-   * making up the range expression will be placed in @c destRangeExpression, and the command with
-   * the range stripped will be placed in @c destTransformedCommand.  In some special cases,
-   * the @c destTransformedCommand will be further re-written e.g. a command in the form of just a number
-   * will be rewritten as "goto <number>".
-   *
-   * An invalid Range is returned if no leading range expression could be found.
-   */
-    static KTextEditor::Range parseRangeExpression(const QString& command, KateView* view, QString& destRangeExpression, QString& destTransformedCommand);
 private:
   bool m_isActive;
   Mode m_mode;
   KateView *m_view;
   QLineEdit *m_edit;
   QLabel *m_barTypeIndicator;
+  void showBarTypeIndicator(Mode mode);
   KTextEditor::Cursor m_startingCursorPos;
   bool m_wasAborted;
   bool m_suspendEditEventFiltering;
@@ -88,7 +84,7 @@ private:
   QCompleter *m_completer;
   QStringListModel *m_completionModel;
   bool m_nextTextChangeDueToCompletionChange;
-  enum CompletionType { None, SearchHistory, WordFromDocument, Commands, CommandHistory, SedSearchHistory, SedReplaceHistory };
+  enum CompletionType { None, SearchHistory, WordFromDocument, Commands, CommandHistory, SedFindHistory, SedReplaceHistory };
   CompletionType m_currentCompletionType;
   void updateCompletionPrefix();
   void currentCompletionChanged();
@@ -122,13 +118,18 @@ private:
   void activateWordFromDocumentCompletion();
   void activateCommandCompletion();
   void activateCommandHistoryCompletion();
-  void activateSedSearchHistoryCompletion();
+  void activateSedFindHistoryCompletion();
   void activateSedReplaceHistoryCompletion();
   void deactivateCompletion();
   void abortCompletionAndResetToPreCompletion();
   void setCompletionIndex(int index);
 
-  struct ParsedSedReplace
+  /**
+   * Stuff to do with expressions of the form:
+   *
+   *   s/find/replace/<sedflags>
+   */
+  struct ParsedSedExpression
   {
     bool parsedSuccessfully;
     int findBeginPos;
@@ -137,18 +138,22 @@ private:
     int replaceEndPos;
     QChar delimiter;
   };
-  ParsedSedReplace parseAsSedReplaceExpression();
-  QString findTermInSedReplaceReplacedWith(const QString& newFindTerm);
-  QString replaceTermInSedReplaceReplacedWith(const QString& newReplaceTerm);
-  QString findTermInSedReplace();
-  QString replaceTermInSedReplace();
-  QString withSedReplaceDelimiterEscaped(const QString& text);
+  ParsedSedExpression parseAsSedExpression();
+  QString withSedFindTermReplacedWith(const QString& newFindTerm);
+  QString withSedReplaceTermReplacedWith(const QString& newReplaceTerm);
+  QString sedFindTerm();
+  QString sedReplaceTerm();
+  QString withSedDelimiterEscaped(const QString& text);
 
-  bool isCursorInFindTermOfSedReplace();
-  bool isCursorInReplaceTermOfSedReplace();
+  bool isCursorInFindTermOfSed();
+  bool isCursorInReplaceTermOfSed();
 
-  QString withoutLeadingRange();
-  QString leadingRange();
+  /**
+   * The "range expression" is the (optional) expression before the command that describes
+   * the range over which the command should be run e.g. '<,'>.  @see CommandRangeExpressionParser
+   */
+  QString withoutRangeExpression();
+  QString rangeExpression();
 private slots:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();

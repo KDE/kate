@@ -255,7 +255,7 @@ void KateViVisualMode::goToPos(const Cursor& c)
 }
 
 void KateViVisualMode::updateSelection( ) {
-  if(!m_view->viInputMode() || (m_view->getViInputModeManager()->isHandlingKeypress() && !m_isUndo))
+  if(!m_view->viInputMode() || (m_viInputModeManager->isHandlingKeypress() && !m_isUndo))
     return;
 
   // If we are there it's already not VisualBlock mode.

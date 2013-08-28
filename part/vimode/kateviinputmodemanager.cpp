@@ -718,7 +718,11 @@ void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
                                           KTextEditor::Mark mark,
                                           KTextEditor::MarkInterface::MarkChangeAction action) {
 
-    Q_UNUSED( doc )
+  Q_UNUSED( doc )
+  if (mark.type != KTextEditor::MarkInterface::Bookmark)
+  {
+    return;
+  }
   if (!m_mark_set_inside_viinputmodemanager) {
     if (action == 1) {
         foreach (QChar c, m_marks.keys()) {
@@ -728,7 +732,7 @@ void KateViInputModeManager::markChanged (KTextEditor::Document* doc,
     } else if (action == 0) {
       bool char_exist = false;
       for( char c= 'a'; c <= 'z'; c++) {
-        if (!m_marks.value(c) && (mark.type == KTextEditor::MarkInterface::Bookmark)) {
+        if (!m_marks.value(c)) {
           addMark(m_view->doc(), c, KTextEditor::Cursor(mark.line,0));
           char_exist = true;
           break;

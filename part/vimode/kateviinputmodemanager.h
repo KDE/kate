@@ -354,7 +354,7 @@ private:
   /**
    * true when mark set inside viinputmodemanager to do not serve it as bookmark set;
    */
-  bool m_mark_set_inside_viinputmodemanager;
+  bool m_markSetInsideViInputModeManager;
 
   // jump list
   QList<KateViJump> *jump_list;

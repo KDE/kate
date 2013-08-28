@@ -86,6 +86,13 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   // KateViVisualMode (which inherits from KateViNormalMode) to respond
   // to changes in the document as well.
   m_viNormalMode->beginMonitoringDocumentChanges();
+
+  if (view->selection())
+  {
+    changeViMode(VisualMode);
+    m_view->setCursorPosition(Cursor(view->selectionRange().end().line(), view->selectionRange().end().column() - 1));
+    m_viVisualMode->updateSelection();
+  }
 }
 
 KateViInputModeManager::~KateViInputModeManager()

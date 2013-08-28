@@ -245,7 +245,7 @@ ViModeTest::ViModeTest() {
   kate_view = new KateView(kate_document, mainWindow);
   mainWindowLayout->addWidget(kate_view);
   mainWindow->setLayout(mainWindowLayout);
-  kate_view->toggleViInputMode();
+  kate_view->config()->setViInputMode(true);
   Q_ASSERT(kate_view->viInputMode());
   vi_input_mode_manager = kate_view->getViInputModeManager();
   kate_document->config()->setShowSpaces(true); // Flush out some issues in the KateRenderer when rendering spaces.
@@ -646,6 +646,25 @@ void ViModeTest::VisualModeTests() {
     QCOMPARE(kate_view->getCurrentViMode(), VisualMode);
     QCOMPARE(kate_view->selectionText(), QString("oo b"));
     FinishTest("foo bar");
+
+    // Test that, if kate_view has a selection before the Vi mode stuff is loaded, then we
+    // end up in Visual Mode: this mimics what happens if we click on a Find result in
+    // KDevelop's "grepview" plugin.
+    delete kate_view;
+    kate_view = new KateView(kate_document, mainWindow);
+    mainWindowLayout->addWidget(kate_view);
+    kate_document->setText("foo bar");
+    kate_view->setSelection(Range(Cursor(0, 1), Cursor(0, 4)));
+    QCOMPARE(kate_document->text(kate_view->selectionRange()), QString("oo "));
+    kate_view->config()->setViInputMode(true);
+    kDebug(13070) << "selected: " << kate_document->text(kate_view->selectionRange());
+    QVERIFY(kate_view->viInputMode());
+    vi_input_mode_manager = kate_view->getViInputModeManager();
+    QVERIFY(vi_input_mode_manager->getCurrentViMode() == VisualMode);
+    TestPressKey("l");
+    QCOMPARE(kate_document->text(kate_view->selectionRange()), QString("oo b"));
+    TestPressKey("d");
+    QCOMPARE(kate_document->text(), QString("far"));
 
     // Regression test for bug 309191
     DoTest("foo bar", "vedud", " bar");

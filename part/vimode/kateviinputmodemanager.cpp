@@ -83,11 +83,11 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_markSetInsideViInputModeManager = false;
 
   connect(m_view->doc(),
-           SIGNAL(markChanged(Document*, Mark,
-                              MarkInterface::MarkChangeAction)),
+           SIGNAL(markChanged(KTextEditor::Document*, KTextEditor::Mark,
+                              KTextEditor::MarkInterface::MarkChangeAction)),
            this,
-           SLOT(markChanged(Document*, Mark,
-                            MarkInterface::MarkChangeAction)));
+           SLOT(markChanged(KTextEditor::Document*, KTextEditor::Mark,
+                            KTextEditor::MarkInterface::MarkChangeAction)));
   // We have to do this outside of KateViNormalMode, as we don't want
   // KateViVisualMode (which inherits from KateViNormalMode) to respond
   // to changes in the document as well.

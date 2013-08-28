@@ -19,7 +19,7 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/autocomplete/autocomplete.py>
 
-from PyKDE4.kdecore import i18n
+from PyKDE4.kdecore import i18n, i18nc
 from libkatepate.errors import needs_python_version, needs_packages
 
 needs_python_version(major=2, text=i18n("The Python autocomplete plugin only is available for Python 2"))

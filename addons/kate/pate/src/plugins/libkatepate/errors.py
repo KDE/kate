@@ -24,6 +24,9 @@ from PyKDE4.kdecore import i18n
 from PyKDE4.ktexteditor import KTextEditor
 
 
+ENCODING_TRANSLATIONS = 'latin-1'
+
+
 class PythonVersionException(Exception):
     pass
 
@@ -38,7 +41,7 @@ def needs_python_version(major, minor=None, micro=None, text=''):
 
 
 def needs_packages(packages):
-    msg = i18n("You need install the following packages:\n")
+    msg = i18n("You need install the following packages:\n").encode(ENCODING_TRANSLATIONS)
     import_error = False
     for package, version in packages.items():
         try:
@@ -48,7 +51,7 @@ def needs_packages(packages):
             if '==' in version:
                 package = version.split('==')[0]
                 version = version.split('==')[1]
-            msg += i18n("\t%1. Use easy_install (or pip install) %1==%2", package, version)
+            msg += i18n("\t%1. Use easy_install (or pip install) %1==%2", package, version).encode(ENCODING_TRANSLATIONS)
     if import_error:
         raise ImportError(msg)
 

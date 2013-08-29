@@ -176,8 +176,8 @@ void MessageTest::testMessageQueue()
     QVERIFY(m1.data() != 0);
     QVERIFY(m2.data() != 0);
 
-    // after 1.1s, first message is deleted, and hide animation is active
-    QTest::qWait(600);
+    // after 1.2s, first message is deleted, and hide animation is active
+    QTest::qWait(700);
     QVERIFY(view->messageWidget()->isVisible());
     QVERIFY(m1.data() == 0);
     QVERIFY(m2.data() != 0);
@@ -323,34 +323,28 @@ void MessageTest::testHideView()
     //
     // test:
     // - show the message for 1.5s, then hide the view
-    // - this should stop the autoHide timer
-    // - showing the view again should restart the autoHide timer (again 2s)
+    // - the auto hide timer will continue, no matter what
+    // - showing the view again after the auto hide timer is finished + animation time really hide the widget
     //
-    QTest::qWait(1500);
+    QTest::qWait(1100);
     QVERIFY(view->messageWidget()->isVisible());
     QCOMPARE(view->messageWidget()->text(), QString("Message text"));
 
     // hide view
     view->hide();
 
-    // wait 1s, check that message is still valid
+    // wait 1s, message should be null (after total of 2100 ms)
     QTest::qWait(1000);
-    QVERIFY(message.data() != 0);
+    QVERIFY(message.data() == 0);
 
-    // show view again, wait 1.5s and check that message is still displayed
+    // show view again, message contents should be fading for the lasting 400 ms
     view->show();
-    QTest::qWait(1500);
-    QVERIFY(message.data() != 0);
     QVERIFY(view->messageWidget()->isVisible());
     QCOMPARE(view->messageWidget()->text(), QString("Message text"));
 
-    // wait another 0.6s, then the message is deleted
-    QTest::qWait(600);
+    // wait another 0.5s, then message widget should be hidden
+    QTest::qWait(500);
     QVERIFY(message.data() == 0);
-    QVERIFY(view->messageWidget()->isVisible());
-
-    // another 0.5s, and the message widget should be hidden
-    QTest::qWait(600);
     QVERIFY(!view->messageWidget()->isVisible());
 }
 
@@ -361,6 +355,7 @@ void MessageTest::testHideViewAfterUserInteraction()
     KateView* view = static_cast<KateView*>(doc.createView(0));
     view->show();
     view->resize(400, 300);
+    QTest::qWait(100);
 
     // create message that hides after 2s immediately
     QPointer<Message> message = new Message("Message text", Message::Information);
@@ -388,9 +383,12 @@ void MessageTest::testHideViewAfterUserInteraction()
     QTest::qWait(1000);
     QVERIFY(message.data() != 0);
 
-    // show view again, wait 1.5s and check that message is still displayed
+    // show view again, and trigger user interaction through resize
     view->show();
+    QTest::qWait(500);
     view->resize(400, 310);
+
+    // wait 1.5s and check that message is still displayed
     QTest::qWait(1500);
     QVERIFY(message.data() != 0);
     QVERIFY(view->messageWidget()->isVisible());

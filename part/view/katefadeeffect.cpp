@@ -87,6 +87,7 @@ void KateFadeEffect::animationFinished()
 
   if (m_timeLine->direction() == QTimeLine::Backward) {
     m_widget->hide();
+    emit widgetHidden();
   }
 }
 

@@ -23,6 +23,7 @@
 
 #include <QtGui/QWidget>
 #include <QtCore/QHash>
+#include <QPointer>
 
 #include "katepartprivate_export.h"
 
@@ -32,7 +33,7 @@ namespace KTextEditor
 }
 
 class KMessageWidget;
-class KateFadeEffect;
+class KateAnimation;
 
 /**
  * This class implements a message widget based on KMessageWidget.
@@ -56,28 +57,17 @@ class KATEPART_TESTS_EXPORT KateMessageWidget : public QWidget
     // for unit test
     QString text() const;
 
-  protected:
+  protected Q_SLOTS:
     /**
-     * Show the @p message and launch show animation
+     * Show the next message in the queue.
      */
-    void showMessage(KTextEditor::Message* message);
+    void showNextMessage();
+
     /**
      * Helper that enables word wrap to avoid breaking the layout
      */
     void setWordWrap(KTextEditor::Message* message);
 
-  protected:
-    /**
-     * Event filter, needed to catch the end of the hide animation of the KMessageWidget.
-     */
-    virtual bool eventFilter(QObject *obj, QEvent *event);
-
-    /**
-     * Reimplement show event to show notification if needed.
-     */
-    virtual void showEvent(QShowEvent *event);
-
-  private Q_SLOTS:
     /**
      * catch when a message is deleted, then show next one, if applicable.
      */
@@ -93,20 +83,17 @@ class KATEPART_TESTS_EXPORT KateMessageWidget : public QWidget
 
   private:
     // sorted list of pending messages
-    QList<KTextEditor::Message*> m_messageList;
+    QList<KTextEditor::Message*> m_messageQueue;
+    // pointer to current Message
+    QPointer<KTextEditor::Message> m_currentMessage;
     // shared pointers to QActions as guard
     QHash<KTextEditor::Message*, QList<QSharedPointer<QAction> > > m_messageHash;
     // the message widget, showing the actual contents
     KMessageWidget* m_messageWidget;
-    // the fade effect to show/hide the widget, if wanted
-    KateFadeEffect* m_fadeEffect;
+    // the show / hide effect controller
+    KateAnimation* m_animation;
 
   private: // some state variables
-    // flag: if true, showEvent() will do nothing. otherwise, it calls showMessage()
-    bool m_showMessageRunning : 1;
-    // flag: hide animation is running. needed to avoid flickering
-    // when showMessage() is called during hide-animation
-    bool m_hideAnimationRunning : 1;
     // autoHide only once user interaction took place
     QTimer *m_autoHideTimer;
     // flag: save message's autohide time

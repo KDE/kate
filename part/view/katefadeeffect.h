@@ -58,6 +58,13 @@ class KateFadeEffect : public QObject
      */
     void fadeIn();
 
+  Q_SIGNALS:
+    /**
+     * This signal is emitted when the hiding animation is finished.
+     * At this point, the associated widget is hidden.
+     */
+    void widgetHidden();
+
   protected Q_SLOTS:
     /**
      * Helper to update opacity value

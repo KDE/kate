@@ -20,10 +20,10 @@
 
 #include "katemessagewidget.h"
 #include "katemessagewidget.moc"
-#include "katefadeeffect.h"
 
 #include <ktexteditor/messageinterface.h>
 #include <kmessagewidget.h>
+#include <kateanimation.h>
 
 #include <kdeversion.h>
 #include <kdebug.h>
@@ -38,9 +38,7 @@ static const int s_defaultAutoHideTime = 6 * 1000;
 
 KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   : QWidget(parent)
-  , m_fadeEffect(0)
-  , m_showMessageRunning(false)
-  , m_hideAnimationRunning(false)
+  , m_animation(0)
   , m_autoHideTimer(new QTimer(this))
   , m_autoHideTime(-1)
 {
@@ -63,63 +61,46 @@ KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   m_messageWidget->hide();
   hide();
 
-  if (applyFadeEffect) {
-    m_fadeEffect = new KateFadeEffect(m_messageWidget);
-  }
+  // create animation controller, and connect widgetHidden() to showNextMessage()
+  m_animation = new KateAnimation(m_messageWidget, applyFadeEffect ? KateAnimation::FadeEffect : KateAnimation::GrowEffect);
+  connect(m_animation, SIGNAL(widgetHidden()), this, SLOT(showNextMessage()));
 
   // setup autoHide timer details
   m_autoHideTimer->setSingleShot(true);
 
 #if KDE_IS_VERSION(4,10,60) // KMessageWidget::linkHovered() is new in KDE 4.11
-  connect(m_messageWidget, SIGNAL(linkHovered(const QString&)), SLOT(linkHovered(const QString&)));
+  connect(m_messageWidget, SIGNAL(linkHovered(const QString&)), SLOT(linkHovered(const QString&))); // FIXME: TODO: this?
 #endif
 }
 
-bool KateMessageWidget::eventFilter(QObject *obj, QEvent *event)
+void KateMessageWidget::showNextMessage()
 {
-  if (obj == m_messageWidget && event->type() == QEvent::Hide && !event->spontaneous()) {
+  // at this point, we should not have a currently shown message
+  Q_ASSERT(m_currentMessage == 0);
 
-    // hide animation is finished
-    m_hideAnimationRunning = false;
-    m_autoHideTimer->stop();
-    m_autoHideTime = -1;
-
-    // if there are other messages in the queue, show next one, else hide us
-    if (m_messageList.count()) {
-      if (isVisible())
-        showMessage(m_messageList[0]);
-    } else {
-      hide();
-    }
+  // if not message to show, just stop
+  if (m_messageQueue.size() == 0) {
+    hide();
+    return;
   }
 
-  return QWidget::eventFilter(obj, event);
-}
+  // track current message
+  m_currentMessage = m_messageQueue[0];
 
-void KateMessageWidget::showEvent(QShowEvent *event)
-{
-  if (!m_showMessageRunning &&
-      !event->spontaneous() &&
-      !m_messageList.isEmpty())
-  {
-    showMessage(m_messageList[0]);
-  }
-}
-
-void KateMessageWidget::showMessage(KTextEditor::Message* message)
-{
   // set text etc.
-  m_messageWidget->setText(message->text());
-  m_messageWidget->setIcon(message->icon());
+  m_messageWidget->setText(m_currentMessage->text());
+#if KDE_VERSION >= KDE_MAKE_VERSION(4,10,60)   // KMessageWidget::setIcon() requires KDE >= 4.11
+  m_messageWidget->setIcon(m_currentMessage->icon());
+#endif
 
   // connect textChanged() and iconChanged(), so it's possible to change this on the fly
-  connect(message, SIGNAL(textChanged(const QString&)),
+  connect(m_currentMessage, SIGNAL(textChanged(const QString&)),
           m_messageWidget, SLOT(setText(const QString&)), Qt::UniqueConnection);
-  connect(message, SIGNAL(iconChanged(const QIcon&)),
+  connect(m_currentMessage, SIGNAL(iconChanged(const QIcon&)),
           m_messageWidget, SLOT(setIcon(const QIcon&)), Qt::UniqueConnection);
 
   // the enums values do not necessarily match, hence translate with switch
-  switch (message->messageType()) {
+  switch (m_currentMessage->messageType()) {
     case KTextEditor::Message::Positive:
       m_messageWidget->setMessageType(KMessageWidget::Positive);
       break;
@@ -142,35 +123,25 @@ void KateMessageWidget::showMessage(KTextEditor::Message* message)
     m_messageWidget->removeAction(a);
 
   // add new actions to the message widget
-  foreach (QAction* a, message->actions())
+  foreach (QAction* a, m_currentMessage->actions())
     m_messageWidget->addAction(a);
 
   // set word wrap of the message
-  setWordWrap(message);
+  setWordWrap(m_currentMessage);
 
   // setup auto-hide timer, and start if requested
-  m_autoHideTime = message->autoHide();
+  m_autoHideTime = m_currentMessage->autoHide();
   m_autoHideTimer->stop();
   if (m_autoHideTime >= 0) {
-    connect(m_autoHideTimer, SIGNAL(timeout()), message, SLOT(deleteLater()), Qt::UniqueConnection);
-    if (message->autoHideMode() == KTextEditor::Message::Immediate) {
+    connect(m_autoHideTimer, SIGNAL(timeout()), m_currentMessage, SLOT(deleteLater()), Qt::UniqueConnection);
+    if (m_currentMessage->autoHideMode() == KTextEditor::Message::Immediate) {
       m_autoHideTimer->start(m_autoHideTime == 0 ? s_defaultAutoHideTime : m_autoHideTime);
     }
   }
 
-  // finally show us
-  m_showMessageRunning = true;
+  // finally show
   show();
-  m_showMessageRunning = false;
-  if (m_fadeEffect) {
-    m_fadeEffect->fadeIn();
-  } else {
-#if KDE_VERSION >= KDE_MAKE_VERSION(4,10,0)   // work around KMessageWidget bugs
-    m_messageWidget->animatedShow();
-#else
-    QTimer::singleShot(0, m_messageWidget, SLOT(animatedShow()));
-#endif
-  }
+  m_animation->show();
 }
 
 void KateMessageWidget::setWordWrap(KTextEditor::Message* message)
@@ -220,99 +191,91 @@ void KateMessageWidget::postMessage(KTextEditor::Message* message,
 
   // insert message sorted after priority
   int i = 0;
-  for (; i < m_messageList.count(); ++i) {
-    if (message->priority() > m_messageList[i]->priority())
+  for (; i < m_messageQueue.count(); ++i) {
+    if (message->priority() > m_messageQueue[i]->priority())
       break;
   }
 
   // queue message
-  m_messageList.insert(i, message);
+  m_messageQueue.insert(i, message);
 
-  if (i == 0 && !m_hideAnimationRunning) {
+  // catch if the message gets deleted
+  connect(message, SIGNAL(closed(KTextEditor::Message*)), SLOT(messageDestroyed(KTextEditor::Message*)));
+
+  if (i == 0 && !m_animation->hideAnimationActive()) {
     // if message has higher priority than the one currently shown,
     // then hide the current one and then show the new one.
-    if (m_messageWidget->isVisible()) {
+    if (m_currentMessage) {
 
       // autoHide timer may be running for currently shown message, therefore
       // simply disconnect autoHide timer to all timeout() receivers
       disconnect(m_autoHideTimer, SIGNAL(timeout()), 0, 0);
       m_autoHideTimer->stop();
 
+      // if there is a current message, the message queue must contain 2 messages
+      Q_ASSERT(m_messageQueue.size() > 1);
+      Q_ASSERT(m_currentMessage == m_messageQueue[1]);
+
       // a bit unnice: disconnect textChanged() and iconChanged() signals of previously visible message
-      Q_ASSERT(m_messageList.size() > 1);
-      disconnect(m_messageList[1], SIGNAL(textChanged(const QString&)),
+      disconnect(m_currentMessage, SIGNAL(textChanged(const QString&)),
                  m_messageWidget, SLOT(setText(const QString&)));
-      disconnect(m_messageList[1], SIGNAL(iconChanged(const QIcon&)),
+      disconnect(m_currentMessage, SIGNAL(iconChanged(const QIcon&)),
                  m_messageWidget, SLOT(setIcon(const QIcon&)));
 
-      m_hideAnimationRunning = true;
-      if (m_fadeEffect) {
-        m_fadeEffect->fadeOut();
-      } else {
-        m_messageWidget->animatedHide();
-      }
+      m_currentMessage = 0;
+      m_animation->hide();
     } else {
-      showMessage(m_messageList[0]);
+      showNextMessage();
     }
   }
-
-  // catch if the message gets deleted
-  connect(message, SIGNAL(closed(KTextEditor::Message*)), SLOT(messageDestroyed(KTextEditor::Message*)));
 }
 
 void KateMessageWidget::messageDestroyed(KTextEditor::Message* message)
 {
   // last moment when message is valid, since KTE::Message is already in
   // destructor we have to do the following:
-  // 1. remove message from m_messageList, so we don't care about it anymore
+  // 1. remove message from m_messageQueue, so we don't care about it anymore
   // 2. activate hide animation or show a new message()
 
-  // remove widget from m_messageList
+  // remove widget from m_messageQueue
   int i = 0;
-  for (; i < m_messageList.count(); ++i) {
-    if (m_messageList[i] == message) {
+  for (; i < m_messageQueue.count(); ++i) {
+    if (m_messageQueue[i] == message) {
       break;
     }
   }
 
   // the message must be in the list
-  Q_ASSERT(i < m_messageList.count());
+  Q_ASSERT(i < m_messageQueue.count());
 
   // remove message
-  m_messageList.removeAt(i);
+  m_messageQueue.removeAt(i);
 
   // remove message from hash -> release QActions
   Q_ASSERT(m_messageHash.contains(message));
   m_messageHash.remove(message);
 
-  // start hide animation, or show next message
-  if (m_messageWidget->isVisible()) {
-    m_hideAnimationRunning = true;
-    if (m_fadeEffect) {
-      m_fadeEffect->fadeOut();
-    } else {
-      m_messageWidget->animatedHide();
-    }
-  } else if (i == 0 && m_messageList.count()) {
-    showMessage(m_messageList[0]);
+  // if deleted message is the current message, launch hide animation
+  if (message == m_currentMessage) {
+    m_currentMessage = 0;
+    m_animation->hide();
   }
 }
 
 void KateMessageWidget::startAutoHideTimer()
 {
   // message does not want autohide, or timer already running
-  if (!isVisible()                 // not visible, no message shown
+  if ( !m_currentMessage           // no message, nothing to do
     || m_autoHideTime < 0          // message does not want auto-hide
     || m_autoHideTimer->isActive() // auto-hide timer is already active
-    || m_hideAnimationRunning      // widget is in hide animation phase
+    || m_animation->hideAnimationActive() // widget is in hide animation phase
   ) {
     return;
   }
 
   // safety checks: the message must still still be valid
-  Q_ASSERT(m_messageList.size());
-  KTextEditor::Message* message = m_messageList[0];
-  Q_ASSERT(message->autoHide() == m_autoHideTime);
+  Q_ASSERT(m_messageQueue.size());
+  Q_ASSERT(m_currentMessage->autoHide() == m_autoHideTime);
 
   // start autoHide timer as requrested
   m_autoHideTimer->start(m_autoHideTime == 0 ? s_defaultAutoHideTime : m_autoHideTime);

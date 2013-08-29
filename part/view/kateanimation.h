@@ -18,45 +18,65 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#ifndef KATE_FADE_EFFECT_H
-#define KATE_FADE_EFFECT_H
+#ifndef KATE_ANIMATION_H
+#define KATE_ANIMATION_H
 
 #include <QObject>
 #include <QPointer>
 
-class QWidget;
-class QTimeLine;
-class QGraphicsOpacityEffect;
+class QTimer;
+
+class KMessageWidget;
+class KateFadeEffect;
 /**
- * This class provides a fade in/out effect for arbitrary QWidget%s.
+ * This class provides a fade in/out effect for KMessageWidget%s.
  * Example:
  * \code
- * KateFadeEffect* fadeEffect = new KateFadeEffect(someWidget);
- * fadeEffect->fadeIn();
+ * KateAnimation* animation = new KateAnimation(someMessageWidget);
+ * animation->show();
  * //...
- * fadeEffect->fadeOut();
+ * animation->hide();
  * \endcode
  */
-class KateFadeEffect : public QObject
+class KateAnimation : public QObject
 {
   Q_OBJECT
 
   public:
     /**
-     * Constructor.
-     * By default, the widget is fully opaque (opacity = 1.0).
+     * The type of supported animation effects
      */
-    KateFadeEffect(QWidget* widget = 0);
+    enum EffectType{
+      FadeEffect = 0, ///< fade in/out
+      GrowEffect      ///< grow / shrink
+    };
+
+  public:
+    /**
+     * Constructor.
+     */
+    KateAnimation(KMessageWidget* widget, EffectType effect);
+
+    /**
+     * Returns true, if the hide animation is running, otherwise false.
+     */
+    bool hideAnimationActive() const;
+
+    /**
+     * Returns true, if the how animation is running, otherwise false.
+     */
+    bool showAnimationActive() const;
 
   public Q_SLOTS:
     /**
-     * Call to fade out and hide the widget.
+     * Call to hide the widget.
      */
-    void fadeOut();
+    void hide();
+
     /**
      * Call to show and fade in the widget
      */
-    void fadeIn();
+    void show();
 
   Q_SIGNALS:
     /**
@@ -65,20 +85,17 @@ class KateFadeEffect : public QObject
      */
     void widgetHidden();
 
-  protected Q_SLOTS:
     /**
-     * Helper to update opacity value
+     * This signal is emitted when the showing animation is finished.
+     * At this point, the associated widget is hidden.
      */
-    void opacityChanged(qreal value);
-    /**
-     * When the animation is finished, hide the widget if fading out.
-     */
-    void animationFinished();
+    void widgetShown();
 
   private:
-    QPointer<QWidget> m_widget;         ///< the fading widget
-    QTimeLine* m_timeLine;              ///< update time line
-    QPointer<QGraphicsOpacityEffect> m_effect; ///< graphics opacity effect
+    QPointer<KMessageWidget> m_widget; ///< the widget to animate
+    KateFadeEffect * m_fadeEffect;     ///< the fade effect
+    QTimer * m_hideTimer;              ///< timer to track hide animation
+    QTimer * m_showTimer;              ///< timer to track show animation
 };
 
 #endif

@@ -76,10 +76,11 @@ void KateAnimation::show()
     emit widgetShown();
   } else {
     // launch show effect
+    // NOTE: use a singleShot timer to avoid resizing issues when showing the message widget the first time (bug #316666)
     if (m_fadeEffect) {
-      m_fadeEffect->fadeIn();
+      QTimer::singleShot(0, m_fadeEffect, SLOT(fadeIn()));
     } else {
-      m_widget->animatedShow();
+      QTimer::singleShot(0, m_widget, SLOT(animatedShow()));
     }
 
     // start timer in order to track when showing is done (this effectively works

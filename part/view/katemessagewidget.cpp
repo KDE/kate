@@ -269,6 +269,7 @@ void KateMessageWidget::startAutoHideTimer()
     || m_autoHideTime < 0          // message does not want auto-hide
     || m_autoHideTimer->isActive() // auto-hide timer is already active
     || m_animation->hideAnimationActive() // widget is in hide animation phase
+    || m_animation->showAnimationActive() // widget is in show animation phase
   ) {
     return;
   }

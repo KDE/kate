@@ -3044,13 +3044,8 @@ void KateViewInternal::textHintTimeout ()
 {
   m_textHintTimer.stop ();
 
-  KateTextLayout thisLine = yToKateTextLayout(m_textHintPos.y());
-
-  if (!thisLine.isValid()) return;
-
-  if (m_textHintPos.x() > (lineMaxCursorX(thisLine) - thisLine.startX())) return;
-
-  KTextEditor::Cursor c = renderer()->xToCursor(cache()->textLayout(thisLine.start()), startX() + m_textHintPos.x(), !m_view->wrapCursor());
+  KTextEditor::Cursor c = coordinatesToCursor(m_textHintPos, false);
+  if (!c.isValid()) return;
 
   QString tmp;
 

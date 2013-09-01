@@ -847,6 +847,12 @@ bool KateViNormalMode::commandMakeLowercaseLine()
 {
   Cursor c( m_view->cursorPosition() );
 
+  if (doc()->lineLength(c.line()) == 0)
+  {
+    // Nothing to do.
+    return true;
+  }
+
   m_commandRange.startLine = c.line();
   m_commandRange.endLine = c.line() + getCount() - 1;
   m_commandRange.startColumn = 0;
@@ -887,6 +893,12 @@ bool KateViNormalMode::commandMakeUppercase()
 bool KateViNormalMode::commandMakeUppercaseLine()
 {
   Cursor c( m_view->cursorPosition() );
+
+  if (doc()->lineLength(c.line()) == 0)
+  {
+    // Nothing to do.
+    return true;
+  }
 
   m_commandRange.startLine = c.line();
   m_commandRange.endLine = c.line() + getCount() - 1;

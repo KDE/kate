@@ -1413,6 +1413,7 @@ void ViModeTest::NormalModeCommandsTest() {
   // Testing "guu"
   DoTest("FOO", "guu", "foo");
   DoTest("FOO\nBAR\nBAZ", "2guu", "foo\nbar\nBAZ");
+  DoTest("", "guu", "");
 
 
   // Testing "gU"
@@ -1422,6 +1423,7 @@ void ViModeTest::NormalModeCommandsTest() {
   // Testing "gUU"
   DoTest("foo", "gUU", "FOO");
   DoTest("foo\nbar\nbaz", "2gUU", "FOO\nBAR\nbaz");
+  DoTest("", "gUU", "");
 
   // Testing "g~"
   DoTest("fOo BAr", "lg~fA", "foO bar");

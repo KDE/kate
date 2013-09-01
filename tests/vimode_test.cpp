@@ -6260,6 +6260,14 @@ void ViModeTest::MacroTests()
     TestPressKey("@a@b");
     FinishTest("ba");
   }
+
+  // Ensure that we don't crash when a "repeat change" occurs in a macro we execute.
+  clearAllMacros();
+  DoTest("", "qqixyz\\ctrl-c.q@qdd", "");
+  // Don't record both the "." *and* the last-change keypresses when recording a macro;
+  // just record the "."
+  clearAllMacros();
+  DoTest("", "ixyz\\ctrl-cqq.qddi123\\ctrl-c@q", "121233");
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests

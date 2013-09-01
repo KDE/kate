@@ -1810,6 +1810,10 @@ bool KateViNormalMode::commandStartRecordingMacro()
 
 bool KateViNormalMode::commandReplayMacro()
 {
+  // "@<registername>" will have been added to the log; it needs to be cleared
+  // *before* we replay the macro keypresses, else it can cause an infinite loop
+  // if the macro contains a "."
+  m_viInputModeManager->clearLog();
   const QChar reg = m_keys[m_keys.size() - 1];
   const unsigned int count = getCount();
   resetParser();

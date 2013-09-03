@@ -61,7 +61,7 @@ Changes:
   <!ENTITY types "int|integer|bool|boolean|float|double|real|string|array|object">
 ]>
 
-<language name="PHP/PHP" indenter="cstyle" version="1.43" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
+<language name="PHP/PHP" indenter="cstyle" version="1.44" kateversion="2.4" section="Scripts" extensions="" priority="5" mimetype="" hidden="true">
   <highlighting>
     <list name="control structures">
       <item>as</item>
@@ -91,6 +91,7 @@ Changes:
     </list>
     <list name="keywords">
       <item> abstract </item>
+      <item> callable </item>
       <item> catch </item>
       <item> class </item>
       <item> clone </item>
@@ -102,6 +103,7 @@ Changes:
       <item> global </item>
       <item> implements </item>
       <item> instanceof </item>
+      <item> insteadof </item>
       <item> interface </item>
       <item> new </item>
       <item> self </item>
@@ -112,6 +114,7 @@ Changes:
       <item> public </item>
       <item> throw </item>
       <item> try </item>
+      <item> trait </item>
       <item> and </item>
       <item> or </item>
       <item> xor </item>
@@ -128,6 +131,7 @@ Changes:
       <item> __CLASS__ </item>
       <item> __METHOD__ </item>
       <item> __NAMESPACE__ </item>
+      <item> __TRAIT__ </item>
       <item> __COMPILER_HALT_OFFSET__ </item>
 
       <item> ABDAY_1 </item>

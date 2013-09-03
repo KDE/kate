@@ -67,7 +67,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_textualRepeat = false;
 
   m_isRecordingMacro = false;
-  m_isReplayingMacro = false;
+  m_macrosBeingReplayedCount = 0;
   m_lastPlayedMacroRegister = QChar::Null;
 
   m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
@@ -121,7 +121,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   // of a mapping, we don't want to record them when they are played back by m_keyMapper, hence
   // the "!isPlayingBackRejectedKeys()". And obviously, since we're recording keys before they are mapped, we don't
   // want to also record the executed mapping, as when we replayed the macro, we'd get duplication!
-  if (isRecordingMacro() && !m_isReplayingMacro && !isSyntheticSearchCompletedKeyPress && !keyMapper()->isExecutingMapping() && !keyMapper()->isPlayingBackRejectedKeys())
+  if (isRecordingMacro() && !isReplayingMacro() && !isSyntheticSearchCompletedKeyPress && !keyMapper()->isExecutingMapping() && !keyMapper()->isPlayingBackRejectedKeys())
   {
     QKeyEvent copy( e->type(), e->key(), e->modifiers(), e->text() );
     m_currentMacroKeyEventsLog.append(copy);
@@ -352,11 +352,36 @@ void KateViInputModeManager::replayMacro(QChar macroRegister)
   const QString macroAsFeedableKeypresses = KateGlobal::self()->viInputModeGlobal()->getMacro(macroRegister);
   kDebug(13070) << "macroAsFeedableKeypresses:  " << macroAsFeedableKeypresses;
 
-  m_isReplayingMacro = true;
+  m_macrosBeingReplayedCount++;
   m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
   feedKeyPresses(macroAsFeedableKeypresses);
   m_keyMapperStack.pop();
-  m_isReplayingMacro = false;
+  m_macrosBeingReplayedCount--;
+}
+
+bool KateViInputModeManager::isReplayingMacro()
+{
+  return m_macrosBeingReplayedCount > 0;
+}
+
+void KateViInputModeManager::logCompletionEvent(const QString& completedText)
+{
+  // Ctrl-space is a special code that means: if you're replaying a macro, fetch and execute
+  // the next logged completion.
+  QKeyEvent ctrlSpace( QKeyEvent::KeyPress, Qt::Key_Space, Qt::ControlModifier, " ");
+  m_currentMacroKeyEventsLog.append(ctrlSpace);
+  m_currentMacroLoggedCompletions.append(completedText);
+}
+
+QString KateViInputModeManager::nextLoggedCompletion()
+{
+  return m_currentMacroLoggedCompletions[m_nextLoggedCompletionIndex++];
+}
+
+void KateViInputModeManager::doNotLogCurrentKeypress()
+{
+  Q_ASSERT(!m_currentMacroKeyEventsLog.isEmpty());
+  m_currentMacroKeyEventsLog.pop_back();
 }
 
 const QString KateViInputModeManager::getLastSearchPattern() const

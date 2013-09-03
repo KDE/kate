@@ -309,7 +309,7 @@ private:
   QChar m_recordingMacroRegister;
   QList<QKeyEvent> m_currentMacroKeyEventsLog;
 
-  bool m_isReplayingMacro;
+  int m_macrosBeingReplayedCount;
   QChar m_lastPlayedMacroRegister;
 
   /**

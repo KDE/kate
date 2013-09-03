@@ -6167,8 +6167,14 @@ void ViModeTest::MacroTests()
 
   clearAllMappings();
   clearAllMacros();
-  // Don't save the trailing "q" with macros, and also test that we can call one macro from another.
+  // Don't save the trailing "q" with macros, and also test that we can call one macro from another,
+  // without one of the macros being repeated.
   DoTest("", "qaixyz\\ctrl-cqqb@aq@b", "xyxyxyzzz");
+  clearAllMappings();
+  clearAllMacros();
+  // More stringent test that macros called from another macro aren't repeated - requires more nesting
+  // of macros ('a' calls 'b' calls 'c').
+  DoTest("", "qciC\\ctrl-cqqb@ciB\\ctrl-cqqa@biA\\ctrl-cqdd@a", "ABC");
   // Don't crash if we invoke a non-existent macro.
   clearAllMacros();
   DoTest("", "@x", "");

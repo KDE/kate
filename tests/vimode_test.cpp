@@ -100,142 +100,173 @@ void FailsIfSlotCalled::slot()
   QFAIL(m_failureMessage.toAscii());
 }
 
-/**
- * Helper class that mimics some of the behaviour of KDevelop's code completion, in particular
- * whether it performs "bracket merging" on completed function calls e.g. if we complete a call
- * to "functionCall(int a)" at the end of the -> here:
- *
- *  object->(
- *
- * we end up with
- *
- *  object->functionCall(
- *
- * and the cursor placed after the closing bracket: the opening bracket is merged with the existing
- * bracket.
- *
- * However, if we do the same with
- *
- *  object->
- *
- * we end up with
- *
- *  object->functionCall()
- *
- * again with the cursor placed after the opening bracket.  This time, the brackets were not merged.
- *
- * This helper class is used to test how Macros and replaying of last changes works with complex
- * code completion.
- */
-class FakeCodeCompletionTestModel : public CodeCompletionModel
+FakeCodeCompletionTestModel::FakeCodeCompletionTestModel(KTextEditor::View* parent)
+  : KTextEditor::CodeCompletionModel(parent),
+    m_kateView(qobject_cast<KateView*>(parent)),
+    m_kateDoc(parent->document()),
+    m_removeTailOnCompletion(false),
+    m_failTestOnInvocation(false),
+    m_wasInvoked(false)
 {
-public:
-    FakeCodeCompletionTestModel(KTextEditor::View* parent)
-      : KTextEditor::CodeCompletionModel(parent),
-        m_kateView(parent),
-        m_removeTailOnCompletion(false)
-    {
-        setRowCount(3);
-        cc()->setAutomaticInvocationEnabled(false);
-        cc()->unregisterCompletionModel(KateGlobal::self()->wordCompletionModel()); //would add additional items, we don't want that in tests
-    }
-    /**
-     * List of completions, in sorted order.
-     * A string ending with "()" is treated as a call to a function with no arguments.
-     * A string ending with "(...)" is treated as a call to a function with at least one argument.  The "..." is not
-     * inserted into the text.
-     */
-    void setCompletions(const QStringList& completions)
-    {
-      QStringList sortedCompletions = completions;
-      qSort(sortedCompletions);
-      Q_ASSERT(completions == sortedCompletions && "QCompleter seems to sort the items, so it's best to provide them pre-sorted so it's easier to predict the order");
-      setRowCount(sortedCompletions.length());
-      m_completions = completions;
-    }
-    void setRemoveTailOnComplete(bool removeTailOnCompletion)
-    {
-      m_removeTailOnCompletion = removeTailOnCompletion;
-    }
-    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const
-    {
-      // Order is important, here, as the completion widget seems to do its own sorting.
-      if (role == Qt::DisplayRole)
-      {
-        if (index.column() == Name)
-            return QString(m_completions[index.row()]);
-      }
-      return QVariant();
-    }
-    virtual void executeCompletionItem(Document* document, const Range& word, int row) const
-    {
-      kDebug(13070) << "word: " << word << "(" << document->text(word) << ")";
-      const Cursor origCursorPos = m_kateView->cursorPosition();
-      const QString textToInsert = m_completions[row];
-      const QString textAfterCursor = document->text(Range(word.end(), Cursor(word.end().line(), document->lineLength(word.end().line()))));
-      document->removeText(Range(word.start(), origCursorPos));
-      const int lengthStillToRemove = word.end().column() - origCursorPos.column();
-      QString actualTextInserted = textToInsert;
-      // Merge brackets?
-      const QString noArgFunctionCallMarker = "()";
-      const QString withArgFunctionCallMarker = "(...)";
-      if (textToInsert.endsWith(noArgFunctionCallMarker) || textToInsert.endsWith(withArgFunctionCallMarker))
-      {
-        const bool takesArgument = textToInsert.endsWith(withArgFunctionCallMarker);
-        // The code for a function call to a function taking no arguments.
-        const QString justFunctionName = textToInsert.left(textToInsert.length() -
-               (takesArgument ? withArgFunctionCallMarker.length() :
-                                noArgFunctionCallMarker.length()));
+    Q_ASSERT(m_kateView);
+    setRowCount(3);
+    cc()->setAutomaticInvocationEnabled(false);
+    cc()->unregisterCompletionModel(KateGlobal::self()->wordCompletionModel()); //would add additional items, we don't want that in tests
+    connect(parent->document(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+            this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
+    connect(parent->document(), SIGNAL(textRemoved(KTextEditor::Document*,KTextEditor::Range)),
+            this, SLOT(textRemoved(KTextEditor::Document*,KTextEditor::Range)));
+}
+void FakeCodeCompletionTestModel::setCompletions(const QStringList& completions)
+{
+  QStringList sortedCompletions = completions;
+  qSort(sortedCompletions);
+  Q_ASSERT(completions == sortedCompletions && "QCompleter seems to sort the items, so it's best to provide them pre-sorted so it's easier to predict the order");
+  setRowCount(sortedCompletions.length());
+  m_completions = completions;
+}
+void FakeCodeCompletionTestModel::setRemoveTailOnComplete(bool removeTailOnCompletion)
+{
+  m_removeTailOnCompletion = removeTailOnCompletion;
+}
+void FakeCodeCompletionTestModel::setFailTestOnInvocation(bool failTestOnInvocation)
+{
+  m_failTestOnInvocation = failTestOnInvocation;
+}
+bool FakeCodeCompletionTestModel::wasInvoked()
+{
+  return m_wasInvoked;
+}
+void FakeCodeCompletionTestModel::clearWasInvoked()
+{
+  m_wasInvoked = false;
+}
+/**
+  * A more reliable form of setAutomaticInvocationEnabled().
+  */
+void FakeCodeCompletionTestModel::forceInvocationIfDocTextIs(const QString& desiredDocText)
+{
+  m_forceInvocationIfDocTextIs = desiredDocText;
+}
+void FakeCodeCompletionTestModel::doNotForceInvocation()
+{
+  m_forceInvocationIfDocTextIs.clear();
+}
+QVariant FakeCodeCompletionTestModel::data(const QModelIndex& index, int role) const
+{
+  m_wasInvoked = true;
+  if (m_failTestOnInvocation)
+  {
+    failTest();
+    return QVariant();
+  }
+  // Order is important, here, as the completion widget seems to do its own sorting.
+  if (role == Qt::DisplayRole)
+  {
+    if (index.column() == Name)
+        return QString(m_completions[index.row()]);
+  }
+  return QVariant();
+}
+void FakeCodeCompletionTestModel::executeCompletionItem(Document* document, const Range& word, int row) const
+{
+  kDebug(13070) << "word: " << word << "(" << document->text(word) << ")";
+  const Cursor origCursorPos = m_kateView->cursorPosition();
+  const QString textToInsert = m_completions[row];
+  const QString textAfterCursor = document->text(Range(word.end(), Cursor(word.end().line(), document->lineLength(word.end().line()))));
+  document->removeText(Range(word.start(), origCursorPos));
+  const int lengthStillToRemove = word.end().column() - origCursorPos.column();
+  QString actualTextInserted = textToInsert;
+  // Merge brackets?
+  const QString noArgFunctionCallMarker = "()";
+  const QString withArgFunctionCallMarker = "(...)";
+  if (textToInsert.endsWith(noArgFunctionCallMarker) || textToInsert.endsWith(withArgFunctionCallMarker))
+  {
+    Q_ASSERT(m_removeTailOnCompletion && "Function completion items without removing tail is not yet supported!");
+    const bool takesArgument = textToInsert.endsWith(withArgFunctionCallMarker);
+    // The code for a function call to a function taking no arguments.
+    const QString justFunctionName = textToInsert.left(textToInsert.length() -
+            (takesArgument ? withArgFunctionCallMarker.length() :
+                            noArgFunctionCallMarker.length()));
 
-        QRegExp whitespaceThenOpeningBracket("^\\s*(\\()");
-        int openingBracketPos = -1;
-        if (textAfterCursor.contains(whitespaceThenOpeningBracket))
-        {
-          openingBracketPos = whitespaceThenOpeningBracket.pos(1) + word.start().column() + justFunctionName.length() + 1 + lengthStillToRemove;
-        }
-        const bool mergeOpenBracketWithExisting = (openingBracketPos != -1);
-        // Add the function name, for now: we don't yet know if we'll be adding the "()", too.
-        document->insertText(word.start(), justFunctionName);
-        if (mergeOpenBracketWithExisting)
-        {
-          // Merge with opening bracket.
-          actualTextInserted = justFunctionName;
-          m_kateView->setCursorPosition(Cursor(word.start().line(), openingBracketPos));
-        }
-        else
-        {
-          // Don't merge.
-          document->insertText(Cursor(word.start().line(), word.start().column() + justFunctionName.length()), "()");
-          if (takesArgument)
-          {
-            // Place the cursor immediately after the opening "(" we just added.
-            m_kateView->setCursorPosition(Cursor(word.start().line(), word.start().column() + justFunctionName.length() + 1));
-          }
-        }
-      }
-      else
-      {
-        // Plain text.
-        document->insertText(word.start(), textToInsert);
-      }
-      if (m_removeTailOnCompletion)
-      {
-        const int tailLength = word.end().column() - origCursorPos.column();
-        const Cursor tailStart = Cursor(word.start().line(), word.start().column() + actualTextInserted.length());
-        const Cursor tailEnd = Cursor(tailStart.line(), tailStart.column() + tailLength);
-        document->removeText(Range(tailStart, tailEnd));
-      }
-    }
-
-    KTextEditor::CodeCompletionInterface * cc( ) const
+    QRegExp whitespaceThenOpeningBracket("^\\s*(\\()");
+    int openingBracketPos = -1;
+    if (textAfterCursor.contains(whitespaceThenOpeningBracket))
     {
-      return dynamic_cast<KTextEditor::CodeCompletionInterface*>(const_cast<QObject*>(QObject::parent()));
+      openingBracketPos = whitespaceThenOpeningBracket.pos(1) + word.start().column() + justFunctionName.length() + 1 + lengthStillToRemove;
     }
-private:
-  QStringList m_completions;
-  KTextEditor::View *m_kateView;
-  bool m_removeTailOnCompletion;
-};
+    const bool mergeOpenBracketWithExisting = (openingBracketPos != -1);
+    // Add the function name, for now: we don't yet know if we'll be adding the "()", too.
+    document->insertText(word.start(), justFunctionName);
+    if (mergeOpenBracketWithExisting)
+    {
+      // Merge with opening bracket.
+      actualTextInserted = justFunctionName;
+      m_kateView->setCursorPosition(Cursor(word.start().line(), openingBracketPos));
+    }
+    else
+    {
+      // Don't merge.
+      document->insertText(Cursor(word.start().line(), word.start().column() + justFunctionName.length()), "()");
+      if (takesArgument)
+      {
+        // Place the cursor immediately after the opening "(" we just added.
+        m_kateView->setCursorPosition(Cursor(word.start().line(), word.start().column() + justFunctionName.length() + 1));
+      }
+    }
+  }
+  else
+  {
+    // Plain text.
+    document->insertText(word.start(), textToInsert);
+  }
+  if (m_removeTailOnCompletion)
+  {
+    const int tailLength = word.end().column() - origCursorPos.column();
+    const Cursor tailStart = Cursor(word.start().line(), word.start().column() + actualTextInserted.length());
+    const Cursor tailEnd = Cursor(tailStart.line(), tailStart.column() + tailLength);
+    document->removeText(Range(tailStart, tailEnd));
+  }
+}
+
+KTextEditor::CodeCompletionInterface * FakeCodeCompletionTestModel::cc( ) const
+{
+  return dynamic_cast<KTextEditor::CodeCompletionInterface*>(const_cast<QObject*>(QObject::parent()));
+}
+
+void FakeCodeCompletionTestModel::failTest() const
+{
+  QFAIL("Shouldn't be invoking me!");
+}
+
+void FakeCodeCompletionTestModel::textInserted(Document* document, Range range)
+{
+  Q_UNUSED(document);
+  Q_UNUSED(range);
+  checkIfShouldForceInvocation();
+}
+
+void FakeCodeCompletionTestModel::textRemoved(Document* document, Range range)
+{
+  Q_UNUSED(document);
+  Q_UNUSED(range);
+  checkIfShouldForceInvocation();
+}
+
+void FakeCodeCompletionTestModel::checkIfShouldForceInvocation()
+{
+  if (m_forceInvocationIfDocTextIs.isEmpty())
+  {
+    return;
+  }
+
+  if (m_kateDoc->text() == m_forceInvocationIfDocTextIs)
+  {
+    m_kateView->completionWidget()->userInvokedCompletion();
+    ViModeTest::waitForCompletionWidgetToActivate(m_kateView);
+  }
+}
+
 ViModeTest::ViModeTest() {
   kate_document = new KateDocument(false, false, false, 0, NULL);
   mainWindow = new QMainWindow;
@@ -5812,7 +5843,37 @@ void ViModeTest::CompletionTests()
     QVERIFY(kate_view->completionWidget()->isCompletionActive());
     TestPressKey("\\returnb");
     FinishTest("completion1b");
+
+    // Make sure the completion widget is dismissed on ESC, ctrl-c and ctrl-[.
+    BeginTest("");
+    TestPressKey("ic");
+    kate_view->userInvokedCompletion();
+    waitForCompletionWidgetToActivate();
+    QVERIFY(kate_view->completionWidget()->isCompletionActive());
+    TestPressKey("\\esc");
+    QVERIFY(!kate_view->completionWidget()->isCompletionActive());
+    FinishTest("c");
+    BeginTest("");
+    TestPressKey("ic");
+    kate_view->userInvokedCompletion();
+    waitForCompletionWidgetToActivate();
+    QVERIFY(kate_view->completionWidget()->isCompletionActive());
+    TestPressKey("\\ctrl-c");
+    QVERIFY(!kate_view->completionWidget()->isCompletionActive());
+    FinishTest("c");
+    BeginTest("");
+    TestPressKey("ic");
+    kate_view->userInvokedCompletion();
+    waitForCompletionWidgetToActivate();
+    QVERIFY(kate_view->completionWidget()->isCompletionActive());
+    TestPressKey("\\ctrl-[");
+    QVERIFY(!kate_view->completionWidget()->isCompletionActive());
+    FinishTest("c");
     kate_view->unregisterCompletionModel(testModel);
+
+    // Hide the kate_view for subsequent tests.
+    kate_view->hide();
+    mainWindow->hide();
 }
 
 void ViModeTest::visualLineUpDownTests()
@@ -6174,7 +6235,10 @@ void ViModeTest::MacroTests()
   clearAllMacros();
   // More stringent test that macros called from another macro aren't repeated - requires more nesting
   // of macros ('a' calls 'b' calls 'c').
-  DoTest("", "qciC\\ctrl-cqqb@ciB\\ctrl-cqqa@biA\\ctrl-cqdd@a", "ABC");
+  DoTest("", "qciC\\ctrl-cq"
+             "qb@ciB\\ctrl-cq"
+             "qa@biA\\ctrl-cq"
+             "dd@a", "ABC");
   // Don't crash if we invoke a non-existent macro.
   clearAllMacros();
   DoTest("", "@x", "");
@@ -6276,6 +6340,448 @@ void ViModeTest::MacroTests()
   // just record the "."
   clearAllMacros();
   DoTest("", "ixyz\\ctrl-cqq.qddi123\\ctrl-c@q", "121233");
+
+  // Test dealing with auto-completion.
+  FakeCodeCompletionTestModel *fakeCodeCompletionModel = new FakeCodeCompletionTestModel(kate_view);
+  kate_view->registerCompletionModel(fakeCodeCompletionModel);
+  // Completion tests require a visible kate_view.
+  ensureKateViewVisible();
+  // Want Vim mode to intercept ctrl-p, ctrl-n shortcuts, etc.
+  const bool oldStealKeys = KateViewConfig::global()->viInputModeStealKeys();
+  KateViewConfig::global()->setViInputModeStealKeys(true);
+
+  // Don't invoke completion via ctrl-space when replaying a macro.
+  clearAllMacros();
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  BeginTest("");
+  TestPressKey("qqico\\ctrl- \\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("@q");
+  FinishTest("ccoo");
+
+  // Don't invoke completion via ctrl-p when replaying a macro.
+  clearAllMacros();
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  BeginTest("");
+  TestPressKey("qqico\\ctrl-p\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("@q");
+  FinishTest("ccoo");
+
+  // Don't invoke completion via ctrl-n when replaying a macro.
+  clearAllMacros();
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  BeginTest("");
+  TestPressKey("qqico\\ctrl-n\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("@q");
+  FinishTest("ccoo");
+
+  // An "enter" in insert mode when no completion is activated (so, a newline)
+  // is treated as a newline when replayed as a macro, even if completion is
+  // active when the "enter" is replayed.
+  clearAllMacros();
+  fakeCodeCompletionModel->setCompletions(QStringList()); // Prevent any completions.
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->clearWasInvoked();
+  BeginTest("");
+  TestPressKey("qqicompl\\enterX\\ctrl-cqdddd");
+  QVERIFY(!fakeCodeCompletionModel->wasInvoked()); // Error in test setup!
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->forceInvocationIfDocTextIs("compl");
+  fakeCodeCompletionModel->clearWasInvoked();
+  TestPressKey("@q");
+  QVERIFY(fakeCodeCompletionModel->wasInvoked()); // Error in test setup!
+  fakeCodeCompletionModel->doNotForceInvocation();
+  FinishTest("compl\nX");
+  // Same for "return".
+  clearAllMacros();
+  fakeCodeCompletionModel->setCompletions(QStringList()); // Prevent any completions.
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->clearWasInvoked();
+  BeginTest("");
+  TestPressKey("qqicompl\\returnX\\ctrl-cqdddd");
+  QVERIFY(!fakeCodeCompletionModel->wasInvoked()); // Error in test setup!
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->forceInvocationIfDocTextIs("compl");
+  fakeCodeCompletionModel->clearWasInvoked();
+  TestPressKey("@q");
+  QVERIFY(fakeCodeCompletionModel->wasInvoked()); // Error in test setup!
+  fakeCodeCompletionModel->doNotForceInvocation();
+  FinishTest("compl\nX");
+
+  // If we do a plain-text completion in a macro, this should be repeated when we replay it.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqicompl\\ctrl- \\enter\\ctrl-cq");
+  kate_document->clear();
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("@q");
+  FinishTest("completionA");
+
+  // Should replace only the current word when we repeat the completion.
+  clearAllMacros();
+  BeginTest("compl");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqfla\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("(compl)");
+  TestPressKey("gg@q");
+  FinishTest("(completionA)");
+
+  // Tail-clearing completions should be undoable with one undo.
+  clearAllMacros();
+  BeginTest("compl");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqfla\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("(compl)");
+  TestPressKey("gg@qu");
+  FinishTest("(compl)");
+
+  // Should be able to store multiple completions.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqicom\\ctrl-p\\enter com\\ctrl-p\\ctrl-p\\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("dd@q");
+  FinishTest("completionC completionB");
+
+  // Clear the completions for a macro when we start recording.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionOrig");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqicom\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionSecond");
+  TestPressKey("ddqqicom\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("dd@q");
+  FinishTest("completionSecond");
+
+  // Completions are per macro.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qaicom\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionB");
+  TestPressKey("ddqbicom\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("dd@aA\\enter\\ctrl-c@b");
+  FinishTest("completionA\ncompletionB");
+
+  // Make sure completions work with recursive macros.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA1" << "completionA2");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  // Record 'a', which calls the (non-yet-existent) macro 'b'.
+  TestPressKey("qaicom\\ctrl- \\enter\\ctrl-cA\\enter\\ctrl-c@bA\\enter\\ctrl-cicom\\ctrl- \\ctrl-p\\enter\\ctrl-cq");
+  // Clear document and record 'b'.
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionB");
+  TestPressKey("ggdGqbicom\\ctrl- \\enter\\ctrl-cq");
+  TestPressKey("dd@a");
+  FinishTest("completionA1\ncompletionB\ncompletionA2");
+
+  // Test that non-tail-removing completions are respected.
+  // Note that there is no way (in general) to determine if a completion was
+  // non-tail-removing, so we explicitly set the config to false.
+  const bool oldRemoveTailOnCompletion = KateViewConfig::global()->wordCompletionRemoveTail();
+  KateViewConfig::global()->setWordCompletionRemoveTail(false);
+  const bool oldReplaceTabsDyn = kate_document->config()->replaceTabsDyn();
+  kate_document->config()->setReplaceTabsDyn(false);
+  fakeCodeCompletionModel->setRemoveTailOnComplete(false);
+  clearAllMacros();
+  BeginTest("compTail");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "completionB" << "completionC");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqfTi\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("compTail");
+  TestPressKey("gg@q");
+  FinishTest("completionATail");
+
+  // A "word" consists of letters & numbers, plus "_".
+  clearAllMacros();
+  BeginTest("(123_compTail");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqfTi\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("(123_compTail");
+  TestPressKey("gg@q");
+  FinishTest("(123_completionATail");
+
+  // Correctly remove word if we are set to remove tail.
+  KateViewConfig::global()->setWordCompletionRemoveTail(true);
+  clearAllMacros();
+  BeginTest("(123_compTail)");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  TestPressKey("qqfTi\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("(123_compTail)");
+  TestPressKey("gg@q");
+  FinishTest("(123_completionA)");
+
+  // Again, a "word" consists of letters & numbers & underscores.
+  clearAllMacros();
+  BeginTest("(123_compTail_456)");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  TestPressKey("qqfTi\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("(123_compTail_456)");
+  TestPressKey("gg@q");
+  FinishTest("(123_completionA)");
+
+  // Actually, let whether the tail is swallowed or not depend on the value when the
+  // completion occurred, not when we replay it.
+  clearAllMacros();
+  BeginTest("(123_compTail_456)");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  KateViewConfig::global()->setWordCompletionRemoveTail(true);
+  TestPressKey("qqfTi\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  KateViewConfig::global()->setWordCompletionRemoveTail(false);
+  kate_document->setText("(123_compTail_456)");
+  TestPressKey("gg@q");
+  FinishTest("(123_completionA)");
+  clearAllMacros();
+  BeginTest("(123_compTail_456)");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->setRemoveTailOnComplete(false);
+  KateViewConfig::global()->setWordCompletionRemoveTail(false);
+  TestPressKey("qqfTi\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  KateViewConfig::global()->setWordCompletionRemoveTail(true);
+  kate_document->setText("(123_compTail_456)");
+  TestPressKey("gg@q");
+  FinishTest("(123_completionATail_456)");
+
+  // Can have remove-tail *and* non-remove-tail completions in one macro.
+  clearAllMacros();
+  BeginTest("(123_compTail_456)\n(123_compTail_456)");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  KateViewConfig::global()->setWordCompletionRemoveTail(true);
+  TestPressKey("qqfTi\\ctrl- \\enter\\ctrl-c");
+  fakeCodeCompletionModel->setRemoveTailOnComplete(false);
+  KateViewConfig::global()->setWordCompletionRemoveTail(false);
+  TestPressKey("j^fTi\\ctrl- \\enter\\ctrl-cq");
+  kate_document->setText("(123_compTail_456)\n(123_compTail_456)");
+  TestPressKey("gg@q");
+  FinishTest("(123_completionA)\n(123_completionATail_456)");
+
+  // Completion of functions.
+  // Currently, not removing the tail on function completion is not supported.
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  KateViewConfig::global()->setWordCompletionRemoveTail(true);
+  // A completed, no argument function "function()" is repeated correctly.
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function()");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("dd@q");
+  FinishTest("function()");
+
+  // Cursor is placed after the closing bracket when completion a no-arg function.
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function()");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enter.something();\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("dd@q");
+  FinishTest("function().something();");
+
+  // A function taking some arguments, repeated where there is no opening bracket to
+  // merge with, is repeated as "function()").
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enter\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("dd@q");
+  FinishTest("function()");
+
+  // A function taking some arguments, repeated where there is no opening bracket to
+  // merge with, places the cursor after the opening bracket.
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enterfirstArg\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("dd@q");
+  FinishTest("function(firstArg)");
+
+  // A function taking some arguments, recorded where there was an opening bracket to merge
+  // with but repeated where there is no such bracket, is repeated as "function()" and the
+  // cursor placed appropriately.
+  BeginTest("(<-Mergeable opening bracket)");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enterfirstArg\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("dd@q");
+  FinishTest("function(firstArg)");
+
+  // A function taking some arguments, recorded where there was no opening bracket to merge
+  // with but repeated where there is such a bracket, is repeated as "function" and the
+  // cursor moved to after the merged opening bracket.
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enterfirstArg\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("(<-firstArg goes here)");
+  TestPressKey("gg@q");
+  FinishTest("function(firstArg<-firstArg goes here)");
+
+  // A function taking some arguments, recorded where there was an opening bracket to merge
+  // with and repeated where there is also such a bracket, is repeated as "function" and the
+  // cursor moved to after the merged opening bracket.
+  BeginTest("(<-mergeablebracket)");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enterfirstArg\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("(<-firstArg goes here)");
+  TestPressKey("gg@q");
+  FinishTest("function(firstArg<-firstArg goes here)");
+
+  // The mergeable bracket can be separated by whitespace; the cursor is still placed after the
+  // opening bracket.
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enterfirstArg\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("   \t (<-firstArg goes here)");
+  TestPressKey("gg@q");
+  FinishTest("function   \t (firstArg<-firstArg goes here)");
+
+  // Whitespace only, though!
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enterfirstArg\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("|   \t ()");
+  TestPressKey("gg@q");
+  FinishTest("function(firstArg)|   \t ()");
+
+  // The opening bracket can actually be after the current word (with optional whitespace).
+  // Note that this wouldn't be the case if we weren't swallowing tails when completion functions,
+  // but this is not currently supported.
+  BeginTest("function");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqfta\\ctrl- \\enterfirstArg\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("functxyz    (<-firstArg goes here)");
+  TestPressKey("gg@q");
+  FinishTest("function    (firstArg<-firstArg goes here)");
+
+  // Functions taking no arguments are never bracket-merged.
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function()");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifunc\\ctrl- \\enter.something();\\ctrl-cq");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  kate_document->setText("(<-don't merge this bracket)");
+  TestPressKey("gg@q");
+  FinishTest("function().something();(<-don't merge this bracket)");
+
+  // Not-removing-tail when completing functions is not currently supported,
+  // so ignore the "do-not-remove-tail" settings when we try this.
+  BeginTest("funct");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...)");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  KateViewConfig::global()->setWordCompletionRemoveTail(false);
+  TestPressKey("qqfta\\ctrl- \\enterfirstArg\\ctrl-cq");
+  kate_document->setText("functxyz");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function(firstArg)");
+  BeginTest("funct");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function()");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  KateViewConfig::global()->setWordCompletionRemoveTail(false);
+  TestPressKey("qqfta\\ctrl- \\enter\\ctrl-cq");
+  kate_document->setText("functxyz");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function()");
+  KateViewConfig::global()->setWordCompletionRemoveTail(true);
+
+  {
+    const QString viTestKConfigFileName = "vimodetest-katevimoderc";
+    KConfig viTestKConfig(viTestKConfigFileName);
+    KConfigGroup viTestKConfigGroup(&viTestKConfig, "Kate Vi Test Stuff");
+    // Test loading and saving of macro completions.
+    clearAllMacros();
+    BeginTest("funct\nnoa\ncomtail\ncomtail\ncom");
+    fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "functionwithargs(...)" << "noargfunction()");
+    fakeCodeCompletionModel->setFailTestOnInvocation(false);
+    // Record 'a'.
+    TestPressKey("qafta\\ctrl- \\enterfirstArg\\ctrl-c"); // Function with args.
+    TestPressKey("\\enterea\\ctrl- \\enter\\ctrl-c");     // Function no args.
+    fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+    KateViewConfig::global()->setWordCompletionRemoveTail(true);
+    TestPressKey("\\enterfti\\ctrl- \\enter\\ctrl-c");   // Cut off tail.
+    fakeCodeCompletionModel->setRemoveTailOnComplete(false);
+    KateViewConfig::global()->setWordCompletionRemoveTail(false);
+    TestPressKey("\\enterfti\\ctrl- \\enter\\ctrl-cq");   // Don't cut off tail.
+    fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+    KateViewConfig::global()->setWordCompletionRemoveTail(true);
+    // Record 'b'.
+    fakeCodeCompletionModel->setCompletions(QStringList() << "completionB");
+    TestPressKey("\\enterqbea\\ctrl- \\enter\\ctrl-cq");
+    // Save.
+    KateGlobal::self()->viInputModeGlobal()->writeConfig(viTestKConfigGroup);
+    viTestKConfig.sync();
+    // Overwrite 'a' and 'b' and their completions.
+    fakeCodeCompletionModel->setCompletions(QStringList() << "blah1");
+    kate_document->setText("");
+    TestPressKey("ggqaiblah\\ctrl- \\enter\\ctrl-cq");
+    TestPressKey("ddqbiblah\\ctrl- \\enter\\ctrl-cq");
+    // Reload.
+    KateGlobal::self()->viInputModeGlobal()->readConfig(viTestKConfigGroup);
+    // Replay reloaded.
+    fakeCodeCompletionModel->setFailTestOnInvocation(true);
+    kate_document->setText("funct\nnoa\ncomtail\ncomtail\ncom");
+    TestPressKey("gg@a\\enter@b");
+    FinishTest("functionwithargs(firstArg)\nnoargfunction()\ncompletionA\ncompletionAtail\ncompletionB");
+  }
+
+
+  KateViewConfig::global()->setWordCompletionRemoveTail(oldRemoveTailOnCompletion);
+  kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);
+
+  kate_view->unregisterCompletionModel(fakeCodeCompletionModel);
+  delete fakeCodeCompletionModel;
+  fakeCodeCompletionModel = 0;
+  // Hide the kate_view for subsequent tests.
+  kate_view->hide();
+  mainWindow->hide();
+  KateViewConfig::global()->setViInputModeStealKeys(oldStealKeys);
 }
 
 // Special area for tests where you want to set breakpoints etc without all the other tests
@@ -6306,14 +6812,19 @@ void ViModeTest::ensureKateViewVisible()
 
 void ViModeTest::waitForCompletionWidgetToActivate()
 {
-    const QDateTime start = QDateTime::currentDateTime();
-    while (start.msecsTo(QDateTime::currentDateTime()) < 1000)
-    {
-      if (kate_view->isCompletionActive())
-        break;
-      QApplication::processEvents();
-    }
-    QVERIFY(kate_view->isCompletionActive());
+  waitForCompletionWidgetToActivate(kate_view);
+}
+
+void ViModeTest::waitForCompletionWidgetToActivate(KateView* kate_view)
+{
+  const QDateTime start = QDateTime::currentDateTime();
+  while (start.msecsTo(QDateTime::currentDateTime()) < 1000)
+  {
+    if (kate_view->isCompletionActive())
+      break;
+    QApplication::processEvents();
+  }
+  QVERIFY(kate_view->isCompletionActive());
 }
 
 KateViEmulatedCommandBar* ViModeTest::emulatedCommandBar()

@@ -45,6 +45,9 @@ KateViInsertMode::KateViInsertMode( KateViInputModeManager *viInputModeManager,
   m_countedRepeatsBeginOnNewLine = false;
 
   m_isExecutingCompletion = false;
+
+  connect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
+          this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
 }
 
 KateViInsertMode::~KateViInsertMode()
@@ -330,10 +333,19 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       return true;
     case Qt::Key_Enter:
     case Qt::Key_Return:
-      if (m_view->completionWidget()->isCompletionActive())
+      if (m_view->completionWidget()->isCompletionActive() && !m_viInputModeManager->isReplayingMacro())
       {
+        if (m_viInputModeManager->isRecordingMacro())
+        {
+          // Filter out Enter/ Return's that trigger a completion when recording macros; they
+          // will be replaced with the special code "ctrl-space".
+          // (This is why there is a "!m_viInputModeManager->isReplayingMacro()" above.)
+          m_viInputModeManager->doNotLogCurrentKeypress();
+        }
         m_isExecutingCompletion = true;
+        m_textInsertedByCompletion.clear();
         m_view->completionWidget()->execute();
+        completionFinished();
         m_isExecutingCompletion = false;
         return true;
       }
@@ -349,7 +361,21 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       return true;
       break;
     case Qt::Key_Space:
-      commandCompleteNext();
+      // We use Ctrl-space as a special code in macros, which means: if replaying
+      // a macro, fetch and execute the next completion for this macro ...
+      if (!m_viInputModeManager->isReplayingMacro())
+      {
+        commandCompleteNext();
+        if (m_viInputModeManager->isRecordingMacro())
+        {
+          // ... therefore, we should not record ctrl-space indiscriminately.
+          m_viInputModeManager->doNotLogCurrentKeypress();
+        }
+      }
+      else
+      {
+        replayCompletion();
+      }
       return true;
       break;
     case Qt::Key_C:
@@ -365,11 +391,17 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       return true;
       break;
     case Qt::Key_N:
-      commandCompleteNext();
+      if (!m_viInputModeManager->isReplayingMacro())
+      {
+        commandCompleteNext();
+      }
       return true;
       break;
     case Qt::Key_P:
-      commandCompletePrevious();
+      if (!m_viInputModeManager->isReplayingMacro())
+      {
+        commandCompletePrevious();
+      }
       return true;
       break;
     case Qt::Key_T:
@@ -451,6 +483,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 // ctrl-c is used to exit insert mode this is not done.
 void KateViInsertMode::leaveInsertMode( bool force )
 {
+    m_view->abortCompletion();
     if ( !force )
     {
       if ( m_blockInsert != None ) { // block append/prepend
@@ -544,7 +577,85 @@ void KateViInsertMode::setBlockAppendMode( KateViRange blockRange, BlockInsert b
     }
 }
 
-bool KateViInsertMode::isExecutingCompletion()
+void KateViInsertMode::completionFinished()
 {
-  return m_isExecutingCompletion;
+  KateViInputModeManager::Completion::CompletionType completionType = KateViInputModeManager::Completion::PlainText;
+  if (m_view->cursorPosition() != m_textInsertedByCompletionEndPos)
+  {
+    completionType = KateViInputModeManager::Completion::FunctionWithArgs;
+  }
+  else if (m_textInsertedByCompletion.endsWith("()"))
+  {
+    completionType = KateViInputModeManager::Completion::FunctionWithoutArgs;
+  }
+  m_viInputModeManager->logCompletionEvent(KateViInputModeManager::Completion(m_textInsertedByCompletion, KateViewConfig::global()->wordCompletionRemoveTail(), completionType));
+}
+
+void KateViInsertMode::replayCompletion()
+{
+  const KateViInputModeManager::Completion completion = m_viInputModeManager->nextLoggedCompletion();
+  m_view->setCursorPosition(Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() - 1));
+  QString completionText = completion.completedText();
+  kDebug(13070) << "Preliminary completion: " << completionText;
+  const Range currentWord = getWordRangeUnderCursor();
+  // Should we merge opening brackets? Yes, if completion is a function with arguments and after the cursor
+  // there is (optional whitespace) followed by an open bracket.
+  int offsetFinalCursorPosBy = 0;
+  if (completion.completionType() == KateViInputModeManager::Completion::FunctionWithArgs)
+  {
+    const int nextMergableBracketAfterCursorPos = findNextMergeableBracketPos(currentWord.end());
+    if (nextMergableBracketAfterCursorPos != -1)
+    {
+      if (completionText.endsWith("()"))
+      {
+        // Strip "()".
+        completionText = completionText.left(completionText.length() - 2);
+      }
+      // Ensure cursor ends up after the merged open bracket.
+      offsetFinalCursorPosBy = nextMergableBracketAfterCursorPos + 1;
+    }
+    else
+    {
+      if (!completionText.endsWith("()"))
+      {
+        // Original completion merged with an opening bracket; we'll have to add our own brackets.
+        completionText.append("()");
+      }
+      // Position cursor correctly i.e. we'll have added "functionname()"; need to step back by
+      // one to be after the opening bracket.
+      offsetFinalCursorPosBy = -1;
+    }
+  }
+  const Cursor deleteEnd =  completion.removeTail() ? currentWord.end() :
+                                              Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() + 1);
+
+  doc()->removeText(Range(currentWord.start(), deleteEnd));
+  doc()->insertText(currentWord.start(), completionText);
+
+  if (offsetFinalCursorPosBy != 0)
+  {
+    m_view->setCursorPosition(Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() + offsetFinalCursorPosBy));
+  }
+}
+
+
+int KateViInsertMode::findNextMergeableBracketPos(const Cursor& startPos)
+{
+  const QString lineAfterCursor = doc()->text(Range(startPos, Cursor(startPos.line(), doc()->lineLength(startPos.line()))));
+  QRegExp whitespaceThenOpeningBracket("^\\s*(\\()");
+  int nextMergableBracketAfterCursorPos = -1;
+  if (lineAfterCursor.contains(whitespaceThenOpeningBracket))
+  {
+    nextMergableBracketAfterCursorPos =  whitespaceThenOpeningBracket.pos(1);
+  }
+  return nextMergableBracketAfterCursorPos;
+}
+
+void KateViInsertMode::textInserted(KTextEditor::Document* document, KTextEditor::Range range)
+{
+  if (m_isExecutingCompletion)
+  {
+    m_textInsertedByCompletion += document->text(range);
+    m_textInsertedByCompletionEndPos = range.end();
+  }
 }

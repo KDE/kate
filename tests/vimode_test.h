@@ -26,11 +26,13 @@
 #include <katedocument.h>
 #include <kateviinputmodemanager.h>
 #include <kateview.h>
+#include <ktexteditor/codecompletionmodel.h>
 
 class QLineEdit;
 class QLabel;
 class QCompleter;
 class QMainWindow;
+
 
 class WindowKeepActive : public QObject
 {
@@ -66,6 +68,73 @@ private:
   const QString m_failureMessage;
 };
 
+/**
+ * Helper class that mimics some of the behaviour of KDevelop's code completion, in particular
+ * whether it performs "bracket merging" on completed function calls e.g. if we complete a call
+ * to "functionCall(int a)" at the end of the -> here:
+ *
+ *  object->(
+ *
+ * we end up with
+ *
+ *  object->functionCall(
+ *
+ * and the cursor placed after the closing bracket: the opening bracket is merged with the existing
+ * bracket.
+ *
+ * However, if we do the same with
+ *
+ *  object->
+ *
+ * we end up with
+ *
+ *  object->functionCall()
+ *
+ * again with the cursor placed after the opening bracket.  This time, the brackets were not merged.
+ *
+ * This helper class is used to test how Macros and replaying of last changes works with complex
+ * code completion.
+ */
+class FakeCodeCompletionTestModel : public KTextEditor::CodeCompletionModel
+{
+    Q_OBJECT
+public:
+    FakeCodeCompletionTestModel(KTextEditor::View* parent);
+    /**
+     * List of completions, in sorted order.
+     * A string ending with "()" is treated as a call to a function with no arguments.
+     * A string ending with "(...)" is treated as a call to a function with at least one argument.  The "..." is not
+     * inserted into the text.
+     */
+    void setCompletions(const QStringList& completions);
+    void setRemoveTailOnComplete(bool removeTailOnCompletion);
+    void setFailTestOnInvocation(bool failTestOnInvocation);
+    bool wasInvoked();
+    void clearWasInvoked();
+    /**
+     * A more reliable form of setAutomaticInvocationEnabled().
+     */
+    void forceInvocationIfDocTextIs(const QString& desiredDocText);
+    void doNotForceInvocation();;
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    virtual void executeCompletionItem(KTextEditor::Document* document, const KTextEditor::Range& word, int row) const;
+    KTextEditor::CodeCompletionInterface * cc( ) const;
+private:
+  void failTest() const;
+  QStringList m_completions;
+  KateView *m_kateView;
+  KTextEditor::Document *m_kateDoc;
+  bool m_removeTailOnCompletion;
+  bool m_failTestOnInvocation;
+  mutable bool m_wasInvoked;
+  QString m_forceInvocationIfDocTextIs;
+private slots:
+  void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
+  void textRemoved(KTextEditor::Document* document, KTextEditor::Range range);
+  void checkIfShouldForceInvocation();
+
+};
+
 class ViModeTest : public QObject
 {
   Q_OBJECT
@@ -73,6 +142,8 @@ class ViModeTest : public QObject
 public:
   ViModeTest();
   ~ViModeTest();
+
+  static void waitForCompletionWidgetToActivate(KateView *kate_view);
 
 private Q_SLOTS:
   void NormalModeMotionsTest();

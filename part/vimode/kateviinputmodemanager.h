@@ -195,10 +195,27 @@ public:
    */
   void repeatLastChange();
 
+  class Completion
+  {
+  public:
+    enum CompletionType { PlainText, FunctionWithoutArgs, FunctionWithArgs };
+    Completion(const QString& completedText, bool removeTail, CompletionType completionType);
+    QString completedText() const;
+    bool removeTail() const;
+    CompletionType completionType() const;
+  private:
+    QString m_completedText;
+    bool m_removeTail;
+    CompletionType m_completionType;
+  };
   void startRecordingMacro(QChar macroRegister);
   void finishRecordingMacro();
   bool isRecordingMacro();
   void replayMacro(QChar macroRegister);
+  bool isReplayingMacro();
+  void logCompletionEvent(const Completion& completion);
+  Completion nextLoggedCompletion();
+  void doNotLogCurrentKeypress();
 
   /**
    * The current search pattern.
@@ -311,6 +328,16 @@ private:
 
   int m_macrosBeingReplayedCount;
   QChar m_lastPlayedMacroRegister;
+
+  QList<Completion> m_currentMacroLoggedCompletions;
+
+  /**
+   * Stuff for retrieving the next completion for the macro.
+   * Needs to be on a stack for if macros call other macros
+   * which have their own stored completions.
+   */
+  QStack<QList<Completion> > m_macroCompletionsToReplay;
+  QStack< int > m_nextLoggedCompletionIndex;
 
   /**
    * set to true when the insertion should be repeated as text

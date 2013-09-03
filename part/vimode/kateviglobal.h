@@ -78,11 +78,12 @@ public:
 
     void clearAllMacros();
     void clearMacro(QChar macroRegister);
-    void storeMacro(QChar macroRegister, const QList<QKeyEvent> macroKeyEventLog);
+    void storeMacro(QChar macroRegister, const QList<QKeyEvent> macroKeyEventLog, const QList<KateViInputModeManager::Completion> completions);
     /**
      * Get the named macro in a format suitable for passing to feedKeyPresses.
      */
     QString getMacro(QChar macroRegister);
+    QList< KateViInputModeManager::Completion > getMacroCompletions(QChar macroRegister);
 
 private:
     // registers
@@ -105,6 +106,9 @@ private:
 
     void writeMappingsToConfig(KConfigGroup& config, const QString& mappingModeName, ViMode mappingMode) const;
     void readMappingsFromConfig(const KConfigGroup& config, const QString&, ViMode mappingMode);
+    int readMacroCompletions(QChar macroRegister, const QStringList& encodedMacroCompletions, int macroCompletionIndex);
+    QString encodeMacroCompletionForConfig(const KateViInputModeManager::Completion& completionForMacro) const;
+    KateViInputModeManager::Completion decodeMacroCompletionFromConfig(const QString& encodedMacroCompletion);
 
     class History
     {
@@ -140,6 +144,7 @@ private:
     History m_replaceHistory;
 
     QHash<QChar, QString > m_macroForRegister;
+    QHash<QChar, QList<KateViInputModeManager::Completion> > m_macroCompletionsForRegister;
 };
 
 #endif

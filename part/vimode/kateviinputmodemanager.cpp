@@ -328,13 +328,14 @@ void KateViInputModeManager::startRecordingMacro(QChar macroRegister)
   m_recordingMacroRegister = macroRegister;
   KateGlobal::self()->viInputModeGlobal()->clearMacro(macroRegister);
   m_currentMacroKeyEventsLog.clear();
+  m_currentMacroLoggedCompletions.clear();
 }
 
 void KateViInputModeManager::finishRecordingMacro()
 {
   Q_ASSERT(m_isRecordingMacro);
   m_isRecordingMacro = false;
-  KateGlobal::self()->viInputModeGlobal()->storeMacro(m_recordingMacroRegister, m_currentMacroKeyEventsLog);
+  KateGlobal::self()->viInputModeGlobal()->storeMacro(m_recordingMacroRegister, m_currentMacroKeyEventsLog, m_currentMacroLoggedCompletions);
 }
 
 bool KateViInputModeManager::isRecordingMacro()
@@ -349,14 +350,20 @@ void KateViInputModeManager::replayMacro(QChar macroRegister)
     macroRegister = m_lastPlayedMacroRegister;
   }
   m_lastPlayedMacroRegister = macroRegister;
+  kDebug(13070) << "Replaying macro: " << macroRegister;
   const QString macroAsFeedableKeypresses = KateGlobal::self()->viInputModeGlobal()->getMacro(macroRegister);
   kDebug(13070) << "macroAsFeedableKeypresses:  " << macroAsFeedableKeypresses;
 
   m_macrosBeingReplayedCount++;
+  m_nextLoggedCompletionIndex.push(0);
+  m_macroCompletionsToReplay.push(KateGlobal::self()->viInputModeGlobal()->getMacroCompletions(macroRegister));
   m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
   feedKeyPresses(macroAsFeedableKeypresses);
   m_keyMapperStack.pop();
+  m_macroCompletionsToReplay.pop();
+  m_nextLoggedCompletionIndex.pop();
   m_macrosBeingReplayedCount--;
+  kDebug(13070) << "Finished replaying: " << macroRegister;
 }
 
 bool KateViInputModeManager::isReplayingMacro()
@@ -364,18 +371,23 @@ bool KateViInputModeManager::isReplayingMacro()
   return m_macrosBeingReplayedCount > 0;
 }
 
-void KateViInputModeManager::logCompletionEvent(const QString& completedText)
+void KateViInputModeManager::logCompletionEvent(const KateViInputModeManager::Completion& completion)
 {
   // Ctrl-space is a special code that means: if you're replaying a macro, fetch and execute
   // the next logged completion.
   QKeyEvent ctrlSpace( QKeyEvent::KeyPress, Qt::Key_Space, Qt::ControlModifier, " ");
   m_currentMacroKeyEventsLog.append(ctrlSpace);
-  m_currentMacroLoggedCompletions.append(completedText);
+  m_currentMacroLoggedCompletions.append(completion);
 }
 
-QString KateViInputModeManager::nextLoggedCompletion()
+KateViInputModeManager::Completion KateViInputModeManager::nextLoggedCompletion()
 {
-  return m_currentMacroLoggedCompletions[m_nextLoggedCompletionIndex++];
+  if (m_nextLoggedCompletionIndex.top() >= m_macroCompletionsToReplay.top().length())
+  {
+    kDebug(13070) << "Something wrong here: requesting more completions than we actually have.  Returning dummy.";
+    return Completion("", false, Completion::PlainText);
+  }
+  return m_macroCompletionsToReplay.top()[m_nextLoggedCompletionIndex.top()++];
 }
 
 void KateViInputModeManager::doNotLogCurrentKeypress()
@@ -861,4 +873,28 @@ QString KateViInputModeManager::modeToString(ViMode mode)
 KateViKeyMapper* KateViInputModeManager::keyMapper()
 {
   return m_keyMapperStack.top().data();
+}
+
+KateViInputModeManager::Completion::Completion(const QString& completedText, bool removeTail, CompletionType completionType)
+    : m_completedText(completedText),
+      m_removeTail(removeTail),
+      m_completionType(completionType)
+{
+  if (m_completionType == FunctionWithArgs || m_completionType == FunctionWithoutArgs)
+  {
+    kDebug(13070) << "Completing a function while not removing tail currently unsupported; will remove tail instead";
+    m_removeTail = true;
+  }
+}
+QString KateViInputModeManager::Completion::completedText() const
+{
+  return m_completedText;
+}
+bool KateViInputModeManager::Completion::removeTail() const
+{
+  return m_removeTail;
+}
+KateViInputModeManager::Completion::CompletionType KateViInputModeManager::Completion::completionType() const
+{
+  return m_completionType;
 }

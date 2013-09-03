@@ -44,6 +44,7 @@ enum BlockInsert {
 
 class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
 {
+  Q_OBJECT
   public:
     KateViInsertMode( KateViInputModeManager *viInputModeManager, KateView * view, KateViewInternal * viewInternal );
     ~KateViInsertMode();
@@ -78,8 +79,6 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     void setCount(int count) { m_count = count;};
     void setCountedRepeatsBeginOnNewLine(bool countedRepeatsBeginOnNewLine) { m_countedRepeatsBeginOnNewLine = countedRepeatsBeginOnNewLine;};
 
-    bool isExecutingCompletion();
-
   protected:
     BlockInsert m_blockInsert;
     unsigned int m_eolPos; // length of first line in eol mode before text is appended
@@ -92,8 +91,16 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     bool m_countedRepeatsBeginOnNewLine;
 
     bool m_isExecutingCompletion;
+    QString m_textInsertedByCompletion;
+    Cursor m_textInsertedByCompletionEndPos;
 
     void leaveInsertMode( bool force = false);
+
+    void completionFinished();
+    void replayCompletion();
+    int findNextMergeableBracketPos(const Cursor& startPos);
+  private slots:
+    void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
 };
 
 #endif

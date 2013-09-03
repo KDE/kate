@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 -->
 
 
-<language name="Go" version="1.02" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
+<language name="Go" version="1.03" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
     <highlighting>
     <list name="keywords">
 <!-- Keywords have been taken from The Go Programming Language Specification -> Keywords section -->
@@ -115,7 +115,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <HlCHex attribute="Hex" context="#stay"/>
       <HlCChar attribute="Char" context="#stay" />
       <DetectChar attribute="String" context="String" char="&quot;" />
-      <DetectChar attribute="Multiline String" context="Multiline String" char="`"/>
+      <DetectChar attribute="String" context="Multiline String" char="`"/>
       <AnyChar attribute="Symbol" context="#stay" String=":!%&amp;()+,-/.*&lt;=&gt;?[]|~^&#59;"/>
       </context>
 

@@ -333,15 +333,13 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       return true;
     case Qt::Key_Enter:
     case Qt::Key_Return:
-      if (m_view->completionWidget()->isCompletionActive() && !m_viInputModeManager->isReplayingMacro())
+      if (m_view->completionWidget()->isCompletionActive() && !m_viInputModeManager->isReplayingMacro() && !m_viInputModeManager->isReplayingLastChange())
       {
-        if (m_viInputModeManager->isRecordingMacro())
-        {
-          // Filter out Enter/ Return's that trigger a completion when recording macros; they
-          // will be replaced with the special code "ctrl-space".
-          // (This is why there is a "!m_viInputModeManager->isReplayingMacro()" above.)
-          m_viInputModeManager->doNotLogCurrentKeypress();
-        }
+        // Filter out Enter/ Return's that trigger a completion when recording macros/ last change stuff; they
+        // will be replaced with the special code "ctrl-space".
+        // (This is why there is a "!m_viInputModeManager->isReplayingMacro()" above.)
+        m_viInputModeManager->doNotLogCurrentKeypress();
+
         m_isExecutingCompletion = true;
         m_textInsertedByCompletion.clear();
         m_view->completionWidget()->execute();
@@ -361,16 +359,13 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       return true;
       break;
     case Qt::Key_Space:
-      // We use Ctrl-space as a special code in macros, which means: if replaying
-      // a macro, fetch and execute the next completion for this macro ...
-      if (!m_viInputModeManager->isReplayingMacro())
+      // We use Ctrl-space as a special code in macros/ last change, which means: if replaying
+      // a macro/ last change, fetch and execute the next completion for this macro/ last change ...
+      if (!m_viInputModeManager->isReplayingMacro() && !m_viInputModeManager->isReplayingLastChange())
       {
         commandCompleteNext();
-        if (m_viInputModeManager->isRecordingMacro())
-        {
-          // ... therefore, we should not record ctrl-space indiscriminately.
-          m_viInputModeManager->doNotLogCurrentKeypress();
-        }
+        // ... therefore, we should not record ctrl-space indiscriminately.
+        m_viInputModeManager->doNotLogCurrentKeypress();
       }
       else
       {
@@ -594,10 +589,28 @@ void KateViInsertMode::completionFinished()
 void KateViInsertMode::replayCompletion()
 {
   const KateViInputModeManager::Completion completion = m_viInputModeManager->nextLoggedCompletion();
-  m_view->setCursorPosition(Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() - 1));
+  // Find beginning of the word.
+  Cursor cursorPos = m_view->cursorPosition();
+  Cursor wordStart = Cursor::invalid();
+  if (!doc()->character(cursorPos).isLetterOrNumber() && doc()->character(cursorPos) != '_')
+  {
+    cursorPos.setColumn(cursorPos.column() - 1);
+  }
+  while (cursorPos.column() >= 0 && (doc()->character(cursorPos).isLetterOrNumber() || doc()->character(cursorPos) == '_'))
+  {
+    wordStart = cursorPos;
+    cursorPos.setColumn(cursorPos.column() - 1);
+  }
+  // Find end of current word.
+  cursorPos = m_view->cursorPosition();
+  Cursor wordEnd = Cursor(cursorPos.line(), cursorPos.column() - 1);
+  while (cursorPos.column() < doc()->lineLength(cursorPos.line()) && (doc()->character(cursorPos).isLetterOrNumber() || doc()->character(cursorPos) == '_'))
+  {
+    wordEnd = cursorPos;
+    cursorPos.setColumn(cursorPos.column() + 1);
+  }
   QString completionText = completion.completedText();
-  kDebug(13070) << "Preliminary completion: " << completionText;
-  const Range currentWord = getWordRangeUnderCursor();
+  const Range currentWord = Range(wordStart, Cursor(wordEnd.line(), wordEnd.column() + 1));
   // Should we merge opening brackets? Yes, if completion is a function with arguments and after the cursor
   // there is (optional whitespace) followed by an open bracket.
   int offsetFinalCursorPosBy = 0;
@@ -627,7 +640,7 @@ void KateViInsertMode::replayCompletion()
     }
   }
   Cursor deleteEnd =  completion.removeTail() ? currentWord.end() :
-                                                Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() + 1);
+                                                Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() + 0);
   if (!completion.removeTail() && currentWord.start() == m_view->cursorPosition())
   {
     // Careful not to swallow the first letter of a word just because its beginning coincides with the cursor position

@@ -153,29 +153,6 @@ public:
   bool isReplayingLastChange() const { return m_replayingLastChange; }
 
   /**
-   * set whether insert mode should be repeated as text instead of
-   * keystrokes. the default is keystrokes, which is reset between
-   * changes. for example, when invoking a completion command in
-   * insert mode, textual repeat should be enabled since repeating the
-   * completion may yield different results elsewhere in the document.
-   * therefore, it is better to repeat the text itself. however, most
-   * insertion commands do not need textual repeat; it should only be
-   * used when the repeating of keystrokes leads to unpredictable
-   * results. indeed, in most cases, repeating the keystrokes is the
-   * most predictable approach.
-   * @see isTextualRepeat()
-   * @return true if insert mode should be repeated as text
-   */
-  void setTextualRepeat( bool b = true ) { m_textualRepeat = b; }
-
-  /**
-   * whether insert mode should be repeated as text instead of keystrokes.
-   * @see setTextualRepeat()
-   * @return true if insert mode should be repeated as text
-   */
-  bool isTextualRepeat() const { return m_textualRepeat; }
-
-  /**
    * append a QKeyEvent to the key event log
    */
   void appendKeyEventToLog(const QKeyEvent &e);
@@ -183,7 +160,7 @@ public:
   /**
    * clear the key event log
    */
-  void clearLog() { m_keyEventsLog.clear(); m_keyEventsBeforeInsert.clear(); }
+  void clearLog() { m_keyEventsLog.clear(); m_currentChangeCompletionsLog.clear(); }
 
   /**
    * copy the contents of the key events log to m_lastChange so that it can be repeated
@@ -337,24 +314,17 @@ private:
    * which have their own stored completions.
    */
   QStack<QList<Completion> > m_macroCompletionsToReplay;
-  QStack< int > m_nextLoggedCompletionIndex;
-
-  /**
-   * set to true when the insertion should be repeated as text
-   */
-  bool m_textualRepeat;
+  QStack< int > m_nextLoggedMacroCompletionIndex;
 
   /**
    * a continually updated list of the key events that was part of the last change.
    * updated until copied to m_lastChange when the change is completed.
    */
   QList<QKeyEvent> m_keyEventsLog;
-
-  /**
-   * like m_keyEventsLog, but excludes insert mode: that is, only the key events
-   * leading up to insert mode (like "i", "cw", and "o") are logged.
-   */
-  QList<QKeyEvent> m_keyEventsBeforeInsert;
+  QList<Completion> m_currentChangeCompletionsLog;
+  QList<Completion> m_lastChangeCompletionsLog;
+  QList<Completion> m_lastChangeCompletionsToReplay;
+  int m_nextLoggedLastChangeComplexIndex;
 
   /**
    * a list of the key events that was part of the last change.

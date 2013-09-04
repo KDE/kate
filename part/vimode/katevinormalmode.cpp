@@ -3825,13 +3825,6 @@ void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range
       m_viInputModeManager->addMark(doc(), '.', Cursor(m_viInputModeManager->getMarkPosition('.').line(), 0));
     }
   }
-  if (m_view->completionWidget()->isCompletionActive())
-  {
-    // A completion has occurred; completion may yield different results when performed
-    // other places in the document. Therefore, repeat the inserted text instead
-    // of the typed keystrokes.
-    m_viInputModeManager->setTextualRepeat(true);
-  }
 }
 
 void KateViNormalMode::textRemoved(KTextEditor::Document* document , Range range)

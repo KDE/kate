@@ -64,7 +64,6 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_insideHandlingKeyPressCount = 0;
 
   m_replayingLastChange = false;
-  m_textualRepeat = false;
 
   m_isRecordingMacro = false;
   m_macrosBeingReplayedCount = 0;
@@ -276,7 +275,7 @@ void KateViInputModeManager::storeChangeCommand()
 {
   m_lastChange.clear();
 
-  QList<QKeyEvent> keyLog = isTextualRepeat() ? m_keyEventsBeforeInsert : m_keyEventsLog;
+  QList<QKeyEvent> keyLog = m_keyEventsLog;
 
   for (int i = 0; i < keyLog.size(); i++) {
     int keyCode = keyLog.at(i).key();
@@ -305,17 +304,14 @@ void KateViInputModeManager::storeChangeCommand()
 
     m_lastChange.append(key);
   }
-
-  if ( isTextualRepeat() ) {
-    // paste text from the insert register "^
-    m_lastChange.append( KateViKeyParser::self()->encodeKeySequence( "<esc>\"^p" ) );
-  }
-
+  m_lastChangeCompletionsLog = m_currentChangeCompletionsLog;
 }
 
 void KateViInputModeManager::repeatLastChange()
 {
   m_replayingLastChange = true;
+  m_lastChangeCompletionsToReplay = m_lastChangeCompletionsLog;
+  m_nextLoggedLastChangeComplexIndex = 0;
   feedKeyPresses(m_lastChange);
   m_replayingLastChange = false;
 }
@@ -355,13 +351,13 @@ void KateViInputModeManager::replayMacro(QChar macroRegister)
   kDebug(13070) << "macroAsFeedableKeypresses:  " << macroAsFeedableKeypresses;
 
   m_macrosBeingReplayedCount++;
-  m_nextLoggedCompletionIndex.push(0);
+  m_nextLoggedMacroCompletionIndex.push(0);
   m_macroCompletionsToReplay.push(KateGlobal::self()->viInputModeGlobal()->getMacroCompletions(macroRegister));
   m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
   feedKeyPresses(macroAsFeedableKeypresses);
   m_keyMapperStack.pop();
   m_macroCompletionsToReplay.pop();
-  m_nextLoggedCompletionIndex.pop();
+  m_nextLoggedMacroCompletionIndex.pop();
   m_macrosBeingReplayedCount--;
   kDebug(13070) << "Finished replaying: " << macroRegister;
 }
@@ -376,24 +372,47 @@ void KateViInputModeManager::logCompletionEvent(const KateViInputModeManager::Co
   // Ctrl-space is a special code that means: if you're replaying a macro, fetch and execute
   // the next logged completion.
   QKeyEvent ctrlSpace( QKeyEvent::KeyPress, Qt::Key_Space, Qt::ControlModifier, " ");
-  m_currentMacroKeyEventsLog.append(ctrlSpace);
-  m_currentMacroLoggedCompletions.append(completion);
+  if (isRecordingMacro())
+  {
+    m_currentMacroKeyEventsLog.append(ctrlSpace);
+    m_currentMacroLoggedCompletions.append(completion);
+  }
+  m_keyEventsLog.append(ctrlSpace);
+  m_currentChangeCompletionsLog.append(completion);
 }
 
 KateViInputModeManager::Completion KateViInputModeManager::nextLoggedCompletion()
 {
-  if (m_nextLoggedCompletionIndex.top() >= m_macroCompletionsToReplay.top().length())
+  Q_ASSERT(isReplayingLastChange() || isReplayingMacro());
+  if (isReplayingMacro())
   {
-    kDebug(13070) << "Something wrong here: requesting more completions than we actually have.  Returning dummy.";
-    return Completion("", false, Completion::PlainText);
+    if (m_nextLoggedMacroCompletionIndex.top() >= m_macroCompletionsToReplay.top().length())
+    {
+      kDebug(13070) << "Something wrong here: requesting more completions than we actually have.  Returning dummy.";
+      return Completion("", false, Completion::PlainText);
+    }
+    return m_macroCompletionsToReplay.top()[m_nextLoggedMacroCompletionIndex.top()++];
   }
-  return m_macroCompletionsToReplay.top()[m_nextLoggedCompletionIndex.top()++];
+  else
+  {
+    if (m_nextLoggedLastChangeComplexIndex >= m_lastChangeCompletionsToReplay.length())
+    {
+      kDebug(13070) << "Something wrong here: requesting more completions than we actually have.  Returning dummy.";
+      return Completion("", false, Completion::PlainText);
+    }
+    return m_lastChangeCompletionsToReplay[m_nextLoggedLastChangeComplexIndex++];
+  }
 }
 
 void KateViInputModeManager::doNotLogCurrentKeypress()
 {
-  Q_ASSERT(!m_currentMacroKeyEventsLog.isEmpty());
-  m_currentMacroKeyEventsLog.pop_back();
+  if (m_isRecordingMacro)
+  {
+    Q_ASSERT(!m_currentMacroKeyEventsLog.isEmpty());
+    m_currentMacroKeyEventsLog.pop_back();
+  }
+  Q_ASSERT(!m_keyEventsLog.isEmpty());
+  m_keyEventsLog.pop_back();
 }
 
 const QString KateViInputModeManager::getLastSearchPattern() const
@@ -465,7 +484,6 @@ void KateViInputModeManager::viEnterNormalMode()
     addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
   }
 
-  setTextualRepeat(false);
   changeViMode(NormalMode);
 
   if ( moveCursorLeft ) {
@@ -485,7 +503,6 @@ void KateViInputModeManager::viEnterInsertMode()
     // after returning from temporary normal mode will be treated as commands!
     m_keyEventsLog.append(QKeyEvent(QEvent::KeyPress, QString("i")[0].unicode(), Qt::NoModifier, "i"));
   }
-  m_keyEventsBeforeInsert = m_keyEventsLog;
   m_view->setCaretStyle( KateRenderer::Line, true );
   setTemporaryNormalMode(false);
   m_viewInternal->update ();

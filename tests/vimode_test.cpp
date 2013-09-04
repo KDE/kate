@@ -292,6 +292,8 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("enter", Qt::Key_Enter);
   m_codesToSpecialKeys.insert("left", Qt::Key_Left);
   m_codesToSpecialKeys.insert("right", Qt::Key_Right);
+  m_codesToSpecialKeys.insert("down", Qt::Key_Down);
+  m_codesToSpecialKeys.insert("home", Qt::Key_Home);
 
   connect(kate_document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
           this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
@@ -5766,6 +5768,10 @@ public:
 
 void ViModeTest::CompletionTests()
 {
+    const bool oldRemoveTailOnCompletion = KateViewConfig::global()->wordCompletionRemoveTail();
+    // For these tests, assume we don't swallow the tail on completion.
+    KateViewConfig::global()->setWordCompletionRemoveTail(false);
+
     KateViewConfig::global()->setViInputModeStealKeys(true); // For Ctrl-P, Ctrl-N etc
     ensureKateViewVisible(); // KateView needs to be visible for the completion widget.
     VimCodeCompletionTestModel *testModel = new VimCodeCompletionTestModel(kate_view);
@@ -5809,8 +5815,8 @@ void ViModeTest::CompletionTests()
     TestPressKey("\\return\\ctrl-c");
     kate_view->unregisterCompletionModel(testModel);
     FailTestOnInvocationModel *failsTestOnInvocation = new FailTestOnInvocationModel(kate_view);
-    TestPressKey(".");
-    FinishTest("completioncompletion11");
+    TestPressKey("gg.");
+    FinishTest("completion1completion1");
     kate_view->unregisterCompletionModel(failsTestOnInvocation);
     kate_view->registerCompletionModel(testModel);
 
@@ -5821,8 +5827,8 @@ void ViModeTest::CompletionTests()
     // Simulate "automatic" invoking of completion.
     kate_view->completionWidget()->userInvokedCompletion();
     waitForCompletionWidgetToActivate();
-    TestPressKey("\\return\\ctrl-c.");
-    FinishTest("completioncompletion11");
+    TestPressKey("\\return\\ctrl-cgg.");
+    FinishTest("completion1completion1");
 
     clearAllMappings();
     // Make sure the "Enter"/ "Return" used when invoking completions is not swallowed before being
@@ -5870,6 +5876,48 @@ void ViModeTest::CompletionTests()
     QVERIFY(!kate_view->completionWidget()->isCompletionActive());
     FinishTest("c");
     kate_view->unregisterCompletionModel(testModel);
+
+    // Check that the repeat-last-change handles Completions in the same way as Macros do
+    // i.e. fairly intelligently :)
+    FakeCodeCompletionTestModel *fakeCodeCompletionModel = new FakeCodeCompletionTestModel(kate_view);
+    fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+    KateViewConfig::global()->setWordCompletionRemoveTail(true);
+    kate_view->registerCompletionModel(fakeCodeCompletionModel);
+    clearAllMacros();
+    BeginTest("funct\nnoa\ncomtail\ncomtail");
+    fakeCodeCompletionModel->setCompletions(QStringList() << "completionA" << "functionwithargs(...)" << "noargfunction()");
+    fakeCodeCompletionModel->setFailTestOnInvocation(false);
+    // Record 'a'.
+    TestPressKey("i\\right\\right\\right\\right\\right\\ctrl- \\enterfirstArg"); // Function with args.
+    TestPressKey("\\home\\down\\right\\right\\right\\ctrl- \\enter");            // Function no args.
+    fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+    KateViewConfig::global()->setWordCompletionRemoveTail(true);
+    TestPressKey("\\home\\down\\right\\right\\right\\ctrl- \\enter");   // Cut off tail.
+    fakeCodeCompletionModel->setRemoveTailOnComplete(false);
+    KateViewConfig::global()->setWordCompletionRemoveTail(false);
+    TestPressKey("\\home\\down\\right\\right\\right\\ctrl- \\enter\\ctrl-c");   // Don't cut off tail.
+    fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+    KateViewConfig::global()->setWordCompletionRemoveTail(true);
+    // Replay.
+    fakeCodeCompletionModel->setFailTestOnInvocation(true);
+    kate_document->setText("funct\nnoa\ncomtail\ncomtail");
+    TestPressKey("gg.");
+    FinishTest("functionwithargs(firstArg)\nnoargfunction()\ncompletionA\ncompletionAtail");
+
+    // Clear our log of completions for each change.
+    BeginTest("");
+    fakeCodeCompletionModel->setCompletions(QStringList() << "completionA");
+    fakeCodeCompletionModel->setFailTestOnInvocation(false);
+    TestPressKey("ciw\\ctrl- \\enter\\ctrl-c");
+    fakeCodeCompletionModel->setCompletions(QStringList() << "completionB");
+    TestPressKey("ciw\\ctrl- \\enter\\ctrl-c");
+    fakeCodeCompletionModel->setFailTestOnInvocation(true);
+    TestPressKey(".");
+    FinishTest("completionB");
+
+    kate_view->unregisterCompletionModel(fakeCodeCompletionModel);
+    delete fakeCodeCompletionModel;
+    KateViewConfig::global()->setWordCompletionRemoveTail(oldRemoveTailOnCompletion);
 
     // Hide the kate_view for subsequent tests.
     kate_view->hide();
@@ -6734,6 +6782,24 @@ void ViModeTest::MacroTests()
   kate_document->setText("functxyz    (<-firstArg goes here)");
   TestPressKey("gg@q");
   FinishTest("function    (firstArg<-firstArg goes here)");
+
+  // Regression test for weird issue with replaying completions when the character to the left of the cursor
+  // is not a word char.
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqciw\\ctrl- \\enter\\ctrl-cq");
+  TestPressKey("ddi.xyz\\enter123\\enter456\\ctrl-cggl"); // Position cursor just after the "."
+  TestPressKey("@q");
+  FinishTest(".completionA\n123\n456");
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqciw\\ctrl- \\enter\\ctrl-cq");
+  TestPressKey("ddi.xyz.abc\\enter123\\enter456\\ctrl-cggl"); // Position cursor just after the "."
+  TestPressKey("@q");
+  FinishTest(".completionA.abc\n123\n456");
+
 
   // Functions taking no arguments are never bracket-merged.
   BeginTest("");

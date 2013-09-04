@@ -641,12 +641,6 @@ void KateViInsertMode::replayCompletion()
   }
   Cursor deleteEnd =  completion.removeTail() ? currentWord.end() :
                                                 Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() + 0);
-  if (!completion.removeTail() && currentWord.start() == m_view->cursorPosition())
-  {
-    // Careful not to swallow the first letter of a word just because its beginning coincides with the cursor position
-    // if we're not removing tails.
-    deleteEnd = currentWord.start();
-  }
 
   if (currentWord.isValid())
   {

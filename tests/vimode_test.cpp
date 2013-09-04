@@ -6589,6 +6589,42 @@ void ViModeTest::MacroTests()
   TestPressKey("gg@q");
   FinishTest("(123_completionA)\n(123_completionATail_456)");
 
+  // Can repeat plain-text completions when there is no word to the left of the cursor.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqi\\ctrl- \\enter\\ctrl-cq");
+  kate_document->clear();
+  TestPressKey("gg@q");
+  FinishTest("123_completionA");
+
+  // Shouldn't swallow the letter under the cursor if we're not swallowing tails.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->setRemoveTailOnComplete(false);
+  KateViewConfig::global()->setWordCompletionRemoveTail(false);
+  TestPressKey("qqi\\ctrl- \\enter\\ctrl-cq");
+  kate_document->setText("oldwordshouldbeuntouched");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("123_completionAoldwordshouldbeuntouched");
+
+  // ... but do if we are swallowing tails.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "123_completionA");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  fakeCodeCompletionModel->setRemoveTailOnComplete(true);
+  KateViewConfig::global()->setWordCompletionRemoveTail(true);
+  TestPressKey("qqi\\ctrl- \\enter\\ctrl-cq");
+  kate_document->setText("oldwordshouldbedeleted");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("123_completionA");
+
   // Completion of functions.
   // Currently, not removing the tail on function completion is not supported.
   fakeCodeCompletionModel->setRemoveTailOnComplete(true);

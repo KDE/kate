@@ -626,11 +626,24 @@ void KateViInsertMode::replayCompletion()
       offsetFinalCursorPosBy = -1;
     }
   }
-  const Cursor deleteEnd =  completion.removeTail() ? currentWord.end() :
-                                              Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() + 1);
+  Cursor deleteEnd =  completion.removeTail() ? currentWord.end() :
+                                                Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() + 1);
+  if (!completion.removeTail() && currentWord.start() == m_view->cursorPosition())
+  {
+    // Careful not to swallow the first letter of a word just because its beginning coincides with the cursor position
+    // if we're not removing tails.
+    deleteEnd = currentWord.start();
+  }
 
-  doc()->removeText(Range(currentWord.start(), deleteEnd));
-  doc()->insertText(currentWord.start(), completionText);
+  if (currentWord.isValid())
+  {
+    doc()->removeText(Range(currentWord.start(), deleteEnd));
+    doc()->insertText(currentWord.start(), completionText);
+  }
+  else
+  {
+    doc()->insertText(m_view->cursorPosition(), completionText);
+  }
 
   if (offsetFinalCursorPosBy != 0)
   {

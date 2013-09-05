@@ -2709,6 +2709,13 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\enter");
   FinishTest("");
 
+  // Check ctrl-e works.
+  BeginTest("");
+  TestPressKey("/bar foo xyz\\ctrl-b\\ctrl-eX");
+  QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("bar foo xyzX"));
+  TestPressKey("\\enter");
+  FinishTest("");
+
   // Check ctrl-w works.
   BeginTest("");
   TestPressKey("/foo bar\\ctrl-w");
@@ -2936,60 +2943,60 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c"); // Dismiss the bar.
   FinishTest("wordundercursor");
 
-  // Begin tests for ctrl-e, which is almost identical to ctrl-r save that the contents, when added,
+  // Begin tests for ctrl-g, which is almost identical to ctrl-r save that the contents, when added,
   // are escaped for searching.
   // Normal register contents/ word under cursor are added as normal.
   BeginTest("wordinregisterb wordundercursor");
   TestPressKey("\"byiw");
-  TestPressKey("/\\ctrl-e");
+  TestPressKey("/\\ctrl-g");
   QVERIFY(waitingForRegisterIndicator->isVisible());
   QVERIFY(waitingForRegisterIndicator->x() >= emulatedCommandBarTextEdit()->x() + emulatedCommandBarTextEdit()->width());
   TestPressKey("b");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("wordinregisterb"));
   QVERIFY(!waitingForRegisterIndicator->isVisible());
-  TestPressKey("\\ctrl-c\\ctrl-cw/\\ctrl-e\\ctrl-w");
+  TestPressKey("\\ctrl-c\\ctrl-cw/\\ctrl-g\\ctrl-w");
   QCOMPARE(emulatedCommandBarTextEdit()->text(), QString("wordundercursor"));
   QVERIFY(!waitingForRegisterIndicator->isVisible());
   TestPressKey("\\ctrl-c");
   TestPressKey("\\ctrl-c");
   FinishTest("wordinregisterb wordundercursor");
 
-  // \'s must be escaped when inserted via ctrl-e.
-  DoTest("foo a\\b\\\\c\\\\\\d", "wYb/\\ctrl-e0\\enterrX", "foo X\\b\\\\c\\\\\\d");
-  // $'s must be escaped when inserted via ctrl-e.
-  DoTest("foo a$b", "wYb/\\ctrl-e0\\enterrX", "foo X$b");
-  DoTest("foo a$b$c", "wYb/\\ctrl-e0\\enterrX", "foo X$b$c");
-  DoTest("foo a\\$b\\$c", "wYb/\\ctrl-e0\\enterrX", "foo X\\$b\\$c");
-  // ^'s must be escaped when inserted via ctrl-e.
-  DoTest("foo a^b", "wYb/\\ctrl-e0\\enterrX", "foo X^b");
-  DoTest("foo a^b^c", "wYb/\\ctrl-e0\\enterrX", "foo X^b^c");
-  DoTest("foo a\\^b\\^c", "wYb/\\ctrl-e0\\enterrX", "foo X\\^b\\^c");
-  // .'s must be escaped when inserted via ctrl-e.
-  DoTest("foo axb a.b", "wwYgg/\\ctrl-e0\\enterrX", "foo axb X.b");
-  DoTest("foo a\\xb Na\\.b", "fNlYgg/\\ctrl-e0\\enterrX", "foo a\\xb NX\\.b");
-  // *'s must be escaped when inserted via ctrl-e
-  DoTest("foo axxxxb ax*b", "wwYgg/\\ctrl-e0\\enterrX", "foo axxxxb Xx*b");
-  DoTest("foo a\\xxxxb Na\\x*X", "fNlYgg/\\ctrl-e0\\enterrX", "foo a\\xxxxb NX\\x*X");
-  // /'s must be escaped when inserted via ctrl-e.
-  DoTest("foo a a/b", "wwYgg/\\ctrl-e0\\enterrX", "foo a X/b");
-  DoTest("foo a a/b/c", "wwYgg/\\ctrl-e0\\enterrX", "foo a X/b/c");
-  DoTest("foo a a\\/b\\/c", "wwYgg/\\ctrl-e0\\enterrX", "foo a X\\/b\\/c");
-  // ['s and ]'s must be escaped when inserted via ctrl-e.
-  DoTest("foo axb a[xyz]b", "wwYgg/\\ctrl-e0\\enterrX", "foo axb X[xyz]b");
-  DoTest("foo a[b", "wYb/\\ctrl-e0\\enterrX", "foo X[b");
-  DoTest("foo a[b[c", "wYb/\\ctrl-e0\\enterrX", "foo X[b[c");
-  DoTest("foo a\\[b\\[c", "wYb/\\ctrl-e0\\enterrX", "foo X\\[b\\[c");
-  DoTest("foo a]b", "wYb/\\ctrl-e0\\enterrX", "foo X]b");
-  DoTest("foo a]b]c", "wYb/\\ctrl-e0\\enterrX", "foo X]b]c");
-  DoTest("foo a\\]b\\]c", "wYb/\\ctrl-e0\\enterrX", "foo X\\]b\\]c");
-  // Test that expressions involving {'s and }'s work when inserted via ctrl-e.
-  DoTest("foo {", "wYgg/\\ctrl-e0\\enterrX", "foo X");
-  DoTest("foo }", "wYgg/\\ctrl-e0\\enterrX", "foo X");
-  DoTest("foo aaaaa \\aaaaa a\\{5}", "WWWYgg/\\ctrl-e0\\enterrX", "foo aaaaa \\aaaaa X\\{5}");
-  DoTest("foo }", "wYgg/\\ctrl-e0\\enterrX", "foo X");
-  // Transform newlines into "\\n" when inserted via ctrl-e.
-  DoTest(" \nfoo\nfoo\nxyz\nbar\n123", "jjvjjllygg/\\ctrl-e0\\enterrX", " \nfoo\nXoo\nxyz\nbar\n123");
-  DoTest(" \nfoo\nfoo\nxyz\nbar\n123", "jjvjjllygg/\\ctrl-e0/e\\enterrX", " \nfoo\nfoo\nxyz\nbaX\n123");
+  // \'s must be escaped when inserted via ctrl-g.
+  DoTest("foo a\\b\\\\c\\\\\\d", "wYb/\\ctrl-g0\\enterrX", "foo X\\b\\\\c\\\\\\d");
+  // $'s must be escaped when inserted via ctrl-g.
+  DoTest("foo a$b", "wYb/\\ctrl-g0\\enterrX", "foo X$b");
+  DoTest("foo a$b$c", "wYb/\\ctrl-g0\\enterrX", "foo X$b$c");
+  DoTest("foo a\\$b\\$c", "wYb/\\ctrl-g0\\enterrX", "foo X\\$b\\$c");
+  // ^'s must be escaped when inserted via ctrl-g.
+  DoTest("foo a^b", "wYb/\\ctrl-g0\\enterrX", "foo X^b");
+  DoTest("foo a^b^c", "wYb/\\ctrl-g0\\enterrX", "foo X^b^c");
+  DoTest("foo a\\^b\\^c", "wYb/\\ctrl-g0\\enterrX", "foo X\\^b\\^c");
+  // .'s must be escaped when inserted via ctrl-g.
+  DoTest("foo axb a.b", "wwYgg/\\ctrl-g0\\enterrX", "foo axb X.b");
+  DoTest("foo a\\xb Na\\.b", "fNlYgg/\\ctrl-g0\\enterrX", "foo a\\xb NX\\.b");
+  // *'s must be escaped when inserted via ctrl-g
+  DoTest("foo axxxxb ax*b", "wwYgg/\\ctrl-g0\\enterrX", "foo axxxxb Xx*b");
+  DoTest("foo a\\xxxxb Na\\x*X", "fNlYgg/\\ctrl-g0\\enterrX", "foo a\\xxxxb NX\\x*X");
+  // /'s must be escaped when inserted via ctrl-g.
+  DoTest("foo a a/b", "wwYgg/\\ctrl-g0\\enterrX", "foo a X/b");
+  DoTest("foo a a/b/c", "wwYgg/\\ctrl-g0\\enterrX", "foo a X/b/c");
+  DoTest("foo a a\\/b\\/c", "wwYgg/\\ctrl-g0\\enterrX", "foo a X\\/b\\/c");
+  // ['s and ]'s must be escaped when inserted via ctrl-g.
+  DoTest("foo axb a[xyz]b", "wwYgg/\\ctrl-g0\\enterrX", "foo axb X[xyz]b");
+  DoTest("foo a[b", "wYb/\\ctrl-g0\\enterrX", "foo X[b");
+  DoTest("foo a[b[c", "wYb/\\ctrl-g0\\enterrX", "foo X[b[c");
+  DoTest("foo a\\[b\\[c", "wYb/\\ctrl-g0\\enterrX", "foo X\\[b\\[c");
+  DoTest("foo a]b", "wYb/\\ctrl-g0\\enterrX", "foo X]b");
+  DoTest("foo a]b]c", "wYb/\\ctrl-g0\\enterrX", "foo X]b]c");
+  DoTest("foo a\\]b\\]c", "wYb/\\ctrl-g0\\enterrX", "foo X\\]b\\]c");
+  // Test that expressions involving {'s and }'s work when inserted via ctrl-g.
+  DoTest("foo {", "wYgg/\\ctrl-g0\\enterrX", "foo X");
+  DoTest("foo }", "wYgg/\\ctrl-g0\\enterrX", "foo X");
+  DoTest("foo aaaaa \\aaaaa a\\{5}", "WWWYgg/\\ctrl-g0\\enterrX", "foo aaaaa \\aaaaa X\\{5}");
+  DoTest("foo }", "wYgg/\\ctrl-g0\\enterrX", "foo X");
+  // Transform newlines into "\\n" when inserted via ctrl-g.
+  DoTest(" \nfoo\nfoo\nxyz\nbar\n123", "jjvjjllygg/\\ctrl-g0\\enterrX", " \nfoo\nXoo\nxyz\nbar\n123");
+  DoTest(" \nfoo\nfoo\nxyz\nbar\n123", "jjvjjllygg/\\ctrl-g0/e\\enterrX", " \nfoo\nfoo\nxyz\nbaX\n123");
   // Don't do any escaping for ctrl-r, though.
   BeginTest("foo .*$^\\/");
   TestPressKey("wY/\\ctrl-r0");
@@ -2998,8 +3005,8 @@ void ViModeTest::VimStyleCommandBarTests()
   TestPressKey("\\ctrl-c");
   FinishTest("foo .*$^\\/");
   // Ensure that the flag that says "next register insertion should be escaped for searching"
-  // is cleared if we do ctrl-e but then abort with ctrl-c.
-  DoTest("foo a$b", "/\\ctrl-e\\ctrl-c\\ctrl-cwYgg/\\ctrl-r0\\enterrX", "Xoo a$b");
+  // is cleared if we do ctrl-g but then abort with ctrl-c.
+  DoTest("foo a$b", "/\\ctrl-g\\ctrl-c\\ctrl-cwYgg/\\ctrl-r0\\enterrX", "Xoo a$b");
 
    // Ensure that we actually perform a search while typing.
   BeginTest("abcd");

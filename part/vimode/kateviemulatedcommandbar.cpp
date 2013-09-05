@@ -1108,11 +1108,11 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       }
       return true;
     }
-    else if (keyEvent->key() == Qt::Key_R || keyEvent->key() == Qt::Key_E)
+    else if (keyEvent->key() == Qt::Key_R || keyEvent->key() == Qt::Key_G)
     {
       m_waitingForRegister = true;
       m_waitingForRegisterIndicator->setVisible(true);
-      if (keyEvent->key() == Qt::Key_E)
+      if (keyEvent->key() == Qt::Key_G)
       {
         m_insertedTextShouldBeEscapedForSearchingAsLiteral = true;
       }

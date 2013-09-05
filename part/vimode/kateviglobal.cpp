@@ -178,6 +178,11 @@ void KateViGlobal::addMapping( MappingMode mode, const QString& from, const QStr
   }
 }
 
+void KateViGlobal::removeMapping(MappingMode mode, const QString& from)
+{
+  m_mappingsForMode[mode].remove(from);
+}
+
 const QString KateViGlobal::getMapping( MappingMode mode, const QString& from, bool decode ) const
 {
     const QString ret = m_mappingsForMode[mode][from].mappedKeyPresses;

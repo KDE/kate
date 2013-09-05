@@ -2462,6 +2462,12 @@ void ViModeTest::MappingTests()
     KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, "l", "iabc<esc>", KateViGlobal::NonRecursive);
     DoTest("xxx", "\\:map foo l\\foorX", "abXxxx", ShouldFail, "'map' is reserved for other stuff in Kate command line");
 
+    // nunmap works in normal mode.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, "w", "ciwabc<esc>", KateViGlobal::NonRecursive);
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, "b", "ciwxyz<esc>", KateViGlobal::NonRecursive);
+    DoTest(" 123 456 789", "\\:nunmap b\\WWwbrX", " 123 Xbc 789");
+
     // vmap works in Visual mode and is recursive.
     clearAllMappings();
     KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::VisualModeMapping, "l", "d", KateViGlobal::NonRecursive);
@@ -2486,6 +2492,12 @@ void ViModeTest::MappingTests()
     KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::VisualModeMapping, "l", "d", KateViGlobal::NonRecursive);
     DoTest("abco", "\\:vnoremap foo l\\v\\rightfoogU", "ABCo");
 
+    // vunmap works in Visual Mode.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::VisualModeMapping, "l", "w", KateViGlobal::NonRecursive);
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::VisualModeMapping, "gU", "2b", KateViGlobal::NonRecursive);
+    DoTest("foo bar xyz", "\\:vunmap gU\\wvlgUd", "foo BAR Xyz");
+
     // imap works in Insert mode and is recursive.
     clearAllMappings();
     KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::InsertModeMapping, "l", "d", KateViGlobal::NonRecursive);
@@ -2505,6 +2517,12 @@ void ViModeTest::MappingTests()
     clearAllMappings();
     KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::InsertModeMapping, "l", "d", KateViGlobal::NonRecursive);
     DoTest("", "\\:inoremap foo l\\ifoo\\esc", "l");
+
+    // iunmap works in Insert mode.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::InsertModeMapping, "l", "d", KateViGlobal::NonRecursive);
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::InsertModeMapping, "m", "e", KateViGlobal::NonRecursive);
+    DoTest("", "\\:iunmap l\\ilm\\esc", "le");
 
     {
       VimStyleCommandBarTestsSetUpAndTearDown vimStyleCommandBarTestsSetUpAndTearDown(kate_view, mainWindow);
@@ -2530,6 +2548,12 @@ void ViModeTest::MappingTests()
       clearAllMappings();
       KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "l", "d", KateViGlobal::NonRecursive);
       DoTest(" l d foo", "\\:cno foo l\\/foo\\enterrX", " X d foo");
+
+      // cunmap works in emulated command bar.
+      clearAllMappings();
+      KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "l", "d", KateViGlobal::NonRecursive);
+      KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "m", "e", KateViGlobal::NonRecursive);
+      DoTest(" de le", "\\:cunmap l\\/lm\\enterrX", " de Xe");
     }
 
     // Can use <space> to signify a space.

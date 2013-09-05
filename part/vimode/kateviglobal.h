@@ -61,6 +61,7 @@ public:
     enum MappingMode { NormalModeMapping, VisualModeMapping, InsertModeMapping, CommandModeMapping };
     void clearMappings( MappingMode mode );
     void addMapping( MappingMode mode, const QString& from, const QString& to, MappingRecursion recursion );
+    void removeMapping(MappingMode mode, const QString& from);
     const QString getMapping( MappingMode mode, const QString &from, bool decode = false ) const;
     const QStringList getMappings( MappingMode mode, bool decode = false ) const;
     bool isMappingRecursive(MappingMode mode, const QString& from) const;

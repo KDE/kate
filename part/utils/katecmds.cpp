@@ -587,6 +587,19 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
   // ALL commands that takes no arguments.
   if (mappingCommands().contains(cmd))
   {
+    if (cmd.endsWith("unmap"))
+    {
+      if (args.count() == 1)
+      {
+        KateGlobal::self()->viInputModeGlobal()->removeMapping(modeForMapCommand(cmd), args.at(0));
+        return true;
+      }
+      else
+      {
+        msg = i18n("Missing argument. Usage: %1 <from>",  cmd );
+        return false;
+      }
+    }
     if ( args.count() == 1 ) {
       msg = KateGlobal::self()->viInputModeGlobal()->getMapping( modeForMapCommand(cmd), args.at( 0 ), true );
       if ( msg.isEmpty() ) {
@@ -725,6 +738,8 @@ const QStringList& KateCommands::ViCommands::mappingCommands()
                      << "vmap" << "vm" << "vnoremap" << "vn"
                      << "imap" << "im" << "inoremap" << "ino"
                      << "cmap" << "cm" << "cnoremap" << "cno";
+
+    mappingsCommands << "nunmap" << "vunmap" << "iunmap" << "cunmap";
   }
   return mappingsCommands;
 }
@@ -747,6 +762,11 @@ KateViGlobal::MappingMode KateCommands::ViCommands::modeForMapCommand(const QStr
     modeForMapCommand.insert("cm", KateViGlobal::CommandModeMapping);
     modeForMapCommand.insert("cnoremap", KateViGlobal::CommandModeMapping);
     modeForMapCommand.insert("cno", KateViGlobal::CommandModeMapping);
+
+    modeForMapCommand.insert("nunmap", KateViGlobal::NormalModeMapping);
+    modeForMapCommand.insert("vunmap", KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert("iunmap", KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert("cunmap", KateViGlobal::CommandModeMapping);
   }
   return modeForMapCommand[mapCommand];
 }

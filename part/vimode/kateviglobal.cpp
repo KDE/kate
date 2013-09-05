@@ -24,6 +24,7 @@
 
 #include "kateviglobal.h"
 #include "katevikeyparser.h"
+#include "kateviemulatedcommandbar.h"
 
 #include "kconfiggroup.h"
 #include "kdebug.h"
@@ -44,6 +45,7 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
   writeMappingsToConfig(config, "Normal", NormalModeMapping);
   writeMappingsToConfig(config, "Visual", VisualModeMapping);
   writeMappingsToConfig(config, "Insert", InsertModeMapping);
+  writeMappingsToConfig(config, "Command", CommandModeMapping);
 
   QStringList macroRegisters;
   foreach(const QChar& macroRegister, m_macroForRegister.keys())
@@ -74,6 +76,7 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
   readMappingsFromConfig(config, "Normal", NormalModeMapping);
   readMappingsFromConfig(config, "Visual", VisualModeMapping);
   readMappingsFromConfig(config, "Insert", InsertModeMapping);
+  readMappingsFromConfig(config, "Command", CommandModeMapping);
 
   const QStringList macroRegisters = config.readEntry("Macro Registers", QStringList());
   const QStringList macroContents = config.readEntry("Macro Contents", QStringList());
@@ -207,8 +210,13 @@ bool KateViGlobal::isMappingRecursive(MappingMode mode, const QString& from) con
     return m_mappingsForMode[mode][from].isRecursive;
 }
 
-KateViGlobal::MappingMode KateViGlobal::mappingModeForViMode(ViMode mode)
+KateViGlobal::MappingMode KateViGlobal::mappingModeForCurrentViMode(KateView* view)
 {
+  if (view->viModeEmulatedCommandBar()->isActive())
+  {
+    return CommandModeMapping;
+  }
+  const ViMode mode = view->getCurrentViMode();
   switch(mode)
   {
     case NormalMode:

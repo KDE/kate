@@ -58,13 +58,17 @@ public:
     const QMap<QChar, KateViRegister>* getRegisters() const { return &m_registers; }
 
     enum MappingRecursion { Recursive, NonRecursive };
-    enum MappingMode { NormalModeMapping, VisualModeMapping, InsertModeMapping };
+    enum MappingMode { NormalModeMapping, VisualModeMapping, InsertModeMapping, CommandModeMapping };
     void clearMappings( MappingMode mode );
     void addMapping( MappingMode mode, const QString& from, const QString& to, MappingRecursion recursion );
     const QString getMapping( MappingMode mode, const QString &from, bool decode = false ) const;
     const QStringList getMappings( MappingMode mode, bool decode = false ) const;
     bool isMappingRecursive(MappingMode mode, const QString& from) const;
-    static MappingMode mappingModeForViMode(ViMode mode);
+    /**
+     * Returns CommandModeMapping if the emulated command bar is active, else the mapping mode
+     * corresponding to the current Vi mode.
+     */
+    static MappingMode mappingModeForCurrentViMode(KateView* view);
 
     QStringList searchHistory();
     void clearSearchHistory();

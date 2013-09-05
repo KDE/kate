@@ -69,7 +69,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_macrosBeingReplayedCount = 0;
   m_lastPlayedMacroRegister = QChar::Null;
 
-  m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
+  m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc(), m_view)));
 
   m_lastSearchBackwards = false;
   m_lastSearchCaseSensitive = false;
@@ -126,7 +126,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
     m_currentMacroKeyEventsLog.append(copy);
   }
 
-  if (!m_view->viModeEmulatedCommandBar()->isActive() && !isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress)
+  if (!isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress)
   {
     // Hand off to the key mapper, and decide if this key is part of a mapping.
     if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
@@ -353,7 +353,7 @@ void KateViInputModeManager::replayMacro(QChar macroRegister)
   m_macrosBeingReplayedCount++;
   m_nextLoggedMacroCompletionIndex.push(0);
   m_macroCompletionsToReplay.push(KateGlobal::self()->viInputModeGlobal()->getMacroCompletions(macroRegister));
-  m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc())));
+  m_keyMapperStack.push(QSharedPointer<KateViKeyMapper>(new KateViKeyMapper(this, m_view->doc(), m_view)));
   feedKeyPresses(macroAsFeedableKeypresses);
   m_keyMapperStack.pop();
   m_macroCompletionsToReplay.pop();

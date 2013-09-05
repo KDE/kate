@@ -723,7 +723,8 @@ const QStringList& KateCommands::ViCommands::mappingCommands()
   {
     mappingsCommands << "nmap"  << "nm"  << "noremap" << "nnoremap" << "nn" << "no"
                      << "vmap" << "vm" << "vnoremap" << "vn"
-                     << "imap" << "im" << "inoremap" << "ino";
+                     << "imap" << "im" << "inoremap" << "ino"
+                     << "cmap" << "cm" << "cnoremap" << "cno";
   }
   return mappingsCommands;
 }
@@ -742,6 +743,10 @@ KateViGlobal::MappingMode KateCommands::ViCommands::modeForMapCommand(const QStr
     modeForMapCommand.insert("im", KateViGlobal::InsertModeMapping);
     modeForMapCommand.insert("inoremap", KateViGlobal::InsertModeMapping);
     modeForMapCommand.insert("ino", KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert("cmap", KateViGlobal::CommandModeMapping);
+    modeForMapCommand.insert("cm", KateViGlobal::CommandModeMapping);
+    modeForMapCommand.insert("cnoremap", KateViGlobal::CommandModeMapping);
+    modeForMapCommand.insert("cno", KateViGlobal::CommandModeMapping);
   }
   return modeForMapCommand[mapCommand];
 }
@@ -756,6 +761,8 @@ bool KateCommands::ViCommands::isMapCommandRecursive(const QString& mapCommand)
     isMapCommandRecursive.insert("vm", true);
     isMapCommandRecursive.insert("imap", true);
     isMapCommandRecursive.insert("im", true);
+    isMapCommandRecursive.insert("cmap", true);
+    isMapCommandRecursive.insert("cm", true);
   }
   return isMapCommandRecursive[mapCommand];
 }

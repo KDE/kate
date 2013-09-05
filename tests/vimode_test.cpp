@@ -2025,6 +2025,45 @@ void ViModeTest::CommandModeTests() {
     DoTest("1\n2\n3\n4","majmbjmcjmdgg\\:'a+'b+'d-'c,.d\\","");
 }
 
+class VimStyleCommandBarTestsSetUpAndTearDown
+{
+public:
+  VimStyleCommandBarTestsSetUpAndTearDown(KateView *kateView, QMainWindow* mainWindow)
+    : m_kateView(kateView), m_mainWindow(mainWindow), m_windowKeepActive(mainWindow)
+  {
+    m_mainWindow->show();
+    m_kateView->show();
+    QApplication::setActiveWindow(m_mainWindow);
+    m_kateView->setFocus();
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
+    KateViewConfig::global()->setViInputModeEmulateCommandBar(true);
+    QVERIFY(KateViewConfig::global()->viInputModeEmulateCommandBar());
+    KateViewConfig::global()->setViInputModeStealKeys(true);
+    mainWindow->installEventFilter(&m_windowKeepActive);
+  }
+  ~VimStyleCommandBarTestsSetUpAndTearDown()
+  {
+    m_mainWindow->removeEventFilter(&m_windowKeepActive);
+    // Use invokeMethod to avoid having to export KateViewBar for testing.
+    QMetaObject::invokeMethod(m_kateView->viModeEmulatedCommandBar(), "hideMe");
+    m_kateView->hide();
+    m_mainWindow->hide();
+    KateViewConfig::global()->setViInputModeEmulateCommandBar(false);
+    KateViewConfig::global()->setViInputModeStealKeys(false);
+    while (QApplication::hasPendingEvents())
+    {
+      QApplication::processEvents();
+    }
+  }
+private:
+  KateView *m_kateView;
+  QMainWindow *m_mainWindow;
+  WindowKeepActive m_windowKeepActive;
+};
+
 void ViModeTest::MappingTests()
 {
   const int mappingTimeoutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_MAPPINGTIMEOUTMS")).toInt();
@@ -2356,6 +2395,26 @@ void ViModeTest::MappingTests()
     DoTest("", "ia\\esc", "a");
   }
 
+  {
+    VimStyleCommandBarTestsSetUpAndTearDown vimStyleCommandBarTestsSetUpAndTearDown(kate_view, mainWindow);
+    // Can have mappings in Emulated Command Bar.
+    clearAllMappings();
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "a", "xyz", KateViGlobal::NonRecursive);
+    DoTest(" a xyz", "/a\\enterrX", " a Xyz");
+    // Use mappings from Normal mode as soon as we exit command bar via Enter.
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, "a", "ixyz<c-c>", KateViGlobal::NonRecursive);
+    DoTest(" a xyz", "/a\\entera", " a xyzxyz");
+    // Multiple mappings.
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "b", "123", KateViGlobal::NonRecursive);
+    DoTest("  xyz123", "/ab\\enterrX", "  Xyz123");
+    // Recursive mappings.
+    KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "b", "a", KateViGlobal::Recursive);
+    DoTest("  xyz", "/b\\enterrX", "  Xyz");
+    // Can clear all.
+    KateGlobal::self()->viInputModeGlobal()->clearMappings(KateViGlobal::CommandModeMapping);
+    DoTest("  ab xyz xyz123", "/ab\\enterrX", "  Xb xyz xyz123");
+  }
+
   // Test that not *both* of the mapping and the mapped keys are logged for repetition via "."
   clearAllMappings();
   KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, "ixyz", "iabc", KateViGlobal::NonRecursive);
@@ -2446,6 +2505,32 @@ void ViModeTest::MappingTests()
     clearAllMappings();
     KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::InsertModeMapping, "l", "d", KateViGlobal::NonRecursive);
     DoTest("", "\\:inoremap foo l\\ifoo\\esc", "l");
+
+    {
+      VimStyleCommandBarTestsSetUpAndTearDown vimStyleCommandBarTestsSetUpAndTearDown(kate_view, mainWindow);
+      // cmap works in emulated command bar and is recursive.
+      // NOTE: need to do the cmap call using the direct execution (i.e. \\:cmap blah blah\\), *not* using
+      // the emulated command bar (:cmap blah blah\\enter), as this will be subject to mappings, which
+      // can interfere with the tests!
+      clearAllMappings();
+      KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "l", "d", KateViGlobal::NonRecursive);
+      DoTest(" l d foo", "\\:cmap foo l\\/foo\\enterrX", " l X foo");
+
+      // cm works in emulated command bar and is recursive.
+      clearAllMappings();
+      KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "l", "d", KateViGlobal::NonRecursive);
+      DoTest(" l d foo", "\\:cm foo l\\/foo\\enterrX", " l X foo");
+
+      // cnoremap works in emulated command bar and is recursive.
+      clearAllMappings();
+      KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "l", "d", KateViGlobal::NonRecursive);
+      DoTest(" l d foo", "\\:cnoremap foo l\\/foo\\enterrX", " X d foo");
+
+      // cno works in emulated command bar and is recursive.
+      clearAllMappings();
+      KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::CommandModeMapping, "l", "d", KateViGlobal::NonRecursive);
+      DoTest(" l d foo", "\\:cno foo l\\/foo\\enterrX", " X d foo");
+    }
 
     // Can use <space> to signify a space.
     clearAllMappings();
@@ -2538,44 +2623,6 @@ void ViModeTest::yankHighlightingTests()
   FinishTest("");
 }
 
-class VimStyleCommandBarTestsSetUpAndTearDown
-{
-public:
-  VimStyleCommandBarTestsSetUpAndTearDown(KateView *kateView, QMainWindow* mainWindow)
-    : m_kateView(kateView), m_mainWindow(mainWindow), m_windowKeepActive(mainWindow)
-  {
-    m_mainWindow->show();
-    m_kateView->show();
-    QApplication::setActiveWindow(m_mainWindow);
-    m_kateView->setFocus();
-    while (QApplication::hasPendingEvents())
-    {
-      QApplication::processEvents();
-    }
-    KateViewConfig::global()->setViInputModeEmulateCommandBar(true);
-    QVERIFY(KateViewConfig::global()->viInputModeEmulateCommandBar());
-    KateViewConfig::global()->setViInputModeStealKeys(true);
-    mainWindow->installEventFilter(&m_windowKeepActive);
-  }
-  ~VimStyleCommandBarTestsSetUpAndTearDown()
-  {
-    m_mainWindow->removeEventFilter(&m_windowKeepActive);
-    // Use invokeMethod to avoid having to export KateViewBar for testing.
-    QMetaObject::invokeMethod(m_kateView->viModeEmulatedCommandBar(), "hideMe");
-    m_kateView->hide();
-    m_mainWindow->hide();
-    KateViewConfig::global()->setViInputModeEmulateCommandBar(false);
-    KateViewConfig::global()->setViInputModeStealKeys(false);
-    while (QApplication::hasPendingEvents())
-    {
-      QApplication::processEvents();
-    }
-  }
-private:
-  KateView *m_kateView;
-  QMainWindow *m_mainWindow;
-  WindowKeepActive m_windowKeepActive;
-};
 
 void ViModeTest::VimStyleCommandBarTests()
 {
@@ -7007,6 +7054,7 @@ void ViModeTest::clearAllMappings()
   KateGlobal::self()->viInputModeGlobal()->clearMappings(KateViGlobal::NormalModeMapping);
   KateGlobal::self()->viInputModeGlobal()->clearMappings(KateViGlobal::VisualModeMapping);
   KateGlobal::self()->viInputModeGlobal()->clearMappings(KateViGlobal::InsertModeMapping);
+  KateGlobal::self()->viInputModeGlobal()->clearMappings(KateViGlobal::CommandModeMapping);
 }
 
 void ViModeTest::clearSearchHistory()

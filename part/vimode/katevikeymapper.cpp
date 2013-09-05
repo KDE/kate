@@ -24,9 +24,10 @@
 
 #include <QtCore/QTimer>
 
-KateViKeyMapper::KateViKeyMapper(KateViInputModeManager* kateViInputModeManager, KateDocument* doc )
+KateViKeyMapper::KateViKeyMapper(KateViInputModeManager* kateViInputModeManager, KateDocument* doc, KateView *view )
     : m_viInputModeManager(kateViInputModeManager),
-      m_doc(doc)
+      m_doc(doc),
+      m_view(view)
 {
   m_mappingTimer = new QTimer( this );
   m_doNotExpandFurtherMappings = false;
@@ -42,8 +43,8 @@ void KateViKeyMapper::executeMapping()
   m_mappingKeys.clear();
   m_mappingTimer->stop();
   m_numMappingsBeingExecuted++;
-  const QString mappedKeypresses = KateGlobal::self()->viInputModeGlobal()->getMapping(KateViGlobal::mappingModeForViMode(m_viInputModeManager->getCurrentViMode()), m_fullMappingMatch);
-  if (!KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(KateViGlobal::mappingModeForViMode(m_viInputModeManager->getCurrentViMode()), m_fullMappingMatch))
+  const QString mappedKeypresses = KateGlobal::self()->viInputModeGlobal()->getMapping(KateViGlobal::mappingModeForCurrentViMode(m_view), m_fullMappingMatch);
+  if (!KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(KateViGlobal::mappingModeForCurrentViMode(m_view), m_fullMappingMatch))
   {
     kDebug(13070) << "Non-recursive: " << mappedKeypresses;
     m_doNotExpandFurtherMappings = true;
@@ -91,7 +92,7 @@ bool KateViKeyMapper::handleKeypress(QChar key)
     bool isPartialMapping = false;
     bool isFullMapping = false;
     m_fullMappingMatch.clear();
-    foreach ( const QString &mapping, KateGlobal::self()->viInputModeGlobal()->getMappings(KateViGlobal::mappingModeForViMode(m_viInputModeManager->getCurrentViMode())) ) {
+    foreach ( const QString &mapping, KateGlobal::self()->viInputModeGlobal()->getMappings(KateViGlobal::mappingModeForCurrentViMode(m_view)) ) {
       if ( mapping.startsWith( m_mappingKeys ) ) {
         if ( mapping == m_mappingKeys ) {
           isFullMapping = true;

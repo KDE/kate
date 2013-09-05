@@ -423,7 +423,7 @@ void KateViKeyParser::initKeyTables()
   m_nameToKeyCode->insert( QString( "d" ), 285 );
   m_nameToKeyCode->insert( QString( "e" ), 286 );
   m_nameToKeyCode->insert( QString( "f" ), 287 );
-  m_nameToKeyCode->insert( QString( "d" ), 288 );
+  m_nameToKeyCode->insert( QString( "g" ), 288 );
   m_nameToKeyCode->insert( QString( "h" ), 289 );
   m_nameToKeyCode->insert( QString( "i" ), 290 );
   m_nameToKeyCode->insert( QString( "j" ), 291 );

@@ -382,7 +382,7 @@ void KateViInputModeConfigTab::apply ()
   KateViewConfig::global()->configStart ();
   KateViewConfig::global()->setViInputMode (ui->chkViInputModeDefault->isChecked());
   KateViewConfig::global()->setViInputModeStealKeys (ui->chkViCommandsOverride->isChecked());
-  KateGlobal::self()->viInputModeGlobal()->clearMappings( NormalMode );
+  KateGlobal::self()->viInputModeGlobal()->clearMappings( KateViGlobal::NormalModeMapping );
   for ( int i = 0; i < ui->tblNormalModeMappings->rowCount(); i++ ) {
     QTableWidgetItem* from = ui->tblNormalModeMappings->item( i, 0 );
     QTableWidgetItem* to = ui->tblNormalModeMappings->item( i, 1 );
@@ -392,7 +392,7 @@ void KateViInputModeConfigTab::apply ()
       const KateViGlobal::MappingRecursion recursion = recursive->checkState() == Qt::Checked ?
         KateViGlobal::Recursive :
         KateViGlobal::NonRecursive;
-      KateGlobal::self()->viInputModeGlobal()->addMapping( NormalMode, from->text(), to->text(), recursion);
+      KateGlobal::self()->viInputModeGlobal()->addMapping( KateViGlobal::NormalModeMapping, from->text(), to->text(), recursion);
     }
   }
   KateViewConfig::global()->configEnd ();
@@ -405,7 +405,7 @@ void KateViInputModeConfigTab::reload ()
 
   ui->chkViCommandsOverride->setEnabled(ui->chkViInputModeDefault->isChecked());
 
-  QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
+  QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( KateViGlobal::NormalModeMapping );
   ui->tblNormalModeMappings->setRowCount( l.size() );
 
   // Make the two columns fill most of the width.
@@ -419,13 +419,13 @@ void KateViInputModeConfigTab::reload ()
   foreach( const QString &f, l ) {
     QTableWidgetItem *from
       = new QTableWidgetItem( KateViKeyParser::self()->decodeKeySequence( f ) );
-    QString s = KateGlobal::self()->viInputModeGlobal()->getMapping( NormalMode, f );
+    QString s = KateGlobal::self()->viInputModeGlobal()->getMapping( KateViGlobal::NormalModeMapping, f );
     QTableWidgetItem *to =
       new QTableWidgetItem( KateViKeyParser::self()->decodeKeySequence( s ) );
     QTableWidgetItem *recursive =
       new QTableWidgetItem();
     recursive->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
-    const bool isRecursive = KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(NormalMode, f);
+    const bool isRecursive = KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(KateViGlobal::NormalModeMapping, f);
     recursive->setCheckState(isRecursive ? Qt::Checked : Qt::Unchecked);
 
     ui->tblNormalModeMappings->setItem(i, 0, from);

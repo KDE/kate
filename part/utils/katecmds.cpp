@@ -706,7 +706,7 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
 
   if ( v && ( cmd == "nn" || cmd == "nnoremap" ) )
   {
-    QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( NormalMode );
+    QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( KateViGlobal::NormalModeMapping );
 
     KateCmdShellCompletion *co = new KateCmdShellCompletion();
     co->setItems( l );
@@ -728,20 +728,20 @@ const QStringList& KateCommands::ViCommands::mappingCommands()
   return mappingsCommands;
 }
 
-ViMode KateCommands::ViCommands::modeForMapCommand(const QString& mapCommand)
+KateViGlobal::MappingMode KateCommands::ViCommands::modeForMapCommand(const QString& mapCommand)
 {
-  static QMap<QString, ViMode> modeForMapCommand;
+  static QMap<QString, KateViGlobal::MappingMode> modeForMapCommand;
   if (modeForMapCommand.isEmpty())
   {
     // Normal is the default.
-    modeForMapCommand.insert("vmap", VisualMode);
-    modeForMapCommand.insert("vm", VisualMode);
-    modeForMapCommand.insert("vnoremap", VisualMode);
-    modeForMapCommand.insert("vn", VisualMode);
-    modeForMapCommand.insert("imap", InsertMode);
-    modeForMapCommand.insert("im", InsertMode);
-    modeForMapCommand.insert("inoremap", InsertMode);
-    modeForMapCommand.insert("ino", InsertMode);
+    modeForMapCommand.insert("vmap", KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert("vm", KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert("vnoremap", KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert("vn", KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert("imap", KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert("im", KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert("inoremap", KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert("ino", KateViGlobal::InsertModeMapping);
   }
   return modeForMapCommand[mapCommand];
 }

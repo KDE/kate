@@ -42,8 +42,8 @@ void KateViKeyMapper::executeMapping()
   m_mappingKeys.clear();
   m_mappingTimer->stop();
   m_numMappingsBeingExecuted++;
-  const QString mappedKeypresses = KateGlobal::self()->viInputModeGlobal()->getMapping(m_viInputModeManager->getCurrentViMode(), m_fullMappingMatch);
-  if (!KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(m_viInputModeManager->getCurrentViMode(), m_fullMappingMatch))
+  const QString mappedKeypresses = KateGlobal::self()->viInputModeGlobal()->getMapping(KateViGlobal::mappingModeForViMode(m_viInputModeManager->getCurrentViMode()), m_fullMappingMatch);
+  if (!KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(KateViGlobal::mappingModeForViMode(m_viInputModeManager->getCurrentViMode()), m_fullMappingMatch))
   {
     kDebug(13070) << "Non-recursive: " << mappedKeypresses;
     m_doNotExpandFurtherMappings = true;
@@ -91,7 +91,7 @@ bool KateViKeyMapper::handleKeypress(QChar key)
     bool isPartialMapping = false;
     bool isFullMapping = false;
     m_fullMappingMatch.clear();
-    foreach ( const QString &mapping, KateGlobal::self()->viInputModeGlobal()->getMappings(m_viInputModeManager->getCurrentViMode()) ) {
+    foreach ( const QString &mapping, KateGlobal::self()->viInputModeGlobal()->getMappings(KateViGlobal::mappingModeForViMode(m_viInputModeManager->getCurrentViMode())) ) {
       if ( mapping.startsWith( m_mappingKeys ) ) {
         if ( mapping == m_mappingKeys ) {
           isFullMapping = true;

@@ -25,6 +25,7 @@
 
 #include <ktexteditor/commandinterface.h>
 #include "kateviinputmodemanager.h"
+#include "kateviglobal.h"
 #include "kateregexpsearch.h"
 
 #include <QtCore/QStringList>
@@ -164,7 +165,7 @@ class ViCommands : public KTextEditor::Command, public KTextEditor::CommandExten
     }
 private:
   const QStringList& mappingCommands();
-  ViMode modeForMapCommand(const QString& mapCommand);
+  KateViGlobal::MappingMode modeForMapCommand(const QString& mapCommand);
   bool isMapCommandRecursive(const QString& mapCommand);
 };
 

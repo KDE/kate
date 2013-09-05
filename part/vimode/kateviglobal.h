@@ -58,11 +58,13 @@ public:
     const QMap<QChar, KateViRegister>* getRegisters() const { return &m_registers; }
 
     enum MappingRecursion { Recursive, NonRecursive };
-    void clearMappings( ViMode mode );
-    void addMapping( ViMode mode, const QString& from, const QString& to, MappingRecursion recursion );
-    const QString getMapping( ViMode mode, const QString &from, bool decode = false ) const;
-    const QStringList getMappings( ViMode mode, bool decode = false ) const;
-    bool isMappingRecursive(ViMode mode, const QString& from) const;
+    enum MappingMode { NormalModeMapping, VisualModeMapping, InsertModeMapping };
+    void clearMappings( MappingMode mode );
+    void addMapping( MappingMode mode, const QString& from, const QString& to, MappingRecursion recursion );
+    const QString getMapping( MappingMode mode, const QString &from, bool decode = false ) const;
+    const QStringList getMappings( MappingMode mode, bool decode = false ) const;
+    bool isMappingRecursive(MappingMode mode, const QString& from) const;
+    static MappingMode mappingModeForViMode(ViMode mode);
 
     QStringList searchHistory();
     void clearSearchHistory();
@@ -93,19 +95,35 @@ private:
     QString m_registerTemp;
     KateViRegister getRegister( const QChar &reg ) const;
 
-    // mappings
-    // TODO - maybe combine these into a struct?
-    QHash <QString, QString> m_normalModeMappings;
-    QHash <QString, MappingRecursion> m_normalModeMappingRecursion;
+    // Mappings.
+    struct Mapping
+    {
+      Mapping(const QString& mappedKeyPresses, bool isRecursive)
+        : mappedKeyPresses(mappedKeyPresses), isRecursive(isRecursive)
+      {
+      }
+      Mapping(const Mapping& other)
+        : mappedKeyPresses(other.mappedKeyPresses), isRecursive(other.isRecursive)
+      {
+      }
+      Mapping()
+        : mappedKeyPresses(), isRecursive(false)
+      {
+      }
+      Mapping& operator=(const Mapping& other)
+      {
+        mappedKeyPresses = other.mappedKeyPresses;
+        isRecursive = other.isRecursive;
+        return *this;
+      }
+      QString mappedKeyPresses;
+      bool isRecursive;
+    };
 
-    QHash <QString, QString> m_visualModeMappings;
-    QHash <QString, MappingRecursion> m_visualModeMappingRecursion;
+    QHash <MappingMode, QHash<QString, Mapping> > m_mappingsForMode;
 
-    QHash <QString, QString> m_insertModeMappings;
-    QHash <QString, MappingRecursion> m_insertModeMappingRecursion;
-
-    void writeMappingsToConfig(KConfigGroup& config, const QString& mappingModeName, ViMode mappingMode) const;
-    void readMappingsFromConfig(const KConfigGroup& config, const QString&, ViMode mappingMode);
+    void writeMappingsToConfig(KConfigGroup& config, const QString& mappingModeName, MappingMode mappingMode) const;
+    void readMappingsFromConfig(const KConfigGroup& config, const QString& mappingModeName, MappingMode mappingMode);
     int readMacroCompletions(QChar macroRegister, const QStringList& encodedMacroCompletions, int macroCompletionIndex);
     QString encodeMacroCompletionForConfig(const KateViInputModeManager::Completion& completionForMacro) const;
     KateViInputModeManager::Completion decodeMacroCompletionFromConfig(const QString& encodedMacroCompletion);

@@ -579,7 +579,7 @@ void KateViInsertMode::completionFinished()
   {
     completionType = KateViInputModeManager::Completion::FunctionWithArgs;
   }
-  else if (m_textInsertedByCompletion.endsWith("()"))
+  else if (m_textInsertedByCompletion.endsWith("()") || m_textInsertedByCompletion.endsWith("();"))
   {
     completionType = KateViInputModeManager::Completion::FunctionWithoutArgs;
   }
@@ -624,19 +624,24 @@ void KateViInsertMode::replayCompletion()
         // Strip "()".
         completionText = completionText.left(completionText.length() - 2);
       }
+      else if (completionText.endsWith("();"))
+      {
+        // Strip "();".
+        completionText = completionText.left(completionText.length() - 3);
+      }
       // Ensure cursor ends up after the merged open bracket.
       offsetFinalCursorPosBy = nextMergableBracketAfterCursorPos + 1;
     }
     else
     {
-      if (!completionText.endsWith("()"))
+      if (!completionText.endsWith("()") && !completionText.endsWith("();"))
       {
         // Original completion merged with an opening bracket; we'll have to add our own brackets.
         completionText.append("()");
       }
-      // Position cursor correctly i.e. we'll have added "functionname()"; need to step back by
-      // one to be after the opening bracket.
-      offsetFinalCursorPosBy = -1;
+      // Position cursor correctly i.e. we'll have added "functionname()" or "functionname();"; need to step back by
+      // one or two to be after the opening bracket.
+      offsetFinalCursorPosBy = completionText.endsWith(";") ? -2 : -1;
     }
   }
   Cursor deleteEnd =  completion.removeTail() ? currentWord.end() :

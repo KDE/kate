@@ -383,7 +383,8 @@ int KateViGlobal::readMacroCompletions(QChar macroRegister, const QStringList& e
 
 QString KateViGlobal::encodeMacroCompletionForConfig(const KateViInputModeManager::Completion& completionForMacro) const
 {
-  QString encodedMacroCompletion = completionForMacro.completedText().remove("()");
+  const bool endedWithSemiColon = completionForMacro.completedText().endsWith(";");
+  QString encodedMacroCompletion = completionForMacro.completedText().remove("()").remove(";");
   if (completionForMacro.completionType() == KateViInputModeManager::Completion::FunctionWithArgs)
   {
     encodedMacroCompletion += "(...)";
@@ -391,6 +392,10 @@ QString KateViGlobal::encodeMacroCompletionForConfig(const KateViInputModeManage
   else if (completionForMacro.completionType() == KateViInputModeManager::Completion::FunctionWithoutArgs)
   {
     encodedMacroCompletion += "()";
+  }
+  if (endedWithSemiColon)
+  {
+    encodedMacroCompletion += ";";
   }
   if (completionForMacro.removeTail())
   {
@@ -412,7 +417,7 @@ KateViInputModeManager::Completion KateViGlobal::decodeMacroCompletionFromConfig
     completionType = KateViInputModeManager::Completion::FunctionWithoutArgs;
   }
   QString completionText = encodedMacroCompletion;
-  completionText.remove("(...)").remove("|");
+  completionText.replace("(...)", "()").remove("|");
 
   kDebug(13070) << "Loaded completion: " << completionText << " , " << removeTail << " , " << completionType;
 

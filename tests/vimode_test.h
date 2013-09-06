@@ -105,6 +105,8 @@ public:
      * A string ending with "()" is treated as a call to a function with no arguments.
      * A string ending with "(...)" is treated as a call to a function with at least one argument.  The "..." is not
      * inserted into the text.
+     * A string ending with "();" or "(...);" is the same as above, and the semi-colon is added.  Bracket merging
+     * never happens with strings ending with ";".
      */
     void setCompletions(const QStringList& completions);
     void setRemoveTailOnComplete(bool removeTailOnCompletion);

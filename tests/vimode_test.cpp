@@ -180,14 +180,13 @@ void FakeCodeCompletionTestModel::executeCompletionItem(Document* document, cons
   // Merge brackets?
   const QString noArgFunctionCallMarker = "()";
   const QString withArgFunctionCallMarker = "(...)";
-  if (textToInsert.endsWith(noArgFunctionCallMarker) || textToInsert.endsWith(withArgFunctionCallMarker))
+  const bool endedWithSemiColon  = textToInsert.endsWith(";");
+  if (textToInsert.contains(noArgFunctionCallMarker) || textToInsert.contains(withArgFunctionCallMarker))
   {
     Q_ASSERT(m_removeTailOnCompletion && "Function completion items without removing tail is not yet supported!");
-    const bool takesArgument = textToInsert.endsWith(withArgFunctionCallMarker);
+    const bool takesArgument = textToInsert.contains(withArgFunctionCallMarker);
     // The code for a function call to a function taking no arguments.
-    const QString justFunctionName = textToInsert.left(textToInsert.length() -
-            (takesArgument ? withArgFunctionCallMarker.length() :
-                            noArgFunctionCallMarker.length()));
+    const QString justFunctionName = textToInsert.left(textToInsert.indexOf("("));
 
     QRegExp whitespaceThenOpeningBracket("^\\s*(\\()");
     int openingBracketPos = -1;
@@ -195,7 +194,7 @@ void FakeCodeCompletionTestModel::executeCompletionItem(Document* document, cons
     {
       openingBracketPos = whitespaceThenOpeningBracket.pos(1) + word.start().column() + justFunctionName.length() + 1 + lengthStillToRemove;
     }
-    const bool mergeOpenBracketWithExisting = (openingBracketPos != -1);
+    const bool mergeOpenBracketWithExisting = (openingBracketPos != -1) && !endedWithSemiColon;
     // Add the function name, for now: we don't yet know if we'll be adding the "()", too.
     document->insertText(word.start(), justFunctionName);
     if (mergeOpenBracketWithExisting)
@@ -207,7 +206,8 @@ void FakeCodeCompletionTestModel::executeCompletionItem(Document* document, cons
     else
     {
       // Don't merge.
-      document->insertText(Cursor(word.start().line(), word.start().column() + justFunctionName.length()), "()");
+      const QString afterFunctionName = endedWithSemiColon ? "();" : "()";
+      document->insertText(Cursor(word.start().line(), word.start().column() + justFunctionName.length()), afterFunctionName);
       if (takesArgument)
       {
         // Place the cursor immediately after the opening "(" we just added.
@@ -1945,6 +1945,61 @@ void ViModeTest::FakeCodeCompletionTests()
   QCOMPARE(m_docChanges[2].changeRange(), Range(Cursor(0, 20), Cursor(0, 24)));
   TestPressKey("X");
   FinishTest("object->functionCall    (X<-Cursor here!");
+
+  // Deal with function completions which add a ";".
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall();");
+  clearTrackedDocumentChanges();
+  TestPressKey("ifun");
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 3);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 0), Cursor(0, 3)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 0), Cursor(0, 12)));
+  QCOMPARE(m_docChanges[1].newText(), QString("functionCall"));
+  QCOMPARE(m_docChanges[2].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[2].changeRange(), Range(Cursor(0, 12), Cursor(0, 15)));
+  QCOMPARE(m_docChanges[2].newText(), QString("();"));
+  FinishTest("functionCall();");
+
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall();");
+  TestPressKey("ifun\\ctrl- \\enterX");
+  FinishTest("functionCall();X");
+
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...);");
+  clearTrackedDocumentChanges();
+  TestPressKey("ifun");
+  clearTrackedDocumentChanges();
+  TestPressKey("\\ctrl- \\enter");
+  QCOMPARE(m_docChanges.size(), 3);
+  QCOMPARE(m_docChanges[0].changeType(), DocChange::TextRemoved);
+  QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 0), Cursor(0, 3)));
+  QCOMPARE(m_docChanges[1].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 0), Cursor(0, 12)));
+  QCOMPARE(m_docChanges[1].newText(), QString("functionCall"));
+  QCOMPARE(m_docChanges[2].changeType(),DocChange::TextInserted);
+  QCOMPARE(m_docChanges[2].changeRange(), Range(Cursor(0, 12), Cursor(0, 15)));
+  QCOMPARE(m_docChanges[2].newText(), QString("();"));
+  FinishTest("functionCall();");
+
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...);");
+  TestPressKey("ifun\\ctrl- \\enterX");
+  FinishTest("functionCall(X);");
+
+  // Completions ending with ";" do not participate in bracket merging.
+  BeginTest("(<-old bracket");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall();");
+  TestPressKey("ifun\\ctrl- \\enterX");
+  FinishTest("functionCall();X(<-old bracket");
+  BeginTest("(<-old bracket");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...);");
+  TestPressKey("ifun\\ctrl- \\enterX");
+  FinishTest("functionCall(X);(<-old bracket");
 
   KateViewConfig::global()->setViInputModeStealKeys(oldStealKeys);
   kate_view->hide();
@@ -6911,6 +6966,67 @@ void ViModeTest::MacroTests()
   FinishTest("function()");
   KateViewConfig::global()->setWordCompletionRemoveTail(true);
 
+  // Deal with cases where completion ends with ";".
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function();");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifun\\ctrl- \\enter\\ctrl-cq");
+  kate_document->clear();
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function();");
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function();");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifun\\ctrl- \\enterX\\ctrl-cq");
+  kate_document->clear();
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function();X");
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...);");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifun\\ctrl- \\enter\\ctrl-cq");
+  kate_document->clear();
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function();");
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...);");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifun\\ctrl- \\enterX\\ctrl-cq");
+  kate_document->clear();
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function(X);");
+  // Tests for completions ending in ";" where bracket merging should happen on replay.
+  // NB: bracket merging when recording is impossible with completions that end in ";".
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...);");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifun\\ctrl- \\enter\\ctrl-cq");
+  kate_document->setText("(<-mergeable bracket");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function(<-mergeable bracket");
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function(...);");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifun\\ctrl- \\enterX\\ctrl-cq");
+  kate_document->setText("(<-mergeable bracket");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function(X<-mergeable bracket");
+  // Don't merge no arg functions.
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "function();");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqifun\\ctrl- \\enterX\\ctrl-cq");
+  kate_document->setText("(<-mergeable bracket");
+  fakeCodeCompletionModel->setFailTestOnInvocation(true);
+  TestPressKey("gg@q");
+  FinishTest("function();X(<-mergeable bracket");
+
   {
     const QString viTestKConfigFileName = "vimodetest-katevimoderc";
     KConfig viTestKConfig(viTestKConfigFileName);
@@ -6932,8 +7048,8 @@ void ViModeTest::MacroTests()
     fakeCodeCompletionModel->setRemoveTailOnComplete(true);
     KateViewConfig::global()->setWordCompletionRemoveTail(true);
     // Record 'b'.
-    fakeCodeCompletionModel->setCompletions(QStringList() << "completionB");
-    TestPressKey("\\enterqbea\\ctrl- \\enter\\ctrl-cq");
+    fakeCodeCompletionModel->setCompletions(QStringList() << "completionB" << "semicolonfunctionnoargs();" << "semicolonfunctionwithargs(...);");
+    TestPressKey("\\enterqbea\\ctrl- \\enter\\ctrl-cosemicolonfunctionw\\ctrl- \\enterX\\ctrl-cosemicolonfunctionn\\ctrl- \\enterX\\ctrl-cq");
     // Save.
     KateGlobal::self()->viInputModeGlobal()->writeConfig(viTestKConfigGroup);
     viTestKConfig.sync();
@@ -6948,7 +7064,7 @@ void ViModeTest::MacroTests()
     fakeCodeCompletionModel->setFailTestOnInvocation(true);
     kate_document->setText("funct\nnoa\ncomtail\ncomtail\ncom");
     TestPressKey("gg@a\\enter@b");
-    FinishTest("functionwithargs(firstArg)\nnoargfunction()\ncompletionA\ncompletionAtail\ncompletionB");
+    FinishTest("functionwithargs(firstArg)\nnoargfunction()\ncompletionA\ncompletionAtail\ncompletionB\nsemicolonfunctionwithargs(X);\nsemicolonfunctionnoargs();X");
   }
 
 

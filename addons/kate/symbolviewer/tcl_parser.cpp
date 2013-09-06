@@ -37,7 +37,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
  QPixmap mcr( ( const char** ) macro_xpm );
  QPixmap cls( ( const char** ) class_xpm );
 
- if(treeMode)
+ if(m_plugin->treeOn)
   {
    clsNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Functions") ) );
    mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Globals") ) );
@@ -47,7 +47,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
    lastMcrNode = mcrNode;
    lastClsNode = clsNode;
 
-   if (m_plugin->expanded_on)
+   if (m_plugin->expandedOn)
       {
        m_symbols->expandItem(clsNode);
        m_symbols->expandItem(mcrNode);
@@ -90,7 +90,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
              //fnd = stripped.indexOf(';');
              if(fnd > 0) stripped = stripped.left(fnd);
 
-             if (treeMode)
+             if (m_plugin->treeOn)
                {
                 node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                 lastMcrNode = node;
@@ -131,7 +131,7 @@ void KatePluginSymbolViewerView::parseTclSymbols(void)
                              //stripped = stripped.simplified();
                              if(func_on == true)
                                {
-                                if (treeMode)
+                                if (m_plugin->treeOn)
                                   {
                                    node = new QTreeWidgetItem(clsNode, lastClsNode);
                                    lastClsNode = node;

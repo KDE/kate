@@ -36,7 +36,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
 
     KTextEditor::Document *kv = mainWindow()->activeView()->document();
 
-    if (treeMode)
+    if (m_plugin->treeOn)
     {
       namespaceNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Namespaces") ) );
       defineNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Defines") ) );
@@ -48,7 +48,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       classNode->setIcon(0, QIcon( classPix ) );
       functionNode->setIcon(0, QIcon( functionPix ) );
 
-      if (m_plugin->expanded_on)
+      if (m_plugin->expandedOn)
       {
         m_symbols->expandItem(namespaceNode);
         m_symbols->expandItem(defineNode);
@@ -155,10 +155,10 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       // detect NameSpaces
       if (namespaceRegExp.indexIn(line) != -1)
       {
-        if (treeMode)
+        if (m_plugin->treeOn)
         {
           node = new QTreeWidgetItem(namespaceNode, lastNamespaceNode);
-          if (m_plugin->expanded_on)
+          if (m_plugin->expandedOn)
           {
             m_symbols->expandItem(node);
           }
@@ -176,7 +176,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       // detect defines
       if (defineRegExp.indexIn(lineWithliterals) != -1)
       {
-          if (treeMode)
+          if (m_plugin->treeOn)
           {
             node = new QTreeWidgetItem(defineNode, lastDefineNode);
             lastDefineNode = node;
@@ -195,10 +195,10 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       isInterface = interfaceRegExp.indexIn(line) != -1;
       if (isClass || isInterface)
       {
-        if (treeMode)
+        if (m_plugin->treeOn)
         {
           node = new QTreeWidgetItem(classNode, lastClassNode);
-          if (m_plugin->expanded_on)
+          if (m_plugin->expandedOn)
           {
             m_symbols->expandItem(node);
           }
@@ -210,15 +210,15 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         if (isClass)
         {
-          if (m_plugin->types_on && !classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
+          if (m_plugin->typesOn && !classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
           {
             node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+","+classRegExp.cap(4).trimmed()+"]");
           }
-          else if (m_plugin->types_on && !classRegExp.cap(1).trimmed().isEmpty())
+          else if (m_plugin->typesOn && !classRegExp.cap(1).trimmed().isEmpty())
           {
             node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+"]");
           }
-          else if (m_plugin->types_on && !classRegExp.cap(4).trimmed().isEmpty())
+          else if (m_plugin->typesOn && !classRegExp.cap(4).trimmed().isEmpty())
           {
             node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(4).trimmed()+"]");
           }
@@ -229,7 +229,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         }
         else
         {
-          if (m_plugin->types_on)
+          if (m_plugin->typesOn)
           {
             node->setText(0, interfaceRegExp.cap(1) + " [interface]");
           }
@@ -247,7 +247,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       // detect class constants
       if (constantRegExp.indexIn(line) != -1)
       {
-        if (treeMode)
+        if (m_plugin->treeOn)
         {
           node = new QTreeWidgetItem(lastClassNode);
         }
@@ -265,7 +265,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       {
         if (varRegExp.indexIn(line) != -1)
         {
-          if (treeMode && inClass)
+          if (m_plugin->treeOn && inClass)
           {
             node = new QTreeWidgetItem(lastClassNode);
           }
@@ -282,11 +282,11 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
       // detect functions
       if (functionRegExp.indexIn(line) != -1)
       {
-        if (treeMode && inClass)
+        if (m_plugin->treeOn && inClass)
         {
           node = new QTreeWidgetItem(lastClassNode);
         }
-        else if (treeMode)
+        else if (m_plugin->treeOn)
         {
           node = new QTreeWidgetItem(lastFunctionNode);
         }
@@ -295,7 +295,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
           node = new QTreeWidgetItem(m_symbols);
         }
 
-        if (m_plugin->types_on)
+        if (m_plugin->typesOn)
         {
           QString functionArgs(functionRegExp.cap(5));
           pos = 0;

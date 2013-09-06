@@ -45,7 +45,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
  m_popup->changeItem( m_popup->idAt(4),i18n("Show Functions"));
 
 
- if(treeMode)
+ if(m_plugin->treeOn)
   {
    funcNode = new QTreeWidgetItem(m_symbols, QStringList(i18n("Functions") ) );
    subrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Subroutines") ) );
@@ -54,7 +54,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
    modNode->setIcon(0, QIcon(mod));
    subrNode->setIcon(0, QIcon(subr));
 
-   if (m_plugin->expanded_on)
+   if (m_plugin->expandedOn)
       {
        m_symbols->expandItem(funcNode);
        m_symbols->expandItem(subrNode);
@@ -151,7 +151,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
                     stripped.prepend("Main: ");
                 if(stripped.indexOf('=')==-1)
                   {
-                   if (treeMode)
+                   if (m_plugin->treeOn)
                      {
                       node = new QTreeWidgetItem(subrNode, lastSubrNode);
                       lastSubrNode = node;
@@ -191,7 +191,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
               }
             if(stripped.indexOf('=')==-1)
               {
-               if (treeMode)
+               if (m_plugin->treeOn)
                  {
                   node = new QTreeWidgetItem(modNode, lastModNode);
                   lastModNode = node;
@@ -232,7 +232,7 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
             if(paro==parc && stripped.endsWith('&')==false)
               {
                stripped.remove('&');
-              if (treeMode)
+              if (m_plugin->treeOn)
                 {
                  node = new QTreeWidgetItem(funcNode, lastFuncNode);
                  lastFuncNode = node;

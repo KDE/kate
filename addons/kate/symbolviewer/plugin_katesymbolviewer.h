@@ -77,6 +77,8 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
   private:
     QCheckBox* viewReturns;
     QCheckBox* expandTree;
+    QCheckBox* treeView;
+    QCheckBox* sortSymbols;
 };
 
 class KatePluginSymbolViewer;
@@ -116,7 +118,6 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     QTreeWidget *m_symbols;
     int m_macro, m_struct, m_func, m_sort;
     bool macro_on, struct_on, func_on;
-    bool treeMode, lsorting;
 
     QTimer m_updateTimer;
     QTimer m_currItemTimer;
@@ -157,8 +158,10 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
     void applyConfig( KatePluginSymbolViewerConfigPage* p );
 
   public:
-    bool types_on;
-    bool expanded_on;
+    bool typesOn;
+    bool expandedOn;
+    bool treeOn;
+    bool sortOn;
 };
 
 /* XPM */

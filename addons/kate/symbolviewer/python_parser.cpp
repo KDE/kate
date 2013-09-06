@@ -38,14 +38,14 @@ void KatePluginSymbolViewerView::parsePythonSymbols(void)
   KTextEditor::Document *kv = mainWindow()->activeView()->document();
 
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
-  if(treeMode)
+  if(m_plugin->treeOn)
     {
       clsNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Classes") ) );
       mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Globals") ) );
       mcrNode->setIcon(0, QIcon(mcr));
       clsNode->setIcon(0, QIcon(cls));
   
-      if (m_plugin->expanded_on)
+      if (m_plugin->expandedOn)
         {
         m_symbols->expandItem(mcrNode);
         m_symbols->expandItem(clsNode);
@@ -110,10 +110,10 @@ for (int i=0; i<kv->lines(); i++)
 
           if (func_on == true && in_class == 1)
             {
-             if (treeMode)
+             if (m_plugin->treeOn)
                {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
-                if (m_plugin->expanded_on) m_symbols->expandItem(node);
+                if (m_plugin->expandedOn) m_symbols->expandItem(node);
                 lastClsNode = node;
                 mtdNode = lastClsNode;
                 lastMtdNode = lastClsNode;
@@ -127,7 +127,7 @@ for (int i=0; i<kv->lines(); i++)
 
          if (struct_on == true && in_class == 2)
            {
-            if (treeMode)
+            if (m_plugin->treeOn)
               {
                node = new QTreeWidgetItem(mtdNode, lastMtdNode);
                lastMtdNode = node;
@@ -141,7 +141,7 @@ for (int i=0; i<kv->lines(); i++)
 
           if (macro_on == true && in_class == 0)
             {
-             if (treeMode)
+             if (m_plugin->treeOn)
                {
                 node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                 lastMcrNode = node;

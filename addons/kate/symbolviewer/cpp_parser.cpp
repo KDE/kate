@@ -44,7 +44,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
  KTextEditor::Document *kv = mainWindow()->activeView()->document();
 
  //kDebug(13000)<<"Lines counted :"<<kv->lines();
- if(treeMode)
+ if(m_plugin->treeOn)
    {
     mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Macros") ) );
     sctNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Structures") ) );
@@ -52,7 +52,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
     mcrNode->setIcon(0, QIcon(mcr));
     sctNode->setIcon(0, QIcon(sct));
     clsNode->setIcon(0, QIcon(cls));
-    if (m_plugin->expanded_on)
+    if (m_plugin->expandedOn)
       {
        m_symbols->expandItem(mcrNode);
        m_symbols->expandItem(sctNode);
@@ -110,7 +110,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
               stripped = stripped.trimmed();
               if (macro_on == true)
                  {
-                  if (treeMode)
+                  if (m_plugin->treeOn)
                     {
                      node = new QTreeWidgetItem(mcrNode, lastMcrNode);
                      lastMcrNode = node;
@@ -148,10 +148,10 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
              }
           if(func_on == true)
             {
-             if (treeMode)
+             if (m_plugin->treeOn)
                {
                 node = new QTreeWidgetItem(clsNode, lastClsNode);
-                if (m_plugin->expanded_on) m_symbols->expandItem(node);
+                if (m_plugin->expandedOn) m_symbols->expandItem(node);
                 lastClsNode = node;
                 mtdNode = lastClsNode;
                 lastMtdNode = lastClsNode;
@@ -231,7 +231,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       stripped.replace(0x9, " ");
                       if(func_on == true)
                         {
-                         if (m_plugin->types_on == false)
+                         if (m_plugin->typesOn == false)
                            {
                             while (stripped.indexOf('(') >= 0)
                               stripped = stripped.left(stripped.indexOf('('));
@@ -248,7 +248,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                                   )
                               ) stripped=stripped.right(stripped.length()-1);
                            }
-                         if (treeMode)
+                         if (m_plugin->treeOn)
                            {
                             if (mclass == 4)
                               {
@@ -311,7 +311,7 @@ void KatePluginSymbolViewerView::parseCppSymbols(void)
                       stripped.replace('}', " ");
                       if(struct_on == true)
                         {
-                         if (treeMode)
+                         if (m_plugin->treeOn)
                            {
                             node = new QTreeWidgetItem(sctNode, lastSctNode);
                             lastSctNode = node;

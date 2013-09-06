@@ -45,7 +45,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
  //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
 
 
- if(treeMode)
+ if(m_plugin->treeOn)
    {
     mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Params") ) );
     sctNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Variables") ) );
@@ -54,7 +54,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
     sctNode->setIcon(0, QIcon(sct));
     clsNode->setIcon(0, QIcon(cls));
 
-    if (m_plugin->expanded_on) 
+    if (m_plugin->expandedOn) 
       {
        m_symbols->expandItem(mcrNode);
        m_symbols->expandItem(sctNode);
@@ -90,7 +90,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         QString stripped = cl.remove(QRegExp("^<xsl:param +name=\""));
         stripped = stripped.remove(QRegExp("\".*"));
 
-        if (treeMode)
+        if (m_plugin->treeOn)
           {
            node = new QTreeWidgetItem(mcrNode, lastMcrNode);
            lastMcrNode = node;
@@ -106,7 +106,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         QString stripped = cl.remove(QRegExp("^<xsl:variable +name=\""));
         stripped = stripped.remove(QRegExp("\".*"));
 
-        if (treeMode)
+        if (m_plugin->treeOn)
           {
            node = new QTreeWidgetItem(sctNode, lastSctNode);
            lastSctNode = node;
@@ -122,7 +122,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         QString stripped = cl.remove(QRegExp("^<xsl:template +match=\""));
         stripped = stripped.remove(QRegExp("\".*"));
 
-        if (treeMode)
+        if (m_plugin->treeOn)
           {
            node = new QTreeWidgetItem(clsNode, lastClsNode);
            lastClsNode = node;
@@ -138,7 +138,7 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
         QString stripped = cl.remove(QRegExp("^<xsl:template +name=\""));
         stripped = stripped.remove(QRegExp("\".*"));
 
-        if (treeMode)
+        if (m_plugin->treeOn)
           {
            node = new QTreeWidgetItem(clsNode, lastClsNode);
            lastClsNode = node;

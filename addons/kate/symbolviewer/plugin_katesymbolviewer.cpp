@@ -87,18 +87,18 @@ m_plugin(plugin)
   m_popup->insertItem(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
   m_sort = m_popup->insertItem(i18n("Enable Sorting"), this, SLOT(slotEnableSorting()));
 
+  m_plugin->typesOn = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
+  m_plugin->expandedOn = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
+  m_plugin->treeOn = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("TreeView", false);
+  m_plugin->sortOn = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("SortSymbols", false);
+  
   m_popup->setItemChecked(m_macro, true);
   m_popup->setItemChecked(m_struct, true);
   m_popup->setItemChecked(m_func, true);
-  m_popup->setItemChecked(m_sort, false);
+  m_popup->setItemChecked(m_sort, m_plugin->sortOn);
   macro_on = true;
   struct_on = true;
   func_on = true;
-  treeMode = false;
-  lsorting = false;
-
-  m_plugin->types_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
-  m_plugin->expanded_on = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
 
   m_updateTimer.setSingleShot(true);
   connect(&m_updateTimer, SIGNAL(timeout()), this, SLOT(slotRefreshSymbol()));
@@ -128,7 +128,7 @@ m_plugin(plugin)
   m_symbols->setHeaderLabels(titles);
 
   m_symbols->setColumnHidden(1, true);
-  m_symbols->setSortingEnabled(false);
+  m_symbols->setSortingEnabled(m_plugin->sortOn);
   m_symbols->setRootIsDecorated(0);
   m_symbols->setContextMenuPolicy(Qt::CustomContextMenu);
   m_symbols->setIndentation(10);
@@ -137,6 +137,7 @@ m_plugin(plugin)
 
   /* First Symbols parsing here...*/
   parseSymbols();
+  if (m_plugin->sortOn == true) m_symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
@@ -174,6 +175,13 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
 {
   if (!m_symbols)
     return;
+  
+  // hack to get always apply sorting option to apply immediately
+  if ((m_plugin->sortOn && !m_symbols->isSortingEnabled()) || (!m_plugin->sortOn && m_symbols->isSortingEnabled())) {
+    m_plugin->sortOn = !m_plugin->sortOn;
+    return slotEnableSorting();
+  }
+  
  m_symbols->clear();
  parseSymbols();
  updateCurrTreeItem();
@@ -181,23 +189,23 @@ void KatePluginSymbolViewerView::slotRefreshSymbol()
 
 void KatePluginSymbolViewerView::slotChangeMode()
 {
- treeMode = !treeMode;
+ m_plugin->treeOn = !m_plugin->treeOn;
  m_symbols->clear();
  parseSymbols();
 }
 
 void KatePluginSymbolViewerView::slotEnableSorting()
 {
- lsorting = !lsorting;
- m_popup->setItemChecked(m_sort, lsorting);
+ m_plugin->sortOn = !m_plugin->sortOn;
+ m_popup->setItemChecked(m_sort, m_plugin->sortOn);
  m_symbols->clear();
- if (lsorting == true)
+ if (m_plugin->sortOn == true)
      m_symbols->setSortingEnabled(true);
  else
      m_symbols->setSortingEnabled(false);
 
  parseSymbols();
- if (lsorting == true) m_symbols->sortItems(0, Qt::AscendingOrder);
+ if (m_plugin->sortOn == true) m_symbols->sortItems(0, Qt::AscendingOrder);
 }
 
 void KatePluginSymbolViewerView::slotDocChanged()
@@ -372,6 +380,8 @@ Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
   KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
   p->viewReturns->setChecked(config.readEntry("ViewTypes", false));
   p->expandTree->setChecked(config.readEntry("ExpandTree", false));
+  p->treeView->setChecked(config.readEntry("TreeView", false));
+  p->sortSymbols->setChecked(config.readEntry("SortSymbols", false));
   connect( p, SIGNAL(configPageApplyRequest(KatePluginSymbolViewerConfigPage*)),
       SLOT(applyConfig(KatePluginSymbolViewerConfigPage*)) );
   return (Kate::PluginConfigPage*)p;
@@ -389,10 +399,13 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
   KConfigGroup config(KGlobal::config(), "PluginSymbolViewer");
   config.writeEntry("ViewTypes", p->viewReturns->isChecked());
   config.writeEntry("ExpandTree", p->expandTree->isChecked());
+  config.writeEntry("TreeView", p->treeView->isChecked());
+  config.writeEntry("SortSymbols", p->sortSymbols->isChecked());
 
-  types_on = p->viewReturns->isChecked();
-  expanded_on = p->expandTree->isChecked();
-
+  typesOn = p->viewReturns->isChecked();
+  expandedOn = p->expandTree->isChecked();
+  treeOn = p->treeView->isChecked();
+  sortOn = p->sortSymbols->isChecked();
 }
 
 // BEGIN KatePluginSymbolViewerConfigPage
@@ -406,11 +419,16 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
 
   viewReturns = new QCheckBox(i18n("Display functions parameters"));
   expandTree = new QCheckBox(i18n("Automatically expand nodes in tree mode"));
+  treeView = new QCheckBox(i18n("Always display symbols in tree mode"));
+  sortSymbols = new QCheckBox(i18n("Always sort symbols"));
+  
 
   QGroupBox* parserGBox = new QGroupBox( i18n("Parser Options"), this);
   QVBoxLayout* top = new QVBoxLayout(parserGBox);
   top->addWidget(viewReturns);
   top->addWidget(expandTree);
+  top->addWidget(treeView);
+  top->addWidget(sortSymbols);
 
   //QGroupBox* generalGBox = new QGroupBox( i18n("General Options"), this);
   //QVBoxLayout* genLay = new QVBoxLayout(generalGBox);
@@ -424,6 +442,8 @@ KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
 //  throw signal changed
   connect(viewReturns, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
   connect(expandTree, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
+  connect(treeView, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
+  connect(sortSymbols, SIGNAL(toggled(bool)), this, SIGNAL(changed()));
 }
 
 KatePluginSymbolViewerConfigPage::~KatePluginSymbolViewerConfigPage() {}

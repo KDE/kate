@@ -37,7 +37,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  KTextEditor::Document *kv = mainWindow()->activeView()->document();
 
      //kdDebug(13000)<<"Lines counted :"<<kv->numLines()<<endl;
- if(treeMode)
+ if(m_plugin->treeOn)
    {
     mcrNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Uses") ) );
     sctNode = new QTreeWidgetItem(m_symbols, QStringList( i18n("Pragmas") ) );
@@ -46,7 +46,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
     sctNode->setIcon(0, QIcon(sct));
     clsNode->setIcon(0, QIcon(cls));
 
-    if (m_plugin->expanded_on)
+    if (m_plugin->expandedOn)
       {
        m_symbols->expandItem(mcrNode);
        m_symbols->expandItem(sctNode);
@@ -83,7 +83,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
        QString stripped=cl.remove( QRegExp("^use +") );
        //stripped=stripped.replace( QRegExp(";$"), "" ); // Doesn't work ??
        stripped = stripped.left(stripped.indexOf(';'));
-       if (treeMode)
+       if (m_plugin->treeOn)
          {
           node = new QTreeWidgetItem(mcrNode, lastMcrNode);
           lastMcrNode = node;
@@ -100,7 +100,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
       {
        QString stripped=cl.remove( QRegExp("^use +") );
        stripped=stripped.remove( QRegExp(";$") );
-       if (treeMode)
+       if (m_plugin->treeOn)
          {
           node = new QTreeWidgetItem(sctNode, lastSctNode);
           lastMcrNode = node;
@@ -118,7 +118,7 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
       {
        QString stripped=cl.remove( QRegExp("^sub +") );
        stripped=stripped.remove( QRegExp("[{;] *$") );
-       if (treeMode)
+       if (m_plugin->treeOn)
          {
           node = new QTreeWidgetItem(clsNode, lastClsNode);
           lastClsNode = node;

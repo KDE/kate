@@ -384,23 +384,23 @@ void KateViInputModeManager::logCompletionEvent(const KateViInputModeManager::Co
 KateViInputModeManager::Completion KateViInputModeManager::nextLoggedCompletion()
 {
   Q_ASSERT(isReplayingLastChange() || isReplayingMacro());
-  if (isReplayingMacro())
-  {
-    if (m_nextLoggedMacroCompletionIndex.top() >= m_macroCompletionsToReplay.top().length())
-    {
-      kDebug(13070) << "Something wrong here: requesting more completions than we actually have.  Returning dummy.";
-      return Completion("", false, Completion::PlainText);
-    }
-    return m_macroCompletionsToReplay.top()[m_nextLoggedMacroCompletionIndex.top()++];
-  }
-  else
+  if (isReplayingLastChange())
   {
     if (m_nextLoggedLastChangeComplexIndex >= m_lastChangeCompletionsToReplay.length())
     {
-      kDebug(13070) << "Something wrong here: requesting more completions than we actually have.  Returning dummy.";
+      kDebug(13070) << "Something wrong here: requesting more completions for last change than we actually have.  Returning dummy.";
       return Completion("", false, Completion::PlainText);
     }
     return m_lastChangeCompletionsToReplay[m_nextLoggedLastChangeComplexIndex++];
+  }
+  else
+  {
+    if (m_nextLoggedMacroCompletionIndex.top() >= m_macroCompletionsToReplay.top().length())
+    {
+      kDebug(13070) << "Something wrong here: requesting more completions for macro than we actually have.  Returning dummy.";
+      return Completion("", false, Completion::PlainText);
+    }
+    return m_macroCompletionsToReplay.top()[m_nextLoggedMacroCompletionIndex.top()++];
   }
 }
 

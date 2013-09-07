@@ -7067,6 +7067,20 @@ void ViModeTest::MacroTests()
     FinishTest("functionwithargs(firstArg)\nnoargfunction()\ncompletionA\ncompletionAtail\ncompletionB\nsemicolonfunctionwithargs(X);\nsemicolonfunctionnoargs();X");
   }
 
+  // When replaying a last change in the process of replaying a macro, take the next completion
+  // event from the last change completions log, rather than the macro completions log.
+  // Ensure that the last change completions log is kept up to date even while we're replaying the macro.
+  clearAllMacros();
+  BeginTest("");
+  fakeCodeCompletionModel->setCompletions(QStringList() << "completionMacro" << "completionRepeatLastChange");
+  fakeCodeCompletionModel->setFailTestOnInvocation(false);
+  TestPressKey("qqicompletionM\\ctrl- \\enter\\ctrl-c");
+  TestPressKey("a completionRep\\ctrl- \\enter\\ctrl-c");
+  TestPressKey(".q");
+  kDebug(13070) << "text: " << kate_document->text();
+  kate_document->clear();
+  TestPressKey("gg@q");
+  FinishTest("completionMacro completionRepeatLastChange completionRepeatLastChange");
 
   KateViewConfig::global()->setWordCompletionRemoveTail(oldRemoveTailOnCompletion);
   kate_document->config()->setReplaceTabsDyn(oldReplaceTabsDyn);

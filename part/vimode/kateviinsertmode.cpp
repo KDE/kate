@@ -661,6 +661,17 @@ void KateViInsertMode::replayCompletion()
   {
     m_view->setCursorPosition(Cursor(m_view->cursorPosition().line(), m_view->cursorPosition().column() + offsetFinalCursorPosBy));
   }
+
+  if (!m_viInputModeManager->isReplayingLastChange())
+  {
+    Q_ASSERT(m_viInputModeManager->isReplayingMacro());
+    // Post the completion back: it needs to be added to the "last change" list ...
+    m_viInputModeManager->logCompletionEvent(completion);
+    // ... but don't log the ctrl-space that led to this call to replayCompletion(), as
+    // a synthetic ctrl-space was just added to the last change keypresses by logCompletionEvent(), and we don't
+    // want to duplicate them!
+    m_viInputModeManager->doNotLogCurrentKeypress();
+  }
 }
 
 

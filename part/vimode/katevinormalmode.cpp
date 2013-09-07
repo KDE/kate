@@ -333,7 +333,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
               kDebug( 13070 ) << "No command given, going to position ("
                 << r.endLine << "," << r.endColumn << ")";
               goToPos( r );
-              m_viInputModeManager->clearLog();
+              m_viInputModeManager->clearCurrentChangeLog();
             } else {
               kDebug( 13070 ) << "Invalid position: (" << r.endLine << "," << r.endColumn << ")";
             }
@@ -527,10 +527,10 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
   // they can be repeated with '.'
   if ( m_viInputModeManager->getCurrentViMode() != InsertMode ) {
     if ( cmd->isChange() && !m_viInputModeManager->isReplayingLastChange() ) {
-      m_viInputModeManager->storeChangeCommand();
+      m_viInputModeManager->storeLastChangeCommand();
     }
 
-    m_viInputModeManager->clearLog();
+    m_viInputModeManager->clearCurrentChangeLog();
   }
 
   // make sure the cursor does not end up after the end of the line
@@ -1825,7 +1825,7 @@ bool KateViNormalMode::commandReplayMacro()
   // "@<registername>" will have been added to the log; it needs to be cleared
   // *before* we replay the macro keypresses, else it can cause an infinite loop
   // if the macro contains a "."
-  m_viInputModeManager->clearLog();
+  m_viInputModeManager->clearCurrentChangeLog();
   const QChar reg = m_keys[m_keys.size() - 1];
   const unsigned int count = getCount();
   resetParser();

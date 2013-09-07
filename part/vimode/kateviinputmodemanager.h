@@ -150,7 +150,7 @@ public:
   /**
    * @return true if running replaying the last change due to pressing "."
    */
-  bool isReplayingLastChange() const { return m_replayingLastChange; }
+  bool isReplayingLastChange() const { return m_isReplayingLastChange; }
 
   /**
    * append a QKeyEvent to the key event log
@@ -160,12 +160,12 @@ public:
   /**
    * clear the key event log
    */
-  void clearLog() { m_keyEventsLog.clear(); m_currentChangeCompletionsLog.clear(); }
+  void clearCurrentChangeLog() { m_currentChangeKeyEventsLog.clear(); m_currentChangeCompletionsLog.clear(); }
 
   /**
    * copy the contents of the key events log to m_lastChange so that it can be repeated
    */
-  void storeChangeCommand();
+  void storeLastChangeCommand();
 
   /**
    * repeat last change by feeding the contents of m_lastChange to feedKeys()
@@ -296,7 +296,7 @@ private:
   /**
    * set to true when replaying the last change (due to e.g. pressing ".")
    */
-  bool m_replayingLastChange;
+  bool m_isReplayingLastChange;
 
   bool m_isRecordingMacro;
 
@@ -306,7 +306,7 @@ private:
   int m_macrosBeingReplayedCount;
   QChar m_lastPlayedMacroRegister;
 
-  QList<Completion> m_currentMacroLoggedCompletions;
+  QList<Completion> m_currentMacroCompletionsLog;
 
   /**
    * Stuff for retrieving the next completion for the macro.
@@ -320,14 +320,13 @@ private:
    * a continually updated list of the key events that was part of the last change.
    * updated until copied to m_lastChange when the change is completed.
    */
-  QList<QKeyEvent> m_keyEventsLog;
+  QList<QKeyEvent> m_currentChangeKeyEventsLog;
   QList<Completion> m_currentChangeCompletionsLog;
   QList<Completion> m_lastChangeCompletionsLog;
-  QList<Completion> m_lastChangeCompletionsToReplay;
   int m_nextLoggedLastChangeComplexIndex;
 
   /**
-   * a list of the key events that was part of the last change.
+   * a list of the (encoded) key events that was part of the last change.
    */
   QString m_lastChange;
 

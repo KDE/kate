@@ -1178,8 +1178,8 @@ bool KateViModeBase::startNormalMode()
   // store the key presses for this "insert mode session" so that it can be repeated with the
   // '.' command
   if (!m_viInputModeManager->isReplayingLastChange()) {
-    m_viInputModeManager->storeChangeCommand();
-    m_viInputModeManager->clearLog();
+    m_viInputModeManager->storeLastChangeCommand();
+    m_viInputModeManager->clearCurrentChangeLog();
   }
 
   m_viInputModeManager->viEnterNormalMode();

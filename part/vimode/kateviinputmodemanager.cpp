@@ -63,7 +63,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
 
   m_insideHandlingKeyPressCount = 0;
 
-  m_replayingLastChange = false;
+  m_isReplayingLastChange = false;
 
   m_isRecordingMacro = false;
   m_macrosBeingReplayedCount = 0;
@@ -267,15 +267,15 @@ void KateViInputModeManager::appendKeyEventToLog(const QKeyEvent &e)
 {
   if ( e.key() != Qt::Key_Shift && e.key() != Qt::Key_Control
       && e.key() != Qt::Key_Meta && e.key() != Qt::Key_Alt ) {
-    m_keyEventsLog.append(e);
+    m_currentChangeKeyEventsLog.append(e);
   }
 }
 
-void KateViInputModeManager::storeChangeCommand()
+void KateViInputModeManager::storeLastChangeCommand()
 {
   m_lastChange.clear();
 
-  QList<QKeyEvent> keyLog = m_keyEventsLog;
+  QList<QKeyEvent> keyLog = m_currentChangeKeyEventsLog;
 
   for (int i = 0; i < keyLog.size(); i++) {
     int keyCode = keyLog.at(i).key();
@@ -309,11 +309,10 @@ void KateViInputModeManager::storeChangeCommand()
 
 void KateViInputModeManager::repeatLastChange()
 {
-  m_replayingLastChange = true;
-  m_lastChangeCompletionsToReplay = m_lastChangeCompletionsLog;
+  m_isReplayingLastChange = true;
   m_nextLoggedLastChangeComplexIndex = 0;
   feedKeyPresses(m_lastChange);
-  m_replayingLastChange = false;
+  m_isReplayingLastChange = false;
 }
 
 void KateViInputModeManager::startRecordingMacro(QChar macroRegister)
@@ -324,14 +323,14 @@ void KateViInputModeManager::startRecordingMacro(QChar macroRegister)
   m_recordingMacroRegister = macroRegister;
   KateGlobal::self()->viInputModeGlobal()->clearMacro(macroRegister);
   m_currentMacroKeyEventsLog.clear();
-  m_currentMacroLoggedCompletions.clear();
+  m_currentMacroCompletionsLog.clear();
 }
 
 void KateViInputModeManager::finishRecordingMacro()
 {
   Q_ASSERT(m_isRecordingMacro);
   m_isRecordingMacro = false;
-  KateGlobal::self()->viInputModeGlobal()->storeMacro(m_recordingMacroRegister, m_currentMacroKeyEventsLog, m_currentMacroLoggedCompletions);
+  KateGlobal::self()->viInputModeGlobal()->storeMacro(m_recordingMacroRegister, m_currentMacroKeyEventsLog, m_currentMacroCompletionsLog);
 }
 
 bool KateViInputModeManager::isRecordingMacro()
@@ -375,9 +374,9 @@ void KateViInputModeManager::logCompletionEvent(const KateViInputModeManager::Co
   if (isRecordingMacro())
   {
     m_currentMacroKeyEventsLog.append(ctrlSpace);
-    m_currentMacroLoggedCompletions.append(completion);
+    m_currentMacroCompletionsLog.append(completion);
   }
-  m_keyEventsLog.append(ctrlSpace);
+  m_currentChangeKeyEventsLog.append(ctrlSpace);
   m_currentChangeCompletionsLog.append(completion);
 }
 
@@ -386,12 +385,12 @@ KateViInputModeManager::Completion KateViInputModeManager::nextLoggedCompletion(
   Q_ASSERT(isReplayingLastChange() || isReplayingMacro());
   if (isReplayingLastChange())
   {
-    if (m_nextLoggedLastChangeComplexIndex >= m_lastChangeCompletionsToReplay.length())
+    if (m_nextLoggedLastChangeComplexIndex >= m_lastChangeCompletionsLog.length())
     {
       kDebug(13070) << "Something wrong here: requesting more completions for last change than we actually have.  Returning dummy.";
       return Completion("", false, Completion::PlainText);
     }
-    return m_lastChangeCompletionsToReplay[m_nextLoggedLastChangeComplexIndex++];
+    return m_lastChangeCompletionsLog[m_nextLoggedLastChangeComplexIndex++];
   }
   else
   {
@@ -411,8 +410,8 @@ void KateViInputModeManager::doNotLogCurrentKeypress()
     Q_ASSERT(!m_currentMacroKeyEventsLog.isEmpty());
     m_currentMacroKeyEventsLog.pop_back();
   }
-  Q_ASSERT(!m_keyEventsLog.isEmpty());
-  m_keyEventsLog.pop_back();
+  Q_ASSERT(!m_currentChangeKeyEventsLog.isEmpty());
+  m_currentChangeKeyEventsLog.pop_back();
 }
 
 const QString KateViInputModeManager::getLastSearchPattern() const
@@ -501,7 +500,7 @@ void KateViInputModeManager::viEnterInsertMode()
   {
     // Ensure the key log contains a request to re-enter Insert mode, else the keystrokes made
     // after returning from temporary normal mode will be treated as commands!
-    m_keyEventsLog.append(QKeyEvent(QEvent::KeyPress, QString("i")[0].unicode(), Qt::NoModifier, "i"));
+    m_currentChangeKeyEventsLog.append(QKeyEvent(QEvent::KeyPress, QString("i")[0].unicode(), Qt::NoModifier, "i"));
   }
   m_view->setCaretStyle( KateRenderer::Line, true );
   setTemporaryNormalMode(false);

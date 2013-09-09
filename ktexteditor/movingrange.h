@@ -29,6 +29,16 @@
 #include <ktexteditor/range.h>
 #include <ktexteditor/movingcursor.h>
 
+// TODO: KDE5, maybe add
+// - void MoivingRange::setBlockMode(bool enableBlockMode);
+// - bool MoivingRange::blockMode() const;
+// This way, arbitrary highlighting would work for colums as well. In fact, if implemented
+// correctly in the Kate Renderer, drawing block selection mode could use this, too.
+// The vi in put mode yank highlighting could use it, too: https://bugs.kde.org/show_bug.cgi?id=324695
+//
+// A correct implementation needs to take care of MovingRangeFeedback, especially
+// of mouseEnteredRange(), mouseExitedRange(), caretEnteredRange() and caretEnteredRange()
+
 namespace KTextEditor
 {
 

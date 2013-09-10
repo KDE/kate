@@ -180,7 +180,7 @@ class KTEXTEDITOR_EXPORT AnnotationInterface
  * The AnnotationViewInterface allows to do two things:
  * - (1) show/hide the annotation border along with the possibility to add actions
  *       into its context menu.
- * - (2) set a separate AnnotationModel for the View: Not that this interface
+ * - (2) set a separate AnnotationModel for the View: Note that this interface
  *       inherits the AnnotationInterface.
  *
  * For a more detailed explanation about whether you want an AnnotationModel

@@ -830,6 +830,7 @@ void ViModeTest::NormalModeCommandsTest() {
 
   // Testing "X"
   DoTest("ABCD", "$XX", "AD");
+  DoTest("foo", "XP", "foo");
 
   // Testing "gu"
   DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");

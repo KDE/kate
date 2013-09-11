@@ -3290,7 +3290,7 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste, bool is
   // In temporary normal mode, p/P act as gp/gP.
   isgPaste |= m_viInputModeManager->getTemporaryNormalMode();
 
-  if ( textToInsert.isNull() ) {
+  if ( textToInsert.isEmpty() ) {
     error(i18n("Nothing in register %1", reg ));
     return false;
   }

@@ -26,7 +26,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 -->
 
 
-<language name="Go" version="1.03" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
+<language name="Go" version="1.04" kateversion="2.4" section="Sources" indenter="cstyle" extensions="*.go" author="Miquel Sabaté (mikisabate@gmail.com)" license="GPL">
     <highlighting>
     <list name="keywords">
 <!-- Keywords have been taken from The Go Programming Language Specification -> Keywords section -->
@@ -62,7 +62,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>complex64</item>
       <item>complex128</item>
       <item>error</item>
-      <item>float</item>
       <item>float32</item>
       <item>float64</item>
       <item>int</item>
@@ -73,6 +72,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
       <item>rune</item>
       <item>string</item>
       <item>uint</item>
+      <item>uintptr</item>
       <item>uint8</item>
       <item>uint16</item>
       <item>uint32</item>

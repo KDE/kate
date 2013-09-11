@@ -38,6 +38,7 @@
 #include "ui_searchbarpower.h"
 
 #include <kcolorscheme.h>
+#include <kmessagebox.h>
 #include <kstandardaction.h>
 
 #include <QtGui/QVBoxLayout>
@@ -617,7 +618,15 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         match.searchText(inputRange, searchPattern());
     }
 
-    const bool wrap = !match.isValid() && (!selection.isValid() || !selectionOnly());
+    const bool askWrap = !match.isValid() && (!selection.isValid() || !selectionOnly());
+    bool wrap = false;
+    if (askWrap) {
+        QString question = searchDirection == SearchForward  ? i18n("Bottom of file reached. Continue from top ?")
+                                                             : i18n("Top of file reached. Continue from bottom ?");
+        wrap = (KMessageBox::questionYesNo( 0, question, i18n("Continue search ?"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
+                                            QString("DoNotShowAgainContinueSearchDialog")) == KMessageBox::Yes );
+
+    }
     if (wrap) {
         inputRange = m_view->document()->documentRange();
         match.searchText(inputRange, searchPattern());

@@ -20,6 +20,7 @@
 #include <kate/documentmanager.h>
 #include <kate/application.h>
 
+#include <kacceleratormanager.h>
 #include <kaction.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
@@ -45,6 +46,8 @@ TabBarPluginView::TabBarPluginView(Kate::MainWindow* mainwindow)
     : Kate::PluginView(mainwindow)
 {
   m_tabBar = new KTabBar(mainWindow()->centralWidget());
+  KAcceleratorManager::setNoAccel(m_tabBar);
+
   m_tabIsDeleting = false;
 
   m_tabBar->setTabsClosable(true);

@@ -172,25 +172,45 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
             *found = true;
             return;
         }
-        if ((currentWidget == m_ui.displayOptions) && m_ui.displayOptions->isChecked()) {
-            m_ui.newTabButton->setFocus();
+        if (currentWidget == m_ui.displayOptions) {
+            if (m_ui.displayOptions->isChecked()) {
+                m_ui.newTabButton->setFocus();
+                *found = true;
+                return;
+            }
+            else {
+                Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+                if (!res) {
+                    return;
+                }
+                res->tree->setFocus();
+                *found = true;
+                return;
+            }
+        }
+    }
+    else {
+        if (currentWidget == m_ui.newTabButton) {
+            if(m_ui.displayOptions->isChecked()) {
+                m_ui.displayOptions->setFocus();
+            }
+            else {
+                Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
+                if (!res) {
+                    return;
+                }
+                res->tree->setFocus();
+            }
             *found = true;
             return;
         }
-    }
-    else if (currentWidget == m_ui.newTabButton) {
-        if(m_ui.displayOptions->isChecked()) {
-            m_ui.displayOptions->setFocus();
-        }
         else {
-            Results *res = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
-            if (!res) {
+            if (currentWidget->objectName() == "tree") {
+                m_ui.displayOptions->setFocus();
+                *found = true;
                 return;
             }
-            res->tree->setFocus();
         }
-        *found = true;
-        return;
     }
 }
 

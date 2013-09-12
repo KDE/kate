@@ -34,6 +34,7 @@
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/configinterface.h>
 
+#include "kacceleratormanager.h"
 #include <kaction.h>
 #include <kactioncollection.h>
 #include <klocale.h>
@@ -233,6 +234,7 @@ m_projectPluginView(0)
     connect(a, SIGNAL(triggered(bool)), this, SLOT(goToPreviousMatch()));
 
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
+    KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
     m_ui.displayOptions->setIcon(KIcon("arrow-down-double"));
     m_ui.searchButton->setIcon(KIcon("edit-find"));

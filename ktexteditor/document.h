@@ -356,6 +356,9 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      */
     virtual QChar character( const Cursor& position ) const = 0;
 
+    // TODO: KDE5, add word, implementation already exists in KateDocument::getWord()
+    //QString KateDocument::word(const KTextEditor::Cursor& cursor) const = 0;
+
     /**
      * Get the document content within the given \p range.
      * \param range the range of text to retrieve

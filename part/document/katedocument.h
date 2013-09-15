@@ -817,6 +817,7 @@ Q_SIGNALS:
     bool removeStartLineCommentFromSelection( KateView *view, int attrib=0 );
 
   public:
+    // KDE5: rename to wordAt(), add wordRangeAt(), see ktexteditor/document.h
     QString getWord( const KTextEditor::Cursor& cursor );
 
   public:

@@ -353,11 +353,47 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * \param position the location of the character to retrieve
      * \return the requested character, or QChar() for invalid cursors.
      * \see setText()
+     * \todo KDE5: rename to characterAt() for consistency with wordAt() and wordRangeAt()
      */
     virtual QChar character( const Cursor& position ) const = 0;
 
-    // TODO: KDE5, add word, implementation already exists in KateDocument::getWord()
-    //QString KateDocument::word(const KTextEditor::Cursor& cursor) const = 0;
+    // TODO: KDE5, add wordAt(), implementation already exists in KateDocument::getWord().
+    //       In the implementation, reuse wordRangeAt() to avoid code duplication.
+    /*
+     * Get the word at the text position \p cursor.
+     * The returned word is defined by the word boundaries to the left and
+     * right starting at \p cursor. The algorithm takes highlighting information
+     * into account, e.g. a dash ('-') in C++ is interpreted as word boundary,
+     * whereas e.g. CSS allows identifiers with dash ('-').
+     *
+     * If \p cursor is not a valid text position or if there is no word
+     * under the requested position \p cursor, an empty string is returned.
+     *
+     * \param cursor requested cursor position for the word
+     * \return the word under the cursor or an empty string if there is no word.
+     *
+     * \see wordRangeAt(), characterAt()
+     */
+    //QString wordAt(const KTextEditor::Cursor& cursor) const = 0;
+
+    // TODO: KDE5, add wordRangeAt(), implementation for the range already exists in KateDocument::getWord()
+    /*
+     * Get the text range for the word located under the text position \p cursor.
+     * The returned word is defined by the word boundaries to the left and
+     * right starting at \p cursor. The algorithm takes highlighting information
+     * into account, e.g. a dash ('-') in C++ is interpreted as word boundary,
+     * whereas e.g. CSS allows identifiers with dash ('-').
+     *
+     * If \p cursor is not a valid text position or if there is no word
+     * under the requested position \p cursor, an invalid text range is returned.
+     * If the text range is valid, it is \e always on a single line.
+     *
+     * \param cursor requested cursor position for the word
+     * \return the Range spanning the word under the cursor or an invalid range if there is no word.
+     *
+     * \see wordAt(), characterAt(), KTextEditor::Range::isValid()
+     */
+    //KTextEditor::Range wordRangeAt(const KTextEditor::Cursor& cursor) const = 0;
 
     /**
      * Get the document content within the given \p range.

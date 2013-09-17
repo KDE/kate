@@ -401,6 +401,36 @@ void KatePluginSearchView::setCurrentFolder()
     }
 }
 
+
+QString KatePluginSearchView::currentWord(const KTextEditor::Document& document, const KTextEditor::Cursor& cursor ) const
+{
+    QString textLine = document.line(cursor.line());
+
+    int len = textLine.length();
+
+    if (cursor.column() > len) {       // Probably because of non-wrapping cursor mode.
+        return QString();
+    }
+
+    int start = cursor.column();
+    for(int currPos = cursor.column(); currPos >= 0; currPos--) {
+        if (textLine.at(currPos).isLetterOrNumber() || (textLine[currPos]=='_') || (textLine[currPos]=='~')) {
+            start = currPos;
+        }
+        else {
+            break;
+        }
+    }
+
+    int end = cursor.column();
+    while (end < len && (textLine.at(end).isLetterOrNumber()
+                     || (textLine[end]=='_') || (textLine[end]=='~'))) {
+        end++;
+    }
+
+    return textLine.mid(start, (end - start));
+}
+
 void KatePluginSearchView::openSearchView()
 {
     if (!mainWindow()) {
@@ -418,18 +448,24 @@ void KatePluginSearchView::openSearchView()
             // upUrl as we want the folder not the file
             m_ui.folderRequester->setUrl(editView->document()->url().upUrl());
         }
+        QString selection;
         if (editView->selection()) {
-            QString selection = editView->selectionText();
+            selection = editView->selectionText();
             // remove possible trailing '\n'
             if (selection.endsWith('\n')) {
                 selection = selection.left(selection.size() -1);
             }
-            if (!selection.isEmpty() && !selection.contains('\n')) {
-                m_ui.searchCombo->blockSignals(true);
-                m_ui.searchCombo->lineEdit()->setText(selection);
-                m_ui.searchCombo->blockSignals(false);
-            }
         }
+        if (selection.isEmpty()) {
+            selection = currentWord(*editView->document(), editView->cursorPosition());
+        }
+
+        if (!selection.isEmpty() && !selection.contains('\n')) {
+            m_ui.searchCombo->blockSignals(true);
+            m_ui.searchCombo->lineEdit()->setText(selection);
+            m_ui.searchCombo->blockSignals(false);
+        }
+
         m_ui.searchCombo->lineEdit()->selectAll();
         m_searchJustOpened = true;
         startSearchWhileTyping();

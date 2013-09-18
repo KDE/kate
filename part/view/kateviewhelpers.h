@@ -217,7 +217,7 @@ class KateIconBorder : public QWidget
 
     int m_cachedLNWidth;
 
-    int m_maxCharWidth;
+    qreal m_maxCharWidth;
     int iconPaneWidth;
     int m_annotationBorderWidth;
 

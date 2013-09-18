@@ -1260,7 +1260,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   , m_annotationBorderOn( false )
   , m_dynWrapIndicators( 0 )
   , m_cachedLNWidth( 0 )
-  , m_maxCharWidth( 0 )
+  , m_maxCharWidth( 0.0 )
   , iconPaneWidth (16)
   , m_annotationBorderWidth (6)
   , m_foldingRange(0)
@@ -1396,11 +1396,11 @@ QSize KateIconBorder::sizeHint() const
 void KateIconBorder::updateFont()
 {
   const QFontMetricsF &fm = m_view->renderer()->config()->fontMetrics();
-  m_maxCharWidth = 0;
+  m_maxCharWidth = 0.0;
   // Loop to determine the widest numeric character in the current font.
   // 48 is ascii '0'
   for (int i = 48; i < 58; i++) {
-    int charWidth = fm.width( QChar(i) );
+    const double charWidth = ceil(fm.width( QChar(i) ));
     m_maxCharWidth = qMax(m_maxCharWidth, charWidth);
   }
 
@@ -1414,7 +1414,9 @@ void KateIconBorder::updateFont()
 
 int KateIconBorder::lineNumberWidth() const
 {
-  int width = m_lineNumbersOn ? ((int)log10((double)(m_view->doc()->lines())) + 1) * m_maxCharWidth + 4 : 0;
+  // width = (number of digits + 1) * char width
+  const int digits = (int) ceil(log10((double)(m_view->doc()->lines() + 1)));
+  int width = m_lineNumbersOn ? (int)ceil((digits + 1) * m_maxCharWidth) : 0;
 
   if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
     // HACK: 16 == style().scrollBarExtent().width()
@@ -1673,8 +1675,10 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
 
       if (realLine > -1) {
         if (m_viewInternal->cache()->viewLine(z).startCol() == 0) {
-          if (m_lineNumbersOn)
-            p.drawText( lnX, y, lnWidth-4, h, Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
+          if (m_lineNumbersOn) {
+            p.drawText( lnX + m_maxCharWidth / 2, y, lnWidth - m_maxCharWidth, h,
+                        Qt::TextDontClip|Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
+          }
         } else if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
           p.drawPixmap(lnX + lnWidth - m_arrow.width() - 2, y, m_arrow);
         }

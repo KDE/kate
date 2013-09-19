@@ -413,7 +413,7 @@ QString KatePluginSearchView::currentWord(const KTextEditor::Document& document,
     }
 
     int start = cursor.column();
-    for(int currPos = cursor.column(); currPos >= 0; currPos--) {
+    for(int currPos = cursor.column()-1; currPos >= 0; currPos--) {
         if (textLine.at(currPos).isLetterOrNumber() || (textLine[currPos]=='_') || (textLine[currPos]=='~')) {
             start = currPos;
         }

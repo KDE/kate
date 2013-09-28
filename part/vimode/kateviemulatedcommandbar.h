@@ -83,14 +83,14 @@ private:
 
   QCompleter *m_completer;
   QStringListModel *m_completionModel;
-  bool m_nextTextChangeDueToCompletionChange;
+  bool m_isNextTextChangeDueToCompletionChange;
   enum CompletionType { None, SearchHistory, WordFromDocument, Commands, CommandHistory, SedFindHistory, SedReplaceHistory };
   CompletionType m_currentCompletionType;
   void updateCompletionPrefix();
   void currentCompletionChanged();
   bool m_completionActive;
-  QString m_revertToIfCompletionAborted;
-  int m_revertToCursorPosIfCompletionAborted;
+  QString m_textToRevertToIfCompletionAborted;
+  int m_cursorPosToRevertToIfCompletionAborted;
 
   KTextEditor::Attribute::Ptr m_highlightMatchAttribute;
   KTextEditor::MovingRange* m_highlightedMatch;

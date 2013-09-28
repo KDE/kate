@@ -33,7 +33,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QLabel>
 #include <QtGui/QCompleter>
-#include <QApplication>
+#include <QtGui/QApplication>
 #include <KDE/KColorScheme>
 #include <algorithm>
 
@@ -66,7 +66,7 @@ namespace
     QString toggledEscapedString = originalString;
     do
     {
-      int indexOfEscapeChar = toggledEscapedString.indexOf(escapeChar , searchFrom);
+      const int indexOfEscapeChar = toggledEscapedString.indexOf(escapeChar , searchFrom);
       if (indexOfEscapeChar == -1)
       {
         break;
@@ -259,14 +259,14 @@ namespace
     return caseSensitivityMarkersStripped;
   }
 
-  int findPosOfSearchConfigMarker(const QString& text, const bool isSearchBackwards)
+  int findPosOfSearchConfigMarker(const QString& searchText, const bool isSearchBackwards)
   {
-    const QChar charToFind = (isSearchBackwards ? '?' : '/');
-    for (int pos = 0; pos < text.length(); pos++)
+    const QChar searchConfigMarkerChar = (isSearchBackwards ? '?' : '/');
+    for (int pos = 0; pos < searchText.length(); pos++)
     {
-      if (text.at(pos) == charToFind)
+      if (searchText.at(pos) == searchConfigMarkerChar)
       {
-        if (!isCharEscaped(text, pos))
+        if (!isCharEscaped(searchText, pos))
         {
           return pos;
         }
@@ -325,7 +325,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
       m_waitingForRegister(false),
       m_insertedTextShouldBeEscapedForSearchingAsLiteral(false),
       m_commandResponseMessageTimeOutMS(4000),
-      m_nextTextChangeDueToCompletionChange(false),
+      m_isNextTextChangeDueToCompletionChange(false),
       m_currentCompletionType(None),
       m_currentSearchIsCaseSensitive(false),
       m_currentSearchIsBackwards(false),
@@ -355,7 +355,6 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
 
   m_interactiveSedReplaceLabel = new QLabel(this);
   m_interactiveSedReplaceLabel->setObjectName("interactivesedreplace");
-  m_interactiveSedReplaceLabel->setText("(y/n/a/q/l)");
   m_interactiveSedReplaceActive = false;
   layout->addWidget(m_interactiveSedReplaceLabel);
 
@@ -372,7 +371,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   m_edit->installEventFilter(this);
   connect(m_edit, SIGNAL(textChanged(QString)), this, SLOT(editTextChanged(QString)));
 
-  m_completer = new QCompleter(QStringList() << "foo", m_edit);
+  m_completer = new QCompleter(QStringList(), m_edit);
   // Can't find a way to stop the QCompleter from auto-completing when attached to a QLineEdit,
   // so don't actually set it as the QLineEdit's completer.
   m_completer->setWidget(m_edit);
@@ -420,7 +419,7 @@ void KateViEmulatedCommandBar::init(KateViEmulatedCommandBar::Mode mode, const Q
   m_edit->show();
 
   m_commandResponseMessageDisplay->hide();
-  m_commandResponseMessageDisplayHide->stop();;
+  m_commandResponseMessageDisplayHide->stop();
 
   // A change in focus will have occurred: make sure we process it now, instead of having it
   // occur later and stop() m_commandResponseMessageDisplayHide.
@@ -544,6 +543,8 @@ bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
   Q_UNUSED(object);
   if (event->type() == QEvent::KeyPress)
   {
+    // Re-route this keypress through Vim's central keypress handling area, so that we can use the keypress in e.g.
+    // mappings and macros.
     return m_view->getViInputModeManager()->handleKeypress(static_cast<QKeyEvent*>(event));
   }
   return false;
@@ -712,14 +713,15 @@ void KateViEmulatedCommandBar::deactivateCompletion()
 void KateViEmulatedCommandBar::abortCompletionAndResetToPreCompletion()
 {
   deactivateCompletion();
-  m_nextTextChangeDueToCompletionChange = true;
-  m_edit->setText(m_revertToIfCompletionAborted);
-  m_edit->setCursorPosition(m_revertToCursorPosIfCompletionAborted);
-  m_nextTextChangeDueToCompletionChange = false;
+  m_isNextTextChangeDueToCompletionChange = true;
+  m_edit->setText(m_textToRevertToIfCompletionAborted);
+  m_edit->setCursorPosition(m_cursorPosToRevertToIfCompletionAborted);
+  m_isNextTextChangeDueToCompletionChange = false;
 }
 
 void KateViEmulatedCommandBar::updateCompletionPrefix()
 {
+  // TODO - switch on type is not very OO - consider making a polymorphic "completion" class.
   if (m_currentCompletionType == WordFromDocument)
   {
     m_completer->setCompletionPrefix(wordBeforeCursor());
@@ -740,18 +742,19 @@ void KateViEmulatedCommandBar::updateCompletionPrefix()
   {
     Q_ASSERT(false && "Unhandled completion type");
   }
-  // Seem to need this to alter the size of the popup box appropriately.
+  // Seem to need a call to complete() else the size of the popup box is not altered appropriately.
   m_completer->complete();
 }
 
 void KateViEmulatedCommandBar::currentCompletionChanged()
 {
+  // TODO - switch on type is not very OO - consider making a polymorphic "completion" class.
   const QString newCompletion = m_completer->currentCompletion();
   if (newCompletion.isEmpty())
   {
     return;
   }
-  m_nextTextChangeDueToCompletionChange = true;
+  m_isNextTextChangeDueToCompletionChange = true;
   if (m_currentCompletionType == WordFromDocument)
   {
     replaceWordBeforeCursorWith(newCompletion);
@@ -786,7 +789,7 @@ void KateViEmulatedCommandBar::currentCompletionChanged()
   {
     Q_ASSERT(false && "Something went wrong, here - completion with unrecognised completion type");
   }
-  m_nextTextChangeDueToCompletionChange = false;
+  m_isNextTextChangeDueToCompletionChange = false;
 }
 
 void KateViEmulatedCommandBar::setCompletionIndex(int index)
@@ -1133,6 +1136,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
           }
           else
           {
+            // Clear replace term.
             m_edit->setSelection(parsedSedExpression.replaceBeginPos, parsedSedExpression.replaceEndPos - parsedSedExpression.replaceBeginPos + 1);
             m_edit->insert("");
           }
@@ -1198,7 +1202,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     // and let Qt re-dispatch the event itself; however, there is a corner case in that if the selection
     // changes (as a result of e.g. incremental searches during Visual Mode), and the keypress that causes it
     // is not dispatched from within KateViInputModeHandler::handleKeypress(...)
-    // (so KateViInputModeManager::isHandlingKeypress() returns false), we lost information about whether we are
+    // (so KateViInputModeManager::isHandlingKeypress() returns false), we lose information about whether we are
     // in Visual Mode, Visual Line Mode, etc.  See KateViVisualMode::updateSelection( ).
     QKeyEvent keyEventCopy(keyEvent->type(), keyEvent->key(), keyEvent->modifiers(), keyEvent->text(), keyEvent->isAutoRepeat(), keyEvent->count());
     if (!m_interactiveSedReplaceActive)
@@ -1268,7 +1272,6 @@ QString KateViEmulatedCommandBar::executeCommand(const QString& commandToExecute
   Q_ASSERT(kateCommandLineEdit);
   const QString commandResponseMessage = kateCommandLineEdit->text();
   return commandResponseMessage;
-
 }
 
 void KateViEmulatedCommandBar::switchToCommandResponseDisplay(const QString& commandResponseMessage)
@@ -1307,10 +1310,10 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
 {
   Q_ASSERT(!m_interactiveSedReplaceActive);
   qDebug() << "New text: " << newText;
-  if (!m_nextTextChangeDueToCompletionChange)
+  if (!m_isNextTextChangeDueToCompletionChange)
   {
-    m_revertToIfCompletionAborted = newText;
-    m_revertToCursorPosIfCompletionAborted = m_edit->cursorPosition();
+    m_textToRevertToIfCompletionAborted = newText;
+    m_cursorPosToRevertToIfCompletionAborted = m_edit->cursorPosition();
   }
   if (m_mode == SearchForward || m_mode == SearchBackward)
   {
@@ -1338,7 +1341,6 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     qtRegexPattern = withCaseSensitivityMarkersStripped(qtRegexPattern);
 
     qDebug() << "Final regex: " << qtRegexPattern;
-
 
     m_currentSearchPattern = qtRegexPattern;
     m_currentSearchIsCaseSensitive = caseSensitive;
@@ -1374,7 +1376,6 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
     }
 
     updateMatchHighlight(match);
-
   }
 
   // Command completion doesn't need to be manually invoked.
@@ -1387,23 +1388,22 @@ void KateViEmulatedCommandBar::editTextChanged(const QString& newText)
   // only if this is the leading word in the text edit (it gets annoying if completion pops up
   // after ":s/se" etc).
   const bool commandBeforeCursorIsLeading = (m_edit->cursorPosition() - commandBeforeCursor().length() == rangeExpression().length());
-  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType == Commands && !m_nextTextChangeDueToCompletionChange)
+  if (m_mode == Command && !commandBeforeCursorIsLeading && m_currentCompletionType == Commands && !m_isNextTextChangeDueToCompletionChange)
   {
     deactivateCompletion();
   }
 
   // If we edit the text after having selected a completion, this means we implicitly accept it,
   // and so we should dismiss it.
-  if (!m_nextTextChangeDueToCompletionChange && m_completer->popup()->currentIndex().row() != -1)
+  if (!m_isNextTextChangeDueToCompletionChange && m_completer->popup()->currentIndex().row() != -1)
   {
     deactivateCompletion();
   }
 
-  if (m_currentCompletionType != None && !m_nextTextChangeDueToCompletionChange)
+  if (m_currentCompletionType != None && !m_isNextTextChangeDueToCompletionChange)
   {
     updateCompletionPrefix();
   }
-
 }
 
 void KateViEmulatedCommandBar::startHideCommandResponseTimer()

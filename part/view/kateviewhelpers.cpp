@@ -1501,7 +1501,7 @@ void KateIconBorder::updateFont()
   // Loop to determine the widest numeric character in the current font.
   // 48 is ascii '0'
   for (int i = 48; i < 58; i++) {
-    const double charWidth = ceil(fm.width( QChar(i) ));
+    const qreal charWidth = ceil(fm.width( QChar(i) ));
     m_maxCharWidth = qMax(m_maxCharWidth, charWidth);
   }
 

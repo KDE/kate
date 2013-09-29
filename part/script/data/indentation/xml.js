@@ -141,12 +141,16 @@ function indent(lineNr, indentWidth, char) {
 
     // default action (for char == '\n' or char == '')
     var indent = _calcAttributeIndent(lineNr - 1, indentWidth);
-    if (indent != -1)
+    if (indent != -1) {
         return indent;
+    }
 
     indent = Math.max(document.firstVirtualColumn(lineNr - 1), 0);
     var lastLine = getCode(lineNr - 1);
     dbg("lastLine: " + lastLine);
+    if (lastLine == "") {
+        return -1;
+    }
 
     var steps = calcSteps(lastLine);
     // unindenting separate closing tags are dealt with by last line

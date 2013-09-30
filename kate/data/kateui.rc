@@ -19,7 +19,6 @@
 
     <DefineGroup name="revert_merge" />
     <Action name="file_reload_all" />
-    <Action name="file_close_orphaned" />
     <DefineGroup name="print_merge" />
     <DefineGroup name="export_merge" />
     <Separator />
@@ -27,6 +26,8 @@
     <Action name="file_close"/>
     <Action name="file_close_other"/>
     <Action name="file_close_all"/>
+    <Action name="file_close_orphaned" />
+    <DefineGroup name="close_merge" />
     <Separator />
 
     <Action name="file_quit"/>

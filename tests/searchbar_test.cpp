@@ -70,6 +70,7 @@ void SearchBarTest::testFindNextIncremental()
   KateViewConfig config(&view);
 
   KateSearchBar bar(false, &view, &config);
+  bar.enableUnitTestMode();
 
   bar.setSearchPattern("b");
 
@@ -105,6 +106,7 @@ void SearchBarTest::testSetMatchCaseIncremental()
 
   doc.setText("a A a");
   KateSearchBar bar(false, &view, &config);
+  bar.enableUnitTestMode();
 
   QVERIFY(!bar.isPower());
   QVERIFY(!view.selection());
@@ -142,6 +144,7 @@ void SearchBarTest::testSetMatchCasePower()
   view.setCursorPosition(Cursor(0, 0));
 
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
 
   QVERIFY(bar.isPower());
   QVERIFY(!view.selection());
@@ -183,6 +186,7 @@ void SearchBarTest::testSetSelectionOnlyPower()
 
   doc.setText("a a a");
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
 
   bar.setSearchPattern("a");
 
@@ -235,6 +239,7 @@ void SearchBarTest::testSetSearchPattern()
   doc.setText("a a a");
 
   KateSearchBar bar(power, &view, &config);
+  bar.enableUnitTestMode();
 
   bar.setSearchPattern("a");
   bar.findAll();
@@ -261,6 +266,7 @@ void SearchBarTest::testSetSelectionOnly()
   view.setSelection(Range(0, 0, 0, 3));
 
   KateSearchBar bar(false, &view, &config);
+  bar.enableUnitTestMode();
 
   bar.setSelectionOnly(false);
   bar.setSearchPattern("a");
@@ -297,6 +303,7 @@ void SearchBarTest::testFindAll()
 
   doc.setText("a a a");
   KateSearchBar bar(power, &view, &config);
+  bar.enableUnitTestMode();
 
   QCOMPARE(bar.isPower(), power);
 
@@ -333,6 +340,7 @@ void SearchBarTest::testReplaceAll()
 
   doc.setText("a a a");
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
 
   bar.setSearchPattern("a");
   bar.setReplacementPattern("");
@@ -391,6 +399,7 @@ void SearchBarTest::testFindSelectionForward()
   view.setSelection(Range(0, 0, 0, 2));
 
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
   QVERIFY(bar.searchPattern() == QString("a "));
 
   view.setSelection(selectionRange);
@@ -427,6 +436,7 @@ void SearchBarTest::testRemoveWithSelectionForward()
   view.setSelection(selectionRange);
 
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
   bar.setSearchPattern("a ");
   bar.setSelectionOnly(false);
 
@@ -461,6 +471,7 @@ void SearchBarTest::testRemoveInSelectionForward()
   view.setSelection(selectionRange);
 
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
   bar.setSearchPattern("a ");
   bar.setSelectionOnly(true);
 
@@ -506,6 +517,7 @@ void SearchBarTest::testReplaceWithDoubleSelecion()
   view.setSelection(selectionRange);
 
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
 
   bar.setSelectionOnly(false);
   bar.setReplacementPattern(bar.searchPattern() + bar.searchPattern());
@@ -524,6 +536,7 @@ void SearchBarTest::testReplaceDollar()
   doc.setText("aaa\nbbb\nccc\n\n\naaa\nbbb\nccc\nddd\n");
 
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
 
   bar.setSearchPattern("$");
   bar.setSearchMode(KateSearchBar::MODE_REGEX);
@@ -545,6 +558,7 @@ void SearchBarTest::testSearchHistoryIncremental()
   QCOMPARE(config->patternHistoryModel()->stringList(), QStringList());
 
   KateSearchBar bar(false, &view, config);
+  bar.enableUnitTestMode();
 
   bar.setSearchPattern("foo");
   bar.findNext();
@@ -561,6 +575,7 @@ void SearchBarTest::testSearchHistoryIncremental()
   KateView view2(&doc2, 0);
   KateViewConfig *const config2 = view2.config();
   KateSearchBar bar2(false, &view2, config2);
+  bar2.enableUnitTestMode();
 
   QCOMPARE(bar2.m_incUi->pattern->findText("bar"), 0);
   QCOMPARE(bar2.m_incUi->pattern->findText("foo"), 1);
@@ -581,6 +596,7 @@ void SearchBarTest::testSearchHistoryPower()
   doc.setText("foo bar");
 
   KateSearchBar bar(true, &view, config);
+  bar.enableUnitTestMode();
 
   QCOMPARE(bar.m_powerUi->pattern->count(), 0);
 
@@ -605,6 +621,7 @@ void SearchBarTest::testSearchHistoryPower()
   KateView view2(&doc2, 0);
   KateViewConfig *const config2 = view2.config();
   KateSearchBar bar2(true, &view2, config2);
+  bar2.enableUnitTestMode();
 
   QCOMPARE(bar2.m_powerUi->pattern->findText("bar"), 0);
   QCOMPARE(bar2.m_powerUi->pattern->findText("foo"), 1);
@@ -621,6 +638,7 @@ void SearchBarTest::testReplaceInBlockMode() {
   view.setSelection(KTextEditor::Range(0, 1, 1, 2));
 
   KateSearchBar bar(true, &view, &config);
+  bar.enableUnitTestMode();
 
   bar.setSearchPattern("1");
   bar.setReplacementPattern("2");

@@ -66,6 +66,9 @@ void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc) {
 
 void KateProjectItem::slotModifiedOnDisk (KTextEditor::Document *document,
       bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason) {
+  Q_UNUSED(document)
+  Q_UNUSED(isModified)
+
   if (m_icon) {
     delete m_icon;
     m_icon=0;

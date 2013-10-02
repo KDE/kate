@@ -524,7 +524,6 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
     kft( kft )
 {
   QGridLayout *lo = new QGridLayout( this );
-  lo->setAutoAdd( true );
   lo->setSpacing( KDialog::spacingHint() );
 
   QLabel *l = new QLabel( i18n("&Template:"), this );
@@ -650,7 +649,6 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   addPage( page );
 
   QGridLayout *glo = new QGridLayout( page );
-  //lo->setAutoAdd( true );
   glo->setSpacing( KDialog::spacingHint() );
 
   bgOrigin = new QButtonGroup( page );

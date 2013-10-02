@@ -1,0 +1,4 @@
+switch (some)
+{
+    case 1:
+        break;

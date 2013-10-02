@@ -764,6 +764,26 @@ function tryAfterBlockComment_ch(line)
     return result;
 }
 
+/**
+ * Check if \c ENTER was pressed after \c break or \c continue statements
+ * and if so, unindent the current line.
+ */
+function tryAfterBreakContinue_ch(line)
+{
+    var result = -1;
+    var currentLineText = document.line(line - 1).ltrim();
+    var should_proceed = currentLineText.startsWith("break;") || currentLineText.startsWith("continue;")
+    if (should_proceed)
+    {
+        result = document.firstColumn(line - 1) - gIndentWidth;
+    }
+    if (result != -1)
+    {
+        dbg("tryAfterBreakContinue_ch result="+result);
+    }
+    return result;
+}
+
 /// Wrap \c tryToKeepInlineComment as \e caret-handler
 function tryToKeepInlineComment_ch(line)
 {
@@ -801,6 +821,7 @@ function caretPressed(cursor)
       , tryAfterEqualChar_ch
       , tryPreprocessor_ch
       , tryAfterBlockComment_ch
+      , tryAfterBreakContinue_ch
       , tryToKeepInlineComment_ch                           // NOTE This must be a last checker!
     ];
 

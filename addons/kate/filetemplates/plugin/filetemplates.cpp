@@ -620,7 +620,7 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
           a->setData( n );
         }
       }
-      btnHighlight->setPopup( m );
+      btnHighlight->setMenu( m );
   }
 }
 
@@ -693,7 +693,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
         kft->templates()[ i ]->tmplate );
     a->setData( i );
   }
-  btnTmpl->setPopup( m );
+  btnTmpl->setMenu( m );
 
   connect( bgOrigin, SIGNAL(buttonClicked(int)), this, SLOT(slotStateChanged()) );
   connect( urOrigin, SIGNAL(textChanged(QString)), this, SLOT(slotStateChanged()) );

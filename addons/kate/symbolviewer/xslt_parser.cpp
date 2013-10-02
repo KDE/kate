@@ -21,9 +21,9 @@ void KatePluginSymbolViewerView::parseXsltSymbols(void)
   if (!mainWindow()->activeView())
    return;
 
- m_popup->changeItem( m_popup->idAt(2),i18n("Show Params"));
- m_popup->changeItem( m_popup->idAt(3),i18n("Show Variables"));
- m_popup->changeItem( m_popup->idAt(4),i18n("Show Templates"));
+ m_macro->setText(i18n("Show Params"));
+ m_struct->setText(i18n("Show Variables"));
+ m_func->setText(i18n("Show Templates"));
 
  QString cl; // Current Line
  QString stripped;

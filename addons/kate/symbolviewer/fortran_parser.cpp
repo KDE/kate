@@ -40,10 +40,9 @@ void KatePluginSymbolViewerView::parseFortranSymbols(void)
  QPixmap mod( ( const char** ) struct_xpm );
 
  //It is necessary to change names
- m_popup->changeItem( m_popup->idAt(2),i18n("Show Subroutines"));
- m_popup->changeItem( m_popup->idAt(3),i18n("Show Modules"));
- m_popup->changeItem( m_popup->idAt(4),i18n("Show Functions"));
-
+ m_macro->setText(i18n("Show Subroutines"));
+ m_struct->setText(i18n("Show Modules"));
+ m_func->setText(i18n("Show Functions"));
 
  if(m_plugin->treeOn)
   {

@@ -40,7 +40,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
        QPixmap func( ( const char** ) class_xpm );
 
        //It is necessary to change names
-       m_popup->changeItem( m_popup->idAt(4),i18n("Show Functions"));
+       m_func->setText(i18n("Show Functions"));
 
        if(m_plugin->treeOn)
        {

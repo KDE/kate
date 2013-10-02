@@ -78,24 +78,24 @@ m_plugin(plugin)
   m_symbols = 0;
 
   m_popup = new QMenu(m_symbols);
-  m_popup->insertItem(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
+  m_popup->addAction(i18n("Refresh List"), this, SLOT(slotRefreshSymbol()));
   m_popup->addSeparator();
-  m_macro = m_popup->insertItem(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
-  m_struct = m_popup->insertItem(i18n("Show Structures"), this, SLOT(toggleShowStructures()));
-  m_func = m_popup->insertItem(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
+  m_macro = m_popup->addAction(i18n("Show Macros"), this, SLOT(toggleShowMacros()));
+  m_struct = m_popup->addAction(i18n("Show Structures"), this, SLOT(toggleShowStructures()));
+  m_func = m_popup->addAction(i18n("Show Functions"), this, SLOT(toggleShowFunctions()));
   m_popup->addSeparator();
-  m_popup->insertItem(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
-  m_sort = m_popup->insertItem(i18n("Enable Sorting"), this, SLOT(slotEnableSorting()));
+  m_popup->addAction(i18n("List/Tree Mode"), this, SLOT(slotChangeMode()));
+  m_sort = m_popup->addAction(i18n("Enable Sorting"), this, SLOT(slotEnableSorting()));
 
   m_plugin->typesOn = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ViewTypes", false);
   m_plugin->expandedOn = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("ExpandTree", false);
   m_plugin->treeOn = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("TreeView", false);
   m_plugin->sortOn = KConfigGroup(KGlobal::config(), "PluginSymbolViewer").readEntry("SortSymbols", false);
-  
-  m_popup->setItemChecked(m_macro, true);
-  m_popup->setItemChecked(m_struct, true);
-  m_popup->setItemChecked(m_func, true);
-  m_popup->setItemChecked(m_sort, m_plugin->sortOn);
+
+  m_macro->setChecked(true);
+  m_struct->setChecked(true);
+  m_func->setChecked(true);
+  m_sort->setChecked(m_plugin->sortOn);
   macro_on = true;
   struct_on = true;
   func_on = true;
@@ -149,24 +149,24 @@ KatePluginSymbolViewerView::~KatePluginSymbolViewerView()
 
 void KatePluginSymbolViewerView::toggleShowMacros(void)
 {
- bool s = !m_popup->isItemChecked(m_macro);
- m_popup->setItemChecked(m_macro, s);
+ bool s = !m_macro->isChecked();
+ m_macro->setChecked(s);
  macro_on = s;
  slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::toggleShowStructures(void)
 {
- bool s = !m_popup->isItemChecked(m_struct);
- m_popup->setItemChecked(m_struct, s);
+ bool s = !m_struct->isChecked();
+ m_struct->setChecked(s);
  struct_on = s;
  slotRefreshSymbol();
 }
 
 void KatePluginSymbolViewerView::toggleShowFunctions(void)
 {
- bool s = !m_popup->isItemChecked(m_func);
- m_popup->setItemChecked(m_func, s);
+ bool s = !m_func->isChecked();
+ m_func->setChecked(s);
  func_on = s;
  slotRefreshSymbol();
 }
@@ -197,7 +197,7 @@ void KatePluginSymbolViewerView::slotChangeMode()
 void KatePluginSymbolViewerView::slotEnableSorting()
 {
  m_plugin->sortOn = !m_plugin->sortOn;
- m_popup->setItemChecked(m_sort, m_plugin->sortOn);
+ m_sort->setChecked(m_plugin->sortOn);
  m_symbols->clear();
  if (m_plugin->sortOn == true)
      m_symbols->setSortingEnabled(true);

@@ -116,7 +116,7 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     QMenu       *m_popup;
     QWidget     *m_toolview;
     QTreeWidget *m_symbols;
-    int m_macro, m_struct, m_func, m_sort;
+    QAction *m_macro, *m_struct, *m_func, *m_sort;
     bool macro_on, struct_on, func_on;
 
     QTimer m_updateTimer;

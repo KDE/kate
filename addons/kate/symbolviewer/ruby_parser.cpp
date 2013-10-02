@@ -20,9 +20,10 @@ void KatePluginSymbolViewerView::parseRubySymbols(void)
   if (!mainWindow()->activeView())
    return;
 
- m_popup->changeItem( m_popup->idAt(2),i18n("Show Globals"));
- m_popup->changeItem( m_popup->idAt(3),i18n("Show Methods"));
- m_popup->changeItem( m_popup->idAt(4),i18n("Show Classes"));
+ m_macro->setText(i18n("Show Globals"));
+ m_struct->setText(i18n("Show Methods"));
+ m_func->setText(i18n("Show Classes"));
+
  QString cl; // Current Line
  QPixmap cls( ( const char** ) class_xpm );
  QPixmap mtd( ( const char** ) method_xpm );

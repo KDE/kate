@@ -20,9 +20,9 @@ void KatePluginSymbolViewerView::parsePerlSymbols(void)
  if (!mainWindow()->activeView())
    return;
 
- m_popup->changeItem( m_popup->idAt(2),i18n("Show Uses"));
- m_popup->changeItem( m_popup->idAt(3),i18n("Show Pragmas"));
- m_popup->changeItem( m_popup->idAt(4),i18n("Show Subroutines"));
+ m_macro->setText(i18n("Show Uses"));
+ m_struct->setText(i18n("Show Pragmas"));
+ m_func->setText(i18n("Show Subroutines"));
  QString cl; // Current Line
  QString stripped;
  char comment = 0;

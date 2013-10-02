@@ -746,7 +746,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   glo->addWidget( rb, 2, 1, 1, 2 );
   rb->setChecked( true );
 
-  glo->addMultiCell( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 3, 4, 1, 1 );
+  glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 3, 1, 2, 1 );
   leTemplateFileName = new KLineEdit( page );
   QLabel *l = new QLabel( i18n("Template &file name:"), page );
   l->setBuddy( leTemplateFileName );
@@ -766,7 +766,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
   connect( urLocation, SIGNAL(textChanged(QString)), this, SLOT(slotStateChanged()) );
   connect( leTemplateFileName, SIGNAL(textChanged(QString)), this, SLOT(slotStateChanged()) );
 
-  glo->addMultiCell( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 7, 1, 2 );
+  glo->addItem( new QSpacerItem( 1, 1, QSizePolicy::Expanding, QSizePolicy::Expanding ), 7, 1, 1, 2 );
 
   addPage( page );
   // 4) Should we edit the text to add some macros, replacing username etc?

@@ -748,7 +748,8 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
 
   glo->addMultiCell( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 3, 4, 1, 1 );
   leTemplateFileName = new KLineEdit( page );
-  QLabel *l = new QLabel( leTemplateFileName, i18n("Template &file name:"), page );
+  QLabel *l = new QLabel( i18n("Template &file name:"), page );
+  l->setBuddy( leTemplateFileName );
 
   glo->addWidget( l, 3, 2 );
   glo->addWidget( leTemplateFileName, 4, 2 );

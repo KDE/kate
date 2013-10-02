@@ -1070,7 +1070,7 @@ KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *paren
   : QWidget( parent )
   , kft( kft )
 {
-  QGridLayout *lo = new QGridLayout( this, 2, 4 );
+  QGridLayout *lo = new QGridLayout( this );
   lo->setSpacing( KDialog::spacingHint() );
   lvTemplates = new QTreeWidget( this );
   lvTemplates->setHeaderLabel( i18n("Template") );

@@ -1,8 +1,3 @@
-
-# TODO: port QMenu changeItem/idAt code
-add_definitions(-DQT3_SUPPORT)
-
-
 ########### next target ###############
 
 set(katesymbolviewerplugin_PART_SRCS cpp_parser.cpp tcl_parser.cpp fortran_parser.cpp perl_parser.cpp 

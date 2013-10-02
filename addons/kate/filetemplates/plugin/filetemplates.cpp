@@ -1066,8 +1066,8 @@ void KateTemplateWizard::accept()
 //END KateTemplateWizard
 
 //BEGIN KateTemplateManager
-KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *parent, const char *name )
-  : QWidget( parent, name )
+KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *parent )
+  : QWidget( parent )
   , kft( kft )
 {
   QGridLayout *lo = new QGridLayout( this, 2, 4 );

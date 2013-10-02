@@ -218,7 +218,7 @@ class KateTemplateManager : public QWidget
 {
   Q_OBJECT
   public:
-    explicit KateTemplateManager( KateFileTemplates *kft=0, QWidget *parent=0, const char *name=0 );
+    explicit KateTemplateManager( KateFileTemplates *kft=0, QWidget *parent=0 );
     ~KateTemplateManager() {}
 
   public slots:

@@ -743,7 +743,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
 
   rb = new QRadioButton( i18n("Template directory"), page );
   bgLocation->addButton( rb, 1 );
-  glo->addMultiCellWidget( rb, 2, 2, 1, 2 );
+  glo->addWidget( rb, 2, 1, 1, 2 );
   rb->setChecked( true );
 
   glo->addMultiCell( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 3, 4, 1, 1 );
@@ -755,7 +755,7 @@ KateTemplateWizard::KateTemplateWizard( QWidget *parent, KateFileTemplates *kft 
 
   rb = new QRadioButton( i18n("Custom location:"), page );
   bgLocation->addButton( rb, 2 );
-  glo->addMultiCellWidget( rb, 5, 5, 1, 2 );
+  glo->addWidget( rb, 5, 1, 1, 2 );
 
   glo->addItem( new QSpacerItem( marg, 1, QSizePolicy::Fixed ), 6, 1 );
   urLocation = new KUrlRequester( page );
@@ -1075,7 +1075,7 @@ KateTemplateManager::KateTemplateManager( KateFileTemplates *kft, QWidget *paren
   lvTemplates = new QTreeWidget( this );
   lvTemplates->setHeaderLabel( i18n("Template") );
   lvTemplates->setSelectionMode( QAbstractItemView::SingleSelection );
-  lo->addMultiCellWidget( lvTemplates, 1, 1, 1, 4 );
+  lo->addWidget( lvTemplates, 1, 1, 1, 4 );
   connect( lvTemplates, SIGNAL(itemSelectionChanged()), this, SLOT(slotUpdateState()) );
 
   btnNew = new QPushButton( i18nc("@action:button Template", "New..."), this );

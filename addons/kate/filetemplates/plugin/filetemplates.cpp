@@ -584,7 +584,12 @@ KateTemplateInfoWidget::KateTemplateInfoWidget( QWidget *parent, TemplateInfo *i
     if ( ! info->icon.isEmpty() )
       ibIcon->setIcon( info->icon );
     leTemplate->setText( info->tmplate );
-    cmbGroup->setCurrentText( info->group );
+    int i = cmbGroup->findText( info->group );
+    if ( i != -1 ) {
+        cmbGroup->setCurrentIndex( i );
+    } else {
+        cmbGroup->setEditText( info->group );
+    }
     leDescription->setText( info->description );
     leAuthor->setText( info->author );
     if ( ! info->highlight.isEmpty() )
@@ -846,7 +851,12 @@ void KateTemplateWizard::slotStateChanged()
       if ( bgOrigin->checkedId() == 3 )
       {
         TemplateInfo *info = kft->templateInfo( selectedTemplateIdx );
-        kti->cmbGroup->setCurrentText( info->group );
+        int i = kti->cmbGroup->findText( info->group );
+        if ( i != -1 ) {
+            kti->cmbGroup->setCurrentIndex( i );
+        } else {
+            kti->cmbGroup->setEditText( info->group );
+        }
       }
     break;
     case 2: // location

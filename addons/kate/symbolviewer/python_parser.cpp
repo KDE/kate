@@ -1,5 +1,5 @@
 /***************************************************************************
-                          perl_parser.cpp  -  description
+                           python_parser.cpp  -  description
                              -------------------
     begin                : Apr 2 2003
     author               : 2003 Massimo Callegari

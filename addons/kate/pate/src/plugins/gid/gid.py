@@ -562,7 +562,7 @@ class SearchBar(QObject):
         cursor = kate.activeView().cursorPosition()
         currentLine = cursor.line()
         document = kate.activeDocument()
-        self.historyModel.add(document.localFilePath(), "arrow-right", document.line(currentLine), currentLine, cursor.column(), "{}:{}".format(document.documentName(), currentLine + 1))
+        self.historyModel.add(document.url().toLocalFile(), "arrow-right", document.line(currentLine), currentLine, cursor.column(), "{}:{}".format(document.documentName(), currentLine + 1))
         #
         # Navigate to the point in the file.
         #

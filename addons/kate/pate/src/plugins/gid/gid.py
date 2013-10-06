@@ -734,5 +734,7 @@ def viewChanged():
     use kate.activeView() '''
     global completionModel
     if completionModel:
-        completionInterface = kate.activeView().codeCompletionInterface()
-        completionInterface.registerCompletionModel(completionModel)
+        view = kate.activeView()
+        if view:
+            completionInterface = view.codeCompletionInterface()
+            completionInterface.registerCompletionModel(completionModel)

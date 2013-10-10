@@ -11,7 +11,7 @@
 <language
     name="C++11"
     section="Sources"
-    version="1.59"
+    version="1.60"
     kateversion="2.4"
     indenter="cppstyle"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
@@ -349,8 +349,8 @@
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*if(?:def|ndef)?(?=\s+\S)" beginRegion="PP" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" />
         <!-- Switch to seperate context for multiline #defines -->
-        <RegExpr attribute="Preprocessor" context="Define" String="(#|%\:|\?\?=)\s*define.*((?=\\))" firstNonSpace="true" lookAhead="true" />
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*(?:el(?:se|if)|include(?:_next)?|define|undef|line|error|warning|pragma)" insensitive="true" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Define" String="(#|%\:|\?\?=)\s*(cmake)?define.*((?=\\))" firstNonSpace="true" lookAhead="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*(?:el(?:se|if)|include(?:_next)?|(cmake)?define|undef|line|error|warning|pragma)" insensitive="true" firstNonSpace="true" />
         <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s+[0-9]+" firstNonSpace="true" />
       </context>
 

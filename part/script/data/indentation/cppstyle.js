@@ -528,7 +528,19 @@ function trySplitComment_ch(line)
     return result;
 }
 
-/// Indent a next line after some keywords
+/**
+ * \brief Indent a next line after some keywords.
+ *
+ * Incrase indent after the following keywords:
+ * - \c if
+ * - \c else
+ * - \c for
+ * - \c while
+ * - \c do
+ * - \c case
+ * - \c default
+ * - and access modifiers \c public, \c protected and \c private
+ */
 function tryIndentAfterSomeKeywords_ch(line)
 {
     var result = -1;

@@ -1,0 +1,4 @@
+    if (cond)
+        do_smth();
+    else
+        ok

@@ -2,6 +2,9 @@
 <!--
 
 Changes:
+[ Version 1.43 (2013-10-11) ]
+- added missing constants for sorting
+
 [ Version 1.42 (2010-05-09) ]
 - fix handling of paamayim nekudotayim in ternary / case context, which used to
   lead to improper region starts
@@ -1456,7 +1459,9 @@ Changes:
       <item> SORTTO </item>
       <item> SORT_ASC </item>
       <item> SORT_DESC </item>
+      <item> SORT_FLAG_CASE </item>
       <item> SORT_LOCALE_STRING </item>
+      <item> SORT_NATURAL </item>
       <item> SORT_NUMERIC </item>
       <item> SORT_REGULAR </item>
       <item> SORT_STRING </item>

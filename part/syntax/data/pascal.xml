@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Pascal" version="1.22" kateversion="2.5.9" section="Sources" extensions="*.pp;*.pas;*.p" mimetype="text/x-pascal" author="Unnamed people and Liu Sizhuang(oldherl@gmail.com)">
+<language name="Pascal"
+          section="Sources" 
+          version="1.23"
+          kateversion="2.5" 
+          extensions="*.p;*.pas;*.pp"
+          mimetype="text/x-pascal" 
+          priority="8"
+	  indenter="pascal"
+          author="Unnamed people and Liu Sizhuang(oldherl@gmail.com)"
+          >
   <highlighting>
     <list name="keywords">
       <item> and </item>

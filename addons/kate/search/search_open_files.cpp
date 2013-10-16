@@ -104,7 +104,7 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
         column = regExp.indexIn(doc->line(line));
         while (column != -1) {
             if (regExp.cap().isEmpty()) break;
-            emit matchFound(doc->url().pathOrUrl(), line, column,
+            emit matchFound(doc->url().pathOrUrl(), doc->documentName(), line, column,
                             doc->line(line), regExp.matchedLength());
             column = regExp.indexIn(doc->line(line), column + regExp.cap().size());
         }
@@ -166,7 +166,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         if (line == -1) {
             break;
         }
-        emit matchFound(doc->url().pathOrUrl(),
+        emit matchFound(doc->url().pathOrUrl(), doc->documentName(),
                         line,
                         (column - m_lineStart[line]),
                         doc->line(line).left(column - m_lineStart[line])+tmpRegExp.cap(),

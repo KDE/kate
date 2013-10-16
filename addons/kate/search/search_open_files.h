@@ -51,7 +51,7 @@ private:
 
 Q_SIGNALS:
     void searchNextFile(int startLine);
-    void matchFound(const QString &url, int line, int column, const QString &lineContent, int matchLen);
+    void matchFound(const QString &url, const QString &fileName, int line, int column, const QString &lineContent, int matchLen);
     void searchDone();
     void searching(const QString &file);
 

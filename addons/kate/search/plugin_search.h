@@ -119,7 +119,7 @@ private Q_SLOTS:
 
     void folderFileListChanged();
 
-    void matchFound(const QString &fileName, int line, int column,
+    void matchFound(const QString &url, const QString &fileName, int line, int column,
                     const QString &lineContent, int matchLen);
 
     void addMatchMark(KTextEditor::Document* doc, int line, int column, int len);
@@ -157,7 +157,7 @@ protected:
     void addHeaderItem();
 
 private:
-    QTreeWidgetItem *rootFileItem(const QString &url);
+    QTreeWidgetItem *rootFileItem(const QString &url, const QString &fName);
     QStringList filterFiles(const QStringList& files) const;
     QString currentWord(const KTextEditor::Document& document, const KTextEditor::Cursor& cursor) const;
 

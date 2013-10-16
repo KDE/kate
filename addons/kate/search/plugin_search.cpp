@@ -78,10 +78,10 @@ public:
 private:
     bool operator<(const QTreeWidgetItem &other)const {
         if (childCount() == 0) {
-            int line = data(1, Qt::UserRole).toInt();
-            int column = data(2, Qt::UserRole).toInt();
-            int oLine = other.data(1, Qt::UserRole).toInt();
-            int oColumn = other.data(2, Qt::UserRole).toInt();
+            int line = data(0, ReplaceMatches::LineRole).toInt();
+            int column = data(0, ReplaceMatches::ColumnRole).toInt();
+            int oLine = other.data(0, ReplaceMatches::LineRole).toInt();
+            int oColumn = other.data(0, ReplaceMatches::ColumnRole).toInt();
             if (line < oLine) {
                 return true;
             }
@@ -90,11 +90,11 @@ private:
             }
             return false;
         }
-        int sepCount = data(0, Qt::UserRole).toString().count(QDir::separator());
-        int oSepCount = other.data(0, Qt::UserRole).toString().count(QDir::separator());
+        int sepCount = data(0, ReplaceMatches::FileUrlRole).toString().count(QDir::separator());
+        int oSepCount = other.data(0, ReplaceMatches::FileUrlRole).toString().count(QDir::separator());
         if (sepCount < oSepCount) return true;
         if (sepCount > oSepCount) return false;
-        return data(0, Qt::UserRole).toString().toLower() < other.data(0, Qt::UserRole).toString().toLower();
+        return data(0, ReplaceMatches::FileUrlRole).toString().toLower() < other.data(0, ReplaceMatches::FileUrlRole).toString().toLower();
     }
 };
 
@@ -319,15 +319,15 @@ m_projectPluginView(0)
 
     m_ui.displayOptions->setChecked(true);
 
-    connect(&m_searchOpenFiles, SIGNAL(matchFound(QString,int,int,QString,int)),
-            this,                 SLOT(matchFound(QString,int,int,QString,int)));
+    connect(&m_searchOpenFiles, SIGNAL(matchFound(QString,QString,int,int,QString,int)),
+            this,                 SLOT(matchFound(QString,QString,int,int,QString,int)));
     connect(&m_searchOpenFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
     connect(&m_searchOpenFiles, SIGNAL(searching(QString)), this, SLOT(searching(QString)));
 
     connect(&m_folderFilesList, SIGNAL(finished()),  this, SLOT(folderFileListChanged()));
 
-    connect(&m_searchDiskFiles, SIGNAL(matchFound(QString,int,int,QString,int)),
-            this,              SLOT(matchFound(QString,int,int,QString,int)));
+    connect(&m_searchDiskFiles, SIGNAL(matchFound(QString,QString,int,int,QString,int)),
+            this,                 SLOT(matchFound(QString,QString,int,int,QString,int)));
     connect(&m_searchDiskFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
     connect(&m_searchDiskFiles, SIGNAL(searching(QString)), this, SLOT(searching(QString)));
 
@@ -627,8 +627,7 @@ void KatePluginSearchView::addHeaderItem()
     m_curResults->tree->expandItem(item);
 }
 
-
-QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
+QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const QString &fName)
 {
     if (!m_curResults) {
         return 0;
@@ -638,6 +637,9 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
     QString path = kurl.isLocalFile() ? kurl.upUrl().path() : kurl.upUrl().url();
     path.replace(m_resultBaseDir, "");
     QString name = kurl.fileName();
+    if (url.isEmpty()) {
+        name = fName;
+    }
 
     // make sure we have a root item
     if (m_curResults->tree->topLevelItemCount() == 0) {
@@ -645,26 +647,31 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url)
     }
     QTreeWidgetItem *root = m_curResults->tree->topLevelItem(0);
 
-    if (root->data(0, Qt::UserRole).toString() == url) {
-        // this is seach as you type, return the root item
+    if (root->data(0, ReplaceMatches::FileNameRole).toString() == fName) {
+        // The root item contains the document name ->
+        // this is search as you type, return the root item
         return root;
     }
 
     for (int i=0; i<root->childCount(); i++) {
-        if (root->child(i)->data(0, Qt::UserRole).toString() == url) {
-            int matches = root->child(i)->data(1, Qt::UserRole).toInt() + 1;
+        kDebug() << root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() << fName;
+        if ((root->child(i)->data(0, ReplaceMatches::FileUrlRole).toString() == url)&&
+            (root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() == fName)) {
+            int matches = root->child(i)->data(0, ReplaceMatches::LineRole).toInt() + 1;
             QString tmpUrl = QString("%1<b>%2</b>: <b>%3</b>").arg(path).arg(name).arg(matches);
             root->child(i)->setData(0, Qt::DisplayRole, tmpUrl);
-            root->child(i)->setData(1, Qt::UserRole, matches);
+            root->child(i)->setData(0, ReplaceMatches::LineRole, matches);
             return root->child(i);
         }
     }
+
     // file item not found create a new one
     QString tmpUrl = QString("%1<b>%2</b>: <b>%3</b>").arg(path).arg(name).arg(1);
 
     TreeWidgetItem *item = new TreeWidgetItem(root, QStringList(tmpUrl));
-    item->setData(0, Qt::UserRole, url);
-    item->setData(1, Qt::UserRole, 1);
+    item->setData(0, ReplaceMatches::FileUrlRole, url);
+    item->setData(0, ReplaceMatches::FileNameRole, fName);
+    item->setData(0, ReplaceMatches::LineRole, 1);
     item->setCheckState(0, Qt::Checked);
     item->setFlags(item->flags() | Qt::ItemIsTristate);
     return item;
@@ -732,7 +739,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
             this, SLOT(clearMarks()), Qt::UniqueConnection);
 }
 
-void KatePluginSearchView::matchFound(const QString &url, int line, int column,
+void KatePluginSearchView::matchFound(const QString &url, const QString &fName, int line, int column,
                                       const QString &lineContent, int matchLen)
 {
     if (!m_curResults) {
@@ -746,21 +753,28 @@ void KatePluginSearchView::matchFound(const QString &url, int line, int column,
     QStringList row;
     row << i18n("Line: <b>%1</b>: %2", line+1, pre+"<b>"+match+"</b>"+post);
 
-    TreeWidgetItem *item = new TreeWidgetItem(rootFileItem(url), row);
-    item->setData(0, Qt::UserRole, url);
+    TreeWidgetItem *item = new TreeWidgetItem(rootFileItem(url, fName), row);
+    item->setData(0, ReplaceMatches::FileUrlRole, url);
     item->setData(0, Qt::ToolTipRole, url);
-    item->setData(1, Qt::UserRole, line);
-    item->setData(2, Qt::UserRole, column);
-    item->setData(3, Qt::UserRole, matchLen);
-    item->setData(1, Qt::ToolTipRole, pre);
-    item->setData(2, Qt::ToolTipRole, match);
-    item->setData(3, Qt::ToolTipRole, post);
+    item->setData(0, ReplaceMatches::FileNameRole, fName);
+    item->setData(0, ReplaceMatches::LineRole, line);
+    item->setData(0, ReplaceMatches::ColumnRole, column);
+    item->setData(0, ReplaceMatches::MatchLenRole, matchLen);
+    item->setData(0, ReplaceMatches::PreMatchRole, pre);
+    item->setData(0, ReplaceMatches::MatchRole, match);
+    item->setData(0, ReplaceMatches::PostMatchRole, post);
     item->setCheckState (0, Qt::Checked);
 
     m_curResults->matches++;
 
     // Add mark if the document is open
-    KTextEditor::Document* doc = m_kateApp->documentManager()->findUrl(url);
+    KTextEditor::Document* doc;
+    if (url.isEmpty()) {
+        doc = m_replacer.findNamed(fName);
+    }
+    else {
+        doc = m_kateApp->documentManager()->findUrl(url);
+    }
     addMatchMark(doc, line, column, matchLen);
 }
 
@@ -961,8 +975,9 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     // add header item
     TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
-    item->setData(0, Qt::UserRole, doc->url().pathOrUrl());
-    item->setData(1, Qt::UserRole, 0);
+    item->setData(0, ReplaceMatches::FileUrlRole, doc->url().pathOrUrl());
+    item->setData(0, ReplaceMatches::FileNameRole, doc->documentName());
+    item->setData(0, ReplaceMatches::LineRole, 0);
     item->setCheckState(0, Qt::Checked);
     item->setFlags(item->flags() | Qt::ItemIsTristate);
 
@@ -1150,8 +1165,8 @@ void KatePluginSearchView::replaceSingleMatch()
     int dLine = mainWindow()->activeView()->cursorPosition().line();
     int dColumn = mainWindow()->activeView()->cursorPosition().column();
 
-    int iLine = item->data(1, Qt::UserRole).toInt();
-    int iColumn = item->data(2, Qt::UserRole).toInt();
+    int iLine = item->data(0, ReplaceMatches::LineRole).toInt();
+    int iColumn = item->data(0, ReplaceMatches::ColumnRole).toInt();
 
     if ((dLine != iLine) || (dColumn != iColumn)) {
         itemSelected(item);
@@ -1197,10 +1212,10 @@ void KatePluginSearchView::replaceSingleMatch()
     addMatchMark(doc, dLine, dColumn, replaceText.size());
 
     replaceText.replace('\n', "\\n");
-    QString html = item->data(1, Qt::ToolTipRole).toString();
-    html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
+    QString html = item->data(0, ReplaceMatches::PreMatchRole).toString();
+    html += "<i><s>" + item->data(0, ReplaceMatches::MatchRole).toString() + "</s></i> ";
     html += "<b>" + replaceText + "</b>";
-    html += item->data(3, Qt::ToolTipRole).toString();
+    html += item->data(0, ReplaceMatches::PostMatchRole).toString();
     item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",m_matchRanges[i]->start().line()+1, html));
 
     // now update the rest of the tree items for this file (they are sorted in ascending order
@@ -1209,14 +1224,14 @@ void KatePluginSearchView::replaceSingleMatch()
         if (m_matchRanges[i]->document() != doc) continue;
         item = res->tree->itemBelow(item);
         if (!item) break;
-        if (item->data(0, Qt::UserRole).toString() != doc->url().pathOrUrl()) break;
-        iLine = item->data(1, Qt::UserRole).toInt();
-        iColumn = item->data(2, Qt::UserRole).toInt();
+        if (item->data(0, ReplaceMatches::FileUrlRole).toString() != doc->url().pathOrUrl()) break;
+        iLine = item->data(0, ReplaceMatches::LineRole).toInt();
+        iColumn = item->data(0, ReplaceMatches::ColumnRole).toInt();
         if ((m_matchRanges[i]->start().line() == iLine) && (m_matchRanges[i]->start().column() == iColumn)) {
             break;
         }
-        item->setData(1, Qt::UserRole, m_matchRanges[i]->start().line());
-        item->setData(2, Qt::UserRole, m_matchRanges[i]->start().column());
+        item->setData(0, ReplaceMatches::LineRole, m_matchRanges[i]->start().line());
+        item->setData(0, ReplaceMatches::ColumnRole, m_matchRanges[i]->start().column());
     }
     goToNextMatch();
 }
@@ -1268,7 +1283,9 @@ void KatePluginSearchView::docViewChanged()
     if (doc) {
         QTreeWidgetItem *rootItem = 0;
         for (int i=0; i<res->tree->topLevelItemCount(); i++) {
-            if (res->tree->topLevelItem(i)->data(0, Qt::UserRole).toString() == doc->url().pathOrUrl()) {
+            QString url = res->tree->topLevelItem(i)->data(0, ReplaceMatches::FileUrlRole).toString();
+            QString fName = res->tree->topLevelItem(i)->data(0, ReplaceMatches::FileNameRole).toString();
+            if (url == doc->url().pathOrUrl() && fName == doc->documentName()) {
                 rootItem = res->tree->topLevelItem(i);
                 break;
             }
@@ -1281,9 +1298,9 @@ void KatePluginSearchView::docViewChanged()
             QTreeWidgetItem *item;
             for (int i=0; i<rootItem->childCount(); i++) {
                 item = rootItem->child(i);
-                line = item->data(1, Qt::UserRole).toInt();
-                column = item->data(2, Qt::UserRole).toInt();
-                len = item->data(3, Qt::UserRole).toInt();
+                line = item->data(0, ReplaceMatches::LineRole).toInt();
+                column = item->data(0, ReplaceMatches::ColumnRole).toInt();
+                len = item->data(0, ReplaceMatches::MatchLenRole).toInt();
                 addMatchMark(doc, line, column, len);
             }
         }
@@ -1299,7 +1316,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
         return;
     }
 
-    while (item->data(2, Qt::UserRole).toString().isEmpty()) {
+    while (item->data(0, ReplaceMatches::ColumnRole).toString().isEmpty()) {
         item->treeWidget()->expandItem(item);
         item = item->child(0);
         if (!item) return;
@@ -1307,13 +1324,19 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     item->treeWidget()->setCurrentItem(item);
 
     // get stuff
-    const QString url = item->data(0, Qt::UserRole).toString();
-    if (url.isEmpty()) return;
-    int toLine = item->data(1, Qt::UserRole).toInt();
-    int toColumn = item->data(2, Qt::UserRole).toInt();
+    int toLine = item->data(0, ReplaceMatches::LineRole).toInt();
+    int toColumn = item->data(0, ReplaceMatches::ColumnRole).toInt();
+
+    KTextEditor::Document* doc;
+    QString url = item->data(0, ReplaceMatches::FileUrlRole).toString();
+    if (!url.isEmpty()) {
+        doc = m_kateApp->documentManager()->findUrl(url);
+    }
+    else {
+        doc = m_replacer.findNamed(item->data(0, ReplaceMatches::FileNameRole).toString());
+    }
 
     // add the marks to the document if it is not already open
-    KTextEditor::Document* doc = m_kateApp->documentManager()->findUrl(url);
     if (!doc) {
         doc = m_kateApp->documentManager()->openUrl(url);
         if (doc) {
@@ -1323,20 +1346,23 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
             QTreeWidgetItem *rootItem = (item->parent()==0) ? item : item->parent();
             for (int i=0; i<rootItem->childCount(); i++) {
                 item = rootItem->child(i);
-                line = item->data(1, Qt::UserRole).toInt();
-                column = item->data(2, Qt::UserRole).toInt();
-                len = item->data(3, Qt::UserRole).toInt();
+                line = item->data(0, ReplaceMatches::LineRole).toInt();
+                column = item->data(0, ReplaceMatches::ColumnRole).toInt();
+                len = item->data(0, ReplaceMatches::MatchLenRole).toInt();
                 addMatchMark(doc, line, column, len);
             }
         }
     }
+    if (!doc) return;
+
     // open the right view...
-    mainWindow()->openUrl(url);
+    mainWindow()->activateView(doc);
 
     // any view active?
     if (!mainWindow()->activeView()) {
         return;
     }
+
 
     // set the cursor to the correct position
     mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(toLine, toColumn));
@@ -1355,7 +1381,7 @@ void KatePluginSearchView::goToNextMatch()
     }
     if (!curr) return;
 
-    if (!curr->data(2, Qt::UserRole).toString().isEmpty()) {
+    if (!curr->data(0, ReplaceMatches::ColumnRole).toString().isEmpty()) {
         curr = res->tree->itemBelow(curr);
         if (!curr) {
             curr = res->tree->topLevelItem(0);
@@ -1380,7 +1406,7 @@ void KatePluginSearchView::goToPreviousMatch()
     curr = res->tree->itemAbove(curr);
 
     // skip file name items and the root item
-    while (curr && curr->data(2, Qt::UserRole).toString().isEmpty()) {
+    while (curr && curr->data(0, ReplaceMatches::ColumnRole).toString().isEmpty()) {
         curr = res->tree->itemAbove(curr);
     }
 
@@ -1552,7 +1578,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
         if (tree) {
             if (ke->matches(QKeySequence::Copy)) {
                 // user pressed ctrl+c -> copy full URL to the clipboard
-                QVariant variant = tree->currentItem()->data(0, Qt::UserRole);
+                QVariant variant = tree->currentItem()->data(0, ReplaceMatches::FileUrlRole);
                 QApplication::clipboard()->setText(variant.toString());
                 event->accept();
                 return true;

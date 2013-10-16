@@ -32,10 +32,23 @@ class ReplaceMatches: public QObject
     Q_OBJECT
 
 public:
+    enum MatchData {
+        FileUrlRole = Qt::UserRole,
+        FileNameRole,
+        LineRole,
+        ColumnRole,
+        MatchLenRole,
+        PreMatchRole,
+        MatchRole,
+        PostMatchRole
+    };
+
     ReplaceMatches(QObject *parent = 0);
     void setDocumentManager(Kate::DocumentManager *manager);
 
     void replaceChecked(QTreeWidget *tree, const QRegExp &regexp, const QString &replace);
+
+    KTextEditor::Document *findNamed(const QString &name);
 
 public Q_SLOTS:
     void cancelReplace();

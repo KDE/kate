@@ -103,7 +103,7 @@ void SearchDiskFiles::searchSingleLineRegExp(const QString &fileName)
             if (m_regExp.cap().isEmpty()) break;
             // limit line length
             if (line.length() > 512) line = line.left(512);
-            emit matchFound(fileName, i, column, line, m_regExp.matchedLength());
+            emit matchFound(fileName, fileName, i, column, line, m_regExp.matchedLength());
             column = m_regExp.indexIn(line, column + m_regExp.cap().size());
             m_matchCount++;
             // NOTE: This sleep is here so that the main thread will get a chance to
@@ -161,7 +161,7 @@ void SearchDiskFiles::searchMultiLineRegExp(const QString &fileName)
         if (line == -1) {
             break;
         }
-        emit matchFound(fileName,
+        emit matchFound(fileName,fileName,
                         line,
                         (column - lineStart[line]),
                         fullDoc.mid(lineStart[line], column - lineStart[line])+tmpRegExp.cap(),

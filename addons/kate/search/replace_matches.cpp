@@ -55,6 +55,19 @@ void ReplaceMatches::cancelReplace()
     m_cancelReplace = true;
 }
 
+KTextEditor::Document *ReplaceMatches::findNamed(const QString &name)
+{
+    QList<KTextEditor::Document*> docs = m_manager->documents();
+
+    foreach (KTextEditor::Document* it, docs) {
+        if ( it->documentName() == name) {
+            return it;
+        }
+    }
+    return 0;
+}
+
+
 void ReplaceMatches::doReplaceNextMatch()
 {
     if ((!m_manager) || (m_cancelReplace) || (m_tree->topLevelItemCount() != 1)) {
@@ -74,7 +87,7 @@ void ReplaceMatches::doReplaceNextMatch()
         return;
     }
 
-    if (!rootItem->data(2, Qt::UserRole).toString().isEmpty()) {
+    if (!rootItem->data(0, ColumnRole).toString().isEmpty()) {
         // this is a search as you type replace
         rootItem = m_tree->topLevelItem(0);
         m_cancelReplace = true; // only one document...
@@ -86,9 +99,17 @@ void ReplaceMatches::doReplaceNextMatch()
         return;
     }
 
-    KTextEditor::Document *doc = m_manager->findUrl(rootItem->data(0, Qt::UserRole).toString());
-    if (!doc) {
-        doc = m_manager->openUrl(rootItem->data(0, Qt::UserRole).toString());
+    KTextEditor::Document *doc;
+    QString docUrl = rootItem->data(0, FileUrlRole).toString();
+    QString docName = rootItem->data(0, FileNameRole).toString();
+    if (docUrl.isEmpty()) {
+        doc = findNamed(rootItem->data(0, FileNameRole).toString());
+    }
+    else {
+        doc = m_manager->findUrl(docUrl);
+        if (!doc) {
+            doc = m_manager->openUrl(rootItem->data(0, FileUrlRole).toString());
+        }
     }
 
     if (!doc) {
@@ -113,9 +134,9 @@ void ReplaceMatches::doReplaceNextMatch()
         item = rootItem->child(i);
         if (item->checkState(0) == Qt::Unchecked) continue;
 
-        line = endLine= item->data(1, Qt::UserRole).toInt();
-        column = item->data(2, Qt::UserRole).toInt();
-        matchLen = item->data(3, Qt::UserRole).toInt();
+        line = endLine= item->data(0, LineRole).toInt();
+        column = item->data(0, ColumnRole).toInt();
+        matchLen = item->data(0, MatchLenRole).toInt();
         matchLines = doc->line(line).mid(column);
         while (matchLines.size() < matchLen) {
             if (endLine+1 >= doc->lines()) break;
@@ -138,10 +159,10 @@ void ReplaceMatches::doReplaceNextMatch()
         rTexts << replaceText;
 
         replaceText.replace('\n', "\\n");
-        QString html = item->data(1, Qt::ToolTipRole).toString();
-        html += "<i><s>" + item->data(2, Qt::ToolTipRole).toString() + "</s></i> ";
+        QString html = item->data(0, PreMatchRole).toString();
+        html += "<i><s>" + item->data(0, MatchRole).toString() + "</s></i> ";
         html += "<b>" + replaceText + "</b>";
-        html += item->data(3, Qt::ToolTipRole).toString();
+        html += item->data(0, PostMatchRole).toString();
         item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",line+1, html));
 
         endLine = line;

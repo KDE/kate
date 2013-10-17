@@ -1,0 +1,7 @@
+    class test
+    {
+        void foo();
+
+    private:
+        void ok();
+    };

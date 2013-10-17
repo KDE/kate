@@ -8,4 +8,10 @@ public:
 
 protected:
     void ok();
+
+public slots:
+    void ok();
+
+private Q_SLOTS:
+    void ok();
 };

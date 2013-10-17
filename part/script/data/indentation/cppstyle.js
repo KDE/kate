@@ -546,7 +546,7 @@ function tryIndentAfterSomeKeywords_ch(line)
     var result = -1;
     // Check if ENTER was pressed after some keywords...
     var prevString = document.line(line - 1);
-    var r = /^(\s*)((if|for|while)\s*\(|\bdo\b|(public|protected|private|default|case\s+.*)\s*:).*$/
+    var r = /^(\s*)((if|for|while)\s*\(|\bdo\b|(((public|protected|private)(\s+(slots|Q_SLOTS))?)|default|case\s+.*)\s*:).*$/
       .exec(prevString);
     if (r != null)
     {

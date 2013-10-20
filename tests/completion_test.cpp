@@ -372,4 +372,40 @@ void CompletionTest::testJumpToListBottomAfterCursorUpWhileAtTop()
     QCOMPARE(m_view->completionWidget()->treeView()->selectionModel()->currentIndex().row(), 39);
 }
 
+void CompletionTest::testAbbrevAndContainsMatching()
+{
+    KateCompletionModel *model = m_view->completionWidget()->model();
+
+    new AbbreviationCodeCompletionTestModel(m_view, QString());
+
+    m_view->document()->setText("SCA");
+    invokeCompletionBox(m_view);
+    QCOMPARE(model->filteredItemCount(), (uint) 6);
+
+    m_view->document()->setText("SC");
+    invokeCompletionBox(m_view);
+    QCOMPARE(model->filteredItemCount(), (uint) 6);
+
+    m_view->document()->setText("sca");
+    invokeCompletionBox(m_view);
+    QCOMPARE(model->filteredItemCount(), (uint) 6);
+
+    m_view->document()->setText("contains");
+    invokeCompletionBox(m_view);
+    QCOMPARE(model->filteredItemCount(), (uint) 2);
+
+    m_view->document()->setText("CONTAINS");
+    invokeCompletionBox(m_view);
+    QCOMPARE(model->filteredItemCount(), (uint) 2);
+
+    m_view->document()->setText("containssome");
+    invokeCompletionBox(m_view);
+    QCOMPARE(model->filteredItemCount(), (uint) 1);
+
+    m_view->document()->setText("matched");
+    m_view->userInvokedCompletion();
+    QApplication::processEvents();
+    QCOMPARE(model->filteredItemCount(), (uint) 0);
+}
+
 #include "completion_test.moc"

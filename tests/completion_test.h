@@ -53,6 +53,7 @@ class CompletionTest : public QObject
     void testKateCompletionModel();
     void testAbortImmideatelyAfterStart();
     void testJumpToListBottomAfterCursorUpWhileAtTop();
+    void testAbbrevAndContainsMatching();
 
   private:
     KTextEditor::Document* m_doc;

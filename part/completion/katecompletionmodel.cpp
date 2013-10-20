@@ -953,6 +953,8 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
   }
   updateBestMatches();
 
+  resort();
+
   kDebug()<<"needsReset"<<needsReset;
   if(needsReset)
     reset();
@@ -1456,6 +1458,14 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 
   //kDebug( 13035 ) << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")";
 
+  if( matchCompletion < rhs.matchCompletion ) {
+    // enums are ordered in the order items should be displayed
+    return true;
+  }
+  if( matchCompletion > rhs.matchCompletion ) {
+    return false;
+  }
+
   if( model->isSortingByInheritanceDepth() )
     ret = inheritanceDepth - rhs.inheritanceDepth;
 
@@ -1557,15 +1567,8 @@ void KateCompletionModel::setSortingAlphabetical( bool alphabetical )
 
 void KateCompletionModel::Group::resort( )
 {
-  qStableSort(prefilter.begin(), prefilter.end());
-  //int oldRowCount = filtered.count();
-  filtered.clear();
-  foreach (const Item& i, prefilter)
-    if (i.isVisible())
-      filtered.append(i);
-
+  qStableSort(filtered.begin(), filtered.end());
   model->hideOrShowGroup(this);
-  //Q_ASSERT(filtered.count() == oldRowCount);
 }
 
 void KateCompletionModel::setSortingCaseSensitivity( Qt::CaseSensitivity cs )
@@ -1584,6 +1587,8 @@ void KateCompletionModel::resort( )
   foreach (Group* g, m_emptyGroups)
     g->resort();
 
+  // call updateBestMatches here, so they are moved to the top again.
+  updateBestMatches();
   emit contentGeometryChanged();
 }
 
@@ -1751,6 +1756,44 @@ bool KateCompletionModel::shouldMatchHideCompletionList() const {
   return doHide;
 }
 
+static inline bool matchesAbbreviation(const QString& word, const QString& typed)
+{
+  bool haveUnderscore = true;
+  int atAbbrevLetter = 0;
+  foreach ( const QChar c, word ) {
+    if ( c == QLatin1Char('_') ) {
+      haveUnderscore = true;
+    } else if ( haveUnderscore || c.isUpper() ) {
+      if ( typed.at(atAbbrevLetter).toLower() != c.toLower() ) {
+        return false;
+      }
+      atAbbrevLetter++;
+      haveUnderscore = false;
+      if ( atAbbrevLetter >= typed.size() ) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+static inline bool containsAtWordBeginning(const QString& word, const QString& typed, Qt::CaseSensitivity caseSensitive) {
+  for(int i = 1; i < word.size(); i++) {
+      // The current position is a word beginning if the previous character was an underscore
+      // or if the current character is uppercase. Subsequent uppercase characters do not count,
+      // to handle the special case of UPPER_CASE_VARS properly.
+      const QChar c = word.at(i);
+      const QChar prev = word.at(i-1);
+      if(!(prev == QLatin1Char('_') || (c.isUpper() && !prev.isUpper()))) {
+        continue;
+      }
+      if(word.midRef(i).startsWith(typed, caseSensitive)) {
+        return true;
+      }
+    }
+    return false;
+};
+
 KateCompletionModel::Item::MatchType KateCompletionModel::Item::match()
 {
   // Check to see if the item is matched by the current completion string
@@ -1763,8 +1806,25 @@ KateCompletionModel::Item::MatchType KateCompletionModel::Item::match()
    // Hehe, everything matches nothing! (ie. everything matches a blank string)
    if (match.isEmpty())
      return PerfectMatch;
-  
+
   matchCompletion = (m_nameColumn.startsWith(match, model->matchCaseSensitivity()) ? StartsWithMatch : NoMatch);
+  if(matchCompletion == NoMatch) {
+    // if no match, try for "contains"
+    // Only match when the occurence is at a "word" beginning, marked by
+    // an underscore or a capital. So Foo matches BarFoo and Bar_Foo, but not barfoo.
+    // Starting at 1 saves looking at the beginning of the word, that was already checked above.
+    if(containsAtWordBeginning(m_nameColumn, match, model->matchCaseSensitivity())) {
+      matchCompletion = ContainsMatch;
+    }
+  }
+
+  if(matchCompletion == NoMatch && !m_nameColumn.isEmpty() && !match.isEmpty())
+  {
+    // if still no match, try abbreviation matching
+    if(matchesAbbreviation(m_nameColumn, match)) {
+      matchCompletion = AbbreviationMatch;
+    }
+  }
 
   if(matchCompletion && match.length() == m_nameColumn.length()) {
     matchCompletion = PerfectMatch;

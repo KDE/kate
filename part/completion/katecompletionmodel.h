@@ -226,11 +226,14 @@ class KATEPART_TESTS_EXPORT KateCompletionModel : public ExpandingWidgetModel
         bool isMatching() const;
 
         bool filter();
-	enum MatchType {
-	  NoMatch = 0,
-	  StartsWithMatch,
-	  PerfectMatch
-	};
+
+        enum MatchType {
+          NoMatch = 0,
+          PerfectMatch,
+          StartsWithMatch,
+          AbbreviationMatch,
+          ContainsMatch
+        };
         MatchType match();
 
         const ModelRow& sourceRow() const;

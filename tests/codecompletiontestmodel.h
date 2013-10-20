@@ -20,6 +20,7 @@
 #define CODECOMPLETIONTEST_H
 
 #include <ktexteditor/codecompletionmodel.h>
+#include <QStringList>
 
 namespace KTextEditor {
   class View;
@@ -42,6 +43,18 @@ class CodeCompletionTestModel : public KTextEditor::CodeCompletionModel
   private:
     QString m_startText;
     bool m_autoStartText;
+};
+
+class AbbreviationCodeCompletionTestModel : public CodeCompletionTestModel {
+  Q_OBJECT
+
+  public:
+    AbbreviationCodeCompletionTestModel(KTextEditor::View* parent = 0L, const QString& startText = QString());
+
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+
+private:
+    QStringList m_items;
 };
 
 #endif

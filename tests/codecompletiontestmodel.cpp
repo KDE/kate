@@ -175,4 +175,23 @@ void CodeCompletionTestModel::completionInvoked(KTextEditor::View* view, const K
 }
 
 
+AbbreviationCodeCompletionTestModel::AbbreviationCodeCompletionTestModel(KTextEditor::View* parent,
+                                                                         const QString& startText)
+  : CodeCompletionTestModel(parent, startText)
+{
+  m_items << "SomeCoolAbbreviation" << "someCoolAbbreviation" << "sca" << "SCA";
+  m_items << "some_cool_abbreviation" << "Some_Cool_Abbreviation";
+  m_items << "thisContainsSomeWord" << "this_contains_some_word" << "thiscontainssomeword";
+  m_items << "notmatchedbecausemissingcaps" << "not_m_atch_ed_because_underscores";
+  setRowCount(m_items.size());
+}
+
+QVariant AbbreviationCodeCompletionTestModel::data(const QModelIndex& index, int role) const
+{
+  if ( index.column() == Name && role == Qt::DisplayRole ) {
+    return m_items[index.row()];
+  }
+  return QVariant();
+}
+
 #include "codecompletiontestmodel.moc"

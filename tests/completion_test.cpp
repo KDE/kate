@@ -429,7 +429,9 @@ void CompletionTest::benchAbbreviationEngineWorstCase()
 {
   QBENCHMARK {
     for ( int i = 0; i < 1000000; i++ ) {
-      QVERIFY(! KateCompletionModel::matchesAbbreviation("XxAbbbbbBcccccCdddddDeeeeeFY", "XAbbbbbBcccccCdddddDeeeeeFZ"));
+      // This case is quite horrible, because it requires a branch at every letter.
+      // The current code will at some point drop out and just return false.
+      KateCompletionModel::matchesAbbreviation("XxBbbbbbBbbbbbBbbbbBbbbBbbbbbbBbbbbbBbbbbbBbbbFox", "XbbbbbbbbbbbbbbbbbbbbFx");
     }
   }
 }

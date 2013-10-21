@@ -1758,7 +1758,7 @@ bool KateCompletionModel::shouldMatchHideCompletionList() const {
 }
 
 static inline bool matchesAbbreviationHelper(const QString& word, const QString& typed, const QVarLengthArray<int, 32>& offsets,
-                                             int atWord = -1, int i = 0, int depth = 0) {
+                                             int& depth, int atWord = -1, int i = 0) {
   int atLetter = 1;
   for ( ; i < typed.size(); i++ ) {
     const QChar c = typed.at(i).toLower();
@@ -1771,10 +1771,15 @@ static inline bool matchesAbbreviationHelper(const QString& word, const QString&
         atLetter += 1;
         continue;
       }
-      // the letter matches both the next word beginning and the next character in the word
       // For maliciously crafted data, the code used here theoretically can have very high
-      // complexity. Thus ensure we don't run into this case.
-      if ( haveNextWord && depth < 8 && matchesAbbreviationHelper(word, typed, offsets, atWord + 1, i + 1, depth + 1) ) {
+      // complexity. Thus ensure we don't run into this case, by limiting the amount of branches
+      // we walk through to 128.
+      depth++;
+      if ( depth > 128 ) {
+        return false;
+      }
+      // the letter matches both the next word beginning and the next character in the word
+      if ( haveNextWord && matchesAbbreviationHelper(word, typed, offsets, depth, atWord + 1, i + 1) ) {
         // resolving the conflict by taking the next word's first character worked, fine
         return true;
       }
@@ -1803,6 +1808,17 @@ bool KateCompletionModel::matchesAbbreviation(const QString& word, const QString
     return false;
   }
 
+  // First, check if all letters are contained in the word in the right order.
+  int atLetter = 0;
+  foreach ( const QChar c, typed ) {
+    while ( c.toLower() != word.at(atLetter).toLower() ) {
+      atLetter += 1;
+      if ( atLetter >= word.size() ) {
+        return false;
+      }
+    }
+  }
+
   bool haveUnderscore = true;
   QVarLengthArray<int, 32> offsets;
   // We want to make "KComplM" match "KateCompletionModel"; this means we need
@@ -1820,7 +1836,8 @@ bool KateCompletionModel::matchesAbbreviation(const QString& word, const QString
       haveUnderscore = false;
     }
   }
-  return matchesAbbreviationHelper(word, typed, offsets);
+  int depth = 0;
+  return matchesAbbreviationHelper(word, typed, offsets, depth);
 }
 
 static inline bool containsAtWordBeginning(const QString& word, const QString& typed, Qt::CaseSensitivity caseSensitive) {

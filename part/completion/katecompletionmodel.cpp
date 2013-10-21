@@ -1774,7 +1774,7 @@ static inline bool matchesAbbreviationHelper(const QString& word, const QString&
       // the letter matches both the next word beginning and the next character in the word
       // For maliciously crafted data, the code used here theoretically can have very high
       // complexity. Thus ensure we don't run into this case.
-      if ( haveNextWord && depth > 8 && matchesAbbreviationHelper(word, typed, offsets, atWord + 1, i + 1, depth + 1) ) {
+      if ( haveNextWord && depth < 8 && matchesAbbreviationHelper(word, typed, offsets, atWord + 1, i + 1, depth + 1) ) {
         // resolving the conflict by taking the next word's first character worked, fine
         return true;
       }

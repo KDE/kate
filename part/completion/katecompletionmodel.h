@@ -346,6 +346,8 @@ class KATEPART_TESTS_EXPORT KateCompletionModel : public ExpandingWidgetModel
     void resort();
     void refilter();
 
+    static bool matchesAbbreviation(const QString& word, const QString& typed);
+
     bool m_hasGroups;
 
     // ### Runtime state
@@ -393,6 +395,8 @@ class KATEPART_TESTS_EXPORT KateCompletionModel : public ExpandingWidgetModel
 
     // Column merging
     bool m_columnMergingEnabled/*, m_haveExactMatch*/;
+
+    friend class CompletionTest;
 };
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(KateCompletionModel::GroupingMethods)

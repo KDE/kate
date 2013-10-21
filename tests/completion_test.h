@@ -54,6 +54,10 @@ class CompletionTest : public QObject
     void testAbortImmideatelyAfterStart();
     void testJumpToListBottomAfterCursorUpWhileAtTop();
     void testAbbrevAndContainsMatching();
+    void testAbbreviationEngine();
+    void benchAbbreviationEngineNormalCase();
+    void benchAbbreviationEngineWorstCase();
+    void benchAbbreviationEngineGoodCase();
 
   private:
     KTextEditor::Document* m_doc;

@@ -24,6 +24,7 @@
 #include <QTextEdit>
 #include <QMultiMap>
 #include <QTimer>
+#include <QVarLengthArray>
 
 #include <klocale.h>
 #include <kiconloader.h>
@@ -1756,25 +1757,70 @@ bool KateCompletionModel::shouldMatchHideCompletionList() const {
   return doHide;
 }
 
-static inline bool matchesAbbreviation(const QString& word, const QString& typed)
+static inline bool matchesAbbreviationHelper(const QString& word, const QString& typed, const QVarLengthArray<int, 32>& offsets,
+                                             int atWord = -1, int i = 0, int depth = 0) {
+  int atLetter = 1;
+  for ( ; i < typed.size(); i++ ) {
+    const QChar c = typed.at(i).toLower();
+    bool haveNextWord = offsets.size() > atWord + 1;
+    bool canCompare = atWord != -1 && word.size() > offsets.at(atWord) + atLetter;
+    if ( canCompare && c == word.at(offsets.at(atWord) + atLetter).toLower() ) {
+      // the typed letter matches a letter after the current word beginning
+      if ( ! haveNextWord || c != word.at(offsets.at(atWord + 1)).toLower() ) {
+        // good, simple case, no conflict
+        atLetter += 1;
+        continue;
+      }
+      // the letter matches both the next word beginning and the next character in the word
+      // For maliciously crafted data, the code used here theoretically can have very high
+      // complexity. Thus ensure we don't run into this case.
+      if ( haveNextWord && depth > 8 && matchesAbbreviationHelper(word, typed, offsets, atWord + 1, i + 1, depth + 1) ) {
+        // resolving the conflict by taking the next word's first character worked, fine
+        return true;
+      }
+      // otherwise, continue by taking the next letter in the current word.
+      atLetter += 1;
+      continue;
+    }
+    else if ( haveNextWord && c == word.at(offsets.at(atWord + 1)).toLower() ) {
+      // the typed letter matches the next word beginning
+      atWord++;
+      atLetter = 1;
+      continue;
+    }
+    // no match
+    return false;
+  }
+  // all characters of the typed word were matched
+  return true;
+}
+
+bool KateCompletionModel::matchesAbbreviation(const QString& word, const QString& typed)
 {
+  // A mismatch is very likely for random even for the first letter,
+  // thus this optimization makes sense.
+  if ( word.at(0).toLower() != typed.at(0).toLower() ) {
+    return false;
+  }
+
   bool haveUnderscore = true;
-  int atAbbrevLetter = 0;
-  foreach ( const QChar c, word ) {
+  QVarLengthArray<int, 32> offsets;
+  // We want to make "KComplM" match "KateCompletionModel"; this means we need
+  // to allow parts of the typed text to be not part of the actual abbreviation,
+  // which consists only of the uppercased / underscored letters (so "KCM" in this case).
+  // However it might be ambigous whether a letter is part of such a word or part of
+  // the following abbreviation, so we need to find all possible word offsets first,
+  // then compare.
+  for ( int i = 0; i < word.size(); i++ ) {
+    const QChar c = word.at(i);
     if ( c == QLatin1Char('_') ) {
       haveUnderscore = true;
     } else if ( haveUnderscore || c.isUpper() ) {
-      if ( typed.at(atAbbrevLetter).toLower() != c.toLower() ) {
-        return false;
-      }
-      atAbbrevLetter++;
+      offsets.append(i);
       haveUnderscore = false;
-      if ( atAbbrevLetter >= typed.size() ) {
-        return true;
-      }
     }
   }
-  return false;
+  return matchesAbbreviationHelper(word, typed, offsets);
 }
 
 static inline bool containsAtWordBeginning(const QString& word, const QString& typed, Qt::CaseSensitivity caseSensitive) {
@@ -1806,6 +1852,8 @@ KateCompletionModel::Item::MatchType KateCompletionModel::Item::match()
    // Hehe, everything matches nothing! (ie. everything matches a blank string)
    if (match.isEmpty())
      return PerfectMatch;
+   if (m_nameColumn.isEmpty())
+     return NoMatch;
 
   matchCompletion = (m_nameColumn.startsWith(match, model->matchCaseSensitivity()) ? StartsWithMatch : NoMatch);
   if(matchCompletion == NoMatch) {

@@ -372,6 +372,68 @@ void CompletionTest::testJumpToListBottomAfterCursorUpWhileAtTop()
     QCOMPARE(m_view->completionWidget()->treeView()->selectionModel()->currentIndex().row(), 39);
 }
 
+void CompletionTest::testAbbreviationEngine()
+{
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBar", "fb"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBar", "foob"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBar", "fbar"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBar", "fba"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBar", "foba"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBarBazBang", "fbbb"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("foo_bar_cat", "fbc"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("foo_bar_cat", "fb"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBarArr", "fba"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBarArr", "fbara"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBarArr", "fobaar"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("FooBarArr", "fb"));
+
+  QVERIFY(KateCompletionModel::matchesAbbreviation("QualifiedIdentifier", "qid"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("QualifiedIdentifier", "qualid"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("QualifiedIdentifier", "qualidentifier"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("QualifiedIdentifier", "qi"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("KateCompletionModel", "kcmodel"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("KateCompletionModel", "kc"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("KateCompletionModel", "kcomplmodel"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("KateCompletionModel", "kacomplmodel"));
+  QVERIFY(KateCompletionModel::matchesAbbreviation("KateCompletionModel", "kacom"));
+
+  QVERIFY(! KateCompletionModel::matchesAbbreviation("QualifiedIdentifier", "identifier"));
+  QVERIFY(! KateCompletionModel::matchesAbbreviation("FooBarArr", "fobaara"));
+  QVERIFY(! KateCompletionModel::matchesAbbreviation("FooBarArr", "fbac"));
+  QVERIFY(! KateCompletionModel::matchesAbbreviation("KateCompletionModel", "kamodel"));
+
+  QVERIFY(KateCompletionModel::matchesAbbreviation("AbcdefBcdefCdefDefEfFzZ", "AbcdefBcdefCdefDefEfFzZ"));
+  QVERIFY(! KateCompletionModel::matchesAbbreviation("AbcdefBcdefCdefDefEfFzZ", "ABCDEFX"));
+  QVERIFY(! KateCompletionModel::matchesAbbreviation("AaaaaaBbbbbCcccDddEeFzZ", "XZYBFA"));
+}
+
+void CompletionTest::benchAbbreviationEngineGoodCase()
+{
+  QBENCHMARK {
+    for ( int i = 0; i < 1000000; i++ ) {
+      QVERIFY(! KateCompletionModel::matchesAbbreviation("AaaaaaBbbbbCcccDddEeFzZ", "XZYBFA"));
+    }
+  }
+}
+
+void CompletionTest::benchAbbreviationEngineNormalCase()
+{
+  QBENCHMARK {
+    for ( int i = 0; i < 1000000; i++ ) {
+      QVERIFY(! KateCompletionModel::matchesAbbreviation("AaaaaaBbbbbCcccDddEeFzZ", "ABCDEFX"));
+    }
+  }
+}
+
+void CompletionTest::benchAbbreviationEngineWorstCase()
+{
+  QBENCHMARK {
+    for ( int i = 0; i < 1000000; i++ ) {
+      QVERIFY(! KateCompletionModel::matchesAbbreviation("XxAbbbbbBcccccCdddddDeeeeeFY", "XAbbbbbBcccccCdddddDeeeeeFZ"));
+    }
+  }
+}
+
 void CompletionTest::testAbbrevAndContainsMatching()
 {
     KateCompletionModel *model = m_view->completionWidget()->model();

@@ -52,7 +52,7 @@ if (option.showDecorationSelected && (option.state & QStyle::State_Selected)) {
 	    return qvariant_cast<QBrush>(value).color();
     }
     
-    return QApplication::palette().background().color();
+    return QApplication::palette().base().color();
 }
 
 static void dampColors(QColor& col) {

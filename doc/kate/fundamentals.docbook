@@ -11,7 +11,7 @@
 If you have ever used a text editor, you will have no problem using
 &kate;. In the next two sections, <link linkend="starting-kate">Starting
 &kate; </link> and in <link linkend="working-with-kate">Working with
-&kate;</link>, we'll show you everything you need to get up and running
+&kate;</link>, we will show you everything you need to get up and running
 quickly.
 </para>
 
@@ -202,7 +202,7 @@ downloaded to a temporary) and should be reuploaded, after you saved it.
 <listitem><para>Since &kate; 2.5.1 this standard &kde; option is supported.
 When used, the specified files are treated as temporary files and
 deleted (if they are local files and you have sufficient permissions) when
-closed, unless they are modified since they were opened.</para></listitem>
+closed, unless they were modified since they were opened.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -277,7 +277,7 @@ This section will describe some of the items on the
 &kate; to work the way you want it.
 </para>
 
-<para> When you start &kate; for the first time you'll see two windows
+<para> When you start &kate; for the first time you will see two windows
 with white backgrounds. Above the two windows is a toolbar with the
 usual labeled icons. And above that, a menubar.
 </para>
@@ -462,7 +462,7 @@ characters at the beginning of each new line with comments.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>C</keycap></keycombo></para></entry>
-<entry><para> Copy the marked text to the clipboard. </para></entry>
+<entry><para> Copy the marked text to the clipboard </para></entry>
 </row>
 
 <row>
@@ -484,16 +484,16 @@ characters at the beginning of each new line with comments.</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>S</keycap></keycombo></para></entry>
-<entry><para>Save your file.</para></entry>
+<entry><para>Save your file</para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>V</keycap></keycombo></para></entry>
-<entry><para> Paste.</para></entry>
+<entry><para> Paste</para></entry>
 </row>
 
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>X</keycap></keycombo></para></entry>
-<entry><para>Delete the marked text and copy it to the clipboard. </para></entry>
+<entry><para>Delete the marked text and copy it to the clipboard </para></entry>
 </row>
 <row>
 <entry><para><keycombo action="simul">&Ctrl;<keycap>Z</keycap></keycombo></para></entry>
@@ -552,7 +552,7 @@ its sidebar button and select from the &RMB; menu</para>
 
 <para>A tool view can be marked as <emphasis>persistent</emphasis> in the &RMB;
 menu for its sidebar button. The sidebar can contain
-more tools at one time so that when a tool is persistant other tools can be
+more tools at one time so that when a tool is persistent other tools can be
 shown simultaneously.</para>
 
 </sect3>
@@ -621,15 +621,15 @@ Close
 Copy Filename -> full doc path to clipboard
 Open With submenu
 -->
-<para>You can sort the list in a few different ways by rightclicking the
+<para>You can sort the list in a few different ways by right clicking the
 list and selecting from the <guisubmenu>Sort By</guisubmenu> menu.
 
-The options are
+The options are:
 <variablelist>
 
 <varlistentry>
 <term><guimenuitem>Opening Order</guimenuitem></term>
-<listitem><para>Lists the documents in the order of opening</para></listitem>
+<listitem><para>Lists the documents in the order of opening.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -666,12 +666,12 @@ editing area.</para>
 <para><indexterm><primary>Terminal emulator</primary></indexterm>
 The built in Terminal Emulator is a copy of the &kde; &konsole;
 terminal application, for your convenience. It is available from the
-<menuchoice><guimenu>View</guimenu><guisubmenu>Tools Views</guisubmenu>
+<menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
 <guimenuitem>Show Terminal</guimenuitem></menuchoice> menu item and will get the focus
 whenever displayed. Additionally, if the <link
 linkend="config-dialog-general-sync-konsole">Automatically synchronize
 the terminal with the current document when possible</link> option is enabled, it will
-change into the directory of the current document if
+change to the directory of the current document if
 possible when it is displayed, or when the current document
 changes.</para>
 
@@ -695,7 +695,7 @@ which is enabled by default.</para>
 GUI configuration around. You can have as many named sessions as you want,
 and you can use unnamed or anonymous sessions for files you want to use only
 once. Currently &kate; can save the list of open files, and the general window
-configuration in the session, future versions of &kate; may add more features
+configuration in the session; future versions of &kate; may add more features
 that can be saved in sessions. With the introduction of sessions, &kate; also
 allows you to open any number of instances of the application instead of just
 one as it used to do as the default behavior.</para>
@@ -709,7 +709,7 @@ kate from the command line.</para>
 </listitem>
 <listitem><para><link linkend="sessions-menu"><emphasis>The Sessions
 menu</emphasis></link> that lets you switch, save, start and manage your
-sessions</para></listitem>
+sessions.</para></listitem>
 <listitem><para><link linkend="config-dialog-sessions"><emphasis>Configuration
 options</emphasis></link> that lets you decide how sessions generally should
 behave.</para></listitem>
@@ -724,14 +724,14 @@ configuration page of the configuration dialog and then load the default
 session, set up the window as desired and save the session again.</para>
 
 <para>When a named session is loaded, &kate; will display the session name at
-the start of the window title, which then have the form
+the start of the window title, which then has the form
 &quot;<replaceable>Session Name</replaceable>: <replaceable>Document name or
 &URL;</replaceable> - &kate;&quot;</para>
 
 <para>When opening files on the command line with <option>--start
 <replaceable>name</replaceable></option> or if a session is selected using the
 session chooser, the specified session is loaded prior to the files specified
-on the command line. To open files from the commandline in a new, unnamed
+on the command line. To open files from the command line in a new, unnamed
 session, configure kate to start a new session as default in the session page of
 the configuration dialog or use <option>--start</option> with an empty string:
 <replaceable>''</replaceable>.</para>
@@ -757,7 +757,7 @@ and additionally using a shell alias.</para></listitem>
 </listitem>
 <listitem><para>Configure &kate; to save the file list when closing a session.
 </para></listitem>
-<listitem><para>Load the default session once</para></listitem>
+<listitem><para>Load the default session once.</para></listitem>
 </itemizedlist>
 </para>
 

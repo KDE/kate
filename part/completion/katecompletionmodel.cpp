@@ -622,7 +622,7 @@ KateCompletionModel::Group* KateCompletionModel::createItem(const HierarchicalMo
     g = m_argumentHints;
   } else{
     QString customGroup = handler.customGroup();
-    if(!customGroup.isNull()) {
+    if(!customGroup.isNull() && m_hasGroups) {
       if(m_customGroupHash.contains(customGroup)) {
         g = m_customGroupHash[customGroup];
       }else{

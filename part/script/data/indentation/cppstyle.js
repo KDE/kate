@@ -1166,11 +1166,12 @@ function tryCloseBracket(cursor, ch)
 }
 
 /**
- * \brief Indent new scope block
+ * \brief Indent a new scope block
  *
  * ... try to unindent to be precise... First of all check that open
- * \c '{' is a first symbol on a line, and if it doesn't, make sure
- * there is a space before, except if previous char is not a \c '{'.
+ * \c '{' is a first symbol on a line, and if it doesn't,
+ * add space (if absent at previous position) after <tt>')'</tt> or \c '='
+ * or if line stats w/ some keywords: \c enum, \c class, \c struct or \c union.
  * Otherwise, look at the previous line for dangling <tt>')'</tt> or
  * a line started w/ one of flow control keywords.
  *
@@ -1204,13 +1205,24 @@ function tryBlock(cursor)
     }
     else
     {
-        // '{' is not a first char. Check for previous one...
+        // '{' is not a first char. Check for a previous one...
         if (1 < column)
         {
             var prevChar = document.charAt(line, column - 2);
             dbg("tryBlock: prevChar='"+prevChar+"'");
-            if (prevChar != ' ' && prevChar != '{' && prevChar != '(')
+            if (prevChar == ')' || prevChar == '=')
                 document.insertText(line, column - 1, ' ');
+            else if (prevChar != ' ')
+            {
+                var currentLine = document.line(line).ltrim();
+                var starts_with_keyword = currentLine.startsWith('struct ')
+                  || currentLine.startsWith('class ')
+                  || currentLine.startsWith('union ')
+                  || currentLine.startsWith('enum ')
+                  ;
+                if (starts_with_keyword)
+                    document.insertText(line, column - 1, ' ');
+            }
         }
     }
     return result;

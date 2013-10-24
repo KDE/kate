@@ -37,28 +37,31 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
   Q_OBJECT
 
   public:
-    explicit PluginKateTextFilter( QObject* parent = 0, const QVariantList& = QVariantList() );
+    explicit PluginKateTextFilter(QObject* parent = 0, const QVariantList& = QVariantList() );
     virtual ~PluginKateTextFilter();
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
     // Kate::Command
     const QStringList& cmds ();
-    bool exec (KTextEditor::View *view, const QString &cmd, QString &msg);
-    bool help (KTextEditor::View *view, const QString &cmd, QString &msg);
+    bool exec(KTextEditor::View *view, const QString &cmd, QString &msg);
+    bool help(KTextEditor::View *view, const QString &cmd, QString &msg);
   private:
-    void runFilter( KTextEditor::View *kv, const QString & filter );
+    void runFilter(KTextEditor::View *kv, const QString & filter);
 
   private:
     QString  m_strFilterOutput;
+    QString  m_stderrOutput;
+    QString  m_last_command;
     KProcess * m_pFilterProcess;
     QStringList completionList;
-    bool pasteResult;
+    bool copyResult;
+    bool mergeOutput;
   public slots:
     void slotEditFilter ();
-    void slotFilterReceivedStdout ();
-    void slotFilterReceivedStderr ();
-    void slotFilterProcessExited (int exitCode, QProcess::ExitStatus exitStatus);
+    void slotFilterReceivedStdout();
+    void slotFilterReceivedStderr();
+    void slotFilterProcessExited(int exitCode, QProcess::ExitStatus exitStatus);
 };
 
 class PluginViewKateTextFilter: public Kate::PluginView, public Kate::XMLGUIClient

@@ -21,9 +21,9 @@
 #include "ui_textfilterwidget.h"
 
 #include <ktexteditor/editor.h>
+#include <ktexteditor/messageinterface.h>
 
 #include <kdialog.h>
-
 #include <kaction.h>
 #include <kcomponentdata.h>
 #include <kmessagebox.h>
@@ -51,12 +51,12 @@ PluginViewKateTextFilter::PluginViewKateTextFilter(PluginKateTextFilter *plugin,
   , Kate::XMLGUIClient(PluginKateTextFilterFactory::componentData())
   , m_plugin(plugin)
 {
-  KAction *a = actionCollection()->addAction("edit_filter");
+  KAction* a = actionCollection()->addAction("edit_filter");
   a->setText(i18n("Filter Te&xt..."));
   a->setShortcut(Qt::CTRL + Qt::Key_Backslash);
   connect(a, SIGNAL(triggered(bool)), plugin, SLOT(slotEditFilter()));
 
-  mainwindow->guiFactory()->addClient (this);
+  mainwindow->guiFactory()->addClient(this);
 }
 
 PluginViewKateTextFilter::~PluginViewKateTextFilter()
@@ -68,7 +68,8 @@ PluginKateTextFilter::PluginKateTextFilter(QObject* parent, const QVariantList&)
   : Kate::Plugin((Kate::Application *)parent, "kate-text-filter-plugin")
   , KTextEditor::Command()
   , m_pFilterProcess(NULL)
-  , pasteResult(true)
+  , copyResult(false)
+  , mergeOutput(true)
 {
   KTextEditor::CommandInterface* cmdIface =
     qobject_cast<KTextEditor::CommandInterface*>(application()->editor());
@@ -103,18 +104,48 @@ void PluginKateTextFilter::slotFilterReceivedStdout()
 
 void PluginKateTextFilter::slotFilterReceivedStderr ()
 {
-  m_strFilterOutput += QString::fromLocal8Bit(m_pFilterProcess->readAllStandardError());
+  const QString block = QString::fromLocal8Bit(m_pFilterProcess->readAllStandardError());
+  if (mergeOutput)
+    m_strFilterOutput += block;
+  else
+    m_stderrOutput += block;
 }
 
-void PluginKateTextFilter::slotFilterProcessExited (int, QProcess::ExitStatus)
+void PluginKateTextFilter::slotFilterProcessExited(int, QProcess::ExitStatus)
 {
-  KTextEditor::View * kv (application()->activeMainWindow()->activeView());
+  KTextEditor::View* kv(application()->activeMainWindow()->activeView());
   if (!kv) return;
 
-  if (!pasteResult) {
+  // Is there any error output to display?
+  if (!mergeOutput && !m_stderrOutput.isEmpty())
+  {
+    KTextEditor::MessageInterface* iface =
+      qobject_cast<KTextEditor::MessageInterface*>(kv->document());
+    if (iface)
+    {
+      QPointer<KTextEditor::Message> message = new KTextEditor::Message(
+          i18nc(
+              "@info"
+            , "<title>Result of:</title><nl /><pre><code>$ %1\n<nl />%2</code></pre>"
+            , m_last_command
+            , m_stderrOutput
+            )
+        , KTextEditor::Message::Error
+        );
+      message->setWordWrap(true);
+      message->setAutoHide(1000);
+      iface->postMessage(message);
+    }
+  }
+
+  if (copyResult) {
     QApplication::clipboard()->setText(m_strFilterOutput);
     return;
   }
+
+  // Do not even try to change the document if no result collected...
+  if (m_strFilterOutput.isEmpty())
+    return;
 
   kv->document()->startEditing();
 
@@ -128,23 +159,22 @@ void PluginKateTextFilter::slotFilterProcessExited (int, QProcess::ExitStatus)
 
   kv->insertText(m_strFilterOutput);
   kv->document()->endEditing();
-  m_strFilterOutput = "";
 }
 
 
-static void slipInFilter (KProcess & proc, KTextEditor::View & view, QString command)
+static void slipInFilter(KProcess & proc, KTextEditor::View & view, QString command)
 {
   QString inputText;
 
   if (view.selection()) {
-    inputText = view.selectionText ();
+    inputText = view.selectionText();
   }
 
   proc.clearProgram ();
   proc.setShellCommand(command);
 
   proc.start();
-  QByteArray encoded = inputText.toLocal8Bit ();
+  QByteArray encoded = inputText.toLocal8Bit();
   proc.write(encoded);
   proc.closeWriteChannel();
   //  TODO: Put up a modal dialog to defend the text from further
@@ -163,7 +193,7 @@ void PluginKateTextFilter::slotEditFilter()
   if (!application()->activeMainWindow())
     return;
 
-  KTextEditor::View * kv (application()->activeMainWindow()->activeView());
+  KTextEditor::View* kv(application()->activeMainWindow()->activeView());
   if (!kv) return;
 
   KDialog dialog(application()->activeMainWindow()->window());
@@ -179,17 +209,25 @@ void PluginKateTextFilter::slotEditFilter()
 
   KConfigGroup config(KGlobal::config(), "PluginTextFilter");
   QStringList items = config.readEntry("Completion list", QStringList());
+  copyResult = config.readEntry("Copy result", false);
+  mergeOutput = config.readEntry("Merge output", true);
   ui.filterBox->setMaxCount(10);
   ui.filterBox->setHistoryItems(items, true);
+  ui.copyResult->setChecked(copyResult);
+  ui.mergeOutput->setChecked(mergeOutput);
 
   connect(ui.filterBox, SIGNAL(activated(QString)), &dialog, SIGNAL(okClicked()));
 
   if (dialog.exec() == QDialog::Accepted) {
-    pasteResult = !ui.checkBox->isChecked();
+    copyResult = ui.copyResult->isChecked();
+    mergeOutput = ui.mergeOutput->isChecked();
     const QString filter = ui.filterBox->currentText();
     if (!filter.isEmpty()) {
       ui.filterBox->addToHistory(filter);
       config.writeEntry("Completion list", ui.filterBox->historyItems());
+      config.writeEntry("Copy result", copyResult);
+      config.writeEntry("Merge output", mergeOutput);
+      m_last_command = filter;
       runFilter(kv, filter);
     }
   }
@@ -197,12 +235,12 @@ void PluginKateTextFilter::slotEditFilter()
 
 void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filter)
 {
-  m_strFilterOutput = "";
+  m_strFilterOutput.clear();
+  m_stderrOutput.clear();
 
   if (!m_pFilterProcess)
   {
     m_pFilterProcess = new KProcess;
-    m_pFilterProcess->setOutputChannelMode(KProcess::MergedChannels);
 
     connect (m_pFilterProcess, SIGNAL(readyReadStandardOutput()),
              this, SLOT(slotFilterReceivedStdout()));
@@ -211,10 +249,13 @@ void PluginKateTextFilter::runFilter(KTextEditor::View *kv, const QString &filte
              this, SLOT(slotFilterReceivedStderr()));
 
     connect (m_pFilterProcess, SIGNAL(finished(int,QProcess::ExitStatus)),
-             this, SLOT(slotFilterProcessExited(int,QProcess::ExitStatus))) ;
+             this, SLOT(slotFilterProcessExited(int,QProcess::ExitStatus)));
   }
+  m_pFilterProcess->setOutputChannelMode(
+      mergeOutput ? KProcess::MergedChannels : KProcess::SeparateChannels
+    );
 
-  slipInFilter (*m_pFilterProcess, *kv, filter);
+  slipInFilter(*m_pFilterProcess, *kv, filter);
 }
 
 //BEGIN Kate::Command methods
@@ -240,7 +281,6 @@ bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QStrin
     return false;
   }
 
-  pasteResult = true;
   runFilter(v, filter);
   return true;
 }

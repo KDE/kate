@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>TextFilterWidget</class>
  <widget class="QWidget" name="TextFilterWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>464</width>
-    <height>73</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Filter</string>
   </property>
@@ -44,9 +36,23 @@
     </widget>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="copyResult">
+     <property name="toolTip">
+      <string>Copy the result to clipboard leaving a document unchanged.</string>
+     </property>
      <property name="text">
       <string>Copy the result instead of pasting it</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="mergeOutput">
+     <property name="toolTip">
+      <string>If checked, an output from STDOUT and STDERR will be merged and no errors will be reported.
+Otherwise, STDERR will be displayed as a passive message.</string>
+     </property>
+     <property name="text">
+      <string>Merge STDIN and STDOUT</string>
      </property>
     </widget>
    </item>

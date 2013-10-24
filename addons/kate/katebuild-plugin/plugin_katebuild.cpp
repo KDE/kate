@@ -77,7 +77,6 @@ static const QString DefConfigCmd = "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INST
 static const QString DefConfClean = "";
 static const QString DefBuildCmd = "make";
 static const QString DefCleanCmd = "make clean";
-static const QString DefQuickCmd = "gcc -Wall -g %f";
 
 
 /******************************************************************/
@@ -116,10 +115,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     a = actionCollection()->addAction("make_clean");
     a->setText(i18n("Clean"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotMakeClean()));
-
-    a = actionCollection()->addAction("quick_compile");
-    a->setText(i18n("Quick Compile"));
-    connect(a, SIGNAL(triggered(bool)), this, SLOT(slotQuickCompile()));
 
     a = actionCollection()->addAction("stop");
     a->setText(i18n("Stop"));
@@ -182,7 +177,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     // a read of the session config data, but it does not)
    //m_targetsUi->buildCmds->setText("make");
    //m_targetsUi->cleanCmds->setText("make clean");
-   //m_targetsUi->quickCmds->setText(DefQuickCmd);
 
     QCompleter* dirCompleter = new QCompleter(this);
     QStringList filter;
@@ -257,7 +251,6 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
         m_targetList.append(TargetSet());
 
         m_targetList[0].name = "Default";
-        m_targetList[0].quickCmd = cg.readEntry(QString("Quick Compile Command"), DefQuickCmd);
         m_targetList[0].defaultTarget = QString("build");
         m_targetList[0].cleanTarget = QString("clean");
         m_targetList[0].defaultDir = cg.readEntry(QString("Make Path"), QString());
@@ -267,6 +260,11 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
         m_targetList[0].targets["config"] = DefConfigCmd;
         m_targetList[0].targets["build"] = cg.readEntry(QString("Make Command"), DefBuildCmd);
         m_targetList[0].targets["clean"] = cg.readEntry(QString("Make Command"), DefCleanCmd);
+
+        QString quickCmd = cg.readEntry(QString("Quick Compile Command"));
+        if (!quickCmd.isEmpty()) {
+            m_targetList[0].targets["quick"] = quickCmd;
+        }
 
         tmpIndex = 0;
     }
@@ -279,12 +277,10 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
             QStringList targetNames = cg.readEntry(QString("%1 Target Names").arg(i), QStringList());
             QString defaultTarget = cg.readEntry(QString("%1 Target Default").arg(i), QString());
             QString cleanTarget = cg.readEntry(QString("%1 Target Clean").arg(i), QString());
-            QString quickCmd = cg.readEntry(QString("%1 QuickCmd").arg(i), DefQuickCmd);
             QString prevTarget = cg.readEntry(QString("%1 Target Previous").arg(i), defaultTarget);
             QString defaultDir = cg.readEntry(QString("%1 BuildPath").arg(i), QString());
 
             if (targetNames.isEmpty()) {
-                m_targetList[i].quickCmd = quickCmd;
                 m_targetList[i].defaultTarget = QString("build");
                 m_targetList[i].cleanTarget = QString("clean");
                 m_targetList[i].prevTarget = m_targetList[i].defaultTarget;
@@ -292,6 +288,11 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
 
                 m_targetList[i].targets["build"] = cg.readEntry(QString("%1 BuildCmd").arg(i), DefBuildCmd);
                 m_targetList[i].targets["clean"] = cg.readEntry(QString("%1 CleanCmd").arg(i), DefCleanCmd);
+
+                QString quickCmd = cg.readEntry(QString("%1 QuickCmd").arg(i));
+                if (!quickCmd.isEmpty()) {
+                    m_targetList[i].targets["quick"] = quickCmd;
+                }
             }
             else {
                 for (int tn=0; tn<targetNames.size(); ++tn) {
@@ -302,7 +303,6 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
                     m_targetList[i].targets[targetName] = cg.readEntry(QString("%1 BuildCmd %2").arg(i).arg(targetName), DefBuildCmd);
                 }
 
-                m_targetList[i].quickCmd = quickCmd;
                 m_targetList[i].defaultTarget = defaultTarget;
                 m_targetList[i].cleanTarget = cleanTarget;
                 m_targetList[i].prevTarget = prevTarget;
@@ -342,7 +342,6 @@ void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& grou
         cg.writeEntry(QString("%1 Target Default").arg(i), m_targetList[i].defaultTarget);
         cg.writeEntry(QString("%1 Target Clean").arg(i), m_targetList[i].cleanTarget);
         cg.writeEntry(QString("%1 Target Previous").arg(i), m_targetList[i].prevTarget);
-        cg.writeEntry(QString("%1 QuickCmd").arg(i), m_targetList[i].quickCmd);
         cg.writeEntry(QString("%1 BuildPath").arg(i), m_targetList[i].defaultDir);
 
         QStringList targetNames;
@@ -569,29 +568,6 @@ bool KateBuildView::slotMakeClean(void)
 }
 
 /******************************************************************/
-bool KateBuildView::slotQuickCompile()
-{
-    QString cmd =m_targetsUi->quickCmd->text();
-    if (cmd.isEmpty()) {
-        KMessageBox::sorry(0, i18n("The custom command is empty."));
-        return false;
-    }
-
-    KUrl url(docUrl());
-    KUrl dir = url.upUrl();// url is a file -> remove the file with upUrl()
-    // Check if the command contains the file name or directory
-    if (cmd.contains("%f") || cmd.contains("%d") || cmd.contains("%n")) {
-        if (!checkLocal(url)) return false;
-
-        cmd.replace("%n", QFileInfo(url.toLocalFile()).baseName());
-        cmd.replace("%f", url.toLocalFile());
-        cmd.replace("%d", dir.toLocalFile());
-    }
-
-    return startProcess(dir, cmd);
-}
-
-/******************************************************************/
 bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
 {
     if (m_proc->state() != QProcess::NotRunning) {
@@ -691,10 +667,12 @@ bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget
         return false;
     }
 
-    const QString& buildCmd = tgtIt->second;
+    QString buildCmd = tgtIt->second;
 
     if (targetSet->defaultDir.isEmpty()) {
-        if (!checkLocal(dir)) return false;
+        if (!checkLocal(dir)) {
+            return false;
+        }
         // dir is a file -> remove the file with upUrl().
         dir = dir.upUrl();
     }
@@ -704,6 +682,20 @@ bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget
 
     if (keepAsPrevTarget) {
         targetSet->prevTarget = targetName;
+    }
+
+    // Check if the command contains the file name or directory
+    if (buildCmd.contains("%f") || buildCmd.contains("%d") || buildCmd.contains("%n")) {
+        KUrl docURL(docUrl());
+        KUrl docDir = docURL.upUrl();// url is a file -> remove the file with upUrl()
+
+        if (!checkLocal(docURL)) {
+            return false;
+        }
+
+        buildCmd.replace("%n", QFileInfo(docURL.toLocalFile()).baseName());
+        buildCmd.replace("%f", docURL.toLocalFile());
+        buildCmd.replace("%d", docDir.toLocalFile());
     }
 
     return startProcess(dir, buildCmd);
@@ -1057,7 +1049,6 @@ void KateBuildView::targetSelected(int index)
 
     // Set the new values
     m_targetsUi->buildDir->setText(m_targetList[index].defaultDir);
-    m_targetsUi->quickCmd->setText(m_targetList[index].quickCmd);
 
     m_targetsUi->targetsList->clear();
 
@@ -1118,7 +1109,6 @@ void KateBuildView::targetNew()
     m_targetList.append(TargetSet());
     m_targetIndex = m_targetList.size()-1;
     m_targetList[m_targetIndex].name = i18n("Target %1", m_targetList.size());
-    m_targetList[m_targetIndex].quickCmd = DefQuickCmd;
     m_targetList[m_targetIndex].defaultTarget = "Build";
     m_targetList[m_targetIndex].prevTarget = "Build";
     m_targetList[m_targetIndex].cleanTarget = "Clean";
@@ -1170,7 +1160,6 @@ void KateBuildView::targetDelete()
 
         m_targetList.append(TargetSet());
         m_targetList[0].name = i18n("Target");
-        m_targetList[0].quickCmd = DefQuickCmd;
         m_targetList[0].defaultTarget = "Build";
         m_targetList[0].cleanTarget = "Clean";
         m_targetList[0].prevTarget = m_targetList[0].defaultTarget;
@@ -1327,7 +1316,6 @@ void KateBuildView::slotAddProjectTarget()
     m_targetList[index].cleanTarget = buildMap.value("clean_target").toString();
     m_targetList[index].defaultTarget = buildMap.value("default_target").toString();
     m_targetList[index].prevTarget = buildMap.value("default_target").toString();
-    m_targetList[index].quickCmd = buildMap.value("quick_cmd").toString();
     m_targetList[index].defaultDir = buildMap.value("directory").toString();
 
     // get build dir

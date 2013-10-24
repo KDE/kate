@@ -26,25 +26,26 @@
 TargetsUi::TargetsUi(QWidget *parent):
 QWidget(parent)
 {
+
+    targetLabel = new QLabel(i18n("Target set"), this);
+
     targetCombo = new KComboBox(this);
     targetCombo->setEditable(true);
     targetCombo->setInsertPolicy(QComboBox::InsertAtCurrent);
     connect(targetCombo, SIGNAL(editTextChanged(QString)), this, SLOT(editTarget(QString)));
-    
+    targetLabel->setBuddy(targetCombo);
+
     newTarget = new QToolButton(this);
-    newTarget->setToolTip(i18n("New"));
+    newTarget->setToolTip(i18n("New target set"));
     newTarget->setIcon(KIcon("document-new"));
-    
+
     copyTarget = new QToolButton(this);
-    copyTarget->setToolTip(i18n("Copy"));
+    copyTarget->setToolTip(i18n("Copy target set"));
     copyTarget->setIcon(KIcon("edit-copy"));
 
     deleteTarget = new QToolButton(this);
-    deleteTarget->setToolTip(i18n("Delete"));
+    deleteTarget->setToolTip(i18n("Delete target set"));
     deleteTarget->setIcon(KIcon("edit-delete"));
-
-    line = new QFrame(this);
-    line->setFrameShadow(QFrame::Sunken);
 
     dirLabel = new QLabel(i18n("Working directory"), this);
     buildDir = new KLineEdit(this);
@@ -53,13 +54,9 @@ QWidget(parent)
     browse = new QToolButton(this);
     browse->setIcon(KIcon("inode-directory"));
 
-    quickLabel = new QLabel(i18n("Quick compile"), this);
-    quickCmd = new KLineEdit(this);
-    quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
-    quickCmd->setClearButtonShown(true);
+//    quickCmd->setToolTip(i18n("Use:\n\"%f\" for current file\n\"%d\" for directory of current file\n\"%n\" for current file name without suffix"));
 
     dirLabel->setBuddy(buildDir);
-    quickLabel->setBuddy(quickCmd);
 
     targetsList = new QTreeWidget(this);
     targetsList->setAllColumnsShowFocus(true);
@@ -107,7 +104,6 @@ void TargetsUi::resizeEvent(QResizeEvent *)
 
 void TargetsUi::setSideLayout()
 {
-    QGridLayout* layout = new QGridLayout(this);
     QHBoxLayout* tLayout = new QHBoxLayout();
     tLayout->addWidget(targetCombo, 1);
     tLayout->addWidget(newTarget, 0);
@@ -115,63 +111,46 @@ void TargetsUi::setSideLayout()
     tLayout->addWidget(deleteTarget, 0);
     tLayout->setContentsMargins(0,0,0,0);
 
-    layout->addLayout(tLayout, 0, 0, 1, 4);
+    QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    buttonsLayout->addStretch();
+    buttonsLayout->addWidget(addButton);
+    buttonsLayout->addWidget(editButton);
+    buttonsLayout->addWidget(deleteButton);
+    buttonsLayout->addWidget(buildButton);
+    buttonsLayout->addWidget(defButton);
+    buttonsLayout->addWidget(cleanButton);
 
-    line->setFrameShape(QFrame::HLine);
-    layout->addWidget(line, 1, 0, 1, 4);
+    QGridLayout* layout = new QGridLayout(this);
+    layout->addWidget(targetLabel, 0, 0, 1, 4);
+    layout->addLayout(tLayout, 1, 0, 1, 4);
 
     layout->addWidget(dirLabel, 2, 0, Qt::AlignLeft);
     layout->addWidget(buildDir, 3, 0, 1, 3);
     layout->addWidget(browse, 3, 3);
 
-    layout->addWidget(quickLabel, 4, 0, Qt::AlignLeft);
-    layout->addWidget(quickCmd, 5, 0, 1, 4);
+    layout->addWidget(targetsList, 4, 0, 1, 4);
+    layout->addLayout(buttonsLayout, 5, 0,  1, 4);
 
-    layout->addWidget(targetsList, 6, 0, 1, 4);
-
-    QHBoxLayout* buttonsLayout = new QHBoxLayout();
-    buttonsLayout->addStretch();
-    buttonsLayout->addWidget(addButton);
-    buttonsLayout->addWidget(editButton);
-    buttonsLayout->addWidget(deleteButton);
-    buttonsLayout->addWidget(buildButton);
-    buttonsLayout->addWidget(defButton);
-    buttonsLayout->addWidget(cleanButton);
-
-    layout->addLayout(buttonsLayout, 7, 0,  1, 4);
-
-
-    layout->addItem(new QSpacerItem(1, 1), 10, 0);
+    layout->addItem(new QSpacerItem(1, 1), 8, 0);
     layout->setColumnStretch(0, 1);
-    layout->setRowStretch(12, 1);
+    layout->setRowStretch(4, 1);
 }
 
 void TargetsUi::setBottomLayout()
 {
-    QGridLayout* layout = new QGridLayout(this);
-    layout->addWidget(targetCombo, 0, 0);
-
     QHBoxLayout* tLayout = new QHBoxLayout();
+    tLayout->addWidget(targetLabel);
+    tLayout->addWidget(targetCombo, 1);
     tLayout->addWidget(newTarget, 0);
     tLayout->addWidget(copyTarget, 0);
     tLayout->addWidget(deleteTarget, 0);
     tLayout->setContentsMargins(0,0,0,0);
 
-    layout->addLayout(tLayout, 1, 0);
-
-    line->setFrameShape(QFrame::VLine);
-    layout->addWidget(line, 0, 1, 5, 1);
-
-    layout->addWidget(dirLabel, 0, 2, Qt::AlignRight);
-    layout->addWidget(buildDir, 0, 3, 1, 2);
-    layout->addWidget(browse, 0, 5);
-
-    layout->addWidget(quickLabel, 1, 2, Qt::AlignRight);
-    layout->addWidget(quickCmd, 1, 3, 1, 3);
-
-    layout->addWidget(targetsList, 2, 2, 1, 4);
-
     QHBoxLayout* buttonsLayout = new QHBoxLayout();
+    buttonsLayout->addWidget(dirLabel);
+    buttonsLayout->addWidget(buildDir);
+    buttonsLayout->addWidget(browse);
+
     buttonsLayout->addStretch();
     buttonsLayout->addWidget(addButton);
     buttonsLayout->addWidget(editButton);
@@ -180,9 +159,10 @@ void TargetsUi::setBottomLayout()
     buttonsLayout->addWidget(defButton);
     buttonsLayout->addWidget(cleanButton);
 
-    layout->addLayout(buttonsLayout, 3, 2,  1, 4);
-
-    layout->setColumnStretch(3, 1);
+    QVBoxLayout* layout = new QVBoxLayout(this);
+    layout->addLayout(tLayout);
+    layout->addWidget(targetsList);
+    layout->addLayout(buttonsLayout);
 }
 
 void TargetsUi::editTarget(const QString &text)

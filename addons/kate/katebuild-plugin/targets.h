@@ -21,17 +21,15 @@ class TargetsUi: public QWidget
 public:
     TargetsUi(QWidget *parent = 0);
 
+    QLabel      *targetLabel;
     QComboBox   *targetCombo;
     QToolButton *newTarget;
     QToolButton *copyTarget;
     QToolButton *deleteTarget;
-    QFrame      *line;
-    
+
     QLabel      *dirLabel;
     KLineEdit   *buildDir;
     QToolButton *browse;
-    QLabel      *quickLabel;
-    KLineEdit   *quickCmd;
     QTreeWidget *targetsList;
 
     QPushButton *addButton;

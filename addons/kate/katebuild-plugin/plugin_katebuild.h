@@ -55,7 +55,6 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
     private:
        struct TargetSet {
          QString name;
-         QString quickCmd;
          QString defaultDir;
          QString defaultTarget;
          QString cleanTarget;
@@ -85,7 +84,6 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
 
         bool slotMake();
         bool slotMakeClean();
-        bool slotQuickCompile();
         bool slotStop();
 
         void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);

@@ -55,7 +55,7 @@ require ("string.js");
 // ';' is for align `for' parts
 // ' ' is to add a '()' after `if', `while', `for', ...
 // TBD <others>
-triggerCharacters = "{}()<>/:;,#\\?|/%.@ ";
+triggerCharacters = "{}()<>/:;,#\\?!|/%.@ \"";
 
 var debugMode = false;
 
@@ -1427,6 +1427,94 @@ function tryDoxygenGrouping(cursor)
 }
 
 /**
+ * \brief Handle quote character
+ *
+ * Look back for \c 'R' char right before \c '"' and if
+ * the next one (after \c '"') is not an alphanumeric,
+ * then add a delimiters.
+ *
+ * \attention If autobrace plugin used to add quotation marks,
+ * then next symbol after the current will be another one \c '"'
+ * if this is a new string. Otherwise, if it turned OFF, the simplest
+ * case we can detect (and the most typical), is that raw string started
+ * at fresh line, and current \c column equal to the line length.
+ */
+function tryRawStringLiteral(cursor)
+{
+    var line = cursor.line;
+    var column = cursor.column;
+    var is_abp_on = document.charAt(line, column) == '"';
+    var start_raw_string = 2 <= column
+      && document.charAt(line, column - 2) == 'R'
+      && (
+          is_abp_on                                         // Autobracket plugin On?
+        || column == (document.lineLength(line))            // Autobracket plugin Off? (and end of line)
+        );
+    if (start_raw_string)
+    {
+        document.editBegin();
+        /// \todo Make delimiter configurable... HOW?
+        /// It would be nice if indenters can have a configuration page somehow...
+        document.insertText(cursor, "~()~");
+        if (!is_abp_on)
+            document.insertText(line, column + 4, '"');
+        view.setCursorPosition(line, column + 2);
+        document.editEnd();
+    }
+}
+
+/**
+ * \brief Handle \c '!' char
+ *
+ * Exclamation symbol can be a part of \c operator!= or unary operator.
+ * in both cases, a space required before it! Except few cases:
+ * - when it is at the line start
+ * - when a char before it \c '(' -- i.e. argument of a control flow keyword (\c if, \c while)
+ *   or a function call parameter
+ * - when a char before it \c '[' (array subscript)
+ * - when a char before it \c '<' -- here is two cases possible:
+ *      - it is a first non-type template parameter (w/ type \c bool obviously)
+ *      - it is a part of less or shift operators.
+ * To distinct last case, it is enough to check that a word before \c '<' (w/o space)
+ * is an identifier.
+ * \note Yep, operators supposed to be separated from around text.
+ */
+function tryExclamation(cursor)
+{
+    var line = cursor.line;
+    var column = cursor.column;
+
+    // Do nothing for comments and stings
+    if (isStringOrComment(line, column - 1))
+        return;
+
+    // Make sure '!' is not a first char on a line
+    if (document.firstColumn(line) == column - 1)
+        return;
+
+    // Do nothing if one of 'stop' chars:
+    var prev_char = document.charAt(line, column - 2);
+    dbg("prev_char: ",prev_char);
+    if (prev_char == ' ' || prev_char == '(' || prev_char == '[')
+        return;
+
+    // And finally make sure it is not a part of 'relation operator'
+    if (prev_char == '<')
+    {
+        // Make sure a char before is not a space or another '<'
+        var prev_prev_char = document.charAt(line, column - 3);
+        dbg("prev_prev_char: ",prev_prev_char);
+        if (prev_prev_char != ' ' && prev_prev_char != '<')
+            return;
+    }
+
+    // Ok, if we r here, just insert a space ;)
+    document.editBegin();
+    document.insertText(line, column - 1, " ");
+    document.editEnd();
+}
+
+/**
  * \brief Handle a space
  *
  * Add '()' pair after some keywords like: \c if, \c while, \c for, \c switch
@@ -1519,6 +1607,12 @@ function processChar(line, ch)
             break;
         case '@':
             tryDoxygenGrouping(cursor);
+            break;
+        case '"':
+            tryRawStringLiteral(cursor);
+            break;
+        case '!':                                           // Almost all the time there should be a space before!
+            tryExclamation(cursor);
             break;
         case ' ':
             tryKeywordsWithBrackets(cursor);

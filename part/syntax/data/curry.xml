@@ -30,7 +30,7 @@
   <!-- dashes introducing a currydoc comment -->
   <!ENTITY currydoc    "---" >
 ]>
-<language name="Curry" version="0.2" kateversion="2.3"
+<language name="Curry" version="0.3" kateversion="2.3"
           section="Sources" extensions="*.curry" mimetype="text/x-curry"
           author="Björn Peemöller (bjp@informatik.uni-kiel.de)" license="LGPL"
           indenter="haskell">
@@ -239,6 +239,12 @@
 
     <!-- Import section -->
     <context name="Import" attribute="Normal" lineEndContext="#pop" >
+      <!-- pragmas, currydoc, comments -->
+      <StringDetect attribute="Pragma"   context="Pragma"            String="{-#"        beginRegion="Pragma"  />
+      <Detect2Chars attribute="Comment"  context="Multiline Comment" char="{" char1="-"  beginRegion="Multiline Comment" />
+      <StringDetect attribute="Currydoc" context="Currydoc"          String="&currydoc;" />
+      <Detect2Chars attribute="Comment"  context="Comment"           char="-" char1="-"  />
+
       <RegExpr      attribute="Type, Constructor" context="#stay" String="&qualify;&type;" />
       <Detect2Chars attribute="Keyword"           context="#stay" char="a" char1="s" />
       <StringDetect attribute="Keyword"           context="#stay" String="hiding" />

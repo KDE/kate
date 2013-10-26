@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Haskell" version="2.1" kateversion="2.3" section="Sources" extensions="*.hs;*.chs" mimetype="text/x-haskell" author="Nicolas Wu (zenzike@gmail.com)" license="LGPL" indenter="haskell">
+<language name="Haskell" version="2.2" kateversion="2.3" section="Sources" extensions="*.hs;*.chs" mimetype="text/x-haskell" author="Nicolas Wu (zenzike@gmail.com)" license="LGPL" indenter="haskell">
   <highlighting>
   <list name="keywords">
     <item> case </item>
@@ -324,7 +324,7 @@
       <RegExpr attribute="Pragma"  context="#stay" String="\{-#.*#-\}"/>
       <RegExpr attribute="Comment" context="comments" String="\{-[^#]?" />
       <RegExpr attribute="Comment" context="comment"  String="--[^\-!#\$%&amp;\*\+/&lt;=&gt;\?&#92;@\^\|~\.:].*$" />
-      <RegExpr attribute="Keyword" context="import"  String="import" />
+      <RegExpr attribute="Keyword" context="import"   String="import\s+" />
       <RegExpr attribute="C2HS Directive"  context="c2hs directive" String="\{#"/>
       <RegExpr attribute="C2HS Directive"  context="c2hs include" String="#"/>
 
@@ -371,6 +371,10 @@
       <keyword attribute="Keyword"          context="#stay" String="import_keywords" />
       <RegExpr attribute="Function"         context="#stay" String="([A-Z][a-zA-Z0-9_']*\.)*[a-z][a-zA-Z0-9_']*" />
       <RegExpr attribute="Type"             context="#stay" String="([A-Z][a-zA-Z0-9_']*\.)*[A-Z][a-zA-Z0-9_']*" />
+
+      <RegExpr attribute="Pragma"  context="#stay" String="\{-#.*#-\}"/>
+      <RegExpr attribute="Comment" context="comments" String="\{-[^#]?" />
+      <RegExpr attribute="Comment" context="comment"  String="--[^\-!#\$%&amp;\*\+/&lt;=&gt;\?&#92;@\^\|~\.:].*$" />
     </context>
     
     <context attribute="C2HS Directive" lineEndContext="#stay" name="c2hs directive">

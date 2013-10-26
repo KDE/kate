@@ -4,15 +4,15 @@
 ]>
 <dtd version='1.0'
      unexpanded='1'
-     title="?untitled?"
+     title="Kate Syntax Highlighting"
      namecase-general="1"
      namecase-entity="0"
      xml="0"
-     system-id="/home/dhaumann/local/projects/kate/part/syntax/data/language.dtd"
+     system-id="language.dtd"
      public-id=""
      declaration=""
      created-by="DTDParse V2.00"
-     created-on="Thu Oct 17 18:43:47 2013"
+     created-on="Sat Oct 26 13:25:06 2013"
 >
 <entity name="boolean"
         type="param"

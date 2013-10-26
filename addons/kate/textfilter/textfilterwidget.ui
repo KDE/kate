@@ -52,7 +52,7 @@
 Otherwise, STDERR will be displayed as a passive message.</string>
      </property>
      <property name="text">
-      <string>Merge STDIN and STDOUT</string>
+      <string>Merge STDOUT and STDERR</string>
      </property>
     </widget>
    </item>

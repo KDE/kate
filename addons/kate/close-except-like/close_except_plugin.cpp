@@ -71,12 +71,10 @@ void CloseExceptPlugin::readSessionConfig(KConfigBase* config, const QString& gr
 {
     KConfigGroup scg(config, groupPrefix + "menu");
     m_show_confirmation_needed = scg.readEntry("ShowConfirmation", true);
-    kDebug() << "READ SESSION CONFIG: sc=" << m_show_confirmation_needed;
 }
 
 void CloseExceptPlugin::writeSessionConfig(KConfigBase* config, const QString& groupPrefix)
 {
-    kDebug() << "WRITE SESSION CONFIG: sc=" << m_show_confirmation_needed;
     KConfigGroup scg(config, groupPrefix + "menu");
     scg.writeEntry("ShowConfirmation", m_show_confirmation_needed);
     scg.sync();
@@ -298,7 +296,8 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
     Q_FOREACH(KTextEditor::Document* document, docs)
     {
         const QString& path = document->url().upUrl().path();
-        const QString& ext = QFileInfo(document->url().fileName()).completeSuffix();
+        /// \note Take a dot in account, so \c *.c would not match for \c blah.kcfgc
+        const QString& ext = "." + QFileInfo(document->url().fileName()).completeSuffix();
         const bool match = (!is_path && mask.endsWith(ext))
           || (is_path && path.startsWith(mask))
           ;

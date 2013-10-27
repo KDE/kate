@@ -400,6 +400,27 @@ void KateUndoManager::updateLineModifications()
   }
 }
 
+void KateUndoManager::setUndoRedoCursorsOfLastGroup(const KTextEditor::Cursor undoCursor,
+                                                    const KTextEditor::Cursor redoCursor)
+{
+  Q_ASSERT(m_editCurrentUndo == 0);
+  if (undoItems.size()) {
+    KateUndoGroup * last = undoItems.last();
+    last->setUndoCursor(undoCursor);
+    last->setRedoCursor(redoCursor);
+  }
+}
+
+KTextEditor::Cursor KateUndoManager::lastRedoCursor() const
+{
+  Q_ASSERT(m_editCurrentUndo == 0);
+  if (undoItems.size()) {
+    KateUndoGroup * last = undoItems.last();
+    return last->redoCursor();
+  }
+  return KTextEditor::Cursor::invalid();
+}
+
 void KateUndoManager::updateConfig ()
 {
   emit undoChanged ();

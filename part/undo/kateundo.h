@@ -428,6 +428,21 @@ class KateUndoGroup
     void markUndoAsSaved(QBitArray & lines);
     void markRedoAsSaved(QBitArray & lines);
 
+    /**
+     * Set the undo cursor to @p cursor.
+     */
+    inline void setUndoCursor(const KTextEditor::Cursor & cursor)
+    { m_undoCursor = cursor; }
+
+    /**
+     * Set the redo cursor to @p cursor.
+     */
+    inline void setRedoCursor(const KTextEditor::Cursor & cursor)
+    { m_redoCursor = cursor; }
+
+    inline const KTextEditor::Cursor & redoCursor() const
+    { return m_redoCursor; }
+
   private:
     KTextEditor::Document *document();
 
@@ -477,7 +492,7 @@ class KateUndoGroup
     /**
      * the cursor position of the active view before the edit step
      */
-    const KTextEditor::Cursor m_undoCursor;
+    KTextEditor::Cursor m_undoCursor;
 
     /**
      * the cursor position of the active view after the edit step

@@ -22,9 +22,11 @@
 #include "config.h"
 
 #include "kateswapfile.h"
-#include "kateview.h"
 #include "kateconfig.h"
 #include "kateswapdiffcreator.h"
+#include "kateundomanager.h"
+
+#include <ktexteditor/view.h>
 
 #include <kde_file.h>
 #include <klocale.h>
@@ -255,6 +257,11 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
   // disconnect current signals
   setTrackingEnabled(false);
 
+  // needed to set undo/redo cursors in a sane way
+  bool firstEditInGroup = false;
+  KTextEditor::Cursor undoCursor = KTextEditor::Cursor::invalid();
+  KTextEditor::Cursor redoCursor = KTextEditor::Cursor::invalid();
+
   // replay swapfile
   bool editRunning = false;
   bool brokenSwapFile = false;
@@ -268,10 +275,21 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
       case EA_StartEditing: {
         m_document->editStart();
         editRunning = true;
+        firstEditInGroup = true;
+        undoCursor = KTextEditor::Cursor::invalid();
+        redoCursor = KTextEditor::Cursor::invalid();
         break;
       }
       case EA_FinishEditing: {
         m_document->editEnd();
+        
+        // empty editStart() / editEnd() groups exist: only set cursor if required
+        if (!firstEditInGroup) {
+          // set undo/redo cursor of last KateUndoGroup of the undo manager
+          m_document->undoManager()->setUndoRedoCursorsOfLastGroup(undoCursor, redoCursor);
+          m_document->undoManager()->undoSafePoint();
+        }
+        firstEditInGroup = false;
         editRunning = false;
         break;
       }
@@ -286,6 +304,15 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
         
         // emulate buffer unwrapLine with document
         m_document->editWrapLine(line, column, true);
+
+        // track undo/redo cursor
+        if (firstEditInGroup) {
+          firstEditInGroup = false;
+          undoCursor = KTextEditor::Cursor(line, column);
+        }
+        redoCursor = KTextEditor::Cursor(line + 1, 0);
+        kDebug() << "UNDO" << undoCursor << ", REDO:" << redoCursor;
+
         break;
       }
       case EA_UnwrapLine: {
@@ -299,9 +326,19 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
         
         // assert valid line
         Q_ASSERT (line > 0);
-        
+
+        const int undoColumn = m_document->lineLength(line - 1);
+
         // emulate buffer unwrapLine with document
         m_document->editUnWrapLine(line - 1, true, 0);
+
+        // track undo/redo cursor
+        if (firstEditInGroup) {
+          firstEditInGroup = false;
+          undoCursor = KTextEditor::Cursor(line, 0);
+        }
+        redoCursor = KTextEditor::Cursor(line - 1, undoColumn);
+
         break;
       }
       case EA_InsertText: {
@@ -314,6 +351,14 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
         QByteArray text;
         stream >> line >> column >> text;
         m_document->insertText(KTextEditor::Cursor(line, column), QString::fromUtf8 (text.data (), text.size()));
+
+        // track undo/redo cursor
+        if (firstEditInGroup) {
+          firstEditInGroup = false;
+          undoCursor = KTextEditor::Cursor(line, column);
+        }
+        redoCursor = KTextEditor::Cursor(line, column + text.size());
+
         break;
       }
       case EA_RemoveText: {
@@ -325,6 +370,14 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
         int line, startColumn, endColumn;
         stream >> line >> startColumn >> endColumn;
         m_document->removeText (KTextEditor::Range(KTextEditor::Cursor(line, startColumn), KTextEditor::Cursor(line, endColumn)));
+
+        // track undo/redo cursor
+        if (firstEditInGroup) {
+          firstEditInGroup = false;
+          undoCursor = KTextEditor::Cursor(line, endColumn);
+        }
+        redoCursor = KTextEditor::Cursor(line, startColumn);
+
         break;
       }
       default: {
@@ -342,11 +395,18 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
   // warn the user if the swap file is not complete
   if (brokenSwapFile) {
     kWarning ( 13020 ) << "Some data might be lost";
+  } else {
+    // set sane final cursor, if possible
+    KTextEditor::View * view = m_document->activeView();
+    redoCursor = m_document->undoManager()->lastRedoCursor();
+    if (view && redoCursor.isValid()) {
+      view->setCursorPosition(redoCursor);
+    }
   }
-  
+
   // reconnect the signals
   setTrackingEnabled(true);
-  
+
   return true;
 }
 

@@ -32,6 +32,7 @@ class KateUndoGroup;
 namespace KTextEditor {
   class Document;
   class View;
+  class Cursor;
 }
 
 /**
@@ -91,6 +92,22 @@ class KATEPART_TESTS_EXPORT KateUndoManager : public QObject
     void setModified( bool modified );
     void updateConfig ();
     void updateLineModifications();
+
+    /**
+     * Used by the swap file recovery, this function afterwards manipulates
+     * the undo/redo cursors of the last KateUndoGroup.
+     * This function should not be used other than by Kate::SwapFile.
+     * @param undoCursor the undo cursor
+     * @param redoCursor the redo cursor
+     */
+    void setUndoRedoCursorsOfLastGroup(const KTextEditor::Cursor undoCursor,
+                                       const KTextEditor::Cursor redoCursor);
+
+    /**
+     * Returns the redo cursor of the last undo group.
+     * Needed for the swap file recovery.
+     */
+    KTextEditor::Cursor lastRedoCursor() const;
 
   public Q_SLOTS:
     /**

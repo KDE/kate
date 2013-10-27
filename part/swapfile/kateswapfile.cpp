@@ -256,7 +256,7 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
   setTrackingEnabled(false);
 
   // replay swapfile
-  bool editStarted = false;
+  bool editRunning = false;
   bool brokenSwapFile = false;
   while (!stream.atEnd()) {
     if (brokenSwapFile)
@@ -267,16 +267,16 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
     switch (type) {
       case EA_StartEditing: {
         m_document->editStart();
-        editStarted = true;
+        editRunning = true;
         break;
       }
       case EA_FinishEditing: {
         m_document->editEnd();
-        editStarted = false;
+        editRunning = false;
         break;
       }
       case EA_WrapLine: {
-        if (!editStarted) {
+        if (!editRunning) {
           brokenSwapFile = true;
           break;
         }
@@ -289,7 +289,7 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
         break;
       }
       case EA_UnwrapLine: {
-        if (!editStarted) {
+        if (!editRunning) {
           brokenSwapFile = true;
           break;
         }
@@ -305,7 +305,7 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
         break;
       }
       case EA_InsertText: {
-        if (!editStarted) {
+        if (!editRunning) {
           brokenSwapFile = true;
           break;
         }
@@ -317,7 +317,7 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
         break;
       }
       case EA_RemoveText: {
-        if (!editStarted) {
+        if (!editRunning) {
           brokenSwapFile = true;
           break;
         }
@@ -333,8 +333,8 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
     }
   }
 
-  // balance editStart and editEnd
-  if (editStarted) {
+  // balanced editStart and editEnd?
+  if (editRunning) {
     brokenSwapFile = true;
     m_document->editEnd();
   }

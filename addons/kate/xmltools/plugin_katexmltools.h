@@ -53,7 +53,9 @@ class PluginKateXMLTools : public Kate::Plugin
     Kate::PluginView *createView(Kate::MainWindow *mainWindow);
 };
 
-class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface3
+class PluginKateXMLToolsCompletionModel
+  : public KTextEditor::CodeCompletionModel2
+  , public KTextEditor::CodeCompletionModelControllerInterface3
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
@@ -62,10 +64,24 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
     PluginKateXMLToolsCompletionModel( QObject *parent );
     virtual ~PluginKateXMLToolsCompletionModel();
 
+    virtual int columnCount(const QModelIndex&) const;
+    virtual int rowCount(const QModelIndex &parent) const;
+    virtual QModelIndex parent(const QModelIndex& index) const;
+    virtual QModelIndex index(int row, int column, const QModelIndex& parent) const;
     virtual QVariant data(const QModelIndex &idx, int role) const;
-    virtual void executeCompletionItem2( KTextEditor::Document *document, const KTextEditor::Range &word, const QModelIndex &index ) const;
 
-    virtual bool shouldStartCompletion( KTextEditor::View *view, const QString &insertedText, bool userInsertion, const KTextEditor::Cursor &position );
+    virtual void executeCompletionItem2(
+        KTextEditor::Document *document
+      , const KTextEditor::Range &word
+      , const QModelIndex &index
+      ) const;
+
+    virtual bool shouldStartCompletion(
+        KTextEditor::View *view
+      , const QString &insertedText
+      , bool userInsertion
+      , const KTextEditor::Cursor &position
+      );
 
   public slots:
 
@@ -84,21 +100,24 @@ class PluginKateXMLToolsCompletionModel : public KTextEditor::CodeCompletionMode
 
   protected:
 
+    QString currentModeToString() const;
     static QStringList sortQStringList( QStringList list );
     //bool eventFilter( QObject *object, QEvent *event );
 
     QString insideTag( KTextEditor::View &kv );
     QString insideAttribute( KTextEditor::View &kv );
 
-    static bool isOpeningTag( QString tag );
-    static bool isClosingTag( QString tag );
-    static bool isEmptyTag( QString tag );
-    static bool isQuote( QString ch );
+    static bool isOpeningTag( const QString& tag );
+    static bool isClosingTag( const QString& tag );
+    static bool isEmptyTag( const QString& tag );
+    static bool isQuote( const QString& ch );
 
     QString getParentElement( KTextEditor::View &view, int skipCharacters );
 
     enum Mode {none, entities, attributevalues, attributes, elements, closingtag};
     enum PopupMode {noPopup, tagname, attributename, attributevalue, entityname};
+
+    enum Level {groupNode = 1};
 
     /// Assign the PseudoDTD @p dtd to the Kate::Document @p doc
     void assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc );

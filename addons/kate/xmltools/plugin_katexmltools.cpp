@@ -103,7 +103,7 @@ K_EXPORT_PLUGIN(PluginKateXMLToolsFactory("katexmltools"))
 using Kate::application;
 
 
-PluginKateXMLTools::PluginKateXMLTools( QObject* parent, const QVariantList& )
+PluginKateXMLTools::PluginKateXMLTools( QObject* const parent, const QVariantList& )
     : Kate::Plugin ( (Kate::Application *)parent )
 {
 }
@@ -114,11 +114,11 @@ PluginKateXMLTools::~PluginKateXMLTools()
 
 Kate::PluginView *PluginKateXMLTools::createView(Kate::MainWindow *mainWindow)
 {
-    return new PluginKateXMLToolsView(mainWindow);
+  return new PluginKateXMLToolsView(mainWindow);
 }
 
 
-PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
+PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow* const win)
   : Kate::PluginView ( win ), Kate::XMLGUIClient ( PluginKateXMLToolsFactory::componentData() ),
     m_model ( this )
 {
@@ -149,23 +149,17 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow *win)
 PluginKateXMLToolsView::~PluginKateXMLToolsView()
 {
   mainWindow()->guiFactory()->removeClient (this);
-  
+
   //kDebug() << "xml tools descructor 1...";
   //TODO: unregister the model
 }
 
-PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject *parent ) : CodeCompletionModel2 (parent)
+PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject* const parent )
+  : CodeCompletionModel2 (parent)
+  , m_docToAssignTo(0)
+  , m_mode(none)
+  , m_correctPos(0)
 {
-  m_dtdString.clear();
-  m_urlString.clear();
-  m_docToAssignTo = 0L;
-
-  m_mode = none;
-  m_correctPos = 0;
-
-  m_allowed = QStringList();
-
-  setHasGroups( false );
 }
 
 PluginKateXMLToolsCompletionModel::~PluginKateXMLToolsCompletionModel()
@@ -200,8 +194,11 @@ void PluginKateXMLToolsCompletionModel::slotDocumentDeleted( KTextEditor::Docume
 }
 
 
-void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv,
-                                                           const KTextEditor::Range &range, InvocationType invocationType )
+void PluginKateXMLToolsCompletionModel::completionInvoked(
+    KTextEditor::View *kv
+  , const KTextEditor::Range &range
+  , const InvocationType invocationType
+  )
 {
   Q_UNUSED( range )
   Q_UNUSED( invocationType )
@@ -230,7 +227,7 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
   if( leftCh == "&" )
   {
     kDebug() << "Getting entities";
-    m_allowed = m_docDtds[doc]->entities("" );
+    m_allowed = m_docDtds[doc]->entities(QString());
     m_mode = entities;
   }
   else if( leftCh == "<" )
@@ -300,13 +297,81 @@ void PluginKateXMLToolsCompletionModel::completionInvoked( KTextEditor::View *kv
   endResetModel();
 }
 
-QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &idx, int role) const
+int PluginKateXMLToolsCompletionModel::columnCount(const QModelIndex&) const
 {
-  //kDebug() << "XMLToolsCompletionModel::data index " << idx << " role " << role;
-  if( (idx.column() == KTextEditor::CodeCompletionModel::Name) && (role == Qt::DisplayRole) )
-    return m_allowed.at( idx.row() );
-  else
+  return 1;
+}
+
+int PluginKateXMLToolsCompletionModel::rowCount(const QModelIndex &parent) const
+{
+  if (!m_allowed.isEmpty())                                 // Is there smth to complete?
+  {
+    if (!parent.isValid())                                  // Return the only one group node for root
+      return 1;
+    if (parent.internalId() == groupNode)                   // Return available rows count for group level node
+      return m_allowed.size();
+  }
+  return 0;
+}
+
+QModelIndex PluginKateXMLToolsCompletionModel::parent(const QModelIndex& index) const
+{
+  if (!index.isValid())                                     // Is root/invalid index?
+    return QModelIndex();                                   // Nothing to return...
+  if (index.internalId() == groupNode)                      // Return a root node for group
+    return QModelIndex();
+  // Otherwise, this is a leaf level, so return the only group as a parent
+  return createIndex(0, 0, groupNode);
+}
+
+QModelIndex PluginKateXMLToolsCompletionModel::index(const int row, const int column, const QModelIndex &parent) const
+{
+  if (!parent.isValid())
+  {
+    // At 'top' level only 'header' present, so nothing else than row 0 can be here...
+    return row == 0 ? createIndex(row, column, groupNode) : QModelIndex();
+  }
+  if (parent.internalId() == groupNode)                     // Is this a group node?
+  {
+    if (0 <= row && row < m_allowed.size())                 // Make sure to return only valid indices
+      return createIndex(row, column, 0);                   // Just return a leaf-level index
+  }
+  // Leaf node has no children... nothing to return
+  return QModelIndex();
+}
+
+QVariant PluginKateXMLToolsCompletionModel::data(const QModelIndex &index, int role) const
+{
+  if (!index.isValid())                                     // Nothing to do w/ invalid index
     return QVariant();
+
+  if (index.internalId() == groupNode)                      // Return group level node data
+  {
+    switch (role)
+    {
+      case KTextEditor::CodeCompletionModel::GroupRole:
+        return QVariant(Qt::DisplayRole);
+      case Qt::DisplayRole:
+        return currentModeToString();
+      default:
+        break;
+    }
+    return QVariant();                                      // Nothing to return for other roles
+  }
+  switch (role)
+  {
+    case Qt::DisplayRole:
+      switch (index.column())
+      {
+        case KTextEditor::CodeCompletionModel::Name:
+          return m_allowed.at(index.row());
+        default:
+          break;
+      }
+    default:
+      break;
+  }
+  return QVariant();
 }
 
 
@@ -425,7 +490,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     assignDTD( m_dtds[ m_urlString ], kv->document() );
   else
   {
-    m_dtdString = "";
+    m_dtdString.clear();
     m_docToAssignTo = kv->document();
 
     KApplication::setOverrideCursor( Qt::WaitCursor );
@@ -461,7 +526,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished( KJob *job )
 
     // clean up a bit
     m_docToAssignTo = 0;
-    m_dtdString = "";
+    m_dtdString.clear();
   }
   QApplication::restoreOverrideCursor();
 }
@@ -475,7 +540,8 @@ void PluginKateXMLToolsCompletionModel::assignDTD( PseudoDTD *dtd, KTextEditor::
 {
   m_docDtds.insert( doc, dtd );
 
-  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(doc->activeView()); //TODO:perhaps foreach views()?
+  //TODO:perhaps foreach views()?
+  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(doc->activeView());
 
   if( cci ) {
     cci->registerCompletionModel( this );
@@ -547,17 +613,18 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
       marked = kv->selectionText();
 
     doc->startEditing();
-    
+
     if( ! marked.isEmpty() )
       kv->removeSelectionText();
-    
-    KTextEditor::Cursor curPos = kv->cursorPosition(); // with the old selection now removed, curPos points to the start of pre
+
+    // with the old selection now removed, curPos points to the start of pre
+    KTextEditor::Cursor curPos = kv->cursorPosition();
     curPos.setColumn( curPos.column() + pre.length() - adjust );
 
     kv->insertText( pre + marked + post );
 
     kv->setCursorPosition( curPos );
-    
+
     doc->endEditing();
   }
 }
@@ -710,7 +777,7 @@ QString PluginKateXMLToolsCompletionModel::insideTag( KTextEditor::View &kv )
     {
       QString ch = lineStr.mid( x-1, 1 );
       if( ch == ">" )   // cursor is outside tag
-        return "";
+        return QString();
 
       if( ch == "<" )
       {
@@ -736,7 +803,7 @@ QString PluginKateXMLToolsCompletionModel::insideTag( KTextEditor::View &kv )
     col = kv.document()->line(y).length();
   } while( y >= 0 );
 
-  return "";
+  return QString();
 }
 
 /**
@@ -755,8 +822,8 @@ QString PluginKateXMLToolsCompletionModel::insideAttribute( KTextEditor::View &k
   kv.cursorPosition().position( line, col );
   int y = line;	// another variable because uint <-> int
   uint x = 0;
-  QString lineStr = "";
-  QString ch = "";
+  QString lineStr;
+  QString ch;
 
   do {
     lineStr = kv.document()->line(y );
@@ -768,16 +835,16 @@ QString PluginKateXMLToolsCompletionModel::insideAttribute( KTextEditor::View &k
       if( isQuote(ch) && chLeft == "=" )
         break;
       else if( isQuote(ch) && chLeft != "=" )
-        return "";
+        return QString();
       else if( ch == "<" || ch == ">" )
-        return "";
+        return QString();
     }
     y--;
     col = kv.document()->line(y).length();
   } while( !isQuote(ch) );
 
   // look for next white space on the left to get the tag name
-  QString attr = "";
+  QString attr;
   for( int z = x; z >= 0; z-- )
   {
     ch = lineStr.mid( z-1, 1 );
@@ -940,7 +1007,7 @@ QString PluginKateXMLToolsCompletionModel::getParentElement( KTextEditor::View &
  * Return true if the tag is neither a closing tag
  * nor an empty tag, nor a comment, nor processing instruction.
  */
-bool PluginKateXMLToolsCompletionModel::isOpeningTag( QString tag )
+bool PluginKateXMLToolsCompletionModel::isOpeningTag( const QString& tag )
 {
   return ( !isClosingTag(tag) && !isEmptyTag(tag ) &&
       !tag.startsWith( "<?") && !tag.startsWith("<!") );
@@ -950,12 +1017,12 @@ bool PluginKateXMLToolsCompletionModel::isOpeningTag( QString tag )
  * Return true if the tag is a closing tag. Return false
  * if the tag is an opening tag or an empty tag ( ! )
  */
-bool PluginKateXMLToolsCompletionModel::isClosingTag( QString tag )
+bool PluginKateXMLToolsCompletionModel::isClosingTag( const QString& tag )
 {
   return ( tag.startsWith("</") );
 }
 
-bool PluginKateXMLToolsCompletionModel::isEmptyTag( QString tag )
+bool PluginKateXMLToolsCompletionModel::isEmptyTag( const QString& tag )
 {
   return ( tag.right(2) == "/>" );
 }
@@ -963,7 +1030,7 @@ bool PluginKateXMLToolsCompletionModel::isEmptyTag( QString tag )
 /**
  * Return true if ch is a single or double quote. Expects ch to be of length 1.
  */
-bool PluginKateXMLToolsCompletionModel::isQuote( QString ch )
+bool PluginKateXMLToolsCompletionModel::isQuote( const QString& ch )
 {
   return ( ch == "\"" || ch == "'" );
 }
@@ -971,6 +1038,26 @@ bool PluginKateXMLToolsCompletionModel::isQuote( QString ch )
 
 // ========================================================================
 // Tools:
+
+/// Get string describing current mode
+QString PluginKateXMLToolsCompletionModel::currentModeToString() const
+{
+  switch (m_mode)
+  {
+    case entities:
+      return i18n("XML entities");
+    case attributevalues:
+      return i18n("XML attribute values");
+    case attributes:
+      return i18n("XML attributes");
+    case elements:
+    case closingtag:
+      return i18n("XML elements");
+    default:
+      break;
+  }
+  return QString();
+}
 
 /** Sort a QStringList case-insensitively. Static. TODO: make it more simple. */
 QStringList PluginKateXMLToolsCompletionModel::sortQStringList( QStringList list ) {
@@ -1003,7 +1090,7 @@ QStringList PluginKateXMLToolsCompletionModel::sortQStringList( QStringList list
 }
 
 //BEGIN InsertElement dialog
-InsertElement::InsertElement( QWidget *parent, const char *name )
+InsertElement::InsertElement( QWidget* const parent, const char *name )
   :KDialog( parent)
 {
   Q_UNUSED( name )

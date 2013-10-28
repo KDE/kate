@@ -941,20 +941,24 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
   bool needsReset = false;
   
   if (!hasGroups()) {
-    needsReset |= changeCompletions(m_ungrouped, changeType);
+    needsReset |= changeCompletions(m_ungrouped, changeType, model);
   } else {
     foreach (Group* g, m_rowTable) {
       if(g != m_argumentHints)
-        needsReset |= changeCompletions(g, changeType);
+        needsReset |= changeCompletions(g, changeType, model);
     }
     foreach (Group* g, m_emptyGroups) {
       if(g != m_argumentHints)
-        needsReset |= changeCompletions(g, changeType);
+        needsReset |= changeCompletions(g, changeType, model);
     }
   }
-  updateBestMatches();
 
-  resort();
+  // if we narrowed, the sort order stays the same, only best matches might have changed
+  // NOTE: best matches are also updated in resort
+  if (changeType != Narrow)
+    resort();
+  else
+    updateBestMatches();
 
   kDebug()<<"needsReset"<<needsReset;
   if(needsReset)
@@ -1024,7 +1028,7 @@ QString KateCompletionModel::commonPrefix(QModelIndex selectedIndex) const
   return commonPrefix;
 }
 
-bool KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
+bool KateCompletionModel::changeCompletions( Group * g, changeTypes changeType, const KTextEditor::CodeCompletionModel* const model )
 {
   bool notifyModel = true;
   if(changeType != Narrow) {
@@ -1039,7 +1043,8 @@ bool KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
   QList <KateCompletionModel::Item > newFiltered;
   int deleteUntil = -1; //In each state, the range [currentRow+1, deleteUntil] needs to be deleted
   for(int currentRow = g->filtered.count()-1; currentRow >= 0; --currentRow) {
-    if(g->filtered[currentRow].match()) {
+    Item& item = g->filtered[currentRow];
+    if(item.sourceRow().first != model || item.match()) {
       //This row does not need to be deleted, which means that currentRow+1 to deleteUntil need to be deleted now
       if(deleteUntil != -1 && notifyModel) {
         beginRemoveRows(indexForGroup(g), currentRow+1, deleteUntil);

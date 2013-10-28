@@ -58,6 +58,7 @@ class CompletionTest : public QObject
     void benchAbbreviationEngineNormalCase();
     void benchAbbreviationEngineWorstCase();
     void benchAbbreviationEngineGoodCase();
+    void benchCompletionModel();
 
   private:
     KTextEditor::Document* m_doc;

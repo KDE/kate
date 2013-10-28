@@ -336,7 +336,7 @@ class KATEPART_TESTS_EXPORT KateCompletionModel : public ExpandingWidgetModel
     };
 
     //Returns whether the model needs to be reset
-    bool changeCompletions(Group* g, changeTypes changeType);
+    bool changeCompletions(Group* g, changeTypes changeType, const KTextEditor::CodeCompletionModel*const model);
 
     bool hasCompletionModel() const;
 

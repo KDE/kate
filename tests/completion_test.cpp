@@ -472,4 +472,25 @@ void CompletionTest::testAbbrevAndContainsMatching()
     QCOMPARE(model->filteredItemCount(), (uint) 0);
 }
 
+void CompletionTest::benchCompletionModel()
+{
+  const QString text("abcdefg abcdef");
+  m_doc->setText(text);
+  KateCompletionModel *model = m_view->completionWidget()->model();
+  CodeCompletionTestModel* testModel1 = new CodeCompletionTestModel(m_view, "abcdefg");
+  testModel1->setRowCount(500);
+  CodeCompletionTestModel* testModel2 = new CodeCompletionTestModel(m_view, "abcdef");
+  testModel2->setRowCount(500);
+  CodeCompletionTestModel* testModel3 = new CodeCompletionTestModel(m_view, "abcde");
+  testModel3->setRowCount(500);
+  CodeCompletionTestModel* testModel4 = new CodeCompletionTestModel(m_view, "abcd");
+  testModel4->setRowCount(5000);
+  QBENCHMARK_ONCE {
+    for(int i = 0; i < text.size(); ++i) {
+      m_view->setCursorPosition(Cursor(0, i));
+      invokeCompletionBox(m_view);
+    }
+  }
+}
+
 #include "completion_test.moc"

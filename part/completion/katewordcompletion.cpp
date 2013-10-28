@@ -214,7 +214,7 @@ QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, const 
       const QChar c = text.at(offset);
       // increment offset when at line end, so we take the last character too
       if ( ( ! c.isLetterOrNumber() && c != '_' ) || (offset == end - 1 && offset++) ) {
-        if ( offset - wordBegin > minWordSize && line != range.end().line() && offset != range.end().column() ) {
+        if ( offset - wordBegin > minWordSize && ( line != range.end().line() || offset != range.end().column() ) ) {
           result.insert(text.mid(wordBegin, offset - wordBegin));
         }
         wordBegin = offset + 1;

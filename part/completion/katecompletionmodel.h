@@ -262,9 +262,10 @@ class KATEPART_TESTS_EXPORT KateCompletionModel : public ExpandingWidgetModel
         int inheritanceDepth;
 
         // True when currently matching completion string
-        MatchType matchCompletion;
+        MatchType matchCompletion : 6;
         // True when passes all active filters
-        bool matchFilters, m_haveExactMatch;
+        bool matchFilters : 1;
+        bool m_haveExactMatch : 1;
 
         QString completionSortingName() const;
     };

@@ -410,7 +410,7 @@ void CompletionTest::testAbbreviationEngine()
 void CompletionTest::benchAbbreviationEngineGoodCase()
 {
   QBENCHMARK {
-    for ( int i = 0; i < 1000000; i++ ) {
+    for ( int i = 0; i < 10000; i++ ) {
       QVERIFY(! KateCompletionModel::matchesAbbreviation("AaaaaaBbbbbCcccDddEeFzZ", "XZYBFA"));
     }
   }
@@ -419,7 +419,7 @@ void CompletionTest::benchAbbreviationEngineGoodCase()
 void CompletionTest::benchAbbreviationEngineNormalCase()
 {
   QBENCHMARK {
-    for ( int i = 0; i < 1000000; i++ ) {
+    for ( int i = 0; i < 10000; i++ ) {
       QVERIFY(! KateCompletionModel::matchesAbbreviation("AaaaaaBbbbbCcccDddEeFzZ", "ABCDEFX"));
     }
   }
@@ -428,7 +428,7 @@ void CompletionTest::benchAbbreviationEngineNormalCase()
 void CompletionTest::benchAbbreviationEngineWorstCase()
 {
   QBENCHMARK {
-    for ( int i = 0; i < 1000000; i++ ) {
+    for ( int i = 0; i < 10000; i++ ) {
       // This case is quite horrible, because it requires a branch at every letter.
       // The current code will at some point drop out and just return false.
       KateCompletionModel::matchesAbbreviation("XxBbbbbbBbbbbbBbbbbBbbbBbbbbbbBbbbbbBbbbbbBbbbFox", "XbbbbbbbbbbbbbbbbbbbbFx");

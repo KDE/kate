@@ -1542,6 +1542,7 @@ function tryKeywordsWithBrackets(cursor)
       || text == "while "
       || text == "for "
       || text == "switch "
+      || text == "catch "
       ;
     if (need_brackets)
     {

@@ -941,15 +941,15 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
   bool needsReset = false;
   
   if (!hasGroups()) {
-    needsReset |= changeCompletions(m_ungrouped, changeType, model);
+    needsReset |= changeCompletions(m_ungrouped, changeType);
   } else {
     foreach (Group* g, m_rowTable) {
       if(g != m_argumentHints)
-        needsReset |= changeCompletions(g, changeType, model);
+        needsReset |= changeCompletions(g, changeType);
     }
     foreach (Group* g, m_emptyGroups) {
       if(g != m_argumentHints)
-        needsReset |= changeCompletions(g, changeType, model);
+        needsReset |= changeCompletions(g, changeType);
     }
   }
 
@@ -1028,7 +1028,7 @@ QString KateCompletionModel::commonPrefix(QModelIndex selectedIndex) const
   return commonPrefix;
 }
 
-bool KateCompletionModel::changeCompletions( Group * g, changeTypes changeType, const KTextEditor::CodeCompletionModel* const model )
+bool KateCompletionModel::changeCompletions( Group * g, changeTypes changeType )
 {
   bool notifyModel = true;
   if(changeType != Narrow) {
@@ -1043,8 +1043,7 @@ bool KateCompletionModel::changeCompletions( Group * g, changeTypes changeType, 
   QList <KateCompletionModel::Item > newFiltered;
   int deleteUntil = -1; //In each state, the range [currentRow+1, deleteUntil] needs to be deleted
   for(int currentRow = g->filtered.count()-1; currentRow >= 0; --currentRow) {
-    Item& item = g->filtered[currentRow];
-    if(item.sourceRow().first != model || item.match()) {
+    if(g->filtered[currentRow].match()) {
       //This row does not need to be deleted, which means that currentRow+1 to deleteUntil need to be deleted now
       if(deleteUntil != -1 && notifyModel) {
         beginRemoveRows(indexForGroup(g), currentRow+1, deleteUntil);

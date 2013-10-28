@@ -394,7 +394,7 @@ void KateBuffer::invalidateHighlighting()
 void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 {
   // no hl around, no stuff to do
-  if (!m_highlight)
+  if (!m_highlight || m_highlight->noHighlighting())
     return;
 
 #ifdef BUFFER_DEBUGGING

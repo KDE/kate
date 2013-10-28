@@ -350,8 +350,17 @@ class KTEXTEDITOR_EXPORT CodeCompletionModel : public QAbstractItemModel
        *               1 = Best Matches, 100 = Local Scope, 200 = Public, 300 = Protected, 400 = Private, 500 = Namespace, 600 = Global
        *               You can pick any arbitrary number to position your group relative to these builtin groups.
        * */
-      GroupRole
+      GroupRole,
+
+
+      /**
+       * Return a nonzero value here to enforce sorting the item at the end of the list.
+       */
+      UnimportantItemRole,
+
+      LastExtraItemDataRole
     };
+    // KDE5 remove
     static const int LastItemDataRole = AccessibilityAccept;
 
     void setRowCount(int rowCount);

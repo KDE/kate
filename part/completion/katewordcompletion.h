@@ -36,8 +36,7 @@
 
 #include <kdebug.h>
 
-
-class KateWordCompletionModel : public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface4
+class KATEPART_TESTS_EXPORT KateWordCompletionModel : public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface4
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface4)

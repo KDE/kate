@@ -80,6 +80,12 @@ kde4_add_unit_test(completion_test TESTNAME kate-completion_test ${completion_te
 
 target_link_libraries( completion_test ${KATE_TEST_LINK_LIBS}
 )
+########### word completion test ###############
+
+kde4_add_unit_test(wordcompletion_test TESTNAME kate-wordcompletion_test wordcompletiontest.cpp)
+
+target_link_libraries( wordcompletion_test ${KATE_TEST_LINK_LIBS}
+)
 
 ########### searchbar test ###############
 

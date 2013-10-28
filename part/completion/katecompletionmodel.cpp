@@ -1459,6 +1459,15 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
 
   //kDebug( 13035 ) << c1 << " c/w " << c2 << " -> " << (model->isSortingReverse() ? ret > 0 : ret < 0) << " (" << ret << ")";
 
+  const bool isBad = m_sourceRow.second.data(CodeCompletionModel::UnimportantItemRole).toBool();
+  const bool otherIsBad = rhs.m_sourceRow.second.data(CodeCompletionModel::UnimportantItemRole).toBool();
+  if( isBad && !otherIsBad ) {
+    return false;
+  }
+  if( otherIsBad && !isBad ) {
+    return true;
+  }
+
   if( matchCompletion < rhs.matchCompletion ) {
     // enums are ordered in the order items should be displayed
     return true;

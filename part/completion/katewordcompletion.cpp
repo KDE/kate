@@ -28,6 +28,7 @@
 
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/movingrange.h>
+#include <ktexteditor/range.h>
 
 #include <kconfig.h>
 #include <kdialog.h>
@@ -58,6 +59,9 @@
 #include <kdebug.h>
 //END
 
+/// Amount of characters the document may have to enable automatic invocation (1MB)
+static const int autoInvocationMaxFilesize = 1000000;
+
 //BEGIN KateWordCompletionModel
 KateWordCompletionModel::KateWordCompletionModel( QObject *parent )
   : CodeCompletionModel2( parent ), m_automatic(false)
@@ -78,8 +82,10 @@ void KateWordCompletionModel::saveMatches( KTextEditor::View* view,
 
 QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
 {
+  if( role == UnimportantItemRole )
+    return QVariant(true);
   if( role == InheritanceDepth )
-    return 10000; //Very high value, so the word-completion group and items are shown behind any other groups/items if there is multiple
+    return 10000;
 
   if( !index.parent().isValid() ) {
     //It is the group header
@@ -149,6 +155,11 @@ bool KateWordCompletionModel::shouldStartCompletion(KTextEditor::View* view, con
 
     KateView *v = qobject_cast<KateView*> (view);
 
+    if (view->document()->totalCharacters() > autoInvocationMaxFilesize) {
+      // Disable automatic invocation for files larger than 1MB (see benchmarks)
+      return false;
+    }
+
     const QString& text = view->document()->line(position.line()).left(position.column());
     const uint check = v->config()->wordCompletionMinimalWordLength();
     // Start completion immediately if min. word size is zero
@@ -179,24 +190,7 @@ bool KateWordCompletionModel::shouldAbortCompletion(KTextEditor::View* view, con
 
 void KateWordCompletionModel::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType it)
 {
-  /**
-   * auto invoke...
-   */
-  m_automatic=false;
-  if (it==AutomaticInvocation) {
-      m_automatic=true;
-      KateView *v = qobject_cast<KateView*> (view);
-
-      if (range.columnWidth() >= v->config()->wordCompletionMinimalWordLength())
-        saveMatches( view, range );
-      else
-        m_matches.clear();
-
-      // done here...
-      return;
-  }
-
-  // normal case ;)
+  m_automatic = it == AutomaticInvocation;
   saveMatches( view, range );
 }
 
@@ -208,47 +202,30 @@ void KateWordCompletionModel::completionInvoked(KTextEditor::View* view, const K
  */
 QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, const KTextEditor::Range &range ) const
 {
-  QStringList l;
-  QRegExp re( "\\b(" + view->document()->text( range ) + "\\w{1,})" );
-  QSet<QString> seen;
-
-  KateView *v = qobject_cast<KateView*> (view);
-  // Get minimum word length to be appended to a completion list.
-  // Despite of configured value, it is definitely silly to append
-  // one and two letter "words"!
-  const uint min_size = qMax(v->config()->wordCompletionMinimalWordLength(), 2);
-
-  /**
-   * scan only a range of the document to not die for LARGE files
-   */
-  const int lineLimit = 4096;
-  int start = qMax(0, range.start().line() - lineLimit);
-  int end = qMin(view->document()->lines(), range.start().line() + lineLimit);
-  for (int i = start; i < end; ++i)
-  {
-    const QString& s = view->document()->line( i );
-    int pos = 0;
-    while ( pos >= 0 )
-    {
-      pos = re.indexIn( s, pos );
-      if ( pos >= 0 )
-      {
-        // typing in the middle of a word
-        if ( ! ( i == range.start().line() && pos == range.start().column() ) )
-        {
-          const QString& m = re.cap( 1 );
-          // Do not append words that we have seen before and
-          // everything shorter than configured minimum size
-          if ( ! seen.contains( m ) && min_size <= uint(m.size())) {
-            seen.insert( m );
-            l << m;
-          }
+  QSet<QString> result;
+  const int minWordSize = qMax(2, qobject_cast<KateView*>(view)->config()->wordCompletionMinimalWordLength());
+  const int lines = view->document()->lines();
+  for ( int line = 0; line < lines; line++ ) {
+    const QString& text = view->document()->line(line);
+    int wordBegin = 0;
+    int offset = 0;
+    const int end = text.size();
+    while ( offset < end ) {
+      const QChar c = text.at(offset);
+      // increment offset when at line end, so we take the last character too
+      if ( ( ! c.isLetterOrNumber() && c != '_' ) || (offset == end - 1 && offset++) ) {
+        if ( offset - wordBegin > minWordSize && line != range.end().line() && offset != range.end().column() ) {
+          result.insert(text.mid(wordBegin, offset - wordBegin));
         }
-        pos += re.matchedLength();
+        wordBegin = offset + 1;
       }
+      if ( c.isSpace() ) {
+        wordBegin = offset + 1;
+      }
+      offset += 1;
     }
   }
-  return l;
+  return result.values();
 }
 
 void KateWordCompletionModel::executeCompletionItem2(
@@ -591,11 +568,8 @@ QString KateWordCompletionView::findLongestUnique( const QStringList &matches, i
 {
   QString partial = matches.first();
 
-  QStringListIterator it( matches );
-  QString current;
-  while ( it.hasNext() )
+  foreach ( const QString& current, matches )
   {
-    current = it.next();
     if ( !current.startsWith( partial ) )
     {
       while( partial.length() > lead )

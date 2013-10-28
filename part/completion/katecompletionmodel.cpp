@@ -1480,11 +1480,8 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
     ret = inheritanceDepth - rhs.inheritanceDepth;
 
   if (ret == 0 && model->isSortingAlphabetical()) {
-    if(!m_completionSortingName.isEmpty() && !rhs.m_completionSortingName.isEmpty())
-      //Shortcut, plays a role in this tight loop
-      ret = QString::compare(m_completionSortingName, rhs.m_completionSortingName);
-    else
-      ret = QString::compare(completionSortingName(), rhs.completionSortingName()); //Do not use localeAwareCompare, because it is simply too slow for a list of about 1000 items
+    // Do not use localeAwareCompare, because it is simply too slow for a list of about 1000 items
+    ret = QString::compare(m_nameColumn, rhs.m_nameColumn, model->sortingCaseSensitivity());
   }
 
   if( ret == 0 ) {
@@ -1493,17 +1490,6 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
   }
 
   return ret < 0;
-}
-
-QString KateCompletionModel::Item::completionSortingName( ) const
-{
-  if(m_completionSortingName.isEmpty()) {
-    m_completionSortingName = m_nameColumn;
-    if (model->sortingCaseSensitivity() == Qt::CaseInsensitive)
-      m_completionSortingName = m_completionSortingName.toLower();
-  }
-
-  return m_completionSortingName;
 }
 
 void KateCompletionModel::Group::addItem( Item i, bool notifyModel )

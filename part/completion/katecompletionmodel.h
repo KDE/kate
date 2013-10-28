@@ -257,7 +257,7 @@ class KATEPART_TESTS_EXPORT KateCompletionModel : public ExpandingWidgetModel
         KateCompletionModel* model;
         ModelRow m_sourceRow;
 
-        mutable QString m_nameColumn, m_completionSortingName;
+        mutable QString m_nameColumn;
         
         int inheritanceDepth;
 

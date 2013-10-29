@@ -12,7 +12,7 @@
 
 <title>Comment/Uncomment</title>
 
-<para>The Comment and Uncomment commands, available from the
+<para>The <guimenuitem>Comment</guimenuitem> and <guimenuitem>Uncomment</guimenuitem> commands, available from the
 <guimenu>Tools</guimenu> menu allow you to add or remove comment
 markers to the selection, or the current line if no text is selected,
 if comments are supported by the format of the text you are
@@ -38,13 +38,13 @@ any whitespace outside the comment markers is ignored.</para>
 <para><indexterm><primary>comment</primary></indexterm>
 To place comment markers, use the
 <menuchoice><guimenu>Tools</guimenu><guimenuitem>Comment</guimenuitem></menuchoice>
-menu item or the related keyboard shortcut sequence, default is
+menu item or the related keyboard shortcut sequence, the default is
 <keycombo action="simul">&Ctrl;<keycap>D</keycap></keycombo>.</para>
 
 <para><indexterm><primary>uncomment</primary></indexterm>
 To remove comment markers, use the
 <menuchoice><guimenu>Tools</guimenu><guimenuitem>Uncomment</guimenuitem></menuchoice>
-menu item or the related keyboard shortcut, default is <keycombo
+menu item or the related keyboard shortcut, the default is <keycombo
 action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo>.</para>
 
 </sect1>
@@ -54,7 +54,7 @@ action="simul">&Ctrl;&Shift;<keycap>D</keycap></keycombo>.</para>
 
 <para>&kappname;'s editor component has an internal command line, allowing you to
 perform various actions from a minimal GUI. The command line is a text entry
-in the bottom of the editor area, to show it select
+at the bottom of the editor area; to show it select
 <menuchoice><guimenu>View</guimenu><guimenuitem>Switch to Command Line</guimenuitem></menuchoice>
 or use the shortcut (default is
 <keycombo action="simul"><keycap>F7</keycap></keycombo>). The editor provides
@@ -67,9 +67,9 @@ you entered the command line by pressing <keycap>F7</keycap> it will
 automatically hide after a few seconds. To clear the message and enter a new
 command, press <keycap>F7</keycap> again.</para>
 
-<para>The command line has a built-in help system, issue the command
+<para>The command line has a built-in help system; issue the command
 <command>help</command> to get started. To see a list of all available commands
-issue <command>help list</command>, to view help for a specific command, do
+issue <command>help list</command>; to view help for a specific command, do
 <command>help <replaceable>command</replaceable></command>.</para>
 
 <para>The command line has a built in history, so you can reuse commands already
@@ -109,7 +109,7 @@ Legal values are <userinput>on</userinput>, <userinput>off</userinput>,
 <sect3 id="advanced-editing-tools-commandline-commands-configure">
 <title>Commands for Configuring the Editor</title>
 
-<para>These commands are provided by the editor component, and allows you to
+<para>These commands are provided by the editor component, and allow you to
 configure the active document and view only. This is handy if you want to use
 a setting different from the default settings, for example for indentation.
 </para>
@@ -159,7 +159,7 @@ automatically.</para></listitem>
 
 <varlistentry>
 <term><cmdsynopsis><command>set-remove-trailing-space</command><arg choice="req">BOOLEAN enable</arg></cmdsynopsis></term>
-<listitem><para>If enabled, trailing whitespace are removed whenever the cursor
+<listitem><para>If enabled, trailing whitespace is removed whenever the cursor
 leaves a line.</para></listitem>
 </varlistentry>
 
@@ -197,7 +197,7 @@ and if the indent width is unspecified it will be set to half of the
 <term><cmdsynopsis><command>set-word-wrap</command><arg choice="req">BOOLEAN
 enable</arg></cmdsynopsis></term>
 <listitem><para>Enables dynamic word wrap according to
-<userinput>enable</userinput></para></listitem>
+<userinput>enable</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -434,9 +434,9 @@ current line, or on the whole file (<command>%s///</command>).</para>
 <emphasis>search pattern</emphasis>, the regular expression between
 the first and the second slash, and when a match is found, the
 matching part of the text is replaced with the expression between the
-middle and last part of the string. Parentheses in the search pattern
+second and last slash. Parentheses in the search pattern
 create <emphasis>back references</emphasis>, that is the command
-remembers which part of the match matched in the parentheses; these
+remembers which part of the string matched in the parentheses; these
 strings can be reused in the replace pattern, referred to as
 <userinput>\1</userinput> for the first set of parentheses,
 <userinput>\2</userinput> for the second and so on.</para>
@@ -543,9 +543,9 @@ quantifier proved a valuable asset.</para>
 
 <example>
 <title><command>sort</command> vs. <command>natsort</command></title>
-<para><userinput>sort(a10, a1, a2)</userinput> results in
+<para><userinput><command>sort</command>(a10, a1, a2)</userinput> results in
                             <computeroutput>a1, a10, a2</computeroutput></para>
-<para><command>natsort(a10, a1, a2)</command> results in
+<para><userinput><command>natsort</command>(a10, a1, a2)</userinput> results in
                             <computeroutput>a1, a2, a10</computeroutput></para>
 </example></listitem>
 </varlistentry>
@@ -774,7 +774,7 @@ followed by one or more options, like this:
 
 
 <sect3 id="advanced-editing-tools-commandline-commands-basic">
-<title>Commands for Basic Editor Functions (These are depending on the application the editor component is used in)</title>
+<title>Commands for Basic Editor Functions (These depend on the application the editor component is used in)</title>
 
 <variablelist>
 
@@ -885,7 +885,7 @@ also lets you manually define foldable regions, typically using the
 <para>To use the code folding feature, activate the folding markers using
 <menuchoice><guimenu>View</guimenu><guimenuitem>Show Folding
 Markers</guimenuitem></menuchoice> menu item if they are not already visible.
-The Folding Markers Pane in the left side of the screen displays a graphical
+The Folding Markers Pane on the left side of the screen displays a graphical
 view of the foldable regions, with triangle symbols to indicate the possible operation
 on a given region: a top down triangle means that the region is expanded, clicking it will
 collapse the region and a right pointing triangle will be displayed instead.</para>

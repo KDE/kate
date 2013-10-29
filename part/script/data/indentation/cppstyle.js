@@ -1005,6 +1005,13 @@ function tryComma(cursor)
     return result;
 }
 
+/**
+ * \brief Move towards a document start and look for control flow keywords
+ *
+ * \note Keyword must be at the line start
+ *
+ * \return found line's indent, otherwise \c -2 if nothing found
+ */
 function tryBreakContinue(line, is_break)
 {
     var result = -2;
@@ -1032,12 +1039,37 @@ function tryBreakContinue(line, is_break)
     return result;
 }
 
+/**
+ * \brief Handle \c ; character.
+ *
+ * Here is few cases possible (handled):
+ * \li semicolon is a first char on a line -- then, it looks like \c for statement
+ *      splitted accross the lines
+ * \li semicolon entered after some keywords: \c break or \c continue, then we
+ *      need to align this line taking in account a previous one
+ * \li and finally here is a trick: when auto brackets extension enabled, and user types
+ *      a function call like this:
+ * \code
+ *  auto var = some_call(arg1, arg2|)
+ * \endcode
+ * (\c '|' shows a cursor position). Note there is no final semicolon in this expression,
+ * cuz pressing <tt>'('</tt> leads to the following snippet: <tt>some_call(|)</tt>, so to
+ * add a semicolon you have to move cursor out of parenthesis. The trick is to allow to press
+ * <tt>';'</tt> at position shown in the code snippet, so indenter will transform it into this:
+ * \code
+ *  auto var = some_call(arg1, arg2);|
+ * \endcode
+ */
 function trySemicolon(cursor)
 {
     var result = -2;
     var line = cursor.line;
     var column = cursor.column;
 
+    if (isStringOrComment(line, column))
+        return result;                                      // Do nothing for comments and strings
+
+    // If ';' is a first char on a line?
     if (document.firstChar(line) == ';' && document.firstColumn(line) == (column - 1))
     {
         // Check if we are inside a `for' statement
@@ -1059,6 +1091,30 @@ function trySemicolon(cursor)
             result = tryBreakContinue(line - 1, is_break);
             if (result == -2)
                 result = -1;
+        }
+        else
+        {
+            // Check if next character(s) is ')' and nothing after
+            should_proceed = true;
+            var lineLength = document.lineLength(line);
+            for (var i = column; i < lineLength; ++i)
+            {
+                if (document.charAt(line, i) != ')')
+                {
+                    should_proceed = false;
+                    break;
+                }
+            }
+            if (should_proceed)
+            {
+                document.editBegin();
+                // Remove ';' from column - 1
+                document.removeText(line, column - 1, line, column);
+                // Append ';' to the end of line
+                document.insertText(line, lineLength - 1, ";");
+                document.editEnd();
+                view.setCursorPosition(line, lineLength);
+            }
         }
     }
     return result;

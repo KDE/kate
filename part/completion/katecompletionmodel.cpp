@@ -953,12 +953,8 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
     }
   }
 
-  // if we narrowed, the sort order stays the same, only best matches might have changed
   // NOTE: best matches are also updated in resort
-  if (changeType != Narrow)
-    resort();
-  else
-    updateBestMatches();
+  resort();
 
   kDebug()<<"needsReset"<<needsReset;
   if(needsReset)

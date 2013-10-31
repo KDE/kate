@@ -11,7 +11,7 @@
 <language
     name="C++11"
     section="Sources"
-    version="1.60"
+    version="1.61"
     kateversion="2.4"
     indenter="cppstyle"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
@@ -239,6 +239,7 @@
         <DetectChar attribute="Error" context="#stay" char="#" />
         <DetectChar attribute="Error" context="#stay" char="$" />
         <DetectChar attribute="Error" context="#stay" char="@" />
+        <DetectChar attribute="Error" context="#stay" char="`" />
       </context>
 
       <context name="UDLOperator" attribute="Normal Text" lineEndContext="#pop">

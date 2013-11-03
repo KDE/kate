@@ -127,6 +127,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void slotDeleteTargetClicked();
         void slotCellChanged(int row, int column);
         void slotSelectionChanged();
+        void slotResizeColumn(int column);
 
     protected:
         bool eventFilter(QObject *obj, QEvent *ev);

@@ -170,6 +170,8 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_targetsUi->targetsList, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
     connect(m_targetsUi->targetsList, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
 
+    connect(m_targetsUi->targetsList->horizontalHeader(), SIGNAL(sectionDoubleClicked(int)), this, SLOT(slotResizeColumn(int)));
+
     // set the default values of the build settings. (I think loading a plugin should also trigger
     // a read of the session config data, but it does not)
    //m_targetsUi->buildCmds->setText("make");
@@ -932,6 +934,12 @@ void KateBuildView::slotSelectionChanged()
     m_targetsUi->buildButton->setEnabled(enableButtons);
 }
 
+
+/******************************************************************/
+void KateBuildView::slotResizeColumn(int column)
+{
+    m_targetsUi->targetsList->resizeColumnToContents(column);
+}
 
 /******************************************************************/
 QString KateBuildView::makeTargetNameUnique(const QString& name)

@@ -53,6 +53,11 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
     Q_OBJECT
 
     private:
+//       struct Target {
+//         QString name;
+//         QString command;
+//       };
+
        struct TargetSet {
          QString name;
          QString defaultDir;
@@ -118,11 +123,10 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void slotRemoveProjectTarget();
 
         void slotAddTargetClicked();
-        void slotEditTargetClicked();
         void slotBuildTargetClicked();
         void slotDeleteTargetClicked();
-        void slotDefTargetClicked();
-        void slotCleanTargetClicked();
+        void slotCellChanged(int row, int column);
+        void slotSelectionChanged();
 
     protected:
         bool eventFilter(QObject *obj, QEvent *ev);
@@ -134,8 +138,9 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         bool startProcess(const KUrl &dir, const QString &command);
         KUrl docUrl();
         bool checkLocal(const KUrl &dir);
-        void setTargetItemContents(QTreeWidgetItem* item, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
         void fillTargetList(const TargetSet* targetSet, QStringList* stringList) const;
+        void setTargetRowContents(int row, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
+        QString makeTargetNameUnique(const QString& name);
 
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;
@@ -152,6 +157,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         QList<TargetSet>  m_targetList;
         int               m_targetIndex;
         KSelectAction*    m_targetSelectAction;
+        QString           m_prevItemContent;
 
         /**
         * current project plugin view, if any

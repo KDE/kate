@@ -8,11 +8,18 @@
 #include <QtGui/QLabel>
 #include <QtGui/QPushButton>
 #include <QtGui/QToolButton>
-#include <QtGui/QTreeWidget>
+#include <QtGui/QTableWidget>
 #include <QtGui/QWidget>
 #include "klineedit.h"
 #include "kpushbutton.h"
 #include <kcombobox.h>
+
+
+#define COL_DEFAULT_TARGET 0
+#define COL_CLEAN_TARGET 1
+#define COL_NAME 2
+#define COL_COMMAND 3
+
 
 class TargetsUi: public QWidget
 {
@@ -30,14 +37,11 @@ public:
     QLabel      *dirLabel;
     KLineEdit   *buildDir;
     QToolButton *browse;
-    QTreeWidget *targetsList;
+    QTableWidget *targetsList;
 
-    QPushButton *addButton;
-    QPushButton *editButton;
-    QPushButton *deleteButton;
-    QPushButton *buildButton;
-    QPushButton *defButton;
-    QPushButton *cleanButton;
+    QToolButton *addButton;
+    QToolButton *deleteButton;
+    QToolButton *buildButton;
 
 protected:
     void resizeEvent(QResizeEvent *event);

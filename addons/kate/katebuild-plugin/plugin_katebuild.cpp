@@ -63,7 +63,6 @@
 #include <kaboutdata.h>
 
 
-#include "edittargetdialog.h"
 #include "selecttargetdialog.h"
 
 K_PLUGIN_FACTORY(KateBuildPluginFactory, registerPlugin<KateBuildPlugin>();)
@@ -75,6 +74,7 @@ K_EXPORT_PLUGIN(KateBuildPluginFactory(KAboutData("katebuild",
 
 static const QString DefConfigCmd = "cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local ../";
 static const QString DefConfClean = "";
+static const QString DefTargetName = "all";
 static const QString DefBuildCmd = "make";
 static const QString DefCleanCmd = "make clean";
 
@@ -165,13 +165,10 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_targetsUi->browse, SIGNAL(clicked()), this, SLOT(slotBrowseClicked()));
 
     connect(m_targetsUi->addButton, SIGNAL(clicked()), this, SLOT(slotAddTargetClicked()));
-    connect(m_targetsUi->editButton, SIGNAL(clicked()), this, SLOT(slotEditTargetClicked()));
     connect(m_targetsUi->buildButton, SIGNAL(clicked()), this, SLOT(slotBuildTargetClicked()));
     connect(m_targetsUi->deleteButton, SIGNAL(clicked()), this, SLOT(slotDeleteTargetClicked()));
-    connect(m_targetsUi->defButton, SIGNAL(clicked()), this, SLOT(slotDefTargetClicked()));
-    connect(m_targetsUi->cleanButton, SIGNAL(clicked()), this, SLOT(slotCleanTargetClicked()));
-    connect(m_targetsUi->targetsList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(slotEditTargetClicked()));
-
+    connect(m_targetsUi->targetsList, SIGNAL(cellChanged(int, int)), this, SLOT(slotCellChanged(int, int)));
+    connect(m_targetsUi->targetsList, SIGNAL(itemSelectionChanged()), this, SLOT(slotSelectionChanged()));
 
     // set the default values of the build settings. (I think loading a plugin should also trigger
     // a read of the session config data, but it does not)
@@ -185,9 +182,6 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
 
     m_targetsUi->deleteButton->setEnabled(false);
     m_targetsUi->buildButton->setEnabled(false);
-    m_targetsUi->editButton->setEnabled(false);
-    m_targetsUi->defButton->setEnabled(false);
-    m_targetsUi->cleanButton->setEnabled(false);
 
     m_proc = new KProcess();
 
@@ -218,6 +212,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     // update once project plugin state manually
     m_projectPluginView = mainWindow()->pluginView ("kateprojectplugin");
     slotProjectMapChanged ();
+    slotSelectionChanged();
 }
 
 
@@ -528,7 +523,7 @@ void KateBuildView::slotBuildPreviousTarget() {
     }
 
     if (tgtSet->prevTarget.isEmpty()) {
-        KMessageBox::sorry(0, i18n("No target set as default target."));
+        KMessageBox::sorry(0, i18n("No previous target."));
     }
 
     buildTarget(tgtSet->prevTarget, false);
@@ -871,6 +866,94 @@ void KateBuildView::slotBrowseClicked()
 }
 
 /******************************************************************/
+void KateBuildView::slotCellChanged(int row, int column)
+{
+    TargetSet* tgtSet = currentTargetSet();
+    if (tgtSet == 0) {
+        return;
+    }
+
+    bool wasBlocked = m_targetsUi->targetsList->blockSignals(true);
+    QTableWidgetItem* item = m_targetsUi->targetsList->item(row, column);
+
+    QString prevTargetName = m_targetsUi->targetsList->item(row, COL_NAME)->text();
+    if (column == COL_NAME) {
+        prevTargetName = m_prevItemContent;
+    }
+
+    QString prevCommand = m_targetsUi->targetsList->item(row, COL_COMMAND)->text();
+
+    switch (column)
+    {
+    case COL_DEFAULT_TARGET:
+    case COL_CLEAN_TARGET:
+        for(int i=0; i<m_targetsUi->targetsList->rowCount(); i++) {
+            m_targetsUi->targetsList->item(i, column)->setCheckState(Qt::Unchecked);
+        }
+        item->setCheckState(Qt::Checked);
+        if (column == COL_DEFAULT_TARGET) {
+            tgtSet->defaultTarget = prevTargetName;
+        }
+        else {
+            tgtSet->cleanTarget = prevTargetName;
+        }
+        break;
+    case COL_NAME:
+    {
+        QString newName  = item->text();
+        if (newName.isEmpty()) {
+            item->setText(prevTargetName);
+        }
+        else {
+            m_targetList[m_targetIndex].targets.erase(prevTargetName);
+            newName = makeTargetNameUnique(newName);
+            m_targetList[m_targetIndex].targets[newName] = prevCommand;
+        }
+        break;
+    }
+    case COL_COMMAND:
+        m_targetList[m_targetIndex].targets[prevTargetName] = item->text();
+        break;
+    }
+
+    m_targetsUi->targetsList->blockSignals(wasBlocked);
+}
+
+
+/******************************************************************/
+void KateBuildView::slotSelectionChanged()
+{
+    QList<QTableWidgetItem*> selectedItems = m_targetsUi->targetsList->selectedItems();
+    bool enableButtons = (selectedItems.size() > 0);
+    if (enableButtons) {
+        m_prevItemContent = selectedItems.at(0)->text();
+    }
+    m_targetsUi->deleteButton->setEnabled(enableButtons);
+    m_targetsUi->buildButton->setEnabled(enableButtons);
+}
+
+
+/******************************************************************/
+QString KateBuildView::makeTargetNameUnique(const QString& name)
+{
+    TargetSet* targetSet = currentTargetSet();
+    if (targetSet == 0) {
+        return name;
+    }
+
+    QString uniqueName = name;
+    int count = 2;
+
+    while (m_targetList[m_targetIndex].targets.find(uniqueName) != m_targetList[m_targetIndex].targets.end()) {
+        uniqueName = QString("%1_%2").arg(name).arg(count);
+        count++;
+    }
+
+    return uniqueName;
+}
+
+
+/******************************************************************/
 void KateBuildView::slotAddTargetClicked()
 {
     TargetSet* targetSet = currentTargetSet();
@@ -878,78 +961,38 @@ void KateBuildView::slotAddTargetClicked()
         return;
     }
 
-    QStringList targets;
-    fillTargetList(targetSet, &targets);
+    bool wasBlocked = m_targetsUi->targetsList->blockSignals(true);
+    QString newName = makeTargetNameUnique(DefTargetName);
 
-    EditTargetDialog* dlg = new EditTargetDialog(targets);
-    dlg->setCaption(i18n("Add new target"));
-    int result = dlg->exec();
-    if (result == QDialog::Accepted) {
-        QString name = dlg->targetName();
-        QString buildCmd = dlg->targetCommand();
+    int rowCount = m_targetList[m_targetIndex].targets.size();
+    m_targetsUi->targetsList->setRowCount(rowCount + 1);
+    setTargetRowContents(rowCount, m_targetList[m_targetIndex], newName, DefBuildCmd);
 
-        m_targetList[m_targetIndex].targets[name] = buildCmd;
+    m_targetList[m_targetIndex].targets[newName] = DefBuildCmd;
 
-        QTreeWidgetItem* item = new QTreeWidgetItem();
-        m_targetsUi->targetsList->addTopLevelItem(item);
-
-        setTargetItemContents(item, m_targetList[m_targetIndex], name, buildCmd);
-
-        m_targetsUi->deleteButton->setEnabled(true);
-        m_targetsUi->buildButton->setEnabled(true);
-        m_targetsUi->editButton->setEnabled(true);
-        m_targetsUi->defButton->setEnabled(true);
-        m_targetsUi->cleanButton->setEnabled(true);
-    }
-    delete dlg;
-    dlg = 0;
-
+    m_targetsUi->deleteButton->setEnabled(true);
+    m_targetsUi->buildButton->setEnabled(true);
+    m_targetsUi->targetsList->blockSignals(wasBlocked);
 }
 
-/******************************************************************/
-void KateBuildView::slotEditTargetClicked()
-{
-    TargetSet* targetSet = currentTargetSet();
-    if (targetSet == 0) {
-        return;
-    }
-
-    QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
-    if (currentItem == 0) {
-        return;
-    }
-
-    QStringList targets;
-    fillTargetList(targetSet, &targets);
-
-    QString oldName = currentItem->text(2);
-    EditTargetDialog* dlg = new EditTargetDialog(targets);
-    dlg->setCaption(QString(i18n("Edit target %1")).arg(oldName));
-    dlg->setTargetName(oldName);
-    dlg->setTargetCommand(currentItem->text(3));
-    int result = dlg->exec();
-    if (result == QDialog::Accepted) {
-        QString newName = dlg->targetName();
-        QString buildCmd = dlg->targetCommand();
-        m_targetList[m_targetIndex].targets.erase(oldName);
-        m_targetList[m_targetIndex].targets[newName] = buildCmd;
-
-        setTargetItemContents(currentItem, m_targetList[m_targetIndex], newName, buildCmd);
-
-    }
-    delete dlg;
-    dlg = 0;
-}
 
 /******************************************************************/
 void KateBuildView::slotBuildTargetClicked()
 {
-    const QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
-    if (currentItem == 0) {
+    TargetSet* tgtSet = currentTargetSet();
+    if (tgtSet == 0) {
         return;
     }
 
-    QString target = currentItem->text(2);
+    QList<QTableWidgetItem*> selectedItems = m_targetsUi->targetsList->selectedItems();
+    if (selectedItems.size() == 0) {
+        return;
+    }
+
+    int row = selectedItems.at(0)->row();
+
+    QString target = m_targetsUi->targetsList->item(row, COL_NAME)->text();
+
     buildTarget(target, true);
 }
 
@@ -961,20 +1004,21 @@ void KateBuildView::slotDeleteTargetClicked()
         return;
     }
 
-    QTreeWidgetItem* item = m_targetsUi->targetsList->currentItem();
-    if (item == 0) {
+    QList<QTableWidgetItem*> selectedItems = m_targetsUi->targetsList->selectedItems();
+    if (selectedItems.size() == 0) {
         return;
     }
 
-    QString target = item->text(2);
+    int row = selectedItems.at(0)->row();
+
+    QString target = selectedItems.at(COL_NAME)->text();
 
     int result = KMessageBox::questionYesNo(0, QString(i18n("Really delete target %1 ?")).arg(target));
     if (result == KMessageBox::No) {
         return;
     }
 
-    delete item;
-    item = 0;
+    m_targetsUi->targetsList->removeRow(row);
 
     if (tgtSet->cleanTarget == target) {
         tgtSet->cleanTarget = QString("");
@@ -986,57 +1030,11 @@ void KateBuildView::slotDeleteTargetClicked()
 
     tgtSet->targets.erase(target);
 
-    bool enableButtons = (m_targetsUi->targetsList->topLevelItemCount() > 0);
+    bool enableButtons = (m_targetsUi->targetsList->rowCount() > 0);
     m_targetsUi->deleteButton->setEnabled(enableButtons);
     m_targetsUi->buildButton->setEnabled(enableButtons);
-    m_targetsUi->editButton->setEnabled(enableButtons);
-    m_targetsUi->defButton->setEnabled(enableButtons);
-    m_targetsUi->cleanButton->setEnabled(enableButtons);
 }
 
-/******************************************************************/
-void KateBuildView::slotDefTargetClicked()
-{
-    TargetSet* tgtSet = currentTargetSet();
-    if (tgtSet == 0) {
-        return;
-    }
-
-    QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
-    if (currentItem == 0) {
-        return;
-    }
-
-    QString target = currentItem->text(2);
-
-    tgtSet->defaultTarget = target;
-    for(int i=0; i<m_targetsUi->targetsList->topLevelItemCount(); i++) {
-        QTreeWidgetItem* item = m_targetsUi->targetsList->topLevelItem(i);
-        item->setText(0, item->text(2) == target ? "X" : "");
-    }
-}
-
-/******************************************************************/
-void KateBuildView::slotCleanTargetClicked()
-{
-    TargetSet* tgtSet = currentTargetSet();
-    if (tgtSet == 0) {
-        return;
-    }
-
-    QTreeWidgetItem* currentItem = m_targetsUi->targetsList->currentItem();
-    if (currentItem == 0) {
-        return;
-    }
-
-    QString target = currentItem->text(2);
-
-    tgtSet->cleanTarget = target;
-    for(int i=0; i<m_targetsUi->targetsList->topLevelItemCount(); i++) {
-        QTreeWidgetItem* item = m_targetsUi->targetsList->topLevelItem(i);
-        item->setText(1, item->text(2) == target ? "X" : "");
-    }
-}
 
 /******************************************************************/
 void KateBuildView::targetSelected(int index)
@@ -1046,24 +1044,22 @@ void KateBuildView::targetSelected(int index)
         return;
     }
 
-
     // Set the new values
+    bool wasBlocked = m_targetsUi->targetsList->blockSignals(true);
+
     m_targetsUi->buildDir->setText(m_targetList[index].defaultDir);
 
-    m_targetsUi->targetsList->clear();
+    m_targetsUi->targetsList->setRowCount(m_targetList[index].targets.size());
 
+    int row=0;
     for(std::map<QString, QString>::const_iterator it = m_targetList[index].targets.begin(); it != m_targetList[index].targets.end(); ++it) {
-        QTreeWidgetItem* item = new QTreeWidgetItem();
-        m_targetsUi->targetsList->addTopLevelItem(item);
-        setTargetItemContents(item, m_targetList[index], it->first, it->second);
-        if (m_targetsUi->targetsList->topLevelItemCount() == 1) {
-            m_targetsUi->targetsList->setCurrentItem(item);
-        }
+        setTargetRowContents(row, m_targetList[index], it->first, it->second);
+        row++;
     }
 
-    for(int i=0; i<4; i++) {
-        m_targetsUi->targetsList->resizeColumnToContents(i);
-    }
+    m_targetsUi->targetsList->blockSignals(wasBlocked);
+
+    m_targetsUi->targetsList->resizeColumnsToContents();
 
     m_targetIndex = index;
 
@@ -1075,19 +1071,26 @@ void KateBuildView::targetSelected(int index)
 
     m_targetsUi->deleteButton->setEnabled(enableButtons);
     m_targetsUi->buildButton->setEnabled(enableButtons);
-    m_targetsUi->editButton->setEnabled(enableButtons);
-    m_targetsUi->defButton->setEnabled(enableButtons);
-    m_targetsUi->cleanButton->setEnabled(enableButtons);
 }
 
-
 /******************************************************************/
-void KateBuildView::setTargetItemContents(QTreeWidgetItem* item, const TargetSet& tgtSet, const QString& name, const QString& buildCmd)
+void KateBuildView::setTargetRowContents(int row, const TargetSet& tgtSet, const QString& name, const QString& buildCmd)
 {
-    item->setText(0, (name == tgtSet.defaultTarget) ? QString("X") : QString (""));
-    item->setText(1, (name == tgtSet.cleanTarget) ? QString("X") : QString (""));
-    item->setText(2, name);
-    item->setText(3, buildCmd);
+    QTableWidgetItem* nameItem = new QTableWidgetItem(name);
+    QTableWidgetItem* cmdItem = new QTableWidgetItem(buildCmd);
+    QTableWidgetItem* def = new QTableWidgetItem();
+    QTableWidgetItem* clean = new QTableWidgetItem();
+
+    def->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+    clean->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable | Qt::ItemIsSelectable);
+
+    def->setCheckState(name == tgtSet.defaultTarget ? Qt::Checked : Qt::Unchecked);
+    clean->setCheckState(name == tgtSet.cleanTarget ? Qt::Checked : Qt::Unchecked);
+
+    m_targetsUi->targetsList->setItem(row, COL_DEFAULT_TARGET, def);
+    m_targetsUi->targetsList->setItem(row, COL_CLEAN_TARGET, clean);
+    m_targetsUi->targetsList->setItem(row, COL_NAME, nameItem);
+    m_targetsUi->targetsList->setItem(row, COL_COMMAND, cmdItem);
 }
 
 

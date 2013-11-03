@@ -22,6 +22,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <QApplication>
+#include <QHeaderView>
 
 TargetsUi::TargetsUi(QWidget *parent):
 QWidget(parent)
@@ -58,24 +59,29 @@ QWidget(parent)
 
     dirLabel->setBuddy(buildDir);
 
-    targetsList = new QTreeWidget(this);
-    targetsList->setAllColumnsShowFocus(true);
-    targetsList->setRootIsDecorated(false);
+    targetsList = new QTableWidget(0, 4, this);
+    targetsList->setAlternatingRowColors(true);
+    targetsList->setWordWrap(false);
+    targetsList->setShowGrid(false);
     targetsList->setSelectionMode(QAbstractItemView::SingleSelection);
-    targetsList->setSelectionBehavior(QAbstractItemView::SelectRows);
-    targetsList->setSortingEnabled(true);
-    targetsList->sortByColumn(2, Qt::AscendingOrder);
+    targetsList->setSelectionBehavior(QAbstractItemView::SelectItems); //SelectRows);
     QStringList headerLabels;
     headerLabels << QString("Def") << QString("Clean") << QString("Name") << QString("Command");
-    targetsList->setHeaderLabels(headerLabels);
+    targetsList->setHorizontalHeaderLabels(headerLabels);
+    targetsList->verticalHeader()->setVisible(false);
 
-    addButton = new QPushButton(i18n("Add..."), this);
-    editButton = new QPushButton(i18n("Edit..."), this);
-    deleteButton = new QPushButton(i18n("Delete..."), this);
-    buildButton = new QPushButton(i18n("Build"), this);
-    defButton = new QPushButton(i18n("Set as Default"), this);
-    cleanButton = new QPushButton(i18n("Set as Clean"), this);
+    addButton = new QToolButton(this);
+    addButton->setIcon(KIcon("list-add"));
+    addButton->setToolTip(i18n("Add new target"));
 
+    deleteButton = new QToolButton(this);
+    deleteButton->setIcon(KIcon("list-remove"));
+    deleteButton->setToolTip(i18n("Delete selected target"));
+
+    buildButton = new QToolButton(this);
+    buildButton->setIcon(KIcon("dialog-ok"));
+    buildButton->setToolTip(i18n("Build selected target"));
+    
     // calculate the approximate height to exceed before going to "Side Layout"
     setSideLayout();
     m_widgetsHeight = sizeHint().height();
@@ -114,11 +120,8 @@ void TargetsUi::setSideLayout()
     QHBoxLayout* buttonsLayout = new QHBoxLayout();
     buttonsLayout->addStretch();
     buttonsLayout->addWidget(addButton);
-    buttonsLayout->addWidget(editButton);
     buttonsLayout->addWidget(deleteButton);
     buttonsLayout->addWidget(buildButton);
-    buttonsLayout->addWidget(defButton);
-    buttonsLayout->addWidget(cleanButton);
 
     QGridLayout* layout = new QGridLayout(this);
     layout->addWidget(targetLabel, 0, 0, 1, 4);
@@ -153,11 +156,8 @@ void TargetsUi::setBottomLayout()
 
     buttonsLayout->addStretch();
     buttonsLayout->addWidget(addButton);
-    buttonsLayout->addWidget(editButton);
     buttonsLayout->addWidget(deleteButton);
     buttonsLayout->addWidget(buildButton);
-    buttonsLayout->addWidget(defButton);
-    buttonsLayout->addWidget(cleanButton);
 
     QVBoxLayout* layout = new QVBoxLayout(this);
     layout->addLayout(tLayout);

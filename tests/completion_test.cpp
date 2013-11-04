@@ -476,7 +476,6 @@ void CompletionTest::benchCompletionModel()
 {
   const QString text("abcdefg abcdef");
   m_doc->setText(text);
-  KateCompletionModel *model = m_view->completionWidget()->model();
   CodeCompletionTestModel* testModel1 = new CodeCompletionTestModel(m_view, "abcdefg");
   testModel1->setRowCount(500);
   CodeCompletionTestModel* testModel2 = new CodeCompletionTestModel(m_view, "abcdef");

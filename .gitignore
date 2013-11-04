@@ -1,4 +1,10 @@
+# general
+build
+
+# kate
 .kateproject.d
 *~
 *-swp
-build
+
+# kdevelop
+*.kdev4

@@ -153,6 +153,17 @@ void IndentTest::haskell()
 }
 
 
+void IndentTest::pascal_data()
+{
+  getTestData( "pascal" );
+}
+
+void IndentTest::pascal()
+{
+  runTest( ExpectedFailures() );
+}
+
+
 void IndentTest::ruby_data()
 {
   getTestData( "ruby" );

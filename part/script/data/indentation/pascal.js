@@ -26,7 +26,7 @@
 
 Automatically handle Pascal indenting while editing code.
 
-Whenever the return key is pressed, the indenter correctly indents the 
+Whenever the return key is pressed,  the indenter correctly indents the 
 just finished line, and determines where to start the new line.
 
 Moderately sensible code is assumed:
@@ -84,6 +84,12 @@ When these lines are realigned your manual adjustment is repected.
 In much the same way, comments keep the same relative indent when the code 
 around them is realigned as part of the same block.
 
+The following bugs are known.
+Fixing them is possible, but would make the indenter too big, slow and clever.
+ - 'else' keyword in 'case' statement not recognised.   Use 'otherwise' instead
+ - comments keep alignment relative to preceding line, but naturally 
+   should keep alignment relative to following line.   
+ - procedure/function declarations in 'interface' should be indented
 */
 
 "use strict";
@@ -102,7 +108,6 @@ var debugMode = false;            // send debug output to terminal
 //END USER CONFIGURATION
 
 
-const patTypeDec      = /^(type)?\s*\b\w+\s*=\s*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/;
 const patTrailingSemi = /;\s*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/;
 const patMatchEnd     = /\b(begin|case|record)\b/i;
 const patDeclaration  = /^\s*(program|module|unit|uses|import|implementation|interface|label|const|type|var|function|procedure|operator)\b/i;
@@ -372,8 +377,9 @@ function lastCodeLine(line)
         }
   
         // keep looking until we reach code
-        // skip labels
-    } while( !( document.isCode(line, document.firstColumn(line) )
+        // skip labels & preprocessor lines
+    } while( document.firstChar(line) == '#'
+             || !( document.isCode(line, document.firstColumn(line) )
                 || document.isString(line, document.firstColumn(line) )
                 || document.isChar(line, document.firstColumn(line) ) )
              || /^\w+?\s*:(?!=)/.test(document.line(line)) );
@@ -424,7 +430,7 @@ function findStartOfStatement(line)
                 return -1;
             }
         }
-        //dbg("\tfindStartOfStatement: Found statement: " + pLineStr);
+        //dbg("\tfindStartOfStatement: Found statement: " + pLineStr.trim() );
     }
     return pLine;
 } // findStartOfStatement()
@@ -439,7 +445,7 @@ function findStartOfStatement(line)
 function doLabel( labelLine )
 {
     if( /^(\s*\w+\s*:)\s*(.*?)?\s*((\/\/|\{|\(\*).*)?$/.test( document.line(labelLine) ) ) {
-        dbg("doLabel: label is '" + RegExp.$1 + "', statement is '" + RegExp.$2 + "' comment is '" + RegExp.$3 + "'" );
+        dbg("doLabel: label is '" + RegExp.$1 + "', statement is '" + RegExp.$2 + "', comment is '" + RegExp.$3 + "'" );
 
         if( RegExp.$2.length != 0 ) {
             document.wrapLine( labelLine, RegExp.$1.length );
@@ -567,7 +573,7 @@ function decodeColon( line )
         // we are looking at a label if we reach start of a block
         if( /^\s*(begin\b(?!.*\bend)|repeat\b(?!.*\buntil)|otherwise)\b/i.test(pLineStr) 
             || patTrailingBegin.test(pLineStr) ) {
-            dbg("decodeColon: found a label");
+            //dbg("decodeColon: found a label");
             return 0;
         }
 
@@ -595,7 +601,7 @@ function decodeColon( line )
  * return its leading white spaces + ' *' + the white spaces after the *
  * return: filler string or null, if not in a comment
  */
-function tryComment(line, alignOnly)
+function tryComment(line, newLine)
 {
     var p = document.firstColumn(line);
     if( !document.isComment(line, p<0? 0: p) ) {
@@ -623,56 +629,52 @@ function tryComment(line, alignOnly)
         }
     }
 
-    // if there's already text there, just relative shift 
-    var indent = document.firstVirtualColumn(line);
-    if( indent >= 0 ) {
-        dbg("tryComment: keeping relative indent of existing comment");
-        return indent + gShift;
-    }
-
     var pline = document.prevNonEmptyLine(line - 1);
     if( pline < 0 )  {
         dbg("tryComment: keep existing indent");
         return -2;
     }
 
-    indent = document.firstVirtualColumn(pline);
+    var indent = -1;
 
-    // done if no need to add a '*'
-    if( pline != line - 1    // empty line in between
-        || alignOnly 
-        || !cfgAutoInsertStar ) {
-        dbg("tryComment: new comment line follows previous one");
-        return indent;
+    if( pline == line - 1 ) {   // no empty line in between
+
+        var plineStr = document.line(pline);
+        var startPos = plineStr.indexOf("(*");
+        if( startPos != -1 
+            && !plineStr.contains("*)")
+            && document.isComment(pline, startPos) ) {
+
+            indent = document.toVirtualColumn(pline,startPos); // line up with '(*'
+            indent += 1; // line up with '*'
+            dbg("tryComment: " + line + " follows start of comment");
+        } else if( document.firstChar(pline) == '*' 
+                   && ! plineStr.contains("*)") ) {
+            indent = document.firstVirtualColumn(pline);
+        }
     }
 
-    var firstPos = document.firstColumn(pline);
-    var lastPos = document.lastColumn(pline);
+    // now indent != -1 if there is a '*' to follow
 
-    var plineStr = document.line(pline);
-    var startPos = plineStr.indexOf("(*");
-    if( startPos != -1 
-        && !plineStr.contains("*)")
-        && document.isComment(pline, startPos) ) {
-
-        indent = document.toVirtualColumn(pline,startPos); // line up with '(*'
-        indent += 1; // line up with '*'
-        dbg("tryComment: " + line + " follows start of comment");
-    } else if( document.charAt(pline, firstPos) == '*' 
-               && !plineStr.contains("*)") ) {
-        dbg("tryComment: " + line + " follows comment with '*'");
+    if( indent != -1 && newLine && cfgAutoInsertStar ) {
+        dbg("tryComment: leading '*' inserted in comment line");
+        document.insertText(line, view.cursorPosition().column, '*');
+        if (!document.isSpace(line, document.firstColumn(line) + 1))
+            document.insertText(line, document.firstColumn(line) + 1, ' ');
+    } else if( indent == -1 || document.firstChar(line) != '*' ) {
+        indent = document.firstVirtualColumn(line);
+        if( indent >= 0 ) {
+            dbg("tryComment: keeping relative indent of existing comment");
+            indent += gShift;
+        } else {
+            dbg("tryComment: new comment line follows previous one");
+        }
     } else {
-        dbg("tryComment: line " + line + " follows comment without '*'");
-        return indent;
+        dbg("tryComment: aligning leading '*' in comments");
     }
-
-    document.insertText(line, view.cursorPosition().column, '*');
-    if (!document.isSpace(line, document.firstColumn(line) + 1))
-        document.insertText(line, document.firstColumn(line) + 1, ' ');
-
-    dbg("tryComment: leading '*' inserted in comment line");
 
     return indent;
+
 } // tryComment()
 
 
@@ -689,17 +691,23 @@ function tryKeywords(line)
 {
     var kpos;
 
+    if(document.firstChar(line) == '#') {
+        dbg("tryKeywords: preprocessor line found: zero indent");
+        return 0;
+    }
+
     var lineStr = document.line(line);
     var isBegin = false;
 
     if( document.isCode( line, 0 ) ) {
+
         // these declarations always go on the left margin
         if( patDeclaration.test(lineStr) ) {
-            dbg("tryKeywords: zero indent for line", lineStr);
+            dbg("tryKeywords: zero indent for '" + RegExp.$1 + "'" );
             return 0;
         }
 
-        // test if begin starts the line, determine indent later
+        // when begin starts the line, determine indent later
         isBegin = /^\s*begin\b/i.test(lineStr);
 
         var indent = -1;
@@ -754,11 +762,39 @@ function tryKeywords(line)
                 indent = document.firstVirtualColumn(refLine);
                 if (indent != -1) {
                     if (cfgIndentCase)  indent += gIndentWidth;
+                    dbg("tryKeywords: 'otherwise' aligned to 'case' in line " + refLine);
                 }
-                dbg("tryKeywords: 'otherwise' aligned to 'case' in line " + refLine);
                 return indent;
             }
-        } else {
+        } else if( /^\s*(then|do)\b/i.test(lineStr) ) {
+            dbg("tryKeywords: '" + RegExp.$1 + "' aligned with start of statement" );
+            refLine = findStartOfStatement( line );
+            if( refLine >= 0 )
+                return document.firstVirtualColumn(refLine);
+        }
+        else if( /^\s*of/i.test(lineStr) ) {
+            // check leading 'of' in array declaration
+            //dbg("tryKeywords: found leading 'of'");
+            refline = lastCodeLine(line);
+            if(refline >= 0) {
+                reflineStr = document.line(refline);
+                kpos = reflineStr.search(/\]\s*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/);
+                if( kpos != -1 ) {
+                    //dbg("tryKeywords: found trailing ']'");
+                    var c = document.anchor(refline, kpos, ']');
+                    if( c.isValid() ) {
+                        reflineStr = document.line(c.line).substring(0,c.column);
+                        //dbg("tryKeywords: start of array is", reflineStr.trim());
+                        kpos = reflineStr.search(/\barray\s*$/i);
+                        if( kpos != -1 ) {
+                            dbg("tryKeywords: indenting leading 'of' in array declaration");
+                            return document.toVirtualColumn(c.line, kpos) + gIndentWidth;
+                        }
+                    }
+                }
+            }
+        }
+        else {
             //dbg("tryKeywords: checking for a case value: " + lineStr);
             indent = decodeColon( line );
             if( indent != -1 ) {
@@ -768,8 +804,8 @@ function tryKeywords(line)
                     dbg("tryKeywords: case value at line", line, "aligned to earlier 'case'");
                 return indent;  // maybe it's a label
             }
-        } 
-    }
+        }
+    } // is code
 
     //** now see if previous line determines how to indent line
 
@@ -807,7 +843,7 @@ function tryKeywords(line)
         // need to skip single line records
         if( !patTrailingEnd.test(plineStr) ) {
             indent = document.firstVirtualColumn(line);
-            if( indent > 0 ) {
+            if( indent + gShift > document.firstVirtualColumn(pline) ) {
                 dbg("tryKeywords: keeping indent following 'record'");
                 return indent + gShift;
             } else {
@@ -818,7 +854,7 @@ function tryKeywords(line)
     }
 
     //dbg("tryKeywords: checking unfinished type decs ...");
-    if( patTypeDec.test(plineStr) ) {
+    if( /^(type)?\s*\b\w+\s*=\s*(\/\/.*|\{.*|\(\*.*)?$/.test(plineStr) ) {
         indent = document.toVirtualColumn(pline,
                        document.nextNonSpaceColumn(pline, RegExp.$1.length) );
         dbg("tryKeywords: indenting after 'type'" );
@@ -854,7 +890,7 @@ function tryKeywords(line)
         dbg("tryKeywords: new case value");
         return (cfgIndentCase)?  indent + gIndentWidth: indent;
     }
- 
+
     //dbg("tryKeywords: checking multiline condition ...");
     if( /^\s*(while|for|with|(else\s*)?if)\b/i.test(plineStr)
         && document.isCode(pline, document.firstColumn(pline)) ) {
@@ -863,24 +899,23 @@ function tryKeywords(line)
         // if the line is empty indent by one,
         // otherwise keep existing indent
         var keyword = RegExp.$1; // only used for debug
-        kpos = plineStr.search(/\b(do|then)\b/i);
-            if( kpos == -1 
-                || ! document.isCode(pline, kpos) ) {
-                indent = document.firstVirtualColumn(line);
-                if( indent > 0 ) {
-                    dbg("tryKeywords: keeping relative indent following '" +keyword+ "'");
-                    return indent + gShift;
-                } else {
-                    dbg("tryKeywords: indenting after '" + keyword + "'");
-                    return document.firstVirtualColumn(pline)+2*gIndentWidth;
-                }
+        kpos = plineStr.search(/\b(then|do)\b/i);
+        if( kpos == -1 || ! document.isCode(pline, kpos) ) {
+            indent = document.firstVirtualColumn(line);
+            if( indent + gShift > document.firstVirtualColumn(pline) ) {
+                dbg("tryKeywords: keeping relative indent following '" +keyword+ "'");
+                return indent + gShift;
+            } else {
+                dbg("tryKeywords: indenting after '" + keyword + "'");
+                return document.firstVirtualColumn(pline)+2*gIndentWidth;
             }
+        }
     } else {
         // there's no 'if', 'while', etc => test for 'then' or 'do'
         // then go back to the corresponding 'if' while'/'for'/'with'
         // assume case/with do not spread over multiple lines
         //dbg("tryKeywords: checking then/do ...");
-        kpos = plineStr.search( /\b(then|do)(\s*begin)?\s*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/i );
+        kpos = plineStr.search( /\b(then|do)(\s*begin)?\s*(\/\/.*|\{.*|\(\*.*)?$/i );
         if ( kpos != -1 && document.isCode( pline, kpos)) {
             //dbg("tryKeywords: found '" + RegExp.$1 + "', look for 'if/while/for/with'");
             pline = findStartOfStatement( pline );
@@ -933,12 +968,28 @@ function tryKeywords(line)
        } 
     }
 
-//casevalue or  if/while/etc
+    //casevalue or  if/while/etc
     if( xind > 0 ) {
         return  xind + document.firstVirtualColumn(pline);
     }
     
-    //dbg("tryKeywords: skipping indent for lines like: " + plineStr);
+    //dbg("tryKeywords: check unfinished := ...");
+    kpos = plineStr.search(/:=[^;]*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/i);
+    if( kpos != -1 && document.isCode(pline, kpos) ) {
+        indent = document.firstVirtualColumn(line);
+        if( indent + gShift > document.firstVirtualColumn(pline) ) {
+            dbg("tryKeywords: keeping indent following ':='");
+            return indent + gShift;
+        } else {
+            var pos = document.nextNonSpaceColumn(pline, kpos+2);
+            dbg( "tryKeywords: indent after unfinished assignment" );
+            if( pos != -1 )
+                return document.toVirtualColumn(pline, pos);
+            else
+                return document.toVirtualColumn(pline, kpos) + gIndentWidth;
+        }
+    }
+
     return -1;
 } // tryKeywords()
 
@@ -1003,16 +1054,108 @@ function checkCloseParen( line, n )
  * subsequent args ==> maintain indent
  *       ');' ==> align closing paren
  */
-function tryParens(line)
+    //  check the line above
+    //  if it has unclosed paren ==> indent to first arg
+    //  other lines, keep indent
+
+function tryParens(line, newLine)
 {
-    var pline = lastCodeLine(line);
+    var pline = lastCodeLine(line);    // note: pline is code
     if (pline < 0) return -1;
+    var plineStr = document.line(pline);
+ 
+    /**
+     * first, handle the case where the new line starts with ')' or ']'
+     * find out whether we pressed return in something like () or [] and 
+     * indent properly, so
+     * []
+     * becomes:
+     * [
+     *   |
+     * ]
+     *
+     */
+    var char = document.firstChar(line);
+    if ( (char == ')' || char == ']')
+            &&  document.isCode( line, document.firstColumn(line) ) ) {
+        //dbg("tryParens - leading close " + char + " on current line");
 
-    var plineStr = document.line(pline);    // note: pline is code
+        var openParen = document.anchor(line, 0, char);
+        if( !openParen.isValid() ) {
+            // nothing found, continue with other cases
+            dbg("tryParens: open paren not found");
+            return -1;
+        }
+        var indent = document.toVirtualColumn(openParen);
 
-    var indent = -1;
+        //dbg("tryParens: found left anchor '" + document.charAt(openParen) + "' at " + openParen.toString() );
 
-    // look for line ending with unclosed paren like "func(" {comment}
+        // look for something like
+        //        argn     <--- pline
+        //        );       <--- line, trailing close paren
+        // the trailing close paren lines up with the args or the open paren,
+        // whichever is the leftmost
+        if( pline > openParen.line ) {
+            var argIndent = document.firstVirtualColumn(pline);
+            if( argIndent > 0 && argIndent < indent) { 
+                indent = argIndent;
+                dbg("tryParens: align trailing '" + char + "' with arg list");
+            }
+            else {
+                dbg("tryParens: align trailing '" + char + "' with open paren");
+            }
+        }
+
+        // just align brackets, not args
+        if( !newLine ) {
+            return indent;
+        }
+
+        // look for previous line ending with unclosed paren like "func(" {comment}
+        // and no args following open paren
+        var bpos = plineStr.search(/[,(\[]\s*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/ );
+        // open line for a new arg if following a trailing ','
+        // or if this is the first arg, ie parens match
+        var openLine = false;
+        if( bpos != -1 && document.isCode(pline, bpos)) {
+            var lastChar = plineStr[bpos];
+            openLine =   ( lastChar == ',' ) || 
+                ( lastChar == '(' && char == ')' ) ||
+                ( lastChar == '[' && char == ']' );
+            //dbg("lastChar is '" + lastChar + "', openLine is " + (openLine? "true": "false") );
+        }
+
+        if( openLine ) {
+            dbg("tryParens: opening line for new argument");
+            //dbg(lastChar == ','? "following trailing ',' ": "parens match");
+            /* on entry, we have one of 2 scenarios:
+             *    arg,  <--- pline, , ==> new arg to be inserted
+             *    )     <--- line
+             * or
+             *    xxx(  <--- pline
+             *    )     <--- line
+             *
+             * in both cases, we need to open a line for the new arg and 
+             * place right anchor in same column as the opening anchor
+             * we leave cursor on the blank line
+             */
+            document.insertText(line, document.firstColumn(line), "\n");
+            var anchorLine = line+1;
+            // indent closing anchor 
+            view.setCursorPosition(line, indent);
+            document.indent(new Range(anchorLine, 0, anchorLine, 1), indent / gIndentWidth);
+            // make sure we add spaces to align perfectly on left anchor
+            var padding =  indent % gIndentWidth;
+            if ( padding > 0 ) {
+                document.insertText(anchorLine, 
+                                    document.fromVirtualColumn(anchorLine, indent - padding),
+                                    String().fill(' ', padding));
+            }
+        }
+    } // leading close paren
+
+
+    // now look for line ending with unclosed paren like "func(" {comment}
     // and no args following open paren
     var bpos = plineStr.search(/[(\[]\s*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/ );
     if( bpos != -1 && document.isCode(pline, bpos) ) {
@@ -1023,8 +1166,9 @@ function tryParens(line)
         // other args should be lined up against this
         // if line is not empty, assume user has set it - leave it as it is
         var bChar = plineStr[bpos];
+        //dbg("tryParens: - trailing open " + char + " on previous line");
         indent = document.firstVirtualColumn(line);
-        if( indent > 0 ) {
+            if( indent + gShift > document.firstVirtualColumn(pline) ) {
             dbg("tryParens: keep relative indent following '" + bChar + "'");
             indent += gShift;
         } else {
@@ -1034,30 +1178,19 @@ function tryParens(line)
         return indent;
     } // trailing open paren
 
-    //  check the line above
-    //  if it has unclosed paren ==> indent to first arg
-    //  if it has unbalanced closing paren ==> indent to anchor line
-    //  other lines, keep indent
-
-    // now look for something like
+    // next, look for something like
     //        func( arg1,     <--- pline
     //                        <--- line
     // note: if open paren is last char we would not be here
     bpos = checkOpenParen(pline, document.lineLength(pline));
     if( bpos != -1 ) {
-        //dbg( "tryParens: found open paren '" + plineStr[bpos] + "'" );
-        indent = document.firstVirtualColumn(line);
-        if( indent > 0 ) {
-            dbg("tryParens: keep relative indent following '" + plineStr[bpos] + "' in", plineStr);
-            indent += gShift;
-        } else {
-            bpos = document.nextNonSpaceColumn(pline, bpos+1);
-            dbg("tryParens: aligning arg to", document.wordAt(pline, bpos), "in", plineStr);
-            indent = document.toVirtualColumn(pline, bpos );
-        }
-        return indent; 
+        //dbg( "tryParens: found open paren '" + plineStr[bpos] + "' and trailing arg" );
+        bpos = document.nextNonSpaceColumn(pline, bpos+1);
+        dbg("tryParens: aligning arg to", document.wordAt(pline, bpos), "in", plineStr);
+        return document.toVirtualColumn(pline, bpos );
     } // trailing opening arg
 
+    // next step, check for close paren,  but nested inside outer paren
     bpos = checkCloseParen(pline, plineStr.length);
     if( bpos != -1 ) {
         // we have something like this:
@@ -1078,12 +1211,13 @@ function tryParens(line)
             bpos = checkOpenParen(testLine, openParen.column);
             if( bpos != -1 ) {
                 // line above closes parens, still inside another paren level
-                dbg("found yet another open paren @ pos", bpos);
+                //dbg("tryParens: found yet another open paren @ pos", bpos);
                 bpos = document.nextNonSpaceColumn(testLine, bpos+1);
-                dbg("aligning with open paren in line", openParen.line);
+                //dbg("tryParens: aligning with open paren in line", openParen.line);
                 indent = document.toVirtualColumn(testLine, bpos );
                 return indent;
-            } else if( document.anchor(line,0,'(').isValid() ) {
+            } else if( document.anchor(line,0,'(').isValid() 
+                       || document.anchor(line,0,'[').isValid() ) {
                 dbg("tryParens: aligning to args at next outer paren level");
                 return document.firstVirtualColumn(testLine );
             }
@@ -1094,7 +1228,8 @@ function tryParens(line)
         // line above doesn't close parens, we may or may not be inside parens
     }
 
-    // check if inside parens, if so, align with previous line
+    // finally, check if inside parens, 
+    // if so, align with previous line
     // eliminates a few checks later on
     openParen = document.anchor(line,0,'(');
     if( openParen.isValid() && document.isCode(openParen) ) {
@@ -1102,7 +1237,14 @@ function tryParens(line)
         return document.firstVirtualColumn(pline );
     }
 
-    return indent;
+    openParen = document.anchor(line,0,'[');
+    if( openParen.isValid() && document.isCode(openParen) ) {
+        dbg("tryParens: inside '[...]', aligning with previous line" );
+        return document.firstVirtualColumn(pline );
+    }
+
+    return -1;
+
 } // tryParens()
 
 
@@ -1129,7 +1271,9 @@ function tryStatement(line)
     plineStr = document.line(pline);
 
     var kpos = plineStr.search(patTrailingSemi);
+
     if( kpos == -1 || !document.isCode(pline, kpos) ) {
+        dbg("tryStatement: following previous line");
         return defaultIndent;
     }
 
@@ -1174,7 +1318,6 @@ function tryStatement(line)
                     return prevInd;
                 }
             }
-
         }
 
         //dbg("tryStatement: plineStr is " + plineStr );
@@ -1224,162 +1367,36 @@ function tryStatement(line)
 } // tryStatement()
 
 
-/**
- * find out whether we pressed return in something like () or [] and 
- * indent properly, so
- * []
- * becomes:
- * [
- *   |
- * ]
- *
- * NOTE:  this function handles only the case where 
- *        the new line already starts with ')' or ']'
- * tryParens() handles other cases of open/close parens, and arg alignment
- */
-function tryMatchedAnchor(line, alignOnly)
-{
-    if( !document.isCode( line, document.firstColumn(line)) ) return -1;
-    var char = document.firstChar(line);
-    if ( char != ')' && char != ']' ) {
-        return -1;
-    }
-
-    // we pressed enter in e.g. ()
-    var openParen = document.anchor(line, 0, char);
-    if( !openParen.isValid() ) {
-        // nothing found, continue with other cases
-        dbg("tryMatchedAnchor: open paren not found");
-        return -1;
-    }
-    var indent = document.toVirtualColumn(openParen);
-
-    //dbg("tryMatchedAnchor: found left anchor '" + document.charAt(openParen) + "' at " + openParen.toString() );
-
-    // now look for something like
-    //        argn     <--- pline
-    //        );       <--- line, trailing close paren
-    // the trailing close paren lines up with the args or the open paren,
-    // whichever is the leftmost
-    var pline = lastCodeLine(line);    // note: pline is code
-    if( pline > openParen.line ) {
-        var argIndent = document.firstVirtualColumn(pline);
-        if( argIndent > 0 && argIndent < indent) { 
-            indent = argIndent;
-        }
-    }
-
-    // tryMatchedAnchor() just aligns brackets, not args
-    if( alignOnly ) {
-        dbg("tryMatchedAnchor: align trailing '" + char + "'");
-        return indent;
-    }
-
-    if (pline < 0) return -1;
-
-    // note: pline is code
-    var plineStr = document.line(pline);
-    // look for line ending with unclosed paren like "func(" {comment}
-    // and no args following open paren
-    var bpos = plineStr.search(/[,(\[]\s*(\/\/.*|\{.*\}|\(\*.*\*\))?\s*$/ );
-    // open line for a new arg if following a trailing ','
-    // or if this is the first arg, ie parens match
-    var openLine = false;
-    if( bpos != -1 && document.isCode(pline, bpos)) {
-        var lastChar = plineStr[bpos];
-        openLine =   ( lastChar == ',' ) || 
-                     ( lastChar == '(' && char == ')' ) ||
-                     ( lastChar == '[' && char == ']' );
-        //dbg("lastChar is '" + lastChar + "', openLine is " + (openLine? "true": "false") );
-    }
-
-    if( openLine ) {
-        //dbg(lastChar == ','? "following trailing ',' ": "parens match");
-        /* on entry, we have one of 2 scenarios:
-         *    arg,  <--- pline, , ==> new arg to be inserted
-         *    )     <--- line
-         * or
-         *    xxx(  <--- pline
-         *    )     <--- line
-         *
-         * in both cases, we need to open a line for the new arg and 
-         * place right anchor in same column as the opening anchor
-         * we leave cursor on the blank line
-         */
-       document.insertText(line, document.firstColumn(line), "\n");
-        var anchorLine = line+1;
-        // indent closing anchor 
-        view.setCursorPosition(line, indent);
-        document.indent(new Range(anchorLine, 0, anchorLine, 1), indent / gIndentWidth);
-        // make sure we add spaces to align perfectly on left anchor
-        var padding =  indent % gIndentWidth;
-        if ( padding > 0 ) {
-            document.insertText(anchorLine, 
-                  document.fromVirtualColumn(anchorLine, indent - padding),
-                  String().fill(' ', padding));
-        }
-        indent = -1;
-    }
-    else {
-        /* no new args, just align closing bracket and arg on prev line
-         * we have this scenario:
-         * xx(arg0  <--- arg may or may not be present here
-         *    ...
-         *    argn-1  <--- assume this arg is correctly aligned
-         *    argn    <--- argLine,  ==> last arg, needs aligning
-         *   )        <--- line
-         */
-        //  indent = document.toVirtualColumn(openParen);
-     }
-    // only arg on line after '(' will be aligned by tryParens()
-    // previous line needs realigning to other args
-    //dbg("tryMatchedAnchor: aligning line " + document.line(argLine) );
-    var argLine = line-1;
-    document.align(new Range(argLine, 0, argLine, 1));
-
-    dbg("tryMatchedAnchor: success in line " + line);
-    return indent;
-} // tryMatchedAnchor()
-
-
 // specifies the characters which should trigger indent, beside the default '\n'
-triggerCharacters = ")#";
+triggerCharacters = " \t)]#;";
+
+// possible outdent for lines that match this regexp
+var PascalReIndent = /^\s*((end|const|type|var|begin|until|function|procedure|operator|else|otherwise|\w+\s*:)\s+|[#\)\]]|end;)(.*)$/;
+
+// check if the trigger characters are in the right context,
+// otherwise running the indenter might be annoying to the user
+function reindentTrigger(line)
+{
+    var res = PascalReIndent.exec(document.line(line));
+    dbg("reindentTrigger: checking line, found", ((res && res[3] == "" )? "'"+ (res[2]?res[2]:res[1])+"'": "nothing") );
+    return ( res && (res[3] == "" ));
+} // reindentTrigger
+
 
 function processChar(line, c)
 {
-    if (c == ';' || !triggerCharacters.contains(c))
-        return -2;
-
-    var cursor = view.cursorPosition();
+   var cursor = view.cursorPosition();
     if (!cursor)
         return -2;
 
     var column = cursor.column;
-    var firstPos = document.firstColumn(line);
     var lastPos = document.lastColumn(line);
 
-     //dbg("processChar: firstPos: " + firstPos + ", lastPos: " + lastPos);
-     //dbg("processChar: column..: " + column);
+    //dbg("processChar: lastPos:", lastPos, ", column..:", column);
 
-    if (c == ')' && firstPos == column - 1) {
-        // align to args or matching '(', whichever is leftmost
-        var openParen = document.anchor(line, column - 1, '(');
-        if (openParen.isValid()) {
-            var indent = document.toVirtualColumn(openParen);
-            var argLine = document.prevNonEmptyLine(line-1);
-            if( argLine > openParen.line ) {
-                var argColumn = document.firstVirtualColumn(argLine);
-                if( argColumn < indent ) {
-                    indent = argColumn;
-                }
-            }
-            dbg("ProcessChar: ')' aligned");
-            return indent;
-        }
-    } else if (cfgSnapParen 
+    if (cfgSnapParen 
                && c == ')'
                && lastPos == column - 1) {
-        //this needs to follow above test for ')'
         // try to snap the string "* )" to "*)"
         var plineStr = document.line(line);
         if( /^(\s*\*)\s+\)\s*$/.test(plineStr) ) {
@@ -1390,11 +1407,6 @@ function processChar(line, c)
             view.setCursorPosition(line, plineStr.length);
             document.editEnd();
         }
-        return -2;
-
-    } else if (firstPos == column - 1 && c == '#') {
-        // always put preprocessor stuff upfront
-        return 0;
     }
     return -2;
 } // processChar()
@@ -1412,37 +1424,37 @@ function indent(line, indentWidth, ch)
     if( line < 0 ) return -1;
 
     var t = document.variable("debugMode");
-    if(t) debugMode = (t=="true");
+    debugMode = /^(true|on|enabled|1)$/i.test( t );
 
     dbg("\n------------------------------------ (" + line + ")");
 
     t = document.variable("cfgIndentCase");
-    if(t) cfgIndentCase = (t == "true");
+    cfgIndentCase = /^(true|on|enabled|1)$/i.test( t );
     t = document.variable("cfgIndentBegin");
     if(/^[0-9]+$/.test(t)) cfgIndentBegin = parseInt(t);
 
     t = document.variable("cfgAutoInsertStar");
-    if(t) cfgAutoInsertStar = (t == "true");
+    cfgAutoInsertStar = /^(true|on|enabled|1)$/i.test( t );
     t = document.variable("cfgSnapParen");
-    if(t) cfgSnapParen = (t == "true");
+    cfgSnapParen = /^(true|on|enabled|1)$/i.test( t );
 
     gIndentWidth = indentWidth;
     gCaseValue = -99;
 
-    var alignOnly = (ch == "");
+    var newLine = (ch == "\n");
 
-    if( alignOnly ) {
+    if( ch == "" ) {
+        // align Only
         if( document.firstVirtualColumn(line) == -1 ) {
             dbg("empty line,  zero indent");
             return 0;
         }
-    } else {
-        if (ch != '\n')
-            return processChar(line, ch);
-
+    } else if (ch == '\n') {
         // cr entered - align the just completed line
         document.align(new Range(line-1, 0, line-1, 1));
-     }
+    } else if( !reindentTrigger(line) ) {
+        return processChar(line, ch);
+    }
 
     var oldIndent = document.firstVirtualColumn(line);
     var sel = view.selection();
@@ -1450,13 +1462,10 @@ function indent(line, indentWidth, ch)
         gShift = 0;
     }
 
-    var filler = tryComment(line, alignOnly);
+    var filler = tryComment(line, newLine);
 
     if (filler == -1)
-        filler = tryMatchedAnchor(line, alignOnly);
-
-    if (filler == -1)
-        filler = tryParens(line);
+        filler = tryParens(line, newLine);
 
     if (filler == -1)
         filler = tryKeywords(line);
@@ -1467,7 +1476,7 @@ function indent(line, indentWidth, ch)
     if( sel.isValid() ) {
         //dbg("shifting this line", gShift, "places." );
         gShift = filler - oldIndent;
-    }
+   }
 
     return filler;
 }

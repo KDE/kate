@@ -211,8 +211,7 @@ class MultiSignature(object):
 class OneOf(object):
     '''Class to choose one of possible syntax'''
 
-    def __init__(self, *syntaxes, **kwargs):
-        exppos = kwargs['exppos']
+    def __init__(self, *syntaxes, exppos=None):
         self.syntaxes = syntaxes
         assert(exppos is None or isinstance(exppos, int))
         self.exppos = exppos

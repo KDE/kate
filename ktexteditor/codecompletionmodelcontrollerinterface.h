@@ -82,7 +82,7 @@ public:
      *
      * \param view The view to generate completions for
      * \param insertedText The text that was inserted by the user
-     * \param userInsertion Whether the the text was inserted by the user using typing.
+     * \param userInsertion Whether the text was inserted by the user using typing.
      *                      If false, it may have been inserted for example by code-completion.
      * \param position Current cursor position
      * \return \e true, if the completion should be started, otherwise \e false
@@ -238,7 +238,7 @@ public:
      *
      * \param view The view to generate completions for
      * \param insertedText The text that was inserted by the user
-     * \param userInsertion Whether the the text was inserted by the user using typing.
+     * \param userInsertion Whether the text was inserted by the user using typing.
      *                      If false, it may have been inserted for example by code-completion.
      * \param position Current cursor position
      * \return \e true, if the completion should be started, otherwise \e false

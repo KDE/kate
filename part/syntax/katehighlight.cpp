@@ -752,7 +752,7 @@ void KateHighlighting::init()
 
 
 /**
- * If the there is no document using the highlighting style free the complete
+ * If there is no document using the highlighting style free the complete
  * context structure.
  */
 void KateHighlighting::done()

@@ -395,7 +395,7 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
     //In automatic invocation mode, hide the completion widget as soon as the position where the completion was started is passed to the left
     m_completionRanges[model].leftBoundary = view()->cursorPosition();
 
-    //In manual invocation mode, bound the activity either the the point from where completion was invoked, or to the start of the range
+    //In manual invocation mode, bound the activity either the point from where completion was invoked, or to the start of the range
     if(invocationType != KTextEditor::CodeCompletionModel::AutomaticInvocation)
       if(range.start() < m_completionRanges[model].leftBoundary)
         m_completionRanges[model].leftBoundary = range.start();

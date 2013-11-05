@@ -3,7 +3,7 @@
 * make mouse dragging start visual mode
 * <c-w> in insert mode should first delete back to the point where insert mode
   was started even if that was in the middle of a word
-* make it possible to use registers in ranges and add support for the the < and
+* make it possible to use registers in ranges and add support for the < and
   > registers (start and end of selection)
 * synchronize modes for views of the same document. this is necessary because
   when in insert mode all undo items are merged. if one of the views of a

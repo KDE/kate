@@ -890,10 +890,8 @@ function trySameLineComment(cursor)
     if (sc.hasComment)                                      // Is there any comment on a line?
     {
         // Make sure we r not in a comment already
-        if (document.isComment(line, document.firstColumn(line)) &&
-          (document.line(line) != '///')) {
+        if (document.isComment(line, document.firstColumn(line)) && (document.line(line) != '///'))
             return;
-        }
         // If no text after the comment and it still not aligned
         var text_len = sc.before.rtrim().length;
         if (text_len != 0 && sc.after.length == 0 && text_len < gSameLineCommentStartAt)
@@ -902,7 +900,7 @@ function trySameLineComment(cursor)
             document.insertText(
                 line
               , column - 2
-              , String().fill(' ', gSameLineCommentStartAt - text_len)
+              , String().fill(' ', gSameLineCommentStartAt - sc.before.length)
               );
             document.insertText(line, gSameLineCommentStartAt + 2, ' ');
         }
@@ -1092,7 +1090,10 @@ function trySemicolon(cursor)
             if (result == -2)
                 result = -1;
         }
-        else
+        // Make sure we r not inside of `for' statement
+        /// \todo Make sure cursor is really inside of \c for and
+        /// not smth like this: <tt>for (blah; blah; blah) some(arg,;|)</tt>
+        else if (!text.startsWith("for "))
         {
             // Check if next character(s) is ')' and nothing after
             should_proceed = true;

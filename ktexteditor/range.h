@@ -276,6 +276,59 @@ class KTEXTEDITOR_EXPORT Range
      */
     bool isEmpty() const;
 
+#if 0
+    // TODO: KDE5 if we have consistency cecks, the following is not needed.
+    //       otherwise, if start could possibly be after end, then the following
+    //       is handy:
+    /**
+     * Check whether the range is normalized, i.e. if start() <= end() holds.
+     *
+     * \warning If the range is invalid, the return value is undefined.
+     *
+     * \returns \e true if start() <= end(), otherwise false.
+     * \see isValid(), normalize(), normalized()
+     */
+    inline bool isNormalized() const
+    { return m_start <= m_end; }
+
+    /**
+     * Normalize if needed. After calling normalize(), this range is guaranteed
+     * to be normalized, i.e. start <= end holds then.
+     *
+     * \warning If the range is invalid, this function does nothing.
+     *
+     * \see isValid(), isNormalized(), normalized()
+     */
+    inline void normalize()
+    {
+      if (isValid() && start > end) {
+        std::swap(m_start, m_end);
+      }
+    }
+
+    /**
+     * Returns a normalized version of this range.
+     * For valid ranges, a normalized range always guarantees start() <= end().
+     * If the range is invalid, KTextEditor::Range::invalid() is returned.
+     *
+     * \warning If the range is invalid, this function does nothing.
+     *
+     * \see isValid(), isNormalized(), normalize()
+     */
+    KTextEditor::Range normalize() const
+    {
+      if (isValid()) {
+        if (m_start <= m_end) {
+          return *this;
+        } else {
+          return Range(m_end, m_start);
+        }
+      } else {
+        return invalid();
+      }
+    }
+#endif
+
     //BEGIN comparison functions
     /**
      * \}

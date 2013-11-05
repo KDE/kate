@@ -177,6 +177,7 @@ class KTEXTEDITOR_EXPORT MovingCursor
      * position.
      * \return \e true , if the cursor is a valid text position , otherwise \e false
      */
+    // TODO KDE5: use KTE::Document::isValidTextPosition()
     inline bool isValidTextPosition() const {
       return isValid() && line() < document()->lines() && column() <= document()->lineLength(line());
     }

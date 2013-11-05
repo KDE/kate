@@ -395,6 +395,23 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      */
     //KTextEditor::Range wordRangeAt(const KTextEditor::Cursor& cursor) const = 0;
 
+    // TODO: KDE5 add this function (Sven Brauch, Dominik Haumann, Milian Wolff)
+    /*
+     * Get whether \p cursor is a valid text position.
+     * A cursor position at (line, column) is valid, if
+     * - line >= 0 and line < lines() holds, and
+     * - column >= 0 and column <= lineLength(column).
+     *
+     * The text position \p cursor is also invalid if it is inside a Unicode surrogate.
+     * Therefore, use this function when iterating over the characters of a line.
+     *
+     * \param cursor cursor position to check for validity
+     * \return true, if \p cursor is a valid text position, otherwise \p false
+     *
+     * \see KTextEditor::Range::isValid()
+     */
+    //bool isValidTextPosition(const KTextEditor::Cursor& cursor) const = 0;
+
     /**
      * Get the document content within the given \p range.
      * \param range the range of text to retrieve

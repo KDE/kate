@@ -78,6 +78,9 @@ void SelectTargetDialog::setTargetName(const QString& target)
 
 QString SelectTargetDialog::selectedTarget() const
 {
+    if (m_targetsList->currentItem() == 0) {
+        return m_targetName->text();
+    }
     return m_targetsList->currentItem()->text();
 }
 

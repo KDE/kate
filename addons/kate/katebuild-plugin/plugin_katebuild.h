@@ -53,10 +53,6 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
     Q_OBJECT
 
     private:
-//       struct Target {
-//         QString name;
-//         QString command;
-//       };
 
        struct TargetSet {
          QString name;
@@ -142,6 +138,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         void fillTargetList(const TargetSet* targetSet, QStringList* stringList) const;
         void setTargetRowContents(int row, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
         QString makeTargetNameUnique(const QString& name);
+        QString makeUniqueTargetSetName() const;
 
         Kate::MainWindow *m_win;
         QWidget          *m_toolView;

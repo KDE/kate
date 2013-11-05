@@ -526,6 +526,7 @@ void KateBuildView::slotBuildPreviousTarget() {
 
     if (tgtSet->prevTarget.isEmpty()) {
         KMessageBox::sorry(0, i18n("No previous target."));
+        return;
     }
 
     buildTarget(tgtSet->prevTarget, false);
@@ -661,6 +662,7 @@ bool KateBuildView::buildTarget(const QString& targetName, bool keepAsPrevTarget
 
     std::map<QString, QString>::const_iterator tgtIt = targetSet->targets.find(targetName);
     if (tgtIt == targetSet->targets.end()) {
+        KMessageBox::sorry(0, i18n("Target \"%1\" not found for building.").arg(targetName));
         return false;
     }
 
@@ -1019,7 +1021,7 @@ void KateBuildView::slotDeleteTargetClicked()
 
     int row = selectedItems.at(0)->row();
 
-    QString target = selectedItems.at(COL_NAME)->text();
+    QString target = m_targetsUi->targetsList->item(row, COL_NAME)->text();
 
     int result = KMessageBox::questionYesNo(0, QString(i18n("Really delete target %1 ?")).arg(target));
     if (result == KMessageBox::No) {
@@ -1115,11 +1117,34 @@ void KateBuildView::targetsChanged()
 }
 
 /******************************************************************/
+QString KateBuildView::makeUniqueTargetSetName() const
+{
+    QString uniqueName;
+
+    int count = 0;
+    bool nameAlreadyUsed = false;
+    do {
+        count++;
+        uniqueName = i18n("Target Set %1").arg(count);
+
+        nameAlreadyUsed = false;
+        for (int i=0; i<m_targetList.size(); i++) {
+            if (m_targetList[i].name == uniqueName) {
+                nameAlreadyUsed = true;
+                break;
+            }
+        }
+    } while (nameAlreadyUsed == true);
+
+    return uniqueName;
+}
+
+/******************************************************************/
 void KateBuildView::targetNew()
 {
     m_targetList.append(TargetSet());
     m_targetIndex = m_targetList.size()-1;
-    m_targetList[m_targetIndex].name = i18n("Target %1", m_targetList.size());
+    m_targetList[m_targetIndex].name = makeUniqueTargetSetName();
     m_targetList[m_targetIndex].defaultTarget = "Build";
     m_targetList[m_targetIndex].prevTarget = "Build";
     m_targetList[m_targetIndex].cleanTarget = "Clean";
@@ -1142,7 +1167,7 @@ void KateBuildView::targetCopy()
     TargetSet tgt = *currentTargetSet();
     m_targetList.append(tgt);
     m_targetIndex = m_targetList.size()-1;
-    m_targetList[m_targetIndex].name = i18n("Target %1", m_targetList.size());
+    m_targetList[m_targetIndex].name = makeUniqueTargetSetName();
 
     m_targetsUi->targetCombo->addItem(m_targetList[m_targetIndex].name);
     m_targetsUi->targetCombo->setCurrentIndex(m_targetIndex);

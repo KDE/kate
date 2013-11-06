@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>EditConfigWidget</class>
  <widget class="QWidget" name="EditConfigWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>346</width>
-    <height>283</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>

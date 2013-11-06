@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>BordersAppearanceConfigWidget</class>
  <widget class="QWidget" name="BordersAppearanceConfigWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>278</width>
-    <height>342</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="gbBorders">

@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>ConsoleConfig</class>
  <widget class="KTabWidget" name="ConsoleConfig">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>531</width>
-    <height>376</height>
-   </rect>
-  </property>
   <property name="currentIndex">
    <number>1</number>
   </property>

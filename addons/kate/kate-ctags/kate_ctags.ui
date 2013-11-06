@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>kateCtags</class>
  <widget class="QWidget" name="kateCtags">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>510</width>
-    <height>136</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="KTabWidget" name="tabWidget">

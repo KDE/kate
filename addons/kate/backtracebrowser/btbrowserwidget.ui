@@ -1,14 +1,6 @@
 <ui version="4.0" >
  <class>BtBrowserWidget</class>
  <widget class="QWidget" name="BtBrowserWidget" >
-  <property name="geometry" >
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>655</width>
-    <height>275</height>
-   </rect>
-  </property>
   <layout class="QGridLayout" >
    <property name="margin" >
     <number>0</number>

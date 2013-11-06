@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>SchemaConfigColorTab</class>
  <widget class="QWidget" name="SchemaConfigColorTab">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>548</width>
-    <height>419</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout">
    <item>
     <widget class="QGroupBox" name="groupBox">

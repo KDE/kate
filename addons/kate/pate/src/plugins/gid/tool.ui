@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>tool</class>
  <widget class="QWidget" name="tool">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>461</width>
-    <height>300</height>
-   </rect>
-  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="1" column="3">
     <widget class="KHistoryComboBox" name="filter">

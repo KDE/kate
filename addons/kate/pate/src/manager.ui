@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>ManagerPage</class>
  <widget class="QWidget" name="ManagerPage">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>655</width>
-    <height>450</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QLabel" name="errorLabel">

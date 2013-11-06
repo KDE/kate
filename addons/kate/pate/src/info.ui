@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>InfoPage</class>
  <widget class="QWidget" name="InfoPage">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>654</width>
-    <height>391</height>
-   </rect>
-  </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="1" column="0" colspan="2">
     <widget class="KTabWidget" name="tabs">

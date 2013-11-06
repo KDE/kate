@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>SpellCheckConfigWidget</class>
  <widget class="QWidget" name="SpellCheckConfigWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>462</width>
-    <height>189</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>

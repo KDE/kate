@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>OpenSaveConfigWidget</class>
  <widget class="QWidget" name="OpenSaveConfigWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>499</width>
-    <height>511</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>

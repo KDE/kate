@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>NavigationConfigWidget</class>
  <widget class="QWidget" name="NavigationConfigWidget">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>364</width>
-    <height>255</height>
-   </rect>
-  </property>
   <layout class="QVBoxLayout">
    <property name="margin">
     <number>0</number>

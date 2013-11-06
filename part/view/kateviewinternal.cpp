@@ -222,6 +222,11 @@ KateViewInternal::KateViewInternal(KateView *view)
 
 KateViewInternal::~KateViewInternal ()
 {
+  // delete text animation object here, otherwise it updates the view in its destructor
+  if (m_textAnimation) {
+    delete m_textAnimation;
+  }
+
 #ifndef QT_NO_ACCESSIBILITY
 #if QT_VERSION >= 0x040800
   QAccessible::removeFactory(accessibleInterfaceFactory);

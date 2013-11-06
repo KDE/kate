@@ -52,8 +52,9 @@ KateTextAnimation::KateTextAnimation(const KTextEditor::Range & range, KTextEdit
 
 KateTextAnimation::~KateTextAnimation()
 {
-  // if still running, we need to update the view again to avoid artifacts
+  // if still running, we need to update the view a last time to avoid artifacts
   if (m_timeLine->state() == QTimeLine::Running) {
+    m_timeLine->stop();
     nextFrame(0.0);
   }
 }

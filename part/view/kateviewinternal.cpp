@@ -1932,13 +1932,15 @@ void KateViewInternal::updateBracketMarks()
 
   // new range valid, then set ranges to it
   if (newRange.isValid ()) {
+    if (m_bm->toRange() != newRange) {
       // modify full range
       m_bm->setRange (newRange);
 
       // modify start and end ranges
       m_bmStart->setRange (KTextEditor::Range (m_bm->start(), KTextEditor::Cursor (m_bm->start().line(), m_bm->start().column() + 1)));
       m_bmEnd->setRange (KTextEditor::Range (m_bm->end(), KTextEditor::Cursor (m_bm->end().line(), m_bm->end().column() + 1)));
-      return;
+    }
+    return;
   }
 
   // new range was invalid

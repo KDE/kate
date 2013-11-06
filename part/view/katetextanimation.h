@@ -50,7 +50,7 @@ public:
 
 public Q_SLOTS:
   // request repaint from view of the respective region
-  void nextFrame();
+  void nextFrame(qreal value);
 
 private:
   // calculate rect for the text to highlight, given the current animation progress

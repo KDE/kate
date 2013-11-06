@@ -43,7 +43,7 @@ KateTextAnimation::KateTextAnimation(const KTextEditor::Range & range, KTextEdit
 {
   m_text = view->view()->doc()->text(range);
 
-  connect(m_timeLine, SIGNAL(valueChanged(qreal)), this, SLOT(nextFrame()));
+  connect(m_timeLine, SIGNAL(valueChanged(qreal)), this, SLOT(nextFrame(qreal)));
   connect(m_timeLine, SIGNAL(finished()), this, SLOT(deleteLater()));
 
   m_timeLine->setCurveShape(QTimeLine::SineCurve);
@@ -54,7 +54,7 @@ KateTextAnimation::~KateTextAnimation()
 {
   // if still running, we need to update the view again to avoid artifacts
   if (m_timeLine->state() == QTimeLine::Running) {
-    nextFrame();
+    nextFrame(0.0);
   }
 }
 
@@ -101,12 +101,12 @@ void KateTextAnimation::draw(QPainter & painter)
   painter.drawText(rect, m_text);
 }
 
-void KateTextAnimation::nextFrame()
+void KateTextAnimation::nextFrame(qreal value)
 {
   // cache previous rect for update
   const QRectF prevRect = rectForText();
 
-  m_value = m_timeLine->currentValue();
+  m_value = value;
 
   // next rect is used to draw the text
   const QRectF nextRect = rectForText();

@@ -1946,7 +1946,12 @@ void KateViewInternal::updateBracketMarks()
       const KTextEditor::Cursor flashPos = (m_cursor == m_bmStart->start() || m_cursor == m_bmStart->end()) ? m_bmEnd->start() : m_bm->start();
       if (flashPos != m_bmLastFlashPos->toCursor()) {
         m_bmLastFlashPos->setPosition(flashPos);
-        flashChar(flashPos, m_bmStart->attribute());
+
+        KTextEditor::Attribute::Ptr attribute = doc()->attributeAt(flashPos);
+        attribute->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
+        attribute->setFontBold(m_bmStart->attribute()->fontBold());
+
+        flashChar(flashPos, attribute);
       }
     }
     return;

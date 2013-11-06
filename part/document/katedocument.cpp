@@ -5034,14 +5034,13 @@ QList<QPair<KTextEditor::MovingRange*, QString> > KateDocument::dictionaryRanges
 
 void KateDocument::clearDictionaryRanges()
 {
-  for(QList<QPair<KTextEditor::MovingRange*, QString> >::iterator i = m_dictionaryRanges.begin();
-      i != m_dictionaryRanges.end();++i)
+  for (QList<QPair<KTextEditor::MovingRange*, QString> >::iterator i = m_dictionaryRanges.begin();
+      i != m_dictionaryRanges.end(); ++i)
   {
     delete (*i).first;
   }
   m_dictionaryRanges.clear();
-  if(m_onTheFlyChecker)
-  {
+  if (m_onTheFlyChecker) {
     m_onTheFlyChecker->refreshSpellCheck();
   }
   emit dictionaryRangesPresent(false);
@@ -5050,8 +5049,7 @@ void KateDocument::clearDictionaryRanges()
 void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor::Range &range)
 {
   KTextEditor::Range newDictionaryRange = range;
-  if(!newDictionaryRange.isValid() || newDictionaryRange.isEmpty())
-  {
+  if (!newDictionaryRange.isValid() || newDictionaryRange.isEmpty()) {
     return;
   }
   QList<QPair<KTextEditor::MovingRange*, QString> > newRanges;
@@ -5060,8 +5058,7 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
       i != m_dictionaryRanges.end();)
   {
     kDebug(13000) << "new iteration" << newDictionaryRange;
-    if(newDictionaryRange.isEmpty())
-    {
+    if (newDictionaryRange.isEmpty()) {
       break;
     }
     QPair<KTextEditor::MovingRange*, QString> pair = *i;
@@ -5129,35 +5126,34 @@ void KateDocument::revertToDefaultDictionary(const KTextEditor::Range &range)
 
 void KateDocument::setDefaultDictionary(const QString& dict)
 {
-  if(m_defaultDictionary == dict)
-  {
+  if (m_defaultDictionary == dict) {
     return;
   }
+
   m_defaultDictionary = dict;
-  if(m_onTheFlyChecker)
-  {
+
+  if (m_onTheFlyChecker) {
     m_onTheFlyChecker->updateConfig();
+    refreshOnTheFlyCheck();
   }
-  refreshOnTheFlyCheck();
   emit defaultDictionaryChanged(this);
 }
 
 void KateDocument::onTheFlySpellCheckingEnabled(bool enable)
 {
-  if (isOnTheFlySpellCheckingEnabled() == enable)
-  {
+  if (isOnTheFlySpellCheckingEnabled() == enable) {
     return;
   }
-  if (enable)
-  {
-    if (!m_onTheFlyChecker) {
-      m_onTheFlyChecker = new KateOnTheFlyChecker(this);
-    }
+
+  if (enable) {
+    Q_ASSERT(m_onTheFlyChecker == 0);
+    m_onTheFlyChecker = new KateOnTheFlyChecker(this);
   } else {
     delete m_onTheFlyChecker;
     m_onTheFlyChecker = 0;
   }
-  foreach(KateView *view, m_views) {
+
+  foreach (KateView *view, m_views) {
     view->reflectOnTheFlySpellCheckStatus(enable);
   }
 }
@@ -5169,8 +5165,7 @@ bool KateDocument::isOnTheFlySpellCheckingEnabled() const
 
 QString KateDocument::dictionaryForMisspelledRange(const KTextEditor::Range& range) const
 {
-  if (!m_onTheFlyChecker)
-  {
+  if (!m_onTheFlyChecker) {
     return QString();
   } else {
     return m_onTheFlyChecker->dictionaryForMisspelledRange(range);
@@ -5179,14 +5174,14 @@ QString KateDocument::dictionaryForMisspelledRange(const KTextEditor::Range& ran
 
 void KateDocument::clearMisspellingForWord(const QString& word)
 {
-  if(m_onTheFlyChecker) {
+  if (m_onTheFlyChecker) {
     m_onTheFlyChecker->clearMisspellingForWord(word);
   }
 }
 
 void KateDocument::refreshOnTheFlyCheck(const KTextEditor::Range &range)
 {
-  if(m_onTheFlyChecker) {
+  if (m_onTheFlyChecker) {
     m_onTheFlyChecker->refreshSpellCheck(range);
   }
 }

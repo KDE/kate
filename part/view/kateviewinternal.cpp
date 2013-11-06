@@ -3667,6 +3667,11 @@ void KateViewInternal::flashChar(const KTextEditor::Cursor & pos, KTextEditor::A
   Q_ASSERT(pos.isValid());
   Q_ASSERT(!attribute.isNull());
 
+  // if line is folded away, do nothing
+  if (!m_view->textFolding().isLineVisible (pos.line())) {
+    return;
+  }
+
   KTextEditor::Range range(pos, KTextEditor::Cursor(pos.line(), pos.column() + 1));
   if (m_textAnimation) m_textAnimation->deleteLater();
   m_textAnimation = new KateTextAnimation(range, attribute, this);

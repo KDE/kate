@@ -1934,25 +1934,30 @@ void KateViewInternal::updateBracketMarks()
 
   // new range valid, then set ranges to it
   if (newRange.isValid ()) {
-    if (m_bm->toRange() != newRange) {
-      // modify full range
-      m_bm->setRange (newRange);
+    if (m_bm->toRange() == newRange) {
+      return;
+    }
 
-      // modify start and end ranges
-      m_bmStart->setRange (KTextEditor::Range (m_bm->start(), KTextEditor::Cursor (m_bm->start().line(), m_bm->start().column() + 1)));
-      m_bmEnd->setRange (KTextEditor::Range (m_bm->end(), KTextEditor::Cursor (m_bm->end().line(), m_bm->end().column() + 1)));
+    // modify full range
+    m_bm->setRange (newRange);
 
-      // flash matching bracket
-      const KTextEditor::Cursor flashPos = (m_cursor == m_bmStart->start() || m_cursor == m_bmStart->end()) ? m_bmEnd->start() : m_bm->start();
-      if (flashPos != m_bmLastFlashPos->toCursor()) {
-        m_bmLastFlashPos->setPosition(flashPos);
+    // modify start and end ranges
+    m_bmStart->setRange (KTextEditor::Range (m_bm->start(), KTextEditor::Cursor (m_bm->start().line(), m_bm->start().column() + 1)));
+    m_bmEnd->setRange (KTextEditor::Range (m_bm->end(), KTextEditor::Cursor (m_bm->end().line(), m_bm->end().column() + 1)));
 
-        KTextEditor::Attribute::Ptr attribute = doc()->attributeAt(flashPos);
-        attribute->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
-        attribute->setFontBold(m_bmStart->attribute()->fontBold());
+    // flash matching bracket
+    if (!renderer()->config()->animateBracketMatching()) {
+      return;
+    }
+    const KTextEditor::Cursor flashPos = (m_cursor == m_bmStart->start() || m_cursor == m_bmStart->end()) ? m_bmEnd->start() : m_bm->start();
+    if (flashPos != m_bmLastFlashPos->toCursor()) {
+      m_bmLastFlashPos->setPosition(flashPos);
 
-        flashChar(flashPos, attribute);
-      }
+      KTextEditor::Attribute::Ptr attribute = doc()->attributeAt(flashPos);
+      attribute->setBackground(m_view->m_renderer->config()->highlightedBracketColor());
+      attribute->setFontBold(m_bmStart->attribute()->fontBold());
+
+      flashChar(flashPos, attribute);
     }
     return;
   }

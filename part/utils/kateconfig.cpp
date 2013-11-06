@@ -1883,6 +1883,7 @@ KateRendererConfig::KateRendererConfig ()
    m_wordWrapMarkerSet (true),
    m_showIndentationLinesSet (true),
    m_showWholeBracketExpressionSet (true),
+   m_animateBracketMatching(false),
    m_backgroundColorSet (true),
    m_selectionColorSet (true),
    m_highlightedLineColorSet (true),
@@ -1962,6 +1963,8 @@ void KateRendererConfig::readConfig (const KConfigGroup &config)
 
   setShowWholeBracketExpression (config.readEntry( "Show Whole Bracket Expression", false));
 
+  setAnimateBracketMatching(config.readEntry("Animate Bracket Matching", false));
+
   configEnd ();
 }
 
@@ -1974,6 +1977,8 @@ void KateRendererConfig::writeConfig (KConfigGroup& config)
   config.writeEntry("Show Indentation Lines", showIndentationLines());
 
   config.writeEntry("Show Whole Bracket Expression", showWholeBracketExpression());
+
+  config.writeEntry("Animate Bracket Matching", animateBracketMatching());
 }
 
 void KateRendererConfig::updateConfig ()
@@ -2618,6 +2623,22 @@ void KateRendererConfig::setShowWholeBracketExpression (bool on)
   m_showWholeBracketExpression = on;
 
   configEnd ();
+}
+
+bool KateRendererConfig::animateBracketMatching () const
+{
+  return s_global->m_animateBracketMatching;
+}
+
+void KateRendererConfig::setAnimateBracketMatching (bool on)
+{
+  if (!isGlobal()) {
+    s_global->setAnimateBracketMatching (on);
+  } else if (on != m_animateBracketMatching) {
+    configStart ();
+    m_animateBracketMatching = on;
+    configEnd ();
+  }
 }
 
 //END

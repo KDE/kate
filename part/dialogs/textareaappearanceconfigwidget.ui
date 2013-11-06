@@ -132,6 +132,19 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="chkAnimateBracketMatching">
+        <property name="toolTip">
+         <string>Flash matching brackets</string>
+        </property>
+        <property name="whatsThis">
+         <string>If this is enabled, matching brackets are animated for better visibility.</string>
+        </property>
+        <property name="text">
+         <string>Animate bracket matching</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

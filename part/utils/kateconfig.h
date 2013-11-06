@@ -693,6 +693,9 @@ class KATEPART_TESTS_EXPORT KateRendererConfig : public KateConfig
     bool showWholeBracketExpression () const;
     void setShowWholeBracketExpression (bool on);
 
+    bool animateBracketMatching () const;
+    void setAnimateBracketMatching (bool on);
+
     const QColor &templateBackgroundColor() const;
     const QColor &templateEditablePlaceholderColor() const;
     const QColor &templateFocusedEditablePlaceholderColor() const;
@@ -722,6 +725,7 @@ class KATEPART_TESTS_EXPORT KateRendererConfig : public KateConfig
     bool m_wordWrapMarker;
     bool m_showIndentationLines;
     bool m_showWholeBracketExpression;
+    bool m_animateBracketMatching;
     QColor m_backgroundColor;
     QColor m_selectionColor;
     QColor m_highlightedLineColor;

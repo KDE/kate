@@ -797,6 +797,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(textareaUi->chkShowSpaces, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(textareaUi->chkShowIndentationLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(textareaUi->chkShowWholeBracketExpression, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(textareaUi->chkAnimateBracketMatching, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(textareaUi->chkDeveloperMode, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   connect(bordersUi->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -845,6 +846,7 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->setBookmarkSort (bordersUi->rbSortBookmarksByPosition->isChecked()?0:1);
   KateRendererConfig::global()->setShowIndentationLines(textareaUi->chkShowIndentationLines->isChecked());
   KateRendererConfig::global()->setShowWholeBracketExpression(textareaUi->chkShowWholeBracketExpression->isChecked());
+  KateRendererConfig::global()->setAnimateBracketMatching(textareaUi->chkAnimateBracketMatching->isChecked());
 
   // warn user that he needs restart the application
   if (!textareaUi->chkDeveloperMode->isChecked() != KateDocumentConfig::global()->allowSimpleMode())
@@ -881,6 +883,7 @@ void KateViewDefaultsConfig::reload ()
   bordersUi->rbSortBookmarksByCreation->setChecked(KateViewConfig::global()->bookmarkSort()==1);
   textareaUi->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
   textareaUi->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
+  textareaUi->chkAnimateBracketMatching->setChecked(KateRendererConfig::global()->animateBracketMatching());
   textareaUi->chkDeveloperMode->setChecked(!KateDocumentConfig::global()->allowSimpleMode());
 }
 

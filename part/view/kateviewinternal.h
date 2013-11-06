@@ -49,6 +49,7 @@ namespace KTextEditor {
 class KateIconBorder;
 class KateScrollBar;
 class KateTextLayout;
+class KateTextAnimation;
 
 class KateViInputModeManager;
 
@@ -283,6 +284,7 @@ class KateViewInternal : public QWidget
 
     // Bracket mark and corresponding decorative ranges
     KTextEditor::MovingRange *m_bm, *m_bmStart, *m_bmEnd;
+    KTextEditor::MovingCursor * m_bmLastFlashPos;
     void updateBracketMarkAttributes();
 
     enum DragState { diNone, diPending, diDragging };
@@ -366,6 +368,14 @@ class KateViewInternal : public QWidget
     bool m_updatingView;
     int m_wrapChangeViewLine;
     KTextEditor::Cursor m_cachedMaxStartPos;
+
+  //
+  // implementation details for KTextEditor::FlashTextInterface
+  //
+  public:
+    void flashChar(const KTextEditor::Cursor & pos, KTextEditor::Attribute::Ptr attribute);
+  private:
+    QPointer<KateTextAnimation> m_textAnimation;
 
   private Q_SLOTS:
     void doDragScroll();

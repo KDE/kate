@@ -41,6 +41,7 @@
 #include "katesearchbar.h"
 #include "spellcheck/spellingmenu.h"
 #include "kateviewaccessible.h"
+#include "katetextanimation.h"
 
 #include <ktexteditor/movingrange.h>
 #include <kcursor.h>
@@ -70,6 +71,7 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_bm(doc()->newMovingRange(KTextEditor::Range::invalid(), KTextEditor::MovingRange::DoNotExpand))
   , m_bmStart(doc()->newMovingRange(KTextEditor::Range::invalid(), KTextEditor::MovingRange::DoNotExpand))
   , m_bmEnd(doc()->newMovingRange(KTextEditor::Range::invalid(), KTextEditor::MovingRange::DoNotExpand))
+  , m_bmLastFlashPos(doc()->newMovingCursor(KTextEditor::Cursor::invalid()))
   , m_dummy (0)
 
   // stay on cursor will avoid that the view scroll around on press return at beginning
@@ -1939,6 +1941,13 @@ void KateViewInternal::updateBracketMarks()
       // modify start and end ranges
       m_bmStart->setRange (KTextEditor::Range (m_bm->start(), KTextEditor::Cursor (m_bm->start().line(), m_bm->start().column() + 1)));
       m_bmEnd->setRange (KTextEditor::Range (m_bm->end(), KTextEditor::Cursor (m_bm->end().line(), m_bm->end().column() + 1)));
+
+      // flash matching bracket
+      const KTextEditor::Cursor flashPos = (m_cursor == m_bmStart->start() || m_cursor == m_bmStart->end()) ? m_bmEnd->start() : m_bm->start();
+      if (flashPos != m_bmLastFlashPos->toCursor()) {
+        m_bmLastFlashPos->setPosition(flashPos);
+        flashChar(flashPos, m_bmStart->attribute());
+      }
     }
     return;
   }
@@ -1947,6 +1956,7 @@ void KateViewInternal::updateBracketMarks()
   m_bm->setRange (KTextEditor::Range::invalid());
   m_bmStart->setRange (KTextEditor::Range::invalid());
   m_bmEnd->setRange (KTextEditor::Range::invalid());
+  m_bmLastFlashPos->setPosition (KTextEditor::Cursor::invalid());
 }
 
 bool KateViewInternal::tagLine(const KTextEditor::Cursor& virtualCursor)
@@ -2901,6 +2911,8 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
 
   QPainter paint(this);
   paint.setRenderHints (QPainter::Antialiasing);
+  
+  paint.save();
 
   // TODO put in the proper places
   if ( !m_view->viInputMode() ) {
@@ -2963,6 +2975,10 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
     paint.translate(0, h);
     sy += h;
   }
+  
+  paint.restore();
+  if (m_textAnimation)
+    m_textAnimation->draw(paint);
 }
 
 void KateViewInternal::resizeEvent(QResizeEvent* e)
@@ -3634,6 +3650,16 @@ KateViInputModeManager* KateViewInternal::resetViInputModeManager()
     m_viInputModeManager = new KateViInputModeManager(m_view, this);
 
   return m_viInputModeManager;
+}
+
+void KateViewInternal::flashChar(const KTextEditor::Cursor & pos, KTextEditor::Attribute::Ptr attribute)
+{
+  Q_ASSERT(pos.isValid());
+  Q_ASSERT(!attribute.isNull());
+
+  KTextEditor::Range range(pos, KTextEditor::Cursor(pos.line(), pos.column() + 1));
+  if (m_textAnimation) m_textAnimation->deleteLater();
+  m_textAnimation = new KateTextAnimation(range, attribute, this);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

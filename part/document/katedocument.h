@@ -1091,6 +1091,8 @@ Q_SIGNALS:
     virtual QList< KTextEditor::HighlightInterface::AttributeBlock > lineAttributes(const unsigned int line);
     virtual QStringList embeddedHighlightingModes() const;
     virtual QString highlightingModeAt(const KTextEditor::Cursor& position);
+    // TODO KDE5: maybe make available in HighlightInterface for convenience
+    virtual KTextEditor::Attribute::Ptr attributeAt(const KTextEditor::Cursor & position);
 
   //
   //BEGIN: KTextEditor::MessageInterface

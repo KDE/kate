@@ -5391,6 +5391,25 @@ QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttri
   return attribs;
 }
 
+KTextEditor::Attribute::Ptr KateDocument::attributeAt(const KTextEditor::Cursor & position)
+{
+  KTextEditor::Attribute::Ptr attrib(new KTextEditor::Attribute());
+
+  KateView* view = activeKateView();
+  if ( !view ) {
+    kWarning() << "ATTENTION: cannot access lineAttributes() without any View (will be fixed eventually)";
+    return attrib;
+  }
+
+  Kate::TextLine kateLine = kateTextLine(position.line());
+  if ( !kateLine )
+    return attrib;
+  
+  *attrib = *view->renderer()->attribute(kateLine->attribute(position.column()));
+
+  return attrib;
+}
+
 QStringList KateDocument::embeddedHighlightingModes() const
 {
   return highlight()->getEmbeddedHighlightingModes();

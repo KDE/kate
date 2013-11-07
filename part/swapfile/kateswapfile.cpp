@@ -311,7 +311,6 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
           undoCursor = KTextEditor::Cursor(line, column);
         }
         redoCursor = KTextEditor::Cursor(line + 1, 0);
-        kDebug() << "UNDO" << undoCursor << ", REDO:" << redoCursor;
 
         break;
       }

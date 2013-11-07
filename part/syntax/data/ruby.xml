@@ -31,7 +31,7 @@
 
 <!-- Hold the "language" opening tag on a single line, as mentioned in "language.dtd". -->
 <language name="Ruby" section="Scripts"
-	  version="1.26" kateversion="2.4"
+	  version="1.27" kateversion="2.4"
 	  extensions="*.rb;*.rjs;*.rxml;*.xml.erb;*.js.erb;*.rake;Rakefile;Gemfile;*.gemspec"
 	  mimetype="application/x-ruby"
 	  style="ruby" indenter="ruby"
@@ -244,11 +244,12 @@
 				<!-- Generally a module or class name like "File", "MyModule_1", .. -->
 				<RegExpr attribute="Constant" String="\b[A-Z]+_*([0-9]|[a-z])[_a-zA-Z0-9]*\b" context="check_div_2"/>
 
-				<RegExpr attribute="Hex" String="\b\-?0[xX][_0-9a-fA-F]+" context="check_div_1"/>
-				<RegExpr attribute="Bin" String="\b\-?0[bB][_01]+" context="check_div_1"/>
-				<RegExpr attribute="Octal" String="\b\-?0[1-7][_0-7]*" context="check_div_1"/>
-				<RegExpr attribute="Float" String="\b\-?[0-9][0-9_]*\.[0-9][0-9_]*([eE]\-?[1-9][0-9]*(\.[0-9]*)?)?" context="check_div_1"/>
-				<RegExpr attribute="Dec" String="\b\-?[1-9][0-9_]*\b" context="check_div_1"/>
+				<!-- Numeric values. Note that we have to allow underscores between two digits (thus the creepy regular expressions). -->
+				<RegExpr attribute="Hex" String="\b\-?0[xX]([0-9a-fA-F]|_[0-9a-fA-F])+" context="check_div_1"/>
+				<RegExpr attribute="Bin" String="\b\-?0[bB]([01]|_[01])+" context="check_div_1"/>
+				<RegExpr attribute="Octal" String="\b\-?0[1-7]([0-7]|_[0-7])*" context="check_div_1"/>
+				<RegExpr attribute="Float" String="\b\-?[0-9]([0-9]|_[0-9])*\.[0-9]([0-9]|_[0-9])*([eE]\-?[1-9]([0-9]|_[0-9])*(\.[0-9]*)?)?" context="check_div_1"/>
+				<RegExpr attribute="Dec" String="\b\-?[1-9]([0-9]|_[0-9])*\b" context="check_div_1"/>
 				<Int attribute="Dec" context="check_div_1"/>
 				<HlCChar attribute="Char" context="check_div_1"/>
 

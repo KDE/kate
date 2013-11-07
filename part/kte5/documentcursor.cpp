@@ -88,6 +88,27 @@ DocumentCursor::~DocumentCursor ()
 {
 }
 
+void DocumentCursor::makeValid()
+{
+  const int line = m_cursor.line();
+  const int col = m_cursor.line();
+
+  if (line < 0) {
+    m_cursor.setPosition(0, 0);
+  } else if (line >= m_document->lines()) {
+    m_cursor = m_document->documentEnd();
+  } else if (col > m_document->lineLength(line)) {
+    m_cursor.setColumn(m_document->lineLength(line));
+  }
+// TODO KDE5 if QChar::isLowSurrogate() -> move one to the left.
+//   } else if (m_document->character(m_cursor).isLowSurrogate()) {
+//     Q_ASSERT(col > 0);
+//     m_cursor.setColumn(col - 1);
+//   }
+
+  Q_ASSERT(isValidTextPosition());
+}
+
 void DocumentCursor::setPosition (int line, int column)
 {
   m_cursor.setPosition(line, column);

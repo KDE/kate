@@ -178,6 +178,24 @@ class KATEPART_TESTS_EXPORT DocumentCursor
     }
 
     /**
+     * Make sure the cursor position is at a valid text position according to
+     * the following rules.
+     * - If the cursor is invalid(), i.e. either line < 0 or column < 0, it is
+     *   set to (0, 0).
+     * - If the cursor's line is past the number of lines in the document, the
+     *   cursor is set to Document::documentEnd().
+     * - If the cursor's column is past the line length, the cursor column is
+     *   set to the line length.
+     * - If the cursor is inside a Unicode surrogate, the cursor is moved to the
+     *   beginning of the Unicode surrogate.
+     *
+     * After calling makeValid(), the cursor is guaranteed to be located at
+     * a valid text position.
+     * \see isValidTextPosition(), isValid()
+     */
+    void makeValid();
+
+    /**
      * \overload
      *
      * Set the cursor position to \e line and \e column.

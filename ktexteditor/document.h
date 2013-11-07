@@ -396,6 +396,8 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     //KTextEditor::Range wordRangeAt(const KTextEditor::Cursor& cursor) const = 0;
 
     // TODO: KDE5 add this function (Sven Brauch, Dominik Haumann, Milian Wolff)
+    //       and use this in Kate Part's text selection to disallow seleting
+    //       half surrogates.
     /*
      * Get whether \p cursor is a valid text position.
      * A cursor position at (line, column) is valid, if
@@ -410,6 +412,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      *
      * \see KTextEditor::Range::isValid()
      */
+    // in impl, use QChar::isHighSurrogate() + QChar::isLowSurrogate()
     //bool isValidTextPosition(const KTextEditor::Cursor& cursor) const = 0;
 
     /**

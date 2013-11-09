@@ -42,6 +42,9 @@ private slots:
   void haskell_data();
   void haskell();
 
+  void latex_data();
+  void latex();
+
   void pascal_data();
   void pascal();
 

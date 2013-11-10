@@ -43,7 +43,7 @@ import kate
 from PyQt4.QtScript import QScriptEngine
 from PyKDE4.kdecore import i18n
 
-from js_settings import (KATE_ACTIONS, SETTING_LINT_ON_SAVE)
+from js_settings import KATE_ACTIONS, SETTING_LINT_ON_SAVE, SETTING_LINTER
 from js_engine import PyJSEngine, JSModule
 from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
                                 showErrors, showOk)
@@ -52,22 +52,28 @@ from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
 JS_ENGINE = PyJSEngine()
 
 JS_LINT_PATH = p.join(p.dirname(__file__), 'fulljslint.js')
-JS_LINTER = JSModule(JS_ENGINE, JS_LINT_PATH, 'JSLINT')
+JS_HINT_PATH = p.join(p.dirname(__file__), 'jshint.js')
 
+LINTERS = {  # keys() == SETTING_LINTER.choices
+    'JSLint': JSModule(JS_ENGINE, JS_LINT_PATH, 'JSLINT'),
+    'JSHint': JSModule(JS_ENGINE, JS_HINT_PATH, 'JSHINT'),
+}
 
 def lint_js(document, move_cursor=False):
     """Check your js code with the jslint tool"""
     mark_iface = document.markInterface()
     clearMarksOfError(document, mark_iface)
     hideOldPopUps()
-    mark_key = '%s-jslint' % document.url().path()
 
-    ok = JS_LINTER(document.text(), {})
+    linter_name = SETTING_LINTER.choices[SETTING_LINTER.lookup()]  # lookup() gives index of choices
+    linter = LINTERS[linter_name]
+
+    ok = linter(document.text(), {})
     if ok:
-        showOk(i18n("JSLint Ok"))
+        showOk(i18n('%1 Ok', linter_name))
         return
 
-    errors = [error for error in JS_LINTER['errors'] if error]  # sometimes None
+    errors = [error for error in linter['errors'] if error]  # sometimes None
 
     # Prepare errors found for painting
     for error in errors:
@@ -77,6 +83,8 @@ def lint_js(document, move_cursor=False):
         error.pop('b', None)
         error.pop('c', None)
         error.pop('d', None)
+
+    mark_key = '{}-{}'.format(document.url().path(), linter_name)
 
     showErrors(i18n('JSLint Errors:'),
                errors,

@@ -30,7 +30,7 @@ class KATE_ACTIONS:
         'icon': None,
     }
     lint_JS = {
-        'text': 'JSLint',
+        'text': 'Lint JavaScript',
         'shortcut': 'Alt+9',
         'menu': JS_MENU,
         'icon': None,

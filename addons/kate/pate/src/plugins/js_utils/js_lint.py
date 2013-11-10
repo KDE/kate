@@ -21,28 +21,38 @@
 
 """
 format of errors:
-{'a': '===',
- 'b': '==',
- 'character': 38,
- 'evidence': "        return typeof this.headValue == 'undefined';",
- 'id': '(error)',
- 'line': 16,
- 'raw': "Expected '{a}' and instead saw '{b}'.",
- 'reason': "Expected '===' and instead saw '=='."}
+{
+    line      : The line (relative to 0) at which the lint was found
+    character : The character (relative to 0) at which the lint was found
+    reason    : The problem
+    evidence  : The text line in which the problem occurred
+    raw       : The raw message before the details were inserted
+    a         : The first detail
+    b         : The second detail
+    c         : The third detail
+    d         : The fourth detail
+}
 """
 
 
+import os.path as p
 import re
 
 import kate
 
+from PyQt4.QtScript import QScriptEngine
 from PyKDE4.kdecore import i18n
 
-from jslint.spidermonkey import lint
-
 from js_settings import (KATE_ACTIONS, SETTING_LINT_ON_SAVE)
+from js_engine import PyJSEngine, JSModule
 from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
                                 showErrors, showOk)
+
+
+JS_ENGINE = PyJSEngine()
+
+JS_LINT_PATH = p.join(p.dirname(__file__), 'fulljslint.js')
+JS_LINTER = JSModule(JS_ENGINE, JS_LINT_PATH, 'JSLINT')
 
 
 def lint_js(document, move_cursor=False):
@@ -50,28 +60,26 @@ def lint_js(document, move_cursor=False):
     mark_iface = document.markInterface()
     clearMarksOfError(document, mark_iface)
     hideOldPopUps()
-    path = document.url().path()
-    mark_key = '%s-jslint' % path
+    mark_key = '%s-jslint' % document.url().path()
 
-    errors = lint(path)
-    errors_to_show = []
-
-    # Prepare errors found for painting
-    for error in errors:
-        if not error:
-            continue  # sometimes None
-        error['message'] = error.pop('reason')
-        error.pop('raw', None)  # Only reason, line, and character are always there
-        error.pop('a', None)
-        error.pop('b', None)
-        errors_to_show.append(error)
-
-    if len(errors_to_show) == 0:
+    ok = JS_LINTER(document.text(), {})
+    if ok:
         showOk(i18n("JSLint Ok"))
         return
 
+    errors = [error for error in JS_LINTER['errors'] if error]  # sometimes None
+
+    # Prepare errors found for painting
+    for error in errors:
+        error['message'] = error.pop('reason')  # rename since showErrors has 'message' hardcoded
+        error.pop('raw', None)  # Only reason, line, and character are always there
+        error.pop('a', None)
+        error.pop('b', None)
+        error.pop('c', None)
+        error.pop('d', None)
+
     showErrors(i18n('JSLint Errors:'),
-               errors_to_show,
+               errors,
                mark_key, document,
                key_column='character',
                move_cursor=move_cursor)

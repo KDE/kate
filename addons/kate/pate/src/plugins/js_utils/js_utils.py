@@ -26,10 +26,6 @@ import os
 from PyQt4 import uic
 from PyQt4.QtGui import QWidget
 
-from libkatepate.errors import needs_packages
-
-needs_packages({"jslint": "0.6.0"})
-
 from js_settings import (KATE_CONFIG,
                          BoundSetting,
                          SETTING_INDENT_JSON,

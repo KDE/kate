@@ -63,14 +63,17 @@ class ConfigWidget(QWidget):
             BoundSetting(SETTING_JQUERY_READY,        self.jQueryReady),
         ]
 
-        self.reset()
-
     def apply(self):
         for setting in self.settings:
             setting.save()
         kate.configuration.save()
 
+    def reset_widget(self):
+        for setting in self.settings:
+            setting.setter(setting.lookup())
+
     def reset(self):
+        """resets to defaults and saves that"""
         self.defaults()
         for setting in self.settings:
             if setting.key in kate.configuration:

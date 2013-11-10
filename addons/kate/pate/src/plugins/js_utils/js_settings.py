@@ -95,6 +95,8 @@ class BoundSetting(Setting):
         for choice in self.choices or []:
             widget.addItem(choice)
 
+        self.setter(self.lookup())
+
     def reset(self):
         """Resets the widget’s value to the default"""
         self.setter(self.default)

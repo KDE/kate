@@ -40,8 +40,7 @@ from js_settings import (KATE_ACTIONS,
 @kate.action(**KATE_ACTIONS.prettify_JSON)
 def prettify_JSON():
     """A simple JSON pretty printer. JSON formatter which a good indents"""
-    currentDocument = kate.activeDocument()
-    view = currentDocument.activeView()
+    view = kate.activeView()
     source = view.selectionText()
     if not source:
         showError(i18n('Please select JSON text and press: %1', KATE_ACTIONS.prettify_JSON['shortcut']))

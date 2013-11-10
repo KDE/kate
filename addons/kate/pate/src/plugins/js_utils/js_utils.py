@@ -28,7 +28,7 @@ from PyQt4.QtGui import QWidget
 
 from libkatepate.errors import needs_packages
 
-needs_packages({"pyjslint": "0.3.4"})
+needs_packages({"jslint": "0.6.0"})
 
 from js_settings import (KATE_CONFIG,
                          BoundSetting,
@@ -40,7 +40,7 @@ from js_settings import (KATE_CONFIG,
                          SETTING_JQUERY_AUTOCOMPLETE,
                          SETTING_JQUERY_READY)
 
-from jslint import lint_js_action
+from js_lint import lint_js_action
 from js_snippets import insert_jquery_ready
 from json_pretty import prettify_JSON
 

@@ -32,6 +32,7 @@ class KATE_ACTIONS:
     lint_JS = {
         'text': 'JSLint',
         'shortcut': 'Alt+9',
+        'menu': JS_MENU,
         'icon': None,
     }
     prettify_JSON = {

@@ -612,21 +612,14 @@ bool KateBuildView::slotStop()
 }
 
 /******************************************************************/
-void KateBuildView::fillTargetList(const TargetSet* targetSet, QStringList* stringList) const
-{
-    for(std::map<QString, QString>::const_iterator tgtIt = targetSet->targets.begin(); tgtIt != targetSet->targets.end(); ++tgtIt) {
-        (*stringList) << tgtIt->first;
-    }
-}
-
-/******************************************************************/
 void KateBuildView::slotSelectTarget() {
-    SelectTargetDialog* dlg = new SelectTargetDialog(0);
     TargetSet* targetSet = currentTargetSet();
-    QStringList targets;
-    fillTargetList(targetSet, &targets);
+    if (targetSet == 0) {
+        return;
+    }
 
-    dlg->fillTargets(targets);
+    SelectTargetDialog* dlg = new SelectTargetDialog(0);
+    dlg->setTargets(targetSet->targets);
 
     int result = dlg->exec();
     if (result == QDialog::Accepted) {

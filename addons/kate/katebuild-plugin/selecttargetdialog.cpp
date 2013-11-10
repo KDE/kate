@@ -14,30 +14,47 @@ SelectTargetDialog::SelectTargetDialog(QWidget* parent)
 :KDialog(parent)
 ,m_targetName(0)
 ,m_targetsList(0)
+,m_command(0)
+,m_targets(0)
 {
     setButtons( KDialog::Ok | KDialog::Cancel);
 
     QWidget* container = new QWidget();
 
-    QLabel* label = new QLabel("Target:");
+    QLabel* filterLabel = new QLabel("Target:");
     m_targetName = new QLineEdit();
     m_targetsList = new QListWidget();
 
-    QGridLayout* layout = new QGridLayout(this);
+    QLabel* commandLabel = new QLabel("Command:");
+    m_command = new QLabel();
 
-    layout->addWidget(label, 0, 0);
-    layout->addWidget(m_targetName, 0, 1);
+    QHBoxLayout* filterLayout = new QHBoxLayout();
+    filterLayout->addWidget(filterLabel);
+    filterLayout->addWidget(m_targetName);
 
-    layout->addWidget(m_targetsList, 1, 0, 1, 2);
+    QHBoxLayout* commandLayout = new QHBoxLayout();
+    commandLayout->addWidget(commandLabel);
+    commandLayout->addWidget(m_command);
+    commandLayout->setAlignment(Qt::AlignLeft);
 
-    container->setLayout(layout);
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+
+    mainLayout->addLayout(filterLayout);
+    mainLayout->addWidget(m_targetsList);
+    mainLayout->addLayout(commandLayout);
+
+    container->setLayout(mainLayout);
 
     this->setMainWidget(container);
 
     connect(m_targetName, SIGNAL(textEdited(const QString&)), this, SLOT(slotFilterTargets(const QString&)));
     connect(m_targetsList, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(accept()));
+    connect(m_targetsList, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(slotCurrentItemChanged(QListWidgetItem*)));
     m_targetName->installEventFilter(this);
     m_targetsList->installEventFilter(this);
+
+    this->setFocusProxy(m_targetName);
+    m_targetName->setFocus();
 }
 
 
@@ -52,27 +69,38 @@ void SelectTargetDialog::slotFilterTargets(const QString& filter)
     }
     m_targetsList->clear();
     m_targetsList->addItems(filteredTargets);
-}
-
-
-void SelectTargetDialog::fillTargets(const QStringList& targets)
-{
-    m_allTargets = targets;
-    m_targetsList->clear();
-    for(int i=0; i<targets.size(); i++) {
-        m_targetsList->addItem(targets.at(i));
-        if (targets.at(i) == "all") {
-            setTargetName(targets.at(i));
-        }
+    if (filteredTargets.size() > 0) {
+        m_targetsList->item(0)->setSelected(true);
+        m_targetsList->setCurrentItem(m_targetsList->item(0));
     }
 }
 
 
-void SelectTargetDialog::setTargetName(const QString& target)
+void SelectTargetDialog::setTargets(const std::map<QString, QString>& targets)
 {
-    m_targetName->setText(target);
-    m_targetName->selectAll();
-    m_targetName->setFocus();
+    m_targets = &targets;
+    m_allTargets.clear();
+
+    for(std::map<QString, QString>::const_iterator tgtIt = targets.begin(); tgtIt != targets.end(); ++tgtIt) {
+        m_allTargets << tgtIt->first;
+    }
+
+    slotFilterTargets(QString());
+}
+
+
+void SelectTargetDialog::slotCurrentItemChanged(QListWidgetItem* currentItem)
+{
+    QString command;
+
+    if (currentItem && m_targets) {
+        std::map<QString, QString>::const_iterator tgtIt = m_targets->find(currentItem->text());
+        if (tgtIt != m_targets->end()) {
+            command = tgtIt->second;
+        }
+    }
+
+    m_command->setText(command);
 }
 
 

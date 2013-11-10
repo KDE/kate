@@ -5,6 +5,9 @@
 
 #include <QStringList>
 
+#include <map>
+
+class QLabel;
 class QLineEdit;
 class QListWidget;
 class QListWidgetItem;
@@ -16,20 +19,23 @@ class SelectTargetDialog : public KDialog
     public:
         SelectTargetDialog(QWidget* parent);
 
-        void fillTargets(const QStringList& targets);
+        void setTargets(const std::map<QString, QString>& _targets);
         QString selectedTarget() const;
-        void setTargetName(const QString& target);
 
     protected:
         virtual bool eventFilter(QObject *obj, QEvent *event);
 
     private slots:
         void slotFilterTargets(const QString& filter);
+        void slotCurrentItemChanged(QListWidgetItem* currentItem);
 
     private:
         QStringList m_allTargets;
         QLineEdit* m_targetName;
         QListWidget* m_targetsList;
+        QLabel* m_command;
+
+        const std::map<QString, QString>* m_targets;
 };
 
 #endif

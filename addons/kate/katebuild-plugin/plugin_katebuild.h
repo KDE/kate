@@ -135,7 +135,6 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
         bool startProcess(const KUrl &dir, const QString &command);
         KUrl docUrl();
         bool checkLocal(const KUrl &dir);
-        void fillTargetList(const TargetSet* targetSet, QStringList* stringList) const;
         void setTargetRowContents(int row, const TargetSet& tgtSet, const QString& name, const QString& buildCmd);
         QString makeTargetNameUnique(const QString& name);
         QString makeUniqueTargetSetName() const;

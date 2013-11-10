@@ -33,24 +33,21 @@ from PyKDE4.kdecore import i18n
 from libkatepate import text
 from libkatepate.errors import showError
 from js_settings import (KATE_ACTIONS,
-                         _INDENT_JSON_CFG,
-                         _ENCODING_JSON_CFG,
-                         DEFAULT_INDENT_JSON,
-                         DEFAULT_ENCODING_JSON)
+                         SETTING_INDENT_JSON,
+                         SETTING_ENCODING_JSON)
 
 
-@kate.action(**KATE_ACTIONS['togglePrettyJsonFormat'])
-def togglePrettyJsonFormat():
+@kate.action(**KATE_ACTIONS.prettify_JSON)
+def prettify_JSON():
     """A simple JSON pretty printer. JSON formatter which a good indents"""
     currentDocument = kate.activeDocument()
     view = currentDocument.activeView()
     source = view.selectionText()
-    js_utils_conf = kate.configuration.root.get('js_utils', {})
     if not source:
-        showError(i18n('Please select JSON text and press: %1', KATE_ACTIONS['togglePrettyJsonFormat']['shortcut']))
+        showError(i18n('Please select JSON text and press: %1', KATE_ACTIONS.prettify_JSON['shortcut']))
     else:
-        indent = js_utils_conf.get(_INDENT_JSON_CFG, DEFAULT_INDENT_JSON)
-        encoding = js_utils_conf.get(_ENCODING_JSON_CFG, DEFAULT_ENCODING_JSON)
+        indent = SETTING_INDENT_JSON.lookup()
+        encoding = SETTING_ENCODING_JSON.lookup()
         try:
             if LIB_JSON == 'simplejson' or sys.version_info.major == 2:
                 target = json.dumps(json.loads(source),

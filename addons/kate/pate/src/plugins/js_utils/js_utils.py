@@ -28,28 +28,23 @@ from PyQt4.QtGui import QWidget
 
 from libkatepate.errors import needs_packages
 
-
-from js_snippets import *
-from js_autocomplete import *
-from json_pretty import *
-
 needs_packages({"pyjslint": "0.3.4"})
-from jslint import *
 
 from js_settings import (KATE_CONFIG,
-                         _INDENT_JSON_CFG,
-                         _ENCODING_JSON_CFG,
-                         _JSLINT_CHECK_WHEN_SAVE,
-                         _ENABLE_JS_AUTOCOMPLETE,
-                         _ENABLE_JQUERY_AUTOCOMPLETE,
-                         _ENABLE_TEXT_JQUERY,
-                         DEFAULT_TEXT_JQUERY,
-                         DEFAULT_INDENT_JSON,
-                         DEFAULT_ENCODING_JSON,
-                         DEFAULT_CHECK_JSLINT_WHEN_SAVE,
-                         DEFAULT_ENABLE_JS_AUTOCOMPLETE,
-                         DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE)
+                         BoundSetting,
+                         SETTING_INDENT_JSON,
+                         SETTING_ENCODING_JSON,
+                         SETTING_LINTER,
+                         SETTING_LINT_ON_SAVE,
+                         SETTING_JS_AUTOCOMPLETE,
+                         SETTING_JQUERY_AUTOCOMPLETE,
+                         SETTING_JQUERY_READY)
 
+from jslint import lint_js_action
+from js_snippets import insert_jquery_ready
+from json_pretty import prettify_JSON
+
+ACTIONS = [lint_js_action, insert_jquery_ready, prettify_JSON] #only this module is imported, so we need to reference the others explicitly
 
 _CONFIG_UI = 'js_utils.ui'
 
@@ -61,39 +56,34 @@ class ConfigWidget(QWidget):
         super(ConfigWidget, self).__init__(parent)
         # Set up the user interface from Designer.
         uic.loadUi(os.path.join(os.path.dirname(__file__), _CONFIG_UI), self)
+
+        self.settings = [
+            BoundSetting(SETTING_INDENT_JSON,         self.jsonIndent),
+            BoundSetting(SETTING_ENCODING_JSON,       self.jsonEncoding),
+            BoundSetting(SETTING_LINTER,              self.linter),
+            BoundSetting(SETTING_LINT_ON_SAVE,        self.lintOnSave),
+            BoundSetting(SETTING_JS_AUTOCOMPLETE,     self.jsAutocompletion),
+            BoundSetting(SETTING_JQUERY_AUTOCOMPLETE, self.jQueryAutocompletion),
+            BoundSetting(SETTING_JQUERY_READY,        self.jQueryReady),
+        ]
+
         self.reset()
 
     def apply(self):
-        kate.configuration[_INDENT_JSON_CFG] = self.indentJSON.value()
-        kate.configuration[_ENCODING_JSON_CFG] = self.encodingJSON.text()
-        kate.configuration[_ENABLE_TEXT_JQUERY] = self.readyJQuery.toPlainText()
-        kate.configuration[_JSLINT_CHECK_WHEN_SAVE] = self.checkJSLintWhenSave.isChecked()
-        kate.configuration[_ENABLE_JS_AUTOCOMPLETE] = self.enableJSAutoComplete.isChecked()
-        kate.configuration[_ENABLE_JQUERY_AUTOCOMPLETE] = self.enableJQueryAutoComplete.isChecked()
+        for setting in self.settings:
+            setting.save()
         kate.configuration.save()
 
     def reset(self):
         self.defaults()
-        if _INDENT_JSON_CFG in kate.configuration:
-            self.indentJSON.setValue(kate.configuration[_INDENT_JSON_CFG])
-        if _ENCODING_JSON_CFG in kate.configuration:
-            self.encodingJSON.setText(kate.configuration[_ENCODING_JSON_CFG])
-        if _ENABLE_TEXT_JQUERY in kate.configuration:
-            self.readyJQuery.setPlainText(kate.configuration[_ENABLE_TEXT_JQUERY])
-        if _JSLINT_CHECK_WHEN_SAVE in kate.configuration:
-            self.checkJSLintWhenSave.setChecked(kate.configuration[_JSLINT_CHECK_WHEN_SAVE])
-        if _ENABLE_JS_AUTOCOMPLETE in kate.configuration:
-            self.enableJSAutoComplete.setChecked(kate.configuration[_ENABLE_JS_AUTOCOMPLETE])
-        if _ENABLE_JQUERY_AUTOCOMPLETE in kate.configuration:
-            self.enableJQueryAutoComplete.setChecked(kate.configuration[_ENABLE_JQUERY_AUTOCOMPLETE])
+        for setting in self.settings:
+            if setting.key in kate.configuration:
+                setting.save()
+        kate.configuration.save()
 
     def defaults(self):
-        self.indentJSON.setValue(DEFAULT_INDENT_JSON)
-        self.encodingJSON.setText(DEFAULT_ENCODING_JSON)
-        self.readyJQuery.setPlainText(DEFAULT_TEXT_JQUERY)
-        self.checkJSLintWhenSave.setChecked(DEFAULT_CHECK_JSLINT_WHEN_SAVE)
-        self.enableJSAutoComplete.setChecked(DEFAULT_ENABLE_JS_AUTOCOMPLETE)
-        self.enableJQueryAutoComplete.setChecked(DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE)
+        for setting in self.settings:
+            setting.reset()
 
 
 class ConfigPage(kate.Kate.PluginConfigPage, QWidget):

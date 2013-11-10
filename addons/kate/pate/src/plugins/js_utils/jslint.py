@@ -27,9 +27,7 @@ from PyKDE4.kdecore import i18n
 
 from pyjslint import check_JSLint
 
-from js_settings import (KATE_ACTIONS,
-                         _JSLINT_CHECK_WHEN_SAVE,
-                         DEFAULT_CHECK_JSLINT_WHEN_SAVE)
+from js_settings import (KATE_ACTIONS, SETTING_LINT_ON_SAVE)
 from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
                                 showErrors, showOk)
 
@@ -37,26 +35,15 @@ from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
 pattern = re.compile(r"Lint at line (\d+) character (\d+): (.*)")
 
 
-@kate.action(**KATE_ACTIONS['checkJslint'])
-def checkJslint(currentDocument=None):
+def lint_js(document, move_cursor=False):
     """Check your js code with the jslint tool"""
-    js_utils_conf = kate.configuration.root.get('js_utils', {})
-    check_when_save = js_utils_conf.get(_JSLINT_CHECK_WHEN_SAVE,
-                                        DEFAULT_CHECK_JSLINT_WHEN_SAVE)
-
-    if not (not currentDocument or (is_mymetype_js(currentDocument) and
-                                    not currentDocument.isModified() and
-                                    check_when_save)):
-        return
-    move_cursor = not currentDocument
-    currentDocument = currentDocument or kate.activeDocument()
-    mark_iface = currentDocument.markInterface()
-    clearMarksOfError(currentDocument, mark_iface)
+    mark_iface = document.markInterface()
+    clearMarksOfError(document, mark_iface)
     hideOldPopUps()
-    path = currentDocument.url().path()
+    path = document.url().path()
     mark_key = '%s-jslint' % path
 
-    text = currentDocument.text()
+    text = document.text()
     errors = check_JSLint(text)
     errors_to_show = []
 
@@ -76,24 +63,29 @@ def checkJslint(currentDocument=None):
 
     showErrors(i18n('JSLint Errors:'),
                errors_to_show,
-               mark_key, currentDocument,
+               mark_key, document,
                move_cursor=move_cursor)
 
 
-def is_mymetype_js(doc, text_plain=False):
-    mimetype = doc.mimeType()
-    if mimetype == 'application/javascript':
-        return True
-    elif mimetype == 'text/plain' and text_plain:
-        return True
-    return False
+@kate.action(**KATE_ACTIONS.lint_JS)
+def lint_js_action():
+    """Lints the active document"""
+    lint_js(kate.activeDocument(), True)
+
+
+def lint_on_save(document):
+    """Tests for multiple Conditions and lints if they are met"""
+    if (not document.isModified() and
+        document.mimeType() == 'application/javascript' and
+        SETTING_LINT_ON_SAVE.lookup()):
+        lint_js(document)
 
 
 @kate.init
 @kate.viewCreated
-def createSignalCheckDocument(view=None, *args, **kwargs):
-    view = view or kate.activeView()
-    doc = view.document()
-    doc.modifiedChanged.connect(checkJslint.f)
+def init(view=None):
+    print(view, args, kwargs)
+    doc = view.document() if view else kate.activeDocument()
+    doc.modifiedChanged.connect(lint_on_save)
 
 # kate: space-indent on; indent-width 4;

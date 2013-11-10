@@ -23,14 +23,10 @@ import re
 from PyKDE4.kdecore import i18n
 
 from libkatepate.autocomplete import AbstractJSONFileCodeCompletionModel, reset
-from js_settings import (DEFAULT_ENABLE_JS_AUTOCOMPLETE,
-                         DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE,
-                         _ENABLE_JS_AUTOCOMPLETE,
-                         _ENABLE_JQUERY_AUTOCOMPLETE)
+from js_settings import SETTING_JS_AUTOCOMPLETE, SETTING_JQUERY_AUTOCOMPLETE
 
 
 class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):
-
     MIMETYPES = ['application/javascript', 'text/html']
     TITLE_AUTOCOMPLETION = i18n("JS autocomplete")
     # generated with autocomplete_js.gen
@@ -71,8 +67,7 @@ class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
         self.object_jquery = m
         if m:
             return m.groups()[1] or ''
-        expr = super(StaticJSCodeCompletionModel, self).getLastExpression(line,
-                                                                          operators=operators)
+        expr = super(StaticJSCodeCompletionModel, self).getLastExpression(line, operators=operators)
         if expr.startswith("$."):
             expr = expr.replace('$.', 'jQuery.', 1)
         return expr
@@ -85,38 +80,32 @@ class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
 
 @kate.init
 @kate.viewCreated
-def createSignalAutocompleteJS(view=None, *args, **kwargs):
-    global ENABLE_JS_AUTOCOMPLETE
-    if not ENABLE_JS_AUTOCOMPLETE:
+def init_js(view=None):
+    global js_ccm
+    if not SETTING_JS_AUTOCOMPLETE.lookup():
         return
+    if js_ccm is None:
+        js_ccm = StaticJSCodeCompletionModel(kate.application)
+        js_ccm.modelReset.connect(reset)
     view = view or kate.activeView()
     cci = view.codeCompletionInterface()
-    cci.registerCompletionModel(jscodecompletationmodel)
+    cci.registerCompletionModel(js_ccm)
 
 
 @kate.init
 @kate.viewCreated
-def createSignalAutocompletejQuery(view=None, *args, **kwargs):
-    global ENABLE_JQUERY_AUTOCOMPLETE
-    if not ENABLE_JQUERY_AUTOCOMPLETE:
+def init_jquery(view=None):
+    global jquery_ccm
+    if not SETTING_JQUERY_AUTOCOMPLETE.lookup():
         return
+    if jquery_ccm is None:
+        jquery_ccm = StaticJQueryCompletionModel(kate.application)
+        jquery_ccm.modelReset.connect(reset)
     view = view or kate.activeView()
     cci = view.codeCompletionInterface()
-    cci.registerCompletionModel(jquerycodecompletationmodel)
+    cci.registerCompletionModel(jquery_ccm)
 
-
-js_utils_conf = kate.configuration.root.get('js_utils', {})
-ENABLE_JS_AUTOCOMPLETE = js_utils_conf.get(_ENABLE_JS_AUTOCOMPLETE,
-                                           DEFAULT_ENABLE_JS_AUTOCOMPLETE)
-ENABLE_JQUERY_AUTOCOMPLETE = js_utils_conf.get(_ENABLE_JQUERY_AUTOCOMPLETE,
-                                               DEFAULT_ENABLE_JQUERY_AUTOCOMPLETE)
-
-if ENABLE_JS_AUTOCOMPLETE:
-    jscodecompletationmodel = StaticJSCodeCompletionModel(kate.application)
-    jscodecompletationmodel.modelReset.connect(reset)
-
-if ENABLE_JQUERY_AUTOCOMPLETE:
-    jquerycodecompletationmodel = StaticJQueryCompletionModel(kate.application)
-    jquerycodecompletationmodel.modelReset.connect(reset)
+js_ccm = None
+jquery_ccm = None
 
 # kate: space-indent on; indent-width 4;

@@ -21,17 +21,12 @@ import kate
 
 from libkatepate import text
 
-from js_settings import (KATE_ACTIONS,
-                         _ENABLE_TEXT_JQUERY,
-                         DEFAULT_TEXT_JQUERY)
+from js_settings import KATE_ACTIONS, SETTING_JQUERY_READY
 
 
-@kate.action(**KATE_ACTIONS['insertReady'])
-def insertReady():
+@kate.action(**KATE_ACTIONS.insert_jquery_ready)
+def insert_jquery_ready():
     """Snippet with the ready code of the jQuery"""
-    js_utils_conf = kate.configuration.root.get('js_utils', {})
-    text_jquery = js_utils_conf.get(_ENABLE_TEXT_JQUERY,
-                                    DEFAULT_TEXT_JQUERY)
-    text.insertText(text_jquery, start_in_current_column=True)
+    text.insertText(SETTING_JQUERY_READY.lookup(), start_in_current_column=True)
 
 # kate: space-indent on; indent-width 4;

@@ -139,11 +139,11 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(a, SIGNAL(triggered(bool)), this, SLOT(slotPrev()));
 
     m_targetSelectAction = actionCollection()->add<KSelectAction>( "targets" );
-    m_targetSelectAction->setText( i18n( "Targets" ) );
+    m_targetSelectAction->setText( i18n( "Sets of Targets" ) );
     connect(m_targetSelectAction, SIGNAL(triggered(int)), this, SLOT(targetSelected(int)));
 
     a = actionCollection()->addAction("target_next");
-    a->setText(i18n("Next Target"));
+    a->setText(i18n("Next Set of Target"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(targetNext()));
 
     QWidget *buildWidget = new QWidget(m_toolView);

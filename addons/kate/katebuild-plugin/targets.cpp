@@ -37,15 +37,15 @@ QWidget(parent)
     targetLabel->setBuddy(targetCombo);
 
     newTarget = new QToolButton(this);
-    newTarget->setToolTip(i18n("New target set"));
+    newTarget->setToolTip(i18n("Create new set of targets"));
     newTarget->setIcon(KIcon("document-new"));
 
     copyTarget = new QToolButton(this);
-    copyTarget->setToolTip(i18n("Copy target set"));
+    copyTarget->setToolTip(i18n("Copy set of targets"));
     copyTarget->setIcon(KIcon("edit-copy"));
 
     deleteTarget = new QToolButton(this);
-    deleteTarget->setToolTip(i18n("Delete target set"));
+    deleteTarget->setToolTip(i18n("Delete current set of targets"));
     deleteTarget->setIcon(KIcon("edit-delete"));
 
     dirLabel = new QLabel(i18n("Working directory"), this);

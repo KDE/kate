@@ -142,7 +142,7 @@ class ColorChooser(QFrame):
         '''Get color using KColorDialog'''
         print('ColorUtils: Dialog requested')
         # Preselect last used color
-        color = QColor(kate.configuration[_INSERT_COLOR_LCC])
+        color = QColor(kate.sessionConfiguration[_INSERT_COLOR_LCC])
         result = KColorDialog.getColor(color)
         if result == KColorDialog.Accepted:                  # Did user press OK?
             self.emitSelectedColorHideSelf(color)
@@ -158,7 +158,7 @@ class ColorChooser(QFrame):
 
     def emitSelectedColorHideSelf(self, color):
         # Remember last selected color for future preselect
-        kate.configuration[_INSERT_COLOR_LCC] = color.name()
+        kate.sessionConfiguration[_INSERT_COLOR_LCC] = color.name()
         self.colorSelected.emit(color)
         self.hide()
 
@@ -475,7 +475,7 @@ def init():
     '''Iniialize global variables and read config'''
     # Set default value for last used #color if not configured yet
     if _INSERT_COLOR_LCC not in kate.configuration:
-        kate.configuration[_INSERT_COLOR_LCC] = '#ffffff'
+        kate.sessionConfiguration[_INSERT_COLOR_LCC] = '#ffffff'
 
     swatcher = ColorSwatcher()
 

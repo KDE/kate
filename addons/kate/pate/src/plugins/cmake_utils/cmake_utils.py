@@ -46,9 +46,6 @@ from PyKDE4.kdecore import i18nc, KUrl
 from PyKDE4.kio import KFile, KFileDialog, KUrlRequesterDialog
 from PyKDE4.ktexteditor import KTextEditor
 
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-
 import kate
 
 from libkatepate import ui, common
@@ -813,6 +810,9 @@ class CMakeConfigWidget(QWidget):
 
         # Set up the user interface from Designer.
         uic.loadUi(os.path.join(os.path.dirname(__file__), CMAKE_UTILS_SETTINGS_UI), self)
+        self.projectBuildDir.setMode(
+            KFile.Mode(KFile.Directory | KFile.ExistingOnly | KFile.LocalOnly)
+          )
 
         self.reset();
 

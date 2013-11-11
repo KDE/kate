@@ -1586,14 +1586,14 @@ function tryExclamation(cursor)
 /**
  * \brief Handle a space
  *
- * Add '()' pair after some keywords like: \c if, \c while, \c for, \c switch
+ * - add <tt>'()'</tt> pair after some keywords like: \c if, \c while, \c for, \c switch
+ * - add <tt>';'</tt> if space pressed right after \c return, and no text after it
  */
 function tryKeywordsWithBrackets(cursor)
 {
     var line = cursor.line;
     var column = cursor.column;
     var text = document.line(line).ltrim();
-    dbg("text="+text);
     var need_brackets = text == "if "
       || text == "else if "
       || text == "while "
@@ -1605,6 +1605,11 @@ function tryKeywordsWithBrackets(cursor)
     {
         document.insertText(cursor, "()");
         view.setCursorPosition(line, column + 1);
+    }
+    else if (text == "return ")
+    {
+        document.insertText(cursor, ";");
+        view.setCursorPosition(line, column);
     }
 }
 

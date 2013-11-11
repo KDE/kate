@@ -34,7 +34,6 @@ from PyQt4.QtCore import QEvent, QObject, QUrl, Qt, pyqtSlot
 from PyQt4.QtGui import (
     QBrush
   , QColor
-  , QPixmap
   , QSplitter
   , QTabWidget
   , QTextBrowser
@@ -46,6 +45,9 @@ from PyQt4.QtGui import (
 from PyKDE4.kdecore import i18nc, KUrl
 from PyKDE4.kio import KFile, KFileDialog, KUrlRequesterDialog
 from PyKDE4.ktexteditor import KTextEditor
+
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
 
 import kate
 
@@ -488,7 +490,7 @@ class CMakeToolView(QObject):
         self.toolView = kate.mainInterfaceWindow().createToolView(
             'cmake_utils'
           , kate.Kate.MainWindow.Bottom
-          , QPixmap('cmake')
+          , kate.gui.loadIcon('cmake')
           , i18nc('@title:tab', 'CMake')
           )
         self.toolView.installEventFilter(self)

@@ -19,8 +19,13 @@
 
 # by default only QtCore and QtGui modules are enabled
 # other modules must be enabled like this:
-SET (QT_USE_QTWEBKIT TRUE)
-set(sources plugin.cpp engine.cpp utilities.cpp)
+
+set(QT_USE_QTWEBKIT TRUE)
+set(sources engine.cpp plugin.cpp utilities.cpp )
+
+# NOTE Disable trivial Qt keywords due conflicts w/ some Python.h header
+# (at least version 3.3 of it has a member PyType_Spec::slots)
+add_definitions(-DQT_NO_KEYWORDS)
 
 kde4_add_ui_files(sources info.ui manager.ui)
 
@@ -33,49 +38,21 @@ target_link_libraries(
     ${KDE4_KDEUI_LIBS}
     ${PYTHON_LIBRARY}
     ${QT_QTWEBKIT_LIBRARY}
-    kateinterfaces)
+    kateinterfaces
+  )
 
 install(TARGETS katepateplugin DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES katepythonplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR})
 install(FILES pate.desktop DESTINATION ${SERVICES_INSTALL_DIR})
-install(DIRECTORY kate DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate FILES_MATCHING PATTERN "*.py")
 
-#
-# Install individual Pate plugins.
-#
-install(FILES
-    plugins/block.py
-    plugins/color_tools.py
-    plugins/color_tools_toolview.ui
-    plugins/commentar.py
-    plugins/commentar_config.ui
-    plugins/expand.py
-    plugins/format.py
-    plugins/xml_pretty.py
-    plugins/xml_pretty.ui
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate)
+# Install "built-in" plugins
+install(
+    DIRECTORY kate
+    DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate
+    FILES_MATCHING PATTERN "*.py"
+  )
 
-install(DIRECTORY
-    plugins/django_utils
-    plugins/expand
-    plugins/gid
-    plugins/libkatepate
-    plugins/python_console_classic
-    plugins/python_utils
-    plugins/python_autocomplete
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")
+# Dive into plugins crowd
+add_subdirectory(plugins)
 
-install(DIRECTORY
-    plugins/expand
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.expand")
-
-install(DIRECTORY
-    plugins/js_utils
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json" PATTERN "*.js")
-
-install(DIRECTORY
-    plugins/python_console_ipython
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.css")
-
-install(DIRECTORY
-    plugins/cmake_utils
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")
+# kate: indent-width 4;

@@ -722,10 +722,6 @@ class KATEPART_TESTS_EXPORT KateRendererConfig : public KateConfig
     QString m_schema;
     QFont m_font;
     QFontMetricsF m_fontMetrics;
-    bool m_wordWrapMarker;
-    bool m_showIndentationLines;
-    bool m_showWholeBracketExpression;
-    bool m_animateBracketMatching;
     QColor m_backgroundColor;
     QColor m_selectionColor;
     QColor m_highlightedLineColor;
@@ -749,6 +745,11 @@ class KATEPART_TESTS_EXPORT KateRendererConfig : public KateConfig
     QColor m_savedLineColor;
     QColor m_searchHighlightColor;
     QColor m_replaceHighlightColor;
+
+    bool m_wordWrapMarker;
+    bool m_showIndentationLines;
+    bool m_showWholeBracketExpression;
+    bool m_animateBracketMatching;
 
     bool m_schemaSet : 1;
     bool m_fontSet : 1;

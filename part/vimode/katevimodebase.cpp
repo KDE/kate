@@ -1351,14 +1351,10 @@ void KateViModeBase::addToNumberUnderCursor( int count )
 
       numberAsString = numberRegex.cap();
 
-      if (numberStartPos + numberAsString.length() <= c.column())
+      const bool numberEndedBeforeCursor = (numberStartPos + numberAsString.length() <= c.column());
+      if (!numberEndedBeforeCursor)
       {
-        // This number is before the cursor; keep on searching.
-        numberStartPos = -1;
-      }
-      else
-      {
-        // This'll do!
+        // This is the first number-like string under or after the cursor - this'll do!
         break;
       }
     }
@@ -1369,51 +1365,47 @@ void KateViModeBase::addToNumberUnderCursor( int count )
       return;
     }
 
-    bool ok = false;
+    bool parsedNumberSuccessfully = false;
     int base = numberRegex.cap( 1 ).isEmpty() ? 10 : 16;
-    if (base != 16 && numberAsString.startsWith("0") && numberAsString != "0")
+    if (base != 16 && numberAsString.startsWith("0") && numberAsString.length() > 1)
     {
-      numberAsString.toInt( &ok, 8 );
-      if (ok)
+      // If a non-hex number with a leading 0 can be parsed as octal, then assume
+      // it is octal.
+      numberAsString.toInt( &parsedNumberSuccessfully, 8 );
+      if (parsedNumberSuccessfully)
       {
-        // Octal.
         base = 8;
       }
     }
-    const int originalNumber = numberAsString.toInt( &ok, base );
-    QString withoutBase = numberAsString;
-    if (base == 16)
-    {
-      withoutBase = numberRegex.cap(2);
-    }
-    else if (base == 8)
-    {
-      withoutBase = numberAsString.mid(1); // Strip off leading 0.
-    }
+    const int originalNumber = numberAsString.toInt( &parsedNumberSuccessfully, base );
 
     kDebug( 13070 ) << "base: " << base;
     kDebug( 13070 ) << "n: " << originalNumber;
 
-    if ( !ok ) {
+    if ( !parsedNumberSuccessfully ) {
         // conversion to int failed. give up.
         return;
     }
 
-    // increase/decrease number
+    QString basePrefix;
+    if (base == 16)
+    {
+      basePrefix = "0x";
+    }
+    else if (base == 8)
+    {
+      basePrefix = "0";
+    }
+    const QString withoutBase = numberAsString.mid(basePrefix.length());
+
     const int newNumber = originalNumber + count;
 
     // Create the new text string to be inserted. Prepend with “0x” if in base 16, and "0" if base 8.
     // For non-decimal numbers, try to keep the length of the number the same (including leading 0's).
-    QString newNumberPadded = (base == 16 || base == 8) ? QString("%1").arg(newNumber, withoutBase.length(), base, QChar('0')) : QString("%1").arg(newNumber, 0, base);
-    QString newNumberText = newNumberPadded;
-    if (base == 16)
-    {
-      newNumberText = "0x" + newNumberText;
-    }
-    else if (base == 8)
-    {
-      newNumberText = "0" + newNumberText;
-    }
+    const QString newNumberPadded = (base == 10) ?
+        QString("%1").arg(newNumber, 0, base) :
+        QString("%1").arg(newNumber, withoutBase.length(), base, QChar('0'));
+    const QString newNumberText = basePrefix + newNumberPadded;
 
     // Replace the old number string with the new.
     doc()->editStart();

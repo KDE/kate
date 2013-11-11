@@ -34,6 +34,7 @@ from PyQt4.QtCore import QEvent, QObject, QUrl, Qt, pyqtSlot
 from PyQt4.QtGui import (
     QBrush
   , QColor
+  , QPixmap
   , QSplitter
   , QTabWidget
   , QTextBrowser
@@ -146,7 +147,7 @@ def _find_CMakeLists(start_dir, parent_cnt = 0):
     '''Try to find `CMakeLists.txt` startring form a given path'''
     if _is_there_CMakeLists(start_dir):
         return os.path.join(start_dir, _CMAKE_LISTS)
-    if parent_cnt < kate.configuration[PARENT_DIRS_LOOKUP_CNT]:
+    if parent_cnt < kate.sessionConfiguration[PARENT_DIRS_LOOKUP_CNT]:
         return _find_CMakeLists(os.path.dirname(start_dir), parent_cnt + 1)
     return None
 
@@ -487,7 +488,7 @@ class CMakeToolView(QObject):
         self.toolView = kate.mainInterfaceWindow().createToolView(
             'cmake_utils'
           , kate.Kate.MainWindow.Bottom
-          , kate.gui.loadIcon('cmake')
+          , QPixmap('cmake')
           , i18nc('@title:tab', 'CMake')
           )
         self.toolView.installEventFilter(self)
@@ -498,7 +499,7 @@ class CMakeToolView(QObject):
         self.cacheViewPage = uic.loadUi(
             os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_CACHEVIEW_UI)
           )
-        self.cacheViewPage.buildDir.setText(kate.configuration[PROJECT_DIR])
+        self.cacheViewPage.buildDir.setText(kate.sessionConfiguration[PROJECT_DIR])
         # TODO It seems not only KTextEditor's SIP files are damn out of date...
         # KUrlRequester actually *HAS* setPlaceholderText() method... but damn SIP
         # files for KIO are damn out of date either! A NEW BUG NEEDS TO BE ADDED!
@@ -534,8 +535,8 @@ class CMakeToolView(QObject):
         self.cfgPage = uic.loadUi(
             os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_SETTINGS_UI)
           )
-        self.cfgPage.mode.setChecked(kate.configuration[TOOLVIEW_ADVANCED_MODE])
-        self.cfgPage.htmlize.setChecked(kate.configuration[TOOLVIEW_BEAUTIFY])
+        self.cfgPage.mode.setChecked(kate.sessionConfiguration[TOOLVIEW_ADVANCED_MODE])
+        self.cfgPage.htmlize.setChecked(kate.sessionConfiguration[TOOLVIEW_BEAUTIFY])
         tabs.addTab(self.cfgPage, i18nc('@title:tab', 'Tool View Settings'))
 
         # Connect signals
@@ -571,8 +572,8 @@ class CMakeToolView(QObject):
 
     @pyqtSlot()
     def saveSettings(self):
-        kate.configuration[TOOLVIEW_ADVANCED_MODE] = self.cfgPage.mode.isChecked()
-        kate.configuration[TOOLVIEW_BEAUTIFY] = self.cfgPage.htmlize.isChecked()
+        kate.sessionConfiguration[TOOLVIEW_ADVANCED_MODE] = self.cfgPage.mode.isChecked()
+        kate.sessionConfiguration[TOOLVIEW_BEAUTIFY] = self.cfgPage.htmlize.isChecked()
 
 
     @pyqtSlot()
@@ -639,7 +640,7 @@ class CMakeToolView(QObject):
         standard_modules = cmake_help_parser.get_cmake_modules_list()
         total_modules_count = len(standard_modules)
         custom_modules = {}
-        for path in kate.configuration[AUX_MODULE_DIRS]:
+        for path in kate.sessionConfiguration[AUX_MODULE_DIRS]:
             modules_list = cmake_help_parser.get_cmake_modules_list(path)
             filtered_modules_list = [mod for mod in modules_list if mod not in standard_modules]
             filtered_modules_list.sort()
@@ -819,10 +820,10 @@ class CMakeConfigWidget(QWidget):
 
 
     def apply(self):
-        kate.configuration[CMAKE_BINARY] = self.cmakeBinary.text()
-        kate.configuration[PARENT_DIRS_LOOKUP_CNT] = self.parentDirsLookupCnt.value()
+        kate.sessionConfiguration[CMAKE_BINARY] = self.cmakeBinary.text()
+        kate.sessionConfiguration[PARENT_DIRS_LOOKUP_CNT] = self.parentDirsLookupCnt.value()
         try:
-            cmake_help_parser.validate_cmake_executable(kate.configuration[CMAKE_BINARY])
+            cmake_help_parser.validate_cmake_executable(kate.sessionConfiguration[CMAKE_BINARY])
         except ValueError as error:
             ui.popup(
                 i18nc('@title:window', 'Error')
@@ -830,28 +831,28 @@ class CMakeConfigWidget(QWidget):
               , 'dialog-error'
               )
         # TODO Store the following for a current session!
-        kate.configuration[PROJECT_DIR] = self.projectBuildDir.text()
-        kate.configuration[AUX_MODULE_DIRS] = []
+        kate.sessionConfiguration[PROJECT_DIR] = self.projectBuildDir.text()
+        kate.sessionConfiguration[AUX_MODULE_DIRS] = []
         for i in range(0, self.moduleDirs.count()):
-            kate.configuration[AUX_MODULE_DIRS].append(self.moduleDirs.item(i).text())
+            kate.sessionConfiguration[AUX_MODULE_DIRS].append(self.moduleDirs.item(i).text())
 
         # Show some spam
-        print('CMakeCC: config save: CMAKE_BINARY={}'.format(kate.configuration[CMAKE_BINARY]))
-        print('CMakeCC: config save: AUX_MODULE_DIRS={}'.format(kate.configuration[AUX_MODULE_DIRS]))
-        print('CMakeCC: config save: PROJECT_DIR={}'.format(kate.configuration[PROJECT_DIR]))
-        kate.configuration.save()
+        print('CMakeCC: config save: CMAKE_BINARY={}'.format(kate.sessionConfiguration[CMAKE_BINARY]))
+        print('CMakeCC: config save: AUX_MODULE_DIRS={}'.format(kate.sessionConfiguration[AUX_MODULE_DIRS]))
+        print('CMakeCC: config save: PROJECT_DIR={}'.format(kate.sessionConfiguration[PROJECT_DIR]))
+        kate.sessionConfiguration.save()
 
 
     def reset(self):
         self.defaults()
-        if CMAKE_BINARY in kate.configuration:
-            self.cmakeBinary.setText(kate.configuration[CMAKE_BINARY])
-        if PARENT_DIRS_LOOKUP_CNT in kate.configuration:
-            self.parentDirsLookupCnt.setValue(kate.configuration[PARENT_DIRS_LOOKUP_CNT])
-        if AUX_MODULE_DIRS in kate.configuration:
-            self.moduleDirs.addItems(kate.configuration[AUX_MODULE_DIRS])
-        if PROJECT_DIR in kate.configuration:
-            self.projectBuildDir.setText(kate.configuration[PROJECT_DIR])
+        if CMAKE_BINARY in kate.sessionConfiguration:
+            self.cmakeBinary.setText(kate.sessionConfiguration[CMAKE_BINARY])
+        if PARENT_DIRS_LOOKUP_CNT in kate.sessionConfiguration:
+            self.parentDirsLookupCnt.setValue(kate.sessionConfiguration[PARENT_DIRS_LOOKUP_CNT])
+        if AUX_MODULE_DIRS in kate.sessionConfiguration:
+            self.moduleDirs.addItems(kate.sessionConfiguration[AUX_MODULE_DIRS])
+        if PROJECT_DIR in kate.sessionConfiguration:
+            self.projectBuildDir.setText(kate.sessionConfiguration[PROJECT_DIR])
 
 
     def defaults(self):
@@ -921,18 +922,18 @@ def createSignalAutocompleteCMake(view=None, *args, **kwargs):
 def init():
     # Set default value if not configured yet
     print('CMakeCC: enter init')
-    if CMAKE_BINARY not in kate.configuration:
-        kate.configuration[CMAKE_BINARY] = CMAKE_BINARY_DEFAULT
-    if PARENT_DIRS_LOOKUP_CNT not in kate.configuration:
-        kate.configuration[PARENT_DIRS_LOOKUP_CNT] = 0
-    if AUX_MODULE_DIRS not in kate.configuration:
-        kate.configuration[AUX_MODULE_DIRS] = []
-    if PROJECT_DIR not in kate.configuration:
-        kate.configuration[PROJECT_DIR] = ''
-    if TOOLVIEW_ADVANCED_MODE not in kate.configuration:
-        kate.configuration[TOOLVIEW_ADVANCED_MODE] = False
-    if TOOLVIEW_BEAUTIFY not in kate.configuration:
-        kate.configuration[TOOLVIEW_BEAUTIFY] = True
+    if CMAKE_BINARY not in kate.sessionConfiguration:
+        kate.sessionConfiguration[CMAKE_BINARY] = CMAKE_BINARY_DEFAULT
+    if PARENT_DIRS_LOOKUP_CNT not in kate.sessionConfiguration:
+        kate.sessionConfiguration[PARENT_DIRS_LOOKUP_CNT] = 0
+    if AUX_MODULE_DIRS not in kate.sessionConfiguration:
+        kate.sessionConfiguration[AUX_MODULE_DIRS] = []
+    if PROJECT_DIR not in kate.sessionConfiguration:
+        kate.sessionConfiguration[PROJECT_DIR] = ''
+    if TOOLVIEW_ADVANCED_MODE not in kate.sessionConfiguration:
+        kate.sessionConfiguration[TOOLVIEW_ADVANCED_MODE] = False
+    if TOOLVIEW_BEAUTIFY not in kate.sessionConfiguration:
+        kate.sessionConfiguration[TOOLVIEW_BEAUTIFY] = True
 
     # Initialize completion model
     createSignalAutocompleteCMake()

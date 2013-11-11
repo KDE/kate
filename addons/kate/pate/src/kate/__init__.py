@@ -165,10 +165,8 @@ This can also be used by one plugin to access another plugin's configurations.
 configuration = Configuration(pate.configuration)
 """Persistent configuration dictionary for this plugin."""
 
-def sessionConfiguration():
-    """Deprecated. Use globalConfiguration instead."""
-    if plugins is not None:
-        return pate.configuration
+sessionConfiguration = Configuration(pate.sessionConfiguration)
+"""Per session persistent configuration dictionary for this plugin."""
 
 def plugins():
     """ The list of available plugins."""

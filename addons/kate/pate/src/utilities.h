@@ -19,20 +19,18 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#ifndef PATE_UTILITIES_H
-#define PATE_UTILITIES_H
+#ifndef __PATE_UTILITIES_H__
+# define  __PATE_UTILITIES_H__
 
-#include "Python.h"
+# include <Python.h>
+# include <QString>
 
-class QLibrary;
-class QString;
 class KConfigBase;
 
-// save us some ruddy time when printing out QStrings with UTF-8
-#define PQ(x) x.toUtf8().constData()
+/// Save us some ruddy time when printing out QStrings with UTF-8
+# define PQ(x) x.toUtf8().constData()
 
-namespace Pate
-{
+namespace Pate {
 
 /**
  * Instantiate this class on the stack to automatically get and release the
@@ -66,16 +64,16 @@ public:
     static void libraryUnload();
 
     /// Convert a QString to a Python unicode object.
-    static PyObject *unicode(const QString &string);
+    static PyObject* unicode(const QString& string);
 
     /// Convert a Python unicode object to a QString.
-    static QString unicode(PyObject *string);
+    static QString unicode(PyObject* string);
 
     /// Test if a Python object is compatible with a QString.
-    static bool isUnicode(PyObject *string);
+    static bool isUnicode(PyObject* string);
 
     /// Prepend a QString to a list as a Python unicode object
-    bool prependStringToList(PyObject *list, const QString &value);
+    bool prependStringToList(PyObject* list, const QString& value);
 
     /**
      * Print and save (see @ref lastTraceback()) the current traceback in a
@@ -87,55 +85,53 @@ public:
      * ImportError: No module named kdeui
      * Could not import pluginmgr.
      */
-    void traceback(const QString &description);
+    void traceback(const QString& description);
 
     /**
      * Store the last traceback we handled using @ref traceback().
      */
-    const QString &lastTraceback(void) const;
+    const QString& lastTraceback(void) const;
 
     /**
      * Create a Python dictionary from a KConfigBase instance, writing the
      * string representation of the values.
      */
-    void updateDictionaryFromConfiguration(PyObject *dictionary, const KConfigBase *config);
+    void updateDictionaryFromConfiguration(PyObject* dictionary, const KConfigBase* config);
 
     /**
      * Write a Python dictionary to a configuration object, converting objects
      * to their string representation along the way.
      */
-    void updateConfigurationFromDictionary(KConfigBase *config, PyObject *dictionary);
-
-    static const char *PATE_ENGINE;
+    void updateConfigurationFromDictionary(KConfigBase* config, PyObject* dictionary);
 
     /**
      * Call the named module's named entry point.
      */
-    bool functionCall(const char *functionName, const char *moduleName = PATE_ENGINE);
+    bool functionCall(const char* functionName, const char* moduleName = PATE_ENGINE);
 
     /**
      * Delete the item from the named module's dictionary.
      */
-    bool itemStringDel(const char *item, const char *moduleName = PATE_ENGINE);
+    bool itemStringDel(const char* item, const char* moduleName = PATE_ENGINE);
 
     /**
      * Get the item from the named module's dictionary.
      *
      * @return 0 or a borrowed reference to the item.
      */
-    PyObject *itemString(const char *item, const char *moduleName = PATE_ENGINE);
+    PyObject* itemString(const char* item, const char* moduleName = PATE_ENGINE);
 
     /**
      * Get the item from the given dictionary.
      *
      * @return 0 or a borrowed reference to the item.
      */
-    PyObject *itemString(const char *item, PyObject *dict);
+    PyObject* itemString(const char* item, PyObject* dict);
 
     /**
      * Set the item in the named module's dictionary.
      */
-    bool itemStringSet(const char *item, PyObject *value, const char *moduleName = PATE_ENGINE);
+    bool itemStringSet(const char* item, PyObject* value, const char* moduleName = PATE_ENGINE);
 
     /**
      * Get the Actions defined by a module. The returned object is
@@ -144,7 +140,7 @@ public:
      *
      * @return 0 or a new reference to the result.
      */
-    PyObject *moduleActions(const char *moduleName);
+    PyObject* moduleActions(const char* moduleName);
 
     /**
      * Get the ConfigPages defined by a module. The returned object is
@@ -153,33 +149,33 @@ public:
      *
      * @return 0 or a new reference to the result.
      */
-    PyObject *moduleConfigPages(const char *moduleName);
+    PyObject* moduleConfigPages(const char* moduleName);
 
     /**
      * Get the named module's dictionary.
      *
      * @return 0 or a borrowed reference to the dictionary.
      */
-    PyObject *moduleDict(const char *moduleName = PATE_ENGINE);
+    PyObject* moduleDict(const char* moduleName = PATE_ENGINE);
 
     /**
      * Get the help text defined by a module.
      */
-    QString moduleHelp(const char *moduleName);
+    QString moduleHelp(const char* moduleName);
 
     /**
      * Import the named module.
      *
      * @return 0 or a borrowed reference to the module.
      */
-    PyObject *moduleImport(const char *moduleName);
+    PyObject* moduleImport(const char* moduleName);
 
     /**
      * A void * for an arbitrary Qt/KDE object that has been wrapped by SIP. Nifty.
      *
      * @param o         The object to be unwrapped. The reference is borrowed.
      */
-    void *objectUnwrap(PyObject *o);
+    void* objectUnwrap(PyObject* o);
 
     /**
      * A PyObject * for an arbitrary Qt/KDE object using SIP wrapping. Nifty.
@@ -188,11 +184,11 @@ public:
      * @param className The full class name of o, e.g. "PyQt4.QtGui.QWidget".
      * @return 0 or a new reference to the object.
      */
-    PyObject *objectWrap(void *o, QString className);
+    PyObject* objectWrap(void* o, const QString& className);
+
+    static const char* PATE_ENGINE;
 
 private:
-    static QLibrary *s_pythonLibrary;
-    static PyThreadState *s_pythonThreadState;
     PyGILState_STATE m_state;
     QString m_traceback;
 
@@ -201,10 +197,10 @@ private:
      *
      * @return 0 or a new reference to the result.
      */
-    PyObject *kateHandler(const char *moduleName, const char *handler);
-    PyObject *functionCall(const char *functionName, const char *moduleName, PyObject *arguments);
+    PyObject* kateHandler(const char* moduleName, const char* handler);
+    PyObject* functionCall(const char* functionName, const char* moduleName, PyObject* arguments);
 };
 
-} // namespace Pate
-
-#endif
+}                                                           // namespace Pate
+#endif                                                      //  __PATE_UTILITIES_H__
+// kate: indent-width 4;

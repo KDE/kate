@@ -24,7 +24,6 @@
 '''
 
 import kate
-import kate.gui
 import os
 import re
 import textwrap

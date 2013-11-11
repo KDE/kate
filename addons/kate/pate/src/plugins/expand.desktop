@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=expand.py
+Name=User defined text expansions
+Comment=Execute expansion function and insert output into a document
+X-Python-2-Compatible=true
+X-Python-3-Compatible=true

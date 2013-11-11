@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=format.py
+Name=Boost-like C++ Code Formatter
+Comment=Help to format calls/templates in boost style
+X-Python-2-Compatible=true
+X-Python-3-Compatible=true

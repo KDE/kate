@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=commentar.py
+Name=Plugins to work with comments
+Comment=Supported languages are C++, JS, Python, CMake, Bash
+X-Python-2-Compatible=true
+X-Python-3-Compatible=true

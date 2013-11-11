@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=color_tools.py
+Name=Color Tools
+Comment=Utilities to work with hexadecimal colors in documents
+X-Python-2-Compatible=true
+X-Python-3-Compatible=true

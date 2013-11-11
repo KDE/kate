@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=python_console_classic/python_console_classic.py
+Name=Simple Python Console
+Comment=Interactive console for inspecting Kate's internals and playing about
+X-Python-2-Compatible=true
+X-Python-3-Compatible=true

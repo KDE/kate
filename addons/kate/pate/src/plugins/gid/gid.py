@@ -23,7 +23,6 @@ definition. etags(1) is used to locate the definition.
 # Boston, MA 02110-1301, USA.
 
 import kate
-import kate.gui
 
 from PyQt4 import uic
 from PyQt4.QtCore import *

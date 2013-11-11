@@ -18,81 +18,150 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#ifndef PATE_ENGINE_H
-#define PATE_ENGINE_H
+#ifndef __PATE_ENGINE_H__
+# define  __PATE_ENGINE_H__
 
-#include <QStandardItemModel>
-#include <QList>
-#include <QStringList>
+# include <KService>
+# include <KUrl>
+# include <Python.h>
+# include <QAbstractItemModel>
+# include <QList>
+# include <QStringList>
 
-#include "Python.h"
-
-class QLibrary;
-
-namespace Pate
-{
+namespace Pate {
 
 /**
  * The Engine class hosts the Python interpreter, loading
  * it into memory within Kate, and then with finding and
- * loading all of the Pate plugins. It is implemented as
- * a singleton class.
-*/
-class Engine :
-    public QStandardItemModel
+ * loading all of the Pate plugins.
+ *
+ * \attention Qt/KDE do not use exceptions (unfortunately),
+ * so this class must be initialized in two steps:
+ * - create an instance (via constructor)
+ * - try to initialize the rest (via \c Engine::tryInitializeGetFailureReason())
+ * If latter returns a non empty (failure reason) string, the only member
+ * can be called is conversion to boolean! (which is implemented as safe-bool idiom [1])
+ * Calling others leads to UB!
+ *
+ * \sa [1] http://en.wikibooks.org/wiki/More_C%2B%2B_Idioms/Safe_bool
+ */
+class Engine : public QAbstractItemModel
 {
     Q_OBJECT
 
+    typedef void (Engine::*bool_type)() const;
+    void unspecified_true_bool_type() const {}
+
 public:
-    static Engine *self();
+    /// \todo Turn into a class w/ accessors
+    class PluginState
+    {
+    public:
+        /// \name Immutable accessors
+        //@{
+        const KUrl& moduleFilename() const;
+        QString pythonModuleName() const;
+        const QString& errorReason() const;
+        bool isEnabled() const;
+        bool isBroken() const;
+        //@}
+    private:
+        PluginState();
+        friend class Engine;
+        KService::Ptr m_service;
+        KUrl m_moduleFile;
+        QString m_errorReason;
+        bool m_enabled;
+        bool m_broken;
+    };
 
-    /// Close the interpreter and unload it from memory. Called
-    /// automatically by the destructor, so you shouldn't need it yourself
-    static void del();
-
-
-public slots:
-    /**
-     * Load the configuration.
-     */
-    void readConfiguration(const QString &groupPrefix);
-    /// Write out the configuration.
-    void saveConfiguration();
-    /// (re)Load the configured modules.
-    void reloadConfiguration();
-
-protected:
-
-    Engine(QObject *parent);
+    /// Default constructor: initialize Python interpreter
+    Engine();
+    /// Cleanup everything on unload
     ~Engine();
 
-    /// Start the interpreter.
-    bool init();
+    //BEGIN QAbstractItemModel interface
+    virtual int columnCount(const QModelIndex&) const /*override*/;
+    virtual int rowCount(const QModelIndex&) const /*override*/;
+    virtual QModelIndex index(int, int, const QModelIndex&) const /*override*/;
+    virtual QModelIndex parent(const QModelIndex&) const /*override*/;
+    virtual QVariant headerData(int, Qt::Orientation, int) const /*override*/;
+    virtual QVariant data(const QModelIndex&, int) const /*override*/;
+    virtual Qt::ItemFlags flags(const QModelIndex&) const /*override*/;
+    virtual bool setData(const QModelIndex&, const QVariant&, int) /*override*/;
+    //END QAbstractItemModel interface
 
-    /**
-     * Walk over the model, loading all usable plugins into a PyObject module
-     * dictionary.
-     */
+    void readSessionPluginsConfiguration(KConfigBase*);
+    void writeSessionPluginsConfiguration(KConfigBase*);
+
+    QStringList enabledPlugins() const;                     ///< Form a list of enabled plugins
+    const QList<PluginState>& plugins() const;              ///< Provide immutable access to found plugins
+    QString tryInitializeGetFailureReason();                ///< Try to initialize Python interpreter
+    operator bool_type() const;                             ///< Check if instance is usable
+
+public Q_SLOTS:
+    void readGlobalPluginsConfiguration();                  ///< Load plugins' configuration.
+    void saveGlobalPluginsConfiguration();                  ///< Write out plugins' configuration.
+    /// Scan for plugins and load only explicitly enabled
+    void tryLoadEnabledPlugins(const QStringList&);
+    void reloadEnabledPlugins();                            ///< (re)Load the configured modules.
+
+protected:
+    /// Load enabled modules (a real implementation)
     void loadModules();
+    /// Unload enabled modules
     void unloadModules();
 
 private:
-    static Engine *s_self;
-
-    /**
-     * The root configuration used by Pate itself.
-     */
-    QString m_pateConfigGroup;
+    // Simulate strong typed enums from C++11
+    struct Column
+    {
+        enum type
+        {
+            NAME
+          , COMMENT
+          , LAST__
+        };
+    };
 
     /**
      * The root configuration used by Pate's Python objects. It is a Python
      * dictionary.
      */
-    PyObject *m_configuration;
+    PyObject* m_configuration;
+    PyObject* m_sessionConfiguration;
+    QList<PluginState> m_plugins;
+    bool m_engineIsUsable;
     bool m_pluginsLoaded;
 };
 
+inline const KUrl& Engine::PluginState::moduleFilename() const
+{
+    return m_moduleFile;
+}
+inline const QString& Engine::PluginState::errorReason() const
+{
+    return m_errorReason;
+}
+inline bool Engine::PluginState::isEnabled() const
+{
+    return m_enabled;
+}
+inline bool Engine::PluginState::isBroken() const
+{
+    return m_broken;
+}
 
-} // namespace Pate
+inline const QList<Engine::PluginState>& Engine::plugins() const
+{
+    return m_plugins;
+}
 
-#endif
+inline Engine::operator bool_type() const
+{
+    return m_engineIsUsable ? &Engine::unspecified_true_bool_type : 0;
+}
+
+}                                                           // namespace Pate
+#endif                                                      //  __PATE_ENGINE_H__
+// kate: indent-width 4;

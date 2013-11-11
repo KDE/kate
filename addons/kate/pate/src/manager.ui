@@ -12,7 +12,7 @@
       </font>
      </property>
      <property name="text">
-      <string>ERROR: The Python engine could not be initialized</string>
+      <string>Error: The Python engine could not be initialized</string>
      </property>
     </widget>
    </item>
@@ -22,31 +22,63 @@
       <attribute name="title">
        <string>Manager</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="1" column="0">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Reloading a running plugin may have unpredictable effects. Consider saving your work before using this command.</string>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QTreeView" name="pluginsList">
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
          </property>
-         <property name="wordWrap">
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="rootIsDecorated">
+          <bool>false</bool>
+         </property>
+         <property name="itemsExpandable">
+          <bool>false</bool>
+         </property>
+         <property name="sortingEnabled">
           <bool>true</bool>
          </property>
+         <property name="expandsOnDoubleClick">
+          <bool>false</bool>
+         </property>
+         <attribute name="headerShowSortIndicator" stdset="0">
+          <bool>false</bool>
+         </attribute>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="KPushButton" name="reload">
-         <property name="text">
-          <string>Reload Plugins</string>
-         </property>
-         <property name="icon">
-          <iconset theme="system-reboot">
-           <normaloff/>
-          </iconset>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0" colspan="2">
-        <widget class="QTreeView" name="tree"/>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="KPushButton" name="reload">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Caution:&lt;/span&gt; Reloading a running plugin may have unpredictable effects. Consider saving your work before using this command.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="text">
+            <string>Reload Plugins</string>
+           </property>
+           <property name="icon">
+            <iconset theme="system-reboot">
+             <normaloff/>
+            </iconset>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
       </layout>
      </widget>

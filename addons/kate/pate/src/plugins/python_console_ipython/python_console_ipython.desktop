@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=python_console_ipython/python_console_ipython.py
+Name=IPython Console
+Comment=Interactive console for hacking kate and doing science
+X-Python-2-Compatible=true
+X-Python-3-Compatible=true

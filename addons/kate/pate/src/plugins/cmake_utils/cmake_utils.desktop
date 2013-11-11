@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=cmake_utils/cmake_utils.py
+Name=CMake Utilities
+Comment=Code completer, cache and help browser
+X-Python-2-Compatible=false
+X-Python-3-Compatible=true

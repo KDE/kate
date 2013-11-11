@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=python_autocomplete/python_autocomplete.py
+Name=Python Autocompletion
+Comment=Beta, only for Python 2
+X-Python-2-Compatible=true
+X-Python-3-Compatible=false

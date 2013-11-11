@@ -18,90 +18,100 @@
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
 
-#ifndef PATE_PLUGIN_H
-#define PATE_PLUGIN_H
+#ifndef _PATE_PLUGIN_H_
+# define _PATE_PLUGIN_H_
 
-#include "Python.h"
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
-#include <kate/pluginconfigpageinterface.h>
+# include <Python.h>
+# include <kate/mainwindow.h>
+# include <kate/plugin.h>
+# include <kate/pluginconfigpageinterface.h>
 
-#include <kxmlguiclient.h>
+# include <kxmlguiclient.h>
 
-#include <QList>
+# include <QList>
 
-#include "ui_info.h"
-#include "ui_manager.h"
+# include "engine.h"
+# include "ui_info.h"
+# include "ui_manager.h"
 
-
+// Fwd decls
 class QPushButton;
 class QCheckBox;
 class QTreeView;
 
 namespace Pate
 {
-
 /**
  * The Pate plugin supports the creation of Kate scripts in Python. The script
- * modules are either as individual .py files (e.g. bar.py), or a directory
- * which contains a .py file named after the directory (i.e. foo/foo.py for
- * directory foo).
+ * modules must provide a \c .desktop file describing the plugin name, comment
+ * and particular Python module to load.
  *
  * The modules which are found, along with three pre-defined support modules
- * ("kate", "kate,gui" and "pate") are displayed and managed through this
+ * (\c kate, \c kate.gui and \c pate) are displayed and managed through this
  * plugin.
  *
- * The modules are looked for in an ordered series of directories which are
- * added to sys.path. A module found in one directory "hides" similarly named
- * modules in later directories; the hidden modules cannot be used. Usable
+ * The modules which are failed to load gets disabled in a manager. Usable
  * modules can be enabled by the user, and any methods decorated with
- * "kate.action" or "kate.configPage" will be hooked into Kate as appropriate.
+ * \c kate.action or \c kate.configPage will be hooked into Kate as appropriate.
  *
  * Configuration support has these elements:
  *
- *  - Configuration of the Pate plugin itself. This is stored in katerc as for
+ *  - Configuration of the Pate plugin itself. This is stored in \c katerc as for
  *    other Kate plugins in appropriately named groups.
  *
- *  - Configuration of modules. This is provided via "kate.configuration" which
+ *  - Configuration of modules. This is provided via \c kate.configuration which
  *    allows each module native Python object configuration storage via
  *    katepaterc. Plugins which wish to can hook their configuration into
- *    Kate's configuration system using "kate.configPage".
+ *    Kate's configuration system using \c kate.configPage.
  */
-class Plugin :
-    public Kate::Plugin,
-    public Kate::PluginConfigPageInterface
+class Plugin
+  : public Kate::Plugin
+  , public Kate::PluginConfigPageInterface
 {
     Q_OBJECT
     Q_INTERFACES(Kate::PluginConfigPageInterface)
 
 public:
-    explicit Plugin(QObject *parent = 0, const QStringList& = QStringList());
+    explicit Plugin(QObject* = 0, const QStringList& = QStringList());
     virtual ~Plugin();
 
-    Kate::PluginView *createView(Kate::MainWindow *mainWindow);
+    Kate::PluginView* createView(Kate::MainWindow*);
 
     /**
-     * Read the config for the plugin.
+     *  Read the configuration for the plugin.
      */
-    virtual void readSessionConfig(KConfigBase *config, const QString &groupPrefix);
+    virtual void readSessionConfig(KConfigBase* config, const QString& groupPrefix);
 
     /**
-     * Write the config for the plugin.
+     * Write the configuration for the plugin.
      */
-    virtual void writeSessionConfig(KConfigBase *config, const QString &groupPrefix);
+    virtual void writeSessionConfig(KConfigBase* config, const QString& groupPrefix);
 
-    // PluginConfigPageInterface
+    //BEGIN PluginConfigPageInterface
     uint configPages() const;
-    Kate::PluginConfigPage *configPage(uint number = 0, QWidget *parent = 0, const char *name = 0);
+    Kate::PluginConfigPage* configPage(uint number = 0, QWidget* parent = 0, const char* name = 0);
     QString configPageName(uint number = 0) const;
     QString configPageFullName(uint number = 0) const;
     KIcon configPageIcon(uint number = 0) const;
+    //END PluginConfigPageInterface
+
+    /// Read-only access to the engine
+    const Pate::Engine& engine() const;
+    /// Read-write access to the engine
+    Pate::Engine& engine();
+    /// Check if engine is initialized properly,
+    /// show a passive popup if it doesn't
+    bool checkEngineShowPopup() const;
 
 private:
     friend class ConfigPage;
-    bool m_autoReload;
-    mutable QList<PyObject *> m_moduleConfigPages;
     void reloadModuleConfigPages() const;
+    static QString getSessionPrivateStorageFilename(KConfigBase*);
+
+    mutable QList<PyObject*> m_moduleConfigPages;
+    Pate::Engine m_engine;
+    QString m_engineFailureReason;
+    bool m_autoReload;
 };
 
 /**
@@ -113,19 +123,18 @@ class PluginView :
     Q_OBJECT
 
 public:
-    PluginView(Kate::MainWindow *window);
+    PluginView(Kate::MainWindow* window);
 };
 
 /**
  * The Pate plugin's configuration view.
  */
-class ConfigPage :
-    public Kate::PluginConfigPage
+class ConfigPage : public Kate::PluginConfigPage
 {
     Q_OBJECT
 
 public:
-    explicit ConfigPage(QWidget *parent = 0, Plugin *plugin = 0);
+    explicit ConfigPage(QWidget* parent = 0, Plugin* plugin = 0);
     virtual ~ConfigPage();
 
 public Q_SLOTS:
@@ -134,13 +143,13 @@ public Q_SLOTS:
     virtual void defaults();
 
 private:
-    Plugin *m_plugin;
+    Plugin* m_plugin;
     Ui::ManagerPage m_manager;
     Ui::InfoPage m_info;
-    PyObject *m_pluginActions;
-    PyObject *m_pluginConfigPages;
+    PyObject* m_pluginActions;
+    PyObject* m_pluginConfigPages;
 
-private slots:
+private Q_SLOTS:
     void reloadPage(bool init);
     void infoTopicChanged(int topicIndex);
     void infoPluginActionsChanged(int actionIndex);
@@ -150,20 +159,19 @@ private slots:
 /**
  * A page used if an error occurred trying to load a plugin's config page.
  */
-class ErrorConfigPage :
-    public Kate::PluginConfigPage
+class ErrorConfigPage : public Kate::PluginConfigPage
 {
     Q_OBJECT
 
 public:
-    explicit ErrorConfigPage(QWidget *parent = 0, const QString &traceback = QString());
+    explicit ErrorConfigPage(QWidget* parent = 0, const QString& traceback = QString());
 
-public slots:
+public Q_SLOTS:
     virtual void apply() {}
     virtual void reset() {}
     virtual void defaults() {}
 };
 
-} // namespace Pate
-
-#endif
+}                                                           // namespace Pate
+#endif                                                      // _PATE_PLUGIN_H_
+// kate: indent-width 4;

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Kate/Pâté color plugins
-# Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>
+# Copyright 2013 by Alex Turbov <i.zaufi@gmail.com>
 # Copyright 2013 by Phil Schaf
 #
 #
@@ -43,7 +43,7 @@ import string
 
 from PyQt4 import uic
 from PyQt4.QtCore import QEvent, QObject, QTimer, Qt, pyqtSlot, pyqtSignal
-from PyQt4.QtGui import QColor, QFrame, QPalette, QToolTip, QWidget, QVBoxLayout
+from PyQt4.QtGui import QColor, QFrame, QPalette, QPixmap, QToolTip, QWidget, QVBoxLayout
 
 from PyKDE4.kdecore import i18nc
 from PyKDE4.kdeui import KColorDialog, KColorCells, KPushButton
@@ -335,7 +335,7 @@ class PaletteView(QObject):
         self.toolView = kate.mainInterfaceWindow().createToolView(
             'color_tools_pate_plugin'
           , kate.Kate.MainWindow.Bottom
-          , kate.gui.loadIcon('color')
+          , QPixmap('color')
           , i18nc('@title:tab', 'Palette')
           )
         self.toolView.installEventFilter(self)

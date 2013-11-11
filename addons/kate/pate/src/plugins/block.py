@@ -21,7 +21,6 @@
 '''Plugins to help code editing'''
 
 import kate
-import kate.gui
 
 from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor

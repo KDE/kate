@@ -593,7 +593,11 @@ class CMakeToolView(QObject):
         except ValueError as error:
             ui.popup(
                 i18nc('@title:window', 'Error')
-              , i18nc('@info:tooltip', 'Unable to get CMake cache content:<nl/><message>%1</message>', error)
+              , i18nc(
+                    '@info:tooltip'
+                  , 'Unable to get CMake cache content:<nl/><message>%1</message>'
+                  , str(error)
+                  )
               , 'dialog-error'
               )
             return

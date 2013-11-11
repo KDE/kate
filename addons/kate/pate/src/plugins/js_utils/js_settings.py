@@ -42,8 +42,8 @@ class KATE_ACTIONS:
         'icon': None,
     }
 
-KATE_CONFIG = {'name': 'js_utils',
-               'fullName': i18n('JavaScript Utils'),
+KATE_CONFIG = {'name': i18n('JavaScript Utilites'),
+               'fullName': i18n('JavaScript Utilites'),
                'icon': 'application-x-javascript'}
 
 class SettingType:

@@ -12,6 +12,7 @@ install(
         python_autocomplete/katepate_python_autocomplete.desktop
         python_console_classic/katepate_python_console_classic.desktop
         python_console_ipython/katepate_python_console_ipython.desktop
+        js_utils/js_utils.desktop
     DESTINATION ${SERVICES_INSTALL_DIR}
   )
 
@@ -57,7 +58,7 @@ install(
 install(
     DIRECTORY js_utils
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate
-    FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json"
+    FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json" PATTERN "*.js"
     )
 
 install(

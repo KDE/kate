@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=js_utils/js_utils.py
+Name=JavaScript Utilities
+Comment=JS and jQuery autocompletion, a jQuery ready snippet, JSLint/JSHint
+X-Python-2-Compatible=true
+X-Python-3-Compatible=true

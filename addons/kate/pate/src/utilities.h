@@ -182,13 +182,31 @@ public:
      *
      * @param o         The object to be wrapped.
      * @param className The full class name of o, e.g. "PyQt4.QtGui.QWidget".
-     * @return 0 or a new reference to the object.
+     * @return @c 0 or a new reference to the object.
      */
     PyObject* objectWrap(void* o, const QString& className);
+
+    /**
+     * Add a given path to to the front of \c PYTHONPATH
+     *
+     * @param path      A string (path) to be added
+     * @return @c true on success, @c false otherwise.
+     */
+    bool prependPythonPaths(const QString& path);
+
+    /**
+     * Add listed paths to to the front of \c PYTHONPATH
+     *
+     * @param paths     A string list (paths) to be added
+     * @return @c true on success, @c false otherwise.
+     */
+    bool prependPythonPaths(const QStringList& paths);
 
     static const char* PATE_ENGINE;
 
 private:
+    /// @internal Helper function for @c prependPythonPaths overloads
+    bool prependPythonPaths(const QString&, PyObject*);
     PyGILState_STATE m_state;
     QString m_traceback;
 

@@ -29,6 +29,7 @@
 # include <QStringList>
 
 namespace Pate {
+class Python;                                               // fwd decl
 
 /**
  * The Engine class hosts the Python interpreter, loading

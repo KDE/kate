@@ -192,28 +192,32 @@ QString Pate::Engine::tryInitializeGetFailureReason()
     Python::libraryLoad();
     Python py = Python();
 
-    // Move the custom directories to the front, so they get picked up instead
+    // Update PYTHONPATH
+    // 0) w/ site_packages/ dir first
+    // 1) move the custom directories to the front, so they get picked up instead
     // of stale distribution ones.
     QStringList pluginDirectories = KGlobal::dirs()->findDirs("appdata", "plugins/pate/");
     kDebug() << "Plugin Directories: " << pluginDirectories;
-    QString sitePackageDirectory = QLatin1String(PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR);
-    PyObject* sysPath = py.itemString("path", "sys");
-    if (!sysPath)
-        return i18nc("@info:tooltip ", "Cannot get Python paths");
-
-    if (!py.prependStringToList(sysPath, sitePackageDirectory))
+    const bool is_path_updated =
+        py.prependPythonPaths(QLatin1String(PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR))
+      && py.prependPythonPaths(pluginDirectories)
+      ;
+    if (!is_path_updated)
         return i18nc("@info:tooltip ", "Cannot update Python paths");
 
-    Q_FOREACH(const QString& dir, pluginDirectories)
+    // Show some SPAM
+    /// \todo Add <em>"About Python"</em> to Help menu or <em>System Info</em> tab
+    /// to the plugin configuration, so users (and plugin authors) can get a path
+    /// list (and probably other (interestring) system details) w/o reading a lot
+    /// of SPAM from terminal or \c ~/.xsession_errors file.
+    if (PyObject* sysPath = py.itemString("path", "sys"))
     {
-        if (!py.prependStringToList(sysPath, dir))
-            return i18nc("@info:tooltip ", "Cannot update Python paths");
-    }
-    Py_ssize_t len = PyList_Size(sysPath);
-    for (Py_ssize_t i = 0; i < len; i++)
-    {
-        PyObject* path = PyList_GetItem(sysPath, i);
-        kDebug() << "sys.path" << i << Python::unicode(path);
+        Py_ssize_t len = PyList_Size(sysPath);
+        for (Py_ssize_t i = 0; i < len; i++)
+        {
+            PyObject* path = PyList_GetItem(sysPath, i);
+            kDebug() << "sys.path" << i << Python::unicode(path);
+        }
     }
 
     PyRun_SimpleString(

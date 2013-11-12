@@ -501,6 +501,32 @@ void Python::updateDictionaryFromConfiguration(PyObject* const dictionary, const
     }
 }
 
+bool Python::prependPythonPaths(const QString& path)
+{
+    PyObject* sys_path = itemString("path", "sys");
+    return bool(sys_path) && prependPythonPaths(path, sys_path);
+}
+
+bool Python::prependPythonPaths(const QStringList& paths)
+{
+    PyObject* sys_path = itemString("path", "sys");
+    if (!sys_path)
+        return false;
+
+    Q_FOREACH(const QString& path, paths)
+    {
+        if (!prependPythonPaths(path, sys_path))
+            return false;
+    }
+    return true;
+}
+
+bool Python::prependPythonPaths(const QString& path, PyObject* sys_path)
+{
+    Q_ASSERT("Dir entry expected to be valid" && sys_path);
+    return bool(prependStringToList(sys_path, path));
+}
+
 }                                                           // namespace Pate
 
 // kate: indent-width 4;

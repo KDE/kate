@@ -41,7 +41,7 @@ def prettify_JSON(view):
     """A simple JSON pretty printer. JSON formatter which a good indents"""
     source = view.selectionText()
     if not source:
-        showError(i18nc('@info:whatsthis', 'Please select JSON text and press: <shortcut>%1</shortcut>', PRETTIFY_JSON_SHORTCUT))
+        showError(i18nc('@info:status', 'Please select JSON text and press: <shortcut>%1</shortcut>', PRETTIFY_JSON_SHORTCUT))
     else:
         indent = SETTING_INDENT_JSON.lookup()
         encoding = SETTING_ENCODING_JSON.lookup()
@@ -56,6 +56,6 @@ def prettify_JSON(view):
             view.removeSelectionText()
             text.insertText(target)
         except ValueError as e:
-            showError(i18n('This selected text is not valid JSON: %1', e.message))
+            showError(i18nc('@info:status', 'This selected text is not valid JSON: <message>%1</message>', e.message))
 
 # kate: space-indent on; indent-width 4;

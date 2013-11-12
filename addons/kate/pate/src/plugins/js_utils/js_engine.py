@@ -1,6 +1,9 @@
 from PyQt4.QtScript import QScriptEngine, QScriptValue, QScriptValueIterator
 
-from collections.abc import Mapping, Iterable
+try:
+    from collections.abc import Mapping, Iterable
+except ImportError:
+    from collections import Mapping, Iterable
 
 def iter_js_obj(js_obj):
     """QScriptValueIterator to python iterator emitting tuples of (str, QScriptValue)"""

@@ -648,6 +648,12 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo bar xyz", "v\\ctrl-\\rightd", "ar xyz");
     DoTest("foo bar xyz", "$v\\ctrl-\\leftd", "foo bar ");
 
+    // Pasting should replace the current selection.
+    DoTest("foo bar xyz", "yiwwviwp", "foo foo xyz");
+    // Undo should undo both paste and removal of selection.
+    DoTest("foo bar xyz", "yiwwviwpu", "foo bar xyz");
+    DoTest("foo\nbar\n123\nxyz", "yiwjVjp", "foo\nfoo\nxyz");
+
     // Set the *whole* selection to the given text object, even if the cursor is no
     // longer at the position where Visual Mode was started.
     // This seems to work (in Vim) only when the start of the given text object occurs before them

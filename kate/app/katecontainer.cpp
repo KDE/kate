@@ -124,8 +124,9 @@ void KateContainer::deleteViewBarForView(KTextEditor::View *view, KTextEditor::V
 //BEGIN KTextEditor::MdiContainer
 void KateContainer::setActiveView(KTextEditor::View *view)
 {
-  Q_UNUSED(view)
-  // NOTE: not implemented
+  if ( view && KateApp::self()->activeMainWindow()->viewManager()->viewList().contains(view) ) {
+    KateApp::self()->activeMainWindow()->viewManager()->setActiveView(view);
+  }
 }
 
 KTextEditor::View *KateContainer::activeView()
@@ -135,32 +136,34 @@ KTextEditor::View *KateContainer::activeView()
 
 KTextEditor::Document *KateContainer::createDocument()
 {
-  // NOTE: not implemented
-  kWarning() << "WARNING: interface call not implemented";
-  return 0;
+  return KateDocManager::self()->createDoc();
 }
 
 bool KateContainer::closeDocument(KTextEditor::Document *doc)
 {
-  Q_UNUSED(doc)
-  // NOTE: not implemented
-  kWarning() << "WARNING: interface call not implemented";
+  if ( doc && KateDocManager::self()->findDocument(doc) ) {
+    return KateDocManager::self()->closeDocument(doc);
+  }
   return false;
 }
 
 KTextEditor::View *KateContainer::createView(KTextEditor::Document *doc)
 {
-  Q_UNUSED(doc)
-  // NOTE: not implemented
-  kWarning() << "WARNING: interface call not implemented";
+  if ( ! doc || ! KateApp::self()->documentManager()->findDocument(doc) ) {
+    return 0;
+  }
+  const bool success = KateApp::self()->activeMainWindow()->viewManager()->createView(doc);
+  if (success) {
+    return KateApp::self()->activeMainWindow()->viewManager()->activeView();
+  }
   return 0;
 }
 
 bool KateContainer::closeView(KTextEditor::View *view)
 {
-  Q_UNUSED(view)
-  // NOTE: not implemented
-  kWarning() << "WARNING: interface call not implemented";
+  if ( view && KateApp::self()->activeMainWindow()->viewManager()->viewList().contains(view) ) {
+    return view->close();
+  }
   return false;
 }
 //END KTextEditor::MdiContainer

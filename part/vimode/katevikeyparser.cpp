@@ -788,7 +788,7 @@ const QChar KateViKeyParser::KeyEventToQChar(const QKeyEvent& keyEvent)
   }
 
   if ( text.isEmpty() || ( text.length() == 1 && text.at(0) < 0x20 )
-      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier && mods != Qt::KeypadModifier ) ) {
+      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier && mods != Qt::KeypadModifier && mods != Qt::GroupSwitchModifier) ) {
     QString keyPress;
 
     keyPress.append( '<' );

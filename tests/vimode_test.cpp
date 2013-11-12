@@ -819,6 +819,25 @@ void ViModeTest::InsertModeTests() {
 
   // Test that our test driver can handle newlines during insert mode :)
   DoTest("", "ia\\returnb", "a\nb");
+
+  // Test Alt-gr still works - this isn't quite how things work in "real-life": in real-life, something like
+  // Alt-gr+7 would be a "{", but I don't think this can be reproduced without sending raw X11
+  // keypresses to Qt, so just duplicate the keypress events we would receive if we pressed
+  // Alt-gr+7 (that is: Alt-gr down; "{"; Alt-gr up).
+  BeginTest("");
+  TestPressKey("i");
+  QKeyEvent *altGrDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_AltGr, Qt::NoModifier);
+  QApplication::postEvent(kate_view->focusProxy(), altGrDown);
+  QApplication::sendPostedEvents();
+  // Not really Alt-gr and 7, but this is the key event that is reported by Qt if we press that.
+  QKeyEvent *altGrAnd7 = new QKeyEvent(QEvent::KeyPress, Qt::Key_BraceLeft, Qt::GroupSwitchModifier, "{" );
+  QApplication::postEvent(kate_view->focusProxy(), altGrAnd7);
+  QApplication::sendPostedEvents();
+  QKeyEvent *altGrUp = new QKeyEvent(QEvent::KeyRelease, Qt::Key_AltGr, Qt::NoModifier);
+  QApplication::postEvent(kate_view->focusProxy(), altGrUp);
+  QApplication::sendPostedEvents();
+  TestPressKey("\\ctrl-c");
+  FinishTest("{");
 }
 
 void ViModeTest::NormalModeMotionsTest() {

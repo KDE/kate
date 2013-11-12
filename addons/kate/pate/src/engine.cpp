@@ -457,7 +457,7 @@ void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
         {
             plugin.m_errorReason = i18nc(
                 "@info:tooltip"
-              , "Module is not exists at path specified or not a readable file"
+              , "Module does not exist at the path specified or not a readable file"
               );
         }
 

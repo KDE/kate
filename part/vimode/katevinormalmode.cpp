@@ -3346,7 +3346,14 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste, bool is
     }
   }
 
+  doc()->editBegin();
+  if (m_view->selection())
+  {
+    pasteAt = m_view->selectionRange().start();
+    doc()->removeText(m_view->selectionRange());
+  }
   doc()->insertText( pasteAt, textToInsert, m == Block );
+  doc()->editEnd();
 
   if (cursorAfterPaste.line() >= doc()->lines())
   {

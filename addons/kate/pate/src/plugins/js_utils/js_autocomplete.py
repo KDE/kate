@@ -20,7 +20,7 @@
 import kate
 import re
 
-from PyKDE4.kdecore import i18n
+from PyKDE4.kdecore import i18nc
 
 from libkatepate.autocomplete import AbstractJSONFileCodeCompletionModel, reset
 from js_settings import SETTING_JS_AUTOCOMPLETE, SETTING_JQUERY_AUTOCOMPLETE
@@ -28,7 +28,7 @@ from js_settings import SETTING_JS_AUTOCOMPLETE, SETTING_JQUERY_AUTOCOMPLETE
 
 class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):
     MIMETYPES = ['application/javascript', 'text/html']
-    TITLE_AUTOCOMPLETION = i18n("JS autocomplete")
+    TITLE_AUTOCOMPLETION = i18nc('@title:menu', 'JavaScript autocomplete')
     # generated with autocomplete_js.gen
     FILE_PATH = 'js_autocomplete.json'
     OPERATORS = ["=", " ", "[", "]", "(", ")", "{", "}", ":", ">", "<",
@@ -47,7 +47,7 @@ class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):
 
 
 class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
-    TITLE_AUTOCOMPLETION = i18n("jQuery autocomplete")
+    TITLE_AUTOCOMPLETION = i18nc('@title:menu', 'jQuery autocomplete')
     FILE_PATH = 'jquery_autocomplete.json'
     # generated with autocomplete_jquery.gen
 
@@ -68,7 +68,7 @@ class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
         if m:
             return m.groups()[1] or ''
         expr = super(StaticJSCodeCompletionModel, self).getLastExpression(line, operators=operators)
-        if expr.startswith("$."):
+        if expr.startswith('$.'):
             expr = expr.replace('$.', 'jQuery.', 1)
         return expr
 
@@ -78,9 +78,7 @@ class StaticJQueryCompletionModel(StaticJSCodeCompletionModel):
         return self.json
 
 
-@kate.init
-@kate.viewCreated
-def init_js(view=None):
+def init_js_autocomplete(view=None):
     global js_ccm
     if not SETTING_JS_AUTOCOMPLETE.lookup():
         return
@@ -92,9 +90,7 @@ def init_js(view=None):
     cci.registerCompletionModel(js_ccm)
 
 
-@kate.init
-@kate.viewCreated
-def init_jquery(view=None):
+def init_jquery_autocomplete(view=None):
     global jquery_ccm
     if not SETTING_JQUERY_AUTOCOMPLETE.lookup():
         return

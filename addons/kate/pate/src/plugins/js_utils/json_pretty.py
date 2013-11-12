@@ -19,7 +19,6 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/json_plugins.py>
 
-import kate
 import sys
 try:
     import simplejson as json
@@ -28,22 +27,21 @@ except ImportError:
     import json
     LIB_JSON = 'standard'
 
-from PyKDE4.kdecore import i18n
+from PyKDE4.kdecore import i18nc
 
 from libkatepate import text
 from libkatepate.errors import showError
-from js_settings import (KATE_ACTIONS,
-                         SETTING_INDENT_JSON,
+from js_settings import (SETTING_INDENT_JSON,
                          SETTING_ENCODING_JSON)
 
+PRETTIFY_JSON_SHORTCUT = 'Ctrl+Alt+J'
 
-@kate.action(**KATE_ACTIONS.prettify_JSON)
-def prettify_JSON():
+
+def prettify_JSON(view):
     """A simple JSON pretty printer. JSON formatter which a good indents"""
-    view = kate.activeView()
     source = view.selectionText()
     if not source:
-        showError(i18n('Please select JSON text and press: %1', KATE_ACTIONS.prettify_JSON['shortcut']))
+        showError(i18nc('@info:whatsthis', 'Please select JSON text and press: <shortcut>%1</shortcut>', PRETTIFY_JSON_SHORTCUT))
     else:
         indent = SETTING_INDENT_JSON.lookup()
         encoding = SETTING_ENCODING_JSON.lookup()

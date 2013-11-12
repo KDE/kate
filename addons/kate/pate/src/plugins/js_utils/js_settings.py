@@ -16,35 +16,7 @@
 
 import kate
 
-from PyKDE4.kdecore import i18n
-
 from libkatepate import text
-
-JS_MENU = 'JavaScript'
-
-class KATE_ACTIONS:
-    insert_jquery_ready = {
-        'text': 'jQuery Ready',
-        'shortcut': 'Ctrl+J',
-        'menu': JS_MENU,
-        'icon': None,
-    }
-    lint_JS = {
-        'text': 'Lint JavaScript',
-        'shortcut': 'Alt+9',
-        'menu': JS_MENU,
-        'icon': None,
-    }
-    prettify_JSON = {
-        'text': i18n('Pretty JSON'),
-        'shortcut': 'Ctrl+Alt+J',
-        'menu': JS_MENU,
-        'icon': None,
-    }
-
-KATE_CONFIG = {'name': i18n('JavaScript Utilites'),
-               'fullName': i18n('JavaScript Utilites'),
-               'icon': 'application-x-javascript'}
 
 class SettingType:
     def __init__(self, default, alternate):

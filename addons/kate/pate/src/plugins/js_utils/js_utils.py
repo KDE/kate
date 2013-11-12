@@ -21,91 +21,53 @@
 # The original author of the jslint checker is Alejandro Blanco <alejandro.b.e@gmail.com>
 
 import kate
-import os
 
-from PyQt4 import uic
-from PyQt4.QtGui import QWidget
+from libkatepate import text
 
-from js_settings import (KATE_CONFIG,
-                         BoundSetting,
-                         SETTING_INDENT_JSON,
-                         SETTING_ENCODING_JSON,
-                         SETTING_LINTER,
-                         SETTING_LINT_ON_SAVE,
-                         SETTING_JS_AUTOCOMPLETE,
-                         SETTING_JQUERY_AUTOCOMPLETE,
-                         SETTING_JQUERY_READY)
+from PyKDE4.kdecore import i18nc
 
-from js_lint import lint_js_action
-from js_snippets import insert_jquery_ready
-from json_pretty import prettify_JSON
-
-ACTIONS = [lint_js_action, insert_jquery_ready, prettify_JSON] #only this module is imported, so we need to reference the others explicitly
-
-_CONFIG_UI = 'js_utils.ui'
+from js_settings import SETTING_JQUERY_READY
+from js_config_page import ConfigPage
+from js_lint import lint_js, init_js_lint
+from js_autocomplete import init_js_autocomplete, init_jquery_autocomplete
+from json_pretty import prettify_JSON, PRETTIFY_JSON_SHORTCUT
 
 
-class ConfigWidget(QWidget):
-    """Configuration widget for this plugin."""
-
-    def __init__(self, parent=None, name=None):
-        super(ConfigWidget, self).__init__(parent)
-        # Set up the user interface from Designer.
-        uic.loadUi(os.path.join(os.path.dirname(__file__), _CONFIG_UI), self)
-
-        self.settings = [
-            BoundSetting(SETTING_INDENT_JSON,         self.jsonIndent),
-            BoundSetting(SETTING_ENCODING_JSON,       self.jsonEncoding),
-            BoundSetting(SETTING_LINTER,              self.linter),
-            BoundSetting(SETTING_LINT_ON_SAVE,        self.lintOnSave),
-            BoundSetting(SETTING_JS_AUTOCOMPLETE,     self.jsAutocompletion),
-            BoundSetting(SETTING_JQUERY_AUTOCOMPLETE, self.jQueryAutocompletion),
-            BoundSetting(SETTING_JQUERY_READY,        self.jQueryReady),
-        ]
-
-    def apply(self):
-        for setting in self.settings:
-            setting.save()
-        kate.configuration.save()
-
-    def reset_widget(self):
-        for setting in self.settings:
-            setting.setter(setting.lookup())
-
-    def reset(self):
-        """resets to defaults and saves that"""
-        self.defaults()
-        for setting in self.settings:
-            if setting.key in kate.configuration:
-                setting.save()
-        kate.configuration.save()
-
-    def defaults(self):
-        for setting in self.settings:
-            setting.reset()
+# use for full and short name as short gets used in the menu
+_CFG_PAGE_NAME = i18nc('@title:group', 'JavaScript Utilites')
 
 
-class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
-    """Kate configuration page for this plugin."""
-    def __init__(self, parent=None, name=None):
-        super(ConfigPage, self).__init__(parent, name)
-        self.widget = ConfigWidget(parent)
-        lo = parent.layout()
-        lo.addWidget(self.widget)
-
-    def apply(self):
-        self.widget.apply()
-
-    def reset(self):
-        self.widget.reset()
-
-    def defaults(self):
-        self.widget.defaults()
-        self.changed.emit()
-
-
-@kate.configPage(**KATE_CONFIG)
+@kate.configPage(_CFG_PAGE_NAME, _CFG_PAGE_NAME, 'application-x-javascript')
 def configPage(parent=None, name=None):
     return ConfigPage(parent, name)
+
+
+_JS_MENU = 'JavaScript'
+
+
+@kate.action(i18nc('@action:inmenu', 'Lint JavaScript'), None, 'Alt+9', _JS_MENU)
+def lint_js_action():
+    """Lints the active document"""
+    lint_js(kate.activeDocument(), True)
+
+
+@kate.action(i18nc('@action:inmenu', 'jQuery Ready'), None, 'Ctrl+Shift+J', _JS_MENU)
+def insert_jquery_ready_action():
+    """Snippet with the ready code of the jQuery"""
+    text.insertText(SETTING_JQUERY_READY.lookup(), start_in_current_column=True)
+
+
+@kate.action(i18nc('@action:inmenu', 'Prettify JSON'), None, PRETTIFY_JSON_SHORTCUT, _JS_MENU)
+def prettify_JSON_action():
+    prettify_JSON(kate.activeView())
+
+
+@kate.init
+@kate.viewCreated
+def init(view=None):
+    init_js_lint(view)
+    init_js_autocomplete(view)
+    init_jquery_autocomplete(view)
+
 
 # kate: space-indent on; indent-width 4;

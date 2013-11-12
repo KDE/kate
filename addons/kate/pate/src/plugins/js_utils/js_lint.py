@@ -36,14 +36,12 @@ format of errors:
 
 
 import os.path as p
-import re
 
 import kate
 
-from PyQt4.QtScript import QScriptEngine
-from PyKDE4.kdecore import i18n
+from PyKDE4.kdecore import i18nc
 
-from js_settings import KATE_ACTIONS, SETTING_LINT_ON_SAVE, SETTING_LINTER
+from js_settings import SETTING_LINT_ON_SAVE, SETTING_LINTER
 from js_engine import PyJSEngine, JSModule
 from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
                                 showErrors, showOk)
@@ -70,7 +68,7 @@ def lint_js(document, move_cursor=False):
 
     ok = linter(document.text(), {})
     if ok:
-        showOk(i18n('%1 Ok', linter_name))
+        showOk(i18nc('@info:status', '<application>%1</application> OK', linter_name))
         return
 
     errors = [error for error in linter['errors'] if error]  # sometimes None
@@ -86,17 +84,11 @@ def lint_js(document, move_cursor=False):
 
     mark_key = '{}-{}'.format(document.url().path(), linter_name)
 
-    showErrors(i18n('JSLint Errors:'),
+    showErrors(i18nc('@info:status', '<application>%1</application> Errors:', linter_name),
                errors,
                mark_key, document,
                key_column='character',
                move_cursor=move_cursor)
-
-
-@kate.action(**KATE_ACTIONS.lint_JS)
-def lint_js_action():
-    """Lints the active document"""
-    lint_js(kate.activeDocument(), True)
 
 
 def lint_on_save(document):
@@ -107,9 +99,7 @@ def lint_on_save(document):
         lint_js(document)
 
 
-@kate.init
-@kate.viewCreated
-def init(view=None):
+def init_js_lint(view=None):
     doc = view.document() if view else kate.activeDocument()
     doc.modifiedChanged.connect(lint_on_save)
 

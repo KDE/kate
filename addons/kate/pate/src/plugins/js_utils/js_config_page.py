@@ -20,6 +20,8 @@
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/jste_plugins/>
 # The original author of the jslint checker is Alejandro Blanco <alejandro.b.e@gmail.com>
 
+from __future__ import absolute_import
+
 import kate
 import os.path as p
 

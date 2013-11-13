@@ -17,6 +17,8 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/autocomplete.py>
 
+from __future__ import absolute_import
+
 import kate
 import re
 

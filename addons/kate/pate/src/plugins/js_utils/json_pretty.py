@@ -19,6 +19,8 @@
 # This file originally was in this repository:
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/jste_plugins/json_plugins.py>
 
+from __future__ import absolute_import
+
 import sys
 try:
     import simplejson as json

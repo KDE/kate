@@ -3,15 +3,15 @@
 #
 install(
     FILES
-        block.desktop
-        cmake_utils/cmake_utils.desktop
-        color_tools.desktop
-        commentar.desktop
-        expand.desktop
-        format.desktop
-        python_autocomplete/python_autocomplete.desktop
-        python_console_classic/python_console_classic.desktop
-        python_console_ipython/python_console_ipython.desktop
+        cmake_utils/katepate_cmake_utils.desktop
+        katepate_block.desktop
+        katepate_color_tools.desktop
+        katepate_commentar.desktop
+        katepate_expand.desktop
+        katepate_format.desktop
+        python_autocomplete/katepate_python_autocomplete.desktop
+        python_console_classic/katepate_python_console_classic.desktop
+        python_console_ipython/katepate_python_console_ipython.desktop
     DESTINATION ${SERVICES_INSTALL_DIR}
   )
 

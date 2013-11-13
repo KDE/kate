@@ -133,18 +133,8 @@ PyMODINIT_FUNC PATE_INIT()
 Pate::Engine::PluginState::PluginState()
   : m_enabled(false)
   , m_broken(false)
+  , m_isDir(false)
 {
-}
-
-/**
- * Get python module name to load from the \c X-KDE-Library property
- * of the \c .desktop file
- */
-QString Pate::Engine::PluginState::pythonModuleName() const
-{
-    QString result = m_moduleFile.fileName();
-    result.remove(result.indexOf(".py"), 3);
-    return result;
 }
 //END Pate::Engine::PluginState
 
@@ -196,11 +186,12 @@ QString Pate::Engine::tryInitializeGetFailureReason()
     // 0) w/ site_packages/ dir first
     // 1) move the custom directories to the front, so they get picked up instead
     // of stale distribution ones.
-    QStringList pluginDirectories = KGlobal::dirs()->findDirs("appdata", "plugins/pate/");
+    const QStringList pluginDirectories = KGlobal::dirs()->findDirs("appdata", "plugins/pate/");
     kDebug() << "Plugin Directories: " << pluginDirectories;
     const bool is_path_updated =
         py.prependPythonPaths(QLatin1String(PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR))
       && py.prependPythonPaths(pluginDirectories)
+      && py.prependPythonPaths(KStandardDirs::locateLocal("appdata", "pate/"))
       ;
     if (!is_path_updated)
         return i18nc("@info:tooltip ", "Cannot update Python paths");
@@ -415,14 +406,17 @@ void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
         kDebug() << "Got Kate/PythonPlugin: " << service->name()
           << ", module-path=" << service->library()
           ;
-        // Find the module
-        KUrl module_rel_path = QString(Python::PATE_ENGINE);
-        module_rel_path.addPath(service->library());
-        KUrl module_path = KGlobal::dirs()->findResource(
-            "appdata"
-          , module_rel_path.toLocalFile()
-          );
-        kDebug() << "Found library path:" << module_path;
+        // Make sure mandatory properties are here
+        if (service->name().isEmpty())
+        {
+            kDebug() << "Ignore desktop file w/o a name";
+            continue;
+        }
+        if (service->library().isEmpty())
+        {
+            kDebug() << "Ignore desktop file w/o a module to import";
+            continue;
+        }
 
         // Check Python compatibility
         const bool is_compatible = service->property(
@@ -436,34 +430,41 @@ void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
 
         if (!is_compatible)
         {
-            kDebug() << service->name() << "is incompatible w/ current Python version";
-            continue;
-        }
-        // Check filename
-        QString module_filename = module_path.fileName();
-        if (!module_filename.endsWith(".py"))
-        {
-            kDebug() << service->name() << ": moudule filename"
-              << module_path << "must have `.py' extension!";
+            kDebug() << service->name() << "is incompatible w/ embedded Python version";
             continue;
         }
 
         // Make a new state
         PluginState plugin;
         plugin.m_service = service;
-        plugin.m_moduleFile = module_path;
         plugin.m_enabled = enabled_plugins.indexOf(service->name()) != -1;
 
-        // Make sure the plugin module is really exists
-        QFileInfo mod_info(plugin.m_moduleFile.toLocalFile());
-        plugin.m_broken = !(mod_info.exists() && mod_info.isFile() && mod_info.isReadable());
-        if (plugin.m_broken)
+        // Find the module:
+        // 0) try to locate directory based plugin first
+        KUrl rel_path = QString(Python::PATE_ENGINE);
+        rel_path.addPath(plugin.moduleFilePathPart());
+        rel_path.addPath("__init__.py");
+        QString module_path = KGlobal::dirs()->findResource("appdata", rel_path.toLocalFile());
+        if (module_path.isEmpty())
         {
+            // 1) Nothing found, then try file based plugin
+            rel_path = QString(Python::PATE_ENGINE);
+            rel_path.addPath(plugin.moduleFilePathPart() + ".py");
+            module_path = KGlobal::dirs()->findResource("appdata", rel_path.toLocalFile());
+        }
+        else plugin.m_isDir = true;
+
+        // Is anything found at all?
+        if (module_path.isEmpty())
+        {
+            plugin.m_broken = true;
             plugin.m_errorReason = i18nc(
                 "@info:tooltip"
-              , "Module does not exist at the path specified or not a readable file"
+              , "Unable to find the module specified <application>%1</application>"
+              , service->library()
               );
         }
+        else kDebug() << "Found module path:" << module_path;
 
         m_plugins.append(plugin);
     }
@@ -497,9 +498,6 @@ void Pate::Engine::loadModules()
     Py_INCREF(plugins);
     py.itemStringSet("plugins", plugins);
 
-    // Get a reference to sys.path, then add the pate directory to it.
-    PyObject* pythonPath = py.itemString("path", "sys");
-
     for (
         QList<PluginState>::iterator it = m_plugins.begin()
       , last = m_plugins.end()
@@ -508,22 +506,14 @@ void Pate::Engine::loadModules()
       )
     {
         PluginState& plugin = *it;
-
-        kDebug() << "Loading module: " << plugin.m_moduleFile;
-
-        // Add to pate.pluginDirectories and to sys.path.
-        const QString module_path = plugin.m_moduleFile.directory();
-        kDebug() << "Add module path: " << module_path;
-        py.prependStringToList(pluginDirectories, module_path);
-        PyObject* d = Python::unicode(module_path);
-        PyList_Insert(pythonPath, 0, d);
-        Py_DECREF(d);
+        QString module_name = plugin.pythonModuleName();
+        kDebug() << "Loading module: " << module_name;
 
         // Were we asked to load this plugin?
         if (plugin.m_enabled)
         {
             // Import and add to pate.plugins
-            PyObject* module = py.moduleImport(PQ(plugin.pythonModuleName()));
+            PyObject* module = py.moduleImport(PQ(module_name));
             if (module)
             {
                 PyList_Append(plugins, module);

@@ -148,9 +148,11 @@ PyObject* Python::kateHandler(const char* const moduleName, const char* const ha
     return 0;
 }
 
-const QString& Python::lastTraceback() const
+QString Python::lastTraceback() const
 {
-    return m_traceback;
+    QString result;
+    result.swap(m_traceback);
+    return result;
 }
 
 void Python::libraryLoad()

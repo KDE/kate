@@ -40,7 +40,8 @@ from libkatepate.errors import showError
 
 
 from pyplete import PyPlete
-from python_autocomplete_parse import (import_complete,
+
+from .python_autocomplete_parse import (import_complete,
                                        from_first_imporable,
                                        from_other_imporables,
                                        from_complete)

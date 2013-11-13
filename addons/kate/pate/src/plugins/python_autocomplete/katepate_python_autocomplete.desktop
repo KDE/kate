@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=python_autocomplete/python_autocomplete.py
+X-KDE-Library=python_autocomplete
 Name=Python Autocompletion
 Name[de]=Python-Autovervollständigung
 Name[nl]=Automatische aanvulling voor Python

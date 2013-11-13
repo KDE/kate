@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=commentar.py
+X-KDE-Library=commentar
 Name=Plugins to work with comments
 Name[de]=Module für die Bearbeitung von Kommentaren
 Name[nl]=Plug-ins voor werken met commentaar

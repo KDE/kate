@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=cmake_utils/cmake_utils.py
+X-KDE-Library=cmake_utils
 Name=CMake Utilities
 Name[de]=CMake-Dienstprogramme
 Name[nl]=Hulpmiddelen voor CMake

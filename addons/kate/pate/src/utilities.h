@@ -90,7 +90,7 @@ public:
     /**
      * Store the last traceback we handled using @ref traceback().
      */
-    const QString& lastTraceback(void) const;
+    QString lastTraceback(void) const;
 
     /**
      * Create a Python dictionary from a KConfigBase instance, writing the
@@ -208,7 +208,7 @@ private:
     /// @internal Helper function for @c prependPythonPaths overloads
     bool prependPythonPaths(const QString&, PyObject*);
     PyGILState_STATE m_state;
-    QString m_traceback;
+    mutable QString m_traceback;
 
     /**
      * Run a handler function supplied by the kate module on another module.

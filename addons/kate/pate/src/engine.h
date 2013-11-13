@@ -60,20 +60,25 @@ public:
     public:
         /// \name Immutable accessors
         //@{
-        const KUrl& moduleFilename() const;
         QString pythonModuleName() const;
         const QString& errorReason() const;
         bool isEnabled() const;
         bool isBroken() const;
         //@}
+
     private:
-        PluginState();
         friend class Engine;
+
+        PluginState();
+        /// Transfort Python module name into a file path part
+        QString moduleFilePathPart() const;
+
         KService::Ptr m_service;
-        KUrl m_moduleFile;
+        QString m_pythonModule;
         QString m_errorReason;
         bool m_enabled;
         bool m_broken;
+        bool m_isDir;
     };
 
     /// Default constructor: initialize Python interpreter
@@ -136,9 +141,14 @@ private:
     bool m_pluginsLoaded;
 };
 
-inline const KUrl& Engine::PluginState::moduleFilename() const
+inline QString Engine::PluginState::pythonModuleName() const
 {
-    return m_moduleFile;
+    return m_service->library();
+}
+inline QString Pate::Engine::PluginState::moduleFilePathPart() const
+{
+    /// \todo Use \c QString::split() and \c KUrl to form a valid path
+    return m_service->library().replace(".", "/");
 }
 inline const QString& Engine::PluginState::errorReason() const
 {

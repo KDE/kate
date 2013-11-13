@@ -1,4 +1,4 @@
-# -*- codincmakeToolViewg: utf-8 -*-
+# -*- coding: utf-8 -*-
 '''CMake helper plugin'''
 
 #
@@ -19,8 +19,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-
-import imp
+import importlib
 import functools
 import glob
 import os
@@ -51,11 +50,10 @@ import kate
 from libkatepate import ui, common
 from libkatepate.autocomplete import AbstractCodeCompletionModel
 
-from cmake_utils_settings import *
-import cmake_help_parser
+from . import cmake_help_parser, command_completers, settings
 
-
-cmakeToolView = None
+_cmake_tool_view = None
+_cmake_completion_model = None
 
 # ----------------------------------------------------------
 # CMake utils: open CMakeLists.txt action
@@ -146,7 +144,7 @@ def _find_CMakeLists(start_dir, parent_cnt = 0):
     '''Try to find `CMakeLists.txt` startring form a given path'''
     if _is_there_CMakeLists(start_dir):
         return os.path.join(start_dir, _CMAKE_LISTS)
-    if parent_cnt < kate.sessionConfiguration[PARENT_DIRS_LOOKUP_CNT]:
+    if parent_cnt < kate.sessionConfiguration[settings.PARENT_DIRS_LOOKUP_CNT]:
         return _find_CMakeLists(os.path.dirname(start_dir), parent_cnt + 1)
     return None
 
@@ -391,7 +389,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
             for completer in glob.glob(os.path.join(directory, '*_cc.py')):
                 print('CMakeCC: completer={}'.format(completer))
                 cc_name = os.path.basename(completer).split('.')[0]
-                module = imp.load_source(cc_name, completer)
+                module = importlib.import_module(cc_name, "cmake_utils.command_completers")
                 if hasattr(module, self._cc_registrar_fn_name):
                     r = getattr(module, self._cc_registrar_fn_name)
                     if isinstance(r, types.FunctionType):
@@ -467,7 +465,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
 
 def _reset(*args, **kwargs):
-    cmake_completion_model.reset()
+    _cmake_completion_model.reset()
 
 
 # ----------------------------------------------------------
@@ -496,9 +494,9 @@ class CMakeToolView(QObject):
         tabs = QTabWidget(self.toolView)
         # Make a page to view cmake cache
         self.cacheViewPage = uic.loadUi(
-            os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_CACHEVIEW_UI)
+            os.path.join(os.path.dirname(__file__), settings.CMAKE_TOOLVIEW_CACHEVIEW_UI)
           )
-        self.cacheViewPage.buildDir.setText(kate.sessionConfiguration[PROJECT_DIR])
+        self.cacheViewPage.buildDir.setText(kate.sessionConfiguration[settings.PROJECT_DIR])
         # TODO It seems not only KTextEditor's SIP files are damn out of date...
         # KUrlRequester actually *HAS* setPlaceholderText() method... but damn SIP
         # files for KIO are damn out of date either! A NEW BUG NEEDS TO BE ADDED!
@@ -517,7 +515,7 @@ class CMakeToolView(QObject):
         # Make a page w/ cmake help
         splitter = QSplitter(Qt.Horizontal, tabs)
         self.vewHelpPage = uic.loadUi(
-            os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_HELP_UI)
+            os.path.join(os.path.dirname(__file__), settings.CMAKE_TOOLVIEW_HELP_UI)
           )
         self.vewHelpPage.helpFilter.setTreeWidget(self.vewHelpPage.helpTargets)
         self.updateHelpIndex()                              # Prepare Help view
@@ -532,10 +530,10 @@ class CMakeToolView(QObject):
         tabs.addTab(splitter, i18nc('@title:tab', 'CMake Help'))
         # Make a page w/ some instant settings
         self.cfgPage = uic.loadUi(
-            os.path.join(os.path.dirname(__file__), CMAKE_TOOLVIEW_SETTINGS_UI)
+            os.path.join(os.path.dirname(__file__), settings.CMAKE_TOOLVIEW_SETTINGS_UI)
           )
-        self.cfgPage.mode.setChecked(kate.sessionConfiguration[TOOLVIEW_ADVANCED_MODE])
-        self.cfgPage.htmlize.setChecked(kate.sessionConfiguration[TOOLVIEW_BEAUTIFY])
+        self.cfgPage.mode.setChecked(kate.sessionConfiguration[settings.TOOLVIEW_ADVANCED_MODE])
+        self.cfgPage.htmlize.setChecked(kate.sessionConfiguration[settings.TOOLVIEW_BEAUTIFY])
         tabs.addTab(self.cfgPage, i18nc('@title:tab', 'Tool View Settings'))
 
         # Connect signals
@@ -571,8 +569,8 @@ class CMakeToolView(QObject):
 
     @pyqtSlot()
     def saveSettings(self):
-        kate.sessionConfiguration[TOOLVIEW_ADVANCED_MODE] = self.cfgPage.mode.isChecked()
-        kate.sessionConfiguration[TOOLVIEW_BEAUTIFY] = self.cfgPage.htmlize.isChecked()
+        kate.sessionConfiguration[settings.TOOLVIEW_ADVANCED_MODE] = self.cfgPage.mode.isChecked()
+        kate.sessionConfiguration[settings.TOOLVIEW_BEAUTIFY] = self.cfgPage.htmlize.isChecked()
 
 
     @pyqtSlot()
@@ -626,8 +624,8 @@ class CMakeToolView(QObject):
               , [cmd]
               , cmake_help_parser.help_category.HELP_ITEM
               )
-            global cmake_completion_model
-            if cmake_completion_model.has_completion_for_command(cmd):
+            global _cmake_completion_model
+            if _cmake_completion_model.has_completion_for_command(cmd):
                 c.setForeground(0, QBrush(QColor(Qt.green)))
             else:
                 if cmd in deprecated:
@@ -639,7 +637,7 @@ class CMakeToolView(QObject):
         standard_modules = cmake_help_parser.get_cmake_modules_list()
         total_modules_count = len(standard_modules)
         custom_modules = {}
-        for path in kate.sessionConfiguration[AUX_MODULE_DIRS]:
+        for path in kate.sessionConfiguration[settings.AUX_MODULE_DIRS]:
             modules_list = cmake_help_parser.get_cmake_modules_list(path)
             filtered_modules_list = [mod for mod in modules_list if mod not in standard_modules]
             filtered_modules_list.sort()
@@ -809,7 +807,7 @@ class CMakeConfigWidget(QWidget):
         super(CMakeConfigWidget, self).__init__(parent)
 
         # Set up the user interface from Designer.
-        uic.loadUi(os.path.join(os.path.dirname(__file__), CMAKE_UTILS_SETTINGS_UI), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), settings.CMAKE_UTILS_SETTINGS_UI), self)
         self.projectBuildDir.setMode(
             KFile.Mode(KFile.Directory | KFile.ExistingOnly | KFile.LocalOnly)
           )
@@ -822,10 +820,10 @@ class CMakeConfigWidget(QWidget):
 
 
     def apply(self):
-        kate.sessionConfiguration[CMAKE_BINARY] = self.cmakeBinary.text()
-        kate.sessionConfiguration[PARENT_DIRS_LOOKUP_CNT] = self.parentDirsLookupCnt.value()
+        kate.sessionConfiguration[settings.CMAKE_BINARY] = self.cmakeBinary.text()
+        kate.sessionConfiguration[settings.PARENT_DIRS_LOOKUP_CNT] = self.parentDirsLookupCnt.value()
         try:
-            cmake_help_parser.validate_cmake_executable(kate.sessionConfiguration[CMAKE_BINARY])
+            cmake_help_parser.validate_cmake_executable(kate.sessionConfiguration[settings.CMAKE_BINARY])
         except ValueError as error:
             ui.popup(
                 i18nc('@title:window', 'Error')
@@ -833,33 +831,33 @@ class CMakeConfigWidget(QWidget):
               , 'dialog-error'
               )
         # TODO Store the following for a current session!
-        kate.sessionConfiguration[PROJECT_DIR] = self.projectBuildDir.text()
-        kate.sessionConfiguration[AUX_MODULE_DIRS] = []
+        kate.sessionConfiguration[settings.PROJECT_DIR] = self.projectBuildDir.text()
+        kate.sessionConfiguration[settings.AUX_MODULE_DIRS] = []
         for i in range(0, self.moduleDirs.count()):
-            kate.sessionConfiguration[AUX_MODULE_DIRS].append(self.moduleDirs.item(i).text())
+            kate.sessionConfiguration[settings.AUX_MODULE_DIRS].append(self.moduleDirs.item(i).text())
 
         # Show some spam
-        print('CMakeCC: config save: CMAKE_BINARY={}'.format(kate.sessionConfiguration[CMAKE_BINARY]))
-        print('CMakeCC: config save: AUX_MODULE_DIRS={}'.format(kate.sessionConfiguration[AUX_MODULE_DIRS]))
-        print('CMakeCC: config save: PROJECT_DIR={}'.format(kate.sessionConfiguration[PROJECT_DIR]))
+        print('CMakeCC: config save: CMAKE_BINARY={}'.format(kate.sessionConfiguration[settings.CMAKE_BINARY]))
+        print('CMakeCC: config save: AUX_MODULE_DIRS={}'.format(kate.sessionConfiguration[settings.AUX_MODULE_DIRS]))
+        print('CMakeCC: config save: PROJECT_DIR={}'.format(kate.sessionConfiguration[settings.PROJECT_DIR]))
         kate.sessionConfiguration.save()
 
 
     def reset(self):
         self.defaults()
-        if CMAKE_BINARY in kate.sessionConfiguration:
-            self.cmakeBinary.setText(kate.sessionConfiguration[CMAKE_BINARY])
-        if PARENT_DIRS_LOOKUP_CNT in kate.sessionConfiguration:
-            self.parentDirsLookupCnt.setValue(kate.sessionConfiguration[PARENT_DIRS_LOOKUP_CNT])
-        if AUX_MODULE_DIRS in kate.sessionConfiguration:
-            self.moduleDirs.addItems(kate.sessionConfiguration[AUX_MODULE_DIRS])
-        if PROJECT_DIR in kate.sessionConfiguration:
-            self.projectBuildDir.setText(kate.sessionConfiguration[PROJECT_DIR])
+        if settings.CMAKE_BINARY in kate.sessionConfiguration:
+            self.cmakeBinary.setText(kate.sessionConfiguration[settings.CMAKE_BINARY])
+        if settings.PARENT_DIRS_LOOKUP_CNT in kate.sessionConfiguration:
+            self.parentDirsLookupCnt.setValue(kate.sessionConfiguration[settings.PARENT_DIRS_LOOKUP_CNT])
+        if settings.AUX_MODULE_DIRS in kate.sessionConfiguration:
+            self.moduleDirs.addItems(kate.sessionConfiguration[settings.AUX_MODULE_DIRS])
+        if settings.PROJECT_DIR in kate.sessionConfiguration:
+            self.projectBuildDir.setText(kate.sessionConfiguration[settings.PROJECT_DIR])
 
 
     def defaults(self):
         # TODO Dectect it!
-        self.cmakeBinary.setText(CMAKE_BINARY_DEFAULT)
+        self.cmakeBinary.setText(settings.CMAKE_BINARY_DEFAULT)
         self.parentDirsLookupCnt.setValue(0)
 
 
@@ -915,7 +913,7 @@ def createSignalAutocompleteCMake(view=None, *args, **kwargs):
         view = view or kate.activeView()
         if view:
             cci = view.codeCompletionInterface()
-            cci.registerCompletionModel(cmake_completion_model)
+            cci.registerCompletionModel(_cmake_completion_model)
     except:
         print('CMake Helper Plugin: Unable to get an active view')
 
@@ -924,38 +922,42 @@ def createSignalAutocompleteCMake(view=None, *args, **kwargs):
 def init():
     # Set default value if not configured yet
     print('CMakeCC: enter init')
-    if CMAKE_BINARY not in kate.sessionConfiguration:
-        kate.sessionConfiguration[CMAKE_BINARY] = CMAKE_BINARY_DEFAULT
-    if PARENT_DIRS_LOOKUP_CNT not in kate.sessionConfiguration:
-        kate.sessionConfiguration[PARENT_DIRS_LOOKUP_CNT] = 0
-    if AUX_MODULE_DIRS not in kate.sessionConfiguration:
-        kate.sessionConfiguration[AUX_MODULE_DIRS] = []
-    if PROJECT_DIR not in kate.sessionConfiguration:
-        kate.sessionConfiguration[PROJECT_DIR] = ''
-    if TOOLVIEW_ADVANCED_MODE not in kate.sessionConfiguration:
-        kate.sessionConfiguration[TOOLVIEW_ADVANCED_MODE] = False
-    if TOOLVIEW_BEAUTIFY not in kate.sessionConfiguration:
-        kate.sessionConfiguration[TOOLVIEW_BEAUTIFY] = True
+    if settings.CMAKE_BINARY not in kate.sessionConfiguration:
+        kate.sessionConfiguration[settings.CMAKE_BINARY] = settings.CMAKE_BINARY_DEFAULT
+    if settings.PARENT_DIRS_LOOKUP_CNT not in kate.sessionConfiguration:
+        kate.sessionConfiguration[settings.PARENT_DIRS_LOOKUP_CNT] = 0
+    if settings.AUX_MODULE_DIRS not in kate.sessionConfiguration:
+        kate.sessionConfiguration[settings.AUX_MODULE_DIRS] = []
+    if settings.PROJECT_DIR not in kate.sessionConfiguration:
+        kate.sessionConfiguration[settings.PROJECT_DIR] = ''
+    if settings.TOOLVIEW_ADVANCED_MODE not in kate.sessionConfiguration:
+        kate.sessionConfiguration[settings.TOOLVIEW_ADVANCED_MODE] = False
+    if settings.TOOLVIEW_BEAUTIFY not in kate.sessionConfiguration:
+        kate.sessionConfiguration[settings.TOOLVIEW_BEAUTIFY] = True
 
-    # Initialize completion model
-    createSignalAutocompleteCMake()
+    # Create completion model
+    global _cmake_completion_model
+    if _cmake_completion_model is None:
+        _cmake_completion_model = CMakeCompletionModel(kate.application)
+        _cmake_completion_model.modelReset.connect(_reset)
 
     # Make an instance of a cmake tool view
-    global cmakeToolView
-    if cmakeToolView is None:
-        cmakeToolView = CMakeToolView(kate.mainWindow())
+    global _cmake_tool_view
+    if _cmake_tool_view is None:
+        _cmake_tool_view = CMakeToolView(kate.mainWindow())
 
 
 @kate.unload
 def destroy():
     '''Plugins that use a toolview need to delete it for reloading to work.'''
-    global cmakeToolView
-    if cmakeToolView:
-        del cmakeToolView
-        cmakeToolView = None
+    global _cmake_completion_model
+    if _cmake_completion_model:
+        del _cmake_completion_model
+        _cmake_completion_model = None
 
-cmake_completion_model = CMakeCompletionModel(kate.application)
-cmake_completion_model.modelReset.connect(_reset)
-
+    global _cmake_tool_view
+    if _cmake_tool_view:
+        del _cmake_tool_view
+        _cmake_tool_view = None
 
 # kate: indent-width 4;

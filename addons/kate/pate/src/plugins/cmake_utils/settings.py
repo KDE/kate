@@ -13,14 +13,14 @@ TOOLVIEW_ADVANCED_MODE = 'toolvewAdvancedMode'
 TOOLVIEW_BEAUTIFY = 'toolviewBeautifyHelp'
 
 CMAKE_BINARY_DEFAULT = '/usr/bin/cmake'
-CMAKE_UTILS_SETTINGS_UI = 'cmake_utils_settings.ui'
-CMAKE_TOOLVIEW_CACHEVIEW_UI = 'cmake_utils_toolview_cacheview_page.ui'
-CMAKE_TOOLVIEW_HELP_UI = 'cmake_utils_toolview_help_page.ui'
-CMAKE_TOOLVIEW_SETTINGS_UI = 'cmake_utils_toolview_settings_page.ui'
+CMAKE_UTILS_SETTINGS_UI = 'settings.ui'
+CMAKE_TOOLVIEW_CACHEVIEW_UI = 'toolview_cacheview_page.ui'
+CMAKE_TOOLVIEW_HELP_UI = 'toolview_help_page.ui'
+CMAKE_TOOLVIEW_SETTINGS_UI = 'toolview_settings_page.ui'
 
 
 def get_aux_dirs():
-    cmake_utils_conf = kate.configuration.root.get('cmake_utils', {})
+    cmake_utils_conf = kate.sessionConfiguration.root.get('cmake_utils', {})
     if AUX_MODULE_DIRS in cmake_utils_conf and cmake_utils_conf[AUX_MODULE_DIRS]:
         return cmake_utils_conf[AUX_MODULE_DIRS]
     return []

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=python_console_classic/python_console_classic.py
+X-KDE-Library=python_console_classic
 Name=Simple Python Console
 Name[de]=Einfache Python-Konsole
 Name[nl]=Eenvoudige Python-console

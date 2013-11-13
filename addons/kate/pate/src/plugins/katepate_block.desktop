@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=block.py
+X-KDE-Library=block
 Name=Block
 Name[de]=Block
 Name[nl]=Blok

@@ -528,7 +528,8 @@ Pate::ErrorConfigPage::ErrorConfigPage(QWidget* const parent, const QString& tra
 {
     KTextEdit* const widget = new KTextEdit(parent);
     widget->setText(traceback);
-    widget->setEnabled(false);
+    widget->setReadOnly(true);
+    widget->setEnabled(true);
     QLayout* lo = parent->layout();
     lo->addWidget(widget);
 }

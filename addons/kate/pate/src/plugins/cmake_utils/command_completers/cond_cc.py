@@ -19,10 +19,8 @@
 
 import sys
 
-sys.path.append('..')
-import cmake_help_parser
-
-from param_types import *
+from cmake_utils import cmake_help_parser
+from cmake_utils.param_types import *
 
 
 _FIRST_KW_OPTIONS = [

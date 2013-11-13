@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=color_tools.py
+X-KDE-Library=color_tools
 Name=Color Tools
 Name[de]=Farbenwerkzeuge
 Name[nl]=Hulpmiddelen voor kleur

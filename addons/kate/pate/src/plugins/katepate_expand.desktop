@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=expand.py
+X-KDE-Library=expand
 Name=User defined text expansions
 Name[de]=Benutzerdefinierte Texterweiterungen
 Name[nl]=Gebruikergedefinieerde tekstexpansies

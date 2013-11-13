@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=python_console_ipython/python_console_ipython.py
+X-KDE-Library=python_console_ipython
 Name=IPython Console
 Name[cs]=Konzole IPythonu
 Name[de]=IPython-Konsole

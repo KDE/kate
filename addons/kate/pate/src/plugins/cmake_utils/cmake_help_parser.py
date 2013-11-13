@@ -17,7 +17,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
-
 import functools
 import os
 import subprocess
@@ -26,7 +25,7 @@ from PyKDE4.kdecore import i18nc
 
 import kate
 
-import cmake_utils_settings
+from . import settings
 
 
 CMAKE_HELP_VARBATIM_TEXT_PADDING_SIZE = 9
@@ -54,7 +53,7 @@ def _form_cmake_aux_arg(paths):
 
 
 def _get_aux_dirs_if_any():
-    aux_dirs = cmake_utils_settings.get_aux_dirs()
+    aux_dirs = settings.get_aux_dirs()
     if aux_dirs:
         return _form_cmake_aux_arg(aux_dirs)
     return []
@@ -113,9 +112,9 @@ def _spawn_cmake_grab_stdout(args, cmake_executable = None):
     if cmake_executable is None:
         cmake_utils_conf = kate.configuration.root.get('cmake_utils', {})
 
-        if cmake_utils_settings.CMAKE_BINARY in cmake_utils_conf:
+        if settings.CMAKE_BINARY in cmake_utils_conf:
             # TODO Set locale "C" before run cmake
-            cmake_bin = cmake_utils_conf[cmake_utils_settings.CMAKE_BINARY]
+            cmake_bin = cmake_utils_conf[settings.CMAKE_BINARY]
         else:
             raise ValueError(
                 i18nc(

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Service
 ServiceTypes=Kate/PythonPlugin
-X-KDE-Library=format.py
+X-KDE-Library=format
 Name=Boost-like C++ Code Formatter
 Name[de]=„C++“-Formatierer ähnlich wie Boost
 Name[nl]=C++ codeformatteerder lijkend op Boost

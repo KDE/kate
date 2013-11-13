@@ -21,7 +21,7 @@ import os
 import sys
 import types
 
-import cmake_help_parser
+from . import cmake_help_parser
 
 ANY = 0
 IDENTIFIER = 1

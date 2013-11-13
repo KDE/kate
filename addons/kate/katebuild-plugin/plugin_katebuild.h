@@ -52,7 +52,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
 {
     Q_OBJECT
 
-    private:
+    public:
 
        struct TargetSet {
          QString name;
@@ -62,8 +62,7 @@ class KateBuildView : public Kate::PluginView, public Kate::XMLGUIClient
          QString prevTarget;
          std::map<QString, QString> targets;
        };
-       
-    public:
+  
         KateBuildView(Kate::MainWindow *mw);
         ~KateBuildView();
 

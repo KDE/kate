@@ -618,8 +618,8 @@ void KateBuildView::slotSelectTarget() {
         return;
     }
 
-    SelectTargetDialog* dlg = new SelectTargetDialog(0);
-    dlg->setTargets(targetSet->targets);
+    SelectTargetDialog* dlg = new SelectTargetDialog(m_targetList, 0);
+    dlg->setTargetSet(targetSet->name);
 
     int result = dlg->exec();
     if (result == QDialog::Accepted) {

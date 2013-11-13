@@ -10,27 +10,37 @@
 #include <QListWidget>
 
 
-SelectTargetDialog::SelectTargetDialog(QWidget* parent)
+SelectTargetDialog::SelectTargetDialog(QList<KateBuildView::TargetSet>& targetSets, QWidget* parent)
 :KDialog(parent)
+,m_currentTargetSet(0)
 ,m_targetName(0)
 ,m_targetsList(0)
 ,m_command(0)
+,m_targetSets(targetSets)
 ,m_targets(0)
 {
     setButtons( KDialog::Ok | KDialog::Cancel);
 
     QWidget* container = new QWidget();
 
-    QLabel* filterLabel = new QLabel("Target:");
+    QLabel* filterLabel = new QLabel(i18n("Target:"));
     m_targetName = new QLineEdit();
     m_targetsList = new QListWidget();
 
-    QLabel* commandLabel = new QLabel("Command:");
+    QLabel* setLabel = new QLabel(i18n("from"));
+    m_currentTargetSet = new QComboBox();
+    for (int i=0; i<m_targetSets.size(); i++) {
+        m_currentTargetSet->addItem(m_targetSets.at(i).name);
+    }
+
+    QLabel* commandLabel = new QLabel(i18n("Command:"));
     m_command = new QLabel();
 
     QHBoxLayout* filterLayout = new QHBoxLayout();
     filterLayout->addWidget(filterLabel);
     filterLayout->addWidget(m_targetName);
+    filterLayout->addWidget(setLabel);
+    filterLayout->addWidget(m_currentTargetSet);
 
     QHBoxLayout* commandLayout = new QHBoxLayout();
     commandLayout->addWidget(commandLabel);
@@ -47,6 +57,7 @@ SelectTargetDialog::SelectTargetDialog(QWidget* parent)
 
     this->setMainWidget(container);
 
+    connect(m_currentTargetSet, SIGNAL(currentIndexChanged(int)), this, SLOT(slotTargetSetSelected(int)));
     connect(m_targetName, SIGNAL(textEdited(const QString&)), this, SLOT(slotFilterTargets(const QString&)));
     connect(m_targetsList, SIGNAL(itemActivated(QListWidgetItem*)), this, SLOT(accept()));
     connect(m_targetsList, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(slotCurrentItemChanged(QListWidgetItem*)));
@@ -55,6 +66,30 @@ SelectTargetDialog::SelectTargetDialog(QWidget* parent)
 
     this->setFocusProxy(m_targetName);
     m_targetName->setFocus();
+}
+
+
+void SelectTargetDialog::slotTargetSetSelected(int index)
+{
+    setTargetSet(m_targetSets.at(index).name);
+}
+
+
+void SelectTargetDialog::setTargetSet(const QString& name)
+{
+    m_targets = NULL;
+    m_allTargets.clear();
+    m_targetsList->clear();
+    m_command->setText("");
+    m_targetName->clear();
+
+    for (int i=0; i<m_targetSets.size(); i++) {
+        if (m_targetSets.at(i).name == name) {
+            m_currentTargetSet->setCurrentIndex(i);
+            setTargets(m_targetSets.at(i).targets);
+            return;
+        }
+    }
 }
 
 

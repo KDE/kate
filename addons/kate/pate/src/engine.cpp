@@ -183,18 +183,17 @@ QString Pate::Engine::tryInitializeGetFailureReason()
     Python py = Python();
 
     // Update PYTHONPATH
-    // 0) w/ site_packages/ dir first
-    // 1) move the custom directories to the front, so they get picked up instead
-    // of stale distribution ones.
-    const QStringList pluginDirectories = KGlobal::dirs()->findDirs("appdata", "plugins/pate/");
-    kDebug() << "Plugin Directories: " << pluginDirectories;
-    const bool is_path_updated =
-        py.prependPythonPaths(QLatin1String(PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR))
-      && py.prependPythonPaths(pluginDirectories)
-      && py.prependPythonPaths(KStandardDirs::locateLocal("appdata", "pate/"))
+    // 0) custom plugin directories (prefer local dir over systems')
+    // 1) shipped kate module's dir
+    // 2) w/ site_packages/ dir of the Python
+    QStringList pluginDirectories = KGlobal::dirs()->findDirs("appdata", "pate/");
+    pluginDirectories
+      << KStandardDirs::locate("appdata", "plugins/pate/")
+      << QLatin1String(PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR)
       ;
-    if (!is_path_updated)
-        return i18nc("@info:tooltip ", "Cannot update Python paths");
+    kDebug() << "Plugin Directories: " << pluginDirectories;
+    if (!py.prependPythonPaths(pluginDirectories))
+        return i18nc("@info:tooltip ", "Can not update Python paths");
 
     // Show some SPAM
     /// \todo Add <em>"About Python"</em> to Help menu or <em>System Info</em> tab
@@ -468,6 +467,9 @@ void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
 
         // Try to check dependencies. To do it
         // just try to import a module... when unload it ;)
+        /// \todo Full featured dependencies checker can be implemented
+        /// as a Python module (special named or listed as a property in
+        /// a \c .desktop file ;-)
         const QStringList dependencies = service->property(
             "X-Python-Dependencies"
           , QVariant::StringList

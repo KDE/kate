@@ -23,6 +23,8 @@
 #include "config.h"
 #include "utilities.h"
 
+#include <algorithm>
+
 #include <Python.h>
 
 #include <QLibrary>
@@ -515,11 +517,18 @@ bool Python::prependPythonPaths(const QStringList& paths)
     if (!sys_path)
         return false;
 
-    Q_FOREACH(const QString& path, paths)
-    {
+    /// \todo Heh, boosts' range adaptors would be good here!
+    QStringList reversed_paths;
+    std::reverse_copy(
+        paths.begin()
+      , paths.end()
+      , std::back_inserter(reversed_paths)
+      );
+
+    Q_FOREACH(const QString& path, reversed_paths)
         if (!prependPythonPaths(path, sys_path))
             return false;
-    }
+
     return true;
 }
 

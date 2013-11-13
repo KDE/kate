@@ -20,11 +20,11 @@
 
 '''Plugins to work with C++ code formatting'''
 
-import kate
-
 from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
 from libkatepate import ui
+
+import kate
 
 from libkatepate.decorators import *
 from libkatepate import selection

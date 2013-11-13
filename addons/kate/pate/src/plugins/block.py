@@ -20,12 +20,13 @@
 
 '''Plugins to help code editing'''
 
-import kate
-
 from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
+import kate
+
 from libkatepate import common
+
 
 @kate.action(i18nc('@action:inmenu', 'Insert Char From Line Above'), shortcut='Meta+E')
 def insertCharFromLineAbove():

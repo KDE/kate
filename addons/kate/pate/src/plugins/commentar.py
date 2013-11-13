@@ -23,20 +23,24 @@
     Supported languages are C++, JS, Python, CMake, Bash
 '''
 
-import kate
 import os
 import re
 import textwrap
+
 from PyQt4 import uic
 from PyQt4.QtGui import *
 from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
+import kate
+
 from libkatepate.decorators import *
 from libkatepate import common, ui, selection
+
 # text processing predicates
 from libkatepate import pred
 from libkatepate.pred import neg, all_of, any_of
+
 
 BLOCK_ANY_START_SEARCH_RE = re.compile('^\s*#\s*if.*$')
 BLOCK_START_SEARCH_RE = re.compile('^\s*#\s*if\s*([01])$')
@@ -45,6 +49,7 @@ BLOCK_END_SEARCH_RE = re.compile('^\s*#\s*endif.*$')
 BLOCK_ELSE_ENDIF_MATCH_RE = re.compile('^\s*#\s*(endif|else).*$')
 BLOCK_START_GET_COND_RE = re.compile('^\s*#\s*(if((n)?def)?)\s+(.*)\s*$')
 COMMENT_START_POS = 'commentStartPos'
+
 
 def buildIfEndifMap(document):
     '''

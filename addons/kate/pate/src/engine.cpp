@@ -466,6 +466,31 @@ void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
         }
         else kDebug() << "Found module path:" << module_path;
 
+        // Try to check dependencies. To do it
+        // just try to import a module... when unload it ;)
+        const QStringList dependencies = service->property(
+            "X-Python-Dependencies"
+          , QVariant::StringList
+          ).toStringList();
+        Python py = Python();
+        Q_FOREACH(const QString& dep, dependencies)
+        {
+            kDebug() << "Try import dependency module/package:" << dep;
+            PyObject* module = py.moduleImport(PQ(dep));
+            if (module)
+                Py_DECREF(module);
+            else
+            {
+                plugin.m_broken = true;
+                plugin.m_errorReason = i18nc(
+                    "@info:tooltip"
+                  , "Failure on checking dependency <application>%1</application>:<nl/>%2"
+                  , dep
+                  , py.lastTraceback()
+                  );
+            }
+        }
+
         m_plugins.append(plugin);
     }
 
@@ -523,8 +548,8 @@ void Pate::Engine::loadModules()
             {
                 plugin.m_broken = true;
                 plugin.m_errorReason = i18nc(
-                    "@info:tooltip/plain"
-                  , "Module not loaded: %1"
+                    "@info:tooltip"
+                  , "Module not loaded:<nl/>%1"
                   , py.lastTraceback()
                   );
             }

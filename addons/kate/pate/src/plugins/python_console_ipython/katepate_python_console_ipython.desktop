@@ -21,3 +21,4 @@ Comment[uk]=Інтерактивна консоль для роботи з kate 
 Comment[x-test]=xxInteractive console for hacking kate and doing sciencexx
 X-Python-2-Compatible=true
 X-Python-3-Compatible=true
+X-Python-Dependencies=IPython,pygments,readline,zmq

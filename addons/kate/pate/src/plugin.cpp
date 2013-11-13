@@ -84,6 +84,7 @@ void Pate::Plugin::readSessionConfig(KConfigBase* const config, const QString& g
     if (m_engine)
     {
         m_engine.readGlobalPluginsConfiguration();
+        kDebug() << "Reading session config from:" << getSessionPrivateStorageFilename(config);
         KConfig session_config(getSessionPrivateStorageFilename(config), KConfig::SimpleConfig);
         m_engine.readSessionPluginsConfiguration(&session_config);
         m_engine.tryLoadEnabledPlugins(group.readEntry("Enabled Plugins", QStringList()));
@@ -101,10 +102,39 @@ void Pate::Plugin::writeSessionConfig(KConfigBase* const config, const QString& 
     if (m_engine)
     {
         group.writeEntry("Enabled Plugins", m_engine.enabledPlugins());
+        kDebug() << "Writing session config to:" << getSessionPrivateStorageFilename(config);
         m_engine.saveGlobalPluginsConfiguration();
         KConfig session_config(getSessionPrivateStorageFilename(config), KConfig::SimpleConfig);
         m_engine.writeSessionPluginsConfiguration(&session_config);
         session_config.sync();
+        // For the very first time, when plugin just enabled, there is only
+        // an internal list of enabled plugins (and no configuration yet)
+        // After "Ok"/"Apply" button gets pressed in configuration dialog,
+        // this method will be called, and we must enable everything that was
+        // checked... or has changed.
+        if (!m_engine.isPluginsLoaded())
+        {
+            kDebug() << "Going to load enabled plugins";
+            m_engine.reloadEnabledPlugins();
+        }
+        else if (m_engine.isRealoadNeeded())
+        {
+            /// \attention Reloading plugins at this point leads to UB:
+            /// lot of errors in Python code and possible crash on application exit!
+            /// (due some problems w/ removing a toolview if present)
+            /// So popup is here...
+            KPassivePopup::message(
+                i18nc("@title:window", "Attention")
+              , i18nc("@info", "<application>kate</application> must be restarted")
+              , static_cast<QWidget*>(0)
+              );
+            /// \todo Need to change behaviour as C++ plugins work:
+            /// if user enable/disable smth, a plugin must be loaded/unloaded
+            /// at that time, cuz it may have configuration pages to be shown.
+            /// But, nowadays kate's plugin interface doesn't have a way to
+            /// dynamically change pages count... i.e. to indicate that fact
+            /// when configuration dialog already shown...
+        }
     }
     group.sync();
 }
@@ -261,6 +291,10 @@ QString Pate::Plugin::getSessionPrivateStorageFilename(KConfigBase* const config
 {
     KConfig* real_config = dynamic_cast<KConfig*>(config);
     Q_ASSERT("WOW! KDE API now uses smth else than KConfig?" && real_config);
+    /// \note In case of new or default session, a "global" config file
+    /// will be used, so switch to a separate (private) file then...
+    if (real_config->name() == "katerc")
+        return "katepaterc";
     return real_config->name().replace(".katesession", ".katepate");
 }
 

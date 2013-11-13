@@ -149,6 +149,7 @@ Pate::Engine::Engine()
   , m_sessionConfiguration(0)
   , m_engineIsUsable(false)
   , m_pluginsLoaded(false)
+  , m_reloadNeeded(false)
 {
 }
 
@@ -241,6 +242,8 @@ QString Pate::Engine::tryInitializeGetFailureReason()
     if (!katePackage)
         return i18nc("@info:tooltip ", "Cannot load <icode>kate</icode> module");
 
+    // Get plugins available
+    scanPlugins();
     // NOTE Empty failure reson string indicates success!
     m_engineIsUsable = true;
     return QString();
@@ -349,6 +352,7 @@ bool Pate::Engine::setData(const QModelIndex& index, const QVariant& value, cons
     {
         kDebug() << "value.toBool()=" << value.toBool();
         m_plugins[index.row()].m_enabled = value.toBool();
+        m_reloadNeeded = true;
     }
     return true;
 }
@@ -390,7 +394,7 @@ void Pate::Engine::writeSessionPluginsConfiguration(KConfigBase* const config)
     Python().updateConfigurationFromDictionary(config, m_sessionConfiguration);
 }
 
-void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
+void Pate::Engine::scanPlugins()
 {
     m_plugins.clear();                                      // Clear current state.
 
@@ -436,7 +440,7 @@ void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
         // Make a new state
         PluginState plugin;
         plugin.m_service = service;
-        plugin.m_enabled = enabled_plugins.indexOf(service->name()) != -1;
+        plugin.m_enabled = false;
 
         // Find the module:
         // 0) try to locate directory based plugin first
@@ -495,7 +499,16 @@ void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
 
         m_plugins.append(plugin);
     }
+}
 
+void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
+{
+    for (
+        QList<PluginState>::iterator it = m_plugins.begin()
+      , last = m_plugins.end()
+      ; it != last
+      ; ++it
+      ) it->m_enabled = enabled_plugins.indexOf(it->m_service->name()) != -1;
     reloadEnabledPlugins();
 }
 
@@ -511,7 +524,7 @@ void Pate::Engine::reloadEnabledPlugins()
  */
 void Pate::Engine::loadModules()
 {
-    if (m_pluginsLoaded)
+    if (m_pluginsLoaded && !m_reloadNeeded)
         return;
 
     kDebug() << "Loading enabled python modules";
@@ -559,6 +572,7 @@ void Pate::Engine::loadModules()
     }
 
     m_pluginsLoaded = true;
+    m_reloadNeeded = false;
 
     // everything is loaded and started. Call the module's init callback
     py.functionCall("_pluginsLoaded");

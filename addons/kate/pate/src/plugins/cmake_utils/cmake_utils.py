@@ -907,6 +907,7 @@ class CMakeConfigPage(kate.Kate.PluginConfigPage, QWidget):
 def cmakeConfigPage(parent=None, name=None):
     return CMakeConfigPage(parent, name)
 
+
 @kate.viewCreated
 def createSignalAutocompleteCMake(view=None, *args, **kwargs):
     try:

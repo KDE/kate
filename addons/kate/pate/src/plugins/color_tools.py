@@ -467,7 +467,8 @@ class PaletteView(QObject):
 def viewChanged(view=None):
     ''' Rescan current document on view create and/or change'''
     global paletteView
-    return paletteView.update(view)
+    if paletteView is not None:
+        return paletteView.update(view)
 
 
 @kate.init

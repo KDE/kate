@@ -12,7 +12,7 @@ install(
         python_autocomplete/katepate_python_autocomplete.desktop
         python_console_classic/katepate_python_console_classic.desktop
         python_console_ipython/katepate_python_console_ipython.desktop
-        js_utils/js_utils.desktop
+        js_utils/katepate_js_utils.desktop
     DESTINATION ${SERVICES_INSTALL_DIR}
   )
 

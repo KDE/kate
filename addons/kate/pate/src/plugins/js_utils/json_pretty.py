@@ -31,8 +31,7 @@ from PyKDE4.kdecore import i18nc
 
 from libkatepate import text
 from libkatepate.errors import showError
-from js_settings import (SETTING_INDENT_JSON,
-                         SETTING_ENCODING_JSON)
+from .js_settings import SETTING_INDENT_JSON, SETTING_ENCODING_JSON
 
 PRETTIFY_JSON_SHORTCUT = 'Ctrl+Alt+J'
 

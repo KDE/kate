@@ -26,14 +26,14 @@ import os.path as p
 from PyQt4 import uic
 from PyQt4.QtGui import QWidget
 
-from js_settings import (BoundSetting,
-                         SETTING_INDENT_JSON,
-                         SETTING_ENCODING_JSON,
-                         SETTING_LINTER,
-                         SETTING_LINT_ON_SAVE,
-                         SETTING_JS_AUTOCOMPLETE,
-                         SETTING_JQUERY_AUTOCOMPLETE,
-                         SETTING_JQUERY_READY)
+from .js_settings import (BoundSetting,
+                          SETTING_INDENT_JSON,
+                          SETTING_ENCODING_JSON,
+                          SETTING_LINTER,
+                          SETTING_LINT_ON_SAVE,
+                          SETTING_JS_AUTOCOMPLETE,
+                          SETTING_JQUERY_AUTOCOMPLETE,
+                          SETTING_JQUERY_READY)
 
 _CONFIG_UI = 'js_utils.ui'
 

@@ -23,7 +23,7 @@ import re
 from PyKDE4.kdecore import i18nc
 
 from libkatepate.autocomplete import AbstractJSONFileCodeCompletionModel, reset
-from js_settings import SETTING_JS_AUTOCOMPLETE, SETTING_JQUERY_AUTOCOMPLETE
+from .js_settings import SETTING_JS_AUTOCOMPLETE, SETTING_JQUERY_AUTOCOMPLETE
 
 
 class StaticJSCodeCompletionModel(AbstractJSONFileCodeCompletionModel):

@@ -26,11 +26,11 @@ from libkatepate import text
 
 from PyKDE4.kdecore import i18nc
 
-from js_settings import SETTING_JQUERY_READY
-from js_config_page import ConfigPage
-from js_lint import lint_js, init_js_lint
-from js_autocomplete import init_js_autocomplete, init_jquery_autocomplete
-from json_pretty import prettify_JSON, PRETTIFY_JSON_SHORTCUT
+from .js_settings import SETTING_JQUERY_READY
+from .js_config_page import ConfigPage
+from .js_lint import lint_js, init_js_lint
+from .js_autocomplete import init_js_autocomplete, init_jquery_autocomplete
+from .json_pretty import prettify_JSON, PRETTIFY_JSON_SHORTCUT
 
 
 # use for full and short name as short gets used in the menu

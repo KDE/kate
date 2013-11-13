@@ -41,8 +41,8 @@ import kate
 
 from PyKDE4.kdecore import i18nc
 
-from js_settings import SETTING_LINT_ON_SAVE, SETTING_LINTER
-from js_engine import PyJSEngine, JSModule
+from .js_settings import SETTING_LINT_ON_SAVE, SETTING_LINTER
+from .js_engine import PyJSEngine, JSModule
 from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
                                 showErrors, showOk)
 

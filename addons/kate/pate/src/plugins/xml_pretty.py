@@ -77,7 +77,7 @@ def togglePrettyXMLFormat():
             xml_pretty = newl.join([line for line in xml_pretty.split(newl) if line.replace(' ', '').replace(indent, '')])
             document.replaceText(view.selectionRange(), xml_pretty)
         except (ExpatError, LookupError) as e:
-            showError(i18n('The selected text is not valid XML: %1', e.message))
+            showError(i18n('The selected text is not valid XML: %1', str(e)))
 
 
 class ConfigWidget(QWidget):

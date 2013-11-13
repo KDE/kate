@@ -57,6 +57,6 @@ def prettify_JSON(view):
             view.removeSelectionText()
             text.insertText(target)
         except ValueError as e:
-            showError(i18nc('@info:status', 'This selected text is not valid JSON: <message>%1</message>', e.message))
+            showError(i18nc('@info:status', 'This selected text is not valid JSON: <message>%1</message>', str(e)))
 
 # kate: space-indent on; indent-width 4;

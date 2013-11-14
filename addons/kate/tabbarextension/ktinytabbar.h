@@ -168,7 +168,7 @@ signals:
     void closeRequest( int button_id );
     /**
      * This signal is emitted whenever a setting entry changes.
-     * A special property is the location. As the tabbar is embedded it can not
+     * A special property is the location. As the tabbar is embedded it cannot
      * change its location itself. So if you find a changed location, then go
      * and change it yourself!
      */

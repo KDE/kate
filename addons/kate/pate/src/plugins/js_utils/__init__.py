@@ -36,7 +36,7 @@ from .json_pretty import prettify_JSON, PRETTIFY_JSON_SHORTCUT
 
 
 # use for full and short name as short gets used in the menu
-_CFG_PAGE_NAME = i18nc('@title:group', 'JavaScript Utilites')
+_CFG_PAGE_NAME = i18nc('@title:group', 'JavaScript Utilities')
 
 
 @kate.configPage(_CFG_PAGE_NAME, _CFG_PAGE_NAME, 'application-x-javascript')

@@ -148,26 +148,37 @@ Pate::Engine::Engine()
   : m_configuration(0)
   , m_sessionConfiguration(0)
   , m_engineIsUsable(false)
-  , m_pluginsLoaded(false)
-  , m_reloadNeeded(false)
 {
 }
 
 Pate::Engine::~Engine()
 {
-    kDebug() << "Destroy the Python engine";
-    if (m_configuration)
+    kDebug() << "Going to destroy the Python engine";
+
+    // Notify Python that engine going to die
     {
-        /// \todo Do we \b really need to write smth??
-        /// Isn't it already written??
-        saveGlobalPluginsConfiguration();
-        Py_DECREF(m_configuration);
+        Python py = Python();
+        py.functionCall("_pateUnloading");
     }
+    unloadAllModules();
+
+    // Clean internal configuration dicts
+    // NOTE Do not need to save anything! It's already done!
+    if (m_configuration)
+        Py_DECREF(m_configuration);
     if (m_sessionConfiguration)
         Py_DECREF(m_sessionConfiguration);
 
     Python::libraryUnload();
     s_engine_instance = 0;
+}
+
+void Pate::Engine::unloadAllModules()
+{
+    // Unload all modules
+    for (int i = 0; i < m_plugins.size(); ++i)
+        if (m_plugins[i].isEnabled() && !m_plugins[i].isBroken())
+            unloadModule(i);
 }
 
 /**
@@ -222,7 +233,7 @@ QString Pate::Engine::tryInitializeGetFailureReason()
         "sip.setapi('QVariant', 2)\n"
     );
 
-    // Initialise our built-in module.
+    // Initialize our built-in module.
     pythonInitwrapper(this);
     if (!s_pate)
         return i18nc("@info:tooltip ", "No <icode>pate</icode> built-in module");
@@ -236,6 +247,10 @@ QString Pate::Engine::tryInitializeGetFailureReason()
     // Setup per session configuration
     m_sessionConfiguration = PyDict_New();
     py.itemStringSet("sessionConfiguration", m_sessionConfiguration);
+
+    // Initialize 'plugins' dict of module 'pate'
+    PyObject* plugins = PyDict_New();
+    py.itemStringSet("plugins", plugins);
 
     // Load the kate module, but find it first, and verify it loads.
     PyObject* katePackage = py.moduleImport("kate");
@@ -313,8 +328,8 @@ QVariant Pate::Engine::data(const QModelIndex& index, const int role) const
         {
             if (index.column() == Column::NAME)
             {
-                const bool checked = m_plugins[index.row()].m_enabled
-                  && !m_plugins[index.row()].m_broken
+                const bool checked = m_plugins[index.row()].isEnabled()
+                  && !m_plugins[index.row()].isBroken()
                   ;
                 return checked ? Qt::Checked : Qt::Unchecked;
             }
@@ -339,7 +354,7 @@ Qt::ItemFlags Pate::Engine::flags(const QModelIndex& index) const
     if (index.column() == Column::NAME)
         result |= Qt::ItemIsUserCheckable;
     // Disable to select/check broken modules
-    if (!m_plugins[index.row()].m_broken)
+    if (!m_plugins[index.row()].isBroken())
         result |= Qt::ItemIsEnabled;
     return static_cast<Qt::ItemFlag>(result);
 }
@@ -350,18 +365,25 @@ bool Pate::Engine::setData(const QModelIndex& index, const QVariant& value, cons
 
     if (role == Qt::CheckStateRole)
     {
-        kDebug() << "value.toBool()=" << value.toBool();
-        m_plugins[index.row()].m_enabled = value.toBool();
-        m_reloadNeeded = true;
+        Q_ASSERT("Sanity check" && !m_plugins[index.row()].isBroken());
+
+        const bool enabled = value.toBool();
+        m_plugins[index.row()].m_enabled = enabled;
+        if (enabled)
+            loadModule(index.row());
+        else
+            unloadModule(index.row());
     }
     return true;
 }
 
 QStringList Pate::Engine::enabledPlugins() const
 {
+    /// \todo \c std::transform + lambda or even better to use
+    /// filtered and transformed view from boost
     QStringList result;
     Q_FOREACH(const PluginState& plugin, m_plugins)
-        if (plugin.m_enabled)
+        if (plugin.isEnabled())
             result.append(plugin.m_service->name());
     return result;
 }
@@ -501,114 +523,83 @@ void Pate::Engine::scanPlugins()
     }
 }
 
-void Pate::Engine::tryLoadEnabledPlugins(const QStringList& enabled_plugins)
+void Pate::Engine::setEnabledPlugins(const QStringList& enabled_plugins)
 {
-    for (
-        QList<PluginState>::iterator it = m_plugins.begin()
-      , last = m_plugins.end()
-      ; it != last
-      ; ++it
-      ) it->m_enabled = enabled_plugins.indexOf(it->m_service->name()) != -1;
-    reloadEnabledPlugins();
+    for (int i = 0; i < m_plugins.size(); ++i)
+        m_plugins[i].m_enabled = enabled_plugins.indexOf(m_plugins[i].m_service->name()) != -1;
 }
 
-void Pate::Engine::reloadEnabledPlugins()
+void Pate::Engine::tryLoadEnabledPlugins()
 {
-    unloadModules();
-    loadModules();
+    for (int i = 0; i < m_plugins.size(); ++i)
+        if (m_plugins[i].isEnabled() && ! m_plugins[i].isBroken())
+            loadModule(i);
 }
 
-/**
- * Walk over the model, loading all usable plugins into a PyObject module
- * dictionary.
- */
-void Pate::Engine::loadModules()
+void Pate::Engine::loadModule(const int idx)
 {
-    if (m_pluginsLoaded && !m_reloadNeeded)
-        return;
+    Q_ASSERT("Plugin index is out of range!" && 0 <= idx && idx < m_plugins.size());
+    PluginState& plugin = m_plugins[idx];
+    Q_ASSERT(
+        "Why to call loadModule() for disabled/broken plugin?"
+      && plugin.isEnabled()
+      && !plugin.isBroken()
+      );
 
-    kDebug() << "Loading enabled python modules";
+    QString module_name = plugin.pythonModuleName();
+    kDebug() << "Loading module: " << module_name;
 
-    // Add two lists to the module: pluginDirectories and plugins.
     Python py = Python();
-    PyObject* pluginDirectories = PyList_New(0);
-    Py_INCREF(pluginDirectories);
-    py.itemStringSet("pluginDirectories", pluginDirectories);
-    PyObject* plugins = PyList_New(0);
-    Py_INCREF(plugins);
-    py.itemStringSet("plugins", plugins);
 
-    for (
-        QList<PluginState>::iterator it = m_plugins.begin()
-      , last = m_plugins.end()
-      ; it != last
-      ; ++it
-      )
-    {
-        PluginState& plugin = *it;
-        QString module_name = plugin.pythonModuleName();
-        kDebug() << "Loading module: " << module_name;
-
-        // Were we asked to load this plugin?
-        if (plugin.m_enabled)
-        {
-            // Import and add to pate.plugins
-            PyObject* module = py.moduleImport(PQ(module_name));
-            if (module)
-            {
-                PyList_Append(plugins, module);
-                Py_DECREF(module);
-            }
-            else
-            {
-                plugin.m_broken = true;
-                plugin.m_errorReason = i18nc(
-                    "@info:tooltip"
-                  , "Module not loaded:<nl/>%1"
-                  , py.lastTraceback()
-                  );
-            }
-        }
-    }
-
-    m_pluginsLoaded = true;
-    m_reloadNeeded = false;
-
-    // everything is loaded and started. Call the module's init callback
-    py.functionCall("_pluginsLoaded");
-}
-
-void Pate::Engine::unloadModules()
-{
-    // We don't have the luxury of being able to unload Python easily while
-    // Kate is running. If anyone can find a way, feel free to tell me and
-    // I'll patch it in. Calling Py_Finalize crashes.
-    // So, clean up the best that we can.
-    if (!m_pluginsLoaded)
-        return;
-
-    kDebug() << "Unloading python modules";
-
-    // Remove each plugin from sys.modules
-    Python py = Python();
-    PyObject* modules = PyImport_GetModuleDict();
+    // Get 'plugins' key from 'pate' module dictionary.
+    // Every entry has a module name as a key and 2 elements tuple as a value
     PyObject* plugins = py.itemString("plugins");
-    if (plugins)
+    Q_ASSERT("Smth damn wrong!" && plugins);
+
+    PyObject* module = py.moduleImport(PQ(module_name));
+    if (module)
     {
-        for (Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i)
-        {
-            PyObject* pluginName = py.itemString("__name__", PyModule_GetDict(PyList_GetItem(plugins, i)));
-            if (pluginName && PyDict_Contains(modules, pluginName))
-            {
-                PyDict_DelItem(modules, pluginName);
-                kDebug() << "Deleted" << Python::unicode(pluginName) << "from sys.modules";
-            }
-        }
-        py.itemStringDel("plugins");
-        Py_DECREF(plugins);
+        // Move just loaded module to the dict
+        const int r2 = PyDict_SetItemString(plugins, PQ(module_name), module);
+        Q_ASSERT("Sanity check" && r2 == 0);
+        /// \todo Handle error
+        Py_DECREF(module);
+
+        // Initialize the module from Python's side
+        PyObject* const args = Py_BuildValue("(s)", PQ(module_name));
+        py.functionCall("_pluginLoaded", Python::PATE_ENGINE, args);
+        Py_DECREF(args);
     }
-    m_pluginsLoaded = false;
-    py.functionCall("_pluginsUnloaded");
+    else
+    {
+        plugin.m_broken = true;
+        plugin.m_errorReason = i18nc(
+            "@info:tooltip"
+            , "Module not loaded:<nl/>%1"
+            , py.lastTraceback()
+            );
+    }
+}
+
+void Pate::Engine::unloadModule(int idx)
+{
+    Q_ASSERT("Plugin index is out of range!" && 0 <= idx && idx < m_plugins.size());
+    PluginState& plugin = m_plugins[idx];
+    Q_ASSERT("Why to call unloadModule() for broken plugin?" && !plugin.isBroken());
+
+    kDebug() << "Unloading module: " << plugin.pythonModuleName();
+
+    Python py = Python();
+
+    // Get 'plugins' key from 'pate' module dictionary
+    PyObject* plugins = py.itemString("plugins");
+    Q_ASSERT("Smth damn wrong! Code review needed!" && plugins);
+
+    PyObject* const args = Py_BuildValue("(s)", PQ(plugin.pythonModuleName()));
+    py.functionCall("_pluginUnloading", Python::PATE_ENGINE, args);
+    Py_DECREF(args);
+
+    PyDict_DelItemString(plugins, PQ(plugin.pythonModuleName()));
 }
 
 // kate: space-indent on; indent-width 4;

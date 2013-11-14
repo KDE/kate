@@ -100,26 +100,22 @@ public:
     void readSessionPluginsConfiguration(KConfigBase*);
     void writeSessionPluginsConfiguration(KConfigBase*);
 
+    void setEnabledPlugins(const QStringList&);             ///< Set enabled plugins to the model
+    void tryLoadEnabledPlugins();                           ///< Try to load enabled plugins
     QStringList enabledPlugins() const;                     ///< Form a list of enabled plugins
     const QList<PluginState>& plugins() const;              ///< Provide immutable access to found plugins
     QString tryInitializeGetFailureReason();                ///< Try to initialize Python interpreter
-    bool isPluginsLoaded() const;                           ///< Check if enabled plugins are loaded
-    bool isRealoadNeeded() const;                           ///< Check if last time user has change smth
     operator bool_type() const;                             ///< Check if instance is usable
 
 public Q_SLOTS:
     void readGlobalPluginsConfiguration();                  ///< Load plugins' configuration.
     void saveGlobalPluginsConfiguration();                  ///< Write out plugins' configuration.
-    void tryLoadEnabledPlugins(const QStringList&);         ///< Load only explicitly enabled plugins
-    void reloadEnabledPlugins();                            ///< (re)Load the configured modules.
+    void unloadAllModules();
 
 protected:
-    /// Search for available plugins
-    void scanPlugins();
-    /// Load enabled modules (a real implementation)
-    void loadModules();
-    /// Unload enabled modules
-    void unloadModules();
+    void scanPlugins();                                     ///< Search for available plugins
+    void loadModule(int);                                   ///< Load module by index in \c m_plugins
+    void unloadModule(int);                                 ///< Unload module by index in \c m_plugins
 
 private:
     // Simulate strong typed enums from C++11
@@ -133,16 +129,20 @@ private:
         };
     };
 
-    /**
-     * The root configuration used by Pate's Python objects. It is a Python
-     * dictionary.
-     */
-    PyObject* m_configuration;
-    PyObject* m_sessionConfiguration;
-    QList<PluginState> m_plugins;
-    bool m_engineIsUsable;
-    bool m_pluginsLoaded;
-    bool m_reloadNeeded;
+    struct PluginTuple
+    {
+        enum type
+        {
+            MODULE
+          , CALLBACKS_DICT
+          , LAST__
+        };
+    };
+
+    PyObject* m_configuration;                              ///< Application-wide configuration data
+    PyObject* m_sessionConfiguration;                       ///< Session-wide configuration data
+    QList<PluginState> m_plugins;                           ///< List of available plugins
+    bool m_engineIsUsable;                                  ///< Is engine loaded Ok?
 };
 
 inline QString Engine::PluginState::pythonModuleName() const
@@ -177,15 +177,6 @@ inline Engine::operator bool_type() const
     return m_engineIsUsable ? &Engine::unspecified_true_bool_type : 0;
 }
 
-inline bool Engine::isPluginsLoaded() const
-{
-    return m_pluginsLoaded;
-}
-
-inline bool Engine::isRealoadNeeded() const
-{
-    return m_reloadNeeded;
-}
 }                                                           // namespace Pate
 #endif                                                      //  __PATE_ENGINE_H__
 // kate: indent-width 4;

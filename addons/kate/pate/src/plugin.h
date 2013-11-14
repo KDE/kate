@@ -26,8 +26,6 @@
 # include <kate/plugin.h>
 # include <kate/pluginconfigpageinterface.h>
 
-# include <kxmlguiclient.h>
-
 # include <QList>
 
 # include "engine.h"
@@ -71,7 +69,7 @@ class Plugin
     Q_INTERFACES(Kate::PluginConfigPageInterface)
 
 public:
-    explicit Plugin(QObject* = 0, const QStringList& = QStringList());
+    explicit Plugin(QObject* = 0, const QList<QVariant>& = QList<QVariant>());
     virtual ~Plugin();
 
     Kate::PluginView* createView(Kate::MainWindow*);
@@ -116,12 +114,18 @@ private:
 /**
  * The Pate plugin view.
  */
-class PluginView : public Kate::PluginView
+class PluginView
+  : public Kate::PluginView
+  , public Kate::XMLGUIClient
 {
     Q_OBJECT
 
 public:
-    PluginView(Kate::MainWindow* window);
+    PluginView(Kate::MainWindow*, Plugin*);
+    ~PluginView();
+
+private:
+    Plugin* m_plugin;
 };
 
 /**
@@ -132,7 +136,7 @@ class ConfigPage : public Kate::PluginConfigPage
     Q_OBJECT
 
 public:
-    explicit ConfigPage(QWidget* parent = 0, Plugin* plugin = 0);
+    explicit ConfigPage(QWidget* = 0, Plugin* = 0);
     virtual ~ConfigPage();
 
 public Q_SLOTS:
@@ -143,9 +147,6 @@ public Q_SLOTS:
 private:
     Plugin* m_plugin;
     Ui::ManagerPage m_manager;
-
-private Q_SLOTS:
-    void reloadPage(bool init);
 };
 
 /**

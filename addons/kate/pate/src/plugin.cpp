@@ -32,6 +32,7 @@
 
 #include <KAboutData>
 #include <KAction>
+#include <KActionCollection>
 #include <KDialog>
 #include <KLocale>
 #include <KGenericFactory>
@@ -54,11 +55,23 @@
 // The Pate plugin
 //
 
-K_EXPORT_COMPONENT_FACTORY(katepateplugin, KGenericFactory<Pate::Plugin>("pate"))
+K_PLUGIN_FACTORY(PatePluginFactory, registerPlugin<Pate::Plugin>();)
+K_EXPORT_PLUGIN(
+    PatePluginFactory(
+        KAboutData(
+            "katepateplugin"
+          , "katepateplugin"
+          , ki18n("Pâté Plugin")
+          , "1.0"
+          , ki18n("Pâté host for Python plugins")
+          , KAboutData::License_LGPL_V3
+          )
+      )
+  )
 
 //BEGIN Pate::Plugin
-Pate::Plugin::Plugin(QObject* const app, const QStringList&)
-  : Kate::Plugin(static_cast<Kate::Application*>(app))
+Pate::Plugin::Plugin(QObject* const app, const QList<QVariant>&)
+  : Kate::Plugin(static_cast<Kate::Application*>(app), "katepateplugin")
   , m_engineFailureReason(m_engine.tryInitializeGetFailureReason())
   , m_autoReload(false)
 {
@@ -73,8 +86,7 @@ Pate::Plugin::~Plugin()
 
 Kate::PluginView* Pate::Plugin::createView(Kate::MainWindow* window)
 {
-    return new Pate::PluginView(window);
-    // NOTE It is (still) useless to (try to) show any popup here...
+    return new Pate::PluginView(window, this);
 }
 
 void Pate::Plugin::readSessionConfig(KConfigBase* const config, const QString& groupPrefix)
@@ -87,12 +99,8 @@ void Pate::Plugin::readSessionConfig(KConfigBase* const config, const QString& g
         kDebug() << "Reading session config from:" << getSessionPrivateStorageFilename(config);
         KConfig session_config(getSessionPrivateStorageFilename(config), KConfig::SimpleConfig);
         m_engine.readSessionPluginsConfiguration(&session_config);
-        m_engine.tryLoadEnabledPlugins(group.readEntry("Enabled Plugins", QStringList()));
-
-        Python py = Python();
-        py.functionCall("_sessionCreated");
+        m_engine.setEnabledPlugins(group.readEntry("Enabled Plugins", QStringList()));
     }
-    // NOTE It is (still) useless to (try to) show any popup here... ;-)
 }
 
 void Pate::Plugin::writeSessionConfig(KConfigBase* const config, const QString& groupPrefix)
@@ -107,34 +115,6 @@ void Pate::Plugin::writeSessionConfig(KConfigBase* const config, const QString& 
         KConfig session_config(getSessionPrivateStorageFilename(config), KConfig::SimpleConfig);
         m_engine.writeSessionPluginsConfiguration(&session_config);
         session_config.sync();
-        // For the very first time, when plugin just enabled, there is only
-        // an internal list of enabled plugins (and no configuration yet)
-        // After "Ok"/"Apply" button gets pressed in configuration dialog,
-        // this method will be called, and we must enable everything that was
-        // checked... or has changed.
-        if (!m_engine.isPluginsLoaded())
-        {
-            kDebug() << "Going to load enabled plugins";
-            m_engine.reloadEnabledPlugins();
-        }
-        else if (m_engine.isRealoadNeeded())
-        {
-            /// \attention Reloading plugins at this point leads to UB:
-            /// lot of errors in Python code and possible crash on application exit!
-            /// (due some problems w/ removing a toolview if present)
-            /// So popup is here...
-            KPassivePopup::message(
-                i18nc("@title:window", "Attention")
-              , i18nc("@info", "<application>kate</application> must be restarted")
-              , static_cast<QWidget*>(0)
-              );
-            /// \todo Need to change behaviour as C++ plugins work:
-            /// if user enable/disable smth, a plugin must be loaded/unloaded
-            /// at that time, cuz it may have configuration pages to be shown.
-            /// But, nowadays kate's plugin interface doesn't have a way to
-            /// dynamically change pages count... i.e. to indicate that fact
-            /// when configuration dialog already shown...
-        }
     }
     group.sync();
 }
@@ -299,12 +279,26 @@ QString Pate::Plugin::getSessionPrivateStorageFilename(KConfigBase* const config
 // Plugin view, instances of which are created once for each session.
 //
 //BEGIN Pate::PluginView
-Pate::PluginView::PluginView(Kate::MainWindow* const window)
+Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugin)
   : Kate::PluginView(window)
+  , Kate::XMLGUIClient(PatePluginFactory::componentData())
+  , m_plugin(plugin)
 {
+    KAction* about = actionCollection()->addAction("about_pate");
+    about->setText("About Pate");
+    //
+    plugin->engine().tryLoadEnabledPlugins();
+    Python py = Python();
+    py.functionCall("_pateLoaded");
+    //
+    mainWindow()->guiFactory()->addClient(this);
 }
 //END Pate::PluginView
 
+Pate::PluginView::~PluginView()
+{
+    mainWindow()->guiFactory()->removeClient(this);
+}
 
 //
 // Plugin configuration view.
@@ -330,38 +324,16 @@ Pate::ConfigPage::ConfigPage(QWidget* const parent, Plugin* const plugin)
     m_manager.pluginsList->setModel(proxy_model);
     m_manager.pluginsList->resizeColumnToContents(0);
     m_manager.pluginsList->sortByColumn(0, Qt::AscendingOrder);
-    connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage(bool)));
     reset();
 
     const bool is_enabled = bool(m_plugin->engine());
     const bool is_visible = !is_enabled;
     m_manager.errorLabel->setVisible(is_visible);
     m_manager.pluginsList->setEnabled(is_enabled);
-    m_manager.reload->setEnabled(is_enabled);
 }
 
 Pate::ConfigPage::~ConfigPage()
 {
-}
-
-void Pate::ConfigPage::reloadPage(const bool init)
-{
-    if (!init)
-    {
-        if (m_plugin->engine())
-        {
-            m_plugin->engine().saveGlobalPluginsConfiguration();
-            m_plugin->engine().reloadEnabledPlugins();
-        }
-        else
-        {
-            /// \todo Show error
-        }
-    }
-    m_plugin->reloadModuleConfigPages();
-
-    m_manager.pluginsList->resizeColumnToContents(0);
-    m_manager.pluginsList->sortByColumn(0, Qt::AscendingOrder);
 }
 
 void Pate::ConfigPage::apply()

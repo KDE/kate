@@ -19,14 +19,14 @@
 
 ''' Useful widgets '''
 
+from PyKDE4 import kdeui
+
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
 
-def loadIcon(iconName):
-    # overwrite this with your own icon loading function
-    # in your project. 
-    return QPixmap(iconName)
+def loadIcon(iconName, size=32):
+    return kdeui.KIcon(iconName).pixmap(size, size)
 
 
 def setBackgroundColor(widget, color):

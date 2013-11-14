@@ -108,6 +108,7 @@ public:
      * Call the named module's named entry point.
      */
     bool functionCall(const char* functionName, const char* moduleName = PATE_ENGINE);
+    PyObject* functionCall(const char* functionName, const char* moduleName, PyObject* arguments);
 
     /**
      * Delete the item from the named module's dictionary.
@@ -216,7 +217,6 @@ private:
      * @return 0 or a new reference to the result.
      */
     PyObject* kateHandler(const char* moduleName, const char* handler);
-    PyObject* functionCall(const char* functionName, const char* moduleName, PyObject* arguments);
 };
 
 }                                                           // namespace Pate

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="katepate"
+     version="2"
+     xmlns="http://www.kde.org/standards/kxmlgui/1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0
+                         http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd" >
+    <MenuBar>
+        <Menu name="help"><text>&amp;Help</text>
+            <Action name="about_pate" text="About Pate" />
+        </Menu>
+    </MenuBar>
+</gui>

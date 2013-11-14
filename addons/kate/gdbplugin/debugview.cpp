@@ -388,7 +388,7 @@ void DebugView::processLine( QString line )
             else if (breakPointDel.exactMatch(line))
             {
                 line.remove("Deleted breakpoint");
-                line.remove("s"); // in case of multiple breakpoints
+                line.remove('s'); // in case of multiple breakpoints
                 QStringList numbers = line.split(' ', QString::SkipEmptyParts);
                 for (int i=0; i<numbers.size(); i++) 
                 {

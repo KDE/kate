@@ -528,7 +528,7 @@ void KateCTagsView::updateSessionDB()
       if (target.endsWith('/') || target.endsWith('\\')) {
         target = target.left(target.size() - 1);
       }
-      targets += target + " ";
+      targets += target + ' ';
     }
 
     if (m_ctagsUi.tagsFile->text().isEmpty()) {

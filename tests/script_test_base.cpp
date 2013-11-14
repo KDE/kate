@@ -122,7 +122,7 @@ void ScriptTestBase::getTestData(const QString& script)
 
   // make sure the script files are valid
   if (m_script_dir != "") {
-    QFile scriptFile(srcPath + "/../part/script/data/" + m_script_dir + "/" + script + ".js");
+    QFile scriptFile(srcPath + "/../part/script/data/" + m_script_dir + '/' + script + ".js");
     if (!scriptFile.exists()) {
       QSKIP(qPrintable(QString(scriptFile.fileName() + " does not exist")), SkipAll);
     }

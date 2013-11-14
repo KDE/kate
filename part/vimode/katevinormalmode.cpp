@@ -1773,7 +1773,7 @@ bool KateViNormalMode::commandSwitchToNextTab() {
   QString command = "bn";
 
   if ( m_iscounted )
-    command = command + " " + QString::number(getCount());
+    command = command + ' ' + QString::number(getCount());
 
   m_view->cmdLineBar()->execute(command);
   return true;
@@ -1783,7 +1783,7 @@ bool KateViNormalMode::commandSwitchToPrevTab() {
   QString command = "bp";
 
   if ( m_iscounted )
-    command = command + " " + QString::number(getCount());
+    command = command + ' ' + QString::number(getCount());
 
   m_view->cmdLineBar()->execute(command);
   return true;

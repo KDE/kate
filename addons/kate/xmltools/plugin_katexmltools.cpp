@@ -745,7 +745,7 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem2( KTextEditor::Doc
 
   else if( m_mode == closingtag )
   {
-    text += ">";
+    text += '>';
   }
 
   document->replaceText( toReplace, text );

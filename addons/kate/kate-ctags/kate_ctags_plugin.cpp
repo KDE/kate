@@ -208,7 +208,7 @@ void KateCTagsConfigPage::updateGlobalDB()
         if (target.endsWith('/') || target.endsWith('\\')) {
             target = target.left(target.size() - 1);
         }
-        targets += target + " ";
+        targets += target + ' ';
     }
 
     QString file = KStandardDirs::locateLocal("appdata", "plugins/katectags/common_db", true);

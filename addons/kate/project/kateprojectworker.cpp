@@ -206,7 +206,7 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
       if (!recursive && (relFile.indexOf ("/") != -1))
         continue;
 
-      files.append (dir.absolutePath() + "/" + relFile);
+      files.append (dir.absolutePath() + '/' + relFile);
     }
   }
 
@@ -240,7 +240,7 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
       if (!recursive && (relFile.indexOf ("/") != -1))
         continue;
 
-      files.append (dir.absolutePath() + "/" + relFile);
+      files.append (dir.absolutePath() + '/' + relFile);
     }
   }
 
@@ -297,7 +297,7 @@ void KateProjectWorker::loadFilesEntry (QStandardItem *parent, const QVariantMap
          * prepend directory path
          */
         if ((line.size() > prefixLength) && line[0] != '?' && line[0] != 'I')
-          files.append (dir.absolutePath() + "/" + line.right (line.size() - prefixLength));
+          files.append (dir.absolutePath() + '/' + line.right (line.size() - prefixLength));
     }
   }
 

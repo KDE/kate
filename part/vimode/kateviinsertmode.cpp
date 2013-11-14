@@ -641,7 +641,7 @@ void KateViInsertMode::replayCompletion()
       }
       // Position cursor correctly i.e. we'll have added "functionname()" or "functionname();"; need to step back by
       // one or two to be after the opening bracket.
-      offsetFinalCursorPosBy = completionText.endsWith(";") ? -2 : -1;
+      offsetFinalCursorPosBy = completionText.endsWith(';') ? -2 : -1;
     }
   }
   Cursor deleteEnd =  completion.removeTail() ? currentWord.end() :

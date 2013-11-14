@@ -274,7 +274,7 @@ bool PluginKateTextFilter::help(KTextEditor::View *, const QString&, QString &ms
 
 bool PluginKateTextFilter::exec(KTextEditor::View *v, const QString &cmd, QString &msg)
 {
-  QString filter = cmd.section(" ", 1).trimmed();
+  QString filter = cmd.section(' ', 1).trimmed();
 
   if (filter.isEmpty()) {
     msg = i18n("Usage: textfilter COMMAND");

@@ -910,8 +910,8 @@ void KatePluginSearchView::startSearch()
         if (m_projectPluginView) {
             projectName = m_projectPluginView->property ("projectName").toString();
             m_resultBaseDir = m_projectPluginView->property ("projectBaseDir").toString();
-            if (!m_resultBaseDir.endsWith("/"))
-                m_resultBaseDir += "/";
+            if (!m_resultBaseDir.endsWith('/'))
+                m_resultBaseDir += '/';
             QStringList projectFiles = m_projectPluginView->property ("projectFiles").toStringList();
             files = filterFiles(projectFiles);
         }

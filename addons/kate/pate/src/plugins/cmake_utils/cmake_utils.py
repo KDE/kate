@@ -910,6 +910,7 @@ def cmakeConfigPage(parent=None, name=None):
 
 @kate.viewCreated
 def createSignalAutocompleteCMake(view=None, *args, **kwargs):
+    #print('--------------------CMAKE: VIEW CREATED -------------------')
     try:
         view = view or kate.activeView()
         if view:
@@ -922,7 +923,7 @@ def createSignalAutocompleteCMake(view=None, *args, **kwargs):
 @kate.init
 def init():
     # Set default value if not configured yet
-    print('CMakeCC: enter init')
+    #print('--------------------CMAKE: INIT -------------------')
     if settings.CMAKE_BINARY not in kate.sessionConfiguration:
         kate.sessionConfiguration[settings.CMAKE_BINARY] = settings.CMAKE_BINARY_DEFAULT
     if settings.PARENT_DIRS_LOOKUP_CNT not in kate.sessionConfiguration:
@@ -951,6 +952,7 @@ def init():
 @kate.unload
 def destroy():
     '''Plugins that use a toolview need to delete it for reloading to work.'''
+    #print('--------------------CMAKE: UNLOAD -------------------')
     global _cmake_completion_model
     if _cmake_completion_model:
         del _cmake_completion_model

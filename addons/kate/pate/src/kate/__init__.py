@@ -33,10 +33,6 @@ PyKate4.kate, Python plugins can:
     - Use Python2 or Python3 (from Kate 4.11 onwards), depending on how Kate
       was built.
     - Support i18n.
-
-Also, plugins are found using a search path. This is intended to encourage
-user-hacking by allowing a user to simply copy a system-installed plugin to
-a directory under $HOME and then modify it.
 """
 
 from __future__ import print_function
@@ -45,6 +41,7 @@ import os
 import traceback
 import functools
 import pydoc
+
 from inspect import getmembers, isfunction
 from PyKDE4.kdecore import i18nc
 from PyKDE4.kdeui import KMessageBox
@@ -54,119 +51,14 @@ import kate.gui
 
 from PyQt4 import QtCore, QtGui
 from PyKDE4 import kdecore, kdeui
+
 # kate namespace
 from PyKate4.kate import Kate
 from PyKDE4.ktexteditor import KTextEditor
 
-class Configuration:
-    '''A Configuration object provides a plugin-specific persistent
-    configuration dictionary. The configuration is saved and loaded from disk
-    automatically.
+from .api import *
+from .configuration import *
 
-    Do not instantiate your own Configuration object; a plugin simply uses
-    kate.configuration and the class automatically creates a plugin-specific
-    dictionary to support it.
-
-    Use a string key. Any Python type that can be pickled is can be used as a
-    value -- dictionaries, lists, numbers, strings, sets, and so on.
-    '''
-
-    def __init__(self, root):
-        self.root = root
-
-    def __getitem__(self, key):
-        plugin = sys._getframe(1).f_globals['__name__']
-        return self.root.get(plugin, {})[key]
-
-    def __setitem__(self, key, value):
-        plugin = sys._getframe(1).f_globals['__name__']
-        if plugin not in self.root:
-            self.root[plugin] = {}
-        self.root[plugin][key] = value
-
-    def __delitem__(self, key):
-        plugin = sys._getframe(1).f_globals['__name__']
-        del self.root.get(plugin, {})[key]
-
-    def __contains__(self, key):
-        plugin = sys._getframe(1).f_globals['__name__']
-        return key in self.root.get(plugin, {})
-
-    def __len__(self):
-        plugin = sys._getframe(1).f_globals['__name__']
-        return len(self.root.get(plugin, {}))
-
-    def __iter__(self):
-        plugin = sys._getframe(1).f_globals['__name__']
-        return iter(self.root.get(plugin, {}))
-
-    def __str__(self):
-        plugin = sys._getframe(1).f_globals['__name__']
-        return str(self.root.get(plugin, {}))
-
-    def __repr__(self):
-        plugin = sys._getframe(1).f_globals['__name__']
-        return repr(self.root.get(plugin, {}))
-
-    def keys(self):
-        """Return the keys from the configuration dictionary."""
-        plugin = sys._getframe(1).f_globals['__name__']
-        return self.root.get(plugin, {}).keys()
-
-    def values(self):
-        """Return the values from the configuration dictionary."""
-        plugin = sys._getframe(1).f_globals['__name__']
-        return self.root.get(plugin, {}).values()
-
-    def items(self):
-        """Return the items from the configuration dictionary."""
-        plugin = sys._getframe(1).f_globals['__name__']
-        return self.root.get(plugin, {}).items()
-
-    def get(self, key, default=None):
-        """Fetch a configuration item using it's string key, returning
-        a given default if not found.
-
-        Parameters:
-            * key -             String key for item.
-            * default -         Value to return if key is not found.
-
-        Returns:
-            The item value for key, or the given default if not found.
-        """
-        plugin = sys._getframe(1).f_globals['__name__']
-        try:
-            return self[plugin][key]
-        except KeyError:
-            return default
-
-    def pop(self, key):
-        """Delete a configuration item using it's string key.
-
-        Parameters:
-            * key -             String key for item.
-        """
-        value = self[key]
-        del self[key]
-        return value
-
-    def save(self):
-        pate.saveConfiguration()
-
-    def _name(self):
-        return sys._getframe(1).f_globals['__name__']
-
-globalConfiguration = pate.configuration
-"""Configuration for all plugins.
-
-This can also be used by one plugin to access another plugin's configurations.
-"""
-
-configuration = Configuration(pate.configuration)
-"""Persistent configuration dictionary for this plugin."""
-
-sessionConfiguration = Configuration(pate.sessionConfiguration)
-"""Per session persistent configuration dictionary for this plugin."""
 
 def plugins():
     """ The list of available plugins."""
@@ -384,84 +276,12 @@ def configPage(name, fullName, icon):
 # End decorators
 
 
-# API functions and objects
-
-class NoActiveView(Exception):
-    pass
-
-application = Kate.application()
-"""Global accessor to the application object. Equivalent to Kate::application().
-
-Returns: application object.
-"""
-
-documentManager = application.documentManager()
-"""Global accessor to the document manager object. Equivalent to Kate::documentManager().
-
-Returns: document manager object.
-"""
-
-def mainWindow():
-    ''' The QWidget-derived main Kate window currently showing. A
-    shortcut around kate.application.activeMainWindow().window().
-
-    The Kate API differentiates between the interface main window and
-    the actual widget main window. If you need to access the
-    Kate.MainWindow for the methods it provides (e.g createToolView),
-    then use the mainInterfaceWindow function '''
-    return application.activeMainWindow().window()
-
-def mainInterfaceWindow():
-    ''' The interface to the main window currently showing. Calling
-    window() on the interface window gives you the actual
-    QWidget-derived main window, which is what the mainWindow()
-    function returns '''
-    return application.activeMainWindow()
-
-def activeView():
-    ''' The currently active view. Access its KTextEditor.Document
-    by calling document() on it (or by using kate.activeDocument()).
-    This is a shortcut for kate.application.activeMainWindow().activeView()'''
-    return application.activeMainWindow().activeView()
-
-def activeDocument():
-    ''' The document for the currently active view.
-    Throws NoActiveView if no active view available.'''
-    view = activeView()
-    if view:
-        return view.document()
-    raise NoActiveView
-
-def centralWidget():
-    ''' The central widget that holds the tab bar and the editor.
-    This is a shortcut for kate.application.activeMainWindow().centralWidget() '''
-    return application.activeMainWindow().centralWidget()
-
-def focusEditor():
-    ''' Give the editing section focus '''
-    print('dumping tree....')
-    for x in mainWindow().findChildren(QtGui.QWidget):
-        print(x.__class__.__name__, x.objectName())
-
-def applicationDirectories(*path):
-    path = os.path.join('pate', *path)
-    return kdecore.KGlobal.dirs().findDirs('appdata', path)
-
-def objectIsAlive(obj):
-    ''' Test whether an object is alive; that is, whether the pointer
-    to the object still exists. '''
-    import sip
-    try:
-       sip.unwrapinstance(obj)
-    except RuntimeError:
-       return False
-    return True
-
-
 # Initialisation
 
 def pateInit():
     # wait for the configuration to be read
+    # TODO If this function gets called, no need to wait anything!
+    # Configuration already read at this moment!
     def _initPhase2():
         global initialized
         initialized = True

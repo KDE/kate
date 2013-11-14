@@ -222,14 +222,14 @@ Kate::PluginConfigPage* Pate::Plugin::configPage(
         py.traceback("failed to call plugin page");
         return new Pate::ErrorConfigPage(parent, py.lastTraceback());
     }
-    Kate::PluginConfigPage* r = (Kate::PluginConfigPage*)py.objectUnwrap(result);
+    Kate::PluginConfigPage* r = reinterpret_cast<Kate::PluginConfigPage*>(py.objectUnwrap(result));
 
     /// \todo We leak this here reference.
     //Py_DECREF(result);
     return r;
 }
 
-QString Pate::Plugin::configPageName(uint number) const
+QString Pate::Plugin::configPageName(const uint number) const
 {
     if (!number)
         return i18nc("@title:row", "Python Plugins");
@@ -237,31 +237,29 @@ QString Pate::Plugin::configPageName(uint number) const
     if (number > uint(m_moduleConfigPages.size()))
         return QString();
 
-    number--;
     Python py = Python();
-    PyObject* tuple = m_moduleConfigPages.at(number);
+    PyObject* tuple = m_moduleConfigPages.at(number - 1);
     PyObject* configPage = PyTuple_GetItem(tuple, 2);
     PyObject* name = PyTuple_GetItem(configPage, 0);
     return Python::unicode(name);
 }
 
-QString Pate::Plugin::configPageFullName(uint number) const
+QString Pate::Plugin::configPageFullName(const uint number) const
 {
     if (!number)
         return i18nc("@title:tab", "Pâté host for Python plugins");
 
-    if (number > (uint)m_moduleConfigPages.size())
+    if (number > uint(m_moduleConfigPages.size()))
         return QString();
 
-    number--;
     Python py = Python();
-    PyObject* tuple = m_moduleConfigPages.at(number);
+    PyObject* tuple = m_moduleConfigPages.at(number - 1);
     PyObject* configPage = PyTuple_GetItem(tuple, 2);
     PyObject* fullName = PyTuple_GetItem(configPage, 1);
     return Python::unicode(fullName);
 }
 
-KIcon Pate::Plugin::configPageIcon(uint number) const
+KIcon Pate::Plugin::configPageIcon(const uint number) const
 {
     if (!number)
         return KIcon("preferences-plugin");
@@ -269,12 +267,11 @@ KIcon Pate::Plugin::configPageIcon(uint number) const
     if (number > (uint)m_moduleConfigPages.size())
         return KIcon();
 
-    number--;
     Python py = Python();
-    PyObject* tuple = m_moduleConfigPages.at(number);
+    PyObject* tuple = m_moduleConfigPages.at(number - 1);
     PyObject* configPage = PyTuple_GetItem(tuple, 2);
     PyObject* icon = PyTuple_GetItem(configPage, 2);
-    return *(KIcon*)py.objectUnwrap(icon);
+    return *reinterpret_cast<KIcon*>(py.objectUnwrap(icon));
 }
 
 inline const Pate::Engine& Pate::Plugin::engine() const
@@ -317,8 +314,6 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window)
 Pate::ConfigPage::ConfigPage(QWidget* const parent, Plugin* const plugin)
   : Kate::PluginConfigPage(parent)
   , m_plugin(plugin)
-  , m_pluginActions(0)
-  , m_pluginConfigPages(0)
 {
     kDebug() << "create ConfigPage";
 
@@ -333,30 +328,20 @@ Pate::ConfigPage::ConfigPage(QWidget* const parent, Plugin* const plugin)
     QSortFilterProxyModel* const proxy_model = new QSortFilterProxyModel(this);
     proxy_model->setSourceModel(&m_plugin->engine());
     m_manager.pluginsList->setModel(proxy_model);
-    reset();
+    m_manager.pluginsList->resizeColumnToContents(0);
+    m_manager.pluginsList->sortByColumn(0, Qt::AscendingOrder);
     connect(m_manager.reload, SIGNAL(clicked(bool)), SLOT(reloadPage(bool)));
-
-    // Add a tab for reference information.
-    QWidget* const infoWidget = new QWidget(m_manager.tabWidget);
-    m_info.setupUi(infoWidget);
-    m_manager.tabWidget->addTab(infoWidget, i18nc("@title:tab", "Documentation"));
-    connect(m_info.topics, SIGNAL(currentIndexChanged(int)), SLOT(infoTopicChanged(int)));
-    connect(m_info.actions, SIGNAL(currentIndexChanged(int)), SLOT(infoPluginActionsChanged(int)));
-    connect(m_info.configPages, SIGNAL(currentIndexChanged(int)), SLOT(infoPluginConfigPagesChanged(int)));
-    reloadPage(true);
+    reset();
 
     const bool is_enabled = bool(m_plugin->engine());
     const bool is_visible = !is_enabled;
     m_manager.errorLabel->setVisible(is_visible);
-    m_manager.tabWidget->setEnabled(is_enabled);
+    m_manager.pluginsList->setEnabled(is_enabled);
     m_manager.reload->setEnabled(is_enabled);
 }
 
 Pate::ConfigPage::~ConfigPage()
 {
-    Python py = Python();
-    Py_XDECREF(m_pluginActions);
-    Py_XDECREF(m_pluginConfigPages);
 }
 
 void Pate::ConfigPage::reloadPage(const bool init)
@@ -377,165 +362,6 @@ void Pate::ConfigPage::reloadPage(const bool init)
 
     m_manager.pluginsList->resizeColumnToContents(0);
     m_manager.pluginsList->sortByColumn(0, Qt::AscendingOrder);
-
-    // Add a topic for each built-in packages, using stacked page 0. Note that
-    // pate itself is not exposed as it is just part of the plumbing required
-    // by kate.
-    m_info.topics->clear();
-    m_info.topics->addItem(KIcon("applications-development"), QLatin1String("kate"));
-    m_info.topics->addItem(KIcon("applications-development"), QLatin1String("kate.gui"));
-
-    // Add a topic for each plugin. using stacked page 1.
-    Python py = Python();
-    PyObject* plugins = py.itemString("plugins");
-    if (plugins)
-    {
-        for (Py_ssize_t i = 0, j = PyList_Size(plugins); i < j; ++i)
-        {
-            PyObject* module = PyList_GetItem(plugins, i);
-            // Add a topic for this plugin, using stacked page 1.
-            m_info.topics->addItem(
-                KIcon("text-x-python")
-              , QLatin1String(PyModule_GetName(module))
-              );
-        }
-    }
-    infoTopicChanged(0);
-}
-
-void Pate::ConfigPage::infoTopicChanged(const int topicIndex)
-{
-    Python py = Python();
-    if (-1 == topicIndex)
-    {
-        // We are being reset.
-        Py_XDECREF(m_pluginActions);
-        m_pluginActions = 0;
-        Py_XDECREF(m_pluginConfigPages);
-        m_pluginConfigPages = 0;
-        return;
-    }
-
-    // Display the information for the selected module/plugin.
-    const QString topic = m_info.topics->itemText(topicIndex);
-
-    // Reference tab.
-    m_info.help->setHtml(py.moduleHelp(PQ(topic)));
-
-    // Action tab.
-    m_info.actions->clear();
-    Py_XDECREF(m_pluginActions);
-    m_pluginActions = py.moduleActions(PQ(topic));
-    if (m_pluginActions)
-    {
-        for (Py_ssize_t i = 0, j = PyList_Size(m_pluginActions); i < j; ++i)
-        {
-            PyObject* tuple = PyList_GetItem(m_pluginActions, i);
-            PyObject* functionName = PyTuple_GetItem(tuple, 0);
-
-            // Add an action for this plugin.
-            m_info.actions->addItem(Python::unicode(functionName));
-        }
-    }
-    infoPluginActionsChanged(0);
-
-    // Config pages tab.
-    m_info.configPages->clear();
-    Py_XDECREF(m_pluginConfigPages);
-    m_pluginConfigPages = py.moduleConfigPages(PQ(topic));
-    if (m_pluginConfigPages)
-    {
-        for (Py_ssize_t i = 0, j = PyList_Size(m_pluginConfigPages); i < j; ++i)
-        {
-            PyObject* tuple = PyList_GetItem(m_pluginConfigPages, i);
-            PyObject* functionName = PyTuple_GetItem(tuple, 0);
-
-            // Add a config page for this plugin.
-            m_info.configPages->addItem(Python::unicode(functionName));
-        }
-    }
-    infoPluginConfigPagesChanged(0);
-}
-
-void Pate::ConfigPage::infoPluginActionsChanged(const int actionIndex)
-{
-    if (!m_pluginActions)
-        // This is a bit weird. ORLY? :-)
-        return;
-
-    Python py = Python();
-    PyObject* tuple = PyList_GetItem(m_pluginActions, actionIndex);
-    if (!tuple)
-    {
-        // A plugin with no executable actions? It must be a module...
-        m_info.text->setText(QString::null);
-        m_info.actionIcon->setIcon(QIcon());
-        m_info.actionIcon->setText(QString::null);
-        m_info.shortcut->setText(QString::null);
-        m_info.menu->setText(QString::null);
-        m_info.description->setText(QString::null);
-        return;
-    }
-
-    PyObject* action = PyTuple_GetItem(tuple, 1);
-    PyObject* text = PyTuple_GetItem(action, 0);
-    PyObject* icon = PyTuple_GetItem(action, 1);
-    PyObject* shortcut = PyTuple_GetItem(action, 2);
-    PyObject* menu = PyTuple_GetItem(action, 3);
-    PyObject* __doc__ = PyTuple_GetItem(tuple, 2);
-
-    // Add a topic for this plugin, using stacked page 0.
-    m_info.text->setText(Python::unicode(text));
-    if (Py_None == icon)
-        m_info.actionIcon->setIcon(QIcon());
-    else if (Python::isUnicode(icon))
-        m_info.actionIcon->setIcon(KIcon(Python::unicode(icon)));
-    else
-    {
-#if PY_MAJOR_VERSION < 3
-        m_info.actionIcon->setIcon(*(QPixmap*)PyCObject_AsVoidPtr(icon));
-#else
-        m_info.actionIcon->setIcon(*(QPixmap*)PyCapsule_GetPointer(icon, "icon"));
-#endif
-    }
-    m_info.shortcut->setText(Python::unicode(shortcut));
-    m_info.menu->setText(Python::unicode(menu));
-    m_info.description->setText(Python::unicode(__doc__));
-}
-
-void Pate::ConfigPage::infoPluginConfigPagesChanged(const int pageIndex)
-{
-    if (!m_pluginConfigPages)
-        // This is a bit weird.
-        return;
-
-    Python py = Python();
-    PyObject* tuple = PyList_GetItem(m_pluginConfigPages, pageIndex);
-    if (!tuple)
-    {
-        // No config pages.
-        m_info.name->setText(QString::null);
-        m_info.fullName->setText(QString::null);
-        m_info.configPageIcon->setIcon(QIcon());
-        m_info.configPageIcon->setText(QString::null);
-        return;
-    }
-
-    PyObject* configPage = PyTuple_GetItem(tuple, 2);
-    PyObject* name = PyTuple_GetItem(configPage, 0);
-    PyObject* fullName = PyTuple_GetItem(configPage, 1);
-    PyObject* icon = PyTuple_GetItem(configPage, 2);
-
-    // Add a topic for this plugin, using stacked page 0.
-    /// \todo Proper handling of Unicode
-    m_info.name->setText(Python::unicode(name));
-    m_info.fullName->setText(Python::unicode(fullName));
-    if (Py_None == icon)
-        m_info.configPageIcon->setIcon(QIcon());
-    else if (Python::isUnicode(icon))
-        m_info.configPageIcon->setIcon(KIcon(Python::unicode(icon)));
-    else
-        m_info.configPageIcon->setIcon(*(KIcon*)py.objectUnwrap(icon));
 }
 
 void Pate::ConfigPage::apply()

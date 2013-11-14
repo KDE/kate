@@ -31,7 +31,6 @@
 # include <QList>
 
 # include "engine.h"
-# include "ui_info.h"
 # include "ui_manager.h"
 
 // Fwd decls
@@ -117,8 +116,7 @@ private:
 /**
  * The Pate plugin view.
  */
-class PluginView :
-    public Kate::PluginView
+class PluginView : public Kate::PluginView
 {
     Q_OBJECT
 
@@ -145,15 +143,9 @@ public Q_SLOTS:
 private:
     Plugin* m_plugin;
     Ui::ManagerPage m_manager;
-    Ui::InfoPage m_info;
-    PyObject* m_pluginActions;
-    PyObject* m_pluginConfigPages;
 
 private Q_SLOTS:
     void reloadPage(bool init);
-    void infoTopicChanged(int topicIndex);
-    void infoPluginActionsChanged(int actionIndex);
-    void infoPluginConfigPagesChanged(int pageIndex);
 };
 
 /**

@@ -148,5 +148,3 @@ def has_selection(selectionState):
 
 # TODO All decorators are look same...
 # It seems we need another one decorator to produce decorators of decorators :-)
-
-# kate: indent-width 4;

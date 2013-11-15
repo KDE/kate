@@ -45,7 +45,7 @@ from .decorators import *
 
 @pateEventHandler('_pluginLoaded')
 def on_load(plugin):
-    print('Loding Pate plugin: {}'.format(plugin))
+    kDebug('Loading Pate plugin: {}'.format(plugin))
     if plugin in init.functions:
         # Call registered init functions for the plugin
         init.fire(plugin=plugin)
@@ -54,7 +54,7 @@ def on_load(plugin):
 
 @pateEventHandler('_pluginUnloading')
 def on_unload(plugin):
-    print('Unloding Pate plugin: {}'.format(plugin))
+    kDebug('Unloding Pate plugin: {}'.format(plugin))
     if plugin in unload.functions:
         # Deinitialize plugin
         unload.fire(plugin=plugin)
@@ -63,12 +63,9 @@ def on_unload(plugin):
 
 @pateEventHandler('_pateLoaded')
 def on_pate_loaded():
-    print('-----------PATE LOADED--------------')
+    kDebug('PATE LOADED')
 
 
 @pateEventHandler('_pateUnloading')
 def on_pate_unloading():
-    print('-----------PATE UNLOADING--------------')
-
-
-# kate: space-indent on; indent-width 4;
+    kDebug('UNLOADING')

@@ -85,7 +85,11 @@ def _set_tooltips(rows, columns, colors):
 
 
 class ColorChooser(QFrame):
-    '''Completion-like widget to quick select hexadecimal colors used in a document'''
+    '''
+        Completion-like widget to quick select hexadecimal colors used in a document
+
+        TODO Make cell/widget size configurable?
+    '''
     colorSelected = pyqtSignal(QColor)
 
     def __init__(self, parent):
@@ -118,15 +122,11 @@ class ColorChooser(QFrame):
             self.hide()
             self.show_color_dialog(True)
             return
-        print('ColorUtils: colors={}, recalc size: rows={}, columns={}'.format(len(colors), rows, columns))
         self.colors.setColumnCount(columns)
         self.colors.setRowCount(rows)
-        print('ColorUtils: before: recalc size: ww={}, wh={}'.format(self.width(), self.height()))
         self.colors.setMinimumSize(20 * columns, 25 * rows)
         self.updateGeometry()
-        #self.resize(20 * columns + 30, 25 * rows + 18)
         self.adjustSize()
-        print('ColorUtils: after: recalc size: ww={}, wh={}'.format(self.width(), self.height()))
         self.colors.resizeColumnsToContents()
         self.colors.resizeRowsToContents()
         # Fill color cells
@@ -140,7 +140,6 @@ class ColorChooser(QFrame):
     @pyqtSlot(bool)
     def show_color_dialog(self, f):
         '''Get color using KColorDialog'''
-        print('ColorUtils: Dialog requested')
         # Preselect last used color
         color = QColor(kate.sessionConfiguration[_INSERT_COLOR_LCC])
         result = KColorDialog.getColor(color)
@@ -152,7 +151,7 @@ class ColorChooser(QFrame):
     def color_selected(self, row, column):
         '''Smth has selected in KColorCells'''
         color = self.colors.item(row, column).data(Qt.BackgroundRole)
-        print('ColorUtils: activated row={}, column={}, color={}'.format(row, column, color))
+        #kate.kDebug('ColorUtils: activated row={}, column={}, color={}'.format(row, column, color))
         self.emitSelectedColorHideSelf(color)
 
 
@@ -173,10 +172,6 @@ class ColorChooser(QFrame):
 
     def moveAround(self, position):
         '''Smart positioning self around cursor'''
-        print('ColorUtils: cursor position={}'.format(position))
-        print('ColorUtils: kwm.geo={}'.format(kate.mainWindow().geometry()))
-        print('ColorUtils: kwm.geo.center={}'.format(kate.mainWindow().geometry().center()))
-        print('ColorUtils: p={}'.format(kate.mainWindow().geometry().topLeft() + position))
         self.colors.resizeColumnsToContents()
         self.colors.resizeRowsToContents()
         mwg = kate.mainWindow().geometry()
@@ -216,7 +211,7 @@ def _collect_colors(document):
             color = QColor(color_str)
             if color.isValid() and color not in result:
                 result.append(color)
-                print('ColorUtils: scan for #colors found {}'.format(color_str))
+                kate.kDebug('ColorUtils: scan for #colors found {}'.format(color_str))
             start = end
     return result
 
@@ -257,7 +252,7 @@ def insertColor():
 @pyqtSlot(QColor)
 def _insertColorIntoActiveDocument(color):
     color_str = color.name()                                # Get it as color string
-    print('ColorUtils: selected color: {}'.format(color_str))
+    #kate.kDebug('ColorUtils: selected color: {}'.format(color_str))
     document = kate.activeDocument()
     view = kate.activeView()
     cursor = view.cursorPosition()
@@ -402,29 +397,21 @@ class PaletteView(QObject):
                 color = QColor(color_str)
                 if color.isValid():
                     self.colors.append(ColorRangePair(color, color_range))
-                    print('ColorUtilsToolView: scan for #colors found {}'.format(color_str))
+                    kate.kDebug('ColorUtilsToolView: scan for #colors found {}'.format(color_str))
                 start = end
 
     def updateColorCells(self):
         '''Calculate rows*columns and fill the cells w/ #colors'''
         if len(self.colors):
-            print('ColorToolView: colors={}'.format(len(self.colors)))
             # Recalculate rows/columns
-            print('ColorToolView: width={}, heigth={}'.format(self.colorCellsWidget.width(), self.colorCellsWidget.height()))
             columns = int(self.colorCellsWidget.width() / 30)
-            print('ColorToolView: columns={}'.format(columns))
             visible_rows = int(self.colorCellsWidget.height() / 25)
-            print('ColorToolView: visible_rows={}'.format(visible_rows))
             if len(self.colors) < (columns * visible_rows):
                 rows = visible_rows
-                print('ColorToolView: rows={}'.format(rows))
             else:
                 visible_cells = columns * visible_rows
-                print('ColorToolView: visible_cells={}'.format(visible_cells))
                 rest = len(self.colors) - visible_cells
-                print('ColorToolView: rest={}'.format(rest))
                 rows = visible_rows + int(rest / columns) + int(bool(rest % columns))
-                print('ColorToolView: rows={}'.format(rows))
         else:
             columns = 1
             rows = 1

@@ -20,10 +20,12 @@
 '''Provide shortcuts to access kate internals from plugins'''
 
 import os
+import sys
 
 from PyKDE4 import kdecore
 from PyKate4.kate import Kate
 
+import pate
 
 class NoActiveView(Exception):
 
@@ -97,4 +99,11 @@ def objectIsAlive(obj):
        return False
     return True
 
-# kate: space-indent on; indent-width 4;
+
+def kDebug(text):
+    '''Use KDE way to show debug info
+
+        TODO Add a way to control debug output from partucular plugins (?)
+    '''
+    plugin = sys._getframe(1).f_globals['__name__']
+    pate.kDebug('{}: {}'.format(plugin, text))

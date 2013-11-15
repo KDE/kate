@@ -1,4 +1,5 @@
-"""User-defined text expansions.
+# -*- coding: utf-8 -*-
+'''User-defined text expansions.
 
 Each text expansion is a simple function which must return a string.
 This string will be inserted into a document by the expandAtCursor action.
@@ -47,8 +48,7 @@ public:
     {
     }
 };
-"""
-# -*- coding: utf-8 -*-
+'''
 
 import functools
 import imp
@@ -60,7 +60,6 @@ import time
 import traceback
 
 from PyQt4.QtGui import QToolTip
-
 from PyKDE4.kdecore import KConfig, i18nc
 
 import kate
@@ -122,7 +121,6 @@ def matchingParenthesisPosition(document, position, opening='('):
     state = None
     while 1:
         character = document.character(position)
-        # print 'character:', repr(character)
         if state in ('"', "'"):
             if character == state:
                 state = None
@@ -160,7 +158,7 @@ def matchingParenthesisPosition(document, position, opening='('):
 
 
 def loadExpansionsFromFile(path):
-    print('ExpandPlugin: loading expansions from {}'.format(path))
+    kate.kDebug('Loading expansions from {}'.format(path))
     name = os.path.basename(path).split('.')[0]
     module = imp.load_source(name, path)
     expansions = {}
@@ -174,7 +172,7 @@ def loadExpansionsFromFile(path):
         # NOTE Detect ONLY a real function!
         if not name.startswith('__') and inspect.isfunction(o):
             expansions[o.__name__] = (o, path)
-            print('ExpandPlugin: adding expansion `{}`'.format(o.__name__))
+            kate.kDebug('Adding expansion `{}`'.format(o.__name__))
     return expansions
 
 
@@ -186,8 +184,8 @@ def mergeExpansions(left, right):
             result[exp_key] = exp_tuple
         else:
             result[exp_key] = result[exp_key]
-            print('ExpandPlugin: WARNING: Ignore duplicate expansion `{}` from {}'.format(exp_key, exp_tuple[1]))
-            print('ExpandPlugin: WARNING: First defined here {}'.format(result[exp_key][1]))
+            kate.kDebug('WARNING: Ignore duplicate expansion `{}` from {}'.format(exp_key, exp_tuple[1]))
+            kate.kDebug('WARNING: First defined here {}'.format(result[exp_key][1]))
     return result
 
 
@@ -205,9 +203,9 @@ def _getExpansionsFor(mime):
 
 @functools.lru_cache()
 def getExpansionsFor(mime):
-    print('ExpandPlugin: collecting expansions for MIME {}'.format(mime))
+    kate.kDebug('Collecting expansions for MIME {}'.format(mime))
     result = mergeExpansions(_getExpansionsFor(mime), _getExpansionsFor('all'))
-    print('ExpandPlugin: got {} expansions at the end'.format(len(result)))
+    kate.kDebug('Got {} expansions at the end'.format(len(result)))
     return result
 
 
@@ -228,10 +226,10 @@ def getHelpOnExpandAtCursor():
         tooltip_text = '\n'.join([
             line[8:] if line.startswith(' ' * 8) else line for line in func.__doc__.splitlines()
           ])
-        print("Expand: help on {}: {}".format(word, tooltip_text))
+        kate.kDebug('Expand: help on {}: {}'.format(word, tooltip_text))
         QToolTip.showText(cursor_pos, tooltip_text)
     else:
-        print('ExpandPlugin: WARNING: undefined expansion `{}`'.format(word))
+        kate.kDebug('WARNING: undefined expansion `{}`'.format(word))
 
 
 @kate.action
@@ -264,7 +262,7 @@ def expandAtCursor():
     if argument_range is not None:
         # strip parentheses and split arguments by comma
         preArgs = [arg.strip() for arg in document.text(argument_range)[1:-1].split(',') if bool(arg.strip())]
-        print('ExpandPlugin: arguments = {}'.format(arguments))
+        kate.kDebug('Arguments = {}'.format(arguments))
         # form a dictionary from args w/ '=' character, leave others in a list
         for arg in preArgs:
             if '=' in arg:
@@ -275,8 +273,8 @@ def expandAtCursor():
     # Call user expand function w/ parsed arguments and
     # possible w/ named params dict
     try:
-        print('ExpandPlugin: arguments = {}'.format(arguments))
-        print('ExpandPlugin: named arguments = {}'.format(namedArgs))
+        kate.kDebug('Arguments = {}'.format(arguments))
+        kate.kDebug('Named arguments = {}'.format(namedArgs))
         if len(namedArgs):
             replacement = func(*arguments, **namedArgs)
         else:
@@ -310,7 +308,7 @@ def expandAtCursor():
           , replaceAbsolutePathWithLinkCallback
           , s
           )
-        print('EXPAND FAILURE: {}'.format(s))
+        kate.kDebug('EXPAND FAILURE: {}'.format(s))
         ui.popup(
             i18nc('@title:window', 'Error')
           , i18nc('@info:tooltip', '<bcode>%1</bcode>', s)

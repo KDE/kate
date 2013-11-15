@@ -203,5 +203,3 @@ def _moveCursorTFirstError(line, column=None):
         view.setCursorPosition(cursor)
     except KeyError:
         pass
-
-# kate: indent-width 4;

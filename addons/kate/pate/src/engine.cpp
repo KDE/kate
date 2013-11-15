@@ -50,6 +50,20 @@
 
 PyMODINIT_FUNC PATE_INIT();                                 // fwd decl
 
+/// \note Namespace name written in uppercase intentionally!
+/// It will appear in debug output from Python plugins...
+namespace PATE {
+PyObject* debug(PyObject* /*self*/, PyObject* args)
+{
+    const char* text;
+
+    if (PyArg_ParseTuple(args, "s", &text))
+        kDebug() << text;
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+}                                                           // namespace PATE
+
 namespace {
 PyObject* s_pate;
 /**
@@ -96,6 +110,12 @@ PyMethodDef pateMethods[] =
       , &pateSaveConfiguration
       , METH_NOARGS
       , "Save the configuration of the plugin into " CONFIG_FILE
+    }
+  , {
+        "kDebug"
+      , &PATE::debug
+      , METH_VARARGS
+      , "True KDE way to show debug info"
     }
   , { 0, 0, 0, 0 }
 };

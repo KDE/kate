@@ -134,6 +134,3 @@ configuration = Configuration(pate.configuration)
 
 sessionConfiguration = Configuration(pate.sessionConfiguration)
 '''Per session persistent configuration dictionary for this plugin.'''
-
-
-# kate: space-indent on; indent-width 4;

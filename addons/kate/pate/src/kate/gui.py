@@ -244,5 +244,3 @@ def popup(message, timeout, icon=None, maxTextWidth=None, minTextWidth=None, par
     popup = TimeoutPassivePopup(parent, message, timeout, icon, maxTextWidth, minTextWidth)
     popup.show()
     return popup
-
-# kate: space-indent on; indent-width 4;

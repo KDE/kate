@@ -83,7 +83,7 @@ def init(func):
         and the configuration has been initiated
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    print('@init: {}/{}'.format(plugin, func.__name__))
+    kDebug('@init: {}/{}'.format(plugin, func.__name__))
     return _registerCallback(plugin, init, func)
 
 
@@ -98,9 +98,9 @@ def unload(func):
             quit everything is dead already!
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    print('@unload: {}/{}'.format(plugin, func.__name__))
+    kDebug('@unload: {}/{}'.format(plugin, func.__name__))
     def _module_cleaner():
-        print('@unload/cleaner: {}/{}'.format(plugin, func.__name__))
+        kDebug('@unload/cleaner: {}/{}'.format(plugin, func.__name__))
         if plugin in _registered_xml_gui_clients and mainInterfaceWindow() is not None:
             clnt = _registered_xml_gui_clients[plugin]
             clnt.actionCollection().clearAssociatedWidgets()
@@ -109,7 +109,7 @@ def unload(func):
             del _registered_xml_gui_clients[plugin]
 
         if plugin in init.functions:
-            print('@unload/init-cleaner: {}/{}'.format(plugin, func.__name__))
+            kDebug('@unload/init-cleaner: {}/{}'.format(plugin, func.__name__))
             del init.functions[plugin]
 
         func()
@@ -159,7 +159,7 @@ def configPage(name, fullName, icon):
     to remove all traces of the plugin on removal.
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    #print('---------@configPage[{}]: name={}, fullName={}, icon={}'.format(plugin, repr(name), fullName, icon))
+    #kDebug('---------@configPage[{}]: name={}, fullName={}, icon={}'.format(plugin, repr(name), fullName, icon))
 
     def _decorator(func):
         a = name, fullName, kdeui.KIcon(icon)
@@ -213,7 +213,7 @@ def action(func):
         your function is called
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    print('@action: {}/{}'.format(plugin, func.__name__))
+    kDebug('@action: {}/{}'.format(plugin, func.__name__))
     ui_file = kdecore.KGlobal.dirs().findResource('appdata', 'pate/{}_ui.rc'.format(plugin))
     if not ui_file:
         ui_file = kdecore.KGlobal.dirs().findResource('appdata', 'pate/{}/{}_ui.rc'.format(plugin, plugin))
@@ -221,12 +221,12 @@ def action(func):
             return func
 
     # Found UI resource file
-    #print('ui_file={}'.format(repr(ui_file)))
+    #kDebug('ui_file={}'.format(repr(ui_file)))
 
     # Get the XML GUI client or create a new one
     clnt = None
     if plugin not in _registered_xml_gui_clients:
-        #print('----@action: make XMLGUICline 4 plugin={}'.format(repr(plugin)))
+        #kDebug('----@action: make XMLGUICline 4 plugin={}'.format(repr(plugin)))
         clnt = kdeui.KXMLGUIClient()
         clnt.replaceXMLFile(ui_file,ui_file)
     else:
@@ -249,7 +249,7 @@ def action(func):
             text = tag.attributes['text'].value
             act = clnt.actionCollection().addAction(name)
             act.setText(text)
-            print('@action/found: {} --> "{}"'.format(name, text))
+            kDebug('@action/found: {} --> "{}"'.format(name, text))
             # Get optional attributes
             if 'shortcut' in tag.attributes:
                 act.setShortcut(QtGui.QKeySequence(tag.attributes['shortcut'].value))
@@ -263,6 +263,12 @@ def action(func):
                 act.setWhatsThis(tag.attributes['whatsThis'].value)
             # Connect it to the function
             act.connect(act, QtCore.SIGNAL('triggered()'), func)
+            # No need to scan anything else!!!
+            # ATTENTION It is why the very first action declaration
+            # MUST contain everything! While others, w/ same name,
+            # may have only name! For example, if same action must be
+            # added to toolbar or context menu...
+            break
 
     if not found:
         # TODO Show some SPAM about inconsistent action
@@ -273,9 +279,9 @@ def action(func):
 
     mainInterfaceWindow().guiFactory().addClient(clnt)
 
-    # TODO Provide an access to the XML GUI client to the plugin
-    # so it may control actions ... from their actions ;-)
-
     return func
 
-# kate: space-indent on; indent-width 4;
+def getXmlGuiClient():
+    plugin = sys._getframe(1).f_globals['__name__']
+    if plugin in _registered_xml_gui_clients:
+        return _registered_xml_gui_clients[plugin]

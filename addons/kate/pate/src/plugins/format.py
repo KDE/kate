@@ -44,11 +44,11 @@ def looksLikeTemplateAngelBracket(lineStr, column):
     ''' Check if a symbol at given position looks like a template angel bracket
     '''
     assert(lineStr[column] in '<>')
-    print("?LLTAB: ch='" + lineStr[column] + "'")
+    #kate.kDebug("?LLTAB: ch='" + lineStr[column] + "'")
     ln = getLeftNeighbour(lineStr, column)
-    print("?LLTAB: ln='" + str(ln) + "'")
+    #kate.kDebug("?LLTAB: ln='" + str(ln) + "'")
     rn = getRightNeighbour(lineStr, column)
-    print("?LLTAB: rn='" + str(rn) + "'")
+    #kate.kDebug("?LLTAB: rn='" + str(rn) + "'")
     # Detect possible template
     if lineStr[column] == '<':                              # --[current char is '<']-------
         if ln == '<' or rn == '<':                          # "<<" in any place on a line...
@@ -101,15 +101,15 @@ def getRangeTopology(breakChars):
             firstIteration = False                          # do nothing on first iteration
         # Iterate from the current column to a line start
         for cc in range(pos.column() - 1, -1, -1):
-            #print("c: current position" + str(cl) + "," + str(cc) + ",ch='" + lineStr[cc] + "'")
+            #kate.kDebug("c: current position" + str(cl) + "," + str(cc) + ",ch='" + lineStr[cc] + "'")
             # Check open/close brackets
             if lineStr[cc] == ')':                          # found closing char: append its position to the stack
                 stack.append((cl, cc, False))
-                print("o( Add position: " + str(stack[-1]))
+                #kate.kDebug("o( Add position: " + str(stack[-1]))
                 continue
             if lineStr[cc] == '(':                          # found open char...
                 if len(stack):                              # if stack isn't empty (i.e. there are some closing chars met)
-                    print("o( Pop position: " + str(stack[-1]))
+                    #kate.kDebug("o( Pop position: " + str(stack[-1]))
                     nrl, nrc, isT = stack.pop()             # remove last position from the stack
                     if not isT:
                         nestedRanges.append(                # and append a nested range
@@ -125,7 +125,7 @@ def getRangeTopology(breakChars):
                           )
                 else:                                       # otherwise,
                     openPos = (cl, cc + 1, False)           # remember range start (exclude an open char)
-                    print("o( Found position: " + str(openPos))
+                    #kate.kDebug("o( Found position: " + str(openPos))
                     found = True
                     break
                 continue
@@ -133,15 +133,16 @@ def getRangeTopology(breakChars):
             if lineStr[cc] == '>':
                 if looksLikeTemplateAngelBracket(lineStr, cc):
                     stack.append((cl, cc, True))
-                    print("o< Add position: " + str(stack[-1]))
-                else:
-                    print("o< Doesn't looks like template: " + str(cl) + "," + str(cc))
+                    #kate.kDebug("o< Add position: " + str(stack[-1]))
+                #else:
+                    #kate.kDebug("o< Doesn't looks like template: " + str(cl) + "," + str(cc))
                 continue
             if lineStr[cc] == '<':
                 if not looksLikeTemplateAngelBracket(lineStr, cc):
-                    print("o< Doesn't looks like template: " + str(cl) + "," + str(cc + 1))
+                    #kate.kDebug("o< Doesn't looks like template: " + str(cl) + "," + str(cc + 1))
+                    pass
                 elif len(stack):                            # if stack isn't empty (i.e. there are some closing chars met)
-                    print("o< Pop position: " + str(stack[-1]))
+                    #kate.kDebug("o< Pop position: " + str(stack[-1]))
                     nrl, nrc, isT = stack.pop()             # remove last position from the stack
                     if isT:
                         nestedRanges.append(                # and append a nested range
@@ -157,7 +158,7 @@ def getRangeTopology(breakChars):
                           )
                 else:
                     openPos = (cl, cc + 1, True)            # remember range start (exclude an open char)
-                    print("o< Found position: " + str(openPos))
+                    #kate.kDebug("o< Found position: " + str(openPos))
                     found = True
                     break
                 continue
@@ -185,15 +186,15 @@ def getRangeTopology(breakChars):
         else:
             firstIteration = False                          # do nothing on first iteration
         for cc in range(pos.column(), len(lineStr)):
-            #print("c: current position" + str(cl) + "," + str(cc) + ",ch='" + lineStr[cc] + "'")
+            #kate.kDebug("c: current position" + str(cl) + "," + str(cc) + ",ch='" + lineStr[cc] + "'")
             # Check open/close brackets
             if lineStr[cc] == '(':
                 stack.append((cl, cc, False))
-                print("c) Add position: " + str(stack[-1]))
+                #kate.kDebug("c) Add position: " + str(stack[-1]))
                 continue
             if lineStr[cc] == ')':
                 if len(stack):
-                    print("c) Pop position: " + str(stack[-1]))
+                    #kate.kDebug("c) Pop position: " + str(stack[-1]))
                     nrl, nrc, isT = stack.pop()             # remove a last position from the stack
                     if not isT:
                         nestedRanges.append(                # and append a nested range
@@ -209,7 +210,7 @@ def getRangeTopology(breakChars):
                           )
                 else:
                     closePos = (cl, cc, False)              # remember the range end
-                    print("c) Found position: " + str(closePos))
+                    #kate.kDebug("c) Found position: " + str(closePos))
                     found = True
                     break
                 continue
@@ -217,15 +218,16 @@ def getRangeTopology(breakChars):
             if lineStr[cc] == '<':
                 if looksLikeTemplateAngelBracket(lineStr, cc):
                     stack.append((cl, cc, True))
-                    print("c> Add position: " + str(stack[-1]))
-                else:
-                    print("c> Doesn't looks like template: " + str(cl) + "," + str(cc))
+                    #kate.kDebug("c> Add position: " + str(stack[-1]))
+                #else:
+                    #kate.kDebug("c> Doesn't looks like template: " + str(cl) + "," + str(cc))
                 continue
             if lineStr[cc] == '>':
                 if not looksLikeTemplateAngelBracket(lineStr, cc):
-                    print("c> Doesn't looks like template: " + str(cl) + "," + str(cc))
+                    #kate.kDebug("c> Doesn't looks like template: " + str(cl) + "," + str(cc))
+                    pass
                 elif len(stack):                            # if stack isn't empty (i.e. there are some closing chars met)
-                    print("c> Pop position: " + str(stack[-1]))
+                    #kate.kDebug("c> Pop position: " + str(stack[-1]))
                     nrl, nrc, isT = stack.pop()             # remove last position from the stack
                     if isT:
                         nestedRanges.append(                # and append a nested range
@@ -241,7 +243,7 @@ def getRangeTopology(breakChars):
                           )
                 else:
                     closePos = (cl, cc, True)               # remember the range end
-                    print("c> Found position: " + str(closePos))
+                    kate.kDebug("c> Found position: " + str(closePos))
                     found = True
                     break
                 continue
@@ -271,7 +273,7 @@ def getRangeTopology(breakChars):
 def boostFormatText(textRange, indent, breakPositions):
     document = kate.activeDocument()
     originalText = document.text(textRange)
-    print("Original text:\n'" + originalText + "'")
+    #kate.kDebug("Original text:\n'" + originalText + "'")
 
     # Slice text whithin a given range into pieces to be realigned
     ranges = list()
@@ -280,12 +282,12 @@ def boostFormatText(textRange, indent, breakPositions):
     indentStr = ' ' * (indent + 2);
     breakPositions.append(textRange.end())
     for b in breakPositions:
-        print("* prev pos: " + str(prevPos.line()) + ", " + str(prevPos.column()))
-        print("* current pos: " + str(b.line()) + ", " + str(b.column()))
+        #kate.kDebug("* prev pos: " + str(prevPos.line()) + ", " + str(prevPos.column()))
+        #kate.kDebug("* current pos: " + str(b.line()) + ", " + str(b.column()))
         chunk = (document.text(KTextEditor.Range(prevPos, b))).strip()
-        print("* current chunk:\n'" + chunk + "'")
+        #kate.kDebug("* current chunk:\n'" + chunk + "'")
         t = ('\n    ').join(chunk.splitlines())
-        print("* current line:\n'" + t + "'")
+        #kate.kDebug("* current line:\n'" + t + "'")
         if breakCh:
             outText += indentStr + breakCh + ' ' + t + '\n'
         else:
@@ -296,7 +298,7 @@ def boostFormatText(textRange, indent, breakPositions):
 
     outText += indentStr
 
-    print("Out text:\n'" + outText + "'")
+    #kate.kDebug("Out text:\n'" + outText + "'")
     if outText != originalText:
         document.startEditing()
         document.replaceText(textRange, outText)
@@ -367,13 +369,13 @@ def boostFormat():
 def boostUnformatText(textRange, breakPositions):
     document = kate.activeDocument()
     originalText = document.text(textRange)
-    #print("Original text:\n'" + originalText + "'")
+    #kate.kDebug("Original text:\n'" + originalText + "'")
 
     # Join text within a selected range
     prevPos = textRange.start()
     outText = ''.join([line.strip() for line in originalText.splitlines()])
 
-    #print("Out text:\n'" + outText + "'")
+    #kate.kDebug("Out text:\n'" + outText + "'")
     if outText != originalText:
         document.startEditing()
         document.replaceText(textRange, outText)

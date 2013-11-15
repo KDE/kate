@@ -22,5 +22,3 @@ else:
     text_type = unicode
     string_types = (str, unicode)
     unichr = unichr
-
-# kate: space-indent on; indent-width 4;

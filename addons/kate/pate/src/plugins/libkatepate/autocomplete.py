@@ -252,5 +252,3 @@ class AbstractJSONFileCodeCompletionModel(AbstractCodeCompletionModel):
 
 def reset(*args, **kwargs):
     pass
-
-# kate: space-indent on; indent-width 4;

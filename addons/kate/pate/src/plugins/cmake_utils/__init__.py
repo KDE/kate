@@ -72,7 +72,7 @@ def _get_1st_arg_if_add_subdirectory_cmd(document, line):
     # make sure that 'add_subdirectory' is not a part of some other word...
     match = _ADD_SUB_RE.search(document.line(line))
     if match:
-        print('CMakeHelper: line[{}] "{}" match: {}'.format(line, document.line(line), match.groups()))
+        kate.kDebug('CMakeHelper: line[{}] "{}" match: {}'.format(line, document.line(line), match.groups()))
         return [subdir for subdir in match.group(1).split() if subdir != _SUBDIR_OPT][0]
     return None
 
@@ -134,7 +134,7 @@ def _find_current_context(document, cursor):
 
 def _is_there_CMakeLists(path):
     '''Try to find `CMakeLists.txt` in a given path'''
-    print('CMakeHelper: checking `{}` for CMakeLists.txt'.format(path))
+    kate.kDebug('CMakeHelper: checking `{}` for CMakeLists.txt'.format(path))
     assert(isinstance(path, str))
     if os.access(os.path.join(path, _CMAKE_LISTS), os.R_OK):
         return True
@@ -159,7 +159,7 @@ def _openDocumentNoCheck(url):
 @pyqtSlot(QUrl)
 def openDocument(url):
     local_file = url.toLocalFile()
-    print('CMakeCC: going to open the document: {}'.format(local_file))
+    kate.kDebug('CMakeCC: going to open the document: {}'.format(local_file))
     if os.access(local_file, os.R_OK):
         _openDocumentNoCheck(url)
     else:
@@ -176,7 +176,7 @@ def _ask_for_CMakeLists_location_and_try_open(start_dir_to_show, cur_doc_dir):
       , kate.mainInterfaceWindow().window()
       , i18nc('@title:window', '<filename>CMakeLists.txt</filename> location')
       )
-    print('CMakeHelper: selected_dir={}'.format(selected_dir))
+    kate.kDebug('CMakeHelper: selected_dir={}'.format(selected_dir))
 
     if selected_dir.isEmpty():
         return                                              # User pressed 'Cancel'
@@ -233,7 +233,7 @@ def openCMakeList():
         # Ok, nothing selected. Lets check the context: are we inside a command?
         cursor = view.cursorPosition()
         command, in_a_string, in_a_var, in_a_comment, fn_params_range = _find_current_context(document, cursor)
-        print('CMakeHelper: command="{}", in_a_string={}, in_a_var={}'.format(command, in_a_string, in_a_var))
+        kate.kDebug('CMakeHelper: command="{}", in_a_string={}, in_a_var={}'.format(command, in_a_string, in_a_var))
         selected_dir = cur_dir
         if command == 'add_subdirectory':
             # Check if the command have some parameters already entered
@@ -241,7 +241,7 @@ def openCMakeList():
                 # Ok, get the arg right under cursor
                 wordRange = common.getBoundTextRangeSL(' \n()', ' \n()', cursor, document)
                 selected_dir = document.text(wordRange)
-                print('CMakeHelper: word@cursor={}'.format(selected_dir))
+                kate.kDebug('CMakeHelper: word@cursor={}'.format(selected_dir))
         # TODO Try to handle cursor pointed in `include()` command?
         else:
             # Huh, lets find a nearest add_subdirectory command
@@ -316,17 +316,17 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         if mimetype != _CMAKE_MIME_TYPE:
             return
 
-        print('CMakeCC [{}]: current word: "{}"'.format(mimetype, word))
+        kate.kDebug('CMakeCC [{}]: current word: "{}"'.format(mimetype, word))
 
         cursor = view.cursorPosition()
         # Try to detect completion context
         command, in_a_string, in_a_var, in_a_comment, fn_params_range = _find_current_context(document, cursor)
-        print(
+        kate.kDebug(
             'CMakeCC: command="{}", in_a_string={}, in_a_var={}, in_a_comment={}'.
             format(command, in_a_string, in_a_var, in_a_comment)
           )
         if fn_params_range.isValid():
-            print('CMakeCC: params="{}"'.format(document.text(fn_params_range)))
+            kate.kDebug('CMakeCC: params="{}"'.format(document.text(fn_params_range)))
 
         if in_a_comment:
             # Nothing to complete if we r in a comment
@@ -385,10 +385,10 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
     def _loadCompleters(self):
         # Load available command completers
         for directory in kate.applicationDirectories('cmake_utils/command_completers'):
-            print('CMakeCC: directory={}'.format(directory))
+            kate.kDebug('CMakeCC: directory={}'.format(directory))
             sys.path.append(directory)
             for completer in glob.glob(os.path.join(directory, '*_cc.py')):
-                print('CMakeCC: completer={}'.format(completer))
+                kate.kDebug('CMakeCC: completer={}'.format(completer))
                 cc_name = os.path.basename(completer).split('.')[0]
                 module = importlib.import_module(cc_name, "cmake_utils.command_completers")
                 if hasattr(module, self._cc_registrar_fn_name):
@@ -448,8 +448,8 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
 
 
     def _try_syntactic_completer(self, syntax, document, cursor, word, comp_list):
-        print('CMakeCC: generic completer: syntax='+str(syntax))
-        print('CMakeCC: generic completer: comp_list='+str(comp_list))
+        kate.kDebug('CMakeCC: generic completer: syntax='+str(syntax))
+        kate.kDebug('CMakeCC: generic completer: comp_list='+str(comp_list))
         result = []
         if isinstance(syntax, list):
             for sid, s in enumerate(syntax):
@@ -460,7 +460,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         else:
             (items, stop) = syntax.complete(document, cursor, word, comp_list)
             result = items
-        print('CMakeCC: generic completer result={}'.format(result))
+        kate.kDebug('CMakeCC: generic completer result={}'.format(result))
         # TODO sort | uniq
         return result
 
@@ -838,9 +838,9 @@ class CMakeConfigWidget(QWidget):
             kate.sessionConfiguration[settings.AUX_MODULE_DIRS].append(self.moduleDirs.item(i).text())
 
         # Show some spam
-        print('CMakeCC: config save: CMAKE_BINARY={}'.format(kate.sessionConfiguration[settings.CMAKE_BINARY]))
-        print('CMakeCC: config save: AUX_MODULE_DIRS={}'.format(kate.sessionConfiguration[settings.AUX_MODULE_DIRS]))
-        print('CMakeCC: config save: PROJECT_DIR={}'.format(kate.sessionConfiguration[settings.PROJECT_DIR]))
+        kate.kDebug('CMakeCC: config save: CMAKE_BINARY={}'.format(kate.sessionConfiguration[settings.CMAKE_BINARY]))
+        kate.kDebug('CMakeCC: config save: AUX_MODULE_DIRS={}'.format(kate.sessionConfiguration[settings.AUX_MODULE_DIRS]))
+        kate.kDebug('CMakeCC: config save: PROJECT_DIR={}'.format(kate.sessionConfiguration[settings.PROJECT_DIR]))
         kate.sessionConfiguration.save()
 
 
@@ -869,7 +869,7 @@ class CMakeConfigWidget(QWidget):
           , self
           , i18nc('@title:window', 'Select a Directory with CMake Modules')
           )
-        print('CMakeCC: got path={}'.format(path))
+        kate.kDebug('CMakeCC: got path={}'.format(path))
         self.moduleDirs.addItem(str(path))
 
 
@@ -911,21 +911,20 @@ def cmakeConfigPage(parent=None, name=None):
 
 @kate.viewCreated
 def createSignalAutocompleteCMake(view=None, *args, **kwargs):
-    #print('--------------------CMAKE: VIEW CREATED -------------------')
     try:
         view = view or kate.activeView()
         if view:
-            print('CMake Helper Plugin: Registering completer')
+            kate.kDebug('CMake Helper Plugin: Registering completer')
             cci = view.codeCompletionInterface()
             cci.registerCompletionModel(_cmake_completion_model)
     except:
-        print('CMake Helper Plugin: Unable to get an active view')
+        kate.kDebug('CMake Helper Plugin: Unable to get an active view')
 
 
 @kate.init
 def init():
-    print('--------------------CMAKE: LOAD -------------------')
     # Set default value if not configured yet
+    kate.kDebug('Loading...')
     if settings.CMAKE_BINARY not in kate.sessionConfiguration:
         kate.sessionConfiguration[settings.CMAKE_BINARY] = settings.CMAKE_BINARY_DEFAULT
     if settings.PARENT_DIRS_LOOKUP_CNT not in kate.sessionConfiguration:
@@ -942,21 +941,21 @@ def init():
     # Create completion model
     global _cmake_completion_model
     if _cmake_completion_model is None:
-        print('CMake Helper Plugin: Create a completer')
+        kate.kDebug('CMake Helper Plugin: Create a completer')
         _cmake_completion_model = CMakeCompletionModel(kate.application)
         _cmake_completion_model.modelReset.connect(_reset)
 
     # Make an instance of a cmake tool view
     global _cmake_tool_view
     if _cmake_tool_view is None:
-        print('CMake Helper Plugin: Create a tool view')
+        kate.kDebug('CMake Helper Plugin: Create a tool view')
         _cmake_tool_view = CMakeToolView(kate.mainWindow())
 
 
 @kate.unload
 def destroy():
     '''Plugins that use a toolview need to delete it for reloading to work.'''
-    print('--------------------CMAKE: UNLOAD -------------------')
+    kate.kDebug('Unloading...')
     global _cmake_completion_model
     if _cmake_completion_model:
         _cmake_completion_model = None

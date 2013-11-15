@@ -23,20 +23,19 @@ import kate
 import os
 import re
 
+from xml.dom import minidom
+from xml.parsers.expat import ExpatError
+
 from PyKDE4.kdecore import i18n
 from PyQt4 import uic
 from PyQt4.QtGui import QWidget
 
+from kate import kDebug
+
+from libkatepate import selection
 from libkatepate.errors import showError
+from libkatepate.decorators import *
 
-from xml.dom import minidom
-from xml.parsers.expat import ExpatError
-
-
-KATE_ACTIONS = {'togglePrettyXMLFormat': {'text': 'Pretty XML',
-                                          'shortcut': 'Ctrl+Alt+X',
-                                          'menu': 'XML', 'icon': None},
-                }
 
 KATE_CONFIG = {'name': 'XML Pretty',
                'fullName': 'XML Pretty',
@@ -46,38 +45,40 @@ _CONFIG_UI = 'xml_pretty.ui'
 _INDENT_CFG = 'XMLPretty:indentXXX'
 _NEWL_CFG = 'XMLPretty:newlXXX'
 
+# TODO Add more appropriate XML(-like) types (XSLT,HTML,?)
+_ALLOWED_MIME_TYPES = ['application/xml']
+
 DEFAULT_INDENT = '\\t'
 DEFAULT_NEWL = '\\n'
 
 encoding_pattern = re.compile("<\?xml[\w =\"\.]*encoding=[\"']([\w-]+)[\"'][\w =\"\.]*\?>")
 
 
-@kate.action(**KATE_ACTIONS['togglePrettyXMLFormat'])
-#@check_constraints
-#@has_selection(True)
-def togglePrettyXMLFormat():
+@kate.action
+@check_constraints
+@has_selection(True)
+@selection_mode(selection.NORMAL)
+#@restrict_doc_type('XML', 'xslt')
+def prettyXMLFormat():
     """Pretty format of a XML code"""
     # TODO Use decorators to apply constraints
     document = kate.activeDocument()
     view = document.activeView()
-    if not view.selection():
-        showError(i18n('Please select XML text and press: %1', KATE_ACTIONS['togglePrettyXMLFormat']['shortcut']))
-    else:
-        try:
-            encoding = 'utf-8'
-            source = view.selectionText()
-            m = encoding_pattern.match(source)
-            if m:
-                encoding = m.groups()[0]
-            target = minidom.parseString(source.encode(encoding))
-            unicode_escape = codecs.getdecoder('unicode_escape')
-            indent = unicode_escape(kate.configuration.get(_INDENT_CFG, DEFAULT_INDENT))[0]
-            newl = unicode_escape(kate.configuration.get(_NEWL_CFG, DEFAULT_NEWL))[0]
-            xml_pretty = target.toprettyxml(indent=indent, newl=newl, encoding=encoding).decode(encoding)
-            xml_pretty = newl.join([line for line in xml_pretty.split(newl) if line.replace(' ', '').replace(indent, '')])
-            document.replaceText(view.selectionRange(), xml_pretty)
-        except (ExpatError, LookupError) as e:
-            showError(i18n('The selected text is not valid XML: %1', str(e)))
+    try:
+        encoding = 'utf-8'
+        source = view.selectionText()
+        m = encoding_pattern.match(source)
+        if m:
+            encoding = m.groups()[0]
+        target = minidom.parseString(source.encode(encoding))
+        unicode_escape = codecs.getdecoder('unicode_escape')
+        indent = unicode_escape(kate.configuration.get(_INDENT_CFG, DEFAULT_INDENT))[0]
+        newl = unicode_escape(kate.configuration.get(_NEWL_CFG, DEFAULT_NEWL))[0]
+        xml_pretty = target.toprettyxml(indent=indent, newl=newl, encoding=encoding).decode(encoding)
+        xml_pretty = newl.join([line for line in xml_pretty.split(newl) if line.replace(' ', '').replace(indent, '')])
+        document.replaceText(view.selectionRange(), xml_pretty)
+    except (ExpatError, LookupError) as e:
+        showError(i18nc('@info:tooltip', 'The selected text is not valid XML: %1', str(e)))
 
 
 class ConfigWidget(QWidget):
@@ -130,5 +131,3 @@ class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
 def configPage(parent=None, name=None):
     return ConfigPage(parent, name)
 
-
-# kate: space-indent on; indent-width 4;

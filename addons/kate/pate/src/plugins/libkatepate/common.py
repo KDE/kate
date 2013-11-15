@@ -130,5 +130,3 @@ def extendSelectionToWholeLine(view):
             selectedRange.end().setColumn(0)
             selectedRange.end().setLine(selectedRange.end().line() + 1)
         view.setSelection(selectedRange)
-
-# kate: indent-width 4;

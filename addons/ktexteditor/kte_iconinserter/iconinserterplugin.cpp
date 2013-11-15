@@ -65,7 +65,7 @@ void IconInserterPluginView::insertIcon()
 							0,
 							i18n( "Select the Icon you want to use in your code as KIcon." )
 						);
-	if(iconName == "")
+	if(iconName.isEmpty())
 		return;
 	
 	View *view=m_view.data();

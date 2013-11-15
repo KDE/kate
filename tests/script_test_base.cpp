@@ -121,7 +121,7 @@ void ScriptTestBase::getTestData(const QString& script)
   QTest::addColumn<QString>("testcase");
 
   // make sure the script files are valid
-  if (m_script_dir != "") {
+  if (!m_script_dir.isEmpty()) {
     QFile scriptFile(srcPath + "/../part/script/data/" + m_script_dir + '/' + script + ".js");
     if (!scriptFile.exists()) {
       QSKIP(qPrintable(QString(scriptFile.fileName() + " does not exist")), SkipAll);

@@ -61,7 +61,6 @@ def prettify_JSON_action():
     prettify_JSON(kate.activeView())
 
 
-@kate.init
 @kate.viewCreated
 def init(view=None):
     init_js_lint(view)

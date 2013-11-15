@@ -18,6 +18,7 @@
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/pyte_plugins/check_plugins/commons.py>
 
 import kate
+import kate.gui
 import sys
 
 from PyKDE4.kdecore import i18n

@@ -9,7 +9,7 @@
     <MenuBar>
         <Menu name="javascript"><text>&amp;JavaScript</text>
             <Action name="lint_js_action" text="Lint JavaScript" shortcut="Alt+9" />
-            <Action name="lint_js_action" text="jQuery Ready" shortcut="Ctrl+Shift+J" />
+            <Action name="insert_jquery_ready_action" text="jQuery Ready" shortcut="Ctrl+Shift+J" />
             <Action name="prettify_JSON_action" text="Prettify JSON" shortcut="Ctrl+Alt+J" />
         </Menu>
     </MenuBar>

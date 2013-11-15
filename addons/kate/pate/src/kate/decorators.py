@@ -84,9 +84,7 @@ def init(func):
     '''
     plugin = sys._getframe(1).f_globals['__name__']
     print('@init: {}/{}'.format(plugin, func.__name__))
-    def _decorator():
-        func()
-    return _registerCallback(plugin, init, _decorator)
+    return _registerCallback(plugin, init, func)
 
 
 @_simpleEventListener
@@ -111,6 +109,7 @@ def unload(func):
             del _registered_xml_gui_clients[plugin]
 
         if plugin in init.functions:
+            print('@unload/init-cleaner: {}/{}'.format(plugin, func.__name__))
             del init.functions[plugin]
 
         func()
@@ -214,10 +213,12 @@ def action(func):
         your function is called
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    #print('---------------@action: {}/{}'.format(plugin, func.__name__))
+    print('@action: {}/{}'.format(plugin, func.__name__))
     ui_file = kdecore.KGlobal.dirs().findResource('appdata', 'pate/{}_ui.rc'.format(plugin))
     if not ui_file:
-        return func
+        ui_file = kdecore.KGlobal.dirs().findResource('appdata', 'pate/{}/{}_ui.rc'.format(plugin, plugin))
+        if not ui_file:
+            return func
 
     # Found UI resource file
     #print('ui_file={}'.format(repr(ui_file)))
@@ -248,7 +249,7 @@ def action(func):
             text = tag.attributes['text'].value
             act = clnt.actionCollection().addAction(name)
             act.setText(text)
-            #print('-----------@action/found: {} --> "{}"'.format(name, text))
+            print('@action/found: {} --> "{}"'.format(name, text))
             # Get optional attributes
             if 'shortcut' in tag.attributes:
                 act.setShortcut(QtGui.QKeySequence(tag.attributes['shortcut'].value))

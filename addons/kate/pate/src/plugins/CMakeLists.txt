@@ -4,6 +4,7 @@
 install(
     FILES
         cmake_utils/katepate_cmake_utils.desktop
+        gid/katepate_gid.desktop
         katepate_block.desktop
         katepate_color_tools.desktop
         katepate_commentar.desktop
@@ -44,7 +45,7 @@ install(
         python_utils
         python_autocomplete
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate
-    FILES_MATCHING PATTERN "*.py" PATTERN "*.ui"
+    FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.rc"
   )
 
 install(

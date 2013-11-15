@@ -31,7 +31,7 @@ from PyKDE4.kdecore import *
 from PyKDE4.kdeui import *
 from PyKDE4.ktexteditor import KTextEditor
 
-from idutils import Lookup
+from .idutils import Lookup
 
 import codecs
 import os.path
@@ -668,7 +668,7 @@ def wordAtCursor(document, view):
     start, end = wordAtCursorPosition(line, cursor)
     return line[start:end]
 
-@kate.action(i18nc("@action:inmenu", "Browse Tokens"), shortcut = "Alt+1", menu = i18nc("@action:inmenu", "&Gid"))
+@kate.action
 def show():
     """Browse the tokens in the ID file."""
     # Make all our config is initialised.
@@ -684,7 +684,7 @@ def show():
     viewChanged()
     return searchBar.show()
 
-@kate.action(i18nc("@action:inmenu", "Lookup Current Token"), shortcut = "Alt+2", menu = i18nc("@action:inmenu", "&Gid"), icon = "edit-find")
+@kate.action
 def lookup():
     """Lookup the currently selected token.
     Find the token, filter the results.
@@ -701,7 +701,7 @@ def lookup():
         return searchBar.literalSearch()
     return None
 
-@kate.action(i18nc("@action:inmenu", "Go to Definition"), shortcut = "Alt+3", menu = i18nc("@action:inmenu", "&Gid"), icon = "go-jump-definition")
+@kate.action
 def gotoDefinition():
     """Go to the definition of the currently selected token.
     Find the token, search for definitions using etags, jump to the definition.
@@ -711,7 +711,7 @@ def gotoDefinition():
     if definitionIndex:
         searchBar.navigateToMatch(definitionIndex)
 
-@kate.configPage(i18nc("@action:inmenu", "gid"), i18nc("@title:group", "gid(1) token Lookup and Navigation"), icon = "edit-find")
+@kate.configPage(i18nc("@action:inmenu", "GNU idutils"), i18nc("@title:group", "<command section='1'>gid</command> token Lookup and Navigation"), icon = "edit-find")
 def configPage(parent = None, name = None):
     return ConfigPage(parent, name)
 

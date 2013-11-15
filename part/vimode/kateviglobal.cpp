@@ -395,11 +395,11 @@ QString KateViGlobal::encodeMacroCompletionForConfig(const KateViInputModeManage
   }
   if (endedWithSemiColon)
   {
-    encodedMacroCompletion += ";";
+    encodedMacroCompletion += ';';
   }
   if (completionForMacro.removeTail())
   {
-    encodedMacroCompletion += "|";
+    encodedMacroCompletion += '|';
   }
   return encodedMacroCompletion;
 }

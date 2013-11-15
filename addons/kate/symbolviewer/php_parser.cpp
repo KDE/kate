@@ -212,15 +212,15 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
         {
           if (m_plugin->typesOn && !classRegExp.cap(1).trimmed().isEmpty() && !classRegExp.cap(4).trimmed().isEmpty())
           {
-            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+","+classRegExp.cap(4).trimmed()+"]");
+            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+','+classRegExp.cap(4).trimmed()+']');
           }
           else if (m_plugin->typesOn && !classRegExp.cap(1).trimmed().isEmpty())
           {
-            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+"]");
+            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(1).trimmed()+']');
           }
           else if (m_plugin->typesOn && !classRegExp.cap(4).trimmed().isEmpty())
           {
-            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(4).trimmed()+"]");
+            node->setText(0, classRegExp.cap(3)+" ["+classRegExp.cap(4).trimmed()+']');
           }
           else
           {
@@ -306,7 +306,7 @@ void KatePluginSymbolViewerView::parsePhpSymbols(void)
               functionArgsList += functionArgsRegExp.cap(1);
             }
           }
-          node->setText(0, functionRegExp.cap(4) + "(" + functionArgsList.join(", ") + ")");
+          node->setText(0, functionRegExp.cap(4) + '(' + functionArgsList.join(", ") + ')');
           functionArgsList.clear();
         }
         else

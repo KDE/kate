@@ -205,7 +205,7 @@ QString Pate::Engine::tryInitializeGetFailureReason()
       ;
     kDebug() << "Plugin Directories: " << pluginDirectories;
     if (!py.prependPythonPaths(pluginDirectories))
-        return i18nc("@info:tooltip ", "Can not update Python paths");
+        return i18nc("@info:tooltip ", "Cannot update Python paths");
 
     // Show some SPAM
     /// \todo Add <em>"About Python"</em> to Help menu or <em>System Info</em> tab

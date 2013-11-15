@@ -180,7 +180,7 @@ void FakeCodeCompletionTestModel::executeCompletionItem(Document* document, cons
   // Merge brackets?
   const QString noArgFunctionCallMarker = "()";
   const QString withArgFunctionCallMarker = "(...)";
-  const bool endedWithSemiColon  = textToInsert.endsWith(";");
+  const bool endedWithSemiColon  = textToInsert.endsWith(';');
   if (textToInsert.contains(noArgFunctionCallMarker) || textToInsert.contains(withArgFunctionCallMarker))
   {
     Q_ASSERT(m_removeTailOnCompletion && "Function completion items without removing tail is not yet supported!");
@@ -2268,7 +2268,7 @@ void ViModeTest::MappingTests()
   BeginTest(multiVirtualLineText);
   TestPressKey("gjrX");
   const QString expectedAfterVirtualLineDownAndChange = kate_document->text();
-  Q_ASSERT_X(expectedAfterVirtualLineDownAndChange.contains("X") && !expectedAfterVirtualLineDownAndChange.startsWith("X"), "setting up j->gj testcase data", "gj doesn't seem to have worked correctly!");
+  Q_ASSERT_X(expectedAfterVirtualLineDownAndChange.contains("X") && !expectedAfterVirtualLineDownAndChange.startsWith('X'), "setting up j->gj testcase data", "gj doesn't seem to have worked correctly!");
   FinishTest(expectedAfterVirtualLineDownAndChange);
 
   // Test that non-recursive mappings are not expanded.
@@ -6106,7 +6106,7 @@ void ViModeTest::visualLineUpDownTests()
   int textWrappingLength = 1;
   while (true)
   {
-    QString text = QString("X").repeated(textWrappingLength) + " " + "O";
+    QString text = QString("X").repeated(textWrappingLength) + ' ' + 'O';
     const int posOfO = text.length() - 1;
     kate_document->setText(text);
     if (kate_view->cursorToCoordinate(Cursor(0, posOfO)).y() != kate_view->cursorToCoordinate(Cursor(0, 0)).y())
@@ -6116,7 +6116,7 @@ void ViModeTest::visualLineUpDownTests()
     }
     textWrappingLength++;
   }
-  const QString fillsLineAndEndsOnSpace = QString("X").repeated(textWrappingLength - 1) + " ";
+  const QString fillsLineAndEndsOnSpace = QString("X").repeated(textWrappingLength - 1) + ' ';
 
   // Create a QString consisting of enough concatenated fillsLineAndEndsOnSpace to completely
   // fill the viewport of the kate View.
@@ -6216,7 +6216,7 @@ void ViModeTest::visualLineUpDownTests()
     const QString unindentedFirstLine = "stickyhelper\n";
     const int  numIndentationSpaces = 5;
     Q_ASSERT(textWrappingLength >  numIndentationSpaces * 2 /* keep some wriggle room */);
-    const QString indentedFillsLineEndsOnSpace = QString(" ").repeated( numIndentationSpaces) + QString("X").repeated(textWrappingLength - 1 - numIndentationSpaces) + " ";
+    const QString indentedFillsLineEndsOnSpace = QString(" ").repeated( numIndentationSpaces) + QString("X").repeated(textWrappingLength - 1 - numIndentationSpaces) + ' ';
     DoTest(unindentedFirstLine + indentedFillsLineEndsOnSpace + "LINE3", QString("l").repeated(numIndentationSpaces) + "jgjr.", unindentedFirstLine + indentedFillsLineEndsOnSpace + ".INE3");
 
     // The first, non-wrapped portion of the line is not invisibly indented, though, so ensure we don't mess that up.
@@ -6229,7 +6229,7 @@ void ViModeTest::visualLineUpDownTests()
     // Take into account any invisible indentation when setting the sticky column.
     const int  numIndentationSpaces = 5;
     Q_ASSERT(textWrappingLength >  numIndentationSpaces * 2 /* keep some wriggle room */);
-    const QString indentedFillsLineEndsOnSpace = QString(" ").repeated( numIndentationSpaces) + QString("X").repeated(textWrappingLength - 1 - numIndentationSpaces) + " ";
+    const QString indentedFillsLineEndsOnSpace = QString(" ").repeated( numIndentationSpaces) + QString("X").repeated(textWrappingLength - 1 - numIndentationSpaces) + ' ';
     const int posInSecondWrappedLineToChange = 3;
     QString expectedText = indentedFillsLineEndsOnSpace + fillsLineAndEndsOnSpace;
     expectedText[textWrappingLength + posInSecondWrappedLineToChange]= '.';
@@ -6240,7 +6240,7 @@ void ViModeTest::visualLineUpDownTests()
 
   {
     // Take into account any invisible indentation when setting the sticky column as above, but use tabs.
-    const QString indentedFillsLineEndsOnSpace = QString("\t") + QString("X").repeated(textWrappingLength - 1 - tabWidth) + " ";
+    const QString indentedFillsLineEndsOnSpace = QString("\t") + QString("X").repeated(textWrappingLength - 1 - tabWidth) + ' ';
     const int posInSecondWrappedLineToChange = 3;
     QString expectedText = indentedFillsLineEndsOnSpace + fillsLineAndEndsOnSpace;
     expectedText[textWrappingLength - tabWidth + posInSecondWrappedLineToChange]= '.';
@@ -6281,9 +6281,9 @@ void ViModeTest::visualLineUpDownTests()
     QString beginsWithTabFillsLineEndsOnSpace = "\t";
     while (beginsWithTabFillsLineEndsOnSpace.length() + (tabWidth - 1) < textWrappingLength - 1)
     {
-      beginsWithTabFillsLineEndsOnSpace += "X";
+      beginsWithTabFillsLineEndsOnSpace += 'X';
     }
-    beginsWithTabFillsLineEndsOnSpace += " ";
+    beginsWithTabFillsLineEndsOnSpace += ' ';
     const QString unindentedFirstLine = "stockyhelper\n";
     const int posOnThirdLineToChange = 3;
     QString expectedThirdLine = fillsLineAndEndsOnSpace;

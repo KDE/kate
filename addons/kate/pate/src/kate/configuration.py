@@ -128,7 +128,6 @@ globalConfiguration = pate.configuration
 This can also be used by one plugin to access another plugin's configurations.
 '''
 
-
 configuration = Configuration(pate.configuration)
 '''Persistent configuration dictionary for this plugin.'''
 

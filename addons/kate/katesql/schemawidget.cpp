@@ -366,7 +366,7 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
       statement = drv->sqlStatement(statementType, tableName, rec, false);
 
       if (statementType == QSqlDriver::DeleteStatement)
-        statement += " " + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(" IS NULL", "=?");
+        statement += ' ' + drv->sqlStatement(QSqlDriver::WhereStatement, tableName, rec, false).replace(" IS NULL", "=?");
     }
     break;
   }

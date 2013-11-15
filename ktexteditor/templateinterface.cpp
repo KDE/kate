@@ -202,7 +202,7 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
         }
         initValue=initValue.left(initValue.length()-((backslashcount+1)/2));
         if ((backslashcount % 2) ==1) {
-          initValue+="}";
+          initValue+='}';
           const int tmpStrLength=templateString.length();
           backslashcount=0;
           for (int i=pos+rx.matchedLength();(i<tmpStrLength);i++,pos++) {

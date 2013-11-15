@@ -185,7 +185,7 @@ void CloseExceptPluginView::appendActionsFrom(
 {
     Q_FOREACH(const QString& path, paths)
     {
-        QString action = path.startsWith("*") ? path : path + "*";
+        QString action = path.startsWith('*') ? path : path + '*';
         actions[action] = QPointer<KAction>(new KAction(action, menu));
         menu->addAction(actions[action]);
         connect(actions[action], SIGNAL(triggered()), mapper, SLOT(map()));
@@ -297,7 +297,7 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
     {
         const QString& path = document->url().upUrl().path();
         /// \note Take a dot in account, so \c *.c would not match for \c blah.kcfgc
-        const QString& ext = "." + QFileInfo(document->url().fileName()).completeSuffix();
+        const QString& ext = '.' + QFileInfo(document->url().fileName()).completeSuffix();
         const bool match = (!is_path && mask.endsWith(ext))
           || (is_path && path.startsWith(mask))
           ;

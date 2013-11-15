@@ -175,3 +175,4 @@ int CommandRangeExpressionParser::calculatePosition(const QString& string, KateV
 
   return result;
 }
+

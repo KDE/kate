@@ -914,3 +914,4 @@ KateViInputModeManager::Completion::CompletionType KateViInputModeManager::Compl
 {
   return m_completionType;
 }
+

@@ -695,3 +695,4 @@ void KateViInsertMode::textInserted(KTextEditor::Document* document, KTextEditor
     m_textInsertedByCompletionEndPos = range.end();
   }
 }
+

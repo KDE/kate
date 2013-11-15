@@ -129,16 +129,6 @@ private:
         };
     };
 
-    struct PluginTuple
-    {
-        enum type
-        {
-            MODULE
-          , CALLBACKS_DICT
-          , LAST__
-        };
-    };
-
     PyObject* m_configuration;                              ///< Application-wide configuration data
     PyObject* m_sessionConfiguration;                       ///< Session-wide configuration data
     QList<PluginState> m_plugins;                           ///< List of available plugins

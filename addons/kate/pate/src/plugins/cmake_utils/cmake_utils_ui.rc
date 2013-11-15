@@ -8,7 +8,6 @@
                          http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd" >
     <MenuBar>
         <Menu name="file"><text>&amp;File</text>
-            <Separator />
             <Action name="openCMakeList"
                     text="Open CMakeLists.txt..."
                     shortcut="Meta+M"

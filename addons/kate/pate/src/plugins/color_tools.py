@@ -46,7 +46,7 @@ from PyQt4.QtCore import QEvent, QObject, QTimer, Qt, pyqtSlot, pyqtSignal
 from PyQt4.QtGui import QColor, QFrame, QPalette, QToolTip, QWidget, QVBoxLayout
 
 from PyKDE4.kdecore import i18nc
-from PyKDE4.kdeui import KColorDialog, KColorCells, KPushButton
+from PyKDE4.kdeui import KColorDialog, KColorCells, KPushButton, KIcon
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
@@ -239,7 +239,7 @@ def _get_color_range_under_cursor(view):
     return color_range
 
 
-@kate.action(i18nc('@action:inmenu', 'Insert Color'), shortcut='Meta+Shift+C', icon='color', menu='Tools')
+@kate.action
 def insertColor():
     '''Insert/edit color string using color chooser dialog
 
@@ -335,7 +335,7 @@ class PaletteView(QObject):
         self.toolView = kate.mainInterfaceWindow().createToolView(
             'color_tools_pate_plugin'
           , kate.Kate.MainWindow.Bottom
-          , kate.gui.loadIcon('color')
+          , KIcon('color').pixmap(32, 32)
           , i18nc('@title:tab', 'Palette')
           )
         self.toolView.installEventFilter(self)
@@ -355,11 +355,11 @@ class PaletteView(QObject):
         self.colorCellsWidget.colorSelected.connect(self.colorSelected)
         self.colorCellsWidget.colorDoubleClicked.connect(self.colorDoubleClicked)
 
-    def __del__(self):
-        '''Plugins that use a toolview need to delete it for reloading to work.'''
-        if self.toolView:
-            self.toolView.deleteLater()
-            self.toolView = None
+    #def __del__(self):
+        #'''Plugins that use a toolview need to delete it for reloading to work.'''
+        #if self.toolView:
+            #self.toolView.deleteLater()
+            #self.toolView = None
 
     def eventFilter(self, obj, event):
         '''Hide the Palette tool view on ESCAPE key'''
@@ -480,7 +480,7 @@ def init():
 
     swatcher = ColorSwatcher()
 
-    # Make an instance of a palette tool view
+    ## Make an instance of a palette tool view
     global paletteView
     if paletteView is None:
         paletteView = PaletteView(kate.mainWindow())
@@ -498,12 +498,10 @@ def destroy():
     '''Plugins that use a toolview need to delete it for reloading to work.'''
     global paletteView
     if paletteView:
-        del paletteView
         paletteView = None
 
     global colorChooserWidget
     if colorChooserWidget:
-        del colorChooserWidget
         colorChooserWidget = None
 
 

@@ -20,6 +20,7 @@
 '''Decorators used in plugins'''
 
 import functools
+import inspect
 import sys
 import traceback
 import xml.dom.minidom
@@ -35,7 +36,7 @@ from .api import *
 _registered_xml_gui_clients = dict()
 
 #
-# Initialize related stuff
+# initialization related stuff
 #
 
 def pateEventHandler(event):
@@ -70,9 +71,9 @@ def _simpleEventListener(func):
 
 def _registerCallback(plugin, event, func):
     if plugin not in event.functions:
-        event.functions[plugin] = []
+        event.functions[plugin] = set()
 
-    event.functions[plugin].append(func)
+    event.functions[plugin].add(func)
     return func
 
 
@@ -82,7 +83,10 @@ def init(func):
         and the configuration has been initiated
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    return _registerCallback(plugin, init, func)
+    print('@init: {}/{}'.format(plugin, func.__name__))
+    def _decorator():
+        func()
+    return _registerCallback(plugin, init, _decorator)
 
 
 @_simpleEventListener
@@ -96,17 +100,85 @@ def unload(func):
             quit everything is dead already!
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    def xml_gui_remover():
+    print('@unload: {}/{}'.format(plugin, func.__name__))
+    def _module_cleaner():
+        print('@unload/cleaner: {}/{}'.format(plugin, func.__name__))
         if plugin in _registered_xml_gui_clients and mainInterfaceWindow() is not None:
             clnt = _registered_xml_gui_clients[plugin]
             clnt.actionCollection().clearAssociatedWidgets()
             clnt.actionCollection().clear()
             mainInterfaceWindow().guiFactory().removeClient(clnt)
-            del _registered_xml_gui_clients [plugin]
+            del _registered_xml_gui_clients[plugin]
+
+        if plugin in init.functions:
+            del init.functions[plugin]
+
         func()
 
-    return _registerCallback(plugin, unload, xml_gui_remover)
+    return _registerCallback(plugin, unload, _module_cleaner)
 
+
+@_simpleEventListener
+def viewCreated(func):
+    ''' Calls the function when a new view is created, passing the
+        view as a parameter.
+    '''
+    plugin = sys._getframe(1).f_globals['__name__']
+    mainWindow = application.activeMainWindow()
+    assert(mainWindow is not None)
+    mainWindow.connect(mainWindow, QtCore.SIGNAL('viewCreated(KTextEditor::View*)'), func)
+    return func
+
+
+@_simpleEventListener
+def viewChanged(func):
+    ''' Calls the function when the view changes.
+        To access the new active view, use kate.activeView()
+
+        NOTE The very first call after kate starts the view actually is None!
+    '''
+    plugin = sys._getframe(1).f_globals['__name__']
+    mainWindow = application.activeMainWindow()
+    assert(mainWindow is not None)
+    mainWindow.connect(mainWindow, QtCore.SIGNAL('viewChanged()'), func)
+    return func
+
+
+def configPage(name, fullName, icon):
+    ''' Decorator that adds a configPage into Kate's settings dialog. When the
+    item is fired, your function is called.
+
+    Parameters:
+        * name -        The text associated with the configPage in the list of
+                        config pages.
+        * fullName -    The title of the configPage when selected.
+        * icon -        An icon to associate with this configPage. Pass a string
+                        to use KDE's image loading system or a QPixmap or
+                        QIcon to use any custom icon.
+
+    NOTE: Kate may need to be restarted for this decorator to take effect, or
+    to remove all traces of the plugin on removal.
+    '''
+    plugin = sys._getframe(1).f_globals['__name__']
+    #print('---------@configPage[{}]: name={}, fullName={}, icon={}'.format(plugin, repr(name), fullName, icon))
+
+    def _decorator(func):
+        a = name, fullName, kdeui.KIcon(icon)
+        func.configPage = a
+        return func
+    return _decorator
+
+
+def moduleGetConfigPages(module):
+    '''Return a list of each module function decorated with @configPage.
+
+    The returned object is [ { function, callable, ( name, fullName, icon ) }... ].
+    '''
+    result = []
+    for k, v in module.__dict__.items():
+        if inspect.isfunction(v) and hasattr(v, 'configPage'):
+            result.append((k, v, v.configPage))
+    return result
 
 #
 # Actions related stuff
@@ -142,12 +214,24 @@ def action(func):
         your function is called
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    print('---------@action: {}/{}'.format(plugin,func.__name__))
-
+    #print('---------------@action: {}/{}'.format(plugin, func.__name__))
     ui_file = kdecore.KGlobal.dirs().findResource('appdata', 'pate/{}_ui.rc'.format(plugin))
-    print('ui_file={}'.format(repr(ui_file)))
-    clnt = kdeui.KXMLGUIClient()
-    clnt.replaceXMLFile(ui_file,ui_file)
+    if not ui_file:
+        return func
+
+    # Found UI resource file
+    #print('ui_file={}'.format(repr(ui_file)))
+
+    # Get the XML GUI client or create a new one
+    clnt = None
+    if plugin not in _registered_xml_gui_clients:
+        #print('----@action: make XMLGUICline 4 plugin={}'.format(repr(plugin)))
+        clnt = kdeui.KXMLGUIClient()
+        clnt.replaceXMLFile(ui_file,ui_file)
+    else:
+        clnt = _registered_xml_gui_clients[plugin]
+        mainInterfaceWindow().guiFactory().removeClient(clnt)
+
     # Find an action details
     gui = xml.dom.minidom.parse(ui_file)
     found = False
@@ -164,17 +248,18 @@ def action(func):
             text = tag.attributes['text'].value
             act = clnt.actionCollection().addAction(name)
             act.setText(text)
+            #print('-----------@action/found: {} --> "{}"'.format(name, text))
             # Get optional attributes
             if 'shortcut' in tag.attributes:
-                act.setShortcut(QtGui.QKeySequence(tag.attributes['shortcut']))
+                act.setShortcut(QtGui.QKeySequence(tag.attributes['shortcut'].value))
             if 'icon' in tag.attributes:
-                act.setIcon(kdeui.KIcon(tag.attributes['icon']))
+                act.setIcon(kdeui.KIcon(tag.attributes['icon'].value))
             if 'iconText' in tag.attributes:
-                act.setIconText(tag.attributes['iconText'])
+                act.setIconText(tag.attributes['iconText'].value)
             if 'toolTip' in tag.attributes:
-                act.setToolTip(tag.attributes['toolTip'])
+                act.setToolTip(tag.attributes['toolTip'].value)
             if 'whatsThis' in tag.attributes:
-                act.setWhatsThis(tag.attributes['whatsThis'])
+                act.setWhatsThis(tag.attributes['whatsThis'].value)
             # Connect it to the function
             act.connect(act, QtCore.SIGNAL('triggered()'), func)
 
@@ -182,9 +267,10 @@ def action(func):
         # TODO Show some SPAM about inconsistent action
         pass
 
+    if plugin not in _registered_xml_gui_clients:
+        _registered_xml_gui_clients[plugin] = clnt
 
     mainInterfaceWindow().guiFactory().addClient(clnt)
-    _registered_xml_gui_clients[plugin] = clnt
 
     # TODO Provide an access to the XML GUI client to the plugin
     # so it may control actions ... from their actions ;-)

@@ -211,7 +211,7 @@ def getExpansionsFor(mime):
     return result
 
 
-@kate.action(i18nc('@action:inmenu', 'Expand Usage'), shortcut='Shift+Ctrl+E')
+@kate.action
 def getHelpOnExpandAtCursor():
     document = kate.activeDocument()
     view = document.activeView()
@@ -234,7 +234,7 @@ def getHelpOnExpandAtCursor():
         print('ExpandPlugin: WARNING: undefined expansion `{}`'.format(word))
 
 
-@kate.action(i18nc('@action:inmenu a verb', 'Expand'), shortcut='Ctrl+E', menu='Edit')
+@kate.action
 def expandAtCursor():
     """Attempt text expansion on the word at the cursor.
     The expansions available are based firstly on the mimetype of the

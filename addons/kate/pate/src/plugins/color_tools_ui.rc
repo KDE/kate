@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE kpartgui>
+<gui name="color_tools"
+     version="1"
+     xmlns="http://www.kde.org/standards/kxmlgui/1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0
+                         http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd" >
+    <MenuBar>
+        <Menu name="tools"><text>&amp;Tool</text>
+            <Action name="insertColor" text="Insert Color" shortcut="Meta+Shift+C" icon="color" />
+        </Menu>
+    </MenuBar>
+</gui>
+<!-- kate: indent-width 4; -->

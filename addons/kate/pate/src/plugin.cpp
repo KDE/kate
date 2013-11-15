@@ -286,6 +286,7 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
 {
     KAction* about = actionCollection()->addAction("about_pate");
     about->setText("About Pate");
+    about->setIcon(KIcon("python"));
     //
     plugin->engine().tryLoadEnabledPlugins();
     Python py = Python();
@@ -309,8 +310,6 @@ Pate::ConfigPage::ConfigPage(QWidget* const parent, Plugin* const plugin)
   : Kate::PluginConfigPage(parent)
   , m_plugin(plugin)
 {
-    kDebug() << "create ConfigPage";
-
     if (!m_plugin->checkEngineShowPopup())
     {
         /// \todo HIDE THE MANAGER AND SHOW ERROR INSTEAD!

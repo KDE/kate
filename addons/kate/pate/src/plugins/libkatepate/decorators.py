@@ -37,6 +37,7 @@ def append_constraint(action, constraint):
 
 def check_constraints(action):
     ''' Decorator to evaluate constraints assigned to a given action '''
+    @functools.wraps(action)
     def checker(*args, **kw):
         document = kate.activeDocument()
         # TODO Why this shit^W`if` doesn't work? WTF?!

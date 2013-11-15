@@ -28,7 +28,7 @@ import kate
 from libkatepate import common
 
 
-@kate.action(i18nc('@action:inmenu', 'Insert Char From Line Above'), shortcut='Meta+E')
+@kate.action
 def insertCharFromLineAbove():
     '''Add the same char to the current cursor position as at the line above'''
     doc = kate.activeDocument()
@@ -48,7 +48,7 @@ def insertCharFromLineAbove():
     doc.endEditing()
 
 
-@kate.action(i18nc('@action:inmenu', 'Insert Char From Line Below'), shortcut='Meta+W')
+@kate.action
 def insertCharFromLineBelow():
     '''Add the same char to the current cursor position as at the line below'''
     doc = kate.activeDocument()
@@ -68,7 +68,7 @@ def insertCharFromLineBelow():
     doc.endEditing()
 
 
-@kate.action(i18nc('@action:inmenu', 'Kill Text After Cursor'), shortcut='Meta+K')
+@kate.action
 def killRestOfLine():
     '''Remove text from cursor position to the end of the current line'''
     doc = kate.activeDocument()
@@ -83,7 +83,7 @@ def killRestOfLine():
     doc.endEditing()
 
 
-@kate.action(i18nc('@action:inmenu', 'Kill Text Before Cursor'), shortcut='Meta+U')
+@kate.action
 def killLeadOfLine():
     ''' Remove text from a start of a line to the current cursor position
         but keep leading spaces (to avoid breaking indentation)
@@ -169,32 +169,32 @@ def _wrapBlockWithChar(openCh, closeCh, indentMultiline = True):
             view.setSelection(r)
 
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Round Brackets'), shortcut='Ctrl+(')
+@kate.action
 def wrapBlockWithRoundBrackets():
     '''Wrap current word (identifier) or selection into pair of '(' and ')' characters'''
     _wrapBlockWithChar('(', ')')
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Square Brackets'), shortcut='Ctrl+{')
+@kate.action
 def wrapBlockWithSquareBrackets():
     '''Wrap current word (identifier) or selection into pair of '[' and ']' characters'''
     _wrapBlockWithChar('[', ']')
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Curve Brackets'), shortcut='Meta+{')
+@kate.action
 def wrapBlockWithCurveBrackets():
     '''Wrap current word (identifier) or selection into pair of '{' and '}' characters'''
     _wrapBlockWithChar('{', '}')
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Angle Brackets'), shortcut='Ctrl+<')
+@kate.action
 def wrapBlockWithAngleBrackets():
     '''Wrap current word (identifier) or selection into pair of '<' and '>' characters'''
     _wrapBlockWithChar('<', '>')
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Double Quotes'), shortcut='Ctrl+\'')
-def wrapBlockWithQuotes():
+@kate.action
+def wrapBlockWithDblQuotes():
     '''Wrap current word (identifier) or selection into pair of '"' characters'''
     _wrapBlockWithChar('"', '"', False)
 
-@kate.action(i18nc('@action:inmenu', 'Wrap into Quotes'), shortcut='Meta+\'')
+@kate.action
 def wrapBlockWithQuotes():
     '''Wrap current word (identifier) or selection into pair of '"' characters'''
     _wrapBlockWithChar("'", "'", False)

@@ -302,10 +302,7 @@ def boostFormatText(textRange, indent, breakPositions):
         document.replaceText(textRange, outText)
         document.endEditing()
 
-@kate.action(
-    i18nc('@action:inmenu `boost`, means http://boost.org library', 'Boost-like Format Params')
-  , shortcut='Meta+F'
-  )
+@kate.action
 @check_constraints
 @has_selection(False)
 @selection_mode(selection.NORMAL)
@@ -383,7 +380,7 @@ def boostUnformatText(textRange, breakPositions):
         document.endEditing()
 
 
-@kate.action(i18nc('@action:inmenu', 'Unformat Function Params'), shortcut='Meta+Shift+F')
+@kate.action
 @check_constraints
 @has_selection(False)
 @selection_mode(selection.NORMAL)

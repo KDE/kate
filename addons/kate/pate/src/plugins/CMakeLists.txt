@@ -21,13 +21,11 @@ install(
 #
 install(
     FILES
-        block.py
-        color_tools.py
-        color_tools_toolview.ui
-        commentar.py
-        commentar_config.ui
-        expand.py
-        format.py
+        block.py block_ui.rc
+        color_tools.py color_tools_ui.rc color_tools_toolview.ui
+        commentar.py commentar_config.ui commentar_ui.rc
+        expand.py expand_ui.rc
+        format.py format_ui.rc
         xml_pretty.py
         xml_pretty.ui
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate
@@ -58,7 +56,7 @@ install(
 install(
     DIRECTORY js_utils
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate
-    FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json" PATTERN "*.js"
+    FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json" PATTERN "*.js" PATTERN "*.rc"
     )
 
 install(
@@ -70,7 +68,7 @@ install(
 install(
     DIRECTORY cmake_utils
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate
-    FILES_MATCHING PATTERN "*.py" PATTERN "*.ui"
+    FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.rc"
   )
 
 # kate: indent-width 4;

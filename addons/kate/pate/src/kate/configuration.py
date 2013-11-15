@@ -121,16 +121,20 @@ class Configuration:
     def _name(self):
         return sys._getframe(1).f_globals['__name__']
 
+
 globalConfiguration = pate.configuration
 '''Configuration for all plugins.
 
 This can also be used by one plugin to access another plugin's configurations.
 '''
 
+
 configuration = Configuration(pate.configuration)
 '''Persistent configuration dictionary for this plugin.'''
 
+
 sessionConfiguration = Configuration(pate.sessionConfiguration)
 '''Per session persistent configuration dictionary for this plugin.'''
+
 
 # kate: space-indent on; indent-width 4;

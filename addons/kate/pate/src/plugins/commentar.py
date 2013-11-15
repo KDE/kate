@@ -172,11 +172,11 @@ def processLine(line, commentCh):
     return (result, column + len(commentCh) + 1)
 
 
-@kate.action(i18nc('@action:inmenu', 'Inline Comment'), shortcut='Alt+D', menu='Edit')
+@kate.action
 @check_constraints
 @comment_char_must_be_known()
 @selection_mode(selection.NORMAL)
-def commentar():
+def inline_comment():
     ''' Append or align an inlined comment at position 60 for the current line or the selection.
 
         Move cursor to the start of a comment, if nothing has changed.
@@ -232,10 +232,10 @@ def commentar():
         view.setCursorPosition(pos)
 
 
-@kate.action(i18nc('@action:inmenu', 'Move Comment Above'), shortcut='Meta+Left')
+@kate.action
 @check_constraints
 @comment_char_must_be_known()
-def moveAbove():
+def move_above():
     '''Move an inlined comment before the current line w/ same indentation level'''
     document = kate.activeDocument()
     view = kate.activeView()
@@ -283,10 +283,10 @@ def moveAbove():
         document.endEditing()                               # End transaction
 
 
-@kate.action(i18nc('@action:inmenu', 'Move Comment Inline'), shortcut='Meta+Right')
+@kate.action
 @check_constraints
 @comment_char_must_be_known()
-def moveInline():
+def move_inline():
     ''' Move a comment at the current line as inline comment of the next line
         (if latter has no comment yet)
     '''
@@ -358,14 +358,10 @@ def moveInline():
         document.endEditing()                               # End transaction
 
 
-@kate.action(
-    i18nc('@action:inmenu', 'Comment Block with <command>#if0</command>')
-  , shortcut='Meta+D'
-  , menu='Edit'
-  )
+@kate.action
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
-def commentBlock():
+def comment_block():
     '''Wrap selected text (or current line) into a #if0/#endif block'''
     view = kate.activeView()
 
@@ -392,14 +388,10 @@ def commentBlock():
         document.endEditing()                               # End transaction
 
 
-@kate.action(
-    i18nc('@action:inmenu', 'Toggle <icode>#if0</icode>/<icode>#if1</icode> Block')
-  , shortcut='Meta+Shift+D'
-  , menu='Edit'
-  )
+@kate.action
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
-def toggleBlock():
+def toggle_block():
     ''' Switch a current code block to ON(#if1) or OFF(#if0) state.
 
         Current means that cursor placed inside of it.
@@ -441,10 +433,10 @@ def toggleBlock():
           )
 
 
-@kate.action(i18nc('@action:inmenu', 'Remove <icode>#if0</icode> Block'), shortcut='Meta+R', menu='Edit')
+@kate.action
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
-def removeBlock():
+def remove_block():
     ''' Remove a block of code commented with #if0 or #if1-#else'''
     document = kate.activeDocument()
     view = kate.activeView()
@@ -495,14 +487,10 @@ def removeBlock():
           )
 
 
-@kate.action(
-    i18nc('@action:inmenu', 'Select Current <icode>#if0</icode>/<icode>#if1</icode> Block')
-  , shortcut='Meta+S'
-  , menu='Edit'
-  )
+@kate.action
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
-def selectBlock():
+def select_block():
     '''Set selection of a current (where cursor positioned) #if0/#endif block'''
     document = kate.activeDocument()
     view = kate.activeView()
@@ -624,11 +612,11 @@ def turnFromBlockComment():
         document.endEditing()                               # End transaction
 
 
-@kate.action(i18nc('@action:inmenu', 'Transform Doxygen Comments'), shortcut='Meta+X', menu='Edit')
+@kate.action
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 @has_selection(False)
-def toggleDoxyComment():
+def toggle_doxy_comment():
     ''' Turn block of '///' doxygen comments into
         /**
          *
@@ -737,18 +725,18 @@ def changeParagraphWidth(step):
         doc.endEditing()                                    # End transaction
 
 
-@kate.action(i18nc('@action:inmenu', 'Shrink Comment Paragraph'), shortcut='Meta+[', menu='Edit')
+@kate.action
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
-def shrinkParagraph():
+def shrink_paragraph():
     '''Shrink a text paragraph width, whithing a comment, around the current cursor position'''
     changeParagraphWidth(-1)
 
 
-@kate.action(i18nc('@action:inmenu', 'Extend Comment Paragraph'), shortcut='Meta+]', menu='Edit')
+@kate.action
 @check_constraints
 @restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
-def extendParagraph():
+def extend_paragraph():
     '''Extend a text paragraph width, whithing a comment, around the current cursor position'''
     changeParagraphWidth(1)
 
@@ -811,6 +799,7 @@ class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
   )
 def commentarConfigPage(parent=None, name=None):
     return ConfigPage(parent, name)
+
 
 @kate.init
 def init():

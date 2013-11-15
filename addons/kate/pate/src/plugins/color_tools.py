@@ -462,7 +462,7 @@ def viewChanged(view=None):
 def init():
     '''Iniialize global variables and read config'''
     # Set default value for last used #color if not configured yet
-    if _INSERT_COLOR_LCC not in kate.configuration:
+    if _INSERT_COLOR_LCC not in kate.sessionConfiguration:
         kate.sessionConfiguration[_INSERT_COLOR_LCC] = '#ffffff'
 
     swatcher = ColorSwatcher()

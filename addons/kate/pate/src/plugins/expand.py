@@ -367,7 +367,6 @@ def _reset(*args, **kwargs):
     expands_completation_model.reset()
 
 
-@kate.init
 @kate.viewCreated
 def createSignalAutocompleteExpands(view=None, *args, **kwargs):
     view = view or kate.activeView()

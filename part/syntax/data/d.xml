@@ -691,7 +691,7 @@
       <context name="DdocNested2" attribute="Ddoc" lineEndContext="#stay">
         <DetectSpaces />
         <DetectIdentifier attribute="Ddoc"/>
-        <!-- Identical to DdocNested except that nested comments don't recieve any formatting -->
+        <!-- Identical to DdocNested except that nested comments don't receive any formatting -->
         <RegExpr attribute="Ddoc" context="#pop" String="\++/"/>
         <!-- The above rules should match before the unwanted rule in DdocNested -->
         <IncludeRules context="DdocNested" />

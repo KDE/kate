@@ -29,4 +29,3 @@ Comment[tr]=Genişleme fonksiyonu uygulayın ve çıktıyı bir belgeye ekleyin
 Comment[uk]=Виконати функцію розширення і вставити виведені нею дані до документа
 Comment[x-test]=xxExecute expansion function and insert output into a documentxx
 X-Python-2-Compatible=true
-X-Python-3-Compatible=true

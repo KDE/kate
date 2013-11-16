@@ -5,4 +5,3 @@ X-KDE-Library=gid
 Name=GNU idutils plugin
 Comment=Browse the tokens in a GNU idutils ID file
 X-Python-2-Compatible=true
-X-Python-3-Compatible=true

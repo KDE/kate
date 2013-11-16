@@ -447,18 +447,28 @@ void Pate::Engine::scanPlugins()
         }
 
         // Check Python compatibility
-        const bool is_compatible = service->property(
+        // ATTENTION Python 3 is a default platform! Assume all modules are
+        // compatible! Do checks only if someone tries to build kate w/ Python 2.
+        // So, Python 2 modules must be marked explicitly!
 #if PY_MAJOR_VERSION < 3
+        const bool is_compatible = service->property(
             "X-Python-2-Compatible"
-#else
-            "X-Python-3-Compatible"
-#endif
           , QVariant::Bool
-          ).toBool();
-
-        if (!is_compatible)
+          );
+        if (!(is_compatible.isValid() && is_compatible.toBool()))
         {
             kDebug() << service->name() << "is incompatible w/ embedded Python version";
+            // Do not even show incompatible modules in the manager...
+            continue;
+        }
+#endif
+        // ATTENTION If some module is Python 2 only, it must be marked w/
+        // the property 'X-Python-2-Only' of type bool and ANY (valid) value...
+        const QVariant is_py2_only = service->property("X-Python-2-Only", QVariant::Bool);
+        if (is_py2_only.isValid())
+        {
+            kDebug() << service->name() << "is marked as Python 2 ONLY... >/dev/null";
+            // Do not even show incompatible modules in the manager...
             continue;
         }
 
@@ -499,10 +509,21 @@ void Pate::Engine::scanPlugins()
         /// \todo Full featured dependencies checker can be implemented
         /// as a Python module (special named or listed as a property in
         /// a \c .desktop file ;-)
-        const QStringList dependencies = service->property(
+        // NOTE Get 'common' (default to current interpreter) dependencies.
+        QStringList dependencies = service->property(
             "X-Python-Dependencies"
           , QVariant::StringList
           ).toStringList();
+#if PY_MAJOR_VERSION < 3
+        {
+            // Try to get Py2 only dependencies
+            QStringList py2_dependencies = service->property(
+                "X-Python-2-Dependencies"
+            , QVariant::StringList
+            ).toStringList();
+            dependencies.append(py2_dependencies);
+        }
+#endif
         Python py = Python();
         Q_FOREACH(const QString& dep, dependencies)
         {

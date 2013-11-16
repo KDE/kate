@@ -27,5 +27,3 @@ Comment[sv]=Kodkomplettering, cache och hjälpbläddrare
 Comment[tr]=Kod tamamlayıcı, önbellek ve yardım tarayıcısı
 Comment[uk]=Доповнювач коду, переглядач кешу та довідки
 Comment[x-test]=xxCode completer, cache and help browserxx
-X-Python-2-Compatible=false
-X-Python-3-Compatible=true

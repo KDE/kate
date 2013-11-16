@@ -38,6 +38,7 @@ _COMMENT_STRINGS_MAP = {
 CXX_IDENTIFIER_BOUNDARIES = set(' \t\n"\'[]{}()<>`~!@#$%^&*-+=|\\/?;:,.')
 IDENTIFIER_BOUNDARIES = CXX_IDENTIFIER_BOUNDARIES | {':'}
 
+
 def isKnownCommentStyle(docType):
     ''' Check if we know how to comment a line in a given document type '''
     return docType in _COMMENT_STRINGS_MAP
@@ -108,7 +109,16 @@ def getTextBlockAroundCursor(doc, pos, upPred, downPred):
     if start != end:
         start += 1
 
-    print('** getTextBlockAroundCursor[pos=%d,%d]: (%d,%d), (%d,%d)' % (pos.line(), pos.column(), start, 0, end, 0))
+    kate.kDebug(
+        'getTextBlockAroundCursor[pos={},{}]: ({},{}), ({},{})'.format(
+            pos.line()
+          , pos.column()
+          , start
+          , 0
+          , end
+          , 0
+          )
+      )
     return KTextEditor.Range(start, 0, end, 0)
 
 

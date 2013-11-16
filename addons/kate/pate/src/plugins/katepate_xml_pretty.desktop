@@ -5,4 +5,3 @@ X-KDE-Library=xml_pretty
 Name=XML Tools
 Comment=XML Pretty print
 X-Python-2-Compatible=true
-X-Python-3-Compatible=true

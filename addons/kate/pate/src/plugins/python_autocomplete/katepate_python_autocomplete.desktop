@@ -29,5 +29,5 @@ Comment[tr]=Beta, sadece Python 2 için
 Comment[uk]=Тестова версія, лише для Python 2
 Comment[x-test]=xxBeta, only for Python 2xx
 X-Python-2-Compatible=true
-X-Python-3-Compatible=false
-X-Python-Dependencies=pysmell,pyplete
+X-Python-2-Only=true
+X-Python-2-Dependencies=pysmell,pyplete

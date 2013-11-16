@@ -9,8 +9,8 @@ from __future__ import unicode_literals
 
 import sys
 
-from PyQt4.QtCore import QEvent, QObject, Qt
-from PyKDE4.kdecore import i18n as _translate
+from PyQt4.QtCore import QEvent, QObject, Qt, QTimer
+from PyKDE4.kdecore import i18nc, i18n as _translate
 from libkatepate.compat import text_type
 from libkatepate.errors import needs_packages
 
@@ -26,6 +26,7 @@ NEED_PACKAGES = {
 needs_packages(NEED_PACKAGES)
 
 
+# TODO Remove this crap!
 def i18n(msg, *args):
     if isinstance(msg, text_type):
         msg = msg.encode('utf-8')
@@ -79,7 +80,7 @@ def init_ipython():
         client.start_channels()
     else:
         def event_loop(kernel):
-            kernel.timer = kate.gui.QTimer()
+            kernel.timer = QTimer()
             kernel.timer.timeout.connect(kernel.do_one_iteration)
             kernel.timer.start(1000 * kernel._poll_interval)
 
@@ -272,7 +273,11 @@ class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
         self.changed.emit()
 
 
-@kate.configPage('IPython Console', 'IPython Console Settings', icon='text-x-python')
+@kate.configPage(
+    i18nc('@item:inmenu', 'IPython Console')
+  , i18nc('@title:group', 'IPython Console Settings')
+  , icon='text-x-python'
+  )
 def configPage(parent=None, name=None):
     return ConfigPage(parent, name)
 
@@ -284,8 +289,8 @@ class ConsoleToolView(QObject):
         self.toolView = kate.mainInterfaceWindow().createToolView(
             'ipython_console',
             kate.Kate.MainWindow.Bottom,
-            kate.gui.loadIcon('text-x-python'),
-            'IPython Console'                               # TODO i18nc('@title:tab', ...)
+            kdeui.KIcon('text-x-python').pixmap(32,32),
+            i18nc('@title:tab', 'IPython Console')
         )
         self.toolView.installEventFilter(self)
         self.console = make_terminal_widget(parent=self.toolView, kate=kate)

@@ -901,7 +901,7 @@ class CMakeConfigPage(kate.Kate.PluginConfigPage, QWidget):
 
 
 @kate.configPage(
-    i18nc('@action:inmenu', 'CMake Helper Plugin')
+    i18nc('@item:inmenu', 'CMake Helper Plugin')
   , i18nc('@title:group', 'CMake Helper Settings')
   , icon='cmake'
   )

@@ -392,7 +392,7 @@ class KateConsole(QTextEdit):
         QTextEdit.__init__(self, parent)
         self.setWordWrapMode(QTextOption.WrapAnywhere)
         font = QFont()
-        font.fromString(kate.configuration["font"])
+        font.fromString(kate.configuration['font'])
         self.setFont(font)
         self.keyToMethod = {}
         # font =
@@ -460,9 +460,9 @@ class KateConsole(QTextEdit):
     @property
     def prompt(self):
         if self.state == 'normal':
-            return kate.configuration["ps1"]
+            return kate.configuration['ps1']
         elif self.state == 'more':
-            return kate.configuration["ps2"]
+            return kate.configuration['ps2']
 
     def moveCursorToStartOfLine(self):
         cursor = self.textCursor()
@@ -540,31 +540,25 @@ class KateConsole(QTextEdit):
     def keyEnd(self):
         self.moveCursorToEndOfLine()
 
+
 @kate.init
 def init():
     ConfigWidget().apply()
     kate_window = kate.mainInterfaceWindow()
-    v = kate_window.createToolView("python_console", kate_window.Bottom, kate.gui.loadIcon("utilities-terminal"), "Python Console")
+    v = kate_window.createToolView(
+        "python_console"
+      , kate_window.Bottom
+      , kdeui.KIcon('utilities-terminal').pixmap(32, 32)
+      , i18nc('@title:tab', 'Python Console')
+      )
     console = KateConsole(v)
 
-@kate.configPage("Python Console", "Python Console", icon = "utilities-terminal")
+
+@kate.configPage(
+    i18nc('@item:inmenu', 'Python Console')
+  , i18nc('@title:group', 'Python Console Settings')
+  , icon='utilities-terminal'
+  )
 def configPage(parent = None, name = None):
     return ConfigPage(parent, name)
-
-
-# Testing testing 1 2 3
-
-#@init
-#def foo():
-#    while True:
-#        code, success = QInputDialog.getText(None, 'Line', 'Code:')
-#        if not success:
-#            break
-#        success = success
-#        code = str(code)
-#        print '> %s' % code
-#        try:
-#            eval(code)
-#        except SyntaxError:
-#            exec code
 

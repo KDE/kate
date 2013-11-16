@@ -711,7 +711,11 @@ def gotoDefinition():
     if definitionIndex:
         searchBar.navigateToMatch(definitionIndex)
 
-@kate.configPage(i18nc("@action:inmenu", "GNU idutils"), i18nc("@title:group", "<command section='1'>gid</command> token Lookup and Navigation"), icon = "edit-find")
+@kate.configPage(
+    i18nc("@item:inmenu", "GNU idutils")
+  , i18nc("@title:group", "<command section='1'>gid</command> token Lookup and Navigation")
+  , icon = "edit-find"
+  )
 def configPage(parent = None, name = None):
     return ConfigPage(parent, name)
 

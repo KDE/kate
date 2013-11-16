@@ -21,7 +21,7 @@
 import kate
 
 from PyKDE4.kdecore import i18n
-from libkatepate.errors import showError
+from libkatepate.errors import clearMarksOfError, showError
 
 from python_checkers.utils import is_mymetype_python
 from python_settings import (KATE_ACTIONS,
@@ -33,26 +33,7 @@ from python_settings import (KATE_ACTIONS,
                              DEFAULT_PARSECODE_CHECK_WHEN_SAVE)
 
 
-def clearMarksOfError(doc, mark_iface):
-    for line in range(doc.lines()):
-        if mark_iface.mark(line) == mark_iface.Error:
-            mark_iface.removeMark(line, mark_iface.Error)
-
-
-def hideOldPopUps():
-    mainWindow = kate.mainWindow()
-    popups = kate.gui.TimeoutPassivePopup.popups.get(mainWindow, []) or []
-    for popup in popups:
-        popup.timer.stop()
-        popup.hide()
-        popup.setFixedHeight(0)
-        popup.adjustSize()
-        popup.originalHeight = popup.height()
-        popup.offsetBottom = 0
-        popup.move(0, 0)
-
-
-@kate.action(**KATE_ACTIONS['checkAll'])
+@kate.action
 def checkAll(doc=None, excludes=None, exclude_all=False):
     """Check the syntax, pep8 and pyflakes errors of the document"""
     python_utils_conf = kate.configuration.root.get('python_utils', {})
@@ -65,7 +46,6 @@ def checkAll(doc=None, excludes=None, exclude_all=False):
     currentDoc = doc or kate.activeDocument()
     mark_iface = currentDoc.markInterface()
     clearMarksOfError(currentDoc, mark_iface)
-    hideOldPopUps()
     if not exclude_all:
         if not 'parseCode' in excludes and (is_called or python_utils_conf.get(_PARSECODE_CHECK_WHEN_SAVE, DEFAULT_PARSECODE_CHECK_WHEN_SAVE)):
             parseCode.f(currentDoc, refresh=False)

@@ -776,7 +776,7 @@ class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
 
 
 @kate.configPage(
-    i18nc('@action:inmenu', 'Commentar Plugin')
+    i18nc('@item:inmenu', 'Commentar Plugin')
   , i18nc('@title:group', 'Commentar Plugin Settings')
   , icon="preferences-other"
   )

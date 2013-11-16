@@ -18,12 +18,12 @@
 # <https://github.com/goinnn/Kate-plugins/blob/master/kate_plugins/pyte_plugins/check_plugins/commons.py>
 
 import kate
-import kate.gui
 import sys
 
-from PyKDE4.kdecore import i18n
+from PyKDE4.kdecore import i18n, i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
+from . import ui
 
 ENCODING_TRANSLATIONS = 'latin-1'
 
@@ -61,19 +61,6 @@ def clearMarksOfError(doc, mark_iface):
     for line in range(doc.lines()):
         if mark_iface.mark(line) == mark_iface.Error:
             mark_iface.removeMark(line, mark_iface.Error)
-
-
-def hideOldPopUps():
-    mainWindow = kate.mainWindow()
-    popups = kate.gui.TimeoutPassivePopup.popups.get(mainWindow, []) or []
-    for popup in popups:
-        popup.timer.stop()
-        popup.hide()
-        popup.setFixedHeight(0)
-        popup.adjustSize()
-        popup.originalHeight = popup.height()
-        popup.offsetBottom = 0
-        popup.move(0, 0)
 
 
 def showErrors(message, errors, key_mark, doc, time=10, icon='dialog-warning',
@@ -116,11 +103,11 @@ def showErrors(message, errors, key_mark, doc, time=10, icon='dialog-warning',
 
 
 def showError(message="error", time=10, icon="dialog-warning", minTextWidth=300):
-    kate.gui.popup(message, time, icon, minTextWidth=300)
+    ui.popup(i18nc('@title:window', 'Error'), message, icon)
 
 
 def showOk(message="Ok", time=3, icon='dialog-ok'):
-    kate.gui.popup(message, time, icon='dialog-ok', minTextWidth=200)
+    ui.popup(i18nc('@title:window', 'Success'), message, icon)
 
 
 def _compress_key(line, column):

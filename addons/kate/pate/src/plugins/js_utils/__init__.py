@@ -28,6 +28,8 @@ from libkatepate import text
 
 from PyKDE4.kdecore import i18nc
 
+from libkatepate.decorators import *
+
 from .js_settings import SETTING_JQUERY_READY
 from .js_config_page import ConfigPage
 from .js_lint import lint_js, init_js_lint
@@ -35,11 +37,11 @@ from .js_autocomplete import init_js_autocomplete, init_jquery_autocomplete
 from .json_pretty import prettify_JSON
 
 
-# use for full and short name as short gets used in the menu
-_CFG_PAGE_NAME = i18nc('@title:group', 'JavaScript Utilities')
-
-
-@kate.configPage(_CFG_PAGE_NAME, _CFG_PAGE_NAME, 'application-x-javascript')
+@kate.configPage(
+    i18nc('@item:inmenu', 'JavaScript Utilities')
+  , i18nc('@title:group', 'JavaScript Utilities Options')
+  , 'application-x-javascript'
+  )
 def configPage(parent=None, name=None):
     return ConfigPage(parent, name)
 
@@ -57,6 +59,8 @@ def insert_jquery_ready_action():
 
 
 @kate.action
+@check_constraints
+@has_selection(True)
 def prettify_JSON_action():
     prettify_JSON(kate.activeView())
 

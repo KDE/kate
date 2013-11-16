@@ -44,8 +44,7 @@ from PyKDE4.kdecore import i18nc
 
 from .js_settings import SETTING_LINT_ON_SAVE, SETTING_LINTER
 from .js_engine import PyJSEngine, JSModule
-from libkatepate.errors import (clearMarksOfError, hideOldPopUps,
-                                showErrors, showOk)
+from libkatepate.errors import (clearMarksOfError, showErrors, showOk)
 
 
 JS_ENGINE = PyJSEngine()
@@ -62,7 +61,6 @@ def lint_js(document, move_cursor=False):
     """Check your js code with the jslint tool"""
     mark_iface = document.markInterface()
     clearMarksOfError(document, mark_iface)
-    hideOldPopUps()
 
     linter_name = SETTING_LINTER.choices[SETTING_LINTER.lookup()]  # lookup() gives index of choices
     linter = LINTERS[linter_name]

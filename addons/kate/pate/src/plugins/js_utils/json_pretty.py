@@ -35,28 +35,21 @@ from libkatepate import text
 from libkatepate.errors import showError
 from .js_settings import SETTING_INDENT_JSON, SETTING_ENCODING_JSON
 
-PRETTIFY_JSON_SHORTCUT = 'Ctrl+Alt+J'
-
 
 def prettify_JSON(view):
     """A simple JSON pretty printer. JSON formatter which a good indents"""
     source = view.selectionText()
-    if not source:
-        showError(i18nc('@info:status', 'Please select JSON text and press: <shortcut>%1</shortcut>', PRETTIFY_JSON_SHORTCUT))
-    else:
-        indent = SETTING_INDENT_JSON.lookup()
-        encoding = SETTING_ENCODING_JSON.lookup()
-        try:
-            if LIB_JSON == 'simplejson' or sys.version_info.major == 2:
-                target = json.dumps(json.loads(source),
-                                    indent=indent,
-                                    encoding=encoding)
-            else:
-                target = json.dumps(json.loads(source),
-                                    indent=indent)
-            view.removeSelectionText()
-            text.insertText(target)
-        except ValueError as e:
-            showError(i18nc('@info:status', 'This selected text is not valid JSON: <message>%1</message>', str(e)))
-
-# kate: space-indent on; indent-width 4;
+    indent = SETTING_INDENT_JSON.lookup()
+    encoding = SETTING_ENCODING_JSON.lookup()
+    try:
+        if LIB_JSON == 'simplejson' or sys.version_info.major == 2:
+            target = json.dumps(json.loads(source),
+                                indent=indent,
+                                encoding=encoding)
+        else:
+            target = json.dumps(json.loads(source),
+                                indent=indent)
+        view.removeSelectionText()
+        text.insertText(target)
+    except ValueError as e:
+        showError(i18nc('@info:status', 'This selected text is not valid JSON: <message>%1</message>', str(e)))

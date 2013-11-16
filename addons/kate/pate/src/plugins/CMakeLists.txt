@@ -1,5 +1,5 @@
 #
-# Install .desktop files for indivudual plugins
+# Install .desktop files for individual plugins
 #
 install(
     FILES
@@ -10,6 +10,7 @@ install(
         katepate_commentar.desktop
         katepate_expand.desktop
         katepate_format.desktop
+        katepate_python_autocomplete_jedi.desktop
         katepate_xml_pretty.desktop
         python_autocomplete/katepate_python_autocomplete.desktop
         python_console_classic/katepate_python_console_classic.desktop
@@ -28,6 +29,7 @@ install(
         commentar.py commentar_config.ui commentar_ui.rc
         expand.py expand_ui.rc
         format.py format_ui.rc
+        python_autocomplete_jedi.py
         xml_pretty.py xml_pretty.ui xml_pretty_ui.rc
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate
   )

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=python_autocomplete_jedi
+Name=Python Autocompletion
+Name[de]=Python-Autovervollständigung
+Comment=Based on the Jedi library
+Comment[de]=Auf Basis der Jedi-Bibliothek
+X-Python-2-Compatible=true
+X-Python-3-Compatible=true

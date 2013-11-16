@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright 2010-2012 by Alex Turbov <i.zaufi@gmail.com>
+# Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>
 #
 #
 # This software is free software: you can redistribute it and/or modify
@@ -146,5 +146,5 @@ def has_selection(selectionState):
     return has_selection_decorator
 
 
-# TODO All decorators are look same...
+# TODO All decorators above are look same...
 # It seems we need another one decorator to produce decorators of decorators :-)

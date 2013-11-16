@@ -99,6 +99,7 @@ public:
     /// Check if engine is initialized properly,
     /// show a passive popup if it doesn't
     bool checkEngineShowPopup() const;
+    void setFailureReason(QString);
 
 private:
     friend class ConfigPage;

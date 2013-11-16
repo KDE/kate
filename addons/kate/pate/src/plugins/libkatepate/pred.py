@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# Copyright 2010-2012 by Alex Turbov <i.zaufi@gmail.com>
+# Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -19,7 +19,6 @@
 
 ''' Reusable code for Kate/Pâté plugins: predicates for text processing '''
 
-
 def blockCommentStart(line):
     ''' True if line contains C/C++ block-comment-start '''
     return '/*' in line
@@ -33,19 +32,16 @@ def blockCommentEnd(line):
 def startsWith(start):
     ''' True if passed line starts with a given string '''
     def wrapper(line):
-        print(
-            "** startsWith predicate: %s.startswith(%s) = %s" %
-            (repr(line.lstrip()), repr(start), line.lstrip().startswith(start))
-          )
         return line.lstrip().startswith(start)
     return wrapper
+
 
 def equalTo(text):
     ''' True if passed line equals to a given string '''
     def wrapper(line):
-        print("** equalTo predicate: %s == %s" % (repr(line), repr(text)))
         return line.strip() == text
     return wrapper
+
 
 def onlySingleLineComment(line):
     ''' True if line contains only single line comment '''

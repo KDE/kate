@@ -106,6 +106,7 @@ public:
     const QList<PluginState>& plugins() const;              ///< Provide immutable access to found plugins
     QString tryInitializeGetFailureReason();                ///< Try to initialize Python interpreter
     operator bool_type() const;                             ///< Check if instance is usable
+    void setBroken();                                       ///< Make it broken by some external reason
 
 public Q_SLOTS:
     void readGlobalPluginsConfiguration();                  ///< Load plugins' configuration.
@@ -165,6 +166,11 @@ inline const QList<Engine::PluginState>& Engine::plugins() const
 inline Engine::operator bool_type() const
 {
     return m_engineIsUsable ? &Engine::unspecified_true_bool_type : 0;
+}
+
+inline void Engine::setBroken()
+{
+    m_engineIsUsable = false;
 }
 
 }                                                           // namespace Pate

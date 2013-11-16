@@ -25,7 +25,6 @@ import sys
 import traceback
 import xml.dom.minidom
 
-
 from PyQt4 import QtCore, QtGui
 from PyKDE4 import kdecore, kdeui
 
@@ -33,7 +32,22 @@ import pate
 
 from .api import *
 
+
 _registered_xml_gui_clients = dict()
+
+
+def getXmlGuiClient(plugin=None, ef=1, use_inspect=False):
+    '''Provide an access to an XML GUI client for a current plugin'''
+    if plugin is None:
+        if use_inspect:
+            plugin = inspect.getmoduleinfo(inspect.stack()[ef + 1][1])[0]
+        else:
+            plugin = sys._getframe(1).f_globals['__name__']
+
+    kDebug('Getting XMLGUIClient for {}/{}/{}'.format(plugin, ef, use_inspect))
+    if plugin in _registered_xml_gui_clients:
+        return _registered_xml_gui_clients[plugin]
+
 
 #
 # initialization related stuff
@@ -226,7 +240,7 @@ def action(func):
     # Get the XML GUI client or create a new one
     clnt = None
     if plugin not in _registered_xml_gui_clients:
-        #kDebug('----@action: make XMLGUICline 4 plugin={}'.format(repr(plugin)))
+        kDebug('@action: make XMLGUIClient for plugin={}'.format(plugin))
         clnt = kdeui.KXMLGUIClient()
         clnt.replaceXMLFile(ui_file,ui_file)
     else:
@@ -280,8 +294,3 @@ def action(func):
     mainInterfaceWindow().guiFactory().addClient(clnt)
 
     return func
-
-def getXmlGuiClient():
-    plugin = sys._getframe(1).f_globals['__name__']
-    if plugin in _registered_xml_gui_clients:
-        return _registered_xml_gui_clients[plugin]

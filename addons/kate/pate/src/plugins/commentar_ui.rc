@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
 <gui name="commentar"
-     version="12"
+     version="13"
      xmlns="http://www.kde.org/standards/kxmlgui/1.0"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0
@@ -27,5 +27,28 @@
             </Menu>
         </Menu>
     </MenuBar>
+    <State name="comment_actions">
+        <enable>
+            <Action name="inline_comment" />
+            <Action name="move_above" />
+            <Action name="move_inline" />
+        </enable>
+    </State>
+    <State name="if0_actions">
+        <enable>
+            <Action name="comment_block" />
+            <Action name="toggle_block" />
+            <Action name="remove_block" />
+            <Action name="select_block" />
+        </enable>
+    </State>
+    <State name="doxygen_actions">
+        <enable>
+            <Action name="toggle_doxy_comment" />
+            <Action name="shrink_paragraph" />
+            <Action name="remove_block" />
+            <Action name="extend_paragraph" />
+        </enable>
+    </State>
 </gui>
 <!-- kate: indent-width 4; -->

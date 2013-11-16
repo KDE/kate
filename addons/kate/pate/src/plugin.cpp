@@ -142,6 +142,7 @@ bool Pate::Plugin::checkEngineShowPopup() const
         KPassivePopup::message(
             i18nc("@title:window", "Pate engine could not be initialised")
           , m_engineFailureReason
+          //, KIcon("dialog-error").pixmap(16, 16)
           , static_cast<QWidget*>(0)
           );
         return false;
@@ -153,9 +154,6 @@ void Pate::Plugin::reloadModuleConfigPages() const
 {
     // Count the number of plugins which need their own custom page.
     m_moduleConfigPages.clear();
-
-    if (!checkEngineShowPopup())
-        return;
 
     Python py = Python();
     Q_FOREACH(const Engine::PluginState& plugin, m_engine.plugins())
@@ -280,6 +278,12 @@ QString Pate::Plugin::getSessionPrivateStorageFilename(KConfigBase* const config
     return real_config->name().replace(".katesession", ".katepate");
 }
 
+void Pate::Plugin::setFailureReason(QString reason)
+{
+    m_engineFailureReason.swap(reason);
+}
+
+
 //
 // Plugin view, instances of which are created once for each session.
 //
@@ -293,11 +297,23 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
     about->setText("About Pate");
     about->setIcon(KIcon("python"));
     connect(about, SIGNAL(triggered(bool)), this, SLOT(aboutPate()));
-    //
-    plugin->engine().tryLoadEnabledPlugins();
+
+    // Try to import the `kate` module
     Python py = Python();
-    py.functionCall("_pateLoaded");
-    //
+    PyObject* katePackage = py.moduleImport("kate");
+    if (katePackage)
+    {
+        // Ok, load others...
+        plugin->engine().tryLoadEnabledPlugins();
+        py.functionCall("_pateLoaded");
+    }
+    else
+    {
+        m_plugin->setFailureReason(i18nc("@info:tooltip ", "Cannot load <icode>kate</icode> module"));
+        m_plugin->engine().setBroken();
+        m_plugin->checkEngineShowPopup();
+    }
+    // Inject collected actions into GUI
     mainWindow()->guiFactory()->addClient(this);
 }
 //END Pate::PluginView

@@ -171,6 +171,9 @@ Pate::Engine::Engine()
 {
 }
 
+/// \todo More accurate shutdown required:
+/// need to keep track what exactly was broken on
+/// initialize attempt...
 Pate::Engine::~Engine()
 {
     kDebug() << "Going to destroy the Python engine";
@@ -256,11 +259,6 @@ QString Pate::Engine::tryInitializeGetFailureReason()
     // Initialize 'plugins' dict of module 'pate'
     PyObject* plugins = PyDict_New();
     py.itemStringSet("plugins", plugins);
-
-    // Load the kate module, but find it first, and verify it loads.
-    PyObject* katePackage = py.moduleImport("kate");
-    if (!katePackage)
-        return i18nc("@info:tooltip ", "Cannot load <icode>kate</icode> module");
 
     // Get plugins available
     scanPlugins();

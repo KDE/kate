@@ -174,7 +174,6 @@ def processLine(line, commentCh):
 
 @kate.action
 @check_constraints
-@comment_char_must_be_known()
 @selection_mode(selection.NORMAL)
 def inline_comment():
     ''' Append or align an inlined comment at position 60 for the current line or the selection.
@@ -233,8 +232,6 @@ def inline_comment():
 
 
 @kate.action
-@check_constraints
-@comment_char_must_be_known()
 def move_above():
     '''Move an inlined comment before the current line w/ same indentation level'''
     document = kate.activeDocument()
@@ -284,8 +281,6 @@ def move_above():
 
 
 @kate.action
-@check_constraints
-@comment_char_must_be_known()
 def move_inline():
     ''' Move a comment at the current line as inline comment of the next line
         (if latter has no comment yet)
@@ -359,8 +354,6 @@ def move_inline():
 
 
 @kate.action
-@check_constraints
-@restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def comment_block():
     '''Wrap selected text (or current line) into a #if0/#endif block'''
     view = kate.activeView()
@@ -389,8 +382,6 @@ def comment_block():
 
 
 @kate.action
-@check_constraints
-@restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def toggle_block():
     ''' Switch a current code block to ON(#if1) or OFF(#if0) state.
 
@@ -434,8 +425,6 @@ def toggle_block():
 
 
 @kate.action
-@check_constraints
-@restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def remove_block():
     ''' Remove a block of code commented with #if0 or #if1-#else'''
     document = kate.activeDocument()
@@ -488,8 +477,6 @@ def remove_block():
 
 
 @kate.action
-@check_constraints
-@restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'C')
 def select_block():
     '''Set selection of a current (where cursor positioned) #if0/#endif block'''
     document = kate.activeDocument()
@@ -614,7 +601,6 @@ def turnFromBlockComment():
 
 @kate.action
 @check_constraints
-@restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 @has_selection(False)
 def toggle_doxy_comment():
     ''' Turn block of '///' doxygen comments into
@@ -726,16 +712,12 @@ def changeParagraphWidth(step):
 
 
 @kate.action
-@check_constraints
-@restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 def shrink_paragraph():
     '''Shrink a text paragraph width, whithing a comment, around the current cursor position'''
     changeParagraphWidth(-1)
 
 
 @kate.action
-@check_constraints
-@restrict_doc_type('C++', 'C++11', 'C++11/Qt4', 'JavaScript')
 def extend_paragraph():
     '''Extend a text paragraph width, whithing a comment, around the current cursor position'''
     changeParagraphWidth(1)
@@ -799,6 +781,31 @@ class ConfigPage(kate.Kate.PluginConfigPage, QWidget):
   )
 def commentarConfigPage(parent=None, name=None):
     return ConfigPage(parent, name)
+
+
+@kate.viewChanged
+def toggleActions():
+    view = kate.activeView()
+    if view is None:
+        return
+    doc_type = view.document().highlightingMode()
+    kate.kDebug('toggleAction: doc_type={}'.format(doc_type))
+    clnt = kate.getXmlGuiClient()
+
+    if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'C']:
+        clnt.stateChanged('if0_actions')
+    else:
+        clnt.stateChanged('if0_actions', kdeui.KXMLGUIClient.StateReverse)
+
+    if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'JavaScript']:
+        clnt.stateChanged('doxygen_actions')
+    else:
+        clnt.stateChanged('doxygen_actions', kdeui.KXMLGUIClient.StateReverse)
+
+    if common.isKnownCommentStyle(doc_type):
+        clnt.stateChanged('comment_actions')
+    else:
+        clnt.stateChanged('comment_actions', kdeui.KXMLGUIClient.StateReverse)
 
 
 @kate.init

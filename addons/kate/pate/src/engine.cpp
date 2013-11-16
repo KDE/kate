@@ -553,7 +553,7 @@ void Pate::Engine::scanPlugins()
                 plugin.m_broken = true;
                 plugin.m_errorReason = i18nc(
                     "@info:tooltip"
-                  , "Failure on checking dependency <filename>%1</filename> (<filename>%2</filename>):<nl/>%3"
+                  , "<qt>Failure on checking dependency <code>%1</code> (<code>%2</code>):<br/><pre>%3</pre></qt>"
                   , dependency
                   , version
                   , py.lastTraceback()

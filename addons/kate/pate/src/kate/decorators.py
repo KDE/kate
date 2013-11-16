@@ -68,7 +68,7 @@ def _callAll(plugin, functions, *args, **kwargs):
             except:
                 traceback.print_exc()
                 sys.stderr.write('\n')
-                # TODO Return smth to the caller, so in case of
+                # TODO Return smth to a caller, so in case of
                 # failed initialization it may report smth to the
                 # C++ level and latter can show an error to the user...
                 continue
@@ -173,8 +173,6 @@ def configPage(name, fullName, icon):
     to remove all traces of the plugin on removal.
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    #kDebug('---------@configPage[{}]: name={}, fullName={}, icon={}'.format(plugin, repr(name), fullName, icon))
-
     def _decorator(func):
         a = name, fullName, kdeui.KIcon(icon)
         func.configPage = a
@@ -192,6 +190,7 @@ def moduleGetConfigPages(module):
         if inspect.isfunction(v) and hasattr(v, 'configPage'):
             result.append((k, v, v.configPage))
     return result
+
 
 #
 # Actions related stuff
@@ -232,6 +231,7 @@ def action(func):
     if not ui_file:
         ui_file = kdecore.KGlobal.dirs().findResource('appdata', 'pate/{}/{}_ui.rc'.format(plugin, plugin))
         if not ui_file:
+            # TODO Report an error: found an action w/o corresponding ui.rc file!
             return func
 
     # Found UI resource file

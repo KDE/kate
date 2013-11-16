@@ -124,6 +124,9 @@ public:
     PluginView(Kate::MainWindow*, Plugin*);
     ~PluginView();
 
+public Q_SLOTS:
+    void aboutPate();
+
 private:
     Plugin* m_plugin;
 };

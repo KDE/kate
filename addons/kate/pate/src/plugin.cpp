@@ -30,16 +30,17 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 
+#include <KAboutApplicationDialog>
 #include <KAboutData>
 #include <KAction>
 #include <KActionCollection>
-#include <KDialog>
-#include <KLocale>
-#include <KGenericFactory>
 #include <KConfigBase>
 #include <KConfigGroup>
-#include <KTextEdit>
+#include <KDialog>
+#include <KGenericFactory>
+#include <KLocale>
 #include <KPassivePopup>
+#include <KTextEdit>
 
 #include <QCheckBox>
 #include <QLabel>
@@ -55,19 +56,23 @@
 // The Pate plugin
 //
 
+namespace {
+const KAboutData& getAboutData()
+{
+    static KAboutData about = KAboutData(
+        "katepateplugin"
+      , "katepateplugin"
+      , ki18n("Pâté Plugin")
+      , "1.0"
+      , ki18n("Pâté host for Python plugins")
+      , KAboutData::License_LGPL_V3
+      );
+    return about;
+}
+}                                                           // anonymous namespace
+
 K_PLUGIN_FACTORY(PatePluginFactory, registerPlugin<Pate::Plugin>();)
-K_EXPORT_PLUGIN(
-    PatePluginFactory(
-        KAboutData(
-            "katepateplugin"
-          , "katepateplugin"
-          , ki18n("Pâté Plugin")
-          , "1.0"
-          , ki18n("Pâté host for Python plugins")
-          , KAboutData::License_LGPL_V3
-          )
-      )
-  )
+K_EXPORT_PLUGIN(PatePluginFactory(getAboutData()))
 
 //BEGIN Pate::Plugin
 Pate::Plugin::Plugin(QObject* const app, const QList<QVariant>&)
@@ -287,6 +292,7 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
     KAction* about = actionCollection()->addAction("about_pate");
     about->setText("About Pate");
     about->setIcon(KIcon("python"));
+    connect(about, SIGNAL(triggered(bool)), this, SLOT(aboutPate()));
     //
     plugin->engine().tryLoadEnabledPlugins();
     Python py = Python();
@@ -299,6 +305,41 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
 Pate::PluginView::~PluginView()
 {
     mainWindow()->guiFactory()->removeClient(this);
+}
+
+void Pate::PluginView::aboutPate()
+{
+    KAboutData about = getAboutData();
+    // Set other text to show some info about Python used
+    // NOTE Separate scope around Python() instance
+    QString pythonInfoText = QString(
+        "Embedded Python version %1<br/>"
+        "Python paths: <pre><code>"
+      ).arg(PY_VERSION)
+      ;
+    {
+        Python py = Python();
+        if (PyObject* sysPath = py.itemString("path", "sys"))
+        {
+            Py_ssize_t len = PyList_Size(sysPath);
+            for (Py_ssize_t i = 0; i < len; i++)
+            {
+                PyObject* path = PyList_GetItem(sysPath, i);
+                pythonInfoText += Python::unicode(path) + '\n';
+            }
+        }
+    }
+    pythonInfoText += "</code></pre>";
+    /// \todo Show info about loaded modules? Problems?
+
+    /// \attention It seems about dialog is not customizable much...
+    /// Particularly it would be nice to add a custom tab...
+    /// So \b dirty hack is here...
+    about.setOtherText(ki18n(pythonInfoText.toUtf8().constData()));
+
+    /// \todo Add logo, authors and everything...
+    KAboutApplicationDialog ad(&about, KAboutApplicationDialog::HideKdeVersion);
+    ad.exec();
 }
 
 //

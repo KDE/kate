@@ -61,6 +61,7 @@ import traceback
 
 from PyQt4.QtGui import QToolTip
 from PyKDE4.kdecore import KConfig, i18nc
+from PyKDE4.ktexteditor import KTextEditor
 
 import kate
 
@@ -80,18 +81,18 @@ def wordAndArgumentAtCursorRanges(document, cursor):
     if cursor.column() > 0:
         if cursor.column() < len(line) and line[cursor.column()] == ')':
             # special case: cursor just right before a closing brace
-            argument_end = kate.KTextEditor.Cursor(cursor.line(), cursor.column())
+            argument_end = KTextEditor.Cursor(cursor.line(), cursor.column())
             argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
             argument_end.setColumn(argument_end.column() + 1)
-            argument_range = kate.KTextEditor.Range(argument_start, argument_end)
+            argument_range = KTextEditor.Range(argument_start, argument_end)
             cursor = argument_start                         #  NOTE Reassign
 
         if line[cursor.column() - 1] == ')':
             # one more special case: cursor past end of arguments
-            argument_end = kate.KTextEditor.Cursor(cursor.line(), cursor.column() - 1)
+            argument_end = KTextEditor.Cursor(cursor.line(), cursor.column() - 1)
             argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
             argument_end.setColumn(argument_end.column() + 1)
-            argument_range = kate.KTextEditor.Range(argument_start, argument_end)
+            argument_range = KTextEditor.Range(argument_start, argument_end)
             cursor = argument_start                         #  NOTE Reassign
 
     word_range = common.getBoundTextRangeSL(
@@ -105,9 +106,9 @@ def wordAndArgumentAtCursorRanges(document, cursor):
         if end < len(line) and line[end] == '(':
             # ruddy lack of attribute type access from the KTextEditor
             # interfaces.
-            argument_start = kate.KTextEditor.Cursor(cursor.line(), end)
+            argument_start = KTextEditor.Cursor(cursor.line(), end)
             argument_end = matchingParenthesisPosition(document, argument_start, opening='(')
-            argument_range = kate.KTextEditor.Range(argument_start, argument_end)
+            argument_range = KTextEditor.Range(argument_start, argument_end)
     return word_range, argument_range
 
 # TODO Generalize this and move to `common' package

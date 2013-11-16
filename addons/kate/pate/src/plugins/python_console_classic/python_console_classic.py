@@ -406,7 +406,6 @@ class KateConsole(QTextEdit):
         self.buffer = ''
         builtins = {
             'kate': kate,
-            'KTextEditor': kate.KTextEditor,
             'Kate': kate.Kate,
             'help': Helper(self),
             '__name__': __name__,

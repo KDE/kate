@@ -451,7 +451,7 @@ void Pate::Engine::scanPlugins()
         // compatible! Do checks only if someone tries to build kate w/ Python 2.
         // So, Python 2 modules must be marked explicitly!
 #if PY_MAJOR_VERSION < 3
-        const bool is_compatible = service->property(
+        const QVariant is_compatible = service->property(
             "X-Python-2-Compatible"
           , QVariant::Bool
           );

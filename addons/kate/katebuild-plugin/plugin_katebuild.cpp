@@ -143,7 +143,7 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
     connect(m_targetSelectAction, SIGNAL(triggered(int)), this, SLOT(targetSelected(int)));
 
     a = actionCollection()->addAction("target_next");
-    a->setText(i18n("Next Set of Target"));
+    a->setText(i18n("Next Set of Targets"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(targetNext()));
 
     QWidget *buildWidget = new QWidget(m_toolView);
@@ -324,17 +324,12 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
 
 }
 
-
 /******************************************************************/
 void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
-    // Ensure that all settings are saved in the list
-//     targetSelected(m_targetIndex);
-
     KConfigGroup cg(config, groupPrefix + ":build-plugin");
     cg.writeEntry("NumTargets", m_targetList.size());
     for (int i=0; i<m_targetList.size(); i++) {
-
         cg.writeEntry(QString("%1 Target").arg(i), m_targetList[i].name);
         cg.writeEntry(QString("%1 Target Default").arg(i), m_targetList[i].defaultTarget);
         cg.writeEntry(QString("%1 Target Clean").arg(i), m_targetList[i].cleanTarget);
@@ -1341,7 +1336,7 @@ void KateBuildView::slotAddProjectTarget()
 
     int index = m_targetList.size();
     m_targetList.append(TargetSet());
-    m_targetList[index].name = i18n("Project Plugin Target");
+    m_targetList[index].name = i18n("Project Plugin Targets");
     m_targetList[index].cleanTarget = buildMap.value("clean_target").toString();
     m_targetList[index].defaultTarget = buildMap.value("default_target").toString();
     m_targetList[index].prevTarget = buildMap.value("default_target").toString();
@@ -1349,10 +1344,6 @@ void KateBuildView::slotAddProjectTarget()
 
     // get build dir
     QString defaultBuildDir = buildMap.value("directory").toString();
-//     QDir dir (QFileInfo (m_projectPluginView->property("projectFileName").toString()).absoluteDir());
-//     if (dir.cd (buildMap.value("directory").toString())) {
-//         m_targetsUi->buildDir->setText(dir.absolutePath());
-//     }
 
     QVariantList targets = buildMap.value("targets").toList();
     foreach (const QVariant &targetVariant, targets) {
@@ -1368,7 +1359,7 @@ void KateBuildView::slotAddProjectTarget()
     }
 
     m_targetsUi->targetCombo->addItem(m_targetList[index].name);
-    m_targetsUi->deleteTarget->setDisabled(true); // false);
+    m_targetsUi->deleteTarget->setDisabled(true);
 
     targetSelected(index);
 
@@ -1384,7 +1375,7 @@ void KateBuildView::slotRemoveProjectTarget()
 {
     int i;
     for (i=0; i<m_targetList.size(); i++) {
-        if (m_targetList[i].name == i18n("Project Plugin Target")) {
+        if (m_targetList[i].name == i18n("Project Plugin Targets")) {
             break;
         }
     }

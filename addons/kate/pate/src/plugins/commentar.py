@@ -30,6 +30,7 @@ import textwrap
 from PyQt4 import uic
 from PyQt4.QtGui import *
 from PyKDE4.kdecore import i18nc
+from PyKDE4.kdeui import KXMLGUIClient
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
@@ -795,17 +796,17 @@ def toggleActions():
     if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'C']:
         clnt.stateChanged('if0_actions')
     else:
-        clnt.stateChanged('if0_actions', kdeui.KXMLGUIClient.StateReverse)
+        clnt.stateChanged('if0_actions', KXMLGUIClient.StateReverse)
 
     if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'JavaScript']:
         clnt.stateChanged('doxygen_actions')
     else:
-        clnt.stateChanged('doxygen_actions', kdeui.KXMLGUIClient.StateReverse)
+        clnt.stateChanged('doxygen_actions', KXMLGUIClient.StateReverse)
 
     if common.isKnownCommentStyle(doc_type):
         clnt.stateChanged('comment_actions')
     else:
-        clnt.stateChanged('comment_actions', kdeui.KXMLGUIClient.StateReverse)
+        clnt.stateChanged('comment_actions', KXMLGUIClient.StateReverse)
 
 
 @kate.init

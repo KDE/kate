@@ -510,6 +510,10 @@ void Pate::Engine::scanPlugins()
         /// as a Python module (special named or listed as a property in
         /// a \c .desktop file ;-)
         // NOTE Get 'common' (default to current interpreter) dependencies.
+        /// \c X-Python-Dependencies has the following format:
+        /// <tt>python-module[|version-info]</tt>, where <tt>python-module</tt>
+        /// a python module name to be imported, <tt>version-info</tt> smth
+        /// that will be shown as recommended version...
         QStringList dependencies = service->property(
             "X-Python-Dependencies"
           , QVariant::StringList
@@ -525,10 +529,23 @@ void Pate::Engine::scanPlugins()
         }
 #endif
         Python py = Python();
-        Q_FOREACH(const QString& dep, dependencies)
+        Q_FOREACH(const QString& d, dependencies)
         {
-            kDebug() << "Try import dependency module/package:" << dep;
-            PyObject* module = py.moduleImport(PQ(dep));
+            // Check if dependency has package info attached
+            QString dependency;
+            QString version;
+            const int pnfo = d.indexOf('|');
+            if (pnfo != -1)
+            {
+                dependency = d.mid(0, pnfo);
+                version = d.mid(pnfo + 1);
+            }
+            else dependency = d;
+
+            kDebug() << "Try import dependency module/package:" << dependency << '[' << version << ']';
+
+            // Try to import a module
+            PyObject* module = py.moduleImport(PQ(dependency));
             if (module)
                 Py_DECREF(module);
             else
@@ -536,8 +553,9 @@ void Pate::Engine::scanPlugins()
                 plugin.m_broken = true;
                 plugin.m_errorReason = i18nc(
                     "@info:tooltip"
-                  , "Failure on checking dependency <application>%1</application>:<nl/>%2"
-                  , dep
+                  , "Failure on checking dependency <filename>%1</filename> (<filename>%2</filename>):<nl/>%3"
+                  , dependency
+                  , version
                   , py.lastTraceback()
                   );
             }

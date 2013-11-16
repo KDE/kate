@@ -29,4 +29,4 @@ Comment[tr]=Kate'te geliştirme ve bilim yapmak için interaktif konsol
 Comment[uk]=Інтерактивна консоль для роботи з kate та вивчення роботи системи
 Comment[x-test]=xxInteractive console for hacking kate and doing sciencexx
 X-Python-2-Compatible=true
-X-Python-Dependencies=IPython,pygments,readline,zmq
+X-Python-Dependencies=IPython|ipython>=0.13.1,pygments|Pygments>=1.6,zmq|pyzmq>=13.1.0

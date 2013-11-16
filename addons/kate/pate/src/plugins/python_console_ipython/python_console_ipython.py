@@ -12,18 +12,8 @@ import sys
 from PyQt4.QtCore import QEvent, QObject, Qt, QTimer
 from PyKDE4.kdecore import i18nc, i18n as _translate
 from libkatepate.compat import text_type
-from libkatepate.errors import needs_packages
 
 sys.argv = [__file__]
-
-NEED_PACKAGES = {
-    'IPython': 'ipython>=0.13.1',
-    'readline': '6.2.4.1',
-    'pygments': 'Pygments==1.6',
-    'zmq': 'pyzmq==13.1.0'
-}
-
-needs_packages(NEED_PACKAGES)
 
 
 # TODO Remove this crap!

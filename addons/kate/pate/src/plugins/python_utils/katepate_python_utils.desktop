@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=python_utils
+Name=Python Utilities
+Comment=Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
+X-Python-2-Compatible=true
+X-Python-Dependencies=pep8|>=1.4.2,pyflakes|>=0.7.3

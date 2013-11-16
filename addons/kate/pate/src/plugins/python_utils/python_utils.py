@@ -26,7 +26,6 @@ from PyQt4 import uic
 from PyQt4.QtGui import QWidget
 
 from libkatepate.compat import text_type
-from libkatepate.errors import needs_packages
 
 from python_snippets import *
 from python_checkers.parse_checker import *
@@ -42,21 +41,6 @@ from python_settings import (KATE_CONFIG,
                              DEFAULT_CHECK_PYFLAKES_WHEN_SAVE,
                              DEFAULT_PARSECODE_CHECK_WHEN_SAVE,
                              DEFAULT_IPDB_SNIPPET)
-
-msg_error = ""
-
-try:
-    needs_packages({"pep8": "1.4.2"})
-    from python_checkers.pep8_checker import *
-except ImportError as e:
-    msg_error += text_type(e) + "\n"
-finally:
-    try:
-        needs_packages({"pyflakes": "0.7.3"})
-        from python_checkers.pyflakes_checker import *
-    except ImportError as e:
-        msg_error += text_type(e)
-        raise ImportError(msg_error)
 
 
 _CONFIG_UI = 'python_utils.ui'

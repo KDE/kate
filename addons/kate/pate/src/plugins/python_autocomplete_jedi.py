@@ -16,8 +16,6 @@ from collections import defaultdict
 import kate
 from PyQt4.QtCore import Qt, QModelIndex
 from libkatepate.autocomplete import CodeCompletionBase
-from libkatepate.errors import needs_packages
-needs_packages({"jedi": "0.5b5"})
 
 from PyKDE4.kdeui import i18nc, KIcon
 from PyKDE4.ktexteditor import KTextEditor

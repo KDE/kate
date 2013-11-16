@@ -20,11 +20,6 @@
 # <https://github.com/goinnn/Kate-plugins/tree/master/kate_plugins/pyte_plugins/autocomplete/autocomplete.py>
 
 from PyKDE4.kdecore import i18n, i18nc
-from libkatepate.errors import needs_python_version, needs_packages
-
-needs_python_version(major=2, text=i18n("The Python autocomplete plugin only is available for Python 2"))
-needs_packages({"pysmell": "0.7.3",
-                "pyplete": "0.0.5"})
 
 import kate
 import sys

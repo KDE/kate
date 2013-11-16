@@ -7,3 +7,4 @@ Name[de]=Python-Autovervollständigung
 Comment=Based on the Jedi library
 Comment[de]=Auf Basis der Jedi-Bibliothek
 X-Python-2-Compatible=true
+X-Python-Dependencies=jedi|jedi>=0.5b5

@@ -62,7 +62,7 @@ const KAboutData& getAboutData()
     static KAboutData about = KAboutData(
         "katepateplugin"
       , "katepateplugin"
-      , ki18n("Pâté Plugin")
+      , ki18n("Pate Plugin")                                // BUG "Pâté" in a title bar looks incorrectly
       , "1.0"
       , ki18n("Pâté host for Python plugins")
       , KAboutData::License_LGPL_V3

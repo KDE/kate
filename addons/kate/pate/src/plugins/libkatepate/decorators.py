@@ -24,8 +24,8 @@ import functools
 from PyKDE4.kdecore import i18nc
 
 import kate
+import kate.ui
 
-from libkatepate import ui
 from libkatepate import common
 
 
@@ -58,7 +58,7 @@ def restrict_doc_type(*doc_types):
         def doc_type_checker(doc_types, document):
             doc_type = document.highlightingMode()
             if doc_type not in doc_types:
-                ui.popup(
+                kate.ui.popup(
                     i18nc('@title:window', 'Alert')
                   , i18nc(
                         '@info:tooltip placeholder is a mime-type'
@@ -81,7 +81,7 @@ def comment_char_must_be_known(dummy = None):
             doc_type = document.highlightingMode()
             result = common.isKnownCommentStyle(doc_type)
             if not result:
-                ui.popup(
+                kate.ui.popup(
                     i18nc('@title:window', 'Sorry...')
                   , i18nc(
                         '@info:tooltip placeholder is a mime-type'
@@ -108,7 +108,7 @@ def selection_mode(selectionMode):
             view = document.activeView()
             result = selectionMode == view.blockSelection()
             if not result:
-                ui.popup(
+                kate.ui.popup(
                     i18nc('@title:window', 'Alert')
                   , i18nc(
                         '@info:tooltip'
@@ -138,7 +138,7 @@ def has_selection(selectionState):
                     should = i18nc('@info:tooltip', "This operation cannot be performed while text is selected")
                 else:
                     should = i18nc('@info:tooltip', "Text must be selected to perform this operation")
-                ui.popup(i18nc('@title:window', 'Alert'), should, 'dialog-information')
+                kate.ui.popup(i18nc('@title:window', 'Alert'), should, 'dialog-information')
             return result
         binded_predicate = functools.partial(has_selection_checker, selectionState)
         append_constraint(action, binded_predicate)

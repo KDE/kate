@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Kate/Pâté plugins to work with C++ code formatting
-# Copyright 2010-2012 by Alex Turbov <i.zaufi@gmail.com>
+# Copyright 2010-2013 by Alex Turbov <i.zaufi@gmail.com>
 #
 #
 # This software is free software: you can redistribute it and/or modify
@@ -25,9 +25,9 @@ from PyKDE4.ktexteditor import KTextEditor
 from PyKDE4.kdeui import KXMLGUIClient
 
 import kate
+import kate.ui
 import kate.view
 
-from libkatepate import ui
 from libkatepate.decorators import *
 from libkatepate import selection
 
@@ -321,7 +321,7 @@ def boostFormat():
     try:
         r, nestedRanges, breakPositions = getRangeTopology(',')
     except LookupError as error:
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
@@ -332,7 +332,7 @@ def boostFormat():
         return
 
     if r.isEmpty():                                         # Is range empty?
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
@@ -348,7 +348,7 @@ def boostFormat():
         try:
             r, nestedRanges, breakPositions = getRangeTopology(',;')
         except LookupError as error:
-            ui.popup(
+            kate.ui.popup(
                 i18nc('@title:window', 'Alert')
               , i18nc(
                     '@info:tooltip'
@@ -394,7 +394,7 @@ def boostUnformat():
     try:
         r, nestedRanges, breakPositions = getRangeTopology(',')
     except LookupError as error:
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
@@ -405,7 +405,7 @@ def boostUnformat():
         return
 
     if r.isEmpty():                                         # Is range empty?
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
@@ -421,7 +421,7 @@ def boostUnformat():
         try:
             r, nestedRanges, breakPositions = getRangeTopology(',;')
         except LookupError as error:
-            ui.popup(
+            kate.ui.popup(
                 i18nc('@title:window', 'Alert')
               , i18nc(
                     '@info:tooltip'

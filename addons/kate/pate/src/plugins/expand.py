@@ -64,8 +64,9 @@ from PyKDE4.kdecore import KConfig, i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
+import kate.ui
 
-from libkatepate import ui, common
+from libkatepate import common
 from libkatepate.autocomplete import AbstractCodeCompletionModel
 
 
@@ -217,7 +218,7 @@ def getHelpOnExpandAtCursor():
     try:
         word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
     except ParseError as e:
-        ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
+        kate.ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
         return
     word = document.text(word_range)
     expansions = getExpansionsFor(document.mimeType())
@@ -245,14 +246,14 @@ def expandAtCursor():
     try:
         word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
     except ParseError as e:
-        ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
+        kate.ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
         return
     word = document.text(word_range)
     expansions = getExpansionsFor(document.mimeType())
     if word in expansions:
         func = expansions[word][0]
     else:
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Error')
           , i18nc('@info:tooltip', 'Expansion "<icode>%1</icode>" not found', word)
           , 'dialog-warning'
@@ -310,7 +311,7 @@ def expandAtCursor():
           , s
           )
         kate.kDebug('EXPAND FAILURE: {}'.format(s))
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Error')
           , i18nc('@info:tooltip', '<bcode>%1</bcode>', s)
           , 'dialog-error'

@@ -34,10 +34,11 @@ from PyKDE4.kdeui import KXMLGUIClient
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
+import kate.ui
 import kate.view
 
 from libkatepate.decorators import *
-from libkatepate import common, ui, selection
+from libkatepate import common, selection
 
 # text processing predicates
 from libkatepate import pred
@@ -416,7 +417,7 @@ def toggle_block():
         document.insertLine(blocksList[idx][0], '#if ' + newValue)
         document.endEditing()                                   # End transaction
     else:
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
@@ -468,7 +469,7 @@ def remove_block():
                 document.removeLine(blocksList[idx][0])
         document.endEditing()                                   # End transaction
     else:
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
@@ -494,7 +495,7 @@ def select_block():
         r = KTextEditor.Range(blocksList[idx][0], 0, blocksList[idx][1] + 1, 0)
         view.setSelection(r)
     else:
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'
@@ -651,7 +652,7 @@ def changeParagraphWidth(step):
 
     originRange, isBlock = getParagraphRange(doc, pos)
     if originRange.isEmpty():
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Alert')
           , i18nc(
                 '@info:tooltip'

@@ -47,8 +47,9 @@ from PyKDE4.kio import KFile, KFileDialog, KUrlRequesterDialog
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
+import kate.ui
 
-from libkatepate import ui, common
+from libkatepate import common
 from libkatepate.autocomplete import AbstractCodeCompletionModel
 
 from . import cmake_help_parser, command_completers, settings
@@ -163,7 +164,7 @@ def openDocument(url):
     if os.access(local_file, os.R_OK):
         _openDocumentNoCheck(url)
     else:
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Error')
           , i18nc('@info:tooltip', 'Unable to open the document: <filename>%1</filename>', local_file)
           , 'dialog-error'
@@ -193,7 +194,7 @@ def _ask_for_CMakeLists_location_and_try_open(start_dir_to_show, cur_doc_dir):
         # Open it!
         _openDocumentNoCheck(QUrl.fromLocalFile(cmakelists))
     else:
-        ui.popup(
+        kate.ui.popup(
             i18nc('@title:window', 'Error')
           , i18nc('@info:tooltip', 'No such file <filename>%1</filename>', cmakelists)
           , 'dialog-error'
@@ -419,7 +420,7 @@ class CMakeCompletionModel(AbstractCodeCompletionModel):
         else:
             if invocationType != KTextEditor.CodeCompletionModel.AutomaticInvocation:
                 # Show popup only if user explictly requested code completion
-                ui.popup(
+                kate.ui.popup(
                     i18nc('@title:window', 'Attention')
                   , i18nc('@info:tooltip', 'Sorry, no completion for <command>%1()</command>', command)
                   , 'dialog-information'
@@ -590,7 +591,7 @@ class CMakeToolView(QObject):
         try:
             items = cmake_help_parser.get_cache_content(build_dir, is_advanced)
         except ValueError as error:
-            ui.popup(
+            kate.ui.popup(
                 i18nc('@title:window', 'Error')
               , i18nc(
                     '@info:tooltip'
@@ -826,7 +827,7 @@ class CMakeConfigWidget(QWidget):
         try:
             cmake_help_parser.validate_cmake_executable(kate.sessionConfiguration[settings.CMAKE_BINARY])
         except ValueError as error:
-            ui.popup(
+            kate.ui.popup(
                 i18nc('@title:window', 'Error')
               , i18nc('@info:tooltip', 'CMake executable test run failed:<nl/><message>%1</message>', error)
               , 'dialog-error'

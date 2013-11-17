@@ -19,12 +19,10 @@
 
 ''' Reusable code for Kate/Pâté plugins: UI elements '''
 
-import kate
-
-from PyKDE4.kdeui import KPassivePopup, KIcon
-
 from PyQt4 import QtCore
 from PyQt4.QtCore import QSize
+from PyKDE4.kdeui import KPassivePopup, KIcon
+from . import *
 
 
 def popup(caption, text, iconName = None, iconSize = 16):

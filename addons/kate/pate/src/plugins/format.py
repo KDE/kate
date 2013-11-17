@@ -22,10 +22,12 @@
 
 from PyKDE4.kdecore import i18nc
 from PyKDE4.ktexteditor import KTextEditor
-from libkatepate import ui
+from PyKDE4.kdeui import KXMLGUIClient
 
 import kate
+import kate.view
 
+from libkatepate import ui
 from libkatepate.decorators import *
 from libkatepate import selection
 
@@ -306,7 +308,6 @@ def boostFormatText(textRange, indent, breakPositions):
 
 @kate.action
 @check_constraints
-@has_selection(False)
 @selection_mode(selection.NORMAL)
 def boostFormat():
     '''Format function's/template's parameters list (or `for`'s) in a boost-like style
@@ -384,7 +385,6 @@ def boostUnformatText(textRange, breakPositions):
 
 @kate.action
 @check_constraints
-@has_selection(False)
 @selection_mode(selection.NORMAL)
 def boostUnformat():
     '''Merge everything between '(' and ')' into a single line'''
@@ -434,4 +434,11 @@ def boostUnformat():
     # Going to unformat a text whithin a selected range
     text = boostUnformatText(r, breakPositions)
 
-# kate: indent-width 4;
+
+@kate.view.selectionChanged
+def toggleSelectionSensitiveActions(view):
+    clnt = kate.getXmlGuiClient()
+    if not view.selection():
+        clnt.stateChanged('has_no_selection')
+    else:
+        clnt.stateChanged('has_no_selection', KXMLGUIClient.StateReverse)

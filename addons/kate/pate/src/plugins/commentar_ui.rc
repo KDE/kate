@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE kpartgui>
 <gui name="commentar"
-     version="13"
+     version="14"
      xmlns="http://www.kde.org/standards/kxmlgui/1.0"
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0
@@ -30,6 +30,10 @@
     <State name="comment_actions">
         <enable>
             <Action name="inline_comment" />
+        </enable>
+    </State>
+    <State name="comment_actions_no_selection">
+        <enable>
             <Action name="move_above" />
             <Action name="move_inline" />
         </enable>

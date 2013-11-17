@@ -34,6 +34,7 @@ from PyKDE4.kdeui import KXMLGUIClient
 from PyKDE4.ktexteditor import KTextEditor
 
 import kate
+import kate.view
 
 from libkatepate.decorators import *
 from libkatepate import common, ui, selection
@@ -601,8 +602,6 @@ def turnFromBlockComment():
 
 
 @kate.action
-@check_constraints
-@has_selection(False)
 def toggle_doxy_comment():
     ''' Turn block of '///' doxygen comments into
         /**
@@ -784,24 +783,37 @@ def commentarConfigPage(parent=None, name=None):
     return ConfigPage(parent, name)
 
 
+@kate.view.selectionChanged
+def toggleSelectionSensitiveActions(view):
+    doc_type = view.document().highlightingMode()
+    clnt = kate.getXmlGuiClient()
+    has_selection = view.selection()
+
+    if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'JavaScript'] and not has_selection:
+        clnt.stateChanged('doxygen_actions')
+    else:
+        clnt.stateChanged('doxygen_actions', KXMLGUIClient.StateReverse)
+
+    if common.isKnownCommentStyle(doc_type) and not has_selection:
+        clnt.stateChanged('comment_actions_no_selection')
+    else:
+        clnt.stateChanged('comment_actions_no_selection', KXMLGUIClient.StateReverse)
+
+
+
 @kate.viewChanged
-def toggleActions():
+def toggleDocTypeSeisitiveActions():
     view = kate.activeView()
     if view is None:
         return
     doc_type = view.document().highlightingMode()
-    kate.kDebug('toggleAction: doc_type={}'.format(doc_type))
+    kate.kDebug('toggleDocTypeSeisitiveActions: doc_type={}'.format(doc_type))
     clnt = kate.getXmlGuiClient()
 
     if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'C']:
         clnt.stateChanged('if0_actions')
     else:
         clnt.stateChanged('if0_actions', KXMLGUIClient.StateReverse)
-
-    if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'JavaScript']:
-        clnt.stateChanged('doxygen_actions')
-    else:
-        clnt.stateChanged('doxygen_actions', KXMLGUIClient.StateReverse)
 
     if common.isKnownCommentStyle(doc_type):
         clnt.stateChanged('comment_actions')

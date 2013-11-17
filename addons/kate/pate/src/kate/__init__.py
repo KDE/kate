@@ -69,4 +69,4 @@ def on_pate_loaded():
 
 @pateEventHandler('_pateUnloading')
 def on_pate_unloading():
-    kDebug('UNLOADING')
+    kDebug('UNLOADING PATE')

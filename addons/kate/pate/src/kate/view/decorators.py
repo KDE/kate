@@ -23,45 +23,12 @@ import sys
 
 from PyQt4 import QtCore
 
-from ..api import *
-from ..decorators import viewCreated
-
-
-class _SubscriberInfo:
-    # TODO Turn to named tuples?
-    def __init__(self, signal, receiver):
-        self.signal = signal
-        self.receiver = receiver
-
-
-def _subscribe_for_events(subscribedPlugins, view):
-    for plugin, subscribers in subscribedPlugins.items():
-        assert(isinstance(subscribers, list))
-        for subscriber in subscribers:
-            kDebug('Subscribe {}/{} to receive {}'.format(
-                plugin
-              , subscriber.receiver.__name__
-              , subscriber.signal
-              ))
-            view.connect(view, QtCore.SIGNAL(subscriber.signal), subscriber.receiver)
-
-
-def _make_sure_subscribers_queue_exists(plugin, dst, queue):
-    if not hasattr(dst, queue):
-        setattr(dst, queue, dict())
-    if not plugin in getattr(dst, queue):
-        getattr(dst, queue)[plugin] = list()
-
-
-@viewCreated
-def _on_view_created(view):
-    assert(view is not None)
-    if hasattr(_on_view_created, 'view_event_subscribers'):
-        assert(isinstance(_on_view_created.view_event_subscribers, dict))
-        _subscribe_for_events(_on_view_created.view_event_subscribers, view)
+from ..api import kDebug
+from ..document_view_helpers import _make_sure_subscribers_queue_exists, _on_view_created, _SubscriberInfo
 
 
 def _queue_view_event_subscriber(signal, receiver):
+    '''Helper function to register a new handler'''
     plugin = sys._getframe(2).f_globals['__name__']
     _make_sure_subscribers_queue_exists(plugin, _on_view_created, 'view_event_subscribers')
     _on_view_created.view_event_subscribers[plugin].append(_SubscriberInfo(signal, receiver))
@@ -70,6 +37,15 @@ def _queue_view_event_subscriber(signal, receiver):
 #
 # View events to subscribe from plugins
 #
+# http://api.kde.org/4.x-api/kdelibs-apidocs/interfaces/ktexteditor/html/classKTextEditor_1_1View.html
+#
+
+def contextMenuAboutToShow(receiver):
+    _queue_view_event_subscriber(
+        'contextMenuAboutToShow(KTextEditor::View*, QMenu*)'
+      , receiver
+      )
+    return receiver
 
 
 def cursorPositionChanged(receiver):
@@ -81,12 +57,42 @@ def cursorPositionChanged(receiver):
 
 
 def focusIn(receiver):
-    _queue_view_event_subscriber('focusIn(KTextEditor::View*)', receiver)
+    _queue_view_event_subscriber(
+        'focusIn(KTextEditor::View*)'
+      , receiver
+      )
     return receiver
 
 
 def focusOut(receiver):
-    _queue_view_event_subscriber('focusOut(KTextEditor::View*)', receiver)
+    _queue_view_event_subscriber(
+        'focusOut(KTextEditor::View*)'
+      , receiver
+      )
+    return receiver
+
+
+def horizontalScrollPositionChanged(receiver):
+    _queue_view_event_subscriber(
+        'horizontalScrollPositionChanged(KTextEditor::View*)'
+      , receiver
+      )
+    return receiver
+
+
+def informationMessage(receiver):
+    _queue_view_event_subscriber(
+        'informationMessage(KTextEditor::View*, const QString&)'
+      , receiver
+      )
+    return receiver
+
+
+def mousePositionChanged(receiver):
+    _queue_view_event_subscriber(
+        'mousePositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)'
+      , receiver
+      )
     return receiver
 
 
@@ -103,6 +109,14 @@ def textInserted(receiver):
     return receiver
 
 
+def verticalScrollPositionChanged(receiver):
+    _queue_view_event_subscriber(
+        'verticalScrollPositionChanged(KTextEditor::View*, const KTextEditor::Cursor&)'
+      , receiver
+      )
+    return receiver
+
+
 def viewEditModeChanged(receiver):
     _queue_view_event_subscriber(
         'viewEditModeChanged(KTextEditor::View*, KTextEditor::View::EditMode)'
@@ -114,4 +128,3 @@ def viewEditModeChanged(receiver):
 def viewModeChanged(receiver):
     _queue_view_event_subscriber('viewModeChanged(KTextEditor::View*)', receiver)
     return receiver
-

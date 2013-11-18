@@ -50,6 +50,7 @@ def on_load(plugin):
         # Call registered init functions for the plugin
         init.fire(plugin=plugin)
         del init.functions[plugin]
+    return True
 
 
 @pateEventHandler('_pluginUnloading')
@@ -59,14 +60,17 @@ def on_unload(plugin):
         # Deinitialize plugin
         unload.fire(plugin=plugin)
         del unload.functions[plugin]
+    return True
 
 
 @pateEventHandler('_pateLoaded')
 def on_pate_loaded():
     assert(mainWindow is not None)
     kDebug('PATE LOADED')
+    return True
 
 
 @pateEventHandler('_pateUnloading')
 def on_pate_unloading():
     kDebug('UNLOADING PATE')
+    return True

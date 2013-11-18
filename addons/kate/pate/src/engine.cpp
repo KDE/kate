@@ -596,31 +596,39 @@ void Pate::Engine::loadModule(const int idx)
     // Get 'plugins' key from 'pate' module dictionary.
     // Every entry has a module name as a key and 2 elements tuple as a value
     PyObject* plugins = py.itemString("plugins");
-    Q_ASSERT("Smth damn wrong!" && plugins);
+    Q_ASSERT(
+        "'plugins' dict expected to be alive, otherwise code review required!"
+      && plugins
+      );
 
     PyObject* module = py.moduleImport(PQ(module_name));
     if (module)
     {
         // Move just loaded module to the dict
-        const int r2 = PyDict_SetItemString(plugins, PQ(module_name), module);
-        Q_ASSERT("Sanity check" && r2 == 0);
-        /// \todo Handle error
+        const int ins_result = PyDict_SetItemString(plugins, PQ(module_name), module);
+        Q_ASSERT("expected successful insertion" && ins_result == 0);
         Py_DECREF(module);
-
-        // Initialize the module from Python's side
-        PyObject* const args = Py_BuildValue("(s)", PQ(module_name));
-        py.functionCall("_pluginLoaded", Python::PATE_ENGINE, args);
-        Py_DECREF(args);
+        // Handle failure in release mode.
+        if (ins_result)
+        {
+            // Initialize the module from Python's side
+            PyObject* const args = Py_BuildValue("(s)", PQ(module_name));
+            PyObject* result = py.functionCall("_pluginLoaded", Python::PATE_ENGINE, args);
+            Py_DECREF(args);
+            if (result)
+                return;                                     // Success!
+        }
+        plugin.m_errorReason = i18nc("@info:tooltip", "Internal engine failure");
     }
     else
     {
-        plugin.m_broken = true;
         plugin.m_errorReason = i18nc(
             "@info:tooltip"
             , "Module not loaded:<nl/>%1"
             , py.lastTraceback()
             );
     }
+    plugin.m_broken = true;
 }
 
 void Pate::Engine::unloadModule(int idx)
@@ -635,7 +643,10 @@ void Pate::Engine::unloadModule(int idx)
 
     // Get 'plugins' key from 'pate' module dictionary
     PyObject* plugins = py.itemString("plugins");
-    Q_ASSERT("Smth damn wrong! Code review needed!" && plugins);
+    Q_ASSERT(
+        "'plugins' dict expected to be alive, otherwise code review required!"
+      && plugins
+      );
 
     PyObject* const args = Py_BuildValue("(s)", PQ(plugin.pythonModuleName()));
     py.functionCall("_pluginUnloading", Python::PATE_ENGINE, args);

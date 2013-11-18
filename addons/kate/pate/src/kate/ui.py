@@ -22,13 +22,13 @@
 from PyQt4 import QtCore
 from PyQt4.QtCore import QSize
 from PyKDE4.kdeui import KPassivePopup, KIcon
-from . import *
+from .api import mainWindow
 
 
 def popup(caption, text, iconName = None, iconSize = 16):
     ''' Show passive popup using native KDE API
     '''
-    parentWidget = kate.mainWindow()
+    parentWidget = mainWindow()
     if iconName:
         icon = KIcon (iconName).pixmap(QSize(iconSize, iconSize))
         KPassivePopup.message(caption, text, icon, parentWidget)

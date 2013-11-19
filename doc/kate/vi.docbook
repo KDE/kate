@@ -18,11 +18,11 @@ for Vim and support all Vim’s features. Its aim is to make
 the <quote>Vim way</quote> of text editing - and the Vim habits learned -
 available for programs using the &kappname; text editor as their internal editor.</para>
 
-<para>The VI mode aims integrate nicely with the programs and deviate
+<para>The VI mode aims to integrate nicely with the program and deviate
 from Vim’s behavior where it makes sense. For example,
 <userinput><command>:w</command></userinput> will open a save dialog in &kappname;’s VI mode.</para>
 
-<para>To enable the VI input mode for all new views, go to
+<para>To enable the VI Input Mode for all new views, go to
 <menuchoice><guimenu>Settings</guimenu><guimenuitem>Configure &kappname;...</guimenuitem>
 <guimenu>Editing</guimenu><guimenuitem>VI Input Mode</guimenuitem></menuchoice>.
 On this tab you can set options for the VI Input Mode and define and edit
@@ -43,7 +43,7 @@ disabled and press <keycap>Y</keycap>.  To enter the <userinput>Y</userinput>
 
 <para>This does not apply to commands that use the &Ctrl; key, which may be
 entered regardless of <keycap>Caps Lock</keycap> mode and without pressing 
-&Shift;.  However, some commands require the use of &Ctrl;-key combination
+&Shift;.  However, some commands require the use of a &Ctrl;-key combination
 followed by another key which is case sensitive.  For instance, to input
 <quote><keycombo action="simul">&Ctrl;<keycap>W</keycap></keycombo>,
 <userinput>h</userinput></quote> (switch to split view right) make sure
@@ -636,8 +636,8 @@ excluding the backticks</para></entry>
 <para>This object is missing in Vim. The comma text object
 makes it easy to modify parameter lists in C-like languages and other comma
 separated lists. It is basically the area between two commas or between a comma
-and a bracket. In the line shown in the illustration to the right, the three
-ranges this text object can span are highlighted in red.</para>
+and a bracket. In the line shown in the illustration, the three
+ranges this text object can span are highlighted.</para>
 
 <screenshot id="screenshot-resources">
 <screeninfo>An example of Comma Text Object</screeninfo>
@@ -659,7 +659,7 @@ parameters.</para></caption>
 <title>Missing Features</title>
 
 <para>As stated earlier, the goal of &kappname;’s VI Mode is not to support 100% of
-Vim’s features, however, there are some features which are sorely missed:</para>
+Vim’s features. However, there are some features which are sorely missed:</para>
 <itemizedlist>
 <listitem>
 <para>Visual block mode - especially the ability to prepend/append text to the

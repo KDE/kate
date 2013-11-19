@@ -7355,7 +7355,7 @@ void ViModeTest::textInserted(Document* document, Range range)
 void ViModeTest::textRemoved(Document* document, Range range)
 {
   Q_UNUSED(document);
-  m_docChanges.append(DocChange(DocChange::DocChange::TextRemoved, range));
+  m_docChanges.append(DocChange(DocChange::TextRemoved, range));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

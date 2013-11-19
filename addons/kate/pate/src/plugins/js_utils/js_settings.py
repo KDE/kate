@@ -18,13 +18,13 @@ from PyKDE4.kdecore import i18n
 
 from libkatepate import text
 
-JS_MENU = 'JavaScript'
+JS_MENU = i18n("JavaScript")
 
-KATE_ACTIONS = {'insertReady': {'text': 'jQuery Ready',
+KATE_ACTIONS = {'insertReady': {'text': i18n("jQuery Ready"),
                                 'shortcut': 'Ctrl+J',
                                 'menu': JS_MENU,
                                 'icon': None},
-                'checkJslint': {'text': 'JSLint',
+                'checkJslint': {'text': i18n("JSLint"),
                                 'shortcut': 'Alt+9',
                                 'menu': JS_MENU,
                                 'icon': None},

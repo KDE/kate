@@ -16,7 +16,7 @@
 
 from PyKDE4.kdecore import i18n
 
-DJ_MENU = "Django"
+DJ_MENU = i18n("Django")
 
 KATE_ACTIONS = {
     'createForm': {'text': i18n('Create Django Form'), 'shortcut': 'Ctrl+Alt+F',

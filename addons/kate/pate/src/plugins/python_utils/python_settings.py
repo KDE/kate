@@ -19,11 +19,11 @@ import kate
 from PyKDE4.kdecore import i18n
 from libkatepate.menu import move_menu_submenu, separated_menu
 
-PY_MENU = "Python"
+PY_MENU = i18n("Python")
 PY_CHECKERS = i18n("Checkers")
 
 KATE_ACTIONS = {
-    'insertIPDB': {'text': 'ipdb', 'shortcut': 'Ctrl+I',
+    'insertIPDB': {'text': i18n('ipdb'), 'shortcut': 'Ctrl+I',
                    'menu': PY_MENU, 'icon': 'tools-report-bug'},
     'insertInit': {'text': i18n('__init__ method'), 'shortcut': 'Ctrl+,',
                    'menu': PY_MENU, 'icon': None},

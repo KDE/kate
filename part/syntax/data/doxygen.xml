@@ -29,7 +29,7 @@
  -->
 
 <language name="Doxygen"
-          version="1.34"
+          version="1.35"
           kateversion="2.4"
           section="Markup"
           extensions="*.dox;*.doxygen"
@@ -48,7 +48,6 @@
       <item> \author </item>           <item> @author </item>
       <item> \authors </item>          <item> @authors </item>
       <item> \brief </item>            <item> @brief </item>
-      <item> \bug </item>              <item> @bug </item>
       <item> \callgraph </item>        <item> @callgraph </item>
       <item> \callergraph </item>      <item> @callergraph </item>
       <item> \date </item>             <item> @date </item>
@@ -219,6 +218,7 @@
     </list>
     <list name="Attention">
       <item> \attention </item>        <item> @attention </item>
+      <item> \bug </item>              <item> @bug </item>
     </list>
     <list name="Todo">
       <item> \todo </item>             <item> @todo </item>

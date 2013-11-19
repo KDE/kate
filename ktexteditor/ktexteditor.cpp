@@ -19,24 +19,21 @@
 
 #include <QtDBus/QtDBus>
 
+#include <KGlobal>
+
 #include "cursor.h"
 
 #include "configpage.h"
-#include "configpage.moc"
 
 #include "factory.h"
-#include "factory.moc"
 
 #include "editor.h"
-#include "editor.moc"
 
 #include "document.h"
 
 #include "view.h"
-#include "view.moc"
 
 #include "plugin.h"
-#include "plugin.moc"
 
 #include "recoveryinterface.h"
 #include "commandinterface.h"
@@ -50,10 +47,8 @@
 #include "containerinterface.h"
 
 #include "annotationinterface.h"
-#include "annotationinterface.moc"
 
 #include "loadsavefiltercheckplugin.h"
-#include "loadsavefiltercheckplugin.moc"
 
 #include "modeinterface.h"
 

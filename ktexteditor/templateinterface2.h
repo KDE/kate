@@ -21,7 +21,7 @@
 
 #include <QtCore/QString>
 #include <QtCore/QMap>
-#include <QtGui/QImage>
+#include <QImage>
 
 #include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>

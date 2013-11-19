@@ -1,21 +1,53 @@
 # Kate project
 project (kate)
 
-# shared libs
-set (LIBRARY_TYPE SHARED)
+# minimal cmake req
+cmake_minimum_required (VERSION 2.8.6 FATAL_ERROR)
 
-# search packages used by KDE
-find_package(KDE4 4.8.0 REQUIRED)
-include (KDE4Defaults)
-include (MacroLibrary)
+# minimal qt req
+set (QT_MIN_VERSION "5.2.0")
+
 include (CheckFunctionExists)
 
-# activity feature for Kate/KWrite
-macro_optional_find_package(KActivities 6.1.0 NO_MODULE)
-macro_log_feature(KActivities_FOUND "KActivities" "Activities interface library" "https://projects.kde.org/projects/kde/kdelibs/kactivities" FALSE "6.1.0" "Required for Activities integration.")
+# KDE reqs
+find_package(ECM 0.0.8 REQUIRED NO_MODULE)
 
-# no in source builds
-macro_ensure_out_of_source_build("kate requires an out of source build. Please create a separate build directory and run 'cmake path_to_kate [options]' there.")
+include(CMakePackageConfigHelpers)
+include(FeatureSummary)
+include(WriteBasicConfigVersionFile)
+
+# where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
+include(ECMMarkNonGuiExecutable)
+
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+
+include(ECMOptionalAddSubdirectory)
+include(ECMInstallIcons)
+
+find_package(Qt5Core REQUIRED NO_MODULE)
+find_package(Qt5DBus REQUIRED NO_MODULE)
+find_package(Qt5Quick REQUIRED NO_MODULE)
+find_package(Qt5Widgets REQUIRED NO_MODULE)
+
+# Load the frameworks we need
+find_package(KF5 CONFIG REQUIRED
+    KIdleTime ItemModels KWidgetsAddons KWindowSystem KCodecs KArchive KCoreAddons Solid ThreadWeaver
+    KConfig KAuth KJS KWallet KDBusAddons Sonnet
+    KI18n KGuiAddons KService KConfigWidgets ItemViews KNotifications KIconThemes KStyle KCompletion KJobWidgets KTextWidgets XmlGui KCrash
+    KBookmarks KUnitConversion KIO KCMUtils Kross KParts KNotifyConfig KPrintUtils KDESu KDocTools KNewStuff )
+
+find_package(KDeclarative REQUIRED NO_MODULE)
+find_package(KIO REQUIRED NO_MODULE)
+
+find_package(KInit)
+
+# needed for set_package_properties macro
+find_package(KDE4Support REQUIRED NO_MODULE)
+find_package(KDELibs4 REQUIRED NO_MODULE)
+find_package(Qt5Transitional MODULE)
 
 # config.h
 if(NOT APPLE)
@@ -33,43 +65,31 @@ add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -DKTEXTEDITOR_NO_DEPRECATED)
 
 # global include directories
-include_directories (${CMAKE_CURRENT_BINARY_DIR} ${KDE4_INCLUDES} ${KDE4_KIO_INCLUDES} ${KACTIVITIES_INCLUDE_DIRS})
+include_directories (${CMAKE_CURRENT_BINARY_DIR})
 
-# allow to build own ktexteditor
-option(BUILD_KTEXTEDITOR "Build KTextEditor interfaces, instead of reusing the system version" OFF)
-if (BUILD_KTEXTEDITOR)
-  # use our own copies of some stuff
-  set (KDE4_KTEXTEDITOR_LIBS "ktexteditor")
+# use our own copies of some stuff
+set (KDE4_KTEXTEDITOR_LIBS "ktexteditor")
 
-  # add more includes to let the local ktexteditor stuff be found
-  include_directories (BEFORE ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/includes)
+# add more includes to let the local ktexteditor stuff be found
+include_directories (BEFORE ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/includes)
 
-  # ktexteditor interfaces, copy from kdelibs/interfaces/ktexteditor
-  macro_optional_add_subdirectory (ktexteditor)
-else()
-  # kdelibs 4.11 is required
-  if("${KDE_VERSION}" VERSION_LESS 4.10.60)
-    message(FATAL_ERROR "kdelibs version ${KDE_VERSION}, but 4.11 is required. Set the option BUILD_KTEXTEDITOR to ON to build anyway.")
-  endif()
-endif (BUILD_KTEXTEDITOR)
+# ktexteditor interfaces, copy from kdelibs/interfaces/ktexteditor
+ecm_optional_add_subdirectory (ktexteditor)
 
 # kate part
-macro_optional_add_subdirectory (part)
+#macro_optional_add_subdirectory (part)
 
 # kate application
-macro_optional_add_subdirectory (kate)
+#macro_optional_add_subdirectory (kate)
 
 # kwrite
-macro_optional_add_subdirectory (kwrite)
+#macro_optional_add_subdirectory (kwrite)
 
 # addons, e.g. ktexteditor plugins, kate plugins, plasma applets, ...
-macro_optional_add_subdirectory (addons)
+#macro_optional_add_subdirectory (addons)
 
 # docs
-macro_optional_add_subdirectory (doc)
+#macro_optional_add_subdirectory (doc)
 
 # tests
-macro_optional_add_subdirectory (tests)
-
-# display features ;)
-macro_display_feature_log()
+#macro_optional_add_subdirectory (tests)

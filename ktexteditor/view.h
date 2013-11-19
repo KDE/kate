@@ -27,7 +27,7 @@
 #include <kxmlguiclient.h>
 
 // widget
-#include <QtGui/QWidget>
+#include <QWidget>
 
 class QMenu;
 

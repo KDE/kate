@@ -23,8 +23,8 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
-#include <QtGui/QAction>
-#include <QtGui/QIcon>
+#include <QAction>
+#include <QIcon>
 
 #include <ktexteditor/ktexteditor_export.h>
 

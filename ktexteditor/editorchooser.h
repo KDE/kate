@@ -23,7 +23,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 class KConfig;
 class QString;

@@ -22,7 +22,6 @@
 #include "document.moc"
 
 #include "documentadaptor_p.h"
-#include "documentadaptor_p.moc"
 
 using namespace KTextEditor;
 

@@ -1,49 +1,5 @@
-include_directories( ${KDE4_KPARTS_INCLUDES} )
-
-########### next target ###############
-
-set(ktexteditor_LIB_SRCS
-   ktexteditor.cpp
-   document.cpp
-   range.cpp
-   cursor.cpp
-   templateinterface.cpp
-   templateinterface2.cpp
-   editorchooser.cpp
-   attribute.cpp
-   cursorfeedback.cpp
-   rangefeedback.cpp
-   smartcursor.cpp
-   smartrange.cpp
-   codecompletioninterface.cpp
-   codecompletionmodel.cpp
-   codecompletionmodelcontrollerinterface.cpp
-   configinterface.cpp
-   smartinterface.cpp
-   highlightinterface.cpp
-   movinginterface.cpp
-   movingcursor.cpp
-   movingrange.cpp
-   movingrangefeedback.cpp
-   messageinterface.cpp
-   )
-
-
-kde4_add_ui_files(ktexteditor_LIB_SRCS editorchooser_ui.ui )
-
-kde4_add_library(ktexteditor ${LIBRARY_TYPE} ${ktexteditor_LIB_SRCS})
-
-target_link_libraries(ktexteditor  ${KDE4_KDECORE_LIBS} ${QT_QTDBUS_LIBRARY} ${KDE4_KPARTS_LIBS} )
-target_link_libraries(ktexteditor  LINK_INTERFACE_LIBRARIES ${KDE4_KPARTS_LIBS} )
-
-set_target_properties(ktexteditor
-   PROPERTIES VERSION ${GENERIC_LIB_VERSION}
-   SOVERSION ${GENERIC_LIB_SOVERSION}
-)
-install(TARGETS ktexteditor EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
-
-########### install files ###############
-install( FILES
+# KTextEditor interface header
+set(KTEXTEDITOR_PUBLIC_HEADERS
     ktexteditor_export.h
     factory.h
     editor.h
@@ -88,6 +44,57 @@ install( FILES
     movingrangefeedback.h
     recoveryinterface.h
     messageinterface.h
+    )
+
+# KTextEditor interface sources
+set(ktexteditor_LIB_SRCS
+   ktexteditor.cpp
+   document.cpp
+   range.cpp
+   cursor.cpp
+   templateinterface.cpp
+   templateinterface2.cpp
+   editorchooser.cpp
+   attribute.cpp
+   cursorfeedback.cpp
+   rangefeedback.cpp
+   smartcursor.cpp
+   smartrange.cpp
+   codecompletioninterface.cpp
+   codecompletionmodel.cpp
+   codecompletionmodelcontrollerinterface.cpp
+   configinterface.cpp
+   smartinterface.cpp
+   highlightinterface.cpp
+   movinginterface.cpp
+   movingcursor.cpp
+   movingrange.cpp
+   movingrangefeedback.cpp
+   messageinterface.cpp
+   
+   # private headers for moc
+   documentadaptor_p.h
+   )
+
+
+kde4_add_ui_files(ktexteditor_LIB_SRCS editorchooser_ui.ui )
+
+add_library (ktexteditor SHARED ${ktexteditor_LIB_SRCS} ${KTEXTEDITOR_PUBLIC_HEADERS})
+
+target_link_libraries(ktexteditor
+    KF5::KParts
+    KF5::KDE4Support
+)
+
+set_target_properties(ktexteditor
+   PROPERTIES VERSION ${GENERIC_LIB_VERSION}
+   SOVERSION ${GENERIC_LIB_SOVERSION}
+)
+
+install(TARGETS ktexteditor EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+########### install files ###############
+install( FILES ${KTEXTEDITOR_PUBLIC_HEADERS}
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )

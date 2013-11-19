@@ -19,10 +19,10 @@
 #include <editorchooser.h>
 #include <editorchooser.moc>
 
-#include <QtGui/QComboBox>
+#include <QComboBox>
 #include <QtCore/QStringList>
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
+#include <QLabel>
+#include <QLayout>
 
 #include <kmimetypetrader.h>
 #include <kconfig.h>
@@ -132,7 +132,7 @@ KTextEditor::Editor *EditorChooser::editor(const QString& postfix,
   KService::Ptr serv = KService::serviceByDesktopName(editor);
   if (serv)
   {
-    KTextEditor::Editor *tmpEd = KTextEditor::editor(serv->library().toLatin1());
+    KTextEditor::Editor *tmpEd = KTextEditor::editor(serv->library().toLatin1().data());
     if (tmpEd) return tmpEd;
   }
   if (fallBackToKatePart)

@@ -54,7 +54,7 @@ QModelIndex CodeCompletionModel::index( int row, int column, const QModelIndex &
   if (row < 0 || row >= d->rowCount || column < 0 || column >= ColumnCount || parent.isValid())
     return QModelIndex();
 
-  return createIndex(row, column, 0);
+  return createIndex(row, column, (void *)0);
 }
 
 QMap< int, QVariant > CodeCompletionModel::itemData( const QModelIndex & index ) const

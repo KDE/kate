@@ -27,6 +27,7 @@ import xml.dom.minidom
 
 from PyQt4 import QtCore, QtGui
 from PyKDE4 import kdecore, kdeui
+from PyKDE4.kdecore import i18nc
 
 import pate
 
@@ -221,6 +222,10 @@ class _catchAllHandler(object):
             raise _HandledException(txt)
 
 
+class InvalidAction(Exception):
+    pass
+
+
 def action(func):
     ''' Decorator that adds an action to the menu bar. When the item is fired,
         your function is called
@@ -277,6 +282,8 @@ def action(func):
                 act.setWhatsThis(tag.attributes['whatsThis'].value)
             # Connect it to the function
             act.connect(act, QtCore.SIGNAL('triggered()'), func)
+            # Make an action accessible from the targeted function as its attribute
+            setattr(func, 'action', act)
             # No need to scan anything else!!!
             # ATTENTION It is why the very first action declaration
             # MUST contain everything! While others, w/ same name,
@@ -285,8 +292,14 @@ def action(func):
             break
 
     if not found:
-        # TODO Show some SPAM about inconsistent action
-        pass
+        raise InvalidAction(
+            i18nc(
+                '@info:tooltip'
+              , 'Invalid <filename>%1</filename> file: No action with name <icode>%2</icode> defined'
+              , ui_file
+              , func.__name__
+              )
+          )
 
     if plugin not in _registered_xml_gui_clients:
         _registered_xml_gui_clients[plugin] = clnt

@@ -4,9 +4,10 @@
 # document. To get help (via tooltip) for the selected expansion function use
 # Ctrl+Shift+E shotcut.
 #
+# TODO Use jinja2 to handle templates
+#
 
 import kate
-from libkatepate import ui
 
 _BRIEF_DOC_TPL = '''/**
  * \\brief Class \c {0}

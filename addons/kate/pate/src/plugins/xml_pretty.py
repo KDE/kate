@@ -33,9 +33,9 @@ from xml.dom import minidom
 from xml.parsers.expat import ExpatError
 
 
-KATE_ACTIONS = {'togglePrettyXMLFormat': {'text': i18n("Pretty XML"),
+KATE_ACTIONS = {'togglePrettyXMLFormat': {'text': i18n('Pretty XML'),
                                           'shortcut': 'Ctrl+Alt+X',
-                                          'menu': i18n("XML"), 'icon': None},
+                                          'menu': i18n('XML'), 'icon': None},
                 }
 
 KATE_CONFIG = {'name': 'XML Pretty',

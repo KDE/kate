@@ -15,10 +15,11 @@
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
 from PyKDE4.kdecore import i18n
+from PyKDE4.kdecore import i18nc
 
 from libkatepate import text
 
-JS_MENU = i18n("JavaScript")
+JS_MENU = i18nc('Noun, no translation required', 'JavaScript')
 
 KATE_ACTIONS = {'insertReady': {'text': i18n("jQuery Ready"),
                                 'shortcut': 'Ctrl+J',

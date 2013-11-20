@@ -609,7 +609,7 @@ void Pate::Engine::loadModule(const int idx)
         Q_ASSERT("expected successful insertion" && ins_result == 0);
         Py_DECREF(module);
         // Handle failure in release mode.
-        if (ins_result)
+        if (ins_result == 0)
         {
             // Initialize the module from Python's side
             PyObject* const args = Py_BuildValue("(s)", PQ(module_name));

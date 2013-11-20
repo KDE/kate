@@ -25,6 +25,15 @@ from PyKDE4.kdeui import KXMLGUIClient
 import kate
 import kate.view
 
+# TODO Make it configurable?
+_SANE_URI_LENGTH = 300
+_URI_LENGTH_SHOW_THRESHOLD = 30
+
+
+def _try_make_url_from_text(text):
+    # TODO How about to analyze the text given and reject definitely not an URI?
+    return ''.join([line.strip() for line in text.split('\n')])
+
 
 def _try_open_show_error(uri):
     assert('Sanity check' and uri is not None)
@@ -49,7 +58,7 @@ def tryOpen():
 
     doc = view.document()
     doc_url = doc.url()
-    new_url = KUrl(view.selectionText())
+    new_url = KUrl(_try_make_url_from_text(view.selectionText()))
 
     kate.kDebug('Current document URI: {}'.format(repr(doc_url)))
 
@@ -76,7 +85,21 @@ def tryOpen():
 @kate.view.selectionChanged
 def toggleSelectionSensitiveActions(view):
     clnt = kate.getXmlGuiClient()
-    if view.selection():
+    filename = _try_make_url_from_text(view.selectionText())
+    kate.kDebug('Original new filename: {}'.format(repr(filename)))
+
+    if view.selection() and len(filename) < _SANE_URI_LENGTH:
         clnt.stateChanged('has_selection')
+        # Change action text...
+        if _URI_LENGTH_SHOW_THRESHOLD < len(filename):
+            lead_pos = int(2 * _URI_LENGTH_SHOW_THRESHOLD / 3)
+            tail_pos = -int(_URI_LENGTH_SHOW_THRESHOLD / 3)
+            filename = filename[:lead_pos] + '...' + filename[tail_pos:]
+        assert('Sanity check' and hasattr(tryOpen, 'action'))
+        kate.kDebug('New filename: {}'.format(filename))
+        tryOpen.action.setText(
+            i18nc('@ation:inmenu', 'Open <filename>%1</filename>', filename)
+          )
     else:
         clnt.stateChanged('has_selection', KXMLGUIClient.StateReverse)
+        tryOpen.action.setText(i18nc('@ation:inmenu', 'Open selected document'))

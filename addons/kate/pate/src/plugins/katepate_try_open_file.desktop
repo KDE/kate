@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Kate/PythonPlugin
+X-KDE-Library=try_open_file
+Name=Easy file open/create
+Comment=Try to open selected text as URI to a document

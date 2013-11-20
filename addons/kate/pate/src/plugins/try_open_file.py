@@ -34,7 +34,7 @@ def _try_open_show_error(uri):
             i18nc('@title:window', 'Error')
           , i18nc(
                 '@info:tooltip'
-              , 'Unable to open the selected document: <filename>%1</filename'
+              , 'Unable to open the selected document: <filename>%1</filename>'
               , str(uri)
               )
           , 'dialog-error'

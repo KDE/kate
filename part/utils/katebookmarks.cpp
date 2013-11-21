@@ -41,29 +41,6 @@
 
 namespace KTextEditor{ class Document; }
 
-/**
-   Utility: selection sort
-   sort a QMemArray<uint> in ascending order.
-   max it the largest (zerobased) index to sort.
-   To sort the entire array: ssort( *array, array.size() -1 );
-   This is only efficient if ran only once.
-*/
-static void ssort( QVector<uint> &a, int max )
-{
-  uint tmp, j, maxpos;
-  for ( uint h = max; h >= 1; h-- )
-  {
-    maxpos = 0;
-    for ( j = 0; j <= h; j++ )
-      maxpos = a[j] > a[maxpos] ? j : maxpos;
-    tmp = a[maxpos];
-    a[maxpos] = a[h];
-    a[h] = tmp;
-  }
-}
-
-// TODO add a insort() or bubble_sort - more efficient for aboutToShow() ?
-
 KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   : QObject( view )
   , m_view( view )
@@ -169,7 +146,7 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
 
   if ( m_sorting == Position )
   {
-    ssort( bookmarkLineArray, bookmarkLineArray.size() );
+    qSort(bookmarkLineArray.begin(), bookmarkLineArray.end());
   }
 
   QAction* firstNewAction = menu.addSeparator();

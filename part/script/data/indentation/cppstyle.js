@@ -55,7 +55,7 @@ require ("string.js");
 // ';' is for align `for' parts
 // ' ' is to add a '()' after `if', `while', `for', ...
 // TBD <others>
-triggerCharacters = "{}()<>/:;,#\\?!|/%.@ \"";
+triggerCharacters = "{}()[]<>/:;,#\\?!|/%.@ \"=";
 
 var debugMode = false;
 
@@ -933,6 +933,7 @@ function trySameLineComment(cursor)
  * \li user entered <em>"template &gt;</em>
  * \li user entered smth like <em>std::map&gt;</em>
  * \li user wants to output smth to C++ I/O stream by typing <em>&gt;&gt;</em>
+ * \li shortcut: <tt>some(<|)</tt> transformed into <tt>some()<|</tt>
  *
  * But, do not add '>' if there some text after cursor.
  */
@@ -974,6 +975,124 @@ function tryTemplate(cursor)
             view.setCursorPosition(line, column + 1);
         }
     }
+    else tryJumpOverParenthesis(cursor);                    // Try to jump out of parenthesis
+}
+
+/**
+ * This function called for some characters and try to do the following:
+ * if cursor (right after a trigger character is entered) positioned withing
+ * a parenthesis, move the entered character out of parenthesis.
+ *
+ * For example:
+ * \code
+ *  auto a = two_params_func(get_first(,|))
+ *  // ... transformed into
+ *  auto a = two_params_func(get_first(), |)
+ * \endcode
+ *
+ * because entering comma right after <tt>(</tt> definitely incorrect, but
+ * we can help the user (programmer) to avoid 3 key presses ;-)
+ * (RightArrow, ',', space)
+ *
+ * except comma here are other "impossible" characters:
+ * \c ., \c [, \c ], \c }, \c ?, \c :, \c <, \c >, \c =, \c %, \c /, \c |
+ *
+ * But \c ; will be handled separately to be able to jump over all closing \c ).
+ *
+ * \sa \c trySemicolon()
+ *
+ * \note This valid if we r not inside a comment or a string literal,
+ * and the char out of the parenthesis is not the same as just entered ;-)
+ *
+ * \param cursor initial cursor position
+ * \return new (possible modified) cursor position
+ */
+function tryJumpOverParenthesis(cursor)
+{
+    var line = cursor.line;
+    var column = cursor.column;
+
+    if (isStringOrComment(line, column))
+        return cursor;                                      // Do nothing for comments of string literals
+
+    // Check that we r inside of parenthesis and some symbol between
+    if (column > 2 && document.charAt(line, column - 2) == '(' && document.charAt(cursor) == ')')
+    {
+        var c = document.charAt(line, column - 1);
+        var space_needed = false;
+        switch (c)
+        {
+            // must add a space before the following chars
+            case '?':                                       // "some(?|)" --> "some() ?|"
+            case '%':                                       // ... similar for others below ...
+            case '=':
+            case '|':
+            case '/':
+            case '<':
+            // in this case a space after needed
+            case ',':                                       // "some(,|)" --> "some(), |"
+                space_needed = true;
+            case '>':                                       // "some(>|)" --> "some()>|"
+            case '}':                                       // ... similar for others below ...
+            case '[':
+            case ']':
+            case '.':
+            case ':':                                       // NOTE Do not add a space -- could be "case MACRO_or_constexpr_func():"
+            {
+                // Ok, move character out of parenthesis, add space if needed
+                document.removeText(line, column - 1, line, column);
+                // Check if space after ')' and before char needed and not yet present
+                var new_column = column;
+                if (space_needed)
+                {
+                    if (c != ',')                           // Space after ')' needed?
+                    {
+                        // Make sure there is no one already
+                        if (document.charAt(line, column) != ' ')
+                        {
+                            // ... and the char after the space is not the same
+                            if (document.charAt(line, column + 1) != c)
+                                c = " " + c;
+                            else
+                                c = " ";
+                        }
+                        else
+                        {
+                            column = column + 1;
+                            // Make sure there is no just pressed character already
+                            if (document.charAt(line, column + 2) == c)
+                                c = null;                   // Nothing 2 add
+                        }
+                    }
+                    else                                    // need to add c, then a space
+                    {
+                        if (document.charAt(line, column) != c)
+                            c += " ";
+                        else
+                        {
+                            if (document.charAt(line, column + 1) == ' ')
+                                c = null;
+                            else
+                            {
+                                c = " ";
+                                column = column + 1;
+                            }
+                        }
+                    }
+                    new_column = column + 2;
+                }
+                else new_column = column + 1;
+                // (Re)insert the char possible w/ space attached
+                if (c) document.insertText(line, column, c);
+                var moved_cursor = new Cursor(line, new_column);
+                view.setCursorPosition(moved_cursor);
+                return moved_cursor;
+            }
+            default:
+                break;
+        }
+    }
+    return cursor;
 }
 
 /**
@@ -989,17 +1108,22 @@ function tryComma(cursor)
     var result = -2;
     var line = cursor.line;
     var column = cursor.column;
-
+    // Check is comma a very first character on a line...
     if (document.firstChar(line) == ',' && document.firstColumn(line) == (column - 1))
     {
         var prevLineFirstChar = document.firstChar(line - 1);
         var mustMove = !(prevLineFirstChar == ',' || prevLineFirstChar == ':');
         result = document.firstColumn(line - 1) - (mustMove ? 2 : 0);
     }
-    if (document.charAt(cursor) != ' ')
-        document.insertText(cursor, " ");                   // Add space only if not present
-    else
-        view.setCursorPosition(line, column + 1);           // Otherwise just move cursor after it
+
+    var cc = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
+    if (cc == cursor)                                       // Is smth happened?
+    {
+        if (document.charAt(cursor) != ' ')
+            document.insertText(cursor, " ");               // Add space only if not present
+        else
+            view.setCursorPosition(line, column + 1);       // Otherwise just move cursor after it
+    }
     return result;
 }
 
@@ -1057,6 +1181,7 @@ function tryBreakContinue(line, is_break)
  * \code
  *  auto var = some_call(arg1, arg2);|
  * \endcode
+ * same works even there is no arguments...
  */
 function trySemicolon(cursor)
 {
@@ -1141,8 +1266,9 @@ function tryOperator(cursor, ch)
         dbg("insideBraces=",insideBraces);
         result = document.firstColumn(line - 1) + (insideBraces && ch != '.' ? -2 : 2);
     }
+    var cursor = tryJumpOverParenthesis(cursor);            // Try to jump out of parenthesis
     if (ch == '?')
-        document.insertText(cursor, " ");                   // Add space only after '?' of a trenary operator
+        document.insertText(cursor, " ");                   // Add space only after '?' of a ternary operator
     return result;
 }
 
@@ -1218,6 +1344,7 @@ function tryCloseBracket(cursor, ch)
             }
         }
     }
+    tryJumpOverParenthesis(view.cursorPosition());
 
     return result;
 }
@@ -1319,6 +1446,7 @@ function tryPreprocessor(cursor)
  * \li \c ':' is a first char on the line, then it looks like a class initialization
  *     list or 2nd line of trenary operator.
  * \li \c ':' is pressed on a line started w/ \c for statement and after a space
+ * \li shortcut: transform <tt>some(:|)</tt> into <tt>some() :|</tt>
  */
 function tryColon(cursor)
 {
@@ -1374,6 +1502,7 @@ function tryColon(cursor)
             // Add a space after ':'
             document.insertText(line, column, " ");
         }
+        else tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
     }
     return result;
 }
@@ -1650,7 +1779,7 @@ function processChar(line, ch)
             result = tryComma(cursor);                      // Possible need to align parameters list
             break;
         case ';':
-            result = trySemicolon(cursor);                  // Possible `for ()` loop speaded on few lines
+            result = trySemicolon(cursor);                  // Possible `for ()` loop spread over lines
             break;
         case '?':
         case '|':
@@ -1675,7 +1804,7 @@ function processChar(line, ch)
             result = tryColon(cursor);
             break;
         case '(':
-            tryOpenBrace(cursor);
+            tryOpenBrace(cursor);                           // Try to add a space after some keywords
             break;
         case '\\':
             tryBackslash(cursor);
@@ -1691,6 +1820,10 @@ function processChar(line, ch)
             break;
         case ' ':
             tryKeywordsWithBrackets(cursor);
+            break;
+        case '[':
+        case '=':
+            tryJumpOverParenthesis(cursor);
             break;
         default:
             break;                                          // Nothing to do...

@@ -44,7 +44,6 @@
 // required katepart js libraries
 require ("range.js");
 require ("string.js");
-require ("edit_session.js");
 
 // specifies the characters which should trigger indent, beside the default '\n'
 // ':' is for `case'/`default' and class access specifiers: public, protected, private
@@ -139,7 +138,7 @@ function isStringOrComment(line, column)
 /// Try to (re)align (to 60th position) inline comment if present
 function alignInlineComment(line)
 {
-    var es = new EditSession();
+    document.editBegin();
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
     var sc = splitByComment(currentLineText);
@@ -155,7 +154,6 @@ function alignInlineComment(line)
         {
             // Ok, test on the line is shorter than needed.
             // But what about current padding?
-            es.editBegin();
             if (sc.before.length < gSameLineCommentStartAt)
                 // Need to add some padding
                 document.insertText(
@@ -172,12 +170,11 @@ function alignInlineComment(line)
             // Move inline comment before the current line
             var startPos = document.firstColumn(line);
             currentLineText = String().fill(' ', startPos) + "//" + sc.after.rtrim() + "\n";
-            es.editBegin();
             document.removeText(line, rbefore.length, line, document.lineLength(line));
             document.insertText(line, 0, currentLineText);
         }
     }
-    es.editEnd();
+    document.editEnd();
 }
 
 /**
@@ -192,7 +189,7 @@ function tryToKeepInlineComment(line)
     if (document.line(line - 1).trim().length == 0)
         return;
 
-    var es = new EditSession();
+    document.editBegin();
 
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
@@ -208,7 +205,6 @@ function tryToKeepInlineComment(line)
         if (sc.before.trim().length > 0)                    // Is there some text before comment?
         {
             var lastPos = document.lastColumn(line - 1);    // Get last position of non space char @ prev line
-            es.editBegin();
             // Put the comment text to the prev line w/ padding
             document.insertText(
                 line - 1
@@ -225,7 +221,6 @@ function tryToKeepInlineComment(line)
         {
             // No text before comment. Need to remove possible spaces from prev line...
             var prevLine = line - 1;
-            es.editBegin();
             document.removeText(
                 prevLine
               , document.lastColumn(prevLine) + 1
@@ -234,7 +229,7 @@ function tryToKeepInlineComment(line)
               );
         }
     }
-    es.editEnd();
+    document.editEnd();
 }
 
 /**
@@ -404,7 +399,8 @@ function tryToAlignBeforeComma_ch(line)
 function tryMultilineCommentStart_ch(line)
 {
     var result = -1;
-    var es = new EditSession();
+    document.editBegin();
+
     // Check if multiline comment was started on the line
     // and ENTER wan't pressed right after a /*C-style comment*/
     if (document.startsWith(line - 1, "/*", true) && !document.endsWith(line - 1, "*/", true))
@@ -425,10 +421,7 @@ function tryMultilineCommentStart_ch(line)
                 if (!document.startsWith(line, "*/", true))
                     padding += document.endsWith(line, "*/", true) ? "* " : "*/";
                 else
-                {
-                    es.editBegin();
                     document.removeText(line, 0, line, document.firstColumn(line))
-                }
             }                                               // else, no need to append a closing */
         }
         else                                                // There is no a next line...
@@ -437,12 +430,8 @@ function tryMultilineCommentStart_ch(line)
             if (!document.startsWith(line, "*/", true))
                 padding += document.endsWith(line, "*/", true) ? "* " : "*/";
             else
-            {
-                es.editBegin();
                 document.removeText(line, 0, line, document.firstColumn(line))
-            }
         }
-        es.editBegin();
         document.insertText(line, 0, padding);
         view.setCursorPosition(line, filler.length + 2);
         result = -2;
@@ -451,7 +440,7 @@ function tryMultilineCommentStart_ch(line)
     {
         dbg("tryMultilineCommentStart_ch result="+result);
     }
-    es.editEnd();
+    document.editEnd();
     return result;
 }
 
@@ -899,7 +888,7 @@ function trySameLineComment(cursor)
     if (document.isString(line, column))
         return;
 
-    var es = new EditSession();
+    document.editBegin();
 
     var sc = splitByComment(document.line(line));
     if (sc.hasComment)                                      // Is there any comment on a line?
@@ -912,7 +901,6 @@ function trySameLineComment(cursor)
         if (text_len != 0 && sc.after.length == 0 && text_len < gSameLineCommentStartAt)
         {
             // Align it!
-            es.editBegin();
             document.insertText(
                 line
               , column - 2
@@ -924,7 +912,6 @@ function trySameLineComment(cursor)
         else if (sc.after == " /" || sc.after == "/")
         {
             // Form a Doxygen comment!
-            es.editBegin();
             document.removeText(line, column - sc.after.length, line, column);
             document.insertText(line, column - sc.after.length, text_len != 0 ? "/< " : "/ ");
         }
@@ -933,17 +920,15 @@ function trySameLineComment(cursor)
         else if (sc.after.rtrim() == "/")
         {
             // Form a Doxygen comment!
-            es.editBegin();
             document.removeText(line, column, line, column + sc.after.length);
             document.insertText(line, column, text_len != 0 ? "< " : " ");
         }
         else if (text_len == 0 && sc.after.length == 0)
         {
-            es.editBegin();
             document.insertText(line, column, ' ');
         }
     }
-    es.editEnd();
+    document.editEnd();
 }
 
 /**
@@ -965,7 +950,7 @@ function tryTemplate(cursor)
     if (isStringOrComment(line, column))
         return;                                             // Do nothing for comments and strings
 
-    var es = new EditSession();
+    document.editBegin();
 
     // Check for 'template' keyword at line start
     var currentString = document.line(line);
@@ -980,14 +965,12 @@ function tryTemplate(cursor)
       ;
     if (isCloseAngleBracketNeeded)
     {
-        es.editBegin();
         document.insertText(cursor, ">");
         view.setCursorPosition(cursor);
     }
     // Add a space after 2nd '<' if a word before is not a 'operator'
     else if (document.charAt(line, column - 2) == '<')
     {
-        es.editBegin();
         if (document.wordAt(line, column - 3) != "operator")
         {
             // Looks like case 3...
@@ -996,7 +979,7 @@ function tryTemplate(cursor)
             if (column < document.lineLength(line) && document.charAt(line, column) == '>')
             {
                 document.removeText(line, column, line, column + 1);
-                addCharOrJumpOverIt(line, column - 2, ' ', es);
+                addCharOrJumpOverIt(line, column - 2, ' ');
                 view.setCursorPosition(line, column + 1);
                 column = column + 1;
             }
@@ -1011,10 +994,10 @@ function tryTemplate(cursor)
     }
     else
     {
-        cursor = tryJumpOverParenthesis(cursor, es);        // Try to jump out of parenthesis
-        tryAddSpaceAfterClosedBracket(cursor, es);
+        cursor = tryJumpOverParenthesis(cursor);            // Try to jump out of parenthesis
+        tryAddSpaceAfterClosedBracket(cursor);
     }
-    es.editEnd();
+    document.editEnd();
 }
 
 /**
@@ -1049,7 +1032,7 @@ function tryTemplate(cursor)
  *
  * \attention This function \b never calls \c editEnd() for a given \c es instance!
  */
-function tryJumpOverParenthesis(cursor, es)
+function tryJumpOverParenthesis(cursor)
 {
     var line = cursor.line;
     var column = cursor.column;
@@ -1079,11 +1062,10 @@ function tryJumpOverParenthesis(cursor, es)
             case '}':
             case ']':                                       // NOTE '[' could be a part of lambda
             {
-                es.editBegin();
                 // Ok, move character out of parenthesis
                 document.removeText(line, column - 1, line, column);
                 // Check is a character after the closing brace the same as just entered one
-                addCharOrJumpOverIt(line, column, c, es);
+                addCharOrJumpOverIt(line, column, c);
                 return view.cursorPosition();
             }
             default:
@@ -1106,7 +1088,7 @@ function tryJumpOverParenthesis(cursor, es)
  *
  * \attention This function \b never calls \c editEnd() for a given \c es instance!
  */
-function tryAddSpaceAfterClosedBracket(cursor, es)
+function tryAddSpaceAfterClosedBracket(cursor)
 {
     var line = cursor.line;
     var column = cursor.column;
@@ -1135,7 +1117,6 @@ function tryAddSpaceAfterClosedBracket(cursor, es)
         case ':':
         case '<':
             dbg("tryAddSpaceAfterClosedBracket: c='"+c+"', @"+new Cursor(line, column -1));
-            es.editBegin();
             document.insertText(line, column - 1, " ");
             view.setCursorPosition(line, column + 1);
             return view.cursorPosition();
@@ -1144,7 +1125,6 @@ function tryAddSpaceAfterClosedBracket(cursor, es)
             // w/ some function type parameter... Otherwise, add a space after.
             if (b != ')')
             {
-                es.editBegin();
                 document.insertText(line, column - 1, " ");
                 view.setCursorPosition(line, column + 1);
                 return view.cursorPosition();
@@ -1176,18 +1156,13 @@ function tryComma(cursor)
         var mustMove = !(prevLineFirstChar == ',' || prevLineFirstChar == ':');
         result = document.firstColumn(line - 1) - (mustMove ? 2 : 0);
     }
-    var es = new EditSession();
-    cursor = tryJumpOverParenthesis(cursor, es);            // Try to jump out of parenthesis
+    document.editBegin();
+    cursor = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
     if (document.charAt(cursor) != ' ')
-    {
-        es.editBegin();
         document.insertText(cursor, " ");                   // Add space only if not present
-    }
     else
-    {
         view.setCursorPosition(line, column + 2);           // Otherwise just move cursor after it
-    }
-    es.editEnd();
+    document.editEnd();
     return result;
 }
 
@@ -1259,7 +1234,7 @@ function trySemicolon(cursor)
     if (isStringOrComment(line, column))
         return result;                                      // Do nothing for comments and strings
 
-    var es = new EditSession();
+    document.editBegin();
 
     // If ';' is a first char on a line?
     if (document.firstChar(line) == ';' && document.firstColumn(line) == (column - 1))
@@ -1270,7 +1245,6 @@ function trySemicolon(cursor)
         {
             // Add a half-tab relative '('
             result = document.firstColumn(openBracePos.line) + 2;
-            es.editBegin();
             document.insertText(cursor, " ");
         }
     }
@@ -1280,7 +1254,6 @@ function trySemicolon(cursor)
         var lcsc = document.prevNonSpaceColumn(line, column - 2);
         if (2 < column && lcsc < (column - 2))
         {
-            es.editBegin();
             document.removeText(line, column - 1, line, column);
             if (document.charAt(line, lcsc) != ';')
             {
@@ -1319,7 +1292,6 @@ function trySemicolon(cursor)
             // Ok, lets move ';' out of "a(b(c(;)))" of any level...
             if (should_proceed)
             {
-                es.editBegin();
                 // Remove ';' from column - 1
                 document.removeText(line, column - 1, line, column);
                 // Append ';' to the end of line
@@ -1328,7 +1300,7 @@ function trySemicolon(cursor)
             }
         }
     }
-    es.editEnd();
+    document.editEnd();
     return result;
 }
 
@@ -1362,30 +1334,24 @@ function tryOperator(cursor, ch)
         dbg("insideBraces=",insideBraces);
         result = document.firstColumn(line - 1) + (insideBraces && ch != '.' ? -2 : 2);
     }
-    var es = new EditSession();
+    document.editBegin();
     var prev = cursor;
-    cursor = tryJumpOverParenthesis(cursor, es);            // Try to jump out of parenthesis
-    cursor = tryAddSpaceAfterClosedBracket(cursor, es);
+    cursor = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
+    cursor = tryAddSpaceAfterClosedBracket(cursor);
 
     // Check if a space before '?' still needed
     if (prev == cursor && ch == '?' && document.charAt(line, cursor.column - 1) != ' ')
-    {
-        es.editBegin();
         document.insertText(line, cursor.column - 1, ' ');  // Add it!
-    }
 
     cursor = view.cursorPosition();                         // Update cursor position
     if (ch == '?')
     {
         if (document.charAt(cursor) != ' ')                 // Check for space after '?'...
-        {
-            es.editBegin();
             document.insertText(cursor, " ");               // Add it!
-        }
         else
             view.setCursorPosition(line, cursor.column + 1);// Jump over the next space
     }
-    es.editEnd();
+    document.editEnd();
     return result;
 }
 
@@ -1416,7 +1382,7 @@ function tryCloseBracket(cursor, ch)
         dbg("tryCloseBracket: setting result="+result);
     }
 
-    var es = new EditSession();
+    document.editBegin();
 
     // Check if ';' required after closing '}'
     if (ch == '}' && braceCursor.isValid())
@@ -1458,7 +1424,6 @@ function tryCloseBracket(cursor, ch)
               ;
             if (!is_ok)
             {
-                es.editBegin();
                 document.insertText(line, column, ';');
                 view.setCursorPosition(line, column + 1);
             }
@@ -1474,9 +1439,9 @@ function tryCloseBracket(cursor, ch)
         }
     }
 
-    tryJumpOverParenthesis(view.cursorPosition(), es);
+    tryJumpOverParenthesis(view.cursorPosition());
 
-    es.editEnd();
+    document.editEnd();
     return result;
 }
 
@@ -1588,7 +1553,7 @@ function tryColon(cursor)
     var line = cursor.line;
     var column = cursor.column;
 
-    var es = new EditSession();
+    document.editBegin();
 
     // Check if just entered ':' is a first on a line
     if (document.firstChar(line) == ':' && document.firstColumn(line) == (column - 1))
@@ -1599,7 +1564,6 @@ function tryColon(cursor)
             result = document.firstVirtualColumn(line - 1);
         else
             result = document.firstVirtualColumn(line - 1) + 2;
-        es.editBegin();
         document.insertText(cursor, " ");
     }
     else
@@ -1625,12 +1589,8 @@ function tryColon(cursor)
                         if (firstColumn < result)
                             padding = String().fill(' ', result - firstColumn);
                         else if (result < firstColumn)
-                        {
-                            es.editBegin();
                             document.removeText(line, 0, line, firstColumn - result);
-                        }
                         // Add an empty line before the current
-                        es.editBegin();
                         document.insertText(line, 0, "\n" + padding);
                         result = 0;
                     }
@@ -1641,23 +1601,21 @@ function tryColon(cursor)
         {
             // Looks like a range based `for'!
             // Add a space after ':'
-            es.editBegin();
             document.insertText(line, column, " ");
         }
         else if (document.charAt(line, column - 2) == '>')
         {
             // Add one more ':'
             // Example some<T>: --> some<T>::
-            es.editBegin();
             document.insertText(line, column, ":");
         }
         else
         {
-            cursor = tryJumpOverParenthesis(cursor, es);    // Try to jump out of parenthesis
-            tryAddSpaceAfterClosedBracket(cursor, es);      // Try add a space after close bracket
+            cursor = tryJumpOverParenthesis(cursor);        // Try to jump out of parenthesis
+            tryAddSpaceAfterClosedBracket(cursor);          // Try add a space after close bracket
         }
     }
-    es.editEnd();
+    document.editEnd();
     return result;
 }
 
@@ -1901,22 +1859,19 @@ function tryKeywordsWithBrackets(cursor)
  * Add a character \c c to the given position if absent.
  * Set new cursor position to the next one after the current.
  */
-function addCharOrJumpOverIt(line, column, char, es)
+function addCharOrJumpOverIt(line, column, char)
 {
     // Make sure there is a space at given position
     dbg("addCharOrJumpOverIt: checking @Cursor("+line+","+column+"), c='"+document.charAt(line, column)+"'");
     if (column < document.lineLength(line) || document.charAt(line, column) != char)
-    {
-        es.editBegin();
         document.insertText(line, column, char);
-    }
     view.setCursorPosition(line, column + 1);
 }
 
 /**
  * Try to add space before, after some equal operators.
  */
-function tryEqualOperator(cursor, es)
+function tryEqualOperator(cursor)
 {
     var line = cursor.line;
     var column = cursor.column;
@@ -1928,8 +1883,7 @@ function tryEqualOperator(cursor, es)
     var c = document.charAt(line, column - 2);
     dbg("tryEqualOperator: checking @Cursor("+line+","+(column - 2)+"), c='"+c+"'");
 
-    es = typeof es !== 'undefined' ? es : new EditSession();
-
+    document.editBegin();
     switch (c)
     {
         // Two chars operators: !=, ==
@@ -1941,44 +1895,36 @@ function tryEqualOperator(cursor, es)
         case '&':
         case '!':
         case '=':
-            addCharOrJumpOverIt(line, column, ' ', es);     // Make sure there is a space after it!
+            addCharOrJumpOverIt(line, column, ' ');         // Make sure there is a space after it!
             // Make sure there is a space before it!
             if (column >= 3 && document.charAt(line, column - 3) != ' ')
-            {
-                es.editBegin();
                 document.insertText(line, column - 2, " ");
-            }
             break;
         case '(':                                           // some(=|) --> some() =|
-            cursor = tryJumpOverParenthesis(cursor, es);
-            tryEqualOperator(cursor, es);                   // Call self again to handle "some()=|"
+            cursor = tryJumpOverParenthesis(cursor);
+            tryEqualOperator(cursor);                       // Call self again to handle "some()=|"
             break;
         case ')':                                           // "some()=" or "(expr)=" --> ") =|"
         case '}':                                           // It can be a ctor of some proxy object
             // Add a space between closing bracket and just entered '='
-            es.editBegin();
             document.insertText(line, column - 1, " ");
             break;
         case '<':
         case '>':
             // This could be '<<=', '>>=', '<=', '>='
             // Make sure there is a space after it!
-            addCharOrJumpOverIt(line, column, ' ', es);     // Make sure there is a space after it!
+            addCharOrJumpOverIt(line, column, ' ');         // Make sure there is a space after it!
             // Check if this is one of >>= or <<=
             if (column >= 3)
             {
                 if (document.charAt(line, column - 3) == c)
                 {
                     if (column >= 4 && document.charAt(line, column - 4) != ' ')
-                    {
-                        es.editBegin();
                         document.insertText(line, column - 3, " ");
-                    }
                 }
                 else if (document.charAt(line, column - 3) != ' ')
                 {
                     // <= or >=
-                    es.editBegin();
                     document.insertText(line, column - 2, " ");
                 }
             }
@@ -1994,7 +1940,6 @@ function tryEqualOperator(cursor, es)
                 switch (pc)
                 {
                     case '=':                               // Stick the current '=' to the previous one
-                        es.editBegin();
                         document.removeText(line, column - 1, line, column);
                         document.insertText(line, column - 2, '=');
                         break;
@@ -2006,12 +1951,11 @@ function tryEqualOperator(cursor, es)
         default:
             dbg("tryEqualOperator: default");
             // '=' always surrounded by spaces!
-            addCharOrJumpOverIt(line, column, ' ', es);     // Make sure there is a space after it!
-            es.editBegin();
+            addCharOrJumpOverIt(line, column, ' ');         // Make sure there is a space after it!
             document.insertText(line, column - 1, " ");     // Make sure there is a space after it!
             break;
     }
-    es.editEnd();
+    document.editEnd();
 }
 
 /**
@@ -2096,12 +2040,8 @@ function processChar(line, ch)
             break;
         case '*':
         case '&':
-        {
-            var es = new EditSession();
-            tryAddSpaceAfterClosedBracket(cursor, es);
-            es.editEnd();
+            tryAddSpaceAfterClosedBracket(cursor);
             break;
-        }
         default:
             break;                                          // Nothing to do...
     }

@@ -1324,14 +1324,14 @@ function tryOperator(cursor, ch)
       && document.firstColumn(line) == (column - 1)
       && document.line(line - 1).search(/^\s*[A-Za-z_][A-Za-z0-9_]*/) != -1
       ;
-    dbg("halfTabNeeded=",halfTabNeeded);
+    dbg("tryOperator: halfTabNeeded=",halfTabNeeded);
     if (halfTabNeeded)
     {
         // check if we r at function call or array index
         var insideBraces = document.anchor(line, document.firstColumn(line), '(').isValid()
           || document.anchor(line, document.firstColumn(line), '[').isValid()
           ;
-        dbg("insideBraces=",insideBraces);
+        dbg("tryOperator: insideBraces=",insideBraces);
         result = document.firstColumn(line - 1) + (insideBraces && ch != '.' ? -2 : 2);
     }
     document.editBegin();
@@ -1344,12 +1344,33 @@ function tryOperator(cursor, ch)
         document.insertText(line, cursor.column - 1, ' ');  // Add it!
 
     cursor = view.cursorPosition();                         // Update cursor position
+    line = cursor.line;
+    column = cursor.column;
+
     if (ch == '?')
     {
-        if (document.charAt(cursor) != ' ')                 // Check for space after '?'...
-            document.insertText(cursor, " ");               // Add it!
-        else
-            view.setCursorPosition(line, cursor.column + 1);// Jump over the next space
+        addCharOrJumpOverIt(line, column, ' ');
+    }
+    else if (ch == '|')
+    {
+        // Check if there was another '|' before
+        // TODO Generalize this pattern... it happens really often.
+        var pc = document.charAt(line, column - 3);
+        var space_offset = 0;
+        dbg("tryOperator: checking @Cursor("+line+","+(column - 3)+"), c='"+pc+"'");
+        if (pc == '|')
+        {
+            document.removeText(line, column - 1, line, column);
+            document.insertText(line, column - 2, "|");
+            space_offset = -1;
+        }
+        else if (pc != ' ')
+        {
+            document.insertText(line, column - 1, " ");
+            space_offset = space_offset + 1;
+        }
+        if (space_offset != -1)
+            addCharOrJumpOverIt(line, column + space_offset, ' ');
     }
     document.editEnd();
     return result;
@@ -1939,7 +1960,8 @@ function tryEqualOperator(cursor)
                 dbg("tryEqualOperator: checking @Cursor("+line+","+(column - 3)+"), pc='"+pc+"'");
                 switch (pc)
                 {
-                    case '=':                               // Stick the current '=' to the previous one
+                    case '=':                               // Stick the current '=' to the previous char
+                    case '|':
                         document.removeText(line, column - 1, line, column);
                         document.insertText(line, column - 2, '=');
                         break;

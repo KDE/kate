@@ -303,7 +303,7 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("C", commandChangeToEOL, IS_CHANGE );
   ADDCMD("S", commandChangeToEOL, IS_CHANGE );
   ADDCMD("d", commandDelete, IS_CHANGE );
-  ADDCMD("<del>", commandDelete, IS_CHANGE );
+  ADDCMD("<delete>", commandDelete, IS_CHANGE );
   ADDCMD("D", commandDeleteToEOL, IS_CHANGE );
   ADDCMD("x", commandDeleteChar, IS_CHANGE );
   ADDCMD("X", commandDeleteCharBackward, IS_CHANGE );

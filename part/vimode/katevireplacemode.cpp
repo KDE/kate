@@ -127,6 +127,9 @@ bool KateViReplaceMode::handleKeypress( const QKeyEvent *e )
       m_overwritten.clear();
       m_view->end();
       return true;
+    case Qt::Key_Delete:
+      m_view->keyDelete();
+      return true;
     default:
       return false;
       break;

@@ -3310,6 +3310,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("d", commandDelete, IS_CHANGE | NEEDS_MOTION );
   ADDCMD("D", commandDeleteToEOL, IS_CHANGE );
   ADDCMD("x", commandDeleteChar, IS_CHANGE );
+  ADDCMD("<delete>", commandDeleteChar, IS_CHANGE );
   ADDCMD("X", commandDeleteCharBackward, IS_CHANGE );
   ADDCMD("gu", commandMakeLowercase, IS_CHANGE | NEEDS_MOTION );
   ADDCMD("guu", commandMakeLowercaseLine, IS_CHANGE );

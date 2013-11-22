@@ -294,6 +294,7 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("right", Qt::Key_Right);
   m_codesToSpecialKeys.insert("down", Qt::Key_Down);
   m_codesToSpecialKeys.insert("home", Qt::Key_Home);
+  m_codesToSpecialKeys.insert("delete", Qt::Key_Delete);
 
   connect(kate_document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
           this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
@@ -536,6 +537,9 @@ void ViModeTest::VisualModeTests() {
     DoTest("foobar","v$d","");
     DoTest("foo\nbar\nbaz","jVlld","foo\nbaz");
 
+    // testing Del key
+    DoTest("foobarbaz","lvlkkjl2l\\delete","fbaz");
+
     // Testing "D"
     DoTest("foo\nbar\nbaz","lvjlD","baz");
     DoTest("foo\nbar", "l\\ctrl-vjD","f\nb");
@@ -718,7 +722,7 @@ void ViModeTest::ReplaceModeTests()
   DoTest("foo bar", "R\\ctrl-\\rightX", "foo Xar");
   DoTest("foo bar", "R\\ctrl-\\right\\ctrl-\\rightX", "foo barX");
   DoTest("foo bar", "R\\ctrl-\\leftX", "Xoo bar");
-
+  DoTest("foo bar", "R\\ctrl-\\left\\delete", "oo bar");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -822,6 +826,8 @@ void ViModeTest::InsertModeTests() {
 
   // Test that our test driver can handle newlines during insert mode :)
   DoTest("", "ia\\returnb", "a\nb");
+
+  DoTest("foo bar", "i\\home\\delete", "oo bar");
 
   // Test Alt-gr still works - this isn't quite how things work in "real-life": in real-life, something like
   // Alt-gr+7 would be a "{", but I don't think this can be reproduced without sending raw X11
@@ -1467,6 +1473,22 @@ void ViModeTest::NormalModeCommandsTest() {
   // Testing "X"
   DoTest("ABCD", "$XX", "AD");
   DoTest("foo", "XP", "foo");
+
+  // Testing Del key
+  DoTest("foo", "\\home\\delete", "oo");
+  DoTest("foo", "$\\delete", "fo");
+
+  // Delete. Note that when sent properly via Qt, the key event text() will inexplicably be "127",
+  // which can trip up the key parser. Duplicate this oddity here.
+  BeginTest("xyz");
+  TestPressKey("l");
+  QKeyEvent *deleteKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Delete, Qt::NoModifier, "127");
+  QApplication::postEvent(kate_view->focusProxy(), deleteKeyDown);
+  QApplication::sendPostedEvents();
+  QKeyEvent *deleteKeyUp = new QKeyEvent(QEvent::KeyRelease, Qt::Key_Delete, Qt::NoModifier, "127");
+  QApplication::postEvent(kate_view->focusProxy(), deleteKeyUp);
+  QApplication::sendPostedEvents();
+  FinishTest("xz");
 
   // Testing "gu"
   DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");

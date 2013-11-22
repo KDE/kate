@@ -58,7 +58,7 @@ require ("edit_session.js");
 // TBD <others>
 triggerCharacters = "{}()[]<>/:;,#\\?!|&/%.@ \"=*^";
 
-var debugMode = true;
+var debugMode = false;
 
 /// \todo Move to a separate library?
 function dbg()

@@ -142,10 +142,28 @@ bool Pate::Plugin::checkEngineShowPopup() const
         KPassivePopup::message(
             i18nc("@title:window", "Pate engine could not be initialised")
           , m_engineFailureReason
-          //, KIcon("dialog-error").pixmap(16, 16)
           , static_cast<QWidget*>(0)
           );
         return false;
+    }
+    else
+    {
+        // Check if some modules are not available and show warning
+        unsigned broken_modules_count = 0;
+        Q_FOREACH(const Engine::PluginState& plugin, m_engine.plugins())
+            broken_modules_count += unsigned(plugin.isEnabled() && plugin.isBroken());
+
+        if (broken_modules_count)
+            KPassivePopup::message(
+                i18nc("@title:window", "Warning")
+              , i18ncp(
+                    "@info:tooltip %1 is a number of failed plugins"
+                  , "%1 plugin module couldn't be loaded. Check the Python plugins config page for details."
+                  , "%1 plugin modules couldn't be loaded. Check the Python plugins config page for details."
+                  , broken_modules_count
+                  )
+              , static_cast<QWidget*>(0)
+              );
     }
     return true;
 }
@@ -311,8 +329,8 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
     {
         m_plugin->setFailureReason(i18nc("@info:tooltip ", "Cannot load <icode>kate</icode> module"));
         m_plugin->engine().setBroken();
-        m_plugin->checkEngineShowPopup();
     }
+    m_plugin->checkEngineShowPopup();
     // Inject collected actions into GUI
     mainWindow()->guiFactory()->addClient(this);
 }

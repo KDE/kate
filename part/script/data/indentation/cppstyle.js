@@ -44,6 +44,7 @@
 // required katepart js libraries
 require ("range.js");
 require ("string.js");
+require ("edit_session.js");
 
 // specifies the characters which should trigger indent, beside the default '\n'
 // ':' is for `case'/`default' and class access specifiers: public, protected, private
@@ -55,9 +56,9 @@ require ("string.js");
 // ';' is for align `for' parts
 // ' ' is to add a '()' after `if', `while', `for', ...
 // TBD <others>
-triggerCharacters = "{}()[]<>/:;,#\\?!|/%.@ \"=";
+triggerCharacters = "{}()[]<>/:;,#\\?!|&/%.@ \"=*^";
 
-var debugMode = false;
+var debugMode = true;
 
 /// \todo Move to a separate library?
 function dbg()
@@ -132,12 +133,13 @@ function isStringOrComment(line, column)
     var c = new Cursor(line, column);
     var mode = document.attributeName(c);
     dbg("isStringOrComment: Check mode @ " + c + ": " + mode);
-    return gMode == "Doxygen" || document.isString(c) || document.isComment(c);
+    return gMode == "Doxygen" || document.isString(c) || document.isChar(c) || document.isComment(c);
 }
 
 /// Try to (re)align (to 60th position) inline comment if present
 function alignInlineComment(line)
 {
+    var es = new EditSession();
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
     var sc = splitByComment(currentLineText);
@@ -153,7 +155,7 @@ function alignInlineComment(line)
         {
             // Ok, test on the line is shorter than needed.
             // But what about current padding?
-            document.editBegin();
+            es.editBegin();
             if (sc.before.length < gSameLineCommentStartAt)
                 // Need to add some padding
                 document.insertText(
@@ -164,19 +166,18 @@ function alignInlineComment(line)
             else
                 // Need to remove a redundant padding
                 document.removeText(line, gSameLineCommentStartAt, line, sc.before.length);
-            document.editEnd();
         }
         else if (gSameLineCommentStartAt < rbefore.length)
         {
             // Move inline comment before the current line
             var startPos = document.firstColumn(line);
             currentLineText = String().fill(' ', startPos) + "//" + sc.after.rtrim() + "\n";
-            document.editBegin();
+            es.editBegin();
             document.removeText(line, rbefore.length, line, document.lineLength(line));
             document.insertText(line, 0, currentLineText);
-            document.editEnd();
         }
     }
+    es.editEnd();
 }
 
 /**
@@ -190,6 +191,8 @@ function tryToKeepInlineComment(line)
     // i.e. it was just splitted and same-line-comment must be moved back to it
     if (document.line(line - 1).trim().length == 0)
         return;
+
+    var es = new EditSession();
 
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
@@ -205,6 +208,7 @@ function tryToKeepInlineComment(line)
         if (sc.before.trim().length > 0)                    // Is there some text before comment?
         {
             var lastPos = document.lastColumn(line - 1);    // Get last position of non space char @ prev line
+            es.editBegin();
             // Put the comment text to the prev line w/ padding
             document.insertText(
                 line - 1
@@ -221,6 +225,7 @@ function tryToKeepInlineComment(line)
         {
             // No text before comment. Need to remove possible spaces from prev line...
             var prevLine = line - 1;
+            es.editBegin();
             document.removeText(
                 prevLine
               , document.lastColumn(prevLine) + 1
@@ -229,6 +234,7 @@ function tryToKeepInlineComment(line)
               );
         }
     }
+    es.editEnd();
 }
 
 /**
@@ -398,6 +404,7 @@ function tryToAlignBeforeComma_ch(line)
 function tryMultilineCommentStart_ch(line)
 {
     var result = -1;
+    var es = new EditSession();
     // Check if multiline comment was started on the line
     // and ENTER wan't pressed right after a /*C-style comment*/
     if (document.startsWith(line - 1, "/*", true) && !document.endsWith(line - 1, "*/", true))
@@ -418,7 +425,10 @@ function tryMultilineCommentStart_ch(line)
                 if (!document.startsWith(line, "*/", true))
                     padding += document.endsWith(line, "*/", true) ? "* " : "*/";
                 else
+                {
+                    es.editBegin();
                     document.removeText(line, 0, line, document.firstColumn(line))
+                }
             }                                               // else, no need to append a closing */
         }
         else                                                // There is no a next line...
@@ -427,9 +437,12 @@ function tryMultilineCommentStart_ch(line)
             if (!document.startsWith(line, "*/", true))
                 padding += document.endsWith(line, "*/", true) ? "* " : "*/";
             else
+            {
+                es.editBegin();
                 document.removeText(line, 0, line, document.firstColumn(line))
+            }
         }
-
+        es.editBegin();
         document.insertText(line, 0, padding);
         view.setCursorPosition(line, filler.length + 2);
         result = -2;
@@ -438,6 +451,7 @@ function tryMultilineCommentStart_ch(line)
     {
         dbg("tryMultilineCommentStart_ch result="+result);
     }
+    es.editEnd();
     return result;
 }
 
@@ -600,7 +614,7 @@ function tryAfterDanglingSemicolon_ch(line)
     var r = /^(\s*)(([\)\]}]?\s*)*([\)\]]\s*))?;/.exec(prevString);
     if (r != null)
     {
-        result = Math.floor(r[1].length / 4) * 4;           /// TODO JS highlighter BUG
+        result = Math.floor(r[1].length / 4) * 4;
     }
     else
     {
@@ -611,7 +625,7 @@ function tryAfterDanglingSemicolon_ch(line)
         //  > type;|
         r = /^(\s*)([>]+).*;/.exec(prevString);
         if (r != null)
-            result = Math.floor(r[1].length / 4) * 4;       /// TODO JS highlighter BUG
+            result = Math.floor(r[1].length / 4) * 4;
     }
     if (result != -1)
     {
@@ -882,9 +896,10 @@ function trySameLineComment(cursor)
     var column = cursor.column;
 
     // First of all check that we are not withing a string
-    if (document.isString(line, column)) {
+    if (document.isString(line, column))
         return;
-    }
+
+    var es = new EditSession();
 
     var sc = splitByComment(document.line(line));
     if (sc.hasComment)                                      // Is there any comment on a line?
@@ -897,6 +912,7 @@ function trySameLineComment(cursor)
         if (text_len != 0 && sc.after.length == 0 && text_len < gSameLineCommentStartAt)
         {
             // Align it!
+            es.editBegin();
             document.insertText(
                 line
               , column - 2
@@ -908,6 +924,7 @@ function trySameLineComment(cursor)
         else if (sc.after == " /" || sc.after == "/")
         {
             // Form a Doxygen comment!
+            es.editBegin();
             document.removeText(line, column - sc.after.length, line, column);
             document.insertText(line, column - sc.after.length, text_len != 0 ? "/< " : "/ ");
         }
@@ -916,14 +933,17 @@ function trySameLineComment(cursor)
         else if (sc.after.rtrim() == "/")
         {
             // Form a Doxygen comment!
+            es.editBegin();
             document.removeText(line, column, line, column + sc.after.length);
             document.insertText(line, column, text_len != 0 ? "< " : " ");
         }
         else if (text_len == 0 && sc.after.length == 0)
         {
+            es.editBegin();
             document.insertText(line, column, ' ');
         }
     }
+    es.editEnd();
 }
 
 /**
@@ -945,6 +965,8 @@ function tryTemplate(cursor)
     if (isStringOrComment(line, column))
         return;                                             // Do nothing for comments and strings
 
+    var es = new EditSession();
+
     // Check for 'template' keyword at line start
     var currentString = document.line(line);
     var prevWord = document.wordAt(line, column - 1);
@@ -958,15 +980,27 @@ function tryTemplate(cursor)
       ;
     if (isCloseAngleBracketNeeded)
     {
+        es.editBegin();
         document.insertText(cursor, ">");
         view.setCursorPosition(cursor);
     }
     // Add a space after 2nd '<' if a word before is not a 'operator'
     else if (document.charAt(line, column - 2) == '<')
     {
+        es.editBegin();
         if (document.wordAt(line, column - 3) != "operator")
         {
-            // Looks like case 3... add a space after operator<<
+            // Looks like case 3...
+            // 0) try to remove '>' if user typed 'some<' before
+            // (and closing '>' was added by tryTemplate)
+            if (column < document.lineLength(line) && document.charAt(line, column) == '>')
+            {
+                document.removeText(line, column, line, column + 1);
+                addCharOrJumpOverIt(line, column - 2, ' ', es);
+                view.setCursorPosition(line, column + 1);
+                column = column + 1;
+            }
+            // add a space after operator<<
             document.insertText(line, column, " ");
         }
         else
@@ -975,7 +1009,12 @@ function tryTemplate(cursor)
             view.setCursorPosition(line, column + 1);
         }
     }
-    else tryJumpOverParenthesis(cursor);                    // Try to jump out of parenthesis
+    else
+    {
+        cursor = tryJumpOverParenthesis(cursor, es);        // Try to jump out of parenthesis
+        tryAddSpaceAfterClosedBracket(cursor, es);
+    }
+    es.editEnd();
 }
 
 /**
@@ -987,7 +1026,7 @@ function tryTemplate(cursor)
  * \code
  *  auto a = two_params_func(get_first(,|))
  *  // ... transformed into
- *  auto a = two_params_func(get_first(), |)
+ *  auto a = two_params_func(get_first(),|)
  * \endcode
  *
  * because entering comma right after <tt>(</tt> definitely incorrect, but
@@ -995,7 +1034,7 @@ function tryTemplate(cursor)
  * (RightArrow, ',', space)
  *
  * except comma here are other "impossible" characters:
- * \c ., \c [, \c ], \c }, \c ?, \c :, \c <, \c >, \c =, \c %, \c /, \c |
+ * \c ., \c ?, \c :, \c %, \c |, \c /, \c =, \c <, \c >, \c ], \c }
  *
  * But \c ; will be handled separately to be able to jump over all closing \c ).
  *
@@ -1005,92 +1044,114 @@ function tryTemplate(cursor)
  * and the char out of the parenthesis is not the same as just entered ;-)
  *
  * \param cursor initial cursor position
+ * \param es edit session instance
  * \return new (possible modified) cursor position
+ *
+ * \attention This function \b never calls \c editEnd() for a given \c es instance!
  */
-function tryJumpOverParenthesis(cursor)
+function tryJumpOverParenthesis(cursor, es)
 {
     var line = cursor.line;
     var column = cursor.column;
 
-    if (isStringOrComment(line, column))
+    if (2 < column && isStringOrComment(line, column))
         return cursor;                                      // Do nothing for comments of string literals
 
     // Check that we r inside of parenthesis and some symbol between
-    if (column > 2 && document.charAt(line, column - 2) == '(' && document.charAt(cursor) == ')')
+    var pc = document.charAt(line, column - 2);
+    var cc = document.charAt(cursor);
+    if (column > 2 && pc == '(' && cc == ')')
     {
         var c = document.charAt(line, column - 1);
-        var space_needed = false;
         switch (c)
         {
-            // must add a space before the following chars
-            case '?':                                       // "some(?|)" --> "some() ?|"
-            case '%':                                       // ... similar for others below ...
-            case '=':
-            case '|':
-            case '/':
-            case '<':
-            // in this case a space after needed
-            case ',':                                       // "some(,|)" --> "some(), |"
-                space_needed = true;
-            case '>':                                       // "some(>|)" --> "some()>|"
-            case '}':                                       // ... similar for others below ...
-            case '[':
-            case ']':
             case '.':
-            case ':':                                       // NOTE Do not add a space -- could be "case MACRO_or_constexpr_func():"
+            case ',':
+            case '?':
+            case ':':
+            case '%':
+            case '^':
+            case '|':
+            case '/':                                       // TODO ORLY?
+            case '=':
+            case '<':
+            case '>':
+            case '}':
+            case ']':                                       // NOTE '[' could be a part of lambda
             {
-                // Ok, move character out of parenthesis, add space if needed
+                es.editBegin();
+                // Ok, move character out of parenthesis
                 document.removeText(line, column - 1, line, column);
-                // Check if space after ')' and before char needed and not yet present
-                var new_column = column;
-                if (space_needed)
-                {
-                    if (c != ',')                           // Space after ')' needed?
-                    {
-                        // Make sure there is no one already
-                        if (document.charAt(line, column) != ' ')
-                        {
-                            // ... and the char after the space is not the same
-                            if (document.charAt(line, column + 1) != c)
-                                c = " " + c;
-                            else
-                                c = " ";
-                        }
-                        else
-                        {
-                            column = column + 1;
-                            // Make sure there is no just pressed character already
-                            if (document.charAt(line, column + 2) == c)
-                                c = null;                   // Nothing 2 add
-                        }
-                    }
-                    else                                    // need to add c, then a space
-                    {
-                        if (document.charAt(line, column) != c)
-                            c += " ";
-                        else
-                        {
-                            if (document.charAt(line, column + 1) == ' ')
-                                c = null;
-                            else
-                            {
-                                c = " ";
-                                column = column + 1;
-                            }
-                        }
-                    }
-                    new_column = column + 2;
-                }
-                else new_column = column + 1;
-                // (Re)insert the char possible w/ space attached
-                if (c) document.insertText(line, column, c);
-                var moved_cursor = new Cursor(line, new_column);
-                view.setCursorPosition(moved_cursor);
-                return moved_cursor;
+                // Check is a character after the closing brace the same as just entered one
+                addCharOrJumpOverIt(line, column, c, es);
+                return view.cursorPosition();
             }
             default:
                 break;
         }
+    }
+    return cursor;
+}
+
+/**
+ * Handle the case when some character was entered after a some closing bracket.
+ * Here is few close brackets possible:
+ * \li \c ) -- ordinal function call
+ * \li \c } -- C++11 constructor call
+ * \li \c ] -- array access
+ *
+ * This function try to add a space between a closing bracket and operator char.
+ *
+ * \note This valid if we r not inside a comment or a string literal.
+ *
+ * \attention This function \b never calls \c editEnd() for a given \c es instance!
+ */
+function tryAddSpaceAfterClosedBracket(cursor, es)
+{
+    var line = cursor.line;
+    var column = cursor.column;
+
+    if (isStringOrComment(line, column - 1))
+        return cursor;                                      // Do nothing for comments of string literals
+
+    // Check if we have a closing bracket before a last entered char
+    var b = document.charAt(line, column - 2);
+    dbg("tryAddSpaceAfterClosedBracket: b='"+b+"', @"+new Cursor(line, column -2));
+    if (!(b == ']' || b == '}' || b == ')'))
+        return cursor;
+
+    // Ok, lets check what we've got as a last char
+    var c = document.charAt(line, column - 1);
+    switch (c)
+    {
+        case '*':
+        case '/':
+        case '%':
+        case '&':
+        case '|':
+        case '=':
+        case '^':
+        case '?':
+        case ':':
+        case '<':
+            dbg("tryAddSpaceAfterClosedBracket: c='"+c+"', @"+new Cursor(line, column -1));
+            es.editBegin();
+            document.insertText(line, column - 1, " ");
+            view.setCursorPosition(line, column + 1);
+            return view.cursorPosition();
+        case '>':
+            // Close angle bracket may be a part of template instantiation
+            // w/ some function type parameter... Otherwise, add a space after.
+            if (b != ')')
+            {
+                es.editBegin();
+                document.insertText(line, column - 1, " ");
+                view.setCursorPosition(line, column + 1);
+                return view.cursorPosition();
+            }
+            break;
+        default:
+            break;
     }
     return cursor;
 }
@@ -1115,15 +1176,18 @@ function tryComma(cursor)
         var mustMove = !(prevLineFirstChar == ',' || prevLineFirstChar == ':');
         result = document.firstColumn(line - 1) - (mustMove ? 2 : 0);
     }
-
-    var cc = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
-    if (cc == cursor)                                       // Is smth happened?
+    var es = new EditSession();
+    cursor = tryJumpOverParenthesis(cursor, es);            // Try to jump out of parenthesis
+    if (document.charAt(cursor) != ' ')
     {
-        if (document.charAt(cursor) != ' ')
-            document.insertText(cursor, " ");               // Add space only if not present
-        else
-            view.setCursorPosition(line, column + 1);       // Otherwise just move cursor after it
+        es.editBegin();
+        document.insertText(cursor, " ");                   // Add space only if not present
     }
+    else
+    {
+        view.setCursorPosition(line, column + 2);           // Otherwise just move cursor after it
+    }
+    es.editEnd();
     return result;
 }
 
@@ -1182,6 +1246,9 @@ function tryBreakContinue(line, is_break)
  *  auto var = some_call(arg1, arg2);|
  * \endcode
  * same works even there is no arguments...
+ *
+ * All the time, when simicolon is not a first non-space symbol (and not a part of a comment
+ * or string) it will be stiked to the last non-space character on the line.
  */
 function trySemicolon(cursor)
 {
@@ -1192,6 +1259,8 @@ function trySemicolon(cursor)
     if (isStringOrComment(line, column))
         return result;                                      // Do nothing for comments and strings
 
+    var es = new EditSession();
+
     // If ';' is a first char on a line?
     if (document.firstChar(line) == ';' && document.firstColumn(line) == (column - 1))
     {
@@ -1201,11 +1270,27 @@ function trySemicolon(cursor)
         {
             // Add a half-tab relative '('
             result = document.firstColumn(openBracePos.line) + 2;
+            es.editBegin();
             document.insertText(cursor, " ");
         }
     }
     else
     {
+        // Stick ';' to the last "word"
+        var lcsc = document.prevNonSpaceColumn(line, column - 2);
+        if (2 < column && lcsc < (column - 2))
+        {
+            es.editBegin();
+            document.removeText(line, column - 1, line, column);
+            if (document.charAt(line, lcsc) != ';')
+            {
+                document.insertText(line, lcsc + 1, ";");
+                view.setCursorPosition(line, lcsc + 2);
+            }
+            else view.setCursorPosition(line, lcsc + 1);
+            cursor = view.cursorPosition();
+            column = cursor.column;
+        }
         var text = document.line(line).ltrim();
         var is_break = text.startsWith("break;");
         var should_proceed = is_break || text.startsWith("continue;")
@@ -1231,26 +1316,37 @@ function trySemicolon(cursor)
                     break;
                 }
             }
+            // Ok, lets move ';' out of "a(b(c(;)))" of any level...
             if (should_proceed)
             {
-                document.editBegin();
+                es.editBegin();
                 // Remove ';' from column - 1
                 document.removeText(line, column - 1, line, column);
                 // Append ';' to the end of line
                 document.insertText(line, lineLength - 1, ";");
-                document.editEnd();
                 view.setCursorPosition(line, lineLength);
             }
         }
     }
+    es.editEnd();
     return result;
 }
 
+/**
+ * Handle possible dangling operators (moved from a previous line)
+ *
+ * \c ?, \c |, \c ^, \c %, \c .
+ *
+ * Add spaces around trenary operator.
+ */
 function tryOperator(cursor, ch)
 {
     var result = -2;
     var line = cursor.line;
     var column = cursor.column;
+
+    if (isStringOrComment(line, column))
+        return result;                                      // Do nothing for comments and strings
 
     var halfTabNeeded = document.firstChar(line) == ch
       && document.firstColumn(line) == (column - 1)
@@ -1266,9 +1362,30 @@ function tryOperator(cursor, ch)
         dbg("insideBraces=",insideBraces);
         result = document.firstColumn(line - 1) + (insideBraces && ch != '.' ? -2 : 2);
     }
-    var cursor = tryJumpOverParenthesis(cursor);            // Try to jump out of parenthesis
+    var es = new EditSession();
+    var prev = cursor;
+    cursor = tryJumpOverParenthesis(cursor, es);            // Try to jump out of parenthesis
+    cursor = tryAddSpaceAfterClosedBracket(cursor, es);
+
+    // Check if a space before '?' still needed
+    if (prev == cursor && ch == '?' && document.charAt(line, cursor.column - 1) != ' ')
+    {
+        es.editBegin();
+        document.insertText(line, cursor.column - 1, ' ');  // Add it!
+    }
+
+    cursor = view.cursorPosition();                         // Update cursor position
     if (ch == '?')
-        document.insertText(cursor, " ");                   // Add space only after '?' of a ternary operator
+    {
+        if (document.charAt(cursor) != ' ')                 // Check for space after '?'...
+        {
+            es.editBegin();
+            document.insertText(cursor, " ");               // Add it!
+        }
+        else
+            view.setCursorPosition(line, cursor.column + 1);// Jump over the next space
+    }
+    es.editEnd();
     return result;
 }
 
@@ -1298,6 +1415,8 @@ function tryCloseBracket(cursor, ch)
         result = document.firstColumn(braceCursor.line) + (ch != '}' ? 2 : 0);
         dbg("tryCloseBracket: setting result="+result);
     }
+
+    var es = new EditSession();
 
     // Check if ';' required after closing '}'
     if (ch == '}' && braceCursor.isValid())
@@ -1339,13 +1458,25 @@ function tryCloseBracket(cursor, ch)
               ;
             if (!is_ok)
             {
+                es.editBegin();
                 document.insertText(line, column, ';');
                 view.setCursorPosition(line, column + 1);
             }
         }
     }
-    tryJumpOverParenthesis(view.cursorPosition());
+    else if (ch == '>')
+    {
+        // If user typed 'some' + '<' + '>', jump over the '>'
+        // (which was added by the tryTemplate)
+        if (document.charAt(line, column) == '>')
+        {
+            document.removeText(line, column, line, column + 1);
+        }
+    }
 
+    tryJumpOverParenthesis(view.cursorPosition(), es);
+
+    es.editEnd();
     return result;
 }
 
@@ -1444,9 +1575,12 @@ function tryPreprocessor(cursor)
  *     Then align a current line to corresponding class/struct definition.
  *     Check a previous line and if it is not starts w/ \c '{' add a new line before.
  * \li \c ':' is a first char on the line, then it looks like a class initialization
- *     list or 2nd line of trenary operator.
+ *     list or 2nd line of ternary operator.
  * \li \c ':' is pressed on a line started w/ \c for statement and after a space
+ * \li \c ':' after '&gt;' looks like an access to template's member
  * \li shortcut: transform <tt>some(:|)</tt> into <tt>some() :|</tt>
+ *
+ * \todo Should it be done only for non strings and comments?
  */
 function tryColon(cursor)
 {
@@ -1454,15 +1588,18 @@ function tryColon(cursor)
     var line = cursor.line;
     var column = cursor.column;
 
+    var es = new EditSession();
+
     // Check if just entered ':' is a first on a line
     if (document.firstChar(line) == ':' && document.firstColumn(line) == (column - 1))
     {
-        // Check if there a dangling ')' or '?' (trenary operator) on a previous line
+        // Check if there a dangling ')' or '?' (ternary operator) on a previous line
         var ch = document.firstChar(line - 1);
         if (ch == ')' || ch == '?')
             result = document.firstVirtualColumn(line - 1);
         else
             result = document.firstVirtualColumn(line - 1) + 2;
+        es.editBegin();
         document.insertText(cursor, " ");
     }
     else
@@ -1488,8 +1625,12 @@ function tryColon(cursor)
                         if (firstColumn < result)
                             padding = String().fill(' ', result - firstColumn);
                         else if (result < firstColumn)
+                        {
+                            es.editBegin();
                             document.removeText(line, 0, line, firstColumn - result);
+                        }
                         // Add an empty line before the current
+                        es.editBegin();
                         document.insertText(line, 0, "\n" + padding);
                         result = 0;
                     }
@@ -1500,10 +1641,23 @@ function tryColon(cursor)
         {
             // Looks like a range based `for'!
             // Add a space after ':'
+            es.editBegin();
             document.insertText(line, column, " ");
         }
-        else tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
+        else if (document.charAt(line, column - 2) == '>')
+        {
+            // Add one more ':'
+            // Example some<T>: --> some<T>::
+            es.editBegin();
+            document.insertText(line, column, ":");
+        }
+        else
+        {
+            cursor = tryJumpOverParenthesis(cursor, es);    // Try to jump out of parenthesis
+            tryAddSpaceAfterClosedBracket(cursor, es);      // Try add a space after close bracket
+        }
     }
+    es.editEnd();
     return result;
 }
 
@@ -1617,10 +1771,12 @@ function tryDoxygenGrouping(cursor)
       ;
     if (looks_like_doxgorup)
     {
+        document.editBegin();
         document.removeText(line, column - 2, line, column - 1);
         var padding = String().fill(' ', firstColumn);
         document.insertText(line, column - 1, "{\n" + padding + "\n" + padding + "//@}");
         view.setCursorPosition(line + 1, document.lineLength(line + 1));
+        document.editEnd();
     }
 }
 
@@ -1682,34 +1838,33 @@ function tryExclamation(cursor)
     var line = cursor.line;
     var column = cursor.column;
 
-    // Do nothing for comments and stings
-    if (isStringOrComment(line, column - 1))
+    if (column == 0)                                        // Do nothing for very first char
         return;
 
-    // Make sure '!' is not a first char on a line
-    if (document.firstColumn(line) == column - 1)
+    if (isStringOrComment(line, column - 1))                // Do nothing for comments and stings
         return;
 
-    // Do nothing if one of 'stop' chars:
-    var prev_char = document.charAt(line, column - 2);
-    dbg("prev_char: ",prev_char);
-    if (prev_char == ' ' || prev_char == '(' || prev_char == '[')
+    if (document.firstColumn(line) == column - 1)           // Make sure '!' is not a first char on a line
+        return;
+
+    if (column < 2)                                         // Do nothing if there is less than 2 chars before
+        return;
+
+    var pc = document.charAt(line, column - 2);             // Do nothing if one of 'stop' chars:
+    if (pc == ' ' || pc == '(' || pc == '[' || pc == '{')
         return;
 
     // And finally make sure it is not a part of 'relation operator'
-    if (prev_char == '<')
+    if (pc == '<' && column >= 3)
     {
         // Make sure a char before is not a space or another '<'
-        var prev_prev_char = document.charAt(line, column - 3);
-        dbg("prev_prev_char: ",prev_prev_char);
-        if (prev_prev_char != ' ' && prev_prev_char != '<')
+        var ppc = document.charAt(line, column - 3);
+        if (ppc != ' ' && ppc != '<')
             return;
     }
 
     // Ok, if we r here, just insert a space ;)
-    document.editBegin();
     document.insertText(line, column - 1, " ");
-    document.editEnd();
 }
 
 /**
@@ -1743,6 +1898,123 @@ function tryKeywordsWithBrackets(cursor)
 }
 
 /**
+ * Add a character \c c to the given position if absent.
+ * Set new cursor position to the next one after the current.
+ */
+function addCharOrJumpOverIt(line, column, char, es)
+{
+    // Make sure there is a space at given position
+    dbg("addCharOrJumpOverIt: checking @Cursor("+line+","+column+"), c='"+document.charAt(line, column)+"'");
+    if (column < document.lineLength(line) || document.charAt(line, column) != char)
+    {
+        es.editBegin();
+        document.insertText(line, column, char);
+    }
+    view.setCursorPosition(line, column + 1);
+}
+
+/**
+ * Try to add space before, after some equal operators.
+ */
+function tryEqualOperator(cursor, es)
+{
+    var line = cursor.line;
+    var column = cursor.column;
+
+    // Do nothing for comments of string literals or lines shorter than 2
+    if (2 < column && isStringOrComment(line, column))
+        return cursor;
+
+    var c = document.charAt(line, column - 2);
+    dbg("tryEqualOperator: checking @Cursor("+line+","+(column - 2)+"), c='"+c+"'");
+
+    es = typeof es !== 'undefined' ? es : new EditSession();
+
+    switch (c)
+    {
+        // Two chars operators: !=, ==
+        case '*':
+        case '%':
+        case '/':
+        case '^':
+        case '|':
+        case '&':
+        case '!':
+        case '=':
+            addCharOrJumpOverIt(line, column, ' ', es);     // Make sure there is a space after it!
+            // Make sure there is a space before it!
+            if (column >= 3 && document.charAt(line, column - 3) != ' ')
+            {
+                es.editBegin();
+                document.insertText(line, column - 2, " ");
+            }
+            break;
+        case '(':                                           // some(=|) --> some() =|
+            cursor = tryJumpOverParenthesis(cursor, es);
+            tryEqualOperator(cursor, es);                   // Call self again to handle "some()=|"
+            break;
+        case ')':                                           // "some()=" or "(expr)=" --> ") =|"
+        case '}':                                           // It can be a ctor of some proxy object
+            // Add a space between closing bracket and just entered '='
+            es.editBegin();
+            document.insertText(line, column - 1, " ");
+            break;
+        case '<':
+        case '>':
+            // This could be '<<=', '>>=', '<=', '>='
+            // Make sure there is a space after it!
+            addCharOrJumpOverIt(line, column, ' ', es);     // Make sure there is a space after it!
+            // Check if this is one of >>= or <<=
+            if (column >= 3)
+            {
+                if (document.charAt(line, column - 3) == c)
+                {
+                    if (column >= 4 && document.charAt(line, column - 4) != ' ')
+                    {
+                        es.editBegin();
+                        document.insertText(line, column - 3, " ");
+                    }
+                }
+                else if (document.charAt(line, column - 3) != ' ')
+                {
+                    // <= or >=
+                    es.editBegin();
+                    document.insertText(line, column - 2, " ");
+                }
+            }
+            break;
+        case '[':                                           // This could be a part of lambda capture [=]
+            break;
+        case ' ':
+            // Lookup one more character towards left
+            if (column >= 3)
+            {
+                var pc = document.charAt(line, column - 3);
+                dbg("tryEqualOperator: checking @Cursor("+line+","+(column - 3)+"), pc='"+pc+"'");
+                switch (pc)
+                {
+                    case '=':                               // Stick the current '=' to the previous one
+                        es.editBegin();
+                        document.removeText(line, column - 1, line, column);
+                        document.insertText(line, column - 2, '=');
+                        break;
+                    default:
+                        break;
+                }
+            }
+            break;
+        default:
+            dbg("tryEqualOperator: default");
+            // '=' always surrounded by spaces!
+            addCharOrJumpOverIt(line, column, ' ', es);     // Make sure there is a space after it!
+            es.editBegin();
+            document.insertText(line, column - 1, " ");     // Make sure there is a space after it!
+            break;
+    }
+    es.editEnd();
+}
+
+/**
  * \brief Process one character
  *
  * NOTE Cursor positioned right after just entered character and has +1 in column.
@@ -1761,8 +2033,6 @@ function processChar(line, ch)
         dbg("ASSERTION FAILURE: line != cursor.line");
         return result;
     }
-
-    var column = cursor.column;
 
     switch (ch)
     {
@@ -1783,8 +2053,8 @@ function processChar(line, ch)
             break;
         case '?':
         case '|':
+        case '^':
         case '%':
-        case '/':                                           // TODO Useless! Code review needed.
         case '.':
             result = tryOperator(cursor, ch);               // Possible need to align some operator
             break;
@@ -1821,10 +2091,17 @@ function processChar(line, ch)
         case ' ':
             tryKeywordsWithBrackets(cursor);
             break;
-        case '[':
         case '=':
-            tryJumpOverParenthesis(cursor);
+            tryEqualOperator(cursor);
             break;
+        case '*':
+        case '&':
+        {
+            var es = new EditSession();
+            tryAddSpaceAfterClosedBracket(cursor, es);
+            es.editEnd();
+            break;
+        }
         default:
             break;                                          // Nothing to do...
     }
@@ -1909,10 +2186,10 @@ function findSingleLineCommentBlockEnd(line)
 }
 
 /**
- * Almost anything in a code is placed whithin some brackets.
+ * Almost anything in a code is placed withing some brackets.
  * So the ideas is simple:
  * \li find nearest open bracket of any kind
- * \li depending on its type and presence of leading delimiters (non identifier charscters)
+ * \li depending on its type and presence of leading delimiters (non identifier characters)
  *     add one or half TAB relative a first non-space char of a line w/ found bracket.
  *
  * But here is some details:
@@ -1952,15 +2229,15 @@ function alignInsideBraces(line)
     // Are we already inside of a multiline comment?
     // NOTE To be sure that we are not inside of #if0/#endif block,
     // lets check that current line starts w/ '*' also!
-    // NOTE Yep, it is expected (hardcoeded) that multiline comment has
-    // all lines strarted w/ a star symbol!
+    // NOTE Yep, it is expected (hardcoded) that multiline comment has
+    // all lines started w/ a star symbol!
     // TODO BUG Kate has a bug: when multiline code snippet gets inserted into
     // a multiline comment block (like Doxygen's @code/@endcode)
     // document.isComment() returns true *only& for the first line of it!
     // So some other way needs to be found to indent comments properly...
     // TODO DAMN... it doesn't work that way also... for snippets longer than 2 lines.
     // I suppose kate first insert text, then indent it, and after that highlight it
-    // So indenters based on a higlighting info will not work! BUT THEY DEFINITELY SHOULD!
+    // So indenters based on a highlighting info will not work! BUT THEY DEFINITELY SHOULD!
     else if (currentLineText.startsWith("*") && document.isComment(line, 0))
     {
         dbg("found middle of a multiline comment");
@@ -2170,7 +2447,7 @@ function indent(line, indentWidth, ch)
 }
 
 /**
- * \todo Better to use \c defStyleNum() instead of \c attributeName() and string comparision
+ * \todo Better to use \c defStyleNum() instead of \c attributeName() and string comparison
  */
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

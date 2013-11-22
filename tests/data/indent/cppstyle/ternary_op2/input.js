@@ -1,3 +1,3 @@
-v.setCursorPosition(0,10);
+v.setCursorPosition(0,9);
 v.type("?");
 v.type("ok");

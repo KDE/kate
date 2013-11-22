@@ -42,7 +42,7 @@ KateAppCommands::KateAppCommands()
 
     re_write.setPattern("w(a)?");
     re_close.setPattern("bd(elete)?|tabc(lose)?");
-    re_quit.setPattern("(w)?q?(a)?");
+    re_quit.setPattern("(w)?q(a|all)?(!)?");
     re_exit.setPattern("x(a)?");
     re_edit.setPattern("e(dit)?|tabe(dit)?|tabnew");
     re_new.setPattern("(v)?new");
@@ -68,7 +68,8 @@ const QStringList& KateAppCommands::cmds()
     static QStringList l;
 
     if (l.empty()) {
-        l << "q" << "qa" << "wq" << "wa" << "wqa" << "x" << "xa" << "new"
+        l << "q" << "qa" << "qall" << "q!" << "qa!" << "qall!"
+          << "wq" << "wa" << "wqa" << "x" << "xa" << "new"
           << "vnew" << "e" << "edit" << "enew" << "sp" << "split" << "vs"
           << "vsplit" << "only" << "tabe" << "tabedit" << "tabnew" << "bd"
           << "bdelete" << "tabc" << "tabclose";
@@ -98,15 +99,27 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         QTimer::singleShot(0, mainWin, SLOT(slotFileClose()));
     }
     else if (re_quit.exactMatch(command)) {
-        if (!re_quit.cap(2).isEmpty()) { // a[ll]
-            if (!re_quit.cap(1).isEmpty()) { // [w]rite
+        const bool save = !re_quit.cap(1).isEmpty(); // :[w]q
+        const bool allDocuments = !re_quit.cap(2).isEmpty(); // :q[all]
+        const bool doNotPromptForSave = !re_quit.cap(3).isEmpty(); // :q[!]
+
+        if (allDocuments) {
+            if (save)
                 KateDocManager::self()->saveAll();
+
+            if (doNotPromptForSave) {
+              foreach ( KTextEditor::Document *doc, KateDocManager::self()->documentList() )
+                if ( doc->isModified() )
+                  doc->setModified(false);
             }
+
             QTimer::singleShot(0, mainWin, SLOT(slotFileQuit()));
         } else {
-            if (!re_quit.cap(1).isEmpty() && view->document()->isModified()) { // [w]rite
+            if (save && view->document()->isModified())
                 view->document()->documentSave();
-            }
+
+            if (doNotPromptForSave)
+                view->document()->setModified(false);
 
             if (mainWin->viewManager()->count() > 1) {
               QTimer::singleShot(0, mainWin->viewManager(), SLOT(slotCloseCurrentViewSpace()));

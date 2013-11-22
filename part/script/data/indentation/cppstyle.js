@@ -1948,6 +1948,31 @@ function tryEqualOperator(cursor)
                 }
             }
             break;
+        case '+':
+        case '-':
+            addCharOrJumpOverIt(line, column, ' ');         // Make sure there is a space after it!
+            // Here is few things possible:
+            // some+=| --> some += |
+            // some++=| --> some++ = |
+            // some+++=| --> some++ += |
+            var space_offset = -1;
+            if (column >= 3)
+            {
+                if (document.charAt(line, column - 3) == c)
+                {
+                    if (column >= 4)
+                    {
+                        if (document.charAt(line, column - 4) == c)
+                            space_offset = 2;
+                        else
+                            space_offset = 1;
+                    }
+                }
+                else space_offset = 2;
+            }
+            if (space_offset != -1)
+                document.insertText(line, column - space_offset, " ");
+            break;
         default:
             dbg("tryEqualOperator: default");
             // '=' always surrounded by spaces!

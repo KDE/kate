@@ -65,7 +65,7 @@ KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
  , m_aboutData ("katepart", 0, ki18n("Kate Part"), katePartVersion().toLatin1(),
              ki18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-             ki18n( "(c) 2000-2009 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
+             ki18n( "(c) 2000-2013 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
  , m_componentData (&m_aboutData)
  , m_snippetGlobal (0) // lazy constructed
  , m_sessionConfig (KGlobal::config())

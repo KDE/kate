@@ -80,7 +80,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 
   KAboutData aboutData ("kate", 0, ki18n("Kate"), kateVersion,
                         ki18n( "Kate - Advanced Text Editor" ), KAboutData::License_LGPL_V2,
-                        ki18n( "(c) 2000-2005 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org");
+                        ki18n( "(c) 2000-2013 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org");
   aboutData.setOrganizationDomain("kde.org");
   aboutData.addAuthor (ki18n("Christoph Cullmann"), ki18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
   aboutData.addAuthor (ki18n("Anders Lund"), ki18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");

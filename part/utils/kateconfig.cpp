@@ -1223,6 +1223,7 @@ namespace
   const char * const KEY_SCROLL_BAR_MINI_MAP = "Scroll Bar Mini Map";
   const char * const KEY_SCROLL_BAR_MINI_MAP_ALL = "Scroll Bar Mini Map All";
   const char * const KEY_SCROLL_BAR_MINI_MAP_WIDTH = "Scroll Bar Mini Map Width";
+  const char * const KEY_SHOW_SCROLLBARS = "Show Scrollbars";
   const char * const KEY_ICON_BAR = "Icon Bar";
   const char * const KEY_FOLDING_BAR = "Folding Bar";
   const char * const KEY_LINE_MODIFICATION = "Line Modification";
@@ -1261,6 +1262,8 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
   setScrollBarMiniMapAll (config.readEntry( KEY_SCROLL_BAR_MINI_MAP_ALL,  false));
 
   setScrollBarMiniMapWidth (config.readEntry( KEY_SCROLL_BAR_MINI_MAP_WIDTH,  60));
+
+  setShowScrollbars (config.readEntry( KEY_SHOW_SCROLLBARS,  1));
 
   setIconBar (config.readEntry( KEY_ICON_BAR, false ));
 
@@ -1321,6 +1324,8 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( KEY_SCROLL_BAR_MINI_MAP_ALL, scrollBarMiniMapAll() );
 
   config.writeEntry( KEY_SCROLL_BAR_MINI_MAP_WIDTH, scrollBarMiniMapWidth() );
+
+  config.writeEntry( KEY_SHOW_SCROLLBARS, showScrollbars() );
 
   config.writeEntry( KEY_ICON_BAR, iconBar() );
 
@@ -1545,6 +1550,27 @@ void KateViewConfig::setScrollBarMiniMapWidth (int width)
 
   m_scrollBarMiniMapWidthSet = true;
   m_scrollBarMiniMapWidth = width;
+
+  configEnd ();
+}
+
+int KateViewConfig::showScrollbars() const
+{
+  if (m_showScrollbarsSet || isGlobal())
+    return m_showScrollbars;
+
+  return s_global->showScrollbars();
+}
+
+void KateViewConfig::setShowScrollbars(int mode)
+{
+  if (m_dynWordWrapIndicatorsSet && m_showScrollbars == mode)
+    return;
+
+  configStart ();
+
+  m_showScrollbarsSet = true;
+  m_showScrollbars = qBound(0, mode, 80);
 
   configEnd ();
 }

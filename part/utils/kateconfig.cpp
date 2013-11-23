@@ -1170,62 +1170,89 @@ KateViewConfig::~KateViewConfig ()
 {
 }
 
-
-// TODO Extract more keys to constants for maintainability
-static const char * const KEY_SEARCH_REPLACE_FLAGS = "Search/Replace Flags";
-static const char * const KEY_PATTERN_HISTORY = "Search Pattern History";
-static const char * const KEY_REPLACEMENT_HISTORY = "Replacement Text History";
-
+namespace
+{
+  // TODO Extract more keys to constants for maintainability
+  const char * const KEY_SEARCH_REPLACE_FLAGS = "Search/Replace Flags";
+  const char * const KEY_PATTERN_HISTORY = "Search Pattern History";
+  const char * const KEY_REPLACEMENT_HISTORY = "Replacement Text History";
+  const char * const KEY_DYN_WORD_WRAP = "Dynamic Word Wrap";
+  const char * const KEY_DYN_WORD_WRAP_INDICATORS = "Dynamic Word Wrap Indicators";
+  const char * const KEY_DYN_WORD_WRAP_ALIGN_INDENT = "Dynamic Word Wrap Align Indent";
+  const char * const KEY_LINE_NUMBERS = "Line Numbers";
+  const char * const KEY_SCROLL_BAR_MARKS = "Scroll Bar Marks";
+  const char * const KEY_SCROLL_BAR_MINI_MAP = "Scroll Bar Mini Map";
+  const char * const KEY_SCROLL_BAR_MINI_MAP_ALL = "Scroll Bar Mini Map All";
+  const char * const KEY_SCROLL_BAR_MINI_MAP_WIDTH = "Scroll Bar Mini Map Width";
+  const char * const KEY_ICON_BAR = "Icon Bar";
+  const char * const KEY_FOLDING_BAR = "Folding Bar";
+  const char * const KEY_LINE_MODIFICATION = "Line Modification";
+  const char * const KEY_BOOKMARK_SORT = "Bookmark Menu Sorting";
+  const char * const KEY_AUTO_CENTER_LINES = "Auto Center Lines";
+  const char * const KEY_MAX_HISTORY_SIZE = "Maximum Search History Size";
+  const char * const KEY_DEFAULT_MARK_TYPE = "Default Mark Type";
+  const char * const KEY_ALLOW_MARK_MENU = "Allow Mark Menu";
+  const char * const KEY_PERSISTENT_SELECTION = "Persistent Selection";
+  const char * const KEY_VI_INPUT_MODE = "Vi Input Mode";
+  const char * const KEY_VI_INPUT_MODE_STEAL_KEYS = "Vi Input Mode Steal Keys";
+  const char * const KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR = "Vi Input Mode Emulate Command Bar";
+  const char * const KEY_AUTOMATIC_COMPLETION_INVOCATION = "Auto Completion";
+  const char * const KEY_WORD_COMPLETION = "Word Completion";
+  const char * const KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH = "Word Completion Minimal Word Length";
+  const char * const KEY_WORD_COMPLETION_REMOVE_TAIL = "Word Completion Remove Tail";
+  const char * const KEY_SMART_COPY_CUT = "Smart Copy Cut";
+  const char * const KEY_SCROLL_PAST_END = "Scroll Past End";
+}
 
 void KateViewConfig::readConfig ( const KConfigGroup &config)
 {
   configStart ();
 
   // default off again, until this is usable for large size documents
-  setDynWordWrap (config.readEntry( "Dynamic Word Wrap", false ));
-  setDynWordWrapIndicators (config.readEntry( "Dynamic Word Wrap Indicators", 1 ));
-  setDynWordWrapAlignIndent (config.readEntry( "Dynamic Word Wrap Align Indent", 80 ));
+  setDynWordWrap (config.readEntry( KEY_DYN_WORD_WRAP, false ));
+  setDynWordWrapIndicators (config.readEntry( KEY_DYN_WORD_WRAP_INDICATORS, 1 ));
+  setDynWordWrapAlignIndent (config.readEntry( KEY_DYN_WORD_WRAP_ALIGN_INDENT, 80 ));
 
-  setLineNumbers (config.readEntry( "Line Numbers",  false));
+  setLineNumbers (config.readEntry( KEY_LINE_NUMBERS,  false));
 
-  setScrollBarMarks (config.readEntry( "Scroll Bar Marks",  false));
+  setScrollBarMarks (config.readEntry( KEY_SCROLL_BAR_MARKS,  false));
 
-  setScrollBarMiniMap (config.readEntry( "Scroll Bar Mini Map",  false));
+  setScrollBarMiniMap (config.readEntry( KEY_SCROLL_BAR_MINI_MAP,  false));
 
-  setScrollBarMiniMapAll (config.readEntry( "Scroll Bar Mini Map All",  false));
+  setScrollBarMiniMapAll (config.readEntry( KEY_SCROLL_BAR_MINI_MAP_ALL,  false));
 
-  setScrollBarMiniMapWidth (config.readEntry( "Scroll Bar Mini Map Width",  60));
+  setScrollBarMiniMapWidth (config.readEntry( KEY_SCROLL_BAR_MINI_MAP_WIDTH,  60));
 
-  setIconBar (config.readEntry( "Icon Bar", false ));
+  setIconBar (config.readEntry( KEY_ICON_BAR, false ));
 
-  setFoldingBar (config.readEntry( "Folding Bar", true));
+  setFoldingBar (config.readEntry( KEY_FOLDING_BAR, true));
 
-  setLineModification (config.readEntry( "Line Modification", false));
+  setLineModification (config.readEntry( KEY_LINE_MODIFICATION, false));
 
-  setBookmarkSort (config.readEntry( "Bookmark Menu Sorting", 0 ));
+  setBookmarkSort (config.readEntry( KEY_BOOKMARK_SORT, 0 ));
 
-  setAutoCenterLines (config.readEntry( "Auto Center Lines", 0 ));
+  setAutoCenterLines (config.readEntry( KEY_AUTO_CENTER_LINES, 0 ));
 
   setSearchFlags(config.readEntry(KEY_SEARCH_REPLACE_FLAGS,
       IncFromCursor|PowerMatchCase|PowerModePlainText));
 
-  m_maxHistorySize = config.readEntry("Maximum Search History Size", 100);
+  m_maxHistorySize = config.readEntry(KEY_MAX_HISTORY_SIZE, 100);
 
-  setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
-  setAllowMarkMenu (config.readEntry( "Allow Mark Menu", true ));
+  setDefaultMarkType (config.readEntry( KEY_DEFAULT_MARK_TYPE, int(KTextEditor::MarkInterface::markType01) ));
+  setAllowMarkMenu (config.readEntry( KEY_ALLOW_MARK_MENU, true ));
 
-  setPersistentSelection (config.readEntry( "Persistent Selection", false ));
+  setPersistentSelection (config.readEntry( KEY_PERSISTENT_SELECTION, false ));
 
-  setViInputMode (config.readEntry( "Vi Input Mode", false));
-  setViInputModeStealKeys (config.readEntry( "Vi Input Mode Steal Keys", false));
-  setViInputModeEmulateCommandBar (config.readEntry( "Vi Input Mode Emulate Command Bar", false));
+  setViInputMode (config.readEntry( KEY_VI_INPUT_MODE, false));
+  setViInputModeStealKeys (config.readEntry( KEY_VI_INPUT_MODE_STEAL_KEYS, false));
+  setViInputModeEmulateCommandBar (config.readEntry( KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR, false));
 
-  setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
-  setWordCompletion (config.readEntry( "Word Completion", true ));
-  setWordCompletionMinimalWordLength (config.readEntry( "Word Completion Minimal Word Length", 3 ));
-  setWordCompletionRemoveTail (config.readEntry( "Word Completion Remove Tail", true ));
-  setSmartCopyCut (config.readEntry( "Smart Copy Cut", false ));
-  setScrollPastEnd (config.readEntry( "Scroll Past End", false ));
+  setAutomaticCompletionInvocation (config.readEntry( KEY_AUTOMATIC_COMPLETION_INVOCATION, true ));
+  setWordCompletion (config.readEntry( KEY_WORD_COMPLETION, true ));
+  setWordCompletionMinimalWordLength (config.readEntry( KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH, 3 ));
+  setWordCompletionRemoveTail (config.readEntry( KEY_WORD_COMPLETION_REMOVE_TAIL, true ));
+  setSmartCopyCut (config.readEntry( KEY_SMART_COPY_CUT, false ));
+  setScrollPastEnd (config.readEntry( KEY_SCROLL_PAST_END, false ));
 
   if (isGlobal()) {
     // Read search pattern history
@@ -1242,53 +1269,53 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
 void KateViewConfig::writeConfig (KConfigGroup &config)
 {
-  config.writeEntry( "Dynamic Word Wrap", dynWordWrap() );
-  config.writeEntry( "Dynamic Word Wrap Indicators", dynWordWrapIndicators() );
-  config.writeEntry( "Dynamic Word Wrap Align Indent", dynWordWrapAlignIndent() );
+  config.writeEntry( KEY_DYN_WORD_WRAP, dynWordWrap() );
+  config.writeEntry( KEY_DYN_WORD_WRAP_INDICATORS, dynWordWrapIndicators() );
+  config.writeEntry( KEY_DYN_WORD_WRAP_ALIGN_INDENT, dynWordWrapAlignIndent() );
 
-  config.writeEntry( "Line Numbers", lineNumbers() );
+  config.writeEntry( KEY_LINE_NUMBERS, lineNumbers() );
 
-  config.writeEntry( "Scroll Bar Marks", scrollBarMarks() );
+  config.writeEntry( KEY_SCROLL_BAR_MARKS, scrollBarMarks() );
 
-  config.writeEntry( "Scroll Bar Mini Map", scrollBarMiniMap() );
+  config.writeEntry( KEY_SCROLL_BAR_MINI_MAP, scrollBarMiniMap() );
 
-  config.writeEntry( "Scroll Bar Mini Map All", scrollBarMiniMapAll() );
+  config.writeEntry( KEY_SCROLL_BAR_MINI_MAP_ALL, scrollBarMiniMapAll() );
 
-  config.writeEntry( "Scroll Bar Mini Map Width", scrollBarMiniMapWidth() );
+  config.writeEntry( KEY_SCROLL_BAR_MINI_MAP_WIDTH, scrollBarMiniMapWidth() );
 
-  config.writeEntry( "Icon Bar", iconBar() );
+  config.writeEntry( KEY_ICON_BAR, iconBar() );
 
-  config.writeEntry( "Folding Bar", foldingBar() );
+  config.writeEntry( KEY_FOLDING_BAR, foldingBar() );
 
-  config.writeEntry( "Line Modification", lineModification() );
+  config.writeEntry( KEY_LINE_MODIFICATION, lineModification() );
 
-  config.writeEntry( "Bookmark Menu Sorting", bookmarkSort() );
+  config.writeEntry( KEY_BOOKMARK_SORT, bookmarkSort() );
 
-  config.writeEntry( "Auto Center Lines", autoCenterLines() );
+  config.writeEntry( KEY_AUTO_CENTER_LINES, autoCenterLines() );
 
   config.writeEntry(KEY_SEARCH_REPLACE_FLAGS, int(searchFlags()));
 
-  config.writeEntry("Maximum Search History Size", m_maxHistorySize);
+  config.writeEntry(KEY_MAX_HISTORY_SIZE, m_maxHistorySize);
 
-  config.writeEntry("Default Mark Type", defaultMarkType());
+  config.writeEntry(KEY_DEFAULT_MARK_TYPE, defaultMarkType());
 
-  config.writeEntry("Allow Mark Menu", allowMarkMenu());
+  config.writeEntry(KEY_ALLOW_MARK_MENU, allowMarkMenu());
 
-  config.writeEntry("Persistent Selection", persistentSelection());
+  config.writeEntry(KEY_PERSISTENT_SELECTION, persistentSelection());
 
-  config.writeEntry( "Auto Completion", automaticCompletionInvocation());
-  config.writeEntry( "Word Completion", wordCompletion());
-  config.writeEntry( "Word Completion Minimal Word Length", wordCompletionMinimalWordLength());
-  config.writeEntry( "Word Completion Remove Tail", wordCompletionRemoveTail());
+  config.writeEntry( KEY_AUTOMATIC_COMPLETION_INVOCATION, automaticCompletionInvocation());
+  config.writeEntry( KEY_WORD_COMPLETION, wordCompletion());
+  config.writeEntry( KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH, wordCompletionMinimalWordLength());
+  config.writeEntry( KEY_WORD_COMPLETION_REMOVE_TAIL, wordCompletionRemoveTail());
 
-  config.writeEntry( "Smart Copy Cut", smartCopyCut() );
-  config.writeEntry( "Scroll Past End" , scrollPastEnd() );
+  config.writeEntry( KEY_SMART_COPY_CUT, smartCopyCut() );
+  config.writeEntry( KEY_SCROLL_PAST_END , scrollPastEnd() );
 
-  config.writeEntry( "Vi Input Mode", viInputMode());
+  config.writeEntry( KEY_VI_INPUT_MODE, viInputMode());
 
-  config.writeEntry( "Vi Input Mode Steal Keys", viInputModeStealKeys());
+  config.writeEntry( KEY_VI_INPUT_MODE_STEAL_KEYS, viInputModeStealKeys());
 
-  config.writeEntry( "Vi Input Mode Emulate Command Bar", viInputModeEmulateCommandBar());
+  config.writeEntry( KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR, viInputModeEmulateCommandBar());
 
 
   if (isGlobal()) {

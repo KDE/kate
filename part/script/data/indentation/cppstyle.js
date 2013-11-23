@@ -1320,8 +1320,10 @@ function tryOperator(cursor, ch)
     if (isStringOrComment(line, column))
         return result;                                      // Do nothing for comments and strings
 
-    var halfTabNeeded = document.firstChar(line) == ch
+    var isFirstChar = document.firstChar(line) == ch
       && document.firstColumn(line) == (column - 1)
+      ;
+    var halfTabNeeded = isFirstChar
       && document.line(line - 1).search(/^\s*[A-Za-z_][A-Za-z0-9_]*/) != -1
       ;
     dbg("tryOperator: halfTabNeeded=",halfTabNeeded);
@@ -1330,6 +1332,7 @@ function tryOperator(cursor, ch)
         // check if we r at function call or array index
         var insideBraces = document.anchor(line, document.firstColumn(line), '(').isValid()
           || document.anchor(line, document.firstColumn(line), '[').isValid()
+          || document.anchor(line, document.firstColumn(line), '{').isValid()
           ;
         dbg("tryOperator: insideBraces=",insideBraces);
         result = document.firstColumn(line - 1) + (insideBraces && ch != '.' ? -2 : 2);
@@ -1373,6 +1376,10 @@ function tryOperator(cursor, ch)
             addCharOrJumpOverIt(line, column + space_offset, ' ');
     }
     document.editEnd();
+    if (result != -2)
+    {
+        dbg("tryOperator result="+result);
+    }
     return result;
 }
 
@@ -1851,6 +1858,7 @@ function tryExclamation(cursor)
  *
  * - add <tt>'()'</tt> pair after some keywords like: \c if, \c while, \c for, \c switch
  * - add <tt>';'</tt> if space pressed right after \c return, and no text after it
+ * - if space pressed inside of angle brackets 'some<|>' transform into 'some < |'
  */
 function tryKeywordsWithBrackets(cursor)
 {
@@ -1864,6 +1872,7 @@ function tryKeywordsWithBrackets(cursor)
       || text == "switch "
       || text == "catch "
       ;
+    document.editBegin();
     if (need_brackets)
     {
         document.insertText(cursor, "()");
@@ -1874,6 +1883,12 @@ function tryKeywordsWithBrackets(cursor)
         document.insertText(cursor, ";");
         view.setCursorPosition(line, column);
     }
+    else if (document.charAt(line, column - 2) == '<' && document.charAt(cursor) == '>')
+    {
+        document.removeText(line, column, line, column + 1);
+        document.insertText(line, column - 2, " ");
+    }
+    document.editEnd();
 }
 
 /**
@@ -1931,6 +1946,8 @@ function tryEqualOperator(cursor)
             document.insertText(line, column - 1, " ");
             break;
         case '<':
+            if (document.charAt(cursor) == '>')
+                document.removeText(line, column, line, column + 1);
         case '>':
             // This could be '<<=', '>>=', '<=', '>='
             // Make sure there is a space after it!
@@ -1999,7 +2016,7 @@ function tryEqualOperator(cursor)
             dbg("tryEqualOperator: default");
             // '=' always surrounded by spaces!
             addCharOrJumpOverIt(line, column, ' ');         // Make sure there is a space after it!
-            document.insertText(line, column - 1, " ");     // Make sure there is a space after it!
+            document.insertText(line, column - 1, " ");     // Make sure there is a space before it!
             break;
     }
     document.editEnd();

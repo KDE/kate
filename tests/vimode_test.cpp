@@ -1320,8 +1320,8 @@ void ViModeTest::NormalModeMotionsTest() {
 
   DoTest("QList<QString>","wwldi>","QList<>");
   DoTest("QList<QString>","wwlda<","QList");
-  DoTest("<head>\n<title>Title</title>\n</head>",
-         "di<jci>",
+  DoTest("<>\n<title>Title</title>\n</head>",
+         "di<jci>\\ctrl-c",
          "<>\n<>Title</title>\n</head>");
 
   DoTest( "foo bar baz", "wldiw", "foo  baz");
@@ -1331,7 +1331,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "foo ( \n bar\n)baz","jdi(", "foo ()baz");
   DoTest( "foo ( \n bar\n)baz","jda(", "foo baz");
   DoTest( "(foo(bar)baz)", "ldi)", "()");
-  DoTest( "(foo(bar)baz)", "lca(", "");
+  DoTest( "(foo(bar)baz)", "lca(\\ctrl-c", "");
   DoTest( "( foo ( bar ) )baz", "di(", "()baz" );
   DoTest( "( foo ( bar ) )baz", "da(", "baz" );
   DoTest( "[foo [ bar] [(a)b [c]d ]]","$hda]", "[foo [ bar] ]");
@@ -1342,12 +1342,12 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "hi!))))}}]]","di]di}da)di)da]", "hi!))))}}]]" );
 
   DoTest("foo \"bar\" baz", "4ldi\"", "foo \"\" baz");
-  DoTest("foo \"bar\" baz", "8lca\"", "foo  baz");
+  DoTest("foo \"bar\" baz", "8lca\"\\ctrl-c", "foo  baz");
 
-  DoTest("foo 'bar' baz", "4lca'", "foo  baz");
+  DoTest("foo 'bar' baz", "4lca'\\ctrl-c", "foo  baz");
   DoTest("foo 'bar' baz", "8ldi'", "foo '' baz");
 
-  DoTest("foo `bar` baz", "4lca`", "foo  baz");
+  DoTest("foo `bar` baz", "4lca`\\ctrl-c", "foo  baz");
   DoTest("foo `bar` baz", "8ldi`", "foo `` baz");
 
   DoTest("()","di(","()");

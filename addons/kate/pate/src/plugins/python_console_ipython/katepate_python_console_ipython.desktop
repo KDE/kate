@@ -45,4 +45,4 @@ Comment[uk]=Інтерактивна консоль для роботи з kate 
 Comment[x-test]=xxInteractive console for hacking kate and doing sciencexx
 Comment[zh_TW]=互動式主控台，深究 Kate 用
 X-Python-2-Compatible=true
-X-Python-Dependencies=IPython|ipython>=0.13.1,pygments|Pygments>=1.6,zmq|pyzmq>=13.1.0
+X-Python-Dependencies=IPython(>=0.13.1)

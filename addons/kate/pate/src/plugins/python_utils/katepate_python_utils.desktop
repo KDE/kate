@@ -29,4 +29,4 @@ Comment[sv]=Tolkningskontroll, PEP8-kontroll, Pyflakes-kontroll, snuttar
 Comment[uk]=Перевірка обробки, перевірка PEP8, перевірка Pyflakes, фрагменти
 Comment[x-test]=xxParse Checker, PEP8 Checker, Pyflakes Checker, Snippetsxx
 X-Python-2-Compatible=true
-X-Python-Dependencies=pep8|>=1.4.2,pyflakes|>=0.7.3
+X-Python-Dependencies=pep8(>=1.4.2),pyflakes(>=0.7.3)

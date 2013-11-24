@@ -37,4 +37,4 @@ Comment[sv]=Baserat på Jedi-biblioteket
 Comment[uk]=Засновано на бібліотеці Jedi
 Comment[x-test]=xxBased on the Jedi libraryxx
 X-Python-2-Compatible=true
-X-Python-Dependencies=jedi|jedi>=0.5b5
+X-Python-Dependencies=jedi(>=0.7.0)

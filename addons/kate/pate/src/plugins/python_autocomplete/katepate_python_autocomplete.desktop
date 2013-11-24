@@ -46,4 +46,4 @@ Comment[x-test]=xxBeta, only for Python 2xx
 Comment[zh_TW]=Beta 版，只適用 Python 2
 X-Python-2-Compatible=true
 X-Python-2-Only=true
-X-Python-2-Dependencies=pysmell|>=0.7.3,pyplete|>=0.0.5
+X-Python-2-Dependencies=pysmell(>=0.7.3),pyplete(>=0.0.5)

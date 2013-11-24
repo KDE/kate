@@ -451,7 +451,7 @@ bool Pate::Engine::isServiceUsable(const KService::Ptr& service)
     {
         kDebug() << service->name() << "is incompatible w/ embedded Python version";
         // Do not even show incompatible modules in the manager...
-        continue;
+        return false;
     }
 #endif
     // ATTENTION If some module is Python 2 only, it must be marked w/

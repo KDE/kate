@@ -351,16 +351,18 @@ void ViModeTest::BeginTest(const QString& original_text) {
   m_firstBatchOfKeypressesForTest = true;
 }
 
-void ViModeTest::FinishTest(const QString& expected_text, ViModeTest::Expectation expectation, const QString& failureReason)
+void ViModeTest::FinishTest_(int line, const QString& expected_text, ViModeTest::Expectation expectation, const QString& failureReason)
 {
   if (expectation == ShouldFail)
   {
-    QEXPECT_FAIL("", failureReason.toLocal8Bit(), Continue);
+    if (!QTest::qExpectFail("", failureReason.toLocal8Bit(), QTest::Continue, __FILE__, line)) return;
     qDebug() << "Actual text:\n\t" << kate_document->text() << "\nShould be (for this test to pass):\n\t" << expected_text;
   }
-  QCOMPARE(kate_document->text(), expected_text);
+  if (!QTest::qCompare(kate_document->text(), expected_text, "kate_document->text()", "expected_text", __FILE__, line)) return;
   Q_ASSERT(!emulatedCommandBarTextEdit()->isVisible() && "Make sure you close the command bar before the end of a test!");
 }
+
+#define FinishTest(...) FinishTest_( __LINE__, __VA_ARGS__ )
 
 
 void ViModeTest::TestPressKey(QString str) {
@@ -496,15 +498,16 @@ void ViModeTest::TestPressKey(QString str) {
  * For example:
  *     DoTest("line 1\nline 2\n","ddu\\ctrl-r","line 2\n");
  */
-void ViModeTest::DoTest(QString original_text,
+void ViModeTest::DoTest_(int line, QString original_text,
     QString command,
     QString expected_text, Expectation expectation, const QString& failureReason) {
 
   BeginTest(original_text);
   TestPressKey(command);
-  FinishTest(expected_text, expectation, failureReason);
+  FinishTest_(line, expected_text, expectation, failureReason);
 }
 
+#define DoTest(...) DoTest_(__LINE__, __VA_ARGS__)
 
 
 void ViModeTest::VisualModeTests() {

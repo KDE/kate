@@ -130,6 +130,9 @@ bool KateViReplaceMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_Delete:
       m_view->keyDelete();
       return true;
+    case Qt::Key_Insert:
+      startInsertMode();
+      return true;
     default:
       return false;
       break;

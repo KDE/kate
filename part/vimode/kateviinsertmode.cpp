@@ -316,6 +316,9 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_Down:
       m_view->down();
       return true;
+    case Qt::Key_Insert:
+      startReplaceMode();
+      return true;
     case Qt::Key_Delete:
       m_view->keyDelete();
       return true;

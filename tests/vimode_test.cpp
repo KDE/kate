@@ -295,6 +295,7 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("down", Qt::Key_Down);
   m_codesToSpecialKeys.insert("home", Qt::Key_Home);
   m_codesToSpecialKeys.insert("delete", Qt::Key_Delete);
+  m_codesToSpecialKeys.insert("insert", Qt::Key_Insert);
 
   connect(kate_document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
           this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
@@ -823,6 +824,9 @@ void ViModeTest::InsertModeTests() {
   // Enter/ Return.
   DoTest("", "ifoo\\enterbar", "foo\nbar");
   DoTest("", "ifoo\\returnbar", "foo\nbar");
+
+  // Insert key
+  DoTest("", "\\insertfoo", "foo");
 
   // Test that our test driver can handle newlines during insert mode :)
   DoTest("", "ia\\returnb", "a\nb");

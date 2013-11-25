@@ -3292,6 +3292,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("a", commandEnterInsertModeAppend, IS_CHANGE );
   ADDCMD("A", commandEnterInsertModeAppendEOL, IS_CHANGE );
   ADDCMD("i", commandEnterInsertMode, IS_CHANGE );
+  ADDCMD("<insert>", commandEnterInsertMode, IS_CHANGE );
   ADDCMD("I", commandEnterInsertModeBeforeFirstNonBlankInLine, IS_CHANGE );
   ADDCMD("gi", commandEnterInsertModeLast, IS_CHANGE );
   ADDCMD("v", commandEnterVisualMode, 0 );

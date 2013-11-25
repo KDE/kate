@@ -7138,7 +7138,8 @@ void ViModeTest::ensureKateViewVisible()
     kate_view->show();
     QApplication::setActiveWindow(mainWindow);
     kate_view->setFocus();
-    while (QApplication::hasPendingEvents())
+    const QDateTime startTime = QDateTime::currentDateTime();
+    while (startTime.msecsTo(QDateTime::currentDateTime()) < 3000 && !mainWindow->isActiveWindow())
     {
       QApplication::processEvents();
     }

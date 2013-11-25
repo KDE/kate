@@ -25,6 +25,7 @@
 #include <qtest_kde.h>
 #include <kateviinputmodemanager.h>
 #include <katedocument.h>
+#include <kateundomanager.h>
 #include <kateview.h>
 #include "kateconfig.h"
 #include <kateglobal.h>
@@ -349,6 +350,8 @@ void ViModeTest::BeginTest(const QString& original_text) {
   vi_input_mode_manager->viEnterNormalMode();
   vi_input_mode_manager = kate_view->resetViInputModeManager();
   kate_document->setText(original_text);
+  kate_document->undoManager()->clearUndo();
+  kate_document->undoManager()->clearRedo();
   kate_view->setCursorPosition(Cursor(0,0));
   m_firstBatchOfKeypressesForTest = true;
 }
@@ -1559,6 +1562,13 @@ void ViModeTest::NormalModeCommandsTest() {
 
   DoTest("fop\nbar", "yiwjlgpx", "fop\nbafop");
   DoTest("fop\nbar", "yiwjlgPx", "fop\nbfopr");
+
+  DoTest("repeat\nindent", "2>>2>>", "    repeat\n    indent");
+
+  // make sure we record correct history when indenting
+  DoTest("repeat\nindent and undo", "2>>2>>2>>uu", "  repeat\n  indent and undo");
+  DoTest("repeat\nunindent and undo", "2>>2>>2<<u", "    repeat\n    unindent and undo");
+
   // Yank and paste op\ngid into bar i.e. text spanning lines, but not linewise.
   DoTest("fop\ngid\nbar", "lvjyjjgpx", "fop\ngid\nbaop\ngi");
   DoTest("fop\ngid\nbar", "lvjyjjgPx", "fop\ngid\nbop\ngir");
@@ -2113,6 +2123,17 @@ void ViModeTest::CommandModeTests() {
     // Testing ">"
     DoTest("foo","\\:>\\","  foo");
     DoTest("   foo","\\:<\\","  foo");
+
+    DoTest("foo\nbar","\\:2>\\","foo\n  bar");
+    DoTest("   foo\nbaz","\\:1<\\","  foo\nbaz");
+
+    DoTest("foo\nundo","\\:2>\\u","foo\nundo");
+    DoTest("  foo\nundo","\\:1<\\u","  foo\nundo");
+
+    DoTest("indent\nmultiline\ntext", "\\:1,2>\\", "  indent\n  multiline\ntext");
+    DoTest("indent\nmultiline\n+undo", "\\:1,2>\\:1,2>\\:1,2>\\u", "    indent\n    multiline\n+undo");
+    // doesn't test correctly, why?
+    // DoTest("indent\nmultiline\n+undo", "\\:1,2>\\:1,2<\\u", "  indent\n  multiline\n+undo");
 
     // Testing ":c", ":change"
     DoTest("foo\nbar\nbaz","\\:2change\\","foo\n\nbaz");

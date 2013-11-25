@@ -1505,9 +1505,7 @@ bool KateViNormalMode::commandIndentLine()
 {
     Cursor c( m_view->cursorPosition() );
 
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-        doc()->indent( KTextEditor::Range( c.line()+i, 0, c.line()+i, 0), 1 );
-    }
+    doc()->indent( KTextEditor::Range( c.line(), 0, c.line() + getCount(), 0), 1 );
 
     return true;
 }
@@ -1516,9 +1514,7 @@ bool KateViNormalMode::commandUnindentLine()
 {
     Cursor c( m_view->cursorPosition() );
 
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-        doc()->indent( KTextEditor::Range( c.line()+i, 0, c.line()+i, 0), -1 );
-    }
+    doc()->indent( KTextEditor::Range( c.line(), 0, c.line() + getCount(), 0), -1 );
 
     return true;
 }

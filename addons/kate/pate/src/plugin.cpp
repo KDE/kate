@@ -62,9 +62,9 @@ const KAboutData& getAboutData()
     static KAboutData about = KAboutData(
         "katepateplugin"
       , "pate"
-      , ki18n("Pate Plugin")                                // BUG "Pâté" in a title bar looks incorrectly
-      , "1.0"
       , ki18n("Pâté host for Python plugins")
+      , "2.0"
+      , ki18n("Python interpreter settings")
       , KAboutData::License_LGPL_V3
       );
     return about;
@@ -346,32 +346,28 @@ void Pate::PluginView::aboutPate()
     KAboutData about = getAboutData();
     // Set other text to show some info about Python used
     // NOTE Separate scope around Python() instance
-    QString pythonInfoText = QString(
-        "Embedded Python version %1<br/>"
-        "Python paths: <pre><code>"
-      ).arg(PY_VERSION)
-      ;
+    QStringList pythonPaths;
+    Python py = Python();
+    if (PyObject* sysPath = py.itemString("path", "sys"))
     {
-        Python py = Python();
-        if (PyObject* sysPath = py.itemString("path", "sys"))
+        Py_ssize_t len = PyList_Size(sysPath);
+        for (Py_ssize_t i = 0; i < len; i++)
         {
-            Py_ssize_t len = PyList_Size(sysPath);
-            for (Py_ssize_t i = 0; i < len; i++)
-            {
-                PyObject* path = PyList_GetItem(sysPath, i);
-                pythonInfoText += Python::unicode(path) + '\n';
-            }
+            PyObject* path = PyList_GetItem(sysPath, i);
+            pythonPaths += Python::unicode(path);
         }
     }
-    pythonInfoText += "</code></pre>";
     /// \todo Show info about loaded modules? Problems?
 
     /// \attention It seems about dialog is not customizable much...
     /// Particularly it would be nice to add a custom tab...
     /// So \b dirty hack is here...
-    about.setOtherText(ki18n(pythonInfoText.toUtf8().constData()));
+    about.setOtherText(ki18nc("Python variables, no translation needed",
+                                "sys.version = %1<br/>sys.path = %2").
+                        subs(PY_VERSION).subs(pythonPaths.join(",\n&nbsp;&nbsp;&nbsp;&nbsp;")));
 
     /// \todo Add logo, authors and everything...
+    about.setProgramIconName("python");
     KAboutApplicationDialog ad(&about, KAboutApplicationDialog::HideKdeVersion);
     ad.exec();
 }

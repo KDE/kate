@@ -61,7 +61,7 @@ const KAboutData& getAboutData()
 {
     static KAboutData about = KAboutData(
         "katepateplugin"
-      , "katepateplugin"
+      , "pate"
       , ki18n("Pate Plugin")                                // BUG "Pâté" in a title bar looks incorrectly
       , "1.0"
       , ki18n("Pâté host for Python plugins")
@@ -312,7 +312,7 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
   , m_plugin(plugin)
 {
     KAction* about = actionCollection()->addAction("about_pate");
-    about->setText("About Pate");
+    about->setText(i18n("About Pate"));
     about->setIcon(KIcon("python"));
     connect(about, SIGNAL(triggered(bool)), this, SLOT(aboutPate()));
 

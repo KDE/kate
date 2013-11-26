@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=gid
 Name=GNU idutils plugin
+Name[cs]=Modul GNU idutils
 Name[de]=„GNU Idutils“-Modul
 Name[gl]=Complemento das GNU idutils
 Name[ia]=Plug-in de GNU idutils

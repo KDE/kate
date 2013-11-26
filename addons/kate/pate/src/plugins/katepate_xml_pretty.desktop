@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=xml_pretty
 Name=XML Tools
+Name[cs]=Nástroje XML
 Name[de]=XML-Werkzeuge
 Name[gl]=Utilidades XML
 Name[ia]=Instrumentos de XML

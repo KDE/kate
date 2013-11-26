@@ -3,6 +3,7 @@ Type=Service
 ServiceTypes=Kate/PythonPlugin
 X-KDE-Library=python_utils
 Name=Python Utilities
+Name[cs]=Nástroje Pythonu
 Name[de]=Python-Werkzeuge
 Name[gl]=Utilidades de Python
 Name[ia]=Utilitates de Python

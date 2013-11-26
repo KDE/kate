@@ -1522,6 +1522,14 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fOo BAr", "lf~fZ", "fOo BAr");
   DoTest("{\nfOo BAr\n}", "jg~iB", "{\nFoO baR\n}");
 
+  // Testing "g~~"
+  DoTest("", "g~~", "");
+  DoTest("\nfOo\nbAr", "g~~", "\nfOo\nbAr");
+  DoTest("fOo\nbAr\nBaz", "g~~", "FoO\nbAr\nBaz");
+  DoTest("fOo\nbAr\nBaz\nfAR", "j2g~~", "fOo\nBaR\nbAZ\nfAR");
+  DoTest("fOo\nbAr\nBaz", "jlg~~rX", "fOo\nXaR\nBaz");
+  DoTest("fOo\nbAr\nBaz\nfAR", "jl2g~~rX", "fOo\nBXR\nbAZ\nfAR");
+
   // Testing "r".
   DoTest("foobar", "l2r.", "f..bar");
   DoTest("foobar", "l5r.", "f.....");

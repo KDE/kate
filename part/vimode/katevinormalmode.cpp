@@ -1002,6 +1002,33 @@ bool KateViNormalMode::commandChangeCaseRange()
   return true;
 }
 
+bool KateViNormalMode::commandChangeCaseLine()
+{
+  Cursor c( m_view->cursorPosition() );
+
+  if (doc()->lineLength(c.line()) == 0)
+  {
+    // Nothing to do.
+    return true;
+  }
+
+  m_commandRange.startLine = c.line();
+  m_commandRange.endLine = c.line() + getCount() - 1;
+  m_commandRange.startColumn = 0;
+  m_commandRange.endColumn = doc()->lineLength( c.line() )-1; // -1 is for excluding '\0'
+
+  if ( !commandChangeCaseRange() )
+    return false;
+
+  Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
+  if (getCount() > 1)
+    updateCursor(c);
+  else
+    updateCursor(start);
+  return true;
+
+}
+
 bool KateViNormalMode::commandOpenNewLineUnder()
 {
   doc()->setUndoMergeAllEdits(true);
@@ -3346,6 +3373,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("=", commandAlignLines, IS_CHANGE | NEEDS_MOTION);
   ADDCMD("~", commandChangeCase, IS_CHANGE );
   ADDCMD("g~", commandChangeCaseRange, IS_CHANGE | NEEDS_MOTION );
+  ADDCMD("g~~", commandChangeCaseLine, IS_CHANGE );
   ADDCMD("<c-a>", commandAddToNumber, IS_CHANGE );
   ADDCMD("<c-x>", commandSubtractFromNumber, IS_CHANGE );
   ADDCMD("<c-o>", commandGoToPrevJump, 0);

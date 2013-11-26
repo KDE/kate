@@ -333,7 +333,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
               kDebug( 13070 ) << "No command given, going to position ("
                 << r.endLine << "," << r.endColumn << ")";
               goToPos( r );
-              m_viInputModeManager->clearCurrentChangeLog();
+
+              // in the case of VisualMode we need to remember the motion commands as well.
+              if (!m_viInputModeManager->isAnyVisualMode())
+                m_viInputModeManager->clearCurrentChangeLog();
             } else {
               kDebug( 13070 ) << "Invalid position: (" << r.endLine << "," << r.endColumn << ")";
             }
@@ -514,6 +517,8 @@ void KateViNormalMode::goToPos( const KateViRange &r )
 
 void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 {
+  const ViMode originalViMode = m_viInputModeManager->getCurrentViMode();
+
   cmd->execute();
 
   // if normal mode was started by using Ctrl-O in insert mode,
@@ -530,7 +535,11 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
       m_viInputModeManager->storeLastChangeCommand();
     }
 
-    m_viInputModeManager->clearCurrentChangeLog();
+      // when we transition to visual mode, remember the command in the keys history (V, v, ctrl-v, ...)
+      // this will later result in buffer filled with something like this "Vjj>" which we can use later with repeat "."
+      const bool commandSwitchedToVisualMode = ((originalViMode == NormalMode) && m_viInputModeManager->isAnyVisualMode());
+      if (!commandSwitchedToVisualMode)
+        m_viInputModeManager->clearCurrentChangeLog();
   }
 
   // make sure the cursor does not end up after the end of the line

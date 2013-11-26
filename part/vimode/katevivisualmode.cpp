@@ -317,8 +317,8 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
   ADDCMD("m.", commandSetMark, REGEX_PATTERN | SHOULD_NOT_RESET );
-  ADDCMD(">", commandIndentLines, 0 );
-  ADDCMD("<", commandUnindentLines, 0 );
+  ADDCMD(">", commandIndentLines, IS_CHANGE );
+  ADDCMD("<", commandUnindentLines, IS_CHANGE );
   ADDCMD("<c-c>", commandAbort, 0 );
   ADDCMD("<c-[>", commandAbort, 0 );
   ADDCMD("ga", commandPrintCharacterCode, SHOULD_NOT_RESET );

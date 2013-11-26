@@ -540,6 +540,7 @@ void ViModeTest::VisualModeTests() {
     DoTest("foobarbaz","lvlkkjl2ld","fbaz");
     DoTest("foobar","v$d","");
     DoTest("foo\nbar\nbaz","jVlld","foo\nbaz");
+    DoTest("01\n02\n03\n04\n05","Vjdj.","03");
 
     // testing Del key
     DoTest("foobarbaz","lvlkkjl2l\\delete","fbaz");
@@ -553,11 +554,13 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo bar", "vwgU", "FOO Bar");
     DoTest("foo\nbar\nbaz", "VjjU", "FOO\nBAR\nBAZ");
     DoTest("foo\nbar\nbaz", "\\ctrl-vljjU","FOo\nBAr\nBAz");
+    DoTest("aaaa\nbbbb\ncccc", "\\ctrl-vljgUjll.", "AAaa\nBBBB\nccCC");
 
     // Testing "gu", "u"
     DoTest("TEST", "Vgu", "test");
     DoTest("TeSt", "vlgu","teSt");
     DoTest("FOO\nBAR\nBAZ", "\\ctrl-vljju","foO\nbaR\nbaZ");
+    DoTest("AAAA\nBBBB\nCCCC\nDDDD", "vjlujjl.", "aaaa\nbbBB\nCccc\ndddD");
 
     // Testing "g~"
     DoTest("fOo bAr", "Vg~", "FoO BaR");
@@ -582,6 +585,9 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo\nbar","vj>","  foo\n  bar");
     DoTest("foo\nbar\nbaz", "jVj>", "foo\n  bar\n  baz");
     DoTest("foo", "vl3>","      foo");
+    DoTest("indent\nrepeat", "V>.", "    indent\nrepeat");
+    DoTest("indent\nrepeat", "Vj>.", "    indent\n    repeat");
+    DoTest("indent\nrepeat\non\nothers", "Vj>jj.", "  indent\n  repeat\n  on\n  others");
 
     // Testing "<"
     DoTest(" foo","vl<", "foo");

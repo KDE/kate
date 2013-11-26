@@ -80,7 +80,7 @@ public:
         QStringList parts = version_str.split('.');
         for (
             unsigned long i = 0
-          ; i < qMin(sizeof(tmp) / sizeof(int), static_cast<unsigned long>(parts.size()))
+          ; i < qMin(static_cast<unsigned long>(sizeof(tmp) / sizeof(int)), static_cast<unsigned long>(parts.size()))
           ; ++i
           )
         {

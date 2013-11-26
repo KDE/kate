@@ -707,9 +707,7 @@ bool KateViNormalMode::commandEnterVisualMode()
 
 bool KateViNormalMode::commandToOtherEnd()
 {
-  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
-      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+  if (m_viInputModeManager->isAnyVisualMode()) {
     m_viInputModeManager->getViVisualMode()->switchStartEnd();
     return true;
   }
@@ -1404,10 +1402,8 @@ bool KateViNormalMode::commandDeleteCharBackward()
 bool KateViNormalMode::commandReplaceCharacter()
 {
 
-bool r;
-if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
-      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+  bool r;
+  if ( m_viInputModeManager->isAnyVisualMode()) {
 
     OperationMode m = getOperationMode();
     QString text = getRange( m_commandRange, m );
@@ -1424,7 +1420,7 @@ if ( m_viInputModeManager->getCurrentViMode() == VisualMode
 
     r = doc()->replaceText( range, text, m == Block );
 
-} else {
+  } else {
     Cursor c1( m_view->cursorPosition() );
     Cursor c2( m_view->cursorPosition() );
 
@@ -1438,7 +1434,7 @@ if ( m_viInputModeManager->getCurrentViMode() == VisualMode
     r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ).repeated(getCount()) );
     updateCursor( c1 );
 
-}
+  }
   return r;
 }
 
@@ -1448,9 +1444,7 @@ bool KateViNormalMode::commandSwitchToCmdLine()
 
 
     QString initialText;
-    if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
-      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    if ( m_viInputModeManager->isAnyVisualMode()) {
       // if in visual mode, make command range == visual selection
       m_viInputModeManager->getViVisualMode()->saveRangeMarks();
       initialText = "'<,'>";

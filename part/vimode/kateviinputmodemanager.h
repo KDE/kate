@@ -96,6 +96,11 @@ public:
   ViMode getCurrentViMode() const;
 
   /**
+   * @return true if and only if the current mode is one of VisualMode, VisualBlockMode or VisualLineMode.
+   */
+  bool isAnyVisualMode() const;
+
+  /**
    * @return one of getViNormalMode(), getViVisualMode(), etc, depending on getCurrentViMode().
    */
   KateViModeBase* getCurrentViModeHandler() const;

@@ -368,6 +368,9 @@ void Pate::PluginView::aboutPate()
 
     /// \todo Add logo, authors and everything...
     about.setProgramIconName("python");
+    about.addAuthor(ki18n("Paul Giannaros"), ki18n("Out-of-tree original"), "paul@giannaros.org");
+    about.addAuthor(ki18n("Shaheed Haque"), ki18n("Rewritten and brought in-tree, V1.0"), "srhaque@theiet.org");
+    about.addAuthor(ki18n("Alex Turbov"), ki18n("Streamlined and updated, V2.0"), "i.zaufi@gmail.com");
     KAboutApplicationDialog ad(&about, KAboutApplicationDialog::HideKdeVersion);
     ad.exec();
 }

@@ -442,6 +442,12 @@ class KATEPART_TESTS_EXPORT KateViewConfig : public KateConfig
     int scrollBarMiniMapWidth () const;
     void setScrollBarMiniMapWidth (int width);
 
+    /**
+     * Whether to show scrollbars
+     *   0: When needed
+     *   1: Always on
+     *   2: Always off
+     */
     int showScrollbars () const;
     void setShowScrollbars (int mode);
 

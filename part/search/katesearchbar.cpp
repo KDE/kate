@@ -629,9 +629,9 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     }
 
     if (askWrap) {
-        QString question = searchDirection == SearchForward  ? i18n("Bottom of file reached. Continue from top ?")
-                                                             : i18n("Top of file reached. Continue from bottom ?");
-        wrap = (KMessageBox::questionYesNo( 0, question, i18n("Continue search ?"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
+        QString question = searchDirection == SearchForward  ? i18n("Bottom of file reached. Continue from top?")
+                                                             : i18n("Top of file reached. Continue from bottom?");
+        wrap = (KMessageBox::questionYesNo( 0, question, i18n("Continue search?"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
                                             QString("DoNotShowAgainContinueSearchDialog")) == KMessageBox::Yes );
 
     }

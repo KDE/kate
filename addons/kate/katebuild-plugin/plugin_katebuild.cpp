@@ -1011,7 +1011,7 @@ void KateBuildView::slotDeleteTargetClicked()
 
     QString target = m_targetsUi->targetsList->item(row, COL_NAME)->text();
 
-    int result = KMessageBox::questionYesNo(0, QString(i18n("Really delete target %1 ?")).arg(target));
+    int result = KMessageBox::questionYesNo(0, QString(i18n("Really delete target %1?")).arg(target));
     if (result == KMessageBox::No) {
         return;
     }

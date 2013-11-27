@@ -359,7 +359,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   layout->addWidget(m_interactiveSedReplaceLabel);
 
   updateMatchHighlightAttrib();
-  m_highlightedMatch = m_view->doc()->newMovingRange(Range(), Kate::TextRange::DoNotExpand);
+  m_highlightedMatch = m_view->doc()->newMovingRange(Range::invalid(), Kate::TextRange::DoNotExpand);
   m_highlightedMatch->setView(m_view); // Show only in this view.
   m_highlightedMatch->setAttributeOnlyForViews(true);
   // Use z depth defined in moving ranges interface.

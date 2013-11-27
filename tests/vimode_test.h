@@ -148,6 +148,8 @@ public:
   static void waitForCompletionWidgetToActivate(KateView *kate_view);
 
 private Q_SLOTS:
+  void init();
+
   void NormalModeMotionsTest();
   void NormalModeCommandsTest();
   void NormalModeControlTests();

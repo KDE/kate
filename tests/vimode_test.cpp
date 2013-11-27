@@ -269,18 +269,12 @@ void FakeCodeCompletionTestModel::checkIfShouldForceInvocation()
 }
 
 ViModeTest::ViModeTest() {
-  kate_document = new KateDocument(false, false, false, 0, NULL);
+  kate_document = 0;
+  kate_view = 0;
+
   mainWindow = new QMainWindow;
   mainWindowLayout = new QVBoxLayout(mainWindow);
-  QWidget *centralWidget = new QWidget(mainWindow);
-  mainWindow->setCentralWidget(centralWidget);
-  kate_view = new KateView(kate_document, mainWindow);
-  mainWindowLayout->addWidget(kate_view);
   mainWindow->setLayout(mainWindowLayout);
-  kate_view->config()->setViInputMode(true);
-  Q_ASSERT(kate_view->viInputMode());
-  vi_input_mode_manager = kate_view->getViInputModeManager();
-  kate_document->config()->setShowSpaces(true); // Flush out some issues in the KateRenderer when rendering spaces.
 
   m_codesToModifiers.insert("ctrl", Qt::ControlModifier);
   m_codesToModifiers.insert("alt", Qt::AltModifier);
@@ -297,6 +291,21 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("home", Qt::Key_Home);
   m_codesToSpecialKeys.insert("delete", Qt::Key_Delete);
   m_codesToSpecialKeys.insert("insert", Qt::Key_Insert);
+
+}
+
+void ViModeTest::init()
+{
+  delete kate_view;
+  delete kate_document;
+
+  kate_document = new KateDocument(false, false, false, 0, NULL);
+  kate_view = new KateView(kate_document, mainWindow);
+  mainWindowLayout->addWidget(kate_view);
+  kate_view->config()->setViInputMode(true);
+  Q_ASSERT(kate_view->viInputMode());
+  vi_input_mode_manager = kate_view->getViInputModeManager();
+  kate_document->config()->setShowSpaces(true); // Flush out some issues in the KateRenderer when rendering spaces.
 
   connect(kate_document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
           this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));

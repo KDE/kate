@@ -44,8 +44,8 @@ document.</para></listitem>
 </varlistentry>
 </variablelist>
 
-<para>The embedded terminal is using the configuration defined in the
-&systemsettings;, and may be configured by clicking the
+<para>The embedded terminal uses the configuration defined in the
+&systemsettings;, and may also be configured by clicking the
 <mousebutton>right</mousebutton> mouse button to display a context menu.</para>
 
 </sect1>
@@ -98,7 +98,7 @@ the right.</para>
 from outside the application whenever the main window receives input focus.
 You will be able to deal with several modified files at once, you
 can reload, save or discard changed files in groups.</para>
-<para>If not enabled, &kate; will prompt you for action when a externally
+<para>If not enabled, &kate; will prompt you for action when an externally
 modified file receives focus within the application.</para>
 </listitem>
 </varlistentry>
@@ -125,7 +125,7 @@ will be used if the document is unchanged when reopened.</para></listitem>
 <term><anchor id="config-general-delete-meta-information-after"/>
 <guilabel>Delete unused meta information after</guilabel></term>
 <listitem><para>Set the maximum number of days to keep meta information
-for unopen files. This helps keeping the database of meta information
+for previously opened files. This helps keeping the database of meta information
 reasonably sized.</para></listitem>
 </varlistentry>
 
@@ -170,7 +170,7 @@ linkend="command-line-options">command line</link>.</para>
 <varlistentry>
 <term><guilabel>Start new session</guilabel></term>
 <listitem><para>With this option, &kate; will start a new, unnamed session
-when you start it.</para></listitem>
+when you start the application.</para></listitem>
 </varlistentry>
 <varlistentry>
 <term><guilabel>Load last-used session</guilabel></term>
@@ -190,7 +190,7 @@ frequently.</para></listitem>
 </varlistentry><!-- /startup behavior -->
 
 </variablelist>
-<para>The changes to the session data (opened files and if enabled,
+<para>Any changes to the session data (opened files and, if enabled,
 window configuration) will always be saved.</para>
 
 </sect2>
@@ -199,11 +199,11 @@ window configuration) will always be saved.</para>
 <title>Plugins</title>
 
 <para>This page provides a list of installed plugins for the &kate;
-application. Each plug-in is represented with its name and a short description.
-You can check the checkbox with an item to enable the plug-in it represents.
+application. Each plugin is represented with its name and a short description.
+You can check the checkbox with an item to enable the plugin it represents.
 </para>
 
-<para>If a plug-in provides configuration options, a section to access those
+<para>If a plugin provides configuration options, a section to access those
 will appear as a child of this page.</para>
 
 <para>For more information about the available plugins, see 
@@ -287,7 +287,7 @@ so the calling program is aware you have finished editing the file.</para></list
 <title>Configuring With Document Variables</title>
 
 <para>&kappname; variables is katepart's implementation of document variables, similar
-to emacs and vi modelines. In katepart, the lines have the following format:
+to &Emacs; and vi modelines. In katepart, the lines have the following format:
 
 <userinput>kate: VARIABLENAME VALUE; [ VARIABLENAME VALUE; ... ]</userinput>
 
@@ -330,7 +330,7 @@ the plugin's documentation.</para>
 <listitem><para>Settings made during editing from menu or command line.</para></listitem>
 </itemizedlist>
 
-As you see, document variables are only overriden by changes made at runtime.
+As you can see, document variables are only overridden by changes made at runtime.
 Whenever a document is saved, the document variables are reread, and will
 overwrite changes made using menu items or the command line.</para>
 
@@ -387,9 +387,9 @@ on or off.</para></listitem>
 
 <varlistentry id="variable-byte-order-marker">
 <term><cmdsynopsis><command>bom | byte-order-marker</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Enable/disable the byte order marker when saving files in unicode format
+<listitem><para>Enable/disable the byte order marker when saving files in Unicode format
 (utf8, utf16, utf32).</para>
-<para>Since: Kate 3.4 (KDE 4.4)</para></listitem>
+<para>Since: &kate; 3.4 (&kde; 4.4)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-encoding">
@@ -397,7 +397,7 @@ on or off.</para></listitem>
 <listitem><para>Set the encoding used for loading or saving the file.
 As the variables in the document will be read after loading, this impacts only the saving.
 If you place it in a <filename>.kateconfig</filename> file, it will have an effect for the loading, too.</para>
-<para>Since: Kate 3.10 (KDE 4.10)</para></listitem>
+<para>Since: &kate; 3.10 (&kde; 4.10)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-bracket-highlight-color">
@@ -410,14 +410,14 @@ something that can be evaluated to a valid color, for example <userinput>#ff0000
 <varlistentry id="variable-current-line-color">
 <term><cmdsynopsis><command>current-line-color</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the color for the current line. The  value must be
-something that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>
+something that can be evaluated to a valid color, for example <userinput>#ff0000</userinput>.
 </para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-default-dictionary">
 <term><cmdsynopsis><command>default-dictionary</command><arg>STRING</arg></cmdsynopsis></term>
-<listitem><para>Sets the default dictionary used for spell checking.</para>
-<para>Since: Kate 3.4 (KDE 4.4)</para></listitem>
+<listitem><para>Sets the default dictionary used for spellchecking.</para>
+<para>Since: &kate; 3.4 (&kde; 4.4)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-dynamic-word-wrap">
@@ -429,7 +429,7 @@ off.</para></listitem>
 <varlistentry id="variable-end-of-line">
 <term><cmdsynopsis><command>eol | end-of-line</command><arg>STRING</arg></cmdsynopsis></term>
 <listitem><para>Set the end of line mode. Valid settings are
-<userinput>unix</userinput>, <userinput>mac</userinput> and <userinput>dos</userinput></para></listitem>
+<userinput>unix</userinput>, <userinput>mac</userinput> and <userinput>dos</userinput>.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-folding-markers">
@@ -480,7 +480,7 @@ be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para
 <varlistentry id="variable-indent-pasted-text">
 <term><cmdsynopsis><command>indent-pasted-text</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Enable/disable adjusting indentation of text pasted from the clipboard.</para>
-<para>Since: Kate 3.11 (KDE 4.11)</para></listitem>
+<para>Since: &kate; 3.11 (&kde; 4.11)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-indent-width">
@@ -500,14 +500,14 @@ be evaluated to a valid color, for example <userinput>#ff0000</userinput>.</para
 
 <varlistentry id="variable-mixed-indent">
 <term><cmdsynopsis><command>mixed-indent</command><arg>BOOL</arg></cmdsynopsis></term>
-<listitem><para>Set mixed indentation ala Emacs on or off.</para>
-<para>Note: Deprecated since Kate 3 in KDE4. This variable is ignored, set <command>replace-tabs on;</command> instead for the future.</para></listitem>
+<listitem><para>Set mixed indentation, as with &Emacs;, on or off.</para>
+<para>Note: Deprecated since &kate; 3 in &kde;4. This variable is ignored, set <command>replace-tabs on;</command> instead for the future.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-newline-at-eof">
 <term><cmdsynopsis><command>newline-at-eof</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Add an empty line at the end of the file (EOF) when saving the document.</para>
-<para>Since: &kate; 3.9 (KDE 4.9)</para></listitem>
+<para>Since: &kate; 3.9 (&kde; 4.9)</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-overwrite-mode">
@@ -524,7 +524,7 @@ on or off.</para></listitem>
 <varlistentry id="variable-remove-trailing-space">
 <term><cmdsynopsis><command>remove-trailing-space</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set dynamic end of line cleanup on or off.</para>
-<para>Note: Deprecated since KDE 4.10. Please use <link linkend="variable-remove-trailing-spaces">
+<para>Note: Deprecated since &kde; 4.10. Please use <link linkend="variable-remove-trailing-spaces">
 remove-trailing-spaces</link> with the desired choice instead.
 </para></listitem>
 </varlistentry>
@@ -538,7 +538,7 @@ remove-trailing-spaces</link> with the desired choice instead.
 modified lines. The modified lines are marked by the line modification system.</para></listitem>
 <listitem><para><userinput>all</userinput>, <userinput>*</userinput> or <userinput>2</userinput>: remove trailing spaces in the entire document.</para></listitem>
 </itemizedlist>
-<para>Since: KDE 4.10. This deprecates the options <userinput>remove-trailing-space</userinput> and <userinput>replace-trailing-space-save</userinput>.
+<para>Since: &kde; 4.10. This deprecates the options <userinput>remove-trailing-space</userinput> and <userinput>replace-trailing-space-save</userinput>.
 </para></listitem>
 </varlistentry>
 
@@ -555,7 +555,7 @@ modified lines. The modified lines are marked by the line modification system.</
 <varlistentry id="variable-replace-trailing-space-save">
 <term><cmdsynopsis><command>replace-trailing-space-save</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set end of line cleanup on save on or off.</para>
-<para>Note: Deprecated since KDE 4.10. Please use <link linkend="variable-remove-trailing-spaces">
+<para>Note: Deprecated since &kde; 4.10. Please use <link linkend="variable-remove-trailing-spaces">
 remove-trailing-spaces</link> with the desired choice instead.
 </para></listitem>
 </varlistentry>
@@ -586,7 +586,7 @@ on or off.</para></listitem>
 <varlistentry id="variable-space-indent">
 <term><cmdsynopsis><command>space-indent</command><arg>BOOL</arg></cmdsynopsis></term>
 <listitem><para>Set indentation with spaces on or off.</para>
-<para>Note: Deprecated since Kate 3 in KDE4. Mixed indentation is the default behavior.
+<para>Note: Deprecated since &kate; 3 in &kde;4. Mixed indentation is the default behavior.
 Set <command>replace-tabs on;</command> to achieve space-only indentation.</para></listitem>
 </varlistentry>
 
@@ -603,7 +603,7 @@ Set <command>replace-tabs on;</command> to achieve space-only indentation.</para
 <varlistentry id="variable-undo-steps">
 <term><cmdsynopsis><command>undo-steps</command><arg>INT</arg></cmdsynopsis></term>
 <listitem><para>Set the number of undo steps to remember.</para>
-<para>Note: Deprecated since Kate 3 in KDE4. This variable is ignored. The maximal count of undo steps is unlimited.</para></listitem>
+<para>Note: Deprecated since &kate; 3 in &kde;4. This variable is ignored. The maximal count of undo steps is unlimited.</para></listitem>
 </varlistentry>
 
 <varlistentry id="variable-word-wrap-column">

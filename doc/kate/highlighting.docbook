@@ -145,7 +145,7 @@ specific data in rules.</para>
 <title>Context Styles and Keywords</title>
 
 <para>In some programming languages, integer numbers are treated
-differently than floating point ones by the compiler (the program that
+differently from floating point ones by the compiler (the program that
 converts the source code to a binary executable), and there may be
 characters having a special meaning within a quoted string. In such
 cases, it makes sense to render them differently from the surroundings
@@ -158,8 +158,8 @@ different rendering.</para>
 cover the concepts of the format it is used for.</para>
 
 <para>In many formats, there are lists of words that represent a
-specific concept. For example in programming languages, the control
-statements is one concept, data type names another, and built in
+specific concept. For example, in programming languages, control
+statements are one concept, data type names another, and built in
 functions of the language a third. The &kappname; Syntax Highlighting
 System can use such lists to detect and mark words in the text to
 emphasize concepts of the text formats.</para>
@@ -177,17 +177,17 @@ for special treatment, the colors used are the same. This is because
 the individual syntax definitions.</para>
 
 <para>This makes it easy to recognize similar concepts in different
-text formats. For example comments are present in almost any
+text formats. For example, comments are present in almost any
 programming, scripting or markup language, and when they are rendered
 using the same style in all languages, you do not have to stop and
 think to identify them within the text.</para>
 
 <tip>
 <para>All styles in a syntax definition use one of the default
-styles. A few syntax definitions use more styles that there are
+styles. A few syntax definitions use more styles than there are
 defaults, so if you use a format often, it may be worth launching the
-configuration dialog to see if some concepts are using the same
-style. For example there is only one default style for strings, but as
+configuration dialog to see if some concepts use the same
+style. For example, there is only one default style for strings, but as
 the Perl programming language operates with two types of strings, you
 can enhance the highlighting by configuring those to be slightly
 different. All <link linkend="kate-highlight-default-styles">available default styles</link>
@@ -209,7 +209,7 @@ format. Based on a small example it will describe the main components
 and their meaning and usage. The next section will go into detail with
 the highlight detection rules.</para>
 
-<para>The formal definition, aka the <acronym>DTD</acronym> is stored
+<para>The formal definition, also known as the <acronym>DTD</acronym>, is stored
 in the file <filename>language.dtd</filename> which should be
 installed on your system in the folder
 <filename>$<envar>KDEDIR</envar>/share/apps/katepart/syntax</filename>.
@@ -236,17 +236,17 @@ Available attributes are:</term>
 <para>Required attributes:</para>
 <para><userinput>name</userinput> sets the name of the language. It appears in the menus and dialogs afterwards.</para>
 <para><userinput>section</userinput> specifies the category.</para>
-<para><userinput>extensions</userinput> defines file extensions, like &quot;*.cpp;*.h&quot;</para>
+<para><userinput>extensions</userinput> defines file extensions, such as &quot;*.cpp;*.h&quot;</para>
 
 <para>Optional attributes:</para>
-<para><userinput>mimetype</userinput> associates files &MIME; Type based.</para>
+<para><userinput>mimetype</userinput> associates files &MIME; type.</para>
 <para><userinput>version</userinput> specifies the current version of the definition file.</para>
 <para><userinput>kateversion</userinput> specifies the latest supported &kappname; version.</para>
 <para><userinput>casesensitive</userinput> defines, whether the keywords are case sensitive or not.</para>
 <para><userinput>priority</userinput> is necessary if another highlight definition file uses the same extensions. The higher priority will win.</para>
 <para><userinput>author</userinput> contains the name of the author and his email-address.</para>
-<para><userinput>license</userinput> contains the license, usually LGPL, Artistic, GPL and others.</para>
-<para><userinput>hidden</userinput> defines, whether the name should appear in &kappname;'s menus.</para>
+<para><userinput>license</userinput> contains the license, usually LGPL, Artistic, GPL or others.</para>
+<para><userinput>hidden</userinput> defines whether the name should appear in &kappname;'s menus.</para>
 <para>So the next line may look like this:</para>
 <programlisting>
 &lt;language name=&quot;C++&quot; version=&quot;1.00&quot; kateversion=&quot;2.4&quot; section=&quot;Sources&quot; extensions=&quot;*.cpp;*.h&quot; /&gt;
@@ -307,11 +307,11 @@ about keywords, code folding, comments and indentation.</term>
 <listitem>
 <para>The <userinput>comment</userinput> section defines with what
 string a single line comment is introduced. You also can define a
-multiline comments using <emphasis>multiLine</emphasis> with the
+multiline comment using <emphasis>multiLine</emphasis> with the
 additional attribute <emphasis>end</emphasis>. This is used if the
 user presses the corresponding shortcut for <emphasis>comment/uncomment</emphasis>.</para>
 <para>The <userinput>keywords</userinput> section defines whether
-keyword lists are casesensitive or not. Other attributes will be
+keyword lists are case sensitive or not. Other attributes will be
 explained later.</para>
 <programlisting>
   &lt;general&gt;
@@ -337,19 +337,19 @@ itemDatas, keywords, comments, code folding and indentation.</para>
 
 <variablelist>
 <varlistentry>
-<term>The element <userinput>context</userinput> belongs into the group
+<term>The element <userinput>context</userinput> belongs in the group
 <userinput>contexts</userinput>. A context itself defines context specific
-rules like what should happen if the highlight system reaches the end of a
+rules such as what should happen if the highlight system reaches the end of a
 line. Available attributes are:</term>
 
 
 <listitem>
-<para><userinput>name</userinput> the context name. Rules will use this name
+<para><userinput>name</userinput> states the context name. Rules will use this name
 to specify the context to switch to if the rule matches.</para>
 <para><userinput>lineEndContext</userinput> defines the context the highlight
 system switches to if it reaches the end of a line. This may either be a name
 of another context, <userinput>#stay</userinput> to not switch the context
-(&eg;. do nothing) or <userinput>#pop</userinput> which will cause to leave this
+(&eg;. do nothing) or <userinput>#pop</userinput> which will cause it to leave this
 context. It is possible to use for example <userinput>#pop#pop#pop</userinput>
 to pop three times, or even <userinput>#pop#pop!OtherContext</userinput> to pop
 two times and switch to the context named <userinput>OtherContext</userinput>.</para>
@@ -370,12 +370,12 @@ documents for example. Default: <emphasis>false</emphasis>.</para>
 <varlistentry>
 <term>The element <userinput>itemData</userinput> is in the group
 <userinput>itemDatas</userinput>. It defines the font style and colors.
-So it is possible to define your own styles and colors, however we
-recommend to stick to the default styles if possible so that the user
+So it is possible to define your own styles and colors. However, we
+recommend you stick to the default styles if possible so that the user
 will always see the same colors used in different languages. Though,
 sometimes there is no other way and it is necessary to change color
 and font attributes. The attributes name and defStyleNum are required,
-the other optional. Available attributes are:</term>
+the others are optional. Available attributes are:</term>
 
 <listitem>
 <para><userinput>name</userinput> sets the name of the itemData.
@@ -389,8 +389,8 @@ Available default styles are explained in detail later.</para>
 <para><userinput>italic</userinput> if <emphasis>true</emphasis>, the text will be italic.</para>
 <para><userinput>bold</userinput> if <emphasis>true</emphasis>, the text will be bold.</para>
 <para><userinput>underline</userinput> if <emphasis>true</emphasis>, the text will be underlined.</para>
-<para><userinput>strikeout</userinput> if <emphasis>true</emphasis>, the text will be stroked out.</para>
-<para><userinput>spellChecking</userinput> if <emphasis>true</emphasis>, the text will be spell checked, otherwise it will be ignored during spell check.</para>
+<para><userinput>strikeout</userinput> if <emphasis>true</emphasis>, the text will be struck out.</para>
+<para><userinput>spellChecking</userinput> if <emphasis>true</emphasis>, the text will be spellchecked.</para>
 </listitem>
 </varlistentry>
 
@@ -402,9 +402,9 @@ Available default styles are explained in detail later.</para>
 <listitem>
 <para><userinput>casesensitive</userinput> may be <emphasis>true</emphasis>
 or <emphasis>false</emphasis>. If <emphasis>true</emphasis>, all keywords
-are matched casesensitive</para>
+are matched case sensitively.</para>
 <para><userinput>weakDeliminator</userinput> is a list of characters that
-do not act as word delimiters. For example the dot <userinput>'.'</userinput>
+do not act as word delimiters. For example, the dot <userinput>'.'</userinput>
 is a word delimiter. Assume a keyword in a <userinput>list</userinput> contains
 a dot, it will only match if you specify the dot as a weak delimiter.</para>
 <para><userinput>additionalDeliminator</userinput> defines additional delimiters.</para>
@@ -450,7 +450,7 @@ Available attributes are:</term>
 
 <listitem>
 <para><userinput>indentationsensitive</userinput> if <emphasis>true</emphasis>, the code folding markers
-will be added indentation based, like in the scripting language Python. Usually you
+will be added indentation based, as in the scripting language Python. Usually you
 do not need to set it, as it defaults to <emphasis>false</emphasis>.</para>
 </listitem>
 </varlistentry>
@@ -458,8 +458,8 @@ do not need to set it, as it defaults to <emphasis>false</emphasis>.</para>
 
 <varlistentry>
 <term>The element <userinput>indentation</userinput> in the group
-<userinput>general</userinput> defines which indenter will be used, however we strongly
-recommend to omit this element, as the indenter usually will be set by either defining
+<userinput>general</userinput> defines which indenter will be used. However, we strongly
+recommend you omit this element, as the indenter usually will be set by either defining
 a File Type or by adding a mode line to the text file. If you specify an indenter though,
 you will force a specific indentation on the user, which he might not like at all.
 Available attributes are:</term>
@@ -483,7 +483,7 @@ and <emphasis>xml</emphasis>.</para>
 as a short summary: Default styles are predefined font and color styles.</para>
 <variablelist>
 <varlistentry>
-<term>So here only the list of available default styles:</term>
+<term>So here are only the list of available default styles:</term>
 <listitem>
 <para><userinput>dsNormal</userinput>, used for normal text.</para>
 <para><userinput>dsKeyword</userinput>, used for keywords.</para>
@@ -513,7 +513,7 @@ as a short summary: Default styles are predefined font and color styles.</para>
 <para>This section describes the syntax detection rules.</para>
 
 <para>Each rule can match zero or more characters at the beginning of
-the string they are test against. If the rule matches, the matching
+the string they are tested against. If the rule matches, the matching
 characters are assigned the style or <emphasis>attribute</emphasis>
 defined by the rule, and a rule may ask that the current context is
 switched.</para>
@@ -673,7 +673,7 @@ comparing is used.</para>
 <term>WordDetect</term>
 <listitem>
 <para>Detect an exact string but additionally require word boundaries
-like a dot <userinput>'.'</userinput> or a whitespace on the beginning
+such as a dot <userinput>'.'</userinput> or a whitespace on the beginning
 and the end of the word. Think of <userinput>\b&lt;string&gt;\b</userinput>
 in terms of a regular expression, but it is faster than the rule <userinput>RegExpr</userinput>.</para>
 <programlisting>&lt;WordDetect String=&quot;(string)&quot; [insensitive=&quot;true|false&quot;] (common attributes) (dynamic) /&gt;</programlisting>
@@ -717,13 +717,13 @@ for more information on those.</para>
 keyword list by name. A list with that name must exist.</para>
 <para>The highlighting system processes keyword rules in a very optimized way.
 This makes it an absolute necessity that any keywords to be matched need to be
-surrounded by defined deliminators, either implied (the default deliminators),
+surrounded by defined delimiters, either implied (the default delimiters),
 or explicitly specified within the <emphasis>additionalDeliminator</emphasis>
 property of the <emphasis>keywords</emphasis> tag.</para>
-<para>If a keyword to be matched shall contain a deliminator character, this
+<para>If a keyword to be matched shall contain a delimiter character, this
 respective character must be added to the <emphasis>weakDeliminator</emphasis>
 property of the <emphasis>keywords</emphasis> tag.  This character will then
-loose its deliminator property in all <emphasis>keyword</emphasis> rules.</para>
+loose its delimiter property in all <emphasis>keyword</emphasis> rules.</para>
 </listitem>
 </varlistentry>
 
@@ -753,7 +753,7 @@ the <acronym>DTD</acronym> only allows the child rule <userinput>StringDetect</u
 <para>Detect a floating point number.</para>
 <para><programlisting>&lt;Float (common attributes) /&gt;</programlisting></para>
 <para>This rule has no specific attributes. <userinput>AnyChar</userinput> is
-allowed as a child rules and typically used to detect combinations, see rule
+allowed as a child rule and typically used to detect combinations, see rule
 <userinput>Int</userinput> for reference.</para>
 </listitem>
 </varlistentry>
@@ -790,7 +790,7 @@ program code, for example <userinput>\n</userinput>
 <para>The following characters will match if they follow a backslash
 (<literal>\</literal>):
 <userinput>abefnrtv&quot;'?\</userinput>. Additionally, escaped
-hexadecimal numbers like for example <userinput>\xff</userinput> and
+hexadecimal numbers such as for example <userinput>\xff</userinput> and
 escaped octal numbers, for example <userinput>\033</userinput> will
 match.</para>
 
@@ -805,7 +805,7 @@ match.</para>
 <para>This rule has no specific attributes.</para>
 
 <para>It matches C characters enclosed in a tick (Example: <userinput>'c'</userinput>).
-So in the ticks may be a simple character or an escaped character.
+The ticks may be a simple character or an escaped character.
 See HlCStringChar for matched escaped character sequences.</para>
 
 </listitem>
@@ -855,8 +855,8 @@ would include the context <emphasis>String</emphasis> from the <emphasis>C++</em
 highlighting definition.</para>
 <para>If <userinput>includeAttrib</userinput> attribute is
 <emphasis>true</emphasis>, change the destination attribute to the one of
-the source. This is required to make for example commenting work, if text
-matched by the included context is a different highlight than the host
+the source. This is required to make, for example, commenting work, if text
+matched by the included context is a different highlight from the host
 context.
 </para>
 </listitem>
@@ -870,9 +870,9 @@ context.
 <programlisting>&lt;DetectSpaces (common attributes) /&gt;</programlisting>
 
 <para>This rule has no specific attributes.</para>
-<para>Use this rule if you know that there can several whitespaces ahead,
+<para>Use this rule if you know that there can be several whitespaces ahead,
 for example in the beginning of indented lines. This rule will skip all
-whitespace at once, instead of testing multiple rules and skipping one at the
+whitespace at once, instead of testing multiple rules and skipping one at a
 time due to no match.</para>
 </listitem>
 </varlistentry>
@@ -886,7 +886,7 @@ time due to no match.</para>
 
 <para>This rule has no specific attributes.</para>
 <para>Use this rule to skip a string of word characters at once, rather than
-testing with multiple rules and skipping one at the time due to no match.</para>
+testing with multiple rules and skipping one at a time due to no match.</para>
 </listitem>
 </varlistentry>
 
@@ -919,7 +919,7 @@ You can achieve the same much faster in using:
 <programlisting>&lt;DetectChar attribute=&quot;Macro&quot; context=&quot;macro&quot; char=&quot;#&quot; firstNonSpace=&quot;true&quot; /&gt;</programlisting>
 If you want to match the regular expression <userinput>'^#'</userinput> you
 can still use <userinput>DetectChar</userinput> with the attribute <userinput>column=&quot;0&quot;</userinput>.
-The attribute <userinput>column</userinput> counts character based, so a tabulator still is only one character.
+The attribute <userinput>column</userinput> counts characters, so a tabulator is only one character.
 </para>
 </listitem>
 <listitem>

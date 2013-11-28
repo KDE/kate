@@ -51,10 +51,11 @@
 
 #include <QtCore/QMimeData>
 #include <QtGui/QPainter>
+#include <QtWidgets/QStyle>
 #include <QtGui/QClipboard>
 #include <QtGui/QPixmap>
 #include <QtGui/QKeyEvent>
-#include <QtGui/QLayout>
+#include <QtWidgets/QLayout>
 #include <QToolTip>
 
 static const bool debugPainting = false;
@@ -210,12 +211,14 @@ KateViewInternal::KateViewInternal(KateView *view)
   connect( m_view, SIGNAL(selectionChanged(KTextEditor::View*)),
              this, SLOT(viewSelectionChanged()) );
 
+#if 0 //FIXME KF5
 #ifndef QT_NO_ACCESSIBILITY
 #if QT_VERSION >= 0x040800
   QAccessible::installFactory(accessibleInterfaceFactory);
 #endif
 #endif
-
+#endif
+  
   // update is called in KateView, after construction and layout is over
   // but before any other kateviewinternal call
 }
@@ -227,12 +230,15 @@ KateViewInternal::~KateViewInternal ()
     delete m_textAnimation;
   }
 
+#if 0 //FIXME KF5
+
 #ifndef QT_NO_ACCESSIBILITY
 #if QT_VERSION >= 0x040800
   QAccessible::removeFactory(accessibleInterfaceFactory);
 #endif
 #endif
-
+#endif
+  
   // kill preedit ranges
   delete m_imPreeditRange;
   qDeleteAll (m_imPreeditRangeChildren);
@@ -670,11 +676,17 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 
   m_madeVisible = !force;
 
+
+#if 0 //FIXME KF5
+
 #ifndef QT_NO_ACCESSIBILITY
 #if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility( this, KateCursorAccessible::ChildId, QAccessible::Focus );
 #endif
 #endif
+
+#endif
+  
 }
 
 void KateViewInternal::slotRegionVisibilityChanged()
@@ -1814,9 +1826,12 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
     m_selectAnchor = KTextEditor::Cursor::invalid();
   }
 
+#if 0 //FIXME KF5
+
 #ifndef QT_NO_ACCESSIBILITY
 #if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility(this, 0, QAccessible::TextSelectionChanged);
+#endif
 #endif
 #endif
 }
@@ -3142,12 +3157,16 @@ void KateViewInternal::doDrag()
 
 void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
 {
+#if 0 // FIXME KF5
   if (event->source()==this) event->setDropAction(Qt::MoveAction);
   event->setAccepted( (event->mimeData()->hasText() && doc()->isReadWrite()) ||
-                  KUrl::List::canDecode(event->mimeData()) );
+                  QUrl::List::canDecode(event->mimeData()) );
+#endif
 }
 
 void KateViewInternal::fixDropEvent(QDropEvent* event) {
+#if 0 // FIXME KF5
+  
   if (event->source()!=this) event->setDropAction(Qt::CopyAction);
   else {
     Qt::DropAction action=Qt::MoveAction;
@@ -3160,6 +3179,8 @@ void KateViewInternal::fixDropEvent(QDropEvent* event) {
 #endif
     event->setDropAction(action);
   }
+  
+#endif
 }
 
 void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
@@ -3174,7 +3195,8 @@ void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
 
 void KateViewInternal::dropEvent( QDropEvent* event )
 {
-  if ( KUrl::List::canDecode(event->mimeData()) ) {
+  #if 0 // FIXME KF5
+  if ( QUrl::List::canDecode(event->mimeData()) ) {
 
       emit dropEventPass(event);
 
@@ -3245,6 +3267,8 @@ void KateViewInternal::dropEvent( QDropEvent* event )
   m_dragInfo.state = diNone;
   // important, because the eventFilter`s DragLeave does not occur
   stopDragScroll();
+  
+#endif
 }
 //END EVENT HANDLING STUFF
 
@@ -3482,11 +3506,19 @@ void KateViewInternal::mouseMoved( )
 void KateViewInternal::cursorMoved( )
 {
   m_view->updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
+  
+  
+#if 0 //FIXME KF5
+
+  
 #ifndef QT_NO_ACCESSIBILITY
 #if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility(this, 0, QAccessible::TextCaretMoved);
 #endif
 #endif
+  
+#endif
+  
 }
 
 bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range, bool realCursors) const

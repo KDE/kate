@@ -32,6 +32,7 @@
 #include "kateglobal.h"
 #include "kateautoindent.h"
 
+#include <klocalizedstring.h>
 #include <kdebug.h>
 #include <kglobal.h>
 #include <kcharsets.h>
@@ -194,7 +195,7 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
     
     // remember error
     m_doc->setOpeningError(true);
-    m_doc->setOpeningErrorMessage(i18n ("The file %1 does not exist.", m_doc->url().pathOrUrl()));
+    m_doc->setOpeningErrorMessage(i18n ("The file %1 does not exist.", m_doc->url().toString()));
     return true;
   }
   

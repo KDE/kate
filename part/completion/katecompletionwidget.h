@@ -22,7 +22,7 @@
 #ifndef KATECOMPLETIONWIDGET_H
 #define KATECOMPLETIONWIDGET_H
 
-#include <QtGui/QFrame>
+#include <QtWidgets/QFrame>
 #include <QObject>
 
 #include "katepartprivate_export.h"

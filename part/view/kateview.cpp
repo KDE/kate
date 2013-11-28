@@ -88,9 +88,9 @@
 
 #include <QtGui/QFont>
 #include <QtCore/QFileInfo>
-#include <QtGui/QStyle>
+#include <QtWidgets/QStyle>
 #include <QtGui/QKeyEvent>
-#include <QtGui/QLayout>
+#include <QtWidgets/QLayout>
 #include <QtCore/QMimeData>
 
 //#define VIEW_RANGE_DEBUG
@@ -142,7 +142,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // queued connect to collapse view updates for range changes, INIT THIS EARLY ENOUGH!
   connect(this, SIGNAL(delayedUpdateOfView()), this, SLOT(slotDelayedUpdateOfView()), Qt::QueuedConnection);
 
-  setComponentData ( KateGlobal::self()->componentData () );
+//FIXME KF5  setComponentData ( KateGlobal::self()->componentData () );
 
   // selection if for this view only and will invalidate if becoming empty
   m_selection.setView (this);
@@ -345,7 +345,7 @@ void KateView::setupConnections()
 void KateView::setupActions()
 {
   KActionCollection *ac = actionCollection ();
-  KAction *a;
+  QAction *a;
 
   m_toggleWriteLock = 0;
 
@@ -516,14 +516,14 @@ void KateView::setupActions()
   a = ac->addAction("view_inc_font_sizes");
   a->setIcon(KIcon("zoom-in"));
   a->setText(i18n("Enlarge Font"));
-  a->setShortcut(KStandardShortcut::zoomIn());
+  a->setShortcuts(KStandardShortcut::zoomIn());
   a->setWhatsThis(i18n("This increases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotIncFontSizes()));
 
   a = ac->addAction("view_dec_font_sizes");
   a->setIcon(KIcon("zoom-out"));
   a->setText(i18n("Shrink Font"));
-  a->setShortcut(KStandardShortcut::zoomOut());
+  a->setShortcuts(KStandardShortcut::zoomOut());
   a->setWhatsThis(i18n("This decreases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotDecFontSizes()));
 
@@ -729,7 +729,7 @@ void KateView::setupEditActions()
   //m_editActions << a after creating the action
   KActionCollection* ac = actionCollection();
 
-  KAction* a = ac->addAction("word_left");
+  QAction* a = ac->addAction("word_left");
   a->setText(i18n("Move Word Left"));
   a->setShortcuts(KStandardShortcut::backwardWord());
   connect(a, SIGNAL(triggered(bool)),  SLOT(wordLeft()));
@@ -1015,7 +1015,7 @@ void KateView::setupCodeFolding()
   //FIXME: FOLDING
   KActionCollection *ac=this->actionCollection();
 
-  KAction* a;
+  QAction* a;
 
   a = ac->addAction("folding_toplevel");
   a->setText(i18n("Fold Toplevel Nodes"));
@@ -1257,12 +1257,14 @@ void KateView::slotUpdateUndo()
 
 void KateView::slotDropEventPass( QDropEvent * ev )
 {
-  const KUrl::List lstDragURLs=KUrl::List::fromMimeData(ev->mimeData());
+#if 0 //FIXME KF5
+  const QUrl::List lstDragURLs=QUrl::List::fromMimeData(ev->mimeData());
   bool ok = !lstDragURLs.isEmpty();
 
   KParts::BrowserExtension * ext = KParts::BrowserExtension::childObject( doc() );
   if ( ok && ext )
     emit ext->openUrlRequest( lstDragURLs.first() );
+#endif
 }
 
 void KateView::contextMenuEvent( QContextMenuEvent *ev )

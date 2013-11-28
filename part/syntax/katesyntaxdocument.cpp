@@ -25,14 +25,16 @@
 #include <time.h>
 #include <sys/time.h>
 
+#include <klocalizedstring.h>
 #include <kdebug.h>
 #include <kstandarddirs.h>
+#include <kglobal.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
 #include <kde_file.h>
 
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtCore/QFile>
 
 // use this to turn on over verbose debug output...
@@ -82,7 +84,7 @@ bool KateSyntaxDocument::setIdentifier(const QString& identifier)
       if (!success)
       {
         KMessageBox::error(QApplication::activeWindow(),i18n("<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>", identifier,
-             line, col, i18nc("QXml",errorMsg.toUtf8())));
+             line, col, i18nc("QXml",errorMsg.toUtf8().data())));
         return false;
       }
     }
@@ -394,8 +396,8 @@ void KateSyntaxDocument::setupModeList (bool force)
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
       mli->name       = config.readEntry("name");
-      mli->nameTranslated = i18nc("Language",mli->name.toUtf8());
-      mli->section    = i18nc("Language Section",config.readEntry("section").toUtf8());
+      mli->nameTranslated = i18nc("Language",mli->name.toUtf8().data());
+      mli->section    = i18nc("Language Section",config.readEntry("section").toUtf8().data());
       mli->mimetype   = config.readEntry("mimetype");
       mli->extension  = config.readEntry("extension");
       mli->version    = config.readEntry("version");
@@ -476,8 +478,8 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("lastModified", int(sbuf.st_mtime));
 
               // Now that the data is in the config file, translate section
-              mli->section    = i18nc("Language Section",mli->section.toUtf8());
-              mli->nameTranslated = i18nc("Language",mli->name.toUtf8());
+              mli->section    = i18nc("Language Section",mli->section.toUtf8().data());
+              mli->nameTranslated = i18nc("Language",mli->name.toUtf8().data());
 
               // Append the new item to the list.
               myModeList.append(mli);

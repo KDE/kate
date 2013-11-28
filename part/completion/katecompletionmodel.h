@@ -22,7 +22,7 @@
 #ifndef KATECOMPLETIONMODEL_H
 #define KATECOMPLETIONMODEL_H
 
-#include <QtGui/QAbstractProxyModel>
+#include <QtCore/QAbstractProxyModel>
 #include <QtCore/QPair>
 #include <QtCore/QList>
 
@@ -262,10 +262,10 @@ class KATEPART_TESTS_EXPORT KateCompletionModel : public ExpandingWidgetModel
         int inheritanceDepth;
 
         // True when currently matching completion string
-        MatchType matchCompletion : 6;
+        MatchType matchCompletion;
         // True when passes all active filters
-        bool matchFilters : 1;
-        bool m_haveExactMatch : 1;
+        bool matchFilters;
+        bool m_haveExactMatch;
 
         QString completionSortingName() const;
     };

@@ -40,11 +40,12 @@
 #include <kcolorscheme.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
+#include <kicon.h>
 
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QComboBox>
-#include <QtGui/QCheckBox>
-#include <QtGui/QShortcut>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QShortcut>
 
 // Turn debug messages on/off here
 // #define FAST_DEBUG_ENABLE

@@ -25,6 +25,7 @@
 #include <QtCore/QPointer>
 #include <QtCore/QHash>
 
+#include <klocalizedstring.h>
 #include <klocale.h>
 
 #include "katedialogs.h"
@@ -49,13 +50,13 @@ class KateFileType
     QString nameTranslated () const
     {
       // use "Language" as for highlightings, to avoid double work!
-      return hlGenerated ? i18nc("Language", name.toUtf8()) : name;
+      return hlGenerated ? i18nc("Language", name.toUtf8().data()) : name;
     }
     
     QString sectionTranslated () const
     {
       // use "Language Section" as for highlightings, to avoid double work!
-      return hlGenerated ? i18nc("Language Section", section.toUtf8()) : section;
+      return hlGenerated ? i18nc("Language Section", section.toUtf8().data()) : section;
     }
 
     KateFileType()

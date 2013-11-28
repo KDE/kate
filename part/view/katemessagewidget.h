@@ -21,7 +21,7 @@
 #ifndef KATE_MESSAGE_WIDGET_H
 #define KATE_MESSAGE_WIDGET_H
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 #include <QtCore/QHash>
 #include <QPointer>
 

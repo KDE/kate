@@ -46,15 +46,15 @@
 #include <knuminput.h>
 #include <kcombobox.h>
 
-#include <QtGui/QPainter>
-#include <QtGui/QCheckBox>
-#include <QtGui/QGroupBox>
-#include <QtGui/QPrintDialog>
-#include <QtGui/QPrinter>
-#include <QtGui/QApplication>
+#include <QtWidgets/QPainter>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QPrintDialog>
+#include <QtWidgets/QPrinter>
+#include <QtWidgets/QApplication>
 
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLayout>
 #include <QtCore/QStringList>
 #include <kvbox.h>
 

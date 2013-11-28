@@ -82,7 +82,7 @@
 #include <kservicetypetrader.h>
 
 #include <QtDBus/QtDBus>
-#include <QtGui/QApplication>
+#include <QtWidgets/QApplication>
 #include <QtCore/QTimer>
 #include <QtCore/QFile>
 #include <QtGui/QClipboard>
@@ -1557,7 +1557,7 @@ void KateDocument::readParameterizedSessionConfig(const KConfigGroup &kconfig,
 
   if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipUrl)) {
     // restore the url
-    KUrl url (kconfig.readEntry("URL"));
+    QUrl url (kconfig.readEntry("URL"));
 
     // open the file if url valid
     if (!url.isEmpty() && url.isValid())
@@ -1611,7 +1611,7 @@ void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
 
   if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipUrl)) {
     // save url
-    kconfig.writeEntry("URL", this->url().prettyUrl() );
+    kconfig.writeEntry("URL", this->url().toString() );
   }
 
   if(!(configParameters & KTextEditor::ParameterizedSessionConfigInterface::SkipEncoding)) {
@@ -1903,7 +1903,7 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
 //BEGIN: error
 void KateDocument::showAndSetOpeningErrorAccess() {
     QPointer<KTextEditor::Message> message
-      = new KTextEditor::Message(i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().pathOrUrl()),
+      = new KTextEditor::Message(i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().toString()),
                                  KTextEditor::Message::Error);
     message->setWordWrap(true);
     QAction* tryAgainAction = new QAction(KIcon("view-refresh"), i18nc("translators: you can also translate 'Try Again' with 'Reload'", "Try Again"), 0);
@@ -1921,7 +1921,7 @@ void KateDocument::showAndSetOpeningErrorAccess() {
 
     // remember error
     setOpeningError(true);
-    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().pathOrUrl()));
+    setOpeningErrorMessage(i18n ("The file %1 could not be loaded, as it was not possible to read from it.\n\nCheck if you have read access to this file.",this->url().toString()));
 
 }
 //END: error
@@ -2035,7 +2035,7 @@ bool KateDocument::openFile()
     QPointer<KTextEditor::Message> message
       = new KTextEditor::Message(i18n ("The file %1 was opened with %2 encoding but contained invalid characters.<br />"
                                        "It is set to read-only mode, as saving might destroy its content.<br />"
-                                       "Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(),
+                                       "Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().toString(),
                                        QString (m_buffer->textCodec()->name ())),
                                  KTextEditor::Message::Warning);
     message->setWordWrap(true);
@@ -2045,7 +2045,7 @@ bool KateDocument::openFile()
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 was opened with %2 encoding but contained invalid characters."
               " It is set to read-only mode, as saving might destroy its content."
-              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().pathOrUrl(), QString (m_buffer->textCodec()->name ())));
+              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().toString(), QString (m_buffer->textCodec()->name ())));
   }
 
   // warn: too long lines
@@ -2056,7 +2056,7 @@ bool KateDocument::openFile()
     QPointer<KTextEditor::Message> message
       = new KTextEditor::Message(i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters).<br />"
                                        "Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.",
-                                       this->url().pathOrUrl(),config()->lineLengthLimit()),
+                                       this->url().toString(),config()->lineLengthLimit()),
                                  KTextEditor::Message::Warning);
     message->setWordWrap(true);
     postMessage(message);
@@ -2064,7 +2064,7 @@ bool KateDocument::openFile()
     // remember error
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 was opened and contained lines longer than the configured Line Length Limit (%2 characters)."
-                " Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().pathOrUrl(),config()->lineLengthLimit()));
+                " Those lines were wrapped and the document is set to read-only mode, as saving will modify its content.", this->url().toString(),config()->lineLengthLimit()));
   }
 
   //
@@ -2120,12 +2120,12 @@ bool KateDocument::saveFile()
   if ( ( l && config()->backupFlags() & KateDocumentConfig::LocalFiles )
        || ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
   {
-    KUrl u( url() );
-    if (config()->backupPrefix().contains(QDir::separator())) {
+    QUrl u( url() );
+   // if (config()->backupPrefix().contains(QDir::separator())) {
         u.setPath( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
-    } else {
-        u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
-    }
+    //} else {
+    //    u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() ); FIXME KF5
+   // }
 
     kDebug( 13020 ) << "backup src file name: " << url();
     kDebug( 13020 ) << "backup dst file name: " << u;
@@ -2165,7 +2165,7 @@ bool KateDocument::saveFile()
     if (!backupSuccess && (KMessageBox::warningContinueCancel (parentWidget
         , i18n ("For file %1 no backup copy could be created before saving."
                 " If an error occurs while saving, you might lose the data of this file."
-                " A reason could be that the media you write to is full or the directory of the file is read-only for you.", url().pathOrUrl())
+                " A reason could be that the media you write to is full or the directory of the file is read-only for you.", url().toString())
         , i18n ("Failed to create backup copy.")
         , KGuiItem(i18n("Try to Save Nevertheless"))
         , KStandardGuiItem::cancel(), "Backup Failed Warning") != KMessageBox::Continue))
@@ -2208,7 +2208,7 @@ bool KateDocument::saveFile()
     // add m_file again to dirwatch
     activateDirWatch (oldPath);
 
-    KMessageBox::error (parentWidget, i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().pathOrUrl()));
+    KMessageBox::error (parentWidget, i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().toString()));
 
     return false;
   }
@@ -2327,7 +2327,7 @@ void KateDocument::deactivateDirWatch ()
   m_dirWatchFile.clear();
 }
 
-bool KateDocument::openUrl( const KUrl &url ) {
+bool KateDocument::openUrl( const QUrl &url ) {
   bool res=KTextEditor::Document::openUrl(url);
   updateDocName();
   return res;
@@ -2393,7 +2393,7 @@ bool KateDocument::closeUrl()
   //
   // empty url + fileName
   //
-  setUrl(KUrl());
+  setUrl(QUrl());
   setLocalFilePath(QString());
 
   // we are not modified
@@ -3733,7 +3733,7 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
       {
         m_modOnHd = false;
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
-            url().url(),QString(),parentWidget,i18n("Save File"));
+            url(),QString(),parentWidget,i18n("Save File"));
 
         kDebug(13020)<<"got "<<res.URLs.count()<<" URLs";
         if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first(), parentWidget ) )
@@ -3909,7 +3909,7 @@ bool KateDocument::documentSaveAs()
   QWidget *parentWidget(dialogParent());
 
   KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
-                url().url(),QString(),parentWidget,i18n("Save File"));
+                url(),QString(),parentWidget,i18n("Save File"));
 
   if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first(), parentWidget ) )
     return false;
@@ -4436,7 +4436,7 @@ bool KateDocument::createDigest ()
 QString KateDocument::reasonedMOHString() const
 {
   // squeeze path
-  QString str = KStringHandler::csqueeze(url().pathOrUrl());
+  QString str = KStringHandler::csqueeze(url().toString());
 
   switch( m_modOnHdReason )
   {
@@ -4557,7 +4557,7 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
         QWidget *parentWidget(dialogParent());
 
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
-                QString(),QString(),parentWidget,i18n("Save File"));
+                QUrl(),QString(),parentWidget,i18n("Save File"));
 
         if( res.URLs.isEmpty() || !checkOverwrite( res.URLs.first(), parentWidget ) ) {
                 *abortClosing=true;
@@ -4575,7 +4575,7 @@ void KateDocument::slotQueryClose_save(bool *handled, bool* abortClosing) {
 
 }
 
-bool KateDocument::checkOverwrite( KUrl u, QWidget *parent )
+bool KateDocument::checkOverwrite( QUrl u, QWidget *parent )
 {
   if( !u.isLocalFile() )
     return true;
@@ -4819,7 +4819,7 @@ bool KateDocument::queryClose()
         {
             if (url().isEmpty())
             {
-                KUrl url = KFileDialog::getSaveUrl(KUrl(), QString(), dialogParent());
+                QUrl url = KFileDialog::getSaveUrl(QUrl(), QString(), dialogParent());
                 if (url.isEmpty())
                     return false;
 
@@ -4937,7 +4937,7 @@ void KateDocument::slotTriggerLoadingMessage ()
    * create message about file loading in progress
    */
   delete m_loadingMessage;
-  m_loadingMessage = new KTextEditor::Message(i18n ("The file <a href=\"%1\">%2</a> is still loading.", url().pathOrUrl(), url().fileName()));
+  m_loadingMessage = new KTextEditor::Message(i18n ("The file <a href=\"%1\">%2</a> is still loading.", url().toString(), url().fileName()));
   m_loadingMessage->setPosition(KTextEditor::Message::TopInView);
 
   /**
@@ -4994,7 +4994,7 @@ bool KateDocument::save()
   return KTextEditor::Document::save();
 }
 
-bool KateDocument::saveAs( const KUrl &url )
+bool KateDocument::saveAs( const QUrl &url )
 {
   /**
    * abort on bad URL

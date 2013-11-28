@@ -44,8 +44,8 @@
 
 #include <QtCore/QStringList>
 #include <QtGui/QColor>
-#include <QtGui/QTabWidget>
-#include <QtGui/QTreeWidget>
+#include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTreeWidget>
 
 struct syntaxContextData;
 

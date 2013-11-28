@@ -23,6 +23,7 @@
 #include <kiconloader.h>
 #include <ktoolinvocation.h>
 #include <klocale.h>
+#include <klocalizedstring.h>
 
 KateHelpButton::KateHelpButton(QWidget* parent)
   : QToolButton(parent)
@@ -53,7 +54,7 @@ void KateHelpButton::setIconState(IconState state)
 
 void KateHelpButton::invokeHelp()
 {
-  KToolInvocation::invokeHelp(m_section, "kate");
+  // KF5 FIXME KToolInvocation::invokeHelp(m_section, "kate");
 }
 
 void KateHelpButton::setSection(const QString& section)

@@ -51,8 +51,8 @@
 #include <ktexteditor/highlightinterface.h>
 
 #include <QtCore/QSet>
-#include <QtGui/QAction>
-#include <QtGui/QApplication>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
 #include <QtCore/QStringList>
 #include <QtCore/QTextStream>
 #include <QVarLengthArray>

@@ -49,7 +49,7 @@
 #include <kiconloader.h>
 
 #include <QtCore/QPointer>
-#include <QtGui/QBoxLayout>
+#include <QtWidgets/QBoxLayout>
 #include <QApplication>
 
 KateGlobal *KateGlobal::s_self = 0;

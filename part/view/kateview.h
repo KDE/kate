@@ -34,7 +34,7 @@
 
 #include <QtCore/QPointer>
 #include <QModelIndex>
-#include <QtGui/QMenu>
+#include <QtWidgets/QMenu>
 
 #include <kdebug.h>
 
@@ -603,9 +603,9 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void setupCodeFolding();
 
     QList<QAction*>        m_editActions;
-    KAction*               m_editUndo;
-    KAction*               m_editRedo;
-    KAction*               m_pasteMenu;
+    QAction*               m_editUndo;
+    QAction*               m_editRedo;
+    QAction*               m_pasteMenu;
     KToggleAction*         m_toggleFoldingMarkers;
     KToggleAction*         m_toggleIconBar;
     KToggleAction*         m_toggleLineNumbers;
@@ -615,8 +615,8 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
-    KAction*               m_switchCmdLine;
-    KAction*               m_switchConsole;
+    QAction*               m_switchCmdLine;
+    QAction*               m_switchConsole;
     KToggleAction*         m_viInputModeAction;
 
     KSelectAction*         m_setEndOfLine;

@@ -31,6 +31,8 @@
 #include <QMap>
 #include <QUuid>
 
+#include <klocalizedstring.h>
+#include <kglobal.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kstandarddirs.h>

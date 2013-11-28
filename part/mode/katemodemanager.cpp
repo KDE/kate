@@ -41,14 +41,14 @@
 #include <kmenu.h>
 
 #include <QtCore/QRegExp>
-#include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
-#include <QtGui/QGroupBox>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QGroupBox>
 
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
-#include <QtGui/QPushButton>
-#include <QtGui/QToolButton>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLayout>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QToolButton>
 #include <kvbox.h>
 
 #define KATE_FT_HOWMANY 1024
@@ -211,8 +211,8 @@ QString KateModeManager::fileType (KateDocument *doc, const QString &fileToReadF
   if (m_types.isEmpty())
     return "";
 
-  QString fileName = doc->url().prettyUrl();
-  int length = doc->url().prettyUrl().length();
+  QString fileName = doc->url().toString();
+  int length = doc->url().toString().length();
 
   QString result;
 

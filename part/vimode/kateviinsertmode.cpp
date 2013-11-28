@@ -29,6 +29,7 @@
 #include <katecompletiontree.h>
 #include "kateglobal.h"
 #include "katevikeyparser.h"
+#include <klocalizedstring.h>
 
 using KTextEditor::Cursor;
 

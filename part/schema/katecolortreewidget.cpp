@@ -20,9 +20,9 @@
 
 #include "katecategorydrawer.h"
 
-#include <QtGui/QStyledItemDelegate>
-#include <QtGui/QPainter>
-#include <QtGui/QHeaderView>
+#include <QtWidgets/QStyledItemDelegate>
+#include <QtWidgets/QPainter>
+#include <QtWidgets/QHeaderView>
 
 #include <klocale.h>
 #include <kconfiggroup.h>

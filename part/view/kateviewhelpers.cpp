@@ -49,6 +49,7 @@
 #include <kdebug.h>
 #include <kglobalsettings.h>
 #include <klocale.h>
+#include <klocalizedstring.h>
 #include <knotification.h>
 #include <kglobal.h>
 #include <kmenu.h>
@@ -59,22 +60,22 @@
 #include <QtAlgorithms>
 #include <QVariant>
 #include <QtGui/QCursor>
-#include <QtGui/QMenu>
+#include <QtWidgets/QMenu>
 #include <QtGui/QPainter>
-#include <QtGui/QStyle>
+#include <QtWidgets/QStyle>
 #include <QtCore/QTimer>
 #include <QtCore/QRegExp>
 #include <QtCore/QTextCodec>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QPainterPath>
-#include <QtGui/QStyleOption>
+#include <QtWidgets/QStyleOption>
 #include <QtGui/QPalette>
 #include <QtGui/QPen>
-#include <QtGui/QBoxLayout>
-#include <QtGui/QToolButton>
-#include <QtGui/QToolTip>
-#include <QtGui/QAction>
-#include <QtGui/QWhatsThis>
+#include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QToolTip>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QWhatsThis>
 #include <QtGui/QLinearGradient>
 
 #include <math.h>
@@ -703,7 +704,11 @@ void KateScrollBar::resizeEvent(QResizeEvent *e)
 
 void KateScrollBar::styleChange(QStyle &s)
 {
+#if 0 //FIXME KF5
   QScrollBar::styleChange(s);
+  
+#endif
+  
   m_lines.clear();
   update();
 }
@@ -827,7 +832,9 @@ KateCommandLineBar::KateCommandLineBar (KateView *view, QWidget *parent)
 }
 
 void KateCommandLineBar::showHelpPage() {
+#if 0 //FIXME KF5
   KToolInvocation::invokeHelp("advanced-editing-tools-commandline","kate");
+#endif
 }
 
 KateCommandLineBar::~KateCommandLineBar()

@@ -26,7 +26,7 @@
 #include <QTimer>
 #include <QVarLengthArray>
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kapplication.h>
 
@@ -433,7 +433,7 @@ QModelIndex KateCompletionModel::index( int row, int column, const QModelIndex &
   }
 
   //kDebug( 13035 ) << "Returning index for group " << m_rowTable[row];
-  return createIndex(row, column, 0);
+  return createIndex(row, column, quintptr (0));
 }
 
 /*QModelIndex KateCompletionModel::sibling( int row, int column, const QModelIndex & index ) const
@@ -501,7 +501,7 @@ QModelIndex KateCompletionModel::indexForGroup( Group * g ) const
   if (row == -1)
     return QModelIndex();
 
-  return createIndex(row, 0, 0);
+  return createIndex(row, 0, quintptr(0));
 }
 
 void KateCompletionModel::clearGroups( bool shouldReset )
@@ -838,7 +838,7 @@ QModelIndex KateCompletionModel::parent( const QModelIndex & index ) const
       return QModelIndex();
     }
 
-    return createIndex(row, 0, 0);
+    return createIndex(row, 0, quintptr (0));
   }
 
   return QModelIndex();

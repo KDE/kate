@@ -26,7 +26,7 @@
 #include "kateextendedattribute.h"
 
 #include <QtCore/QMap>
-#include <QtGui/QFont>
+#include <QtWidgets/QFont>
 
 #include <kconfig.h>
 

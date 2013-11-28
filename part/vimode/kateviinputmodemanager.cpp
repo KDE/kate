@@ -29,6 +29,7 @@
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
+#include <klocalizedstring.h>
 
 #include "kateconfig.h"
 #include "kateglobal.h"

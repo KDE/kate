@@ -20,7 +20,7 @@
 
 #include "katecompletionconfig.h"
 
-#include <QtGui/QTreeWidget>
+#include <QtWidgets/QTreeWidget>
 
 #include <kicon.h>
 #include <kglobal.h>

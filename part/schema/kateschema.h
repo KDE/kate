@@ -23,6 +23,7 @@
 #include <kactionmenu.h>
 #include <kconfig.h>
 #include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <QtCore/QStringList>
 #include <QtCore/QPointer>
@@ -40,7 +41,7 @@ class KateSchema
      * construct translated name for shipped schemas
      */
     QString translatedName () const {
-      return shippedDefaultSchema ? i18nc("Color Schema", rawName.toUtf8()) : rawName;
+      return shippedDefaultSchema ? i18nc("Color Schema", rawName.toUtf8().data()) : rawName;
     }
 };
 

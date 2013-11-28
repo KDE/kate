@@ -31,6 +31,7 @@ find_package(Qt5Core REQUIRED NO_MODULE)
 find_package(Qt5DBus REQUIRED NO_MODULE)
 find_package(Qt5Quick REQUIRED NO_MODULE)
 find_package(Qt5Widgets REQUIRED NO_MODULE)
+find_package(Qt5Script REQUIRED NO_MODULE)
 
 # Load the frameworks we need
 find_package(KF5 CONFIG REQUIRED
@@ -77,7 +78,7 @@ include_directories (BEFORE ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/includes)
 ecm_optional_add_subdirectory (ktexteditor)
 
 # kate part
-#macro_optional_add_subdirectory (part)
+ecm_optional_add_subdirectory (part)
 
 # kate application
 #macro_optional_add_subdirectory (kate)

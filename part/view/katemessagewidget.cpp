@@ -30,7 +30,7 @@
 
 #include <QtCore/QEvent>
 #include <QtCore/QTimer>
-#include <QtGui/QVBoxLayout>
+#include <QtWidgets/QVBoxLayout>
 #include <QToolTip>
 #include <QShowEvent>
 

@@ -29,11 +29,11 @@
 #include "katecmd.h"
 #include <katecmds.h>
 
-#include <QtGui/QLineEdit>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QCompleter>
-#include <QtGui/QApplication>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QCompleter>
+#include <QtWidgets/QApplication>
 #include <KDE/KColorScheme>
 #include <algorithm>
 

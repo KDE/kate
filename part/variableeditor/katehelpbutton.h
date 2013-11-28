@@ -21,7 +21,7 @@
 #ifndef KATE_HELP_BUTTON_H
 #define KATE_HELP_BUTTON_H
 
-#include <QtGui/QToolButton>
+#include <QtWidgets/QToolButton>
 
 class KateHelpButton : public QToolButton
 {

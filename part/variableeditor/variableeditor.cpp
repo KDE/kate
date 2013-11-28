@@ -23,17 +23,18 @@
 #include "katehelpbutton.h"
 
 #include <QtCore/QVariant>
-#include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
-#include <QtGui/QGridLayout>
-#include <QtGui/QLabel>
-#include <QtGui/QLineEdit>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtGui/QPainter>
-#include <QtGui/QSpinBox>
+#include <QtWidgets/QSpinBox>
 
 #include <kfontcombobox.h>
 #include <kiconloader.h>
 #include <klocale.h>
+#include <klocalizedstring.h>
 #include <kcolorcombo.h>
 #include <sonnet/dictionarycombobox.h>
 

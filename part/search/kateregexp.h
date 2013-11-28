@@ -33,7 +33,7 @@ class KateRegExp
     bool isEmpty() const { return m_regExp.isEmpty(); }
     bool isValid() const { return m_regExp.isValid(); }
     QString pattern() const { return m_regExp.pattern(); }
-    int numCaptures() const { return m_regExp.numCaptures(); }
+    int numCaptures() const { return m_regExp.captureCount(); }
     int pos(int nth = 0) const { return m_regExp.pos(nth); }
     QString cap(int nth = 0) const { return m_regExp.cap(nth); }
     int matchedLength() const { return m_regExp.matchedLength(); }

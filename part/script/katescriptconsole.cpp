@@ -21,14 +21,17 @@
 //BEGIN Includes
 // Qt
 #include <QtCore/QFile>
-#include <QtGui/QLabel>
-#include <QtGui/QVBoxLayout>
-#include <QtGui/QPushButton>
-#include <QtGui/QTextEdit>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTextEdit>
 
 // KDE
 #include <KStandardDirs>
 #include <KLocale>
+#include <KGlobal>
+#include <KIcon>
+#include <klocalizedstring.h>
 
 // Kate
 #include "katescriptconsole.h"

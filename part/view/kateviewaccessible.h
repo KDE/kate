@@ -20,6 +20,9 @@
 
 #ifndef _KATE_VIEW_ACCESSIBLE_
 #define _KATE_VIEW_ACCESSIBLE_
+
+#if 0 // FIXME KF5
+
 #ifndef QT_NO_ACCESSIBILITY
 #if QT_VERSION >= 0x040800
 
@@ -27,8 +30,8 @@
 #include "katetextcursor.h"
 #include "katedocument.h"
 
-#include <QtGui/QAccessible>
-#include <QtGui/qaccessible2.h>
+#include <QtWidgets/QAccessible>
+#include <QtWidgets/qaccessible2.h>
 #include <klocale.h>
 #include <qaccessiblewidget.h>
 
@@ -487,6 +490,8 @@ QAccessibleInterface* accessibleInterfaceFactory(const QString &key, QObject *ob
 }
 
 #endif
+#endif
+
 #endif
 
 #endif

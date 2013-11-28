@@ -312,7 +312,7 @@ QString KateScriptDocument::fileName()
 
 QString KateScriptDocument::url()
 {
-  return m_document->url().prettyUrl();
+  return m_document->url().toString();
 }
 
 QString KateScriptDocument::mimeType()

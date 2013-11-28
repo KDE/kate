@@ -22,12 +22,14 @@
 #ifndef _KATE_DOCUMENT_H_
 #define _KATE_DOCUMENT_H_
 
+#include <QtCore/QPointer>
 #include <QtCore/QLinkedList>
 #include <QtCore/QMap>
 #include <QtCore/QDate>
 #include <QtGui/QClipboard>
 #include <QtCore/QStack>
 
+#include <kjob.h>
 #include <kmimetype.h>
 
 #include <ktexteditor/document.h>
@@ -111,7 +113,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     using ReadWritePart::closeUrl;
     virtual bool closeUrl();
     
-    virtual bool openUrl( const KUrl &url );
+    virtual bool openUrl( const QUrl &url );
 
     virtual KTextEditor::Editor *editor ();
 
@@ -857,7 +859,7 @@ Q_SIGNALS:
 
     virtual bool save();
   public:
-    virtual bool saveAs( const KUrl &url );
+    virtual bool saveAs( const QUrl &url );
 
   Q_SIGNALS:
     /**
@@ -1000,7 +1002,7 @@ Q_SIGNALS:
 
     void makeAttribs (bool needInvalidate = true);
 
-    static bool checkOverwrite( KUrl u, QWidget *parent );
+    static bool checkOverwrite( QUrl u, QWidget *parent );
 
   /**
    * Configuration

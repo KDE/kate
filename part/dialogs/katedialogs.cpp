@@ -63,6 +63,7 @@
 #include <kio/jobclasses.h>
 #include <kio/netaccess.h>
 
+#include <kdeversion.h>
 #include <kapplication.h>
 #include <kcharsets.h>
 #include <kcolorbutton.h>
@@ -94,24 +95,24 @@
 #include <ktabwidget.h>
 
 //#include <knewstuff/knewstuff.h>
-#include <QtGui/QCheckBox>
-#include <QtGui/QComboBox>
-#include <QtGui/QDialog>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QDialog>
 #include <QtCore/QFile>
-#include <QtGui/QGroupBox>
-#include <QtGui/QLabel>
-#include <QtGui/QLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLayout>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtGui/QPainter>
-#include <QtGui/QRadioButton>
-#include <QtGui/QSlider>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSlider>
 #include <QtCore/QStringList>
-#include <QtGui/QTabWidget>
+#include <QtWidgets/QTabWidget>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
-#include <QtGui/QToolButton>
-#include <QtGui/QWhatsThis>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QWhatsThis>
 #include <QtGui/QKeyEvent>
 #include <QtXml/QDomDocument>
 
@@ -506,7 +507,7 @@ KateSpellCheckConfigTab::KateSpellCheckConfigTab(QWidget *parent)
   //
   // after initial reload, connect the stuff for the changed () signal
 
-  m_sonnetConfigWidget = new Sonnet::ConfigWidget(KGlobal::config().data(), this);
+  m_sonnetConfigWidget = new Sonnet::ConfigWidget(this);
   connect(m_sonnetConfigWidget, SIGNAL(configChanged()), this, SLOT(slotChanged()));
   layout->addWidget(m_sonnetConfigWidget);
 
@@ -1208,7 +1209,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   setButtonIcon(User1, KIcon("dialog-ok"));
 
   transferJob = KIO::get(
-    KUrl(QString(HLDOWNLOADPATH)
+    QUrl(QString(HLDOWNLOADPATH)
        + QString("update-")
        + KateGlobal::katePartVersion()
        + QString(".xml")), KIO::Reload );
@@ -1321,8 +1322,8 @@ void KateHlDownloadDialog::slotUser1()
   QString destdir=KGlobal::dirs()->saveLocation("data","katepart/syntax/");
   foreach (QTreeWidgetItem *it, list->selectedItems())
   {
-    KUrl src(it->text(4));
-    QString filename=src.fileName(KUrl::ObeyTrailingSlash);
+    QUrl src(it->text(4));
+    QString filename=src.fileName(); // FIXME KF5 QUrl::ObeyTrailingSlash
     QString dest = destdir+filename;
 
     KIO::NetAccess::download(src,dest, this);
@@ -1594,7 +1595,7 @@ void KateModOnHdPrompt::slotPDone()
   }
 
   m_diffFile->setAutoRemove(false);
-  KUrl url = KUrl::fromPath(m_diffFile->fileName());
+  QUrl url = QUrl::fromLocalFile(m_diffFile->fileName());
   delete m_diffFile;
   m_diffFile = 0;
 

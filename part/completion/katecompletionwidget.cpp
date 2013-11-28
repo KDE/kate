@@ -21,17 +21,17 @@
 
 #include "katecompletionwidget.h"
 
-#include <QtGui/QBoxLayout>
-#include <QtGui/QApplication>
-#include <QtGui/QDesktopWidget>
-#include <QtGui/QHeaderView>
+#include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QHeaderView>
 #include <QtCore/QTimer>
-#include <QtGui/QLabel>
-#include <QtGui/QToolButton>
-#include <QtGui/QSizeGrip>
-#include <QtGui/QPushButton>
-#include <QtGui/QAbstractScrollArea>
-#include <QtGui/QScrollBar>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QSizeGrip>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QAbstractScrollArea>
+#include <QtWidgets/QScrollBar>
 #include <QtCore/QScopedPointer>
 
 #include <kicon.h>

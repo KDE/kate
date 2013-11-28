@@ -21,8 +21,8 @@
 
 #include "katecompletiontree.h"
 
-#include <QtGui/QHeaderView>
-#include <QtGui/QScrollBar>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QScrollBar>
 #include <QVector>
 #include <QTimer>
 #include <QApplication>

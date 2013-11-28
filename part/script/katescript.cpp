@@ -36,6 +36,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <kglobal.h>
 #include <kstandarddirs.h>
 #include <klocalizedstring.h>
 
@@ -93,7 +94,7 @@ KateScript::~KateScript()
     // unload i18n catalog if available + loaded
     if (!generalHeader().catalog().isEmpty()) {
       kDebug() << "unloading i18n catalog" << generalHeader().catalog();
-      KGlobal::locale()->removeCatalog(generalHeader().catalog());
+      //KGlobal::locale()->removeCatalog(generalHeader().catalog()); FIXME KF5
     }
 
     // remove data...

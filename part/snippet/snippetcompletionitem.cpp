@@ -24,7 +24,7 @@
 
 #include <KTextEditor/Document>
 #include <KLocalizedString>
-#include <QtGui/QTextEdit>
+#include <QtWidgets/QTextEdit>
 #include <QtCore/QModelIndex>
 
 #include <ktexteditor/templateinterface.h>

@@ -32,6 +32,7 @@
 
 #include <kdebug.h>
 #include <klocale.h>
+#include <kglobal.h>
 #include <klocalizedstring.h>
 #include <kstandarddirs.h>
 
@@ -202,7 +203,7 @@ QScriptValue i18n( QScriptContext *context, QScriptEngine *engine )
     args << context->argument(i).toVariant();
   }
 
-  KLocalizedString ls = ki18n(text.toUtf8());
+  KLocalizedString ls = ki18n(text.toUtf8().data());
   return substituteArguments( ls, args ).toString();
 }
 
@@ -231,7 +232,7 @@ QScriptValue i18nc( QScriptContext *context, QScriptEngine *engine )
     args << context->argument(i).toVariant();
   }
 
-  KLocalizedString ls = ki18nc(textContext.toUtf8(), text.toUtf8());
+  KLocalizedString ls = ki18nc(textContext.toUtf8().data(), text.toUtf8().data());
   return substituteArguments( ls, args ).toString();
 }
 
@@ -265,7 +266,7 @@ QScriptValue i18np( QScriptContext *context, QScriptEngine *engine )
     args << context->argument(i).toVariant();
   }
 
-  KLocalizedString ls = ki18np(trSingular.toUtf8(), trPlural.toUtf8()).subs(number);
+  KLocalizedString ls = ki18np(trSingular.toUtf8().data(), trPlural.toUtf8().data()).subs(number);
   return substituteArguments( ls, args, 98 ).toString();
 }
 
@@ -304,7 +305,7 @@ QScriptValue i18ncp( QScriptContext *context, QScriptEngine *engine )
     args << context->argument(i).toVariant();
   }
 
-  KLocalizedString ls = ki18ncp(trContext.toUtf8(), trSingular.toUtf8(), trPlural.toUtf8()).subs( number );
+  KLocalizedString ls = ki18ncp(trContext.toUtf8().data(), trSingular.toUtf8().data(), trPlural.toUtf8().data()).subs( number );
   return substituteArguments( ls, args, 98 ).toString();
 }
 //END code adapted from kdelibs/kross/modules/translation.cpp

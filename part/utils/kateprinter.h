@@ -23,7 +23,9 @@
 #ifndef __KATE_PRINTER_H__
 #define __KATE_PRINTER_H__
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
+
+#include <QtPrintSupport/QPrinter>
 
 class KateDocument;
 

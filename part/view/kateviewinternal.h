@@ -38,7 +38,7 @@
 #include <QtCore/QPoint>
 #include <QtCore/QTimer>
 #include <QtGui/QDrag>
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 #include <QtCore/QSet>
 #include <QtCore/QPointer>
 

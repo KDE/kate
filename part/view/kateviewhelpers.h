@@ -27,9 +27,9 @@
 
 #include <QtGui/QPixmap>
 #include <QtGui/QColor>
-#include <QtGui/QScrollBar>
+#include <QtWidgets/QScrollBar>
 #include <QtCore/QHash>
-#include <QtGui/QStackedWidget>
+#include <QtWidgets/QStackedWidget>
 #include <QtCore/QMap>
 #include <QtCore/QTimer>
 #include <QtGui/QTextLayout>

@@ -41,8 +41,8 @@
 #include <khbox.h>
 #include <ktabwidget.h>
 
-#include <QtGui/QPushButton>
-#include <QtGui/QProgressDialog>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QProgressDialog>
 //END
 
 

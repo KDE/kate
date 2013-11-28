@@ -226,26 +226,19 @@ add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )
 
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 
-kde4_add_library (katepartinterfaces ${LIBRARY_TYPE} ${katepart_PART_SRCS} )
+add_library (katepartinterfaces SHARED ${katepart_PART_SRCS} )
 
-target_link_libraries (
-  katepartinterfaces ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
-  ${KDE4_KCMUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} ${KDE_4_4_LIBS_NEEDED} ${KDE4_KNEWSTUFF3_LIBS}
+target_link_libraries (katepartinterfaces 
+    KF5::KParts
+    KF5::KDE4Support
+    KF5::KNewStuff Qt5::Script
 )
-target_link_libraries(katepartinterfaces LINK_INTERFACE_LIBRARIES "${KDE4_KPARTS_LIBS}" )
 
 set_target_properties(
   katepartinterfaces PROPERTIES
   VERSION ${GENERIC_LIB_VERSION}
   SOVERSION ${GENERIC_LIB_SOVERSION}
 )
-
-# kde 4 final support
-if(KDE4_ENABLE_FINAL)
-   macro_add_file_dependencies(${CMAKE_CURRENT_BINARY_DIR}/katepartinterfaces_final_cpp.cpp )
-else(KDE4_ENABLE_FINAL)
-   macro_add_file_dependencies(${CMAKE_CURRENT_SOURCE_DIR}/script/katescript.cpp )
-endif(KDE4_ENABLE_FINAL)
 
 # install kate part interfaces
 install (TARGETS katepartinterfaces EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
@@ -254,9 +247,10 @@ install (TARGETS katepartinterfaces EXPORT kdelibsLibraryTargets ${INSTALL_TARGE
 kde4_add_plugin (katepart utils/katefactory.cpp)
 
 # link the part, use kate part interfaces + kde stuff
-target_link_libraries (katepart
-  ${KDE4_KDECORE_LIBS} ${KDE4_KPARTS_LIBS}
-  ${KDE4_KCMUTILS_LIBS} ${KDE4_KTEXTEDITOR_LIBS} ${QT_QTSCRIPT_LIBRARY} katepartinterfaces)
+target_link_libraries (katepart katepartinterfaces
+    KF5::KParts
+    KF5::KDE4Support
+    KF5::KNewStuff)
 
 # install the part
 install (TARGETS katepart DESTINATION ${PLUGIN_INSTALL_DIR})

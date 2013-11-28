@@ -19,7 +19,7 @@
 #ifndef KATE_COLOR_TREE_WIDGET_H
 #define KATE_COLOR_TREE_WIDGET_H
 
-#include <QtGui/QTreeWidget>
+#include <QtWidgets/QTreeWidget>
 
 class KConfigGroup;
 class KateColorTreeItem;

@@ -50,7 +50,7 @@
 #include <kapplication.h>
 
 #include <QtCore/QSet>
-#include <QtGui/QAction>
+#include <QtWidgets/QAction>
 #include <QtCore/QStringList>
 #include <QtCore/QTextStream>
 //END

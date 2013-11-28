@@ -40,6 +40,7 @@
 
 #include <QApplication>
 #include <QList>
+#include <klocalizedstring.h>
 
 using KTextEditor::Cursor;
 using KTextEditor::Range;

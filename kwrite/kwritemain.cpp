@@ -42,7 +42,9 @@
 #include <kencodingfiledialog.h>
 #include <kiconloader.h>
 #include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
+#include <kglobal.h>
 #include <krecentfilesaction.h>
 #include <kshortcutsdialog.h>
 #include <kstatusbar.h>
@@ -108,8 +110,9 @@ KWrite::KWrite (KTextEditor::Document *doc)
   guiFactory()->addClient( m_view );
 
   // init with more useful size, stolen from konq :)
-  if (!initialGeometrySet())
+/* FIXME KF5  if (!initialGeometrySet())
     resize( QSize(700, 480).expandedTo(minimumSizeHint()));
+*/
 
   // call it as last thing, must be sure everything is already set up ;)
   setAutoSaveSettings ();
@@ -154,7 +157,7 @@ void KWrite::setupActions()
   actionCollection()->addAction( KStandardAction::Open, "file_open", this, SLOT(slotOpen()) )
     ->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
-  m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(KUrl)), this);
+  m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(QUrl)), this);
   actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
@@ -228,7 +231,7 @@ void KWrite::setupStatusBar()
 }
 
 // load on url
-void KWrite::loadURL(const KUrl &url)
+void KWrite::loadURL(const QUrl &url)
 {
 #ifdef KActivities_FOUND
   if (!m_activityResource) {
@@ -267,16 +270,18 @@ void KWrite::slotNew()
 
 void KWrite::slotOpen()
 {
-  const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(KWriteApp::self()->editor()->defaultEncoding(), m_view->document()->url().url(),QString(),this,i18n("Open File"));
+  const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(KWriteApp::self()->editor()->defaultEncoding(), m_view->document()->url(),QString(),this,i18n("Open File"));
 
-  for (KUrl::List::ConstIterator i=r.URLs.constBegin(); i != r.URLs.constEnd(); ++i)
+#if 0 // FIXME KF5
+  for (QUrl::List::ConstIterator i=r.URLs.constBegin(); i != r.URLs.constEnd(); ++i)
   {
     encoding = r.encoding;
     slotOpen ( *i );
   }
+#endif
 }
 
-void KWrite::slotOpen( const KUrl& url )
+void KWrite::slotOpen( const QUrl& url )
 {
   if (url.isEmpty()) return;
 
@@ -332,7 +337,7 @@ void KWrite::editKeys()
 
 void KWrite::editToolbars()
 {
-  saveMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
+  // FIXME KF5 saveMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
   KEditToolBar dlg(guiFactory(), this);
 
   connect( &dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()) );
@@ -346,9 +351,9 @@ void KWrite::slotNewToolbarConfig()
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
 {
-  KUrl::List uriList = KUrl::List::fromMimeData( event->mimeData() );
-  if(!uriList.isEmpty())
-      event->accept();
+// FIXME KF5   QUrl::List uriList = QUrl::List::fromMimeData( event->mimeData() );
+  // FIXME KF5 if(!uriList.isEmpty())
+  // FIXME KF5     event->accept();
 }
 
 void KWrite::dropEvent( QDropEvent *event )
@@ -358,13 +363,13 @@ void KWrite::dropEvent( QDropEvent *event )
 
 void KWrite::slotDropEvent( QDropEvent *event )
 {
-  const KUrl::List textlist = KUrl::List::fromMimeData( event->mimeData() );
+  // FIXME KF5 const QUrl::List textlist = QUrl::List::fromMimeData( event->mimeData() );
 
-  if (textlist.isEmpty())
-    return;
+ // FIXME KF5  if (textlist.isEmpty())
+  // FIXME KF5   return;
 
-  for (KUrl::List::ConstIterator i=textlist.constBegin(); i != textlist.constEnd(); ++i)
-    slotOpen (*i);
+// FIXME KF5   for (QUrl::List::ConstIterator i=textlist.constBegin(); i != textlist.constEnd(); ++i)
+ // FIXME KF5    slotOpen (*i);
 }
 
 void KWrite::slotEnableActions( bool enable )
@@ -531,8 +536,8 @@ void KWrite::restore()
 
 void KWrite::aboutEditor()
 {
-  KAboutApplicationDialog dlg(m_view->document()->editor()->aboutData(), this);
-  dlg.exec();
+  // FIXME KF5 KAboutApplicationDialog dlg(m_view->document()->editor()->aboutData(), this);
+  // FIXME KF5 dlg.exec();
 }
 
 void KWrite::updateStatus ()
@@ -626,7 +631,7 @@ void KWrite::documentNameChanged ()
     }
     else
     {
-      c = m_view->document()->url().pathOrUrl();
+      c = m_view->document()->url().toString();
 
       //File name shouldn't be too long - Maciek
       if (c.length() > 64)
@@ -641,53 +646,54 @@ void KWrite::modeChanged ( KTextEditor::Document *document )
 {
   QString mode = document->mode();
   if (!mode.isEmpty())
-    mode = i18nc("Language", document->mode().toUtf8());
+    mode = i18nc("Language", document->mode().toUtf8().data());
   m_modeLabel->setText(mode);
 }
 
 extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 {
-  KAboutData aboutData ( "kwrite", 0,
-                         ki18n("KWrite"),
+  KAboutData aboutData ( QString ("kwrite"), QString(),
+                         i18n("KWrite"),
                          KDE_VERSION_STRING,
-                         ki18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
-                         ki18n( "(c) 2000-2010 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org" );
-  aboutData.addAuthor (ki18n("Christoph Cullmann"), ki18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
-  aboutData.addAuthor (ki18n("Anders Lund"), ki18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
-  aboutData.addAuthor (ki18n("Joseph Wenninger"), ki18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
-  aboutData.addAuthor (ki18n("Hamish Rodda"),ki18n("Core Developer"), "rodda@kde.org");
-  aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Developer & Highlight wizard"), "dhdev@gmx.de");
-  aboutData.addAuthor (ki18n("Waldo Bastian"), ki18n( "The cool buffersystem" ), "bastian@kde.org" );
-  aboutData.addAuthor (ki18n("Charles Samuels"), ki18n("The Editing Commands"), "charles@kde.org");
-  aboutData.addAuthor (ki18n("Matt Newell"), ki18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), "newellm@proaxis.com");
-  aboutData.addAuthor (ki18n("Michael Bartl"), ki18n("Former Core Developer"), "michael.bartl1@chello.at");
-  aboutData.addAuthor (ki18n("Michael McCallum"), ki18n("Core Developer"), "gholam@xtra.co.nz");
-  aboutData.addAuthor (ki18n("Jochen Wilhemly"), ki18n( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
-  aboutData.addAuthor (ki18n("Michael Koch"),ki18n("KWrite port to KParts"), "koch@kde.org");
-  aboutData.addAuthor (ki18n("Christian Gebauer"), KLocalizedString(), "gebauer@kde.org" );
-  aboutData.addAuthor (ki18n("Simon Hausmann"), KLocalizedString(), "hausmann@kde.org" );
-  aboutData.addAuthor (ki18n("Glen Parker"),ki18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
-  aboutData.addAuthor (ki18n("Scott Manson"),ki18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
-  aboutData.addAuthor (ki18n("John Firebaugh"),ki18n("Patches and more"), "jfirebaugh@kde.org");
-  aboutData.addAuthor (ki18n("Gerald Senarclens de Grancy"), ki18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
+                         i18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
+                         i18n( "(c) 2000-2010 The Kate Authors" ), QString(), QString ("http://www.kate-editor.org") );
+  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
+  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
+  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
+  aboutData.addAuthor (i18n("Hamish Rodda"),i18n("Core Developer"), "rodda@kde.org");
+  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), "dhdev@gmx.de");
+  aboutData.addAuthor (i18n("Waldo Bastian"), i18n( "The cool buffersystem" ), "bastian@kde.org" );
+  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), "charles@kde.org");
+  aboutData.addAuthor (i18n("Matt Newell"), i18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), "newellm@proaxis.com");
+  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), "michael.bartl1@chello.at");
+  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), "gholam@xtra.co.nz");
+  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
+  aboutData.addAuthor (i18n("Michael Koch"),i18n("KWrite port to KParts"), "koch@kde.org");
+  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), "gebauer@kde.org" );
+  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), "hausmann@kde.org" );
+  aboutData.addAuthor (i18n("Glen Parker"),i18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
+  aboutData.addAuthor (i18n("Scott Manson"),i18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
+  aboutData.addAuthor (i18n("John Firebaugh"),i18n("Patches and more"), "jfirebaugh@kde.org");
+  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
 
-  aboutData.addCredit (ki18n("Matteo Merli"),ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
-  aboutData.addCredit (ki18n("Rocky Scaletta"),ki18n("Highlighting for VHDL"), "rocky@purdue.edu");
-  aboutData.addCredit (ki18n("Yury Lebedev"),ki18n("Highlighting for SQL"));
-  aboutData.addCredit (ki18n("Chris Ross"),ki18n("Highlighting for Ferite"));
-  aboutData.addCredit (ki18n("Nick Roux"),ki18n("Highlighting for ILERPG"));
-  aboutData.addCredit (ki18n("Carsten Niehaus"), ki18n("Highlighting for LaTeX"));
-  aboutData.addCredit (ki18n("Per Wigren"), ki18n("Highlighting for Makefiles, Python"));
-  aboutData.addCredit (ki18n("Jan Fritz"), ki18n("Highlighting for Python"));
-  aboutData.addCredit (ki18n("Daniel Naber"));
-  aboutData.addCredit (ki18n("Roland Pabel"),ki18n("Highlighting for Scheme"));
-  aboutData.addCredit (ki18n("Cristi Dumitrescu"),ki18n("PHP Keyword/Datatype list"));
-  aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18nc("Credit text for someone that helped a lot", "Very nice help"));
-  aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
+  aboutData.addCredit (i18n("Matteo Merli"),i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
+  aboutData.addCredit (i18n("Rocky Scaletta"),i18n("Highlighting for VHDL"), "rocky@purdue.edu");
+  aboutData.addCredit (i18n("Yury Lebedev"),i18n("Highlighting for SQL"));
+  aboutData.addCredit (i18n("Chris Ross"),i18n("Highlighting for Ferite"));
+  aboutData.addCredit (i18n("Nick Roux"),i18n("Highlighting for ILERPG"));
+  aboutData.addCredit (i18n("Carsten Niehaus"), i18n("Highlighting for LaTeX"));
+  aboutData.addCredit (i18n("Per Wigren"), i18n("Highlighting for Makefiles, Python"));
+  aboutData.addCredit (i18n("Jan Fritz"), i18n("Highlighting for Python"));
+  aboutData.addCredit (i18n("Daniel Naber"));
+  aboutData.addCredit (i18n("Roland Pabel"),i18n("Highlighting for Scheme"));
+  aboutData.addCredit (i18n("Cristi Dumitrescu"),i18n("PHP Keyword/Datatype list"));
+  aboutData.addCredit (i18n("Carsten Pfeiffer"), i18nc("Credit text for someone that helped a lot", "Very nice help"));
+  aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
 
   aboutData.setProgramIconName ("accessories-text-editor");
   aboutData.setProductName("kate/kwrite");
 
+#if 0 // FIXME KF5 
   KCmdLineArgs::init( argc, argv, &aboutData );
 
   KCmdLineOptions options;
@@ -698,9 +704,11 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   options.add("+[URL]", ki18n("Document to open"));
 
   KCmdLineArgs::addCmdLineOptions( options );
+  
   KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-  KWriteApp a(args);
+#endif
+  KWriteApp a(argc, argv);
 
   return a.exec ();
 }

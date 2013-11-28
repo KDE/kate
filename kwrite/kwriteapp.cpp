@@ -26,8 +26,10 @@ Boston, MA 02110-1301, USA.
 #include <QFileInfo>
 #include <QTextCodec>
 
-KWriteApp::KWriteApp(KCmdLineArgs *m_args)
-  : KApplication ()
+#include <KGlobal>
+
+KWriteApp::KWriteApp(int & argc, char ** argv)
+  : QApplication (argc, argv)
   , m_args(m_args)
 {
   m_editor = KTextEditor::EditorChooser::editor();
@@ -57,11 +59,13 @@ KWriteApp::~KWriteApp()
 
 KWriteApp *KWriteApp::self ()
 {
-  return static_cast<KWriteApp *>(kapp);
+  return static_cast<KWriteApp *>(QApplication::instance());
 }
 
 void KWriteApp::init()
 {
+#if 0 // FIXME KF5
+  
   if (isSessionRestored())
   {
     KWrite::restore();
@@ -148,7 +152,7 @@ void KWriteApp::init()
       if (!docs_opened) kapp->exit(1); // see http://bugs.kde.org/show_bug.cgi?id=124708
     }
   }
-
+#endif 
   // no window there, uh, ohh, for example borked session config !!!
   // create at least one !!
   if (KWrite::noWindows())

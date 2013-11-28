@@ -21,7 +21,7 @@ Boston, MA 02110-1301, USA.
 
 #include "kwritemain.h"
 
-#include <KApplication>
+#include <QApplication>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/containerinterface.h>
 
@@ -39,7 +39,7 @@ class KCmdLineArgs;
  * This class represents the core kwrite application object
  */
 class KWriteApp
-  : public KApplication
+  : public QApplication
   , public KTextEditor::MdiContainer
 {
     Q_OBJECT
@@ -53,7 +53,7 @@ class KWriteApp
      * application constructor
      * @param args parsed command line args
      */
-    KWriteApp(KCmdLineArgs *args);
+    KWriteApp(int & argc, char ** argv);
 
     /**
      * application destructor

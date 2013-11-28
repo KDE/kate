@@ -80,11 +80,11 @@ ecm_optional_add_subdirectory (ktexteditor)
 # kate part
 ecm_optional_add_subdirectory (part)
 
+# kwrite
+ecm_optional_add_subdirectory (kwrite)
+
 # kate application
 #macro_optional_add_subdirectory (kate)
-
-# kwrite
-#macro_optional_add_subdirectory (kwrite)
 
 # addons, e.g. ktexteditor plugins, kate plugins, plasma applets, ...
 #macro_optional_add_subdirectory (addons)

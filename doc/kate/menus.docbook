@@ -192,21 +192,6 @@ it open in &kate;
 
 <varlistentry>
 <term>
-<anchor id="close-orphaned"/>
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Close Orphaned</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para><action>Close</action> all documents in the file list, which could
-not be reopened during startup, because they are not accessible anymore.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
 <anchor id="print"/>
 <menuchoice>
 <shortcut>
@@ -220,6 +205,22 @@ not be reopened during startup, because they are not accessible anymore.
 <para>
 <action>Print the active file</action>.
 </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="export-as-html"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Export as &HTML;...</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Save the currently open document as an &HTML; file, which will be
+formatted using the current syntax highlighting and color scheme settings.</para>
+<para>This menu item is displayed by the Exporter editor component extension,
+which is enabled by default.</para>
 </listitem>
 </varlistentry>
 
@@ -274,6 +275,54 @@ in &kate;.
 
 <varlistentry>
 <term>
+<anchor id="close-orphaned"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Close Orphaned</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para><action>Close</action> all documents in the file list, which could
+not be reopened during startup, because they are not accessible anymore.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="close-except"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>Close Except</guisubmenu>
+</menuchoice>
+</term>
+<listitem>
+<para><action>Close</action> all documents in the file list, 
+<emphasis>except</emphasis> those which match the path selected from this
+submenu.</para>
+<para>This menu item is displayed by the Close Except/Like plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="close-like"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>Close Like</guisubmenu>
+</menuchoice>
+</term>
+<listitem>
+<para><action>Close</action> all documents in the file list which match the path 
+selected from this submenu.</para>
+<para>This menu item is displayed by the Close Except/Like plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
 <anchor id="quit"/>
 <menuchoice>
 <shortcut>
@@ -312,8 +361,8 @@ all to work with the currently active document.</para>
 </term>
 <listitem>
 <para>Undo the last editing command (typing, copying, cutting etc.)</para>
-<!-- FIXME how/where to enable/disable grouped undo ? is this really valid for 4.11?-->
-<note><para>If grouped undo is enabled, this may undo several editing commands of the same type, like typing in characters.</para></note>
+<note><para>This may undo several editing commands of the same type, like typing
+in characters.</para></note>
 </listitem>
 </varlistentry>
 
@@ -386,6 +435,20 @@ all to work with the currently active document.</para>
 <para>This submenu will display the beginning of portions of text recently
 copied to the clipboard.  Select an item from this menu to paste it in the
 currently open file.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="edit-copy-as-html"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guisubmenu>Copy as &HTML;</guisubmenu>
+</menuchoice>
+</term>
+<listitem>
+<para>Copy the selection as &HTML;, formatted using the current syntax
+highlighting and color scheme settings.</para>
 </listitem>
 </varlistentry>
 
@@ -562,6 +625,64 @@ the document</para>
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term>
+<anchor id="edit-search-in-files"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Search in Files</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Launches the Search and Replace tool view.  This provides more advanced
+functionality than the
+<link linkend="edit-replace"><guimenuitem>Replace</guimenuitem></link> menu 
+item described above, which can only search in the currently open document.
+It allows you to search either within all open files, in a directory of your
+choosing, or within the currently open project.</para>
+<para>This menu item is displayed by the Search &amp; Replace plugin, which is
+enabled by default.  For more information, see 
+<xref linkend="kate-application-plugin-searchinfiles"/></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="edit-go-to-next-match"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Go to Next Match</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Go to the next match in a search performed by the Search and Replace
+plugin.  To go to the next match in a single file search initiated by the
+<link linkend="edit-find"><guimenuitem>Find</guimenuitem></link> command, use 
+<link linkend="edit-find-next"><guimenuitem>Find Next</guimenuitem></link>.</para>
+<para>This menu item is displayed by the Search &amp; Replace plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="edit-go-to-previous-match"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Go to Previous Match</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Go to the previous match in a search performed by the Search and Replace
+plugin.  To go to the previous match in a single file search initiated by the
+<link linkend="edit-find"><guimenuitem>Find</guimenuitem></link> command, use 
+<link linkend="edit-find-previous"><guimenuitem>Find Previous</guimenuitem></link>.
+</para>
+<para>This menu item is displayed by the Search &amp; Replace plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect1>
@@ -727,12 +848,30 @@ the old one.</para>
 </menuchoice>
 </term>
 <listitem>
-<para>Closes the active frame. This is disabled, if there is only one frame
+<para>Closes the active frame, which can be identified as the one displaying a
+blinking cursor.  This is disabled, if there is only one frame
 (the main editing area).</para> <para>No documents get closed by closing a
 frame &ndash; they will still be available in the <link
 linkend="view-menu"><guimenu>View</guimenu> Menu</link> as well as in
 the File List.</para> <para>See also <link linkend="kate-mdi">Working with the
 &kate; MDI</link></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-close-inactive"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Close Inactive Views</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Closes all frames except the active frame (the one with a blinking cursor). 
+This is disabled, if there is only one frame (the main editing area).</para>
+<para>No documents get closed by closing a frame &ndash; they will still be 
+available in the <link linkend="view-menu"><guimenu>View</guimenu> Menu</link>
+as well as in the File List.</para>
 </listitem>
 </varlistentry>
 
@@ -823,6 +962,57 @@ commands below those will of course continue to work.</para></listitem>
 
 <varlistentry>
 <term>
+<anchor id="view-toolviews-show-search-and-replace"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Search and Replace</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Displays the advanced Search and Replace tool view, which supports
+searching through multiple files.  For more information, see 
+<xref linkend="kate-application-plugin-searchinfiles"/>.</para>
+<para>This menu item is displayed by the Search &amp; Replace plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-toolviews-show-projects"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Projects</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Displays the Projects sidebar, which allows you to view a list of open
+projects and a list of files in those projects.</para>
+<para>This menu item is displayed by the Project plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-toolviews-show-current-project"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Current Project</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Displays the Current Project tool view, which allows you to access details
+about the code contained within the currently open project.</para>
+<para>This menu item is displayed by the Project plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<!--
+Terminal plugin no longer enabled by default as of 4.12.  :-(
+<varlistentry>
+<term>
 <anchor id="view-toolviews-show-konsole"/>
 <menuchoice>
 <guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
@@ -843,6 +1033,7 @@ change to the directory of the active document, if it is a local file.</para>
 enabled by default.</para>
 </listitem>
 </varlistentry>
+-->
 
 </variablelist>
 </listitem>
@@ -1036,6 +1227,51 @@ varlistentry>
 
 </sect1>
 
+<sect1 id="projects-menu">
+<title>The Projects Menu</title>
+
+<para>The <guimenu>Projects</guimenu> menu allows you to switch between
+currently open projects.  It is displayed by the Project plugin, which is
+enabled by default.</para>
+
+<variablelist>
+<title>Menu Items</title>
+
+<!--FIXME: these shortcuts conflict with the preexisting Build plugin
+            https://bugs.kde.org/show_bug.cgi?id=328170 -->
+
+<varlistentry>
+<term>
+<anchor id="projects-back"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo></shortcut>
+<guimenu>Projects</guimenu>
+<guimenuitem>Back</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Switch to the previous project.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="projects-forward"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo></shortcut>
+<guimenu>Projects</guimenu>
+<guimenuitem>Forward</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Switch to the next project.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
 <sect1 id="bookmarks-menu">
 <title>The Bookmarks Menu</title>
 
@@ -1168,6 +1404,7 @@ and delete sessions.</para></listitem>
 
 <variablelist>
 
+<!--terminal plugin disabled by default as of 4.12
 <varlistentry>
 <term><menuchoice><guimenu>Tools</guimenu><guimenuitem>Pipe to
 Terminal</guimenuitem></menuchoice></term>
@@ -1200,6 +1437,7 @@ sync with the current document.  See
 This menu item is also displayed by the Terminal Tool View plugin.</para>
 </listitem>
 </varlistentry>
+-->
 
 <varlistentry>
 <term><anchor id="tools-read-only"/><menuchoice>
@@ -1524,10 +1762,32 @@ in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
-<!--FIXME
-Create Snippet - always enabled
-Snippet..
--->
+
+<varlistentry>
+<term><anchor id="tools-create-snippet"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Create Snippet</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Create a new snippet, which is a resuable chunk of text you
+may insert in any part of any document.</para>
+<para>This menu item is displayed by the Snippets plugin, which is enabled by
+default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="tools-snippets"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Snippets...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Display a list of available snippets.</para>
+<para>This menu item is displayed by the Snippets plugin, which is enabled by
+default.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 <para>Menu items for the selected <link linkend="pref-plugins">plugins</link>
 are displayed at the end of this menu.

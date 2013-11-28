@@ -19,16 +19,7 @@ set(KTEXTEDITOR_PUBLIC_HEADERS
     templateinterface2.h
     modificationinterface.h
     commandinterface.h
-    smartinterface.h
     attribute.h
-    cursorfeedback.h
-    rangefeedback.h
-    smartcursor.h
-    smartcursornotifier.h
-    smartcursorwatcher.h
-    smartrange.h
-    smartrangenotifier.h
-    smartrangewatcher.h
     codecompletioninterface.h
     codecompletionmodel.h
     codecompletionmodelcontrollerinterface.h
@@ -56,15 +47,10 @@ set(ktexteditor_LIB_SRCS
    templateinterface2.cpp
    editorchooser.cpp
    attribute.cpp
-   cursorfeedback.cpp
-   rangefeedback.cpp
-   smartcursor.cpp
-   smartrange.cpp
    codecompletioninterface.cpp
    codecompletionmodel.cpp
    codecompletionmodelcontrollerinterface.cpp
    configinterface.cpp
-   smartinterface.cpp
    highlightinterface.cpp
    movinginterface.cpp
    movingcursor.cpp

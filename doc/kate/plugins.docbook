@@ -2912,6 +2912,128 @@ writing much of this section.</para>
 
 </sect1>
 
+<sect1 id="kate-application-plugin-konsole">
+<title>Terminal Tool View Plugin</title>
+
+<para><indexterm><primary>Terminal emulator</primary></indexterm>
+The built in Terminal Emulator is a copy of the &kde; &konsole;
+terminal application, for your convenience. It is available from the
+<menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Terminal</guimenuitem></menuchoice> menu item and will get the focus
+whenever displayed. Additionally, if the <link
+linkend="konsole-config">Automatically synchronize
+the terminal with the current document when possible</link> option is enabled, it will
+change to the directory of the current document if
+possible when it is displayed, or when the current document
+changes.</para>
+
+<para>The default location in the &kate; window is at the bottom,
+below the editing area.</para>
+
+<para>You can configure the &konsole; using its &RMB; menu, for more
+information, see the <ulink url="help:/konsole/index.htm">&konsole; manual</ulink>.</para>
+
+<para>The built-in terminal emulator is provided by the Terminal Tool View plugin,
+which is enabled by default.</para>
+
+<sect2 id="konsole-menus">
+<title>Menu Structure</title>
+
+<variablelist>
+
+<varlistentry>
+<term>
+<anchor id="view-toolviews-show-konsole"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Terminal</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Toggles the display of the built-in terminal emulator.</para>
+<para>When activated for the first time, the terminal will be created.</para>
+<para>When the terminal emulator is displayed, it will get the focus, so that
+you can start typing in commands immediately. If the <link
+linkend="konsole-config">Automatically synchronize the terminal
+with the current document when possible</link> option is enabled in the
+<guilabel>Terminal</guilabel> page of the <link
+linkend="config-dialog">Main configuration dialog</link> the shell session will
+change to the directory of the active document, if it is a local file.</para>
+<para>This menu item is displayed by the Terminal Tool View plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><guimenu>Tools</guimenu><guimenuitem>Pipe to
+Terminal</guimenuitem></menuchoice></term>
+<listitem><para>Feed the currently selected text into the built-in terminal
+emulator. No newline is added after the text.  This menu item is displayed by the
+Terminal Tool View plugin, which is enabled by default.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="tools-sync-terminal-document"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Synchronize Terminal with Current Document</guimenuitem></menuchoice></term>
+<listitem>
+<para>This will cause the built-in Terminal to <command>cd</command> into the
+directory of the active document.  This menu item is also displayed
+by the Terminal Tool View plugin.</para>
+
+<para>Alternatively, you can configure &kappname; to always keep the terminal in
+sync with the current document.  See
+<xref linkend="konsole-config"/> for more information.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="tools-focus-terminal"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Focus/Defocus Terminal</guimenuitem></menuchoice></term>
+<listitem>
+<para>Switch the focus from the current document to the terminal and vice versa.
+This menu item is also displayed by the Terminal Tool View plugin.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="konsole-config">
+<title>Configuration</title>
+
+<para>You can configure the Terminal Tool View plugin on the 
+<guilabel>Terminal</guilabel> page of the 
+<link linkend="configuring-kate">configuration dialog</link>.</para>
+
+<para>The following options are available:</para>
+
+<variablelist>
+<varlistentry>
+<term>
+<guilabel>Automatically synchronize the terminal with the current document when possible</guilabel></term>
+<listitem><para>This will cause the built-in terminal to
+<command>cd</command> into the directory of the active document when
+launched and when a new document gets the focus. If not enabled, you
+have to do all your navigation in the terminal on your own.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Set EDITOR environment variable to 'kate -b'</guilabel></term>
+<listitem><para>This sets the <envar>EDITOR</envar> environment variable so programs
+run in the built-in terminal that automatically open a file in an editor will open
+them in &kate; instead of the default editor configured in your shell.  You will
+not be able to continue using the terminal until you have closed the file in &kate;,
+so the calling program is aware you have finished editing the file.</para></listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+</sect1>
+
 <!--
 Missing (according to config docs)
 Additional pages for enabled plugins:

@@ -1009,32 +1009,6 @@ enabled by default.</para>
 </listitem>
 </varlistentry>
 
-<!--
-Terminal plugin no longer enabled by default as of 4.12.  :-(
-<varlistentry>
-<term>
-<anchor id="view-toolviews-show-konsole"/>
-<menuchoice>
-<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Terminal</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para>Toggles the display of the built-in terminal emulator.</para>
-<para>When activated for the first time, the terminal will be created.</para>
-<para>When the terminal emulator is displayed, it will get the focus, so that
-you can start typing in commands immediately. If the <link
-linkend="config-dialog-general-sync-konsole">Automatically synchronize the terminal
-with the current document when possible</link> option is enabled in the
-<guilabel>Terminal</guilabel> page of the <link
-linkend="config-dialog">Main configuration dialog</link> the shell session will
-change to the directory of the active document, if it is a local file.</para>
-<para>This menu item is displayed by the Terminal Tool View plugin, which is
-enabled by default.</para>
-</listitem>
-</varlistentry>
--->
-
 </variablelist>
 </listitem>
 </varlistentry>
@@ -1403,41 +1377,6 @@ and delete sessions.</para></listitem>
 <title>The Tools Menu</title>
 
 <variablelist>
-
-<!--terminal plugin disabled by default as of 4.12
-<varlistentry>
-<term><menuchoice><guimenu>Tools</guimenu><guimenuitem>Pipe to
-Terminal</guimenuitem></menuchoice></term>
-<listitem><para>Feed the currently selected text into the built-in terminal
-emulator. No newline is added after the text.  This menu item is displayed by the
-Terminal Tool View plugin, which is enabled by default.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="tools-sync-terminal-document"/><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Synchronize Terminal with Current Document</guimenuitem></menuchoice></term>
-<listitem>
-<para>This will cause the built-in Terminal to <command>cd</command> into the
-directory of the active document.  This menu item is also displayed
-by the Terminal Tool View plugin.</para>
-
-<para>Alternatively, you can configure &kappname; to always keep the terminal in
-sync with the current document.  See
-<xref linkend="config-dialog-general-sync-konsole"/> for more information.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="tools-focus-terminal"/><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Focus/Defocus Terminal</guimenuitem></menuchoice></term>
-<listitem>
-<para>Switch the focus from the current document to the terminal and vice versa.
-This menu item is also displayed by the Terminal Tool View plugin.</para>
-</listitem>
-</varlistentry>
--->
 
 <varlistentry>
 <term><anchor id="tools-read-only"/><menuchoice>

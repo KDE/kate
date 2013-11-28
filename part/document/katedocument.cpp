@@ -2121,11 +2121,19 @@ bool KateDocument::saveFile()
        || ( ! l && config()->backupFlags() & KateDocumentConfig::RemoteFiles ) )
   {
     QUrl u( url() );
-   // if (config()->backupPrefix().contains(QDir::separator())) {
-        u.setPath( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
-    //} else {
-    //    u.setFileName( config()->backupPrefix() + url().fileName() + config()->backupSuffix() ); FIXME KF5
-   // }
+    if (config()->backupPrefix().contains(QDir::separator())) {
+      /**
+       * replace complete path, as prefix is a path!
+       */
+      u.setPath( config()->backupPrefix() + url().fileName() + config()->backupSuffix() );
+    } else {
+        /**
+         * replace filename in url
+         */
+      const QString fileName = url().fileName();
+      u = u.adjusted (QUrl::RemoveFilename);
+      u.setPath (u.path() + config()->backupPrefix() + fileName + config()->backupSuffix());
+    }
 
     kDebug( 13020 ) << "backup src file name: " << url();
     kDebug( 13020 ) << "backup dst file name: " << u;

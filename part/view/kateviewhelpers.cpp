@@ -2216,23 +2216,6 @@ void KateIconBorder::annotationModelChanged( KTextEditor::AnnotationModel * oldm
 // the default/unknown mib value is 2.
 #define MIB_DEFAULT 2
 
-class KateViewEncodingAction::Private
-{
-  public:
-    Private(KateViewEncodingAction *parent)
-    : q(parent),
-    currentSubAction(0)
-    {
-    }
-
-    void init();
-
-    void _k_subActionTriggered(QAction*);
-
-    KateViewEncodingAction *q;
-    QAction *currentSubAction;
-};
-
 bool lessThanAction(KSelectAction *a, KSelectAction *b)
 {
   return a->text() < b->text();

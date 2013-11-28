@@ -21,13 +21,14 @@
 
 #include "katestyletreewidget.h"
 
-#include <QtWidgets/QPainter>
-#include <QtWidgets/QKeyEvent>
+#include <QtGui/QPainter>
+#include <QtGui/QKeyEvent>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QHeaderView>
 
 #include <klocale.h>
+#include <klocalizedstring.h>
 #include <kicon.h>
 #include <kcolorscheme.h>
 #include <kmenu.h>

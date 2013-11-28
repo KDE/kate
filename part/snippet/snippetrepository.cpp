@@ -31,6 +31,7 @@
 
 #include <KIcon>
 #include <KDebug>
+#include <KGlobal>
 
 #include <QDomDocument>
 #include <QDomElement>
@@ -276,7 +277,7 @@ void SnippetRepository::slotParseFile()
     if (!success) {
         KMessageBox::error( QApplication::activeWindow(),
                            i18n("<qt>The error <b>%4</b><br /> has been detected in the file %1 at %2/%3</qt>",
-                                m_file, line, col, i18nc("QXml", errorMsg.toUtf8())) );
+                                m_file, line, col, i18nc("QXml", errorMsg.toUtf8().data())) );
         return;
     }
 

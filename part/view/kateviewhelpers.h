@@ -274,7 +274,24 @@ class KateViewEncodingAction: public KSelectAction
   private:
     KateDocument* doc;
     KateView *view;
-    class Private;
+    
+    class Private
+    {
+      public:
+        Private(KateViewEncodingAction *parent)
+        : q(parent),
+        currentSubAction(0)
+        {
+        }
+
+        void init();
+
+        void _k_subActionTriggered(QAction*);
+
+        KateViewEncodingAction *q;
+        QAction *currentSubAction;
+    };
+
     Private* const d;
     Q_PRIVATE_SLOT( d, void _k_subActionTriggered(QAction*) )
 

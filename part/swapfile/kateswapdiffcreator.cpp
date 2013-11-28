@@ -26,6 +26,7 @@
 #include <kmessagebox.h>
 #include <krun.h>
 #include <klocale.h>
+#include <klocalizedstring.h>
 
 //BEGIN SwapDiffCreator
 SwapDiffCreator::SwapDiffCreator(Kate::SwapFile* swapFile)
@@ -152,7 +153,7 @@ void SwapDiffCreator::slotDiffFinished()
   m_diffFile.setAutoRemove (false);
 
   // KRun::runUrl should delete the file, once the client exits
-  KRun::runUrl (KUrl::fromPath(m_diffFile.fileName()), "text/x-patch", m_swapFile->document()->activeView(), true );
+  KRun::runUrl (QUrl::fromLocalFile(m_diffFile.fileName()), "text/x-patch", m_swapFile->document()->activeView(), true );
 
   deleteLater();
 }

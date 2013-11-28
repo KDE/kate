@@ -40,6 +40,9 @@
 #include <kmessagebox.h>
 #include <khbox.h>
 #include <ktabwidget.h>
+#include <kcombobox.h>
+#include <kglobal.h>
+#include <KGlobalSettings>
 
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QProgressDialog>
@@ -781,7 +784,7 @@ void KateSchemaConfigHighlightTab::importHl(const QString& fromSchemaName, QStri
         if (schema.isEmpty()) schema=m_schema;
 
         if (doManage) {
-          QString srcName=KFileDialog::getOpenFileName( QString(KateHlManager::self()->getHl(hl)->name()+QString(".katehlcolor")),
+          QString srcName=KFileDialog::getOpenFileName( QUrl(KateHlManager::self()->getHl(hl)->name()+QString(".katehlcolor")),
                                   QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")),
                                   this,
                                   i18n("Importing colors for single highlighting"));
@@ -846,7 +849,7 @@ void KateSchemaConfigHighlightTab::exportHl(QString schema, int hl, KConfig *cfg
 
   QList<KateExtendedAttribute::Ptr> items=m_hlDict[schema][hl];
   if (doManage)  {
-    QString destName=KFileDialog::getSaveFileName( QString(KateHlManager::self()->getHl(hl)->name()+".katehlcolor"),
+    QString destName=KFileDialog::getSaveFileName( QUrl(KateHlManager::self()->getHl(hl)->name()+".katehlcolor"),
                                     QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")),
                                     this,
                                     i18n("Exporting colors for single highlighting: %1", KateHlManager::self()->getHl(hl)->name()),
@@ -934,7 +937,7 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   hbHl = new KHBox( this );
   layout->addWidget (hbHl);
   hbHl->setSpacing( -1 );
-  lHl = new QLabel( i18n("&Default schema for %1:", KGlobal::mainComponent().aboutData()->programName ()), hbHl );
+  lHl = new QLabel( i18n("&Default schema for %1:", QString() /* FIXME KF5 KGlobal::mainComponent().aboutData()->programName ()*/), hbHl );
   defaultSchemaCombo = new KComboBox( hbHl );
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );
@@ -954,7 +957,7 @@ void KateSchemaConfigPage::exportFullSchema()
   // get save destination
   const QString currentSchemaName = m_currentSchema;
   QString destName = KFileDialog::getSaveFileName(
-      QString(currentSchemaName + ".kateschema"),
+      QUrl(currentSchemaName + ".kateschema"),
       QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
       this,
       i18n("Exporting color schema: %1", currentSchemaName),
@@ -1057,7 +1060,7 @@ QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
 
 void KateSchemaConfigPage::importFullSchema()
 {
-  const QString srcName = KFileDialog::getOpenFileName(KUrl(),
+  const QString srcName = KFileDialog::getOpenFileName(QUrl(),
                                     QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
                                     this, i18n("Importing Color Schema"));
 

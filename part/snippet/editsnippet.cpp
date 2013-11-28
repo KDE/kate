@@ -33,6 +33,8 @@
 #include <KPushButton>
 #include <KAction>
 #include <KMimeTypeTrader>
+#include <KIcon>
+#include <KShortcut>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 #include <KToolInvocation>
@@ -198,12 +200,12 @@ void EditSnippet::save()
 
 void EditSnippet::slotSnippetDocumentation()
 {
-    KToolInvocation::invokeHelp("kate-application-plugin-snippets", "kate");
+//FIXME KF5    KToolInvocation::invokeHelp("kate-application-plugin-snippets", "kate");
 }
 
 void EditSnippet::slotScriptDocumentation()
 {
-    KToolInvocation::invokeHelp("dev-scripting-api", "kate");
+//FIXME KF5      KToolInvocation::invokeHelp("dev-scripting-api", "kate");
 }
 
 void EditSnippet::reject()

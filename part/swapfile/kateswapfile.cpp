@@ -31,6 +31,7 @@
 #include <kde_file.h>
 #include <klocale.h>
 #include <kicon.h>
+#include <klocalizedstring.h>
 #include <kstandardguiitem.h>
 
 #include <QFileInfo>
@@ -560,7 +561,7 @@ bool SwapFile::updateFileName()
 
 QString SwapFile::fileName()
 {
-  const KUrl &url = m_document->url();
+  const QUrl &url = m_document->url();
   if (url.isEmpty() || !url.isLocalFile())
     return QString();
 

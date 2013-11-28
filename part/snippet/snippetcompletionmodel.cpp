@@ -121,7 +121,7 @@ void SnippetCompletionModel::initData(KTextEditor::View* view)
 
 QModelIndex SnippetCompletionModel::parent(const QModelIndex& index) const {
     if (index.internalId()) {
-        return createIndex(0, 0, 0);
+        return createIndex(0, 0, quintptr (0));
     } else {
         return QModelIndex();
     }
@@ -130,7 +130,7 @@ QModelIndex SnippetCompletionModel::parent(const QModelIndex& index) const {
 QModelIndex SnippetCompletionModel::index(int row, int column, const QModelIndex& parent) const {
     if (!parent.isValid()) {
         if (row == 0) {
-            return createIndex(row, column, 0); //header  index
+            return createIndex(row, column, quintptr (0)); //header  index
         } else {
             return QModelIndex();
         }

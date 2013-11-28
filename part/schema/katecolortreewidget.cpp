@@ -21,14 +21,17 @@
 #include "katecategorydrawer.h"
 
 #include <QtWidgets/QStyledItemDelegate>
-#include <QtWidgets/QPainter>
+#include <QtGui/QPainter>
 #include <QtWidgets/QHeaderView>
 
 #include <klocale.h>
 #include <kconfiggroup.h>
+#include <klocalizedstring.h>
 #include <kdebug.h>
 #include <kcolordialog.h>
 #include <kcolorscheme.h>
+#include <kicon.h>
+#include <kiconloader.h>
 #include <kcolorutils.h>
 
 #include <QDebug>
@@ -200,7 +203,8 @@ class KateColorTreeDelegate : public QStyledItemDelegate
         opt.rect = m_tree->style()->subElementRect(QStyle::SE_PushButtonContents, &opt, m_tree);
         opt.rect.adjust(1, 1, -1, -1);
         painter->fillRect(opt.rect, color);
-        qDrawShadePanel(painter, opt.rect, opt.palette, true, 1, NULL);
+
+        //FIXME KF5 qDrawShadePanel(painter, opt.rect, opt.palette, true, 1, NULL);
       }
       //END: draw color button
 

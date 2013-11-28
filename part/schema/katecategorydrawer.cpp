@@ -28,8 +28,8 @@
 
 KateCategoryDrawer::KateCategoryDrawer() : KCategoryDrawerV3 (0)
 {
-    setLeftMargin( 7 );
-    setRightMargin( 7 );
+    //FIXME KF5 setLeftMargin( 7 );
+    //FIXME KF5 setRightMargin( 7 );
 }
 
 void KateCategoryDrawer::drawCategory(const QModelIndex &index,

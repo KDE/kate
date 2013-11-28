@@ -28,6 +28,7 @@
 
 #include <KStandardDirs>
 #include <KDebug>
+#include <KGlobal>
 
 #include <ktexteditor/editor.h>
 #include <ktexteditor/templateinterface2.h>

@@ -244,7 +244,7 @@ set_target_properties(
 install (TARGETS katepartinterfaces EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 # kate part itself just is interfaces + the factory
-kde4_add_plugin (katepart utils/katefactory.cpp)
+add_library (katepart MODULE utils/katefactory.cpp)
 
 # link the part, use kate part interfaces + kde stuff
 target_link_libraries (katepart katepartinterfaces ktexteditor

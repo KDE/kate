@@ -23,6 +23,8 @@
 
 #include <ktexteditor/factory.h>
 
+#include <kpluginfactory.h>
+
 /**
  * wrapper factory to be sure nobody external deletes our kateglobal object
  * each instance will just increment the reference counter of our internal
@@ -30,6 +32,12 @@
  */
 class KateFactory : public KTextEditor::Factory
 {
+  Q_OBJECT
+  
+  Q_PLUGIN_METADATA(IID KPluginFactory_iid FILE "")
+  
+  Q_INTERFACES(KPluginFactory)
+  
   public:
     /**
      * constructor, ref the editor, too keep it alive
@@ -82,6 +90,6 @@ class KateFactory : public KTextEditor::Factory
     }
 };
 
-K_EXPORT_PLUGIN( KateFactory )
+#include "katefactory.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

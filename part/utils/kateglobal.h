@@ -28,7 +28,6 @@
 #include <ktexteditor/editor.h>
 
 #include <kservice.h>
-#include <kcomponentdata.h>
 #include <kaboutdata.h>
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/containerinterface.h>
@@ -226,12 +225,6 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * @return version of type x.y, e.g. 3.2
      */
     static QString katePartVersion();
-
-    /**
-     * public accessor to the instance
-     * @return instance
-     */
-    const KComponentData &componentData() { return m_componentData; }
 
     /**
      * register document at the factory
@@ -449,11 +442,6 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * about data (authors and more)
      */
     KAboutData m_aboutData;
-
-    /**
-     * our kinstance
-     */
-    KComponentData m_componentData;
 
     /**
      * registered docs

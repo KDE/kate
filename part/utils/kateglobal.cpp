@@ -70,7 +70,6 @@ KateGlobal::KateGlobal ()
  , m_aboutData (QString ("katepart"), QString(), i18n("Kate Part"), katePartVersion(),
              i18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              i18n( "(c) 2000-2009 The Kate Authors" ), QString(), QString ("http://www.kate-editor.org"))
- , m_componentData () //FIXME KF5 &m_aboutData
  , m_snippetGlobal (0) // lazy constructed
  , m_sessionConfig (KGlobal::config())
 {

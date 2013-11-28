@@ -251,36 +251,6 @@ View.</para></listitem>
 
 </sect2>
 
-<!--terminal tool view plugin disabled by default in 4.12
-<sect2 id="config-dialog-general-sync-konsole">
-<title>Terminal</title>
-
-<para>This page is only displayed by the Terminal Tool View plugin, which is
-enabled by default.</para>
-
-<variablelist>
-<varlistentry>
-<term>
-<guilabel>Automatically synchronize the terminal with the current document when possible</guilabel></term>
-<listitem><para>This will cause the built-in terminal to
-<command>cd</command> into the directory of the active document when
-launched and when a new document gets the focus. If not enabled, you
-have to do all your navigation in the terminal on your own.
-</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><guilabel>Set EDITOR environment variable to 'kate -b'</guilabel></term>
-<listitem><para>This sets the <envar>EDITOR</envar> environment variable so programs
-run in the built-in terminal that automatically open a file in an editor will open
-them in &kate; instead of the default editor configured in your shell.  You will
-not be able to continue using the terminal until you have closed the file in &kate;,
-so the calling program is aware you have finished editing the file.</para></listitem>
-</varlistentry>
-
-</variablelist>
-</sect2>
--->
 </sect1>
 
 &configuring-part-sections;

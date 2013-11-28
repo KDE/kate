@@ -251,6 +251,7 @@ View.</para></listitem>
 
 </sect2>
 
+<!--terminal tool view plugin disabled by default in 4.12
 <sect2 id="config-dialog-general-sync-konsole">
 <title>Terminal</title>
 
@@ -279,6 +280,7 @@ so the calling program is aware you have finished editing the file.</para></list
 
 </variablelist>
 </sect2>
+-->
 </sect1>
 
 &configuring-part-sections;

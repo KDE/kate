@@ -1,4 +1,4 @@
-<!--pulled in by KWrite-->
+  <!--pulled in by KWrite-->
 <sect1 id="config-dialog-editor">
 <title>The Editor Component Configuration</title>
 <para>This group contains all pages related to the editor component of
@@ -6,7 +6,7 @@
 <link linkend="pref-open-save-modes-filetypes">defining a filetype</link>,
 by <ulink url="help:/kate/config-variables.html">Document Variables</ulink> or
 by changing them per document during an editing session.</para>
-<sect2 id="appearance"> <!-- updated to 4.10 -->
+<sect2 id="appearance">
 <title>Appearance</title>
 
 <sect3 id="appearance-general">
@@ -407,25 +407,25 @@ documentation</ulink>.</para></listitem>
 <varlistentry>
 <term><guilabel>Background</guilabel></term>
 <listitem><para>This color is used by the &kate; Snippets plugin to mark the
-background of a snippet.  For more information, see
+background of a snippet.  <!--For more information, see
 <ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
-documentation</ulink>.</para></listitem>
+documentation</ulink>.--></para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Editable Placeholder</guilabel></term>
 <listitem><para>This color is used by the &kate; Snippets plugin to mark a
-placeholder that you can click in to edit manually.  For more information, see
+placeholder that you can click in to edit manually.  <!--For more information, see
 <ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
-documentation</ulink>.</para></listitem>
+documentation</ulink>.--></para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guilabel>Focused Editable Placeholder</guilabel></term>
 <listitem><para>This color is used by the &kate; Snippets plugin to mark the
-placeholder that you are presently editing.  For more information, see
+placeholder that you are presently editing.  <!--For more information, see
 <ulink url="help:/kate/kate-application-plugin-snippets.html">the &kate; Snippets
-documentation</ulink>.</para></listitem>
+documentation</ulink>.--></para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -438,6 +438,18 @@ documentation</ulink>.</para></listitem>
 </varlistentry>
 
 </variablelist>
+</listitem>
+</varlistentry>
+
+<varlistentry id="prefcolors-colors-use-kde-color-scheme">
+<term><guibutton>Use &kde; Color Scheme</guibutton></term>
+<listitem>
+<para>Clicking this button will set all the above defined colors to match the 
+current color scheme defined in &kde;'s &systemsettings;.  For more information,
+see <ulink url="help:/kcontrol/colors/">the documentation for the Colors &kde; 
+Control Module</ulink>.</para>
+<para>If you do not use the &kde; &plasma; Workspaces, this button will have no
+effect, and may not be present.</para>
 </listitem>
 </varlistentry>
 
@@ -466,7 +478,7 @@ highlight.</para>
 the item, providing you with an immediate preview when configuring a style.
 </para>
 <para>Each style lets you select common attributes as well as foreground
-and background colors. To unset a background color, rightclick to use the
+and background colors. To unset a background color, right-click to use the
 context menu.</para>
 </sect3>
 
@@ -481,7 +493,7 @@ above the style list.
 the item, providing you with an immediate preview when configuring a style.
 </para>
 <para>Each style lets you select common attributes as well as foreground
-and background colors. To unset a background color, rightclick to use the
+and background colors. To unset a background color, right-click to use the
 context menu. In addition you can see if a style is equal to the default style
 used for the item, and set it to that if not.</para>
 <para>You will notice that many highlights contain other highlights represented
@@ -517,7 +529,7 @@ At:</link> option.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Show static word wrap markers
+<term><guilabel>Show static word wrap marker
 (if applicable)</guilabel></term>
 <listitem>
 <para>If this option is checked, a vertical line will be drawn at the word wrap
@@ -585,7 +597,7 @@ bottom of the visible text as a new page of text is displayed.</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><guilabel>Autocenter cursor (lines):</guilabel></term>
+<term><guilabel>Autocenter cursor:</guilabel></term>
 <listitem>
 <para>Sets the number of lines to maintain visible above and below the cursor
 when possible.</para>
@@ -630,7 +642,7 @@ cursor movement.</para>
 <variablelist>
 
 <varlistentry>
-<term><guilabel>Default Indentation mode:</guilabel></term>
+<term><guilabel>Default indentation mode:</guilabel></term>
 <listitem>
 <para>Select the automatic indentation mode you want to use as default. It is
 strongly recommended to use <userinput>None</userinput> or
@@ -692,7 +704,7 @@ if the indentation is divisible by the tab width.</para>
 <listitem>
 <variablelist>
 <varlistentry>
-<term><guilabel>Keep Extra Spaces</guilabel></term>
+<term><guilabel>Keep extra spaces</guilabel></term>
 <listitem><para>If this option is disabled, changing the indentation
 level aligns a line to a multiple of the width specified in
 <guilabel>Indentation width</guilabel>.</para></listitem>
@@ -814,7 +826,7 @@ up a completion box.</para></listitem>
 <listitem>
 <variablelist>
 <varlistentry>
-<term><guilabel>Use VI input mode</guilabel></term>
+<term><guilabel>Use Vi input mode</guilabel></term>
 <listitem>
 <para>When selected, the vi input mode will be enabled when opening a new view.
 You can still toggle the vi input mode on/off for a particular view in the
@@ -839,8 +851,8 @@ Key mapping is used to change the meaning of typed keys. This allows you to
 move commands to other keys or make special keypresses for doing a series of
 commands.</para>
 <para>Example:</para>
-<para><keycap>F2</keycap> -> <keycap>I--</keycap> &Esc;</para>
-<para>This will prepend <keycap>I--</keycap> to a line when pressing <keycap>F2</keycap>.
+<para><keycap>F2</keycap> -> <userinput>I--</userinput> &Esc;</para>
+<para>This will prepend <userinput>I--</userinput> to a line when pressing <keycap>F2</keycap>.
 </para>
 </listitem>
 </varlistentry>
@@ -943,7 +955,7 @@ specified here. To disable this, set this to <userinput>0</userinput>.</para>
 </varlistentry>
 
 <varlistentry>
-<term><guilabel>Automatic Cleanups on Load/Save</guilabel></term>
+<term><guilabel>Automatic Cleanups on Save</guilabel></term>
 <listitem>
 <variablelist>
 
@@ -951,7 +963,11 @@ specified here. To disable this, set this to <userinput>0</userinput>.</para>
 <term><guilabel>Remove trailing spaces</guilabel></term>
 <listitem>
 <para>The editor will automatically eliminate extra spaces at the ends of lines
-of text while loading/saving the file.</para>
+of text while saving the file.  You can select <guilabel>Never</guilabel> to
+disable this functionality, <guilabel>On Modified Lines</guilabel> to do so
+only on lines that you have modified since you last saved the document, or
+<guilabel>In Entire Document</guilabel> to remove them unconditionally from the
+entire document.</para>
 </listitem>
 </varlistentry>
 
@@ -1113,6 +1129,7 @@ to enter a valid value manually.</para>
 Variables</ulink>.</para>
 </listitem>
 </varlistentry>
+
 <varlistentry>
 <term><guilabel>Highlighting:</guilabel></term>
 <listitem><para>If you create a new file type, this drop down box allows you to
@@ -1132,19 +1149,23 @@ typical mask uses an asterisk and the file extension, for example
 <filename>*.txt; *.text</filename>. The string is a semicolon-separated list of
 masks.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><guilabel>MIME types:</guilabel></term>
 <listitem><para>Displays a wizard that helps you easily select
 mimetypes.</para></listitem>
 </varlistentry>
+
 <varlistentry>
 <term><guilabel>Priority:</guilabel></term>
 <listitem><para>Sets a priority for this file type. If more than one file type
 selects the same file, the one with the highest priority will be
 used.</para></listitem>
 </varlistentry>
+
 </variablelist>
 </listitem> </varlistentry>
+
 <varlistentry>
 <term><guibutton>Download Highlighting Files...</guibutton></term>
 <listitem>
@@ -1161,7 +1182,7 @@ from the &kappname; website.
 </sect2>
 
 <sect2 id="pref-plugins">
-<title>Extensions</title> <!-- updated to 4.10 -->
+<title>Extensions</title>
 <para>The <guilabel>Extensions</guilabel> tab lists all available plugins and you can check those you
 want to use. Click on the <guibutton>Information</guibutton> button to open the
 <guilabel>About</guilabel> dialog of this plugin.</para>

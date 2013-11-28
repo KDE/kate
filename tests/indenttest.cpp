@@ -164,12 +164,12 @@ void IndentTest::latex()
 }
 
 
-void IndentTest::pascal_data()
+void IndentTest::pascal1_data()
 {
   getTestData( "pascal" );
 }
 
-void IndentTest::pascal()
+void IndentTest::pascal1()
 {
   runTest( ExpectedFailures() );
 }

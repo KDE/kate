@@ -40,12 +40,13 @@ class KateFactory : public KTextEditor::Factory
   
   public:
     /**
-     * constructor, ref the editor, too keep it alive
-     * @param parent parent object
-     * @param name name of factory
+     * This constructor creates a factory for a plugin with the given \p componentName.
+     *
+     * \param componentName the component name of the plugin
+     * \param parent a parent object
      */
-    KateFactory ( QObject *parent = 0 )
-      : KTextEditor::Factory (parent)
+    explicit KateFactory (const char *componentName = 0, QObject *parent = 0)
+      : KTextEditor::Factory (componentName, parent)
     {
       KateGlobal::incRef ();
     }
@@ -60,16 +61,24 @@ class KateFactory : public KTextEditor::Factory
 
     KTextEditor::Editor *editor () { return KateGlobal::self(); }
 
+    
     /**
-     * reimplemented create object method
-     * @param parentWidget parent widget
-     * @param parent QObject parent
-     * @param args additional arguments
-     * @return constructed part object
+     * This function is called when the factory asked to create an Object.
+     *
+     * You may reimplement it to provide a very flexible factory. This is especially useful to
+     * provide generic factories for plugins implemeted using a scripting language.
+     *
+     * \param iface The staticMetaObject::className() string identifying the plugin interface that
+     * was requested. E.g. for KCModule plugins this string will be "KCModule".
+     * \param parentWidget Only used if the requested plugin is a KPart.
+     * \param parent The parent object for the plugin object.
+     * \param args A plugin specific list of arbitrary arguments.
+     * \param keyword A string that uniquely identifies the plugin. If a KService is used this
+     * keyword is read from the X-KDE-PluginKeyword entry in the .desktop file.
      */
-    KParts::Part *createPartObject ( QWidget *parentWidget, QObject *parent, const char *_classname, const QStringList & )
+    virtual QObject *create(const char *iface, QWidget *parentWidget, QObject *parent, const QVariantList &args, const QString &keyword)
     {
-      QByteArray classname( _classname );
+      QByteArray classname( iface );
 
       // default to the kparts::* behavior of having one single widget() if the user don't requested a pure document
       bool bWantSingleView = ( classname != "KTextEditor::Document" );

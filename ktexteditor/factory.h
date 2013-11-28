@@ -84,21 +84,21 @@ class Editor;
  * way the user can choose the editor implementation. The Factory itself is
  * not needed to get the Editor with the help of the EditorChooser.
  *
- * \see KParts::Factory, KTextEditor::Editor
+ * \see KPluginFactory, KTextEditor::Editor
  * \author Christoph Cullmann \<cullmann@kde.org\>
  */
-class KTEXTEDITOR_EXPORT Factory : public KParts::Factory
+class KTEXTEDITOR_EXPORT Factory : public KPluginFactory
 {
   Q_OBJECT
 
   public:
     /**
-     * Constructor.
+     * This constructor creates a factory for a plugin with the given \p componentName.
      *
-     * Create a new Factory with \p parent.
-     * \param parent parent object
+     * \param componentName the component name of the plugin
+     * \param parent a parent object
      */
-    Factory ( QObject *parent );
+    explicit Factory (const char *componentName = 0, QObject *parent = 0);
 
     /**
      * Virtual destructor.

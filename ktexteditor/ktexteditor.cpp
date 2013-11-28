@@ -59,8 +59,8 @@
 
 using namespace KTextEditor;
 
-Factory::Factory( QObject *parent )
- : KParts::Factory( parent )
+Factory::Factory (const char *componentName, QObject *parent)
+ : KPluginFactory ( componentName, parent )
  , d(0)
 {
 }

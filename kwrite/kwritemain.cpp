@@ -271,14 +271,10 @@ void KWrite::slotNew()
 void KWrite::slotOpen()
 {
   const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(KWriteApp::self()->editor()->defaultEncoding(), m_view->document()->url(),QString(),this,i18n("Open File"));
-
-#if 0 // FIXME KF5
-  for (QUrl::List::ConstIterator i=r.URLs.constBegin(); i != r.URLs.constEnd(); ++i)
-  {
+  Q_FOREACH (QUrl url, r.URLs) {
     encoding = r.encoding;
-    slotOpen ( *i );
+    slotOpen ( url );
   }
-#endif
 }
 
 void KWrite::slotOpen( const QUrl& url )

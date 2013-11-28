@@ -142,7 +142,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_readWriteStateBeforeLoading (false),
   m_isUntitled(true)
 {
-  setComponentData ( KateGlobal::self()->componentData () );
+  setComponentData ( *KateGlobal::self()->aboutData () );
   
   /**
    * avoid spamming plasma and other window managers with progress dialogs

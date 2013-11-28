@@ -315,24 +315,30 @@ this is in mdi.docbook
 <listitem>
 <para>
 Toggles the Documents on and off. 
-<!--FIXME no longer in kate 3.10/kde 4.10-->If the Documents/Filesystem Browser window is
+
+<!--no longer in kate 3.10/kde 4.10
+If the Documents/Filesystem Browser window is
 not open, &kate; launches the side bar as a separate, undocked,
 window. To dock the window grab the two thin parallel lines above the
 tabs by clicking on them with your &LMB; and holding the button
 down. Drag the window into &kate;'s editing window and release the
 &LMB; when you have positioned the Documents/Filesystem Browser window as you
-prefer.
+prefer.-->
 </para>
 
+<!--no longer in kate 3.10/kde 4.10
 <tip>
 <para>
-<!--FIXME no longer in kate 3.10/kde 4.10-->If you have grabbed the two parallel lines successfully your mouse
+If you have grabbed the two parallel lines successfully your mouse
 pointer will turn into two crossed arrows as you drag.
 </para>
 </tip>
+-->
 
 </listitem>
 </varlistentry>
+
+<!--neither of these are enabled by default anymore
 <varlistentry>
 <term><menuchoice><guimenuitem>Show
 Filesystem Browser</guimenuitem></menuchoice></term>
@@ -355,7 +361,7 @@ window. In other words, it gives you a command line within the
 application.
 </para>
 </listitem>
-</varlistentry>
+</varlistentry>-->
 
 </variablelist>
 </sect2>
@@ -541,7 +547,7 @@ windows:</para>
 <listitem><para><link linkend="kate-mdi-tools-file-list">The Documents List</link></para></listitem>
 <listitem><para><link linkend="kate-application-plugin-fsbrowser">The Filesystem
 Browser</link></para></listitem>
-<listitem><para><link linkend="kate-mdi-tools-konsole">The Built in Terminal Emulator</link></para></listitem>
+<listitem><para><link linkend="kate-application-plugin-konsole">The Built in Terminal Emulator</link></para></listitem>
 </itemizedlist>
 
 <para>And possibly other tool views, for example provided by
@@ -656,34 +662,6 @@ of the configuration dialog.</para>
 <!-- Tree View was renamed to Documents - http://commit-digest.org/issues/2011-08-28/ -->
 <para>The default location of the document list in the &kate; window is to the left of the
 editing area.</para>
-</sect2>
-
-<!-- command line + Terminal-->
-
-<sect2 id="kate-mdi-tools-konsole">
-<title>The Built in Terminal Emulator</title>
-
-<para><indexterm><primary>Terminal emulator</primary></indexterm>
-The built in Terminal Emulator is a copy of the &kde; &konsole;
-terminal application, for your convenience. It is available from the
-<menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Terminal</guimenuitem></menuchoice> menu item and will get the focus
-whenever displayed. Additionally, if the <link
-linkend="config-dialog-general-sync-konsole">Automatically synchronize
-the terminal with the current document when possible</link> option is enabled, it will
-change to the directory of the current document if
-possible when it is displayed, or when the current document
-changes.</para>
-
-<para>The default location in the &kate; window is at the bottom,
-below the editing area.</para>
-
-<para>You can configure the &konsole; using its &RMB; menu, for more
-information, see the <ulink url="help:/konsole/index.htm">&konsole; manual</ulink>.</para>
-
-<para>The built-in terminal emulator is provided by the Terminal Tool View plugin,
-which is enabled by default.</para>
-
 </sect2>
 
 </sect1>
@@ -827,7 +805,7 @@ documentation.</para>
 
 <para>&kate; does not (yet!) provide any means for reading document
 related documentation. Depending on the file you are editing, you may
-find the <link linkend="kate-mdi-tools-konsole">Built in
+find the <link linkend="kate-application-plugin-konsole">Built in
 Terminal Emulator</link> helpful for viewing related &UNIX; manual pages or
 info documentation, or you can use &konqueror;.</para>
 

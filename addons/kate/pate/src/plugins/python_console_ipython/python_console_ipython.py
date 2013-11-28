@@ -11,6 +11,7 @@ import sys
 
 from PyQt4.QtCore import QEvent, QObject, Qt, QTimer
 from PyKDE4.kdecore import i18nc, i18n as _translate
+from PyKDE4.kdeui import KIcon
 from libkatepate.compat import text_type
 
 sys.argv = [__file__]
@@ -51,8 +52,6 @@ _GUI_COMPLETION_TYPE_CFG = 'ipythonConsole:guiCompletionType'
 _CONFIG_UI = 'python_console_ipython.ui'
 _CONSOLE_CSS = 'python_console_ipython.css'
 _GUI_COMPLETION_CONVERT = ['droplist', None]
-
-consoleToolView = None
 
 
 def init_ipython():
@@ -279,7 +278,7 @@ class ConsoleToolView(QObject):
         self.toolView = kate.mainInterfaceWindow().createToolView(
             'ipython_console',
             kate.Kate.MainWindow.Bottom,
-            kdeui.KIcon('text-x-python').pixmap(32,32),
+            KIcon('text-x-python').pixmap(32,32),
             i18nc('@title:tab', 'IPython Console')
         )
         self.toolView.installEventFilter(self)
@@ -319,23 +318,3 @@ class ConsoleToolView(QObject):
             kate.mainInterfaceWindow().hideToolView(self.toolView)
             return True
         return self.toolView.eventFilter(obj, event)
-
-
-@kate.init
-def init():
-    # Make an instance of a console tool view
-    global consoleToolView
-    if consoleToolView is None:
-        consoleToolView = ConsoleToolView(kate.mainWindow())
-
-
-@kate.unload
-def destroy():
-    '''Plugins that use a toolview need to delete it for reloading to work.'''
-    global consoleToolView
-    if consoleToolView:
-        del consoleToolView
-        consoleToolView = None
-
-
-# kate: space-indent on; indent-width 4;

@@ -148,6 +148,8 @@ public:
   static void waitForCompletionWidgetToActivate(KateView *kate_view);
 
 private Q_SLOTS:
+  void init();
+
   void NormalModeMotionsTest();
   void NormalModeCommandsTest();
   void NormalModeControlTests();
@@ -171,12 +173,12 @@ private Q_SLOTS:
 private:
   enum Expectation { ShouldPass, ShouldFail };
   void BeginTest(const QString& original_text);
-  void FinishTest(const QString& expected_text, Expectation expectation = ShouldPass, const QString& failureReason = QString());
+  void FinishTest_(int line, const QString& expected_text, Expectation expectation = ShouldPass, const QString& failureReason = QString());
   /**
    * Send the coded keypresses to the correct widget, attempting to follow Qt's event dispatching rules.
    */
   void TestPressKey(QString str);
-  void DoTest(QString original_text,
+  void DoTest_(int line, QString original_text,
                                   QString command,
                                   QString expected_text,
                                   Expectation expectation = ShouldPass,

@@ -61,10 +61,10 @@ const KAboutData& getAboutData()
 {
     static KAboutData about = KAboutData(
         "katepateplugin"
-      , "katepateplugin"
-      , ki18n("Pate Plugin")                                // BUG "Pâté" in a title bar looks incorrectly
-      , "1.0"
+      , "pate"
       , ki18n("Pâté host for Python plugins")
+      , "2.0"
+      , ki18n("Python interpreter settings")
       , KAboutData::License_LGPL_V3
       );
     return about;
@@ -142,10 +142,28 @@ bool Pate::Plugin::checkEngineShowPopup() const
         KPassivePopup::message(
             i18nc("@title:window", "Pate engine could not be initialised")
           , m_engineFailureReason
-          //, KIcon("dialog-error").pixmap(16, 16)
           , static_cast<QWidget*>(0)
           );
         return false;
+    }
+    else
+    {
+        // Check if some modules are not available and show warning
+        unsigned broken_modules_count = 0;
+        Q_FOREACH(const Engine::PluginState& plugin, m_engine.plugins())
+            broken_modules_count += unsigned(plugin.isEnabled() && plugin.isBroken());
+
+        if (broken_modules_count)
+            KPassivePopup::message(
+                i18nc("@title:window", "Warning")
+              , i18ncp(
+                    "@info:tooltip %1 is a number of failed plugins"
+                  , "%1 plugin module couldn't be loaded. Check the Python plugins config page for details."
+                  , "%1 plugin modules couldn't be loaded. Check the Python plugins config page for details."
+                  , broken_modules_count
+                  )
+              , static_cast<QWidget*>(0)
+              );
     }
     return true;
 }
@@ -294,7 +312,7 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
   , m_plugin(plugin)
 {
     KAction* about = actionCollection()->addAction("about_pate");
-    about->setText("About Pate");
+    about->setText(i18n("About Pate"));
     about->setIcon(KIcon("python"));
     connect(about, SIGNAL(triggered(bool)), this, SLOT(aboutPate()));
 
@@ -311,8 +329,8 @@ Pate::PluginView::PluginView(Kate::MainWindow* const window, Plugin* const plugi
     {
         m_plugin->setFailureReason(i18nc("@info:tooltip ", "Cannot load <icode>kate</icode> module"));
         m_plugin->engine().setBroken();
-        m_plugin->checkEngineShowPopup();
     }
+    m_plugin->checkEngineShowPopup();
     // Inject collected actions into GUI
     mainWindow()->guiFactory()->addClient(this);
 }
@@ -328,32 +346,31 @@ void Pate::PluginView::aboutPate()
     KAboutData about = getAboutData();
     // Set other text to show some info about Python used
     // NOTE Separate scope around Python() instance
-    QString pythonInfoText = QString(
-        "Embedded Python version %1<br/>"
-        "Python paths: <pre><code>"
-      ).arg(PY_VERSION)
-      ;
+    QStringList pythonPaths;
+    Python py = Python();
+    if (PyObject* sysPath = py.itemString("path", "sys"))
     {
-        Python py = Python();
-        if (PyObject* sysPath = py.itemString("path", "sys"))
+        Py_ssize_t len = PyList_Size(sysPath);
+        for (Py_ssize_t i = 0; i < len; i++)
         {
-            Py_ssize_t len = PyList_Size(sysPath);
-            for (Py_ssize_t i = 0; i < len; i++)
-            {
-                PyObject* path = PyList_GetItem(sysPath, i);
-                pythonInfoText += Python::unicode(path) + '\n';
-            }
+            PyObject* path = PyList_GetItem(sysPath, i);
+            pythonPaths += Python::unicode(path);
         }
     }
-    pythonInfoText += "</code></pre>";
     /// \todo Show info about loaded modules? Problems?
 
     /// \attention It seems about dialog is not customizable much...
     /// Particularly it would be nice to add a custom tab...
     /// So \b dirty hack is here...
-    about.setOtherText(ki18n(pythonInfoText.toUtf8().constData()));
+    about.setOtherText(ki18nc("Python variables, no translation needed",
+                                "sys.version = %1<br/>sys.path = %2").
+                        subs(PY_VERSION).subs(pythonPaths.join(",\n&nbsp;&nbsp;&nbsp;&nbsp;")));
 
     /// \todo Add logo, authors and everything...
+    about.setProgramIconName("python");
+    about.addAuthor(ki18n("Paul Giannaros"), ki18n("Out-of-tree original"), "paul@giannaros.org");
+    about.addAuthor(ki18n("Shaheed Haque"), ki18n("Rewritten and brought in-tree, V1.0"), "srhaque@theiet.org");
+    about.addAuthor(ki18n("Alex Turbov"), ki18n("Streamlined and updated, V2.0"), "i.zaufi@gmail.com");
     KAboutApplicationDialog ad(&about, KAboutApplicationDialog::HideKdeVersion);
     ad.exec();
 }

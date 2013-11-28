@@ -200,8 +200,6 @@ For example, if <userinput>4.5</userinput> is selected, it will become
 </variablelist></listitem>
 </varlistentry>
 
-<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#) -->
-
 <varlistentry id="scripts-navigation">
 <term><menuchoice>
 <guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu>
@@ -235,6 +233,8 @@ the same level as the current line.
 
 </variablelist>
 </listitem></varlistentry>
+
+<!--FIXME: Quick Coding -> Expand Abbreviation (CTRL+ALT+#) -->
 
 <varlistentry id="scripts-editing">
 <term><menuchoice>
@@ -297,6 +297,28 @@ Duplicates the selected lines up.
 </para></listitem>
 </varlistentry>
 
+<varlistentry id="scripts-editing-uri-encode">
+<term><menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>URI-encode selected text</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+Encodes the selected text so that it can be used as part of a query string in a 
+&URL;, replacing the selection with the encoded text.
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="scripts-editing-uri-decode">
+<term><menuchoice>
+<guimenu>Tools</guimenu><guisubmenu>Scripts</guisubmenu><guisubmenu>Editing</guisubmenu>
+<guimenuitem>URI-decode selected text</guimenuitem>
+</menuchoice></term>
+<listitem><para>
+If part of the query string of a &URL; is selected, this will decode it and
+replace the selection with the original raw text.
+</para></listitem>
+</varlistentry>
+
 </variablelist></listitem>
 </varlistentry>
 
@@ -329,10 +351,10 @@ The available application plugins are:
 <para><link linkend="kate-application-plugin-build">Build Plugin</link> - Compile or Make and parse error messages</para>
 </listitem>
 <listitem>
-<para>Close Except/Like - Close group of documents</para>
+<para>Close Except/Like - Close group of documents based on a common path or file extension</para>
 </listitem>
 <listitem>
-<para>CTags Plugin - Look up definitions/declarations with CTags</para>
+<para>CTags - Look up definitions/declarations with CTags</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-fsbrowser">File system browser</link> -
@@ -366,11 +388,11 @@ simple &gdb; frontend</para>
 <para>Python Plugins - &pate; host for Python plugins</para>
 </listitem>
 <listitem>
-<para>Search and Replace Plugin - Search or replace patterns in all open files or all files in a folder</para>
-<!-- FIXME add info from http://kate-editor.org/2011/06/28/kate-plugin-updates-part-3/-->
+<para><link linkend="kate-application-plugin-searchinfiles">Search &amp; Replace</link> - 
+Search or replace patterns in opened documents or in files on disk</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-snippets">Snippets tool view</link> - Toolview embedding the snippets management</para>
+<para>Snippets tool view - Tool view embedding the snippets management</para>
 </listitem>
 <listitem>
 <para><link linkend="kate-application-plugin-sql">SQL Plugin</link> - Execute
@@ -384,17 +406,17 @@ query on SQL databases</para>
 <!--http://kate-editor.org/2011/04/25/kates-tab-bar-plugins/-->
 </listitem>
 <listitem>
-<para>Terminal tool view - Toolview embedding a terminal widget</para>
+<para>Terminal tool view - Tool view embedding a terminal widget</para>
 </listitem>
 <listitem>
 <para>Text Filter - Easy text filtering</para>
 </listitem>
 <listitem>
-<para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
-</listitem>
-<listitem>
 <para><link linkend="kate-application-plugin-xmltools">&XML;Completetion</link> - Lists &XML; elements,
 attributes, attribute values and entities allowed by DTD</para>
+</listitem>
+<listitem>
+<para><link linkend="kate-application-plugin-xmlcheck">&XML; Validation</link>- Validates &XML; files using xmllint</para>
 </listitem>
 
 <!-- not in 4.10
@@ -435,6 +457,14 @@ configuration dialog.  For more information about configuring &pate; plugins, se
 <title>Available Plugins</title>
 
 <variablelist>
+
+<varlistentry id="pate-plugin-block">
+<term><guilabel>block</guilabel></term>
+<listitem><para>
+Plugins to help code editing
+</para></listitem>
+</varlistentry>
+
 <varlistentry id="pate-plugin-cmake_utils">
 <term><guilabel>cmake_utils</guilabel></term>
 <listitem><para>
@@ -442,24 +472,10 @@ CMake helper plugin
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="pate-plugin-python_autocomplete">
-<term><guilabel>python_autocomplete</guilabel></term>
+<varlistentry id="pate-plugin-color_tools">
+<term><guilabel>color_tools</guilabel></term>
 <listitem><para>
-Python Autocompletion (beta, only for Python 2)
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-python_console_classic">
-<term><guilabel>python_console_classic</guilabel></term>
-<listitem><para>
-Configuration widget for this plugin.
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-python_utils">
-<term><guilabel>python_utils</guilabel></term>
-<listitem><para>
-Python Utilities: Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
+Class encapsuling the ability to show color swatches (colored tooltips)
 </para></listitem>
 </varlistentry>
 
@@ -470,44 +486,11 @@ Move an inlined comment before the current line with the same indentation level
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="pate-plugin-format">
-<term><guilabel>format</guilabel></term>
-<listitem><para>
-Plugins to work with C++ code formatting
-</para></listitem>
-</varlistentry>
-
 <varlistentry id="pate-plugin-django_utils">
 <term><guilabel>django_utils</guilabel></term>
 <listitem><para>
 Django utilities: Snippets, and template utilities
 </para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-python_console_ipython">
-<term><guilabel>python_console_ipython</guilabel></term>
-<listitem><para>
-IPython console for hacking &kate; and doing science
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-gdb">
-<term><guilabel>gdb</guilabel></term>
-<listitem><para>
-Use <application>gdb</application>, the GNU debugger, from &kate;
-</para></listitem>
-</varlistentry>
-
-<varlistentry id="pate-plugin-gid">
-<term><guilabel>gid</guilabel></term>
-<listitem>
-<para>Browse the tokens in a <application>GNU idutils</application> ID file, and 
-use it to navigate within a codebase.</para>
-
-<para>The necessary parts of the ID file are held in memory to allow sufficient 
-performance for token completion, when looking up the usage of a token, or 
-jumping to the definition. <command>etags(1)</command> is used to locate the 
-definition.</para></listitem>
 </varlistentry>
 
 <varlistentry id="pate-plugin-expand">
@@ -572,25 +555,32 @@ public:
 </listitem>
 </varlistentry>
 
-<varlistentry id="pate-plugin-xml_pretty">
-<term><guilabel>xml_pretty</guilabel></term>
+<varlistentry id="pate-plugin-format">
+<term><guilabel>format</guilabel></term>
 <listitem><para>
-A simple &XML; pretty printer. It formats &XML; with good indentation.
+Plugins to work with C++ code formatting
 </para></listitem>
 </varlistentry>
 
-<varlistentry id="pate-plugin-color_tools">
-<term><guilabel>color_tools</guilabel></term>
+<!--not in 4.12
+<varlistentry id="pate-plugin-gdb">
+<term><guilabel>gdb</guilabel></term>
 <listitem><para>
-Class encapsuling the ability to show color swatches (colored tooltips)
+Use <application>gdb</application>, the GNU debugger, from &kate;
 </para></listitem>
 </varlistentry>
+-->
 
-<varlistentry id="pate-plugin-block">
-<term><guilabel>block</guilabel></term>
-<listitem><para>
-Plugins to help code editing
-</para></listitem>
+<varlistentry id="pate-plugin-gid">
+<term><guilabel>gid</guilabel></term>
+<listitem>
+<para>Browse the tokens in a <application>GNU idutils</application> ID file, and 
+use it to navigate within a codebase.</para>
+
+<para>The necessary parts of the ID file are held in memory to allow sufficient 
+performance for token completion, when looking up the usage of a token, or 
+jumping to the definition. <command>etags(1)</command> is used to locate the 
+definition.</para></listitem>
 </varlistentry>
 
 <varlistentry id="pate-plugin-js_utils">
@@ -598,6 +588,41 @@ Plugins to help code editing
 <listitem><para>
 JavaScript utilities: Autocomplete, Autocomplete jQuery, Checker JSLint, Pretty 
 JSON, Snippets
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-python_autocomplete">
+<term><guilabel>python_autocomplete</guilabel></term>
+<listitem><para>
+Python Autocompletion (beta, only for Python 2)
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-python_console_classic">
+<term><guilabel>python_console_classic</guilabel></term>
+<listitem><para>
+Interactive console for inspecting &kate;'s internals and playing about
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-python_console_ipython">
+<term><guilabel>python_console_ipython</guilabel></term>
+<listitem><para>
+IPython console for hacking &kate; and doing science
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-python_utils">
+<term><guilabel>python_utils</guilabel></term>
+<listitem><para>
+Python Utilities: Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
+</para></listitem>
+</varlistentry>
+
+<varlistentry id="pate-plugin-xml_pretty">
+<term><guilabel>xml_pretty</guilabel></term>
+<listitem><para>
+A simple &XML; pretty printer. It formats &XML; with good indentation.
 </para></listitem>
 </varlistentry>
 
@@ -1245,15 +1270,16 @@ Export your file in &HTML; format so your document can be viewed as a web page.
 &TC.Hollingsworth; &TC.Hollingsworth.mail;
 </author></authorgroup>
 </sect1info>
-<title>Search and Replace</title>
+<title>Search &amp; Replace</title>
 
 <sect2 id="searchinfiles-intro">
 <title>Introduction</title>
-<para>&kappname;'s Search in Files plugin allows you to search for text or
+<para>&kappname;'s Search &amp; Replace plugin allows you to search for text or
 <link linkend="regular-expressions">regular expressions</link> in many different
-files at once.  You can search all open files, or all the files in one directory,
-and optionally its subdirectories.  You can even filter by filename, for instance
-searching only files that end with a particular file extension.</para>
+files at once.  You can search all open files, all the files in one directory
+and optionally its subdirectories, or all files in the current project.  You can
+even filter by filename, for instance searching only files that end with a
+particular file extension.</para>
 
 </sect2>
 
@@ -1279,10 +1305,27 @@ search.
 </varlistentry>
 
 <varlistentry>
-<term>Query</term>
+<term><guiicon>Toggle Results</guiicon></term>
 <listitem><para>
-The long text box at the top is where you type in what you want to find.  You may
-enter standard text, or a regular expression if enabled.
+The down arrow in the top right-corner of the Search in Files tool view will
+toggle the bottom half of the tool view between displaying additional options
+for the Search in Folder mode and the results of your search.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Find</guilabel></term>
+<listitem><para>
+This is where you type in what you want to find.  You may enter standard text, 
+or a regular expression if enabled.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Replace</guilabel> (text box)</term>
+<listitem><para>
+Replacement text that will be added to file(s) in place of the text in the
+<guilabel>Find</guilabel> text box.
 </para></listitem>
 </varlistentry>
 
@@ -1291,37 +1334,33 @@ enter standard text, or a regular expression if enabled.
 <listitem><para>
 When you've finished configuring everything, just press the
 <guibutton>Search</guibutton> button to perform your search.  You may also press
-&Enter; in the Query text box to do the same.
+&Enter; in the <guilabel>Find</guilabel> text box to do the same.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guimenu>Location</guimenu></term>
+<term><guibutton>Replace</guibutton></term>
 <listitem><para>
-This has two options.  Select <guilabel>in Open Files</guilabel> to search all
-files currently open in &kappname;.  Select <guilabel>in Folder</guilabel> to
-search inside a folder and optionally its subfolders.
+When you've finished configuring everything, just press the
+<guibutton>Replace</guibutton> button to replace the text entered in the
+<guilabel>Find</guilabel> text box with that of the <guilabel>Replace</guilabel>
+text box.  You may also press &Enter; in the <guilabel>Replace</guilabel> text 
+box to do the same.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guimenu>Options</guimenu></term>
+<term><guibutton>Next</guibutton></term>
 <listitem><para>
-There are two available options.  If enabled, <guilabel>Match case</guilabel>
-will restrict search results to only those that have the exact same combination
-of upper and lower case letters as your search query.  <guilabel>Regular
-expressions</guilabel> permits you to use
-<link linkend="regular-expressions">regular expressions</link> instead of simple
-text as your search query.
+Go to the next match of your search query, switching files if necessary.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
-<term><guiicon>Toggle Results</guiicon></term>
+<term><guibutton>Replace checked</guibutton></term>
 <listitem><para>
-The down arrow in the top right-corner of the Search in Files tool view will
-toggle the bottom half of the tool view between displaying additional options
-for the Search in Folder mode and the results of your search.
+The same as <guibutton>Replace</guibutton>, but will only perform replacements
+in files that are checked in the pane below.
 </para></listitem>
 </varlistentry>
 
@@ -1333,24 +1372,59 @@ for the Search in Folder mode and the results of your search.
 
 <para>These options are displayed below the aforementioned query options. If search
 results are being displayed instead, press the <guiicon>Toggle Results</guiicon>
-button to display them.  These options apply only when Search in Folder mode is
-enabled.  If Search in Open Files is selected, they will be disabled.</para>
+button to display them.</para>
 
 <variablelist>
+
+<varlistentry>
+<term><guilabel>Match case</guilabel></term>
+<listitem><para>
+Restricts search results to only those that have the exact same combination
+of upper and lower case letters as your search query.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Regular expressions</guilabel></term>
+<listitem><para>
+Permits you to use <link linkend="regular-expressions">regular expressions</link>
+instead of simple text as your search query.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Expand results</guilabel></term>
+<listitem><para>
+Display all the results found in each file, instead of just a list of files
+that contain the search query.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Search</guilabel></term>
+<listitem><para>
+This has three options.  Select <guilabel>in Open files</guilabel> to search all
+files currently open in &kappname;.  Select <guilabel>in Folder</guilabel> to
+search inside a folder and optionally its subfolders.  Select <guilabel>in
+Project</guilabel> to search all the files listed in the currently open project.
+</para></listitem>
+</varlistentry>
 
 <varlistentry>
 <term><guilabel>Folder</guilabel></term>
 <listitem><para>
 You may enter the path of the folder you wish to search.  For instance, you might
 enter <userinput>~/development/kde/kate/</userinput> if you wished to search the
-&kate; source code.
+&kate; source code.  This option is only available when using 
+<guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
 <varlistentry>
 <term><guiicon>Open file dialog</guiicon></term>
 <listitem><para>
-Press this button to locate the folder in your desktop's folder browser.
+Press this button to locate the folder in your desktop's folder browser. This 
+button only works when using <guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
@@ -1358,7 +1432,8 @@ Press this button to locate the folder in your desktop's folder browser.
 <term><guiicon>Up</guiicon></term>
 <listitem><para>
 Press this button to change <guilabel>Folder</guilabel> to the parent of the
-currently selected folder.
+currently selected folder. This button only works when using 
+<guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
@@ -1366,7 +1441,8 @@ currently selected folder.
 <term><guiicon>Restore Current Folder</guiicon></term>
 <listitem><para>
 This button will set the <guilabel>Folder</guilabel> entry to the folder in which
-the currently open document is located.
+the currently open document is located. This  button only works when using 
+<guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
@@ -1377,9 +1453,19 @@ This permits you to only search filenames that match a particular pattern.  For
 instance, to only search files written in C++, change it to
 <userinput>*.cpp</userinput>.  To search only files beginning with
 <literal>kate</literal>, change it to <userinput>kate*</userinput>.  You can
-enter multiple filters separated with a comma (<userinput>,</userinput>).  To
-use this to exclude files from the search, append a minus sign
-(<userinput>-</userinput>) to the list.
+enter multiple filters separated with a comma (<userinput>,</userinput>).  This
+option is not available when using <guilabel>in Open files</guilabel> mode.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Exclude</guilabel></term>
+<listitem><para>
+The opposite of <guilabel>Filter</guilabel>, this prevents &kappname; from
+searching files that match the specified patterns.  As with 
+<guilabel>Filter</guilabel>, you can enter multiple patterns separated with a 
+comma (<userinput>,</userinput>). This option is not available when using
+<guilabel>in Open files</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
@@ -1387,7 +1473,8 @@ use this to exclude files from the search, append a minus sign
 <term><guilabel>Recursive</guilabel></term>
 <listitem><para>
 If this option is enabled, &kappname; will also search in all subfolders of the
-selected folder.
+selected folder. This option is only available when using 
+<guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
@@ -1395,7 +1482,8 @@ selected folder.
 <term><guilabel>Include hidden</guilabel></term>
 <listitem><para>
 If this option is enabled, &kappname; will also search in files or folders that
-are typically hidden by your &OS;.
+are typically hidden by your &OS;. This option is only available when using 
+<guilabel>in Folder</guilabel> mode.
 </para></listitem>
 </varlistentry>
 
@@ -1405,7 +1493,8 @@ are typically hidden by your &OS;.
 The Search in Files plugin typically doesn't follow
 <ulink url="http://en.wikipedia.org/wiki/Symbolic_link">symbolic links</ulink>.
 When this option is enabled, the plugin will follow them instead and search inside
-the files or folders they reference.
+the files or folders they reference. This option is only available when using 
+<guilabel>in Folder</guilabel> mode.
 </para>
 <warning><para>It's possible for symbolic links to reference a folder that is the
 parent of the folder currently being searched, or other folders that contain
@@ -1413,6 +1502,14 @@ symbolic links to their parent.  If there is such a link in the folder being
 searched and this option is enabled, &kappname; will repeatedly follow the link
 and search the folder, and the search will never complete.</para></warning>
 </listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Include binary files</guilabel></term>
+<listitem><para>
+If enabled, &kappname; will also search in files that do not appear to be text
+files.
+</para></listitem>
 </varlistentry>
 
 </variablelist>
@@ -1426,35 +1523,81 @@ options for Search in Folder mode are displayed, simply press the
 <guiicon>Toggle Results</guiicon> button to display them.  They will also
 automatically be displayed as soon as a search is performed.</para>
 
-<para>The search results displays three columns providing information about each
-result of your search query.  The <guilabel>File</guilabel> column shows the name
-of the file.  The <guilabel>Line</guilabel> column displays the line number the
-contents of your query were found in.  The <guilabel>Text</guilabel> column displays
-the full text of that line.</para>
+<para>The search results display a list of files that contains text that matches
+your search query, followed by the number of matches found in that file.</para>
+
+<para>To see a list of matches in that file, simply click the expansion arrow
+to the left of the file name.  (If you selected the <guilabel>Expand 
+results</guilabel> option, this will already be done for you.)  The line number
+each match is found on will be displayed, followed by the contents of that line,
+with your search query indicated in bold text.</para>
 
 <para>To open the file your result was found in, simply double-click it.  &kappname;
-will open the file if needed, and place the cursor at the beginning of the text
-entered as your query as found in the file.</para>
+will open the file if needed.  You can also move the cursor to the location of
+a particular match by double-clicking on its listing instead of the file name.
+</para>
 
 </sect3>
 </sect2>
 
 <sect2 id="searchinfiles-menu">
 <title>Menu Structure</title>
+
 <variablelist>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Search in Files</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Launches the Search and Replace tool view.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Go to Next Match</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Go to the next match in a search performed by the Search and Replace
+plugin.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Go to Previous Match</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Go to the previous match in a search performed by the Search and Replace
+plugin.</para>
+</listitem>
+</varlistentry>
+
 <varlistentry>
 <term>
 <menuchoice>
 <guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Search in Files</guimenuitem>
+<guimenuitem>Show Search and Replace</guimenuitem>
 </menuchoice>
 </term>
 <listitem>
-<para>Toggle the display of &kappname;'s <guilabel>Search in Files</guilabel> tool.
+<para>Toggle the display of &kappname;'s <guilabel>Search and Replace</guilabel> tool.
 </para>
 </listitem>
 </varlistentry>
+
 </variablelist>
+
 </sect2>
 </sect1>
 
@@ -1844,7 +1987,9 @@ from disk.</para></listitem>
 </sect2>
 </sect1>-->
 
- <!--FIXME needs an update to 4.10 -->
+ <!--
+ FIXME: replaced by built-in functionality in 4.12
+        lots of this is wrong, other parts need to be moved somewhere else
 <sect1 id="kate-application-plugin-snippets">
 <sect1info>
 <authorgroup>
@@ -1899,7 +2044,7 @@ repositories.</para>
 <guibutton>Get New Snippets</guibutton> and a window with a list of snippet 
 repositories will open.  After downloading the desired snippet, make sure that
 you have activated it.</para>
-<!--FIXME no way to load a local file ?-->
+<!- -FIXME no way to load a local file ?- ->
 <para>You can also load snippet repositories from a local file using the file
 browser at the bottom of the panel.  Click <guibutton>Copy to repository</guibutton>
 when finished.</para>
@@ -2025,6 +2170,7 @@ writing much of this section.</para>
 </sect2>
 
 </sect1>
+-->
 
 <sect1 id="kate-application-plugin-build">
 <!--http://kate-editor.org/2011/06/21/kate-plugin-updates-part-1/ -->
@@ -2126,6 +2272,12 @@ warnings generated by the last command.</para>
 Clicking on the error or warning takes you to the appropriate file and places
 the cursor on the corresponding line number.</para>
 
+<para>There are <guibutton>Errors</guibutton>, <guibutton>Warnings</guibutton>,
+and <guibutton>Others</guibutton> buttons at the top that allow you to show
+or hide those categories of output.</para>
+
+<!--FIXME: These shortcuts now seem to be used by the Project plugin in 4.11.
+            https://bugs.kde.org/show_bug.cgi?id=328170 -->
 <para>To navigate to the previous error, press
 <keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo>.
 To navigate to the next error, press
@@ -2756,6 +2908,128 @@ loaded variables from the program and their corresponding values.</para>
 <para>Special thanks to Google Code-In 2011 participant Martin Gergov for
 writing much of this section.</para>
 
+</sect2>
+
+</sect1>
+
+<sect1 id="kate-application-plugin-konsole">
+<title>Terminal Tool View Plugin</title>
+
+<para><indexterm><primary>Terminal emulator</primary></indexterm>
+The built in Terminal Emulator is a copy of the &kde; &konsole;
+terminal application, for your convenience. It is available from the
+<menuchoice><guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Terminal</guimenuitem></menuchoice> menu item and will get the focus
+whenever displayed. Additionally, if the <link
+linkend="konsole-config">Automatically synchronize
+the terminal with the current document when possible</link> option is enabled, it will
+change to the directory of the current document if
+possible when it is displayed, or when the current document
+changes.</para>
+
+<para>The default location in the &kate; window is at the bottom,
+below the editing area.</para>
+
+<para>You can configure the &konsole; using its &RMB; menu, for more
+information, see the <ulink url="help:/konsole/index.htm">&konsole; manual</ulink>.</para>
+
+<para>The built-in terminal emulator is provided by the Terminal Tool View plugin,
+which is enabled by default.</para>
+
+<sect2 id="konsole-menus">
+<title>Menu Structure</title>
+
+<variablelist>
+
+<varlistentry>
+<term>
+<anchor id="view-toolviews-show-konsole"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Terminal</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Toggles the display of the built-in terminal emulator.</para>
+<para>When activated for the first time, the terminal will be created.</para>
+<para>When the terminal emulator is displayed, it will get the focus, so that
+you can start typing in commands immediately. If the <link
+linkend="konsole-config">Automatically synchronize the terminal
+with the current document when possible</link> option is enabled in the
+<guilabel>Terminal</guilabel> page of the <link
+linkend="config-dialog">Main configuration dialog</link> the shell session will
+change to the directory of the active document, if it is a local file.</para>
+<para>This menu item is displayed by the Terminal Tool View plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><menuchoice><guimenu>Tools</guimenu><guimenuitem>Pipe to
+Terminal</guimenuitem></menuchoice></term>
+<listitem><para>Feed the currently selected text into the built-in terminal
+emulator. No newline is added after the text.  This menu item is displayed by the
+Terminal Tool View plugin, which is enabled by default.</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="tools-sync-terminal-document"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Synchronize Terminal with Current Document</guimenuitem></menuchoice></term>
+<listitem>
+<para>This will cause the built-in Terminal to <command>cd</command> into the
+directory of the active document.  This menu item is also displayed
+by the Terminal Tool View plugin.</para>
+
+<para>Alternatively, you can configure &kappname; to always keep the terminal in
+sync with the current document.  See
+<xref linkend="konsole-config"/> for more information.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="tools-focus-terminal"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Focus/Defocus Terminal</guimenuitem></menuchoice></term>
+<listitem>
+<para>Switch the focus from the current document to the terminal and vice versa.
+This menu item is also displayed by the Terminal Tool View plugin.</para>
+</listitem>
+</varlistentry>
+
+</variablelist>
+</sect2>
+
+<sect2 id="konsole-config">
+<title>Configuration</title>
+
+<para>You can configure the Terminal Tool View plugin on the 
+<guilabel>Terminal</guilabel> page of the 
+<link linkend="configuring-kate">configuration dialog</link>.</para>
+
+<para>The following options are available:</para>
+
+<variablelist>
+<varlistentry>
+<term>
+<guilabel>Automatically synchronize the terminal with the current document when possible</guilabel></term>
+<listitem><para>This will cause the built-in terminal to
+<command>cd</command> into the directory of the active document when
+launched and when a new document gets the focus. If not enabled, you
+have to do all your navigation in the terminal on your own.
+</para></listitem>
+</varlistentry>
+
+<varlistentry>
+<term><guilabel>Set EDITOR environment variable to 'kate -b'</guilabel></term>
+<listitem><para>This sets the <envar>EDITOR</envar> environment variable so programs
+run in the built-in terminal that automatically open a file in an editor will open
+them in &kate; instead of the default editor configured in your shell.  You will
+not be able to continue using the terminal until you have closed the file in &kate;,
+so the calling program is aware you have finished editing the file.</para></listitem>
+</varlistentry>
+
+</variablelist>
 </sect2>
 
 </sect1>

@@ -787,7 +787,7 @@ const QChar KateViKeyParser::KeyEventToQChar(const QKeyEvent& keyEvent)
       return key;
   }
 
-  if ( text.isEmpty() || ( text.length() == 1 && text.at(0) < 0x20 )
+  if ( text.isEmpty() || ( text.length() == 1 && text.at(0) < 0x20 ) || keyCode == Qt::Key_Delete
       || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier && mods != Qt::KeypadModifier && mods != Qt::GroupSwitchModifier) ) {
     QString keyPress;
 

@@ -778,6 +778,10 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
   textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
 
+  bordersUi->cmbShowScrollbars->addItem( i18n("When needed") );
+  bordersUi->cmbShowScrollbars->addItem( i18n("Always on") );
+  bordersUi->cmbShowScrollbars->addItem( i18n("Always off") );
+
   // hide power user mode if activated anyway
   if (!KateGlobal::self()->simpleMode ())
     textareaUi->chkDeveloperMode->hide ();
@@ -811,6 +815,7 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(bordersUi->chkShowFoldingMarkers, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->rbSortBookmarksByPosition, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->rbSortBookmarksByCreation, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
+  connect(bordersUi->cmbShowScrollbars, SIGNAL(activated(int)), this, SLOT(slotChanged()));
 }
 
 KateViewDefaultsConfig::~KateViewDefaultsConfig()
@@ -842,6 +847,7 @@ void KateViewDefaultsConfig::apply ()
   KateViewConfig::global()->setScrollBarMiniMapWidth (bordersUi->spBoxMiniMapWidth->value());
   KateViewConfig::global()->setFoldingBar (bordersUi->chkShowFoldingMarkers->isChecked());
   KateViewConfig::global()->setLineModification(bordersUi->chkShowLineModification->isChecked());
+  KateViewConfig::global()->setShowScrollbars( bordersUi->cmbShowScrollbars->currentIndex() );
 
   KateViewConfig::global()->setBookmarkSort (bordersUi->rbSortBookmarksByPosition->isChecked()?0:1);
   KateRendererConfig::global()->setShowIndentationLines(textareaUi->chkShowIndentationLines->isChecked());
@@ -881,6 +887,7 @@ void KateViewDefaultsConfig::reload ()
   bordersUi->chkShowLineModification->setChecked(KateViewConfig::global()->lineModification());
   bordersUi->rbSortBookmarksByPosition->setChecked(KateViewConfig::global()->bookmarkSort()==0);
   bordersUi->rbSortBookmarksByCreation->setChecked(KateViewConfig::global()->bookmarkSort()==1);
+  bordersUi->cmbShowScrollbars->setCurrentIndex( KateViewConfig::global()->showScrollbars() );
   textareaUi->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
   textareaUi->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
   textareaUi->chkAnimateBracketMatching->setChecked(KateRendererConfig::global()->animateBracketMatching());

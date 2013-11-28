@@ -41,29 +41,6 @@
 
 namespace KTextEditor{ class Document; }
 
-/**
-   Utility: selection sort
-   sort a QMemArray<uint> in ascending order.
-   max it the largest (zerobased) index to sort.
-   To sort the entire array: ssort( *array, array.size() -1 );
-   This is only efficient if ran only once.
-*/
-static void ssort( QVector<uint> &a, int max )
-{
-  uint tmp, j, maxpos;
-  for ( uint h = max; h >= 1; h-- )
-  {
-    maxpos = 0;
-    for ( j = 0; j <= h; j++ )
-      maxpos = a[j] > a[maxpos] ? j : maxpos;
-    tmp = a[maxpos];
-    a[maxpos] = a[h];
-    a[h] = tmp;
-  }
-}
-
-// TODO add a insort() or bubble_sort - more efficient for aboutToShow() ?
-
 KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   : QObject( view )
   , m_view( view )
@@ -149,94 +126,100 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
 {
   int line = m_view->cursorPosition().line();
   const QRegExp re("&(?!&)");
-  int idx( -1 );
-  KTextEditor::Mark *next = 0;
-  KTextEditor::Mark *prev = 0;
+  int next = -1; // -1 means next bookmark doesn't exist
+  int prev = -1; // -1 means previous bookmark doesn't exist
 
   const QHash<int, KTextEditor::Mark*> &m = m_view->doc()->marks();
-  QVector<uint> sortArray( m.size() );
+  QVector<int> bookmarkLineArray; // Array of line numbers which have bookmarks
 
   if ( m.isEmpty() )
     return;
 
-  int i = 0;
-  QAction* firstNewAction = menu.addSeparator();
-  for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it, ++i)
+  // Find line numbers where bookmarks are set & store those line numbers in bookmarkLineArray
+  for (QHash<int, KTextEditor::Mark*>::const_iterator it = m.constBegin(); it != m.constEnd(); ++it)
   {
     if( it.value()->type & KTextEditor::MarkInterface::markType01 )
     {
-      QString bText = menu.fontMetrics().elidedText
-                      ( m_view->doc()->line( it.value()->line ),
-                        Qt::ElideRight,
-                        menu.fontMetrics().maxWidth() * 32 );
-      bText.replace(re, "&&"); // kill undesired accellerators!
-      bText.replace('\t', ' '); // kill tabs, as they are interpreted as shortcuts
+      bookmarkLineArray.append(it.value()->line);
+    }
+  }
 
-      QAction *before=0;
-      if ( m_sorting == Position )
-      {
-        sortArray[i] = it.value()->line;
-        ssort( sortArray, i );
+  if ( m_sorting == Position )
+  {
+    qSort(bookmarkLineArray.begin(), bookmarkLineArray.end());
+  }
 
-        for (int i=0; i < sortArray.size(); ++i)
-        {
-          if ((int)sortArray[i] == it.value()->line)
-          {
-            idx = i + 3;
-            if (idx>=menu.actions().size()) before=0;
-            else before=menu.actions()[idx];
-            break;
-          }
-        }
-      }
+  QAction* firstNewAction = menu.addSeparator();
+  // Consider each line with a bookmark one at a time
+  for (int i = 0; i < bookmarkLineArray.size(); ++i)
+  {
+    // Get text in this particular line in a QString
+    QString bText = menu.fontMetrics().elidedText
+                    ( m_view->doc()->line( bookmarkLineArray.at(i) ),
+                      Qt::ElideRight,
+                      menu.fontMetrics().maxWidth() * 32 );
+    bText.replace(re, "&&"); // kill undesired accellerators!
+    bText.replace('\t', ' '); // kill tabs, as they are interpreted as shortcuts
 
-      if (before) {
+    QAction *before=0;
+    if ( m_sorting == Position )
+    {
+      // 3 actions already present
+      if (menu.actions().size() <= i+3)
+        before=0;
+      else
+        before=menu.actions()[i+3];
+    }
+
+    // Adding action for this bookmark in menu
+    if (before) {
         QAction *a=new QAction(QString("%1  %3  - \"%2\"")
-                                 .arg( it.value()->line+1 ).arg( bText )
-                                 .arg(m_view->getViInputModeManager()->getMarksOnTheLine(it.value()->line)),&menu);
+                                 .arg( bookmarkLineArray.at(i) + 1 ).arg( bText )
+                                 .arg(m_view->getViInputModeManager()->getMarksOnTheLine(bookmarkLineArray.at(i))),&menu);
         menu.insertAction(before,a);
         connect(a,SIGNAL(activated()),this,SLOT(gotoLine()));
-        a->setData(it.value()->line);
+        a->setData(bookmarkLineArray.at(i));
         if (!firstNewAction) firstNewAction = a;
 
       } else {
         QAction* a = menu.addAction(QString("%1  %3  - \"%2\"")
-                                      .arg( it.value()->line+1 ).arg( bText )
-                                      .arg(m_view->getViInputModeManager()->getMarksOnTheLine(it.value()->line)),
-                                    this, SLOT(gotoLine()));
-        a->setData(it.value()->line);
+                                      .arg( bookmarkLineArray.at(i) + 1 ).arg( bText )
+                                      .arg(m_view->getViInputModeManager()->getMarksOnTheLine(bookmarkLineArray.at(i))),
+                                      this, SLOT(gotoLine()));
+        a->setData(bookmarkLineArray.at(i));
       }
 
-      if ( it.value()->line < line )
+      // Find the line number of previous & next bookmark (if present) in relation to the cursor
+      if ( bookmarkLineArray.at(i) < line )
       {
-        if ( ! prev || prev->line < it.value()->line )
-          prev = (*it);
+        if ( (prev == -1) || prev < (bookmarkLineArray.at(i)) )
+          prev = bookmarkLineArray.at(i);
       }
-
-      else if ( it.value()->line > line )
+      else if ( bookmarkLineArray.at(i) > line )
       {
-        if ( ! next || next->line > it.value()->line )
-          next = it.value();
+        if ( (next == -1) || next > (bookmarkLineArray.at(i)) )
+          next = bookmarkLineArray.at(i);
       }
-    }
   }
 
-  if ( next )
+  if ( next != -1 )
   {
-    m_goNext->setText( i18n("&Next: %1 - \"%2\"",  next->line + 1 ,
-          KStringHandler::rsqueeze( m_view->doc()->line( next->line ), 24 ) ) );
+    // Insert action for next bookmark
+    m_goNext->setText( i18n("&Next: %1 - \"%2\"",  next + 1 ,
+          KStringHandler::rsqueeze( m_view->doc()->line( next ), 24 ) ) );
     menu.insertAction(firstNewAction, m_goNext);
     firstNewAction = m_goNext;
   }
-  if ( prev )
+  if ( prev != -1 )
   {
-    m_goPrevious->setText( i18n("&Previous: %1 - \"%2\"", prev->line + 1 ,
-          KStringHandler::rsqueeze( m_view->doc()->line( prev->line ), 24 ) ) );
+    // Insert action for previous bookmark
+    m_goPrevious->setText( i18n("&Previous: %1 - \"%2\"", prev + 1 ,
+          KStringHandler::rsqueeze( m_view->doc()->line( prev ), 24 ) ) );
     menu.insertAction(firstNewAction, m_goPrevious);
     firstNewAction = m_goPrevious;
   }
 
-  if ( next || prev )
+  if ( next != -1 || prev != -1 )
     menu.insertSeparator(firstNewAction);
 }
 

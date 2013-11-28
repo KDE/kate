@@ -149,6 +149,23 @@
         </layout>
        </widget>
       </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="lblShowScrollbars">
+          <property name="text">
+           <string>Scrollbars visibility:</string>
+          </property>
+          <property name="buddy">
+           <cstring>cmbShowScrollbars</cstring>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="KComboBox" name="cmbShowScrollbars"/>
+        </item>
+       </layout>
+      </item>
      </layout>
     </widget>
    </item>
@@ -215,6 +232,7 @@
   <tabstop>chkScrollbarMiniMap</tabstop>
   <tabstop>chkScrollbarMiniMapAll</tabstop>
   <tabstop>spBoxMiniMapWidth</tabstop>
+  <tabstop>cmbShowScrollbars</tabstop>
   <tabstop>rbSortBookmarksByCreation</tabstop>
   <tabstop>rbSortBookmarksByPosition</tabstop>
  </tabstops>

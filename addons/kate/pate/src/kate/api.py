@@ -28,7 +28,6 @@ from PyKate4.kate import Kate
 import pate
 
 class NoActiveView(Exception):
-
     pass
 
 application = Kate.application()
@@ -59,6 +58,7 @@ def mainWindow():
     the actual widget main window. If you need to access the
     Kate.MainWindow for the methods it provides (e.g createToolView),
     then use the mainInterfaceWindow function '''
+    assert('Sanity check' and application.activeMainWindow() is not None)
     return application.activeMainWindow().window()
 
 
@@ -66,6 +66,7 @@ def activeView():
     ''' The currently active view. Access its KTextEditor.Document
     by calling document() on it (or by using kate.activeDocument()).
     This is a shortcut for kate.application.activeMainWindow().activeView()'''
+    assert('Sanity check' and application.activeMainWindow() is not None)
     return application.activeMainWindow().activeView()
 
 

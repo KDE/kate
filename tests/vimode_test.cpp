@@ -25,6 +25,7 @@
 #include <qtest_kde.h>
 #include <kateviinputmodemanager.h>
 #include <katedocument.h>
+#include <kateundomanager.h>
 #include <kateview.h>
 #include "kateconfig.h"
 #include <kateglobal.h>
@@ -268,18 +269,12 @@ void FakeCodeCompletionTestModel::checkIfShouldForceInvocation()
 }
 
 ViModeTest::ViModeTest() {
-  kate_document = new KateDocument(false, false, false, 0, NULL);
+  kate_document = 0;
+  kate_view = 0;
+
   mainWindow = new QMainWindow;
   mainWindowLayout = new QVBoxLayout(mainWindow);
-  QWidget *centralWidget = new QWidget(mainWindow);
-  mainWindow->setCentralWidget(centralWidget);
-  kate_view = new KateView(kate_document, mainWindow);
-  mainWindowLayout->addWidget(kate_view);
   mainWindow->setLayout(mainWindowLayout);
-  kate_view->config()->setViInputMode(true);
-  Q_ASSERT(kate_view->viInputMode());
-  vi_input_mode_manager = kate_view->getViInputModeManager();
-  kate_document->config()->setShowSpaces(true); // Flush out some issues in the KateRenderer when rendering spaces.
 
   m_codesToModifiers.insert("ctrl", Qt::ControlModifier);
   m_codesToModifiers.insert("alt", Qt::AltModifier);
@@ -294,6 +289,23 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("right", Qt::Key_Right);
   m_codesToSpecialKeys.insert("down", Qt::Key_Down);
   m_codesToSpecialKeys.insert("home", Qt::Key_Home);
+  m_codesToSpecialKeys.insert("delete", Qt::Key_Delete);
+  m_codesToSpecialKeys.insert("insert", Qt::Key_Insert);
+
+}
+
+void ViModeTest::init()
+{
+  delete kate_view;
+  delete kate_document;
+
+  kate_document = new KateDocument(false, false, false, 0, NULL);
+  kate_view = new KateView(kate_document, mainWindow);
+  mainWindowLayout->addWidget(kate_view);
+  kate_view->config()->setViInputMode(true);
+  Q_ASSERT(kate_view->viInputMode());
+  vi_input_mode_manager = kate_view->getViInputModeManager();
+  kate_document->config()->setShowSpaces(true); // Flush out some issues in the KateRenderer when rendering spaces.
 
   connect(kate_document, SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
           this, SLOT(textInserted(KTextEditor::Document*,KTextEditor::Range)));
@@ -347,20 +359,24 @@ void ViModeTest::BeginTest(const QString& original_text) {
   vi_input_mode_manager->viEnterNormalMode();
   vi_input_mode_manager = kate_view->resetViInputModeManager();
   kate_document->setText(original_text);
+  kate_document->undoManager()->clearUndo();
+  kate_document->undoManager()->clearRedo();
   kate_view->setCursorPosition(Cursor(0,0));
   m_firstBatchOfKeypressesForTest = true;
 }
 
-void ViModeTest::FinishTest(const QString& expected_text, ViModeTest::Expectation expectation, const QString& failureReason)
+void ViModeTest::FinishTest_(int line, const QString& expected_text, ViModeTest::Expectation expectation, const QString& failureReason)
 {
   if (expectation == ShouldFail)
   {
-    QEXPECT_FAIL("", failureReason.toLocal8Bit(), Continue);
+    if (!QTest::qExpectFail("", failureReason.toLocal8Bit(), QTest::Continue, __FILE__, line)) return;
     qDebug() << "Actual text:\n\t" << kate_document->text() << "\nShould be (for this test to pass):\n\t" << expected_text;
   }
-  QCOMPARE(kate_document->text(), expected_text);
+  if (!QTest::qCompare(kate_document->text(), expected_text, "kate_document->text()", "expected_text", __FILE__, line)) return;
   Q_ASSERT(!emulatedCommandBarTextEdit()->isVisible() && "Make sure you close the command bar before the end of a test!");
 }
+
+#define FinishTest(...) FinishTest_( __LINE__, __VA_ARGS__ )
 
 
 void ViModeTest::TestPressKey(QString str) {
@@ -496,15 +512,16 @@ void ViModeTest::TestPressKey(QString str) {
  * For example:
  *     DoTest("line 1\nline 2\n","ddu\\ctrl-r","line 2\n");
  */
-void ViModeTest::DoTest(QString original_text,
+void ViModeTest::DoTest_(int line, QString original_text,
     QString command,
     QString expected_text, Expectation expectation, const QString& failureReason) {
 
   BeginTest(original_text);
   TestPressKey(command);
-  FinishTest(expected_text, expectation, failureReason);
+  FinishTest_(line, expected_text, expectation, failureReason);
 }
 
+#define DoTest(...) DoTest_(__LINE__, __VA_ARGS__)
 
 
 void ViModeTest::VisualModeTests() {
@@ -532,6 +549,10 @@ void ViModeTest::VisualModeTests() {
     DoTest("foobarbaz","lvlkkjl2ld","fbaz");
     DoTest("foobar","v$d","");
     DoTest("foo\nbar\nbaz","jVlld","foo\nbaz");
+    DoTest("01\n02\n03\n04\n05","Vjdj.","03");
+
+    // testing Del key
+    DoTest("foobarbaz","lvlkkjl2l\\delete","fbaz");
 
     // Testing "D"
     DoTest("foo\nbar\nbaz","lvjlD","baz");
@@ -542,11 +563,13 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo bar", "vwgU", "FOO Bar");
     DoTest("foo\nbar\nbaz", "VjjU", "FOO\nBAR\nBAZ");
     DoTest("foo\nbar\nbaz", "\\ctrl-vljjU","FOo\nBAr\nBAz");
+    DoTest("aaaa\nbbbb\ncccc", "\\ctrl-vljgUjll.", "AAaa\nBBBB\nccCC");
 
     // Testing "gu", "u"
     DoTest("TEST", "Vgu", "test");
     DoTest("TeSt", "vlgu","teSt");
     DoTest("FOO\nBAR\nBAZ", "\\ctrl-vljju","foO\nbaR\nbaZ");
+    DoTest("AAAA\nBBBB\nCCCC\nDDDD", "vjlujjl.", "aaaa\nbbBB\nCccc\ndddD");
 
     // Testing "g~"
     DoTest("fOo bAr", "Vg~", "FoO BaR");
@@ -571,6 +594,9 @@ void ViModeTest::VisualModeTests() {
     DoTest("foo\nbar","vj>","  foo\n  bar");
     DoTest("foo\nbar\nbaz", "jVj>", "foo\n  bar\n  baz");
     DoTest("foo", "vl3>","      foo");
+    DoTest("indent\nrepeat", "V>.", "    indent\nrepeat");
+    DoTest("indent\nrepeat", "Vj>.", "    indent\n    repeat");
+    DoTest("indent\nrepeat\non\nothers", "Vj>jj.", "  indent\n  repeat\n  on\n  others");
 
     // Testing "<"
     DoTest(" foo","vl<", "foo");
@@ -715,7 +741,7 @@ void ViModeTest::ReplaceModeTests()
   DoTest("foo bar", "R\\ctrl-\\rightX", "foo Xar");
   DoTest("foo bar", "R\\ctrl-\\right\\ctrl-\\rightX", "foo barX");
   DoTest("foo bar", "R\\ctrl-\\leftX", "Xoo bar");
-
+  DoTest("foo bar", "R\\ctrl-\\left\\delete", "oo bar");
 }
 
 void ViModeTest::InsertModeTests() {
@@ -817,8 +843,13 @@ void ViModeTest::InsertModeTests() {
   DoTest("", "ifoo\\enterbar", "foo\nbar");
   DoTest("", "ifoo\\returnbar", "foo\nbar");
 
+  // Insert key
+  DoTest("", "\\insertfoo", "foo");
+
   // Test that our test driver can handle newlines during insert mode :)
   DoTest("", "ia\\returnb", "a\nb");
+
+  DoTest("foo bar", "i\\home\\delete", "oo bar");
 
   // Test Alt-gr still works - this isn't quite how things work in "real-life": in real-life, something like
   // Alt-gr+7 would be a "{", but I don't think this can be reproduced without sending raw X11
@@ -1320,8 +1351,8 @@ void ViModeTest::NormalModeMotionsTest() {
 
   DoTest("QList<QString>","wwldi>","QList<>");
   DoTest("QList<QString>","wwlda<","QList");
-  DoTest("<head>\n<title>Title</title>\n</head>",
-         "di<jci>",
+  DoTest("<>\n<title>Title</title>\n</head>",
+         "di<jci>\\ctrl-c",
          "<>\n<>Title</title>\n</head>");
 
   DoTest( "foo bar baz", "wldiw", "foo  baz");
@@ -1331,7 +1362,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "foo ( \n bar\n)baz","jdi(", "foo ()baz");
   DoTest( "foo ( \n bar\n)baz","jda(", "foo baz");
   DoTest( "(foo(bar)baz)", "ldi)", "()");
-  DoTest( "(foo(bar)baz)", "lca(", "");
+  DoTest( "(foo(bar)baz)", "lca(\\ctrl-c", "");
   DoTest( "( foo ( bar ) )baz", "di(", "()baz" );
   DoTest( "( foo ( bar ) )baz", "da(", "baz" );
   DoTest( "[foo [ bar] [(a)b [c]d ]]","$hda]", "[foo [ bar] ]");
@@ -1342,12 +1373,12 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest( "hi!))))}}]]","di]di}da)di)da]", "hi!))))}}]]" );
 
   DoTest("foo \"bar\" baz", "4ldi\"", "foo \"\" baz");
-  DoTest("foo \"bar\" baz", "8lca\"", "foo  baz");
+  DoTest("foo \"bar\" baz", "8lca\"\\ctrl-c", "foo  baz");
 
-  DoTest("foo 'bar' baz", "4lca'", "foo  baz");
+  DoTest("foo 'bar' baz", "4lca'\\ctrl-c", "foo  baz");
   DoTest("foo 'bar' baz", "8ldi'", "foo '' baz");
 
-  DoTest("foo `bar` baz", "4lca`", "foo  baz");
+  DoTest("foo `bar` baz", "4lca`\\ctrl-c", "foo  baz");
   DoTest("foo `bar` baz", "8ldi`", "foo `` baz");
 
   DoTest("()","di(","()");
@@ -1465,6 +1496,22 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("ABCD", "$XX", "AD");
   DoTest("foo", "XP", "foo");
 
+  // Testing Del key
+  DoTest("foo", "\\home\\delete", "oo");
+  DoTest("foo", "$\\delete", "fo");
+
+  // Delete. Note that when sent properly via Qt, the key event text() will inexplicably be "127",
+  // which can trip up the key parser. Duplicate this oddity here.
+  BeginTest("xyz");
+  TestPressKey("l");
+  QKeyEvent *deleteKeyDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Delete, Qt::NoModifier, "127");
+  QApplication::postEvent(kate_view->focusProxy(), deleteKeyDown);
+  QApplication::sendPostedEvents();
+  QKeyEvent *deleteKeyUp = new QKeyEvent(QEvent::KeyRelease, Qt::Key_Delete, Qt::NoModifier, "127");
+  QApplication::postEvent(kate_view->focusProxy(), deleteKeyUp);
+  QApplication::sendPostedEvents();
+  FinishTest("xz");
+
   // Testing "gu"
   DoTest("FOO\nBAR BAZ", "guj", "foo\nbar baz");
   DoTest("AbCDF", "gu3l", "abcDF");
@@ -1489,6 +1536,14 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fOo BAr", "$hg~FO", "foO bar");
   DoTest("fOo BAr", "lf~fZ", "fOo BAr");
   DoTest("{\nfOo BAr\n}", "jg~iB", "{\nFoO baR\n}");
+
+  // Testing "g~~"
+  DoTest("", "g~~", "");
+  DoTest("\nfOo\nbAr", "g~~", "\nfOo\nbAr");
+  DoTest("fOo\nbAr\nBaz", "g~~", "FoO\nbAr\nBaz");
+  DoTest("fOo\nbAr\nBaz\nfAR", "j2g~~", "fOo\nBaR\nbAZ\nfAR");
+  DoTest("fOo\nbAr\nBaz", "jlg~~rX", "fOo\nXaR\nBaz");
+  DoTest("fOo\nbAr\nBaz\nfAR", "jl2g~~rX", "fOo\nBXR\nbAZ\nfAR");
 
   // Testing "r".
   DoTest("foobar", "l2r.", "f..bar");
@@ -1530,6 +1585,13 @@ void ViModeTest::NormalModeCommandsTest() {
 
   DoTest("fop\nbar", "yiwjlgpx", "fop\nbafop");
   DoTest("fop\nbar", "yiwjlgPx", "fop\nbfopr");
+
+  DoTest("repeat\nindent", "2>>2>>", "    repeat\n    indent");
+
+  // make sure we record correct history when indenting
+  DoTest("repeat\nindent and undo", "2>>2>>2>>uu", "  repeat\n  indent and undo");
+  DoTest("repeat\nunindent and undo", "2>>2>>2<<u", "    repeat\n    unindent and undo");
+
   // Yank and paste op\ngid into bar i.e. text spanning lines, but not linewise.
   DoTest("fop\ngid\nbar", "lvjyjjgpx", "fop\ngid\nbaop\ngi");
   DoTest("fop\ngid\nbar", "lvjyjjgPx", "fop\ngid\nbop\ngir");
@@ -2084,6 +2146,17 @@ void ViModeTest::CommandModeTests() {
     // Testing ">"
     DoTest("foo","\\:>\\","  foo");
     DoTest("   foo","\\:<\\","  foo");
+
+    DoTest("foo\nbar","\\:2>\\","foo\n  bar");
+    DoTest("   foo\nbaz","\\:1<\\","  foo\nbaz");
+
+    DoTest("foo\nundo","\\:2>\\u","foo\nundo");
+    DoTest("  foo\nundo","\\:1<\\u","  foo\nundo");
+
+    DoTest("indent\nmultiline\ntext", "\\:1,2>\\", "  indent\n  multiline\ntext");
+    DoTest("indent\nmultiline\n+undo", "\\:1,2>\\:1,2>\\:1,2>\\u", "    indent\n    multiline\n+undo");
+    // doesn't test correctly, why?
+    // DoTest("indent\nmultiline\n+undo", "\\:1,2>\\:1,2<\\u", "  indent\n  multiline\n+undo");
 
     // Testing ":c", ":change"
     DoTest("foo\nbar\nbaz","\\:2change\\","foo\n\nbaz");
@@ -7138,7 +7211,8 @@ void ViModeTest::ensureKateViewVisible()
     kate_view->show();
     QApplication::setActiveWindow(mainWindow);
     kate_view->setFocus();
-    while (QApplication::hasPendingEvents())
+    const QDateTime startTime = QDateTime::currentDateTime();
+    while (startTime.msecsTo(QDateTime::currentDateTime()) < 3000 && !mainWindow->isActiveWindow())
     {
       QApplication::processEvents();
     }
@@ -7355,7 +7429,7 @@ void ViModeTest::textInserted(Document* document, Range range)
 void ViModeTest::textRemoved(Document* document, Range range)
 {
   Q_UNUSED(document);
-  m_docChanges.append(DocChange(DocChange::DocChange::TextRemoved, range));
+  m_docChanges.append(DocChange(DocChange::TextRemoved, range));
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

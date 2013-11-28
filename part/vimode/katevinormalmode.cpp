@@ -333,7 +333,10 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
               kDebug( 13070 ) << "No command given, going to position ("
                 << r.endLine << "," << r.endColumn << ")";
               goToPos( r );
-              m_viInputModeManager->clearCurrentChangeLog();
+
+              // in the case of VisualMode we need to remember the motion commands as well.
+              if (!m_viInputModeManager->isAnyVisualMode())
+                m_viInputModeManager->clearCurrentChangeLog();
             } else {
               kDebug( 13070 ) << "Invalid position: (" << r.endLine << "," << r.endColumn << ")";
             }
@@ -514,6 +517,8 @@ void KateViNormalMode::goToPos( const KateViRange &r )
 
 void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 {
+  const ViMode originalViMode = m_viInputModeManager->getCurrentViMode();
+
   cmd->execute();
 
   // if normal mode was started by using Ctrl-O in insert mode,
@@ -530,7 +535,11 @@ void KateViNormalMode::executeCommand( const KateViCommand* cmd )
       m_viInputModeManager->storeLastChangeCommand();
     }
 
-    m_viInputModeManager->clearCurrentChangeLog();
+      // when we transition to visual mode, remember the command in the keys history (V, v, ctrl-v, ...)
+      // this will later result in buffer filled with something like this "Vjj>" which we can use later with repeat "."
+      const bool commandSwitchedToVisualMode = ((originalViMode == NormalMode) && m_viInputModeManager->isAnyVisualMode());
+      if (!commandSwitchedToVisualMode)
+        m_viInputModeManager->clearCurrentChangeLog();
   }
 
   // make sure the cursor does not end up after the end of the line
@@ -707,9 +716,7 @@ bool KateViNormalMode::commandEnterVisualMode()
 
 bool KateViNormalMode::commandToOtherEnd()
 {
-  if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
-      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+  if (m_viInputModeManager->isAnyVisualMode()) {
     m_viInputModeManager->getViVisualMode()->switchStartEnd();
     return true;
   }
@@ -1000,6 +1007,33 @@ bool KateViNormalMode::commandChangeCaseRange()
   }
   doc()->replaceText( range, changedCase, m == Block );
   return true;
+}
+
+bool KateViNormalMode::commandChangeCaseLine()
+{
+  Cursor c( m_view->cursorPosition() );
+
+  if (doc()->lineLength(c.line()) == 0)
+  {
+    // Nothing to do.
+    return true;
+  }
+
+  m_commandRange.startLine = c.line();
+  m_commandRange.endLine = c.line() + getCount() - 1;
+  m_commandRange.startColumn = 0;
+  m_commandRange.endColumn = doc()->lineLength( c.line() )-1; // -1 is for excluding '\0'
+
+  if ( !commandChangeCaseRange() )
+    return false;
+
+  Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
+  if (getCount() > 1)
+    updateCursor(c);
+  else
+    updateCursor(start);
+  return true;
+
 }
 
 bool KateViNormalMode::commandOpenNewLineUnder()
@@ -1377,10 +1411,8 @@ bool KateViNormalMode::commandDeleteCharBackward()
 bool KateViNormalMode::commandReplaceCharacter()
 {
 
-bool r;
-if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
-      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+  bool r;
+  if ( m_viInputModeManager->isAnyVisualMode()) {
 
     OperationMode m = getOperationMode();
     QString text = getRange( m_commandRange, m );
@@ -1397,7 +1429,7 @@ if ( m_viInputModeManager->getCurrentViMode() == VisualMode
 
     r = doc()->replaceText( range, text, m == Block );
 
-} else {
+  } else {
     Cursor c1( m_view->cursorPosition() );
     Cursor c2( m_view->cursorPosition() );
 
@@ -1411,7 +1443,7 @@ if ( m_viInputModeManager->getCurrentViMode() == VisualMode
     r = doc()->replaceText( Range( c1, c2 ), m_keys.right( 1 ).repeated(getCount()) );
     updateCursor( c1 );
 
-}
+  }
   return r;
 }
 
@@ -1421,9 +1453,7 @@ bool KateViNormalMode::commandSwitchToCmdLine()
 
 
     QString initialText;
-    if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-      || m_viInputModeManager->getCurrentViMode() == VisualLineMode
-      || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    if ( m_viInputModeManager->isAnyVisualMode()) {
       // if in visual mode, make command range == visual selection
       m_viInputModeManager->getViVisualMode()->saveRangeMarks();
       initialText = "'<,'>";
@@ -1505,9 +1535,7 @@ bool KateViNormalMode::commandIndentLine()
 {
     Cursor c( m_view->cursorPosition() );
 
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-        doc()->indent( KTextEditor::Range( c.line()+i, 0, c.line()+i, 0), 1 );
-    }
+    doc()->indent( KTextEditor::Range( c.line(), 0, c.line() + getCount(), 0), 1 );
 
     return true;
 }
@@ -1516,9 +1544,7 @@ bool KateViNormalMode::commandUnindentLine()
 {
     Cursor c( m_view->cursorPosition() );
 
-    for ( unsigned int i = 0; i < getCount(); i++ ) {
-        doc()->indent( KTextEditor::Range( c.line()+i, 0, c.line()+i, 0), -1 );
-    }
+    doc()->indent( KTextEditor::Range( c.line(), 0, c.line() + getCount(), 0), -1 );
 
     return true;
 }
@@ -3292,6 +3318,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("a", commandEnterInsertModeAppend, IS_CHANGE );
   ADDCMD("A", commandEnterInsertModeAppendEOL, IS_CHANGE );
   ADDCMD("i", commandEnterInsertMode, IS_CHANGE );
+  ADDCMD("<insert>", commandEnterInsertMode, IS_CHANGE );
   ADDCMD("I", commandEnterInsertModeBeforeFirstNonBlankInLine, IS_CHANGE );
   ADDCMD("gi", commandEnterInsertModeLast, IS_CHANGE );
   ADDCMD("v", commandEnterVisualMode, 0 );
@@ -3310,6 +3337,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("d", commandDelete, IS_CHANGE | NEEDS_MOTION );
   ADDCMD("D", commandDeleteToEOL, IS_CHANGE );
   ADDCMD("x", commandDeleteChar, IS_CHANGE );
+  ADDCMD("<delete>", commandDeleteChar, IS_CHANGE );
   ADDCMD("X", commandDeleteCharBackward, IS_CHANGE );
   ADDCMD("gu", commandMakeLowercase, IS_CHANGE | NEEDS_MOTION );
   ADDCMD("guu", commandMakeLowercaseLine, IS_CHANGE );
@@ -3348,6 +3376,7 @@ void KateViNormalMode::initializeCommands()
   ADDCMD("=", commandAlignLines, IS_CHANGE | NEEDS_MOTION);
   ADDCMD("~", commandChangeCase, IS_CHANGE );
   ADDCMD("g~", commandChangeCaseRange, IS_CHANGE | NEEDS_MOTION );
+  ADDCMD("g~~", commandChangeCaseLine, IS_CHANGE );
   ADDCMD("<c-a>", commandAddToNumber, IS_CHANGE );
   ADDCMD("<c-x>", commandSubtractFromNumber, IS_CHANGE );
   ADDCMD("<c-o>", commandGoToPrevJump, 0);

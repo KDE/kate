@@ -447,6 +447,11 @@ ViMode KateViInputModeManager::getCurrentViMode() const
   return m_currentViMode;
 }
 
+bool KateViInputModeManager::isAnyVisualMode() const
+{
+  return ((m_currentViMode == VisualMode) || (m_currentViMode == VisualLineMode) || (m_currentViMode == VisualBlockMode));
+}
+
 KateViModeBase* KateViInputModeManager::getCurrentViModeHandler() const
 {
   switch(m_currentViMode) {

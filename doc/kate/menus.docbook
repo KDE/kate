@@ -84,7 +84,7 @@ location.
 This submenu presents a list of applications known to handle the mime type
 of your current document. Activating an entry will open the current document
 with that application.</para>
-<para>In addition, a entry <guimenuitem>Other...</guimenuitem> command launches
+<para>In addition, an entry <guimenuitem>Other...</guimenuitem> launches
 the open with dialog box that allows you to <action>select another application
 to open the active file</action>. Your file will still be open in &kate;.
 </para>
@@ -192,21 +192,6 @@ it open in &kate;
 
 <varlistentry>
 <term>
-<anchor id="close-orphaned"/>
-<menuchoice>
-<guimenu>File</guimenu>
-<guimenuitem>Close Orphaned</guimenuitem>
-</menuchoice>
-</term>
-<listitem>
-<para><action>Close</action> all documents in the file list, which could
-not be reopened during startup, because they are not accessible anymore.
-</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term>
 <anchor id="print"/>
 <menuchoice>
 <shortcut>
@@ -220,6 +205,22 @@ not be reopened during startup, because they are not accessible anymore.
 <para>
 <action>Print the active file</action>.
 </para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="export-as-html"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Export as &HTML;...</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Save the currently open document as an &HTML; file, which will be
+formatted using the current syntax highlighting and color scheme settings.</para>
+<para>This menu item is displayed by the Exporter editor component extension,
+which is enabled by default.</para>
 </listitem>
 </varlistentry>
 
@@ -274,6 +275,54 @@ in &kate;.
 
 <varlistentry>
 <term>
+<anchor id="close-orphaned"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guimenuitem>Close Orphaned</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para><action>Close</action> all documents in the file list, which could
+not be reopened during startup, because they are not accessible anymore.
+</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="close-except"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>Close Except</guisubmenu>
+</menuchoice>
+</term>
+<listitem>
+<para><action>Close</action> all documents in the file list, 
+<emphasis>except</emphasis> those which match the path selected from this
+submenu.</para>
+<para>This menu item is displayed by the Close Except/Like plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="close-like"/>
+<menuchoice>
+<guimenu>File</guimenu>
+<guisubmenu>Close Like</guisubmenu>
+</menuchoice>
+</term>
+<listitem>
+<para><action>Close</action> all documents in the file list which match the path 
+selected from this submenu.</para>
+<para>This menu item is displayed by the Close Except/Like plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
 <anchor id="quit"/>
 <menuchoice>
 <shortcut>
@@ -312,8 +361,8 @@ all to work with the currently active document.</para>
 </term>
 <listitem>
 <para>Undo the last editing command (typing, copying, cutting etc.)</para>
-<!-- FIXME how/where to enable/disable grouped undo ? is this really valid for 4.11?-->
-<note><para>If grouped undo is enabled, this may undo several editing commands of the same type, like typing in characters.</para></note>
+<note><para>This may undo several editing commands of the same type, like typing
+in characters.</para></note>
 </listitem>
 </varlistentry>
 
@@ -391,6 +440,20 @@ currently open file.</para>
 
 <varlistentry>
 <term>
+<anchor id="edit-copy-as-html"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guisubmenu>Copy as &HTML;</guisubmenu>
+</menuchoice>
+</term>
+<listitem>
+<para>Copy the selection as &HTML;, formatted using the current syntax
+highlighting and color scheme settings.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
 <anchor id="edit-select-all"/>
 <menuchoice>
 <shortcut><keycombo action="simul">&Ctrl;<keycap>A</keycap></keycombo></shortcut>
@@ -443,7 +506,7 @@ currently open file.</para>
 Mode</guimenuitem></menuchoice></term>
 <listitem>
 <para>Switch to a vi-like, modal editing mode. This mode supports the most used commands
-and motions from vim's normal and visual mode and has an optional vi mode statusbar.
+and motions from vim's normal and visual mode and has an optional vi mode status bar.
 This status bar shows commands while they are being entered, output from commands and
 the current mode.The behavior of this mode can be configured in the
 <link linkend="pref-edit-vi-input-mode">Vi Input Mode</link> section of the
@@ -562,6 +625,64 @@ the document</para>
 </listitem>
 </varlistentry>
 
+<varlistentry>
+<term>
+<anchor id="edit-search-in-files"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Search in Files</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Launches the Search and Replace tool view.  This provides more advanced
+functionality than the
+<link linkend="edit-replace"><guimenuitem>Replace</guimenuitem></link> menu 
+item described above, which can only search in the currently open document.
+It allows you to search either within all open files, in a directory of your
+choosing, or within the currently open project.</para>
+<para>This menu item is displayed by the Search &amp; Replace plugin, which is
+enabled by default.  For more information, see 
+<xref linkend="kate-application-plugin-searchinfiles"/></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="edit-go-to-next-match"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Go to Next Match</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Go to the next match in a search performed by the Search and Replace
+plugin.  To go to the next match in a single file search initiated by the
+<link linkend="edit-find"><guimenuitem>Find</guimenuitem></link> command, use 
+<link linkend="edit-find-next"><guimenuitem>Find Next</guimenuitem></link>.</para>
+<para>This menu item is displayed by the Search &amp; Replace plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="edit-go-to-previous-match"/>
+<menuchoice>
+<guimenu>Edit</guimenu>
+<guimenuitem>Go to Previous Match</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Go to the previous match in a search performed by the Search and Replace
+plugin.  To go to the previous match in a single file search initiated by the
+<link linkend="edit-find"><guimenuitem>Find</guimenuitem></link> command, use 
+<link linkend="edit-find-previous"><guimenuitem>Find Previous</guimenuitem></link>.
+</para>
+<para>This menu item is displayed by the Search &amp; Replace plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 
 </sect1>
@@ -644,7 +765,7 @@ The new instance will be identical to your previous instance.
 <listitem>
 <para>Show a search field and a list of opened files in the editor area.
 While entering text in the search
-field the document names and document urls are searched for matching text.
+field the document names and document &URL;s are searched for matching text.
 While entering text in the search field you can use
 the cursor keys <keysym>Up</keysym> and <keysym>Down</keysym> to navigate in the
 list view. Pressing the &Enter; key or double clicking on an item in the list switches
@@ -711,7 +832,7 @@ same document as the old one.</para>
 </term>
 <listitem>
 <para>Splits the current frame (which may be the main editing area) in two equally sized frames,
-the new one at the bottom half. The new frame gets the focus, and displays the same document as
+the new one below the current one. The new frame gets the focus, and displays the same document as
 the old one.</para>
 <para>See also <link linkend="kate-mdi">Working with the &kate; MDI</link></para>
 </listitem>
@@ -727,12 +848,30 @@ the old one.</para>
 </menuchoice>
 </term>
 <listitem>
-<para>Closes the active frame. This is disabled, if there is only one frame
+<para>Closes the active frame, which can be identified as the one displaying a
+blinking cursor.  This is disabled, if there is only one frame
 (the main editing area).</para> <para>No documents get closed by closing a
 frame &ndash; they will still be available in the <link
 linkend="view-menu"><guimenu>View</guimenu> Menu</link> as well as in
 the File List.</para> <para>See also <link linkend="kate-mdi">Working with the
 &kate; MDI</link></para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-close-inactive"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Split View</guisubmenu>
+<guimenuitem>Close Inactive Views</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Closes all frames except the active frame (the one with a blinking cursor). 
+This is disabled, if there is only one frame (the main editing area).</para>
+<para>No documents get closed by closing a frame &ndash; they will still be 
+available in the <link linkend="view-menu"><guimenu>View</guimenu> Menu</link>
+as well as in the File List.</para>
 </listitem>
 </varlistentry>
 
@@ -745,7 +884,7 @@ the File List.</para> <para>See also <link linkend="kate-mdi">Working with the
 </menuchoice>
 </term>
 <listitem>
-<para>When Split View is enabled, this will move the border in between two
+<para>When Split View is enabled, this will move the border between two
 vertically split documents further left.</para>
 </listitem>
 </varlistentry>
@@ -759,7 +898,7 @@ vertically split documents further left.</para>
 </menuchoice>
 </term>
 <listitem>
-<para>When Split View is enabled, this will move the border in between two
+<para>When Split View is enabled, this will move the border between two
 vertically split documents further right.</para>
 </listitem>
 </varlistentry>
@@ -773,7 +912,7 @@ vertically split documents further right.</para>
 </menuchoice>
 </term>
 <listitem>
-<para>When Split View is enabled, this will move the border in between two
+<para>When Split View is enabled, this will move the border between two
 horizontally split documents further up.</para>
 </listitem>
 </varlistentry>
@@ -787,7 +926,7 @@ horizontally split documents further up.</para>
 </menuchoice>
 </term>
 <listitem>
-<para>When Split View is enabled, this will move the border in between two
+<para>When Split View is enabled, this will move the border between two
 horizontally split documents further down.</para>
 </listitem>
 </varlistentry>
@@ -804,8 +943,8 @@ horizontally split documents further down.</para>
 <guimenuitem>Show Sidebars</guimenuitem></menuchoice></term>
 <listitem><para>Toggles the display of the sidebar button rows. This command
 does not affect the display of the sidebar content widgets, any sidebar that
-is visible will stay visible, and if you assigned shortcuts to the below
-commands those will of course continue to work.</para></listitem>
+is visible will stay visible, and if you assigned shortcuts to the
+commands below those will of course continue to work.</para></listitem>
 </varlistentry>
 
 <varlistentry>
@@ -823,23 +962,49 @@ commands those will of course continue to work.</para></listitem>
 
 <varlistentry>
 <term>
-<anchor id="view-toolviews-show-konsole"/>
+<anchor id="view-toolviews-show-search-and-replace"/>
 <menuchoice>
 <guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
-<guimenuitem>Show Terminal</guimenuitem>
+<guimenuitem>Show Search and Replace</guimenuitem>
 </menuchoice>
 </term>
 <listitem>
-<para>Toggles the display of the built in terminal emulator.</para>
-<para>When activated the first time, the terminal will be created.</para>
-<para>When the terminal emulator is displayed, it will get the focus, so that
-you can start typing in commands immediately. If the <link
-linkend="config-dialog-general-sync-konsole">Automatically synchronize the terminal
-with the current document when possible</link> option is enabled in the
-<guilabel>Terminal</guilabel> page of the <link
-linkend="config-dialog">Main configuration dialog</link> the shell session will
-change to the directory of the active document, if it is a local file.</para>
-<para>This menu item is displayed by the Terminal Tool View plugin, which is
+<para>Displays the advanced Search and Replace tool view, which supports
+searching through multiple files.  For more information, see 
+<xref linkend="kate-application-plugin-searchinfiles"/>.</para>
+<para>This menu item is displayed by the Search &amp; Replace plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-toolviews-show-projects"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Projects</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Displays the Projects sidebar, which allows you to view a list of open
+projects and a list of files in those projects.</para>
+<para>This menu item is displayed by the Project plugin, which is
+enabled by default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="view-toolviews-show-current-project"/>
+<menuchoice>
+<guimenu>View</guimenu><guisubmenu>Tool Views</guisubmenu>
+<guimenuitem>Show Current Project</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Displays the Current Project tool view, which allows you to access details
+about the code contained within the currently open project.</para>
+<para>This menu item is displayed by the Project plugin, which is
 enabled by default.</para>
 </listitem>
 </varlistentry>
@@ -853,7 +1018,7 @@ enabled by default.</para>
 <guimenu>View</guimenu><guimenuitem>Switch to Command Line</guimenuitem>
 </menuchoice></term>
 <listitem><para>This command will toggle the display of the
-<link linkend="advanced-editing-tools-commandline">built in command line</link>.
+<link linkend="advanced-editing-tools-commandline">built-in command line</link>.
 </para></listitem>
 </varlistentry>
 
@@ -921,7 +1086,7 @@ feature requires that you use a true fixed-width font.</para>
 </menuchoice>
 </term>
 <listitem>
-<para>This is a toggle item. Setting it on checked will make the Icon Border
+<para>This is a toggle item. Setting it to be checked will make the Icon Border
 visible in the left side of the active editor, and vice versa. The Icon Border
 indicates the positions of the marked lines in the editor.</para>
 </listitem>
@@ -937,7 +1102,7 @@ indicates the positions of the marked lines in the editor.</para>
 </menuchoice>
 </term>
 <listitem>
-<para>This is a toggle Item. Setting it on checked will make a pane displaying
+<para>This is a toggle Item. Setting it to be checked will make a pane displaying
 the line numbers of the document visible in the left border of the active editor,
 and vice versa.</para>
 </listitem>
@@ -947,8 +1112,8 @@ and vice versa.</para>
 <term><menuchoice><guimenu>View</guimenu><guimenuitem>Show Scrollbar
 Marks</guimenuitem></menuchoice></term>
 <listitem><para>Toggles the visualization of bookmarks (and other marks) on the
-vertical scrollbar. When enabled, marks are represented by a thin line in the
-mark color at the scrollbar, middleclicking on the lines will scroll the view
+vertical scrollbar. When enabled, a mark is represented by a thin line in the
+mark color at the scrollbar, clicking the &MMB; on the line will scroll the view
 to a position near the mark.</para></listitem>
 </varlistentry>
 
@@ -1000,7 +1165,7 @@ Code Folding</link>.</para></listitem>
 <guimenuitem>Fold Toplevel Nodes</guimenuitem></menuchoice>
 </term>
 <listitem><para>Collapse all toplevel regions in the document.
-Click onto the right pointing triangle to expand all toplevel regions.</para></listitem>
+Click on the right pointing triangle to expand all toplevel regions.</para></listitem>
 </varlistentry>
 
 <!--FIXME not implemented in 4.11
@@ -1030,6 +1195,51 @@ varlistentry>
 <guimenu>View</guimenu><guimenuitem>Shrink Font</guimenuitem></menuchoice>
 </term>
 <listitem><para>This decreases the display font size.</para></listitem>
+</varlistentry>
+
+</variablelist>
+
+</sect1>
+
+<sect1 id="projects-menu">
+<title>The Projects Menu</title>
+
+<para>The <guimenu>Projects</guimenu> menu allows you to switch between
+currently open projects.  It is displayed by the Project plugin, which is
+enabled by default.</para>
+
+<variablelist>
+<title>Menu Items</title>
+
+<!--FIXME: these shortcuts conflict with the preexisting Build plugin
+            https://bugs.kde.org/show_bug.cgi?id=328170 -->
+
+<varlistentry>
+<term>
+<anchor id="projects-back"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Left</keysym></keycombo></shortcut>
+<guimenu>Projects</guimenu>
+<guimenuitem>Back</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Switch to the previous project.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term>
+<anchor id="projects-forward"/>
+<menuchoice>
+<shortcut><keycombo action="simul">&Ctrl;&Alt;<keysym>Right</keysym></keycombo></shortcut>
+<guimenu>Projects</guimenu>
+<guimenuitem>Forward</guimenuitem>
+</menuchoice>
+</term>
+<listitem>
+<para>Switch to the next project.</para>
+</listitem>
 </varlistentry>
 
 </variablelist>
@@ -1095,7 +1305,7 @@ in a line above the cursor.</para></listitem>
 <term><menuchoice><shortcut><keycombo action="simul">&Alt;
 <keycap>PgDown</keycap></keycombo></shortcut>
 <guimenu>Bookmarks</guimenu><guimenuitem>Next</guimenuitem></menuchoice></term>
-<listitem><para>This will move the cursor to beginning of the next line with a
+<listitem><para>This will move the cursor to the beginning of the next line with a
 bookmark. The menuitem text will include the line number and the first piece of
 text on the line. This item is only available when there is a bookmark in a line
 below the cursor.</para></listitem>
@@ -1167,39 +1377,6 @@ and delete sessions.</para></listitem>
 <title>The Tools Menu</title>
 
 <variablelist>
-
-<varlistentry>
-<term><menuchoice><guimenu>Tools</guimenu><guimenuitem>Pipe to
-Terminal</guimenuitem></menuchoice></term>
-<listitem><para>Feed the currently selected text into the built in terminal
-emulator. No newline is added after the text.  This menu item is displayed by the
-Terminal Tool View plugin, which is enabled by default.</para></listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="tools-sync-terminal-document"/><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Synchronize Terminal with Current Document</guimenuitem></menuchoice></term>
-<listitem>
-<para>This will cause the built-in Terminal to <command>cd</command> into the
-directory of the active document.  This menu item is also displayed
-by the Terminal Tool View plugin.</para>
-
-<para>Alternatively, you can configure &kappname; to always keep the terminal in
-sync with the current document.  See
-<xref linkend="config-dialog-general-sync-konsole"/> for more information.</para>
-</listitem>
-</varlistentry>
-
-<varlistentry>
-<term><anchor id="tools-focus-terminal"/><menuchoice>
-<guimenu>Tools</guimenu>
-<guimenuitem>Focus/Defocus Terminal</guimenuitem></menuchoice></term>
-<listitem>
-<para>Switch the focus from the current document to the terminal and vice versa.
-This menu item is also displayed by the Terminal Tool View plugin.</para>
-</listitem>
-</varlistentry>
 
 <varlistentry>
 <term><anchor id="tools-read-only"/><menuchoice>
@@ -1295,11 +1472,11 @@ the endianness (byte order) of a text file or stream, for more information see
 <guisubmenu>Scripts</guisubmenu></menuchoice></term>
  <listitem>
 <para>This submenu contains a list of all scripted actions. The list can easily be
-modified by <link linkend="dev-scripting-command-line">writing
+modified by <link linkend="dev-scripting-command-line">writing your
 own scripts</link>. This way, &kate; can be extended with user-defined tools.
 </para>
 
-<para>For more information about the scripts included with kate, see
+<para>For more information about the scripts included with &kate;, see
 <xref linkend="scripts"/>.</para>
 </listitem>
 </varlistentry>
@@ -1341,7 +1518,7 @@ Completion</guimenuitem> pops up a completion box with matching entries.</para>
 <guimenuitem>Automatic Spell Checking</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>When <guimenuitem>Automatic Spell Checking</guimenuitem> is enabled, wrong text
+<para>When <guimenuitem>Automatic Spell Checking</guimenuitem> is enabled, wrongly spelled text
 is underlined in the document on-the-fly.</para>
 </listitem>
 </varlistentry>
@@ -1365,7 +1542,7 @@ section of the <emphasis>&kde; Fundamentals</emphasis> documentation</ulink>.
 <guimenu>Tools</guimenu><guisubmenu>Spelling</guisubmenu>
 <guimenuitem>Spelling (from cursor)...</guimenuitem></menuchoice></term>
  <listitem>
-<para>This initiates the spellchecking program but it starts where your cursor
+<para>This initiates the spellchecking program but it starts from where your cursor
 is instead of at the beginning of the document.</para>
  </listitem>
 </varlistentry>
@@ -1386,7 +1563,7 @@ is instead of at the beginning of the document.</para>
  <listitem>
 <para>Displays a drop down box with all available dictionaries for spellchecking
 at the bottom of the editor window. This allows easy switching of the spellcheck
-dictionary &eg; for automatic spellcheck of text in different languages.</para>
+dictionary &eg; for automatic spellchecking of text in different languages.</para>
  </listitem>
 </varlistentry>
 <!-- Indent/Unindent no longer in the menu in 4.11???, but shortcuts work
@@ -1524,13 +1701,35 @@ in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
-<!--FIXME
-Create Snippet - always enabled
-Snippet..
--->
+
+<varlistentry>
+<term><anchor id="tools-create-snippet"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Create Snippet</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Create a new snippet, which is a resuable chunk of text you
+may insert in any part of any document.</para>
+<para>This menu item is displayed by the Snippets plugin, which is enabled by
+default.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="tools-snippets"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Snippets...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Display a list of available snippets.</para>
+<para>This menu item is displayed by the Snippets plugin, which is enabled by
+default.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 <para>Menu items for the selected <link linkend="pref-plugins">plugins</link>
-are displayed at the end of this menu
+are displayed at the end of this menu.
 </para>
 
 </sect1>

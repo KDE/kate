@@ -95,20 +95,26 @@ KateGlobalConfig::~KateGlobalConfig ()
 {
 }
 
+namespace
+{
+  const char * const KEY_PROBER_TYPE = "Encoding Prober Type";
+  const char * const KEY_FALLBACK_ENCODING = "Fallback Encoding";
+}
+
 void KateGlobalConfig::readConfig (const KConfigGroup &config)
 {
   configStart ();
 
-  setProberType ((KEncodingProber::ProberType)config.readEntry("Encoding Prober Type", (int)KEncodingProber::Universal));
-  setFallbackEncoding (config.readEntry("Fallback Encoding", ""));
+  setProberType ((KEncodingProber::ProberType)config.readEntry(KEY_PROBER_TYPE, (int)KEncodingProber::Universal));
+  setFallbackEncoding (config.readEntry(KEY_FALLBACK_ENCODING, ""));
 
   configEnd ();
 }
 
 void KateGlobalConfig::writeConfig (KConfigGroup &config)
 {
-  config.writeEntry("Encoding Prober Type", (int)proberType());
-  config.writeEntry("Fallback Encoding", fallbackEncoding());
+  config.writeEntry(KEY_PROBER_TYPE, (int)proberType());
+  config.writeEntry(KEY_FALLBACK_ENCODING, fallbackEncoding());
 }
 
 void KateGlobalConfig::updateConfig ()
@@ -281,108 +287,142 @@ KateDocumentConfig::~KateDocumentConfig ()
 {
 }
 
+namespace
+{
+  const char * const KEY_TAB_WIDTH = "Tab Width";
+  const char * const KEY_INDENTATION_WIDTH = "Indentation Width";
+  const char * const KEY_INDENTATION_MODE = "Indentation Mode";
+  const char * const KEY_TAB_HANDLING = "Tab Handling";
+  const char * const KEY_WORD_WRAP = "Word Wrap";
+  const char * const KEY_WORD_WRAP_AT = "Word Wrap Column";
+  const char * const KEY_PAGEUP_DOWN_MOVES_CURSOR = "PageUp/PageDown Moves Cursor";
+  const char * const KEY_SMART_HOME = "Smart Home";
+  const char * const KEY_SHOW_TABS = "Show Tabs";
+  const char * const KEY_TAB_INDENTS = "Indent On Tab";
+  const char * const KEY_KEEP_EXTRA_SPACES = "Keep Extra Spaces";
+  const char * const KEY_INDENT_PASTED_TEXT = "Indent On Text Paste";
+  const char * const KEY_BACKSPACE_INDENTS = "Indent On Backspace";
+  const char * const KEY_SHOW_SPACES = "Show Spaces";
+  const char * const KEY_REPLACE_TABS_DYN = "ReplaceTabsDyn";
+  const char * const KEY_REMOVE_SPACES = "Remove Spaces";
+  const char * const KEY_NEWLINE_AT_EOF = "Newline At EOF";
+  const char * const KEY_OVR = "Overwrite Mode";
+  const char * const KEY_ENCODING = "Encoding";
+  const char * const KEY_EOL = "End of Line";
+  const char * const KEY_ALLOW_EOL_DETECTION = "Allow End of Line Detection";
+  const char * const KEY_BOM = "BOM";
+  const char * const KEY_ALLOW_SIMPLE_MODE = "Allow Simple Mode";
+  const char * const KEY_BACKUP_FLAGS = "Backup Flags";
+  const char * const KEY_SEARCH_DIR_CONFIG_DEPTH = "Search Dir Config Depth";
+  const char * const KEY_BACKUP_PREFIX = "Backup Prefix";
+  const char * const KEY_BACKUP_SUFFIX = "Backup Suffix";
+  const char * const KEY_SWAP_FILE_NO_SYNC = "No sync";
+  const char * const KEY_ON_THE_FLY_SPELLCHECK = "On-The-Fly Spellcheck";
+  const char * const KEY_LINE_LENGTH_LIMIT = "Line Length Limit";
+}
+
 void KateDocumentConfig::readConfig (const KConfigGroup &config)
 {
   configStart ();
 
-  setTabWidth (config.readEntry("Tab Width", 8));
+  setTabWidth (config.readEntry(KEY_TAB_WIDTH, 8));
 
-  setIndentationWidth (config.readEntry("Indentation Width", 2));
+  setIndentationWidth (config.readEntry(KEY_INDENTATION_WIDTH, 2));
 
-  setIndentationMode (config.readEntry("Indentation Mode", "normal"));
+  setIndentationMode (config.readEntry(KEY_INDENTATION_MODE, "normal"));
 
-  setTabHandling (config.readEntry("Tab Handling", int(KateDocumentConfig::tabSmart)));
+  setTabHandling (config.readEntry(KEY_TAB_HANDLING, int(KateDocumentConfig::tabSmart)));
 
-  setWordWrap (config.readEntry("Word Wrap", false));
-  setWordWrapAt (config.readEntry("Word Wrap Column", 80));
-  setPageUpDownMovesCursor (config.readEntry("PageUp/PageDown Moves Cursor", false));
+  setWordWrap (config.readEntry(KEY_WORD_WRAP, false));
+  setWordWrapAt (config.readEntry(KEY_WORD_WRAP_AT, 80));
+  setPageUpDownMovesCursor (config.readEntry(KEY_PAGEUP_DOWN_MOVES_CURSOR, false));
 
-  setSmartHome (config.readEntry("Smart Home", true));
-  setShowTabs (config.readEntry("Show Tabs", true));
-  setTabIndents (config.readEntry("Indent On Tab", true));
-  setKeepExtraSpaces (config.readEntry("Keep Extra Spaces", false));
-  setIndentPastedText (config.readEntry("Indent On Text Paste", false));
-  setBackspaceIndents (config.readEntry("Indent On Backspace", false));
-  setShowSpaces (config.readEntry("Show Spaces", false));
-  setReplaceTabsDyn (config.readEntry("ReplaceTabsDyn", false));
-  setRemoveSpaces (config.readEntry("Remove Spaces", 0));
-  setNewLineAtEof (config.readEntry("Newline At EOF", false));
-  setOvr (config.readEntry("Overwrite Mode", false));
+  setSmartHome (config.readEntry(KEY_SMART_HOME, true));
+  setShowTabs (config.readEntry(KEY_SHOW_TABS, true));
+  setTabIndents (config.readEntry(KEY_TAB_INDENTS, true));
+  setKeepExtraSpaces (config.readEntry(KEY_KEEP_EXTRA_SPACES, false));
+  setIndentPastedText (config.readEntry(KEY_INDENT_PASTED_TEXT, false));
+  setBackspaceIndents (config.readEntry(KEY_BACKSPACE_INDENTS, false));
+  setShowSpaces (config.readEntry(KEY_SHOW_SPACES, false));
+  setReplaceTabsDyn (config.readEntry(KEY_REPLACE_TABS_DYN, false));
+  setRemoveSpaces (config.readEntry(KEY_REMOVE_SPACES, 0));
+  setNewLineAtEof (config.readEntry(KEY_NEWLINE_AT_EOF, false));
+  setOvr (config.readEntry(KEY_OVR, false));
 
-  setEncoding (config.readEntry("Encoding", ""));
+  setEncoding (config.readEntry(KEY_ENCODING, ""));
 
-  setEol (config.readEntry("End of Line", 0));
-  setAllowEolDetection (config.readEntry("Allow End of Line Detection", true));
+  setEol (config.readEntry(KEY_EOL, 0));
+  setAllowEolDetection (config.readEntry(KEY_ALLOW_EOL_DETECTION, true));
 
-  setBom (config.readEntry("BOM",false));
+  setBom (config.readEntry(KEY_BOM,false));
 
-  setAllowSimpleMode (config.readEntry("Allow Simple Mode", true));
+  setAllowSimpleMode (config.readEntry(KEY_ALLOW_SIMPLE_MODE, true));
 
-  setBackupFlags (config.readEntry("Backup Flags", 0));
+  setBackupFlags (config.readEntry(KEY_BACKUP_FLAGS, 0));
 
-  setSearchDirConfigDepth (config.readEntry("Search Dir Config Depth", 9));
+  setSearchDirConfigDepth (config.readEntry(KEY_SEARCH_DIR_CONFIG_DEPTH, 9));
 
-  setBackupPrefix (config.readEntry("Backup Prefix", QString ("")));
+  setBackupPrefix (config.readEntry(KEY_BACKUP_PREFIX, QString ("")));
 
-  setBackupSuffix (config.readEntry("Backup Suffix", QString ("~")));
+  setBackupSuffix (config.readEntry(KEY_BACKUP_SUFFIX, QString ("~")));
 
-  setSwapFileNoSync (config.readEntry("No sync", false));
+  setSwapFileNoSync (config.readEntry(KEY_SWAP_FILE_NO_SYNC, false));
 
-  setOnTheFlySpellCheck(config.readEntry("On-The-Fly Spellcheck", false));
+  setOnTheFlySpellCheck(config.readEntry(KEY_ON_THE_FLY_SPELLCHECK, false));
 
-  setLineLengthLimit(config.readEntry("Line Length Limit", 4096));
+  setLineLengthLimit(config.readEntry(KEY_LINE_LENGTH_LIMIT, 4096));
 
   configEnd ();
 }
 
 void KateDocumentConfig::writeConfig (KConfigGroup &config)
 {
-  config.writeEntry("Tab Width", tabWidth());
+  config.writeEntry(KEY_TAB_WIDTH, tabWidth());
 
-  config.writeEntry("Indentation Width", indentationWidth());
-  config.writeEntry("Indentation Mode", indentationMode());
+  config.writeEntry(KEY_INDENTATION_WIDTH, indentationWidth());
+  config.writeEntry(KEY_INDENTATION_MODE, indentationMode());
 
-  config.writeEntry("Tab Handling", tabHandling());
+  config.writeEntry(KEY_TAB_HANDLING, tabHandling());
 
-  config.writeEntry("Word Wrap", wordWrap());
-  config.writeEntry("Word Wrap Column", wordWrapAt());
+  config.writeEntry(KEY_WORD_WRAP, wordWrap());
+  config.writeEntry(KEY_WORD_WRAP_AT, wordWrapAt());
 
-  config.writeEntry("PageUp/PageDown Moves Cursor", pageUpDownMovesCursor());
+  config.writeEntry(KEY_PAGEUP_DOWN_MOVES_CURSOR, pageUpDownMovesCursor());
 
-  config.writeEntry("Smart Home", smartHome());
-  config.writeEntry("Show Tabs", showTabs());
-  config.writeEntry("Indent On Tab", tabIndentsEnabled());
-  config.writeEntry("Keep Extra Spaces", keepExtraSpaces());
-  config.writeEntry("Indent On Text Paste", indentPastedText());
-  config.writeEntry("Indent On Backspace", backspaceIndents());
-  config.writeEntry("Show Spaces", showSpaces());
-  config.writeEntry("ReplaceTabsDyn", replaceTabsDyn());
-  config.writeEntry("Remove Spaces", removeSpaces());
-  config.writeEntry("Newline At EOF", newLineAtEof());
-  config.writeEntry("Overwrite Mode", ovr());
+  config.writeEntry(KEY_SMART_HOME, smartHome());
+  config.writeEntry(KEY_SHOW_TABS, showTabs());
+  config.writeEntry(KEY_TAB_INDENTS, tabIndentsEnabled());
+  config.writeEntry(KEY_KEEP_EXTRA_SPACES, keepExtraSpaces());
+  config.writeEntry(KEY_INDENT_PASTED_TEXT, indentPastedText());
+  config.writeEntry(KEY_BACKSPACE_INDENTS, backspaceIndents());
+  config.writeEntry(KEY_SHOW_SPACES, showSpaces());
+  config.writeEntry(KEY_REPLACE_TABS_DYN, replaceTabsDyn());
+  config.writeEntry(KEY_REMOVE_SPACES, removeSpaces());
+  config.writeEntry(KEY_NEWLINE_AT_EOF, newLineAtEof());
+  config.writeEntry(KEY_OVR, ovr());
 
-  config.writeEntry("Encoding", encoding());
+  config.writeEntry(KEY_ENCODING, encoding());
 
-  config.writeEntry("End of Line", eol());
-  config.writeEntry("Allow End of Line Detection", allowEolDetection());
+  config.writeEntry(KEY_EOL, eol());
+  config.writeEntry(KEY_ALLOW_EOL_DETECTION, allowEolDetection());
 
-  config.writeEntry("BOM",bom());
+  config.writeEntry(KEY_BOM,bom());
 
-  config.writeEntry("Allow Simple Mode", allowSimpleMode());
+  config.writeEntry(KEY_ALLOW_SIMPLE_MODE, allowSimpleMode());
 
-  config.writeEntry("Backup Flags", backupFlags());
+  config.writeEntry(KEY_BACKUP_FLAGS, backupFlags());
 
-  config.writeEntry("Search Dir Config Depth", searchDirConfigDepth());
+  config.writeEntry(KEY_SEARCH_DIR_CONFIG_DEPTH, searchDirConfigDepth());
 
-  config.writeEntry("Backup Prefix", backupPrefix());
+  config.writeEntry(KEY_BACKUP_PREFIX, backupPrefix());
 
-  config.writeEntry("Backup Suffix", backupSuffix());
+  config.writeEntry(KEY_BACKUP_SUFFIX, backupSuffix());
 
-  config.writeEntry("No sync", swapFileNoSync());
+  config.writeEntry(KEY_SWAP_FILE_NO_SYNC, swapFileNoSync());
 
-  config.writeEntry("On-The-Fly Spellcheck", onTheFlySpellCheck());
+  config.writeEntry(KEY_ON_THE_FLY_SPELLCHECK, onTheFlySpellCheck());
 
-  config.writeEntry("Line Length Limit", lineLengthLimit());
+  config.writeEntry(KEY_LINE_LENGTH_LIMIT, lineLengthLimit());
 }
 
 void KateDocumentConfig::updateConfig ()
@@ -1105,6 +1145,7 @@ KateViewConfig::KateViewConfig ()
    m_scrollBarMiniMapSet (false),
    m_scrollBarMiniMapAllSet (false),
    m_scrollBarMiniMapWidthSet (false),
+   m_showScrollbarsSet (false),
    m_iconBarSet (false),
    m_foldingBarSet (false),
    m_lineModificationSet (false),
@@ -1144,6 +1185,7 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_scrollBarMiniMapSet (false),
    m_scrollBarMiniMapAllSet (false),
    m_scrollBarMiniMapWidthSet (false),
+   m_showScrollbarsSet (false),
    m_iconBarSet (false),
    m_foldingBarSet (false),
    m_lineModificationSet (false),
@@ -1170,62 +1212,91 @@ KateViewConfig::~KateViewConfig ()
 {
 }
 
-
-// TODO Extract more keys to constants for maintainability
-static const char * const KEY_SEARCH_REPLACE_FLAGS = "Search/Replace Flags";
-static const char * const KEY_PATTERN_HISTORY = "Search Pattern History";
-static const char * const KEY_REPLACEMENT_HISTORY = "Replacement Text History";
-
+namespace
+{
+  const char * const KEY_SEARCH_REPLACE_FLAGS = "Search/Replace Flags";
+  const char * const KEY_PATTERN_HISTORY = "Search Pattern History";
+  const char * const KEY_REPLACEMENT_HISTORY = "Replacement Text History";
+  const char * const KEY_DYN_WORD_WRAP = "Dynamic Word Wrap";
+  const char * const KEY_DYN_WORD_WRAP_INDICATORS = "Dynamic Word Wrap Indicators";
+  const char * const KEY_DYN_WORD_WRAP_ALIGN_INDENT = "Dynamic Word Wrap Align Indent";
+  const char * const KEY_LINE_NUMBERS = "Line Numbers";
+  const char * const KEY_SCROLL_BAR_MARKS = "Scroll Bar Marks";
+  const char * const KEY_SCROLL_BAR_MINI_MAP = "Scroll Bar Mini Map";
+  const char * const KEY_SCROLL_BAR_MINI_MAP_ALL = "Scroll Bar Mini Map All";
+  const char * const KEY_SCROLL_BAR_MINI_MAP_WIDTH = "Scroll Bar Mini Map Width";
+  const char * const KEY_SHOW_SCROLLBARS = "Show Scrollbars";
+  const char * const KEY_ICON_BAR = "Icon Bar";
+  const char * const KEY_FOLDING_BAR = "Folding Bar";
+  const char * const KEY_LINE_MODIFICATION = "Line Modification";
+  const char * const KEY_BOOKMARK_SORT = "Bookmark Menu Sorting";
+  const char * const KEY_AUTO_CENTER_LINES = "Auto Center Lines";
+  const char * const KEY_MAX_HISTORY_SIZE = "Maximum Search History Size";
+  const char * const KEY_DEFAULT_MARK_TYPE = "Default Mark Type";
+  const char * const KEY_ALLOW_MARK_MENU = "Allow Mark Menu";
+  const char * const KEY_PERSISTENT_SELECTION = "Persistent Selection";
+  const char * const KEY_VI_INPUT_MODE = "Vi Input Mode";
+  const char * const KEY_VI_INPUT_MODE_STEAL_KEYS = "Vi Input Mode Steal Keys";
+  const char * const KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR = "Vi Input Mode Emulate Command Bar";
+  const char * const KEY_AUTOMATIC_COMPLETION_INVOCATION = "Auto Completion";
+  const char * const KEY_WORD_COMPLETION = "Word Completion";
+  const char * const KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH = "Word Completion Minimal Word Length";
+  const char * const KEY_WORD_COMPLETION_REMOVE_TAIL = "Word Completion Remove Tail";
+  const char * const KEY_SMART_COPY_CUT = "Smart Copy Cut";
+  const char * const KEY_SCROLL_PAST_END = "Scroll Past End";
+}
 
 void KateViewConfig::readConfig ( const KConfigGroup &config)
 {
   configStart ();
 
   // default off again, until this is usable for large size documents
-  setDynWordWrap (config.readEntry( "Dynamic Word Wrap", false ));
-  setDynWordWrapIndicators (config.readEntry( "Dynamic Word Wrap Indicators", 1 ));
-  setDynWordWrapAlignIndent (config.readEntry( "Dynamic Word Wrap Align Indent", 80 ));
+  setDynWordWrap (config.readEntry( KEY_DYN_WORD_WRAP, false ));
+  setDynWordWrapIndicators (config.readEntry( KEY_DYN_WORD_WRAP_INDICATORS, 1 ));
+  setDynWordWrapAlignIndent (config.readEntry( KEY_DYN_WORD_WRAP_ALIGN_INDENT, 80 ));
 
-  setLineNumbers (config.readEntry( "Line Numbers",  false));
+  setLineNumbers (config.readEntry( KEY_LINE_NUMBERS,  false));
 
-  setScrollBarMarks (config.readEntry( "Scroll Bar Marks",  false));
+  setScrollBarMarks (config.readEntry( KEY_SCROLL_BAR_MARKS,  false));
 
-  setScrollBarMiniMap (config.readEntry( "Scroll Bar Mini Map",  false));
+  setScrollBarMiniMap (config.readEntry( KEY_SCROLL_BAR_MINI_MAP,  false));
 
-  setScrollBarMiniMapAll (config.readEntry( "Scroll Bar Mini Map All",  false));
+  setScrollBarMiniMapAll (config.readEntry( KEY_SCROLL_BAR_MINI_MAP_ALL,  false));
 
-  setScrollBarMiniMapWidth (config.readEntry( "Scroll Bar Mini Map Width",  60));
+  setScrollBarMiniMapWidth (config.readEntry( KEY_SCROLL_BAR_MINI_MAP_WIDTH,  60));
 
-  setIconBar (config.readEntry( "Icon Bar", false ));
+  setShowScrollbars (config.readEntry( KEY_SHOW_SCROLLBARS,  1));
 
-  setFoldingBar (config.readEntry( "Folding Bar", true));
+  setIconBar (config.readEntry( KEY_ICON_BAR, false ));
 
-  setLineModification (config.readEntry( "Line Modification", false));
+  setFoldingBar (config.readEntry( KEY_FOLDING_BAR, true));
 
-  setBookmarkSort (config.readEntry( "Bookmark Menu Sorting", 0 ));
+  setLineModification (config.readEntry( KEY_LINE_MODIFICATION, false));
 
-  setAutoCenterLines (config.readEntry( "Auto Center Lines", 0 ));
+  setBookmarkSort (config.readEntry( KEY_BOOKMARK_SORT, 0 ));
+
+  setAutoCenterLines (config.readEntry( KEY_AUTO_CENTER_LINES, 0 ));
 
   setSearchFlags(config.readEntry(KEY_SEARCH_REPLACE_FLAGS,
       IncFromCursor|PowerMatchCase|PowerModePlainText));
 
-  m_maxHistorySize = config.readEntry("Maximum Search History Size", 100);
+  m_maxHistorySize = config.readEntry(KEY_MAX_HISTORY_SIZE, 100);
 
-  setDefaultMarkType (config.readEntry( "Default Mark Type", int(KTextEditor::MarkInterface::markType01) ));
-  setAllowMarkMenu (config.readEntry( "Allow Mark Menu", true ));
+  setDefaultMarkType (config.readEntry( KEY_DEFAULT_MARK_TYPE, int(KTextEditor::MarkInterface::markType01) ));
+  setAllowMarkMenu (config.readEntry( KEY_ALLOW_MARK_MENU, true ));
 
-  setPersistentSelection (config.readEntry( "Persistent Selection", false ));
+  setPersistentSelection (config.readEntry( KEY_PERSISTENT_SELECTION, false ));
 
-  setViInputMode (config.readEntry( "Vi Input Mode", false));
-  setViInputModeStealKeys (config.readEntry( "Vi Input Mode Steal Keys", false));
-  setViInputModeEmulateCommandBar (config.readEntry( "Vi Input Mode Emulate Command Bar", false));
+  setViInputMode (config.readEntry( KEY_VI_INPUT_MODE, false));
+  setViInputModeStealKeys (config.readEntry( KEY_VI_INPUT_MODE_STEAL_KEYS, false));
+  setViInputModeEmulateCommandBar (config.readEntry( KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR, false));
 
-  setAutomaticCompletionInvocation (config.readEntry( "Auto Completion", true ));
-  setWordCompletion (config.readEntry( "Word Completion", true ));
-  setWordCompletionMinimalWordLength (config.readEntry( "Word Completion Minimal Word Length", 3 ));
-  setWordCompletionRemoveTail (config.readEntry( "Word Completion Remove Tail", true ));
-  setSmartCopyCut (config.readEntry( "Smart Copy Cut", false ));
-  setScrollPastEnd (config.readEntry( "Scroll Past End", false ));
+  setAutomaticCompletionInvocation (config.readEntry( KEY_AUTOMATIC_COMPLETION_INVOCATION, true ));
+  setWordCompletion (config.readEntry( KEY_WORD_COMPLETION, true ));
+  setWordCompletionMinimalWordLength (config.readEntry( KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH, 3 ));
+  setWordCompletionRemoveTail (config.readEntry( KEY_WORD_COMPLETION_REMOVE_TAIL, true ));
+  setSmartCopyCut (config.readEntry( KEY_SMART_COPY_CUT, false ));
+  setScrollPastEnd (config.readEntry( KEY_SCROLL_PAST_END, false ));
 
   if (isGlobal()) {
     // Read search pattern history
@@ -1242,53 +1313,55 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
 void KateViewConfig::writeConfig (KConfigGroup &config)
 {
-  config.writeEntry( "Dynamic Word Wrap", dynWordWrap() );
-  config.writeEntry( "Dynamic Word Wrap Indicators", dynWordWrapIndicators() );
-  config.writeEntry( "Dynamic Word Wrap Align Indent", dynWordWrapAlignIndent() );
+  config.writeEntry( KEY_DYN_WORD_WRAP, dynWordWrap() );
+  config.writeEntry( KEY_DYN_WORD_WRAP_INDICATORS, dynWordWrapIndicators() );
+  config.writeEntry( KEY_DYN_WORD_WRAP_ALIGN_INDENT, dynWordWrapAlignIndent() );
 
-  config.writeEntry( "Line Numbers", lineNumbers() );
+  config.writeEntry( KEY_LINE_NUMBERS, lineNumbers() );
 
-  config.writeEntry( "Scroll Bar Marks", scrollBarMarks() );
+  config.writeEntry( KEY_SCROLL_BAR_MARKS, scrollBarMarks() );
 
-  config.writeEntry( "Scroll Bar Mini Map", scrollBarMiniMap() );
+  config.writeEntry( KEY_SCROLL_BAR_MINI_MAP, scrollBarMiniMap() );
 
-  config.writeEntry( "Scroll Bar Mini Map All", scrollBarMiniMapAll() );
+  config.writeEntry( KEY_SCROLL_BAR_MINI_MAP_ALL, scrollBarMiniMapAll() );
 
-  config.writeEntry( "Scroll Bar Mini Map Width", scrollBarMiniMapWidth() );
+  config.writeEntry( KEY_SCROLL_BAR_MINI_MAP_WIDTH, scrollBarMiniMapWidth() );
 
-  config.writeEntry( "Icon Bar", iconBar() );
+  config.writeEntry( KEY_SHOW_SCROLLBARS, showScrollbars() );
 
-  config.writeEntry( "Folding Bar", foldingBar() );
+  config.writeEntry( KEY_ICON_BAR, iconBar() );
 
-  config.writeEntry( "Line Modification", lineModification() );
+  config.writeEntry( KEY_FOLDING_BAR, foldingBar() );
 
-  config.writeEntry( "Bookmark Menu Sorting", bookmarkSort() );
+  config.writeEntry( KEY_LINE_MODIFICATION, lineModification() );
 
-  config.writeEntry( "Auto Center Lines", autoCenterLines() );
+  config.writeEntry( KEY_BOOKMARK_SORT, bookmarkSort() );
+
+  config.writeEntry( KEY_AUTO_CENTER_LINES, autoCenterLines() );
 
   config.writeEntry(KEY_SEARCH_REPLACE_FLAGS, int(searchFlags()));
 
-  config.writeEntry("Maximum Search History Size", m_maxHistorySize);
+  config.writeEntry(KEY_MAX_HISTORY_SIZE, m_maxHistorySize);
 
-  config.writeEntry("Default Mark Type", defaultMarkType());
+  config.writeEntry(KEY_DEFAULT_MARK_TYPE, defaultMarkType());
 
-  config.writeEntry("Allow Mark Menu", allowMarkMenu());
+  config.writeEntry(KEY_ALLOW_MARK_MENU, allowMarkMenu());
 
-  config.writeEntry("Persistent Selection", persistentSelection());
+  config.writeEntry(KEY_PERSISTENT_SELECTION, persistentSelection());
 
-  config.writeEntry( "Auto Completion", automaticCompletionInvocation());
-  config.writeEntry( "Word Completion", wordCompletion());
-  config.writeEntry( "Word Completion Minimal Word Length", wordCompletionMinimalWordLength());
-  config.writeEntry( "Word Completion Remove Tail", wordCompletionRemoveTail());
+  config.writeEntry( KEY_AUTOMATIC_COMPLETION_INVOCATION, automaticCompletionInvocation());
+  config.writeEntry( KEY_WORD_COMPLETION, wordCompletion());
+  config.writeEntry( KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH, wordCompletionMinimalWordLength());
+  config.writeEntry( KEY_WORD_COMPLETION_REMOVE_TAIL, wordCompletionRemoveTail());
 
-  config.writeEntry( "Smart Copy Cut", smartCopyCut() );
-  config.writeEntry( "Scroll Past End" , scrollPastEnd() );
+  config.writeEntry( KEY_SMART_COPY_CUT, smartCopyCut() );
+  config.writeEntry( KEY_SCROLL_PAST_END , scrollPastEnd() );
 
-  config.writeEntry( "Vi Input Mode", viInputMode());
+  config.writeEntry( KEY_VI_INPUT_MODE, viInputMode());
 
-  config.writeEntry( "Vi Input Mode Steal Keys", viInputModeStealKeys());
+  config.writeEntry( KEY_VI_INPUT_MODE_STEAL_KEYS, viInputModeStealKeys());
 
-  config.writeEntry( "Vi Input Mode Emulate Command Bar", viInputModeEmulateCommandBar());
+  config.writeEntry( KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR, viInputModeEmulateCommandBar());
 
 
   if (isGlobal()) {
@@ -1479,6 +1552,27 @@ void KateViewConfig::setScrollBarMiniMapWidth (int width)
 
   m_scrollBarMiniMapWidthSet = true;
   m_scrollBarMiniMapWidth = width;
+
+  configEnd ();
+}
+
+int KateViewConfig::showScrollbars() const
+{
+  if (m_showScrollbarsSet || isGlobal())
+    return m_showScrollbars;
+
+  return s_global->showScrollbars();
+}
+
+void KateViewConfig::setShowScrollbars(int mode)
+{
+  if (m_dynWordWrapIndicatorsSet && m_showScrollbars == mode)
+    return;
+
+  configStart ();
+
+  m_showScrollbarsSet = true;
+  m_showScrollbars = qBound(0, mode, 80);
 
   configEnd ();
 }
@@ -1953,35 +2047,44 @@ KateRendererConfig::~KateRendererConfig ()
 {
 }
 
+namespace
+{
+  const char * const KEY_SCHEMA = "Schema";
+  const char * const KEY_WORD_WRAP_MARKER = "Word Wrap Marker";
+  const char * const KEY_SHOW_INDENTATION_LINES = "Show Indentation Lines";
+  const char * const KEY_SHOW_WHOLE_BRACKET_EXPRESSION = "Show Whole Bracket Expression";
+  const char * const KEY_ANIMATE_BRACKET_MATCHING = "Animate Bracket Matching";
+}
+
 void KateRendererConfig::readConfig (const KConfigGroup &config)
 {
   configStart ();
 
   // "Normal" Schema MUST BE THERE, see global kateschemarc
-  setSchema (config.readEntry("Schema", "Normal"));
+  setSchema (config.readEntry(KEY_SCHEMA, "Normal"));
 
-  setWordWrapMarker (config.readEntry("Word Wrap Marker", false ));
+  setWordWrapMarker (config.readEntry(KEY_WORD_WRAP_MARKER, false ));
 
-  setShowIndentationLines (config.readEntry( "Show Indentation Lines", false));
+  setShowIndentationLines (config.readEntry( KEY_SHOW_INDENTATION_LINES, false));
 
-  setShowWholeBracketExpression (config.readEntry( "Show Whole Bracket Expression", false));
+  setShowWholeBracketExpression (config.readEntry( KEY_SHOW_WHOLE_BRACKET_EXPRESSION, false));
 
-  setAnimateBracketMatching(config.readEntry("Animate Bracket Matching", false));
+  setAnimateBracketMatching(config.readEntry(KEY_ANIMATE_BRACKET_MATCHING, false));
 
   configEnd ();
 }
 
 void KateRendererConfig::writeConfig (KConfigGroup& config)
 {
-  config.writeEntry ("Schema", schema());
+  config.writeEntry (KEY_SCHEMA, schema());
 
-  config.writeEntry("Word Wrap Marker", wordWrapMarker() );
+  config.writeEntry(KEY_WORD_WRAP_MARKER, wordWrapMarker() );
 
-  config.writeEntry("Show Indentation Lines", showIndentationLines());
+  config.writeEntry(KEY_SHOW_INDENTATION_LINES, showIndentationLines());
 
-  config.writeEntry("Show Whole Bracket Expression", showWholeBracketExpression());
+  config.writeEntry(KEY_SHOW_WHOLE_BRACKET_EXPRESSION, showWholeBracketExpression());
 
-  config.writeEntry("Animate Bracket Matching", animateBracketMatching());
+  config.writeEntry(KEY_ANIMATE_BRACKET_MATCHING, animateBracketMatching());
 }
 
 void KateRendererConfig::updateConfig ()

@@ -22,17 +22,23 @@ Name[sv]=Python automatisk komplettering
 Name[tr]=Python Otomatik Tamamlama
 Name[uk]=Автодоповнення Python
 Name[x-test]=xxPython Autocompletionxx
+Name[zh_TW]=Python 自動補完
 Comment=Based on the Jedi library
 Comment[de]=Entwickelt aus der Jedi-Bibliothek
 Comment[gl]=Baseado na biblioteca Jedi
+Comment[ia]=Basate sur le bibliotheca Jedi
 Comment[kk]=Jedi жиын файлды негіздеген
 Comment[nl]=Gebaseerd op de Jedi-bibliotheek
 Comment[pt]=Baseado na biblioteca Jedi
 Comment[pt_BR]=Baseado na biblioteca Jedi
 Comment[sk]=Založené na knižnici Jedi
 Comment[sl]=Temelji na knjižnici Jedi
+Comment[sr]=Над библиотеком Џедај
+Comment[sr@ijekavian]=Над библиотеком Џедај
+Comment[sr@ijekavianlatin]=Nad bibliotekom Jedi
+Comment[sr@latin]=Nad bibliotekom Jedi
 Comment[sv]=Baserat på Jedi-biblioteket
 Comment[uk]=Засновано на бібліотеці Jedi
 Comment[x-test]=xxBased on the Jedi libraryxx
 X-Python-2-Compatible=true
-X-Python-Dependencies=jedi|jedi>=0.5b5
+X-Python-Dependencies=jedi(>=0.7.0)

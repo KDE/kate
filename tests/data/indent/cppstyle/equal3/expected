@@ -1,0 +1,10 @@
+a == ok
+b != ok
+c *= ok
+d /= ok
+e %= ok
+f |= ok
+g &= ok
+h ^= ok
+i <= ok
+j >= ok

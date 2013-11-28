@@ -22,6 +22,7 @@ Name[sv]=Python automatisk komplettering
 Name[tr]=Python Otomatik Tamamlama
 Name[uk]=Автодоповнення Python
 Name[x-test]=xxPython Autocompletionxx
+Name[zh_TW]=Python 自動補完
 Comment=Beta, only for Python 2
 Comment[de]=Beta, nur für Python 2
 Comment[es]=Beta, solo para Python 2
@@ -42,6 +43,7 @@ Comment[sv]=Beta, bara för Python 2
 Comment[tr]=Beta, sadece Python 2 için
 Comment[uk]=Тестова версія, лише для Python 2
 Comment[x-test]=xxBeta, only for Python 2xx
+Comment[zh_TW]=Beta 版，只適用 Python 2
 X-Python-2-Compatible=true
 X-Python-2-Only=true
-X-Python-2-Dependencies=pysmell|>=0.7.3,pyplete|>=0.0.5
+X-Python-2-Dependencies=pysmell(>=0.7.3),pyplete(>=0.0.5)

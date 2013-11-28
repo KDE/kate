@@ -146,9 +146,7 @@ void KateViVisualMode::reset()
 
     // only switch to normal mode if still in visual mode. commands like c, s, ...
     // can have switched to insert mode
-    if ( m_viInputModeManager->getCurrentViMode() == VisualMode
-        || m_viInputModeManager->getCurrentViMode() == VisualLineMode
-        || m_viInputModeManager->getCurrentViMode() == VisualBlockMode ) {
+    if (m_viInputModeManager->isAnyVisualMode()) {
 
       saveRangeMarks();
       m_lastVisualMode = m_viInputModeManager->getCurrentViMode();
@@ -303,7 +301,7 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("C", commandChangeToEOL, IS_CHANGE );
   ADDCMD("S", commandChangeToEOL, IS_CHANGE );
   ADDCMD("d", commandDelete, IS_CHANGE );
-  ADDCMD("<del>", commandDelete, IS_CHANGE );
+  ADDCMD("<delete>", commandDelete, IS_CHANGE );
   ADDCMD("D", commandDeleteToEOL, IS_CHANGE );
   ADDCMD("x", commandDeleteChar, IS_CHANGE );
   ADDCMD("X", commandDeleteCharBackward, IS_CHANGE );
@@ -319,8 +317,8 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
   ADDCMD(":", commandSwitchToCmdLine, 0 );
   ADDCMD("m.", commandSetMark, REGEX_PATTERN | SHOULD_NOT_RESET );
-  ADDCMD(">", commandIndentLines, 0 );
-  ADDCMD("<", commandUnindentLines, 0 );
+  ADDCMD(">", commandIndentLines, IS_CHANGE );
+  ADDCMD("<", commandUnindentLines, IS_CHANGE );
   ADDCMD("<c-c>", commandAbort, 0 );
   ADDCMD("<c-[>", commandAbort, 0 );
   ADDCMD("ga", commandPrintCharacterCode, SHOULD_NOT_RESET );

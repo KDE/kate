@@ -34,6 +34,7 @@
 #include <KDebug>
 #include <KGlobal>
 #include <KLocalizedString>
+#include <KColorScheme>
 #include <KServiceTypeTrader>
 #include <KStandardDirs>
 
@@ -82,7 +83,7 @@ Pate::Engine* s_engine_instance = 0;
  */
 void pythonInitwrapper(Pate::Engine* const engine)
 {
-    assert("Sanity check" && !s_engine_instance);
+    Q_ASSERT("Sanity check" && !s_engine_instance);
     s_engine_instance = engine;
     // Call initialize explicitly to initialize embedded interpreter.
     PATE_INIT();
@@ -153,6 +154,7 @@ PyMODINIT_FUNC PATE_INIT()
 Pate::Engine::PluginState::PluginState()
   : m_enabled(false)
   , m_broken(false)
+  , m_unstable(false)
   , m_isDir(false)
 {
 }
@@ -312,8 +314,8 @@ QVariant Pate::Engine::headerData(
 
 QVariant Pate::Engine::data(const QModelIndex& index, const int role) const
 {
-    assert("Sanity check" && index.row() < m_plugins.size());
-    assert("Sanity check" && index.column() < Column::LAST__);
+    Q_ASSERT("Sanity check" && index.row() < m_plugins.size());
+    Q_ASSERT("Sanity check" && index.column() < Column::LAST__);
     switch (role)
     {
         case Qt::DisplayRole:
@@ -331,9 +333,7 @@ QVariant Pate::Engine::data(const QModelIndex& index, const int role) const
         {
             if (index.column() == Column::NAME)
             {
-                const bool checked = m_plugins[index.row()].isEnabled()
-                  && !m_plugins[index.row()].isBroken()
-                  ;
+                const bool checked = m_plugins[index.row()].isEnabled();
                 return checked ? Qt::Checked : Qt::Unchecked;
             }
             break;
@@ -342,6 +342,12 @@ QVariant Pate::Engine::data(const QModelIndex& index, const int role) const
             if (!m_plugins[index.row()].m_errorReason.isEmpty())
                 return m_plugins[index.row()].m_errorReason;
             break;
+        case Qt::ForegroundRole:
+            if (m_plugins[index.row()].isUnstable())
+            {
+                KColorScheme scheme(QPalette::Inactive, KColorScheme::View);
+                return scheme.foreground(KColorScheme::NegativeText).color();
+            }
         default:
             break;
     }
@@ -350,8 +356,8 @@ QVariant Pate::Engine::data(const QModelIndex& index, const int role) const
 
 Qt::ItemFlags Pate::Engine::flags(const QModelIndex& index) const
 {
-    assert("Sanity check" && index.row() < m_plugins.size());
-    assert("Sanity check" && index.column() < Column::LAST__);
+    Q_ASSERT("Sanity check" && index.row() < m_plugins.size());
+    Q_ASSERT("Sanity check" && index.column() < Column::LAST__);
 
     int result = Qt::ItemIsSelectable;
     if (index.column() == Column::NAME)
@@ -364,7 +370,7 @@ Qt::ItemFlags Pate::Engine::flags(const QModelIndex& index) const
 
 bool Pate::Engine::setData(const QModelIndex& index, const QVariant& value, const int role)
 {
-    assert("Sanity check" && index.row() < m_plugins.size());
+    Q_ASSERT("Sanity check" && index.row() < m_plugins.size());
 
     if (role == Qt::CheckStateRole)
     {
@@ -419,6 +425,273 @@ void Pate::Engine::writeSessionPluginsConfiguration(KConfigBase* const config)
     Python().updateConfigurationFromDictionary(config, m_sessionConfiguration);
 }
 
+bool Pate::Engine::isServiceUsable(const KService::Ptr& service)
+{
+    kDebug() << "Got Kate/PythonPlugin: " << service->name()
+        << ", module-path=" << service->library()
+        ;
+    // Make sure mandatory properties are here
+    if (service->name().isEmpty())
+    {
+        kDebug() << "Ignore desktop file w/o a name";
+        return false;
+    }
+    if (service->library().isEmpty())
+    {
+        kDebug() << "Ignore desktop file w/o a module to import";
+        return false;
+    }
+    // Check Python compatibility
+    // ATTENTION Python 3 is a default platform! Assume all modules are
+    // compatible! Do checks only if someone tries to build kate w/ Python 2.
+    // So, Python 2 modules must be marked explicitly!
+#if PY_MAJOR_VERSION < 3
+    const QVariant is_compatible = service->property("X-Python-2-Compatible", QVariant::Bool);
+    if (!(is_compatible.isValid() && is_compatible.toBool()))
+    {
+        kDebug() << service->name() << "is incompatible w/ embedded Python version";
+        // Do not even show incompatible modules in the manager...
+        return false;
+    }
+#endif
+    // ATTENTION If some module is Python 2 only, it must be marked w/
+    // the property 'X-Python-2-Only' of type bool and ANY (valid) value...
+    const QVariant is_py2_only = service->property("X-Python-2-Only", QVariant::Bool);
+    if (is_py2_only.isValid())
+    {
+        kDebug() << service->name() << "is marked as Python 2 ONLY... >/dev/null";
+        // Do not even show incompatible modules in the manager...
+        return false;
+    }
+    return true;
+}
+
+bool Pate::Engine::setModuleProperties(PluginState& plugin)
+{
+    // Find the module:
+    // 0) try to locate directory based plugin first
+    KUrl rel_path = QString(Python::PATE_ENGINE);
+    rel_path.addPath(plugin.moduleFilePathPart());
+    rel_path.addPath("__init__.py");
+    QString module_path = KGlobal::dirs()->findResource("appdata", rel_path.toLocalFile());
+    if (module_path.isEmpty())
+    {
+        // 1) Nothing found, then try file based plugin
+        rel_path = QString(Python::PATE_ENGINE);
+        rel_path.addPath(plugin.moduleFilePathPart() + ".py");
+        module_path = KGlobal::dirs()->findResource("appdata", rel_path.toLocalFile());
+    }
+    else plugin.m_isDir = true;
+
+    // Is anything found at all?
+    if (module_path.isEmpty())
+    {
+        plugin.m_broken = true;
+        plugin.m_errorReason = i18nc(
+            "@info:tooltip"
+            , "Unable to find the module specified <application>%1</application>"
+            , plugin.m_service->library()
+            );
+        return false;
+    }
+    kDebug() << "Found module path:" << module_path;
+    return true;
+}
+
+QPair<QString, Pate::version_checker> Pate::Engine::parseDependency(const QString& d)
+{
+    // Check if dependency has package info attached
+    const int pnfo = d.indexOf('(');
+    if (pnfo != -1)
+    {
+        QString dependency = d.mid(0, pnfo);
+        QString version_str = d.mid(pnfo + 1, d.size() - pnfo - 2).trimmed();
+        kDebug() << "Desired version spec [" << dependency << "]:" << version_str;
+        version_checker checker = version_checker::fromString(version_str);
+        if (!(checker.isValid() && d.endsWith(')')))
+        {
+            kDebug() << "Invalid version spec " << d;
+            QString reason = i18nc(
+                "@info:tooltip"
+                , "<p>Specified version has invalid format for dependency <application>%1</application>: "
+                "<icode>%2</icode>. Skipped</p>"
+                , dependency
+                , version_str
+                );
+            return qMakePair(reason, version_checker());
+        }
+        return qMakePair(dependency, checker);
+    }
+    return qMakePair(d, version_checker(version_checker::undefined));
+}
+
+Pate::version Pate::Engine::tryObtainVersionFromTuple(PyObject* version_obj)
+{
+    Q_ASSERT("Sanity check" && version_obj);
+
+    if (PyTuple_Check(version_obj) == 0)
+        return version::invalid();
+
+    int version_info[3] = {0, 0, 0};
+    for (unsigned i = 0; i < PyTuple_Size(version_obj); ++i)
+    {
+        PyObject* v = PyTuple_GetItem(version_obj, i);
+        if (v && PyLong_Check(v))
+            version_info[i] = PyLong_AsLong(v);
+        else
+            version_info[i] = -1;
+    }
+    if (version_info[0] != -1 && version_info[1] != -1 && version_info[2] != -1)
+        return version(version_info[0], version_info[1], version_info[2]);
+
+    return version::invalid();
+}
+
+/**
+ * Try to parse version string as a simple triplet X.Y.Z.
+ *
+ * \todo Some modules has letters in a version string...
+ * For example current \c pytz version is \e "2013d".
+ */
+Pate::version Pate::Engine::tryObtainVersionFromString(PyObject* version_obj)
+{
+    Q_ASSERT("Sanity check" && version_obj);
+
+    if (!Python::isUnicode(version_obj))
+        return version::invalid();
+
+    QString version_str = Python::unicode(version_obj);
+    if (version_str.isEmpty())
+        return version::invalid();
+
+    return version::fromString(version_str);
+}
+
+/**
+ * Collect dependencies and check them. To do it
+ * just try to import a module... when unload it ;)
+ *
+ * \c X-Python-Dependencies property of \c .desktop file has the following format:
+ * <tt>python-module(version-info)</tt>, where <tt>python-module</tt>
+ * a python module name to be imported, <tt>version-spec</tt>
+ * is a version triplet delimited by dots, possible w/ leading compare
+ * operator: \c =, \c <, \c >, \c <=, \c >=
+ */
+void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
+{
+    QStringList dependencies = plugin.m_service
+      ->property("X-Python-Dependencies", QVariant::StringList)
+      .toStringList();
+#if PY_MAJOR_VERSION < 3
+    {
+        // Try to get Py2 only dependencies
+        QStringList py2_dependencies = plugin.m_service
+          ->property("X-Python-2-Dependencies", QVariant::StringList)
+          .toStringList();
+        dependencies.append(py2_dependencies);
+    }
+#endif
+
+    Python py = Python();
+    QString reason = i18nc("@info:tooltip", "<title>Dependency check</title>");
+    Q_FOREACH(const QString& d, dependencies)
+    {
+        QPair<QString, version_checker> info_pair = parseDependency(d);
+        version_checker& checker = info_pair.second;
+        if (!checker.isValid())
+        {
+            plugin.m_broken = true;
+            reason += info_pair.first;
+            continue;
+        }
+
+        kDebug() << "Try to import dependency module/package:" << d;
+
+        // Try to import a module
+        const QString& dependency = info_pair.first;
+        PyObject* module = py.moduleImport(PQ(dependency));
+        if (module)
+        {
+            if (checker.isEmpty())                          // Need to check smth?
+            {
+                kDebug() << "No version to check, just make sure it's loaded:" << dependency;
+                Py_DECREF(module);
+                continue;
+            }
+            // Try to get __version__ from module
+            // See PEP396: http://www.python.org/dev/peps/pep-0396/
+            PyObject* version_obj = py.itemString("__version__", PQ(dependency));
+            if (!version_obj)
+            {
+                kDebug() << "No __version__ for " << dependency
+                  << "[" << plugin.m_service->name() << "]:\n" << py.lastTraceback()
+                  ;
+                plugin.m_unstable = true;
+                reason += i18nc(
+                    "@info:tooltip"
+                  , "<p>Failed to check version of dependency <application>%1</application>: "
+                    "Module do not have PEP396 <code>__version__</code> attribute. "
+                    "It is not disabled, but behaviour is unpredictable...</p>"
+                  , dependency
+                  );
+            }
+            // PEP396 require __version__ to tuple of integers... try it!
+            version dep_version = tryObtainVersionFromTuple(version_obj);
+            if (!dep_version.isValid())
+                // Second attempt: some "bad" modules have it as a string
+                dep_version = tryObtainVersionFromString(version_obj);
+
+            // Did we get it?
+            if (!dep_version.isValid())
+            {
+                // Dunno what is this... Giving up!
+                kDebug() << "***: Can't parse module version for" << dependency;
+                plugin.m_unstable = true;
+                reason += i18nc(
+                    "@info:tooltip"
+                  , "<p><application>%1</application>: Unexpected module's version format"
+                  , dependency
+                  );
+            }
+            else if (!checker(dep_version))
+            {
+                kDebug() << "Version requerement check failed ["
+                  << plugin.m_service->name() << "] for "
+                  << dependency << ": wanted " << checker.operationToString()
+                  << QString(checker.required())
+                  << ", but found" << QString(dep_version)
+                  ;
+                plugin.m_broken = true;
+                reason += i18nc(
+                    "@info:tooltip"
+                  , "<p><application>%1</application>: No suitable version found. "
+                    "Required version %2 %3, but found %4</p>"
+                  , dependency
+                  , checker.operationToString()
+                  , QString(checker.required())
+                  , QString(dep_version)
+                  );
+            }
+            // Do not need this module anymore...
+            Py_DECREF(module);
+        }
+        else
+        {
+            kDebug() << "Load failure [" << plugin.m_service->name() << "]:\n" << py.lastTraceback();
+            plugin.m_broken = true;
+            reason += i18nc(
+                "@info:tooltip"
+              , "<p>Failure on module load <application>%1</application>:</p><pre>%3</pre>"
+              , dependency
+              , py.lastTraceback()
+              );
+        }
+    }
+
+    if (plugin.isBroken() || plugin.isUnstable())
+        plugin.m_errorReason = reason;
+}
+
 void Pate::Engine::scanPlugins()
 {
     m_plugins.clear();                                      // Clear current state.
@@ -431,136 +704,17 @@ void Pate::Engine::scanPlugins()
     services = trader->query("Kate/PythonPlugin");
     Q_FOREACH(KService::Ptr service, services)
     {
-        kDebug() << "Got Kate/PythonPlugin: " << service->name()
-          << ", module-path=" << service->library()
-          ;
-        // Make sure mandatory properties are here
-        if (service->name().isEmpty())
-        {
-            kDebug() << "Ignore desktop file w/o a name";
+        if (!isServiceUsable(service))
             continue;
-        }
-        if (service->library().isEmpty())
-        {
-            kDebug() << "Ignore desktop file w/o a module to import";
-            continue;
-        }
-
-        // Check Python compatibility
-        // ATTENTION Python 3 is a default platform! Assume all modules are
-        // compatible! Do checks only if someone tries to build kate w/ Python 2.
-        // So, Python 2 modules must be marked explicitly!
-#if PY_MAJOR_VERSION < 3
-        const QVariant is_compatible = service->property(
-            "X-Python-2-Compatible"
-          , QVariant::Bool
-          );
-        if (!(is_compatible.isValid() && is_compatible.toBool()))
-        {
-            kDebug() << service->name() << "is incompatible w/ embedded Python version";
-            // Do not even show incompatible modules in the manager...
-            continue;
-        }
-#endif
-        // ATTENTION If some module is Python 2 only, it must be marked w/
-        // the property 'X-Python-2-Only' of type bool and ANY (valid) value...
-        const QVariant is_py2_only = service->property("X-Python-2-Only", QVariant::Bool);
-        if (is_py2_only.isValid())
-        {
-            kDebug() << service->name() << "is marked as Python 2 ONLY... >/dev/null";
-            // Do not even show incompatible modules in the manager...
-            continue;
-        }
 
         // Make a new state
         PluginState plugin;
         plugin.m_service = service;
-        plugin.m_enabled = false;
 
-        // Find the module:
-        // 0) try to locate directory based plugin first
-        KUrl rel_path = QString(Python::PATE_ENGINE);
-        rel_path.addPath(plugin.moduleFilePathPart());
-        rel_path.addPath("__init__.py");
-        QString module_path = KGlobal::dirs()->findResource("appdata", rel_path.toLocalFile());
-        if (module_path.isEmpty())
-        {
-            // 1) Nothing found, then try file based plugin
-            rel_path = QString(Python::PATE_ENGINE);
-            rel_path.addPath(plugin.moduleFilePathPart() + ".py");
-            module_path = KGlobal::dirs()->findResource("appdata", rel_path.toLocalFile());
-        }
-        else plugin.m_isDir = true;
+        if (!setModuleProperties(plugin))
+            continue;
 
-        // Is anything found at all?
-        if (module_path.isEmpty())
-        {
-            plugin.m_broken = true;
-            plugin.m_errorReason = i18nc(
-                "@info:tooltip"
-              , "Unable to find the module specified <application>%1</application>"
-              , service->library()
-              );
-        }
-        else kDebug() << "Found module path:" << module_path;
-
-        // Try to check dependencies. To do it
-        // just try to import a module... when unload it ;)
-        /// \todo Full featured dependencies checker can be implemented
-        /// as a Python module (special named or listed as a property in
-        /// a \c .desktop file ;-)
-        // NOTE Get 'common' (default to current interpreter) dependencies.
-        /// \c X-Python-Dependencies has the following format:
-        /// <tt>python-module[|version-info]</tt>, where <tt>python-module</tt>
-        /// a python module name to be imported, <tt>version-info</tt> smth
-        /// that will be shown as recommended version...
-        QStringList dependencies = service->property(
-            "X-Python-Dependencies"
-          , QVariant::StringList
-          ).toStringList();
-#if PY_MAJOR_VERSION < 3
-        {
-            // Try to get Py2 only dependencies
-            QStringList py2_dependencies = service->property(
-                "X-Python-2-Dependencies"
-            , QVariant::StringList
-            ).toStringList();
-            dependencies.append(py2_dependencies);
-        }
-#endif
-        Python py = Python();
-        Q_FOREACH(const QString& d, dependencies)
-        {
-            // Check if dependency has package info attached
-            QString dependency;
-            QString version;
-            const int pnfo = d.indexOf('|');
-            if (pnfo != -1)
-            {
-                dependency = d.mid(0, pnfo);
-                version = d.mid(pnfo + 1);
-            }
-            else dependency = d;
-
-            kDebug() << "Try import dependency module/package:" << dependency << '[' << version << ']';
-
-            // Try to import a module
-            PyObject* module = py.moduleImport(PQ(dependency));
-            if (module)
-                Py_DECREF(module);
-            else
-            {
-                plugin.m_broken = true;
-                plugin.m_errorReason = i18nc(
-                    "@info:tooltip"
-                  , "<qt>Failure on checking dependency <code>%1</code> (<code>%2</code>):<br/><pre>%3</pre></qt>"
-                  , dependency
-                  , version
-                  , py.lastTraceback()
-                  );
-            }
-        }
-
+        verifyDependenciesSetStatus(plugin);
         m_plugins.append(plugin);
     }
 }
@@ -609,7 +763,7 @@ void Pate::Engine::loadModule(const int idx)
         Q_ASSERT("expected successful insertion" && ins_result == 0);
         Py_DECREF(module);
         // Handle failure in release mode.
-        if (ins_result)
+        if (ins_result == 0)
         {
             // Initialize the module from Python's side
             PyObject* const args = Py_BuildValue("(s)", PQ(module_name));

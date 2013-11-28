@@ -1,3 +1,4 @@
-v.setCursorPosition(0,7);
+v.setCursorPosition(0,4);
 v.type("<");
-v.type("ok");
+v.type("<");
+v.type("ok;");

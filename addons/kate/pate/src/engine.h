@@ -21,6 +21,8 @@
 #ifndef __PATE_ENGINE_H__
 # define  __PATE_ENGINE_H__
 
+# include "version_checker.h"
+
 # include <KService>
 # include <KUrl>
 # include <Python.h>
@@ -64,6 +66,7 @@ public:
         const QString& errorReason() const;
         bool isEnabled() const;
         bool isBroken() const;
+        bool isUnstable() const;
         //@}
 
     private:
@@ -78,6 +81,7 @@ public:
         QString m_errorReason;
         bool m_enabled;
         bool m_broken;
+        bool m_unstable;
         bool m_isDir;
     };
 
@@ -130,6 +134,13 @@ private:
         };
     };
 
+    static bool isServiceUsable(const KService::Ptr&);      ///< Make sure that service is usable
+    static bool setModuleProperties(PluginState&);
+    static void verifyDependenciesSetStatus(PluginState&);
+    static QPair<QString, version_checker> parseDependency(const QString&);
+    static version tryObtainVersionFromTuple(PyObject*);
+    static version tryObtainVersionFromString(PyObject*);
+
     PyObject* m_configuration;                              ///< Application-wide configuration data
     PyObject* m_sessionConfiguration;                       ///< Session-wide configuration data
     QList<PluginState> m_plugins;                           ///< List of available plugins
@@ -156,6 +167,10 @@ inline bool Engine::PluginState::isEnabled() const
 inline bool Engine::PluginState::isBroken() const
 {
     return m_broken;
+}
+inline bool Engine::PluginState::isUnstable() const
+{
+    return m_unstable;
 }
 
 inline const QList<Engine::PluginState>& Engine::plugins() const

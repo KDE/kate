@@ -778,10 +778,6 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
   textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
 
-  bordersUi->cmbShowScrollbars->addItem( i18n("When needed") );
-  bordersUi->cmbShowScrollbars->addItem( i18n("Always on") );
-  bordersUi->cmbShowScrollbars->addItem( i18n("Always off") );
-
   // hide power user mode if activated anyway
   if (!KateGlobal::self()->simpleMode ())
     textareaUi->chkDeveloperMode->hide ();

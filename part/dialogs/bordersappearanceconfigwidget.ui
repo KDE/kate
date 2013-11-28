@@ -162,7 +162,23 @@
          </widget>
         </item>
         <item>
-         <widget class="KComboBox" name="cmbShowScrollbars"/>
+         <widget class="QComboBox" name="cmbShowScrollbars">
+          <item>
+           <property name="text">
+            <string>Always On</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Show When Needed</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Always Off</string>
+           </property>
+          </item>
+         </widget>
         </item>
        </layout>
       </item>

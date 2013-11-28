@@ -567,10 +567,12 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
   m_lineScroll->setPageStep(qMax (0, height()) / renderer()->lineHeight());
   m_lineScroll->blockSignals(blocked);
 
-  const int show_scrollbars = view()->config()->showScrollbars();
+  KateViewConfig::ScrollbarMode show_scrollbars = static_cast<KateViewConfig::ScrollbarMode>(view()->config()->showScrollbars());
 
-  bool visible = show_scrollbars == 1 || (show_scrollbars == 0 && maxLineScrollRange != 0);
+  bool visible = ( (show_scrollbars == KateViewConfig::AlwaysOn) ||
+                   ((show_scrollbars == KateViewConfig::ShowWhenNeeded) && (maxLineScrollRange != 0)) );
   bool visible_dummy = visible;
+
   m_lineScroll->setVisible( visible );
 
   if (!m_view->dynWordWrap())
@@ -590,7 +592,8 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
     // disable scrollbar
     m_columnScroll->setDisabled (max == 0);
 
-    visible = show_scrollbars == 1 || (show_scrollbars == 0 && max != 0);
+    visible = ( (show_scrollbars == KateViewConfig::AlwaysOn) ||
+                ((show_scrollbars == KateViewConfig::ShowWhenNeeded) && (max != 0)) );
     visible_dummy &= visible;
     m_columnScroll->setVisible( visible );
 

@@ -6177,6 +6177,7 @@ void ViModeTest::visualLineUpDownTests()
   const int oldTabWidth = kate_document->config()->tabWidth();
   const int tabWidth = 5;
   kate_document->config()->setTabWidth(tabWidth);
+  KateViewConfig::global()->setShowScrollbars(0);
 
   // Compute the maximum width of text before line-wrapping sets it.
   int textWrappingLength = 1;

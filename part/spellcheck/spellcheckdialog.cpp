@@ -34,8 +34,10 @@
 
 #include <kaction.h>
 #include <kactioncollection.h>
+#include <klocalizedstring.h>
 #include <kicon.h>
 #include <kstandardaction.h>
+#include <kglobal.h>
 #include <sonnet/dialog.h>
 #include <sonnet/backgroundchecker.h>
 #include <sonnet/speller.h>
@@ -110,14 +112,14 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
   {
     m_speller = new Sonnet::Speller();
   }
-  m_speller->restore(KGlobal::config().data());
+  m_speller->restore();
 
   if ( !m_backgroundChecker )
   {
     m_backgroundChecker = new Sonnet::BackgroundChecker(*m_speller);
   }
 
-  m_backgroundChecker->restore(KGlobal::config().data());
+  //FIXME KF5 m_backgroundChecker->restore();
   
   if ( !m_sonnetDialog )
   {

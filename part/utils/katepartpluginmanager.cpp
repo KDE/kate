@@ -36,6 +36,7 @@
 
 #include <kservicetypetrader.h>
 #include <kdebug.h>
+#include <kdeversion.h>
 
 KatePartPluginInfo::KatePartPluginInfo(KService::Ptr service)
     : m_pluginInfo(service)

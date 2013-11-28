@@ -27,6 +27,8 @@
 
 #include <QTimer>
 
+#include <kglobal.h>
+
 #include "kateconfig.h"
 #include "kateglobal.h"
 #include "katerenderer.h"
@@ -412,7 +414,7 @@ void KateOnTheFlyChecker::performSpellCheck()
             SLOT(misspelling(QString,int)));
     connect(m_backgroundChecker, SIGNAL(done()), this, SLOT(spellCheckDone()));
 
-    m_backgroundChecker->restore(KGlobal::config().data());
+    // FIXME KF5 m_backgroundChecker->restore();
   }
   m_backgroundChecker->setSpeller(m_speller);
   m_backgroundChecker->setText(text); // don't call 'start()' after this!
@@ -670,10 +672,10 @@ QList<KTextEditor::MovingRange*> KateOnTheFlyChecker::installedMovingRanges(cons
 void KateOnTheFlyChecker::updateConfig()
 {
   ON_THE_FLY_DEBUG;
-  m_speller.restore(KGlobal::config().data());
+  m_speller.restore();
 
   if(m_backgroundChecker) {
-    m_backgroundChecker->restore(KGlobal::config().data());
+    // FIXME KF5 m_backgroundChecker->restore();
   }
 }
 

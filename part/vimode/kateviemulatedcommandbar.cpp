@@ -34,6 +34,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QCompleter>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QAbstractItemView>
 #include <KDE/KColorScheme>
 #include <algorithm>
 

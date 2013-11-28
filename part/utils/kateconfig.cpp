@@ -34,6 +34,7 @@
 #include <kcolorutils.h>
 #include <kcharsets.h>
 #include <klocale.h>
+#include <kglobal.h>
 #include <kcomponentdata.h>
 #include <kdebug.h>
 

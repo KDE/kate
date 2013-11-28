@@ -63,8 +63,8 @@ class KateSpellingMenu : public QObject {
   protected:
     KateView *m_view;
     KActionMenu *m_spellingMenuAction;
-    KAction *m_ignoreWordAction, *m_addToDictionaryAction;
-    KMenu *m_spellingMenu;
+    QAction *m_ignoreWordAction, *m_addToDictionaryAction;
+    QMenu *m_spellingMenu;
     KTextEditor::MovingRange *m_currentMisspelledRange;
     KTextEditor::MovingRange *m_currentMouseMisspelledRange;
     KTextEditor::MovingRange *m_currentCaretMisspelledRange;

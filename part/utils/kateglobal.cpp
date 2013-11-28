@@ -43,10 +43,14 @@
 #include <kservicetypetrader.h>
 #include <kdirwatch.h>
 #include <kdebug.h>
+#include <klocalizedstring.h>
+#include <kaboutdata.h>
 #include <kdeversion.h>
 #include <kpagedialog.h>
 #include <kpagewidgetmodel.h>
 #include <kiconloader.h>
+#include <kglobal.h>
+#include <KGlobalSettings>
 
 #include <QtCore/QPointer>
 #include <QtWidgets/QBoxLayout>
@@ -63,10 +67,10 @@ QString KateGlobal::katePartVersion()
 
 KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
- , m_aboutData ("katepart", 0, ki18n("Kate Part"), katePartVersion().toLatin1(),
-             ki18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-             ki18n( "(c) 2000-2009 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org")
- , m_componentData (&m_aboutData)
+ , m_aboutData (QString ("katepart"), QString(), i18n("Kate Part"), katePartVersion(),
+             i18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
+             i18n( "(c) 2000-2009 The Kate Authors" ), QString(), QString ("http://www.kate-editor.org"))
+ , m_componentData () //FIXME KF5 &m_aboutData
  , m_snippetGlobal (0) // lazy constructed
  , m_sessionConfig (KGlobal::config())
 {
@@ -80,51 +84,51 @@ KateGlobal::KateGlobal ()
   // fill about data
   //
   m_aboutData.setProgramIconName("preferences-plugin");
-  m_aboutData.addAuthor (ki18n("Christoph Cullmann"), ki18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
-  m_aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Core Developer"), "dhaumann@kde.org");
-  m_aboutData.addAuthor (ki18n("Milian Wolff"), ki18n("Core Developer"), "mail@milianw.de", "http://milianw.de");
-  m_aboutData.addAuthor (ki18n("Joseph Wenninger"), ki18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
-  m_aboutData.addAuthor (ki18n("Erlend Hamberg"), ki18n("Vi Input Mode"), "ehamberg@gmail.com", "http://hamberg.no/erlend");
-  m_aboutData.addAuthor (ki18n("Bernhard Beschow"), ki18n("Developer"), "bbeschow@cs.tu-berlin.de", "https://user.cs.tu-berlin.de/~bbeschow");
-  m_aboutData.addAuthor (ki18n("Anders Lund"), ki18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
-  m_aboutData.addAuthor (ki18n("Michel Ludwig"), ki18n("On-the-fly spell checking"), "michel.ludwig@kdemail.net");
-  m_aboutData.addAuthor (ki18n("Pascal Létourneau"), ki18n("Large scale bug fixing"), "pascal.letourneau@gmail.com");
-  m_aboutData.addAuthor (ki18n("Hamish Rodda"), ki18n("Core Developer"), "rodda@kde.org");
-  m_aboutData.addAuthor (ki18n("Waldo Bastian"), ki18n( "The cool buffersystem" ), "bastian@kde.org" );
-  m_aboutData.addAuthor (ki18n("Charles Samuels"), ki18n("The Editing Commands"), "charles@kde.org");
-  m_aboutData.addAuthor (ki18n("Matt Newell"), ki18n("Testing, ..."), "newellm@proaxis.com");
-  m_aboutData.addAuthor (ki18n("Michael Bartl"), ki18n("Former Core Developer"), "michael.bartl1@chello.at");
-  m_aboutData.addAuthor (ki18n("Michael McCallum"), ki18n("Core Developer"), "gholam@xtra.co.nz");
-  m_aboutData.addAuthor (ki18n("Michael Koch"), ki18n("KWrite port to KParts"), "koch@kde.org");
-  m_aboutData.addAuthor (ki18n("Christian Gebauer"), KLocalizedString(), "gebauer@kde.org" );
-  m_aboutData.addAuthor (ki18n("Simon Hausmann"), KLocalizedString(), "hausmann@kde.org" );
-  m_aboutData.addAuthor (ki18n("Glen Parker"), ki18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
-  m_aboutData.addAuthor (ki18n("Scott Manson"), ki18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
-  m_aboutData.addAuthor (ki18n("John Firebaugh"), ki18n("Patches and more"), "jfirebaugh@kde.org");
-  m_aboutData.addAuthor (ki18n("Andreas Kling"), ki18n("Developer"), "kling@impul.se");
-  m_aboutData.addAuthor (ki18n("Mirko Stocker"), ki18n("Various bugfixes"), "me@misto.ch", "http://misto.ch/");
-  m_aboutData.addAuthor (ki18n("Matthew Woehlke"), ki18n("Selection, KColorScheme integration"), "mw_triad@users.sourceforge.net");
-  m_aboutData.addAuthor (ki18n("Sebastian Pipping"), ki18n("Search bar back- and front-end"), "webmaster@hartwork.org", "http://www.hartwork.org/");
-  m_aboutData.addAuthor (ki18n("Jochen Wilhelmy"), ki18n( "Original KWrite Author" ), "digisnap@cs.tu-berlin.de" );
-  m_aboutData.addAuthor (ki18n("Gerald Senarclens de Grancy"), ki18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
+  m_aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
+  m_aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Core Developer"), "dhaumann@kde.org");
+  m_aboutData.addAuthor (i18n("Milian Wolff"), i18n("Core Developer"), "mail@milianw.de", "http://milianw.de");
+  m_aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
+  m_aboutData.addAuthor (i18n("Erlend Hamberg"), i18n("Vi Input Mode"), "ehamberg@gmail.com", "http://hamberg.no/erlend");
+  m_aboutData.addAuthor (i18n("Bernhard Beschow"), i18n("Developer"), "bbeschow@cs.tu-berlin.de", "https://user.cs.tu-berlin.de/~bbeschow");
+  m_aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
+  m_aboutData.addAuthor (i18n("Michel Ludwig"), i18n("On-the-fly spell checking"), "michel.ludwig@kdemail.net");
+  m_aboutData.addAuthor (i18n("Pascal Létourneau"), i18n("Large scale bug fixing"), "pascal.letourneau@gmail.com");
+  m_aboutData.addAuthor (i18n("Hamish Rodda"), i18n("Core Developer"), "rodda@kde.org");
+  m_aboutData.addAuthor (i18n("Waldo Bastian"), i18n( "The cool buffersystem" ), "bastian@kde.org" );
+  m_aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), "charles@kde.org");
+  m_aboutData.addAuthor (i18n("Matt Newell"), i18n("Testing, ..."), "newellm@proaxis.com");
+  m_aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), "michael.bartl1@chello.at");
+  m_aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), "gholam@xtra.co.nz");
+  m_aboutData.addAuthor (i18n("Michael Koch"), i18n("KWrite port to KParts"), "koch@kde.org");
+  m_aboutData.addAuthor (i18n("Christian Gebauer"), QString(), "gebauer@kde.org" );
+  m_aboutData.addAuthor (i18n("Simon Hausmann"), QString(), "hausmann@kde.org" );
+  m_aboutData.addAuthor (i18n("Glen Parker"), i18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
+  m_aboutData.addAuthor (i18n("Scott Manson"), i18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
+  m_aboutData.addAuthor (i18n("John Firebaugh"), i18n("Patches and more"), "jfirebaugh@kde.org");
+  m_aboutData.addAuthor (i18n("Andreas Kling"), i18n("Developer"), "kling@impul.se");
+  m_aboutData.addAuthor (i18n("Mirko Stocker"), i18n("Various bugfixes"), "me@misto.ch", "http://misto.ch/");
+  m_aboutData.addAuthor (i18n("Matthew Woehlke"), i18n("Selection, KColorScheme integration"), "mw_triad@users.sourceforge.net");
+  m_aboutData.addAuthor (i18n("Sebastian Pipping"), i18n("Search bar back- and front-end"), "webmaster@hartwork.org", "http://www.hartwork.org/");
+  m_aboutData.addAuthor (i18n("Jochen Wilhelmy"), i18n( "Original KWrite Author" ), "digisnap@cs.tu-berlin.de" );
+  m_aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
 
-  m_aboutData.addCredit (ki18n("Matteo Merli"), ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
-  m_aboutData.addCredit (ki18n("Rocky Scaletta"), ki18n("Highlighting for VHDL"), "rocky@purdue.edu");
-  m_aboutData.addCredit (ki18n("Yury Lebedev"), ki18n("Highlighting for SQL"),"");
-  m_aboutData.addCredit (ki18n("Chris Ross"), ki18n("Highlighting for Ferite"),"");
-  m_aboutData.addCredit (ki18n("Nick Roux"), ki18n("Highlighting for ILERPG"),"");
-  m_aboutData.addCredit (ki18n("Carsten Niehaus"), ki18n("Highlighting for LaTeX"),"");
-  m_aboutData.addCredit (ki18n("Per Wigren"), ki18n("Highlighting for Makefiles, Python"),"");
-  m_aboutData.addCredit (ki18n("Jan Fritz"), ki18n("Highlighting for Python"),"");
-  m_aboutData.addCredit (ki18n("Daniel Naber"));
-  m_aboutData.addCredit (ki18n("Roland Pabel"), ki18n("Highlighting for Scheme"),"");
-  m_aboutData.addCredit (ki18n("Cristi Dumitrescu"), ki18n("PHP Keyword/Datatype list"),"");
-  m_aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18n("Very nice help"), "");
-  m_aboutData.addCredit (ki18n("Bruno Massa"), ki18n("Highlighting for Lua"), "brmassa@gmail.com");
+  m_aboutData.addCredit (i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
+  m_aboutData.addCredit (i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), "rocky@purdue.edu");
+  m_aboutData.addCredit (i18n("Yury Lebedev"), i18n("Highlighting for SQL"),"");
+  m_aboutData.addCredit (i18n("Chris Ross"), i18n("Highlighting for Ferite"),"");
+  m_aboutData.addCredit (i18n("Nick Roux"), i18n("Highlighting for ILERPG"),"");
+  m_aboutData.addCredit (i18n("Carsten Niehaus"), i18n("Highlighting for LaTeX"),"");
+  m_aboutData.addCredit (i18n("Per Wigren"), i18n("Highlighting for Makefiles, Python"),"");
+  m_aboutData.addCredit (i18n("Jan Fritz"), i18n("Highlighting for Python"),"");
+  m_aboutData.addCredit (i18n("Daniel Naber"));
+  m_aboutData.addCredit (i18n("Roland Pabel"), i18n("Highlighting for Scheme"),"");
+  m_aboutData.addCredit (i18n("Cristi Dumitrescu"), i18n("PHP Keyword/Datatype list"),"");
+  m_aboutData.addCredit (i18n("Carsten Pfeiffer"), i18n("Very nice help"), "");
+  m_aboutData.addCredit (i18n("Bruno Massa"), i18n("Highlighting for Lua"), "brmassa@gmail.com");
 
-  m_aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
+  m_aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
 
-  m_aboutData.setTranslator(ki18nc("NAME OF TRANSLATORS","Your names"), ki18nc("EMAIL OF TRANSLATORS","Your emails"));
+  m_aboutData.setTranslator(i18nc("NAME OF TRANSLATORS","Your names"), i18nc("EMAIL OF TRANSLATORS","Your emails"));
 
   //
   // dir watch
@@ -303,11 +307,14 @@ bool KateGlobal::configDialogSupported () const
 void KateGlobal::configDialog(QWidget *parent)
 {
   QPointer<KPageDialog> kd = new KPageDialog(parent);
+
+#if 0 //FIXME KF5
   kd->setCaption( i18n("Configure") );
   kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Help );
   kd->setFaceType( KPageDialog::List );
   kd->setHelp( QString(), KGlobal::mainComponent().componentName() );
-
+#endif
+  
   QList<KTextEditor::ConfigPage*> editorPages;
 
   for (int i = 0; i < configPages (); ++i)

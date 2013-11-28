@@ -36,9 +36,11 @@
 
 #include <kapplication.h>
 #include <kcolorbutton.h>
+#include <kconfiggroup.h>
 #include <kdebug.h>
 #include <kfontdialog.h>
 #include <klocale.h>
+#include <kglobal.h>
 #include <kdeprintdialog.h>
 #include <kurl.h>
 #include <kuser.h> // for loginName
@@ -46,11 +48,11 @@
 #include <knuminput.h>
 #include <kcombobox.h>
 
-#include <QtWidgets/QPainter>
+#include <QtGui/QPainter>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGroupBox>
-#include <QtWidgets/QPrintDialog>
-#include <QtWidgets/QPrinter>
+#include <QtPrintSupport/QPrintDialog>
+#include <QtPrintSupport/QPrinter>
 #include <QtWidgets/QApplication>
 
 #include <QtWidgets/QLabel>
@@ -241,7 +243,7 @@ bool KatePrinter::print (KateDocument *doc)
         tags["y"] =  KGlobal::locale()->formatDate(dt.date(), KLocale::ShortDate);
         tags["Y"] =  KGlobal::locale()->formatDate(dt.date(), KLocale::LongDate);
         tags["f"] =  doc->url().fileName();
-        tags["U"] =  doc->url().pathOrUrl();
+        tags["U"] =  doc->url().toString();
         if ( selectionOnly )
         {
           QString s( i18n("(Selection of) ") );

@@ -29,11 +29,11 @@
 #include "kateview.h"
 #include "kateextendedattribute.h"
 #include "katedocument.h"
-// #include "katebuffer.h"
 
 #include <klocale.h>
 #include <kdebug.h>
 #include <kmenu.h>
+#include <klocalizedstring.h>
 
 #include <cctype>
 

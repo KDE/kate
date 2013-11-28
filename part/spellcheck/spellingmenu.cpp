@@ -26,6 +26,7 @@
 #include "kateview.h"
 #include "spellcheck/spellcheck.h"
 
+#include <klocalizedstring.h>
 #include <kdebug.h>
 
 KateSpellingMenu::KateSpellingMenu(KateView *view)
@@ -99,10 +100,10 @@ void KateSpellingMenu::createActions(KActionCollection *ac)
   m_spellingMenu = m_spellingMenuAction->menu();
   connect(m_spellingMenu, SIGNAL(aboutToShow()), this, SLOT(populateSuggestionsMenu()));
 
-  m_ignoreWordAction = new KAction(i18n("Ignore Word"), this);
+  m_ignoreWordAction = new QAction(i18n("Ignore Word"), this);
   connect(m_ignoreWordAction, SIGNAL(triggered()), this, SLOT(ignoreCurrentWord()));
 
-  m_addToDictionaryAction = new KAction(i18n("Add to Dictionary"), this);
+  m_addToDictionaryAction = new QAction(i18n("Add to Dictionary"), this);
   connect(m_addToDictionaryAction, SIGNAL(triggered()), this, SLOT(addCurrentWordToDictionary()));
 
   setEnabled(false);
@@ -188,7 +189,7 @@ void KateSpellingMenu::populateSuggestionsMenu()
   int counter = 0;
   for(QStringList::iterator i = m_currentSuggestions.begin(); i != m_currentSuggestions.end() && counter < 10; ++i) {
     const QString& suggestion = *i;
-    KAction *action = new KAction(suggestion, m_spellingMenu);
+    QAction *action = new QAction(suggestion, m_spellingMenu);
     connect(action, SIGNAL(triggered()), m_suggestionsSignalMapper, SLOT(map()));
     m_suggestionsSignalMapper->setMapping(action, suggestion);
     m_spellingMenu->addAction(action);

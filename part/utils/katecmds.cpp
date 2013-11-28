@@ -36,6 +36,7 @@
 #include "katecmd.h"
 
 #include <kdebug.h>
+#include <klocalizedstring.h>
 #include <klocale.h>
 #include <kurl.h>
 #include <kshellcompletion.h>

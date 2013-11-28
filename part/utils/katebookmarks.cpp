@@ -34,6 +34,7 @@
 #include <kxmlguifactory.h>
 #include <ktoggleaction.h>
 #include <kactionmenu.h>
+#include <klocalizedstring.h>
 
 #include <QtCore/QRegExp>
 #include <QtCore/QEvent>

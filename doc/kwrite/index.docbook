@@ -53,8 +53,8 @@
 </copyright>
 <legalnotice>&FDLNotice;</legalnotice>
 
-<date>2013-07-03</date>
-<releaseinfo>4.11 (&kde; 4.11)</releaseinfo>
+<date>2013-11-28</date>
+<releaseinfo>4.12 (&kde; 4.12)</releaseinfo>
 
 <abstract>
 <para>&kwrite; is a text editor for &kde; allowing you to edit one file at the time per window.</para>

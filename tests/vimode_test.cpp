@@ -7359,4 +7359,65 @@ void ViModeTest::textRemoved(Document* document, Range range)
   m_docChanges.append(DocChange(DocChange::TextRemoved, range));
 }
 
+
+void ViModeTest::keyParsingTests()
+{
+
+  // BUG #298726
+  const QChar char_o_diaeresis(246);
+
+  // Test that we can correctly translate finnish key ö
+  QKeyEvent *k = QKeyEvent::createExtendedKeyEvent( QEvent::KeyPress, 214, Qt::NoModifier, 47, 246, 16400, char_o_diaeresis);
+  QCOMPARE(KateViKeyParser::self()->KeyEventToQChar(*k), QChar(246));
+
+  // Test that it can be used in mappings
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, char_o_diaeresis, "ifoo", KateViGlobal::Recursive);
+  DoTest("hello", QString("ll%1bar").arg(char_o_diaeresis), "hefoobarllo");
+}
+
+void ViModeTest::AltGr()
+{
+  QKeyEvent *altGrDown;
+  QKeyEvent *altGrUp;
+
+  // Test Alt-gr still works - this isn't quite how things work in "real-life": in real-life, something like
+  // Alt-gr+7 would be a "{", but I don't think this can be reproduced without sending raw X11
+  // keypresses to Qt, so just duplicate the keypress events we would receive if we pressed
+  // Alt-gr+7 (that is: Alt-gr down; "{"; Alt-gr up).
+  BeginTest("");
+  TestPressKey("i");
+  altGrDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_AltGr, Qt::NoModifier);
+  QApplication::postEvent(kate_view->focusProxy(), altGrDown);
+  QApplication::sendPostedEvents();
+  // Not really Alt-gr and 7, but this is the key event that is reported by Qt if we press that.
+  QKeyEvent *altGrAnd7 = new QKeyEvent(QEvent::KeyPress, Qt::Key_BraceLeft, Qt::GroupSwitchModifier, "{" );
+  QApplication::postEvent(kate_view->focusProxy(), altGrAnd7);
+  QApplication::sendPostedEvents();
+  altGrUp = new QKeyEvent(QEvent::KeyRelease, Qt::Key_AltGr, Qt::NoModifier);
+  QApplication::postEvent(kate_view->focusProxy(), altGrUp);
+  QApplication::sendPostedEvents();
+  TestPressKey("\\ctrl-c");
+  FinishTest("{");
+
+  // French Bepo keyabord AltGr + Shift + s = Ù = Unicode(0x00D9);
+  const QString ugrave = QString(QChar(0x00D9));
+  BeginTest("");
+  TestPressKey("i");
+  altGrDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_AltGr, Qt::NoModifier);
+  QApplication::postEvent(kate_view->focusProxy(), altGrDown);
+  QApplication::sendPostedEvents();
+  altGrDown = new QKeyEvent(QEvent::KeyPress, Qt::Key_Shift, Qt::ShiftModifier | Qt::GroupSwitchModifier);
+  QApplication::postEvent(kate_view->focusProxy(), altGrDown);
+  QApplication::sendPostedEvents();
+  QKeyEvent *altGrAndUGrave = new QKeyEvent(QEvent::KeyPress, Qt::Key_Ugrave, Qt::ShiftModifier | Qt::GroupSwitchModifier, ugrave);
+  qDebug() << QString("%1").arg(altGrAndUGrave->modifiers(), 10, 16);
+  QApplication::postEvent(kate_view->focusProxy(), altGrAndUGrave);
+  QApplication::sendPostedEvents();
+  altGrUp = new QKeyEvent(QEvent::KeyRelease, Qt::Key_AltGr, Qt::NoModifier);
+  QApplication::postEvent(kate_view->focusProxy(), altGrUp);
+  QApplication::sendPostedEvents();
+  FinishTest(ugrave);
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

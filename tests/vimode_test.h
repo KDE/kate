@@ -168,6 +168,8 @@ private Q_SLOTS:
   void MacroTests();
 
   void debuggingTests();
+  void keyParsingTests();
+  void AltGr();
 private:
   enum Expectation { ShouldPass, ShouldFail };
   void BeginTest(const QString& original_text);

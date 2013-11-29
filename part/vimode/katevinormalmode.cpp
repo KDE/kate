@@ -117,11 +117,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return false;
   }
 
-  if ( keyCode == Qt::Key_AltGr ) {
-    KateViKeyParser::self()->setAltGrStatus( true );
-    return true;
-  }
-
   clearYankHighlight();
 
   if ( keyCode == Qt::Key_Escape || (keyCode == Qt::Key_C && e->modifiers() == Qt::ControlModifier) || (keyCode == Qt::Key_BracketLeft && e->modifiers() == Qt::ControlModifier)) {

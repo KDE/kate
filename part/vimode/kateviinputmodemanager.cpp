@@ -128,6 +128,10 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
 
   if (!isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress)
   {
+    if (e->key() == Qt::Key_AltGr) {
+      return true; // do nothing:)
+    }
+
     // Hand off to the key mapper, and decide if this key is part of a mapping.
     if (e->key() != Qt::Key_Control && e->key() != Qt::Key_Shift && e->key() != Qt::Key_Alt && e->key() != Qt::Key_Meta)
     {

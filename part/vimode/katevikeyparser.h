@@ -47,10 +47,7 @@ public:
   const QString decodeKeySequence( const QString &keys ) const;
   QString qt2vi( int key ) const;
   int vi2qt( const QString &keypress ) const;
-  char scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter) const;
   const QChar KeyEventToQChar(const QKeyEvent &keyEvent);
-
-  void setAltGrStatus( bool active ) { m_altGrPressed = active; }
 
 private:
   void initKeyTables();
@@ -59,8 +56,6 @@ private:
   QHash<QString, int> *m_katevi2qt;
   QHash<QString, int> *m_nameToKeyCode;
   QHash<int, QString> *m_keyCodeToName;
-
-  bool m_altGrPressed;
 
   static KateViKeyParser *m_instance;
 };

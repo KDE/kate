@@ -1545,6 +1545,9 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fOo\nbAr\nBaz", "jlg~~rX", "fOo\nXaR\nBaz");
   DoTest("fOo\nbAr\nBaz\nfAR", "jl2g~~rX", "fOo\nBXR\nbAZ\nfAR");
 
+  // Testing "s"
+  DoTest("substitute char repeat", "w4scheck\\esc", "substitute check repeat");
+
   // Testing "r".
   DoTest("foobar", "l2r.", "f..bar");
   DoTest("foobar", "l5r.", "f.....");

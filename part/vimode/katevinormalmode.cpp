@@ -1224,6 +1224,8 @@ bool KateViNormalMode::commandChangeLine()
 bool KateViNormalMode::commandSubstituteChar()
 {
   if ( commandDeleteChar() ) {
+    // The count is only used for deletion of chars; the inserted text is not repeated
+    setCount(0);
     return commandEnterInsertMode();
   }
 

@@ -3,8 +3,6 @@
 "dtd/kdex.dtd" [
   <!ENTITY kappname "&kate;">
   <!ENTITY package "kdesdk">
-  <!ENTITY copy-this-msg "&nbsp;">
-  <!ENTITY i18n-powermode "&copy-this-msg;">
   <!ENTITY imgpath "./">
   <!ENTITY rcfile "katerc">
   <!ENTITY gdb "<acronym>GDB</acronym>">

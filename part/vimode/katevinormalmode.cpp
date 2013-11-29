@@ -1866,6 +1866,18 @@ bool KateViNormalMode::commandReplayMacro()
   return true;
 }
 
+bool KateViNormalMode::commandCloseNocheck()
+{
+  m_view->cmdLineBar()->execute("q!");
+  return true;
+}
+
+bool KateViNormalMode::commandCloseWrite()
+{
+  m_view->cmdLineBar()->execute("wq");
+  return true;
+}
+
 bool KateViNormalMode::commandCollapseLocal()
 {
 #if 0
@@ -3419,6 +3431,9 @@ void KateViNormalMode::initializeCommands()
 
   ADDCMD("q.", commandStartRecordingMacro, REGEX_PATTERN);
   ADDCMD("@.", commandReplayMacro, REGEX_PATTERN);
+
+  ADDCMD("ZZ", commandCloseWrite, 0);
+  ADDCMD("ZQ", commandCloseNocheck, 0);
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

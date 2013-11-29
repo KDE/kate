@@ -3,7 +3,6 @@
 "dtd/kdex.dtd" [
   <!ENTITY kappname "&kwrite;">
   <!ENTITY package "kdebase">
-  <!ENTITY i18n-powermode "(power user mode)">
   <!ENTITY imgpath "../kate/">
   <!ENTITY rcfile "kwriterc">
   <!ENTITY fundamentals-chapter SYSTEM "fundamentals.docbook">
@@ -85,14 +84,6 @@ Bash, Modula 2, &HTML;, and Ada.
 </para>
 <para>&kwrite; has a single document interface (<acronym>SDI</acronym>)
 allowing you to edit one file at the time per window.
-</para>
-<para>
-&kwrite; features two different modes, a simple mode with a straightforward interface
-and an advanced mode with more features and more extensive menu items.
-The advanced mode is enabled by checking the option <link linkend="appearance">
-Enable power user mode (&kde; 3 mode)</link>
-on the <guilabel>Appearance</guilabel> page in &kappname;s
-settings.
 </para>
 </chapter>
 

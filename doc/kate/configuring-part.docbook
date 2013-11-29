@@ -66,9 +66,6 @@ whitespace at the end of lines.</para></listitem>
 </guilabel></term>
 <listitem><para>
 <variablelist>
-<!--FIXME missing
-Enable power user mode (KDE 3 mode)
-  -->
 <varlistentry>
 <term><guilabel>Show indentation lines
 </guilabel></term>

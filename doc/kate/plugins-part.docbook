@@ -39,7 +39,6 @@ as HTML</guimenuitem></menuchoice>. Additionally you can use <menuchoice><guimen
 as HTML to the system clipboard.</para></listitem>
 </varlistentry>
 
-<!--FIXME not in master, but in 4.10 ??-->
 <varlistentry>
 <term><guilabel>Highlight Selection</guilabel></term>
 <!--http://kate-editor.org/2010/11/14/highlight-selected-text/-->

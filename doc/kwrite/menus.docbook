@@ -237,6 +237,7 @@ be pasted elsewhere.  The clipboard is a feature of &kde; that works invisibly
 to provide a way to transfer data between applications.</para>
 </listitem>
 </varlistentry>
+
 <varlistentry>
 <term><anchor id="paste"/><menuchoice>
 <shortcut><keycombo
@@ -296,6 +297,7 @@ copying the entire file to another application.</para>
 <para>Deselects the selected text in the editor if any.</para>
 </listitem>
 </varlistentry>
+
 <varlistentry>
 <term><anchor id="block-selection-mode"/><menuchoice>
 <shortcut>
@@ -310,6 +312,7 @@ The status bar shows the current state of the Selection Mode, either <guilabel>B
 <guilabel>LINE</guilabel>.</para>
 </listitem>
 </varlistentry>
+
 <varlistentry>
 <term><anchor id="vi-input-mode"/><menuchoice>
 <shortcut>
@@ -326,6 +329,7 @@ the current mode.The behavior of this mode can be configured in the
 <guilabel>Editing</guilabel> page in &kappname;'s settings dialog.</para>
 </listitem>
 </varlistentry>
+
 <varlistentry>
 <term><anchor id="overwrite-mode"/><menuchoice>
 <shortcut>
@@ -480,7 +484,7 @@ arrow decrease it. Close the bar with a click on the button with an icon on the 
 
 </sect1>
 <sect1 id="view-menu">
-<!-- This is also valid for kates menu view, but kate does not have the New Window item -->
+<!-- This is also valid for kates menu view -->
 <title>The View Menu</title>
 
 <para>The <guimenu>View</guimenu> menu allows you to manage settings
@@ -1222,7 +1226,28 @@ in the Editing tab in <menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Editor...</guimenuitem></menuchoice></para></listitem>
 </varlistentry>
-<!--FIXME Create Snippet + Snippets missing-->
+
+<varlistentry>
+<term><anchor id="tools-create-snippet"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Create Snippet</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Create a new snippet, which is a resuable chunk of text you
+may insert in any part of any document.</para>
+</listitem>
+</varlistentry>
+
+<varlistentry>
+<term><anchor id="tools-snippets"/><menuchoice>
+<guimenu>Tools</guimenu>
+<guimenuitem>Snippets...</guimenuitem>
+</menuchoice></term>
+<listitem>
+<para>Display a list of available snippets.</para>
+</listitem>
+</varlistentry>
+
 </variablelist>
 <para>If the <link linkend="pref-plugins">plugin</link> Insert File is enabled, you will
 find here an additional menu item <guimenuitem>Insert File...</guimenuitem>.
@@ -1290,26 +1315,11 @@ linkend="config-dialog">settings</link> may be adjusted.
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Shortcuts...</guimenuitem></menuchoice></term>
 <listitem>
-<para>This command opens a dialog box whereby the <link
-linkend="keybindings">shortcuts</link> may be changed.
-A display window shows the list of commands (actions) and their assigned
-shortcuts, alternates and global shortcuts. The <guilabel>Search</guilabel> line above
-the list window is used to filter the shortcut list.
-Selecting an action with a &LMB; click (either on the action name or shortcut cell
-for the default shortcut or on the alternate cell for an alternative) displays the
-<guilabel>Default</guilabel> and <guilabel>Custom</guilabel> radio buttons
-below the selected action.</para>
-<para>To assign or change a shortcut click on the <guilabel>None</guilabel> button. Its
-label changes then to <guilabel>Input</guilabel>, now press the new key combination
-for the action.</para>
-<para>For example, with the <guilabel>About &kde;</guilabel> action selected in the display
-window, press  the &Ctrl;, &Alt; and the <keycap>K</keycap> key on the keyboard.  This would
-mean that anytime you hold down the &Ctrl; and  &Alt;
-buttons and pressed <keycap>K</keycap> (while using
-&kappname;) the <guilabel>About &kde;</guilabel> display box would be called. </para>
-<para>Use the buttons at the bottom of the dialog to set all shortcuts back to their defaults,
-print the shortcut list or cancel all changes. Click the <guilabel>OK</guilabel>
-button to close the dialog and accept all changes. </para>
+<para>Displays the familiar &kde; Keyboard Shortcut Configuration
+Dialog.  For more information on using this, see the
+<ulink url="help:/fundamentals/shortcuts.html"><emphasis>Using and Customizing
+Shortcuts</emphasis> section of the <emphasis>&kde; Fundamentals</emphasis>
+documentation</ulink>.</para>
 </listitem>
 </varlistentry>
 
@@ -1317,17 +1327,11 @@ button to close the dialog and accept all changes. </para>
 <term><anchor id="configure-toolbars"/><menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Toolbars...</guimenuitem></menuchoice></term>
-<listitem><para>This will open the dialog whereby the toolbar configuration may
-be changed.   The user can choose which shortcut buttons should appear on the
-toolbar. A display window on the left lists the commands available to placed
-on the toolbar.  A display on the right lists those commands already on the
-toolbar.  A set of four arrow buttons between the two displays manipulates the
-selections.  The right pointing arrow places any command selected in the left
-pane onto the right pane, <abbrev>i.e.</abbrev>, it is added to the toolbar.
-The left arrow does just the opposite, removing any action selected in the right
-window from the toolbar.  The up and down pointing arrows change the position of
-an action selected in the right window which changes the position of its button
-in the toolbar.</para> </listitem>
+<para>Displays the familiar &kde; Toolbar Configuration Dialog.  For more
+information on using this, see the 
+<ulink url="help:/fundamentals/config.html#toolbars"><emphasis>Customizing
+Toolbars</emphasis> section of the <emphasis>&kde; Fundamentals</emphasis>
+documentation</ulink>.</para>
 </varlistentry>
 
 </variablelist>

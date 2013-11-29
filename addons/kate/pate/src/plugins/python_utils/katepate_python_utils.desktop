@@ -20,6 +20,7 @@ Name[sr@latin]=Python alatke
 Name[sv]=Python-verktyg
 Name[uk]=Інструменти Python
 Name[x-test]=xxPython Utilitiesxx
+Name[zh_TW]=Python 工具
 Comment=Parse Checker, PEP8 Checker, Pyflakes Checker, Snippets
 Comment[de]=Python-Werkzeuge: Parse-Überprüfung, PEP8-Überprüfung, Pyflakes-Überprüfung, Textbausteine
 Comment[gl]=Análise sintáctica, comprobacións PEP8, Pyflakes e Snippets
@@ -37,5 +38,6 @@ Comment[sr@latin]=Overivač raščlanjivanja, overivač PEP‑a 8, overivač PyF
 Comment[sv]=Tolkningskontroll, PEP8-kontroll, Pyflakes-kontroll, snuttar
 Comment[uk]=Перевірка обробки, перевірка PEP8, перевірка Pyflakes, фрагменти
 Comment[x-test]=xxParse Checker, PEP8 Checker, Pyflakes Checker, Snippetsxx
+Comment[zh_TW]=剖析檢查器，PEP8 檢查器，Pyflakes 檢查器，片段
 X-Python-2-Compatible=true
 X-Python-Dependencies=pep8(>=1.4.2),pyflakes(>=0.7.3)

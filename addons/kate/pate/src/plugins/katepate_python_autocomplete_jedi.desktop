@@ -40,5 +40,6 @@ Comment[sr@latin]=Nad bibliotekom Jedi
 Comment[sv]=Baserat på Jedi-biblioteket
 Comment[uk]=Засновано на бібліотеці Jedi
 Comment[x-test]=xxBased on the Jedi libraryxx
+Comment[zh_TW]=基於 Jedi 函式庫
 X-Python-2-Compatible=true
 X-Python-Dependencies=jedi(>=0.7.0)

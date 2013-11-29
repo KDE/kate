@@ -1710,8 +1710,6 @@ Editor...</guimenuitem></menuchoice></para></listitem>
 <listitem>
 <para>Create a new snippet, which is a resuable chunk of text you
 may insert in any part of any document.</para>
-<para>This menu item is displayed by the Snippets plugin, which is enabled by
-default.</para>
 </listitem>
 </varlistentry>
 
@@ -1722,8 +1720,6 @@ default.</para>
 </menuchoice></term>
 <listitem>
 <para>Display a list of available snippets.</para>
-<para>This menu item is displayed by the Snippets plugin, which is enabled by
-default.</para>
 </listitem>
 </varlistentry>
 

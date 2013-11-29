@@ -733,6 +733,19 @@ void ViModeTest::VisualModeTests() {
 
     // Regression test for bug 309191
     DoTest("foo bar", "vedud", " bar");
+
+    // test returning to correct mode when selecting ranges with mouse
+    BeginTest("foo bar\nbar baz");
+    TestPressKey("i"); // get me into insert mode
+    kate_view->setSelection(Range(0, 1, 1, 4));
+    QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)VisualMode);
+    kate_view->setSelection(Range::invalid());
+    QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)InsertMode);
+    TestPressKey("\\esc"); // get me into normal mode
+    kate_view->setSelection(Range(0, 1, 1, 4));
+    QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)VisualMode);
+    kate_view->setSelection(Range::invalid());
+    QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)NormalMode);
 }
 
 void ViModeTest::ReplaceModeTests()

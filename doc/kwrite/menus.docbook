@@ -1327,11 +1327,13 @@ documentation</ulink>.</para>
 <term><anchor id="configure-toolbars"/><menuchoice>
 <guimenu>Settings</guimenu><guimenuitem>Configure
 Toolbars...</guimenuitem></menuchoice></term>
+<listitem>
 <para>Displays the familiar &kde; Toolbar Configuration Dialog.  For more
 information on using this, see the 
 <ulink url="help:/fundamentals/config.html#toolbars"><emphasis>Customizing
 Toolbars</emphasis> section of the <emphasis>&kde; Fundamentals</emphasis>
 documentation</ulink>.</para>
+</listitem>
 </varlistentry>
 
 </variablelist>

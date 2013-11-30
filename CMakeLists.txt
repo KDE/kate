@@ -38,7 +38,7 @@ find_package(KF5 CONFIG REQUIRED
     KIdleTime ItemModels KWidgetsAddons KWindowSystem KCodecs KArchive KCoreAddons Solid ThreadWeaver
     KConfig KAuth KJS KWallet KDBusAddons Sonnet
     KI18n KGuiAddons KService KConfigWidgets ItemViews KNotifications KIconThemes KStyle KCompletion KJobWidgets KTextWidgets XmlGui KCrash
-    KBookmarks KUnitConversion KIO KCMUtils Kross KParts KNotifyConfig KPrintUtils KDESu KDocTools KNewStuff )
+    KBookmarks KUnitConversion KIO KCMUtils KParts KNotifyConfig KPrintUtils KDESu KDocTools KNewStuff )
 
 find_package(KDeclarative REQUIRED NO_MODULE)
 find_package(KIO REQUIRED NO_MODULE)

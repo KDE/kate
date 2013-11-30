@@ -135,6 +135,19 @@ function isStringOrComment(line, column)
     return gMode == "Doxygen" || document.isString(c) || document.isChar(c) || document.isComment(c);
 }
 
+/**
+ * Add a character \c c to the given position if absent.
+ * Set new cursor position to the next one after the current.
+ */
+function addCharOrJumpOverIt(line, column, char)
+{
+    // Make sure there is a space at given position
+    dbg("addCharOrJumpOverIt: checking @Cursor("+line+","+column+"), c='"+document.charAt(line, column)+"'");
+    if (document.lineLength(line) <= column || document.charAt(line, column) != char)
+        document.insertText(line, column, char);
+    view.setCursorPosition(line, column + 1);
+}
+
 function tryIndentRelativePrevLine(line)
 {
     var current_line = line - 1;
@@ -1030,7 +1043,7 @@ function tryTemplate(cursor)
     else
     {
         cursor = tryJumpOverParenthesis(cursor);            // Try to jump out of parenthesis
-        tryAddSpaceAfterClosedBracket(cursor);
+        tryAddSpaceAfterClosedBracketOrQuote(cursor);
     }
     document.editEnd();
     return result;
@@ -1079,7 +1092,7 @@ function tryJumpOverParenthesis(cursor)
     // Check that we r inside of parenthesis and some symbol between
     var pc = document.charAt(line, column - 2);
     var cc = document.charAt(cursor);
-    if (column > 2 && pc == '(' && cc == ')')
+    if ((pc == '(' && cc == ')') || (pc == '{' && cc == '}'))
     {
         var c = document.charAt(line, column - 1);
         switch (c)
@@ -1096,6 +1109,7 @@ function tryJumpOverParenthesis(cursor)
             case '<':
             case '>':
             case '}':
+            case ')':
             case ']':                                       // NOTE '[' could be a part of lambda
             {
                 // Ok, move character out of parenthesis
@@ -1117,14 +1131,14 @@ function tryJumpOverParenthesis(cursor)
  * \li \c ) -- ordinal function call
  * \li \c } -- C++11 constructor call
  * \li \c ] -- array access
+ * \li \c " -- end of a string literal
+ * \li \c ' -- and of a char literal
  *
- * This function try to add a space between a closing bracket and operator char.
+ * This function try to add a space between a closing quote/bracket and operator char.
  *
  * \note This valid if we r not inside a comment or a string literal.
- *
- * \attention This function \b never calls \c editEnd() for a given \c es instance!
  */
-function tryAddSpaceAfterClosedBracket(cursor)
+function tryAddSpaceAfterClosedBracketOrQuote(cursor)
 {
     var line = cursor.line;
     var column = cursor.column;
@@ -1134,12 +1148,12 @@ function tryAddSpaceAfterClosedBracket(cursor)
 
     // Check if we have a closing bracket before a last entered char
     var b = document.charAt(line, column - 2);
-    dbg("tryAddSpaceAfterClosedBracket: b='"+b+"', @"+new Cursor(line, column -2));
-    if (!(b == ']' || b == '}' || b == ')'))
+    if (!(b == ']' || b == '}' || b == ')' || b == '"' || b == "'"))
         return cursor;
 
     // Ok, lets check what we've got as a last char
     var c = document.charAt(line, column - 1);
+    dbg("tryAddSpaceAfterClosedBracketOrQuote: c='"+c+"', @"+new Cursor(line, column-1));
     switch (c)
     {
         case '*':
@@ -1152,7 +1166,6 @@ function tryAddSpaceAfterClosedBracket(cursor)
         case '?':
         case ':':
         case '<':
-            dbg("tryAddSpaceAfterClosedBracket: c='"+c+"', @"+new Cursor(line, column -1));
             document.insertText(line, column - 1, " ");
             view.setCursorPosition(line, column + 1);
             return view.cursorPosition();
@@ -1370,7 +1383,7 @@ function tryOperator(cursor, ch)
     document.editBegin();
     var prev = cursor;
     cursor = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
-    cursor = tryAddSpaceAfterClosedBracket(cursor);
+    cursor = tryAddSpaceAfterClosedBracketOrQuote(cursor);
 
     // Check if a space before '?' still needed
     if (prev == cursor && ch == '?' && document.charAt(line, cursor.column - 1) != ' ')
@@ -1670,7 +1683,7 @@ function tryColon(cursor)
         else
         {
             cursor = tryJumpOverParenthesis(cursor);        // Try to jump out of parenthesis
-            tryAddSpaceAfterClosedBracket(cursor);          // Try add a space after close bracket
+            tryAddSpaceAfterClosedBracketOrQuote(cursor);   // Try add a space after close bracket
         }
     }
     document.editEnd();
@@ -1922,19 +1935,6 @@ function tryKeywordsWithBrackets(cursor)
 }
 
 /**
- * Add a character \c c to the given position if absent.
- * Set new cursor position to the next one after the current.
- */
-function addCharOrJumpOverIt(line, column, char)
-{
-    // Make sure there is a space at given position
-    dbg("addCharOrJumpOverIt: checking @Cursor("+line+","+column+"), c='"+document.charAt(line, column)+"'");
-    if (document.lineLength(line) <= column || document.charAt(line, column) != char)
-        document.insertText(line, column, char);
-    view.setCursorPosition(line, column + 1);
-}
-
-/**
  * Try to add space before, after some equal operators.
  */
 function tryEqualOperator(cursor)
@@ -2136,7 +2136,7 @@ function processChar(line, ch)
             break;
         case '*':
         case '&':
-            tryAddSpaceAfterClosedBracket(cursor);
+            tryAddSpaceAfterClosedBracketOrQuote(cursor);
             break;
         default:
             break;                                          // Nothing to do...

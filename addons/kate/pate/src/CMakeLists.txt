@@ -27,7 +27,7 @@ set(sources engine.cpp plugin.cpp utilities.cpp )
 # (at least version 3.3 of it has a member PyType_Spec::slots)
 add_definitions(-DQT_NO_KEYWORDS)
 
-kde4_add_ui_files(sources info.ui manager.ui)
+kde4_add_ui_files(sources manager.ui)
 
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 

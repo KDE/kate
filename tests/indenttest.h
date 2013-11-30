@@ -27,29 +27,29 @@ class IndentTest : public ScriptTestBase
 private slots:
   void initTestCase();
 
-  void python_data();
-  void python();
+  void testPython_data();
+  void testPython();
 
-  void cstyle_data();
-  void cstyle();
+  void testCstyle_data();
+  void testCstyle();
 
-  void cppstyle_data();
-  void cppstyle();
+  void testCppstyle_data();
+  void testCppstyle();
 
-  void ruby_data();
-  void ruby();
+  void testRuby_data();
+  void testRuby();
 
-  void haskell_data();
-  void haskell();
+  void testHaskell_data();
+  void testHaskell();
 
-  void pascal1_data();
-  void pascal1();
+  void testPascal_data();
+  void testPascal();
 
-  void xml_data();
-  void xml();
+  void testXml_data();
+  void testXml();
 
-  void normal_data();
-  void normal();
+  void testNormal_data();
+  void testNormal();
 };
 
 #endif // INDENTTEST_H

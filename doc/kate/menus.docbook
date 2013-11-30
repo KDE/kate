@@ -1708,7 +1708,7 @@ Editor...</guimenuitem></menuchoice></para></listitem>
 <guimenuitem>Create Snippet</guimenuitem>
 </menuchoice></term>
 <listitem>
-<para>Create a new snippet, which is a resuable chunk of text you
+<para>Create a new snippet, which is a reusable chunk of text you
 may insert in any part of any document.</para>
 </listitem>
 </varlistentry>

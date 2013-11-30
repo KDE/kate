@@ -91,15 +91,13 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
           this, SLOT(clearYankHighlight()));
   connect(doc(), SIGNAL(aboutToDeleteMovingInterfaceContent(KTextEditor::Document*)),
           this, SLOT(aboutToDeleteMovingInterfaceContent()));
-  m_highlightedYank = NULL;
-
 }
 
 KateViNormalMode::~KateViNormalMode()
 {
   qDeleteAll( m_commands );
   qDeleteAll( m_motions) ;
-  delete m_highlightedYank;
+  qDeleteAll(m_highlightedYanks);
 }
 
 /**
@@ -1249,7 +1247,7 @@ bool KateViNormalMode::commandYank()
   OperationMode m = getOperationMode();
   yankedText = getRange( m_commandRange, m );
 
-  highlightYank(m_commandRange);
+  highlightYank(m_commandRange, m);
 
   QChar  chosen_register =  getChosenRegister( '0' );
   fillRegister(chosen_register, yankedText, m );
@@ -3799,39 +3797,52 @@ void KateViNormalMode::updateYankHighlightAttrib()
   m_highlightYankAttribute->dynamicAttribute (KTextEditor::Attribute::ActivateMouseIn)->setBackground(yankedColor);
 }
 
-void KateViNormalMode::highlightYank(const KateViRange& range)
+void KateViNormalMode::highlightYank(const KateViRange& range, const OperationMode mode)
 {
   clearYankHighlight();
-  KTextEditor::MovingRange*& pHighlightedYank = highlightedYankForDocument();
-  Range yankRange(range.startLine, range.startColumn, range.endLine, range.endColumn);
-  pHighlightedYank = m_view->doc()->newMovingRange(yankRange, Kate::TextRange::DoNotExpand);
-  pHighlightedYank->setView(m_view); // show only in this view
-  pHighlightedYank->setAttributeOnlyForViews(true);
-  // use z depth defined in moving ranges interface
-  pHighlightedYank->setZDepth (-10000.0);
-  pHighlightedYank->setAttribute(m_highlightYankAttribute);
+
+  // current MovingRange doesn't support block mode selection so split the
+  // block range into per-line ranges
+  if (mode == Block)
+  {
+    for (int i = range.startLine; i <= range.endLine; i++)
+      addHighlightYank( Range(i, range.startColumn, i, range.endColumn) );
+  }
+  else
+    addHighlightYank( Range(range.startLine, range.startColumn, range.endLine, range.endColumn) );
 }
 
+void KateViNormalMode::addHighlightYank(const Range& yankRange)
+{
+  KTextEditor::MovingRange *highlightedYank = m_view->doc()->newMovingRange(yankRange, Kate::TextRange::DoNotExpand);
+  highlightedYank->setView(m_view); // show only in this view
+  highlightedYank->setAttributeOnlyForViews(true);
+  // use z depth defined in moving ranges interface
+  highlightedYank->setZDepth (-10000.0);
+  highlightedYank->setAttribute(m_highlightYankAttribute);
+
+  highlightedYankForDocument().insert(highlightedYank);
+}
 
 void KateViNormalMode::clearYankHighlight()
 {
-  KTextEditor::MovingRange*& pHighlightedYank = highlightedYankForDocument();
-  delete pHighlightedYank;
-  pHighlightedYank = 0;
+  QSet<KTextEditor::MovingRange *> &pHighlightedYanks = highlightedYankForDocument();
+  qDeleteAll(pHighlightedYanks);
+  pHighlightedYanks.clear();
 }
 
 void KateViNormalMode::aboutToDeleteMovingInterfaceContent()
 {
-  KTextEditor::MovingRange*& pHighlightedYank = highlightedYankForDocument();
+  QSet<KTextEditor::MovingRange *> &pHighlightedYanks = highlightedYankForDocument();
   // Prevent double-deletion in case this KateViNormalMode is deleted.
-  pHighlightedYank = 0;
+  pHighlightedYanks.clear();
 }
 
-KTextEditor::MovingRange*& KateViNormalMode::highlightedYankForDocument()
+QSet<KTextEditor::MovingRange *> &KateViNormalMode::highlightedYankForDocument()
 {
   // Work around the fact that both Normal and Visual mode will have their own m_highlightedYank -
   // make Normal's the canonical one.
-  return m_viInputModeManager->getViNormalMode()->m_highlightedYank;
+  return m_viInputModeManager->getViNormalMode()->m_highlightedYanks;
 }
 
 bool KateViNormalMode::waitingForRegisterOrCharToSearch()

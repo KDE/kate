@@ -339,10 +339,11 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool m_pendingResetIsDueToExit;
 
     KTextEditor::Attribute::Ptr m_highlightYankAttribute;
-    KTextEditor::MovingRange* m_highlightedYank;
+    QSet<KTextEditor::MovingRange *> m_highlightedYanks;
 
-    void highlightYank(const KateViRange& range);
-    KTextEditor::MovingRange*& highlightedYankForDocument();
+    void highlightYank(const KateViRange& range, const OperationMode mode = CharWise);
+    void addHighlightYank(const Range& range);
+    QSet<KTextEditor::MovingRange *> &highlightedYankForDocument();
 
     Cursor m_currentChangeEndMarker;
 

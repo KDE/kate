@@ -746,6 +746,18 @@ void ViModeTest::VisualModeTests() {
     QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)VisualMode);
     kate_view->setSelection(Range::invalid());
     QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)NormalMode);
+
+    // proper yanking in block mode
+    {
+      BeginTest("aaaa\nbbbb\ncccc\ndddd");
+      TestPressKey("lj\\ctrl-vljy");
+      KateBuffer &buffer = kate_document->buffer();
+      QList<Kate::TextRange *> ranges = buffer.rangesForLine(1, kate_view, true);
+      QCOMPARE(ranges.size(), 1);
+      const KTextEditor::Range &range = ranges[0]->toRange();
+      QCOMPARE(range.start().column(), 1);
+      QCOMPARE(range.end().column(), 3);
+    }
 }
 
 void ViModeTest::ReplaceModeTests()

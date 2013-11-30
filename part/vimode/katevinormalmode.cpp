@@ -1622,9 +1622,10 @@ bool KateViNormalMode::commandScrollHalfPageDown()
 bool KateViNormalMode::commandCentreViewOnCursor()
 {
   Cursor c( m_view->cursorPosition() );
-  int linesToScroll = (m_viewInternal->endLine()-linesDisplayed()/2)-c.line();
+  const int virtualCenterLine = m_viewInternal->startLine() + linesDisplayed() / 2;
+  const int virtualCursorLine = m_view->textFolding().lineToVisibleLine( c.line() );
 
-  scrollViewLines( -linesToScroll );
+  scrollViewLines( virtualCursorLine - virtualCenterLine );
 
   return true;
 }

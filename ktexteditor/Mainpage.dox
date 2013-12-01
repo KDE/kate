@@ -15,7 +15,7 @@ or any later version published by the Free Software Foundation;
 Overview |
 \ref kte_design "Design" |
 \ref kte_guidelines "Coding Guidelines" |
-\ref kte_port_to_kde4 "Porting to KDE 4" |
+\ref kte_port_to_5 "Porting to Frameworks 5" |
 \ref kte_howto "Using"
 </b></p>
 
@@ -30,7 +30,7 @@ to use. The only implementation right now is the Kate Editor Component
 \section kte_general General
  - \ref kte_design
  - \ref kte_howto
- - \ref kte_port_to_kde4
+ - \ref kte_port_to_5
  - <a href="http://www.kate-editor.org/support">Contact/Mailing Lists</a>
 
 
@@ -80,7 +80,7 @@ Hamish Rodda \<rodda@kde.org\>
 \ref index "Overview" |
 Design |
 \ref kte_guidelines "Coding Guidelines" |
-\ref kte_port_to_kde4 "Porting to KDE 4" |
+\ref kte_port_to_5 "Porting to KDE Frameworks 5" |
 \ref kte_howto "Using"
 </b></p>
 
@@ -143,7 +143,7 @@ first argument.
 \ref index "Overview" |
 \ref kte_design "Design" |
 Coding Guidelines |
-\ref kte_port_to_kde4 "Porting to KDE 4" |
+\ref kte_port_to_5 "Porting to Frameworks 5" |
 \ref kte_howto "Using"
 </b></p>
 
@@ -403,71 +403,45 @@ extension interfaces.
 
 
 
-/** \page kte_port_to_kde4 Porting to KDE 4
+/** \page kte_port_to_5 Porting to KDE Frameworks 5
 
 <p><b>
 \ref index "Overview" |
 \ref kte_design "Design" |
 \ref kte_guidelines "Coding Guidelines" |
-Porting to %KDE 4 |
+Porting to %KDE Frameworks 5 |
 \ref kte_howto "Using"
 </b></p>
 
 This document describes porting applications using the KTextEditor interfaces
-from KDE 3 to KDE 4. This page does not try to be complete; its main goal is
-to show what interfaces were removed, changed or added to give some impression
-and orientation of what you have to do to port your application to the KDE 4
-KTextEditor interfaces.
+from KDE 4 to KDE Frameworks 4. This page does not try to be complete; its main
+goal is to show what interfaces were removed, changed or added to give some
+impression and orientation of what you have to do to port your application to
+the KDE Frameworks 5 KTextEditor interfaces.
 
 \section kte_port_intro Introduction
-The KTextEditor interfaces changes in KDE 4 are neither binary nor source
-compatible to the KTextEditor interfaces included in KDE 3, so programs
-written/compiled for the KDE 3 KTextEditor interfaces will not compile
-(nor run) under KDE 4. There are no plans to provide a compatibility layer.
+The KTextEditor interfaces changes in KDE Frameworks 5 are neither binary nor
+source compatible to the KTextEditor interfaces included in KDE 4, so programs
+written/compiled for the KDE 4 KTextEditor interfaces will not compile
+(nor run) under Frameworks 5. There are no plans to provide a compatibility layer.
 
-The KDE 4 KTextEditor interfaces undergone a heavy cleanup, i.e. obsolete
+The Frameworks 5 KTextEditor interfaces undergone a heavy cleanup, i.e. obsolete
 functions were removed, interfaces were merged and extended. All interface
 changes like for example parameter changes of a function are not mentioned in
-detail in this page, look into the particular class API documentation. As
-already mentioned in the mainpage, all line/column tuples were replaced with a
-KTextEditor::Cursor, and all Cursor/Cursor tuples with a KTextEditor::Range.
+detail in this page, look into the particular class API documentation.
 
 A KTextEditor::Factory class was introduced to access a specific Editor
 implementation, read \ref kte_design for detailed information.
 
 \section kte_port_remove Removed Interfaces
-Some interfaces were removed mainly because they described user actions which
-implementation and support is up to the KTextEditor part itself, like
-printing, copy & paste and word wrapping. Entirely removed interfaces are, in
-order:
- - all DCOP interfaces
- - \p ClipboardInterface
- - \p CursorInterface
- - \p DynWordWrapInterface
- - \p PrintInterface
- - \p SelectionExtDCOPInterface
- - \p UndoInterface
- - \p ViewStatusMsgInterface
- - \p WordWrapInterface
+Entirely removed interfaces and classes are, in order:
+ - \p SmartInterface (removed since KDE 4.5)
+ - \p SmartCursor, \p SmartRange, \p SmartCursorNotifier, \p SmartCursorWatcher,
+   \p SmartRangeNotifier, \p SmartRangeWatcher (already unspoorted since KDE 4.5)
 
 \section kte_port_merge Merged Interfaces
 The following interfaces were merged, in order:
- - \p BlockSelectionInterface, \p SelectionInterface and
-   \p SelectionInterfaceExt were merged into the KTextEditor::View, so that a
-   KTextEditor::Document itself does not provide any selection methods anymore.
- - \p ConfigInterface was partly merged into the KTextEditor::Editor and now
-   only contains very basic functions to set/get properties. Session related
-   config options can be configured in a new interface called
-   KTextEditor::SessionConfigInterface
- - \p DocumentInfoInterface was merged into the KTextEditor::Document
- - \p EditInterface was merged into the KTextEditor::Document
- - \p EditInterfaceExt was merged into the KTextEditor::Document
- - \p EncodingInterface was merged into the KTextEditor::Document
- - \p HighlightingInterface was merged into the KTextEditor::Document
- - \p MarkInterfaceExtension was merged into the KTextEditor::MarkInterface
- - \p PluginViewInterface was merged into the KTextEditor::Plugin
- - \p PopupMenuInterface was merged into the KTextEditor::View
- - \p ViewCursorInterface was merged into the KTextEditor::View
+ - \p CoordinatesToCursorInterface was merged into the KTextEditor::View.
 
 \section kte_port_rename Interface Changes
 The following interfaces were renamed:
@@ -481,31 +455,35 @@ The following interfaces were renamed:
 
 \section kte_port_new New Interfaces
 The following interfaces are new:
- - KTextEditor::CommandInterface, support for command-line commands
- - KTextEditor::ModificationInterface, support for handling external modified
-   files
- - KTextEditor::SessionConfigInterface, support for session specific settings
- - KTextEditor::MovingInterface, support for MovingCursor%s and MovingRange%s,
-   plus their uses such as arbitrary highlighting
+ - none, yet.
 
 \section kte_port_enhanced_classes Significantly Enhanced Classes
 The following classes have been significantly enhanced:
  - KTextEditor::Cursor \n
-   Has been upgraded for greatly increased convenience, and now forms a
-   cornerstone of the KTextEditor interfaces.
+   The Cursor now is a tuple of two ints, namely the line and column. It has no
+   virtual destructor so that you cannot derive from Cursor. Since a Cursor
+   uses 8 Bytes, it is even ok to pass a Cursor as copy in parameters instead
+   of a reference.
+   Further, the Cursor has been marked as Q_MOVABLE, making it behave like a
+   Plain Old Data (POD) type.
+ - KTextEditor::Range \n
+   The Range now is a tuple of two Cursors, namely the startCursor and the
+   endCursor. It has no virtual destructor so that you cannot derive from Range.
+   Further, the Range has been marked as Q_MOVABLE, making it behave like a
+   Plain Old Data (POD) type.
 
 \section kte_port_new_classes New Classes
-The following classes are new:
- - KTextEditor::MovingCursor \n
-   A cursor which is bound to a specific KTextEditor::Document, and maintains
-   its position.
- - KTextEditor::Range \n
-   A tuple of start + end cursors with many convenience methods
+The following classes are either new, or were added late in the KDE 4 release
+horizon:
+ - KTextEditor::MovingCursor (since KDE 4.5) \n
+   The MovingCursor was introduced in KDE 4.5 as replacement to the SmartCursor.
+   A MovingCursor is bound to a specific Document and maintains its position.
  - KTextEditor::MovingRange \n
-   A range which is bound to a specific Document, and maintains its position.
- - KTextEditor::MovingRangeFeedback \n
+   The MovingRange was introduced in KDE 4.5 as replacement to the SmartRange.
+   A MovingRange is bound to a specific Document and maintains its position.
+ - KTextEditor::MovingRangeFeedback (since KDE 4.5) \n
    Class providing notifications of changes to a KTextEditor::MovingRange.
- - KTextEditor::MessageInterface \n
+ - KTextEditor::MessageInterface (since KDE 4.11) \n
    Class providing notifications to the user in a KTextEditor::View.
 
 \section kte_port_plugins Plugin Architecture Changes
@@ -532,7 +510,7 @@ settings if desired.
 \ref index "Overview" |
 \ref kte_design "Design" |
 \ref kte_guidelines "Coding Guidelines" |
-\ref kte_port_to_kde4 "Porting to KDE 4" |
+\ref kte_port_to_5 "Porting to KDE 4" |
 Using
 </b></p>
 

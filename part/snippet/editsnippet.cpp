@@ -37,7 +37,7 @@
 #include <KShortcut>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
-#include <KToolInvocation>
+#include <khelpclient.h>
 #include <KMessageBox>
 #include <KMessageWidget>
 
@@ -200,12 +200,12 @@ void EditSnippet::save()
 
 void EditSnippet::slotSnippetDocumentation()
 {
-//FIXME KF5    KToolInvocation::invokeHelp("kate-application-plugin-snippets", "kate");
+    KHelpClient::invokeHelp("kate-application-plugin-snippets", "kate");
 }
 
 void EditSnippet::slotScriptDocumentation()
 {
-//FIXME KF5      KToolInvocation::invokeHelp("dev-scripting-api", "kate");
+    KHelpClient::invokeHelp("dev-scripting-api", "kate");
 }
 
 void EditSnippet::reject()

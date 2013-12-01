@@ -55,7 +55,7 @@
 #include <kmenu.h>
 #include <kiconloader.h>
 #include <kconfiggroup.h>
-#include "ktoolinvocation.h"
+#include <khelpclient.h>
 
 #include <QtAlgorithms>
 #include <QVariant>
@@ -831,10 +831,9 @@ KateCommandLineBar::KateCommandLineBar (KateView *view, QWidget *parent)
     setFocusProxy (m_lineEdit);
 }
 
-void KateCommandLineBar::showHelpPage() {
-#if 0 //FIXME KF5
-  KToolInvocation::invokeHelp("advanced-editing-tools-commandline","kate");
-#endif
+void KateCommandLineBar::showHelpPage()
+{
+  KHelpClient::invokeHelp("advanced-editing-tools-commandline", "kate");
 }
 
 KateCommandLineBar::~KateCommandLineBar()

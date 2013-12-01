@@ -54,7 +54,7 @@
 #include <KMultiTabBar>
 #include <KTipDialog>
 #include <KStringHandler>
-#include <KToolInvocation>
+#include <khelpclient.h>
 #include <KAuthorized>
 #include <KRun>
 #include <KRecentFilesAction>
@@ -782,7 +782,7 @@ void KateMainWindow::slotOpenWithMenuAction(QAction* a)
 
 void KateMainWindow::pluginHelp()
 {
-  KToolInvocation::invokeHelp (QString(), "kate-plugins");
+  KHelpClient::invokeHelp (QString(), "kate-plugins");
 }
 
 void KateMainWindow::aboutEditor()

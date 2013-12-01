@@ -21,7 +21,7 @@
 #include "katehelpbutton.h"
 
 #include <kiconloader.h>
-#include <ktoolinvocation.h>
+#include <khelpclient.h>
 #include <klocale.h>
 #include <klocalizedstring.h>
 
@@ -54,7 +54,7 @@ void KateHelpButton::setIconState(IconState state)
 
 void KateHelpButton::invokeHelp()
 {
-  // KF5 FIXME KToolInvocation::invokeHelp(m_section, "kate");
+  KHelpClient::invokeHelp(m_section, "kate");
 }
 
 void KateHelpButton::setSection(const QString& section)

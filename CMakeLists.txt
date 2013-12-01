@@ -47,7 +47,6 @@ find_package(KInit)
 
 # needed for set_package_properties macro
 find_package(KDE4Support REQUIRED NO_MODULE)
-find_package(KDELibs4 REQUIRED NO_MODULE)
 find_package(Qt5Transitional MODULE)
 
 # config.h

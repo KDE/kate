@@ -42,7 +42,6 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kdeprintdialog.h>
-#include <kurl.h>
 #include <kuser.h> // for loginName
 #include <klineedit.h>
 #include <knuminput.h>

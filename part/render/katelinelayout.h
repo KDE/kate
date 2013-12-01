@@ -20,7 +20,8 @@
 #ifndef _KATE_LINELAYOUT_H_
 #define _KATE_LINELAYOUT_H_
 
-#include <ksharedptr.h>
+#include <QSharedData>
+#include <QExplicitlySharedDataPointer>
 
 #include "katetextline.h"
 
@@ -31,7 +32,7 @@ class KateDocument;
 class KateTextLayout;
 class KateRenderer;
 
-class KateLineLayout : public KShared
+class KateLineLayout : public QSharedData
 {
   public:
     KateLineLayout(KateRenderer &renderer);
@@ -117,6 +118,6 @@ private:
     bool m_usePlainTextLine;
 };
 
-typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;
+typedef QExplicitlySharedDataPointer<KateLineLayout> KateLineLayoutPtr;
 
 #endif

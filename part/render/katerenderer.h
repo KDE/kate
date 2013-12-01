@@ -39,9 +39,6 @@ class KateRenderRange;
 namespace KTextEditor { class Range; }
 namespace Kate { class TextFolding; }
 
-class KateLineLayout;
-typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;
-
 /**
  * Handles all of the work of rendering the text
  * (used for the views and printing)

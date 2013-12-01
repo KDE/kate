@@ -22,13 +22,7 @@
 
 #include <QtGui/QTextLine>
 
-#include <ksharedptr.h>
-
 #include "katelinelayout.h"
-
-
-class KateLineLayout;
-typedef KSharedPtr<KateLineLayout> KateLineLayoutPtr;
 
 /**
  * This class represents one visible line of text; with dynamic wrapping,

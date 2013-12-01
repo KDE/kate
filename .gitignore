@@ -1,5 +1,8 @@
 # general
 build
+*.rej
+*.orig
+*.out
 
 # kate
 .kateproject.d
@@ -8,3 +11,9 @@ build
 
 # kdevelop
 *.kdev4
+
+# from kdiff3
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*

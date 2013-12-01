@@ -167,7 +167,9 @@ void ScriptTestBase::runTest(const ExpectedFailures& failures)
 
   // evaluate test-script
   QFile sourceFile(testcase + "/input.js");
-  QVERIFY( sourceFile.open(QFile::ReadOnly) );
+  if ( !sourceFile.open(QFile::ReadOnly) ) {
+    QFAIL(qPrintable(QString("Failed to open file: %1").arg(sourceFile.fileName())));
+  }
 
   QTextStream stream(&sourceFile);
   stream.setCodec("UTF8");

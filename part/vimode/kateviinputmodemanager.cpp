@@ -56,6 +56,7 @@ KateViInputModeManager::KateViInputModeManager(KateView* view, KateViewInternal*
   m_viReplaceMode = new KateViReplaceMode(this, view, viewInternal);
 
   m_currentViMode = NormalMode;
+  m_previousViMode = NormalMode;
 
   m_view = view;
   m_viewInternal = viewInternal;
@@ -440,12 +441,18 @@ void KateViInputModeManager::setLastSearchPattern( const QString &p )
 
 void KateViInputModeManager::changeViMode(ViMode newMode)
 {
+  m_previousViMode = m_currentViMode;
   m_currentViMode = newMode;
 }
 
 ViMode KateViInputModeManager::getCurrentViMode() const
 {
   return m_currentViMode;
+}
+
+ViMode KateViInputModeManager::getPreviousViMode() const
+{
+  return m_previousViMode;
 }
 
 bool KateViInputModeManager::isAnyVisualMode() const

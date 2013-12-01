@@ -95,12 +95,12 @@ void IndentTest::initTestCase()
 }
 
 
-void IndentTest::cstyle_data()
+void IndentTest::testCstyle_data()
 {
   getTestData( "cstyle" );
 }
 
-void IndentTest::cstyle()
+void IndentTest::testCstyle()
 {
   runTest( ExpectedFailures() << FAILURE( "using1", "this is insane, those who write such code can cope with it :P" )
                               << FAILURE( "using2", "this is insane, those who write such code can cope with it :P" )
@@ -116,12 +116,12 @@ void IndentTest::cstyle()
 }
 
 
-void IndentTest::cppstyle_data()
+void IndentTest::testCppstyle_data()
 {
     getTestData( "cppstyle" );
 }
 
-void IndentTest::cppstyle()
+void IndentTest::testCppstyle()
 {
     runTest(
         ExpectedFailures()
@@ -131,23 +131,23 @@ void IndentTest::cppstyle()
 }
 
 
-void IndentTest::python_data()
+void IndentTest::testPython_data()
 {
     getTestData( "python" );
 }
 
-void IndentTest::python()
+void IndentTest::testPython()
 {
     runTest( ExpectedFailures() );
 }
 
 
-void IndentTest::haskell_data()
+void IndentTest::testHaskell_data()
 {
   getTestData( "haskell" );
 }
 
-void IndentTest::haskell()
+void IndentTest::testHaskell()
 {
   runTest( ExpectedFailures() );
 }
@@ -164,23 +164,23 @@ void IndentTest::latex()
 }
 
 
-void IndentTest::pascal_data()
+void IndentTest::testPascal_data()
 {
   getTestData( "pascal" );
 }
 
-void IndentTest::pascal()
+void IndentTest::testPascal()
 {
   runTest( ExpectedFailures() );
 }
 
 
-void IndentTest::ruby_data()
+void IndentTest::testRuby_data()
 {
   getTestData( "ruby" );
 }
 
-void IndentTest::ruby()
+void IndentTest::testRuby()
 {
   runTest( ExpectedFailures() << FAILURE( "block01", "Multiline blocks using {} is not supported" )
                               << FAILURE( "block02", "Multiline blocks using {} is not supported" )
@@ -200,23 +200,23 @@ void IndentTest::ruby()
 }
 
 
-void IndentTest::xml_data()
+void IndentTest::testXml_data()
 {
   getTestData( "xml" );
 }
 
-void IndentTest::xml()
+void IndentTest::testXml()
 {
   runTest( ExpectedFailures() );
 }
 
 
-void IndentTest::normal_data()
+void IndentTest::testNormal_data()
 {
   getTestData( "normal" );
 }
 
-void IndentTest::normal()
+void IndentTest::testNormal()
 {
   runTest( ExpectedFailures() << FAILURE( "emptyline1", "is that really what we expect?" )
                               << FAILURE( "emptyline3", "is that really what we expext?" )

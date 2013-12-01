@@ -64,7 +64,7 @@ Numbers</guimenuitem></menuchoice> menu item.</para>
 </varlistentry>
 
 <varlistentry>
-<term>The Folding Pane &i18n-powermode;</term>
+<term>The Folding Pane</term>
 <listitem>
 <para>The folding pane allows you to collapse or expand foldable blocks
 of lines. The calculation of the foldable regions is done according to
@@ -184,7 +184,7 @@ action="simul">&Ctrl;&Shift;<keycap>A</keycap></keycombo>), or click
 with the &LMB; in the editor.</para>
 
 <sect2 id="kate-part-selection-block">
-<title>Using Block Selection &i18n-powermode;</title>
+<title>Using Block Selection</title>
 
 <para>When Block Selection is enabled, you can make <quote>vertical
 selections</quote> in the text, meaning selecting limited columns from
@@ -449,7 +449,7 @@ on those.</para>
 </sect1>
 
 <sect1 id="kate-part-bookmarks">
-<title>Using Bookmarks &i18n-powermode;</title>
+<title>Using Bookmarks</title>
 
 <para>The bookmarks feature allows you to mark certain lines, to be
 able to easily find them again.</para>
@@ -520,7 +520,7 @@ the feature on a per document level. This will be fixed in a future version of &
 </sect1>
 
 <sect1 id="kate-part-autoindent">
-<title>Using automatic indenting &i18n-powermode;</title>
+<title>Using automatic indenting</title>
 
 <para>&kappname;s editor component supports a variety of autoindenting modes,
 designed for different text formats. You can pick from the available modes using

@@ -168,7 +168,10 @@ void KateViVisualMode::reset()
         }
       }
 
-      startNormalMode();
+      if (m_viInputModeManager->getPreviousViMode() == InsertMode)
+        startInsertMode();
+      else
+        startNormalMode();
     }
 
     if (!m_commandShouldKeepSelection)

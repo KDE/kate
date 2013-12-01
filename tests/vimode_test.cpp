@@ -733,6 +733,19 @@ void ViModeTest::VisualModeTests() {
 
     // Regression test for bug 309191
     DoTest("foo bar", "vedud", " bar");
+
+    // test returning to correct mode when selecting ranges with mouse
+    BeginTest("foo bar\nbar baz");
+    TestPressKey("i"); // get me into insert mode
+    kate_view->setSelection(Range(0, 1, 1, 4));
+    QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)VisualMode);
+    kate_view->setSelection(Range::invalid());
+    QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)InsertMode);
+    TestPressKey("\\esc"); // get me into normal mode
+    kate_view->setSelection(Range(0, 1, 1, 4));
+    QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)VisualMode);
+    kate_view->setSelection(Range::invalid());
+    QCOMPARE((int)vi_input_mode_manager->getCurrentViMode(), (int)NormalMode);
 }
 
 void ViModeTest::ReplaceModeTests()
@@ -1544,6 +1557,9 @@ void ViModeTest::NormalModeCommandsTest() {
   DoTest("fOo\nbAr\nBaz\nfAR", "j2g~~", "fOo\nBaR\nbAZ\nfAR");
   DoTest("fOo\nbAr\nBaz", "jlg~~rX", "fOo\nXaR\nBaz");
   DoTest("fOo\nbAr\nBaz\nfAR", "jl2g~~rX", "fOo\nBXR\nbAZ\nfAR");
+
+  // Testing "s"
+  DoTest("substitute char repeat", "w4scheck\\esc", "substitute check repeat");
 
   // Testing "r".
   DoTest("foobar", "l2r.", "f..bar");
@@ -6174,6 +6190,7 @@ void ViModeTest::visualLineUpDownTests()
   const int oldTabWidth = kate_document->config()->tabWidth();
   const int tabWidth = 5;
   kate_document->config()->setTabWidth(tabWidth);
+  KateViewConfig::global()->setShowScrollbars(0);
 
   // Compute the maximum width of text before line-wrapping sets it.
   int textWrappingLength = 1;

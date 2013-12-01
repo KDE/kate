@@ -33,6 +33,7 @@ from PyQt4.QtCore import QEvent, QObject, QUrl, Qt, pyqtSlot
 from PyQt4.QtGui import (
     QBrush
   , QColor
+  , QPalette
   , QSplitter
   , QTabWidget
   , QTextBrowser
@@ -42,7 +43,7 @@ from PyQt4.QtGui import (
   )
 
 from PyKDE4.kdecore import i18nc, KUrl
-from PyKDE4.kdeui import KIcon
+from PyKDE4.kdeui import KIcon, KColorScheme
 from PyKDE4.kio import KFile, KFileDialog, KUrlRequesterDialog
 from PyKDE4.ktexteditor import KTextEditor
 
@@ -627,13 +628,14 @@ class CMakeToolView(QObject):
               , cmake_help_parser.help_category.HELP_ITEM
               )
             global _cmake_completion_model
+            schema = KColorScheme(QPalette.Normal, KColorScheme.Selection)
             if _cmake_completion_model.has_completion_for_command(cmd):
-                c.setForeground(0, QBrush(QColor(Qt.green)))
+                c.setForeground(0, schema.foreground(KColorScheme.PositiveText).color())
             else:
                 if cmd in deprecated:
-                    c.setForeground(0, QBrush(QColor(Qt.yellow)))
+                    c.setForeground(0, schema.foreground(KColorScheme.NeutralText).color())
                 else:
-                    c.setForeground(0, QBrush(QColor(Qt.red)))
+                    c.setForeground(0, schema.foreground(KColorScheme.NegativeText).color())
 
         # Add modules group
         standard_modules = cmake_help_parser.get_cmake_modules_list()

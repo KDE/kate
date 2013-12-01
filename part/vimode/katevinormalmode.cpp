@@ -1225,6 +1225,8 @@ bool KateViNormalMode::commandChangeLine()
 bool KateViNormalMode::commandSubstituteChar()
 {
   if ( commandDeleteChar() ) {
+    // The count is only used for deletion of chars; the inserted text is not repeated
+    setCount(0);
     return commandEnterInsertMode();
   }
 
@@ -1862,6 +1864,18 @@ bool KateViNormalMode::commandReplayMacro()
     m_viInputModeManager->replayMacro(reg);
   }
   doc()->editEnd();
+  return true;
+}
+
+bool KateViNormalMode::commandCloseNocheck()
+{
+  m_view->cmdLineBar()->execute("q!");
+  return true;
+}
+
+bool KateViNormalMode::commandCloseWrite()
+{
+  m_view->cmdLineBar()->execute("wq");
   return true;
 }
 
@@ -3418,6 +3432,9 @@ void KateViNormalMode::initializeCommands()
 
   ADDCMD("q.", commandStartRecordingMacro, REGEX_PATTERN);
   ADDCMD("@.", commandReplayMacro, REGEX_PATTERN);
+
+  ADDCMD("ZZ", commandCloseWrite, 0);
+  ADDCMD("ZQ", commandCloseNocheck, 0);
 
   // regular motions
   ADDMOTION("h", motionLeft, 0 );

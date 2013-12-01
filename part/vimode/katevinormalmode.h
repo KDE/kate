@@ -173,6 +173,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     bool commandStartRecordingMacro();
     bool commandReplayMacro();
 
+    bool commandCloseWrite();
+    bool commandCloseNocheck();
+
     // MOTIONS
 
     KateViRange motionLeft();

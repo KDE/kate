@@ -96,6 +96,11 @@ public:
   ViMode getCurrentViMode() const;
 
   /**
+   * @return the previous vi mode
+   */
+  ViMode getPreviousViMode() const;
+
+  /**
    * @return true if and only if the current mode is one of VisualMode, VisualBlockMode or VisualLineMode.
    */
   bool isAnyVisualMode() const;
@@ -287,6 +292,7 @@ private:
   KateViReplaceMode* m_viReplaceMode;
 
   ViMode m_currentViMode;
+  ViMode m_previousViMode;
 
   KateView *m_view;
   KateViewInternal *m_viewInternal;

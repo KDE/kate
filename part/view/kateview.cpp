@@ -1257,14 +1257,12 @@ void KateView::slotUpdateUndo()
 
 void KateView::slotDropEventPass( QDropEvent * ev )
 {
-#if 0 //FIXME KF5
-  const QUrl::List lstDragURLs=QUrl::List::fromMimeData(ev->mimeData());
+  const QList<QUrl> lstDragURLs = ev->mimeData()->urls();
   bool ok = !lstDragURLs.isEmpty();
 
   KParts::BrowserExtension * ext = KParts::BrowserExtension::childObject( doc() );
   if ( ok && ext )
     emit ext->openUrlRequest( lstDragURLs.first() );
-#endif
 }
 
 void KateView::contextMenuEvent( QContextMenuEvent *ev )

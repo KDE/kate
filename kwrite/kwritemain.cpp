@@ -347,9 +347,8 @@ void KWrite::slotNewToolbarConfig()
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
 {
-// FIXME KF5   QUrl::List uriList = QUrl::List::fromMimeData( event->mimeData() );
-  // FIXME KF5 if(!uriList.isEmpty())
-  // FIXME KF5     event->accept();
+  const QList<QUrl> uriList = event->mimeData()->urls();
+  event->setAccepted( ! uriList.isEmpty());
 }
 
 void KWrite::dropEvent( QDropEvent *event )
@@ -359,13 +358,10 @@ void KWrite::dropEvent( QDropEvent *event )
 
 void KWrite::slotDropEvent( QDropEvent *event )
 {
-  // FIXME KF5 const QUrl::List textlist = QUrl::List::fromMimeData( event->mimeData() );
+  const QList<QUrl> textlist = event->mimeData()->urls();
 
- // FIXME KF5  if (textlist.isEmpty())
-  // FIXME KF5   return;
-
-// FIXME KF5   for (QUrl::List::ConstIterator i=textlist.constBegin(); i != textlist.constEnd(); ++i)
- // FIXME KF5    slotOpen (*i);
+  foreach (const QUrl & url, textlist)
+    slotOpen (url);
 }
 
 void KWrite::slotEnableActions( bool enable )

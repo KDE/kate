@@ -3160,18 +3160,16 @@ void KateViewInternal::doDrag()
 
 void KateViewInternal::dragEnterEvent( QDragEnterEvent* event )
 {
-#if 0 // FIXME KF5
-  if (event->source()==this) event->setDropAction(Qt::MoveAction);
+  if (event->source() == this) event->setDropAction(Qt::MoveAction);
   event->setAccepted( (event->mimeData()->hasText() && doc()->isReadWrite()) ||
-                  QUrl::List::canDecode(event->mimeData()) );
-#endif
+                  event->mimeData()->hasUrls() );
 }
 
-void KateViewInternal::fixDropEvent(QDropEvent* event) {
-#if 0 // FIXME KF5
-  
-  if (event->source()!=this) event->setDropAction(Qt::CopyAction);
-  else {
+void KateViewInternal::fixDropEvent(QDropEvent* event)
+{
+  if (event->source() != this) {
+    event->setDropAction(Qt::CopyAction);
+  } else {
     Qt::DropAction action=Qt::MoveAction;
 #ifdef Q_WS_MAC
     if(event->keyboardModifiers() & Qt::AltModifier)
@@ -3182,8 +3180,6 @@ void KateViewInternal::fixDropEvent(QDropEvent* event) {
 #endif
     event->setDropAction(action);
   }
-  
-#endif
 }
 
 void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
@@ -3198,14 +3194,13 @@ void KateViewInternal::dragMoveEvent( QDragMoveEvent* event )
 
 void KateViewInternal::dropEvent( QDropEvent* event )
 {
-  #if 0 // FIXME KF5
-  if ( QUrl::List::canDecode(event->mimeData()) ) {
+  if ( event->mimeData()->hasUrls() ) {
 
-      emit dropEventPass(event);
+    emit dropEventPass(event);
 
   } else if ( event->mimeData()->hasText() && doc()->isReadWrite() ) {
 
-    QString text=event->mimeData()->text();
+    const QString text = event->mimeData()->text();
 
     // is the source our own document?
     bool priv = false;
@@ -3270,8 +3265,6 @@ void KateViewInternal::dropEvent( QDropEvent* event )
   m_dragInfo.state = diNone;
   // important, because the eventFilter`s DragLeave does not occur
   stopDragScroll();
-  
-#endif
 }
 //END EVENT HANDLING STUFF
 

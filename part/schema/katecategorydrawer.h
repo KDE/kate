@@ -17,7 +17,7 @@
  ***************************************************************************/
 
 // this code is taken from SystemSettings/icons/CategoryDrawer.{h,cpp}
-// Rafael agreet to relicense it under LGPLv2 or LGPLv3, just as we need it,
+// Rafael agreed to relicense it under LGPLv2 or LGPLv3, just as we need it,
 // see: http://lists.kde.org/?l=kwrite-devel&m=133061943317199&w=2
 
 #ifndef KATE_CATEGORYDRAWER_H
@@ -29,7 +29,7 @@ class QPainter;
 class QModelIndex;
 class QStyleOption;
 
-class KateCategoryDrawer : public KCategoryDrawerV3
+class KateCategoryDrawer : public KCategoryDrawer
 {
 public:
     KateCategoryDrawer();
@@ -40,6 +40,11 @@ public:
                               QPainter *painter) const;
 
     virtual int categoryHeight(const QModelIndex &index, const QStyleOption &option) const;
+
+    virtual int leftMargin() const Q_DECL_OVERRIDE;
+
+    virtual int rightMargin() const Q_DECL_OVERRIDE;
+
 };
 
 #endif

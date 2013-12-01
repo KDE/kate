@@ -1,5 +1,6 @@
 /***************************************************************************
  *   Copyright (C) 2009 by Rafael Fernández López <ereslibre@kde.org>      *
+ *   Copyright (C) 2013 by Dominik Haumann <dhaumann@kde.org>              *
  *                                                                         *
  * This library is free software; you can redistribute it and/or           *
  * modify it under the terms of the GNU Library General Public             *
@@ -26,10 +27,8 @@
 #include <QApplication>
 #include <QStyleOption>
 
-KateCategoryDrawer::KateCategoryDrawer() : KCategoryDrawerV3 (0)
+KateCategoryDrawer::KateCategoryDrawer() : KCategoryDrawer (0)
 {
-    //FIXME KF5 setLeftMargin( 7 );
-    //FIXME KF5 setRightMargin( 7 );
 }
 
 void KateCategoryDrawer::drawCategory(const QModelIndex &index,
@@ -270,4 +269,14 @@ int KateCategoryDrawer::categoryHeight(const QModelIndex &index, const QStyleOpt
     const QFontMetrics fontMetrics = QFontMetrics(font);
 
     return fontMetrics.height() + 2 + 12 /* vertical spacing */;
+}
+
+int KateCategoryDrawer::leftMargin() const
+{
+    return 7;
+}
+
+int KateCategoryDrawer::rightMargin() const
+{
+    return 7;
 }

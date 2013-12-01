@@ -113,25 +113,6 @@ bool View::isActiveView() const
   return this == document()->activeView();
 }
 
-// TODO ### KDE5: remove in favour of Range based setSelection()
-bool View::setSelection(const Cursor& position, int length,bool wrap)
-{
-  KTextEditor::Document *doc=document();
-  if (!document()) return false;
-  if (length==0) return false;
-  if (!doc->cursorInText(position)) return false;
-  Cursor end=Cursor(position.line(),position.column());
-  if (!wrap) {
-    int col=end.column()+length;
-    if (col<0) col=0;
-    if (col>doc->lineLength(end.line())) col=doc->lineLength(end.line());
-    end.setColumn(col);
-  } else {
-    kDebug()<<"KTextEditor::View::setSelection(pos,len,true) not implemented yet";
-  }
-  return setSelection(Range(position,end));
-}
-
 bool View::insertText (const QString &text )
 {
   KTextEditor::Document *doc=document();

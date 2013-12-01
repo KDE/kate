@@ -507,25 +507,6 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     virtual bool setSelection ( const Range &range ) = 0;
 
     /**
-     * This is an overloaded member function, provided for convenience, it
-     * differs from the above function only in what argument(s) it accepts.
-     * An existing old selection will be discarded. If possible you should
-     * reimplement the default implementation with a more efficient one.
-     * \param position start or end position of the selection, depending
-     *        on the \p length parameter
-     * \param length if >0 \p position defines the start of the selection,
-     *        if <0 \p position specifies the end
-     * \param wrap if \e false the selection does not wrap lines and reaches
-     *        only to start/end of the cursors line. Default: \e true.
-     *        Warning: \e true was never implemented in KDE 4.
-     * \see selectionRange(), selection()
-     * \todo remove in KDE5 in favour of Range based setSelection()
-     */
-    virtual bool setSelection ( const Cursor &position,
-                                int length,
-                                bool wrap = true );
-
-    /**
      * Query the view whether it has selected text, i.e. whether a selection
      * exists.
      * \return \e true if a text selection exists, otherwise \e false

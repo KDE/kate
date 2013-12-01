@@ -445,13 +445,8 @@ The following interfaces were merged, in order:
 
 \section kte_port_rename Interface Changes
 The following interfaces were renamed:
- - \p KTextEditor::CodeCompletionInterface was changed to support several
-   clients at once. A client registers a so-called
-   KTextEditor::CompletionProvider that provides its own completion and argument
-   hint da.
- - \p CompletionEntry was renamed to KTextEditor::CompletionItem
- - signal \p modifiedOnDisc() was renamed to
-   KTextEditor::ModificationInterface::modifiedOnDisk()
+ - \p KTextEditor::View::setSelection(const Cursor &position, int length, bool wrap);
+   was removed in favour of the Range based KTextEditor::View::setSelection()
 
 \section kte_port_new New Interfaces
 The following interfaces are new:

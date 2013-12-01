@@ -85,8 +85,8 @@ class Document;
  * removeSelection() will remove the selection without removing the text,
  * whereas removeSelectionText() also removes both, the selection and the
  * selected text. Use selectionText() to get the selected text and
- * setSelection() to specify the selected textrange. The signal
- * selectionChanged() is emitted whenever the selecteion changed.
+ * setSelection() to specify the selected text range. The signal
+ * selectionChanged() is emitted whenever the selection changed.
  *
  * \section view_cursors Cursor Positions
  *
@@ -96,10 +96,13 @@ class Document;
  * \e virtual cursor position, where a \e tab character counts as many
  * spaces as defined. Get the real position with cursorPosition() and the
  * virtual position with cursorPositionVirtual(). Set the real cursor
- * position with setCursorPosition(). You can even get the screen coordinates
- * of the current cursor position in pixel by using
- * cursorPositionCoordinates(). The signal cursorPositionChanged() is emitted
- * whenever the cursor position changed.
+ * position with setCursorPosition(). The signal cursorPositionChanged() is
+ * emitted whenever the cursor position changed.
+ *
+ * Screen coordinates of the current text cursor position in pixels are obtained
+ * through cursorPositionCoordinates(). Further conversion of screen pixel
+ * coordinates and text cursor positions are provided by cursorToCoordinate()
+ * and coordinatesToCursor().
  *
  * \section view_mouse_tracking Mouse Tracking
  *
@@ -114,7 +117,7 @@ class Document;
  * A view supports several edit modes (EditMode). Common edit modes are
  * \e insert-mode (INS) and \e overwrite-mode (OVR). Which edit modes the
  * editor supports depends on the implementation, another well-known mode is
- * the \e command-mode for example in vim and yzis. The getter viewMode()
+ * the \e command-mode when using the Vi Input Mode. The getter viewMode()
  * returns a string like \p INS or \p OVR and is represented in the user
  * interface for example in the status bar. Further you can get the edit
  * mode as enum by using viewEditMode(). Whenever the edit mode changed the
@@ -385,8 +388,13 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      * to the view widget in pixels. Thus, 0,0 represents the top left hand of
      * the view widget.
      *
+     * To map pixel coordinates to a Cursor position (the reverse transformation)
+     * use coordinatesToCursor().
+     *
      * \param cursor cursor to determine coordinate for.
      * \return cursor screen coordinates relative to the view widget
+     *
+     * \see cursorPositionCoordinates(), coordinatesToCursor()
      */
     virtual QPoint cursorToCoordinate(const KTextEditor::Cursor& cursor) const = 0;
 
@@ -395,6 +403,19 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      * \return cursor screen coordinates
      */
     virtual QPoint cursorPositionCoordinates () const = 0;
+
+    /**
+     * Get the text-cursor in the document from the screen coordinates,
+     * relative to the view widget.
+     *
+     * To map a cursor to pixel coordinates (the reverse transformation)
+     * use cursorToCoordinate().
+     *
+     * \param coord coordinates relative to the view widget
+     * \return cursor in the View, that points onto the character under
+     *         the given coordinate. May be KTextEditor::Cursor::invalid().
+     */
+    virtual KTextEditor::Cursor coordinatesToCursor(const QPoint& coord) const = 0;
 
   /*
    * SIGNALS
@@ -593,65 +614,7 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
     class ViewPrivate* const d;
 };
 
-/**
- * \brief Pixel coordinate to Cursor extension interface for the View.
- *
- * \ingroup kte_group_view_extensions
- *
- * \section ctc_intro Introduction
- *
- * The CoordinatesToCursorInterface makes it possible to map a
- * pixel coordinate to a cursor position. To map a cursor position
- * to pixel coordinates use one of
- * - KTextEditor::View::cursorToCoordinate()
- * - KTextEditor::View::cursorPositionCoordinates()
- *
- * \section ctc_access Accessing the CoordinatesToCursorInterface
- *
- * The CoordinatesToCursorInterface is an extension interface for a
- * View, i.e. the View inherits the interface \e provided that the
- * used KTextEditor library implements the interface. Use qobject_cast to
- * access the interface:
- * \code
- * // view is of type KTextEditor::View*
- * KTextEditor::CoordinatesToCursorInterface *iface =
- *     qobject_cast<KTextEditor::CoordinatesToCursorInterface*>( view );
- *
- * if( iface ) {
- *     // the implementation supports the interface
- *     // do stuff
- * }
- * \endcode
- *
- * \see KTextEditor::View
- * \since 4.2
- * \note KDE5: merge into KTextEditor::View (or name it ViewportInterface
- *       and add accessors to the QScrollBars and convenience functions like
- *       cursorToCoordinate(), scollLines(int count), etc.
- */
-class KTEXTEDITOR_EXPORT CoordinatesToCursorInterface
-{
-  public:
-    /** Virtual destructor. */
-    virtual ~CoordinatesToCursorInterface();
-
-    /**
-     * Get the text-cursor in the document from the screen coordinates,
-     * relative to the view widget.
-     *
-     * To map a cursor to pixel coordinates (the reverse transformation)
-     * use KTextEditor::View::cursorToCoordinate().
-     *
-     * \param coord coordinates relative to the view widget
-     * \return cursor in the View, that points onto the character under
-     *         the given coordinate. May be KTextEditor::Cursor::invalid().
-     */
-    virtual KTextEditor::Cursor coordinatesToCursor(const QPoint& coord) const = 0;
-};
-
 }
-
-Q_DECLARE_INTERFACE(KTextEditor::CoordinatesToCursorInterface, "org.kde.KTextEditor.CoordinatesToCursorInterface")
 
 #endif
 

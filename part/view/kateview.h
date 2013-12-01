@@ -81,8 +81,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
                  public KTextEditor::TemplateInterface2,
                  public KTextEditor::CodeCompletionInterface,
                  public KTextEditor::ConfigInterface,
-                 public KTextEditor::AnnotationViewInterface,
-                 public KTextEditor::CoordinatesToCursorInterface
+                 public KTextEditor::AnnotationViewInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::TextHintInterface)
@@ -92,7 +91,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     Q_INTERFACES(KTextEditor::ConfigInterface)
     Q_INTERFACES(KTextEditor::CodeCompletionInterface)
     Q_INTERFACES(KTextEditor::AnnotationViewInterface)
-    Q_INTERFACES(KTextEditor::CoordinatesToCursorInterface)
 
     friend class KateViewInternal;
     friend class KateIconBorder;

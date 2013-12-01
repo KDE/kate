@@ -292,8 +292,6 @@ LoadSaveFilterCheckPlugin::LoadSaveFilterCheckPlugin(QObject *parent):
 
 LoadSaveFilterCheckPlugin::~LoadSaveFilterCheckPlugin() { delete d; }
 
-CoordinatesToCursorInterface::~CoordinatesToCursorInterface() {
-}
 
 
 

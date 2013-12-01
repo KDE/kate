@@ -336,6 +336,8 @@ void KatePluginSymbolViewerView::parseSymbols(void)
      parseXsltSymbols();
   else if (hlModeName == "Bash")
      parseBashSymbols();
+  else if (hlModeName == "Clojure")
+     parseClojureSymbols();
   else if (hlModeName == "ActionScript 2.0" ||
            hlModeName == "JavaScript")
      parseEcmaSymbols();

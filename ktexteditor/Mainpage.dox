@@ -475,6 +475,10 @@ The following classes have been significantly enhanced:
 \section kte_port_new_classes New Classes
 The following classes are either new, or were added late in the KDE 4 release
 horizon:
+ - KTextEditor::DocumentCursor \n
+   The DocumentCursor is a cursor associated to a KTextEditor::Document. It
+   provides convenience functions such as for text navigation. However, it does
+   not automatically maintain its position when the document's contents changes.
  - KTextEditor::MovingCursor (since KDE 4.5) \n
    The MovingCursor was introduced in KDE 4.5 as replacement to the SmartCursor.
    A MovingCursor is bound to a specific Document and maintains its position.

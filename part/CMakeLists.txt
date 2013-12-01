@@ -193,9 +193,6 @@ snippet/snippetcompletionitem.cpp
 snippet/snippet.cpp
 snippet/editrepository.cpp
 snippet/editsnippet.cpp
-
-# KDE5: move to KTextEditor
-kte5/documentcursor.cpp
 )
 
 set( katepart_PART_UI

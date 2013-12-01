@@ -8,6 +8,7 @@ set(KTEXTEDITOR_PUBLIC_HEADERS
     plugin.h
     cursor.h
     range.h
+    documentcursor.h
     configpage.h
     searchinterface.h
     markinterface.h
@@ -43,6 +44,7 @@ set(ktexteditor_LIB_SRCS
    document.cpp
    range.cpp
    cursor.cpp
+   documentcursor.cpp
    templateinterface.cpp
    templateinterface2.cpp
    editorchooser.cpp

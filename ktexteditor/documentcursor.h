@@ -1,7 +1,7 @@
 /* This file is part of the KDE project
  * 
  *  Copyright (C) 2010 Christoph Cullmann <cullmann@kde.org>
- *  Copyright (C) 2012 Dominik Haumann <dhaumann@kde.org>
+ *  Copyright (C) 2012-2013 Dominik Haumann <dhaumann@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -22,10 +22,9 @@
 #ifndef KTEXTEDITOR_DOCUMENT_CURSOR_H
 #define KTEXTEDITOR_DOCUMENT_CURSOR_H
 
+#include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/document.h>
-
-#include "katepartprivate_export.h"
 
 namespace KTextEditor {
 
@@ -62,11 +61,8 @@ namespace KTextEditor {
  * \see KTextEditor::Cursor, KTextEditor::MovingCursor
  *
  * \author Dominik Haumann \<dhaumann@kde.org\>
- *
- * \todo KDE5: move to ktexteditor interface, use it in
- *       MovingCursor::move() to avoid code duplication
  */
-class KATEPART_TESTS_EXPORT DocumentCursor
+class KTEXTEDITOR_EXPORT DocumentCursor
 {
   //
   // sub types

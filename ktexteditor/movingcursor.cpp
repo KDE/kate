@@ -24,6 +24,7 @@
 
 #include "movingcursor.h"
 #include "document.h"
+#include "documentcursor.h"
 
 using namespace KTextEditor;
 
@@ -95,58 +96,16 @@ bool MovingCursor::gotoPreviousLine()
 
 bool MovingCursor::move(int chars, WrapBehavior wrapBehavior)
 {
-  if (!isValid()) {
-    return false;
+  const KTextEditor::Cursor oldPos = toCursor();
+  DocumentCursor dc(document(), oldPos);
+
+  const bool success = dc.move(chars, static_cast<DocumentCursor::WrapBehavior>(wrapBehavior));
+
+  if (success && dc.toCursor() != oldPos) {
+    setPosition(oldPos);
   }
 
-  Cursor c(toCursor());
-
-  // special case: cursor position is not in valid text, then the algo does
-  // not work for Wrap mode. Hence, catch this special case by setting
-  // c.column() to the lineLength()
-  if (chars > 0 && wrapBehavior == Wrap && c.column() > document()->lineLength(c.line())) {
-    c.setColumn(document()->lineLength(c.line()));
-  }
-
-  while (chars != 0) {
-    if (chars > 0) {
-      if (wrapBehavior == Wrap) {
-        int advance = qMin(document()->lineLength(c.line()) - c.column(), chars);
-
-        if (chars > advance) {
-          if (c.line() + 1 >= document()->lines()) {
-            return false;
-          }
-
-          c.setPosition(c.line() + 1, 0);
-          chars -= advance + 1; // +1 because of end-of-line wrap
-        } else {
-          c.setColumn(c.column() + chars);
-          chars = 0;
-        }
-      } else { // NoWrap
-        c.setColumn(c.column() + chars);
-        chars = 0;
-      }
-    } else {
-      int back = qMin(c.column(), -chars);
-      if (-chars > back) {
-        if (c.line() == 0)
-          return false;
-
-        c.setPosition(c.line() - 1, document()->lineLength(c.line() - 1));
-        chars += back + 1; // +1 because of wrap-around at start-of-line
-      } else {
-        c.setColumn(c.column() + chars);
-        chars = 0;
-      }
-    }
-  }
-
-  if (c != *this) {
-    setPosition(c);
-  }
-  return true;
+  return success;
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

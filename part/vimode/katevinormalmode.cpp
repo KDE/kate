@@ -2974,7 +2974,7 @@ KateViRange KateViNormalMode::textObjectAWord()
     Cursor c1 = c;
 
     bool startedOnSpace = false;
-    if (doc()->character(c).isSpace())
+    if (doc()->characterAt(c).isSpace())
     {
       startedOnSpace = true;
     }
@@ -3016,7 +3016,7 @@ KateViRange KateViNormalMode::textObjectAWord()
       c2 = Cursor(c2.line() + 1, 0);
       swallowCarriageReturnAtEndOfLine = true;
     }
-    const bool swallowPrecedingSpaces = (c2.column() == doc()->lineLength(c2.line()) - 1 && !doc()->character(c2).isSpace() ) || startedOnSpace || swallowCarriageReturnAtEndOfLine;
+    const bool swallowPrecedingSpaces = (c2.column() == doc()->lineLength(c2.line()) - 1 && !doc()->characterAt(c2).isSpace() ) || startedOnSpace || swallowCarriageReturnAtEndOfLine;
     if (swallowPrecedingSpaces)
     {
       if (c1.column() != 0)
@@ -3086,7 +3086,7 @@ KateViRange KateViNormalMode::textObjectAWORD()
     Cursor c1 = c;
 
     bool startedOnSpace = false;
-    if (doc()->character(c).isSpace())
+    if (doc()->characterAt(c).isSpace())
     {
       startedOnSpace = true;
     }
@@ -3128,7 +3128,7 @@ KateViRange KateViNormalMode::textObjectAWORD()
       c2 = Cursor(c2.line() + 1, 0);
       swallowCarriageReturnAtEndOfLine = true;
     }
-    const bool swallowPrecedingSpaces = (c2.column() == doc()->lineLength(c2.line()) - 1 && !doc()->character(c2).isSpace() ) || startedOnSpace || swallowCarriageReturnAtEndOfLine;
+    const bool swallowPrecedingSpaces = (c2.column() == doc()->lineLength(c2.line()) - 1 && !doc()->characterAt(c2).isSpace() ) || startedOnSpace || swallowCarriageReturnAtEndOfLine;
     if (swallowPrecedingSpaces)
     {
       if (c1.column() != 0)

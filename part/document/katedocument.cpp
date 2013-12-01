@@ -385,7 +385,7 @@ QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) co
   return s;
 }
 
-QChar KateDocument::character( const KTextEditor::Cursor & position ) const
+QChar KateDocument::characterAt( const KTextEditor::Cursor & position ) const
 {
   Kate::TextLine textLine = m_buffer->plainLine(position.line());
 
@@ -393,6 +393,33 @@ QChar KateDocument::character( const KTextEditor::Cursor & position ) const
     return QChar();
 
   return textLine->at(position.column());
+}
+
+QString KateDocument::wordAt( const KTextEditor::Cursor& cursor ) const
+{
+  return text(wordRangeAt(cursor));
+}
+
+KTextEditor::Range KateDocument::wordRangeAt(const KTextEditor::Cursor& cursor) const
+{
+  // get text line
+  const int line = cursor.line();
+  Kate::TextLine textLine = m_buffer->plainLine(line);
+  if ( !textLine )
+    return KTextEditor::Range::invalid();
+
+  // make sure the cursor is 
+  const int lineLenth = textLine->length();
+  if (cursor.column() > lineLenth)
+    return KTextEditor::Range::invalid();
+
+  int start = cursor.column();
+  int end = start;
+
+  while (start > 0 && highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
+  while (end < lineLenth && highlight()->isInWord(textLine->at(end), textLine->attribute(end))) end++;
+
+  return KTextEditor::Range(line, start, line, end);
 }
 
 QStringList KateDocument::textLines( const KTextEditor::Range & range, bool blockwise ) const
@@ -3540,22 +3567,6 @@ void KateDocument::joinLines( uint first, uint last )
     first++;
   }
   editEnd();
-}
-
-QString KateDocument::getWord( const KTextEditor::Cursor& cursor )
-{
-  int start, end, len;
-
-  Kate::TextLine textLine = m_buffer->plainLine(cursor.line());
-  len = textLine->length();
-  start = end = cursor.column();
-  if (start > len)        // Probably because of non-wrapping cursor mode.
-    return QString();
-
-  while (start > 0 && highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
-  while (end < len && highlight()->isInWord(textLine->at(end), textLine->attribute(end))) end++;
-  len = end - start;
-  return textLine->string().mid(start, len);
 }
 
 void KateDocument::tagLines(int start, int end)

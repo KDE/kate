@@ -101,7 +101,7 @@ void DocumentCursor::makeValid()
     m_cursor.setColumn(m_document->lineLength(line));
   }
 // TODO KDE5 if QChar::isLowSurrogate() -> move one to the left.
-//   } else if (m_document->character(m_cursor).isLowSurrogate()) {
+//   } else if (m_document->characterAt(m_cursor).isLowSurrogate()) {
 //     Q_ASSERT(col > 0);
 //     m_cursor.setColumn(col - 1);
 //   }

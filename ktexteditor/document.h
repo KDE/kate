@@ -349,16 +349,13 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     virtual QString text ( const Range& range, bool block = false ) const = 0;
 
     /**
-     * Get the character at \p cursor.
+     * Get the character at text position \p cursor.
      * \param position the location of the character to retrieve
      * \return the requested character, or QChar() for invalid cursors.
      * \see setText()
-     * \todo KDE5: rename to characterAt() for consistency with wordAt() and wordRangeAt()
      */
-    virtual QChar character( const Cursor& position ) const = 0;
+    virtual QChar characterAt( const Cursor& position ) const = 0;
 
-    // TODO: KDE5, add wordAt(), implementation already exists in KateDocument::getWord().
-    //       In the implementation, reuse wordRangeAt() to avoid code duplication.
     /*
      * Get the word at the text position \p cursor.
      * The returned word is defined by the word boundaries to the left and
@@ -374,9 +371,8 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      *
      * \see wordRangeAt(), characterAt()
      */
-    //QString wordAt(const KTextEditor::Cursor& cursor) const = 0;
+    virtual QString wordAt(const KTextEditor::Cursor& cursor) const = 0;
 
-    // TODO: KDE5, add wordRangeAt(), implementation for the range already exists in KateDocument::getWord()
     /*
      * Get the text range for the word located under the text position \p cursor.
      * The returned word is defined by the word boundaries to the left and
@@ -393,7 +389,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      *
      * \see wordAt(), characterAt(), KTextEditor::Range::isValid()
      */
-    //KTextEditor::Range wordRangeAt(const KTextEditor::Cursor& cursor) const = 0;
+    virtual KTextEditor::Range wordRangeAt(const KTextEditor::Cursor& cursor) const = 0;
 
     // TODO: KDE5 add this function (Sven Brauch, Dominik Haumann, Milian Wolff)
     //       and use this in Kate Part's text selection to disallow seleting

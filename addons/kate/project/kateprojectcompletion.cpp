@@ -191,7 +191,7 @@ KTextEditor::Range KateProjectCompletion::completionRange(KTextEditor::View* vie
   KTextEditor::Document *doc = view->document();
   while ( col > 0 )
   {
-    QChar c = ( doc->character( KTextEditor::Cursor( line, col-1 ) ) );
+    QChar c = ( doc->characterAt( KTextEditor::Cursor( line, col-1 ) ) );
     if ( c.isLetterOrNumber() || c.isMark() || c == '_' )
     {
       col--;

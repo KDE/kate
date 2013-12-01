@@ -1070,7 +1070,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       QString textToInsert;
       if (keyEvent->modifiers() == Qt::ControlModifier && keyEvent->key() == Qt::Key_W)
       {
-        textToInsert = m_view->doc()->getWord(m_view->cursorPosition());
+        textToInsert = m_view->doc()->wordAt(m_view->cursorPosition());
       }
       else
       {

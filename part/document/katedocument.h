@@ -192,7 +192,9 @@ Q_SIGNALS:
     virtual QStringList textLines ( const KTextEditor::Range& range, bool block = false ) const;
     virtual QString text() const;
     virtual QString line(int line) const;
-    virtual QChar character(const KTextEditor::Cursor& position) const;
+    virtual QChar characterAt(const KTextEditor::Cursor& position) const;
+    virtual QString wordAt(const KTextEditor::Cursor& cursor) const;
+    virtual KTextEditor::Range wordRangeAt(const KTextEditor::Cursor& cursor) const;
     virtual int lines() const;
     virtual KTextEditor::Cursor documentEnd() const;
     virtual int totalCharacters() const;
@@ -817,10 +819,6 @@ Q_SIGNALS:
      * @see removeStartStopCommentFromSelection.
      */
     bool removeStartLineCommentFromSelection( KateView *view, int attrib=0 );
-
-  public:
-    // KDE5: rename to wordAt(), add wordRangeAt(), see ktexteditor/document.h
-    QString getWord( const KTextEditor::Cursor& cursor );
 
   public:
     void newBracketMark( const KTextEditor::Cursor& start, KTextEditor::Range& bm, int maxLines = -1 );

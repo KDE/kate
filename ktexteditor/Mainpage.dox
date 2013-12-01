@@ -444,9 +444,15 @@ The following interfaces were merged, in order:
  - \p CoordinatesToCursorInterface was merged into the KTextEditor::View.
 
 \section kte_port_rename Interface Changes
-The following interfaces were renamed:
+The following interfaces were changed:
  - \p KTextEditor::View::setSelection(const Cursor &position, int length, bool wrap);
    was removed in favour of the Range based KTextEditor::View::setSelection()
+ - \p KTextEditor::Document::wordRangeAt(const Cursor &position);
+   returns the Range of the word under \p position.
+ - \p KTextEditor::Document::wordAt(const Cursor &position);
+   returns the word under \p position.
+ - \p KTextEditor::Document::character(const Cursor &position); was renamed to
+   \p KTextEditor::Document::characterAt(const Cursor &position);
 
 \section kte_port_new New Interfaces
 The following interfaces are new:

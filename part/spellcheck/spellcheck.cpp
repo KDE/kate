@@ -262,7 +262,7 @@ void KateSpellCheckManager::trimRange(KateDocument *doc, KTextEditor::Range &r)
   KTextEditor::Cursor cursor = r.start();
   while(cursor < r.end()) {
     if(doc->lineLength(cursor.line()) > 0
-       && !doc->character(cursor).isSpace() && doc->character(cursor).category() != QChar::Other_Control) {
+       && !doc->characterAt(cursor).isSpace() && doc->characterAt(cursor).category() != QChar::Other_Control) {
         break;
     }
     cursor.setColumn(cursor.column() + 1);
@@ -287,7 +287,7 @@ void KateSpellCheckManager::trimRange(KateDocument *doc, KTextEditor::Range &r)
       cursor.setColumn(cursor.column() - 1);
     }
     if(cursor.column() < doc->lineLength(cursor.line())
-       && !doc->character(cursor).isSpace() && doc->character(cursor).category() != QChar::Other_Control) {
+       && !doc->characterAt(cursor).isSpace() && doc->characterAt(cursor).category() != QChar::Other_Control) {
         break;
     }
   }

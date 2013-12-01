@@ -155,7 +155,7 @@ const Range KateViModeBase::getWordRangeUnderCursor() const
   Cursor c( m_view->cursorPosition() );
 
   // find first character that is a “word letter” and start the search there
-  QChar ch = doc()->character( c );
+  QChar ch = doc()->characterAt( c );
   int i = 0;
   while ( !ch.isLetterOrNumber() && ! ch.isMark() && ch != '_'
       && m_extraWordCharacters.indexOf( ch) == -1 ) {
@@ -171,7 +171,7 @@ const Range KateViModeBase::getWordRangeUnderCursor() const
       }
     }
 
-    ch = doc()->character( c );
+    ch = doc()->characterAt( c );
     i++; // count characters that were advanced so we know where to start the search
   }
 

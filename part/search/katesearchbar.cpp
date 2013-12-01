@@ -1449,7 +1449,7 @@ void KateSearchBar::enterIncrementalMode() {
     // Still no search pattern? Use the word under the cursor
     if (initialPattern.isNull()) {
         const KTextEditor::Cursor cursorPosition = m_view->cursorPosition();
-        initialPattern = m_view->doc()->getWord( cursorPosition );
+        initialPattern = m_view->doc()->wordAt( cursorPosition );
     }
 
     // Create dialog

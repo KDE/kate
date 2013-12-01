@@ -596,11 +596,11 @@ void KateViInsertMode::replayCompletion()
   // Find beginning of the word.
   Cursor cursorPos = m_view->cursorPosition();
   Cursor wordStart = Cursor::invalid();
-  if (!doc()->character(cursorPos).isLetterOrNumber() && doc()->character(cursorPos) != '_')
+  if (!doc()->characterAt(cursorPos).isLetterOrNumber() && doc()->characterAt(cursorPos) != '_')
   {
     cursorPos.setColumn(cursorPos.column() - 1);
   }
-  while (cursorPos.column() >= 0 && (doc()->character(cursorPos).isLetterOrNumber() || doc()->character(cursorPos) == '_'))
+  while (cursorPos.column() >= 0 && (doc()->characterAt(cursorPos).isLetterOrNumber() || doc()->characterAt(cursorPos) == '_'))
   {
     wordStart = cursorPos;
     cursorPos.setColumn(cursorPos.column() - 1);
@@ -608,7 +608,7 @@ void KateViInsertMode::replayCompletion()
   // Find end of current word.
   cursorPos = m_view->cursorPosition();
   Cursor wordEnd = Cursor(cursorPos.line(), cursorPos.column() - 1);
-  while (cursorPos.column() < doc()->lineLength(cursorPos.line()) && (doc()->character(cursorPos).isLetterOrNumber() || doc()->character(cursorPos) == '_'))
+  while (cursorPos.column() < doc()->lineLength(cursorPos.line()) && (doc()->characterAt(cursorPos).isLetterOrNumber() || doc()->characterAt(cursorPos) == '_'))
   {
     wordEnd = cursorPos;
     cursorPos.setColumn(cursorPos.column() + 1);

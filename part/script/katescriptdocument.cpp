@@ -249,7 +249,7 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
 
   // Move backwards char by char and find the opening character
   while (cursor->move(-1)) {
-    QChar ch = document()->character(cursor->toCursor());
+    QChar ch = document()->characterAt(cursor->toCursor());
     if (ch == lc) {
       KTextEditor::Attribute::Ptr a = attributes[document()->plainKateTextLine(cursor->line())->attribute(cursor->column())];
       const int ds = a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
@@ -372,12 +372,12 @@ QString KateScriptDocument::line(int line)
 
 QString KateScriptDocument::wordAt(int line, int column)
 {
-  return m_document->getWord(KTextEditor::Cursor(line, column));
+  return m_document->wordAt(KTextEditor::Cursor(line, column));
 }
 
 QString KateScriptDocument::wordAt(const KTextEditor::Cursor& cursor)
 {
-  return m_document->getWord(cursor);
+  return m_document->wordAt(cursor);
 }
 
 KTextEditor::Range KateScriptDocument::wordRangeAt(int line, int column)
@@ -410,7 +410,7 @@ QString KateScriptDocument::charAt(int line, int column)
 
 QString KateScriptDocument::charAt(const KTextEditor::Cursor& cursor)
 {
-  const QChar c = m_document->character(cursor);
+  const QChar c = m_document->characterAt(cursor);
   return c.isNull() ? "" : QString(c);
 }
 
@@ -439,7 +439,7 @@ bool KateScriptDocument::isSpace(int line, int column)
 
 bool KateScriptDocument::isSpace(const KTextEditor::Cursor& cursor)
 {
-  return m_document->character(cursor).isSpace();
+  return m_document->characterAt(cursor).isSpace();
 }
 
 bool KateScriptDocument::matchesAt(int line, int column, const QString &s)

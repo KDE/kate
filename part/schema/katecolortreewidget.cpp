@@ -37,6 +37,7 @@
 #include <QDebug>
 #include <QEvent>
 #include <QKeyEvent>
+#include <qdrawutil.h>
 
 //BEGIN KateColorTreeItem
 class KateColorTreeItem : public QTreeWidgetItem
@@ -204,7 +205,7 @@ class KateColorTreeDelegate : public QStyledItemDelegate
         opt.rect.adjust(1, 1, -1, -1);
         painter->fillRect(opt.rect, color);
 
-        //FIXME KF5 qDrawShadePanel(painter, opt.rect, opt.palette, true, 1, NULL);
+        qDrawShadePanel(painter, opt.rect, opt.palette, true, 1, NULL);
       }
       //END: draw color button
 

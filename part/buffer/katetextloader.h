@@ -72,7 +72,7 @@ class TextLoader
         m_mimeType = KMimeType::findByPath (filename, 0, false)->name ();
 
       // construct filter device
-      m_file = KFilterDev::deviceForFile (filename, m_mimeType, false);
+      m_file = new QFile (filename); //FIXME KF5 KFilterDev::deviceForFile (filename, m_mimeType, false);
     }
 
     /**

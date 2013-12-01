@@ -142,7 +142,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   // queued connect to collapse view updates for range changes, INIT THIS EARLY ENOUGH!
   connect(this, SIGNAL(delayedUpdateOfView()), this, SLOT(slotDelayedUpdateOfView()), Qt::QueuedConnection);
 
-//FIXME KF5  setComponentData ( KateGlobal::self()->componentData () );
+  KXMLGUIClient::setComponentName (KateGlobal::self()->aboutData ()->componentName(), KateGlobal::self()->aboutData ()->displayName());
 
   // selection if for this view only and will invalidate if becoming empty
   m_selection.setView (this);

@@ -5359,7 +5359,7 @@ KTextEditor::Attribute::Ptr KateDocument::defaultStyle(const KTextEditor::Highli
   KTextEditor::Attribute::Ptr style = highlight()->attributes(view->renderer()->config()->schema()).at(ds);
   if (!style->hasProperty(QTextFormat::BackgroundBrush)) {
     // make sure the returned style has the default background color set
-    style.attach(new KTextEditor::Attribute(*style));
+    style = new KTextEditor::Attribute(*style);
     style->setBackground( QBrush(view->renderer()->config()->backgroundColor()) );
   }
   return style;

@@ -176,7 +176,7 @@ class KATEPART_TESTS_EXPORT TextRange : public KTextEditor::MovingRange {
 	 * \return whether a nonzero attribute is set. This is faster than checking attribute(),
 	 *             because the reference-counting is omitted.
 	 */
-    bool hasAttribute() const { return !m_attribute.isNull(); }
+    bool hasAttribute() const { return m_attribute.constData(); }
 
     /**
      * Sets the currently active attribute for this range.

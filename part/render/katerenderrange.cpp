@@ -123,7 +123,7 @@ bool NormalRenderRange::advanceTo(const KTextEditor::Cursor& pos)
       if (r->contains(pos)) {
         m_currentAttribute = p.second;
       } else {
-        m_currentAttribute.clear();
+        m_currentAttribute.reset();
       }
 
       return ret;
@@ -131,7 +131,7 @@ bool NormalRenderRange::advanceTo(const KTextEditor::Cursor& pos)
   }
 
   m_nextBoundary = KTextEditor::Cursor(INT_MAX, INT_MAX);
-  m_currentAttribute.clear();
+  m_currentAttribute.reset();
   return false;
 }
 

@@ -35,7 +35,7 @@ typedef QList<KTextEditor::Attribute::Ptr> KateAttributeList;
 class KateExtendedAttribute : public KTextEditor::Attribute
 {
   public:
-    typedef KSharedPtr<KateExtendedAttribute> Ptr;
+    typedef QExplicitlySharedDataPointer<KateExtendedAttribute> Ptr;
 
     explicit KateExtendedAttribute(const QString& name, int defaultStyleIndex = -1);
 

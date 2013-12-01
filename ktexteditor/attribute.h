@@ -22,7 +22,9 @@
 
 #include <QTextFormat>
 
-#include <ksharedptr.h>
+#include <QSharedData>
+#include <QExplicitlySharedDataPointer>
+
 #include <ktexteditor/ktexteditor_export.h>
 
 class KAction;
@@ -55,10 +57,10 @@ namespace KTextEditor
  *
  * \author Hamish Rodda \<rodda@kde.org\>
  */
-class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat, public KShared
+class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat, public QSharedData
 {
   public:
-    typedef KSharedPtr<Attribute> Ptr;
+    typedef QExplicitlySharedDataPointer<Attribute> Ptr;
 
     /**
      * Default constructor.  The resulting Attribute has no properties set to begin with.

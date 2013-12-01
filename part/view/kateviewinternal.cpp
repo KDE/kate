@@ -3717,7 +3717,7 @@ KateViInputModeManager* KateViewInternal::resetViInputModeManager()
 void KateViewInternal::flashChar(const KTextEditor::Cursor & pos, KTextEditor::Attribute::Ptr attribute)
 {
   Q_ASSERT(pos.isValid());
-  Q_ASSERT(!attribute.isNull());
+  Q_ASSERT(attribute.constData());
 
   // if line is folded away, do nothing
   if (!m_view->textFolding().isLineVisible (pos.line())) {

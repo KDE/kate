@@ -57,6 +57,7 @@
 #include <QtGui/QKeyEvent>
 #include <QtWidgets/QLayout>
 #include <QToolTip>
+#include <QAccessible>
 
 static const bool debugPainting = false;
 
@@ -213,9 +214,7 @@ KateViewInternal::KateViewInternal(KateView *view)
 
 #if 0 //FIXME KF5
 #ifndef QT_NO_ACCESSIBILITY
-#if QT_VERSION >= 0x040800
   QAccessible::installFactory(accessibleInterfaceFactory);
-#endif
 #endif
 #endif
   
@@ -233,9 +232,7 @@ KateViewInternal::~KateViewInternal ()
 #if 0 //FIXME KF5
 
 #ifndef QT_NO_ACCESSIBILITY
-#if QT_VERSION >= 0x040800
   QAccessible::removeFactory(accessibleInterfaceFactory);
-#endif
 #endif
 #endif
   
@@ -683,9 +680,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 #if 0 //FIXME KF5
 
 #ifndef QT_NO_ACCESSIBILITY
-#if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility( this, KateCursorAccessible::ChildId, QAccessible::Focus );
-#endif
 #endif
 
 #endif
@@ -1832,9 +1827,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
 #if 0 //FIXME KF5
 
 #ifndef QT_NO_ACCESSIBILITY
-#if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility(this, 0, QAccessible::TextSelectionChanged);
-#endif
 #endif
 #endif
 }
@@ -3503,18 +3496,9 @@ void KateViewInternal::cursorMoved( )
 {
   m_view->updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
   
-  
-#if 0 //FIXME KF5
-
-  
 #ifndef QT_NO_ACCESSIBILITY
-#if QT_VERSION >= 0x040800
   QAccessible::updateAccessibility(this, 0, QAccessible::TextCaretMoved);
 #endif
-#endif
-  
-#endif
-  
 }
 
 bool KateViewInternal::rangeAffectsView(const KTextEditor::Range& range, bool realCursors) const

@@ -22,26 +22,24 @@
 #define _KATE_VIEW_ACCESSIBLE_
 
 #if 0 // FIXME KF5
-
 #ifndef QT_NO_ACCESSIBILITY
-#if QT_VERSION >= 0x040800
 
 #include "kateviewinternal.h"
 #include "katetextcursor.h"
 #include "katedocument.h"
 
-#include <QtWidgets/QAccessible>
-#include <QtWidgets/qaccessible2.h>
+#include <QAccessible>
 #include <klocale.h>
+#include <klocalizedstring.h>
 #include <qaccessiblewidget.h>
 
 
 
-QString Q_GUI_EXPORT qTextBeforeOffsetFromString(int offset, QAccessible2::BoundaryType boundaryType,
+QString Q_GUI_EXPORT qTextBeforeOffsetFromString(int offset, QAccessible::TextBoundaryType boundaryType,
         int *startOffset, int *endOffset, const QString& text);
-QString Q_GUI_EXPORT qTextAtOffsetFromString(int offset, QAccessible2::BoundaryType boundaryType,
+QString Q_GUI_EXPORT qTextAtOffsetFromString(int offset, QAccessible::TextBoundaryType boundaryType,
         int *startOffset, int *endOffset, const QString& text);
-QString Q_GUI_EXPORT qTextAfterOffsetFromString(int offset, QAccessible2::BoundaryType boundaryType,
+QString Q_GUI_EXPORT qTextAfterOffsetFromString(int offset, QAccessible::TextBoundaryType boundaryType,
         int *startOffset, int *endOffset, const QString& text);
 
 
@@ -117,7 +115,7 @@ class KateCursorAccessible : public QAccessibleInterface
             return 5;
         }
 
-        virtual int childAt(int, int) const
+        virtual QAccessibleInterface *childAt(int, int) const
         {
             return 0;
         }
@@ -151,7 +149,7 @@ class KateCursorAccessible : public QAccessibleInterface
             return m_view;
         }
 
-        virtual QRect rect(int) const
+        virtual QRect rect() const
         {
             // return the exact position of the cursor with no width and height defined,
             QPoint p = m_view->view()->cursorPositionCoordinates();
@@ -163,25 +161,27 @@ class KateCursorAccessible : public QAccessibleInterface
             Q_UNUSED(child);
             Q_UNUSED(other);
             Q_UNUSED(otherChild);
-            return QAccessible::Unrelated;
+            return QAccessible::AllRelations; // FIXME KF5: was ::Unrelated
         }
 
-        virtual QAccessible::Role role(int) const
+        virtual QAccessible::Role role() const Q_DECL_OVERRIDE
         {
             return QAccessible::Cursor;
         }
 
-        virtual void setText(QAccessible::Text, int, const QString &)
+        virtual void setText(QAccessible::Text, const QString &)
         {
         }
 
-        virtual QAccessible::State state(int) const
+        virtual QAccessible::State state() const
         {
-            QAccessible::State s = QAccessible::Focusable | QAccessible::Focused;
+            QAccessible::State s;
+            s.focusable = 1;
+            s.focused = 1;
             return s;
         }
 
-        virtual QString text(QAccessible::Text, int) const
+        virtual QString text(QAccessible::Text) const
         {
             return QString();
         }
@@ -196,13 +196,13 @@ class KateCursorAccessible : public QAccessibleInterface
  * This is the root class for the kateview. The \a KateCursorAccessible class
  * represents the cursor in the kateview and is a child of this class.
  */
-class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInterface, public QAccessibleSimpleEditableTextInterface
+class KateViewAccessible : public QAccessibleWidget, public QAccessibleTextInterface, public QAccessibleEditableTextInterface
 {
-        Q_ACCESSIBLE_OBJECT
+    Q_ACCESSIBLE_OBJECT
 
     public:
         explicit KateViewAccessible(KateViewInternal *view)
-            : QAccessibleWidgetEx(view), QAccessibleSimpleEditableTextInterface(this)
+            : QAccessibleWidgetEx(view), QAccessibleEditableTextInterface(this)
             , m_cursor(new KateCursorAccessible(view))
         {
         }
@@ -232,7 +232,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             return 0;
         }
 
-        virtual int childAt(int x, int y) const
+        virtual QAccessibleInterface *childAt(int x, int y) const
         {
             Q_UNUSED(x);
             Q_UNUSED(y);
@@ -274,7 +274,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             return QAccessible::Unrelated;
         }
 
-        virtual QAccessible::Role role(int child) const
+        virtual QAccessible::Role role() const
         {
             if (child == KateCursorAccessible::ChildId)
                 return QAccessible::Cursor;
@@ -336,7 +336,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             *endOffset = characterCount();
             return QString();
         }
-        virtual QRect characterRect(int offset, QAccessible2::CoordinateType /*coordType*/)
+        virtual QRect characterRect(int offset)
         {
             KTextEditor::Cursor c = cursorFromInt(offset);
             if (!c.isValid())
@@ -351,7 +351,7 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             KTextEditor::Cursor c = view()->getCursor();
             return positionFromCursor(c);
         }
-        virtual int offsetAtPoint(const QPoint& /*point*/, QAccessible2::CoordinateType /*coordType*/)
+        virtual int offsetAtPoint(const QPoint& /*point*/)
         {
             return 0;
         }
@@ -399,33 +399,30 @@ class KateViewAccessible : public QAccessibleWidgetEx, public QAccessibleTextInt
             return view()->view()->document()->text().mid(startOffset, endOffset - startOffset);
         }
 
-        virtual QString textAfterOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
+        virtual QString textAfterOffset(int offset, QAccessible::TextBoundaryType boundaryType, int* startOffset, int* endOffset)
         {
-            if (boundaryType == QAccessible2::LineBoundary)
+            if (boundaryType == QAccessible::LineBoundary)
                 return textLine(1, offset + 1, startOffset, endOffset);
 
             const QString text = view()->view()->document()->text();
             return qTextAfterOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
         }
-        virtual QString textAtOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
+        virtual QString textAtOffset(int offset, QAccessible::TextBoundaryType boundaryType, int* startOffset, int* endOffset)
         {
-            if (boundaryType == QAccessible2::LineBoundary)
+            if (boundaryType == QAccessible::LineBoundary)
                 return textLine(0, offset, startOffset, endOffset);
 
             const QString text = view()->view()->document()->text();
             return qTextAtOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
         }
-        virtual QString textBeforeOffset(int offset, QAccessible2::BoundaryType boundaryType, int* startOffset, int* endOffset)
+        virtual QString textBeforeOffset(int offset, QAccessible::TextBoundaryType boundaryType, int* startOffset, int* endOffset)
         {
-            if (boundaryType == QAccessible2::LineBoundary)
+            if (boundaryType == QAccessible::LineBoundary)
                 return textLine(-1, offset - 1, startOffset, endOffset);
 
             const QString text = view()->view()->document()->text();
             return qTextBeforeOffsetFromString(offset, boundaryType, startOffset, endOffset, text);
         }
-
-        virtual QVariant invokeMethodEx(Method, int, const QVariantList&)
-        { return QVariant(); }
 
     private:
         KateViewInternal *view() const
@@ -492,6 +489,4 @@ QAccessibleInterface* accessibleInterfaceFactory(const QString &key, QObject *ob
 #endif
 #endif
 
-#endif
-
-#endif
+#endif // FIXME KF5

@@ -130,12 +130,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      */
     virtual QWidget *widget();
 
-Q_SIGNALS:
-// TODO for KDE5: move to KTE::Document
-  void readWriteChanged (KTextEditor::Document *document);
-
-    
-    
   public:
     bool readOnly () const { return m_bReadOnly; }
     bool browserView () const { return m_bBrowserView; }

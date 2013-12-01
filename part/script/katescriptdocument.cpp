@@ -387,20 +387,7 @@ KTextEditor::Range KateScriptDocument::wordRangeAt(int line, int column)
 
 KTextEditor::Range KateScriptDocument::wordRangeAt(const KTextEditor::Cursor& cursor)
 {
-  Kate::TextLine textLine = m_document->plainKateTextLine(cursor.line());
-
-  const int len = textLine->length();
-  int start = cursor.column();
-  int end = start;
-
-  // Probably because of non-wrapping cursor mode
-  if (start > len)
-    return KTextEditor::Range::invalid();
-
-  while (start > 0 && m_document->highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
-  while (end < len && m_document->highlight()->isInWord(textLine->at(end), textLine->attribute(end))) end++;
-
-  return KTextEditor::Range(cursor.line(), start, cursor.line(), end);
+  return m_document->wordRangeAt(cursor);
 }
 
 QString KateScriptDocument::charAt(int line, int column)

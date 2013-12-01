@@ -2128,22 +2128,7 @@ void KateView::tagSelection(const KTextEditor::Range &oldSelection)
 
 void KateView::selectWord( const KTextEditor::Cursor& cursor )
 {
-  // TODO: KDE5: reuse KateDocument::getWord() or rather KTextEditor::Document::wordRangeAt()
-  //       avoid code duplication of selectWord() here, and KateDocument::getWord()
-  int start, end, len;
-
-  Kate::TextLine textLine = m_doc->plainKateTextLine(cursor.line());
-
-  if (!textLine)
-    return;
-
-  len = textLine->length();
-  start = end = cursor.column();
-  while (start > 0 && m_doc->highlight()->isInWord(textLine->at(start - 1), textLine->attribute(start - 1))) start--;
-  while (end < len && m_doc->highlight()->isInWord(textLine->at(end), textLine->attribute(start - 1))) end++;
-  if (end <= start) return;
-
-  setSelection (KTextEditor::Range(cursor.line(), start, cursor.line(), end));
+  setSelection(m_doc->wordRangeAt(cursor));
 }
 
 void KateView::selectLine( const KTextEditor::Cursor& cursor )

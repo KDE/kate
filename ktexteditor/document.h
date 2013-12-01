@@ -46,6 +46,7 @@ class View;
  *  - \ref doc_intro
  *  - \ref doc_manipulation
  *  - \ref doc_views
+ *  - \ref doc_readwrite
  *  - \ref doc_extensions
  *
  * \section doc_intro Introduction
@@ -89,6 +90,14 @@ class View;
  * with views(). Only one of the views can be active (i.e. has focus), get
  * it by using activeView(). Create a new view with createView(). Every time
  * a new view is created the signal viewCreated() is emitted.
+ *
+ * \section doc_readwrite Read-Only Mode
+ *
+ * A Document may be in read-only mode, for instance due to missing file
+ * permissions. The read-only mode can be checked with isReadWrite(). Further,
+ * the signal readWriteChanged() is emitted whenever the state changes either
+ * to read-only mode or to read/write mode. The read-only mode can be controlled
+ * with setReadWrite().
  *
  * \section doc_extensions Document Extension Interfaces
  *
@@ -223,7 +232,7 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
      * This signal is emitted whenever the readWrite state of a document
      * changes.
      * \param document the document whose read/write property changed
-     * \see KParts::setReadWrite()
+     * \see KParts::ReadWritePart::setReadWrite()
      */
     void readWriteChanged ( KTextEditor::Document *document );
 

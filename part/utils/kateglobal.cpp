@@ -307,10 +307,10 @@ void KateGlobal::configDialog(QWidget *parent)
 {
   QPointer<KPageDialog> kd = new KPageDialog(parent);
 
-#if 0 //FIXME KF5
-  kd->setCaption( i18n("Configure") );
-  kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Help );
+  kd->setWindowTitle( i18n("Configure") );
   kd->setFaceType( KPageDialog::List );
+#if 0 //FIXME KF5
+  kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Help );
   kd->setHelp( QString(), KGlobal::mainComponent().componentName() );
 #endif
   

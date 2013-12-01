@@ -758,6 +758,9 @@ void ViModeTest::VisualModeTests() {
       QCOMPARE(range.start().column(), 1);
       QCOMPARE(range.end().column(), 3);
     }
+
+    // BUG #328277 - make sure kate doesn't crash
+    DoTest("aaa\nbbb", "Vj>u>.", "    aaa\n    bbb", ShouldFail, "Crash is fixed, but correct repeat behaviour in this scenario is yet to be implemented");
 }
 
 void ViModeTest::ReplaceModeTests()

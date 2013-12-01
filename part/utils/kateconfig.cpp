@@ -1265,7 +1265,7 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setScrollBarMiniMapWidth (config.readEntry( KEY_SCROLL_BAR_MINI_MAP_WIDTH,  60));
 
-  setShowScrollbars (config.readEntry( KEY_SHOW_SCROLLBARS,  1));
+  setShowScrollbars (config.readEntry( KEY_SHOW_SCROLLBARS, static_cast<int>(AlwaysOn)));
 
   setIconBar (config.readEntry( KEY_ICON_BAR, false ));
 
@@ -1566,7 +1566,7 @@ int KateViewConfig::showScrollbars() const
 
 void KateViewConfig::setShowScrollbars(int mode)
 {
-  if (m_dynWordWrapIndicatorsSet && m_showScrollbars == mode)
+  if (m_showScrollbarsSet && m_showScrollbars == mode)
     return;
 
   configStart ();

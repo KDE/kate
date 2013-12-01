@@ -119,8 +119,6 @@ void KateSpellCheckDialog::spellcheck( const KTextEditor::Cursor &from, const KT
     m_backgroundChecker = new Sonnet::BackgroundChecker(*m_speller);
   }
 
-  //FIXME KF5 m_backgroundChecker->restore();
-  
   if ( !m_sonnetDialog )
   {
     m_sonnetDialog = new Sonnet::Dialog(m_backgroundChecker, m_view);

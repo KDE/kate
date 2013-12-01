@@ -413,8 +413,6 @@ void KateOnTheFlyChecker::performSpellCheck()
             this,
             SLOT(misspelling(QString,int)));
     connect(m_backgroundChecker, SIGNAL(done()), this, SLOT(spellCheckDone()));
-
-    // FIXME KF5 m_backgroundChecker->restore();
   }
   m_backgroundChecker->setSpeller(m_speller);
   m_backgroundChecker->setText(text); // don't call 'start()' after this!
@@ -673,10 +671,6 @@ void KateOnTheFlyChecker::updateConfig()
 {
   ON_THE_FLY_DEBUG;
   m_speller.restore();
-
-  if(m_backgroundChecker) {
-    // FIXME KF5 m_backgroundChecker->restore();
-  }
 }
 
 void KateOnTheFlyChecker::refreshSpellCheck(const KTextEditor::Range &range)

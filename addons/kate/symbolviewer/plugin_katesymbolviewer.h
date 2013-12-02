@@ -134,7 +134,6 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
     void parsePhpSymbols(void);
     void parseBashSymbols(void);
     void parseEcmaSymbols(void);
-    void parseClojureSymbols(void);
 
 };
 

@@ -25,9 +25,11 @@
 
 #include "snippetrepository.h"
 
+#include <ktexteditor/editor.h>
+#include <ktexteditor/document.h>
+
 #include <KLocalizedString>
 
-#include <KTextEditor/EditorChooser>
 #include <KPushButton>
 
 #include <KUser>
@@ -47,7 +49,7 @@ EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
     connect(repoNameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
 
     // fill list of available modes
-    KTextEditor::Document *document = KTextEditor::EditorChooser::editor()->createDocument(0);
+    KTextEditor::Document *document = KTextEditor::editor()->createDocument(0);
     repoFileTypesList->addItems(document->highlightingModes());
     repoFileTypesList->sortItems();
     repoFileTypesList->setSelectionMode(QAbstractItemView::ExtendedSelection);

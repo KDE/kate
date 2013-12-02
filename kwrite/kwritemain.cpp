@@ -26,7 +26,6 @@
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/editor.h>
-#include <ktexteditor/editorchooser.h>
 
 #include <kio/netaccess.h>
 
@@ -487,7 +486,7 @@ void KWrite::restore()
   if (!config)
     return;
 
-  KTextEditor::Editor *editor = KTextEditor::EditorChooser::editor();
+  KTextEditor::Editor *editor = KTextEditor::editor();
 
   if ( !editor )
   {

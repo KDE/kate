@@ -293,16 +293,16 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
     class EditorPrivate* const d;
 };
 
-
 /**
- * Helper function for the EditorChooser.
- * Usually you do not have to use this function. Instead, use
- * KTextEditor::EditorChooser::editor().
- * \param libname library name, for example "katepart"
- * \return the Editor object on success, otherwise NULL
- * \see KTextEditor::EditorChooser::editor()
+ * Accessor to get the Editor instance of the currently used
+ * KTextEditor component (per default this will be KatePart).
+ *
+ * That Editor instance can be qobject-cast to specific extensions.
+ * If the result of the cast is not NULL, that extension is supported:
+ *
+ * \return Editor controller or NULL, if no editor component could be found
  */
-KTEXTEDITOR_EXPORT Editor *editor ( const char *libname );
+KTEXTEDITOR_EXPORT Editor *editor ();
 
 }
 

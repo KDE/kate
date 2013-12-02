@@ -19,7 +19,6 @@ Boston, MA 02110-1301, USA.
 #include "kwriteapp.h"
 
 #include <ktexteditor/editor.h>
-#include <ktexteditor/editorchooser.h>
 #include <kcmdlineargs.h>
 #include <kmessagebox.h>
 
@@ -32,7 +31,7 @@ KWriteApp::KWriteApp(int & argc, char ** argv)
   : QApplication (argc, argv)
   , m_args(m_args)
 {
-  m_editor = KTextEditor::EditorChooser::editor();
+  m_editor = KTextEditor::editor();
 
   if ( !m_editor )
   {

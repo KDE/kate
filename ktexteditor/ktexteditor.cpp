@@ -147,9 +147,9 @@ KTextEditorFactorySet::~KTextEditorFactorySet() {
   qDeleteAll(*this);
 }
 
-Editor *KTextEditor::editor(const char *libname)
+Editor *KTextEditor::editor()
 {
-  KPluginFactory *fact=KPluginLoader(libname).factory();
+  KPluginFactory *fact=KPluginLoader("katepart").factory();
 
   KTextEditor::Factory *ef=qobject_cast<KTextEditor::Factory*>(fact);
 

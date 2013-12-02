@@ -13,7 +13,6 @@ set(KTEXTEDITOR_PUBLIC_HEADERS
     searchinterface.h
     markinterface.h
     sessionconfiginterface.h
-    editorchooser.h
     texthintinterface.h
     variableinterface.h
     templateinterface.h
@@ -46,7 +45,6 @@ set(ktexteditor_LIB_SRCS
    documentcursor.cpp
    templateinterface.cpp
    templateinterface2.cpp
-   editorchooser.cpp
    attribute.cpp
    codecompletioninterface.cpp
    codecompletionmodel.cpp
@@ -62,9 +60,6 @@ set(ktexteditor_LIB_SRCS
    # private headers for moc
    documentadaptor_p.h
    )
-
-
-kde4_add_ui_files(ktexteditor_LIB_SRCS editorchooser_ui.ui )
 
 add_library (ktexteditor SHARED ${ktexteditor_LIB_SRCS} ${KTEXTEDITOR_PUBLIC_HEADERS})
 

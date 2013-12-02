@@ -31,7 +31,6 @@ namespace KTextEditor
 {
 class Document;
 class Range;
-class SmartCursor;
 
 /**
  * \short An object which represents a position in a Document.

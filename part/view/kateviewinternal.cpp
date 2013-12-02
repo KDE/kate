@@ -860,32 +860,49 @@ void KateViewInternal::doDeleteNextWord()
   updateDirty();
 }
 
-class CalculatingCursor : public KTextEditor::Cursor {
+class CalculatingCursor {
 public:
   // These constructors constrain their arguments to valid positions
   // before only the third one did, but that leads to crashs
   // see bug 227449
   CalculatingCursor(KateViewInternal* vi)
-    : KTextEditor::Cursor()
-    , m_vi(vi)
+    : m_vi(vi)
   {
     makeValid();
   }
 
   CalculatingCursor(KateViewInternal* vi, const KTextEditor::Cursor& c)
-    : KTextEditor::Cursor(c)
+    : m_cursor (c)
     , m_vi(vi)
   {
     makeValid();
   }
 
   CalculatingCursor(KateViewInternal* vi, int line, int col)
-    : KTextEditor::Cursor(line, col)
+    : m_cursor (line, col)
     , m_vi(vi)
   {
     makeValid();
   }
+  
+  virtual ~CalculatingCursor ()
+  {
+  }
+  
+  int line () const
+  {
+    return m_cursor.line ();
+  }
+  
+  int column () const
+  {
+    return m_cursor.column ();
+  }
 
+  operator KTextEditor::Cursor() const
+  {
+    return m_cursor;
+  }
 
   virtual CalculatingCursor& operator+=( int n ) = 0;
 
@@ -896,17 +913,17 @@ public:
   CalculatingCursor& operator--() { return operator-=( 1 ); }
 
   void makeValid() {
-    setLine(qBound( 0, line(), int( doc()->lines() - 1 ) ) );
+    m_cursor.setLine(qBound( 0, line(), int( doc()->lines() - 1 ) ) );
     if (view()->wrapCursor())
-      m_column = qBound( 0, column(), doc()->lineLength( line() ) );
+      m_cursor.setColumn (qBound( 0, column(), doc()->lineLength( line() ) ));
     else
-      m_column = qMax( 0, column() );
+      m_cursor.setColumn (qMax( 0, column() ));
     Q_ASSERT( valid() );
   }
 
   void toEdge( KateViewInternal::Bias bias ) {
-    if( bias == KateViewInternal::left ) m_column = 0;
-    else if( bias == KateViewInternal::right ) m_column = doc()->lineLength( line() );
+    if( bias == KateViewInternal::left ) m_cursor.setColumn (0);
+    else if( bias == KateViewInternal::right ) m_cursor.setColumn (doc()->lineLength( line() ));
   }
 
   bool atEdge() const { return atEdge( KateViewInternal::left ) || atEdge( KateViewInternal::right ); }
@@ -931,6 +948,7 @@ protected:
   const KateView* view() const { return m_vi->m_view; }
   KateDocument* doc() { return view()->doc(); }
   const KateDocument* doc() const { return view()->doc(); }
+  KTextEditor::Cursor m_cursor;
   KateViewInternal* m_vi;
 };
 
@@ -953,7 +971,7 @@ public:
     int maxColumn = -1;
     if (n >= 0) {
       for (int i = 0; i < n; i++) {
-        if (m_column >= thisLine->length()) {
+        if (column() >= thisLine->length()) {
           if (wrapCursor) {
             break;
 
@@ -962,29 +980,29 @@ public:
             if (maxColumn == -1)
               maxColumn = thisLine->length() + ((m_vi->width() - thisLine->widthOfLastLine()) / m_vi->renderer()->spaceWidth()) - 1;
 
-            if (m_column >= maxColumn) {
-              m_column = maxColumn;
+            if (column() >= maxColumn) {
+              m_cursor.setColumn (maxColumn);
               break;
             }
 
-            ++m_column;
+            m_cursor.setColumn (column()+1);
 
           } else {
-            ++m_column;
+            m_cursor.setColumn (column()+1);
           }
 
         } else {
-          m_column = thisLine->layout()->nextCursorPosition(m_column);
+          m_cursor.setColumn (thisLine->layout()->nextCursorPosition(column()));
         }
       }
     } else {
       for (int i = 0; i > n; i--) {
-        if (m_column >= thisLine->length())
-          --m_column;
-        else if (m_column == 0)
+        if (column() >= thisLine->length())
+          m_cursor.setColumn (column()-1);
+        else if (column() == 0)
           break;
         else
-          m_column = thisLine->layout()->previousCursorPosition(m_column);
+          m_cursor.setColumn (thisLine->layout()->previousCursorPosition(column()));
       }
     }
 
@@ -1014,15 +1032,15 @@ public:
 
     if (n >= 0) {
       for (int i = 0; i < n; i++) {
-        if (m_column >= thisLine->length()) {
+        if (column() >= thisLine->length()) {
           // Have come to the end of a line
           if (line() >= doc()->lines() - 1)
             // Have come to the end of the document
             break;
 
           // Advance to the beginning of the next line
-          m_column = 0;
-          setLine(line() + 1);
+          m_cursor.setColumn (0);
+          m_cursor.setLine(line() + 1);
 
           // Retrieve the next text range
           thisLine = m_vi->cache()->line(line());
@@ -1034,18 +1052,18 @@ public:
           continue;
         }
 
-        m_column = thisLine->layout()->nextCursorPosition(m_column);
+        m_cursor.setColumn (thisLine->layout()->nextCursorPosition(column()));
       }
 
     } else {
       for (int i = 0; i > n; i--) {
-        if (m_column == 0) {
+        if (column() == 0) {
           // Have come to the start of the document
           if (line() == 0)
             break;
 
           // Start going back to the end of the last line
-          setLine(line() - 1);
+          m_cursor.setLine(line() - 1);
 
           // Retrieve the next text range
           thisLine = m_vi->cache()->line(line());
@@ -1055,15 +1073,15 @@ public:
           }
 
           // Finish going back to the end of the last line
-          m_column = thisLine->length();
+          m_cursor.setColumn (thisLine->length());
 
           continue;
         }
 
-        if (m_column > thisLine->length())
-          --m_column;
+        if (column() > thisLine->length())
+          m_cursor.setColumn (column()-1);
         else
-          m_column = thisLine->layout()->previousCursorPosition(m_column);
+          m_cursor.setColumn (thisLine->layout()->previousCursorPosition(column()));
       }
     }
 

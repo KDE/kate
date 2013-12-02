@@ -72,8 +72,8 @@ Factory::~Factory()
 class KTextEditor::EditorPrivate {
   public:
     EditorPrivate()
-      : simpleMode (false) { }
-    bool simpleMode;
+    {
+    }
     QString defaultEncoding;
 };
 
@@ -86,16 +86,6 @@ Editor::Editor( QObject *parent )
 Editor::~Editor()
 {
   delete d;
-}
-
-void Editor::setSimpleMode (bool on)
-{
-  d->simpleMode = on;
-}
-
-bool Editor::simpleMode () const
-{
-  return d->simpleMode;
 }
 
 const QString &Editor::defaultEncoding () const

@@ -772,16 +772,9 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   bordersUi->setupUi( bordersTab );
   tabWidget->addTab( bordersTab, i18n("Borders") );
 
-  if (KateDocument::simpleMode ())
-    bordersUi->gbSortBookmarks->hide ();
-
   textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Off") );
   textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Follow Line Numbers") );
   textareaUi->cmbDynamicWordWrapIndicator->addItem( i18n("Always On") );
-
-  // hide power user mode if activated anyway
-  if (!KateGlobal::self()->simpleMode ())
-    textareaUi->chkDeveloperMode->hide ();
 
   // What's This? help is in the ui-file
 
@@ -799,7 +792,6 @@ KateViewDefaultsConfig::KateViewDefaultsConfig(QWidget *parent)
   connect(textareaUi->chkShowIndentationLines, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(textareaUi->chkShowWholeBracketExpression, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(textareaUi->chkAnimateBracketMatching, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
-  connect(textareaUi->chkDeveloperMode, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
 
   connect(bordersUi->chkIconBorder, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
   connect(bordersUi->chkScrollbarMarks, SIGNAL(toggled(bool)), this, SLOT(slotChanged()));
@@ -851,18 +843,6 @@ void KateViewDefaultsConfig::apply ()
   KateRendererConfig::global()->setShowWholeBracketExpression(textareaUi->chkShowWholeBracketExpression->isChecked());
   KateRendererConfig::global()->setAnimateBracketMatching(textareaUi->chkAnimateBracketMatching->isChecked());
 
-  // warn user that he needs restart the application
-  if (!textareaUi->chkDeveloperMode->isChecked() != KateDocumentConfig::global()->allowSimpleMode())
-  {
-    // inform...
-    KMessageBox::information(
-                this,
-                i18n("Changing the power user mode affects only newly opened / created documents. In KWrite a restart is recommended."),
-                i18n("Power user mode changed"));
-
-    KateDocumentConfig::global()->setAllowSimpleMode (!textareaUi->chkDeveloperMode->isChecked());
-  }
-
   KateRendererConfig::global()->configEnd ();
   KateViewConfig::global()->configEnd ();
 }
@@ -888,7 +868,6 @@ void KateViewDefaultsConfig::reload ()
   textareaUi->chkShowIndentationLines->setChecked(KateRendererConfig::global()->showIndentationLines());
   textareaUi->chkShowWholeBracketExpression->setChecked(KateRendererConfig::global()->showWholeBracketExpression());
   textareaUi->chkAnimateBracketMatching->setChecked(KateRendererConfig::global()->animateBracketMatching());
-  textareaUi->chkDeveloperMode->setChecked(!KateDocumentConfig::global()->allowSimpleMode());
 }
 
 void KateViewDefaultsConfig::reset () {;}

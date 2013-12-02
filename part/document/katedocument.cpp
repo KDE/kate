@@ -4796,11 +4796,6 @@ void KateDocument::transformRange (KTextEditor::Range &range, KTextEditor::Movin
 
 //END
 
-bool KateDocument::simpleMode ()
-{
-  return KateGlobal::self()->simpleMode () && KateGlobal::self()->documentConfig()->allowSimpleMode ();
-}
-
 //BEGIN KTextEditor::AnnotationInterface
 void KateDocument::setAnnotationModel( KTextEditor::AnnotationModel* model )
 {

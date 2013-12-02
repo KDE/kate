@@ -247,14 +247,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   setFocusProxy( m_viewInternal );
   setFocusPolicy( Qt::StrongFocus );
 
-  // default ui file with all features
-  QString uifile = "katepartui.rc";
-
-  // simple mode
-  if (doc->simpleMode ())
-    uifile = "katepartsimpleui.rc";
-
-  setXMLFile( uifile );
+  setXMLFile( "katepartui.rc" );
 
   setupConnections();
   setupActions();
@@ -684,8 +677,7 @@ void KateView::setupActions()
 
   m_spellingMenu->createActions( ac );
 
-  if (!m_doc->simpleMode ())
-    m_bookmarks->createActions( ac );
+  m_bookmarks->createActions( ac );
 
   slotSelectionChanged ();
 

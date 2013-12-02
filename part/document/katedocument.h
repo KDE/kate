@@ -134,7 +134,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     bool readOnly () const { return m_bReadOnly; }
     bool browserView () const { return m_bBrowserView; }
     bool singleViewMode () const { return m_bSingleViewMode; }
-    static bool simpleMode ();
 
   private:
     // only to make part work, don't change it !

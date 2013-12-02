@@ -190,7 +190,6 @@ KateDocumentConfig::KateDocumentConfig ()
    m_eolSet (false),
    m_bomSet (false),
    m_allowEolDetectionSet (false),
-   m_allowSimpleModeSet (false),
    m_backupFlagsSet (false),
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
@@ -234,7 +233,6 @@ KateDocumentConfig::KateDocumentConfig (const KConfigGroup &cg)
    m_eolSet (false),
    m_bomSet (false),
    m_allowEolDetectionSet (false),
-   m_allowSimpleModeSet (false),
    m_backupFlagsSet (false),
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
@@ -272,7 +270,6 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_eolSet (false),
    m_bomSet (false),
    m_allowEolDetectionSet (false),
-   m_allowSimpleModeSet (false),
    m_backupFlagsSet (false),
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
@@ -312,7 +309,6 @@ namespace
   const char * const KEY_EOL = "End of Line";
   const char * const KEY_ALLOW_EOL_DETECTION = "Allow End of Line Detection";
   const char * const KEY_BOM = "BOM";
-  const char * const KEY_ALLOW_SIMPLE_MODE = "Allow Simple Mode";
   const char * const KEY_BACKUP_FLAGS = "Backup Flags";
   const char * const KEY_SEARCH_DIR_CONFIG_DEPTH = "Search Dir Config Depth";
   const char * const KEY_BACKUP_PREFIX = "Backup Prefix";
@@ -356,8 +352,6 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
   setAllowEolDetection (config.readEntry(KEY_ALLOW_EOL_DETECTION, true));
 
   setBom (config.readEntry(KEY_BOM,false));
-
-  setAllowSimpleMode (config.readEntry(KEY_ALLOW_SIMPLE_MODE, true));
 
   setBackupFlags (config.readEntry(KEY_BACKUP_FLAGS, 0));
 
@@ -408,8 +402,6 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
   config.writeEntry(KEY_ALLOW_EOL_DETECTION, allowEolDetection());
 
   config.writeEntry(KEY_BOM,bom());
-
-  config.writeEntry(KEY_ALLOW_SIMPLE_MODE, allowSimpleMode());
 
   config.writeEntry(KEY_BACKUP_FLAGS, backupFlags());
 
@@ -951,27 +943,6 @@ void KateDocumentConfig::setAllowEolDetection (bool on)
 
   m_allowEolDetectionSet = true;
   m_allowEolDetection = on;
-
-  configEnd ();
-}
-
-bool KateDocumentConfig::allowSimpleMode () const
-{
-  if (m_allowSimpleModeSet || isGlobal())
-    return m_allowSimpleMode;
-
-  return s_global->allowSimpleMode();
-}
-
-void KateDocumentConfig::setAllowSimpleMode (bool on)
-{
-  if (m_allowSimpleModeSet && m_allowSimpleMode == on)
-    return;
-
-  configStart ();
-
-  m_allowSimpleModeSet = true;
-  m_allowSimpleMode = on;
 
   configEnd ();
 }

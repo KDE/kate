@@ -40,6 +40,10 @@ install(FILES pate.desktop DESTINATION ${SERVICES_INSTALL_DIR})
 install(DIRECTORY kate DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/pate FILES_MATCHING PATTERN "*.py")
 
 #
+# Install plugins that work with either Python 2 or 3
+#
+
+#
 # Install individual Pate plugins.
 #
 install(FILES
@@ -48,7 +52,6 @@ install(FILES
     plugins/color_tools_toolview.ui
     plugins/commentar.py
     plugins/commentar_config.ui
-    plugins/expand.py
     plugins/format.py
     plugins/xml_pretty.py
     plugins/xml_pretty.ui
@@ -56,26 +59,55 @@ install(FILES
 
 install(DIRECTORY
     plugins/django_utils
-    plugins/expand
     plugins/gid
     plugins/libkatepate
     plugins/python_console_classic
     plugins/python_utils
-    plugins/python_autocomplete
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")
-
-install(DIRECTORY
-    plugins/expand
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.expand")
-
-install(DIRECTORY
-    plugins/js_utils
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json")
 
 install(DIRECTORY
     plugins/python_console_ipython
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.css")
 
-install(DIRECTORY
-    plugins/cmake_utils
-    DESTINATION ${DATA_INSTALL_DIR}/kate/pate FILES_MATCHING PATTERN "*.py" PATTERN "*.ui")
+#
+# Install plugins that work only with Python 3 iff we're building against it
+#
+if(PYTHON_VERSION_MAJOR VERSION_EQUAL 3)
+
+    install(
+        FILES plugins/expand.py
+        DESTINATION ${DATA_INSTALL_DIR}/kate/pate
+      )
+
+    install(
+        DIRECTORY plugins/cmake_utils
+        DESTINATION ${DATA_INSTALL_DIR}/kate/pate
+        FILES_MATCHING PATTERN "*.py" PATTERN "*.ui"
+      )
+
+    install(
+        DIRECTORY plugins/expand
+        DESTINATION ${DATA_INSTALL_DIR}/kate/pate
+        FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.rc" PATTERN "*.expand"
+      )
+
+    install(
+        DIRECTORY plugins/js_utils
+        DESTINATION ${DATA_INSTALL_DIR}/kate/pate
+        FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.json" PATTERN "*.js" PATTERN "*.rc"
+      )
+
+endif()
+
+#
+# Install plugins that work only with Python 2 iff we're building against it
+#
+if(PYTHON_VERSION_MAJOR VERSION_EQUAL 2)
+
+    install(
+        DIRECTORY plugins/python_autocomplete
+        DESTINATION ${DATA_INSTALL_DIR}/kate/pate
+        FILES_MATCHING PATTERN "*.py" PATTERN "*.ui" PATTERN "*.rc"
+      )
+
+endif()

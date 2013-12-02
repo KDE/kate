@@ -108,7 +108,6 @@ To use a KTextEditor implementation you first have to get the
 KTextEditor::Editor object. This can be done in several ways and is described
 in detail in the following documentation:
  - KTextEditor::Factory
- - KTextEditor::EditorChooser
 
 \section kte_design_developer Notes for KTextEditor Developers
 The KTextEditor::Factory provides access to its KTextEditor::Editor. The
@@ -121,11 +120,6 @@ The Factory \e should always return the same Editor object, as
 it does not make sense to load the same editor implementation several times.
 Further notes about the Editor implementation can be found in the
 \ref editor_notes.
-
-As applications can load different editor implementations via different
-factories (for example the kate-part and the yzis-part) the signal
-KTextEditor::Editor::documentCreated() contains the responsible Editor as
-first argument.
 
 \see KTextEditor::Factory, KTextEditor::Editor, KTextEditor::Document,
      KTextEditor::View
@@ -167,7 +161,7 @@ All KTextEditor interfaces have a consistent design.
   overwrite them, most members should even be pure virtual, beside
   additional convenience/helper functions.
 
-The interface KTextEditor::Cursor represents a cursorposition, i.e. a
+The interface KTextEditor::Cursor represents a cursor position, i.e. a
 line/column tuple. The same holds for KTextEditor::Range. As both of this
 concepts are much cleaner than tuples, please keep the following guidelines:
 - never use line/column tuples in parameter lists, use KTextEditor::Cursor
@@ -209,30 +203,6 @@ Use qobject_cast to cast a Document \e doc into the
 \see KTextEditor::Document
 
 The following classes are a list of all available Document extension interfaces.
-<!-- The classes are defined by the \ingroup doxygen command -->
-*/
-
-
-
-
-
-/** \defgroup kte_group_smart_classes Smart Cursors and Ranges
-\ingroup kte_group_doc_extensions
-
-If the KTextEditor implementation supports the KTextEditor::SmartInterface,
-there are several \e smart classes available.
-
-In general, instances of the \e smart classes are bound to a specific document, and maintain their
-position in that document regardless of changes to the text.  They also provide:
-- feedback on changes to their position and changes to text related to their position,
-- support for the other \e smart interfaces, such as arbitrary highlighting, action binding, etc.
-
-The following is a list of all classes that are available when the document
-supports the KTextEditor::SmartInterface:
-
-\warning All Smart interfaces were deprecated and not implemented anymore in
-KDE >= 4.6. They were replaced by the \ref kte_group_moving_classes
-
 <!-- The classes are defined by the \ingroup doxygen command -->
 */
 
@@ -435,6 +405,8 @@ implementation, read \ref kte_design for detailed information.
 
 \section kte_port_remove Removed Interfaces
 Entirely removed interfaces and classes are, in order:
+ - \p KTextEditor::EditorChooser \n
+   Instead, just use \p KTextEditor::editor();
  - \p SmartInterface (removed since KDE 4.5)
  - \p SmartCursor, \p SmartRange, \p SmartCursorNotifier, \p SmartCursorWatcher,
    \p SmartRangeNotifier, \p SmartRangeWatcher (already unspoorted since KDE 4.5)
@@ -558,7 +530,7 @@ The following class only contains two pointers to a Document and its View.
 
 \section kte_howto_source The Mainwindow Implementation
 
-The following source code queries for a Editor part by using the EditorChooser.
+The following source code queries for a Editor part.
 If the returned Editor is invalid, we simply quit, otherwise we create a new
 document and a view and plug it into the mainwindow.
 
@@ -567,7 +539,6 @@ document and a view and plug it into the mainwindow.
   #include <ktexteditor/document.h>
   #include <ktexteditor/view.h>
   #include <ktexteditor/editor.h>
-  #include <ktexteditor/editorchooser.h>
 
   #include <kxmlguifactory.h>
   #include <kmessagebox.h>
@@ -577,7 +548,7 @@ document and a view and plug it into the mainwindow.
       m_view(0),
       m_document(0)
   {
-    KTextEditor::Editor *editor = KTextEditor::EditorChooser::editor();
+    KTextEditor::Editor *editor = KTextEditor::editor();
 
     if (!editor) {
       KMessageBox::error(this, i18n("A KDE text-editor component could not be found;\n"

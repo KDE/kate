@@ -3514,8 +3514,10 @@ void KateViewInternal::cursorMoved( )
 {
   m_view->updateRangesIn (KTextEditor::Attribute::ActivateCaretIn);
   
+#if 0 //FIXME KF5
 #ifndef QT_NO_ACCESSIBILITY
   QAccessible::updateAccessibility(this, 0, QAccessible::TextCaretMoved);
+#endif
 #endif
 }
 

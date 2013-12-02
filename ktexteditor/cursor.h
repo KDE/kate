@@ -54,13 +54,15 @@ class SmartCursor;
  */
 class KTEXTEDITOR_EXPORT Cursor
 {
-  friend class Range;
-
   public:
     /**
      * The default constructor creates a cursor at position (0,0).
      */
-    Cursor();
+    Cursor()
+      : m_line (0)
+      , m_column (0)
+    {
+    }
 
     /**
      * This constructor creates a cursor initialized with \p line
@@ -68,51 +70,38 @@ class KTEXTEDITOR_EXPORT Cursor
      * \param line line for cursor
      * \param column column for cursor
      */
-    Cursor(int line, int column);
-
-    /**
-     * Copy constructor.  Does not copy the owning range, as a range does not
-     * have any association with copies of its cursors.
-     *
-     * \param copy the cursor to copy.
-     */
-    Cursor(const Cursor& copy);
-
-    /**
-     * Virtual destructor.
-     */
-    //TODO: KDE5 make non-virtual for maximum speed
-    virtual ~Cursor();
+    Cursor(int line, int column)
+      : m_line (line)
+      , m_column (column)
+    {
+    }
 
     /**
      * Returns whether the current position of this cursor is a valid position
      * (line + column must both be >= 0).
      */
-    virtual bool isValid() const;
-
-    /**
-     * Returns whether this cursor is a SmartCursor.
-     * \warning Always returns \e false. Will be removed for KDE5.
-     */
-    virtual bool isSmartCursor() const;
-
-    /**
-     * Returns this cursor as a SmartCursor, if it is one.
-     * \warning Always returns 0. Will be removed for KDE5.
-     */
-    virtual SmartCursor* toSmartCursor() const;
+    bool isValid() const
+    {
+      return m_line >= 0 && m_column >= 0;
+    }
 
     /**
      * Returns an invalid cursor.
      * The returned cursor position is set to (-1, -1).
      * \see isValid()
      */
-    static Cursor invalid();
+    static Cursor invalid()
+    {
+      return Cursor (-1, -1);
+    }
 
     /**
      * Returns a cursor representing the start of any document - i.e., line 0, column 0.
      */
-    static Cursor start();
+    static Cursor start()
+    {
+      return Cursor ();
+    }
 
     /**
      * \name Position
@@ -125,7 +114,11 @@ class KTEXTEDITOR_EXPORT Cursor
      *
      * \param position new cursor position
      */
-    virtual void setPosition(const Cursor& position);
+    void setPosition(const Cursor& position)
+    {
+      m_line = position.m_line;
+      m_column = position.m_column;
+    }
 
     /**
      * \overload
@@ -135,66 +128,77 @@ class KTEXTEDITOR_EXPORT Cursor
      * \param line new cursor line
      * \param column new cursor column
      */
-    void setPosition(int line, int column);
+    void setPosition(int line, int column)
+    {
+      m_line = line;
+      m_column = column;
+    }
 
     /**
      * Retrieve the line on which this cursor is situated.
      * \return line number, where 0 is the first line.
      */
-    virtual int line() const;
+    int line() const
+    {
+      return m_line;
+    }
 
     /**
      * Set the cursor line to \e line.
      * \param line new cursor line
      */
-    virtual void setLine(int line);
+    void setLine(int line)
+    {
+      m_line = line;
+    }
 
     /**
      * Retrieve the column on which this cursor is situated.
      * \return column number, where 0 is the first column.
      */
-    int column() const;
+    int column() const
+    {
+      return m_column;
+    }
 
     /**
      * Set the cursor column to \e column.
      * \param column new cursor column
      */
-    virtual void setColumn(int column);
+    void setColumn(int column)
+    {
+      m_column = column;
+    }
 
     /**
      * Determine if this cursor is located at the start of a line.
      * \return \e true if the cursor is situated at the start of the line, \e false if it isn't.
      */
-    bool atStartOfLine() const;
+    bool atStartOfLine() const
+    {
+      return m_column == 0;
+    }
 
     /**
      * Determine if this cursor is located at the start of a document.
      * \return \e true if the cursor is situated at the start of the document, \e false if it isn't.
      */
-    bool atStartOfDocument() const;
+    bool atStartOfDocument() const
+    {
+      return m_line == 0 && m_column == 0;
+    }
 
     /**
      * Get both the line and column of the cursor position.
      * \param line will be filled with current cursor line
      * \param column will be filled with current cursor column
      */
-    void position (int &line, int &column) const;
+    void position (int &line, int &column) const
+    {
+      line = m_line;
+      column = m_column;
+    }
     //!\}
-
-    /**
-     * Returns the range that this cursor belongs to, if any.
-     * \todo will be removed in KDE5.
-     */
-    Range* range() const;
-
-    /**
-     * Assignment operator. Same as setPosition().
-     * \param cursor the position to assign.
-     * \return a reference to this cursor
-     * \see setPosition()
-     */
-    inline Cursor& operator=(const Cursor& cursor)
-      { setPosition(cursor); return *this; }
 
     /**
      * Addition operator. Takes two cursors and returns their summation.
@@ -307,25 +311,7 @@ class KTEXTEDITOR_EXPORT Cursor
       return s.space();
     }
 
-   protected:
-    /**
-     * \internal
-     *
-     * Sets the range that this cursor belongs to.
-     *
-     * \param range the range that this cursor is referenced from.
-     * \todo will be removed in KDE5.
-     */
-    virtual void setRange(Range* range);
-
-    /**
-     * \internal
-     *
-     * Notify the owning range, if any, that this cursor has changed directly.
-     * \todo will be removed in KDE5.
-     */
-    void cursorChangedDirectly(const Cursor& from);
-
+   private:
     /**
      * \internal
      *
@@ -339,14 +325,6 @@ class KTEXTEDITOR_EXPORT Cursor
      * Cursor column
      */
     int m_column;
-
-    /**
-     * \internal
-     *
-     * Range which owns this cursor, if any
-     * \todo will be removed in KDE5.
-     */
-    Range* m_range;
 };
 
 }

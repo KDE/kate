@@ -27,90 +27,46 @@
 using namespace KTextEditor;
 
 Range::Range()
-  : m_start(new Cursor())
-  , m_end(new Cursor())
 {
-  m_start->setRange(this);
-  m_end->setRange(this);
 }
 
 Range::Range(const Cursor& start, const Cursor& end)
 {
   if (start <= end) {
-    m_start = new Cursor(start);
-    m_end = new Cursor(end);
-
+    m_start = start;
+    m_end = end;
   } else {
-    m_start = new Cursor(end);
-    m_end = new Cursor(start);
+    m_start = end;
+    m_end = start;
   }
-
-  m_start->setRange(this);
-  m_end->setRange(this);
 }
 
 Range::Range(const Cursor& start, int width)
-  : m_start(new Cursor(start))
-  , m_end(new Cursor(start.line(), start.column() + width))
+  : m_start(start)
+  , m_end(start.line(), start.column() + width)
 {
-  m_start->setRange(this);
-  m_end->setRange(this);
 }
 
 Range::Range(const Cursor& start, int endLine, int endColumn)
-  : m_start(new Cursor(start))
-  , m_end(new Cursor(endLine, endColumn))
+  : m_start(start)
+  , m_end(endLine, endColumn)
 {
-  if (*m_end < *m_start) {
-    Cursor* temp = m_end;
+  if (m_end < m_start) {
+    Cursor temp = m_end;
     m_end = m_start;
     m_start = temp;
   }
-
-  m_start->setRange(this);
-  m_end->setRange(this);
 }
 
 Range::Range(int startLine, int startColumn, int endLine, int endColumn)
-  : m_start(new Cursor(startLine, startColumn))
-  , m_end(new Cursor(endLine, endColumn))
+  : m_start(startLine, startColumn)
+  , m_end(endLine, endColumn)
 {
-  if (*m_end < *m_start) {
-    Cursor* temp = m_end;
+  if (m_end < m_start) {
+    Cursor temp = m_end;
     m_end = m_start;
     m_start = temp;
   }
-
-  m_start->setRange(this);
-  m_end->setRange(this);
-}
-
-Range::Range(Cursor* start, Cursor* end)
-  : m_start(start)
-  , m_end(end)
-{
-  if (*m_end < *m_start) {
-    Cursor temp = *m_end;
-    *m_end = *m_start;
-    *m_start = temp;
-  }
-
-  m_start->setRange(this);
-  m_end->setRange(this);
-}
-
-Range::Range(const Range& copy)
-  : m_start(new Cursor(copy.start()))
-  , m_end(new Cursor(copy.end()))
-{
-  m_start->setRange(this);
-  m_end->setRange(this);
-}
-
-Range::~Range()
-{
-  delete m_start;
-  delete m_end;
 }
 
 bool Range::isValid( ) const
@@ -125,8 +81,8 @@ Range Range::invalid()
 
 void Range::setRange(const Range& range)
 {
-  *m_start = range.start();
-  *m_end = range.end();
+  m_start = range.start();
+  m_end = range.end();
 }
 
 void Range::setRange( const Cursor & start, const Cursor & end )
@@ -219,18 +175,6 @@ bool Range::expandToRange(const Range& range)
   return true;
 }
 
-void Range::rangeChanged( Cursor * c, const Range& )
-{
-  if (c == m_start) {
-    if (*c > *m_end)
-      *m_end = *c;
-
-  } else if (c == m_end) {
-    if (*c < *m_start)
-      *m_start = *c;
-  }
-}
-
 void Range::setBothLines( int line )
 {
   setRange(Range(line, start().column(), line, end().column()));
@@ -283,34 +227,24 @@ void KTextEditor::Range::setBothColumns( int column )
   setRange(Range(start().line(), column, end().line(), column));
 }
 
-bool KTextEditor::Range::isSmartRange( ) const
-{
-  return false;
-}
-
-SmartRange* KTextEditor::Range::toSmartRange( ) const
-{
-  return 0L;
-}
-
 Cursor& KTextEditor::Range::start()
 {
-  return *m_start;
+  return m_start;
 }
 
 const Cursor& KTextEditor::Range::start() const
 {
-  return *m_start;
+  return m_start;
 }
 
 Cursor& KTextEditor::Range::end()
 {
-  return *m_end;
+  return m_end;
 }
 
 const Cursor& KTextEditor::Range::end() const
 {
-  return *m_end;
+  return m_end;
 }
 
 Range KTextEditor::Range::intersect( const Range & range ) const

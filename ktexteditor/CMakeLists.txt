@@ -43,7 +43,6 @@ set(ktexteditor_LIB_SRCS
    ktexteditor.cpp
    document.cpp
    range.cpp
-   cursor.cpp
    documentcursor.cpp
    templateinterface.cpp
    templateinterface2.cpp

@@ -30,7 +30,6 @@
 
 namespace KTextEditor
 {
-class SmartRange;
 
 /**
  * \short An object representing a section of text, from one Cursor to another.
@@ -53,8 +52,6 @@ class SmartRange;
  */
 class KTEXTEDITOR_EXPORT Range
 {
-  friend class Cursor;
-
   public:
     /**
      * Default constructor. Creates a valid range from position (0, 0) to
@@ -100,39 +97,14 @@ class KTEXTEDITOR_EXPORT Range
     Range(int startLine, int startColumn, int endLine, int endColumn);
 
     /**
-     * Copy constructor.
-     *
-     * \param copy the range from which to copy the start and end position.
-     */
-    Range(const Range& copy);
-
-    /**
-     * Virtual destructor.
-     */
-    //Do not remove! Needed for inheritance.
-    virtual ~Range();
-
-    /**
      * Validity check.  In the base class, returns true unless the range starts before (0,0).
      */
-    virtual bool isValid() const;
+    bool isValid() const;
 
     /**
      * Returns an invalid range.
      */
     static Range invalid();
-
-    /**
-     * Returns whether this range is a SmartRange.
-     * \warning returns always \e false. Will be removed in KDE 5.
-     */
-    virtual bool isSmartRange() const;
-
-    /**
-     * Returns this range as a SmartRange, if it is one.
-     * \warning returns always 0. Will be removed in KDE 5.
-     */
-    virtual SmartRange* toSmartRange() const;
 
     /**
      * \name Position
@@ -211,7 +183,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \param range range to assign to this range
      */
-    virtual void setRange(const Range& range);
+    void setRange(const Range& range);
 
     /**
      * \overload
@@ -232,7 +204,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \return \e true if expansion occurred, \e false otherwise
      */
-    virtual bool expandToRange(const Range& range);
+    bool expandToRange(const Range& range);
 
     /**
      * Confine this range if necessary to fit within \p range.
@@ -241,7 +213,7 @@ class KTEXTEDITOR_EXPORT Range
      *
      * \return \e true if confinement occurred, \e false otherwise
      */
-    virtual bool confineToRange(const Range& range);
+    bool confineToRange(const Range& range);
 
     /**
      * Check whether this range is wholly contained within one line, ie. if
@@ -490,18 +462,6 @@ class KTEXTEDITOR_EXPORT Range
     Range encompass(const Range& range) const;
 
     /**
-     * Assignment operator. Same as setRange().
-     *
-     * \param rhs range to assign to this range.
-     *
-     * \return a reference to this range, after assignment has occurred.
-     *
-     * \see setRange()
-     */
-    inline Range& operator=(const Range& rhs)
-      { setRange(rhs); return *this; }
-
-    /**
      * Addition operator. Takes two ranges and returns their summation.
      *
      * \param r1 the first range
@@ -625,40 +585,20 @@ class KTEXTEDITOR_EXPORT Range
       return s;
     }
 
-  protected:
-    /**
-     * Constructor for advanced cursor types.
-     * Creates a range from \e start to \e end.
-     * Takes ownership of \e start and \e end.
-     *
-     * \param start the start cursor.
-     * \param end the end cursor.
-     */
-    Range(Cursor* start, Cursor* end);
-
-    /**
-     * Notify this range that one or both of the cursors' position has changed directly.
-     *
-     * \param cursor the cursor that changed. If 0L, both cursors have changed.
-     * \param from the previous position of this range
-     *
-     * \internal
-     */
-    virtual void rangeChanged(Cursor* cursor, const Range& from);
-
+  private:
     /**
      * This range's start cursor pointer.
      *
      * \internal
      */
-    Cursor* m_start;
+    Cursor m_start;
 
     /**
      * This range's end cursor pointer.
      *
      * \internal
      */
-    Cursor* m_end;
+    Cursor m_end;
 };
 
 }

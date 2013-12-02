@@ -1,15 +1,8 @@
 KDE Framework 5.0
 
-- Remove Smart*
-- Cleanup Cursor and Range classes (non virtual!)
--- mark as movable
--- inline as much as possible
--- declare Q_MOVABLE_TYPE: http://doc.qt.nokia.com/qq/qq19-containers.html
--- remove Range* from Cursor
 - Dropping KTextEditor::Plugin/View interface
 - KTE: drop unneeded code completion interfaces 2, 3, 4
 - KTE: Merge some interfaces
-- KTE: add Document::readWriteChanged, remove from KateDocument
 - KTE: search for places marked with "KDE5"
 - KTE: export Kate Part Scripting
 - KTE: drop MarkInterface
@@ -29,3 +22,13 @@ KDE Framework 5.0
   - https://bugs.kde.org/show_bug.cgi?id=243375
     maybe move incRef(), decRef() into KTE::Factory or KTE::Editor?
 - scrolling API: http://bugs.kde.org/show_bug.cgi?id=138956
+
+
+DONE
+- Remove Smart*
+- Cleanup Cursor and Range classes (non virtual!)
+-- mark as movable
+-- inline as much as possible
+-- declare Q_MOVABLE_TYPE: http://doc.qt.nokia.com/qq/qq19-containers.html
+-- remove Range* from Cursor
+- KTE: add Document::readWriteChanged, remove from KateDocument

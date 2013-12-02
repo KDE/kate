@@ -1,5 +1,8 @@
 KDE Framework 5.0
 
+- KTE::TextHintInterface: Currently, only the last SLOT to needTextHint()
+  can set a text hint. Maybe we should pass a QStringList as parameters, so
+  we can provide multiple text hints in the tool tip?
 - Dropping KTextEditor::Plugin/View interface
 - KTE: drop unneeded code completion interfaces 2, 3, 4
 - KTE: Merge some interfaces

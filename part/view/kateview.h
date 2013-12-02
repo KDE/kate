@@ -233,11 +233,11 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   // KTextEditor::TextHintInterface
   //
   public:
-    void enableTextHints(int timeout);
+    void enableTextHints(int timeout = 200);
     void disableTextHints();
 
   Q_SIGNALS:
-    void needTextHint(const KTextEditor::Cursor& position, QString &text);
+    void needTextHint(KTextEditor::View * view, const KTextEditor::Cursor& position, QString &text);
 
   public:
     bool dynWordWrap() const      { return m_hasWrap; }

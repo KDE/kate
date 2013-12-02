@@ -3123,7 +3123,7 @@ void KateViewInternal::textHintTimeout ()
 
   QString tmp;
 
-  emit m_view->needTextHint(c, tmp);
+  emit m_view->needTextHint(m_view, c, tmp);
 
   if (!tmp.isEmpty()) {
     kDebug(13030) << "Hint text: " << tmp;

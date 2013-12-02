@@ -93,10 +93,8 @@ class KTEXTEDITOR_EXPORT TextHintInterface
      * by \p timeout.
      *
      * \param timeout tool tip delay in milliseconds
-     *
-     * \todo KDE5 add default value for timeout
      */
-    virtual void enableTextHints(int timeout) = 0;
+    virtual void enableTextHints(int timeout = 200) = 0;
 
     /**
      * Disable all text hints for the view.
@@ -115,12 +113,11 @@ class KTEXTEDITOR_EXPORT TextHintInterface
      * displayed. If you do not want a tool tip to be displayed, set \p text to
      * an empty QString() in the connected slot.
      *
+     * \param view the view that requests the text hint
      * \param position text cursor under the mouse position
      * \param text tool tip to be displayed, or empty string to hide
-     *
-     * \todo KDE5: add first parameter "KTextEditor::View * view"
      */
-    virtual void needTextHint(const KTextEditor::Cursor& position, QString &text) = 0;
+    virtual void needTextHint(KTextEditor::View * view, const KTextEditor::Cursor& position, QString &text) = 0;
 
   private:
     class TextHintInterfacePrivate* const d;

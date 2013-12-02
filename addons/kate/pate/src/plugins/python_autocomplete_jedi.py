@@ -81,8 +81,16 @@ class JediCompletionModel(CodeCompletionBase):
 
     def completionInvoked(self, view, range_, invocation_type):
         """For the lack of a better event, we create a script here and remember its completions"""
+        # TODO Check if cursor positioned in a comment or string and
+        # DO NOT EVEN TRY TO COMPLETE SOMETHING IN THAT CASE!
+        # Unfortunately, due a (still opened) BUG https://bugs.kde.org/show_bug.cgi?id=247896#c5
+        # it is impossible to get that info nowadays :(
+        # Fortunately, pate plugin can be hacked to provide required method...
         doc = view.document()
         if not doc.mimeType() in self.MIMETYPES:
+            # Reset the model (and loose all completions!) if current document
+            # is not suitable!!! (so data() will return nothing)
+            self.resultList.clear()
             return
 
         cursor = view.cursorPosition()
@@ -127,9 +135,13 @@ def init(view):
     if view is None:
         return
 
+    # TODO THAT IS WRONG! Do not even register a completer
+    # for views w/ incompatible mime type! Subscribe to
+    # document events to be notified if highlighting or URI (name)
+    # gets changed, and try to register if doc became looks like a
+    # _real_ Python code...
     cci = view.codeCompletionInterface()
     cci.registerCompletionModel(ccm)
-
 
 
 #

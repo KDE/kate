@@ -72,7 +72,8 @@ class TextLoader
         m_mimeType = KMimeType::findByPath (filename, 0, false)->name ();
 
       // construct filter device
-      m_file = new QFile (filename); //FIXME KF5 KFilterDev::deviceForFile (filename, m_mimeType, false);
+      KCompressionDevice::CompressionType compressionType = KFilterDev::compressionTypeForMimeType(m_mimeType);
+      m_file = new KCompressionDevice(filename, compressionType);
     }
 
     /**

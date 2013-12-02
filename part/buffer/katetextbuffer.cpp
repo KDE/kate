@@ -738,7 +738,8 @@ bool TextBuffer::save (const QString &filename)
   /**
    * construct correct filter device and try to open
    */
-  QIODevice *file = KFilterDev::device (&saveFile, m_mimeTypeForFilterDev, false);
+  KCompressionDevice::CompressionType type = KFilterDev::compressionTypeForMimeType(m_mimeTypeForFilterDev);
+  QIODevice *file = new KCompressionDevice(&saveFile, false, type);
   const bool deleteFile = file;
   if (!file)
     file = &saveFile;

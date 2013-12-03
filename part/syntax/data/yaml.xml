@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Author: Dr Orlovsky MA <maxim@orlovsky.info> //-->
-<language name="YAML" version="1.1" kateversion="2.3" section="Markup"
+<language name="YAML" version="1.2" kateversion="2.3" section="Markup"
           extensions="*.yaml;*.yml" mimetype="text/yaml"
           author="Dr Orlovsky MA (dr.orlovsky@gmail.com)" license="LGPL">
   <highlighting>
@@ -140,13 +140,12 @@
           <DetectIdentifier />
           <DetectChar attribute="String" context="attribute-end-inline" char="'" endRegion="String" />
       </context>
-      
+
       <context attribute="String" lineEndContext="#stay" name="attribute-stringx-inline">
           <DetectIdentifier />
           <DetectChar attribute="String" context="attribute-end-inline" char="&quot;" endRegion="String" />
       </context>
 
-      
       <context attribute="Error" lineEndContext="#pop#pop#pop" name="attribute-end">
       </context>
 
@@ -156,8 +155,6 @@
           <RegExpr attribute="Operator" context="#pop#pop#pop"  String=",\s"/>
       </context>
 
-      
-      
       <context attribute="String" lineEndContext="#stay" name="string">
         <DetectIdentifier />
         <DetectChar attribute="String" context="#pop" char="'" endRegion="String" />
@@ -169,9 +166,12 @@
       </context>
 
       <context attribute="Comment" lineEndContext="#pop" name="comment">
+        <IncludeRules context="##Alerts" />
+        <IncludeRules context="##Modelines" />
       </context>
     </contexts>
-     <itemDatas>
+
+    <itemDatas>
       <itemData name="Normal Text" defStyleNum="dsNormal" />
       <itemData name="List" defStyleNum="dsNormal" />
       <itemData name="Hash" defStyleNum="dsNormal" />
@@ -184,13 +184,14 @@
       <itemData name="Key" defStyleNum="dsFunction" />
       <itemData name="Directive" defStyleNum="dsOthers" />
       <itemData name="Operator" defStyleNum="dsKeyword" />
-      <itemData name="String" defStyleNum="dsNormal" />
+      <itemData name="String" defStyleNum="dsString" />
       <itemData name="Error" defStyleNum="dsError" />
     </itemDatas>
   </highlighting>
+
   <general>
     <comments>
-      <comment name="singleLine" start="#"/>
+      <comment name="singleLine" start="#" position="afterwhitespace" />
     </comments>
     <keywords casesensitive="1"/>
   </general>

@@ -415,11 +415,14 @@ void KateMainWindow::slotDocumentCloseOther(KTextEditor::Document *document)
 
 void KateMainWindow::slotDocumentCloseSelected(const QList<KTextEditor::Document*> &docList)
 {
+  QList<KTextEditor::Document *> documents;
   foreach(KTextEditor::Document *doc, docList)
   {
     if(queryClose_internal(doc))
-      KateDocManager::self()->closeDocument(doc);
+      documents.append(doc);
   }
+
+  KateDocManager::self()->closeDocuments(documents);
 }
 
 void KateMainWindow::slotDocumentCloseOther()

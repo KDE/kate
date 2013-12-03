@@ -48,8 +48,6 @@
 
 #include "annotationinterface.h"
 
-#include "loadsavefiltercheckplugin.h"
-
 #include "modeinterface.h"
 
 #include <kparts/factory.h>
@@ -250,19 +248,6 @@ VariableInterface::VariableInterface()
 
 VariableInterface::~VariableInterface()
 {}
-
-class KTextEditor::LoadSaveFilterCheckPluginPrivate {
-  public:
-    LoadSaveFilterCheckPluginPrivate(){}
-    ~LoadSaveFilterCheckPluginPrivate(){}
-};
-
-LoadSaveFilterCheckPlugin::LoadSaveFilterCheckPlugin(QObject *parent):
-    QObject(parent),
-    d(new LoadSaveFilterCheckPluginPrivate()) { }
-
-LoadSaveFilterCheckPlugin::~LoadSaveFilterCheckPlugin() { delete d; }
-
 
 
 

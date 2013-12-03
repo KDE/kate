@@ -56,7 +56,6 @@
 
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/plugin.h>
-#include <ktexteditor/loadsavefiltercheckplugin.h>
 
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>

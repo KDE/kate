@@ -57,7 +57,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   connect( m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
-  m_filelistCopyFilename = new QAction( KIcon("copy"), i18n( "Copy Filename" ), this );
+  m_filelistCopyFilename = new QAction( KIcon("edit-copy"), i18n( "Copy Filename" ), this );
   connect( m_filelistCopyFilename, SIGNAL(triggered()), this, SLOT(slotCopyFilename()) );
   m_filelistCopyFilename->setWhatsThis(i18n("Copy the filename of the file."));
 

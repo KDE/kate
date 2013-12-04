@@ -261,8 +261,8 @@ def action(func):
     for tag in gui.getElementsByTagName('Action'):
         # Action at least must have a name and text
         # and name must be the same as a function name marked w/ @action decorator
-        want_it = 'name' in tag.attributes \
-            and 'text' in tag.attributes \
+        want_it = 'name' in tag.attributes.keys() \
+            and 'text' in tag.attributes.keys() \
             and func.__name__ == tag.attributes['name'].value
         if want_it:
             found = True
@@ -273,15 +273,15 @@ def action(func):
             act.setText(text)
             kDebug('@action/found: {} --> "{}"'.format(name, text))
             # Get optional attributes
-            if 'shortcut' in tag.attributes:
+            if 'shortcut' in tag.attributes.keys():
                 act.setShortcut(QtGui.QKeySequence(tag.attributes['shortcut'].value))
-            if 'icon' in tag.attributes:
+            if 'icon' in tag.attributes.keys():
                 act.setIcon(kdeui.KIcon(tag.attributes['icon'].value))
-            if 'iconText' in tag.attributes:
+            if 'iconText' in tag.attributes.keys():
                 act.setIconText(tag.attributes['iconText'].value)
-            if 'toolTip' in tag.attributes:
+            if 'toolTip' in tag.attributes.keys():
                 act.setToolTip(tag.attributes['toolTip'].value)
-            if 'whatsThis' in tag.attributes:
+            if 'whatsThis' in tag.attributes.keys():
                 act.setWhatsThis(tag.attributes['whatsThis'].value)
             # Connect it to the function
             act.connect(act, QtCore.SIGNAL('triggered()'), func)

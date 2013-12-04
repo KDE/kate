@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 #
+# C/C++ related expansion functions
+#
+# Copyright (C) 2010-2013 Alex Turbov <i.zaufi@gmail.com>
+#
 # NOTE Expansion plugin can complete available expansion functions for current
 # document. To get help (via tooltip) for the selected expansion function use
 # Ctrl+Shift+E shotcut.

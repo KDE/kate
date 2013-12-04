@@ -3,6 +3,8 @@
  *
  * \brief Declate Kate's Close Except/Like plugin classes
  *
+ * Copyright (C) 2012 Alex Turbov <i.zaufi@gmail.com>
+ *
  * \date Thu Mar  8 08:13:43 MSK 2012 -- Initial design
  */
 /*

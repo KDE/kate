@@ -3,6 +3,8 @@
  *
  * \brief Class \c kate::CloseConfirmDialog (interface)
  *
+ * Copyright (C) 2012 Alex Turbov <i.zaufi@gmail.com>
+ *
  * \date Sun Jun 24 16:29:13 MSK 2012 -- Initial design
  */
 /*

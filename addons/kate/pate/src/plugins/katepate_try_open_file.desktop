@@ -38,3 +38,4 @@ Comment[tr]=Seçilen metni bir belgeye adres olarak açmaya çalış
 Comment[uk]=Відкриття позначеного тексту як адреси документа
 Comment[x-test]=xxTry to open selected text as URI to a documentxx
 Comment[zh_TW]=試著將選取的文字做為網址來開啟
+X-Python-2-Compatible=true

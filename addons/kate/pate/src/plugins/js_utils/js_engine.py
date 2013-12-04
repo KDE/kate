@@ -1,5 +1,6 @@
 from PyQt4.QtScript import QScriptEngine, QScriptValue, QScriptValueIterator
 
+import re
 try:
     from collections.abc import Mapping, Iterable
 except ImportError:
@@ -51,7 +52,11 @@ class JSModule:
         self.engine = engine
 
         with open(filepath) as s:
-            self.engine.evaluate(s.read(), s.name)
+            code = fix_js(s.read())
+
+        self.engine.evaluate(code, s.name)
+        if self.engine.hasUncaughtException():
+            raise ValueError('file can’t be evaluated', self.engine.uncaughtException().toVariant())
 
         self.obj = self.engine.globalObject().property(objname)
 
@@ -64,6 +69,34 @@ class JSModule:
         if value.isFunction():
             return self.engine.js_call(value)
         return value.toVariant()
+
+
+# some ECMAScript ReservedWords which can be used as object property names.
+_keywords = 'continue|break|function|var|delete|if|then|else'  # extend as appropriate
+_keyword_in_okey = re.compile(r'\b({})\s*:'.format(_keywords))
+_keyword_in_attr = re.compile(r'\.({})\b'.format(_keywords))
+
+
+def fix_js(code):
+    """Fixes JS so that Qt’s engine can digest it.
+
+    The problem is that unquoted object keys like `{key: 'value'}`,
+    as well as member accessors like `object.member` may be IdentifierNames,
+    while Qt’s implementation expects them not to be ReservedWords.
+
+        >>> fix_js('var foo = { function: function() {} }')
+        '{ "function": function() {} }'
+        >>> fix_js('foo.function()')
+        'foo["function"]()'
+
+    * http://www.ecma-international.org/ecma-262/5.1/#sec-7.6
+    * http://www.ecma-international.org/ecma-262/5.1/#sec-11.1.5
+    * http://www.ecma-international.org/ecma-262/5.1/#sec-11.2.1
+    """
+    code = _keyword_in_okey.sub(r'"\1":', code)
+    code = _keyword_in_attr.sub(r'["\1"]', code)
+
+    return code
 
 if __name__ == '__main__':
     import sys

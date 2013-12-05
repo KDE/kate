@@ -90,7 +90,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_layoutCache(new KateLayoutCache(renderer(), this))
   , m_preserveX(false)
   , m_preservedX(0)
-  , m_updatingView(true)
   , m_cachedMaxStartPos(-1, -1)
   , m_dragScrollTimer(this)
   , m_scrollTimer (this)
@@ -99,7 +98,6 @@ KateViewInternal::KateViewInternal(KateView *view)
   , m_textHintEnabled(false)
   , m_textHintPos(-1, -1)
   , m_imPreeditRange(0)
-  , m_smartDirty(false)
   , m_viInputMode(false)
   , m_viInputModeManager (0)
 {
@@ -504,11 +502,14 @@ void KateViewInternal::scrollPos(KTextEditor::Cursor& c, bool force, bool called
 
 void KateViewInternal::scrollColumns ( int x )
 {
-  if (x == m_startX)
-    return;
-
   if (x < 0)
     x = 0;
+
+  if (x > m_columnScroll->maximum())
+    x = m_columnScroll->maximum();
+
+  if (x == m_startX)
+    return;
 
   int dx = m_startX - x;
   m_startX = x;
@@ -540,8 +541,6 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
 {
   if(!isVisible() && !viewLinesScrolled )
     return; //When this view is not visible, don't do anything
-
-  m_updatingView = true;
 
   bool blocked = m_lineScroll->blockSignals(true);
 
@@ -612,11 +611,6 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
   }
 
   m_dummy->setVisible( visible_dummy );
-
-  if (m_smartDirty)
-    m_smartDirty = false;
-
-  m_updatingView = false;
 }
 
 /**
@@ -2951,9 +2945,6 @@ void KateViewInternal::hideEvent(QHideEvent* e)
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
-  if (m_smartDirty)
-    doUpdateView();
-
   if (debugPainting) kDebug (13030) << "GOT PAINT EVENT: Region" << e->region();
 
   const QRect& unionRect = e->rect();
@@ -3091,8 +3082,10 @@ void KateViewInternal::resizeEvent(QResizeEvent* e)
 
   if (expandedVertically) {
     KTextEditor::Cursor max = maxStartPos();
-    if (startPos() > max)
+    if (startPos() > max) {
       scrollPos(max);
+      return; // already fired displayRangeChanged
+    }
   }
   emit m_view->displayRangeChanged(m_view);
 }

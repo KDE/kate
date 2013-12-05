@@ -758,6 +758,9 @@ void ViModeTest::VisualModeTests() {
       QCOMPARE(range.start().column(), 1);
       QCOMPARE(range.end().column(), 3);
     }
+
+    // BUG #328277 - make sure kate doesn't crash
+    DoTest("aaa\nbbb", "Vj>u>.", "    aaa\n    bbb", ShouldFail, "Crash is fixed, but correct repeat behaviour in this scenario is yet to be implemented");
 }
 
 void ViModeTest::ReplaceModeTests()
@@ -7459,6 +7462,23 @@ void ViModeTest::textRemoved(Document* document, Range range)
 {
   Q_UNUSED(document);
   m_docChanges.append(DocChange(DocChange::TextRemoved, range));
+}
+
+
+void ViModeTest::keyParsingTests()
+{
+
+  // BUG #298726
+  const QChar char_o_diaeresis(246);
+
+  // Test that we can correctly translate finnish key ö
+  QKeyEvent *k = QKeyEvent::createExtendedKeyEvent( QEvent::KeyPress, 214, Qt::NoModifier, 47, 246, 16400, char_o_diaeresis);
+  QCOMPARE(KateViKeyParser::self()->KeyEventToQChar(*k), QChar(246));
+
+  // Test that it can be used in mappings
+  clearAllMappings();
+  KateGlobal::self()->viInputModeGlobal()->addMapping(KateViGlobal::NormalModeMapping, char_o_diaeresis, "ifoo", KateViGlobal::Recursive);
+  DoTest("hello", QString("ll%1bar").arg(char_o_diaeresis), "hefoobarllo");
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

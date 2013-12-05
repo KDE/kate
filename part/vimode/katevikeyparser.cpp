@@ -659,132 +659,17 @@ const QString KateViKeyParser::decodeKeySequence( const QString &keys ) const
   return ret;
 }
 
-char KateViKeyParser::scanCodeToChar(quint32 code, Qt::KeyboardModifiers modifiers, bool isLetter) const
-{
-    //Do not forget to ignore letters with shift. Should work with punctuation and special characters ($, ^) only.
-    //any punctuation (without shift) that has different signs in different layouts should be added to the second switch.
-    if ((modifiers & Qt::ShiftModifier) && !isLetter)
-    {
-        switch(code)
-        {
-        case 10:
-            return '!';
-        case 11:
-            return '@';
-        case 12:
-            return '#';
-        case 13:
-            return '$';
-        case 14:
-            return '%';
-        case 15:
-            return '^';
-        case 16:
-            return '&';
-        case 17:
-            return '*';
-        case 18:
-            return '(';
-        case 19:
-            return ')';
-        default:
-            return '0';
-        }
-    }
-    switch(code)
-    {
-        case 24:
-            return 'q';
-        case 25:
-            return 'w';
-        case 26:
-            return 'e';
-        case 27:
-            return 'r';
-        case 28:
-            return 't';
-        case 29:
-            return 'y';
-        case 30:
-            return 'u';
-        case 31:
-            return 'i';
-        case 32:
-            return 'o';
-        case 33:
-            return 'p';
-        case 34:
-            return '[';
-        case 35:
-            return ']';
-        case 38:
-            return 'a';
-        case 39:
-            return 's';
-        case 40:
-            return 'd';
-        case 41:
-            return 'f';
-        case 42:
-            return 'g';
-        case 43:
-            return 'h';
-        case 44:
-            return 'j';
-        case 45:
-            return 'k';
-        case 46:
-            return 'l';
-        case 47:
-            return ';';
-        case 48:
-            return '\'';
-        case 49:
-            return '`';
-        case 52:
-            return 'z';
-        case 53:
-            return 'x';
-        case 54:
-            return 'c';
-        case 55:
-            return 'v';
-        case 56:
-            return 'b';
-        case 57:
-            return 'n';
-        case 58:
-            return 'm';
-        case 59:
-            return ',';
-        case 60:
-            return '.';
-        case 61:
-            return '/';
-        default:
-            return 0;
-    }
-    return 0;
-}
-
 const QChar KateViKeyParser::KeyEventToQChar(const QKeyEvent& keyEvent)
 {
   const int keyCode = keyEvent.key();
   const QString &text = keyEvent.text();
   const Qt::KeyboardModifiers mods = keyEvent.modifiers();
-  const quint32 nativeScanCode  = keyEvent.nativeScanCode();
-
-  QChar key;
-
-  if ( !text.isEmpty() ) {
-    key = text.at(0);
-  }
 
   // If previous key press was AltGr, return key value right away and don't go
   // down the "handle modifiers" code path. AltGr is really confusing...
   if ( m_altGrPressed ) {
       setAltGrStatus( false );
-      return key;
+      return ( !text.isEmpty() ) ? text.at(0) : QChar();
   }
 
   if ( text.isEmpty() || ( text.length() == 1 && text.at(0) < 0x20 ) || keyCode == Qt::Key_Delete
@@ -799,37 +684,8 @@ const QChar KateViKeyParser::KeyEventToQChar(const QKeyEvent& keyEvent)
     keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : qt2vi( keyCode ) );
     keyPress.append( '>' );
 
-    key = encodeKeySequence( keyPress ).at( 0 );
+    return encodeKeySequence( keyPress ).at( 0 );
   } else {
-      //maybe we have a non-latin letter, try to convert to latin charachter
-      //note that non-latin letter in Latin layout can be a punctuation character (also some punctuation differs too)
-      QChar tempChar(text.at(0));
-      //don't touch latin keys
-      if (mods == Qt::KeypadModifier && keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9)
-      {
-        // Keypad numbers to ordinary numbers.
-        key = tempChar;
-      }
-      if ((keyCode < Qt::Key_A || keyCode > Qt::Key_Z) && tempChar.isLetter()) {
-          char ch = scanCodeToChar(nativeScanCode, mods, tempChar.isLetter());
-          if (ch != 0) {
-              key = QChar(ch);
-              if (key.isLetter()) {
-                if (tempChar.isUpper()) {
-                    key = QChar(ch).toUpper();
-                } else {
-                    key = QChar(ch).toLower(); //scanCodeToChar returns lower, but we don't want to depend on it
-                }
-              }
-          }
-          else {
-              key = tempChar;
-          }
-      }
-      else {
-          key = tempChar;
-      }
+    return text.at(0);
   }
-
-  return key;
 }

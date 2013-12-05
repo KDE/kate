@@ -365,7 +365,6 @@ class KateViewInternal : public QWidget
     bool m_preserveX;
     int m_preservedX;
 
-    bool m_updatingView;
     int m_wrapChangeViewLine;
     KTextEditor::Cursor m_cachedMaxStartPos;
 
@@ -420,9 +419,6 @@ class KateViewInternal : public QWidget
   private:
     void mouseMoved();
     void cursorMoved();
-
-  private:
-    bool m_smartDirty;
 
   private:
     inline KateDocument *doc() { return m_view->doc(); }

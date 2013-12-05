@@ -65,6 +65,8 @@
 
 //END Includes
 
+static const qint64 FileSizeAboveToAskUserIfProceedWithOpen = 10 * 1024 * 1024; // 10MB should suffice
+
 KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
     : QSplitter  (parentW)
     , m_mainWindow(parent)
@@ -254,6 +256,27 @@ void KateViewManager::slotDocumentOpen ()
 
     KateDocumentInfo docInfo;
     docInfo.openedByUser = true;
+
+    QString fileList;
+
+    foreach ( const KUrl &url, r.URLs )
+    {
+      qint64 size = QFile( url.toLocalFile() ).size();
+
+      if ( size > FileSizeAboveToAskUserIfProceedWithOpen )
+      {
+        fileList += QString("<li>%1 (%2MB)</li>").arg( url.fileName() ).arg( size / 1024 / 1024 );
+      }
+    }
+
+    if ( !fileList.isEmpty() )
+    {
+      QString text = i18n( "<p>You are attempting to open one or more large files:</p><ul>%1</ul><p>Do you want to proceed?</p><p><strong>Beware that kate may stop responding for some time when opening large files.</strong></p>" );
+
+      int ret = KMessageBox::warningYesNo( this, text.arg( fileList ), i18n("Opening Large File"), KStandardGuiItem::cont(), KStandardGuiItem::stop() );
+      if ( ret == KMessageBox::No )
+        return;
+    }
 
     KTextEditor::Document *lastID = 0;
     for (KUrl::List::Iterator i = r.URLs.begin(); i != r.URLs.end(); ++i)

@@ -1513,6 +1513,8 @@ bool KateViNormalMode::commandSearchForward()
 bool KateViNormalMode::commandUndo()
 {
     doc()->undo();
+    // See BUG #328277
+    m_viInputModeManager->clearCurrentChangeLog();
     return true;
 }
 

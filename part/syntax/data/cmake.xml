@@ -26,7 +26,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.8.11.1" -->
-<language name="CMake" version="1.22" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.23" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
@@ -897,9 +897,10 @@
       </context>
       <context attribute="Normal Text" lineEndContext="#stay" name="Macro Args">
         <DetectChar attribute="Normal Text" context="#pop" char=")"/>
+        <!-- TODO Hmm... this rule looks strange... being in the Normal context -->
         <StringDetect attribute="Escapes" context="#stay" String="\&quot;"/>
         <DetectChar attribute="Strings" context="String" char="&quot;"/>
-        <RegExpr attribute="Comment" context="#stay" String="#.*$"/>
+        <DetectChar attribute="Comment" context="Comment" char="#"/>
         <IncludeRules context="Detect Builtin Variables"/>
         <IncludeRules context="Detect Variables"/>
         <IncludeRules context="Detect Generator Expressions"/>

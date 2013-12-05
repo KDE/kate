@@ -403,13 +403,14 @@ detail in this page, look into the particular class API documentation.
 A KTextEditor::Factory class was introduced to access a specific Editor
 implementation, read \ref kte_design for detailed information.
 
-\section kte_port_remove Removed Interfaces
+\section kte_port_remove Removed Interfaces and Removed Classes
 Entirely removed interfaces and classes are, in order:
  - \p KTextEditor::EditorChooser \n
    Instead, just use \p KTextEditor::editor();
  - \p SmartInterface (removed since KDE 4.5)
  - \p SmartCursor, \p SmartRange, \p SmartCursorNotifier, \p SmartCursorWatcher,
    \p SmartRangeNotifier, \p SmartRangeWatcher (already unspoorted since KDE 4.5)
+ - \p LoadSaveFilterCheckPlugin was removed, since it was unused.
 
 \section kte_port_merge Merged Interfaces
 The following interfaces were merged, in order:

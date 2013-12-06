@@ -20,7 +20,7 @@ function(install_pate_plugin name)
         foreach(_p ${install_pate_plugin_PATTERN})
             set(_patterns ${_patterns} PATTERN ${_p})
         endforeach()
-        install(FILES ${name}/katepate_${name}.desktopDESTINATION ${SERVICES_INSTALL_DIR})
+        install(FILES ${name}/katepate_${name}.desktop DESTINATION ${SERVICES_INSTALL_DIR})
         install(
             DIRECTORY ${name}
             DESTINATION ${DATA_INSTALL_DIR}/kate/pate

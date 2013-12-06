@@ -739,7 +739,7 @@ class ConfigWidget(QWidget):
         super(ConfigWidget, self).__init__(parent)
 
         # Set up the user interface from Designer.
-        uic.loadUi(os.path.join(os.path.dirname(__file__), 'commentar_config.ui'), self)
+        uic.loadUi(os.path.join(os.path.dirname(__file__), 'commentar.ui'), self)
 
         self.reset();
 

@@ -22,6 +22,7 @@
 
 '''Provide shortcuts to access kate internals from plugins'''
 
+import contextlib
 import os
 import sys
 
@@ -93,6 +94,11 @@ def applicationDirectories(*path):
     return kdecore.KGlobal.dirs().findDirs('appdata', path)
 
 
+def findApplicationResource(*path):
+    path = os.path.join('pate', *path)
+    return kdecore.KGlobal.dirs().findResource('appdata', path)
+
+
 def objectIsAlive(obj):
     ''' Test whether an object is alive; that is, whether the pointer
     to the object still exists. '''
@@ -111,3 +117,15 @@ def kDebug(text):
     '''
     plugin = sys._getframe(1).f_globals['__name__']
     pate.kDebug('{}: {}'.format(plugin, text))
+
+
+@contextlib.contextmanager
+def makeAtomicUndo(document):
+    ''' Context manager to make sure startEditing syncronized w/
+        endEditing for particular document.
+    '''
+    document.startEditing()
+    try:
+        yield
+    finally:
+        document.endEditing()

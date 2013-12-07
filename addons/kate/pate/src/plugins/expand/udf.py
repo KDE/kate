@@ -19,56 +19,8 @@
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-'''User-defined text expansions.
-
-
-Each text expansion is a simple function which must return a string.
-This string will be inserted into a document by the expandAtCursor action.
-For example if you have a function "foo" in then all.expand file
-which is defined as:
-
-def foo:
-  return 'Hello from foo!'
-
-after typing "foo", the action will replace "foo" with "Hello from foo!".
-The expansion function may have parameters as well. For example, the
-text_x-c++src.expand file contains the "cl" function which creates a class
-(or class template). This will expand "cl(test)" into:
-
-/**
- * \\brief Class \c test
- */
-class test
-{
-public:
-    /// Default constructor
-    explicit test()
-    {
-    }
-    /// Destructor
-    virtual ~test()
-    {
-    }
-};
-
-but "cl(test, T1, T2, T3)" will expand to:
-
-/**
- * \\brief Class \c test
- */
-template <typename T1, typename T2, typename T3>
-class test
-{
-public:
-    /// Default constructor
-    explicit test()
-    {
-    }
-    /// Destructor
-    virtual ~test()
-    {
-    }
-};
+'''
+    Engine to expand `User Defined Functions`
 '''
 
 import functools
@@ -88,7 +40,6 @@ import kate
 import kate.ui
 
 from libkatepate import common
-from libkatepate.autocomplete import AbstractCodeCompletionModel
 
 
 class ParseError(Exception):
@@ -132,6 +83,7 @@ def wordAndArgumentAtCursorRanges(document, cursor):
             argument_end = matchingParenthesisPosition(document, argument_start, opening='(')
             argument_range = KTextEditor.Range(argument_start, argument_end)
     return word_range, argument_range
+
 
 # TODO Generalize this and move to `common' package
 def matchingParenthesisPosition(document, position, opening='('):
@@ -232,7 +184,6 @@ def getExpansionsFor(mime):
     return result
 
 
-@kate.action
 def getHelpOnExpandAtCursor():
     document = kate.activeDocument()
     view = document.activeView()
@@ -255,7 +206,6 @@ def getHelpOnExpandAtCursor():
         kate.kDebug('WARNING: undefined expansion `{}`'.format(word))
 
 
-@kate.action
 def expandAtCursor():
     """Attempt text expansion on the word at the cursor.
     The expansions available are based firstly on the mimetype of the
@@ -347,58 +297,3 @@ def expandAtCursor():
     document.removeText(word_range)
     ti2.insertTemplateText(word_range.start(), replacement, {}, None)
     document.endEditing()
-
-
-class ExpandsCompletionModel(AbstractCodeCompletionModel):
-    TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'Expands Available')
-    GROUP_POSITION = AbstractCodeCompletionModel.GroupPosition.GLOBAL
-
-    def completionInvoked(self, view, word, invocationType):
-        self.reset()
-        # NOTE Do not allow automatic popup cuz most of expanders are short
-        # and it will annoying when typing code...
-        if invocationType == 0:
-            return
-
-        expansions = getExpansionsFor(view.document().mimeType())
-        for exp, fn_tuple in expansions.items():
-            # Try to get a function description (very first line)
-            d = fn_tuple[0].__doc__
-            if d is not None:
-                lines = d.splitlines()
-                d = lines[0].strip().replace('<br/>', '')
-            # Get function parameters
-            fp = inspect.getargspec(fn_tuple[0])
-            args = fp[0]
-            params=''
-            if len(args) != 0:
-                params = ", ".join(args)
-            if fp[1] is not None:
-                if len(params):
-                    params += ', '
-                params += '['+fp[1]+']'
-            # Append to result completions list
-            self.resultList.append(
-                self.createItemAutoComplete(text=exp, description=d, args='('+params+')')
-              )
-
-    def reset(self):
-        self.resultList = []
-
-
-def _reset(*args, **kwargs):
-    expands_completation_model.reset()
-
-
-@kate.viewCreated
-def createSignalAutocompleteExpands(view=None, *args, **kwargs):
-    view = view or kate.activeView()
-    if view:
-        cci = view.codeCompletionInterface()
-        cci.registerCompletionModel(expands_completation_model)
-
-
-expands_completation_model = ExpandsCompletionModel(kate.application)
-expands_completation_model.modelReset.connect(_reset)
-
-# kate: space-indent on; indent-width 4;

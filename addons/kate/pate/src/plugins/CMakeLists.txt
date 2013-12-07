@@ -1,5 +1,10 @@
 include(CMakeParseArguments)
 
+#
+# Simple helper function to install plugin and related files
+# having only a name of the plugin...
+# (just to reduce syntactic noise when a lot of plugins get installed)
+#
 function(install_pate_plugin name)
     set(_options)
     set(_one_value_args)
@@ -55,12 +60,7 @@ install_pate_plugin(xml_pretty)
 if(PYTHON_VERSION_MAJOR VERSION_EQUAL 3)
     install_pate_plugin(cmake_utils)
     install_pate_plugin(js_utils PATTERN "*.json" PATTERN "*.js")
-    install_pate_plugin(expand)
-    install(
-        DIRECTORY expand
-        DESTINATION ${DATA_INSTALL_DIR}/kate/pate
-        FILES_MATCHING PATTERN "*.expand"
-      )
+    install_pate_plugin(expand PATTERN "*.expand")
 endif()
 
 if(PYTHON_VERSION_MAJOR VERSION_EQUAL 2)
@@ -72,5 +72,3 @@ install(
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate
     FILES_MATCHING PATTERN "*.py"
   )
-
-# kate: indent-width 4;

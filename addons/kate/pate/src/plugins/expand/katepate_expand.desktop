@@ -42,4 +42,3 @@ Comment[tr]=Genişleme fonksiyonu uygulayın ve çıktıyı bir belgeye ekleyin
 Comment[uk]=Виконати функцію розширення і вставити виведені нею дані до документа
 Comment[x-test]=xxExecute expansion function and insert output into a documentxx
 Comment[zh_TW]=執行擴展函式並將輸出插入到文件中
-X-Python-2-Compatible=true

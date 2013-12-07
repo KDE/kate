@@ -1,0 +1,3 @@
+auto a = "ok"
+auto b = "ok";
+auto c = some("ok");

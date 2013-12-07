@@ -55,7 +55,7 @@ require ("string.js");
 // ';' is for align `for' parts
 // ' ' is to add a '()' after `if', `while', `for', ...
 // TBD <others>
-triggerCharacters = "{}()[]<>/:;,#\\?!|&/%.@ \"=*^";
+triggerCharacters = "{}()[]<>/:;,#\\?!|&/%.@ '\"=*^";
 
 var debugMode = false;
 
@@ -123,6 +123,26 @@ function stripComment(text)
     if (result.hasComment)
         return result.before.rtrim();
     return text.rtrim();
+}
+
+/// Return \c true if attribute at given position is a \e Comment
+function isComment(line, column)
+{
+    // Check if we are not withing a string or a comment
+    var c = new Cursor(line, column);
+    var mode = document.attributeName(c);
+    dbg("isComment: Check mode @ " + c + ": " + mode);
+    return gMode == "Doxygen" || document.isComment(c);
+}
+
+/// Return \c true if attribute at given position is a \e String
+function isString(line, column)
+{
+    // Check if we are not withing a string or a comment
+    var c = new Cursor(line, column);
+    var mode = document.attributeName(c);
+    dbg("isString: Check mode @ " + c + ": " + mode);
+    return document.isString(c) || document.isChar(c);
 }
 
 /// Return \c true if attribute at given position is a \e String or \e Comment
@@ -1794,31 +1814,59 @@ function tryDoxygenGrouping(cursor)
  * the next one (after \c '"') is not an alphanumeric,
  * then add a delimiters.
  *
- * \attention If autobrace plugin used to add quotation marks,
- * then next symbol after the current will be another one \c '"'
- * if this is a new string. Otherwise, if it turned OFF, the simplest
- * case we can detect (and the most typical), is that raw string started
- * at fresh line, and current \c column equal to the line length.
+ * \attention Effect of AutoBrace extension has already neutralized at this point :)
  */
-function tryRawStringLiteral(cursor)
+function tryStringLiteral(cursor, ch)
 {
     var line = cursor.line;
     var column = cursor.column;
-    var is_abp_on = document.charAt(line, column) == '"';
-    var start_raw_string = 2 <= column
-      && document.charAt(line, column - 2) == 'R'
-      && (
-          is_abp_on                                         // Autobracket plugin On?
-        || column == (document.lineLength(line))            // Autobracket plugin Off? (and end of line)
-        );
-    if (start_raw_string)
+
+    if (isComment(line, column - 2))                        // Do nothing for comments
+        return;
+
+    // First of all we have to determinate where we are:
+    // 0) new string literal just started, or ...
+    // 1) string literal just ends
+
+    // Check if the '"' is a very first char on a line
+    var new_string_just_started;
+    if (column < 2)
+        // Yes, then we have to look to the last char of the previous line
+        new_string_just_started = !(line != 0 && isString(line - 1, document.lastColumn(line - 1)));
+    else
+        // Ok, just check attribute of the char right before '"'
+        new_string_just_started = !isString(line, column - 2);
+
+    //
+    if (new_string_just_started)
     {
-        /// \todo Make delimiter configurable... HOW?
-        /// It would be nice if indenters can have a configuration page somehow...
-        document.insertText(cursor, "~()~");
-        if (!is_abp_on)
-            document.insertText(line, column + 4, '"');
-        view.setCursorPosition(line, column + 2);
+        // Is there anything after just entered '"'?
+        var nc = document.charAt(line, column);
+        var need_closing_quote = column == document.lineLength(line)
+          || document.isSpace(nc)
+          || nc == ','                                      // user tries to add new string param,
+          || nc == ')'                                      // ... or one more param to the end of some call
+          || nc == ']'                                      // ... or string literal as subscript index
+          || nc == ';'                                      // ... or one more string before end of expression
+          || nc == '<'                                      // ... or `some << "|<<`
+          ;
+        if (need_closing_quote)
+        {
+            // Check for 'R' right before '"'
+            if (ch == '"' && document.charAt(line, column - 2) == 'R')
+            {
+                // Yeah, looks like a raw string literal
+                /// \todo Make delimiter configurable... HOW?
+                /// It would be nice if indenters can have a configuration page somehow...
+                document.insertText(cursor, "~()~\"");
+                view.setCursorPosition(line, column + 2);
+            }
+            else
+            {
+                document.insertText(cursor, ch);
+                view.setCursorPosition(line, column);
+            }
+        }
     }
 }
 
@@ -2031,6 +2079,10 @@ function tryEqualOperator(cursor)
  *
  * NOTE Cursor positioned right after just entered character and has +1 in column.
  *
+ * \attention This function will roll back the effect of \b AutoBrace extension
+ * for quote chars. So this indenter can handle that chars withing predictable
+ * surround...
+ *
  */
 function processChar(line, ch)
 {
@@ -2101,7 +2153,8 @@ function processChar(line, ch)
             tryDoxygenGrouping(cursor);
             break;
         case '"':
-            tryRawStringLiteral(cursor);
+        case '\'':
+            tryStringLiteral(cursor, ch);
             break;
         case '!':                                           // Almost all the time there should be a space before!
             tryExclamation(cursor);

@@ -2,7 +2,7 @@
  * name: C++/boost Style
  * license: LGPL
  * author: Alex Turbov <i.zaufi@gmail.com>
- * revision: 20
+ * revision: 21
  * kate-version: 3.4
  * priority: 10
  * indent-languages: C++11, C++11/Qt4
@@ -128,7 +128,7 @@ function stripComment(text)
 /// Return \c true if attribute at given position is a \e String or \e Comment
 function isStringOrComment(line, column)
 {
-    // Check if we are not withning a string or a comment
+    // Check if we are not withing a string or a comment
     var c = new Cursor(line, column);
     var mode = document.attributeName(c);
     dbg("isStringOrComment: Check mode @ " + c + ": " + mode);
@@ -158,7 +158,6 @@ function tryIndentRelativePrevLine(line)
 /// Try to (re)align (to 60th position) inline comment if present
 function alignInlineComment(line)
 {
-    document.editBegin();
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
     var sc = splitByComment(currentLineText);
@@ -194,7 +193,6 @@ function alignInlineComment(line)
             document.insertText(line, 0, currentLineText);
         }
     }
-    document.editEnd();
 }
 
 /**
@@ -217,8 +215,6 @@ function tryToKeepInlineComment(line)
     // i.e. it was just splitted and same-line-comment must be moved back to it
     if (document.line(line - 1).trim().length == 0)
         return;
-
-    document.editBegin();
 
     // Check is there any comment on the current line
     var currentLineText = document.line(line);
@@ -258,7 +254,6 @@ function tryToKeepInlineComment(line)
               );
         }
     }
-    document.editEnd();
 }
 
 /**
@@ -308,7 +303,6 @@ function tryBraceSplit_ch(line)
     {
         var currentIndentation = document.firstVirtualColumn(line - 1);
         result = currentIndentation + gIndentWidth;
-        document.editBegin();
         document.insertText(line, document.firstColumn(line), "\n");
         document.indent(new Range(line + 1, 0, line + 1, 1), currentIndentation / gIndentWidth);
         // Add half-tab (2 spaces) if matched not a curve bracket or
@@ -316,7 +310,6 @@ function tryBraceSplit_ch(line)
         var isOpenCharTheOnlyOnLine = (document.firstColumn(line - 1) == firstCharPos);
         if (!(isCurveBracketsMatched || isOpenCharTheOnlyOnLine))
             document.insertText(line + 1, document.firstColumn(line + 1), "  ");
-        document.editEnd();
         view.setCursorPosition(line, result);
     }
     if (result != -1)
@@ -428,7 +421,6 @@ function tryToAlignBeforeComma_ch(line)
 function tryMultilineCommentStart_ch(line)
 {
     var result = -1;
-    document.editBegin();
 
     // Check if multiline comment was started on the line
     // and ENTER wan't pressed right after a /*C-style comment*/
@@ -469,7 +461,6 @@ function tryMultilineCommentStart_ch(line)
     {
         dbg("tryMultilineCommentStart_ch result="+result);
     }
-    document.editEnd();
     return result;
 }
 
@@ -917,8 +908,6 @@ function trySameLineComment(cursor)
     if (document.isString(line, column))
         return;
 
-    document.editBegin();
-
     var sc = splitByComment(document.line(line));
     if (sc.hasComment)                                      // Is there any comment on a line?
     {
@@ -957,7 +946,6 @@ function trySameLineComment(cursor)
             document.insertText(line, column, ' ');
         }
     }
-    document.editEnd();
 }
 
 /**
@@ -980,8 +968,6 @@ function tryTemplate(cursor)
 
     if (isStringOrComment(line, column))
         return result;                                      // Do nothing for comments and strings
-
-    document.editBegin();
 
     // Check for 'template' keyword at line start
     var currentString = document.line(line);
@@ -1032,7 +1018,6 @@ function tryTemplate(cursor)
         cursor = tryJumpOverParenthesis(cursor);            // Try to jump out of parenthesis
         tryAddSpaceAfterClosedBracket(cursor);
     }
-    document.editEnd();
     return result;
 }
 
@@ -1085,6 +1070,16 @@ function tryJumpOverParenthesis(cursor)
         switch (c)
         {
             case '.':
+                if (pc == '(' && cc == ')')
+                {
+                    // Make sure this is not a `catch (...)`
+                    if (document.startsWith(line, "catch (.)", true))
+                    {
+                        document.insertText(line, column, "..");
+                        view.setCursorPosition(line, column + 3);
+                        break;
+                    }
+                }
             case ',':
             case '?':
             case ':':
@@ -1189,13 +1184,11 @@ function tryComma(cursor)
     if (justEnteredCharIsFirstOnLine(line, column, ','))
         result = tryIndentRelativePrevLine(line);
 
-    document.editBegin();
     cursor = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
     if (document.charAt(cursor) != ' ')
         document.insertText(cursor, " ");                   // Add space only if not present
     else
-        view.setCursorPosition(line, column + 2);           // Otherwise just move cursor after it
-    document.editEnd();
+        view.setCursorPosition(line, column + 1);           // Otherwise just move cursor after it
     return result;
 }
 
@@ -1267,8 +1260,6 @@ function trySemicolon(cursor)
     if (isStringOrComment(line, column))
         return result;                                      // Do nothing for comments and strings
 
-    document.editBegin();
-
     // If ';' is a first char on a line?
     if (justEnteredCharIsFirstOnLine(line, column, ';'))
     {
@@ -1333,7 +1324,6 @@ function trySemicolon(cursor)
             }
         }
     }
-    document.editEnd();
     return result;
 }
 
@@ -1342,7 +1332,7 @@ function trySemicolon(cursor)
  *
  * \c ?, \c |, \c ^, \c %, \c .
  *
- * Add spaces around trenary operator.
+ * Add spaces around ternary operator.
  */
 function tryOperator(cursor, ch)
 {
@@ -1367,7 +1357,6 @@ function tryOperator(cursor, ch)
         dbg("tryOperator: insideBraces=",insideBraces);
         result = document.firstColumn(line - 1) + (insideBraces && ch != '.' ? -2 : 2);
     }
-    document.editBegin();
     var prev = cursor;
     cursor = tryJumpOverParenthesis(cursor);                // Try to jump out of parenthesis
     cursor = tryAddSpaceAfterClosedBracket(cursor);
@@ -1405,7 +1394,6 @@ function tryOperator(cursor, ch)
         if (space_offset != -1)
             addCharOrJumpOverIt(line, column + space_offset, ' ');
     }
-    document.editEnd();
     if (result != -2)
     {
         dbg("tryOperator result="+result);
@@ -1439,8 +1427,6 @@ function tryCloseBracket(cursor, ch)
         result = document.firstColumn(braceCursor.line) + (ch != '}' ? 2 : 0);
         dbg("tryCloseBracket: setting result="+result);
     }
-
-    document.editBegin();
 
     // Check if ';' required after closing '}'
     if (ch == '}' && braceCursor.isValid())
@@ -1499,7 +1485,6 @@ function tryCloseBracket(cursor, ch)
 
     tryJumpOverParenthesis(view.cursorPosition());
 
-    document.editEnd();
     return result;
 }
 
@@ -1611,8 +1596,6 @@ function tryColon(cursor)
     var line = cursor.line;
     var column = cursor.column;
 
-    document.editBegin();
-
     // Check if just entered ':' is a first on a line
     if (justEnteredCharIsFirstOnLine(line, column, ':'))
     {
@@ -1673,7 +1656,6 @@ function tryColon(cursor)
             tryAddSpaceAfterClosedBracket(cursor);          // Try add a space after close bracket
         }
     }
-    document.editEnd();
     return result;
 }
 
@@ -1756,7 +1738,6 @@ function tryBackslash(cursor)
         dbg("maxLength:",result.max);
         // Iterate over macro definition, strip backslash
         // and add a padding string up to result.max length + backslash
-        document.editBegin();
         for (var i = result.range.start.line; i < result.range.end.line; ++i)
         {
             var currentLineText = document.line(i);
@@ -1766,7 +1747,6 @@ function tryBackslash(cursor)
             document.removeText(i, textLength, i, originalTextLength);
             document.insertText(i, textLength, String().fill(' ', result.max - textLength + 1) + "\\");
         }
-        document.editEnd();
     }
 }
 
@@ -1787,12 +1767,10 @@ function tryDoxygenGrouping(cursor)
       ;
     if (looks_like_doxgorup)
     {
-        document.editBegin();
         document.removeText(line, column - 2, line, column - 1);
         var padding = String().fill(' ', firstColumn);
         document.insertText(line, column - 1, "{\n" + padding + "\n" + padding + "//@}");
         view.setCursorPosition(line + 1, document.lineLength(line + 1));
-        document.editEnd();
     }
 }
 
@@ -1822,14 +1800,12 @@ function tryRawStringLiteral(cursor)
         );
     if (start_raw_string)
     {
-        document.editBegin();
         /// \todo Make delimiter configurable... HOW?
         /// It would be nice if indenters can have a configuration page somehow...
         document.insertText(cursor, "~()~");
         if (!is_abp_on)
             document.insertText(line, column + 4, '"');
         view.setCursorPosition(line, column + 2);
-        document.editEnd();
     }
 }
 
@@ -1902,7 +1878,6 @@ function tryKeywordsWithBrackets(cursor)
       || text == "switch "
       || text == "catch "
       ;
-    document.editBegin();
     if (need_brackets)
     {
         document.insertText(cursor, "()");
@@ -1918,7 +1893,6 @@ function tryKeywordsWithBrackets(cursor)
         document.removeText(line, column, line, column + 1);
         document.insertText(line, column - 2, " ");
     }
-    document.editEnd();
 }
 
 /**
@@ -1949,7 +1923,6 @@ function tryEqualOperator(cursor)
     var c = document.charAt(line, column - 2);
     dbg("tryEqualOperator: checking @Cursor("+line+","+(column - 2)+"), c='"+c+"'");
 
-    document.editBegin();
     switch (c)
     {
         // Two chars operators: !=, ==
@@ -2051,7 +2024,6 @@ function tryEqualOperator(cursor)
             document.insertText(line, column - 1, " ");     // Make sure there is a space before it!
             break;
     }
-    document.editEnd();
 }
 
 /**
@@ -2073,6 +2045,12 @@ function processChar(line, ch)
         dbg("ASSERTION FAILURE: line != cursor.line");
         return result;
     }
+
+    document.editBegin();
+    // Check if char under cursor is the same as just entered,
+    // and if so, remove it... to make it behave like "overwrite" mode
+    if (document.charAt(cursor) == ch)
+        document.removeText(line, cursor.column, line, cursor.column + 1);
 
     switch (ch)
     {
@@ -2141,7 +2119,7 @@ function processChar(line, ch)
         default:
             break;                                          // Nothing to do...
     }
-
+    document.editEnd();
     return result;
 }
 
@@ -2154,7 +2132,7 @@ function alignPreprocessor(line)
 
 /**
  * Try to find a next non comment line assuming that a given
- * one is a start or middle of a multiline comment.
+ * one is a start or middle of a multi-line comment.
  *
  * \attention This function would ignore anything else than
  * a simple comments like this one... I.e. if \b right after

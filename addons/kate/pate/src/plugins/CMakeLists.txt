@@ -31,7 +31,7 @@ include(CMakeParseArguments)
 function(install_pate_plugin name)
     set(_options)
     set(_one_value_args)
-    set(_multi_value_args PATTERN FILE)
+    set(_multi_value_args PATTERNS FILE)
     cmake_parse_arguments(install_pate_plugin "${_options}" "${_one_value_args}" "${_multi_value_args}" ${ARGN})
     if(NOT name)
         message(FATAL_ERROR "Plugin filename is not given")
@@ -44,10 +44,6 @@ function(install_pate_plugin name)
             endif()
         endforeach()
     elseif(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${name})
-        set(_patterns "")
-        foreach(_p ${install_pate_plugin_PATTERN})
-            set(_patterns ${_patterns} PATTERN ${_p})
-        endforeach()
         install(FILES ${name}/katepate_${name}.desktop DESTINATION ${SERVICES_INSTALL_DIR})
         install(
             DIRECTORY ${name}
@@ -56,9 +52,20 @@ function(install_pate_plugin name)
                 PATTERN "*.py"
                 PATTERN "*.ui"
                 PATTERN "*_ui.rc"
-                PATTERN "__pycache__/*" EXCLUDE
-                ${_patterns}
-          )
+                PATTERN "__pycache__*" EXCLUDE
+           )
+        # TODO Is there any way to form a long PATTERN options string
+        # and use it in a single install() call?
+        # NOTE Install specified patterns one-by-one...
+        foreach(_pattern ${install_pate_plugin_PATTERNS})
+            install(
+                DIRECTORY ${name}
+                DESTINATION ${DATA_INSTALL_DIR}/kate/pate
+                FILES_MATCHING
+                    PATTERN "${_pattern}"
+                    PATTERN "__pycache__*" EXCLUDE
+              )
+        endforeach()
     else()
         message(FATAL_ERROR "Do not know what to do with ${name}")
     endif()
@@ -75,15 +82,15 @@ install_pate_plugin(format)
 install_pate_plugin(gid)
 install_pate_plugin(python_autocomplete_jedi)
 install_pate_plugin(python_console_classic)
-install_pate_plugin(python_console_ipython PATTERN "*.css")
+install_pate_plugin(python_console_ipython PATTERNS "*.css")
 install_pate_plugin(python_utils)
 install_pate_plugin(try_open_file)
 install_pate_plugin(xml_pretty)
 
 if(PYTHON_VERSION_MAJOR VERSION_EQUAL 3)
     install_pate_plugin(cmake_utils)
-    install_pate_plugin(js_utils PATTERN "*.json" PATTERN "*.js")
-    install_pate_plugin(expand PATTERN "*.expand")
+    install_pate_plugin(js_utils PATTERNS "*.json" "*.js")
+    install_pate_plugin(expand PATTERNS "*.expand" "templates/*.tpl")
 endif()
 
 if(PYTHON_VERSION_MAJOR VERSION_EQUAL 2)
@@ -93,5 +100,7 @@ endif()
 install(
     DIRECTORY libkatepate
     DESTINATION ${DATA_INSTALL_DIR}/kate/pate
-    FILES_MATCHING PATTERN "*.py"
+    FILES_MATCHING
+        PATTERN "*.py"
+        PATTERN "__pycache__*" EXCLUDE
   )

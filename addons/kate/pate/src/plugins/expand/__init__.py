@@ -137,3 +137,23 @@ def createSignalAutocompleteExpands(view=None, *args, **kwargs):
 
 expands_completation_model = ExpandsCompletionModel(kate.application)
 expands_completation_model.modelReset.connect(_reset)
+
+
+def jinja(template):
+    ''' Decorator to tell to the expand engine that decorated function
+        wants to use jinja2 template to render, instead of 'legacy'
+        (document.insertText()) way...
+    '''
+    def _decorator(func):
+        func.template = template
+        return func
+    return _decorator
+
+
+def postprocess(func):
+    ''' Decorator to tell to the expand engine that decorated function
+        wants to use TemplateInterface2 to insert text, so user may
+        tune a rendered template...
+    '''
+    func.use_template_iface = True
+    return func

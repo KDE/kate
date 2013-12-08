@@ -13,6 +13,8 @@ TODO Disable automatic completion popup. Or make it configurable at least...
     It damn slooow actually for ost projects... and damn stupid to start to
     complit in comments and stings... so most of the time it just annoying
     than doing a real (helpful) job...
+
+TODO Completion model needs to be deregistered on plugin unload!
 """
 
 from collections import defaultdict

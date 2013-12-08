@@ -19,9 +19,7 @@
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-'''
-    Engine to expand `User Defined Functions`
-'''
+''' Engine to expand `User Defined Functions` (including Jinja2 templates) '''
 
 import functools
 import imp
@@ -32,6 +30,8 @@ import sys
 import time
 import traceback
 
+import jinja2
+
 from PyQt4.QtGui import QToolTip
 from PyKDE4.kdecore import KConfig, i18nc
 from PyKDE4.ktexteditor import KTextEditor
@@ -41,6 +41,10 @@ import kate.ui
 
 from libkatepate import common
 
+
+_EXPANDS_EXT = '.expand'
+_EXPANDS_BASE_DIR = 'expand'
+_JINJA_TEMPLATES_BASE_DIR = os.path.join(_EXPANDS_BASE_DIR, 'templates')
 
 class ParseError(Exception):
     pass
@@ -166,8 +170,9 @@ def mergeExpansions(left, right):
 
 def _getExpansionsFor(mime):
     expansions = {}
-    mime_filename = mime.replace('/', '_') + '.expand'
-    for directory in kate.applicationDirectories('expand'):
+    # TODO What about other (prohibited in filesystem) symbols?
+    mime_filename = mime.replace('/', '_') + _EXPANDS_EXT
+    for directory in kate.applicationDirectories(_EXPANDS_BASE_DIR):
         if os.path.exists(os.path.join(directory, mime_filename)):
             expansions = mergeExpansions(
                 expansions
@@ -182,6 +187,41 @@ def getExpansionsFor(mime):
     result = mergeExpansions(_getExpansionsFor(mime), _getExpansionsFor('all'))
     kate.kDebug('Got {} expansions at the end'.format(len(result)))
     return result
+
+
+def _makeEditableField(param, **kw):
+    act = '@' if 'active' in kw else ''
+    if 'name' in kw:
+        name = kw['name']
+    else:
+        name = param.strip()
+    return '${{{}{}:{}}}'.format(name, act, param)
+
+
+def _is_bool(s):
+    return isinstance(s,bool)
+
+
+def _is_int(s):
+    return isinstance(s,int)
+
+
+@functools.lru_cache()
+def getJinjaEnvironment(baseDir):
+    kate.kDebug('Make a templates loader for a base dir: {}'.format(baseDir))
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(baseDir))
+    #env.trim_blocks = True
+    #env.lstrip_blocks = True
+    env.block_start_string = '/*%'
+    env.block_end_string = '%*/'
+    env.variable_start_string = '/*<'
+    env.variable_end_string = '>*/'
+    env.line_statement_prefix = '//%'
+    env.line_comment_prefix = '//#'
+    env.filters['editable'] = _makeEditableField
+    env.tests['boolean'] = _is_bool
+    env.tests['integer'] = _is_int
+    return env
 
 
 def getHelpOnExpandAtCursor():
@@ -207,11 +247,12 @@ def getHelpOnExpandAtCursor():
 
 
 def expandAtCursor():
-    """Attempt text expansion on the word at the cursor.
-    The expansions available are based firstly on the mimetype of the
-    document, for example "text_x-c++src.expand" for "text/x-c++src", and
-    secondly on "all.expand".
-    """
+    ''' Attempt text expansion on the word at the cursor.
+
+        The expansions available are based firstly on the mimetype of the
+        document, for example "text_x-c++src.expand" for "text/x-c++src", and
+        secondly on "all.expand".
+    '''
     document = kate.activeDocument()
     view = document.activeView()
     try:
@@ -289,11 +330,64 @@ def expandAtCursor():
           )
         return
 
-    # Use TemplateInterface2 to insert a code snippet
-    ti2 = view.templateInterface2()
-    document.startEditing()
-    if argument_range is not None:
-        document.removeText(argument_range)
-    document.removeText(word_range)
-    ti2.insertTemplateText(word_range.start(), replacement, {}, None)
-    document.endEditing()
+    # Check what type of expand function it was
+    if hasattr(func, 'template'):
+        assert(isinstance(replacement, dict))
+        # Ok, going to render some jinja2 template...
+        filename = kate.findApplicationResource('{}/{}'.format(_JINJA_TEMPLATES_BASE_DIR, func.template))
+        if not filename:
+            kate.ui.popup(
+                i18nc('@title:window', 'Error')
+              , i18nc('@info:tooltip', 'Template file not found <filename>%1</filename>', func.template)
+              , 'dialog-error'
+              )
+            return
+
+        kate.kDebug('found abs template: {}'.format(filename))
+
+        # Get a corresponding environment for jinja!
+        base_dir_pos = filename.find(_JINJA_TEMPLATES_BASE_DIR)
+        assert(base_dir_pos != -1)
+        basedir = filename[:base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR)]
+        filename = filename[base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR) + 1:]
+        env = getJinjaEnvironment(basedir)
+        kate.kDebug('basedir={}, template_rel={}'.format(basedir, filename))
+        try:
+            kate.kDebug('Using jinja template file: {0}'.format(filename))
+            tpl = env.get_template(filename)
+            kate.kDebug('data dict={}'.format(replacement))
+            replacement = tpl.render(replacement)
+        except jinja2.TemplateError as e:
+            kate.ui.popup(
+                i18nc('@title:window', 'Error')
+              , i18nc(
+                    '@info:tooltip'
+                  , 'Template file error [<filename>%1</filename>]: <status>%2</status>'
+                  , func.template
+                  , e.message
+                  )
+              , 'dialog-error'
+              )
+            return
+
+    with kate.makeAtomicUndo(document):
+        # Remove old text
+        if argument_range is not None:
+            document.removeText(argument_range)
+        document.removeText(word_range)
+
+        kate.kDebug('Expanded text:\n{}'.format(replacement))
+
+        # Check if expand function requested a TemplateInterface2 to render
+        # result content...
+        if hasattr(func, 'use_template_iface') and func.use_template_iface:
+            # Use TemplateInterface2 to insert a code snippet
+            kate.kDebug('TI2 requested!')
+            ti2 = view.templateInterface2()
+            if ti2 is not None:
+                ti2.insertTemplateText(word_range.start(), replacement, {}, None)
+                return
+            # Fallback to default (legacy) way...
+
+        # Just insert text :)
+        document.insertText(word_range.start(), replacement)

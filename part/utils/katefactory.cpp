@@ -34,7 +34,7 @@ class KateFactory : public KTextEditor::Factory
 {
   Q_OBJECT
   
-  Q_PLUGIN_METADATA(IID KPluginFactory_iid FILE "")
+  Q_PLUGIN_METADATA(IID KPluginFactory_iid FILE "data/katepart.json")
   
   Q_INTERFACES(KPluginFactory)
   

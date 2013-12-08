@@ -115,7 +115,7 @@ class KateDocManager : public QObject
                                    const KateDocumentInfo& docInfo = KateDocumentInfo());
 
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
-    bool closeDocument(uint);
+    bool closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl = true);
     bool closeDocumentList(QList<KTextEditor::Document*> documents);
     bool closeAllDocuments(bool closeUrl = true);
     bool closeOtherDocuments(KTextEditor::Document*);
@@ -193,7 +193,7 @@ class KateDocManager : public QObject
     void showRestoreErrors ();
   private:
     bool loadMetaInfos(KTextEditor::Document *doc, const KUrl &url);
-    void saveMetaInfos(KTextEditor::Document *doc);
+    void saveMetaInfos(const QList<KTextEditor::Document *> &docs);
     bool computeUrlMD5(const KUrl &url, QByteArray &result);
 
     Kate::DocumentManager *m_documentManager;

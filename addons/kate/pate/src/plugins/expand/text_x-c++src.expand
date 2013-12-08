@@ -2,62 +2,44 @@
 #
 # C/C++ related expansion functions
 #
-# Copyright (C) 2010-2013 Alex Turbov <i.zaufi@gmail.com>
-#
 # NOTE Expansion plugin can complete available expansion functions for current
 # document. To get help (via tooltip) for the selected expansion function use
 # Ctrl+Shift+E shotcut.
 #
-# TODO Use jinja2 to handle templates
+# Copyright (C) 2010-2013 Alex Turbov <i.zaufi@gmail.com>
 #
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+import sys
 
 import kate
 
-_BRIEF_DOC_TPL = '''/**
- * \\brief Class \c {0}
- */'''
+import expand
+import expand.args as arg_helpers
 
-_TEMPLATE_PARAMS_TPL = '''
-template <{1}>'''
 
-_CLASS_BODY_TPL = '''
-class {0}
-{{
-public:
-\t/// Default constructor
-\t%{{cursor}}explicit {0}()
-\t{{
-\t}}
-\t/// Destructor
-\tvirtual ~{0}()
-\t{{
-\t}}
-}};
-'''
+_CL_SHORTCUT_MAPPINGS = {
+    'c'    : 'default_ctor'
+  , 'cc'   : 'default_copy_ctor'
+  , 'mc'   : 'default_move_ctor'
+  , 'd'    : 'destructor'
+  , 'dtor' : 'destructor'
+  , 'dv'   : 'virtual_destructor'
+  , 'vd'   : 'virtual_destructor'
+  , 'tf'   : 'template_full_spec'
+}
 
-_STRUCT_BODY_TPL = '''
-struct {0}
-{{
-\t%{{cursor}}
-}};
-'''
-
-_MFC_TPL = '''/**
- * \\brief Metafunction class \c {0}
- */
-struct {0}
-{{
-\ttemplate <{1}>
-\tstruct apply
-\t{{
-\t\ttypedef %{{cursor}} type;
-\t}};
-}};
-'''
-
-_PURE_BRIEF_DOC_TPL = '''/**
- * \\brief %{cursor}
- */'''
 
 _NS_TPL = '''namespace {0} {{
 %{{cursor}}
@@ -69,120 +51,205 @@ _ANONYMOUS_NS_TPL = '''namespace {{
 }}                                                           // anonymous namespace
 '''
 
-_GET_SET_TPL = '''{0} {1}() const
-{{
-    return {2};
-}}
-void {1}({0} value)
-{{
-    {2} = value;
-}}%{{cursor}}
-'''
-
-_MAIN_WITH_ARGS_TPL = '''int main(int argc, const char* const argv[])
-{
-\t%{cursor}
-\treturn 0;
-}
-'''
-
-_MAIN_TPL = '''int main()
-{
-\t%{cursor}
-\treturn 0;
-}'''
-
-_EMPTY_SWITCH_TPL = '''switch (%{cursor})
-{
-\tcase :
-\t\tbreak;
-\tdefault:
-\t\tbreak;
-}'''
-
-_SWITCH_TPL = '''switch ({})
-{{
-{}
-}}'''
-
-
-def st(name, *templateParams):
-    ''' Insert a structure definition<br/>
+@expand.jinja('struct.tpl')
+@expand.postprocess
+def st(*args, **kw):
+    ''' Insert a structure definition
 
         A first mandatory parameter is a structure name.
-        Everything after that will be template parameters.
+        Everything after it will be template parameters.
         <pre>
-          st(foo, T, U, V)
+          st(foo, T1..3, U, V)
         </pre>
 
         will expand into:
         <pre>
-          template <typename T, typename U, typename V>
+          template <typename T1, typename T2, typename T3, typename U, typename V>
           struct foo
           {
           };
         </pre>
     '''
-    params = [name]
-    if len(templateParams):
-        template = _BRIEF_DOC_TPL + _TEMPLATE_PARAMS_TPL + _STRUCT_BODY_TPL
-        params.append('typename ' + ', typename '.join(templateParams))
-    else:
-        template = _BRIEF_DOC_TPL + _STRUCT_BODY_TPL
-    print('template="{}", params={}'.format(template, repr(params)))
-    return template.format(*params)
+    data = {}
+    data['entity_type'] = 'struct'
+
+    # If 'name' parameter present -- use it!
+    if 'name' in kw:
+        data['entity_name'] = kw['name']
+
+    template_params = []
+    for arg in args:
+        if arg == 't':
+            data['template'] = True                         # It will be a template despite of other params...
+        elif 'entity_name' not in data:
+            # Assume first not recognized parameter is a class name
+            # (if latter was not provided via named parameters)
+            data['entity_name'] = arg
+        else:
+            data['template'] = True
+            template_params += arg_helpers.try_expand_params_seq(arg)
+    if template_params:
+        data['template_params'] = template_params
+
+    if 'entity_name' not in data:
+        data['entity_name'] = 'name'
+
+    return data
 
 
-def mfc(name, *templateParams):
-    ''' Insert a metafunction class definition<br/>
+@expand.jinja('metafunction-class.tpl')
+@expand.postprocess
+def mfc(*argc, **kw):
+    ''' Insert a metafunction class definition
 
         A first mandatory parameter is a structure name.
         Everything after that will be template parameters.
+        Arguments after '-', become template parameters of the outer structure.
+
+        Example:
         <pre>
-          mfc(foo, T, U, V)
+          mfc(foo, T, U, -, V1..3)
         </pre>
 
         will expand into:
         <pre>
+        template <typename V1, typename V2, typename V3>
         struct foo
         {
-            template <typename T, typename U, typename V>
+            template <typename T, typename U>
             struct apply
             {
             }
         };
         </pre>
     '''
-    params = [name]
-    if len(templateParams):
-        params.append('typename ' + ', typename '.join(templateParams))
-        return _MFC_TPL.format(*params)
-    return st(name)                                         # Just return a usual structure...
+    data = {}
+    data['entity_type'] = 'struct'
+    data['entity_description'] = 'Metafunction-class'
 
+    # If 'name' parameter present -- use it!
+    if 'name' in kw:
+        data['entity_name'] = kw['name']
 
-def cl(name, *templateParams):
-    ''' Insert a class definition<br/>
+    template_params = [[], []]
+    idx = 0
+    for arg in argc:
+        if arg == '-':
+            data['template'] = True                         # It will be a template despite of other params...
+            idx = 1
+        elif 'entity_name' not in data:
+            # Assume first not recognized parameter is a class name
+            # (if latter was not provided via named parameters)
+            data['entity_name'] = arg
+        else:
+            template_params[idx] += arg_helpers.try_expand_params_seq(arg)
 
-        <pre>
-        cl(name, [type1, ..., typeN])
-        </pre>
+    if template_params[0]:
+        data['mfc_params'] = template_params[0]
 
-        If there some type(s) specified, class will be turned into a template
-        with given template parameters.
+    if template_params[1]:
+        data['template_params'] = template_params[1]
+
+    if 'entity_name' not in data:
+        data['entity_name'] = 'name'
+
+    return data
+
+@expand.jinja('class.tpl')
+@expand.postprocess
+def cl(*args, **kw):
+    ''' C++ skeleton class generator.
+
+        It takes the following params to control some generation aspects:
+
+        * 'c' generate default constructor
+        * 'cN' generate constructor w/ N parameters
+        * 'cc' generate copy constructor and assign operator
+        * 'mc' generate move constructor and assign operator
+        * 'd' generate destructor
+        * 't' all parameters after 't' considered as template parameter name
+        * '-' or '0' back to "normal" mode
+
+        'c', 'cc', 'mc' may have the following prefixes:
+
+        * '@' to generate defaulted member
+        * '!' to generate deleted member
+
+        If template parameter name has the following format: Ln..m,
+        where 'L' letter sequence, 'n' and 'm' are numbers (start and end),
+        when it produce 'Ln, Ln+1, ..., Lm-1, Lm' parameters sequence.
+
+        Examples:
+        // Make a class w/ defaulted default constructor and virtual destructor
+        cl(@c,vd)
+        // deleted copy ctor, default move ctor, ctor w/ 3 params, set class name to 'Sample'
+        cl(Sample,!cc,@mc,c3)
+        //
+        cl(c,cc,mc,vd,name=Sample)
+        cl(!mc,!cc,Sample)
+
+        NOTE that class name can be given as a named parameter. If no named parameter present,
+        first 'unknown' parameter will be used as class name.
     '''
-    # TODO It would be neat to have syntax like this:
-    #   cl(test, T, U, d=v, cc=del, mv=def)
-    # i.e. define a class 'test' w/ template params T and U,
-    # w/ virtual dtor, w/ deleted copy ctor/assign and w/
-    # defaulted move ctor/assign.
-    # Isn't it?
-    params = [name]
-    if len(templateParams):
-        template = _BRIEF_DOC_TPL + _TEMPLATE_PARAMS_TPL + _CLASS_BODY_TPL
-        params.append('typename ' + ', typename '.join(templateParams))
-    else:
-        template = _BRIEF_DOC_TPL + _CLASS_BODY_TPL
-    return template.format(*params)
+    kate.kDebug('@class renderer: arguments: {}'.format(repr(args)))
+    kate.kDebug('@class renderer: named arguments: {}'.format(repr(kw)))
+
+    data = {}
+    data['entity_type'] = 'class'
+
+    # If 'name' parameter present -- use it!
+    if 'name' in kw:
+        data['entity_name'] = kw['name']
+
+    data['ctor_arity'] = 0
+
+    # Map positional args to various class properties
+    template_params = []
+    template_mode = False
+    for arg in args:
+        if template_mode:                                   # Collect template parameter names
+            if arg == '-' or arg == '0':                    # Switch to 'normal' mode
+                template_mode = False
+            else:
+                template_params += arg_helpers.try_expand_params_seq(arg)
+        elif arg[0] == '@' or arg[0] == '!':                # Handle defaulted and deleted functions
+            fn_kind = 'default' if arg[0] == '@' else 'delete'
+            fn_val = arg[1:]
+            if fn_val in _CL_SHORTCUT_MAPPINGS:
+                data[_CL_SHORTCUT_MAPPINGS[fn_val]] = fn_kind
+            else:
+                kate.kDebug('Ignore invalid param: {}'.format(arg))
+        elif arg in _CL_SHORTCUT_MAPPINGS:
+            data[_CL_SHORTCUT_MAPPINGS[arg]] = True
+        elif 1 < len(arg) and arg[0] == 'c':                # get default ctor arity
+            try:
+                arity = int(arg[1:])
+                if arity:
+                    data['ctor_arity'] = arity
+                elif arity == 0:
+                    data['default_ctor'] = True
+            except:
+                kate.kDebug('Ignore invalid param: {}'.format(arg))
+        elif arg == 't':                                    # 't' == class is a template, next params are names
+            data['template'] = True
+            template_mode = True
+        elif 'entity_name' not in data:
+            # Assume first not recognized parameter is a class name
+            # (if latter was not provided via named parameters)
+            data['entity_name'] = arg
+        else:
+            kate.kDebug('Ignore invalid param: {}'.format(arg))
+
+    if template_params:
+        data['template_params'] = template_params
+
+    if 'entity_name' not in data:
+        data['entity_name'] = 'name'
+
+    if 'virtual_destructor' in data:
+        data['destructor'] = True
+
+    return data
 
 
 def t(*params):
@@ -195,11 +262,13 @@ def t(*params):
     return 'template <typename ' + ', typename '.join(params) + '>'
 
 
+@expand.jinja('brief.tpl')
 def brief():
     '''Render a Doxygen <code>brief</code> header'''
-    return _PURE_BRIEF_DOC_TPL
+    return {}
 
 
+@expand.postprocess
 def ns(name = None):
     ''' Insert named or anonymous namespace<br/>
 
@@ -224,34 +293,44 @@ def ns(name = None):
     return template.format(*params)
 
 
-def gs(typeT, name, ref = None):
+@expand.jinja('getter-setter.tpl')
+@expand.postprocess
+def gs(member_name=None, member_type=None, ref = False, srs = False):
     ''' Insert getter/setter for a data member<br/>
 
         <pre>
-        gs(type, member-name, [set-by-ref=1])
+        gs(member-name, member-type[, ref=1][, srs=True])
         </pre>
+
+    ref == getter returns a reference, setter accepts a new value by reference
+    srs == setter returns self
 
     NOTE If the member has a one of "standard" prefix <code>'m_'</code> or suffix <code>'_'</code>,
         accessor name will be w/o it!
     '''
-    template = _GET_SET_TPL
+    data = {}
+    data['use_reference'] = arg_helpers.looks_like_true(ref)
+    data['setter_returns_self'] = arg_helpers.looks_like_true(srs)
+    data['member_type'] = member_type if member_type is not None else 'type'
+    member_name = member_name if member_name is not None else 'member_name'
+    data['member_name'] = member_name
 
-    if ref == None:
-        arg = typeT
+    if member_name.startswith('m_'):                        # Usual code style: members start w/ 'm_' prefix
+        pure_name = member_name[2:]
+    elif member_name.endswith('_'):                         # Google code style: members end w/ '_' suffix
+        pure_name = member_name[0:-1]
     else:
-        arg = 'const ' + typeT + ref
+        pure_name = member_name
 
-    if name.startswith('m_'):                               # Usual code style: members start w/ 'm_' prefix
-        pure_name = name[2:]
-    elif name.endswith('_'):                                # Google code style: members end w/ '_' suffix
-        pure_name = name[0:-1]
-    else:
-        pure_name = name
+    data['getter_name'] = pure_name
+    data['setter_name'] = pure_name
 
-    return template.format(arg, pure_name, name)
+    return data
 
 
-def main(need_args=True):
+@expand.jinja('main.tpl')
+@expand.postprocess
+def main(need_args=False):
     ''' Render a <code>main()</code> function
 
         <pre>
@@ -259,32 +338,35 @@ def main(need_args=True):
         </pre>
         if arg is <code>0</code> main will be w/o parameters, default <code>1</code>
     '''
-    if need_args != '0':
-        return _MAIN_WITH_ARGS_TPL
-    return _MAIN_TPL
+    return {'need_args': arg_helpers.looks_like_true(need_args) }
 
 
-def sw(expr = None, *caseList):
+@expand.jinja('switch.tpl')
+@expand.postprocess
+def sw(*args):
     ''' Render a <code>switch()</code> statement w/ a list of cases
 
         <pre>
         sw(expr, case1, ..., caseN)
         </pre>
         If caseX == <code>d</code> or <code>default</code> --> render <code>default: break;</code>
-        instead of case, so it is better to put <code>d</code> at the end of parameters list.
+        instead of case
     '''
-    if expr:
-        if caseList:
-            caseStr = ''
-            for case in caseList:
-                if case == 'd' or case == 'def' or case == 'default':
-                    caseStr += '\tdefault:\n\t\tbreak;\n'
-                else:
-                    caseStr += '\tcase ' + case +':\n\t\tbreak;\n'
-            caseStr += '%{cursor}'
+    data = {}
+    cases = []
+
+    if args:
+        data['expression'] = args[0]
+
+    for arg in args[1:]:
+        if arg == 'd':
+            data['default'] = True
         else:
-            caseStr = '\tcase %{cursor}:\n\t\tbreak;\n'
-        return _SWITCH_TPL.format(expr, caseStr)
-    return _EMPTY_SWITCH_TPL
+            cases.append(arg)
+
+    if cases:
+        data['cases'] = cases
+    return data
+
 
 # kate: hl python; indent-width 4;

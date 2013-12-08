@@ -46,7 +46,6 @@ from .decorators import *
 
 @pateEventHandler('_pluginLoaded')
 def on_load(plugin):
-    kDebug('Loading Pate plugin: {}'.format(plugin))
     if plugin in init.functions:
         # Call registered init functions for the plugin
         init.fire(plugin=plugin)
@@ -56,7 +55,6 @@ def on_load(plugin):
 
 @pateEventHandler('_pluginUnloading')
 def on_unload(plugin):
-    kDebug('Unloding Pate plugin: {}'.format(plugin))
     if plugin in unload.functions:
         # Deinitialize plugin
         unload.fire(plugin=plugin)

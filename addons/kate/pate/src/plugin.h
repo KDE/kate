@@ -1,7 +1,7 @@
 // This file is part of Pate, Kate' Python scripting plugin.
 //
 // Copyright (C) 2006 Paul Giannaros <paul@giannaros.org>
-// Copyright (C) 2012 Shaheed Haque <srhaque@theiet.org>
+// Copyright (C) 2012, 2013 Shaheed Haque <srhaque@theiet.org>
 // Copyright (C) 2013 Alex Turbov <i.zaufi@gmail.com>
 //
 // This library is free software; you can redistribute it and/or
@@ -18,6 +18,7 @@
 // along with this library; see the file COPYING.LIB.  If not, write to
 // the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 // Boston, MA 02110-1301, USA.
+//
 
 #ifndef _PATE_PLUGIN_H_
 # define _PATE_PLUGIN_H_

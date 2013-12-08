@@ -19,57 +19,7 @@
 # the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301, USA.
 
-'''User-defined text expansions.
-
-
-Each text expansion is a simple function which must return a string.
-This string will be inserted into a document by the expandAtCursor action.
-For example if you have a function "foo" in then all.expand file
-which is defined as:
-
-def foo:
-  return 'Hello from foo!'
-
-after typing "foo", the action will replace "foo" with "Hello from foo!".
-The expansion function may have parameters as well. For example, the
-text_x-c++src.expand file contains the "cl" function which creates a class
-(or class template). This will expand "cl(test)" into:
-
-/**
- * \\brief Class \c test
- */
-class test
-{
-public:
-    /// Default constructor
-    explicit test()
-    {
-    }
-    /// Destructor
-    virtual ~test()
-    {
-    }
-};
-
-but "cl(test, T1, T2, T3)" will expand to:
-
-/**
- * \\brief Class \c test
- */
-template <typename T1, typename T2, typename T3>
-class test
-{
-public:
-    /// Default constructor
-    explicit test()
-    {
-    }
-    /// Destructor
-    virtual ~test()
-    {
-    }
-};
-'''
+''' Engine to expand `User Defined Functions` (including Jinja2 templates) '''
 
 import functools
 import imp
@@ -80,6 +30,8 @@ import sys
 import time
 import traceback
 
+import jinja2
+
 from PyQt4.QtGui import QToolTip
 from PyKDE4.kdecore import KConfig, i18nc
 from PyKDE4.ktexteditor import KTextEditor
@@ -88,8 +40,11 @@ import kate
 import kate.ui
 
 from libkatepate import common
-from libkatepate.autocomplete import AbstractCodeCompletionModel
 
+
+_EXPANDS_EXT = '.expand'
+_EXPANDS_BASE_DIR = 'expand'
+_JINJA_TEMPLATES_BASE_DIR = os.path.join(_EXPANDS_BASE_DIR, 'templates')
 
 class ParseError(Exception):
     pass
@@ -132,6 +87,7 @@ def wordAndArgumentAtCursorRanges(document, cursor):
             argument_end = matchingParenthesisPosition(document, argument_start, opening='(')
             argument_range = KTextEditor.Range(argument_start, argument_end)
     return word_range, argument_range
+
 
 # TODO Generalize this and move to `common' package
 def matchingParenthesisPosition(document, position, opening='('):
@@ -214,8 +170,9 @@ def mergeExpansions(left, right):
 
 def _getExpansionsFor(mime):
     expansions = {}
-    mime_filename = mime.replace('/', '_') + '.expand'
-    for directory in kate.applicationDirectories('expand'):
+    # TODO What about other (prohibited in filesystem) symbols?
+    mime_filename = mime.replace('/', '_') + _EXPANDS_EXT
+    for directory in kate.applicationDirectories(_EXPANDS_BASE_DIR):
         if os.path.exists(os.path.join(directory, mime_filename)):
             expansions = mergeExpansions(
                 expansions
@@ -232,7 +189,41 @@ def getExpansionsFor(mime):
     return result
 
 
-@kate.action
+def _makeEditableField(param, **kw):
+    act = '@' if 'active' in kw else ''
+    if 'name' in kw:
+        name = kw['name']
+    else:
+        name = param.strip()
+    return '${{{}{}:{}}}'.format(name, act, param)
+
+
+def _is_bool(s):
+    return isinstance(s,bool)
+
+
+def _is_int(s):
+    return isinstance(s,int)
+
+
+@functools.lru_cache()
+def getJinjaEnvironment(baseDir):
+    kate.kDebug('Make a templates loader for a base dir: {}'.format(baseDir))
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(baseDir))
+    #env.trim_blocks = True
+    #env.lstrip_blocks = True
+    env.block_start_string = '/*%'
+    env.block_end_string = '%*/'
+    env.variable_start_string = '/*<'
+    env.variable_end_string = '>*/'
+    env.line_statement_prefix = '//%'
+    env.line_comment_prefix = '//#'
+    env.filters['editable'] = _makeEditableField
+    env.tests['boolean'] = _is_bool
+    env.tests['integer'] = _is_int
+    return env
+
+
 def getHelpOnExpandAtCursor():
     document = kate.activeDocument()
     view = document.activeView()
@@ -255,13 +246,13 @@ def getHelpOnExpandAtCursor():
         kate.kDebug('WARNING: undefined expansion `{}`'.format(word))
 
 
-@kate.action
 def expandAtCursor():
-    """Attempt text expansion on the word at the cursor.
-    The expansions available are based firstly on the mimetype of the
-    document, for example "text_x-c++src.expand" for "text/x-c++src", and
-    secondly on "all.expand".
-    """
+    ''' Attempt text expansion on the word at the cursor.
+
+        The expansions available are based firstly on the mimetype of the
+        document, for example "text_x-c++src.expand" for "text/x-c++src", and
+        secondly on "all.expand".
+    '''
     document = kate.activeDocument()
     view = document.activeView()
     try:
@@ -339,66 +330,64 @@ def expandAtCursor():
           )
         return
 
-    # Use TemplateInterface2 to insert a code snippet
-    ti2 = view.templateInterface2()
-    document.startEditing()
-    if argument_range is not None:
-        document.removeText(argument_range)
-    document.removeText(word_range)
-    ti2.insertTemplateText(word_range.start(), replacement, {}, None)
-    document.endEditing()
-
-
-class ExpandsCompletionModel(AbstractCodeCompletionModel):
-    TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'Expands Available')
-    GROUP_POSITION = AbstractCodeCompletionModel.GroupPosition.GLOBAL
-
-    def completionInvoked(self, view, word, invocationType):
-        self.reset()
-        # NOTE Do not allow automatic popup cuz most of expanders are short
-        # and it will annoying when typing code...
-        if invocationType == 0:
+    # Check what type of expand function it was
+    if hasattr(func, 'template'):
+        assert(isinstance(replacement, dict))
+        # Ok, going to render some jinja2 template...
+        filename = kate.findApplicationResource('{}/{}'.format(_JINJA_TEMPLATES_BASE_DIR, func.template))
+        if not filename:
+            kate.ui.popup(
+                i18nc('@title:window', 'Error')
+              , i18nc('@info:tooltip', 'Template file not found <filename>%1</filename>', func.template)
+              , 'dialog-error'
+              )
             return
 
-        expansions = getExpansionsFor(view.document().mimeType())
-        for exp, fn_tuple in expansions.items():
-            # Try to get a function description (very first line)
-            d = fn_tuple[0].__doc__
-            if d is not None:
-                lines = d.splitlines()
-                d = lines[0].strip().replace('<br/>', '')
-            # Get function parameters
-            fp = inspect.getargspec(fn_tuple[0])
-            args = fp[0]
-            params=''
-            if len(args) != 0:
-                params = ", ".join(args)
-            if fp[1] is not None:
-                if len(params):
-                    params += ', '
-                params += '['+fp[1]+']'
-            # Append to result completions list
-            self.resultList.append(
-                self.createItemAutoComplete(text=exp, description=d, args='('+params+')')
+        kate.kDebug('found abs template: {}'.format(filename))
+
+        # Get a corresponding environment for jinja!
+        base_dir_pos = filename.find(_JINJA_TEMPLATES_BASE_DIR)
+        assert(base_dir_pos != -1)
+        basedir = filename[:base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR)]
+        filename = filename[base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR) + 1:]
+        env = getJinjaEnvironment(basedir)
+        kate.kDebug('basedir={}, template_rel={}'.format(basedir, filename))
+        try:
+            kate.kDebug('Using jinja template file: {0}'.format(filename))
+            tpl = env.get_template(filename)
+            kate.kDebug('data dict={}'.format(replacement))
+            replacement = tpl.render(replacement)
+        except jinja2.TemplateError as e:
+            kate.ui.popup(
+                i18nc('@title:window', 'Error')
+              , i18nc(
+                    '@info:tooltip'
+                  , 'Template file error [<filename>%1</filename>]: <status>%2</status>'
+                  , func.template
+                  , e.message
+                  )
+              , 'dialog-error'
               )
+            return
 
-    def reset(self):
-        self.resultList = []
+    with kate.makeAtomicUndo(document):
+        # Remove old text
+        if argument_range is not None:
+            document.removeText(argument_range)
+        document.removeText(word_range)
 
+        kate.kDebug('Expanded text:\n{}'.format(replacement))
 
-def _reset(*args, **kwargs):
-    expands_completation_model.reset()
+        # Check if expand function requested a TemplateInterface2 to render
+        # result content...
+        if hasattr(func, 'use_template_iface') and func.use_template_iface:
+            # Use TemplateInterface2 to insert a code snippet
+            kate.kDebug('TI2 requested!')
+            ti2 = view.templateInterface2()
+            if ti2 is not None:
+                ti2.insertTemplateText(word_range.start(), replacement, {}, None)
+                return
+            # Fallback to default (legacy) way...
 
-
-@kate.viewCreated
-def createSignalAutocompleteExpands(view=None, *args, **kwargs):
-    view = view or kate.activeView()
-    if view:
-        cci = view.codeCompletionInterface()
-        cci.registerCompletionModel(expands_completation_model)
-
-
-expands_completation_model = ExpandsCompletionModel(kate.application)
-expands_completation_model.modelReset.connect(_reset)
-
-# kate: space-indent on; indent-width 4;
+        # Just insert text :)
+        document.insertText(word_range.start(), replacement)

@@ -233,9 +233,18 @@ def action(func):
     ''' Decorator that adds an action to the menu bar. When the item is fired,
         your function is called
     '''
-    plugin = sys._getframe(1).f_globals['__name__']
+    frame = sys._getframe(1)
+    plugin = frame.f_globals['__name__']
     kDebug('@action: {}/{}'.format(plugin, func.__name__))
-    ui_file = kdecore.KGlobal.dirs().findResource('appdata', 'pate/{}_ui.rc'.format(plugin))
+
+    # Get directory where plugin resides
+    filename = frame.f_globals['__file__']
+    dirname = os.path.dirname(filename)
+    pate_pos = dirname.find('pate')
+    assert(pate_pos != -1)
+    dirname = dirname[pate_pos:]
+    filename = os.path.join(dirname, '{}_ui.rc'.format(plugin))
+    ui_file = kdecore.KGlobal.dirs().findResource('appdata', filename)
     if not ui_file:
         ui_file = kdecore.KGlobal.dirs().findResource('appdata', 'pate/{}/{}_ui.rc'.format(plugin, plugin))
         if not ui_file:
@@ -243,7 +252,7 @@ def action(func):
             return func
 
     # Found UI resource file
-    #kDebug('ui_file={}'.format(repr(ui_file)))
+    kDebug('ui_file={}'.format(repr(ui_file)))
 
     # Get the XML GUI client or create a new one
     clnt = None

@@ -95,8 +95,7 @@ KateDocManager::~KateDocManager ()
   if (m_saveMetaInfos)
   {
     // saving meta-infos when file is saved is not enough, we need to do it once more at the end
-    foreach (KTextEditor::Document *doc, m_docList)
-    saveMetaInfos(doc);
+    saveMetaInfos( m_docList );
 
     // purge saved filesessions
     if (m_daysMetaInfos > 0)
@@ -286,37 +285,43 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
   return doc;
 }
 
-bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
+bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl)
 {
-  if (!doc) return false;
+  if (documents.isEmpty()) return false;
 
-  saveMetaInfos(doc);
-  if (closeUrl && !doc->closeUrl()) return false;
+  saveMetaInfos( documents );
 
-  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
-    KateApp::self()->mainWindow(i)->viewManager()->closeViews(doc);
-
-  if ( closeUrl && m_tempFiles.contains( doc ) )
+  foreach(KTextEditor::Document *doc, documents)
   {
-    QFileInfo fi( m_tempFiles[ doc ].first.toLocalFile() );
-    if ( fi.lastModified() <= m_tempFiles[ doc ].second ||
-         KMessageBox::questionYesNo( KateApp::self()->activeMainWindow(),
-                                     i18n("The supposedly temporary file %1 has been modified. "
-                                          "Do you want to delete it anyway?", m_tempFiles[ doc ].first.pathOrUrl()),
-                                     i18n("Delete File?") ) == KMessageBox::Yes )
-    {
-      KIO::del( m_tempFiles[ doc ].first, KIO::HideProgressInfo );
-      kDebug(13001) << "Deleted temporary file " << m_tempFiles[ doc ].first;
-      m_tempFiles.remove( doc );
-    }
-    else
-    {
-      m_tempFiles.remove(doc);
-      kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.pathOrUrl() << " have been modified since loaded, and has not been deleted.";
-    }
-  }
+    if (closeUrl && !doc->closeUrl())
+      return false; // get out on first error
 
-  deleteDoc (doc);
+    for (int i = 0; i < KateApp::self()->mainWindows (); i++ ) {
+      KateApp::self()->mainWindow(i)->viewManager()->closeViews(doc);
+    }
+
+    if ( closeUrl && m_tempFiles.contains( doc ) )
+    {
+      QFileInfo fi( m_tempFiles[ doc ].first.toLocalFile() );
+      if ( fi.lastModified() <= m_tempFiles[ doc ].second ||
+          KMessageBox::questionYesNo( KateApp::self()->activeMainWindow(),
+                                      i18n("The supposedly temporary file %1 has been modified. "
+                                            "Do you want to delete it anyway?", m_tempFiles[ doc ].first.pathOrUrl()),
+                                      i18n("Delete File?") ) == KMessageBox::Yes )
+      {
+        KIO::del( m_tempFiles[ doc ].first, KIO::HideProgressInfo );
+        kDebug(13001) << "Deleted temporary file " << m_tempFiles[ doc ].first;
+        m_tempFiles.remove( doc );
+      }
+      else
+      {
+        m_tempFiles.remove(doc);
+        kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.pathOrUrl() << " have been modified since loaded, and has not been deleted.";
+      }
+    }
+
+    deleteDoc (doc);
+  }
 
   // never ever empty the whole document list
   if (m_docList.isEmpty())
@@ -325,9 +330,14 @@ bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
   return true;
 }
 
-bool KateDocManager::closeDocument(uint n)
+bool KateDocManager::closeDocument(KTextEditor::Document *doc, bool closeUrl)
 {
-  return closeDocument(document(n));
+  if (!doc) return false;
+
+  QList<KTextEditor::Document *> documents;
+  documents.append( doc );
+
+  return closeDocuments( documents, closeUrl );
 }
 
 bool KateDocManager::closeOtherDocuments(uint n)
@@ -353,11 +363,7 @@ bool KateDocManager::closeDocumentList(QList<KTextEditor::Document*> documents)
     return false;
   }
 
-  while (!documents.isEmpty() && res)
-    if (! closeDocument(documents.at(0), false) )  // Do not show save/discard dialog
-      res = false;
-    else
-      documents.removeFirst();
+  res = closeDocuments( documents, false ); // Do not show save/discard dialog
 
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
   {
@@ -380,11 +386,7 @@ bool KateDocManager::closeAllDocuments(bool closeUrl)
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
 
-  while (!docs.isEmpty() && res)
-    if (! closeDocument(docs.at(0), closeUrl) )
-      res = false;
-    else
-      docs.removeFirst();
+  res = closeDocuments( docs, closeUrl );
 
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
   {
@@ -399,17 +401,14 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document* doc)
 {
   bool res = true;
 
-  QList<KTextEditor::Document*> docs = m_docList;
+  QList<KTextEditor::Document*> documents = m_docList;
 
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
 
-  for (int i = 0; (i < docs.size()) && res; i++)
-  {
-    if (docs.at(i) != doc)
-        if (! closeDocument(docs.at(i), false) )
-          res = false;
-  }
+  documents.removeOne( doc );
+
+  res = closeDocuments( documents );
 
   for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
   {
@@ -520,13 +519,16 @@ void KateDocManager::reloadAll()
 
 void KateDocManager::closeOrphaned()
 {
+  QList<KTextEditor::Document *> documents;
+
   foreach ( KTextEditor::Document *doc, m_docList )
   {
-    KateDocumentInfo* info = documentInfo(doc);
-    if (info && !info->openSuccess) {
-      closeDocument(doc);
-    }
+    KateDocumentInfo* info = documentInfo( doc );
+    if (info && !info->openSuccess)
+      documents.append( doc );
   }
+
+  closeDocuments( documents );
 }
 
 void KateDocManager::saveDocumentList (KConfig* config)
@@ -649,30 +651,33 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const KUrl &url)
 /**
  * Save file's meta-information if doc is in 'unmodified' state
  */
-void KateDocManager::saveMetaInfos(KTextEditor::Document *doc)
-{
-  QByteArray md5;
 
+void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documents)
+{
   if (!m_saveMetaInfos)
     return;
 
-  if (doc->isModified())
+  QByteArray md5;
+  QDateTime now = QDateTime::currentDateTime();
+
+  foreach(const KTextEditor::Document *doc, documents)
   {
-//     kDebug (13020) << "DOC MODIFIED: no meta data saved";
-    return;
+    if (doc->isModified())
+      continue;
+
+    if (computeUrlMD5(doc->url(), md5))
+    {
+      KConfigGroup urlGroup( m_metaInfos, doc->url().prettyUrl() );
+
+      if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
+        iface->writeSessionConfig(urlGroup);
+
+      urlGroup.writeEntry("MD5", md5.constData());
+      urlGroup.writeEntry("Time", now);
+    }
   }
 
-  if (computeUrlMD5(doc->url(), md5))
-  {
-    KConfigGroup urlGroup( m_metaInfos, doc->url().prettyUrl() );
-
-    if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
-      iface->writeSessionConfig(urlGroup);
-
-    urlGroup.writeEntry("MD5", (const char *)md5);
-    urlGroup.writeEntry("Time", QDateTime::currentDateTime());
-    m_metaInfos->sync();
-  }
+  m_metaInfos->sync();
 }
 
 // TODO: KDE 5: KateDocument computes the md5 digest when loading a file, and
@@ -699,7 +704,9 @@ bool KateDocManager::computeUrlMD5(const KUrl &url, QByteArray &result)
 
 void KateDocManager::slotModChanged(KTextEditor::Document * doc)
 {
-  saveMetaInfos(doc);
+  QList<KTextEditor::Document *> documents;
+  documents.append( doc );
+  saveMetaInfos( documents );
 }
 
 void KateDocManager::slotModChanged1(KTextEditor::Document * doc)

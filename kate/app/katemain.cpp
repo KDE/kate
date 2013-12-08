@@ -75,10 +75,10 @@ class KateWaiter : public QObject {
 
 extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 {
-  // here we go, construct the Kate version
-  QByteArray kateVersion = KateApp::kateVersion().toLatin1();
-
-  KAboutData aboutData ("kate", 0, i18n("Kate"), kateVersion,
+  /**
+   * construct about data for Kate
+   */
+  KAboutData aboutData ("kate", 0, i18n("Kate"), KateApp::kateVersion().toLatin1(),
                         i18n( "Kate - Advanced Text Editor" ), KAboutData::License_LGPL_V2,
                         i18n( "(c) 2000-2013 The Kate Authors" ), QString(), "http://www.kate-editor.org");
   aboutData.setOrganizationDomain("kde.org");
@@ -115,7 +115,15 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   aboutData.addCredit (i18n("Cristi Dumitrescu"), i18n("PHP Keyword/Datatype list"));
   aboutData.addCredit (i18n("Carsten Pfeiffer"), i18n("Very nice help"));
   aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
-
+  
+  /**
+   * Create the QApplication with the right options set
+   * take component name and org. name from KAboutData
+   */
+  QApplication app (argc, argv);
+  app.setApplicationName(aboutData.componentName());
+  app.setOrganizationDomain(aboutData.organizationDomain());
+  app.setQuitOnLastWindowClosed (false);
   
 #ifdef TODO
   
@@ -379,14 +387,19 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   }
 #endif 
 
-  // construct the real kate app object ;)
-  KateApp app (argc, argv);
-  if (app.shouldExit()) return 0;
+  /**
+   * construct the real kate app object ;)
+   * behaves like a singleton, one unique instance
+   */
+  KateApp kateApp;
+  if (kateApp.shouldExit()) return 0;
 
-  // execute ourself ;)
+  /**
+   * start main event loop for our application
+   */
   return app.exec();
 }
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
-
 #include "katemain.moc"
+
+// kate: space-indent on; indent-width 2; replace-tabs on;

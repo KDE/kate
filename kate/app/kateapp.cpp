@@ -47,12 +47,13 @@
 #include <unistd.h>
 #include "kateappadaptor.h"
 
-KateApp::KateApp(int & argc, char ** argv)
-      : QApplication (argc, argv)
-    , m_shouldExit(false)
+KateApp *KateApp::s_self = 0;
+
+KateApp::KateApp()
+    : m_shouldExit(false)
     , m_args (0)
 {
-  setQuitOnLastWindowClosed (false);
+  s_self = this;
 
   // application interface
   m_application = new Kate::Application (this);
@@ -100,7 +101,7 @@ KateApp::~KateApp ()
 
 KateApp *KateApp::self ()
 {
-  return static_cast<KateApp *>(QApplication::instance());
+  return s_self;
 }
 
 Kate::Application *KateApp::application ()
@@ -125,7 +126,7 @@ void KateApp::initKate ()
   ::setenv( "KATE_PID", QString("%1").arg(getpid()).toLatin1().constData(), 1 );
 
   // handle restore different
-  if (isSessionRestored())
+  if (false /* FIXME KF5 isSessionRestored() */)
   {
     restoreKate ();
   }
@@ -317,7 +318,7 @@ void KateApp::shutdownKate (KateMainWindow *win)
     delete m_mainWindows[0];
   }
 
-  quit ();
+  QApplication::quit ();
 }
 
 KatePluginManager *KateApp::pluginManager()
@@ -431,7 +432,7 @@ KateMainWindow *KateApp::activeMainWindow ()
   if (m_mainWindows.isEmpty())
     return 0;
 
-  int n = m_mainWindows.indexOf (static_cast<KateMainWindow *>(activeWindow()));
+  int n = m_mainWindows.indexOf (static_cast<KateMainWindow *>((static_cast<QApplication *>(QCoreApplication::instance ())->activeWindow())));
 
   if (n < 0)
     n = 0;

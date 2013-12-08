@@ -89,7 +89,7 @@ ecm_optional_add_subdirectory (kate)
 #macro_optional_add_subdirectory (addons)
 
 # docs
-#macro_optional_add_subdirectory (doc)
+ecm_optional_add_subdirectory (doc)
 
 # tests
 #macro_optional_add_subdirectory (tests)

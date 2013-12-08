@@ -96,14 +96,12 @@ bool MovingCursor::gotoPreviousLine()
 
 bool MovingCursor::move(int chars, WrapBehavior wrapBehavior)
 {
-  const KTextEditor::Cursor oldPos = toCursor();
-  DocumentCursor dc(document(), oldPos);
+  DocumentCursor dc(document(), toCursor());
 
   const bool success = dc.move(chars, static_cast<DocumentCursor::WrapBehavior>(wrapBehavior));
 
-  if (success && dc.toCursor() != oldPos) {
-    setPosition(oldPos);
-  }
+  if (success && dc.toCursor() != toCursor())
+    setPosition (dc.toCursor());
 
   return success;
 }

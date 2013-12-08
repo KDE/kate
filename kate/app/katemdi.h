@@ -88,8 +88,8 @@ namespace KateMDI
     private:
       MainWindow *m_mw;
       KToggleAction *m_showSidebarsAction;
-      QList<KAction*> m_toolViewActions;
-      QMap<ToolView*, KAction*> m_toolToAction;
+      QList<QAction*> m_toolViewActions;
+      QMap<ToolView*, QAction*> m_toolToAction;
       KActionMenu *m_toolMenu;
   };
 

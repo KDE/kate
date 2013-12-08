@@ -28,7 +28,7 @@
 
 #include <KTextEditor/View>
 #include <KTextEditor/SessionConfigInterface>
-#include <KTextEditor/EditorChooser>
+#include <KTextEditor/Editor>
 #include <KTextEditor/ContainerInterface>
 
 #include <KParts/Factory>
@@ -44,10 +44,12 @@
 #include <KIconLoader>
 #include <KProgressDialog>
 #include <KColorScheme>
+#include <klocalizedstring.h>
 
 #include <QDateTime>
 #include <QTextCodec>
 #include <QByteArray>
+#include <QtCore/QCryptographicHash>
 #include <QHash>
 #include <QListView>
 #include <QTimer>
@@ -60,7 +62,7 @@ KateDocManager::KateDocManager (QObject *parent)
     , m_suppressOpeningErrorDialogs (false)
 {
   // Constructed the beloved editor ;)
-  m_editor = KTextEditor::EditorChooser::editor();
+  m_editor = KTextEditor::editor();
   
   if ( !m_editor )
   {
@@ -81,7 +83,7 @@ KateDocManager::KateDocManager (QObject *parent)
 
   m_documentManager = new Kate::DocumentManager (this);
 
-  m_metaInfos = new KConfig("metainfos", KConfig::NoGlobals, "appdata" );
+  m_metaInfos = new KConfig("metainfos", KConfig::NoGlobals, QStandardPaths::DataLocation );
 
   createDoc ();
 }
@@ -454,7 +456,7 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 
       if (msgres == KMessageBox::Yes)
       {
-        KEncodingFileDialog::Result r = KEncodingFileDialog::getSaveUrlAndEncoding( doc->encoding(), QString(), QString(), w, i18n("Save As"));
+        KEncodingFileDialog::Result r = KEncodingFileDialog::getSaveUrlAndEncoding( doc->encoding(), QUrl(), QString(), w, i18n("Save As"));
 
         doc->setEncoding( r.encoding );
 
@@ -623,7 +625,7 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const KUrl &url)
     KConfigGroup urlGroup( m_metaInfos, url.prettyUrl() );
     const QString old_md5 = urlGroup.readEntry("MD5");
 
-    if ((const char *)md5 == old_md5)
+    if (QString (md5) == old_md5)
     {
       if (KTextEditor::ParameterizedSessionConfigInterface *iface =
         qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc))
@@ -667,7 +669,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
 
     if (computeUrlMD5(doc->url(), md5))
     {
-      KConfigGroup urlGroup( m_metaInfos, doc->url().prettyUrl() );
+      KConfigGroup urlGroup( m_metaInfos, doc->url().toString() );
 
       if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
         iface->writeSessionConfig(urlGroup);
@@ -688,12 +690,10 @@ bool KateDocManager::computeUrlMD5(const KUrl &url, QByteArray &result)
 
   if (f.exists() && f.open(QIODevice::ReadOnly))
   {
-    KMD5 md5;
-
-    if (!md5.update(f))
-      return false;
-
-    md5.hexDigest(result);
+    QCryptographicHash crypto(QCryptographicHash::Md5);
+    while(!f.atEnd())
+        crypto.addData (f.read(256 * 1024));
+    result = crypto.result();
     f.close();
   }
   else

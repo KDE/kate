@@ -36,6 +36,7 @@
 #include <kdebug.h>
 #include <KMessageBox>
 #include <KLocale>
+#include <KGlobal>
 #include <KStartupInfo>
 
 #include <QFileInfo>
@@ -46,10 +47,10 @@
 #include <unistd.h>
 #include "kateappadaptor.h"
 
-KateApp::KateApp (KCmdLineArgs *args)
-    : KApplication ()
+KateApp::KateApp(int & argc, char ** argv)
+      : QApplication (argc, argv)
     , m_shouldExit(false)
-    , m_args (args)
+    , m_args (0)
 {
   setQuitOnLastWindowClosed (false);
 
@@ -99,7 +100,7 @@ KateApp::~KateApp ()
 
 KateApp *KateApp::self ()
 {
-  return static_cast<KateApp *>(kapp);
+  return static_cast<KateApp *>(QApplication::instance());
 }
 
 Kate::Application *KateApp::application ()
@@ -121,7 +122,7 @@ void KateApp::initKate ()
 {
 
   kDebug() << "Setting KATE_PID: '" << getpid() << "'";
-  ::setenv( "KATE_PID", QString("%1").arg(getpid()).toLatin1(), 1 );
+  ::setenv( "KATE_PID", QString("%1").arg(getpid()).toLatin1().constData(), 1 );
 
   // handle restore different
   if (isSessionRestored())
@@ -146,6 +147,11 @@ void KateApp::initKate ()
 
 void KateApp::restoreKate ()
 {
+  
+#ifdef FIXME
+  
+  /// FIXME KF5
+  
   // activate again correct session!!!
   QString lastSession (sessionConfig()->group("General").readEntry ("Last Session", QString()));
   sessionManager()->activateSession (KateSession::Ptr(new KateSession (sessionManager(), lastSession)), false, false, false);
@@ -159,7 +165,8 @@ void KateApp::restoreKate ()
   // restore all windows ;)
   for (int n = 1; KMainWindow::canBeRestored(n); n++)
     newMainWindow(sessionConfig(), QString ("%1").arg(n));
-
+#endif
+  
   // oh, no mainwindow, create one, should not happen, but make sure ;)
   if (mainWindows() == 0)
     newMainWindow ();
@@ -167,6 +174,10 @@ void KateApp::restoreKate ()
 
 bool KateApp::startupKate ()
 {
+#if FIXME
+  
+  // FIXME KF5
+  
   // user specified session to open
   if (m_args->isSet ("startanon"))
   {
@@ -194,6 +205,8 @@ bool KateApp::startupKate ()
     sessionManager()->activateSession( KateSession::Ptr(new KateSession (sessionManager(), QString())), false, false );
   }
 
+#endif
+  
   // oh, no mainwindow, create one, should not happen, but make sure ;)
   if (mainWindows() == 0)
     newMainWindow ();
@@ -202,6 +215,12 @@ bool KateApp::startupKate ()
 #ifdef Q_WS_X11
   KStartupInfo::setNewStartupId( activeMainWindow(), startupId());
 #endif
+  
+#if FIXME
+  
+  // FIXME KF5
+  
+  
   QTextCodec *codec = m_args->isSet("encoding") ? QTextCodec::codecForName(m_args->getOption("encoding").toUtf8()) : 0;
 
   bool tempfileSet = KCmdLineArgs::isTempFileSet();
@@ -273,6 +292,8 @@ bool KateApp::startupKate ()
   if (nav && activeMainWindow()->viewManager()->activeView ())
     activeMainWindow()->viewManager()->activeView ()->setCursorPosition (KTextEditor::Cursor (line, column));
 
+#endif
+  
   // show the nice tips
   KTipDialog::showTip(activeMainWindow());
 

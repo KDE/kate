@@ -20,7 +20,7 @@
 #define kate_pluginconfigpageinterface_h
 
 #include <kate_export.h>
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 #include <QtGui/QPixmap>
 #include <kicon.h>
 

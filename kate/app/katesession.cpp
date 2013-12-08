@@ -42,6 +42,8 @@
 #include <KIO/NetAccess>
 #include <KIO/CopyJob>
 #include <KStringHandler>
+#include <klocalizedstring.h>
+#include <kglobal.h>
 
 #include <QDir>
 #include <QLabel>
@@ -50,13 +52,14 @@
 #include <QHBoxLayout>
 #include <QStyle>
 #include <QtAlgorithms>
+#include <QCollator>
 
 #include <unistd.h>
 #include <time.h>
 
 
 bool katesessions_compare_sessions_ptr(const KateSession::Ptr &s1, const KateSession::Ptr &s2) {
-    return KStringHandler::naturalCompare(s1->sessionName(),s2->sessionName())==-1;
+    return QCollator().compare (s1->sessionName(),s2->sessionName())==-1;
 }
 
 //BEGIN KateSession
@@ -664,7 +667,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
 
   QMenu* popup = new QMenu(this);
-  button(KDialog::User3)->setDelayedMenu(popup);
+// FIXME KF5  button(KDialog::User3)->setDelayedMenu(popup);
   QAction *a = popup->addAction(i18n("Use selected session as template"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
 

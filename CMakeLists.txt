@@ -83,7 +83,7 @@ ecm_optional_add_subdirectory (part)
 ecm_optional_add_subdirectory (kwrite)
 
 # kate application
-#macro_optional_add_subdirectory (kate)
+ecm_optional_add_subdirectory (kate)
 
 # addons, e.g. ktexteditor plugins, kate plugins, plasma applets, ...
 #macro_optional_add_subdirectory (addons)

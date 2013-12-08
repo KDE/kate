@@ -45,7 +45,6 @@ class KConfigGroup;
 class KConfigBase;
 class KateMainWindow;
 class KateViewSpace;
-class KAction;
 
 class QToolButton;
 
@@ -264,16 +263,16 @@ class KateViewManager : public QSplitter
     KateMainWindow *m_mainWindow;
     bool m_init;
 
-    KAction *m_closeView;
-    KAction *m_closeOtherViews;
-    KAction *goNext;
-    KAction *goPrev;
-    KAction *m_cursorPosToggle;
-    KAction *m_charCountToggle;
-    KAction *m_insertModeToggle;
-    KAction *m_selectModeToggle;
-    KAction *m_encodingToggle;
-    KAction *m_docNameToggle;
+    QAction *m_closeView;
+    QAction *m_closeOtherViews;
+    QAction *goNext;
+    QAction *goPrev;
+    QAction *m_cursorPosToggle;
+    QAction *m_charCountToggle;
+    QAction *m_insertModeToggle;
+    QAction *m_selectModeToggle;
+    QAction *m_encodingToggle;
+    QAction *m_docNameToggle;
 
     QList<KateViewSpace*> m_viewSpaceList;
     QList<KTextEditor::View*> m_viewList;

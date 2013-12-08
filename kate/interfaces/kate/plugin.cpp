@@ -27,6 +27,7 @@
 #include <kpluginloader.h>
 #include <kstandarddirs.h>
 #include <kdebug.h>
+#include <kglobal.h>
 
 #include <qdir.h>
 
@@ -122,7 +123,7 @@ namespace Kate
   XMLGUIClient::XMLGUIClient(const KComponentData &componentData)
     : KXMLGUIClient()
   {
-    setComponentData (componentData);
+    // FIXME KF5 setComponentData (componentData);
     setXMLFile( xmlDataFile( componentData, "ui.rc" ));
     setLocalXMLFile( localXmlDataFile( componentData, "ui.rc" ));
   }

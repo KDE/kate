@@ -40,6 +40,8 @@
 #include <kvbox.h>
 #include <kxmlguifactory.h>
 #include <kdeversion.h>
+#include <klocalizedstring.h>
+#include <KShortcut>
 
 #include <QEvent>
 //Added by qt3to4:
@@ -161,7 +163,7 @@ namespace KateMDI
     sc = KShortcut( cfg->group("Shortcuts").readEntry( aname, QString() ) );
 
     KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text), tv, this );
-    a->setShortcut(sc, KAction::ActiveShortcut); // no DefaultShortcut! see bug #144945
+    // FIXME KF5 a->setShortcut(sc, QAction::ActiveShortcut); // no DefaultShortcut! see bug #144945
     actionCollection()->addAction( aname.toLatin1(), a );
 
     m_toolViewActions.append(a);
@@ -174,7 +176,7 @@ namespace KateMDI
 
   void GUIClient::unregisterToolView (ToolView *tv)
   {
-    KAction *a = m_toolToAction[tv];
+    QAction *a = m_toolToAction[tv];
 
     if (!a)
       return;

@@ -30,6 +30,7 @@
 #include <KTemporaryFile>
 #include <KPushButton>
 #include <KVBox>
+#include <klocalizedstring.h>
 
 #include <QHeaderView>
 #include <QLabel>
@@ -43,7 +44,7 @@ class KateDocItem : public QTreeWidgetItem
         : QTreeWidgetItem( tw ),
         document( doc )
     {
-      setText( 0, doc->url().pathOrUrl() );
+      setText( 0, doc->url().toString() );
       setText( 1, status );
       if ( ! doc->isModified() )
         setCheckState( 0, Qt::Checked );
@@ -182,7 +183,7 @@ void KateMwModOnHdDialog::handleSelected( int action )
           {
             KMessageBox::sorry( this,
                                 i18n("Could not save the document \n'%1'",
-                                     item->document->url().pathOrUrl() ) );
+                                     item->document->url().toString() ) );
           }
           break;
 

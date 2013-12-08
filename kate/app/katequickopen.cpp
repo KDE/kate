@@ -42,6 +42,7 @@
 #include <qcoreapplication.h>
 #include <QDesktopWidget>
 #include <QFileInfo>
+#include <klocalizedstring.h>
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 
@@ -167,17 +168,17 @@ void KateQuickOpen::update ()
         KTextEditor::Document *doc = i2.value()->document();
         alreadySeenDocs.insert (doc);
 
-        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
+        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().toString()));
         QStandardItem *itemName = new QStandardItem(doc->documentName());
 
         itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document> (doc)), DocumentRole);
-        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()), SortFilterRole);
+        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().toString()), SortFilterRole);
         itemName->setEditable(false);
         QFont font = itemName->font();
         font.setBold(true);
         itemName->setFont(font);
 
-        QStandardItem *itemUrl = new QStandardItem(doc->url().pathOrUrl());
+        QStandardItem *itemUrl = new QStandardItem(doc->url().toString());
         itemUrl->setEditable(false);
         base_model->setItem(linecount, 0, itemName);
         base_model->setItem(linecount, 1, itemUrl);
@@ -202,17 +203,17 @@ void KateQuickOpen::update ()
         if (alreadySeenDocs.contains (doc))
           continue;
 
-        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().pathOrUrl()));
+        //QStandardItem *item=new QStandardItem(i18n("%1: %2",doc->documentName(),doc->url().toString()));
         QStandardItem *itemName = new QStandardItem(doc->documentName());
 
         itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document> (doc)), DocumentRole);
-        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().pathOrUrl()), SortFilterRole);
+        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().toString()), SortFilterRole);
         itemName->setEditable(false);
         QFont font = itemName->font();
         font.setBold(true);
         itemName->setFont(font);
 
-        QStandardItem *itemUrl = new QStandardItem(doc->url().pathOrUrl());
+        QStandardItem *itemUrl = new QStandardItem(doc->url().toString());
         itemUrl->setEditable(false);
         base_model->setItem(linecount, 0, itemName);
         base_model->setItem(linecount, 1, itemUrl);

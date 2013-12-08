@@ -52,7 +52,7 @@ class KCmdLineArgs;
  * Kate Application
  * This class represents the core kate application object
  */
-class KATEINTERFACES_EXPORT KateApp : public KApplication
+class KATEINTERFACES_EXPORT KateApp : public QApplication
 {
     Q_OBJECT
 
@@ -62,9 +62,8 @@ class KATEINTERFACES_EXPORT KateApp : public KApplication
   public:
     /**
      * application constructor
-     * @param args parsed command line args
      */
-    KateApp (KCmdLineArgs *args);
+    KateApp (int & argc, char ** argv);
 
     /**
      * application destructor

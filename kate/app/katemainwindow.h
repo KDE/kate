@@ -38,6 +38,7 @@
 #include <QModelIndex>
 #include <QHash>
 #include <QStackedWidget>
+#include <QStackedLayout>
 
 class QMenu;
 
@@ -62,7 +63,6 @@ class KateViewManager;
 class KateMwModOnHdDialog;
 class KateQuickOpen;
 
-#include <QtGui/QStackedLayout>
 // Helper layout class to always provide minimum size
 class KateContainerStackedLayout : public QStackedLayout
 {

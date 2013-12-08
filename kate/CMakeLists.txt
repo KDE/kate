@@ -6,7 +6,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/interfaces)
 
 add_subdirectory( interfaces/kate )
 add_subdirectory( app )
-add_subdirectory( filetree )
+#add_subdirectory( filetree )
 add_subdirectory( data )
 
 

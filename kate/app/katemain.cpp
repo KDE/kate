@@ -78,68 +78,74 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   // here we go, construct the Kate version
   QByteArray kateVersion = KateApp::kateVersion().toLatin1();
 
-  KAboutData aboutData ("kate", 0, ki18n("Kate"), kateVersion,
-                        ki18n( "Kate - Advanced Text Editor" ), KAboutData::License_LGPL_V2,
-                        ki18n( "(c) 2000-2013 The Kate Authors" ), KLocalizedString(), "http://www.kate-editor.org");
+  KAboutData aboutData ("kate", 0, i18n("Kate"), kateVersion,
+                        i18n( "Kate - Advanced Text Editor" ), KAboutData::License_LGPL_V2,
+                        i18n( "(c) 2000-2013 The Kate Authors" ), QString(), "http://www.kate-editor.org");
   aboutData.setOrganizationDomain("kde.org");
-  aboutData.addAuthor (ki18n("Christoph Cullmann"), ki18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
-  aboutData.addAuthor (ki18n("Anders Lund"), ki18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
-  aboutData.addAuthor (ki18n("Joseph Wenninger"), ki18n("Core Developer"), "jowenn@kde.org", "http://stud3.tuwien.ac.at/~e9925371");
-  aboutData.addAuthor (ki18n("Hamish Rodda"), ki18n("Core Developer"), "rodda@kde.org");
-  aboutData.addAuthor (ki18n("Dominik Haumann"), ki18n("Developer & Highlight wizard"), "dhdev@gmx.de");
-  aboutData.addAuthor (ki18n("Waldo Bastian"), ki18n( "The cool buffersystem" ), "bastian@kde.org" );
-  aboutData.addAuthor (ki18n("Charles Samuels"), ki18n("The Editing Commands"), "charles@kde.org");
-  aboutData.addAuthor (ki18n("Matt Newell"), ki18n("Testing, ..."), "newellm@proaxis.com");
-  aboutData.addAuthor (ki18n("Michael Bartl"), ki18n("Former Core Developer"), "michael.bartl1@chello.at");
-  aboutData.addAuthor (ki18n("Michael McCallum"), ki18n("Core Developer"), "gholam@xtra.co.nz");
-  aboutData.addAuthor (ki18n("Jochen Wilhemly"), ki18n( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
-  aboutData.addAuthor (ki18n("Michael Koch"), ki18n("KWrite port to KParts"), "koch@kde.org");
-  aboutData.addAuthor (ki18n("Christian Gebauer"), KLocalizedString(), "gebauer@kde.org" );
-  aboutData.addAuthor (ki18n("Simon Hausmann"), KLocalizedString(), "hausmann@kde.org" );
-  aboutData.addAuthor (ki18n("Glen Parker"), ki18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
-  aboutData.addAuthor (ki18n("Scott Manson"), ki18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
-  aboutData.addAuthor (ki18n("John Firebaugh"), ki18n("Patches and more"), "jfirebaugh@kde.org");
-  aboutData.addAuthor (ki18n("Pablo Martín"), ki18n("Python Plugin Developer"), "goinnn@gmail.com", "http://github.com/goinnn/");
-  aboutData.addAuthor (ki18n("Gerald Senarclens de Grancy"), ki18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
+  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
+  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
+  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), "jowenn@kde.org", "http://stud3.tuwien.ac.at/~e9925371");
+  aboutData.addAuthor (i18n("Hamish Rodda"), i18n("Core Developer"), "rodda@kde.org");
+  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), "dhdev@gmx.de");
+  aboutData.addAuthor (i18n("Waldo Bastian"), i18n( "The cool buffersystem" ), "bastian@kde.org" );
+  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), "charles@kde.org");
+  aboutData.addAuthor (i18n("Matt Newell"), i18n("Testing, ..."), "newellm@proaxis.com");
+  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), "michael.bartl1@chello.at");
+  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), "gholam@xtra.co.nz");
+  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
+  aboutData.addAuthor (i18n("Michael Koch"), i18n("KWrite port to KParts"), "koch@kde.org");
+  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), "gebauer@kde.org" );
+  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), "hausmann@kde.org" );
+  aboutData.addAuthor (i18n("Glen Parker"), i18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
+  aboutData.addAuthor (i18n("Scott Manson"), i18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
+  aboutData.addAuthor (i18n("John Firebaugh"), i18n("Patches and more"), "jfirebaugh@kde.org");
+  aboutData.addAuthor (i18n("Pablo Martín"), i18n("Python Plugin Developer"), "goinnn@gmail.com", "http://github.com/goinnn/");
+  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
 
-  aboutData.addCredit (ki18n("Matteo Merli"), ki18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
-  aboutData.addCredit (ki18n("Rocky Scaletta"), ki18n("Highlighting for VHDL"), "rocky@purdue.edu");
-  aboutData.addCredit (ki18n("Yury Lebedev"), ki18n("Highlighting for SQL"));
-  aboutData.addCredit (ki18n("Chris Ross"), ki18n("Highlighting for Ferite"));
-  aboutData.addCredit (ki18n("Nick Roux"), ki18n("Highlighting for ILERPG"));
-  aboutData.addCredit (ki18n("Carsten Niehaus"), ki18n("Highlighting for LaTeX"));
-  aboutData.addCredit (ki18n("Per Wigren"), ki18n("Highlighting for Makefiles, Python"));
-  aboutData.addCredit (ki18n("Jan Fritz"), ki18n("Highlighting for Python"));
-  aboutData.addCredit (ki18n("Daniel Naber"));
-  aboutData.addCredit (ki18n("Roland Pabel"), ki18n("Highlighting for Scheme"));
-  aboutData.addCredit (ki18n("Cristi Dumitrescu"), ki18n("PHP Keyword/Datatype list"));
-  aboutData.addCredit (ki18n("Carsten Pfeiffer"), ki18n("Very nice help"));
-  aboutData.addCredit (ki18n("All people who have contributed and I have forgotten to mention"));
+  aboutData.addCredit (i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
+  aboutData.addCredit (i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), "rocky@purdue.edu");
+  aboutData.addCredit (i18n("Yury Lebedev"), i18n("Highlighting for SQL"));
+  aboutData.addCredit (i18n("Chris Ross"), i18n("Highlighting for Ferite"));
+  aboutData.addCredit (i18n("Nick Roux"), i18n("Highlighting for ILERPG"));
+  aboutData.addCredit (i18n("Carsten Niehaus"), i18n("Highlighting for LaTeX"));
+  aboutData.addCredit (i18n("Per Wigren"), i18n("Highlighting for Makefiles, Python"));
+  aboutData.addCredit (i18n("Jan Fritz"), i18n("Highlighting for Python"));
+  aboutData.addCredit (i18n("Daniel Naber"));
+  aboutData.addCredit (i18n("Roland Pabel"), i18n("Highlighting for Scheme"));
+  aboutData.addCredit (i18n("Cristi Dumitrescu"), i18n("PHP Keyword/Datatype list"));
+  aboutData.addCredit (i18n("Carsten Pfeiffer"), i18n("Very nice help"));
+  aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
 
+  
+#ifdef TODO
+  
+  // FIXME KF5
+  
+  
   // command line args init and co
   KCmdLineArgs::init (argc, argv, &aboutData);
 
   KCmdLineOptions options;
   options.add("s");
-  options.add("start <name>", ki18n("Start Kate with a given session"));
-  options.add("startanon", ki18n("Start Kate with a new anonymous session, implies '-n'"));
+  options.add("start <name>", i18n("Start Kate with a given session"));
+  options.add("startanon", i18n("Start Kate with a new anonymous session, implies '-n'"));
   options.add("n");
-  options.add("new", ki18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all"));
+  options.add("new", i18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all"));
   options.add("b");
-  options.add("block", ki18n("If using an already running kate instance, block until it exits, if URLs given to open"));
+  options.add("block", i18n("If using an already running kate instance, block until it exits, if URLs given to open"));
   options.add("p");
-  options.add("pid <pid>", ki18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)"));
+  options.add("pid <pid>", i18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)"));
   options.add("e");
-  options.add("encoding <name>", ki18n("Set encoding for the file to open"));
+  options.add("encoding <name>", i18n("Set encoding for the file to open"));
   options.add("l");
-  options.add("line <line>", ki18n("Navigate to this line"));
+  options.add("line <line>", i18n("Navigate to this line"));
   options.add("c");
-  options.add("column <column>", ki18n("Navigate to this column"));
+  options.add("column <column>", i18n("Navigate to this column"));
   options.add("i");
-  options.add("stdin", ki18n("Read the contents of stdin"));
+  options.add("stdin", i18n("Read the contents of stdin"));
   options.add("u");
-  options.add("use", ki18n("Reuse existing Kate instance; default, only for compatibility"));
-  options.add("+[URL]", ki18n("Document to open"));
+  options.add("use", i18n("Reuse existing Kate instance; default, only for compatibility"));
+  options.add("+[URL]", i18n("Document to open"));
   KCmdLineArgs::addCmdLineOptions (options);
   KCmdLineArgs::addTempFileOption();
 
@@ -371,9 +377,10 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     // this will wait until exiting is emitted by the used instance, if wanted...
     return needToBlock ? app.exec () : 0;
   }
+#endif 
 
   // construct the real kate app object ;)
-  KateApp app (args);
+  KateApp app (argc, argv);
   if (app.shouldExit()) return 0;
 
   // execute ourself ;)

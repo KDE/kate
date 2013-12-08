@@ -31,7 +31,6 @@
 #include "katesession.h"
 
 #include <KTextEditor/ConfigPage>
-#include <KTextEditor/EditorChooser>
 
 #include <kdebug.h>
 #include <KGlobal>
@@ -40,6 +39,7 @@
 #include <KConfig>
 #include <kstandardaction.h>
 #include <KVBox>
+#include <klocalizedstring.h>
 
 #include <QCheckBox>
 #include <QLabel>
@@ -56,16 +56,16 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
     , m_view( view )
 {
   setFaceType( Tree );
-  setCaption( i18n("Configure") );
-  setButtons( Ok | Apply | Cancel | Help );
-  setDefaultButton( Ok );
+  // FIXME KF5 setCaption( i18n("Configure") );
+  // FIXME KF5 setButtons( Ok | Apply | Cancel | Help );
+  // FIXME KF5 setDefaultButton( Ok );
   setObjectName( "configdialog" );
-  setHelp( QString(), KGlobal::mainComponent().componentName() );
+  // FIXME KF5 setHelp( QString(), KGlobal::mainComponent().componentName() );
 
   KSharedConfig::Ptr config = KGlobal::config();
   KConfigGroup cgGeneral = KConfigGroup( config, "General" );
 
-  enableButton( Apply, false );
+  // FIXME KF5 enableButton( Apply, false );
 
   KPageWidgetItem *applicationItem = addPage( new QWidget, i18n("Application") );
   applicationItem->setIcon( KIcon( "preferences-other" ) );
@@ -368,13 +368,13 @@ void KateConfigDialog::slotApply()
   config->sync();
 
   m_dataChanged = false;
-  enableButton( Apply, false );
+  // FIXME KF5 enableButton( Apply, false );
 }
 
 void KateConfigDialog::slotChanged()
 {
   m_dataChanged = true;
-  enableButton( Apply, true );
+  // FIXME KF5 enableButton( Apply, true );
   m_daysMetaInfos->setSuffix(i18ncp("The suffix of 'Delete unused meta-information after'", " day", " days", m_daysMetaInfos->value()));
 }
 

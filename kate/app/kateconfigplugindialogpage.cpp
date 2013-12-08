@@ -23,6 +23,7 @@
 
 #include "katepluginmanager.h"
 #include "kateconfigdialog.h"
+#include <klocalizedstring.h>
 
 class KatePluginListItem : public QTreeWidgetItem
 {

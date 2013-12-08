@@ -22,12 +22,13 @@
 
 #include <kate_export.h>
 
-#include <QtGui/QWidget>
+#include <QtWidgets/QWidget>
 #include <QtGui/QPixmap>
 
 #include <kicontheme.h>
 #include <kurl.h>
 #include <kxmlguiclient.h>
+#include <KComponentData>
 
 class KConfigBase;
 

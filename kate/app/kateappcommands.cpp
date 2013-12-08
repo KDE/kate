@@ -21,6 +21,7 @@
 #include <QDir>
 #include <QTimer>
 #include <KLocale>
+#include <klocalizedstring.h>
 
 #include "kateapp.h"
 #include "kateappcommands.h"

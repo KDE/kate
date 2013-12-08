@@ -27,10 +27,12 @@
 #include <KGuiItem>
 #include <KStandardGuiItem>
 #include <KVBox>
+#include <kurl.h>
 #include <KIconLoader>
 #include <KMessageBox>
 #include <kdebug.h>
 #include <KEncodingFileDialog>
+#include <klocalizedstring.h>
 
 class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
 {
@@ -77,7 +79,7 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
 {
   public:
     KateSaveModifiedDocumentCheckListItem(KTextEditor::Document *document)
-        : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().pathOrUrl())
+        : AbstractKateSaveModifiedDialogCheckListItem(document->documentName(), document->url().toString())
     {
       m_document = document;
     }
@@ -88,7 +90,7 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
       if (m_document->url().isEmpty() )
       {
         KEncodingFileDialog::Result r = KEncodingFileDialog::getSaveUrlAndEncoding(
-                                          m_document->encoding(), QString(), QString(), dialogParent, i18n("Save As (%1)", m_document->documentName()));
+                                          m_document->encoding(), QUrl(), QString(), dialogParent, i18n("Save As (%1)", m_document->documentName()));
 
         if (!r.URLs.isEmpty())
         {
@@ -116,13 +118,13 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
           if ( !m_document->saveAs( tmp ) )
           {
             setState(SaveFailedState);
-            setText(1, m_document->url().pathOrUrl());
+            setText(1, m_document->url().toString());
             return false;
           }
           else
           {
             bool sc = m_document->waitSaveComplete();
-            setText(1, m_document->url().pathOrUrl());
+            setText(1, m_document->url().toString());
             if (!sc)
             {
               setState(SaveFailedState);
@@ -146,13 +148,13 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
         if ( !m_document->save() )
         {
           setState(SaveFailedState);
-          setText(1, m_document->url().pathOrUrl());
+          setText(1, m_document->url().toString());
           return false;
         }
         else
         {
           bool sc = m_document->waitSaveComplete();
-          setText(1, m_document->url().pathOrUrl());
+          setText(1, m_document->url().toString());
           if (!sc)
           {
             setState(SaveFailedState);

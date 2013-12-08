@@ -63,6 +63,7 @@
 #include <KAboutData>
 #include <kwindowsystem.h>
 #include <KToolBar>
+#include <klocalizedstring.h>
 
 #include <QDragEnterEvent>
 #include <QEvent>
@@ -111,7 +112,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   m_modignore = false;
 
   // here we go, set some usable default sizes
-  if (!initialGeometrySet())
+  if (false /* FIXME KF5 !initialGeometrySet()*/)
   {
     int scnum = QApplication::desktop()->screenNumber(parentWidget());
     QRect desk = QApplication::desktop()->screenGeometry(scnum);
@@ -207,7 +208,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 KateMainWindow::~KateMainWindow()
 {
   // first, save our fallback window size ;)
-  saveWindowSize (KConfigGroup(KGlobal::config(), "MainWindow"));
+ // FIXME KF5  saveWindowSize (KConfigGroup(KGlobal::config(), "MainWindow"));
 
   // save other options ;=)
   saveOptions();
@@ -259,7 +260,7 @@ void KateMainWindow::setupMainWindow ()
 
 void KateMainWindow::setupActions()
 {
-  KAction *a;
+  QAction *a;
 
   actionCollection()->addAction( KStandardAction::New, "file_new", m_viewManager, SLOT(slotDocumentNew()) )
   ->setWhatsThis(i18n("Create a new document"));
@@ -463,12 +464,18 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document* doc)
  */
 bool KateMainWindow::queryClose()
 {
+  
+#ifdef FIXME
+
+  // FIXME KF5
+  
   // session saving, can we close all views ?
   // just test, not close them actually
   if (KateApp::self()->sessionSaving())
   {
     return queryClose_internal ();
   }
+#endif
 
   // normal closing of window
   // allow to close all windows until the last without restrictions
@@ -493,7 +500,7 @@ void KateMainWindow::newWindow ()
 
 void KateMainWindow::slotEditToolbars()
 {
-  saveMainWindowSettings(KConfigGroup(KGlobal::config(), "MainWindow"));
+// FIXME KF5  saveMainWindowSettings(KConfigGroup(KGlobal::config(), "MainWindow"));
   KEditToolBar dlg( factory() );
 
   connect( &dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()) );
@@ -670,7 +677,7 @@ void KateMainWindow::editKeys()
 //     kDebug(13001)<<client->actionCollection();
 //     kDebug(13001)<<client->componentData().aboutData();
 //     kDebug(13001)<<client->componentData().aboutData()->programName();
-    dlg.addCollection ( client->actionCollection(), client->componentData().aboutData()->programName() );
+    dlg.addCollection ( client->actionCollection(), client->componentName() );
   }
   dlg.configure();
 
@@ -735,7 +742,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
     return;
 
   // cleanup menu
-  KMenu *menu = documentOpenWith->menu();
+  QMenu *menu = documentOpenWith->menu();
   menu->clear();
 
   // get a list of appropriate services.
@@ -790,8 +797,8 @@ void KateMainWindow::pluginHelp()
 
 void KateMainWindow::aboutEditor()
 {
-  KAboutApplicationDialog ad(KateDocManager::self()->editor()->aboutData(),this);
-  ad.exec();
+  // FIXME KF5 KAboutApplicationDialog ad(KateDocManager::self()->editor()->aboutData(),this);
+  // FIXME KF5 ad.exec();
 }
 
 void KateMainWindow::tipOfTheDay()
@@ -865,7 +872,7 @@ void KateMainWindow::updateCaption (KTextEditor::Document *doc)
   }
   else
   {
-    c = m_viewManager->activeView()->document()->url().pathOrUrl();
+    c = m_viewManager->activeView()->document()->url().toString();
   }
 
   QString sessName = KateApp::self()->sessionManager()->activeSession()->sessionName();

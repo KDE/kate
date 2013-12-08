@@ -117,7 +117,7 @@ KateViewManager::~KateViewManager ()
 
 void KateViewManager::setupActions ()
 {
-  KAction *a;
+  QAction *a;
 
   /**
    * view splitting
@@ -251,7 +251,7 @@ void KateViewManager::slotDocumentOpen ()
   {
     KEncodingFileDialog::Result r = KEncodingFileDialog::getOpenUrlsAndEncoding(
                                       KateDocManager::self()->editor()->defaultEncoding(),
-                                      cv->document()->url().url(),
+                                      cv->document()->url(),
                                       QString(), m_mainWindow, i18n("Open File"));
 
     KateDocumentInfo docInfo;
@@ -279,8 +279,8 @@ void KateViewManager::slotDocumentOpen ()
     }
 
     KTextEditor::Document *lastID = 0;
-    for (KUrl::List::Iterator i = r.URLs.begin(); i != r.URLs.end(); ++i)
-      lastID = openUrl( *i, r.encoding, false, false, docInfo);
+    foreach ( const KUrl &url, r.URLs )
+      lastID = openUrl( url, r.encoding, false, false, docInfo);
 
     if (lastID)
       activateView (lastID);

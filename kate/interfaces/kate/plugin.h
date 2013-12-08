@@ -311,11 +311,11 @@ namespace Kate
   class KATEINTERFACES_EXPORT XMLGUIClient : public KXMLGUIClient
   {
     public:
-      explicit XMLGUIClient(const KComponentData& componentData);
+      explicit XMLGUIClient(const QString &componentName);
 
     private:
-      QString xmlDataFile(const KComponentData &componentData, const QString &filename);
-      QString localXmlDataFile(const KComponentData &componentData, const QString &filename);
+      QString xmlDataFile(const QString &componentName, const QString &filename);
+      QString localXmlDataFile(const QString &componentName, const QString &filename);
 
   };
   

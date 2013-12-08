@@ -19,7 +19,6 @@
 //BEGIN Includes
 
 #include "katefiletreeplugin.h"
-#include "katefiletreeplugin.moc"
 #include "katefiletree.h"
 #include "katefiletreemodel.h"
 #include "katefiletreeproxymodel.h"
@@ -35,6 +34,7 @@
 
 #include <KAction>
 #include <KActionCollection>
+#include <klocalizedstring.h>
 
 #include <KConfigGroup>
 
@@ -44,8 +44,9 @@
 
 //END Includes
 
-K_PLUGIN_FACTORY(KateFileTreeFactory, registerPlugin<KateFileTreePlugin>();)
-K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("filetree","katefiletreeplugin",ki18n("Document Tree"), "0.1", ki18n("Show open documents in a tree"), KAboutData::License_LGPL_V2)) )
+K_PLUGIN_FACTORY_WITH_JSON (KateFileTreeFactory, "katefiletreeplugin.json", registerPlugin<KateFileTreePlugin>();)
+
+//K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("filetree","katefiletreeplugin",ki18n("Document Tree"), "0.1", ki18n("Show open documents in a tree"), KAboutData::License_LGPL_V2)) )
 
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
@@ -168,7 +169,7 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QCol
 
 //BEGIN KateFileTreePluginView
 KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, KateFileTreePlugin *plug)
-: Kate::PluginView (mainWindow), Kate::XMLGUIClient(KateFileTreeFactory::componentData()), m_plug(plug)
+: Kate::PluginView (mainWindow), Kate::XMLGUIClient("filetree"), m_plug(plug)
 {
   // init console
   kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
@@ -218,7 +219,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
 
   connect(mainWindow, SIGNAL(viewChanged()), this, SLOT(viewChanged()));
 
-  KAction *show_active = actionCollection()->addAction("filetree_show_active_document", mainWindow);
+  QAction *show_active = actionCollection()->addAction("filetree_show_active_document", mainWindow);
   show_active->setText(i18n("&Show Active"));
   show_active->setIcon(KIcon("folder-sync"));
   connect( show_active, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
@@ -514,5 +515,7 @@ bool KateFileTreeCommand::help(KTextEditor::View * /*view*/, const QString &cmd,
     return false;
 }
 //END KateFileTreeCommand
+
+#include "katefiletreeplugin.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

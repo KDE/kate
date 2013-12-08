@@ -20,6 +20,7 @@
 #include "katefiletreemodel.h"
 #include "katefiletreedebug.h"
 
+#include <QCollator>
 #include <kstringhandler.h>
 #include <ktexteditor/document.h>
 
@@ -42,17 +43,20 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
       return ((left_isdir - right_isdir)) > 0;
   }
   
+  QCollator collate;
+  collate.setCaseSensitivity (Qt::CaseInsensitive);
+  
   switch(sortRole()) {
     case Qt::DisplayRole: {
       QString left_name = model->data(left).toString();
       QString right_name = model->data(right).toString();
-      return KStringHandler::naturalCompare(left_name, right_name, Qt::CaseInsensitive) < 0;
+      return collate.compare(left_name, right_name) < 0;
     }
 
     case KateFileTreeModel::PathRole: {
       QString left_name = model->data(left, KateFileTreeModel::PathRole).toString();
       QString right_name = model->data(right, KateFileTreeModel::PathRole).toString();
-      return KStringHandler::naturalCompare(left_name, right_name, Qt::CaseInsensitive) < 0;
+      return collate.compare(left_name, right_name) < 0;
     }
 
     case KateFileTreeModel::OpeningOrderRole:

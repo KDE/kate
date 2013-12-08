@@ -46,6 +46,7 @@ view needs to pull default settings from the main plugin config
 #include <QVBoxLayout>
 #include <KLocale>
 #include <QCheckBox>
+#include <klocalizedstring.h>
 
 KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlugin *fl )
   :  Kate::PluginConfigPage( parent ),

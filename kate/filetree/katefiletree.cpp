@@ -33,9 +33,10 @@
 #include <KOpenWithDialog>
 #include <KRun>
 #include <KMessageBox>
+#include <klocalizedstring.h>
 
-#include <QtGui/QMenu>
-#include <QtGui/QContextMenuEvent>
+#include <QMenu>
+#include <QContextMenuEvent>
 #include <kicon.h>
 #include <kdebug.h>
 #include <qapplication.h>

@@ -120,17 +120,17 @@ namespace Kate
 
 
 
-  XMLGUIClient::XMLGUIClient(const KComponentData &componentData)
+  XMLGUIClient::XMLGUIClient(const QString &componentName)
     : KXMLGUIClient()
   {
     // FIXME KF5 setComponentData (componentData);
-    setXMLFile( xmlDataFile( componentData, "ui.rc" ));
-    setLocalXMLFile( localXmlDataFile( componentData, "ui.rc" ));
+    setXMLFile( xmlDataFile( componentName, "ui.rc" ));
+    setLocalXMLFile( localXmlDataFile( componentName, "ui.rc" ));
   }
 
-  QString XMLGUIClient::xmlDataFile(const KComponentData &componentData, const QString &filename)
+  QString XMLGUIClient::xmlDataFile(const QString &componentName, const QString &filename)
   {
-    const QString filter = "kate/plugins/" + componentData.componentName() + '/' + filename;
+    const QString filter = "kate/plugins/" + componentName + '/' + filename;
     const QStringList allFiles = KGlobal::dirs()->findAllResources("data", filter);
     QString file;
     QString doc;
@@ -139,9 +139,9 @@ namespace Kate
     return file;
   }
   
-  QString XMLGUIClient::localXmlDataFile(const KComponentData &componentData, const QString &filename)
+  QString XMLGUIClient::localXmlDataFile(const QString &componentName, const QString &filename)
   {
-    QString result = KStandardDirs::locateLocal( "data", "kate/plugins/" + componentData.componentName() + QDir::separator() + filename);
+    QString result = KStandardDirs::locateLocal( "data", "kate/plugins/" + componentName + QDir::separator() + filename);
     kDebug(13000) << "File for shortcut storage" << result;
     return result;
   }

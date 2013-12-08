@@ -25,6 +25,7 @@
 #include <KColorScheme>
 #include <KColorUtils>
 #include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <ktexteditor/document.h>
 
@@ -59,8 +60,8 @@ class ProxyItem {
     QString documentName();
     void setPath(const QString &str);
     
-    void setIcon(KIcon i);
-    KIcon icon();
+    void setIcon(QIcon i);
+    QIcon icon();
 
     QList<ProxyItem*> &children();
 
@@ -84,7 +85,7 @@ class ProxyItem {
     Flags m_flags;
     
     QString m_display;
-    KIcon m_icon;
+    QIcon m_icon;
     KTextEditor::Document *m_doc;
     QString m_host;
   protected:
@@ -214,7 +215,7 @@ int ProxyItem::row()
   return m_row;
 }
 
-KIcon ProxyItem::icon()
+QIcon ProxyItem::icon()
 {
   if(m_children.count())
     return KIcon("folder");
@@ -222,7 +223,7 @@ KIcon ProxyItem::icon()
   return m_icon;
 }
 
-void ProxyItem::setIcon(KIcon i)
+void ProxyItem::setIcon(QIcon i)
 {
   m_icon = i;
 }
@@ -473,7 +474,7 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
   switch(role) {
     case KateFileTreeModel::PathRole:
       // allow to sort with hostname + path, bug 271488
-      return (item->doc() && !item->doc()->url().isEmpty()) ? item->doc()->url().pathOrUrl() : item->path();
+      return (item->doc() && !item->doc()->url().isEmpty()) ? item->doc()->url().toString() : item->path();
       
     case KateFileTreeModel::DocumentRole:
       return QVariant::fromValue(item->doc());

@@ -27,10 +27,13 @@ Boston, MA 02110-1301, USA.
 
 #include <KGlobal>
 
-KWriteApp::KWriteApp(int & argc, char ** argv)
-  : QApplication (argc, argv)
-  , m_args(m_args)
+KWriteApp *KWriteApp::s_self = 0;
+
+KWriteApp::KWriteApp(const QCommandLineParser &args)
+  : m_args(args)
 {
+  s_self = this;
+  
   m_editor = KTextEditor::editor();
 
   if ( !m_editor )
@@ -58,14 +61,12 @@ KWriteApp::~KWriteApp()
 
 KWriteApp *KWriteApp::self ()
 {
-  return static_cast<KWriteApp *>(QApplication::instance());
+  return s_self;
 }
 
 void KWriteApp::init()
 {
-#if 0 // FIXME KF5
-  
-  if (isSessionRestored())
+  if (false /* FIXME KF5 isSessionRestored() */)
   {
     KWrite::restore();
   }
@@ -74,25 +75,25 @@ void KWriteApp::init()
     bool nav = false;
     int line = 0, column = 0;
 
-    QTextCodec *codec = m_args->isSet("encoding") ? QTextCodec::codecForName(m_args->getOption("encoding").toLocal8Bit()) : 0;
+    QTextCodec *codec = m_args.isSet("encoding") ? QTextCodec::codecForName(m_args.value("encoding").toLocal8Bit()) : 0;
 
-    if (m_args->isSet ("line"))
+    if (m_args.isSet ("line"))
     {
-      line = m_args->getOption ("line").toInt() - 1;
+      line = m_args.value ("line").toInt() - 1;
       nav = true;
     }
 
-    if (m_args->isSet ("column"))
+    if (m_args.isSet ("column"))
     {
-      column = m_args->getOption ("column").toInt() - 1;
+      column = m_args.value ("column").toInt() - 1;
       nav = true;
     }
 
-    if ( m_args->count() == 0 )
+    if ( m_args.positionalArguments().count() == 0 )
     {
         KWrite *t = new KWrite;
 
-        if( m_args->isSet( "stdin" ) )
+        if( m_args.isSet( "stdin" ) )
         {
           QTextStream input(stdin, QIODevice::ReadOnly);
 
@@ -121,10 +122,13 @@ void KWriteApp::init()
     else
     {
       int docs_opened = 0;
-      for ( int z = 0; z < m_args->count(); z++ )
+      Q_FOREACH (const QString positionalArgument, m_args.positionalArguments())
       {
+        // convert to an url
+        const QUrl url (positionalArgument);
+    
         // this file is no local dir, open it, else warn
-        bool noDir = !m_args->url(z).isLocalFile() || !QFileInfo (m_args->url(z).toLocalFile()).isDir();
+        bool noDir = !url.isLocalFile() || !QFileInfo (url.toLocalFile()).isDir();
 
         if (noDir)
         {
@@ -136,7 +140,7 @@ void KWriteApp::init()
           if (codec)
             t->view()->document()->setEncoding(codec->name());
 
-          t->loadURL( m_args->url( z ) );
+          t->loadURL( url );
 
           t->view()->document()->setSuppressOpeningErrorDialogs (false);
 
@@ -145,13 +149,13 @@ void KWriteApp::init()
         }
         else
         {
-          KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", m_args->url(z).url()));
+          KMessageBox::sorry(0, i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()));
         }
       }
-      if (!docs_opened) kapp->exit(1); // see http://bugs.kde.org/show_bug.cgi?id=124708
+      if (!docs_opened) ::exit(1); // see http://bugs.kde.org/show_bug.cgi?id=124708
     }
   }
-#endif 
+  
   // no window there, uh, ohh, for example borked session config !!!
   // create at least one !!
   if (KWrite::noWindows())
@@ -167,7 +171,7 @@ void KWriteApp::setActiveView(KTextEditor::View *view)
 
 KTextEditor::View *KWriteApp::activeView()
 {
-  KWrite *window = qobject_cast<KWrite*>(activeWindow());
+  KWrite *window = qobject_cast<KWrite*>(static_cast<QApplication *>(QCoreApplication::instance ())->activeWindow());
   if (window) {
     return window->view();
   }

@@ -26,6 +26,7 @@ Boston, MA 02110-1301, USA.
 #include <ktexteditor/containerinterface.h>
 
 #include <QList>
+#include <QCommandLineParser>
 
 namespace KTextEditor
 {
@@ -39,7 +40,7 @@ class KCmdLineArgs;
  * This class represents the core kwrite application object
  */
 class KWriteApp
-  : public QApplication
+  : public QObject
   , public KTextEditor::MdiContainer
 {
     Q_OBJECT
@@ -53,7 +54,7 @@ class KWriteApp
      * application constructor
      * @param args parsed command line args
      */
-    KWriteApp(int & argc, char ** argv);
+    KWriteApp(const QCommandLineParser &args);
 
     /**
      * application destructor
@@ -89,9 +90,14 @@ class KWriteApp
 
   private:
     /**
+     * Static instance of KWriteApp
+     */
+    static KWriteApp *s_self;
+    
+    /**
      * kate's command line args
      */
-    KCmdLineArgs *m_args;
+    const QCommandLineParser &m_args;
 
     /**
      * known main windows

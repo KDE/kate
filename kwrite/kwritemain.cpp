@@ -51,6 +51,7 @@
 #include <ksqueezedtextlabel.h>
 #include <kstringhandler.h>
 #include <kxmlguifactory.h>
+#include <QCommandLineParser>
 
 #ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>
@@ -684,24 +685,56 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   aboutData.setProgramIconName ("accessories-text-editor");
   aboutData.setProductName("kate/kwrite");
 
-#if 0 // FIXME KF5 
-  KCmdLineArgs::init( argc, argv, &aboutData );
-
-  KCmdLineOptions options;
-  options.add("stdin", ki18n("Read the contents of stdin"));
-  options.add("encoding <argument>", ki18n("Set encoding for the file to open"));
-  options.add("line <argument>", ki18n("Navigate to this line"));
-  options.add("column <argument>", ki18n("Navigate to this column"));
-  options.add("+[URL]", ki18n("Document to open"));
-
-  KCmdLineArgs::addCmdLineOptions( options );
+  /**
+   * Create the QApplication with the right options set
+   * take component name and org. name from KAboutData
+   */
+  QApplication app (argc, argv);
+  app.setApplicationName (aboutData.componentName());
+  app.setOrganizationDomain (aboutData.organizationDomain());
+  app.setApplicationVersion (aboutData.version());
   
-  KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
+  /**
+   * Create command line parser and feed it with known options
+   */  
+  QCommandLineParser parser;
+  parser.setApplicationDescription (aboutData.displayName());
+  parser.addHelpOption ();
+  parser.addVersionOption ();
+  
+  // -e/--encoding option
+  const QCommandLineOption useEncoding (QStringList () << "e" << "encoding", i18n("Set encoding for the file to open."), "encoding");
+  parser.addOption (useEncoding);
+  
+  // -l/--line option
+  const QCommandLineOption gotoLine (QStringList () << "l" << "line", i18n("Navigate to this line."), "line");
+  parser.addOption (gotoLine);
+  
+  // -c/--column option
+  const QCommandLineOption gotoColumn (QStringList () << "c" << "column", i18n("Navigate to this column."), "column");
+  parser.addOption (gotoColumn);
+  
+  // -i/--stdin option
+  const QCommandLineOption readStdIn (QStringList () << "i" << "stdin", i18n("Read the contents of stdin."));
+  parser.addOption (readStdIn);
+  
+  // urls to open
+  parser.addPositionalArgument("urls", i18n("Documents to open."), "[urls...]");
+  
+  // FIXME KF5 KCmdLineArgs::addCmdLineOptions (options);
+  // FIXME KF5 KCmdLineArgs::addTempFileOption();
+  
+  /**
+   * do the command line parsing
+   */
+  parser.process (app);
+  
+  KWriteApp a (parser);
 
-#endif
-  KWriteApp a(argc, argv);
-
-  return a.exec ();
+  /**
+   * Run the event loop
+   */
+  return app.exec ();
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

@@ -41,6 +41,7 @@
 
 #include <QFileInfo>
 #include <QTextCodec>
+#include <QCommandLineParser>
 
 #include <stdlib.h>
 #include <sys/types.h>
@@ -49,9 +50,9 @@
 
 KateApp *KateApp::s_self = 0;
 
-KateApp::KateApp()
+KateApp::KateApp(const QCommandLineParser &args)
     : m_shouldExit(false)
-    , m_args (0)
+    , m_args (args)
 {
   s_self = this;
 
@@ -175,20 +176,16 @@ void KateApp::restoreKate ()
 
 bool KateApp::startupKate ()
 {
-#if FIXME
-  
-  // FIXME KF5
-  
   // user specified session to open
-  if (m_args->isSet ("startanon"))
+  if (m_args.isSet ("startanon"))
   {
     sessionManager()->activateSession (sessionManager()->giveSession (""), false, false);
   }
-  else  if (m_args->isSet ("start"))
+  else  if (m_args.isSet ("start"))
   {
-    sessionManager()->activateSession (sessionManager()->giveSession (m_args->getOption("start")), false, false);
+    sessionManager()->activateSession (sessionManager()->giveSession (m_args.value("start")), false, false);
   }
-  else if (!m_args->isSet( "stdin" ) && (m_args->count() == 0)) // only start session if no files specified
+  else if (!m_args.isSet( "stdin" ) && (m_args.positionalArguments().count() == 0)) // only start session if no files specified
   {
     // let the user choose session if possible
     if (!sessionManager()->chooseSession ())
@@ -205,8 +202,6 @@ bool KateApp::startupKate ()
   {
     sessionManager()->activateSession( KateSession::Ptr(new KateSession (sessionManager(), QString())), false, false );
   }
-
-#endif
   
   // oh, no mainwindow, create one, should not happen, but make sure ;)
   if (mainWindows() == 0)
@@ -217,38 +212,36 @@ bool KateApp::startupKate ()
   KStartupInfo::setNewStartupId( activeMainWindow(), startupId());
 #endif
   
-#if FIXME
-  
-  // FIXME KF5
-  
-  
-  QTextCodec *codec = m_args->isSet("encoding") ? QTextCodec::codecForName(m_args->getOption("encoding").toUtf8()) : 0;
+  QTextCodec *codec = m_args.isSet("encoding") ? QTextCodec::codecForName(m_args.value("encoding").toUtf8()) : 0;
 
   bool tempfileSet = KCmdLineArgs::isTempFileSet();
 
   KTextEditor::Document *doc = 0;
   KateDocManager::self()->setSuppressOpeningErrorDialogs(true);
-  for (int z = 0; z < m_args->count(); z++)
+  Q_FOREACH (const QString positionalArgument, m_args.positionalArguments())
   {
+    // convert to an url
+    const QUrl url (positionalArgument);
+    
     // this file is no local dir, open it, else warn
-    bool noDir = !m_args->url(z).isLocalFile() || !QFileInfo (m_args->url(z).toLocalFile()).isDir();
+    bool noDir = !url.isLocalFile() || !QFileInfo (url.toLocalFile()).isDir();
 
     if (noDir)
     {
       // open a normal file
       if (codec)
-        doc = activeMainWindow()->viewManager()->openUrl( m_args->url(z), codec->name(), false, tempfileSet);
+        doc = activeMainWindow()->viewManager()->openUrl( url, codec->name(), false, tempfileSet);
       else
-        doc = activeMainWindow()->viewManager()->openUrl( m_args->url(z), QString(), false, tempfileSet);
+        doc = activeMainWindow()->viewManager()->openUrl( url, QString(), false, tempfileSet);
     }
     else
       KMessageBox::sorry( activeMainWindow(),
-                          i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", m_args->url(z).url()) );
+                          i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()) );
   }
   KateDocManager::self()->setSuppressOpeningErrorDialogs(false);
 
   // handle stdin input
-  if( m_args->isSet( "stdin" ) )
+  if( m_args.isSet( "stdin" ) )
   {
     QTextStream input(stdin, QIODevice::ReadOnly);
 
@@ -278,22 +271,20 @@ bool KateApp::startupKate ()
   int column = 0;
   bool nav = false;
 
-  if (m_args->isSet ("line"))
+  if (m_args.isSet ("line"))
   {
-    line = m_args->getOption ("line").toInt() - 1;
+    line = m_args.value ("line").toInt() - 1;
     nav = true;
   }
 
-  if (m_args->isSet ("column"))
+  if (m_args.isSet ("column"))
   {
-    column = m_args->getOption ("column").toInt() - 1;
+    column = m_args.value ("column").toInt() - 1;
     nav = true;
   }
 
   if (nav && activeMainWindow()->viewManager()->activeView ())
     activeMainWindow()->viewManager()->activeView ()->setCursorPosition (KTextEditor::Cursor (line, column));
-
-#endif
   
   // show the nice tips
   KTipDialog::showTip(activeMainWindow());

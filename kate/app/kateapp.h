@@ -35,6 +35,7 @@ class KatePluginManager;
 class KateDocManager;
 class KateAppCommands;
 class KateAppAdaptor;
+class QCommandLineParser;
 
 namespace KTextEditor
 {
@@ -63,7 +64,7 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
     /**
      * application constructor
      */
-    KateApp ();
+    KateApp (const QCommandLineParser &args);
 
     /**
      * application destructor
@@ -245,7 +246,7 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
     /**
      * kate's command line args
      */
-    KCmdLineArgs *m_args;
+    const QCommandLineParser &m_args;
 
     /**
      * plugin interface

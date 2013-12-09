@@ -82,12 +82,7 @@ KateHighlighting::KateHighlighting(const KateSyntaxModeListItem *def) : refCount
     iName = "None"; // not translated internal name (for config and more)
     iNameTranslated = i18nc("Syntax highlighting", "None"); // user visible name
     iSection = "";
-    iHidden = false;
-    m_additionalData.insert( "none", new HighlightPropertyBag );
-    m_additionalData["none"]->deliminator = stdDeliminator;
-    m_additionalData["none"]->wordWrapDeliminator = stdDeliminator;
-    m_hlIndex[0] = "none";
-    m_ctxIndex[0]= "none";
+    makeNoneContext();
   }
   else
   {
@@ -111,6 +106,16 @@ KateHighlighting::~KateHighlighting()
   cleanup ();
 
   qDeleteAll(m_additionalData);
+}
+
+void KateHighlighting::makeNoneContext()
+{
+  iHidden = false;
+  m_additionalData.insert( "none", new HighlightPropertyBag );
+  m_additionalData["none"]->deliminator = stdDeliminator;
+  m_additionalData["none"]->wordWrapDeliminator = stdDeliminator;
+  m_hlIndex[0] = "none";
+  m_ctxIndex[0]= "none";
 }
 
 void KateHighlighting::cleanup ()
@@ -748,6 +753,9 @@ void KateHighlighting::init()
   m_contexts.clear ();
 
   makeContextList();
+
+  if (noHl) // something went wrong, fill something in
+    makeNoneContext();
 }
 
 

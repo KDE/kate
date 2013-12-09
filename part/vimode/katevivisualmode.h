@@ -41,8 +41,6 @@ class KateViVisualMode : public KateViNormalMode {
 
     void init();
 
-    void setVisualLine( bool l );
-    void setVisualBlock( bool l );
     bool isVisualLine() const { return m_mode == VisualLineMode; }
     bool isVisualBlock() const { return m_mode == VisualBlockMode; }
     void switchStartEnd();

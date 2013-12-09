@@ -763,6 +763,13 @@ void ViModeTest::VisualModeTests() {
       QCOMPARE(range.end().column(), 3);
     }
 
+    // proper selection in block mode after switching to cmdline
+    {
+      BeginTest("aaaa\nbbbb\ncccc\ndddd");
+      TestPressKey("lj\\ctrl-vlj:");
+      QCOMPARE(kate_view->selectionText(), QString("bb\ncc"));
+    }
+
     // BUG #328277 - make sure kate doesn't crash
     DoTest("aaa\nbbb", "Vj>u>.", "    aaa\n    bbb", ShouldFail, "Crash is fixed, but correct repeat behaviour in this scenario is yet to be implemented");
 }

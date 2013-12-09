@@ -11,7 +11,7 @@
 <language
     name="C++11"
     section="Sources"
-    version="1.61"
+    version="1.62"
     kateversion="2.4"
     indenter="cppstyle"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
@@ -158,8 +158,8 @@
     <contexts>
       <context name="Normal" attribute="Normal Text" lineEndContext="#stay">
         <DetectSpaces />
-        <RegExpr attribute="Preprocessor" context="Outscoped" String="(#|%\:|\?\?=)\s*if\s+(0|false)\s*" beginRegion="PP" firstNonSpace="true" />
-        <RegExpr attribute="Preprocessor" context="Inscoped" String="(#|%\:|\?\?=)\s*if\s+(1|true)\s*" beginRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Outscoped" String="(#|%\:|\?\?=)\s*if\s+(0|false)\s*" beginRegion="PP" firstNonSpace="true" insensitive="false" />
+        <RegExpr attribute="Preprocessor" context="Inscoped" String="(#|%\:|\?\?=)\s*if\s+(1|true)\s*" beginRegion="PP" firstNonSpace="true" insensitive="false" />
         <IncludeRules context="Main" />
       </context>
 
@@ -347,12 +347,12 @@
 
       <context name="AfterHash" attribute="Error" lineEndContext="#pop">
         <!-- define, elif, else, endif, error, if, ifdef, ifndef, include, include_next, line, pragma, undef, warning -->
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*if(?:def|ndef)?(?=\s+\S)" beginRegion="PP" firstNonSpace="true" />
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*if(?:def|ndef)?(?=(?:\(|\s+)\S)" beginRegion="PP" firstNonSpace="true" insensitive="false" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" insensitive="false" />
         <!-- Switch to seperate context for multiline #defines -->
-        <RegExpr attribute="Preprocessor" context="Define" String="(#|%\:|\?\?=)\s*(cmake)?define.*((?=\\))" firstNonSpace="true" lookAhead="true" />
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*(?:el(?:se|if)|include(?:_next)?|(cmake)?define|undef|line|error|warning|pragma)" insensitive="true" firstNonSpace="true" />
-        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s+[0-9]+" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Define" String="(#|%\:|\?\?=)\s*(cmake)?define.*((?=\\))" firstNonSpace="true" lookAhead="true" insensitive="false" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s*(?:el(?:se|if)|include(?:_next)?|(cmake)?define|undef|line|error|warning|pragma)" insensitive="false" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Preprocessor" String="(#|%\:|\?\?=)\s+[0-9]+" firstNonSpace="true" insensitive="false" />
       </context>
 
       <context name="Preprocessor" attribute="Preprocessor" lineEndContext="#pop">
@@ -392,25 +392,25 @@
 
              <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment" />
         -->
-        <RegExpr attribute="Comment" context="Outscoped intern" String="(#|%\:|\?\?=)\s*if" beginRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="(#|%\:|\?\?=)\s*if" beginRegion="PP" firstNonSpace="true" insensitive="false" />
         <LineContinue context="#stay" />
       </context>
 
       <context name="Outscoped" attribute="Comment" lineEndContext="#stay">
         <IncludeRules context="Outscoped Common" />
-        <RegExpr attribute="Preprocessor" context="#pop" String="(#|%\:|\?\?=)\s*el(?:se|if)" firstNonSpace="true" />
-        <RegExpr attribute="Preprocessor" context="#pop" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="#pop" String="(#|%\:|\?\?=)\s*el(?:se|if)" firstNonSpace="true" insensitive="false" />
+        <RegExpr attribute="Preprocessor" context="#pop" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" insensitive="false" />
       </context>
 
       <context name="Outscoped 2" attribute="Comment" lineEndContext="#stay">
         <IncludeRules context="Outscoped Common" />
-        <RegExpr attribute="Preprocessor" context="#pop#pop" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="#pop#pop" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" insensitive="false" />
       </context>
 
       <context name="Inscoped" attribute="Normal Text" lineEndContext="#stay">
         <DetectSpaces />
-        <RegExpr attribute="Preprocessor" context="Outscoped" String="(#|%\:|\?\?=)\s*if\s+(0|false)\s*" beginRegion="PP" firstNonSpace="true" />
-        <RegExpr attribute="Preprocessor" context="Outscoped 2" String="(#|%\:|\?\?=)\s*el(?:se|if)" firstNonSpace="true" />
+        <RegExpr attribute="Preprocessor" context="Outscoped" String="(#|%\:|\?\?=)\s*if\s+(0|false)\s*" beginRegion="PP" firstNonSpace="true" insensitive="false" />
+        <RegExpr attribute="Preprocessor" context="Outscoped 2" String="(#|%\:|\?\?=)\s*el(?:se|if)" firstNonSpace="true" insensitive="false" />
         <IncludeRules context="Main" />
       </context>
 
@@ -422,8 +422,8 @@
         <IncludeRules context="##Doxygen" />
         <IncludeRules context="AlignedComments" />
         <Detect2Chars attribute="Comment" context="Commentar 2" char="/" char1="*" beginRegion="Comment" />
-        <RegExpr attribute="Comment" context="Outscoped intern" String="(#|%\:|\?\?=)\s*if" beginRegion="PP" firstNonSpace="true" />
-        <RegExpr attribute="Comment" context="#pop" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" />
+        <RegExpr attribute="Comment" context="Outscoped intern" String="(#|%\:|\?\?=)\s*if" beginRegion="PP" firstNonSpace="true" insensitive="false" />
+        <RegExpr attribute="Comment" context="#pop" String="(#|%\:|\?\?=)\s*endif" endRegion="PP" firstNonSpace="true" insensitive="false" />
       </context>
 
       <context name="AlignedComments" lineEndContext="#stay" attribute="Comment">

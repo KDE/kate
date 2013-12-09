@@ -71,6 +71,8 @@ public:
 };
 '''
 
+from PyKDE4.kdecore import i18nc
+
 from .udf import *
 
 from libkatepate.autocomplete import AbstractCodeCompletionModel
@@ -100,23 +102,33 @@ class ExpandsCompletionModel(AbstractCodeCompletionModel):
         expansions = getExpansionsFor(view.document().mimeType())
         for exp, fn_tuple in expansions.items():
             # Try to get a function description (very first line)
-            d = fn_tuple[0].__doc__
-            if d is not None:
-                lines = d.splitlines()
-                d = lines[0].strip().replace('<br/>', '')
+            if hasattr(fn_tuple[0], '__description__'):
+                description = fn_tuple[0].__description__.strip()
+            else:
+                description = None
+            if hasattr(fn_tuple[0], '__details__'):
+                details_text = fn_tuple[0].__details__.strip()
+            else:
+                details_text = None
+
             # Get function parameters
             fp = inspect.getargspec(fn_tuple[0])
             args = fp[0]
             params=''
             if len(args) != 0:
-                params = ", ".join(args)
+                params = ', '.join(args)
             if fp[1] is not None:
                 if len(params):
                     params += ', '
-                params += '['+fp[1]+']'
+                params += '[{}]'.format(fp[1])
             # Append to result completions list
             self.resultList.append(
-                self.createItemAutoComplete(text=exp, description=d, args='('+params+')')
+                self.createItemAutoComplete(
+                    text=exp
+                  , description=description
+                  , details = details_text
+                  , args='({})'.format(params)
+                  )
               )
 
     def reset(self):
@@ -157,3 +169,17 @@ def postprocess(func):
     '''
     func.use_template_iface = True
     return func
+
+
+def description(text):
+    def _decorator(func):
+        setattr(func, '__description__', text)
+        return func
+    return _decorator
+
+
+def details(text):
+    def _decorator(func):
+        setattr(func, '__details__', text)
+        return func
+    return _decorator

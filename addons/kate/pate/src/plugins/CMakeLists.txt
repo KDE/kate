@@ -1,4 +1,5 @@
 # Copyright (C) 2012, 2013 Shaheed Haque <srhaque@theiet.org>
+# Copyright (C) 2013 Alex Turbov <i.zaufi@gmail.com>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions

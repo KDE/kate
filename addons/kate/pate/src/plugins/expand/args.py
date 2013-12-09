@@ -51,6 +51,10 @@ def try_expand_params_seq(arg):
     return result
 
 
+def sum_arg_lengths(args):
+    return sum(len(s) for s in args)
+
+
 def looks_like_false(arg):
     return arg in _FUSSY_FALSE_VALUES
 

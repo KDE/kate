@@ -224,34 +224,14 @@ def getJinjaEnvironment(baseDir):
     return env
 
 
-def getHelpOnExpandAtCursor():
-    document = kate.activeDocument()
-    view = document.activeView()
-    try:
-        word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
-    except ParseError as e:
-        kate.ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
-        return
-    word = document.text(word_range)
-    expansions = getExpansionsFor(document.mimeType())
-    if word in expansions:
-        func = expansions[word][0]
-        cursor_pos = view.cursorPositionCoordinates()
-        tooltip_text = '\n'.join([
-            line[8:] if line.startswith(' ' * 8) else line for line in func.__doc__.splitlines()
-          ])
-        kate.kDebug('Expand: help on {}: {}'.format(word, tooltip_text))
-        QToolTip.showText(cursor_pos, tooltip_text)
-    else:
-        kate.kDebug('WARNING: undefined expansion `{}`'.format(word))
-
-
 def expandAtCursor():
     ''' Attempt text expansion on the word at the cursor.
 
         The expansions available are based firstly on the mimetype of the
         document, for example "text_x-c++src.expand" for "text/x-c++src", and
         secondly on "all.expand".
+
+        TODO Split this function!
     '''
     document = kate.activeDocument()
     view = document.activeView()
@@ -353,7 +333,6 @@ def expandAtCursor():
         env = getJinjaEnvironment(basedir)
         kate.kDebug('basedir={}, template_rel={}'.format(basedir, filename))
         try:
-            kate.kDebug('Using jinja template file: {0}'.format(filename))
             tpl = env.get_template(filename)
             kate.kDebug('data dict={}'.format(replacement))
             replacement = tpl.render(replacement)

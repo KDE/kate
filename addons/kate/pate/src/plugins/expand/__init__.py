@@ -79,11 +79,6 @@ from libkatepate.autocomplete import AbstractCodeCompletionModel
 
 
 @kate.action
-def getHelpOnExpandAtCursorAction():
-    getHelpOnExpandAtCursor()
-
-
-@kate.action
 def expandAtCursorAction():
     expandAtCursor()
 

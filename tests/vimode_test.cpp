@@ -287,10 +287,14 @@ ViModeTest::ViModeTest() {
   m_codesToSpecialKeys.insert("enter", Qt::Key_Enter);
   m_codesToSpecialKeys.insert("left", Qt::Key_Left);
   m_codesToSpecialKeys.insert("right", Qt::Key_Right);
+  m_codesToSpecialKeys.insert("up", Qt::Key_Up);
   m_codesToSpecialKeys.insert("down", Qt::Key_Down);
   m_codesToSpecialKeys.insert("home", Qt::Key_Home);
+  m_codesToSpecialKeys.insert("end", Qt::Key_End);
   m_codesToSpecialKeys.insert("delete", Qt::Key_Delete);
   m_codesToSpecialKeys.insert("insert", Qt::Key_Insert);
+  m_codesToSpecialKeys.insert("pageup", Qt::Key_PageUp);
+  m_codesToSpecialKeys.insert("pagedown", Qt::Key_PageDown);
 
 }
 
@@ -770,6 +774,9 @@ void ViModeTest::ReplaceModeTests()
   DoTest("foo bar", "R\\ctrl-\\right\\ctrl-\\rightX", "foo barX");
   DoTest("foo bar", "R\\ctrl-\\leftX", "Xoo bar");
   DoTest("foo bar", "R\\ctrl-\\left\\delete", "oo bar");
+
+  DoTest("foo\nbar\nbaz", "R\\downX", "foo\nXar\nbaz");
+  DoTest("foo\nbar\nbaz", "jjR\\upX", "foo\nXar\nbaz");
 }
 
 void ViModeTest::InsertModeTests() {

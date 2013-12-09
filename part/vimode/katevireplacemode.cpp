@@ -119,6 +119,14 @@ bool KateViReplaceMode::handleKeypress( const QKeyEvent *e )
       m_overwritten.clear();
       m_view->cursorRight();
       return true;
+    case Qt::Key_Up:
+      m_overwritten.clear();
+      m_view->up();
+      return true;
+    case Qt::Key_Down:
+      m_overwritten.clear();
+      m_view->down();
+      return true;
     case Qt::Key_Home:
       m_overwritten.clear();
       m_view->home();
@@ -126,6 +134,14 @@ bool KateViReplaceMode::handleKeypress( const QKeyEvent *e )
     case Qt::Key_End:
       m_overwritten.clear();
       m_view->end();
+      return true;
+    case Qt::Key_PageUp:
+      m_overwritten.clear();
+      m_view->pageUp();
+      return true;
+    case Qt::Key_PageDown:
+      m_overwritten.clear();
+      m_view->pageDown();
       return true;
     case Qt::Key_Delete:
       m_view->keyDelete();

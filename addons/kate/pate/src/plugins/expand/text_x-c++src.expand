@@ -43,16 +43,6 @@ _CL_SHORTCUT_MAPPINGS = {
 }
 
 
-_NS_TPL = '''namespace {0} {{
-%{{cursor}}
-{1}{2}// namespace {3}
-'''
-
-_ANONYMOUS_NS_TPL = '''namespace {{
-%{{cursor}}
-}}                                                           // anonymous namespace
-'''
-
 @expand.jinja_environment_configurator
 def __setup_jinga__(env):
     env.block_start_string = '/*%'
@@ -340,6 +330,3 @@ def sw(*args):
     if cases:
         data['cases'] = cases
     return data
-
-
-# kate: hl python; indent-width 4;

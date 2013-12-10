@@ -53,6 +53,17 @@ _ANONYMOUS_NS_TPL = '''namespace {{
 }}                                                           // anonymous namespace
 '''
 
+@expand.jinja_environment_configurator
+def __setup_jinga__(env):
+    env.block_start_string = '/*%'
+    env.block_end_string = '%*/'
+    env.variable_start_string = '/*<'
+    env.variable_end_string = '>*/'
+    env.line_statement_prefix = '//%'
+    env.line_comment_prefix = '//#'
+    return env
+
+
 @expand.jinja('struct.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'Insert a structure definition'))

@@ -242,28 +242,26 @@ def brief():
     return {}
 
 
+@expand.jinja('namespace.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'Insert named or anonymous namespace'))
 @expand.details(i18nc('@info "namespace" is a C++ term', '''<icode>ns([name[::nested[::name]]])</icode><nl/>
 If no name provided, anonyous namespace will be inserted
 '''))
 def ns(name = None):
-    params = []
+    data = {}
     if bool(name):
         # TODO Move this shared configuration settings to some module
         pos = 60
         if 'commentStartPos' in kate.configuration:
             pos = kate.configuration['commentStartPos']
 
-        nsList = [ns.strip() for ns in name.split('::')]
-        params.append(' { namespace '.join(nsList))         # NS header
-        params.append('}' * len(nsList))                    # NS close curve brackets
-        params.append(' ' * (pos - len(nsList)))            # space padding before comment
-        params.append(', '.join(reversed(nsList)))          # NS close comment line
-        template = _NS_TPL
-    else:
-        template = _ANONYMOUS_NS_TPL
-    return template.format(*params)
+        namespaces = [ns.strip() for ns in name.split('::')]
+        data['namespaces'] = namespaces
+        data['close_braces'] = '}' * len(namespaces)
+        assert(len(namespaces) < pos)
+        data['padding'] = ' ' * (pos - len(namespaces))
+    return data
 
 
 @expand.jinja('getter-setter.tpl')

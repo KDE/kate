@@ -63,7 +63,7 @@ set(ktexteditor_LIB_SRCS
 add_library (ktexteditor SHARED ${ktexteditor_LIB_SRCS} ${KTEXTEDITOR_PUBLIC_HEADERS})
 
 target_link_libraries(ktexteditor
-    KF5::KParts
+    KF5::Parts
     KF5::KDE4Support
 )
 

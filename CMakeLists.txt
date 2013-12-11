@@ -35,18 +35,18 @@ find_package(Qt5Script REQUIRED NO_MODULE)
 
 # Load the frameworks we need
 find_package(KF5 CONFIG REQUIRED
-    KIdleTime ItemModels KWidgetsAddons KWindowSystem KCodecs KArchive KCoreAddons Solid ThreadWeaver
-    KConfig KAuth KJS KWallet KDBusAddons Sonnet
-    KI18n KGuiAddons KService KConfigWidgets ItemViews KNotifications KIconThemes KStyle KCompletion KJobWidgets KTextWidgets XmlGui KCrash
-    KBookmarks KUnitConversion KIO KCMUtils KParts KNotifyConfig KPrintUtils KDESu KDocTools KNewStuff )
+    IdleTime ItemModels WidgetsAddons WindowSystem Codecs Archive CoreAddons Solid ThreadWeaver
+    Config Auth JS Wallet DBusAddons Sonnet
+    I18n GuiAddons Service ConfigWidgets ItemViews Notifications IconThemes Style Completion JobWidgets TextWidgets XmlGui Crash
+    Bookmarks UnitConversion KIO KCMUtils Parts NotifyConfig PrintUtils Su DocTools NewStuff )
 
-find_package(KDeclarative REQUIRED NO_MODULE)
-find_package(KIO REQUIRED NO_MODULE)
+find_package(KF5Declarative REQUIRED NO_MODULE)
+find_package(KF5KIO REQUIRED NO_MODULE)
 
-find_package(KInit)
+find_package(KF5Init)
 
 # needed for set_package_properties macro
-find_package(KDE4Support REQUIRED NO_MODULE)
+find_package(KF5KDE4Support REQUIRED NO_MODULE)
 find_package(Qt5Transitional MODULE)
 
 # config.h

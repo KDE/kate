@@ -4,7 +4,7 @@ kde4_add_app_icon(kwrite_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/
 
 kf5_add_kdeinit_executable(kwrite ${kwrite_KDEINIT_SRCS})
 target_link_libraries(kdeinit_kwrite ktexteditor 
-    KF5::KParts
+    KF5::Parts
     KF5::KDE4Support)
 
 install(TARGETS kwrite         ${INSTALL_TARGETS_DEFAULT_ARGS})

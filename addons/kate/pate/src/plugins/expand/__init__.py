@@ -77,6 +77,8 @@ from .udf import *
 
 from libkatepate.autocomplete import AbstractCodeCompletionModel
 
+__expands_completion_model = None
+
 
 @kate.action
 def expandAtCursorAction():
@@ -131,19 +133,42 @@ class ExpandsCompletionModel(AbstractCodeCompletionModel):
 
 
 def _reset(*args, **kwargs):
-    expands_completation_model.reset()
+    global __expands_completion_model
+    if __expands_completion_model is not None:
+        __expands_completion_model.reset()
+
+
+@kate.init
+def on_load():
+    global __expands_completion_model
+    assert(__expands_completion_model is None)
+    __expands_completion_model = ExpandsCompletionModel(kate.application)
+    __expands_completion_model.modelReset.connect(_reset)
+    # Set completion model for all already existed views
+    # (cuz the plugin can be loaded in the middle of editing session)
+    for doc in kate.documentManager.documents():
+        for view in doc.views():
+            cci = view.codeCompletionInterface()
+            cci.registerCompletionModel(__expands_completion_model)
+
+
+@kate.unload
+def on_unoad():
+    global __expands_completion_model
+    assert(__expands_completion_model is not None)
+    for doc in kate.documentManager.documents():
+        for view in doc.views():
+            cci = view.codeCompletionInterface()
+            cci.unregisterCompletionModel(__expands_completion_model)
+    __expands_completion_model = None
 
 
 @kate.viewCreated
-def createSignalAutocompleteExpands(view=None, *args, **kwargs):
-    view = view or kate.activeView()
+def createSignalAutocompleteExpands(view):
+    global __expands_completion_model
     if view:
         cci = view.codeCompletionInterface()
-        cci.registerCompletionModel(expands_completation_model)
-
-
-expands_completation_model = ExpandsCompletionModel(kate.application)
-expands_completation_model.modelReset.connect(_reset)
+        cci.registerCompletionModel(__expands_completion_model)
 
 
 def jinja(template):

@@ -90,7 +90,7 @@ install_pate_plugin(xml_pretty)
 
 if(PYTHON_VERSION_MAJOR VERSION_EQUAL 3)
     install_pate_plugin(cmake_utils)
-    install_pate_plugin(js_utils PATTERNS "*.json" "*.js")
+    install_pate_plugin(js_utils PATTERNS "*.json")
     install_pate_plugin(expand PATTERNS "*.expand" "templates/*.tpl")
 endif()
 

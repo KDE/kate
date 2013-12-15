@@ -267,7 +267,7 @@ void KateMainWindow::setupActions()
   actionCollection()->addAction( KStandardAction::Open, "file_open", m_viewManager, SLOT(slotDocumentOpen()) )
   ->setWhatsThis(i18n("Open an existing document for editing"));
 
-  fileOpenRecent = KStandardAction::openRecent (m_viewManager, SLOT(openUrl(KUrl)), this);
+  fileOpenRecent = KStandardAction::openRecent (m_viewManager, SLOT(openUrl(QUrl)), this);
   actionCollection()->addAction(fileOpenRecent->objectName(), fileOpenRecent);
   fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
@@ -522,7 +522,7 @@ void KateMainWindow::slotFileClose()
   m_viewManager->slotDocumentClose();
 }
 
-void KateMainWindow::slotOpenDocument(KUrl url)
+void KateMainWindow::slotOpenDocument(QUrl url)
 {
   m_viewManager->openUrl(url,
                         QString(),
@@ -594,8 +594,7 @@ void KateMainWindow::slotUpdateOpenWith()
 void KateMainWindow::dragEnterEvent( QDragEnterEvent *event )
 {
   if (!event->mimeData()) return;
-  const bool accept = KUrl::List::canDecode(event->mimeData()) // files
-                   || event->mimeData()->hasText();            // text
+  const bool accept = event->mimeData()->hasUrls() || event->mimeData()->hasText();
   event->setAccepted(accept);
 }
 
@@ -611,8 +610,10 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
   //
   // are we dropping files?
   //
-  if (KUrl::List::canDecode(event->mimeData())) {
-    KUrl::List textlist = KUrl::List::fromMimeData(event->mimeData());
+
+  if ( event->mimeData()->hasUrls() )
+  {
+    QList<QUrl> textlist = event->mimeData()->urls();
 
     // Try to get the KTextEditor::View that sent this, and activate it, so that the file opens in the
     // view where it was dropped
@@ -625,17 +626,17 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
       }
     }
 
-    for (KUrl::List::Iterator i = textlist.begin(); i != textlist.end(); ++i)
+    foreach ( const QUrl &url, textlist )
     {
       // if url has no file component, try and recursively scan dir
-      KFileItem kitem( KFileItem::Unknown, KFileItem::Unknown, *i, true );
+      KFileItem kitem( KFileItem::Unknown, KFileItem::Unknown, url, true );
       if( kitem.isDir() ) {
-        KIO::ListJob *list_job = KIO::listRecursive(*i, KIO::DefaultFlags, false);
+        KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
         connect(list_job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
                 this, SLOT(slotListRecursiveEntries(KIO::Job*,KIO::UDSEntryList)));
       }
       else {
-        m_viewManager->openUrl (*i);
+        m_viewManager->openUrl (url);
       }
     }
   }
@@ -652,11 +653,11 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
 
 void KateMainWindow::slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntryList &list)
 {
-  const KUrl dir = static_cast<KIO::SimpleJob*>( job )->url();
+  const QUrl dir = static_cast<KIO::SimpleJob*>( job )->url();
   foreach( const KIO::UDSEntry &entry, list )
   {
-      KUrl currentUrl = dir;
-      currentUrl.addPath( entry.stringValue( KIO::UDSEntry::UDS_NAME ) );
+      QUrl currentUrl = dir.resolved( entry.stringValue( KIO::UDSEntry::UDS_NAME ) );
+
       if( !entry.isDir() )
       {
           m_viewManager->openUrl(currentUrl);
@@ -697,7 +698,7 @@ void KateMainWindow::editKeys()
 
 void KateMainWindow::openUrl (const QString &name)
 {
-  m_viewManager->openUrl (KUrl(name));
+  m_viewManager->openUrl (QUrl(name));
 }
 
 void KateMainWindow::slotConfigure()
@@ -723,14 +724,14 @@ void KateMainWindow::showPluginConfigPage(Kate::PluginConfigPageInterface *confi
                                          // could have done on it, specially for plugins.
 }
 
-KUrl KateMainWindow::activeDocumentUrl()
+QUrl KateMainWindow::activeDocumentUrl()
 {
   // anders: i make this one safe, as it may be called during
   // startup (by the file selector)
   KTextEditor::View *v = m_viewManager->activeView();
   if ( v )
     return v->document()->url();
-  return KUrl();
+  return QUrl();
 }
 
 void KateMainWindow::mSlotFixOpenWithMenu()
@@ -767,7 +768,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
 
 void KateMainWindow::slotOpenWithMenuAction(QAction* a)
 {
-  KUrl::List list;
+  QList<QUrl> list;
   list.append( m_viewManager->activeView()->document()->url() );
 
   const QString openWith = a->data().toString();

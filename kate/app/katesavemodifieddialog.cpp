@@ -27,7 +27,6 @@
 #include <KGuiItem>
 #include <KStandardGuiItem>
 #include <KVBox>
-#include <kurl.h>
 #include <KIconLoader>
 #include <KMessageBox>
 #include <kdebug.h>
@@ -94,7 +93,7 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
 
         if (!r.URLs.isEmpty())
         {
-          KUrl tmp = r.URLs.first();
+          QUrl tmp = r.URLs.first();
 
           // check for overwriting a file
           if( tmp.isLocalFile() )

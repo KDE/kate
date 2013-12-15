@@ -201,9 +201,9 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      * @param encoding encoding name
      * @return success
      */
-    bool openUrl (const KUrl &url, const QString &encoding, bool isTempFile);
+    bool openUrl (const QUrl &url, const QString &encoding, bool isTempFile);
 
-    KTextEditor::Document* openDocUrl (const KUrl &url, const QString &encoding, bool isTempFile);
+    KTextEditor::Document* openDocUrl (const QUrl &url, const QString &encoding, bool isTempFile);
     
     void emitDocumentClosed(const QString& token);
     

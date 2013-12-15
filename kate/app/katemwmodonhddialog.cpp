@@ -299,7 +299,7 @@ void KateMwModOnHdDialog::slotPDone()
   }
 
   m_diffFile->setAutoRemove(false);
-  KUrl url = KUrl::fromPath(m_diffFile->fileName());
+  QUrl url = QUrl::fromLocalFile(m_diffFile->fileName());
   delete m_diffFile;
   m_diffFile = 0;
 

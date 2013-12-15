@@ -1269,7 +1269,7 @@ void KateFileTreeModel::setupIcon(ProxyItem *item)
     icon_name = "document-save";
   }
   else {
-    KUrl url = item->path();
+    QUrl url = item->path();
     icon_name = QMimeDatabase().mimeTypeForFile(url.path(), QMimeDatabase::MatchExtension).iconName();
   }
   

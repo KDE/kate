@@ -153,10 +153,10 @@ bool KateSession::rename (const QString &name)
     m_sessionFileRel = oldRel;
     return false;
   }
-  KUrl srcUrl(QString("file://"));
-  srcUrl.addPath(oldSessionFile);
-  KUrl destUrl(QString("file://"));
-  destUrl.addPath(sessionFile());
+
+  QUrl srcUrl = QUrl::fromLocalFile( oldSessionFile );
+  QUrl destUrl = QUrl::fromLocalFile( sessionFile() );
+
   KIO::CopyJob *job = KIO::move(srcUrl, destUrl, KIO::HideProgressInfo);
   if ( ! KIO::NetAccess::synchronousRun(job, 0) )
   {

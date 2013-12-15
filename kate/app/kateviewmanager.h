@@ -74,16 +74,16 @@ class KateViewManager : public QSplitter
     /* restore it */
     void restoreViewConfiguration (const KConfigGroup& group);
 
-    KTextEditor::Document *openUrl (const KUrl &url,
+    KTextEditor::Document *openUrl (const QUrl &url,
                                     const QString& encoding,
                                     bool activate = true,
                                     bool isTempFile = false,
                                     const KateDocumentInfo& docInfo = KateDocumentInfo());
 
-    KTextEditor::View *openUrlWithView (const KUrl &url, const QString& encoding);
+    KTextEditor::View *openUrlWithView (const QUrl &url, const QString& encoding);
 
   public Q_SLOTS:
-    void openUrl (const KUrl &url);
+    void openUrl (const QUrl &url);
 
   public:
 

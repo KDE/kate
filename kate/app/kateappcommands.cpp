@@ -152,13 +152,13 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
         if (argument.isEmpty() || argument == "!") {
             view->document()->documentReload();
         } else {
-            KUrl base = mainWin->activeDocumentUrl();
-            KUrl url;
-            KUrl arg2path(argument);
+            QUrl base = mainWin->activeDocumentUrl();
+            QUrl url;
+            QUrl arg2path(argument);
             if (base.isValid()) { // first try to use the same path as the current open document has
-              url = KUrl(base.resolved(arg2path));  //resolved handles the case where the args is a relative path, and is the same as using KUrl(args) elsewise
+              url = QUrl(base.resolved(arg2path));  //resolved handles the case where the args is a relative path, and is the same as using QUrl(args) elsewise
             } else { // else use the cwd
-              url = KUrl(KUrl(QDir::currentPath() + "/").resolved(arg2path)); // + "/" is needed because of http://lists.qt.nokia.com/public/qt-interest/2011-May/033913.html
+              url = QUrl(QUrl(QDir::currentPath() + "/").resolved(arg2path)); // + "/" is needed because of http://lists.qt.nokia.com/public/qt-interest/2011-May/033913.html
             }
             QFileInfo file( url.toLocalFile() );
             KTextEditor::Document *doc = KateDocManager::self()->findDocument( url );
@@ -167,7 +167,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
             } else if (file.exists()) {
                 mainWin->viewManager()->openUrl( url, QString(), true );
             } else {
-                mainWin->viewManager()->openUrl( KUrl(), QString(), true )->saveAs ( url );
+                mainWin->viewManager()->openUrl( QUrl(), QString(), true )->saveAs ( url );
             }
         }
     }

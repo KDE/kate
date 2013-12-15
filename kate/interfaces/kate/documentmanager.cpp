@@ -57,12 +57,12 @@ namespace Kate
     return d->docMan->documentList ();
   }
 
-  KTextEditor::Document *DocumentManager::findUrl (const KUrl &url) const
+  KTextEditor::Document *DocumentManager::findUrl (const QUrl &url) const
   {
     return d->docMan->findDocument (url);
   }
 
-  KTextEditor::Document *DocumentManager::openUrl(const KUrl&url, const QString &encoding)
+  KTextEditor::Document *DocumentManager::openUrl(const QUrl&url, const QString &encoding)
   {
     return d->docMan->openUrl (url, encoding);
   }

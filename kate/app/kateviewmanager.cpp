@@ -259,7 +259,7 @@ void KateViewManager::slotDocumentOpen ()
 
     QString fileList;
 
-    foreach ( const KUrl &url, r.URLs )
+    foreach ( const QUrl &url, r.URLs )
     {
       qint64 size = QFile( url.toLocalFile() ).size();
 
@@ -279,7 +279,7 @@ void KateViewManager::slotDocumentOpen ()
     }
 
     KTextEditor::Document *lastID = 0;
-    foreach ( const KUrl &url, r.URLs )
+    foreach ( const QUrl &url, r.URLs )
       lastID = openUrl( url, r.encoding, false, false, docInfo);
 
     if (lastID)
@@ -314,7 +314,7 @@ void KateViewManager::slotDocumentClose ()
 
 }
 
-KTextEditor::Document *KateViewManager::openUrl (const KUrl &url,
+KTextEditor::Document *KateViewManager::openUrl (const QUrl &url,
                                                  const QString& encoding,
                                                  bool activate,
                                                  bool isTempFile,
@@ -331,7 +331,7 @@ KTextEditor::Document *KateViewManager::openUrl (const KUrl &url,
   return doc;
 }
 
-KTextEditor::View *KateViewManager::openUrlWithView (const KUrl &url, const QString& encoding)
+KTextEditor::View *KateViewManager::openUrlWithView (const QUrl &url, const QString& encoding)
 {
   KTextEditor::Document *doc = KateDocManager::self()->openUrl (url, encoding);
 
@@ -346,7 +346,7 @@ KTextEditor::View *KateViewManager::openUrlWithView (const KUrl &url, const QStr
   return activeView ();
 }
 
-void KateViewManager::openUrl (const KUrl &url)
+void KateViewManager::openUrl (const QUrl &url)
 {
   openUrl (url, QString());
 }

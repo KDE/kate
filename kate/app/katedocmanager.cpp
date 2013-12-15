@@ -200,10 +200,9 @@ uint KateDocManager::documents ()
   return m_docList.count ();
 }
 
-KTextEditor::Document *KateDocManager::findDocument (const KUrl &url) const
+KTextEditor::Document *KateDocManager::findDocument (const QUrl &url) const
 {
-  KUrl u(url);
-  u.cleanPath();
+  QUrl u( url.adjusted(QUrl::NormalizePathSegments) );
 
   foreach (KTextEditor::Document* it, m_docList)
   {
@@ -214,16 +213,16 @@ KTextEditor::Document *KateDocManager::findDocument (const KUrl &url) const
   return 0;
 }
 
-bool KateDocManager::isOpen(KUrl url)
+bool KateDocManager::isOpen(QUrl url)
 {
   // return just if we found some document with this url
   return findDocument (url) != 0;
 }
 
-KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
+KTextEditor::Document *KateDocManager::openUrl (const QUrl& url, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
 {
-  KUrl u(url);
-  u.cleanPath();
+  QUrl u( url.adjusted(QUrl::NormalizePathSegments) );
+
   // special handling if still only the first initial doc is there
   if (!documentList().isEmpty() && (documentList().count() == 1) && (!documentList().at(0)->isModified() && documentList().at(0)->url().isEmpty()))
   {
@@ -249,7 +248,7 @@ KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &
         if ( fi.exists() )
         {
           m_tempFiles[ doc] = qMakePair(u, fi.lastModified());
-          kDebug(13001) << "temporary file will be deleted after use unless modified: " << u.pathOrUrl();
+          kDebug(13001) << "temporary file will be deleted after use unless modified: " << u.url();
         }
       }
     }
@@ -308,7 +307,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
       if ( fi.lastModified() <= m_tempFiles[ doc ].second ||
           KMessageBox::questionYesNo( KateApp::self()->activeMainWindow(),
                                       i18n("The supposedly temporary file %1 has been modified. "
-                                            "Do you want to delete it anyway?", m_tempFiles[ doc ].first.pathOrUrl()),
+                                      "Do you want to delete it anyway?", m_tempFiles[ doc ].first.url(QUrl::PreferLocalFile)),
                                       i18n("Delete File?") ) == KMessageBox::Yes )
       {
         KIO::del( m_tempFiles[ doc ].first, KIO::HideProgressInfo );
@@ -318,7 +317,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
       else
       {
         m_tempFiles.remove(doc);
-        kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.pathOrUrl() << " have been modified since loaded, and has not been deleted.";
+        kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.url() << " have been modified since loaded, and has not been deleted.";
       }
     }
 
@@ -462,7 +461,7 @@ bool KateDocManager::queryCloseDocuments(KateMainWindow *w)
 
         if (!r.URLs.isEmpty())
         {
-          KUrl tmp = r.URLs.first();
+          QUrl tmp = r.URLs.first();
 
           if ( !doc->saveAs( tmp ) )
             return false;
@@ -609,12 +608,12 @@ void KateDocManager::slotModifiedOnDisc (KTextEditor::Document *doc, bool b, KTe
 /**
  * Load file and file's meta-information if the MD5 didn't change since last time.
  */
-bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const KUrl &url)
+bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
 {
   if (!m_saveMetaInfos)
     return false;
 
-  if (!m_metaInfos->hasGroup(url.prettyUrl()))
+  if (!m_metaInfos->hasGroup(url.toDisplayString()))
     return false;
 
   QByteArray md5;
@@ -622,7 +621,7 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const KUrl &url)
 
   if (computeUrlMD5(url, md5))
   {
-    KConfigGroup urlGroup( m_metaInfos, url.prettyUrl() );
+    KConfigGroup urlGroup( m_metaInfos, url.toDisplayString() );
     const QString old_md5 = urlGroup.readEntry("MD5");
 
     if (QString (md5) == old_md5)
@@ -684,7 +683,7 @@ void KateDocManager::saveMetaInfos(const QList<KTextEditor::Document *> &documen
 
 // TODO: KDE 5: KateDocument computes the md5 digest when loading a file, and
 //       when saving a file. Maybe add "QString KTextEditor::Document::md5sum()" const?
-bool KateDocManager::computeUrlMD5(const KUrl &url, QByteArray &result)
+bool KateDocManager::computeUrlMD5(const QUrl &url, QByteArray &result)
 {
   QFile f(url.toLocalFile());
 

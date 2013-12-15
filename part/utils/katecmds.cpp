@@ -38,10 +38,10 @@
 #include <kdebug.h>
 #include <klocalizedstring.h>
 #include <klocale.h>
-#include <kurl.h>
 #include <kshellcompletion.h>
 
 #include <QDir>
+#include <QUrl>
 #include <QtCore/QRegExp>
 
 //BEGIN CoreCommands
@@ -839,8 +839,12 @@ bool KateCommands::AppCommands::exec(KTextEditor::View *view,
         if (file.isEmpty()) {
             view->document()->documentSave();
         } else {
-            KUrl base = view->document()->url();
-            KUrl url( base.isValid() ? base : KUrl( QDir::homePath() ), file );
+            QUrl base = view->document()->url();
+            if ( !base.isValid() )
+              base = QUrl( QDir::homePath() );
+
+            QUrl url = base.resolved( QUrl(file) );
+
             view->document()->saveAs( url );
         }
         msg = i18n("Document written to disk");

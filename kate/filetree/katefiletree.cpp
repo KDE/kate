@@ -249,7 +249,7 @@ void KateFileTree::slotFixOpenWithMenu()
 
 void KateFileTree::slotOpenWithMenuAction(QAction* a)
 {
-  KUrl::List list;
+  QList<QUrl> list;
   
   KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if (!doc) return;

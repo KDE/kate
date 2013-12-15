@@ -98,9 +98,9 @@ class KateDocManager : public QObject
 
     int findDocument (KTextEditor::Document *doc);
     /** Returns the documentNumber of the doc with url URL or -1 if no such doc is found */
-    KTextEditor::Document *findDocument (const KUrl &url) const;
+    KTextEditor::Document *findDocument (const QUrl &url) const;
 
-    bool isOpen(KUrl url);
+    bool isOpen(QUrl url);
 
     uint documents ();
 
@@ -109,7 +109,7 @@ class KateDocManager : public QObject
       return m_docList;
     }
 
-    KTextEditor::Document *openUrl(const KUrl&,
+    KTextEditor::Document *openUrl(const QUrl&,
                                    const QString &encoding = QString(),
                                    bool isTempFile = false,
                                    const KateDocumentInfo& docInfo = KateDocumentInfo());
@@ -192,9 +192,9 @@ class KateDocManager : public QObject
 
     void showRestoreErrors ();
   private:
-    bool loadMetaInfos(KTextEditor::Document *doc, const KUrl &url);
+    bool loadMetaInfos(KTextEditor::Document *doc, const QUrl &url);
     void saveMetaInfos(const QList<KTextEditor::Document *> &docs);
-    bool computeUrlMD5(const KUrl &url, QByteArray &result);
+    bool computeUrlMD5(const QUrl &url, QByteArray &result);
 
     Kate::DocumentManager *m_documentManager;
     QList<KTextEditor::Document*> m_docList;
@@ -208,7 +208,7 @@ class KateDocManager : public QObject
     //KParts::Factory *m_factory;
     KTextEditor::Editor *m_editor;
 
-    typedef QPair<KUrl, QDateTime> TPair;
+    typedef QPair<QUrl, QDateTime> TPair;
     QMap<KTextEditor::Document *, TPair> m_tempFiles;
     QString m_openingErrors;
     int m_documentStillToRestore;

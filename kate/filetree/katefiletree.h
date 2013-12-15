@@ -20,7 +20,8 @@
 #define KATE_FILETREE_H
 
 #include <QTreeView>
-#include <KUrl>
+#include <QUrl>
+
 #include <KIcon>
 
 namespace KTextEditor {
@@ -70,7 +71,7 @@ class KateFileTree: public QTreeView
     void closeDocument(KTextEditor::Document*);
     void activateDocument(KTextEditor::Document*);
     
-    void openDocument(KUrl);
+    void openDocument(QUrl);
 
     void viewModeChanged(bool treeMode);
     void sortRoleChanged(int);

@@ -85,7 +85,7 @@ namespace Kate
     return d->win->viewManager()->activateView( doc );
   }
 
-  KTextEditor::View *MainWindow::openUrl (const KUrl &url, const QString &encoding)
+  KTextEditor::View *MainWindow::openUrl (const QUrl &url, const QString &encoding)
   {
     return d->win->viewManager()->openUrlWithView (url, encoding);
   }

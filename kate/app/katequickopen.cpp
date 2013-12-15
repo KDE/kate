@@ -238,7 +238,7 @@ void KateQuickOpen::update ()
         QFileInfo fi (file);
         QStandardItem *itemName = new QStandardItem(fi.fileName());
 
-        itemName->setData(qVariantFromValue(KUrl::fromPath (file)), UrlRole);
+        itemName->setData(qVariantFromValue(QUrl::fromLocalFile(file)), UrlRole);
         itemName->setData(QString("%1: %2").arg(fi.fileName()).arg(file), SortFilterRole);
         itemName->setEditable(false);
         QFont font = itemName->font();
@@ -281,7 +281,7 @@ void KateQuickOpen::slotReturnPressed ()
   if (doc) {
     m_mainWindow->mainWindow()->activateView (doc);
   } else {
-    KUrl url = m_listView->currentIndex().data (UrlRole).value<KUrl>();
+    QUrl url = m_listView->currentIndex().data (UrlRole).value<QUrl>();
     if (!url.isEmpty())
       m_mainWindow->mainWindow()->openUrl (url);
   }

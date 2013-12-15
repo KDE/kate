@@ -327,12 +327,12 @@ KateSessionManager *KateApp::sessionManager ()
   return m_sessionManager;
 }
 
-bool KateApp::openUrl (const KUrl &url, const QString &encoding, bool isTempFile)
+bool KateApp::openUrl (const QUrl &url, const QString &encoding, bool isTempFile)
 {
   return openDocUrl(url,encoding,isTempFile);
 }
 
-KTextEditor::Document* KateApp::openDocUrl (const KUrl &url, const QString &encoding, bool isTempFile)
+KTextEditor::Document* KateApp::openDocUrl (const QUrl &url, const QString &encoding, bool isTempFile)
 {
   KateMainWindow *mainWindow = activeMainWindow ();
 
@@ -382,7 +382,7 @@ bool KateApp::setCursor (int line, int column)
 
 bool KateApp::openInput (const QString &text)
 {
-  activeMainWindow()->viewManager()->openUrl( KUrl(), "", true );
+  activeMainWindow()->viewManager()->openUrl( QUrl(), "", true );
 
   if (!activeMainWindow()->viewManager()->activeView ())
     return false;

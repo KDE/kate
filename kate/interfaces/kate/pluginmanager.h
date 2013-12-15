@@ -23,7 +23,6 @@
 #include <kate_export.h>
 
 #include <QtCore/QObject>
-#include <kurl.h>
 
 namespace Kate
 {

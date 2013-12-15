@@ -247,7 +247,7 @@ void KateViewSpace::restoreConfig ( KateViewManager *viewMan, const KConfigBase*
 
   if ( !fn.isEmpty() )
   {
-    KTextEditor::Document *doc = KateDocManager::self()->findDocument (KUrl(fn));
+    KTextEditor::Document *doc = KateDocManager::self()->findDocument (QUrl(fn));
 
     if (doc)
     {

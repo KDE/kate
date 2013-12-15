@@ -22,7 +22,7 @@
 #include <kate_export.h>
 
 #include <QtCore/QObject>
-#include <kurl.h>
+#include <QtCore/QUrl>
 
 namespace KTextEditor
 {
@@ -89,7 +89,7 @@ namespace Kate
        * \return the document with the given \p url or NULL, if no such document
        *         is in the document manager's internal list.
        */
-      KTextEditor::Document *findUrl (const KUrl &url) const;
+      KTextEditor::Document *findUrl (const QUrl &url) const;
 
       /**
        * Open the document \p url with the given \p encoding.
@@ -99,7 +99,7 @@ namespace Kate
        *        encoding will be guessed or the default encoding will be used.
        * \return a pointer to the created document
        */
-      KTextEditor::Document *openUrl (const KUrl &url, const QString &encoding = QString());
+      KTextEditor::Document *openUrl (const QUrl &url, const QString &encoding = QString());
 
       /**
        * Close the given \p document.

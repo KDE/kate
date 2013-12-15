@@ -23,8 +23,6 @@
 
 #include <QtCore/QObject>
 
-#include <kurl.h>
-
 namespace KTextEditor
 {
   class Editor;

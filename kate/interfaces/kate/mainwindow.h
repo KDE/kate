@@ -25,7 +25,6 @@
 #include <QtGui/QPixmap>
 
 #include <kxmlguifactory.h>
-#include <kurl.h>
 
 class QWidget;
 
@@ -143,7 +142,7 @@ namespace Kate
        * \return a pointer to the created view for the new document, if a document
        *         with this url is already existing, its view will be activated
        */
-      KTextEditor::View *openUrl (const KUrl &url, const QString &encoding = QString());
+      KTextEditor::View *openUrl (const QUrl &url, const QString &encoding = QString());
 
       //
       // SIGNALS !!!

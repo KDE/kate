@@ -655,7 +655,7 @@ void KateMainWindow::slotListRecursiveEntries(KIO::Job *job, const KIO::UDSEntry
   const QUrl dir = static_cast<KIO::SimpleJob*>( job )->url();
   foreach( const KIO::UDSEntry &entry, list )
   {
-      QUrl currentUrl = dir.resolved( entry.stringValue( KIO::UDSEntry::UDS_NAME ) );
+      QUrl currentUrl = dir.resolved( QUrl(entry.stringValue( KIO::UDSEntry::UDS_NAME )) );
 
       if( !entry.isDir() )
       {

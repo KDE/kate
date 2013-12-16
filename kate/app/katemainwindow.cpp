@@ -45,7 +45,6 @@
 #include <KShortcutsDialog>
 #include <KLocale>
 #include <KMessageBox>
-#include <KMimeType>
 #include <KOpenWithDialog>
 #include <KMenu>
 #include <KConfig>
@@ -70,6 +69,7 @@
 #include <QDropEvent>
 #include <QList>
 #include <QDesktopWidget>
+#include <QMimeDatabase>
 
 #include <kio/job.h>
 #include <KIO/ListJob>
@@ -746,11 +746,12 @@ void KateMainWindow::mSlotFixOpenWithMenu()
   menu->clear();
 
   // get a list of appropriate services.
-  KMimeType::Ptr mime = KMimeType::mimeType(activeView->document()->mimeType());
-  //kDebug(13001) << "mime type: " << mime->name();
+  QMimeDatabase db;
+  QMimeType mime = db.mimeTypeForName( activeView->document()->mimeType() );
+  //kDebug(13001) << "mime type: " << mime.name();
 
   QAction *a = 0;
-  KService::List offers = KMimeTypeTrader::self()->query(mime->name(), "Application");
+  KService::List offers = KMimeTypeTrader::self()->query(mime.name(), "Application");
   // add all default open-with-actions except "Kate"
   for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
   {

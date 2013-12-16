@@ -28,9 +28,9 @@
 #include <QtCore/QDate>
 #include <QtGui/QClipboard>
 #include <QtCore/QStack>
+#include <QtCore/QMimeType>
 
 #include <kjob.h>
-#include <kmimetype.h>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/sessionconfiginterface.h>
@@ -512,19 +512,18 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     /**
      * @return the name of the mimetype for the document.
      *
-     * This method is using KMimeType::findByUrl, and if the pointer
-     * is then still the default MimeType for a nonlocal or unsaved file,
-     * uses mimeTypeForContent().
+     * This method is using QMimeTypeDatabase::mimeTypeForUrl and if that
+     * fails then calls mimeTypeForContent
      */
     virtual QString mimeType();
 
     /**
-     * @return a pointer to the KMimeType for this document, found by analyzing the
+     * @return QMimeType for this document, found by analyzing the
      * actual content.
      *
      * Note that this method is *not* part of the DocumentInfoInterface.
      */
-    KMimeType::Ptr mimeTypeForContent();
+    QMimeType mimeTypeForContent();
 
   //
   // KTextEditor::VariableInterface

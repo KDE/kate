@@ -21,7 +21,8 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QList>
-#include <KMimeType>
+#include <QMimeDatabase>
+
 #include <KColorScheme>
 #include <KColorUtils>
 #include <klocale.h>
@@ -1269,7 +1270,7 @@ void KateFileTreeModel::setupIcon(ProxyItem *item)
   }
   else {
     KUrl url = item->path();
-    icon_name = KMimeType::findByUrl(url, 0, true, true)->iconName();
+    icon_name = QMimeDatabase().mimeTypeForFile(url.path(), QMimeDatabase::MatchExtension).iconName();
   }
   
   if(item->flag(ProxyItem::ModifiedExternally) || item->flag(ProxyItem::DeletedExternally)) {

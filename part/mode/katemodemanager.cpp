@@ -32,7 +32,6 @@
 #include "ui_filetypeconfigwidget.h"
 
 #include <kconfig.h>
-#include <kmimetype.h>
 #include <kmimetypechooser.h>
 #include <kdebug.h>
 #include <kiconloader.h>
@@ -49,6 +48,8 @@
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QToolButton>
+#include <QtCore/QMimeDatabase>
+
 #include <kvbox.h>
 
 #define KATE_FT_HOWMANY 1024
@@ -239,21 +240,19 @@ QString KateModeManager::fileType (KateDocument *doc, const QString &fileToReadF
   }
 
   // Try content-based mimetype
-  KMimeType::Ptr mt;
-  if (!fileToReadFrom.isEmpty()) {
-    int accuracy = 0;
-    mt = KMimeType::findByFileContent(fileToReadFrom, &accuracy);
-    if (!mt)
-      mt = KMimeType::defaultMimeTypePtr(); 
-  } else {
+  QMimeType mt;
+  QMimeDatabase db;
+
+  if ( !fileToReadFrom.isEmpty() )
+    mt = db.mimeTypeForFile( fileToReadFrom );
+  else
     mt = doc->mimeTypeForContent();
-  }
 
   QList<KateFileType*> types;
 
   foreach (KateFileType *type, m_types)
   {
-    if (type->mimetypes.indexOf (mt->name()) > -1)
+    if (type->mimetypes.indexOf (mt.name()) > -1)
       types.append (type);
   }
 

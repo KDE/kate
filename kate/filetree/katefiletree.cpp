@@ -29,7 +29,6 @@
 #include <KLocale>
 
 #include <KMimeTypeTrader>
-#include <KMimeType>
 #include <KOpenWithDialog>
 #include <KRun>
 #include <KMessageBox>
@@ -41,6 +40,7 @@
 #include <kdebug.h>
 #include <qapplication.h>
 #include <QClipboard>
+#include <QMimeDatabase>
 //END Includes
 
 
@@ -228,11 +228,12 @@ void KateFileTree::slotFixOpenWithMenu()
   if (!doc) return;
 
   // get a list of appropriate services.
-  KMimeType::Ptr mime = KMimeType::mimeType(doc->mimeType());
-  //kDebug(13001) << "mime type: " << mime->name();
+  QMimeDatabase db;
+  QMimeType mime = db.mimeTypeForName( doc->mimeType() );
+  //kDebug(13001) << "mime type: " << mime.name();
 
   QAction *a = 0;
-  KService::List offers = KMimeTypeTrader::self()->query(mime->name(), "Application");
+  KService::List offers = KMimeTypeTrader::self()->query(mime.name(), "Application");
   // for each one, insert a menu item...
   for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
   {

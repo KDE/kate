@@ -24,10 +24,10 @@
 #include <QtCore/QString>
 #include <QtCore/QFile>
 #include <QtCore/QCryptographicHash>
+#include <QMimeDatabase>
 
 // on the fly compression
 #include <kfilterdev.h>
-#include <kmimetype.h>
 
 namespace Kate {
 
@@ -66,10 +66,8 @@ class TextLoader
     {
       // try to get mimetype for on the fly decompression, don't rely on filename!
       QFile testMime (filename);
-      if (testMime.open (QIODevice::ReadOnly))
-        m_mimeType = KMimeType::findByContent (&testMime)->name ();
-      else
-        m_mimeType = KMimeType::findByPath (filename, 0, false)->name ();
+
+      m_mimeType = QMimeDatabase().mimeTypeForFileNameAndData( filename, &testMime ).name();
 
       // construct filter device
       //KCompressionDevice::CompressionType compressionType = KFilterDev::compressionTypeForMimeType(m_mimeType);

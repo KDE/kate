@@ -1885,19 +1885,17 @@ bool KateDocument::print ()
 //BEGIN KTextEditor::DocumentInfoInterface (### unfinished)
 QString KateDocument::mimeType()
 {
-  KMimeType::Ptr result = KMimeType::defaultMimeTypePtr();
+  QMimeType mt;
 
-  // if the document has a URL, try KMimeType::findByURL
-  if ( ! this->url().isEmpty() )
-    result = KMimeType::findByUrl( this->url() );
+  if ( !this->url().isEmpty() )
+    mt = QMimeDatabase().mimeTypeForUrl( this->url() );
+  else
+    mt = mimeTypeForContent();
 
-  else if ( this->url().isEmpty() || ! this->url().isLocalFile() )
-    result = mimeTypeForContent();
-
-  return result->name();
+  return mt.name();
 }
 
-KMimeType::Ptr KateDocument::mimeTypeForContent()
+QMimeType KateDocument::mimeTypeForContent()
 {
   QByteArray buf (1024,'\0');
   uint bufpos = 0;
@@ -1920,9 +1918,8 @@ KMimeType::Ptr KateDocument::mimeTypeForContent()
   }
   buf.resize( bufpos );
 
-  int accuracy = 0;
-  KMimeType::Ptr mt = KMimeType::findByContent(buf, &accuracy);
-  return mt ? mt : KMimeType::defaultMimeTypePtr();
+  QMimeDatabase db;
+  return db.mimeTypeForData(buf);
 }
 //END KTextEditor::DocumentInfoInterface
 

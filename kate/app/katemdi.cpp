@@ -41,10 +41,9 @@
 #include <kxmlguifactory.h>
 #include <kdeversion.h>
 #include <klocalizedstring.h>
-#include <KShortcut>
 
 #include <QEvent>
-//Added by qt3to4:
+#include <QShortcut>
 #include <QContextMenuEvent>
 #include <QPixmap>
 #include <QChildEvent>
@@ -158,12 +157,17 @@ namespace KateMDI
     QString aname = QString("kate_mdi_toolview_") + tv->id;
 
     // try to read the action shortcut
-    KShortcut sc;
+    QList<QKeySequence> shortcuts;
+
     KSharedConfig::Ptr cfg = KGlobal::config();
-    sc = KShortcut( cfg->group("Shortcuts").readEntry( aname, QString() ) );
+    QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
+
+    foreach (const QString &shortcut, shortcutString.split(";")) {
+      shortcuts << QKeySequence::fromString(shortcut);
+    }
 
     KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text), tv, this );
-    // FIXME KF5 a->setShortcut(sc, QAction::ActiveShortcut); // no DefaultShortcut! see bug #144945
+    a->setShortcuts(shortcuts);
     actionCollection()->addAction( aname.toLatin1(), a );
 
     m_toolViewActions.append(a);

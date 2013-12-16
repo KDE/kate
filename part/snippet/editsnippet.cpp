@@ -33,7 +33,6 @@
 #include <KPushButton>
 #include <KMimeTypeTrader>
 #include <KIcon>
-#include <KShortcut>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 #include <khelpclient.h>
@@ -109,7 +108,7 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     connect(m_ui->snippetArgumentsEdit,  SIGNAL(textEdited(QString)), this, SLOT(topBoxModified()));
     connect(m_ui->snippetPostfixEdit,    SIGNAL(textEdited(QString)), this, SLOT(topBoxModified()));
     connect(m_ui->snippetPrefixEdit,     SIGNAL(textEdited(QString)), this, SLOT(topBoxModified()));
-    connect(m_ui->snippetShortcutWidget, SIGNAL(shortcutChanged(KShortcut)), this, SLOT(topBoxModified()));
+    connect(m_ui->snippetShortcutWidget, SIGNAL(shortcutChanged(QList<QKeySequence>)), this, SLOT(topBoxModified()));
     connect(m_snippetView->document(), SIGNAL(textChanged(KTextEditor::Document*)), this, SLOT(validate()));
 
     // if we edit a snippet, add all existing data

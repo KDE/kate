@@ -45,8 +45,6 @@
 
 #include <KUser>
 
-#include <KShortcut>
-
 #include "snippetstore.h"
 #include "katepartdebug.h"
 

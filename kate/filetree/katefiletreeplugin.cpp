@@ -56,7 +56,7 @@ KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
     m_fileCommand(0)
 {
 // TODO: Remove once Qt allows an external app to change a debug category (ETA Qt 5.3)
-#ifndef NDEBUG
+#if 0
   QLoggingCategory::setFilterRules(QStringLiteral("kate-filetree.debug = true"));
 #endif
 

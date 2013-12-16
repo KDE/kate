@@ -27,6 +27,7 @@
 #include <ktexteditor/ktexteditor_export.h>
 #include <ktexteditor/cursor.h>
 
+#include <QDebug>
 
 namespace KTextEditor
 {
@@ -575,7 +576,7 @@ class KTEXTEDITOR_EXPORT Range
       { return r1.end() < r2.start(); }
 
     /**
-     * kDebug() stream operator.  Writes this range to the debug output in a nicely formatted way.
+     * qDebug() stream operator.  Writes this range to the debug output in a nicely formatted way.
      */
     inline friend QDebug operator<< (QDebug s, const Range& range) {
       if (&range)

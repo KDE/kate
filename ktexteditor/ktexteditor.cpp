@@ -53,7 +53,6 @@
 #include <kparts/factory.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kdebug.h>
 
 using namespace KTextEditor;
 
@@ -114,7 +113,7 @@ Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
   QString error;
   Plugin* plugin = service->createInstance<KTextEditor::Plugin>(parent, QVariantList(), &error);
   if (!plugin)
-    kWarning() << error;
+    qWarning() << error; // TODO: would be nice to have a qCWarning here, but it seems like overkill
   return plugin;
 }
 #endif

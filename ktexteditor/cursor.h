@@ -25,7 +25,7 @@
 #define KDELIBS_KTEXTEDITOR_CURSOR_H
 
 #include <ktexteditor/ktexteditor_export.h>
-#include <kdebug.h>
+#include <QDebug>
 
 namespace KTextEditor
 {
@@ -300,7 +300,7 @@ class KTEXTEDITOR_EXPORT Cursor
       { return !(c1 > c2); }
 
     /**
-     * kDebug() stream operator.  Writes this cursor to the debug output in a nicely formatted way.
+     * qDebug() stream operator.  Writes this cursor to the debug output in a nicely formatted way.
      */
     inline friend QDebug operator<< (QDebug s, const Cursor& cursor) {
       if (&cursor)

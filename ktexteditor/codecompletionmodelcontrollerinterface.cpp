@@ -68,7 +68,6 @@ Range CodeCompletionModelControllerInterface3::completionRange(View* view, const
     if (findWordEnd.indexIn(text.mid(end.column())) >= 0)
         end.setColumn(end.column() + findWordEnd.cap(1).length());
 
-    //kDebug()<<"returning:"<<Range(start,end);
     return Range(start, end);
 }
 
@@ -89,8 +88,6 @@ QString CodeCompletionModelControllerInterface3::filterString(View* view, const 
 
 bool CodeCompletionModelControllerInterface3::shouldAbortCompletion(View* view, const Range &range, const QString &currentCompletion)
 {
-    //kDebug()<<view->cursorPosition();
-    //kDebug()<<range;
     if(view->cursorPosition() < range.start() || view->cursorPosition() > range.end())
       return true; //Always abort when the completion-range has been left
     //Do not abort completions when the text has been empty already before and a newline has been entered

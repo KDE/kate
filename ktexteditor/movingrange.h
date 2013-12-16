@@ -29,6 +29,8 @@
 #include <ktexteditor/range.h>
 #include <ktexteditor/movingcursor.h>
 
+#include <QDebug>
+
 // TODO: KDE5, maybe add
 // - void MoivingRange::setBlockMode(bool enableBlockMode);
 // - bool MoivingRange::blockMode() const;
@@ -349,7 +351,7 @@ class KTEXTEDITOR_EXPORT MovingRange
     operator const Range () const { return Range (start().toCursor(), end().toCursor()); }
 
     /**
-     * kDebug() stream operator. Writes this range to the debug output in a nicely formatted way.
+     * qDebug() stream operator. Writes this range to the debug output in a nicely formatted way.
      * @param s debug stream
      * @param cursor range to print
      * @return debug stream
@@ -363,7 +365,7 @@ class KTEXTEDITOR_EXPORT MovingRange
     }
 
     /**
-     * kDebug() stream operator. Writes this range to the debug output in a nicely formatted way.
+     * qDebug() stream operator. Writes this range to the debug output in a nicely formatted way.
      * @param s debug stream
      * @param range range to print
      * @return debug stream

@@ -30,8 +30,6 @@
 #include <klibrary.h>
 #include <KLocalizedString>
 
-#include <kdebug.h>
-
 #define DUMMY_VALUE "!KTE:TEMPLATEHANDLER_DUMMY_VALUE!"
 
 using namespace KTextEditor;
@@ -235,12 +233,9 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
     }
   }
 
-  kDebug()<<"-----------------------------------";
   for (QMap<QString,QString>::iterator it=enhancedInitValues.begin();it!=enhancedInitValues.end();++it) {
-    kDebug()<<"key:"<<it.key()<<" init value:"<<it.value();
     if (it.value()==DUMMY_VALUE) it.value()="";
   }
-  kDebug()<<"-----------------------------------";
   if (!expandMacros( enhancedInitValues, dynamic_cast<QWidget*>(this) ) ) return false;
   *initialValues=enhancedInitValues;
   return true;

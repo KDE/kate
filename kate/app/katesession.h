@@ -23,7 +23,6 @@
 
 #include <KDialog>
 #include <KConfig>
-#include <KSharedPtr>
 #include <KActionMenu>
 
 #include <QObject>
@@ -31,19 +30,20 @@
 #include <QActionGroup>
 #include <QTreeWidget>
 #include <QTreeWidgetItem>
+#include <QExplicitlySharedDataPointer>
 
 class KateSessionManager;
 class KPushButton;
 
 class QCheckBox;
 
-class KateSession  : public KShared
+class KateSession  : public QSharedData
 {
   public:
     /**
      * Define a Shared-Pointer type
      */
-    typedef KSharedPtr<KateSession> Ptr;
+    typedef QExplicitlySharedDataPointer<KateSession> Ptr;
 
   public:
     /**

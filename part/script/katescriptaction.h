@@ -22,7 +22,8 @@
 #include "katecommandlinescript.h"
 
 #include <kactionmenu.h>
-#include <kaction.h>
+
+#include <QAction>
 
 class KateView;
 
@@ -30,7 +31,7 @@ class KateView;
  * KateScriptAction is an action that executes a commandline-script
  * if triggered. It is shown in Tools > Scripts.
  */
-class KateScriptAction : public KAction
+class KateScriptAction : public QAction
 {
   Q_OBJECT
 

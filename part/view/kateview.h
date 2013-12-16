@@ -65,9 +65,9 @@ class KateScriptConsole;
 class KateMessageWidget;
 
 class KToggleAction;
-class KAction;
 class KSelectAction;
 
+class QAction;
 class QVBoxLayout;
 
 //

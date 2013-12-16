@@ -32,7 +32,7 @@
 
 //BEGIN KateScriptAction
 KateScriptAction::KateScriptAction(const ScriptActionInfo& info, KateView* view)
-  : KAction(info.text(), view)
+  : QAction(info.text(), view)
   , m_view(view)
   , m_command(info.command())
   , m_interactive(info.interactive())
@@ -132,7 +132,7 @@ void KateScriptActionMenu::repopulate()
       }
       
       // create action + add to menu
-      KAction* a = new KateScriptAction(info, m_view);
+      QAction* a = new KateScriptAction(info, m_view);
       m->addAction(a);
       m_view->actionCollection()->addAction("tools_scripts_" + cmd, a);
       m_actions.append(a);

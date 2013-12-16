@@ -31,7 +31,8 @@
 
 class KateView;
 
-class KAction;
+class QAction;
+
 class KActionCollection;
 class KProgressDialog;
 namespace Sonnet {
@@ -91,7 +92,7 @@ class KateSpellCheckDialog : public QObject
     KTextEditor::Cursor locatePosition( int pos );
 
     KateView *m_view;
-    KAction *m_spellcheckSelection;
+    QAction *m_spellcheckSelection;
 
     Sonnet::Speller *m_speller;
     Sonnet::BackgroundChecker *m_backgroundChecker;

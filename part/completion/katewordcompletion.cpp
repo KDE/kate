@@ -35,7 +35,6 @@
 #include <kdialog.h>
 #include <kpluginfactory.h>
 #include <klocale.h>
-#include <kaction.h>
 #include <kactioncollection.h>
 #include <knotification.h>
 #include <kparts/part.h>
@@ -53,6 +52,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
+#include <QtWidgets/QAction>
 
 #include <kvbox.h>
 #include <QtWidgets/QCheckBox>
@@ -337,24 +337,24 @@ KateWordCompletionView::KateWordCompletionView( KTextEditor::View *view, KAction
 
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 
-  KAction *action;
+  QAction *action;
 
   if (cci)
   {
     cci->registerCompletionModel( m_dWCompletionModel );
 
-    action = new KAction( i18n("Shell Completion"), this );
+    action = new QAction( i18n("Shell Completion"), this );
     ac->addAction( "doccomplete_sh", action );
     connect( action, SIGNAL(triggered()), this, SLOT(shellComplete()) );
   }
 
 
-  action = new KAction( i18n("Reuse Word Above"), this );
+  action = new QAction( i18n("Reuse Word Above"), this );
   ac->addAction( "doccomplete_bw", action );
   action->setShortcut( Qt::CTRL+Qt::Key_8 );
   connect( action, SIGNAL(triggered()), this, SLOT(completeBackwards()) );
 
-  action = new KAction( i18n("Reuse Word Below"), this );
+  action = new QAction( i18n("Reuse Word Below"), this );
   ac->addAction( "doccomplete_fw", action );
   action->setShortcut( Qt::CTRL+Qt::Key_9 );
   connect( action, SIGNAL(triggered()), this, SLOT(completeForwards()) );

@@ -29,7 +29,7 @@
 class SnippetFilterProxyModel;
 class QStandardItem;
 class KateSnippetGlobal;
-class KAction;
+class QAction;
 
 /**
  * This class gets embedded into the right tool view by the KateSnippetGlobal.
@@ -107,14 +107,14 @@ private:
     KateSnippetGlobal* m_plugin;
     SnippetFilterProxyModel* m_proxy;
 
-    KAction* m_addRepoAction;
-    KAction* m_removeRepoAction;
-    KAction* m_editRepoAction;
-    KAction* m_addSnippetAction;
-    KAction* m_removeSnippetAction;
-    KAction* m_editSnippetAction;
-    KAction* m_getNewStuffAction;
-    KAction* m_putNewStuffAction;
+    QAction *m_addRepoAction;
+    QAction *m_removeRepoAction;
+    QAction *m_editRepoAction;
+    QAction *m_addSnippetAction;
+    QAction *m_removeSnippetAction;
+    QAction *m_editSnippetAction;
+    QAction *m_getNewStuffAction;
+    QAction *m_putNewStuffAction;
 };
 
 #endif

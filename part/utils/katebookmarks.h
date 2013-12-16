@@ -26,10 +26,10 @@ class KateView;
 
 namespace KTextEditor { class Mark; class View; }
 
-class KAction;
 class KToggleAction;
 class KActionCollection;
 class QMenu;
+class QAction;
 
 class KateBookmarks : public QObject
 {
@@ -65,9 +65,9 @@ class KateBookmarks : public QObject
   private:
     KateView*                    m_view;
     KToggleAction*               m_bookmarkToggle;
-    KAction*                     m_bookmarkClear;
-    KAction*                     m_goNext;
-    KAction*                     m_goPrevious;
+    QAction*                     m_bookmarkClear;
+    QAction*                     m_goNext;
+    QAction*                     m_goPrevious;
 
     Sorting                      m_sorting;
     QMenu*                       m_bookmarksMenu;

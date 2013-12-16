@@ -31,7 +31,6 @@
 #include <QMenu>
 
 #include <KActionCollection>
-#include <KAction>
 #include <KToolBar>
 
 #include <KTextEditor/HighlightInterface>
@@ -122,7 +121,7 @@ void KateSnippetGlobal::insertSnippet(Snippet* snippet)
 
 void KateSnippetGlobal::insertSnippetFromActionData()
 {
-    KAction* action = dynamic_cast<KAction*>(sender());
+    QAction* action = dynamic_cast<QAction*>(sender());
     Q_ASSERT(action);
     Snippet* snippet = action->data().value<Snippet*>();
     Q_ASSERT(snippet);

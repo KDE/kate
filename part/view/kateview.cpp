@@ -74,7 +74,6 @@
 #include <kglobal.h>
 #include <kcharsets.h>
 #include <kmessagebox.h>
-#include <kaction.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
 #include <kxmlguiclient.h>

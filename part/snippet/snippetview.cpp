@@ -26,7 +26,6 @@
 #include <QContextMenuEvent>
 #include <KMenu>
 #include <KMessageBox>
-#include <KAction>
 
 #include "snippet.h"
 #include "katesnippetglobal.h"
@@ -69,17 +68,17 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
 
     snippetTree->header()->hide();
 
-    m_addRepoAction = new KAction(KIcon("folder-new"), i18n("Add Repository"), this);
+    m_addRepoAction = new QAction(KIcon("folder-new"), i18n("Add Repository"), this);
     connect(m_addRepoAction, SIGNAL(triggered()), this, SLOT(slotAddRepo()));
     addAction(m_addRepoAction);
-    m_editRepoAction = new KAction(KIcon("folder-txt"), i18n("Edit Repository"), this);
+    m_editRepoAction = new QAction(KIcon("folder-txt"), i18n("Edit Repository"), this);
     connect(m_editRepoAction, SIGNAL(triggered()), this, SLOT(slotEditRepo()));
     addAction(m_editRepoAction);
-    m_removeRepoAction = new KAction(KIcon("edit-delete"), i18n("Remove Repository"), this);
+    m_removeRepoAction = new QAction(KIcon("edit-delete"), i18n("Remove Repository"), this);
     connect(m_removeRepoAction, SIGNAL(triggered()), this, SLOT(slotRemoveRepo()));
     addAction(m_removeRepoAction);
 
-    m_putNewStuffAction = new KAction(KIcon("get-hot-new-stuff"), i18n("Publish Repository"), this);
+    m_putNewStuffAction = new QAction(KIcon("get-hot-new-stuff"), i18n("Publish Repository"), this);
     connect(m_putNewStuffAction, SIGNAL(triggered()), this, SLOT(slotSnippetToGHNS()));
     addAction(m_putNewStuffAction);
 
@@ -87,19 +86,19 @@ SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
     separator->setSeparator(true);
     addAction(separator);
 
-    m_addSnippetAction = new KAction(KIcon("document-new"), i18n("Add Snippet"), this);
+    m_addSnippetAction = new QAction(KIcon("document-new"), i18n("Add Snippet"), this);
     connect(m_addSnippetAction, SIGNAL(triggered()), this, SLOT(slotAddSnippet()));
     addAction(m_addSnippetAction);
-    m_editSnippetAction = new KAction(KIcon("document-edit"), i18n("Edit Snippet"), this);
+    m_editSnippetAction = new QAction(KIcon("document-edit"), i18n("Edit Snippet"), this);
     connect(m_editSnippetAction, SIGNAL(triggered()), this, SLOT(slotEditSnippet()));
     addAction(m_editSnippetAction);
-    m_removeSnippetAction = new KAction(KIcon("document-close"), i18n("Remove Snippet"), this);
+    m_removeSnippetAction = new QAction(KIcon("document-close"), i18n("Remove Snippet"), this);
     connect(m_removeSnippetAction, SIGNAL(triggered()), this, SLOT(slotRemoveSnippet()));
     addAction(m_removeSnippetAction);
 
     addAction(separator);
 
-    m_getNewStuffAction = new KAction(KIcon("get-hot-new-stuff"), i18n("Get New Snippets"), this);
+    m_getNewStuffAction = new QAction(KIcon("get-hot-new-stuff"), i18n("Get New Snippets"), this);
     connect(m_getNewStuffAction, SIGNAL(triggered()), this, SLOT(slotGHNS()));
     addAction(m_getNewStuffAction);
 

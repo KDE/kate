@@ -46,6 +46,8 @@
 
 K_PLUGIN_FACTORY_WITH_JSON (KateFileTreeFactory, "katefiletreeplugin.json", registerPlugin<KateFileTreePlugin>();)
 
+Q_LOGGING_CATEGORY(FILETREE, "kate-filetree")
+
 //K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("filetree","katefiletreeplugin",ki18n("Document Tree"), "0.1", ki18n("Show open documents in a tree"), KAboutData::License_LGPL_V2)) )
 
 //BEGIN KateFileTreePlugin
@@ -53,6 +55,11 @@ KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ((Kate::Application*)parent),
     m_fileCommand(0)
 {
+// TODO: Remove once Qt allows an external app to change a debug category (ETA Qt 5.3)
+#ifndef NDEBUG
+  QLoggingCategory::setFilterRules(QStringLiteral("kate-filetree.debug = true"));
+#endif
+
   KTextEditor::CommandInterface* iface =
   qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
   if (iface) {
@@ -172,7 +179,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
 : Kate::PluginView (mainWindow), Kate::XMLGUIClient("filetree"), m_plug(plug)
 {
   // init console
-  kDebug(debugArea()) << "BEGIN: mw:" << mainWindow;
+  qCDebug(FILETREE) << "BEGIN: mw:" << mainWindow;
 
   m_toolView = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
   m_fileTree = new KateFileTree(m_toolView);
@@ -266,7 +273,7 @@ KateFileTree *KateFileTreePluginView::tree()
 
 void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
 {
-  kDebug(debugArea()) << "open" << doc;
+  qCDebug(FILETREE) << "open" << doc;
   connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)),
           m_documentModel, SLOT(documentEdited(KTextEditor::Document*)));
 
@@ -275,13 +282,13 @@ void KateFileTreePluginView::documentOpened(KTextEditor::Document *doc)
 
 void KateFileTreePluginView::documentClosed(KTextEditor::Document *doc)
 {
-  kDebug(debugArea()) << "close" << doc;
+  qCDebug(FILETREE) << "close" << doc;
   m_proxyModel->invalidate();
 }
 
 void KateFileTreePluginView::viewChanged()
 {
-  kDebug(debugArea()) << "BEGIN!";
+  qCDebug(FILETREE) << "BEGIN!";
 
   KTextEditor::View *view = mainWindow()->activeView();
   if(!view)
@@ -289,10 +296,10 @@ void KateFileTreePluginView::viewChanged()
 
   KTextEditor::Document *doc = view->document();
   QModelIndex index = m_proxyModel->docIndex(doc);
-  kDebug(debugArea()) << "selected doc=" << doc << index;
+  qCDebug(FILETREE) << "selected doc=" << doc << index;
 
   QString display = m_proxyModel->data(index, Qt::DisplayRole).toString();
-  kDebug(debugArea()) << "display="<<display;
+  qCDebug(FILETREE) << "display="<<display;
 
   // update the model on which doc is active
   m_documentModel->documentActivated(doc);
@@ -306,20 +313,20 @@ void KateFileTreePluginView::viewChanged()
     index = index.parent();
   }
 
-  kDebug(debugArea()) << "END!";
+  qCDebug(FILETREE) << "END!";
 }
 
 void KateFileTreePluginView::setListMode(bool listMode)
 {
-  kDebug(debugArea()) << "BEGIN";
+  qCDebug(FILETREE) << "BEGIN";
 
   if(listMode) {
-    kDebug(debugArea()) << "listMode";
+    qCDebug(FILETREE) << "listMode";
     m_documentModel->setListMode(true);
     m_fileTree->setRootIsDecorated(false);
   }
   else {
-    kDebug(debugArea()) << "treeMode";
+    qCDebug(FILETREE) << "treeMode";
     m_documentModel->setListMode(false);
     m_fileTree->setRootIsDecorated(true);
   }
@@ -327,24 +334,24 @@ void KateFileTreePluginView::setListMode(bool listMode)
   m_proxyModel->sort(0, Qt::AscendingOrder);
   m_proxyModel->invalidate();
 
-  kDebug(debugArea()) << "END";
+  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreePluginView::viewModeChanged(bool listMode)
 {
-  kDebug(debugArea()) << "BEGIN";
+  qCDebug(FILETREE) << "BEGIN";
   setHasLocalPrefs(true);
   setListMode(listMode);
-  kDebug(debugArea()) << "END";
+  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreePluginView::sortRoleChanged(int role)
 {
-  kDebug(debugArea()) << "BEGIN";
+  qCDebug(FILETREE) << "BEGIN";
   setHasLocalPrefs(true);
   m_proxyModel->setSortRole(role);
   m_proxyModel->invalidate();
-  kDebug(debugArea()) << "END";
+  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreePluginView::activateDocument(KTextEditor::Document *doc)

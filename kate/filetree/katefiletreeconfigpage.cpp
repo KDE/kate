@@ -53,7 +53,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
     m_plug( fl ),
     m_changed( false )
 {
-  kDebug(debugArea()) << "BEGIN";
+  qCDebug(FILETREE) << "BEGIN";
   
   QVBoxLayout *layout = new QVBoxLayout( this );
   layout->setMargin( 0 );
@@ -135,14 +135,14 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
   connect( cmbMode, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
   connect( cbShowFullPath, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()) );
   
-  kDebug(debugArea()) << "END";
+  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreeConfigPage::apply()
 {
-  kDebug(debugArea()) << "BEGIN";
+  qCDebug(FILETREE) << "BEGIN";
   if ( ! m_changed ) {
-    kDebug(debugArea()) << "END !changed";
+    qCDebug(FILETREE) << "END !changed";
     return;
   }
   
@@ -158,12 +158,12 @@ void KateFileTreeConfigPage::apply()
     cbShowFullPath->checkState() == Qt::Checked
   );
   
-  kDebug(debugArea()) << "END";
+  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreeConfigPage::reset()
 {
-  kDebug(debugArea()) << "BEGIN";
+  qCDebug(FILETREE) << "BEGIN";
 
   const KateFileTreePluginSettings &settings = m_plug->settings();
 
@@ -175,27 +175,27 @@ void KateFileTreeConfigPage::reset()
   cbShowFullPath->setCheckState( settings.showFullPathOnRoots() ? Qt::Checked : Qt::Unchecked );
   
   m_changed = false;
-  kDebug(debugArea()) << "END";
+  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreeConfigPage::defaults()
 {
-  kDebug(debugArea()) << "BEGIN";
+  qCDebug(FILETREE) << "BEGIN";
 
   // m_plug->settings().revertToDefaults() ??
   // not sure the above is ever needed...
   
   reset();
   
-  kDebug(debugArea()) << "END";
+  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreeConfigPage::slotMyChanged()
 {
-  kDebug(debugArea()) << "BEGIN";
+  qCDebug(FILETREE) << "BEGIN";
   m_changed = true;
   emit changed();
-  kDebug(debugArea()) << "END";
+  qCDebug(FILETREE) << "END";
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

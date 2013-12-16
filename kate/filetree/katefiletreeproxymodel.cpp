@@ -27,12 +27,12 @@
 KateFileTreeProxyModel::KateFileTreeProxyModel(QObject *parent)
   : QSortFilterProxyModel(parent)
 {
-  kDebug(debugArea()) << "BEGIN!";
+  qCDebug(FILETREE) << "BEGIN!";
 }
 
 bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-  //kDebug(debugArea()) << ": BEGIN!";
+  //qCDebug(FILETREE) << ": BEGIN!";
   KateFileTreeModel *model = static_cast<KateFileTreeModel*>(sourceModel());
   
   bool left_isdir = model->isDir(left);
@@ -63,13 +63,13 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
       return (left.row() - right.row()) < 0;
   }
 
-  kDebug(debugArea()) << "this shouldn't happen!";
+  qCDebug(FILETREE) << "this shouldn't happen!";
   return false;
 }
 
 QModelIndex KateFileTreeProxyModel::docIndex(KTextEditor::Document *doc)
 {
-  kDebug(debugArea()) << "!";
+  qCDebug(FILETREE) << "!";
   return mapFromSource(static_cast<KateFileTreeModel*>(sourceModel())->docIndex(doc));
 }
 

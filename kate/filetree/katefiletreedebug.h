@@ -19,12 +19,7 @@
 #ifndef KATE_FILETREEDEBUG_H
 #define KATE_FILETREEDEBUG_H
 
-#include <KDebug>
-
-inline int debugArea()
-{
-	static int s_area = KDebug::registerArea("kate-filetree");
-	return s_area;
-}
+#include <QLoggingCategory>
+Q_DECLARE_LOGGING_CATEGORY(FILETREE)
 
 #endif /* KATE_FILETREEDEBUG_H */

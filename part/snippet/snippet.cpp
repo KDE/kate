@@ -22,15 +22,12 @@
  */
 
 #include "snippet.h"
+#include "katesnippetglobal.h"
 
 #include <KLocalizedString>
 #include <KIcon>
-
 #include <KColorScheme>
-
-#include "katesnippetglobal.h"
 #include <KActionCollection>
-#include <KAction>
 #include <KParts/MainWindow>
 
 Snippet::Snippet()
@@ -84,12 +81,12 @@ void Snippet::setArguments(const QString& arguments)
     m_arguments = arguments;
 }
 
-KAction* Snippet::action()
+QAction* Snippet::action()
 {
     ///TODO: this is quite ugly, or is it? if someone knows how to do it better, please refactor
     if ( !m_action ) {
         static int actionCount = 0;
-        m_action = new KAction(QString("insertSnippet%1").arg(actionCount), KateSnippetGlobal::self());
+        m_action = new QAction(QString("insertSnippet%1").arg(actionCount), KateSnippetGlobal::self());
         m_action->setData(QVariant::fromValue<Snippet*>(this));
         KateSnippetGlobal::self()->connect(m_action, SIGNAL(triggered()),
                                        KateSnippetGlobal::self(), SLOT(insertSnippetFromActionData()));

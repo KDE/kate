@@ -28,6 +28,7 @@
 #include <QTimer>
 #include <QFile>
 #include <QFileInfo>
+#include <QAction>
 
 #include <KIcon>
 #include <KGlobal>
@@ -44,7 +45,6 @@
 
 #include <KUser>
 
-#include <KAction>
 #include <KShortcut>
 
 #include "snippetstore.h"
@@ -249,9 +249,14 @@ void SnippetRepository::save()
         if ( !snippet ) {
             continue;
         }
-        config.writeEntry("shortcut " + snippet->text(),
-                          QStringList() << snippet->action()->shortcut().primary().toString()
-                                        << snippet->action()->shortcut().alternate().toString());
+
+        QStringList shortcuts;
+
+        foreach ( const QKeySequence &keys, snippet->action()->shortcuts() ) {
+          shortcuts << keys.toString();
+        }
+
+        config.writeEntry( "shortcut " + snippet->text(), shortcuts );
     }
     config.sync();
 }
@@ -336,12 +341,15 @@ void SnippetRepository::slotParseFile()
             continue;
         } else {
             const QStringList shortcuts = config.readEntry("shortcut " + snippet->text(), QStringList());
-            if ( shortcuts.count() >= 2 ) {
-                KShortcut shortcut;
-                shortcut.setPrimary(shortcuts.value(0));
-                shortcut.setAlternate(shortcuts.value(1));
-                snippet->action()->setShortcut(shortcut);
+
+            QList<QKeySequence> sequences;
+
+            foreach ( const QString &shortcut, shortcuts ) {
+              sequences << QKeySequence::fromString( shortcut );
             }
+
+            snippet->action()->setShortcuts( sequences );
+
             appendRow(snippet);
         }
     }

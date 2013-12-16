@@ -14,7 +14,7 @@ Snippets and repositoryies get displayed as tree.
 Snippets are grouped into repositories, which are saved as XML files to disk.
 The XML format is the same as used in the snippets_tng plugin for Kate.
 
-We look for available repository files via KStandardDirs in share/ktexteditor_snippets/{data,ghns}/.
+We look for available repository files via QStandardPaths in share/ktexteditor_snippets/{data,ghns}/.
 
 After importing, the repository and it's snippets and sup-repositories show
 up in the snippet tree and the snippets can be inserted like normal code-completion items.

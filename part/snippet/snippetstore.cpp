@@ -27,8 +27,7 @@
 #include "snippetrepository.h"
 #include "katepartdebug.h"
 
-#include <KStandardDirs>
-#include <KGlobal>
+#include <QDir>
 
 #include <ktexteditor/editor.h>
 #include <ktexteditor/templateinterface2.h>
@@ -40,12 +39,20 @@ SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
 {
     m_self = this;
 
-    const QStringList list = KGlobal::dirs()->findAllResources("data",
-        "ktexteditor_snippets/data/*.xml", KStandardDirs::NoDuplicates)
-                        << KGlobal::dirs()->findAllResources("data",
-        "ktexteditor_snippets/ghns/*.xml", KStandardDirs::NoDuplicates);
+    QStringList files;
 
-    foreach(const QString& file, list ) {
+    const QStringList dirs =
+      QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktexteditor_snippets/data", QStandardPaths::LocateDirectory)
+      << QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktexteditor_snippets/ghns", QStandardPaths::LocateDirectory);
+
+    foreach (const QString& dir, dirs) {
+      const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.xml"));
+      foreach (const QString& file, fileNames) {
+        files.append(dir + '/' + file);
+      }
+    }
+
+    foreach(const QString& file, files ) {
         SnippetRepository* repo = new SnippetRepository(file);
         appendRow(repo);
     }

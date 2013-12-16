@@ -27,9 +27,7 @@
 #include <QtWidgets/QTextEdit>
 
 // KDE
-#include <KStandardDirs>
 #include <KLocale>
-#include <KGlobal>
 #include <KIcon>
 #include <klocalizedstring.h>
 
@@ -43,7 +41,7 @@
 KateScriptConsoleEngine::KateScriptConsoleEngine(KateView * view)
     : m_view (view)
 {
-  m_utilsUrl = KGlobal::dirs()->findResource("data", "katepart/script/commands/utils.js");
+  m_utilsUrl = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "katepart/script/commands/utils.js");
 }
 
 KateScriptConsoleEngine::~KateScriptConsoleEngine()

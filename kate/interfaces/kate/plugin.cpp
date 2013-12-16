@@ -25,10 +25,8 @@
 
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
-#include <kstandarddirs.h>
-#include <kglobal.h>
 
-#include <qdir.h>
+#include <QtCore/QDir>
 
 namespace Kate
 {
@@ -130,7 +128,7 @@ namespace Kate
   QString XMLGUIClient::xmlDataFile(const QString &componentName, const QString &filename)
   {
     const QString filter = "kate/plugins/" + componentName + '/' + filename;
-    const QStringList allFiles = KGlobal::dirs()->findAllResources("data", filter);
+    const QStringList allFiles = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, filter);
     QString file;
     QString doc;
     if (!allFiles.isEmpty())
@@ -140,7 +138,8 @@ namespace Kate
   
   QString XMLGUIClient::localXmlDataFile(const QString &componentName, const QString &filename)
   {
-    QString result = KStandardDirs::locateLocal( "data", "kate/plugins/" + componentName + QDir::separator() + filename);
+    QString result = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+    result += "/kate/plugins/" + componentName + '/' + filename;
     return result;
   }
 

@@ -38,7 +38,6 @@
 #include "katedebug.h"
 #include <KEncodingFileDialog>
 #include <KIconLoader>
-#include <KGlobal>
 #include <KStringHandler>
 #include <KLocale>
 #include <KToolBar>
@@ -47,7 +46,6 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <kstandardaction.h>
-#include <KStandardDirs>
 #include <KGlobalSettings>
 #include <kstandardshortcut.h>
 

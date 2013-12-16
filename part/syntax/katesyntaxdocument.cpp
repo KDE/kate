@@ -27,8 +27,6 @@
 
 #include <klocalizedstring.h>
 #include "katepartdebug.h"
-#include <kstandarddirs.h>
-#include <kglobal.h>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
@@ -36,6 +34,7 @@
 
 #include <QtWidgets/QApplication>
 #include <QtCore/QFile>
+#include <QtCore/QDir>
 
 // use this to turn on over verbose debug output...
 #undef KSD_OVER_VERBOSE
@@ -373,8 +372,15 @@ void KateSyntaxDocument::setupModeList (bool force)
   }
 
   // Let's get a list of all the xml files for hl
-  const QStringList list = KGlobal::dirs()->findAllResources("data","katepart/syntax/*.xml",
-                                                       KStandardDirs::NoDuplicates);
+  QStringList list;
+
+  const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "katepart/syntax", QStandardPaths::LocateDirectory);
+  foreach (const QString& dir, dirs) {
+    const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.xml"));
+    foreach (const QString& file, fileNames) {
+      list.append(dir + '/' + file);
+    }
+  }
 
   // Let's iterate through the list and build the Mode List
   for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it )

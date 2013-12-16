@@ -27,7 +27,6 @@
 #include "katepluginmanager.h"
 #include "katerunninginstanceinfo.h"
 
-#include <KStandardDirs>
 #include <KLocale>
 #include "katedebug.h"
 #include <KDirWatch>
@@ -79,7 +78,7 @@ KateSession::KateSession (KateSessionManager *manager, const QString &fileName)
 void KateSession::init ()
 {
   // given file exists, use it to load some stuff ;)
-  if (!m_sessionFileRel.isEmpty() && KGlobal::dirs()->exists(sessionFile ()))
+  if (!m_sessionFileRel.isEmpty() && QFile::exists(sessionFile()))
   {
     KConfig config (sessionFile (), KConfig::SimpleConfig);
 
@@ -89,7 +88,7 @@ void KateSession::init ()
     return;
   }
 
-  if (!m_sessionFileRel.isEmpty() && !KGlobal::dirs()->exists(sessionFile ()))
+  if (!m_sessionFileRel.isEmpty() && !QFile::exists(sessionFile()))
     qCDebug(LOG_KATE) << "Warning, session file not found: " << m_sessionFileRel;
 }
 
@@ -122,7 +121,7 @@ bool KateSession::create (const QString &name, bool force)
   m_sessionName = name;
   QString oldSessionFileRel = m_sessionFileRel;
   m_sessionFileRel = QUrl::toPercentEncoding(name, "", ".") + QString(".katesession");
-  if (KGlobal::dirs()->exists(sessionFile ()))
+  if ( QFile::exists(sessionFile()) )
   {
     m_sessionFileRel = oldSessionFileRel;
     return false;
@@ -148,7 +147,7 @@ bool KateSession::rename (const QString &name)
   QString oldRel = m_sessionFileRel;
   QString oldSessionFile = sessionFile();
   m_sessionFileRel = QUrl::toPercentEncoding(name, "", ".") + QString(".katesession");
-  if (KGlobal::dirs()->exists(sessionFile ()))
+  if ( QFile::exists(sessionFile()) )
   {
     m_sessionFileRel = oldRel;
     return false;
@@ -214,13 +213,13 @@ void KateSession::makeAnonymous()
 
 KateSessionManager::KateSessionManager (QObject *parent)
     : QObject (parent)
-    , m_sessionsDir (KStandardDirs::locateLocal( "data", "kate/sessions"))
+    , m_sessionsDir (QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/kate/sessions")
     , m_activeSession (new KateSession (this, QString()))
 {
   qCDebug(LOG_KATE) << "LOCAL SESSION DIR: " << m_sessionsDir;
 
   // create dir if needed
-  KGlobal::dirs()->makeDir (m_sessionsDir);
+  QDir(m_sessionsDir).mkpath(".");
 }
 
 KateSessionManager::~KateSessionManager()

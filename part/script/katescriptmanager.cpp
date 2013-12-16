@@ -25,6 +25,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <QDir>
 #include <QFile>
 #include <QFileInfo>
 #include <QStringList>
@@ -32,10 +33,8 @@
 #include <QUuid>
 
 #include <klocalizedstring.h>
-#include <kglobal.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kstandarddirs.h>
 #include <kde_file.h>
 
 #include "kateglobal.h"
@@ -117,8 +116,18 @@ void KateScriptManager::collect(bool force)
    * now, we search all kinds of known scripts
    */
   foreach (const QString &type, QStringList () << "indentation" << "commands") {
-    // get a list of all .js files for the current type
-    const QStringList list = KGlobal::dirs()->findAllResources("data", "katepart/script/" + type + "/*.js", KStandardDirs::NoDuplicates);
+    // get a list of all unique .js files for the current type
+    const QString basedir = "katepart/script/" + type;
+    const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, basedir, QStandardPaths::LocateDirectory);
+
+    QStringList list;
+
+    foreach (const QString& dir, dirs) {
+      const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.js"));
+      foreach (const QString& file, fileNames) {
+        list.append(dir + '/' + file);
+      }
+    }
     
     // iterate through the files and read info out of cache or file
     foreach(const QString &fileName, list) {

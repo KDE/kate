@@ -383,7 +383,7 @@ void KateSyntaxDocument::setupModeList (bool force)
   }
 
   // Let's iterate through the list and build the Mode List
-  for ( QStringList::ConstIterator it = list.begin(); it != list.end(); ++it )
+  for ( QStringList::ConstIterator it = list.constBegin(); it != list.constEnd(); ++it )
   {
     // Each file has a group called:
     QString Group="Cache "+ *it;

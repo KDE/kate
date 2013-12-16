@@ -816,6 +816,7 @@
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="RST Documentation" String="^#\[(=*)\[\.rst:" column="0" />
+        <RegExpr attribute="Comment" context="Bracketed Comment" String="^#\[(=*)\[" column="0" />
         <DetectChar attribute="Comment" context="Comment" char="#"/>
         <IncludeRules context="Detect Variables"/>
         <RegExpr attribute="Macros" context="Macro Args" String="\w+\s*(?=\()"/>
@@ -901,6 +902,7 @@
         <!-- TODO Hmm... this rule looks strange... being in the Normal context -->
         <StringDetect attribute="Escapes" context="#stay" String="\&quot;"/>
         <DetectChar attribute="Strings" context="String" char="&quot;"/>
+        <RegExpr attribute="Strings" context="Bracketed String" String="\[(=*)\[" />
         <DetectChar attribute="Comment" context="Comment" char="#"/>
         <IncludeRules context="Detect Builtin Variables"/>
         <IncludeRules context="Detect Variables"/>
@@ -914,11 +916,19 @@
         <RegExpr attribute="Region Marker" context="#pop" String="^#?\]%1\]" dynamic="true" column="0" />
         <IncludeRules context="##reStructuredText" />
       </context>
+      <context attribute="Comment" lineEndContext="#stay" name="Bracketed Comment" dynamic="true">
+        <RegExpr attribute="Comment" context="#pop" String="^#?\]%1\]" dynamic="true" column="0" />
+        <IncludeRules context="##Alerts" />
+        <IncludeRules context="##Modelines" />
+      </context>
       <context attribute="Strings" lineEndContext="#stay" name="String">
         <RegExpr attribute="Strings" context="#pop" String="&quot;(?=[ );]|$)" />
         <RegExpr attribute="Escapes" context="#stay" String="\\[&quot;$n\\]" />
         <IncludeRules context="Detect Variables"/>
         <IncludeRules context="Detect Generator Expressions"/>
+      </context>
+      <context attribute="Strings" lineEndContext="#stay" name="Bracketed String" dynamic="true">
+        <RegExpr attribute="Strings" context="#pop" String="\]%1\]" dynamic="true" />
       </context>
 
     </contexts>

@@ -32,7 +32,7 @@
 
 #include <KTextEditor/ConfigPage>
 
-#include <kdebug.h>
+#include "katedebug.h"
 #include <KGlobal>
 #include <KIconLoader>
 #include <KLocale>
@@ -274,7 +274,7 @@ void KateConfigDialog::slotCurrentPageChanged( KPageWidgetItem *current, KPageWi
   PluginPageListItem *info=m_pluginPages[current];
   if (!info) return;
   if (info->pluginPage) return;
-  kDebug()<<"creating config page";
+  qCDebug(LOG_KATE)<<"creating config page";
   info->pluginPage=info->configPageInterface->configPage(info->idInPlugin,info->pageParent);
   info->pluginPage->show();
   connect( info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
@@ -293,7 +293,7 @@ void KateConfigDialog::removePluginPage (Kate::Plugin *plugin)
       remove.append(it.key());
   }
 
-  kDebug()<<remove.count();
+  qCDebug(LOG_KATE)<<remove.count();
   while (!remove.isEmpty()) {
     KPageWidgetItem *wItem=remove.takeLast();
     PluginPageListItem *pItem=m_pluginPages.take(wItem);

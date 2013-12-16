@@ -34,7 +34,7 @@
 #include <KParts/Factory>
 
 #include <KLocale>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <KConfig>
 #include <KLibLoader>
 #include <KCodecs>
@@ -75,7 +75,7 @@ KateDocManager::KateDocManager (QObject *parent)
   if (iface != NULL) {
     iface->setContainer( new KateContainer(KateApp::self()) );
   } else {
-    kDebug()<<"Editor does not support the container interface";
+    qCDebug(LOG_KATE)<<"Editor does not support the container interface";
   }
   
   // read in editor config
@@ -131,7 +131,7 @@ void KateDocManager::setSuppressOpeningErrorDialogs (bool suppress)
 
 KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInfo)
 {
-  kDebug()<<"createDoc"<<endl;
+  qCDebug(LOG_KATE)<<"createDoc"<<endl;
 
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
   
@@ -165,7 +165,7 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
 void KateDocManager::deleteDoc (KTextEditor::Document *doc)
 {
   KateApp::self()->emitDocumentClosed(QString("%1").arg((qptrdiff)doc));
-  kDebug()<<"deleting document with name:"<<doc->documentName();
+  qCDebug(LOG_KATE)<<"deleting document with name:"<<doc->documentName();
 
   // document will be deleted, soon
   emit m_documentManager->documentWillBeDeleted (doc);
@@ -248,7 +248,7 @@ KTextEditor::Document *KateDocManager::openUrl (const QUrl& url, const QString &
         if ( fi.exists() )
         {
           m_tempFiles[ doc] = qMakePair(u, fi.lastModified());
-          kDebug(13001) << "temporary file will be deleted after use unless modified: " << u.url();
+          qCDebug(LOG_KATE) << "temporary file will be deleted after use unless modified: " << u.url();
         }
       }
     }
@@ -311,13 +311,13 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
                                       i18n("Delete File?") ) == KMessageBox::Yes )
       {
         KIO::del( m_tempFiles[ doc ].first, KIO::HideProgressInfo );
-        kDebug(13001) << "Deleted temporary file " << m_tempFiles[ doc ].first;
+        qCDebug(LOG_KATE) << "Deleted temporary file " << m_tempFiles[ doc ].first;
         m_tempFiles.remove( doc );
       }
       else
       {
         m_tempFiles.remove(doc);
-        kDebug(13001) << "The supposedly temporary file " << m_tempFiles[ doc ].first.url() << " have been modified since loaded, and has not been deleted.";
+        qCDebug(LOG_KATE) << "The supposedly temporary file " << m_tempFiles[ doc ].first.url() << " have been modified since loaded, and has not been deleted.";
       }
     }
 

@@ -26,7 +26,6 @@
 #include <KCmdLineArgs>
 #include <KAboutData>
 #include <KStartupInfo>
-#include <kdebug.h>
 
 #include <QTextCodec>
 #include <QByteArray>
@@ -38,6 +37,7 @@
 #include <QDBusReply>
 #include <QVariant>
 #include <QCommandLineParser>
+#include <QLoggingCategory>
 
 #include <iostream>
 
@@ -76,6 +76,8 @@ class KateWaiter : public QObject {
 
 extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
 {
+  QLoggingCategory::setFilterRules(QStringLiteral("kate = true"));
+
   /**
    * construct about data for Kate
    */

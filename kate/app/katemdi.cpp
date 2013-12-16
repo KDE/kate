@@ -29,7 +29,7 @@
 #include <kactionmenu.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <kglobal.h>
 #include <kglobalsettings.h>
 #include <khbox.h>
@@ -478,7 +478,7 @@ namespace KateMDI
       KMultiTabBarTab *bt = dynamic_cast<KMultiTabBarTab*>(obj);
       if (bt)
       {
-        //kDebug() << "Request for popup";
+        //qCDebug(LOG_KATE) << "Request for popup";
 
         m_popupButton = bt->id();
 

@@ -26,7 +26,7 @@
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
 
-#include <kdebug.h>
+#include "katedebug.h"
 
 KateContainer::KateContainer(KateApp* parent)
   : QObject(parent)
@@ -44,7 +44,7 @@ QWidget* KateContainer::getViewBarParent(KTextEditor::View *view,KTextEditor::Vi
   if (position==KTextEditor::ViewBarContainer::BottomBar) {
     KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
     if (!mainWindow) {
-      kDebug()<<"returning hardcoded 0, views window is not a KateMainWindow";
+      qCDebug(LOG_KATE)<<"returning hardcoded 0, views window is not a KateMainWindow";
       return 0;
     }
     //Toplevel is a KateMainWindow
@@ -52,7 +52,7 @@ QWidget* KateContainer::getViewBarParent(KTextEditor::View *view,KTextEditor::Vi
   } else if (position==KTextEditor::ViewBarContainer::TopBar) {
     KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
     if (!mainWindow) {
-      kDebug()<<"returning hardcoded 0, views window is not a KateMainWindow";
+      qCDebug(LOG_KATE)<<"returning hardcoded 0, views window is not a KateMainWindow";
       return 0;
     }
     //Toplevel is a KateMainWindow
@@ -64,7 +64,7 @@ QWidget* KateContainer::getViewBarParent(KTextEditor::View *view,KTextEditor::Vi
 void KateContainer::addViewBarToLayout(KTextEditor::View *view,QWidget *bar, KTextEditor::ViewBarContainer::Position position) {
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
   if (!mainWindow) {
-    kDebug()<<"main window is not a katemainwindow";
+    qCDebug(LOG_KATE)<<"main window is not a katemainwindow";
     return;
   }
 
@@ -79,7 +79,7 @@ void KateContainer::addViewBarToLayout(KTextEditor::View *view,QWidget *bar, KTe
 void KateContainer::showViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
     if (!mainWindow) {
-      kDebug()<<"main window is not a katemainwindow";
+      qCDebug(LOG_KATE)<<"main window is not a katemainwindow";
       return;
   }
   
@@ -93,7 +93,7 @@ void KateContainer::showViewBarForView(KTextEditor::View *view, KTextEditor::Vie
 void KateContainer::hideViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
   if (!mainWindow) {
-    kDebug()<<"main window is not a katemainwindow";
+    qCDebug(LOG_KATE)<<"main window is not a katemainwindow";
     return;
   }
 
@@ -107,7 +107,7 @@ void KateContainer::hideViewBarForView(KTextEditor::View *view, KTextEditor::Vie
 void KateContainer::deleteViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
   KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
   if (!mainWindow) {
-    kDebug()<<"main window is not a katemainwindow";
+    qCDebug(LOG_KATE)<<"main window is not a katemainwindow";
     return;
   }
   

@@ -33,7 +33,7 @@
 #include <KCmdLineArgs>
 #include <KConfig>
 #include <KTipDialog>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <KMessageBox>
 #include <KLocale>
 #include <KGlobal>
@@ -49,6 +49,8 @@
 #include "kateappadaptor.h"
 
 KateApp *KateApp::s_self = 0;
+
+Q_LOGGING_CATEGORY(LOG_KATE, "kate")
 
 KateApp::KateApp(const QCommandLineParser &args)
     : m_shouldExit(false)
@@ -123,7 +125,7 @@ QString KateApp::kateVersion (bool fullVersion)
 void KateApp::initKate ()
 {
 
-  kDebug() << "Setting KATE_PID: '" << getpid() << "'";
+  qCDebug(LOG_KATE) << "Setting KATE_PID: '" << getpid() << "'";
   ::setenv( "KATE_PID", QString("%1").arg(getpid()).toLatin1().constData(), 1 );
 
   // handle restore different
@@ -137,7 +139,7 @@ void KateApp::initKate ()
     // we can exit here if session chooser decides
     if (!startupKate ())
     {
-      kDebug() << "startupKate returned false";
+      qCDebug(LOG_KATE) << "startupKate returned false";
       m_shouldExit = true;
       return ;
     }
@@ -190,7 +192,7 @@ bool KateApp::startupKate ()
     // let the user choose session if possible
     if (!sessionManager()->chooseSession ())
     {
-      kDebug() << "chooseSession returned false, exiting";
+      qCDebug(LOG_KATE) << "chooseSession returned false, exiting";
       // we will exit kate now, notify the rest of the world we are done
 #ifdef Q_WS_X11
       KStartupInfo::appStarted (startupId());
@@ -291,7 +293,7 @@ bool KateApp::startupKate ()
 
   activeMainWindow()->setAutoSaveSettings();
 
-  kDebug() << "KateApplication::init finished successful";
+  qCDebug(LOG_KATE) << "KateApplication::init finished successful";
   return true;
 }
 

@@ -39,7 +39,7 @@
 
 #include <KAboutApplicationDialog>
 #include <KAction>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <KEditToolBar>
 #include <KGlobal>
 #include <KShortcutsDialog>
@@ -173,7 +173,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   setXMLFile( "kateui.rc" );
   createShellGUI ( true );
 
-  //kDebug() << "****************************************************************************" << sconfig;
+  //qCDebug(LOG_KATE) << "****************************************************************************" << sconfig;
 
   // register mainwindow in app
   KateApp::self()->addMainWindow (this);
@@ -673,11 +673,11 @@ void KateMainWindow::editKeys()
 
   foreach(KXMLGUIClient *client, clients) {      
    // FIXME there appear to be invalid clients after session switching
-//     kDebug(13001)<<"adding client to shortcut editor";
-//     kDebug(13001)<<client;
-//     kDebug(13001)<<client->actionCollection();
-//     kDebug(13001)<<client->componentData().aboutData();
-//     kDebug(13001)<<client->componentData().aboutData()->programName();
+//     qCDebug(LOG_KATE)<<"adding client to shortcut editor";
+//     qCDebug(LOG_KATE)<<client;
+//     qCDebug(LOG_KATE)<<client->actionCollection();
+//     qCDebug(LOG_KATE)<<client->componentData().aboutData();
+//     qCDebug(LOG_KATE)<<client->componentData().aboutData()->programName();
     dlg.addCollection ( client->actionCollection(), client->componentName() );
   }
   dlg.configure();
@@ -685,13 +685,13 @@ void KateMainWindow::editKeys()
   QList<KTextEditor::Document*>  l = KateDocManager::self()->documentList();
   for (int i = 0;i < l.count();i++)
   {
-//     kDebug(13001)<<"reloading Keysettings for document "<<i;
+//     qCDebug(LOG_KATE)<<"reloading Keysettings for document "<<i;
     l.at(i)->reloadXML();
     QList<KTextEditor::View *> l1 = l.at(i)->views ();
     for (int i1 = 0;i1 < l1.count();i1++)
     {
       l1.at(i1)->reloadXML();
-//       kDebug(13001)<<"reloading Keysettings for view "<<i<<"/"<<i1;
+//       qCDebug(LOG_KATE)<<"reloading Keysettings for view "<<i<<"/"<<i1;
     }
   }
 }
@@ -749,7 +749,7 @@ void KateMainWindow::mSlotFixOpenWithMenu()
   // get a list of appropriate services.
   QMimeDatabase db;
   QMimeType mime = db.mimeTypeForName( activeView->document()->mimeType() );
-  //kDebug(13001) << "mime type: " << mime.name();
+  //qCDebug(LOG_KATE) << "mime type: " << mime.name();
 
   QAction *a = 0;
   KService::List offers = KMimeTypeTrader::self()->query(mime.name(), "Application");
@@ -954,7 +954,7 @@ void KateMainWindow::restoreWindowConfig(const KConfigGroup &config)
 
 void KateMainWindow::slotUpdateBottomViewBar()
 {
-  //kDebug()<<"slotUpdateHorizontalViewBar()"<<endl;
+  //qCDebug(LOG_KATE)<<"slotUpdateHorizontalViewBar()"<<endl;
   KTextEditor::View *view=m_viewManager->activeView();
   BarState bs=m_bottomViewBarMapping[view];
   if (bs.bar() && bs.state()) {
@@ -964,7 +964,7 @@ void KateMainWindow::slotUpdateBottomViewBar()
   } else {
     QWidget *wid=m_bottomContainerStack->currentWidget();
     if (wid) wid->hide();
-    //kDebug()<<wid<<"hiding container"<<endl;
+    //qCDebug(LOG_KATE)<<wid<<"hiding container"<<endl;
     m_bottomViewBarContainer->hide();
   }
 }
@@ -972,7 +972,7 @@ void KateMainWindow::slotUpdateBottomViewBar()
 
 void KateMainWindow::slotUpdateTopViewBar()
 {
-  //kDebug()<<"slotUpdateHorizontalViewBar()"<<endl;
+  //qCDebug(LOG_KATE)<<"slotUpdateHorizontalViewBar()"<<endl;
   KTextEditor::View *view=m_viewManager->activeView();
   BarState bs=m_topViewBarMapping[view];
   if (bs.bar() && bs.state()) {
@@ -982,7 +982,7 @@ void KateMainWindow::slotUpdateTopViewBar()
   } else {
     QWidget *wid=m_topContainerStack->currentWidget();
     if (wid) wid->hide();
-    //kDebug()<<wid<<"hiding container"<<endl;
+    //qCDebug(LOG_KATE)<<wid<<"hiding container"<<endl;
     m_topViewBarContainer->hide();
   }
 }

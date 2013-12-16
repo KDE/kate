@@ -26,7 +26,6 @@
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kstandarddirs.h>
-#include <kdebug.h>
 #include <kglobal.h>
 
 #include <qdir.h>
@@ -142,7 +141,6 @@ namespace Kate
   QString XMLGUIClient::localXmlDataFile(const QString &componentName, const QString &filename)
   {
     QString result = KStandardDirs::locateLocal( "data", "kate/plugins/" + componentName + QDir::separator() + filename);
-    kDebug(13000) << "File for shortcut storage" << result;
     return result;
   }
 

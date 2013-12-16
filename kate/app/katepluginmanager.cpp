@@ -30,7 +30,7 @@
 
 #include <KServiceTypeTrader>
 #include <KConfigGroup>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <QFile>
 
 QString KatePluginInfo::saveName() const

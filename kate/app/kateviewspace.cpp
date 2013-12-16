@@ -31,7 +31,7 @@
 #include <KLocale>
 #include <KSqueezedTextLabel>
 #include <KConfig>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <KStringHandler>
 #include <KVBox>
 #include <klocalizedstring.h>
@@ -210,7 +210,7 @@ void KateViewSpace::setActive( bool active, bool )
 
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)
 {
-//   kDebug()<<"KateViewSpace::saveConfig("<<myIndex<<", "<<viewConfGrp<<") - currentView: "<<currentView()<<")";
+//   qCDebug(LOG_KATE)<<"KateViewSpace::saveConfig("<<myIndex<<", "<<viewConfGrp<<") - currentView: "<<currentView()<<")";
   QString groupname = QString(viewConfGrp + "-ViewSpace %1").arg( myIndex );
 
   KConfigGroup group (config, groupname);

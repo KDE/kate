@@ -36,7 +36,7 @@
 #include <KAction>
 #include <KActionCollection>
 #include <KCmdLineArgs>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <KEncodingFileDialog>
 #include <KIconLoader>
 #include <KGlobal>

@@ -29,7 +29,7 @@
 #include <KVBox>
 #include <KIconLoader>
 #include <KMessageBox>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <KEncodingFileDialog>
 #include <klocalizedstring.h>
 

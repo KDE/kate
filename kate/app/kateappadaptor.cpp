@@ -24,7 +24,7 @@
 #include "katemainwindow.h"
 #include "kateappadaptor.moc"
 
-#include <kdebug.h>
+#include "katedebug.h"
 #include <kwindowsystem.h>
 
 KateAppAdaptor::KateAppAdaptor (KateApp *app)
@@ -55,7 +55,7 @@ bool KateAppAdaptor::openUrl (QString url, QString encoding)
 
 bool KateAppAdaptor::openUrl (QString url, QString encoding, bool isTempFile)
 {
-  kDebug () << "openURL";
+  qCDebug(LOG_KATE) << "openURL";
 
   return m_app->openUrl (url, encoding, isTempFile);
 }
@@ -70,7 +70,7 @@ QString KateAppAdaptor::tokenOpenUrl (QString url, QString encoding)
 
 QString KateAppAdaptor::tokenOpenUrl (QString url, QString encoding, bool isTempFile)
 {
-  kDebug () << "openURL";
+  qCDebug(LOG_KATE) << "openURL";
   KTextEditor::Document *doc=m_app->openDocUrl (url, encoding, isTempFile);
   if (!doc) return QString("ERROR");
   return QString("%1").arg((qptrdiff)doc);

@@ -29,7 +29,7 @@
 
 #include <KStandardDirs>
 #include <KLocale>
-#include <kdebug.h>
+#include "katedebug.h"
 #include <KDirWatch>
 #include <KInputDialog>
 #include <KIconLoader>
@@ -90,7 +90,7 @@ void KateSession::init ()
   }
 
   if (!m_sessionFileRel.isEmpty() && !KGlobal::dirs()->exists(sessionFile ()))
-    kDebug() << "Warning, session file not found: " << m_sessionFileRel;
+    qCDebug(LOG_KATE) << "Warning, session file not found: " << m_sessionFileRel;
 }
 
 KateSession::~KateSession ()
@@ -217,7 +217,7 @@ KateSessionManager::KateSessionManager (QObject *parent)
     , m_sessionsDir (KStandardDirs::locateLocal( "data", "kate/sessions"))
     , m_activeSession (new KateSession (this, QString()))
 {
-  kDebug() << "LOCAL SESSION DIR: " << m_sessionsDir;
+  qCDebug(LOG_KATE) << "LOCAL SESSION DIR: " << m_sessionsDir;
 
   // create dir if needed
   KGlobal::dirs()->makeDir (m_sessionsDir);
@@ -254,7 +254,7 @@ void KateSessionManager::updateSessionList ()
       }
     m_sessionList.append (KateSession::Ptr(session));
 
-    //kDebug () << "FOUND SESSION: " << session->sessionName() << " FILE: " << session->sessionFile() << " dir[i];" << dir[i];
+    //qCDebug(LOG_KATE) << "FOUND SESSION: " << session->sessionName() << " FILE: " << session->sessionFile() << " dir[i];" << dir[i];
   }
 
   qSort(m_sessionList.begin(), m_sessionList.end(), katesessions_compare_sessions_ptr);
@@ -672,12 +672,12 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
 
   const KateSessionList &slist (KateSessionManager::self()->sessionList());
-  kDebug()<<"Last session is:"<<lastSession;
+  qCDebug(LOG_KATE)<<"Last session is:"<<lastSession;
   for (int i = 0; i < slist.count(); ++i)
   {
     KateSessionChooserItem *item = new KateSessionChooserItem (m_sessions, slist[i]);
 
-    kDebug()<<"Session added to chooser:"<<slist[i]->sessionName()<<"........"<<slist[i]->sessionFileRelative();
+    qCDebug(LOG_KATE)<<"Session added to chooser:"<<slist[i]->sessionName()<<"........"<<slist[i]->sessionFileRelative();
     if (slist[i]->sessionFileRelative() == lastSession)
       m_sessions->setCurrentItem (item);
   }

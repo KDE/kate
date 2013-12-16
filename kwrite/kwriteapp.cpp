@@ -27,6 +27,11 @@ Boston, MA 02110-1301, USA.
 
 #include <KGlobal>
 
+#include <QLoggingCategory>
+Q_DECLARE_LOGGING_CATEGORY(LOG_KWRITE)
+
+Q_LOGGING_CATEGORY(LOG_KWRITE, "kwrite")
+
 KWriteApp *KWriteApp::s_self = 0;
 
 KWriteApp::KWriteApp(const QCommandLineParser &args)
@@ -182,7 +187,7 @@ KTextEditor::View *KWriteApp::activeView()
 KTextEditor::Document *KWriteApp::createDocument()
 {
   // NOTE: not implemented
-  kWarning() << "WARNING: interface call not implemented";
+  qCWarning(LOG_KWRITE) << "WARNING: interface call not implemented";
   return 0;
 }
 
@@ -190,7 +195,7 @@ bool KWriteApp::closeDocument(KTextEditor::Document *doc)
 {
   Q_UNUSED(doc)
   // NOTE: not implemented
-  kWarning() << "WARNING: interface call not implemented";
+  qCWarning(LOG_KWRITE) << "WARNING: interface call not implemented";
   return false;
 }
 
@@ -198,7 +203,7 @@ KTextEditor::View *KWriteApp::createView(KTextEditor::Document *doc)
 {
   Q_UNUSED(doc)
   // NOTE: not implemented
-  kWarning() << "WARNING: interface call not implemented";
+  qCWarning(LOG_KWRITE) << "WARNING: interface call not implemented";
   return 0;
 }
 
@@ -206,7 +211,7 @@ bool KWriteApp::closeView(KTextEditor::View *view)
 {
   Q_UNUSED(view)
   // NOTE: not implemented
-  kWarning() << "WARNING: interface call not implemented";
+  qCWarning(LOG_KWRITE) << "WARNING: interface call not implemented";
   return false;
 }
 //END KTextEditor::MdiContainer

@@ -52,6 +52,7 @@
 #include <kstringhandler.h>
 #include <kxmlguifactory.h>
 #include <QCommandLineParser>
+#include <QLoggingCategory>
 
 #ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>
@@ -644,6 +645,8 @@ void KWrite::modeChanged ( KTextEditor::Document *document )
 
 extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 {
+  QLoggingCategory::setFilterRules(QStringLiteral("kwrite = true"));
+
   KAboutData aboutData ( QString ("kwrite"), QString(),
                          i18n("KWrite"),
                          KDE_VERSION_STRING,

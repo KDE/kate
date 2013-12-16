@@ -22,8 +22,9 @@
 #define KDELIBS_KTEXTEDITOR_FACTORY_H
 
 #include <ktexteditor/ktexteditor_export.h>
+#include <kpluginfactory.h>
+
 // our main baseclass of the KTextEditor::Document
-#include <kparts/factory.h>
 
 /**
  * Namespace for the KDE Text Editor Interfaces.

@@ -28,7 +28,7 @@
 #include <kcalendarsystem.h>
 #include <unistd.h>
 #include <klibrary.h>
-#include <KLocalizedString>
+#include <klocalizedstring.h>
 
 #define DUMMY_VALUE "!KTE:TEMPLATEHANDLER_DUMMY_VALUE!"
 

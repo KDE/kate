@@ -29,6 +29,7 @@
 #include <kiconloader.h>
 #include <ktextedit.h>
 #include "kcolorutils.h"
+#include <kdebug.h>
 
 #include "expandingdelegate.h"
 #include "katepartdebug.h"

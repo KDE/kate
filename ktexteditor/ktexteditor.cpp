@@ -19,8 +19,6 @@
 
 #include <QtDBus/QtDBus>
 
-#include <KGlobal>
-
 #include "cursor.h"
 
 #include "configpage.h"
@@ -50,7 +48,6 @@
 
 #include "modeinterface.h"
 
-#include <kparts/factory.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 
@@ -123,14 +120,22 @@ struct KTextEditorFactorySet : public QSet<KPluginFactory*>
   KTextEditorFactorySet();
   ~KTextEditorFactorySet();
 };
-K_GLOBAL_STATIC(KTextEditorFactorySet, s_factories)
+
+Q_GLOBAL_STATIC(KTextEditorFactorySet, s_factories)
+
+static void cleanupFactories()
+{
+  qDeleteAll(*s_factories);
+  s_factories->clear();
+}
+
 KTextEditorFactorySet::KTextEditorFactorySet() {
   // K_GLOBAL_STATIC is cleaned up *after* Q(Core)Application is gone
   // but we have to cleanup before -> use qAddPostRoutine
-  qAddPostRoutine(s_factories.destroy);
+  qAddPostRoutine(cleanupFactories);
 }
 KTextEditorFactorySet::~KTextEditorFactorySet() {
-  qRemovePostRoutine(s_factories.destroy); // post routine is installed!
+  qRemovePostRoutine(cleanupFactories); // post routine is installed!
   qDeleteAll(*this);
 }
 

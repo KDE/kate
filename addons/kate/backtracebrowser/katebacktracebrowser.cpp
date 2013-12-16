@@ -29,6 +29,7 @@
 #include <kaboutdata.h>
 #include <KStandardDirs>
 #include <ktexteditor/view.h>
+#include <ksharedconfig.h>
 #include <kdebug.h>
 #include <klineedit.h>
 #include <kfiledialog.h>
@@ -104,7 +105,7 @@ void KateBtBrowserPlugin::startIndexer()
     indexer.cancel();
     indexer.wait();
   }
-  KConfigGroup cg(KGlobal::config(), "backtracebrowser");
+  KConfigGroup cg(KSharedConfig::config(), "backtracebrowser");
   indexer.setSearchPaths(cg.readEntry("search-folders", QStringList()));
   indexer.setFilter(cg.readEntry("file-extensions", fileExtensions));
   indexer.start();

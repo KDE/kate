@@ -25,6 +25,7 @@ Boston, MA 02110-1301, USA.
 #include <QFileInfo>
 #include <QTextCodec>
 
+#include <KDebug>
 #include <KGlobal>
 
 #include <QLoggingCategory>

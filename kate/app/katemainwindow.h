@@ -29,8 +29,6 @@
 
 #include <KParts/Part>
 
-#include <KAction>
-
 #include <QDragEnterEvent>
 #include <QEvent>
 #include <QDropEvent>

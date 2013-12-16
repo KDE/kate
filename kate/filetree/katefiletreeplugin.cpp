@@ -32,12 +32,12 @@
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
 
-#include <KAction>
 #include <KActionCollection>
 #include <klocalizedstring.h>
 
 #include <KConfigGroup>
 
+#include <QAction>
 #include <QApplication>
 
 #include "katefiletreedebug.h"

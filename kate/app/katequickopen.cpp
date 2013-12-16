@@ -28,10 +28,10 @@
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
-
 #include <klineedit.h>
 #include <kactioncollection.h>
-#include <kaction.h>
+#include <klocalizedstring.h>
+
 #include <qtreeview.h>
 #include <qwidget.h>
 #include <qboxlayout.h>
@@ -42,7 +42,6 @@
 #include <qcoreapplication.h>
 #include <QDesktopWidget>
 #include <QFileInfo>
-#include <klocalizedstring.h>
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 

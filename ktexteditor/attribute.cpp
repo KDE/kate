@@ -30,7 +30,7 @@ class KTextEditor::AttributePrivate
       dynamicAttributes.append(Attribute::Ptr());
     }
 
-    QList<KAction*> associatedActions;
+    QList<QAction *> associatedActions;
     QList<Attribute::Ptr> dynamicAttributes;
 };
 
@@ -168,7 +168,7 @@ bool Attribute::hasAnyProperty( ) const
   return properties().count();
 }
 
-const QList< KAction * > & Attribute::associatedActions( ) const
+const QList<QAction *> & Attribute::associatedActions( ) const
 {
   return d->associatedActions;
 }

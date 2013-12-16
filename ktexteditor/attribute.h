@@ -27,7 +27,7 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 
-class KAction;
+class QAction;
 
 namespace KTextEditor
 {
@@ -215,7 +215,7 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat, public QSharedData
      * \}
      * \name Action association
      *
-     * The following functions allow for KAction%s to be associated with attributes,
+     * The following functions allow for QAction%s to be associated with attributes,
      * and thus with ranges which use this attribute.
      * 
      * \note This feature is currently not implemented (ETA KDE 4.1).
@@ -227,25 +227,25 @@ class KTEXTEDITOR_EXPORT Attribute : public QTextCharFormat, public QSharedData
      * disable them on exit.  The action is also added to the context menu when
      * the caret is within an associated range.
      *
-     * \param action KAction to associate with this Attribute
+     * \param action QAction to associate with this Attribute
      */
-    void associateAction(KAction* action);
+    void associateAction(QAction* action);
 
     /**
      * Remove the association with an action from this attribute; it will no
      * longer be managed by associated ranges.
      *
-     * \param action KAction to dissociate from this Attribute
+     * \param action QAction to dissociate from this Attribute
      */
-    void dissociateAction(KAction* action);
+    void dissociateAction(QAction* action);
 
     /**
-     * Returns a list of currently associated KAction%s.
+     * Returns a list of currently associated QAction%s.
      */
-    const QList<KAction*>& associatedActions() const;
+    const QList<QAction*>& associatedActions() const;
 
     /**
-     * Clears all associations between KAction%s and this attribute.
+     * Clears all associations between QAction%s and this attribute.
      */
     void clearAssociatedActions();
     //!\}

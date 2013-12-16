@@ -33,7 +33,6 @@
 #include <KTextEditor/Attribute>
 #include <KTextEditor/HighlightInterface>
 
-#include <KAction>
 #include <KActionCollection>
 #include <KCmdLineArgs>
 #include "katedebug.h"

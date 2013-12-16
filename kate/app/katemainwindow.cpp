@@ -34,12 +34,11 @@
 #include "katesession.h"
 #include "kateviewspace.h"
 #include "katequickopen.h"
+#include "katedebug.h"
 
 #include <kate/mainwindow.h>
 
 #include <KAboutApplicationDialog>
-#include <KAction>
-#include "katedebug.h"
 #include <KEditToolBar>
 #include <KGlobal>
 #include <KShortcutsDialog>

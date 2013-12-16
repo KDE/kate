@@ -30,6 +30,7 @@
 #include "katerenderer.h"
 #include "katestyletreewidget.h"
 #include "katecolortreewidget.h"
+#include "katepartdebug.h"
 
 #include "ui_howtoimportschema.h"
 
@@ -357,7 +358,7 @@ void KateSchemaConfigColorTab::apply ()
   for ( it =  m_schemas.begin(); it !=  m_schemas.end(); ++it )
   {
     KConfigGroup config = KateGlobal::self()->schemaManager()->schema( it.key() );
-    kDebug(13030) << "writing 'Color' tab: scheme =" << it.key()
+    qCDebug(LOG_PART) << "writing 'Color' tab: scheme =" << it.key()
                   << "and config group =" << config.name();
 
     foreach (const KateColorItem& item, m_schemas[it.key()]) {
@@ -666,7 +667,7 @@ bool KateSchemaConfigHighlightTab::loadAllHlsForSchema(const QString &schema)
   for (int i = 0; i < KateHlManager::self()->highlights(); ++i) {
     if (!m_hlDict[schema].contains(i))
     {
-      kDebug(13030) << "NEW HL, create list";
+      qCDebug(LOG_PART) << "NEW HL, create list";
 
       QList<KateExtendedAttribute::Ptr> list;
       KateHlManager::self()->getHl(i)->getKateExtendedAttributeListCopy(schema, list);
@@ -682,20 +683,20 @@ void KateSchemaConfigHighlightTab::schemaChanged (const QString &schema)
 {
   m_schema = schema;
 
-  kDebug(13030) << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl;
+  qCDebug(LOG_PART) << "NEW SCHEMA: " << m_schema << " NEW HL: " << m_hl;
 
   m_styles->clear ();
 
   if (!m_hlDict.contains(m_schema))
   {
-    kDebug(13030) << "NEW SCHEMA, create dict";
+    qCDebug(LOG_PART) << "NEW SCHEMA, create dict";
 
     m_hlDict.insert (schema, QHash<int, QList<KateExtendedAttribute::Ptr> >());
   }
 
   if (!m_hlDict[m_schema].contains(m_hl))
   {
-    kDebug(13030) << "NEW HL, create list";
+    qCDebug(LOG_PART) << "NEW HL, create list";
 
     QList<KateExtendedAttribute::Ptr> list;
     KateHlManager::self()->getHl( m_hl )->getKateExtendedAttributeListCopy(m_schema, list);
@@ -714,7 +715,7 @@ void KateSchemaConfigHighlightTab::schemaChanged (const QString &schema)
     const KateExtendedAttribute::Ptr itemData = *it;
     Q_ASSERT(itemData);
 
-    kDebug(13030) << "insert items " << itemData->name();
+    qCDebug(LOG_PART) << "insert items " << itemData->name();
 
     // All stylenames have their language mode prefixed, e.g. HTML:Comment
     // split them and put them into nice substructures.
@@ -788,7 +789,7 @@ void KateSchemaConfigHighlightTab::importHl(const QString& fromSchemaName, QStri
                                   QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")),
                                   this,
                                   i18n("Importing colors for single highlighting"));
-          kDebug(13030)<<"hl file to open "<<srcName;
+          qCDebug(LOG_PART)<<"hl file to open "<<srcName;
           if (srcName.isEmpty()) return;
           cfg=new KConfig(srcName,KConfig::SimpleConfig);
           KConfigGroup grp(cfg,"KateHLColors");
@@ -804,7 +805,7 @@ void KateSchemaConfigHighlightTab::importHl(const QString& fromSchemaName, QStri
             schemaNameForLoading=QString();
           } else {
             hl = KateHlManager::self()->nameFind(hlName);
-            kDebug(13030)<<hlName<<"--->"<<hl;
+            qCDebug(LOG_PART)<<hlName<<"--->"<<hl;
             if (hl==-1) {
               //hl not found
               KMessageBox::information(
@@ -1099,7 +1100,7 @@ void KateSchemaConfigPage::importFullSchema()
 
   // Finally, the correct schema is activated.
   // Next,  start importing.
-  kDebug(13030) << "Importing schema: " << schemaName;
+  qCDebug(LOG_PART) << "Importing schema: " << schemaName;
 
   //
   // import editor Colors (background, ...)
@@ -1135,9 +1136,9 @@ void KateSchemaConfigPage::importFullSchema()
     if (nameToId.contains(hl)) {
       const int i = nameToId[hl];
       m_highlightTab->importHl(fromSchemaName, schemaName, i, &cfg);
-      kDebug(13030) << "hl imported:" << hl;
+      qCDebug(LOG_PART) << "hl imported:" << hl;
     } else {
-      kDebug(13030) << "could not import hl, hl unknown:" << hl;
+      qCDebug(LOG_PART) << "could not import hl, hl unknown:" << hl;
     }
     progress.setValue(++cnt);
   }
@@ -1245,7 +1246,7 @@ void KateSchemaConfigPage::deleteSchema ()
   
   if (KateGlobal::self()->schemaManager()->schemaData(schemaNameToDelete).shippedDefaultSchema) {
     // Default and Printing schema cannot be deleted.
-    kDebug(13030) << "default and printing schema cannot be deleted";
+    qCDebug(LOG_PART) << "default and printing schema cannot be deleted";
     return;
   }
   

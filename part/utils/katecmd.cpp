@@ -21,7 +21,7 @@
 #include "katecmd.h"
 #include "kateglobal.h"
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 //BEGIN KateCmd
 #define CMD_HIST_LENGTH 256
@@ -41,13 +41,13 @@ bool KateCmd::registerCommand (KTextEditor::Command *cmd)
 
   for (int z=0; z<l.count(); z++)
     if (m_dict.contains(l[z])) {
-      kDebug(13050)<<"Command already registered: "<<l[z]<<". Aborting.";
+      qCDebug(LOG_PART)<<"Command already registered: "<<l[z]<<". Aborting.";
       return false;
     }
 
   for (int z=0; z<l.count(); z++) {
     m_dict.insert (l[z], cmd);
-    //kDebug(13050)<<"Inserted command:"<<l[z];
+    //qCDebug(LOG_PART)<<"Inserted command:"<<l[z];
   }
 
   m_cmds += l;
@@ -69,7 +69,7 @@ bool KateCmd::unregisterCommand (KTextEditor::Command *cmd)
   for ( QStringList::Iterator it1 = l.begin(); it1 != l.end(); ++it1 ) {
     m_dict.remove(*it1);
     m_cmdCompletion.removeItem(*it1);
-    //kDebug(13050)<<"Removed command:"<<*it1;
+    //qCDebug(LOG_PART)<<"Removed command:"<<*it1;
   }
 
   return true;

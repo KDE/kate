@@ -36,7 +36,7 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kcomponentdata.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 #include <QtCore/QTextCodec>
 #include <QStringListModel>

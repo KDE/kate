@@ -33,7 +33,7 @@
 
 #include <kconfig.h>
 #include <kmimetypechooser.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kiconloader.h>
 #include <knuminput.h>
 #include <klocale.h>
@@ -205,7 +205,7 @@ void KateModeManager::save (const QList<KateFileType *>& v)
 
 QString KateModeManager::fileType (KateDocument *doc, const QString &fileToReadFrom)
 {
-  kDebug(13020);
+  qCDebug(LOG_PART);
   if (!doc)
     return "";
 

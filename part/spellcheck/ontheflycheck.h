@@ -54,8 +54,6 @@ class KateOnTheFlyChecker : public QObject, private KTextEditor::MovingRangeFeed
     KateOnTheFlyChecker(KateDocument *document);
     ~KateOnTheFlyChecker();
 
-    static int debugArea();
-
     QPair<KTextEditor::Range, QString> getMisspelledItem(const KTextEditor::Cursor &cursor) const;
     QString dictionaryForMisspelledRange(const KTextEditor::Range& range) const;
 

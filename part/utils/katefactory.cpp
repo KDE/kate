@@ -25,6 +25,8 @@
 
 #include <kpluginfactory.h>
 
+#include <QLoggingCategory>
+
 /**
  * wrapper factory to be sure nobody external deletes our kateglobal object
  * each instance will just increment the reference counter of our internal
@@ -48,6 +50,8 @@ class KateFactory : public KTextEditor::Factory
     explicit KateFactory (const char *componentName = 0, QObject *parent = 0)
       : KTextEditor::Factory (componentName, parent)
     {
+      QLoggingCategory::setFilterRules(QStringLiteral("katepart = true"));
+
       KateGlobal::incRef ();
     }
 

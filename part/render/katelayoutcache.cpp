@@ -28,6 +28,7 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "katebuffer.h"
+#include "katepartdebug.h"
 
 static bool enableLayoutCache = false;
 
@@ -158,7 +159,7 @@ KateLayoutCache::KateLayoutCache(KateRenderer* renderer, QObject* parent)
 
 void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int newViewLineCount, int viewLinesScrolled)
 {
-  //kDebug( 13033 ) << startPos << " nvlc " << newViewLineCount << " vls " << viewLinesScrolled;
+  //qCDebug(LOG_PART) << startPos << " nvlc " << newViewLineCount << " vls " << viewLinesScrolled;
 
   int oldViewLineCount = m_textLayouts.count();
   if (newViewLineCount == -1)
@@ -257,7 +258,7 @@ void KateLayoutCache::updateViewCache(const KTextEditor::Cursor& startPos, int n
       m_textLayouts.append(l->viewLine(_viewLine));
     }
 
-    //kDebug( 13033 ) << "Laid out line " << realLine << " (" << l << "), viewLine " << _viewLine << " (" << m_textLayouts[i].kateLineLayout().data() << ")";
+    //qCDebug(LOG_PART) << "Laid out line " << realLine << " (" << l << "), viewLine " << _viewLine << " (" << m_textLayouts[i].kateLineLayout().data() << ")";
     //m_textLayouts[i].debugOutput();
 
     _viewLine++;
@@ -475,7 +476,7 @@ int KateLayoutCache::viewLineCount(int realLine)
 
 void KateLayoutCache::viewCacheDebugOutput( ) const
 {
-  kDebug( 13033 ) << "Printing values for " << m_textLayouts.count() << " lines:";
+  qCDebug(LOG_PART) << "Printing values for " << m_textLayouts.count() << " lines:";
   if (m_textLayouts.count())
   {
   foreach (const KateTextLayout& t, m_textLayouts)
@@ -485,7 +486,7 @@ void KateLayoutCache::viewCacheDebugOutput( ) const
     }
     else
     {
-      kDebug( 13033 ) << "Line Invalid.";
+      qCDebug(LOG_PART) << "Line Invalid.";
     }
   }
 }
@@ -548,7 +549,7 @@ void KateLayoutCache::setWrap( bool wrap )
 void KateLayoutCache::relayoutLines( int startRealLine, int endRealLine )
 {
   if (startRealLine > endRealLine)
-    kWarning() << "start" << startRealLine << "before end" << endRealLine;
+    qCWarning(LOG_PART) << "start" << startRealLine << "before end" << endRealLine;
 
   m_lineLayouts.relayoutLines(startRealLine, endRealLine);
 }

@@ -34,6 +34,7 @@
 #include "kateglobal.h"
 #include "script/katetemplatescript.h"
 #include "script/katescriptmanager.h"
+#include "katepartdebug.h"
 
 using namespace KTextEditor;
 
@@ -79,7 +80,7 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
    */ 
   Q_ASSERT (m_view);
   
-  ifDebug(kDebug() << templateString << initialValues;)
+  ifDebug(qCDebug(LOG_PART) << templateString << initialValues;)
 
   QMap<QString, QString> initial_Values(initialValues);
 
@@ -94,7 +95,7 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
     m_view->removeSelectionText();
   }
 
-  ifDebug(kDebug() << initial_Values;)
+  ifDebug(qCDebug(LOG_PART) << initial_Values;)
 
   connect(doc(), SIGNAL(aboutToReload(KTextEditor::Document*)),
           this, SLOT(cleanupAndExit()));
@@ -180,7 +181,7 @@ void KateTemplateHandler::slotTemplateInserted(Document *document, const Range& 
 {
   Q_ASSERT(document == doc());
   Q_UNUSED(document);
-  ifDebug(kDebug() << "template range inserted" << range;)
+  ifDebug(qCDebug(LOG_PART) << "template range inserted" << range;)
 
   m_wholeTemplateRange = doc()->newMovingRange(range, KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);
 
@@ -190,7 +191,7 @@ void KateTemplateHandler::slotTemplateInserted(Document *document, const Range& 
 
 void KateTemplateHandler::cleanupAndExit()
 {
-  ifDebug(kDebug() << "cleaning up and exiting";)
+  ifDebug(qCDebug(LOG_PART) << "cleaning up and exiting";)
   disconnect(doc(), SIGNAL(viewCreated(KTextEditor::Document*,KTextEditor::View*)),
              this, SLOT(slotViewCreated(KTextEditor::Document*,KTextEditor::View*)));
   disconnect(doc(), SIGNAL(textInserted(KTextEditor::Document*,KTextEditor::Range)),
@@ -384,14 +385,14 @@ void KateTemplateHandler::jumpToNextRange()
 void KateTemplateHandler::setCurrentRange(MovingRange* range)
 {
   if (!m_templateRangesChildren[range].isEmpty()) {
-    ifDebug(kDebug() << "looking for mirroring range";)
+    ifDebug(qCDebug(LOG_PART) << "looking for mirroring range";)
     // jump to first mirrored range
     bool found = false;
     foreach(MovingRange* childRange, m_templateRangesChildren[range]) {
-      ifDebug(kDebug() << "checking range equality";)
+      ifDebug(qCDebug(LOG_PART) << "checking range equality";)
 
       if (m_masterRanges.contains(childRange)) {
-        ifDebug(kDebug() << "found master range";)
+        ifDebug(qCDebug(LOG_PART) << "found master range";)
         range = childRange;
         found = true;
         break;
@@ -458,7 +459,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   // expression must not be escaped
 
   for (int i = 0; i < templateString.size(); ++i) {
-    ifDebug(kDebug() << "checking character:" << templateString[i];)
+    ifDebug(qCDebug(LOG_PART) << "checking character:" << templateString[i];)
 
     if (templateString[i] == '\n') {
       lastWasBrace = false;
@@ -481,11 +482,11 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       }
 
       if (escapeChars > 0) {
-        ifDebug(kDebug() << "found" << escapeChars << "escape chars at " << templateString.mid(i - escapeChars - 10, escapeChars + 10);)
+        ifDebug(qCDebug(LOG_PART) << "found" << escapeChars << "escape chars at " << templateString.mid(i - escapeChars - 10, escapeChars + 10);)
         // remove half of the escape chars (i.e. \\ => \) and make sure the
         // odd rest is removed as well (i.e. the one that escapes this var)
         int toRemove = (escapeChars + 1) / 2;
-        ifDebug(kDebug() << "will remove" << toRemove << "of those escape chars";)
+        ifDebug(qCDebug(LOG_PART) << "will remove" << toRemove << "of those escape chars";)
         templateString.remove(i - escapeChars, toRemove);
         i -= toRemove;
         column -= toRemove;
@@ -590,7 +591,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       QString key = templateString.mid(startPos + 2, i - (startPos + 2));
       int keyLength = key.length();
       QString searchReplace;
-      ifDebug(kDebug() << "key found:" << key;)
+      ifDebug(qCDebug(LOG_PART) << "key found:" << key;)
       bool check_slash = false;
       bool check_colon = false;
       bool check_backtick = false;
@@ -621,15 +622,15 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       if (check_slash) {
         searchReplace = key.mid(pos_slash + 1);
         key = key.left(pos_slash);
-        ifDebug(kDebug() << "search_replace" << searchReplace;)
+        ifDebug(qCDebug(LOG_PART) << "search_replace" << searchReplace;)
       } else if (check_colon) {
         key = key.left(pos_colon);
-        ifDebug(kDebug() << "real key found:" << key;)
+        ifDebug(qCDebug(LOG_PART) << "real key found:" << key;)
       } else if (check_backtick) {
         functionName = key.mid(pos_backtick + 1);
         functionName = functionName.left(functionName.indexOf("`"));
         key = key.left(pos_backtick);
-        ifDebug(kDebug() << "real key found:" << key << "function:" << functionName;)
+        ifDebug(qCDebug(LOG_PART) << "real key found:" << key << "function:" << functionName;)
       }
 
       if (key.contains("@")) {
@@ -637,10 +638,10 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         force_first = true;
       }
 
-      ifDebug(kDebug() << "real key found:" << key;)
+      ifDebug(qCDebug(LOG_PART) << "real key found:" << key;)
 
       if (!initialValues.contains(key)) {
-        kWarning() << "unknown variable key:" << key;
+        qCWarning(LOG_PART) << "unknown variable key:" << key;
       } else if (key == "cursor") {
         finalCursorPosition = Cursor(line, column - keyLength - 2);
         // don't insert anything, just remove the placeholder
@@ -661,7 +662,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           //search part;
 
           while (!searchReplace.isEmpty()) {
-            ifDebug(kDebug() << "searchReplace=" << searchReplace;)
+            ifDebug(qCDebug(LOG_PART) << "searchReplace=" << searchReplace;)
             int regescapes = 0;
             int pos = searchReplace.indexOf("/");
 
@@ -669,17 +670,17 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
               regescapes++;
             }
 
-            ifDebug(kDebug() << "regescapes=" << regescapes;)
+            ifDebug(qCDebug(LOG_PART) << "regescapes=" << regescapes;)
             if ((regescapes % 2) == 1) {
               search += searchReplace.left(pos + 1);
               searchReplace = searchReplace.mid(pos + 1);
-              ifDebug(kDebug() << "intermediate search string is=" << search;)
+              ifDebug(qCDebug(LOG_PART) << "intermediate search string is=" << search;)
             } else {
               search += searchReplace.left(pos);
               searchReplace = searchReplace.mid(pos + 1);
               searchValid = true;
-              ifDebug(kDebug() << "final search string is=" << search;)
-              ifDebug(kDebug() << "remaining characters in searchReplace" << searchReplace;)
+              ifDebug(qCDebug(LOG_PART) << "final search string is=" << search;)
+              ifDebug(qCDebug(LOG_PART) << "remaining characters in searchReplace" << searchReplace;)
               break;
             }
           }
@@ -721,7 +722,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
         // always add ${...} to the editable ranges
         // only add %{...} to the editable ranges when its value equals the key
-        ifDebug(kDebug() << "char is:" << c << "initial value is:" << initialValues[key] << " after fixup is:" << initialVal;)
+        ifDebug(qCDebug(LOG_PART) << "char is:" << c << "initial value is:" << initialValues[key] << " after fixup is:" << initialVal;)
         if (c == '$' || key == initialValues[key]) {
           if (!keyQueue.contains(key)) {
             keyQueue.append(key);
@@ -739,7 +740,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
             }
           }
           Range tmp = Range(line, column - initialVal.length(), endLine, endColumn );
-          ifDebug(kDebug() << "range is:" << tmp;)
+          ifDebug(qCDebug(LOG_PART) << "range is:" << tmp;)
 
           if (force_first) {
             QList<Range> range_list = ranges.values(key);
@@ -759,7 +760,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
       startPos = -1;
 
-      ifDebug(kDebug() << "i=" << i << " template size=" << templateString.size();)
+      ifDebug(qCDebug(LOG_PART) << "i=" << i << " template size=" << templateString.size();)
     } else {
       ++column;
       lastWasBrace = false;
@@ -875,40 +876,40 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
 {
   Q_ASSERT(document == doc());
 
-  ifDebug(kDebug() << "text changed" << document << range;)
+  ifDebug(qCDebug(LOG_PART) << "text changed" << document << range;)
 
   if (m_isMirroring) {
-    ifDebug(kDebug() << "mirroring - ignoring edit";)
+    ifDebug(qCDebug(LOG_PART) << "mirroring - ignoring edit";)
     return;
   }
 
   if (!m_initialRemodify) {
     if ((!m_editWithUndo && doc()->isEditRunning()) || range.isEmpty()) {
-      ifDebug(kDebug() << "slotTextChanged returning prematurely";)
+      ifDebug(qCDebug(LOG_PART) << "slotTextChanged returning prematurely";)
       return;
     }
   }
 
   if (m_wholeTemplateRange->toRange().isEmpty()) {
-    ifDebug(kDebug() << "template range got deleted, exiting";)
+    ifDebug(qCDebug(LOG_PART) << "template range got deleted, exiting";)
     cleanupAndExit();
     return;
   }
 
   if (range.end() == *m_finalCursorPosition) {
-    ifDebug(kDebug() << "editing at final cursor position, exiting.";)
+    ifDebug(qCDebug(LOG_PART) << "editing at final cursor position, exiting.";)
     cleanupAndExit();
     return;
   }
 
   if (!m_wholeTemplateRange->toRange().contains(range.start())) {
     // outside our template or one of our own changes
-    ifDebug(kDebug() << range << "not contained in" << m_wholeTemplateRange->toRange();)
+    ifDebug(qCDebug(LOG_PART) << range << "not contained in" << m_wholeTemplateRange->toRange();)
     cleanupAndExit();
     return;
   }
 
-  ifDebug(kDebug() << "see if we have to mirror the edit";)
+  ifDebug(qCDebug(LOG_PART) << "see if we have to mirror the edit";)
 
   // Check if @p range is mirrored.
   // If we have two adjacent mirrored ranges, think ${first}${second},
@@ -932,10 +933,10 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
         // handle mirrored ranges
         if (baseRange) {
           // look for adjacent range (we find the right-handed one here)
-          ifDebug(kDebug() << "looking for adjacent mirror to" << *baseRange;)
+          ifDebug(qCDebug(LOG_PART) << "looking for adjacent mirror to" << *baseRange;)
           foreach(MovingRange* child, m_templateRangesChildren[parent]) {
             if (child->start() == range.start() && child->end() >= range.end()) {
-              ifDebug(kDebug() << "found adjacent mirror - using as base" << *child;)
+              ifDebug(qCDebug(LOG_PART) << "found adjacent mirror - using as base" << *child;)
               leftAdjacentRange = baseRange;
               baseRange = child;
               break;
@@ -975,9 +976,9 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
 
     if (leftAdjacentRange) {
       // revert that something got added to the adjacent range
-      ifDebug(kDebug() << "removing edited range" << range << "from left adjacent range" << *leftAdjacentRange;)
+      ifDebug(qCDebug(LOG_PART) << "removing edited range" << range << "from left adjacent range" << *leftAdjacentRange;)
       leftAdjacentRange->setRange(Range(leftAdjacentRange->start(), range.start()));
-      ifDebug(kDebug() << "new range:" << *leftAdjacentRange;)
+      ifDebug(qCDebug(LOG_PART) << "new range:" << *leftAdjacentRange;)
     }
 
     syncMirroredRanges(baseRange);
@@ -988,7 +989,7 @@ void KateTemplateHandler::slotTextChanged(Document* document, const Range& range
       // TODO: attribute->changed == undefined reference...
     }
   } else {
-    ifDebug(kDebug() << "no range found to mirror this edit";)
+    ifDebug(qCDebug(LOG_PART) << "no range found to mirror this edit";)
   }
 }
 
@@ -1000,7 +1001,7 @@ void KateTemplateHandler::syncMirroredRanges(MovingRange* range)
   doc()->editStart();
 
   const QString &newText = doc()->text(*range);
-  ifDebug(kDebug() << "mirroring" << newText << "from" << *range;)
+  ifDebug(qCDebug(LOG_PART) << "mirroring" << newText << "from" << *range;)
 
   foreach(MovingRange* sibling, m_templateRangesChildren[m_templateRangesChildToParent[range]]) {
     if (sibling != range) {
@@ -1068,7 +1069,7 @@ QString KateTemplateHandler::MirrorBehaviour::getMirrorString(const QString &sou
       break;
 
     case Regexp: {
-      ifDebug(kDebug() << "regexp " << m_search << " replacement " << m_replace;)
+      ifDebug(qCDebug(LOG_PART) << "regexp " << m_search << " replacement " << m_replace;)
 
       if (m_global) {
         ahead = source;

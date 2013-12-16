@@ -27,7 +27,7 @@
 #include "spellcheck/spellcheck.h"
 
 #include <klocalizedstring.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 KateSpellingMenu::KateSpellingMenu(KateView *view)
   : QObject(view),

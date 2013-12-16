@@ -34,7 +34,7 @@
 #include <QScriptContext>
 #include <QFileInfo>
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <klocale.h>
 #include <kglobal.h>
 #include <kstandarddirs.h>
@@ -93,7 +93,7 @@ KateScript::~KateScript()
   if(m_loadSuccessful) {
     // unload i18n catalog if available + loaded
     if (!generalHeader().catalog().isEmpty()) {
-      kDebug() << "unloading i18n catalog" << generalHeader().catalog();
+      qCDebug(LOG_PART) << "unloading i18n catalog" << generalHeader().catalog();
       //KGlobal::locale()->removeCatalog(generalHeader().catalog()); FIXME KF5
     }
 
@@ -198,7 +198,7 @@ bool KateScript::load()
 
   // load i18n catalog if available
   if (!generalHeader().catalog().isEmpty()) {
-    kDebug() << "loading i18n catalog" << generalHeader().catalog();
+    qCDebug(LOG_PART) << "loading i18n catalog" << generalHeader().catalog();
     KGlobal::locale()->insertCatalog(generalHeader().catalog());
   }
   return true;

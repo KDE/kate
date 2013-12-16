@@ -70,7 +70,7 @@
 #include <kmessagebox.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kglobalsettings.h>
 #include <kdirwatch.h>
 #include <kencodingfiledialog.h>
@@ -92,9 +92,9 @@
 //END  includes
 
 #if 0
-#define EDIT_DEBUG kDebug()
+#define EDIT_DEBUG qCDebug(LOG_PART)
 #else
-#define EDIT_DEBUG if (0) kDebug()
+#define EDIT_DEBUG if (0) qCDebug(LOG_PART)
 #endif
 
 static int dummy = 0;
@@ -336,7 +336,7 @@ QString KateDocument::text() const
 QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) const
 {
   if (!range.isValid()) {
-    kWarning() << k_funcinfo << "Text requested for invalid range" << range;
+    qCWarning(LOG_PART) << "Text requested for invalid range" << range;
     return QString();
   }
 
@@ -426,7 +426,7 @@ QStringList KateDocument::textLines( const KTextEditor::Range & range, bool bloc
   QStringList ret;
 
   if (!range.isValid()) {
-    kWarning() << k_funcinfo << "Text requested for invalid range" << range;
+    qCWarning(LOG_PART) << "Text requested for invalid range" << range;
     return ret;
   }
 
@@ -900,13 +900,13 @@ bool KateDocument::wrapText(int startLine, int endLine)
     if (!l)
       break;
 
-    //kDebug (13020) << "try wrap line: " << line;
+    //qCDebug(LOG_PART) << "try wrap line: " << line;
 
     if (l->virtualLength(m_buffer->tabWidth()) > col)
     {
       Kate::TextLine nextl = kateTextLine(line+1);
 
-      //kDebug (13020) << "do wrap line: " << line;
+      //qCDebug(LOG_PART) << "do wrap line: " << line;
 
       int eolPosition = l->length()-1;
 
@@ -2158,8 +2158,8 @@ bool KateDocument::saveFile()
       u.setPath (u.path() + config()->backupPrefix() + fileName + config()->backupSuffix());
     }
 
-    kDebug( 13020 ) << "backup src file name: " << url();
-    kDebug( 13020 ) << "backup dst file name: " << u;
+    qCDebug(LOG_PART) << "backup src file name: " << url();
+    qCDebug(LOG_PART) << "backup dst file name: " << u;
 
     // handle the backup...
     bool backupSuccess = false;
@@ -2288,7 +2288,7 @@ void KateDocument::readDirConfig ()
     // only search as deep as specified or not at all ;)
     while (depth > -1)
     {
-      //kDebug (13020) << "search for config file in path: " << currentDir;
+      //qCDebug(LOG_PART) << "search for config file in path: " << currentDir;
 
       // try to open config file in this dir
       QFile f (currentDir + "/.kateconfig");
@@ -3750,7 +3750,7 @@ void KateDocument::slotModifiedOnDisk( KTextEditor::View * /*v*/ )
         KEncodingFileDialog::Result res=KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
             url(),QString(),parentWidget,i18n("Save File"));
 
-        kDebug(13020)<<"got "<<res.URLs.count()<<" URLs";
+        qCDebug(LOG_PART)<<"got "<<res.URLs.count()<<" URLs";
         if( ! res.URLs.isEmpty() && ! res.URLs.first().isEmpty() && checkOverwrite( res.URLs.first(), parentWidget ) )
         {
           setEncoding( res.encoding );
@@ -4060,7 +4060,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
   {
     s = kvLine.cap(1);
 
-    kDebug (13020) << "normal variable line kate: matched: " << s;
+    qCDebug(LOG_PART) << "normal variable line kate: matched: " << s;
   }
   else if (kvLineWildcard.indexIn( t ) > -1) // regex given
   {
@@ -4081,7 +4081,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 
     s = kvLineWildcard.cap(2);
 
-    kDebug (13020) << "guarded variable line kate-wildcard: matched: " << s;
+    qCDebug(LOG_PART) << "guarded variable line kate-wildcard: matched: " << s;
   }
   else if (kvLineMime.indexIn( t ) > -1) // mime-type given
   {
@@ -4093,7 +4093,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 
     s = kvLineMime.cap(2);
 
-    kDebug (13020) << "guarded variable line kate-mimetype: matched: " << s;
+    qCDebug(LOG_PART) << "guarded variable line kate-mimetype: matched: " << s;
   }
   else // nothing found
   {
@@ -4146,13 +4146,13 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
         replaceTabsSet = true;  // for backward compatibility; see below
       }
       else if ( var == "remove-trailing-space" && checkBoolValue( val, &state ) ) {
-        kWarning() << i18n("Using deprecated modeline 'remove-trailing-space'. "
+        qCWarning(LOG_PART) << i18n("Using deprecated modeline 'remove-trailing-space'. "
           "Please replace with 'remove-trailing-spaces modified;', see "
           "http://docs.kde.org/stable/en/kde-baseapps/kate/config-variables.html#variable-remove-trailing-spaces");
         m_config->setRemoveSpaces( state ? 1 : 0 );
       }
       else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) ) {
-        kWarning() << i18n("Using deprecated modeline 'replace-trailing-space-save'. "
+        qCWarning(LOG_PART) << i18n("Using deprecated modeline 'replace-trailing-space-save'. "
           "Please replace with 'remove-trailing-spaces all;', see "
           "http://docs.kde.org/stable/en/kde-baseapps/kate/config-variables.html#variable-remove-trailing-spaces");
         m_config->setRemoveSpaces( state ? 2 : 0 );
@@ -5067,24 +5067,24 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
   for(QList<QPair<KTextEditor::MovingRange*, QString> >::iterator i = m_dictionaryRanges.begin();
       i != m_dictionaryRanges.end();)
   {
-    kDebug(13000) << "new iteration" << newDictionaryRange;
+    qCDebug(LOG_PART) << "new iteration" << newDictionaryRange;
     if (newDictionaryRange.isEmpty()) {
       break;
     }
     QPair<KTextEditor::MovingRange*, QString> pair = *i;
     QString dictionarySet = pair.second;
     KTextEditor::MovingRange *dictionaryRange = pair.first;
-    kDebug(13000) << *dictionaryRange << dictionarySet;
+    qCDebug(LOG_PART) << *dictionaryRange << dictionarySet;
     if(dictionaryRange->contains(newDictionaryRange) && newDictionary == dictionarySet)
     {
-      kDebug(13000) << "dictionaryRange contains newDictionaryRange";
+      qCDebug(LOG_PART) << "dictionaryRange contains newDictionaryRange";
       return;
     }
     if(newDictionaryRange.contains(*dictionaryRange))
     {
       delete dictionaryRange;
       i = m_dictionaryRanges.erase(i);
-      kDebug(13000) << "newDictionaryRange contains dictionaryRange";
+      qCDebug(LOG_PART) << "newDictionaryRange contains dictionaryRange";
       continue;
     }
 
@@ -5097,7 +5097,7 @@ void KateDocument::setDictionary(const QString& newDictionary, const KTextEditor
         Q_ASSERT(remainingRanges.size() == 1);
         newDictionaryRange = remainingRanges.first();
         ++i;
-        kDebug(13000) << "dictionarySet == newDictionary";
+        qCDebug(LOG_PART) << "dictionarySet == newDictionary";
         continue;
       }
       QList<KTextEditor::Range> remainingRanges = KateSpellCheckManager::rangeDifference(*dictionaryRange, intersection);
@@ -5208,7 +5208,7 @@ void KateDocument::rangeEmpty(KTextEditor::MovingRange *movingRange)
 
 void KateDocument::deleteDictionaryRange(KTextEditor::MovingRange *movingRange)
 {
-  kDebug(13020) << "deleting" << movingRange;
+  qCDebug(LOG_PART) << "deleting" << movingRange;
   for(QList<QPair<KTextEditor::MovingRange*, QString> >::iterator i = m_dictionaryRanges.begin();
       i != m_dictionaryRanges.end();)
   {
@@ -5354,7 +5354,7 @@ KTextEditor::Attribute::Ptr KateDocument::defaultStyle(const KTextEditor::Highli
   ///TODO: move attributes to document, they are not view-dependant
   KateView* view = activeKateView();
   if ( !view ) {
-    kWarning() << "ATTENTION: cannot access defaultStyle() without any View (will be fixed eventually)";
+    qCWarning(LOG_PART) << "ATTENTION: cannot access defaultStyle() without any View (will be fixed eventually)";
     return KTextEditor::Attribute::Ptr(0);
   }
 
@@ -5375,7 +5375,7 @@ QList< KTextEditor::HighlightInterface::AttributeBlock > KateDocument::lineAttri
 
   KateView* view = activeKateView();
   if ( !view ) {
-    kWarning() << "ATTENTION: cannot access lineAttributes() without any View (will be fixed eventually)";
+    qCWarning(LOG_PART) << "ATTENTION: cannot access lineAttributes() without any View (will be fixed eventually)";
     return attribs;
   }
 
@@ -5402,7 +5402,7 @@ KTextEditor::Attribute::Ptr KateDocument::attributeAt(const KTextEditor::Cursor 
 
   KateView* view = activeKateView();
   if ( !view ) {
-    kWarning() << "ATTENTION: cannot access lineAttributes() without any View (will be fixed eventually)";
+    qCWarning(LOG_PART) << "ATTENTION: cannot access lineAttributes() without any View (will be fixed eventually)";
     return attrib;
   }
 
@@ -5425,12 +5425,12 @@ QString KateDocument::highlightingModeAt(const KTextEditor::Cursor& position)
   Kate::TextLine kateLine = kateTextLine(position.line());
 
 //   const QVector< short >& attrs = kateLine->ctxArray();
-//   kDebug() << "----------------------------------------------------------------------";
+//   qCDebug(LOG_PART) << "----------------------------------------------------------------------";
 //   foreach( short a, attrs ) {
-//     kDebug() << a;
+//     qCDebug(LOG_PART) << a;
 //   }
-//   kDebug() << "----------------------------------------------------------------------";
-//   kDebug() << "col: " << position.column() << " lastchar:" << kateLine->lastChar() << " length:" << kateLine->length() << "global mode:" << highlightingMode();
+//   qCDebug(LOG_PART) << "----------------------------------------------------------------------";
+//   qCDebug(LOG_PART) << "col: " << position.column() << " lastchar:" << kateLine->lastChar() << " length:" << kateLine->length() << "global mode:" << highlightingMode();
 
   int len = kateLine->length();
   int pos = position.column();
@@ -5513,7 +5513,7 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
 
   // make sure the desired view belongs to this document
   if (message->view() && message->view()->document() != this) {
-    kWarning(13020) << "trying to post a message to a view of another document:" << message->text();
+    qCWarning(LOG_PART) << "trying to post a message to a view of another document:" << message->text();
     return false;
   }
 

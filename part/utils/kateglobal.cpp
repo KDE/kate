@@ -42,7 +42,7 @@
 #include <klocale.h>
 #include <kservicetypetrader.h>
 #include <kdirwatch.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <klocalizedstring.h>
 #include <kaboutdata.h>
 #include <kdeversion.h>
@@ -59,6 +59,8 @@
 KateGlobal *KateGlobal::s_self = 0;
 
 int KateGlobal::s_ref = 0;
+
+Q_LOGGING_CATEGORY(LOG_PART, "katepart")
 
 QString KateGlobal::katePartVersion()
 {

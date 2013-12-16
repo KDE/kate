@@ -35,7 +35,7 @@
 #include "kateviemulatedcommandbar.h"
 #include "katecmd.h"
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <klocalizedstring.h>
 #include <klocale.h>
 #include <kshellcompletion.h>
@@ -930,9 +930,9 @@ bool KateCommands::SedReplace::exec (KTextEditor::View *view, const QString &cmd
 bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QString &cmd,
     QString &msg, const KTextEditor::Range &r)
 {
-  kDebug(13025) << "SedReplace::execCmd( " << cmd << " )";
+  qCDebug(LOG_PART) << "SedReplace::execCmd( " << cmd << " )";
   if (r.isValid()) {
-    kDebug(13025) << "Range: " << r;
+    qCDebug(LOG_PART) << "Range: " << r;
   }
 
   int findBeginPos = -1;
@@ -951,11 +951,11 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
   const bool interactive = searchParamsString.contains('c');
 
   QString find = cmd.mid(findBeginPos, findEndPos - findBeginPos + 1);
-  kDebug(13025) << "SedReplace: find =" << find;
+  qCDebug(LOG_PART) << "SedReplace: find =" << find;
 
   QString replace = cmd.mid(replaceBeginPos, replaceEndPos - replaceBeginPos + 1);
   exchangeAbbrevs(replace);
-  kDebug(13025) << "SedReplace: replace =" << replace;
+  qCDebug(LOG_PART) << "SedReplace: replace =" << replace;
 
   if (find.isEmpty())
   {
@@ -988,7 +988,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
     }
     else
     {
-      kDebug(13025) << "Interactive sedreplace is only currently supported with Vi mode plus Vi emulated command bar.";
+      qCDebug(LOG_PART) << "Interactive sedreplace is only currently supported with Vi mode plus Vi emulated command bar.";
       return false;
     }
   }
@@ -1008,7 +1008,7 @@ bool KateCommands::SedReplace::parse(const QString& sedReplaceString, QString& d
   if ( delim.indexIn( sedReplaceString ) < 0 ) return false;
 
   QString d = delim.cap(1);
-  kDebug(13025) << "SedReplace: delimiter is '" << d << "'";
+  qCDebug(LOG_PART) << "SedReplace: delimiter is '" << d << "'";
 
   QRegExp splitter( QString("^s\\s*") + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\"
       + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)(\\" + d + "[igc]{0,3})?$" );

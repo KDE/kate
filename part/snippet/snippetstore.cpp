@@ -25,9 +25,9 @@
 
 #include "katesnippetglobal.h"
 #include "snippetrepository.h"
+#include "katepartdebug.h"
 
 #include <KStandardDirs>
-#include <KDebug>
 #include <KGlobal>
 
 #include <ktexteditor/editor.h>

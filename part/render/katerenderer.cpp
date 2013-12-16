@@ -33,7 +33,7 @@
 
 #include <limits.h>
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 #include <QtGui/QPainter>
 #include <QtGui/QTextLine>
@@ -507,7 +507,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
 {
   Q_ASSERT(range->isValid());
 
-//   kDebug( 13033 )<<"KateRenderer::paintTextLine";
+//   qCDebug(LOG_PART)<<"KateRenderer::paintTextLine";
 
   // font data
   const QFontMetricsF &fm = config()->fontMetrics();

@@ -28,6 +28,7 @@
 #include "katecompletionwidget.h"
 #include "kateargumenthinttree.h"
 #include "katecompletiontree.h"
+#include "katepartdebug.h"
 
 using namespace KTextEditor;
 
@@ -45,7 +46,7 @@ QModelIndex KateArgumentHintModel::mapToSource( const QModelIndex & index ) cons
   
   KateCompletionModel::ModelRow source = group()->filtered[m_rows[index.row()]].sourceRow();
   if( !source.first ) {
-    kDebug( 13035 ) << "KateArgumentHintModel::data: Row does not exist in source";
+    qCDebug(LOG_PART) << "KateArgumentHintModel::data: Row does not exist in source";
     return QModelIndex();
   }
 
@@ -89,7 +90,7 @@ KateArgumentHintModel::KateArgumentHintModel( KateCompletionWidget* parent ) : E
 
 QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) const {
   if( index.row() <  0 || index.row() >= m_rows.count() ) {
-    //kDebug( 13035 ) << "KateArgumentHintModel::data: index out of bound: " << index.row() << " total filtered: " << m_rows.count();
+    //qCDebug(LOG_PART) << "KateArgumentHintModel::data: index out of bound: " << index.row() << " total filtered: " << m_rows.count();
     return QVariant();
   }
 
@@ -107,13 +108,13 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
   }
 
   if( m_rows[index.row()] <  0 || m_rows[index.row()] >= group()->filtered.count() ) {
-    kDebug( 13035 ) << "KateArgumentHintModel::data: index out of bound: " << m_rows[index.row()] << " total filtered: " << group()->filtered.count();
+    qCDebug(LOG_PART) << "KateArgumentHintModel::data: index out of bound: " << m_rows[index.row()] << " total filtered: " << group()->filtered.count();
     return QVariant();
   }
   
   KateCompletionModel::ModelRow source = group()->filtered[m_rows[index.row()]].sourceRow();
   if( !source.first ) {
-    kDebug( 13035 ) << "KateArgumentHintModel::data: Row does not exist in source";
+    qCDebug(LOG_PART) << "KateArgumentHintModel::data: Row does not exist in source";
     return QVariant();
   }
 
@@ -138,7 +139,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
   QModelIndex  sourceIndex = source.second.sibling(source.second.row(), index.column());
  
   if( !sourceIndex.isValid() ) {
-    kDebug( 13035 ) << "KateArgumentHintModel::data: Source-index is not valid";
+    qCDebug(LOG_PART) << "KateArgumentHintModel::data: Source-index is not valid";
     return QVariant();
   }
 

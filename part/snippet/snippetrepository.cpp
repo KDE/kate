@@ -30,7 +30,6 @@
 #include <QFileInfo>
 
 #include <KIcon>
-#include <KDebug>
 #include <KGlobal>
 
 #include <QDomDocument>
@@ -49,6 +48,7 @@
 #include <KShortcut>
 
 #include "snippetstore.h"
+#include "katepartdebug.h"
 
 SnippetRepository::SnippetRepository(const QString& file)
  : QStandardItem(i18n("<empty repository>")), m_file(file), m_registeredScript(0)
@@ -62,7 +62,7 @@ SnippetRepository::SnippetRepository(const QString& file)
         QTimer::singleShot(0, this, SLOT(slotParseFile()));
     }
 
-    kDebug() << "created new snippet repo" << file << this;
+    qCDebug(LOG_PART) << "created new snippet repo" << file << this;
 }
 
 SnippetRepository::~SnippetRepository()

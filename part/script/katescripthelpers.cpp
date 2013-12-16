@@ -30,7 +30,7 @@
 #include <QScriptContext>
 #include <QFile>
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <klocale.h>
 #include <kglobal.h>
 #include <klocalizedstring.h>
@@ -45,7 +45,7 @@ bool readFile(const QString& sourceUrl, QString& sourceCode)
 
   QFile file(sourceUrl);
   if (!file.open(QIODevice::ReadOnly)) {
-    kDebug(13050) << i18n("Unable to find '%1'", sourceUrl);
+    qCDebug(LOG_PART) << i18n("Unable to find '%1'", sourceUrl);
     return false;
   } else {
     QTextStream stream(&file);
@@ -192,7 +192,7 @@ QScriptValue i18n( QScriptContext *context, QScriptEngine *engine )
   const int argCount = context->argumentCount();
 
   if (argCount == 0) {
-    kWarning(13050) << "wrong usage of i18n:" << context->backtrace().join("\n\t");
+    qCWarning(LOG_PART) << "wrong usage of i18n:" << context->backtrace().join("\n\t");
   }
 
   if (argCount > 0) {
@@ -217,7 +217,7 @@ QScriptValue i18nc( QScriptContext *context, QScriptEngine *engine )
   const int argCount = context->argumentCount();
 
   if (argCount < 2) {
-    kWarning(13050) << "wrong usage of i18nc:" << context->backtrace().join("\n\t");
+    qCWarning(LOG_PART) << "wrong usage of i18nc:" << context->backtrace().join("\n\t");
   }
 
   if (argCount > 0) {
@@ -247,7 +247,7 @@ QScriptValue i18np( QScriptContext *context, QScriptEngine *engine )
   const int argCount = context->argumentCount();
 
   if (argCount < 3) {
-    kWarning(13050) << "wrong usage of i18np:" << context->backtrace().join("\n\t");
+    qCWarning(LOG_PART) << "wrong usage of i18np:" << context->backtrace().join("\n\t");
   }
 
   if (argCount > 0) {
@@ -282,7 +282,7 @@ QScriptValue i18ncp( QScriptContext *context, QScriptEngine *engine )
   const int argCount = context->argumentCount();
 
   if (argCount < 4) {
-    kWarning(13050) << "wrong usage of i18ncp:" << context->backtrace().join("\n\t");
+    qCWarning(LOG_PART) << "wrong usage of i18ncp:" << context->backtrace().join("\n\t");
   }
 
   if (argCount > 0) {

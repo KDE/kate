@@ -37,7 +37,7 @@
 #include <kapplication.h>
 #include <kcolorbutton.h>
 #include <kconfiggroup.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kfontdialog.h>
 #include <klocale.h>
 #include <kglobal.h>
@@ -346,14 +346,14 @@ bool KatePrinter::print (KateDocument *doc)
       // if needed, that is if any header/footer tag contains "%P".
       if ( !headerTagList.filter("%P").isEmpty() || !footerTagList.filter("%P").isEmpty() )
       {
-        kDebug(13020)<<"'%P' found! calculating number of pages...";
+        qCDebug(LOG_PART)<<"'%P' found! calculating number of pages...";
         int pageHeight = maxHeight;
         if ( useHeader )
           pageHeight -= ( headerHeight + innerMargin );
         if ( useFooter )
           pageHeight -= innerMargin;
         const int linesPerPage = pageHeight / fontHeight;
-//         kDebug() << "Lines per page:" << linesPerPage;
+//         qCDebug(LOG_PART) << "Lines per page:" << linesPerPage;
         
         // calculate total layouted lines in the document
         int totalLines = 0;
@@ -366,8 +366,8 @@ bool KatePrinter::print (KateDocument *doc)
         }
         int totalPages = (totalLines / linesPerPage)
                       + ((totalLines % linesPerPage) > 0 ? 1 : 0);
-//         kDebug() << "_______ pages:" << (totalLines / linesPerPage);
-//         kDebug() << "________ rest:" << (totalLines % linesPerPage);
+//         qCDebug(LOG_PART) << "_______ pages:" << (totalLines / linesPerPage);
+//         qCDebug(LOG_PART) << "________ rest:" << (totalLines % linesPerPage);
 
         // TODO: add space for guide if required
 //         if ( useGuide )
@@ -390,7 +390,7 @@ bool KatePrinter::print (KateDocument *doc)
     {
       if ( y + fontHeight > maxHeight )
       {
-        kDebug(13020)<<"Starting new page,"<<lineCount<<"lines up to now.";
+        qCDebug(LOG_PART)<<"Starting new page,"<<lineCount<<"lines up to now.";
         printer.newPage();
         paint.resetTransform();
         currentPage++;

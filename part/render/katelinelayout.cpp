@@ -23,7 +23,7 @@
 
 #include <QtGui/QTextLine>
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 #include "katedocument.h"
 #include "katerenderer.h"
@@ -206,7 +206,7 @@ bool KateLineLayout::isOutsideDocument( ) const
 
 void KateLineLayout::debugOutput() const
 {
-  kDebug( 13033 ) << "KateLineLayout: " << this << " valid " << isValid() << " line " << line() << " length " << length() << " width " << width() << " viewLineCount " << viewLineCount();
+  qCDebug(LOG_PART) << "KateLineLayout: " << this << " valid " << isValid() << " line " << line() << " length " << length() << " width " << width() << " viewLineCount " << viewLineCount();
 }
 
 int KateLineLayout::viewLineForColumn( int column ) const

@@ -23,6 +23,7 @@
 #include <QTreeView>
 #include <QModelIndex>
 #include <QBrush>
+#include <QApplication>
 
 #include <ktexteditor/codecompletionmodel.h>
 #include <kiconloader.h>
@@ -30,7 +31,7 @@
 #include "kcolorutils.h"
 
 #include "expandingdelegate.h"
-#include <qapplication.h>
+#include "katepartdebug.h"
 
 QIcon ExpandingWidgetModel::m_expandedIcon;
 QIcon ExpandingWidgetModel::m_collapsedIcon;
@@ -237,7 +238,7 @@ void ExpandingWidgetModel::rowSelected(const QModelIndex& idx_)
         }
     }
   }else{
-    kDebug( 13035 ) << "ExpandingWidgetModel::rowSelected: Row is already partially expanded";
+    qCDebug(LOG_PART) << "ExpandingWidgetModel::rowSelected: Row is already partially expanded";
   }
 }
 
@@ -312,7 +313,7 @@ void ExpandingWidgetModel::setExpanded(QModelIndex idx_, bool expanded)
 {
   QModelIndex idx(firstColumn(idx_));
     
-  //kDebug( 13035 ) << "Setting expand-state of row " << idx.row() << " to " << expanded;
+  //qCDebug(LOG_PART) << "Setting expand-state of row " << idx.row() << " to " << expanded;
   if( !idx.isValid() )
     return;
   
@@ -360,7 +361,7 @@ int ExpandingWidgetModel::basicRowHeight( const QModelIndex& idx_ ) const
     
     ExpandingDelegate* delegate = dynamic_cast<ExpandingDelegate*>( treeView()->itemDelegate(idx) );
     if( !delegate || !idx.isValid() ) {
-    kDebug( 13035 ) << "ExpandingWidgetModel::basicRowHeight: Could not get delegate";
+    qCDebug(LOG_PART) << "ExpandingWidgetModel::basicRowHeight: Could not get delegate";
     return 15;
     }
     return delegate->basicSizeHint( idx ).height();
@@ -467,7 +468,7 @@ QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& le
         for(int a = 0; a < 2; a++) {
           ++testIt;
           if(testIt == right.constEnd()) {
-            kWarning() << "Length of input is not multiple of 3";
+            qCWarning(LOG_PART) << "Length of input is not multiple of 3";
             break;
           }
         }
@@ -479,7 +480,7 @@ QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& le
       ++it;
       ret << *it;
       if(!(*it).value<QTextFormat>().isValid())
-        kDebug( 13035 ) << "Text-format is invalid";
+        qCDebug(LOG_PART) << "Text-format is invalid";
       ++it;
     }
   }
@@ -490,17 +491,17 @@ QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& le
 QList<QVariant> mergeCustomHighlighting( QStringList strings, QList<QVariantList> highlights, int grapBetweenStrings )
 {
     if(strings.isEmpty())   {
-      kWarning() << "List of strings is empty";
+      qCWarning(LOG_PART) << "List of strings is empty";
       return QList<QVariant>();
     }
     
     if(highlights.isEmpty())   {
-      kWarning() << "List of highlightings is empty";
+      qCWarning(LOG_PART) << "List of highlightings is empty";
       return QList<QVariant>();
     }
 
     if(strings.count() != highlights.count()) {
-      kWarning() << "Length of string-list is " << strings.count() << " while count of highlightings is " << highlights.count() << ", should be same";
+      qCWarning(LOG_PART) << "Length of string-list is " << strings.count() << " while count of highlightings is " << highlights.count() << ", should be same";
       return QList<QVariant>();
     }
     

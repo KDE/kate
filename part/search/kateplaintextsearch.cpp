@@ -26,7 +26,7 @@
 
 #include <ktexteditor/document.h>
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 //END  includes
 
 
@@ -124,7 +124,7 @@ KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTex
     {
       if ((line < 0) || (m_document->lines() <= line))
       {
-        kWarning() << "line " << line << " is not within interval [0.." << m_document->lines() << ") ... returning invalid range";
+        qCWarning(LOG_PART) << "line " << line << " is not within interval [0.." << m_document->lines() << ") ... returning invalid range";
         return KTextEditor::Range::invalid();
       }
 

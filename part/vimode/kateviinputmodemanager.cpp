@@ -41,6 +41,7 @@
 #include "katevikeyparser.h"
 #include "katevikeymapper.h"
 #include "kateviemulatedcommandbar.h"
+#include "katepartdebug.h"
 
 using KTextEditor::Cursor;
 using KTextEditor::Document;
@@ -178,14 +179,14 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
     mods = Qt::NoModifier;
     text.clear();
 
-    kDebug( 13070 ) << "\t" << decoded;
+    qCDebug(LOG_PART) << "\t" << decoded;
 
     if (decoded.length() > 1 ) { // special key
 
       // remove the angle brackets
       decoded.remove(0, 1);
       decoded.remove(decoded.indexOf(">"), 1);
-      kDebug( 13070 ) << "\t Special key:" << decoded;
+      qCDebug(LOG_PART) << "\t Special key:" << decoded;
 
       // check if one or more modifier keys where used
       if (decoded.indexOf("s-") != -1 || decoded.indexOf("c-") != -1
@@ -220,9 +221,9 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
         } else if (decoded.length() == 1) {
           key = int(decoded.at(0).toUpper().toAscii());
           text = decoded.at(0);
-          kDebug( 13070 ) << "###########" << key;
+          qCDebug(LOG_PART) << "###########" << key;
         } else {
-          kWarning( 13070 ) << "decoded is empty. skipping key press.";
+          qCWarning(LOG_PART) << "decoded is empty. skipping key press.";
         }
       } else { // no modifiers
         key = KateViKeyParser::self()->vi2qt(decoded);
@@ -320,7 +321,7 @@ void KateViInputModeManager::repeatLastChange()
 void KateViInputModeManager::startRecordingMacro(QChar macroRegister)
 {
   Q_ASSERT(!m_isRecordingMacro);
-  kDebug(13070) << "Recording macro: " << macroRegister;
+  qCDebug(LOG_PART) << "Recording macro: " << macroRegister;
   m_isRecordingMacro = true;
   m_recordingMacroRegister = macroRegister;
   KateGlobal::self()->viInputModeGlobal()->clearMacro(macroRegister);
@@ -347,9 +348,9 @@ void KateViInputModeManager::replayMacro(QChar macroRegister)
     macroRegister = m_lastPlayedMacroRegister;
   }
   m_lastPlayedMacroRegister = macroRegister;
-  kDebug(13070) << "Replaying macro: " << macroRegister;
+  qCDebug(LOG_PART) << "Replaying macro: " << macroRegister;
   const QString macroAsFeedableKeypresses = KateGlobal::self()->viInputModeGlobal()->getMacro(macroRegister);
-  kDebug(13070) << "macroAsFeedableKeypresses:  " << macroAsFeedableKeypresses;
+  qCDebug(LOG_PART) << "macroAsFeedableKeypresses:  " << macroAsFeedableKeypresses;
 
   m_macrosBeingReplayedCount++;
   m_nextLoggedMacroCompletionIndex.push(0);
@@ -360,7 +361,7 @@ void KateViInputModeManager::replayMacro(QChar macroRegister)
   m_macroCompletionsToReplay.pop();
   m_nextLoggedMacroCompletionIndex.pop();
   m_macrosBeingReplayedCount--;
-  kDebug(13070) << "Finished replaying: " << macroRegister;
+  qCDebug(LOG_PART) << "Finished replaying: " << macroRegister;
 }
 
 bool KateViInputModeManager::isReplayingMacro()
@@ -389,7 +390,7 @@ KateViInputModeManager::Completion KateViInputModeManager::nextLoggedCompletion(
   {
     if (m_nextLoggedLastChangeComplexIndex >= m_lastChangeCompletionsLog.length())
     {
-      kDebug(13070) << "Something wrong here: requesting more completions for last change than we actually have.  Returning dummy.";
+      qCDebug(LOG_PART) << "Something wrong here: requesting more completions for last change than we actually have.  Returning dummy.";
       return Completion("", false, Completion::PlainText);
     }
     return m_lastChangeCompletionsLog[m_nextLoggedLastChangeComplexIndex++];
@@ -398,7 +399,7 @@ KateViInputModeManager::Completion KateViInputModeManager::nextLoggedCompletion(
   {
     if (m_nextLoggedMacroCompletionIndex.top() >= m_macroCompletionsToReplay.top().length())
     {
-      kDebug(13070) << "Something wrong here: requesting more completions for macro than we actually have.  Returning dummy.";
+      qCDebug(LOG_PART) << "Something wrong here: requesting more completions for macro than we actually have.  Returning dummy.";
       return Completion("", false, Completion::PlainText);
     }
     return m_macroCompletionsToReplay.top()[m_nextLoggedMacroCompletionIndex.top()++];
@@ -474,7 +475,7 @@ KateViModeBase* KateViInputModeManager::getCurrentViModeHandler() const
     case ReplaceMode:
       return m_viReplaceMode;
   }
-  kDebug( 13070 ) << "WARNING: Unknown Vi mode.";
+  qCDebug(LOG_PART) << "WARNING: Unknown Vi mode.";
   return NULL;
 }
 
@@ -631,7 +632,7 @@ void KateViInputModeManager::writeSessionConfig( KConfigGroup& config )
         contents << i.value().first;
         flags << int(i.value().second);
       } else {
-        kDebug( 13070 ) << "Did not save contents of register " << i.key() << ": contents too long ("
+        qCDebug(LOG_PART) << "Did not save contents of register " << i.key() << ": contents too long ("
           << i.value().first.length() << " characters)";
       }
     }
@@ -717,17 +718,17 @@ Cursor KateViInputModeManager::getPrevJump(Cursor cursor ) {
 }
 
 void KateViInputModeManager::PrintJumpList(){
-   kDebug( 13070 ) << "Jump List";
+   qCDebug(LOG_PART) << "Jump List";
    for (  QList<KateViJump>::iterator iter = jump_list->begin();
         iter != jump_list->end();
         iter++){
            if (iter == current_jump)
-               kDebug( 13070 ) << (*iter).line << (*iter).column << "<< Current Jump";
+               qCDebug(LOG_PART) << (*iter).line << (*iter).column << "<< Current Jump";
            else
-               kDebug( 13070 ) << (*iter).line << (*iter).column;
+               qCDebug(LOG_PART) << (*iter).line << (*iter).column;
    }
    if (current_jump == jump_list->end())
-       kDebug( 13070 ) << "    << Current Jump";
+       qCDebug(LOG_PART) << "    << Current Jump";
 
 }
 
@@ -911,7 +912,7 @@ KateViInputModeManager::Completion::Completion(const QString& completedText, boo
 {
   if (m_completionType == FunctionWithArgs || m_completionType == FunctionWithoutArgs)
   {
-    kDebug(13070) << "Completing a function while not removing tail currently unsupported; will remove tail instead";
+    qCDebug(LOG_PART) << "Completing a function while not removing tail currently unsupported; will remove tail instead";
     m_removeTail = true;
   }
 }

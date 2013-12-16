@@ -27,7 +27,7 @@
 
 #include <kxmlguifactory.h>
 #include <kmenu.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <klocale.h>
 
 //BEGIN KateScriptAction

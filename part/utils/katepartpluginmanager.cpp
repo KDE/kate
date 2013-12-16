@@ -35,7 +35,7 @@
 #include <kplugininfo.h>
 
 #include <kservicetypetrader.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kdeversion.h>
 
 KatePartPluginInfo::KatePartPluginInfo(KService::Ptr service)
@@ -100,7 +100,7 @@ void KatePartPluginManager::setupPluginList ()
 
 void KatePartPluginManager::addDocument(KTextEditor::Document *doc)
 {
-  //kDebug() << doc;
+  //qCDebug(LOG_PART) << doc;
   for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
@@ -112,7 +112,7 @@ void KatePartPluginManager::addDocument(KTextEditor::Document *doc)
 
 void KatePartPluginManager::removeDocument(KTextEditor::Document *doc)
 {
-  //kDebug() << doc;
+  //qCDebug(LOG_PART) << doc;
   for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
@@ -124,7 +124,7 @@ void KatePartPluginManager::removeDocument(KTextEditor::Document *doc)
 
 void KatePartPluginManager::addView(KTextEditor::View *view)
 {
-  //kDebug() << view;
+  //qCDebug(LOG_PART) << view;
   for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
@@ -136,7 +136,7 @@ void KatePartPluginManager::addView(KTextEditor::View *view)
 
 void KatePartPluginManager::removeView(KTextEditor::View *view)
 {
-  //kDebug() << view;
+  //qCDebug(LOG_PART) << view;
   for (KatePartPluginList::iterator it = m_pluginList.begin();
       it != m_pluginList.end(); ++it)
   {
@@ -220,7 +220,7 @@ void KatePartPluginManager::loadPlugin (KatePartPluginInfo &item)
   QString error;
   item.plugin = item.service()->createInstance<KTextEditor::Plugin>(this, QVariantList(), &error);
   if ( !item.plugin )
-    kWarning() << "failed to load plugin" << item.service()->name() << ":" << error;
+    qCWarning(LOG_PART) << "failed to load plugin" << item.service()->name() << ":" << error;
   item.load = (item.plugin != 0);
 }
 

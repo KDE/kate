@@ -27,7 +27,7 @@
 #include <QTreeView>
 #include <QApplication>
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 #include "expandingwidgetmodel.h"
 
@@ -90,7 +90,7 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
   option.decorationAlignment = m_cachedAlignment;
   option.displayAlignment = m_cachedAlignment;
   
-  //kDebug( 13035 ) << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
+  //qCDebug(LOG_PART) << "Painting row " << index.row() << ", column " << index.column() << ", internal " << index.internalPointer() << ", drawselected " << option.showDecorationSelected << ", selected " << (option.state & QStyle::State_Selected);
 
   m_cachedHighlights.clear();
   m_backgroundColor = getUsedBackgroundColor(option, index);
@@ -100,9 +100,9 @@ void ExpandingDelegate::paint( QPainter * painter, const QStyleOptionViewItem & 
     m_cachedHighlights = createHighlighting(index, option);
   }
 
-  /*kDebug( 13035 ) << "Highlights for line:";
+  /*qCDebug(LOG_PART) << "Highlights for line:";
   foreach (const QTextLayout::FormatRange& fr, m_cachedHighlights)
-    kDebug( 13035 ) << fr.start << " len " << fr.length << " format ";*/
+    qCDebug(LOG_PART) << fr.start << " len " << fr.length << " format ";*/
 
   QItemDelegate::paint(painter, option, index);
 
@@ -203,7 +203,7 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
   
   if(m_backgroundColor.isValid()) {
     QColor background = m_backgroundColor;
-//     kDebug() << text << "background:" << background.name();
+//     qCDebug(LOG_PART) << text << "background:" << background.name();
     //Now go through the formats, and make sure the contrast background/foreground is readable
     for(int a = 0; a < additionalFormats.size(); ++a) {
       QColor currentBackground = background;
@@ -216,10 +216,10 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
       QColor invertedColor(0xffffffff-additionalFormats[a].format.foreground().color().rgb());
       double invertedContrast = readabilityContrast(invertedColor, currentBackground);
       
-//       kDebug() << "values:" << invertedContrast << currentContrast << invertedColor.name() << currentColor.name();
+//       qCDebug(LOG_PART) << "values:" << invertedContrast << currentContrast << invertedColor.name() << currentColor.name();
       
       if(invertedContrast > currentContrast) {
-//         kDebug() << text << additionalFormats[a].length << "switching from" << currentColor.name() << "to" << invertedColor.name();
+//         qCDebug(LOG_PART) << text << additionalFormats[a].length << "switching from" << currentColor.name() << "to" << invertedColor.name();
         QBrush b(additionalFormats[a].format.foreground());
         b.setColor(invertedColor);
         additionalFormats[a].format.setForeground(b);
@@ -243,9 +243,9 @@ void ExpandingDelegate::drawDisplay( QPainter * painter, const QStyleOptionViewI
       }
   }
 
-//   kDebug( 13035 ) << "Highlights for text [" << text << "] col start " << m_currentColumnStart << ":";
+//   qCDebug(LOG_PART) << "Highlights for text [" << text << "] col start " << m_currentColumnStart << ":";
 //   foreach (const QTextLayout::FormatRange& fr, additionalFormats)
-//     kDebug( 13035 ) << fr.start << " len " << fr.length << "foreground" << fr.format.foreground() << "background" << fr.format.background();
+//     qCDebug(LOG_PART) << fr.start << " len " << fr.length << "foreground" << fr.format.foreground() << "background" << fr.format.background();
 
   layout.setAdditionalFormats(additionalFormats);
 
@@ -317,7 +317,7 @@ QList<QTextLayout::FormatRange> ExpandingDelegate::highlightingFromVariantList(c
 
     for (int i = 0; i + 2 < customHighlights.count(); i += 3) {
       if (!customHighlights[i].canConvert(QVariant::Int) || !customHighlights[i+1].canConvert(QVariant::Int) || !customHighlights[i+2].canConvert<QTextFormat>()) {
-        kWarning() << "Unable to convert triple to custom formatting.";
+        qCWarning(LOG_PART) << "Unable to convert triple to custom formatting.";
         continue;
       }
 
@@ -327,7 +327,7 @@ QList<QTextLayout::FormatRange> ExpandingDelegate::highlightingFromVariantList(c
       format.format = customHighlights[i+2].value<QTextFormat>().toCharFormat();
 
       if(!format.format.isValid())
-        kWarning() << "Format is not valid";
+        qCWarning(LOG_PART) << "Format is not valid";
 
       ret << format;
     }

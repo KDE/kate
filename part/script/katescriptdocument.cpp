@@ -25,6 +25,7 @@
 #include "kateconfig.h"
 #include "katehighlight.h"
 #include "katescript.h"
+#include "katepartdebug.h"
 
 #include <ktexteditor/highlightinterface.h>
 #include <ktexteditor/movingcursor.h>
@@ -241,7 +242,7 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
     lc = '[';
     rc = ']';
   } else {
-    kDebug(13060) << "invalid anchor character:" << character << " allowed are: (){}[]";
+    qCDebug(LOG_PART) << "invalid anchor character:" << character << " allowed are: (){}[]";
     return KTextEditor::Cursor::invalid();
   }
 

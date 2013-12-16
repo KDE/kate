@@ -26,7 +26,7 @@
 #include <kateanimation.h>
 
 #include <kdeversion.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 #include <QtCore/QEvent>
 #include <QtCore/QTimer>
@@ -178,7 +178,7 @@ void KateMessageWidget::setWordWrap(KTextEditor::Message* message)
   // finally enable word wrap, if there is not enough free horizontal space
   const int freeSpace = (parentWidget()->width() - margin) - m_messageWidget->width();
   if (freeSpace < 0) {
-//     kDebug() << "force word wrap to avoid breaking the layout" << freeSpace;
+//     qCDebug(LOG_PART) << "force word wrap to avoid breaking the layout" << freeSpace;
     m_messageWidget->setWordWrap(true);
   }
 }

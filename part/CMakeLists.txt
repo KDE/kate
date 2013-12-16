@@ -219,8 +219,6 @@ snippet/editrepository.ui
 snippet/editsnippet.ui
 )
 
-add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13000 )
-
 kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 
 add_library (katepartinterfaces SHARED ${katepart_PART_SRCS} )

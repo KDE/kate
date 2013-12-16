@@ -33,14 +33,13 @@
 #include "kateautoindent.h"
 
 #include <klocalizedstring.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kglobal.h>
 #include <kcharsets.h>
 #include <kde_file.h>
 
 // on the fly compression
 #include <kfilterdev.h>
-#include <kmimetype.h>
 #include <kde_file.h>
 
 #include <QtCore/QFile>
@@ -234,7 +233,7 @@ bool KateBuffer::canEncode ()
 {
   QTextCodec *codec = m_doc->config()->codec();
 
-  kDebug(13020) << "ENC NAME: " << codec->name();
+  qCDebug(LOG_PART) << "ENC NAME: " << codec->name();
 
   // hardcode some unicode encodings which can encode all chars
   if ((QString(codec->name()) == "UTF-8") || (QString(codec->name()) == "ISO-10646-UCS-2"))
@@ -244,8 +243,8 @@ bool KateBuffer::canEncode ()
   {
     if (!codec->canEncode (line(i)->string()))
     {
-      kDebug(13020) << "STRING LINE: " << line(i)->string();
-      kDebug(13020) << "ENC WORKING: FALSE";
+      qCDebug(LOG_PART) << "STRING LINE: " << line(i)->string();
+      qCDebug(LOG_PART) << "ENC WORKING: FALSE";
 
       return false;
     }
@@ -401,9 +400,9 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 #ifdef BUFFER_DEBUGGING
   QTime t;
   t.start();
-  kDebug (13020) << "HIGHLIGHTED START --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
-  kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted;
-  kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
+  qCDebug(LOG_PART) << "HIGHLIGHTED START --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
+  qCDebug(LOG_PART) << "HL UNTIL LINE: " << m_lineHighlighted;
+  qCDebug(LOG_PART) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
 #endif
 
   // see if there are too many dynamic contexts; if yes, invalidate HL of all documents
@@ -413,7 +412,7 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
       if (KateHlManager::self()->resetDynamicCtxs())
       {
 #ifdef BUFFER_DEBUGGING
-        kDebug (13020) << "HL invalidated - too many dynamic contexts ( >= " << m_maxDynamicContexts << ")";
+        qCDebug(LOG_PART) << "HL invalidated - too many dynamic contexts ( >= " << m_maxDynamicContexts << ")";
 #endif
 
         // avoid recursive invalidation
@@ -435,7 +434,7 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
         m_maxDynamicContexts *= 2;
 
 #ifdef BUFFER_DEBUGGING
-        kDebug (13020) << "New dynamic contexts limit: " << m_maxDynamicContexts;
+        qCDebug(LOG_PART) << "New dynamic contexts limit: " << m_maxDynamicContexts;
 #endif
       }
     }
@@ -466,15 +465,15 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
 
 #ifdef BUFFER_DEBUGGING
     // debug stuff
-    kDebug( 13020 ) << "current line to hl: " << current_line;
-    kDebug( 13020 ) << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size();
+    qCDebug(LOG_PART) << "current line to hl: " << current_line;
+    qCDebug(LOG_PART) << "text length: " << textLine->length() << " attribute list size: " << textLine->attributesList().size();
 
     const QVector<int> &ml (textLine->attributesList());
     for (int i=2; i < ml.size(); i+=3)
     {
-      kDebug( 13020 ) << "start: " << ml.at(i-2) << " len: " << ml.at(i-1) << " at: " << ml.at(i) << " ";
+      qCDebug(LOG_PART) << "start: " << ml.at(i-2) << " len: " << ml.at(i-1) << " at: " << ml.at(i) << " ";
     }
-    kDebug( 13020 );
+    qCDebug(LOG_PART);
 #endif
     
     // need we to continue ?
@@ -501,7 +500,7 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   // tag the changed lines !
   if (invalidate) {
 #ifdef BUFFER_DEBUGGING
-    kDebug (13020) << "HIGHLIGHTED TAG LINES: " << startLine <<  current_line;
+    qCDebug(LOG_PART) << "HIGHLIGHTED TAG LINES: " << startLine <<  current_line;
 #endif
 
     emit tagLines (startLine, qMax (current_line, oldHighlighted));
@@ -513,10 +512,10 @@ void KateBuffer::doHighlight (int startLine, int endLine, bool invalidate)
   }
 
 #ifdef BUFFER_DEBUGGING
-  kDebug (13020) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
-  kDebug (13020) << "HL UNTIL LINE: " << m_lineHighlighted;
-  kDebug (13020) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
-  kDebug (13020) << "TIME TAKEN: " << t.elapsed();
+  qCDebug(LOG_PART) << "HIGHLIGHTED END --- NEED HL, LINESTART: " << startLine << " LINEEND: " << endLine;
+  qCDebug(LOG_PART) << "HL UNTIL LINE: " << m_lineHighlighted;
+  qCDebug(LOG_PART) << "HL DYN COUNT: " << KateHlManager::self()->countDynamicCtxs() << " MAX: " << m_maxDynamicContexts;
+  qCDebug(LOG_PART) << "TIME TAKEN: " << t.elapsed();
 #endif
 }
 

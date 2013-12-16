@@ -40,6 +40,7 @@
 
 #include "kateglobal.h"
 #include "katecmd.h"
+#include "katepartdebug.h"
 
 KateScriptManager* KateScriptManager::m_instance = 0;
 
@@ -66,7 +67,7 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
     // don't overwrite if there is already a result with a higher priority
     if(highestPriorityIndenter && indenter->indentHeader().priority() < highestPriorityIndenter->indentHeader().priority()) {
 #ifdef DEBUG_SCRIPTMANAGER
-      kDebug(13050) << "Not overwriting indenter for"
+      qCDebug(LOG_PART) << "Not overwriting indenter for"
                     << language << "as the priority isn't big enough (" <<
                     indenter->indentHeader().priority() << '<'
                     << highestPriorityIndenter->indentHeader().priority() << ')';
@@ -79,9 +80,9 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
 
 #ifdef DEBUG_SCRIPTMANAGER
   if(highestPriorityIndenter) {
-    kDebug(13050) << "Found indenter" << highestPriorityIndenter->url() << "for" << language;
+    qCDebug(LOG_PART) << "Found indenter" << highestPriorityIndenter->url() << "for" << language;
   } else {
-    kDebug(13050) << "No indenter for" << language;
+    qCDebug(LOG_PART) << "No indenter for" << language;
   }
 #endif
 
@@ -190,7 +191,7 @@ void KateScriptManager::collect(bool force)
           indentHeader.setName(pairs.take("name"));
           indentHeader.setBaseName(baseName);
           if (indentHeader.name().isNull()) {
-            kDebug( 13050 ) << "Script value error: No name specified in script meta data: "
+            qCDebug(LOG_PART) << "Script value error: No name specified in script meta data: "
                   << qPrintable(fileName) << '\n' << "-> skipping indenter" << '\n';
             continue;
           }
@@ -206,7 +207,7 @@ void KateScriptManager::collect(bool force)
             indentHeader.setIndentLanguages(QStringList() << indentHeader.name());
 
   #ifdef DEBUG_SCRIPTMANAGER
-            kDebug( 13050 ) << "Script value warning: No indent-languages specified for indent "
+            qCDebug(LOG_PART) << "Script value warning: No indent-languages specified for indent "
                       << "script " << qPrintable(fileName) << ". Using the name ("
                       << qPrintable(indentHeader.name()) << ")\n";
   #endif
@@ -217,7 +218,7 @@ void KateScriptManager::collect(bool force)
 
   #ifdef DEBUG_SCRIPTMANAGER
           if(!convertedToInt) {
-            kDebug( 13050 ) << "Script value warning: Unexpected or no priority value "
+            qCDebug(LOG_PART) << "Script value warning: Unexpected or no priority value "
                       << "in: " << qPrintable(fileName) << ". Setting priority to 0\n";
           }
   #endif
@@ -237,7 +238,7 @@ void KateScriptManager::collect(bool force)
           KateCommandLineScriptHeader commandHeader;
           commandHeader.setFunctions(pairs.take("functions").split(QRegExp("\\s*,\\s*"), QString::SkipEmptyParts));
           if (commandHeader.functions().isEmpty()) {
-            kDebug(13050) << "Script value error: No functions specified in script meta data: "
+            qCDebug(LOG_PART) << "Script value error: No functions specified in script meta data: "
                           << qPrintable(fileName) << '\n' << "-> skipping script" << '\n';
             continue;
           }
@@ -248,7 +249,7 @@ void KateScriptManager::collect(bool force)
         }
         case Kate::UnknownScript:
         default:
-          kDebug( 13050 ) << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
+          qCDebug(LOG_PART) << "Script value warning: Unknown type ('" << qPrintable(type) << "'): "
                     << qPrintable(fileName) << '\n';
       }
     }
@@ -259,15 +260,15 @@ void KateScriptManager::collect(bool force)
 #ifdef DEBUG_SCRIPTMANAGER
  // XX Test
   if(indenter("Python")) {
-    kDebug( 13050 ) << "Python: " << indenter("Python")->global("triggerCharacters").isValid() << "\n";
-    kDebug( 13050 ) << "Python: " << indenter("Python")->function("triggerCharacters").isValid() << "\n";
-    kDebug( 13050 ) << "Python: " << indenter("Python")->global("blafldsjfklas").isValid() << "\n";
-    kDebug( 13050 ) << "Python: " << indenter("Python")->function("indent").isValid() << "\n";
+    qCDebug(LOG_PART) << "Python: " << indenter("Python")->global("triggerCharacters").isValid() << "\n";
+    qCDebug(LOG_PART) << "Python: " << indenter("Python")->function("triggerCharacters").isValid() << "\n";
+    qCDebug(LOG_PART) << "Python: " << indenter("Python")->global("blafldsjfklas").isValid() << "\n";
+    qCDebug(LOG_PART) << "Python: " << indenter("Python")->function("indent").isValid() << "\n";
   }
   if(indenter("C"))
-    kDebug( 13050 ) << "C: " << qPrintable(indenter("C")->url()) << "\n";
+    qCDebug(LOG_PART) << "C: " << qPrintable(indenter("C")->url()) << "\n";
   if(indenter("lisp"))
-    kDebug( 13050 ) << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
+    qCDebug(LOG_PART) << "LISP: " << qPrintable(indenter("Lisp")->url()) << "\n";
 #endif
 
   cfgFile.sync();
@@ -286,15 +287,15 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
 
   QFile file(url);
   if(!file.open(QIODevice::ReadOnly)) {
-    kDebug( 13050 ) << "Script parse error: Cannot open file " << qPrintable(url) << '\n';
+    qCDebug(LOG_PART) << "Script parse error: Cannot open file " << qPrintable(url) << '\n';
     return false;
   }
 
-  kDebug(13050) << "Update script: " << url;
+  qCDebug(LOG_PART) << "Update script: " << url;
   QTextStream ts(&file);
   ts.setCodec("UTF-8");
   if(!ts.readLine().contains("kate-script")) {
-    kDebug( 13050 ) << "Script parse error: No header found in " << qPrintable(url) << '\n';
+    qCDebug(LOG_PART) << "Script parse error: No header found in " << qPrintable(url) << '\n';
     file.close();
     return false;
   }
@@ -315,7 +316,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
     pairs[key] = value;
 
 #ifdef DEBUG_SCRIPTMANAGER
-    kDebug(13050) << "KateScriptManager::parseMetaInformation: found pair: "
+    qCDebug(LOG_PART) << "KateScriptManager::parseMetaInformation: found pair: "
                   << "(" << key << " | " << value << ")";
 #endif
   }
@@ -403,7 +404,7 @@ void KateScriptManager::slotTemplateScriptOwnerDestroyed(QObject* owner)
 {
   while (m_ownerScript.contains(owner)) {
     KTextEditor::TemplateScript* templateScript = m_ownerScript.take(owner);
-    kDebug() << "Destroying template script" << templateScript;
+    qCDebug(LOG_PART) << "Destroying template script" << templateScript;
     m_templateScripts.removeAll(templateScript);
     delete templateScript;
   }

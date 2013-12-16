@@ -34,7 +34,7 @@
 #include <QtCore/QObject>
 #include <QtCore/QList>
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 class KATEPART_TESTS_EXPORT KateWordCompletionModel : public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface4
 {

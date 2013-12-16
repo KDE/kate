@@ -39,12 +39,11 @@
 #include <kconfiggroup.h>
 #include <kglobal.h>
 #include <kcomponentdata.h>
-#include <kmimetype.h>
 #include <klocale.h>
 #include <kmenu.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kapplication.h>

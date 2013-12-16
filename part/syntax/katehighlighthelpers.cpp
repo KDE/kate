@@ -31,6 +31,7 @@
 #include "kateschema.h"
 #include "kateconfig.h"
 #include "kateextendedattribute.h"
+#include "katepartdebug.h"
 
 #include <QtCore/QSet>
 //END
@@ -675,7 +676,7 @@ KateHlItem *KateHlRegExpr::clone(const QStringList *args)
   if (regexp == _regexp)
     return this;
 
-  // kDebug (13010) << "clone regexp: " << regexp;
+  // qCDebug(LOG_PART) << "clone regexp: " << regexp;
 
   KateHlRegExpr *ret = new KateHlRegExpr(attr, ctx, region, region2, regexp, _insensitive, _minimal);
   ret->dynamicChild = true;
@@ -838,7 +839,7 @@ KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContext
   noIndentationBasedFolding=_noIndentationBasedFolding;
   emptyLineContext = _emptyLineContext;
   emptyLineContextModification = _emptyLineContextModification;
-  if (_noIndentationBasedFolding) kDebug(13010)<<QString("**********************_noIndentationBasedFolding is TRUE*****************");
+  if (_noIndentationBasedFolding) qCDebug(LOG_PART)<<QString("**********************_noIndentationBasedFolding is TRUE*****************");
 
 }
 

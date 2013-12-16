@@ -57,7 +57,7 @@
 #include <kvbox.h>
 #include <QtWidgets/QCheckBox>
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 //END
 
 /// Amount of characters the document may have to enable automatic invocation (1MB)
@@ -382,7 +382,7 @@ void KateWordCompletionView::completeForwards()
 // Pop up the editors completion list if applicable
 void KateWordCompletionView::popupCompletionList()
 {
-  kDebug( 13040 ) << "entered ...";
+  qCDebug(LOG_PART) << "entered ...";
   KTextEditor::Range r = range();
 
   KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>( m_view );
@@ -391,7 +391,7 @@ void KateWordCompletionView::popupCompletionList()
 
   m_dWCompletionModel->saveMatches( m_view, r );
 
-  kDebug( 13040 ) << "after save matches ...";
+  qCDebug(LOG_PART) << "after save matches ...";
 
   if ( ! m_dWCompletionModel->rowCount(QModelIndex()) ) return;
 
@@ -433,7 +433,7 @@ void KateWordCompletionView::complete( bool fw )
 
   if ( d->dcRange.isValid() )
   {
-    //kDebug( 13040 )<<"CONTINUE "<<d->dcRange;
+    //qCDebug(LOG_PART)<<"CONTINUE "<<d->dcRange;
     // this is a repeted activation
 
     // if we are back to where we started, reset.
@@ -460,7 +460,7 @@ void KateWordCompletionView::complete( bool fw )
   }
   else // new completion, reset all
   {
-    //kDebug( 13040 )<<"RESET FOR NEW";
+    //qCDebug(LOG_PART)<<"RESET FOR NEW";
     d->dcRange = r;
     d->liRange->setRange( KTextEditor::Range::invalid() );
     d->dcCursor = r.start();
@@ -478,14 +478,14 @@ void KateWordCompletionView::complete( bool fw )
 
   while ( true )
   {
-    //kDebug( 13040 )<<"SEARCHING FOR "<<d->re.pattern()<<" "<<ln<<" at "<<d->dcCursor;
+    //qCDebug(LOG_PART)<<"SEARCHING FOR "<<d->re.pattern()<<" "<<ln<<" at "<<d->dcCursor;
     pos = fw ?
       d->re.indexIn( ln, d->dcCursor.column() ) :
       d->re.lastIndexIn( ln, d->dcCursor.column() );
 
     if ( pos > -1 ) // we matched a word
     {
-      //kDebug( 13040 )<<"USABLE MATCH";
+      //qCDebug(LOG_PART)<<"USABLE MATCH";
       QString m = d->re.cap( 1 );
       if ( m != doc->text( *d->liRange ) && (d->dcCursor.line() != d->dcRange.start().line() || pos != d->dcRange.start().column() ) )
       {
@@ -507,7 +507,7 @@ void KateWordCompletionView::complete( bool fw )
       // equal to last one, continue
       else
       {
-        //kDebug( 13040 )<<"SKIPPING, EQUAL MATCH";
+        //qCDebug(LOG_PART)<<"SKIPPING, EQUAL MATCH";
         d->dcCursor.setColumn( pos ); // for next try
 
         if ( fw )
@@ -538,7 +538,7 @@ void KateWordCompletionView::complete( bool fw )
 
     else  // no match
     {
-      //kDebug( 13040 )<<"NO MATCH";
+      //qCDebug(LOG_PART)<<"NO MATCH";
       if ( (! fw && d->dcCursor.line() == 0 ) || ( fw && d->dcCursor.line() >= doc->lines() ) )
       {
         KNotification::beep();

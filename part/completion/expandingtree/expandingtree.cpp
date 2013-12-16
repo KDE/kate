@@ -24,7 +24,7 @@
 #include <QTextDocument>
 #include <QAbstractTextDocumentLayout>
 #include <QPainter>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include "expandingwidgetmodel.h"
 
 ExpandingTree::ExpandingTree(QWidget* parent) : QTreeView(parent) {

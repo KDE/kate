@@ -45,7 +45,7 @@
 
 #include <ktexteditor/movingrange.h>
 #include <kcursor.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kapplication.h>
 #include <kglobalsettings.h>
 
@@ -303,7 +303,7 @@ KTextEditor::Cursor KateViewInternal::endPos() const
     return KTextEditor::Cursor(thisLine.virtualLine(), thisLine.wrap() ? thisLine.endCol() - 1 : thisLine.endCol());
   }
 
-  kDebug(13030) << "WARNING: could not find a lineRange at all";
+  qCDebug(LOG_PART) << "WARNING: could not find a lineRange at all";
   return KTextEditor::Cursor(-1, -1);
 }
 
@@ -619,10 +619,10 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
  */
 void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bool force, bool center, bool calledExternally)
 {
-  //kDebug(13030) << "MakeVisible start " << startPos() << " end " << endPos() << " -> request: " << c;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height();
+  //qCDebug(LOG_PART) << "MakeVisible start " << startPos() << " end " << endPos() << " -> request: " << c;// , new start [" << scroll.line << "," << scroll.col << "] lines " << (linesDisplayed() - 1) << " height " << height();
     // if the line is in a folded region, unfold all the way up
     //if ( doc()->foldingTree()->findNodeForLine( c.line )->visible )
-    //  kDebug(13030)<<"line ("<<c.line<<") should be visible";
+    //  qCDebug(LOG_PART)<<"line ("<<c.line<<") should be visible";
 
   if ( force )
   {
@@ -683,7 +683,7 @@ void KateViewInternal::makeVisible (const KTextEditor::Cursor& c, int endCol, bo
 
 void KateViewInternal::slotRegionVisibilityChanged()
 {
-  kDebug(13030);
+  qCDebug(LOG_PART);
   cache()->clear();
 
   m_cachedMaxStartPos.setLine(-1);
@@ -709,7 +709,7 @@ void KateViewInternal::slotRegionVisibilityChanged()
 
 void KateViewInternal::slotRegionBeginEndAddedRemoved(unsigned int)
 {
-  kDebug(13030);
+  qCDebug(LOG_PART);
   // FIXME: performance problem
   m_leftBorder->update();
 }
@@ -749,7 +749,7 @@ QPoint KateViewInternal::cursorToCoordinate( const KTextEditor::Cursor & cursor,
   if (layout.isValid())
     x = (int)layout.lineLayout().cursorToX(cursor.column());
 //  else
-//    kDebug() << "Invalid Layout";
+//    qCDebug(LOG_PART) << "Invalid Layout";
 
   if (includeBorder) x += m_leftBorder->width();
 
@@ -957,7 +957,7 @@ public:
   virtual CalculatingCursor& operator+=( int n ) {
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
     if (!thisLine->isValid()) {
-      kWarning() << "Did not retrieve valid layout for line " << line();
+      qCWarning(LOG_PART) << "Did not retrieve valid layout for line " << line();
       return *this;
     }
 
@@ -1020,7 +1020,7 @@ public:
   virtual CalculatingCursor& operator+=( int n ) {
     KateLineLayoutPtr thisLine = m_vi->cache()->line(line());
     if (!thisLine->isValid()) {
-      kWarning() << "Did not retrieve a valid layout for line " << line();
+      qCWarning(LOG_PART) << "Did not retrieve a valid layout for line " << line();
       return *this;
     }
 
@@ -1039,7 +1039,7 @@ public:
           // Retrieve the next text range
           thisLine = m_vi->cache()->line(line());
           if (!thisLine->isValid()) {
-            kWarning() << "Did not retrieve a valid layout for line " << line();
+            qCWarning(LOG_PART) << "Did not retrieve a valid layout for line " << line();
             return *this;
           }
 
@@ -1062,7 +1062,7 @@ public:
           // Retrieve the next text range
           thisLine = m_vi->cache()->line(line());
           if (!thisLine->isValid()) {
-            kWarning() << "Did not retrieve a valid layout for line " << line();
+            qCWarning(LOG_PART) << "Did not retrieve a valid layout for line " << line();
             return *this;
           }
 
@@ -1931,8 +1931,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
   else
     m_preservedX = renderer()->cursorToX(cache()->textLayout(m_cursor), m_cursor, !m_view->wrapCursor());
 
-  //kDebug(13030) << "m_preservedX: " << m_preservedX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX;
-  //kDebug(13030) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << m_displayCursor.line << ", " << m_displayCursor.col << "; Top is " << startLine() << ", " << startPos().col;
+  //qCDebug(LOG_PART) << "m_preservedX: " << m_preservedX << " (was "<< oldmaxx << "), m_cursorX: " << m_cursorX;
+  //qCDebug(LOG_PART) << "Cursor now located at real " << cursor.line << "," << cursor.col << ", virtual " << m_displayCursor.line << ", " << m_displayCursor.col << "; Top is " << startLine() << ", " << startPos().col;
 
   cursorMoved();
 
@@ -2036,7 +2036,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
   {
     cache()->relayoutLines(start.line(), end.line());
 
-    //kDebug(13030)<<"realLines is true";
+    //qCDebug(LOG_PART)<<"realLines is true";
     start = toVirtualCursor(start);
     end = toVirtualCursor(end);
 
@@ -2046,20 +2046,20 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
 
   if (end.line() < startLine())
   {
-    //kDebug(13030)<<"end<startLine";
+    //qCDebug(LOG_PART)<<"end<startLine";
     return false;
   }
   // Used to be > endLine(), but cache may not be valid when checking, so use a
   // less optimal but still adequate approximation (potential overestimation but minimal performance difference)
   if (start.line() > startLine() + cache()->viewCacheLineCount())
   {
-    //kDebug(13030)<<"start> endLine"<<start<<" "<<(endLine());
+    //qCDebug(LOG_PART)<<"start> endLine"<<start<<" "<<(endLine());
     return false;
   }
 
   cache()->updateViewCache(startPos());
 
-  //kDebug(13030) << "tagLines( [" << start << "], [" << end << "] )";
+  //qCDebug(LOG_PART) << "tagLines( [" << start << "], [" << end << "] )";
 
   bool ret = false;
 
@@ -2070,7 +2070,7 @@ bool KateViewInternal::tagLines(KTextEditor::Cursor start, KTextEditor::Cursor e
         (line.virtualLine() < end.line() || (line.virtualLine() == end.line() && (line.startCol() <= end.column() || end.column() == -1)))) {
       ret = true;
       break;
-      //kDebug(13030) << "Tagged line " << line.line();
+      //qCDebug(LOG_PART) << "Tagged line " << line.line();
     }
   }
 
@@ -2211,12 +2211,12 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
         if (m_view->isCompletionActive()) {
           m_view->abortCompletion();
           k->accept();
-          //kDebug() << obj << "shortcut override" << k->key() << "aborting completion";
+          //qCDebug(LOG_PART) << obj << "shortcut override" << k->key() << "aborting completion";
           return true;
         } else if (m_view->bottomViewBar()->isVisible()) {
           m_view->bottomViewBar()->hideCurrentBarWidget();
           k->accept();
-          //kDebug() << obj << "shortcut override" << k->key() << "closing view bar";
+          //qCDebug(LOG_PART) << obj << "shortcut override" << k->key() << "closing view bar";
           return true;
         } else if (!m_view->config()->persistentSelection() && m_view->selection()) {
           if (!m_view->viInputMode()) // Vim mode handles clearing selections itself.
@@ -2224,7 +2224,7 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
             m_view->clearSelection();
           }
           k->accept();
-          //kDebug() << obj << "shortcut override" << k->key() << "clearing selection";
+          //qCDebug(LOG_PART) << obj << "shortcut override" << k->key() << "clearing selection";
           return true;
         }
       }
@@ -2246,12 +2246,12 @@ bool KateViewInternal::eventFilter( QObject *obj, QEvent *e )
       if (obj == this && (!k->modifiers() || k->modifiers() == Qt::ShiftModifier)) {
         keyPressEvent( k );
         if (k->isAccepted()) {
-          //kDebug() << obj << "shortcut override" << k->key() << "using keystroke";
+          //qCDebug(LOG_PART) << obj << "shortcut override" << k->key() << "using keystroke";
           return true;
         }
       }
 
-      //kDebug() << obj << "shortcut override" << k->key() << "ignoring";
+      //qCDebug(LOG_PART) << obj << "shortcut override" << k->key() << "ignoring";
     } break;
 
     case QEvent::DragMove:
@@ -2931,7 +2931,7 @@ void KateViewInternal::updateDirty( )
     updateRegion += QRect(0, currentRectStart, width(), currentRectEnd);
 
   if (!updateRegion.isEmpty()) {
-    if (debugPainting) kDebug( 13030 ) << k_funcinfo << "Update dirty region " << updateRegion;
+    if (debugPainting) qCDebug(LOG_PART) << "Update dirty region " << updateRegion;
     update(updateRegion);
   }
 }
@@ -2945,7 +2945,7 @@ void KateViewInternal::hideEvent(QHideEvent* e)
 
 void KateViewInternal::paintEvent(QPaintEvent *e)
 {
-  if (debugPainting) kDebug (13030) << "GOT PAINT EVENT: Region" << e->region();
+  if (debugPainting) qCDebug(LOG_PART) << "GOT PAINT EVENT: Region" << e->region();
 
   const QRect& unionRect = e->rect();
 
@@ -2982,7 +2982,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
     }
     else
     {
-      //kDebug( 13030 )<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z;
+      //qCDebug(LOG_PART)<<"KateViewInternal::paintEvent(QPaintEvent *e):cache()->viewLine"<<z;
       KateTextLayout& thisLine = cache()->viewLine(z);
 
       /* If viewLine() returns non-zero, then a document line was split
@@ -2998,7 +2998,7 @@ void KateViewInternal::paintEvent(QPaintEvent *e)
         if (!e->region().contains(QRect(unionRect.x(), startz * h, unionRect.width(), h)))
           continue;
 
-        //kDebug (13030) << "paint text: line: " << thisLine.line() << " viewLine " << thisLine.viewLine() << " x: " << unionRect.x() << " y: " << sy
+        //qCDebug(LOG_PART) << "paint text: line: " << thisLine.line() << " viewLine " << thisLine.viewLine() << " x: " << unionRect.x() << " y: " << sy
         //  << " width: " << xEnd-xStart << " height: " << h << endl;
 
         if (thisLine.viewLine())
@@ -3119,7 +3119,7 @@ void KateViewInternal::textHintTimeout ()
   emit m_view->needTextHint(m_view, c, tmp);
 
   if (!tmp.isEmpty()) {
-    kDebug(13030) << "Hint text: " << tmp;
+    qCDebug(LOG_PART) << "Hint text: " << tmp;
     QPoint pos(startX() + m_textHintPos.x(), m_textHintPos.y());
     QToolTip::showText(mapToGlobal(pos), tmp);
   }
@@ -3255,7 +3255,7 @@ void KateViewInternal::dropEvent( QDropEvent* event )
     }
 
     KTextEditor::Cursor endCursor(endCursor1);
-    kDebug( 13030 )<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
+    qCDebug(LOG_PART)<<startCursor<<"---("<<text.length()<<")---"<<endCursor;
     setSelection(KTextEditor::Range(startCursor,endCursor));
     editSetCursor(endCursor);
 
@@ -3367,7 +3367,7 @@ void KateViewInternal::enableTextHints(int timeout)
     m_textHintEnabled = true;
     m_textHintTimer.start(timeout);
   } else {
-    kWarning() << "Attempt to enable text hints with negative timeout:" << timeout;
+    qCWarning(LOG_PART) << "Attempt to enable text hints with negative timeout:" << timeout;
   }
 }
 
@@ -3580,7 +3580,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     return;
   }
 
-  //kDebug( 13030 ) << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
+  //qCDebug(LOG_PART) << "Event: cursor" << m_cursor << "commit" << e->commitString() << "preedit" << e->preeditString() << "replacement start" << e->replacementStart() << "length" << e->replacementLength();
 
   if (!m_imPreeditRange) {
     m_imPreeditRange = doc()->newMovingRange (KTextEditor::Range(m_cursor, m_cursor), KTextEditor::MovingRange::ExpandLeft | KTextEditor::MovingRange::ExpandRight);

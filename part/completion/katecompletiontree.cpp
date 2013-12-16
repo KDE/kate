@@ -31,6 +31,7 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
+#include "katepartdebug.h"
 
 #include "katecompletionwidget.h"
 #include "katecompletiondelegate.h"
@@ -146,7 +147,7 @@ void KateCompletionTree::resizeColumns(bool firstShow, bool forceResize)
   
   while( current.isValid() && currentYPos < height() )
   {
-//     kDebug() << current.row() << "out of" << model()->rowCount(current.parent()) << "in" << current.parent().data(Qt::DisplayRole);
+//     qCDebug(LOG_PART) << current.row() << "out of" << model()->rowCount(current.parent()) << "in" << current.parent().data(Qt::DisplayRole);
     currentYPos += sizeHintForIndex(current).height();
 //     itemDelegate()->sizeHint(QStyleOptionViewItem(), current).isValid() && itemDelegate()->sizeHint(QStyleOptionViewItem(), current).intersects(visibleViewportRect)
     changed = true;
@@ -154,11 +155,11 @@ void KateCompletionTree::resizeColumns(bool firstShow, bool forceResize)
     for( int a = 0; a < numColumns; a++ )
     {
       QSize s = sizeHintForIndex (current.sibling(current.row(), a));
-//       kDebug() << "size-hint for" << current.row() << a << ":" << s << current.sibling(current.row(), a).data(Qt::DisplayRole);
+//       qCDebug(LOG_PART) << "size-hint for" << current.row() << a << ":" << s << current.sibling(current.row(), a).data(Qt::DisplayRole);
       if( s.width() > columnSize[a] && s.width() < 2000 )
         columnSize[a] = s.width();
       else if( s.width() > 2000 )
-        kDebug( 13035 ) << "got invalid size-hint of width " << s.width();
+        qCDebug(LOG_PART) << "got invalid size-hint of width " << s.width();
     }
 
     QModelIndex oldCurrent = current;
@@ -232,7 +233,7 @@ void KateCompletionTree::resizeColumns(bool firstShow, bool forceResize)
       for( int n = 0; n < numColumns; n++ ) {
         setColumnWidth(n, columnSize[n]);
       }
-//       kDebug() << "resizing viewport to" << totalColumnsWidth;
+//       qCDebug(LOG_PART) << "resizing viewport to" << totalColumnsWidth;
       viewport()->resize( totalColumnsWidth, viewport()->height() );
     }
   }
@@ -252,7 +253,7 @@ void KateCompletionTree::resizeColumns(bool firstShow, bool forceResize)
     
   if(maximumResize > 0 || forceResize || oldIndentWidth != newIndentWidth) {
   
-    //   kDebug() << geometry() << "newWidth" << newWidth << "current width" << width() << "target width" << newWidth + scrollBarWidth;
+    //   qCDebug(LOG_PART) << geometry() << "newWidth" << newWidth << "current width" << width() << "target width" << newWidth + scrollBarWidth;
     
     if((newWidth + scrollBarWidth) != width() && originalViewportWidth != totalColumnsWidth)
     {
@@ -260,13 +261,13 @@ void KateCompletionTree::resizeColumns(bool firstShow, bool forceResize)
         resize(newWidth + scrollBarWidth, widget()->height()- (2*widget()->frameWidth()));
     }
     
-    //   kDebug() << "created geometry:" << widget()->geometry() << geometry() << "newWidth" << newWidth << "viewport" << viewport()->width();
+    //   qCDebug(LOG_PART) << "created geometry:" << widget()->geometry() << geometry() << "newWidth" << newWidth << "viewport" << viewport()->width();
     
     if( viewport()->width() > totalColumnsWidth ) //Set the size of the last column to fill the whole rest of the widget
     setColumnWidth(numColumns-1, viewport()->width() - columnViewportPosition(numColumns-1));
     
     /*  for(int a = 0; a < numColumns; ++a)
-        kDebug() << "column" << a << columnWidth(a) << "target:" << columnSize[a];*/
+        qCDebug(LOG_PART) << "column" << a << columnWidth(a) << "target:" << columnSize[a];*/
     
     if (oldIndentWidth != newIndentWidth)
         if(widget()->updatePosition() && !forceResize) {

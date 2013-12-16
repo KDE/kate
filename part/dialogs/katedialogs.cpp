@@ -71,7 +71,7 @@
 #include <kcolordialog.h>
 #include <kcombobox.h>
 #include <kconfig.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kfontdialog.h>
 #include <kglobal.h>
 #include <kglobalsettings.h>
@@ -141,7 +141,7 @@ void KateConfigPage::slotChanged()
 void KateConfigPage::somethingHasChanged ()
 {
   m_changed = true;
-  kDebug (13000) << "TEST: something changed on the config page: " << this;
+  qCDebug(LOG_PART) << "TEST: something changed on the config page: " << this;
 }
 //END KateConfigPage
 
@@ -1226,9 +1226,9 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
   }
 
   listData+=QString(data);
-  kDebug(13000)<<QString("CurrentListData: ")<<listData;
-  kDebug(13000)<<QString("Data length: %1").arg(data.size());
-  kDebug(13000)<<QString("listData length: %1").arg(listData.length());
+  qCDebug(LOG_PART)<<QString("CurrentListData: ")<<listData;
+  qCDebug(LOG_PART)<<QString("Data length: %1").arg(data.size());
+  qCDebug(LOG_PART)<<QString("listData length: %1").arg(listData.length());
   if (data.size()==0)
   {
     if (listData.length()>0)
@@ -1241,14 +1241,14 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
       QDomNode n=DocElem.firstChild();
       KateHighlighting *hl = 0;
 
-      if (n.isNull()) kDebug(13000)<<"There is no usable childnode";
+      if (n.isNull()) qCDebug(LOG_PART)<<"There is no usable childnode";
       while (!n.isNull())
       {
         installedVersion="    --";
 
         QDomElement e=n.toElement();
         if (!e.isNull())
-        kDebug(13000)<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name");
+        qCDebug(LOG_PART)<<QString("NAME: ")<<e.tagName()<<QString(" - ")<<e.attribute("name");
         n=n.nextSibling();
 
         QString Name=e.attribute("name");

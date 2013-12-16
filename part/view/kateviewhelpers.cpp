@@ -46,7 +46,7 @@
 #include <kcharsets.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <klocalizedstring.h>
@@ -356,8 +356,8 @@ void KateScrollBar::updatePixmap()
 
   int pixmapLineWidth = s_pixelMargin + s_lineWidth/charIncrement;
 
-  //kDebug(13040) << "l" << lineIncrement << "c" << charIncrement << "d" << lineDivisor;
-  //kDebug(13040) << "pixmap" << pixmapLineCount << pixmapLineWidth << "docLines" << m_view->textFolding().visibleLines() << "height" << m_grooveHeight;
+  //qCDebug(LOG_PART) << "l" << lineIncrement << "c" << charIncrement << "d" << lineDivisor;
+  //qCDebug(LOG_PART) << "pixmap" << pixmapLineCount << pixmapLineWidth << "docLines" << m_view->textFolding().visibleLines() << "height" << m_grooveHeight;
 
   QColor backgroundColor;
   QColor defaultTextColor;
@@ -453,7 +453,7 @@ void KateScrollBar::updatePixmap()
       }
 
     }
-    //kDebug(13040) << drawnLines;
+    //qCDebug(LOG_PART) << drawnLines;
     // Draw line modification marker map.
     // Disable this if the document is really huge,
     // since it requires querying every line.
@@ -474,7 +474,7 @@ void KateScrollBar::updatePixmap()
       }
     }
   }
-  //kDebug(13040) << time.elapsed();
+  //qCDebug(LOG_PART) << time.elapsed();
   // Redraw the scrollbar widget with the updated pixmap.
   update();
 }
@@ -1134,11 +1134,11 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
         m_command = KateCmd::self()->queryCommand( text().trimmed() );
         if ( m_command )
         {
-          //kDebug(13025)<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'";
+          //qCDebug(LOG_PART)<<"keypress in commandline: We have a command! "<<m_command<<". text is '"<<text()<<"'";
           // if the typed character is ":",
           // we try if the command has flag completions
           m_cmdend = cursorpos;
-          //kDebug(13025)<<"keypress in commandline: Set m_cmdend to "<<m_cmdend;
+          //qCDebug(LOG_PART)<<"keypress in commandline: Set m_cmdend to "<<m_cmdend;
         }
         else
           m_cmdend = 0;
@@ -1146,11 +1146,11 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
     }
     else // since cursor is inside the command name, we reconsider it
     {
-      kDebug(13025)<<"keypress in commandline: \\W -- text is "<<text();
+      qCDebug(LOG_PART)<<"keypress in commandline: \\W -- text is "<<text();
       m_command = KateCmd::self()->queryCommand( text().trimmed() );
       if ( m_command )
       {
-        //kDebug(13025)<<"keypress in commandline: We have a command! "<<m_command;
+        //qCDebug(LOG_PART)<<"keypress in commandline: We have a command! "<<m_command;
         QString t = text();
         m_cmdend = 0;
         bool b = false;
@@ -1165,7 +1165,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
         if ( c == ':' && cursorpos == m_cmdend )
         {
           // check if this command wants to complete flags
-          //kDebug(13025)<<"keypress in commandline: Checking if flag completion is desired!";
+          //qCDebug(LOG_PART)<<"keypress in commandline: Checking if flag completion is desired!";
         }
       }
       else
@@ -1185,7 +1185,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
     // if we got a command, check if it wants to do something.
     if ( m_command )
     {
-      //kDebug(13025)<<"Checking for CommandExtension..";
+      //qCDebug(LOG_PART)<<"Checking for CommandExtension..";
       KTextEditor::CommandExtension *ce = dynamic_cast<KTextEditor::CommandExtension*>(m_command);
       if ( ce )
       {
@@ -1194,7 +1194,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
         {
         // We need to prepend the current command name + flag string
         // when completion is done
-          //kDebug(13025)<<"keypress in commandline: Setting completion object!";
+          //qCDebug(LOG_PART)<<"keypress in commandline: Setting completion object!";
 
           setCompletionObject( cmpl );
         }
@@ -1877,7 +1877,7 @@ void KateIconBorder::showBlock()
   }
 
   if (newRange.isValid()) {
-    kDebug(13025) << "new folding hl-range:" << newRange;
+    qCDebug(LOG_PART) << "new folding hl-range:" << newRange;
     m_foldingRange = m_doc->newMovingRange(newRange, KTextEditor::MovingRange::ExpandRight);
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
@@ -2308,7 +2308,7 @@ int KateViewEncodingAction::mibForName(const QString &codecName, bool *ok) const
   if (success)
     return mib;
 
-  kWarning() << "Invalid codec name: "  << codecName;
+  qCWarning(LOG_PART) << "Invalid codec name: "  << codecName;
   return MIB_DEFAULT;
 }
 
@@ -2426,7 +2426,7 @@ KateViewBar::KateViewBar (bool external,KTextEditor::ViewBarContainer::Position 
 void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
 {
   if (hasBarWidget(newBarWidget)) {
-    kDebug(13025) << "this bar widget is already added";
+    qCDebug(LOG_PART) << "this bar widget is already added";
     return;
   }
   // add new widget, invisible...
@@ -2435,7 +2435,7 @@ void KateViewBar::addBarWidget (KateViewBarWidget *newBarWidget)
   newBarWidget->setAssociatedViewBar(this);
   connect(newBarWidget, SIGNAL(hideMe()), SLOT(hideCurrentBarWidget()));
 
-  kDebug(13025)<<"add barwidget " << newBarWidget;
+  qCDebug(LOG_PART)<<"add barwidget " << newBarWidget;
 }
 
 void KateViewBar::removeBarWidget (KateViewBarWidget *barWidget)
@@ -2466,7 +2466,7 @@ void KateViewBar::addPermanentBarWidget (KateViewBarWidget *barWidget)
 void KateViewBar::removePermanentBarWidget (KateViewBarWidget *barWidget)
 {
   if (m_permanentBarWidget != barWidget) {
-    kDebug(13025) << "no such permanent widget exists in bar";
+    qCDebug(LOG_PART) << "no such permanent widget exists in bar";
     return;
   }
 
@@ -2528,7 +2528,7 @@ void KateViewBar::hideCurrentBarWidget ()
   }
 
   m_view->setFocus();
-  kDebug(13025)<<"hide barwidget";
+  qCDebug(LOG_PART)<<"hide barwidget";
 }
 
 void KateViewBar::setViewBarVisible (bool visible)

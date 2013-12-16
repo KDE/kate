@@ -38,6 +38,7 @@
 #include "kateviewinternal.h"
 #include <ktexteditor/view.h>
 #include "katerenderer.h"
+#include "katepartdebug.h"
 
 using KTextEditor::Cursor;
 using KTextEditor::Range;
@@ -243,7 +244,7 @@ Range KateViModeBase::findPattern(const QString& pattern, bool backwards, bool c
       while (true)
       {
         QVector<Range> matchesUnfiltered = m_view->doc()->searchText(Range(newSearchBegin, m_view->doc()->documentRange().start()), pattern, flags);
-        kDebug(13070) << "matchesUnfiltered: " << matchesUnfiltered << " searchBegin: " << newSearchBegin;
+        qCDebug(LOG_PART) << "matchesUnfiltered: " << matchesUnfiltered << " searchBegin: " << newSearchBegin;
 
         if (matchesUnfiltered.size() == 1 && !matchesUnfiltered.first().isValid())
         {
@@ -304,7 +305,7 @@ Range KateViModeBase::findPattern(const QString& pattern, bool backwards, bool c
 
 KateViRange KateViModeBase::findPatternForMotion( const QString& pattern, bool backwards, bool caseSensitive, const Cursor& startFrom, int count ) const
 {
-  kDebug( 13070 ) << "searching for pattern \"" << pattern << "\", backwards = " << backwards
+  qCDebug(LOG_PART) << "searching for pattern \"" << pattern << "\", backwards = " << backwards
     << ", caseSensitive = " << caseSensitive << ", count = " << count;
   if ( pattern.isEmpty() ) {
     return KateViRange();
@@ -1383,8 +1384,8 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     }
     const int originalNumber = numberAsString.toInt( &parsedNumberSuccessfully, base );
 
-    kDebug( 13070 ) << "base: " << base;
-    kDebug( 13070 ) << "n: " << originalNumber;
+    qCDebug(LOG_PART) << "base: " << base;
+    qCDebug(LOG_PART) << "n: " << originalNumber;
 
     if ( !parsedNumberSuccessfully ) {
         // conversion to int failed. give up.

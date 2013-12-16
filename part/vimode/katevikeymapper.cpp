@@ -21,6 +21,7 @@
 #include "katevikeymapper.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
+#include "katepartdebug.h"
 
 #include <QtCore/QTimer>
 
@@ -46,7 +47,7 @@ void KateViKeyMapper::executeMapping()
   const QString mappedKeypresses = KateGlobal::self()->viInputModeGlobal()->getMapping(KateViGlobal::mappingModeForCurrentViMode(m_view), m_fullMappingMatch);
   if (!KateGlobal::self()->viInputModeGlobal()->isMappingRecursive(KateViGlobal::mappingModeForCurrentViMode(m_view), m_fullMappingMatch))
   {
-    kDebug(13070) << "Non-recursive: " << mappedKeypresses;
+    qCDebug(LOG_PART) << "Non-recursive: " << mappedKeypresses;
     m_doNotExpandFurtherMappings = true;
   }
   m_doc->editBegin();
@@ -72,7 +73,7 @@ void KateViKeyMapper::setMappingTimeout(int timeoutMS)
 
 void KateViKeyMapper::mappingTimerTimeOut()
 {
-  kDebug( 13070 ) << "timeout! key presses: " << m_mappingKeys;
+  qCDebug(LOG_PART) << "timeout! key presses: " << m_mappingKeys;
   if (!m_fullMappingMatch.isNull())
   {
     executeMapping();

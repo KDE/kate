@@ -33,9 +33,8 @@
 #include "ui_filetypeconfigwidget.h"
 
 #include <kconfig.h>
-#include <kmimetype.h>
 #include <kmimetypechooser.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kicon.h>
 #include <knuminput.h>
 #include <klocale.h>

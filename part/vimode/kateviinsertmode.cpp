@@ -30,6 +30,7 @@
 #include "kateglobal.h"
 #include "katevikeyparser.h"
 #include <klocalizedstring.h>
+#include "katepartdebug.h"
 
 using KTextEditor::Cursor;
 
@@ -117,7 +118,7 @@ bool KateViInsertMode::commandDeleteWord()
 
 bool KateViInsertMode::commandDeleteCharBackward()
 {
-    kDebug( 13070 ) << "Char backward!\n";
+    qCDebug(LOG_PART) << "Char backward!\n";
     Cursor c( m_view->cursorPosition() );
 
     KateViRange r( c.line(), c.column()-getCount(), c.line(), c.column(), ViMotion::ExclusiveMotion );
@@ -572,7 +573,7 @@ void KateViInsertMode::setBlockAppendMode( KateViRange blockRange, BlockInsert b
           m_eolPos = doc()->lineLength( m_blockRange.startLine );
         }
     } else {
-        kDebug( 13070 ) << "cursor moved. ignoring block append/prepend";
+        qCDebug(LOG_PART) << "cursor moved. ignoring block append/prepend";
     }
 }
 

@@ -24,8 +24,6 @@
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/cursor.h>
 
-#include <kdebug.h>
-
 #include <QVector>
 
 #include "katescript.h"

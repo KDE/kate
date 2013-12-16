@@ -31,7 +31,7 @@
 #include "katedocument.h"
 
 #include <klocale.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kmenu.h>
 #include <klocalizedstring.h>
 
@@ -140,7 +140,7 @@ QString KateAutoIndent::tabString (int length, int align) const
 
 bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
 {
-  kDebug (13060) << "doIndent: line: " << line << " indentDepth: " << indentDepth << " align: " << align;
+  qCDebug(LOG_PART) << "doIndent: line: " << line << " indentDepth: " << indentDepth << " align: " << align;
 
   Kate::TextLine textline = doc->plainKateTextLine(line);
 
@@ -190,7 +190,7 @@ bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
 
 bool KateAutoIndent::doIndentRelative(int line, int change)
 {
-  kDebug (13060) << "doIndentRelative: line: " << line << " change: " << change;
+  qCDebug(LOG_PART) << "doIndentRelative: line: " << line << " change: " << change;
 
   Kate::TextLine textline = doc->plainKateTextLine(line);
 
@@ -284,7 +284,7 @@ void KateAutoIndent::scriptIndent (KateView *view, const KTextEditor::Cursor &po
   else {
     int align = result.second;
     if (align > 0)
-      kDebug (13060) << "Align: " << align;
+      qCDebug(LOG_PART) << "Align: " << align;
 
     // we got a positive or zero indent to use...
     doIndent (position.line(), newIndentInChars, align);
@@ -332,12 +332,12 @@ void KateAutoIndent::setMode (const QString &name)
       m_script = script;
       m_mode = name;
 
-      kDebug( 13060 ) << "mode: " << name << "accepted";
+      qCDebug(LOG_PART) << "mode: " << name << "accepted";
       return;
     }
     else
     {
-      kWarning( 13060 ) << "mode" << name <<
+      qCWarning(LOG_PART) << "mode" << name <<
         "requires a different highlight style: document style '" << doc->highlightingMode() << "'"
         ", but script require '" << script->indentHeader().requiredStyle() << "'"
         ;
@@ -345,7 +345,7 @@ void KateAutoIndent::setMode (const QString &name)
   }
   else
   {
-    kWarning( 13060 ) << "mode" << name << "does not exist";
+    qCWarning(LOG_PART) << "mode" << name << "does not exist";
   }
 
   // Fall back to normal
@@ -358,7 +358,7 @@ void KateAutoIndent::checkRequiredStyle()
   {
     if (!isStyleProvided(m_script, doc->highlight()))
     {
-      kDebug( 13060 ) << "mode" << m_mode <<
+      qCDebug(LOG_PART) << "mode" << m_mode <<
         "requires a different highlight style: document style '" << doc->highlightingMode() << "'"
         ", but script require '" << m_script->indentHeader().requiredStyle() << "'"
         ;

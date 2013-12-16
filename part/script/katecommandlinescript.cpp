@@ -30,6 +30,7 @@
 #include "kateview.h"
 #include "katecmd.h"
 #include "kshell.h"
+#include "katepartdebug.h"
 
 KateCommandLineScript::KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header)
   : KateScript(url)
@@ -79,7 +80,7 @@ ScriptActionInfo KateCommandLineScript::actionInfo(const QString& cmd)
   clearExceptions();
   QScriptValue actionFunc = function("action");
   if(!actionFunc.isValid()) {
-    kDebug() << i18n("Function 'action' not found in script: %1", url());
+    qCDebug(LOG_PART) << i18n("Function 'action' not found in script: %1", url());
     return ScriptActionInfo();
   }
 
@@ -179,7 +180,7 @@ bool KateCommandLineScript::help(KTextEditor::View* view, const QString& cmd, QS
   }
 
   if (result.isUndefined() || !result.isString()) {
-    kDebug(13050) << i18n("No help specified for command '%1' in script %2", cmd, url());
+    qCDebug(LOG_PART) << i18n("No help specified for command '%1' in script %2", cmd, url());
     return false;
   }
   msg = result.toString();

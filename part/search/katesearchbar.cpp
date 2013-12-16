@@ -51,7 +51,7 @@
 // #define FAST_DEBUG_ENABLE
 
 #ifdef FAST_DEBUG_ENABLE
-# define FAST_DEBUG(x) kDebug() << x
+# define FAST_DEBUG(x) qCDebug(LOG_PART) << x
 #else
 # define FAST_DEBUG(x)
 #endif

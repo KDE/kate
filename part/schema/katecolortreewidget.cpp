@@ -27,7 +27,7 @@
 #include <klocale.h>
 #include <kconfiggroup.h>
 #include <klocalizedstring.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kcolordialog.h>
 #include <kcolorscheme.h>
 #include <kicon.h>

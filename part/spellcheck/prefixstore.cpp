@@ -20,7 +20,7 @@
 
 #include "prefixstore.h"
 
-#include <kdebug.h>
+#include "katepartdebug.h"
 
 #include "katetextline.h"
 
@@ -111,10 +111,10 @@ void KatePrefixStore::dump()
   for(unsigned long long i = 0; i < m_lastAssignedState; ++i) {
     CharToOccurrenceStateHash& hash = m_transitionFunction[i];
     for(CharToOccurrenceStateHash::iterator it = hash.begin(); it != hash.end(); ++it) {
-      kDebug() << i << "x" << QChar(it.key()) << "->" << it.value().first << "x" << it.value().second;
+      qCDebug(LOG_PART) << i << "x" << QChar(it.key()) << "->" << it.value().first << "x" << it.value().second;
     }
   }
-  kDebug() << "Accepting states" << m_acceptingStates;
+  qCDebug(LOG_PART) << "Accepting states" << m_acceptingStates;
 }
 
 QString KatePrefixStore::findPrefix(const QString& s, int start) const
@@ -175,7 +175,7 @@ int KatePrefixStore::computeLongestPrefixLength()
   int toReturn = 0;
   for(QSet<QString>::iterator i = m_prefixSet.begin();
       i != m_prefixSet.end(); ++i) {
-      kDebug() << "length" << (*i).length();
+      qCDebug(LOG_PART) << "length" << (*i).length();
     toReturn = qMax(toReturn, (*i).length());
   }
   return toReturn;

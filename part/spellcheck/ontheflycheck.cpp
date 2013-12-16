@@ -36,8 +36,9 @@
 #include "kateview.h"
 #include "spellcheck.h"
 #include "spellingmenu.h"
+#include "katepartdebug.h"
 
-#define ON_THE_FLY_DEBUG kDebug(debugArea())
+#define ON_THE_FLY_DEBUG qCDebug(LOG_PART)
 
 KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
 : QObject(document),
@@ -75,12 +76,6 @@ KateOnTheFlyChecker::KateOnTheFlyChecker(KateDocument *document)
 KateOnTheFlyChecker::~KateOnTheFlyChecker()
 {
   freeDocument();
-}
-
-int KateOnTheFlyChecker::debugArea()
-{
-  static int s_area = KDebug::registerArea("Kate (On-The-Fly Spellcheck)");
-  return s_area;
 }
 
 QPair<KTextEditor::Range, QString> KateOnTheFlyChecker::getMisspelledItem(const KTextEditor::Cursor &cursor) const

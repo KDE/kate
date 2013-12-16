@@ -66,7 +66,7 @@
 #include <kparts/event.h>
 
 #include <kconfig.h>
-#include <kdebug.h>
+#include "katepartdebug.h"
 #include <kapplication.h>
 #include <kcursor.h>
 #include <kicon.h>
@@ -1164,7 +1164,7 @@ QString KateView::viewMode () const
 
 void KateView::slotGotFocus()
 {
-  //kDebug(13020) << "KateView::slotGotFocus";
+  //qCDebug(LOG_PART) << "KateView::slotGotFocus";
 
   if ( !viInputMode() ) {
     activateEditActions();
@@ -1174,7 +1174,7 @@ void KateView::slotGotFocus()
 
 void KateView::slotLostFocus()
 {
-  //kDebug(13020) << "KateView::slotLostFocus";
+  //qCDebug(LOG_PART) << "KateView::slotLostFocus";
 
   if ( !viInputMode() ) {
     deactivateEditActions();
@@ -1882,7 +1882,7 @@ void KateView::repaintText (bool paintOnlyDirty)
 
 void KateView::updateView (bool changed)
 {
-  //kDebug(13020) << "KateView::updateView";
+  //qCDebug(LOG_PART) << "KateView::updateView";
 
   m_viewInternal->updateView (changed);
   m_viewInternal->m_leftBorder->update();
@@ -2773,7 +2773,7 @@ QMenu *KateView::contextMenu( ) const
     while (client->parentClient())
       client = client->parentClient();
 
-    //kDebug() << "looking up all menu containers";
+    //qCDebug(LOG_PART) << "looking up all menu containers";
     if (client->factory()){
       QList<QWidget*> conts = client->factory()->containers("menu");
       foreach (QWidget *w, conts)
@@ -3023,7 +3023,7 @@ void KateView::notifyAboutRangeChange (int startLine, int endLine, bool rangeWit
 {
 #ifdef VIEW_RANGE_DEBUG
   // output args
-  kDebug() << "trigger attribute changed from" << startLine << "to" << endLine << "rangeWithAttribute" << rangeWithAttribute;
+  qCDebug(LOG_PART) << "trigger attribute changed from" << startLine << "to" << endLine << "rangeWithAttribute" << rangeWithAttribute;
 #endif
 
   // first call:
@@ -3062,7 +3062,7 @@ void KateView::slotDelayedUpdateOfView ()
 
 #ifdef VIEW_RANGE_DEBUG
   // output args
-  kDebug() << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax;
+  qCDebug(LOG_PART) << "delayed attribute changed from" << m_lineToUpdateMin << "to" << m_lineToUpdateMax;
 #endif
 
   // update ranges in
@@ -3142,7 +3142,7 @@ void KateView::updateRangesIn (KTextEditor::Attribute::ActivationType activation
 
 #ifdef VIEW_RANGE_DEBUG
       // found new range for activation
-      kDebug() << "activated new range" << range << "by" << activationType;
+      qCDebug(LOG_PART) << "activated new range" << range << "by" << activationType;
 #endif
     }
   }

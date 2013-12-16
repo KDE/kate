@@ -21,6 +21,7 @@
 #include "kateswapdiffcreator.h"
 #include "kateswapfile.h"
 #include "katedocument.h"
+#include "katepartdebug.h"
 
 #include <kprocess.h>
 #include <kmessagebox.h>
@@ -48,7 +49,7 @@ void SwapDiffCreator::viewDiff()
 
   QFile swp(path);
   if (!swp.open(QIODevice::ReadOnly)) {
-    kWarning( 13020 ) << "Can't open swap file";
+    qCWarning(LOG_PART) << "Can't open swap file";
     return;
   }
 
@@ -58,7 +59,7 @@ void SwapDiffCreator::viewDiff()
   m_diffFile.setSuffix(".diff");
 
   if (!m_originalFile.open() || !m_recoveredFile.open() || !m_diffFile.open()) {
-    kWarning( 13020 ) << "Can't open temporary files needed for diffing";
+    qCWarning(LOG_PART) << "Can't open temporary files needed for diffing";
     return;
   }
 

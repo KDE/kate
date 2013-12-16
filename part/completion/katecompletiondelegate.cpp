@@ -28,6 +28,7 @@
 #include "kateview.h"
 #include "katehighlight.h"
 #include "katerenderrange.h"
+#include "katepartdebug.h"
 
 #include "katecompletionwidget.h"
 #include "katecompletionmodel.h"
@@ -99,7 +100,7 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
         if( index.column() < m_cachedColumnStarts.size() ) {
             m_currentColumnStart = m_cachedColumnStarts[index.column()];
         } else {
-            kWarning() << "Column-count does not match";
+            qCWarning(LOG_PART) << "Column-count does not match";
         }
 
         return m_cachedHighlights;
@@ -126,7 +127,7 @@ QList<QTextLayout::FormatRange> KateCompletionDelegate::createHighlighting(const
 
     Kate::TextLine thisLine = Kate::TextLine (new Kate::TextLineData(lineContent));
 
-    //kDebug( 13035 ) << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]";
+    //qCDebug(LOG_PART) << "About to highlight with mode " << highlightMethod << " text [" << thisLine->string() << "]";
 
     if (highlightMethod & KTextEditor::CodeCompletionModel::InternalHighlighting) {
       Kate::TextLine previousLine;

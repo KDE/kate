@@ -27,7 +27,7 @@
 #include "kateviemulatedcommandbar.h"
 
 #include "kconfiggroup.h"
-#include "kdebug.h"
+#include "katepartdebug.h"
 #include <ktexteditor/movingcursor.h>
 #include <QApplication>
 #include <QClipboard>
@@ -137,9 +137,9 @@ void KateViGlobal::addToNumberedRegister( const QString &text, OperationMode fla
   // register 0 is used for the last yank command, so insert at position 1
   m_numberedRegisters.prepend( KateViRegister(text, flag ) );
 
-  kDebug( 13070 ) << "Register 1-9:";
+  qCDebug(LOG_PART) << "Register 1-9:";
   for ( int i = 0; i < m_numberedRegisters.size(); i++ ) {
-      kDebug( 13070 ) << "\t Register " << i+1 << ": " << m_numberedRegisters.at( i );
+      qCDebug(LOG_PART) << "\t Register " << i+1 << ": " << m_numberedRegisters.at( i );
   }
 }
 
@@ -160,11 +160,11 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text, Operatio
     m_registers.insert( reg, KateViRegister(text, flag) );
   }
 
-  kDebug( 13070 ) << "Register " << reg << " set to " << getRegisterContent( reg );
+  qCDebug(LOG_PART) << "Register " << reg << " set to " << getRegisterContent( reg );
 
   if ( reg == '0' || reg == '1' || reg == '-' ) {
     m_defaultRegister = reg;
-    kDebug( 13070 ) << "Register " << '"' << " set to point to \"" << reg;
+    qCDebug(LOG_PART) << "Register " << '"' << " set to point to \"" << reg;
   }
 }
 
@@ -354,10 +354,10 @@ void KateViGlobal::readMappingsFromConfig(const KConfigGroup& config, const QStr
         recursion = NonRecursive;
       }
       addMapping( mappingMode, keys.at( i ), mappings.at( i ), recursion);
-      kDebug( 13070 ) <<  + " mapping " << keys.at( i ) << " -> " << mappings.at( i );
+      qCDebug(LOG_PART) <<  + " mapping " << keys.at( i ) << " -> " << mappings.at( i );
     }
   } else {
-    kDebug( 13070 ) << "Error when reading mappings from " + mappingModeName + " config: number of keys != number of values";
+    qCDebug(LOG_PART) << "Error when reading mappings from " + mappingModeName + " config: number of keys != number of values";
   }
 }
 
@@ -419,7 +419,7 @@ KateViInputModeManager::Completion KateViGlobal::decodeMacroCompletionFromConfig
   QString completionText = encodedMacroCompletion;
   completionText.replace("(...)", "()").remove("|");
 
-  kDebug(13070) << "Loaded completion: " << completionText << " , " << removeTail << " , " << completionType;
+  qCDebug(LOG_PART) << "Loaded completion: " << completionText << " , " << removeTail << " , " << completionType;
 
   return KateViInputModeManager::Completion(completionText, removeTail, completionType);
 

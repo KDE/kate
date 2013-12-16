@@ -46,7 +46,7 @@ class KATEPART_TESTS_EXPORT  KateViRange
     bool valid;
     bool jump;
     /**
-     * kDebug() stream operator.  Writes this katevirange to the debug output in a nicely formatted way.
+     * qDebug stream operator.  Writes this katevirange to the debug output in a nicely formatted way.
      */
     inline friend QDebug operator<< (QDebug s, const KateViRange& range) {
       s << "[" << " (" << range.startLine << ", " << range.startColumn << ")" << " -> " << " (" << range.endLine << ", " << range.endColumn << ")" << "]" << " (" << (range.isInclusive() ? "Inclusive" : "Exclusive") << ") (jump: " << (range.jump ? "true" : "false") << ")";

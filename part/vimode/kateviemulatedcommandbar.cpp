@@ -28,6 +28,7 @@
 #include "kateconfig.h"
 #include "katecmd.h"
 #include <katecmds.h>
+#include "katepartdebug.h"
 
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QVBoxLayout>
@@ -706,7 +707,7 @@ void KateViEmulatedCommandBar::activateSedReplaceHistoryCompletion()
 
 void KateViEmulatedCommandBar::deactivateCompletion()
 {
-  kDebug(13070) << "Manually dismissing completions";
+  qCDebug(LOG_PART) << "Manually dismissing completions";
   m_completer->popup()->hide();
   m_currentCompletionType = None;
 }
@@ -1159,7 +1160,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       deactivateCompletion();
       if (m_mode == Command)
       {
-        kDebug(13070) << "Executing: " << m_edit->text();
+        qCDebug(LOG_PART) << "Executing: " << m_edit->text();
         QString commandToExecute = m_edit->text();
         ParsedSedExpression parsedSedExpression = parseAsSedExpression();
         qDebug() << "text:\n" << m_edit->text() << "\n is sed replace: " << parsedSedExpression.parsedSuccessfully;
@@ -1172,7 +1173,7 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
           const QString replaceTerm = sedReplaceTerm();
           KateGlobal::self()->viInputModeGlobal()->appendReplaceHistoryItem(replaceTerm);
           commandToExecute = commandWithSedSearchRegexConverted;
-          kDebug(13070) << "Command to execute after replacing search term: "<< commandToExecute;
+          qCDebug(LOG_PART) << "Command to execute after replacing search term: "<< commandToExecute;
         }
 
         const QString commandResponseMessage = executeCommand(commandToExecute);
@@ -1231,7 +1232,7 @@ void KateViEmulatedCommandBar::startInteractiveSearchAndReplace(QSharedPointer< 
     finishInteractiveSedReplace();
     return;
   }
-  kDebug(13070) << "Starting incremental search and replace";
+  qCDebug(LOG_PART) << "Starting incremental search and replace";
   m_commandResponseMessageDisplay->hide();
   m_edit->hide();
   m_barTypeIndicator->hide();

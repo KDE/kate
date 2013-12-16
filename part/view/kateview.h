@@ -36,8 +36,6 @@
 #include <QModelIndex>
 #include <QtWidgets/QMenu>
 
-#include <kdebug.h>
-
 #include "kateviinputmodemanager.h"
 #include "katetextrange.h"
 #include "katetextfolding.h"

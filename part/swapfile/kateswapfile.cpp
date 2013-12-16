@@ -25,6 +25,8 @@
 #include "kateconfig.h"
 #include "kateswapdiffcreator.h"
 #include "kateundomanager.h"
+#include "katepartdebug.h"
+#include "katepartdebug.h"
 
 #include <ktexteditor/view.h>
 
@@ -144,16 +146,16 @@ bool SwapFile::isValidSwapFile(QDataStream& stream, bool checkDigest) const
   stream >> header;
 
   if (header != swapFileVersionString) {
-    kWarning( 13020 ) << "Can't open swap file, wrong version";
+    qCWarning(LOG_PART) << "Can't open swap file, wrong version";
     return false;
   }
 
   // read md5 digest
   QByteArray digest;
   stream >> digest;
-//   kDebug() << "DIGEST:" << digest << m_document->digest();
+//   qCDebug(LOG_PART) << "DIGEST:" << digest << m_document->digest();
   if (checkDigest && digest != m_document->digest()) {
-    kWarning( 13020 ) << "Can't recover from swap file, digest of document has changed";
+    qCWarning(LOG_PART) << "Can't recover from swap file, digest of document has changed";
     return false;
   }
 
@@ -168,13 +170,13 @@ void SwapFile::fileLoaded(const QString&)
 
   if (!m_swapfile.exists())
   {
-    kDebug (13020) << "No swap file";
+    qCDebug(LOG_PART) << "No swap file";
     return;
   }
 
   if (!QFileInfo(m_swapfile).isReadable())
   {
-    kWarning( 13020 ) << "Can't open swap file (missing permissions)";
+    qCWarning(LOG_PART) << "Can't open swap file (missing permissions)";
     return;
   }
 
@@ -188,7 +190,7 @@ void SwapFile::fileLoaded(const QString&)
     }
     peekFile.close();
   } else {
-    kWarning( 13020 ) << "Can't open swap file:" << fileName();
+    qCWarning(LOG_PART) << "Can't open swap file:" << fileName();
     return;
   }
 
@@ -215,7 +217,7 @@ void SwapFile::recover()
   // text even though the recover bar was visible. In this case, a replay of
   // the swap file across wrong document content would happen -> certainly wrong
   if (m_swapfile.isOpen()) {
-    kWarning( 13020 ) << "Attempt to recover an already modified document. Aborting";
+    qCWarning(LOG_PART) << "Attempt to recover an already modified document. Aborting";
     removeSwapFile();
     return;
   }
@@ -223,7 +225,7 @@ void SwapFile::recover()
   // if the file doesn't exist, abort (user might have deleted it, or use two editor instances)
   if (!m_swapfile.open(QIODevice::ReadOnly))
   {
-    kWarning( 13020 ) << "Can't open swap file";
+    qCWarning(LOG_PART) << "Can't open swap file";
     return;
   }
 
@@ -381,7 +383,7 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
         break;
       }
       default: {
-        kWarning( 13020 ) << "Unknown type:" << type;
+        qCWarning(LOG_PART) << "Unknown type:" << type;
       }
     }
   }
@@ -394,7 +396,7 @@ bool SwapFile::recover(QDataStream& stream, bool checkDigest)
 
   // warn the user if the swap file is not complete
   if (brokenSwapFile) {
-    kWarning ( 13020 ) << "Some data might be lost";
+    qCWarning(LOG_PART) << "Some data might be lost";
   } else {
     // set sane final cursor, if possible
     KTextEditor::View * view = m_document->activeView();

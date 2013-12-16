@@ -21,6 +21,7 @@
 
 #include "katedocument.h"
 #include "katemodifiedundo.h"
+#include "katepartdebug.h"
 
 #include <QBitArray>
 
@@ -323,7 +324,7 @@ void KateUndoManager::updateModified()
 
   // This will print out the pattern information
 
-  kDebug() << "Pattern:" << static_cast<unsigned int>(currentPattern);
+  qCDebug(LOG_PART) << "Pattern:" << static_cast<unsigned int>(currentPattern);
 
   for (uint patternIndex = 0; patternIndex < patternCount; ++patternIndex)
   {
@@ -334,7 +335,7 @@ void KateUndoManager::updateModified()
       // (dominik) whenever the doc is not modified, succeeding edits
       // should not be merged
       undoSafePoint();
-      kDebug() << "setting modified to false!";
+      qCDebug(LOG_PART) << "setting modified to false!";
       break;
     }
   }

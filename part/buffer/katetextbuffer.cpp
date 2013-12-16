@@ -27,6 +27,8 @@
 #include "katedocument.h"
 #include "kateview.h"
 
+#include "katepartdebug.h"
+
 // fdatasync
 #include <kde_file.h>
 
@@ -34,9 +36,9 @@
 #include <kdeversion.h>
 
 #if 0
-#define EDIT_DEBUG kDebug()
+#define EDIT_DEBUG qCDebug(LOG_PART)
 #else
-#define EDIT_DEBUG if (0) kDebug()
+#define EDIT_DEBUG if (0) qCDebug(LOG_PART)
 #endif
 
 namespace Kate {
@@ -582,7 +584,7 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
 
       // bail out on encoding error, if not last round!
       if (encodingErrors && i < (enforceTextCodec ? 0 : 3)) {
-        kDebug (13020) << "Failed try to load file" << filename << "with codec" <<
+        qCDebug(LOG_PART) << "Failed try to load file" << filename << "with codec" <<
                           (file.textCodec() ? file.textCodec()->name() : "(null)");
         break;
       }
@@ -673,14 +675,14 @@ bool TextBuffer::load (const QString &filename, bool &encodingErrors, bool &tooL
   Q_ASSERT (m_lines > 0);
 
   // report CODEC + ERRORS
-  kDebug (13020) << "Loaded file " << filename << "with codec" << m_textCodec->name()
+  qCDebug(LOG_PART) << "Loaded file " << filename << "with codec" << m_textCodec->name()
     << (encodingErrors ? "with" : "without") << "encoding errors";
 
   // report BOM
-  kDebug (13020) << (file.byteOrderMarkFound () ? "Found" : "Didn't find") << "byte order mark";
+  qCDebug(LOG_PART) << (file.byteOrderMarkFound () ? "Found" : "Didn't find") << "byte order mark";
 
   // report filter device mime-type
-  kDebug (13020) << "used filter device for mime-type" << m_mimeTypeForFilterDev;
+  qCDebug(LOG_PART) << "used filter device for mime-type" << m_mimeTypeForFilterDev;
 
   // emit success
   emit loaded (filename, encodingErrors);
@@ -826,7 +828,7 @@ bool TextBuffer::save (const QString &filename)
     m_history.setLastSavedRevision ();
 
   // report CODEC + ERRORS
-  kDebug (13020) << "Saved file " << filename << "with codec" << m_textCodec->name()
+  qCDebug(LOG_PART) << "Saved file " << filename << "with codec" << m_textCodec->name()
     << (ok ? "without" : "with") << "errors";
 
   if (ok)

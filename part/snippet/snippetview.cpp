@@ -27,7 +27,6 @@
 #include <KMenu>
 #include <KMessageBox>
 #include <KAction>
-#include <KDebug>
 
 #include "snippet.h"
 #include "katesnippetglobal.h"
@@ -36,6 +35,7 @@
 #include "editrepository.h"
 #include "editsnippet.h"
 #include "snippetfilterproxymodel.h"
+#include "katepartdebug.h"
 
 #include <KGlobalSettings>
 

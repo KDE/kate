@@ -73,22 +73,6 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="3">
-       <widget class="KIntSpinBox" name="sbIndentWidth">
-        <property name="whatsThis">
-         <string>The indentation width is the number of spaces which is used to indent a line. If the option &lt;b&gt;Insert spaces instead of tabulators&lt;/b&gt; in the section &lt;b&gt;Editing&lt;/b&gt; is disabled, a &lt;b&gt;Tab&lt;/b&gt; character is inserted if the indentation is divisible by the tab width.</string>
-        </property>
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>16</number>
-        </property>
-        <property name="value">
-         <number>4</number>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0">
        <widget class="QRadioButton" name="rbIndentMixed">
         <property name="text">
@@ -123,7 +107,7 @@
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="KIntSpinBox" name="sbTabWidth">
+       <widget class="QSpinBox" name="sbTabWidth">
         <property name="minimum">
          <number>1</number>
         </property>
@@ -132,6 +116,22 @@
         </property>
         <property name="value">
          <number>8</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QSpinBox" name="sbIndentWidth">
+        <property name="whatsThis">
+         <string>The indentation width is the number of spaces which is used to indent a line. If the option &lt;b&gt;Insert spaces instead of tabulators&lt;/b&gt; in the section &lt;b&gt;Editing&lt;/b&gt; is disabled, a &lt;b&gt;Tab&lt;/b&gt; character is inserted if the indentation is divisible by the tab width.</string>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>16</number>
+        </property>
+        <property name="value">
+         <number>4</number>
         </property>
        </widget>
       </item>
@@ -272,11 +272,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

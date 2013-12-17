@@ -104,6 +104,7 @@
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSlider>
+#include <QtWidgets/QSpinBox>
 #include <QtWidgets/QTabBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QToolButton>
@@ -232,9 +233,9 @@ void KateIndentConfigTab::apply ()
 
 void KateIndentConfigTab::reload ()
 {
-  ui->sbTabWidth->setSuffix(ki18np(" character", " characters"));
+  ui->sbTabWidth->setSuffix(ki18np(" character", " characters").toString());
   ui->sbTabWidth->setValue(KateDocumentConfig::global()->tabWidth());
-  ui->sbIndentWidth->setSuffix(ki18np(" character", " characters"));
+  ui->sbIndentWidth->setSuffix(ki18np(" character", " characters").toString());
   ui->sbIndentWidth->setValue(KateDocumentConfig::global()->indentationWidth());
   ui->chkKeepExtraSpaces->setChecked(KateDocumentConfig::global()->keepExtraSpaces());
   ui->chkIndentPaste->setChecked(KateDocumentConfig::global()->indentPastedText());
@@ -663,7 +664,7 @@ void KateEditGeneralConfigTab::reload ()
 {
   ui->chkStaticWordWrap->setChecked(KateDocumentConfig::global()->wordWrap());
   ui->chkShowStaticWordWrapMarker->setChecked( KateRendererConfig::global()->wordWrapMarker() );
-  ui->sbWordWrap->setSuffix(ki18ncp("Wrap words at", " character", " characters"));
+  ui->sbWordWrap->setSuffix(ki18ncp("Wrap words at", " character", " characters").toString());
   ui->sbWordWrap->setValue( KateDocumentConfig::global()->wordWrapAt() );
   ui->chkSmartCopyCut->setChecked( KateViewConfig::global()->smartCopyCut() );
 }
@@ -1322,7 +1323,7 @@ KateGotoBar::KateGotoBar(KTextEditor::View *view, QWidget *parent)
 
   QHBoxLayout *topLayout = new QHBoxLayout( centralWidget() );
   topLayout->setMargin(0);
-  gotoRange = new KIntSpinBox(centralWidget());
+  gotoRange = new QSpinBox(centralWidget());
 
   QLabel *label = new QLabel(i18n("&Go to line:"), centralWidget() );
   label->setBuddy(gotoRange);

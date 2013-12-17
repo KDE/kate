@@ -28,7 +28,7 @@
          </widget>
         </item>
         <item>
-         <widget class="KIntSpinBox" name="sbConfigFileSearchDepth">
+         <widget class="QSpinBox" name="sbConfigFileSearchDepth">
           <property name="whatsThis">
            <string>The editor will search the given number of folder levels upwards for a .kateconfig file and load the settings line from it.</string>
           </property>
@@ -155,11 +155,11 @@
       </item>
       <item row="6" column="0" colspan="2">
        <widget class="QCheckBox" name="chkNoSync">
-        <property name="text">
-         <string>Disable swap files syncing</string>
-        </property>
         <property name="whatsThis">
          <string>If checked, the swap file is not forcibly written to disk each 15 seconds. Be aware, that disabling the swap file synchronization may lead to data loss in case of a system crash.</string>
+        </property>
+        <property name="text">
+         <string>Disable swap files syncing</string>
         </property>
        </widget>
       </item>
@@ -169,11 +169,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>

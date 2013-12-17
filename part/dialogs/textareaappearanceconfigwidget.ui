@@ -43,7 +43,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="KIntSpinBox" name="sbDynamicWordWrapDepth">
+       <widget class="QSpinBox" name="sbDynamicWordWrapDepth">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -154,11 +154,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KIntSpinBox</class>
-   <extends>QSpinBox</extends>
-   <header>knuminput.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

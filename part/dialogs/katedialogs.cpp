@@ -73,7 +73,6 @@
 #include <kconfig.h>
 #include "katepartdebug.h"
 #include <kfontdialog.h>
-#include <kglobal.h>
 #include <kglobalsettings.h>
 #include <kiconloader.h>
 #include <kshortcutsdialog.h>
@@ -983,10 +982,10 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setNewLineAtEof(ui->chkNewLineAtEof->isChecked());
 
   // set both standard and fallback encoding
-  KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KGlobal::charsets()->encodingForName(ui->cmbEncoding->currentText()));
+  KateDocumentConfig::global()->setEncoding((ui->cmbEncoding->currentIndex() == 0) ? "" : KCharsets::charsets()->encodingForName(ui->cmbEncoding->currentText()));
 
   KateGlobalConfig::global()->setProberType((KEncodingProber::ProberType)ui->cmbEncodingDetection->currentIndex());
-  KateGlobalConfig::global()->setFallbackEncoding(KGlobal::charsets()->encodingForName(ui->cmbEncodingFallback->currentText()));
+  KateGlobalConfig::global()->setFallbackEncoding(KCharsets::charsets()->encodingForName(ui->cmbEncodingFallback->currentText()));
 
   KateDocumentConfig::global()->setEol(ui->cmbEOL->currentIndex());
   KateDocumentConfig::global()->setAllowEolDetection(ui->chkDetectEOL->isChecked());
@@ -1007,12 +1006,12 @@ void KateSaveConfigTab::reload()
   ui->cmbEncoding->addItem (i18n("KDE Default"));
   ui->cmbEncoding->setCurrentIndex(0);
   ui->cmbEncodingFallback->clear ();
-  QStringList encodings (KGlobal::charsets()->descriptiveEncodingNames());
+  QStringList encodings (KCharsets::charsets()->descriptiveEncodingNames());
   int insert = 1;
   for (int i=0; i < encodings.count(); i++)
   {
     bool found = false;
-    QTextCodec *codecForEnc = KGlobal::charsets()->codecForName(KGlobal::charsets()->encodingForName(encodings[i]), found);
+    QTextCodec *codecForEnc = KCharsets::charsets()->codecForName(KCharsets::charsets()->encodingForName(encodings[i]), found);
 
     if (found)
     {

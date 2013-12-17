@@ -139,7 +139,7 @@ QTextCodec *KateGlobalConfig::fallbackCodec () const
   if (m_fallbackEncoding.isEmpty())
       return QTextCodec::codecForName("ISO 8859-15");
 
-  return KGlobal::charsets()->codecForName (m_fallbackEncoding);
+  return KCharsets::charsets()->codecForName (m_fallbackEncoding);
 }
 
 bool KateGlobalConfig::setFallbackEncoding (const QString &encoding)
@@ -152,7 +152,7 @@ bool KateGlobalConfig::setFallbackEncoding (const QString &encoding)
     found = true;
   }
   else
-    codec = KGlobal::charsets()->codecForName (encoding, found);
+    codec = KCharsets::charsets()->codecForName (encoding, found);
 
   if (!found || !codec)
     return false;
@@ -835,7 +835,7 @@ QTextCodec *KateDocumentConfig::codec () const
     else if (m_encoding.isEmpty())
       return s_global->codec ();
     else
-      return KGlobal::charsets()->codecForName (m_encoding);
+      return KCharsets::charsets()->codecForName (m_encoding);
   }
 
   return s_global->codec ();
@@ -851,7 +851,7 @@ bool KateDocumentConfig::setEncoding (const QString &encoding)
     found=true;
   }
   else
-    codec = KGlobal::charsets()->codecForName (encoding, found);
+    codec = KCharsets::charsets()->codecForName (encoding, found);
 
   if (!found || !codec)
     return false;

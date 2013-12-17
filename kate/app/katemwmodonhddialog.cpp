@@ -27,15 +27,14 @@
 #include <KMessageBox>
 #include <kprocess.h>
 #include <KRun>
-#include <KPushButton>
 #include <KVBox>
 #include <klocalizedstring.h>
 
-#include <QHeaderView>
-#include <QLabel>
-#include <QPushButton>
-#include <QTextStream>
 #include <QtCore/QTemporaryFile>
+#include <QtCore/QTextStream>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 
 class KateDocItem : public QTreeWidgetItem
 {
@@ -119,7 +118,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   KHBox *lo2 = new KHBox ( w );
   QWidget *d = new QWidget (lo2);
   lo2->setStretchFactor (d, 2);
-  btnDiff = new KPushButton( KGuiItem (i18n("&View Difference"), "document-preview"), lo2 );
+  btnDiff = new QPushButton(QIcon::fromTheme("document-preview"), i18n("&View Difference"), lo2);
 
   btnDiff->setWhatsThis(i18n(
                           "Calculates the difference between the editor contents and the disk "

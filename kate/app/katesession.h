@@ -33,7 +33,7 @@
 #include <QExplicitlySharedDataPointer>
 
 class KateSessionManager;
-class KPushButton;
+class QPushButton;
 
 class QCheckBox;
 
@@ -439,8 +439,8 @@ class KateSessionManageDialog : public KDialog
 
   private:
     QTreeWidget *m_sessions;
-    KPushButton *m_rename;
-    KPushButton *m_del;
+    QPushButton *m_rename;
+    QPushButton *m_del;
 };
 
 class KateSessionsAction : public KActionMenu

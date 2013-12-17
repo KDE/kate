@@ -26,11 +26,10 @@
 #include "ui_editsnippet.h"
 
 #include "snippetrepository.h"
-
-#include <QToolButton>
+#include "snippetstore.h"
+#include "snippet.h"
 
 #include <KLocalizedString>
-#include <KPushButton>
 #include <KMimeTypeTrader>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
@@ -38,8 +37,8 @@
 #include <KMessageBox>
 #include <KMessageWidget>
 
-#include "snippetstore.h"
-#include "snippet.h"
+#include <QtWidgets/QToolButton>
+#include <QtWidgets/QPushButton>
 
 QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
 {

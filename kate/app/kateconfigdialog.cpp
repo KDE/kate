@@ -42,7 +42,6 @@
 
 #include <QCheckBox>
 #include <QLabel>
-#include <kpushbutton.h>
 #include <QRadioButton>
 #include <QSpinBox>
 #include <QVBoxLayout>

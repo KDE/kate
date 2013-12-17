@@ -22,19 +22,16 @@
  */
 
 #include "editrepository.h"
-
 #include "snippetrepository.h"
+#include "snippetstore.h"
 
 #include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
 
-#include <KLocalizedString>
+#include <klocalizedstring.h>
+#include <kuser.h>
 
-#include <KPushButton>
-
-#include <KUser>
-
-#include "snippetstore.h"
+#include <QtWidgets/QPushButton>
 
 EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
     : KDialog(parent), Ui::EditRepositoryBase(), m_repo(repository)

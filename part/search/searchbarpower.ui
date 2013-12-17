@@ -238,7 +238,7 @@
       </widget>
      </item>
      <item row="3" column="3">
-      <widget class="KPushButton" name="findAll">
+      <widget class="QPushButton" name="findAll">
        <property name="text">
         <string>&amp;Find All</string>
        </property>
@@ -284,11 +284,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KComboBox</class>
    <extends>QComboBox</extends>

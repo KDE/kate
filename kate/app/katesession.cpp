@@ -35,7 +35,6 @@
 #include <KMessageBox>
 #include <KCodecs>
 #include <KStandardGuiItem>
-#include <KPushButton>
 #include <KActionCollection>
 #include <KIO/NetAccess>
 #include <KIO/CopyJob>
@@ -43,15 +42,16 @@
 #include <klocalizedstring.h>
 #include <ksharedconfig.h>
 
-#include <QDir>
-#include <QLabel>
-#include <QCheckBox>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QStyle>
-#include <QtAlgorithms>
-#include <QCollator>
+#include <QtCore/QCollator>
+#include <QtCore/QDir>
+#include <QtCore/QtAlgorithms>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMenu>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QVBoxLayout>
 
 #include <unistd.h>
 #include <time.h>
@@ -869,11 +869,12 @@ KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
   hb->addItem(vb);
   vb->setSpacing (KDialog::spacingHint());
 
-  m_rename = new KPushButton (i18n("&Rename..."), page);
+  m_rename = new QPushButton(i18n("&Rename..."), page);
   connect (m_rename, SIGNAL(clicked()), this, SLOT(rename()));
   vb->addWidget (m_rename);
 
-  m_del = new KPushButton (KStandardGuiItem::del (), page);
+  m_del = new QPushButton (page);
+  KGuiItem::assign(m_del, KStandardGuiItem::del());
   connect (m_del, SIGNAL(clicked()), this, SLOT(del()));
   vb->addWidget (m_del);
 

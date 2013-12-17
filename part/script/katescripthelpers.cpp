@@ -32,7 +32,6 @@
 
 #include "katepartdebug.h"
 #include <klocale.h>
-#include <kglobal.h>
 #include <klocalizedstring.h>
 #include <kstandarddirs.h>
 
@@ -68,7 +67,8 @@ QScriptValue read(QScriptContext *context, QScriptEngine *)
      * skip on errors
      */
     const QString name = context->argument(i).toString();
-    const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/script/files/" + name);
+    const QString fullName = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                                    "katepart/script/files/" + name);
     if (fullName.isEmpty())
       continue;
 
@@ -103,7 +103,8 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
      * skip on errors
      */
     const QString name = context->argument(i).toString();
-    const QString fullName = KGlobal::dirs()->findResource ("data", "katepart/script/libraries/" + name);
+    const QString fullName = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                                    "katepart/script/libraries/" + name);
     if (fullName.isEmpty())
       continue;
 

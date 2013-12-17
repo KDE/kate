@@ -1630,7 +1630,7 @@ void KateDocument::writeParameterizedSessionConfig(KConfigGroup &kconfig,
 {
   if ( this->url().isLocalFile() ) {
     const QString path = this->url().toLocalFile();
-    if ( KGlobal::dirs()->relativeLocation( "tmp", path ) != path ) {
+    if ( path.startsWith(QDir::tempPath()) ) {
       return; // inside tmp resource, do not save
     }
   }

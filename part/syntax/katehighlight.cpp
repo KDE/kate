@@ -37,7 +37,6 @@
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobal.h>
 #include <kcomponentdata.h>
 #include <klocale.h>
 #include <kmenu.h>
@@ -1089,7 +1088,7 @@ bool KateHighlighting::isInWord( QChar c, int attrib ) const
 
 bool KateHighlighting::canBreakAt( QChar c, int attrib ) const
 {
-  static const QString& sq = KGlobal::staticQString("\"'");
+  static const QString& sq = QStringLiteral("\"'");
   return (m_additionalData[ hlKeyForAttrib( attrib ) ]->wordWrapDeliminator.indexOf(c) != -1) && (sq.indexOf(c) == -1);
 }
 

@@ -65,7 +65,6 @@
 #include <klocale.h>
 #include <kglobal.h>
 #include <kconfig.h>
-#include <kfiledialog.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
@@ -77,15 +76,16 @@
 
 #include <kservicetypetrader.h>
 
-#include <QtDBus/QtDBus>
-#include <QtWidgets/QApplication>
-#include <QtCore/QTimer>
-#include <QtCore/QFile>
-#include <QtGui/QClipboard>
-#include <QtCore/QTextStream>
-#include <QtCore/QTextCodec>
 #include <QtCore/QCryptographicHash>
+#include <QtCore/QFile>
 #include <QtCore/QMap>
+#include <QtCore/QTextCodec>
+#include <QtCore/QTextStream>
+#include <QtCore/QTimer>
+#include <QtDBus/QtDBus>
+#include <QtGui/QClipboard>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QFileDialog>
 //END  includes
 
 #if 0
@@ -4826,7 +4826,7 @@ bool KateDocument::queryClose()
         {
             if (url().isEmpty())
             {
-                QUrl url = KFileDialog::getSaveUrl(QUrl(), QString(), dialogParent());
+                QUrl url = QFileDialog::getSaveFileUrl(dialogParent());
                 if (url.isEmpty())
                     return false;
 

@@ -98,6 +98,7 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QFileDialog>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
@@ -444,8 +445,10 @@ void KateViInputModeConfigTab::addNewNormalModeMappingRow()
 
 void KateViInputModeConfigTab::importNormalMappingRow()
 {
-  QString fileName = KFileDialog::getOpenFileName();
+  QString fileName = QFileDialog::getOpenFileName(this);
+
   if(fileName.isEmpty()) return;
+
   QFile configFile(fileName);
   if(! configFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
     KMessageBox::error(this, i18n("Unable to open the config file for reading."), i18n("Unable to open file"));

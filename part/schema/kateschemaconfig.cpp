@@ -43,6 +43,7 @@
 #include <kcombobox.h>
 #include <kglobal.h>
 
+#include <QtWidgets/QFileDialog>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QProgressDialog>
 #include <QtWidgets/QTabWidget>
@@ -784,10 +785,11 @@ void KateSchemaConfigHighlightTab::importHl(const QString& fromSchemaName, QStri
         if (schema.isEmpty()) schema=m_schema;
 
         if (doManage) {
-          QString srcName=KFileDialog::getOpenFileName( QUrl(KateHlManager::self()->getHl(hl)->name()+QString(".katehlcolor")),
-                                  QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")),
-                                  this,
-                                  i18n("Importing colors for single highlighting"));
+          QString srcName = QFileDialog::getOpenFileName(this,
+                                                         i18n("Importing colors for single highlighting"),
+                                                         KateHlManager::self()->getHl(hl)->name() + QLatin1String(".katehlcolor"),
+                                                         QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")) );
+
           qCDebug(LOG_PART)<<"hl file to open "<<srcName;
           if (srcName.isEmpty()) return;
           cfg=new KConfig(srcName,KConfig::SimpleConfig);
@@ -849,11 +851,10 @@ void KateSchemaConfigHighlightTab::exportHl(QString schema, int hl, KConfig *cfg
 
   QList<KateExtendedAttribute::Ptr> items=m_hlDict[schema][hl];
   if (doManage)  {
-    QString destName=KFileDialog::getSaveFileName( QUrl(KateHlManager::self()->getHl(hl)->name()+".katehlcolor"),
-                                    QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")),
-                                    this,
-                                    i18n("Exporting colors for single highlighting: %1", KateHlManager::self()->getHl(hl)->name()),
-                                    KFileDialog::ConfirmOverwrite );
+    QString destName = QFileDialog::getSaveFileName(this,
+                                                    i18n("Exporting colors for single highlighting: %1", KateHlManager::self()->getHl(hl)->name()),
+                                                    KateHlManager::self()->getHl(hl)->name() + QLatin1String(".katehlcolor"),
+                                                    QString::fromLatin1("*.katehlcolor|%1").arg(i18n("Kate color schema")));
 
     if (destName.isEmpty()) return;
 
@@ -956,12 +957,10 @@ void KateSchemaConfigPage::exportFullSchema()
 {
   // get save destination
   const QString currentSchemaName = m_currentSchema;
-  QString destName = KFileDialog::getSaveFileName(
-      QUrl(currentSchemaName + ".kateschema"),
-      QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
-      this,
-      i18n("Exporting color schema: %1", currentSchemaName),
-      KFileDialog::ConfirmOverwrite );
+  QString destName = QFileDialog::getSaveFileName(this,
+                                                  i18n("Exporting color schema: %1", currentSchemaName),
+                                                  currentSchemaName + ".kateschema",
+                                                  QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")));
 
   if (destName.isEmpty()) return;
 
@@ -1060,9 +1059,10 @@ QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
 
 void KateSchemaConfigPage::importFullSchema()
 {
-  const QString srcName = KFileDialog::getOpenFileName(QUrl(),
-                                    QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")),
-                                    this, i18n("Importing Color Schema"));
+  const QString srcName = QFileDialog::getOpenFileName(this,
+                                                       i18n("Importing Color Schema"),
+                                                       QString(),
+                                                       QString::fromLatin1("*.kateschema|%1").arg(i18n("Kate color schema")));
 
   if (srcName.isEmpty()) return;
 

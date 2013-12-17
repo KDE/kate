@@ -36,7 +36,6 @@
 #include <ktexteditor/configpage.h>
 
 #include <kdialog.h>
-#include <kfiledialog.h>
 
 #include <sonnet/configwidget.h>
 #include <sonnet/dictionarycombobox.h>

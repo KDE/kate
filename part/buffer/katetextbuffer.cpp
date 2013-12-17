@@ -26,15 +26,13 @@
 // this is unfortunate, but needed for performance
 #include "katedocument.h"
 #include "kateview.h"
-
 #include "katepartdebug.h"
 
 #if HAVE_FDATASYNC
 #include <unistd.h>
 #endif
 
-#include <KSaveFile>
-#include <kdeversion.h>
+#include <QtCore/QSaveFile>
 
 #if 0
 #define EDIT_DEBUG qCDebug(LOG_PART)
@@ -720,22 +718,11 @@ bool TextBuffer::save (const QString &filename)
   Q_ASSERT (m_textCodec);
 
   /**
-   * use KSaveFile for save write + rename
+   * use QSaveFile for save write + rename
    */
-  KSaveFile saveFile (filename);
-  
-#if KDE_IS_VERSION(4,10,3)
-  /**
-   * allow fallback if directory not writable
-   * fixes bug 312415
-   */
-  saveFile.setDirectWriteFallback (true);
-#endif
-  
-  /**
-   * try to open or fail
-   */
-  if (!saveFile.open())
+  QSaveFile saveFile(filename);
+
+  if (!saveFile.open(QIODevice::WriteOnly))
     return false;
 
   /**
@@ -822,7 +809,7 @@ bool TextBuffer::save (const QString &filename)
 
   // did save work?
   // only finalize if stream status == OK
-  bool ok = (stream.status() == QTextStream::Ok) && saveFile.finalize();
+  bool ok = (stream.status() == QTextStream::Ok) && saveFile.commit();
 
   // remember this revision as last saved if we had success!
   if (ok)

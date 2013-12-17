@@ -119,8 +119,6 @@ KateScrollBar::KateScrollBar (Qt::Orientation orientation, KateViewInternal* par
   connect(this, SIGNAL(valueChanged(int)), this, SLOT(sliderMaybeMoved(int)));
   connect(m_doc, SIGNAL(marksChanged(KTextEditor::Document*)), this, SLOT(marksChanged()));
 
-  styleChange(*style());
-
   m_updateTimer.setInterval(300);
   m_updateTimer.setSingleShot(true);
   QTimer::singleShot(10, this, SLOT(updatePixmap()));
@@ -695,17 +693,6 @@ void KateScrollBar::resizeEvent(QResizeEvent *e)
 {
   QScrollBar::resizeEvent(e);
   m_updateTimer.start();
-  m_lines.clear();
-  update();
-}
-
-void KateScrollBar::styleChange(QStyle &s)
-{
-#if 0 //FIXME KF5
-  QScrollBar::styleChange(s);
-  
-#endif
-  
   m_lines.clear();
   update();
 }

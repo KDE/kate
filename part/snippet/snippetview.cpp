@@ -154,7 +154,7 @@ void SnippetView::contextMenu (const QPoint& pos)
     if (!item) {
         // User clicked into an empty place of the tree
         QMenu menu(this);
-        // FIXME: what is correct way to this in KF5?
+
         menu.addSection(i18n("Snippets"));
 
         menu.addAction(m_addRepoAction);

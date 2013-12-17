@@ -38,7 +38,6 @@
 #include <KActionCollection>
 #include <KIO/NetAccess>
 #include <KIO/CopyJob>
-#include <KStringHandler>
 #include <klocalizedstring.h>
 #include <ksharedconfig.h>
 

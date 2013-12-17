@@ -1293,10 +1293,15 @@ void KateHlDownloadDialog::slotUser1()
   foreach (QTreeWidgetItem *it, list->selectedItems())
   {
     QUrl src(it->text(4));
-    QString filename=src.fileName(); // FIXME KF5 QUrl::ObeyTrailingSlash
-    QString dest = destdir+filename;
+    QString filename = src.fileName();
 
-    KIO::NetAccess::download(src,dest, this);
+    // if there is no fileName construct at least something
+    if (filename.isEmpty())
+      filename = src.path().replace(QLatin1Char('/'), QLatin1Char('_'));
+
+    QString dest = destdir + filename;
+
+    KIO::NetAccess::download(src, dest, this);
   }
 
   // update Config !!

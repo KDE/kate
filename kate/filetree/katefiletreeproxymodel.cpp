@@ -21,7 +21,6 @@
 #include "katefiletreedebug.h"
 
 #include <QCollator>
-#include <kstringhandler.h>
 #include <ktexteditor/document.h>
 
 KateFileTreeProxyModel::KateFileTreeProxyModel(QObject *parent)

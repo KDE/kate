@@ -49,9 +49,7 @@
 #include <KMimeTypeTrader>
 #include <KMultiTabBar>
 #include <KTipDialog>
-#include <KStringHandler>
 #include <khelpclient.h>
-#include <KAuthorized>
 #include <KRun>
 #include <KRecentFilesAction>
 #include <KToggleFullScreenAction>

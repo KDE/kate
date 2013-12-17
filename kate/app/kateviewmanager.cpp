@@ -38,7 +38,6 @@
 #include "katedebug.h"
 #include <KEncodingFileDialog>
 #include <KIconLoader>
-#include <KStringHandler>
 #include <KLocale>
 #include <KToolBar>
 #include <KMessageBox>

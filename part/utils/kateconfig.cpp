@@ -24,6 +24,7 @@
 #include "kateview.h"
 #include "katedocument.h"
 #include "kateschema.h"
+#include "katepartdebug.h"
 
 #include <math.h>
 
@@ -34,8 +35,6 @@
 #include <kcharsets.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kcomponentdata.h>
-#include "katepartdebug.h"
 
 #include <QtCore/QTextCodec>
 #include <QStringListModel>

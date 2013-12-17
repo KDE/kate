@@ -39,7 +39,6 @@
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kglobal.h>
-#include <kcomponentdata.h>
 #include <klocale.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>

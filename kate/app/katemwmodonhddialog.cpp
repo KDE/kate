@@ -27,7 +27,6 @@
 #include <KMessageBox>
 #include <kprocess.h>
 #include <KRun>
-#include <KTemporaryFile>
 #include <KPushButton>
 #include <KVBox>
 #include <klocalizedstring.h>
@@ -36,6 +35,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QTextStream>
+#include <QtCore/QTemporaryFile>
 
 class KateDocItem : public QTreeWidgetItem
 {
@@ -240,7 +240,7 @@ void KateMwModOnHdDialog::slotDiff()
   if (m_diffFile)
     return;
 
-  m_diffFile = new KTemporaryFile();
+  m_diffFile = new QTemporaryFile();
   m_diffFile->open();
 
   // Start a KProcess that creates a diff

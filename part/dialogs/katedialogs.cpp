@@ -84,7 +84,6 @@
 #include <kprocess.h>
 #include <krun.h>
 #include <kseparator.h>
-#include <ktemporaryfile.h>
 #include <kpushbutton.h>
 #include <kvbox.h>
 #include <kactioncollection.h>
@@ -95,6 +94,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
+#include <QtCore/QTemporaryFile>
 #include <QtGui/QKeyEvent>
 #include <QtGui/QPainter>
 #include <QtWidgets/QCheckBox>
@@ -1504,7 +1504,7 @@ void KateModOnHdPrompt::slotDiff()
   if (m_diffFile)
     return;
 
-  m_diffFile = new KTemporaryFile();
+  m_diffFile = new QTemporaryFile();
   m_diffFile->open();
 
   // Start a KProcess that creates a diff

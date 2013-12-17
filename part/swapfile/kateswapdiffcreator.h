@@ -23,7 +23,7 @@
 
 #include <QByteArray>
 #include <QAction>
-#include <KTemporaryFile>
+#include <QtCore/QTemporaryFile>
 
 class KProcess;
 
@@ -51,9 +51,9 @@ class SwapDiffCreator : public QObject
 
   private:
     KProcess* m_proc;
-    KTemporaryFile m_originalFile;
-    KTemporaryFile m_recoveredFile;
-    KTemporaryFile m_diffFile;
+    QTemporaryFile m_originalFile;
+    QTemporaryFile m_recoveredFile;
+    QTemporaryFile m_diffFile;
 };
 
 #endif //KATE_SWAP_DIFF_CREATOR_H

@@ -29,6 +29,8 @@
 #include <klocale.h>
 #include <klocalizedstring.h>
 
+#include <QtCore/QDir>
+
 //BEGIN SwapDiffCreator
 SwapDiffCreator::SwapDiffCreator(Kate::SwapFile* swapFile)
   : QObject (swapFile)
@@ -54,9 +56,9 @@ void SwapDiffCreator::viewDiff()
   }
 
   // create all needed tempfiles
-  m_originalFile.setSuffix(".original");
-  m_recoveredFile.setSuffix(".recovered");
-  m_diffFile.setSuffix(".diff");
+  m_originalFile.setFileTemplate(QDir::tempPath() + QLatin1String("/katepart_XXXXXX.original"));
+  m_recoveredFile.setFileTemplate(QDir::tempPath() + QLatin1String("/katepart_XXXXXX.recovered"));
+  m_diffFile.setFileTemplate(QDir::tempPath() + QLatin1String("/katepart_XXXXXX.diff"));
 
   if (!m_originalFile.open() || !m_recoveredFile.open() || !m_diffFile.open()) {
     qCWarning(LOG_PART) << "Can't open temporary files needed for diffing";

@@ -61,7 +61,6 @@ namespace KIO
 
 class KComboBox;
 class KShortcutsEditor;
-class KTemporaryFile;
 class KIntNumInput;
 class KIntSpinBox;
 class KPluginSelector;
@@ -72,6 +71,7 @@ class QCheckBox;
 class QLabel;
 class QCheckBox;
 class QKeyEvent;
+class QTemporaryFile;
 
 namespace Ui
 {
@@ -426,7 +426,7 @@ class KateModOnHdPrompt : public KDialog
     KateDocument *m_doc;
     KTextEditor::ModificationInterface::ModifiedOnDiskReason m_modtype;
     KProcess *m_proc;
-    KTemporaryFile *m_diffFile;
+    QTemporaryFile *m_diffFile;
 };
 
 #endif

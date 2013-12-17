@@ -31,7 +31,7 @@
 
 typedef  QVector<KTextEditor::Document*> DocVector;
 class KProcess;
-class KTemporaryFile;
+class QTemporaryFile;
 
 /**
  * A dialog for handling multiple documents modified on disk
@@ -62,7 +62,7 @@ class KateMwModOnHdDialog : public KDialog
     class QTreeWidget *twDocuments;
     class QPushButton *btnDiff;
     KProcess *m_proc;
-    KTemporaryFile *m_diffFile;
+    QTemporaryFile *m_diffFile;
     QStringList m_stateTexts;
 
   protected:

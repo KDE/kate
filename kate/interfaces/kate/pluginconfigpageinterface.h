@@ -20,9 +20,10 @@
 #define kate_pluginconfigpageinterface_h
 
 #include <kate_export.h>
-#include <QtWidgets/QWidget>
+
+#include <QtGui/QIcon>
 #include <QtGui/QPixmap>
-#include <kicon.h>
+#include <QtWidgets/QWidget>
 
 namespace Kate
 {
@@ -191,7 +192,7 @@ namespace Kate
        * \param number the config page for the given \p number
        * \return the icon for the config page
        */
-      virtual KIcon configPageIcon (uint number = 0) const = 0;
+      virtual QIcon configPageIcon (uint number = 0) const = 0;
 
     private:
       class PrivatePluginConfigPageInterface *d;

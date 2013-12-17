@@ -37,7 +37,7 @@ KateScriptAction::KateScriptAction(const ScriptActionInfo& info, KateView* view)
   , m_interactive(info.interactive())
 {
   if (!info.icon().isEmpty()) {
-    setIcon(KIcon(info.icon()));
+    setIcon(QIcon::fromTheme(info.icon()));
   }
   
   if (!info.shortcut().isEmpty()) {
@@ -67,7 +67,7 @@ void KateScriptAction::exec()
 
 //BEGIN KateScriptActionMenu
 KateScriptActionMenu::KateScriptActionMenu(KateView *view, const QString& text)
-  : KActionMenu (KIcon("code-context"), text, view)
+  : KActionMenu (QIcon::fromTheme("code-context"), text, view)
   , m_view(view)
 {
   repopulate();

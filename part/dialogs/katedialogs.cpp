@@ -1175,7 +1175,7 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   list->setColumnWidth(0, 22);
 
   new QLabel(i18n("<b>Note:</b> New versions are selected automatically."), vbox);
-  setButtonIcon(User1, KIcon("dialog-ok"));
+  setButtonIcon(User1, QIcon::fromTheme("dialog-ok"));
 
   transferJob = KIO::get(
     QUrl(QString(HLDOWNLOADPATH)
@@ -1452,9 +1452,9 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
   }
 
   setButtonText( Ok, okText );
-  setButtonIcon( Ok, KIcon( okIcon ) );
+  setButtonIcon( Ok, QIcon::fromTheme( okIcon ) );
   setButtonText( Apply, i18n("&Ignore Changes") );
-  setButtonIcon( Apply, KIcon( "dialog-warning" ) );
+  setButtonIcon( Apply, QIcon::fromTheme( "dialog-warning" ) );
 
   setButtonToolTip( Ok, okToolTip );
   setButtonToolTip( Apply, i18n("Ignore the changes. You will not be prompted again.") );

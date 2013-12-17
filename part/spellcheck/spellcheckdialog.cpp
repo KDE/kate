@@ -66,13 +66,13 @@ void KateSpellCheckDialog::createActions( KActionCollection* ac )
 
     QAction *a = new QAction( i18n("Spelling (from cursor)..."), this);
     ac->addAction("tools_spelling_from_cursor", a );
-    a->setIcon( KIcon( "tools-check-spelling" ) );
+    a->setIcon( QIcon::fromTheme( "tools-check-spelling" ) );
     a->setWhatsThis(i18n("Check the document's spelling from the cursor and forward"));
     connect( a, SIGNAL(triggered()), this, SLOT(spellcheckFromCursor()) );
 
     m_spellcheckSelection = new QAction( i18n("Spellcheck Selection..."), this );
     ac->addAction("tools_spelling_selection", m_spellcheckSelection);
-    m_spellcheckSelection->setIcon( KIcon( "tools-check-spelling" ) );
+    m_spellcheckSelection->setIcon( QIcon::fromTheme( "tools-check-spelling" ) );
     m_spellcheckSelection->setWhatsThis(i18n("Check spelling of the selected text"));
     connect( m_spellcheckSelection, SIGNAL(triggered()), this, SLOT(spellcheckSelection()) );
 }

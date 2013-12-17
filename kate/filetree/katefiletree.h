@@ -19,10 +19,9 @@
 #ifndef KATE_FILETREE_H
 #define KATE_FILETREE_H
 
-#include <QTreeView>
-#include <QUrl>
-
-#include <KIcon>
+#include <QtCore/QUrl>
+#include <QtGui/QIcon>
+#include <QtWidgets/QTreeView>
 
 namespace KTextEditor {
   class Document;
@@ -89,7 +88,7 @@ class KateFileTree: public QTreeView
     void slotOpenWithMenuAction(QAction* a);
     
   private:
-    QAction *setupOption(QActionGroup *group, const KIcon &, const QString &, const QString &, const char *slot, bool checked=false);
+    QAction *setupOption(QActionGroup *group, const QIcon &, const QString &, const QString &, const char *slot, bool checked=false);
 };
 
 #endif // KATE_FILETREE_H

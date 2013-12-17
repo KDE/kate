@@ -441,30 +441,30 @@ QString KateGlobal::configPageFullName (int number) const
   return QString ("");
 }
 
-KIcon KateGlobal::configPageIcon (int number) const
+QIcon KateGlobal::configPageIcon (int number) const
 {
   switch( number )
   {
     case 0:
-      return KIcon("preferences-desktop-theme");
+      return QIcon::fromTheme("preferences-desktop-theme");
 
     case 1:
-      return KIcon("preferences-desktop-color");
+      return QIcon::fromTheme("preferences-desktop-color");
 
     case 2:
-      return KIcon("accessories-text-editor");
+      return QIcon::fromTheme("accessories-text-editor");
 
     case 3:
-      return KIcon("document-save");
+      return QIcon::fromTheme("document-save");
 
     case 4:
-      return KIcon("preferences-plugin");
+      return QIcon::fromTheme("preferences-plugin");
 
     default:
-      return KIcon("document-properties");
+      return QIcon::fromTheme("document-properties");
   }
 
-  return KIcon("document-properties");
+  return QIcon::fromTheme("document-properties");
 }
 
 KateGlobal *KateGlobal::self ()

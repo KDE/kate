@@ -1926,10 +1926,10 @@ void KateDocument::showAndSetOpeningErrorAccess() {
       = new KTextEditor::Message(i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().toString()),
                                  KTextEditor::Message::Error);
     message->setWordWrap(true);
-    QAction* tryAgainAction = new QAction(KIcon("view-refresh"), i18nc("translators: you can also translate 'Try Again' with 'Reload'", "Try Again"), 0);
+    QAction* tryAgainAction = new QAction(QIcon::fromTheme("view-refresh"), i18nc("translators: you can also translate 'Try Again' with 'Reload'", "Try Again"), 0);
     connect(tryAgainAction, SIGNAL(triggered()), SLOT(documentReload()), Qt::QueuedConnection);
 
-    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
+    QAction* closeAction = new QAction(QIcon::fromTheme("window-close"), i18n("&Close"), 0);
     closeAction->setToolTip(i18n("Close message"));
 
     // add try again and close actions
@@ -5519,7 +5519,7 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
 
   // if there are no actions, add a close action by default if widget does not auto-hide
   if (message->actions().count() == 0 && message->autoHide() < 0) {
-    QAction* closeAction = new QAction(KIcon("window-close"), i18n("&Close"), 0);
+    QAction* closeAction = new QAction(QIcon::fromTheme("window-close"), i18n("&Close"), 0);
     closeAction->setToolTip(i18n("Close message"));
     message->addAction(closeAction);
   }

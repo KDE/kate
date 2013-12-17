@@ -56,7 +56,7 @@ VariableLineEdit::VariableLineEdit(QWidget* parent)
 
   m_lineedit = new QLineEdit(this);
   m_button= new QToolButton(this);
-  m_button->setIcon(KIcon("tools-wizard"));
+  m_button->setIcon(QIcon::fromTheme("tools-wizard"));
   m_button->setToolTip(i18n("Show list of valid variables."));
 
   hl->addWidget(m_lineedit);

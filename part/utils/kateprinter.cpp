@@ -984,7 +984,7 @@ void KatePrintHeaderFooter::showContextMenu(const QPoint& pos)
 
   // create original context menu
   QMenu* menu = contextMenu->addMenu(i18n("Add Placeholder..."));
-  menu->setIcon(KIcon("list-add"));
+  menu->setIcon(QIcon::fromTheme("list-add"));
   QAction* a = menu->addAction(i18n("Current User Name") + "\t%u");
   a->setData("%u");
   a = menu->addAction(i18n("Complete Date/Time (short format)") + "\t%d");

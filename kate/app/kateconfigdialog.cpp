@@ -67,7 +67,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   // FIXME KF5 enableButton( Apply, false );
 
   KPageWidgetItem *applicationItem = addPage( new QWidget, i18n("Application") );
-  applicationItem->setIcon( KIcon( "preferences-other" ) );
+  applicationItem->setIcon( QIcon::fromTheme( "preferences-other" ) );
   applicationItem->setHeader( i18n("Application Options") );
   m_applicationPage = applicationItem;
 
@@ -75,7 +75,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   QFrame* generalFrame = new QFrame;
   KPageWidgetItem *item = addSubPage( applicationItem, generalFrame, i18n("General") );
   item->setHeader( i18n("General Options") );
-  item->setIcon( KIcon( "go-home" ) );
+  item->setIcon( QIcon::fromTheme( "go-home" ) );
   setCurrentPage (item);
 
   QVBoxLayout *layout = new QVBoxLayout( generalFrame );
@@ -141,7 +141,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   QFrame* sessionsFrame = new QFrame;
   item = addSubPage( applicationItem, sessionsFrame, i18n("Sessions") );
   item->setHeader( i18n("Session Management") );
-  item->setIcon( KIcon( "view-history" ) );
+  item->setIcon( QIcon::fromTheme( "view-history" ) );
 
   layout = new QVBoxLayout( sessionsFrame );
   layout->setMargin(0);
@@ -197,7 +197,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   item = addSubPage( applicationItem, page, i18n("Plugins") );
   item->setHeader( i18n("Plugin Manager") );
-  item->setIcon( KIcon( "preferences-plugin" ) );
+  item->setIcon( QIcon::fromTheme( "preferences-plugin" ) );
 
   KatePluginList &pluginList (KatePluginManager::self()->pluginList());
   foreach (const KatePluginInfo &plugin, pluginList)
@@ -210,7 +210,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
 // editor widgets from kwrite/kwdialog
   m_editorPage = addPage( new QWidget, i18n("Editor Component") );
-  m_editorPage->setIcon( KIcon( "accessories-text-editor" ) );
+  m_editorPage->setIcon( QIcon::fromTheme( "accessories-text-editor" ) );
   m_editorPage->setHeader( i18n("Editor Component Options") );
 
   addEditorPages();

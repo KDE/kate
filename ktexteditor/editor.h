@@ -21,10 +21,9 @@
 #define KDELIBS_KTEXTEDITOR_EDITOR_H
 
 #include <ktexteditor/ktexteditor_export.h>
-// our main baseclass of the KTextEditor::Editor
-#include <QtCore/QObject>
 
-#include <kicon.h>
+#include <QtCore/QObject>
+#include <QtGui/QIcon>
 
 class KAboutData;
 class KConfig;
@@ -256,7 +255,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      * \return pixmap for the given page index
      * \see configPageName(), configPageFullName()
      */
-    virtual KIcon configPageIcon (int number) const = 0;
+    virtual QIcon configPageIcon (int number) const = 0;
 
   Q_SIGNALS:
     /**

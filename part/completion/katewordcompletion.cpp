@@ -103,7 +103,7 @@ QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
     return m_matches.at( index.row() );
 
   if( index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole ) {
-    static QIcon icon(KIcon("insert-text").pixmap(QSize(16, 16)));
+    static QIcon icon(QIcon::fromTheme("insert-text").pixmap(QSize(16, 16)));
     return icon;
   }
 

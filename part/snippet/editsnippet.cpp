@@ -32,7 +32,6 @@
 #include <KLocalizedString>
 #include <KPushButton>
 #include <KMimeTypeTrader>
-#include <KIcon>
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 #include <khelpclient.h>
@@ -61,7 +60,7 @@ QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
 
     QToolButton* button = new QToolButton;
     button->setText(i18n("Help"));
-    button->setIcon(KIcon("help-contents"));
+    button->setIcon(QIcon::fromTheme("help-contents"));
     button->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     hlayout->addWidget(button);
     layout->addLayout(hlayout);

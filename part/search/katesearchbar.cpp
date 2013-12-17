@@ -80,7 +80,7 @@ public:
         if (m_menu == NULL) {
             return;
         }
-        m_menu->setIcon(KIcon("list-add"));
+        m_menu->setIcon(QIcon::fromTheme("list-add"));
     }
 
     void enableMenu(bool enabled) {
@@ -1343,10 +1343,10 @@ void KateSearchBar::enterPowerMode() {
         m_powerUi->replacement->setModel(m_config->replacementHistoryModel());
 
         // Icons
-        m_powerUi->mutate->setIcon(KIcon("arrow-down-double"));
-        m_powerUi->findNext->setIcon(KIcon("go-down-search"));
-        m_powerUi->findPrev->setIcon(KIcon("go-up-search"));
-        m_powerUi->findAll->setIcon(KIcon("edit-find"));
+        m_powerUi->mutate->setIcon(QIcon::fromTheme("arrow-down-double"));
+        m_powerUi->findNext->setIcon(QIcon::fromTheme("go-down-search"));
+        m_powerUi->findPrev->setIcon(QIcon::fromTheme("go-up-search"));
+        m_powerUi->findAll->setIcon(QIcon::fromTheme("edit-find"));
 
         // Focus proxy
         centralWidget()->setFocusProxy(m_powerUi->pattern);
@@ -1480,9 +1480,9 @@ void KateSearchBar::enterIncrementalMode() {
 
 
         // Icons
-        m_incUi->mutate->setIcon(KIcon("arrow-up-double"));
-        m_incUi->next->setIcon(KIcon("go-down-search"));
-        m_incUi->prev->setIcon(KIcon("go-up-search"));
+        m_incUi->mutate->setIcon(QIcon::fromTheme("arrow-up-double"));
+        m_incUi->next->setIcon(QIcon::fromTheme("go-down-search"));
+        m_incUi->prev->setIcon(QIcon::fromTheme("go-up-search"));
 
         // Ensure minimum size
         m_incUi->pattern->setMinimumWidth(12 * m_incUi->pattern->fontMetrics().height());

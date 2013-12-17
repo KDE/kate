@@ -27,15 +27,16 @@
 #include "katedocmanager.h"
 #include "kateapp.h"
 #include "katesession.h"
+#include "katedebug.h"
 
 #include <KLocale>
 #include <KSqueezedTextLabel>
 #include <KConfig>
-#include "katedebug.h"
 #include <KStringHandler>
 #include <KVBox>
 #include <klocalizedstring.h>
 #include <kglobal.h>
+#include <kiconutils.h>
 
 #include <QStackedWidget>
 #include <QCursor>
@@ -326,9 +327,12 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
 #endif
 
   installEventFilter( this );
-  m_modPm = KIcon("document-save").pixmap(16);
-  m_modDiscPm = KIcon("dialog-warning").pixmap(16);
-  m_modmodPm = KIcon("document-save", 0, QStringList () << "emblem-important").pixmap(16);
+  m_modPm = QIcon::fromTheme("document-save").pixmap(16);
+  m_modDiscPm = QIcon::fromTheme("dialog-warning").pixmap(16);
+  QIcon icon = KIconUtils::addOverlay(QIcon::fromTheme("document-save"),
+                                      QIcon::fromTheme("emblem-important"),
+                                      Qt::TopLeftCorner);
+  m_modmodPm = icon.pixmap(16);
 }
 
 KateVSStatusBar::~KateVSStatusBar ()

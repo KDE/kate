@@ -19,7 +19,7 @@
 #ifndef KATE_FILETREE_PLUGIN_H
 #define KATE_FILETREE_PLUGIN_H
 
-#include <KIcon>
+#include <QtGui/QIcon>
 
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/document.h>
@@ -52,7 +52,7 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
 
     virtual QString configPageName (uint number = 0) const;
     virtual QString configPageFullName (uint number = 0) const;
-    virtual KIcon configPageIcon (uint number = 0) const;
+    virtual QIcon configPageIcon (uint number = 0) const;
     virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0 );
 
     const KateFileTreePluginSettings &settings();

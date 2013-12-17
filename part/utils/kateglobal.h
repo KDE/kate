@@ -198,7 +198,7 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
 
     QString configPageFullName (int number) const;
 
-    KIcon configPageIcon (int number) const;
+    QIcon configPageIcon (int number) const;
 
   /**
    * Kate Part Internal stuff ;)

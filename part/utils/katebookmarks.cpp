@@ -60,7 +60,7 @@ void KateBookmarks::createActions( KActionCollection* ac )
 {
     m_bookmarkToggle = new KToggleAction( i18n("Set &Bookmark"), this );
     ac->addAction( "bookmarks_toggle", m_bookmarkToggle );
-    m_bookmarkToggle->setIcon( KIcon( "bookmark-new" ) );
+    m_bookmarkToggle->setIcon( QIcon::fromTheme( "bookmark-new" ) );
     m_bookmarkToggle->setShortcut( Qt::CTRL+Qt::Key_B );
     m_bookmarkToggle->setWhatsThis(i18n("If a line has no bookmark then add one, otherwise remove it."));
     connect( m_bookmarkToggle, SIGNAL(triggered()), this, SLOT(toggleBookmark()) );
@@ -72,14 +72,14 @@ void KateBookmarks::createActions( KActionCollection* ac )
 
     m_goNext = new QAction( i18n("Next Bookmark"), this);
     ac->addAction("bookmarks_next", m_goNext);
-    m_goNext->setIcon( KIcon( "go-down-search" ) );
+    m_goNext->setIcon( QIcon::fromTheme( "go-down-search" ) );
     m_goNext->setShortcut( Qt::ALT + Qt::Key_PageDown );
     m_goNext->setWhatsThis(i18n("Go to the next bookmark."));
     connect( m_goNext, SIGNAL(triggered()), this, SLOT(goNext()) );
 
     m_goPrevious = new QAction( i18n("Previous Bookmark"), this);
     ac->addAction("bookmarks_previous", m_goPrevious);
-    m_goPrevious->setIcon( KIcon( "go-up-search" ) );
+    m_goPrevious->setIcon( QIcon::fromTheme( "go-up-search" ) );
     m_goPrevious->setShortcut( Qt::ALT + Qt::Key_PageUp );
     m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
     connect( m_goPrevious, SIGNAL(triggered()), this, SLOT(goPrevious()) );

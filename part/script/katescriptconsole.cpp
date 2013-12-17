@@ -28,7 +28,6 @@
 
 // KDE
 #include <KLocale>
-#include <KIcon>
 #include <klocalizedstring.h>
 
 // Kate
@@ -114,7 +113,7 @@ KateScriptConsole::KateScriptConsole(KateView * view, QWidget * parent)
   m_result = new QLabel(this);
   m_edit = new QTextEdit(this);
   m_execute = new QPushButton(i18n("Execute"), this);
-  m_execute->setIcon(KIcon("quickopen"));
+  m_execute->setIcon(QIcon::fromTheme("quickopen"));
   connect(m_execute, SIGNAL(clicked()), this, SLOT(executePressed()));
 
   layout->addWidget(m_edit);

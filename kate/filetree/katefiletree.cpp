@@ -53,36 +53,36 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   
   connect( this, SIGNAL(clicked(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));
 
-  m_filelistCloseDocument = new QAction( KIcon("window-close"), i18n( "Close" ), this );
+  m_filelistCloseDocument = new QAction( QIcon::fromTheme("window-close"), i18n( "Close" ), this );
   connect( m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
-  m_filelistCopyFilename = new QAction( KIcon("edit-copy"), i18n( "Copy Filename" ), this );
+  m_filelistCopyFilename = new QAction( QIcon::fromTheme("edit-copy"), i18n( "Copy Filename" ), this );
   connect( m_filelistCopyFilename, SIGNAL(triggered()), this, SLOT(slotCopyFilename()) );
   m_filelistCopyFilename->setWhatsThis(i18n("Copy the filename of the file."));
 
   QActionGroup *modeGroup = new QActionGroup(this);
 
-  m_treeModeAction = setupOption(modeGroup, KIcon("view-list-tree"), i18n("Tree Mode"),
+  m_treeModeAction = setupOption(modeGroup, QIcon::fromTheme("view-list-tree"), i18n("Tree Mode"),
                                  i18n("Set view style to Tree Mode"),
                                  SLOT(slotTreeMode()), true);
 
-  m_listModeAction = setupOption(modeGroup, KIcon("view-list-text"), i18n("List Mode"),
+  m_listModeAction = setupOption(modeGroup, QIcon::fromTheme("view-list-text"), i18n("List Mode"),
                                  i18n("Set view style to List Mode"),
                                  SLOT(slotListMode()), false);
 
   QActionGroup *sortGroup = new QActionGroup(this);
 
-  m_sortByFile = setupOption(sortGroup, KIcon(), i18n("Document Name"),
+  m_sortByFile = setupOption(sortGroup, QIcon(), i18n("Document Name"),
                              i18n("Sort by Document Name"),
                              SLOT(slotSortName()), true);
 
   
-  m_sortByPath = setupOption(sortGroup, KIcon(), i18n("Document Path"),
+  m_sortByPath = setupOption(sortGroup, QIcon(), i18n("Document Path"),
                              i18n("Sort by Document Path"),
                              SLOT(slotSortPath()), false);
   
-  m_sortByOpeningOrder =  setupOption(sortGroup, KIcon(), i18n("Opening Order"),
+  m_sortByOpeningOrder =  setupOption(sortGroup, QIcon(), i18n("Opening Order"),
                              i18n("Sort by Opening Order"),
                              SLOT(slotSortOpeningOrder()), false);
   
@@ -97,7 +97,7 @@ KateFileTree::~KateFileTree()
 
 QAction *KateFileTree::setupOption(
   QActionGroup *group,
-  const KIcon &icon,
+  const QIcon &icon,
   const QString &label,
   const QString &whatsThis,
   const char *slot,
@@ -237,7 +237,7 @@ void KateFileTree::slotFixOpenWithMenu()
   {
     KService::Ptr service = *it;
     if (service->name() == "Kate") continue;
-    a = menu->addAction(KIcon(service->icon()), service->name());
+    a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
     a->setData(service->entryPath());
   }
   // append "Other..." to call the KDE "open with" dialog.

@@ -25,7 +25,6 @@
 #include "katesnippetglobal.h"
 
 #include <KLocalizedString>
-#include <KIcon>
 #include <KColorScheme>
 #include <KActionCollection>
 #include <KParts/MainWindow>
@@ -33,7 +32,7 @@
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>")), m_action(0)
 {
-    setIcon(KIcon("text-plain"));
+    setIcon(QIcon::fromTheme("text-plain"));
 }
 
 Snippet::~Snippet()

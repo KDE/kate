@@ -17,16 +17,18 @@
 */
 
 #include "katefiletreemodel.h"
-#include <KIcon>
-#include <QDir>
-#include <QFileInfo>
-#include <QList>
-#include <QMimeDatabase>
+
+#include <QtCore/QDir>
+#include <QtCore/QFileInfo>
+#include <QtCore/QList>
+#include <QtCore/QMimeDatabase>
+#include <QtGui/QIcon>
 
 #include <KColorScheme>
 #include <KColorUtils>
 #include <klocale.h>
 #include <klocalizedstring.h>
+#include <kiconutils.h>
 
 #include <ktexteditor/document.h>
 
@@ -219,7 +221,7 @@ int ProxyItem::row()
 QIcon ProxyItem::icon()
 {
   if(m_children.count())
-    return KIcon("folder");
+    return QIcon::fromTheme("folder");
 
   return m_icon;
 }
@@ -1272,13 +1274,15 @@ void KateFileTreeModel::setupIcon(ProxyItem *item)
     QUrl url(item->path());
     icon_name = QMimeDatabase().mimeTypeForFile(url.path(), QMimeDatabase::MatchExtension).iconName();
   }
+
+  QIcon icon(icon_name);
   
   if(item->flag(ProxyItem::ModifiedExternally) || item->flag(ProxyItem::DeletedExternally)) {
-    emblems << "emblem-important";
+    icon = KIconUtils::addOverlay(icon, QIcon("emblem-important"), Qt::TopLeftCorner);
     qCDebug(FILETREE) << "modified!";
   }
 
-  item->setIcon(KIcon(icon_name, 0, emblems));
+  item->setIcon(icon);
 
   qCDebug(FILETREE) << "END!";
 }

@@ -82,7 +82,7 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   connect( ui->cmbFiletypes, SIGNAL(activated(int)), this, SLOT(typeChanged(int)) );
   connect( ui->btnNew, SIGNAL(clicked()), this, SLOT(newType()) );
   connect( ui->btnDelete, SIGNAL(clicked()), this, SLOT(deleteType()) );
-  ui->btnMimeTypes->setIcon(KIcon("tools-wizard"));
+  ui->btnMimeTypes->setIcon(QIcon::fromTheme("tools-wizard"));
   connect(ui->btnMimeTypes, SIGNAL(clicked()), this, SLOT(showMTDlg()));
   connect( ui->btnDownload, SIGNAL(clicked()), this, SLOT(hlDownload()) );
 

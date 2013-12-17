@@ -121,12 +121,12 @@ QString KateFileTreePlugin::configPageFullName (uint number) const
   return QString(i18n("Configure Documents"));
 }
 
-KIcon KateFileTreePlugin::configPageIcon (uint number) const
+QIcon KateFileTreePlugin::configPageIcon (uint number) const
 {
   if(number != 0)
-    return KIcon();
+    return QIcon();
 
-  return KIcon("view-list-tree");
+  return QIcon::fromTheme("view-list-tree");
 }
 
 Kate::PluginConfigPage *KateFileTreePlugin::configPage (uint number, QWidget *parent, const char *name)
@@ -228,7 +228,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
 
   QAction *show_active = actionCollection()->addAction("filetree_show_active_document", mainWindow);
   show_active->setText(i18n("&Show Active"));
-  show_active->setIcon(KIcon("folder-sync"));
+  show_active->setIcon(QIcon::fromTheme("folder-sync"));
   connect( show_active, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
 
   /**

@@ -35,7 +35,6 @@
 #include <klocalizedstring.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kde_file.h>
 
 #include "kateglobal.h"
 #include "katecmd.h"
@@ -137,18 +136,16 @@ void KateScriptManager::collect(bool force)
       const QString baseName = fi.baseName ();
 
       // each file has a group
-      const QString group = "Cache "+ fileName;
+      const QString group(QLatin1String("Cache ") + fileName);
       KConfigGroup config(&cfgFile, group);
 
       // stat the file to get the last-modified-time
-      KDE_struct_stat sbuf;
-      memset(&sbuf, 0, sizeof(sbuf));
-      KDE::stat(fileName, &sbuf);
+      const int lastModified = QFileInfo(fileName).lastModified().toTime_t();
 
       // check whether file is already cached
       bool useCache = false;
       if(!force && cfgFile.hasGroup(group)) {
-        useCache = (sbuf.st_mtime == config.readEntry("last-modified", 0));
+        useCache = (lastModified == config.readEntry("last-modified", 0));
       }
 
       // read key/value pairs from the cached file if possible
@@ -162,7 +159,7 @@ void KateScriptManager::collect(bool force)
           pairs[entry.key()] = entry.value();
       }
       else if(parseMetaInformation(fileName, pairs)) {
-        config.writeEntry("last-modified", int(sbuf.st_mtime));
+        config.writeEntry("last-modified", lastModified);
         // iterate keys and save cache
         for(QHash<QString, QString>::ConstIterator item = pairs.constBegin();
             item != pairs.constEnd();

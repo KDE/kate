@@ -25,30 +25,26 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "katedocument.h"
 #include "katehighlight.h"
 #include "kateconfig.h"
 #include "kateglobal.h"
 #include "kateautoindent.h"
+#include "katepartdebug.h"
 
 #include <klocalizedstring.h>
-#include "katepartdebug.h"
 #include <kglobal.h>
 #include <kcharsets.h>
-#include <kde_file.h>
-
-// on the fly compression
 #include <kfilterdev.h>
-#include <kde_file.h>
 
+#include <QtCore/QDate>
 #include <QtCore/QFile>
+#include <QtCore/QFileInfo>
+#include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 #include <QtCore/QTimer>
-#include <QtCore/QTextCodec>
-#include <QtCore/QDate>
-
-#include <limits.h>
 
 /**
  * Initial value for m_maxDynamicContexts
@@ -202,8 +198,7 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
    * check if this is a normal file or not, avoids to open char devices or directories!
    * else clear buffer and break out with error
    */
-  KDE_struct_stat sbuf;
-  if (KDE::stat(m_file, &sbuf) != 0 || !S_ISREG(sbuf.st_mode)) {
+  if (!QFileInfo(m_file).isFile()) {
     clear ();
     return false;
   }

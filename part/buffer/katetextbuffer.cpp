@@ -29,8 +29,9 @@
 
 #include "katepartdebug.h"
 
-// fdatasync
-#include <kde_file.h>
+#if HAVE_FDATASYNC
+#include <unistd.h>
+#endif
 
 #include <KSaveFile>
 #include <kdeversion.h>

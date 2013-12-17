@@ -30,9 +30,7 @@
 
 #include <ktexteditor/view.h>
 
-#include <kde_file.h>
 #include <klocale.h>
-#include <kicon.h>
 #include <klocalizedstring.h>
 #include <kstandardguiitem.h>
 
@@ -40,6 +38,9 @@
 #include <QDir>
 #include <QApplication>
 
+#ifdef HAVE_FDATASYNC
+#include <unistd.h>
+#endif
 
 // swap file version header
 const static char * const swapFileVersionString = "Kate Swap File 2.0";

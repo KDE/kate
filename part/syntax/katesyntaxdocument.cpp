@@ -30,7 +30,6 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kconfiggroup.h>
-#include <kde_file.h>
 
 #include <QtWidgets/QApplication>
 #include <QtCore/QFile>
@@ -386,18 +385,15 @@ void KateSyntaxDocument::setupModeList (bool force)
   for ( QStringList::ConstIterator it = list.constBegin(); it != list.constEnd(); ++it )
   {
     // Each file has a group called:
-    QString Group="Cache "+ *it;
+    QString group(QLatin1String("Cache ") + *it);
 
     // Let's go to this group
-    KConfigGroup config(m_config, Group);
+    KConfigGroup config(m_config, group);
 
-    // stat the file
-    KDE_struct_stat sbuf;
-    memset (&sbuf, 0, sizeof(sbuf));
-    KDE::stat(*it, &sbuf);
+    const int lastModified = QFileInfo(group).lastModified().toTime_t();
 
     // If the group exist and we're not forced to read the xml file, let's build myModeList for katesyntax..rc
-    if (!force && config.exists() && (sbuf.st_mtime == config.readEntry("lastModified",0)))
+    if (!force && config.exists() && (lastModified == config.readEntry("lastModified",0)))
     {
       // Let's make a new KateSyntaxModeListItem to instert in myModeList from the information in katesyntax..rc
       KateSyntaxModeListItem *mli=new KateSyntaxModeListItem;
@@ -467,7 +463,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               mli->identifier = *it;
 
               // Now let's write or overwrite (if force==true) the entry in katesyntax...rc
-              config = KConfigGroup(m_config, Group);
+              config = KConfigGroup(m_config, group);
               config.writeEntry("name",mli->name);
               config.writeEntry("section",mli->section);
               config.writeEntry("mimetype",mli->mimetype);
@@ -481,7 +477,7 @@ void KateSyntaxDocument::setupModeList (bool force)
               config.writeEntry("hidden",mli->hidden);
 
               // modified time to keep cache in sync
-              config.writeEntry("lastModified", int(sbuf.st_mtime));
+              config.writeEntry("lastModified", lastModified);
 
               // Now that the data is in the config file, translate section
               mli->section    = i18nc("Language Section",mli->section.toUtf8().data());

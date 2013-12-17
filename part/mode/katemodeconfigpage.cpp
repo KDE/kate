@@ -38,7 +38,6 @@
 #include <kicon.h>
 #include <knuminput.h>
 #include <klocale.h>
-#include <kmenu.h>
 
 #include <QtCore/QRegExp>
 #include <QtWidgets/QCheckBox>

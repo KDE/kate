@@ -78,7 +78,6 @@
 #include <kxmlguiclient.h>
 #include <kencodingfiledialog.h>
 #include <kstandardshortcut.h>
-#include <kmenu.h>
 #include <ktoggleaction.h>
 #include <kselectaction.h>
 #include <kactioncollection.h>
@@ -2794,7 +2793,7 @@ QMenu *KateView::contextMenu( ) const
 QMenu * KateView::defaultContextMenu(QMenu* menu) const
 {
     if (!menu)
-      menu = new KMenu(const_cast<KateView*>(this));
+      menu = new QMenu(const_cast<KateView*>(this));
 
     menu->addAction(m_editUndo);
     menu->addAction(m_editRedo);

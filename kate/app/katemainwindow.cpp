@@ -44,7 +44,6 @@
 #include <KLocale>
 #include <KMessageBox>
 #include <KOpenWithDialog>
-#include <KMenu>
 #include <KConfig>
 #include <kstandardaction.h>
 #include <KMimeTypeTrader>
@@ -67,8 +66,9 @@
 #include <QDropEvent>
 #include <QList>
 #include <QDesktopWidget>
-#include <QMimeData>
-#include <QMimeDatabase>
+#include <QtCore/QMimeData>
+#include <QtCore/QMimeDatabase>
+#include <QtWidgets/QMenu>
 
 #include <kio/job.h>
 #include <KIO/ListJob>

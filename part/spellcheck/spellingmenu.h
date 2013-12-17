@@ -26,7 +26,6 @@
 
 #include <kactioncollection.h>
 #include <kactionmenu.h>
-#include <kmenu.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/movingrangefeedback.h>
 #include <ktexteditor/range.h>

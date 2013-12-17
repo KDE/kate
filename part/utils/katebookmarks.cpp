@@ -27,7 +27,6 @@
 #include <kactioncollection.h>
 #include <kguiitem.h>
 #include <kicon.h>
-#include <kmenu.h>
 #include <kstringhandler.h>
 #include <kxmlguiclient.h>
 #include <kxmlguifactory.h>

@@ -36,7 +36,6 @@
 #include <KCodecs>
 #include <KStandardGuiItem>
 #include <KPushButton>
-#include <KMenu>
 #include <KActionCollection>
 #include <KIO/NetAccess>
 #include <KIO/CopyJob>
@@ -52,6 +51,7 @@
 #include <QStyle>
 #include <QtAlgorithms>
 #include <QCollator>
+#include <QtWidgets/QMenu>
 
 #include <unistd.h>
 #include <time.h>

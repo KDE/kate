@@ -80,7 +80,6 @@
 #include <kmessagebox.h>
 #include <kmimetypechooser.h>
 #include <knuminput.h>
-#include <kmenu.h>
 #include <kprocess.h>
 #include <krun.h>
 #include <kseparator.h>

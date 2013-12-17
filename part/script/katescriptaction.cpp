@@ -24,10 +24,9 @@
 #include "kateglobal.h"
 #include "kateviewhelpers.h"
 #include "kactioncollection.h"
+#include "katepartdebug.h"
 
 #include <kxmlguifactory.h>
-#include <kmenu.h>
-#include "katepartdebug.h"
 #include <klocale.h>
 
 //BEGIN KateScriptAction

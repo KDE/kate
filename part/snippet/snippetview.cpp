@@ -23,8 +23,7 @@
 
 #include "snippetview.h"
 
-#include <QContextMenuEvent>
-#include <KMenu>
+#include <QtGui/QContextMenuEvent>
 #include <KMessageBox>
 
 #include "snippet.h"
@@ -154,24 +153,25 @@ void SnippetView::contextMenu (const QPoint& pos)
     QStandardItem* item = SnippetStore::self()->itemFromIndex( index );
     if (!item) {
         // User clicked into an empty place of the tree
-        KMenu menu(this);
-        menu.addTitle(i18n("Snippets"));
+        QMenu menu(this);
+        // FIXME: what is correct way to this in KF5?
+        menu.addSection(i18n("Snippets"));
 
         menu.addAction(m_addRepoAction);
         menu.addAction(m_getNewStuffAction);
 
         menu.exec(snippetTree->mapToGlobal(pos));
     } else if (Snippet* snippet = dynamic_cast<Snippet*>( item )) {
-        KMenu menu(this);
-        menu.addTitle(i18n("Snippet: %1", snippet->text()));
+        QMenu menu(this);
+        menu.addSection(i18n("Snippet: %1", snippet->text()));
 
         menu.addAction(m_editSnippetAction);
         menu.addAction(m_removeSnippetAction);
 
         menu.exec(snippetTree->mapToGlobal(pos));
     } else if (SnippetRepository* repo = dynamic_cast<SnippetRepository*>( item )) {
-        KMenu menu(this);
-        menu.addTitle(i18n("Repository: %1", repo->text()));
+        QMenu menu(this);
+        menu.addSection(i18n("Repository: %1", repo->text()));
 
         menu.addAction(m_editRepoAction);
         menu.addAction(m_removeRepoAction);

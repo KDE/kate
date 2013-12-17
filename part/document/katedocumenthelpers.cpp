@@ -26,9 +26,6 @@
 #include "katedocument.h"
 #include "kateview.h"
 
-#include <kmenu.h>
-#include <klocale.h>
-
 namespace KTextEditor { class View; }
 
 KateBrowserExtension::KateBrowserExtension( KateDocument* doc )

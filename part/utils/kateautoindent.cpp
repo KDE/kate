@@ -29,10 +29,9 @@
 #include "kateview.h"
 #include "kateextendedattribute.h"
 #include "katedocument.h"
+#include "katepartdebug.h"
 
 #include <klocale.h>
-#include "katepartdebug.h"
-#include <kmenu.h>
 #include <klocalizedstring.h>
 
 #include <cctype>

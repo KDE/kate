@@ -40,41 +40,40 @@
 #include "katetextlayout.h"
 #include "kateglobal.h"
 #include "kateviglobal.h"
+#include "katepartdebug.h"
 #include <katevicommandrangeexpressionparser.h>
 
 #include <kapplication.h>
 #include <kcharsets.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
-#include "katepartdebug.h"
 #include <klocale.h>
 #include <klocalizedstring.h>
 #include <knotification.h>
-#include <kmenu.h>
 #include <kiconloader.h>
 #include <kconfiggroup.h>
 #include <khelpclient.h>
 
-#include <QtAlgorithms>
-#include <QVariant>
-#include <QtGui/QCursor>
-#include <QtWidgets/QMenu>
-#include <QtGui/QPainter>
-#include <QtWidgets/QStyle>
-#include <QtCore/QTimer>
 #include <QtCore/QRegExp>
 #include <QtCore/QTextCodec>
+#include <QtCore/QTimer>
+#include <QtCore/QVariant>
+#include <QtCore/QtAlgorithms>
+#include <QtGui/QCursor>
 #include <QtGui/QKeyEvent>
+#include <QtGui/QLinearGradient>
+#include <QtGui/QPainter>
 #include <QtGui/QPainterPath>
-#include <QtWidgets/QStyleOption>
 #include <QtGui/QPalette>
 #include <QtGui/QPen>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QStyleOption>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QToolTip>
-#include <QtWidgets/QAction>
 #include <QtWidgets/QWhatsThis>
-#include <QtGui/QLinearGradient>
 
 #include <math.h>
 
@@ -2057,8 +2056,8 @@ void KateIconBorder::showMarkMenu( uint line, const QPoint& pos )
   if( !m_view->config()->allowMarkMenu() )
     return;
 
-  KMenu markMenu;
-  KMenu selectDefaultMark;
+  QMenu markMenu;
+  QMenu selectDefaultMark;
 
   QVector<int> vec( 33 );
   int i=1;
@@ -2159,7 +2158,7 @@ void KateIconBorder::updateAnnotationLine( int line )
 
 void KateIconBorder::showAnnotationMenu( int line, const QPoint& pos)
 {
-  KMenu menu;
+  QMenu menu;
   QAction a(i18n("Disable Annotation Bar"), &menu);
   a.setIcon(KIcon("dialog-close"));
   menu.addAction(&a);

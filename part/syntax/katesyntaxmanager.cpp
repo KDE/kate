@@ -34,16 +34,15 @@
 #include "kateconfig.h"
 #include "kateextendedattribute.h"
 #include "katehighlight.h"
+#include "katepartdebug.h"
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kglobal.h>
 #include <kcomponentdata.h>
 #include <klocale.h>
-#include <kmenu.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
-#include "katepartdebug.h"
 #include <kmessagebox.h>
 #include <kapplication.h>
 

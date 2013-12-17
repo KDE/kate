@@ -64,7 +64,6 @@
 
 #include <klocale.h>
 #include <kglobal.h>
-#include <kmenu.h>
 #include <kconfig.h>
 #include <kfiledialog.h>
 #include <kmessagebox.h>

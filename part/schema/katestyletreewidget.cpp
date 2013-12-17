@@ -24,14 +24,14 @@
 #include <QtGui/QPainter>
 #include <QtGui/QKeyEvent>
 #include <QtWidgets/QAction>
-#include <QtWidgets/QStyledItemDelegate>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QStyledItemDelegate>
 
 #include <klocale.h>
 #include <klocalizedstring.h>
 #include <kicon.h>
 #include <kcolorscheme.h>
-#include <kmenu.h>
 #include <kmessagebox.h>
 #include <kcolordialog.h>
 
@@ -207,7 +207,7 @@ void KateStyleTreeWidget::contextMenuEvent( QContextMenuEvent * event )
   KateStyleTreeWidgetItem *i = dynamic_cast<KateStyleTreeWidgetItem*>(itemAt(event->pos()));
   if (!i) return;
 
-  KMenu m( this );
+  QMenu m(this);
   KTextEditor::Attribute::Ptr currentStyle = i->style();
   // the title is used, because the menu obscures the context name when
   // displayed on behalf of spacePressed().
@@ -219,7 +219,7 @@ void KateStyleTreeWidget::contextMenuEvent( QContextMenuEvent * event )
   QIcon bgcl = brushIcon( i->style()->hasProperty(QTextFormat::BackgroundBrush) ? i->style()->background().color() : viewport()->palette().base().color() );
   QIcon sbgcl = brushIcon( i->style()->hasProperty(KTextEditor::Attribute::SelectedBackground) ? i->style()->selectedBackground().color() : viewport()->palette().base().color() );
 
-  m.addTitle( i->contextName() );
+  m.addSection(i->contextName());
 
   QAction* a = m.addAction( i18n("&Bold"), this, SLOT(changeProperty()) );
   a->setCheckable(true);

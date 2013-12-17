@@ -30,7 +30,6 @@
 #include <kcolorscheme.h>
 #include <klocale.h>
 #include "katepartdebug.h"
-#include <kmenu.h>
 #include <kconfiggroup.h>
 //END
 

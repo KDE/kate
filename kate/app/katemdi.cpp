@@ -33,21 +33,22 @@
 #include <khbox.h>
 #include <kiconloader.h>
 #include <klocale.h>
-#include <kmenu.h>
 #include <kmessagebox.h>
 #include <kvbox.h>
 #include <kxmlguifactory.h>
 #include <kdeversion.h>
 #include <klocalizedstring.h>
 
-#include <QEvent>
-#include <QShortcut>
-#include <QContextMenuEvent>
-#include <QPixmap>
-#include <QChildEvent>
-#include <QSizePolicy>
-#include <QDomDocument>
-#include <QStyle>
+#include <QtCore/QChildEvent>
+#include <QtCore/QEvent>
+#include <QtGui/QContextMenuEvent>
+#include <QtGui/QPixmap>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QShortcut>
+#include <QtWidgets/QSizePolicy>
+#include <QtWidgets/QStyle>
+#include <QtXml/QDomDocument>
+
 namespace KateMDI
 {
 
@@ -489,40 +490,40 @@ namespace KateMDI
 
         if (w)
         {
-          KMenu *p = new KMenu (this);
+          QMenu *menu = new QMenu(this);
 
           if (!w->plugin.isNull()) {
             Kate::PluginConfigPageInterface* pcpi=dynamic_cast<Kate::PluginConfigPageInterface*>(w->plugin.data());
             if (pcpi) {
               if (pcpi->configPages()>0)
-                p->addAction(i18n("Configure ..."))->setData(20);
+                menu->addAction(i18n("Configure ..."))->setData(20);
             }
           }
 
-          p->addTitle(SmallIcon("view_remove"), i18n("Behavior"));
+          menu->addSection(SmallIcon("view_remove"), i18n("Behavior"));
 
-          p->addAction(w->persistent ? KIcon("view-restore") : KIcon("view-fullscreen"),
+          menu->addAction(w->persistent ? KIcon("view-restore") : KIcon("view-fullscreen"),
                        w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent") ) -> setData(10);
 
-          p->addTitle(SmallIcon("move"), i18n("Move To"));
+          menu->addSection(SmallIcon("move"), i18n("Move To"));
 
           if (position() != 0)
-            p->addAction(KIcon("go-previous"), i18n("Left Sidebar"))->setData(0);
+            menu->addAction(KIcon("go-previous"), i18n("Left Sidebar"))->setData(0);
 
           if (position() != 1)
-            p->addAction(KIcon("go-next"), i18n("Right Sidebar"))->setData(1);
+            menu->addAction(KIcon("go-next"), i18n("Right Sidebar"))->setData(1);
 
           if (position() != 2)
-            p->addAction(KIcon("go-up"), i18n("Top Sidebar"))->setData(2);
+            menu->addAction(KIcon("go-up"), i18n("Top Sidebar"))->setData(2);
 
           if (position() != 3)
-            p->addAction(KIcon("go-down"), i18n("Bottom Sidebar"))->setData(3);
+            menu->addAction(KIcon("go-down"), i18n("Bottom Sidebar"))->setData(3);
 
-          connect(p, SIGNAL(triggered(QAction*)),
+          connect(menu, SIGNAL(triggered(QAction*)),
                   this, SLOT(buttonPopupActivate(QAction*)));
 
-          p->exec(e->globalPos());
-          delete p;
+          menu->exec(e->globalPos());
+          delete menu;
 
           return true;
         }

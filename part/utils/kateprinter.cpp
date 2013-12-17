@@ -40,7 +40,6 @@
 #include "katepartdebug.h"
 #include <kfontdialog.h>
 #include <klocale.h>
-#include <kglobal.h>
 #include <kdeprintdialog.h>
 #include <kuser.h> // for loginName
 #include <klineedit.h>
@@ -56,6 +55,7 @@
 
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
+#include <QtWidgets/QSpinBox>
 #include <QtCore/QStringList>
 #include <kvbox.h>
 
@@ -236,11 +236,11 @@ bool KatePrinter::print (KateDocument *doc)
         KUser u (KUser::UseRealUserID);
         tags["u"] = u.loginName();
 
-        tags["d"] = KGlobal::locale()->formatDateTime(dt, KLocale::ShortDate);
-        tags["D"] =  KGlobal::locale()->formatDateTime(dt, KLocale::LongDate);
-        tags["h"] =  KGlobal::locale()->formatTime(dt.time(), false);
-        tags["y"] =  KGlobal::locale()->formatDate(dt.date(), KLocale::ShortDate);
-        tags["Y"] =  KGlobal::locale()->formatDate(dt.date(), KLocale::LongDate);
+        tags["d"] =  KLocale::global()->formatDateTime(dt, KLocale::ShortDate);
+        tags["D"] =  KLocale::global()->formatDateTime(dt, KLocale::LongDate);
+        tags["h"] =  KLocale::global()->formatTime(dt.time(), false);
+        tags["y"] =  KLocale::global()->formatDate(dt.date(), KLocale::ShortDate);
+        tags["Y"] =  KLocale::global()->formatDate(dt.date(), KLocale::LongDate);
         tags["f"] =  doc->url().fileName();
         tags["U"] =  doc->url().toString();
         if ( selectionOnly )
@@ -1136,7 +1136,7 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
 
   QLabel *lBoxWidth = new QLabel( i18n("W&idth:"), gbBoxProps );
   grid->addWidget(lBoxWidth, 0, 0);
-  sbBoxWidth = new KIntSpinBox( gbBoxProps );
+  sbBoxWidth = new QSpinBox( gbBoxProps );
   sbBoxWidth->setRange( 1, 100 );
   sbBoxWidth->setSingleStep( 1 );
   grid->addWidget(sbBoxWidth, 0, 1);
@@ -1144,7 +1144,7 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
 
   QLabel *lBoxMargin = new QLabel( i18n("&Margin:"), gbBoxProps );
   grid->addWidget(lBoxMargin, 1, 0);
-  sbBoxMargin = new KIntSpinBox( gbBoxProps );
+  sbBoxMargin = new QSpinBox( gbBoxProps );
   sbBoxMargin->setRange( 0, 100 );
   sbBoxMargin->setSingleStep( 1 );
   grid->addWidget(sbBoxMargin, 1, 1);

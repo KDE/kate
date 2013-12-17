@@ -3415,9 +3415,6 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
   {
     editStart();
 
-    // remember cursor
-    KTextEditor::Cursor cursor = c;
-
     // cache the selection and cursor, so we can be sure to restore.
     KTextEditor::Range selection = v->selectionRange();
 

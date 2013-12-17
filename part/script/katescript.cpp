@@ -93,7 +93,7 @@ KateScript::~KateScript()
     // unload i18n catalog if available + loaded
     if (!generalHeader().catalog().isEmpty()) {
       qCDebug(LOG_PART) << "unloading i18n catalog" << generalHeader().catalog();
-      //KGlobal::locale()->removeCatalog(generalHeader().catalog()); FIXME KF5
+      KLocalizedString::removeQtDomain(generalHeader().catalog().toLatin1());
     }
 
     // remove data...
@@ -198,7 +198,7 @@ bool KateScript::load()
   // load i18n catalog if available
   if (!generalHeader().catalog().isEmpty()) {
     qCDebug(LOG_PART) << "loading i18n catalog" << generalHeader().catalog();
-    KGlobal::locale()->insertCatalog(generalHeader().catalog());
+    KLocalizedString::insertQtDomain(generalHeader().catalog().toLatin1());
   }
   return true;
 }

@@ -36,7 +36,7 @@ class VariableSpellCheckItem;
 class VariableRemoveSpacesItem;
 
 class KColorCombo;
-class KFontComboBox;
+class QFontComboBox;
 class QCheckBox;
 class QComboBox;
 class QLabel;
@@ -141,7 +141,7 @@ protected Q_SLOTS:
   void setItemValue(const QFont& newValue);
 
 private:
-  KFontComboBox* m_comboBox;
+  QFontComboBox* m_comboBox;
 };
 
 

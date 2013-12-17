@@ -30,8 +30,8 @@
 #include <QtWidgets/QLineEdit>
 #include <QtGui/QPainter>
 #include <QtWidgets/QSpinBox>
+#include <QtWidgets/QFontComboBox>
 
-#include <kfontcombobox.h>
 #include <kiconloader.h>
 #include <klocale.h>
 #include <klocalizedstring.h>
@@ -271,7 +271,7 @@ VariableFontEditor::VariableFontEditor(VariableFontItem* item, QWidget* parent)
 {
   QGridLayout* l = (QGridLayout *) layout();
 
-  m_comboBox = new KFontComboBox(this);
+  m_comboBox = new QFontComboBox(this);
   m_comboBox->setCurrentFont(item->value());
   l->addWidget(m_comboBox, 0, 2, Qt::AlignLeft);
 

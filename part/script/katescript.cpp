@@ -37,7 +37,6 @@
 #include "katepartdebug.h"
 #include <klocale.h>
 #include <kglobal.h>
-#include <kstandarddirs.h>
 #include <klocalizedstring.h>
 
 //BEGIN conversion functions for Cursors and Ranges

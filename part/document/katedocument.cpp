@@ -71,11 +71,9 @@
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>
 #include "katepartdebug.h"
-#include <kglobalsettings.h>
 #include <kdirwatch.h>
 #include <kencodingfiledialog.h>
 #include <kcodecs.h>
-#include <kstandarddirs.h>
 #include <kstringhandler.h>
 
 #include <kservicetypetrader.h>

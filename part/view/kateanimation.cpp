@@ -20,11 +20,12 @@
 
 #include "kateanimation.h"
 #include "kateanimation.moc"
-#include <katefadeeffect.h>
+#include "katefadeeffect.h"
 
 #include <KMessageWidget>
+
 #include <QTimer>
-#include <kglobalsettings.h>
+#include <QStyle>
 
 KateAnimation::KateAnimation(KMessageWidget* widget, EffectType effect)
   : QObject(widget)
@@ -71,7 +72,7 @@ void KateAnimation::show()
   }
 
   // show according to effects config
-  if (!(KGlobalSettings::graphicEffectsLevel() & KGlobalSettings::SimpleAnimationEffects)) {
+  if (!(m_widget->style()->styleHint(QStyle::SH_Widget_Animate, 0, m_widget))) {
     m_widget->show();
     emit widgetShown();
   } else {
@@ -99,7 +100,7 @@ void KateAnimation::hide()
   }
   
   // hide according to effects config
-  if (!(KGlobalSettings::graphicEffectsLevel() & KGlobalSettings::SimpleAnimationEffects)) {
+  if (!(m_widget->style()->styleHint(QStyle::SH_Widget_Animate, 0, m_widget))) {
     m_widget->hide();
     emit widgetHidden();
   } else {

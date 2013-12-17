@@ -44,7 +44,6 @@
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
 #include "katepartdebug.h"
-#include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kapplication.h>
 

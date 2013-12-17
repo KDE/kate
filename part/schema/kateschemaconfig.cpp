@@ -43,7 +43,6 @@
 #include <ktabwidget.h>
 #include <kcombobox.h>
 #include <kglobal.h>
-#include <KGlobalSettings>
 
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QProgressDialog>
@@ -454,7 +453,7 @@ void KateSchemaConfigFontTab::schemaChanged( const QString &newSchema )
   m_currentSchema = newSchema;
 
   // reuse font, if cached
-  QFont newFont (KGlobalSettings::fixedFont());
+  QFont newFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
   if (m_fonts.contains(m_currentSchema)) {
     newFont = m_fonts[m_currentSchema];
   } else {
@@ -468,7 +467,7 @@ void KateSchemaConfigFontTab::schemaChanged( const QString &newSchema )
 
 void KateSchemaConfigFontTab::importSchema(KConfigGroup& config)
 {
-  QFont f (KGlobalSettings::fixedFont());
+  QFont f(QFontDatabase::systemFont(QFontDatabase::FixedFont));
   m_fontchooser->setFont(config.readEntry("Font", f));
   m_fonts[m_currentSchema] = m_fontchooser->font();
 }

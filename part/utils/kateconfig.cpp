@@ -29,7 +29,6 @@
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobalsettings.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
 #include <kcharsets.h>
@@ -2186,7 +2185,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
     m_lineMarkerColor[index] = col;
   }
 
-  QFont f (KGlobalSettings::fixedFont());
+  QFont f (QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
   m_font = config.readEntry("Font", f);
   m_fontMetrics = QFontMetricsF (m_font);

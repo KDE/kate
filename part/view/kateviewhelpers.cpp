@@ -47,7 +47,6 @@
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
 #include "katepartdebug.h"
-#include <kglobalsettings.h>
 #include <klocale.h>
 #include <klocalizedstring.h>
 #include <knotification.h>
@@ -2013,7 +2012,8 @@ void KateIconBorder::mouseReleaseEvent( QMouseEvent* e )
     }
 
     if ( area == AnnotationBorder ) {
-      if( e->button() == Qt::LeftButton && KGlobalSettings::singleClick() ) {
+      const bool singleClick = style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, this);
+      if( e->button() == Qt::LeftButton && singleClick ) {
         emit m_view->annotationActivated( m_view, cursorOnLine );
       } else if ( e->button() == Qt::RightButton ) {
         showAnnotationMenu( cursorOnLine, e->globalPos() );
@@ -2034,7 +2034,8 @@ void KateIconBorder::mouseDoubleClickEvent( QMouseEvent* e )
       cursorOnLine <= m_doc->lastLine() )
   {
     BorderArea area = positionToArea( e->pos() );
-    if( area == AnnotationBorder && !KGlobalSettings::singleClick() ) {
+    const bool singleClick = style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, this);
+    if( area == AnnotationBorder && !singleClick ) {
       emit m_view->annotationActivated( m_view, cursorOnLine );
     }
   }

@@ -30,7 +30,6 @@
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include "katedebug.h"
-#include <kglobalsettings.h>
 #include <khbox.h>
 #include <kiconloader.h>
 #include <klocale.h>
@@ -48,6 +47,7 @@
 #include <QChildEvent>
 #include <QSizePolicy>
 #include <QDomDocument>
+#include <QStyle>
 namespace KateMDI
 {
 
@@ -277,7 +277,7 @@ namespace KateMDI
   {
     m_splitter = sp;
     m_ownSplit = new QSplitter ((position() == KMultiTabBar::Top || position() == KMultiTabBar::Bottom) ? Qt::Horizontal : Qt::Vertical, m_splitter);
-    m_ownSplit->setOpaqueResize( KGlobalSettings::opaqueResize() );
+    m_ownSplit->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, m_ownSplit));
     m_ownSplit->setChildrenCollapsible( false );
     m_ownSplit->hide ();
   }
@@ -724,7 +724,7 @@ namespace KateMDI
     m_sidebars[KMultiTabBar::Left] = new Sidebar (KMultiTabBar::Left, this, hb);
 
     m_hSplitter = new QSplitter (Qt::Horizontal, hb);
-    m_hSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
+    m_hSplitter->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, m_hSplitter));
 
     m_sidebars[KMultiTabBar::Left]->setSplitter (m_hSplitter);
 
@@ -735,7 +735,7 @@ namespace KateMDI
     m_sidebars[KMultiTabBar::Top] = new Sidebar (KMultiTabBar::Top, this, vb);
 
     m_vSplitter = new QSplitter (Qt::Vertical, vb);
-    m_vSplitter->setOpaqueResize( KGlobalSettings::opaqueResize() );
+    m_vSplitter->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, m_vSplitter));
 
     m_sidebars[KMultiTabBar::Top]->setSplitter (m_vSplitter);
 

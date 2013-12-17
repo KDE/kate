@@ -46,7 +46,6 @@
 #include <KConfig>
 #include <KConfigGroup>
 #include <kstandardaction.h>
-#include <KGlobalSettings>
 #include <kstandardshortcut.h>
 
 #ifdef KActivities_FOUND
@@ -59,6 +58,7 @@
 #include <QToolButton>
 #include <QTimer>
 #include <QMenu>
+#include <QStyle>
 
 //END Includes
 
@@ -80,7 +80,7 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
   guiMergedView = 0;
 
   // resize mode
-  setOpaqueResize( KGlobalSettings::opaqueResize() );
+  setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, this));
 
   KateViewSpace* vs = new KateViewSpace( this, 0 );
   addWidget (vs);
@@ -735,7 +735,7 @@ void KateViewManager::splitViewSpace( KateViewSpace* vs, // = 0
     // create a new QSplitter and replace vs with the splitter. vs and newVS are
     // the new children of the new QSplitter
     QSplitter* newContainer = new QSplitter( o );
-    newContainer->setOpaqueResize( KGlobalSettings::opaqueResize() );
+    newContainer->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, newContainer));
     QList<int> currentSizes = currentSplitter->sizes();
 
     newContainer->addWidget( vs );

@@ -40,9 +40,7 @@
 #include <kcomponentdata.h>
 #include <klocale.h>
 #include <kmenu.h>
-#include <kglobalsettings.h>
 #include "katepartdebug.h"
-#include <kstandarddirs.h>
 #include <kmessagebox.h>
 #include <kapplication.h>
 

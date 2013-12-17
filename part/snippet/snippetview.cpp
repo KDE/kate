@@ -36,8 +36,6 @@
 #include "snippetfilterproxymodel.h"
 #include "katepartdebug.h"
 
-#include <KGlobalSettings>
-
 #include <KNS3/DownloadDialog>
 #include <knewstuff3/uploaddialog.h>
 
@@ -326,7 +324,7 @@ bool SnippetView::eventFilter(QObject* obj, QEvent* e)
     // no, listening to activated() is not enough since that would also trigger the edit mode which we _dont_ want here
     // users may still rename stuff via select + F2 though
     if (obj == snippetTree->viewport()) {
-        const bool singleClick = KGlobalSettings::singleClick();
+        const bool singleClick = style()->styleHint(QStyle::SH_ItemView_ActivateItemOnSingleClick, 0, this);
         if ( (!singleClick && e->type() == QEvent::MouseButtonDblClick) || (singleClick && e->type() == QEvent::MouseButtonRelease) ) {
             QMouseEvent* mouseEvent = dynamic_cast<QMouseEvent*>(e);
             Q_ASSERT(mouseEvent);

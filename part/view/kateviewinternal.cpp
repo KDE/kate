@@ -47,7 +47,6 @@
 #include <kcursor.h>
 #include "katepartdebug.h"
 #include <kapplication.h>
-#include <kglobalsettings.h>
 
 #include <QtCore/QMimeData>
 #include <QtGui/QPainter>
@@ -2829,7 +2828,7 @@ void KateViewInternal::mouseMoveEvent( QMouseEvent* e )
       QPoint p( e->pos() - m_dragInfo.start );
 
       // we've left the drag square, we can start a real drag operation now
-      if( p.manhattanLength() > KGlobalSettings::dndEventDelay() )
+      if( p.manhattanLength() > QApplication::startDragDistance() )
         doDrag();
 
       return;

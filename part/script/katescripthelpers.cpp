@@ -33,7 +33,6 @@
 #include "katepartdebug.h"
 #include <klocale.h>
 #include <klocalizedstring.h>
-#include <kstandarddirs.h>
 
 namespace Kate {
 namespace Script {

@@ -73,7 +73,6 @@
 #include <kconfig.h>
 #include "katepartdebug.h"
 #include <kfontdialog.h>
-#include <kglobalsettings.h>
 #include <kiconloader.h>
 #include <kshortcutsdialog.h>
 #include <klineedit.h>
@@ -85,7 +84,6 @@
 #include <kprocess.h>
 #include <krun.h>
 #include <kseparator.h>
-#include <kstandarddirs.h>
 #include <ktemporaryfile.h>
 #include <kpushbutton.h>
 #include <kvbox.h>

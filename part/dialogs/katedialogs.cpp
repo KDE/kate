@@ -89,28 +89,26 @@
 #include <kvbox.h>
 #include <kactioncollection.h>
 #include <kplugininfo.h>
-#include <ktabwidget.h>
 
-//#include <knewstuff/knewstuff.h>
+#include <QtCore/QFile>
+#include <QtCore/QMap>
+#include <QtCore/QStringList>
+#include <QtCore/QTextCodec>
+#include <QtCore/QTextStream>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QPainter>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
-#include <QtCore/QFile>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
-#include <QtCore/QMap>
-#include <QtCore/QObject>
-#include <QtGui/QPainter>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QSlider>
-#include <QtCore/QStringList>
+#include <QtWidgets/QTabBar>
 #include <QtWidgets/QTabWidget>
-#include <QtCore/QTextCodec>
-#include <QtCore/QTextStream>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QWhatsThis>
-#include <QtGui/QKeyEvent>
 #include <QtXml/QDomDocument>
 
 // trailing slash is important
@@ -147,7 +145,7 @@ KateIndentConfigTab::KateIndentConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   // This will let us have more separation between this page and
-  // the KTabWidget edge (ereslibre)
+  // the QTabWidget edge (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
   QWidget *newWidget = new QWidget(this);
 
@@ -268,7 +266,7 @@ KateCompletionConfigTab::KateCompletionConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   // This will let us have more separation between this page and
-  // the KTabWidget edge (ereslibre)
+  // the QTabWidget edge (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
   QWidget *newWidget = new QWidget(this);
 
@@ -331,7 +329,7 @@ KateViInputModeConfigTab::KateViInputModeConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   // This will let us have more separation between this page and
-  // the KTabWidget edge (ereslibre)
+  // the QTabWidget edge (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
   QWidget *newWidget = new QWidget(this);
 
@@ -491,7 +489,7 @@ KateSpellCheckConfigTab::KateSpellCheckConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   // This will let us have more separation between this page and
-  // the KTabWidget edge (ereslibre)
+  // the QTabWidget edge (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
   QWidget *newWidget = new QWidget(this);
 
@@ -549,7 +547,7 @@ KateNavigationConfigTab::KateNavigationConfigTab(QWidget *parent)
   : KateConfigPage(parent)
 {
   // This will let us having more separation between this page and
-  // the KTabWidget edge (ereslibre)
+  // the QTabWidget edge (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
   QWidget *newWidget = new QWidget(this);
 
@@ -683,7 +681,7 @@ KateEditConfigTab::KateEditConfigTab(QWidget *parent)
 {
   QVBoxLayout *layout = new QVBoxLayout;
   layout->setMargin(0);
-  KTabWidget *tabWidget = new KTabWidget(this);
+  QTabWidget *tabWidget = new QTabWidget(this);
 
   // add all tabs
   tabWidget->insertTab(0, editConfigTab, i18n("General"));
@@ -882,7 +880,7 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   // initialize, add and work with as we do with modeConfigPage (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
   layout->setMargin(0);
-  KTabWidget *tabWidget = new KTabWidget(this);
+  QTabWidget *tabWidget = new QTabWidget(this);
 
   QWidget *tmpWidget = new QWidget(tabWidget);
   QVBoxLayout *internalLayout = new QVBoxLayout;

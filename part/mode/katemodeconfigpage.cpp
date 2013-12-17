@@ -44,7 +44,6 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGroupBox>
-
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QPushButton>
@@ -60,7 +59,7 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   m_lastType = -1;
 
   // This will let us have more separation between this page and
-  // the KTabWidget edge (ereslibre)
+  // the QTabWidget edge (ereslibre)
   QVBoxLayout *layout = new QVBoxLayout;
   QWidget *newWidget = new QWidget(this);
 

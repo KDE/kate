@@ -117,7 +117,7 @@
     </layout>
    </item>
    <item>
-    <widget class="KTabWidget" name="editorTabs">
+    <widget class="QTabWidget" name="editorTabs">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -145,12 +145,6 @@
    <class>KShortcutWidget</class>
    <extends>QWidget</extends>
    <header>kshortcutwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <tabstops>

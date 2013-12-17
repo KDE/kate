@@ -33,8 +33,6 @@
 class KateStyleTreeWidget;
 
 class KComboBox;
-class KTabWidget;
-
 
 class KateSchemaConfigColorTab : public QWidget
 {
@@ -204,7 +202,6 @@ class KateSchemaConfigPage : public KateConfigPage
   private:
     QString m_currentSchema;
 
-    class KTabWidget *m_tabWidget;
     class QPushButton *btndel;
     class KComboBox *defaultSchemaCombo;
     class KComboBox *schemaCombo;

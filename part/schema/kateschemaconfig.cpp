@@ -40,12 +40,12 @@
 #include <kfontchooser.h>
 #include <kmessagebox.h>
 #include <khbox.h>
-#include <ktabwidget.h>
 #include <kcombobox.h>
 #include <kglobal.h>
 
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QProgressDialog>
+#include <QtWidgets/QTabWidget>
 //END
 
 
@@ -915,23 +915,23 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
 
   qobject_cast<QBoxLayout *>(hbHl->layout())->addStretch();
 
-  m_tabWidget = new KTabWidget ( this );
-  layout->addWidget (m_tabWidget);
+  QTabWidget *tabWidget = new QTabWidget(this);
+  layout->addWidget (tabWidget);
 
   m_colorTab = new KateSchemaConfigColorTab();
-  m_tabWidget->addTab (m_colorTab, i18n("Colors"));
+  tabWidget->addTab (m_colorTab, i18n("Colors"));
   connect(m_colorTab, SIGNAL(changed()), SLOT(slotChanged()));
 
   m_fontTab = new KateSchemaConfigFontTab();
-  m_tabWidget->addTab (m_fontTab, i18n("Font"));
+  tabWidget->addTab (m_fontTab, i18n("Font"));
   connect(m_fontTab, SIGNAL(changed()), SLOT(slotChanged()));
 
   m_defaultStylesTab = new KateSchemaConfigDefaultStylesTab(m_colorTab);
-  m_tabWidget->addTab (m_defaultStylesTab, i18n("Default Text Styles"));
+  tabWidget->addTab (m_defaultStylesTab, i18n("Default Text Styles"));
   connect(m_defaultStylesTab, SIGNAL(changed()), SLOT(slotChanged()));
 
   m_highlightTab = new KateSchemaConfigHighlightTab(m_defaultStylesTab, m_colorTab);
-  m_tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
+  tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
   connect(m_highlightTab, SIGNAL(changed()), SLOT(slotChanged()));
 
   hbHl = new KHBox( this );

@@ -88,14 +88,14 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
 
     /**
      * property to tell the editor to use a given session config for session related
-     * configuration instead of KGlobal::config().
+     * configuration instead of KSharedConfig::openConfig().
      * MUST be set directly after first creation of the editor as otherwise
      * some parts might not pick this up.
      */
     Q_PROPERTY (KSharedConfig::Ptr sessionConfig READ sessionConfig WRITE setSessionConfig)
 
     /**
-     * Get session config, defaults to KGlobal::config()
+     * Get session config, defaults to KSharedConfig::openConfig()
      * @return session config
      */
     KSharedConfig::Ptr sessionConfig ()

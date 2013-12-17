@@ -115,7 +115,7 @@ class KateSession  : public QSharedData
      * return 0 if we have no file to read config from atm
      * @return config to read from
      * @note never delete configRead(), because the return value might be
-     *       KGlobal::config(). Only delete the member variables directly.
+     *       KSharedConfig::openConfig(). Only delete the member variables directly.
      */
     KConfig *configRead ();
 
@@ -125,7 +125,7 @@ class KateSession  : public QSharedData
      * return 0 if we have no file to write config to atm
      * @return config to write from
      * @note never delete configWrite(), because the return value might be
-     *       KGlobal::config(). Only delete the member variables directly.
+     *       KSharedConfig::openConfig(). Only delete the member variables directly.
      */
     KConfig *configWrite ();
 

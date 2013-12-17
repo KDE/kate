@@ -70,7 +70,7 @@ void KatePrinter::readSettings(QPrinter& printer)
   // later, the WRONG margins are displayed. The correct ones are still used.
   // This is a critical bug in Qt.
 
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   KConfigGroup group(config, "Kate Print Settings");
   KConfigGroup margins(&group, "Margins");
 
@@ -87,7 +87,7 @@ void KatePrinter::readSettings(QPrinter& printer)
 
 void KatePrinter::writeSettings(QPrinter& printer)
 {
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   KConfigGroup group(config, "Kate Print Settings");
   KConfigGroup margins(&group, "Margins");
 
@@ -719,7 +719,7 @@ bool KatePrintTextSettings::printGuide()
 
 void KatePrintTextSettings::readSettings()
 {
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   KConfigGroup printGroup( config, "Kate Print Settings" );
   
   KConfigGroup textGroup( &printGroup, "Text" );
@@ -732,7 +732,7 @@ void KatePrintTextSettings::readSettings()
     
 void KatePrintTextSettings::writeSettings()
 {
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   KConfigGroup printGroup( config, "Kate Print Settings" );
   
   KConfigGroup textGroup( &printGroup, "Text" );
@@ -1017,7 +1017,7 @@ void KatePrintHeaderFooter::showContextMenu(const QPoint& pos)
 
 void KatePrintHeaderFooter::readSettings()
 {
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   KConfigGroup printGroup( config, "Kate Print Settings" );
   
   // Header
@@ -1073,7 +1073,7 @@ void KatePrintHeaderFooter::readSettings()
     
 void KatePrintHeaderFooter::writeSettings()
 {
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   KConfigGroup printGroup( config, "Kate Print Settings" );
   
   // Header
@@ -1226,7 +1226,7 @@ QColor KatePrintLayout::boxColor()
 
 void KatePrintLayout::readSettings()
 {
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   KConfigGroup printGroup(config, "Kate Print Settings");
   
   KConfigGroup layoutGroup(&printGroup, "Layout");
@@ -1255,7 +1255,7 @@ void KatePrintLayout::readSettings()
     
 void KatePrintLayout::writeSettings()
 {
-  KSharedConfigPtr config = KGlobal::config();
+  KSharedConfigPtr config = KSharedConfig::openConfig();
   KConfigGroup printGroup(config, "Kate Print Settings");
   
   KConfigGroup layoutGroup(&printGroup, "Layout");

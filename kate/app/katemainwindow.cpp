@@ -40,7 +40,6 @@
 
 #include <KAboutApplicationDialog>
 #include <KEditToolBar>
-#include <KGlobal>
 #include <KShortcutsDialog>
 #include <KLocale>
 #include <KMessageBox>
@@ -68,6 +67,7 @@
 #include <QDropEvent>
 #include <QList>
 #include <QDesktopWidget>
+#include <QMimeData>
 #include <QMimeDatabase>
 
 #include <kio/job.h>
@@ -142,7 +142,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
       else // now fallback to hard defaults ;)
       {
         // first try global app config
-        KConfigGroup cg( KGlobal::config(), "MainWindow" );
+        KConfigGroup cg( KSharedConfig::openConfig(), "MainWindow" );
         size.setWidth (cg.readEntry( QString::fromLatin1("Width %1").arg(desk.width()), 0 ));
         size.setHeight (cg.readEntry( QString::fromLatin1("Height %1").arg(desk.height()), 0 ));
 
@@ -207,7 +207,8 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 KateMainWindow::~KateMainWindow()
 {
   // first, save our fallback window size ;)
- // FIXME KF5  saveWindowSize (KConfigGroup(KGlobal::config(), "MainWindow"));
+  KConfigGroup cfg(KSharedConfig::openConfig(), "MainWindow");
+  saveWindowSize(cfg);
 
   // save other options ;=)
   saveOptions();
@@ -499,7 +500,9 @@ void KateMainWindow::newWindow ()
 
 void KateMainWindow::slotEditToolbars()
 {
-// FIXME KF5  saveMainWindowSettings(KConfigGroup(KGlobal::config(), "MainWindow"));
+  KConfigGroup cfg(KSharedConfig::openConfig(), "MainWindow");
+  saveMainWindowSettings(cfg);
+
   KEditToolBar dlg( factory() );
 
   connect( &dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()) );
@@ -508,7 +511,7 @@ void KateMainWindow::slotEditToolbars()
 
 void KateMainWindow::slotNewToolbarConfig()
 {
-  applyMainWindowSettings(KConfigGroup(KGlobal::config(), "MainWindow"));
+  applyMainWindowSettings(KConfigGroup(KSharedConfig::openConfig(), "MainWindow"));
 }
 
 void KateMainWindow::slotFileQuit()
@@ -531,7 +534,7 @@ void KateMainWindow::slotOpenDocument(QUrl url)
 
 void KateMainWindow::readOptions ()
 {
-  KSharedConfig::Ptr config = KGlobal::config();
+  KSharedConfig::Ptr config = KSharedConfig::openConfig();
 
   const KConfigGroup generalGroup(config, "General");
   modNotification = generalGroup.readEntry("Modified Notification", false);
@@ -547,7 +550,7 @@ void KateMainWindow::readOptions ()
 
 void KateMainWindow::saveOptions ()
 {
-  KSharedConfig::Ptr config = KGlobal::config();
+  KSharedConfig::Ptr config = KSharedConfig::openConfig();
 
   KConfigGroup generalGroup(config, "General");
 

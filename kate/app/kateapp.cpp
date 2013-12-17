@@ -36,7 +36,6 @@
 #include "katedebug.h"
 #include <KMessageBox>
 #include <KLocale>
-#include <KGlobal>
 #include <KStartupInfo>
 
 #include <QFileInfo>
@@ -399,7 +398,7 @@ bool KateApp::openInput (const QString &text)
 
 KateMainWindow *KateApp::newMainWindow (KConfig *sconfig_, const QString &sgroup_)
 {
-  KConfig *sconfig = sconfig_ ? sconfig_ : KGlobal::config().data();
+  KConfig *sconfig = sconfig_ ? sconfig_ : KSharedConfig::openConfig().data();
   QString sgroup = !sgroup_.isEmpty() ? sgroup_ : "MainWindow0";
 
   KateMainWindow *mainWindow = new KateMainWindow (sconfig, sgroup);

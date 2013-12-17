@@ -33,7 +33,6 @@
 #include <KTextEditor/ConfigPage>
 
 #include "katedebug.h"
-#include <KGlobal>
 #include <KIconLoader>
 #include <KLocale>
 #include <KConfig>
@@ -62,7 +61,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   setObjectName( "configdialog" );
   // FIXME KF5 setHelp( QString(), KGlobal::mainComponent().componentName() );
 
-  KSharedConfig::Ptr config = KGlobal::config();
+  KSharedConfig::Ptr config = KSharedConfig::openConfig();
   KConfigGroup cgGeneral = KConfigGroup( config, "General" );
 
   // FIXME KF5 enableButton( Apply, false );
@@ -312,7 +311,7 @@ void KateConfigDialog::slotOk()
 
 void KateConfigDialog::slotApply()
 {
-  KSharedConfig::Ptr config = KGlobal::config();
+  KSharedConfig::Ptr config = KSharedConfig::openConfig();
 
   // if data changed apply the kate app stuff
   if( m_dataChanged )

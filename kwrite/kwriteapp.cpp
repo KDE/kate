@@ -21,16 +21,13 @@ Boston, MA 02110-1301, USA.
 #include <ktexteditor/editor.h>
 #include <kcmdlineargs.h>
 #include <kmessagebox.h>
+#include <ksharedconfig.h>
 
 #include <QFileInfo>
 #include <QTextCodec>
-
-#include <KDebug>
-#include <KGlobal>
-
 #include <QLoggingCategory>
-Q_DECLARE_LOGGING_CATEGORY(LOG_KWRITE)
 
+Q_DECLARE_LOGGING_CATEGORY(LOG_KWRITE)
 Q_LOGGING_CATEGORY(LOG_KWRITE, "kwrite")
 
 KWriteApp *KWriteApp::s_self = 0;
@@ -50,7 +47,7 @@ KWriteApp::KWriteApp(const QCommandLineParser &args)
   }
 
   // read from global config once
-  m_editor->readConfig(KGlobal::config().data());
+  m_editor->readConfig(KSharedConfig::openConfig().data());
 
   KTextEditor::ContainerInterface *iface =
     qobject_cast<KTextEditor::ContainerInterface*>(m_editor);

@@ -79,7 +79,7 @@ KateDocManager::KateDocManager (QObject *parent)
   }
   
   // read in editor config
-  m_editor->readConfig(KGlobal::config().data());
+  m_editor->readConfig(KSharedConfig::openConfig().data());
 
   m_documentManager = new Kate::DocumentManager (this);
 
@@ -91,7 +91,7 @@ KateDocManager::KateDocManager (QObject *parent)
 KateDocManager::~KateDocManager ()
 {
   // write editor config
-  m_editor->writeConfig(KGlobal::config().data());
+  m_editor->writeConfig(KSharedConfig::openConfig().data());
 
   // write metainfos?
   if (m_saveMetaInfos)
@@ -136,8 +136,7 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
   KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
   
   // turn of the editorpart's own modification dialog, we have our own one, too!
-  KSharedConfig::Ptr config = KGlobal::config();
-  const KConfigGroup generalGroup(config, "General");
+  const KConfigGroup generalGroup(KSharedConfig::openConfig(), "General");
   bool ownModNotification = generalGroup.readEntry("Modified Notification", false);
   if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
     qobject_cast<KTextEditor::ModificationInterface *>(doc)->setModifiedOnDiskWarning (!ownModNotification);

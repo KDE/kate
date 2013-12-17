@@ -30,7 +30,6 @@
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include "katedebug.h"
-#include <kglobal.h>
 #include <kglobalsettings.h>
 #include <khbox.h>
 #include <kiconloader.h>
@@ -159,7 +158,7 @@ namespace KateMDI
     // try to read the action shortcut
     QList<QKeySequence> shortcuts;
 
-    KSharedConfig::Ptr cfg = KGlobal::config();
+    KSharedConfigPtr cfg = KSharedConfig::openConfig();
     QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
 
     foreach (const QString &shortcut, shortcutString.split(";")) {

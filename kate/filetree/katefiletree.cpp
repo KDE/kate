@@ -229,7 +229,6 @@ void KateFileTree::slotFixOpenWithMenu()
   // get a list of appropriate services.
   QMimeDatabase db;
   QMimeType mime = db.mimeTypeForName( doc->mimeType() );
-  //kDebug(13001) << "mime type: " << mime.name();
 
   QAction *a = 0;
   KService::List offers = KMimeTypeTrader::self()->query(mime.name(), "Application");

@@ -17,13 +17,12 @@
 */
 
 #include "katefiletreepluginsettings.h"
-#include <KGlobal>
 #include <KColorScheme>
 #include <KColorUtils>
 #include "katefiletreedebug.h"
 
 KateFileTreePluginSettings::KateFileTreePluginSettings()
-  : m_group(KGlobal::config(), "filetree")
+  : m_group(KSharedConfig::openConfig(), "filetree")
 {
   KColorScheme colors(QPalette::Active);
   QColor bg = colors.background().color();

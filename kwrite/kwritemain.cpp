@@ -42,7 +42,6 @@
 #include <klocale.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kglobal.h>
 #include <krecentfilesaction.h>
 #include <kshortcutsdialog.h>
 #include <kstatusbar.h>
@@ -50,6 +49,8 @@
 #include <ksqueezedtextlabel.h>
 #include <kstringhandler.h>
 #include <kxmlguifactory.h>
+#include <ksharedconfig.h>
+
 #include <QCommandLineParser>
 #include <QLoggingCategory>
 
@@ -59,6 +60,7 @@
 
 #include <QtCore/QTimer>
 #include <QtCore/QTextCodec>
+#include <QtCore/QMimeData>
 
 QList<KTextEditor::Document*> KWrite::docList;
 QList<KWrite*> KWrite::winList;
@@ -114,6 +116,9 @@ KWrite::KWrite (KTextEditor::Document *doc)
     resize( QSize(700, 480).expandedTo(minimumSizeHint()));
 */
 
+  // FIXME: make sure the config dir exists, any idea how to do it more cleanly?
+  QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(".");
+
   // call it as last thing, must be sure everything is already set up ;)
   setAutoSaveSettings ();
 
@@ -143,7 +148,7 @@ KWrite::~KWrite()
     delete doc;
   }
 
-  KGlobal::config()->sync ();
+  KSharedConfig::openConfig()->sync();
 }
 
 void KWrite::setupActions()
@@ -333,7 +338,8 @@ void KWrite::editKeys()
 
 void KWrite::editToolbars()
 {
-  // FIXME KF5 saveMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
+  KConfigGroup cfg = KSharedConfig::openConfig()->group( "MainWindow" );
+  saveMainWindowSettings(cfg);
   KEditToolBar dlg(guiFactory(), this);
 
   connect( &dlg, SIGNAL(newToolBarConfig()), this, SLOT(slotNewToolbarConfig()) );
@@ -342,7 +348,7 @@ void KWrite::editToolbars()
 
 void KWrite::slotNewToolbarConfig()
 {
-    applyMainWindowSettings( KGlobal::config()->group( "MainWindow" ) );
+    applyMainWindowSettings( KSharedConfig::openConfig()->group( "MainWindow" ) );
 }
 
 void KWrite::dragEnterEvent( QDragEnterEvent *event )
@@ -391,10 +397,10 @@ void KWrite::readConfig(KSharedConfigPtr config)
 
   m_recentFiles->loadEntries( config->group( "Recent Files" ));
 
-  // editor config already read from KGlobal::config() in KWriteApp constructor.
+  // editor config already read from KSharedConfig::openConfig() in KWriteApp constructor.
   // so only load, if the config is a different one (this is only the case on
   // session restore)
-  if (config != KGlobal::config()) {
+  if (config != KSharedConfig::openConfig()) {
     m_view->document()->editor()->readConfig(config.data());
   }
 
@@ -422,12 +428,12 @@ void KWrite::writeConfig(KSharedConfigPtr config)
 //config file
 void KWrite::readConfig()
 {
-  readConfig(KGlobal::config());
+  readConfig(KSharedConfig::openConfig());
 }
 
 void KWrite::writeConfig()
 {
-  writeConfig(KGlobal::config());
+  writeConfig(KSharedConfig::openConfig());
 }
 
 // session management

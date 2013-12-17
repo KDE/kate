@@ -24,7 +24,7 @@
 Config stuff plan:
 -----------------
 
-main default config is stored in KGlobal::config()+":filetree"
+main default config is stored in KSharedConfig::openConfig()+":filetree"
 when main config is set, it needs to tell view's to delete
 existing customized settings, and use the global ones (somehow)
 (maybe some kind of "customized" flag?)

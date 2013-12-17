@@ -71,7 +71,6 @@
 #include <kcursor.h>
 #include <kicon.h>
 #include <klocale.h>
-#include <kglobal.h>
 #include <kcharsets.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
@@ -710,7 +709,7 @@ void KateView::slotConfigDialog ()
 
   // write config to global settings, else simple programs don't get config saved ever
   // like Konqueror, Dolphin, ...
-  KateGlobal::self ()->writeConfig (KGlobal::config().data());
+  KateGlobal::self()->writeConfig(KSharedConfig::openConfig().data());
 }
 
 void KateView::setupEditActions()

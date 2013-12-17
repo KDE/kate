@@ -23,7 +23,7 @@
 #include <QtWidgets/QTreeWidget>
 
 #include <kicon.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 
 #include "katecompletionmodel.h"
 
@@ -146,7 +146,7 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
   }
 
   // init with defaults from config or really hardcoded ones
-  KConfigGroup config( KGlobal::config(), "Kate Code Completion Defaults");
+  KConfigGroup config( KSharedConfig::openConfig(), "Kate Code Completion Defaults");
   readConfig (config);
 }
 
@@ -287,7 +287,7 @@ void KateCompletionConfig::apply( )
 {
   applyInternal();
 
-  KConfigGroup config( KGlobal::config(), "Kate Code Completion Defaults");
+  KConfigGroup config( KSharedConfig::openConfig(), "Kate Code Completion Defaults");
   writeConfig (config);
 }
 

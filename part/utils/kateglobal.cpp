@@ -49,7 +49,7 @@
 #include <kpagedialog.h>
 #include <kpagewidgetmodel.h>
 #include <kiconloader.h>
-#include <kglobal.h>
+#include <KGlobal>
 #include <KGlobalSettings>
 
 #include <QtCore/QPointer>
@@ -73,7 +73,7 @@ KateGlobal::KateGlobal ()
              i18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QString ("http://www.kate-editor.org"))
  , m_snippetGlobal (0) // lazy constructed
- , m_sessionConfig (KGlobal::config())
+ , m_sessionConfig (KSharedConfig::openConfig())
 {
   // set s_self
   s_self = this;
@@ -263,7 +263,7 @@ KateSnippetGlobal *KateGlobal::snippetGlobal()
 void KateGlobal::readConfig(KConfig *config)
 {
   if( !config )
-    config = KGlobal::config().data();
+    config = KSharedConfig::openConfig().data();
 
   KateGlobalConfig::global()->readConfig (KConfigGroup(config, "Kate Part Defaults"));
 
@@ -279,7 +279,7 @@ void KateGlobal::readConfig(KConfig *config)
 void KateGlobal::writeConfig(KConfig *config)
 {
   if( !config )
-    config = KGlobal::config().data();
+    config = KSharedConfig::openConfig().data();
 
   KConfigGroup cgGlobal(config, "Kate Part Defaults");
   KateGlobalConfig::global()->writeConfig (cgGlobal);

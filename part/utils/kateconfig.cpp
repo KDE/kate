@@ -88,7 +88,7 @@ KateGlobalConfig::KateGlobalConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfigGroup cg( KGlobal::config(), "Kate Part Defaults");
+  KConfigGroup cg( KSharedConfig::openConfig(), "Kate Part Defaults");
   readConfig (cg);
 }
 
@@ -202,7 +202,7 @@ KateDocumentConfig::KateDocumentConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfigGroup cg( KGlobal::config(), "Kate Document Defaults");
+  KConfigGroup cg( KSharedConfig::openConfig(), "Kate Document Defaults");
   readConfig (cg);
 }
 
@@ -1057,7 +1057,7 @@ bool KateDocumentConfig::onTheFlySpellCheck() const
   if(isGlobal()) {
     // WARNING: this is slightly hackish, but it's currently the only way to
     //          do it, see also the KTextEdit class
-    KConfigGroup configGroup(KGlobal::config(), "Spelling");
+    KConfigGroup configGroup(KSharedConfig::openConfig(), "Spelling");
     return configGroup.readEntry("checkerEnabledByDefault", false);
   }
   if (m_onTheFlySpellCheckSet) {
@@ -1141,7 +1141,7 @@ KateViewConfig::KateViewConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfigGroup config( KGlobal::config(), "Kate View Defaults");
+  KConfigGroup config( KSharedConfig::openConfig(), "Kate View Defaults");
   readConfig (config);
 }
 
@@ -1979,7 +1979,7 @@ KateRendererConfig::KateRendererConfig ()
   s_global = this;
 
   // init with defaults from config or really hardcoded ones
-  KConfigGroup config(KGlobal::config(), "Kate Renderer Defaults");
+  KConfigGroup config(KSharedConfig::openConfig(), "Kate Renderer Defaults");
   readConfig (config);
 }
 

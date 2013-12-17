@@ -42,7 +42,7 @@
 #include <KIO/CopyJob>
 #include <KStringHandler>
 #include <klocalizedstring.h>
-#include <kglobal.h>
+#include <ksharedconfig.h>
 
 #include <QDir>
 #include <QLabel>
@@ -173,7 +173,7 @@ bool KateSession::rename (const QString &name)
 KConfig *KateSession::configRead ()
 {
   if (m_sessionFileRel.isEmpty())
-    return KGlobal::config().data();
+    return KSharedConfig::openConfig().data();
 
   if (m_readConfig)
     return m_readConfig;
@@ -184,7 +184,7 @@ KConfig *KateSession::configRead ()
 KConfig *KateSession::configWrite ()
 {
   if (m_sessionFileRel.isEmpty())
-    return KGlobal::config().data();
+    return KSharedConfig::openConfig().data();
 
   if (m_writeConfig)
     return m_writeConfig;
@@ -311,12 +311,13 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
   {
     // open the new session
     KConfig *sc = activeSession()->configRead();
-    const bool loadDocs = (sc != KGlobal::config().data()); // do not load docs for new sessions
+    KSharedConfigPtr sharedConfig = KSharedConfig::openConfig();
+    const bool loadDocs = (sc != sharedConfig.data()); // do not load docs for new sessions
 
     // if we have no session config object, try to load the default
     // (anonymous/unnamed sessions)
     if ( !sc )
-      sc = KGlobal::config().data();
+      sc = sharedConfig.data();
     // load plugin config + plugins
     KatePluginManager::self()->loadConfig (sc);
 
@@ -324,13 +325,13 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
       KateApp::self()->documentManager()->restoreDocumentList (sc);
 
     // window config
-    KConfigGroup c(KGlobal::config(), "General");
+    KConfigGroup c(sharedConfig, "General");
 
     if (c.readEntry("Restore Window Configuration", true))
     {
       // a new, named session, read settings of the default session.
       if ( ! sc->hasGroup("Open MainWindows") )
-        sc = KGlobal::config().data();
+        sc = sharedConfig.data();
 
       int wCount = sc->group("Open MainWindows").readEntry("Count", 1);
 
@@ -391,7 +392,7 @@ static void saveSessionTo(KConfig *sc)
   sc->group("Open MainWindows").writeEntry ("Count", KateApp::self()->mainWindows ());
 
   // save config for all windows around ;)
-  bool saveWindowConfig = KConfigGroup(KGlobal::config(), "General").readEntry("Restore Window Configuration", true);
+  bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
   for (int i = 0; i < KateApp::self()->mainWindows (); ++i )
   {
     KConfigGroup cg(sc, QString ("MainWindow%1").arg(i) );
@@ -432,7 +433,7 @@ bool KateSessionManager::saveActiveSession (bool rememberAsLast)
 
   if (rememberAsLast)
   {
-    KSharedConfig::Ptr c = KGlobal::config();
+    KSharedConfigPtr c = KSharedConfig::openConfig();
     c->group("General").writeEntry ("Last Session", activeSession()->sessionFileRelative());
     c->sync ();
   }
@@ -444,7 +445,7 @@ bool KateSessionManager::chooseSession ()
   bool success = true;
 
   // app config
-  KConfigGroup c(KGlobal::config(), "General");
+  KConfigGroup c(KSharedConfig::openConfig(), "General");
 
   // get last used session, default to default session
   QString lastSession (c.readEntry ("Last Session", QString()));
@@ -529,7 +530,7 @@ bool KateSessionManager::chooseSession ()
   // write back our nice boolean :)
   if (success && chooser->reopenLastSession ())
   {
-    KConfigGroup generalConfig(KGlobal::config(), "General");
+    KConfigGroup generalConfig(KSharedConfig::openConfig(), "General");
 
     if (res == KateSessionChooser::resultOpen)
       generalConfig.writeEntry ("Startup Session", "last");

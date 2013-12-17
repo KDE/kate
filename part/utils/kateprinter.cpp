@@ -1116,10 +1116,12 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
 
   QVBoxLayout *lo = new QVBoxLayout ( this );
 
-  KHBox *hb = new KHBox( this );
-  lo->addWidget( hb );
-  QLabel *lSchema = new QLabel( i18n("&Schema:"), hb );
-  cmbSchema = new KComboBox( hb );
+  QHBoxLayout *hb = new QHBoxLayout();
+  lo->addLayout( hb );
+  QLabel *lSchema = new QLabel( i18n("&Schema:"), this );
+  hb->addWidget(lSchema);
+  cmbSchema = new KComboBox( this );
+  hb->addWidget(cmbSchema);
   cmbSchema->setEditable( false );
   lSchema->setBuddy( cmbSchema );
 

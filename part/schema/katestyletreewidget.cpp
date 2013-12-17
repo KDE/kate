@@ -20,22 +20,21 @@
 */
 
 #include "katestyletreewidget.h"
-
-#include <QtGui/QPainter>
-#include <QtGui/QKeyEvent>
-#include <QtWidgets/QAction>
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QStyledItemDelegate>
+#include "kateconfig.h"
+#include "kateextendedattribute.h"
 
 #include <klocale.h>
 #include <klocalizedstring.h>
 #include <kcolorscheme.h>
 #include <kmessagebox.h>
-#include <kcolordialog.h>
 
-#include "kateconfig.h"
-#include "kateextendedattribute.h"
+#include <QtGui/QPainter>
+#include <QtGui/QKeyEvent>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QColorDialog>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QStyledItemDelegate>
 
 //BEGIN KateStyleTreeDelegate
 class KateStyleTreeDelegate : public QStyledItemDelegate
@@ -213,10 +212,11 @@ void KateStyleTreeWidget::contextMenuEvent( QContextMenuEvent * event )
   QPainter p;
   p.setPen(Qt::black);
 
+  const QIcon emptyColorIcon = brushIcon(viewport()->palette().base().color());
   QIcon cl = brushIcon( i->style()->foreground().color() );
   QIcon scl = brushIcon( i->style()->selectedForeground().color() );
-  QIcon bgcl = brushIcon( i->style()->hasProperty(QTextFormat::BackgroundBrush) ? i->style()->background().color() : viewport()->palette().base().color() );
-  QIcon sbgcl = brushIcon( i->style()->hasProperty(KTextEditor::Attribute::SelectedBackground) ? i->style()->selectedBackground().color() : viewport()->palette().base().color() );
+  QIcon bgcl = i->style()->hasProperty(QTextFormat::BackgroundBrush) ? brushIcon(i->style()->background().color()) : emptyColorIcon;
+  QIcon sbgcl = i->style()->hasProperty(KTextEditor::Attribute::SelectedBackground) ? brushIcon(i->style()->selectedBackground().color()) : emptyColorIcon;
 
   m.addSection(i->contextName());
 
@@ -254,22 +254,25 @@ void KateStyleTreeWidget::contextMenuEvent( QContextMenuEvent * event )
   a = m.addAction( sbgcl, i18n("S&elected Background Color..."), this, SLOT(changeProperty()) );
   a->setData(KateStyleTreeWidgetItem::SelectedBackground);
 
-  // Unset [some] colors. I could show one only if that button was clicked, but that
-  // would disable setting this with the keyboard (how many aren't doing just
-  // that every day? ;)
-  // ANY ideas for doing this in a nicer way will be warmly wellcomed.
+  // defaulters
+  m.addSeparator();
+
+  a = m.addAction(emptyColorIcon, i18n("Unset Normal Color"), this, SLOT(unsetColor()));
+  a->setData(1);
+
+  a = m.addAction(emptyColorIcon, i18n("Unset Selected Color"), this, SLOT(unsetColor()));
+  a->setData(2);
+
+  // unsetters
   KTextEditor::Attribute::Ptr style = i->style();
-  if ( style->hasProperty( QTextFormat::BackgroundBrush) || style->hasProperty( KTextEditor::Attribute::SelectedBackground ) )
-  {
-    m.addSeparator();
-    if ( style->hasProperty( QTextFormat::BackgroundBrush) ) {
-      a = m.addAction( i18n("Unset Background Color"), this, SLOT(unsetColor()) );
-      a->setData(100);
-    }
-    if ( style->hasProperty( KTextEditor::Attribute::SelectedBackground ) ) {
-      a = m.addAction( i18n("Unset Selected Background Color"), this, SLOT(unsetColor()) );
-      a->setData(101);
-    }
+  if ( style->hasProperty( QTextFormat::BackgroundBrush) ) {
+    a = m.addAction(emptyColorIcon, i18n("Unset Background Color"), this, SLOT(unsetColor()));
+    a->setData(3);
+  }
+
+  if ( style->hasProperty( KTextEditor::Attribute::SelectedBackground ) ) {
+    a = m.addAction(emptyColorIcon, i18n("Unset Selected Background Color"), this, SLOT(unsetColor()));
+    a->setData(4);
   }
 
   if ( ! i->isDefault() && ! i->defStyle() ) {
@@ -641,71 +644,61 @@ void KateStyleTreeWidgetItem::setColor( int column )
     d = defaultStyle->selectedBackground().color();
   }
 
-  if ( KColorDialog::getColor( c, d, treeWidget() ) != QDialog::Accepted) return;
+  if (!c.isValid())
+    c = d;
 
-  bool def = ! c.isValid();
+  const QColor selectedColor = QColorDialog::getColor(c, treeWidget());
+
+  if (!selectedColor.isValid())
+    return;
 
   // if set default, and the attrib is set in the default style use it
   // else if set default, unset it
   // else set the selected color
-  switch (column)
-  {
+  switch (column) {
     case Foreground:
-      if ( def )
-      {
-        if ( defaultStyle->hasProperty(QTextFormat::ForegroundBrush) )
-          currentStyle->setForeground( defaultStyle->foreground());
-        else
-          currentStyle->clearProperty(QTextFormat::ForegroundBrush);
-      }
-      else
-        currentStyle->setForeground( c );
-    break;
+      currentStyle->setForeground(selectedColor);
+      break;
     case SelectedForeground:
-      if ( def )
-      {
-        if ( defaultStyle->hasProperty(KTextEditor::Attribute::SelectedForeground) )
-          currentStyle->setSelectedForeground( defaultStyle->selectedForeground());
-        else
-          currentStyle->clearProperty(KTextEditor::Attribute::SelectedForeground);
-      }
-      else
-        currentStyle->setSelectedForeground( c );
-    break;
+      currentStyle->setSelectedForeground(selectedColor);
+      break;
     case Background:
-      if ( def )
-      {
-        if ( defaultStyle->hasProperty(QTextFormat::BackgroundBrush) )
-          currentStyle->setBackground( defaultStyle->background());
-        else
-          currentStyle->clearProperty(QTextFormat::BackgroundBrush);
-      }
-      else
-        currentStyle->setBackground( c );
-    break;
+      currentStyle->setBackground(selectedColor);
+      break;
     case SelectedBackground:
-      if ( def )
-      {
-        if ( defaultStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
-          currentStyle->setSelectedBackground( defaultStyle->selectedBackground());
-        else
-          currentStyle->clearProperty(KTextEditor::Attribute::SelectedBackground);
-      }
-      else
-        currentStyle->setSelectedBackground( c );
-    break;
+      currentStyle->setSelectedBackground(selectedColor);
+      break;
   }
 
   //FIXME
   //repaint();
 }
 
-void KateStyleTreeWidgetItem::unsetColor( int c )
+void KateStyleTreeWidgetItem::unsetColor(int colorId)
 {
-  if ( c == 100 && currentStyle->hasProperty(QTextFormat::BackgroundBrush) )
-    currentStyle->clearProperty(QTextFormat::BackgroundBrush);
-  else if ( c == 101 && currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground) )
-    currentStyle->clearProperty(KTextEditor::Attribute::SelectedBackground);
+  switch (colorId) {
+    case 1:
+      if (defaultStyle->hasProperty(QTextFormat::ForegroundBrush))
+        currentStyle->setForeground(defaultStyle->foreground());
+      else
+        currentStyle->clearProperty(QTextFormat::ForegroundBrush);
+      break;
+    case 2:
+      if ( defaultStyle->hasProperty(KTextEditor::Attribute::SelectedForeground))
+        currentStyle->setSelectedForeground( defaultStyle->selectedForeground());
+      else
+        currentStyle->clearProperty(KTextEditor::Attribute::SelectedForeground);
+      break;
+    case 3:
+      if (currentStyle->hasProperty(QTextFormat::BackgroundBrush))
+        currentStyle->clearProperty(QTextFormat::BackgroundBrush);
+      break;
+    case 4:
+      if (currentStyle->hasProperty(KTextEditor::Attribute::SelectedBackground))
+        currentStyle->clearProperty(KTextEditor::Attribute::SelectedBackground);
+      break;
+  }
+
   updateStyle();
 
   treeWidget()->emitChanged();

@@ -28,15 +28,14 @@
 #include <kconfiggroup.h>
 #include <klocalizedstring.h>
 #include "katepartdebug.h"
-#include <kcolordialog.h>
 #include <kcolorscheme.h>
 #include <kiconloader.h>
 #include <kcolorutils.h>
 
-#include <QDebug>
-#include <QEvent>
-#include <QKeyEvent>
-#include <qdrawutil.h>
+#include <QtCore/QEvent>
+#include <QtGui/QKeyEvent>
+#include <QtWidgets/qdrawutil.h>
+#include <QtWidgets/QColorDialog>
 
 //BEGIN KateColorTreeItem
 class KateColorTreeItem : public QTreeWidgetItem
@@ -268,12 +267,14 @@ bool KateColorTreeWidget::edit(const QModelIndex& index, EditTrigger trigger, QE
 
   if (accept) {
     KateColorTreeItem* item = dynamic_cast<KateColorTreeItem*>(itemFromIndex(index));
-    QColor color = item->useDefaultColor() ? item->defaultColor() : item->color();
+    const QColor color = item->useDefaultColor() ? item->defaultColor() : item->color();
 
     if (index.column() == 1) {
-      if (KColorDialog::getColor(color, item->defaultColor(), this) == QDialog::Accepted) {
+      const QColor selectedColor = QColorDialog::getColor(color, this);
+
+      if (selectedColor.isValid()) {
         item->setUseDefaultColor(false);
-        item->setColor(color);
+        item->setColor(selectedColor);
         viewport()->update();
         emit changed();
       }

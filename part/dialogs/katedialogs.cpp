@@ -68,7 +68,6 @@
 #include <kcharsets.h>
 #include <kcolorbutton.h>
 #include <kcolorcombo.h>
-#include <kcolordialog.h>
 #include <kcombobox.h>
 #include <kconfig.h>
 #include "katepartdebug.h"

@@ -1,4 +1,5 @@
 # Copyright (C) 2012, 2013 Shaheed Haque <srhaque@theiet.org>
+# Copyright (C) 2013 Alex Turbov <i.zaufi@gmail.com>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -89,7 +90,7 @@ install_pate_plugin(xml_pretty)
 
 if(PYTHON_VERSION_MAJOR VERSION_EQUAL 3)
     install_pate_plugin(cmake_utils)
-    install_pate_plugin(js_utils PATTERNS "*.json" "*.js")
+    install_pate_plugin(js_utils PATTERNS "*.json")
     install_pate_plugin(expand PATTERNS "*.expand" "templates/*.tpl")
 endif()
 

@@ -201,34 +201,13 @@ void KateViVisualMode::init()
       m_start = m_view->cursorPosition();
     }
 
-    if (isVisualLine()){
+    if (isVisualLine()) {
       Cursor c = m_view->cursorPosition();
       SelectLines(Range(c,c));
-
     }
 
     m_commandRange.startLine = m_commandRange.endLine = m_start.line();
     m_commandRange.startColumn = m_commandRange.endColumn = m_start.column();
-
-
-}
-
-void KateViVisualMode::setVisualLine( bool l )
-{
-  if ( l ) {
-    m_mode = VisualLineMode;
-  } else {
-    m_mode = VisualMode;
-  }
-}
-
-void KateViVisualMode::setVisualBlock( bool l )
-{
-  if ( l ) {
-    m_mode = VisualBlockMode;
-  } else {
-    m_mode = VisualMode;
-  }
 }
 
 void KateViVisualMode::setVisualModeType( ViMode mode )
@@ -318,7 +297,7 @@ void KateViVisualMode::initializeCommands()
   ADDCMD("p", commandPaste, IS_CHANGE );
   ADDCMD("P", commandPasteBefore, IS_CHANGE );
   ADDCMD("r.", commandReplaceCharacter, IS_CHANGE | REGEX_PATTERN );
-  ADDCMD(":", commandSwitchToCmdLine, 0 );
+  ADDCMD(":", commandSwitchToCmdLine, SHOULD_NOT_RESET );
   ADDCMD("m.", commandSetMark, REGEX_PATTERN | SHOULD_NOT_RESET );
   ADDCMD(">", commandIndentLines, IS_CHANGE );
   ADDCMD("<", commandUnindentLines, IS_CHANGE );

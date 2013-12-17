@@ -2101,7 +2101,7 @@ function processChar(line, ch)
     document.editBegin();
     // Check if char under cursor is the same as just entered,
     // and if so, remove it... to make it behave like "overwrite" mode
-    if (document.charAt(cursor) == ch)
+    if (ch != ' ' && document.charAt(cursor) == ch)
         document.removeText(line, cursor.column, line, cursor.column + 1);
 
     switch (ch)

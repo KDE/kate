@@ -4473,6 +4473,10 @@ void KateDocument::removeTrailingSpaces()
   if (remove == 0)
     return;
 
+  // temporarily disable static word wrap (see bug #328900)
+  const bool wordWrapEnabled = config()->wordWrap ();
+  if (wordWrapEnabled) setWordWrap(false);
+
   // get cursor position of active view
   KTextEditor::Cursor curPos = KTextEditor::Cursor::invalid();
   if (activeView()) {
@@ -4503,6 +4507,9 @@ void KateDocument::removeTrailingSpaces()
   }
 
   editEnd();
+
+  // enable word wrap again, if it was enabled (see bug #328900)
+  if (wordWrapEnabled) setWordWrap(true); // see begin of this function
 }
 
 

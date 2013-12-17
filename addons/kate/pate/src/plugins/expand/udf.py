@@ -50,7 +50,7 @@ class ParseError(Exception):
     pass
 
 
-def wordAndArgumentAtCursorRanges(document, cursor):
+def _wordAndArgumentAtCursorRanges(document, cursor):
     line = document.line(cursor.line())
 
     argument_range = None
@@ -59,7 +59,7 @@ def wordAndArgumentAtCursorRanges(document, cursor):
         if cursor.column() < len(line) and line[cursor.column()] == ')':
             # special case: cursor just right before a closing brace
             argument_end = KTextEditor.Cursor(cursor.line(), cursor.column())
-            argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
+            argument_start = _matchingParenthesisPosition(document, argument_end, opening=')')
             argument_end.setColumn(argument_end.column() + 1)
             argument_range = KTextEditor.Range(argument_start, argument_end)
             cursor = argument_start                         #  NOTE Reassign
@@ -67,7 +67,7 @@ def wordAndArgumentAtCursorRanges(document, cursor):
         if line[cursor.column() - 1] == ')':
             # one more special case: cursor past end of arguments
             argument_end = KTextEditor.Cursor(cursor.line(), cursor.column() - 1)
-            argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
+            argument_start = _matchingParenthesisPosition(document, argument_end, opening=')')
             argument_end.setColumn(argument_end.column() + 1)
             argument_range = KTextEditor.Range(argument_start, argument_end)
             cursor = argument_start                         #  NOTE Reassign
@@ -84,13 +84,13 @@ def wordAndArgumentAtCursorRanges(document, cursor):
             # ruddy lack of attribute type access from the KTextEditor
             # interfaces.
             argument_start = KTextEditor.Cursor(cursor.line(), end)
-            argument_end = matchingParenthesisPosition(document, argument_start, opening='(')
+            argument_end = _matchingParenthesisPosition(document, argument_start, opening='(')
             argument_range = KTextEditor.Range(argument_start, argument_end)
     return word_range, argument_range
 
 
 # TODO Generalize this and move to `common' package
-def matchingParenthesisPosition(document, position, opening='('):
+def _matchingParenthesisPosition(document, position, opening='('):
     closing = ')' if opening == '(' else '('
     delta = 1 if opening == '(' else -1
     # take a copy, Cursors are mutable
@@ -136,7 +136,7 @@ def matchingParenthesisPosition(document, position, opening='('):
     return position
 
 
-def loadExpansionsFromFile(path):
+def _loadExpansionsFromFile(path):
     kate.kDebug('Loading expansions from {}'.format(path))
     name = os.path.basename(path).split('.')[0]
     module = imp.load_source(name, path)
@@ -155,7 +155,7 @@ def loadExpansionsFromFile(path):
     return expansions
 
 
-def mergeExpansions(left, right):
+def _mergeExpansions(left, right):
     assert(isinstance(left, dict) and isinstance(right, dict))
     result = left
     for exp_key, exp_tuple in right.items():
@@ -168,15 +168,15 @@ def mergeExpansions(left, right):
     return result
 
 
-def _getExpansionsFor(mime):
+def _collectExpansionsForType(mime):
     expansions = {}
     # TODO What about other (prohibited in filesystem) symbols?
     mime_filename = mime.replace('/', '_') + _EXPANDS_EXT
     for directory in kate.applicationDirectories(_EXPANDS_BASE_DIR):
         if os.path.exists(os.path.join(directory, mime_filename)):
-            expansions = mergeExpansions(
+            expansions = _mergeExpansions(
                 expansions
-              , loadExpansionsFromFile(os.path.join(directory, mime_filename))
+              , _loadExpansionsFromFile(os.path.join(directory, mime_filename))
               )
     return expansions
 
@@ -184,7 +184,7 @@ def _getExpansionsFor(mime):
 @functools.lru_cache()
 def getExpansionsFor(mime):
     kate.kDebug('Collecting expansions for MIME {}'.format(mime))
-    result = mergeExpansions(_getExpansionsFor(mime), _getExpansionsFor('all'))
+    result = _mergeExpansions(_collectExpansionsForType(mime), _collectExpansionsForType('all'))
     kate.kDebug('Got {} expansions at the end'.format(len(result)))
     return result
 
@@ -206,44 +206,41 @@ def _is_int(s):
     return isinstance(s,int)
 
 
+
+def jinja_environment_configurator(func):
+    '''
+        ATTENTION Be aware that functions marked w/ jinja_environment_configurator
+        decorator should have two leading underscores in their name!
+        Otherwise, they will be available as ordinal expand functions, which is
+        definitely UB. This made to keep `expand` code simple...
+    '''
+    if not hasattr(jinja_environment_configurator, 'registered_configurators'):
+        setattr(jinja_environment_configurator, 'registered_configurators', dict())
+    mimeType = kate.activeDocument().mimeType()
+    jinja_environment_configurator.registered_configurators[mimeType] = func
+    kate.kDebug('Set jinja2 environment configurator for {} to {}'.format(mimeType, func.__name__))
+    return func
+
+
 @functools.lru_cache()
-def getJinjaEnvironment(baseDir):
+def _getJinjaEnvironment(baseDir):
     kate.kDebug('Make a templates loader for a base dir: {}'.format(baseDir))
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(baseDir))
+
     #env.trim_blocks = True
     #env.lstrip_blocks = True
-    env.block_start_string = '/*%'
-    env.block_end_string = '%*/'
-    env.variable_start_string = '/*<'
-    env.variable_end_string = '>*/'
-    env.line_statement_prefix = '//%'
-    env.line_comment_prefix = '//#'
     env.filters['editable'] = _makeEditableField
     env.tests['boolean'] = _is_bool
     env.tests['integer'] = _is_int
+
+    if hasattr(jinja_environment_configurator, 'registered_configurators'):
+        mimeType = kate.activeDocument().mimeType()
+        configurator = jinja_environment_configurator.registered_configurators[mimeType]
+        kate.kDebug('Setup jinja2 environment for {} [{}]'.format(mimeType, configurator.__name__))
+        env = configurator(env)
+
     return env
 
-
-def getHelpOnExpandAtCursor():
-    document = kate.activeDocument()
-    view = document.activeView()
-    try:
-        word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
-    except ParseError as e:
-        kate.ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
-        return
-    word = document.text(word_range)
-    expansions = getExpansionsFor(document.mimeType())
-    if word in expansions:
-        func = expansions[word][0]
-        cursor_pos = view.cursorPositionCoordinates()
-        tooltip_text = '\n'.join([
-            line[8:] if line.startswith(' ' * 8) else line for line in func.__doc__.splitlines()
-          ])
-        kate.kDebug('Expand: help on {}: {}'.format(word, tooltip_text))
-        QToolTip.showText(cursor_pos, tooltip_text)
-    else:
-        kate.kDebug('WARNING: undefined expansion `{}`'.format(word))
 
 
 def expandAtCursor():
@@ -252,11 +249,13 @@ def expandAtCursor():
         The expansions available are based firstly on the mimetype of the
         document, for example "text_x-c++src.expand" for "text/x-c++src", and
         secondly on "all.expand".
+
+        TODO Split this function!
     '''
     document = kate.activeDocument()
     view = document.activeView()
     try:
-        word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
+        word_range, argument_range = _wordAndArgumentAtCursorRanges(document, view.cursorPosition())
     except ParseError as e:
         kate.ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
         return
@@ -350,10 +349,9 @@ def expandAtCursor():
         assert(base_dir_pos != -1)
         basedir = filename[:base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR)]
         filename = filename[base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR) + 1:]
-        env = getJinjaEnvironment(basedir)
+        env = _getJinjaEnvironment(basedir)
         kate.kDebug('basedir={}, template_rel={}'.format(basedir, filename))
         try:
-            kate.kDebug('Using jinja template file: {0}'.format(filename))
             tpl = env.get_template(filename)
             kate.kDebug('data dict={}'.format(replacement))
             replacement = tpl.render(replacement)

@@ -1215,10 +1215,10 @@ bool KateViModeBase::startReplaceMode()
 bool KateViModeBase::startVisualMode()
 {
   if ( m_view->getCurrentViMode() == VisualLineMode ) {
-    m_viInputModeManager->getViVisualMode()->setVisualLine( false );
+    m_viInputModeManager->getViVisualMode()->setVisualModeType( VisualMode );
     m_viInputModeManager->changeViMode(VisualMode);
   } else if (m_view->getCurrentViMode() == VisualBlockMode ) {
-    m_viInputModeManager->getViVisualMode()->setVisualBlock( false );
+    m_viInputModeManager->getViVisualMode()->setVisualModeType( VisualMode );
     m_viInputModeManager->changeViMode(VisualMode);
   } else {
     m_viInputModeManager->viEnterVisualMode();
@@ -1232,7 +1232,7 @@ bool KateViModeBase::startVisualMode()
 bool KateViModeBase::startVisualBlockMode()
 {
   if ( m_view->getCurrentViMode() == VisualMode ) {
-    m_viInputModeManager->getViVisualMode()->setVisualBlock( true );
+    m_viInputModeManager->getViVisualMode()->setVisualModeType( VisualBlockMode );
     m_viInputModeManager->changeViMode(VisualBlockMode);
   } else {
     m_viInputModeManager->viEnterVisualMode( VisualBlockMode );
@@ -1246,7 +1246,7 @@ bool KateViModeBase::startVisualBlockMode()
 bool KateViModeBase::startVisualLineMode()
 {
   if ( m_view->getCurrentViMode() == VisualMode ) {
-    m_viInputModeManager->getViVisualMode()->setVisualLine( true );
+    m_viInputModeManager->getViVisualMode()->setVisualModeType( VisualLineMode );
     m_viInputModeManager->changeViMode(VisualLineMode);
   } else {
     m_viInputModeManager->viEnterVisualMode( VisualLineMode );

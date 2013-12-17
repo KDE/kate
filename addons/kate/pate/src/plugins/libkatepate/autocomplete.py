@@ -25,6 +25,7 @@ from PyKDE4.kdecore import i18n
 from PyKDE4.kdeui import KIcon
 from PyKDE4.ktexteditor import KTextEditor
 from PyQt4.QtCore import QModelIndex, QSize, Qt
+from PyQt4.QtGui import QLabel, QSizePolicy
 
 try:
     import simplejson as json
@@ -119,18 +120,20 @@ class AbstractCodeCompletionModel(CodeCompletionBase):
     }
 
     @classmethod
-    def createItemAutoComplete(cls, text, category='unknown', args=None, description=None):
-        # TODO Add `prefix` parameter
+    def createItemAutoComplete(cls, text, category='unknown', args=None, prefix=None, description=None, details=None):
         if description and 0 < cls.MAX_DESCRIPTION < len(description):
             description = description.strip()
             description = description[:cls.MAX_DESCRIPTION] + '...'
         return {
             'text': text,
             'icon': cls.CATEGORY_2_ICON[category] if category in cls.CATEGORY_2_ICON else None,
-            'category': category,
-            'args': args or '',
-            'type': category,
-            'description': description or ''
+            'category': category,                           # TODO Why to store 'category' twice?
+            'args': args ,
+            'prefix': prefix,
+            'type': category,                               # TODO Why to store 'category' twice?
+            'description': description,
+            'details': details
+            # TODO Source code review needed: why to store `category` at all?
         }
 
     def completionInvoked(self, view, word, invocationType):
@@ -153,7 +156,7 @@ class AbstractCodeCompletionModel(CodeCompletionBase):
     def data(self, index, role):
         # Check if 'gorup' node requested
         if not index.parent().isValid():
-            # Yep, return title and some other gorup props
+            # Yep, return title and some other group props
             if role == CCM.InheritanceDepth:
                 return self.GROUP_POSITION
             # ATTENTION TODO NOTE
@@ -168,6 +171,18 @@ class AbstractCodeCompletionModel(CodeCompletionBase):
 
         # Leaf item props are requested
         item = self.resultList[index.row()]
+
+        if role == CCM.IsExpandable:
+            return bool(item['details'])
+        elif role == CCM.ExpandingWidget:
+            w = QLabel(item['details'])
+            w.setWordWrap(True)
+            w.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+            w.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
+            w.resize(w.minimumSizeHint())
+            item['expandable_widget'] = w
+            return item['expandable_widget']
+
         if index.column() == CCM.Name:
             if role == Qt.DisplayRole:
                 return item['text']
@@ -192,8 +207,10 @@ class AbstractCodeCompletionModel(CodeCompletionBase):
             if role == Qt.DisplayRole and item_description:
                 return item_description
         elif index.column() == CCM.Prefix:
-            # TODO Handle a `prefix`
-            pass
+            item_prefix = item.get('prefix', None)
+            if role == Qt.DisplayRole and item_prefix:
+                return item_prefix
+
         return None
 
     def getLastExpression(self, line, operators=None):

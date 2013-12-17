@@ -36,26 +36,83 @@ format of errors:
 
 from __future__ import absolute_import
 
-import os.path as p
+from os import path as p
+from functools import partial
 
 import kate
 
-from PyKDE4.kdecore import i18nc
+from PyKDE4.kdecore import i18nc, KGlobal, KUrl
+from PyKDE4.kdeui import KMessageBox
+from PyKDE4.kio import KIO
 
 from .js_settings import SETTING_LINT_ON_SAVE, SETTING_LINTER
 from .js_engine import PyJSEngine, JSModule
-from libkatepate.errors import (clearMarksOfError, showErrors, showOk)
+from libkatepate.errors import clearMarksOfError, showErrors, showOk, showError
 
 
 JS_ENGINE = PyJSEngine()
 
-JS_LINT_PATH = p.join(p.dirname(__file__), 'fulljslint.js')
-JS_HINT_PATH = p.join(p.dirname(__file__), 'jshint.js')
+# If doug crockford wasn’t special, we could do e.g.:
+# LINTERS = { 'JSLint': JSModule(JS_ENGINE, p.join(p.dirname(__file__), 'jslint.js'), 'JSLINT') }
 
-LINTERS = {  # keys() == SETTING_LINTER.choices
-    'JSLint': JSModule(JS_ENGINE, JS_LINT_PATH, 'JSLINT'),
-    'JSHint': JSModule(JS_ENGINE, JS_HINT_PATH, 'JSHINT'),
+LINTERS = {}  # keys() == SETTING_LINTER.choices
+
+_DOUG_LICENSE = 'The Software shall be used for Good, not Evil.'
+NEEDS_LICENSE = {
+    'JSLint': (_DOUG_LICENSE, 'JSLINT', 'https://raw.github.com/douglascrockford/JSLint/master/jslint.js'),
+    'JSHint': (_DOUG_LICENSE, 'JSHINT', 'https://raw.github.com/jshint/jshint/2.x/dist/jshint.js'),
 }
+
+CACHE_DIR = KGlobal.dirs().locateLocal('appdata', 'pate/js_utils/', True)  # trailing slash necessary
+
+
+def license_accepted(license):
+    """asks to accept a license"""
+    return KMessageBox.Yes == KMessageBox.warningYesNo(kate.mainWindow(),
+        i18nc('@info:status', '''<p>
+            Additionally to free software licenses like GPL and MIT,
+            this functionality requires you to accept the following conditions:
+            </p><p>%1</p><p>
+            Do you want to accept and download the functionality?
+            </p>''', license),
+        i18nc('@title:window', 'Accept license?'))
+
+
+def get_linter(linter_name, callback):
+    """tries to retrieve a linter and calls `callback` on it on success"""
+    if linter_name in LINTERS:
+        callback(LINTERS[linter_name])
+        return
+
+    if linter_name not in NEEDS_LICENSE:
+        showError(i18nc('@info:status', 'No acceptable linter named %1!', linter_name))
+        return
+
+    license, objname, url = NEEDS_LICENSE[linter_name]
+    cache_path = p.join(CACHE_DIR, linter_name + '.js')
+
+    def success():
+        """store newly created linter and “return” it"""
+        LINTERS[linter_name] = JSModule(JS_ENGINE, cache_path, objname)
+        callback(LINTERS[linter_name])
+
+    if p.exists(cache_path):
+        success()
+        return
+
+    # the user doesn’t have the file. ask to accept its license
+    if not license_accepted(license):
+        return
+
+    download = KIO.file_copy(KUrl(url), KUrl.fromPath(cache_path))
+    @download.result.connect
+    def _call(job):
+        if job.error():
+            showError(i18nc('@info:status', 'Download failed'))
+        else:
+            success()
+    download.start()
+
 
 def lint_js(document, move_cursor=False):
     """Check your js code with the jslint tool"""
@@ -63,8 +120,11 @@ def lint_js(document, move_cursor=False):
     clearMarksOfError(document, mark_iface)
 
     linter_name = SETTING_LINTER.choices[SETTING_LINTER.lookup()]  # lookup() gives index of choices
-    linter = LINTERS[linter_name]
+    get_linter(linter_name, partial(_lint, document, move_cursor, linter_name))
 
+
+def _lint(document, move_cursor, linter_name, linter):
+    """extracted part of lint_js that has to be called after the linter is ready"""
     ok = linter(document.text(), {})
     if ok:
         showOk(i18nc('@info:status', '<application>%1</application> OK', linter_name))

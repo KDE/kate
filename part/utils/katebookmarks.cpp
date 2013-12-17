@@ -26,7 +26,6 @@
 #include <klocale.h>
 #include <kactioncollection.h>
 #include <kguiitem.h>
-#include <kicon.h>
 #include <kstringhandler.h>
 #include <kxmlguiclient.h>
 #include <kxmlguifactory.h>

@@ -29,6 +29,7 @@
 #include <KRun>
 #include <KVBox>
 #include <klocalizedstring.h>
+#include <kiconloader.h>
 
 #include <QtCore/QTemporaryFile>
 #include <QtCore/QTextStream>

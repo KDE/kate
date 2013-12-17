@@ -25,7 +25,6 @@
 #include <QtWidgets/QWidget>
 #include <QtGui/QPixmap>
 
-#include <kicontheme.h>
 #include <kxmlguiclient.h>
 #include <KComponentData>
 

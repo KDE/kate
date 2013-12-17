@@ -30,7 +30,6 @@
 
 #include <klocale.h>
 #include <klocalizedstring.h>
-#include <kicon.h>
 #include <kcolorscheme.h>
 #include <kmessagebox.h>
 #include <kcolordialog.h>

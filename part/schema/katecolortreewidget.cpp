@@ -30,7 +30,6 @@
 #include "katepartdebug.h"
 #include <kcolordialog.h>
 #include <kcolorscheme.h>
-#include <kicon.h>
 #include <kiconloader.h>
 #include <kcolorutils.h>
 

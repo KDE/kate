@@ -721,6 +721,7 @@ bool TextBuffer::save (const QString &filename)
    * use QSaveFile for save write + rename
    */
   QSaveFile saveFile(filename);
+  saveFile.setDirectWriteFallback(true);
 
   if (!saveFile.open(QIODevice::WriteOnly))
     return false;

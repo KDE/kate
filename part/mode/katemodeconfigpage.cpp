@@ -35,7 +35,6 @@
 #include <kconfig.h>
 #include <kmimetypechooser.h>
 #include "katepartdebug.h"
-#include <kicon.h>
 #include <knuminput.h>
 #include <klocale.h>
 

@@ -34,12 +34,11 @@
 #include <KMessageBox>
 #include <klocalizedstring.h>
 
-#include <QMenu>
-#include <QContextMenuEvent>
-#include <kicon.h>
-#include <qapplication.h>
-#include <QClipboard>
-#include <QMimeDatabase>
+#include <QtCore/QMimeDatabase>
+#include <QtGui/QClipboard>
+#include <QtGui/QContextMenuEvent>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMenu>
 //END Includes
 
 

@@ -69,7 +69,6 @@
 #include "katepartdebug.h"
 #include <kapplication.h>
 #include <kcursor.h>
-#include <kicon.h>
 #include <klocale.h>
 #include <kcharsets.h>
 #include <kmessagebox.h>

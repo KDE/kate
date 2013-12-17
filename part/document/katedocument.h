@@ -903,7 +903,6 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
     /**
      * create a MD5 digest of the file, if it is a local file.
      * The result can be accessed through KateBuffer::digest().
-     * This is using KMD5::hexDigest().
      *
      * @return wheather the operation was attempted and succeeded.
      */

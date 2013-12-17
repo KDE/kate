@@ -21,20 +21,6 @@
 
 #include "katecompletionwidget.h"
 
-#include <QtWidgets/QBoxLayout>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QDesktopWidget>
-#include <QtWidgets/QHeaderView>
-#include <QtCore/QTimer>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QToolButton>
-#include <QtWidgets/QSizeGrip>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QAbstractScrollArea>
-#include <QtWidgets/QScrollBar>
-#include <QtCore/QScopedPointer>
-
-#include <kicon.h>
 #include <kdialog.h>
 
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
@@ -52,7 +38,18 @@
 #include "kateargumenthintmodel.h"
 #include "katepartdebug.h"
 
-//#include "modeltest.h"
+#include <QtCore/QScopedPointer>
+#include <QtCore/QTimer>
+#include <QtWidgets/QAbstractScrollArea>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QBoxLayout>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QScrollBar>
+#include <QtWidgets/QSizeGrip>
+#include <QtWidgets/QToolButton>
 
 const bool hideAutomaticCompletionOnExactMatch = true;
 

@@ -19,15 +19,12 @@
  */
 
 #include "katecompletionconfig.h"
+#include "katecompletionmodel.h"
+#include "ui_completionconfigwidget.h"
 
-#include <QtWidgets/QTreeWidget>
-
-#include <kicon.h>
 #include <ksharedconfig.h>
 
-#include "katecompletionmodel.h"
-
-#include "ui_completionconfigwidget.h"
+#include <QtWidgets/QTreeWidget>
 
 using namespace KTextEditor;
 

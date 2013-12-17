@@ -34,7 +34,6 @@
 
 #include <kactioncollection.h>
 #include <klocalizedstring.h>
-#include <kicon.h>
 #include <kstandardaction.h>
 #include <kglobal.h>
 #include <sonnet/dialog.h>

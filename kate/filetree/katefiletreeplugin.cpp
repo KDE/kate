@@ -31,14 +31,13 @@
 
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
-
-#include <KActionCollection>
+#include <kactioncollection.h>
 #include <klocalizedstring.h>
+#include <kconfiggroup.h>
+#include <kiconloader.h>
 
-#include <KConfigGroup>
-
-#include <QAction>
-#include <QApplication>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QApplication>
 
 #include "katefiletreedebug.h"
 

@@ -44,7 +44,7 @@ class KateArgumentHintTree : public ExpandingTree {
     int resizeColumns();
     
     void  clearCompletion();
-  public slots:
+  public Q_SLOTS:
     void updateGeometry();
     void updateGeometry(QRect rect);
   protected:

@@ -756,6 +756,7 @@ void KateSessionChooser::slotCancel()
 
 void KateSessionChooser::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
+  Q_UNUSED(current);
   m_openButton->setEnabled(true);
 }
 
@@ -839,6 +840,7 @@ void KateSessionOpenDialog::slotOpen()
 
 void KateSessionOpenDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
+  Q_UNUSED(current);
   m_openButton->setEnabled(true);
 }
 

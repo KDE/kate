@@ -56,7 +56,7 @@ class KateCompletionTree : public ExpandingTree
     /// Returns the approximated viewport position of the text in the given column, skipping an eventual icon
     int columnTextViewportPosition ( int column ) const;
     
-  private slots:
+  private Q_SLOTS:
     void resizeColumnsSlot();
 
   protected:

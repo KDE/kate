@@ -36,10 +36,10 @@ public:
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-public slots:
+public Q_SLOTS:
     void changeFilter(const QString& filter);
 
-private slots:
+private Q_SLOTS:
     void dataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
 
 private:

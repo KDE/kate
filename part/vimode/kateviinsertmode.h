@@ -99,7 +99,7 @@ class KATEPART_TESTS_EXPORT KateViInsertMode : public KateViModeBase
     void completionFinished();
     void replayCompletion();
     int findNextMergeableBracketPos(const Cursor& startPos);
-  private slots:
+  private Q_SLOTS:
     void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
 };
 

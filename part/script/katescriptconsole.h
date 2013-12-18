@@ -90,7 +90,7 @@ class KateScriptConsole : public KateViewBarWidget
     KateView * m_view;
     KateScriptConsoleEngine * m_engine;
 
-  public slots:
+  public Q_SLOTS:
     void executePressed();
 };
 

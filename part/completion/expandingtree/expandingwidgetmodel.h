@@ -119,7 +119,7 @@ class ExpandingWidgetModel : public QAbstractTableModel {
     ///Returns the match-color for the given index, or zero if match-quality could not be computed.
     uint matchColor(const QModelIndex& index) const;
     
-    public slots:
+    public Q_SLOTS:
     ///Place or hides all expanding-widgets to the correct positions. Should be called after the view was scrolled.
     void placeExpandingWidgets();
 

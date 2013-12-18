@@ -40,7 +40,7 @@ public:
   void setDoNotMapNextKeypress();
   bool isExecutingMapping();
   bool isPlayingBackRejectedKeys();
-public slots:
+public Q_SLOTS:
   void mappingTimerTimeOut();
 private:
   // Will be the mapping used if we decide that no extra mapping characters will be

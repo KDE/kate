@@ -320,7 +320,7 @@ class KateViewBarWidget : public QWidget
      */
     QWidget *centralWidget() { return m_centralWidget; }
 
-  signals:
+  Q_SIGNALS:
     void hideMe();
 
   // for friend class KateViewBar
@@ -449,7 +449,7 @@ class KateCmdLineEdit : public KLineEdit
 
     void hideEvent (QHideEvent *e);
 
-  signals:
+  Q_SIGNALS:
     void hideRequested();
 
   public Q_SLOTS:

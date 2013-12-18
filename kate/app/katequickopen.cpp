@@ -62,7 +62,7 @@ KateQuickOpen::KateQuickOpen(QWidget *parent, KateMainWindow *mainWindow)
 
     m_inputLine = new KLineEdit();
     setFocusProxy (m_inputLine);
-    m_inputLine->setClickMessage (i18n ("Quick Open Search"));
+    m_inputLine->setPlaceholderText(i18n("Quick Open Search"));
 
     layout->addWidget(m_inputLine);
 

@@ -44,7 +44,7 @@ public:
     explicit SnippetView(KateSnippetGlobal* plugin, QWidget* parent = 0);
     virtual ~SnippetView();
 
-private slots:
+private Q_SLOTS:
     /**
      * Opens the "Add Repository" dialog.
      */

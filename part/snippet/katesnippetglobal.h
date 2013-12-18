@@ -65,7 +65,7 @@ public:
      */
     QWidget *snippetWidget ();
 
-public slots:
+public Q_SLOTS:
     /**
      * Create snippet for given view, e.g. by using the selection
      * @param view view to create snippet for

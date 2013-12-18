@@ -51,9 +51,9 @@ class KateArgumentHintModel : public ExpandingWidgetModel {
     void clear();
   protected:
     virtual int contextMatchQuality(const QModelIndex& row) const;
-  public slots:
+  public Q_SLOTS:
     void parentModelReset();
-  signals:
+  Q_SIGNALS:
     void contentStateChanged(bool hasContent);
   private:
     KateCompletionModel::Group* group() const;

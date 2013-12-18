@@ -154,7 +154,7 @@ private:
    */
   QString withoutRangeExpression();
   QString rangeExpression();
-private slots:
+private Q_SLOTS:
   void editTextChanged(const QString& newText);
   void updateMatchHighlightAttrib();
   void startHideCommandResponseTimer();

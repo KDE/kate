@@ -26,7 +26,7 @@
 
 #include "ui_editrepository.h"
 
-#include <KDialog>
+#include <QDialog>
 
 class SnippetRepository;
 
@@ -36,7 +36,7 @@ class SnippetRepository;
  *
  * @author Milian Wolff <mail@milianw.de>
  */
-class EditRepository : public KDialog, public Ui::EditRepositoryBase
+class EditRepository : public QDialog, public Ui::EditRepositoryBase
 {
     Q_OBJECT
 
@@ -47,9 +47,12 @@ public:
 
 private:
     SnippetRepository* m_repo;
+    QPushButton *m_okButton;
+    QPushButton *m_applyButton;
 
-private slots:
+private Q_SLOTS:
     void save();
+    void saveAndAccept();
     void validate();
     void updateFileTypes();
 };

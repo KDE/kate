@@ -29,67 +29,89 @@
 #include <ktexteditor/document.h>
 
 #include <klocalizedstring.h>
+#include <kstandardguiitem.h>
 #include <kuser.h>
 
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QDialogButtonBox>
 
 EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
-    : KDialog(parent), Ui::EditRepositoryBase(), m_repo(repository)
+    : QDialog(parent), Ui::EditRepositoryBase(), m_repo(repository)
 {
-    setButtons(/*Reset | */Apply | Cancel | Ok);
-    setupUi(mainWidget());
-    mainWidget()->layout()->setMargin(0);
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
 
-    connect(this, SIGNAL(okClicked()), this, SLOT(save()));
-    connect(this, SIGNAL(applyClicked()), this, SLOT(save()));
+  QWidget *mainWidget = new QWidget;
+  setupUi(mainWidget);
+  mainWidget->layout()->setMargin(0);
+  mainLayout->addWidget(mainWidget);
 
-    connect(repoNameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
+  connect(repoNameEdit, SIGNAL(textEdited(QString)), this, SLOT(validate()));
 
-    // fill list of available modes
-    KTextEditor::Document *document = KTextEditor::editor()->createDocument(0);
-    repoFileTypesList->addItems(document->highlightingModes());
-    repoFileTypesList->sortItems();
-    repoFileTypesList->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    connect(repoFileTypesList->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
-            this, SLOT(updateFileTypes()));
+  QDialogButtonBox *buttons = new QDialogButtonBox(this);
+  mainLayout->addWidget(buttons);
 
-    delete document;
+  m_okButton = new QPushButton;
+  KGuiItem::assign(m_okButton, KStandardGuiItem::ok());
+  buttons->addButton(m_okButton, QDialogButtonBox::AcceptRole);
+  connect(m_okButton, SIGNAL(clicked()), this, SLOT(saveAndAccept()));
 
-    // add default licenses
-    repoLicenseEdit->addItems(QStringList() << "Artistic" << "BSD" << "LGPL v2+" << "LGPL v3+");
-    repoLicenseEdit->setCurrentIndex(1); // preselect BSD
-    repoLicenseEdit->setEditable(true);
+  m_applyButton = new QPushButton;
+  KGuiItem::assign(m_applyButton, KStandardGuiItem::apply());
+  buttons->addButton(m_applyButton, QDialogButtonBox::ApplyRole);
+  connect(m_applyButton, SIGNAL(clicked()), this, SLOT(save()));
 
-    // if we edit a repo, add all existing data
-    if ( m_repo ) {
-        repoNameEdit->setText(m_repo->text());
-        repoAuthorsEdit->setText(m_repo->authors());
-        repoNamespaceEdit->setText(m_repo->completionNamespace());
-        if ( !m_repo->license().isEmpty() ) {
-            int index = repoLicenseEdit->findText(m_repo->license());
-            if ( index == -1 ) {
-                repoLicenseEdit->addItem(m_repo->license());
-                repoLicenseEdit->model()->sort(0);
-                index = repoLicenseEdit->findText(m_repo->license());
-            }
-            repoLicenseEdit->setCurrentIndex(index);
-        }
-        foreach ( const QString& type, m_repo->fileTypes() ) {
-            foreach( QListWidgetItem* item, repoFileTypesList->findItems(type, Qt::MatchExactly) ) {
-                item->setSelected(true);
-            }
-        }
+  QPushButton *cancelButton = new QPushButton;
+  KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
+  buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+  ///
 
-        setWindowTitle(i18n("Edit Snippet Repository %1", m_repo->text()));
-    } else {
-        setWindowTitle(i18n("Create New Snippet Repository"));
-        KUser user;
-        repoAuthorsEdit->setText(user.property(KUser::FullName).toString());
-    }
+  // fill list of available modes
+  KTextEditor::Document *document = KTextEditor::editor()->createDocument(0);
+  repoFileTypesList->addItems(document->highlightingModes());
+  repoFileTypesList->sortItems();
+  repoFileTypesList->setSelectionMode(QAbstractItemView::ExtendedSelection);
+  connect(repoFileTypesList->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+          this, SLOT(updateFileTypes()));
 
-    validate();
-    updateFileTypes();
-    repoNameEdit->setFocus();
+  delete document;
+
+  // add default licenses
+  repoLicenseEdit->addItems(QStringList() << "Artistic" << "BSD" << "LGPL v2+" << "LGPL v3+");
+  repoLicenseEdit->setCurrentIndex(1); // preselect BSD
+  repoLicenseEdit->setEditable(true);
+
+  // if we edit a repo, add all existing data
+  if ( m_repo ) {
+      repoNameEdit->setText(m_repo->text());
+      repoAuthorsEdit->setText(m_repo->authors());
+      repoNamespaceEdit->setText(m_repo->completionNamespace());
+      if ( !m_repo->license().isEmpty() ) {
+          int index = repoLicenseEdit->findText(m_repo->license());
+          if ( index == -1 ) {
+              repoLicenseEdit->addItem(m_repo->license());
+              repoLicenseEdit->model()->sort(0);
+              index = repoLicenseEdit->findText(m_repo->license());
+          }
+          repoLicenseEdit->setCurrentIndex(index);
+      }
+      foreach ( const QString& type, m_repo->fileTypes() ) {
+          foreach( QListWidgetItem* item, repoFileTypesList->findItems(type, Qt::MatchExactly) ) {
+              item->setSelected(true);
+          }
+      }
+
+      setWindowTitle(i18n("Edit Snippet Repository %1", m_repo->text()));
+  } else {
+      setWindowTitle(i18n("Create New Snippet Repository"));
+      KUser user;
+      repoAuthorsEdit->setText(user.property(KUser::FullName).toString());
+  }
+
+  validate();
+  updateFileTypes();
+  repoNameEdit->setFocus();
 }
 
 EditRepository::~EditRepository()
@@ -98,9 +120,15 @@ EditRepository::~EditRepository()
 
 void EditRepository::validate()
 {
-    bool valid = !repoNameEdit->text().isEmpty() && !repoNameEdit->text().contains('/');
-    button(Ok)->setEnabled(valid);
-    button(Apply)->setEnabled(valid);
+  bool valid = !repoNameEdit->text().isEmpty() && !repoNameEdit->text().contains('/');
+  m_okButton->setEnabled(valid);
+  m_applyButton->setEnabled(valid);
+}
+
+void EditRepository::saveAndAccept()
+{
+  save();
+  accept();
 }
 
 void EditRepository::save()

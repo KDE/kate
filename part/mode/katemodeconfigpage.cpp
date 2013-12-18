@@ -32,11 +32,8 @@
 
 #include "ui_filetypeconfigwidget.h"
 
-#include <kconfig.h>
 #include <kmimetypechooser.h>
 #include "katepartdebug.h"
-#include <knuminput.h>
-#include <klocale.h>
 
 #include <QtCore/QRegExp>
 #include <QtWidgets/QCheckBox>

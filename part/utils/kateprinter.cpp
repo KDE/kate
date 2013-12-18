@@ -41,7 +41,6 @@
 #include <kdeprintdialog.h>
 #include <kuser.h> // for loginName
 #include <klineedit.h>
-#include <knuminput.h>
 #include <kcombobox.h>
 
 #include <QtCore/QStringList>

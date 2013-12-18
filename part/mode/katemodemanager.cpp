@@ -34,7 +34,6 @@
 
 #include <kmimetypechooser.h>
 #include <kiconloader.h>
-#include <knuminput.h>
 #include <kconfiggroup.h>
 
 #include <QtCore/QRegExp>

@@ -28,15 +28,12 @@
 #include "kateglobal.h"
 #include "katesyntaxmanager.h"
 #include "katesyntaxdocument.h"
+#include "katepartdebug.h"
 
 #include "ui_filetypeconfigwidget.h"
 
-#include <kconfig.h>
 #include <kmimetypechooser.h>
-#include "katepartdebug.h"
 #include <kiconloader.h>
-#include <knuminput.h>
-#include <klocale.h>
 
 #include <QtCore/QRegExp>
 #include <QtWidgets/QCheckBox>

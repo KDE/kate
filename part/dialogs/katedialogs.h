@@ -59,7 +59,6 @@ namespace KIO
 
 class KComboBox;
 class KShortcutsEditor;
-class KIntNumInput;
 class QSpinBox;
 class KPluginSelector;
 class KPluginInfo;
@@ -332,7 +331,6 @@ class KateSaveConfigTab : public KateConfigPage
     //KComboBox *m_encoding, *m_encodingDetection, *m_eol;
     QCheckBox *cbLocalFiles, *cbRemoteFiles;
     QCheckBox *replaceTabs, *removeSpaces, *allowEolDetection;
-    KIntNumInput *dirSearchDepth;
     class QSpinBox *blockCount;
     class QLabel *blockCountLabel;
 

@@ -73,7 +73,6 @@
 #include <klineedit.h>
 #include <kmessagebox.h>
 #include <kmimetypechooser.h>
-#include <knuminput.h>
 #include <kprocess.h>
 #include <krun.h>
 #include <kseparator.h>

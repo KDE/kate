@@ -37,7 +37,6 @@
 
 #include <kcolorbutton.h>
 #include <kconfiggroup.h>
-#include <kfontdialog.h>
 #include <klocale.h>
 #include <kdeprintdialog.h>
 #include <kuser.h> // for loginName
@@ -45,17 +44,18 @@
 #include <knuminput.h>
 #include <kcombobox.h>
 
+#include <QtCore/QStringList>
 #include <QtGui/QPainter>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QGroupBox>
 #include <QtPrintSupport/QPrintDialog>
 #include <QtPrintSupport/QPrinter>
 #include <QtWidgets/QApplication>
-
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QFontDialog>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QSpinBox>
-#include <QtCore/QStringList>
+
 #include <kvbox.h>
 
 //BEGIN KatePrinter
@@ -958,13 +958,13 @@ bool KatePrintHeaderFooter::useFooterBackground()
 
 void KatePrintHeaderFooter::setHFFont()
 {
-  QFont fnt( lFontPreview->font() );
-  // display a font dialog
-  if ( KFontDialog::getFont( fnt, KFontChooser::NoDisplayFlags, this ) == KFontDialog::Accepted )
-  {
-    // set preview
-    lFontPreview->setFont( fnt );
-    lFontPreview->setText( QString(fnt.family() + ", %1pt").arg( fnt.pointSize() ) );
+  bool ok;
+  QFont selectedFont = QFontDialog::getFont(&ok, lFontPreview->font(), this);
+
+  if (ok) {
+    lFontPreview->setFont(selectedFont);
+    QString text = i18n("%1, %pt");
+    lFontPreview->setText(text.arg(selectedFont.family()).arg(selectedFont.pointSize()));
   }
 }
 

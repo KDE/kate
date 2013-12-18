@@ -28,10 +28,7 @@
 #include <QtCore/QMap>
 #include <QtGui/QFont>
 
-#include <kconfig.h>
-
 class KateStyleTreeWidget;
-
 class KComboBox;
 
 class KateSchemaConfigColorTab : public QWidget

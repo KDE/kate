@@ -69,7 +69,6 @@
 #include <kcombobox.h>
 #include <kconfig.h>
 #include "katepartdebug.h"
-#include <kfontdialog.h>
 #include <kiconloader.h>
 #include <kshortcutsdialog.h>
 #include <klineedit.h>

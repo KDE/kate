@@ -21,28 +21,26 @@
  */
 #include "katesnippetglobal.h"
 
-#include <klocale.h>
+#include <KTextEditor/HighlightInterface>
+
+#include "snippetview.h"
+#include "snippetcompletionmodel.h"
+#include "snippetstore.h"
+#include "snippet.h"
+#include "snippetrepository.h"
+#include "snippetcompletionitem.h"
+#include "editsnippet.h"
+
 #include <kpluginfactory.h>
 #include <kaboutdata.h>
 #include <kpluginloader.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
-#include <QMenu>
+#include <ktoolbar.h>
 
-#include <KActionCollection>
-#include <KToolBar>
-
-#include <KTextEditor/HighlightInterface>
-
-#include "snippetview.h"
-#include "snippetcompletionmodel.h"
-#include "snippetstore.h"
-
-#include "snippet.h"
-#include "snippetrepository.h"
-#include "snippetcompletionitem.h"
-#include "editsnippet.h"
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QMenu>
 
 KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)
@@ -59,24 +57,26 @@ KateSnippetGlobal::~KateSnippetGlobal ()
 
 void KateSnippetGlobal::showDialog (KateView *view)
 {
-  KDialog dialog;
-  dialog.setCaption("Snippets");
-  dialog.setButtons(KDialog::Ok);
-  dialog.setDefaultButton(KDialog::Ok);
+  QDialog dialog;
+  dialog.setWindowTitle(i18n("Snippets"));
 
-  QWidget *mainWidget = new QWidget (&dialog);
-  dialog.setMainWidget(mainWidget);
-  QVBoxLayout *layout = new QVBoxLayout(mainWidget);
+  QVBoxLayout *layout = new QVBoxLayout(&dialog);
+  dialog.setLayout(layout);
 
-  KToolBar *topToolbar = new KToolBar (&dialog, "snippetsToolBar");
-  topToolbar->setToolButtonStyle (Qt::ToolButtonIconOnly);
+  KToolBar *topToolbar = new KToolBar(&dialog, "snippetsToolBar");
+  topToolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
   layout->addWidget(topToolbar);
 
-  QWidget* widget = snippetWidget ();
+  QWidget *widget = snippetWidget();
   layout->addWidget(widget);
 
   // add actions
-  topToolbar->addActions (widget->actions());
+  topToolbar->addActions(widget->actions());
+
+  QDialogButtonBox *buttons = new QDialogButtonBox(&dialog);
+  layout->addWidget(buttons);
+  buttons->setStandardButtons(QDialogButtonBox::Ok);
+  connect(buttons, SIGNAL(accepted()), &dialog, SLOT(close()));
 
   /**
    * set document to work on and trigger dialog
@@ -160,7 +160,7 @@ void KateSnippetGlobal::createSnippet (KateView *view)
     EditSnippet dlg(match, 0, view);
     dlg.setSnippetText(view->selectionText());
     int status = dlg.exec();
-    if ( created && status != KDialog::Accepted ) {
+    if ( created && status != QDialog::Accepted ) {
         // cleanup
         match->remove();
     }

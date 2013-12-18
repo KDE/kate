@@ -32,16 +32,16 @@
 #include "katerenderer.h"
 
 #include <QtCore/QDebug>
+#include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QSizeGrip>
+#include <QtWidgets/QStyle>
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 
-#include <kdialog.h>
-#include <klocale.h>
 #include <sonnet/speller.h>
 
 VariableLineEdit::VariableLineEdit(QWidget* parent)
@@ -51,7 +51,7 @@ VariableLineEdit::VariableLineEdit(QWidget* parent)
 
   QHBoxLayout* hl = new QHBoxLayout();
   hl->setMargin(0);
-  hl->setSpacing(KDialog::spacingHint());
+  hl->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
   setLayout(hl);
 
   m_lineedit = new QLineEdit(this);

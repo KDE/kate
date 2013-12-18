@@ -25,16 +25,14 @@
 #include "kateconfig.h"
 #include "katedocument.h"
 #include "kateglobal.h"
+#include "katepartdebug.h"
 
 #include <ktexteditor/variableinterface.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/range.h>
 
 #include <klocalizedstring.h>
-#include <kconfig.h>
-#include <kdialog.h>
 #include <kpluginfactory.h>
-#include <klocale.h>
 #include <kactioncollection.h>
 #include <knotification.h>
 #include <kparts/part.h>
@@ -47,17 +45,15 @@
 #include <kaboutdata.h>
 
 #include <QtCore/QRegExp>
-#include <QtCore/QString>
 #include <QtCore/QSet>
-#include <QtWidgets/QSpinBox>
+#include <QtCore/QString>
+#include <QtWidgets/QAction>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
-#include <QtWidgets/QAction>
+#include <QtWidgets/QSpinBox>
 
 #include <kvbox.h>
-#include <QtWidgets/QCheckBox>
-
-#include "katepartdebug.h"
 //END
 
 /// Amount of characters the document may have to enable automatic invocation (1MB)

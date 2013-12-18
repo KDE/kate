@@ -21,8 +21,6 @@
 
 #include "katecompletionwidget.h"
 
-#include <kdialog.h>
-
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 #include "kateview.h"

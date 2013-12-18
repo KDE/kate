@@ -29,16 +29,15 @@
 #include "kateviewmanager.h"
 #include "kateapp.h"
 #include "katesession.h"
+#include "katedebug.h"
 
 #include <KTextEditor/ConfigPage>
 
-#include "katedebug.h"
-#include <KIconLoader>
-#include <KLocale>
-#include <KConfig>
+#include <kiconloader.h>
 #include <kstandardaction.h>
 #include <KVBox>
 #include <klocalizedstring.h>
+#include <kconfiggroup.h>
 
 #include <QCheckBox>
 #include <QLabel>

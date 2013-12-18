@@ -19,21 +19,17 @@
 #ifndef __KATE_SESSION_H__
 #define __KATE_SESSION_H__
 
-#include <KDialog>
-#include <KConfig>
 #include <KActionMenu>
 
-#include <QObject>
-#include <QList>
-#include <QActionGroup>
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
-#include <QExplicitlySharedDataPointer>
+#include <QtCore/QExplicitlySharedDataPointer>
+#include <QtWidgets/QDialog>
 
+class KConfig;
 class KateSessionManager;
 class QPushButton;
-
 class QCheckBox;
+class QTreeWidget;
+class QTreeWidgetItem;
 
 class KateSession  : public QSharedData
 {
@@ -313,7 +309,7 @@ class KateSessionManager : public QObject
     KateSession::Ptr m_activeSession;
 };
 
-class KateSessionChooser : public KDialog
+class KateSessionChooser : public QDialog
 {
     Q_OBJECT
 
@@ -333,21 +329,9 @@ class KateSessionChooser : public KDialog
     };
 
   protected Q_SLOTS:
-    /**
-     * quit kate
-     */
-    void slotUser1 ();
-
-    /**
-     * open session
-     */
-    void slotUser2 ();
-
-    /**
-     * new session
-     */
-    void slotUser3 ();
-
+    void slotCancel();
+    void slotOpen();
+    void slotNew();
     void slotCopySession();
 
     /**
@@ -358,9 +342,10 @@ class KateSessionChooser : public KDialog
   private:
     QTreeWidget *m_sessions;
     QCheckBox *m_useLast;
+    QPushButton *m_openButton;
 };
 
-class KateSessionOpenDialog : public KDialog
+class KateSessionOpenDialog : public QDialog
 {
     Q_OBJECT
 
@@ -376,15 +361,8 @@ class KateSessionOpenDialog : public KDialog
   };
 
   protected Q_SLOTS:
-    /**
-     * cancel pressed
-     */
-    void slotUser1 ();
-
-    /**
-     * ok pressed
-     */
-    void slotUser2 ();
+    void slotCanceled();
+    void slotOpen();
 
     /**
      * selection has changed
@@ -393,9 +371,10 @@ class KateSessionOpenDialog : public KDialog
 
   private:
     QTreeWidget *m_sessions;
+    QPushButton *m_openButton;
 };
 
-class KateSessionManageDialog : public KDialog
+class KateSessionManageDialog : public QDialog
 {
     Q_OBJECT
 
@@ -407,7 +386,7 @@ class KateSessionManageDialog : public KDialog
     /**
      * close pressed
      */
-    void slotUser1 ();
+    void slotClose ();
 
     /**
      * selection has changed
@@ -439,6 +418,7 @@ class KateSessionManageDialog : public KDialog
     QTreeWidget *m_sessions;
     QPushButton *m_rename;
     QPushButton *m_del;
+    QPushButton *m_openButton;
 };
 
 class KateSessionsAction : public KActionMenu

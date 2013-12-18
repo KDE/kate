@@ -26,9 +26,8 @@
 #include "katedocmanager.h"
 #include "katepluginmanager.h"
 #include "katerunninginstanceinfo.h"
-
-#include <KLocale>
 #include "katedebug.h"
+
 #include <KDirWatch>
 #include <KInputDialog>
 #include <KIconLoader>
@@ -40,16 +39,21 @@
 #include <KIO/CopyJob>
 #include <klocalizedstring.h>
 #include <ksharedconfig.h>
+#include <kconfiggroup.h>
 
 #include <QtCore/QCollator>
 #include <QtCore/QDir>
 #include <QtCore/QtAlgorithms>
+#include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStyle>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QTreeWidgetItem>
 #include <QtWidgets/QVBoxLayout>
 
 #include <unistd.h>
@@ -637,19 +641,17 @@ class KateSessionChooserItem : public QTreeWidgetItem
 };
 
 KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSession)
-    : KDialog ( parent )
+  : QDialog (parent)
 {
-  setCaption( i18n ("Session Chooser") );
-  setButtons( User1 | User2 | User3 );
-  setButtonGuiItem( User1, KStandardGuiItem::quit() );
-  setButtonGuiItem( User2, KGuiItem (i18n ("Open Session"), "document-open") );
-  setButtonGuiItem( User3, KGuiItem (i18n ("New Session"), "document-new") );
+  setWindowTitle(i18n("Session Chooser"));
+  QVBoxLayout *mainLayout = new QVBoxLayout(this);
+  setLayout(mainLayout);
 
-  //showButtonSeparator(true);
+  // Main Tree
   QFrame *page = new QFrame (this);
   QVBoxLayout *tll = new QVBoxLayout(page);
   page->setMinimumSize (400, 200);
-  setMainWidget(page);
+  mainLayout->addWidget(page);
 
   m_sessions = new QTreeWidget (page);
   tll->addWidget(m_sessions);
@@ -663,13 +665,6 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   m_sessions->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_sessions->setSelectionMode (QAbstractItemView::SingleSelection);
 
-  connect (m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
-
-  QMenu* popup = new QMenu(this);
-// FIXME KF5  button(KDialog::User3)->setDelayedMenu(popup);
-  QAction *a = popup->addAction(i18n("Use selected session as template"));
-  connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
-
   const KateSessionList &slist (KateSessionManager::self()->sessionList());
   qCDebug(LOG_KATE)<<"Last session is:"<<lastSession;
   for (int i = 0; i < slist.count(); ++i)
@@ -681,24 +676,44 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
       m_sessions->setCurrentItem (item);
   }
 
-  m_sessions->resizeColumnToContents(0);
+  connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
+  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotOpen()));
+
+  // bottom box
+  QHBoxLayout *hb = new QHBoxLayout(this);
+  mainLayout->addLayout(hb);
 
   m_useLast = new QCheckBox (i18n ("&Always use this choice"), page);
-  tll->addWidget(m_useLast);
+  hb->addWidget(m_useLast);
+
+  // buttons
+  QDialogButtonBox *buttonBox = new QDialogButtonBox(this);
+  hb->addWidget(buttonBox);
+
+  QPushButton *cancelButton = new QPushButton();
+  KGuiItem::assign(cancelButton, KStandardGuiItem::quit());
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancel()));
+  buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
+
+  m_openButton = new QPushButton(QIcon::fromTheme("document-open"), i18n("Open Session"));
+  m_openButton->setEnabled(m_sessions->currentIndex().isValid());
+  m_openButton->setDefault(true);
+  m_openButton->setFocus();
+  buttonBox->addButton(m_openButton, QDialogButtonBox::ActionRole);
+  connect(m_openButton, SIGNAL(clicked()), this, SLOT(slotOpen()));
+
+  QMenu* popup = new QMenu(this);
+  m_openButton->setMenu(popup); // KF5 FIXME: setDelayedMenu is not supported by QPushButton
+  QAction *a = popup->addAction(i18n("Use selected session as template"));
+  connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
+
+  QPushButton *newButton = new QPushButton(QIcon::fromTheme("document-new"), i18n("New Session"));
+  buttonBox->addButton(newButton, QDialogButtonBox::ActionRole);
+  connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 
   setResult (resultNone);
-
-  // trigger action update
+  m_sessions->resizeColumnToContents(0);
   selectionChanged (NULL, NULL);
-  connect(this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()));
-  connect(this, SIGNAL(user2Clicked()), this, SLOT(slotUser2()));
-  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotUser2()));
-  connect(this, SIGNAL(user3Clicked()), this, SLOT(slotUser3()));
-  enableButton (KDialog::User2, m_sessions->currentIndex().isValid());
-
-  setDefaultButton(KDialog::User2);
-  setEscapeButton(KDialog::User1);
-  setButtonFocus(KDialog::User2);
 }
 
 KateSessionChooser::~KateSessionChooser ()
@@ -724,24 +739,24 @@ bool KateSessionChooser::reopenLastSession ()
   return m_useLast->isChecked ();
 }
 
-void KateSessionChooser::slotUser2 ()
+void KateSessionChooser::slotOpen()
 {
-  done (resultOpen);
+  done(resultOpen);
 }
 
-void KateSessionChooser::slotUser3 ()
+void KateSessionChooser::slotNew()
 {
-  done (resultNew);
+  done(resultNew);
 }
 
-void KateSessionChooser::slotUser1 ()
+void KateSessionChooser::slotCancel()
 {
-  done (resultQuit);
+  done(resultQuit);
 }
 
 void KateSessionChooser::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
-  enableButton (KDialog::User2, current);
+  m_openButton->setEnabled(true);
 }
 
 //END CHOOSER DIALOG
@@ -749,29 +764,18 @@ void KateSessionChooser::selectionChanged(QTreeWidgetItem *current, QTreeWidgetI
 //BEGIN OPEN DIALOG
 
 KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
-    : KDialog ( parent )
+  : QDialog(parent)
 
 {
-  setCaption( i18n ("Open Session") );
-  setButtons( User1 | User2 );
-  setButtonGuiItem( User1, KStandardGuiItem::cancel() );
-  // don't use KStandardGuiItem::open() here which has trailing ellipsis!
-  setButtonGuiItem( User2, KGuiItem( i18n("&Open"), "document-open") );
-  setDefaultButton( KDialog::User2 );
-  enableButton( KDialog::User2, false );
-  //showButtonSeparator(true);
-  /*QFrame *page = new QFrame (this);
-  page->setMinimumSize (400, 200);
-  setMainWidget(page);
+  setWindowTitle(i18n("Open Session"));
 
-  QHBoxLayout *hb = new QHBoxLayout (page);
+  QVBoxLayout *mainLayout = new QVBoxLayout(this);
+  setLayout(mainLayout);
 
-  QVBoxLayout *vb = new QVBoxLayout ();
-  hb->addItem(vb);*/
   m_sessions = new QTreeWidget (this);
   m_sessions->setMinimumSize(400, 200);
-  setMainWidget(m_sessions);
-  //vb->addWidget(m_sessions);
+  mainLayout->addWidget(m_sessions);
+
   QStringList header;
   header << i18n("Session Name");
   header << i18nc("The number of open documents", "Open Documents");
@@ -789,12 +793,25 @@ KateSessionOpenDialog::KateSessionOpenDialog (QWidget *parent)
   }
   m_sessions->resizeColumnToContents(0);
 
-  setResult (resultCancel);
-  connect(this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()));
-  connect(this, SIGNAL(user2Clicked()), this, SLOT(slotUser2()));
   connect(m_sessions, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(selectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)));
-  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotUser2()));
+  connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotOpen()));
 
+  // buttons
+  QDialogButtonBox *buttons = new QDialogButtonBox(this);
+  mainLayout->addWidget(buttons);
+
+  QPushButton *cancelButton = new QPushButton;
+  KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCanceled()));
+  buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
+
+  m_openButton = new QPushButton(QIcon::fromTheme("document-open"), i18n("&Open"));
+  m_openButton->setDefault(true);
+  m_openButton->setEnabled(false);
+  connect(m_openButton, SIGNAL(clicked()), this, SLOT(slotOpen()));
+  buttons->addButton(m_openButton, QDialogButtonBox::AcceptRole);
+
+  setResult (resultCancel);
 }
 
 KateSessionOpenDialog::~KateSessionOpenDialog ()
@@ -810,19 +827,19 @@ KateSession::Ptr KateSessionOpenDialog::selectedSession ()
   return item->session;
 }
 
-void KateSessionOpenDialog::slotUser1 ()
+void KateSessionOpenDialog::slotCanceled()
 {
-  done (resultCancel);
+  done(resultCancel);
 }
 
-void KateSessionOpenDialog::slotUser2 ()
+void KateSessionOpenDialog::slotOpen()
 {
-  done (resultOk);
+  done(resultOk);
 }
 
 void KateSessionOpenDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
 {
-  enableButton (KDialog::User2, current);
+  m_openButton->setEnabled(true);
 }
 
 //END OPEN DIALOG
@@ -830,21 +847,18 @@ void KateSessionOpenDialog::selectionChanged(QTreeWidgetItem *current, QTreeWidg
 //BEGIN MANAGE DIALOG
 
 KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
-    : KDialog ( parent )
+    : QDialog(parent)
 {
-  setCaption( i18n ("Manage Sessions") );
-  setButtons( User1 | User2 );
-  setButtonGuiItem( User1, KStandardGuiItem::close() );
-  // don't use KStandardGuiItem::open() here which has trailing ellipsis!
-  setButtonGuiItem( User2, KGuiItem( i18n("&Open"), "document-open") );
+  setWindowTitle(i18n("Manage Sessions"));
 
-  setDefaultButton(KDialog::User1);
+  QVBoxLayout *mainLayout = new QVBoxLayout(this);
+  setLayout(mainLayout);
+
   QFrame *page = new QFrame (this);
-  page->setMinimumSize (400, 200);
-  setMainWidget(page);
+  page->setMinimumSize(400, 200);
+  mainLayout->addWidget(page);
 
-  QHBoxLayout *hb = new QHBoxLayout (page);
-  hb->setSpacing (KDialog::spacingHint());
+  QHBoxLayout *hb = new QHBoxLayout(page);
 
   m_sessions = new QTreeWidget (page);
   hb->addWidget(m_sessions);
@@ -864,33 +878,44 @@ KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
   updateSessionList ();
   m_sessions->resizeColumnToContents(0);
 
-  QVBoxLayout *vb = new QVBoxLayout ();
-  hb->addItem(vb);
-  vb->setSpacing (KDialog::spacingHint());
+  // right column buttons
+  QDialogButtonBox *rightButtons = new QDialogButtonBox(this);
+  rightButtons->setOrientation(Qt::Vertical);
+  hb->addWidget(rightButtons);
 
-  m_rename = new QPushButton(i18n("&Rename..."), page);
+  m_rename = new QPushButton(i18n("&Rename..."));
   connect (m_rename, SIGNAL(clicked()), this, SLOT(rename()));
-  vb->addWidget (m_rename);
+  rightButtons->addButton(m_rename, QDialogButtonBox::ApplyRole);
 
-  m_del = new QPushButton (page);
+  m_del = new QPushButton();
   KGuiItem::assign(m_del, KStandardGuiItem::del());
   connect (m_del, SIGNAL(clicked()), this, SLOT(del()));
-  vb->addWidget (m_del);
+  rightButtons->addButton(m_del, QDialogButtonBox::ApplyRole);
 
-  vb->addStretch ();
+  // dialog buttons
+  QDialogButtonBox *bottomButtons = new QDialogButtonBox(this);
+  mainLayout->addWidget(bottomButtons);
+
+  QPushButton *closeButton = new QPushButton;
+  KGuiItem::assign(closeButton, KStandardGuiItem::close());
+  closeButton->setDefault(true);
+  bottomButtons->addButton(closeButton, QDialogButtonBox::RejectRole);
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(slotClose()));
+
+  m_openButton = new QPushButton(QIcon::fromTheme("document-open"), i18n("&Open"));
+  bottomButtons->addButton(m_openButton, QDialogButtonBox::AcceptRole);
+  connect(m_openButton, SIGNAL(clicked()), this, SLOT(open()));
 
   // trigger action update
   selectionChanged (NULL, NULL);
-  connect(this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()));
-  connect(this, SIGNAL(user2Clicked()), this, SLOT(open()));
 }
 
 KateSessionManageDialog::~KateSessionManageDialog ()
 {}
 
-void KateSessionManageDialog::slotUser1 ()
+void KateSessionManageDialog::slotClose()
 {
-  done (0);
+  done(0);
 }
 
 void KateSessionManageDialog::selectionChanged (QTreeWidgetItem *current, QTreeWidgetItem *)
@@ -899,7 +924,7 @@ void KateSessionManageDialog::selectionChanged (QTreeWidgetItem *current, QTreeW
 
   m_rename->setEnabled (validItem);
   m_del->setEnabled (validItem && (static_cast<KateSessionChooserItem*>(current))->session!=KateSessionManager::self()->activeSession());
-  button(User2)->setEnabled (validItem);
+  m_openButton->setEnabled(true);
 }
 
 void KateSessionManageDialog::rename ()

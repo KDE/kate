@@ -25,8 +25,7 @@
 #include <ktexteditor/document.h>
 
 #include <kparts/mainwindow.h>
-
-#include <kdialog.h>
+#include <kconfiggroup.h>
 
 #include <QtGui/QKeyEvent>
 

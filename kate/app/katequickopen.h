@@ -20,21 +20,14 @@
 #ifndef KATE_QUICK_OPEN_H
 #define KATE_QUICK_OPEN_H
 
-#include <kate/plugin.h>
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
-
-#include <kdialog.h>
-
-#include <QPointer>
-#include <qsortfilterproxymodel.h>
+#include <QtWidgets/QWidget>
 
 class QListView;
 class QTreeView;
 class KLineEdit;
 class KateMainWindow;
 class QStandardItemModel;
+class QSortFilterProxyModel;
 
 namespace KTextEditor {
     class Document;

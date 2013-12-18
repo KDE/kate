@@ -29,14 +29,13 @@
 #include "katesession.h"
 #include "katedebug.h"
 
-#include <KLocale>
 #include <KSqueezedTextLabel>
-#include <KConfig>
 #include <KStringHandler>
 #include <KVBox>
 #include <klocalizedstring.h>
 #include <kglobal.h>
 #include <kiconutils.h>
+#include <kconfiggroup.h>
 
 #include <QStackedWidget>
 #include <QCursor>

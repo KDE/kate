@@ -35,7 +35,7 @@
 #include <kactioncollection.h>
 #include <klocalizedstring.h>
 #include <kstandardaction.h>
-#include <kglobal.h>
+
 #include <sonnet/dialog.h>
 #include <sonnet/backgroundchecker.h>
 #include <sonnet/speller.h>

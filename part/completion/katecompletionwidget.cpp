@@ -664,8 +664,6 @@ void KateCompletionWidget::cursorPositionChanged( )
   if(m_inCompletionList && m_entryList->currentIndex().isValid())
     oldCurrentSourceIndex = m_presentationModel->mapToSource(m_entryList->currentIndex());
 
-  KTextEditor::Cursor cursor = view()->cursorPosition();
-
   QList<KTextEditor::CodeCompletionModel*> checkCompletionRanges = m_completionRanges.keys();
 
   //Check the models and eventuall abort some

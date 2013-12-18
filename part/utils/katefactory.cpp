@@ -82,6 +82,9 @@ class KateFactory : public KTextEditor::Factory
      */
     virtual QObject *create(const char *iface, QWidget *parentWidget, QObject *parent, const QVariantList &args, const QString &keyword)
     {
+      Q_UNUSED(args);
+      Q_UNUSED(keyword);
+
       QByteArray classname( iface );
 
       // default to the kparts::* behavior of having one single widget() if the user don't requested a pure document

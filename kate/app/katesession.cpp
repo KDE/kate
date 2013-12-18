@@ -29,7 +29,6 @@
 #include "katedebug.h"
 
 #include <KDirWatch>
-#include <KInputDialog>
 #include <KIconLoader>
 #include <KMessageBox>
 #include <KCodecs>
@@ -48,6 +47,7 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QInputDialog>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QPushButton>
@@ -595,10 +595,10 @@ bool KateSessionManager::newSessionName()
   QString name;
   do {
     bool ok = false;
-    name = KInputDialog::getText (
+    name = QInputDialog::getText (QApplication::activeWindow(), // nasty trick:)
              i18n("Specify New Name for Current Session"),
-             alreadyExists ? i18n("There is already an existing session with your chosen name.\nPlease choose a different one\nSession name:") : i18n("Session name:")
-             , name, &ok);
+             alreadyExists ? i18n("There is already an existing session with your chosen name.\nPlease choose a different one\nSession name:") : i18n("Session name:"),
+             QLineEdit::Normal, name, &ok);
 
     if (!ok)
       return false;
@@ -937,7 +937,9 @@ void KateSessionManageDialog::rename ()
     return;
 
   bool ok = false;
-  QString name = KInputDialog::getText (i18n("Specify New Name for Session"), i18n("Session name:"), item->session->sessionName(), &ok);
+  QString name = QInputDialog::getText(QApplication::activeWindow(), // nasty trick:)
+                    i18n("Specify New Name for Session"), i18n("Session name:"),
+                    QLineEdit::Normal, item->session->sessionName(), &ok);
 
   if (!ok)
     return;

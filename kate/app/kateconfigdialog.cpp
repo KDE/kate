@@ -213,8 +213,9 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   addEditorPages();
 
-  connect(this, SIGNAL(okClicked()), this, SLOT(slotOk()));
-  connect(this, SIGNAL(applyClicked()), this, SLOT(slotApply()));
+  connect(this, SIGNAL(accepted()), this, SLOT(slotOk()));
+  // FIXME: kf5, no apply button :(
+  // connect(this, SIGNAL(applyClicked()), this, SLOT(slotApply()));
   connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
           this, SLOT(slotCurrentPageChanged(KPageWidgetItem*,KPageWidgetItem*)));
   m_dataChanged = false;

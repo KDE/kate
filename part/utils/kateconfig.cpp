@@ -28,16 +28,14 @@
 
 #include <math.h>
 
-#include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
 #include <kcharsets.h>
 #include <klocale.h>
-#include <kglobal.h>
 
 #include <QtCore/QTextCodec>
-#include <QStringListModel>
+#include <QtCore/QStringListModel>
 
 //BEGIN KateConfig
 KateConfig::KateConfig ()
@@ -829,7 +827,7 @@ QTextCodec *KateDocumentConfig::codec () const
   if (m_encodingSet || isGlobal())
   {
     if (m_encoding.isEmpty() && isGlobal())
-      return KGlobal::locale()->codecForEncoding();
+      return KLocale::global()->codecForEncoding();
     else if (m_encoding.isEmpty())
       return s_global->codec ();
     else

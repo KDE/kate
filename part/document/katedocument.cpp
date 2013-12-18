@@ -62,9 +62,6 @@
 #include <kio/netaccess.h>
 #include <kfileitem.h>
 
-#include <klocale.h>
-#include <kglobal.h>
-#include <kconfig.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
 #include <kxmlguifactory.h>

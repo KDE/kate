@@ -34,15 +34,14 @@
 #include "katerenderer.h"
 #include "kateviemulatedcommandbar.h"
 #include "katecmd.h"
-
 #include "katepartdebug.h"
+
 #include <klocalizedstring.h>
-#include <klocale.h>
 #include <kshellcompletion.h>
 
-#include <QDir>
-#include <QUrl>
+#include <QtCore/QDir>
 #include <QtCore/QRegExp>
+#include <QtCore/QUrl>
 
 //BEGIN CoreCommands
 KateCommands::CoreCommands* KateCommands::CoreCommands::m_instance = 0;
@@ -1133,7 +1132,6 @@ const QVector< Range > KateCommands::SedReplace::InteractiveSedReplacer::fullCur
 
 QString KateCommands::SedReplace::InteractiveSedReplacer::replacementTextForCurrentMatch()
 {
-  const Range currentMatch = this->currentMatch();
   const QVector<KTextEditor::Range> captureRanges = fullCurrentMatch();
   QStringList captureTexts;
   foreach(const Range& captureRange, captureRanges)

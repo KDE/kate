@@ -1855,9 +1855,6 @@ static inline bool containsAtWordBeginning(const QString& word, const QString& t
 
 KateCompletionModel::Item::MatchType KateCompletionModel::Item::match()
 {
-  // Check to see if the item is matched by the current completion string
-  QModelIndex sourceIndex = m_sourceRow.second.sibling(m_sourceRow.second.row(), CodeCompletionModel::Name);
-
   QString match = model->currentCompletion(m_sourceRow.first);
 
   m_haveExactMatch = false;

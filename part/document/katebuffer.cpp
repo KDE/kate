@@ -35,7 +35,6 @@
 #include "katepartdebug.h"
 
 #include <klocalizedstring.h>
-#include <kglobal.h>
 #include <kcharsets.h>
 #include <kfilterdev.h>
 

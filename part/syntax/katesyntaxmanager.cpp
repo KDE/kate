@@ -36,10 +36,7 @@
 #include "katehighlight.h"
 #include "katepartdebug.h"
 
-#include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobal.h>
-#include <klocale.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
 #include <kmessagebox.h>

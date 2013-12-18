@@ -38,18 +38,15 @@
 #include "katewordcompletion.h"
 #include "spellcheck/spellcheck.h"
 #include "snippet/katesnippetglobal.h"
+#include "katepartdebug.h"
 
-#include <klocale.h>
 #include <kservicetypetrader.h>
 #include <kdirwatch.h>
-#include "katepartdebug.h"
 #include <klocalizedstring.h>
 #include <kaboutdata.h>
 #include <kpagedialog.h>
 #include <kpagewidgetmodel.h>
 #include <kiconloader.h>
-#include <KGlobal>
-#include <KGlobalSettings>
 
 #include <QtCore/QPointer>
 #include <QtWidgets/QBoxLayout>
@@ -78,7 +75,8 @@ KateGlobal::KateGlobal ()
   s_self = this;
 
   // load the kate part translation catalog
-  KGlobal::locale()->insertCatalog("katepart4");
+  // FIXME: kf5
+  // KLocale::global()->insertCatalog("katepart4");
 
   //
   // fill about data
@@ -197,8 +195,8 @@ KateGlobal::KateGlobal ()
 
   //
   // finally setup connections
-  //
-  connect(KGlobalSettings::self(), SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateColorPalette()));
+  // FIXME: kf5 alternative signal?
+  // connect(KGlobalSettings::self(), SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateColorPalette()));
 
   //required for setting sessionConfig property
   qRegisterMetaType<KSharedConfig::Ptr>("KSharedConfig::Ptr");

@@ -2654,8 +2654,6 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
 
       if ( e->modifiers() & Qt::ShiftModifier )
       {
-        KTextEditor::Range oldSelection = m_view->selectionRange();
-
         // Now select the word under the select anchor
         int cs, ce;
         Kate::TextLine l = doc()->kateTextLine( m_selectAnchor.line() );

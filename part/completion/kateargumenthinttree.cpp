@@ -66,7 +66,8 @@ void KateArgumentHintTree::paintEvent ( QPaintEvent * event ) {
   updateGeometry(); ///@todo delay this. It is needed here, because visualRect(...) returns an invalid rect in updateGeometry before the content is painted
 }
 
-void KateArgumentHintTree::dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight ) {
+void KateArgumentHintTree::dataChanged ( const QModelIndex& topLeft, const QModelIndex& bottomRight, const QVector< int >& roles ) {
+  Q_UNUSED(roles)
   QTreeView::dataChanged(topLeft,bottomRight);
   //updateGeometry();
 }

@@ -34,7 +34,7 @@
        <property name="toolTip">
         <string>Define filter here</string>
        </property>
-       <property name="clickMessage">
+       <property name="placeholderText">
         <string>Filter...</string>
        </property>
        <property name="showClearButton" stdset="0">

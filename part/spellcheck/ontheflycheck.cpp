@@ -27,8 +27,6 @@
 
 #include <QTimer>
 
-#include <kglobal.h>
-
 #include "kateconfig.h"
 #include "kateglobal.h"
 #include "katerenderer.h"

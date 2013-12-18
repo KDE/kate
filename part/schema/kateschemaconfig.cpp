@@ -36,7 +36,6 @@
 
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
-#include <kinputdialog.h>
 #include <kfontchooser.h>
 #include <kmessagebox.h>
 #include <khbox.h>
@@ -44,6 +43,7 @@
 #include <kconfiggroup.h>
 
 #include <QtWidgets/QFileDialog>
+#include <QtWidgets/QInputDialog>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QProgressDialog>
 #include <QtWidgets/QTabWidget>
@@ -1289,7 +1289,7 @@ bool KateSchemaConfigPage::newSchema (const QString& newName)
   QString schemaName(newName);
   if (newName.isEmpty()) {
     bool ok = false;
-    schemaName = KInputDialog::getText (i18n("Name for New Schema"), i18n ("Name:"), i18n("New Schema"), &ok, this);
+    schemaName = QInputDialog::getText(this, i18n("Name for New Schema"), i18n ("Name:"), QLineEdit::Normal, i18n("New Schema"), &ok);
     if (!ok) return false;
   }
 

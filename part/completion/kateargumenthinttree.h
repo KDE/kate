@@ -50,7 +50,7 @@ class KateArgumentHintTree : public ExpandingTree {
   protected:
     virtual void paintEvent ( QPaintEvent * event );
     virtual void rowsInserted ( const QModelIndex & parent, int start, int end );
-    virtual void dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight );
+    virtual void dataChanged ( const QModelIndex & topLeft, const QModelIndex & bottomRight, const QVector<int> & roles = QVector<int>());
     virtual void currentChanged ( const QModelIndex & current, const QModelIndex & previous );
   private:
     uint rowHeight(const QModelIndex& index) const;

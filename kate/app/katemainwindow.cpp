@@ -57,6 +57,7 @@
 #include <KToolBar>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
+#include <kwindowconfig.h>
 
 #include <kio/job.h>
 #include <KIO/ListJob>
@@ -206,7 +207,7 @@ KateMainWindow::~KateMainWindow()
 {
   // first, save our fallback window size ;)
   KConfigGroup cfg(KSharedConfig::openConfig(), "MainWindow");
-  saveWindowSize(cfg);
+  KWindowConfig::saveWindowSize(windowHandle(), cfg);
 
   // save other options ;=)
   saveOptions();
@@ -629,7 +630,8 @@ void KateMainWindow::slotDropEvent( QDropEvent * event )
     foreach ( const QUrl &url, textlist )
     {
       // if url has no file component, try and recursively scan dir
-      KFileItem kitem( KFileItem::Unknown, KFileItem::Unknown, url, true );
+      KFileItem kitem(url);
+      kitem.setDelayedMimeTypes(true);
       if( kitem.isDir() ) {
         KIO::ListJob *list_job = KIO::listRecursive(url, KIO::DefaultFlags, false);
         connect(list_job, SIGNAL(entries(KIO::Job*,KIO::UDSEntryList)),
@@ -939,7 +941,7 @@ void KateMainWindow::saveWindowConfig(const KConfigGroup &_config)
 {
   KConfigGroup config( _config );
   saveMainWindowSettings(config);
-  saveWindowSize(config);
+  KWindowConfig::saveWindowSize(windowHandle(), config);
   config.writeEntry("WindowState", int(((KParts::MainWindow*)this)->windowState()));
   config.sync();
 }
@@ -948,7 +950,7 @@ void KateMainWindow::restoreWindowConfig(const KConfigGroup &config)
 {
   setWindowState(Qt::WindowNoState);
   applyMainWindowSettings(config);
-  restoreWindowSize(config);
+  KWindowConfig::restoreWindowSize(windowHandle(), config);
   setWindowState( QFlags<Qt::WindowState>(config.readEntry("WindowState", int(Qt::WindowActive))) );
 }
 

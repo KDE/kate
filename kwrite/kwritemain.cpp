@@ -33,7 +33,6 @@
 #include <kaboutdata.h>
 #include <kactioncollection.h>
 #include <kcmdlineargs.h>
-#include <kdeversion.h>
 #include <kdiroperator.h>
 #include <kedittoolbar.h>
 #include <kencodingfiledialog.h>
@@ -654,7 +653,7 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
 
   KAboutData aboutData ( QString ("kwrite"), QString(),
                          i18n("KWrite"),
-                         KDE_VERSION_STRING,
+                         QLatin1String(KATE_VERSION),
                          i18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
                          i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QString ("http://www.kate-editor.org") );
   aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");

@@ -63,7 +63,6 @@
 #include <kio/jobclasses.h>
 #include <kio/netaccess.h>
 
-#include <kdeversion.h>
 #include <kcharsets.h>
 #include <kcolorbutton.h>
 #include <kcolorcombo.h>
@@ -1207,7 +1206,7 @@ unsigned KateHlDownloadDialog::parseVersion(const QString& version_string)
     if (idx == sizeof(vn))
       break;
   }
-  return KDE_MAKE_VERSION(vn[0], vn[1], vn[2]);
+  return (((vn[0]) << 16) | ((vn[1]) << 8) | (vn[2]));
 }
 
 void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)

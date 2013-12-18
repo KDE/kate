@@ -19,6 +19,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "config.h"
+
 #include "kateapp.h"
 #include "katerunninginstanceinfo.h"
 #include <kate_export.h>
@@ -82,7 +84,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   /**
    * construct about data for Kate
    */
-  KAboutData aboutData ("kate", 0, i18n("Kate"), KateApp::kateVersion().toLatin1(),
+  KAboutData aboutData ("kate", 0, i18n("Kate"), QLatin1String(KATE_VERSION),
                         i18n( "Kate - Advanced Text Editor" ), KAboutData::License_LGPL_V2,
                         i18n( "(c) 2000-2013 The Kate Authors" ), QString(), "http://www.kate-editor.org");
   aboutData.setOrganizationDomain("kde.org");

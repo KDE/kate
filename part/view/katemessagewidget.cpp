@@ -21,12 +21,11 @@
 #include "katemessagewidget.h"
 #include "katemessagewidget.moc"
 
+#include "katepartdebug.h"
+
 #include <ktexteditor/messageinterface.h>
 #include <kmessagewidget.h>
 #include <kateanimation.h>
-
-#include <kdeversion.h>
-#include "katepartdebug.h"
 
 #include <QtCore/QEvent>
 #include <QtCore/QTimer>
@@ -68,9 +67,7 @@ KateMessageWidget::KateMessageWidget(QWidget* parent, bool applyFadeEffect)
   // setup autoHide timer details
   m_autoHideTimer->setSingleShot(true);
 
-#if KDE_IS_VERSION(4,10,60) // KMessageWidget::linkHovered() is new in KDE 4.11
-  connect(m_messageWidget, SIGNAL(linkHovered(const QString&)), SLOT(linkHovered(const QString&))); // FIXME: TODO: this?
-#endif
+  connect(m_messageWidget, SIGNAL(linkHovered(const QString&)), SLOT(linkHovered(const QString&)));
 }
 
 void KateMessageWidget::showNextMessage()
@@ -89,9 +86,7 @@ void KateMessageWidget::showNextMessage()
 
   // set text etc.
   m_messageWidget->setText(m_currentMessage->text());
-#if KDE_VERSION >= KDE_MAKE_VERSION(4,10,60)   // KMessageWidget::setIcon() requires KDE >= 4.11
   m_messageWidget->setIcon(m_currentMessage->icon());
-#endif
 
   // connect textChanged() and iconChanged(), so it's possible to change this on the fly
   connect(m_currentMessage, SIGNAL(textChanged(const QString&)),

@@ -18,6 +18,8 @@
    Boston, MA 02110-1301, USA.
 */
 
+#include "config.h"
+
 #include "katepluginmanager.h"
 #include "katepluginmanager.moc"
 
@@ -66,7 +68,7 @@ void KatePluginManager::setupPluginList ()
     double pVersion = ptr->property("X-Kate-Version").toDouble();
 
     // don't use plugins out of 3.x release series
-    if ((pVersion >= 2.8) && (pVersion <= KateApp::kateVersion(false).toDouble()))
+    if ((pVersion >= 2.8) && (pVersion <= KateVersion))
     {
       KatePluginInfo info;
       info.service = ptr;

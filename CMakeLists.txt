@@ -1,6 +1,11 @@
 # Kate project
 project (kate)
 
+set(KATE_VERSION_MAJOR 5)
+set(KATE_VERSION_MINOR 0)
+set(KATE_VERSION_MICRO 0)
+set(KATE_VERSION ${KATE_VERSION_MAJOR}.${KATE_VERSION_MINOR}.${KATE_VERSION_MICRO})
+
 # minimal cmake req
 cmake_minimum_required (VERSION 2.8.6 FATAL_ERROR)
 

@@ -36,7 +36,6 @@
 #include <kmessagebox.h>
 #include <kvbox.h>
 #include <kxmlguifactory.h>
-#include <kdeversion.h>
 #include <klocalizedstring.h>
 
 #include <QtCore/QChildEvent>

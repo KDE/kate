@@ -45,7 +45,6 @@
 #include "katepartdebug.h"
 #include <klocalizedstring.h>
 #include <kaboutdata.h>
-#include <kdeversion.h>
 #include <kpagedialog.h>
 #include <kpagewidgetmodel.h>
 #include <kiconloader.h>

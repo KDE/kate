@@ -79,7 +79,6 @@
 #include <ktoggleaction.h>
 #include <kselectaction.h>
 #include <kactioncollection.h>
-#include <kdeversion.h>
 
 #include <QtCore/QFileInfo>
 #include <QtCore/QMimeData>

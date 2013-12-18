@@ -21,6 +21,8 @@
  *  Boston, MA 02110-1301, USA.
  */
 
+#include "config.h"
+
 #include "katepartpluginmanager.h"
 #include "katepartpluginmanager.moc"
 
@@ -36,7 +38,6 @@
 
 #include <kservicetypetrader.h>
 #include "katepartdebug.h"
-#include <kdeversion.h>
 
 KatePartPluginInfo::KatePartPluginInfo(KService::Ptr service)
     : m_pluginInfo(service)
@@ -73,6 +74,14 @@ KatePartPluginManager *KatePartPluginManager::self()
   return KateGlobal::self()->pluginManager ();
 }
 
+#define MAKE_VERSION( a,b,c ) (((a) << 16) | ((b) << 8) | (c))
+
+static const unsigned KPPMVersion = MAKE_VERSION(KateVersionMajor,
+                                                 KateVersionMinor,
+                                                 KateVersionMicro);
+
+static const unsigned MinPluginVersion = MAKE_VERSION(4, 0, 0);
+
 void KatePartPluginManager::setupPluginList ()
 {
   KService::List traderList = KServiceTypeTrader::self()->
@@ -82,11 +91,11 @@ void KatePartPluginManager::setupPluginList ()
   {
     QVariant version = ptr->property("X-KDE-Version", QVariant::String);
     QStringList numbers = qvariant_cast<QString>(version).split('.');
-    unsigned int kdeVersion = KDE_MAKE_VERSION(numbers.value(0).toUInt(),
-                                               numbers.value(1).toUInt(),
-                                               numbers.value(2).toUInt());
+    unsigned int kdeVersion = MAKE_VERSION(numbers.value(0).toUInt(),
+                                           numbers.value(1).toUInt(),
+                                           numbers.value(2).toUInt());
 
-    if (KDE_MAKE_VERSION(4,0,0) <= kdeVersion && kdeVersion <= KDE::version())
+    if (MinPluginVersion <= kdeVersion && kdeVersion <= KPPMVersion)
     {
       KatePartPluginInfo info(ptr);
 

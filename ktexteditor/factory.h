@@ -56,6 +56,7 @@ class Editor;
  * Each KTextEditor implementation must reimplement this factory to allow
  * access to the editor object.
  *
+ * @deprecated FIXME: KLibLoader is deprecated
  * \section factory_example Creating an Editor Part
  * To get a kate part the following code snippet can be used:
  * \code

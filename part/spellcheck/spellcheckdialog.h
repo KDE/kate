@@ -34,7 +34,6 @@ class KateView;
 class QAction;
 
 class KActionCollection;
-class KProgressDialog;
 namespace Sonnet {
     class Dialog;
     class BackgroundChecker;

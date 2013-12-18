@@ -76,7 +76,6 @@
 #include <kprocess.h>
 #include <krun.h>
 #include <kseparator.h>
-#include <kvbox.h>
 #include <kactioncollection.h>
 #include <kplugininfo.h>
 

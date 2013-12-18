@@ -53,7 +53,6 @@
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QSpinBox>
 
-#include <kvbox.h>
 //END
 
 /// Amount of characters the document may have to enable automatic invocation (1MB)

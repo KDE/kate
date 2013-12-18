@@ -42,7 +42,6 @@
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QToolButton>
-#include <kvbox.h>
 //END Includes
 
 KateHighlightingMenu::~KateHighlightingMenu()

@@ -38,7 +38,6 @@
 #include <kcolorutils.h>
 #include <kfontchooser.h>
 #include <kmessagebox.h>
-#include <khbox.h>
 #include <kcombobox.h>
 #include <kconfiggroup.h>
 
@@ -47,6 +46,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QProgressDialog>
 #include <QtWidgets/QTabWidget>
+
 //END
 
 
@@ -593,25 +593,28 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigDefau
 
   QVBoxLayout *layout = new QVBoxLayout(this);
 
-  // hl chooser
-  KHBox *hbHl = new KHBox( this );
-  layout->addWidget (hbHl);
+  QHBoxLayout *headerLayout = new QHBoxLayout;
+  layout->addLayout(headerLayout);
 
-  hbHl->setSpacing( -1 );
-  QLabel *lHl = new QLabel( i18n("H&ighlight:"), hbHl );
-  hlCombo = new KComboBox( hbHl );
-  hlCombo->setEditable( false );
+  QLabel *lHl = new QLabel( i18n("H&ighlight:"), this);
+  headerLayout->addWidget(lHl);
+
+  hlCombo = new KComboBox(this);
+  hlCombo->setEditable(false);
+  headerLayout->addWidget(hlCombo);
+
   lHl->setBuddy( hlCombo );
-  connect( hlCombo, SIGNAL(activated(int)),
-           this, SLOT(hlChanged(int)) );
+  connect( hlCombo, SIGNAL(activated(int)), this, SLOT(hlChanged(int)));
 
-  QPushButton *btnexport = new QPushButton( i18n("Export..."), hbHl );
-  QPushButton *btnimport = new QPushButton( i18n("Import..."), hbHl );
-
-  qobject_cast<QBoxLayout*>(hbHl->layout())->addStretch();
-
+  QPushButton *btnexport = new QPushButton(i18n("Export..."), this);
+  headerLayout->addWidget(btnexport);
   connect( btnexport,SIGNAL(clicked()),this,SLOT(exportHl()));
+
+  QPushButton *btnimport = new QPushButton(i18n("Import..."), this);
+  headerLayout->addWidget(btnimport);
   connect( btnimport,SIGNAL(clicked()),this,SLOT(importHl()));
+
+  headerLayout->addStretch();
 
   for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
     if (KateHlManager::self()->hlSection(i).length() > 0)
@@ -637,8 +640,8 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigDefau
       Q_ASSERT(hl >= 0);
     }
   }
-  hlCombo->setCurrentIndex ( hl );
-  hlChanged ( hl );
+  //hlCombo->setCurrentIndex ( hl );
+  //hlChanged ( hl );
 
   m_styles->setWhatsThis(i18n(
     "<p>This list displays the contexts of the current syntax highlight mode and "
@@ -893,29 +896,38 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->setMargin(0);
 
-  KHBox *hbHl = new KHBox( this );
-  layout->addWidget(hbHl);
-  hbHl->setSpacing( -1 );
-  QLabel *lHl = new QLabel( i18n("&Schema:"), hbHl );
-  schemaCombo = new KComboBox( hbHl );
-  schemaCombo->setEditable( false );
-  lHl->setBuddy( schemaCombo );
-  connect( schemaCombo, SIGNAL(currentIndexChanged(int)),
-           this, SLOT(comboBoxIndexChanged(int)) );
+  // header
+  QHBoxLayout *headerLayout = new QHBoxLayout;
+  layout->addLayout(headerLayout);
 
-  QPushButton *btnnew = new QPushButton( i18n("&New..."), hbHl );
+  QLabel *lHl = new QLabel( i18n("&Schema:"), this);
+  headerLayout->addWidget(lHl);
+
+  schemaCombo = new KComboBox(this);
+  schemaCombo->setEditable(false);
+  lHl->setBuddy(schemaCombo);
+  headerLayout->addWidget(schemaCombo);
+  connect(schemaCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(comboBoxIndexChanged(int)));
+
+  QPushButton *btnnew = new QPushButton( i18n("&New..."), this);
+  headerLayout->addWidget(btnnew);
   connect( btnnew, SIGNAL(clicked()), this, SLOT(newSchema()) );
 
-  btndel = new QPushButton( i18n("&Delete"), hbHl );
+  btndel = new QPushButton( i18n("&Delete"), this );
+  headerLayout->addWidget(btndel);
   connect( btndel, SIGNAL(clicked()), this, SLOT(deleteSchema()) );
 
-  QPushButton *btnexport = new QPushButton( i18n("Export..."), hbHl );
+  QPushButton *btnexport = new QPushButton( i18n("Export..."), this );
+  headerLayout->addWidget(btnexport);
   connect(btnexport,SIGNAL(clicked()),this,SLOT(exportFullSchema()));
-  QPushButton *btnimport = new QPushButton( i18n("Import..."), hbHl );
+
+  QPushButton *btnimport = new QPushButton( i18n("Import..."), this );
+  headerLayout->addWidget(btnimport);
   connect(btnimport,SIGNAL(clicked()),this,SLOT(importFullSchema()));
 
-  qobject_cast<QBoxLayout *>(hbHl->layout())->addStretch();
+  headerLayout->addStretch();
 
+  // tabs
   QTabWidget *tabWidget = new QTabWidget(this);
   layout->addWidget (tabWidget);
 
@@ -935,18 +947,20 @@ KateSchemaConfigPage::KateSchemaConfigPage( QWidget *parent)
   tabWidget->addTab(m_highlightTab, i18n("Highlighting Text Styles"));
   connect(m_highlightTab, SIGNAL(changed()), SLOT(slotChanged()));
 
-  hbHl = new KHBox( this );
-  layout->addWidget (hbHl);
-  hbHl->setSpacing( -1 );
-  lHl = new QLabel( i18n("&Default schema for %1:", QString() /* FIXME KF5 KGlobal::mainComponent().aboutData()->programName ()*/), hbHl );
-  defaultSchemaCombo = new KComboBox( hbHl );
+  QHBoxLayout *footLayout = new QHBoxLayout;
+  layout->addLayout(footLayout);
+
+  lHl = new QLabel( i18n("&Default schema for %1:", QCoreApplication::applicationName()), this);
+  footLayout->addWidget(lHl);
+
+  defaultSchemaCombo = new KComboBox(this);
+  footLayout->addWidget(defaultSchemaCombo);
   defaultSchemaCombo->setEditable( false );
   lHl->setBuddy( defaultSchemaCombo );
 
   reload();
 
-  connect( defaultSchemaCombo, SIGNAL(currentIndexChanged(int)),
-           this, SLOT(slotChanged()) );
+  connect( defaultSchemaCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()) );
 }
 
 KateSchemaConfigPage::~KateSchemaConfigPage ()

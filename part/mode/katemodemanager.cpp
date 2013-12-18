@@ -47,8 +47,6 @@
 #include <QtWidgets/QToolButton>
 #include <QtCore/QMimeDatabase>
 
-#include <kvbox.h>
-
 #define KATE_FT_HOWMANY 1024
 //END Includes
 

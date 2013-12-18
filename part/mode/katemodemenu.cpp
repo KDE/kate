@@ -44,7 +44,6 @@
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QToolButton>
-#include <kvbox.h>
 
 #define KATE_FT_HOWMANY 1024
 //END Includes

@@ -466,7 +466,8 @@ void KateView::setupActions()
   a->setText(i18n("Reloa&d"));
   a->setShortcuts(KStandardShortcut::reload());
   a->setWhatsThis(i18n("Reload the current document from disk."));
-  connect(a, SIGNAL(triggered(bool)), SLOT(reloadFile()));
+  //connect(a, SIGNAL(triggered(bool)), SLOT(reloadFile()));
+  connect(a, SIGNAL(triggered(bool)), SLOT(slotConfigDialog()));
 
   a = ac->addAction( KStandardAction::SaveAs, m_doc, SLOT(documentSaveAs()) );
   a->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));

@@ -310,10 +310,7 @@ void KateGlobal::configDialog(QWidget *parent)
 
   kd->setWindowTitle( i18n("Configure") );
   kd->setFaceType( KPageDialog::List );
-#if 0 //FIXME KF5
-  kd->setButtons( KDialog::Ok | KDialog::Cancel | KDialog::Apply | KDialog::Help );
-  kd->setHelp( QString(), KGlobal::mainComponent().componentName() );
-#endif
+  kd->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Apply | QDialogButtonBox::Help );
   
   QList<KTextEditor::ConfigPage*> editorPages;
 

@@ -17,3 +17,6 @@ build
 *.BASE.*
 *.LOCAL.*
 *.REMOTE.*
+
+# from dolphin
+.directory

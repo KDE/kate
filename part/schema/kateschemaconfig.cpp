@@ -42,6 +42,7 @@
 #include <khbox.h>
 #include <kcombobox.h>
 #include <kglobal.h>
+#include <kconfiggroup.h>
 
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QPushButton>
@@ -1008,6 +1009,7 @@ void KateSchemaConfigPage::exportFullSchema()
 
 QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
 {
+  /* FIXME:
   QString schemaName = suggestedName;
 
   bool reask = true;
@@ -1055,6 +1057,8 @@ QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
   } while (reask);
 
   return schemaName;
+  */
+  return QString();
 }
 
 void KateSchemaConfigPage::importFullSchema()

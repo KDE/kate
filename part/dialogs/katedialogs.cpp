@@ -67,12 +67,10 @@
 #include <kcolorbutton.h>
 #include <kcolorcombo.h>
 #include <kcombobox.h>
-#include <kconfig.h>
 #include "katepartdebug.h"
 #include <kiconloader.h>
 #include <kshortcutsdialog.h>
 #include <klineedit.h>
-#include <klocale.h>
 #include <kmessagebox.h>
 #include <kmimetypechooser.h>
 #include <knuminput.h>
@@ -1152,29 +1150,43 @@ void KatePartPluginConfigPage::defaults ()
 
 //BEGIN KateHlDownloadDialog
 KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bool modal)
-  : KDialog( parent )
+  : QDialog( parent )
 {
-  setCaption( i18n("Highlight Download") );
-  setButtons( User1 | Close );
-  setButtonGuiItem( User1, KGuiItem(i18n("&Install")) );
-  setDefaultButton( User1 );
-  setObjectName( name );
-  setModal( modal );
+  setWindowTitle(i18n("Highlight Download"));
+  setObjectName(name);
+  setModal(modal);
 
-  KVBox* vbox = new KVBox(this);
-  setMainWidget(vbox);
-  vbox->setSpacing(-1);
-  new QLabel(i18n("Select the syntax highlighting files you want to update:"), vbox);
-  list = new QTreeWidget(vbox);
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
+
+  QLabel *label = new QLabel(i18n("Select the syntax highlighting files you want to update:"), this);
+  mainLayout->addWidget(label);
+
+  list = new QTreeWidget(this);
   list->setColumnCount(4);
   list->setHeaderLabels(QStringList() << "" << i18n("Name") << i18n("Installed") << i18n("Latest"));
   list->setSelectionMode(QAbstractItemView::MultiSelection);
   list->setAllColumnsShowFocus(true);
   list->setRootIsDecorated(false);
   list->setColumnWidth(0, 22);
+  mainLayout->addWidget(list);
 
-  new QLabel(i18n("<b>Note:</b> New versions are selected automatically."), vbox);
-  setButtonIcon(User1, QIcon::fromTheme("dialog-ok"));
+  label = new QLabel(i18n("<b>Note:</b> New versions are selected automatically."), this);
+  mainLayout->addWidget(label);
+
+  // buttons
+  QDialogButtonBox *buttons = new QDialogButtonBox(this);
+  mainLayout->addWidget(buttons);
+
+  m_installButton = new QPushButton(QIcon::fromTheme("dialog-ok"), i18n("&Install"));
+  m_installButton->setDefault(true);
+  buttons->addButton(m_installButton, QDialogButtonBox::AcceptRole);
+  connect(m_installButton, SIGNAL(clicked()), this, SLOT(slotInstall()));
+
+  QPushButton *closeButton = new QPushButton;
+  KGuiItem::assign(closeButton, KStandardGuiItem::cancel());
+  buttons->addButton(closeButton, QDialogButtonBox::RejectRole);
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(reject()));
 
   transferJob = KIO::get(
     QUrl(QString(HLDOWNLOADPATH)
@@ -1184,8 +1196,8 @@ KateHlDownloadDialog::KateHlDownloadDialog(QWidget *parent, const char *name, bo
   connect(transferJob, SIGNAL(data(KIO::Job*,QByteArray)),
     this, SLOT(listDataReceived(KIO::Job*,QByteArray)));
 //        void data( KIO::Job *, const QByteArray &data);
+
   resize(450, 400);
-  connect(this,SIGNAL(user1Clicked()),this,SLOT(slotUser1()));
 }
 
 KateHlDownloadDialog::~KateHlDownloadDialog(){}
@@ -1212,7 +1224,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
 {
   if (!transferJob || transferJob->isErrorPage())
   {
-    enableButton( User1, false );
+    m_installButton->setEnabled(false);
     if (data.size()==0)
       KMessageBox::error(this,i18n("The list of highlightings could not be found on / retrieved from the server"));
     return;
@@ -1285,7 +1297,7 @@ void KateHlDownloadDialog::listDataReceived(KIO::Job *, const QByteArray &data)
   }
 }
 
-void KateHlDownloadDialog::slotUser1()
+void KateHlDownloadDialog::slotInstall()
 {
   const QString destdir = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/katepart/syntax/";
   QDir(destdir).mkpath("."); // make sure the dir is there
@@ -1432,14 +1444,12 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
                                       KTextEditor::ModificationInterface::ModifiedOnDiskReason modtype,
                                       const QString &reason,
                                       QWidget *parent )
-  : KDialog( parent ),
+  : QDialog( parent ),
     m_doc( doc ),
     m_modtype ( modtype ),
     m_proc( 0 ),
     m_diffFile( 0 )
 {
-  setButtons( Ok | Apply | Cancel | User1 );
-
   QString title, okText, okIcon, okToolTip;
   if ( modtype == KTextEditor::ModificationInterface::OnDiskDeleted )
   {
@@ -1455,38 +1465,54 @@ KateModOnHdPrompt::KateModOnHdPrompt( KateDocument *doc,
         "they will be lost.");
   }
 
-  setButtonText( Ok, okText );
-  setButtonIcon( Ok, QIcon::fromTheme( okIcon ) );
-  setButtonText( Apply, i18n("&Ignore Changes") );
-  setButtonIcon( Apply, QIcon::fromTheme( "dialog-warning" ) );
+  setWindowTitle(title);
 
-  setButtonToolTip( Ok, okToolTip );
-  setButtonToolTip( Apply, i18n("Ignore the changes. You will not be prompted again.") );
-  setButtonToolTip( Cancel, i18n("Do nothing. Next time you focus the file, "
-      "or try to save it or close it, you will be prompted again.") );
-
-  setCaption( title );
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
 
   QWidget *w = new QWidget(this);
+  mainLayout->addWidget(w);
   ui = new Ui::ModOnHdWidget();
   ui->setupUi( w );
-  setMainWidget( w );
-
   ui->lblIcon->setPixmap( DesktopIcon("dialog-warning" ) );
   ui->lblText->setText( reason + "\n\n" + i18n("What do you want to do?") );
+
+  // buttons
+  QDialogButtonBox *buttons = new QDialogButtonBox(this);
+  mainLayout->addWidget(buttons);
+
+  QPushButton *okButton = new QPushButton(QIcon::fromTheme(okIcon), okText);
+  okButton->setToolTip(okToolTip);
+  buttons->addButton(okButton, QDialogButtonBox::AcceptRole);
+  connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
+
+  QPushButton *applyButton = new QPushButton(QIcon::fromTheme("dialog-warning"), i18n("&Ignore Changes"));
+  applyButton->setToolTip(i18n("Ignore the changes. You will not be prompted again."));
+  buttons->addButton(applyButton, QDialogButtonBox::ApplyRole);
+  connect(applyButton, SIGNAL(clicked()), this, SLOT(slotApply()));
+
+  QPushButton *cancelButton = new QPushButton;
+  KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
+  cancelButton->setToolTip(i18n("Do nothing. Next time you focus the file, "
+      "or try to save it or close it, you will be prompted again."));
+  buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
   // If the file isn't deleted, present a diff button, and a overwrite action.
   if ( modtype != KTextEditor::ModificationInterface::OnDiskDeleted )
   {
-    setButtonGuiItem( User1, KStandardGuiItem::overwrite() );
-    setButtonToolTip( User1, i18n("Overwrite the disk file with the editor content.") );
+    QPushButton *overwriteButton = new QPushButton;
+    KGuiItem::assign(overwriteButton, KStandardGuiItem::overwrite());
+    overwriteButton->setToolTip(i18n("Overwrite the disk file with the editor content."));
+    buttons->addButton(overwriteButton, QDialogButtonBox::ActionRole);
+    connect(overwriteButton, SIGNAL(clicked()), this, SLOT(slotOverwrite()));
+
     connect( ui->btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
   }
   else
   {
     ui->chkIgnoreWhiteSpaces->setVisible( false );
     ui->btnDiff->setVisible( false );
-    showButton( User1, false );
   }
 }
 
@@ -1578,37 +1604,30 @@ void KateModOnHdPrompt::slotPDone()
   KRun::runUrl( url, "text/x-patch", this, true );
 }
 
-void KateModOnHdPrompt::slotButtonClicked(int button)
+void KateModOnHdPrompt::slotOk()
 {
-  switch(button)
-  {
-    case Default:
-    case Ok:
-      done( (m_modtype == KTextEditor::ModificationInterface::OnDiskDeleted) ?
-            Save : Reload );
-      break;
-    case Apply:
-    {
-      if ( KMessageBox::warningContinueCancel(
-           this,
-           i18n("Ignoring means that you will not be warned again (unless "
-           "the disk file changes once more): if you save the document, you "
-           "will overwrite the file on disk; if you do not save then the disk "
-           "file (if present) is what you have."),
-           i18n("You Are on Your Own"),
-           KStandardGuiItem::cont(),
-           KStandardGuiItem::cancel(),
-           "kate_ignore_modonhd" ) != KMessageBox::Continue )
-        return;
-      done( Ignore );
-      break;
-    }
-    case User1:
-      done( Overwrite );
-      break;
-    default:
-      KDialog::slotButtonClicked(button);
-  }
+  done((m_modtype == KTextEditor::ModificationInterface::OnDiskDeleted) ? Save : Reload);
+}
+
+void KateModOnHdPrompt::slotApply()
+{
+  if ( KMessageBox::warningContinueCancel(this,
+      i18n("Ignoring means that you will not be warned again (unless "
+      "the disk file changes once more): if you save the document, you "
+      "will overwrite the file on disk; if you do not save then the disk "
+      "file (if present) is what you have."),
+      i18n("You Are on Your Own"),
+      KStandardGuiItem::cont(),
+      KStandardGuiItem::cancel(),
+      "kate_ignore_modonhd" ) != KMessageBox::Continue )
+    return;
+
+  done(Ignore);
+}
+
+void KateModOnHdPrompt::slotOverwrite()
+{
+  done(Overwrite);
 }
 
 //END KateModOnHdPrompt

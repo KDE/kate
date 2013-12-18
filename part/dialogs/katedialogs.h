@@ -35,13 +35,12 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/configpage.h>
 
-#include <kdialog.h>
-
 #include <sonnet/configwidget.h>
 #include <sonnet/dictionarycombobox.h>
 
 #include <QtCore/QStringList>
 #include <QtGui/QColor>
+#include <QtWidgets/QDialog>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTreeWidget>
 
@@ -363,7 +362,7 @@ class KatePartPluginConfigPage : public KateConfigPage
 };
 
 
-class KateHlDownloadDialog: public KDialog
+class KateHlDownloadDialog: public QDialog
 {
   Q_OBJECT
 
@@ -376,12 +375,11 @@ class KateHlDownloadDialog: public KDialog
     class QTreeWidget  *list;
     class QString listData;
     KIO::TransferJob *transferJob;
+    QPushButton *m_installButton;
 
   private Q_SLOTS:
     void listDataReceived(KIO::Job *, const QByteArray &data);
-
-  public Q_SLOTS:
-    void slotUser1();
+    void slotInstall();
 };
 
 /**
@@ -390,7 +388,7 @@ class KateHlDownloadDialog: public KDialog
  * If the file wasn't deleted, it has a 'diff' button, which will create
  * a diff file (uing diff(1)) and launch that using KRun.
  */
-class KateModOnHdPrompt : public KDialog
+class KateModOnHdPrompt : public QDialog
 {
   Q_OBJECT
   public:
@@ -413,10 +411,10 @@ class KateModOnHdPrompt : public KDialog
      */
     void slotDiff();
 
-  protected Q_SLOTS:
-    virtual void slotButtonClicked(int button);
-
   private Q_SLOTS:
+    void slotOk();
+    void slotApply();
+    void slotOverwrite();
     void slotDataAvailable(); ///< read data from the process
     void slotPDone(); ///< Runs the diff file when done
 

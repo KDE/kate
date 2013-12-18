@@ -19,19 +19,21 @@
 #include "katesavemodifieddialog.h"
 #include "katesavemodifieddialog.moc"
 
-#include <QTreeWidget>
-#include <QLabel>
-#include <QPushButton>
+#include "katedebug.h"
+
 
 #include <KLocale>
 #include <KGuiItem>
 #include <KStandardGuiItem>
-#include <KVBox>
 #include <KIconLoader>
 #include <KMessageBox>
-#include "katedebug.h"
 #include <KEncodingFileDialog>
 #include <klocalizedstring.h>
+
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QVBoxLayout>
 
 class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
 {
@@ -176,28 +178,22 @@ class KateSaveModifiedDocumentCheckListItem: public AbstractKateSaveModifiedDial
 };
 
 KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEditor::Document*> documents):
-    KDialog( parent)
+    QDialog(parent)
 {
+  setWindowTitle(i18n("Save Documents"));
+  setObjectName("KateSaveModifiedDialog");
+  setModal(true);
 
-  setCaption( i18n("Save Documents") );
-  setButtons( KDialog::Yes | KDialog::No | Cancel );
-  setObjectName( "KateSaveModifiedDialog" );
-  setModal( true );
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
 
-  setButtonGuiItem(KDialog::Yes, KStandardGuiItem::save());
-  connect(this, SIGNAL(yesClicked()), this, SLOT(slotSaveSelected()));
+  // label
+  QLabel *lbl = new QLabel(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"), this);
+  mainLayout->addWidget(lbl);
 
-  setButtonGuiItem(KDialog::No, KStandardGuiItem::discard());
-  connect(this, SIGNAL(noClicked()), this, SLOT(slotDoNotSave()));
-
-  setButtonGuiItem(KDialog::Cancel, KStandardGuiItem::cancel());
-  setDefaultButton(KDialog::Cancel);
-  setButtonFocus(KDialog::Cancel);
-
-  KVBox *box = new KVBox(this);
-  setMainWidget(box);
-  new QLabel(i18n("<qt>The following documents have been modified. Do you want to save them before closing?</qt>"), box);
-  m_list = new QTreeWidget(box);
+  // main view
+  m_list = new QTreeWidget(this);
+  mainLayout->addWidget(m_list);
   m_list->setColumnCount(2);
   m_list->setHeaderLabels(QStringList() << i18n("Documents") << i18n("Location"));
   m_list->setRootIsDecorated(true);
@@ -208,7 +204,31 @@ KateSaveModifiedDialog::KateSaveModifiedDialog(QWidget *parent, QList<KTextEdito
   m_list->resizeColumnToContents(0);
 
   connect(m_list, SIGNAL(itemChanged(QTreeWidgetItem*,int)), SLOT(slotItemActivated(QTreeWidgetItem*,int)));
-  connect(new QPushButton(i18n("Se&lect All"), box), SIGNAL(clicked()), this, SLOT(slotSelectAll()));
+
+  QPushButton *selectAllButton = new QPushButton(i18n("Se&lect All"), this);
+  mainLayout->addWidget(selectAllButton);
+  connect(selectAllButton, SIGNAL(clicked()), this, SLOT(slotSelectAll()));
+
+  // dialog buttons
+  QDialogButtonBox *buttons = new QDialogButtonBox(this);
+  mainLayout->addWidget(buttons);
+
+  m_saveButton = new QPushButton;
+  KGuiItem::assign(m_saveButton, KStandardGuiItem::save());
+  buttons->addButton(m_saveButton, QDialogButtonBox::YesRole);
+  connect(m_saveButton, SIGNAL(clicked()), this, SLOT(slotSaveSelected()));
+
+  QPushButton *discardButton = new QPushButton;
+  KGuiItem::assign(discardButton, KStandardGuiItem::discard());
+  buttons->addButton(discardButton, QDialogButtonBox::NoRole);
+  connect(discardButton, SIGNAL(clicked()), this, SLOT(slotDoNotSave()));
+
+  QPushButton *cancelButton = new QPushButton;
+  KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
+  cancelButton->setDefault(true);
+  cancelButton->setFocus();
+  buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 KateSaveModifiedDialog::~KateSaveModifiedDialog()
@@ -225,8 +245,7 @@ void KateSaveModifiedDialog::slotItemActivated(QTreeWidgetItem*, int)
     }
   }
 
-  // enable or disable the Save button
-  enableButton(KDialog::User1, enableSaveButton);
+  m_saveButton->setEnabled(enableSaveButton);
 }
 
 void KateSaveModifiedDialog::slotSelectAll()
@@ -235,8 +254,7 @@ void KateSaveModifiedDialog::slotSelectAll()
     m_list->topLevelItem(i)->setCheckState(0, Qt::Checked);
   }
 
-  // enable Save button
-  enableButton(KDialog::User1, true);
+  m_saveButton->setEnabled(true);
 }
 
 

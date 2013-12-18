@@ -41,10 +41,8 @@
 #include <KAboutApplicationDialog>
 #include <KEditToolBar>
 #include <KShortcutsDialog>
-#include <KLocale>
 #include <KMessageBox>
 #include <KOpenWithDialog>
-#include <KConfig>
 #include <kstandardaction.h>
 #include <KMimeTypeTrader>
 #include <KMultiTabBar>
@@ -58,6 +56,7 @@
 #include <kwindowsystem.h>
 #include <KToolBar>
 #include <klocalizedstring.h>
+#include <kconfiggroup.h>
 
 #include <kio/job.h>
 #include <KIO/ListJob>

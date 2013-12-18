@@ -21,13 +21,14 @@
 
 #include <KTextEditor/Document>
 
-#include <KDialog>
-#include <QList>
+#include <QtCore/QList>
+#include <QtWidgets/QDialog>
 
 class QTreeWidget;
 class QTreeWidgetItem;
+class QPushButton;
 
-class KateSaveModifiedDialog: public KDialog
+class KateSaveModifiedDialog: public QDialog
 {
     Q_OBJECT
   public:
@@ -45,6 +46,7 @@ class KateSaveModifiedDialog: public KDialog
   private:
     QTreeWidgetItem *m_documentRoot;
     QTreeWidget *m_list;
+    QPushButton *m_saveButton;
 };
 
 #endif

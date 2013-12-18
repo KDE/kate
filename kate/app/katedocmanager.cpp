@@ -33,8 +33,6 @@
 #include <KTextEditor/ContainerInterface>
 
 #include <KParts/Factory>
-#include <KLocale>
-#include <KConfig>
 #include <KCodecs>
 #include <KMessageBox>
 #include <KEncodingFileDialog>
@@ -42,6 +40,7 @@
 #include <KIconLoader>
 #include <KColorScheme>
 #include <klocalizedstring.h>
+#include <kconfiggroup.h>
 
 #include <QtCore/QByteArray>
 #include <QtCore/QCryptographicHash>

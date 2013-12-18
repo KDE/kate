@@ -29,13 +29,14 @@
 #include "snippetstore.h"
 #include "snippet.h"
 
-#include <KLocalizedString>
-#include <KMimeTypeTrader>
-#include <KTextEditor/Document>
-#include <KTextEditor/View>
+#include <klocalizedstring.h>
+#include <kmimetypetrader.h>
 #include <khelpclient.h>
-#include <KMessageBox>
-#include <KMessageWidget>
+#include <kmessagebox.h>
+#include <kmessagewidget.h>
+
+#include "katedocument.h"
+#include "kateview.h"
 
 #include <QtWidgets/QToolButton>
 #include <QtWidgets/QPushButton>
@@ -44,14 +45,14 @@ QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     tabWidget->setLayout(layout);
-    KParts::ReadWritePart* part= KMimeTypeTrader::self()->createPartInstanceFromQuery<KParts::ReadWritePart>(
-                                        "text/plain", tabWidget, tabWidget);
-    KTextEditor::Document* document = qobject_cast<KTextEditor::Document*>(part);
+
+    KateDocument *document = new KateDocument(true, false, false, tabWidget, tabWidget);
+
     Q_ASSERT(document);
     Q_ASSERT(document->action("file_save"));
     document->action("file_save")->setEnabled(false);
 
-    KTextEditor::View* view = qobject_cast< KTextEditor::View* >( document->widget() );
+    KateView *view = qobject_cast<KateView *>(document->widget());
     layout->addWidget(view);
 
     QHBoxLayout* hlayout = new QHBoxLayout;
@@ -68,13 +69,34 @@ QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
 }
 
 EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidget* parent)
-    : KDialog(parent), m_ui(new Ui::EditSnippetBase), m_repo(repository)
+    : QDialog(parent), m_ui(new Ui::EditSnippetBase), m_repo(repository)
     , m_snippet(snippet), m_topBoxModified(false)
 {
     Q_ASSERT(m_repo);
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
 
-    setButtons(/*Reset | */Apply | Cancel | Ok);
-    m_ui->setupUi(mainWidget());
+    QWidget *w = new QWidget(this);
+    mainLayout->addWidget(w);
+    m_ui->setupUi(w);
+
+    QDialogButtonBox *buttons = new QDialogButtonBox(this);
+    mainLayout->addWidget(buttons);
+
+    m_okButton = new QPushButton;
+    KGuiItem::assign(m_okButton, KStandardGuiItem::ok());
+    buttons->addButton(m_okButton, QDialogButtonBox::AcceptRole);
+    connect(m_okButton, SIGNAL(clicked()), this, SLOT(saveAndAccept()));
+
+    m_applyButton = new QPushButton;
+    KGuiItem::assign(m_applyButton, KStandardGuiItem::apply());
+    buttons->addButton(m_applyButton, QDialogButtonBox::ApplyRole);
+    connect(m_applyButton, SIGNAL(clicked()), this, SLOT(save()));
+
+    QPushButton *cancelButton = new QPushButton;
+    KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
+    buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
+    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 
     ///TODO: highlighting and documentation of template handler variables
     QPair<KTextEditor::View*, QToolButton*> pair = getViewForTab(m_ui->snippetTab);
@@ -97,9 +119,6 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     m_ui->formLayout->setMargin(0);
 
     m_ui->snippetShortcutWidget->layout()->setMargin(0);
-
-    connect(this, SIGNAL(okClicked()), this, SLOT(save()));
-    connect(this, SIGNAL(applyClicked()), this, SLOT(save()));
 
     connect(m_ui->snippetNameEdit,       SIGNAL(textEdited(QString)), this, SLOT(topBoxModified()));
     connect(m_ui->snippetNameEdit,       SIGNAL(textEdited(QString)), this, SLOT(validate()));
@@ -133,7 +152,6 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
 
     QSize initSize = sizeHint();
     initSize.setHeight( initSize.height() + 200 );
-    setInitialSize(initSize);
 }
 
 EditSnippet::~EditSnippet()
@@ -166,8 +184,14 @@ void EditSnippet::validate()
             m_ui->messageWidget->animatedHide();
         }
     }
-    button(Ok)->setEnabled(valid);
-    button(Apply)->setEnabled(valid);
+    m_okButton->setEnabled(valid);
+    m_applyButton->setEnabled(valid);
+}
+
+void EditSnippet::saveAndAccept()
+{
+  save();
+  accept();
 }
 
 void EditSnippet::save()

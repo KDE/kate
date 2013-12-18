@@ -24,7 +24,7 @@
 #ifndef EDITSNIPPET_H
 #define EDITSNIPPET_H
 
-#include <KDialog>
+#include <QtWidgets/QDialog>
 
 namespace KTextEditor
 {
@@ -46,11 +46,11 @@ class EditSnippetBase;
  *
  * @author Milian Wolff <mail@milianw.de>
  */
-class EditSnippet : public KDialog
+class EditSnippet : public QDialog
 {
     Q_OBJECT
 
-public:
+  public:
     /// @p snippet set to 0 when you want to create a new snippet.
     explicit EditSnippet(SnippetRepository* repo, Snippet* snippet, QWidget* parent = 0);
     virtual ~EditSnippet();
@@ -59,16 +59,19 @@ public:
 
     virtual void reject();
 
-private:
+  private:
     Ui::EditSnippetBase* m_ui;
     SnippetRepository* m_repo;
     Snippet* m_snippet;
     KTextEditor::View* m_snippetView;
     KTextEditor::View* m_scriptsView;
     bool m_topBoxModified;
+    QPushButton *m_okButton;
+    QPushButton *m_applyButton;
 
-private slots:
+  private Q_SLOTS:
     void save();
+    void saveAndAccept();
     void validate();
     void topBoxModified();
 

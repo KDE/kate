@@ -23,11 +23,9 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 
-#include <KLocale>
-#include <KMessageBox>
+#include <kmessagebox.h>
 #include <kprocess.h>
-#include <KRun>
-#include <KVBox>
+#include <krun.h>
 #include <klocalizedstring.h>
 #include <kiconloader.h>
 
@@ -36,6 +34,9 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
+
+#include <QtWidgets/QTreeWidget>
+#include <QtWidgets/QTreeWidgetItem>
 
 class KateDocItem : public QTreeWidgetItem
 {
@@ -59,51 +60,41 @@ class KateDocItem : public QTreeWidgetItem
 
 
 KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const char *name )
-    : KDialog( parent ),
+    : QDialog( parent ),
       m_proc( 0 ),
       m_diffFile( 0 )
 {
-  setCaption( i18n("Documents Modified on Disk") );
-  setButtons( User1 | User2 | User3 );
-  setButtonGuiItem( User1, KGuiItem (i18n("&Ignore Changes"), "dialog-warning") );
-  setButtonGuiItem( User2, KStandardGuiItem::overwrite() );
-  setButtonGuiItem( User3, KGuiItem (i18n("&Reload"), "view-refresh") );
+  setWindowTitle(i18n("Documents Modified on Disk"));
+  setObjectName(name);
+  setModal(true);
 
-  setObjectName( name );
-  setModal( true );
-  setDefaultButton( KDialog::User3 );
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
 
-  setButtonToolTip( User1, i18n(
-                        "Remove modified flag from selected documents") );
-  setButtonToolTip( User2, i18n(
-                        "Overwrite selected documents, discarding disk changes") );
-  setButtonToolTip( User3, i18n(
-                        "Reload selected documents from disk") );
-
-  KVBox *w = new KVBox( this );
-  setMainWidget( w );
-  w->setSpacing( KDialog::spacingHint() );
-
-  KHBox *lo1 = new KHBox( w );
+  // Message
+  QHBoxLayout *hb = new QHBoxLayout;
+  mainLayout->addLayout(hb);
 
   // dialog text
-  QLabel *icon = new QLabel( lo1 );
+  QLabel *icon = new QLabel(this);
+  hb->addWidget(icon);
   icon->setPixmap( DesktopIcon("dialog-warning") );
 
-  QLabel *t = new QLabel( i18n(
+  QLabel *t = new QLabel(i18n(
                             "<qt>The documents listed below have changed on disk.<p>Select one "
-                            "or more at once, and press an action button until the list is empty.</p></qt>"), lo1 );
-  lo1->setStretchFactor( t, 1000 );
+                            "or more at once, and press an action button until the list is empty.</p></qt>"), this);
+  hb->addWidget(t);
+  hb->setStretchFactor(t, 1000);
 
-  // document list
-  twDocuments = new QTreeWidget( w );
+  // Document list
+  twDocuments = new QTreeWidget(this);
+  mainLayout->addWidget(twDocuments);
   QStringList header;
   header << i18n("Filename") << i18n("Status on Disk");
   twDocuments->setHeaderLabels(header);
   twDocuments->setSelectionMode( QAbstractItemView::SingleSelection );
   twDocuments->setRootIsDecorated( false );
 
-  
   m_stateTexts << "" << i18n("Modified") << i18n("Created") << i18n("Deleted");
   for ( int i = 0; i < docs.size(); i++ )
   {
@@ -113,22 +104,39 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   twDocuments->header()->setResizeMode(0, QHeaderView::Stretch);
   twDocuments->header()->setResizeMode(1, QHeaderView::ResizeToContents);
 
-  connect( twDocuments, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(slotSelectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)) );
+  connect(twDocuments, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(slotSelectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)) );
 
-  // diff button
-  KHBox *lo2 = new KHBox ( w );
-  QWidget *d = new QWidget (lo2);
-  lo2->setStretchFactor (d, 2);
-  btnDiff = new QPushButton(QIcon::fromTheme("document-preview"), i18n("&View Difference"), lo2);
+  // Diff line
+  hb = new QHBoxLayout;
+  mainLayout->addLayout(hb);
 
+  QPushButton *btnDiff = new QPushButton(QIcon::fromTheme("document-preview"), i18n("&View Difference"), this);
   btnDiff->setWhatsThis(i18n(
                           "Calculates the difference between the editor contents and the disk "
                           "file for the selected document, and shows the difference with the "
                           "default application. Requires diff(1).") );
-  connect( btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()) );
-  connect( this, SIGNAL(user1Clicked()), this, SLOT(slotUser1()) );
-  connect( this, SIGNAL(user2Clicked()), this, SLOT(slotUser2()) );
-  connect( this, SIGNAL(user3Clicked()), this, SLOT(slotUser3()) );
+  hb->addWidget(btnDiff);
+  connect(btnDiff, SIGNAL(clicked()), this, SLOT(slotDiff()));
+
+  // Dialog buttons
+  QDialogButtonBox *buttons = new QDialogButtonBox(this);
+  mainLayout->addWidget(buttons);
+
+  QPushButton *ignoreButton = new QPushButton(QIcon::fromTheme("dialog-warning"), i18n("&Ignore Changes"));
+  ignoreButton->setToolTip(i18n("Remove modified flag from selected documents"));
+  buttons->addButton(ignoreButton, QDialogButtonBox::RejectRole);
+  connect(ignoreButton, SIGNAL(clicked()), this, SLOT(slotIgnore()));
+
+  QPushButton *overwriteButton = new QPushButton;
+  KGuiItem::assign(overwriteButton, KStandardGuiItem::overwrite());
+  overwriteButton->setToolTip(i18n("Overwrite selected documents, discarding disk changes"));
+  connect(overwriteButton, SIGNAL(clicked()), this, SLOT(slotOverwrite()));
+
+
+  QPushButton *reloadButton = new QPushButton(QIcon::fromTheme("view-refresh"), i18n("&Reload"));
+  reloadButton->setDefault(true);
+  reloadButton->setToolTip(i18n("Reload selected documents from disk"));
+  connect(reloadButton, SIGNAL(clicked()), this, SLOT(slotReload()));
 
   slotSelectionChanged(NULL, NULL);
 }
@@ -145,17 +153,17 @@ KateMwModOnHdDialog::~KateMwModOnHdDialog()
   }
 }
 
-void KateMwModOnHdDialog::slotUser1()
+void KateMwModOnHdDialog::slotIgnore()
 {
   handleSelected( Ignore );
 }
 
-void KateMwModOnHdDialog::slotUser2()
+void KateMwModOnHdDialog::slotOverwrite()
 {
   handleSelected( Overwrite );
 }
 
-void KateMwModOnHdDialog::slotUser3()
+void KateMwModOnHdDialog::slotReload()
 {
   handleSelected( Reload );
 }
@@ -211,7 +219,7 @@ void KateMwModOnHdDialog::handleSelected( int action )
 
 // any documents left unhandled?
   if ( ! twDocuments->topLevelItemCount() )
-    done( Ok );
+    accept();
 }
 
 void KateMwModOnHdDialog::slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *)
@@ -331,13 +339,13 @@ void KateMwModOnHdDialog::keyPressEvent( QKeyEvent *event )
       return;
     }
   }
-  KDialog::keyPressEvent(event);
+  QDialog::keyPressEvent(event);
 }
 
 void KateMwModOnHdDialog::closeEvent( QCloseEvent *e )
 {
   if ( ! twDocuments->topLevelItemCount() )
-    KDialog::closeEvent(e);
+    QDialog::closeEvent(e);
   else e->ignore();
 }
 // kate: space-indent on; indent-width 2; replace-tabs on;

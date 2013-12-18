@@ -22,22 +22,21 @@
 
 #include <KTextEditor/Document>
 
-#include <KDialog>
+#include <QtCore/QVector>
+#include <QtWidgets/QDialog>
 
-#include <QVector>
-
-#include <QTreeWidget>
-#include <QTreeWidgetItem>
-
-typedef  QVector<KTextEditor::Document*> DocVector;
 class KProcess;
 class QTemporaryFile;
+class QTreeWidget;
+class QTreeWidgetItem;
+
+typedef  QVector<KTextEditor::Document*> DocVector;
 
 /**
  * A dialog for handling multiple documents modified on disk
  * from within KateMainWindow
  */
-class KateMwModOnHdDialog : public KDialog
+class KateMwModOnHdDialog : public QDialog
 {
     Q_OBJECT
   public:
@@ -45,12 +44,10 @@ class KateMwModOnHdDialog : public KDialog
     ~KateMwModOnHdDialog();
     void addDocument(KTextEditor::Document *doc);
 
-  protected Q_SLOTS:
-    void slotUser1();
-    void slotUser2();
-    void slotUser3();
-
   private Q_SLOTS:
+    void slotIgnore();
+    void slotOverwrite();
+    void slotReload();
     void slotDiff();
     void slotSelectionChanged(QTreeWidgetItem *current, QTreeWidgetItem *);
     void slotDataAvailable();

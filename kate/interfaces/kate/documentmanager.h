@@ -115,19 +115,7 @@ namespace Kate
        */
       bool closeDocumentList (QList<KTextEditor::Document*> documents);
 
-      //
-      // SIGNALS !!!
-      //
-#ifndef Q_MOC_RUN
-#undef signals
-#define signals public
-#endif
-    signals:
-#ifndef Q_MOC_RUN
-#undef signals
-#define signals protected
-#endif
-
+    Q_SIGNALS:
       /**
        * This signal is emitted when the \p document was created.
        */

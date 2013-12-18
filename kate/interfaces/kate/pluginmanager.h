@@ -106,19 +106,7 @@ namespace Kate
        */
       void unloadPlugin (const QString &name, bool permanent = true);
 
-      //
-      // SIGNALS !!!
-      //
-#ifndef Q_MOC_RUN
-#undef signals
-#define signals public
-#endif
-    signals:
-#ifndef Q_MOC_RUN
-#undef signals
-#define signals protected
-#endif
-
+    Q_SIGNALS:
       /**
        * New plugin loaded.
        * @param name name of new loaded plugin

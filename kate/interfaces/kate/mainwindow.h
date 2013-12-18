@@ -144,19 +144,7 @@ namespace Kate
        */
       KTextEditor::View *openUrl (const QUrl &url, const QString &encoding = QString());
 
-      //
-      // SIGNALS !!!
-      //
-#ifndef Q_MOC_RUN
-#undef signals
-#define signals public
-#endif
-    signals:
-#ifndef Q_MOC_RUN
-#undef signals
-#define signals protected
-#endif
-
+    Q_SIGNALS:
       /**
        * This signal is emitted whenever the active view changes.
        */

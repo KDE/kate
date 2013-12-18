@@ -64,7 +64,6 @@
 #include <kio/netaccess.h>
 
 #include <kdeversion.h>
-#include <kapplication.h>
 #include <kcharsets.h>
 #include <kcolorbutton.h>
 #include <kcolorcombo.h>

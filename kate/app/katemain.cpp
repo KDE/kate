@@ -38,6 +38,7 @@
 #include <QVariant>
 #include <QCommandLineParser>
 #include <QLoggingCategory>
+#include <QApplication>
 
 #include <iostream>
 
@@ -128,7 +129,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   app.setOrganizationDomain (aboutData.organizationDomain());
   app.setApplicationVersion (aboutData.version());
   app.setQuitOnLastWindowClosed (false);
-  
+
   /**
    * Create command line parser and feed it with known options
    */  

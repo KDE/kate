@@ -60,14 +60,13 @@
 #include "snippet/snippetcompletionmodel.h"
 #include "katemessagewidget.h"
 #include "katetemplatehandler.h"
+#include "katepartdebug.h"
 
 #include <ktexteditor/messageinterface.h>
 
 #include <kparts/event.h>
 
 #include <kconfig.h>
-#include "katepartdebug.h"
-#include <kapplication.h>
 #include <kcursor.h>
 #include <klocale.h>
 #include <kcharsets.h>
@@ -82,12 +81,15 @@
 #include <kactioncollection.h>
 #include <kdeversion.h>
 
-#include <QtGui/QFont>
 #include <QtCore/QFileInfo>
-#include <QtWidgets/QStyle>
-#include <QtGui/QKeyEvent>
-#include <QtWidgets/QLayout>
 #include <QtCore/QMimeData>
+#include <QtGui/QFont>
+#include <QtGui/QKeyEvent>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QLayout>
+#include <QtWidgets/QStyle>
+
+#include <sys/stat.h> // S_IFREG
 
 //#define VIEW_RANGE_DEBUG
 

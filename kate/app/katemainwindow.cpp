@@ -59,18 +59,19 @@
 #include <KToolBar>
 #include <klocalizedstring.h>
 
-#include <QDragEnterEvent>
-#include <QEvent>
-#include <QDropEvent>
-#include <QList>
-#include <QDesktopWidget>
-#include <QtCore/QMimeData>
-#include <QtCore/QMimeDatabase>
-#include <QtWidgets/QMenu>
-
 #include <kio/job.h>
 #include <KIO/ListJob>
 #include <KFileItem>
+
+#include <QDesktopWidget>
+#include <QtCore/QEvent>
+#include <QtCore/QList>
+#include <QtCore/QMimeData>
+#include <QtCore/QMimeDatabase>
+#include <QtGui/QDragEnterEvent>
+#include <QtGui/QDropEvent>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMenu>
 
 #include <assert.h>
 #include <unistd.h>

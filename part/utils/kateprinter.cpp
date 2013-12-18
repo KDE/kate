@@ -33,11 +33,10 @@
 #include "kateview.h"
 #include "katebuffer.h"
 #include "katetextfolding.h"
+#include "katepartdebug.h"
 
-#include <kapplication.h>
 #include <kcolorbutton.h>
 #include <kconfiggroup.h>
-#include "katepartdebug.h"
 #include <kfontdialog.h>
 #include <klocale.h>
 #include <kdeprintdialog.h>

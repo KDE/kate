@@ -20,15 +20,16 @@
 
 #include "kateargumenthintmodel.h"
 
-#include <QTextFormat>
-#include <QGridLayout>
-#include <kapplication.h>
-
-#include <ktexteditor/codecompletionmodel.h>
 #include "katecompletionwidget.h"
 #include "kateargumenthinttree.h"
 #include "katecompletiontree.h"
 #include "katepartdebug.h"
+
+#include <ktexteditor/codecompletionmodel.h>
+
+#include <QtGui/QTextFormat>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 
 using namespace KTextEditor;
 
@@ -99,9 +100,9 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
     if( role == Qt::DisplayRole && index.column() == 0 ) {
       return QString(); //QString("Depth %1").arg(-m_rows[index.row()]);
     } else if( role == Qt::BackgroundRole ) {
-      return KApplication::kApplication()->palette().toolTipBase().color();
+      return QApplication::palette().toolTipBase().color();
     }else if( role == Qt::ForegroundRole ) {
-      return KApplication::kApplication()->palette().toolTipText().color();
+      return QApplication::palette().toolTipText().color();
     }else{
       return QVariant();
     }

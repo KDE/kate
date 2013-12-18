@@ -21,12 +21,9 @@
 #define __KATE_APP_H__
 
 #include <kate_export.h>
-
-#include "katemain.h"
 #include <kate/mainwindow.h>
 
-#include <KApplication>
-
+#include <kconfig.h>
 #include <QList>
 
 class KateSessionManager;

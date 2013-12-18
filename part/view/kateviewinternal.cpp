@@ -46,17 +46,17 @@
 #include <ktexteditor/movingrange.h>
 #include <kcursor.h>
 #include "katepartdebug.h"
-#include <kapplication.h>
 
 #include <QtCore/QMimeData>
-#include <QtGui/QPainter>
-#include <QtWidgets/QStyle>
+#include <QtGui/QAccessible>
 #include <QtGui/QClipboard>
-#include <QtGui/QPixmap>
 #include <QtGui/QKeyEvent>
+#include <QtGui/QPainter>
+#include <QtGui/QPixmap>
+#include <QtWidgets/QApplication>
 #include <QtWidgets/QLayout>
-#include <QToolTip>
-#include <QAccessible>
+#include <QtWidgets/QStyle>
+#include <QtWidgets/QToolTip>
 
 static const bool debugPainting = false;
 
@@ -1849,8 +1849,8 @@ void KateViewInternal::setCaretStyle( KateRenderer::caretStyles style, bool repa
 
   if ( repaint ) {
     if ( m_cursorTimer.isActive() &&
-         KApplication::cursorFlashTime() > 0 ) {
-      m_cursorTimer.start( KApplication::cursorFlashTime() / 2 );
+         QApplication::cursorFlashTime() > 0 ) {
+      m_cursorTimer.start( QApplication::cursorFlashTime() / 2 );
     }
     renderer()->setDrawCaret(true);
     paintCursor();
@@ -1919,8 +1919,8 @@ void KateViewInternal::updateCursor( const KTextEditor::Cursor& newCursor, bool 
 
   if (m_cursorTimer.isActive ())
   {
-    if ( KApplication::cursorFlashTime() > 0 )
-      m_cursorTimer.start( KApplication::cursorFlashTime() / 2 );
+    if ( QApplication::cursorFlashTime() > 0 )
+      m_cursorTimer.start( QApplication::cursorFlashTime() / 2 );
     renderer()->setDrawCaret(true);
   }
 
@@ -3126,8 +3126,8 @@ void KateViewInternal::textHintTimeout ()
 
 void KateViewInternal::focusInEvent (QFocusEvent *)
 {
-  if (KApplication::cursorFlashTime() > 0)
-    m_cursorTimer.start ( KApplication::cursorFlashTime() / 2 );
+  if (QApplication::cursorFlashTime() > 0)
+    m_cursorTimer.start ( QApplication::cursorFlashTime() / 2 );
 
   paintCursor();
 
@@ -3628,7 +3628,7 @@ void KateViewInternal::inputMethodEvent(QInputMethodEvent* e)
     qDeleteAll (m_imPreeditRangeChildren);
     m_imPreeditRangeChildren.clear ();
 
-    if ( KApplication::cursorFlashTime() > 0 )
+    if ( QApplication::cursorFlashTime() > 0 )
       renderer()->setDrawCaret(false);
     renderer()->setCaretOverrideColor(QColor());
 

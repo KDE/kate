@@ -26,6 +26,7 @@
 #include "katesession.h"
 #include "katemainwindow.h"
 #include "kateappcommands.h"
+#include "katedebug.h"
 
 #include <kate/application.h>
 
@@ -33,14 +34,14 @@
 #include <KCmdLineArgs>
 #include <KConfig>
 #include <KTipDialog>
-#include "katedebug.h"
 #include <KMessageBox>
 #include <KLocale>
 #include <KStartupInfo>
 
-#include <QFileInfo>
-#include <QTextCodec>
-#include <QCommandLineParser>
+#include <QtCore/QCommandLineParser>
+#include <QtCore/QFileInfo>
+#include <QtCore/QTextCodec>
+#include <QtWidgets/QApplication>
 
 #include <stdlib.h>
 #include <sys/types.h>

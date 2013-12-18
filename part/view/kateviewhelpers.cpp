@@ -43,7 +43,6 @@
 #include "katepartdebug.h"
 #include <katevicommandrangeexpressionparser.h>
 
-#include <kapplication.h>
 #include <kcharsets.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>

@@ -32,7 +32,6 @@
 #include <kaboutapplicationdialog.h>
 #include <kaboutdata.h>
 #include <kactioncollection.h>
-#include <kapplication.h>
 #include <kcmdlineargs.h>
 #include <kdeversion.h>
 #include <kdiroperator.h>
@@ -50,6 +49,7 @@
 #include <kstringhandler.h>
 #include <kxmlguifactory.h>
 #include <ksharedconfig.h>
+#include <kconfiggui.h>
 
 #include <QCommandLineParser>
 #include <QLoggingCategory>
@@ -488,7 +488,7 @@ void KWrite::saveGlobalProperties(KConfig *config) //save documents
 //restore session
 void KWrite::restore()
 {
-  KConfig *config = kapp->sessionConfig();
+  KConfig *config = KConfigGui::sessionConfig();
 
   if (!config)
     return;

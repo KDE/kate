@@ -40,7 +40,6 @@
 #include <kconfiggroup.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kapplication.h>
 
 #include <ktexteditor/highlightinterface.h>
 

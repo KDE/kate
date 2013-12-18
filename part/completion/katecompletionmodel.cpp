@@ -21,15 +21,6 @@
 
 #include "katecompletionmodel.h"
 
-#include <QTextEdit>
-#include <QMultiMap>
-#include <QTimer>
-#include <QVarLengthArray>
-
-#include <klocalizedstring.h>
-#include <kiconloader.h>
-#include <kapplication.h>
-
 #include "katecompletionwidget.h"
 #include "katecompletiontree.h"
 #include "katecompletiondelegate.h"
@@ -39,6 +30,15 @@
 #include "kateconfig.h"
 #include "codecompletionmodelcontrollerinterfacev4.h"
 #include "katepartdebug.h"
+
+#include <klocalizedstring.h>
+#include <kiconloader.h>
+
+#include <QtCore/QMultiMap>
+#include <QtCore/QTimer>
+#include <QtCore/QVarLengthArray>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QTextEdit>
 
 using namespace KTextEditor;
 
@@ -288,9 +288,9 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
         break;
 
       case Qt::ForegroundRole:
-        return KApplication::kApplication()->palette().toolTipText().color();
+        return QApplication::palette().toolTipText().color();
       case Qt::BackgroundRole:
-        return KApplication::kApplication()->palette().toolTipBase().color();
+        return QApplication::palette().toolTipBase().color();
     }
   }
 

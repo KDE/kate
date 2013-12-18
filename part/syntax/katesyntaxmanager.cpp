@@ -43,7 +43,6 @@
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
 #include <kmessagebox.h>
-#include <kapplication.h>
 
 #include <QtCore/QSet>
 #include <QtWidgets/QAction>

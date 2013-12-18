@@ -23,25 +23,28 @@
 #include "ui_completionconfigwidget.h"
 
 #include <ksharedconfig.h>
+#include <kconfiggroup.h>
+#include <kstandardguiitem.h>
 
+#include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QTreeWidget>
 
 using namespace KTextEditor;
 
 KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* parent)
-  : KDialog(parent)
+  : QDialog(parent)
   , ui(new Ui::CompletionConfigWidget())
   , m_model(model)
 {
-  //setAttribute(Qt::WA_DestructiveClose);
-  setCaption(i18n("Code Completion Configuration"));
-  setButtons(KDialog::Ok | KDialog::Cancel);
-  setDefaultButton(KDialog::Ok);
-  connect(this, SIGNAL(okClicked()), SLOT(apply()));
+  setWindowTitle(i18n("Code Completion Configuration"));
+
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  setLayout(mainLayout);
 
   QWidget* mw = new QWidget(this);
+  mainLayout->addWidget(mw);
   ui->setupUi(mw);
-  setMainWidget(mw);
 
   // Sorting
   ui->sorting->setChecked(m_model->isSortingEnabled());
@@ -145,6 +148,21 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
   // init with defaults from config or really hardcoded ones
   KConfigGroup config( KSharedConfig::openConfig(), "Kate Code Completion Defaults");
   readConfig (config);
+
+  // buttons
+  QDialogButtonBox *buttons = new QDialogButtonBox(this);
+  mainLayout->addWidget(buttons);
+
+  QPushButton *okButton = new QPushButton;
+  okButton->setDefault(true);
+  KGuiItem::assign(okButton, KStandardGuiItem::ok());
+  buttons->addButton(okButton, QDialogButtonBox::RejectRole);
+  connect(okButton, SIGNAL(clicked()), this, SLOT(apply()));
+
+  QPushButton *cancelButton = new QPushButton;
+  KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
+  buttons->addButton(okButton, QDialogButtonBox::RejectRole);
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
 }
 
 KateCompletionConfig::~ KateCompletionConfig( )

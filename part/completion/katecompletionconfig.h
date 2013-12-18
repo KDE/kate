@@ -21,7 +21,7 @@
 #ifndef KATECOMPLETIONCONFIG_H
 #define KATECOMPLETIONCONFIG_H
 
-#include <kdialog.h>
+#include <QtWidgets/QDialog>
 
 #include "kateconfig.h"
 
@@ -33,7 +33,7 @@ class KateCompletionModel;
 /**
  * @author Hamish Rodda <rodda@kde.org>
  */
-class KateCompletionConfig : public KDialog, public KateConfig
+class KateCompletionConfig : public QDialog, public KateConfig
 {
   Q_OBJECT
 

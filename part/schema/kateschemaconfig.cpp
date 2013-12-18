@@ -41,7 +41,6 @@
 #include <kmessagebox.h>
 #include <khbox.h>
 #include <kcombobox.h>
-#include <kglobal.h>
 #include <kconfiggroup.h>
 
 #include <QtWidgets/QFileDialog>
@@ -1009,14 +1008,34 @@ void KateSchemaConfigPage::exportFullSchema()
 
 QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
 {
-  /* FIXME:
   QString schemaName = suggestedName;
 
   bool reask = true;
   do {
-    KDialog howToImportDialog(this);
+    QDialog howToImportDialog(this);
     Ui_KateHowToImportSchema howToImport;
-    howToImport.setupUi(howToImportDialog.mainWidget());
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    howToImportDialog.setLayout(mainLayout);
+
+    QWidget *w = new QWidget(&howToImportDialog);
+    mainLayout->addWidget(w);
+    howToImport.setupUi(w);
+
+    QDialogButtonBox *buttons = new QDialogButtonBox(&howToImportDialog);
+    mainLayout->addWidget(buttons);
+
+    QPushButton *okButton = new QPushButton;
+    okButton->setDefault(true);
+    KGuiItem::assign(okButton, KStandardGuiItem::ok());
+    buttons->addButton(okButton, QDialogButtonBox::AcceptRole);
+    connect(okButton, SIGNAL(clicked()), &howToImportDialog, SLOT(accept()));
+
+    QPushButton *cancelButton = new QPushButton;
+    KGuiItem::assign(cancelButton, KStandardGuiItem::cancel());
+    buttons->addButton(cancelButton, QDialogButtonBox::RejectRole);
+    connect(cancelButton, SIGNAL(clicked()), &howToImportDialog, SLOT(reject()));
+    //
 
     // if schema exists, prepare option to replace
     if (KateGlobal::self()->schemaManager()->schema(schemaName).exists()) {
@@ -1029,7 +1048,7 @@ QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
     }
     
     // cancel pressed?
-    if (howToImportDialog.exec() == KDialog::Cancel) {
+    if (howToImportDialog.exec() == QDialog::Rejected) {
       schemaName.clear();
       reask = false;
     }
@@ -1057,8 +1076,6 @@ QString KateSchemaConfigPage::requestSchemaName(const QString& suggestedName)
   } while (reask);
 
   return schemaName;
-  */
-  return QString();
 }
 
 void KateSchemaConfigPage::importFullSchema()

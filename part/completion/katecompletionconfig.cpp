@@ -156,7 +156,7 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
   QPushButton *okButton = new QPushButton;
   okButton->setDefault(true);
   KGuiItem::assign(okButton, KStandardGuiItem::ok());
-  buttons->addButton(okButton, QDialogButtonBox::RejectRole);
+  buttons->addButton(okButton, QDialogButtonBox::AcceptRole);
   connect(okButton, SIGNAL(clicked()), this, SLOT(apply()));
 
   QPushButton *cancelButton = new QPushButton;

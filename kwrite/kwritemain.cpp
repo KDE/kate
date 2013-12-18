@@ -32,12 +32,10 @@
 #include <kaboutapplicationdialog.h>
 #include <kaboutdata.h>
 #include <kactioncollection.h>
-#include <kcmdlineargs.h>
 #include <kdiroperator.h>
 #include <kedittoolbar.h>
 #include <kencodingfiledialog.h>
 #include <kiconloader.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <krecentfilesaction.h>
@@ -50,9 +48,6 @@
 #include <ksharedconfig.h>
 #include <kconfiggui.h>
 
-#include <QCommandLineParser>
-#include <QLoggingCategory>
-
 #ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>
 #endif
@@ -60,6 +55,9 @@
 #include <QtCore/QTimer>
 #include <QtCore/QTextCodec>
 #include <QtCore/QMimeData>
+#include <QtCore/QCommandLineParser>
+#include <QtCore/QLoggingCategory>
+#include <QtWidgets/QApplication>
 
 QList<KTextEditor::Document*> KWrite::docList;
 QList<KWrite*> KWrite::winList;
@@ -705,9 +703,9 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
    * Create command line parser and feed it with known options
    */  
   QCommandLineParser parser;
-  parser.setApplicationDescription (aboutData.displayName());
-  parser.addHelpOption ();
-  parser.addVersionOption ();
+  parser.setApplicationDescription(aboutData.shortDescription());
+  parser.addHelpOption();
+  parser.addVersionOption();
   
   // -e/--encoding option
   const QCommandLineOption useEncoding (QStringList () << "e" << "encoding", i18n("Set encoding for the file to open."), "encoding");
@@ -720,16 +718,17 @@ extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
   // -c/--column option
   const QCommandLineOption gotoColumn (QStringList () << "c" << "column", i18n("Navigate to this column."), "column");
   parser.addOption (gotoColumn);
-  
+
   // -i/--stdin option
   const QCommandLineOption readStdIn (QStringList () << "i" << "stdin", i18n("Read the contents of stdin."));
   parser.addOption (readStdIn);
+
+  // --tempfile option
+  const QCommandLineOption tempfile (QStringList () << "tempfile", i18n("The files/URLs opened by the application will be deleted after use"));
+  parser.addOption (tempfile);
   
   // urls to open
   parser.addPositionalArgument("urls", i18n("Documents to open."), "[urls...]");
-  
-  // FIXME KF5 KCmdLineArgs::addCmdLineOptions (options);
-  // FIXME KF5 KCmdLineArgs::addTempFileOption();
   
   /**
    * do the command line parsing

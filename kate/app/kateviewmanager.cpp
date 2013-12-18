@@ -34,7 +34,6 @@
 #include <KTextEditor/HighlightInterface>
 
 #include <KActionCollection>
-#include <KCmdLineArgs>
 #include "katedebug.h"
 #include <KEncodingFileDialog>
 #include <KIconLoader>

@@ -21,19 +21,17 @@ Boston, MA 02110-1301, USA.
 
 #include "kwritemain.h"
 
-#include <QApplication>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/containerinterface.h>
 
 #include <QList>
-#include <QCommandLineParser>
+
+class QCommandLineParser;
 
 namespace KTextEditor
 {
     class Document;
 }
-
-class KCmdLineArgs;
 
 /**
  * KWrite Application

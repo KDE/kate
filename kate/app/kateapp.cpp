@@ -30,7 +30,6 @@
 
 #include <kate/application.h>
 
-#include <KCmdLineArgs>
 #include <KConfig>
 #include <KTipDialog>
 #include <KMessageBox>
@@ -204,8 +203,7 @@ bool KateApp::startupKate ()
 #endif
   
   QTextCodec *codec = m_args.isSet("encoding") ? QTextCodec::codecForName(m_args.value("encoding").toUtf8()) : 0;
-
-  bool tempfileSet = KCmdLineArgs::isTempFileSet();
+  bool tempfileSet = m_args.isSet("tempfile");
 
   KTextEditor::Document *doc = 0;
   KateDocManager::self()->setSuppressOpeningErrorDialogs(true);

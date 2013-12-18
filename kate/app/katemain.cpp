@@ -24,25 +24,23 @@
 #include "kateapp.h"
 #include "katerunninginstanceinfo.h"
 #include <kate_export.h>
-#include <KLocale>
-#include <KCmdLineArgs>
-#include <KAboutData>
-#include <KStartupInfo>
 
-#include <QTextCodec>
-#include <QByteArray>
-#include <QCoreApplication>
-#include <QDBusMessage>
-#include <QDBusConnection>
-#include <QDBusConnectionInterface>
-#include <QDBusInterface>
-#include <QDBusReply>
-#include <QVariant>
-#include <QCommandLineParser>
-#include <QLoggingCategory>
-#include <QApplication>
+#include <kaboutdata.h>
+#include <klocalizedstring.h>
 
-#include <iostream>
+#include <QtCore/QByteArray>
+#include <QtCore/QCommandLineParser>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QLoggingCategory>
+#include <QtCore/QTextCodec>
+#include <QtCore/QUrl>
+#include <QtCore/QVariant>
+#include <QtDBus/QDBusConnection>
+#include <QtDBus/QDBusConnectionInterface>
+#include <QtDBus/QDBusInterface>
+#include <QtDBus/QDBusMessage>
+#include <QtDBus/QDBusReply>
+#include <QtWidgets/QApplication>
 
 class KateWaiter : public QObject {
   Q_OBJECT
@@ -136,64 +134,57 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
    * Create command line parser and feed it with known options
    */  
   QCommandLineParser parser;
-  parser.setApplicationDescription (aboutData.displayName());
+  parser.setApplicationDescription (aboutData.shortDescription());
   parser.addHelpOption ();
   parser.addVersionOption ();
   
   // -s/--start session option
-  const QCommandLineOption startSession (QStringList () << "s" << "start", i18n("Start Kate with a given session."), "session");
-  parser.addOption (startSession);
+  const QCommandLineOption startSessionOption (QStringList () << "s" << "start", i18n("Start Kate with a given session."), "session");
+  parser.addOption (startSessionOption);
   
   // --startanon session option
-  const QCommandLineOption startAnonymousSession (QStringList () << "startanon", i18n("Start Kate with a new anonymous session, implies '-n'."));
-  parser.addOption (startAnonymousSession);
+  const QCommandLineOption startAnonymousSessionOption (QStringList () << "startanon", i18n("Start Kate with a new anonymous session, implies '-n'."));
+  parser.addOption (startAnonymousSessionOption);
   
   // -n/--new option
-  const QCommandLineOption startNewInstance (QStringList () << "n" << "new", i18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all."));
-  parser.addOption (startNewInstance);
+  const QCommandLineOption startNewInstanceOption (QStringList () << "n" << "new", i18n("Force start of a new kate instance (is ignored if start is used and another kate instance already has the given session opened), forced if no parameters and no URLs are given at all."));
+  parser.addOption (startNewInstanceOption);
   
   // -b/--block option
-  const QCommandLineOption startBlocking (QStringList () << "b" << "block", i18n("If using an already running kate instance, block until it exits, if URLs given to open."));
-  parser.addOption (startBlocking);
+  const QCommandLineOption startBlockingOption (QStringList () << "b" << "block", i18n("If using an already running kate instance, block until it exits, if URLs given to open."));
+  parser.addOption (startBlockingOption);
   
   // -p/--pid option
-  const QCommandLineOption usePid (QStringList () << "p" << "pid", i18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)."), "pid");
-  parser.addOption (usePid);
+  const QCommandLineOption usePidOption (QStringList () << "p" << "pid", i18n("Only try to reuse kate instance with this pid (is ignored if start is used and another kate instance already has the given session opened)."), "pid");
+  parser.addOption (usePidOption);
   
   // -e/--encoding option
-  const QCommandLineOption useEncoding (QStringList () << "e" << "encoding", i18n("Set encoding for the file to open."), "encoding");
-  parser.addOption (useEncoding);
+  const QCommandLineOption useEncodingOption (QStringList () << "e" << "encoding", i18n("Set encoding for the file to open."), "encoding");
+  parser.addOption (useEncodingOption);
   
   // -l/--line option
-  const QCommandLineOption gotoLine (QStringList () << "l" << "line", i18n("Navigate to this line."), "line");
-  parser.addOption (gotoLine);
+  const QCommandLineOption gotoLineOption (QStringList () << "l" << "line", i18n("Navigate to this line."), "line");
+  parser.addOption (gotoLineOption);
   
   // -c/--column option
-  const QCommandLineOption gotoColumn (QStringList () << "c" << "column", i18n("Navigate to this column."), "column");
-  parser.addOption (gotoColumn);
+  const QCommandLineOption gotoColumnOption (QStringList () << "c" << "column", i18n("Navigate to this column."), "column");
+  parser.addOption (gotoColumnOption);
   
   // -i/--stdin option
-  const QCommandLineOption readStdIn (QStringList () << "i" << "stdin", i18n("Read the contents of stdin."));
-  parser.addOption (readStdIn);
+  const QCommandLineOption readStdInOption (QStringList () << "i" << "stdin", i18n("Read the contents of stdin."));
+  parser.addOption (readStdInOption);
+
+  // --tempfile option
+  const QCommandLineOption tempfileOption (QStringList () << "tempfile", i18n("The files/URLs opened by the application will be deleted after use"));
+  parser.addOption (tempfileOption);
   
   // urls to open
   parser.addPositionalArgument("urls", i18n("Documents to open."), "[urls...]");
-  
-  // FIXME KF5 KCmdLineArgs::addCmdLineOptions (options);
-  // FIXME KF5 KCmdLineArgs::addTempFileOption();
   
   /**
    * do the command line parsing
    */
   parser.process (app);
-  
-#ifdef TODO
-  
-  // FIXME KF5
-  
-  
-  // get our command line args ;)
-  KCmdLineArgs* args = KCmdLineArgs::parsedArgs();
 
   QDBusConnectionInterface *i = QDBusConnection::sessionBus().interface ();
 
@@ -207,32 +198,33 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   }
   QString serviceName;
 
+  const QStringList urls = parser.positionalArguments();
 
-  bool force_new=args->isSet("new");
+  bool force_new = parser.isSet(startNewInstanceOption);
+
   if (!force_new) {
     if ( !(
-      args->isSet("start") ||
-      args->isSet("new") ||
-      args->isSet("pid") ||
-      args->isSet("encoding") ||
-      args->isSet("line") ||
-      args->isSet("column") ||
-      args->isSet("stdin") ||
-      args->isSet("use")
-      ) && (args->count()==0)) force_new=true;
+      parser.isSet(startSessionOption) ||
+      parser.isSet(startNewInstanceOption) ||
+      parser.isSet(usePidOption) ||
+      parser.isSet(useEncodingOption) ||
+      parser.isSet(gotoLineOption) ||
+      parser.isSet(gotoColumnOption) ||
+      parser.isSet(readStdInOption)
+      ) && (urls.isEmpty())) force_new = true;
   }
     
   QString start_session;
   bool session_already_opened=false;
   
   //check if we try to start an already opened session
-  if (args->isSet("startanon"))
+  if (parser.isSet(startAnonymousSessionOption))
   {
-    force_new=true;
+    force_new = true;
   }
-  else if (args->isSet("start"))
+  else if (parser.isSet(startSessionOption))
   {
-    start_session=args->getOption("start");
+    start_session = parser.value(startSessionOption);
     if (mapSessionRii.contains(start_session)) {
       serviceName=mapSessionRii[start_session]->serviceName;
       force_new=false;
@@ -248,11 +240,11 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   // two possibilities: pid given or not...
   if ((!force_new) && serviceName.isEmpty())
   {
-    if ( (args->isSet("pid")) || (!qgetenv("KATE_PID").isEmpty()))
+    if ( (parser.isSet(usePidOption)) || (!qgetenv("KATE_PID").isEmpty()))
     {
-      QString usePid;
-      if (args->isSet("pid")) usePid = args->getOption("pid");
-      else usePid = QString::fromLocal8Bit(qgetenv("KATE_PID"));
+      QString usePid = (parser.isSet(usePidOption)) ?
+        parser.value(usePidOption) :
+        QString::fromLocal8Bit(qgetenv("KATE_PID"));
       
       serviceName = "org.kde.kate-" + usePid;
       if (!kateServices.contains(serviceName)) serviceName.clear();
@@ -262,7 +254,7 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   if ( (!force_new) && ( serviceName.isEmpty()))
   {
     if (kateServices.count()>0)
-      serviceName=kateServices[0];
+      serviceName = kateServices[0];
   } 
     
   
@@ -278,35 +270,35 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
   if (foundRunningService)
   {
     // open given session
-    if (args->isSet ("start") && (!session_already_opened) )
+    if (parser.isSet(startSessionOption) && (!session_already_opened) )
     {
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
               QLatin1String("/MainApplication"), "org.kde.Kate.Application", "activateSession");
 
       QList<QVariant> dbusargs;
-      dbusargs.append(args->getOption("start"));
+      dbusargs.append(parser.value(startSessionOption));
       m.setArguments(dbusargs);
 
       QDBusConnection::sessionBus().call (m);
     }
 
-    QString enc = args->isSet("encoding") ? args->getOption("encoding") : QByteArray("");
+    QString enc = parser.isSet(useEncodingOption) ? parser.value(useEncodingOption) : QByteArray("");
 
-    bool tempfileSet = KCmdLineArgs::isTempFileSet();
+    bool tempfileSet = parser.isSet(tempfileOption);
 
     // only block, if files to open there....
-    bool needToBlock = args->isSet( "block" ) && (args->count() > 0);
+    bool needToBlock = parser.isSet(startBlockingOption) && !urls.isEmpty();
     
     QStringList tokens;
     
     // open given files...
-    for (int z = 0; z < args->count(); z++)
+    foreach(const QString &url, urls)
     {
       QDBusMessage m = QDBusMessage::createMethodCall (serviceName,
               QLatin1String("/MainApplication"), "org.kde.Kate.Application", "tokenOpenUrl");
 
       QList<QVariant> dbusargs;
-      dbusargs.append(args->url(z).url());
+      dbusargs.append(QUrl(url));
       dbusargs.append(enc);
       dbusargs.append(tempfileSet);
       m.setArguments(dbusargs);
@@ -329,12 +321,13 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
       }
     }
     
-    if( args->isSet( "stdin" ) )
+    if(parser.isSet(readStdInOption))
     {
       QTextStream input(stdin, QIODevice::ReadOnly);
 
       // set chosen codec
-      QTextCodec *codec = args->isSet("encoding") ? QTextCodec::codecForName(args->getOption("encoding").toUtf8()) : 0;
+      QTextCodec *codec = parser.isSet(useEncodingOption) ?
+        QTextCodec::codecForName(parser.value(useEncodingOption).toUtf8()) : 0;
 
       if (codec)
         input.setCodec (codec);
@@ -363,15 +356,15 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     int column = 0;
     bool nav = false;
 
-    if (args->isSet ("line"))
+    if (parser.isSet(gotoLineOption))
     {
-      line = args->getOption ("line").toInt() - 1;
+      line = parser.value(gotoLineOption).toInt() - 1;
       nav = true;
     }
 
-    if (args->isSet ("column"))
+    if (parser.isSet(gotoColumnOption))
     {
-      column = args->getOption ("column").toInt() - 1;
+      column = parser.value(gotoColumnOption).toInt() - 1;
       nav = true;
     }
 
@@ -408,7 +401,6 @@ extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
     // this will wait until exiting is emitted by the used instance, if wanted...
     return needToBlock ? app.exec () : 0;
   }
-#endif 
 
   /**
    * construct the real kate app object ;)

@@ -44,8 +44,6 @@ namespace Kate
   class Application;
 }
 
-class KCmdLineArgs;
-
 /**
  * Kate Application
  * This class represents the core kate application object

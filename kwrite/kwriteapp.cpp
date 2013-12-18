@@ -19,13 +19,15 @@ Boston, MA 02110-1301, USA.
 #include "kwriteapp.h"
 
 #include <ktexteditor/editor.h>
-#include <kcmdlineargs.h>
 #include <kmessagebox.h>
 #include <ksharedconfig.h>
+#include <klocalizedstring.h>
 
-#include <QFileInfo>
-#include <QTextCodec>
-#include <QLoggingCategory>
+#include <QtCore/QCommandLineParser>
+#include <QtCore/QFileInfo>
+#include <QtCore/QLoggingCategory>
+#include <QtCore/QTextCodec>
+#include <QtWidgets/QApplication>
 
 Q_DECLARE_LOGGING_CATEGORY(LOG_KWRITE)
 Q_LOGGING_CATEGORY(LOG_KWRITE, "kwrite")
@@ -174,7 +176,7 @@ void KWriteApp::setActiveView(KTextEditor::View *view)
 
 KTextEditor::View *KWriteApp::activeView()
 {
-  KWrite *window = qobject_cast<KWrite*>(static_cast<QApplication *>(QCoreApplication::instance ())->activeWindow());
+  KWrite *window = qobject_cast<KWrite*>(static_cast<QApplication *>(QCoreApplication::instance())->activeWindow());
   if (window) {
     return window->view();
   }

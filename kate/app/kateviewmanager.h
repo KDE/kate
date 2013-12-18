@@ -21,7 +21,6 @@
 #ifndef __KATE_VIEWMANAGER_H__
 #define __KATE_VIEWMANAGER_H__
 
-#include "katemain.h"
 #include "katedocmanager.h"
 
 

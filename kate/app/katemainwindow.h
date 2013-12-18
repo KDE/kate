@@ -21,7 +21,6 @@
 #ifndef __KATE_MAINWINDOW_H__
 #define __KATE_MAINWINDOW_H__
 
-#include "katemain.h"
 #include "katemdi.h"
 
 #include <KTextEditor/View>

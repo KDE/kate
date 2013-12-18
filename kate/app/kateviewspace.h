@@ -21,8 +21,6 @@
 #ifndef KATE_VIEWSPACE_H
 #define KATE_VIEWSPACE_H
 
-#include "katemain.h"
-
 #include <KTextEditor/View>
 #include <KTextEditor/Document>
 #include <KTextEditor/ModificationInterface>

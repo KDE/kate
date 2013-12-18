@@ -21,8 +21,6 @@
 #ifndef __kate_configdialog_h__
 #define __kate_configdialog_h__
 
-#include "katemain.h"
-
 #include <kate/plugin.h>
 #include <kate/pluginconfigpageinterface.h>
 

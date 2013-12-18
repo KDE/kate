@@ -19,8 +19,6 @@
 #ifndef __KATE_SESSION_H__
 #define __KATE_SESSION_H__
 
-#include "katemain.h"
-
 #include <KDialog>
 #include <KConfig>
 #include <KActionMenu>

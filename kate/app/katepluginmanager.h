@@ -21,8 +21,6 @@
 #ifndef __KATE_PLUGINMANAGER_H__
 #define __KATE_PLUGINMANAGER_H__
 
-#include "katemain.h"
-
 #include <kate/plugin.h>
 #include <kate/pluginmanager.h>
 

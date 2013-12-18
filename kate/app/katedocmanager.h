@@ -20,7 +20,6 @@
 #ifndef __KATE_DOCMANAGER_H__
 #define __KATE_DOCMANAGER_H__
 
-#include "katemain.h"
 #include <kate/documentmanager.h>
 
 #include <KTextEditor/Document>

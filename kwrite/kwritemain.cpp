@@ -27,8 +27,6 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/editor.h>
 
-#include <KIO/NetAccess>
-
 #include <KAboutApplicationDialog>
 #include <KAboutData>
 #include <KActionCollection>
@@ -46,6 +44,8 @@
 #include <KXMLGUIFactory>
 #include <KSharedConfig>
 #include <kconfiggui.h>
+#include <KIO/Job>
+#include <kjobwidgets.h>
 
 #ifdef KActivities_FOUND
 #include <kactivities/resourceinstance.h>
@@ -284,7 +284,10 @@ void KWrite::slotOpen( const QUrl& url )
 {
   if (url.isEmpty()) return;
 
-  if (!KIO::NetAccess::exists(url, KIO::NetAccess::SourceSide, this))
+  KIO::StatJob *job = KIO::stat(url, KIO::StatJob::SourceSide, 0);
+  KJobWidgets::setWindow(job, this);
+  job->exec();
+  if (job->error())
   {
     KMessageBox::error (this, i18n("The file given could not be read; check whether it exists or is readable for the current user."));
     return;

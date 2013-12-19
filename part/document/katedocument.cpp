@@ -59,8 +59,8 @@
 
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
-#include <KIO/NetAccess>
 #include <KFileItem>
+#include <kjobwidgets.h>
 
 #include <KMessageBox>
 #include <KStandardAction>
@@ -2176,12 +2176,18 @@ bool KateDocument::saveFile()
     else // remote file mode, kio
     {
       // get the right permissions, start with safe default
-      KIO::UDSEntry fentry;
-      if (KIO::NetAccess::stat (url(), fentry, QApplication::activeWindow())) {
+      KIO::StatJob *statJob = KIO::stat(url(), KIO::StatJob::SourceSide, 2);
+      KJobWidgets::setWindow(statJob, QApplication::activeWindow());
+      statJob->exec();
+
+      if (!statJob->error())
+      {
         // do a evil copy which will overwrite target if possible
-        KFileItem item (fentry, url());
+        KFileItem item (statJob->statResult(), url());
         KIO::FileCopyJob *job = KIO::file_copy ( url(), u, item.permissions(), KIO::Overwrite );
-        backupSuccess = KIO::NetAccess::synchronousRun(job, QApplication::activeWindow());
+        KJobWidgets::setWindow(job, QApplication::activeWindow());
+        job->exec();
+        backupSuccess = !job->error();
       }
       else
         backupSuccess = true;

@@ -63,7 +63,7 @@
 
 #include <KIO/Job>
 #include <KIO/JobClasses>
-#include <KIO/NetAccess>
+#include <kjobwidgets.h>
 
 #include <KCharsets>
 #include <KColorButton>
@@ -1305,7 +1305,9 @@ void KateHlDownloadDialog::slotInstall()
 
     QString dest = destdir + filename;
 
-    KIO::NetAccess::download(src, dest, this);
+    KIO::FileCopyJob *job = KIO::file_copy(src, dest);
+    KJobWidgets::setWindow(job, this);
+    job->exec();
   }
 
   // update Config !!

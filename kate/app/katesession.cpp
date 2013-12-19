@@ -28,17 +28,16 @@
 #include "katerunninginstanceinfo.h"
 #include "katedebug.h"
 
-#include <kdirwatch.h>
 #include <KIconLoader>
 #include <KMessageBox>
 #include <KCodecs>
 #include <KStandardGuiItem>
 #include <KActionCollection>
-#include <KIO/NetAccess>
 #include <KIO/CopyJob>
 #include <KLocalizedString>
 #include <KSharedConfig>
 #include <KConfigGroup>
+#include <kjobwidgets.h>
 
 #include <QCollator>
 #include <QDir>
@@ -160,7 +159,8 @@ bool KateSession::rename (const QString &name)
   QUrl destUrl = QUrl::fromLocalFile( sessionFile() );
 
   KIO::CopyJob *job = KIO::move(srcUrl, destUrl, KIO::HideProgressInfo);
-  if ( ! KIO::NetAccess::synchronousRun(job, 0) )
+  job->exec();
+  if ( job->error() )
   {
     m_sessionFileRel = oldRel;
     return false;

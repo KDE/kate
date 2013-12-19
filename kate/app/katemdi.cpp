@@ -24,19 +24,16 @@
 #include "katemdi.moc"
 
 #include "kate/pluginconfigpageinterface.h"
+#include "katedebug.h"
 
 #include <kactioncollection.h>
 #include <kactionmenu.h>
-#include <kconfig.h>
 #include <kconfiggroup.h>
-#include "katedebug.h"
-#include <khbox.h>
 #include <kiconloader.h>
-#include <klocale.h>
 #include <kmessagebox.h>
-#include <kvbox.h>
 #include <kxmlguifactory.h>
 #include <klocalizedstring.h>
+#include <ksharedconfig.h>
 
 #include <QtCore/QChildEvent>
 #include <QtCore/QEvent>
@@ -47,6 +44,9 @@
 #include <QtWidgets/QSizePolicy>
 #include <QtWidgets/QStyle>
 #include <QtXml/QDomDocument>
+
+#include <khbox.h>
+#include <kvbox.h>
 
 namespace KateMDI
 {
@@ -217,7 +217,7 @@ namespace KateMDI
 //BEGIN TOOLVIEW
 
   ToolView::ToolView (MainWindow *mainwin, Sidebar *sidebar, QWidget *parent)
-      : KVBox (parent)
+      : QFrame (parent)
       , m_mainWin (mainwin)
       , m_sidebar (sidebar)
       , m_toolVisible (false)
@@ -225,6 +225,8 @@ namespace KateMDI
   {
     // try to fix resize policy
     setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    layout->setMargin(0);
   }
 
   ToolView::~ToolView ()
@@ -249,10 +251,13 @@ namespace KateMDI
   void ToolView::childEvent ( QChildEvent *ev )
   {
     // set the widget to be focus proxy if possible
-    if ((ev->type() == QEvent::ChildAdded) && qobject_cast<QWidget *>(ev->child()))
-      setFocusProxy (qobject_cast<QWidget *>(ev->child()));
+    if ((ev->type() == QEvent::ChildAdded) && qobject_cast<QWidget *>(ev->child())) {
+      QWidget *widget = qobject_cast<QWidget *>(ev->child());
+      setFocusProxy(widget);
+      layout()->addWidget(widget);
+    }
 
-    KVBox::childEvent (ev);
+    QFrame::childEvent (ev);
   }
 
 //END TOOLVIEW

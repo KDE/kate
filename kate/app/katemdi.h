@@ -29,7 +29,6 @@
 #include <KMultiTabBar>
 #include <KXMLGUIClient>
 #include <KToggleAction>
-#include <KVBox>
 
 #include <QMap>
 #include <QSplitter>
@@ -38,6 +37,7 @@
 #include <QEvent>
 #include <QChildEvent>
 #include <QPointer>
+#include <QtWidgets/QFrame>
 
 class KActionMenu;
 class QAction;
@@ -93,7 +93,7 @@ namespace KateMDI
       KActionMenu *m_toolMenu;
   };
 
-  class ToolView : public KVBox
+  class ToolView : public QFrame
   {
       Q_OBJECT
 

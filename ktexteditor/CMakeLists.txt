@@ -67,7 +67,7 @@ set(ktexteditor_LIB_SRCS
 add_library (ktexteditor SHARED ${ktexteditor_LIB_SRCS} ${KTEXTEDITOR_PUBLIC_HEADERS})
 
 target_link_libraries(ktexteditor LINK_PUBLIC KF5::Parts
-                                  LINK_PRIVATE KF5::I18n KF5::KDE4Support)
+                                  LINK_PRIVATE KF5::I18n)
 target_include_directories(ktexteditor INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>")
 
 set_target_properties(ktexteditor

@@ -89,7 +89,7 @@ void Attribute::setDynamicAttribute( ActivationType type, Attribute::Ptr attribu
 QBrush Attribute::outline( ) const
 {
   if (hasProperty(Outline))
-    return qVariantValue<QBrush>(property(Outline));
+    return property(Outline).value<QBrush>();
 
   return QBrush();
 }
@@ -102,7 +102,7 @@ void Attribute::setOutline( const QBrush & brush )
 QBrush Attribute::selectedForeground( ) const
 {
   if (hasProperty(SelectedForeground))
-    return qVariantValue<QBrush>(property(SelectedForeground));
+    return property(SelectedForeground).value<QBrush>();
 
   return QBrush();
 }
@@ -128,7 +128,7 @@ void Attribute::setBackgroundFillWhitespace( bool fillWhitespace )
 QBrush Attribute::selectedBackground( ) const
 {
   if (hasProperty(SelectedBackground))
-    return qVariantValue<QBrush>(properties()[SelectedBackground]);
+    return property(SelectedBackground).value<QBrush>();
 
   return QBrush();
 }

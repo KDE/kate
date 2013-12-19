@@ -62,6 +62,8 @@ void KateArgumentHintModel::parentModelReset() {
 }
 
 void KateArgumentHintModel::buildRows() {
+  beginResetModel();
+
   m_rows.clear();
   QMap<int, QList<int> > m_depths; //Map each hint-depth to a list of functions of that depth
   for( int a = 0; a < group()->filtered.count(); a++ ) {
@@ -80,7 +82,8 @@ void KateArgumentHintModel::buildRows() {
     m_rows.push_front( -it.key() );
   }
   
-  reset();
+  endResetModel();
+
   emit contentStateChanged(!m_rows.isEmpty());
 }
 

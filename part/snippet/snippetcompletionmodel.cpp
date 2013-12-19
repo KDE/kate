@@ -98,6 +98,8 @@ void SnippetCompletionModel::initData(KTextEditor::View* view)
         mode = view->document()->highlightingMode();
     }
 
+    beginResetModel();
+
     qDeleteAll(m_snippets);
     m_snippets.clear();
     SnippetStore* store = SnippetStore::self();
@@ -116,7 +118,8 @@ void SnippetCompletionModel::initData(KTextEditor::View* view)
             }
         }
     }
-    reset();
+
+    endResetModel();
 }
 
 QModelIndex SnippetCompletionModel::parent(const QModelIndex& index) const {

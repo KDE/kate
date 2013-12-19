@@ -23,9 +23,6 @@
 
 #include "snippetview.h"
 
-#include <QtGui/QContextMenuEvent>
-#include <kmessagebox.h>
-
 #include "snippet.h"
 #include "katesnippetglobal.h"
 #include "snippetrepository.h"
@@ -34,6 +31,11 @@
 #include "editsnippet.h"
 #include "snippetfilterproxymodel.h"
 #include "katepartdebug.h"
+
+#include <klocalizedstring.h>
+#include <kmessagebox.h>
+
+#include <QtGui/QContextMenuEvent>
 
 #include <knewstuff3/downloaddialog.h>
 #include <knewstuff3/uploaddialog.h>

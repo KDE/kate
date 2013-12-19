@@ -40,6 +40,7 @@
 #include <kcolorscheme.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>
+#include <klocalizedstring.h>
 
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QComboBox>

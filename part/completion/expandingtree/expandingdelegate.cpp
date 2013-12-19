@@ -48,7 +48,7 @@ if (option.showDecorationSelected && (option.state & QStyle::State_Selected)) {
         return option.palette.brush(cg, QPalette::Highlight).color();
     } else {
         QVariant value = index.data(Qt::BackgroundRole);
-        if (qVariantCanConvert<QBrush>(value))
+        if (value.canConvert<QBrush>())
 	    return qvariant_cast<QBrush>(value).color();
     }
     

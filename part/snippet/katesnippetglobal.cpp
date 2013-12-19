@@ -38,6 +38,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktoolbar.h>
+#include <klocalizedstring.h>
 
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QMenu>

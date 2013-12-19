@@ -101,8 +101,8 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
     new KateDocItem( docs[i], m_stateTexts[ (uint)KateDocManager::self()->documentInfo( docs[i] )->modifiedOnDiscReason ], twDocuments );
   }
   twDocuments->header()->setStretchLastSection(false);
-  twDocuments->header()->setResizeMode(0, QHeaderView::Stretch);
-  twDocuments->header()->setResizeMode(1, QHeaderView::ResizeToContents);
+  twDocuments->header()->setSectionResizeMode(0, QHeaderView::Stretch);
+  twDocuments->header()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
 
   connect(twDocuments, SIGNAL(currentItemChanged(QTreeWidgetItem*,QTreeWidgetItem*)), this, SLOT(slotSelectionChanged(QTreeWidgetItem*,QTreeWidgetItem*)) );
 

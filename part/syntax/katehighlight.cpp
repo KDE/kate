@@ -1085,7 +1085,7 @@ bool KateHighlighting::isInWord( QChar c, int attrib ) const
 {
   return m_additionalData[ hlKeyForAttrib( attrib ) ]->deliminator.indexOf(c) < 0
       && !c.isSpace()
-      && c != QChar::fromAscii('"') && c != QChar::fromAscii('\'') && c != QChar::fromAscii('`');
+      && c != QLatin1Char('"') && c != QLatin1Char('\'') && c != QLatin1Char('`');
 }
 
 bool KateHighlighting::canBreakAt( QChar c, int attrib ) const

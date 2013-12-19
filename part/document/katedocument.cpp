@@ -372,7 +372,7 @@ QString KateDocument::text( const KTextEditor::Range& range, bool blockwise ) co
       }
 
       if ( i < range.end().line() )
-        s.append(QChar::fromAscii('\n'));
+        s.append(QLatin1Char('\n'));
     }
   }
 
@@ -1903,7 +1903,7 @@ QMimeType KateDocument::mimeTypeForContent()
     if (bufpos + len > 1024)
       len = 1024 - bufpos;
 
-    QString ld (line + QChar::fromAscii('\n'));
+    QString ld (line + QLatin1Char('\n'));
     buf.replace(bufpos,len,ld.toLatin1()); //memcpy(buf.data() + bufpos, ld.toLatin1().constData(), len);
 
     bufpos += len;
@@ -3619,7 +3619,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
 
   QChar opposite;
 
-  switch( bracket.toAscii() ) {
+  switch( bracket.toLatin1() ) {
   case '{': opposite = '}'; break;
   case '}': opposite = '{'; break;
   case '[': opposite = ']'; break;

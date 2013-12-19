@@ -1217,7 +1217,7 @@ void KateView::slotReadWriteChanged ()
 
   QAction *a = 0;
   for (int z = 0; z < l.size(); z++)
-    if ((a = actionCollection()->action( l[z].toAscii().constData() )))
+    if ((a = actionCollection()->action( l[z].toLatin1().constData() )))
       a->setEnabled (m_doc->isReadWrite());
   slotUpdateUndo();
 

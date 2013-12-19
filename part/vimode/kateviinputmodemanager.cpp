@@ -219,7 +219,7 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
         if (decoded.length() > 1 ) {
           key = KateViKeyParser::self()->vi2qt(decoded);
         } else if (decoded.length() == 1) {
-          key = int(decoded.at(0).toUpper().toAscii());
+          key = int(decoded.at(0).toUpper().toLatin1());
           text = decoded.at(0);
           qCDebug(LOG_PART) << "###########" << key;
         } else {

@@ -419,7 +419,7 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
   if (!b)
     return 0;
 
-  if ((len > 0) && ((text[offset].toAscii() & 0xdf) == 'E'))
+  if ((len > 0) && ((text[offset].toLatin1() & 0xdf) == 'E'))
   {
     offset++;
     len--;
@@ -489,14 +489,14 @@ KateHlCOct::KateHlCOct(int attribute, KateHlContextModification context, signed 
 
 int KateHlCOct::checkHgl(const QString& text, int offset, int len)
 {
-  if (text[offset].toAscii() == '0')
+  if (text[offset].toLatin1() == '0')
   {
     offset++;
     len--;
 
     int offset2 = offset;
 
-    while ((len > 0) && (text[offset2].toAscii() >= '0' && text[offset2].toAscii() <= '7'))
+    while ((len > 0) && (text[offset2].toLatin1() >= '0' && text[offset2].toLatin1() <= '7'))
     {
       offset2++;
       len--;
@@ -504,7 +504,7 @@ int KateHlCOct::checkHgl(const QString& text, int offset, int len)
 
     if (offset2 > offset)
     {
-      if ((len > 0) && ((text[offset2].toAscii() & 0xdf) == 'L' || (text[offset].toAscii() & 0xdf) == 'U' ))
+      if ((len > 0) && ((text[offset2].toLatin1() & 0xdf) == 'L' || (text[offset].toLatin1() & 0xdf) == 'U' ))
         offset2++;
 
       return offset2;
@@ -524,13 +524,13 @@ KateHlCHex::KateHlCHex(int attribute, KateHlContextModification context,signed c
 
 int KateHlCHex::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len > 1) && (text[offset++].toAscii() == '0') && ((text[offset++].toAscii() & 0xdf) == 'X' ))
+  if ((len > 1) && (text[offset++].toLatin1() == '0') && ((text[offset++].toLatin1() & 0xdf) == 'X' ))
   {
     len -= 2;
 
     int offset2 = offset;
 
-    while ((len > 0) && (text[offset2].isDigit() || ((text[offset2].toAscii() & 0xdf) >= 'A' && (text[offset2].toAscii() & 0xdf) <= 'F')))
+    while ((len > 0) && (text[offset2].isDigit() || ((text[offset2].toLatin1() & 0xdf) >= 'A' && (text[offset2].toLatin1() & 0xdf) <= 'F')))
     {
       offset2++;
       len--;
@@ -538,7 +538,7 @@ int KateHlCHex::checkHgl(const QString& text, int offset, int len)
 
     if (offset2 > offset)
     {
-      if ((len > 0) && ((text[offset2].toAscii() & 0xdf) == 'L' || (text[offset2].toAscii() & 0xdf) == 'U' ))
+      if ((len > 0) && ((text[offset2].toLatin1() & 0xdf) == 'L' || (text[offset2].toLatin1() & 0xdf) == 'U' ))
         offset2++;
 
       return offset2;
@@ -577,7 +577,7 @@ int KateHlCFloat::checkHgl(const QString& text, int offset, int len)
 
   if (offset2)
   {
-    if ((text[offset2].toAscii() & 0xdf) == 'F' )
+    if ((text[offset2].toLatin1() & 0xdf) == 'F' )
       offset2++;
 
     return offset2;
@@ -586,7 +586,7 @@ int KateHlCFloat::checkHgl(const QString& text, int offset, int len)
   {
     offset2 = checkIntHgl(text, offset, len);
 
-    if (offset2 && ((text[offset2].toAscii() & 0xdf) == 'F' ))
+    if (offset2 && ((text[offset2].toLatin1() & 0xdf) == 'F' ))
       return ++offset2;
     else
       return 0;
@@ -712,7 +712,7 @@ static int checkEscapedChar(const QString& text, int offset, int& len)
     offset++;
     len--;
 
-    switch(text[offset].toAscii())
+    switch(text[offset].toLatin1())
     {
       case  'a': // checks for control chars
       case  'b': // we want to fall through
@@ -740,7 +740,7 @@ static int checkEscapedChar(const QString& text, int offset, int& len)
         // check for hexdigits
         for (i = 0; (len > 0) && (i < 2); i++)
         {
-          const char ch = text[offset].toAscii();
+          const char ch = text[offset].toLatin1();
           if (((ch >= '0') && (ch <= '9')) || (((ch & 0xdf) >= 'A') && ((ch & 0xdf) <= 'F'))) {
             offset++;
             len--;

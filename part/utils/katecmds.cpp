@@ -911,7 +911,7 @@ static void exchangeAbbrevs(QString &str)
   {
     int index = 0;
     char replace = magic[1];
-    while ((index = backslashString(str, QString (QChar::fromAscii(*magic)), index)) != -1)
+    while ((index = backslashString(str, QString (QChar::fromLatin1(*magic)), index)) != -1)
     {
       str.replace(index, 2, QChar(replace));
       ++index;

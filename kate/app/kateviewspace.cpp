@@ -29,35 +29,39 @@
 #include "katesession.h"
 #include "katedebug.h"
 
-#include <KSqueezedTextLabel>
-#include <KStringHandler>
-#include <KVBox>
+#include <ksqueezedtextlabel.h>
+#include <kstringhandler.h>
 #include <klocalizedstring.h>
-#include <kglobal.h>
 #include <kiconutils.h>
 #include <kconfiggroup.h>
+#include <kglobal.h>
 
-#include <QStackedWidget>
-#include <QCursor>
-#include <QMenu>
-#include <QTimer>
-#include <QEvent>
-#include <QMouseEvent>
-#include <QSizeGrip>
+#include <QtCore/QTimer>
+#include <QtGui/QCursor>
+#include <QtGui/QMouseEvent>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QSizeGrip>
+#include <QtWidgets/QStackedWidget>
 
 //BEGIN KateViewSpace
 KateViewSpace::KateViewSpace( KateViewManager *viewManager,
                               QWidget* parent, const char* name )
-    : KVBox(parent),
+    : QFrame(parent),
     m_viewManager( viewManager )
 {
   setObjectName(name);
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setSpacing(0);
+  layout->setMargin(0);
 
   stack = new QStackedWidget( this );
   stack->setFocus();
   stack->setSizePolicy (QSizePolicy (QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+  layout->addWidget(stack);
 
   mStatusBar = new KateVSStatusBar(this);
+  layout->addWidget(mStatusBar);
+
   mIsActiveSpace = false;
 
   setMinimumWidth (mStatusBar->minimumWidth());

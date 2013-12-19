@@ -25,19 +25,18 @@
 #include <KTextEditor/Document>
 #include <KTextEditor/ModificationInterface>
 
-#include <QWidget>
-#include <QList>
-#include <QPixmap>
-#include <QLabel>
-#include <QEvent>
-#include <KStatusBar>
-#include <KVBox>
+#include <kstatusbar.h>
+
+#include <QtCore/QList>
+#include <QtGui/QPixmap>
+#include <QtWidgets/QFrame>
 
 class KConfigBase;
 class KSqueezedTextLabel;
 class KateViewManager;
 class KateViewSpace;
 class QStackedWidget;
+class QLabel;
 
 class KateVSStatusBar : public KStatusBar
 {
@@ -90,7 +89,7 @@ class KateVSStatusBar : public KStatusBar
     class KateViewSpace *m_viewSpace;
 };
 
-class KateViewSpace : public KVBox
+class KateViewSpace : public QFrame
 {
     friend class KateViewManager;
     friend class KateVSStatusBar;

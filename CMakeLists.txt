@@ -38,7 +38,7 @@ include(ECMSetupVersion)
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Quick Widgets Script)
 
 # Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED COMPONENTS 
+find_package(KF5 CONFIG REQUIRED COMPONENTS
                                             Archive Auth Bookmarks Codecs Completion Config
                                             ConfigWidgets CoreAddons Crash DBusAddons Declarative DocTools GlobalAccel GuiAddons
                                             I18n IconThemes IdleTime Init ItemModels ItemViews JS JobWidgets KCMUtils KDE4Support
@@ -65,6 +65,10 @@ add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -DKTEXT
 
 # global include directories
 include_directories (${CMAKE_CURRENT_BINARY_DIR})
+
+# Temporary solution until the split frameworks provide forward headers
+get_target_property (KDE4Support_INCLUDES KF5::KDE4Support INTERFACE_INCLUDE_DIRECTORIES)
+include_directories(${KDE4Support_INCLUDES})
 
 # use our own copies of some stuff
 set (KDE4_KTEXTEDITOR_LIBS "ktexteditor")

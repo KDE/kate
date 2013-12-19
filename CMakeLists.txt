@@ -7,7 +7,7 @@ set(KATE_VERSION_MICRO 0)
 set(KATE_VERSION ${KATE_VERSION_MAJOR}.${KATE_VERSION_MINOR}.${KATE_VERSION_MICRO})
 
 # minimal cmake req
-cmake_minimum_required (VERSION 2.8.6 FATAL_ERROR)
+cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
 
 # minimal qt req
 set (QT_MIN_VERSION "5.2.0")

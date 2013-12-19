@@ -47,6 +47,7 @@
 #include <QtCore/QHash>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTimer>
+#include <QtWidgets/QApplication>
 #include <QtWidgets/QListView>
 #include <QtWidgets/QProgressDialog>
 
@@ -557,12 +558,12 @@ void KateDocManager::restoreDocumentList (KConfig* config)
     return;
   }
 
-  QProgressDialog *progress = new QProgressDialog();
-  progress->setWindowTitle(i18n("Starting Up"));
-  progress->setLabelText(i18n("Reopening files from the last session..."));
-  progress->setModal(true);
-  progress->setCancelButton(0);
-  progress->setRange(0, count);
+  QProgressDialog progress;
+  progress.setWindowTitle(i18n("Starting Up"));
+  progress.setLabelText(i18n("Reopening files from the last session..."));
+  progress.setModal(true);
+  progress.setCancelButton(0);
+  progress.setRange(0, count);
 
   m_documentStillToRestore = count;
   m_openingErrors.clear();
@@ -585,9 +586,8 @@ void KateDocManager::restoreDocumentList (KConfig* config)
       iface->readParameterizedSessionConfig(cg, KTextEditor::ParameterizedSessionConfigInterface::SkipNone);
     }
 
-    progress->setValue(i);
+    progress.setValue(i);
   }
-  delete progress;
 }
 
 void KateDocManager::slotModifiedOnDisc (KTextEditor::Document *doc, bool b, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)

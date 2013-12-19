@@ -640,8 +640,9 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigDefau
       Q_ASSERT(hl >= 0);
     }
   }
-  //hlCombo->setCurrentIndex ( hl );
-  //hlChanged ( hl );
+  
+  hlCombo->setCurrentIndex ( hl );
+  hlChanged ( hl );
 
   m_styles->setWhatsThis(i18n(
     "<p>This list displays the contexts of the current syntax highlight mode and "

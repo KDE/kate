@@ -344,7 +344,7 @@ QBrush KateStyleTreeDelegate::getBrushForColorColumn(const QModelIndex& index, i
 {
   QModelIndex colorIndex = index.sibling(index.row(), column);
   QVariant displayData = colorIndex.model()->data(colorIndex);
-  return qVariantValue<QBrush>(displayData);
+  return displayData.value<QBrush>();
 }
 
 void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index ) const
@@ -379,7 +379,7 @@ void KateStyleTreeDelegate::paint( QPainter* painter, const QStyleOptionViewItem
   if (displayData.type() != QVariant::Brush)
     return;
 
-  QBrush brush = qVariantValue<QBrush>(displayData);
+  QBrush brush = displayData.value<QBrush>();
 
   QStyleOptionButton opt;
   opt.rect = option.rect;

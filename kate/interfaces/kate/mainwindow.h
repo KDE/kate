@@ -107,7 +107,7 @@ namespace Kate
        *
        * \return the central widget
        */
-      class QWidget *centralWidget() const;
+      // class QWidget *centralWidget() const;
       
       /**
        * Get a list of all views.

@@ -285,14 +285,6 @@ namespace KateMDI
       //
       // public interfaces
       //
-    public:
-      /**
-       * central widget ;)
-       * use this as parent for your content
-       * this widget will get focus if a toolview is hidden
-       * @return central widget
-       */
-      QWidget *centralWidget () const;
 
       /**
        * add a given widget to the given sidebar if possible, name is very important
@@ -345,6 +337,14 @@ namespace KateMDI
        * @param widget toolview which is destroyed
        */
       void toolViewDeleted (ToolView *widget);
+
+      /**
+       * central widget ;)
+       * use this as parent for your content
+       * this widget will get focus if a toolview is hidden
+       * @return central widget
+       */
+      QWidget *centralWidget () const;
 
       /**
        * modifiers for existing toolviews

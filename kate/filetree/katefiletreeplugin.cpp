@@ -367,7 +367,6 @@ void KateFileTreePluginView::showToolView()
 void KateFileTreePluginView::hideToolView()
 {
   mainWindow()->hideToolView(m_toolView);
-  mainWindow()->centralWidget()->setFocus();
 }
 
 void KateFileTreePluginView::switchDocument(const QString &doc)

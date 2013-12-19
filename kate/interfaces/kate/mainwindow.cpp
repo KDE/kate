@@ -65,10 +65,12 @@ namespace Kate
     return d->win;
   }
 
+  /*
   QWidget *MainWindow::centralWidget() const
   {
     return d->win->centralWidget();
   }
+  */
 
   const QList<KTextEditor::View *> &MainWindow::views () const
   {

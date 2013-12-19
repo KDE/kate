@@ -236,13 +236,15 @@ void KateMainWindow::setupMainWindow ()
   setToolViewStyle( KMultiTabBar::KDEV3ICON );
 
   m_topViewBarContainer=new QWidget(centralWidget());
+  centralWidget()->layout()->addWidget(m_topViewBarContainer);
   m_topContainerStack = new KateContainerStackedLayout(m_topViewBarContainer);
 
   /**
    * create central stacked widget with its children
    */
   m_mainStackedWidget = new QStackedWidget (centralWidget());
-  ((QBoxLayout*)(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget,100);
+  centralWidget()->layout()->addWidget(m_mainStackedWidget);
+  (static_cast<QBoxLayout*>(centralWidget()->layout()))->setStretchFactor(m_mainStackedWidget,100);
 
   m_quickOpen = new KateQuickOpen (m_mainStackedWidget, this);
   m_mainStackedWidget->addWidget (m_quickOpen);
@@ -253,7 +255,8 @@ void KateMainWindow::setupMainWindow ()
   // make view manager default visible!
   m_mainStackedWidget->setCurrentWidget (m_viewManager);
 
-  m_bottomViewBarContainer=new QWidget(centralWidget());
+  m_bottomViewBarContainer = new QWidget(centralWidget());
+  centralWidget()->layout()->addWidget(m_bottomViewBarContainer);
   m_bottomContainerStack = new KateContainerStackedLayout(m_bottomViewBarContainer);
 }
 

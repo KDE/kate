@@ -34,6 +34,7 @@
 #include <kxmlguifactory.h>
 #include <klocalizedstring.h>
 #include <ksharedconfig.h>
+#include <kwindowconfig.h>
 
 #include <QtCore/QChildEvent>
 #include <QtCore/QEvent>
@@ -83,7 +84,6 @@ namespace KateMDI
     else
     {
       m_tv->mainWindow()->hideToolView (m_tv);
-      m_tv->mainWindow()->centralWidget()->setFocus ();
     }
   }
 
@@ -474,7 +474,6 @@ namespace KateMDI
     else
     {
       hideWidget (w);
-      m_mainWin->centralWidget()->setFocus ();
     }
   }
 
@@ -744,9 +743,11 @@ namespace KateMDI
 
     m_sidebars[KMultiTabBar::Top]->setSplitter (m_vSplitter);
 
-    m_centralWidget = new KVBox (m_vSplitter);
-    m_centralWidget->layout()->setSpacing( 0 );
-    m_centralWidget->layout()->setMargin( 0 );
+    m_centralWidget = new QWidget(m_vSplitter);
+    m_centralWidget->setLayout(new QVBoxLayout);
+    m_centralWidget->layout()->setSpacing(0);
+    m_centralWidget->layout()->setMargin(0);
+
     m_vSplitter->setCollapsible( m_vSplitter->indexOf(m_centralWidget), false);
     m_vSplitter->setStretchFactor( m_vSplitter->indexOf(m_centralWidget), 1);
 
@@ -913,7 +914,9 @@ namespace KateMDI
     if (m_restoreConfig && m_restoreConfig->hasGroup (m_restoreGroup))
       return true;
 
-    return widget->sidebar()->hideWidget (widget);
+    const bool ret =  widget->sidebar()->hideWidget (widget);
+    m_centralWidget->setFocus();
+    return ret;
   }
 
   void MainWindow::startRestore (KConfigBase *config, const QString &group)
@@ -942,7 +945,7 @@ namespace KateMDI
 
     // apply size once, to get sizes ready ;)
     KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-    restoreWindowSize (cg);
+    KWindowConfig::restoreWindowSize(windowHandle(), cg);
 
     setToolViewStyle( (KMultiTabBar::KMultiTabBarStyle)cg.readEntry ("Kate-MDI-Sidebar-Style", (int)toolViewStyle()) );
     // after reading m_sidebarsVisible, update the GUI toggle action

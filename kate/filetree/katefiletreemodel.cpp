@@ -26,7 +26,6 @@
 
 #include <KColorScheme>
 #include <KColorUtils>
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <kiconutils.h>
 

@@ -32,7 +32,6 @@
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
 #include <kcharsets.h>
-#include <klocale.h>
 
 #include <QtCore/QTextCodec>
 #include <QtCore/QStringListModel>
@@ -827,7 +826,7 @@ QTextCodec *KateDocumentConfig::codec () const
   if (m_encodingSet || isGlobal())
   {
     if (m_encoding.isEmpty() && isGlobal())
-      return KLocale::global()->codecForEncoding();
+      return QTextCodec::codecForLocale();
     else if (m_encoding.isEmpty())
       return s_global->codec ();
     else

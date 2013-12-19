@@ -37,7 +37,6 @@
 #include "katedebug.h"
 #include <KEncodingFileDialog>
 #include <KIconLoader>
-#include <KLocale>
 #include <KToolBar>
 #include <KMessageBox>
 #include <KRecentFilesAction>
@@ -45,6 +44,7 @@
 #include <KConfigGroup>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
+#include <klocalizedstring.h>
 
 #ifdef KActivities_FOUND
 #include <KActivities/ResourceInstance>

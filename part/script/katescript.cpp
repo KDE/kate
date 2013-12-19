@@ -24,20 +24,16 @@
 #include "katescripthelpers.h"
 #include "kateview.h"
 #include "katedocument.h"
+#include "katepartdebug.h"
 
 #include <iostream>
+#include <klocalizedstring.h>
 
 #include <QFile>
-
+#include <QFileInfo>
 #include <QScriptEngine>
 #include <QScriptValue>
 #include <QScriptContext>
-#include <QFileInfo>
-
-#include "katepartdebug.h"
-#include <klocale.h>
-#include <kglobal.h>
-#include <klocalizedstring.h>
 
 //BEGIN conversion functions for Cursors and Ranges
 /** Converstion function from KTextEditor::Cursor to QtScript cursor */

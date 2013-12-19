@@ -34,7 +34,6 @@
 #include <klocalizedstring.h>
 #include <kiconutils.h>
 #include <kconfiggroup.h>
-#include <kglobal.h>
 
 #include <QtCore/QTimer>
 #include <QtGui/QCursor>
@@ -280,15 +279,14 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
     : KStatusBar( parent),
     m_viewSpace( parent )
 {
-  QString lineColText = i18n(" Line: %1 Col: %2 ", KGlobal::locale()->formatNumber(4444, 0),
-         KGlobal::locale()->formatNumber(44, 0));
+  QString lineColText = i18n(" Line: %1 Col: %2 ", QLocale().toString(4444), QLocale().toString(44));
 
   m_lineColLabel = new QLabel( this );
   m_lineColLabel->setMinimumWidth( m_lineColLabel->fontMetrics().width( lineColText ) );
   addWidget( m_lineColLabel, 0 );
   m_lineColLabel->installEventFilter( this );
 
-  QString charsText = i18n(" Characters: %1 ", KGlobal::locale()->formatNumber(4444, 0));
+  QString charsText = i18n(" Characters: %1 ", QLocale().toString(4444));
 
   m_charsLabel = new QLabel( this );
   m_charsLabel->setMinimumWidth( m_charsLabel->fontMetrics().width( charsText ) );
@@ -398,16 +396,16 @@ void KateVSStatusBar::cursorPositionChanged ( KTextEditor::View *view )
   m_lineColLabel->setText(
       i18n(
           " Line: %1 of %2 Col: %3 "
-        , KGlobal::locale()->formatNumber(position.line() + 1, 0)
+        , QLocale().toString(position.line() + 1)
         , view->document()->lines()
-        , KGlobal::locale()->formatNumber(position.column() + 1, 0)
+        , QLocale().toString(position.column() + 1)
         )
     );
 
   if (!m_charsLabel->isHidden())
   {
     m_charsLabel->setText(
-      i18n(" Characters: %1 ", KGlobal::locale()->formatNumber(view->document()->totalCharacters(), 0)));
+      i18n(" Characters: %1 ", QLocale().toString(view->document()->totalCharacters())));
   }
 }
 

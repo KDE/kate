@@ -26,7 +26,6 @@
 #include <QtCore/QHash>
 
 #include <klocalizedstring.h>
-#include <klocale.h>
 
 #include "katedialogs.h"
 

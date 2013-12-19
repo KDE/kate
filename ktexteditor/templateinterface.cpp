@@ -20,8 +20,6 @@
 #include "document.h"
 #include "view.h"
 #include <QtCore/QString>
-#include <klocale.h>
-#include <kglobal.h>
 #include <QtCore/QDate>
 #include <QtCore/QRegExp>
 #include <kmessagebox.h>
@@ -29,6 +27,7 @@
 #include <unistd.h>
 #include <klibrary.h>
 #include <klocalizedstring.h>
+#include <QtCore/QLocale>
 
 #define DUMMY_VALUE "!KTE:TEMPLATEHANDLER_DUMMY_VALUE!"
 
@@ -75,23 +74,23 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
       }
       else if ( placeholder == "date" )
       {
-        map[ placeholder ] = KGlobal::locale() ->formatDate( date, KLocale::ShortDate );
+        map[ placeholder ] =  QLocale().toString(date, QLocale::ShortFormat);
       }
       else if ( placeholder == "time" )
       {
-        map[ placeholder ] = KGlobal::locale() ->formatTime( time, true, false );
+        map[ placeholder ] = QLocale().toString(time, QLocale::LongFormat);
       }
       else if ( placeholder == "year" )
       {
-        map[ placeholder ] = KGlobal::locale() ->calendar() ->formatDate(date, KLocale::Year, KLocale::LongNumber);
+        map[ placeholder ] = date.toString("yyyy");
       }
       else if ( placeholder == "month" )
       {
-        map[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->month( date ) );
+        map[ placeholder ] = date.toString("MM");
       }
       else if ( placeholder == "day" )
       {
-        map[ placeholder ] = QString::number( KGlobal::locale() ->calendar() ->day( date ) );
+        map[ placeholder ] = date.toString("dd");
       }
       else if ( placeholder == "hostname" )
       {

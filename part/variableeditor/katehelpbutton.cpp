@@ -22,7 +22,6 @@
 
 #include <kiconloader.h>
 #include <khelpclient.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 
 KateHelpButton::KateHelpButton(QWidget* parent)

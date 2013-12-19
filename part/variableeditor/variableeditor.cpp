@@ -33,7 +33,6 @@
 #include <QtWidgets/QFontComboBox>
 
 #include <kiconloader.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <kcolorcombo.h>
 #include <sonnet/dictionarycombobox.h>

@@ -26,7 +26,6 @@
 #include <kprocess.h>
 #include <kmessagebox.h>
 #include <krun.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 
 #include <QtCore/QDir>

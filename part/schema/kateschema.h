@@ -22,7 +22,6 @@
 
 #include <kactionmenu.h>
 #include <kconfig.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 
 #include <QtCore/QStringList>

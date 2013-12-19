@@ -22,6 +22,7 @@
 #include "katescriptview.h"
 #include "kateview.h"
 #include "katedocument.h"
+#include "katepartdebug.h"
 
 #include <iostream>
 
@@ -29,9 +30,8 @@
 #include <QScriptValue>
 #include <QScriptContext>
 #include <QFile>
+#include <QStandardPaths>
 
-#include "katepartdebug.h"
-#include <klocale.h>
 #include <klocalizedstring.h>
 
 namespace Kate {

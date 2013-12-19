@@ -26,10 +26,9 @@
 #include "kateglobal.h"
 #include "kateview.h"
 #include "katerenderer.h"
+#include "katepartdebug.h"
 
 #include <kcolorscheme.h>
-#include <klocale.h>
-#include "katepartdebug.h"
 #include <kconfiggroup.h>
 //END
 

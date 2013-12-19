@@ -19,6 +19,8 @@
 
 #include "katesyntaxdocument.h"
 
+#include "katepartdebug.h"
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -26,9 +28,8 @@
 #include <sys/time.h>
 
 #include <klocalizedstring.h>
-#include "katepartdebug.h"
-#include <klocale.h>
 #include <kmessagebox.h>
+#include <kconfig.h>
 #include <kconfiggroup.h>
 
 #include <QtWidgets/QApplication>

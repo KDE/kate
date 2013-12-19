@@ -46,7 +46,6 @@
 #include <kcharsets.h>
 #include <kcolorscheme.h>
 #include <kcolorutils.h>
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <knotification.h>
 #include <kiconloader.h>

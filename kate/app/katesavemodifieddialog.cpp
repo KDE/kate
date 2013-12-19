@@ -22,7 +22,6 @@
 #include "katedebug.h"
 
 
-#include <KLocale>
 #include <KGuiItem>
 #include <KStandardGuiItem>
 #include <KIconLoader>

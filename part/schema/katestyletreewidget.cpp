@@ -23,7 +23,6 @@
 #include "kateconfig.h"
 #include "kateextendedattribute.h"
 
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <kcolorscheme.h>
 #include <kmessagebox.h>

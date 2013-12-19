@@ -68,7 +68,6 @@
 
 #include <kconfig.h>
 #include <kcursor.h>
-#include <klocale.h>
 #include <kcharsets.h>
 #include <kmessagebox.h>
 #include <kstandardaction.h>

@@ -44,7 +44,6 @@ view needs to pull default settings from the main plugin config
 #include <QLabel>
 #include <KComboBox>
 #include <QVBoxLayout>
-#include <KLocale>
 #include <QCheckBox>
 #include <klocalizedstring.h>
 

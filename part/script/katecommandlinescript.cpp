@@ -24,7 +24,6 @@
 #include <QScriptEngine>
 
 #include <klocalizedstring.h>
-#include <klocale.h>
 
 #include "katedocument.h"
 #include "kateview.h"

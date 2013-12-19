@@ -27,7 +27,6 @@
 #include "katepartdebug.h"
 
 #include <kxmlguifactory.h>
-#include <klocale.h>
 
 //BEGIN KateScriptAction
 KateScriptAction::KateScriptAction(const ScriptActionInfo& info, KateView* view)

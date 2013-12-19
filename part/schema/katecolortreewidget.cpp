@@ -24,7 +24,6 @@
 #include <QtGui/QPainter>
 #include <QtWidgets/QHeaderView>
 
-#include <klocale.h>
 #include <kconfiggroup.h>
 #include <klocalizedstring.h>
 #include "katepartdebug.h"

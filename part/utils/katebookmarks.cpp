@@ -23,7 +23,6 @@
 #include "katedocument.h"
 #include "kateview.h"
 
-#include <klocale.h>
 #include <kactioncollection.h>
 #include <kguiitem.h>
 #include <kstringhandler.h>

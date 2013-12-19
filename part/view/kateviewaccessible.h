@@ -29,7 +29,6 @@
 #include "katedocument.h"
 
 #include <QAccessible>
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <qaccessiblewidget.h>
 

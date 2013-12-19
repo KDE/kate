@@ -31,7 +31,6 @@
 #include "katedocument.h"
 #include "katepartdebug.h"
 
-#include <klocale.h>
 #include <klocalizedstring.h>
 
 #include <cctype>

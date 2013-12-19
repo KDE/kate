@@ -19,18 +19,15 @@
 
 
 //BEGIN Includes
-// Qt
 #include <QtCore/QFile>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTextEdit>
+#include <QtCore/QStandardPaths>
 
-// KDE
-#include <KLocale>
 #include <klocalizedstring.h>
 
-// Kate
 #include "katescriptconsole.h"
 #include "katetemplatescript.h"
 //END Includes

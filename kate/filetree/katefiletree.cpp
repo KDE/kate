@@ -26,7 +26,6 @@
 #include <ktexteditor/document.h>
 #include <kate/application.h>
 #include <kate/documentmanager.h>
-#include <KLocale>
 
 #include <KMimeTypeTrader>
 #include <KOpenWithDialog>

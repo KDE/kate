@@ -33,8 +33,8 @@
 #include <KConfig>
 #include <KTipDialog>
 #include <KMessageBox>
-#include <KLocale>
 #include <KStartupInfo>
+#include <klocalizedstring.h>
 
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QFileInfo>

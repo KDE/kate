@@ -30,7 +30,6 @@
 
 #include <ktexteditor/view.h>
 
-#include <klocale.h>
 #include <klocalizedstring.h>
 #include <kstandardguiitem.h>
 

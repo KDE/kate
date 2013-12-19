@@ -276,7 +276,7 @@ void KateViewSpace::restoreConfig ( KateViewManager *viewMan, const KConfigBase*
 
 //BEGIN KateVSStatusBar
 KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
-    : KStatusBar( parent),
+    : QStatusBar( parent),
     m_viewSpace( parent )
 {
   QString lineColText = i18n(" Line: %1 Col: %2 ", QLocale().toString(4444), QLocale().toString(44));

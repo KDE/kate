@@ -25,11 +25,10 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/modificationinterface.h>
 
-#include <kstatusbar.h>
-
 #include <QtCore/QList>
 #include <QtGui/QPixmap>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QStatusBar>
 
 class KConfigBase;
 class KSqueezedTextLabel;
@@ -38,7 +37,7 @@ class KateViewSpace;
 class QStackedWidget;
 class QLabel;
 
-class KateVSStatusBar : public KStatusBar
+class KateVSStatusBar : public QStatusBar
 {
     Q_OBJECT
 

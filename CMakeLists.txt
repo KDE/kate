@@ -15,7 +15,7 @@ set (QT_MIN_VERSION "5.2.0")
 include (CheckFunctionExists)
 
 # KDE reqs
-find_package(ECM 0.0.8 REQUIRED NO_MODULE)
+find_package(ECM 0.0.9 REQUIRED NO_MODULE)
 
 include(CMakePackageConfigHelpers)
 include(FeatureSummary)

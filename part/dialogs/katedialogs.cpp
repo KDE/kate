@@ -1085,13 +1085,9 @@ KatePartPluginConfigPage::KatePartPluginConfigPage (QWidget *parent)
 
   plugins.clear();
 
-  int i = 0;
   foreach (const KatePartPluginInfo &info, KatePartPluginManager::self()->pluginList())
   {
-    KPluginInfo it(info.service());
-    it.setPluginEnabled(info.load);
-    plugins.append(it);
-    i++;
+    plugins.append( info.getKPluginInfo() );
   }
 
   selector = new KPluginSelector(0);
@@ -1116,12 +1112,12 @@ void KatePartPluginConfigPage::apply ()
   KatePartPluginList &katePluginList = KatePartPluginManager::self()->pluginList();
   for (int i=0; i < plugins.count(); i++) {
     if (plugins[i].isPluginEnabled()) {
-      if (!katePluginList[i].load) {
+      if (!katePluginList[i].isLoaded()) {
         KatePartPluginManager::self()->loadPlugin(katePluginList[i]);
         KatePartPluginManager::self()->enablePlugin(katePluginList[i]);
       }
     } else {
-      if (katePluginList[i].load) {
+      if (katePluginList[i].isLoaded()) {
         KatePartPluginManager::self()->disablePlugin(katePluginList[i]);
         KatePartPluginManager::self()->unloadPlugin(katePluginList[i]);
       }

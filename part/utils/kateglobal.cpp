@@ -47,6 +47,7 @@
 #include <kpagedialog.h>
 #include <kpagewidgetmodel.h>
 #include <kiconloader.h>
+#include <kconfiggroup.h>
 
 #include <QtCore/QPointer>
 #include <QtWidgets/QBoxLayout>

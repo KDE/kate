@@ -67,6 +67,7 @@
 #include <kparts/event.h>
 
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kcursor.h>
 #include <kcharsets.h>
 #include <kmessagebox.h>

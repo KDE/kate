@@ -32,7 +32,6 @@
 #include <KTextEditor/Editor>
 #include <KTextEditor/ContainerInterface>
 
-#include <KParts/Factory>
 #include <KCodecs>
 #include <KMessageBox>
 #include <KEncodingFileDialog>

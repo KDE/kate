@@ -70,6 +70,7 @@
 #include <kencodingfiledialog.h>
 #include <kcodecs.h>
 #include <kstringhandler.h>
+#include <kconfiggroup.h>
 
 #include <kservicetypetrader.h>
 

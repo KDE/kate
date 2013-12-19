@@ -31,7 +31,7 @@
 #include "katesession.h"
 #include "katedebug.h"
 
-#include <KTextEditor/ConfigPage>
+#include <ktexteditor/configpage.h>
 
 #include <kiconloader.h>
 #include <kstandardaction.h>

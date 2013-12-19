@@ -27,17 +27,17 @@
 #include "katesavemodifieddialog.h"
 #include "katedebug.h"
 
-#include <KTextEditor/View>
-#include <KTextEditor/SessionConfigInterface>
-#include <KTextEditor/Editor>
-#include <KTextEditor/ContainerInterface>
+#include <ktexteditor/view.h>
+#include <ktexteditor/sessionconfiginterface.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/containerinterface.h>
 
-#include <KCodecs>
-#include <KMessageBox>
-#include <KEncodingFileDialog>
-#include <KIO/DeleteJob>
-#include <KIconLoader>
-#include <KColorScheme>
+#include <kcodecs.h>
+#include <kmessagebox.h>
+#include <kencodingfiledialog.h>
+#include <kio/deletejob.h>
+#include <kiconloader.h>
+#include <kcolorscheme.h>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
 

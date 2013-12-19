@@ -28,14 +28,14 @@
 #include "katerunninginstanceinfo.h"
 #include "katedebug.h"
 
-#include <KDirWatch>
-#include <KIconLoader>
-#include <KMessageBox>
-#include <KCodecs>
-#include <KStandardGuiItem>
-#include <KActionCollection>
-#include <KIO/NetAccess>
-#include <KIO/CopyJob>
+#include <kdirwatch.h>
+#include <kiconloader.h>
+#include <kmessagebox.h>
+#include <kcodecs.h>
+#include <kstandardguiitem.h>
+#include <kactioncollection.h>
+#include <kio/netaccess.h>
+#include <kio/copyjob.h>
 #include <klocalizedstring.h>
 #include <ksharedconfig.h>
 #include <kconfiggroup.h>

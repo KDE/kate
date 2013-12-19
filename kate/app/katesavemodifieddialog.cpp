@@ -22,11 +22,11 @@
 #include "katedebug.h"
 
 
-#include <KGuiItem>
-#include <KStandardGuiItem>
-#include <KIconLoader>
-#include <KMessageBox>
-#include <KEncodingFileDialog>
+#include <kguiitem.h>
+#include <kstandardguiitem.h>
+#include <kiconloader.h>
+#include <kmessagebox.h>
+#include <kencodingfiledialog.h>
 #include <klocalizedstring.h>
 
 #include <QtWidgets/QLabel>

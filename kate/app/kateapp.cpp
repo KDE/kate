@@ -30,10 +30,10 @@
 
 #include <kate/application.h>
 
-#include <KConfig>
-#include <KTipDialog>
-#include <KMessageBox>
-#include <KStartupInfo>
+#include <kconfig.h>
+#include <ktip.h>
+#include <kmessagebox.h>
+#include <kstartupinfo.h>
 #include <klocalizedstring.h>
 
 #include <QtCore/QCommandLineParser>

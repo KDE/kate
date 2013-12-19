@@ -38,30 +38,30 @@
 
 #include <kate/mainwindow.h>
 
-#include <KAboutApplicationDialog>
-#include <KEditToolBar>
-#include <KShortcutsDialog>
-#include <KMessageBox>
-#include <KOpenWithDialog>
+#include <kaboutapplicationdialog.h>
+#include <kedittoolbar.h>
+#include <kshortcutsdialog.h>
+#include <kmessagebox.h>
+#include <kopenwithdialog.h>
 #include <kstandardaction.h>
-#include <KMimeTypeTrader>
-#include <KMultiTabBar>
-#include <KTipDialog>
+#include <kmimetypetrader.h>
+#include <kmultitabbar.h>
+#include <ktip.h>
 #include <khelpclient.h>
-#include <KRun>
-#include <KRecentFilesAction>
-#include <KToggleFullScreenAction>
-#include <KActionCollection>
-#include <KAboutData>
+#include <krun.h>
+#include <krecentfilesaction.h>
+#include <ktogglefullscreenaction.h>
+#include <kactioncollection.h>
+#include <kaboutdata.h>
 #include <kwindowsystem.h>
-#include <KToolBar>
+#include <ktoolbar.h>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
 #include <kwindowconfig.h>
 
 #include <kio/job.h>
-#include <KIO/ListJob>
-#include <KFileItem>
+#include <kio/jobclasses.h>
+#include <kfileitem.h>
 
 #include <QDesktopWidget>
 #include <QtCore/QEvent>

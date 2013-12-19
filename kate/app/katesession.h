@@ -19,7 +19,7 @@
 #ifndef __KATE_SESSION_H__
 #define __KATE_SESSION_H__
 
-#include <KActionMenu>
+#include <kactionmenu.h>
 
 #include <QtCore/QExplicitlySharedDataPointer>
 #include <QtWidgets/QDialog>

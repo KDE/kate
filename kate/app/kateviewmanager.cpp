@@ -28,26 +28,26 @@
 
 #include <kate/mainwindow.h>
 
-#include <KTextEditor/View>
-#include <KTextEditor/Document>
-#include <KTextEditor/Attribute>
-#include <KTextEditor/HighlightInterface>
+#include <ktexteditor/view.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/attribute.h>
+#include <ktexteditor/highlightinterface.h>
 
-#include <KActionCollection>
+#include <kactioncollection.h>
 #include "katedebug.h"
-#include <KEncodingFileDialog>
-#include <KIconLoader>
-#include <KToolBar>
-#include <KMessageBox>
-#include <KRecentFilesAction>
-#include <KConfig>
-#include <KConfigGroup>
+#include <kencodingfiledialog.h>
+#include <kiconloader.h>
+#include <ktoolbar.h>
+#include <kmessagebox.h>
+#include <krecentfilesaction.h>
+#include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kstandardaction.h>
 #include <kstandardshortcut.h>
 #include <klocalizedstring.h>
 
 #ifdef KActivities_FOUND
-#include <KActivities/ResourceInstance>
+#include <kactivities/resourceinstance.h>
 #endif
 
 #include <QApplication>

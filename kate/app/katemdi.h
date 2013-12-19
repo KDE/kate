@@ -26,9 +26,9 @@
 #include <kparts/mainwindow.h>
 
 
-#include <KMultiTabBar>
-#include <KXMLGUIClient>
-#include <KToggleAction>
+#include <kmultitabbar.h>
+#include <kxmlguiclient.h>
+#include <ktoggleaction.h>
 
 #include <QMap>
 #include <QSplitter>

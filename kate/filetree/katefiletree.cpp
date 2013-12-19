@@ -27,10 +27,10 @@
 #include <kate/application.h>
 #include <kate/documentmanager.h>
 
-#include <KMimeTypeTrader>
-#include <KOpenWithDialog>
-#include <KRun>
-#include <KMessageBox>
+#include <kmimetypetrader.h>
+#include <kopenwithdialog.h>
+#include <krun.h>
+#include <kmessagebox.h>
 #include <klocalizedstring.h>
 
 #include <QtCore/QMimeDatabase>

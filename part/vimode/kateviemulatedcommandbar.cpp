@@ -30,13 +30,15 @@
 #include <katecmds.h>
 #include "katepartdebug.h"
 
+#include <kcolorscheme.h>
+
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QCompleter>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QAbstractItemView>
-#include <KDE/KColorScheme>
+
 #include <algorithm>
 
 namespace

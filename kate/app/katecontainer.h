@@ -24,7 +24,7 @@
 #ifndef _KATE_CONTAINER_
 #define _KATE_CONTAINER_
 
-#include <KTextEditor/ContainerInterface>
+#include <ktexteditor/containerinterface.h>
 
 class KateApp;
 class QWidget;

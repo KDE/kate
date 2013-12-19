@@ -23,7 +23,7 @@
 
 #include <kselectaction.h>
 #include <klineedit.h>
-#include <KActionMenu>
+#include <kactionmenu.h>
 
 #include <QtGui/QPixmap>
 #include <QtGui/QColor>

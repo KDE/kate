@@ -22,17 +22,17 @@
 
 #include "snippetcompletionmodel.h"
 
-#include <KTextEditor/Document>
-#include <KTextEditor/View>
+#include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
 
-#include <KTextEditor/HighlightInterface>
+#include <ktexteditor/highlightinterface.h>
 
 #include "snippetstore.h"
 #include "snippetrepository.h"
 #include "snippet.h"
 #include "snippetcompletionitem.h"
 
-#include <KLocalizedString>
+#include <klocalizedstring.h>
 
 SnippetCompletionModel::SnippetCompletionModel()
     : KTextEditor::CodeCompletionModel2(0)

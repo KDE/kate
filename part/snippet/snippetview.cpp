@@ -24,7 +24,7 @@
 #include "snippetview.h"
 
 #include <QtGui/QContextMenuEvent>
-#include <KMessageBox>
+#include <kmessagebox.h>
 
 #include "snippet.h"
 #include "katesnippetglobal.h"
@@ -35,7 +35,7 @@
 #include "snippetfilterproxymodel.h"
 #include "katepartdebug.h"
 
-#include <KNS3/DownloadDialog>
+#include <knewstuff3/downloaddialog.h>
 #include <knewstuff3/uploaddialog.h>
 
 SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)

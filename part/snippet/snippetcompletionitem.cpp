@@ -22,8 +22,8 @@
 
 #include "snippetcompletionitem.h"
 
-#include <KTextEditor/Document>
-#include <KLocalizedString>
+#include <ktexteditor/document.h>
+#include <klocalizedstring.h>
 #include <QtWidgets/QTextEdit>
 #include <QtCore/QModelIndex>
 

@@ -19,7 +19,7 @@
 #ifndef KATE_FILETREE_PLUGIN_SETTINGS_H
 #define KATE_FILETREE_PLUGIN_SETTINGS_H
 
-#include <KConfigGroup>
+#include <kconfiggroup.h>
 #include <QColor>
 
 // Geh, should make this into a proper class, setters and getters.

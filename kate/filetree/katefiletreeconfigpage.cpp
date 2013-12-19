@@ -40,9 +40,9 @@ view needs to pull default settings from the main plugin config
 #include "katefiletreeproxymodel.h"
 
 #include <QGroupBox>
-#include <KColorButton>
+#include <kcolorbutton.h>
 #include <QLabel>
-#include <KComboBox>
+#include <kcombobox.h>
 #include <QVBoxLayout>
 #include <QCheckBox>
 #include <klocalizedstring.h>

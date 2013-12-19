@@ -49,7 +49,7 @@
 #include <kconfiggui.h>
 
 #ifdef KActivities_FOUND
-#include <KActivities/ResourceInstance>
+#include <kactivities/resourceinstance.h>
 #endif
 
 #include <QtCore/QTimer>

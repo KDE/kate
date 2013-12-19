@@ -23,10 +23,10 @@
 
 #include "katemdi.h"
 
-#include <KTextEditor/View>
-#include <KTextEditor/Document>
+#include <ktexteditor/view.h>
+#include <ktexteditor/document.h>
 
-#include <KParts/Part>
+#include <kparts/part.h>
 
 #include <QDragEnterEvent>
 #include <QEvent>

@@ -22,9 +22,9 @@
 
 #include <kate/documentmanager.h>
 
-#include <KTextEditor/Document>
-#include <KTextEditor/Editor>
-#include <KTextEditor/ModificationInterface>
+#include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/modificationinterface.h>
 
 #include <QList>
 #include <QObject>

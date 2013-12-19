@@ -21,7 +21,7 @@
  */
 #include "katesnippetglobal.h"
 
-#include <KTextEditor/HighlightInterface>
+#include <ktexteditor/highlightinterface.h>
 
 #include "snippetview.h"
 #include "snippetcompletionmodel.h"

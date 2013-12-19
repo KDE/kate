@@ -20,7 +20,7 @@
 #ifndef _KATE_MW_MODONHD_DIALOG_H_
 #define _KATE_MW_MODONHD_DIALOG_H_
 
-#include <KTextEditor/Document>
+#include <ktexteditor/document.h>
 
 #include <QtCore/QVector>
 #include <QtWidgets/QDialog>

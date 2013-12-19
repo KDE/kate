@@ -19,7 +19,7 @@
 #ifndef _KATE_SAVE_MODIFIED_DIALOG_
 #define _KATE_SAVE_MODIFIED_DIALOG_
 
-#include <KTextEditor/Document>
+#include <ktexteditor/document.h>
 
 #include <QtCore/QList>
 #include <QtWidgets/QDialog>

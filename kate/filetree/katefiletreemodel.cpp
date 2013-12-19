@@ -24,8 +24,8 @@
 #include <QtCore/QMimeDatabase>
 #include <QtGui/QIcon>
 
-#include <KColorScheme>
-#include <KColorUtils>
+#include <kcolorscheme.h>
+#include <kcolorutils.h>
 #include <klocalizedstring.h>
 #include <kiconutils.h>
 

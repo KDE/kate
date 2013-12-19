@@ -24,11 +24,11 @@
 #include <kate/plugin.h>
 #include <kate/pluginconfigpageinterface.h>
 
-#include <KTextEditor/Editor>
-#include <KTextEditor/Document>
-#include <KTextEditor/View>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/view.h>
 
-#include <KPageDialog>
+#include <kpagedialog.h>
 #include <QList>
 
 class QCheckBox;

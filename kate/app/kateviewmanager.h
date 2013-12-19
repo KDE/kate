@@ -24,8 +24,8 @@
 #include "katedocmanager.h"
 
 
-#include <KTextEditor/View>
-#include <KTextEditor/Document>
+#include <ktexteditor/view.h>
+#include <ktexteditor/document.h>
 
 #include <QPointer>
 #include <QList>

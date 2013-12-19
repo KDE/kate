@@ -14,7 +14,7 @@ set (QT_MIN_VERSION "5.2.0")
 
 include (CheckFunctionExists)
 
-# KDE reqs
+# ECM
 find_package(ECM 0.0.9 REQUIRED NO_MODULE)
 
 include(CMakePackageConfigHelpers)
@@ -33,26 +33,17 @@ include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)
 include(ECMSetupVersion)
 
-find_package(Qt5Core REQUIRED NO_MODULE)
-find_package(Qt5DBus REQUIRED NO_MODULE)
-find_package(Qt5Quick REQUIRED NO_MODULE)
-find_package(Qt5Widgets REQUIRED NO_MODULE)
-find_package(Qt5Script REQUIRED NO_MODULE)
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Quick Widgets Script)
 
 # Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED
-    IdleTime ItemModels WidgetsAddons WindowSystem Codecs Archive CoreAddons Solid ThreadWeaver
-    Config Auth JS Wallet DBusAddons Sonnet
-    I18n GuiAddons Service ConfigWidgets ItemViews Notifications IconThemes Style Completion JobWidgets TextWidgets GlobalAccel XmlGui Crash
-    Bookmarks UnitConversion KIO KCMUtils Parts NotifyConfig PrintUtils Su DocTools NewStuff )
+find_package(KF5 CONFIG REQUIRED COMPONENTS 
+                                            Archive Auth Bookmarks Codecs Completion Config
+                                            ConfigWidgets CoreAddons Crash DBusAddons Declarative DocTools GlobalAccel GuiAddons
+                                            I18n IconThemes IdleTime Init ItemModels ItemViews JS JobWidgets KCMUtils KDE4Support
+                                            KIO NewStuff Notifications NotifyConfig Parts PrintUtils Service Solid Sonnet Style Su
+                                            TextWidgets ThreadWeaver UnitConversion Wallet WidgetsAddons WindowSystem XmlGui
+)
 
-find_package(KF5Declarative REQUIRED NO_MODULE)
-find_package(KF5KIO REQUIRED NO_MODULE)
-
-find_package(KF5Init)
-
-# needed for set_package_properties macro
-find_package(KF5KDE4Support REQUIRED NO_MODULE)
 find_package(Qt5Transitional MODULE)
 
 # config.h

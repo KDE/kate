@@ -46,9 +46,6 @@
 #include <QtWidgets/QStyle>
 #include <QtXml/QDomDocument>
 
-#include <khbox.h>
-#include <kvbox.h>
-
 namespace KateMDI
 {
 
@@ -722,23 +719,35 @@ namespace KateMDI
       , m_guiClient (new GUIClient (this))
   {
     // init the internal widgets
-    KHBox *hb = new KHBox (this);
+    QFrame *hb = new QFrame(this);
+    QHBoxLayout *hlayout = new QHBoxLayout(hb);
+    hlayout->setMargin(0);
+    hlayout->setSpacing(0);
+
     setCentralWidget(hb);
 
     m_sidebars[KMultiTabBar::Left] = new Sidebar (KMultiTabBar::Left, this, hb);
+    hlayout->addWidget(m_sidebars[KMultiTabBar::Left]);
 
     m_hSplitter = new QSplitter (Qt::Horizontal, hb);
     m_hSplitter->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, m_hSplitter));
+    hlayout->addWidget(m_hSplitter);
 
     m_sidebars[KMultiTabBar::Left]->setSplitter (m_hSplitter);
 
-    KVBox *vb = new KVBox (m_hSplitter);
+    QFrame *vb = new QFrame(m_hSplitter);
+    QVBoxLayout *vlayout = new QVBoxLayout(vb);
+    vlayout->setMargin(0);
+    vlayout->setSpacing(0);
+
     m_hSplitter->setCollapsible( m_hSplitter->indexOf(vb), false);
     m_hSplitter->setStretchFactor( m_hSplitter->indexOf(vb), 1);
 
     m_sidebars[KMultiTabBar::Top] = new Sidebar (KMultiTabBar::Top, this, vb);
+    vlayout->addWidget(m_sidebars[KMultiTabBar::Top]);
 
     m_vSplitter = new QSplitter (Qt::Vertical, vb);
+    vlayout->addWidget(m_vSplitter);
     m_vSplitter->setOpaqueResize(style()->styleHint(QStyle::SH_Splitter_OpaqueResize, 0, m_vSplitter));
 
     m_sidebars[KMultiTabBar::Top]->setSplitter (m_vSplitter);
@@ -752,9 +761,11 @@ namespace KateMDI
     m_vSplitter->setStretchFactor( m_vSplitter->indexOf(m_centralWidget), 1);
 
     m_sidebars[KMultiTabBar::Bottom] = new Sidebar (KMultiTabBar::Bottom, this, vb);
+    vlayout->addWidget(m_sidebars[KMultiTabBar::Bottom]);
     m_sidebars[KMultiTabBar::Bottom]->setSplitter (m_vSplitter);
 
     m_sidebars[KMultiTabBar::Right] = new Sidebar (KMultiTabBar::Right, this, hb);
+    hlayout->addWidget(m_sidebars[KMultiTabBar::Right]);
     m_sidebars[KMultiTabBar::Right]->setSplitter (m_hSplitter);
 
     for (int i=0;i<4;i++)

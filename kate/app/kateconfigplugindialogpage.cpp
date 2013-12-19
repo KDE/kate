@@ -25,6 +25,8 @@
 #include "kateconfigdialog.h"
 #include <klocalizedstring.h>
 
+#include <QtWidgets/QVBoxLayout>
+
 class KatePluginListItem : public QTreeWidgetItem
 {
   public:
@@ -64,10 +66,16 @@ void KatePluginListView::stateChanged(QTreeWidgetItem *item)
 }
 
 KateConfigPluginPage::KateConfigPluginPage(QWidget *parent, KateConfigDialog *dialog)
-    : KVBox(parent)
+    : QFrame(parent)
     , myDialog(dialog)
 {
+  QVBoxLayout *layout = new QVBoxLayout(this);
+  layout->setSpacing(0);
+  layout->setMargin(0);
+
   KatePluginListView* listView = new KatePluginListView(this);
+  layout->addWidget(listView);
+
   QStringList headers;
     headers << i18n("Name") << i18n("Comment");
   listView->setHeaderLabels(headers);

@@ -21,8 +21,8 @@
 #ifndef __KATE_CONFIGPLUGINDIALOGPAGE_H__
 #define __KATE_CONFIGPLUGINDIALOGPAGE_H__
 
-#include <KVBox>
-#include <QTreeWidget>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QTreeWidget>
 
 class KatePluginListItem;
 
@@ -40,7 +40,7 @@ class KatePluginListView : public QTreeWidget
     void stateChanged(QTreeWidgetItem *);
 };
 
-class KateConfigPluginPage: public KVBox
+class KateConfigPluginPage: public QFrame
 {
     Q_OBJECT
 

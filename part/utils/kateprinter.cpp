@@ -37,7 +37,6 @@
 
 #include <kcolorbutton.h>
 #include <kconfiggroup.h>
-#include <klocale.h>
 #include <kdeprintdialog.h>
 #include <kuser.h> // for loginName
 #include <klineedit.h>
@@ -54,8 +53,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLayout>
 #include <QtWidgets/QSpinBox>
-
-#include <kvbox.h>
 
 //BEGIN KatePrinter
 void KatePrinter::readSettings(QPrinter& printer)
@@ -779,13 +776,17 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   QLabel *lHeaderFormat = new QLabel( i18n("&Format:"), gbHeader );
   grid->addWidget(lHeaderFormat, 0, 0);
 
-  KHBox *hbHeaderFormat = new KHBox( gbHeader );
+  QFrame *hbHeaderFormat = new QFrame( gbHeader );
+  QHBoxLayout *layoutFormat = new QHBoxLayout( hbHeaderFormat );
   grid->addWidget(hbHeaderFormat, 0, 1);
 
   leHeaderLeft = new KLineEdit( hbHeaderFormat );
+  layoutFormat->addWidget(leHeaderLeft);
   leHeaderCenter = new KLineEdit( hbHeaderFormat );
+  layoutFormat->addWidget(leHeaderCenter);
   leHeaderRight = new KLineEdit( hbHeaderFormat );
   lHeaderFormat->setBuddy( leHeaderLeft );
+  layoutFormat->addWidget(leHeaderRight);
 
   leHeaderLeft->setContextMenuPolicy(Qt::CustomContextMenu);
   leHeaderCenter->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -796,15 +797,20 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
 
   grid->addWidget(new QLabel( i18n("Colors:"), gbHeader ), 1, 0);
 
-  KHBox *hbHeaderColors = new KHBox( gbHeader );
+  QFrame *hbHeaderColors = new QFrame( gbHeader );
+  QHBoxLayout *layoutColors = new QHBoxLayout( hbHeaderColors );
+  layoutColors->setSpacing( -1 );
   grid->addWidget(hbHeaderColors, 1, 1);
 
-  hbHeaderColors->setSpacing( -1 );
   QLabel *lHeaderFgCol = new QLabel( i18n("Foreground:"), hbHeaderColors );
+  layoutColors->addWidget(lHeaderFgCol);
   kcbtnHeaderFg = new KColorButton( hbHeaderColors );
+  layoutColors->addWidget(kcbtnHeaderFg);
   lHeaderFgCol->setBuddy( kcbtnHeaderFg );
   cbHeaderEnableBgColor = new QCheckBox( i18n("Bac&kground"), hbHeaderColors );
+  layoutColors->addWidget(cbHeaderEnableBgColor);
   kcbtnHeaderBg = new KColorButton( hbHeaderColors );
+  layoutColors->addWidget(kcbtnHeaderBg);
 
   gbFooter = new QGroupBox( this );
   gbFooter->setTitle(i18n("Footer Properties"));
@@ -815,13 +821,17 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
   QLabel *lFooterFormat = new QLabel( i18n("For&mat:"), gbFooter );
   grid->addWidget(lFooterFormat, 0, 0);
 
-  KHBox *hbFooterFormat = new KHBox( gbFooter );
+  QFrame *hbFooterFormat = new QFrame( gbFooter );
+  layoutFormat = new QHBoxLayout( hbFooterFormat );
+  layoutFormat->setSpacing( -1 );
   grid->addWidget(hbFooterFormat, 0, 1);
 
-  hbFooterFormat->setSpacing( -1 );
   leFooterLeft = new KLineEdit( hbFooterFormat );
+  layoutFormat->addWidget(leFooterLeft);
   leFooterCenter = new KLineEdit( hbFooterFormat );
+  layoutFormat->addWidget(leFooterCenter);
   leFooterRight = new KLineEdit( hbFooterFormat );
+  layoutFormat->addWidget(leFooterRight);
   lFooterFormat->setBuddy( leFooterLeft );
   
   leFooterLeft->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -833,15 +843,20 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
 
   grid->addWidget(new QLabel( i18n("Colors:"), gbFooter ), 1, 0);
 
-  KHBox *hbFooterColors = new KHBox( gbFooter );
+  QFrame *hbFooterColors = new QFrame( gbFooter );
+  layoutColors = new QHBoxLayout( hbFooterColors );
+  layoutColors->setSpacing( -1 );
   grid->addWidget(hbFooterColors, 1, 1);
 
-  hbFooterColors->setSpacing( -1 );
   QLabel *lFooterBgCol = new QLabel( i18n("Foreground:"), hbFooterColors );
+  layoutColors->addWidget(lFooterBgCol);
   kcbtnFooterFg = new KColorButton( hbFooterColors );
+  layoutColors->addWidget(kcbtnFooterFg);
   lFooterBgCol->setBuddy( kcbtnFooterFg );
   cbFooterEnableBgColor = new QCheckBox( i18n("&Background"), hbFooterColors );
+  layoutColors->addWidget(cbFooterEnableBgColor);
   kcbtnFooterBg = new KColorButton( hbFooterColors );
+  layoutColors->addWidget(kcbtnFooterBg);
 
   lo->addStretch( 1 );
 

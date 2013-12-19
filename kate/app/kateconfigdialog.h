@@ -30,10 +30,10 @@
 
 #include <KPageDialog>
 #include <QList>
-#include <QRadioButton>
 
 class QCheckBox;
 class QSpinBox;
+class QRadioButton;
 class KateMainWindow;
 
 struct PluginPageListItem

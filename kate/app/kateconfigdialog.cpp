@@ -35,17 +35,16 @@
 
 #include <kiconloader.h>
 #include <kstandardaction.h>
-#include <KVBox>
 #include <klocalizedstring.h>
 #include <kconfiggroup.h>
 
-#include <QCheckBox>
-#include <QLabel>
-#include <QRadioButton>
-#include <QSpinBox>
-#include <QVBoxLayout>
-#include <QFrame>
-#include <QGroupBox>
+#include <QtWidgets/QCheckBox>
+#include <QtWidgets/QFrame>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QVBoxLayout>
 
 KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *view )
     : KPageDialog( parent )
@@ -117,13 +116,17 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   vbox->addWidget(m_saveMetaInfos);
 
   // meta infos days
-  KHBox *metaInfos = new KHBox( buttonGroup );
+  QFrame *metaInfos = new QFrame( buttonGroup );
+  QHBoxLayout *hlayout = new QHBoxLayout(metaInfos);
+
   metaInfos->setEnabled(KateDocManager::self()->getSaveMetaInfos());
   QLabel *label = new QLabel( i18n("&Delete unused meta-information after:"), metaInfos );
+  hlayout->addWidget(label);
   m_daysMetaInfos = new QSpinBox( metaInfos );
   m_daysMetaInfos->setMaximum( 180 );
   m_daysMetaInfos->setSpecialValueText(i18n("(never)"));
   m_daysMetaInfos->setValue( KateDocManager::self()->getDaysMetaInfos() );
+  hlayout->addWidget(m_daysMetaInfos);
   label->setBuddy( m_daysMetaInfos );
   connect( m_saveMetaInfos, SIGNAL(toggled(bool)), metaInfos, SLOT(setEnabled(bool)) );
   connect( m_daysMetaInfos, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()) );
@@ -188,9 +191,13 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   //END Session page
 
   //BEGIN Plugins page
-  KVBox *page = new KVBox();
-  page->setSpacing( -1 );
+  QFrame *page = new QFrame(this);
+  QVBoxLayout *vlayout = new QVBoxLayout(page);
+  vlayout->setMargin(0);
+  vlayout->setSpacing(0);
+
   KateConfigPluginPage *configPluginPage = new KateConfigPluginPage(page, this);
+  vlayout->addWidget(configPluginPage);
   connect( configPluginPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
 
   item = addSubPage( applicationItem, page, i18n("Plugins") );
@@ -248,8 +255,10 @@ void KateConfigDialog::addPluginPage (Kate::Plugin *plugin)
 
   for (uint i = 0; i < Kate::pluginConfigPageInterface(plugin)->configPages(); i++)
   {
-    KVBox *page = new KVBox();
-    page->setSpacing( -1 );
+    QFrame *page = new QFrame();
+    QVBoxLayout *layout = new QVBoxLayout(page);
+    layout->setSpacing(0);
+    layout->setMargin(0);
 
     KPageWidgetItem *item = addSubPage( m_applicationPage, page, Kate::pluginConfigPageInterface(plugin)->configPageName(i) );
     item->setHeader( Kate::pluginConfigPageInterface(plugin)->configPageFullName(i) );
@@ -274,6 +283,7 @@ void KateConfigDialog::slotCurrentPageChanged( KPageWidgetItem *current, KPageWi
   if (info->pluginPage) return;
   qCDebug(LOG_KATE)<<"creating config page";
   info->pluginPage=info->configPageInterface->configPage(info->idInPlugin,info->pageParent);
+  info->pageParent->layout()->addWidget(info->pluginPage);
   info->pluginPage->show();
   connect( info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
 }

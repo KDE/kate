@@ -19,7 +19,7 @@
 #ifndef _KATE_MAINWINDOW_INCLUDE_
 #define _KATE_MAINWINDOW_INCLUDE_
 
-#include <kate_export.h>
+#include <kateinterfaces_export.h>
 
 #include <QtCore/QObject>
 #include <QtGui/QPixmap>

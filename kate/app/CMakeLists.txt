@@ -26,7 +26,6 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp
    )
 
 
-
 add_library (kateinterfaces SHARED ${kateinterfaces_LIB_SRCS})
 
 target_link_libraries (kateinterfaces ktexteditor
@@ -37,7 +36,11 @@ target_link_libraries (kateinterfaces ktexteditor
 
 set_target_properties(kateinterfaces PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
 
+generate_export_header(kateinterfaces)
+
 install(TARGETS kateinterfaces ${INSTALL_TARGETS_DEFAULT_ARGS} )
+
+install(FILES ${PROJECT_BINARY_DIR}/app/kateinterfaces_export.h DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
 #
 # Kate Application

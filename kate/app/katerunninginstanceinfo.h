@@ -20,7 +20,7 @@
 #ifndef _KATE_RUNNING_INSTANCE_INFO_
 #define _KATE_RUNNING_INSTANCE_INFO_
 
-#include <kate_export.h>
+#include <kateinterfaces_export.h>
 
 #include <QMap>
 #include <QDBusInterface>
@@ -72,8 +72,8 @@ class KateRunningInstanceInfo: public QObject {
 typedef QMap<QString, KateRunningInstanceInfo*> KateRunningInstanceMap;
 
 
-KDE_EXPORT bool fillinRunningKateAppInstances(KateRunningInstanceMap *map);
-KDE_EXPORT void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map);
+Q_DECL_EXPORT bool fillinRunningKateAppInstances(KateRunningInstanceMap *map);
+Q_DECL_EXPORT void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map);
 
 #endif
 

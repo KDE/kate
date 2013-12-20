@@ -203,7 +203,7 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
  * \return the plugin or NULL if it could not be loaded
  */
 #ifndef KDE_NO_DEPRECATED
-KTEXTEDITOR_EXPORT_DEPRECATED Plugin *createPlugin ( KService::Ptr service, QObject *parent );
+KTEXTEDITOR_DEPRECATED_EXPORT Plugin *createPlugin ( KService::Ptr service, QObject *parent );
 #endif
 
 }

@@ -235,6 +235,11 @@ set_target_properties(
   SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
+generate_export_header(katepartinterfaces
+  EXPORT_FILE_NAME katepartprivate_export.h
+  EXPORT_MACRO_NAME KATEPART_TESTS_EXPORT
+)
+
 # install kate part interfaces
 install (TARGETS katepartinterfaces EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 

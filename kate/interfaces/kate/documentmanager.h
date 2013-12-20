@@ -19,7 +19,7 @@
 #ifndef DOCUMENTMANAGER_H
 #define DOCUMENTMANAGER_H
 
-#include <kate_export.h>
+#include <kateinterfaces_export.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QUrl>

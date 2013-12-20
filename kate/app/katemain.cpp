@@ -23,7 +23,7 @@
 
 #include "kateapp.h"
 #include "katerunninginstanceinfo.h"
-#include <kate_export.h>
+#include <kateinterfaces_export.h>
 
 #include <kaboutdata.h>
 #include <klocalizedstring.h>
@@ -75,7 +75,7 @@ class KateWaiter : public QObject {
 };
 
 
-extern "C" KDE_EXPORT int kdemain( int argc, char **argv )
+extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
 {
   QLoggingCategory::setFilterRules(QStringLiteral("kate = true"));
 

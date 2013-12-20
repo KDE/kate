@@ -4,7 +4,6 @@ ecm_setup_version(5.0.0 VARIABLE_PREFIX KTEXTEDITOR
 
 # KTextEditor interface header
 set(KTEXTEDITOR_PUBLIC_HEADERS
-    ktexteditor_export.h
     factory.h
     editor.h
     document.h
@@ -75,11 +74,15 @@ set_target_properties(ktexteditor
    SOVERSION ${GENERIC_LIB_SOVERSION}
 )
 
+generate_export_header(ktexteditor)
+
 install(TARGETS ktexteditor EXPORT KTextEditor ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 ########### install files ###############
 install( FILES ${KTEXTEDITOR_PUBLIC_HEADERS}
     DESTINATION  ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
+
+install(FILES ${PROJECT_BINARY_DIR}/ktexteditor/ktexteditor_export.h DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
 
 install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
 

@@ -646,7 +646,7 @@ void KWrite::modeChanged ( KTextEditor::Document *document )
   m_modeLabel->setText(mode);
 }
 
-extern "C" KDE_EXPORT int kdemain(int argc, char **argv)
+extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 {
   QLoggingCategory::setFilterRules(QStringLiteral("kwrite = true"));
 

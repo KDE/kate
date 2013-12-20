@@ -19,7 +19,7 @@
 #ifndef kate_pluginconfigpageinterface_h
 #define kate_pluginconfigpageinterface_h
 
-#include <kate_export.h>
+#include <kateinterfaces_export.h>
 
 #include <QtGui/QIcon>
 #include <QtGui/QPixmap>

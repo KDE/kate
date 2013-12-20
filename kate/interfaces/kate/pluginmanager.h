@@ -20,7 +20,7 @@
 #ifndef _KATE_PLUGINMANAGER_INCLUDE_
 #define _KATE_PLUGINMANAGER_INCLUDE_
 
-#include <kate_export.h>
+#include <kateinterfaces_export.h>
 
 #include <QtCore/QObject>
 

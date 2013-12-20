@@ -25,6 +25,7 @@ Name[uk]=Автодоповнення Python
 Name[x-test]=xxPython Autocompletionxx
 Name[zh_TW]=Python 自動補完
 Comment=Beta, only for Python 2
+Comment[cs]=Beta, pouze pro Python 2
 Comment[de]=Beta, nur für Python 2
 Comment[es]=Beta, solo para Python 2
 Comment[fi]=Beeta, vain Python 2:lle

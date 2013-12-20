@@ -219,7 +219,7 @@ snippet/editrepository.ui
 snippet/editsnippet.ui
 )
 
-kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
+qt5_wrap_ui(katepart_PART_SRCS ${katepart_PART_UI} )
 
 add_library (katepartinterfaces SHARED ${katepart_PART_SRCS} )
 

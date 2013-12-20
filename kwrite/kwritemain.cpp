@@ -40,7 +40,6 @@
 #include <kmessagebox.h>
 #include <krecentfilesaction.h>
 #include <kshortcutsdialog.h>
-#include <kstatusbar.h>
 #include <kstandardaction.h>
 #include <ksqueezedtextlabel.h>
 #include <kstringhandler.h>
@@ -58,6 +57,8 @@
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QLoggingCategory>
 #include <QtWidgets/QApplication>
+#include <QLabel>
+#include <QStatusBar>
 
 QList<KTextEditor::Document*> KWrite::docList;
 QList<KWrite*> KWrite::winList;

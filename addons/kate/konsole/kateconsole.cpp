@@ -211,10 +211,8 @@ void KateConsole::slotDestroyed ()
   m_currentPath.clear ();
 
   // hide the dockwidget
-  if (parentWidget())
-  {
+  if (parentWidget()) {
     m_mw->hideToolView (m_toolView);
-//     m_mw->centralWidget()->setFocus (); // FIXME KF5: restore focus
   }
 }
 

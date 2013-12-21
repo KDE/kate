@@ -47,8 +47,6 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
                                             TextWidgets ThreadWeaver UnitConversion Wallet WidgetsAddons WindowSystem XmlGui
 )
 
-find_package(Qt5Transitional MODULE)
-
 # config.h
 if(NOT APPLE)
   check_function_exists (fdatasync HAVE_FDATASYNC)

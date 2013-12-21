@@ -1,6 +1,7 @@
 # Kate project
 project (kate)
 
+# set the kate version, used for part / kate / kwrite
 set(KATE_VERSION_MAJOR 5)
 set(KATE_VERSION_MINOR 0)
 set(KATE_VERSION_MICRO 0)

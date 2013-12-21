@@ -221,12 +221,6 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     static void decRef () { if (s_ref > 0) --s_ref; if (s_ref == 0) { delete s_self; s_self = 0L; } }
 
     /**
-     * Returns the current version of Kate Part: KDE X.Y.Z contains Kate Part X-1.Y
-     * @return version of type x.y, e.g. 3.2
-     */
-    static QString katePartVersion();
-
-    /**
      * register document at the factory
      * this allows us to loop over all docs for example on config changes
      * @param doc document to register

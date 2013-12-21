@@ -21,6 +21,8 @@
 
 #include "katescriptmanager.h"
 
+#include "config.h"
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -96,8 +98,8 @@ void KateScriptManager::collect(bool force)
   {
     KConfigGroup config(&cfgFile, "General");
     // If KatePart version does not match, better force a true reload
-    if(KateGlobal::katePartVersion() != config.readEntry("kate-version", QString("0.0"))) {
-      config.writeEntry("kate-version", KateGlobal::katePartVersion());
+    if(QString(KATE_VERSION) != config.readEntry("kate-version")) {
+      config.writeEntry("kate-version", QString(KATE_VERSION));
       force = true;
     }
   }

@@ -22,6 +22,8 @@
 #include "kateglobal.h"
 #include "kateglobal.moc"
 
+#include "config.h"
+
 #include "katedocument.h"
 #include "kateview.h"
 #include "katerenderer.h"
@@ -59,14 +61,9 @@ int KateGlobal::s_ref = 0;
 
 Q_LOGGING_CATEGORY(LOG_PART, "katepart")
 
-QString KateGlobal::katePartVersion()
-{
-  return QString("3.7");
-}
-
 KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
- , m_aboutData (QString ("katepart"), QString(), i18n("Kate Part"), katePartVersion(),
+ , m_aboutData (QString ("katepart"), QString(), i18n("Kate Part"), QLatin1String (KATE_VERSION),
              i18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QString ("http://www.kate-editor.org"))
  , m_snippetGlobal (0) // lazy constructed

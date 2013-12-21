@@ -29,8 +29,7 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp
 add_library (kateinterfaces SHARED ${kateinterfaces_LIB_SRCS})
 
 target_link_libraries (kateinterfaces ktexteditor
-    KF5::Parts
-    KF5::KDE4Support
+    KF5::Parts KF5::I18n KF5::WindowSystem KF5::IconThemes KF5::KIOFileWidgets KF5::GuiAddons
     KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews
 )
 

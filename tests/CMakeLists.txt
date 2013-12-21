@@ -20,9 +20,12 @@ include_directories(
   ${KDE4_KIO_INCLUDES}
 )
 
-set (KATE_TEST_LINK_LIBS KF5::Parts KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive
-    KF5::KCMUtils KF5::PrintUtils KF5::ItemViews KF5::I18n KF5::Notifications
-    KF5::GuiAddons KF5::IconThemes KF5::KIOFileWidgets ktexteditor katepartinterfaces)
+set (KATE_TEST_LINK_LIBS ktexteditor katepartinterfaces
+  KF5::I18n
+  KF5::KIOFileWidgets
+  KF5::IconThemes
+  KF5::WindowSystem
+  KF5::GuiAddons)
 
 # encoding tets
 add_subdirectory (encoding)

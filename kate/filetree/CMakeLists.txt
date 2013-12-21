@@ -15,6 +15,7 @@ target_link_libraries(katefiletreeplugin kateinterfaces ktexteditor
 install(TARGETS katefiletreeplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 kservice_desktop_to_json (katefiletreeplugin.desktop)
+install( FILES katefiletreeplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
 
 ########### install files ###############
 

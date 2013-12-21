@@ -1,11 +1,9 @@
 set(kwrite_KDEINIT_SRCS kwritemain.cpp kwriteapp.cpp)
 
-kde4_add_app_icon(kwrite_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/accessories-text-editor.png")
+kde4_add_app_icon (kwrite_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/accessories-text-editor.png")
 
-kf5_add_kdeinit_executable(kwrite ${kwrite_KDEINIT_SRCS})
-target_link_libraries(kdeinit_kwrite ktexteditor 
-    KF5::Parts
-    KF5::KDE4Support)
+kf5_add_kdeinit_executable (kwrite ${kwrite_KDEINIT_SRCS})
+target_link_libraries (kdeinit_kwrite ktexteditor KF5::I18n KF5::KIOFileWidgets)
 
 install(TARGETS kwrite         ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kwrite ${INSTALL_TARGETS_DEFAULT_ARGS})

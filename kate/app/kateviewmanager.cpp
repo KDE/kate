@@ -87,7 +87,6 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
   m_viewSpaceList.append(vs);
 
   connect( this, SIGNAL(viewChanged()), this, SLOT(slotViewChanged()) );
-  connect(KateDocManager::self(), SIGNAL(initialDocumentReplaced()), this, SIGNAL(viewChanged()));
 
   connect(KateDocManager::self(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
   connect(KateDocManager::self(), SIGNAL(documentDeleted(KTextEditor::Document*)), this, SLOT(documentDeleted(KTextEditor::Document*)));

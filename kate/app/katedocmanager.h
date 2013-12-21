@@ -182,8 +182,6 @@ class KateDocManager : public QObject
      */
     void documentDeleted (KTextEditor::Document *document);
 
-    void initialDocumentReplaced ();
-
   private Q_SLOTS:
     void slotModifiedOnDisc (KTextEditor::Document *doc, bool b, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
     void slotModChanged(KTextEditor::Document *doc);

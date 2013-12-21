@@ -217,45 +217,19 @@ bool KateDocManager::isOpen(QUrl url)
 
 KTextEditor::Document *KateDocManager::openUrl (const QUrl& url, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
 {
-  QUrl u( url.adjusted(QUrl::NormalizePathSegments) );
-
-  // special handling if still only the first initial doc is there
-  if (!documentList().isEmpty() && (documentList().count() == 1) && (!documentList().at(0)->isModified() && documentList().at(0)->url().isEmpty()))
+  // special handling: if only one unmodified empty buffer in the list,
+  // keep this buffer in mind to close it after opening the new url
+  KTextEditor::Document * untitledDoc = 0;
+  if ((documentList().count() == 1) && (!documentList().at(0)->isModified()
+    && documentList().at(0)->url().isEmpty()))
   {
-    KTextEditor::Document* doc = documentList().first();
-
-    doc->setEncoding(encoding);
-
-    if (!u.isEmpty())
-    {
-      doc->setSuppressOpeningErrorDialogs (m_suppressOpeningErrorDialogs);
-
-      (*documentInfo(doc)) = docInfo;
-      if (!loadMetaInfos(doc, u))
-        doc->openUrl (u);
-      else if (! encoding.isEmpty()) // set encoding again if provided, as metainfos sets it.
-        doc->setEncoding(encoding);
-
-      doc->setSuppressOpeningErrorDialogs (false);
-
-      if ( isTempFile && u.isLocalFile() )
-      {
-        QFileInfo fi( u.toLocalFile() );
-        if ( fi.exists() )
-        {
-          m_tempFiles[ doc] = qMakePair(u, fi.lastModified());
-          qCDebug(LOG_KATE) << "temporary file will be deleted after use unless modified: " << u.url();
-        }
-      }
-    }
-
-    connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(slotModChanged(KTextEditor::Document*)));
-
-    emit initialDocumentReplaced();
-
-    return doc;
+    untitledDoc = documentList().first();
   }
 
+  //
+  // create new document
+  //
+  QUrl u( url.adjusted(QUrl::NormalizePathSegments) );
   KTextEditor::Document *doc = 0;
 
   // always new document if url is empty...
@@ -278,6 +252,23 @@ KTextEditor::Document *KateDocManager::openUrl (const QUrl& url, const QString &
       doc->setSuppressOpeningErrorDialogs (false);
     }
   }
+
+  //
+  // if needed, register as temporary file
+  //
+  if ( isTempFile && u.isLocalFile() ) {
+    QFileInfo fi( u.toLocalFile() );
+    if ( fi.exists() ) {
+      m_tempFiles[doc] = qMakePair(u, fi.lastModified());
+      qCDebug(LOG_KATE) << "temporary file will be deleted after use unless modified: " << u;
+    }
+  }
+
+  //
+  // close untitled document, as it is not wanted
+  //
+  if (untitledDoc)
+    closeDocument(untitledDoc);
 
   return doc;
 }

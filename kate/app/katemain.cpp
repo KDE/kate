@@ -121,6 +121,11 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
   aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
   
   /**
+   * register about data
+   */
+  KAboutData::setApplicationData (aboutData);
+  
+  /**
    * Create the QApplication with the right options set
    * take component name and org. name from KAboutData
    */

@@ -45,41 +45,11 @@ kate_unit_tests(
    katetextbuffertest
    range_test
    undomanager_test
+   plaintextsearch_test
+   regexpsearch_test
+   scriptdocument_test
  )
 
-
-# ########### next target ###############
-# 
-# if(NOT MINGW)
-# 
-# ########### undomanager test ###############
-# 
-# kde4_add_unit_test(undomanager_test TESTNAME kate-undomanager_test undomanager_test.cpp)
-# 
-# target_link_libraries( undomanager_test ${KATE_TEST_LINK_LIBS}
-# )
-# 
-# ########### plaintextsearch test ###############
-# 
-# kde4_add_unit_test(plaintextsearch_test TESTNAME kate-plaintextsearch_test plaintextsearch_test.cpp)
-# 
-# target_link_libraries( plaintextsearch_test ${KATE_TEST_LINK_LIBS}
-# )
-# 
-# ########### regexpsearch test ###############
-# 
-# kde4_add_unit_test(regexpsearch_test TESTNAME kate-regexpsearch_test regexpsearch_test.cpp)
-# 
-# target_link_libraries( regexpsearch_test ${KATE_TEST_LINK_LIBS}
-# )
-# 
-# ########### scriptdocument test ###############
-# 
-# kde4_add_unit_test(scriptdocument_test TESTNAME kate-scriptdocument_test scriptdocument_test.cpp)
-# 
-# target_link_libraries( scriptdocument_test ${KATE_TEST_LINK_LIBS}
-# )
-# 
 # ########### completion test ###############
 # 
 # set(completion_test_SRCS

@@ -29,7 +29,7 @@
 
 Q_DECLARE_METATYPE(KTextEditor::Cursor)
 
-QTEST_KDEMAIN(ScriptDocumentTest, GUI)
+QTEST_MAIN(ScriptDocumentTest)
 
 namespace QTest {
   template<>

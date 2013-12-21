@@ -27,7 +27,7 @@
 
 Q_DECLARE_METATYPE(KTextEditor::Range)
 
-QTEST_KDEMAIN(PlainTextSearchTest, GUI)
+QTEST_MAIN(PlainTextSearchTest)
 
 namespace QTest {
   template<>

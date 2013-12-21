@@ -266,7 +266,7 @@ class KateHighlighting
      */
     QStringList getEmbeddedHighlightingModes() const;
 
-    KateHlContext *contextNum (int n) { if (n >= 0 && n < m_contexts.size()) return m_contexts[n]; Q_ASSERT (0); return m_contexts[0]; }
+    KateHlContext *contextNum (int n) const;
     
   private:
     /**

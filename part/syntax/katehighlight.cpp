@@ -2163,6 +2163,16 @@ QList<KTextEditor::Attribute::Ptr> KateHighlighting::attributes (const QString &
   return array;
 }
 
+KateHlContext * KateHighlighting::contextNum(int n) const
+{
+  if (n >= 0 && n < m_contexts.size()) {
+    return m_contexts[n];
+  }
+
+  Q_ASSERT(false); 
+  return 0;
+}
+
 QStringList KateHighlighting::getEmbeddedHighlightingModes() const
 {
   return embeddedHighlightingModes;

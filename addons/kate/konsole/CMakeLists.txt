@@ -13,7 +13,6 @@ target_link_libraries(katekonsoleplugin
     kateinterfaces
     KF5::KDE4Support
     KF5::Parts
-    KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews KF5::ItemModels
 )
 
 install(TARGETS katekonsoleplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )

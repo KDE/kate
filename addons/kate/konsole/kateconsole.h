@@ -24,7 +24,6 @@
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
 #include <kate/pluginconfigpageinterface.h>
-#include <kurl.h>
 
 #include <kvbox.h>
 #include <QList>
@@ -117,9 +116,9 @@ class KateConsole : public KVBox, public Kate::XMLGUIClient
 
     /**
      * cd to dir
-     * @param url given dir
+     * @param path given local directory
      */
-    void cd (const KUrl &url);
+    void cd (const QString & path);
 
     /**
      * send given text to console

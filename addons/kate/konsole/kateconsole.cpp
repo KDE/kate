@@ -34,7 +34,6 @@
 
 #include <kurl.h>
 #include <klibloader.h>
-#include <klocale.h>
 #include <kdebug.h>
 #include <kmessagebox.h>
 
@@ -188,7 +187,7 @@ void KateConsole::loadConsoleIfNeeded()
   // start the terminal
   qobject_cast<TerminalInterface*>(m_part)->showShellInDir( QString() );
 
-  KGlobal::locale()->insertCatalog("konsole");
+//   KGlobal::locale()->insertCatalog("konsole"); // FIXME KF5: insert catalog
 
   setFocusProxy(m_part->widget());
   m_part->widget()->show();
@@ -227,15 +226,15 @@ void KateConsole::showEvent(QShowEvent *)
   loadConsoleIfNeeded();
 }
 
-void KateConsole::cd (const KUrl &url)
+void KateConsole::cd (const QString & path)
 {
-  if (m_currentPath == url.path())
+  if (m_currentPath == path)
     return;
 
   if (!m_part)
     return;
 
-  m_currentPath = url.path();
+  m_currentPath = path;
   sendInput("cd " + KShell::quoteArg(m_currentPath) + '\n');
 }
 
@@ -278,7 +277,7 @@ void KateConsole::slotSync()
     QUrl u = m_mw->activeView()->document()->url();
     if ( u.isValid() && u.isLocalFile() ) {
       QFileInfo fi(u.toLocalFile());
-      cd(KUrl( fi.absoluteFilePath() ));
+      cd(fi.absoluteFilePath() );
     } else if ( !u.isEmpty() ) {
       sendInput( "### " + i18n("Sorry, cannot cd into '%1'", u.toLocalFile() ) + '\n' );
     }
@@ -320,11 +319,11 @@ void KateConsole::slotToggleFocus()
 void KateConsole::readConfig()
 {
   disconnect( m_mw, SIGNAL(viewChanged()), this, SLOT(slotSync()) );
-  if ( KConfigGroup(KGlobal::config(), "Konsole").readEntry("AutoSyncronize", false) )
+  if ( KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("AutoSyncronize", false) )
     connect( m_mw, SIGNAL(viewChanged()), SLOT(slotSync()) );
     
   
-  if ( KConfigGroup(KGlobal::config(), "Konsole").readEntry("SetEditor", false) )
+  if ( KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("SetEditor", false) )
     ::setenv( "EDITOR", "kate -b",1);
   else
     ::setenv( "EDITOR", m_plugin->previousEditorEnv().data(), 1 );
@@ -352,7 +351,7 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
 
 void KateKonsoleConfigPage::apply()
 {
-  KConfigGroup config(KGlobal::config(), "Konsole");
+  KConfigGroup config(KSharedConfig::openConfig(), "Konsole");
   config.writeEntry("AutoSyncronize", cbAutoSyncronize->isChecked());
   config.writeEntry("SetEditor", cbSetEditor->isChecked());
   config.sync();
@@ -361,7 +360,7 @@ void KateKonsoleConfigPage::apply()
 
 void KateKonsoleConfigPage::reset()
 {
-  KConfigGroup config(KGlobal::config(), "Konsole");
+  KConfigGroup config(KSharedConfig::openConfig(), "Konsole");
   cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
   cbSetEditor->setChecked(config.readEntry("SetEditor", false));
 }

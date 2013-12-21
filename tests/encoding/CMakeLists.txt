@@ -6,7 +6,9 @@ target_link_libraries(kateencodingtest ${KATE_TEST_LINK_LIBS})
 # test macro for encoding tests
 MACRO(KATE_ENCODING_TEST _encoding _testname)
   ADD_TEST (${_testname}_create kateencodingtest ${_encoding} ${CMAKE_CURRENT_SOURCE_DIR}/${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname} )
+  ecm_mark_as_test(${_testname}_create)
   ADD_TEST (${_testname}_diff ${CMAKE_COMMAND} -E compare_files ${CMAKE_CURRENT_SOURCE_DIR}/${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname} )
+  ecm_mark_as_test(${_testname}_diff)
 ENDMACRO(KATE_ENCODING_TEST)
 
 # add tests

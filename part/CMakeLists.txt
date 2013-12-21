@@ -224,9 +224,9 @@ kde4_add_ui_files(katepart_PART_SRCS ${katepart_PART_UI} )
 add_library (katepartinterfaces SHARED ${katepart_PART_SRCS} )
 
 target_link_libraries (katepartinterfaces ktexteditor
-    KF5::Parts
-    KF5::KDE4Support
-    KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews
+    KF5::Parts KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive
+    KF5::KCMUtils KF5::PrintUtils KF5::ItemViews KF5::I18n KF5::Notifications
+    KF5::GuiAddons KF5::IconThemes KF5::KIOFileWidgets KF5::KDE4Support
 )
 
 set_target_properties(
@@ -248,9 +248,7 @@ add_library (katepart MODULE utils/katefactory.cpp)
 
 # link the part, use kate part interfaces + kde stuff
 target_link_libraries (katepart katepartinterfaces ktexteditor
-    KF5::Parts
-    KF5::KDE4Support
-    KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews)
+    KF5::Parts KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews)
 
 # install the part
 install (TARGETS katepart DESTINATION ${PLUGIN_INSTALL_DIR})

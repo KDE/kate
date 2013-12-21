@@ -29,7 +29,6 @@
 
 #include <KIconLoader>
 #include <KTextEditor/Document>
-#include <KIcon>
 
 KateProjectItem::KateProjectItem (Type type, const QString &text)
   : QStandardItem (text)
@@ -57,9 +56,9 @@ void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc) {
     if (m_emblem) {
       QStringList emblems;
       emblems<<*m_emblem;
-      m_icon=new KIcon("document-save",0,emblems);
+      m_icon= new QIcon (KIconLoader::global ()->loadIcon ("document-save" , KIconLoader::Small,0,KIconLoader::DefaultState, emblems));
     } else
-      m_icon=new KIcon("document-save",0);
+      m_icon = new QIcon (KIconLoader::global ()->loadIcon ("document-save", KIconLoader::Small));
   }
   emitDataChanged();
 }
@@ -120,7 +119,7 @@ QVariant KateProjectItem::data (int role) const
           if (m_emblem) {
             emblems<<*m_emblem;
           }
-          m_icon = new QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small,0,KIconLoader::DefaultState,emblems));
+          m_icon = new QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small,0,KIconLoader::DefaultState, emblems));
           break;
         }
       }

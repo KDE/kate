@@ -20,9 +20,7 @@
 */
 
 #include "kateconsole.h"
-#include "kateconsole.moc"
 
-#include <kicon.h>
 #include <kiconloader.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -40,10 +38,12 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 
+#include <QIcon>
 #include <QShowEvent>
 #include <QLabel>
 #include <QCheckBox>
 #include <QVBoxLayout>
+#include <QFileInfo>
 
 #include <kpluginloader.h>
 #include <kservice.h>
@@ -51,8 +51,7 @@
 #include <kpluginfactory.h>
 #include <kauthorized.h>
 
-K_PLUGIN_FACTORY(KateKonsoleFactory, registerPlugin<KateKonsolePlugin>();)
-K_EXPORT_PLUGIN(KateKonsoleFactory(KAboutData("katekonsole","katekonsoleplugin",ki18n("Konsole"), "0.1", ki18n("Embedded Konsole"), KAboutData::License_LGPL_V2)) )
+K_PLUGIN_FACTORY_WITH_JSON (KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 
 KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
     Kate::Plugin ( (Kate::Application*)parent )
@@ -95,10 +94,10 @@ QString KateKonsolePlugin::configPageFullName (uint number) const
   return i18n("Terminal Settings");
 }
 
-KIcon KateKonsolePlugin::configPageIcon (uint number) const
+QIcon KateKonsolePlugin::configPageIcon (uint number) const
 {
-  if (number != 0) return KIcon();
-  return KIcon("utilities-terminal");
+  if (number != 0) return QIcon();
+  return QIcon::fromTheme("utilities-terminal");
 }
 
 void KateKonsolePlugin::readConfig()
@@ -135,14 +134,14 @@ void KateKonsolePluginView::readConfig()
 }
 
 KateConsole::KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidget *parent)
-    : KVBox (parent), Kate::XMLGUIClient(KateKonsoleFactory::componentData())
+    : KVBox (parent), Kate::XMLGUIClient("konsole")
     , m_part (0)
     , m_mw (mw)
     , m_toolView (parent)
     , m_plugin(plugin)
 {
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");
-  a->setIcon(KIcon("utilities-terminal"));
+  a->setIcon(QIcon::fromTheme("utilities-terminal"));
   a->setText(i18nc("@action", "&Pipe to Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotPipeToConsole()));
 
@@ -151,7 +150,7 @@ KateConsole::KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidg
   connect(a, SIGNAL(triggered()), this, SLOT(slotManualSync()));
 
   a = actionCollection()->addAction("katekonsole_tools_toggle_focus");
-  a->setIcon(KIcon("utilities-terminal"));
+  a->setIcon(QIcon::fromTheme("utilities-terminal"));
   a->setText(i18nc("@action", "&Focus Terminal"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotToggleFocus()));
 
@@ -209,7 +208,7 @@ void KateConsole::slotDestroyed ()
   if (parentWidget())
   {
     m_mw->hideToolView (m_toolView);
-    m_mw->centralWidget()->setFocus ();
+//     m_mw->centralWidget()->setFocus (); // FIXME KF5: restore focus
   }
 }
 
@@ -276,11 +275,12 @@ void KateConsole::slotPipeToConsole ()
 void KateConsole::slotSync()
 {
   if (m_mw->activeView() ) {
-    if ( m_mw->activeView()->document()->url().isValid()
-      && m_mw->activeView()->document()->url().isLocalFile() ) {
-      cd(KUrl( m_mw->activeView()->document()->url().directory() ));
-    } else if ( !m_mw->activeView()->document()->url().isEmpty() ) {
-      sendInput( "### " + i18n("Sorry, cannot cd into '%1'", m_mw->activeView()->document()->url().directory() ) + '\n' );
+    QUrl u = m_mw->activeView()->document()->url();
+    if ( u.isValid() && u.isLocalFile() ) {
+      QFileInfo fi(u.toLocalFile());
+      cd(KUrl( fi.absoluteFilePath() ));
+    } else if ( !u.isEmpty() ) {
+      sendInput( "### " + i18n("Sorry, cannot cd into '%1'", u.toLocalFile() ) + '\n' );
     }
   }
 }
@@ -365,6 +365,8 @@ void KateKonsoleConfigPage::reset()
   cbAutoSyncronize->setChecked(config.readEntry("AutoSyncronize", false));
   cbSetEditor->setChecked(config.readEntry("SetEditor", false));
 }
+
+#include "kateconsole.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

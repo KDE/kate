@@ -9,7 +9,7 @@ add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13040 )
 #endif(NOT WIN32)
 
 #add_subdirectory( textfilter )
-#add_subdirectory( konsole )
+ecm_optional_add_subdirectory ( konsole )
 
 #add_subdirectory( filebrowser )
 #add_subdirectory( mailfiles )

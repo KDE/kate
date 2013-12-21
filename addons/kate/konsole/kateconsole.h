@@ -37,10 +37,6 @@ namespace KParts
   class ReadOnlyPart;
 }
 
-namespace KateMDI
-{
-  }
-
 class KateConsole;
 class KateKonsolePluginView;
 
@@ -62,7 +58,7 @@ class KateKonsolePlugin: public Kate::Plugin, public Kate::PluginConfigPageInter
     Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
     QString configPageName (uint number = 0) const;
     QString configPageFullName (uint number = 0) const;
-    KIcon configPageIcon (uint number = 0) const;
+    QIcon configPageIcon (uint number = 0) const;
 
     void readConfig();
 

@@ -25,7 +25,6 @@
 #include <kate/mainwindow.h>
 #include <kate/pluginconfigpageinterface.h>
 
-#include <kvbox.h>
 #include <QList>
 #include <QKeyEvent>
 
@@ -95,7 +94,7 @@ class KateKonsolePluginView : public Kate::PluginView
  * This class is used for the internal terminal emulator
  * It uses internally the konsole part, thx to konsole devs :)
  */
-class KateConsole : public KVBox, public Kate::XMLGUIClient
+class KateConsole : public QWidget, public Kate::XMLGUIClient
 {
     Q_OBJECT
 

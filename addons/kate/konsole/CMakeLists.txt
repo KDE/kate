@@ -11,7 +11,6 @@ add_library (katekonsoleplugin MODULE ${katekonsoleplugin_PART_SRCS})
 
 target_link_libraries(katekonsoleplugin
     kateinterfaces
-    KF5::KDE4Support
     KF5::Parts
 )
 

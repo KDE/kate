@@ -37,6 +37,8 @@
 #include <kdebug.h>
 #include <kmessagebox.h>
 
+#include <QApplication>
+#include <QStyle>
 #include <QIcon>
 #include <QShowEvent>
 #include <QLabel>
@@ -133,12 +135,15 @@ void KateKonsolePluginView::readConfig()
 }
 
 KateConsole::KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidget *parent)
-    : KVBox (parent), Kate::XMLGUIClient("konsole")
+    : QWidget (parent), Kate::XMLGUIClient("konsole")
     , m_part (0)
     , m_mw (mw)
     , m_toolView (parent)
     , m_plugin(plugin)
 {
+  // make sure we have a vertical layout
+  new QVBoxLayout(this);
+
   QAction* a = actionCollection()->addAction("katekonsole_tools_pipe_to_terminal");
   a->setIcon(QIcon::fromTheme("utilities-terminal"));
   a->setText(i18nc("@action", "&Pipe to Terminal"));
@@ -183,6 +188,8 @@ void KateConsole::loadConsoleIfNeeded()
   m_part = static_cast<KParts::ReadOnlyPart *>(factory->create<QObject>(this, this));
 
   if (!m_part) return;
+
+  layout()->addWidget(m_part->widget());
 
   // start the terminal
   qobject_cast<TerminalInterface*>(m_part)->showShellInDir( QString() );
@@ -334,7 +341,7 @@ KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin
   , mPlugin( plugin )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
-  lo->setSpacing( KDialog::spacingHint() );
+  lo->setSpacing(QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
 
   cbAutoSyncronize = new QCheckBox( i18n("&Automatically synchronize the terminal with the current document when possible"), this );
   lo->addWidget( cbAutoSyncronize );

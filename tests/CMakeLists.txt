@@ -62,6 +62,7 @@ kate_unit_tests(
    modificationsystem_test
    templatehandler_test
    #katefoldingtest
+   bug286887
  )
 
 # ########### completion test ###############
@@ -113,18 +114,6 @@ kate_unit_tests(
 # kde4_add_unit_test(scripting_test TESTNAME kate-scripting_test ${scripting_test_SRCS})
 # 
 # target_link_libraries(scripting_test ${KATE_TEST_LINK_LIBS})
-# 
-# ########### bug 286887 test ###############
-# 
-# kde4_add_unit_test(bug286887_test TESTNAME kate-bug286887_test bug286887.cpp)
-# set_tests_properties(kate-bug286887_test PROPERTIES TIMEOUT 4)
-# 
-# target_link_libraries( bug286887_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
 # 
 # ########### bug 313759 test ###############
 # 

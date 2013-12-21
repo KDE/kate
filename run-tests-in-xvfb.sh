@@ -17,7 +17,7 @@ echo "Waiting for Xvfb with pid $XPID to launch..."
 sleep 2
 
 # execute tests on that screen
-DISPLAY=:7 ctest -V
+DISPLAY=:7 make test
 
 # kill the poor X again
 echo "Killing Xvfb with pid $XPID..."

@@ -102,7 +102,7 @@ void KateProjectViewTree::openSelectedDocument ()
    */
   QString filePath = selecteStuff[0].data (Qt::UserRole).toString();
   if (!filePath.isEmpty())
-    m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
+    m_pluginView->mainWindow()->openUrl (QUrl::fromLocalFile (filePath));
 }
 
 void KateProjectViewTree::slotClicked (const QModelIndex &index)
@@ -112,7 +112,7 @@ void KateProjectViewTree::slotClicked (const QModelIndex &index)
    */
   QString filePath = index.data (Qt::UserRole).toString();
   if (!filePath.isEmpty()) {
-    m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
+    m_pluginView->mainWindow()->openUrl (QUrl::fromLocalFile (filePath));
     selectionModel()->setCurrentIndex (index, QItemSelectionModel::Clear | QItemSelectionModel::Select);
   }
 }

@@ -111,7 +111,7 @@ void KateProjectInfoViewIndex::slotClicked (const QModelIndex &index)
   /**
    * create view
    */
-  KTextEditor::View *view = m_pluginView->mainWindow()->openUrl (KUrl::fromPath (filePath));
+  KTextEditor::View *view = m_pluginView->mainWindow()->openUrl (QUrl::fromLocalFile (filePath));
   if (!view)
     return;
 

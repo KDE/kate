@@ -1,16 +1,6 @@
-# we need QJson
-set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-macro_optional_find_package(QJSON)
-macro_log_feature(QJSON_FOUND "QJSON" "Json parser for Qt" "")
+project(kateprojectplugin)
 
-# bail out without it!
-if (NOT QJSON_FOUND)
-    message(WARNING "Project plugin needs QJSON Library.")
-    return()
-endif (NOT QJSON_FOUND)
-
-# Ubuntu 12.10 needs the lower-case qjson
-include_directories( ${QJSON_INCLUDE_DIR} ${qjson_INCLUDE_DIR} )
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(kateprojectplugin_PART_SRCS
   kateprojectplugin.cpp
@@ -30,12 +20,16 @@ set(kateprojectplugin_PART_SRCS
   kateprojectinfoviewnotes.cpp
 )
 
-kde4_add_plugin(kateprojectplugin ${kateprojectplugin_PART_SRCS})
+add_library (kateprojectplugin MODULE ${kateprojectplugin_PART_SRCS})
 
-# Ubuntu 12.10 needs the lower-case qjson
-target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} ${qjson_LIBRARIES} kateinterfaces ktexteditor)
+target_link_libraries(kateprojectplugin kateinterfaces ktexteditor
+    KF5::Parts
+    KF5::KDE4Support
+    KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews KF5::ItemModels)
 
 ########### install files ###############
 install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/project )
+
+kservice_desktop_to_json (kateprojectplugin.desktop)
 install( FILES kateprojectplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

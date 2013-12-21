@@ -20,14 +20,16 @@
 
 #include "kateprojecttreeviewcontextmenu.h"
 
+#include <klocalizedstring.h>
 #include <KMimeType>
 #include <KMimeTypeTrader>
 #include <KStandardDirs>
+#include <KRun>
+#include <KIcon>
+
 #include <QMenu>
 #include <QFileInfo>
 #include <QDir>
-#include <KRun>
-#include <KIcon>
 #include <QProcess>
 #include <QApplication>
 #include <QClipboard>

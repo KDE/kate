@@ -71,7 +71,7 @@ QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
 QModelIndex KateProjectCompletion::parent(const QModelIndex& index) const
 {
   if(index.internalId())
-    return createIndex(0, 0, 0);
+    return createIndex(0, 0, quintptr(0));
   else
     return QModelIndex();
 }
@@ -80,7 +80,7 @@ QModelIndex KateProjectCompletion::index(int row, int column, const QModelIndex&
 {
   if( !parent.isValid()) {
     if(row == 0)
-      return createIndex(row, column, 0);
+      return createIndex(row, column, quintptr(0));
     else
       return QModelIndex();
 

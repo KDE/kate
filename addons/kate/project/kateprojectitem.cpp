@@ -25,6 +25,7 @@
 #include <QFileInfo>
 #include <QThread>
 #include <QCoreApplication>
+#include <QMimeDatabase>
 
 #include <KMimeType>
 #include <KIconLoader>
@@ -115,12 +116,11 @@ QVariant KateProjectItem::data (int role) const
           break;
 
         case File: {
-          QString iconName = KMimeType::iconNameForUrl(KUrl::fromPath(data(Qt::UserRole).toString()));
+          QString iconName = QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName();
           QStringList emblems;
           if (m_emblem) {
             emblems<<*m_emblem;
           }
-          kDebug( 13035 ) << emblems;
           m_icon = new QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small,0,KIconLoader::DefaultState,emblems));
           break;
         }

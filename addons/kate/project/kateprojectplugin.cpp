@@ -174,7 +174,7 @@ KateProject *KateProjectPlugin::projectForDir (QDir dir)
   return 0;
 }
 
-KateProject *KateProjectPlugin::projectForUrl (const KUrl &url)
+KateProject *KateProjectPlugin::projectForUrl (const QUrl &url)
 {
   /**
    * abort if empty url or no local path

@@ -19,7 +19,6 @@
  */
 
 #include "kateprojectpluginview.h"
-#include "kateprojectpluginview.moc"
 
 #include <kate/application.h>
 #include <ktexteditor/view.h>
@@ -32,18 +31,18 @@
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
+#include <kiconloader.h>
 
 #include <KFileDialog>
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
-K_PLUGIN_FACTORY(KateProjectPluginFactory, registerPlugin<KateProjectPlugin>();)
-K_EXPORT_PLUGIN(KateProjectPluginFactory(KAboutData("project","kateproject",ki18n("Hello World"), "0.1", ki18n("Example kate plugin"))) )
+K_PLUGIN_FACTORY_WITH_JSON (KateProjectPluginFactory, "kateprojectplugin.json", registerPlugin<KateProjectPlugin>();)
 
 KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWin )
     : Kate::PluginView( mainWin )
-    , Kate::XMLGUIClient(KateProjectPluginFactory::componentData())
+    , Kate::XMLGUIClient("project")
     , m_plugin (plugin)
 {
   /**
@@ -366,5 +365,7 @@ void KateProjectPluginView::slotProjectReload ()
   if (QWidget *current = m_stackedProjectViews->currentWidget ())
     static_cast<KateProjectView *> (current)->project()->reload (true);
 }
+
+#include "kateprojectpluginview.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

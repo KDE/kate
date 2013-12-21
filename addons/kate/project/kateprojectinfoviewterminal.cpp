@@ -77,7 +77,7 @@ void KateProjectInfoViewTerminal::loadTerminal ()
   /**
    * init locale translation stuff
    */
-  KGlobal::locale()->insertCatalog("konsole");
+  // FIXME KF5 KGlobal::locale()->insertCatalog("konsole");
   
   /**
    * switch to right directory

@@ -68,7 +68,7 @@ class KateProjectPlugin : public Kate::Plugin
      * @param url url to search matching project for
      * @return project or null if not openable
      */
-    KateProject *projectForUrl (const KUrl &url);
+    KateProject *projectForUrl (const QUrl &url);
 
     /**
      * get list of all current open projects

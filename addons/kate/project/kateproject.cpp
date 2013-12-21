@@ -29,7 +29,8 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QPlainTextDocumentLayout>
-#include <qjson/parser.h>
+#include <QJsonDocument>
+#include <QJsonParseError>
 
 KateProject::KateProject ()
   : QObject ()
@@ -103,16 +104,16 @@ bool KateProject::reload (bool force)
   /**
    * parse the whole file, bail out again on error!
    */
-  bool ok = true;
-  QJson::Parser parser;
-  QVariant project = parser.parse (&file, &ok);
-  if (!ok)
+  const QByteArray jsonData = file.readAll();
+  QJsonParseError parseError;
+  QJsonDocument project (QJsonDocument::fromJson(jsonData, &parseError));
+  if (parseError.error != QJsonParseError::NoError)
     return false;
 
   /**
    * now: get global group
    */
-  QVariantMap globalProject = project.toMap ();
+  QVariantMap globalProject = project.toVariant().toMap ();
 
   /**
    * no name, bad => bail out

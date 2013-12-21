@@ -693,6 +693,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 
   aboutData.setProgramIconName ("accessories-text-editor");
   aboutData.setProductName("kate/kwrite");
+  
+  /**
+   * register about data
+   */
+  KAboutData::setApplicationData (aboutData);
 
   /**
    * Create the QApplication with the right options set

@@ -83,7 +83,7 @@
 #include "script_test_base.h"
 #include "testutils.h"
 
-QTEST_KDEMAIN(IndentTest, GUI)
+QTEST_MAIN(IndentTest)
 
 #define FAILURE( test, comment ) qMakePair<const char*, const char*>( (test), (comment) )
 

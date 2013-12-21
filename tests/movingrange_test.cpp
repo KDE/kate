@@ -30,7 +30,7 @@
 
 using namespace KTextEditor;
 
-QTEST_KDEMAIN(MovingRangeTest, GUI)
+QTEST_MAIN(MovingRangeTest)
 
 namespace QTest {
     template<>

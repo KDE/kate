@@ -32,7 +32,7 @@
 
 #include <documentcursor.h>
 
-QTEST_KDEMAIN(DocumentCursorTest, GUI)
+QTEST_MAIN(DocumentCursorTest)
 
 using namespace KTextEditor;
 

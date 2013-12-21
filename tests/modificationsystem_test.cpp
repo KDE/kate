@@ -27,7 +27,7 @@
 #include <kateundomanager.h>
 #include <kateglobal.h>
 
-QTEST_KDEMAIN(ModificationSystemTest, GUI)
+QTEST_MAIN(ModificationSystemTest)
 
 using namespace KTextEditor;
 

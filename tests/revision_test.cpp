@@ -29,7 +29,7 @@
 
 using namespace KTextEditor;
 
-QTEST_KDEMAIN(RevisionTest, GUI)
+QTEST_MAIN(RevisionTest)
 
 namespace QTest {
     template<>

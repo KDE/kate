@@ -25,7 +25,7 @@
 #include <katedocument.h>
 #include <kateview.h>
 
-QTEST_KDEMAIN(TemplateHandlerTest, GUI)
+QTEST_MAIN(TemplateHandlerTest)
 
 using namespace KTextEditor;
 

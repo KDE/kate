@@ -27,7 +27,7 @@
 #include <kateview.h>
 #include <kateconfig.h>
 
-QTEST_KDEMAIN(BugTest, GUI)
+QTEST_MAIN(BugTest)
 
 using namespace KTextEditor;
 

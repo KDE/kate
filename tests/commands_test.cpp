@@ -78,7 +78,7 @@
 #include "script_test_base.h"
 #include "testutils.h"
 
-QTEST_KDEMAIN(CommandsTest, GUI)
+QTEST_MAIN(CommandsTest)
 
 #define FAILURE( test, comment ) qMakePair<const char*, const char*>( (test), (comment) )
 

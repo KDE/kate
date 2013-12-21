@@ -41,7 +41,7 @@
 
 using namespace KTextEditor;
 
-QTEST_KDEMAIN(KateDocumentTest, GUI)
+QTEST_MAIN(KateDocumentTest)
 
 namespace QTest {
     template<>

@@ -30,7 +30,7 @@
 
 using namespace KTextEditor;
 
-QTEST_KDEMAIN(MessageTest, GUI)
+QTEST_MAIN(MessageTest)
 
 void MessageTest::initTestCase()
 {

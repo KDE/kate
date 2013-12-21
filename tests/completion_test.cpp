@@ -35,7 +35,7 @@
 #include <katerenderer.h>
 #include <kateconfig.h>
 
-QTEST_KDEMAIN(CompletionTest, GUI)
+QTEST_MAIN(CompletionTest)
 
 
 using namespace KTextEditor;

@@ -29,7 +29,7 @@
 #include <kateconfig.h>
 #include <ktexteditor/range.h>
 
-QTEST_KDEMAIN(BugTest, GUI)
+QTEST_MAIN(BugTest)
 
 using namespace KTextEditor;
 

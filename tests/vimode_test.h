@@ -39,7 +39,7 @@ class WindowKeepActive : public QObject
   Q_OBJECT
 public:
   WindowKeepActive(QMainWindow *mainWindow);
-public slots:
+public Q_SLOTS:
   bool eventFilter(QObject* object, QEvent* event);
 private:
   QMainWindow *m_mainWindow;
@@ -51,7 +51,7 @@ class FailsIfSlotNotCalled : public QObject
 public:
   FailsIfSlotNotCalled();
   ~FailsIfSlotNotCalled();
-public slots:
+public Q_SLOTS:
   void slot();
 private:
   bool m_slotWasCalled;
@@ -62,7 +62,7 @@ class FailsIfSlotCalled : public QObject
   Q_OBJECT
 public:
   FailsIfSlotCalled(const QString& failureMessage);
-public slots:
+public Q_SLOTS:
   void slot();
 private:
   const QString m_failureMessage;
@@ -130,7 +130,7 @@ private:
   bool m_failTestOnInvocation;
   mutable bool m_wasInvoked;
   QString m_forceInvocationIfDocTextIs;
-private slots:
+private Q_SLOTS:
   void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
   void textRemoved(KTextEditor::Document* document, KTextEditor::Range range);
   void checkIfShouldForceInvocation();
@@ -234,7 +234,7 @@ private:
   void verifyCommandBarCompletionContains(const QStringList& expectedCompletionList);
 
   void clearTrackedDocumentChanges();
-private slots:
+private Q_SLOTS:
   void textInserted(KTextEditor::Document* document, KTextEditor::Range range);
   void textRemoved(KTextEditor::Document* document, KTextEditor::Range range);
 private:

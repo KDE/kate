@@ -22,7 +22,6 @@
 #include "vimode_test.h"
 #include "moc_vimode_test.cpp"
 
-#include <qtest_kde.h>
 #include <kateviinputmodemanager.h>
 #include <katedocument.h>
 #include <kateundomanager.h>
@@ -41,17 +40,21 @@
 #include <katewordcompletion.h>
 #include <katecompletionwidget.h>
 
-#include <QtGui/QLabel>
-#include <QtGui/QCompleter>
-#include <QtGui/QMainWindow>
-#include <qlayout.h>
+#include <QLabel>
+#include <QCompleter>
+#include <QMainWindow>
+#include <QAbstractItemView>
+#include <QLayout>
+#include <QtTestWidgets>
+#include <QDebug>
+
 #include <kcolorscheme.h>
 #include <klocalizedstring.h>
 #include <kstandardaction.h>
 #include <kactioncollection.h>
 #include <kconfiggroup.h>
 
-QTEST_KDEMAIN(ViModeTest, GUI)
+QTEST_MAIN(ViModeTest)
 
 using namespace KTextEditor;
 
@@ -97,7 +100,6 @@ FailsIfSlotCalled::FailsIfSlotCalled(const QString& failureMessage): QObject(), 
 
 void FailsIfSlotCalled::slot()
 {
-  kDebug(13070) << "Here";
   QFAIL(m_failureMessage.toAscii());
 }
 
@@ -171,7 +173,7 @@ QVariant FakeCodeCompletionTestModel::data(const QModelIndex& index, int role) c
 }
 void FakeCodeCompletionTestModel::executeCompletionItem(Document* document, const Range& word, int row) const
 {
-  kDebug(13070) << "word: " << word << "(" << document->text(word) << ")";
+  qDebug() << "word: " << word << "(" << document->text(word) << ")";
   const Cursor origCursorPos = m_kateView->cursorPosition();
   const QString textToInsert = m_completions[row];
   const QString textAfterCursor = document->text(Range(word.end(), Cursor(word.end().line(), document->lineLength(word.end().line()))));
@@ -441,7 +443,7 @@ void ViModeTest::TestPressKey(QString str) {
              }
            }
            const QString commandToExecute = str.mid(start_cmd,i-start_cmd).replace("\\\\", "\\");
-           kDebug(13070) << "Executing command directly from ViModeTest:\n" << commandToExecute;
+           qDebug() << "Executing command directly from ViModeTest:\n" << commandToExecute;
            kate_view->cmdLineBar()->execute(commandToExecute);
            // We've handled the command; go back round the loop, avoiding sending
            // the closing \ to vi_input_mode_manager.
@@ -453,7 +455,7 @@ void ViModeTest::TestPressKey(QString str) {
             i++;
         }
         else {
-            assert(false); //Do not use "\" in tests except for modifiers, command mode (\\:) and literal backslashes "\\\\")
+            Q_ASSERT(false); //Do not use "\" in tests except for modifiers, command mode (\\:) and literal backslashes "\\\\")
         }
     }
 
@@ -726,7 +728,7 @@ void ViModeTest::VisualModeTests() {
     kate_view->setSelection(Range(Cursor(0, 1), Cursor(0, 4)));
     QCOMPARE(kate_document->text(kate_view->selectionRange()), QString("oo "));
     kate_view->config()->setViInputMode(true);
-    kDebug(13070) << "selected: " << kate_document->text(kate_view->selectionRange());
+    qDebug() << "selected: " << kate_document->text(kate_view->selectionRange());
     QVERIFY(kate_view->viInputMode());
     vi_input_mode_manager = kate_view->getViInputModeManager();
     QVERIFY(vi_input_mode_manager->getCurrentViMode() == VisualMode);
@@ -1899,7 +1901,7 @@ void ViModeTest::FakeCodeCompletionTests()
   // If no opening bracket after the cursor, a function taking at least one argument
   // is added as "function()", and the cursor placed after the opening "(".
   // The addition of "function()" is done in two steps: first "function", then "()".
-  kDebug(13070) << "Fleep";
+  qDebug() << "Fleep";
   BeginTest("object->");
   fakeCodeCompletionModel->setCompletions(QStringList() << "functionCall(...)");
   fakeCodeCompletionModel->setRemoveTailOnComplete(true);
@@ -1993,7 +1995,7 @@ void ViModeTest::FakeCodeCompletionTests()
   QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
   QCOMPARE(m_docChanges[1].newText(), QString("functionCall"));
   QCOMPARE(m_docChanges[2].changeType(), DocChange::TextRemoved);
-  kDebug(13070) << "m_docChanges[2].changeRange(): " << m_docChanges[2].changeRange();
+  qDebug() << "m_docChanges[2].changeRange(): " << m_docChanges[2].changeRange();
   QCOMPARE(m_docChanges[2].changeRange(), Range(Cursor(0, 20), Cursor(0, 24)));
   TestPressKey("X");
   FinishTest("object->functionCall    (X<-Cursor here!");
@@ -2006,7 +2008,7 @@ void ViModeTest::FakeCodeCompletionTests()
   TestPressKey("f(i\\ctrl- \\enter");
   QCOMPARE(m_docChanges.size(), 1);
   QCOMPARE(m_docChanges[0].changeType(),DocChange::TextInserted);
-  kDebug(13070) << "Range: " << m_docChanges[0].changeRange();
+  qDebug() << "Range: " << m_docChanges[0].changeRange();
   QCOMPARE(m_docChanges[0].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
   QCOMPARE(m_docChanges[0].newText(), QString("functionCall"));
   TestPressKey("X");
@@ -2074,7 +2076,7 @@ void ViModeTest::FakeCodeCompletionTests()
   QCOMPARE(m_docChanges[1].changeRange(), Range(Cursor(0, 8), Cursor(0, 20)));
   QCOMPARE(m_docChanges[1].newText(), QString("functionCall"));
   QCOMPARE(m_docChanges[2].changeType(), DocChange::TextRemoved);
-  kDebug(13070) << "m_docChanges[2].changeRange(): " << m_docChanges[2].changeRange();
+  qDebug() << "m_docChanges[2].changeRange(): " << m_docChanges[2].changeRange();
   QCOMPARE(m_docChanges[2].changeRange(), Range(Cursor(0, 20), Cursor(0, 24)));
   TestPressKey("X");
   FinishTest("object->functionCall    (X<-Cursor here!");
@@ -5613,7 +5615,6 @@ void ViModeTest::VimStyleCommandBarTests()
   // Replace newlines in the "replace?" message with "\\n"
   BeginTest("foo");
   TestPressKey(":s/foo/bar\\\\nxyz\\\\n123/c\\enter");
-  kDebug(13070) << "Blah: " << interactiveSedReplaceLabel->text();
   QVERIFY(interactiveSedReplaceLabel->text().contains("bar\\nxyz\\n123"));
   TestPressKey("\\ctrl-c");
   FinishTest("foo");
@@ -6324,9 +6325,6 @@ void ViModeTest::visualLineUpDownTests()
     expectedText[visualColumnNumber + fillsLineAndEndsOnSpace.length() * numberLinesToGoDown] = '.';
 
     DoTest(fillsView.repeated(2), QString("l").repeated(visualColumnNumber) + QString::number(numberLinesToGoDown) + "gjr.", expectedText);
-
-    kDebug(13070) << "Glarb: " << expectedText.indexOf('.') << " glorb: " << kate_document->text().indexOf('.');
-    kDebug(13070) << kate_document->text();
   }
 
   {
@@ -7222,7 +7220,7 @@ void ViModeTest::MacroTests()
   TestPressKey("qqicompletionM\\ctrl- \\enter\\ctrl-c");
   TestPressKey("a completionRep\\ctrl- \\enter\\ctrl-c");
   TestPressKey(".q");
-  kDebug(13070) << "text: " << kate_document->text();
+  qDebug() << "text: " << kate_document->text();
   kate_document->clear();
   TestPressKey("gg@q");
   FinishTest("completionMacro completionRepeatLastChange completionRepeatLastChange");

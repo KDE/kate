@@ -48,6 +48,7 @@ kate_unit_tests(
    plaintextsearch_test
    regexpsearch_test
    scriptdocument_test
+   vimode_test
  )
 
 # ########### completion test ###############

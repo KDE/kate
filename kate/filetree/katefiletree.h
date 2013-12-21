@@ -19,9 +19,9 @@
 #ifndef KATE_FILETREE_H
 #define KATE_FILETREE_H
 
-#include <QtCore/QUrl>
-#include <QtGui/QIcon>
-#include <QtWidgets/QTreeView>
+#include <QUrl>
+#include <QIcon>
+#include <QTreeView>
 
 namespace KTextEditor {
   class Document;

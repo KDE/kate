@@ -22,7 +22,7 @@
 #include "variablelistview.h"
 #include "variableitem.h"
 
-#include <QtGui/QResizeEvent>
+#include <QResizeEvent>
 
 VariableListView::VariableListView(const QString& variableLine, QWidget* parent)
   : QScrollArea(parent)

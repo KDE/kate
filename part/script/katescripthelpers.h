@@ -19,7 +19,7 @@
 #ifndef KATE_SCRIPTHELPERS_H
 #define KATE_SCRIPTHELPERS_H
 
-#include <QtScript/QScriptValue>
+#include <QScriptValue>
 #include "katepartprivate_export.h"
 
 class QScriptEngine;

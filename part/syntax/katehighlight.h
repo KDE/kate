@@ -26,20 +26,20 @@
 #include "katesyntaxmanager.h"
 #include "spellcheck/prefixstore.h"
 
-#include <kconfig.h>
-#include <kactionmenu.h>
+#include <KConfig>
+#include <KActionMenu>
 
-#include <QtCore/QVector>
-#include <QtCore/QList>
-#include <QtCore/QHash>
-#include <QtCore/QMap>
+#include <QVector>
+#include <QList>
+#include <QHash>
+#include <QMap>
 
-#include <QtCore/QRegExp>
-#include <QtCore/QObject>
-#include <QtCore/QStringList>
-#include <QtCore/QPointer>
-#include <QtCore/QDate>
-#include <QtCore/QLinkedList>
+#include <QRegExp>
+#include <QObject>
+#include <QStringList>
+#include <QPointer>
+#include <QDate>
+#include <QLinkedList>
 
 class KateHlContext;
 class KateHlItem;

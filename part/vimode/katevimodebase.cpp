@@ -31,7 +31,7 @@
 #include "kateviinputmodemanager.h"
 
 #include <QString>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 #include <QRegExp>
 #include "kateconfig.h"
 #include "katedocument.h"

@@ -23,7 +23,7 @@
 
 #include <QByteArray>
 #include <QAction>
-#include <QtCore/QTemporaryFile>
+#include <QTemporaryFile>
 
 class KProcess;
 

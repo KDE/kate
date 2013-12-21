@@ -30,8 +30,8 @@
 
 #include <ktexteditor/view.h>
 
-#include <klocalizedstring.h>
-#include <kstandardguiitem.h>
+#include <KLocalizedString>
+#include <KStandardGuiItem>
 
 #include <QFileInfo>
 #include <QDir>

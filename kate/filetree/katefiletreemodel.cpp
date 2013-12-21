@@ -18,15 +18,15 @@
 
 #include "katefiletreemodel.h"
 
-#include <QtCore/QDir>
-#include <QtCore/QFileInfo>
-#include <QtCore/QList>
-#include <QtCore/QMimeDatabase>
-#include <QtGui/QIcon>
+#include <QDir>
+#include <QFileInfo>
+#include <QList>
+#include <QMimeDatabase>
+#include <QIcon>
 
-#include <kcolorscheme.h>
-#include <kcolorutils.h>
-#include <klocalizedstring.h>
+#include <KColorScheme>
+#include <KColorUtils>
+#include <KLocalizedString>
 #include <kiconutils.h>
 
 #include <ktexteditor/document.h>

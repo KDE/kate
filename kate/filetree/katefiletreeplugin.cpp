@@ -29,15 +29,15 @@
 #include <kate/documentmanager.h>
 #include <ktexteditor/view.h>
 
-#include <kaboutdata.h>
-#include <kpluginfactory.h>
-#include <kactioncollection.h>
-#include <klocalizedstring.h>
-#include <kconfiggroup.h>
-#include <kiconloader.h>
+#include <KAboutData>
+#include <KPluginFactory>
+#include <KActionCollection>
+#include <KLocalizedString>
+#include <KConfigGroup>
+#include <KIconLoader>
 
-#include <QtWidgets/QAction>
-#include <QtWidgets/QApplication>
+#include <QAction>
+#include <QApplication>
 
 #include "katefiletreedebug.h"
 

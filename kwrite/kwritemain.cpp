@@ -27,36 +27,36 @@
 #include <ktexteditor/modificationinterface.h>
 #include <ktexteditor/editor.h>
 
-#include <kio/netaccess.h>
+#include <KIO/NetAccess>
 
-#include <kaboutapplicationdialog.h>
-#include <kaboutdata.h>
-#include <kactioncollection.h>
-#include <kdiroperator.h>
-#include <kedittoolbar.h>
-#include <kencodingfiledialog.h>
-#include <kiconloader.h>
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <krecentfilesaction.h>
-#include <kshortcutsdialog.h>
-#include <kstandardaction.h>
-#include <ksqueezedtextlabel.h>
-#include <kstringhandler.h>
-#include <kxmlguifactory.h>
-#include <ksharedconfig.h>
+#include <KAboutApplicationDialog>
+#include <KAboutData>
+#include <KActionCollection>
+#include <KDirOperator>
+#include <KEditToolBar>
+#include <KEncodingFileDialog>
+#include <KIconLoader>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KRecentFilesAction>
+#include <KShortcutsDialog>
+#include <KStandardAction>
+#include <KSqueezedTextLabel>
+#include <KStringHandler>
+#include <KXMLGUIFactory>
+#include <KSharedConfig>
 #include <kconfiggui.h>
 
 #ifdef KActivities_FOUND
 #include <kactivities/resourceinstance.h>
 #endif
 
-#include <QtCore/QTimer>
-#include <QtCore/QTextCodec>
-#include <QtCore/QMimeData>
-#include <QtCore/QCommandLineParser>
-#include <QtCore/QLoggingCategory>
-#include <QtWidgets/QApplication>
+#include <QTimer>
+#include <QTextCodec>
+#include <QMimeData>
+#include <QCommandLineParser>
+#include <QLoggingCategory>
+#include <QApplication>
 #include <QLabel>
 #include <QStatusBar>
 

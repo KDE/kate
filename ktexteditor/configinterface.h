@@ -21,8 +21,8 @@
 #define KDELIBS_KTEXTEDITOR_CONFIGINTERFACE_H
 
 #include <ktexteditor/ktexteditor_export.h>
-#include <QtCore/QStringList>
-#include <QtCore/QVariant>
+#include <QStringList>
+#include <QVariant>
 
 namespace KTextEditor
 {

@@ -21,11 +21,11 @@
 #ifndef KATE_MODEMANAGER_H__
 #define KATE_MODEMANAGER_H__
 
-#include <QtCore/QStringList>
-#include <QtCore/QPointer>
-#include <QtCore/QHash>
+#include <QStringList>
+#include <QPointer>
+#include <QHash>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include "katedialogs.h"
 

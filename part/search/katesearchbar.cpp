@@ -37,15 +37,15 @@
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
 
-#include <kcolorscheme.h>
-#include <kmessagebox.h>
-#include <kstandardaction.h>
-#include <klocalizedstring.h>
+#include <KColorScheme>
+#include <KMessageBox>
+#include <KStandardAction>
+#include <KLocalizedString>
 
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QShortcut>
+#include <QVBoxLayout>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QShortcut>
 
 // Turn debug messages on/off here
 // #define FAST_DEBUG_ENABLE

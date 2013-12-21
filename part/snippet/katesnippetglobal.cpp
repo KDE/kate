@@ -31,17 +31,17 @@
 #include "snippetcompletionitem.h"
 #include "editsnippet.h"
 
-#include <kpluginfactory.h>
-#include <kaboutdata.h>
-#include <kpluginloader.h>
+#include <KPluginFactory>
+#include <KAboutData>
+#include <KPluginLoader>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
-#include <ktoolbar.h>
-#include <klocalizedstring.h>
+#include <KToolBar>
+#include <KLocalizedString>
 
-#include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QMenu>
+#include <QDialogButtonBox>
+#include <QMenu>
 
 KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)

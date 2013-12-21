@@ -24,8 +24,8 @@
 #include <kate/plugin.h>
 #include <kate/pluginmanager.h>
 
-#include <kservice.h>
-#include <kconfigbase.h>
+#include <KService>
+#include <KConfigBase>
 
 #include <QObject>
 #include <QLinkedList>

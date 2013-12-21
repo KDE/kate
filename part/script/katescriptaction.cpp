@@ -26,7 +26,7 @@
 #include "kactioncollection.h"
 #include "katepartdebug.h"
 
-#include <kxmlguifactory.h>
+#include <KXMLGUIFactory>
 
 //BEGIN KateScriptAction
 KateScriptAction::KateScriptAction(const ScriptActionInfo& info, KateView* view)

@@ -22,7 +22,7 @@
 #ifndef _KATE_REGEXP_H_
 #define _KATE_REGEXP_H_
 
-#include <QtCore/QRegExp>
+#include <QRegExp>
 
 class KateRegExp
 {

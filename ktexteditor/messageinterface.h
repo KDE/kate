@@ -21,8 +21,8 @@
 #ifndef KTEXTEDITOR_MESSAGEINTERFACE_H
 #define KTEXTEDITOR_MESSAGEINTERFACE_H
 
-#include <QtCore/QObject>
-#include <QtCore/QList>
+#include <QObject>
+#include <QList>
 #include <QAction>
 #include <QIcon>
 

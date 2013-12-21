@@ -21,7 +21,7 @@
 #ifndef KATECOMPLETIONCONFIG_H
 #define KATECOMPLETIONCONFIG_H
 
-#include <QtWidgets/QDialog>
+#include <QDialog>
 
 #include "kateconfig.h"
 

@@ -32,12 +32,12 @@
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kxmlguifactory.h>
-#include <kplugininfo.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KXMLGUIFactory>
+#include <KPluginInfo>
 
-#include <kservicetypetrader.h>
+#include <KServiceTypeTrader>
 
 //BEGIN KatePartPluginInfo
 

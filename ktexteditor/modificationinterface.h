@@ -23,7 +23,7 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 
-#include <QtCore/QObject>
+#include <QObject>
 
 namespace KTextEditor
 {

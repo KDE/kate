@@ -36,12 +36,12 @@
 #include "katecmd.h"
 #include "katepartdebug.h"
 
-#include <klocalizedstring.h>
-#include <kshellcompletion.h>
+#include <KLocalizedString>
+#include <KShellCompletion>
 
-#include <QtCore/QDir>
-#include <QtCore/QRegExp>
-#include <QtCore/QUrl>
+#include <QDir>
+#include <QRegExp>
+#include <QUrl>
 
 //BEGIN CoreCommands
 KateCommands::CoreCommands* KateCommands::CoreCommands::m_instance = 0;

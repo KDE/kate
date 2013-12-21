@@ -27,7 +27,7 @@
 #include "katepartdebug.h"
 
 #include <iostream>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <QFile>
 #include <QFileInfo>

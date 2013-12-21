@@ -22,7 +22,7 @@
 #define EXPANDING_WIDGET_MODEL_H
 
 #include <QAbstractTableModel>
-#include <QtCore/QHash>
+#include <QHash>
 #include <QIcon>
 #include <QPointer>
 

@@ -19,15 +19,15 @@ Boston, MA 02110-1301, USA.
 #include "kwriteapp.h"
 
 #include <ktexteditor/editor.h>
-#include <kmessagebox.h>
-#include <ksharedconfig.h>
-#include <klocalizedstring.h>
+#include <KMessageBox>
+#include <KSharedConfig>
+#include <KLocalizedString>
 
-#include <QtCore/QCommandLineParser>
-#include <QtCore/QFileInfo>
-#include <QtCore/QLoggingCategory>
-#include <QtCore/QTextCodec>
-#include <QtWidgets/QApplication>
+#include <QCommandLineParser>
+#include <QFileInfo>
+#include <QLoggingCategory>
+#include <QTextCodec>
+#include <QApplication>
 
 Q_DECLARE_LOGGING_CATEGORY(LOG_KWRITE)
 Q_LOGGING_CATEGORY(LOG_KWRITE, "kwrite")

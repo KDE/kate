@@ -28,11 +28,11 @@
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/configpage.h>
 #include "codecompletionmodelcontrollerinterfacev4.h"
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 
-#include <QtCore/QEvent>
-#include <QtCore/QObject>
-#include <QtCore/QList>
+#include <QEvent>
+#include <QObject>
+#include <QList>
 
 #include "katepartdebug.h"
 

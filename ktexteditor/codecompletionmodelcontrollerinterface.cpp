@@ -19,7 +19,7 @@
 
 #include "codecompletionmodelcontrollerinterface.h"
 
-#include <QtCore/QModelIndex>
+#include <QModelIndex>
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>

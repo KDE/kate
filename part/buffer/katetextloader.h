@@ -21,13 +21,13 @@
 #ifndef KATE_TEXTLOADER_H
 #define KATE_TEXTLOADER_H
 
-#include <QtCore/QString>
-#include <QtCore/QFile>
-#include <QtCore/QCryptographicHash>
+#include <QString>
+#include <QFile>
+#include <QCryptographicHash>
 #include <QMimeDatabase>
 
 // on the fly compression
-#include <kfilterdev.h>
+#include <KFilterDev>
 
 namespace Kate {
 

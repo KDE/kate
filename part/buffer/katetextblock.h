@@ -21,8 +21,8 @@
 #ifndef KATE_TEXTBLOCK_H
 #define KATE_TEXTBLOCK_H
 
-#include <QtCore/QVector>
-#include <QtCore/QSet>
+#include <QVector>
+#include <QSet>
 
 #include "katepartprivate_export.h"
 #include <ktexteditor/cursor.h>

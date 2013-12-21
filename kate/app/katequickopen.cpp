@@ -27,23 +27,23 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
-#include <kaboutdata.h>
-#include <klineedit.h>
-#include <kactioncollection.h>
-#include <klocalizedstring.h>
+#include <KPluginFactory>
+#include <KPluginLoader>
+#include <KAboutData>
+#include <KLineEdit>
+#include <KActionCollection>
+#include <KLocalizedString>
 
-#include <QtCore/QEvent>
-#include <QtCore/QFileInfo>
-#include <QtCore/QSortFilterProxyModel>
-#include <QtCore/QCoreApplication>
-#include <QtCore/QPointer>
-#include <QtGui/QStandardItemModel>
-#include <QtWidgets/QDesktopWidget>
-#include <QtWidgets/QBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QTreeView>
+#include <QEvent>
+#include <QFileInfo>
+#include <QSortFilterProxyModel>
+#include <QCoreApplication>
+#include <QPointer>
+#include <QStandardItemModel>
+#include <QDesktopWidget>
+#include <QBoxLayout>
+#include <QLabel>
+#include <QTreeView>
 
 Q_DECLARE_METATYPE(QPointer<KTextEditor::Document>)
 

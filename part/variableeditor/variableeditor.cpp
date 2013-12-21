@@ -22,19 +22,19 @@
 #include "variableitem.h"
 #include "katehelpbutton.h"
 
-#include <QtCore/QVariant>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QGridLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLineEdit>
-#include <QtGui/QPainter>
-#include <QtWidgets/QSpinBox>
-#include <QtWidgets/QFontComboBox>
+#include <QVariant>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QGridLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPainter>
+#include <QSpinBox>
+#include <QFontComboBox>
 
-#include <kiconloader.h>
-#include <klocalizedstring.h>
-#include <kcolorcombo.h>
+#include <KIconLoader>
+#include <KLocalizedString>
+#include <KColorCombo>
 #include <sonnet/dictionarycombobox.h>
 
 //BEGIN VariableEditor

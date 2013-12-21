@@ -20,21 +20,21 @@
 
 #include "katecategorydrawer.h"
 
-#include <QtWidgets/QStyledItemDelegate>
-#include <QtGui/QPainter>
-#include <QtWidgets/QHeaderView>
+#include <QStyledItemDelegate>
+#include <QPainter>
+#include <QHeaderView>
 
-#include <kconfiggroup.h>
-#include <klocalizedstring.h>
+#include <KConfigGroup>
+#include <KLocalizedString>
 #include "katepartdebug.h"
-#include <kcolorscheme.h>
-#include <kiconloader.h>
-#include <kcolorutils.h>
+#include <KColorScheme>
+#include <KIconLoader>
+#include <KColorUtils>
 
-#include <QtCore/QEvent>
-#include <QtGui/QKeyEvent>
-#include <QtWidgets/qdrawutil.h>
-#include <QtWidgets/QColorDialog>
+#include <QEvent>
+#include <QKeyEvent>
+#include <qdrawutil.h>
+#include <QColorDialog>
 
 //BEGIN KateColorTreeItem
 class KateColorTreeItem : public QTreeWidgetItem

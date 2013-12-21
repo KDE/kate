@@ -20,7 +20,7 @@
 #ifndef __KATE_BOOKMARKS_H__
 #define __KATE_BOOKMARKS_H__
 
-#include <QtCore/QObject>
+#include <QObject>
 
 class KateView;
 

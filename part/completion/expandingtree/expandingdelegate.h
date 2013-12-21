@@ -22,7 +22,7 @@
 #define ExpandingDelegate_H
 
 #include <QItemDelegate>
-#include <QtGui/QTextLine>
+#include <QTextLine>
 #include <QModelIndex>
 #include <QPoint>
 

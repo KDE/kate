@@ -27,9 +27,9 @@
 
 #include <ktexteditor/codecompletionmodel.h>
 
-#include <QtGui/QTextFormat>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QGridLayout>
+#include <QTextFormat>
+#include <QApplication>
+#include <QGridLayout>
 
 using namespace KTextEditor;
 

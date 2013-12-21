@@ -29,18 +29,18 @@
 #include "katesession.h"
 #include "katedebug.h"
 
-#include <ksqueezedtextlabel.h>
-#include <kstringhandler.h>
-#include <klocalizedstring.h>
+#include <KSqueezedTextLabel>
+#include <KStringHandler>
+#include <KLocalizedString>
 #include <kiconutils.h>
-#include <kconfiggroup.h>
+#include <KConfigGroup>
 
-#include <QtCore/QTimer>
-#include <QtGui/QCursor>
-#include <QtGui/QMouseEvent>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QSizeGrip>
-#include <QtWidgets/QStackedWidget>
+#include <QTimer>
+#include <QCursor>
+#include <QMouseEvent>
+#include <QMenu>
+#include <QSizeGrip>
+#include <QStackedWidget>
 
 //BEGIN KateViewSpace
 KateViewSpace::KateViewSpace( KateViewManager *viewManager,

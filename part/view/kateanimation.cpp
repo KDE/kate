@@ -22,7 +22,7 @@
 #include "kateanimation.moc"
 #include "katefadeeffect.h"
 
-#include <kmessagewidget.h>
+#include <KMessageWidget>
 
 #include <QTimer>
 #include <QStyle>

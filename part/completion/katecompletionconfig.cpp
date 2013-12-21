@@ -22,14 +22,14 @@
 #include "katecompletionmodel.h"
 #include "ui_completionconfigwidget.h"
 
-#include <ksharedconfig.h>
-#include <kconfiggroup.h>
-#include <kstandardguiitem.h>
-#include <klocalizedstring.h>
+#include <KSharedConfig>
+#include <KConfigGroup>
+#include <KStandardGuiItem>
+#include <KLocalizedString>
 
-#include <QtWidgets/QDialogButtonBox>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QTreeWidget>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QTreeWidget>
 
 using namespace KTextEditor;
 

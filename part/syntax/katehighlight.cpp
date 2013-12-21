@@ -36,18 +36,18 @@
 #include "kateextendedattribute.h"
 #include "katepartdebug.h"
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kmessagebox.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KMessageBox>
 
 #include <ktexteditor/highlightinterface.h>
 
-#include <QtCore/QSet>
-#include <QtCore/QStringList>
-#include <QtCore/QTextStream>
-#include <QtCore/QVarLengthArray>
-#include <QtWidgets/QAction>
-#include <QtWidgets/QApplication>
+#include <QSet>
+#include <QStringList>
+#include <QTextStream>
+#include <QVarLengthArray>
+#include <QAction>
+#include <QApplication>
 //END
 
 //BEGIN defines

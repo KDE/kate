@@ -23,18 +23,18 @@
 #include "katedocument.h"
 #include "kateview.h"
 
-#include <kactioncollection.h>
-#include <kguiitem.h>
-#include <kstringhandler.h>
-#include <kxmlguiclient.h>
-#include <kxmlguifactory.h>
-#include <ktoggleaction.h>
-#include <kactionmenu.h>
-#include <klocalizedstring.h>
+#include <KActionCollection>
+#include <KGuiItem>
+#include <KStringHandler>
+#include <KXMLGUIClient>
+#include <KXMLGUIFactory>
+#include <KToggleAction>
+#include <KActionMenu>
+#include <KLocalizedString>
 
-#include <QtCore/QRegExp>
-#include <QtCore/QEvent>
-#include <QtCore/QVector>
+#include <QRegExp>
+#include <QEvent>
+#include <QVector>
 
 namespace KTextEditor{ class Document; }
 

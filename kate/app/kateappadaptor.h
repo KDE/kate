@@ -19,7 +19,7 @@
 #ifndef _kateapp_adaptor_h_
 #define _kateapp_adaptor_h_
 
-#include <QtDBus/QtDBus>
+#include <QtDBus>
 
 class KateApp;
 

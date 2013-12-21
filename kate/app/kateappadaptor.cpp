@@ -25,7 +25,7 @@
 #include "kateappadaptor.moc"
 
 #include "katedebug.h"
-#include <kwindowsystem.h>
+#include <KWindowSystem>
 
 KateAppAdaptor::KateAppAdaptor (KateApp *app)
     : QDBusAbstractAdaptor( app )

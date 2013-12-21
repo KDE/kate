@@ -35,24 +35,24 @@
 #include "katetextfolding.h"
 #include "katepartdebug.h"
 
-#include <kcolorbutton.h>
-#include <kconfiggroup.h>
-#include <kdeprintdialog.h>
-#include <kuser.h> // for loginName
-#include <klineedit.h>
-#include <kcombobox.h>
+#include <KColorButton>
+#include <KConfigGroup>
+#include <KDEPrintDialog>
+#include <KUser>
+#include <KLineEdit>
+#include <KComboBox>
 
-#include <QtCore/QStringList>
-#include <QtGui/QPainter>
-#include <QtPrintSupport/QPrintDialog>
-#include <QtPrintSupport/QPrinter>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QFontDialog>
-#include <QtWidgets/QGroupBox>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLayout>
-#include <QtWidgets/QSpinBox>
+#include <QStringList>
+#include <QPainter>
+#include <QPrintDialog>
+#include <QPrinter>
+#include <QApplication>
+#include <QCheckBox>
+#include <QFontDialog>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLayout>
+#include <QSpinBox>
 
 //BEGIN KatePrinter
 void KatePrinter::readSettings(QPrinter& printer)

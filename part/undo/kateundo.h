@@ -23,10 +23,10 @@
 #ifndef kate_undo_h
 #define kate_undo_h
 
-#include <QtCore/QList>
+#include <QList>
 
 #include <ktexteditor/range.h>
-#include <QtCore/QBitArray>
+#include <QBitArray>
 
 class KateUndoManager;
 class KateDocument;

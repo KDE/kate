@@ -19,11 +19,11 @@
 #ifndef KATEUNDOMANAGER_H
 #define KATEUNDOMANAGER_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include "katepartprivate_export.h"
 
-#include <QtCore/QList>
+#include <QList>
 
 class KateDocument;
 class KateUndo;

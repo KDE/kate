@@ -24,8 +24,8 @@
 #include <QObject>
 #include <QSignalMapper>
 
-#include <kactioncollection.h>
-#include <kactionmenu.h>
+#include <KActionCollection>
+#include <KActionMenu>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/movingrangefeedback.h>
 #include <ktexteditor/range.h>

@@ -22,8 +22,8 @@
 #ifndef KATE_SWAPFILE_H
 #define KATE_SWAPFILE_H
 
-#include <QtCore/QObject>
-#include <QtCore/QDataStream>
+#include <QObject>
+#include <QDataStream>
 #include <QFile>
 #include <QTimer>
 

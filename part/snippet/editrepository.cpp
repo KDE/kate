@@ -28,12 +28,12 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/document.h>
 
-#include <klocalizedstring.h>
-#include <kstandardguiitem.h>
-#include <kuser.h>
+#include <KLocalizedString>
+#include <KStandardGuiItem>
+#include <KUser>
 
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QDialogButtonBox>
+#include <QPushButton>
+#include <QDialogButtonBox>
 
 EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
     : QDialog(parent), Ui::EditRepositoryBase(), m_repo(repository)

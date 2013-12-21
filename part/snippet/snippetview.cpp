@@ -32,10 +32,10 @@
 #include "snippetfilterproxymodel.h"
 #include "katepartdebug.h"
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KMessageBox>
 
-#include <QtGui/QContextMenuEvent>
+#include <QContextMenuEvent>
 
 #include <knewstuff3/downloaddialog.h>
 #include <knewstuff3/uploaddialog.h>

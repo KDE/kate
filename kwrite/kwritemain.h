@@ -24,10 +24,10 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 
-#include <kparts/mainwindow.h>
-#include <kconfiggroup.h>
+#include <KParts/MainWindow>
+#include <KConfigGroup>
 
-#include <QtGui/QKeyEvent>
+#include <QKeyEvent>
 
 #include <config.h>
 

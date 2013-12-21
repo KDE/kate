@@ -36,18 +36,18 @@
 #include "kateargumenthintmodel.h"
 #include "katepartdebug.h"
 
-#include <QtCore/QScopedPointer>
-#include <QtCore/QTimer>
-#include <QtWidgets/QAbstractScrollArea>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QBoxLayout>
-#include <QtWidgets/QDesktopWidget>
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QScrollBar>
-#include <QtWidgets/QSizeGrip>
-#include <QtWidgets/QToolButton>
+#include <QScopedPointer>
+#include <QTimer>
+#include <QAbstractScrollArea>
+#include <QApplication>
+#include <QBoxLayout>
+#include <QDesktopWidget>
+#include <QHeaderView>
+#include <QLabel>
+#include <QPushButton>
+#include <QScrollBar>
+#include <QSizeGrip>
+#include <QToolButton>
 
 const bool hideAutomaticCompletionOnExactMatch = true;
 

@@ -21,7 +21,7 @@
 #include "katetextlayout.h"
 #include "katetextfolding.h"
 
-#include <QtGui/QTextLine>
+#include <QTextLine>
 
 #include "katepartdebug.h"
 

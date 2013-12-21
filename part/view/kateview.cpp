@@ -64,29 +64,29 @@
 
 #include <ktexteditor/messageinterface.h>
 
-#include <kparts/event.h>
+#include <KParts/Event>
 
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kcursor.h>
-#include <kcharsets.h>
-#include <kmessagebox.h>
-#include <kstandardaction.h>
-#include <kxmlguifactory.h>
-#include <kxmlguiclient.h>
-#include <kencodingfiledialog.h>
-#include <kstandardshortcut.h>
-#include <ktoggleaction.h>
-#include <kselectaction.h>
-#include <kactioncollection.h>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KCursor>
+#include <KCharsets>
+#include <KMessageBox>
+#include <KStandardAction>
+#include <KXMLGUIFactory>
+#include <KXMLGUIClient>
+#include <KEncodingFileDialog>
+#include <KStandardShortcut>
+#include <KToggleAction>
+#include <KSelectAction>
+#include <KActionCollection>
 
-#include <QtCore/QFileInfo>
-#include <QtCore/QMimeData>
-#include <QtGui/QFont>
-#include <QtGui/QKeyEvent>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QLayout>
-#include <QtWidgets/QStyle>
+#include <QFileInfo>
+#include <QMimeData>
+#include <QFont>
+#include <QKeyEvent>
+#include <QApplication>
+#include <QLayout>
+#include <QStyle>
 
 #include <sys/stat.h> // S_IFREG
 

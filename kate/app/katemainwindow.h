@@ -26,7 +26,7 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 
-#include <kparts/part.h>
+#include <KParts/Part>
 
 #include <QDragEnterEvent>
 #include <QEvent>

@@ -42,17 +42,17 @@
 #include "snippet/katesnippetglobal.h"
 #include "katepartdebug.h"
 
-#include <kservicetypetrader.h>
+#include <KServiceTypeTrader>
 #include <kdirwatch.h>
-#include <klocalizedstring.h>
-#include <kaboutdata.h>
-#include <kpagedialog.h>
-#include <kpagewidgetmodel.h>
-#include <kiconloader.h>
-#include <kconfiggroup.h>
+#include <KLocalizedString>
+#include <KAboutData>
+#include <KPageDialog>
+#include <KPageWidgetModel>
+#include <KIconLoader>
+#include <KConfigGroup>
 
-#include <QtCore/QPointer>
-#include <QtWidgets/QBoxLayout>
+#include <QPointer>
+#include <QBoxLayout>
 #include <QApplication>
 
 KateGlobal *KateGlobal::s_self = 0;

@@ -22,8 +22,8 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 
-#include <QtCore/QObject>
-#include <QtGui/QIcon>
+#include <QObject>
+#include <QIcon>
 
 class KAboutData;
 class KConfig;

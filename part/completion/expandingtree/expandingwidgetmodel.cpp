@@ -26,8 +26,8 @@
 #include <QApplication>
 
 #include <ktexteditor/codecompletionmodel.h>
-#include <kiconloader.h>
-#include <ktextedit.h>
+#include <KIconLoader>
+#include <KTextEdit>
 #include "kcolorutils.h"
 
 #include "expandingdelegate.h"

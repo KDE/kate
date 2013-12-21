@@ -21,10 +21,10 @@
 
 #include <kateinterfaces_export.h>
 
-#include <QtCore/QObject>
-#include <QtGui/QPixmap>
+#include <QObject>
+#include <QPixmap>
 
-#include <kxmlguifactory.h>
+#include <KXMLGUIFactory>
 
 class QWidget;
 

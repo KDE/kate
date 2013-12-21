@@ -24,7 +24,7 @@
 #include <ktexteditor/range.h>
 
 // gui merging
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 
 // widget
 #include <QWidget>

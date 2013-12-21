@@ -23,10 +23,10 @@
 
 #include "plugin.moc"
 
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
+#include <KPluginFactory>
+#include <KPluginLoader>
 
-#include <QtCore/QDir>
+#include <QDir>
 
 namespace Kate
 {

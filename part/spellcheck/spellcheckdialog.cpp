@@ -32,9 +32,9 @@
 #include "kateview.h"
 #include "spellcheck/spellcheck.h"
 
-#include <kactioncollection.h>
-#include <klocalizedstring.h>
-#include <kstandardaction.h>
+#include <KActionCollection>
+#include <KLocalizedString>
+#include <KStandardAction>
 
 #include <sonnet/dialog.h>
 #include <sonnet/backgroundchecker.h>

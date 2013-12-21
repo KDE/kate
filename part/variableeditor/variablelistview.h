@@ -21,8 +21,8 @@
 #ifndef VARIABLE_LIST_VIEW_H
 #define VARIABLE_LIST_VIEW_H
 
-#include <QtCore/QMap>
-#include <QtWidgets/QScrollArea>
+#include <QMap>
+#include <QScrollArea>
 
 class VariableItem;
 class VariableEditor;

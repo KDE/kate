@@ -23,7 +23,7 @@
 #ifndef KATE_CATEGORYDRAWER_H
 #define KATE_CATEGORYDRAWER_H
 
-#include <kcategorydrawer.h>
+#include <KCategoryDrawer>
 
 class QPainter;
 class QModelIndex;

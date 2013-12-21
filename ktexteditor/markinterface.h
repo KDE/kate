@@ -23,8 +23,8 @@
 
 #include <ktexteditor/ktexteditor_export.h>
 
-#include <QtCore/QHash>
-#include <QtCore/QObject>
+#include <QHash>
+#include <QObject>
 
 class QPixmap;
 class QPoint;

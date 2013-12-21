@@ -17,7 +17,7 @@
    Boston, MA 02110-1301, USA.
 */
 
-#include <QtDBus/QtDBus>
+#include <QtDBus>
 
 #include "cursor.h"
 
@@ -48,8 +48,8 @@
 
 #include "modeinterface.h"
 
-#include <kpluginfactory.h>
-#include <kpluginloader.h>
+#include <KPluginFactory>
+#include <KPluginLoader>
 
 using namespace KTextEditor;
 

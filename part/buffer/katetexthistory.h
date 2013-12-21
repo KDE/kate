@@ -21,7 +21,7 @@
 #ifndef KATE_TEXTHISTORY_H
 #define KATE_TEXTHISTORY_H
 
-#include <QtCore/QList>
+#include <QList>
 
 #include <ktexteditor/range.h>
 

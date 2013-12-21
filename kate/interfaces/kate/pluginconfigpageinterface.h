@@ -21,9 +21,9 @@
 
 #include <kateinterfaces_export.h>
 
-#include <QtGui/QIcon>
-#include <QtGui/QPixmap>
-#include <QtWidgets/QWidget>
+#include <QIcon>
+#include <QPixmap>
+#include <QWidget>
 
 namespace Kate
 {

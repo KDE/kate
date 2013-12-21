@@ -19,14 +19,14 @@
 
 
 //BEGIN Includes
-#include <QtCore/QFile>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QTextEdit>
-#include <QtCore/QStandardPaths>
+#include <QFile>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QPushButton>
+#include <QTextEdit>
+#include <QStandardPaths>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include "katescriptconsole.h"
 #include "katetemplatescript.h"

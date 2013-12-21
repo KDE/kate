@@ -21,7 +21,7 @@
 #define KATE_SCRIPT_VIEW_H
 
 #include <QObject>
-#include <QtScript/QScriptable>
+#include <QScriptable>
 
 #include "katepartprivate_export.h"
 

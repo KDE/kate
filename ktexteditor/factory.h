@@ -22,7 +22,7 @@
 #define KDELIBS_KTEXTEDITOR_FACTORY_H
 
 #include <ktexteditor/ktexteditor_export.h>
-#include <kpluginfactory.h>
+#include <KPluginFactory>
 
 // our main baseclass of the KTextEditor::Document
 

@@ -20,12 +20,12 @@
 #ifndef __KATE_SCHEMA_H__
 #define __KATE_SCHEMA_H__
 
-#include <kactionmenu.h>
-#include <kconfig.h>
-#include <klocalizedstring.h>
+#include <KActionMenu>
+#include <KConfig>
+#include <KLocalizedString>
 
-#include <QtCore/QStringList>
-#include <QtCore/QPointer>
+#include <QStringList>
+#include <QPointer>
 
 class KateView;
 class QActionGroup;

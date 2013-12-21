@@ -31,14 +31,14 @@
 #include "codecompletionmodelcontrollerinterfacev4.h"
 #include "katepartdebug.h"
 
-#include <klocalizedstring.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
+#include <KIconLoader>
 
-#include <QtCore/QMultiMap>
-#include <QtCore/QTimer>
-#include <QtCore/QVarLengthArray>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QTextEdit>
+#include <QMultiMap>
+#include <QTimer>
+#include <QVarLengthArray>
+#include <QApplication>
+#include <QTextEdit>
 
 using namespace KTextEditor;
 

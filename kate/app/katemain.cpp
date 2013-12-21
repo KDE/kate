@@ -25,22 +25,22 @@
 #include "katerunninginstanceinfo.h"
 #include <kateinterfaces_export.h>
 
-#include <kaboutdata.h>
-#include <klocalizedstring.h>
+#include <KAboutData>
+#include <KLocalizedString>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QCommandLineParser>
-#include <QtCore/QCoreApplication>
-#include <QtCore/QLoggingCategory>
-#include <QtCore/QTextCodec>
-#include <QtCore/QUrl>
-#include <QtCore/QVariant>
-#include <QtDBus/QDBusConnection>
-#include <QtDBus/QDBusConnectionInterface>
-#include <QtDBus/QDBusInterface>
-#include <QtDBus/QDBusMessage>
-#include <QtDBus/QDBusReply>
-#include <QtWidgets/QApplication>
+#include <QByteArray>
+#include <QCommandLineParser>
+#include <QCoreApplication>
+#include <QLoggingCategory>
+#include <QTextCodec>
+#include <QUrl>
+#include <QVariant>
+#include <QDBusConnection>
+#include <QDBusConnectionInterface>
+#include <QDBusInterface>
+#include <QDBusMessage>
+#include <QDBusReply>
+#include <QApplication>
 
 class KateWaiter : public QObject {
   Q_OBJECT

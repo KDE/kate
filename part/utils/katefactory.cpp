@@ -23,7 +23,7 @@
 
 #include <ktexteditor/factory.h>
 
-#include <kpluginfactory.h>
+#include <KPluginFactory>
 
 #include <QLoggingCategory>
 

@@ -21,7 +21,7 @@
 #ifndef VARIABLE_EDITOR_H
 #define VARIABLE_EDITOR_H
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 
 class KateHelpButton;
 

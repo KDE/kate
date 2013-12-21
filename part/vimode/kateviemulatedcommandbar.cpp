@@ -30,14 +30,14 @@
 #include <katecmds.h>
 #include "katepartdebug.h"
 
-#include <kcolorscheme.h>
+#include <KColorScheme>
 
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QCompleter>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QAbstractItemView>
+#include <QLineEdit>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QCompleter>
+#include <QApplication>
+#include <QAbstractItemView>
 
 #include <algorithm>
 

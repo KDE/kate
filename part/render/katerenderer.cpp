@@ -35,10 +35,10 @@
 
 #include "katepartdebug.h"
 
-#include <QtGui/QPainter>
-#include <QtGui/QTextLine>
-#include <QtCore/QStack>
-#include <QtGui/QBrush>
+#include <QPainter>
+#include <QTextLine>
+#include <QStack>
+#include <QBrush>
 
 #include <ktexteditor/highlightinterface.h>
 

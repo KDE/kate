@@ -36,15 +36,15 @@
 #include "katehighlight.h"
 #include "katepartdebug.h"
 
-#include <kconfiggroup.h>
-#include <kcolorscheme.h>
-#include <kcolorutils.h>
-#include <kmessagebox.h>
+#include <KConfigGroup>
+#include <KColorScheme>
+#include <KColorUtils>
+#include <KMessageBox>
 
-#include <QtCore/QSet>
-#include <QtWidgets/QAction>
-#include <QtCore/QStringList>
-#include <QtCore/QTextStream>
+#include <QSet>
+#include <QAction>
+#include <QStringList>
+#include <QTextStream>
 //END
 
 using namespace KTextEditor;

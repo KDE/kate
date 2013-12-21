@@ -19,7 +19,7 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include <QtCore/QQueue>
+#include <QQueue>
 
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>

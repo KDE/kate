@@ -28,8 +28,8 @@
 #include "katerenderer.h"
 #include "katepartdebug.h"
 
-#include <kcolorscheme.h>
-#include <kconfiggroup.h>
+#include <KColorScheme>
+#include <KConfigGroup>
 //END
 
 //BEGIN KateSchemaManager

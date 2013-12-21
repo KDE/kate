@@ -38,11 +38,11 @@
 #include <sonnet/configwidget.h>
 #include <sonnet/dictionarycombobox.h>
 
-#include <QtCore/QStringList>
-#include <QtGui/QColor>
-#include <QtWidgets/QDialog>
-#include <QtWidgets/QTabWidget>
-#include <QtWidgets/QTreeWidget>
+#include <QStringList>
+#include <QColor>
+#include <QDialog>
+#include <QTabWidget>
+#include <QTreeWidget>
 
 struct syntaxContextData;
 

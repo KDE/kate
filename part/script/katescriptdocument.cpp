@@ -30,7 +30,7 @@
 #include <ktexteditor/highlightinterface.h>
 #include <ktexteditor/movingcursor.h>
 
-#include <QtScript/QScriptEngine>
+#include <QScriptEngine>
 
 KateScriptDocument::KateScriptDocument(QObject *parent)
   : QObject(parent), m_document(0)

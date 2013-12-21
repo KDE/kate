@@ -23,7 +23,7 @@
 #include "katescript.h"
 #include "kateview.h"
 
-#include <QtCore/QPair>
+#include <QPair>
 
 class KateScriptDocument;
 

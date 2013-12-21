@@ -26,25 +26,25 @@
 #include "kate/pluginconfigpageinterface.h"
 #include "katedebug.h"
 
-#include <kactioncollection.h>
-#include <kactionmenu.h>
-#include <kconfiggroup.h>
-#include <kiconloader.h>
-#include <kmessagebox.h>
-#include <kxmlguifactory.h>
-#include <klocalizedstring.h>
-#include <ksharedconfig.h>
+#include <KActionCollection>
+#include <KActionMenu>
+#include <KConfigGroup>
+#include <KIconLoader>
+#include <KMessageBox>
+#include <KXMLGUIFactory>
+#include <KLocalizedString>
+#include <KSharedConfig>
 #include <kwindowconfig.h>
 
-#include <QtCore/QChildEvent>
-#include <QtCore/QEvent>
-#include <QtGui/QContextMenuEvent>
-#include <QtGui/QPixmap>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QShortcut>
-#include <QtWidgets/QSizePolicy>
-#include <QtWidgets/QStyle>
-#include <QtXml/QDomDocument>
+#include <QChildEvent>
+#include <QEvent>
+#include <QContextMenuEvent>
+#include <QPixmap>
+#include <QMenu>
+#include <QShortcut>
+#include <QSizePolicy>
+#include <QStyle>
+#include <QDomDocument>
 
 namespace KateMDI
 {

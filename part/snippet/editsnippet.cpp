@@ -29,17 +29,17 @@
 #include "snippetstore.h"
 #include "snippet.h"
 
-#include <klocalizedstring.h>
-#include <kmimetypetrader.h>
+#include <KLocalizedString>
+#include <KMimeTypeTrader>
 #include <khelpclient.h>
-#include <kmessagebox.h>
-#include <kmessagewidget.h>
+#include <KMessageBox>
+#include <KMessageWidget>
 
 #include "katedocument.h"
 #include "kateview.h"
 
-#include <QtWidgets/QToolButton>
-#include <QtWidgets/QPushButton>
+#include <QToolButton>
+#include <QPushButton>
 
 QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
 {

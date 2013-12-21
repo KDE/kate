@@ -27,10 +27,10 @@
 #include "katetextline.h"
 #include "katelinelayout.h"
 
-#include <QtGui/QFont>
-#include <QtGui/QFontMetricsF>
-#include <QtCore/QList>
-#include <QtGui/QTextLine>
+#include <QFont>
+#include <QFontMetricsF>
+#include <QList>
+#include <QTextLine>
 
 class KateDocument;
 class KateView;

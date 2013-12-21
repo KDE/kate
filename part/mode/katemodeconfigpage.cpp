@@ -32,17 +32,17 @@
 
 #include "ui_filetypeconfigwidget.h"
 
-#include <kmimetypechooser.h>
+#include <KMimeTypeChooser>
 #include "katepartdebug.h"
 
-#include <QtCore/QRegExp>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QGroupBox>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLayout>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QToolButton>
+#include <QRegExp>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QToolButton>
 
 #define KATE_FT_HOWMANY 1024
 //END Includes

@@ -32,7 +32,7 @@
 #include <unistd.h>
 #endif
 
-#include <QtCore/QSaveFile>
+#include <QSaveFile>
 
 #if 0
 #define EDIT_DEBUG qCDebug(LOG_PART)

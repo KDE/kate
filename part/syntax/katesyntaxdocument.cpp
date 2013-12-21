@@ -27,14 +27,14 @@
 #include <time.h>
 #include <sys/time.h>
 
-#include <klocalizedstring.h>
-#include <kmessagebox.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KConfig>
+#include <KConfigGroup>
 
-#include <QtWidgets/QApplication>
-#include <QtCore/QFile>
-#include <QtCore/QDir>
+#include <QApplication>
+#include <QFile>
+#include <QDir>
 
 // use this to turn on over verbose debug output...
 #undef KSD_OVER_VERBOSE

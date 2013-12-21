@@ -31,7 +31,7 @@
 #include "katedocument.h"
 #include "katepartdebug.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include <cctype>
 

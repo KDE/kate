@@ -22,13 +22,13 @@
 #ifndef _KATE_TEMPLATE_HANDLER_H_
 #define _KATE_TEMPLATE_HANDLER_H_
 
-#include <QtCore/QPointer>
-#include <QtCore/QObject>
-#include <QtCore/QMap>
-#include <QtCore/QHash>
-#include <QtCore/QString>
-#include <QtCore/QList>
-#include <QtCore/QRegExp>
+#include <QPointer>
+#include <QObject>
+#include <QMap>
+#include <QHash>
+#include <QString>
+#include <QList>
+#include <QRegExp>
 
 class KateDocument;
 

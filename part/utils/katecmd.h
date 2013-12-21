@@ -25,10 +25,10 @@
 
 #include <ktexteditor/commandinterface.h>
 
-#include <kcompletion.h>
+#include <KCompletion>
 
-#include <QtCore/QHash>
-#include <QtCore/QStringList>
+#include <QHash>
+#include <QStringList>
 
 class KATEPART_TESTS_EXPORT KateCmd
 {

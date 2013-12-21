@@ -23,10 +23,10 @@
 #ifndef __KATE_DOCUMENT_HELPERS__
 #define __KATE_DOCUMENT_HELPERS__
 
-#include <kparts/browserextension.h>
+#include <KParts/BrowserExtension>
 
-#include <QtCore/QStringList>
-#include <QtCore/QPointer>
+#include <QStringList>
+#include <QPointer>
 
 class KateDocument;
 

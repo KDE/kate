@@ -28,7 +28,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <kpagedialog.h>
+#include <KPageDialog>
 #include <QList>
 
 class QCheckBox;

@@ -22,15 +22,15 @@
 #ifndef _KATE_DOCUMENT_H_
 #define _KATE_DOCUMENT_H_
 
-#include <QtCore/QPointer>
-#include <QtCore/QLinkedList>
-#include <QtCore/QMap>
-#include <QtCore/QDate>
-#include <QtGui/QClipboard>
-#include <QtCore/QStack>
-#include <QtCore/QMimeType>
+#include <QPointer>
+#include <QLinkedList>
+#include <QMap>
+#include <QDate>
+#include <QClipboard>
+#include <QStack>
+#include <QMimeType>
 
-#include <kjob.h>
+#include <KJob>
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/sessionconfiginterface.h>

@@ -35,12 +35,12 @@
 #include "kateview.h"
 #include "katerenderer.h"
 
-#include <QtCore/QPoint>
-#include <QtCore/QTimer>
-#include <QtGui/QDrag>
-#include <QtWidgets/QWidget>
-#include <QtCore/QSet>
-#include <QtCore/QPointer>
+#include <QPoint>
+#include <QTimer>
+#include <QDrag>
+#include <QWidget>
+#include <QSet>
+#include <QPointer>
 
 namespace KTextEditor {
   class MovingRange;

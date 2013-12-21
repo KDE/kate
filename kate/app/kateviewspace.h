@@ -25,10 +25,10 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/modificationinterface.h>
 
-#include <QtCore/QList>
-#include <QtGui/QPixmap>
-#include <QtWidgets/QFrame>
-#include <QtWidgets/QStatusBar>
+#include <QList>
+#include <QPixmap>
+#include <QFrame>
+#include <QStatusBar>
 
 class KConfigBase;
 class KSqueezedTextLabel;

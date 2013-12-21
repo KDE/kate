@@ -23,7 +23,7 @@
 #include <kateinterfaces_export.h>
 #include <kate/mainwindow.h>
 
-#include <kconfig.h>
+#include <KConfig>
 #include <QList>
 
 class KateSessionManager;

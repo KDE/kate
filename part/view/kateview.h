@@ -32,9 +32,9 @@
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
 
-#include <QtCore/QPointer>
+#include <QPointer>
 #include <QModelIndex>
-#include <QtWidgets/QMenu>
+#include <QMenu>
 
 #include "kateviinputmodemanager.h"
 #include "katetextrange.h"

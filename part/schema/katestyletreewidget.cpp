@@ -23,17 +23,17 @@
 #include "kateconfig.h"
 #include "kateextendedattribute.h"
 
-#include <klocalizedstring.h>
-#include <kcolorscheme.h>
-#include <kmessagebox.h>
+#include <KLocalizedString>
+#include <KColorScheme>
+#include <KMessageBox>
 
-#include <QtGui/QPainter>
-#include <QtGui/QKeyEvent>
-#include <QtWidgets/QAction>
-#include <QtWidgets/QColorDialog>
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QStyledItemDelegate>
+#include <QPainter>
+#include <QKeyEvent>
+#include <QAction>
+#include <QColorDialog>
+#include <QHeaderView>
+#include <QMenu>
+#include <QStyledItemDelegate>
 
 //BEGIN KateStyleTreeDelegate
 class KateStyleTreeDelegate : public QStyledItemDelegate

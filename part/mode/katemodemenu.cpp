@@ -32,18 +32,18 @@
 
 #include "ui_filetypeconfigwidget.h"
 
-#include <kmimetypechooser.h>
-#include <kiconloader.h>
+#include <KMimeTypeChooser>
+#include <KIconLoader>
 
-#include <QtCore/QRegExp>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QGroupBox>
+#include <QRegExp>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QGroupBox>
 
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLayout>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QToolButton>
+#include <QLabel>
+#include <QLayout>
+#include <QPushButton>
+#include <QToolButton>
 
 #define KATE_FT_HOWMANY 1024
 //END Includes

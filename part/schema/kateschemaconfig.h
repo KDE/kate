@@ -25,8 +25,8 @@
 #include "katecolortreewidget.h"
 #include "kateextendedattribute.h"
 
-#include <QtCore/QMap>
-#include <QtGui/QFont>
+#include <QMap>
+#include <QFont>
 
 class KateStyleTreeWidget;
 class KComboBox;

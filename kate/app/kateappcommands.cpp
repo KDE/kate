@@ -20,7 +20,7 @@
 
 #include <QDir>
 #include <QTimer>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include "kateapp.h"
 #include "kateappcommands.h"

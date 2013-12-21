@@ -33,13 +33,13 @@
 #include <QDomDocument>
 #include <QDomElement>
 
-#include <kmessagebox.h>
-#include <klocalizedstring.h>
+#include <KMessageBox>
+#include <KLocalizedString>
 #include <QApplication>
 
-#include <kcolorscheme.h>
+#include <KColorScheme>
 
-#include <kuser.h>
+#include <KUser>
 
 #include "snippetstore.h"
 #include "katepartdebug.h"

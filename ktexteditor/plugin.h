@@ -22,10 +22,10 @@
 #ifndef KDELIBS_KTEXTEDITOR_PLUGIN_H
 #define KDELIBS_KTEXTEDITOR_PLUGIN_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include <ktexteditor/ktexteditor_export.h>
-#include <kservice.h>
+#include <KService>
 
 class KConfig;
 

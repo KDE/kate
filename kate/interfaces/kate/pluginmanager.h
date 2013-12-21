@@ -22,7 +22,7 @@
 
 #include <kateinterfaces_export.h>
 
-#include <QtCore/QObject>
+#include <QObject>
 
 namespace Kate
 {

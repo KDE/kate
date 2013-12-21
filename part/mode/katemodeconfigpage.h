@@ -21,9 +21,9 @@
 #ifndef KATE_MODECONFIGPAGE_H__
 #define KATE_MODECONFIGPAGE_H__
 
-#include <QtCore/QStringList>
-#include <QtCore/QPointer>
-#include <QtCore/QHash>
+#include <QStringList>
+#include <QPointer>
+#include <QHash>
 
 #include "katedialogs.h"
 #include "katemodemanager.h"

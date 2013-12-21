@@ -22,13 +22,13 @@
 #include "katepartprivate_export.h"
 
 #include <ktexteditor/markinterface.h>
-#include <kencodingprober.h>
+#include <KEncodingProber>
 
-#include <QtCore/QBitRef>
-#include <QtGui/QColor>
-#include <QtCore/QObject>
-#include <QtCore/QVector>
-#include <QtGui/QFontMetricsF>
+#include <QBitRef>
+#include <QColor>
+#include <QObject>
+#include <QVector>
+#include <QFontMetricsF>
 #include <QStringListModel>
 
 class KConfigGroup;

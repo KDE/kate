@@ -22,7 +22,7 @@
 #ifndef _KATE_REGEXPSEARCH_H_
 #define _KATE_REGEXPSEARCH_H_
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include <ktexteditor/range.h>
 

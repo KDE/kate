@@ -21,7 +21,7 @@
 
 #include "katecommandlinescript.h"
 
-#include <kactionmenu.h>
+#include <KActionMenu>
 
 #include <QAction>
 

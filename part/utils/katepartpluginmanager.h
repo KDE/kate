@@ -24,11 +24,11 @@
 #ifndef KATEPARTPLUGINMANAGER_H
 #define KATEPARTPLUGINMANAGER_H
 
-#include <kservice.h>
-#include <kplugininfo.h>
+#include <KService>
+#include <KPluginInfo>
 
-#include <QtCore/QList>
-#include <QtCore/QObject>
+#include <QList>
+#include <QObject>
 
 namespace KTextEditor {
   class Plugin;

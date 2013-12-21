@@ -28,7 +28,7 @@
 #include "kateviglobal.h"
 #include "kateregexpsearch.h"
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
 class KateDocument;
 class KCompletion;

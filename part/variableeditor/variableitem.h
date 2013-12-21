@@ -21,10 +21,10 @@
 #ifndef VARIABLE_ITEM_H
 #define VARIABLE_ITEM_H
 
-#include <QtGui/QColor>
-#include <QtGui/QFont>
-#include <QtCore/QString>
-#include <QtCore/QStringList>
+#include <QColor>
+#include <QFont>
+#include <QString>
+#include <QStringList>
 
 class VariableEditor;
 

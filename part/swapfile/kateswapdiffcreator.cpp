@@ -23,12 +23,12 @@
 #include "katedocument.h"
 #include "katepartdebug.h"
 
-#include <kprocess.h>
-#include <kmessagebox.h>
-#include <krun.h>
-#include <klocalizedstring.h>
+#include <KProcess>
+#include <KMessageBox>
+#include <KRun>
+#include <KLocalizedString>
 
-#include <QtCore/QDir>
+#include <QDir>
 
 //BEGIN SwapDiffCreator
 SwapDiffCreator::SwapDiffCreator(Kate::SwapFile* swapFile)

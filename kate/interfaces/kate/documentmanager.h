@@ -21,8 +21,8 @@
 
 #include <kateinterfaces_export.h>
 
-#include <QtCore/QObject>
-#include <QtCore/QUrl>
+#include <QObject>
+#include <QUrl>
 
 namespace KTextEditor
 {

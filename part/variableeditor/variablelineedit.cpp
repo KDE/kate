@@ -31,16 +31,16 @@
 #include "kateglobal.h"
 #include "katerenderer.h"
 
-#include <QtCore/QDebug>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QComboBox>
-#include <QtWidgets/QFrame>
-#include <QtWidgets/QHBoxLayout>
-#include <QtWidgets/QLineEdit>
-#include <QtWidgets/QSizeGrip>
-#include <QtWidgets/QStyle>
-#include <QtWidgets/QToolButton>
-#include <QtWidgets/QVBoxLayout>
+#include <QDebug>
+#include <QApplication>
+#include <QComboBox>
+#include <QFrame>
+#include <QHBoxLayout>
+#include <QLineEdit>
+#include <QSizeGrip>
+#include <QStyle>
+#include <QToolButton>
+#include <QVBoxLayout>
 
 #include <sonnet/speller.h>
 

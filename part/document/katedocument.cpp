@@ -57,33 +57,33 @@
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/plugin.h>
 
-#include <kio/job.h>
-#include <kio/jobuidelegate.h>
-#include <kio/netaccess.h>
-#include <kfileitem.h>
+#include <KIO/Job>
+#include <KIO/JobUiDelegate>
+#include <KIO/NetAccess>
+#include <KFileItem>
 
-#include <kmessagebox.h>
-#include <kstandardaction.h>
-#include <kxmlguifactory.h>
+#include <KMessageBox>
+#include <KStandardAction>
+#include <KXMLGUIFactory>
 #include "katepartdebug.h"
 #include <kdirwatch.h>
-#include <kencodingfiledialog.h>
-#include <kcodecs.h>
-#include <kstringhandler.h>
-#include <kconfiggroup.h>
+#include <KEncodingFileDialog>
+#include <KCodecs>
+#include <KStringHandler>
+#include <KConfigGroup>
 
-#include <kservicetypetrader.h>
+#include <KServiceTypeTrader>
 
-#include <QtCore/QCryptographicHash>
-#include <QtCore/QFile>
-#include <QtCore/QMap>
-#include <QtCore/QTextCodec>
-#include <QtCore/QTextStream>
-#include <QtCore/QTimer>
-#include <QtDBus/QtDBus>
-#include <QtGui/QClipboard>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QFileDialog>
+#include <QCryptographicHash>
+#include <QFile>
+#include <QMap>
+#include <QTextCodec>
+#include <QTextStream>
+#include <QTimer>
+#include <QtDBus>
+#include <QClipboard>
+#include <QApplication>
+#include <QFileDialog>
 //END  includes
 
 #if 0

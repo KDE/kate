@@ -24,7 +24,7 @@
 #ifndef EDITSNIPPET_H
 #define EDITSNIPPET_H
 
-#include <QtWidgets/QDialog>
+#include <QDialog>
 
 namespace KTextEditor
 {

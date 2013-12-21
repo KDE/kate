@@ -22,7 +22,7 @@
 #ifndef KATESTYLETREEWIDGET_H
 #define KATESTYLETREEWIDGET_H
 
-#include <QtWidgets/QTreeWidget>
+#include <QTreeWidget>
 
 #include "kateextendedattribute.h"
 

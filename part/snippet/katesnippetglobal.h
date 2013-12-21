@@ -23,8 +23,8 @@
 #ifndef __SNIPPETPLUGIN_H__
 #define __SNIPPETPLUGIN_H__
 
-#include <QtCore/QVariant>
-#include <QtCore/QPointer>
+#include <QVariant>
+#include <QPointer>
 
 #include <kateglobal.h>
 #include <kateview.h>

@@ -17,8 +17,8 @@
 */
 
 #include "katefiletreepluginsettings.h"
-#include <kcolorscheme.h>
-#include <kcolorutils.h>
+#include <KColorScheme>
+#include <KColorUtils>
 #include "katefiletreedebug.h"
 
 KateFileTreePluginSettings::KateFileTreePluginSettings()

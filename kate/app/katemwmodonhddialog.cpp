@@ -23,20 +23,20 @@
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 
-#include <kmessagebox.h>
-#include <kprocess.h>
-#include <krun.h>
-#include <klocalizedstring.h>
-#include <kiconloader.h>
+#include <KMessageBox>
+#include <KProcess>
+#include <KRun>
+#include <KLocalizedString>
+#include <KIconLoader>
 
-#include <QtCore/QTemporaryFile>
-#include <QtCore/QTextStream>
-#include <QtWidgets/QHeaderView>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
+#include <QTemporaryFile>
+#include <QTextStream>
+#include <QHeaderView>
+#include <QLabel>
+#include <QPushButton>
 
-#include <QtWidgets/QTreeWidget>
-#include <QtWidgets/QTreeWidgetItem>
+#include <QTreeWidget>
+#include <QTreeWidgetItem>
 
 class KateDocItem : public QTreeWidgetItem
 {

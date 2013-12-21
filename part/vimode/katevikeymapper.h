@@ -21,7 +21,7 @@
 #ifndef KATE_VI_KEYMAPPER_H_INCLUDED
 #define KATE_VI_KEYMAPPER_H_INCLUDED
 
-#include <QtCore/QObject>
+#include <QObject>
 #include "katepartprivate_export.h"
 
 class KateViInputModeManager;

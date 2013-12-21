@@ -24,7 +24,7 @@
 
 #include "katepartprivate_export.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 
 class KateLineInfo;
 class KateDocument;

@@ -19,11 +19,11 @@
 #ifndef KATE_HIGHLIGHTMENU_H__
 #define KATE_HIGHLIGHTMENU_H__
 
-#include <QtCore/QStringList>
-#include <QtCore/QPointer>
-#include <QtCore/QHash>
+#include <QStringList>
+#include <QPointer>
+#include <QHash>
 
-#include <kactionmenu.h>
+#include <KActionMenu>
 
 class KateDocument;
 

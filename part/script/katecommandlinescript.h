@@ -24,7 +24,7 @@
 #include "katescript.h"
 #include "kateview.h"
 
-#include <QtCore/QPair>
+#include <QPair>
 #include <ktexteditor/commandinterface.h>
 
 class KateScriptDocument;

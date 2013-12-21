@@ -21,11 +21,11 @@
 #ifndef KATE_TEXTBUFFER_H
 #define KATE_TEXTBUFFER_H
 
-#include <QtCore/QObject>
-#include <QtCore/QString>
-#include <QtCore/QVector>
-#include <QtCore/QSet>
-#include <QtCore/QTextCodec>
+#include <QObject>
+#include <QString>
+#include <QVector>
+#include <QSet>
+#include <QTextCodec>
 
 #include <ktexteditor/document.h>
 
@@ -37,7 +37,7 @@
 #include "katetexthistory.h"
 
 // encoding prober
-#include <kencodingprober.h>
+#include <KEncodingProber>
 
 namespace Kate {
 

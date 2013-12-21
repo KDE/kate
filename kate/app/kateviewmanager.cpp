@@ -33,18 +33,18 @@
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/highlightinterface.h>
 
-#include <kactioncollection.h>
+#include <KActionCollection>
 #include "katedebug.h"
-#include <kencodingfiledialog.h>
-#include <kiconloader.h>
-#include <ktoolbar.h>
-#include <kmessagebox.h>
-#include <krecentfilesaction.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kstandardaction.h>
-#include <kstandardshortcut.h>
-#include <klocalizedstring.h>
+#include <KEncodingFileDialog>
+#include <KIconLoader>
+#include <KToolBar>
+#include <KMessageBox>
+#include <KRecentFilesAction>
+#include <KConfig>
+#include <KConfigGroup>
+#include <KStandardAction>
+#include <KStandardShortcut>
+#include <KLocalizedString>
 
 #ifdef KActivities_FOUND
 #include <kactivities/resourceinstance.h>

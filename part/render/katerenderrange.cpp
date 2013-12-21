@@ -24,7 +24,7 @@
 
 #include <limits.h>
 
-#include <kcolorutils.h>
+#include <KColorUtils>
 
 void mergeAttributes(KTextEditor::Attribute::Ptr base, KTextEditor::Attribute::Ptr add)
 {

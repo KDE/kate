@@ -33,7 +33,7 @@
 #include "kateextendedattribute.h"
 #include "katepartdebug.h"
 
-#include <QtCore/QSet>
+#include <QSet>
 //END
 
 //BEGIN KateHlItem

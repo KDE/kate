@@ -32,24 +32,24 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/containerinterface.h>
 
-#include <kcodecs.h>
-#include <kmessagebox.h>
-#include <kencodingfiledialog.h>
-#include <kio/deletejob.h>
-#include <kiconloader.h>
-#include <kcolorscheme.h>
-#include <klocalizedstring.h>
-#include <kconfiggroup.h>
+#include <KCodecs>
+#include <KMessageBox>
+#include <KEncodingFileDialog>
+#include <KIO/DeleteJob>
+#include <KIconLoader>
+#include <KColorScheme>
+#include <KLocalizedString>
+#include <KConfigGroup>
 
-#include <QtCore/QByteArray>
-#include <QtCore/QCryptographicHash>
-#include <QtCore/QDateTime>
-#include <QtCore/QHash>
-#include <QtCore/QTextCodec>
-#include <QtCore/QTimer>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QListView>
-#include <QtWidgets/QProgressDialog>
+#include <QByteArray>
+#include <QCryptographicHash>
+#include <QDateTime>
+#include <QHash>
+#include <QTextCodec>
+#include <QTimer>
+#include <QApplication>
+#include <QListView>
+#include <QProgressDialog>
 
 KateDocManager::KateDocManager (QObject *parent)
     : QObject(parent)

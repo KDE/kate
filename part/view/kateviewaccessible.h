@@ -29,8 +29,8 @@
 #include "katedocument.h"
 
 #include <QAccessible>
-#include <klocalizedstring.h>
-#include <qaccessiblewidget.h>
+#include <KLocalizedString>
+#include <QAccessibleWidget>
 
 
 

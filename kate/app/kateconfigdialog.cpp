@@ -33,18 +33,18 @@
 
 #include <ktexteditor/configpage.h>
 
-#include <kiconloader.h>
-#include <kstandardaction.h>
-#include <klocalizedstring.h>
-#include <kconfiggroup.h>
+#include <KIconLoader>
+#include <KStandardAction>
+#include <KLocalizedString>
+#include <KConfigGroup>
 
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QFrame>
-#include <QtWidgets/QGroupBox>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QRadioButton>
-#include <QtWidgets/QSpinBox>
-#include <QtWidgets/QVBoxLayout>
+#include <QCheckBox>
+#include <QFrame>
+#include <QGroupBox>
+#include <QLabel>
+#include <QRadioButton>
+#include <QSpinBox>
+#include <QVBoxLayout>
 
 KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *view )
     : KPageDialog( parent )

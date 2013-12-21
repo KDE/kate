@@ -24,7 +24,7 @@
 
 #include <kateview.h>
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
 using KTextEditor::Range;
 using KTextEditor::Cursor;

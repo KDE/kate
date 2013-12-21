@@ -20,9 +20,9 @@
 
 #include "katehelpbutton.h"
 
-#include <kiconloader.h>
+#include <KIconLoader>
 #include <khelpclient.h>
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 KateHelpButton::KateHelpButton(QWidget* parent)
   : QToolButton(parent)

@@ -20,9 +20,9 @@
 #ifndef __KATE_SYNTAXDOCUMENT_H__
 #define __KATE_SYNTAXDOCUMENT_H__
 
-#include <QtCore/QList>
-#include <QtCore/QStringList>
-#include <QtXml/QDomDocument>
+#include <QList>
+#include <QStringList>
+#include <QDomDocument>
 
 class KConfig;
 

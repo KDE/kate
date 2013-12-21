@@ -25,7 +25,7 @@
 
 #include <ktexteditor/range.h>
 
-#include <QtCore/QRegExp>
+#include <QRegExp>
 
 class KateView;
 

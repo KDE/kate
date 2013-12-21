@@ -44,19 +44,19 @@
 #include "katetextanimation.h"
 
 #include <ktexteditor/movingrange.h>
-#include <kcursor.h>
+#include <KCursor>
 #include "katepartdebug.h"
 
-#include <QtCore/QMimeData>
-#include <QtGui/QAccessible>
-#include <QtGui/QClipboard>
-#include <QtGui/QKeyEvent>
-#include <QtGui/QPainter>
-#include <QtGui/QPixmap>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QLayout>
-#include <QtWidgets/QStyle>
-#include <QtWidgets/QToolTip>
+#include <QMimeData>
+#include <QAccessible>
+#include <QClipboard>
+#include <QKeyEvent>
+#include <QPainter>
+#include <QPixmap>
+#include <QApplication>
+#include <QLayout>
+#include <QStyle>
+#include <QToolTip>
 
 static const bool debugPainting = false;
 

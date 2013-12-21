@@ -23,7 +23,7 @@
 #include "kateviglobal.h"
 #include "katepartdebug.h"
 
-#include <QtCore/QTimer>
+#include <QTimer>
 
 KateViKeyMapper::KateViKeyMapper(KateViInputModeManager* kateViInputModeManager, KateDocument* doc, KateView *view )
     : m_viInputModeManager(kateViInputModeManager),

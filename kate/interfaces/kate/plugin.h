@@ -22,10 +22,10 @@
 
 #include <kateinterfaces_export.h>
 
-#include <kxmlguiclient.h>
+#include <KXMLGUIClient>
 
-#include <QtWidgets/QWidget>
-#include <QtGui/QPixmap>
+#include <QWidget>
+#include <QPixmap>
 
 class KConfigBase;
 

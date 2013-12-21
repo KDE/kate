@@ -31,27 +31,27 @@
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/range.h>
 
-#include <klocalizedstring.h>
-#include <kpluginfactory.h>
-#include <kactioncollection.h>
-#include <knotification.h>
-#include <kparts/part.h>
-#include <kiconloader.h>
-#include <kpagedialog.h>
-#include <kpagewidgetmodel.h>
-#include <ktoggleaction.h>
-#include <kconfiggroup.h>
-#include <kcolorscheme.h>
-#include <kaboutdata.h>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KActionCollection>
+#include <KNotification>
+#include <KParts/Part>
+#include <KIconLoader>
+#include <KPageDialog>
+#include <KPageWidgetModel>
+#include <KToggleAction>
+#include <KConfigGroup>
+#include <KColorScheme>
+#include <KAboutData>
 
-#include <QtCore/QRegExp>
-#include <QtCore/QSet>
-#include <QtCore/QString>
-#include <QtWidgets/QAction>
-#include <QtWidgets/QCheckBox>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QLayout>
-#include <QtWidgets/QSpinBox>
+#include <QRegExp>
+#include <QSet>
+#include <QString>
+#include <QAction>
+#include <QCheckBox>
+#include <QLabel>
+#include <QLayout>
+#include <QSpinBox>
 
 //END
 

@@ -22,11 +22,11 @@
 
 #include <QObject>
 #include <QStringList>
-#include <QtScript/QScriptable>
+#include <QScriptable>
 
 #include "katepartprivate_export.h"
 
-#include <QtScript/QScriptValue>
+#include <QScriptValue>
 
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/range.h>

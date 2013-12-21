@@ -23,9 +23,9 @@
 
 #include "katepluginmanager.h"
 #include "kateconfigdialog.h"
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
-#include <QtWidgets/QVBoxLayout>
+#include <QVBoxLayout>
 
 class KatePluginListItem : public QTreeWidgetItem
 {

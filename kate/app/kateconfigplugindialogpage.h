@@ -21,8 +21,8 @@
 #ifndef __KATE_CONFIGPLUGINDIALOGPAGE_H__
 #define __KATE_CONFIGPLUGINDIALOGPAGE_H__
 
-#include <QtWidgets/QFrame>
-#include <QtWidgets/QTreeWidget>
+#include <QFrame>
+#include <QTreeWidget>
 
 class KatePluginListItem;
 

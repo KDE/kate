@@ -23,7 +23,7 @@
 #include <QScriptValue>
 #include <QScriptEngine>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 #include "katedocument.h"
 #include "kateview.h"

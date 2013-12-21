@@ -28,13 +28,13 @@
 
 #include <math.h>
 
-#include <kconfiggroup.h>
-#include <kcolorscheme.h>
-#include <kcolorutils.h>
-#include <kcharsets.h>
+#include <KConfigGroup>
+#include <KColorScheme>
+#include <KColorUtils>
+#include <KCharsets>
 
-#include <QtCore/QTextCodec>
-#include <QtCore/QStringListModel>
+#include <QTextCodec>
+#include <QStringListModel>
 
 //BEGIN KateConfig
 KateConfig::KateConfig ()

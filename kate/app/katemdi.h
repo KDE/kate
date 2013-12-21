@@ -23,12 +23,12 @@
 
 #include "kate/plugin.h"
 
-#include <kparts/mainwindow.h>
+#include <KParts/MainWindow>
 
 
-#include <kmultitabbar.h>
-#include <kxmlguiclient.h>
-#include <ktoggleaction.h>
+#include <KMultiTabBar>
+#include <KXMLGUIClient>
+#include <KToggleAction>
 
 #include <QMap>
 #include <QSplitter>
@@ -37,7 +37,7 @@
 #include <QEvent>
 #include <QChildEvent>
 #include <QPointer>
-#include <QtWidgets/QFrame>
+#include <QFrame>
 
 class KActionMenu;
 class QAction;

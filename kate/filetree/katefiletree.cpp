@@ -27,17 +27,17 @@
 #include <kate/application.h>
 #include <kate/documentmanager.h>
 
-#include <kmimetypetrader.h>
-#include <kopenwithdialog.h>
-#include <krun.h>
-#include <kmessagebox.h>
-#include <klocalizedstring.h>
+#include <KMimeTypeTrader>
+#include <KOpenWithDialog>
+#include <KRun>
+#include <KMessageBox>
+#include <KLocalizedString>
 
-#include <QtCore/QMimeDatabase>
-#include <QtGui/QClipboard>
-#include <QtGui/QContextMenuEvent>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QMenu>
+#include <QMimeDatabase>
+#include <QClipboard>
+#include <QContextMenuEvent>
+#include <QApplication>
+#include <QMenu>
 //END Includes
 
 

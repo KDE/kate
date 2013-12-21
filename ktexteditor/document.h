@@ -27,11 +27,11 @@
 #include <ktexteditor/range.h>
 
 // our main baseclass of the KTextEditor::Document
-#include <kparts/part.h>
+#include <KParts/Part>
 
 // the list of views
-#include <QtCore/QList>
-#include <QtCore/QMetaType>
+#include <QList>
+#include <QMetaType>
 
 namespace KTextEditor
 {

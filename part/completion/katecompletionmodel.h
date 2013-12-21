@@ -22,9 +22,9 @@
 #ifndef KATECOMPLETIONMODEL_H
 #define KATECOMPLETIONMODEL_H
 
-#include <QtCore/QAbstractProxyModel>
-#include <QtCore/QPair>
-#include <QtCore/QList>
+#include <QAbstractProxyModel>
+#include <QPair>
+#include <QList>
 
 #include <ktexteditor/codecompletionmodel.h>
 

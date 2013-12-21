@@ -20,7 +20,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_TEXTHINTINTERFACE_H
 #define KDELIBS_KTEXTEDITOR_TEXTHINTINTERFACE_H
 
-#include <QtCore/QString>
+#include <QString>
 
 #include <ktexteditor/ktexteditor_export.h>
 

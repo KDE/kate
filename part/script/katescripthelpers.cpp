@@ -32,7 +32,7 @@
 #include <QFile>
 #include <QStandardPaths>
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 namespace Kate {
 namespace Script {

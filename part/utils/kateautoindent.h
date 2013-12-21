@@ -23,10 +23,10 @@
 
 #include "kateconfig.h"
 
-#include <QtCore/QObject>
+#include <QObject>
 
 #include <ktexteditor/cursor.h>
-#include <kactionmenu.h>
+#include <KActionMenu>
 
 class KateDocument;
 class KateIndentScript;

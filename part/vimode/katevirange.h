@@ -22,7 +22,7 @@
 #define KATE_VI_RANGE_INCLUDED
 
 #include "katepartprivate_export.h"
-#include <QtCore/QDebug>
+#include <QDebug>
 
 namespace ViMotion {
     enum MotionType {

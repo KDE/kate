@@ -21,9 +21,9 @@
 #ifndef KATE_TEXTLINE_H
 #define KATE_TEXTLINE_H
 
-#include <QtCore/QVector>
-#include <QtCore/QString>
-#include <QtCore/QSharedPointer>
+#include <QVector>
+#include <QString>
+#include <QSharedPointer>
 
 #include "katepartprivate_export.h"
 

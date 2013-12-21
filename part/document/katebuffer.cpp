@@ -34,16 +34,16 @@
 #include "kateautoindent.h"
 #include "katepartdebug.h"
 
-#include <klocalizedstring.h>
-#include <kcharsets.h>
-#include <kfilterdev.h>
+#include <KLocalizedString>
+#include <KCharsets>
+#include <KFilterDev>
 
-#include <QtCore/QDate>
-#include <QtCore/QFile>
-#include <QtCore/QFileInfo>
-#include <QtCore/QTextCodec>
-#include <QtCore/QTextStream>
-#include <QtCore/QTimer>
+#include <QDate>
+#include <QFile>
+#include <QFileInfo>
+#include <QTextCodec>
+#include <QTextStream>
+#include <QTimer>
 
 /**
  * Initial value for m_maxDynamicContexts

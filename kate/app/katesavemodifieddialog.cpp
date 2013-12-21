@@ -22,17 +22,17 @@
 #include "katedebug.h"
 
 
-#include <kguiitem.h>
-#include <kstandardguiitem.h>
-#include <kiconloader.h>
-#include <kmessagebox.h>
-#include <kencodingfiledialog.h>
-#include <klocalizedstring.h>
+#include <KGuiItem>
+#include <KStandardGuiItem>
+#include <KIconLoader>
+#include <KMessageBox>
+#include <KEncodingFileDialog>
+#include <KLocalizedString>
 
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QTreeWidget>
-#include <QtWidgets/QVBoxLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QTreeWidget>
+#include <QVBoxLayout>
 
 class AbstractKateSaveModifiedDialogCheckListItem: public QTreeWidgetItem
 {

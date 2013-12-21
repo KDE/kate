@@ -34,9 +34,9 @@
 #include <QMap>
 #include <QUuid>
 
-#include <klocalizedstring.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
+#include <KLocalizedString>
+#include <KConfig>
+#include <KConfigGroup>
 
 #include "kateglobal.h"
 #include "katecmd.h"

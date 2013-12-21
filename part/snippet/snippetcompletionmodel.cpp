@@ -32,7 +32,7 @@
 #include "snippet.h"
 #include "snippetcompletionitem.h"
 
-#include <klocalizedstring.h>
+#include <KLocalizedString>
 
 SnippetCompletionModel::SnippetCompletionModel()
     : KTextEditor::CodeCompletionModel2(0)

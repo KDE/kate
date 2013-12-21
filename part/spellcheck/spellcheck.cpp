@@ -28,7 +28,7 @@
 #include <QtAlgorithms>
 #include <QTimer>
 
-#include <kactioncollection.h>
+#include <KActionCollection>
 #include <ktexteditor/view.h>
 #include <sonnet/speller.h>
 

@@ -28,10 +28,10 @@
 
 #include <kate/application.h>
 
-#include <kconfig.h>
+#include <KConfig>
 
-#include <kservicetypetrader.h>
-#include <kconfiggroup.h>
+#include <KServiceTypeTrader>
+#include <KConfigGroup>
 #include "katedebug.h"
 #include <QFile>
 

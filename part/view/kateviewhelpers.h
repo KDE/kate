@@ -21,18 +21,18 @@
 #ifndef __KATE_VIEW_HELPERS_H__
 #define __KATE_VIEW_HELPERS_H__
 
-#include <kselectaction.h>
-#include <klineedit.h>
-#include <kactionmenu.h>
+#include <KSelectAction>
+#include <KLineEdit>
+#include <KActionMenu>
 
-#include <QtGui/QPixmap>
-#include <QtGui/QColor>
-#include <QtWidgets/QScrollBar>
-#include <QtCore/QHash>
-#include <QtWidgets/QStackedWidget>
-#include <QtCore/QMap>
-#include <QtCore/QTimer>
-#include <QtGui/QTextLayout>
+#include <QPixmap>
+#include <QColor>
+#include <QScrollBar>
+#include <QHash>
+#include <QStackedWidget>
+#include <QMap>
+#include <QTimer>
+#include <QTextLayout>
 
 #include <ktexteditor/containerinterface.h>
 #include <ktexteditor/cursor.h>

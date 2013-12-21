@@ -30,16 +30,16 @@
 
 #include <kate/application.h>
 
-#include <kconfig.h>
+#include <KConfig>
 #include <ktip.h>
-#include <kmessagebox.h>
-#include <kstartupinfo.h>
-#include <klocalizedstring.h>
+#include <KMessageBox>
+#include <KStartupInfo>
+#include <KLocalizedString>
 
-#include <QtCore/QCommandLineParser>
-#include <QtCore/QFileInfo>
-#include <QtCore/QTextCodec>
-#include <QtWidgets/QApplication>
+#include <QCommandLineParser>
+#include <QFileInfo>
+#include <QTextCodec>
+#include <QApplication>
 
 #include <stdlib.h>
 #include <sys/types.h>

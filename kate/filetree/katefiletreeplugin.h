@@ -19,7 +19,7 @@
 #ifndef KATE_FILETREE_PLUGIN_H
 #define KATE_FILETREE_PLUGIN_H
 
-#include <QtGui/QIcon>
+#include <QIcon>
 
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/document.h>

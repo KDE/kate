@@ -21,8 +21,8 @@
 #ifndef KATE_MESSAGE_WIDGET_H
 #define KATE_MESSAGE_WIDGET_H
 
-#include <QtWidgets/QWidget>
-#include <QtCore/QHash>
+#include <QWidget>
+#include <QHash>
 #include <QPointer>
 
 #include "katepartprivate_export.h"

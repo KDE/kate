@@ -20,7 +20,7 @@
 #ifndef KATE_QUICK_OPEN_H
 #define KATE_QUICK_OPEN_H
 
-#include <QtWidgets/QWidget>
+#include <QWidget>
 
 class QListView;
 class QTreeView;

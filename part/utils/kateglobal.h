@@ -27,12 +27,12 @@
 
 #include <ktexteditor/editor.h>
 
-#include <kservice.h>
-#include <kaboutdata.h>
+#include <KService>
+#include <KAboutData>
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/containerinterface.h>
 #include <ktexteditor/templateinterface2.h>
-#include <QtCore/QList>
+#include <QList>
 
 class KateCmd;
 class KateModeManager;

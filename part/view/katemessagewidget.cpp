@@ -24,12 +24,12 @@
 #include "katepartdebug.h"
 
 #include <ktexteditor/messageinterface.h>
-#include <kmessagewidget.h>
+#include <KMessageWidget>
 #include <kateanimation.h>
 
-#include <QtCore/QEvent>
-#include <QtCore/QTimer>
-#include <QtWidgets/QVBoxLayout>
+#include <QEvent>
+#include <QTimer>
+#include <QVBoxLayout>
 #include <QToolTip>
 #include <QShowEvent>
 

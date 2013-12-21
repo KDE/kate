@@ -19,14 +19,14 @@
 #include "templateinterface.h"
 #include "document.h"
 #include "view.h"
-#include <QtCore/QString>
-#include <QtCore/QDate>
-#include <QtCore/QRegExp>
-#include <kmessagebox.h>
+#include <QString>
+#include <QDate>
+#include <QRegExp>
+#include <KMessageBox>
 #include <unistd.h>
-#include <klibrary.h>
-#include <klocalizedstring.h>
-#include <QtCore/QLocale>
+#include <KLibrary>
+#include <KLocalizedString>
+#include <QLocale>
 
 #define DUMMY_VALUE "!KTE:TEMPLATEHANDLER_DUMMY_VALUE!"
 

@@ -24,10 +24,9 @@
 #include "snippet.h"
 #include "katesnippetglobal.h"
 
-#include <klocalizedstring.h>
-#include <kcolorscheme.h>
-#include <kactioncollection.h>
-#include <kparts/mainwindow.h>
+#include <KLocalizedString>
+#include <KColorScheme>
+#include <KActionCollection>
 
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>")), m_action(0)

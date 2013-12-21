@@ -34,18 +34,18 @@
 
 #include "ui_howtoimportschema.h"
 
-#include <kcolorscheme.h>
-#include <kcolorutils.h>
-#include <kfontchooser.h>
-#include <kmessagebox.h>
-#include <kcombobox.h>
-#include <kconfiggroup.h>
+#include <KColorScheme>
+#include <KColorUtils>
+#include <KFontChooser>
+#include <KMessageBox>
+#include <KComboBox>
+#include <KConfigGroup>
 
-#include <QtWidgets/QFileDialog>
-#include <QtWidgets/QInputDialog>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/QProgressDialog>
-#include <QtWidgets/QTabWidget>
+#include <QFileDialog>
+#include <QInputDialog>
+#include <QPushButton>
+#include <QProgressDialog>
+#include <QTabWidget>
 
 //END
 

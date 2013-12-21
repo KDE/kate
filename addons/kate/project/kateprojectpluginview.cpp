@@ -33,7 +33,6 @@
 #include <kaboutdata.h>
 #include <kiconloader.h>
 
-#include <KFileDialog>
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QVBoxLayout>

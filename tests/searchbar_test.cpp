@@ -31,7 +31,7 @@
 #include <katesearchbar.h>
 #include <ktexteditor/movingrange.h>
 
-QTEST_KDEMAIN(SearchBarTest, GUI)
+QTEST_MAIN(SearchBarTest)
 
 namespace QTest {
   template<>

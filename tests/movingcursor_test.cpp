@@ -27,7 +27,7 @@
 
 using namespace KTextEditor;
 
-QTEST_KDEMAIN(MovingCursorTest, GUI)
+QTEST_MAIN(MovingCursorTest)
 
 namespace QTest {
     template<>

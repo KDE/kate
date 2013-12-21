@@ -23,6 +23,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QIcon>
 #include <QThread>
 #include <QCoreApplication>
 #include <QMimeDatabase>
@@ -47,41 +48,45 @@ KateProjectItem::~KateProjectItem ()
   delete m_emblem;
 }
 
-void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc) {
+void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc)
+{
   if (m_icon) {
     delete m_icon;
-    m_icon=0;
+    m_icon = 0;
   }
+
   if (doc->isModified()) {
     if (m_emblem) {
       QStringList emblems;
-      emblems<<*m_emblem;
-      m_icon= new QIcon (KIconLoader::global ()->loadIcon ("document-save" , KIconLoader::Small,0,KIconLoader::DefaultState, emblems));
-    } else
+      emblems << *m_emblem;
+      m_icon = new QIcon (KIconLoader::global ()->loadIcon ("document-save" , KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
+    } else {
       m_icon = new QIcon (KIconLoader::global ()->loadIcon ("document-save", KIconLoader::Small));
+    }
   }
   emitDataChanged();
 }
 
 void KateProjectItem::slotModifiedOnDisk (KTextEditor::Document *document,
-      bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason) {
+      bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
+{
   Q_UNUSED(document)
   Q_UNUSED(isModified)
 
   if (m_icon) {
     delete m_icon;
-    m_icon=0;
+    m_icon = 0;
   }
   
   if (m_emblem) {
     delete m_emblem;
-    m_emblem=0;
+    m_emblem = 0;
   }
 
-  if (reason!=KTextEditor::ModificationInterface::OnDiskUnmodified)
-    m_emblem=new QString("emblem-important");
+  if (reason != KTextEditor::ModificationInterface::OnDiskUnmodified) {
+    m_emblem = new QString("emblem-important");
+  }
   emitDataChanged();
-        
 }
 
 QVariant KateProjectItem::data (int role) const
@@ -117,9 +122,9 @@ QVariant KateProjectItem::data (int role) const
           QString iconName = QMimeDatabase().mimeTypeForUrl(QUrl::fromLocalFile(data(Qt::UserRole).toString())).iconName();
           QStringList emblems;
           if (m_emblem) {
-            emblems<<*m_emblem;
+            emblems << *m_emblem;
           }
-          m_icon = new QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small,0,KIconLoader::DefaultState, emblems));
+          m_icon = new QIcon (KIconLoader::global ()->loadMimeTypeIcon (iconName, KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
           break;
         }
       }

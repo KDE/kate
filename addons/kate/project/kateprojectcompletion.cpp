@@ -23,7 +23,8 @@
 #include "kateprojectplugin.h"
 
 #include <klocale.h>
-#include <kicon.h>
+
+#include <QIcon>
 
 KateProjectCompletion::KateProjectCompletion (KateProjectPlugin *plugin)
   : KTextEditor::CodeCompletionModel (0)
@@ -61,7 +62,7 @@ QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
     return m_matches.item ( index.row() )->data (Qt::DisplayRole);
 
   if( index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole ) {
-    static QIcon icon(KIcon("insert-text").pixmap(QSize(16, 16)));
+    static QIcon icon(QIcon::fromTheme("insert-text").pixmap(QSize(16, 16)));
     return icon;
   }
 

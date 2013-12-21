@@ -60,7 +60,7 @@ set (KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE)
 
 # KDE/QT definitions we want
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -DKTEXTEDITOR_NO_DEPRECATED)
+add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
 # global include directories
 include_directories (${CMAKE_CURRENT_BINARY_DIR})

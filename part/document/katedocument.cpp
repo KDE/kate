@@ -5467,34 +5467,41 @@ Kate::SwapFile* KateDocument::swapFile()
 int KateDocument::defStyleNum(int line, int column)
 {
   // Validate parameters to prevent out of range access
-  if (0 <= line && line < lines() && 0 <= column)
-  {
-    QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(
-        static_cast<KateView*>(activeView())
-          ->renderer()
-          ->config()
-          ->schema()
-      );
-    
-    // get highlighted line
-    Kate::TextLine tl = kateTextLine(line);
-    
-    /**
-     * either get char attribute or attribute of context still active at end of line
-     */
-    int attribute = 0;
-    if (column < tl->length())
-      attribute = tl->attribute (column);
-    else if (column == tl->length()) {
-      KateHlContext *context = tl->contextStack().isEmpty() ? highlight()->contextNum(0) : highlight()->contextNum (tl->contextStack().back());
-      attribute = context->attr;
-    } else
-      return -1;
-    
-    KTextEditor::Attribute::Ptr a = attributes[attribute];
-    return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
-  }
-  return -1;
+  if (line < 0 || line >= lines() || column < 0)
+    return -1;
+
+  // get highlighted line
+  Kate::TextLine tl = kateTextLine(line);
+
+  // make sure the textline is a valid pointer
+  if (!tl)
+    return -1;
+
+  /**
+   * either get char attribute or attribute of context still active at end of line
+   */
+  int attribute = 0;
+  if (column < tl->length())
+    attribute = tl->attribute (column);
+  else if (column == tl->length()) {
+    KateHlContext *context = tl->contextStack().isEmpty() ? highlight()->contextNum(0) : highlight()->contextNum (tl->contextStack().back());
+    attribute = context->attr;
+  } else
+    return -1;
+
+  QList<KTextEditor::Attribute::Ptr> attributes = highlight()->attributes(
+      static_cast<KateView*>(activeView())
+        ->renderer()
+        ->config()
+        ->schema()
+    );
+
+  // sanity check for the attribute
+  if (attribute < 0 || attribute >= attributes.size())
+    return -1;
+
+  KTextEditor::Attribute::Ptr a = attributes[attribute];
+  return a->property(KateExtendedAttribute::AttributeDefaultStyleIndex).toInt();
 }
 
 bool KateDocument::isComment(int line, int column)

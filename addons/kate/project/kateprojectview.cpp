@@ -26,7 +26,6 @@
 
 #include <QContextMenuEvent>
 #include <QSortFilterProxyModel>
-#include <KMimeType>
 #include <KMimeTypeTrader>
 #include <QMenu>
 #include <KRun>

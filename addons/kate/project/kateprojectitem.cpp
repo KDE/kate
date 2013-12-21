@@ -27,7 +27,6 @@
 #include <QCoreApplication>
 #include <QMimeDatabase>
 
-#include <KMimeType>
 #include <KIconLoader>
 #include <KTextEditor/Document>
 #include <KIcon>

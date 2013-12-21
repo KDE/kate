@@ -21,9 +21,7 @@
 #include "kateprojecttreeviewcontextmenu.h"
 
 #include <klocalizedstring.h>
-#include <KMimeType>
 #include <KMimeTypeTrader>
-#include <KStandardDirs>
 #include <KRun>
 #include <KIcon>
 
@@ -33,6 +31,8 @@
 #include <QProcess>
 #include <QApplication>
 #include <QClipboard>
+#include <QMimeType>
+#include <QMimeDatabase>
 
 KateProjectTreeViewContextMenu::KateProjectTreeViewContextMenu ()
 {
@@ -61,7 +61,7 @@ static bool isGit(const QString& filename)
 
 static bool appExists(const QString& appname)
 {
-  return !KStandardDirs::findExe(appname).isEmpty();
+  return ! QStandardPaths::findExecutable(appname).isEmpty();
 }
 
 static void launchApp(const QString &app, const QString& file)
@@ -89,8 +89,8 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
    * find correct mimetype to query for possible applications
    */
   QMenu *openWithMenu = menu.addMenu(i18n("Open With"));
-  KMimeType::Ptr mimeType = KMimeType::findByPath(filename);
-  KService::List offers = KMimeTypeTrader::self()->query(mimeType->name(), "Application");
+  QMimeType mimeType = QMimeDatabase().mimeTypeForFile(filename);
+  KService::List offers = KMimeTypeTrader::self()->query(mimeType.name(), "Application");
 
   /**
    * for each one, insert a menu item...

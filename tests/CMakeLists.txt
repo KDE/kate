@@ -27,24 +27,26 @@ set (KATE_TEST_LINK_LIBS ktexteditor katepartinterfaces
   KF5::WindowSystem
   KF5::GuiAddons)
 
-# encoding tets
+include(ECMMarkAsTest)
+
+# encoding tests
 add_subdirectory (encoding)
 
-# # buffer test
-# kde4_add_unit_test(katetextbuffertest katetextbuffertest.cpp katetextbuffertest.h)
-# target_link_libraries (katetextbuffertest ${KATE_TEST_LINK_LIBS})
-# 
-# ########### range test ###############
-# 
-# kde4_add_unit_test(range_test TESTNAME kate-range_test range_test.cpp)
-# 
-# target_link_libraries( range_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
+macro(kate_unit_tests)
+  foreach(_testname ${ARGN})
+    add_executable(${_testname} ${_testname}.cpp)
+    add_test(kate-${_testname} ${_testname})
+    target_link_libraries(${_testname} ${KATE_TEST_LINK_LIBS} Qt5::Test)
+    ecm_mark_as_test(${_testname})
+  endforeach()
+endmacro()
+
+kate_unit_tests(
+   katetextbuffertest
+   range_test
+ )
+
+
 # ########### next target ###############
 # 
 # if(NOT MINGW)

@@ -29,7 +29,7 @@
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>
 
-QTEST_KDEMAIN(RangeTest, GUI)
+QTEST_MAIN(RangeTest)
 
 namespace QTest {
   template<>

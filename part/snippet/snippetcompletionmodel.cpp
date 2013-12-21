@@ -166,7 +166,7 @@ KTextEditor::Range SnippetCompletionModel::completionRange(KTextEditor::View* vi
         if ( line.at(i).isSpace() ) {
             break;
         } else {
-            range.start().setColumn(i);
+            range.setStart(KTextEditor::Cursor (range.start().line(), i));
         }
     }
     // include everything non-space after
@@ -174,7 +174,7 @@ KTextEditor::Range SnippetCompletionModel::completionRange(KTextEditor::View* vi
         if ( line.at(i).isSpace() ) {
             break;
         } else {
-            range.end().setColumn(i);
+            range.setEnd(KTextEditor::Cursor (range.end().line(), i));
         }
     }
     return range;

@@ -151,9 +151,9 @@ bool Range::confineToRange(const Range& range)
     if (end() > range.end())
       setRange(range);
     else
-      start() = range.start();
+      setStart (range.start());
   else if (end() > range.end())
-    end() = range.end();
+    setEnd (range.end());
   else
     return false;
 
@@ -166,9 +166,9 @@ bool Range::expandToRange(const Range& range)
     if (end() < range.end())
       setRange(range);
     else
-      start() = range.start();
+      setStart (range.start());
   else if (end() < range.end())
-    end() = range.end();
+    setEnd (range.end());
   else
     return false;
 
@@ -225,26 +225,6 @@ int Range::positionRelativeToLine( int line ) const
 void KTextEditor::Range::setBothColumns( int column )
 {
   setRange(Range(start().line(), column, end().line(), column));
-}
-
-Cursor& KTextEditor::Range::start()
-{
-  return m_start;
-}
-
-const Cursor& KTextEditor::Range::start() const
-{
-  return m_start;
-}
-
-Cursor& KTextEditor::Range::end()
-{
-  return m_end;
-}
-
-const Cursor& KTextEditor::Range::end() const
-{
-  return m_end;
 }
 
 Range KTextEditor::Range::intersect( const Range & range ) const

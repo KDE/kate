@@ -270,7 +270,7 @@ void KateSpellCheckManager::trimRange(KateDocument *doc, KTextEditor::Range &r)
       cursor.setPosition(cursor.line() + 1, 0);
     }
   }
-  r.start() = cursor;
+  r.setStart (cursor);
   if(r.isEmpty()) {
     return;
   }
@@ -292,7 +292,7 @@ void KateSpellCheckManager::trimRange(KateDocument *doc, KTextEditor::Range &r)
     }
   }
   while(cursor > r.start());
-  r.end() = prevCursor;
+  r.setEnd (prevCursor);
 }
 
 #include "spellcheck.moc"

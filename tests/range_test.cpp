@@ -71,14 +71,14 @@ void RangeTest::rangeCheck ( KTextEditor::Range & valid )
   QVERIFY(valid.isValid() && valid.start() <= valid.end());
   QCOMPARE(valid, result);
 
-  valid.start() = after;
+  valid.setStart (after);
   QVERIFY(valid.isValid() && valid.start() <= valid.end());
   QCOMPARE(valid, KTextEditor::Range(after, after));
 
   valid = result;
   QCOMPARE(valid, result);
 
-  valid.end() = before;
+  valid.setEnd (before);
   QVERIFY(valid.isValid() && valid.start() <= valid.end());
   QCOMPARE(valid, KTextEditor::Range(before, before));
 }

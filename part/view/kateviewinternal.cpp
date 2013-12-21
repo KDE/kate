@@ -1736,7 +1736,7 @@ void KateViewInternal::updateSelection( const KTextEditor::Cursor& _newCursor, b
           // on the cached selection being set properly, even if it is empty
           // (i.e. selStartCached == selEndCached).
           if ( !m_selectionCached.isValid() )
-            m_selectionCached.start() = m_selectionCached.end();
+            m_selectionCached.setStart (m_selectionCached.end());
 
           int c;
           if ( newCursor > m_selectionCached.start() )
@@ -2556,19 +2556,19 @@ void KateViewInternal::mousePressEvent( QMouseEvent* e )
           {
             // Preserve the last selected line
             if ( m_selectAnchor == m_view->selectionRange().end() && m_selectAnchor.column() == 0 )
-              m_selectionCached.start().setPosition( m_selectAnchor.line()-1, 0 );
+              m_selectionCached.setStart (KTextEditor::Cursor ( m_selectAnchor.line()-1, 0 ));
             else
-              m_selectionCached.start().setPosition( m_selectAnchor.line(), 0 );
-            m_selectionCached.end() = m_view->selectionRange().end();
+              m_selectionCached.setStart (KTextEditor::Cursor ( m_selectAnchor.line(), 0 ));
+            m_selectionCached.setEnd (m_view->selectionRange().end());
           }
           else
           {
             // Preserve the first selected line
-            m_selectionCached.start() = m_view->selectionRange().start();
+            m_selectionCached.setStart (m_view->selectionRange().start());
             if ( m_view->selectionRange().end().line() > m_view->selectionRange().start().line() )
-              m_selectionCached.end().setPosition( m_view->selectionRange().start().line()+1, 0 );
+              m_selectionCached.setEnd (KTextEditor::Cursor (m_view->selectionRange().start().line()+1, 0 ));
             else
-              m_selectionCached.end() = m_view->selectionRange().end();
+              m_selectionCached.setEnd (m_view->selectionRange().end());
           }
 
           moveCursorToSelectionEdge();
@@ -2678,13 +2678,13 @@ void KateViewInternal::mouseDoubleClickEvent(QMouseEvent *e)
         // ...and keep it selected
         if (cs+1 < ce)
         {
-          m_selectionCached.start().setPosition( m_selectAnchor.line(), cs+1 );
-          m_selectionCached.end().setPosition( m_selectAnchor.line(), ce );
+          m_selectionCached.setStart (KTextEditor::Cursor ( m_selectAnchor.line(), cs+1 ));
+          m_selectionCached.setEnd (KTextEditor::Cursor ( m_selectAnchor.line(), ce ));
         }
         else
         {
-          m_selectionCached.start() = m_selectAnchor;
-          m_selectionCached.end() = m_selectAnchor;
+          m_selectionCached.setStart (m_selectAnchor);
+          m_selectionCached.setEnd (m_selectAnchor);
         }
         // Now word select to the mouse cursor
         placeCursor( e->pos(), true );
@@ -3466,7 +3466,7 @@ void KateViewInternal::viewSelectionChanged ()
   // subsequent dragging might shrink the selection into non-existence. When
   // this happens, we use the cached end to restore the cached start so that
   // updateSelection is not confused. See also comments in updateSelection.
-  m_selectionCached.start() = KTextEditor::Cursor::invalid();
+  m_selectionCached.setStart (KTextEditor::Cursor::invalid());
 }
 
 KateLayoutCache* KateViewInternal::cache( ) const

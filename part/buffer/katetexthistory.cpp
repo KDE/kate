@@ -577,11 +577,7 @@ void TextHistory::transformRange (KTextEditor::Range &range, KTextEditor::Moving
   }
 
   // now, copy cursors back
-  range.start().setLine(startLine);
-  range.start().setColumn(startColumn);
-  range.end().setLine(endLine);
-  range.end().setColumn(endColumn);
-  
+  range.setRange (KTextEditor::Cursor (startLine, startColumn), KTextEditor::Cursor (endLine, endColumn));  
 }
 
 }

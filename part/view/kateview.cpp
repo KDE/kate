@@ -99,8 +99,8 @@ void KateView::blockFix(KTextEditor::Range& range)
   if (range.start().column() > range.end().column())
   {
     int tmp = range.start().column();
-    range.start().setColumn(range.end().column());
-    range.end().setColumn(tmp);
+    range.setStart (KTextEditor::Cursor (range.start().line(), range.end().column()));
+    range.setEnd (KTextEditor::Cursor (range.end().line(), tmp));
   }
 }
 
@@ -2023,8 +2023,8 @@ bool KateView::removeSelectedText()
   if (blockSelect) {
     int selectionColumn = qMin(m_doc->toVirtualColumn(selection.start()), m_doc->toVirtualColumn(selection.end()));
     KTextEditor::Range newSelection = selection;
-    newSelection.start().setColumn(m_doc->fromVirtualColumn(newSelection.start().line(), selectionColumn));
-    newSelection.end().setColumn(m_doc->fromVirtualColumn(newSelection.end().line(), selectionColumn));
+    newSelection.setStart (KTextEditor::Cursor (newSelection.start().line(), m_doc->fromVirtualColumn(newSelection.start().line(), selectionColumn)));
+    newSelection.setEnd (KTextEditor::Cursor (newSelection.end().line(), m_doc->fromVirtualColumn(newSelection.end().line(), selectionColumn)));
     setSelection(newSelection);
     setCursorPositionInternal(newSelection.start());
   }

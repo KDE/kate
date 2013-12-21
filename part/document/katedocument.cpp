@@ -673,7 +673,7 @@ bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
   {
     if ( range.end().line() > lastLine() )
     {
-      range.end().setPosition(lastLine()+1, 0);
+      range.setEnd (KTextEditor::Cursor (lastLine()+1, 0));
     }
 
     if (range.onSingleLine())
@@ -1295,9 +1295,9 @@ bool KateDocument::editInsertLine ( int line, const QString &s )
 
   if (line) {
     Kate::TextLine prevLine = plainKateTextLine(line - 1);
-    rangeInserted.start().setPosition(line - 1, prevLine->length());
+    rangeInserted.setStart (KTextEditor::Cursor (line - 1, prevLine->length()));
   } else {
-    rangeInserted.end().setPosition(line + 1, 0);
+    rangeInserted.setEnd (KTextEditor::Cursor (line + 1, 0));
   }
 
   emit KTextEditor::Document::textInserted(this, rangeInserted);
@@ -1366,10 +1366,10 @@ bool KateDocument::editRemoveLines ( int from, int to )
   KTextEditor::Range rangeRemoved(from, 0, to + 1, 0);
 
   if (to == lastLine() + to - from + 1) {
-    rangeRemoved.end().setPosition(to, oldText.last().length());
+    rangeRemoved.setEnd (KTextEditor::Cursor (to, oldText.last().length()));
     if (from > 0) {
       Kate::TextLine prevLine = plainKateTextLine(from - 1);
-      rangeRemoved.start().setPosition(from - 1, prevLine->length());
+      rangeRemoved.setStart (KTextEditor::Cursor (from - 1, prevLine->length()));
     }
   }
 
@@ -2671,8 +2671,8 @@ bool KateDocument::typeChars ( KateView *view, const QString &realChars )
     for (int line = endLine; line >= startLine; --line)
       editInsertText(line, fromVirtualColumn(line, column), chars);
     int newSelectionColumn = toVirtualColumn(view->cursorPosition());
-    selectionRange.start().setColumn(fromVirtualColumn(selectionRange.start().line(), newSelectionColumn));
-    selectionRange.end().setColumn(fromVirtualColumn(selectionRange.end().line(), newSelectionColumn));
+    selectionRange.setRange (KTextEditor::Cursor (selectionRange.start().line(), fromVirtualColumn(selectionRange.start().line(), newSelectionColumn))
+        , KTextEditor::Cursor (selectionRange.end().line(), fromVirtualColumn(selectionRange.end().line(), newSelectionColumn)));
     view->setSelection(selectionRange);
   }
   else
@@ -2760,7 +2760,7 @@ void KateDocument::backspace( KateView *view, const KTextEditor::Cursor& c )
     if (view->blockSelection() && view->selection() && toVirtualColumn(view->selectionRange().start()) == toVirtualColumn(view->selectionRange().end())) {
       // Remove one character after selection line
       KTextEditor::Range range = view->selectionRange();
-      range.start().setColumn(range.start().column() - 1);
+      range.setStart(KTextEditor::Cursor(range.start().line(), range.start().column() - 1));
       view->setSelection(range);
     }
     view->removeSelectedText();
@@ -2840,7 +2840,7 @@ void KateDocument::del( KateView *view, const KTextEditor::Cursor& c )
     if (view->blockSelection() && view->selection() && toVirtualColumn(view->selectionRange().start()) == toVirtualColumn(view->selectionRange().end())) {
       // Remove one character after selection line
       KTextEditor::Range range = view->selectionRange();
-      range.end().setColumn(range.end().column() + 1);
+      range.setEnd (KTextEditor::Cursor(range.end().line(), range.end().column() + 1));
       view->setSelection(range);
     }
     view->removeSelectedText();
@@ -3139,7 +3139,7 @@ void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
   KTextEditor::Range range = view->selectionRange();
 
   if ((range.end().column() == 0) && (range.end().line() > 0))
-    range.end().setPosition(range.end().line() - 1, lineLength(range.end().line() - 1));
+    range.setEnd (KTextEditor::Cursor(range.end().line() - 1, lineLength(range.end().line() - 1)));
 
   editStart();
 
@@ -3440,8 +3440,8 @@ void KateDocument::transform( KateView *v, const KTextEditor::Cursor &c,
         start = end;
         end = swapCol;
       }
-      range.start().setColumn( start );
-      range.end().setColumn( end );
+      range.setStart(KTextEditor::Cursor(range.start().line(), start ));
+      range.setEnd (KTextEditor::Cursor(range.end().line(),  end ));
 
       QString s = text( range );
       QString old = s;
@@ -3615,7 +3615,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
       return false;
     }
   } else if ( isBracket( left ) ) {
-    range.start().setColumn(range.start().column() - 1);
+    range.setStart(KTextEditor::Cursor(range.start().line(), range.start().column() - 1));
     bracket = left;
   } else if ( isBracket( right ) ) {
     bracket = right;
@@ -3641,7 +3641,7 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   int minLine = qMax( range.start().line() - maxLines, 0 );
   int maxLine = qMin( range.start().line() + maxLines, documentEnd().line() );
 
-  range.end() = range.start();
+  range.setEnd (range.start());
   KTextEditor::DocumentCursor cursor(this);
   cursor.setPosition(range.start());
   int validAttr = kateTextLine(cursor.line())->attribute(cursor.column());
@@ -3659,9 +3659,9 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
       if( c == opposite ) {
         if( nesting == 0 ) {
           if (searchDir > 0) // forward
-            range.end() = cursor.toCursor();
+            range.setEnd (cursor.toCursor());
           else
-            range.start() = cursor.toCursor();
+            range.setStart (cursor.toCursor());
           return true;
         }
         nesting--;

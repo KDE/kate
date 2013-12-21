@@ -64,10 +64,10 @@ static QScriptValue rangeToScriptValue(QScriptEngine *engine, const KTextEditor:
 /** Converstion function from QtScript range to KTextEditor::Range */
 static void rangeFromScriptValue(const QScriptValue &obj, KTextEditor::Range &range)
 {
-  range.start().setPosition(obj.property("start").property("line").toInt32(),
-                            obj.property("start").property("column").toInt32());
-  range.end().setPosition(obj.property("end").property("line").toInt32(),
-                          obj.property("end").property("column").toInt32());
+  range.setRange (KTextEditor::Cursor (obj.property("start").property("line").toInt32(),
+                            obj.property("start").property("column").toInt32()),
+                  KTextEditor::Cursor (obj.property("end").property("line").toInt32(),
+                          obj.property("end").property("column").toInt32()));
 }
 //END
 

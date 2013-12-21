@@ -251,9 +251,7 @@ void KateWordCompletionModel::executeCompletionItem2(
     tailStart += sizeDiff;
     tailEnd += sizeDiff;
 
-    KTextEditor::Range tail = word;
-    tail.start().setColumn(tailStart);
-    tail.end().setColumn(tailEnd);
+    KTextEditor::Range tail (KTextEditor::Cursor (word.start().line(), tailStart), KTextEditor::Cursor (word.end().line(), tailEnd));
 
     document->replaceText(word, m_matches.at(index.row()));
     v->doc()->editEnd();

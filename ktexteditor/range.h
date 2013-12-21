@@ -113,57 +113,26 @@ class KTEXTEDITOR_EXPORT Range
      * The following functions provide access to, and manipulation of, the range's position.
      * \{
      */
-    /**
-     * Get the start position of this range. This will always be <= end().
-     *
-     * This non-const function allows direct manipulation of the start position,
-     * while still retaining notification support.
-     *
-     * If start is set to a position after end, end will be moved to the
-     * same position as start, as ranges are not allowed to have
-     * start() > end().
-     *
-     * \note If you want to change both start() and end() simultaneously,
-     *       you should use setRange(), for several reasons:
-     *       \li otherwise, the rule preventing start() > end() may alter your intended change
-     *       \li any notifications needed will be performed multiple times for no benefit
-     *
-     * \returns a reference to the start position of this range.
-     */
-    Cursor& start();
 
     /**
      * Get the start position of this range. This will always be <= end().
      *
-     * \returns a const reference to the start position of this range.
+     * \returns const reference to the start position of this range.
      */
-    const Cursor& start() const;
+    const Cursor &start () const
+    {
+      return m_start;
+    }
 
     /**
      * Get the end position of this range. This will always be >= start().
      *
-     * This non-const function allows direct manipulation of the end position,
-     * while still retaining notification support.
-     *
-     * If end is set to a position before start, start will be moved to the
-     * same position as end, as ranges are not allowed to have
-     * start() > end().
-     *
-     * \note If you want to change both start() and end() simultaneously,
-     *       you should use setRange(), for several reasons:
-     *       \li otherwise, the rule preventing start() > end() may alter your intended change
-     *       \li any notifications needed will be performed multiple times for no benefit
-     *
-     * \returns a reference to the end position of this range.
+     * \returns const reference to the end position of this range.
      */
-    Cursor& end();
-
-    /**
-     * Get the end position of this range. This will always be >= start().
-     *
-     * \returns a const reference to the end position of this range.
-     */
-    const Cursor& end() const;
+    const Cursor &end () const
+    {
+      return m_end;
+    }
 
     /**
      * Convenience function.  Set the start and end lines to \p line.
@@ -197,6 +166,30 @@ class KTEXTEDITOR_EXPORT Range
      * \param end end cursor
      */
     void setRange(const Cursor& start, const Cursor& end);
+
+    /**
+     * Set the start cursor to \e start.
+     *
+     * \note If \e start is after current end, they will be reversed.
+     *
+     * \param start new start cursor
+     */
+    void setStart (const Cursor& start)
+    {
+      setRange (start, end());
+    }
+
+    /**
+     * Set the end cursor to \e end.
+     *
+     * \note If \e end is in front of current start, they will be reversed.
+     *
+     * \param end new end cursor
+     */
+    void setEnd (const Cursor& end)
+    {
+      setRange (start(), end);
+    }
 
     /**
      * Expand this range if necessary to contain \p range.

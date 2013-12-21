@@ -23,12 +23,12 @@
 
 #include <katewordcompletion.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
-#include <KTextEditor/EditorChooser>
 
 #include <qtest_kde.h>
 
-QTEST_KDEMAIN(WordCompletionTest, GUI)
+QTEST_MAIN(WordCompletionTest)
 
 static const int count = 500000;
 
@@ -36,7 +36,7 @@ using namespace KTextEditor;
 
 void WordCompletionTest::initTestCase()
 {
-  Editor* editor = EditorChooser::editor();
+  Editor* editor = KTextEditor::editor();
   QVERIFY(editor);
 
   m_doc = editor->createDocument(this);

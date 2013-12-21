@@ -49,6 +49,7 @@ kate_unit_tests(
    regexpsearch_test
    scriptdocument_test
    vimode_test
+   wordcompletiontest
  )
 
 # ########### completion test ###############

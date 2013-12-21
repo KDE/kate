@@ -52,6 +52,16 @@ kate_unit_tests(
    wordcompletiontest
    searchbar_test
    movingcursor_test
+   messagetest
+   kte_documentcursor
+   #bug313769
+   #katedocument_test
+   movingrange_test
+   #kateview_test
+   revision_test
+   modificationsystem_test
+   templatehandler_test
+   #katefoldingtest
  )
 
 # ########### completion test ###############
@@ -67,82 +77,6 @@ kate_unit_tests(
 # )
 # 
 # 
-# ########### moving range and feedback test ###############
-# 
-# kde4_add_unit_test(movingrange_test TESTNAME kate-movingrange_test movingrange_test.cpp)
-# 
-# target_link_libraries( movingrange_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
-# ########### document test ###############
-# 
-# kde4_add_unit_test(katedocument_test TESTNAME kate-katedocument_test katedocument_test.cpp)
-# 
-# target_link_libraries( katedocument_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
-# ########### view test ###############
-# 
-# kde4_add_unit_test(kateview_test TESTNAME kate-kateview_test kateview_test.cpp)
-# 
-# target_link_libraries( kateview_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
-# ########### revision test ###############
-# 
-# kde4_add_unit_test(revision_test TESTNAME kate-revision_test revision_test.cpp)
-# 
-# target_link_libraries( revision_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
-# ########### line modification test ###############
-# 
-# kde4_add_unit_test(modificationsystem_test TESTNAME kate-modificationsystem_test modificationsystem_test.cpp)
-# 
-# target_link_libraries( modificationsystem_test ${KATE_TEST_LINK_LIBS}
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
-# ########### templatehandler test ###############
-# 
-# kde4_add_unit_test(templatehandler_test TESTNAME kate-templatehandler_test templatehandler_test.cpp)
-# 
-# target_link_libraries( templatehandler_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
-# ########### text folding test ###############
-# 
-# kde4_add_unit_test(katecodefoldingtest TESTNAME codefoldingtest katefoldingtest.cpp)
-# 
-# target_link_libraries( katecodefoldingtest
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
 # 
 # ########### indenting test ################
 # 
@@ -208,16 +142,6 @@ kate_unit_tests(
 #   katepartinterfaces
 # )
 # 
-# ########### bug 313769 test ###############
-# 
-# kde4_add_unit_test(bug313769_test TESTNAME kate-bug313769_test bug313769.cpp)
-# 
-# target_link_libraries( bug313769_test
-#  ${KDE4_KDEUI_LIBS}
-#  ${QT_QTTEST_LIBRARY}
-#  ${KATE_TEST_LINK_LIBS}
-#  katepartinterfaces
-# )
 # 
 # ########### bug 317111 test ###############
 # 
@@ -235,27 +159,3 @@ kate_unit_tests(
 #   katepartinterfaces
 # )
 # 
-# ########### KTextEditor::DocumentCursor test ###############
-# 
-# kde4_add_unit_test(kte_documentcursor_test TESTNAME kte-documentcursor_test kte_documentcursor.cpp)
-# 
-# target_link_libraries( kte_documentcursor_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
-# ########### KTextEditor::MessageInterface test ###############
-# 
-# kde4_add_unit_test(kte_messageinterface_test TESTNAME kte-messageinterface messagetest.cpp)
-# 
-# target_link_libraries( kte_messageinterface_test
-#   ${KDE4_KDEUI_LIBS}
-#   ${QT_QTTEST_LIBRARY}
-#   ${KATE_TEST_LINK_LIBS}
-#   katepartinterfaces
-# )
-# 
-# endif(NOT MINGW)
-

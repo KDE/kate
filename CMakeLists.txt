@@ -91,4 +91,4 @@ ecm_optional_add_subdirectory (addons)
 ecm_optional_add_subdirectory (doc)
 
 # tests
-#macro_optional_add_subdirectory (tests)
+ecm_optional_add_subdirectory (tests)

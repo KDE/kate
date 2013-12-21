@@ -27,7 +27,7 @@
 #include <kateview.h>
 #include <kateundomanager.h>
 
-QTEST_KDEMAIN(UndoManagerTest, GUI)
+QTEST_MAIN(UndoManagerTest)
 
 using namespace KTextEditor;
 

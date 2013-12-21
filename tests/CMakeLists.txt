@@ -44,6 +44,7 @@ endmacro()
 kate_unit_tests(
    katetextbuffertest
    range_test
+   undomanager_test
  )
 
 

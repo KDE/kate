@@ -607,6 +607,8 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
     m_columnScroll->setPageStep(width());
 
     m_columnScroll->blockSignals(blocked);
+  } else {
+    visible_dummy = false;
   }
 
   m_dummy->setVisible( visible_dummy );

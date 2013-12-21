@@ -29,7 +29,6 @@
 #include <KMimeTypeTrader>
 #include <QMenu>
 #include <KRun>
-#include <KIcon>
 #include <KLineEdit>
 #include <QVBoxLayout>
 #include <QTimer>

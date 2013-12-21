@@ -23,11 +23,11 @@
 #include <klocalizedstring.h>
 #include <KMimeTypeTrader>
 #include <KRun>
-#include <KIcon>
 
 #include <QMenu>
 #include <QFileInfo>
 #include <QDir>
+#include <QIcon>
 #include <QProcess>
 #include <QApplication>
 #include <QClipboard>
@@ -82,7 +82,7 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
    */
   QMenu menu;
 
-  QAction *copyAction=menu.addAction(KIcon("edit-copy"),i18n("Copy Filename"));
+  QAction *copyAction = menu.addAction(QIcon::fromTheme("edit-copy"), i18n("Copy Filename"));
     
   /**
    * handle "open with"
@@ -99,7 +99,7 @@ void KateProjectTreeViewContextMenu::exec(const QString& filename, const QPoint&
   {
     KService::Ptr service = *it;
     if (service->name() == "Kate") continue; // omit Kate
-    QAction *action = openWithMenu->addAction(KIcon(service->icon()), service->name());
+    QAction *action = openWithMenu->addAction(QIcon::fromTheme(service->icon()), service->name());
     action->setData(service->entryPath());
   }
 

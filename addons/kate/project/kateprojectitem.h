@@ -75,7 +75,7 @@ class KateProjectItem : public QStandardItem
      * cached icon
      */
     mutable QIcon *m_icon;
-  
+
     /**
      * for document icons
      */

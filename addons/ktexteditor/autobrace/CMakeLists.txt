@@ -8,7 +8,7 @@ set(ktexteditor_autobrace_PART_SRCS autobrace.cpp autobrace_config.cpp)
 
 kde4_add_plugin(ktexteditor_autobrace ${ktexteditor_autobrace_PART_SRCS} )
 
-target_link_libraries(ktexteditor_autobrace ${KDE4_KDECORE_LIBS} ${KDE4_KTEXTEDITOR_LIBS} )
+target_link_libraries(ktexteditor_autobrace ${KDE4_KDECORE_LIBS} ktexteditor )
 
 install(TARGETS ktexteditor_autobrace DESTINATION ${PLUGIN_INSTALL_DIR} )
 

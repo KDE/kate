@@ -69,9 +69,6 @@ include_directories (${CMAKE_CURRENT_BINARY_DIR})
 get_target_property (KDE4Support_INCLUDES KF5::KDE4Support INTERFACE_INCLUDE_DIRECTORIES)
 include_directories(${KDE4Support_INCLUDES})
 
-# use our own copies of some stuff
-set (KDE4_KTEXTEDITOR_LIBS "ktexteditor")
-
 # add more includes to let the local ktexteditor stuff be found
 include_directories (BEFORE ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/includes)
 

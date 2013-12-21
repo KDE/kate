@@ -28,7 +28,7 @@ kde4_add_plugin(katesqlplugin ${katesql_SRCS})
 
 add_subdirectory(pics)
 
-target_link_libraries(katesqlplugin ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTSQL_LIBRARY} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS} )
+target_link_libraries(katesqlplugin ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTSQL_LIBRARY} kateinterfaces ktexteditor )
 
 install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 

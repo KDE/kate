@@ -23,7 +23,7 @@ kde4_add_ui_files(katesearchplugin_PART_SRCS search.ui results.ui)
 
 kde4_add_plugin(katesearchplugin ${katesearchplugin_PART_SRCS})
 
-target_link_libraries(katesearchplugin ${KDE4_KDEUI_LIBS} ${KDE4_KDECORE_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces)
+target_link_libraries(katesearchplugin ${KDE4_KDEUI_LIBS} ${KDE4_KDECORE_LIBS} ktexteditor kateinterfaces)
 
 ########### install files ###############
 install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR})

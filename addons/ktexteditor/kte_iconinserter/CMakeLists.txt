@@ -7,7 +7,7 @@ kde4_add_plugin(ktexteditor_iconinserter ${ktexteditor_iconinserter_SRCS})
 
 target_link_libraries(ktexteditor_iconinserter
 	${KDE4_KDEUI_LIBS}
-	${KDE4_KTEXTEDITOR_LIBS}
+	ktexteditor
 )
 
 install(TARGETS ktexteditor_iconinserter DESTINATION ${PLUGIN_INSTALL_DIR})

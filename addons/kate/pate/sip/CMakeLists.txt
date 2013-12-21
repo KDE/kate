@@ -30,7 +30,7 @@ else (PYQT4_VERSION STRLESS "040905")
     set(SIP_EXTRA_OPTIONS -g -x PyKDE_QVector)
 endif(PYQT4_VERSION STRLESS "040905")
 
-add_sip_python_module(PyKate4.kate ./kate/katemod.sip ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces)
+add_sip_python_module(PyKate4.kate ./kate/katemod.sip ktexteditor kateinterfaces)
 
 install(FILES
     ./__init__.py

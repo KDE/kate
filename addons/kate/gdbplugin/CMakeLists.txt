@@ -23,7 +23,7 @@ set(kategdbplugin_PART_SRCS
 kde4_add_ui_files(kategdbplugin_PART_SRCS advanced_settings.ui)
 
 kde4_add_plugin( kategdbplugin ${kategdbplugin_PART_SRCS} )
-target_link_libraries( kategdbplugin ${KDE4_KDEUI_LIBS} ${KDE4_KDECORE_LIBS} ${KDE4_KTEXTEDITOR_LIBS} kateinterfaces )
+target_link_libraries( kategdbplugin ${KDE4_KDEUI_LIBS} ${KDE4_KDECORE_LIBS} ktexteditor kateinterfaces )
 
 install( FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/kategdb )
 install( TARGETS kategdbplugin DESTINATION ${PLUGIN_INSTALL_DIR} )

@@ -19,7 +19,7 @@ kde4_add_ui_files(ctagsplugin_SRC kate_ctags.ui CTagsGlobalConfig.ui)
 
 kde4_add_plugin(katectagsplugin ${ctagsplugin_SRC})
 
-target_link_libraries(katectagsplugin ${KDE4_KDECORE_LIBS} kateinterfaces ${KDE4_KTEXTEDITOR_LIBS} )
+target_link_libraries(katectagsplugin ${KDE4_KDECORE_LIBS} kateinterfaces ktexteditor )
 
 install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 

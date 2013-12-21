@@ -730,25 +730,19 @@ bool TextBuffer::save (const QString &filename)
    * construct correct filter device and try to open
    */
   KCompressionDevice::CompressionType type = KFilterDev::compressionTypeForMimeType(m_mimeTypeForFilterDev);
-  QIODevice *file = new KCompressionDevice(&saveFile, false, type);
-  const bool deleteFile = file;
-  if (!file)
-    file = &saveFile;
+  KCompressionDevice file(&saveFile, false, type);
 
   /**
    * try to open, if new file
    */
-  if (deleteFile) {
-    if (!file->open (QIODevice::WriteOnly)) {
-      delete file;
-      return false;
-    }
+  if (!file.open (QIODevice::WriteOnly)) {
+    return false;
   }
 
   /**
    * construct stream + disable Unicode headers
    */
-  QTextStream stream (file);
+  QTextStream stream (&file);
   stream.setCodec (QTextCodec::codecForName("UTF-16"));
 
   // set the correct codec
@@ -790,10 +784,7 @@ bool TextBuffer::save (const QString &filename)
   stream.flush ();
 
   // close and delete file
-  if (deleteFile) {
-    file->close ();
-    delete file;
-  }
+  file.close ();
 
   // flush file
   if (!saveFile.flush())

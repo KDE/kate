@@ -1,5 +1,8 @@
 project(kateprojectplugin)
 
+# Load the frameworks we need
+find_package(KF5 CONFIG REQUIRED COMPONENTS ItemModels)
+
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(kateprojectplugin_PART_SRCS

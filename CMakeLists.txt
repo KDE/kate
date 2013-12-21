@@ -36,15 +36,26 @@ include(ECMOptionalAddSubdirectory)
 include(ECMInstallIcons)
 include(ECMSetupVersion)
 
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Quick Widgets Script Test)
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Script Test)
 
 # Load the frameworks we need
 find_package(KF5 CONFIG REQUIRED COMPONENTS
-                                            Archive Auth Bookmarks Codecs Completion Config
-                                            ConfigWidgets CoreAddons Crash DBusAddons Declarative DocTools GlobalAccel GuiAddons
-                                            I18n IconThemes IdleTime Init ItemModels ItemViews JS JobWidgets KCMUtils KDE4Support
-                                            KIO NewStuff Notifications NotifyConfig Parts PrintUtils Service Solid Sonnet Style Su
-                                            TextWidgets ThreadWeaver UnitConversion Wallet WidgetsAddons WindowSystem XmlGui
+  Archive
+  Config
+  DocTools
+  GuiAddons
+  I18n
+  Init
+  JobWidgets
+  KCMUtils
+  KIO
+  NewStuff
+  Parts
+  PrintUtils
+  Sonnet
+  WindowSystem
+  XmlGui
+  KDE4Support # TODO: waiting for Title case include files
 )
 
 # config.h

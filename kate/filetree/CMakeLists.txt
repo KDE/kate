@@ -8,9 +8,10 @@ include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 add_library (katefiletreeplugin MODULE  ${katefiletreeplugin_PART_SRCS})
 
 target_link_libraries(katefiletreeplugin kateinterfaces ktexteditor
-    KF5::Parts
-    KF5::KDE4Support
-    KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews)
+  KF5::I18n
+  KF5::GuiAddons
+  KF5::IconThemes
+)
 
 install(TARGETS katefiletreeplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

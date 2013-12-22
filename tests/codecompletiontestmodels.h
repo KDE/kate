@@ -43,10 +43,10 @@ public:
         if (range.start().column() > 0) {
             KTextEditor::Range preRange(Cursor(range.start().line(), range.start().column()-1),
                                         Cursor(range.start().line(), range.start().column()));
-            kDebug() << preRange << view->document()->text(preRange);
+            qDebug() << preRange << view->document()->text(preRange);
             if (view->document()->text(preRange) == "$") {
                 range.expandToRange(preRange);
-                kDebug() << "using custom completion range" << range;
+                qDebug() << "using custom completion range" << range;
             }
         }
         return range;

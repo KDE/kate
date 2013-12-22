@@ -35,17 +35,10 @@
 #include "kateglobal.h"
 #include <ktexteditor/commandinterface.h>
 
-#include <kapplication.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
 #include <kaction.h>
-#include <kcmdlineargs.h>
-#include <kmainwindow.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobalsettings.h>
 #include <kdefakes.h>
-#include <kstatusbar.h>
 #include <kio/job.h>
 
 #include <memory>
@@ -74,18 +67,18 @@
 #include <QtCore/QEvent>
 #include <QtCore/QTimer>
 #include <QtCore/QFileInfo>
+#include <QDirIterator>
+#include <QMainWindow>
 
 #include <QtScript/QScriptEngine>
 #include <QTest>
-#include <qtest_kde.h>
 
 #include "testutils.h"
 
 #include "script_test_base.h"
 
 
-const QString srcPath(KDESRCDIR);
-const QString testDataPath(KDESRCDIR "/data/");
+const QString testDataPath(TEST_DATA_DIR);
 
 
 QtMsgHandler ScriptTestBase::m_msgHandler = 0;
@@ -104,7 +97,7 @@ void ScriptTestBase::initTestCase()
 {
   m_msgHandler = qInstallMsgHandler(noDebugMessageOutput);
   KateGlobal::self()->incRef();
-  m_toplevel = new KMainWindow();
+  m_toplevel = new QMainWindow();
   m_document = new KateDocument(true, false, false, m_toplevel);
   m_view = static_cast<KateView *>(m_document->widget());
   m_env = new TestScriptEnv(m_document, m_outputWasCustomised);
@@ -122,7 +115,7 @@ void ScriptTestBase::getTestData(const QString& script)
 
   // make sure the script files are valid
   if (!m_script_dir.isEmpty()) {
-    QFile scriptFile(srcPath + "/../part/script/data/" + m_script_dir + '/' + script + ".js");
+    QFile scriptFile(JS_DATA_DIR + m_script_dir + '/' + script + ".js");
     if (!scriptFile.exists()) {
       QSKIP(qPrintable(QString(scriptFile.fileName() + " does not exist")), SkipAll);
     }
@@ -160,8 +153,8 @@ void ScriptTestBase::runTest(const ExpectedFailures& failures)
   m_toplevel->resize( 800, 600); // restore size
 
   // load page
-  KUrl url;
-  url.setProtocol("file");
+  QUrl url;
+  url.setScheme("file");
   url.setPath(testcase + "/origin");
   m_document->openUrl(url);
 

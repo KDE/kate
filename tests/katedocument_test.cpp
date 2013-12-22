@@ -20,12 +20,13 @@
 #include "katedocument_test.h"
 #include "moc_katedocument_test.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <ktexteditor/movingcursor.h>
 #include <kateconfig.h>
-#include <ktemporaryfile.h>
+
+#include <QtTestWidgets>
+#include <QTemporaryFile>
+#include <QSignalSpy>
 
 ///TODO: is there a FindValgrind cmake command we could use to
 ///      define this automatically?
@@ -156,9 +157,9 @@ void KateDocumentTest::testMovingInterfaceSignals()
     QCOMPARE(aboutToInvalidateSpy.count(), 0);
     QCOMPARE(aboutToDeleteSpy.count(), 0);
 
-    KTemporaryFile f;
+    QTemporaryFile f;
     f.open();
-    doc->openUrl(KUrl::fromLocalFile(f.fileName()));
+    doc->openUrl(QUrl::fromLocalFile(f.fileName()));
     QCOMPARE(doc->revision(), qint64(0));
     //TODO: gets emitted once in closeFile and once in openFile - is that OK?
     QCOMPARE(aboutToInvalidateSpy.count(), 2);
@@ -336,7 +337,7 @@ void KateDocumentTest::testDigest()
 
   // make sure, Kate::TextBuffer and KateDocument::createDigest() equal
   KateDocument doc(false, false, false);
-  doc.openUrl(QString(KDESRCDIR + QString("data/md5checksum.txt")));
+  doc.openUrl(QString(TEST_DATA_DIR + QLatin1String("md5checksum.txt")));
   const QByteArray bufferDigest(doc.digest());
   QVERIFY(doc.createDigest());
   const QByteArray docDigest(doc.digest());

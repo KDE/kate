@@ -19,8 +19,6 @@
 
 #include "bug313759.h"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <katebuffer.h>
 #include <kateglobal.h>
@@ -28,7 +26,9 @@
 #include <kateconfig.h>
 #include <kmainwindow.h>
 #include <ktexteditor/range.h>
+
 #include <QtScript/QScriptEngine>
+#include <QtTestWidgets>
 
 #include "testutils.h"
 
@@ -64,11 +64,11 @@ void BugTest::tryCrash()
   KateView* view = static_cast<KateView *>(doc->createView(0));
   bool outputWasCustomised = false;
   TestScriptEnv* env = new TestScriptEnv(doc, outputWasCustomised);
-  QString url = KDESRCDIR + QString("data/bug313759.txt");
+  QString url = TEST_DATA_DIR + QLatin1String("bug313759.txt");
   doc->openUrl(url);
 
   // load moveLinesDown and moveLinesUp
-  QFile scriptFile(KDESRCDIR + QString("/../part/script/data/commands/utils.js"));
+  QFile scriptFile(JS_DATA_DIR + QLatin1String("commands/utils.js"));
   QVERIFY(scriptFile.exists());
   QVERIFY(scriptFile.open(QFile::ReadOnly));
   QScriptValue result = env->engine()->evaluate(scriptFile.readAll(), scriptFile.fileName());
@@ -87,14 +87,14 @@ void BugTest::tryCrash()
 
   // evaluate test-script
   qDebug() << "attempting crash by moving lines w/ otf spell checking enabled";
-  QFile sourceFile(KDESRCDIR + QString("data/bug313759.js"));
+  QFile sourceFile(TEST_DATA_DIR + QLatin1String("bug313759.js"));
   QVERIFY(sourceFile.open(QFile::ReadOnly));
   QTextStream stream(&sourceFile);
   stream.setCodec("UTF8");
   QString code = stream.readAll();
   sourceFile.close();
   // execute script
-  result = env->engine()->evaluate(code, KDESRCDIR + QString("data/bug313759.txt"), 1);
+  result = env->engine()->evaluate(code, TEST_DATA_DIR + QLatin1String("bug313759.txt"), 1);
   QVERIFY2( !result.isError(), result.toString().toUtf8().constData() );
 
   doc->editEnd();

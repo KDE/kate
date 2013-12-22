@@ -18,15 +18,13 @@
 */
 
 #include "completion_test.h"
-
 #include "codecompletiontestmodels.h"
-#include "codecompletiontestmodels.moc"
+//#include "codecompletiontestmodels.moc"
 
-#include <qtest_kde.h>
 #include <ksycoca.h>
 
 #include <ktexteditor/document.h>
-#include <ktexteditor/editorchooser.h>
+#include <ktexteditor/editor.h>
 
 #include <kateview.h>
 #include <katecompletionwidget.h>
@@ -35,8 +33,9 @@
 #include <katerenderer.h>
 #include <kateconfig.h>
 
-QTEST_MAIN(CompletionTest)
+#include <QtTestWidgets>
 
+QTEST_MAIN(CompletionTest)
 
 using namespace KTextEditor;
 
@@ -88,7 +87,7 @@ void CompletionTest::init()
     if ( !KSycoca::isAvailable() )
         QSKIP( "ksycoca not available", SkipAll );
 
-    Editor* editor = EditorChooser::editor();
+    Editor* editor = KTextEditor::editor();
     QVERIFY(editor);
 
     m_doc = editor->createDocument(this);
@@ -183,7 +182,7 @@ void CompletionTest::testCustomRange1()
     invokeCompletionBox(m_view);
 
     Range complRange = *m_view->completionWidget()->completionRange(testModel);
-    kDebug() << complRange;
+    qDebug() << complRange;
     QCOMPARE(complRange, Range(Cursor(0, 0), Cursor(0, 3)));
     QCOMPARE(countItems(model), 14);
 

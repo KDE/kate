@@ -36,31 +36,11 @@
 #include "kateglobal.h"
 #include <ktexteditor/commandinterface.h>
 
-#include <kapplication.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <kaction.h>
-#include <kcmdlineargs.h>
 #include <kmainwindow.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobalsettings.h>
 #include <kdefakes.h>
-#include <kstatusbar.h>
 #include <kio/job.h>
-
-#include <memory>
-#include <cstdio>
-#include <cstdlib>
-#include <climits>
-#include <limits.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <pwd.h>
-#include <signal.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QFile>
@@ -77,8 +57,7 @@
 #include <QtCore/QFileInfo>
 
 #include <QtScript/QScriptEngine>
-#include <QTest>
-#include <qtest_kde.h>
+#include <QtTestWidgets>
 
 #include "script_test_base.h"
 #include "testutils.h"

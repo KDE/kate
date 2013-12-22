@@ -35,31 +35,10 @@
 #include "katescripthelpers.h"
 #include <ktexteditor/commandinterface.h>
 
-#include <kapplication.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <kaction.h>
-#include <kcmdlineargs.h>
-#include <kmainwindow.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobalsettings.h>
 #include <kdefakes.h>
-#include <kstatusbar.h>
 #include <kio/job.h>
-
-#include <memory>
-#include <cstdio>
-#include <cstdlib>
-#include <climits>
-#include <limits.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <pwd.h>
-#include <signal.h>
 
 #include <QtCore/QObject>
 #include <QtCore/QFile>
@@ -110,10 +89,14 @@ static QScriptValue rangeToScriptValue(QScriptEngine *engine, const KTextEditor:
 /** Converstion function from QtScript range to KTextEditor::Range */
 static void rangeFromScriptValue(const QScriptValue &obj, KTextEditor::Range &range)
 {
-  range.start().setPosition(obj.property("start").property("line").toInt32(),
-                            obj.property("start").property("column").toInt32());
-  range.end().setPosition(obj.property("end").property("line").toInt32(),
-                          obj.property("end").property("column").toInt32());
+  range.setStart(KTextEditor::Cursor(
+    obj.property("start").property("line").toInt32(),
+    obj.property("start").property("column").toInt32()
+  ));
+  range.setEnd(KTextEditor::Cursor(
+    obj.property("end").property("line").toInt32(),
+    obj.property("end").property("column").toInt32()
+  ));
 }
 //END
 

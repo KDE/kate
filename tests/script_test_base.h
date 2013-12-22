@@ -24,7 +24,7 @@
 class TestScriptEnv;
 class KateDocument;
 class KateView;
-class KMainWindow;
+class QMainWindow;
 
 class ScriptTestBase : public QObject
 {
@@ -40,7 +40,7 @@ protected:
 
   TestScriptEnv* m_env;
   KateDocument* m_document;
-  KMainWindow* m_toplevel;
+  QMainWindow* m_toplevel;
   bool m_outputWasCustomised;
   QStringList m_commands;
   KateView* m_view;

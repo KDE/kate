@@ -171,7 +171,7 @@ void CodeCompletionTestModel::completionInvoked(KTextEditor::View* view, const K
   if (m_autoStartText) {
     m_startText = view->document()->text(KTextEditor::Range(range.start(), view->cursorPosition()));
   }
-  kDebug() << m_startText;
+  qDebug() << m_startText;
 }
 
 

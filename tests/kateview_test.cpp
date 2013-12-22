@@ -20,14 +20,14 @@
 #include "kateview_test.h"
 #include "moc_kateview_test.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <kateview.h>
 #include <ktexteditor/movingcursor.h>
 #include <kateconfig.h>
-#include <ktemporaryfile.h>
 #include <katebuffer.h>
+
+#include <QtTestWidgets>
+#include <QTemporaryFile>
 
 using namespace KTextEditor;
 
@@ -55,8 +55,7 @@ KateViewTest::~KateViewTest()
 
 void KateViewTest::testReloadMultipleViews()
 {
-    KTemporaryFile file;
-    file.setSuffix(".cpp");
+    QTemporaryFile file("XXXXXX.cpp");
     file.open();
     QTextStream stream(&file);
     const QString line = "const char* foo = \"asdf\"\n";
@@ -67,7 +66,7 @@ void KateViewTest::testReloadMultipleViews()
     file.close();
 
     KateDocument doc(false, false, false);
-    QVERIFY(doc.openUrl(KUrl(file.fileName())));
+    QVERIFY(doc.openUrl(QUrl::fromLocalFile(file.fileName())));
     QCOMPARE(doc.highlightingMode(), QString("C++"));
 
     KateView* view1 = new KateView(&doc, 0);
@@ -224,8 +223,7 @@ void KateViewTest::testSelection()
     // => expected: selection from B to C
     // => actual: selection from A to C
 
-    KTemporaryFile file;
-    file.setSuffix(".txt");
+    QTemporaryFile file("XXXXXX.txt");
     file.open();
     QTextStream stream(&file);
     stream << "A\n"
@@ -235,7 +233,7 @@ void KateViewTest::testSelection()
     file.close();
 
     KateDocument doc(false, false, false);
-    QVERIFY(doc.openUrl(KUrl(file.fileName())));
+    QVERIFY(doc.openUrl(QUrl::fromLocalFile(file.fileName())));
 
     KateView* view = new KateView(&doc, 0);
     view->resize(100, 100);

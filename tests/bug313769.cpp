@@ -20,14 +20,14 @@
 #include "bug313769.h"
 #include "moc_bug313769.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <katebuffer.h>
 #include <kateglobal.h>
 #include <kateview.h>
 #include <kateconfig.h>
 #include <ktexteditor/range.h>
+
+#include <QtTestWidgets>
 
 QTEST_MAIN(BugTest)
 
@@ -55,7 +55,7 @@ void BugTest::cleanupTestCase()
 void BugTest::tryCrash()
 {
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("data/bug313769.cpp");
+  QString url = TEST_DATA_DIR + QLatin1String("bug313769.cpp");
   doc.openUrl(url);
   doc.discardDataRecovery();
   doc.setHighlightingMode("C++");

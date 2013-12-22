@@ -20,7 +20,7 @@
 #ifndef KATE_COMPLETIONTEST_H
 #define KATE_COMPLETIONTEST_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
 namespace KTextEditor {
   class Document;

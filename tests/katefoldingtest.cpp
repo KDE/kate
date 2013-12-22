@@ -20,14 +20,14 @@
 
 #include "katefoldingtest.h"
 
-#include <qtest_kde.h>
-
 #include <kateglobal.h>
 #include <katebuffer.h>
 #include <katedocument.h>
 #include <kateview.h>
 #include <kateconfig.h>
 #include <katetextfolding.h>
+
+#include <QtTestWidgets>
 
 using namespace KTextEditor;
 
@@ -61,7 +61,7 @@ void KateFoldingTest::cleanupTestCase()
 void KateFoldingTest::testCrash311866()
 {
   KateDocument doc(false, false, false);
-  QString url = KDESRCDIR + QString("data/bug311866.cpp");
+  QString url = TEST_DATA_DIR + QLatin1String("bug311866.cpp");
   doc.openUrl(url);
   doc.setHighlightingMode("C++");
   doc.buffer().ensureHighlighted (6);

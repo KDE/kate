@@ -534,8 +534,8 @@ void KWrite::restore()
 
 void KWrite::aboutEditor()
 {
-  // FIXME KF5 KAboutApplicationDialog dlg(m_view->document()->editor()->aboutData(), this);
-  // FIXME KF5 dlg.exec();
+  KAboutApplicationDialog dlg(*(m_view->document()->editor()->aboutData()), this);
+  dlg.exec();
 }
 
 void KWrite::updateStatus ()

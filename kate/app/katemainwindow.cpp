@@ -807,8 +807,8 @@ void KateMainWindow::pluginHelp()
 
 void KateMainWindow::aboutEditor()
 {
-  // FIXME KF5 KAboutApplicationDialog ad(KateDocManager::self()->editor()->aboutData(),this);
-  // FIXME KF5 ad.exec();
+  KAboutApplicationDialog ad(*(KateDocManager::self()->editor()->aboutData()),this);
+  ad.exec();
 }
 
 void KateMainWindow::tipOfTheDay()

@@ -412,7 +412,10 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * Emitted if the history of clipboard changes via copyToClipboard
      */
     void clipboardHistoryChanged ();
-    
+
+  protected:
+    bool eventFilter(QObject *, QEvent *);
+
   private Q_SLOTS:
     void updateColorPalette();
 

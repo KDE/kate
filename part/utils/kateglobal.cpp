@@ -192,10 +192,9 @@ KateGlobal::KateGlobal ()
   // global word completion model
   m_wordCompletionModel = new KateWordCompletionModel (this);
 
-  //
-  // finally setup connections
-  // FIXME: kf5 alternative signal?
-  // connect(KGlobalSettings::self(), SIGNAL(kdisplayPaletteChanged()), this, SLOT(updateColorPalette()));
+  // tap to QApplication object
+  // TODO: recheck the frameworks, if there is a better way of handling the PaletteChange "signal"
+  qApp->installEventFilter(this);
 
   //required for setting sessionConfig property
   qRegisterMetaType<KSharedConfig::Ptr>("KSharedConfig::Ptr");
@@ -251,7 +250,7 @@ const QList<KTextEditor::Document*> &KateGlobal::documents ()
 KateSnippetGlobal *KateGlobal::snippetGlobal()
 {
   if (!m_snippetGlobal)
-    m_snippetGlobal = new KateSnippetGlobal (this);  
+    m_snippetGlobal = new KateSnippetGlobal (this);
   return m_snippetGlobal;
 }
 
@@ -308,7 +307,7 @@ void KateGlobal::configDialog(QWidget *parent)
   kd->setWindowTitle( i18n("Configure") );
   kd->setFaceType( KPageDialog::List );
   kd->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel | QDialogButtonBox::Apply | QDialogButtonBox::Help );
-  
+
   QList<KTextEditor::ConfigPage*> editorPages;
 
   for (int i = 0; i < configPages (); ++i)
@@ -552,12 +551,12 @@ void KateGlobal::copyToClipboard (const QString &text)
    */
   if (text.isEmpty())
     return;
-  
+
   /**
    * move to clipboard
    */
   QApplication::clipboard()->setText (text, QClipboard::Clipboard);
-  
+
   /**
    * remember in history
    * cut after 10 entries
@@ -565,11 +564,22 @@ void KateGlobal::copyToClipboard (const QString &text)
   m_clipboardHistory.prepend (text);
   if (m_clipboardHistory.size () > 10)
     m_clipboardHistory.removeLast ();
-  
+
   /**
    * notify about change
    */
   emit clipboardHistoryChanged ();
+}
+
+bool KateGlobal::eventFilter(QObject *obj, QEvent *event)
+{
+  Q_UNUSED(obj);
+
+  if (event->type() == QEvent::ApplicationPaletteChange) {
+    updateColorPalette();
+  }
+
+  return false; // always continue processing
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

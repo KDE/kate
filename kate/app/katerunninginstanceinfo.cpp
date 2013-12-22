@@ -20,12 +20,8 @@
 #include "katerunninginstanceinfo.h"
 #include <QDBusReply>
 #include <QStringList>
+#include <QCoreApplication>
 #include <QDBusConnectionInterface>
-#include <unistd.h>
-
-#ifdef Q_WS_WIN
-#include <process.h>
-#endif
 
 int KateRunningInstanceInfo::dummy_session=0;
 
@@ -41,7 +37,7 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
 
   QString serviceName;
 
-  QString my_pid(QString("%1").arg(getpid()).toLatin1());
+  QString my_pid(QString("%1").arg(QCoreApplication::applicationPid()).toLatin1());
 
   foreach (const QString &s, services)
   {
@@ -68,6 +64,5 @@ void cleanupRunningKateAppInstanceMap(KateRunningInstanceMap *map)
   }
   map->clear();
 }
-
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

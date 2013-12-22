@@ -43,9 +43,6 @@
 #include <QTextCodec>
 #include <QApplication>
 
-#include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
 #include "kateappadaptor.h"
 
 KateApp *KateApp::s_self = 0;
@@ -115,8 +112,8 @@ Kate::Application *KateApp::application ()
 void KateApp::initKate ()
 {
 
-  qCDebug(LOG_KATE) << "Setting KATE_PID: '" << getpid() << "'";
-  ::setenv( "KATE_PID", QString("%1").arg(getpid()).toLatin1().constData(), 1 );
+  qCDebug(LOG_KATE) << "Setting KATE_PID: '" << QCoreApplication::applicationPid() << "'";
+  ::setenv( "KATE_PID", QString("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData(), 1 );
 
   // handle restore different
   if (qApp->isSessionRestored())

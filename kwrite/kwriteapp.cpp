@@ -71,7 +71,7 @@ KWriteApp *KWriteApp::self ()
 
 void KWriteApp::init()
 {
-  if (false /* FIXME KF5 isSessionRestored() */)
+  if ( qApp->isSessionRestored() )
   {
     KWrite::restore();
   }

@@ -117,7 +117,7 @@ void KateApp::initKate ()
   ::setenv( "KATE_PID", QString("%1").arg(getpid()).toLatin1().constData(), 1 );
 
   // handle restore different
-  if (false /* FIXME KF5 isSessionRestored() */)
+  if (qApp->isSessionRestored())
   {
     restoreKate ();
   }

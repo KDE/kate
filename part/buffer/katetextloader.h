@@ -70,8 +70,8 @@ class TextLoader
       m_mimeType = QMimeDatabase().mimeTypeForFileNameAndData( filename, &testMime ).name();
 
       // construct filter device
-      //KCompressionDevice::CompressionType compressionType = KFilterDev::compressionTypeForMimeType(m_mimeType);
-      m_file = new QFile (filename); // FIXME KF5 does only load first 8kb of stuff :/ new KCompressionDevice(filename, compressionType);
+      KCompressionDevice::CompressionType compressionType = KFilterDev::compressionTypeForMimeType(m_mimeType);
+      m_file = new KCompressionDevice(filename, compressionType);
     }
 
     /**

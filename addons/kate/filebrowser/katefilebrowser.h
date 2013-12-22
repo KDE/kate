@@ -39,6 +39,8 @@ class KHistoryComboBox;
 class KToolBar;
 
 class KUrlNavigator;
+class KConfigBase;
+
 /*
     The kate file selector presents a directory view, in which the default action is
     to open the activated file.

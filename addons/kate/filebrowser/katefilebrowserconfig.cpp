@@ -98,7 +98,7 @@ void KateFileBrowserConfigPage::apply()
 
   m_changed = false;
 
-  KConfigGroup config(KGlobal::config(), "filebrowser");
+  KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
   QStringList l;
   ActionLBItem *aItem;
   QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QString("*"), Qt::MatchWildcard);
@@ -121,7 +121,7 @@ void KateFileBrowserConfigPage::reset()
 
 void KateFileBrowserConfigPage::init()
 {
-  KConfigGroup config(KGlobal::config(), "filebrowser");
+  KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
   // toolbar
   QStringList l = config.readEntry( "toolbar actions", QStringList() );
   if ( l.isEmpty() ) // default toolbar

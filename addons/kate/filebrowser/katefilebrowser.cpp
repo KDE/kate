@@ -31,6 +31,7 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
+#include <KAction>
 #include <KConfigGroup>
 #include <KDebug>
 #include <KDirOperator>
@@ -126,7 +127,7 @@ KateFileBrowser::~KateFileBrowser()
 //BEGIN Public Methods
 void KateFileBrowser::setupToolbar()
 {
-  KConfigGroup config(KGlobal::config(), "filebrowser");
+  KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
   QStringList actions = config.readEntry( "toolbar actions", QStringList() );
   if ( actions.isEmpty() ) // default toolbar
     actions << "back" << "forward" << "bookmarks" << "sync_dir" << "configure";
@@ -298,7 +299,7 @@ KUrl KateFileBrowser::activeDocumentUrl()
 void KateFileBrowser::setupActions()
 {
   // bookmarks action!
-  KActionMenu *acmBookmarks = new KActionMenu(KIcon("bookmarks"), i18n("Bookmarks"), this);
+  KActionMenu *acmBookmarks = new KActionMenu(QIcon::fromTheme("bookmarks"), i18n("Bookmarks"), this);
   acmBookmarks->setDelayed(false);
   m_bookmarkHandler = new KateBookmarkHandler(this, acmBookmarks->menu());
   acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
@@ -307,14 +308,14 @@ void KateFileBrowser::setupActions()
   KAction* syncFolder = new KAction(this);
   syncFolder->setShortcutContext(Qt::WidgetWithChildrenShortcut);
   syncFolder->setText(i18n("Current Document Folder"));
-  syncFolder->setIcon(KIcon("system-switch-user"));
+  syncFolder->setIcon(QIcon::fromTheme("system-switch-user"));
   connect(syncFolder, SIGNAL(triggered()), this, SLOT(setActiveDocumentDir()));
 
   m_actionCollection->addAction("sync_dir", syncFolder);
   m_actionCollection->addAction("bookmarks", acmBookmarks);
 
   // section for settings menu
-  KActionMenu *optionsMenu = new KActionMenu(KIcon("configure"), i18n("Options"), this);
+  KActionMenu *optionsMenu = new KActionMenu(QIcon::fromTheme("configure"), i18n("Options"), this);
   optionsMenu->setDelayed(false);
   optionsMenu->addAction(m_dirOperator->actionCollection()->action("short view"));
   optionsMenu->addAction(m_dirOperator->actionCollection()->action("detailed view"));
@@ -327,7 +328,7 @@ void KateFileBrowser::setupActions()
   m_autoSyncFolder = new KAction(this);
   m_autoSyncFolder->setCheckable(true);
   m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
-  m_autoSyncFolder->setIcon(KIcon("system-switch-user"));
+  m_autoSyncFolder->setIcon(QIcon::fromTheme("system-switch-user"));
   connect(m_autoSyncFolder, SIGNAL(triggered()), this, SLOT(autoSyncFolder()));
   optionsMenu->addAction(m_autoSyncFolder);
 

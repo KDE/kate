@@ -27,7 +27,7 @@
 #include <kstandarddirs.h>
 
 
-KateBookmarkHandler::KateBookmarkHandler( KateFileBrowser *parent, KMenu* kpopupmenu )
+KateBookmarkHandler::KateBookmarkHandler( KateFileBrowser *parent, QMenu* kpopupmenu )
     : QObject( parent ),
     KBookmarkOwner(),
     mParent( parent ),
@@ -35,7 +35,7 @@ KateBookmarkHandler::KateBookmarkHandler( KateFileBrowser *parent, KMenu* kpopup
 {
   setObjectName( "KateBookmarkHandler" );
   if (!m_menu)
-    m_menu = new KMenu( parent);
+    m_menu = new QMenu( parent);
 
   QString file = KStandardDirs::locate( "data", "kate/fsbookmarks.xml" );
   if ( file.isEmpty() )
@@ -52,14 +52,14 @@ KateBookmarkHandler::~KateBookmarkHandler()
   delete m_bookmarkMenu;
 }
 
-QString KateBookmarkHandler::currentUrl() const
+QUrl KateBookmarkHandler::currentUrl() const
 {
-  return mParent->dirOperator()->url().url();
+  return mParent->dirOperator()->url();
 }
 
 QString KateBookmarkHandler::currentTitle() const
 {
-  return currentUrl();
+  return currentUrl().url();
 }
 
 void KateBookmarkHandler::openBookmark( const KBookmark & bm, Qt::MouseButtons, Qt::KeyboardModifiers )

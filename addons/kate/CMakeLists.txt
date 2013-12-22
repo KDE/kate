@@ -11,7 +11,7 @@ add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13040 )
 #add_subdirectory( textfilter )
 ecm_optional_add_subdirectory ( konsole )
 
-#add_subdirectory( filebrowser )
+ecm_optional_add_subdirectory ( filebrowser )
 #add_subdirectory( mailfiles )
 
 #add_subdirectory( tabbarextension )

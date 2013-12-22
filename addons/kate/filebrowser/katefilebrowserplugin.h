@@ -64,7 +64,7 @@ class KateFileBrowserPlugin: public Kate::Plugin, public Kate::PluginConfigPageI
     virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
     virtual QString configPageName (uint number = 0) const;
     virtual QString configPageFullName (uint number = 0) const;
-    virtual KIcon configPageIcon (uint number = 0) const;
+    virtual QIcon configPageIcon (uint number = 0) const;
     
   public Q_SLOTS:
     void viewDestroyed(QObject* view);

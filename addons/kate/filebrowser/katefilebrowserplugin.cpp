@@ -22,7 +22,6 @@
 
 //BEGIN Includes
 #include "katefilebrowserplugin.h"
-#include "katefilebrowserplugin.moc"
 #include "katefilebrowserconfig.h"
 #include "katefilebrowser.h"
 
@@ -31,12 +30,13 @@
 
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
+#include <klocale.h>
+#include <kiconloader.h>
 
 #include <QtGui/QKeyEvent>
 //END Includes
 
-K_PLUGIN_FACTORY(KateFileBrowserFactory, registerPlugin<KateFileBrowserPlugin>();)
-K_EXPORT_PLUGIN(KateFileBrowserFactory(KAboutData("katefilebrowserplugin","katefilebrowserplugin",ki18n("Filesystem Browser"), "0.1", ki18n("Browse through the filesystem"), KAboutData::License_LGPL_V2)) )
+K_PLUGIN_FACTORY_WITH_JSON (KateFileBrowserPluginFactory, "katefilebrowserplugin.json", registerPlugin<KateFileBrowserPlugin>();)
 
 //BEGIN KateFileBrowserPlugin
 KateFileBrowserPlugin::KateFileBrowserPlugin(QObject* parent, const QList<QVariant>&)
@@ -74,7 +74,6 @@ Kate::PluginConfigPage *KateFileBrowserPlugin::configPage (uint number, QWidget 
 QString KateFileBrowserPlugin::configPageName (uint number) const
 {
   if (number != 0) return QString();
-  kDebug() << "Returning a config page name";
   return i18n("Filesystem Browser");
 }
 
@@ -84,10 +83,10 @@ QString KateFileBrowserPlugin::configPageFullName (uint number) const
   return i18n("Filesystem Browser Settings");
 }
 
-KIcon KateFileBrowserPlugin::configPageIcon (uint number) const
+QIcon KateFileBrowserPlugin::configPageIcon (uint number) const
 {
-  if (number != 0) return KIcon();
-  return KIcon("document-open");
+  if (number != 0) return QIcon();
+  return QIcon::fromTheme("document-open");
 }
 //END KateFileBrowserPlugin
 
@@ -100,7 +99,7 @@ KateFileBrowserPluginView::KateFileBrowserPluginView (Kate::MainWindow *mainWind
         mainWindow->createToolView(
             "kate_private_plugin_katefileselectorplugin"
           , Kate::MainWindow::Left
-          , SmallIcon("document-open")
+          , KIconLoader::global()->loadIcon("document-open", KIconLoader::Small)
           , i18n("Filesystem Browser")
           )
       )
@@ -141,5 +140,6 @@ bool KateFileBrowserPluginView::eventFilter(QObject* obj, QEvent* event)
 }
 //ENDKateFileBrowserPluginView
 
+#include "katefilebrowserplugin.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

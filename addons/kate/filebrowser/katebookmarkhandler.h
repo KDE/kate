@@ -26,20 +26,21 @@
 #include <kbookmarkmenu.h>
 
 class KateFileBrowser;
+class QMenu;
 
 class KateBookmarkHandler : public QObject, public KBookmarkOwner
 {
     Q_OBJECT
 
   public:
-    explicit KateBookmarkHandler( KateFileBrowser *parent, KMenu *kpopupmenu = 0 );
+    explicit KateBookmarkHandler( KateFileBrowser *parent, QMenu *kpopupmenu = 0 );
     ~KateBookmarkHandler();
 
     // KBookmarkOwner interface:
-    virtual QString currentUrl() const;
+    virtual QUrl currentUrl() const;
     virtual QString currentTitle() const;
 
-    KMenu *menu() const
+    QMenu *menu() const
     {
       return m_menu;
     }
@@ -50,7 +51,7 @@ class KateBookmarkHandler : public QObject, public KBookmarkOwner
 
   private:
     KateFileBrowser *mParent;
-    KMenu *m_menu;
+    QMenu *m_menu;
     KBookmarkMenu *m_bookmarkMenu;
 };
 

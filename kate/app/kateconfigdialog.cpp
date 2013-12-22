@@ -39,6 +39,7 @@
 #include <KConfigGroup>
 
 #include <QCheckBox>
+#include <QDialogButtonBox>
 #include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
@@ -52,16 +53,15 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
     , m_view( view )
 {
   setFaceType( Tree );
-  // FIXME KF5 setCaption( i18n("Configure") );
-  // FIXME KF5 setButtons( Ok | Apply | Cancel | Help );
-  // FIXME KF5 setDefaultButton( Ok );
+  setWindowTitle( i18n("Configure") );
+  setStandardButtons( QDialogButtonBox::Ok | QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Help );
   setObjectName( "configdialog" );
   // FIXME KF5 setHelp( QString(), KGlobal::mainComponent().componentName() );
 
   KSharedConfig::Ptr config = KSharedConfig::openConfig();
   KConfigGroup cgGeneral = KConfigGroup( config, "General" );
 
-  // FIXME KF5 enableButton( Apply, false );
+  buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
 
   KPageWidgetItem *applicationItem = addPage( new QWidget, i18n("Application") );
   applicationItem->setIcon( QIcon::fromTheme( "preferences-other" ) );
@@ -221,14 +221,12 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   addEditorPages();
 
   connect(this, SIGNAL(accepted()), this, SLOT(slotOk()));
-  // FIXME: kf5, no apply button :(
-  // connect(this, SIGNAL(applyClicked()), this, SLOT(slotApply()));
+  connect(buttonBox()->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(slotApply()));
   connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
           this, SLOT(slotCurrentPageChanged(KPageWidgetItem*,KPageWidgetItem*)));
   m_dataChanged = false;
 
   resize(minimumSizeHint());
-  slotChanged();
 }
 
 KateConfigDialog::~KateConfigDialog()
@@ -376,13 +374,13 @@ void KateConfigDialog::slotApply()
   config->sync();
 
   m_dataChanged = false;
-  // FIXME KF5 enableButton( Apply, false );
+  buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(false);
 }
 
 void KateConfigDialog::slotChanged()
 {
   m_dataChanged = true;
-  // FIXME KF5 enableButton( Apply, true );
+  buttonBox()->button(QDialogButtonBox::Apply)->setEnabled(true);
   m_daysMetaInfos->setSuffix(i18ncp("The suffix of 'Delete unused meta-information after'", " day", " days", m_daysMetaInfos->value()));
 }
 

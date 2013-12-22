@@ -42,7 +42,7 @@
 #include <KSqueezedTextLabel>
 #include <KStringHandler>
 #include <KXMLGUIFactory>
-#include <KSharedConfig>
+#include <KConfig>
 #include <kconfiggui.h>
 #include <KIO/Job>
 #include <kjobwidgets.h>
@@ -443,23 +443,22 @@ void KWrite::restore(KConfig *config, int n)
   readPropertiesInternal(config, n);
 }
 
-void KWrite::readProperties(KSharedConfigPtr config)
+void KWrite::readProperties(const KConfigGroup &config)
 {
-  readConfig(config);
+  readConfig();
 
   if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view))
-    iface->readSessionConfig(KConfigGroup(config, "General Options"));
+    iface->readSessionConfig(KConfigGroup(&config, QLatin1String("General Options")));
 }
 
-void KWrite::saveProperties(KSharedConfigPtr config)
+void KWrite::saveProperties(KConfigGroup &config)
 {
-  writeConfig(config);
+  writeConfig();
 
-  KConfigGroup group(config, QString());
-  group.writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
+  config.writeEntry("DocumentNumber",docList.indexOf(m_view->document()) + 1);
 
   if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(m_view)) {
-    KConfigGroup cg( config, "General Options" );
+    KConfigGroup cg(&config, QLatin1String("General Options"));
     iface->writeSessionConfig(cg);
   }
 }

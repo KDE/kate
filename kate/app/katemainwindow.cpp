@@ -109,48 +109,44 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 
   m_modignore = false;
 
-  // here we go, set some usable default sizes
-  if (false /* FIXME KF5 !initialGeometrySet()*/)
+  int scnum = QApplication::desktop()->screenNumber(parentWidget());
+  QRect desk = QApplication::desktop()->screenGeometry(scnum);
+
+  QSize size;
+
+  // try to load size
+  if (sconfig)
   {
-    int scnum = QApplication::desktop()->screenNumber(parentWidget());
-    QRect desk = QApplication::desktop()->screenGeometry(scnum);
+    KConfigGroup cg( sconfig, sgroup );
+    size.setWidth (cg.readEntry( QString::fromLatin1("Width %1").arg(desk.width()), 0 ));
+    size.setHeight (cg.readEntry( QString::fromLatin1("Height %1").arg(desk.height()), 0 ));
+  }
 
-    QSize size;
-
-    // try to load size
-    if (sconfig)
+  // if thats fails, try to reuse size
+  if (size.isEmpty())
+  {
+    // first try to reuse size known from current or last created main window ;=)
+    if (KateApp::self()->mainWindows () > 0)
     {
-      KConfigGroup cg( sconfig, sgroup );
+      KateMainWindow *win = KateApp::self()->activeMainWindow ();
+
+      if (!win)
+        win = KateApp::self()->mainWindow (KateApp::self()->mainWindows () - 1);
+
+      size = win->size();
+    }
+    else // now fallback to hard defaults ;)
+    {
+      // first try global app config
+      KConfigGroup cg( KSharedConfig::openConfig(), "MainWindow" );
       size.setWidth (cg.readEntry( QString::fromLatin1("Width %1").arg(desk.width()), 0 ));
       size.setHeight (cg.readEntry( QString::fromLatin1("Height %1").arg(desk.height()), 0 ));
+
+      if (size.isEmpty())
+        size = QSize (qMin (700, desk.width()), qMin(480, desk.height()));
     }
 
-    // if thats fails, try to reuse size
-    if (size.isEmpty())
-    {
-      // first try to reuse size known from current or last created main window ;=)
-      if (KateApp::self()->mainWindows () > 0)
-      {
-        KateMainWindow *win = KateApp::self()->activeMainWindow ();
-
-        if (!win)
-          win = KateApp::self()->mainWindow (KateApp::self()->mainWindows () - 1);
-
-        size = win->size();
-      }
-      else // now fallback to hard defaults ;)
-      {
-        // first try global app config
-        KConfigGroup cg( KSharedConfig::openConfig(), "MainWindow" );
-        size.setWidth (cg.readEntry( QString::fromLatin1("Width %1").arg(desk.width()), 0 ));
-        size.setHeight (cg.readEntry( QString::fromLatin1("Height %1").arg(desk.height()), 0 ));
-
-        if (size.isEmpty())
-          size = QSize (qMin (700, desk.width()), qMin(480, desk.height()));
-      }
-
-      resize (size);
-    }
+    resize (size);
   }
 
   // start session restore if needed

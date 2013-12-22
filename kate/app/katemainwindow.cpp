@@ -469,18 +469,12 @@ bool KateMainWindow::queryClose_internal(KTextEditor::Document* doc)
  */
 bool KateMainWindow::queryClose()
 {
-  
-#ifdef FIXME
-
-  // FIXME KF5
-  
   // session saving, can we close all views ?
   // just test, not close them actually
-  if (KateApp::self()->sessionSaving())
+  if (qApp->isSavingSession())
   {
-    return queryClose_internal ();
+    return queryClose_internal();
   }
-#endif
 
   // normal closing of window
   // allow to close all windows until the last without restrictions

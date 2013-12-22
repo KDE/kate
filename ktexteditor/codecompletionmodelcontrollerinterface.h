@@ -27,15 +27,15 @@
 class QModelIndex;
 
 namespace KTextEditor {
+
 class View;
 
-//BEGIN V3
 /**
  * \short Controller interface for a CodeCompletionModel
  *
  * \ingroup kte_group_ccmodel_extensions
  *
- * The CodeCompletionModelControllerInterface3 gives an CodeCompletionModel better
+ * The CodeCompletionModelControllerInterface gives an CodeCompletionModel better
  * control over the completion.
  *
  * By implementing methods defined in this interface you can:
@@ -55,10 +55,10 @@ class View;
  *
  * \code
  * class MyCodeCompletion : public KTextEditor::CodeCompletionTestModel,
-                    public KTextEditor::CodeCompletionModelControllerInterface3
+                    public KTextEditor::CodeCompletionModelControllerInterface
  * {
  *   Q_OBJECT
- *   Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+ *   Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
  * public:
  *   KTextEditor::Range completionRange(KTextEditor::View* view, const KTextEditor::Cursor &position);
  * };
@@ -67,13 +67,12 @@ class View;
  * \see CodeCompletionModel
  * \author Niko Sams \<niko.sams@gmail.com\>
  * \author Joseph Wenninger
- * \since 4.5
  */
-class KTEXTEDITOR_EXPORT CodeCompletionModelControllerInterface3
+class KTEXTEDITOR_EXPORT CodeCompletionModelControllerInterface
 {
 public:
-    CodeCompletionModelControllerInterface3();
-    virtual ~CodeCompletionModelControllerInterface3();
+    CodeCompletionModelControllerInterface();
+    virtual ~CodeCompletionModelControllerInterface();
 
     /**
      * This function decides if the automatic completion should be started when
@@ -161,24 +160,30 @@ public:
      */
     virtual void aborted(View* view);
 
-  public:
     enum MatchReaction {
       None=0,
       HideListIfAutomaticInvocation=1, /** If this is returned, the completion-list is hidden if it was invoked automatically */
       ForExtension=0xffff
     };
+    
     /**
      * Called whenever an item in the completion-list perfectly matches the current filter text.
      * \param The index that is matched
      * \return Whether the completion-list should be hidden on this event. The default-implementation always returns HideListIfAutomaticInvocation
      */
     virtual MatchReaction matchingItem(const QModelIndex& matched);
-};
-//END V3
 
+    /**
+     * When multiple completion models are used at the same time, it may happen that multiple models add items with the same
+     * name to the list. This option allows to hide items from this completion model when another model with higher priority
+     * contains items with the same name.
+     * \return Whether items of this completion model should be hidden if another completion model has items with the same name
+     */
+    virtual bool shouldHideItemsWithEqualNames() const;
+};
 
 }
 
-Q_DECLARE_INTERFACE(KTextEditor::CodeCompletionModelControllerInterface3, "org.kde.KTextEditor.CodeCompletionModelControllerInterface3")
+Q_DECLARE_INTERFACE(KTextEditor::CodeCompletionModelControllerInterface, "org.kde.KTextEditor.CodeCompletionModelControllerInterface")
 
 #endif // KDELIBS_KTEXTEDITOR_CODECOMPLETIONMODELCONTROLLERINTERFACE_H

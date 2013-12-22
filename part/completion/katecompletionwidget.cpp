@@ -56,9 +56,9 @@ const bool shellLikeTabCompletion = false;
 
 #define CALLCI(WHAT,WHATELSE,WHAT2,model,FUNC) \
 {\
-  static KTextEditor::CodeCompletionModelControllerInterface3 defaultIf;\
-  KTextEditor::CodeCompletionModelControllerInterface3* ret =\
-    dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface3*>(model);\
+  static KTextEditor::CodeCompletionModelControllerInterface defaultIf;\
+  KTextEditor::CodeCompletionModelControllerInterface* ret =\
+    dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface*>(model);\
   if (!ret) {\
     WHAT2 defaultIf.FUNC;\
   }else \

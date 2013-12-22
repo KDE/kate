@@ -179,7 +179,7 @@ bool KateWordCompletionModel::shouldAbortCompletion(KTextEditor::View* view, con
       if (currentCompletion.length()<v->config()->wordCompletionMinimalWordLength()) return true;
     }
 
-    return CodeCompletionModelControllerInterface4::shouldAbortCompletion(view,range,currentCompletion);
+    return CodeCompletionModelControllerInterface::shouldAbortCompletion(view,range,currentCompletion);
 }
 
 
@@ -264,7 +264,7 @@ void KateWordCompletionModel::executeCompletionItem2(
   }
 }
 
-KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateWordCompletionModel::matchingItem(const QModelIndex& /*matched*/)
+KTextEditor::CodeCompletionModelControllerInterface::MatchReaction KateWordCompletionModel::matchingItem(const QModelIndex& /*matched*/)
 {
   return HideListIfAutomaticInvocation;
 }

@@ -28,7 +28,7 @@
 #include "kateview.h"
 #include "katerenderer.h"
 #include "kateconfig.h"
-#include "codecompletionmodelcontrollerinterfacev4.h"
+#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 #include "katepartdebug.h"
 
 #include <KLocalizedString>
@@ -1734,10 +1734,10 @@ bool KateCompletionModel::shouldMatchHideCompletionList() const {
   foreach(Group* group, m_rowTable)
     foreach(const Item& item, group->filtered)
       if(item.haveExactMatch()) {
-        KTextEditor::CodeCompletionModelControllerInterface3* iface3 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface3*>(item.sourceRow().first);
+        KTextEditor::CodeCompletionModelControllerInterface* iface3 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface*>(item.sourceRow().first);
         bool hide = false;
         if ( !iface3 ) hide = true;
-        if(iface3 && iface3->matchingItem(item.sourceRow().second) == KTextEditor::CodeCompletionModelControllerInterface3::HideListIfAutomaticInvocation)
+        if(iface3 && iface3->matchingItem(item.sourceRow().second) == KTextEditor::CodeCompletionModelControllerInterface::HideListIfAutomaticInvocation)
           hide = true;
         if(hide)
         {
@@ -2119,7 +2119,7 @@ void KateCompletionModel::makeGroupItemsUnique(bool onlyFiltered)
   
   foreach(KTextEditor::CodeCompletionModel* model, m_completionModels)
   {
-    KTextEditor::CodeCompletionModelControllerInterface4* v4 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface4*>(model);
+    KTextEditor::CodeCompletionModelControllerInterface* v4 = dynamic_cast<KTextEditor::CodeCompletionModelControllerInterface*>(model);
     if(v4 && v4->shouldHideItemsWithEqualNames())
       needShadowing.push_back(model);
   }

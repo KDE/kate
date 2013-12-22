@@ -134,7 +134,7 @@ bool KateProjectCompletion::shouldAbortCompletion(KTextEditor::View* view, const
       if (currentCompletion.length() < 3 /*v->config()->wordCompletionMinimalWordLength()*/) return true;
     }
 
-    return CodeCompletionModelControllerInterface3::shouldAbortCompletion(view,range,currentCompletion);
+    return CodeCompletionModelControllerInterface::shouldAbortCompletion(view,range,currentCompletion);
 }
 
 void KateProjectCompletion::completionInvoked(KTextEditor::View* view, const KTextEditor::Range& range, InvocationType it)
@@ -178,7 +178,7 @@ void KateProjectCompletion::allMatches (QStandardItemModel &model, KTextEditor::
     project->projectIndex()->findMatches (model, view->document()->text(range), KateProjectIndex::CompletionMatches);
 }
 
-KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction KateProjectCompletion::matchingItem(const QModelIndex& /*matched*/)
+KTextEditor::CodeCompletionModelControllerInterface::MatchReaction KateProjectCompletion::matchingItem(const QModelIndex& /*matched*/)
 {
   return HideListIfAutomaticInvocation;
 }

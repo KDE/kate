@@ -26,17 +26,15 @@
 
 namespace KTextEditor {
 
-//BEGIN V3
-
-CodeCompletionModelControllerInterface3::CodeCompletionModelControllerInterface3()
+CodeCompletionModelControllerInterface::CodeCompletionModelControllerInterface()
 {
 }
 
-CodeCompletionModelControllerInterface3::~CodeCompletionModelControllerInterface3()
+CodeCompletionModelControllerInterface::~CodeCompletionModelControllerInterface()
 {
 }
 
-bool CodeCompletionModelControllerInterface3::shouldStartCompletion(View* view, const QString &insertedText, bool userInsertion, const Cursor &position)
+bool CodeCompletionModelControllerInterface::shouldStartCompletion(View* view, const QString &insertedText, bool userInsertion, const Cursor &position)
 {
     Q_UNUSED(view);
     Q_UNUSED(position);
@@ -51,7 +49,7 @@ bool CodeCompletionModelControllerInterface3::shouldStartCompletion(View* view, 
     return false;
 }
 
-Range CodeCompletionModelControllerInterface3::completionRange(View* view, const Cursor &position)
+Range CodeCompletionModelControllerInterface::completionRange(View* view, const Cursor &position)
 {
     Cursor end = position;
 
@@ -71,7 +69,7 @@ Range CodeCompletionModelControllerInterface3::completionRange(View* view, const
     return Range(start, end);
 }
 
-Range CodeCompletionModelControllerInterface3::updateCompletionRange(View* view, const Range& range)
+Range CodeCompletionModelControllerInterface::updateCompletionRange(View* view, const Range& range)
 {
     QStringList text=view->document()->textLines(range,false);
     if(!text.isEmpty() && text.count() == 1 && text.first().trimmed().isEmpty())
@@ -81,12 +79,12 @@ Range CodeCompletionModelControllerInterface3::updateCompletionRange(View* view,
     return range;
 }
 
-QString CodeCompletionModelControllerInterface3::filterString(View* view, const Range &range, const Cursor &position)
+QString CodeCompletionModelControllerInterface::filterString(View* view, const Range &range, const Cursor &position)
 {
     return view->document()->text(KTextEditor::Range(range.start(), position));
 }
 
-bool CodeCompletionModelControllerInterface3::shouldAbortCompletion(View* view, const Range &range, const QString &currentCompletion)
+bool CodeCompletionModelControllerInterface::shouldAbortCompletion(View* view, const Range &range, const QString &currentCompletion)
 {
     if(view->cursorPosition() < range.start() || view->cursorPosition() > range.end())
       return true; //Always abort when the completion-range has been left
@@ -96,21 +94,24 @@ bool CodeCompletionModelControllerInterface3::shouldAbortCompletion(View* view, 
     return !allowedText.exactMatch(currentCompletion);
 }
 
-void CodeCompletionModelControllerInterface3::aborted(KTextEditor::View* view) {
+void CodeCompletionModelControllerInterface::aborted(KTextEditor::View* view) {
     Q_UNUSED(view);
 }
 
-bool CodeCompletionModelControllerInterface3::shouldExecute(const QModelIndex& index, QChar inserted) {
+bool CodeCompletionModelControllerInterface::shouldExecute(const QModelIndex& index, QChar inserted) {
   Q_UNUSED(index);
   Q_UNUSED(inserted);
   return false;
 }
 
-KTextEditor::CodeCompletionModelControllerInterface3::MatchReaction CodeCompletionModelControllerInterface3::matchingItem(const QModelIndex& selected) {
+KTextEditor::CodeCompletionModelControllerInterface::MatchReaction CodeCompletionModelControllerInterface::matchingItem(const QModelIndex& selected) {
   Q_UNUSED(selected)
   return HideListIfAutomaticInvocation;
 }
-//END V3
 
+bool CodeCompletionModelControllerInterface::shouldHideItemsWithEqualNames() const
+{
+  return false;
+}
 
 }

@@ -26,8 +26,8 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
+#include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 #include <ktexteditor/configpage.h>
-#include "codecompletionmodelcontrollerinterfacev4.h"
 #include <KXMLGUIClient>
 
 #include <QEvent>
@@ -35,11 +35,12 @@
 #include <QList>
 
 #include "katepartdebug.h"
+#include "katepartprivate_export.h"
 
-class KATEPART_TESTS_EXPORT KateWordCompletionModel : public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface4
+class KATEPART_TESTS_EXPORT KateWordCompletionModel : public KTextEditor::CodeCompletionModel2, public KTextEditor::CodeCompletionModelControllerInterface
 {
   Q_OBJECT
-  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface4)
+  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
   public:
     KateWordCompletionModel( QObject *parent );
     ~KateWordCompletionModel();

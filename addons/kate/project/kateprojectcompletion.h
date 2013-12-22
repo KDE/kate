@@ -31,11 +31,11 @@
 /**
  * Project wide completion support.
  */
-class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface3
+class KateProjectCompletion : public KTextEditor::CodeCompletionModel, public KTextEditor::CodeCompletionModelControllerInterface
 {
   Q_OBJECT
   
-  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 
   public:
     /**

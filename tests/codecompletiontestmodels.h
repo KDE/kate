@@ -29,17 +29,17 @@
 using namespace KTextEditor;
 
 
-class CustomRangeModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface3
+class CustomRangeModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
     CustomRangeModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
         : CodeCompletionTestModel(parent, startText)
     {}
     Range completionRange(View* view, const Cursor &position)
     {
-        Range range = CodeCompletionModelControllerInterface3::completionRange(view, position);
+        Range range = CodeCompletionModelControllerInterface::completionRange(view, position);
         if (range.start().column() > 0) {
             KTextEditor::Range preRange(Cursor(range.start().line(), range.start().column()-1),
                                         Cursor(range.start().line(), range.start().column()));
@@ -61,10 +61,10 @@ public:
     }
 };
 
-class CustomAbortModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface3
+class CustomAbortModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
     CustomAbortModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
         : CodeCompletionTestModel(parent, startText)
@@ -79,10 +79,10 @@ public:
     }
 };
 
-class EmptyFilterStringModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface3
+class EmptyFilterStringModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
     EmptyFilterStringModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
         : CodeCompletionTestModel(parent, startText)
@@ -94,10 +94,10 @@ public:
     }
 };
 
-class UpdateCompletionRangeModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface3
+class UpdateCompletionRangeModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
     UpdateCompletionRangeModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
         : CodeCompletionTestModel(parent, startText)
@@ -120,10 +120,10 @@ public:
     }
 };
 
-class StartCompletionModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface3
+class StartCompletionModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
     StartCompletionModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
         : CodeCompletionTestModel(parent, startText)
@@ -145,10 +145,10 @@ public:
     }
 };
 
-class ImmideatelyAbortCompletionModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface3
+class ImmideatelyAbortCompletionModel : public CodeCompletionTestModel, public CodeCompletionModelControllerInterface
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 public:
     ImmideatelyAbortCompletionModel(KTextEditor::View* parent = 0L, const QString &startText = QString())
         : CodeCompletionTestModel(parent, startText)

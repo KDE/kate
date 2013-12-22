@@ -37,10 +37,10 @@ class View;
 class SnippetCompletionItem;
 
 class SnippetCompletionModel : public KTextEditor::CodeCompletionModel2,
-                               public KTextEditor::CodeCompletionModelControllerInterface3
+                               public KTextEditor::CodeCompletionModelControllerInterface
 {
     Q_OBJECT
-    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface3)
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 
 public:
     SnippetCompletionModel();

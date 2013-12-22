@@ -21,13 +21,13 @@
 #include "range_test.h"
 #include "moc_range_test.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <kateview.h>
 #include <kateconfig.h>
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>
+
+#include <QtTestWidgets>
 
 QTEST_MAIN(RangeTest)
 

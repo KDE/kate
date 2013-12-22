@@ -20,12 +20,12 @@
 #include "revision_test.h"
 #include "moc_revision_test.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <katebuffer.h>
 #include <ktexteditor/cursor.h>
 #include <ktexteditor/range.h>
+
+#include <QtTestWidgets>
 
 using namespace KTextEditor;
 

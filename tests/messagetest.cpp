@@ -20,13 +20,13 @@
 
 #include "messagetest.h"
 
-#include <qtest_kde.h>
-
 #include <kateglobal.h>
 #include <katedocument.h>
 #include <kateview.h>
 #include <ktexteditor/messageinterface.h>
 #include <katemessagewidget.h>
+
+#include <QtTestWidgets>
 
 using namespace KTextEditor;
 

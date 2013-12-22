@@ -20,10 +20,10 @@
 #include "movingcursor_test.h"
 #include "moc_movingcursor_test.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <ktexteditor/movingcursor.h>
+
+#include <QtTestWidgets>
 
 using namespace KTextEditor;
 

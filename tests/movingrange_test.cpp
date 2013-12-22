@@ -20,13 +20,13 @@
 #include "movingrange_test.h"
 #include "moc_movingrange_test.cpp"
 
-#include <qtest_kde.h>
-#include <qtestmouse.h>
-
 #include <katedocument.h>
 #include <kateview.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/movingrangefeedback.h>
+
+#include <qtestmouse.h>
+#include <QtTestWidgets>
 
 using namespace KTextEditor;
 

@@ -20,10 +20,10 @@
 #include "regexpsearch_test.h"
 #include "moc_regexpsearch_test.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <kateregexpsearch.h>
+
+#include <QtTestWidgets>
 
 Q_DECLARE_METATYPE(KTextEditor::Range)
 

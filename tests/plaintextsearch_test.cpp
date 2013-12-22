@@ -20,10 +20,10 @@
 #include "plaintextsearch_test.h"
 #include "moc_plaintextsearch_test.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <kateplaintextsearch.h>
+
+#include <QtTestWidgets>
 
 Q_DECLARE_METATYPE(KTextEditor::Range)
 

@@ -18,12 +18,11 @@
 */
 
 #include "templatehandler_test.h"
-#include "moc_templatehandler_test.cpp"
-
-#include <qtest_kde.h>
 
 #include <katedocument.h>
 #include <kateview.h>
+
+#include <QtTestWidgets>
 
 QTEST_MAIN(TemplateHandlerTest)
 
@@ -92,3 +91,5 @@ void TemplateHandlerTest::testUndo()
 
     QCOMPARE(doc.text(), result);
 }
+
+#include "moc_templatehandler_test.cpp"

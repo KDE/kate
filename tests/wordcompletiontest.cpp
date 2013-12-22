@@ -26,7 +26,7 @@
 #include <ktexteditor/editor.h>
 #include <ktexteditor/view.h>
 
-#include <qtest_kde.h>
+#include <QtTestWidgets>
 
 QTEST_MAIN(WordCompletionTest)
 

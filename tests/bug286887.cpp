@@ -18,14 +18,13 @@
 */
 
 #include "bug286887.h"
-#include "moc_bug286887.cpp"
-
-#include <qtest_kde.h>
 
 #include <katedocument.h>
 #include <kateglobal.h>
 #include <kateview.h>
 #include <kateconfig.h>
+
+#include <QtTestWidgets>
 
 QTEST_MAIN(BugTest)
 
@@ -89,3 +88,4 @@ void BugTest::ctrlShiftLeft()
   view->deleteWordLeft();
 }
 
+#include "moc_bug286887.cpp"

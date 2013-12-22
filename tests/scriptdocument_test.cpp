@@ -18,14 +18,12 @@
 */
 
 #include "scriptdocument_test.h"
-#include "moc_scriptdocument_test.cpp"
-
-#include <qtest_kde.h>
 
 #include <ktexteditor/view.h>
-
 #include <katedocument.h>
 #include <katescriptdocument.h>
+
+#include <QtTestWidgets>
 
 Q_DECLARE_METATYPE(KTextEditor::Cursor)
 
@@ -137,3 +135,5 @@ void ScriptDocumentTest::testRfind()
 
   QCOMPARE(m_scriptDoc->rfind(searchStart.line(), searchStart.column(), "a a a"), result);
 }
+
+#include "moc_scriptdocument_test.cpp"

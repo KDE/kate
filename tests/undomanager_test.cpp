@@ -19,13 +19,12 @@
 */
 
 #include "undomanager_test.h"
-#include "moc_undomanager_test.cpp"
-
-#include <qtest_kde.h>
 
 #include <katedocument.h>
 #include <kateview.h>
 #include <kateundomanager.h>
+
+#include <QtTestWidgets>
 
 QTEST_MAIN(UndoManagerTest)
 
@@ -228,5 +227,7 @@ void UndoManagerTest::testUndoWordWrapBug301367()
 
   delete view;
 }
+
+#include "moc_undomanager_test.cpp"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

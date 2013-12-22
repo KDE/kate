@@ -18,9 +18,6 @@
 */
 
 #include "kte_documentcursor.h"
-#include "moc_kte_documentcursor.cpp"
-
-#include <qtest_kde.h>
 
 #include <katedocument.h>
 #include <katebuffer.h>
@@ -31,6 +28,8 @@
 #include <ktexteditor/movingrange.h>
 
 #include <documentcursor.h>
+
+#include <QtTestWidgets>
 
 QTEST_MAIN(DocumentCursorTest)
 
@@ -284,3 +283,5 @@ void DocumentCursorTest::testOperators()
   QVERIFY(c14 > m02);
   QVERIFY(c14 != m02);
 }
+
+#include "moc_kte_documentcursor.cpp"

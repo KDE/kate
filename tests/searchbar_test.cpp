@@ -18,18 +18,17 @@
 */
 
 #include "searchbar_test.h"
-#include "moc_searchbar_test.cpp"
 
 #include "ui_searchbarincremental.h"
 #include "ui_searchbarpower.h"
-
-#include <qtest_kde.h>
 
 #include <katedocument.h>
 #include <kateview.h>
 #include <kateconfig.h>
 #include <katesearchbar.h>
 #include <ktexteditor/movingrange.h>
+
+#include <QtTestWidgets>
 
 QTEST_MAIN(SearchBarTest)
 
@@ -646,5 +645,7 @@ void SearchBarTest::testReplaceInBlockMode() {
 
   QCOMPARE(doc.text(), QString("121\n121"));
 }
+
+#include "moc_searchbar_test.cpp"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -20,12 +20,12 @@
 #include "modificationsystem_test.h"
 #include "moc_modificationsystem_test.cpp"
 
-#include <qtest_kde.h>
-
 #include <katedocument.h>
 #include <kateview.h>
 #include <kateundomanager.h>
 #include <kateglobal.h>
+
+#include <QtTestWidgets>
 
 QTEST_MAIN(ModificationSystemTest)
 

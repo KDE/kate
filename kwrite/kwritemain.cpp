@@ -534,7 +534,7 @@ void KWrite::restore()
 
 void KWrite::aboutEditor()
 {
-  KAboutApplicationDialog dlg(*(m_view->document()->editor()->aboutData()), this);
+  KAboutApplicationDialog dlg(m_view->document()->editor()->aboutData(), this);
   dlg.exec();
 }
 

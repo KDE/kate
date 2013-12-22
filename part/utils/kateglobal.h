@@ -148,7 +148,7 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * return the about data
      * @return about data of this editor part
      */
-    const KAboutData* aboutData() const { return &m_aboutData; }
+    const KAboutData &aboutData() const { return m_aboutData; }
 
    /**
    * Configuration management

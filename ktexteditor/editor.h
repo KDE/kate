@@ -143,7 +143,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      * Get the about data of this Editor part.
      * \return about data
      */
-    virtual const KAboutData *aboutData () const = 0;
+    virtual const KAboutData &aboutData () const = 0;
 
     /**
      * Get the current default encoding for this Editor part.

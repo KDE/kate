@@ -35,6 +35,8 @@
 #include <KMessageBox>
 #include <KStartupInfo>
 #include <KLocalizedString>
+#include <kconfiggui.h>
+#include <KConfigGroup>
 
 #include <QCommandLineParser>
 #include <QFileInfo>
@@ -139,25 +141,21 @@ void KateApp::initKate ()
 
 void KateApp::restoreKate ()
 {
-  
-#ifdef FIXME
-  
-  /// FIXME KF5
+  KConfig *sessionConfig = KConfigGui::sessionConfig();
   
   // activate again correct session!!!
-  QString lastSession (sessionConfig()->group("General").readEntry ("Last Session", QString()));
+  QString lastSession (sessionConfig->group("General").readEntry ("Last Session", QString()));
   sessionManager()->activateSession (KateSession::Ptr(new KateSession (sessionManager(), lastSession)), false, false, false);
 
   // plugins
-  KatePluginManager::self ()->loadConfig (sessionConfig());
+  KatePluginManager::self ()->loadConfig (sessionConfig);
 
   // restore the files we need
-  m_docManager->restoreDocumentList (sessionConfig());
+  m_docManager->restoreDocumentList (sessionConfig);
 
   // restore all windows ;)
   for (int n = 1; KMainWindow::canBeRestored(n); n++)
-    newMainWindow(sessionConfig(), QString ("%1").arg(n));
-#endif
+    newMainWindow(sessionConfig, QString ("%1").arg(n));
   
   // oh, no mainwindow, create one, should not happen, but make sure ;)
   if (mainWindows() == 0)

@@ -36,6 +36,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QApplication>
+#include <QCryptographicHash>
 
 #ifdef HAVE_FDATASYNC
 #include <unistd.h>
@@ -457,10 +458,10 @@ void SwapFile::finishEditing ()
   if (!m_swapfile.isOpen ())
     return;
 
-  // write the file to the disk every 15 seconds
-  // skip this if we disabled forced syncing 
-  if (!m_document->config()->swapFileNoSync() && !syncTimer()->isActive())
-    syncTimer()->start(15000);
+  // write the file to the disk every 15 seconds (default)
+  // skip this if we disabled that
+  if (m_document->config()->swapSyncInterval() != 0 && !syncTimer()->isActive())
+    syncTimer()->start( m_document->config()->swapSyncInterval() );
   
   // format: qint8
   m_stream << EA_FinishEditing;
@@ -567,10 +568,22 @@ QString SwapFile::fileName()
   if (url.isEmpty() || !url.isLocalFile())
     return QString();
 
-  QString path = url.toLocalFile();
-  int poz = path.lastIndexOf(QDir::separator());
-  path.insert(poz+1, ".");
-  path.append(".kate-swp");
+  QString path;
+
+  if ( KateDocumentConfig::global()->swapFileMode() == KateDocumentConfig::SwapFilePresetDirectory )
+  {
+    path = KateDocumentConfig::global()->swapDirectory();
+    path.append( QDir::separator() );
+    path.append( m_document->buffer().digest() );
+    path.append( ".kate-swp" );
+  }
+  else
+  {
+    path = url.toLocalFile();
+    int poz = path.lastIndexOf(QDir::separator());
+    path.insert(poz+1, ".");
+    path.append(".kate-swp");
+  }
 
   return path;
 }

@@ -325,6 +325,7 @@ class KateSaveConfigTab : public KateConfigPage
     void reload();
     void reset();
     void defaults();
+    void swapFileModeChanged(int);
 
   protected:
     //why?

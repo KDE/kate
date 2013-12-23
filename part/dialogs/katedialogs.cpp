@@ -910,7 +910,10 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
   connect( uiadv->sbConfigFileSearchDepth, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()));
   connect( uiadv->edtBackupPrefix, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
   connect( uiadv->edtBackupSuffix, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
-  connect( uiadv->chkNoSync, SIGNAL(toggled(bool)), this, SLOT(slotChanged()) );
+  connect( uiadv->cmbSwapFileMode, SIGNAL(currentIndexChanged(int)), this, SLOT(slotChanged()) );
+  connect( uiadv->cmbSwapFileMode, SIGNAL(currentIndexChanged(int)), this, SLOT(swapFileModeChanged(int)) );
+  connect( uiadv->kurlSwapDirectory, SIGNAL(textChanged(QString)), this, SLOT(slotChanged()) );
+  connect( uiadv->spbSwapFileSync, SIGNAL(valueChanged(int)), this, SLOT(slotChanged()) );
 
   internalLayout->addWidget(newWidget);
   tmpWidget->setLayout(internalLayout);
@@ -931,6 +934,32 @@ KateSaveConfigTab::KateSaveConfigTab( QWidget *parent )
 KateSaveConfigTab::~KateSaveConfigTab()
 {
   delete ui;
+}
+
+void KateSaveConfigTab::swapFileModeChanged(int idx)
+{
+  const KateDocumentConfig::SwapFileMode mode = static_cast<KateDocumentConfig::SwapFileMode>(idx);
+  switch ( mode )
+  {
+    case KateDocumentConfig::DisableSwapFile:
+      uiadv->lblSwapDirectory->setEnabled( false );
+      uiadv->kurlSwapDirectory->setEnabled( false );
+      uiadv->lblSwapFileSync->setEnabled( false );
+      uiadv->spbSwapFileSync->setEnabled( false );
+      break;
+    case KateDocumentConfig::EnableSwapFile:
+      uiadv->lblSwapDirectory->setEnabled( false );
+      uiadv->kurlSwapDirectory->setEnabled( false );
+      uiadv->lblSwapFileSync->setEnabled( true );
+      uiadv->spbSwapFileSync->setEnabled( true );
+      break;
+    case KateDocumentConfig::SwapFilePresetDirectory:
+      uiadv->lblSwapDirectory->setEnabled( true );
+      uiadv->kurlSwapDirectory->setEnabled( true );
+      uiadv->lblSwapFileSync->setEnabled( true );
+      uiadv->spbSwapFileSync->setEnabled( true );
+      break;
+  }
 }
 
 void KateSaveConfigTab::apply()
@@ -954,6 +983,32 @@ void KateSaveConfigTab::apply()
     uiadv->edtBackupSuffix->setText( "~" );
   }
 
+  const KateDocumentConfig::SwapFileMode swap_mode = static_cast<KateDocumentConfig::SwapFileMode>(uiadv->cmbSwapFileMode->currentIndex());
+  if ( swap_mode == KateDocumentConfig::SwapFilePresetDirectory )
+  {
+    const QString dirpath = uiadv->kurlSwapDirectory->url().toLocalFile();
+
+    if (!QDir(dirpath).exists())
+    {
+      KMessageBox::ButtonCode res = KMessageBox::warningYesNo(this,
+        i18n("Selected directory for swap file storage does not exist. Do you want to create it?"),
+        i18n("Missing Swap File Directory"));
+
+      if (res == KMessageBox::Yes)
+      {
+        QDir().mkpath(dirpath);
+      } else {
+        // FIXME: what to do here? Return to config?
+      }
+    }
+
+    if (!QFileInfo(dirpath).isDir())
+    {
+      //FIXME: we are screwed here, revert to  KateDocumentConfig::EnableSwapFile?
+    }
+
+  }
+
   uint f( 0 );
   if ( uiadv->chkBackupLocalFiles->isChecked() )
     f |= KateDocumentConfig::LocalFiles;
@@ -964,7 +1019,9 @@ void KateSaveConfigTab::apply()
   KateDocumentConfig::global()->setBackupPrefix(uiadv->edtBackupPrefix->text());
   KateDocumentConfig::global()->setBackupSuffix(uiadv->edtBackupSuffix->text());
 
-  KateDocumentConfig::global()->setSwapFileNoSync(uiadv->chkNoSync->isChecked());
+  KateDocumentConfig::global()->setSwapFileMode(uiadv->cmbSwapFileMode->currentIndex());
+  KateDocumentConfig::global()->setSwapDirectory(uiadv->kurlSwapDirectory->url().toLocalFile());
+  KateDocumentConfig::global()->setSwapSyncInterval(uiadv->spbSwapFileSync->value());
 
   KateDocumentConfig::global()->setSearchDirConfigDepth(uiadv->sbConfigFileSearchDepth->value());
 
@@ -1054,7 +1111,10 @@ void KateSaveConfigTab::reload()
   uiadv->chkBackupRemoteFiles->setChecked( f & KateDocumentConfig::RemoteFiles );
   uiadv->edtBackupPrefix->setText( KateDocumentConfig::global()->backupPrefix() );
   uiadv->edtBackupSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
-  uiadv->chkNoSync->setChecked( KateDocumentConfig::global()->swapFileNoSync() );
+  uiadv->cmbSwapFileMode->setCurrentIndex( KateDocumentConfig::global()->swapFileModeRaw() );
+  uiadv->kurlSwapDirectory->setUrl( KateDocumentConfig::global()->swapDirectory() );
+  uiadv->spbSwapFileSync->setValue( KateDocumentConfig::global()->swapSyncInterval() );
+  swapFileModeChanged( KateDocumentConfig::global()->swapFileMode() );
 }
 
 void KateSaveConfigTab::reset()
@@ -1072,7 +1132,10 @@ void KateSaveConfigTab::defaults()
   uiadv->chkBackupRemoteFiles->setChecked( false );
   uiadv->edtBackupPrefix->setText( "" );
   uiadv->edtBackupSuffix->setText( "~" );
-  uiadv->chkNoSync->setChecked( false );
+  uiadv->cmbSwapFileMode->setCurrentIndex( 1 );
+  uiadv->kurlSwapDirectory->setDisabled( true );
+  uiadv->lblSwapDirectory->setDisabled( true );
+  uiadv->spbSwapFileSync->setValue( 15 );
 }
 
 //END KateSaveConfigTab

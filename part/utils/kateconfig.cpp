@@ -189,7 +189,9 @@ KateDocumentConfig::KateDocumentConfig ()
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
    m_backupSuffixSet (false),
-   m_swapFileNoSyncSet (false),
+   m_swapFileModeSet (false),
+   m_swapDirectorySet (false),
+   m_swapSyncIntervalSet (false),
    m_onTheFlySpellCheckSet (false),
    m_lineLengthLimitSet (false),
    m_doc (0)
@@ -232,7 +234,9 @@ KateDocumentConfig::KateDocumentConfig (const KConfigGroup &cg)
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
    m_backupSuffixSet (false),
-   m_swapFileNoSyncSet (false),
+   m_swapFileModeSet (false),
+   m_swapDirectorySet (false),
+   m_swapSyncIntervalSet (false),
    m_onTheFlySpellCheckSet (false),
    m_lineLengthLimitSet (false),
    m_doc (0)
@@ -269,7 +273,9 @@ KateDocumentConfig::KateDocumentConfig (KateDocument *doc)
    m_searchDirConfigDepthSet (false),
    m_backupPrefixSet (false),
    m_backupSuffixSet (false),
-   m_swapFileNoSyncSet (false),
+   m_swapFileModeSet (false),
+   m_swapDirectorySet (false),
+   m_swapSyncIntervalSet (false),
    m_onTheFlySpellCheckSet (false),
    m_lineLengthLimitSet (false),
    m_doc (doc)
@@ -308,7 +314,9 @@ namespace
   const char * const KEY_SEARCH_DIR_CONFIG_DEPTH = "Search Dir Config Depth";
   const char * const KEY_BACKUP_PREFIX = "Backup Prefix";
   const char * const KEY_BACKUP_SUFFIX = "Backup Suffix";
-  const char * const KEY_SWAP_FILE_NO_SYNC = "No sync";
+  const char * const KEY_SWAP_FILE_MODE = "Swap File Mode";
+  const char * const KEY_SWAP_DIRECTORY = "Swap Directory";
+  const char * const KEY_SWAP_SYNC_INTERVAL = "Swap Sync Interval";
   const char * const KEY_ON_THE_FLY_SPELLCHECK = "On-The-Fly Spellcheck";
   const char * const KEY_LINE_LENGTH_LIMIT = "Line Length Limit";
 }
@@ -356,7 +364,9 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setBackupSuffix (config.readEntry(KEY_BACKUP_SUFFIX, QString ("~")));
 
-  setSwapFileNoSync (config.readEntry(KEY_SWAP_FILE_NO_SYNC, false));
+  setSwapFileMode (config.readEntry(KEY_SWAP_FILE_MODE, (uint)EnableSwapFile));
+  setSwapDirectory (config.readEntry(KEY_SWAP_DIRECTORY, QString()));
+  setSwapSyncInterval (config.readEntry(KEY_SWAP_SYNC_INTERVAL, 15));
 
   setOnTheFlySpellCheck(config.readEntry(KEY_ON_THE_FLY_SPELLCHECK, false));
 
@@ -406,7 +416,9 @@ void KateDocumentConfig::writeConfig (KConfigGroup &config)
 
   config.writeEntry(KEY_BACKUP_SUFFIX, backupSuffix());
 
-  config.writeEntry(KEY_SWAP_FILE_NO_SYNC, swapFileNoSync());
+  config.writeEntry(KEY_SWAP_FILE_MODE, swapFileModeRaw());
+  config.writeEntry(KEY_SWAP_DIRECTORY, swapDirectory());
+  config.writeEntry(KEY_SWAP_SYNC_INTERVAL, swapSyncInterval());
 
   config.writeEntry(KEY_ON_THE_FLY_SPELLCHECK, onTheFlySpellCheck());
 
@@ -1005,23 +1017,70 @@ void KateDocumentConfig::setBackupSuffix (const QString &suffix)
   configEnd ();
 }
 
-bool KateDocumentConfig::swapFileNoSync() const
+uint KateDocumentConfig::swapSyncInterval() const
 {
-  if (m_swapFileNoSyncSet || isGlobal())
-    return m_swapFileNoSync;
+  if (m_swapSyncInterval || isGlobal())
+    return m_swapSyncInterval;
 
-  return s_global->swapFileNoSync();
+  return s_global->swapSyncInterval();
 }
 
-void KateDocumentConfig::setSwapFileNoSync(bool on)
+void KateDocumentConfig::setSwapSyncInterval(uint interval)
 {
-  if (m_swapFileNoSyncSet && m_swapFileNoSync == on)
+  if (m_swapSyncIntervalSet && m_swapSyncInterval == interval)
     return;
 
   configStart();
 
-  m_swapFileNoSyncSet = true;
-  m_swapFileNoSync = on;
+  m_swapSyncIntervalSet = true;
+  m_swapSyncInterval = interval;
+
+  configEnd();
+}
+
+uint KateDocumentConfig::swapFileModeRaw() const
+{
+  if (m_swapFileModeSet || isGlobal())
+    return m_swapFileMode;
+
+  return s_global->swapFileModeRaw();
+}
+
+KateDocumentConfig::SwapFileMode KateDocumentConfig::swapFileMode() const
+{
+  return static_cast<KateDocumentConfig::SwapFileMode>(swapFileModeRaw());
+}
+
+void KateDocumentConfig::setSwapFileMode(uint mode)
+{
+  if (m_swapFileModeSet && m_swapFileMode == mode)
+    return;
+
+  configStart();
+
+  m_swapFileModeSet = true;
+  m_swapFileMode = mode;
+
+  configEnd();
+}
+
+const QString &KateDocumentConfig::swapDirectory() const
+{
+  if (m_swapDirectorySet || isGlobal())
+    return m_swapDirectory;
+
+  return s_global->swapDirectory();
+}
+
+void KateDocumentConfig::setSwapDirectory(const QString &directory)
+{
+  if (m_swapDirectorySet && m_swapDirectory == directory)
+    return;
+
+  configStart();
+
+  m_swapDirectorySet = true;
+  m_swapDirectory = directory;
 
   configEnd();
 }

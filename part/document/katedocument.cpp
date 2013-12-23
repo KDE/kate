@@ -156,7 +156,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_buffer->setHighlight (0);
 
   // swap file
-  m_swapfile = new Kate::SwapFile(this);
+  m_swapfile = ( config()->swapFileMode() == KateDocumentConfig::DisableSwapFile ) ? 0L : new Kate::SwapFile(this);
 
   new KateBrowserExtension( this ); // deleted by QObject memory management
 
@@ -2452,7 +2452,8 @@ bool KateDocument::closeUrl()
   }
 
   // purge swap file
-  m_swapfile->fileClosed ();
+  if ( m_swapfile )
+    m_swapfile->fileClosed ();
 
   // success
   return true;
@@ -2460,7 +2461,7 @@ bool KateDocument::closeUrl()
 
 bool KateDocument::isDataRecoveryAvailable() const
 {
-  return m_swapfile->shouldRecover();
+  return m_swapfile && m_swapfile->shouldRecover();
 }
 
 void KateDocument::recoverData()

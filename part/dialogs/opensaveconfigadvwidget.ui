@@ -2,10 +2,15 @@
 <ui version="4.0">
  <class>OpenSaveConfigAdvWidget</class>
  <widget class="QWidget" name="OpenSaveConfigAdvWidget">
-  <layout class="QVBoxLayout">
-   <property name="margin">
-    <number>0</number>
-   </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>383</width>
+    <height>480</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QGroupBox" name="gbConfigFile">
      <property name="title">
@@ -127,20 +132,119 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
-       <spacer>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="gpSwapFileOptions">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>50</height>
+      </size>
+     </property>
+     <property name="title">
+      <string>Swap File Options</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="lblSwapFileMode">
+        <property name="text">
+         <string>Swap file:</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>0</width>
-          <height>1</height>
-         </size>
+        <property name="buddy">
+         <cstring>cmbSwapFileMode</cstring>
         </property>
-       </spacer>
+       </widget>
       </item>
-      <item row="4" column="0">
+      <item row="0" column="1">
+       <widget class="QComboBox" name="cmbSwapFileMode">
+        <item>
+         <property name="text">
+          <string>Disable</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Enable</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Alternative Directory</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="lblSwapDirectory">
+        <property name="text">
+         <string>Directory</string>
+        </property>
+        <property name="buddy">
+         <cstring>kurlSwapDirectory</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="KUrlRequester" name="kurlSwapDirectory">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="mode">
+         <set>KFile::Directory|KFile::LocalOnly</set>
+        </property>
+        <property name="placeholderText">
+         <string>Directory for swp files</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="lblSwapFileSync">
+        <property name="text">
+         <string>Sync every:</string>
+        </property>
+        <property name="buddy">
+         <cstring>spbSwapFileSync</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QSpinBox" name="spbSwapFileSync">
+        <property name="specialValueText">
+         <string>Disabled</string>
+        </property>
+        <property name="suffix">
+         <string>s</string>
+        </property>
+        <property name="minimum">
+         <number>0</number>
+        </property>
+        <property name="maximum">
+         <number>600</number>
+        </property>
+        <property name="singleStep">
+         <number>10</number>
+        </property>
+        <property name="value">
+         <number>15</number>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Be aware, that disabling the swap file synchronization may lead to data loss in case of a system crash.</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="2">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -148,20 +252,10 @@
         <property name="sizeHint" stdset="0">
          <size>
           <width>20</width>
-          <height>40</height>
+          <height>130</height>
          </size>
         </property>
        </spacer>
-      </item>
-      <item row="6" column="0" colspan="2">
-       <widget class="QCheckBox" name="chkNoSync">
-        <property name="whatsThis">
-         <string>If checked, the swap file is not forcibly written to disk each 15 seconds. Be aware, that disabling the swap file synchronization may lead to data loss in case of a system crash.</string>
-        </property>
-        <property name="text">
-         <string>Disable swap files syncing</string>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>
@@ -174,7 +268,19 @@
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>sbConfigFileSearchDepth</tabstop>
+  <tabstop>chkBackupLocalFiles</tabstop>
+  <tabstop>chkBackupRemoteFiles</tabstop>
+  <tabstop>edtBackupPrefix</tabstop>
+  <tabstop>edtBackupSuffix</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

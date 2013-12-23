@@ -53,20 +53,20 @@ class KateFileTreeModel : public QAbstractItemModel
     virtual QModelIndex index( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     virtual bool hasChildren ( const QModelIndex & parent = QModelIndex() ) const;
 
-    QModelIndex docIndex(KTextEditor::Document *);
+    QModelIndex docIndex(KTextEditor::Document *) const;
 
-    bool isDir(const QModelIndex &index);
+    bool isDir(const QModelIndex &index) const;
 
-    bool listMode();
+    bool listMode() const;
     void setListMode(bool);
 
-    bool shadingEnabled();
+    bool shadingEnabled() const;
     void setShadingEnabled(bool);
 
-    QColor editShade();
+    QColor editShade() const;
     void setEditShade(QColor);
     
-    QColor viewShade();
+    QColor viewShade() const;
     void setViewShade(QColor);
     
     bool showFullPathOnRoots(void);

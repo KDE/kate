@@ -350,7 +350,7 @@ KateFileTreeModel::~KateFileTreeModel()
 
 }
 
-bool KateFileTreeModel::shadingEnabled()
+bool KateFileTreeModel::shadingEnabled() const
 {
   return m_shadingEnabled;
 }
@@ -363,7 +363,7 @@ void KateFileTreeModel::setShadingEnabled(bool se)
   }
 }
 
-QColor KateFileTreeModel::editShade()
+QColor KateFileTreeModel::editShade() const
 {
   return m_editShade;
 }
@@ -373,7 +373,7 @@ void KateFileTreeModel::setEditShade(QColor es)
   m_editShade = es;
 }
 
-QColor KateFileTreeModel::viewShade()
+QColor KateFileTreeModel::viewShade() const
 {
   return m_viewShade;
 }
@@ -429,7 +429,7 @@ void KateFileTreeModel::clearModel()
   endRemoveRows();
 }
 
-QModelIndex KateFileTreeModel::docIndex(KTextEditor::Document *d)
+QModelIndex KateFileTreeModel::docIndex(KTextEditor::Document *d) const
 {
   qCDebug(FILETREE) << "BEGIN!";
   ProxyItem *item = m_docmap[d];
@@ -618,7 +618,7 @@ bool KateFileTreeModel::hasChildren( const QModelIndex & parent ) const
   return item->childCount() > 0;
 }
 
-bool KateFileTreeModel::isDir(const QModelIndex &index)
+bool KateFileTreeModel::isDir(const QModelIndex &index) const
 {
   if(!index.isValid())
     return true;
@@ -632,7 +632,7 @@ bool KateFileTreeModel::isDir(const QModelIndex &index)
   return item->flag(ProxyItem::Dir);
 }
 
-bool KateFileTreeModel::listMode()
+bool KateFileTreeModel::listMode() const
 {
   return m_listMode;
 }

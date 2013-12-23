@@ -22,13 +22,10 @@
 #define EXPANDING_WIDGET_MODEL_H
 
 #include <QAbstractTableModel>
-#include <QHash>
 #include <QIcon>
 #include <QPointer>
 
-class KWidget;
 class QTreeView;
-class QTextEdit;
 
 /**
  * Cares about expanding/un-expanding items in a tree-view together with ExpandingDelegate

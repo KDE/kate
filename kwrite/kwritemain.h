@@ -27,13 +27,9 @@
 #include <KParts/MainWindow>
 #include <KConfigGroup>
 
-#include <QKeyEvent>
-
 #include <config.h>
 
 class QLabel;
-
-namespace KTextEditor { class EditorChooser; }
 
 #ifdef KActivities_FOUND
 namespace KActivities { class ResourceInstance; }

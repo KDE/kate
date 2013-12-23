@@ -21,17 +21,10 @@
 #ifndef KATE_SCRIPT_H
 #define KATE_SCRIPT_H
 
-#include <QObject>
-#include <QHash>
-#include <QStringList>
-
 #include <QScriptValue>
-#include <QScriptable>
 
 class QScriptEngine;
-class QScriptContext;
 
-class KateDocument;
 class KateView;
 
 class KateScriptDocument;

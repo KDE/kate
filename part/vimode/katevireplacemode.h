@@ -21,12 +21,11 @@
 #ifndef KATE_VI_REPLACE_MODE_INCLUDED
 #define KATE_VI_REPLACE_MODE_INCLUDED
 
-#include <QKeyEvent>
 #include "katevimodebase.h"
 
-class KateViMotion;
 class KateView;
 class KateViewInternal;
+class QKeyEvent;
 
 /**
  * Commands for the vi replace mode

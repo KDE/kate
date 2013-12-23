@@ -26,16 +26,10 @@
 
 #include <QDialog>
 
-namespace KTextEditor
-{
-class Document;
-class View;
-}
+namespace KTextEditor { class View; }
 
 class SnippetRepository;
 class Snippet;
-
-class QStandardItemModel;
 
 namespace Ui {
 class EditSnippetBase;

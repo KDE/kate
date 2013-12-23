@@ -25,12 +25,8 @@
 #include <ktexteditor/range.h>
 #include <ktexteditor/attribute.h>
 
-#include <QStack>
 #include <QList>
 #include <QPair>
-
-class KateView;
-class RenderRangeList;
 
 class KateRenderRange
 {

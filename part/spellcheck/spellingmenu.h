@@ -31,9 +31,7 @@
 #include <ktexteditor/range.h>
 #include <ktexteditor/view.h>
 
-class KateDocument;
 class KateView;
-
 class KateOnTheFlyChecker;
 
 class KateSpellingMenu : public QObject {

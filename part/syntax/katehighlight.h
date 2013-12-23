@@ -26,9 +26,6 @@
 #include "katesyntaxmanager.h"
 #include "spellcheck/prefixstore.h"
 
-#include <KConfig>
-#include <KActionMenu>
-
 #include <QVector>
 #include <QList>
 #include <QHash>
@@ -41,10 +38,11 @@
 #include <QDate>
 #include <QLinkedList>
 
+class KConfig;
+
 class KateHlContext;
 class KateHlItem;
 class KateHlIncludeRule;
-class KateTextLine;
 class KateSyntaxModeListItem;
 class KateSyntaxContextData;
 

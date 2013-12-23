@@ -31,7 +31,6 @@ class KateDocument;
 
 class KColorButton;
 class QCheckBox;
-class QComboBox;
 class QGroupBox;
 class QLabel;
 class KLineEdit;

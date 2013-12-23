@@ -26,8 +26,6 @@
 
 #include "kateextendedattribute.h"
 
-class KateExtendedAttribute;
-
 /**
  * QTreeWidget that automatically adds columns for KateStyleListItems and provides a
  * popup menu and a slot to edit a style using the keyboard.

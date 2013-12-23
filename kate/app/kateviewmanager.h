@@ -30,7 +30,6 @@
 #include <QPointer>
 #include <QList>
 #include <QSplitter>
-#include <QStackedWidget>
 
 #include <config.h>
 
@@ -44,8 +43,6 @@ class KConfigGroup;
 class KConfigBase;
 class KateMainWindow;
 class KateViewSpace;
-
-class QToolButton;
 
 class KateViewManager : public QSplitter
 {

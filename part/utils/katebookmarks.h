@@ -24,8 +24,6 @@
 
 class KateView;
 
-namespace KTextEditor { class Mark; class View; }
-
 class KToggleAction;
 class KActionCollection;
 class QMenu;

@@ -23,6 +23,10 @@
 
 #include "expandingtree/expandingdelegate.h"
 
+class KateRenderer;
+class KateDocument;
+class KateCompletionWidget;
+
 class KateCompletionDelegate : public ExpandingDelegate {
   public:
     explicit KateCompletionDelegate(ExpandingWidgetModel* model, KateCompletionWidget* parent);

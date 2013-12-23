@@ -42,7 +42,6 @@ class KateDocumentConfig;
 class KateViewConfig;
 class KateRendererConfig;
 class KateDocument;
-class KateRenderer;
 class KateView;
 class KateScriptManager;
 class KDirWatch;
@@ -52,10 +51,6 @@ class KateSpellCheckManager;
 class KateViGlobal;
 class KateWordCompletionModel;
 class KateSnippetGlobal;
-
-namespace Kate {
-  class Command;
-}
 
 Q_DECLARE_METATYPE(KSharedConfig::Ptr)
 

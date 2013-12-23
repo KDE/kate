@@ -22,16 +22,11 @@
 
 #include <QWidget>
 
-class QListView;
 class QTreeView;
 class KLineEdit;
 class KateMainWindow;
 class QStandardItemModel;
 class QSortFilterProxyModel;
-
-namespace KTextEditor {
-    class Document;
-}
 
 class KateQuickOpen : public QWidget {
     Q_OBJECT

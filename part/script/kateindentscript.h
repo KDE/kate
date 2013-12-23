@@ -23,10 +23,6 @@
 #include "katescript.h"
 #include "kateview.h"
 
-#include <QPair>
-
-class KateScriptDocument;
-
 class KateIndentScriptHeader
 {
   public:

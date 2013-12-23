@@ -30,8 +30,6 @@
 
 class KateRenderer;
 
-namespace KTextEditor { class Document; }
-
 class KateLineLayoutMap
 {
   public:

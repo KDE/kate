@@ -22,14 +22,9 @@
 #define ExpandingDelegate_H
 
 #include <QItemDelegate>
-#include <QTextLine>
+#include <QTextLayout>
 #include <QModelIndex>
-#include <QPoint>
 
-class KateRenderer;
-class KateCompletionWidget;
-class KateDocument;
-class KateTextLine;
 class ExpandingWidgetModel;
 class QVariant;
 class QStyleOptionViewItem;

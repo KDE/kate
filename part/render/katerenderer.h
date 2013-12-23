@@ -36,7 +36,6 @@ class KateDocument;
 class KateView;
 class KateRendererConfig;
 class KateRenderRange;
-namespace KTextEditor { class Range; }
 namespace Kate { class TextFolding; }
 
 /**

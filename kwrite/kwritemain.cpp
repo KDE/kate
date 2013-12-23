@@ -59,6 +59,7 @@
 #include <QApplication>
 #include <QLabel>
 #include <QStatusBar>
+#include <QDragEnterEvent>
 
 QList<KTextEditor::Document*> KWrite::docList;
 QList<KWrite*> KWrite::winList;

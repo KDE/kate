@@ -34,11 +34,6 @@
 #include <QPair>
 #include <QDateTime>
 
-namespace KParts
-{
-  class Factory;
-}
-
 class KConfig;
 class KateMainWindow;
 

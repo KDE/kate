@@ -31,7 +31,6 @@
 #include <sonnet/speller.h>
 
 class KateDocument;
-class KateView;
 
 class KateSpellCheckManager : public QObject {
   Q_OBJECT

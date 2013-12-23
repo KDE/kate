@@ -21,9 +21,6 @@
 
 #include <QTreeWidget>
 
-class KConfigGroup;
-class KateColorTreeItem;
-
 class KateColorItem
 {
   public:

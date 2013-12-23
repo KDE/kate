@@ -28,8 +28,6 @@
 #include <QStandardItem>
 #include <QStringList>
 
-class Snippet;
-
 namespace KTextEditor
 {
 class TemplateScript;

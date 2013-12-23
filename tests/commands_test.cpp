@@ -23,49 +23,7 @@
 //BEGIN Includes
 #include "commands_test.h"
 
-#include "kateview.h"
-#include "katedocument.h"
-#include "katedocumenthelpers.h"
-#include "kateconfig.h"
-#include "katecmd.h"
-#include "kateglobal.h"
-#include <ktexteditor/commandinterface.h>
-
-#include <kaction.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kdefakes.h>
-#include <kio/job.h>
-
-#include <memory>
-#include <cstdio>
-#include <cstdlib>
-#include <climits>
-#include <limits.h>
-#include <sys/time.h>
-#include <sys/resource.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <pwd.h>
-#include <signal.h>
-
-#include <QtCore/QObject>
-#include <QtCore/QFile>
-#include <QtCore/QDir>
-#include <QtCore/QString>
-#include <QtCore/QRegExp>
-#include <QtCore/QTextStream>
-#include <QtCore/QList>
-#include <QtCore/QTimer>
-#include <QtCore/QFileInfo>
-#include <QtCore/Q_PID>
-#include <QtCore/QEvent>
-#include <QtCore/QTimer>
-#include <QtCore/QFileInfo>
-
-#include <QtScript/QScriptEngine>
-#include <QTest>
+#include <QtTestWidgets>
 
 #include "script_test_base.h"
 #include "testutils.h"

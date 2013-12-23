@@ -28,30 +28,7 @@
 
 #include "kateview.h"
 #include "katedocument.h"
-#include "katedocumenthelpers.h"
-#include "kateconfig.h"
-#include "katecmd.h"
-#include "kateglobal.h"
 #include "katescripthelpers.h"
-#include <ktexteditor/commandinterface.h>
-
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kdefakes.h>
-#include <kio/job.h>
-
-#include <QtCore/QObject>
-#include <QtCore/QFile>
-#include <QtCore/QDir>
-#include <QtCore/QString>
-#include <QtCore/QRegExp>
-#include <QtCore/QTextStream>
-#include <QtCore/QList>
-#include <QtCore/QTimer>
-#include <QtCore/QFileInfo>
-#include <QtCore/Q_PID>
-#include <QtCore/QEvent>
-#include <QtCore/QTimer>
 
 #include <QtScript/QScriptEngine>
 #include <QTest>

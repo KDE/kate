@@ -20,12 +20,9 @@
 #include "bug317111.h"
 
 #include <katedocument.h>
-#include <katebuffer.h>
 #include <kateglobal.h>
 #include <kateview.h>
-#include <kateconfig.h>
 #include <kmainwindow.h>
-#include <ktexteditor/range.h>
 
 #include <QtScript/QScriptEngine>
 #include <QtTestWidgets>

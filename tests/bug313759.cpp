@@ -64,7 +64,7 @@ void BugTest::tryCrash()
   KateView* view = static_cast<KateView *>(doc->createView(0));
   bool outputWasCustomised = false;
   TestScriptEnv* env = new TestScriptEnv(doc, outputWasCustomised);
-  QString url = TEST_DATA_DIR + QLatin1String("bug313759.txt");
+  const QUrl url = QUrl::fromLocalFile(QLatin1String(TEST_DATA_DIR"bug313759.txt"));
   doc->openUrl(url);
 
   // load moveLinesDown and moveLinesUp

@@ -61,7 +61,7 @@ void KateFoldingTest::cleanupTestCase()
 void KateFoldingTest::testCrash311866()
 {
   KateDocument doc(false, false, false);
-  QString url = TEST_DATA_DIR + QLatin1String("bug311866.cpp");
+  const QUrl url = QUrl::fromLocalFile(QLatin1String(TEST_DATA_DIR"bug311866.cpp"));
   doc.openUrl(url);
   doc.setHighlightingMode("C++");
   doc.buffer().ensureHighlighted (6);

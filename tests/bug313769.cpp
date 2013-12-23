@@ -55,7 +55,7 @@ void BugTest::cleanupTestCase()
 void BugTest::tryCrash()
 {
   KateDocument doc(false, false, false);
-  QString url = TEST_DATA_DIR + QLatin1String("bug313769.cpp");
+  const QUrl url = QUrl::fromLocalFile(QLatin1String(TEST_DATA_DIR"bug313769.cpp"));
   doc.openUrl(url);
   doc.discardDataRecovery();
   doc.setHighlightingMode("C++");

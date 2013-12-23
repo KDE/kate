@@ -337,7 +337,7 @@ void KateDocumentTest::testDigest()
 
   // make sure, Kate::TextBuffer and KateDocument::createDigest() equal
   KateDocument doc(false, false, false);
-  doc.openUrl(QString(TEST_DATA_DIR + QLatin1String("md5checksum.txt")));
+  doc.openUrl(QUrl::fromLocalFile(QLatin1String(TEST_DATA_DIR"md5checksum.txt")));
   const QByteArray bufferDigest(doc.digest());
   QVERIFY(doc.createDigest());
   const QByteArray docDigest(doc.digest());

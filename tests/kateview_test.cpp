@@ -108,9 +108,8 @@ void KateViewTest::testFolding_data()
 
 void KateViewTest::testFolding()
 {
-#if 0
-    KTemporaryFile file;
-    file.setSuffix(".cpp");
+#if 0 //FIXME
+    QTemporaryFile file("XXXXXX.cpp");
     file.open();
     QTextStream stream(&file);
     stream << "int main() {\n"
@@ -120,7 +119,7 @@ void KateViewTest::testFolding()
     file.close();
 
     KateDocument doc(false, false, false);
-    QVERIFY(doc.openUrl(KUrl(file.fileName())));
+    QVERIFY(doc.openUrl(QUrl::fromLocalFile(file.fileName())));
     QCOMPARE(doc.highlightingMode(), QString("C++"));
 
     KateView* view = new KateView(&doc, 0);
@@ -152,10 +151,9 @@ void KateViewTest::testFolding()
 
 void KateViewTest::testBug287291()
 {
-#if 0
+#if 0 //FIXME
     // see also: https://bugs.kde.org/show_bug.cgi?id=287291
-    KTemporaryFile file;
-    file.setSuffix(".cpp");
+    QTemporaryFile file("XXXXXX.cpp");
     file.open();
     QTextStream stream(&file);
     stream << "int main() {\n"
@@ -165,7 +163,7 @@ void KateViewTest::testBug287291()
     file.close();
 
     KateDocument doc(false, false, false);
-    QVERIFY(doc.openUrl(KUrl(file.fileName())));
+    QVERIFY(doc.openUrl(QUrl::fromLocalFile(file.fileName())));
     QCOMPARE(doc.highlightingMode(), QString("C++"));
 
     KateView* view = new KateView(&doc, 0);
@@ -210,7 +208,6 @@ void KateViewTest::testBug287291()
     }
 #endif
 }
-
 
 void KateViewTest::testSelection()
 {

@@ -49,7 +49,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   setIndentation(12);
   setAllColumnsShowFocus(true);
   
-  connect( this, SIGNAL(clicked(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));
+  connect( this, SIGNAL(activated(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));
 
   m_filelistCloseDocument = new QAction( QIcon::fromTheme("window-close"), i18n( "Close" ), this );
   connect( m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()) );
@@ -158,12 +158,9 @@ void KateFileTree::mouseClicked ( const QModelIndex &index )
   if(doc) {
     qCDebug(FILETREE) << "got doc" << index << "setting prev:" << QModelIndex();
     emit activateDocument(doc);
-    //m_previouslySelected = QModelIndex();
   }
   else {
-    qCDebug(FILETREE) << "selecting previous item" << m_previouslySelected;
-
-    selectionModel()->setCurrentIndex(m_previouslySelected,QItemSelectionModel::ClearAndSelect);
+    setExpanded(index, !isExpanded(index));
   }
   
 }

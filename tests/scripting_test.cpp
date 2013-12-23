@@ -33,7 +33,6 @@
 
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kdefakes.h>
 #include <kio/job.h>
 
 #include <QtCore/QObject>

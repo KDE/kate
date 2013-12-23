@@ -220,7 +220,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
 
   addEditorPages();
 
-  connect(this, SIGNAL(accepted()), this, SLOT(slotOk()));
+  connect(this, SIGNAL(accepted()), this, SLOT(slotApply()));
   connect(buttonBox()->button(QDialogButtonBox::Apply), SIGNAL(clicked()), this, SLOT(slotApply()));
   connect(this, SIGNAL(currentPageChanged(KPageWidgetItem*,KPageWidgetItem*)),
           this, SLOT(slotCurrentPageChanged(KPageWidgetItem*,KPageWidgetItem*)));
@@ -308,12 +308,6 @@ void KateConfigDialog::removePluginPage (Kate::Plugin *plugin)
     removePage(wItem);
     delete pItem;
   }
-}
-
-void KateConfigDialog::slotOk()
-{
-  slotApply();
-  accept();
 }
 
 void KateConfigDialog::slotApply()

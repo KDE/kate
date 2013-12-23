@@ -415,6 +415,10 @@ Entirely removed interfaces and classes are, in order:
 \section kte_port_merge Merged Interfaces
 The following interfaces were merged, in order:
  - \p CoordinatesToCursorInterface was merged into the KTextEditor::View.
+ - \p CodeCompletionModelControllerInterface2,
+   \p CodeCompletionModelControllerInterface3 and
+   \p CodeCompletionModelControllerInterface4
+   were merged into the \p KTextEditor::CodeCompletionModelControllerInterface.
 
 \section kte_port_rename Interface Changes
 The following interfaces were changed:

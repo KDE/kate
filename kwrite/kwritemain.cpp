@@ -286,8 +286,7 @@ void KWrite::slotOpen( const QUrl& url )
 
   KIO::StatJob *job = KIO::stat(url, KIO::StatJob::SourceSide, 0);
   KJobWidgets::setWindow(job, this);
-  job->exec();
-  if (job->error())
+  if (!job->exec())
   {
     KMessageBox::error (this, i18n("The file given could not be read; check whether it exists or is readable for the current user."));
     return;

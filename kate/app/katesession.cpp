@@ -159,8 +159,7 @@ bool KateSession::rename (const QString &name)
   QUrl destUrl = QUrl::fromLocalFile( sessionFile() );
 
   KIO::CopyJob *job = KIO::move(srcUrl, destUrl, KIO::HideProgressInfo);
-  job->exec();
-  if ( job->error() )
+  if ( !job->exec() )
   {
     m_sessionFileRel = oldRel;
     return false;

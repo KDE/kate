@@ -2178,9 +2178,8 @@ bool KateDocument::saveFile()
       // get the right permissions, start with safe default
       KIO::StatJob *statJob = KIO::stat(url(), KIO::StatJob::SourceSide, 2);
       KJobWidgets::setWindow(statJob, QApplication::activeWindow());
-      statJob->exec();
 
-      if (!statJob->error())
+      if (!statJob->exec())
       {
         // do a evil copy which will overwrite target if possible
         KFileItem item (statJob->statResult(), url());

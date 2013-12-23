@@ -130,7 +130,7 @@ void KWriteApp::init()
       Q_FOREACH (const QString positionalArgument, m_args.positionalArguments())
       {
         // convert to an url
-        const QUrl url (positionalArgument);
+        const QUrl url = QUrl::fromUserInput(positionalArgument);
     
         // this file is no local dir, open it, else warn
         bool noDir = !url.isLocalFile() || !QFileInfo (url.toLocalFile()).isDir();

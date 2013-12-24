@@ -4,7 +4,7 @@
    Copyright (C) 2001, 2007 Anders Lund <anders@alweb.dk>
    Copyright (C) 2009, Abhishek Patil <abhishekworld@gmail.com>
    Copyright (C) 2010, Thomas Fjellstrom <thomas@fjellstrom.ca>
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
    License version 2 as published by the Free Software Foundation.
@@ -52,8 +52,6 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
     m_plug( fl ),
     m_changed( false )
 {
-  qCDebug(FILETREE) << "BEGIN";
-  
   QVBoxLayout *layout = new QVBoxLayout( this );
   layout->setMargin( 0 );
 
@@ -104,7 +102,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
   layout->addLayout( lo4 );
   cbShowFullPath = new QCheckBox( i18n("&Show Full Path"), this );
   lo4->addWidget( cbShowFullPath );
-  
+
   layout->insertStretch( -1, 10 );
 
   gbEnableShading->setWhatsThis( i18n(
@@ -121,7 +119,7 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
   cbShowFullPath->setWhatsThis( i18n(
       "When enabled, in tree mode, top level folders will show up with their full path "
       "rather than just the last folder name." ) );
-  
+
 //   cmbSort->setWhatsThis( i18n(
 //       "Set the sorting method for the documents.") );
 
@@ -133,18 +131,14 @@ KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlu
   connect( cmbSort, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
   connect( cmbMode, SIGNAL(activated(int)), this, SLOT(slotMyChanged()) );
   connect( cbShowFullPath, SIGNAL(stateChanged(int)), this, SLOT(slotMyChanged()) );
-  
-  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreeConfigPage::apply()
 {
-  qCDebug(FILETREE) << "BEGIN";
   if ( ! m_changed ) {
-    qCDebug(FILETREE) << "END !changed";
     return;
   }
-  
+
   m_changed = false;
 
   // apply config to views
@@ -156,14 +150,10 @@ void KateFileTreeConfigPage::apply()
     cmbSort->itemData(cmbSort->currentIndex()).toInt(),
     cbShowFullPath->checkState() == Qt::Checked
   );
-  
-  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreeConfigPage::reset()
 {
-  qCDebug(FILETREE) << "BEGIN";
-
   const KateFileTreePluginSettings &settings = m_plug->settings();
 
   gbEnableShading->setChecked( settings.shadingEnabled() );
@@ -172,29 +162,21 @@ void KateFileTreeConfigPage::reset()
   cmbSort->setCurrentIndex( cmbSort->findData( settings.sortRole() ) );
   cmbMode->setCurrentIndex( settings.listMode() );
   cbShowFullPath->setCheckState( settings.showFullPathOnRoots() ? Qt::Checked : Qt::Unchecked );
-  
+
   m_changed = false;
-  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreeConfigPage::defaults()
 {
-  qCDebug(FILETREE) << "BEGIN";
-
   // m_plug->settings().revertToDefaults() ??
   // not sure the above is ever needed...
-  
   reset();
-  
-  qCDebug(FILETREE) << "END";
 }
 
 void KateFileTreeConfigPage::slotMyChanged()
 {
-  qCDebug(FILETREE) << "BEGIN";
   m_changed = true;
   emit changed();
-  qCDebug(FILETREE) << "END";
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

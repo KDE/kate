@@ -48,7 +48,7 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   setAcceptDrops(false);
   setIndentation(12);
   setAllColumnsShowFocus(true);
-  
+
   connect( this, SIGNAL(activated(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));
 
   m_filelistCloseDocument = new QAction( QIcon::fromTheme("window-close"), i18n( "Close" ), this );
@@ -75,15 +75,15 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
                              i18n("Sort by Document Name"),
                              SLOT(slotSortName()), true);
 
-  
+
   m_sortByPath = setupOption(sortGroup, QIcon(), i18n("Document Path"),
                              i18n("Sort by Document Path"),
                              SLOT(slotSortPath()), false);
-  
+
   m_sortByOpeningOrder =  setupOption(sortGroup, QIcon(), i18n("Opening Order"),
                              i18n("Sort by Opening Order"),
                              SLOT(slotSortOpeningOrder()), false);
-  
+
   QPalette p = palette();
   p.setColor(QPalette::Inactive, QPalette::Highlight, p.color(QPalette::Active, QPalette::Highlight));
   p.setColor(QPalette::Inactive, QPalette::HighlightedText, p.color(QPalette::Active, QPalette::HighlightedText));
@@ -138,31 +138,26 @@ void KateFileTree::slotSortOpeningOrder()
 
 void KateFileTree::slotCurrentChanged ( const QModelIndex &current, const QModelIndex &previous )
 {
-  qCDebug(FILETREE) << "current:" << current << "previous:" << previous;
-
+  Q_UNUSED(previous);
   if(!current.isValid())
     return;
-  
+
   KTextEditor::Document *doc = model()->data(current, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if(doc) {
-    qCDebug(FILETREE) << "got doc, setting prev:" << current;
     m_previouslySelected = current;
   }
 }
 
 void KateFileTree::mouseClicked ( const QModelIndex &index )
 {
-  qCDebug(FILETREE) << "got index" << index;
-
   KTextEditor::Document *doc = model()->data(index, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if(doc) {
-    qCDebug(FILETREE) << "got doc" << index << "setting prev:" << QModelIndex();
     emit activateDocument(doc);
   }
   else {
     setExpanded(index, !isExpanded(index));
   }
-  
+
 }
 
 void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
@@ -202,7 +197,7 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
   sort_menu->addAction(m_sortByFile);
   sort_menu->addAction(m_sortByPath);
   sort_menu->addAction(m_sortByOpeningOrder);
-  
+
   menu.exec(viewport()->mapToGlobal(event->pos()));
 
   if (m_previouslySelected.isValid()) {
@@ -217,7 +212,7 @@ void KateFileTree::slotFixOpenWithMenu()
 {
   QMenu *menu = (QMenu*)sender();
   menu->clear();
-  
+
    KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if (!doc) return;
 
@@ -243,11 +238,11 @@ void KateFileTree::slotFixOpenWithMenu()
 void KateFileTree::slotOpenWithMenuAction(QAction* a)
 {
   QList<QUrl> list;
-  
+
   KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
   if (!doc) return;
 
-  
+
   list.append( doc->url() );
 
   const QString openWith = a->data().toString();
@@ -270,7 +265,6 @@ void KateFileTree::slotOpenWithMenuAction(QAction* a)
     KMessageBox::error(this, i18n("Application '%1' not found.", openWith), i18n("Application not found"));
   }
 }
-
 
 #include "metatype_qlist_ktexteditor_document_pointer.h"
 
@@ -344,124 +338,87 @@ void KateFileTree::slotDocumentLast()
 
 void KateFileTree::slotDocumentPrev()
 {
-  qCDebug(FILETREE) << "BEGIN";
   KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
 
-
-  
   QModelIndex current_index = currentIndex();
   QModelIndex prev;
-  
+
   // scan up the tree skipping any dir nodes
-  
-  //qCDebug(FILETREE) << "cur" << ftpm->data(current_index, Qt::DisplayRole);
   while(current_index.isValid()) {
     if(current_index.row() > 0) {
       current_index = ftpm->sibling(current_index.row()-1, current_index.column(), current_index);
-      //qCDebug(FILETREE) << "get prev" << ftpm->data(current_index, Qt::DisplayRole);
       if(!current_index.isValid()) {
-        //qCDebug(FILETREE) << "somehow getting prev index from sibling didn't work :(";
         break;
       }
-      
+
       if(ftpm->isDir(current_index)) {
         // try and select the last child in this parent
-        //qCDebug(FILETREE) << "is a dir";
         int children = ftpm->rowCount(current_index);
         current_index = ftpm->index(children-1, 0, current_index);
-        //qCDebug(FILETREE) << "child" << ftpm->data(current_index, Qt::DisplayRole);
         if(ftpm->isDir(current_index)) {
           // since we're a dir, keep going
-          //qCDebug(FILETREE) << "child is a dir";
           while(ftpm->isDir(current_index)) {
             children = ftpm->rowCount(current_index);
             current_index = ftpm->index(children-1, 0, current_index);
           }
-          
+
           if(!ftpm->isDir(current_index)) {
             prev = current_index;
             break;
           }
-          
+
           continue;
         } else {
           // we're the previous file, set prev
-          //qCDebug(FILETREE) << "got doc 1";
           prev = current_index;
           break;
         }
       } else { // found document item
-        //qCDebug(FILETREE) << "got doc 2";
         prev = current_index;
         break;
       }
     }
     else {
-      //qCDebug(FILETREE) << "get parent";
       // just select the parent, the logic above will handle the rest
       current_index = ftpm->parent(current_index);
-      //qCDebug(FILETREE) << "got parent" << ftpm->data(current_index, Qt::DisplayRole);
       if(!current_index.isValid()) {
         // paste the root node here, try and wrap around
-        //qCDebug(FILETREE) << "parent invalid";
-        
+
         int children = ftpm->rowCount(current_index);
         QModelIndex last_index = ftpm->index(children-1, 0, current_index);
-        //qCDebug(FILETREE) << "last" << ftpm->data(last_index, Qt::DisplayRole);
         if(!last_index.isValid())
           break;
-        
+
         if(ftpm->isDir(last_index)) {
           // last node is a dir, select last child row
-          //qCDebug(FILETREE) << "last root is a dir, select child";
           int last_children = ftpm->rowCount(last_index);
           prev = ftpm->index(last_children-1, 0, last_index);
-          //qCDebug(FILETREE) << "last child" << ftpm->data(current_index, Qt::DisplayRole);
           // bug here?
           break;
         }
         else {
           // got last file node
-          //qCDebug(FILETREE) << "got doc";
           prev = last_index;
           break;
         }
       }
     }
   }
-  
-  if(prev.isValid()) {
-    //qCDebug(FILETREE) << "got prev node:" << prev;
-    //qCDebug(FILETREE) << "doc:" << ftpm->data(prev, Qt::DisplayRole).value<QString>();
 
+  if(prev.isValid()) {
     KTextEditor::Document *doc = model()->data(prev, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     emit activateDocument(doc);
   }
-  else {
-    qCDebug(FILETREE) << "didn't get prev node :(";
-  }
-  
-  qCDebug(FILETREE) << "END";
 }
-
-/*
-plan:
-
-default: select next sibling
-if cur is a dir, select it
-
-*/
 
 void KateFileTree::slotDocumentNext()
 {
-  qCDebug(FILETREE) << "BEGIN";
-  
   KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
-  
+
   QModelIndex current_index = currentIndex();
   int parent_row_count = ftpm->rowCount( ftpm->parent(current_index) );
   QModelIndex next;
-  
+
   // scan down the tree skipping any dir nodes
   while(current_index.isValid()) {
     if(current_index.row() < parent_row_count-1) {
@@ -469,15 +426,15 @@ void KateFileTree::slotDocumentNext()
       if(!current_index.isValid()) {
         break;
       }
-      
+
       if(ftpm->isDir(current_index)) {
         // we have a dir node
         while(ftpm->isDir(current_index)) {
           current_index = ftpm->index(0, 0, current_index);
         }
-        
+
         parent_row_count = ftpm->rowCount( ftpm->parent(current_index) );
-        
+
         if(!ftpm->isDir(current_index)) {
           next = current_index;
           break;
@@ -491,10 +448,10 @@ void KateFileTree::slotDocumentNext()
       // select the parent's next sibling
       QModelIndex parent_index = ftpm->parent(current_index);
       int grandparent_row_count = ftpm->rowCount( ftpm->parent(parent_index) );
-      
+
       current_index = parent_index;
       parent_row_count = grandparent_row_count;
-      
+
       // at least if we're not past the last node
       if(!current_index.isValid()) {
         // paste the root node here, try and wrap around
@@ -502,7 +459,7 @@ void KateFileTree::slotDocumentNext()
         if(!last_index.isValid()) {
           break;
         }
-        
+
         if(ftpm->isDir(last_index)) {
           // last node is a dir, select first child row
           while(ftpm->isDir(last_index)) {
@@ -511,7 +468,7 @@ void KateFileTree::slotDocumentNext()
               last_index = ftpm->index(0, 0, last_index);
             }
           }
-          
+
           next = last_index;
           break;
         }
@@ -523,19 +480,11 @@ void KateFileTree::slotDocumentNext()
       }
     }
   }
-  
-  if(next.isValid()) {
-    //qCDebug(FILETREE) << "got next node:" << next;
-    //qCDebug(FILETREE) << "doc:" << ftpm->data(next, Qt::DisplayRole).value<QString>();
 
+  if(next.isValid()) {
     KTextEditor::Document *doc = model()->data(next, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     emit activateDocument(doc);
   }
-  else {
-    qCDebug(FILETREE) << "didn't get next node :(";
-  }
-  
-  qCDebug(FILETREE) << "END";
 }
 //END KateFileTree
 

@@ -39,7 +39,7 @@ class KateFileTreeModel : public QAbstractItemModel
 
   public:
     enum { DocumentRole = Qt::UserRole+1, PathRole, OpeningOrderRole, DocumentTreeRole };
-    
+
     KateFileTreeModel(QObject *p);
     virtual ~KateFileTreeModel();
 
@@ -65,13 +65,13 @@ class KateFileTreeModel : public QAbstractItemModel
 
     QColor editShade() const;
     void setEditShade(QColor);
-    
+
     QColor viewShade() const;
     void setViewShade(QColor);
-    
+
     bool showFullPathOnRoots(void);
     void setShowFullPathOnRoots(bool);
-    
+
   public Q_SLOTS:
     void documentOpened(KTextEditor::Document *);
     void documentClosed(KTextEditor::Document *);
@@ -91,7 +91,7 @@ class KateFileTreeModel : public QAbstractItemModel
     QString m_base;
 
     bool m_shadingEnabled;
-    
+
     QList<ProxyItem *> m_viewHistory;
     QList<ProxyItem *> m_editHistory;
     QMap<ProxyItem *, QBrush> m_brushes;
@@ -100,7 +100,7 @@ class KateFileTreeModel : public QAbstractItemModel
     QColor m_viewShade;
 
     bool m_listMode;
-    
+
     ProxyItemDir *findRootNode(const QString &name, int r = 1);
     ProxyItemDir *findChildNode(ProxyItemDir *parent, const QString &name);
     void insertItemInto(ProxyItemDir *root, ProxyItem *item);
@@ -113,9 +113,6 @@ class KateFileTreeModel : public QAbstractItemModel
 
     void initModel();
     void clearModel();
-
-    // Debug crap
-    QHash<ProxyItem *, ProxyItem *> m_debugmap;
 };
 
 #endif /* KATEFILETREEMODEL_H */

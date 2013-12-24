@@ -26,14 +26,12 @@
 KateFileTreeProxyModel::KateFileTreeProxyModel(QObject *parent)
   : QSortFilterProxyModel(parent)
 {
-  qCDebug(FILETREE) << "BEGIN!";
 }
 
 bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {
-  //qCDebug(FILETREE) << ": BEGIN!";
   KateFileTreeModel *model = static_cast<KateFileTreeModel*>(sourceModel());
-  
+
   bool left_isdir = model->isDir(left);
   bool right_isdir = model->isDir(right);
 
@@ -41,10 +39,10 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
   if(left_isdir != right_isdir) {
       return ((left_isdir - right_isdir)) > 0;
   }
-  
+
   QCollator collate;
   collate.setCaseSensitivity (Qt::CaseInsensitive);
-  
+
   switch(sortRole()) {
     case Qt::DisplayRole: {
       QString left_name = model->data(left).toString();
@@ -62,13 +60,11 @@ bool KateFileTreeProxyModel::lessThan(const QModelIndex &left, const QModelIndex
       return (left.row() - right.row()) < 0;
   }
 
-  qCDebug(FILETREE) << "this shouldn't happen!";
   return false;
 }
 
 QModelIndex KateFileTreeProxyModel::docIndex(KTextEditor::Document *doc)
 {
-  qCDebug(FILETREE) << "!";
   return mapFromSource(static_cast<KateFileTreeModel*>(sourceModel())->docIndex(doc));
 }
 

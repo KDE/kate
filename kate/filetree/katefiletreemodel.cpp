@@ -1274,7 +1274,7 @@ void KateFileTreeModel::setupIcon(ProxyItem *item)
     icon_name = QMimeDatabase().mimeTypeForFile(url.path(), QMimeDatabase::MatchExtension).iconName();
   }
 
-  QIcon icon(icon_name);
+  QIcon icon = QIcon::fromTheme(icon_name);
   
   if(item->flag(ProxyItem::ModifiedExternally) || item->flag(ProxyItem::DeletedExternally)) {
     icon = KIconUtils::addOverlay(icon, QIcon("emblem-important"), Qt::TopLeftCorner);

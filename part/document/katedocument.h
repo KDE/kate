@@ -1175,7 +1175,9 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
      * Abort loading
      */
     void slotAbortLoading ();
-    
+
+    void slotUrlChanged(const QUrl &url);
+
   private:
     /**
      * different possible states

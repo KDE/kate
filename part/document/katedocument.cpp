@@ -189,6 +189,8 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   connect (this, SIGNAL(completed()), this, SLOT(slotCompleted()));
   connect (this, SIGNAL(canceled(QString)), this, SLOT(slotCanceled()));
 
+  connect(this, SIGNAL(urlChanged(QUrl)), this, SLOT(slotUrlChanged(QUrl)));
+
   // update doc name
   updateDocName ();
 
@@ -2015,19 +2017,6 @@ bool KateDocument::openFile()
   // Inform that the text has changed (required as we're not inside the usual editStart/End stuff)
   emit textChanged (this);
 
-  if (!m_reloading)
-  {
-    //
-    // emit the signal we need for example for kate app
-    //
-    emit documentUrlChanged (this);
-
-    //
-    // set doc name, dummy value as arg, don't need it
-    //
-    updateDocName  ();
-  }
-  
   //
   // to houston, we are not modified
   //
@@ -2260,12 +2249,6 @@ bool KateDocument::saveFile()
     emit modifiedOnDisk (this, m_modOnHd, m_modOnHdReason);
   }
 
-  // update document name...
-  updateDocName ();
-
-  // url may have changed...
-  emit documentUrlChanged (this);
-
   // (dominik) mark last undo group as not mergeable, otherwise the next
   // edit action might be merged and undo will never stop at the saved state
   m_undoManager->undoSafePoint();
@@ -2461,15 +2444,6 @@ bool KateDocument::closeUrl()
   {
     view->clearSelection(); // fix bug #118588
     view->clear();
-  }
-
-  if (!m_reloading)
-  {
-    // uh, fileName changed
-    emit documentUrlChanged (this);
-
-    // update doc name
-    updateDocName ();
   }
 
   // purge swap file
@@ -4983,6 +4957,13 @@ void KateDocument::slotAbortLoading ()
    */
   m_loadingJob->kill (KJob::EmitResult);
   m_loadingJob = 0;
+}
+
+void KateDocument::slotUrlChanged(const QUrl& url)
+{
+  Q_UNUSED(url);
+  updateDocName();
+  emit documentUrlChanged(this);
 }
 
 bool KateDocument::save()

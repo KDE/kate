@@ -17,7 +17,6 @@
 */
 
 #include "hlselectionplugin.h"
-#include "hlselectionplugin.moc"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/attribute.h>
@@ -26,18 +25,10 @@
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/configinterface.h>
 
-#include <assert.h>
-#include <kaction.h>
-#include <kactioncollection.h>
-#include <kfiledialog.h>
 #include <kpluginfactory.h>
-#include <kpluginloader.h>
-#include <klocale.h>
-#include <kaboutdata.h>
+#include <klocalizedstring.h>
 
-
-K_PLUGIN_FACTORY( HighlightSelectionPluginFactory, registerPlugin<HighlightSelectionPlugin>(); )
-K_EXPORT_PLUGIN( HighlightSelectionPluginFactory( KAboutData( "ktexteditor_insertfile", "ktexteditor_plugins", ki18n("Highlight Selection"), "1.0", ki18n("Highlight Selection"), KAboutData::License_LGPL_V2 ) ) )
+K_PLUGIN_FACTORY_WITH_JSON (HighlightSelectionPluginFactory, "ktexteditor_hlselection.json", registerPlugin<HighlightSelectionPlugin>();)
 
 //BEGIN HighlightSelectionPlugin
 HighlightSelectionPlugin::HighlightSelectionPlugin( QObject *parent, const QVariantList& )
@@ -186,5 +177,7 @@ void HighlightSelectionPluginView::createHighlights()
   } while (matches.first().isValid());
 }
 //END HighlightSelectionPluginView
+
+#include "hlselectionplugin.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

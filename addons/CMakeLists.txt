@@ -1,5 +1,5 @@
 # KTextEditor plugins, for the kate part
-#add_subdirectory (ktexteditor)
+add_subdirectory (ktexteditor)
 
 # Kate plugins
 add_subdirectory (kate)

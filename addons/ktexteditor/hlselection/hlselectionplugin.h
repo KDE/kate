@@ -22,11 +22,7 @@
 #include <ktexteditor/plugin.h>
 #include <ktexteditor/view.h>
 
-// #include <kxmlguiclient.h>
 #include <QtCore/QObject>
-#include <kjob.h>
-#include <kurl.h>
-#include <kio/job.h>
 
 namespace KTextEditor {
   class MovingRange;
@@ -51,7 +47,6 @@ class HighlightSelectionPlugin : public KTextEditor::Plugin
 
 class HighlightSelectionPluginView
   : public QObject
-//   , public KXMLGUIClient
 {
   Q_OBJECT
   public:

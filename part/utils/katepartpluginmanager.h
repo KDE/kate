@@ -41,7 +41,7 @@ class KPluginInfo;
 class KatePartPluginInfo
 {
   public:
-    KatePartPluginInfo(KService::Ptr service);
+    KatePartPluginInfo(const KService::Ptr &service);
     KTextEditor::Plugin *plugin;
 
     void setLoad(bool load);
@@ -49,13 +49,13 @@ class KatePartPluginInfo
 
     QString saveName() const;
     KPluginInfo getKPluginInfo() const;
-    KService::Ptr service() const;
+    const KService::Ptr &service() const;
     QStringList dependencies() const;
     bool isEnabledByDefault() const;
 
   private:
     KPluginInfo m_pluginInfo;
-    QString m_saveName;
+    KService::Ptr m_service;
     bool m_load;
 };
 

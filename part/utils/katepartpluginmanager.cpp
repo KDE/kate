@@ -41,18 +41,20 @@
 
 //BEGIN KatePartPluginInfo
 
-KatePartPluginInfo::KatePartPluginInfo(KService::Ptr service)
+KatePartPluginInfo::KatePartPluginInfo(const KService::Ptr &service)
+  : m_service(service)
 {
-  // FIXME: this should do the trick, but didn't test it (no plugins so far:)
-  KPluginLoader loader(*service);
-  m_pluginInfo = KPluginInfo(QVariantList() << loader.metaData(), loader.fileName());
+  // FIXME: this should do the trick, but can fail terribly if file is not found or the lib has no info
+  KPluginLoader loader(service->library());
+  QVariantList vars = QVariantList() << loader.metaData().toVariantMap();
+  m_pluginInfo = KPluginInfo(vars, loader.fileName());
 }
 
 QString KatePartPluginInfo::saveName() const
 {
   QString saveName = m_pluginInfo.pluginName();
   if (saveName.isEmpty())
-    saveName = service()->library();
+    saveName = m_service->library();
   return saveName;
 }
 
@@ -67,9 +69,9 @@ KPluginInfo KatePartPluginInfo::getKPluginInfo() const
   return m_pluginInfo;
 }
 
-KService::Ptr KatePartPluginInfo::service() const
+const KService::Ptr &KatePartPluginInfo::service() const
 {
-  return m_pluginInfo.service();
+  return m_service;
 }
 
 QStringList KatePartPluginInfo::dependencies() const

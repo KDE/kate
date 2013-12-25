@@ -129,9 +129,16 @@ void KWriteApp::init()
       int docs_opened = 0;
       Q_FOREACH (const QString positionalArgument, m_args.positionalArguments())
       {
+        QUrl url;
+
         // convert to an url
-        const QUrl url = QUrl::fromUserInput(positionalArgument);
-    
+        QRegExp withProtocol("^[a-zA-Z]+:"); // TODO: remove after Qt supports this on its own
+        if (withProtocol.indexIn(positionalArgument) == 0) {
+          url = QUrl::fromUserInput(positionalArgument);
+        } else {
+          url = QUrl::fromLocalFile(positionalArgument);
+        }
+
         // this file is no local dir, open it, else warn
         bool noDir = !url.isLocalFile() || !QFileInfo (url.toLocalFile()).isDir();
 

@@ -24,7 +24,7 @@
 
 Each text expansion is a simple function which must return a string.
 This string will be inserted into a document by the expandAtCursor action.
-For example if you have a function "foo" in then all.expand file
+For example if you have a function "foo" in the all.expand file
 which is defined as:
 
 def foo:
@@ -71,135 +71,97 @@ public:
 };
 '''
 
+import kate.view
+
 from PyKDE4.kdecore import i18nc
 
+from .decorators import *
+from .jinja_stuff import jinja_environment_configurator
 from .udf import *
 
-from libkatepate.autocomplete import AbstractCodeCompletionModel
+# NOTE Do not show the following imports as part of our API!
+from .expands_completion_model import ExpandsCompletionModel as _ExpandsCompletionModel
+from .key_sequence_tracker import KeySequenceTracker as _KeySequenceTracker
 
-__expands_completion_model = None
+
+_expands_completion_model = None
+_input_tracker = None
 
 
 @kate.action
 def expandAtCursorAction():
-    expandAtCursor()
-
-
-class ExpandsCompletionModel(AbstractCodeCompletionModel):
-    TITLE_AUTOCOMPLETION = i18nc('@label:listbox', 'Expands Available')
-    GROUP_POSITION = AbstractCodeCompletionModel.GroupPosition.GLOBAL
-
-    def completionInvoked(self, view, word, invocationType):
-        self.reset()
-        # NOTE Do not allow automatic popup cuz most of expanders are short
-        # and it will annoying when typing code...
-        if invocationType == 0:
-            return
-
-        expansions = getExpansionsFor(view.document().mimeType())
-        for exp, fn_tuple in expansions.items():
-            # Try to get a function description (very first line)
-            if hasattr(fn_tuple[0], '__description__'):
-                description = fn_tuple[0].__description__.strip()
-            else:
-                description = None
-            if hasattr(fn_tuple[0], '__details__'):
-                details_text = fn_tuple[0].__details__.strip()
-            else:
-                details_text = None
-
-            # Get function parameters
-            fp = inspect.getargspec(fn_tuple[0])
-            args = fp[0]
-            params=''
-            if len(args) != 0:
-                params = ', '.join(args)
-            if fp[1] is not None:
-                if len(params):
-                    params += ', '
-                params += '[{}]'.format(fp[1])
-            # Append to result completions list
-            self.resultList.append(
-                self.createItemAutoComplete(
-                    text=exp
-                  , description=description
-                  , details = details_text
-                  , args='({})'.format(params)
-                  )
-              )
-
-    def reset(self):
-        self.resultList = []
+    expandUDFAtCursor()
 
 
 def _reset(*args, **kwargs):
-    global __expands_completion_model
-    if __expands_completion_model is not None:
-        __expands_completion_model.reset()
+    global _expands_completion_model
+    if _expands_completion_model is not None:
+        _expands_completion_model.reset()
 
 
 @kate.init
-def on_load():
-    global __expands_completion_model
-    assert(__expands_completion_model is None)
-    __expands_completion_model = ExpandsCompletionModel(kate.application)
-    __expands_completion_model.modelReset.connect(_reset)
+def _on_load():
+    global _input_tracker
+    assert(_input_tracker is None)
+    _input_tracker = _KeySequenceTracker()
+
+    global _expands_completion_model
+    assert(_expands_completion_model is None)
+    _expands_completion_model = _ExpandsCompletionModel(kate.application)
+    _expands_completion_model.modelReset.connect(_reset)
     # Set completion model for all already existed views
     # (cuz the plugin can be loaded in the middle of editing session)
     for doc in kate.documentManager.documents():
         for view in doc.views():
             cci = view.codeCompletionInterface()
-            cci.registerCompletionModel(__expands_completion_model)
+            cci.registerCompletionModel(_expands_completion_model)
 
 
 @kate.unload
-def on_unoad():
-    global __expands_completion_model
-    assert(__expands_completion_model is not None)
+def _on_unoad():
+    global _input_tracker
+    assert(_input_tracker is not None)
+    _input_tracker = None
+
+    global _expands_completion_model
+    assert(_expands_completion_model is not None)
     for doc in kate.documentManager.documents():
         for view in doc.views():
             cci = view.codeCompletionInterface()
-            cci.unregisterCompletionModel(__expands_completion_model)
-    __expands_completion_model = None
+            cci.unregisterCompletionModel(_expands_completion_model)
+    _expands_completion_model = None
 
 
 @kate.viewCreated
-def createSignalAutocompleteExpands(view):
-    global __expands_completion_model
+def _createSignalAutocompleteExpands(view):
+    global _expands_completion_model
     if view:
         cci = view.codeCompletionInterface()
-        cci.registerCompletionModel(__expands_completion_model)
+        cci.registerCompletionModel(_expands_completion_model)
 
 
-def jinja(template):
-    ''' Decorator to tell to the expand engine that decorated function
-        wants to use jinja2 template to render, instead of 'legacy'
-        (document.insertText()) way...
-    '''
-    def _decorator(func):
-        func.template = template
-        return func
-    return _decorator
+@kate.viewChanged
+@kate.view.contextMenuAboutToShow
+@kate.view.focusOut
+@kate.view.selectionChanged
+@kate.view.viewEditModeChanged
+@kate.view.viewModeChanged
+def _resetTracker0(*args, **kw):
+    global _input_tracker
+    if _input_tracker is not None:
+        _input_tracker.reset()
 
 
-def postprocess(func):
-    ''' Decorator to tell to the expand engine that decorated function
-        wants to use TemplateInterface2 to insert text, so user may
-        tune a rendered template...
-    '''
-    func.use_template_iface = True
-    return func
+@kate.view.cursorPositionChanged
+def _moved(view, cursor):
+    global _input_tracker
+    if _input_tracker is not None:
+        _input_tracker.track_cursor(cursor)
 
 
-def description(text):
-    def _decorator(func):
-        setattr(func, '__description__', text)
-        return func
-    return _decorator
-
-
-def details(text):
-    def _decorator(func):
-        setattr(func, '__details__', text)
-        return func
-    return _decorator
+@kate.view.textInserted
+def _feedTracker(view, cursor, text):
+    global _input_tracker
+    kate.kDebug('@input={},c=({},{})'.format(text, cursor.line(), cursor.column()))
+    if _input_tracker is not None:
+        _input_tracker.track_input(text, cursor)

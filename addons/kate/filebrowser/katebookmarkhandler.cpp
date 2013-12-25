@@ -24,22 +24,22 @@
 #include "katefilebrowser.h"
 
 #include <kdiroperator.h>
-#include <kstandarddirs.h>
 
+#include <QStandardPaths>
 
 KateBookmarkHandler::KateBookmarkHandler( KateFileBrowser *parent, QMenu* kpopupmenu )
-    : QObject( parent ),
-    KBookmarkOwner(),
-    mParent( parent ),
-    m_menu( kpopupmenu )
+  : QObject( parent ),
+  KBookmarkOwner(),
+  mParent( parent ),
+  m_menu( kpopupmenu )
 {
   setObjectName( "KateBookmarkHandler" );
   if (!m_menu)
     m_menu = new QMenu( parent);
 
-  QString file = KStandardDirs::locate( "data", "kate/fsbookmarks.xml" );
+  QString file = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kate/fsbookmarks.xml");
   if ( file.isEmpty() )
-    file = KStandardDirs::locateLocal( "data", "kate/fsbookmarks.xml" );
+    file = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation) + "/kate/fsbookmarks.xml";
 
   KBookmarkManager *manager = KBookmarkManager::managerForFile( file, "kate" );
   manager->setUpdate( true );

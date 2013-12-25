@@ -31,51 +31,57 @@
 
 #include <KActionCollection>
 #include <KActionMenu>
-#include <KAction>
 #include <KConfigGroup>
-#include <KDebug>
 #include <KDirOperator>
 #include <KFilePlacesModel>
 #include <KHistoryComboBox>
-#include <KLocale>
+#include <KLocalizedString>
+#include <KMessageBox>
+#include <KSharedConfig>
 #include <KToolBar>
 #include <KUrlNavigator>
+
 #include <QAbstractItemView>
+#include <QAction>
 #include <QDir>
 #include <QLabel>
 #include <QLineEdit>
 #include <QToolButton>
-#include <KMessageBox>
-
-#include <kdeversion.h>
+#include <QVBoxLayout>
 
 //END Includes
 
-
 KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
                                  QWidget * parent, const char * name)
-  : KVBox (parent)
+  : QWidget (parent)
   , m_mainWindow(mainWindow)
 {
   setObjectName(name);
+
+  QVBoxLayout *mainLayout = new QVBoxLayout(this);
+  mainLayout->setMargin(0);
+  mainLayout->setSpacing(0);
 
   m_toolbar = new KToolBar(this);
   m_toolbar->setMovable(false);
   m_toolbar->setToolButtonStyle(Qt::ToolButtonIconOnly);
   m_toolbar->setContextMenuPolicy(Qt::NoContextMenu);
+  mainLayout->addWidget(m_toolbar);
 
   // includes some actions, but not hooked into the shortcut dialog atm
   m_actionCollection = new KActionCollection(this);
   m_actionCollection->addAssociatedWidget(this);
 
   KFilePlacesModel* model = new KFilePlacesModel(this);
-  m_urlNavigator = new KUrlNavigator(model, KUrl(QDir::homePath()), this);
-  connect(m_urlNavigator, SIGNAL(urlChanged(KUrl)), SLOT(updateDirOperator(KUrl)));
+  m_urlNavigator = new KUrlNavigator(model, QUrl::fromLocalFile(QDir::homePath()), this);
+  connect(m_urlNavigator, SIGNAL(urlChanged(QUrl)), SLOT(updateDirOperator(QUrl)));
+  mainLayout->addWidget(m_urlNavigator);
 
-  m_dirOperator = new KDirOperator(KUrl(), this);
+  m_dirOperator = new KDirOperator(QUrl(), this);
   m_dirOperator->setView(KFile::/* Simple */Detail);
   m_dirOperator->view()->setSelectionMode(QAbstractItemView::ExtendedSelection);
   m_dirOperator->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding));
+  mainLayout->addWidget(m_dirOperator);
 
   // Mime filter for the KDirOperator
   QStringList filter;
@@ -91,13 +97,17 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   setupActions();
   setupToolbar();
 
-  KHBox* filterBox = new KHBox(this);
+  QHBoxLayout *filterBox = new QHBoxLayout(this);
+  filterBox->setMargin(0);
+  mainLayout->addLayout(filterBox);
 
-  QLabel* filterLabel = new QLabel(i18n("Filter:"), filterBox);
-  m_filter = new KHistoryComboBox(true, filterBox);
+  QLabel* filterLabel = new QLabel(i18n("Filter:"), this);
+  filterBox->addWidget(filterLabel);
+  m_filter = new KHistoryComboBox(true, this);
   filterLabel->setBuddy(m_filter);
   m_filter->setMaxCount(10);
   m_filter->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed));
+  filterBox->addWidget(m_filter);
 
   connect(m_filter, SIGNAL(editTextChanged(QString)),
           SLOT(slotFilterChange(QString)));
@@ -106,8 +116,8 @@ KateFileBrowser::KateFileBrowser(Kate::MainWindow *mainWindow,
   connect(m_filter, SIGNAL(returnPressed(QString)),
           m_dirOperator, SLOT(setFocus()));
 
-  connect(m_dirOperator, SIGNAL(urlEntered(KUrl)),
-          this, SLOT(updateUrlNavigator(KUrl)));
+  connect(m_dirOperator, SIGNAL(urlEntered(QUrl)),
+          this, SLOT(updateUrlNavigator(QUrl)));
 
   // Connect the bookmark handler
   connect(m_bookmarkHandler, SIGNAL(openUrl(QString)),
@@ -192,7 +202,7 @@ void KateFileBrowser::slotFilterChange(const QString & nf)
   m_dirOperator->updateDir();
 }
 
-bool kateFileSelectorIsReadable (const KUrl& url)
+bool kateFileSelectorIsReadable (const QUrl& url)
 {
   if (!url.isLocalFile())
     return true; // what else can we say?
@@ -201,23 +211,25 @@ bool kateFileSelectorIsReadable (const KUrl& url)
   return dir.exists ();
 }
 
-void KateFileBrowser::setDir(KUrl u)
+void KateFileBrowser::setDir(QUrl u)
 {
-  KUrl newurl;
+  QUrl newurl;
 
   if (!u.isValid())
-    newurl.setPath(QDir::homePath());
+    newurl = QUrl::fromLocalFile(QDir::homePath());
   else
     newurl = u;
 
-  QString pathstr = newurl.path(KUrl::AddTrailingSlash);
-  newurl.setPath(pathstr);
+  newurl.setPath(newurl.path() + '/');
 
-  if (!kateFileSelectorIsReadable (newurl))
-    newurl.cd(QString::fromLatin1(".."));
+  if (!kateFileSelectorIsReadable(newurl)) {
+    newurl.setPath(newurl.path() + QLatin1String("../"));
+    newurl = newurl.adjusted(QUrl::NormalizePathSegments);
+  }
 
-  if (!kateFileSelectorIsReadable (newurl))
-    newurl.setPath(QDir::homePath());
+  if (!kateFileSelectorIsReadable(newurl)) {
+    newurl = QUrl::fromLocalFile(QDir::homePath());
+  }
 
   m_dirOperator->setUrl(newurl, true);
 }
@@ -251,24 +263,21 @@ void KateFileBrowser::openSelectedFiles()
 
 
 
-void KateFileBrowser::updateDirOperator(const KUrl& u)
+void KateFileBrowser::updateDirOperator(const QUrl &u)
 {
   m_dirOperator->setUrl(u, true);
 }
 
-void KateFileBrowser::updateUrlNavigator(const KUrl& u)
+void KateFileBrowser::updateUrlNavigator(const QUrl &u)
 {
   m_urlNavigator->setLocationUrl(u);
 }
 
 void KateFileBrowser::setActiveDocumentDir()
 {
-//   kDebug(13001)<<"KateFileBrowser::setActiveDocumentDir()";
-  KUrl u = activeDocumentUrl();
-//   kDebug(13001)<<"URL: "<<u.pathOrUrl();
+  QUrl u = activeDocumentUrl();
   if (!u.isEmpty())
-    setDir(u.upUrl());
-//   kDebug(13001)<<"... setActiveDocumentDir() DONE!";
+    setDir(KIO::upUrl(u));
 }
 
 void KateFileBrowser::autoSyncFolder()
@@ -288,12 +297,12 @@ void KateFileBrowser::selectorViewChanged(QAbstractItemView * newView)
 
 //BEGIN Protected
 
-KUrl KateFileBrowser::activeDocumentUrl()
+QUrl KateFileBrowser::activeDocumentUrl()
 {
   KTextEditor::View *v = m_mainWindow->activeView();
   if (v)
     return v->document()->url();
-  return KUrl();
+  return QUrl();
 }
 
 void KateFileBrowser::setupActions()
@@ -305,7 +314,7 @@ void KateFileBrowser::setupActions()
   acmBookmarks->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
   // action for synchronizing the dir operator with the current document path
-  KAction* syncFolder = new KAction(this);
+  QAction* syncFolder = new QAction(this);
   syncFolder->setShortcutContext(Qt::WidgetWithChildrenShortcut);
   syncFolder->setText(i18n("Current Document Folder"));
   syncFolder->setIcon(QIcon::fromTheme("system-switch-user"));
@@ -325,7 +334,7 @@ void KateFileBrowser::setupActions()
   optionsMenu->addAction(m_dirOperator->actionCollection()->action("show hidden"));
 
   // action for synchronising the dir operator with the current document path
-  m_autoSyncFolder = new KAction(this);
+  m_autoSyncFolder = new QAction(this);
   m_autoSyncFolder->setCheckable(true);
   m_autoSyncFolder->setText(i18n("Automatically synchronize with current document"));
   m_autoSyncFolder->setIcon(QIcon::fromTheme("system-switch-user"));

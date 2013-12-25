@@ -31,9 +31,7 @@
 #include <kate/pluginconfigpageinterface.h>
 #include <kurlcombobox.h>
 
-#include <KVBox>
 #include <KFile>
-#include <KUrl>
 
 class KActionCollection;
 class KActionSelector;
@@ -41,6 +39,7 @@ class KDirOperator;
 class KFileItem;
 class KHistoryComboBox;
 class KToolBar;
+
 class QToolButton;
 class QCheckBox;
 class QSpinBox;

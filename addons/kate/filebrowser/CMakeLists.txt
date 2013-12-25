@@ -1,7 +1,7 @@
 project(katefilebrowserplugin)
 
 # Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED COMPONENTS ItemModels)
+#find_package(KF5 CONFIG REQUIRED COMPONENTS ItemModels)
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
@@ -14,12 +14,7 @@ set(katefilebrowserplugin_PART_SRCS
 
 add_library(katefilebrowserplugin MODULE ${katefilebrowserplugin_PART_SRCS})
 
-target_link_libraries(katefilebrowserplugin
-    kateinterfaces
-    KF5::Parts
-    KF5::KDE4Support
-    KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews KF5::ItemModels
-)
+target_link_libraries(katefilebrowserplugin kateinterfaces KF5::KIOCore KF5::KIOWidgets)
 
 install(TARGETS katefilebrowserplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

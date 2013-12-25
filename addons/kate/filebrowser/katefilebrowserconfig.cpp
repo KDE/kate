@@ -27,11 +27,14 @@
 #include <QRegExp>
 #include <QToolButton>
 #include <QVBoxLayout>
+#include <QApplication>
+#include <QStyle>
 
 #include <KActionCollection>
-#include <KLocale>
-#include <KDialog>
+#include <KLocalizedString>
 #include <KDirOperator>
+#include <KSharedConfig>
+#include <KConfigGroup>
 
 //BEGIN ACtionLBItem
 /*
@@ -66,7 +69,7 @@ KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, const cha
     m_changed( false )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
-  int spacing = KDialog::spacingHint();
+  int spacing =  QApplication::style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing);
   lo->setSpacing( spacing );
 
   // Toolbar - a lot for a little...

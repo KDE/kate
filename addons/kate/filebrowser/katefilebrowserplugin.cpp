@@ -29,9 +29,9 @@
 #include <ktexteditor/view.h>
 
 #include <kaboutdata.h>
-#include <kpluginfactory.h>
-#include <klocale.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
+#include <KPluginFactory>
+#include <KIconLoader>
 
 #include <QtGui/QKeyEvent>
 //END Includes

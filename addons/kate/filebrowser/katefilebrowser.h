@@ -25,13 +25,12 @@
 
 #include <kate/mainwindow.h>
 
-#include <KVBox>
 #include <KFile>
-#include <KUrl>
 
-class QAbstractItemView;
+#include <QUrl>
+#include <QWidget>
+
 class KateBookmarkHandler;
-class KAction;
 class KActionCollection;
 class KDirOperator;
 class KFileItem;
@@ -41,6 +40,9 @@ class KToolBar;
 class KUrlNavigator;
 class KConfigBase;
 
+class QAbstractItemView;
+class QAction;
+
 /*
     The kate file selector presents a directory view, in which the default action is
     to open the activated file.
@@ -49,7 +51,7 @@ class KConfigBase;
     allowing to filter the displayed files using a name filter.
 */
 
-class KateFileBrowser : public KVBox
+class KateFileBrowser : public QWidget
 {
     Q_OBJECT
 
@@ -70,19 +72,19 @@ class KateFileBrowser : public KVBox
 
   public Q_SLOTS:
     void slotFilterChange(const QString&);
-    void setDir(KUrl);
-    void setDir( const QString& url ) { setDir( KUrl( url ) ); }
+    void setDir(QUrl);
+    void setDir( const QString &url ) { setDir( QUrl( url ) ); }
     void selectorViewChanged( QAbstractItemView * );
 
   private Q_SLOTS:
     void fileSelected(const KFileItem & /*file*/);
-    void updateDirOperator( const KUrl& u );
-    void updateUrlNavigator( const KUrl& u );
+    void updateDirOperator( const QUrl &u );
+    void updateUrlNavigator( const QUrl &u );
     void setActiveDocumentDir();
     void autoSyncFolder();
 
   protected:
-    KUrl activeDocumentUrl();
+    QUrl activeDocumentUrl();
     void openSelectedFiles();
     void setupActions();
 
@@ -98,7 +100,7 @@ class KateFileBrowser : public KVBox
     KUrlNavigator *m_urlNavigator;
     KDirOperator * m_dirOperator;
     KHistoryComboBox * m_filter;
-    KAction *m_autoSyncFolder;
+    QAction *m_autoSyncFolder;
 
     Kate::MainWindow *m_mainWindow;
 };

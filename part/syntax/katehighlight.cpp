@@ -344,8 +344,35 @@ void KateHighlighting::doHighlight ( const Kate::TextLineData *_prevLine,
      * loop over line content!
      */
     QChar lastDelimChar = 0;
+    int lastOffset = offset;
+    int infiniteLoopDetectionCounter = 0;
     while (offset < len)
     {
+      /**
+       * infinite loop check
+       */
+      if (lastOffset < offset) {
+        /**
+         * we did advance a bit, reset counter
+         */
+        lastOffset = offset;
+        infiniteLoopDetectionCounter = 0;
+      } else {
+        /**
+         * we did not advance, inc counter
+         */
+        ++infiniteLoopDetectionCounter;
+        
+        /**
+         * not more than four times as many rounds as contexts known
+         * break out of this loop and issue message
+         */
+        if (infiniteLoopDetectionCounter > (4 * m_contexts.size())) {
+          qDebug() << "potential infinite loop found during highlighting, hl: " << iName;
+          break;
+        }
+      }
+      
       bool anItemMatched = false;
       bool customStartEnableDetermined = false;
 

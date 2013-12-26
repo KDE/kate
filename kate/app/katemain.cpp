@@ -303,7 +303,15 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
               QLatin1String("/MainApplication"), "org.kde.Kate.Application", "tokenOpenUrl");
 
       QList<QVariant> dbusargs;
-      dbusargs.append(QUrl(url));
+      
+      // convert to an url
+      QRegExp withProtocol("^[a-zA-Z]+:"); // TODO: remove after Qt supports this on its own
+      if (withProtocol.indexIn(url) == 0) {
+        dbusargs.append(QUrl::fromUserInput(url));
+      } else {
+        dbusargs.append(QUrl::fromLocalFile(url));
+      }
+      
       dbusargs.append(enc);
       dbusargs.append(tempfileSet);
       m.setArguments(dbusargs);

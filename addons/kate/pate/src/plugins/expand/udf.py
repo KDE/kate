@@ -32,7 +32,6 @@ import traceback
 
 import jinja2
 
-from PyQt4.QtGui import QToolTip
 from PyKDE4.kdecore import KConfig, i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
@@ -41,10 +40,9 @@ import kate.ui
 
 from libkatepate import common
 
+from .settings import *
+from .jinja_stuff import render_jinja_template
 
-_EXPANDS_EXT = '.expand'
-_EXPANDS_BASE_DIR = 'expand'
-_JINJA_TEMPLATES_BASE_DIR = os.path.join(_EXPANDS_BASE_DIR, 'templates')
 
 class ParseError(Exception):
     pass
@@ -171,8 +169,8 @@ def _mergeExpansions(left, right):
 def _collectExpansionsForType(mime):
     expansions = {}
     # TODO What about other (prohibited in filesystem) symbols?
-    mime_filename = mime.replace('/', '_') + _EXPANDS_EXT
-    for directory in kate.applicationDirectories(_EXPANDS_BASE_DIR):
+    mime_filename = mime.replace('/', '_') + EXPANDS_EXT
+    for directory in kate.applicationDirectories(EXPANDS_BASE_DIR):
         if os.path.exists(os.path.join(directory, mime_filename)):
             expansions = _mergeExpansions(
                 expansions
@@ -189,61 +187,7 @@ def getExpansionsFor(mime):
     return result
 
 
-def _makeEditableField(param, **kw):
-    act = '@' if 'active' in kw else ''
-    if 'name' in kw:
-        name = kw['name']
-    else:
-        name = param.strip()
-    return '${{{}{}:{}}}'.format(name, act, param)
-
-
-def _is_bool(s):
-    return isinstance(s,bool)
-
-
-def _is_int(s):
-    return isinstance(s,int)
-
-
-
-def jinja_environment_configurator(func):
-    '''
-        ATTENTION Be aware that functions marked w/ jinja_environment_configurator
-        decorator should have two leading underscores in their name!
-        Otherwise, they will be available as ordinal expand functions, which is
-        definitely UB. This made to keep `expand` code simple...
-    '''
-    if not hasattr(jinja_environment_configurator, 'registered_configurators'):
-        setattr(jinja_environment_configurator, 'registered_configurators', dict())
-    mimeType = kate.activeDocument().mimeType()
-    jinja_environment_configurator.registered_configurators[mimeType] = func
-    kate.kDebug('Set jinja2 environment configurator for {} to {}'.format(mimeType, func.__name__))
-    return func
-
-
-@functools.lru_cache()
-def _getJinjaEnvironment(baseDir):
-    kate.kDebug('Make a templates loader for a base dir: {}'.format(baseDir))
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(baseDir))
-
-    #env.trim_blocks = True
-    #env.lstrip_blocks = True
-    env.filters['editable'] = _makeEditableField
-    env.tests['boolean'] = _is_bool
-    env.tests['integer'] = _is_int
-
-    if hasattr(jinja_environment_configurator, 'registered_configurators'):
-        mimeType = kate.activeDocument().mimeType()
-        configurator = jinja_environment_configurator.registered_configurators[mimeType]
-        kate.kDebug('Setup jinja2 environment for {} [{}]'.format(mimeType, configurator.__name__))
-        env = configurator(env)
-
-    return env
-
-
-
-def expandAtCursor():
+def expandUDFAtCursor():
     ''' Attempt text expansion on the word at the cursor.
 
         The expansions available are based firstly on the mimetype of the
@@ -252,8 +196,8 @@ def expandAtCursor():
 
         TODO Split this function!
     '''
-    document = kate.activeDocument()
-    view = document.activeView()
+    view = kate.activeView()
+    document = view.document()
     try:
         word_range, argument_range = _wordAndArgumentAtCursorRanges(document, view.cursorPosition())
     except ParseError as e:
@@ -331,42 +275,9 @@ def expandAtCursor():
 
     # Check what type of expand function it was
     if hasattr(func, 'template'):
-        assert(isinstance(replacement, dict))
-        # Ok, going to render some jinja2 template...
-        filename = kate.findApplicationResource('{}/{}'.format(_JINJA_TEMPLATES_BASE_DIR, func.template))
-        if not filename:
-            kate.ui.popup(
-                i18nc('@title:window', 'Error')
-              , i18nc('@info:tooltip', 'Template file not found <filename>%1</filename>', func.template)
-              , 'dialog-error'
-              )
-            return
+        replacement = render_jinja_template(func.template, replacement)
 
-        kate.kDebug('found abs template: {}'.format(filename))
-
-        # Get a corresponding environment for jinja!
-        base_dir_pos = filename.find(_JINJA_TEMPLATES_BASE_DIR)
-        assert(base_dir_pos != -1)
-        basedir = filename[:base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR)]
-        filename = filename[base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR) + 1:]
-        env = _getJinjaEnvironment(basedir)
-        kate.kDebug('basedir={}, template_rel={}'.format(basedir, filename))
-        try:
-            tpl = env.get_template(filename)
-            kate.kDebug('data dict={}'.format(replacement))
-            replacement = tpl.render(replacement)
-        except jinja2.TemplateError as e:
-            kate.ui.popup(
-                i18nc('@title:window', 'Error')
-              , i18nc(
-                    '@info:tooltip'
-                  , 'Template file error [<filename>%1</filename>]: <status>%2</status>'
-                  , func.template
-                  , e.message
-                  )
-              , 'dialog-error'
-              )
-            return
+    assert(isinstance(replacement, str))
 
     with kate.makeAtomicUndo(document):
         # Remove old text

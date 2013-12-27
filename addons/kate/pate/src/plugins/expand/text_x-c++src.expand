@@ -476,3 +476,27 @@ def _dynamic_switch(params, match):
     data['editable_cases'] = True
 
     return data
+
+
+@expand.dynamic(re.compile('^e(?P<is_class>c)?(?P<has_type>:)?'))
+@expand.jinja('enum.cpp.tpl')
+@expand.postprocess
+def _dynamic_enum(params, match):
+    kate.kDebug('@dynamic `enum`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['is_class'] = match.group('is_class') is not None
+    data['has_type'] = match.group('has_type') is not None
+    return data
+
+
+@expand.dynamic(re.compile('^try(?P<count>[0-9]+)?(?P<catch_all>(?:a|\.))?'))
+@expand.jinja('try.cpp.tpl')
+@expand.postprocess
+def _dynamic_try(params, match):
+    kate.kDebug('@dynamic `try`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['catch_count'] = int(match.group('count')) if match.group('count') is not None else 0
+    data['catch_all'] = match.group('catch_all') is not None
+    if not data['catch_all'] and data['catch_count'] == 0:
+        data['catch_count'] = 1
+    return data

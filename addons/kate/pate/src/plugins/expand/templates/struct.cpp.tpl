@@ -1,6 +1,5 @@
 //% extends 'basic-entity.cpp.tpl'
 //% block declaration
-/*%- set nl='\n' -%*/
 /*%- if template and not template_params -%*/
 /*< nl >*/template <${tparams:typename T}>
 /*%- elif template and template_params -%*/

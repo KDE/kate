@@ -34,7 +34,7 @@
 #include "katetextline.h"
 #include "katedocumenthelpers.h"
 #include "katehighlighthelpers.h"
-#include "kateprinter.h"
+#include "printing/kateprinter.h"
 #include "katerenderer.h"
 #include "kateregexp.h"
 #include "kateplaintextsearch.h"

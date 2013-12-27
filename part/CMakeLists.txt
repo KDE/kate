@@ -100,6 +100,11 @@ variableeditor/variableeditor.cpp
 variableeditor/variableitem.cpp
 variableeditor/katehelpbutton.cpp
 
+# printing classes
+printing/kateprinter.cpp
+printing/printpainter.cpp
+printing/printconfigwidgets.cpp
+
 # rendering stuff (katerenderer  and helpers)
 render/katerenderer.cpp
 render/katerenderrange.cpp
@@ -165,7 +170,6 @@ utils/kateconfig.cpp
 utils/katebookmarks.cpp
 utils/kateautoindent.cpp
 utils/katetemplatehandler.cpp
-utils/kateprinter.cpp
 utils/kateglobal.cpp
 utils/katecmd.cpp
 utils/katepartpluginmanager.cpp

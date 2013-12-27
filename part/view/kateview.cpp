@@ -87,6 +87,7 @@
 #include <QApplication>
 #include <QLayout>
 #include <QStyle>
+#include <QClipboard>
 
 #include <sys/stat.h> // S_IFREG
 

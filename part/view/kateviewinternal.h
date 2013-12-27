@@ -37,6 +37,7 @@
 
 #include <QPoint>
 #include <QTimer>
+#include <QTime>
 #include <QDrag>
 #include <QWidget>
 #include <QSet>

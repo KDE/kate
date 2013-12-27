@@ -51,6 +51,7 @@
 #include "spellcheck/spellcheck.h"
 #include "katescriptmanager.h"
 #include "kateswapfile.h"
+#include "katepartdebug.h"
 
 #include "documentcursor.h"
 
@@ -65,13 +66,11 @@
 #include <KMessageBox>
 #include <KStandardAction>
 #include <KXMLGUIFactory>
-#include "katepartdebug.h"
 #include <kdirwatch.h>
 #include <KEncodingFileDialog>
 #include <KCodecs>
 #include <KStringHandler>
 #include <KConfigGroup>
-
 #include <KServiceTypeTrader>
 
 #include <QCryptographicHash>

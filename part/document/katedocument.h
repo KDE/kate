@@ -24,9 +24,6 @@
 
 #include <QPointer>
 #include <QLinkedList>
-#include <QMap>
-#include <QDate>
-#include <QClipboard>
 #include <QStack>
 #include <QMimeType>
 

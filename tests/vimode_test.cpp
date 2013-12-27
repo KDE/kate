@@ -47,6 +47,7 @@
 #include <QLayout>
 #include <QtTestWidgets>
 #include <QDebug>
+#include <QClipboard>
 
 #include <kcolorscheme.h>
 #include <klocalizedstring.h>

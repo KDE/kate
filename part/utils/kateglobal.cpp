@@ -54,6 +54,7 @@
 #include <QPointer>
 #include <QBoxLayout>
 #include <QApplication>
+#include <QClipboard>
 
 KateGlobal *KateGlobal::s_self = 0;
 

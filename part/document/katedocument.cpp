@@ -1876,6 +1876,12 @@ bool KateDocument::print ()
 {
   return KatePrinter::print (this);
 }
+
+void KateDocument::printPreview()
+{
+  KatePrinter::printPreview(this);
+}
+
 //END
 
 //BEGIN KTextEditor::DocumentInfoInterface (### unfinished)

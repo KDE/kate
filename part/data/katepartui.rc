@@ -6,6 +6,7 @@
     <Action name="file_save_as" group="save_merge" />
     <Action name="file_reload" group="revert_merge" />
     <Action name="file_print" group="print_merge" />
+    <Action name="file_print_preview" group="print_merge" />
     <Separator group="print_merge" />
   </Menu>
 

@@ -462,6 +462,9 @@ void KateView::setupActions()
   a = ac->addAction( KStandardAction::Print, m_doc, SLOT(print()) );
   a->setWhatsThis(i18n("Print the current document."));
 
+  a = ac->addAction(KStandardAction::PrintPreview, m_doc, SLOT(printPreview()));
+  a->setWhatsThis(i18n("Show print preview of current document"));
+
   a = ac->addAction( "file_reload" );
   a->setIcon(QIcon::fromTheme("view-refresh"));
   a->setText(i18n("Reloa&d"));

@@ -501,6 +501,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   public Q_SLOTS:
     bool printDialog ();
     Q_SCRIPTABLE bool print ();
+    void printPreview();
 
   //
   // KTextEditor::DocumentInfoInterface ( ### unfinished )

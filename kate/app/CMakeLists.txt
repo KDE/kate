@@ -33,6 +33,7 @@ target_link_libraries (kateinterfaces ktexteditor
     KF5::IconThemes
     KF5::WindowSystem
     KF5::GuiAddons
+    KF5::DBusAddons
 )
 
 set_target_properties(kateinterfaces PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})

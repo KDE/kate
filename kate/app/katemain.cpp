@@ -41,6 +41,7 @@
 #include <QDBusMessage>
 #include <QDBusReply>
 #include <QApplication>
+#include <kdbusservice.h>
 
 class KateWaiter : public QObject {
   Q_OBJECT
@@ -429,6 +430,11 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
    */
   if (!kateApp.init())
     return 0;
+  
+  /**
+   * finally register this kate instance for dbus
+   */
+  const KDBusService dbusService (KDBusService::Multiple);
 
   /**
    * start main event loop for our application

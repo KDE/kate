@@ -122,7 +122,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_selection (m_doc->buffer(), KTextEditor::Range::invalid(), Kate::TextRange::ExpandLeft, Kate::TextRange::AllowEmpty)
     , blockSelect (false)
     , m_bottomViewBar (0)
-    , m_topViewBar (0)
     , m_cmdLine (0)
     , m_console (0)
     , m_searchBar (0)
@@ -152,10 +151,8 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
   QWidget *bottomBarParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::BottomBar):0;
-  QWidget *topBarParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::TopBar):0;
 
   m_bottomViewBar=new KateViewBar (bottomBarParent!=0,KTextEditor::ViewBarContainer::BottomBar,bottomBarParent?bottomBarParent:this,this);
-  m_topViewBar=new KateViewBar (topBarParent!=0,KTextEditor::ViewBarContainer::TopBar,topBarParent?topBarParent:this,this);
 
   // ugly workaround:
   // Force the layout to be left-to-right even on RTL deskstop, as discussed
@@ -167,12 +164,6 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
   m_vBox = new QVBoxLayout (this);
   m_vBox->setMargin (0);
   m_vBox->setSpacing (0);
-
-  // add top viewbar...
-  if (topBarParent)
-    viewBarContainer->addViewBarToLayout(this,m_topViewBar,KTextEditor::ViewBarContainer::TopBar);
-  else
-    m_vBox->addWidget(m_topViewBar);
 
   m_bottomViewBar->installEventFilter(m_viewInternal);
 
@@ -295,8 +286,6 @@ KateView::~KateView()
     if (viewBarContainer) {
      viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);
       m_bottomViewBar=0;
-      viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::TopBar);
-      m_topViewBar=0;
     }
 
   KatePartPluginManager::self()->removeView(this);
@@ -2904,11 +2893,6 @@ void KateView::setConfigValue(const QString &key, const QVariant &value)
 void KateView::userInvokedCompletion()
 {
   completionWidget()->userInvokedCompletion();
-}
-
-KateViewBar *KateView::topViewBar() const
-{
-  return m_topViewBar;
 }
 
 KateViewBar *KateView::bottomViewBar() const

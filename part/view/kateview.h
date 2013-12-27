@@ -674,7 +674,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
    * Accessors to the bars...
    */
   public:
-    KateViewBar *topViewBar() const;
     KateViewBar *bottomViewBar() const;
     KateCommandLineBar *cmdLineBar ();
     KateScriptConsole *consoleBar ();
@@ -693,7 +692,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
   private:
     // created in constructor of the view
     KateViewBar *m_bottomViewBar;
-    KateViewBar *m_topViewBar;
+    
     // created on demand..., only access them through the above accessors....
     KateCommandLineBar *m_cmdLine;
     KateScriptConsole *m_console;

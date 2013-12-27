@@ -28,68 +28,98 @@
 #include <QFont>
 
 class KateDocument;
+class KateRenderer;
 class QPrinter;
+class QPainter;
+
+namespace Kate { class TextFolding; };
+namespace KTextEditor { class Range; };
 
 namespace KatePrinter
 {
-  class PrintPainter
-  {
-    public:
-      PrintPainter(KateDocument *doc);
 
-      void paint(QPrinter *printer) const;
+class PageLayout;
 
-      // Attributes
-      void setColorScheme(const QString &scheme) { m_colorScheme = scheme; }
-      void setPrintGuide(const bool on) { m_printGuide = on; }
-      void setPrintLineNumbers(const bool on) { m_printLineNumbers = on; }
-      void setUseHeader(const bool on) { m_useHeader = on; }
-      void setUseFooter(const bool on) { m_useFooter = on; }
-      void setUseBackground(const bool on) { m_useBackground = on; }
-      void setUseBox(const bool on) { m_useBox = on; }
-      void setBoxMargin(const int margin) { m_boxMargin = margin; }
-      void setBoxWidth(const int width) { m_boxWidth = width; }
-      void setBoxColor(const QColor &color) { m_boxColor = color; }
-      void setHeadersFont(const QFont &font) { m_fhFont = font; }
+class PrintPainter
+{
+  public:
+    PrintPainter(KateDocument *doc);
+    ~PrintPainter();
 
-      void setHeaderBackground(const QColor &color) { m_headerBackground = color; }
-      void setHeaderForeground(const QColor &color) { m_headerForeground = color; }
-      void setUseHeaderBackground(const bool on) { m_useHeaderBackground = on; }
+    void paint(QPrinter *printer) const;
 
-      void setFooterBackground(const QColor &color) { m_footerBackground = color; }
-      void setFooterForeground(const QColor &color) { m_footerForeground = color; }
-      void setUseFooterBackground(const bool on) { m_useFooterBackground = on; }
+    // Attributes
+    void setColorScheme(const QString &scheme) { m_colorScheme = scheme; }
+    void setPrintGuide(const bool on) { m_printGuide = on; }
+    void setPrintLineNumbers(const bool on) { m_printLineNumbers = on; }
+    void setUseHeader(const bool on) { m_useHeader = on; }
+    void setUseFooter(const bool on) { m_useFooter = on; }
+    void setUseBackground(const bool on) { m_useBackground = on; }
+    void setUseBox(const bool on);
+    void setBoxMargin(const int margin) { m_boxMargin = margin; }
+    void setBoxWidth(const int width);
+    void setBoxColor(const QColor &color);
+    void setHeadersFont(const QFont &font) { m_fhFont = font; }
 
-      void setHeaderFormat(const QStringList &list) { m_headerFormat = list; }
-      void setFooterFormat(const QStringList &list) { m_footerFormat = list; }
+    void setHeaderBackground(const QColor &color);
+    void setHeaderForeground(const QColor &color);
+    void setUseHeaderBackground(const bool on) { m_useHeaderBackground = on; }
 
-    private:
-      KateDocument *m_doc;
+    void setFooterBackground(const QColor &color);
+    void setFooterForeground(const QColor &color);
+    void setUseFooterBackground(const bool on) { m_useFooterBackground = on; }
 
-      QString m_colorScheme;
-      bool m_printGuide;
-      bool m_printLineNumbers;
-      bool m_useHeader;
-      bool m_useFooter;
-      bool m_useBackground;
-      bool m_useBox;
-      bool m_useHeaderBackground;
-      bool m_useFooterBackground;
+    void setHeaderFormat(const QStringList &list) { m_headerFormat = list; }
+    void setFooterFormat(const QStringList &list) { m_footerFormat = list; }
 
-      int m_boxMargin;
-      int m_boxWidth;
-      QColor m_boxColor;
+  private:
+    void paintLineNumber(QPainter &painter, const uint number, const PageLayout &pl) const;
+    void paintLine(QPainter &painter, const uint line, uint &y, uint &remainder, const PageLayout &pl) const;
+    void paintNewPage(QPainter &painter, const uint currentPage, uint &y, const PageLayout &pl) const;
 
-      QColor m_headerBackground;
-      QColor m_headerForeground;
-      QColor m_footerBackground;
-      QColor m_footerForeground;
+    void paintBackground(QPainter& painter, const uint y, const PageLayout &pl) const;
+    void paintBox(QPainter &painter, uint &y, const PageLayout &pl) const;
+    void paintGuide(QPainter &painter, uint &y, const PageLayout &pl) const;
 
-      QFont m_fhFont;
+    void paintHeader(QPainter &painter, const uint currentPage, uint &y, const PageLayout &pl) const;
+    void paintFooter(QPainter &painter, const uint currentPage, const PageLayout &pl) const;
+    void configure(uint &lineCount, const QPrinter *printer, PageLayout &layout) const;
 
-      QStringList m_headerFormat;
-      QStringList m_footerFormat;
-  };
+  private:
+    KateDocument *m_doc;
+
+    QString m_colorScheme;
+    bool m_printGuide;
+    bool m_printLineNumbers;
+    bool m_useHeader;
+    bool m_useFooter;
+    bool m_useBackground;
+    bool m_useBox;
+    bool m_useHeaderBackground;
+    bool m_useFooterBackground;
+
+    int m_boxMargin;
+    int m_boxWidth;
+    QColor m_boxColor;
+
+    QColor m_headerBackground;
+    QColor m_headerForeground;
+    QColor m_footerBackground;
+    QColor m_footerForeground;
+
+    QFont m_fhFont;
+
+    QStringList m_headerFormat;
+    QStringList m_footerFormat;
+
+    /* Internal vars */
+    KateRenderer *m_renderer;
+    Kate::TextFolding *m_folding;
+
+    int m_fontHeight;
+    uint m_lineNumberWidth;
+};
+
 };
 
 #endif

@@ -39,6 +39,48 @@
 
 using namespace KatePrinter;
 
+class KatePrinter::PageLayout {
+  public:
+    PageLayout()
+    : pageWidth(0)
+    , pageHeight(0)
+    , headerWidth(0)
+    , maxWidth(0)
+    , maxHeight(0)
+    , xstart(0)
+    , innerMargin(0)
+    , selectionOnly(false)
+    , firstline(0)
+    , lastline(0)
+    , headerHeight(0)
+    , headerTagList()
+    , footerHeight(0)
+    , footerTagList()
+    , selectionRange()
+    {}
+
+    uint pageWidth;
+    uint pageHeight;
+    uint headerWidth;
+    uint maxWidth;
+    uint maxHeight;
+    int xstart; // beginning point for painting lines
+    int innerMargin;
+
+    bool selectionOnly;
+
+    uint firstline;
+    uint lastline;
+
+    // Header/Footer Page
+    uint headerHeight;
+    QStringList headerTagList;
+    uint footerHeight;
+    QStringList footerTagList;
+
+    KTextEditor::Range selectionRange;
+};
+
 PrintPainter::PrintPainter(KateDocument *doc)
   : m_doc(doc)
   , m_colorScheme()
@@ -52,554 +94,595 @@ PrintPainter::PrintPainter(KateDocument *doc)
   , m_useFooterBackground(false)
   , m_boxMargin(0)
   , m_boxWidth(1)
-  , m_boxColor()
-  , m_headerBackground()
-  , m_headerForeground()
-  , m_footerBackground()
-  , m_footerForeground()
+  , m_boxColor(Qt::black)
+  , m_headerBackground(Qt::lightGray)
+  , m_headerForeground(Qt::black)
+  , m_footerBackground(Qt::lightGray)
+  , m_footerForeground(Qt::black)
   , m_fhFont()
   , m_headerFormat()
   , m_footerFormat()
 {
+  m_folding = new Kate::TextFolding(m_doc->buffer());
+
+  m_renderer = new KateRenderer(m_doc, *m_folding, m_doc->activeKateView());
+  m_renderer->config()->setSchema(m_colorScheme);
+  m_renderer->setPrinterFriendly(true);
+
+  m_fontHeight = m_renderer->fontHeight();
+
+  // figure out the horiizontal space required
+  QString s = QString("%1 ").arg(m_doc->lines());
+  s.fill('5', -1); // some non-fixed fonts haven't equally wide numbers
+  // FIXME calculate which is actually the widest...
+  m_lineNumberWidth = m_renderer->currentFontMetrics().width(s);
+}
+
+PrintPainter::~PrintPainter()
+{
+  delete m_renderer;
+  delete m_folding;
+}
+
+void PrintPainter::setUseBox(const bool on)
+{
+  m_useBox = on;
+  setBoxWidth(m_boxWidth); // reset the width
+}
+
+void PrintPainter::setBoxWidth(const int width) {
+  if (m_useBox) {
+    m_boxWidth = width;
+    if (width < 1) {
+      m_boxWidth = 1;
+    }
+  } else {
+    m_boxWidth = 0;
+  }
+}
+
+void PrintPainter::setBoxColor(const QColor &color) {
+  if (color.isValid()) m_boxColor = color;
+}
+
+void PrintPainter::setHeaderBackground(const QColor &color) {
+  if (color.isValid()) m_headerBackground = color;
+}
+
+void PrintPainter::setHeaderForeground(const QColor &color) {
+  if (color.isValid()) m_headerForeground = color;
+}
+
+void PrintPainter::setFooterBackground(const QColor &color) {
+  if (color.isValid()) m_footerBackground = color;
+}
+void PrintPainter::setFooterForeground(const QColor &color) {
+  if (color.isValid()) m_footerForeground = color;
 }
 
 void PrintPainter::paint(QPrinter *printer) const
 {
-  Kate::TextFolding folding (m_doc->buffer());
-  KateRenderer renderer(m_doc, folding, m_doc->activeKateView());
-  renderer.config()->setSchema (m_colorScheme);
-  renderer.setPrinterFriendly(true);
+  QPainter painter(printer);
 
-  QPainter paint(printer);
-  /*
-    *        We work in three cycles:
-    *        1) initialize variables and retrieve print settings
-    *        2) prepare data according to those settings
-    *        3) draw to the printer
-    */
-  uint pdmWidth = printer->width();
-  uint pdmHeight = printer->height();
-  int y = 0;
-  uint xstart = 0; // beginning point for painting lines
   uint lineCount = 0;
-  uint maxWidth = pdmWidth;
-  int headerWidth = pdmWidth;
+  uint y = 0;
+  uint currentPage = 1;
   bool pageStarted = true;
-  int remainder = 0; // remaining sublines from a wrapped line (for the top of a new page)
 
-  // Text Settings Page
-  bool selectionOnly = (printer->printRange() == QPrinter::Selection);
-  bool useGuide = m_printGuide;
+  PageLayout pl;
 
-  bool printLineNumbers = m_printLineNumbers;
-  uint lineNumberWidth( 0 );
+  configure(lineCount, printer, pl);
 
-  // Header/Footer Page
-  QFont headerFont(m_fhFont); // used for header/footer
 
-  bool useHeader = m_useHeader;
-  QColor headerBgColor(m_headerBackground);
-  QColor headerFgColor(m_headerForeground);
-  uint headerHeight( 0 ); // further init only if needed
-  QStringList headerTagList; // do
-  bool headerDrawBg = false; // do
-
-  bool useFooter = m_useFooter;
-  QColor footerBgColor(m_footerBackground);
-  QColor footerFgColor(m_footerForeground);
-  uint footerHeight( 0 ); // further init only if needed
-  QStringList footerTagList; // do
-  bool footerDrawBg = false; // do
-
-  // Layout Page
-  renderer.config()->setSchema(m_colorScheme);
-  bool useBackground = m_useBackground;
-  bool useBox = m_useBox;
-  int boxWidth(m_boxWidth);
-  QColor boxColor(m_boxColor);
-  int innerMargin = useBox ? m_boxMargin : 6;
-
-  // Post initialization
-  int maxHeight = (useBox ? pdmHeight-innerMargin : pdmHeight);
-  uint currentPage( 1 );
-  uint lastline = m_doc->lastLine(); // necessary to print selection only
-  uint firstline( 0 );
-  const int fontHeight = renderer.fontHeight();
-  KTextEditor::Range selectionRange;
-
-  /*
-  *        Now on for preparations...
-  *        during preparations, variable names starting with a "_" means
-  *        those variables are local to the enclosing block.
-  */
+  // On to draw something :-)
+  while (lineCount <= pl.lastline)
   {
-    if ( selectionOnly )
-    {
-      // set a line range from the first selected line to the last
-      selectionRange = m_doc->activeView()->selectionRange();
-      firstline = selectionRange.start().line();
-      lastline = selectionRange.end().line();
-      lineCount = firstline;
+    if (y + m_fontHeight > pl.maxHeight) {
+      printer->newPage();
+      painter.resetTransform();
+      currentPage++;
+      pageStarted = true;
+      y = 0;
     }
 
-    if ( printLineNumbers )
-    {
-      // figure out the horiizontal space required
-      QString s( QString("%1 ").arg( m_doc->lines() ) );
-      s.fill('5', -1); // some non-fixed fonts haven't equally wide numbers
-      // FIXME calculate which is actually the widest...
-      lineNumberWidth = renderer.currentFontMetrics().width( s );
-      // a small space between the line numbers and the text
-      int _adj = renderer.currentFontMetrics().width( "5" );
-      // adjust available width and set horizontal start point for data
-      maxWidth -= (lineNumberWidth + _adj);
-      xstart += lineNumberWidth + _adj;
+    if (pageStarted) {
+      qCDebug(LOG_PART) << "Starting new page," << lineCount << "lines up to now.";
+      paintNewPage(painter, currentPage, y, pl);
+      pageStarted = false;
+      painter.translate(pl.xstart, y);
     }
 
-    if ( useHeader || useFooter )
+    if ( m_printLineNumbers /*&& ! startCol*/ ) { // don't repeat!
+      paintLineNumber(painter, lineCount, pl);
+    }
+
+    uint remainder = 0;
+    paintLine(painter, lineCount, y, remainder, pl);
+
+    if (!remainder) {
+      lineCount++;
+    }
+  }
+
+  painter.end();
+}
+
+void PrintPainter::configure(uint &lineCount, const QPrinter *printer, PageLayout &pl) const
+{
+  pl.pageHeight = printer->height();
+  pl.pageWidth = printer->width();
+  pl.headerWidth = printer->width();
+  pl.innerMargin = m_useBox ? m_boxMargin : 6;
+  pl.maxWidth = printer->width();
+  pl.maxHeight = (m_useBox ? printer->height() - pl.innerMargin : printer->height());
+  pl.selectionOnly = (printer->printRange() == QPrinter::Selection);
+  pl.lastline = m_doc->lastLine();
+
+  if (pl.selectionOnly) {
+    // set a line range from the first selected line to the last
+    pl.selectionRange = m_doc->activeView()->selectionRange();
+    pl.firstline = pl.selectionRange.start().line();
+    pl.lastline = pl.selectionRange.end().line();
+    lineCount = pl.firstline;
+  }
+
+  if (m_printLineNumbers) {
+    // a small space between the line numbers and the text
+    int _adj = m_renderer->currentFontMetrics().width("5");
+    // adjust available width and set horizontal start point for data
+    pl.maxWidth -= m_lineNumberWidth + _adj;
+    pl.xstart += m_lineNumberWidth + _adj;
+  }
+
+  if (m_useHeader || m_useFooter)
+  {
+    // Set up a tag map
+    // This retrieves all tags, ued or not, but
+    // none of theese operations should be expensive,
+    // and searcing each tag in the format strings is avoided.
+    QDateTime dt = QDateTime::currentDateTime();
+    QMap<QString,QString> tags;
+
+    KUser u (KUser::UseRealUserID);
+    tags["u"] = u.loginName();
+
+    tags["d"] =  QLocale().toString(dt, QLocale::ShortFormat);
+    tags["D"] =  QLocale().toString(dt, QLocale::LongFormat);
+    tags["h"] =  QLocale().toString(dt.time(), QLocale::ShortFormat);
+    tags["y"] =  QLocale().toString(dt.date(), QLocale::ShortFormat);
+    tags["Y"] =  QLocale().toString(dt.date(), QLocale::LongFormat);
+    tags["f"] =  m_doc->url().fileName();
+    tags["U"] =  m_doc->url().toString();
+    if (pl.selectionOnly)
     {
-      // Set up a tag map
-      // This retrieves all tags, ued or not, but
-      // none of theese operations should be expensive,
-      // and searcing each tag in the format strings is avoided.
-      QDateTime dt = QDateTime::currentDateTime();
-      QMap<QString,QString> tags;
+      QString s( i18n("(Selection of) ") );
+      tags["f"].prepend( s );
+      tags["U"].prepend( s );
+    }
 
-      KUser u (KUser::UseRealUserID);
-      tags["u"] = u.loginName();
+    QRegExp reTags( "%([dDfUhuyY])" ); // TODO tjeck for "%%<TAG>"
 
-      tags["d"] =  QLocale().toString(dt, QLocale::ShortFormat);
-      tags["D"] =  QLocale().toString(dt, QLocale::LongFormat);
-      tags["h"] =  QLocale().toString(dt.time(), QLocale::ShortFormat);
-      tags["y"] =  QLocale().toString(dt.date(), QLocale::ShortFormat);
-      tags["Y"] =  QLocale().toString(dt.date(), QLocale::LongFormat);
-      tags["f"] =  m_doc->url().fileName();
-      tags["U"] =  m_doc->url().toString();
-      if ( selectionOnly )
-      {
-        QString s( i18n("(Selection of) ") );
-        tags["f"].prepend( s );
-        tags["U"].prepend( s );
+    if (m_useHeader) {
+      pl.headerHeight = QFontMetrics( m_fhFont ).height();
+      if (m_useBox || m_useHeaderBackground) {
+        pl.headerHeight += pl.innerMargin * 2;
+      } else {
+        pl.headerHeight += 1 + QFontMetrics( m_fhFont ).leading();
       }
 
-      QRegExp reTags( "%([dDfUhuyY])" ); // TODO tjeck for "%%<TAG>"
-
-      if (useHeader)
-      {
-        headerDrawBg = m_useHeaderBackground;
-        headerHeight = QFontMetrics( headerFont ).height();
-        if ( useBox || headerDrawBg )
-          headerHeight += innerMargin * 2;
-        else
-          headerHeight += 1 + QFontMetrics( headerFont ).leading();
-
-        headerTagList = m_headerFormat;
-        QMutableStringListIterator it(headerTagList);
-        while ( it.hasNext() ) {
-          QString tag = it.next();
-          int pos = reTags.indexIn( tag );
-          QString rep;
-          while ( pos > -1 )
-          {
-            rep = tags[reTags.cap( 1 )];
-            tag.replace( (uint)pos, 2, rep );
-            pos += rep.length();
-            pos = reTags.indexIn( tag, pos );
-          }
-          it.setValue( tag );
+      pl.headerTagList = m_headerFormat;
+      QMutableStringListIterator it(pl.headerTagList);
+      while (it.hasNext()) {
+        QString tag = it.next();
+        int pos = reTags.indexIn( tag );
+        QString rep;
+        while ( pos > -1 ) {
+          rep = tags[reTags.cap( 1 )];
+          tag.replace( (uint)pos, 2, rep );
+          pos += rep.length();
+          pos = reTags.indexIn( tag, pos );
         }
+        it.setValue( tag );
+      }
+    }
 
-        if (!headerBgColor.isValid())
-          headerBgColor = Qt::lightGray;
-        if (!headerFgColor.isValid())
-          headerFgColor = Qt::black;
+    if (m_useFooter) {
+      pl.footerHeight = QFontMetrics( m_fhFont ).height();
+      if (m_useBox || m_useFooterBackground) {
+        pl.footerHeight += 2 * pl.innerMargin;
+      } else {
+        pl.footerHeight += 1; // line only
       }
 
-      if (useFooter)
-      {
-        footerDrawBg = m_useFooterBackground;
-        footerHeight = QFontMetrics( headerFont ).height();
-        if ( useBox || footerDrawBg )
-          footerHeight += 2*innerMargin;
-        else
-          footerHeight += 1; // line only
-
-        footerTagList = m_footerFormat;
-        QMutableStringListIterator it(footerTagList);
-        while ( it.hasNext() ) {
-          QString tag = it.next();
-          int pos = reTags.indexIn( tag );
-          QString rep;
-          while ( pos > -1 )
-          {
-            rep = tags[reTags.cap( 1 )];
-            tag.replace( (uint)pos, 2, rep );
-            pos += rep.length();
-            pos = reTags.indexIn( tag, pos );
-          }
-          it.setValue( tag );
+      pl.footerTagList = m_footerFormat;
+      QMutableStringListIterator it(pl.footerTagList);
+      while ( it.hasNext() ) {
+        QString tag = it.next();
+        int pos = reTags.indexIn( tag );
+        QString rep;
+        while ( pos > -1 ) {
+          rep = tags[reTags.cap( 1 )];
+          tag.replace( (uint)pos, 2, rep );
+          pos += rep.length();
+          pos = reTags.indexIn( tag, pos );
         }
-
-        if (!footerBgColor.isValid())
-          footerBgColor = Qt::lightGray;
-        if (!footerFgColor.isValid())
-          footerFgColor = Qt::black;
-        // adjust maxheight, so we can know when/where to print footer
-        maxHeight -= footerHeight;
+        it.setValue( tag );
       }
-    } // if ( useHeader || useFooter )
 
-    if ( useBackground )
-    {
-      if ( ! useBox )
-      {
-        xstart += innerMargin;
-        maxWidth -= innerMargin * 2;
-      }
+      // adjust maxheight, so we can know when/where to print footer
+      pl.maxHeight -= pl.footerHeight;
+    }
+  } // if ( useHeader || useFooter )
+
+  if (m_useBackground) {
+    if (!m_useBox) {
+      pl.xstart += pl.innerMargin;
+      pl.maxWidth -= pl.innerMargin * 2;
+    }
+  }
+
+  if (m_useBox) {
+    // set maxwidth to something sensible
+    pl.maxWidth -= (m_boxWidth + pl.innerMargin)  * 2;
+    pl.xstart += m_boxWidth + pl.innerMargin;
+    // maxheight too..
+    pl.maxHeight -= m_boxWidth;
+  }
+
+  // now that we know the vertical amount of space needed,
+  // it is possible to calculate the total number of pages
+  // if needed, that is if any header/footer tag contains "%P".
+  if ( !pl.headerTagList.filter("%P").isEmpty() || !pl.footerTagList.filter("%P").isEmpty() ) {
+    qCDebug(LOG_PART)<<"'%P' found! calculating number of pages...";
+
+    int pageHeight = pl.maxHeight;
+    if (m_useHeader) {
+      pageHeight -= pl.headerHeight + pl.innerMargin;
+    }
+    if (m_useFooter) {
+      pageHeight -= pl.innerMargin;
     }
 
-    if ( useBox )
-    {
-      if (!boxColor.isValid())
-        boxColor = Qt::black;
-      if (boxWidth < 1) // shouldn't be pssible no more!
-        boxWidth = 1;
-      // set maxwidth to something sensible
-      maxWidth -= ( ( boxWidth + innerMargin )  * 2 );
-      xstart += boxWidth + innerMargin;
-      // maxheight too..
-      maxHeight -= boxWidth;
+    const int linesPerPage = pageHeight / m_fontHeight;
+
+    // calculate total layouted lines in the document
+    int totalLines = 0;
+    // TODO: right now ignores selection printing
+    for (unsigned int i = pl.firstline; i <= pl.lastline; ++i) {
+      KateLineLayoutPtr rangeptr(new KateLineLayout(*m_renderer));
+      rangeptr->setLine(i);
+      m_renderer->layoutLine(rangeptr, (int)pl.maxWidth, false);
+      totalLines += rangeptr->viewLineCount();
     }
-    else
-      boxWidth = 0;
 
-    // now that we know the vertical amount of space needed,
-    // it is possible to calculate the total number of pages
-    // if needed, that is if any header/footer tag contains "%P".
-    if ( !headerTagList.filter("%P").isEmpty() || !footerTagList.filter("%P").isEmpty() )
-    {
-      qCDebug(LOG_PART)<<"'%P' found! calculating number of pages...";
-      int pageHeight = maxHeight;
-      if ( useHeader )
-        pageHeight -= ( headerHeight + innerMargin );
-      if ( useFooter )
-        pageHeight -= innerMargin;
-      const int linesPerPage = pageHeight / fontHeight;
-//         qCDebug(LOG_PART) << "Lines per page:" << linesPerPage;
+    const int totalPages = (totalLines / linesPerPage)
+                  + ((totalLines % linesPerPage) > 0 ? 1 : 0);
 
-      // calculate total layouted lines in the document
-      int totalLines = 0;
-      // TODO: right now ignores selection printing
-      for (unsigned int i = firstline; i <= lastline; ++i) {
-        KateLineLayoutPtr rangeptr(new KateLineLayout(renderer));
-        rangeptr->setLine(i);
-        renderer.layoutLine(rangeptr, (int)maxWidth, false);
-        totalLines += rangeptr->viewLineCount();
-      }
-      int totalPages = (totalLines / linesPerPage)
-                    + ((totalLines % linesPerPage) > 0 ? 1 : 0);
-//         qCDebug(LOG_PART) << "_______ pages:" << (totalLines / linesPerPage);
-//         qCDebug(LOG_PART) << "________ rest:" << (totalLines % linesPerPage);
-
-      // TODO: add space for guide if required
+    // TODO: add space for guide if required
 //         if ( useGuide )
 //           _lt += (guideHeight + (fontHeight /2)) / fontHeight;
 
-      // substitute both tag lists
-      QString re("%P");
-      QStringList::Iterator it;
-      for ( it=headerTagList.begin(); it!=headerTagList.end(); ++it )
-        (*it).replace( re, QString( "%1" ).arg( totalPages ) );
-      for ( it=footerTagList.begin(); it!=footerTagList.end(); ++it )
-        (*it).replace( re, QString( "%1" ).arg( totalPages ) );
-    }
-  } // end prepare block
+    // substitute both tag lists
+    QString re("%P");
+    QStringList::Iterator it;
 
-    /*
-      On to draw something :-)
-    */
-  while (  lineCount <= lastline  )
-  {
-    if ( y + fontHeight > maxHeight )
-    {
-      qCDebug(LOG_PART)<<"Starting new page,"<<lineCount<<"lines up to now.";
-      printer->newPage();
-      paint.resetTransform();
-      currentPage++;
-      pageStarted = true;
-      y=0;
+    for (it = pl.headerTagList.begin(); it != pl.headerTagList.end(); ++it) {
+      it->replace(re, QString::number(totalPages));
     }
 
-    if ( pageStarted )
-    {
-      if ( useHeader )
-      {
-        paint.setPen(headerFgColor);
-        paint.setFont(headerFont);
-        if ( headerDrawBg )
-          paint.fillRect(0, 0, headerWidth, headerHeight, headerBgColor);
-        if (headerTagList.count() == 3)
-        {
-          int valign = ( (useBox||headerDrawBg||useBackground) ?
-          Qt::AlignVCenter : Qt::AlignTop );
-          int align = valign|Qt::AlignLeft;
-          int marg = ( useBox || headerDrawBg ) ? innerMargin : 0;
-          if ( useBox ) marg += boxWidth;
-          QString s;
-          for (int i=0; i<3; i++)
-          {
-            s = headerTagList[i];
-            if (s.indexOf("%p") != -1) s.replace("%p", QString::number(currentPage));
-            paint.drawText(marg, 0, headerWidth-(marg*2), headerHeight, align, s);
-            align = valign|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
-          }
-        }
-        if ( ! ( headerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate header from contents
-        {
-          paint.drawLine( 0, headerHeight-1, headerWidth, headerHeight-1 );
-          //y += 1; now included in headerHeight
-        }
-        y += headerHeight + innerMargin;
+    for (it = pl.footerTagList.begin(); it != pl.footerTagList.end(); ++it) {
+      (*it).replace(re, QString::number(totalPages));
+    }
+  }
+}
+
+void PrintPainter::paintNewPage(QPainter &painter, const uint currentPage, uint &y, const PageLayout &pl) const
+{
+  if (m_useHeader) {
+    paintHeader(painter, currentPage, y, pl);
+  }
+
+  if ( m_useFooter ) {
+    paintFooter(painter, currentPage, pl);
+  }
+
+  if (m_useBackground) {
+    paintBackground(painter, y, pl);
+  }
+
+  if (m_useBox) {
+    paintBox(painter, y, pl);
+  }
+
+  if (m_printGuide && currentPage == 1) {
+    paintGuide(painter, y, pl);
+  }
+}
+
+void PrintPainter::paintHeader(QPainter &painter, const uint currentPage, uint &y, const PageLayout &pl) const
+{
+  painter.save();
+  painter.setPen(m_headerForeground);
+  painter.setFont(m_fhFont);
+
+  if (m_useHeaderBackground) {
+    painter.fillRect(0, 0, pl.headerWidth, pl.headerHeight, m_headerBackground);
+  }
+
+  if (pl.headerTagList.count() == 3) {
+    int valign = (m_useBox || m_useHeaderBackground || m_useBackground) ? Qt::AlignVCenter : Qt::AlignTop;
+    int align = valign | Qt::AlignLeft;
+    int marg = (m_useBox || m_useHeaderBackground) ? pl.innerMargin : 0;
+    if (m_useBox) marg += m_boxWidth;
+
+    QString s;
+    for (int i = 0; i < 3; i++) {
+      s = pl.headerTagList[i];
+      if (s.indexOf("%p") != -1) {
+        s.replace("%p", QString::number(currentPage));
       }
 
-      if ( useFooter )
-      {
-        paint.setPen(footerFgColor);
-        if ( ! ( footerDrawBg || useBox || useBackground ) ) // draw a 1 px (!?) line to separate footer from contents
-          paint.drawLine( 0, maxHeight + innerMargin - 1, headerWidth, maxHeight + innerMargin - 1 );
-        if ( footerDrawBg )
-          paint.fillRect(0, maxHeight+innerMargin+boxWidth, headerWidth, footerHeight, footerBgColor);
-        if (footerTagList.count() == 3)
-        {
-          int align = Qt::AlignVCenter|Qt::AlignLeft;
-          int marg = ( useBox || footerDrawBg ) ? innerMargin : 0;
-          if ( useBox ) marg += boxWidth;
-          QString s;
-          for (int i=0; i<3; i++)
-          {
-            s = footerTagList[i];
-            if (s.indexOf("%p") != -1) s.replace("%p", QString::number(currentPage));
-            paint.drawText(marg, maxHeight+innerMargin, headerWidth-(marg*2), footerHeight, align, s);
-            align = Qt::AlignVCenter|(i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
-          }
-        }
-      } // done footer
+      painter.drawText(marg, 0, pl.headerWidth - (marg * 2), pl.headerHeight, align, s);
+      align = valign | (i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
+    }
+  }
 
-      if ( useBackground )
-      {
-        // If we have a box, or the header/footer has backgrounds, we want to paint
-        // to the border of those. Otherwise just the contents area.
-        int _y = y, _h = maxHeight - y;
-        if ( useBox )
-        {
-          _y -= innerMargin;
-          _h += 2 * innerMargin;
-        }
-        else
-        {
-          if ( headerDrawBg )
-          {
-            _y -= innerMargin;
-            _h += innerMargin;
-          }
-          if ( footerDrawBg )
-          {
-            _h += innerMargin;
-          }
-        }
-        paint.fillRect( 0, _y, pdmWidth, _h, renderer.config()->backgroundColor());
-      }
+  if (!( m_useHeaderBackground || m_useBox || m_useBackground)) { // draw a 1 px (!?) line to separate header from contents
+    painter.drawLine(0, pl.headerHeight - 1, pl.headerWidth, pl.headerHeight - 1);
+    //y += 1; now included in headerHeight
+  }
 
-      if ( useBox )
-      {
-        paint.setPen(QPen(boxColor, boxWidth));
-        paint.drawRect(0, 0, pdmWidth, pdmHeight);
-        if (useHeader)
-          paint.drawLine(0, headerHeight, headerWidth, headerHeight);
-        else
-          y += innerMargin;
+  painter.restore();
 
-        if ( useFooter ) // drawline is not trustable, grr.
-          paint.fillRect( 0, maxHeight+innerMargin, headerWidth, boxWidth, boxColor );
-      }
+  y += pl.headerHeight + pl.innerMargin;
+}
 
-      if ( useGuide && currentPage == 1 )
-      {  // FIXME - this may span more pages...
-        // draw a box unless we have boxes, in which case we end with a box line
-        int _ystart = y;
-        QString _hlName = m_doc->highlight()->name();
+void PrintPainter::paintFooter(QPainter &painter, const uint currentPage, const PageLayout &pl) const
+{
+  painter.save();
+  painter.setPen(m_footerForeground);
 
-        QList<KateExtendedAttribute::Ptr> _attributes; // list of highlight attributes for the legend
-        m_doc->highlight()->getKateExtendedAttributeList(m_colorScheme, _attributes);
+  if (!(m_useFooterBackground || m_useBox || m_useBackground)) {// draw a 1 px (!?) line to separate footer from contents
+    painter.drawLine(0, pl.maxHeight + pl.innerMargin - 1, pl.headerWidth, pl.maxHeight + pl.innerMargin - 1);
+  }
+  if (m_useFooterBackground) {
+    painter.fillRect(0, pl.maxHeight + pl.innerMargin + m_boxWidth, pl.headerWidth, pl.footerHeight, m_footerBackground);
+  }
 
-        KateAttributeList _defaultAttributes;
-        KateHlManager::self()->getDefaults ( renderer.config()->schema(), _defaultAttributes );
-
-        QColor _defaultPen = _defaultAttributes.at(0)->foreground().color();
-        paint.setPen(_defaultPen);
-
-        int _marg = 0;
-        if ( useBox )
-          _marg += (2*boxWidth) + (2*innerMargin);
-        else
-        {
-          if ( useBackground )
-            _marg += 2*innerMargin;
-          _marg += 1;
-          y += 1 + innerMargin;
-        }
-
-        // draw a title string
-        QFont _titleFont = renderer.config()->font();
-        _titleFont.setBold(true);
-        paint.setFont( _titleFont );
-        QRect _r;
-        paint.drawText( QRect(_marg, y, pdmWidth-(2*_marg), maxHeight - y),
-          Qt::AlignTop|Qt::AlignHCenter,
-          i18n("Typographical Conventions for %1", _hlName ), &_r );
-        int _w = pdmWidth - (_marg*2) - (innerMargin*2);
-        int _x = _marg + innerMargin;
-        y += _r.height() + innerMargin;
-        paint.drawLine( _x, y, _x + _w, y );
-        y += 1 + innerMargin;
-
-        int _widest( 0 );
-        foreach (const KateExtendedAttribute::Ptr &attribute, _attributes)
-          _widest = qMax(QFontMetrics(attribute->font()).width(attribute->name().section(':',1,1)), _widest);
-
-        int _guideCols = _w/( _widest + innerMargin );
-
-        // draw attrib names using their styles
-        int _cw = _w/_guideCols;
-        int _i(0);
-
-        _titleFont.setUnderline(true);
-        QString _currentHlName;
-        foreach (const KateExtendedAttribute::Ptr &attribute, _attributes)
-        {
-          QString _hl = attribute->name().section(':',0,0);
-          QString _name = attribute->name().section(':',1,1);
-          if ( _hl != _hlName && _hl != _currentHlName ) {
-            _currentHlName = _hl;
-            if ( _i%_guideCols )
-              y += fontHeight;
-            y += innerMargin;
-            paint.setFont(_titleFont);
-            paint.setPen(_defaultPen);
-            paint.drawText( _x, y, _w, fontHeight, Qt::AlignTop, _hl + ' ' + i18n("text") );
-            y += fontHeight;
-            _i = 0;
-          }
-
-          KTextEditor::Attribute _attr =  *_defaultAttributes[attribute->defaultStyleIndex()];
-          _attr += *attribute;
-          paint.setPen( _attr.foreground().color() );
-          paint.setFont( _attr.font() );
-
-          if (_attr.hasProperty(QTextFormat::BackgroundBrush) ) {
-            QRect _rect = QFontMetrics(_attr.font()).boundingRect(_name);
-            _rect.moveTo(_x + ((_i%_guideCols)*_cw), y);
-              paint.fillRect(_rect, _attr.background() );
-          }
-
-          paint.drawText(( _x + ((_i%_guideCols)*_cw)), y, _cw, fontHeight, Qt::AlignTop, _name );
-
-          _i++;
-          if ( _i && ! ( _i%_guideCols ) )
-            y += fontHeight;
-        }
-
-        if ( _i%_guideCols )
-          y += fontHeight;// last row not full
-
-        // draw a box around the legend
-        paint.setPen ( _defaultPen );
-        if ( useBox )
-          paint.fillRect( 0, y+innerMargin, headerWidth, boxWidth, boxColor );
-        else
-        {
-          _marg -=1;
-          paint.drawRect( _marg, _ystart, pdmWidth-(2*_marg), y-_ystart+innerMargin );
-        }
-
-        y += ( useBox ? boxWidth : 1 ) + (innerMargin*2);
-      } // useGuide
-
-      paint.translate(xstart,y);
-      pageStarted = false;
-    } // pageStarted; move on to contents:)
-
-    if ( printLineNumbers /*&& ! startCol*/ ) // don't repeat!
-    {
-      paint.setFont( renderer.config()->font() );
-      paint.setPen( renderer.config()->lineNumberColor() );
-      paint.drawText( (( useBox || useBackground ) ? innerMargin : 0)-xstart, 0,
-                  lineNumberWidth, fontHeight,
-                  Qt::AlignRight, QString("%1").arg( lineCount + 1 ) );
+  if (pl.footerTagList.count() == 3) {
+    int align = Qt::AlignVCenter | Qt::AlignLeft;
+    int marg = (m_useBox || m_useFooterBackground) ? pl.innerMargin : 0;
+    if (m_useBox) {
+      marg += m_boxWidth;
     }
 
-    // HA! this is where we print [part of] a line ;]]
-    // FIXME Convert this function + related functionality to a separate KatePrintView
-    KateLineLayoutPtr rangeptr(new KateLineLayout(renderer));
-    rangeptr->setLine(lineCount);
-    renderer.layoutLine(rangeptr, (int)maxWidth, false);
+    QString s;
+    for (int i = 0; i < 3; i++) {
+      s = pl.footerTagList[i];
+      if (s.indexOf("%p") != -1) {
+        s.replace("%p", QString::number(currentPage));
+      }
+      painter.drawText(marg, pl.maxHeight + pl.innerMargin, pl.headerWidth - (marg * 2), pl.footerHeight, align, s);
+      align = Qt::AlignVCenter | (i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
+    }
+  }
+  painter.restore();
+}
 
-    // selectionOnly: clip non-selection parts and adjust painter position if needed
-    int _xadjust = 0;
-    if (selectionOnly) {
-      if (m_doc->activeView()->blockSelection()) {
-        int _x = renderer.cursorToX(rangeptr->viewLine(0), selectionRange.start());
-        int _x1 = renderer.cursorToX(rangeptr->viewLine(rangeptr->viewLineCount()-1), selectionRange.end());
-          _xadjust = _x;
-          paint.translate(-_xadjust, 0);
-        paint.setClipRegion(QRegion( _x, 0, _x1 - _x, rangeptr->viewLineCount()*fontHeight));
+void PrintPainter::paintGuide(QPainter &painter, uint &y, const PageLayout &pl) const
+{  // FIXME - this may span more pages...
+  // draw a box unless we have boxes, in which case we end with a box line
+  int _ystart = y;
+  QString _hlName = m_doc->highlight()->name();
+
+  QList<KateExtendedAttribute::Ptr> _attributes; // list of highlight attributes for the legend
+  m_doc->highlight()->getKateExtendedAttributeList(m_colorScheme, _attributes);
+
+  KateAttributeList _defaultAttributes;
+  KateHlManager::self()->getDefaults (m_renderer->config()->schema(), _defaultAttributes);
+
+  QColor _defaultPen = _defaultAttributes.at(0)->foreground().color();
+
+  painter.save();
+  painter.setPen(_defaultPen);
+
+  int _marg = 0;
+  if (m_useBox) {
+    _marg += (2 * m_boxWidth) + (2 * pl.innerMargin);
+  } else {
+    if (m_useBackground) {
+      _marg += 2 * pl.innerMargin;
+    }
+    _marg += 1;
+    y += 1 + pl.innerMargin;
+  }
+
+  // draw a title string
+  QFont _titleFont = m_renderer->config()->font();
+  _titleFont.setBold(true);
+  painter.setFont(_titleFont);
+  QRect _r;
+  painter.drawText( QRect(_marg, y, pl.pageWidth - (2 * _marg), pl.maxHeight - y),
+                    Qt::AlignTop | Qt::AlignHCenter,
+                    i18n("Typographical Conventions for %1", _hlName ), &_r );
+  const int _w = pl.pageWidth - (_marg * 2) - (pl.innerMargin * 2);
+  const int _x = _marg + pl.innerMargin;
+  y += _r.height() + pl.innerMargin;
+  painter.drawLine(_x, y, _x + _w, y);
+  y += 1 + pl.innerMargin;
+
+  int _widest( 0 );
+  foreach (const KateExtendedAttribute::Ptr &attribute, _attributes) {
+    _widest = qMax(QFontMetrics(attribute->font()).width(attribute->name().section(':',1,1)), _widest);
+  }
+
+  const int _guideCols = _w / (_widest + pl.innerMargin);
+
+  // draw attrib names using their styles
+  const int _cw = _w / _guideCols;
+  int _i = 0;
+
+  _titleFont.setUnderline(true);
+  QString _currentHlName;
+  foreach (const KateExtendedAttribute::Ptr &attribute, _attributes) {
+    QString _hl = attribute->name().section(':',0,0);
+    QString _name = attribute->name().section(':',1,1);
+    if (_hl != _hlName && _hl != _currentHlName) {
+      _currentHlName = _hl;
+      if (_i % _guideCols) {
+        y += m_fontHeight;
+      }
+      y += pl.innerMargin;
+      painter.setFont(_titleFont);
+      painter.setPen(_defaultPen);
+      painter.drawText(_x, y, _w, m_fontHeight, Qt::AlignTop, _hl + ' ' + i18n("text"));
+      y += m_fontHeight;
+      _i = 0;
+    }
+
+    KTextEditor::Attribute _attr =  *_defaultAttributes[attribute->defaultStyleIndex()];
+    _attr += *attribute;
+    painter.setPen(_attr.foreground().color());
+    painter.setFont(_attr.font());
+
+    if (_attr.hasProperty(QTextFormat::BackgroundBrush)) {
+      QRect _rect = QFontMetrics(_attr.font()).boundingRect(_name);
+      _rect.moveTo(_x + ((_i % _guideCols)*_cw), y);
+      painter.fillRect(_rect, _attr.background());
+    }
+
+    painter.drawText((_x + ((_i % _guideCols) * _cw)), y, _cw, m_fontHeight, Qt::AlignTop, _name);
+
+    _i++;
+    if (_i && !(_i%_guideCols)) {
+      y += m_fontHeight;
+    }
+  }
+
+  if (_i % _guideCols) {
+    y += m_fontHeight;// last row not full
+  }
+  // draw a box around the legend
+  painter.setPen(_defaultPen);
+
+  if (m_useBox) {
+    painter.fillRect( 0, y + pl.innerMargin, pl.headerWidth, m_boxWidth, m_boxColor);
+  } else {
+    _marg -=1;
+    painter.drawRect(_marg, _ystart, pl.pageWidth - (2 * _marg), y - _ystart + pl.innerMargin);
+  }
+
+  painter.restore();
+
+  y += (m_useBox ? m_boxWidth : 1) + (pl.innerMargin * 2);
+}
+
+void PrintPainter::paintBox(QPainter &painter, uint &y, const PageLayout &pl) const
+{
+  painter.save();
+  painter.setPen(QPen(m_boxColor, m_boxWidth));
+  painter.drawRect(0, 0, pl.pageWidth, pl.pageHeight);
+
+  if (m_useHeader) {
+    painter.drawLine(0, pl.headerHeight, pl.headerWidth, pl.headerHeight);
+  } else {
+    y += pl.innerMargin;
+  }
+
+  if ( m_useFooter ) { // drawline is not trustable, grr.
+    painter.fillRect(0, pl.maxHeight + pl.innerMargin, pl.headerWidth, m_boxWidth, m_boxColor);
+  }
+
+  painter.restore();
+}
+
+void PrintPainter::paintBackground(QPainter& painter, const uint y, const PageLayout &pl) const
+{
+  // If we have a box, or the header/footer has backgrounds, we want to paint
+  // to the border of those. Otherwise just the contents area.
+  int _y = y, _h = pl.maxHeight - y;
+  if (m_useBox) {
+    _y -= pl.innerMargin;
+    _h += 2 * pl.innerMargin;
+  } else {
+    if (m_useHeaderBackground) {
+      _y -= pl.innerMargin;
+      _h += pl.innerMargin;
+    }
+    if (m_useFooterBackground) {
+      _h += pl.innerMargin;
+    }
+  }
+  painter.fillRect(0, _y, pl.pageWidth, _h, m_renderer->config()->backgroundColor());
+}
+
+void PrintPainter::paintLine(QPainter &painter, const uint line, uint &y, uint &remainder, const PageLayout &pl) const
+{
+  // HA! this is where we print [part of] a line ;]]
+  KateLineLayoutPtr rangeptr(new KateLineLayout(*m_renderer));
+  rangeptr->setLine(line);
+  m_renderer->layoutLine(rangeptr, (int)pl.maxWidth, false);
+
+  // selectionOnly: clip non-selection parts and adjust painter position if needed
+  int _xadjust = 0;
+  if (pl.selectionOnly) {
+    if (m_doc->activeView()->blockSelection()) {
+      int _x = m_renderer->cursorToX(rangeptr->viewLine(0), pl.selectionRange.start());
+      int _x1 = m_renderer->cursorToX(rangeptr->viewLine(rangeptr->viewLineCount()-1), pl.selectionRange.end());
+        _xadjust = _x;
+        painter.translate(-_xadjust, 0);
+      painter.setClipRegion(QRegion( _x, 0, _x1 - _x, rangeptr->viewLineCount() * m_fontHeight));
+
+    } else if (line == pl.firstline || line == pl.lastline) {
+      QRegion region(0, 0, pl.maxWidth, rangeptr->viewLineCount() * m_fontHeight);
+
+      if (line == pl.firstline) {
+        region = region.subtracted(QRegion(0, 0, m_renderer->cursorToX(rangeptr->viewLine(0), pl.selectionRange.start()), m_fontHeight));
       }
 
-      else if (lineCount == firstline || lineCount == lastline) {
-        QRegion region(0, 0, maxWidth, rangeptr->viewLineCount()*fontHeight);
-
-        if ( lineCount == firstline) {
-          region = region.subtracted(QRegion(0, 0, renderer.cursorToX(rangeptr->viewLine(0), selectionRange.start()), fontHeight));
-        }
-
-        if (lineCount == lastline) {
-          int _x = renderer.cursorToX(rangeptr->viewLine(rangeptr->viewLineCount()-1), selectionRange.end());
-          region = region.subtracted(QRegion(_x, 0, maxWidth-_x, fontHeight));
-        }
-
-        paint.setClipRegion(region);
+      if (line == pl.lastline) {
+        int _x = m_renderer->cursorToX(rangeptr->viewLine(rangeptr->viewLineCount()-1), pl.selectionRange.end());
+        region = region.subtracted(QRegion(_x, 0, pl.maxWidth - _x, m_fontHeight));
       }
+
+      painter.setClipRegion(region);
     }
+  }
 
-    // If the line is too long (too many 'viewlines') to fit the remaining vertical space,
-    // clip and adjust the painter position as necessary
-    int _lines = rangeptr->viewLineCount(); // number of "sublines" to paint.
+  // If the line is too long (too many 'viewlines') to fit the remaining vertical space,
+  // clip and adjust the painter position as necessary
+  int _lines = rangeptr->viewLineCount(); // number of "sublines" to paint.
 
-    int proceedLines = _lines;
-    if (remainder) {
-      proceedLines = qMin((maxHeight - y) / fontHeight, remainder);
+  int proceedLines = _lines;
+  if (remainder) {
+    proceedLines = qMin((pl.maxHeight - y) / m_fontHeight, remainder);
 
-      paint.translate(0, -(_lines-remainder)*fontHeight+1);
-      paint.setClipRect(0, (_lines-remainder)*fontHeight+1, maxWidth, proceedLines*fontHeight); //### drop the crosspatch in printerfriendly mode???
-      remainder -= proceedLines;
-    }
-    else if (y + fontHeight * _lines > maxHeight) {
-      remainder = _lines - ((maxHeight-y)/fontHeight);
-      paint.setClipRect(0, 0, maxWidth, (_lines-remainder)*fontHeight+1); //### drop the crosspatch in printerfriendly mode???
-    }
+    painter.translate(0, -(_lines - remainder) * m_fontHeight + 1);
+    painter.setClipRect(0, (_lines - remainder) * m_fontHeight + 1, pl.maxWidth, proceedLines * m_fontHeight); //### drop the crosspatch in printerfriendly mode???
+    remainder -= proceedLines;
+  }
+  else if (y + m_fontHeight * _lines > pl.maxHeight) {
+    remainder = _lines - ((pl.maxHeight - y) / m_fontHeight);
+    painter.setClipRect(0, 0, pl.maxWidth, (_lines - remainder) * m_fontHeight + 1); //### drop the crosspatch in printerfriendly mode???
+  }
 
-    renderer.paintTextLine(paint, rangeptr, 0, (int)maxWidth);
+  m_renderer->paintTextLine(painter, rangeptr, 0, (int)pl.maxWidth);
 
-    paint.setClipping(false);
-    paint.translate(_xadjust, (fontHeight * (_lines-remainder)));
+  painter.setClipping(false);
+  painter.translate(_xadjust, (m_fontHeight * (_lines - remainder)));
 
-    y += fontHeight * proceedLines;
+  y += m_fontHeight * proceedLines;
+}
 
-    if ( ! remainder )
-    lineCount++;
-  } // done lineCount <= lastline
+void PrintPainter::paintLineNumber(QPainter &painter, const uint number, const PageLayout &pl) const
+{
+  const int left = (( m_useBox || m_useBackground ) ? pl.innerMargin : 0) - pl.xstart;
 
-  paint.end();
+  painter.save();
+  painter.setFont(m_renderer->config()->font());
+  painter.setPen(m_renderer->config()->lineNumberColor());
+  painter.drawText(left,  0, m_lineNumberWidth, m_fontHeight, Qt::AlignRight, QString::number(number));
+  painter.restore();
 }
 
 //END PrintPainter

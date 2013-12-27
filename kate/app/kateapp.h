@@ -60,6 +60,12 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      * application constructor
      */
     KateApp (const QCommandLineParser &args);
+    
+    /**
+     * get kate inited
+     * @return false, if application should exit
+     */
+    bool init ();
 
     /**
      * application destructor
@@ -82,11 +88,6 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      * kate init
      */
   private:
-    /**
-     * get kate inited
-     */
-    void initKate ();
-
     /**
      * restore a old kate session
      */
@@ -211,11 +212,6 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      */
     bool openInput (const QString &text);
 
-    bool shouldExit() const
-    {
-      return m_shouldExit;
-    }
-
     /**
      * Get a list of all mainwindows interfaces for the plugins.
      * @return all mainwindows
@@ -227,8 +223,9 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
     }
 
   private:
-    bool m_shouldExit;
-    
+    /**
+     * Singleton instance
+     */
     static KateApp *s_self;
     
     /**

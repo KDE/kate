@@ -421,7 +421,14 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
    * we are passing our local command line parser to it
    */
   KateApp kateApp (parser);
-  if (kateApp.shouldExit()) return 0;
+  
+  /**
+   * init kate
+   * if this returns false, we shall exit
+   * else we may enter the main event loop
+   */
+  if (!kateApp.init())
+    return 0;
 
   /**
    * start main event loop for our application

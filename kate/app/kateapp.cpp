@@ -50,8 +50,7 @@ KateApp *KateApp::s_self = 0;
 Q_LOGGING_CATEGORY(LOG_KATE, "kate")
 
 KateApp::KateApp(const QCommandLineParser &args)
-    : m_shouldExit(false)
-    , m_args (args)
+    : m_args (args)
 {
   s_self = this;
 
@@ -69,9 +68,6 @@ KateApp::KateApp(const QCommandLineParser &args)
   
   // dbus
   m_adaptor = new KateAppAdaptor( this );
-  
-  // real init
-  initKate ();
 
   m_appCommands = KateAppCommands::self();
 }
@@ -109,7 +105,7 @@ Kate::Application *KateApp::application ()
   return m_application;
 }
 
-void KateApp::initKate ()
+bool KateApp::init ()
 {
 
   qCDebug(LOG_KATE) << "Setting KATE_PID: '" << QCoreApplication::applicationPid() << "'";
@@ -127,13 +123,13 @@ void KateApp::initKate ()
     if (!startupKate ())
     {
       qCDebug(LOG_KATE) << "startupKate returned false";
-      m_shouldExit = true;
-      return ;
+      return false;
     }
   }
 
   // application dbus interface
   QDBusConnection::sessionBus().registerObject( QLatin1String("/MainApplication"), this );
+  return true;
 }
 
 void KateApp::restoreKate ()

@@ -46,6 +46,7 @@
 #include <kconfiggui.h>
 #include <KIO/Job>
 #include <kjobwidgets.h>
+#include <kdbusservice.h>
 
 #ifdef KActivities_FOUND
 #include <kactivities/resourceinstance.h>
@@ -744,6 +745,11 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
   parser.process (app);
   
   KWriteApp a (parser);
+  
+  /**
+   * finally register this kwrite instance for dbus
+   */
+  const KDBusService dbusService (KDBusService::Multiple);
 
   /**
    * Run the event loop

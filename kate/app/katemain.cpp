@@ -27,6 +27,7 @@
 
 #include <KAboutData>
 #include <KLocalizedString>
+#include <kdbusservice.h>
 
 #include <QByteArray>
 #include <QCommandLineParser>
@@ -41,7 +42,6 @@
 #include <QDBusMessage>
 #include <QDBusReply>
 #include <QApplication>
-#include <kdbusservice.h>
 
 class KateWaiter : public QObject {
   Q_OBJECT

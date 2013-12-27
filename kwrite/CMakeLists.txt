@@ -1,13 +1,17 @@
+project (kwrite)
+
+# Load the frameworks we need
+find_package(KF5 CONFIG REQUIRED COMPONENTS DBusAddons)
+
 set(kwrite_KDEINIT_SRCS kwritemain.cpp kwriteapp.cpp)
 
 kde4_add_app_icon(kwrite_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/accessories-text-editor.png")
 
 kf5_add_kdeinit_executable(kwrite ${kwrite_KDEINIT_SRCS})
-target_link_libraries(kdeinit_kwrite ktexteditor 
-  #KF5::Parts
+target_link_libraries(kdeinit_kwrite ktexteditor
   KF5::I18n
   KF5::KIOFileWidgets
-  #  KF5::KIONTLM
+  KF5::DBusAddons
 )
 
 install(TARGETS kwrite         ${INSTALL_TARGETS_DEFAULT_ARGS})

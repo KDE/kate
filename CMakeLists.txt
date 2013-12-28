@@ -1,44 +1,37 @@
 # Kate project
 project (kate)
 
-# set the kate version, used for part / kate / kwrite
-set(KATE_VERSION_MAJOR 5)
-set(KATE_VERSION_MINOR 0)
-set(KATE_VERSION_MICRO 0)
-set(KATE_VERSION ${KATE_VERSION_MAJOR}.${KATE_VERSION_MINOR}.${KATE_VERSION_MICRO})
-
-# setup library versions corresponding
-set(GENERIC_LIB_SOVERSION ${KATE_VERSION_MAJOR})
-set(GENERIC_LIB_VERSION ${KATE_VERSION})
-
-# minimal cmake req
+# minimal requirements
 cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
-
-# minimal qt req
 set (QT_MIN_VERSION "5.2.0")
 
-include (CheckFunctionExists)
+# set the kate version, used for part / kate / kwrite
+set (KATE_VERSION_MAJOR 5)
+set (KATE_VERSION_MINOR 0)
+set (KATE_VERSION_MICRO 0)
+set (KATE_VERSION ${KATE_VERSION_MAJOR}.${KATE_VERSION_MINOR}.${KATE_VERSION_MICRO})
 
-# ECM
-find_package(ECM 0.0.9 REQUIRED NO_MODULE)
+# setup library versions corresponding
+set (GENERIC_LIB_SOVERSION ${KATE_VERSION_MAJOR})
+set (GENERIC_LIB_VERSION ${KATE_VERSION})
 
-# where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
-set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+# we need some parts of the ECM CMake helpers
+find_package (ECM 0.0.9 REQUIRED NO_MODULE)
+set (CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+include(ECMOptionalAddSubdirectory)
+include(ECMInstallIcons)
+include(ECMSetupVersion)
+include(ECMMarkNonGuiExecutable)
+include(ECMGenerateHeaders)
 
 include(CMakePackageConfigHelpers)
 include(FeatureSummary)
 include(WriteBasicConfigVersionFile)
-
-
-include(ECMMarkNonGuiExecutable)
+include (CheckFunctionExists)
 
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
-
-include(ECMOptionalAddSubdirectory)
-include(ECMInstallIcons)
-include(ECMSetupVersion)
 
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Script Test)
 

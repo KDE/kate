@@ -7,6 +7,10 @@ set(KATE_VERSION_MINOR 0)
 set(KATE_VERSION_MICRO 0)
 set(KATE_VERSION ${KATE_VERSION_MAJOR}.${KATE_VERSION_MINOR}.${KATE_VERSION_MICRO})
 
+# setup library versions corresponding
+set(GENERIC_LIB_SOVERSION ${KATE_VERSION_MAJOR})
+set(GENERIC_LIB_VERSION ${KATE_VERSION})
+
 # minimal cmake req
 cmake_minimum_required (VERSION 2.8.12 FATAL_ERROR)
 

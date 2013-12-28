@@ -1,3 +1,5 @@
+include(ECMGenerateHeaders)
+
 ecm_setup_version(5.0.0 VARIABLE_PREFIX KTEXTEDITOR
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/ktexteditor_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KTextEditorConfigVersion.cmake")
@@ -63,6 +65,16 @@ set(ktexteditor_LIB_SRCS
    documentadaptor_p.h
    )
 
+ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface ContainerInterface HighlightInterface MovingCursor Range TextHintInterface
+    Cursor MarkInterface MovingInterface RecoveryInterface VariableInterface
+    Document  MovingRange SearchInterface View
+  Attribute CommandInterface DocumentCursor MessageInterface MovingRangeFeedback SessionConfigInterface
+  CodeCompletionInterface ConfigInterface Editor ModeInterface  TemplateInterface
+  CodeCompletionModel ConfigPage Factory ModificationInterface Plugin TemplateInterface2
+  MODULE_NAME "KTextEditor" REQUIRED_HEADERS KTEXTEDITOR_PUBLIC_HEADERS)
+   
+  # AnnotationModel Command AnnotationViewInterface CommandExtension Message ParameterizedSessionConfigInterface
+   
 add_library (ktexteditor SHARED ${ktexteditor_LIB_SRCS} ${KTEXTEDITOR_PUBLIC_HEADERS})
 
 target_link_libraries(ktexteditor LINK_PUBLIC KF5::Parts

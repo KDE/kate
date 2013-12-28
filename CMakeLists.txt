@@ -73,15 +73,12 @@ set (KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE)
 add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
 add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
-# global include directories
-include_directories (${CMAKE_CURRENT_BINARY_DIR})
-
 # Temporary solution until the split frameworks provide forward headers
 get_target_property (KDE4Support_INCLUDES KF5::KDE4Support INTERFACE_INCLUDE_DIRECTORIES)
 include_directories(${KDE4Support_INCLUDES})
 
-# add more includes to let the local ktexteditor stuff be found
-include_directories (BEFORE ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/includes)
+# add more includes to let the local ktexteditor stuff be found first in any case
+include_directories (BEFORE ${CMAKE_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/ktexteditor)
 
 # ktexteditor interfaces, copy from kdelibs/interfaces/ktexteditor
 ecm_optional_add_subdirectory (ktexteditor)

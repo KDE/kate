@@ -66,7 +66,6 @@
 #include <kjobwidgets.h>
 
 #include <KCharsets>
-#include <KColorButton>
 #include <KColorCombo>
 #include <KComboBox>
 #include "katepartdebug.h"

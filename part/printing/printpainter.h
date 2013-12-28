@@ -83,7 +83,7 @@ class PrintPainter
 
     void paintHeader(QPainter &painter, const uint currentPage, uint &y, const PageLayout &pl) const;
     void paintFooter(QPainter &painter, const uint currentPage, const PageLayout &pl) const;
-    void configure(uint &lineCount, const QPrinter *printer, PageLayout &layout) const;
+    void configure(const QPrinter *printer, PageLayout &layout) const;
 
   private:
     KateDocument *m_doc;

@@ -163,21 +163,21 @@ void PrintPainter::setFooterForeground(const QColor &color) {
 void PrintPainter::paint(QPrinter *printer) const
 {
   QPainter painter(printer);
-
-  uint lineCount = 0;
-  uint y = 0;
-  uint currentPage = 1;
-  bool pageStarted = true;
-
   PageLayout pl;
 
-  configure(lineCount, printer, pl);
+  configure(printer, pl);
 
+  uint lineCount = pl.firstline;
+  uint y = 0;
+  uint currentPage = (printer->fromPage() == 0) ? 1 : printer->fromPage();
+  bool pageStarted = true;
 
   // On to draw something :-)
-  while (lineCount <= pl.lastline)
-  {
+  while (lineCount <= pl.lastline) {
     if (y + m_fontHeight > pl.maxHeight) {
+      if ((int)currentPage == printer->toPage()) { // we've reached the page break of last page to be printed
+        break;
+      }
       printer->newPage();
       painter.resetTransform();
       currentPage++;
@@ -207,7 +207,7 @@ void PrintPainter::paint(QPrinter *printer) const
   painter.end();
 }
 
-void PrintPainter::configure(uint &lineCount, const QPrinter *printer, PageLayout &pl) const
+void PrintPainter::configure(const QPrinter *printer, PageLayout &pl) const
 {
   pl.pageHeight = printer->height();
   pl.pageWidth = printer->width();
@@ -223,7 +223,6 @@ void PrintPainter::configure(uint &lineCount, const QPrinter *printer, PageLayou
     pl.selectionRange = m_doc->activeView()->selectionRange();
     pl.firstline = pl.selectionRange.start().line();
     pl.lastline = pl.selectionRange.end().line();
-    lineCount = pl.firstline;
   }
 
   if (m_printLineNumbers) {
@@ -329,21 +328,25 @@ void PrintPainter::configure(uint &lineCount, const QPrinter *printer, PageLayou
     pl.maxHeight -= m_boxWidth;
   }
 
+  int pageHeight = pl.maxHeight;
+  if (m_useHeader) {
+    pageHeight -= pl.headerHeight + pl.innerMargin;
+  }
+  if (m_useFooter) {
+    pageHeight -= pl.innerMargin;
+  }
+
+  const int linesPerPage = pageHeight / m_fontHeight;
+
+  if (printer->fromPage() > 0) {
+    pl.firstline = (printer->fromPage() - 1) * linesPerPage;
+  }
+
   // now that we know the vertical amount of space needed,
   // it is possible to calculate the total number of pages
   // if needed, that is if any header/footer tag contains "%P".
   if ( !pl.headerTagList.filter("%P").isEmpty() || !pl.footerTagList.filter("%P").isEmpty() ) {
     qCDebug(LOG_PART)<<"'%P' found! calculating number of pages...";
-
-    int pageHeight = pl.maxHeight;
-    if (m_useHeader) {
-      pageHeight -= pl.headerHeight + pl.innerMargin;
-    }
-    if (m_useFooter) {
-      pageHeight -= pl.innerMargin;
-    }
-
-    const int linesPerPage = pageHeight / m_fontHeight;
 
     // calculate total layouted lines in the document
     int totalLines = 0;

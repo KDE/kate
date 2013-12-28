@@ -96,6 +96,8 @@ bool KatePrinterPrivate::print(QPrinter *printer)
     printDialog->setOption(QAbstractPrintDialog::PrintSelection, true);
   }
 
+  printDialog->setOption(QAbstractPrintDialog::PrintPageRange, true);
+
   if (!printDialog->exec())
     return false;
 

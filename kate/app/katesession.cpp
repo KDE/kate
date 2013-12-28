@@ -114,13 +114,6 @@ bool KateSession::create (const QString &name, bool force)
   if (!force && (name.isEmpty() || !m_sessionFileRel.isEmpty()))
     return false;
 
-  delete m_writeConfig;
-  m_writeConfig = 0;
-
-  delete m_readConfig;
-  m_readConfig = 0;
-
-  m_sessionName = name;
   QString oldSessionFileRel = m_sessionFileRel;
   m_sessionFileRel = QUrl::toPercentEncoding(name, "", ".") + QString(".katesession");
   if ( QFile::exists(sessionFile()) )
@@ -129,10 +122,21 @@ bool KateSession::create (const QString &name, bool force)
     return false;
   }
 
-  // create the file, write name to it!
-  KConfig config (sessionFile (), KConfig::SimpleConfig);
-//  config.group("General").writeEntry ("Name", m_sessionName);
-  config.sync ();
+  m_sessionName = name;
+
+  if (m_writeConfig) {
+    KConfig *wcfg = m_writeConfig->copyTo(sessionFile());
+    delete m_writeConfig;
+    m_writeConfig = wcfg;
+  }
+
+  if (m_readConfig) {
+    KConfig *rcfg = m_readConfig->copyTo(sessionFile());
+    delete m_readConfig;
+    m_readConfig = rcfg;
+  }
+
+  configWrite()->sync();
 
   // reinit ourselfs ;)
   init ();
@@ -174,24 +178,30 @@ bool KateSession::rename (const QString &name)
 
 KConfig *KateSession::configRead ()
 {
-  if (m_sessionFileRel.isEmpty())
-    return KSharedConfig::openConfig().data();
-
-  if (m_readConfig)
+  if (m_readConfig) {
     return m_readConfig;
+  }
 
-  return m_readConfig = new KConfig (sessionFile (), KConfig::SimpleConfig);
+  if (m_sessionFileRel.isEmpty()) {
+    m_readConfig = new KConfig(QString(), KConfig::SimpleConfig);
+  } else {
+    m_readConfig = new KConfig(sessionFile(), KConfig::SimpleConfig);
+  }
+
+  return m_readConfig;
 }
 
 KConfig *KateSession::configWrite ()
 {
-  if (m_sessionFileRel.isEmpty())
-    return KSharedConfig::openConfig().data();
-
-  if (m_writeConfig)
+  if (m_writeConfig) {
     return m_writeConfig;
+  }
 
-  m_writeConfig = new KConfig (sessionFile (), KConfig::SimpleConfig);
+  if (m_sessionFileRel.isEmpty()) {
+    m_writeConfig = new KConfig(QString(), KConfig::SimpleConfig);
+  } else {
+    m_writeConfig = new KConfig(sessionFile(), KConfig::SimpleConfig);
+  }
 
   return m_writeConfig;
 }
@@ -426,10 +436,11 @@ bool KateSessionManager::saveActiveSession (bool rememberAsLast)
 //  if (activeSession()->isAnonymous())
 //    newSessionName();
 
-  KConfig *sc = activeSession()->configWrite();
-
-  if (!sc)
+  if (activeSession()->isAnonymous()) {
     return false;
+  }
+
+  KConfig *sc = activeSession()->configWrite();
 
   saveSessionTo(sc);
 
@@ -583,9 +594,10 @@ void KateSessionManager::sessionSave ()
 
 void KateSessionManager::sessionSaveAs ()
 {
-  newSessionName();
-  saveActiveSession ();
-  emit sessionChanged();
+  if (newSessionName()) {
+    saveActiveSession ();
+    emit sessionChanged();
+  }
 }
 
 bool KateSessionManager::newSessionName()

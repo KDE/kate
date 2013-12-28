@@ -83,7 +83,7 @@ class KateSession  : public QSharedData
 
     bool isAnonymous() const
     {
-      return !(m_readConfig && m_writeConfig);
+      return m_sessionFileRel.isEmpty();
     }
 
     void makeAnonymous();

@@ -53,8 +53,7 @@
 #include "kateswapfile.h"
 #include "katepartdebug.h"
 
-#include "documentcursor.h"
-
+#include <ktexteditor/documentcursor.h>
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/plugin.h>
 

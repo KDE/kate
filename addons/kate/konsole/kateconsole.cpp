@@ -30,7 +30,6 @@
 #include <kparts/part.h>
 #include <kaction.h>
 #include <kactioncollection.h>
-#include <KDialog>
 
 #include <kurl.h>
 #include <klibloader.h>
@@ -51,6 +50,7 @@
 #include <kaboutdata.h>
 #include <kpluginfactory.h>
 #include <kauthorized.h>
+#include <KConfigGroup>
 
 K_PLUGIN_FACTORY_WITH_JSON (KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 

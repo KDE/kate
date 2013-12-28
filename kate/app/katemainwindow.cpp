@@ -214,6 +214,14 @@ KateMainWindow::~KateMainWindow()
 
   // disable all plugin guis, delete all pluginViews
   KatePluginManager::self()->disableAllPluginsGUI (this);
+  
+  // delete the view manager, before KateMainWindow's wrapper is dead
+  delete m_viewManager;
+  m_viewManager = 0;
+  
+  // kill the wrapper object, now that all views are dead
+  delete m_wrapper;
+  m_wrapper = 0;
 }
 
 void KateMainWindow::setupImportantActions ()

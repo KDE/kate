@@ -65,6 +65,7 @@ set(ktexteditor_LIB_SRCS
    documentadaptor_p.h
    )
 
+# generate CamelCase headers
 ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface ContainerInterface HighlightInterface MovingCursor Range TextHintInterface
     Cursor MarkInterface MovingInterface RecoveryInterface VariableInterface
     Document  MovingRange SearchInterface View
@@ -74,6 +75,9 @@ ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface 
   MODULE_NAME "KTextEditor" REQUIRED_HEADERS KTEXTEDITOR_PUBLIC_HEADERS)
    
   # AnnotationModel Command AnnotationViewInterface CommandExtension Message ParameterizedSessionConfigInterface
+
+# install CamelCase headers
+install (DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KTextEditor DESTINATION  ${INCLUDE_INSTALL_DIR} COMPONENT Devel )
    
 add_library (ktexteditor SHARED ${ktexteditor_LIB_SRCS} ${KTEXTEDITOR_PUBLIC_HEADERS})
 

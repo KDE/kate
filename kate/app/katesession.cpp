@@ -183,7 +183,8 @@ KConfig *KateSession::configRead ()
   }
 
   if (m_sessionFileRel.isEmpty()) {
-    m_readConfig = new KConfig(QString(), KConfig::SimpleConfig);
+    const QString anonConfig = m_manager->sessionsDir() + "/../anonymous.katesession";
+    m_readConfig = new KConfig(anonConfig, KConfig::SimpleConfig);
   } else {
     m_readConfig = new KConfig(sessionFile(), KConfig::SimpleConfig);
   }
@@ -198,7 +199,8 @@ KConfig *KateSession::configWrite ()
   }
 
   if (m_sessionFileRel.isEmpty()) {
-    m_writeConfig = new KConfig(QString(), KConfig::SimpleConfig);
+    const QString anonConfig = m_manager->sessionsDir() + "/../anonymous.katesession";
+    m_writeConfig = new KConfig(anonConfig, KConfig::SimpleConfig);
   } else {
     m_writeConfig = new KConfig(sessionFile(), KConfig::SimpleConfig);
   }
@@ -322,18 +324,16 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
   if (loadNew)
   {
     // open the new session
-    KConfig *sc = activeSession()->configRead();
     KSharedConfigPtr sharedConfig = KSharedConfig::openConfig();
-    const bool loadDocs = (sc != sharedConfig.data()); // do not load docs for new sessions
+    KConfig *sc = activeSession()->configRead();
+    const bool loadDocs = !activeSession()->isAnonymous(); // do not load docs for new sessions
 
     // if we have no session config object, try to load the default
     // (anonymous/unnamed sessions)
-    if ( !sc )
-      sc = sharedConfig.data();
     // load plugin config + plugins
     KatePluginManager::self()->loadConfig (sc);
 
-    if (sc && loadDocs)
+    if (loadDocs)
       KateApp::self()->documentManager()->restoreDocumentList (sc);
 
     // window config
@@ -341,24 +341,31 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
 
     if (c.readEntry("Restore Window Configuration", true))
     {
+      KConfig *cfg = sc;
       // a new, named session, read settings of the default session.
-      if ( ! sc->hasGroup("Open MainWindows") )
-        sc = sharedConfig.data();
+      if ( ! sc->hasGroup("Open MainWindows") ) {
+        const QString anonConfig = sessionsDir() + "/../anonymous.katesession";
+        cfg = new KConfig(anonConfig, KConfig::SimpleConfig);
+      }
 
-      int wCount = sc->group("Open MainWindows").readEntry("Count", 1);
+      int wCount = cfg->group("Open MainWindows").readEntry("Count", 1);
 
       for (int i = 0; i < wCount; ++i)
       {
         if (i >= KateApp::self()->mainWindows())
         {
-          KateApp::self()->newMainWindow(sc, QString ("MainWindow%1").arg(i));
+          KateApp::self()->newMainWindow(cfg, QString ("MainWindow%1").arg(i));
         }
         else
         {
-          KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(sc, QString ("MainWindow%1").arg(i) ));
+          KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(cfg, QString ("MainWindow%1").arg(i) ));
         }
 
-        KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(sc, QString ("MainWindow%1 Settings").arg(i)));
+        KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(cfg, QString ("MainWindow%1 Settings").arg(i)));
+      }
+
+      if ( ! sc->hasGroup("Open MainWindows") ) {
+        delete cfg;
       }
 
       // remove mainwindows we need no longer...

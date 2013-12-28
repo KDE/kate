@@ -38,6 +38,7 @@ namespace KTextEditor
 
 class Editor;
 class View;
+class MainWindow;
 
 /**
  * \brief A KParts derived class representing a text document.
@@ -153,9 +154,10 @@ class KTEXTEDITOR_EXPORT Document : public KParts::ReadWritePart
     /**
      * Create a new view attached to @p parent.
      * @param parent parent widget
+     * @param mainWindow the main window responsible for this view, if any
      * @return the new view
      */
-    virtual View *createView ( QWidget *parent ) = 0;
+    virtual View *createView ( QWidget *parent, KTextEditor::MainWindow *mainWindow = nullptr ) = 0;
 
     /**
      * Return the view which currently has user focus, if any.

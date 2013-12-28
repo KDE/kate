@@ -31,6 +31,7 @@
 #include <ktexteditor/templateinterface2.h>
 #include <ktexteditor/configinterface.h>
 #include <ktexteditor/annotationinterface.h>
+#include <ktexteditor/mainwindow.h>
 
 #include <QPointer>
 #include <QModelIndex>
@@ -95,8 +96,17 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     friend class KateViModeBase;
 
   public:
-    KateView( KateDocument* doc, QWidget* parent );
+    KateView( KateDocument* doc, QWidget* parent, KTextEditor::MainWindow *mainWindow = nullptr );
     ~KateView ();
+    
+    /**
+     * Get the view's main window, if any
+     * \return the view's main window
+     */
+    KTextEditor::MainWindow *mainWindow () const
+    {
+      return m_mainWindow;
+    }
 
     KTextEditor::Document *document () const;
 
@@ -871,6 +881,12 @@ public:
   // for unit test 'tests/messagetest.cpp'
   public:
     KateMessageWidget* messageWidget() { return m_floatTopMessageWidget; }
+    
+  private:
+    /**
+     * The main window responsible for this view, if any
+     */
+    KTextEditor::MainWindow *m_mainWindow;
 };
 
 /**

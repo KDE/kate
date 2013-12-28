@@ -283,9 +283,9 @@ QWidget *KateDocument::widget()
 
 //BEGIN KTextEditor::Document stuff
 
-KTextEditor::View *KateDocument::createView( QWidget *parent )
+KTextEditor::View *KateDocument::createView( QWidget *parent, KTextEditor::MainWindow *mainWindow )
 {
-  KateView* newView = new KateView( this, parent);
+  KateView* newView = new KateView( this, parent, mainWindow);
   if ( m_fileChangedDialogsActivated )
     connect( newView, SIGNAL(focusIn(KTextEditor::View*)), this, SLOT(slotModifiedOnDisk()) );
 

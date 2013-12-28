@@ -2518,13 +2518,10 @@ void KateViewBar::hideCurrentBarWidget ()
 void KateViewBar::setViewBarVisible (bool visible)
 {
   if (m_external) {
-    KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
-    if (viewBarContainer) {
-      if (visible) {
-        viewBarContainer->showViewBarForView(m_view,m_pos);
-      } else {
-        viewBarContainer->hideViewBarForView(m_view,m_pos);
-      }
+    if (visible) {
+      m_view->mainWindow()->showViewBar (m_view);
+    } else {
+      m_view->mainWindow()->hideViewBar (m_view);
     }
   } else {
     setVisible (visible);

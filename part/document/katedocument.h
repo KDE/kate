@@ -41,6 +41,7 @@
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/recoveryinterface.h>
 #include <ktexteditor/messageinterface.h>
+#include <ktexteditor/mainwindow.h>
 
 #include "katepartprivate_export.h"
 #include "katetextline.h"
@@ -142,7 +143,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
   // KTextEditor::Document stuff
   //
   public:
-    virtual KTextEditor::View *createView( QWidget *parent );
+    virtual KTextEditor::View *createView( QWidget *parent, KTextEditor::MainWindow *mainWindow = nullptr );
     virtual const QList<KTextEditor::View*> &views () const;
 
     virtual KTextEditor::View* activeView() const { return m_activeView; }

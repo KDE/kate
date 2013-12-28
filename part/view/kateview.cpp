@@ -105,7 +105,7 @@ void KateView::blockFix(KTextEditor::Range& range)
   }
 }
 
-KateView::KateView( KateDocument *doc, QWidget *parent )
+KateView::KateView( KateDocument *doc, QWidget *parent, KTextEditor::MainWindow *mainWindow )
     : KTextEditor::View( parent )
     , m_completionWidget(0)
     , m_annotationModel(0)
@@ -135,6 +135,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
     , m_lineToUpdateMax (-1)
     , m_floatTopMessageWidget (0)
     , m_floatBottomMessageWidget (0)
+    , m_mainWindow (mainWindow)
 {
   // queued connect to collapse view updates for range changes, INIT THIS EARLY ENOUGH!
   connect(this, SIGNAL(delayedUpdateOfView()), this, SLOT(slotDelayedUpdateOfView()), Qt::QueuedConnection);
@@ -149,8 +150,10 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   KateGlobal::self()->registerView( this );
 
-  KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
-  QWidget *bottomBarParent=viewBarContainer?viewBarContainer->getViewBarParent(this,KTextEditor::ViewBarContainer::BottomBar):0;
+  /**
+   * try to let the main window, if any, create a view bar for this view
+   */
+  QWidget *bottomBarParent = m_mainWindow->createViewBar (this);
 
   m_bottomViewBar=new KateViewBar (bottomBarParent!=0,KTextEditor::ViewBarContainer::BottomBar,bottomBarParent?bottomBarParent:this,this);
 
@@ -219,7 +222,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent )
 
   // add bottom viewbar...
   if (bottomBarParent)
-    viewBarContainer->addViewBarToLayout(this,m_bottomViewBar,KTextEditor::ViewBarContainer::BottomBar);
+    m_mainWindow->addWidgetToViewBar (this, m_bottomViewBar);
   else
     m_vBox->addWidget(m_bottomViewBar);
 
@@ -282,11 +285,11 @@ KateView::~KateView()
   if (factory())
     factory()->removeClient (this);
 
-    KTextEditor::ViewBarContainer *viewBarContainer=qobject_cast<KTextEditor::ViewBarContainer*>( KateGlobal::self()->container() );
-    if (viewBarContainer) {
-     viewBarContainer->deleteViewBarForView(this,KTextEditor::ViewBarContainer::BottomBar);
-      m_bottomViewBar=0;
-    }
+  /**
+   * remove view bar again, if needed
+   */
+  m_mainWindow->deleteViewBar (this);
+  m_bottomViewBar = 0;
 
   KatePartPluginManager::self()->removeView(this);
 

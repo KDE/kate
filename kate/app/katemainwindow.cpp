@@ -101,6 +101,7 @@ QSize KateContainerStackedLayout::minimumSize() const
 
 KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
     : KateMDI::MainWindow (0)
+    , m_wrapper (new KTextEditor::MainWindow (this))
 {
   setObjectName((QString("__KateMainWindow#%1").arg(uniqueID)).toLatin1());
   // first the very important id

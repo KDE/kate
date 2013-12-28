@@ -417,8 +417,11 @@ bool KateViewManager::createView ( KTextEditor::Document *doc )
   if (!doc)
     doc = KateDocManager::self()->createDoc ();
 
-  // create view, registers its XML gui itself
-  KTextEditor::View *view = (KTextEditor::View *) doc->createView (activeViewSpace()->stack);
+  /**
+   * create view, registers its XML gui itself
+   * pass the view the correct main window
+   */
+  KTextEditor::View *view = (KTextEditor::View *) doc->createView (activeViewSpace()->stack, m_mainWindow->wrapper());
 
   m_viewList.append (view);
   m_activeStates[view] = false;

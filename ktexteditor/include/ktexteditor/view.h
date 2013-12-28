@@ -35,6 +35,7 @@ namespace KTextEditor
 {
 
 class Document;
+class MainWindow;
 
 /**
  * \brief A text widget with KXMLGUIClient that represents a Document.
@@ -221,6 +222,12 @@ class KTEXTEDITOR_EXPORT View :  public QWidget, public KXMLGUIClient
      * \see viewEditModeChanged()
      */
     virtual enum EditMode viewEditMode() const = 0;
+    
+    /**
+     * Get the view's main window, if any
+     * \return the view's main window
+     */
+    virtual KTextEditor::MainWindow *mainWindow () const = 0;
 
   /*
    * SIGNALS

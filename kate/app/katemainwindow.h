@@ -25,6 +25,7 @@
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/mainwindow.h>
 
 #include <KParts/Part>
 
@@ -104,6 +105,15 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     KateViewManager *viewManager ()
     {
       return m_viewManager;
+    }
+    
+    /**
+     * KTextEditor::MainWindow wrapper
+     * @return KTextEditor::MainWindow wrapper.
+     */
+    KTextEditor::MainWindow *wrapper ()
+    {
+      return m_wrapper;
     }
 
     /**
@@ -249,6 +259,54 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     inline void showTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.value(view); bar=state.bar();  if (bar) {m_topContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_topViewBarMapping[view]=state;  m_topViewBarContainer->show();}}
     inline void deleteTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_topContainerStack->currentWidget()==bar) m_topViewBarContainer->hide(); delete bar;}}
 
+  public Q_SLOTS:
+    /**
+     * Try to create a view bar for the given view.
+     * @param view view for which we want an view bar
+     * @return suitable widget that can host view bars widgets or nullptr
+    */
+    QWidget *createViewBar (KTextEditor::View *view)
+    {
+      return bottomViewBarContainer ();
+    }
+
+    /**
+     * Delete the view bar for the given view.
+     * @param view view for which we want an view bar
+     */
+    void deleteViewBar (KTextEditor::View *view)
+    {
+      deleteBottomViewBarForView (view);
+    }
+
+    /**
+     * Add a widget to the view bar.
+     * @param view view for which the view bar is used
+     * @param bar bar widget, shall have the viewBarParent() as parent widget
+     */
+    void addWidgetToViewBar (KTextEditor::View *view, QWidget *bar)
+    {
+      addToBottomViewBarContainer (view, bar);
+    }
+    
+    /**
+     * Show the view bar for the given view
+     * @param view view for which the view bar is used
+     */
+    void showViewBar (KTextEditor::View *view)
+    {
+      showBottomViewBarForView (view);
+    }
+    
+    /**
+     * Hide the view bar for the given view
+     * @param view view for which the view bar is used
+     */
+    void hideViewBar (KTextEditor::View *view)
+    {
+      hideBottomViewBarForView (view);
+    }
+    
   private Q_SLOTS:
     void slotUpdateBottomViewBar();
     void slotUpdateTopViewBar();
@@ -321,6 +379,11 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     }
   private:
     static KateMwModOnHdDialog *s_modOnHdDialog;
+    
+    /**
+     * Wrapper of main window for KTextEditor
+     */
+    KTextEditor::MainWindow *m_wrapper;
 
   public Q_SLOTS:
     void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);

@@ -1,10 +1,10 @@
 # KTextEditor interfaces
 project (ktexteditor)
 
-# ecm setup
+# ecm setup, will create version header & cmake file
 ecm_setup_version (${KATE_VERSION} VARIABLE_PREFIX KTEXTEDITOR
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_version.h"
-                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KTextEditorConfigVersion.cmake")
+                        PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/data/KTextEditorConfigVersion.cmake")
 
 # install version header                       
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_version.h DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
@@ -54,34 +54,7 @@ set_target_properties(ktexteditor
 generate_export_header (ktexteditor EXPORT_FILE_NAME "include/ktexteditor/ktexteditor_export.h")
 install (FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_export.h DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
-
 install(TARGETS ktexteditor EXPORT KTextEditor ${INSTALL_TARGETS_DEFAULT_ARGS})
 
-########### install files ###############
-
-
-# install the export file
-install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
-
-########### export targets ##############
-
-# create a Config.cmake and a ConfigVersion.cmake file and install them
-set(CMAKECONFIG_INSTALL_DIR "${CMAKECONFIG_INSTALL_PREFIX}/KTextEditor")
-
-include(CMakePackageConfigHelpers)
-
-configure_package_config_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/KTextEditorConfig.cmake.in"
-  "${CMAKE_CURRENT_BINARY_DIR}/KTextEditorConfig.cmake"
-  INSTALL_DESTINATION  ${CMAKECONFIG_INSTALL_DIR}
-)
-
-install(FILES
-  "${CMAKE_CURRENT_BINARY_DIR}/KTextEditorConfig.cmake"
-  "${CMAKE_CURRENT_BINARY_DIR}/KTextEditorConfigVersion.cmake"
-  DESTINATION "${CMAKECONFIG_INSTALL_DIR}"
-  COMPONENT Devel
-)
-
-install(EXPORT KTextEditor DESTINATION "${CMAKECONFIG_INSTALL_DIR}" FILE KTextEditorTargets.cmake NAMESPACE KTextEditor:: )
-
+# handle data files, .desktop & .cmake
+add_subdirectory (data)

@@ -26,8 +26,7 @@
 #include <kateconfig.h>
 #include <katesearchbar.h>
 #include <ktexteditor/movingrange.h>
-
-#include <documentcursor.h>
+#include <ktexteditor/documentcursor.h>
 
 #include <QtTestWidgets>
 

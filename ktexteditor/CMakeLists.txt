@@ -7,7 +7,7 @@ ecm_setup_version (${KATE_VERSION} VARIABLE_PREFIX KTEXTEDITOR
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/KTextEditorConfigVersion.cmake")
 
 # install version header                       
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ktexteditor_version.h DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_version.h DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
                         
 # handle include files, both normal ones and generated ones
 add_subdirectory (include)

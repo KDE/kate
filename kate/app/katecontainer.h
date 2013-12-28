@@ -34,25 +34,13 @@ namespace KTextEditor {
 
 class KateContainer
   : public QObject
-  , public KTextEditor::ViewBarContainer
   , public KTextEditor::MdiContainer
 {
   Q_OBJECT
-  Q_INTERFACES( KTextEditor::ViewBarContainer )
   Q_INTERFACES( KTextEditor::MdiContainer )
   public:
     KateContainer(KateApp* parent);
     virtual ~KateContainer();
-
-  //
-  // KTextEditor::ViewBarContainer
-  //
-  public:
-    virtual QWidget* getViewBarParent(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position);
-    virtual void addViewBarToLayout(KTextEditor::View *view,QWidget *bar,KTextEditor::ViewBarContainer::Position position);
-    virtual void showViewBarForView(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position);
-    virtual void hideViewBarForView(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position);
-    virtual void deleteViewBarForView(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position);
 
   //
   // KTextEditor::MdiContainer

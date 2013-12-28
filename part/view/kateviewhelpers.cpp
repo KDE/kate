@@ -2394,8 +2394,8 @@ KateViewBarWidget::KateViewBarWidget (bool addCloseButton, QWidget *parent)
 }
 
 
-KateViewBar::KateViewBar (bool external,KTextEditor::ViewBarContainer::Position pos,QWidget *parent, KateView *view)
- : QWidget (parent), m_external(external), m_pos(pos),m_view (view), m_permanentBarWidget(0)
+KateViewBar::KateViewBar (bool external,QWidget *parent, KateView *view)
+ : QWidget (parent), m_external(external), m_view (view), m_permanentBarWidget(0)
 
 {
   m_layout = new QVBoxLayout(this);

@@ -205,13 +205,6 @@ MdiContainer::MdiContainer ()
 MdiContainer::~MdiContainer ()
 {}
 
-ViewBarContainer::ViewBarContainer()
-{}
-
-ViewBarContainer::~ViewBarContainer()
-{}
-
-
 SearchInterface::SearchInterface()
   : d(0)
 {}

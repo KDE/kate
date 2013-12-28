@@ -338,7 +338,6 @@ class KateViewBar : public QWidget
 
   public:
     KateViewBar (bool external,
-                 KTextEditor::ViewBarContainer::Position pos,
                  QWidget *parent,
                  KateView *view);
 
@@ -412,7 +411,6 @@ class KateViewBar : public QWidget
     void setViewBarVisible(bool visible);
 
     bool m_external;
-    KTextEditor::ViewBarContainer::Position m_pos;
 
   private:
     KateView *m_view;

@@ -240,10 +240,6 @@ void KateMainWindow::setupMainWindow ()
 {
   setToolViewStyle( KMultiTabBar::KDEV3ICON );
 
-  m_topViewBarContainer=new QWidget(centralWidget());
-  centralWidget()->layout()->addWidget(m_topViewBarContainer);
-  m_topContainerStack = new KateContainerStackedLayout(m_topViewBarContainer);
-
   /**
    * create central stacked widget with its children
    */
@@ -975,25 +971,6 @@ void KateMainWindow::slotUpdateBottomViewBar()
     m_bottomViewBarContainer->hide();
   }
 }
-
-
-void KateMainWindow::slotUpdateTopViewBar()
-{
-  //qCDebug(LOG_KATE)<<"slotUpdateHorizontalViewBar()"<<endl;
-  KTextEditor::View *view=m_viewManager->activeView();
-  BarState bs=m_topViewBarMapping[view];
-  if (bs.bar() && bs.state()) {
-    m_topContainerStack->setCurrentWidget(bs.bar());
-    m_topContainerStack->currentWidget()->show();
-    m_topViewBarContainer->show();
-  } else {
-    QWidget *wid=m_topContainerStack->currentWidget();
-    if (wid) wid->hide();
-    //qCDebug(LOG_KATE)<<wid<<"hiding container"<<endl;
-    m_topViewBarContainer->hide();
-  }
-}
-
 
 void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
 {

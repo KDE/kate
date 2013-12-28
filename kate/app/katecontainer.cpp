@@ -30,7 +30,6 @@
 
 KateContainer::KateContainer(KateApp* parent)
   : QObject(parent)
-  , KTextEditor::ViewBarContainer()
   , KTextEditor::MdiContainer()
   , m_app(parent)
 {
@@ -38,88 +37,6 @@ KateContainer::KateContainer(KateApp* parent)
 
 KateContainer::~KateContainer() {
 }
-
-//BEGIN KTextEditor::ViewBarContainer
-QWidget* KateContainer::getViewBarParent(KTextEditor::View *view,KTextEditor::ViewBarContainer::Position position) {
-  if (position==KTextEditor::ViewBarContainer::BottomBar) {
-    KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
-    if (!mainWindow) {
-      qCDebug(LOG_KATE)<<"returning hardcoded 0, views window is not a KateMainWindow";
-      return 0;
-    }
-    //Toplevel is a KateMainWindow
-    return mainWindow->bottomViewBarContainer();
-  } else if (position==KTextEditor::ViewBarContainer::TopBar) {
-    KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
-    if (!mainWindow) {
-      qCDebug(LOG_KATE)<<"returning hardcoded 0, views window is not a KateMainWindow";
-      return 0;
-    }
-    //Toplevel is a KateMainWindow
-    return mainWindow->topViewBarContainer();
-  }
-  return 0;
-}
-
-void KateContainer::addViewBarToLayout(KTextEditor::View *view,QWidget *bar, KTextEditor::ViewBarContainer::Position position) {
-  KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
-  if (!mainWindow) {
-    qCDebug(LOG_KATE)<<"main window is not a katemainwindow";
-    return;
-  }
-
-  if (position==KTextEditor::ViewBarContainer::BottomBar) {
-    mainWindow->addToBottomViewBarContainer(view,bar);
-  } else   if (position==KTextEditor::ViewBarContainer::TopBar) {
-    mainWindow->addToTopViewBarContainer(view,bar);
-  }
-    
-}
-
-void KateContainer::showViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
-  KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
-    if (!mainWindow) {
-      qCDebug(LOG_KATE)<<"main window is not a katemainwindow";
-      return;
-  }
-  
-  if (position==KTextEditor::ViewBarContainer::BottomBar) {
-    mainWindow->showBottomViewBarForView(view);
-  } else if (position==KTextEditor::ViewBarContainer::TopBar) {
-    mainWindow->showTopViewBarForView(view);
-  }
-}
-
-void KateContainer::hideViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
-  KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
-  if (!mainWindow) {
-    qCDebug(LOG_KATE)<<"main window is not a katemainwindow";
-    return;
-  }
-
-  if (position==KTextEditor::ViewBarContainer::BottomBar) {
-    mainWindow->hideBottomViewBarForView(view);      
-  } else if (position==KTextEditor::ViewBarContainer::TopBar) {    
-    mainWindow->hideTopViewBarForView(view);      
-  }
-}
-
-void KateContainer::deleteViewBarForView(KTextEditor::View *view, KTextEditor::ViewBarContainer::Position position) {
-  KateMainWindow* mainWindow=qobject_cast<KateMainWindow*>(view->window());
-  if (!mainWindow) {
-    qCDebug(LOG_KATE)<<"main window is not a katemainwindow";
-    return;
-  }
-  
-  if (position==KTextEditor::ViewBarContainer::BottomBar) {      
-    mainWindow->deleteBottomViewBarForView(view);
-  } else if (position==KTextEditor::ViewBarContainer::TopBar) {      
-    mainWindow->deleteTopViewBarForView(view);
-  }
-}
-//END KTextEditor::ViewBarContainer
-
-
 
 //BEGIN KTextEditor::MdiContainer
 void KateContainer::setActiveView(KTextEditor::View *view)

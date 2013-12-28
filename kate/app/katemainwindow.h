@@ -253,12 +253,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     inline void showBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.value(view); bar=state.bar();  if (bar) {m_bottomContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_bottomViewBarMapping[view]=state;  m_bottomViewBarContainer->show();}}
     inline void deleteBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_bottomContainerStack->currentWidget()==bar) m_bottomViewBarContainer->hide(); delete bar;}}
 
-    inline QWidget *topViewBarContainer() {return m_topViewBarContainer;}
-    inline void addToTopViewBarContainer(KTextEditor::View *view,QWidget *bar){m_topContainerStack->addWidget (bar); m_topViewBarMapping[view]=BarState(bar);}
-    inline void hideTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.value(view); bar=state.bar(); if (bar) {m_topContainerStack->setCurrentWidget(bar); bar->hide(); state.setState(false); m_topViewBarMapping[view]=state;} m_topViewBarContainer->hide();}
-    inline void showTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.value(view); bar=state.bar();  if (bar) {m_topContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_topViewBarMapping[view]=state;  m_topViewBarContainer->show();}}
-    inline void deleteTopViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_topViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_topContainerStack->currentWidget()==bar) m_topViewBarContainer->hide(); delete bar;}}
-
   public Q_SLOTS:
     /**
      * Try to create a view bar for the given view.
@@ -309,7 +303,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     
   private Q_SLOTS:
     void slotUpdateBottomViewBar();
-    void slotUpdateTopViewBar();
 
   private Q_SLOTS:
     void slotDocumentCloseAll();
@@ -355,8 +348,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     KToggleAction *m_paShowStatusBar;
     QWidget *m_bottomViewBarContainer;
     KateContainerStackedLayout *m_bottomContainerStack;
-    QWidget *m_topViewBarContainer;
-    KateContainerStackedLayout *m_topContainerStack;
 
     class BarState{
       public:
@@ -371,7 +362,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
         bool m_state;
     };
     QHash<KTextEditor::View*,BarState> m_bottomViewBarMapping;
-    QHash<KTextEditor::View*,BarState> m_topViewBarMapping;
 
   public:
     static void unsetModifiedOnDiscDialogIfIf(KateMwModOnHdDialog* diag) {

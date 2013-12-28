@@ -155,7 +155,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, KTextEditor::MainWindow 
    */
   QWidget *bottomBarParent = m_mainWindow->createViewBar (this);
 
-  m_bottomViewBar=new KateViewBar (bottomBarParent!=0,KTextEditor::ViewBarContainer::BottomBar,bottomBarParent?bottomBarParent:this,this);
+  m_bottomViewBar=new KateViewBar (bottomBarParent!=0,bottomBarParent?bottomBarParent:this,this);
 
   // ugly workaround:
   // Force the layout to be left-to-right even on RTL deskstop, as discussed

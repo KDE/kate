@@ -1,12 +1,7 @@
 /* 
  *  This file is part of the KDE project.
  * 
- *  Copyright (C) 2007 Philippe Fremy (phil at freehackers dot org)
- *  Copyright (C) 2008 Joseph Wenninger (jowenn@kde.org)
  *  Copyright (C) 2013 Christoph Cullmann <cullmann@kde.org>
- *
- *  Based on code of the SmartCursor/Range by:
- *  Copyright (C) 2003-2005 Hamish Rodda <rodda@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -31,9 +26,14 @@
 
 #include <QObject>
 
+class QEvent;
+class QUrl;
+class QWidget;
+
 namespace KTextEditor
 {
   
+class Document;
 class View;
   
 /**
@@ -55,6 +55,8 @@ class View;
  */
 class KTEXTEDITOR_EXPORT MainWindow : public QObject
 {
+  Q_OBJECT
+  
   public:
     /**
      * Construct an MainWindow wrapper object.
@@ -69,11 +71,80 @@ class KTEXTEDITOR_EXPORT MainWindow : public QObject
      */
     virtual ~MainWindow ();
     
+  //
+  // Accessors to some window properties and contents
+  //
+  public:
+      /**
+       * Get the toplevel widget.
+       * \return the real main window widget.
+       */
+      QWidget *window () const;
+
+  //
+  // View access and manipulation interface
+  //
+  public:
+      /**
+       * Get a list of all views for this main window.
+       * @return all views
+       */
+      QList<KTextEditor::View *> views () const;
+      
+      /**
+       * Access the active view.
+       * \return active view
+       */
+      KTextEditor::View *activeView () const;
+
+      /**
+       * Activate the view with the corresponding \p document.
+       * If none exist for this document, create one
+       * \param document the document
+       * \return activated view of this document
+       */
+      KTextEditor::View *activateView (KTextEditor::Document *document);
+
+      /**
+       * Open the document \p url with the given \p encoding.
+       * \param url the document's url
+       * \param encoding the preferred encoding. If encoding is QString() the
+       *        encoding will be guessed or the default encoding will be used.
+       * \return a pointer to the created view for the new document, if a document
+       *         with this url is already existing, its view will be activated
+       */
+      KTextEditor::View *openUrl (const QUrl &url, const QString &encoding = QString());
+
+  //
+  // Signals related to view handling
+  //
+  Q_SIGNALS:
+      /**
+       * This signal is emitted whenever the active view changes.
+       * @param view new active view
+       */
+      void viewChanged (KTextEditor::View* view);
+
+      /**
+       * This signal is emitted whenever a new view is created
+       * @since 4.2
+       */
+      void viewCreated (KTextEditor::View * view);
+
+      /**
+       * This signal is emitted for every unhandled ShortcutOverride in a view
+       */
+      void unhandledShortcutOverride (QEvent *e);
+
+  //
+  // Interface to allow view bars to be constructed in a central place per window
+  //
+  public:
     /**
      * Try to create a view bar for the given view.
      * @param view view for which we want an view bar
      * @return suitable widget that can host view bars widgets or nullptr
-    */
+     */
     QWidget *createViewBar (KTextEditor::View *view);
 
     /**
@@ -100,7 +171,7 @@ class KTEXTEDITOR_EXPORT MainWindow : public QObject
      * @param view view for which the view bar is used
      */
     void hideViewBar (KTextEditor::View *view);
-    
+
   private:
     /**
      * Private d-pointer class is our best friend ;)

@@ -1,12 +1,7 @@
 /* 
  *  This file is part of the KDE project.
  * 
- *  Copyright (C) 2007 Philippe Fremy (phil at freehackers dot org)
- *  Copyright (C) 2008 Joseph Wenninger (jowenn@kde.org)
  *  Copyright (C) 2013 Christoph Cullmann <cullmann@kde.org>
- *
- *  Based on code of the SmartCursor/Range by:
- *  Copyright (C) 2003-2005 Hamish Rodda <rodda@kde.org>
  *
  *  This library is free software; you can redistribute it and/or
  *  modify it under the terms of the GNU Library General Public
@@ -38,7 +33,105 @@ MainWindow::MainWindow (QObject *parent)
 MainWindow::~MainWindow ()
 {
 }
-    
+
+QWidget *MainWindow::window () const
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  QWidget *window = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "window"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (QWidget *, window));
+  return window;
+}
+
+QList<KTextEditor::View *> MainWindow::views () const
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return QList<KTextEditor::View *> ();
+  
+  /**
+   * dispatch to parent
+   */
+  QList<KTextEditor::View *> views;
+  QMetaObject::invokeMethod (parent()
+    , "views"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (QList<KTextEditor::View *>, views));
+  return views;
+}
+      
+KTextEditor::View *MainWindow::activeView () const
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  KTextEditor::View *view = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "activeView"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (KTextEditor::View *, view));
+  return view;
+}
+
+KTextEditor::View *MainWindow::activateView (KTextEditor::Document *document)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  KTextEditor::View *view = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "activeView"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (KTextEditor::View *, view)
+    , Q_ARG (KTextEditor::Document *, document));
+  return view;
+}
+
+KTextEditor::View *MainWindow::openUrl (const QUrl &url, const QString &encoding)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  KTextEditor::View *view = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "openUrl"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (KTextEditor::View *, view)
+    , Q_ARG (const QUrl &, url)
+    , Q_ARG (const QString &, encoding));
+  return view;
+}
+ 
 QWidget *MainWindow::createViewBar (KTextEditor::View *view)
 {
   /**

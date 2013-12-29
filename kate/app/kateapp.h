@@ -22,6 +22,7 @@
 
 #include <kateinterfaces_export.h>
 #include <kate/mainwindow.h>
+#include <ktexteditor/application.h>
 
 #include <KConfig>
 #include <QList>
@@ -83,6 +84,15 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      * @return application plugin interface
      */
     Kate::Application *application ();
+    
+    /**
+     * KTextEditor::Application wrapper
+     * @return KTextEditor::Application wrapper.
+     */
+    KTextEditor::Application *wrapper ()
+    {
+      return m_wrapper;
+    }
 
     /**
      * kate init
@@ -266,6 +276,11 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
 
     // various vim-inspired command line commands
     KateAppCommands *m_appCommands;
+    
+    /**
+     * Wrapper of application for KTextEditor
+     */
+    KTextEditor::Application *m_wrapper;
 
 };
 

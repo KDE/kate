@@ -31,6 +31,7 @@ class KConfig;
 namespace KTextEditor
 {
 
+class Application;
 class Document;
 class ConfigPage;
 
@@ -115,6 +116,20 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
      * Virtual destructor.
      */
     virtual ~Editor ();
+    
+    /**
+     * Set the global application object.
+     * This will allow the editor component to access
+     * the hosting application.
+     * @param application application object
+     */
+    virtual void setApplication (KTextEditor::Application *application) = 0;
+    
+    /**
+     * Current hosting application, if any set.
+     * @return current application object or nullptr
+     */
+    virtual KTextEditor::Application *application () const = 0;
 
   /*
    * Methods to create and manage the documents.

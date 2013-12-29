@@ -34,6 +34,9 @@ set(ktexteditor_LIB_SRCS
    src/movingrange.cpp
    src/movingrangefeedback.cpp
    src/messageinterface.cpp
+   
+   # application interfaces
+   src/application.cpp
    src/mainwindow.cpp
    
    # private headers for moc

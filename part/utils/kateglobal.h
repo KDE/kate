@@ -134,6 +134,26 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * @return list of all existing documents
      */
     const QList<KTextEditor::Document*> &documents ();
+    
+    /**
+     * Set the global application object.
+     * This will allow the editor component to access
+     * the hosting application.
+     * @param application application object
+     */
+    void setApplication (KTextEditor::Application *application)
+    {
+      m_application = application;
+    }
+    
+    /**
+     * Current hosting application, if any set.
+     * @return current application object or nullptr
+     */
+    KTextEditor::Application *application () const
+    {
+      return m_application;
+    }
 
   /**
    * General Information about this editor
@@ -541,6 +561,11 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * clipboard history
      */
     QStringList m_clipboardHistory;
+    
+    /**
+     * access to application
+     */
+    KTextEditor::Application *m_application;
 };
 
 #endif

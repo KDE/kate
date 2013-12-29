@@ -33,6 +33,9 @@ set (KTEXTEDITOR_PUBLIC_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/movingrangefeedback.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/recoveryinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/messageinterface.h
+    
+    # application interfaces
+    ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/application.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/mainwindow.h
     )
 
@@ -50,7 +53,7 @@ ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface 
   Attribute CommandInterface DocumentCursor MessageInterface MovingRangeFeedback SessionConfigInterface
   CodeCompletionInterface ConfigInterface Editor ModeInterface  TemplateInterface
   CodeCompletionModel ConfigPage Factory ModificationInterface Plugin TemplateInterface2
-  MainWindow
+  Application MainWindow
   MODULE_NAME "KTextEditor" RELATIVE "ktexteditor" REQUIRED_HEADERS KTEXTEDITOR_PUBLIC_HEADERS)
    
 # missing files ATM:   

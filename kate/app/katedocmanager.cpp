@@ -67,6 +67,9 @@ KateDocManager::KateDocManager (QObject *parent)
                                   "Please check your KDE installation."));
     exit(1);
   }
+  
+  // set our application wrapper
+  m_editor->setApplication (KateApp::self()->wrapper());
 
   KTextEditor::ContainerInterface * iface = qobject_cast<KTextEditor::ContainerInterface *>( m_editor );
   if (iface != NULL) {

@@ -69,6 +69,7 @@ KateGlobal::KateGlobal ()
              i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QString ("http://www.kate-editor.org"))
  , m_snippetGlobal (0) // lazy constructed
  , m_sessionConfig (KSharedConfig::openConfig())
+ , m_application (nullptr)
 {
   // set s_self
   s_self = this;

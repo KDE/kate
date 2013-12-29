@@ -51,6 +51,7 @@ Q_LOGGING_CATEGORY(LOG_KATE, "kate")
 
 KateApp::KateApp(const QCommandLineParser &args)
     : m_args (args)
+    , m_wrapper (new KTextEditor::Application (this))
 {
   s_self = this;
 

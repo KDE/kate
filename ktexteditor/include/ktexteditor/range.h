@@ -170,25 +170,31 @@ class KTEXTEDITOR_EXPORT Range
     /**
      * Set the start cursor to \e start.
      *
-     * \note If \e start is after current end, they will be reversed.
+     * \note If \e start is after current end, start and end will be set to new start value.
      *
      * \param start new start cursor
      */
     void setStart (const Cursor& start)
     {
-      setRange (start, end());
+      if (start > end())
+        setRange (start, start);
+      else
+        setRange (start, end());
     }
 
     /**
      * Set the end cursor to \e end.
      *
-     * \note If \e end is in front of current start, they will be reversed.
+     * \note If \e end is in front of current start, start and end will be set to new end value.
      *
      * \param end new end cursor
      */
     void setEnd (const Cursor& end)
     {
-      setRange (start(), end);
+      if (end < start())
+        setRange (end, end);
+      else
+        setRange (start(), end);
     }
 
     /**

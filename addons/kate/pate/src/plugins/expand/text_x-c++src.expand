@@ -152,7 +152,7 @@ All parameters are optional and their order is not important. Class name can be 
 <icode>c</icode>, <icode>cc</icode>, <icode>mc</icode> may have the following prefixes:
 <ul>
 <li> <icode>@</icode> to generate defaulted member </li>
-<li> <icode>!</icode> to generate deleted member</li>
+<li> <icode>-</icode> to generate deleted member</li>
 </ul>
 Any template parameter may have a numeric range at the end (like <icode>T0..4</icode>).
 '''))
@@ -181,7 +181,7 @@ def cl(*args, **kw):
                 template_mode = False
             else:
                 template_params += arg_helpers.try_expand_params_seq(arg)
-        elif arg[0] == '@' or arg[0] == '!':                # Handle defaulted and deleted functions
+        elif arg[0] == '@' or arg[0] == '-':                # Handle defaulted and deleted functions
             fn_kind = 'default' if arg[0] == '@' else 'delete'
             fn_val = arg[1:]
             if fn_val in _CL_SHORTCUT_MAPPINGS:
@@ -237,6 +237,7 @@ def t(*args):
 
 
 @expand.jinja('brief.cpp.tpl')
+@expand.postprocess
 @expand.description(
     i18nc('@item:inlistbox', 'Render a <application>Doxygen</application> <icode>brief</icode> header')
   )
@@ -499,4 +500,80 @@ def _dynamic_try(params, match):
     data['catch_all'] = match.group('catch_all') is not None
     if not data['catch_all'] and data['catch_count'] == 0:
         data['catch_count'] = 1
+    return data
+
+
+@expand.dynamic(re.compile(
+    '^cl('
+        '(?P<cctor>[@\-]?cc)|(?P<ctor>c(?P<ctor_arity>[0-9]+)?)|(?P<mctor>[@\-]?mc)|'
+        '(?P<vdtor>vd)|(?P<dtor>d)|(?P<template>t(?P<tarity>[0-9]+)?)'
+    ')*'
+  ))
+@expand.jinja('class.cpp.tpl')
+@expand.postprocess
+def _dynamic_class(params, match):
+    kate.kDebug('@dynamic `class`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+
+    data['entity_type'] = 'class'
+    data['entity_name'] = 'name'
+    data['ctor_arity'] = 0
+
+    if match.group('ctor'):
+        data['ctor_arity'] = int(match.group('ctor_arity')) if match.group('ctor_arity') is not None else 0
+        if data['ctor_arity'] == 0:
+            data['default_ctor'] = True
+
+    if match.group('cctor') is not None:
+        fn_val = match.group('cctor')
+        if fn_val[0] == '@':
+            data['default_copy_ctor'] = 'default'
+        elif fn_val[0] == '-':
+            data['default_copy_ctor'] = 'delete'
+        else:
+            data['default_copy_ctor'] = True
+
+    if match.group('mctor') is not None:
+        fn_val = match.group('cctor')
+        if fn_val[0] == '@':
+            data['default_move_ctor'] = 'default'
+        elif fn_val[0] == '-':
+            data['default_move_ctor'] = 'delete'
+        else:
+            data['default_move_ctor'] = True
+
+    data['virtual_destructor'] = match.group('vdtor') is not None
+    data['destructor'] = match.group('dtor') is not None
+
+    if data['virtual_destructor']:
+        data['destructor'] = True
+
+    if match.group('template') is not None:
+        data['template'] = True
+        tarity = int(match.group('tarity')) if match.group('tarity') is not None else 1
+        template_params = []
+        for tp in range(0, tarity):
+            template_params.append('T{}'.format(tp))
+        data['template_params'] = template_params
+
+    return data
+
+
+@expand.dynamic(re.compile('^ns(?P<names>.*)?'))
+@expand.jinja('namespace.cpp.tpl')
+@expand.postprocess
+def _dynamic_namespace(params, match):
+    kate.kDebug('@dynamic `namespace`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    if match.group('names'):
+        # TODO Move this shared configuration settings to some module
+        pos = 60
+        if 'commentStartPos' in kate.configuration:
+            pos = kate.configuration['commentStartPos']
+
+        namespaces = [ns.strip() for ns in match.group('names').split('::')]
+        data['namespaces'] = namespaces
+        data['close_braces'] = '}' * len(namespaces)
+        assert(len(namespaces) < pos)
+        data['padding'] = ' ' * (pos - len(namespaces))
     return data

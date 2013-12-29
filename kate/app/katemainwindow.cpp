@@ -127,12 +127,12 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
   if (size.isEmpty())
   {
     // first try to reuse size known from current or last created main window ;=)
-    if (KateApp::self()->mainWindows () > 0)
+    if (KateApp::self()->mainWindowsCount () > 0)
     {
-      KateMainWindow *win = KateApp::self()->activeMainWindow ();
+      KateMainWindow *win = KateApp::self()->activeKateMainWindow ();
 
       if (!win)
-        win = KateApp::self()->mainWindow (KateApp::self()->mainWindows () - 1);
+        win = KateApp::self()->mainWindow (KateApp::self()->mainWindowsCount () - 1);
 
       size = win->size();
     }
@@ -484,7 +484,7 @@ bool KateMainWindow::queryClose()
 
   // normal closing of window
   // allow to close all windows until the last without restrictions
-  if ( KateApp::self()->mainWindows () > 1 )
+  if ( KateApp::self()->mainWindowsCount () > 1 )
     return true;
 
   // last one: check if we can close all documents, try run

@@ -303,9 +303,9 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
   // try to close last session
   if (closeLast)
   {
-    if (KateApp::self()->activeMainWindow())
+    if (KateApp::self()->activeKateMainWindow())
     {
-      if (!KateApp::self()->activeMainWindow()->queryClose_internal())
+      if (!KateApp::self()->activeKateMainWindow()->queryClose_internal())
         return true;
     }
   }
@@ -352,7 +352,7 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
 
       for (int i = 0; i < wCount; ++i)
       {
-        if (i >= KateApp::self()->mainWindows())
+        if (i >= KateApp::self()->mainWindowsCount())
         {
           KateApp::self()->newMainWindow(cfg, QString ("MainWindow%1").arg(i));
         }
@@ -371,8 +371,8 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
       // remove mainwindows we need no longer...
       if (wCount > 0)
       {
-        while (wCount < KateApp::self()->mainWindows())
-          delete KateApp::self()->mainWindow(KateApp::self()->mainWindows() - 1);
+        while (wCount < KateApp::self()->mainWindowsCount())
+          delete KateApp::self()->mainWindow(KateApp::self()->mainWindowsCount() - 1);
       }
     }
   }
@@ -408,11 +408,11 @@ static void saveSessionTo(KConfig *sc)
   // save document configs + which documents to load
   KateDocManager::self()->saveDocumentList (sc);
 
-  sc->group("Open MainWindows").writeEntry ("Count", KateApp::self()->mainWindows ());
+  sc->group("Open MainWindows").writeEntry ("Count", KateApp::self()->mainWindowsCount ());
 
   // save config for all windows around ;)
   bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
-  for (int i = 0; i < KateApp::self()->mainWindows (); ++i )
+  for (int i = 0; i < KateApp::self()->mainWindowsCount (); ++i )
   {
     KConfigGroup cg(sc, QString ("MainWindow%1").arg(i) );
     KateApp::self()->mainWindow(i)->saveProperties (cg);

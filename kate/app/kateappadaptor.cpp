@@ -34,7 +34,7 @@ KateAppAdaptor::KateAppAdaptor (KateApp *app)
 
 void KateAppAdaptor::activate ()
 {
-  KateMainWindow *win = m_app->activeMainWindow();
+  KateMainWindow *win = m_app->activeKateMainWindow();
   if (!win)
     return;
 

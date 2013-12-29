@@ -23,7 +23,6 @@
 #include "kateapp.h"
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
-#include "katecontainer.h"
 #include "katesavemodifieddialog.h"
 #include "katedebug.h"
 
@@ -70,13 +69,6 @@ KateDocManager::KateDocManager (QObject *parent)
   
   // set our application wrapper
   m_editor->setApplication (KateApp::self()->wrapper());
-
-  KTextEditor::ContainerInterface * iface = qobject_cast<KTextEditor::ContainerInterface *>( m_editor );
-  if (iface != NULL) {
-    iface->setContainer( new KateContainer(KateApp::self()) );
-  } else {
-    qCDebug(LOG_KATE)<<"Editor does not support the container interface";
-  }
   
   // read in editor config
   m_editor->readConfig(KSharedConfig::openConfig().data());
@@ -287,7 +279,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
     if (closeUrl && !doc->closeUrl())
       return false; // get out on first error
 
-    for (int i = 0; i < KateApp::self()->mainWindows (); i++ ) {
+    for (int i = 0; i < KateApp::self()->mainWindowsCount (); i++ ) {
       KateApp::self()->mainWindow(i)->viewManager()->closeViews(doc);
     }
 
@@ -295,7 +287,7 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
     {
       QFileInfo fi( m_tempFiles[ doc ].first.toLocalFile() );
       if ( fi.lastModified() <= m_tempFiles[ doc ].second ||
-          KMessageBox::questionYesNo( KateApp::self()->activeMainWindow(),
+          KMessageBox::questionYesNo( KateApp::self()->activeKateMainWindow(),
                                       i18n("The supposedly temporary file %1 has been modified. "
                                       "Do you want to delete it anyway?", m_tempFiles[ doc ].first.url(QUrl::PreferLocalFile)),
                                       i18n("Delete File?") ) == KMessageBox::Yes )
@@ -340,7 +332,7 @@ bool KateDocManager::closeDocumentList(QList<KTextEditor::Document*> documents)
 {
   bool res = true;
 
-  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  for (int i = 0; i < KateApp::self()->mainWindowsCount (); i++ )
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
 
   QList<KTextEditor::Document*> modifiedDocuments;
@@ -356,7 +348,7 @@ bool KateDocManager::closeDocumentList(QList<KTextEditor::Document*> documents)
 
   res = closeDocuments( documents, false ); // Do not show save/discard dialog
 
-  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  for (int i = 0; i < KateApp::self()->mainWindowsCount (); i++ )
   {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
     if (!KateApp::self()->mainWindow(i)->viewManager()->activeView())
@@ -374,12 +366,12 @@ bool KateDocManager::closeAllDocuments(bool closeUrl)
 
   QList<KTextEditor::Document*> docs = m_docList;
 
-  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  for (int i = 0; i < KateApp::self()->mainWindowsCount (); i++ )
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
 
   res = closeDocuments( docs, closeUrl );
 
-  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  for (int i = 0; i < KateApp::self()->mainWindowsCount (); i++ )
   {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
     KateApp::self()->mainWindow(i)->viewManager()->activateView (m_docList.at(0));
@@ -394,14 +386,14 @@ bool KateDocManager::closeOtherDocuments(KTextEditor::Document* doc)
 
   QList<KTextEditor::Document*> documents = m_docList;
 
-  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  for (int i = 0; i < KateApp::self()->mainWindowsCount (); i++ )
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(true);
 
   documents.removeOne( doc );
 
   res = closeDocuments( documents );
 
-  for (int i = 0; i < KateApp::self()->mainWindows (); i++ )
+  for (int i = 0; i < KateApp::self()->mainWindowsCount (); i++ )
   {
     KateApp::self()->mainWindow(i)->viewManager()->setViewActivationBlocked(false);
     KateApp::self()->mainWindow(i)->viewManager()->activateView (m_docList.at(0));
@@ -505,7 +497,7 @@ void KateDocManager::reloadAll()
   }
 
   // take care of all documents that ARE modified on disk
-  KateApp::self()->activeMainWindow()->showModOnDiskPrompt();
+  KateApp::self()->activeKateMainWindow()->showModOnDiskPrompt();
 }
 
 void KateDocManager::closeOrphaned()
@@ -703,7 +695,7 @@ void KateDocManager::slotModChanged1(KTextEditor::Document * doc)
 
   if (info && info->modifiedOnDisc)
   {
-    QMetaObject::invokeMethod(KateApp::self()->activeMainWindow(), "queueModifiedOnDisc",
+    QMetaObject::invokeMethod(KateApp::self()->activeKateMainWindow(), "queueModifiedOnDisc",
             Qt::QueuedConnection, Q_ARG(KTextEditor::Document *, doc));
   }
 }

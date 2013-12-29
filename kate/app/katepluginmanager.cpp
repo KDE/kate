@@ -227,7 +227,7 @@ void KatePluginManager::enablePluginGUI (KatePluginInfo *item)
     return;
 
   // enable the gui for all mainwindows...
-  for (int i = 0; i < KateApp::self()->mainWindows(); i++)
+  for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++)
     enablePluginGUI (item, KateApp::self()->mainWindow(i), 0);
 }
 
@@ -255,7 +255,7 @@ void KatePluginManager::disablePluginGUI (KatePluginInfo *item)
     return;
 
   // disable the gui for all mainwindows...
-  for (int i = 0; i < KateApp::self()->mainWindows(); i++)
+  for (int i = 0; i < KateApp::self()->mainWindowsCount(); i++)
     disablePluginGUI (item, KateApp::self()->mainWindow(i));
 }
 

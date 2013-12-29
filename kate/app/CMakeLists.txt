@@ -19,7 +19,6 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp
    katemwmodonhddialog.cpp
    katesession.cpp
    katemdi.cpp
-   katecontainer.cpp
    katerunninginstanceinfo.cpp
    kateappcommands.cpp
    katequickopen.cpp

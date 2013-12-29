@@ -83,7 +83,7 @@ bool KateAppCommands::exec(KTextEditor::View *view, const QString &cmd, QString 
     QStringList args(cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
     QString command( args.takeFirst() );
 
-    KateMainWindow *mainWin = KateApp::self()->activeMainWindow();
+    KateMainWindow *mainWin = KateApp::self()->activeKateMainWindow();
 
     if (re_write.exactMatch(command)) {  //TODO: handle writing to specific file
         if (!re_write.cap(1).isEmpty()) { // [a]ll

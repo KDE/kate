@@ -152,7 +152,7 @@ void KateApp::restoreKate ()
     newMainWindow(sessionConfig, QString ("%1").arg(n));
   
   // oh, no mainwindow, create one, should not happen, but make sure ;)
-  if (mainWindows() == 0)
+  if (mainWindowsCount() == 0)
     newMainWindow ();
 }
 
@@ -186,12 +186,12 @@ bool KateApp::startupKate ()
   }
   
   // oh, no mainwindow, create one, should not happen, but make sure ;)
-  if (mainWindows() == 0)
+  if (mainWindowsCount() == 0)
     newMainWindow ();
 
   // notify about start
 #ifdef Q_WS_X11
-  KStartupInfo::setNewStartupId( activeMainWindow(), startupId());
+  KStartupInfo::setNewStartupId( activeKateMainWindow(), startupId());
 #endif
   
   QTextCodec *codec = m_args.isSet("encoding") ? QTextCodec::codecForName(m_args.value("encoding").toUtf8()) : 0;
@@ -218,12 +218,12 @@ bool KateApp::startupKate ()
     {
       // open a normal file
       if (codec)
-        doc = activeMainWindow()->viewManager()->openUrl( url, codec->name(), false, tempfileSet);
+        doc = activeKateMainWindow()->viewManager()->openUrl( url, codec->name(), false, tempfileSet);
       else
-        doc = activeMainWindow()->viewManager()->openUrl( url, QString(), false, tempfileSet);
+        doc = activeKateMainWindow()->viewManager()->openUrl( url, QString(), false, tempfileSet);
     }
     else
-      KMessageBox::sorry( activeMainWindow(),
+      KMessageBox::sorry( activeKateMainWindow(),
                           i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()) );
   }
   KateDocManager::self()->setSuppressOpeningErrorDialogs(false);
@@ -250,10 +250,10 @@ bool KateApp::startupKate ()
     openInput (text);
   }
   else if ( doc )
-    activeMainWindow()->viewManager()->activateView( doc );
+    activeKateMainWindow()->viewManager()->activateView( doc );
 
-  if ( activeMainWindow()->viewManager()->viewCount () == 0 )
-    activeMainWindow()->viewManager()->activateView(m_docManager->document (0));
+  if ( activeKateMainWindow()->viewManager()->viewCount () == 0 )
+    activeKateMainWindow()->viewManager()->activateView(m_docManager->document (0));
 
   int line = 0;
   int column = 0;
@@ -271,13 +271,13 @@ bool KateApp::startupKate ()
     nav = true;
   }
 
-  if (nav && activeMainWindow()->viewManager()->activeView ())
-    activeMainWindow()->viewManager()->activeView ()->setCursorPosition (KTextEditor::Cursor (line, column));
+  if (nav && activeKateMainWindow()->viewManager()->activeView ())
+    activeKateMainWindow()->viewManager()->activeView ()->setCursorPosition (KTextEditor::Cursor (line, column));
   
   // show the nice tips
-  KTipDialog::showTip(activeMainWindow());
+  KTipDialog::showTip(activeKateMainWindow());
 
-  activeMainWindow()->setAutoSaveSettings();
+  activeKateMainWindow()->setAutoSaveSettings();
 
   qCDebug(LOG_KATE) << "KateApplication::init finished successful";
   return true;
@@ -322,7 +322,7 @@ bool KateApp::openUrl (const QUrl &url, const QString &encoding, bool isTempFile
 
 KTextEditor::Document* KateApp::openDocUrl (const QUrl &url, const QString &encoding, bool isTempFile)
 {
-  KateMainWindow *mainWindow = activeMainWindow ();
+  KateMainWindow *mainWindow = activeKateMainWindow ();
 
   if (!mainWindow)
     return 0;
@@ -357,7 +357,7 @@ KTextEditor::Document* KateApp::openDocUrl (const QUrl &url, const QString &enco
 
 bool KateApp::setCursor (int line, int column)
 {
-  KateMainWindow *mainWindow = activeMainWindow ();
+  KateMainWindow *mainWindow = activeKateMainWindow ();
 
   if (!mainWindow)
     return false;
@@ -370,12 +370,12 @@ bool KateApp::setCursor (int line, int column)
 
 bool KateApp::openInput (const QString &text)
 {
-  activeMainWindow()->viewManager()->openUrl( QUrl(), "", true );
+  activeKateMainWindow()->viewManager()->openUrl( QUrl(), "", true );
 
-  if (!activeMainWindow()->viewManager()->activeView ())
+  if (!activeKateMainWindow()->viewManager()->activeView ())
     return false;
 
-  KTextEditor::Document *doc = activeMainWindow()->viewManager()->activeView ()->document();
+  KTextEditor::Document *doc = activeKateMainWindow()->viewManager()->activeView ()->document();
 
   if (!doc)
     return false;
@@ -406,7 +406,7 @@ void KateApp::removeMainWindow (KateMainWindow *mainWindow)
   m_mainWindows.removeAll(mainWindow);
 }
 
-KateMainWindow *KateApp::activeMainWindow ()
+KateMainWindow *KateApp::activeKateMainWindow ()
 {
   if (m_mainWindows.isEmpty())
     return 0;
@@ -419,7 +419,7 @@ KateMainWindow *KateApp::activeMainWindow ()
   return m_mainWindows[n];
 }
 
-int KateApp::mainWindows () const
+int KateApp::mainWindowsCount () const
 {
   return m_mainWindows.size();
 }

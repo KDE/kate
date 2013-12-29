@@ -24,6 +24,8 @@
 #include <kate/mainwindow.h>
 #include <ktexteditor/application.h>
 
+#include <katemainwindow.h>
+
 #include <KConfig>
 #include <QList>
 
@@ -172,13 +174,13 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      * can only be 0 at app start or exit
      * @return current active main window
      */
-    KateMainWindow *activeMainWindow ();
+    KateMainWindow *activeKateMainWindow ();
 
     /**
      * give back number of existing main windows
      * @return number of main windows
      */
-    int mainWindows () const;
+    int mainWindowsCount () const;
 
     /**
      * give back the window you want
@@ -230,6 +232,35 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
     const QList<Kate::MainWindow*> &mainWindowsInterfaces () const
     {
       return m_mainWindowsInterfaces;
+    }
+  
+  //
+  // KTextEditor::Application interface, called by wrappers via invokeMethod
+  //
+  public Q_SLOTS:
+    /**
+     * Get a list of all main windows.
+     * @return all main windows
+     */
+    QList<KTextEditor::MainWindow *> mainWindows ()
+    {
+      // assemble right list
+      QList<KTextEditor::MainWindow *> windows;
+      for (int i = 0; i < m_mainWindows.size(); ++i)
+        windows.push_back (m_mainWindows[i]->wrapper());
+      return windows;
+    }
+    
+    /**
+     * Accessor to the active main window.
+     * \return a pointer to the active mainwindow
+     */
+    KTextEditor::MainWindow *activeMainWindow ()
+    {
+      // either return wrapper or nullptr
+      if (KateMainWindow *a = activeKateMainWindow ())
+        return a->wrapper ();
+      return nullptr;
     }
 
   private:

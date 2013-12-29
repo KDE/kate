@@ -68,10 +68,10 @@ namespace Kate
 
   MainWindow *Application::activeMainWindow ()
   {
-    if (!d->app->activeMainWindow())
+    if (!d->app->activeKateMainWindow())
       return 0;
 
-    return d->app->activeMainWindow()->mainWindow();
+    return d->app->activeKateMainWindow()->mainWindow();
   }
 
   const QList<MainWindow*> &Application::mainWindows () const

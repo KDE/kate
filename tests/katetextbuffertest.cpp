@@ -412,3 +412,38 @@ void KateTextBufferTest::nestedFoldingTest()
     QVERIFY(folding.unfoldRange (0));
     QVERIFY(folding.unfoldRange (1));
 }
+
+void KateTextBufferTest::saveFileInUnwritableFolder()
+{
+  const QString folder_name = QString("katetest_%1").arg(QCoreApplication::applicationPid());
+  const QString file_path = QDir::tempPath() + '/' + folder_name + "/foo";
+  Q_ASSERT(QDir::temp().mkdir(folder_name));
+
+  QFile f(file_path);
+  Q_ASSERT(f.open(QIODevice::WriteOnly | QIODevice::Truncate));
+  f.write("1234567890");
+  Q_ASSERT(f.flush());
+  f.close();
+
+  QFile::setPermissions(QDir::tempPath() + '/' + folder_name, QFile::ExeOwner);
+
+  Kate::TextBuffer buffer(0, 1);
+  buffer.setTextCodec(QTextCodec::codecForName("UTF-8"));
+  buffer.setFallbackTextCodec(QTextCodec::codecForName("UTF-8"));
+  bool a, b;
+  buffer.load(file_path, a, b, true);
+  buffer.clear();
+  buffer.startEditing();
+  buffer.insertText (KTextEditor::Cursor (0, 0), "ABC");
+  buffer.finishEditing();
+  qDebug() << buffer.text();
+  buffer.save(file_path);
+
+  f.open(QIODevice::ReadOnly);
+  QCOMPARE(f.readAll(), QByteArray("ABC"));
+  f.close();
+
+  QFile::setPermissions(QDir::tempPath() + '/' + folder_name, QFile::WriteOwner | QFile::ExeOwner);
+  Q_ASSERT(f.remove());
+  Q_ASSERT(QDir::temp().rmdir(folder_name));
+}

@@ -22,6 +22,7 @@
 #define __KATE_MAINWINDOW_H__
 
 #include "katemdi.h"
+#include "kateviewmanager.h"
 
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
@@ -253,13 +254,67 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     inline void showBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.value(view); bar=state.bar();  if (bar) {m_bottomContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_bottomViewBarMapping[view]=state;  m_bottomViewBarContainer->show();}}
     inline void deleteBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_bottomContainerStack->currentWidget()==bar) m_bottomViewBarContainer->hide(); delete bar;}}
 
+  //
+  // KTextEditor::MainWindow interface, get called by invokeMethod from our wrapper object!
+  //
   public Q_SLOTS:
+    /**
+     * get the toplevel widget.
+     * \return the real main window widget.
+     */
+    QWidget *window ()
+    {
+      return this;
+    } 
+    
+    /**
+     * Get a list of all views for this main window.
+     * @return all views
+     */
+    QList<KTextEditor::View *> views ()
+    {
+      return viewManager()->viewList();
+    }
+    
+    /**
+     * Access the active view.
+     * \return active view
+     */
+    KTextEditor::View *activeView ()
+    {
+      return viewManager()->activeView();
+    }
+
+    /**
+     * Activate the view with the corresponding \p document.
+     * If none exist for this document, create one
+     * \param document the document
+     * \return activated view of this document
+     */
+    KTextEditor::View *activateView (KTextEditor::Document *document)
+    {
+      return viewManager()->activateView (document);
+    }
+
+    /**
+     * Open the document \p url with the given \p encoding.
+     * \param url the document's url
+     * \param encoding the preferred encoding. If encoding is QString() the
+     *        encoding will be guessed or the default encoding will be used.
+     * \return a pointer to the created view for the new document, if a document
+     *         with this url is already existing, its view will be activated
+     */
+    KTextEditor::View *openUrl (const QUrl &url, const QString &encoding = QString())
+    {
+      return viewManager()->openUrlWithView (url, encoding);
+    }
+      
     /**
      * Try to create a view bar for the given view.
      * @param view view for which we want an view bar
      * @return suitable widget that can host view bars widgets or nullptr
     */
-    QWidget *createViewBar (KTextEditor::View *view)
+    QWidget *createViewBar (KTextEditor::View *)
     {
       return bottomViewBarContainer ();
     }

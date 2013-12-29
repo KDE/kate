@@ -79,7 +79,17 @@ class KTEXTEDITOR_EXPORT MainWindow : public QObject
        * Get the toplevel widget.
        * \return the real main window widget.
        */
-      QWidget *window () const;
+      QWidget *window ();
+
+  //
+  // Signals related to the main window
+  //
+  Q_SIGNALS:
+      /**
+       * This signal is emitted for every unhandled ShortcutOverride in the window
+       * @param e responsible event
+       */
+      void unhandledShortcutOverride (QEvent *e);
 
   //
   // View access and manipulation interface
@@ -89,13 +99,13 @@ class KTEXTEDITOR_EXPORT MainWindow : public QObject
        * Get a list of all views for this main window.
        * @return all views
        */
-      QList<KTextEditor::View *> views () const;
+      QList<KTextEditor::View *> views ();
       
       /**
        * Access the active view.
        * \return active view
        */
-      KTextEditor::View *activeView () const;
+      KTextEditor::View *activeView ();
 
       /**
        * Activate the view with the corresponding \p document.
@@ -127,14 +137,9 @@ class KTEXTEDITOR_EXPORT MainWindow : public QObject
 
       /**
        * This signal is emitted whenever a new view is created
-       * @since 4.2
+       * @param view view that was created
        */
       void viewCreated (KTextEditor::View * view);
-
-      /**
-       * This signal is emitted for every unhandled ShortcutOverride in a view
-       */
-      void unhandledShortcutOverride (QEvent *e);
 
   //
   // Interface to allow view bars to be constructed in a central place per window

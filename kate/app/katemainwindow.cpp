@@ -366,6 +366,11 @@ void KateMainWindow::setupActions()
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateOpenWith()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateBottomViewBar()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateTopViewBar()));
+  
+  // re-route signals to our wrapper
+  connect (m_viewManager, SIGNAL(viewChanged(KTextEditor::View*)), m_wrapper, SIGNAL(viewChanged(KTextEditor::View*)));
+  connect (m_viewManager, SIGNAL(viewCreated(KTextEditor::View*)), m_wrapper, SIGNAL(viewCreated(KTextEditor::View*)));
+  connect (this, SIGNAL(unhandledShortcutOverride(QEvent*)), m_wrapper, SIGNAL(unhandledShortcutOverride(QEvent*)));
 
   slotWindowActivated ();
 

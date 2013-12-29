@@ -34,7 +34,7 @@ MainWindow::~MainWindow ()
 {
 }
 
-QWidget *MainWindow::window () const
+QWidget *MainWindow::window ()
 {
   /**
    * null check
@@ -53,7 +53,7 @@ QWidget *MainWindow::window () const
   return window;
 }
 
-QList<KTextEditor::View *> MainWindow::views () const
+QList<KTextEditor::View *> MainWindow::views ()
 {
   /**
    * null check
@@ -72,7 +72,7 @@ QList<KTextEditor::View *> MainWindow::views () const
   return views;
 }
       
-KTextEditor::View *MainWindow::activeView () const
+KTextEditor::View *MainWindow::activeView ()
 {
   /**
    * null check

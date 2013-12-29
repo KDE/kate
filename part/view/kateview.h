@@ -886,7 +886,7 @@ public:
     /**
      * The main window responsible for this view, if any
      */
-    KTextEditor::MainWindow *m_mainWindow;
+    QPointer<KTextEditor::MainWindow> m_mainWindow;
 };
 
 /**

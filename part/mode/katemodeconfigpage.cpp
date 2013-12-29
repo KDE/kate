@@ -153,16 +153,13 @@ void ModeConfigPage::update ()
 
   // get current filetype from active view via the host application
   int currentIndex = 0;
-  KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
-  if (iface) {
-    KateView *kv = qobject_cast<KateView*>(iface->activeView());
-    if (kv) {
-      const QString filetypeName = kv->doc()->fileType();
-      for (int i = 0; i < m_types.size(); ++i) {
-        if (filetypeName == m_types[i]->name) {
-          currentIndex = i;
-          break;
-        }
+  KateView *kv = qobject_cast<KateView*>(KateGlobal::self()->application()->activeMainWindow()->activeView ());
+  if (kv) {
+    const QString filetypeName = kv->doc()->fileType();
+    for (int i = 0; i < m_types.size(); ++i) {
+      if (filetypeName == m_types[i]->name) {
+        currentIndex = i;
+        break;
       }
     }
   }

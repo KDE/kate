@@ -29,8 +29,8 @@
 
 #include <KService>
 #include <KAboutData>
+#include <ktexteditor/application.h>
 #include <ktexteditor/commandinterface.h>
-#include <ktexteditor/containerinterface.h>
 #include <ktexteditor/templateinterface2.h>
 #include <QList>
 
@@ -61,11 +61,10 @@ Q_DECLARE_METATYPE(KSharedConfig::Ptr)
  * or view stay around, here is the place to put things
  * which are needed and shared by all this objects ;)
  */
-class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterface, public KTextEditor::ContainerInterface, public KTextEditor::TemplateScriptRegistrar
+class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTextEditor::CommandInterface, public KTextEditor::TemplateScriptRegistrar
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::CommandInterface)
-  Q_INTERFACES(KTextEditor::ContainerInterface)
   Q_INTERFACES(KTextEditor::TemplateScriptRegistrar)
 
   public:
@@ -394,18 +393,6 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      */
     QStringList commandList() const;
 
-
-    /**
-     * Get the currently associated Container object
-     * \return container object
-     */
-    QObject * container();
-
-    /**
-     * Set the associated container object
-     */
-    void setContainer( QObject * container );
-
     /**
      *  TemplateScriptRegistrar interface
      */
@@ -538,11 +525,6 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     QList<KTextEditor::Document*> m_docs;
 
     /**
-     * container interface
-     */
-    QPointer<QObject> m_container;
-
-    /**
      * global instance of the simple word completion mode
      */
     KateWordCompletionModel *m_wordCompletionModel;
@@ -565,7 +547,7 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     /**
      * access to application
      */
-    KTextEditor::Application *m_application;
+    QPointer<KTextEditor::Application> m_application;
 };
 
 #endif

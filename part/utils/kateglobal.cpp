@@ -512,15 +512,6 @@ QStringList KateGlobal::commandList() const
 {return m_cmdManager->commandList();}
 //END command interface
 
-
-//BEGIN container interface
-QObject * KateGlobal::container()
-{return m_container.data();}
-
-void KateGlobal::setContainer( QObject * container )
-{m_container=container;}
-//END container interface
-
 QWidget *KateGlobal::snippetWidget ()
 {
   return snippetGlobal()->snippetWidget ();

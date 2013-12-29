@@ -28,7 +28,6 @@
 #include <ktexteditor/attribute.h>
 #include <ktexteditor/annotationinterface.h>
 #include <ktexteditor/movingrange.h>
-#include <ktexteditor/containerinterface.h>
 #include <ktexteditor/highlightinterface.h>
 #include "kateconfig.h"
 #include "katedocument.h"

@@ -23,7 +23,6 @@ set (KTEXTEDITOR_PUBLIC_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/codecompletionmodel.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/codecompletionmodelcontrollerinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/configinterface.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/containerinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/annotationinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/highlightinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/modeinterface.h
@@ -47,7 +46,7 @@ set (KTEXTEDITOR_PUBLIC_HEADERS ${KTEXTEDITOR_PUBLIC_HEADERS}
 install (FILES ${KTEXTEDITOR_PUBLIC_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
 
 # generate CamelCase headers
-ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface ContainerInterface HighlightInterface MovingCursor Range TextHintInterface
+ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface HighlightInterface MovingCursor Range TextHintInterface
   Cursor MarkInterface MovingInterface RecoveryInterface VariableInterface
   Document  MovingRange SearchInterface View
   Attribute CommandInterface DocumentCursor MessageInterface MovingRangeFeedback SessionConfigInterface

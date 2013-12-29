@@ -22,7 +22,6 @@ Boston, MA 02110-1301, USA.
 #include "kwritemain.h"
 
 #include <ktexteditor/editor.h>
-#include <ktexteditor/containerinterface.h>
 
 #include <QList>
 
@@ -37,12 +36,9 @@ namespace KTextEditor
  * KWrite Application
  * This class represents the core kwrite application object
  */
-class KWriteApp
-  : public QObject
-  , public KTextEditor::MdiContainer
+class KWriteApp : public QObject
 {
-    Q_OBJECT
-    Q_INTERFACES(KTextEditor::MdiContainer)
+  Q_OBJECT
 
   //
   // constructors & accessor to app object
@@ -74,17 +70,6 @@ class KWriteApp
      * Editor instance
      */
     KTextEditor::Editor *editor () { return m_editor; }
-
-  //
-  // KTextEditor::MdiContainer
-  //
-  public:
-    virtual void setActiveView( KTextEditor::View * view );
-    virtual KTextEditor::View * activeView();
-    virtual KTextEditor::Document * createDocument();
-    virtual bool closeDocument( KTextEditor::Document * doc );
-    virtual KTextEditor::View * createView( KTextEditor::Document * doc );
-    virtual bool closeView( KTextEditor::View * view );
 
   private:
     /**

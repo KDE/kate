@@ -42,7 +42,6 @@
 #include "templateinterface.h"
 #include "texthintinterface.h"
 #include "variableinterface.h"
-#include "containerinterface.h"
 
 #include "annotationinterface.h"
 
@@ -191,18 +190,6 @@ ModificationInterface::ModificationInterface ()
 {}
 
 ModificationInterface::~ModificationInterface ()
-{}
-
-ContainerInterface::ContainerInterface ()
-{}
-
-ContainerInterface::~ContainerInterface ()
-{}
-
-MdiContainer::MdiContainer ()
-{}
-
-MdiContainer::~MdiContainer ()
 {}
 
 SearchInterface::SearchInterface()

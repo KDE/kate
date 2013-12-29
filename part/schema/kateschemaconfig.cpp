@@ -631,14 +631,11 @@ KateSchemaConfigHighlightTab::KateSchemaConfigHighlightTab(KateSchemaConfigDefau
 
   // get current highlighting from the host application
   int hl = 0;
-  KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
-  if (iface) {
-    KateView *kv = qobject_cast<KateView*>(iface->activeView());
-    if (kv) {
-      const QString hlName = kv->doc()->highlight()->name();
-      hl = KateHlManager::self()->nameFind(hlName);
-      Q_ASSERT(hl >= 0);
-    }
+  KateView *kv = qobject_cast<KateView*>(KateGlobal::self()->application()->activeMainWindow()->activeView ());
+  if (kv) {
+    const QString hlName = kv->doc()->highlight()->name();
+    hl = KateHlManager::self()->nameFind(hlName);
+    Q_ASSERT(hl >= 0);
   }
   
   hlCombo->setCurrentIndex ( hl );

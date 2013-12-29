@@ -51,12 +51,6 @@ KWriteApp::KWriteApp(const QCommandLineParser &args)
   // read from global config once
   m_editor->readConfig(KSharedConfig::openConfig().data());
 
-  KTextEditor::ContainerInterface *iface =
-    qobject_cast<KTextEditor::ContainerInterface*>(m_editor);
-  if (iface) {
-    iface->setContainer(this);
-  }
-
   init();
 }
 
@@ -173,55 +167,6 @@ void KWriteApp::init()
   if (KWrite::noWindows())
     new KWrite();
 }
-
-//BEGIN KTextEditor::MdiContainer
-void KWriteApp::setActiveView(KTextEditor::View *view)
-{
-  Q_UNUSED(view)
-  // NOTE: not implemented
-}
-
-KTextEditor::View *KWriteApp::activeView()
-{
-  KWrite *window = qobject_cast<KWrite*>(static_cast<QApplication *>(QCoreApplication::instance())->activeWindow());
-  if (window) {
-    return window->view();
-  }
-  return 0;
-//   return KWriteApp::self()->activeMainWindow()->viewManager()->activeView();
-}
-
-KTextEditor::Document *KWriteApp::createDocument()
-{
-  // NOTE: not implemented
-  qCWarning(LOG_KWRITE) << "WARNING: interface call not implemented";
-  return 0;
-}
-
-bool KWriteApp::closeDocument(KTextEditor::Document *doc)
-{
-  Q_UNUSED(doc)
-  // NOTE: not implemented
-  qCWarning(LOG_KWRITE) << "WARNING: interface call not implemented";
-  return false;
-}
-
-KTextEditor::View *KWriteApp::createView(KTextEditor::Document *doc)
-{
-  Q_UNUSED(doc)
-  // NOTE: not implemented
-  qCWarning(LOG_KWRITE) << "WARNING: interface call not implemented";
-  return 0;
-}
-
-bool KWriteApp::closeView(KTextEditor::View *view)
-{
-  Q_UNUSED(view)
-  // NOTE: not implemented
-  qCWarning(LOG_KWRITE) << "WARNING: interface call not implemented";
-  return false;
-}
-//END KTextEditor::MdiContainer
 
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

@@ -124,16 +124,11 @@ void VariableLineEdit::addKateItems(VariableListView* listview)
   KateViewConfig* viewConfig = KateViewConfig::global();
   KateRendererConfig *rendererConfig = KateRendererConfig::global();
 
-  KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
-  if (iface) {
-    activeView = qobject_cast<KateView*>(iface->activeView());
-
-    if (activeView) {
-      activeDoc = activeView->doc();
-      viewConfig = activeView->config();
-      docConfig = activeDoc->config();
-      rendererConfig = activeView->renderer()->config();
-    }
+  if ((activeView = qobject_cast<KateView*>(KateGlobal::self()->application()->activeMainWindow()->activeView ()))) {
+    activeDoc = activeView->doc();
+    viewConfig = activeView->config();
+    docConfig = activeDoc->config();
+    rendererConfig = activeView->renderer()->config();
   }
 
   // Add 'auto-center-lines' to list

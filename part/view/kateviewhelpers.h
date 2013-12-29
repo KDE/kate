@@ -34,7 +34,6 @@
 #include <QTimer>
 #include <QTextLayout>
 
-#include <ktexteditor/containerinterface.h>
 #include <ktexteditor/cursor.h>
 #include "katepartprivate_export.h"
 #include "katetextline.h"

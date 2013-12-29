@@ -95,10 +95,7 @@ QWidget *KateSnippetGlobal::snippetWidget ()
 void KateSnippetGlobal::insertSnippet(Snippet* snippet)
 {
   // query active view, always prefer that!
-  KTextEditor::View *view = 0;
-  KTextEditor::MdiContainer *iface = qobject_cast<KTextEditor::MdiContainer*>(KateGlobal::self()->container());
-  if (iface && iface->activeView())
-    view = iface->activeView();
+  KTextEditor::View *view = KateGlobal::self()->application()->activeMainWindow()->activeView ();
   
   // fallback to stuff set for dialog
   if (!view)

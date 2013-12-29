@@ -29,7 +29,6 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/sessionconfiginterface.h>
 #include <ktexteditor/editor.h>
-#include <ktexteditor/containerinterface.h>
 
 #include <KCodecs>
 #include <KMessageBox>

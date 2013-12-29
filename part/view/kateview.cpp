@@ -606,9 +606,9 @@ void KateView::setupActions()
   ac->addAction("set_eol", a);
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
   QStringList list;
-  list.append("&UNIX");
-  list.append("&Windows/DOS");
-  list.append("&Macintosh");
+  list.append(i18nc("@item:inmenu End of Line", "&UNIX"));
+  list.append(i18nc("@item:inmenu End of Line", "&Windows/DOS"));
+  list.append(i18nc("@item:inmenu End of Line", "&Macintosh"));
   m_setEndOfLine->setItems(list);
   m_setEndOfLine->setCurrentItem (m_doc->config()->eol());
   connect(m_setEndOfLine, SIGNAL(triggered(int)), this, SLOT(setEol(int)));

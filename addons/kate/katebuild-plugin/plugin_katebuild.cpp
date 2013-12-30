@@ -1358,6 +1358,22 @@ void KateBuildView::slotAddProjectTarget()
         m_targetList[index].targets[tgtName] = buildCmd;
     }
 
+    if (targets.empty()) {
+        // support "old" project files
+        QString buildCmd = buildMap.value("build").toString();
+        QString cleanCmd = buildMap.value("clean").toString();
+        QString quickCmd = buildMap.value("quick").toString();
+        if (!buildCmd.isEmpty()) {
+            // we have loaded an "old" project file (<= 4.12)
+            m_targetList[index].cleanTarget = "clean";
+            m_targetList[index].defaultTarget = "build";
+            m_targetList[index].prevTarget = "build";
+            m_targetList[index].targets["build"] = buildCmd;
+            m_targetList[index].targets["clean"] = cleanCmd;
+            m_targetList[index].targets["quick"] = quickCmd;
+        }
+    }
+
     m_targetsUi->targetCombo->addItem(m_targetList[index].name);
     m_targetsUi->deleteTarget->setDisabled(true);
 

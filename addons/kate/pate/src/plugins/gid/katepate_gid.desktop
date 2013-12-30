@@ -29,6 +29,7 @@ Name[zh_TW]=GNU idutils 外掛程式
 Comment=Browse the tokens in a GNU idutils ID file
 Comment[de]=Durchsuchen Sie die Token in einer ID-Datei von „GNU-Idutils“
 Comment[es]=Mostrar los identificadores en un archivo GNU idutils de ID
+Comment[fi]=Selaa GNU idutils -ohjelman ID-tiedoston lausekkeita
 Comment[fr]=Explorer les jetons dans un fichier d'identification GNU idutils
 Comment[gl]=Examina os tokens dun ficheiro de identificadores de GNU idutils
 Comment[ia]=Explora indicios in un file de GNU idutils ID

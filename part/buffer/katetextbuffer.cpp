@@ -735,7 +735,7 @@ bool TextBuffer::save (const QString &filename)
   /**
    * try to open, if new file
    */
-  if (!file.open (QIODevice::WriteOnly | QIODevice::Truncate))
+  if (!file.open (QIODevice::WriteOnly))
     return false;
 
   /**

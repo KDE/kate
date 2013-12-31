@@ -590,6 +590,12 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     KateMatch match(m_view->doc(), enabledOptions);
     Range afterReplace = Range::invalid();
 
+    // FIXME: in KF5 remove dependency on viInputMode
+    if (m_view->viInputMode() && searchDirection == SearchBackward) {
+        const Cursor end(inputRange.end().line(), inputRange.end().column() - 1);
+        inputRange.setRange(inputRange.start(), end);
+    }
+
     // Find, first try
     match.searchText(inputRange, searchPattern());
     if (match.isValid() && match.range() == selection) {

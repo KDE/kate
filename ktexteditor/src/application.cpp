@@ -72,4 +72,104 @@ KTextEditor::MainWindow *Application::activeMainWindow ()
   return window;
 }
 
+QList<KTextEditor::Document *> Application::documents ()
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return QList<KTextEditor::Document *> ();
+  
+  /**
+   * dispatch to parent
+   */
+  QList<KTextEditor::Document *> documents;
+  QMetaObject::invokeMethod (parent()
+    , "documents"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (QList<KTextEditor::Document *>, documents));
+  return documents;
+}
+
+KTextEditor::Document *Application::findUrl (const QUrl &url)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  KTextEditor::Document *document = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "findUrl"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (KTextEditor::Document *, document)
+    , Q_ARG (const QUrl &, url));
+  return document;
+}
+
+KTextEditor::Document *Application::openUrl (const QUrl &url, const QString &encoding)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  KTextEditor::Document *document = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "openUrl"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (KTextEditor::Document *, document)
+    , Q_ARG (const QUrl &, url)
+    , Q_ARG (const QString &, encoding));
+  return document;
+}
+
+bool Application::closeDocument (KTextEditor::Document *document)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return false;
+  
+  /**
+   * dispatch to parent
+   */
+  bool success = false;
+  QMetaObject::invokeMethod (parent()
+    , "closeDocument"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (bool, success)
+    , Q_ARG (KTextEditor::Document *, document));
+  return success;
+}
+
+bool Application::closeDocuments (const QList<KTextEditor::Document *> &documents)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return false;
+  
+  /**
+   * dispatch to parent
+   */
+  bool success = false;
+  QMetaObject::invokeMethod (parent()
+    , "closeDocuments"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (bool, success)
+    , Q_ARG (const QList<KTextEditor::Document *> &, documents));
+  return success;
+}
+
 } // namespace KTextEditor

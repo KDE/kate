@@ -28,7 +28,8 @@
 
 namespace KTextEditor
 {
-  
+
+class Document;
 class MainWindow;
   
 /**
@@ -79,6 +80,78 @@ class KTEXTEDITOR_EXPORT Application : public QObject
        * \return a pointer to the active mainwindow
        */
       KTextEditor::MainWindow *activeMainWindow ();
+      
+  //
+  // Document related accessors
+  //
+  public:
+      /**
+       * Get a list of all documents that are managed by the application.
+       * This might contain less documents than the editor has in his documents () list.
+       * @return all documents the application manages
+       */
+      QList<KTextEditor::Document *> documents ();
+
+      /**
+       * Get the document with the URL \p url.
+       * if multiple documents match the searched url, return the first found one...
+       * \param url the document's URL
+       * \return the document with the given \p url or NULL, if none found
+       */
+      KTextEditor::Document *findUrl (const QUrl &url);
+
+      /**
+       * Open the document \p url with the given \p encoding.
+       * if the url is empty, a new empty document will be created
+       * \param url the document's url
+       * \param encoding the preferred encoding. If encoding is QString() the
+       *        encoding will be guessed or the default encoding will be used.
+       * \return a pointer to the created document
+       */
+      KTextEditor::Document *openUrl (const QUrl &url, const QString &encoding = QString());
+
+      /**
+       * Close the given \p document. If the document is modified, user will be asked if he wants that.
+       * \param document the document to be closed
+       * \return \e true on success, otherwise \e false
+       */
+      bool closeDocument (KTextEditor::Document *document);
+
+      /**
+       * Close a list of documents. If any of them are modified, user will be asked if he wants that.
+       * Use this, if you want to close multiple documents at once, as the application might
+       * be able to group the "do you really want that" dialogs into one.
+       * \param documents list of documents to be closed
+       * \return \e true on success, otherwise \e false
+       */
+      bool closeDocuments (const QList<KTextEditor::Document *> &documents);
+
+    Q_SIGNALS:
+      /**
+       * This signal is emitted when the \p document was created.
+       * 
+       * @param document document that was created
+       */
+      void documentCreated (KTextEditor::Document *document);
+
+      /**
+       * This signal is emitted before a \p document which should be closed is deleted
+       * The document is still accessible and usable, but it will be deleted
+       * after this signal was send.
+       * 
+       * @param document document that will be deleted
+       */
+      void documentWillBeDeleted (KTextEditor::Document *document);
+
+      /**
+       * This signal is emitted when the \p document has been deleted.
+       *
+       * Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID
+       * Use the pointer only to remove mappings in hash or maps
+       * 
+       * @param document document that is deleted
+       */
+      void documentDeleted (KTextEditor::Document *document);
 
   private:
     /**

@@ -266,6 +266,15 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     {
       return this;
     } 
+      
+    /**
+     * Accessor to the XMLGUIFactory.
+     * \return the mainwindow's KXMLGUIFactory.
+     */
+    KXMLGUIFactory *guiFactory ()
+    {
+      return KateMDI::MainWindow::guiFactory ();
+    }
     
     /**
      * Get a list of all views for this main window.

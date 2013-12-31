@@ -30,6 +30,8 @@ class QEvent;
 class QUrl;
 class QWidget;
 
+class KXMLGUIFactory;
+
 namespace KTextEditor
 {
   
@@ -80,6 +82,12 @@ class KTEXTEDITOR_EXPORT MainWindow : public QObject
        * \return the real main window widget.
        */
       QWidget *window ();
+      
+      /**
+       * Accessor to the XMLGUIFactory.
+       * \return the mainwindow's KXMLGUIFactory.
+       */
+      KXMLGUIFactory *guiFactory ();
 
   //
   // Signals related to the main window

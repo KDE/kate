@@ -28,6 +28,8 @@
 
 namespace KTextEditor
 {
+  
+class MainWindow;
 
 /**
  * \brief KTextEditor Plugin interface.
@@ -106,7 +108,7 @@ class KTEXTEDITOR_EXPORT ApplicationPlugin : public QObject
     /**
      * Constructor.
      *
-     * Create a new plugin.
+     * Create a new application plugin.
      * \param parent parent object
      */
     ApplicationPlugin ( QObject *parent );
@@ -115,6 +117,17 @@ class KTEXTEDITOR_EXPORT ApplicationPlugin : public QObject
      * Virtual destructor.
      */
     virtual ~ApplicationPlugin ();
+
+    /**
+     * Create a new View for this plugin for the given KTextEditor::MainWindow
+     * This may be called arbitrary often by the application to create as much
+     * views as mainwindows are around, the application will take care to delete
+     * this views if mainwindows close, you don't need to handle this yourself in
+     * the plugin.
+     * \param mainWindow the MainWindow for which a view should be created
+     * \return the new created view or NULL
+     */
+    virtual QObject *createView (KTextEditor::MainWindow *mainWindow) = 0;
 
   private:
     class ApplicationPluginPrivate* const d;

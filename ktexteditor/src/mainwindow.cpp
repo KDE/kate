@@ -21,6 +21,8 @@
 
 #include <ktexteditor/mainwindow.h>
 
+#include <KXMLGUIFactory>
+
 namespace KTextEditor
 {
 
@@ -51,6 +53,25 @@ QWidget *MainWindow::window ()
     , Qt::DirectConnection
     , Q_RETURN_ARG (QWidget *, window));
   return window;
+}
+
+KXMLGUIFactory *MainWindow::guiFactory ()
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  KXMLGUIFactory *guiFactory = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "guiFactory"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (KXMLGUIFactory *, guiFactory));
+  return guiFactory;
 }
 
 QList<KTextEditor::View *> MainWindow::views ()

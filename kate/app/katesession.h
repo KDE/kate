@@ -457,6 +457,7 @@ class KateSessionsAction : public KActionMenu
     void slotAboutToShow();
 
     void openSession (QAction *action);
+    void slotSessionChanged();
 
   private:
     QActionGroup *sessionsGroup;

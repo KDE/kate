@@ -20,6 +20,7 @@
  */
 
 #include <ktexteditor/application.h>
+#include <ktexteditor/applicationplugin.h>
 
 namespace KTextEditor
 {
@@ -170,6 +171,26 @@ bool Application::closeDocuments (const QList<KTextEditor::Document *> &document
     , Q_RETURN_ARG (bool, success)
     , Q_ARG (const QList<KTextEditor::Document *> &, documents));
   return success;
+}
+
+ApplicationPlugin *Application::plugin (const QString &name)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  ApplicationPlugin *plugin = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "plugin"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (ApplicationPlugin *, plugin)
+    , Q_ARG (const QString &, name));
+  return plugin;
 }
 
 } // namespace KTextEditor

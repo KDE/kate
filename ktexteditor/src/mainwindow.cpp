@@ -327,4 +327,24 @@ bool MainWindow::hideToolView (QWidget *widget)
   return success;
 }
 
+QObject *MainWindow::pluginView (const QString &name)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  QObject *pluginView = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "pluginView"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (QObject *, pluginView)
+    , Q_ARG (const QString &, name));
+  return pluginView;
+}
+
 } // namespace KTextEditor

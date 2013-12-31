@@ -29,6 +29,7 @@
 namespace KTextEditor
 {
 
+class ApplicationPlugin;
 class Document;
 class MainWindow;
   
@@ -152,6 +153,40 @@ class KTEXTEDITOR_EXPORT Application : public QObject
        * @param document document that is deleted
        */
       void documentDeleted (KTextEditor::Document *document);
+    
+  //
+  // Application plugin accessors
+  //
+  public:
+    /**
+     * Get a plugin for the plugin with with identifier \p name.
+     * \param name the plugin's name
+     * \return pointer to the plugin if a plugin with \p name is loaded, otherwise nullptr
+     */
+    ApplicationPlugin *plugin (const QString &name);
+    
+  //
+  // Signals related to application plugins
+  //
+  Q_SIGNALS:
+    /**
+     * This signal is emitted when an ApplicationPlugin was loaded.
+     *
+     * @param name name of plugin
+     * @param plugin the new plugin
+     */
+    void pluginCreated (const QString &name, KTextEditor::ApplicationPlugin *plugin);
+
+    /**
+     * This signal is emitted when an ApplicationPlugin got deleted.
+     *
+     * @param name name of plugin
+     * @param plugin the deleted plugin
+     *
+     * Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID
+     * Use the pointer only to remove mappings in hash or maps
+     */
+    void pluginDeleted (const QString &name, KTextEditor::ApplicationPlugin *plugin);
 
   private:
     /**

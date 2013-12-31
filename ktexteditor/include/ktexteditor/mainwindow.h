@@ -243,6 +243,41 @@ class KTEXTEDITOR_EXPORT MainWindow : public QObject
      */
     bool hideToolView (QWidget *widget);
     
+  //
+  // Application plugin accessors
+  //
+  public:
+    /**
+     * Get a plugin view for the plugin with with identifier \p name.
+     * \param name the plugin's name
+     * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,
+     *         otherwise NULL
+     */
+    QObject *pluginView (const QString &name);
+    
+  //
+  // Signals related to application plugins
+  //
+  Q_SIGNALS:
+    /**
+     * This signal is emitted when the view of some ApplicationPlugin is created for this main window.
+     *
+     * @param name name of plugin
+     * @param pluginView the new plugin view
+     */
+    void pluginViewCreated (const QString &name, QObject *pluginView);
+
+    /**
+     * This signal is emitted when the view of some ApplicationPlugin got deleted.
+     *
+     * @param name name of plugin
+     * @param pluginView the deleted plugin view
+     *
+     * Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID
+     * Use the pointer only to remove mappings in hash or maps
+     */
+    void pluginViewDeleted (const QString &name, QObject *pluginView);
+    
   private:
     /**
      * Private d-pointer class is our best friend ;)

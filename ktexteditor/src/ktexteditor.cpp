@@ -103,17 +103,6 @@ bool View::insertText (const QString &text )
   return doc->insertText(cursorPosition(),text,blockSelection());
 }
 
-#ifndef KDE_NO_DEPRECATED
-Plugin *KTextEditor::createPlugin ( KService::Ptr service, QObject *parent )
-{
-  QString error;
-  Plugin* plugin = service->createInstance<KTextEditor::Plugin>(parent, QVariantList(), &error);
-  if (!plugin)
-    qWarning() << error; // TODO: would be nice to have a qCWarning here, but it seems like overkill
-  return plugin;
-}
-#endif
-
 struct KTextEditorFactorySet : public QSet<KPluginFactory*>
 {
   KTextEditorFactorySet();

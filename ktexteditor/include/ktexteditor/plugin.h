@@ -190,22 +190,6 @@ class KTEXTEDITOR_EXPORT Plugin : public QObject
     class PluginPrivate* const d;
 };
 
-/**
- * Create a plugin represented by \p service with parent object \p parent.
- * To get the KService object you usually use KServiceTypeTrader. Example
- * \code
- * KService::List list = KServiceTypeTrader::self()->query("KTextEditor/Plugin");
- *
- * foreach(const KService::Ptr &service, list) {
- *   // do something with service
- * }
- * \endcode
- * \return the plugin or NULL if it could not be loaded
- */
-#ifndef KDE_NO_DEPRECATED
-KTEXTEDITOR_DEPRECATED_EXPORT Plugin *createPlugin ( KService::Ptr service, QObject *parent );
-#endif
-
 }
 
 #endif

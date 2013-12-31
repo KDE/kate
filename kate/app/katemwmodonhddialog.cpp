@@ -255,9 +255,11 @@ void KateMwModOnHdDialog::slotDiff()
   m_proc->start();
 
   QTextStream ts(m_proc);
-  int lastln = doc->lines();
-  for ( int l = 0; l < lastln; ++l )
+  int lastln = doc->lines() - 1;
+  for ( int l = 0; l < lastln; ++l ) {
     ts << doc->line( l ) << '\n';
+  }
+  ts << doc->line(lastln);
   ts.flush();
   m_proc->closeWriteChannel();
 }
@@ -290,7 +292,7 @@ void KateMwModOnHdDialog::slotPDone()
   if ( m_diffFile->size() == 0 )
   {
     KMessageBox::information( this,
-                              i18n("Besides white space changes, the files are identical."),
+                              i18n("Ignoring amount of white space changed, the files are identical."),
                               i18n("Diff Output") );
     delete m_diffFile;
     m_diffFile = 0;

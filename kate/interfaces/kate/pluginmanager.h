@@ -26,6 +26,9 @@
 
 namespace Kate
 {
+
+class Plugin;
+  
   /**
    * \brief Interface to the plugin manager.
    *
@@ -65,46 +68,6 @@ namespace Kate
        * Virtual destructor.
        */
       virtual ~PluginManager ();
-
-    public:
-      /**
-       * Get a plugin with identifier \p name.
-       * \param name the plugin's name
-       * \return pointer to the plugin if a plugin with \p name is loaded,
-       *         otherwise NULL
-       */
-      class Plugin *plugin (const QString &name);
-
-      /**
-       * Check, whether a plugin with \p name exists.
-       *
-       * \return \e true if the plugin exists, otherwise \e false
-       */
-      bool pluginAvailable (const QString &name);
-
-      /**
-       * Load the plugin \p name.
-       *
-       * If the plugin does not exist the return value is NULL.
-       * \param name the plugin name
-       * \param permanent if \e true the plugin will be loaded at the next Kate
-       *        startup, otherwise it will only be loaded temporarily during the
-       *        current session.
-       * \return pointer to the plugin on success, otherwise NULL
-       * \see unloadPlugin()
-       */
-      class Plugin *loadPlugin (const QString &name, bool permanent = true);
-
-      /**
-       * Unload the plugin \p name.
-       *
-       * \param name the plugin name
-       * \param permanent if \e true the plugin will \e not be loaded on the
-       *        next Kate startup, \e even if it was loaded with permanent set
-       *        to \e true.
-       * \see loadPlugin()
-       */
-      void unloadPlugin (const QString &name, bool permanent = true);
 
     Q_SIGNALS:
       /**

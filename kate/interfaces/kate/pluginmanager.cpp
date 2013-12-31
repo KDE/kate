@@ -51,26 +51,6 @@ namespace Kate
     delete d;
   }
 
-  Plugin *PluginManager::plugin(const QString &name)
-  {
-    return d->pluginMan->plugin(name);
-  }
-
-  bool PluginManager::pluginAvailable(const QString &name)
-  {
-    return d->pluginMan->pluginAvailable (name);
-  }
-
-  Plugin *PluginManager::loadPlugin(const QString &name, bool permanent)
-  {
-    return d->pluginMan->loadPlugin (name, permanent);
-  }
-
-  void PluginManager::unloadPlugin(const QString &name, bool permanent)
-  {
-    d->pluginMan->unloadPlugin (name, permanent);
-  }
-
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

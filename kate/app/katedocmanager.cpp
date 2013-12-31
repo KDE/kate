@@ -158,6 +158,7 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
   qCDebug(LOG_KATE)<<"deleting document with name:"<<doc->documentName();
 
   // document will be deleted, soon
+  emit documentWillBeDeleted (doc);
   emit m_documentManager->documentWillBeDeleted (doc);
 
   // really delete the document and its infos

@@ -262,6 +262,62 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
         return a->wrapper ();
       return nullptr;
     }
+      
+    /**
+     * Get a list of all documents that are managed by the application.
+     * This might contain less documents than the editor has in his documents () list.
+     * @return all documents the application manages
+     */
+    QList<KTextEditor::Document *> documents ()
+    {
+      return m_docManager->documentList ();
+    }
+
+    /**
+     * Get the document with the URL \p url.
+     * if multiple documents match the searched url, return the first found one...
+     * \param url the document's URL
+     * \return the document with the given \p url or NULL, if none found
+     */
+    KTextEditor::Document *findUrl (const QUrl &url)
+    {
+      return m_docManager->findDocument (url);
+    }
+
+    /**
+     * Open the document \p url with the given \p encoding.
+     * if the url is empty, a new empty document will be created
+     * \param url the document's url
+     * \param encoding the preferred encoding. If encoding is QString() the
+     *        encoding will be guessed or the default encoding will be used.
+     * \return a pointer to the created document
+     */
+    KTextEditor::Document *openUrl (const QUrl &url, const QString &encoding = QString())
+    {
+      return m_docManager->openUrl (url, encoding);
+    }
+
+    /**
+     * Close the given \p document. If the document is modified, user will be asked if he wants that.
+     * \param document the document to be closed
+     * \return \e true on success, otherwise \e false
+     */
+    bool closeDocument (KTextEditor::Document *document)
+    {
+      return m_docManager->closeDocument (document);
+    }
+
+    /**
+     * Close a list of documents. If any of them are modified, user will be asked if he wants that.
+     * Use this, if you want to close multiple documents at once, as the application might
+     * be able to group the "do you really want that" dialogs into one.
+     * \param documents list of documents to be closed
+     * \return \e true on success, otherwise \e false
+     */
+    bool closeDocuments (const QList<KTextEditor::Document *> &documents)
+    {
+      return m_docManager->closeDocumentList (documents);
+    }
 
   private:
     /**

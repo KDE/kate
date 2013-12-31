@@ -170,6 +170,15 @@ class KateDocManager : public QObject
     void documentCreated (KTextEditor::Document *document);
 
     /**
+     * This signal is emitted before a \p document which should be closed is deleted
+     * The document is still accessible and usable, but it will be deleted
+     * after this signal was send.
+     * 
+     * @param document document that will be deleted
+     */
+    void documentWillBeDeleted (KTextEditor::Document *document);
+
+    /**
      * This signal is emitted when the \p document has been deleted.
      *    
      *  Warning !!! DO NOT ACCESS THE DATA REFERENCED BY THE POINTER, IT IS ALREADY INVALID

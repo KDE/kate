@@ -71,6 +71,13 @@ KateApp::KateApp(const QCommandLineParser &args)
   m_adaptor = new KateAppAdaptor( this );
 
   m_appCommands = KateAppCommands::self();
+  
+  /**
+   * re-route some signals to application wrapper
+   */
+  connect (m_docManager, SIGNAL(documentCreated(KTextEditor::Document*)), m_wrapper, SIGNAL(documentCreated(KTextEditor::Document*)));
+  connect (m_docManager, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)), m_wrapper, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)));
+  connect (m_docManager, SIGNAL(documentDeleted(KTextEditor::Document*)), m_wrapper, SIGNAL(documentDeleted(KTextEditor::Document*)));
 }
 
 KateApp::~KateApp ()

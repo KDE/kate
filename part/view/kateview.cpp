@@ -585,6 +585,11 @@ void KateView::setupActions()
         "wrap column as defined in the editing properties" ));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleWWMarker()));
 
+  a = m_toggleNPSpaces = new KToggleAction(i18n("Show Non-Printable Spaces"), this);
+  ac->addAction("view_non_printable_spaces", a);
+  a->setWhatsThis(i18n("Show/hide bounding box around non-printable spaces"));
+  connect(a, SIGNAL(triggered(bool)), SLOT(toggleNPSpaces()));
+
   a = m_switchCmdLine = ac->addAction("switch_to_cmd_line");
   a->setText(i18n("Switch to Command Line"));
   a->setShortcut(QKeySequence(Qt::Key_F7));
@@ -1446,6 +1451,12 @@ void KateView::toggleDynWordWrap()
 void KateView::toggleWWMarker()
 {
   m_renderer->config()->setWordWrapMarker (!m_renderer->config()->wordWrapMarker());
+}
+
+void KateView::toggleNPSpaces()
+{
+  m_renderer->setShowNonPrintableSpaces(!m_renderer->showNonPrintableSpaces());
+  m_viewInternal->update(); // force redraw
 }
 
 void KateView::setFoldingMarkersOn( bool enable )

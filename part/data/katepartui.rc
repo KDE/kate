@@ -54,6 +54,7 @@
     <Action name="view_scrollbar_minimap" group="view_operations" />
     <Action name="view_scrollbar_minimap_all" group="view_operations" />
     <Separator group="view_operations" />
+    <Action name="view_non_printable_spaces" group="view_operations" />
     <Action name="view_folding_markers" group="view_operations" />
     <Menu name="codefolding" group="view_operations"><text>&amp;Code Folding</text>
       <Action name="folding_collapselocal" group="view_operations" />

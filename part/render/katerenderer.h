@@ -157,6 +157,16 @@ public:
     void setShowTrailingSpaces(bool showSpaces);
 
     /**
+     * @returns whether non-printable spaces should be shown
+     */
+    inline bool showNonPrintableSpaces() const { return m_showNonPrintableSpaces; }
+
+    /**
+     * Set whether box should be drawn around non-printable spaces
+     */
+    void setShowNonPrintableSpaces(const bool showNonPrintableSpaces);
+
+    /**
      * Sets the width of the tab. Helps performance.
      * @param tabWidth new tab width
      */
@@ -323,6 +333,11 @@ public:
      */
     void paintNonBreakSpace(QPainter &paint, qreal x, qreal y);
 
+    /**
+     * Paint non printable spaces bounding box
+     */
+    void paintNonPrintableSpaces(QPainter &paint, qreal x, qreal y, const QChar &chr);
+
     /** Paint a SciTE-like indent marker. */
     void paintIndentMarker(QPainter &paint, uint x, uint y);
 
@@ -346,6 +361,7 @@ public:
     bool m_showSelections;
     bool m_showTabs;
     bool m_showSpaces;
+    bool m_showNonPrintableSpaces;
     bool m_printerFriendly;
     QColor m_caretOverrideColor;
 

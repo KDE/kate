@@ -559,6 +559,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void toggleInsert();
     void reloadFile();
     void toggleWWMarker();
+    void toggleNPSpaces();
     void toggleWriteLock();
     void switchToCmdLine ();
     void switchToConsole ();
@@ -617,6 +618,7 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KToggleAction*         m_toggleDynWrap;
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
+    KToggleAction*         m_toggleNPSpaces;
     QAction*               m_switchCmdLine;
     QAction*               m_switchConsole;
     KToggleAction*         m_viInputModeAction;

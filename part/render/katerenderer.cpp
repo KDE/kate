@@ -39,12 +39,14 @@
 #include <QTextLine>
 #include <QStack>
 #include <QBrush>
+#include <QRegularExpression>
 
 #include <ktexteditor/highlightinterface.h>
 
 static const QChar tabChar('\t');
 static const QChar spaceChar(' ');
 static const QChar nbSpaceChar(0xa0); // non-breaking space
+static const QRegularExpression nonPrintableSpacesRegExp("[\\x{2000}-\\x{200F}\\x{2028}-\\x{202F}\\x{205F}-\\x{2064}\\x{206A}-\\x{206F}]");
 
 KateRenderer::KateRenderer(KateDocument* doc, Kate::TextFolding &folding, KateView *view)
   : m_doc(doc)
@@ -57,6 +59,7 @@ KateRenderer::KateRenderer(KateDocument* doc, Kate::TextFolding &folding, KateVi
     , m_showSelections(true)
     , m_showTabs(true)
     , m_showSpaces(true)
+    , m_showNonPrintableSpaces(false)
     , m_printerFriendly(false)
     , m_config(new KateRendererConfig(this))
 {
@@ -110,6 +113,11 @@ void KateRenderer::setShowTabs(bool showTabs)
 void KateRenderer::setShowTrailingSpaces(bool showSpaces)
 {
   m_showSpaces = showSpaces;
+}
+
+void KateRenderer::setShowNonPrintableSpaces(const bool on)
+{
+  m_showNonPrintableSpaces = on;
 }
 
 void KateRenderer::setTabWidth(int tabWidth)
@@ -291,6 +299,31 @@ void KateRenderer::paintNonBreakSpace(QPainter &paint, qreal x, qreal y)
   points[5] = QPoint(x+width-width/10, y+height/4);
   paint.drawLines(points, 3);
   paint.setPen( penBackup );
+}
+
+void KateRenderer::paintNonPrintableSpaces(QPainter& paint, qreal x, qreal y, const QChar &chr)
+{
+  paint.save();
+  QPen pen(config()->spellingMistakeLineColor());
+  pen.setWidthF(qMax(1.0, spaceWidth() * 0.1));
+  paint.setPen(pen);
+  paint.setRenderHint(QPainter::Antialiasing, false);
+
+  const int height = fontHeight();
+  const int width = config()->fontMetrics().width(chr);
+  const int offset = spaceWidth() * 0.1;
+
+  QPoint points[8];
+  points[0] = QPoint(x - offset, y + offset);
+  points[1] = QPoint(x + width + offset, y + offset);
+  points[2] = QPoint(x + width + offset, y + offset);
+  points[3] = QPoint(x + width + offset, y - height - offset);
+  points[4] = QPoint(x + width + offset, y - height - offset);
+  points[5] = QPoint(x - offset, y - height - offset);
+  points[6] = QPoint(x - offset, y - height - offset);
+  points[7] = QPoint(x - offset, y + offset);
+  paint.drawLines(points, 4);
+  paint.restore();
 }
 
 void KateRenderer::paintIndentMarker(QPainter &paint, uint x, uint y /*row*/)
@@ -683,6 +716,23 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
               paintTrailingSpace(paint, line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2.0, y);
             --spaceIndex;
           }
+        }
+      }
+
+      if (showNonPrintableSpaces()) {
+        const int y = lineHeight() * i + fm.ascent();
+
+        QRegularExpressionMatchIterator i = nonPrintableSpacesRegExp.globalMatch(text, line.lineLayout().xToCursor(xStart));
+
+        while (i.hasNext()) {
+          const int charIndex = i.next().capturedStart();
+
+          const int x = line.lineLayout().cursorToX(charIndex);
+          if (x > xEnd) {
+            break;
+          }
+
+          paintNonPrintableSpaces(paint, x - xStart, y, text[charIndex]);
         }
       }
     }

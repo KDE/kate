@@ -25,6 +25,10 @@
 class QTreeView;
 class KLineEdit;
 class KateMainWindow;
+class KLineEdit;
+
+class QListView;
+class QModelIndex;
 class QStandardItemModel;
 class QSortFilterProxyModel;
 
@@ -38,6 +42,11 @@ class KateQuickOpen : public QWidget {
          */
         void update ();
 
+        /**
+         * super fast quick switch
+         */
+        void justSwitchToPreviousDocument ();
+
     protected:
         bool eventFilter(QObject *obj, QEvent *event);
 
@@ -49,6 +58,11 @@ class KateQuickOpen : public QWidget {
          * and go back to background
          */
         void slotReturnPressed ();
+
+        /**
+         * Switch to a document with given index
+         */
+        void switchTo (const QModelIndex&);
 
     private:
         KateMainWindow *m_mainWindow;

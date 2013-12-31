@@ -214,6 +214,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     /**
      * Show quick open
      */
+    void slotPreQuickOpen ();
     void slotQuickOpen ();
     
     void tipOfTheDay();
@@ -390,7 +391,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * quick open to fast switch documents
      */
     KateQuickOpen *m_quickOpen;
-    
+
     /**
      * keeps track of views
      */

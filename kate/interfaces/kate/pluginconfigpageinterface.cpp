@@ -41,24 +41,14 @@ namespace Kate
   PluginConfigPage::~PluginConfigPage ()
   { }
 
-  unsigned int PluginConfigPageInterface::globalPluginConfigPageInterfaceNumber = 0;
-
   PluginConfigPageInterface::PluginConfigPageInterface()
   {
-    globalPluginConfigPageInterfaceNumber++;
-    myPluginConfigPageInterfaceNumber = globalPluginConfigPageInterfaceNumber++;
-
     d = new PrivatePluginConfigPageInterface();
   }
 
   PluginConfigPageInterface::~PluginConfigPageInterface()
   {
     delete d;
-  }
-
-  unsigned int PluginConfigPageInterface::pluginConfigPageInterfaceNumber () const
-  {
-    return myPluginConfigPageInterfaceNumber;
   }
 
   PluginConfigPageInterface *pluginConfigPageInterface (Plugin *plugin)

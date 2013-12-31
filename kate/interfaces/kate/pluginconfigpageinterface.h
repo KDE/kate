@@ -139,13 +139,6 @@ namespace Kate
        */
       virtual ~PluginConfigPageInterface();
 
-      /**
-       * For internal reason every config page interface has a unique global
-       * number.
-       * \return unique identifier
-       */
-      unsigned int pluginConfigPageInterfaceNumber () const;
-
       //
       // slots !!!
       //
@@ -196,8 +189,6 @@ namespace Kate
 
     private:
       class PrivatePluginConfigPageInterface *d;
-      static unsigned int globalPluginConfigPageInterfaceNumber;
-      unsigned int myPluginConfigPageInterfaceNumber;
   };
 
   class Plugin;

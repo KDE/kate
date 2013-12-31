@@ -577,3 +577,23 @@ def _dynamic_namespace(params, match):
         assert(len(namespaces) < pos)
         data['padding'] = ' ' * (pos - len(namespaces))
     return data
+
+
+@expand.dynamic(re.compile('^st(?P<template>t(?P<tarity>[0-9]+)?)?'))
+@expand.jinja('struct.cpp.tpl')
+@expand.postprocess
+def _dynamic_struct(params, match):
+    kate.kDebug('@dynamic `struct`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['entity_type'] = 'struct'
+    data['entity_name'] = 'name'
+
+    data['template'] = match.group('template') is not None
+    if data['template']:
+        tarity = int(match.group('tarity')) if match.group('tarity') is not None else 1
+        template_params = []
+        for tp in range(0, tarity):
+            template_params.append('T{}'.format(tp))
+        data['template_params'] = template_params
+
+    return data

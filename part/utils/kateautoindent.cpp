@@ -86,7 +86,7 @@ QString KateAutoIndent::modeDescription (int mode)
   if (mode == 1)
     return i18nc ("Autoindent mode", "Normal");
 
-  return KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->indentHeader().name();
+  return i18nc ("Autoindent mode", KateGlobal::self()->scriptManager()->indentationScriptByIndex(mode-2)->indentHeader().name().toUtf8());
 }
 
 QString KateAutoIndent::modeRequiredStyle(int mode)

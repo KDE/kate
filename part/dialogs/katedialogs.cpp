@@ -1595,6 +1595,8 @@ void KateModOnHdPrompt::slotDiff()
   // Start a KProcess that creates a diff
   m_proc = new KProcess( this );
   m_proc->setOutputChannelMode( KProcess::MergedChannels );
+  qDebug() << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
+     << "-" <<  m_doc->url().toLocalFile();
   *m_proc << "diff" << QString(ui->chkIgnoreWhiteSpaces->isChecked() ? "-ub" : "-u")
      << "-" <<  m_doc->url().toLocalFile();
   connect( m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()) );
@@ -1608,9 +1610,11 @@ void KateModOnHdPrompt::slotDiff()
   m_proc->start();
 
   QTextStream ts(m_proc);
-  int lastln = m_doc->lines();
-  for ( int l = 0; l < lastln; ++l )
+  int lastln = m_doc->lines() - 1;
+  for ( int l = 0; l < lastln; ++l ) {
     ts << m_doc->line( l ) << '\n';
+  }
+  ts << m_doc->line(lastln);
   ts.flush();
   m_proc->closeWriteChannel();
 }
@@ -1643,9 +1647,15 @@ void KateModOnHdPrompt::slotPDone()
 
   if ( m_diffFile->size() == 0 )
   {
-    KMessageBox::information( this,
-                              i18n("Besides white space changes, the files are identical."),
-                              i18n("Diff Output") );
+    if (ui->chkIgnoreWhiteSpaces->isChecked()) {
+      KMessageBox::information( this,
+                                i18n("The files are identical."),
+                                i18n("Diff Output") );
+    } else {
+      KMessageBox::information( this,
+                                i18n("Ignoring amount of white space changed, the files are identical."),
+                                i18n("Diff Output") );
+    }
     delete m_diffFile;
     m_diffFile = 0;
     return;

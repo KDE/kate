@@ -723,7 +723,7 @@ bool TextBuffer::save (const QString &filename)
   QSaveFile saveFile(filename);
   saveFile.setDirectWriteFallback(true);
 
-  if (!saveFile.open(QIODevice::WriteOnly))
+  if (!saveFile.open(QIODevice::WriteOnly | QIODevice::Truncate))
     return false;
 
   /**
@@ -735,9 +735,8 @@ bool TextBuffer::save (const QString &filename)
   /**
    * try to open, if new file
    */
-  if (!file.open (QIODevice::WriteOnly)) {
+  if (!file.open (QIODevice::WriteOnly | QIODevice::Truncate)) {
     return false;
-  }
 
   /**
    * construct stream + disable Unicode headers

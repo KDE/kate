@@ -39,6 +39,7 @@ class KateTextBufferTest : public QObject
     void cursorTest();
     void foldingTest();
     void nestedFoldingTest();
+    void saveFileInUnwritableFolder();
 };
 
 #endif // KATEBUFFERTEST_H

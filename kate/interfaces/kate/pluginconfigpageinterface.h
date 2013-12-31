@@ -21,6 +21,8 @@
 
 #include <kateinterfaces_export.h>
 
+#include <ktexteditor/configpage.h>
+
 #include <QIcon>
 #include <QPixmap>
 #include <QWidget>
@@ -42,59 +44,7 @@ namespace Kate
    * \see Plugin, PluginConfigPageInterface
    * \author Christoph Cullmann \<cullmann@kde.org\>
    */
-  class KATEINTERFACES_EXPORT PluginConfigPage : public QWidget
-  {
-      Q_OBJECT
-
-    public:
-      /**
-       * Constructor.
-       * \param parent parent widget.
-       * \param name identifier
-       */
-      explicit PluginConfigPage ( QWidget *parent = 0, const char *name = 0 );
-      /**
-       * Virtual destructor.
-       */
-      virtual ~PluginConfigPage ();
-
-      //
-      // reimplement as public slots !!!
-      //
-    public:
-      /**
-       * This slot is called when the \e Apply button was clicked.
-       * Reimplement this function as a public slot and apply the changed
-       * settings.
-       */
-      virtual void apply () = 0;
-
-      /**
-       * This slot is called when the \e Reset button was clicked.
-       * Reimplement this function as a public slot and reset the settings
-       * to the current ones.
-       */
-      virtual void reset () = 0;
-
-      /**
-       * This slot is called when the \e Defaults button was clicked.
-       * Reimplement this function as a public slot and set every option to its
-       * default value.
-       */
-      virtual void defaults () = 0;
-
-      //
-      // SIGNALS !!!
-      //
-    Q_SIGNALS:
-      /**
-       * Emit this signal whenever a option changed.
-       * When the \e Apply button was clicked the public slot apply() will be
-       * called \e only \e if you emitted this signal beforehand.
-       * \see apply()
-       */
-      void changed();
-  };
+  typedef KTextEditor::ConfigPage PluginConfigPage;
 
   /**
    * \brief Plugin config page extension interface.

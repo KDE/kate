@@ -33,14 +33,6 @@ namespace Kate
       {}
   };
 
-  PluginConfigPage::PluginConfigPage ( QWidget *parent, const char *name ) : QWidget (parent)
-  {
-    setObjectName( name );
-  }
-
-  PluginConfigPage::~PluginConfigPage ()
-  { }
-
   PluginConfigPageInterface::PluginConfigPageInterface()
   {
     d = new PrivatePluginConfigPageInterface();

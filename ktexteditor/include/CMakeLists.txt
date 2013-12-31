@@ -32,9 +32,10 @@ set (KTEXTEDITOR_PUBLIC_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/recoveryinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/messageinterface.h
     
-    # application interfaces
+    # application interfaces (including plugin interface for application side plugins)
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/application.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/mainwindow.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/applicationplugin.h
     )
 
 # export headers to parent scope
@@ -51,7 +52,7 @@ ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface 
   Attribute CommandInterface DocumentCursor MessageInterface MovingRangeFeedback SessionConfigInterface
   CodeCompletionInterface ConfigInterface Editor ModeInterface  TemplateInterface
   CodeCompletionModel ConfigPage ModificationInterface Plugin TemplateInterface2
-  Application MainWindow
+  Application MainWindow ApplicationPlugin
   MODULE_NAME "KTextEditor" RELATIVE "ktexteditor" REQUIRED_HEADERS KTEXTEDITOR_PUBLIC_HEADERS)
    
 # missing files ATM:   

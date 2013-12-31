@@ -60,7 +60,6 @@ void noDebugMessageOutput(QtMsgType type, const char *msg)
 void ScriptTestBase::initTestCase()
 {
   m_msgHandler = qInstallMsgHandler(noDebugMessageOutput);
-  KateGlobal::self()->incRef();
   m_toplevel = new QMainWindow();
   m_document = new KateDocument(true, false, false, m_toplevel);
   m_view = static_cast<KateView *>(m_document->widget());
@@ -69,7 +68,6 @@ void ScriptTestBase::initTestCase()
 
 void ScriptTestBase::cleanupTestCase()
 {
-  KateGlobal::self()->decRef();
   qInstallMsgHandler(m_msgHandler);
 }
 

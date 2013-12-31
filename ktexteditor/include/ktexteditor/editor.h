@@ -118,6 +118,21 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
     virtual ~Editor ();
     
     /**
+     * Accessor to get the Editor instance of the currently used
+     * KTextEditor component (per default this will be KatePart).
+     *
+     * That Editor instance can be qobject-cast to specific extensions.
+     * If the result of the cast is not NULL, that extension is supported.
+     * 
+     * This object will stay alive until QCoreApplication terminates.
+     * You shall not delete it yourself.
+     * There is only ONE instance of this per process.
+     *
+     * \return Editor controller or NULL, if no editor component could be found
+     */
+    static Editor *instance ();
+    
+    /**
      * Set the global application object.
      * This will allow the editor component to access
      * the hosting application.
@@ -286,17 +301,6 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
   private:
     class EditorPrivate* const d;
 };
-
-/**
- * Accessor to get the Editor instance of the currently used
- * KTextEditor component (per default this will be KatePart).
- *
- * That Editor instance can be qobject-cast to specific extensions.
- * If the result of the cast is not NULL, that extension is supported:
- *
- * \return Editor controller or NULL, if no editor component could be found
- */
-KTEXTEDITOR_EXPORT Editor *editor ();
 
 }
 

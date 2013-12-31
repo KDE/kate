@@ -58,9 +58,15 @@
 
 KateGlobal *KateGlobal::s_self = 0;
 
-int KateGlobal::s_ref = 0;
-
 Q_LOGGING_CATEGORY(LOG_PART, "katepart")
+
+/**
+ * Cleanup the KateGlobal during QCoreApplication shutdown
+ */
+static void cleanupGlobal ()
+{
+  delete KateGlobal::self ();
+}
 
 KateGlobal::KateGlobal ()
  : KTextEditor::Editor (0)
@@ -73,6 +79,9 @@ KateGlobal::KateGlobal ()
 {
   // set s_self
   s_self = this;
+  
+  // let use be deleted during QCoreApplication shutdown
+  qAddPostRoutine (cleanupGlobal);
 
   // load the kate part translation catalog
   // FIXME: kf5
@@ -471,7 +480,6 @@ KateGlobal *KateGlobal::self ()
 
 void KateGlobal::registerDocument ( KateDocument *doc )
 {
-  KateGlobal::incRef ();
   m_documents.append( doc );
   m_docs.append (doc);
 }
@@ -480,19 +488,16 @@ void KateGlobal::deregisterDocument ( KateDocument *doc )
 {
   m_docs.removeAll (doc);
   m_documents.removeAll( doc );
-  KateGlobal::decRef ();
 }
 
 void KateGlobal::registerView ( KateView *view )
 {
-  KateGlobal::incRef ();
   m_views.append( view );
 }
 
 void KateGlobal::deregisterView ( KateView *view )
 {
   m_views.removeAll( view );
-  KateGlobal::decRef ();
 }
 
 //BEGIN command interface

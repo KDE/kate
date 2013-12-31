@@ -21,8 +21,6 @@
 #include "kateglobal.h"
 #include "katedocument.h"
 
-#include <ktexteditor/factory.h>
-
 #include <KPluginFactory>
 
 #include <QLoggingCategory>
@@ -32,7 +30,7 @@
  * each instance will just increment the reference counter of our internal
  * super private global instance ;)
  */
-class KateFactory : public KTextEditor::Factory
+class KateFactory : public KPluginFactory
 {
   Q_OBJECT
   
@@ -48,24 +46,11 @@ class KateFactory : public KTextEditor::Factory
      * \param parent a parent object
      */
     explicit KateFactory (const char *componentName = 0, QObject *parent = 0)
-      : KTextEditor::Factory (componentName, parent)
+      : KPluginFactory (componentName, parent)
     {
       QLoggingCategory::setFilterRules(QStringLiteral("katepart = true"));
-
-      KateGlobal::incRef ();
     }
 
-    /**
-     * destructor, release editor
-     */
-    virtual ~KateFactory ()
-    {
-      KateGlobal::decRef ();
-    }
-
-    KTextEditor::Editor *editor () { return KateGlobal::self(); }
-
-    
     /**
      * This function is called when the factory asked to create an Object.
      *
@@ -83,7 +68,12 @@ class KateFactory : public KTextEditor::Factory
     virtual QObject *create(const char *iface, QWidget *parentWidget, QObject *parent, const QVariantList &args, const QString &keyword)
     {
       Q_UNUSED(args);
-      Q_UNUSED(keyword);
+      
+      /**
+       * if keyword == KTextEditor/Editor, we shall return our kate global instance!
+       */
+      if (keyword == QLatin1String ("KTextEditor/Editor"))
+        return KateGlobal::self ();
 
       QByteArray classname( iface );
 

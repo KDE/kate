@@ -39,7 +39,7 @@ KWriteApp::KWriteApp(const QCommandLineParser &args)
 {
   s_self = this;
   
-  m_editor = KTextEditor::editor();
+  m_editor = KTextEditor::Editor::instance();
 
   if ( !m_editor )
   {

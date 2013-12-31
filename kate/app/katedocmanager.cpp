@@ -57,7 +57,7 @@ KateDocManager::KateDocManager (QObject *parent)
     , m_suppressOpeningErrorDialogs (false)
 {
   // Constructed the beloved editor ;)
-  m_editor = KTextEditor::editor();
+  m_editor = KTextEditor::Editor::instance();
   
   if ( !m_editor )
   {

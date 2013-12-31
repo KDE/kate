@@ -45,12 +45,10 @@ DocumentCursorTest::~DocumentCursorTest()
 
 void DocumentCursorTest::initTestCase()
 {
-  KateGlobal::self()->incRef();
 }
 
 void DocumentCursorTest::cleanupTestCase()
 {
-  KateGlobal::self()->decRef();
 }
 
 // tests:

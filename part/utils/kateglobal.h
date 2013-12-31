@@ -225,16 +225,6 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     static KateGlobal *self ();
 
     /**
-     * increment reference counter
-     */
-    static void incRef () { ++s_ref; }
-
-    /**
-     * decrement reference counter
-     */
-    static void decRef () { if (s_ref > 0) --s_ref; if (s_ref == 0) { delete s_self; s_self = 0L; } }
-
-    /**
      * register document at the factory
      * this allows us to loop over all docs for example on config changes
      * @param doc document to register
@@ -431,11 +421,6 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
      * instance of this factory
      */
     static KateGlobal *s_self;
-
-    /**
-     * reference counter
-     */
-    static int s_ref;
 
     /**
      * about data (authors and more)

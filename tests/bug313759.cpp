@@ -44,18 +44,15 @@ BugTest::~BugTest()
 
 void BugTest::initTestCase()
 {
-  KateGlobal::self()->incRef();
 }
 
 void BugTest::cleanupTestCase()
 {
-  KateGlobal::self()->decRef();
 }
 
 void BugTest::tryCrash()
 {
   // set up document and view
-  KateGlobal::self()->incRef();
   KMainWindow* toplevel = new KMainWindow();
   KateDocument* doc = new KateDocument(true, false, false, toplevel);
   KateView* view = static_cast<KateView *>(doc->createView(0));

@@ -33,12 +33,10 @@ using namespace KTextEditor;
 
 void ModificationSystemTest::initTestCase()
 {
-  KateGlobal::self()->incRef();
 }
 
 void ModificationSystemTest::cleanupTestCase()
 {
-    KateGlobal::self()->decRef();
 }
 
 static void clearModificationFlags(KateDocument* doc)

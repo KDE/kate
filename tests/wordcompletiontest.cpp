@@ -36,7 +36,7 @@ using namespace KTextEditor;
 
 void WordCompletionTest::initTestCase()
 {
-  Editor* editor = KTextEditor::editor();
+  Editor* editor = KTextEditor::Editor::instance();
   QVERIFY(editor);
 
   m_doc = editor->createDocument(this);

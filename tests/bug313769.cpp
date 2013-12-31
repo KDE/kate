@@ -44,12 +44,10 @@ BugTest::~BugTest()
 
 void BugTest::initTestCase()
 {
-  KateGlobal::self()->incRef();
 }
 
 void BugTest::cleanupTestCase()
 {
-    KateGlobal::self()->decRef();
 }
 
 void BugTest::tryCrash()

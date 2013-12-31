@@ -1,6 +1,5 @@
 # KTextEditor interface headers
 set (KTEXTEDITOR_PUBLIC_HEADERS
-    ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/factory.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/editor.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/document.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/view.h
@@ -51,7 +50,7 @@ ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface 
   Document  MovingRange SearchInterface View
   Attribute CommandInterface DocumentCursor MessageInterface MovingRangeFeedback SessionConfigInterface
   CodeCompletionInterface ConfigInterface Editor ModeInterface  TemplateInterface
-  CodeCompletionModel ConfigPage Factory ModificationInterface Plugin TemplateInterface2
+  CodeCompletionModel ConfigPage ModificationInterface Plugin TemplateInterface2
   Application MainWindow
   MODULE_NAME "KTextEditor" RELATIVE "ktexteditor" REQUIRED_HEADERS KTEXTEDITOR_PUBLIC_HEADERS)
    

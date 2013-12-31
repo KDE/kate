@@ -34,12 +34,10 @@ QTEST_MAIN(MessageTest)
 
 void MessageTest::initTestCase()
 {
-    KateGlobal::self()->incRef();
 }
 
 void MessageTest::cleanupTestCase()
 {
-    KateGlobal::self()->decRef();
 }
 
 void MessageTest::testPostMessage()

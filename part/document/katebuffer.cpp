@@ -63,8 +63,6 @@ KateBuffer::KateBuffer(KateDocument *doc)
    m_lineHighlighted (0),
    m_maxDynamicContexts (KATE_MAX_DYNAMIC_CONTEXTS)
 {
-  // we need kate global to stay alive
-  KateGlobal::incRef ();
 }
 
 /**
@@ -75,9 +73,6 @@ KateBuffer::~KateBuffer()
   // release HL
   if (m_highlight)
     m_highlight->release();
-
-  // release kate global
-  KateGlobal::decRef ();
 }
 
 void KateBuffer::editStart ()

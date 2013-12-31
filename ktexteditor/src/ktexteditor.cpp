@@ -23,8 +23,6 @@
 
 #include "configpage.h"
 
-#include "factory.h"
-
 #include "editor.h"
 
 #include "document.h"
@@ -50,17 +48,9 @@
 #include <KPluginFactory>
 #include <KPluginLoader>
 
+#include <QPointer>
+
 using namespace KTextEditor;
-
-Factory::Factory (const char *componentName, QObject *parent)
- : KPluginFactory ( componentName, parent )
- , d(0)
-{
-}
-
-Factory::~Factory()
-{
-}
 
 class KTextEditor::EditorPrivate {
   public:
@@ -103,44 +93,37 @@ bool View::insertText (const QString &text )
   return doc->insertText(cursorPosition(),text,blockSelection());
 }
 
-struct KTextEditorFactorySet : public QSet<KPluginFactory*>
+Editor *KTextEditor::Editor::instance()
 {
-  KTextEditorFactorySet();
-  ~KTextEditorFactorySet();
-};
+  /**
+   * remember the static instance in a QPointer
+   */
+  static bool inited = false;
+  static QPointer<KTextEditor::Editor> staticInstance;
+  
+  /**
+   * just return it, if already inited
+   */
+  if (inited)
+    return staticInstance.data ();
+  
+  /**
+   * start init process
+   */
+  inited = true;
 
-Q_GLOBAL_STATIC(KTextEditorFactorySet, s_factories)
-
-static void cleanupFactories()
-{
-  qDeleteAll(*s_factories);
-  s_factories->clear();
-}
-
-KTextEditorFactorySet::KTextEditorFactorySet() {
-  // K_GLOBAL_STATIC is cleaned up *after* Q(Core)Application is gone
-  // but we have to cleanup before -> use qAddPostRoutine
-  qAddPostRoutine(cleanupFactories);
-}
-KTextEditorFactorySet::~KTextEditorFactorySet() {
-  qRemovePostRoutine(cleanupFactories); // post routine is installed!
-  qDeleteAll(*this);
-}
-
-Editor *KTextEditor::editor()
-{
-  KPluginFactory *fact=KPluginLoader("katepart").factory();
-
-  KTextEditor::Factory *ef=qobject_cast<KTextEditor::Factory*>(fact);
-
-  if (!ef) {
-    delete fact;
-    return 0;
-  }
-
-  s_factories->insert(fact);
-
-  return ef->editor();
+  /**
+   * first: get factory of katepart, else abort
+   */
+  KPluginFactory *factory = KPluginLoader("katepart").factory();
+  if (!factory)
+    return nullptr;
+  
+  /**
+   * now create the object and store it and return
+   */
+  staticInstance = factory->create<KTextEditor::Editor> ("KTextEditor/Editor");
+  return staticInstance.data ();
 }
 
 ConfigPage::ConfigPage ( QWidget *parent )

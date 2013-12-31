@@ -494,7 +494,7 @@ void KWrite::restore()
   if (!config)
     return;
 
-  KTextEditor::Editor *editor = KTextEditor::editor();
+  KTextEditor::Editor *editor = KTextEditor::Editor::instance();
 
   if ( !editor )
   {

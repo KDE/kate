@@ -45,12 +45,10 @@ namespace QTest {
 
 void KateFoldingTest::initTestCase()
 {
-  KateGlobal::self()->incRef();
 }
 
 void KateFoldingTest::cleanupTestCase()
 {
-    KateGlobal::self()->decRef();
 }
 
 // This is a unit test for bug 311866 (http://bugs.kde.org/show_bug.cgi?id=311866)

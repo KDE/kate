@@ -68,7 +68,7 @@ EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
   ///
 
   // fill list of available modes
-  KTextEditor::Document *document = KTextEditor::editor()->createDocument(0);
+  KTextEditor::Document *document = KTextEditor::Editor::instance()->createDocument(0);
   repoFileTypesList->addItems(document->highlightingModes());
   repoFileTypesList->sortItems();
   repoFileTypesList->setSelectionMode(QAbstractItemView::ExtendedSelection);

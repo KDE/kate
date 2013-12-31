@@ -87,7 +87,7 @@ void CompletionTest::init()
     if ( !KSycoca::isAvailable() )
         QSKIP( "ksycoca not available", SkipAll );
 
-    Editor* editor = KTextEditor::editor();
+    Editor* editor = KTextEditor::Editor::instance();
     QVERIFY(editor);
 
     m_doc = editor->createDocument(this);

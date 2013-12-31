@@ -127,11 +127,6 @@ namespace Kate
     return d->win->hideToolView (qobject_cast<KateMDI::ToolView*>(widget));
   }
 
-  void MainWindow::showPluginConfigPage(PluginConfigPageInterface *configpageinterface,uint id)
-  {
-    d->win->showPluginConfigPage(configpageinterface,id);
-  }
-
   PluginView *MainWindow::pluginView (const QString &name)
   {
     return d->win->pluginView (name);

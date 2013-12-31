@@ -253,14 +253,6 @@ namespace Kate
       bool hideToolView (QWidget *widget);
 
       /**
-       * This function is used by a plugin to open the kate configuration dialog
-       * at one of its own config pages.
-       * \param configpageinterface the plugin config page interface of the plugin which requests the settings dialog
-       * \param id the positional id of the page within the configuration
-       */
-      void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
-
-      /**
        * Get a plugin view with identifier \p name.
        * \param name the plugin's name
        * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,

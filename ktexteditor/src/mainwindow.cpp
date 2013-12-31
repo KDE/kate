@@ -242,4 +242,89 @@ void MainWindow::hideViewBar (KTextEditor::View *view)
     , Q_ARG (KTextEditor::View *, view));
 }
 
+QWidget *MainWindow::createToolView (KTextEditor::ApplicationPlugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return nullptr;
+  
+  /**
+   * dispatch to parent
+   */
+  QWidget *toolView = nullptr;
+  QMetaObject::invokeMethod (parent()
+    , "createToolView"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (QWidget *, toolView)
+    , Q_ARG (KTextEditor::ApplicationPlugin *, plugin)
+    , Q_ARG (const QString &, identifier)
+    , Q_ARG (KTextEditor::MainWindow::ToolViewPosition, pos)
+    , Q_ARG (const QIcon &, icon)
+    , Q_ARG (const QString &, text));
+  return toolView;
+}
+
+bool MainWindow::moveToolView (QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return false;
+  
+  /**
+   * dispatch to parent
+   */
+  bool success = false;
+  QMetaObject::invokeMethod (parent()
+    , "moveToolView"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (bool, success)
+    , Q_ARG (QWidget *, widget)
+    , Q_ARG (KTextEditor::MainWindow::ToolViewPosition, pos));
+  return success;
+}
+
+bool MainWindow::showToolView (QWidget *widget)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return false;
+  
+  /**
+   * dispatch to parent
+   */
+  bool success = false;
+  QMetaObject::invokeMethod (parent()
+    , "showToolView"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (bool, success)
+    , Q_ARG (QWidget *, widget));
+  return success;
+}
+
+bool MainWindow::hideToolView (QWidget *widget)
+{
+  /**
+   * null check
+   */
+  if (!this)
+    return false;
+  
+  /**
+   * dispatch to parent
+   */
+  bool success = false;
+  QMetaObject::invokeMethod (parent()
+    , "hideToolView"
+    , Qt::DirectConnection
+    , Q_RETURN_ARG (bool, success)
+    , Q_ARG (QWidget *, widget));
+  return success;
+}
+
 } // namespace KTextEditor

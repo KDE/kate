@@ -27,6 +27,7 @@
 #include <QObject>
 
 class QEvent;
+class QIcon;
 class QUrl;
 class QWidget;
 
@@ -35,6 +36,7 @@ class KXMLGUIFactory;
 namespace KTextEditor
 {
   
+class ApplicationPlugin;
 class Document;
 class View;
   
@@ -185,6 +187,62 @@ class KTEXTEDITOR_EXPORT MainWindow : public QObject
      */
     void hideViewBar (KTextEditor::View *view);
 
+  //
+  // ToolView stuff, here all stuff belong which allows to
+  // add/remove and manipulate the toolview of this main windows
+  //
+  public:
+    /**
+     * Toolview position.
+     * A toolview can only be at one side at a time.
+     */
+    enum ToolViewPosition {
+      Left = 0,   /**< Left side. */
+      Right = 1,  /**< Right side. */
+      Top = 2,    /**< Top side. */
+      Bottom = 3  /**< Bottom side. */
+    };
+
+    /**
+     * Create a new toolview with unique \p identifier at side \p pos
+     * with \p icon and caption \p text. Use the returned widget to embedd
+     * your widgets.
+     * \param plugin which owns this tool view
+     * \param identifier unique identifier for this toolview
+     * \param pos position for the toolview, if we are in session restore,
+     *        this is only a preference
+     * \param icon icon to use in the sidebar for the toolview
+     * \param text translated text (i18n()) to use in addition to icon
+     * \return created toolview on success, otherwise NULL
+     */
+    QWidget *createToolView (KTextEditor::ApplicationPlugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text);
+
+    /**
+     * Move the toolview \p widget to position \p pos.
+     * \param widget the toolview to move, where the widget was constructed
+     *        by createToolView().
+     * \param pos new position to move widget to
+     * \return \e true on success, otherwise \e false
+     */
+    bool moveToolView (QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos);
+
+    /**
+     * Show the toolview \p widget.
+     * \param widget the toolview to show, where the widget was constructed
+     *        by createToolView().
+     * \return \e true on success, otherwise \e false
+     * \todo add focus parameter: bool showToolView (QWidget *widget, bool giveFocus );
+     */
+    bool showToolView (QWidget *widget);
+
+    /**
+     * Hide the toolview \p widget.
+     * \param widget the toolview to hide, where the widget was constructed
+     *        by createToolView().
+     * \return \e true on success, otherwise \e false
+     */
+    bool hideToolView (QWidget *widget);
+    
   private:
     /**
      * Private d-pointer class is our best friend ;)

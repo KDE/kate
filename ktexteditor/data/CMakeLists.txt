@@ -3,7 +3,7 @@
 
 
 # install the export file
-install( FILES ktexteditor.desktop ktexteditorplugin.desktop  DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
+install( FILES ktexteditor.desktop ktexteditorplugin.desktop ktexteditorapplicationplugin.desktop DESTINATION  ${SERVICETYPES_INSTALL_DIR} )
 
 ########### export targets ##############
 

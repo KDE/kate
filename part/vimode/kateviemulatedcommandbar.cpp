@@ -1106,6 +1106,11 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       m_edit->setCursorPosition(0);
       return true;
     }
+    else if (keyEvent->key() == Qt::Key_E)
+    {
+      m_edit->setCursorPosition(m_edit->text().length());
+      return true;
+    }
     else if (keyEvent->key() == Qt::Key_W)
     {
       deleteSpacesToLeftOfCursor();

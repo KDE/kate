@@ -7314,6 +7314,8 @@ void ViModeTest::waitForEmulatedCommandBarToHide(long int timeout)
   {
     QApplication::processEvents();
   }
+  //FIXME: seems like this debug message helps to pass a test... wtf?
+  qDebug() << "waited: " << waitStartedTime.msecsTo(QDateTime::currentDateTime());
   QVERIFY(!emulatedCommandBar()->isVisible());
 }
 

@@ -56,7 +56,7 @@ static QStringList fileExtensions =
 
 KateBtBrowserPlugin::KateBtBrowserPlugin( QObject* parent, const QList<QVariant>&)
   : Kate::Plugin ( (Kate::Application*)parent )
-  , Kate::PluginConfigPageInterface()
+  , KTextEditor::ConfigPageInterface()
   , indexer(&db)
 {
   s_self = this;
@@ -117,7 +117,7 @@ uint KateBtBrowserPlugin::configPages () const
   return 1;
 }
 
-Kate::PluginConfigPage* KateBtBrowserPlugin::configPage(uint number, QWidget *parent, const char *name)
+KTextEditor::ConfigPage* KateBtBrowserPlugin::configPage(uint number, QWidget *parent, const char *name)
 {
   if (number == 0) {
     return new KateBtConfigWidget(parent, name);
@@ -298,7 +298,7 @@ void KateBtBrowserPluginView::clearStatus()
 
 
 KateBtConfigWidget::KateBtConfigWidget(QWidget* parent, const char* name)
-  : Kate::PluginConfigPage(parent, name)
+  : KTextEditor::ConfigPage(parent, name)
 {
   setupUi(this);
   edtUrl->setMode(KFile::Directory);

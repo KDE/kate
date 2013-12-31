@@ -23,7 +23,8 @@
 
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
+#include <ktexteditor/configpage.h>
 
 #include <QList>
 #include <QKeyEvent>
@@ -38,10 +39,10 @@ namespace KParts
 class KateConsole;
 class KateKonsolePluginView;
 
-class KateKonsolePlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
+class KateKonsolePlugin: public Kate::Plugin, public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
-    Q_INTERFACES(Kate::PluginConfigPageInterface)
+    Q_INTERFACES(KTextEditor::ConfigPageInterface)
     
   friend class KateKonsolePluginView;
   
@@ -52,11 +53,11 @@ class KateKonsolePlugin: public Kate::Plugin, public Kate::PluginConfigPageInter
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
     // PluginConfigPageInterface
-    uint configPages() const { return 1; };
-    Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
-    QString configPageName (uint number = 0) const;
-    QString configPageFullName (uint number = 0) const;
-    QIcon configPageIcon (uint number = 0) const;
+    int configPages() const { return 1; };
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
+    QString configPageName (int number = 0) const;
+    QString configPageFullName (int number = 0) const;
+    QIcon configPageIcon (int number = 0) const;
 
     void readConfig();
 
@@ -194,7 +195,7 @@ class KateConsole : public QWidget, public Kate::XMLGUIClient
     QString m_currentPath;
 };
 
-class KateKonsoleConfigPage : public Kate::PluginConfigPage {
+class KateKonsoleConfigPage : public KTextEditor::ConfigPage {
     Q_OBJECT
   public:
     explicit KateKonsoleConfigPage( QWidget* parent = 0, KateKonsolePlugin *plugin = 0 );

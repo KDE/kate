@@ -25,14 +25,14 @@
 #include <kate/plugin.h>
 #include <kate/application.h>
 #include <kate/mainwindow.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
 
 #include <kpluginfactory.h>
 
-class KateSQLPlugin : public Kate::Plugin, public Kate::PluginConfigPageInterface
+class KateSQLPlugin : public Kate::Plugin, public KTextEditor::ConfigPageInterface
 {
   Q_OBJECT
-  Q_INTERFACES(Kate::PluginConfigPageInterface)
+  Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
   public:
     explicit KateSQLPlugin(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
@@ -44,7 +44,7 @@ class KateSQLPlugin : public Kate::Plugin, public Kate::PluginConfigPageInterfac
     // PluginConfigPageInterface
 
     uint configPages() const { return 1; };
-    Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
+    KTextEditor::ConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
     QString configPageName (uint number = 0) const;
     QString configPageFullName (uint number = 0) const;
     KIcon configPageIcon (uint number = 0) const;

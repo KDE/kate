@@ -196,7 +196,7 @@ void Pate::Plugin::reloadModuleConfigPages() const
     }
 }
 
-Kate::PluginConfigPage* Pate::Plugin::configPage(
+KTextEditor::ConfigPage* Pate::Plugin::configPage(
     uint number
   , QWidget* const parent
   , const char* const name
@@ -226,7 +226,7 @@ Kate::PluginConfigPage* Pate::Plugin::configPage(
         py.traceback("failed to call plugin page");
         return new Pate::ErrorConfigPage(parent, py.lastTraceback());
     }
-    Kate::PluginConfigPage* r = reinterpret_cast<Kate::PluginConfigPage*>(py.objectUnwrap(result));
+    KTextEditor::ConfigPage* r = reinterpret_cast<KTextEditor::ConfigPage*>(py.objectUnwrap(result));
 
     /// \todo We leak this here reference.
     //Py_DECREF(result);
@@ -384,7 +384,7 @@ void Pate::PluginView::aboutPate()
 
 //BEGIN Pate::ConfigPage
 Pate::ConfigPage::ConfigPage(QWidget* const parent, Plugin* const plugin)
-  : Kate::PluginConfigPage(parent)
+  : KTextEditor::ConfigPage(parent)
   , m_plugin(plugin)
 {
     if (!m_plugin->checkEngineShowPopup())
@@ -432,7 +432,7 @@ void Pate::ConfigPage::defaults()
 
 //BEGIN Pate::ErrorConfigPage
 Pate::ErrorConfigPage::ErrorConfigPage(QWidget* const parent, const QString& traceback)
-  : Kate::PluginConfigPage(parent)
+  : KTextEditor::ConfigPage(parent)
 {
     KTextEdit* const widget = new KTextEdit(parent);
     widget->setText(traceback);

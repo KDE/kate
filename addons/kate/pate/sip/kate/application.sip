@@ -69,7 +69,7 @@ public:
         sipClass = sipClass_Kate_MainWindow;
     else if (dynamic_cast<Kate::Plugin*>(sipCpp))
         sipClass = sipClass_Kate_Plugin;
-    else if (dynamic_cast<Kate::PluginConfigPage*>(sipCpp))
+    else if (dynamic_cast<KTextEditor::ConfigPage*>(sipCpp))
         sipClass = sipClass_Kate_PluginConfigPage;
     else if (dynamic_cast<Kate::PluginManager*>(sipCpp))
         sipClass = sipClass_Kate_PluginManager;

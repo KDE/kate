@@ -196,7 +196,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 
   connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(updateCaption()));
 
-  connect(this,SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)),this,SLOT(showPluginConfigPage(Kate::PluginConfigPageInterface *,uint)));
+  connect(this,SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface *,uint)),this,SLOT(showPluginConfigPage(KTextEditor::ConfigPageInterface *,uint)));
 
 
 }
@@ -715,7 +715,7 @@ void KateMainWindow::slotConfigure()
   showPluginConfigPage(0,0);
 }
 
-void KateMainWindow::showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id)
+void KateMainWindow::showPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface,uint id)
 {
   if (!m_viewManager->activeView())
     return;

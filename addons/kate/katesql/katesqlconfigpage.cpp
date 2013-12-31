@@ -27,7 +27,7 @@
 #include <qcheckbox.h>
 
 KateSQLConfigPage::KateSQLConfigPage( QWidget* parent )
-: Kate::PluginConfigPage( parent )
+: KTextEditor::ConfigPage( parent )
 {
   QVBoxLayout *layout = new QVBoxLayout( this );
 

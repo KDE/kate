@@ -63,13 +63,13 @@ public:
 
 public:
     virtual uint         configPages () const = 0;
-    virtual Kate::PluginConfigPage* configPage (uint = 0, QWidget* = 0, const char* = 0)  = 0;
+    virtual KTextEditor::ConfigPage* configPage (uint = 0, QWidget* = 0, const char* = 0)  = 0;
     virtual QString      configPageName (uint = 0) const = 0;
     virtual QString      configPageFullName (uint = 0) const = 0;
     virtual KIcon        configPageIcon (uint = 0) const = 0;
 
 };  // class PluginConfigPageInterface
 
-Kate::PluginConfigPageInterface* pluginConfigPageInterface (Kate::Plugin*);
+KTextEditor::ConfigPageInterface* pluginConfigPageInterface (Kate::Plugin*);
 };  // namespace Kate
 

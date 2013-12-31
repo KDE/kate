@@ -441,7 +441,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     KTextEditor::MainWindow *m_wrapper;
 
   public Q_SLOTS:
-    void showPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
+    void showPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface,uint id);
 
     void slotWindowActivated ();
     

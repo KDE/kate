@@ -48,7 +48,7 @@ view needs to pull default settings from the main plugin config
 #include <KLocalizedString>
 
 KateFileTreeConfigPage::KateFileTreeConfigPage( QWidget* parent, KateFileTreePlugin *fl )
-  :  Kate::PluginConfigPage( parent ),
+  :  KTextEditor::ConfigPage( parent ),
     m_plug( fl ),
     m_changed( false )
 {

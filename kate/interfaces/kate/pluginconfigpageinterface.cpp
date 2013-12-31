@@ -17,40 +17,6 @@
 */
 
 #include "pluginconfigpageinterface.h"
-#include "pluginconfigpageinterface.moc"
 
-#include "plugin.h"
-
-namespace Kate
-{
-
-  class PrivatePluginConfigPageInterface
-  {
-    public:
-      PrivatePluginConfigPageInterface()
-      {}
-      ~PrivatePluginConfigPageInterface()
-      {}
-  };
-
-  PluginConfigPageInterface::PluginConfigPageInterface()
-  {
-    d = new PrivatePluginConfigPageInterface();
-  }
-
-  PluginConfigPageInterface::~PluginConfigPageInterface()
-  {
-    delete d;
-  }
-
-  PluginConfigPageInterface *pluginConfigPageInterface (Plugin *plugin)
-  {
-    if (!plugin)
-      return 0;
-
-    return qobject_cast<PluginConfigPageInterface*>(plugin);
-  }
-
-}
 // kate: space-indent on; indent-width 2; replace-tabs on;
 

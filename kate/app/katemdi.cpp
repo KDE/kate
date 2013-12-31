@@ -23,7 +23,7 @@
 #include "katemdi.h"
 #include "katemdi.moc"
 
-#include "kate/pluginconfigpageinterface.h"
+#include <ktexteditor/configpageinterface.h>
 #include "katedebug.h"
 
 #include <KActionCollection>
@@ -493,7 +493,7 @@ namespace KateMDI
           QMenu *menu = new QMenu(this);
 
           if (!w->plugin.isNull()) {
-            Kate::PluginConfigPageInterface* pcpi=dynamic_cast<Kate::PluginConfigPageInterface*>(w->plugin.data());
+            KTextEditor::ConfigPageInterface* pcpi=dynamic_cast<KTextEditor::ConfigPageInterface*>(w->plugin.data());
             if (pcpi) {
               if (pcpi->configPages()>0)
                 menu->addAction(i18n("Configure ..."))->setData(20);
@@ -565,7 +565,7 @@ namespace KateMDI
     // configure actionCollection
     if (id==20) {
       if (!w->plugin.isNull()) {
-          Kate::PluginConfigPageInterface* pcpi=dynamic_cast<Kate::PluginConfigPageInterface*>(w->plugin.data());
+          KTextEditor::ConfigPageInterface* pcpi=dynamic_cast<KTextEditor::ConfigPageInterface*>(w->plugin.data());
           if (pcpi) {
             if (pcpi->configPages()>0)
               emit sigShowPluginConfigPage(pcpi,0);
@@ -769,7 +769,7 @@ namespace KateMDI
     m_sidebars[KMultiTabBar::Right]->setSplitter (m_hSplitter);
 
     for (int i=0;i<4;i++)
-      connect(m_sidebars[i],SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)),this,SIGNAL(sigShowPluginConfigPage(Kate::PluginConfigPageInterface *,uint)));
+      connect(m_sidebars[i],SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface *,uint)),this,SIGNAL(sigShowPluginConfigPage(KTextEditor::ConfigPageInterface *,uint)));
 
 
   }

@@ -24,7 +24,7 @@
 #include <kate/mainwindow.h>
 #include <kate/plugin.h>
 #include <ktexteditor/view.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
 
 #include <kdebug.h>
 #include <QMenu>
@@ -45,7 +45,7 @@
 /**
  * Plugin's config page
  */
-class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
+class KatePluginSymbolViewerConfigPage : public KTextEditor::ConfigPage
 {
   Q_OBJECT
 
@@ -56,7 +56,7 @@ class KatePluginSymbolViewerConfigPage : public Kate::PluginConfigPage
     ~KatePluginSymbolViewerConfigPage ();
 
     /**
-     * Reimplemented from Kate::PluginConfigPage
+     * Reimplemented from KTextEditor::ConfigPage
      * just emits configPageApplyRequest( this ).
      */
     virtual void apply();
@@ -137,10 +137,10 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
 
 };
 
-class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterface
+class KatePluginSymbolViewer : public Kate::Plugin, KTextEditor::ConfigPageInterface
 {
   Q_OBJECT
-  Q_INTERFACES(Kate::PluginConfigPageInterface)
+  Q_INTERFACES(KTextEditor::ConfigPageInterface)
   public:
     explicit KatePluginSymbolViewer( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KatePluginSymbolViewer();
@@ -148,7 +148,7 @@ class KatePluginSymbolViewer : public Kate::Plugin, Kate::PluginConfigPageInterf
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
     uint configPages () const { return 1; }
-    Kate::PluginConfigPage *configPage (uint , QWidget *w, const char *name=0);
+    KTextEditor::ConfigPage *configPage (uint , QWidget *w, const char *name=0);
     QString configPageName(uint) const { return i18n("Symbol Viewer"); }
     QString configPageFullName(uint) const { return i18n("Symbol Viewer Configuration Page"); }
     QPixmap configPagePixmap (uint, int) const { return 0L; }

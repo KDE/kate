@@ -96,13 +96,13 @@ void KateFileTreePlugin::viewDestroyed(QObject* view)
   m_views.removeAll(static_cast<KateFileTreePluginView *>(view));
 }
 
-uint KateFileTreePlugin::configPages() const
+int KateFileTreePlugin::configPages() const
 {
   return 1;
 }
 
 
-QString KateFileTreePlugin::configPageName (uint number) const
+QString KateFileTreePlugin::configPageName (int number) const
 {
   if(number != 0)
     return QString();
@@ -110,7 +110,7 @@ QString KateFileTreePlugin::configPageName (uint number) const
   return QString(i18n("Documents"));
 }
 
-QString KateFileTreePlugin::configPageFullName (uint number) const
+QString KateFileTreePlugin::configPageFullName (int number) const
 {
   if(number != 0)
     return QString();
@@ -118,7 +118,7 @@ QString KateFileTreePlugin::configPageFullName (uint number) const
   return QString(i18n("Configure Documents"));
 }
 
-QIcon KateFileTreePlugin::configPageIcon (uint number) const
+QIcon KateFileTreePlugin::configPageIcon (int number) const
 {
   if(number != 0)
     return QIcon();
@@ -126,9 +126,8 @@ QIcon KateFileTreePlugin::configPageIcon (uint number) const
   return QIcon::fromTheme("view-list-tree");
 }
 
-Kate::PluginConfigPage *KateFileTreePlugin::configPage (uint number, QWidget *parent, const char *name)
+KTextEditor::ConfigPage *KateFileTreePlugin::configPage (int number, QWidget *parent)
 {
-  Q_UNUSED(name);
   if(number != 0)
     return 0;
 

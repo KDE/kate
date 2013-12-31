@@ -24,11 +24,12 @@
 
 #include <QWidget>
 
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
+#include <ktexteditor/configpage.h>
 
 class KateFileTreePlugin;
 
-class KateFileTreeConfigPage : public Kate::PluginConfigPage {
+class KateFileTreeConfigPage : public KTextEditor::ConfigPage {
   Q_OBJECT
   public:
     explicit KateFileTreeConfigPage( QWidget* parent=0, KateFileTreePlugin *plug=0 );

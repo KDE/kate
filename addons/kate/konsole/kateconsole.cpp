@@ -75,27 +75,26 @@ Kate::PluginView *KateKonsolePlugin::createView (Kate::MainWindow *mainWindow)
   return view;
 }
 
-Kate::PluginConfigPage *KateKonsolePlugin::configPage (uint number, QWidget *parent, const char *name)
+KTextEditor::ConfigPage *KateKonsolePlugin::configPage (int number, QWidget *parent)
 {
-  Q_UNUSED(name)
   if (number != 0)
     return 0;
   return new KateKonsoleConfigPage(parent, this);
 }
 
-QString KateKonsolePlugin::configPageName (uint number) const
+QString KateKonsolePlugin::configPageName (int number) const
 {
   if (number != 0) return QString();
   return i18n("Terminal");
 }
 
-QString KateKonsolePlugin::configPageFullName (uint number) const
+QString KateKonsolePlugin::configPageFullName (int number) const
 {
   if (number != 0) return QString();
   return i18n("Terminal Settings");
 }
 
-QIcon KateKonsolePlugin::configPageIcon (uint number) const
+QIcon KateKonsolePlugin::configPageIcon (int number) const
 {
   if (number != 0) return QIcon();
   return QIcon::fromTheme("utilities-terminal");
@@ -335,7 +334,7 @@ void KateConsole::readConfig()
 }
 
 KateKonsoleConfigPage::KateKonsoleConfigPage( QWidget* parent, KateKonsolePlugin *plugin )
-  : Kate::PluginConfigPage( parent )
+  : KTextEditor::ConfigPage( parent )
   , mPlugin( plugin )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );

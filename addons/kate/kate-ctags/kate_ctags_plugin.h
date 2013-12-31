@@ -29,16 +29,16 @@
 #include <kate/application.h>
 #include <kate/documentmanager.h>
 #include <kate/mainwindow.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
 
 #include "kate_ctags_view.h"
 #include "ui_CTagsGlobalConfig.h"
 
 //******************************************************************/
-class KateCTagsPlugin : public Kate::Plugin, public Kate::PluginConfigPageInterface
+class KateCTagsPlugin : public Kate::Plugin, public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
-    Q_INTERFACES(Kate::PluginConfigPageInterface)
+    Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
     public:
         explicit KateCTagsPlugin(QObject* parent = 0, const QList<QVariant> & = QList<QVariant>());
@@ -48,7 +48,7 @@ class KateCTagsPlugin : public Kate::Plugin, public Kate::PluginConfigPageInterf
    
         // PluginConfigPageInterface
         uint configPages() const { return 1; };
-        Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
+        KTextEditor::ConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
         QString configPageName (uint number = 0) const;
         QString configPageFullName (uint number = 0) const;
         KIcon configPageIcon (uint number = 0) const;
@@ -58,7 +58,7 @@ class KateCTagsPlugin : public Kate::Plugin, public Kate::PluginConfigPageInterf
 };
 
 //******************************************************************/
-class KateCTagsConfigPage : public Kate::PluginConfigPage {
+class KateCTagsConfigPage : public KTextEditor::ConfigPage {
     Q_OBJECT
 public:
     explicit KateCTagsConfigPage( QWidget* parent = 0, KateCTagsPlugin *plugin = 0 );

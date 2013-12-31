@@ -26,7 +26,7 @@
 #include <ktexteditor/editor.h>
 #include <kate/plugin.h>
 #include <kate/mainwindow.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
 
 #include "katefiletreepluginsettings.h"
 
@@ -37,10 +37,10 @@ class KateFileTreeConfigPage;
 class KateFileTreePluginView;
 class KateFileTreeCommand;
 
-class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
+class KateFileTreePlugin: public Kate::Plugin, public KTextEditor::ConfigPageInterface
 {
   Q_OBJECT
-  Q_INTERFACES(Kate::PluginConfigPageInterface)
+  Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
   public:
     explicit KateFileTreePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
@@ -48,12 +48,12 @@ class KateFileTreePlugin: public Kate::Plugin, public Kate::PluginConfigPageInte
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
-    virtual uint configPages() const;
+    virtual int configPages() const;
 
-    virtual QString configPageName (uint number = 0) const;
-    virtual QString configPageFullName (uint number = 0) const;
-    virtual QIcon configPageIcon (uint number = 0) const;
-    virtual Kate::PluginConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0 );
+    virtual QString configPageName (int number = 0) const;
+    virtual QString configPageFullName (int number = 0) const;
+    virtual QIcon configPageIcon (int number = 0) const;
+    virtual KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0 );
 
     const KateFileTreePluginSettings &settings();
 

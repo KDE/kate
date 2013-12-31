@@ -21,7 +21,7 @@ Detailed information can be found in the classes.
 \section kate_classes Class List
  - Kate::Plugin
  - Kate::PluginView
- - Kate::PluginConfigPageInterface
+ - KTextEditor::ConfigPageInterface
 
 and
  - Kate::Application

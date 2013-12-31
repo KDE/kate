@@ -63,8 +63,8 @@ class ActionLBItem : public QListWidgetItem
 
 
 //BEGIN KateFileBrowserConfigPage
-KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, const char *, KateFileBrowser *kfb )
-    : Kate::PluginConfigPage( parent ),
+KateFileBrowserConfigPage::KateFileBrowserConfigPage( QWidget *parent, KateFileBrowser *kfb )
+    : KTextEditor::ConfigPage( parent ),
     fileBrowser( kfb ),
     m_changed( false )
 {

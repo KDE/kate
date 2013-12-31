@@ -26,7 +26,7 @@
 # include <Python.h>
 # include <kate/mainwindow.h>
 # include <kate/plugin.h>
-# include <kate/pluginconfigpageinterface.h>
+# include <ktexteditor/configpageinterface.h>
 
 # include <QList>
 
@@ -65,10 +65,10 @@ namespace Pate
  */
 class Plugin
   : public Kate::Plugin
-  , public Kate::PluginConfigPageInterface
+  , public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
-    Q_INTERFACES(Kate::PluginConfigPageInterface)
+    Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
 public:
     explicit Plugin(QObject* = 0, const QList<QVariant>& = QList<QVariant>());
@@ -88,7 +88,7 @@ public:
 
     //BEGIN PluginConfigPageInterface
     uint configPages() const;
-    Kate::PluginConfigPage* configPage(uint number = 0, QWidget* parent = 0, const char* name = 0);
+    KTextEditor::ConfigPage* configPage(uint number = 0, QWidget* parent = 0, const char* name = 0);
     QString configPageName(uint number = 0) const;
     QString configPageFullName(uint number = 0) const;
     KIcon configPageIcon(uint number = 0) const;
@@ -137,7 +137,7 @@ private:
 /**
  * The Pate plugin's configuration view.
  */
-class ConfigPage : public Kate::PluginConfigPage
+class ConfigPage : public KTextEditor::ConfigPage
 {
     Q_OBJECT
 
@@ -158,7 +158,7 @@ private:
 /**
  * A page used if an error occurred trying to load a plugin's config page.
  */
-class ErrorConfigPage : public Kate::PluginConfigPage
+class ErrorConfigPage : public KTextEditor::ConfigPage
 {
     Q_OBJECT
 

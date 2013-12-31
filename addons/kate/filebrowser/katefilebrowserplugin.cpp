@@ -59,31 +59,31 @@ void KateFileBrowserPlugin::viewDestroyed(QObject* view)
   m_views.removeAll(static_cast<KateFileBrowserPluginView *>(view));
 }
 
-uint KateFileBrowserPlugin::configPages() const
+int KateFileBrowserPlugin::configPages() const
 {
   return 1;
 }
 
-Kate::PluginConfigPage *KateFileBrowserPlugin::configPage (uint number, QWidget *parent, const char *name)
+KTextEditor::ConfigPage *KateFileBrowserPlugin::configPage (int number, QWidget *parent)
 {
   if (number != 0)
     return 0;
-  return new KateFileBrowserConfigPage(parent, name, m_views[0]->m_fileBrowser);
+  return new KateFileBrowserConfigPage(parent, m_views[0]->m_fileBrowser);
 }
 
-QString KateFileBrowserPlugin::configPageName (uint number) const
+QString KateFileBrowserPlugin::configPageName (int number) const
 {
   if (number != 0) return QString();
   return i18n("Filesystem Browser");
 }
 
-QString KateFileBrowserPlugin::configPageFullName (uint number) const
+QString KateFileBrowserPlugin::configPageFullName (int number) const
 {
   if (number != 0) return QString();
   return i18n("Filesystem Browser Settings");
 }
 
-QIcon KateFileBrowserPlugin::configPageIcon (uint number) const
+QIcon KateFileBrowserPlugin::configPageIcon (int number) const
 {
   if (number != 0) return QIcon();
   return QIcon::fromTheme("document-open");

@@ -56,7 +56,7 @@ Kate::PluginView *KateSQLPlugin::createView (Kate::MainWindow *mainWindow)
 }
 
 
-Kate::PluginConfigPage* KateSQLPlugin::configPage(uint number, QWidget *parent, const char *name)
+KTextEditor::ConfigPage* KateSQLPlugin::configPage(uint number, QWidget *parent, const char *name)
 {
   Q_UNUSED(name)
 

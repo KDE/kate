@@ -22,7 +22,7 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/configpage.h>
 #include <kate/plugin.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
 #include <kate/mainwindow.h>
 
 #include "ui_btbrowserwidget.h"
@@ -33,10 +33,10 @@
 #include <QString>
 #include <QTimer>
 
-class KateBtBrowserPlugin: public Kate::Plugin, public Kate::PluginConfigPageInterface
+class KateBtBrowserPlugin: public Kate::Plugin, public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
-    Q_INTERFACES(Kate::PluginConfigPageInterface)
+    Q_INTERFACES(KTextEditor::ConfigPageInterface)
   public:
     explicit KateBtBrowserPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateBtBrowserPlugin();
@@ -58,7 +58,7 @@ class KateBtBrowserPlugin: public Kate::Plugin, public Kate::PluginConfigPageInt
   //
   public:
     virtual uint configPages() const;
-    virtual Kate::PluginConfigPage* configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
+    virtual KTextEditor::ConfigPage* configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
     virtual QString configPageName(uint number = 0) const;
     virtual QString configPageFullName(uint number = 0) const;
     virtual KIcon configPageIcon(uint number = 0) const;
@@ -102,7 +102,7 @@ class KateBtBrowserPluginView : public Kate::PluginView, public Ui::BtBrowserWid
     QTimer timer;
 };
 
-class KateBtConfigWidget : public Kate::PluginConfigPage, private Ui::BtConfigWidget
+class KateBtConfigWidget : public KTextEditor::ConfigPage, private Ui::BtConfigWidget
 {
     Q_OBJECT
   public:

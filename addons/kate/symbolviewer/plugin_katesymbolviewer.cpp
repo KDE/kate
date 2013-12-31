@@ -372,7 +372,7 @@ Kate::PluginView *KatePluginSymbolViewer::createView (Kate::MainWindow *mainWind
   return new KatePluginSymbolViewerView (mainWindow, this);
 }
 
-Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
+KTextEditor::ConfigPage* KatePluginSymbolViewer::configPage(
     uint, QWidget *w, const char* /*name*/)
 {
   KatePluginSymbolViewerConfigPage* p = new KatePluginSymbolViewerConfigPage(this, w);
@@ -384,7 +384,7 @@ Kate::PluginConfigPage* KatePluginSymbolViewer::configPage(
   p->sortSymbols->setChecked(config.readEntry("SortSymbols", false));
   connect( p, SIGNAL(configPageApplyRequest(KatePluginSymbolViewerConfigPage*)),
       SLOT(applyConfig(KatePluginSymbolViewerConfigPage*)) );
-  return (Kate::PluginConfigPage*)p;
+  return (KTextEditor::ConfigPage*)p;
 }
 
 KIcon KatePluginSymbolViewer::configPageIcon (uint number) const
@@ -411,7 +411,7 @@ void KatePluginSymbolViewer::applyConfig( KatePluginSymbolViewerConfigPage* p )
 // BEGIN KatePluginSymbolViewerConfigPage
 KatePluginSymbolViewerConfigPage::KatePluginSymbolViewerConfigPage(
     QObject* /*parent*/ /*= 0L*/, QWidget *parentWidget /*= 0L*/)
-  : Kate::PluginConfigPage( parentWidget )
+  : KTextEditor::ConfigPage( parentWidget )
 {
   QVBoxLayout *lo = new QVBoxLayout( this );
   int spacing = KDialog::spacingHint();

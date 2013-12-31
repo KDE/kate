@@ -43,8 +43,8 @@ class KActionMenu;
 class QAction;
 class KConfigBase;
 
-namespace Kate {
-  class PluginConfigPageInterface;
+namespace KTextEditor {
+  class ConfigPageInterface;
 };
 
 namespace KateMDI
@@ -258,7 +258,7 @@ namespace KateMDI
       int m_popupButton;
 
      Q_SIGNALS:
-       void sigShowPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
+       void sigShowPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface,uint id);
 
   };
 
@@ -453,7 +453,7 @@ namespace KateMDI
       GUIClient *m_guiClient;
 
     Q_SIGNALS:
-      void sigShowPluginConfigPage(Kate::PluginConfigPageInterface *configpageinterface,uint id);
+      void sigShowPluginConfigPage(KTextEditor::ConfigPageInterface *configpageinterface,uint id);
 
   };
 

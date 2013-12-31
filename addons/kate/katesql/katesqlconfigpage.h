@@ -24,11 +24,11 @@ class QCheckBox;
 
 #include "katesqlplugin.h"
 
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
 
 /// TODO: add options to change datetime and numbers format
 
-class KateSQLConfigPage : public Kate::PluginConfigPage
+class KateSQLConfigPage : public KTextEditor::ConfigPage
 {
   Q_OBJECT
 

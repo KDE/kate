@@ -29,7 +29,7 @@
 #include <kate/application.h>
 #include <kate/documentmanager.h>
 #include <kate/mainwindow.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
 
 #include <kprocess.h>
 #include <kactionmenu.h>

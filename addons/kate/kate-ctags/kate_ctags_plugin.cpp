@@ -56,7 +56,7 @@ Kate::PluginView *KateCTagsPlugin::createView(Kate::MainWindow *mainWindow)
 
 
 /******************************************************************/
-Kate::PluginConfigPage *KateCTagsPlugin::configPage (uint number, QWidget *parent, const char *)
+KTextEditor::ConfigPage *KateCTagsPlugin::configPage (uint number, QWidget *parent, const char *)
 {
   if (number != 0) return 0;
   return new KateCTagsConfigPage(parent, this);
@@ -93,7 +93,7 @@ void KateCTagsPlugin::readConfig()
 
 /******************************************************************/
 KateCTagsConfigPage::KateCTagsConfigPage( QWidget* parent, KateCTagsPlugin *plugin )
-: Kate::PluginConfigPage( parent )
+: KTextEditor::ConfigPage( parent )
 , m_plugin( plugin )
 {
     m_confUi.setupUi(this);

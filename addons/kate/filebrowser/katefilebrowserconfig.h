@@ -26,16 +26,16 @@
 #include <KActionSelector>
 
 #include <ktexteditor/configpage.h>
-#include <kate/pluginconfigpageinterface.h>
+#include <ktexteditor/configpageinterface.h>
 
 #include "katefilebrowser.h"
 
-class KateFileBrowserConfigPage : public Kate::PluginConfigPage
+class KateFileBrowserConfigPage : public KTextEditor::ConfigPage
 {
     Q_OBJECT
 
   public:
-    explicit KateFileBrowserConfigPage( QWidget* parent = 0, const char *name = 0, KateFileBrowser *kfb = 0);
+    explicit KateFileBrowserConfigPage( QWidget* parent = 0, KateFileBrowser *kfb = 0);
     virtual ~KateFileBrowserConfigPage()
     {}
 

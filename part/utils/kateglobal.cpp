@@ -305,11 +305,6 @@ void KateGlobal::writeConfig(KConfig *config)
 }
 //END KTextEditor::Editor config stuff
 
-bool KateGlobal::configDialogSupported () const
-{
-  return true;
-}
-
 void KateGlobal::configDialog(QWidget *parent)
 {
   QPointer<KPageDialog> kd = new KPageDialog(parent);

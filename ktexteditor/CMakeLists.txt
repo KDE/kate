@@ -28,6 +28,7 @@ set(ktexteditor_LIB_SRCS
    src/codecompletionmodel.cpp
    src/codecompletionmodelcontrollerinterface.cpp
    src/configinterface.cpp
+   src/configpageinterface.cpp
    src/highlightinterface.cpp
    src/movinginterface.cpp
    src/movingcursor.cpp

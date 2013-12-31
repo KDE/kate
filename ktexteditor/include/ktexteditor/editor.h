@@ -20,7 +20,7 @@
 #ifndef KDELIBS_KTEXTEDITOR_EDITOR_H
 #define KDELIBS_KTEXTEDITOR_EDITOR_H
 
-#include <ktexteditor/ktexteditor_export.h>
+#include <ktexteditor/configpageinterface.h>
 
 #include <QObject>
 #include <QIcon>
@@ -33,7 +33,6 @@ namespace KTextEditor
 
 class Application;
 class Document;
-class ConfigPage;
 
 /**
  * \brief Accessor interface for Editor part.
@@ -58,9 +57,8 @@ class ConfigPage;
  *
  * \section editor_config Editor Configuration
  *
- * If the Editor implementation supports a config dialog
- * configDialogSupported() returns \e true, then the config dialog can be
- * shown with configDialog(). Instead of using the config dialog, the config
+ * The config dialog can be shown with configDialog().
+ * Instead of using the config dialog, the config
  * pages can be embedded into the application's config dialog. To do this,
  * configPages() returns the number of
  * config pages the Editor implementation provides and configPage() returns
@@ -99,7 +97,7 @@ class ConfigPage;
  *      KTextEditor::Plugin, KTextEditor::CommandInterface
  * \author Christoph Cullmann \<cullmann@kde.org\>
  */
-class KTEXTEDITOR_EXPORT Editor : public QObject
+class KTEXTEDITOR_EXPORT Editor : public QObject, public ConfigPageInterface
 {
   Q_OBJECT
 
@@ -218,74 +216,16 @@ class KTEXTEDITOR_EXPORT Editor : public QObject
     virtual void writeConfig (KConfig *config = 0) = 0;
 
     /**
-     * Check, whether this editor has a configuration dialog.
-     * \return \e true, if the editor has a configuration dialog,
-     *         otherwise \e false
-     * \see configDialog()
-     */
-    virtual bool configDialogSupported () const = 0;
-
-    /**
      * Show the editor's config dialog, changes will be applied to the
      * editor, but not saved anywhere automagically, call \p writeConfig()
      * to save them.
      *
      * \note Instead of using the config dialog, the config pages can be
      *       embedded into your own config dialog by using configPages() and
-     *       configPage().
+     *       configPage() inherited by ConfigPageInterface.
      * \param parent parent widget
-     * \see configDialogSupported()
      */
     virtual void configDialog (QWidget *parent) = 0;
-
-    /**
-     * Get the number of available config pages.
-     * If the editor returns a number < 1, it does not support config pages
-     * and the embedding application should use configDialog() instead.
-     * \return number of config pages
-     * \see configPage(), configDialog()
-     */
-    virtual int configPages () const = 0;
-
-    /**
-     * Get the config page with the \p number, config pages from 0 to
-     * configPages()-1 are available if configPages() > 0.
-     * \param number index of config page
-     * \param parent parent widget for config page
-     * \return created config page or NULL, if the number is out of bounds
-     * \see configPages()
-     */
-    virtual ConfigPage *configPage (int number, QWidget *parent) = 0;
-
-    /**
-     * Get a readable name for the config page \p number. The name should be
-     * translated.
-     * \param number index of config page
-     * \return name of given page index
-	 * \see configPageFullName(), configPagePixmap()
-     */
-    virtual QString configPageName (int number) const = 0;
-
-    /**
-     * Get a readable full name for the config page \e number. The name
-     * should be translated.
-     *
-     * Example: If the name is "Filetypes", the full name could be
-     * "Filetype Specific Settings". For "Shortcuts" the full name would be
-     * something like "Shortcut Configuration".
-     * \param number index of config page
-     * \return full name of given page index
-	 * \see configPageName(), configPagePixmap()
-     */
-    virtual QString configPageFullName (int number) const = 0;
-
-    /**
-     * Get a pixmap with \p size for the config page \p number.
-     * \param number index of config page
-     * \return pixmap for the given page index
-     * \see configPageName(), configPageFullName()
-     */
-    virtual QIcon configPageIcon (int number) const = 0;
 
   Q_SIGNALS:
     /**

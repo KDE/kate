@@ -33,8 +33,8 @@ namespace KTextEditor
  *
  * \section configpage_intro Introduction
  *
- * The class ConfigPage represents a config page of the KTextEditor::Editor.
- * The Editor's config pages are usually embedded into a dialog that shows
+ * The class ConfigPage represents a config page.
+ * The config pages are usually embedded into a dialog that shows
  * buttons like \e Defaults, \e Reset and \e Apply. If one of the buttons is
  * clicked and the condig page sent the signal changed() beforehand the
  * Editor will call the corresponding slot, either defaults(), reset() or

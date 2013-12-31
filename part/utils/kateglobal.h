@@ -181,12 +181,6 @@ class KATEPART_TESTS_EXPORT KateGlobal : public KTextEditor::Editor, public KTex
     void writeConfig (KConfig *config = 0);
 
     /**
-     * Does this editor support a config dialog
-     * @return does this editor have a config dialog?
-     */
-    bool configDialogSupported () const;
-
-    /**
      * Shows a config dialog for the part, changes will be applied
      * to the editor, but not saved anywhere automagically, call
      * writeConfig to save them

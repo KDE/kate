@@ -8,6 +8,7 @@ set (KTEXTEDITOR_PUBLIC_HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/range.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/documentcursor.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/configpage.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/configpageinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/searchinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/markinterface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/sessionconfiginterface.h
@@ -51,7 +52,7 @@ ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface 
   Document  MovingRange SearchInterface View
   Attribute CommandInterface DocumentCursor MessageInterface MovingRangeFeedback SessionConfigInterface
   CodeCompletionInterface ConfigInterface Editor ModeInterface  TemplateInterface
-  CodeCompletionModel ConfigPage ModificationInterface Plugin TemplateInterface2
+  CodeCompletionModel ConfigPage ConfigPageInterface ModificationInterface Plugin TemplateInterface2
   Application MainWindow ApplicationPlugin
   MODULE_NAME "KTextEditor" RELATIVE "ktexteditor" REQUIRED_HEADERS KTEXTEDITOR_PUBLIC_HEADERS)
    

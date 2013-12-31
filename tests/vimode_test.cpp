@@ -880,6 +880,7 @@ void ViModeTest::InsertModeTests() {
   // Testing ctrl-left and ctrl-right.
   DoTest("foo bar", "i\\ctrl-\\rightX\\esc", "foo Xbar");
   DoTest("foo bar", "i\\ctrl-\\right\\ctrl-\\rightX\\esc", "foo barX");
+  DoTest("foo", "\\endi\\ctrl-\\left\\ctrl-\\leftX", "Xfoo"); // we crashed here before
 
   // Enter/ Return.
   DoTest("", "ifoo\\enterbar", "foo\nbar");

@@ -25,7 +25,7 @@
 
 #include "../app/katemainwindow.h"
 #include "../app/kateviewmanager.h"
-#include "pluginconfigpageinterface.h"
+
 namespace Kate
 {
 

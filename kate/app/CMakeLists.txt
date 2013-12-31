@@ -6,7 +6,6 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp
    ../interfaces/kate/documentmanager.cpp
    ../interfaces/kate/pluginmanager.cpp
    ../interfaces/kate/plugin.cpp
-   ../interfaces/kate/pluginconfigpageinterface.cpp
    kateapp.cpp
    kateconfigdialog.cpp
    kateconfigplugindialogpage.cpp

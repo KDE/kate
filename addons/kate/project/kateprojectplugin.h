@@ -25,15 +25,15 @@
 #include <QDir>
 
 #include <ktexteditor/document.h>
+#include <ktexteditor/mainwindow.h>
+#include <ktexteditor/applicationplugin.h>
 
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
 #include <kxmlguiclient.h>
 
 #include "kateproject.h"
 #include "kateprojectcompletion.h"
 
-class KateProjectPlugin : public Kate::Plugin
+class KateProjectPlugin : public KTextEditor::ApplicationPlugin
 {
   Q_OBJECT
 
@@ -41,7 +41,7 @@ class KateProjectPlugin : public Kate::Plugin
     explicit KateProjectPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateProjectPlugin();
 
-    Kate::PluginView *createView( Kate::MainWindow *mainWindow );
+    QObject *createView( KTextEditor::MainWindow *mainWindow );
 
     /**
      * Create new project for given project filename.

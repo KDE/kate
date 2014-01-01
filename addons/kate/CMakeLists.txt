@@ -4,12 +4,17 @@ include_directories (${CMAKE_SOURCE_DIR}/kate/interfaces)
 # default debug area
 add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13040 )
 
+# small & smart project manager
+ecm_optional_add_subdirectory (project)
+
+# terminal tool view
+ecm_optional_add_subdirectory (konsole)
+
 #if(NOT WIN32)
 #   add_subdirectory( gdbplugin )   # reading /proc/...
 #endif(NOT WIN32)
 
 #add_subdirectory( textfilter )
-ecm_optional_add_subdirectory ( konsole )
 
 #ecm_optional_add_subdirectory ( filebrowser )
 #add_subdirectory( mailfiles )
@@ -40,4 +45,4 @@ ecm_optional_add_subdirectory ( konsole )
 
 #macro_optional_add_subdirectory(pate)
 
-#ecm_optional_add_subdirectory (project)
+#

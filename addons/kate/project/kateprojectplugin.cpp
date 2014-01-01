@@ -24,8 +24,8 @@
 #include "kateproject.h"
 #include "kateprojectpluginview.h"
 
-#include <kate/application.h>
-#include <kate/documentmanager.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
 
 #include <QFileInfo>
@@ -42,7 +42,7 @@
 #endif
 
 KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
-  : Kate::Plugin ((Kate::Application*)parent)
+  : KTextEditor::ApplicationPlugin (parent)
   , m_completion (this)
 {
   /**
@@ -55,7 +55,7 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
   /**
    * connect to important signals, e.g. for auto project loading
    */
-  connect (application()->documentManager(), SIGNAL(documentCreated (KTextEditor::Document *)), this, SLOT(slotDocumentCreated (KTextEditor::Document *)));
+  connect (KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated (KTextEditor::Document *)), this, SLOT(slotDocumentCreated (KTextEditor::Document *)));
   connect (&m_fileWatcher, SIGNAL(directoryChanged (const QString &)), this, SLOT(slotDirectoryChanged (const QString &)));
   
 #ifdef HAVE_CTERMID
@@ -82,7 +82,7 @@ KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
   /**
    * connect for all already existing documents
    */
-  foreach (KTextEditor::Document *document, application()->documentManager()->documents())
+  foreach (KTextEditor::Document *document, KTextEditor::Editor::instance()->application()->documents())
     slotDocumentCreated (document);
 }
 
@@ -109,7 +109,7 @@ KateProjectPlugin::~KateProjectPlugin()
   m_projects.clear ();
 }
 
-Kate::PluginView *KateProjectPlugin::createView( Kate::MainWindow *mainWindow )
+QObject *KateProjectPlugin::createView( KTextEditor::MainWindow *mainWindow )
 {
   return new KateProjectPluginView ( this, mainWindow );
 }

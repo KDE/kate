@@ -20,7 +20,8 @@
 
 #include "kateprojectpluginview.h"
 
-#include <kate/application.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
@@ -32,6 +33,7 @@
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 #include <kiconloader.h>
+#include <KXMLGUIFactory>
 
 #include <QDialog>
 #include <QHBoxLayout>
@@ -39,16 +41,19 @@
 
 K_PLUGIN_FACTORY_WITH_JSON (KateProjectPluginFactory, "kateprojectplugin.json", registerPlugin<KateProjectPlugin>();)
 
-KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWin )
-    : Kate::PluginView( mainWin )
-    , Kate::XMLGUIClient("project")
+KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWin )
+    : QObject ( mainWin )
     , m_plugin (plugin)
+    , m_mainWindow (mainWin)
 {
+  KXMLGUIClient::setComponentName ("kateproject", i18n ("Kate Project Manager"));
+  setXMLFile( "ui.rc" );
+  
   /**
    * create toolviews
    */
-  m_toolView = mainWindow()->createToolView ("kateproject", Kate::MainWindow::Left, SmallIcon("project-open"), i18n("Projects"));
-  m_toolInfoView = mainWindow()->createToolView ("kateprojectinfo", Kate::MainWindow::Bottom, SmallIcon("view-choose"), i18n("Current Project"));
+  m_toolView = m_mainWindow->createToolView (m_plugin, "kateproject", KTextEditor::MainWindow::Left, SmallIcon("project-open"), i18n("Projects"));
+  m_toolInfoView = m_mainWindow->createToolView (m_plugin, "kateprojectinfo", KTextEditor::MainWindow::Bottom, SmallIcon("view-choose"), i18n("Current Project"));
 
   /**
    * create the combo + buttons for the toolViews + stacked widgets
@@ -75,15 +80,15 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
    * connect to important signals, e.g. for auto project view creation
    */
   connect (m_plugin, SIGNAL(projectCreated (KateProject *)), this, SLOT(viewForProject (KateProject *)));
-  connect (mainWindow(), SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
+  connect (m_mainWindow, SIGNAL(viewChanged ()), this, SLOT(slotViewChanged ()));
   connect (m_projectsCombo, SIGNAL(currentIndexChanged (int)), this, SLOT(slotCurrentChanged (int)));
-  connect (mainWindow(), SIGNAL(viewCreated (KTextEditor::View *)), this, SLOT(slotViewCreated (KTextEditor::View *)));
+  connect (m_mainWindow, SIGNAL(viewCreated (KTextEditor::View *)), this, SLOT(slotViewCreated (KTextEditor::View *)));
   connect (m_reloadButton, SIGNAL(clicked (bool)), this, SLOT(slotProjectReload ()));
 
   /**
    * connect for all already existing views
    */
-  foreach (KTextEditor::View *view, mainWindow()->views())
+  foreach (KTextEditor::View *view, m_mainWindow->views())
     slotViewCreated (view);
 
   /**
@@ -100,7 +105,7 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, Kate::M
   /**
    * add us to gui
    */
-  mainWindow()->guiFactory()->addClient( this );
+  m_mainWindow->guiFactory()->addClient( this );
 }
 
 KateProjectPluginView::~KateProjectPluginView()
@@ -123,7 +128,7 @@ KateProjectPluginView::~KateProjectPluginView()
   /**
    * cu gui client
    */
-  mainWindow()->guiFactory()->removeClient( this );
+  m_mainWindow->guiFactory()->removeClient( this );
 }
 
 QPair<KateProjectView *,KateProjectInfoView *> KateProjectPluginView::viewForProject (KateProject *project)
@@ -157,24 +162,6 @@ QPair<KateProjectView *,KateProjectInfoView *> KateProjectPluginView::viewForPro
     * remember and return it
     */
    return (m_project2View[project] = QPair<KateProjectView *,KateProjectInfoView *> (view, infoView));
-}
-
-void KateProjectPluginView::readSessionConfig( KConfigBase* config, const QString& groupPrefix )
-{
-  // If you have session-dependant settings, load them here.
-  // If you have application wide settings, you have to read your own KConfig,
-  // see the Kate::Plugin docs for more information.
-  Q_UNUSED( config );
-  Q_UNUSED( groupPrefix );
-}
-
-void KateProjectPluginView::writeSessionConfig( KConfigBase* config, const QString& groupPrefix )
-{
-  // If you have session-dependant settings, save them here.
-  // If you have application wide settings, you have to create your own KConfig,
-  // see the Kate::Plugin docs for more information.
-  Q_UNUSED( config );
-  Q_UNUSED( groupPrefix );
 }
 
 QString KateProjectPluginView::projectFileName () const
@@ -227,7 +214,7 @@ void KateProjectPluginView::slotViewChanged ()
   /**
    * get active view
    */
-  KTextEditor::View *activeView = mainWindow()->activeView ();
+  KTextEditor::View *activeView = m_mainWindow->activeView ();
 
   /**
    * update pointer, maybe disconnect before

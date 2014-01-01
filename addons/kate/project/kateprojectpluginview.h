@@ -31,7 +31,9 @@
 #include <QStackedWidget>
 #include <QToolButton>
 
-class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
+#include <KXMLGUIClient>
+
+class KateProjectPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
 
@@ -42,11 +44,8 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
     Q_PROPERTY(QStringList projectFiles READ projectFiles)
 
   public:
-    KateProjectPluginView( KateProjectPlugin *plugin, Kate::MainWindow *mainWindow );
+    KateProjectPluginView( KateProjectPlugin *plugin, KTextEditor::MainWindow *mainWindow );
     ~KateProjectPluginView();
-
-    virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
-    virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
 
     /**
      * content of current active project, as variant map
@@ -75,6 +74,15 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      * @return empty list if none, else project files as stringlist
      */
     QStringList projectFiles () const;
+    
+    /**
+     * the main window we belong to
+     * @return our main window
+     */
+    KTextEditor::MainWindow *mainWindow () const
+    {
+      return m_mainWindow;
+    }
 
   public slots:
     /**
@@ -148,6 +156,11 @@ class KateProjectPluginView : public Kate::PluginView, public Kate::XMLGUIClient
      */
     KateProjectPlugin *m_plugin;
 
+    /**
+     * the main window we belong to
+     */
+    KTextEditor::MainWindow *m_mainWindow;
+    
     /**
      * our projects toolview
      */

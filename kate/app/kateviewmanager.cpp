@@ -87,7 +87,7 @@ KateViewManager::KateViewManager (QWidget *parentW, KateMainWindow *parent)
 
   connect( this, SIGNAL(viewChanged()), this, SLOT(slotViewChanged()) );
 
-  connect(KateDocManager::self(), SIGNAL(documentCreated(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
+  connect(KateDocManager::self(), SIGNAL(documentCreatedViewManager(KTextEditor::Document*)), this, SLOT(documentCreated(KTextEditor::Document*)));
   connect(KateDocManager::self(), SIGNAL(documentDeleted(KTextEditor::Document*)), this, SLOT(documentDeleted(KTextEditor::Document*)));
 
   // register all already existing documents

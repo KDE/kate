@@ -157,11 +157,16 @@ class KateDocManager : public QObject
     void saveSelected(const QList<KTextEditor::Document*>&);
 
   Q_SIGNALS:
-
     /**
      * This signal is emitted when the \p document was created.
      */
     void documentCreated (KTextEditor::Document *document);
+
+    /**
+     * This signal is emitted when the \p document was created.
+     * This is emited after the initial documentCreated for internal use in view manager
+     */
+    void documentCreatedViewManager (KTextEditor::Document *document);
 
     /**
      * This signal is emitted before a \p document which should be closed is deleted

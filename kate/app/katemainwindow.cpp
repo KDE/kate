@@ -1053,6 +1053,7 @@ bool KateMainWindow::moveToolView (QWidget *widget, KTextEditor::MainWindow::Too
   if (!qobject_cast<KateMDI::ToolView*>(widget))
     return false;
   
+  // FIXME KF5
   return KateMDI::MainWindow::moveToolView (qobject_cast<KateMDI::ToolView*>(widget), (KMultiTabBar::KMultiTabBarPosition) (pos));
 }
 

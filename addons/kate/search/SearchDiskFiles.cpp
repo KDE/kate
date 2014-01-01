@@ -19,8 +19,6 @@
  */
 
 #include "SearchDiskFiles.h"
-#include "SearchDiskFiles.moc"
-#include <kdebug.h>
 
 #include <QDir>
 #include <QTextStream>

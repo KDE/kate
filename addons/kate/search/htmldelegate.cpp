@@ -27,8 +27,6 @@
 #include <QtGui/QTextCharFormat>
 #include <KLocalizedString>
 
-#include <KDebug>
-
 SPHtmlDelegate::SPHtmlDelegate( QObject* parent )
 : QStyledItemDelegate(parent)
 {}

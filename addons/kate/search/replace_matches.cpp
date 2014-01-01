@@ -19,7 +19,7 @@
  */
 
 #include "replace_matches.h"
-#include "replace_matches.moc"
+
 #include <QTreeWidgetItem>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>

@@ -19,7 +19,6 @@
  */
 
 #include "search_open_files.h"
-#include "search_open_files.moc"
 
 #include <QTime>
 

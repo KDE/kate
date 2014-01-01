@@ -19,13 +19,13 @@
  */
 
 #include "FolderFilesList.h"
-#include "FolderFilesList.moc"
+
 #include <kmimetype.h>
-#include <kdebug.h>
 
 #include <QDir>
 #include <QFileInfo>
 #include <QFileInfoList>
+#include <QDebug>
 
 FolderFilesList::FolderFilesList(QObject *parent) : QThread(parent) {}
 
@@ -98,7 +98,7 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         QDir currentDir(item.absoluteFilePath());
 
         if (!currentDir.isReadable()) {
-            kDebug() << currentDir.absolutePath() << "Not readable";
+            qDebug() << currentDir.absolutePath() << "Not readable";
             return;
         }
 

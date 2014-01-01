@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
+ServiceTypes=KTextEditor/ApplicationPlugin
 X-KDE-Library=katefiletreeplugin
 X-Kate-Version=2.8
 X-Kate-LoadAlways=True

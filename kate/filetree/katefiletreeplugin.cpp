@@ -24,10 +24,8 @@
 #include "katefiletreeproxymodel.h"
 #include "katefiletreeconfigpage.h"
 
-#include <kate/application.h>
-#include <kate/mainwindow.h>
-#include <kate/documentmanager.h>
 #include <ktexteditor/view.h>
+#include <ktexteditor/application.h>
 
 #include <KAboutData>
 #include <KPluginFactory>
@@ -35,6 +33,7 @@
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <KIconLoader>
+#include <KXMLGUIFactory>
 
 #include <QAction>
 #include <QApplication>
@@ -51,14 +50,14 @@ Q_LOGGING_CATEGORY(FILETREE, "kate-filetree")
 
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
-  : Kate::Plugin ((Kate::Application*)parent),
+  : KTextEditor::ApplicationPlugin (parent),
     m_fileCommand(0)
 {
 // TODO: Remove once Qt allows an external app to change a debug category (ETA Qt 5.3)
   QLoggingCategory::setFilterRules(QStringLiteral("kate-filetree.debug = true"));
 
   KTextEditor::CommandInterface* iface =
-  qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+  qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
   if (iface) {
     m_fileCommand = new KateFileTreeCommand(this);
     iface->registerCommand(m_fileCommand);
@@ -69,13 +68,13 @@ KateFileTreePlugin::~KateFileTreePlugin()
 {
   m_settings.save();
   KTextEditor::CommandInterface* iface =
-  qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+  qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
   if (iface && m_fileCommand) {
     iface->unregisterCommand(m_fileCommand);
   }
 }
 
-Kate::PluginView *KateFileTreePlugin::createView (Kate::MainWindow *mainWindow)
+QObject *KateFileTreePlugin::createView (KTextEditor::MainWindow *mainWindow)
 {
   KateFileTreePluginView* view = new KateFileTreePluginView (mainWindow, this);
   connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
@@ -167,10 +166,13 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QCol
 //END KateFileTreePlugin
 
 //BEGIN KateFileTreePluginView
-KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, KateFileTreePlugin *plug)
-  : Kate::PluginView (mainWindow), Kate::XMLGUIClient("filetree"), m_plug(plug)
+KateFileTreePluginView::KateFileTreePluginView (KTextEditor::MainWindow *mainWindow, KateFileTreePlugin *plug)
+  : QObject (mainWindow), m_plug(plug), m_mainWindow (mainWindow)
 {
-  m_toolView = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", Kate::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
+  // FIXME KF5
+  KXMLGUIClient::setComponentName ("katefiletree", i18n ("Kate File Tree"));
+  
+  m_toolView = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", KTextEditor::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
   m_fileTree = new KateFileTree(m_toolView);
   m_fileTree->setSortingEnabled(true);
 
@@ -190,16 +192,14 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   m_documentModel->setViewShade(m_plug->settings().viewShade());
   m_documentModel->setEditShade(m_plug->settings().editShade());
 
-  Kate::DocumentManager *dm = Kate::application()->documentManager();
-
-  connect(dm, SIGNAL(documentCreated(KTextEditor::Document*)),
+  connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated(KTextEditor::Document*)),
           m_documentModel, SLOT(documentOpened(KTextEditor::Document*)));
-  connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+  connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
           m_documentModel, SLOT(documentClosed(KTextEditor::Document*)));
 
-  connect(dm, SIGNAL(documentCreated(KTextEditor::Document*)),
+  connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated(KTextEditor::Document*)),
           this, SLOT(documentOpened(KTextEditor::Document*)));
-  connect(dm, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+  connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
           this, SLOT(documentClosed(KTextEditor::Document*)));
 
   connect(m_documentModel,SIGNAL(triggerViewChangeAfterNameChange()),this,SLOT(viewChanged()));
@@ -236,7 +236,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
 
 KateFileTreePluginView::~KateFileTreePluginView ()
 {
-  mainWindow()->guiFactory()->removeClient(this);
+  m_mainWindow->guiFactory()->removeClient(this);
 
   // clean up tree and toolview
   delete m_fileTree->parentWidget();
@@ -276,7 +276,7 @@ void KateFileTreePluginView::documentClosed(KTextEditor::Document *doc)
 
 void KateFileTreePluginView::viewChanged()
 {
-  KTextEditor::View *view = mainWindow()->activeView();
+  KTextEditor::View *view = m_mainWindow->activeView();
   if(!view)
     return;
 
@@ -328,18 +328,18 @@ void KateFileTreePluginView::sortRoleChanged(int role)
 
 void KateFileTreePluginView::activateDocument(KTextEditor::Document *doc)
 {
-  mainWindow()->activateView(doc);
+  m_mainWindow->activateView(doc);
 }
 
 void KateFileTreePluginView::showToolView()
 {
-  mainWindow()->showToolView(m_toolView);
+  m_mainWindow->showToolView(m_toolView);
   m_toolView->setFocus();
 }
 
 void KateFileTreePluginView::hideToolView()
 {
-  mainWindow()->hideToolView(m_toolView);
+  m_mainWindow->hideToolView(m_toolView);
 }
 
 void KateFileTreePluginView::switchDocument(const QString &doc)

@@ -24,8 +24,8 @@
 #include "katefiletreedebug.h"
 
 #include <ktexteditor/document.h>
-#include <kate/application.h>
-#include <kate/documentmanager.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
 
 #include <KMimeTypeTrader>
 #include <KOpenWithDialog>
@@ -274,7 +274,7 @@ void KateFileTree::slotDocumentClose()
   QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentTreeRole);
   if (!v.isValid()) return;
   QList<KTextEditor::Document*> closingDocuments = v.value<QList<KTextEditor::Document*> >();
-  Kate::application()->documentManager()->closeDocumentList(closingDocuments);
+  KTextEditor::Editor::instance()->application()->closeDocuments(closingDocuments);
 }
 
 void KateFileTree::slotCopyFilename()

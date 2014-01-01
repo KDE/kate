@@ -58,7 +58,7 @@ KatePluginManager *KatePluginManager::self()
 
 void KatePluginManager::setupPluginList ()
 {
-  KService::List traderList = KServiceTypeTrader::self()->query("Kate/Plugin");
+  KService::List traderList = KServiceTypeTrader::self()->query("KTextEditor/ApplicationPlugin");
 
   KatePluginList alwaysLoad;
   KatePluginList others;

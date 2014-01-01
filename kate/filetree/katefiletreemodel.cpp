@@ -30,9 +30,8 @@
 #include <kiconutils.h>
 
 #include <ktexteditor/document.h>
-
-#include <kate/application.h>
-#include <kate/documentmanager.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
 
 #include "katefiletreedebug.h"
 
@@ -403,7 +402,7 @@ void KateFileTreeModel::setShowFullPathOnRoots(bool s)
 void KateFileTreeModel::initModel()
 {
   // add already existing documents
-  foreach( KTextEditor::Document* doc, Kate::application()->documentManager()->documents() )
+  foreach( KTextEditor::Document* doc, KTextEditor::Editor::instance()->application()->documents() )
     documentOpened( doc );
 }
 

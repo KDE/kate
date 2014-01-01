@@ -24,11 +24,14 @@
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
-#include <kate/plugin.h>
-#include <kate/mainwindow.h>
+#include <ktexteditor/applicationplugin.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpageinterface.h>
+#include <ktexteditor/sessionconfiginterface.h>
 
 #include "katefiletreepluginsettings.h"
+
+#include <KXMLGUIClient>
 
 class KateFileTree;
 class KateFileTreeModel;
@@ -37,7 +40,7 @@ class KateFileTreeConfigPage;
 class KateFileTreePluginView;
 class KateFileTreeCommand;
 
-class KateFileTreePlugin: public Kate::Plugin, public KTextEditor::ConfigPageInterface
+class KateFileTreePlugin: public KTextEditor::ApplicationPlugin, public KTextEditor::ConfigPageInterface
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::ConfigPageInterface)
@@ -46,7 +49,7 @@ class KateFileTreePlugin: public Kate::Plugin, public KTextEditor::ConfigPageInt
     explicit KateFileTreePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateFileTreePlugin();
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow);
 
     virtual int configPages() const;
 
@@ -69,7 +72,7 @@ class KateFileTreePlugin: public Kate::Plugin, public KTextEditor::ConfigPageInt
     KateFileTreeCommand* m_fileCommand;
 };
 
-class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClient
+class KateFileTreePluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
 
@@ -77,7 +80,7 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     /**
       * Constructor.
       */
-    KateFileTreePluginView (Kate::MainWindow *mainWindow, KateFileTreePlugin *plug);
+    KateFileTreePluginView (KTextEditor::MainWindow *mainWindow, KateFileTreePlugin *plug);
 
     /**
      * Virtual destructor.
@@ -115,6 +118,7 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     KateFileTreeModel *m_documentModel;
     bool m_hasLocalPrefs;
     KateFileTreePlugin *m_plug;
+    KTextEditor::MainWindow *m_mainWindow;
 
   private Q_SLOTS:
     void showToolView();

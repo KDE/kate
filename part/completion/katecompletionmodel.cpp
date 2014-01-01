@@ -507,9 +507,6 @@ QModelIndex KateCompletionModel::indexForGroup( Group * g ) const
 
 void KateCompletionModel::clearGroups( bool shouldReset )
 {
-  if (shouldReset)
-    beginResetModel();
-
   clearExpanding();
   m_ungrouped->clear();
   m_argumentHints->clear();
@@ -542,7 +539,7 @@ void KateCompletionModel::clearGroups( bool shouldReset )
   m_groupHash.insert(BestMatchesProperty, m_bestMatches);
 
   if(shouldReset)
-    endResetModel();
+    reset();
 }
 
 QSet<KateCompletionModel::Group*> KateCompletionModel::createItems(const HierarchicalModelHandler& _handler, const QModelIndex& i, bool notifyModel) {
@@ -585,8 +582,6 @@ void KateCompletionModel::createGroups()
   //new groups.
   clearGroups(true);
 
-  beginResetModel();
-
   bool has_groups=false;
   foreach (CodeCompletionModel* sourceModel, m_completionModels) {
     has_groups|=sourceModel->hasGroups();
@@ -607,7 +602,7 @@ void KateCompletionModel::createGroups()
   
   updateBestMatches();
   
-  endResetModel();
+  reset();
 
   emit contentGeometryChanged();
 }
@@ -944,25 +939,27 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
 
   m_currentMatch[model] = completion;
 
-  beginResetModel();
+  bool needsReset = false;
   
   if (!hasGroups()) {
-    changeCompletions(m_ungrouped, changeType);
+    needsReset |= changeCompletions(m_ungrouped, changeType);
   } else {
     foreach (Group* g, m_rowTable) {
       if(g != m_argumentHints)
-        changeCompletions(g, changeType);
+        needsReset |= changeCompletions(g, changeType);
     }
     foreach (Group* g, m_emptyGroups) {
       if(g != m_argumentHints)
-        changeCompletions(g, changeType);
+        needsReset |= changeCompletions(g, changeType);
     }
   }
 
   // NOTE: best matches are also updated in resort
   resort();
 
-  endResetModel();
+  qCDebug(LOG_PART)<<"needsReset"<<needsReset;
+  if(needsReset)
+    reset();
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
   emit contentGeometryChanged();
@@ -1261,9 +1258,7 @@ const QList< QList < int > > & KateCompletionModel::columnMerges( ) const
 void KateCompletionModel::setColumnMerges( const QList< QList < int > > & columnMerges )
 {
   m_columnMerges = columnMerges;
-
-  beginResetModel();
-  endResetModel();
+  reset();
 }
 
 int KateCompletionModel::translateColumn( int sourceColumn ) const
@@ -2051,8 +2046,6 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
   if (!model || !m_completionModels.contains(model))
     return;
 
-  beginResetModel();
-
   m_currentMatch.remove(model);
 
   clearGroups(false);
@@ -2062,11 +2055,11 @@ void KateCompletionModel::removeCompletionModel(CodeCompletionModel * model)
   m_completionModels.removeAll(model);
 
   if (!m_completionModels.isEmpty()) {
-    // will call endResetModel for us
+    // This performs the reset
     createGroups();
-  } else {
+  }else{
     emit contentGeometryChanged();
-    endResetModel();
+    reset();
   }
 }
 

@@ -168,6 +168,22 @@ class KTEXTEDITOR_EXPORT Application : public QObject
        */
       void documentsCreated(const QList<KTextEditor::Document *> &documents);
 
+      /**
+       * This signal is emitted before the documents batch is going to be deleted
+       *
+       * note that the batch can be interupted in the middle and only some
+       * of the documents may be actually deleted. See documentsDeleted() signal.
+       */
+      void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
+
+      /**
+       * This singnal is emitted after the documents batch was deleted
+       *
+       * This is the batch closing signal for aboutToDeleteDocuments
+       * @param documents the documents that weren't deleted after all
+       */
+      void documentsDeleted(const QList<KTextEditor::Document *> &documents);
+
   //
   // Application plugin accessors
   //

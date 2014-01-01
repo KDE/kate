@@ -272,6 +272,9 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
 
   saveMetaInfos( documents );
 
+  emit aboutToDeleteDocuments(documents);
+
+  int last = 0;
   foreach(KTextEditor::Document *doc, documents)
   {
     if (closeUrl && !doc->closeUrl())
@@ -302,7 +305,10 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
     }
 
     deleteDoc (doc);
+    last++;
   }
+
+  emit documentsDeleted(documents.mid(last));
 
   // never ever empty the whole document list
   if (m_docList.isEmpty())

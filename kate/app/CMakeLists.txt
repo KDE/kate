@@ -1,11 +1,10 @@
-########### next target ###############
+#
+# The Kate Application
+#
 
-set(kateinterfaces_LIB_SRCS kateappadaptor.cpp
-   ../interfaces/kate/application.cpp
-   ../interfaces/kate/mainwindow.cpp
-   ../interfaces/kate/documentmanager.cpp
-   ../interfaces/kate/pluginmanager.cpp
-   ../interfaces/kate/plugin.cpp
+# collect the needed source files
+set (KATE_APPLICATION_SRCS
+   kateappadaptor.cpp
    kateapp.cpp
    kateconfigdialog.cpp
    kateconfigplugindialogpage.cpp
@@ -21,32 +20,18 @@ set(kateinterfaces_LIB_SRCS kateappadaptor.cpp
    katerunninginstanceinfo.cpp
    kateappcommands.cpp
    katequickopen.cpp
-   )
+   katemain.cpp)
 
-add_library (kateinterfaces SHARED ${kateinterfaces_LIB_SRCS})
-
-target_link_libraries (kateinterfaces ktexteditor
+# create kde init executable
+kf5_add_kdeinit_executable(kate ${KATE_APPLICATION_SRCS})
+target_link_libraries(kdeinit_kate ktexteditor
     KF5::I18n
     KF5::KIOFileWidgets
     KF5::IconThemes
     KF5::WindowSystem
     KF5::GuiAddons
-    KF5::DBusAddons
-)
+    KF5::DBusAddons)
 
-set_target_properties(kateinterfaces PROPERTIES VERSION ${GENERIC_LIB_VERSION} SOVERSION ${GENERIC_LIB_SOVERSION})
-
-generate_export_header(kateinterfaces)
-
-install(TARGETS kateinterfaces ${INSTALL_TARGETS_DEFAULT_ARGS} )
-
-install(FILES ${PROJECT_BINARY_DIR}/app/kateinterfaces_export.h DESTINATION ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
-
-#
-# Kate Application
-#
-kf5_add_kdeinit_executable(kate katemain.cpp)
-target_link_libraries(kdeinit_kate ktexteditor kateinterfaces)
-
+# install executable + kdeinit lib
 install(TARGETS kate         ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kate ${INSTALL_TARGETS_DEFAULT_ARGS})

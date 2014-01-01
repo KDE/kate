@@ -20,8 +20,6 @@
 #ifndef __KATE_DOCMANAGER_H__
 #define __KATE_DOCMANAGER_H__
 
-#include <kate/documentmanager.h>
-
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
 #include <ktexteditor/modificationinterface.h>
@@ -73,10 +71,6 @@ class KateDocManager : public QObject
 
     static KateDocManager *self ();
 
-    Kate::DocumentManager *documentManager ()
-    {
-      return m_documentManager;
-    }
     KTextEditor::Editor *editor()
     {
       return m_editor;
@@ -197,7 +191,6 @@ class KateDocManager : public QObject
     void saveMetaInfos(const QList<KTextEditor::Document *> &docs);
     bool computeUrlMD5(const QUrl &url, QByteArray &result);
 
-    Kate::DocumentManager *m_documentManager;
     QList<KTextEditor::Document*> m_docList;
     QHash<KTextEditor::Document*, KateDocumentInfo*> m_docInfos;
 

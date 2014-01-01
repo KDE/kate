@@ -1,7 +1,0 @@
-# kate-2.4.upd
-# Update the katerc config file for v 2.4
-Id=kate2.4
-File=katerc
-# Move the file list sort option into the Filelist group
-Group=General,Filelist
-Key=Sort Type of File List,Sort Type

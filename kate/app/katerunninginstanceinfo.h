@@ -20,8 +20,6 @@
 #ifndef _KATE_RUNNING_INSTANCE_INFO_
 #define _KATE_RUNNING_INSTANCE_INFO_
 
-#include <kateinterfaces_export.h>
-
 #include <QMap>
 #include <QDBusInterface>
 #include <QDBusConnection>

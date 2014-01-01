@@ -20,8 +20,6 @@
 #ifndef __KATE_APP_H__
 #define __KATE_APP_H__
 
-#include <kateinterfaces_export.h>
-#include <kate/mainwindow.h>
 #include <ktexteditor/application.h>
 
 #include <katemainwindow.h>
@@ -42,16 +40,11 @@ namespace KTextEditor
   class Document;
 }
 
-namespace Kate
-{
-  class Application;
-}
-
 /**
  * Kate Application
  * This class represents the core kate application object
  */
-class KATEINTERFACES_EXPORT KateApp : public QObject
+class KateApp : public QObject
 {
     Q_OBJECT
 
@@ -80,12 +73,6 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      * @return app instance
      */
     static KateApp *self ();
-
-    /**
-     * accessor to the Kate::Application plugin interface
-     * @return application plugin interface
-     */
-    Kate::Application *application ();
     
     /**
      * KTextEditor::Application wrapper
@@ -223,16 +210,6 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      * @return success
      */
     bool openInput (const QString &text);
-
-    /**
-     * Get a list of all mainwindows interfaces for the plugins.
-     * @return all mainwindows
-     * @see activeMainWindow()
-     */
-    const QList<Kate::MainWindow*> &mainWindowsInterfaces () const
-    {
-      return m_mainWindowsInterfaces;
-    }
   
   //
   // KTextEditor::Application interface, called by wrappers via invokeMethod
@@ -331,11 +308,6 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
     const QCommandLineParser &m_args;
 
     /**
-     * plugin interface
-     */
-    Kate::Application *m_application;
-
-    /**
      * document manager
      */
     KateDocManager *m_docManager;
@@ -359,7 +331,6 @@ class KATEINTERFACES_EXPORT KateApp : public QObject
      * known main windows
      */
     QList<KateMainWindow*> m_mainWindows;
-    QList<Kate::MainWindow*> m_mainWindowsInterfaces;
 
     // various vim-inspired command line commands
     KateAppCommands *m_appCommands;

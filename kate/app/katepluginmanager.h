@@ -21,8 +21,7 @@
 #ifndef __KATE_PLUGINMANAGER_H__
 #define __KATE_PLUGINMANAGER_H__
 
-#include <kate/plugin.h>
-#include <kate/pluginmanager.h>
+#include <KTextEditor/ApplicationPlugin>
 
 #include <KService>
 #include <KConfigBase>
@@ -38,7 +37,7 @@ class KatePluginInfo
     bool load;
     bool alwaysLoad;
     KService::Ptr service;
-    Kate::Plugin *plugin;
+    KTextEditor::ApplicationPlugin *plugin;
     QString saveName() const;
 };
 
@@ -53,11 +52,6 @@ class KatePluginManager : public QObject
     ~KatePluginManager();
 
     static KatePluginManager *self();
-
-    Kate::PluginManager *pluginManager () const
-    {
-      return m_pluginManager;
-    }
 
     void unloadAllPlugins ();
 
@@ -81,15 +75,13 @@ class KatePluginManager : public QObject
       return m_pluginList;
     }
 
-    Kate::Plugin *plugin (const QString &name);
+    KTextEditor::ApplicationPlugin *plugin (const QString &name);
     bool pluginAvailable (const QString &name);
 
-    Kate::Plugin *loadPlugin (const QString &name, bool permanent = true);
+    KTextEditor::ApplicationPlugin *loadPlugin (const QString &name, bool permanent = true);
     void unloadPlugin (const QString &name, bool permanent = true);
 
   private:
-    Kate::PluginManager *m_pluginManager;
-
     void setupPluginList ();
 
     /**

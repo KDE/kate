@@ -21,8 +21,7 @@
 #include "katequickopen.moc"
 #include "katemainwindow.h"
 #include "kateviewmanager.h"
-#include "kate/application.h"
-#include "kate/mainwindow.h"
+#include "kateapp.h"
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
@@ -196,7 +195,7 @@ void KateQuickOpen::update ()
   /**
    * get all open documents
    */
-  QList<KTextEditor::Document*> docs = Kate::application()->documentManager()->documents();
+  QList<KTextEditor::Document*> docs = KateApp::self()->documentManager()->documentList();
     foreach(KTextEditor::Document *doc, docs) {
         /**
          * skip docs already open
@@ -227,7 +226,7 @@ void KateQuickOpen::update ()
     /**
      * insert all project files, if any project around
      */
-    if (Kate::PluginView *projectView = m_mainWindow->mainWindow()->pluginView ("kateprojectplugin")) {
+    if (QObject *projectView = m_mainWindow->pluginView ("kateprojectplugin")) {
       QStringList projectFiles = projectView->property ("projectFiles").toStringList();
       foreach (const QString &file, projectFiles) {
         /**
@@ -295,11 +294,11 @@ void KateQuickOpen::switchTo (const QModelIndex& index)
    */
   KTextEditor::Document *doc = index.data(DocumentRole).value<QPointer<KTextEditor::Document> >();
   if (doc) {
-    m_mainWindow->mainWindow()->activateView (doc);
+    m_mainWindow->wrapper()->activateView (doc);
   } else {
     QUrl url = index.data(UrlRole).value<QUrl>();
     if (!url.isEmpty())
-      m_mainWindow->mainWindow()->openUrl (url);
+      m_mainWindow->wrapper()->openUrl (url);
   }
 
   /**

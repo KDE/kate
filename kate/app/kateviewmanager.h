@@ -23,7 +23,6 @@
 
 #include "katedocmanager.h"
 
-
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 

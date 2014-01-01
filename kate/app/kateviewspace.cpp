@@ -34,6 +34,7 @@
 #include <KLocalizedString>
 #include <kiconutils.h>
 #include <KConfigGroup>
+#include <KXMLGUIFactory>
 
 #include <QTimer>
 #include <QCursor>

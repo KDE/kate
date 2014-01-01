@@ -28,8 +28,6 @@
 #include "kateappcommands.h"
 #include "katedebug.h"
 
-#include <kate/application.h>
-
 #include <KConfig>
 #include <ktip.h>
 #include <KMessageBox>
@@ -54,9 +52,6 @@ KateApp::KateApp(const QCommandLineParser &args)
     , m_wrapper (new KTextEditor::Application (this))
 {
   s_self = this;
-
-  // application interface
-  m_application = new Kate::Application (this);
 
   // doc man
   m_docManager = new KateDocManager (this);
@@ -98,19 +93,11 @@ KateApp::~KateApp ()
 
   // delete this now, or we crash
   delete m_docManager;
-
-  // cu kate app
-  delete m_application;
 }
 
 KateApp *KateApp::self ()
 {
   return s_self;
-}
-
-Kate::Application *KateApp::application ()
-{
-  return m_application;
 }
 
 bool KateApp::init ()
@@ -404,12 +391,10 @@ KateMainWindow *KateApp::newMainWindow (KConfig *sconfig_, const QString &sgroup
 void KateApp::addMainWindow (KateMainWindow *mainWindow)
 {
   m_mainWindows.push_back (mainWindow);
-  m_mainWindowsInterfaces.push_back (mainWindow->mainWindow());
 }
 
 void KateApp::removeMainWindow (KateMainWindow *mainWindow)
 {
-  m_mainWindowsInterfaces.removeAll(mainWindow->mainWindow());
   m_mainWindows.removeAll(mainWindow);
 }
 

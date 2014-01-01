@@ -48,14 +48,6 @@ namespace KIO
   typedef class QList<UDSEntry> UDSEntryList;
 }
 
-namespace Kate
-{
-  class MainWindow;
-  class Plugin;
-  class PluginView;
-  class PluginConfigPageInterface;
-}
-
 class KFileItem;
 class KRecentFilesAction;
 
@@ -98,11 +90,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * Accessor methodes for interface and child objects
      */
   public:
-    Kate::MainWindow *mainWindow ()
-    {
-      return m_mainWindow;
-    }
-
     KateViewManager *viewManager ()
     {
       return m_viewManager;
@@ -123,7 +110,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,
      *         otherwise null
      */
-    Kate::PluginView *pluginView (const QString &name);
+    QObject *pluginView (const QString &name);
 
   public:
     /** Returns the URL of the current document.
@@ -244,7 +231,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   public:
     void openUrl (const QString &name = QString());
 
-    QHash<Kate::Plugin*, Kate::PluginView*> &pluginViews ()
+    QHash<KTextEditor::ApplicationPlugin*, QObject*> &pluginViews ()
     {
       return m_pluginViews;
     }
@@ -378,8 +365,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     static uint uniqueID;
     uint myID;
 
-    Kate::MainWindow *m_mainWindow;
-
     bool modNotification;
 
     /**
@@ -406,7 +391,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     bool m_modignore;
 
     // all plugin views for this mainwindow, used by the pluginmanager
-    QHash<Kate::Plugin*, Kate::PluginView*> m_pluginViews;
+    QHash<KTextEditor::ApplicationPlugin*, QObject*> m_pluginViews;
 
     // options: show statusbar + show path
     KToggleAction *m_paShowPath;

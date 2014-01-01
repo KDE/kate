@@ -26,8 +26,6 @@
 #include "katedocmanager.h"
 #include "kateviewspace.h"
 
-#include <kate/mainwindow.h>
-
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/attribute.h>
@@ -45,6 +43,7 @@
 #include <KStandardAction>
 #include <KStandardShortcut>
 #include <KLocalizedString>
+#include <KXMLGUIFactory>
 
 #ifdef KActivities_FOUND
 #include <kactivities/resourceinstance.h>

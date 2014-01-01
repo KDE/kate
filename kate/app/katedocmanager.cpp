@@ -72,8 +72,6 @@ KateDocManager::KateDocManager (QObject *parent)
   // read in editor config
   m_editor->readConfig(KSharedConfig::openConfig().data());
 
-  m_documentManager = new Kate::DocumentManager (this);
-
   m_metaInfos = new KConfig("metainfos", KConfig::NoGlobals, QStandardPaths::DataLocation );
 
   createDoc ();
@@ -106,8 +104,6 @@ KateDocManager::~KateDocManager ()
 
   qDeleteAll( m_docInfos );
   delete m_metaInfos;
-  delete m_documentManager;
-  // delete m_editor; don't delete this here - it's cleaned up when the plugin is unloaded
 }
 
 KateDocManager *KateDocManager::self ()
@@ -141,11 +137,6 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
           this, SLOT(slotModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)));
 
   // we have a new document, show it the world
-  
-  //  m_documentManager->documentCreated must come first
-  //  as to signal plugins and other api users about the change
-  //  before the view manager gets a chance to signal a viewChanged
-  emit m_documentManager->documentCreated (doc);
   emit documentCreated (doc);
 
   // return our new document
@@ -159,16 +150,13 @@ void KateDocManager::deleteDoc (KTextEditor::Document *doc)
 
   // document will be deleted, soon
   emit documentWillBeDeleted (doc);
-  emit m_documentManager->documentWillBeDeleted (doc);
 
   // really delete the document and its infos
   delete m_docInfos.take (doc);
   delete m_docList.takeAt (m_docList.indexOf(doc));
   
-  //??????????????? AT THIS POINT THE REFERENCED POINTER IS INVALID
   // document is gone, emit our signals
   emit documentDeleted (doc);
-  emit m_documentManager->documentDeleted (doc);
 }
 
 KTextEditor::Document *KateDocManager::document (uint n)

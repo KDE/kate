@@ -36,8 +36,6 @@
 #include "katequickopen.h"
 #include "katedebug.h"
 
-#include <kate/mainwindow.h>
-
 #include <KAboutApplicationDialog>
 #include <KEditToolBar>
 #include <KShortcutsDialog>
@@ -58,6 +56,7 @@
 #include <KLocalizedString>
 #include <KConfigGroup>
 #include <kwindowconfig.h>
+#include <KXMLGUIFactory>
 
 #include <KIO/Job>
 #include <KIO/JobClasses>
@@ -73,6 +72,8 @@
 #include <QApplication>
 #include <QMenu>
 #include <QTimer>
+
+#include <ktexteditor/sessionconfiginterface.h>
 
 #include <assert.h>
 #include <unistd.h>
@@ -153,8 +154,6 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 
   // start session restore if needed
   startRestore (sconfig, sgroup);
-
-  m_mainWindow = new Kate::MainWindow (this);
 
   // setup most important actions first, needed by setupMainWindow
   setupImportantActions ();
@@ -361,8 +360,6 @@ void KateMainWindow::setupActions()
   a->setText( i18n("&About Editor Component") );
   connect( a, SIGNAL(triggered()), this, SLOT(aboutEditor()) );
 
-  connect(m_viewManager, SIGNAL(viewChanged()), m_mainWindow, SIGNAL(viewChanged()));
-  connect(m_viewManager, SIGNAL(viewCreated(KTextEditor::View*)), m_mainWindow, SIGNAL(viewCreated(KTextEditor::View*)));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotWindowActivated()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateOpenWith()));
   connect(m_viewManager, SIGNAL(viewChanged()), this, SLOT(slotUpdateBottomViewBar()));
@@ -904,11 +901,12 @@ void KateMainWindow::saveProperties(KConfigGroup& config)
 
   // store all plugin view states
   int id = KateApp::self()->mainWindowID (this);
-  foreach(const KatePluginInfo &item, KatePluginManager::self()->pluginList())
-  {
+  foreach(const KatePluginInfo &item, KatePluginManager::self()->pluginList()) {
     if (item.plugin && pluginViews().contains(item.plugin)) {
-      pluginViews().value(item.plugin)->writeSessionConfig (config.config(),
-        QString("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id) );
+      if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (pluginViews().value(item.plugin))) {
+        KConfigGroup group (config.config(), QString("Plugin:%1:MainWindow:%2").arg(item.saveName()).arg(id));
+        interface->writeSessionConfig (group);
+      }
     }
   }
 
@@ -1006,9 +1004,9 @@ bool KateMainWindow::event( QEvent *e )
   return KateMDI::MainWindow::event(e);
 }
 
-Kate::PluginView *KateMainWindow::pluginView (const QString &name)
+QObject *KateMainWindow::pluginView (const QString &name)
 {
-  Kate::Plugin *plugin = KateApp::self()->pluginManager()->plugin (name);
+  KTextEditor::ApplicationPlugin *plugin = KateApp::self()->pluginManager()->plugin (name);
   if (!plugin)
     return 0;
 

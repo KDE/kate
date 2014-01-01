@@ -2,7 +2,7 @@
 add_subdirectory (ktexteditor)
 
 # Kate plugins
-add_subdirectory (kate)
+#add_subdirectory (kate)
 
 # Plasma applets
 #add_subdirectory (plasma)

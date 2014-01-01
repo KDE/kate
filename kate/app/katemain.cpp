@@ -23,7 +23,6 @@
 
 #include "kateapp.h"
 #include "katerunninginstanceinfo.h"
-#include <kateinterfaces_export.h>
 
 #include <KAboutData>
 #include <KLocalizedString>

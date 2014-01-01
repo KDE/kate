@@ -51,11 +51,12 @@
 #include <kpluginfactory.h>
 #include <kauthorized.h>
 #include <KConfigGroup>
+#include <KXMLGUIFactory>
 
 K_PLUGIN_FACTORY_WITH_JSON (KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 
 KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
-    Kate::Plugin ( (Kate::Application*)parent )
+    KTextEditor::ApplicationPlugin ( parent )
 {
   m_previousEditorEnv=qgetenv("EDITOR");
   if (!KAuthorized::authorizeKAction("shell_access"))
@@ -69,7 +70,7 @@ KateKonsolePlugin::~KateKonsolePlugin()
   ::setenv( "EDITOR", m_previousEditorEnv.data(), 1 );
 }
 
-Kate::PluginView *KateKonsolePlugin::createView (Kate::MainWindow *mainWindow)
+QObject *KateKonsolePlugin::createView (KTextEditor::MainWindow *mainWindow)
 {
   KateKonsolePluginView *view = new KateKonsolePluginView (this, mainWindow);
   return view;
@@ -106,11 +107,11 @@ void KateKonsolePlugin::readConfig()
     view->readConfig();
 }
 
-KateKonsolePluginView::KateKonsolePluginView (KateKonsolePlugin* plugin, Kate::MainWindow *mainWindow)
-    : Kate::PluginView (mainWindow),m_plugin(plugin)
+KateKonsolePluginView::KateKonsolePluginView (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mainWindow)
+    : QObject(mainWindow),m_plugin(plugin)
 {
   // init console
-  QWidget *toolview = mainWindow->createToolView ("kate_private_plugin_katekonsoleplugin", Kate::MainWindow::Bottom, SmallIcon("utilities-terminal"), i18n("Terminal"));
+  QWidget *toolview = mainWindow->createToolView (plugin, "kate_private_plugin_katekonsoleplugin", KTextEditor::MainWindow::Bottom, SmallIcon("utilities-terminal"), i18n("Terminal"));
   m_console = new KateConsole(m_plugin, mainWindow, toolview);
   
   // register this view
@@ -133,13 +134,16 @@ void KateKonsolePluginView::readConfig()
   m_console->readConfig();
 }
 
-KateConsole::KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidget *parent)
-    : QWidget (parent), Kate::XMLGUIClient("konsole")
+KateConsole::KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw, QWidget *parent)
+    : QWidget (parent)
     , m_part (0)
     , m_mw (mw)
     , m_toolView (parent)
     , m_plugin(plugin)
 {
+  KXMLGUIClient::setComponentName ("kateconsole", i18n ("Kate Terminal"));
+  setXMLFile( "ui.rc" );
+  
   // make sure we have a vertical layout
   new QVBoxLayout(this);
 

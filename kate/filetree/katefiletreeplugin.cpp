@@ -169,7 +169,6 @@ void KateFileTreePlugin::applyConfig(bool shadingEnabled, QColor viewShade, QCol
 KateFileTreePluginView::KateFileTreePluginView (KTextEditor::MainWindow *mainWindow, KateFileTreePlugin *plug)
   : QObject (mainWindow), m_plug(plug), m_mainWindow (mainWindow)
 {
-  // FIXME KF5
   KXMLGUIClient::setComponentName ("katefiletree", i18n ("Kate File Tree"));
   setXMLFile( "ui.rc" );
   

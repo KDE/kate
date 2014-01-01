@@ -21,13 +21,15 @@
 #ifndef __KATE_CONSOLE_H__
 #define __KATE_CONSOLE_H__
 
-#include <kate/plugin.h>
-#include <kate/mainwindow.h>
+#include <ktexteditor/applicationplugin.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpageinterface.h>
 #include <ktexteditor/configpage.h>
 
 #include <QList>
 #include <QKeyEvent>
+
+#include <KXMLGUIClient>
 
 class QShowEvent;
 
@@ -39,7 +41,7 @@ namespace KParts
 class KateConsole;
 class KateKonsolePluginView;
 
-class KateKonsolePlugin: public Kate::Plugin, public KTextEditor::ConfigPageInterface
+class KateKonsolePlugin: public KTextEditor::ApplicationPlugin, public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::ConfigPageInterface)
@@ -50,7 +52,7 @@ class KateKonsolePlugin: public Kate::Plugin, public KTextEditor::ConfigPageInte
     explicit KateKonsolePlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateKonsolePlugin();
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow);
 
     // PluginConfigPageInterface
     int configPages() const { return 1; };
@@ -68,7 +70,7 @@ class KateKonsolePlugin: public Kate::Plugin, public KTextEditor::ConfigPageInte
     QByteArray m_previousEditorEnv;
 };
 
-class KateKonsolePluginView : public Kate::PluginView
+class KateKonsolePluginView : public QObject
 {
     Q_OBJECT
 
@@ -76,7 +78,7 @@ class KateKonsolePluginView : public Kate::PluginView
     /**
       * Constructor.
       */
-    KateKonsolePluginView (KateKonsolePlugin* plugin, Kate::MainWindow *mainWindow);
+    KateKonsolePluginView (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
      * Virtual destructor.
@@ -95,7 +97,7 @@ class KateKonsolePluginView : public Kate::PluginView
  * This class is used for the internal terminal emulator
  * It uses internally the konsole part, thx to konsole devs :)
  */
-class KateConsole : public QWidget, public Kate::XMLGUIClient
+class KateConsole : public QWidget, public KXMLGUIClient
 {
     Q_OBJECT
 
@@ -105,7 +107,7 @@ class KateConsole : public QWidget, public Kate::XMLGUIClient
      * @param mw main window
      * @param parent toolview
      */
-    KateConsole (KateKonsolePlugin* plugin, Kate::MainWindow *mw, QWidget* parent);
+    KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw, QWidget* parent);
 
     /**
      * destruct us
@@ -126,7 +128,7 @@ class KateConsole : public QWidget, public Kate::XMLGUIClient
      */
     void sendInput( const QString& text );
 
-    Kate::MainWindow *mainWindow()
+    KTextEditor::MainWindow *mainWindow()
     {
       return m_mw;
     }
@@ -184,7 +186,7 @@ class KateConsole : public QWidget, public Kate::XMLGUIClient
     /**
      * main window of this console
      */
-    Kate::MainWindow *m_mw;
+    KTextEditor::MainWindow *m_mw;
 
     /**
      * toolview for this console

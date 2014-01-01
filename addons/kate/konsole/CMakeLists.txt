@@ -10,15 +10,17 @@ set(katekonsoleplugin_PART_SRCS kateconsole.cpp )
 add_library (katekonsoleplugin MODULE ${katekonsoleplugin_PART_SRCS})
 
 target_link_libraries(katekonsoleplugin
-    kateinterfaces
+    ktexteditor
     KF5::Parts
+    KF5::IconThemes
+    KF5::I18n
 )
 
 install(TARGETS katekonsoleplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katekonsole )
+install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/katekonsole )
 
 kservice_desktop_to_json (katekonsoleplugin.desktop)
 install( FILES katekonsoleplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

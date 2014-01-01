@@ -171,6 +171,7 @@ KateFileTreePluginView::KateFileTreePluginView (KTextEditor::MainWindow *mainWin
 {
   // FIXME KF5
   KXMLGUIClient::setComponentName ("katefiletree", i18n ("Kate File Tree"));
+  setXMLFile( "ui.rc" );
   
   m_toolView = mainWindow->createToolView (plug,"kate_private_plugin_katefiletreeplugin", KTextEditor::MainWindow::Left, SmallIcon("document-open"), i18n("Documents"));
   m_fileTree = new KateFileTree(m_toolView);

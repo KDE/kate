@@ -10,6 +10,9 @@ ecm_optional_add_subdirectory (project)
 # terminal tool view
 ecm_optional_add_subdirectory (konsole)
 
+# search in open documents and files
+ecm_optional_add_subdirectory (search)
+
 #if(NOT WIN32)
 #   add_subdirectory( gdbplugin )   # reading /proc/...
 #endif(NOT WIN32)
@@ -27,7 +30,6 @@ ecm_optional_add_subdirectory (konsole)
 
 #add_subdirectory( kate-ctags )
 #add_subdirectory( katebuild-plugin )
-#add_subdirectory( search )
 
 #add_subdirectory( kttsd )
 

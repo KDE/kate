@@ -21,13 +21,17 @@
 #ifndef _PLUGIN_SEARCH_H_
 #define _PLUGIN_SEARCH_H_
 
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
+#include <ktexteditor/mainwindow.h>
+#include <ktexteditor/applicationplugin.h>
+#include <ktexteditor/application.h>
 #include <ktexteditor/commandinterface.h>
+#include <ktexteditor/sessionconfiginterface.h>
 #include <kaction.h>
 
 #include <QTreeWidget>
 #include <QTimer>
+
+#include <KXMLGUIClient>
 
 #include "ui_search.h"
 #include "ui_results.h"
@@ -67,7 +71,7 @@ protected:
 };
 
 
-class KatePluginSearch : public Kate::Plugin
+class KatePluginSearch : public KTextEditor::ApplicationPlugin
 {
     Q_OBJECT
 
@@ -75,7 +79,7 @@ public:
     explicit KatePluginSearch(QObject* parent = 0, const QList<QVariant>& = QList<QVariant>());
     virtual ~KatePluginSearch();
 
-    Kate::PluginView *createView(Kate::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow);
 
 private:
     KateSearchCommand* m_searchCommand;
@@ -83,16 +87,17 @@ private:
 
 
 
-class KatePluginSearchView : public Kate::PluginView, public Kate::XMLGUIClient
+class KatePluginSearchView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-    KatePluginSearchView(Kate::MainWindow *mainWindow, Kate::Application* application);
+    KatePluginSearchView(KTextEditor::ApplicationPlugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application* application);
     ~KatePluginSearchView();
 
-    virtual void readSessionConfig(KConfigBase* config, const QString& groupPrefix);
-    virtual void writeSessionConfig(KConfigBase* config, const QString& groupPrefix);
+    void readSessionConfig (const KConfigGroup& config);
+    void writeSessionConfig (KConfigGroup& config);
 
 public Q_SLOTS:
     void startSearch();
@@ -148,8 +153,8 @@ private Q_SLOTS:
     /**
      * keep track if the project plugin is alive and if the project file did change
      */
-    void slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView);
-    void slotPluginViewDeleted (const QString &name, Kate::PluginView *pluginView);
+    void slotPluginViewCreated (const QString &name, QObject *pluginView);
+    void slotPluginViewDeleted (const QString &name, QObject *pluginView);
     void slotProjectFileNameChanged ();
 
 protected:
@@ -163,13 +168,13 @@ private:
 
     Ui::SearchDialog                   m_ui;
     QWidget                           *m_toolView;
-    Kate::Application                 *m_kateApp;
+    KTextEditor::Application          *m_kateApp;
     SearchOpenFiles                    m_searchOpenFiles;
     FolderFilesList                    m_folderFilesList;
     SearchDiskFiles                    m_searchDiskFiles;
     ReplaceMatches                     m_replacer;
-    KAction                           *m_matchCase;
-    KAction                           *m_useRegExp;
+    QAction                           *m_matchCase;
+    QAction                           *m_useRegExp;
     Results                           *m_curResults;
     bool                               m_searchJustOpened;
     bool                               m_switchToProjectModeWhenAvailable;
@@ -182,7 +187,12 @@ private:
     /**
      * current project plugin view, if any
      */
-    Kate::PluginView *m_projectPluginView;
+    QObject *m_projectPluginView;
+    
+    /**
+     * our main window
+     */
+    KTextEditor::MainWindow *m_mainWindow;
 };
 
 class KateSearchCommand : public QObject, public KTextEditor::Command

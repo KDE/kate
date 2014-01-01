@@ -45,7 +45,8 @@ void ReplaceMatches::replaceChecked(QTreeWidget *tree, const QRegExp &regexp, co
     m_cancelReplace = false;
     emit replaceNextMatch();
 }
-void ReplaceMatches::setDocumentManager(Kate::DocumentManager *manager)
+
+void ReplaceMatches::setDocumentManager(KTextEditor::Application *manager)
 {
     m_manager = manager;
 }
@@ -145,7 +146,7 @@ void ReplaceMatches::doReplaceNextMatch()
         }
 
         if (m_regExp.indexIn(matchLines) != 0) {
-            kDebug() << "expression does not match";
+            qDebug() << "expression does not match";
             continue;
         }
 

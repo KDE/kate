@@ -64,22 +64,16 @@ void KatePluginManager::setupPluginList ()
   KatePluginList others;
   foreach(const KService::Ptr &ptr, traderList)
   {
-    double pVersion = ptr->property("X-Kate-Version").toDouble();
+    KatePluginInfo info;
+    info.service = ptr;
+    info.alwaysLoad=info.service->property("X-Kate-LoadAlways").toBool();
+    info.load = false;
+    info.plugin = 0L;
 
-    // don't use plugins out of 3.x release series
-    if ((pVersion >= 2.8) && (pVersion <= KateVersion))
-    {
-      KatePluginInfo info;
-      info.service = ptr;
-      info.alwaysLoad=info.service->property("X-Kate-LoadAlways").toBool();
-      info.load = false;
-      info.plugin = 0L;
-
-      if (info.alwaysLoad)
-        alwaysLoad.push_back (info);
-      else
-        others.push_back (info);
-    }
+    if (info.alwaysLoad)
+      alwaysLoad.push_back (info);
+    else
+      others.push_back (info);
   }
 
   /**

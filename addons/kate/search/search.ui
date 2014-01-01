@@ -25,7 +25,7 @@
     </widget>
    </item>
    <item row="1" column="4">
-    <widget class="KPushButton" name="replaceButton">
+    <widget class="QPushButton" name="replaceButton">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -35,7 +35,7 @@
     </widget>
    </item>
    <item row="0" column="4">
-    <widget class="KPushButton" name="searchButton">
+    <widget class="QPushButton" name="searchButton">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -88,14 +88,11 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="KTabWidget" name="resultTabWidget">
+        <widget class="QTabWidget" name="resultTabWidget">
          <property name="tabsClosable">
           <bool>true</bool>
          </property>
          <property name="movable">
-          <bool>true</bool>
-         </property>
-         <property name="automaticResizeTabs">
           <bool>true</bool>
          </property>
         </widget>
@@ -345,7 +342,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="KPushButton" name="nextButton">
+        <widget class="QPushButton" name="nextButton">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -368,7 +365,7 @@
         <number>0</number>
        </property>
        <item>
-        <widget class="KPushButton" name="stopButton">
+        <widget class="QPushButton" name="stopButton">
          <property name="sizePolicy">
           <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -405,7 +402,7 @@
     </widget>
    </item>
    <item row="1" column="5">
-    <widget class="KPushButton" name="replaceCheckedBtn">
+    <widget class="QPushButton" name="replaceCheckedBtn">
      <property name="enabled">
       <bool>false</bool>
      </property>
@@ -428,20 +425,9 @@
    <header>kurlrequester.h</header>
   </customwidget>
   <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
   <customwidget>
    <class>KHistoryComboBox</class>

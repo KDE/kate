@@ -21,7 +21,7 @@
 #ifndef HTML_DELEGATE_H
 #define HTML_DELEGATE_H
 
-#include <QtGui/QStyledItemDelegate>
+#include <QStyledItemDelegate>
 
 class SPHtmlDelegate : public QStyledItemDelegate
 {

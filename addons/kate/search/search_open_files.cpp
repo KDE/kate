@@ -80,7 +80,7 @@ int SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegExp &r
 {
     if (m_statusTime.elapsed() > 100) {
         m_statusTime.restart();
-        emit searching(doc->url().pathOrUrl());
+        emit searching(doc->url().toString());
     }
 
     if (regExp.pattern().contains("\\n")) {
@@ -98,13 +98,13 @@ int SearchOpenFiles::searchSingleLineRegExp(KTextEditor::Document *doc, const QR
     time.start();
     for (int line = startLine; line < doc->lines(); line++) {
         if (time.elapsed() > 100) {
-            kDebug() << "Search time exceeded" << time.elapsed() << line;
+            qDebug() << "Search time exceeded" << time.elapsed() << line;
             return line;
         }
         column = regExp.indexIn(doc->line(line));
         while (column != -1) {
             if (regExp.cap().isEmpty()) break;
-            emit matchFound(doc->url().pathOrUrl(), doc->documentName(), line, column,
+            emit matchFound(doc->url().toString(), doc->documentName(), line, column,
                             doc->line(line), regExp.matchedLength());
             column = regExp.indexIn(doc->line(line), column + regExp.cap().size());
         }
@@ -166,7 +166,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         if (line == -1) {
             break;
         }
-        emit matchFound(doc->url().pathOrUrl(), doc->documentName(),
+        emit matchFound(doc->url().toString(), doc->documentName(),
                         line,
                         (column - m_lineStart[line]),
                         doc->line(line).left(column - m_lineStart[line])+tmpRegExp.cap(),

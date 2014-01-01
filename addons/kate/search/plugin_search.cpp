@@ -19,23 +19,19 @@
  */
 
 #include "plugin_search.h"
-#include "plugin_search.moc"
 
 #include "htmldelegate.h"
 
-#include <kate/application.h>
+#include <ktexteditor/application.h>
 #include <ktexteditor/editor.h>
-
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
-#include <kate/documentmanager.h>
 #include <ktexteditor/markinterface.h>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
 #include <ktexteditor/configinterface.h>
 
 #include "kacceleratormanager.h"
-#include <kaction.h>
 #include <kactioncollection.h>
 #include <klocale.h>
 #include <kpluginfactory.h>
@@ -44,6 +40,11 @@
 #include <kurlcompletion.h>
 #include <klineedit.h>
 #include <kcolorscheme.h>
+#include <kiconloader.h>
+
+#include <KIcon>
+#include <KXMLGUIFactory>
+#include <KConfigGroup>
 
 #include <QKeyEvent>
 #include <QClipboard>
@@ -51,6 +52,17 @@
 #include <QMetaObject>
 #include <QTextDocument>
 #include <QScrollBar>
+#include <QFileInfo>
+#include <QDir>
+
+static QUrl localFileDirUp (const QUrl &url)
+{
+    if (!url.isLocalFile())
+        return url;
+    
+    // else go up
+    return QUrl::fromLocalFile (QFileInfo (url.toLocalFile()).dir().absolutePath());
+}
 
 static QAction *menuEntry(QMenu *menu,
                           const QString &before, const QString &after, const QString &desc,
@@ -106,17 +118,17 @@ Results::Results(QWidget *parent): QWidget(parent), matches(0)
 }
 
 
-K_PLUGIN_FACTORY(KatePluginSearchFactory, registerPlugin<KatePluginSearch>();)
-K_EXPORT_PLUGIN(KatePluginSearchFactory(KAboutData("katesearch","katesearch",ki18n("Search & Replace"), "0.1", ki18n("Search & replace in files"))))
+K_PLUGIN_FACTORY_WITH_JSON (KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)
 
 KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
-    : Kate::Plugin((Kate::Application*)parent, "kate-search-plugin"),
+    : KTextEditor::ApplicationPlugin (parent),
     m_searchCommand(0)
 {
-    KGlobal::locale()->insertCatalog("katesearch");
+    // FIXME KF5
+    //KGlobal::locale()->insertCatalog("katesearch");
 
     KTextEditor::CommandInterface* iface =
-    qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+    qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
     if (iface) {
         m_searchCommand = new KateSearchCommand(this);
         iface->registerCommand(m_searchCommand);
@@ -126,15 +138,15 @@ KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
 KatePluginSearch::~KatePluginSearch()
 {
     KTextEditor::CommandInterface* iface =
-    qobject_cast<KTextEditor::CommandInterface*>(Kate::application()->editor());
+    qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
     if (iface && m_searchCommand) {
         iface->unregisterCommand(m_searchCommand);
     }
 }
 
-Kate::PluginView *KatePluginSearch::createView(Kate::MainWindow *mainWindow)
+QObject *KatePluginSearch::createView(KTextEditor::MainWindow *mainWindow)
 {
-    KatePluginSearchView *view = new KatePluginSearchView(mainWindow, application());
+    KatePluginSearchView *view = new KatePluginSearchView(this, mainWindow, KTextEditor::Editor::instance()->application());
     connect(m_searchCommand, SIGNAL(setSearchPlace(int)), view, SLOT(setSearchPlace(int)));
     connect(m_searchCommand, SIGNAL(setCurrentFolder()), view, SLOT(setCurrentFolder()));
     connect(m_searchCommand, SIGNAL(setSearchString(QString)), view, SLOT(setSearchString(QString)));
@@ -214,19 +226,22 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
     }
 }
 
-KatePluginSearchView::KatePluginSearchView(Kate::MainWindow *mainWin, Kate::Application* application)
-: Kate::PluginView(mainWin),
-Kate::XMLGUIClient(KatePluginSearchFactory::componentData()),
+KatePluginSearchView::KatePluginSearchView(KTextEditor::ApplicationPlugin *plugin, KTextEditor::MainWindow *mainWin, KTextEditor::Application* application)
+: QObject (mainWin),
 m_kateApp(application),
 m_curResults(0),
 m_searchJustOpened(false),
 m_switchToProjectModeWhenAvailable(false),
 m_searchDiskFilesDone(true),
 m_searchOpenFilesDone(true),
-m_projectPluginView(0)
+m_projectPluginView(0),
+m_mainWindow (mainWin)
 {
-    m_toolView = mainWin->createToolView ("kate_plugin_katesearch",
-                                          Kate::MainWindow::Bottom,
+    KXMLGUIClient::setComponentName ("katesearch", i18n ("Kate Search & Replace"));
+    setXMLFile( "ui.rc" );
+  
+    m_toolView = mainWin->createToolView (plugin, "kate_plugin_katesearch",
+                                          KTextEditor::MainWindow::Bottom,
                                           SmallIcon("edit-find"),
                                           i18n("Search and Replace"));
 
@@ -235,7 +250,7 @@ m_projectPluginView(0)
     container->setFocusProxy(m_ui.searchCombo);
     connect(container, SIGNAL(nextFocus(QWidget*,bool*,bool)), this, SLOT(nextFocus(QWidget*,bool*,bool)));
 
-    KAction *a = actionCollection()->addAction("search_in_files");
+    QAction *a = actionCollection()->addAction("search_in_files");
     a->setText(i18n("Search in Files"));
     connect(a, SIGNAL(triggered(bool)), this, SLOT(openSearchView()));
 
@@ -331,13 +346,13 @@ m_projectPluginView(0)
     connect(&m_searchDiskFiles, SIGNAL(searchDone()),  this, SLOT(searchDone()));
     connect(&m_searchDiskFiles, SIGNAL(searching(QString)), this, SLOT(searching(QString)));
 
-    connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+    connect(m_kateApp, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_searchOpenFiles, SLOT(cancelSearch()));
 
-    connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+    connect(m_kateApp, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             &m_replacer, SLOT(cancelReplace()));
 
-    connect(m_kateApp->documentManager(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
+    connect(m_kateApp, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
             this, SLOT(clearDocMarks(KTextEditor::Document*)));
 
     connect(&m_replacer, SIGNAL(matchReplaced(KTextEditor::Document*,int,int,int)),
@@ -348,56 +363,56 @@ m_projectPluginView(0)
     connect(m_ui.searchCombo, SIGNAL(customContextMenuRequested(QPoint)), this,
             SLOT(searchContextMenu(QPoint)));
 
-    connect(mainWindow(), SIGNAL(unhandledShortcutOverride(QEvent*)),
+    connect(m_mainWindow, SIGNAL(unhandledShortcutOverride(QEvent*)),
             this, SLOT(handleEsc(QEvent*)));
 
     // watch for project plugin view creation/deletion
-    connect(mainWindow(), SIGNAL(pluginViewCreated (const QString &, Kate::PluginView *))
+    connect(m_mainWindow, SIGNAL(pluginViewCreated (const QString &, Kate::PluginView *))
         , this, SLOT(slotPluginViewCreated (const QString &, Kate::PluginView *)));
 
-    connect(mainWindow(), SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
+    connect(m_mainWindow, SIGNAL(pluginViewDeleted (const QString &, Kate::PluginView *))
         , this, SLOT(slotPluginViewDeleted (const QString &, Kate::PluginView *)));
 
-    connect(mainWindow(), SIGNAL(viewChanged()), this, SLOT(docViewChanged()));
+    connect(m_mainWindow, SIGNAL(viewChanged()), this, SLOT(docViewChanged()));
 
 
     // update once project plugin state manually
-    m_projectPluginView = mainWindow()->pluginView ("kateprojectplugin");
+    m_projectPluginView = m_mainWindow->pluginView ("kateprojectplugin");
     slotProjectFileNameChanged ();
 
-    m_replacer.setDocumentManager(m_kateApp->documentManager());
+    m_replacer.setDocumentManager(m_kateApp);
     connect(&m_replacer, SIGNAL(replaceDone()), this, SLOT(replaceDone()));
 
     searchPlaceChanged();
 
     m_toolView->installEventFilter(this);
 
-    mainWindow()->guiFactory()->addClient(this);
+    m_mainWindow->guiFactory()->addClient(this);
 }
 
 KatePluginSearchView::~KatePluginSearchView()
 {
     clearMarks();
 
-    mainWindow()->guiFactory()->removeClient(this);
+    m_mainWindow->guiFactory()->removeClient(this);
     delete m_toolView;
 }
 
 void KatePluginSearchView::navigateFolderUp()
 {
     // navigate one folder up
-    m_ui.folderRequester->setUrl(m_ui.folderRequester->url().upUrl());
+    m_ui.folderRequester->setUrl(localFileDirUp (m_ui.folderRequester->url()));
 }
 
 void KatePluginSearchView::setCurrentFolder()
 {
-    if (!mainWindow()) {
+    if (!m_mainWindow) {
         return;
     }
-    KTextEditor::View* editView = mainWindow()->activeView();
+    KTextEditor::View* editView = m_mainWindow->activeView();
     if (editView && editView->document()) {
         // upUrl as we want the folder not the file
-        m_ui.folderRequester->setUrl(editView->document()->url().upUrl());
+        m_ui.folderRequester->setUrl(localFileDirUp (editView->document()->url()));
     }
 }
 
@@ -433,20 +448,20 @@ QString KatePluginSearchView::currentWord(const KTextEditor::Document& document,
 
 void KatePluginSearchView::openSearchView()
 {
-    if (!mainWindow()) {
+    if (!m_mainWindow) {
         return;
     }
     if (!m_toolView->isVisible()) {
-        mainWindow()->showToolView(m_toolView);
+        m_mainWindow->showToolView(m_toolView);
     }
     m_ui.searchCombo->setFocus(Qt::OtherFocusReason);
     m_ui.displayOptions->setChecked(true);
 
-    KTextEditor::View* editView = mainWindow()->activeView();
+    KTextEditor::View* editView = m_mainWindow->activeView();
     if (editView && editView->document()) {
         if (m_ui.folderRequester->text().isEmpty()) {
             // upUrl as we want the folder not the file
-            m_ui.folderRequester->setUrl(editView->document()->url().upUrl());
+            m_ui.folderRequester->setUrl(localFileDirUp (editView->document()->url()));
         }
         QString selection;
         if (editView->selection()) {
@@ -474,13 +489,13 @@ void KatePluginSearchView::openSearchView()
 
 void KatePluginSearchView::handleEsc(QEvent *e)
 {
-    if (!mainWindow()) return;
+    if (!m_mainWindow) return;
 
     QKeyEvent *k = static_cast<QKeyEvent *>(e);
     if (k->key() == Qt::Key_Escape && k->modifiers() == Qt::NoModifier) {
 
         if (m_toolView->isVisible()) {
-            mainWindow()->hideToolView(m_toolView);
+            m_mainWindow->hideToolView(m_toolView);
         }
         else {
             clearMarks();
@@ -564,7 +579,7 @@ void KatePluginSearchView::folderFileListChanged()
     m_searchOpenFilesDone = false;
 
     if (!m_curResults) {
-        kWarning() << "This is a bug";
+        qWarning() << "This is a bug";
         m_searchDiskFilesDone = true;
         m_searchOpenFilesDone = true;
         searchDone();
@@ -573,10 +588,10 @@ void KatePluginSearchView::folderFileListChanged()
     QStringList fileList = m_folderFilesList.fileList();
 
     QList<KTextEditor::Document*> openList;
-    for (int i=0; i<m_kateApp->documentManager()->documents().size(); i++) {
-        int index = fileList.indexOf(m_kateApp->documentManager()->documents()[i]->url().pathOrUrl());
+    for (int i=0; i<m_kateApp->documents().size(); i++) {
+        int index = fileList.indexOf(m_kateApp->documents()[i]->url().toString());
         if (index != -1) {
-            openList << m_kateApp->documentManager()->documents()[i];
+            openList << m_kateApp->documents()[i];
             fileList.removeAt(index);
         }
     }
@@ -633,8 +648,9 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
         return 0;
     }
 
-    KUrl kurl(url);
-    QString path = kurl.isLocalFile() ? kurl.upUrl().path() : kurl.upUrl().url();
+    // FIXME KF5
+    QUrl kurl(url);
+    QString path = kurl.isLocalFile() ? localFileDirUp (kurl).path() : kurl.url();
     path.replace(m_resultBaseDir, "");
     QString name = kurl.fileName();
     if (url.isEmpty()) {
@@ -654,7 +670,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
     }
 
     for (int i=0; i<root->childCount(); i++) {
-        kDebug() << root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() << fName;
+        qDebug() << root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() << fName;
         if ((root->child(i)->data(0, ReplaceMatches::FileUrlRole).toString() == url)&&
             (root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() == fName)) {
             int matches = root->child(i)->data(0, ReplaceMatches::LineRole).toInt() + 1;
@@ -682,7 +698,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     if (!doc) return;
 
     KTextEditor::MovingInterface* miface = qobject_cast<KTextEditor::MovingInterface*>(doc);
-    KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(mainWindow()->activeView());
+    KTextEditor::ConfigInterface* ciface = qobject_cast<KTextEditor::ConfigInterface*>(m_mainWindow->activeView());
     KTextEditor::Attribute::Ptr attr(new KTextEditor::Attribute());
 
     bool replace = ((sender() == &m_replacer) || (sender() == 0) || (sender() == m_ui.replaceButton));
@@ -717,7 +733,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
         }
 
         if (tmpReg.indexIn(doc->text(range)) != 0) {
-            kDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
+            qDebug() << doc->text(range) << "Does not match" << m_curResults->regExp.pattern();
             return;
         }
     }
@@ -773,7 +789,7 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
         doc = m_replacer.findNamed(fName);
     }
     else {
-        doc = m_kateApp->documentManager()->findUrl(url);
+        doc = m_kateApp->findUrl(url);
     }
     addMatchMark(doc, line, column, matchLen);
 }
@@ -782,7 +798,7 @@ void KatePluginSearchView::clearMarks()
 {
     // FIXME: check for ongoing search...
     KTextEditor::MarkInterface* iface;
-    foreach (KTextEditor::Document* doc, m_kateApp->documentManager()->documents()) {
+    foreach (KTextEditor::Document* doc, m_kateApp->documents()) {
         iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
         if (iface) {
             const QHash<int, KTextEditor::Mark*> marks = iface->marks();
@@ -832,7 +848,7 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
 void KatePluginSearchView::startSearch()
 {
     m_changeTimer.stop(); // make sure not to start a "while you type" search now
-    mainWindow()->showToolView(m_toolView); // in case we are invoked from the command interface
+    m_mainWindow->showToolView(m_toolView); // in case we are invoked from the command interface
     m_switchToProjectModeWhenAvailable = false; // now that we started, don't switch back automatically
 
     if (m_ui.searchCombo->currentText().isEmpty()) {
@@ -850,7 +866,7 @@ void KatePluginSearchView::startSearch()
     }
     m_curResults = qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
-        kWarning() << "This is a bug";
+        qWarning() << "This is a bug";
         return;
     }
 
@@ -884,7 +900,7 @@ void KatePluginSearchView::startSearch()
     if (m_ui.searchPlaceCombo->currentIndex() ==  0) {
         m_searchDiskFilesDone = true;
         m_resultBaseDir.clear();
-        const QList<KTextEditor::Document*> & documents = m_kateApp->documentManager()->documents();
+        const QList<KTextEditor::Document*> documents = m_kateApp->documents();
         addHeaderItem();
         m_searchOpenFiles.startSearch(documents, reg);
     }
@@ -918,10 +934,10 @@ void KatePluginSearchView::startSearch()
         addHeaderItem();
 
         QList<KTextEditor::Document*> openList;
-        for (int i=0; i<m_kateApp->documentManager()->documents().size(); i++) {
-            int index = files.indexOf(m_kateApp->documentManager()->documents()[i]->url().pathOrUrl());
+        for (int i=0; i<m_kateApp->documents().size(); i++) {
+            int index = files.indexOf(m_kateApp->documents()[i]->url().toString());
             if (index != -1) {
-                openList << m_kateApp->documentManager()->documents()[i];
+                openList << m_kateApp->documents()[i];
                 files.removeAt(index);
             }
         }
@@ -946,14 +962,14 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     m_ui.searchButton->setDisabled(m_ui.searchCombo->currentText().isEmpty());
 
-    if (!mainWindow()->activeView()) return;
+    if (!m_mainWindow->activeView()) return;
 
-    KTextEditor::Document *doc = mainWindow()->activeView()->document();
+    KTextEditor::Document *doc = m_mainWindow->activeView()->document();
     if (!doc) return;
 
     m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
-        kWarning() << "This is a bug";
+        qWarning() << "This is a bug";
         return;
     }
 
@@ -975,7 +991,7 @@ void KatePluginSearchView::startSearchWhileTyping()
 
     // add header item
     TreeWidgetItem *item = new TreeWidgetItem(m_curResults->tree, QStringList());
-    item->setData(0, ReplaceMatches::FileUrlRole, doc->url().pathOrUrl());
+    item->setData(0, ReplaceMatches::FileUrlRole, doc->url().toString());
     item->setData(0, ReplaceMatches::FileNameRole, doc->documentName());
     item->setData(0, ReplaceMatches::LineRole, 0);
     item->setCheckState(0, Qt::Checked);
@@ -1157,13 +1173,13 @@ void KatePluginSearchView::replaceSingleMatch()
         return;
     }
 
-    if (!mainWindow()->activeView() || !mainWindow()->activeView()->cursorPosition().isValid()) {
+    if (!m_mainWindow->activeView() || !m_mainWindow->activeView()->cursorPosition().isValid()) {
         itemSelected(item);
         return;
     }
 
-    int dLine = mainWindow()->activeView()->cursorPosition().line();
-    int dColumn = mainWindow()->activeView()->cursorPosition().column();
+    int dLine = m_mainWindow->activeView()->cursorPosition().line();
+    int dColumn = m_mainWindow->activeView()->cursorPosition().column();
 
     int iLine = item->data(0, ReplaceMatches::LineRole).toInt();
     int iColumn = item->data(0, ReplaceMatches::ColumnRole).toInt();
@@ -1173,7 +1189,7 @@ void KatePluginSearchView::replaceSingleMatch()
         return;
     }
 
-    KTextEditor::Document *doc = mainWindow()->activeView()->document();
+    KTextEditor::Document *doc = m_mainWindow->activeView()->document();
     // Find the corresponding range
     int i;
     for (i=0; i<m_matchRanges.size(); i++) {
@@ -1189,7 +1205,7 @@ void KatePluginSearchView::replaceSingleMatch()
     }
 
     if (!res->regExp.exactMatch(doc->text(m_matchRanges[i]->toRange()))) {
-        kDebug() << doc->text(m_matchRanges[i]->toRange()) << "Does not match" << res->regExp.pattern();
+        qDebug() << doc->text(m_matchRanges[i]->toRange()) << "Does not match" << res->regExp.pattern();
         goToNextMatch();
         return;
     }
@@ -1224,7 +1240,7 @@ void KatePluginSearchView::replaceSingleMatch()
         if (m_matchRanges[i]->document() != doc) continue;
         item = res->tree->itemBelow(item);
         if (!item) break;
-        if (item->data(0, ReplaceMatches::FileUrlRole).toString() != doc->url().pathOrUrl()) break;
+        if (item->data(0, ReplaceMatches::FileUrlRole).toString() != doc->url().toString()) break;
         iLine = item->data(0, ReplaceMatches::LineRole).toInt();
         iColumn = item->data(0, ReplaceMatches::ColumnRole).toInt();
         if ((m_matchRanges[i]->start().line() == iLine) && (m_matchRanges[i]->start().column() == iColumn)) {
@@ -1240,7 +1256,7 @@ void KatePluginSearchView::replaceChecked()
 {
     m_curResults =qobject_cast<Results *>(m_ui.resultTabWidget->currentWidget());
     if (!m_curResults) {
-        kWarning() << "Results not found";
+        qWarning() << "Results not found";
         return;
     }
 
@@ -1274,18 +1290,18 @@ void KatePluginSearchView::docViewChanged()
 
     m_curResults = res;
 
-    if (!mainWindow()->activeView()) {
+    if (!m_mainWindow->activeView()) {
         return;
     }
 
     // add the marks if it is not already open
-    KTextEditor::Document *doc = mainWindow()->activeView()->document();
+    KTextEditor::Document *doc = m_mainWindow->activeView()->document();
     if (doc) {
         QTreeWidgetItem *rootItem = 0;
         for (int i=0; i<res->tree->topLevelItemCount(); i++) {
             QString url = res->tree->topLevelItem(i)->data(0, ReplaceMatches::FileUrlRole).toString();
             QString fName = res->tree->topLevelItem(i)->data(0, ReplaceMatches::FileNameRole).toString();
-            if (url == doc->url().pathOrUrl() && fName == doc->documentName()) {
+            if (url == doc->url().toString() && fName == doc->documentName()) {
                 rootItem = res->tree->topLevelItem(i);
                 break;
             }
@@ -1330,7 +1346,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     KTextEditor::Document* doc;
     QString url = item->data(0, ReplaceMatches::FileUrlRole).toString();
     if (!url.isEmpty()) {
-        doc = m_kateApp->documentManager()->findUrl(url);
+        doc = m_kateApp->findUrl(url);
     }
     else {
         doc = m_replacer.findNamed(item->data(0, ReplaceMatches::FileNameRole).toString());
@@ -1338,7 +1354,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 
     // add the marks to the document if it is not already open
     if (!doc) {
-        doc = m_kateApp->documentManager()->openUrl(url);
+        doc = m_kateApp->openUrl(url);
         if (doc) {
             int line;
             int column;
@@ -1356,17 +1372,17 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     if (!doc) return;
 
     // open the right view...
-    mainWindow()->activateView(doc);
+    m_mainWindow->activateView(doc);
 
     // any view active?
-    if (!mainWindow()->activeView()) {
+    if (!m_mainWindow->activeView()) {
         return;
     }
 
 
     // set the cursor to the correct position
-    mainWindow()->activeView()->setCursorPosition(KTextEditor::Cursor(toLine, toColumn));
-    mainWindow()->activeView()->setFocus();
+    m_mainWindow->activeView()->setCursorPosition(KTextEditor::Cursor(toLine, toColumn));
+    m_mainWindow->activeView()->setFocus();
 }
 
 void KatePluginSearchView::goToNextMatch()
@@ -1426,9 +1442,8 @@ void KatePluginSearchView::goToPreviousMatch()
     itemSelected(curr);
 }
 
-void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString& groupPrefix)
+void KatePluginSearchView::readSessionConfig(const KConfigGroup &cg)
 {
-    KConfigGroup cg(config, groupPrefix + ":search-plugin");
     m_ui.searchCombo->clearHistory();
     m_ui.searchCombo->setHistoryItems(cg.readEntry("Search", QStringList()), true);
     m_ui.matchCase->setChecked(cg.readEntry("MatchCase", false));
@@ -1461,9 +1476,8 @@ void KatePluginSearchView::readSessionConfig(KConfigBase* config, const QString&
     m_ui.excludeCombo->setCurrentIndex(cg.readEntry("CurrentExcludeFilter", 0));
 }
 
-void KatePluginSearchView::writeSessionConfig(KConfigBase* config, const QString& groupPrefix)
+void KatePluginSearchView::writeSessionConfig(KConfigGroup &cg)
 {
-    KConfigGroup cg(config, groupPrefix + ":search-plugin");
     cg.writeEntry("Search", m_ui.searchCombo->historyItems());
     cg.writeEntry("MatchCase", m_ui.matchCase->isChecked());
     cg.writeEntry("UseRegExp", m_ui.useRegExp->isChecked());
@@ -1592,7 +1606,7 @@ bool KatePluginSearchView::eventFilter(QObject *obj, QEvent *event)
             }
         }
         if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape)) {
-            mainWindow()->hideToolView(m_toolView);
+            m_mainWindow->hideToolView(m_toolView);
             event->accept();
             return true;
         }
@@ -1658,7 +1672,7 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
     }
 }
 
-void KatePluginSearchView::slotPluginViewCreated (const QString &name, Kate::PluginView *pluginView)
+void KatePluginSearchView::slotPluginViewCreated (const QString &name, QObject *pluginView)
 {
     // add view
     if (name == "kateprojectplugin") {
@@ -1668,7 +1682,7 @@ void KatePluginSearchView::slotPluginViewCreated (const QString &name, Kate::Plu
     }
 }
 
-void KatePluginSearchView::slotPluginViewDeleted (const QString &name, Kate::PluginView *)
+void KatePluginSearchView::slotPluginViewDeleted (const QString &name, QObject *)
 {
     // remove view
     if (name == "kateprojectplugin") {
@@ -1780,5 +1794,7 @@ bool KateSearchCommand::help (KTextEditor::View */*view*/, const QString &cmd, Q
     
     return true;
 }
+
+#include "plugin_search.moc"
 
 // kate: space-indent on; indent-width 4; replace-tabs on;

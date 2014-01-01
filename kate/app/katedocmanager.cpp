@@ -218,6 +218,21 @@ bool KateDocManager::isOpen(KUrl url)
   return findDocument (url) != 0;
 }
 
+QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<KUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
+{
+  QList<KTextEditor::Document *> docs;
+
+  emit m_documentManager->aboutToLoadDocuments();
+
+  foreach (const KUrl &url, urls) {
+    docs << openUrl(url, encoding, isTempFile, docInfo);
+  }
+
+  emit m_documentManager->documentsLoaded(docs);
+
+  return docs;
+}
+
 KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
 {
   KUrl u(url);

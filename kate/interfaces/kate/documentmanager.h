@@ -148,6 +148,16 @@ namespace Kate
        */
       void documentDeleted (KTextEditor::Document *document);
 
+      /**
+       * will be loading a bunch of documents, you can step back for a while
+       */
+      void aboutToLoadDocuments();
+
+      /**
+       * bunch of documents have been loaded, you can come back
+       */
+      void documentsLoaded(const QList<KTextEditor::Document *> &);
+
     private:
       class PrivateDocumentManager *d;
   };

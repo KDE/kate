@@ -366,10 +366,8 @@ void KateFileTreePluginView::setHasLocalPrefs(bool h)
   m_hasLocalPrefs = h;
 }
 
-void KateFileTreePluginView::readSessionConfig(KConfigBase* config, const QString& group)
+void KateFileTreePluginView::readSessionConfig (const KConfigGroup& g)
 {
-  KConfigGroup g = config->group(group);
-
   if(g.exists())
     m_hasLocalPrefs = true;
   else
@@ -387,10 +385,8 @@ void KateFileTreePluginView::readSessionConfig(KConfigBase* config, const QStrin
   m_proxyModel->setSortRole(sortRole);
 }
 
-void KateFileTreePluginView::writeSessionConfig(KConfigBase* config, const QString& group)
+void KateFileTreePluginView::writeSessionConfig (KConfigGroup& g)
 {
-  KConfigGroup g = config->group(group);
-
   if(m_hasLocalPrefs) {
     g.writeEntry("listMode", QVariant(m_documentModel->listMode()));
     g.writeEntry("sortRole", int(m_proxyModel->sortRole()));

@@ -72,9 +72,11 @@ class KateFileTreePlugin: public KTextEditor::ApplicationPlugin, public KTextEdi
     KateFileTreeCommand* m_fileCommand;
 };
 
-class KateFileTreePluginView : public QObject, public KXMLGUIClient
+class KateFileTreePluginView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
-    Q_OBJECT
+  Q_OBJECT
+    
+  Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
   public:
     /**
@@ -87,8 +89,8 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient
      */
     ~KateFileTreePluginView ();
 
-    virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-    virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    void readSessionConfig (const KConfigGroup& config);
+    void writeSessionConfig (KConfigGroup& config);
 
     /**
      * The file tree model.

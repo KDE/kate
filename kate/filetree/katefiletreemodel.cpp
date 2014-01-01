@@ -426,6 +426,15 @@ void KateFileTreeModel::clearModel()
   endRemoveRows();
 }
 
+void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
+{
+  connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
+  connect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
+  connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(documentModifiedChanged(KTextEditor::Document*)));
+  connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+          this,  SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)) );
+}
+
 QModelIndex KateFileTreeModel::docIndex(KTextEditor::Document *d)
 {
   kDebug(debugArea()) << "BEGIN!";
@@ -673,11 +682,7 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
   setupIcon(item);
   handleInsert(item);
   m_docmap[doc] = item;
-  connect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
-  connect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
-  connect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(documentModifiedChanged(KTextEditor::Document*)));
-  connect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
-          this,  SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)) );
+  connectDocument(doc);
 
   kDebug(debugArea()) << "after add:" << item;
   
@@ -801,6 +806,24 @@ void KateFileTreeModel::documentEdited(KTextEditor::Document *doc)
   updateBackgrounds();
   
   kDebug(debugArea()) << "END!";
+}
+
+void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Document*> &docs)
+{
+  foreach (const KTextEditor::Document *doc, docs) {
+    disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
+    disconnect(doc, SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
+    disconnect(doc, SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(documentModifiedChanged(KTextEditor::Document*)));
+    disconnect(doc, SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)),
+               this,  SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)) );
+  }
+}
+
+void KateFileTreeModel::slotDocumentsDeleted(const QList<KTextEditor::Document*> &docs)
+{
+  foreach (const KTextEditor::Document *doc, docs) {
+    connectDocument(doc);
+  }
 }
 
 class EditViewCount

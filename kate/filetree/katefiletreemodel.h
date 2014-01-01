@@ -84,6 +84,9 @@ class KateFileTreeModel : public QAbstractItemModel
     void documentActivated(KTextEditor::Document*);
     void documentEdited(KTextEditor::Document*);
 
+    void slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
+    void slotDocumentsDeleted(const QList<KTextEditor::Document *> &);
+
   Q_SIGNALS:
     void triggerViewChangeAfterNameChange();
   private:
@@ -114,6 +117,7 @@ class KateFileTreeModel : public QAbstractItemModel
 
     void initModel();
     void clearModel();
+    void connectDocument(const KTextEditor::Document *);
 
     // Debug crap
     QHash<ProxyItem *, ProxyItem *> m_debugmap;

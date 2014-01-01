@@ -5,7 +5,7 @@ set(ktexteditor_hlselection_PART_SRCS hlselectionplugin.cpp )
 
 add_library(ktexteditor_hlselection MODULE ${ktexteditor_hlselection_PART_SRCS})
 
-target_link_libraries(ktexteditor_hlselection ktexteditor)
+target_link_libraries(ktexteditor_hlselection ktexteditor KF5::I18n)
 
 install(TARGETS  ktexteditor_hlselection  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

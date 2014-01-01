@@ -137,6 +137,7 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
    */
   QApplication app (argc, argv);
   app.setApplicationName (aboutData.componentName());
+  app.setApplicationDisplayName (aboutData.displayName());
   app.setOrganizationDomain (aboutData.organizationDomain());
   app.setApplicationVersion (aboutData.version());
   app.setQuitOnLastWindowClosed (false);

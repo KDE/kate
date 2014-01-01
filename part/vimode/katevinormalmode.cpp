@@ -1460,16 +1460,9 @@ bool KateViNormalMode::commandSwitchToCmdLine()
       // count should be prepended to the command line
       initialText = ".,.+" +QString::number( getCount()-1 );
     }
-    if (!KateViewConfig::global()->viInputModeEmulateCommandBar())
-    {
-      m_view->switchToCmdLine();
-      m_view->cmdLineBar()->setText( initialText, false );
-    }
-    else
-    {
-      m_view->showViModeEmulatedCommandBar();
-      m_view->viModeEmulatedCommandBar()->init( KateViEmulatedCommandBar::Command, initialText );
-    }
+
+    m_view->showViModeEmulatedCommandBar();
+    m_view->viModeEmulatedCommandBar()->init( KateViEmulatedCommandBar::Command, initialText );
 
     m_commandShouldKeepSelection = true;
 
@@ -1478,30 +1471,15 @@ bool KateViNormalMode::commandSwitchToCmdLine()
 
 bool KateViNormalMode::commandSearchBackward()
 {
-    if (!KateViewConfig::global()->viInputModeEmulateCommandBar())
-    {
-      m_viInputModeManager->setLastSearchBackwards(true);
-      m_view->find();
-    }
-    else
-    {
-      m_view->showViModeEmulatedCommandBar();
-      m_view->viModeEmulatedCommandBar()->init(KateViEmulatedCommandBar::SearchBackward);
-    }
+    m_view->showViModeEmulatedCommandBar();
+    m_view->viModeEmulatedCommandBar()->init(KateViEmulatedCommandBar::SearchBackward);
     return true;
 }
 
 bool KateViNormalMode::commandSearchForward()
 {
-    if (!KateViewConfig::global()->viInputModeEmulateCommandBar())
-    {
-      m_view->find();
-    }
-    else
-    {
-      m_view->showViModeEmulatedCommandBar();
-      m_view->viModeEmulatedCommandBar()->init(KateViEmulatedCommandBar::SearchForward);
-    }
+    m_view->showViModeEmulatedCommandBar();
+    m_view->viModeEmulatedCommandBar()->init(KateViEmulatedCommandBar::SearchForward);
     m_viInputModeManager->setLastSearchBackwards( false );
     return true;
 }

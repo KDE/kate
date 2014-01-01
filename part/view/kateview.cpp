@@ -1535,7 +1535,7 @@ void KateView::toggleViInputMode()
 
 void KateView::showViModeEmulatedCommandBar()
 {
-  if (viInputMode() && config()->viInputModeEmulateCommandBar()) {
+  if (viInputMode()) {
     bottomViewBar()->addBarWidget(viModeEmulatedCommandBar());
     bottomViewBar()->showBarWidget(viModeEmulatedCommandBar());
   }

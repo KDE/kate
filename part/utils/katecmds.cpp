@@ -979,7 +979,7 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
 
   if (interactive)
   {
-    if (kateView->viInputMode() && KateViewConfig::global()->viInputModeEmulateCommandBar())
+    if (kateView->viInputMode())
     {
       KateViEmulatedCommandBar *emulatedCommandBar = kateView->viModeEmulatedCommandBar();
       emulatedCommandBar->startInteractiveSearchAndReplace(interactiveSedReplacer);

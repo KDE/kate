@@ -1182,7 +1182,6 @@ KateViewConfig::KateViewConfig ()
    m_persistentSelectionSet (false),
    m_viInputModeSet (false),
    m_viInputModeStealKeysSet (false),
-   m_viInputModeEmulateCommandBarSet(false),
    m_automaticCompletionInvocationSet (false),
    m_wordCompletionSet (false),
    m_wordCompletionMinimalWordLengthSet (false),
@@ -1222,7 +1221,6 @@ KateViewConfig::KateViewConfig (KateView *view)
    m_persistentSelectionSet (false),
    m_viInputModeSet (false),
    m_viInputModeStealKeysSet (false),
-   m_viInputModeEmulateCommandBarSet(false),
    m_automaticCompletionInvocationSet (false),
    m_wordCompletionSet (false),
    m_wordCompletionMinimalWordLengthSet (false),
@@ -1263,7 +1261,6 @@ namespace
   const char * const KEY_PERSISTENT_SELECTION = "Persistent Selection";
   const char * const KEY_VI_INPUT_MODE = "Vi Input Mode";
   const char * const KEY_VI_INPUT_MODE_STEAL_KEYS = "Vi Input Mode Steal Keys";
-  const char * const KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR = "Vi Input Mode Emulate Command Bar";
   const char * const KEY_AUTOMATIC_COMPLETION_INVOCATION = "Auto Completion";
   const char * const KEY_WORD_COMPLETION = "Word Completion";
   const char * const KEY_WORD_COMPLETION_MINIMAL_WORD_LENGTH = "Word Completion Minimal Word Length";
@@ -1315,7 +1312,6 @@ void KateViewConfig::readConfig ( const KConfigGroup &config)
 
   setViInputMode (config.readEntry( KEY_VI_INPUT_MODE, false));
   setViInputModeStealKeys (config.readEntry( KEY_VI_INPUT_MODE_STEAL_KEYS, false));
-  setViInputModeEmulateCommandBar (config.readEntry( KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR, false));
 
   setAutomaticCompletionInvocation (config.readEntry( KEY_AUTOMATIC_COMPLETION_INVOCATION, true ));
   setWordCompletion (config.readEntry( KEY_WORD_COMPLETION, true ));
@@ -1384,11 +1380,7 @@ void KateViewConfig::writeConfig (KConfigGroup &config)
   config.writeEntry( KEY_SCROLL_PAST_END , scrollPastEnd() );
 
   config.writeEntry( KEY_VI_INPUT_MODE, viInputMode());
-
   config.writeEntry( KEY_VI_INPUT_MODE_STEAL_KEYS, viInputModeStealKeys());
-
-  config.writeEntry( KEY_VI_INPUT_MODE_EMULATE_COMMAND_BAR, viInputModeEmulateCommandBar());
-
 
   if (isGlobal()) {
     // Write search pattern history
@@ -1850,26 +1842,6 @@ void KateViewConfig::setViInputModeStealKeys (bool on)
   m_viInputModeStealKeysSet = true;
   m_viInputModeStealKeys = on;
   configEnd ();
-}
-
-
-bool KateViewConfig::viInputModeEmulateCommandBar() const
-{
-  if (m_viInputModeEmulateCommandBarSet || isGlobal())
-    return m_viInputModeEmulateCommandBar;
-
-  return s_global->viInputModeEmulateCommandBar();
-}
-
-void KateViewConfig::setViInputModeEmulateCommandBar(bool on)
-{
-  if (m_viInputModeEmulateCommandBarSet && m_viInputModeEmulateCommandBar == on)
-    return;
-
-  configStart();
-  m_viInputModeEmulateCommandBarSet = true;
-  m_viInputModeEmulateCommandBar = on;
-  configEnd();
 }
 
 bool KateViewConfig::automaticCompletionInvocation () const

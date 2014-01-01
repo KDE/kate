@@ -213,7 +213,7 @@ KateFileTreePluginView::KateFileTreePluginView (KTextEditor::MainWindow *mainWin
 
   connect( m_fileTree->selectionModel(), SIGNAL(currentChanged(QModelIndex,QModelIndex)), m_fileTree, SLOT(slotCurrentChanged(QModelIndex,QModelIndex)));
 
-  connect(mainWindow, SIGNAL(viewChanged()), this, SLOT(viewChanged()));
+  connect(mainWindow, SIGNAL(viewChanged(KTextEditor::View*)), this, SLOT(viewChanged(KTextEditor::View*)));
 
   QAction *show_active = actionCollection()->addAction("filetree_show_active_document", mainWindow);
   show_active->setText(i18n("&Show Active"));
@@ -274,7 +274,7 @@ void KateFileTreePluginView::documentClosed(KTextEditor::Document *doc)
   m_proxyModel->invalidate();
 }
 
-void KateFileTreePluginView::viewChanged()
+void KateFileTreePluginView::viewChanged(KTextEditor::View *)
 {
   KTextEditor::View *view = m_mainWindow->activeView();
   if(!view)

@@ -126,7 +126,7 @@ class KateFileTreePluginView : public QObject, public KXMLGUIClient
     void switchDocument(const QString &doc);
     void showActiveDocument();
     void activateDocument(KTextEditor::Document *);
-    void viewChanged();
+    void viewChanged(KTextEditor::View * = nullptr);
     void documentOpened(KTextEditor::Document *);
     void documentClosed(KTextEditor::Document *);
     void viewModeChanged(bool);

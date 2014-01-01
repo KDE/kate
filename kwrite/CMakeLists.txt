@@ -12,6 +12,7 @@ target_link_libraries(kdeinit_kwrite ktexteditor
   KF5::I18n
   KF5::KIOFileWidgets
   KF5::DBusAddons
+  KF5::IconThemes
 )
 
 install(TARGETS kwrite         ${INSTALL_TARGETS_DEFAULT_ARGS})

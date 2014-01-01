@@ -21,7 +21,7 @@ include_directories(
 add_definitions(-DTEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data/")
 add_definitions(-DJS_DATA_DIR="${CMAKE_SOURCE_DIR}/part/script/data/")
 
-set (KATE_TEST_LINK_LIBS ktexteditor katepartcore
+set (KATE_TEST_LINK_LIBS ktexteditor katepartprivate
   KF5::I18n
   KF5::KIOFileWidgets
   KF5::IconThemes

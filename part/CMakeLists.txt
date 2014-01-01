@@ -224,9 +224,9 @@ snippet/editsnippet.ui
 
 qt5_wrap_ui(katepart_PART_SRCS ${katepart_PART_UI} )
 
-add_library (katepartcore SHARED ${katepart_PART_SRCS} )
+add_library (katepartprivate SHARED ${katepart_PART_SRCS} )
 
-target_link_libraries (katepartcore ktexteditor
+target_link_libraries (katepartprivate ktexteditor
     Qt5::Script
     KF5::Archive
     KF5::GuiAddons
@@ -242,19 +242,19 @@ target_link_libraries (katepartcore ktexteditor
     KF5::SonnetCore
 )
 
-generate_export_header(katepartcore
+generate_export_header(katepartprivate
   EXPORT_FILE_NAME katepartprivate_export.h
   EXPORT_MACRO_NAME KATEPART_TESTS_EXPORT
 )
 
 # install kate part core
-install (TARGETS katepartcore EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
+install (TARGETS katepartprivate EXPORT kdelibsLibraryTargets ${INSTALL_TARGETS_DEFAULT_ARGS})
 
 # kate part itself just is core + the factory
 add_library (katepart MODULE utils/katefactory.cpp)
 
 # link the part, use kate part core + kde stuff
-target_link_libraries (katepart katepartcore ktexteditor)
+target_link_libraries (katepart katepartprivate ktexteditor)
 
 # install the part
 install (TARGETS katepart DESTINATION ${PLUGIN_INSTALL_DIR})

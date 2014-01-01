@@ -125,7 +125,7 @@ KTextEditor::View *MainWindow::activateView (KTextEditor::Document *document)
    */
   KTextEditor::View *view = nullptr;
   QMetaObject::invokeMethod (parent()
-    , "activeView"
+    , "activateView"
     , Qt::DirectConnection
     , Q_RETURN_ARG (KTextEditor::View *, view)
     , Q_ARG (KTextEditor::Document *, document));

@@ -163,7 +163,7 @@ class KTEXTEDITOR_EXPORT Application : public QObject
      * \param name the plugin's name
      * \return pointer to the plugin if a plugin with \p name is loaded, otherwise nullptr
      */
-    ApplicationPlugin *plugin (const QString &name);
+    KTextEditor::ApplicationPlugin *plugin (const QString &name);
     
   //
   // Signals related to application plugins

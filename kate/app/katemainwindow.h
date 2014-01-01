@@ -104,14 +104,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
       return m_wrapper;
     }
 
-    /**
-     * get a plugin view with identifier \p name.
-     * \param name the plugin's name
-     * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,
-     *         otherwise null
-     */
-    QObject *pluginView (const QString &name);
-
   public:
     /** Returns the URL of the current document.
      * anders: I add this for use from the file selector. */
@@ -352,6 +344,54 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     {
       hideBottomViewBarForView (view);
     }
+    
+    /**
+     * Create a new toolview with unique \p identifier at side \p pos
+     * with \p icon and caption \p text. Use the returned widget to embedd
+     * your widgets.
+     * \param plugin which owns this tool view
+     * \param identifier unique identifier for this toolview
+     * \param pos position for the toolview, if we are in session restore,
+     *        this is only a preference
+     * \param icon icon to use in the sidebar for the toolview
+     * \param text translated text (i18n()) to use in addition to icon
+     * \return created toolview on success, otherwise NULL
+     */
+    QWidget *createToolView (KTextEditor::ApplicationPlugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text);
+
+    /**
+     * Move the toolview \p widget to position \p pos.
+     * \param widget the toolview to move, where the widget was constructed
+     *        by createToolView().
+     * \param pos new position to move widget to
+     * \return \e true on success, otherwise \e false
+     */
+    bool moveToolView (QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos);
+
+    /**
+     * Show the toolview \p widget.
+     * \param widget the toolview to show, where the widget was constructed
+     *        by createToolView().
+     * \return \e true on success, otherwise \e false
+     * \todo add focus parameter: bool showToolView (QWidget *widget, bool giveFocus );
+     */
+    bool showToolView (QWidget *widget);
+
+    /**
+     * Hide the toolview \p widget.
+     * \param widget the toolview to hide, where the widget was constructed
+     *        by createToolView().
+     * \return \e true on success, otherwise \e false
+     */
+    bool hideToolView (QWidget *widget);
+ 
+    /**
+     * Get a plugin view for the plugin with with identifier \p name.
+     * \param name the plugin's name
+     * \return pointer to the plugin view if a plugin with \p name is loaded and has a view for this mainwindow,
+     *         otherwise NULL
+     */
+    QObject *pluginView (const QString &name);
     
   private Q_SLOTS:
     void slotUpdateBottomViewBar();

@@ -436,4 +436,9 @@ void KateApp::emitDocumentClosed(const QString& token)
   m_adaptor->emitDocumentClosed(token);
 }
 
+KTextEditor::ApplicationPlugin *KateApp::plugin (const QString &name)
+{
+  return m_pluginManager->plugin (name);
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

@@ -1042,4 +1042,34 @@ void KateMainWindow::slotQuickOpen ()
   }
 }
 
+QWidget *KateMainWindow::createToolView (KTextEditor::ApplicationPlugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)
+{
+  // FIXME KF5
+  return KateMDI::MainWindow::createToolView (plugin, identifier, (KMultiTabBar::KMultiTabBarPosition) (pos), icon.pixmap(QSize (16, 16)), text);
+}
+
+bool KateMainWindow::moveToolView (QWidget *widget, KTextEditor::MainWindow::ToolViewPosition pos)
+{
+  if (!qobject_cast<KateMDI::ToolView*>(widget))
+    return false;
+  
+  return KateMDI::MainWindow::moveToolView (qobject_cast<KateMDI::ToolView*>(widget), (KMultiTabBar::KMultiTabBarPosition) (pos));
+}
+
+bool KateMainWindow::showToolView (QWidget *widget)
+{
+  if (!qobject_cast<KateMDI::ToolView*>(widget))
+    return false;
+  
+  return KateMDI::MainWindow::showToolView (qobject_cast<KateMDI::ToolView*>(widget));
+}
+
+bool KateMainWindow::hideToolView (QWidget *widget)
+{
+  if (!qobject_cast<KateMDI::ToolView*>(widget))
+    return false;
+  
+  return KateMDI::MainWindow::hideToolView (qobject_cast<KateMDI::ToolView*>(widget));
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on;

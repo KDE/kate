@@ -296,6 +296,13 @@ class KateApp : public QObject
       return m_docManager->closeDocumentList (documents);
     }
 
+    /**
+     * Get a plugin for the plugin with with identifier \p name.
+     * \param name the plugin's name
+     * \return pointer to the plugin if a plugin with \p name is loaded, otherwise nullptr
+     */
+    KTextEditor::ApplicationPlugin *plugin (const QString &name);
+
   private:
     /**
      * Singleton instance

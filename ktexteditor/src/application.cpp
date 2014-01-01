@@ -173,7 +173,7 @@ bool Application::closeDocuments (const QList<KTextEditor::Document *> &document
   return success;
 }
 
-ApplicationPlugin *Application::plugin (const QString &name)
+KTextEditor::ApplicationPlugin *Application::plugin (const QString &name)
 {
   /**
    * null check

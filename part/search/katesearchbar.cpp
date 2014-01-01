@@ -636,6 +636,13 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
     }
     if (wrap) {
+        const QString msg = (searchDirection == SearchForward) ? i18n("Continuing search from top.") : i18n("Continuing search from bottom.");
+        QPointer<KTextEditor::Message> message = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+        message->setPosition((searchDirection == KateSearchBar::SearchForward) ? KTextEditor::Message::TopInView : KTextEditor::Message::BottomInView);
+        message->setAutoHide(2000);
+        message->setAutoHideMode(KTextEditor::Message::Immediate);
+        m_view->doc()->postMessage(message);
+
         inputRange = m_view->document()->documentRange();
         match.searchText(inputRange, searchPattern());
     }

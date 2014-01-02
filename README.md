@@ -1,11 +1,8 @@
 Whats in kate.git?
 
 ktexteditor/
-  => KTextEditor interfaces
+  => KTextEditor
 
-includes/
-  => KTextEditor camel case include files
-  
 part/
   => KatePart
 
@@ -23,3 +20,6 @@ tests/
   
 examples/
   => Examples for syntax highlighting and co
+
+addons/
+  => Plugins

@@ -23,7 +23,7 @@
 #include "katedocmanager.h"
 #include "katepluginmanager.h"
 #include "kateviewmanager.h"
-#include "katesession.h"
+#include "katesessionmanager.h"
 #include "katemainwindow.h"
 #include "kateappcommands.h"
 #include "katedebug.h"
@@ -133,7 +133,7 @@ void KateApp::restoreKate ()
   
   // activate again correct session!!!
   QString lastSession (sessionConfig->group("General").readEntry ("Last Session", QString()));
-  sessionManager()->activateSession (KateSession::Ptr(new KateSession (sessionManager(), lastSession)), false, false, false);
+  sessionManager()->activateSession(lastSession, false, false);
 
   // plugins
   KatePluginManager::self ()->loadConfig (sessionConfig);
@@ -153,13 +153,13 @@ void KateApp::restoreKate ()
 bool KateApp::startupKate ()
 {
   // user specified session to open
-  if (m_args.isSet ("startanon"))
+  if (m_args.isSet ("start"))
   {
-    sessionManager()->activateSession (sessionManager()->giveSession (""), false, false);
+    sessionManager()->activateSession (m_args.value("start"), false);
   }
-  else  if (m_args.isSet ("start"))
+  else if (m_args.isSet("startanon"))
   {
-    sessionManager()->activateSession (sessionManager()->giveSession (m_args.value("start")), false, false);
+    sessionManager()->activateAnonymousSession();
   }
   else if (!m_args.isSet( "stdin" ) && (m_args.positionalArguments().count() == 0)) // only start session if no files specified
   {
@@ -176,7 +176,7 @@ bool KateApp::startupKate ()
   }
   else
   {
-    sessionManager()->activateSession( KateSession::Ptr(new KateSession (sessionManager(), QString())), false, false );
+    sessionManager()->activateAnonymousSession();
   }
   
   // oh, no mainwindow, create one, should not happen, but make sure ;)

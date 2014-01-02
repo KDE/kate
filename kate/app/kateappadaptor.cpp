@@ -19,7 +19,7 @@
 #include "kateappadaptor.h"
 
 #include "kateapp.h"
-#include "katesession.h"
+#include "katesessionmanager.h"
 #include "katedocmanager.h"
 #include "katemainwindow.h"
 #include "kateappadaptor.moc"
@@ -88,14 +88,12 @@ bool KateAppAdaptor::openInput (QString text)
 
 bool KateAppAdaptor::activateSession (QString session)
 {
-  m_app->sessionManager()->activateSession (m_app->sessionManager()->giveSession (session));
-
-  return true;
+  return m_app->sessionManager()->activateSession(session);
 }
 
 QString KateAppAdaptor::activeSession()
 {
-  return m_app->sessionManager()->activeSession()->sessionName();
+  return m_app->sessionManager()->activeSession()->name();
 }
 
 void KateAppAdaptor::emitExiting ()

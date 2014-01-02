@@ -26,7 +26,7 @@
 #include "kateviewmanager.h"
 #include "katedocmanager.h"
 #include "kateapp.h"
-#include "katesession.h"
+#include "katesessionmanager.h"
 #include "katedebug.h"
 
 #include <KSqueezedTextLabel>
@@ -118,9 +118,9 @@ void KateViewSpace::addView(KTextEditor::View* v, bool show)
       QString vgroup = QString("%1 %2").arg(m_group).arg(fn);
 
       KateSession::Ptr as = KateSessionManager::self()->activeSession ();
-      if ( as->configRead() && as->configRead()->hasGroup( vgroup ) )
+      if ( as->config() && as->config()->hasGroup( vgroup ) )
       {
-        KConfigGroup cg( as->configRead(), vgroup );
+        KConfigGroup cg( as->config(), vgroup );
 
         if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(v))
           iface->readSessionConfig ( cg );

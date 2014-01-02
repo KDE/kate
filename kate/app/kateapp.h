@@ -23,7 +23,8 @@
 
 #include <ktexteditor/application.h>
 
-#include <katemainwindow.h>
+#include "katemainwindow.h"
+#include "kateprivate_export.h"
 
 #include <KConfig>
 #include <QList>
@@ -45,7 +46,7 @@ namespace KTextEditor
  * Kate Application
  * This class represents the core kate application object
  */
-class KateApp : public QObject
+class KATE_TESTS_EXPORT KateApp : public QObject
 {
     Q_OBJECT
 

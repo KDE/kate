@@ -31,11 +31,13 @@
 #include "kateapp.h"
 #include "katesavemodifieddialog.h"
 #include "katemwmodonhddialog.h"
-#include "katesession.h"
+#include "katesessionsaction.h"
+#include "katesessionmanager.h"
 #include "kateviewspace.h"
 #include "katequickopen.h"
 #include "katedebug.h"
 
+#include <KActionMenu>
 #include <KAboutApplicationDialog>
 #include <KEditToolBar>
 #include <KShortcutsDialog>
@@ -496,7 +498,7 @@ bool KateMainWindow::queryClose()
 
 void KateMainWindow::newWindow ()
 {
-  KateApp::self()->newMainWindow (KateApp::self()->sessionManager()->activeSession()->configRead());
+  KateApp::self()->newMainWindow (KateApp::self()->sessionManager()->activeSession()->config());
 }
 
 void KateMainWindow::slotEditToolbars()
@@ -881,7 +883,7 @@ void KateMainWindow::updateCaption (KTextEditor::Document *doc)
     c = m_viewManager->activeView()->document()->url().toString();
   }
 
-  QString sessName = KateApp::self()->sessionManager()->activeSession()->sessionName();
+  QString sessName = KateApp::self()->sessionManager()->activeSession()->name();
   if ( !sessName.isEmpty() )
     sessName = QString("%1: ").arg( sessName );
 
@@ -933,7 +935,7 @@ void KateMainWindow::saveGlobalProperties( KConfig* sessionConfig )
   KateDocManager::self()->saveDocumentList (sessionConfig);
 
   KConfigGroup cg( sessionConfig, "General");
-  cg.writeEntry ("Last Session", KateApp::self()->sessionManager()->activeSession()->sessionFileRelative());
+  cg.writeEntry ("Last Session", KateApp::self()->sessionManager()->activeSession()->name());
 
   // save plugin config !!
   KateApp::self()->pluginManager()->writeConfig (sessionConfig);

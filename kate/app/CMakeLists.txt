@@ -2,6 +2,11 @@
 # The Kate Application
 #
 
+# includes
+include_directories(
+  ${CMAKE_CURRENT_SOURCE_DIR}/session
+)
+
 # collect the needed source files
 set (KATE_APPLICATION_SRCS
    kateappadaptor.cpp
@@ -15,7 +20,15 @@ set (KATE_APPLICATION_SRCS
    kateviewspace.cpp
    katesavemodifieddialog.cpp
    katemwmodonhddialog.cpp
-   katesession.cpp
+
+   # session
+   session/katesessionchooser.cpp
+   session/katesessionsaction.cpp
+   session/katesessionmanager.cpp
+   session/katesessionmanagedialog.cpp
+   session/katesessionopendialog.cpp
+   session/katesession.cpp
+
    katemdi.cpp
    katerunninginstanceinfo.cpp
    kateappcommands.cpp
@@ -32,6 +45,10 @@ target_link_libraries(kdeinit_kate ktexteditor
     KF5::GuiAddons
     KF5::DBusAddons)
 
+generate_export_header(kdeinit_kate
+  EXPORT_FILE_NAME kateprivate_export.h
+  EXPORT_MACRO_NAME KATE_TESTS_EXPORT
+)
 # install executable + kdeinit lib
 install(TARGETS kate         ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kate ${INSTALL_TARGETS_DEFAULT_ARGS})

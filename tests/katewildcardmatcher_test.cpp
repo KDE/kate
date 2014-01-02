@@ -17,7 +17,7 @@
  *  Boston, MA 02110-1301, USA.
  */
 
-#include "../katewildcardmatcher.h"
+#include "mode/katewildcardmatcher.h"
 #include <QtGlobal>
 #include <QtDebug>
 

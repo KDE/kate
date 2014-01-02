@@ -19,11 +19,9 @@
 #ifndef KATE_WILDCARD_MATCHER_H
 #define KATE_WILDCARD_MATCHER_H
 
-
+#include "katepartprivate_export.h"
 
 class QString;
-
-
 
 namespace KateWildcardMatcher {
 
@@ -36,12 +34,9 @@ namespace KateWildcardMatcher {
      * @param caseSensitive   Case-sensitivity flag
      * @return                True for an exact match, false otherwise
      */
-    bool exactMatch(const QString & candidate, const QString & wildcard,
+    KATEPART_TESTS_EXPORT bool exactMatch(const QString & candidate, const QString & wildcard,
             bool caseSensitive = true);
 
 }
 
-
-
 #endif // KATE_WILDCARD_MATCHER_H
-

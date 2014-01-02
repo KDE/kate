@@ -71,6 +71,7 @@ kate_unit_tests(
   templatehandler_test
   katefoldingtest
   bug286887
+  katewildcardmatcher_test
 )
 
 kate_unit_test(completion_test codecompletiontestmodel.cpp codecompletiontestmodels.cpp)

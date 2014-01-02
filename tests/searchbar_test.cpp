@@ -551,10 +551,9 @@ void SearchBarTest::testSearchHistoryIncremental()
   KateDocument doc(false, false, false);
   KateView view(&doc, 0);
   KateViewConfig *const config = view.config();
+  config->patternHistoryModel()->setStringList(QStringList());
 
   doc.setText("foo bar");
-
-  QCOMPARE(config->patternHistoryModel()->stringList(), QStringList());
 
   KateSearchBar bar(false, &view, config);
   bar.enableUnitTestMode();
@@ -591,6 +590,7 @@ void SearchBarTest::testSearchHistoryPower()
   KateDocument doc(false, false, false);
   KateView view(&doc, 0);
   KateViewConfig *const config = view.config();
+  config->patternHistoryModel()->setStringList(QStringList());
 
   doc.setText("foo bar");
 

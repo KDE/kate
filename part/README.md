@@ -20,7 +20,6 @@ part/script/katescript.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,Library
 part/script/katescriptdocument.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
 part/script/katescriptmanager.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
 part/script/katescriptview.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
-part/syntax/kateextendedattribute.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katehighlight.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katesyntaxdocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katesyntaxmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
@@ -47,7 +46,6 @@ part/script/katescript.cpp;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,Libra
 part/script/katescriptdocument.cpp;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
 part/script/katescriptmanager.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/search/katesearchbar.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-part/syntax/kateextendedattribute.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katehighlight.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katesyntaxdocument.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katesyntaxmanager.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1

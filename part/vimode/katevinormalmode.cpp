@@ -493,23 +493,6 @@ void KateViNormalMode::beginMonitoringDocumentChanges()
           this, SLOT(textRemoved(KTextEditor::Document*,KTextEditor::Range)));
 }
 
-void KateViNormalMode::goToPos( const KateViRange &r )
-{
-  Cursor c;
-  c.setLine( r.endLine );
-  c.setColumn( r.endColumn );
-
-  if ( r.jump ) {
-    addCurrentPositionToJumpList();
-  }
-
-  if ( c.line() >= doc()->lines() ) {
-    c.setLine( doc()->lines()-1 );
-  }
-
-  updateCursor( c );
-}
-
 void KateViNormalMode::executeCommand( const KateViCommand* cmd )
 {
   const ViMode originalViMode = m_viInputModeManager->getCurrentViMode();
@@ -2416,46 +2399,6 @@ KateViRange KateViNormalMode::motionRepeatlastTFBackward()
   // there was no previous t/f command
   return KateViRange::invalid();
 }
-
-// FIXME: should honour the provided count
-KateViRange KateViNormalMode::motionFindPrev()
-{
-  QString pattern = m_viInputModeManager->getLastSearchPattern();
-  bool backwards = m_viInputModeManager->lastSearchBackwards();
-  const bool caseSensitive = m_viInputModeManager->lastSearchCaseSensitive();
-  const bool placeCursorAtEndOfMatch = m_viInputModeManager->lastSearchPlacesCursorAtEndOfMatch();
-
-  KateViRange match = findPatternForMotion( pattern, !backwards, caseSensitive, m_view->cursorPosition(), getCount() );
-
-  if (!placeCursorAtEndOfMatch)
-  {
-    return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
-  }
-  else
-  {
-    return KateViRange(match.endLine, match.endColumn - 1, ViMotion::ExclusiveMotion);
-  }
-}
-
-KateViRange KateViNormalMode::motionFindNext()
-{
-  QString pattern = m_viInputModeManager->getLastSearchPattern();
-  bool backwards = m_viInputModeManager->lastSearchBackwards();
-  const bool caseSensitive = m_viInputModeManager->lastSearchCaseSensitive();
-  const bool placeCursorAtEndOfMatch = m_viInputModeManager->lastSearchPlacesCursorAtEndOfMatch();
-
-  KateViRange match = findPatternForMotion( pattern, backwards, caseSensitive, m_view->cursorPosition(), getCount() );
-
-  if (!placeCursorAtEndOfMatch)
-  {
-    return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
-  }
-  else
-  {
-    return KateViRange(match.endLine, match.endColumn - 1, ViMotion::ExclusiveMotion);
-  }
-}
-
 
 KateViRange KateViNormalMode::motionToLineFirst()
 {

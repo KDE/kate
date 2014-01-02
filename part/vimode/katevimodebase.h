@@ -89,6 +89,12 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
     void message( const QString &msg );
 
     Range findPattern( const QString& pattern, bool backwards, bool caseSensitive, const Cursor& startFrom, int count = -1 /* i.e use getCount() */ ) const;
+
+    void findNext();
+    void findPrev();
+
+    KateViRange motionFindNext();
+    KateViRange motionFindPrev();
   protected:
     // helper methods
     void yankToClipBoard(QChar chosen_register, QString text);
@@ -119,11 +125,11 @@ class KATEPART_TESTS_EXPORT KateViModeBase : public QObject
 
     void addToNumberUnderCursor( int count );
 
+    virtual void goToPos( const KateViRange &r );
     KateViRange goLineUp();
     KateViRange goLineDown();
     KateViRange goLineUpDown( int lines);
     KateViRange goVisualLineUpDown(int lines);
-
 
     unsigned int linesDisplayed() { return m_viewInternal->linesDisplayed(); }
     void scrollViewLines( int l ) { m_viewInternal->scrollViewLines( l ); }

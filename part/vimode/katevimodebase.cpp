@@ -1509,3 +1509,75 @@ void KateViModeBase::switchView(Direction direction) {
     KateViewConfig::global()->setViInputMode(true);
   }
 }
+
+// FIXME: should honour the provided count
+KateViRange KateViModeBase::motionFindPrev()
+{
+  QString pattern = m_viInputModeManager->getLastSearchPattern();
+  bool backwards = m_viInputModeManager->lastSearchBackwards();
+  const bool caseSensitive = m_viInputModeManager->lastSearchCaseSensitive();
+  const bool placeCursorAtEndOfMatch = m_viInputModeManager->lastSearchPlacesCursorAtEndOfMatch();
+
+  KateViRange match = findPatternForMotion( pattern, !backwards, caseSensitive, m_view->cursorPosition(), getCount() );
+
+  if (!placeCursorAtEndOfMatch)
+  {
+    return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
+  }
+  else
+  {
+    return KateViRange(match.endLine, match.endColumn - 1, ViMotion::ExclusiveMotion);
+  }
+}
+
+KateViRange KateViModeBase::motionFindNext()
+{
+  QString pattern = m_viInputModeManager->getLastSearchPattern();
+  bool backwards = m_viInputModeManager->lastSearchBackwards();
+  const bool caseSensitive = m_viInputModeManager->lastSearchCaseSensitive();
+  const bool placeCursorAtEndOfMatch = m_viInputModeManager->lastSearchPlacesCursorAtEndOfMatch();
+
+  KateViRange match = findPatternForMotion( pattern, backwards, caseSensitive, m_view->cursorPosition(), getCount() );
+
+  if (!placeCursorAtEndOfMatch)
+  {
+    return KateViRange(match.startLine, match.startColumn, ViMotion::ExclusiveMotion);
+  }
+  else
+  {
+    return KateViRange(match.endLine, match.endColumn - 1, ViMotion::ExclusiveMotion);
+  }
+}
+
+void KateViModeBase::goToPos( const KateViRange &r )
+{
+  Cursor c;
+  c.setLine( r.endLine );
+  c.setColumn( r.endColumn );
+
+  if ( r.jump ) {
+    m_viInputModeManager->addJump(m_view->cursorPosition());
+  }
+
+  if ( c.line() >= doc()->lines() ) {
+    c.setLine( doc()->lines()-1 );
+  }
+
+  updateCursor( c );
+}
+
+void KateViModeBase::findNext()
+{
+  const KateViRange r = motionFindNext();
+  if (r.valid) {
+    goToPos(r);
+  }
+}
+
+void KateViModeBase::findPrev()
+{
+  const KateViRange r = motionFindPrev();
+  if (r.valid) {
+    goToPos(r);
+  }
+}

@@ -333,6 +333,16 @@ void KateViInputModeManager::repeatLastChange()
   m_isReplayingLastChange = false;
 }
 
+void KateViInputModeManager::findNext()
+{
+  getCurrentViModeHandler()->findNext();
+}
+
+void KateViInputModeManager::findPrevious()
+{
+  getCurrentViModeHandler()->findPrev();
+}
+
 void KateViInputModeManager::startRecordingMacro(QChar macroRegister)
 {
   Q_ASSERT(!m_isRecordingMacro);

@@ -184,6 +184,16 @@ public:
    */
   void repeatLastChange();
 
+  /**
+   * find next occurence of last search
+   */
+  void findNext();
+
+  /**
+   * find previous occurence of last search
+   */
+  void findPrevious();
+
   class Completion
   {
   public:

@@ -1535,10 +1535,8 @@ void KateView::toggleViInputMode()
 
 void KateView::showViModeEmulatedCommandBar()
 {
-  if (viInputMode()) {
-    bottomViewBar()->addBarWidget(viModeEmulatedCommandBar());
-    bottomViewBar()->showBarWidget(viModeEmulatedCommandBar());
-  }
+  bottomViewBar()->addBarWidget(viModeEmulatedCommandBar());
+  bottomViewBar()->showBarWidget(viModeEmulatedCommandBar());
 }
 
 void KateView::updateViModeBarMode()
@@ -1572,42 +1570,68 @@ KateViInputModeManager* KateView::resetViInputModeManager()
 
 void KateView::find()
 {
-  const bool INIT_HINT_AS_INCREMENTAL = false;
-  KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
-  bar->enterIncrementalMode();
-  bottomViewBar()->addBarWidget(bar);
-  bottomViewBar()->showBarWidget(bar);
-  bar->setFocus();
+  if (viInputMode()) {
+    showViModeEmulatedCommandBar();
+    viModeEmulatedCommandBar()->init(KateViEmulatedCommandBar::SearchForward);
+  } else {
+    const bool INIT_HINT_AS_INCREMENTAL = false;
+    KateSearchBar * const bar = searchBar(INIT_HINT_AS_INCREMENTAL);
+    bar->enterIncrementalMode();
+    bottomViewBar()->addBarWidget(bar);
+    bottomViewBar()->showBarWidget(bar);
+    bar->setFocus();
+  }
 }
 
 void KateView::findSelectedForwards()
 {
-  KateSearchBar::nextMatchForSelection(this, KateSearchBar::SearchForward);
+  if (viInputMode()) {
+    getViInputModeManager()->findNext();
+  } else {
+    KateSearchBar::nextMatchForSelection(this, KateSearchBar::SearchForward);
+  }
 }
 
 void KateView::findSelectedBackwards()
 {
-  KateSearchBar::nextMatchForSelection(this, KateSearchBar::SearchBackward);
+  if (viInputMode()) {
+    getViInputModeManager()->findPrevious();
+  } else {
+    KateSearchBar::nextMatchForSelection(this, KateSearchBar::SearchBackward);
+  }
 }
 
 void KateView::replace()
 {
-  const bool INIT_HINT_AS_POWER = true;
-  KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
-  bar->enterPowerMode();
-  bottomViewBar()->addBarWidget(bar);
-  bottomViewBar()->showBarWidget(bar);
-  bar->setFocus();
+  if (viInputMode()) {
+    showViModeEmulatedCommandBar();
+    viModeEmulatedCommandBar()->init(KateViEmulatedCommandBar::SearchForward);
+  } else {
+    const bool INIT_HINT_AS_POWER = true;
+    KateSearchBar * const bar = searchBar(INIT_HINT_AS_POWER);
+    bar->enterPowerMode();
+    bottomViewBar()->addBarWidget(bar);
+    bottomViewBar()->showBarWidget(bar);
+    bar->setFocus();
+  }
 }
 
 void KateView::findNext()
 {
-  searchBar()->findNext();
+  if (viInputMode()) {
+    getViInputModeManager()->findNext();
+  } else {
+    searchBar()->findNext();
+  }
 }
 
 void KateView::findPrevious()
 {
-  searchBar()->findPrevious();
+  if (viInputMode()) {
+    getViInputModeManager()->findPrevious();
+  } else {
+    searchBar()->findPrevious();
+  }
 }
 
 void KateView::slotSelectionChanged ()

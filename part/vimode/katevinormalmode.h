@@ -205,9 +205,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     KateViRange motionToCharBackward();
     KateViRange motionRepeatlastTF();
     KateViRange motionRepeatlastTFBackward();
-    KateViRange motionFindNext();
-    KateViRange motionFindPrev();
-
 
     KateViRange motionToEOL();
     KateViRange motionToColumn0();
@@ -283,7 +280,6 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     void resetParser();
     void initializeCommands();
     QRegExp generateMatchingItemRegex();
-    virtual void goToPos( const KateViRange &r );
     void executeCommand( const KateViCommand* cmd );
     OperationMode getOperationMode() const;
     // The 'current position' is the current cursor position for non-linewise pastes, and the current

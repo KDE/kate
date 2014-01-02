@@ -3,6 +3,7 @@ Type=ServiceType
 X-KDE-ServiceType=Kate/PythonPlugin
 X-KDE-Derived=
 Comment=Kate Python Plugin
+Comment[ca]=Connector Python del Kate
 Comment[cs]=Moduly Pythonu pro Kate
 Comment[de]=Python-Modul für Kate
 Comment[es]=Complementos de Python para Kate

@@ -1,25 +1,39 @@
-Whats in kate.git?
+# kate.git content
 
-ktexteditor/
-  => KTextEditor
+## ktexteditor 
 
-part/
-  => KatePart
+KTextEditor library, public interface to Kate Part and stuff like plugins
 
-kate/
-  => Kate Application
+For licensing and more see ktexteditor/README.md
 
-kwrite/
-  => KWrite Application
+## part
 
-doc/
-  => Kate & KWrite manuals
+Kate Part
 
-tests/
-  => Automated unit tests
-  
-examples/
-  => Examples for syntax highlighting and co
+For licensing and more see part/README.md
 
-addons/
-  => Plugins
+## kate
+
+Kate Application
+
+For licensing and more see kate/README.md
+
+## kwrite
+
+KWrite Application
+
+## addons
+
+Plugins
+
+## doc
+
+Kate & KWrite manuals
+
+## tests
+
+Automated unit tests
+
+## examples
+
+Examples for syntax highlighting and co

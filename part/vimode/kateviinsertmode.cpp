@@ -185,6 +185,10 @@ bool KateViInsertMode::commandMoveOneWordLeft()
   Cursor c( m_view->cursorPosition() );
   c = findPrevWordStart( c.line(), c.column() );
 
+  if (!c.isValid()) {
+    c = Cursor(0,0);
+  }
+
   updateCursor( c );
   return true;
 }

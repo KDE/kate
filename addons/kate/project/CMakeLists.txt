@@ -32,7 +32,8 @@ target_link_libraries(kateprojectplugin ktexteditor
 
 ########### install files ###############
 install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
-install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kateproject )
+
+install( FILES ui.rc kateproject.example DESTINATION  ${DATA_INSTALL_DIR}/kateproject )
 
 kservice_desktop_to_json (kateprojectplugin.desktop)
 install( FILES kateprojectplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

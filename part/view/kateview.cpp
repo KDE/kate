@@ -467,6 +467,12 @@ void KateView::setupActions()
   a = ac->addAction( KStandardAction::SaveAs, m_doc, SLOT(documentSaveAs()) );
   a->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
 
+  a = ac->addAction("file_save_copy_as");
+  a->setIcon(QIcon::fromTheme("document-save-as"));
+  a->setText(i18n("Save &Copy As..."));
+  a->setWhatsThis(i18n("Save a copy of the current document to disk."));
+  connect(a, SIGNAL(triggered(bool)), m_doc, SLOT(documentSaveCopyAs()));
+
   a = ac->addAction( KStandardAction::GotoLine, this, SLOT(gotoLine()) );
   a->setWhatsThis(i18n("This command opens a dialog and lets you choose a line that you want the cursor to move to."));
 

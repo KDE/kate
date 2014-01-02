@@ -3910,6 +3910,41 @@ bool KateDocument::documentSaveAs()
   return saveAs( res.URLs.first() );
 }
 
+bool KateDocument::documentSaveCopyAs()
+{
+  QWidget *parentWidget(dialogParent());
+
+  KEncodingFileDialog::Result res = KEncodingFileDialog::getSaveUrlAndEncoding(config()->encoding(),
+                url(), QString(), parentWidget, i18n("Save Copy of File"));
+
+  if(res.URLs.isEmpty() || !checkOverwrite(res.URLs.first(), parentWidget)) {
+    return false;
+  }
+
+  QTemporaryFile file;
+
+  if (!file.open()) {
+    return false;
+  }
+
+  const QString oldEncoding = encoding();
+  setEncoding(res.encoding); // TODO: this would be much cleaner if we could copy the buffer
+
+  if (!m_buffer->saveFile(file.fileName())) {
+    KMessageBox::error (parentWidget, i18n ("The document could not be saved, as it was not possible to write to %1.\n\nCheck that you have write access to this file or that enough disk space is available.", this->url().toString()));
+
+    setEncoding(oldEncoding); // restore original encoding
+    return false;
+  }
+
+  setEncoding(oldEncoding); // restore original encoding
+
+  // KIO move
+  KIO::FileCopyJob *job = KIO::file_copy(QUrl::fromLocalFile(file.fileName()), res.URLs.first());
+  KJobWidgets::setWindow(job, QApplication::activeWindow());
+  return job->exec();
+}
+
 void KateDocument::setWordWrap (bool on)
 {
   config()->setWordWrap (on);

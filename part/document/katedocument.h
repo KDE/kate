@@ -845,6 +845,7 @@ class KATEPART_TESTS_EXPORT KateDocument : public KTextEditor::Document,
 
     virtual bool documentSave ();
     virtual bool documentSaveAs ();
+    bool documentSaveCopyAs();
 
     virtual bool save();
   public:

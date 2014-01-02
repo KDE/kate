@@ -12,7 +12,6 @@ cullmann@altair:/local/cullmann/kf5/src/kate> find part -name "*.h" -exec ../nin
 part/dialogs/katedialogs.h;LibraryGPLv2;1;1;4;3;0;Copyright,Copyright,,1,-1,-1,-1,-1
 part/document/katebuffer.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/document/katedocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-part/mode/katewildcardmatcher.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/render/katerenderer.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/schema/katestyletreewidget.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/script/kateindentscript.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite

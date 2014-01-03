@@ -12,8 +12,6 @@ cullmann@altair:/local/cullmann/kf5/src/kate> find kate -name "*.h" -exec ../nin
 kate/app/kateappcommands.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateconfigdialog.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/katemainwindow.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/app/katesavemodifieddialog.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/app/katesession.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateviewspace.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateviewmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/katedocmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1

@@ -56,8 +56,8 @@ set_target_properties(ktexteditor
 )
 
 # generate and install export header file
-generate_export_header (ktexteditor EXPORT_FILE_NAME "include/ktexteditor/ktexteditor_export.h")
-install (FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_export.h DESTINATION ${INCLUDE_INSTALL_DIR}/KTextEditor/ktexteditor COMPONENT Devel)
+generate_export_header (ktexteditor EXPORT_FILE_NAME "include/KTextEditor/ktexteditor/ktexteditor_export.h")
+install (FILES ${CMAKE_CURRENT_BINARY_DIR}/include/KTextEditor/ktexteditor/ktexteditor_export.h DESTINATION ${INCLUDE_INSTALL_DIR}/KTextEditor/ktexteditor COMPONENT Devel)
 
 install(TARGETS ktexteditor EXPORT KTextEditor ${INSTALL_TARGETS_DEFAULT_ARGS})
 

@@ -44,7 +44,7 @@ set (KTEXTEDITOR_PUBLIC_HEADERS ${KTEXTEDITOR_PUBLIC_HEADERS}
     PARENT_SCOPE)
     
 # install the public header files
-install (FILES ${KTEXTEDITOR_PUBLIC_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
+install (FILES ${KTEXTEDITOR_PUBLIC_HEADERS} DESTINATION ${INCLUDE_INSTALL_DIR}/KTextEditor/ktexteditor COMPONENT Devel)
 
 # generate CamelCase headers
 ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface HighlightInterface MovingCursor Range TextHintInterface
@@ -54,10 +54,10 @@ ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface 
   CodeCompletionInterface ConfigInterface Editor ModeInterface  TemplateInterface
   CodeCompletionModel ConfigPage ConfigPageInterface ModificationInterface Plugin TemplateInterface2
   Application MainWindow ApplicationPlugin
-  MODULE_NAME "KTextEditor" RELATIVE "ktexteditor" REQUIRED_HEADERS KTEXTEDITOR_PUBLIC_HEADERS)
+  MODULE_NAME "KTextEditor" PREFIX "KTextEditor" RELATIVE "ktexteditor" REQUIRED_HEADERS KTEXTEDITOR_PUBLIC_HEADERS)
    
 # missing files ATM:   
 # AnnotationModel Command AnnotationViewInterface CommandExtension Message ParameterizedSessionConfigInterface
 
 # install CamelCase headers
-install (DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KTextEditor DESTINATION  ${INCLUDE_INSTALL_DIR} COMPONENT Devel)
+install (DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KTextEditor DESTINATION ${INCLUDE_INSTALL_DIR}/KTextEditor COMPONENT Devel)

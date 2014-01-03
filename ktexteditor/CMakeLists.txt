@@ -7,7 +7,7 @@ ecm_setup_version (${KATE_VERSION} VARIABLE_PREFIX KTEXTEDITOR
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/data/KTextEditorConfigVersion.cmake")
 
 # install version header
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_version.h DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_version.h DESTINATION ${INCLUDE_INSTALL_DIR}/KTextEditor/ktexteditor COMPONENT Devel)
 
 # handle include files, both normal ones and generated ones
 add_subdirectory (include)
@@ -48,7 +48,7 @@ add_library (ktexteditor SHARED ${ktexteditor_LIB_SRCS} ${KTEXTEDITOR_PUBLIC_HEA
 
 target_link_libraries(ktexteditor LINK_PUBLIC KF5::Parts
                                   LINK_PRIVATE KF5::I18n)
-target_include_directories(ktexteditor INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>")
+target_include_directories(ktexteditor INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}/KTextEditor>")
 
 set_target_properties(ktexteditor
    PROPERTIES VERSION ${GENERIC_LIB_VERSION}
@@ -57,7 +57,7 @@ set_target_properties(ktexteditor
 
 # generate and install export header file
 generate_export_header (ktexteditor EXPORT_FILE_NAME "include/ktexteditor/ktexteditor_export.h")
-install (FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_export.h DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
+install (FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_export.h DESTINATION ${INCLUDE_INSTALL_DIR}/KTextEditor/ktexteditor COMPONENT Devel)
 
 install(TARGETS ktexteditor EXPORT KTextEditor ${INSTALL_TARGETS_DEFAULT_ARGS})
 

@@ -55,7 +55,6 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
 )
 
 # use sane compile flags
-include (KDECompilerSettings)
 add_definitions (-DQT_STRICT_ITERATORS
                 -DQT_NO_SIGNALS_SLOTS_KEYWORDS
                 -DQT_USE_FAST_CONCATENATION

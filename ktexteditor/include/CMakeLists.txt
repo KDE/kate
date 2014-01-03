@@ -60,4 +60,4 @@ ecm_generate_headers(AnnotationInterface CodeCompletionModelControllerInterface 
 # AnnotationModel Command AnnotationViewInterface CommandExtension Message ParameterizedSessionConfigInterface
 
 # install CamelCase headers
-install (DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KTextEditor DESTINATION ${INCLUDE_INSTALL_DIR}/KTextEditor COMPONENT Devel)
+install (DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/KTextEditor/KTextEditor DESTINATION ${INCLUDE_INSTALL_DIR}/KTextEditor COMPONENT Devel)

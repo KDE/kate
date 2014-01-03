@@ -296,33 +296,6 @@ void KateBuffer::wrapLine (const KTextEditor::Cursor &position)
     m_lineHighlighted++;
 }
 
-void KateBuffer::unwrapLines (int from, int to)
-{
-  // catch out of range access, should never happen
-  Q_ASSERT(from >= 0);
-  Q_ASSERT(to + 1 <= lines());
-
-  for (int line = to; line >= from; --line) {
-      if (line + 1 < lines()) {
-          Kate::TextBuffer::unwrapLine (line + 1);
-        
-          if (m_lineHighlighted > (line + 1))
-            --m_lineHighlighted;
-      }
-
-      // Line "0" can't be unwraped
-      // This call is used to unwrap the last line (if last line != 0)
-      // This call was used in the previous version too and it looks like the last
-      // line can't be unwraped without it
-      else if (line) {
-          Kate::TextBuffer::unwrapLine (line);
-        
-          if (m_lineHighlighted > line)
-            --m_lineHighlighted;
-      }
-  }
-}
-
 void KateBuffer::unwrapLine (int line)
 {
   // reimplemented, so first call original

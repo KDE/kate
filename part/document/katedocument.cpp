@@ -1329,15 +1329,29 @@ bool KateDocument::editRemoveLines ( int from, int to )
   editStart();
   QStringList oldText;
 
-  for (int line = to; line >= from; line--) {
+  /**
+   * first remove text
+   */
+  for (int line = to; line >= from; --line) {
     Kate::TextLine tl = m_buffer->line (line);
     oldText.prepend(this->line(line));
     m_undoManager->slotLineRemoved(line, this->line(line));
 
     m_buffer->removeText (KTextEditor::Range (KTextEditor::Cursor (line, 0), KTextEditor::Cursor (line, tl->text().size())));
   }
-
-  m_buffer->unwrapLines(from, to);
+  
+  /**
+   * then collapse lines
+   */
+  for (int line = to; line >= from; --line) {
+    /**
+     * unwrap all lines, prefer to unwrap line behind, skip to wrap line 0
+     */
+    if (line + 1 < m_buffer->lines())
+        m_buffer->unwrapLine (line + 1);
+    else if (line)
+        m_buffer->unwrapLine (line);
+  }
 
   QList<int> rmark;
   QList<int> list;

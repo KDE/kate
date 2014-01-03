@@ -158,14 +158,6 @@ class KATEPART_TESTS_EXPORT KateBuffer : public Kate::TextBuffer
     inline int count() const { return lines(); }
 
     /**
-     * Unwrap given lines.
-     * @param from - first line of the block
-     * @param to - last line of the block
-     * @param lastLine - last line of the document
-     */
-    void unwrapLines (int from, int to);
-
-    /**
      * Unwrap given line.
      * @param line line to unwrap
      */

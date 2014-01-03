@@ -30,7 +30,6 @@ part/view/kateviewinternal.h;LibraryGPLv2;1;1;4;3;0;Copyright,Copyright,,1,-1,-1
 
 cullmann@altair:/local/cullmann/kf5/src/kate> find part -name "*.cpp" -exec ../ninka/ninka.pl {} \; | grep -v LibraryGPLv2\+
 part/dialogs/katedialogs.cpp;LibraryGPLv2;1;1;4;3;0;Copyright,Copyright,,1,-1,-1,-1,-1
-part/document/katebuffer.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/document/katedocument.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/render/katerenderer.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/script/katescriptview.cpp;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite

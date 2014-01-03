@@ -13,7 +13,7 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_versio
 add_subdirectory (include)
 
 # add our ktexteditor includes to our search path
-include_directories (include/ktexteditor)
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/include/ktexteditor)
 
 # KTextEditor interface sources
 set(ktexteditor_LIB_SRCS

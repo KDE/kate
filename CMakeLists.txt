@@ -95,5 +95,5 @@ ecm_optional_add_subdirectory (addons)
 # docs
 ecm_optional_add_subdirectory (doc)
 
-# tests
-ecm_optional_add_subdirectory (tests)
+# automatic unit tests
+ecm_optional_add_subdirectory (autotests)

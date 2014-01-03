@@ -18,7 +18,7 @@ include_directories(
   ${CMAKE_BINARY_DIR}/part
 )
 
-add_definitions(-DTEST_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data/")
+add_definitions(-DTEST_DATA_DIR="${CMAKE_SOURCE_DIR}/autotests/input/")
 add_definitions(-DJS_DATA_DIR="${CMAKE_SOURCE_DIR}/part/script/data/")
 
 set (KATE_TEST_LINK_LIBS ktexteditor katepartprivate
@@ -31,14 +31,14 @@ set (KATE_TEST_LINK_LIBS ktexteditor katepartprivate
 include(ECMMarkAsTest)
 
 # test executable for encoding
-add_executable(kateencodingtest kateencodingtest.cpp)
+add_executable(kateencodingtest src/kateencodingtest.cpp)
 target_link_libraries(kateencodingtest ${KATE_TEST_LINK_LIBS})
 
 # test macro for encoding tests
 MACRO(KATE_ENCODING_TEST _encoding _testname)
-  ADD_TEST (${_testname}_create kateencodingtest ${_encoding} ${CMAKE_CURRENT_SOURCE_DIR}/data/encoding/${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname} )
+  ADD_TEST (${_testname}_create kateencodingtest ${_encoding} ${CMAKE_SOURCE_DIR}/autotests/input/encoding/${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname} )
   ecm_mark_as_test(${_testname}_create)
-  ADD_TEST (${_testname}_diff ${CMAKE_COMMAND} -E compare_files ${CMAKE_CURRENT_SOURCE_DIR}/data/encoding/${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname} )
+  ADD_TEST (${_testname}_diff ${CMAKE_COMMAND} -E compare_files ${CMAKE_SOURCE_DIR}/autotests/input/encoding/${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname} )
   ecm_mark_as_test(${_testname}_diff)
 ENDMACRO(KATE_ENCODING_TEST)
 
@@ -76,7 +76,7 @@ KATE_ENCODING_TEST ("utf-8" "one-char-latin-15.txt")
 
 macro(kate_unit_tests)
   foreach(_testname ${ARGN})
-    add_executable(${_testname} ${_testname}.cpp)
+    add_executable(${_testname} src/${_testname}.cpp)
     add_test(kate-${_testname} ${_testname})
     target_link_libraries(${_testname} ${KATE_TEST_LINK_LIBS} Qt5::Test)
     ecm_mark_as_test(${_testname})
@@ -84,7 +84,7 @@ macro(kate_unit_tests)
 endmacro()
 
 macro(kate_unit_test testname)
-  add_executable(${testname} ${testname}.cpp ${ARGN})
+  add_executable(${testname} src/${testname}.cpp ${ARGN})
   add_test(kate-${testname} ${testname})
   target_link_libraries(${testname} ${KATE_TEST_LINK_LIBS} Qt5::Test)
   ecm_mark_as_test(${testname})
@@ -115,9 +115,9 @@ kate_unit_tests(
   katewildcardmatcher_test
 )
 
-kate_unit_test(completion_test codecompletiontestmodel.cpp codecompletiontestmodels.cpp)
-kate_unit_test(indenttest script_test_base.cpp testutils.cpp)
-kate_unit_test(commands_test script_test_base.cpp testutils.cpp)
-kate_unit_test(scripting_test script_test_base.cpp testutils.cpp)
-kate_unit_test(bug313759 testutils.cpp)
-kate_unit_test(bug317111 testutils.cpp)
+kate_unit_test(completion_test src/codecompletiontestmodel.cpp src/codecompletiontestmodels.cpp)
+kate_unit_test(indenttest src/script_test_base.cpp src/testutils.cpp)
+kate_unit_test(commands_test src/script_test_base.cpp src/testutils.cpp)
+kate_unit_test(scripting_test src/script_test_base.cpp src/testutils.cpp)
+kate_unit_test(bug313759 src/testutils.cpp)
+kate_unit_test(bug317111 src/testutils.cpp)

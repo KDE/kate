@@ -10,11 +10,7 @@ At the moment the following source files still have licensing issues:
 
 cullmann@altair:/local/cullmann/kf5/src/kate> find kate -name "*.h" -exec ../ninka/ninka.pl {} \; | grep -v LibraryGPLv2\+
 kate/app/kateappcommands.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/app/kateapp.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/app/kateappadaptor.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/kateconfigdialog.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/app/kateconfigplugindialogpage.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-kate/app/katedebug.h;LibraryGPLv2;1;1;4;1;0;,1,-1,-1,-1,-1
 kate/app/katemainwindow.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 kate/app/katemwmodonhddialog.h;LibraryGPLv2;1;1;4;2;0;,1,-1,-1,-1,-1,Copyright
 kate/app/katepluginmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1

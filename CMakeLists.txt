@@ -75,7 +75,7 @@ get_target_property (KDE4Support_INCLUDES KF5::KDE4Support INTERFACE_INCLUDE_DIR
 include_directories(${KDE4Support_INCLUDES})
 
 # let our config.h and local ktexteditor stuff be found first in any case
-include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR}/ktexteditor/include)
+include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/include ${CMAKE_CURRENT_BINARY_DIR}/ktexteditor/include)
 
 # ktexteditor interfaces, copy from kdelibs/interfaces/ktexteditor
 ecm_optional_add_subdirectory (ktexteditor)

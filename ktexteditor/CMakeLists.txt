@@ -6,14 +6,14 @@ ecm_setup_version (${KATE_VERSION} VARIABLE_PREFIX KTEXTEDITOR
                         VERSION_HEADER "${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_version.h"
                         PACKAGE_VERSION_FILE "${CMAKE_CURRENT_BINARY_DIR}/data/KTextEditorConfigVersion.cmake")
 
-# install version header                       
+# install version header
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/include/ktexteditor/ktexteditor_version.h DESTINATION ${INCLUDE_INSTALL_DIR}/ktexteditor COMPONENT Devel)
-                        
+
 # handle include files, both normal ones and generated ones
 add_subdirectory (include)
 
 # add our ktexteditor includes to our search path
-include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include ${CMAKE_CURRENT_SOURCE_DIR}/include/ktexteditor)
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include/ktexteditor)
 
 # KTextEditor interface sources
 set(ktexteditor_LIB_SRCS
@@ -35,11 +35,11 @@ set(ktexteditor_LIB_SRCS
    src/movingrange.cpp
    src/movingrangefeedback.cpp
    src/messageinterface.cpp
-   
+
    # application interfaces
    src/application.cpp
    src/mainwindow.cpp
-   
+
    # private headers for moc
    src/documentadaptor_p.h
    )

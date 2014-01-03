@@ -59,7 +59,7 @@ public:
     void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
-public slots:
+public Q_SLOTS:
     void currentTabChanged( int button_id );
     void closeTabRequest( int button_id );
     void slotDocumentCreated( KTextEditor::Document* document );
@@ -89,7 +89,7 @@ class KatePluginTabBarExtension : public Kate::Plugin
     void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
     void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
 
-  protected slots:
+  protected Q_SLOTS:
     void tabbarSettingsChanged( KTinyTabBar* tabbar );
     void tabbarHighlightMarksChanged( KTinyTabBar* tabbar );
 

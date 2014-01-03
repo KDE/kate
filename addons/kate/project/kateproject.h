@@ -245,7 +245,7 @@ class KateProject : public QObject
       bool isModified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);
 
     
-  signals:
+  Q_SIGNALS:
     /**
      * Emitted on project map changes.
      * This includes the name!

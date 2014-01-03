@@ -54,7 +54,7 @@ class PlainTextSearchTest : public QObject
     KatePlainTextSearch *m_search;
 
   public:
-    static QtMsgHandler s_msgHandler;
+    static QtMessageHandler s_msgHandler;
 };
 
 #endif

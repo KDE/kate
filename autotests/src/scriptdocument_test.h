@@ -53,7 +53,7 @@ class ScriptDocumentTest : public QObject
     KateScriptDocument *m_scriptDoc;
 
   public:
-    static QtMsgHandler s_msgHandler;
+    static QtMessageHandler s_msgHandler;
 };
 
 #endif

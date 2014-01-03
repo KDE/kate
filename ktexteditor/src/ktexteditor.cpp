@@ -116,14 +116,14 @@ Editor *KTextEditor::Editor::instance()
   /**
    * first: get factory of katepart, else abort
    */
-  KPluginFactory *factory = KPluginLoader("katepart").factory();
+  KPluginFactory *factory = KPluginLoader(QLatin1String ("katepart")).factory();
   if (!factory)
     return nullptr;
   
   /**
    * now create the object and store it and return
    */
-  staticInstance = factory->create<KTextEditor::Editor> ("KTextEditor/Editor");
+  staticInstance = factory->create<KTextEditor::Editor> (QLatin1String ("KTextEditor/Editor"));
   return staticInstance.data ();
 }
 

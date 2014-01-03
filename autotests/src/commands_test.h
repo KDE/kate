@@ -25,7 +25,7 @@
 class CommandsTest : public ScriptTestBase
 {
   Q_OBJECT
-private slots:
+private Q_SLOTS:
   void initTestCase();
 
   void utils_data();

@@ -41,7 +41,7 @@ class ExporterPluginView : public QObject, public KXMLGUIClient
     ///TODO: maybe make this scriptable for additional exporters?
     void exportData(const bool useSelction, QTextStream& output);
 
-  private slots:
+  private Q_SLOTS:
     void exportToClipboard();
     void exportToFile();
 

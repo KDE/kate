@@ -32,18 +32,18 @@ class OutputStyleWidget : public QTreeWidget
 
     QTreeWidgetItem* addContext(const QString &key, const QString &name);
 
-  public slots:
+  public Q_SLOTS:
     void readConfig();
     void writeConfig();
 
-  protected slots:
+  protected Q_SLOTS:
     void slotChanged();
     void updatePreviews();
 
     void readConfig(QTreeWidgetItem *item);
     void writeConfig(QTreeWidgetItem *item);
 
-  signals:
+  Q_SIGNALS:
     void changed();
 };
 

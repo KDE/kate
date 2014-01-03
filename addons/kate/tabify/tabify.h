@@ -44,7 +44,7 @@ public:
   explicit TabBarPluginView(Kate::MainWindow* mainwindow);
   virtual ~TabBarPluginView();
 
-public slots:
+public Q_SLOTS:
   void slotDocumentCreated(KTextEditor::Document* doc);
   void slotTabChanged(int);
   void slotDocumentDeleted(KTextEditor::Document*);

@@ -83,7 +83,7 @@ class PluginKateXMLToolsCompletionModel
       , const KTextEditor::Cursor &position
       );
 
-  public slots:
+  public Q_SLOTS:
 
     void getDTD();
 
@@ -167,7 +167,7 @@ class InsertElement : public KDialog
     InsertElement( QWidget *parent, const char *name );
     ~InsertElement();
     QString showDialog( QStringList &completions );
-  private slots:
+  private Q_SLOTS:
     void slotHistoryTextChanged( const QString& );
 
 };

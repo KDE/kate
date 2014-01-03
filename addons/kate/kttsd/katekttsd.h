@@ -44,7 +44,7 @@ class KateKttsdPluginView : public Kate::PluginView, public Kate::XMLGUIClient
         explicit KateKttsdPluginView(Kate::MainWindow *mw );
     ~KateKttsdPluginView();
 
-    public slots:
+    public Q_SLOTS:
         void slotReadOut();
 };
 

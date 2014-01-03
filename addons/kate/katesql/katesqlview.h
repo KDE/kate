@@ -46,7 +46,7 @@ class KateSQLView : public Kate::PluginView, public Kate::XMLGUIClient
    
     SchemaBrowserWidget *schemaBrowserWidget() const { return m_schemaBrowserWidget; }
 
-  public slots:
+  public Q_SLOTS:
     void slotConnectionCreate();
     void slotConnectionEdit();
     void slotConnectionRemove();

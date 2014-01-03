@@ -25,7 +25,7 @@
 class ScriptingTest : public ScriptTestBase
 {
   Q_OBJECT
-private slots:
+private Q_SLOTS:
   void initTestCase();
 
   void bugs_data();

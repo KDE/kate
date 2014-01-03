@@ -59,7 +59,6 @@
 #include <KXMLGUIFactory>
 
 #include <KIO/Job>
-#include <KIO/JobClasses>
 #include <KFileItem>
 
 #include <QDesktopWidget>

@@ -171,7 +171,7 @@ public:
     void setModified( bool modified );
     bool isModified() const;
 
-signals:
+Q_SIGNALS:
     /**
      * Emitted whenever the button changes state from deactivated to activated.
      * @param tabbutton the pressed button (this)
@@ -203,7 +203,7 @@ signals:
      */
     void closeAllTabsRequest();
 
-protected slots:
+protected Q_SLOTS:
     void buttonClicked();
 
 protected:

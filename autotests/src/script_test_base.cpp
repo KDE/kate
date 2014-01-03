@@ -45,21 +45,21 @@
 const QString testDataPath(TEST_DATA_DIR);
 
 
-QtMsgHandler ScriptTestBase::m_msgHandler = 0;
-void noDebugMessageOutput(QtMsgType type, const char *msg)
+QtMessageHandler ScriptTestBase::m_msgHandler = 0;
+void noDebugMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
   switch (type) {
   case QtDebugMsg:
     break;
   default:
-    ScriptTestBase::m_msgHandler(type, msg);
+    ScriptTestBase::m_msgHandler(type, context, msg);
   }
 }
 
 
 void ScriptTestBase::initTestCase()
 {
-  m_msgHandler = qInstallMsgHandler(noDebugMessageOutput);
+  m_msgHandler =  qInstallMessageHandler (noDebugMessageOutput);
   m_toplevel = new QMainWindow();
   m_document = new KateDocument(true, false, false, m_toplevel);
   m_view = static_cast<KateView *>(m_document->widget());
@@ -68,7 +68,7 @@ void ScriptTestBase::initTestCase()
 
 void ScriptTestBase::cleanupTestCase()
 {
-  qInstallMsgHandler(m_msgHandler);
+  qInstallMessageHandler (m_msgHandler);
 }
 
 void ScriptTestBase::getTestData(const QString& script)

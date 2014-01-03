@@ -41,7 +41,7 @@ class IconInserterPluginView: public QObject, public KXMLGUIClient
 	public:
 		IconInserterPluginView(IconInserterPlugin *plugin, KTextEditor::View *view);
 		virtual ~IconInserterPluginView();
-	private slots:
+	private Q_SLOTS:
 		void insertIcon();
 	private:
 		QPointer<KTextEditor::View> m_view;

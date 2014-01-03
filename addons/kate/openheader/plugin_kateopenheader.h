@@ -35,7 +35,7 @@ class PluginKateOpenHeader : public Kate::Plugin
 
     Kate::PluginView *createView (Kate::MainWindow *mainWindow);
 
-  public slots:
+  public Q_SLOTS:
     void slotOpenHeader ();
     void tryOpen( const KUrl& url, const QStringList& extensions );
 };

@@ -153,11 +153,11 @@ public:
     void setHighlightMarks( const QMap<QString, QString>& marks );
     QMap<QString, QString> highlightMarks() const;
 
-public slots:
+public Q_SLOTS:
     void setCurrentTab( int button_id ); // does not emit signal
     void removeHighlightMarks();
 
-signals:
+Q_SIGNALS:
     /**
      * This signal is emitted whenever the current activated tab changes.
      */
@@ -180,7 +180,7 @@ signals:
      */
     void highlightMarksChanged( KTinyTabBar* tabbar );
 
-protected slots:
+protected Q_SLOTS:
     void tabButtonActivated( KTinyTabButton* tabButton );
     void tabButtonHighlightChanged( KTinyTabButton* tabButton );
     void tabButtonCloseAllRequest();

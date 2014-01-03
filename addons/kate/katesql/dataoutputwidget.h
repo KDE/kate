@@ -52,7 +52,7 @@ class DataOutputWidget : public QWidget
     DataOutputModel *model() const { return m_model; }
     DataOutputView  *view()  const { return m_view; }
 
-  public slots:
+  public Q_SLOTS:
     void showQueryResultSets(QSqlQuery &query);
     void resizeColumnsToContents();
     void resizeRowsToContents();

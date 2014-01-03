@@ -49,7 +49,7 @@ protected:
   QString m_script_dir;  // dir name in part/script/data/
 
 public:
-  static QtMsgHandler m_msgHandler;
+  static QtMessageHandler m_msgHandler;
 };
 
 #endif // SCRIPT_TEST_H

@@ -106,11 +106,11 @@ public:
     QColor modifiedTabsColor() const;
 
 
-signals:
+Q_SIGNALS:
     void changed();
     void removeHighlightMarks();
 
-protected slots:
+protected Q_SLOTS:
     void minimumTabWidthChanged(int value);
     void maximumTabWidthChanged(int value);
     void fixedTabHeightChanged(int value);

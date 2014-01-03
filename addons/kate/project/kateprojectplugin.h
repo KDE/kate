@@ -98,14 +98,14 @@ class KateProjectPlugin : public KTextEditor::ApplicationPlugin
       return m_document2Project.value (document);
     }
 
-  signals:
+  Q_SIGNALS:
     /**
      * Signal that a new project got created.
      * @param project new created project
      */
     void projectCreated (KateProject *project);
 
-  public slots:
+  public Q_SLOTS:
     /**
      * New document got created, we need to update our connections
      * @param document new created document

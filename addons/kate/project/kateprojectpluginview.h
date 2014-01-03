@@ -84,7 +84,7 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
       return m_mainWindow;
     }
 
-  public slots:
+  public Q_SLOTS:
     /**
      * Create views for given project.
      * Either gives existing ones or creates new one
@@ -93,7 +93,7 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
      */
     QPair<KateProjectView *,KateProjectInfoView *> viewForProject (KateProject *project);
 
-  private slots:
+  private Q_SLOTS:
     /**
      * New view got created, we need to update our connections
      * @param view new created view
@@ -133,7 +133,7 @@ class KateProjectPluginView : public QObject, public KXMLGUIClient
      */
     void projectMapChanged ();
 
-  private slots:
+  private Q_SLOTS:
     /**
      * This slot is called whenever the active view changes in our main window.
      */

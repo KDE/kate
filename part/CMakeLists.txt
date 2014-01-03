@@ -30,7 +30,6 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/swapfile
   ${CMAKE_CURRENT_SOURCE_DIR}/variableeditor
   ${CMAKE_CURRENT_SOURCE_DIR}/kte5
-  ${KDE4_KIO_INCLUDES}
 )
 
 # our sources

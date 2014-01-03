@@ -5,7 +5,8 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS DBusAddons)
 
 set(kwrite_KDEINIT_SRCS kwritemain.cpp kwriteapp.cpp)
 
-kde4_add_app_icon(kwrite_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/accessories-text-editor.png")
+# FIXME KF5
+#kde4_add_app_icon(kwrite_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/accessories-text-editor.png")
 
 kf5_add_kdeinit_executable(kwrite ${kwrite_KDEINIT_SRCS})
 target_link_libraries(kdeinit_kwrite ktexteditor

@@ -26,6 +26,7 @@
 
 #include <KParts/MainWindow>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <config.h>
 

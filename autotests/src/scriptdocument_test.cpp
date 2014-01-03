@@ -40,27 +40,27 @@ namespace QTest {
   }
 }
 
-QtMsgHandler ScriptDocumentTest::s_msgHandler = 0;
+QtMessageHandler ScriptDocumentTest::s_msgHandler = 0;
 
-void myMessageOutput(QtMsgType type, const char *msg)
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
   switch (type) {
   case QtDebugMsg:
     /* do nothing */
     break;
   default:
-    ScriptDocumentTest::s_msgHandler(type, msg);
+    ScriptDocumentTest::s_msgHandler(type, context, msg);
   }
 }
 
 void ScriptDocumentTest::initTestCase()
 {
-  s_msgHandler = qInstallMsgHandler(myMessageOutput);
+  s_msgHandler = qInstallMessageHandler(myMessageOutput);
 }
 
 void ScriptDocumentTest::cleanupTestCase()
 {
-  qInstallMsgHandler(0);
+  qInstallMessageHandler(0);
 }
 
 ScriptDocumentTest::ScriptDocumentTest()

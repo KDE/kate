@@ -101,7 +101,7 @@ FailsIfSlotCalled::FailsIfSlotCalled(const QString& failureMessage): QObject(), 
 
 void FailsIfSlotCalled::slot()
 {
-  QFAIL(m_failureMessage.toAscii());
+  QFAIL(m_failureMessage.toLatin1());
 }
 
 FakeCodeCompletionTestModel::FakeCodeCompletionTestModel(KTextEditor::View* parent)
@@ -2247,7 +2247,7 @@ private:
 
 void ViModeTest::MappingTests()
 {
-  const int mappingTimeoutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_MAPPINGTIMEOUTMS")).toInt();
+  const int mappingTimeoutMSOverride = QString::fromLocal8Bit(qgetenv("KATE_VIMODE_TEST_MAPPINGTIMEOUTMS")).toInt();
   const int mappingTimeoutMS = (mappingTimeoutMSOverride > 0) ? mappingTimeoutMSOverride : 2000;
   KateViewConfig::global()->setViInputModeStealKeys(true); // For tests involving e.g. <c-a>
   {
@@ -4281,7 +4281,7 @@ void ViModeTest::VimStyleCommandBarTests()
   FinishTest("foo");
 
 
-  const int commandResponseMessageTimeOutMSOverride = QString::fromAscii(qgetenv("KATE_VIMODE_TEST_COMMANDRESPONSEMESSAGETIMEOUTMS")).toInt();
+  const int commandResponseMessageTimeOutMSOverride = QString::fromLocal8Bit(qgetenv("KATE_VIMODE_TEST_COMMANDRESPONSEMESSAGETIMEOUTMS")).toInt();
   const long commandResponseMessageTimeOutMS = (commandResponseMessageTimeOutMSOverride > 0) ? commandResponseMessageTimeOutMSOverride : 2000;
   {
   // If there is any output from the command, show it in a label for a short amount of time
@@ -7467,7 +7467,7 @@ void ViModeTest::keyParsingTests()
   const QChar char_o_diaeresis(246);
 
   // Test that we can correctly translate finnish key ö
-  QKeyEvent *k = QKeyEvent::createExtendedKeyEvent( QEvent::KeyPress, 214, Qt::NoModifier, 47, 246, 16400, char_o_diaeresis);
+  QKeyEvent *k = new QKeyEvent ( QEvent::KeyPress, 214, Qt::NoModifier, 47, 246, 16400, char_o_diaeresis);
   QCOMPARE(KateViKeyParser::self()->KeyEventToQChar(*k), QChar(246));
 
   // Test that it can be used in mappings

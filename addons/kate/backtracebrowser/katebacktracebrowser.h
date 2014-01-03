@@ -50,7 +50,7 @@ class KateBtBrowserPlugin: public Kate::Plugin, public KTextEditor::ConfigPageIn
 
     void startIndexer();
 
-  signals:
+  Q_SIGNALS:
     void newStatus(const QString&);
 
   //
@@ -86,14 +86,14 @@ class KateBtBrowserPluginView : public Kate::PluginView, public Ui::BtBrowserWid
 
     void loadBacktrace(const QString& bt);
 
-  public slots:
+  public Q_SLOTS:
     void loadFile();
     void loadClipboard();
     void configure();
     void clearStatus();
     void setStatus(const QString& status);
 
-  private slots:
+  private Q_SLOTS:
     void itemActivated(QTreeWidgetItem* item, int column);
 
   private:
@@ -109,12 +109,12 @@ class KateBtConfigWidget : public KTextEditor::ConfigPage, private Ui::BtConfigW
     explicit KateBtConfigWidget(QWidget* parent = 0, const char* name = 0);
     virtual ~KateBtConfigWidget();
 
-  public slots:
+  public Q_SLOTS:
     virtual void apply();
     virtual void reset();
     virtual void defaults();
 
-  private slots:
+  private Q_SLOTS:
     void add();
     void remove();
     void textChanged();
@@ -130,7 +130,7 @@ class KateBtConfigDialog : public KDialog
     KateBtConfigDialog(QWidget* parent = 0);
     ~KateBtConfigDialog();
 
-  public slots:
+  public Q_SLOTS:
     void changed();
 
 private:

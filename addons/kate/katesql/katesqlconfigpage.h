@@ -36,7 +36,7 @@ class KateSQLConfigPage : public KTextEditor::ConfigPage
     explicit KateSQLConfigPage( QWidget* parent = 0 );
     virtual ~KateSQLConfigPage();
 
-  public slots:
+  public Q_SLOTS:
     virtual void apply();
     virtual void reset();
     virtual void defaults();
@@ -46,7 +46,7 @@ class KateSQLConfigPage : public KTextEditor::ConfigPage
     QCheckBox *m_box;
     OutputStyleWidget *m_outputStyleWidget;
 
-  signals:
+  Q_SIGNALS:
     void settingsChanged();
 };
 

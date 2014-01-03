@@ -28,7 +28,7 @@ class DataOutputView : public QTableView
   public:
     DataOutputView(QWidget *parent = 0);
 
-  private slots:
+  private Q_SLOTS:
     void slotCustomContextMenuRequested(const QPoint &pos);
 };
 

@@ -71,7 +71,7 @@ public:
     return m_ranges;
   }
 
-public slots:
+public Q_SLOTS:
     void aboutToInvalidateMovingInterfaceContent()
     {
         qDeleteAll(m_ranges);
@@ -288,7 +288,7 @@ void KateDocumentTest::testForgivingApiUsage()
 class SignalHandler : public QObject
 {
     Q_OBJECT
-public slots:
+public Q_SLOTS:
     void slotMultipleLinesRemoved(KTextEditor::Document*, const KTextEditor::Range&, const QString& oldText)
     {
         QCOMPARE(oldText, QString("line2\nline3\n"));

@@ -42,7 +42,6 @@
 #include <kcolorscheme.h>
 #include <kiconloader.h>
 
-#include <KIcon>
 #include <KXMLGUIFactory>
 #include <KConfigGroup>
 
@@ -271,14 +270,14 @@ m_mainWindow (mainWin)
     m_ui.resultTabWidget->tabBar()->setSelectionBehaviorOnRemove(QTabBar::SelectLeftTab);
     KAcceleratorManager::setNoAccel(m_ui.resultTabWidget);
 
-    m_ui.displayOptions->setIcon(KIcon("arrow-down-double"));
-    m_ui.searchButton->setIcon(KIcon("edit-find"));
-    m_ui.stopButton->setIcon(KIcon("process-stop"));
-    m_ui.searchPlaceCombo->setItemIcon(0, KIcon("text-plain"));
-    m_ui.searchPlaceCombo->setItemIcon(1, KIcon("folder"));
-    m_ui.folderUpButton->setIcon(KIcon("go-up"));
-    m_ui.currentFolderButton->setIcon(KIcon("view-refresh"));
-    m_ui.newTabButton->setIcon(KIcon("tab-new"));
+    m_ui.displayOptions->setIcon(SmallIcon("arrow-down-double"));
+    m_ui.searchButton->setIcon(SmallIcon("edit-find"));
+    m_ui.stopButton->setIcon(SmallIcon("process-stop"));
+    m_ui.searchPlaceCombo->setItemIcon(0, SmallIcon("text-plain"));
+    m_ui.searchPlaceCombo->setItemIcon(1, SmallIcon("folder"));
+    m_ui.folderUpButton->setIcon(SmallIcon("go-up"));
+    m_ui.currentFolderButton->setIcon(SmallIcon("view-refresh"));
+    m_ui.newTabButton->setIcon(SmallIcon("tab-new"));
 
     m_ui.filterCombo->setToolTip(i18n("Comma separated list of file types to search in. Example: \"*.cpp,*.h\"\n"));
     m_ui.excludeCombo->setToolTip(i18n("Comma separated list of files and directories to exclude from the search. Example: \"build*\""));
@@ -748,7 +747,7 @@ void KatePluginSearchView::addMatchMark(KTextEditor::Document* doc, int line, in
     if (!iface) return;
     iface->setMarkDescription(KTextEditor::MarkInterface::markType32, i18n("SearchHighLight"));
     iface->setMarkPixmap(KTextEditor::MarkInterface::markType32,
-                         KIcon().pixmap(0,0));
+                         QIcon().pixmap(0,0));
     iface->addMark(line, KTextEditor::MarkInterface::markType32);
 
     connect(doc, SIGNAL(aboutToInvalidateMovingInterfaceContent(KTextEditor::Document*)),
@@ -762,10 +761,10 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
         return;
     }
 
-    QString pre = Qt::escape(lineContent.left(column));
-    QString match = Qt::escape(lineContent.mid(column, matchLen));
+    QString pre = lineContent.left(column).toHtmlEscaped();
+    QString match = lineContent.mid(column, matchLen).toHtmlEscaped();
     match.replace('\n', "\\n");
-    QString post = Qt::escape(lineContent.mid(column + matchLen));
+    QString post = lineContent.mid(column + matchLen).toHtmlEscaped();
     QStringList row;
     row << i18n("Line: <b>%1</b>: %2", line+1, pre+"<b>"+match+"</b>"+post);
 
@@ -1625,7 +1624,7 @@ void KatePluginSearchView::searchContextMenu(const QPoint& pos)
         QMenu* menu = contextMenu->addMenu(i18n("Add..."));
         if (!menu) return;
 
-        menu->setIcon(KIcon("list-add"));
+        menu->setIcon(SmallIcon("list-add"));
 
         actionPointers << menuEntry(menu, "^", "", i18n("Beginning of line"));
         actionPointers << menuEntry(menu, "$", "", i18n("End of line"));

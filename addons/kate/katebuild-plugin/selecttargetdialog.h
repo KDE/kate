@@ -47,7 +47,7 @@ class SelectTargetDialog : public KDialog
     protected:
         virtual bool eventFilter(QObject *obj, QEvent *event);
 
-    private slots:
+    private Q_SLOTS:
         void slotFilterTargets(const QString& filter);
         void slotCurrentItemChanged(QListWidgetItem* currentItem);
         void slotTargetSetSelected(int index);

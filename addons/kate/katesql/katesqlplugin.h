@@ -49,7 +49,7 @@ class KateSQLPlugin : public Kate::Plugin, public KTextEditor::ConfigPageInterfa
     QString configPageFullName (uint number = 0) const;
     KIcon configPageIcon (uint number = 0) const;
 
-  signals:
+  Q_SIGNALS:
     void globalSettingsChanged();
 };
 

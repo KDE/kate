@@ -44,7 +44,7 @@ namespace QTest {
   }
 }
 
-#define testNewRow() (QTest::newRow(QString("line %1").arg(__LINE__).toAscii().data()))
+#define testNewRow() (QTest::newRow(QString("line %1").arg(__LINE__).toLatin1().data()))
 
 
 using namespace KTextEditor;

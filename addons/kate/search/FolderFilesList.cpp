@@ -20,8 +20,6 @@
 
 #include "FolderFilesList.h"
 
-#include <kmimetype.h>
-
 #include <QDir>
 #include <QFileInfo>
 #include <QFileInfoList>
@@ -89,7 +87,7 @@ void FolderFilesList::checkNextItem(const QFileInfo &item)
         return;
     }
     if (item.isFile()) {
-        if (!m_binary && KMimeType::isBinaryData(item.absoluteFilePath())) {
+        if (!m_binary && false /* KMimeType::isBinaryData(item.absoluteFilePath()) FIXME KF5 */) {
             return;
         }
         m_files << item.absoluteFilePath();

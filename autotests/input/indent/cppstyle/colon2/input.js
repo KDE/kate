@@ -11,7 +11,7 @@ v.type("protected:");
 v.enter();
 v.type("void ok();");
 v.enter();
-v.type("public slots:");
+v.type("public Q_SLOTS:");
 v.enter();
 v.type("void ok();");
 v.enter();

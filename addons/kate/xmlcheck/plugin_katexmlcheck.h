@@ -51,7 +51,7 @@ public:
     Kate::MainWindow *win;
     QWidget *dock;
 
-public slots:
+public Q_SLOTS:
     bool slotValidate();
     void slotClicked(QTreeWidgetItem *item, int column);
     void slotProcExited(int exitCode, QProcess::ExitStatus exitStatus);

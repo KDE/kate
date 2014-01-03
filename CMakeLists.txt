@@ -52,8 +52,15 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
   Sonnet
   WindowSystem
   XmlGui
-  KDE4Support # TODO: waiting for Title case include files
 )
+
+# use sane compile flags
+include (KDECompilerSettings)
+add_definitions (-DQT_STRICT_ITERATORS
+                -DQT_NO_SIGNALS_SLOTS_KEYWORDS
+                -DQT_USE_FAST_CONCATENATION
+                -DQT_USE_FAST_OPERATOR_PLUS
+               )
 
 # config.h
 if(NOT APPLE)
@@ -62,17 +69,6 @@ if(NOT APPLE)
 endif(NOT APPLE)
 
 configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
-
-# enforce build of tests
-set (KDE4_BUILD_TESTS "ON" CACHE "BOOL" "Enable building of tests" FORCE)
-
-# KDE/QT definitions we want
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-add_definitions (-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
-
-# Temporary solution until the split frameworks provide forward headers
-get_target_property (KDE4Support_INCLUDES KF5::KDE4Support INTERFACE_INCLUDE_DIRECTORIES)
-include_directories(${KDE4Support_INCLUDES})
 
 # let our config.h and local ktexteditor stuff be found first in any case
 include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/include ${CMAKE_CURRENT_BINARY_DIR}/ktexteditor/include/KTextEditor)

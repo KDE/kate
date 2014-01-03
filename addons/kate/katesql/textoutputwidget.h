@@ -33,7 +33,7 @@ class TextOutputWidget : public QWidget
     TextOutputWidget(QWidget *parent = 0);
     ~TextOutputWidget();
 
-  public slots:
+  public Q_SLOTS:
     void showErrorMessage(const QString &message);
     void showSuccessMessage(const QString &message);
 

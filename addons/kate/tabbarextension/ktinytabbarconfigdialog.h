@@ -49,7 +49,7 @@ public:
 
     KTinyTabBarConfigPage* configPage();
 
-protected slots:
+protected Q_SLOTS:
     void configChanged();
 
 private:

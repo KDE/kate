@@ -43,7 +43,7 @@ class SQLManager : public QObject
     int storeCredentials(const Connection &conn);
     int readCredentials(const QString &name, QString &password);
 
-  public slots:
+  public Q_SLOTS:
     void removeConnection(const QString &name);
     void reopenConnection(const QString &name);
     void loadConnections(KConfigGroup *connectionsGroup);
@@ -53,7 +53,7 @@ class SQLManager : public QObject
   protected:
     void saveConnection(KConfigGroup *connectionsGroup, const Connection &conn);
 
-  signals:
+  Q_SIGNALS:
     void connectionCreated(const QString &name);
     void connectionRemoved(const QString &name);
     void connectionAboutToBeClosed(const QString &name);

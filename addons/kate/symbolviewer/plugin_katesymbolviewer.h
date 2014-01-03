@@ -63,7 +63,7 @@ class KatePluginSymbolViewerConfigPage : public KTextEditor::ConfigPage
     virtual void reset () { ; }
     virtual void defaults () { ; }
 
-  signals:
+  Q_SIGNALS:
     /**
      * Ask the plugin to set initial values
      */
@@ -93,7 +93,7 @@ class KatePluginSymbolViewerView :  public Kate::PluginView, public Kate::XMLGUI
 
     void parseSymbols(void);
 
-  public slots:
+  public Q_SLOTS:
     void slotRefreshSymbol();
     void slotChangeMode();
     void slotEnableSorting();
@@ -154,7 +154,7 @@ class KatePluginSymbolViewer : public Kate::Plugin, KTextEditor::ConfigPageInter
     QPixmap configPagePixmap (uint, int) const { return 0L; }
     KIcon configPageIcon (uint number = 0) const;
 
-  public slots:
+  public Q_SLOTS:
     void applyConfig( KatePluginSymbolViewerConfigPage* p );
 
   public:

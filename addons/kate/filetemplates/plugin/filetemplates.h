@@ -153,7 +153,7 @@ class KateTemplateInfoWidget : public QWidget
     class KIconButton *ibIcon;
     class QString highlightName;
 
-  private slots:
+  private Q_SLOTS:
     void slotHlSet( class QAction *action );
 
   private:
@@ -182,10 +182,10 @@ class KateTemplateWizard : public QWizard
 
    virtual int nextId() const;
 
-  public slots:
+  public Q_SLOTS:
     void accept();
 
-  private slots:
+  private Q_SLOTS:
     void slotTmplateSet( class QAction* );
     void slotStateChanged();
     void slotStateChanged( int ) { slotStateChanged(); }
@@ -221,12 +221,12 @@ class KateTemplateManager : public QWidget
     explicit KateTemplateManager( KateFileTemplates *kft=0, QWidget *parent=0 );
     ~KateTemplateManager() {}
 
-  public slots:
+  public Q_SLOTS:
     void apply();
     void reload();
     void reset() { reload(); }
 
-  private slots:
+  private Q_SLOTS:
     void slotUpdateState();
     void slotEditTemplate();
     void slotRemoveTemplate();

@@ -48,7 +48,7 @@ class SchemaWidget : public QTreeWidget
     void buildViews(QTreeWidgetItem * viewsItem);
     void buildFields(QTreeWidgetItem * tableItem);
 
-  public slots:
+  public Q_SLOTS:
     void buildTree(const QString &connection);
     void refresh();
 
@@ -58,7 +58,7 @@ class SchemaWidget : public QTreeWidget
     void generateDelete();
     void generateStatement(QSqlDriver::StatementType type);
 
-  private slots:
+  private Q_SLOTS:
     void slotCustomContextMenuRequested(const QPoint &pos);
     void slotItemExpanded(QTreeWidgetItem *item);
 

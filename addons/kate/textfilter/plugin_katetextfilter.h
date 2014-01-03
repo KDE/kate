@@ -57,7 +57,7 @@ class PluginKateTextFilter : public Kate::Plugin, public KTextEditor::Command
     QStringList completionList;
     bool copyResult;
     bool mergeOutput;
-  public slots:
+  public Q_SLOTS:
     void slotEditFilter ();
     void slotFilterReceivedStdout();
     void slotFilterReceivedStderr();

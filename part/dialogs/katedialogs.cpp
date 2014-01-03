@@ -62,7 +62,6 @@
 #include <ktexteditor/plugin.h>
 
 #include <KIO/Job>
-#include <KIO/JobClasses>
 #include <kjobwidgets.h>
 
 #include <KCharsets>

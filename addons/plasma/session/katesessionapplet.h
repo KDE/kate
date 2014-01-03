@@ -55,7 +55,7 @@ public:
         Index = Qt::UserRole+1
     };
 
-protected slots:
+protected Q_SLOTS:
     void slotOnItemClicked(const QModelIndex &index);
     void slotUpdateSessionMenu();
     void slotSaveConfig();

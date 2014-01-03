@@ -28,12 +28,12 @@
 
 #include <kaction.h>
 #include <kactioncollection.h>
-#include <klocale.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
-#include <kiconloader.h>
+#include <KLocalizedString>
 #include <KXMLGUIFactory>
+#include <KIconLoader>
 
 #include <QDialog>
 #include <QHBoxLayout>

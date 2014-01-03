@@ -41,27 +41,27 @@ namespace QTest {
   }
 }
 
-QtMsgHandler PlainTextSearchTest::s_msgHandler = 0;
+QtMessageHandler PlainTextSearchTest::s_msgHandler = 0;
 
-void myMessageOutput(QtMsgType type, const char *msg)
+void myMessageOutput(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
   switch (type) {
   case QtDebugMsg:
     /* do nothing */
     break;
   default:
-    PlainTextSearchTest::s_msgHandler(type, msg);
+    PlainTextSearchTest::s_msgHandler(type, context, msg);
   }
 }
 
 void PlainTextSearchTest::initTestCase()
 {
-  s_msgHandler = qInstallMsgHandler(myMessageOutput);
+  s_msgHandler = qInstallMessageHandler(myMessageOutput);
 }
 
 void PlainTextSearchTest::cleanupTestCase()
 {
-  qInstallMsgHandler(0);
+  qInstallMessageHandler(0);
 }
 
 PlainTextSearchTest::PlainTextSearchTest()

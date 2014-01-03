@@ -21,8 +21,6 @@ part/script/katescriptview.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,Lib
 part/syntax/katehighlight.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katesyntaxdocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katesyntaxmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-part/undo/kateundo.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-part/undo/kateundomanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/utils/kateautoindent.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/utils/katebookmarks.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/utils/kateconfig.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1

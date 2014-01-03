@@ -22,12 +22,9 @@ part/syntax/katehighlight.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katesyntaxdocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/syntax/katesyntaxmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/utils/kateautoindent.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-part/utils/katebookmarks.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-part/utils/kateconfig.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/view/kateview.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/view/kateviewhelpers.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 part/view/kateviewinternal.h;LibraryGPLv2;1;1;4;3;0;Copyright,Copyright,,1,-1,-1,-1,-1
-part/katepartdebug.h;LibraryGPLv2;1;1;4;1;0;,1,-1,-1,-1,-1
 
 ### *.cpp
 

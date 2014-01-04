@@ -72,7 +72,7 @@ bool compareKateFileType(const KateFileType* const left, const KateFileType* con
 //
 void KateModeManager::update ()
 {
-  KConfig config ("katemoderc", KConfig::NoGlobals);
+  KConfig config (QLatin1String("katemoderc"), KConfig::NoGlobals);
 
   QStringList g (config.groupList());
 
@@ -86,18 +86,18 @@ void KateModeManager::update ()
     KateFileType *type = new KateFileType ();
     type->number = z;
     type->name = g[z];
-    type->section = cg.readEntry ("Section");
-    type->wildcards = cg.readXdgListEntry ("Wildcards");
-    type->mimetypes = cg.readXdgListEntry ("Mimetypes");
-    type->priority = cg.readEntry ("Priority", 0);
-    type->varLine = cg.readEntry ("Variables");
-    type->indenter = cg.readEntry ("Indenter");
+    type->section = cg.readEntry (QLatin1String("Section"));
+    type->wildcards = cg.readXdgListEntry (QLatin1String("Wildcards"));
+    type->mimetypes = cg.readXdgListEntry (QLatin1String("Mimetypes"));
+    type->priority = cg.readEntry (QLatin1String("Priority"), 0);
+    type->varLine = cg.readEntry (QLatin1String("Variables"));
+    type->indenter = cg.readEntry (QLatin1String("Indenter"));
     
-    type->hl = cg.readEntry ("Highlighting");
+    type->hl = cg.readEntry (QLatin1String("Highlighting"));
    
     // only for generated types...
-    type->hlGenerated = cg.readEntry ("Highlighting Generated", false);
-    type->version = cg.readEntry ("Highlighting Version");
+    type->hlGenerated = cg.readEntry (QLatin1String("Highlighting Generated"), false);
+    type->version = cg.readEntry (QLatin1String("Highlighting Version"));
  
     // insert into the list + hash...
     m_types.append(type);
@@ -126,8 +126,8 @@ void KateModeManager::update ()
     {
       type->name = modes[i]->name;
       type->section = modes[i]->section;
-      type->wildcards = modes[i]->extension.split (';', QString::SkipEmptyParts);
-      type->mimetypes = modes[i]->mimetype.split (';', QString::SkipEmptyParts);
+      type->wildcards = modes[i]->extension.split (QLatin1Char(';'), QString::SkipEmptyParts);
+      type->mimetypes = modes[i]->mimetype.split (QLatin1Char(';'), QString::SkipEmptyParts);
       type->priority = modes[i]->priority.toInt();
       type->version = modes[i]->version;
       type->indenter = modes[i]->indenter;
@@ -143,8 +143,8 @@ void KateModeManager::update ()
   KateFileType *t = new KateFileType ();
   
   // DO NOT TRANSLATE THIS, DONE LATER, marked by hlGenerated
-  t->name = "Normal";
-  t->hl = "None";
+  t->name = QLatin1String("Normal");
+  t->hl = QLatin1String("None");
   t->hlGenerated = true;
 
   m_types.prepend (t);
@@ -155,7 +155,7 @@ void KateModeManager::update ()
 //
 void KateModeManager::save (const QList<KateFileType *>& v)
 {
-  KConfig katerc("katemoderc", KConfig::NoGlobals);
+  KConfig katerc(QLatin1String("katemoderc"), KConfig::NoGlobals);
 
   QStringList newg;
   foreach (const KateFileType *type, v)
@@ -169,8 +169,8 @@ void KateModeManager::save (const QList<KateFileType *>& v)
     config.writeEntry ("Indenter", type->indenter);
 
     QString varLine = type->varLine;
-    if (QRegExp("kate:(.*)").indexIn(varLine) < 0)
-      varLine.prepend ("kate: ");
+    if (QRegExp(QLatin1String("kate:(.*)")).indexIn(varLine) < 0)
+      varLine.prepend (QLatin1String("kate: "));
 
     config.writeEntry ("Variables", varLine);
     
@@ -200,10 +200,10 @@ QString KateModeManager::fileType (KateDocument *doc, const QString &fileToReadF
 {
   qCDebug(LOG_PART);
   if (!doc)
-    return "";
+    return QString();
 
   if (m_types.isEmpty())
-    return "";
+    return QString();
 
   QString fileName = doc->url().toString();
   int length = doc->url().toString().length();
@@ -213,7 +213,7 @@ QString KateModeManager::fileType (KateDocument *doc, const QString &fileToReadF
   // Try wildcards
   if ( ! fileName.isEmpty() )
   {
-    static const QStringList commonSuffixes = QString(".orig;.new;~;.bak;.BAK").split (';');
+    static const QStringList commonSuffixes = QString::fromLatin1(".orig;.new;~;.bak;.BAK").split (QLatin1Char(';'));
 
     if (!(result = wildcardsFind(fileName)).isEmpty())
       return result;
@@ -267,7 +267,7 @@ QString KateModeManager::fileType (KateDocument *doc, const QString &fileToReadF
   }
 
 
-  return "";
+  return QString();
 }
 
 QString KateModeManager::wildcardsFind (const QString &fileName)
@@ -290,7 +290,7 @@ QString KateModeManager::wildcardsFind (const QString &fileName)
     }
   }
 
-  return (match == NULL) ? "" : match->name;
+  return (match == NULL) ? QString() : match->name;
 }
 
 const KateFileType& KateModeManager::fileType(const QString &name) const

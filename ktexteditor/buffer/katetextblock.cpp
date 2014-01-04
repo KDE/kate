@@ -80,7 +80,7 @@ void TextBlock::text (QString &text) const
   for (int i = 0; i < m_lines.size(); ++i) {
       // not first line, insert \n
       if (i > 0 || startLine() > 0)
-        text.append ('\n');
+        text.append (QLatin1Char('\n'));
 
       text.append (m_lines.at(i)->text ());
   }

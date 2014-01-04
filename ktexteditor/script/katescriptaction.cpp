@@ -57,7 +57,7 @@ void KateScriptAction::exec()
 
   if (m_interactive) {
     m_view->bottomViewBar()->showBarWidget(cmdLine);
-    cmdLine->setText(m_command + ' ', false);
+    cmdLine->setText(m_command + QLatin1Char(' '), false);
   } else {
     cmdLine->execute(m_command);
   }
@@ -67,7 +67,7 @@ void KateScriptAction::exec()
 
 //BEGIN KateScriptActionMenu
 KateScriptActionMenu::KateScriptActionMenu(KateView *view, const QString& text)
-  : KActionMenu (QIcon::fromTheme("code-context"), text, view)
+  : KActionMenu (QIcon::fromTheme(QLatin1String("code-context")), text, view)
   , m_view(view)
 {
   repopulate();
@@ -133,7 +133,7 @@ void KateScriptActionMenu::repopulate()
       // create action + add to menu
       QAction* a = new KateScriptAction(info, m_view);
       m->addAction(a);
-      m_view->actionCollection()->addAction("tools_scripts_" + cmd, a);
+      m_view->actionCollection()->addAction(QLatin1String("tools_scripts_") + cmd, a);
       m_actions.append(a);
     }
   }

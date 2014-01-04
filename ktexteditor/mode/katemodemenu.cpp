@@ -123,9 +123,9 @@ void KateModeMenu::slotAboutToShow()
   for ( int i = 0; i < actions.count(); ++i )
     actions[ i ]->setChecked( false );
 
-  if (doc->fileType().isEmpty() || doc->fileType() == "Normal") {
+  if (doc->fileType().isEmpty() || doc->fileType() == QLatin1String("Normal")) {
     for ( int i = 0; i < actions.count(); ++i ) {
-      if ( actions[ i ]->data().toString() == "Normal" )
+      if ( actions[ i ]->data().toString() == QLatin1String("Normal") )
         actions[ i ]->setChecked( true );
     }
   } else {

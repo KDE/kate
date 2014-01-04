@@ -58,10 +58,10 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   ui = new Ui::FileTypeConfigWidget();
   ui->setupUi( newWidget );
 
- ui->cmbHl->addItem(i18n("<Unchanged>"), QVariant(""));
+ ui->cmbHl->addItem(i18n("<Unchanged>"), QVariant(QString()));
  for( int i = 0; i < KateHlManager::self()->highlights(); i++) {
     if (KateHlManager::self()->hlSection(i).length() > 0)
-      ui->cmbHl->addItem(KateHlManager::self()->hlSection(i) + QString ("/")
+      ui->cmbHl->addItem(KateHlManager::self()->hlSection(i) + QLatin1String("/")
           + KateHlManager::self()->hlNameTranslated(i), QVariant(KateHlManager::self()->hlName(i)));
     else
       ui->cmbHl->addItem(KateHlManager::self()->hlNameTranslated(i), QVariant(KateHlManager::self()->hlName(i)));
@@ -75,7 +75,7 @@ ModeConfigPage::ModeConfigPage( QWidget *parent )
   connect( ui->cmbFiletypes, SIGNAL(activated(int)), this, SLOT(typeChanged(int)) );
   connect( ui->btnNew, SIGNAL(clicked()), this, SLOT(newType()) );
   connect( ui->btnDelete, SIGNAL(clicked()), this, SLOT(deleteType()) );
-  ui->btnMimeTypes->setIcon(QIcon::fromTheme("tools-wizard"));
+  ui->btnMimeTypes->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
   connect(ui->btnMimeTypes, SIGNAL(clicked()), this, SLOT(showMTDlg()));
   connect( ui->btnDownload, SIGNAL(clicked()), this, SLOT(hlDownload()) );
 
@@ -144,7 +144,7 @@ void ModeConfigPage::update ()
 
   foreach (KateFileType *type, m_types) {
     if (!type->sectionTranslated().isEmpty())
-      ui->cmbFiletypes->addItem(type->sectionTranslated() + QString ("/") + type->nameTranslated());
+      ui->cmbFiletypes->addItem(type->sectionTranslated() + QLatin1String ("/") + type->nameTranslated());
     else
       ui->cmbFiletypes->addItem(type->nameTranslated());
   }
@@ -212,15 +212,15 @@ void ModeConfigPage::save ()
       m_types[m_lastType]->section = ui->edtSection->text ();
     }
     m_types[m_lastType]->varLine = ui->edtVariables->text ();
-    m_types[m_lastType]->wildcards = ui->edtFileExtensions->text().split (';', QString::SkipEmptyParts);
-    m_types[m_lastType]->mimetypes = ui->edtMimeTypes->text().split (';', QString::SkipEmptyParts);
+    m_types[m_lastType]->wildcards = ui->edtFileExtensions->text().split (QLatin1Char(';'), QString::SkipEmptyParts);
+    m_types[m_lastType]->mimetypes = ui->edtMimeTypes->text().split (QLatin1Char(';'), QString::SkipEmptyParts);
     m_types[m_lastType]->priority = ui->sbPriority->value();
     m_types[m_lastType]->hl = ui->cmbHl->itemData(ui->cmbHl->currentIndex()).toString();
     
     if (ui->cmbIndenter->currentIndex() > 0)
       m_types[m_lastType]->indenter = KateAutoIndent::modeName (ui->cmbIndenter->currentIndex() - 1);
     else
-      m_types[m_lastType]->indenter = "";
+      m_types[m_lastType]->indenter = QString();
   }
 }
 
@@ -245,8 +245,8 @@ void ModeConfigPage::typeChanged (int type)
     ui->edtName->setText(t->nameTranslated());
     ui->edtSection->setText(t->sectionTranslated());
     ui->edtVariables->setText(t->varLine);
-    ui->edtFileExtensions->setText(t->wildcards.join (";"));
-    ui->edtMimeTypes->setText(t->mimetypes.join (";"));
+    ui->edtFileExtensions->setText(t->wildcards.join (QLatin1String(";")));
+    ui->edtMimeTypes->setText(t->mimetypes.join (QLatin1String(";")));
     ui->sbPriority->setValue(t->priority);
     
     ui->cmbHl->setEnabled (!t->hlGenerated);
@@ -288,13 +288,13 @@ void ModeConfigPage::typeChanged (int type)
 void ModeConfigPage::showMTDlg()
 {
   QString text = i18n("Select the MimeTypes you want for this file type.\nPlease note that this will automatically edit the associated file extensions as well.");
-  QStringList list = ui->edtMimeTypes->text().split( QRegExp("\\s*;\\s*"), QString::SkipEmptyParts );
-  KMimeTypeChooserDialog d( i18n("Select Mime Types"), text, list, "text", this );
+  QStringList list = ui->edtMimeTypes->text().split( QRegExp(QLatin1String("\\s*;\\s*")), QString::SkipEmptyParts );
+  KMimeTypeChooserDialog d( i18n("Select Mime Types"), text, list, QLatin1String("text"), this );
   if ( d.exec() == QDialog::Accepted ) {
     // do some checking, warn user if mime types or patterns are removed.
     // if the lists are empty, and the fields not, warn.
-    ui->edtFileExtensions->setText( d.chooser()->patterns().join(";") );
-    ui->edtMimeTypes->setText( d.chooser()->mimeTypes().join(";") );
+    ui->edtFileExtensions->setText( d.chooser()->patterns().join(QLatin1String(";")) );
+    ui->edtMimeTypes->setText( d.chooser()->mimeTypes().join(QLatin1String(";")) );
   }
 }
 

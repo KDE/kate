@@ -154,7 +154,7 @@ QVariant KateArgumentHintModel::data ( const QModelIndex & index, int role ) con
       QString totalText;
       for( int a = CodeCompletionModel::Prefix; a <= CodeCompletionModel::Postfix; a++ )
         if( a != CodeCompletionModel::Scope ) //Skip the scope
-          totalText += source.second.sibling(source.second.row(), a).data(Qt::DisplayRole).toString() + ' ';
+          totalText += source.second.sibling(source.second.row(), a).data(Qt::DisplayRole).toString() + QLatin1Char(' ');
     
       
       return QVariant(totalText);

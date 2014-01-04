@@ -98,7 +98,7 @@ QVariant KateWordCompletionModel::data(const QModelIndex& index, int role) const
     return m_matches.at( index.row() );
 
   if( index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole ) {
-    static QIcon icon(QIcon::fromTheme("insert-text").pixmap(QSize(16, 16)));
+    static QIcon icon(QIcon::fromTheme(QLatin1String("insert-text")).pixmap(QSize(16, 16)));
     return icon;
   }
 
@@ -166,7 +166,7 @@ bool KateWordCompletionModel::shouldStartCompletion(KTextEditor::View* view, con
     if (end < 0) return false;
     for (int i = start - 1; i >= end; i--) {
       const QChar c = text.at(i);
-      if (!(c.isLetter() || (c.isNumber()) || c=='_')) return false;
+      if (!(c.isLetter() || (c.isNumber()) || c == QLatin1Char('_'))) return false;
     }
 
     return true;
@@ -209,7 +209,7 @@ QStringList KateWordCompletionModel::allMatches( KTextEditor::View *view, const 
     while ( offset < end ) {
       const QChar c = text.at(offset);
       // increment offset when at line end, so we take the last character too
-      if ( ( ! c.isLetterOrNumber() && c != '_' ) || (offset == end - 1 && offset++) ) {
+      if ( ( ! c.isLetterOrNumber() && c != QLatin1Char('_') ) || (offset == end - 1 && offset++) ) {
         if ( offset - wordBegin > minWordSize && ( line != range.end().line() || offset != range.end().column() ) ) {
           result.insert(text.mid(wordBegin, offset - wordBegin));
         }
@@ -240,7 +240,7 @@ void KateWordCompletionModel::executeCompletionItem2(
     {
       // Letters, numbers and underscore are part of a word!
       /// \todo Introduce configurable \e word-separators??
-      if (!line[i].isLetterOrNumber() && line[i] != '_')
+      if (!line[i].isLetterOrNumber() && line[i] != QLatin1Char('_'))
       {
         tailEnd = i;
       }
@@ -256,7 +256,7 @@ void KateWordCompletionModel::executeCompletionItem2(
     document->replaceText(word, m_matches.at(index.row()));
     v->doc()->editEnd();
     v->doc()->editStart();
-    document->replaceText(tail, "");
+    document->replaceText(tail, QString());
   }
   else
   {
@@ -286,7 +286,7 @@ KTextEditor::Range KateWordCompletionModel::completionRange(KTextEditor::View* v
   while ( col > 0 )
   {
     const QChar c = ( doc->characterAt( KTextEditor::Cursor( line, col-1 ) ) );
-    if ( c.isLetterOrNumber() || c.isMark() || c == '_' )
+    if ( c.isLetterOrNumber() || c.isMark() || c == QLatin1Char('_') )
     {
       col--;
       continue;
@@ -337,18 +337,18 @@ KateWordCompletionView::KateWordCompletionView( KTextEditor::View *view, KAction
     cci->registerCompletionModel( m_dWCompletionModel );
 
     action = new QAction( i18n("Shell Completion"), this );
-    ac->addAction( "doccomplete_sh", action );
+    ac->addAction(QLatin1String("doccomplete_sh"), action );
     connect( action, SIGNAL(triggered()), this, SLOT(shellComplete()) );
   }
 
 
   action = new QAction( i18n("Reuse Word Above"), this );
-  ac->addAction( "doccomplete_bw", action );
+  ac->addAction(QLatin1String("doccomplete_bw"), action );
   action->setShortcut( Qt::CTRL+Qt::Key_8 );
   connect( action, SIGNAL(triggered()), this, SLOT(completeBackwards()) );
 
   action = new QAction( i18n("Reuse Word Below"), this );
-  ac->addAction( "doccomplete_fw", action );
+  ac->addAction( QLatin1String("doccomplete_fw"), action );
   action->setShortcut( Qt::CTRL+Qt::Key_9 );
   connect( action, SIGNAL(triggered()), this, SLOT(completeForwards()) );
 }
@@ -465,7 +465,7 @@ void KateWordCompletionView::complete( bool fw )
 
   }
 
-  d->re.setPattern( "\\b" + doc->text( d->dcRange ) + "(\\w+)" );
+  d->re.setPattern( QLatin1String("\\b") + doc->text( d->dcRange ) + QLatin1String("(\\w+)") );
   int pos ( 0 );
   QString ln = doc->line( d->dcCursor.line() );
 

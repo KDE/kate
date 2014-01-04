@@ -276,7 +276,7 @@ QVariant KateCompletionModel::data( const QModelIndex & index, int role ) const
     switch (role) {
       case Qt::DisplayRole:
           //We return the group-header for all columns, ExpandingDelegate will paint them properly over the whole space
-          return QString(' ' + g->title);
+          return QString(QLatin1Char(' ') + g->title);
         break;
 
       case Qt::FontRole:
@@ -704,39 +704,39 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
 
   if (groupingMethod() & ScopeType) {
     if (attribute & KTextEditor::CodeCompletionModel::GlobalScope)
-      st = "Global";
+      st = QLatin1String("Global");
     else if (attribute & KTextEditor::CodeCompletionModel::NamespaceScope)
-      st = "Namespace";
+      st = QLatin1String("Namespace");
     else if (attribute & KTextEditor::CodeCompletionModel::LocalScope)
-      st = "Local";
+      st = QLatin1String("Local");
 
     ret->title = st;
   }
 
   if (groupingMethod() & Scope) {
     if (!ret->title.isEmpty())
-      ret->title.append(" ");
+      ret->title.append(QLatin1String(" "));
 
     ret->title.append(scope);
   }
 
   if (groupingMethod() & AccessType) {
     if (attribute & KTextEditor::CodeCompletionModel::Public)
-      at = "Public";
+      at = QLatin1String("Public");
     else if (attribute & KTextEditor::CodeCompletionModel::Protected)
-      at = "Protected";
+      at = QLatin1String("Protected");
     else if (attribute & KTextEditor::CodeCompletionModel::Private)
-      at = "Private";
+      at = QLatin1String("Private");
 
     if (accessIncludeStatic() && attribute & KTextEditor::CodeCompletionModel::Static)
-      at.append(" Static");
+      at.append(QLatin1String(" Static"));
 
     if (accessIncludeConst() && attribute & KTextEditor::CodeCompletionModel::Const)
-      at.append(" Const");
+      at.append(QLatin1String(" Const"));
 
     if( !at.isEmpty() ) {
       if (!ret->title.isEmpty())
-        ret->title.append(", ");
+        ret->title.append(QLatin1String(", "));
 
       ret->title.append(at);
     }
@@ -760,7 +760,7 @@ KateCompletionModel::Group* KateCompletionModel::fetchGroup( int attribute, cons
 
     if( !it.isEmpty() ) {
       if (!ret->title.isEmpty())
-        ret->title.append(" ");
+        ret->title.append(QLatin1String(" "));
 
       ret->title.append(it);
     }
@@ -979,7 +979,7 @@ QString KateCompletionModel::commonPrefixInternal(const QString &forcePrefix) co
         
         //Replace QString::null prefix with QString(""), so we won't initialize it again
         if(commonPrefix.isNull())
-          commonPrefix = QString("");  // isEmpty() = true, isNull() = false
+          commonPrefix = QString();  // isEmpty() = true, isNull() = false
       }else{
         commonPrefix = commonPrefix.left(candidate.length());
         

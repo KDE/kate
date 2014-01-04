@@ -90,8 +90,8 @@
 
 static int dummy = 0;
 
-inline bool isStartBracket( const QChar& c ) { return c == '{' || c == '[' || c == '('; }
-inline bool isEndBracket  ( const QChar& c ) { return c == '}' || c == ']' || c == ')'; }
+inline bool isStartBracket( const QChar& c ) { return c == QLatin1Char('{') || c == QLatin1Char('[') || c == QLatin1Char('('); }
+inline bool isEndBracket  ( const QChar& c ) { return c == QLatin1Char('}') || c == QLatin1Char(']') || c == QLatin1Char(')'); }
 inline bool isBracket     ( const QChar& c ) { return isStartBracket( c ) || isEndBracket( c ); }
 
 //BEGIN d'tor, c'tor
@@ -121,7 +121,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
   m_userSetEncodingForNextReload(false),
   m_modOnHd(false),
   m_modOnHdReason(OnDiskUnmodified),
-  m_docName("need init"),
+  m_docName(QLatin1String("need init")),
   m_docNameNumber(0),
   m_fileTypeSetByUser(false),
   m_reloading(false),
@@ -140,7 +140,7 @@ KateDocument::KateDocument ( bool bSingleViewMode, bool bBrowserView,
    */
   setProgressInfoEnabled (false);
   
-  QString pathName ("/Kate/Document/%1");
+  QString pathName = QString::fromLatin1("/Kate/Document/%1");
   pathName = pathName.arg (++dummy);
 
   // my dbus object
@@ -574,9 +574,9 @@ bool KateDocument::insertText( const KTextEditor::Cursor& position, const QStrin
   bool replacetabs = ( config()->replaceTabsDyn() );
   int tabWidth = config()->tabWidth();
 
-  static const QChar newLineChar('\n');
-  static const QChar tabChar('\t');
-  static const QChar spaceChar(' ');
+  static const QChar newLineChar(QLatin1Char('\n'));
+  static const QChar tabChar(QLatin1Char('\t'));
+  static const QChar spaceChar(QLatin1Char(' '));
 
   int insertColumnExpanded = insertColumn;
   Kate::TextLine l = plainKateTextLine( currentLine );
@@ -646,7 +646,7 @@ bool KateDocument::insertText( const KTextEditor::Cursor & position, const QStri
     return false;
 
   // just reuse normal function
-  return insertText (position, textLines.join ("\n"), block);
+  return insertText (position, textLines.join (QLatin1String("\n")), block);
 }
 
 bool KateDocument::removeText ( const KTextEditor::Range &_range, bool block )
@@ -909,7 +909,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
       int z2 = 0;
       for ( ; z2 < l->length(); z2++)
       {
-        static const QChar tabChar('\t');
+        static const QChar tabChar(QLatin1Char('\t'));
         if (t.at(z2) == tabChar)
           x += m_buffer->tabWidth() - (x % m_buffer->tabWidth());
         else
@@ -970,7 +970,7 @@ bool KateDocument::wrapText(int startLine, int endLine)
       else
       {
         if (nextl && (nextl->length() > 0) && !nextl->at(0).isSpace() && ((l->length() < 1) || !l->at(l->length()-1).isSpace()))
-          editInsertText (line+1, 0, QString (" "));
+          editInsertText (line+1, 0, QLatin1String(" "));
 
         bool newLineAdded = false;
         editWrapLine (line, z, false, &newLineAdded);
@@ -1232,7 +1232,7 @@ bool KateDocument::editUnWrapLine ( int line, bool removeLine, int length )
     emit marksChanged( this );
 
   emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line+1, 0));
-  emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line+1, 0), "\n");
+  emit KTextEditor::Document::textRemoved(this, KTextEditor::Range(line, col, line+1, 0), QLatin1String("\n"));
 
   editEnd ();
 
@@ -1386,7 +1386,7 @@ bool KateDocument::editRemoveLines ( int from, int to )
   }
 
   emit KTextEditor::Document::textRemoved(this, rangeRemoved);
-  emit KTextEditor::Document::textRemoved(this, rangeRemoved, oldText.join("\n") + '\n');
+  emit KTextEditor::Document::textRemoved(this, rangeRemoved, oldText.join(QLatin1String("\n")) + QLatin1Char('\n'));
 
   editEnd();
 
@@ -1942,10 +1942,10 @@ void KateDocument::showAndSetOpeningErrorAccess() {
       = new KTextEditor::Message(i18n ("The file %1 could not be loaded, as it was not possible to read from it.<br />Check if you have read access to this file.", this->url().toString()),
                                  KTextEditor::Message::Error);
     message->setWordWrap(true);
-    QAction* tryAgainAction = new QAction(QIcon::fromTheme("view-refresh"), i18nc("translators: you can also translate 'Try Again' with 'Reload'", "Try Again"), 0);
+    QAction* tryAgainAction = new QAction(QIcon::fromTheme(QLatin1String("view-refresh")), i18nc("translators: you can also translate 'Try Again' with 'Reload'", "Try Again"), 0);
     connect(tryAgainAction, SIGNAL(triggered()), SLOT(documentReload()), Qt::QueuedConnection);
 
-    QAction* closeAction = new QAction(QIcon::fromTheme("window-close"), i18n("&Close"), 0);
+    QAction* closeAction = new QAction(QIcon::fromTheme(QLatin1String("window-close")), i18n("&Close"), 0);
     closeAction->setToolTip(i18n("Close message"));
 
     // add try again and close actions
@@ -1984,7 +1984,7 @@ bool KateDocument::openFile()
   // mime type magic to get encoding right
   //
   QString mimeType = arguments().mimeType();
-  int pos = mimeType.indexOf(';');
+  int pos = mimeType.indexOf(QLatin1Char(';'));
   if (pos != -1 && !(m_reloading && m_userSetEncodingForNextReload))
     setEncoding (mimeType.mid(pos+1));
 
@@ -2059,7 +2059,7 @@ bool KateDocument::openFile()
       = new KTextEditor::Message(i18n ("The file %1 was opened with %2 encoding but contained invalid characters.<br />"
                                        "It is set to read-only mode, as saving might destroy its content.<br />"
                                        "Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().toString(),
-                                       QString (m_buffer->textCodec()->name ())),
+                                       QString::fromLatin1(m_buffer->textCodec()->name ())),
                                  KTextEditor::Message::Warning);
     message->setWordWrap(true);
     postMessage(message);
@@ -2068,7 +2068,7 @@ bool KateDocument::openFile()
     setOpeningError(true);
     setOpeningErrorMessage(i18n ("The file %1 was opened with %2 encoding but contained invalid characters."
               " It is set to read-only mode, as saving might destroy its content."
-              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().toString(), QString (m_buffer->textCodec()->name ())));
+              " Either reopen the file with the correct encoding chosen or enable the read-write mode again in the menu to be able to edit it.", this->url().toString(), QString::fromLatin1(m_buffer->textCodec()->name ())));
   }
 
   // warn: too long lines
@@ -2105,7 +2105,7 @@ bool KateDocument::saveFile()
   {
     if (m_fileChangedDialogsActivated && m_modOnHd)
     {
-      QString str = reasonedMOHString() + "\n\n";
+      QString str = reasonedMOHString() + QLatin1String("\n\n");
 
       if (!isModified())
       {
@@ -2204,7 +2204,7 @@ bool KateDocument::saveFile()
                 " A reason could be that the media you write to is full or the directory of the file is read-only for you.", url().toString())
         , i18n ("Failed to create backup copy.")
         , KGuiItem(i18n("Try to Save Nevertheless"))
-        , KStandardGuiItem::cancel(), "Backup Failed Warning") != KMessageBox::Continue))
+        , KStandardGuiItem::cancel(), QLatin1String("Backup Failed Warning")) != KMessageBox::Continue))
     {
       return false;
     }
@@ -2290,7 +2290,7 @@ void KateDocument::readDirConfig ()
       //qCDebug(LOG_PART) << "search for config file in path: " << currentDir;
 
       // try to open config file in this dir
-      QFile f (currentDir + "/.kateconfig");
+      QFile f (currentDir + QLatin1String("/.kateconfig"));
 
       if (f.open (QIODevice::ReadOnly))
       {
@@ -2376,9 +2376,9 @@ bool KateDocument::closeUrl()
 
       if (!(KMessageBox::warningContinueCancel(
             parentWidget,
-            reasonedMOHString() + "\n\n" + i18n("Do you really want to continue to close this file? Data loss may occur."),
+            reasonedMOHString() + QLatin1String("\n\n") + i18n("Do you really want to continue to close this file? Data loss may occur."),
             i18n("Possible Data Loss"), KGuiItem(i18n("Close Nevertheless")), KStandardGuiItem::cancel(),
-            QString("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Continue)) {
+            QString::fromLatin1("kate_close_modonhd_%1").arg( m_modOnHdReason ) ) == KMessageBox::Continue)) {
         /**
          * reset reloading
          */
@@ -2710,7 +2710,7 @@ void KateDocument::newLine( KateView *v )
   editEnd();
 
   // second: indent the new line, if needed...
-  m_indenter->userTypedChar(v, v->cursorPosition(), '\n');
+  m_indenter->userTypedChar(v, v->cursorPosition(), QLatin1Char('\n'));
 }
 
 void KateDocument::transpose( const KTextEditor::Cursor& cursor)
@@ -2849,7 +2849,7 @@ void KateDocument::del( KateView *view, const KTextEditor::Cursor& c )
 
 void KateDocument::paste ( KateView* view, const QString &text )
 {
-  static const QChar newLineChar('\n');
+  static const QChar newLineChar(QLatin1Char('\n'));
   QString s = text;
 
   if (s.isEmpty())
@@ -2960,7 +2960,7 @@ void KateDocument::insertTab( KateView *view, const KTextEditor::Cursor&)
   }
 
   c = view->cursorPosition();
-  editInsertText(c.line(), c.column(), QChar('\t'));
+  editInsertText(c.line(), c.column(), QLatin1String("\t"));
 
   editEnd();
 }
@@ -3032,7 +3032,7 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
   if (highlight()->getCommentSingleLinePosition(attrib) == KateHighlighting::CSLPosColumn0)
   {
     pos = 0;
-    commentLineMark += ' ';
+    commentLineMark += QLatin1Char(' ');
   } else {
     const Kate::TextLine l = kateTextLine(line);
     pos = l->firstChar();
@@ -3049,7 +3049,7 @@ void KateDocument::addStartLineCommentToSingleLine( int line, int attrib )
 bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 {
   const QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
-  const QString longCommentMark = shortCommentMark + ' ';
+  const QString longCommentMark = shortCommentMark + QLatin1Char(' ');
 
   editStart();
 
@@ -3068,8 +3068,8 @@ bool KateDocument::removeStartLineCommentFromSingleLine( int line, int attrib )
 */
 void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 {
-  const QString startCommentMark = highlight()->getCommentStart( attrib ) + ' ';
-  const QString stopCommentMark = ' ' + highlight()->getCommentEnd( attrib );
+  const QString startCommentMark = highlight()->getCommentStart( attrib ) + QLatin1Char(' ');
+  const QString stopCommentMark = QLatin1Char(' ') + highlight()->getCommentEnd( attrib );
 
   editStart();
 
@@ -3092,9 +3092,9 @@ void KateDocument::addStartStopCommentToSingleLine( int line, int attrib )
 bool KateDocument::removeStartStopCommentFromSingleLine( int line, int attrib )
 {
   QString shortStartCommentMark = highlight()->getCommentStart( attrib );
-  QString longStartCommentMark = shortStartCommentMark + ' ';
+  QString longStartCommentMark = shortStartCommentMark + QLatin1Char(' ');
   QString shortStopCommentMark = highlight()->getCommentEnd( attrib );
-  QString longStopCommentMark = ' ' + shortStopCommentMark;
+  QString longStopCommentMark = QLatin1Char(' ') + shortStopCommentMark;
 
   editStart();
 
@@ -3153,7 +3153,7 @@ void KateDocument::addStartStopCommentToSelection( KateView *view, int attrib )
 */
 void KateDocument::addStartLineCommentToSelection( KateView *view, int attrib )
 {
-  const QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + ' ';
+  const QString commentLineMark = highlight()->getCommentSingleLineStart( attrib ) + QLatin1Char(' ');
 
   int sl = view->selectionRange().start().line();
   int el = view->selectionRange().end().line();
@@ -3287,7 +3287,7 @@ bool KateDocument::removeStartStopCommentFromRegion(const KTextEditor::Cursor &s
 bool KateDocument::removeStartLineCommentFromSelection( KateView *view, int attrib )
 {
   const QString shortCommentMark = highlight()->getCommentSingleLineStart( attrib );
-  const QString longCommentMark = shortCommentMark + ' ';
+  const QString longCommentMark = shortCommentMark + QLatin1Char(' ');
 
   int sl = view->selectionRange().start().line();
   int el = view->selectionRange().end().line();
@@ -3539,7 +3539,7 @@ void KateDocument::joinLines( uint first, uint last )
       if (pos != 0)
         editRemoveText( line + 1, 0, pos );
       if ( !( l->length() == 0 || l->at( l->length() - 1 ).isSpace() ) )
-        editInsertText( line + 1, 0, " " );
+        editInsertText( line + 1, 0, QLatin1String(" ") );
     }
     else
     {
@@ -3616,12 +3616,12 @@ bool KateDocument::findMatchingBracket( KTextEditor::Range& range, int maxLines 
   QChar opposite;
 
   switch( bracket.toLatin1() ) {
-  case '{': opposite = '}'; break;
-  case '}': opposite = '{'; break;
-  case '[': opposite = ']'; break;
-  case ']': opposite = '['; break;
-  case '(': opposite = ')'; break;
-  case ')': opposite = '('; break;
+  case '{': opposite = QLatin1Char('}'); break;
+  case '}': opposite = QLatin1Char('{'); break;
+  case '[': opposite = QLatin1Char(']'); break;
+  case ']': opposite = QLatin1Char('['); break;
+  case '(': opposite = QLatin1Char(')'); break;
+  case ')': opposite = QLatin1Char('('); break;
   default: return false;
   }
 
@@ -3669,8 +3669,8 @@ inline static QString removeNewLines(const QString& str)
 {
   QString tmp(str);
   return tmp.replace(QLatin1String("\r\n"), QLatin1String(" "))
-            .replace(QChar('\r'), QLatin1Char(' '))
-            .replace(QChar('\n'), QLatin1Char(' '));
+            .replace(QLatin1Char('\r'), QLatin1Char(' '))
+            .replace(QLatin1Char('\n'), QLatin1Char(' '));
 }
 
 void KateDocument::updateDocName ()
@@ -3678,7 +3678,7 @@ void KateDocument::updateDocName ()
   // if the name is set, and starts with FILENAME, it should not be changed!
   if ( ! url().isEmpty()
        && (m_docName == removeNewLines(url().fileName()) ||
-           m_docName.startsWith (removeNewLines(url().fileName()) + " (") ) ) {
+           m_docName.startsWith (removeNewLines(url().fileName()) + QLatin1String(" (")) ) ) {
     return;
   }
 
@@ -3703,7 +3703,7 @@ void KateDocument::updateDocName ()
   }
 
   if (m_docNameNumber > 0)
-    m_docName = QString(m_docName + " (%1)").arg(m_docNameNumber+1);
+    m_docName = QString(m_docName + QLatin1String(" (%1)")).arg(m_docNameNumber+1);
   
   /**
    * avoid to emit this, if name doesn't change!
@@ -3814,10 +3814,10 @@ bool KateDocument::documentReload()
       QWidget *parentWidget(dialogParent());
 
       int i = KMessageBox::warningYesNoCancel
-                (parentWidget, reasonedMOHString() + "\n\n" + i18n("What do you want to do?"),
+                (parentWidget, reasonedMOHString() + QLatin1String("\n\n") + i18n("What do you want to do?"),
                 i18n("File Was Changed on Disk"),
-                KGuiItem(i18n("&Reload File"), "view-refresh"),
-                KGuiItem(i18n("&Ignore Changes"), "dialog-warning"));
+                KGuiItem(i18n("&Reload File"), QLatin1String("view-refresh")),
+                KGuiItem(i18n("&Ignore Changes"), QLatin1String("dialog-warning")));
 
       if ( i != KMessageBox::Yes)
       {
@@ -4028,10 +4028,10 @@ void KateDocument::updateConfig ()
       add interface for plugins/apps to set/get variables
       add view stuff
 */
-QRegExp KateDocument::kvLine = QRegExp("kate:(.*)");
-QRegExp KateDocument::kvLineWildcard = QRegExp("kate-wildcard\\((.*)\\):(.*)");
-QRegExp KateDocument::kvLineMime = QRegExp("kate-mimetype\\((.*)\\):(.*)");
-QRegExp KateDocument::kvVar = QRegExp("([\\w\\-]+)\\s+([^;]+)");
+QRegExp KateDocument::kvLine = QRegExp(QLatin1String("kate:(.*)"));
+QRegExp KateDocument::kvLineWildcard = QRegExp(QLatin1String("kate-wildcard\\((.*)\\):(.*)"));
+QRegExp KateDocument::kvLineMime = QRegExp(QLatin1String("kate-mimetype\\((.*)\\):(.*)"));
+QRegExp KateDocument::kvVar = QRegExp(QLatin1String("([\\w\\-]+)\\s+([^;]+)"));
 
 void KateDocument::readVariables(bool onlyViewAndRenderer)
 {
@@ -4072,7 +4072,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 {
   // simple check first, no regex
   // no kate inside, no vars, simple...
-  if (!t.contains("kate"))
+  if (!t.contains(QLatin1String("kate")))
     return;
 
   // found vars, if any
@@ -4087,7 +4087,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
   }
   else if (kvLineWildcard.indexIn( t ) > -1) // regex given
   {
-    const QStringList wildcards (kvLineWildcard.cap(1).split (';', QString::SkipEmptyParts));
+    const QStringList wildcards (kvLineWildcard.cap(1).split(QLatin1Char(';'), QString::SkipEmptyParts));
     const QString nameOfFile = url().fileName();
 
     bool found = false;
@@ -4108,7 +4108,7 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
   }
   else if (kvLineMime.indexIn( t ) > -1) // mime-type given
   {
-    const QStringList types (kvLineMime.cap(1).split (';', QString::SkipEmptyParts));
+    const QStringList types (kvLineMime.cap(1).split (QLatin1Char(';'), QString::SkipEmptyParts));
 
     // no matching type found
     if (!types.contains (mimeType ()))
@@ -4124,15 +4124,15 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
   }
 
   QStringList vvl; // view variable names
-  vvl << "dynamic-word-wrap" << "dynamic-word-wrap-indicators"
-      << "line-numbers" << "icon-border" << "folding-markers"
-      << "bookmark-sorting" << "auto-center-lines"
-      << "icon-bar-color"
+  vvl << QLatin1String("dynamic-word-wrap") << QLatin1String("dynamic-word-wrap-indicators")
+      << QLatin1String("line-numbers") << QLatin1String("icon-border") << QLatin1String("folding-markers")
+      << QLatin1String("bookmark-sorting") << QLatin1String("auto-center-lines")
+      << QLatin1String("icon-bar-color")
       // renderer
-      << "background-color" << "selection-color"
-      << "current-line-color" << "bracket-highlight-color"
-      << "word-wrap-marker-color"
-      << "font" << "font-size" << "scheme";
+      << QLatin1String("background-color") << QLatin1String("selection-color")
+      << QLatin1String("current-line-color") << QLatin1String("bracket-highlight-color")
+      << QLatin1String("word-wrap-marker-color")
+      << QLatin1String("font") << QLatin1String("font-size") << QLatin1String("scheme");
   int spaceIndent = -1;  // for backward compatibility; see below
   bool replaceTabsSet = false;
   int p( 0 );
@@ -4155,82 +4155,82 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
     else
     {
       // BOOL  SETTINGS
-      if ( var == "word-wrap" && checkBoolValue( val, &state ) )
+      if ( var == QLatin1String("word-wrap") && checkBoolValue( val, &state ) )
         setWordWrap( state ); // ??? FIXME CHECK
       // KateConfig::configFlags
       // FIXME should this be optimized to only a few calls? how?
-      else if ( var == "backspace-indents" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("backspace-indents") && checkBoolValue( val, &state ) )
         m_config->setBackspaceIndents( state );
-      else if ( var == "indent-pasted-text" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("indent-pasted-text") && checkBoolValue( val, &state ) )
         m_config->setIndentPastedText( state );
-      else if ( var == "replace-tabs" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("replace-tabs") && checkBoolValue( val, &state ) )
       {
         m_config->setReplaceTabsDyn( state );
         replaceTabsSet = true;  // for backward compatibility; see below
       }
-      else if ( var == "remove-trailing-space" && checkBoolValue( val, &state ) ) {
+      else if ( var == QLatin1String("remove-trailing-space") && checkBoolValue( val, &state ) ) {
         qCWarning(LOG_PART) << i18n("Using deprecated modeline 'remove-trailing-space'. "
           "Please replace with 'remove-trailing-spaces modified;', see "
           "http://docs.kde.org/stable/en/kde-baseapps/kate/config-variables.html#variable-remove-trailing-spaces");
         m_config->setRemoveSpaces( state ? 1 : 0 );
       }
-      else if ( var == "replace-trailing-space-save" && checkBoolValue( val, &state ) ) {
+      else if ( var == QLatin1String("replace-trailing-space-save") && checkBoolValue( val, &state ) ) {
         qCWarning(LOG_PART) << i18n("Using deprecated modeline 'replace-trailing-space-save'. "
           "Please replace with 'remove-trailing-spaces all;', see "
           "http://docs.kde.org/stable/en/kde-baseapps/kate/config-variables.html#variable-remove-trailing-spaces");
         m_config->setRemoveSpaces( state ? 2 : 0 );
       }
-      else if ( var == "overwrite-mode" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("overwrite-mode") && checkBoolValue( val, &state ) )
         m_config->setOvr( state );
-      else if ( var == "keep-extra-spaces" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("keep-extra-spaces") && checkBoolValue( val, &state ) )
         m_config->setKeepExtraSpaces( state );
-      else if ( var == "tab-indents" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("tab-indents") && checkBoolValue( val, &state ) )
         m_config->setTabIndents( state );
-      else if ( var == "show-tabs" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("show-tabs") && checkBoolValue( val, &state ) )
         m_config->setShowTabs( state );
-      else if ( var == "show-trailing-spaces" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("show-trailing-spaces") && checkBoolValue( val, &state ) )
         m_config->setShowSpaces( state );
-      else if ( var == "space-indent" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("space-indent") && checkBoolValue( val, &state ) )
       {
         // this is for backward compatibility; see below
         spaceIndent = state;
       }
-      else if ( var == "smart-home" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("smart-home") && checkBoolValue( val, &state ) )
         m_config->setSmartHome( state );
-      else if ( var == "newline-at-eof" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("newline-at-eof") && checkBoolValue( val, &state ) )
         m_config->setNewLineAtEof( state );
 
       // INTEGER SETTINGS
-      else if ( var == "tab-width" && checkIntValue( val, &n ) )
+      else if ( var == QLatin1String("tab-width") && checkIntValue( val, &n ) )
         m_config->setTabWidth( n );
-      else if ( var == "indent-width"  && checkIntValue( val, &n ) )
+      else if ( var == QLatin1String("indent-width")  && checkIntValue( val, &n ) )
         m_config->setIndentationWidth( n );
-      else if ( var == "indent-mode" )
+      else if ( var == QLatin1String("indent-mode") )
       {
         m_config->setIndentationMode( val );
       }
-      else if ( var == "word-wrap-column" && checkIntValue( val, &n ) && n > 0 ) // uint, but hard word wrap at 0 will be no fun ;)
+      else if ( var == QLatin1String("word-wrap-column") && checkIntValue( val, &n ) && n > 0 ) // uint, but hard word wrap at 0 will be no fun ;)
         m_config->setWordWrapAt( n );
 
       // STRING SETTINGS
-      else if ( var == "eol" || var == "end-of-line" )
+      else if ( var == QLatin1String("eol") || var == QLatin1String("end-of-line" ) )
       {
         QStringList l;
-        l << "unix" << "dos" << "mac";
+        l << QLatin1String("unix") << QLatin1String("dos") << QLatin1String("mac");
         if ( (n = l.indexOf( val.toLower() )) != -1 )
           m_config->setEol( n );
       }
-      else if (var == "bom" || var =="byte-order-marker")
+      else if (var == QLatin1String("bom") || var == QLatin1String("byte-order-marker"))
       {
           if (checkBoolValue(val,&state)) {
             m_config->setBom(state);
           }
       }
-      else if ( var == "remove-trailing-spaces" ) {
+      else if ( var == QLatin1String("remove-trailing-spaces") ) {
         val = val.toLower();
-        if (val == "1" || val == "modified" || val == "mod" || val == "+") {
+        if (val == QLatin1String("1") || val == QLatin1String("modified") || val == QLatin1String("mod") || val == QLatin1String("+")) {
           m_config->setRemoveSpaces(1);
-        } else if (val == "2" || val == "all" || val == "*") {
+        } else if (val == QLatin1String("2") || val == QLatin1String("all") || val == QLatin1String("*")) {
           m_config->setRemoveSpaces(2);
         } else {
           m_config->setRemoveSpaces(0);
@@ -4238,23 +4238,23 @@ void KateDocument::readVariableLine( QString t, bool onlyViewAndRenderer )
 
         m_config->setRemoveSpaces( state ? 1 : 0 );
       }
-      else if ( var == "syntax" || var == "hl" )
+      else if ( var == QLatin1String("syntax") || var == QLatin1String("hl") )
       {
         setHighlightingMode( val );
       }
-      else if ( var == "mode" )
+      else if ( var == QLatin1String("mode") )
       {
         setMode( val );
       }
-      else if ( var == "encoding" )
+      else if ( var == QLatin1String("encoding") )
       {
         setEncoding( val );
       }
-      else if ( var == "default-dictionary" )
+      else if ( var == QLatin1String("default-dictionary") )
       {
         setDefaultDictionary( val );
       }
-      else if ( var == "automatic-spell-checking" && checkBoolValue( val, &state ) )
+      else if ( var == QLatin1String("automatic-spell-checking") && checkBoolValue( val, &state ) )
       {
         onTheFlySpellCheckingEnabled( state );
       }
@@ -4291,39 +4291,39 @@ void KateDocument::setViewVariable( QString var, QString val )
   QColor c;
   foreach (v,m_views)
   {
-    if ( var == "dynamic-word-wrap" && checkBoolValue( val, &state ) )
+    if ( var == QLatin1String("dynamic-word-wrap") && checkBoolValue( val, &state ) )
       v->config()->setDynWordWrap( state );
-    else if ( var == "persistent-selection" && checkBoolValue( val, &state ) )
+    else if ( var == QLatin1String("persistent-selection") && checkBoolValue( val, &state ) )
       v->config()->setPersistentSelection( state );
-    else if ( var == "block-selection"  && checkBoolValue( val, &state ) )
+    else if ( var == QLatin1String("block-selection")  && checkBoolValue( val, &state ) )
           v->setBlockSelection( state );
     //else if ( var = "dynamic-word-wrap-indicators" )
-    else if ( var == "line-numbers" && checkBoolValue( val, &state ) )
+    else if ( var == QLatin1String("line-numbers") && checkBoolValue( val, &state ) )
       v->config()->setLineNumbers( state );
-    else if (var == "icon-border" && checkBoolValue( val, &state ) )
+    else if (var == QLatin1String("icon-border") && checkBoolValue( val, &state ) )
       v->config()->setIconBar( state );
-    else if (var == "folding-markers" && checkBoolValue( val, &state ) )
+    else if (var == QLatin1String("folding-markers") && checkBoolValue( val, &state ) )
       v->config()->setFoldingBar( state );
-    else if ( var == "auto-center-lines" && checkIntValue( val, &n ) )
+    else if ( var == QLatin1String("auto-center-lines") && checkIntValue( val, &n ) )
       v->config()->setAutoCenterLines( n );
-    else if ( var == "icon-bar-color" && checkColorValue( val, c ) )
+    else if ( var == QLatin1String("icon-bar-color") && checkColorValue( val, c ) )
       v->renderer()->config()->setIconBarColor( c );
     // RENDERER
-    else if ( var == "background-color" && checkColorValue( val, c ) )
+    else if ( var == QLatin1String("background-color") && checkColorValue( val, c ) )
       v->renderer()->config()->setBackgroundColor( c );
-    else if ( var == "selection-color" && checkColorValue( val, c ) )
+    else if ( var == QLatin1String("selection-color") && checkColorValue( val, c ) )
       v->renderer()->config()->setSelectionColor( c );
-    else if ( var == "current-line-color" && checkColorValue( val, c ) )
+    else if ( var == QLatin1String("current-line-color") && checkColorValue( val, c ) )
       v->renderer()->config()->setHighlightedLineColor( c );
-    else if ( var == "bracket-highlight-color" && checkColorValue( val, c ) )
+    else if ( var == QLatin1String("bracket-highlight-color") && checkColorValue( val, c ) )
       v->renderer()->config()->setHighlightedBracketColor( c );
-    else if ( var == "word-wrap-marker-color" && checkColorValue( val, c ) )
+    else if ( var == QLatin1String("word-wrap-marker-color") && checkColorValue( val, c ) )
       v->renderer()->config()->setWordWrapMarkerColor( c );
-    else if ( var == "font" || ( var == "font-size" && checkIntValue( val, &n ) ) )
+    else if ( var == QLatin1String("font") || ( var == QLatin1String("font-size") && checkIntValue( val, &n ) ) )
     {
       QFont _f( v->renderer()->config()->font() );
 
-      if ( var == "font" )
+      if ( var == QLatin1String("font") )
       {
         _f.setFamily( val );
         _f.setFixedPitch( QFont( val ).fixedPitch() );
@@ -4333,7 +4333,7 @@ void KateDocument::setViewVariable( QString var, QString val )
 
       v->renderer()->config()->setFont( _f );
     }
-    else if ( var == "scheme" )
+    else if ( var == QLatin1String("scheme") )
     {
       v->renderer()->config()->setSchema( val );
     }
@@ -4344,14 +4344,14 @@ bool KateDocument::checkBoolValue( QString val, bool *result )
 {
   val = val.trimmed().toLower();
   QStringList l;
-  l << "1" << "on" << "true";
+  l << QLatin1String("1") << QLatin1String("on") << QLatin1String("true");
   if ( l.contains( val ) )
   {
     *result = true;
     return true;
   }
   l.clear();
-  l << "0" << "off" << "false";
+  l << QLatin1String("0") << QLatin1String("off") << QLatin1String("false");
   if ( l.contains( val ) )
   {
     *result = false;
@@ -4381,9 +4381,9 @@ QString KateDocument::variable( const QString &name ) const
 
 QString KateDocument::setVariable( const QString &name, const QString &value)
 {
-  QString s = "kate: ";
+  QString s = QLatin1String("kate: ");
   s.append(name);
-  s.append(" ");
+  s.append(QLatin1Char(' '));
   s.append(value);
   readVariableLine(s);
   return m_storedVariables.value(name, QString());
@@ -4641,26 +4641,26 @@ bool KateDocument::checkOverwrite( QUrl u, QWidget *parent )
 // BEGIN ConfigInterface stff
 QStringList KateDocument::configKeys() const
 {
-  return QStringList() << "tab-width" << "indent-width";
+  return QStringList() << QLatin1String("tab-width") << QLatin1String("indent-width");
 }
 
 QVariant KateDocument::configValue(const QString &key)
 {
-  if (key == "backup-on-save-local") {
+  if (key == QLatin1String("backup-on-save-local")) {
     return m_config->backupFlags() & KateDocumentConfig::LocalFiles;
-  } else if (key == "backup-on-save-remote") {
+  } else if (key == QLatin1String("backup-on-save-remote")) {
     return m_config->backupFlags() & KateDocumentConfig::RemoteFiles;
-  } else if (key == "backup-on-save-suffix") {
+  } else if (key == QLatin1String("backup-on-save-suffix")) {
     return m_config->backupSuffix();
-  } else if (key == "backup-on-save-prefix") {
+  } else if (key == QLatin1String("backup-on-save-prefix")) {
     return m_config->backupPrefix();
-  } else if (key == "replace-tabs") {
+  } else if (key == QLatin1String("replace-tabs")) {
     return m_config->replaceTabsDyn();
-  } else if (key == "indent-pasted-text") {
+  } else if (key == QLatin1String("indent-pasted-text")) {
     return m_config->indentPastedText();
-  } else if (key == "tab-width") {
+  } else if (key == QLatin1String("tab-width")) {
     return m_config->tabWidth();
-  } else if (key == "indent-width") {
+  } else if (key == QLatin1String("indent-width")) {
     return m_config->indentationWidth();
   }
 
@@ -4671,14 +4671,14 @@ QVariant KateDocument::configValue(const QString &key)
 void KateDocument::setConfigValue(const QString &key, const QVariant &value)
 {
   if (value.type() == QVariant::String) {
-    if (key == "backup-on-save-suffix") {
+    if (key == QLatin1String("backup-on-save-suffix")) {
       m_config->setBackupSuffix(value.toString());
-    } else if (key == "backup-on-save-prefix") {
+    } else if (key == QLatin1String("backup-on-save-prefix")) {
       m_config->setBackupPrefix(value.toString());
     }
   } else if (value.canConvert(QVariant::Bool)) {
     const bool bValue = value.toBool();
-    if (key == "backup-on-save-local" && value.type() == QVariant::String) {
+    if (key == QLatin1String("backup-on-save-local") && value.type() == QVariant::String) {
       uint f = m_config->backupFlags();
       if (bValue) {
         f |= KateDocumentConfig::LocalFiles;
@@ -4687,7 +4687,7 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
       }
 
       m_config->setBackupFlags(f);
-    } else if (key == "backup-on-save-remote") {
+    } else if (key == QLatin1String("backup-on-save-remote")) {
       uint f = m_config->backupFlags();
       if (bValue) {
         f |= KateDocumentConfig::RemoteFiles;
@@ -4696,15 +4696,15 @@ void KateDocument::setConfigValue(const QString &key, const QVariant &value)
       }
 
       m_config->setBackupFlags(f);
-    } else if (key == "replace-tabs") {
+    } else if (key == QLatin1String("replace-tabs")) {
       m_config->setReplaceTabsDyn(bValue);
-    } else if (key == "indent-pasted-text") {
+    } else if (key == QLatin1String("indent-pasted-text")) {
       m_config->setIndentPastedText(bValue);
     }
   } else if (value.canConvert(QVariant::Int)) {
-    if (key == "tab-width") {
+    if (key == QLatin1String("tab-width")) {
       config()->setTabWidth(value.toInt());
-    } else if (key == "indent-width") {
+    } else if (key == QLatin1String("indent-width")) {
       config()->setIndentationWidth(value.toInt());
     }
   }
@@ -5566,7 +5566,7 @@ bool KateDocument::postMessage(KTextEditor::Message* message)
 
   // if there are no actions, add a close action by default if widget does not auto-hide
   if (message->actions().count() == 0 && message->autoHide() < 0) {
-    QAction* closeAction = new QAction(QIcon::fromTheme("window-close"), i18n("&Close"), 0);
+    QAction* closeAction = new QAction(QIcon::fromTheme(QLatin1String("window-close")), i18n("&Close"), 0);
     closeAction->setToolTip(i18n("Close message"));
     message->addAction(closeAction);
   }

@@ -103,7 +103,7 @@ class KateHlContext
 class KateHlIncludeRule
 {
   public:
-    explicit KateHlIncludeRule(int ctx_=0, uint pos_=0, const QString &incCtxN_="", bool incAttrib=false)
+    explicit KateHlIncludeRule(int ctx_=0, uint pos_=0, const QString &incCtxN_= QString(), bool incAttrib=false)
       : ctx(ctx_)
       , pos( pos_)
       , incCtxN( incCtxN_ )
@@ -246,7 +246,7 @@ class KateHlLineContinue : public KateHlItem
   public:
     KateHlLineContinue(int attribute, KateHlContextModification context, signed char regionId,signed char regionId2);
 
-    virtual bool endEnable(QChar c) {return c == '\0';}
+    virtual bool endEnable(QChar c) {return c == QLatin1Char('\0');}
     virtual int checkHgl(const QString& text, int offset, int len);
     virtual bool lineContinue(){return true;}
 };
@@ -327,7 +327,7 @@ class KateHlDetectIdentifier : public KateHlItem
     virtual int checkHgl(const QString& text, int offset, int len)
     {
       // first char should be a letter or underscore
-      if ( text[offset].isLetter() || text[offset] == QChar ('_') )
+      if ( text[offset].isLetter() || text[offset] == QLatin1Char('_') )
       {
         // memorize length
         int len2 = offset+len;
@@ -338,7 +338,7 @@ class KateHlDetectIdentifier : public KateHlItem
         // now loop for all other thingies
         while (
                (offset < len2)
-               && (text[offset].isLetterOrNumber() || (text[offset] == QChar ('_')))
+               && (text[offset].isLetterOrNumber() || (text[offset] == QLatin1Char('_')))
               )
           offset++;
 

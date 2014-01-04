@@ -232,15 +232,15 @@ KTextEditor::Cursor KateScriptDocument::anchor(int line, int column, QChar chara
   int count = 1;
   QChar lc;
   QChar rc;
-  if (character == '(' || character == ')') {
-    lc = '(';
-    rc = ')';
-  } else if (character == '{' || character == '}') {
-    lc = '{';
-    rc = '}';
-  } else if (character == '[' || character == ']') {
-    lc = '[';
-    rc = ']';
+  if (character == QLatin1Char('(') || character == QLatin1Char(')')) {
+    lc = QLatin1Char('(');
+    rc = QLatin1Char(')');
+  } else if (character == QLatin1Char('{') || character == QLatin1Char('}')) {
+    lc = QLatin1Char('{');
+    rc = QLatin1Char('}');
+  } else if (character == QLatin1Char('[') || character == QLatin1Char(']')) {
+    lc = QLatin1Char('[');
+    rc = QLatin1Char(']');
   } else {
     qCDebug(LOG_PART) << "invalid anchor character:" << character << " allowed are: (){}[]";
     return KTextEditor::Cursor::invalid();
@@ -399,25 +399,25 @@ QString KateScriptDocument::charAt(int line, int column)
 QString KateScriptDocument::charAt(const KTextEditor::Cursor& cursor)
 {
   const QChar c = m_document->characterAt(cursor);
-  return c.isNull() ? "" : QString(c);
+  return c.isNull() ? QString() : QString(c);
 }
 
 QString KateScriptDocument::firstChar(int line)
 {
   Kate::TextLine textLine = m_document->plainKateTextLine(line);
-  if(!textLine) return "";
+  if(!textLine) return QString();
   // check for isNull(), as the returned character then would be "\0"
   const QChar c = textLine->at(textLine->firstChar());
-  return c.isNull() ? "" : QString(c);
+  return c.isNull() ? QString() : QString(c);
 }
 
 QString KateScriptDocument::lastChar(int line)
 {
   Kate::TextLine textLine = m_document->plainKateTextLine(line);
-  if(!textLine) return "";
+  if(!textLine) return QString();
   // check for isNull(), as the returned character then would be "\0"
   const QChar c = textLine->at(textLine->lastChar());
-  return c.isNull() ? "" : QString(c);
+  return c.isNull() ? QString() : QString(c);
 }
 
 bool KateScriptDocument::isSpace(int line, int column)

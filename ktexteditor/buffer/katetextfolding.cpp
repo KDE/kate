@@ -537,7 +537,7 @@ QString TextFolding::debugDump () const
   /**
    * dump toplevel ranges recursively
    */
-  return QString ("tree %1 - folded %2").arg (debugDump (m_foldingRanges, true)).arg(debugDump (m_foldedFoldingRanges, false));
+  return QString::fromLatin1("tree %1 - folded %2").arg(debugDump (m_foldingRanges, true)).arg(debugDump (m_foldedFoldingRanges, false));
 }
 
 void TextFolding::debugPrint (const QString &title) const
@@ -554,9 +554,11 @@ QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges,
   QString dump;
   Q_FOREACH (FoldingRange *range, ranges) {
     if (!dump.isEmpty())
-      dump += " ";
+      dump += QLatin1Char(' ');
     
-    dump += QString ("[%1:%2 %3%4 ").arg (range->start->line()).arg(range->start->column()).arg((range->flags & Persistent) ? "p" : "").arg((range->flags & Folded) ? "f" : "");
+    const QString persistent = (range->flags & Persistent) ? QLatin1String("p") : QString();
+    const QString folded = (range->flags & Folded) ? QLatin1String("f") : QString();
+    dump += QString::fromLatin1("[%1:%2 %3%4 ").arg (range->start->line()).arg(range->start->column()).arg(persistent).arg(folded);
     
     /**
      * recurse
@@ -564,10 +566,10 @@ QString TextFolding::debugDump (const TextFolding::FoldingRange::Vector &ranges,
     if (recurse) {
       QString inner = debugDump (range->nestedRanges, recurse);
       if (!inner.isEmpty())
-        dump += inner + " ";
+        dump += inner + QLatin1Char(' ');
     }
     
-    dump += QString ("%1:%2]").arg (range->end->line()).arg(range->end->column());
+    dump += QString::fromLatin1("%1:%2]").arg (range->end->line()).arg(range->end->column());
   }
   return dump;
 }
@@ -888,11 +890,11 @@ void TextFolding::exportFoldingRanges (const TextFolding::FoldingRange::Vector &
      * construct one range and dump to folds
      */
     QVariantMap rangeMap;
-    rangeMap["startLine"] = range->start->line();
-    rangeMap["startColumn"] = range->start->column();
-    rangeMap["endLine"] = range->end->line();
-    rangeMap["endColumn"] = range->end->column();
-    rangeMap["flags"] = (int)range->flags;
+    rangeMap[QLatin1String("startLine")] = range->start->line();
+    rangeMap[QLatin1String("startColumn")] = range->start->column();
+    rangeMap[QLatin1String("endLine")] = range->end->line();
+    rangeMap[QLatin1String("endColumn")] = range->end->column();
+    rangeMap[QLatin1String("flags")] = (int)range->flags;
     folds.append (rangeMap);
     
     /**
@@ -916,13 +918,13 @@ void TextFolding::importFoldingRanges (const QVariantList &folds)
     /**
      * construct range start/end
      */
-    KTextEditor::Cursor start (rangeMap["startLine"].toInt(), rangeMap["startColumn"].toInt());
-    KTextEditor::Cursor end (rangeMap["endLine"].toInt(), rangeMap["endColumn"].toInt());
+    KTextEditor::Cursor start (rangeMap[QLatin1String("startLine")].toInt(), rangeMap[QLatin1String("startColumn")].toInt());
+    KTextEditor::Cursor end (rangeMap[QLatin1String("endLine")].toInt(), rangeMap[QLatin1String("endColumn")].toInt());
     
     /**
      * get flags
      */
-    int rawFlags = rangeMap["flags"].toInt();
+    int rawFlags = rangeMap[QLatin1String("flags")].toInt();
     FoldingRangeFlags flags;
     if (rawFlags & Persistent)
       flags = Persistent;

@@ -77,7 +77,7 @@ bool KateCommandLineScript::callFunction(const QString& cmd, const QStringList a
 ScriptActionInfo KateCommandLineScript::actionInfo(const QString& cmd)
 {
   clearExceptions();
-  QScriptValue actionFunc = function("action");
+  QScriptValue actionFunc = function(QLatin1Literal("action"));
   if(!actionFunc.isValid()) {
     qCDebug(LOG_PART) << i18n("Function 'action' not found in script: %1", url());
     return ScriptActionInfo();
@@ -96,11 +96,11 @@ ScriptActionInfo KateCommandLineScript::actionInfo(const QString& cmd)
 
   ScriptActionInfo info;
   info.setCommand(cmd);
-  info.setText(result.property("text").toString());
-  info.setIcon(result.property("icon").toString());
-  info.setCategory(result.property("category").toString());
-  info.setInteractive(result.property("interactive").toBool());
-  info.setShortcut(result.property("shortcut").toString());
+  info.setText(result.property(QLatin1String("text")).toString());
+  info.setIcon(result.property(QLatin1String("icon")).toString());
+  info.setCategory(result.property(QLatin1String("category")).toString());
+  info.setInteractive(result.property(QLatin1String("interactive")).toBool());
+  info.setShortcut(result.property(QLatin1String("shortcut")).toString());
 
   return info;
 }
@@ -161,7 +161,7 @@ bool KateCommandLineScript::help(KTextEditor::View* view, const QString& cmd, QS
   }
 
   clearExceptions();
-  QScriptValue helpFunction = function("help");
+  QScriptValue helpFunction = function(QLatin1String("help"));
   if(!helpFunction.isValid()) {
     return false;
   }

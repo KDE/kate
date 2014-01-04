@@ -39,7 +39,7 @@
 /** Converstion function from KTextEditor::Cursor to QtScript cursor */
 static QScriptValue cursorToScriptValue(QScriptEngine *engine, const KTextEditor::Cursor &cursor)
 {
-  QString code = QString("new Cursor(%1, %2);").arg(cursor.line())
+  QString code = QString::fromLatin1("new Cursor(%1, %2);").arg(cursor.line())
                                                .arg(cursor.column());
   return engine->evaluate(code);
 }
@@ -47,14 +47,14 @@ static QScriptValue cursorToScriptValue(QScriptEngine *engine, const KTextEditor
 /** Converstion function from QtScript cursor to KTextEditor::Cursor */
 static void cursorFromScriptValue(const QScriptValue &obj, KTextEditor::Cursor &cursor)
 {
-  cursor.setPosition(obj.property("line").toInt32(),
-                     obj.property("column").toInt32());
+  cursor.setPosition(obj.property(QLatin1String("line")).toInt32(),
+                     obj.property(QLatin1String("column")).toInt32());
 }
 
 /** Converstion function from QtScript range to KTextEditor::Range */
 static QScriptValue rangeToScriptValue(QScriptEngine *engine, const KTextEditor::Range &range)
 {
-  QString code = QString("new Range(%1, %2, %3, %4);").arg(range.start().line())
+  QString code = QString::fromLatin1("new Range(%1, %2, %3, %4);").arg(range.start().line())
                                                       .arg(range.start().column())
                                                       .arg(range.end().line())
                                                       .arg(range.end().column());
@@ -64,10 +64,10 @@ static QScriptValue rangeToScriptValue(QScriptEngine *engine, const KTextEditor:
 /** Converstion function from QtScript range to KTextEditor::Range */
 static void rangeFromScriptValue(const QScriptValue &obj, KTextEditor::Range &range)
 {
-  range.setRange (KTextEditor::Cursor (obj.property("start").property("line").toInt32(),
-                            obj.property("start").property("column").toInt32()),
-                  KTextEditor::Cursor (obj.property("end").property("line").toInt32(),
-                          obj.property("end").property("column").toInt32()));
+  range.setRange (KTextEditor::Cursor (obj.property(QLatin1String("start")).property(QLatin1String("line")).toInt32(),
+                            obj.property(QLatin1String("start")).property(QLatin1String("column")).toInt32()),
+                  KTextEditor::Cursor (obj.property(QLatin1String("end")).property(QLatin1String("line")).toInt32(),
+                          obj.property(QLatin1String("end")).property(QLatin1String("column")).toInt32()));
 }
 //END
 
@@ -103,11 +103,11 @@ QString KateScript::backtrace( const QScriptValue& error, const QString& header 
 {
   QString bt;
   if(!header.isNull())
-    bt += header + ":\n";
+    bt += header + QLatin1String(":\n");
   if(error.isError())
-    bt += error.toString() + '\n';
+    bt += error.toString() + QLatin1Char('\n');
 
-  bt += m_engine->uncaughtExceptionBacktrace().join("\n") + '\n';
+  bt += m_engine->uncaughtExceptionBacktrace().join(QLatin1String("\n")) + QLatin1Char('\n');
 
   return bt;
 }
@@ -166,18 +166,18 @@ bool KateScript::load()
   qScriptRegisterMetaType (m_engine, rangeToScriptValue, rangeFromScriptValue);
 
   // export read & require function and add the require guard object
-  m_engine->globalObject().setProperty("read", m_engine->newFunction(Kate::Script::read));
-  m_engine->globalObject().setProperty("require", m_engine->newFunction(Kate::Script::require));
-  m_engine->globalObject().setProperty("require_guard", m_engine->newObject());
-  
+  m_engine->globalObject().setProperty(QLatin1String("read"), m_engine->newFunction(Kate::Script::read));
+  m_engine->globalObject().setProperty(QLatin1String("require"), m_engine->newFunction(Kate::Script::require));
+  m_engine->globalObject().setProperty(QLatin1String("require_guard"), m_engine->newObject());
+
   // export debug function
-  m_engine->globalObject().setProperty("debug", m_engine->newFunction(Kate::Script::debug));
+  m_engine->globalObject().setProperty(QLatin1String("debug"), m_engine->newFunction(Kate::Script::debug));
 
   // export translation functions
-  m_engine->globalObject().setProperty("i18n", m_engine->newFunction(Kate::Script::i18n));
-  m_engine->globalObject().setProperty("i18nc", m_engine->newFunction(Kate::Script::i18nc));
-  m_engine->globalObject().setProperty("i18ncp", m_engine->newFunction(Kate::Script::i18ncp));
-  m_engine->globalObject().setProperty("i18np", m_engine->newFunction(Kate::Script::i18np));
+  m_engine->globalObject().setProperty(QLatin1String("i18n"), m_engine->newFunction(Kate::Script::i18n));
+  m_engine->globalObject().setProperty(QLatin1String("i18nc"), m_engine->newFunction(Kate::Script::i18nc));
+  m_engine->globalObject().setProperty(QLatin1String("i18ncp"), m_engine->newFunction(Kate::Script::i18ncp));
+  m_engine->globalObject().setProperty(QLatin1String("i18np"), m_engine->newFunction(Kate::Script::i18np));
 
   // register scripts itself
   QScriptValue result = m_engine->evaluate(source, m_url);
@@ -185,8 +185,8 @@ bool KateScript::load()
     return false;
 
   // AFTER SCRIPT: set the view/document objects as necessary
-  m_engine->globalObject().setProperty("document", m_engine->newQObject(m_document = new KateScriptDocument()));
-  m_engine->globalObject().setProperty("view", m_engine->newQObject(m_view = new KateScriptView()));
+  m_engine->globalObject().setProperty(QLatin1String("document"), m_engine->newQObject(m_document = new KateScriptDocument()));
+  m_engine->globalObject().setProperty(QLatin1String("view"), m_engine->newQObject(m_view = new KateScriptView()));
 
   // yip yip!
   m_loadSuccessful = true;

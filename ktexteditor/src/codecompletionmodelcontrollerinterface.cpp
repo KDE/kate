@@ -42,8 +42,8 @@ bool CodeCompletionModelControllerInterface::shouldStartCompletion(View* view, c
         return false;
 
     QChar lastChar = insertedText.at(insertedText.count() - 1);
-    if ((userInsertion && (lastChar.isLetter() || lastChar.isNumber() || lastChar == '_')) ||
-        lastChar == '.' || insertedText.endsWith(QLatin1String("->"))) {
+    if ((userInsertion && (lastChar.isLetter() || lastChar.isNumber() || lastChar == QLatin1Char('_'))) ||
+        lastChar == QLatin1Char('.') || insertedText.endsWith(QLatin1String("->"))) {
         return true;
     }
     return false;
@@ -55,8 +55,8 @@ Range CodeCompletionModelControllerInterface::completionRange(View* view, const 
 
     QString text = view->document()->line(end.line());
 
-    static QRegExp findWordStart( "\\b([_\\w]+)$" );
-    static QRegExp findWordEnd( "^([_\\w]*)\\b" );
+    static QRegExp findWordStart(QLatin1String("\\b([_\\w]+)$"));
+    static QRegExp findWordEnd(QLatin1String("^([_\\w]*)\\b"));
 
     Cursor start = end;
 
@@ -90,7 +90,7 @@ bool CodeCompletionModelControllerInterface::shouldAbortCompletion(View* view, c
       return true; //Always abort when the completion-range has been left
     //Do not abort completions when the text has been empty already before and a newline has been entered
 
-    static const QRegExp allowedText("^(\\w*)");
+    static const QRegExp allowedText(QLatin1String("^(\\w*)"));
     return !allowedText.exactMatch(currentCompletion);
 }
 

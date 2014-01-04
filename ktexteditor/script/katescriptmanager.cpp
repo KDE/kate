@@ -88,14 +88,14 @@ KateIndentScript *KateScriptManager::indenter(const QString &language)
 void KateScriptManager::collect(bool force)
 {
   // local information cache
-  KConfig cfgFile("katescriptingrc", KConfig::NoGlobals);
+  KConfig cfgFile(QLatin1String("katescriptingrc"), KConfig::NoGlobals);
 
   // we might need to enforce reload!
   {
-    KConfigGroup config(&cfgFile, "General");
+    KConfigGroup config(&cfgFile, QLatin1String("General"));
     // If KatePart version does not match, better force a true reload
-    if(QString(KATE_VERSION) != config.readEntry("kate-version")) {
-      config.writeEntry("kate-version", QString(KATE_VERSION));
+    if(QLatin1String(KATE_VERSION) != config.readEntry(QLatin1String("kate-version"))) {
+      config.writeEntry(QLatin1String("kate-version"), KATE_VERSION);
       force = true;
     }
   }
@@ -112,9 +112,9 @@ void KateScriptManager::collect(bool force)
   /**
    * now, we search all kinds of known scripts
    */
-  foreach (const QString &type, QStringList () << "indentation" << "commands") {
+  foreach (const QString &type, QStringList () << QLatin1String("indentation") << QLatin1String("commands")) {
     // get a list of all unique .js files for the current type
-    const QString basedir = "katepart/script/" + type;
+    const QString basedir = QLatin1String("katepart/script/") + type;
     const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, basedir, QStandardPaths::LocateDirectory);
 
     QStringList list;
@@ -122,7 +122,7 @@ void KateScriptManager::collect(bool force)
     foreach (const QString& dir, dirs) {
       const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.js"));
       foreach (const QString& file, fileNames) {
-        list.append(dir + '/' + file);
+        list.append(dir + QLatin1Char('/') + file);
       }
     }
     
@@ -173,26 +173,26 @@ void KateScriptManager::collect(bool force)
        * remember type
        */
       KateScriptHeader generalHeader;
-      if(type == "indentation") {
+      if(type == QLatin1String("indentation")) {
         generalHeader.setScriptType(Kate::IndentationScript);
-      } else if (type == "commands") {
+      } else if (type == QLatin1String("commands")) {
         generalHeader.setScriptType(Kate::CommandLineScript);
       } else {
         // should never happen, we dictate type by directory
         Q_ASSERT (false);
       }
 
-      generalHeader.setLicense(pairs.take("license"));
-      generalHeader.setAuthor(pairs.take("author"));
-      generalHeader.setRevision(pairs.take("revision").toInt());
-      generalHeader.setKateVersion(pairs.take("kate-version"));
-      generalHeader.setCatalog(pairs.take("i18n-catalog"));
+      generalHeader.setLicense(pairs.take(QLatin1String("license")));
+      generalHeader.setAuthor(pairs.take(QLatin1String("author")));
+      generalHeader.setRevision(pairs.take(QLatin1String("revision")).toInt());
+      generalHeader.setKateVersion(pairs.take(QLatin1String("kate-version")));
+      generalHeader.setCatalog(pairs.take(QLatin1String("i18n-catalog")));
 
       // now, cast accordingly based on type
       switch(generalHeader.scriptType()) {
         case Kate::IndentationScript: {
           KateIndentScriptHeader indentHeader;
-          indentHeader.setName(pairs.take("name"));
+          indentHeader.setName(pairs.take(QLatin1String("name")));
           indentHeader.setBaseName(baseName);
           if (indentHeader.name().isNull()) {
             qCDebug(LOG_PART) << "Script value error: No name specified in script meta data: "
@@ -201,11 +201,11 @@ void KateScriptManager::collect(bool force)
           }
 
           // required style?
-          indentHeader.setRequiredStyle(pairs.take("required-syntax-style"));
+          indentHeader.setRequiredStyle(pairs.take(QLatin1String("required-syntax-style")));
           // which languages does this support?
-          QString indentLanguages = pairs.take("indent-languages");
+          QString indentLanguages = pairs.take(QLatin1String("indent-languages"));
           if(!indentLanguages.isNull()) {
-            indentHeader.setIndentLanguages(indentLanguages.split(','));
+            indentHeader.setIndentLanguages(indentLanguages.split(QLatin1Char(',')));
           }
           else {
             indentHeader.setIndentLanguages(QStringList() << indentHeader.name());
@@ -218,7 +218,7 @@ void KateScriptManager::collect(bool force)
           }
           // priority?
           bool convertedToInt;
-          int priority = pairs.take("priority").toInt(&convertedToInt);
+          int priority = pairs.take(QLatin1String("priority")).toInt(&convertedToInt);
 
   #ifdef DEBUG_SCRIPTMANAGER
           if(!convertedToInt) {
@@ -240,7 +240,7 @@ void KateScriptManager::collect(bool force)
         }
         case Kate::CommandLineScript: {
           KateCommandLineScriptHeader commandHeader;
-          commandHeader.setFunctions(pairs.take("functions").split(QRegExp("\\s*,\\s*"), QString::SkipEmptyParts));
+          commandHeader.setFunctions(pairs.take(QLatin1String("functions")).split(QRegExp(QLatin1String("\\s*,\\s*")), QString::SkipEmptyParts));
           if (commandHeader.functions().isEmpty()) {
             qCDebug(LOG_PART) << "Script value error: No functions specified in script meta data: "
                           << qPrintable(fileName) << '\n' << "-> skipping script" << '\n';
@@ -298,7 +298,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
   qCDebug(LOG_PART) << "Update script: " << url;
   QTextStream ts(&file);
   ts.setCodec("UTF-8");
-  if(!ts.readLine().contains("kate-script")) {
+  if(!ts.readLine().contains(QLatin1String("kate-script"))) {
     qCDebug(LOG_PART) << "Script parse error: No header found in " << qPrintable(url) << '\n';
     file.close();
     return false;
@@ -306,7 +306,7 @@ bool KateScriptManager::parseMetaInformation(const QString& url,
 
   QString line;
   while(!(line = ts.readLine()).isNull()) {
-    int colon = line.indexOf(':');
+    int colon = line.indexOf(QLatin1Char(':'));
     if(colon <= 0)
       break; // no colon -> end of header found
 
@@ -339,7 +339,7 @@ void KateScriptManager::reload()
 
 bool KateScriptManager::exec(KTextEditor::View *view, const QString &_cmd, QString &errorMsg)
 {
-  QStringList args(_cmd.split(QRegExp("\\s+"), QString::SkipEmptyParts));
+  QStringList args(_cmd.split(QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts));
   QString cmd(args.first());
   args.removeFirst();
 
@@ -348,7 +348,7 @@ bool KateScriptManager::exec(KTextEditor::View *view, const QString &_cmd, QStri
     return false;
   }
 
-  if (cmd == "reload-scripts") {
+  if (cmd == QLatin1String("reload-scripts")) {
     reload();
     return true;
   } else {
@@ -361,7 +361,7 @@ bool KateScriptManager::help(KTextEditor::View *view, const QString &cmd, QStrin
 {
   Q_UNUSED(view)
 
-  if (cmd == "reload-scripts") {
+  if (cmd == QLatin1String("reload-scripts")) {
     msg = i18n("Reload all JavaScript files (indenters, command line scripts, etc).");
     return true;
   } else {
@@ -375,7 +375,7 @@ const QStringList &KateScriptManager::cmds()
   static QStringList l;
 
   l.clear();
-  l << "reload-scripts";
+  l << QLatin1String("reload-scripts");
 
   return l;
 }

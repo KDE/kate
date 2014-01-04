@@ -51,8 +51,8 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
   ui->sorting->setChecked(m_model->isSortingEnabled());
   ui->sortingAlphabetical->setChecked(m_model->isSortingAlphabetical());
   ui->sortingCaseSensitive->setChecked(m_model->sortingCaseSensitivity() == Qt::CaseSensitive);
-  ui->groupingOrderUp->setIcon(QIcon::fromTheme("go-up"));
-  ui->groupingOrderDown->setIcon(QIcon::fromTheme("go-down"));
+  ui->groupingOrderUp->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
+  ui->groupingOrderDown->setIcon(QIcon::fromTheme(QLatin1String("go-down")));
   connect(ui->groupingOrderUp, SIGNAL(pressed()), SLOT(moveGroupingOrderUp()));
   connect(ui->groupingOrderDown, SIGNAL(pressed()), SLOT(moveGroupingOrderDown()));
 
@@ -70,8 +70,8 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
 
   // Grouping
   ui->grouping->setChecked(m_model->isGroupingEnabled());
-  ui->groupingUp->setIcon(QIcon::fromTheme("go-up"));
-  ui->groupingDown->setIcon(QIcon::fromTheme("go-down"));
+  ui->groupingUp->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
+  ui->groupingDown->setIcon(QIcon::fromTheme(QLatin1String("go-down")));
 
   m_groupingScopeType = ui->groupingMethods->topLevelItem(0);
   m_groupingScopeType->setCheckState(0, (m_model->groupingMethod() & KateCompletionModel::ScopeType) ? Qt::Checked : Qt::Unchecked);
@@ -96,8 +96,8 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
 
   // Column merging
   ui->columnMerging->setChecked(m_model->isColumnMergingEnabled());
-  ui->columnUp->setIcon(QIcon::fromTheme("go-up"));
-  ui->columnDown->setIcon(QIcon::fromTheme("go-down"));
+  ui->columnUp->setIcon(QIcon::fromTheme(QLatin1String("go-up")));
+  ui->columnDown->setIcon(QIcon::fromTheme(QLatin1String("go-down")));
   connect(ui->columnUp, SIGNAL(pressed()), SLOT(moveColumnUp()));
   connect(ui->columnDown, SIGNAL(pressed()), SLOT(moveColumnDown()));
 
@@ -108,7 +108,7 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
       bool first = true;
       foreach (int column, list) {
         QTreeWidgetItem* item = new QTreeWidgetItem(ui->columnMergeTree, column);
-        item->setText(0, KateCompletionModel::columnName(column) + QString(" %1").arg(column));
+        item->setText(0, KateCompletionModel::columnName(column) + QString::fromLatin1(" %1").arg(column));
         item->setCheckState(1, first ? Qt::Unchecked : Qt::Checked);
 
         if (column == KTextEditor::CodeCompletionModel::Name)
@@ -124,7 +124,7 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
     for (int column = 0; column < KTextEditor::CodeCompletionModel::ColumnCount; ++column) {
       if (!mergedColumns.contains(column)) {
         QTreeWidgetItem* item = new QTreeWidgetItem(ui->columnMergeTree, column);
-        item->setText(0, KateCompletionModel::columnName(column) + QString(" %1").arg(column));
+        item->setText(0, KateCompletionModel::columnName(column) + QString::fromLatin1(" %1").arg(column));
         item->setCheckState(1, Qt::Unchecked);
 
         Q_ASSERT(column != KTextEditor::CodeCompletionModel::Name);
@@ -136,7 +136,7 @@ KateCompletionConfig::KateCompletionConfig(KateCompletionModel* model, QWidget* 
   } else {
     for (int column = 0; column < KTextEditor::CodeCompletionModel::ColumnCount; ++column) {
       QTreeWidgetItem* item = new QTreeWidgetItem(ui->columnMergeTree, column);
-      item->setText(0, KateCompletionModel::columnName(column) + QString(" %1").arg(column));
+      item->setText(0, KateCompletionModel::columnName(column) + QString::fromLatin1(" %1").arg(column));
       item->setCheckState(1, Qt::Unchecked);
 
       if (column == KTextEditor::CodeCompletionModel::Name)
@@ -212,8 +212,8 @@ void KateCompletionConfig::readConfig(const KConfigGroup &config)
   for (int i = 0; i < ui->columnMergeTree->topLevelItemCount(); ++i) {
     QTreeWidgetItem* item = ui->columnMergeTree->topLevelItem(i);
     ///Initialize a standard column-merging: Merge Scope, Name, Arguments and Postfix
-    item->setCheckState(1, config.readEntry(QString("Column %1 Merge").arg(i), (i == CodeCompletionModel::Scope || i == CodeCompletionModel::Name || i == CodeCompletionModel::Arguments)) ? Qt::Checked : Qt::Unchecked);
-    item->setCheckState(2, config.readEntry(QString("Column %1 Show").arg(i), true) ? Qt::Checked : Qt::Unchecked);
+    item->setCheckState(1, config.readEntry(QString::fromLatin1("Column %1 Merge").arg(i), (i == CodeCompletionModel::Scope || i == CodeCompletionModel::Name || i == CodeCompletionModel::Arguments)) ? Qt::Checked : Qt::Unchecked);
+    item->setCheckState(2, config.readEntry(QString::fromLatin1("Column %1 Show").arg(i), true) ? Qt::Checked : Qt::Unchecked);
   }
 
   applyInternal();
@@ -261,8 +261,8 @@ void KateCompletionConfig::writeConfig(KConfigGroup &config)
 
   for (int i = 0; i < ui->columnMergeTree->topLevelItemCount(); ++i) {
     QTreeWidgetItem* item = ui->columnMergeTree->topLevelItem(i);
-    config.writeEntry(QString("Column %1 Merge").arg(i), item->checkState(1) == Qt::Checked ? true : false);
-    config.writeEntry(QString("Column %1 Show").arg(i), item->checkState(2) == Qt::Checked ? true : false);
+    config.writeEntry(QString::fromLatin1("Column %1 Merge").arg(i), item->checkState(1) == Qt::Checked ? true : false);
+    config.writeEntry(QString::fromLatin1("Column %1 Show").arg(i), item->checkState(2) == Qt::Checked ? true : false);
   }
 
   config.sync();

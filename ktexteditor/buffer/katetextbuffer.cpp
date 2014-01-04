@@ -139,7 +139,7 @@ void TextBuffer::clear ()
   m_generateByteOrderMark = false;
 
   // reset the filter device
-  m_mimeTypeForFilterDev = "text/plain";
+  m_mimeTypeForFilterDev = QLatin1String("text/plain");
 
   // clear edit history
   m_history.clear ();
@@ -751,11 +751,11 @@ bool TextBuffer::save (const QString &filename)
   stream.setGenerateByteOrderMark (generateByteOrderMark());
 
   // our loved eol string ;)
-  QString eol = "\n"; //m_doc->config()->eolString ();
+  QString eol = QLatin1String("\n"); //m_doc->config()->eolString ();
   if (endOfLineMode() == eolDos)
-    eol = QString ("\r\n");
+    eol = QLatin1String("\r\n");
   else if (endOfLineMode() == eolMac)
-    eol = QString ("\r");
+    eol = QLatin1String("\r");
 
   // just dump the lines out ;)
   for (int i = 0; i < m_lines; ++i)

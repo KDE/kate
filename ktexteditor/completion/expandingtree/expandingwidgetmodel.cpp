@@ -441,10 +441,10 @@ QWidget* ExpandingWidgetModel::expandingWidget(const QModelIndex& idx_) const
 
 void ExpandingWidgetModel::cacheIcons() const {
     if( m_expandedIcon.isNull() )
-      m_expandedIcon = KIconLoader::global()->loadIcon("arrow-down", KIconLoader::Small, 10);
+      m_expandedIcon = KIconLoader::global()->loadIcon(QLatin1String("arrow-down"), KIconLoader::Small, 10);
     
     if( m_collapsedIcon.isNull() )
-      m_collapsedIcon = KIconLoader::global()->loadIcon("arrow-right", KIconLoader::Small, 10);
+      m_collapsedIcon = KIconLoader::global()->loadIcon(QLatin1String("arrow-right"), KIconLoader::Small, 10);
 }
 
 QList<QVariant> mergeCustomHighlighting( int leftSize, const QList<QVariant>& left, int rightSize, const QList<QVariant>& right )
@@ -517,7 +517,7 @@ QList<QVariant> mergeCustomHighlighting( QStringList strings, QList<QVariantList
       totalString += strings[0];
 
       for(int a = 0; a < grapBetweenStrings; a++)
-        totalString += ' ';
+        totalString += QLatin1Char(' ');
       
       strings.pop_front();
       highlights.pop_front();

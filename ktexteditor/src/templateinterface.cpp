@@ -29,7 +29,7 @@
 #include <KLocalizedString>
 #include <QLocale>
 
-#define DUMMY_VALUE "!KTE:TEMPLATEHANDLER_DUMMY_VALUE!"
+#define DUMMY_VALUE QLatin1String("!KTE:TEMPLATEHANDLER_DUMMY_VALUE!")
 
 using namespace KTextEditor;
 
@@ -42,7 +42,10 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
   kabcbridgecalltype kabcbridgecall=0;
 
   QStringList kabcitems;
-  kabcitems<<"firstname"<<"lastname"<<"fullname"<<"email";
+  kabcitems << QLatin1String("firstname")
+            << QLatin1String("lastname")
+            << QLatin1String("fullname")
+            << QLatin1String("email");
 
   QMap<QString,QString>::Iterator it;
   for ( it = map.begin(); it != map.end(); ++it )
@@ -50,8 +53,8 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
     QString placeholder = it.key();
     if ( map[ placeholder ].isEmpty() )
     {
-      if ( placeholder == "index" ) map[ placeholder ] = "i";
-      else if ( placeholder == "loginname" )
+      if ( placeholder == QLatin1String("index") ) map[ placeholder ] = QLatin1String("i");
+      else if ( placeholder == QLatin1String("loginname") )
       {}
       else if (kabcitems.contains(placeholder))
       {
@@ -72,27 +75,27 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
           return false;
         }
       }
-      else if ( placeholder == "date" )
+      else if ( placeholder == QLatin1String("date") )
       {
         map[ placeholder ] =  QLocale().toString(date, QLocale::ShortFormat);
       }
-      else if ( placeholder == "time" )
+      else if ( placeholder == QLatin1String("time") )
       {
         map[ placeholder ] = QLocale().toString(time, QLocale::LongFormat);
       }
-      else if ( placeholder == "year" )
+      else if ( placeholder == QLatin1String("year") )
       {
-        map[ placeholder ] = date.toString("yyyy");
+        map[ placeholder ] = date.toString(QLatin1String("yyyy"));
       }
-      else if ( placeholder == "month" )
+      else if ( placeholder == QLatin1String("month") )
       {
-        map[ placeholder ] = date.toString("MM");
+        map[ placeholder ] = date.toString(QLatin1String("MM"));
       }
-      else if ( placeholder == "day" )
+      else if ( placeholder == QLatin1String("day") )
       {
-        map[ placeholder ] = date.toString("dd");
+        map[ placeholder ] = date.toString(QLatin1String("dd"));
       }
-      else if ( placeholder == "hostname" )
+      else if ( placeholder == QLatin1String("hostname") )
       {
         char hostname[ 256 ];
         hostname[ 0 ] = 0;
@@ -100,11 +103,11 @@ bool TemplateInterface::expandMacros( QMap<QString, QString> &map, QWidget *pare
         hostname[ 255 ] = 0;
         map[ placeholder ] = QString::fromLocal8Bit( hostname );
       }
-      else if ( placeholder == "cursor" )
+      else if ( placeholder == QLatin1String("cursor") )
       {
-        map[ placeholder ] = '|';
+        map[ placeholder ] = QLatin1Char('|');
       }
-      else if (placeholder== "selection" ) {
+      else if (placeholder== QLatin1String("selection") ) {
         //DO NOTHING, THE IMPLEMENTATION WILL HANDLE THIS
       }
       else map[ placeholder ] = placeholder;
@@ -117,7 +120,7 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
 {
   QMap<QString, QString> enhancedInitValues( *initialValues );
   
-  QRegExp rx( "[$%]\\{([^}\\r\\n]+)\\}" );
+  QRegExp rx(QLatin1String("[$%]\\{([^}\\r\\n]+)\\}"));
   rx.setMinimal( true );
   int pos = 0;
   int offset;
@@ -130,7 +133,7 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
     if ( pos > -1 )
     {
       offset = 0;
-      while ( pos - offset > 0 && templateString[ pos - offset - 1 ] == '\\' ) {
+      while ( pos - offset > 0 && templateString[ pos - offset - 1 ] == QLatin1Char('\\') ) {
         ++offset;
       }
       if ( offset % 2 == 1 ) {
@@ -140,9 +143,9 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
       }
       QString placeholder = rx.cap( 1 );
       
-      int pos_colon=placeholder.indexOf(":");
-      int pos_slash=placeholder.indexOf("/");
-      int pos_backtick=placeholder.indexOf("`");
+      int pos_colon=placeholder.indexOf(QLatin1Char(':'));
+      int pos_slash=placeholder.indexOf(QLatin1Char('/'));
+      int pos_backtick=placeholder.indexOf(QLatin1Char('`'));
       bool check_slash=false;
       bool check_colon=false;
       bool check_backtick=false;
@@ -168,11 +171,11 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
         int slashcount=0;
         int backslashcount=0;
         for (int i=0;i<end;i++) {
-          if (placeholder[i]=='/') {
+          if (placeholder[i] == QLatin1Char('/')) {
             if ((backslashcount%2)==0) slashcount++;
             if (slashcount==3) break;
             backslashcount=0;
-          } else if (placeholder[i]=='\\')
+          } else if (placeholder[i] == QLatin1Char('\\'))
             backslashcount++;
           else
             backslashcount=0; //any character terminates a backslash sequence
@@ -180,47 +183,47 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
         if (slashcount!=3) {
           const int tmpStrLength=templateString.length();
           for (int i=pos+rx.matchedLength();(slashcount<3) && (i<tmpStrLength);i++,pos++) {
-              if (templateString[i]=='/') {
+              if (templateString[i] == QLatin1Char('/')) {
                 if ((backslashcount%2)==0) slashcount++;
                 backslashcount=0;
-              } else if (placeholder[i]=='\\')
+              } else if (placeholder[i] == QLatin1Char('\\'))
                 backslashcount++;
               else
                 backslashcount=0; //any character terminates a backslash sequence              
           }
         }
         //this is needed
-        placeholder=placeholder.left(placeholder.indexOf("/"));
+        placeholder=placeholder.left(placeholder.indexOf(QLatin1Char('/')));
       } else if (check_colon) {
         initValue=placeholder.mid(pos_colon+1);
         initValue_specified=true;
         int  backslashcount=0;
-        for (int i=initValue.length()-1;(i>=0) && (initValue[i]=='\\'); i--) {
+        for (int i=initValue.length()-1;(i>=0) && (initValue[i] == QLatin1Char('\\')); i--) {
           backslashcount++;
         }
         initValue=initValue.left(initValue.length()-((backslashcount+1)/2));
         if ((backslashcount % 2) ==1) {
-          initValue+='}';
+          initValue += QLatin1Char('}');
           const int tmpStrLength=templateString.length();
           backslashcount=0;
           for (int i=pos+rx.matchedLength();(i<tmpStrLength);i++,pos++) {
-              if (templateString[i]=='}') {
+              if (templateString[i]== QLatin1Char('}')) {
                 initValue=initValue.left(initValue.length()-((backslashcount+1)/2));
                 if ((backslashcount%2)==0) break;
                 backslashcount=0;
-              } else if (placeholder[i]=='\\')
+              } else if (placeholder[i] == QLatin1Char('\\'))
                 backslashcount++;
               else
                 backslashcount=0; //any character terminates a backslash sequence              
             initValue+=placeholder[i];
           }
         }
-        placeholder=placeholder.left(placeholder.indexOf(":"));
+        placeholder=placeholder.left(placeholder.indexOf(QLatin1Char(':')));
       } else if (check_backtick) {
         placeholder=placeholder.left(pos_backtick);
       }
       
-      if (placeholder.contains("@")) placeholder=placeholder.left(placeholder.indexOf("@"));
+      if (placeholder.contains(QLatin1Char('@'))) placeholder=placeholder.left(placeholder.indexOf(QLatin1Char('@')));
       if ( (! enhancedInitValues.contains( placeholder )) || (enhancedInitValues[placeholder]==DUMMY_VALUE)  ) {
         if (initValue_specified) {
           enhancedInitValues[placeholder]=initValue;
@@ -233,7 +236,7 @@ bool TemplateInterface::KTE_INTERNAL_setupIntialValues(const QString& templateSt
   }
 
   for (QMap<QString,QString>::iterator it=enhancedInitValues.begin();it!=enhancedInitValues.end();++it) {
-    if (it.value()==DUMMY_VALUE) it.value()="";
+    if (it.value() == DUMMY_VALUE) it.value() = QString();
   }
   if (!expandMacros( enhancedInitValues, dynamic_cast<QWidget*>(this) ) ) return false;
   *initialValues=enhancedInitValues;

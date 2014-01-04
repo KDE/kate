@@ -47,7 +47,7 @@ QString KateTemplateScript::invoke(KateView* view, const QString& functionName, 
   QScriptValue result = myFunction.call(QScriptValue(), arguments);
   
   if(m_engine->hasUncaughtException()) {
-    displayBacktrace(result, "Error while calling helper function");
+    displayBacktrace(result, QLatin1String("Error while calling helper function"));
     return QString();
   }
  

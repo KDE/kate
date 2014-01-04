@@ -69,7 +69,7 @@ QScriptValue read(QScriptContext *context, QScriptEngine *)
      */
     const QString name = context->argument(i).toString();
     const QString fullName = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                                    "katepart/script/files/" + name);
+                                                    QLatin1String("katepart/script/files/") + name);
     if (fullName.isEmpty())
       continue;
 
@@ -112,7 +112,7 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
     /**
      * check include guard
      */
-    QScriptValue require_guard = engine->globalObject().property ("require_guard");
+    QScriptValue require_guard = engine->globalObject().property (QLatin1String("require_guard"));
     if (require_guard.property (fullName).toBool ())
       continue;
     
@@ -161,7 +161,7 @@ QScriptValue debug(QScriptContext *context, QScriptEngine *engine)
     message << context->argument(i).toString();
   }
   // debug in blue to distance from other debug output if necessary
-  std::cerr << "\033[31m" << qPrintable(message.join(" ")) << "\033[0m\n";
+  std::cerr << "\033[31m" << qPrintable(message.join(QLatin1String(" "))) << "\033[0m\n";
   return engine->nullValue();
 }
 
@@ -194,7 +194,7 @@ QScriptValue i18n( QScriptContext *context, QScriptEngine *engine )
   const int argCount = context->argumentCount();
 
   if (argCount == 0) {
-    qCWarning(LOG_PART) << "wrong usage of i18n:" << context->backtrace().join("\n\t");
+    qCWarning(LOG_PART) << "wrong usage of i18n:" << context->backtrace().join(QLatin1String("\n\t"));
   }
 
   if (argCount > 0) {
@@ -219,7 +219,7 @@ QScriptValue i18nc( QScriptContext *context, QScriptEngine *engine )
   const int argCount = context->argumentCount();
 
   if (argCount < 2) {
-    qCWarning(LOG_PART) << "wrong usage of i18nc:" << context->backtrace().join("\n\t");
+    qCWarning(LOG_PART) << "wrong usage of i18nc:" << context->backtrace().join(QLatin1String("\n\t"));
   }
 
   if (argCount > 0) {
@@ -249,7 +249,7 @@ QScriptValue i18np( QScriptContext *context, QScriptEngine *engine )
   const int argCount = context->argumentCount();
 
   if (argCount < 3) {
-    qCWarning(LOG_PART) << "wrong usage of i18np:" << context->backtrace().join("\n\t");
+    qCWarning(LOG_PART) << "wrong usage of i18np:" << context->backtrace().join(QLatin1String("\n\t"));
   }
 
   if (argCount > 0) {
@@ -284,7 +284,7 @@ QScriptValue i18ncp( QScriptContext *context, QScriptEngine *engine )
   const int argCount = context->argumentCount();
 
   if (argCount < 4) {
-    qCWarning(LOG_PART) << "wrong usage of i18ncp:" << context->backtrace().join("\n\t");
+    qCWarning(LOG_PART) << "wrong usage of i18ncp:" << context->backtrace().join(QLatin1String("\n\t"));
   }
 
   if (argCount > 0) {

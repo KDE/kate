@@ -37,7 +37,7 @@
 KateScriptConsoleEngine::KateScriptConsoleEngine(KateView * view)
     : m_view (view)
 {
-  m_utilsUrl = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "katepart/script/commands/utils.js");
+  m_utilsUrl = QStandardPaths::locate(QStandardPaths::GenericDataLocation, QLatin1String("katepart/script/commands/utils.js"));
 }
 
 KateScriptConsoleEngine::~KateScriptConsoleEngine()
@@ -48,7 +48,6 @@ KateScriptConsoleEngine::~KateScriptConsoleEngine()
 const QString & KateScriptConsoleEngine::execute(const QString & text)
 {
   static QString msg;
-  msg = "";
   QString name = getFirstFunctionName(text, msg);
   if (name.isEmpty() && !msg.isEmpty()) // Error
     return msg;
@@ -58,17 +57,17 @@ const QString & KateScriptConsoleEngine::execute(const QString & text)
     msg = i18n("Error: cannot open utils.js");
     return msg;
   }
-  QString utilsCode = file.readAll();
+  QString utilsCode = QString::fromLatin1(file.readAll());
   file.close();
 
   QString funcCode;
   if (name.isEmpty()) { // It's a command
-    name = "foo";
-    funcCode = utilsCode + "function foo() { " + text + " }";
+    name = QLatin1String("foo");
+    funcCode = utilsCode + QLatin1String("function foo() { ") + text + QLatin1String(" }");
   } else // It's a set of functions
     funcCode = utilsCode + text;
   KateTemplateScript script(funcCode);
-  msg = script.invoke(m_view, name, "");
+  msg = script.invoke(m_view, name, QString());
   if (msg.isEmpty())
     msg = i18n("Syntax Error: Parse error");
   return msg;
@@ -76,18 +75,18 @@ const QString & KateScriptConsoleEngine::execute(const QString & text)
 
 const QString KateScriptConsoleEngine::getFirstFunctionName(const QString & text, QString & msg)
 {
-  QString name = "";
-  QRegExp reg("(function)");
+  QString name;
+  QRegExp reg(QLatin1String("(function)"));
   int i = reg.indexIn(text);
   if (i < 0) // there's no defined functions
-    return "";
+    return QString();
   i += 8; // "function"
-  for (; text[i] != '('; ++i) {
-    if (text[i] == ' ') // avoid blank spaces
+  for (; text[i] != QLatin1Char('('); ++i) {
+    if (text[i] == QLatin1Char(' ')) // avoid blank spaces
       continue;
-    if (text[i] == '{' || text[i] == '}' || text[i] == ')') { // bad ...
+    if (text[i] == QLatin1Char('{') || text[i] == QLatin1Char('}') || text[i] == QLatin1Char(')')) { // bad ...
       msg = i18n("Error: There are bad defined functions");
-      return "";
+      return QString();
     }
     name.append(text[i]);
   }
@@ -110,7 +109,7 @@ KateScriptConsole::KateScriptConsole(KateView * view, QWidget * parent)
   m_result = new QLabel(this);
   m_edit = new QTextEdit(this);
   m_execute = new QPushButton(i18n("Execute"), this);
-  m_execute->setIcon(QIcon::fromTheme("quickopen"));
+  m_execute->setIcon(QIcon::fromTheme(QLatin1String("quickopen")));
   connect(m_execute, SIGNAL(clicked()), this, SLOT(executePressed()));
 
   layout->addWidget(m_edit);
@@ -138,9 +137,9 @@ void KateScriptConsole::executePressed()
   QString msg;
   if (!text.isEmpty()) {
     msg = m_engine->execute(text);
-    m_result->setText("<b>" + msg + "</b>");
+    m_result->setText(QLatin1String("<b>") + msg + QLatin1String("</b>"));
   } else
-    m_result->setText("<b>" + i18n("There's no code to execute") + "</b>");
+    m_result->setText(QLatin1String("<b>") + i18n("There's no code to execute") + QLatin1String("</b>"));
 }
 //END KateScriptConsole
 

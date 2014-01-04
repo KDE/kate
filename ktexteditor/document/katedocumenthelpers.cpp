@@ -31,7 +31,7 @@ KateBrowserExtension::KateBrowserExtension( KateDocument* doc )
 : KParts::BrowserExtension( doc ),
   m_doc (doc)
 {
-  setObjectName( "katepartbrowserextension" );
+  setObjectName(QLatin1String("katepartbrowserextension"));
   emit enableAction( "print", true );
 }
 

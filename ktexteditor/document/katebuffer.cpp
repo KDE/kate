@@ -197,7 +197,7 @@ bool KateBuffer::openFile (const QString &m_file, bool enforceTextCodec)
     return false;
 
   // save back encoding
-  m_doc->config()->setEncoding (textCodec()->name());
+  m_doc->config()->setEncoding (QString::fromLatin1(textCodec()->name()));
 
   // set eol mode, if a eol char was found
   if (m_doc->config()->allowEolDetection())
@@ -215,18 +215,18 @@ bool KateBuffer::canEncode ()
 {
   QTextCodec *codec = m_doc->config()->codec();
 
-  qCDebug(LOG_PART) << "ENC NAME: " << codec->name();
+  qCDebug(LOG_PART) << QLatin1String("ENC NAME: ") << codec->name();
 
   // hardcode some unicode encodings which can encode all chars
-  if ((QString(codec->name()) == "UTF-8") || (QString(codec->name()) == "ISO-10646-UCS-2"))
+  if ((QString::fromLatin1(codec->name()) == QLatin1String("UTF-8")) || (QString::fromLatin1(codec->name()) == QLatin1String("ISO-10646-UCS-2")))
     return true;
 
   for (int i=0; i < lines(); i++)
   {
     if (!codec->canEncode (line(i)->string()))
     {
-      qCDebug(LOG_PART) << "STRING LINE: " << line(i)->string();
-      qCDebug(LOG_PART) << "ENC WORKING: FALSE";
+      qCDebug(LOG_PART) << QLatin1String("STRING LINE: ") << line(i)->string();
+      qCDebug(LOG_PART) << QLatin1String("ENC WORKING: FALSE");
 
       return false;
     }

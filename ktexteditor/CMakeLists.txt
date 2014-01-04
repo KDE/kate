@@ -58,9 +58,6 @@ src/messageinterface.cpp
 # application interfaces
 src/application.cpp
 src/mainwindow.cpp
-
-# private headers for moc
-src/documentadaptor_p.h
    
 # text buffer & buffer helpers
 buffer/katetextbuffer.cpp

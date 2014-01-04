@@ -72,6 +72,13 @@ KateGlobal::KateGlobal (QPointer<KateGlobal> &staticInstance)
   // remember this
   staticInstance = this;
   
+  /**
+   * register some datatypes
+   */
+  qRegisterMetaType<KTextEditor::Cursor>("KTextEditor::Cursor");
+  qRegisterMetaType<KTextEditor::Document*>("KTextEditor::Document*");
+  qRegisterMetaType<KTextEditor::View*>("KTextEditor::View*");
+  
   // load the kate part translation catalog
   // FIXME: kf5
   // KLocale::global()->insertCatalog("katepart4");

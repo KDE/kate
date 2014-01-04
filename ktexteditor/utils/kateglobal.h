@@ -108,6 +108,19 @@ class KTEXTEDITOR_EXPORT KateGlobal : public KTextEditor::Editor, public KTextEd
       m_sessionConfig = sessionConfig;
     }
 
+  // unit testing
+  public:
+    /**
+     * Calling this function internally sets a flag such that unitTestMode()
+     * returns \p true.
+     */
+    static void enableUnitTestMode();
+    /**
+     * Returns \p true, if the unit test mode was enabled through a call of
+     * enableUnitTestMode(), otherwise \p false.
+     */
+    static bool unitTestMode();
+
   // for setDefaultEncoding
   friend class KateDocumentConfig;
 

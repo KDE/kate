@@ -34,6 +34,7 @@ QTEST_MAIN(MessageTest)
 
 void MessageTest::initTestCase()
 {
+  KateGlobal::enableUnitTestMode();
 }
 
 void MessageTest::cleanupTestCase()

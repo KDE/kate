@@ -90,8 +90,6 @@ public:
     // Only used by KateView
     static void nextMatchForSelection(KateView * view, SearchDirection searchDirection);
 
-    void enableUnitTestMode() { m_unitTestMode = true; }
-
 public Q_SLOTS:
     /**
      * Set the current search pattern.
@@ -202,7 +200,6 @@ private:
     bool m_powerFromCursor : 1;
     bool m_powerHighlightAll : 1;
     unsigned int m_powerMode : 2;
-    bool m_unitTestMode :1 ;
 };
 
 

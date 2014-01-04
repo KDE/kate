@@ -29,6 +29,7 @@
 #include "kateundomanager.h"
 #include "kateconfig.h"
 #include "katerenderer.h"
+#include "kateglobal.h"
 
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>
@@ -146,8 +147,7 @@ KateSearchBar::KateSearchBar(bool initAsPower, KateView* view, KateViewConfig *c
         m_powerMatchCase(true),
         m_powerFromCursor(false),
         m_powerHighlightAll(false),
-        m_powerMode(0),
-        m_unitTestMode(false)
+        m_powerMode(0)
 {
 
     connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
@@ -607,7 +607,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     bool askWrap = !match.isValid() && (!selection.isValid() || !selectionOnly());
     bool wrap = false;
 
-    if (m_unitTestMode && askWrap)
+    if (KateGlobal::unitTestMode() && askWrap)
     {
         askWrap = false;
         wrap = true;

@@ -57,6 +57,19 @@
 
 Q_LOGGING_CATEGORY(LOG_PART, "katepart")
 
+//BEGIN unit test mode
+static bool kateUnitTestMode = false;
+void KateGlobal::enableUnitTestMode()
+{
+  kateUnitTestMode = true;
+}
+
+bool KateGlobal::unitTestMode()
+{
+  return kateUnitTestMode;
+}
+//END unit test mode
+
 KateGlobal::KateGlobal (QPointer<KateGlobal> &staticInstance)
  : KTextEditor::Editor (0)
  , m_aboutData (QString ("katepart"), QString(), i18n("Kate Part"), QLatin1String (KATE_VERSION),

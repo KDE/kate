@@ -21,6 +21,7 @@
 #include "kateanimation.h"
 #include "kateanimation.moc"
 #include "katefadeeffect.h"
+#include "kateglobal.h"
 
 #include <KMessageWidget>
 
@@ -72,10 +73,9 @@ void KateAnimation::show()
   }
 
   // show according to effects config
-  if (!(m_widget->style()->styleHint(QStyle::SH_Widget_Animate, 0, m_widget))) {
-    m_widget->show();
-    emit widgetShown();
-  } else {
+  if (m_widget->style()->styleHint(QStyle::SH_Widget_Animate, 0, m_widget)
+    || KateGlobal::unitTestMode() // due to timing issues in the unit test
+  ) {
     // launch show effect
     // NOTE: use a singleShot timer to avoid resizing issues when showing the message widget the first time (bug #316666)
     if (m_fadeEffect) {
@@ -87,6 +87,9 @@ void KateAnimation::show()
     // start timer in order to track when showing is done (this effectively works
     // around the fact, that KMessageWidget does not have a hidden signal)
     m_showTimer->start();
+  } else {
+    m_widget->show();
+    emit widgetShown();
   }
 }
 
@@ -100,10 +103,9 @@ void KateAnimation::hide()
   }
   
   // hide according to effects config
-  if (!(m_widget->style()->styleHint(QStyle::SH_Widget_Animate, 0, m_widget))) {
-    m_widget->hide();
-    emit widgetHidden();
-  } else {
+  if (m_widget->style()->styleHint(QStyle::SH_Widget_Animate, 0, m_widget)
+    || KateGlobal::unitTestMode() // due to timing issues in the unit test
+  ) {
     // hide depending on effect
     if (m_fadeEffect) {
       m_fadeEffect->fadeOut();
@@ -114,6 +116,9 @@ void KateAnimation::hide()
     // start timer in order to track when hiding is done (this effectively works
     // around the fact, that KMessageWidget does not have a hidden signal)
     m_hideTimer->start();
+  } else {
+    m_widget->hide();
+    emit widgetHidden();
   }
 }
 

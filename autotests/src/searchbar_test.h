@@ -30,6 +30,10 @@ public:
   SearchBarTest();
   ~SearchBarTest();
 
+public Q_SLOTS:
+  void initTestCase();
+  void cleanupTestCase();
+
 private Q_SLOTS:
   void testFindNextIncremental();
 

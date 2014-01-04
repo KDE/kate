@@ -381,9 +381,12 @@ void MessageTest::testHideViewAfterUserInteraction()
     QTest::qWait(1000);
     QVERIFY(message.data() != 0);
 
-    // show view again, and trigger user interaction through resize
+    //
+    // show view again, and trigger user interaction through resize:
+    // should retrigger the autoHide timer
+    //
     view->show();
-    QTest::qWait(500);
+    QTest::qWait(2000);
     view->resize(400, 310);
 
     // wait 1.5s and check that message is still displayed
@@ -392,8 +395,8 @@ void MessageTest::testHideViewAfterUserInteraction()
     QVERIFY(view->messageWidget()->isVisible());
     QCOMPARE(view->messageWidget()->text(), QString("Message text"));
 
-    // wait another 0.6s, then the message is deleted
-    QTest::qWait(600);
+    // wait another 0.8s, then the message is deleted
+    QTest::qWait(800);
     QVERIFY(message.data() == 0);
     QVERIFY(view->messageWidget()->isVisible());
 

@@ -48,7 +48,6 @@ class KateFactory : public KPluginFactory
     explicit KateFactory (const char *componentName = 0, QObject *parent = 0)
       : KPluginFactory (componentName, parent)
     {
-      QLoggingCategory::setFilterRules(QStringLiteral("katepart = true"));
     }
 
     /**

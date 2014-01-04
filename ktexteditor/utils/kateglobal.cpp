@@ -66,6 +66,9 @@ KateGlobal::KateGlobal (QPointer<KateGlobal> &staticInstance)
  , m_sessionConfig (KSharedConfig::openConfig())
  , m_application (nullptr)
 { 
+  // FIXME KF5
+  QLoggingCategory::setFilterRules(QStringLiteral("katepart = true"));
+  
   // remember this
   staticInstance = this;
   

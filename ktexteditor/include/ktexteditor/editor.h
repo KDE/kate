@@ -101,7 +101,7 @@ class KTEXTEDITOR_EXPORT Editor : public QObject, public ConfigPageInterface
 {
   Q_OBJECT
 
-  public:
+  protected:
     /**
      * Constructor.
      *
@@ -114,10 +114,10 @@ class KTEXTEDITOR_EXPORT Editor : public QObject, public ConfigPageInterface
      * Virtual destructor.
      */
     virtual ~Editor ();
-    
+
+  public:
     /**
-     * Accessor to get the Editor instance of the currently used
-     * KTextEditor component (per default this will be KatePart).
+     * Accessor to get the Editor instance.
      *
      * That Editor instance can be qobject-cast to specific extensions.
      * If the result of the cast is not NULL, that extension is supported.
@@ -126,10 +126,11 @@ class KTEXTEDITOR_EXPORT Editor : public QObject, public ConfigPageInterface
      * You shall not delete it yourself.
      * There is only ONE instance of this per process.
      *
-     * \return Editor controller or NULL, if no editor component could be found
+     * \return Editor controller, after initial construction, will live until QCoreApplication is terminating.
      */
     static Editor *instance ();
     
+  public:
     /**
      * Set the global application object.
      * This will allow the editor component to access

@@ -231,12 +231,6 @@ rpedersen (   1 LOC): 8888404
  mwoehlke (  46 LOC): b00bda6,096e56e 
   yurchor (   1 LOC): ac01197 
 
-ktexteditor/syntax/katesyntaxmanager.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-
-- lgplv2+: jowenn@kde.org mwoehlke
-jowenn@kde.org (   5 LOC): fdc5245 
- mwoehlke (   4 LOC): b00bda6,fd93a04,7bc5a28 
-
 ktexteditor/utils/kateautoindent.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 
 - lgplv2+: cfeck dhdev@gmx.de parker.coates@kdemail.net rpedersen ceruleanblaze@gmail.com zwabel jpetso

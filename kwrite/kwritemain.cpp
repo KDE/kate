@@ -495,14 +495,7 @@ void KWrite::restore()
     return;
 
   KTextEditor::Editor *editor = KTextEditor::Editor::instance();
-
-  if ( !editor )
-  {
-    KMessageBox::error(0, i18n("A KDE text-editor component could not be found.\n"
-                                  "Please check your KDE installation."));
-    // exit immediately (do not use kapp->exit(1))
-    ::exit(1);
-  }
+  Q_ASSERT (editor);
 
   int docs, windows;
   QString buf;

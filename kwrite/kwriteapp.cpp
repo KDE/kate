@@ -42,13 +42,7 @@ KWriteApp::KWriteApp(const QCommandLineParser &args)
   s_self = this;
   
   m_editor = KTextEditor::Editor::instance();
-
-  if ( !m_editor )
-  {
-    KMessageBox::error(0, i18n("A KDE text-editor component could not be found.\n"
-                                  "Please check your KDE installation."));
-    ::exit(1); // ::exit() instead of exit(), that calls QCoreApplication::exit()
-  }
+  Q_ASSERT (m_editor);
 
   // read from global config once
   m_editor->readConfig(KSharedConfig::openConfig().data());

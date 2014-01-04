@@ -828,6 +828,15 @@ void ViModeTest::InsertModeTests() {
   DoTest("   foo", "i\\ctrl-wX\\esc", "X   foo");
   DoTest("   foo", "lli\\ctrl-wX\\esc", "X foo");
 
+  // Testing "Ctrl-u"
+  DoTest("", "i\\ctrl-u", "");
+  DoTest("foobar", "i\\ctrl-u", "foobar");
+  DoTest("foobar", "fbi\\ctrl-u", "bar");
+  DoTest("foobar\nsecond", "ji\\ctrl-u", "foobarsecond");
+  DoTest("foobar\n  second", "jwi\\ctrl-u", "foobar\nsecond");
+  DoTest("foobar\n  second", "jfci\\ctrl-u", "foobar\n  cond");
+  DoTest("foobar\n  second", "j$a\\ctrl-u", "foobar\n  ");
+
   // Testing "Ctrl-e"
   DoTest("foo\nbar", "i\\ctrl-e", "bfoo\nbar");
   DoTest("foo\nbar", "i\\ctrl-e\\ctrl-e\\ctrl-e", "barfoo\nbar");

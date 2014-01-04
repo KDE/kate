@@ -51,14 +51,13 @@
 #include <KIconLoader>
 #include <KConfigGroup>
 
-#include <QPointer>
 #include <QBoxLayout>
 #include <QApplication>
 #include <QClipboard>
 
 Q_LOGGING_CATEGORY(LOG_PART, "katepart")
 
-KateGlobal::KateGlobal ()
+KateGlobal::KateGlobal (QPointer<KateGlobal> &staticInstance)
  : KTextEditor::Editor (0)
  , m_aboutData (QString ("katepart"), QString(), i18n("Kate Part"), QLatin1String (KATE_VERSION),
              i18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
@@ -67,6 +66,9 @@ KateGlobal::KateGlobal ()
  , m_sessionConfig (KSharedConfig::openConfig())
  , m_application (nullptr)
 { 
+  // remember this
+  staticInstance = this;
+  
   // load the kate part translation catalog
   // FIXME: kf5
   // KLocale::global()->insertCatalog("katepart4");
@@ -479,7 +481,7 @@ KateGlobal *KateGlobal::self ()
   /**
    * now create the object and store it
    */
-  staticInstance = new KateGlobal ();
+  new KateGlobal (staticInstance);
   
   /**
    * register cleanup

@@ -32,7 +32,9 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/templateinterface2.h>
+
 #include <QList>
+#include <QPointer>
 
 class KateCmd;
 class KateModeManager;
@@ -112,8 +114,9 @@ class KTEXTEDITOR_EXPORT KateGlobal : public KTextEditor::Editor, public KTextEd
   private:
     /**
      * Default constructor, private, as singleton
+     * @param staticInstance pointer to fill with content of this
      */
-    KateGlobal ();
+    KateGlobal (QPointer<KateGlobal> &staticInstance);
 
   public:
     /**

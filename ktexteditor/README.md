@@ -13,12 +13,6 @@ ktexteditor/dialogs/katedialogs.h;LibraryGPLv2;1;1;4;3;0;Copyright,Copyright,,1,
 - lgplv2+: dhdev@gmx.de stikonas@gmail.com
 stikonas@gmail.com (   3 LOC): 1c226fe 
 
-ktexteditor/document/katebuffer.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-
-- lgplv2+: lungu jowenn@kde.org dhdev@gmx.de
-    lungu (  10 LOC): b4dcff0,e4ab6b0,9406d48,4151628,4a55a68,84ed88c 
-dhdev@gmx.de (   6 LOC): 11297cd,9d02593 
-
 ktexteditor/document/katedocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 
 - lgplv2+: cloose cfeck sstjames sars dhdev@gmx.de djarvie lungu azatkhuzhin gregor@freenet.de vegardoye andreym zwabel haumann@kate-editor.org jowenn@kde.org zealot.hoi@gmail.com gamaral

@@ -73,16 +73,6 @@ jowenn@kde.org (   4 LOC): fdc5245
 michalhumpula (   2 LOC): 44beb7d 
 rpedersen (   2 LOC): 8888404 
 
-ktexteditor/syntax/katesyntaxdocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-
-- lgplv2+: rpedersen
-rpedersen (   1 LOC): 8888404 
-
-ktexteditor/syntax/katesyntaxmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-
-- lgplv2+: jowenn@kde.org
-jowenn@kde.org (   2 LOC): fdc5245 
-
 ktexteditor/utils/kateautoindent.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 
 - lgplv2+: rpedersen cfeck

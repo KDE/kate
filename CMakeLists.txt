@@ -73,11 +73,8 @@ configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 # let our config.h and local ktexteditor stuff be found first in any case
 include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/include ${CMAKE_CURRENT_BINARY_DIR}/ktexteditor/include/KTextEditor)
 
-# ktexteditor interfaces, copy from kdelibs/interfaces/ktexteditor
+# ktexteditor library, including the editor component called KatePart
 ecm_optional_add_subdirectory (ktexteditor)
-
-# kate part
-ecm_optional_add_subdirectory (part)
 
 # kwrite
 ecm_optional_add_subdirectory (kwrite)

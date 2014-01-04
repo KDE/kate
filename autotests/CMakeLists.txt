@@ -5,32 +5,33 @@ endif()
 set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 
 include_directories(
-  ${CMAKE_SOURCE_DIR}/part
-  ${CMAKE_SOURCE_DIR}/part/buffer
-  ${CMAKE_SOURCE_DIR}/part/completion
-  ${CMAKE_SOURCE_DIR}/part/dialogs
-  ${CMAKE_SOURCE_DIR}/part/document
-  ${CMAKE_SOURCE_DIR}/part/script
-  ${CMAKE_SOURCE_DIR}/part/mode
-  ${CMAKE_SOURCE_DIR}/part/render
-  ${CMAKE_SOURCE_DIR}/part/search
-  ${CMAKE_SOURCE_DIR}/part/syntax
-  ${CMAKE_SOURCE_DIR}/part/undo
-  ${CMAKE_SOURCE_DIR}/part/utils
-  ${CMAKE_SOURCE_DIR}/part/vimode
-  ${CMAKE_SOURCE_DIR}/part/view
-  ${CMAKE_BINARY_DIR}/part
+  ${CMAKE_SOURCE_DIR}/ktexteditor
+  ${CMAKE_SOURCE_DIR}/ktexteditor/buffer
+  ${CMAKE_SOURCE_DIR}/ktexteditor/completion
+  ${CMAKE_SOURCE_DIR}/ktexteditor/dialogs
+  ${CMAKE_SOURCE_DIR}/ktexteditor/document
+  ${CMAKE_SOURCE_DIR}/ktexteditor/script
+  ${CMAKE_SOURCE_DIR}/ktexteditor/mode
+  ${CMAKE_SOURCE_DIR}/ktexteditor/render
+  ${CMAKE_SOURCE_DIR}/ktexteditor/search
+  ${CMAKE_SOURCE_DIR}/ktexteditor/syntax
+  ${CMAKE_SOURCE_DIR}/ktexteditor/undo
+  ${CMAKE_SOURCE_DIR}/ktexteditor/utils
+  ${CMAKE_SOURCE_DIR}/ktexteditor/vimode
+  ${CMAKE_SOURCE_DIR}/ktexteditor/view
+  ${CMAKE_BINARY_DIR}/ktexteditor
 )
 
 add_definitions(-DTEST_DATA_DIR="${CMAKE_SOURCE_DIR}/autotests/input/")
-add_definitions(-DJS_DATA_DIR="${CMAKE_SOURCE_DIR}/part/script/data/")
+add_definitions(-DJS_DATA_DIR="${CMAKE_SOURCE_DIR}/ktexteditor/script/data/")
 
-set (KATE_TEST_LINK_LIBS ktexteditor katepartprivate
+set (KATE_TEST_LINK_LIBS ktexteditor
   KF5::I18n
   KF5::KIOFileWidgets
   KF5::IconThemes
   KF5::WindowSystem
-  KF5::GuiAddons)
+  KF5::GuiAddons
+  Qt5::Script)
 
 include(ECMMarkAsTest)
 

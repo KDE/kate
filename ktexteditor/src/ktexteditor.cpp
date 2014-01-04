@@ -46,10 +46,7 @@
 
 #include "modeinterface.h"
 
-#include <KPluginFactory>
-#include <KPluginLoader>
-
-#include <QPointer>
+#include "kateglobal.h"
 
 using namespace KTextEditor;
 
@@ -97,34 +94,9 @@ bool View::insertText (const QString &text )
 Editor *KTextEditor::Editor::instance()
 {
   /**
-   * remember the static instance in a QPointer
+   * Just use internal KateGlobal::self()
    */
-  static bool inited = false;
-  static QPointer<KTextEditor::Editor> staticInstance;
-  
-  /**
-   * just return it, if already inited
-   */
-  if (inited)
-    return staticInstance.data ();
-  
-  /**
-   * start init process
-   */
-  inited = true;
-
-  /**
-   * first: get factory of katepart, else abort
-   */
-  KPluginFactory *factory = KPluginLoader(QLatin1String ("katepart")).factory();
-  if (!factory)
-    return nullptr;
-  
-  /**
-   * now create the object and store it and return
-   */
-  staticInstance = factory->create<KTextEditor::Editor> (QLatin1String ("KTextEditor/Editor"));
-  return staticInstance.data ();
+  return KateGlobal::self ();
 }
 
 ConfigPage::ConfigPage ( QWidget *parent )

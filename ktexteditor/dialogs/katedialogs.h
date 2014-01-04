@@ -43,8 +43,6 @@
 #include <QTabWidget>
 #include <QTreeWidget>
 
-struct syntaxContextData;
-
 class ModeConfigPage;
 class KateDocument;
 class KateView;

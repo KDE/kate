@@ -19,26 +19,16 @@
  */
 
 #include "katesnippets.h"
-#include "katesnippets.moc"
 
-#include <kicon.h>
-#include <kiconloader.h>
-#include <ktexteditor/editor.h>
-
+#include <KIconLoader>
 #include <KToolBar>
+#include <KLocalizedString>
+#include <KPluginFactory>
 
-#include <kurl.h>
-#include <klocalizedstring.h>
-
-#include <kpluginloader.h>
-#include <kaboutdata.h>
-#include <kpluginfactory.h>
-
-K_PLUGIN_FACTORY(KateSnippetsFactory, registerPlugin<KateSnippetsPlugin>();)
-K_EXPORT_PLUGIN(KateSnippetsFactory(KAboutData("katesnippets","katesnippetsplugin",ki18n("Snippets"), "0.1", ki18n("Embedded Snippets"), KAboutData::License_LGPL_V2)) )
+K_PLUGIN_FACTORY_WITH_JSON (KateSnippetsPluginFactory, "katesnippetsplugin.json", registerPlugin<KateSnippetsPlugin>();)
 
 KateSnippetsPlugin::KateSnippetsPlugin( QObject* parent, const QList<QVariant>& ):
-    Kate::Plugin ( (Kate::Application*)parent )
+    KTextEditor::ApplicationPlugin ( parent )
 {
 }
 
@@ -46,19 +36,19 @@ KateSnippetsPlugin::~KateSnippetsPlugin()
 {
 }
 
-Kate::PluginView *KateSnippetsPlugin::createView (Kate::MainWindow *mainWindow)
+QObject *KateSnippetsPlugin::createView (KTextEditor::MainWindow *mainWindow)
 {
   KateSnippetsPluginView *view = new KateSnippetsPluginView (this, mainWindow);
   return view;
 }
 
-KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, Kate::MainWindow *mainWindow)
-    : Kate::PluginView (mainWindow), m_plugin(plugin), m_toolView (0), m_snippets(0)
+KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTextEditor::MainWindow *mainWindow)
+    : QObject (mainWindow), m_plugin(plugin), m_toolView (0), m_snippets(0)
 {
   // use snippets widget provided by editor component, if any
-  if ((m_snippets = Kate::application()->editor()->property("snippetWidget").value<QWidget*>())) {
+  if ((m_snippets = KTextEditor::Editor::instance()->property("snippetWidget").value<QWidget*>())) {
     // Toolview for snippets
-    m_toolView = mainWindow->createToolView (0,"kate_private_plugin_katesnippetsplugin", Kate::MainWindow::Right, SmallIcon("document-new"), i18n("Snippets"));
+    m_toolView = mainWindow->createToolView (0,"kate_private_plugin_katesnippetsplugin", KTextEditor::MainWindow::Right, SmallIcon("document-new"), i18n("Snippets"));
     
     // snippets toolbar
     KToolBar *topToolbar = new KToolBar (m_toolView, "snippetsToolBar");
@@ -82,5 +72,7 @@ KateSnippetsPluginView::~KateSnippetsPluginView ()
   delete m_snippets;
   delete m_toolView;
 }
+
+#include "katesnippets.moc"
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

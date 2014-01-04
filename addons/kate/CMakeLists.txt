@@ -13,6 +13,9 @@ ecm_optional_add_subdirectory (konsole)
 # search in open documents and files
 ecm_optional_add_subdirectory (search)
 
+# snippets
+ecm_optional_add_subdirectory ( snippets )
+
 #if(NOT WIN32)
 #   add_subdirectory( gdbplugin )   # reading /proc/...
 #endif(NOT WIN32)
@@ -37,7 +40,6 @@ ecm_optional_add_subdirectory (search)
 #add_subdirectory( xmltools )
 #add_subdirectory( xmlcheck )
 
-#add_subdirectory( snippets )
 
 #add_subdirectory( tabify )
 

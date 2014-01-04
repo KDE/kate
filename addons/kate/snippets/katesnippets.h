@@ -21,13 +21,14 @@
 #ifndef __KATE_SNIPPETS_H__
 #define __KATE_SNIPPETS_H__
 
-#include <kate/plugin.h>
-#include <kate/mainwindow.h>
-#include <kate/application.h>
+#include <KTextEditor/ApplicationPlugin>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Application>
+#include <KTextEditor/Editor>
 
 class KateSnippetsPluginView;
 
-class KateSnippetsPlugin: public Kate::Plugin
+class KateSnippetsPlugin: public KTextEditor::ApplicationPlugin
 {
     Q_OBJECT
     
@@ -37,13 +38,13 @@ class KateSnippetsPlugin: public Kate::Plugin
     explicit KateSnippetsPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateSnippetsPlugin();
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow);
   
   private:
     QList<KateSnippetsPluginView*> mViews;
 };
 
-class KateSnippetsPluginView : public Kate::PluginView
+class KateSnippetsPluginView : public QObject
 {
     Q_OBJECT
 
@@ -51,7 +52,7 @@ class KateSnippetsPluginView : public Kate::PluginView
     /**
       * Constructor.
       */
-    KateSnippetsPluginView (KateSnippetsPlugin* plugin, Kate::MainWindow *mainWindow);
+    KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
      * Virtual destructor.

@@ -55,6 +55,7 @@ class KTEXTEDITOR_EXPORT KateViInsertMode : public KateViModeBase
     bool commandInsertFromBelow();
 
     bool commandDeleteWord();
+    bool commandDeleteLine();
     bool commandNewLine();
     bool commandDeleteCharBackward();
 

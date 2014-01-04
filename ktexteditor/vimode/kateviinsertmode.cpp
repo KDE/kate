@@ -116,6 +116,32 @@ bool KateViInsertMode::commandDeleteWord()
     return deleteRange( r, CharWise, false );
 }
 
+bool KateViInsertMode::commandDeleteLine()
+{
+    Cursor c(m_view->cursorPosition());
+    KateViRange r(c.line(), 0, c.line(), c.column(), ViMotion::ExclusiveMotion);
+
+    if (c.column() == 0) {
+        // Try to move the current line to the end of the previous line.
+        if (c.line() == 0)
+            return true;
+        else {
+            r.startColumn = doc()->line(c.line() - 1).length();
+            r.startLine--;
+        }
+    } else {
+        /*
+         * Remove backwards until the first non-space character. If no
+         * non-space was found, remove backwards to the first column.
+         */
+        QRegExp nonSpace("\\S");
+        r.startColumn = getLine().indexOf(nonSpace);
+        if (r.startColumn == -1 || r.startColumn >= c.column())
+            r.startColumn = 0;
+    }
+    return deleteRange(r, CharWise, false);
+}
+
 bool KateViInsertMode::commandDeleteCharBackward()
 {
     qCDebug(LOG_PART) << "Char backward!\n";
@@ -416,6 +442,8 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       commandDeleteWord();
       return true;
       break;
+    case Qt::Key_U:
+      return commandDeleteLine();
     case Qt::Key_J:
       commandNewLine();
       return true;

@@ -660,6 +660,21 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 
 }
 
+void KateFileTreeModel::documentsOpened(const QList<KTextEditor::Document*> &docs)
+{
+  beginResetModel();
+
+  foreach(KTextEditor::Document *doc, docs) {
+    if (m_docmap.contains(doc)) {
+      documentNameChanged(doc);
+    } else {
+      documentOpened(doc);
+    }
+  }
+
+  endResetModel();
+}
+
 void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 {
   ProxyItem *item = m_docmap[doc];

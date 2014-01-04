@@ -153,7 +153,21 @@ class KTEXTEDITOR_EXPORT Application : public QObject
        * @param document document that is deleted
        */
       void documentDeleted (KTextEditor::Document *document);
-    
+
+      /**
+       * This signal is emitted before the batch of documents is being created.
+       *
+       * You can use it to pause some updates.
+       */
+      void aboutToCreateDocuments();
+
+      /**
+       * This signal is emitted after the batch of ducuments is created.
+       *
+       * @param documents list of documents that have been created
+       */
+      void documentsCreated(const QList<KTextEditor::Document *> &documents);
+
   //
   // Application plugin accessors
   //

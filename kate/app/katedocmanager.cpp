@@ -193,6 +193,21 @@ bool KateDocManager::isOpen(QUrl url)
   return findDocument (url) != 0;
 }
 
+QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<QUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
+{
+  QList<KTextEditor::Document *> docs;
+
+  emit aboutToCreateDocuments();
+
+  foreach (const QUrl &url, urls) {
+    docs << openUrl(url, encoding, isTempFile, docInfo);
+  }
+
+  emit documentsCreated(docs);
+
+  return docs;
+}
+
 KTextEditor::Document *KateDocManager::openUrl (const QUrl& url, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
 {
   // special handling: if only one unmodified empty buffer in the list,

@@ -78,6 +78,7 @@ class KateFileTreeModel : public QAbstractItemModel
     void documentNameChanged(KTextEditor::Document *);
     void documentModifiedChanged(KTextEditor::Document *);
     void documentModifiedOnDisc(KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
+    void documentsOpened(const QList<KTextEditor::Document *> &);
 
     /* used strictly for the item coloring */
     void documentActivated(KTextEditor::Document*);

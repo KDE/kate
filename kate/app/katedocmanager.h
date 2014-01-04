@@ -102,6 +102,11 @@ class KateDocManager : public QObject
                                    bool isTempFile = false,
                                    const KateDocumentInfo& docInfo = KateDocumentInfo());
 
+    QList<KTextEditor::Document *> openUrls(const QList<QUrl>&,
+                                            const QString &encoding = QString(),
+                                            bool isTempFile = false,
+                                            const KateDocumentInfo& docInfo = KateDocumentInfo());
+
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
     bool closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl = true);
     bool closeDocumentList(QList<KTextEditor::Document*> documents);
@@ -184,6 +189,20 @@ class KateDocManager : public QObject
      *  Use the pointer only to remove mappings in hash or maps
      */
     void documentDeleted (KTextEditor::Document *document);
+
+    /**
+     * This signal is emitted before the batch of documents is being created.
+     *
+     * You can use it to pause some updates.
+     */
+    void aboutToCreateDocuments();
+
+    /**
+     * This signal is emitted after the batch of ducuments is created.
+     *
+     * @param documents list of documents that have been created
+     */
+    void documentsCreated(const QList<KTextEditor::Document *> &documents);
 
   private Q_SLOTS:
     void slotModifiedOnDisc (KTextEditor::Document *doc, bool b, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason);

@@ -271,9 +271,7 @@ void KateViewManager::slotDocumentOpen ()
         return;
     }
 
-    KTextEditor::Document *lastID = 0;
-    foreach ( const QUrl &url, r.URLs )
-      lastID = openUrl( url, r.encoding, false, false, docInfo);
+    KTextEditor::Document *lastID = openUrls(r.URLs, r.encoding, false, docInfo);
 
     if (lastID)
       activateView (lastID);
@@ -322,6 +320,22 @@ KTextEditor::Document *KateViewManager::openUrl (const QUrl &url,
     activateView( doc );
 
   return doc;
+}
+
+KTextEditor::Document *KateViewManager::openUrls (const QList<QUrl> &urls,
+                                                  const QString& encoding,
+                                                  bool isTempFile,
+                                                  const KateDocumentInfo& docInfo)
+{
+  QList<KTextEditor::Document *> docs = KateDocManager::self()->openUrls(urls, encoding, isTempFile, docInfo);
+
+  foreach (const KTextEditor::Document *doc, docs) {
+    if (!doc->url().isEmpty()) {
+      m_mainWindow->fileOpenRecent->addUrl( doc->url() );
+    }
+  }
+
+  return docs.isEmpty() ? 0 : docs.last();
 }
 
 KTextEditor::View *KateViewManager::openUrlWithView (const QUrl &url, const QString& encoding)

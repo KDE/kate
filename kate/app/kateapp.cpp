@@ -73,15 +73,17 @@ KateApp::KateApp(const QCommandLineParser &args)
   connect (m_docManager, SIGNAL(documentCreated(KTextEditor::Document*)), m_wrapper, SIGNAL(documentCreated(KTextEditor::Document*)));
   connect (m_docManager, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)), m_wrapper, SIGNAL(documentWillBeDeleted(KTextEditor::Document*)));
   connect (m_docManager, SIGNAL(documentDeleted(KTextEditor::Document*)), m_wrapper, SIGNAL(documentDeleted(KTextEditor::Document*)));
+  connect (m_docManager, SIGNAL(aboutToCreateDocuments()), m_wrapper, SIGNAL(aboutToCreateDocuments()));
+  connect (m_docManager, SIGNAL(documentsCreated(QList<KTextEditor::Document*>)), m_wrapper, SIGNAL(documentsCreated(QList<KTextEditor::Document*>)));
 }
 
 KateApp::~KateApp ()
-{  
+{
   // unregister...
   m_adaptor->emitExiting ();
   QDBusConnection::sessionBus().unregisterObject( QLatin1String("/MainApplication") );
   delete m_adaptor;
-  
+
   // l8r, app commands
   delete m_appCommands;
 
@@ -192,7 +194,9 @@ bool KateApp::startupKate ()
   bool tempfileSet = m_args.isSet("tempfile");
 
   KTextEditor::Document *doc = 0;
-  KateDocManager::self()->setSuppressOpeningErrorDialogs(true);
+  const QString codec_name = codec ? codec->name() : QString();
+
+  QList<QUrl> urls;
   Q_FOREACH (const QString positionalArgument, m_args.positionalArguments())
   {
     QUrl url;
@@ -208,18 +212,15 @@ bool KateApp::startupKate ()
     // this file is no local dir, open it, else warn
     bool noDir = !url.isLocalFile() || !QFileInfo (url.toLocalFile()).isDir();
 
-    if (noDir)
-    {
-      // open a normal file
-      if (codec)
-        doc = activeKateMainWindow()->viewManager()->openUrl( url, codec->name(), false, tempfileSet);
-      else
-        doc = activeKateMainWindow()->viewManager()->openUrl( url, QString(), false, tempfileSet);
-    }
-    else
+    if (noDir) {
+      urls << url;
+    } else {
       KMessageBox::sorry( activeKateMainWindow(),
                           i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()) );
+    }
   }
+  KateDocManager::self()->setSuppressOpeningErrorDialogs(true);
+  doc = activeKateMainWindow()->viewManager()->openUrls(urls, codec_name, tempfileSet);
   KateDocManager::self()->setSuppressOpeningErrorDialogs(false);
 
   // handle stdin input

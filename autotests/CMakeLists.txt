@@ -38,13 +38,12 @@ include(ECMMarkAsTest)
 # test executable for encoding
 add_executable(kateencodingtest src/kateencodingtest.cpp)
 target_link_libraries(kateencodingtest ${KATE_TEST_LINK_LIBS})
+ecm_mark_as_test(kateencodingtest)
 
 # test macro for encoding tests
 MACRO(KATE_ENCODING_TEST _encoding _testname)
   ADD_TEST (${_testname}_create kateencodingtest ${_encoding} ${CMAKE_SOURCE_DIR}/autotests/input/encoding/${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname} )
-  ecm_mark_as_test(${_testname}_create)
   ADD_TEST (${_testname}_diff ${CMAKE_COMMAND} -E compare_files ${CMAKE_SOURCE_DIR}/autotests/input/encoding/${_testname} ${CMAKE_CURRENT_BINARY_DIR}/${_testname} )
-  ecm_mark_as_test(${_testname}_diff)
 ENDMACRO(KATE_ENCODING_TEST)
 
 # add tests

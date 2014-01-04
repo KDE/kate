@@ -31,8 +31,6 @@
 #include "katetextlayout.h"
 #include "katebuffer.h"
 
-#include <limits.h>
-
 #include "katepartdebug.h"
 
 #include <QPainter>

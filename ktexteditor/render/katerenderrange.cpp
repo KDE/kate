@@ -22,8 +22,6 @@
 
 #include "katerenderrange.h"
 
-#include <limits.h>
-
 #include <KColorUtils>
 
 void mergeAttributes(KTextEditor::Attribute::Ptr base, KTextEditor::Attribute::Ptr add)

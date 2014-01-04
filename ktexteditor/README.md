@@ -66,13 +66,6 @@ ktexteditor/script/katescriptview.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarra
 - lgplv2+: ceruleanblaze@gmail.com
 ceruleanblaze@gmail.com (   2 LOC): 75e0eb5 
 
-ktexteditor/syntax/katehighlight.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-
-- lgplv2+: jowenn@kde.org michalhumpula rpedersen
-jowenn@kde.org (   4 LOC): fdc5245 
-michalhumpula (   2 LOC): 44beb7d 
-rpedersen (   2 LOC): 8888404 
-
 ktexteditor/utils/kateautoindent.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 
 - lgplv2+: rpedersen cfeck

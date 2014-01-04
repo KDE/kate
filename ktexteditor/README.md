@@ -10,25 +10,127 @@ At the moment the following source files still have licensing issues:
 
 ktexteditor/dialogs/katedialogs.h;LibraryGPLv2;1;1;4;3;0;Copyright,Copyright,,1,-1,-1,-1,-1
 
+- lgplv2+: dhdev@gmx.de stikonas@gmail.com
+stikonas@gmail.com (   3 LOC): 1c226fe 
 
 ktexteditor/document/katebuffer.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 
-
+- lgplv2+: lungu jowenn@kde.org dhdev@gmx.de
+    lungu (  10 LOC): b4dcff0,e4ab6b0,9406d48,4151628,4a55a68,84ed88c 
+dhdev@gmx.de (   6 LOC): 11297cd,9d02593 
 
 ktexteditor/document/katedocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: cloose cfeck sstjames sars dhdev@gmx.de djarvie lungu azatkhuzhin gregor@freenet.de vegardoye andreym zwabel haumann@kate-editor.org jowenn@kde.org zealot.hoi@gmail.com gamaral
+   cloose (   1 LOC): c72e8ed 
+ sstjames (   1 LOC): 78d1568 
+     sars (   1 LOC): b558c67 
+dhdev@gmx.de (   5 LOC): 7499f1e,995237a,eb29fdf 
+    lungu (   1 LOC): 4a55a68,84ed88c 
+gregor@freenet.de (   3 LOC): 8dcd416 
+vegardoye (   3 LOC): bfe33fe 
+  andreym (   6 LOC): 7dc070e,18e47aa 
+   zwabel (  30 LOC): fa251e5,e3ffcc3,6fcbd4c 
+haumann@kate-editor.org (   2 LOC): 96f57c1,2e80ba4,1612fde 
+jowenn@kde.org (  18 LOC): 8c42657,8a49c2f,15065f8,e5a6f98,fd8d310 
+
 ktexteditor/render/katerenderer.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: andreym iastrubni vegardoye dhdev@gmx.de djarvie
+  andreym (   2 LOC): 69f4ba8 
+iastrubni (  11 LOC): 4ec4965,e3a3662 
+vegardoye (  17 LOC): c51d01e 
+dhdev@gmx.de (   4 LOC): d32f5c3,dad9836 
+  djarvie (   1 LOC): 210f6d5 
+
 ktexteditor/script/kateindentscript.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
+
+- lgplv2+: rpedersen ceruleanblaze@gmail.com
+rpedersen (   7 LOC): 8888404 
+ceruleanblaze@gmail.com (   3 LOC): 75e0eb5,c82c409 
+
 ktexteditor/script/katescript.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
+
+- lgplv2+: ceruleanblaze@gmail.com rpedersen
+ceruleanblaze@gmail.com (   4 LOC): 75e0eb5,9112a0d,c82c409 
+rpedersen (   4 LOC): 8888404,d786604 
+
 ktexteditor/script/katescriptdocument.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
+
+- lgplv2+: rpedersen haumann@kate-editor.org ceruleanblaze@gmail.com
+rpedersen (  28 LOC): c02c8e1,b998ee4 
+haumann@kate-editor.org (   1 LOC): 2e80ba4 
+ceruleanblaze@gmail.com (  51 LOC): 75e0eb5,9112a0d 
+
 ktexteditor/script/katescriptmanager.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
+
+- lgplv2+: vegardoye ceruleanblaze@gmail.com
+vegardoye (  10 LOC): c79537a 
+
 ktexteditor/script/katescriptview.h;UNKNOWN;0;0;0;5;1;Copyright,UNKNOWN,FSFwarranty,LibraryGPLseeDetailsVer0,LibraryGPLcopyVer0,GPLwrite
+
+- lgplv2+: ceruleanblaze@gmail.com
+ceruleanblaze@gmail.com (   2 LOC): 75e0eb5 
+
 ktexteditor/syntax/katehighlight.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: jowenn@kde.org michalhumpula rpedersen
+jowenn@kde.org (   4 LOC): fdc5245 
+michalhumpula (   2 LOC): 44beb7d 
+rpedersen (   2 LOC): 8888404 
+
 ktexteditor/syntax/katesyntaxdocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: rpedersen
+rpedersen (   1 LOC): 8888404 
+
 ktexteditor/syntax/katesyntaxmanager.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: jowenn@kde.org
+jowenn@kde.org (   2 LOC): fdc5245 
+
 ktexteditor/utils/kateautoindent.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: rpedersen cfeck
+rpedersen (  30 LOC): 8888404 
+    cfeck (   1 LOC): ccb55c8 
+
 ktexteditor/view/kateview.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: jowenn@kde.org djarvie zwabel sstjames vegardoye andreym dhdev@gmx.de kuzmich lungu mssola finex sars
+  djarvie (   1 LOC): 992bc3f 
+   zwabel (  34 LOC): da811dd,b11763d,5bcfe7b,37136e6 
+ sstjames (   6 LOC): e2cf410 
+vegardoye (  37 LOC): 0928cee,57361e2,6d575a3,71106c9 
+  andreym (   3 LOC): 6742733 
+dhdev@gmx.de (   2 LOC): f0aefdd 
+  kuzmich (   7 LOC): 1bb178d,8d4695c 
+    lungu (   2 LOC): d8db37b,fc61a9e,84ed88c 
+   mssola (   5 LOC): b8465cb 
+     sars (  10 LOC): 045bab2,65e8078,b558c67 
+
 ktexteditor/view/kateviewhelpers.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: zealot.hoi@gmail.com jowenn@kde.org vegardoye mssola haumann@kate-editor.org kuzmich sars buis@kde.org brauch mwoehlke lungu divide sstjames dhdev@gmx.de azatkhuzhin
+zealot.hoi@gmail.com (  26 LOC): 4c9d4a9,c296f98,2e6a003 
+jowenn@kde.org (   6 LOC): b7ba4cf,8ba8319 
+vegardoye (  11 LOC): 0928cee,57361e2,5db59fc,84122ba,a068333 
+  kuzmich (   3 LOC): c16ec58,c4ce122 
+     sars (  34 LOC): 3639663,25f49bc,66fd02b,4c7c2de,591e5ec,045bab2,5acaaff,65e8078 
+buis@kde.org (   1 LOC): 52178f2 
+   brauch (   8 LOC): e19fb7b,dfb296e,f2603b2 
+   divide (   2 LOC): e21ffc4 
+dhdev@gmx.de (  12 LOC): 9d72858,4cacf7b 
+
 ktexteditor/view/kateviewinternal.h;LibraryGPLv2;1;1;4;3;0;Copyright,Copyright,,1,-1,-1,-1,-1
+
+- lgplv2+: kuzmich zwabel lungu michalhumpula sars jowenn@kde.org iastrubni vegardoye
+  kuzmich (   7 LOC): 143817a,8d4695c 
+   zwabel (  10 LOC): 1acb06b,d1ec6e5,da811dd,aff61e5,5bcfe7b,0bc2849,e1a0b78 
+    lungu (   1 LOC): 4a55a68,7f4db51 
+     sars (   1 LOC): b558c67 
+iastrubni (   6 LOC): af5bf49 
+vegardoye (  10 LOC): 0928cee,57361e2,71106c9 
 
 ### *.cpp
 

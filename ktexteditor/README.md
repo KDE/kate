@@ -8,11 +8,6 @@ At the moment the following source files still have licensing issues:
 
 ### *.h
 
-ktexteditor/dialogs/katedialogs.h;LibraryGPLv2;1;1;4;3;0;Copyright,Copyright,,1,-1,-1,-1,-1
-
-- lgplv2+: dhdev@gmx.de stikonas@gmail.com
-stikonas@gmail.com (   3 LOC): 1c226fe 
-
 ktexteditor/document/katedocument.h;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 
 - lgplv2+: cloose cfeck sstjames sars dhdev@gmx.de djarvie lungu azatkhuzhin gregor@freenet.de vegardoye andreym zwabel haumann@kate-editor.org jowenn@kde.org zealot.hoi@gmail.com gamaral

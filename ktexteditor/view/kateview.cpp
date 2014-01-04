@@ -1657,14 +1657,19 @@ void KateView::slotSelectionChanged ()
 
 void KateView::switchToCmdLine ()
 {
-  // if the user has selected text, insert the selection's range (start line to end line) in the
-  // command line when opened
-  if (selectionRange().start().line() != -1 && selectionRange().end().line() != -1) {
-    cmdLineBar()->setText(QString::number(selectionRange().start().line()+1)+','
-        +QString::number(selectionRange().end().line()+1));
+  if (viInputMode()) {
+    showViModeEmulatedCommandBar();
+    viModeEmulatedCommandBar()->init(KateViEmulatedCommandBar::Command);
+  } else {
+    // if the user has selected text, insert the selection's range (start line to end line) in the
+    // command line when opened
+    if (selectionRange().start().line() != -1 && selectionRange().end().line() != -1) {
+      cmdLineBar()->setText(QString::number(selectionRange().start().line()+1)+','
+          +QString::number(selectionRange().end().line()+1));
+    }
+    bottomViewBar()->showBarWidget(cmdLineBar());
+    cmdLineBar()->setFocus ();
   }
-  bottomViewBar()->showBarWidget(cmdLineBar());
-  cmdLineBar()->setFocus ();
 }
 
 void KateView::switchToConsole ()

@@ -20,14 +20,6 @@
 */
 
 #include "katebuffer.h"
-#include "katebuffer.moc"
-
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <limits.h>
-
 #include "katedocument.h"
 #include "katehighlight.h"
 #include "kateconfig.h"

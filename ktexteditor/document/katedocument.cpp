@@ -25,7 +25,6 @@
 
 //BEGIN includes
 #include "katedocument.h"
-#include "katedocument.moc"
 #include "kateglobal.h"
 #include "katedialogs.h"
 #include "katehighlight.h"
@@ -53,15 +52,14 @@
 #include "kateswapfile.h"
 #include "katepartdebug.h"
 
-#include <ktexteditor/documentcursor.h>
-#include <ktexteditor/attribute.h>
-#include <ktexteditor/plugin.h>
+#include <KTextEditor/DocumentCursor>
+#include <KTextEditor/Attribute>
+#include <KTextEditor/Plugin>
 
 #include <KIO/Job>
 #include <KIO/JobUiDelegate>
 #include <KFileItem>
-#include <kjobwidgets.h>
-
+#include <KJobWidgets>
 #include <KMessageBox>
 #include <KStandardAction>
 #include <KXMLGUIFactory>

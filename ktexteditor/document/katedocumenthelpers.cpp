@@ -21,7 +21,6 @@
  */
 
 #include "katedocumenthelpers.h"
-#include "katedocumenthelpers.moc"
 
 #include "katedocument.h"
 #include "kateview.h"

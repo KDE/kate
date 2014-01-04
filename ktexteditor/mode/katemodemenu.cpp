@@ -44,8 +44,6 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QToolButton>
-
-#define KATE_FT_HOWMANY 1024
 //END Includes
 
 void KateModeMenu::init()

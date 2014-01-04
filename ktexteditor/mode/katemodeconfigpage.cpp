@@ -43,8 +43,6 @@
 #include <QLayout>
 #include <QPushButton>
 #include <QToolButton>
-
-#define KATE_FT_HOWMANY 1024
 //END Includes
 
 ModeConfigPage::ModeConfigPage( QWidget *parent )

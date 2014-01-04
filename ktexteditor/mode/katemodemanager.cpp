@@ -46,8 +46,6 @@
 #include <QPushButton>
 #include <QToolButton>
 #include <QMimeDatabase>
-
-#define KATE_FT_HOWMANY 1024
 //END Includes
 
 KateModeManager::KateModeManager ()

@@ -113,7 +113,7 @@ void KateProjectIndex::loadCtags (const QStringList &files)
    */
   tagFileInfo info;
   memset (&info, 0, sizeof (tagFileInfo));
-  m_ctagsIndexHandle = tagsOpen (m_ctagsIndexFile.fileName().toLocal8Bit(), &info);
+  m_ctagsIndexHandle = tagsOpen (m_ctagsIndexFile.fileName().toLocal8Bit().constData(), &info);
 }
 
 void KateProjectIndex::findMatches (QStandardItemModel &model, const QString &searchWord, MatchType type)

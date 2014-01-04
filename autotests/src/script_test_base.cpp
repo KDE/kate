@@ -101,7 +101,7 @@ void ScriptTestBase::getTestData(const QString& script)
     if ( !info.isDir() ) {
       continue;
     }
-    QTest::newRow( info.baseName().toLocal8Bit() ) << info.absoluteFilePath();
+    QTest::newRow( info.baseName().toLocal8Bit().constData() ) << info.absoluteFilePath();
   }
 }
 

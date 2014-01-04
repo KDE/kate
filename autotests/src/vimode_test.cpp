@@ -101,7 +101,7 @@ FailsIfSlotCalled::FailsIfSlotCalled(const QString& failureMessage): QObject(), 
 
 void FailsIfSlotCalled::slot()
 {
-  QFAIL(m_failureMessage.toLatin1());
+  QFAIL(m_failureMessage.toLatin1().constData());
 }
 
 FakeCodeCompletionTestModel::FakeCodeCompletionTestModel(KTextEditor::View* parent)
@@ -376,7 +376,7 @@ void ViModeTest::FinishTest_(int line, const QString& expected_text, ViModeTest:
 {
   if (expectation == ShouldFail)
   {
-    if (!QTest::qExpectFail("", failureReason.toLocal8Bit(), QTest::Continue, __FILE__, line)) return;
+    if (!QTest::qExpectFail("", failureReason.toLocal8Bit().constData(), QTest::Continue, __FILE__, line)) return;
     qDebug() << "Actual text:\n\t" << kate_document->text() << "\nShould be (for this test to pass):\n\t" << expected_text;
   }
   if (!QTest::qCompare(kate_document->text(), expected_text, "kate_document->text()", "expected_text", __FILE__, line)) return;

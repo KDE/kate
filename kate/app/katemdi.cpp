@@ -502,22 +502,22 @@ namespace KateMDI
 
           menu->addSection(SmallIcon("view_remove"), i18n("Behavior"));
 
-          menu->addAction(w->persistent ? QIcon::fromTheme("view-restore") : QIcon::fromTheme("view-fullscreen"),
+          menu->addAction(w->persistent ? QIcon::fromTheme(QLatin1String("view-restore")) : QIcon::fromTheme("view-fullscreen"),
                        w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent") ) -> setData(10);
 
           menu->addSection(SmallIcon("move"), i18n("Move To"));
 
           if (position() != 0)
-            menu->addAction(QIcon::fromTheme("go-previous"), i18n("Left Sidebar"))->setData(0);
+            menu->addAction(QIcon::fromTheme(QLatin1String("go-previous")), i18n("Left Sidebar"))->setData(0);
 
           if (position() != 1)
-            menu->addAction(QIcon::fromTheme("go-next"), i18n("Right Sidebar"))->setData(1);
+            menu->addAction(QIcon::fromTheme(QLatin1String("go-next")), i18n("Right Sidebar"))->setData(1);
 
           if (position() != 2)
-            menu->addAction(QIcon::fromTheme("go-up"), i18n("Top Sidebar"))->setData(2);
+            menu->addAction(QIcon::fromTheme(QLatin1String("go-up")), i18n("Top Sidebar"))->setData(2);
 
           if (position() != 3)
-            menu->addAction(QIcon::fromTheme("go-down"), i18n("Bottom Sidebar"))->setData(3);
+            menu->addAction(QIcon::fromTheme(QLatin1String("go-down")), i18n("Bottom Sidebar"))->setData(3);
 
           connect(menu, SIGNAL(triggered(QAction*)),
                   this, SLOT(buttonPopupActivate(QAction*)));

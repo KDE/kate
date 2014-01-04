@@ -93,7 +93,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(slotCancel()));
   buttonBox->addButton(cancelButton, QDialogButtonBox::RejectRole);
 
-  m_openButton = new QPushButton(QIcon::fromTheme("document-open"), i18n("Open Session"));
+  m_openButton = new QPushButton(QIcon::fromTheme(QLatin1String("document-open")), i18n("Open Session"));
   m_openButton->setEnabled(m_sessions->currentIndex().isValid());
   m_openButton->setDefault(true);
   m_openButton->setFocus();
@@ -105,7 +105,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   QAction *a = popup->addAction(i18n("Use selected session as template"));
   connect(a, SIGNAL(triggered()), this, SLOT(slotCopySession()));
 
-  QPushButton *newButton = new QPushButton(QIcon::fromTheme("document-new"), i18n("New Session"));
+  QPushButton *newButton = new QPushButton(QIcon::fromTheme(QLatin1String("document-new")), i18n("New Session"));
   buttonBox->addButton(newButton, QDialogButtonBox::ActionRole);
   connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 

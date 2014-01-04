@@ -215,7 +215,7 @@ int ProxyItem::row()
 QIcon ProxyItem::icon()
 {
   if(m_children.count())
-    return QIcon::fromTheme("folder");
+    return QIcon::fromTheme(QLatin1String("folder"));
 
   return m_icon;
 }

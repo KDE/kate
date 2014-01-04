@@ -620,8 +620,8 @@ void SwapFile::showSwapFileMessage()
                                            KTextEditor::Message::Warning);
   m_swapMessage->setWordWrap(true);
 
-  QAction* diffAction = new QAction(QIcon::fromTheme("split"), i18n("View Changes"), 0);
-  QAction* recoverAction = new QAction(QIcon::fromTheme("edit-redo"), i18n("Recover Data"), 0);
+  QAction* diffAction = new QAction(QIcon::fromTheme(QLatin1String("split")), i18n("View Changes"), 0);
+  QAction* recoverAction = new QAction(QIcon::fromTheme(QLatin1String("edit-redo")), i18n("Recover Data"), 0);
   QAction* discardAction = new QAction(KStandardGuiItem::discard().icon(), i18n("Discard"), 0);
 
   m_swapMessage->addAction(diffAction, false);

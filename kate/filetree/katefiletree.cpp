@@ -51,21 +51,21 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
 
   connect( this, SIGNAL(activated(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));
 
-  m_filelistCloseDocument = new QAction( QIcon::fromTheme("window-close"), i18n( "Close" ), this );
+  m_filelistCloseDocument = new QAction( QIcon::fromTheme(QLatin1String("window-close")), i18n( "Close" ), this );
   connect( m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
-  m_filelistCopyFilename = new QAction( QIcon::fromTheme("edit-copy"), i18n( "Copy Filename" ), this );
+  m_filelistCopyFilename = new QAction( QIcon::fromTheme(QLatin1String("edit-copy")), i18n( "Copy Filename" ), this );
   connect( m_filelistCopyFilename, SIGNAL(triggered()), this, SLOT(slotCopyFilename()) );
   m_filelistCopyFilename->setWhatsThis(i18n("Copy the filename of the file."));
 
   QActionGroup *modeGroup = new QActionGroup(this);
 
-  m_treeModeAction = setupOption(modeGroup, QIcon::fromTheme("view-list-tree"), i18n("Tree Mode"),
+  m_treeModeAction = setupOption(modeGroup, QIcon::fromTheme(QLatin1String("view-list-tree")), i18n("Tree Mode"),
                                  i18n("Set view style to Tree Mode"),
                                  SLOT(slotTreeMode()), true);
 
-  m_listModeAction = setupOption(modeGroup, QIcon::fromTheme("view-list-text"), i18n("List Mode"),
+  m_listModeAction = setupOption(modeGroup, QIcon::fromTheme(QLatin1String("view-list-text")), i18n("List Mode"),
                                  i18n("Set view style to List Mode"),
                                  SLOT(slotListMode()), false);
 

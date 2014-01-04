@@ -977,7 +977,7 @@ QString KateCompletionModel::commonPrefixInternal(const QString &forcePrefix) co
       if(commonPrefix.isNull()) {
         commonPrefix = candidate;
         
-        //Replace QString::null prefix with QString(""), so we won't initialize it again
+        //Replace QString::null prefix with QString(), so we won't initialize it again
         if(commonPrefix.isNull())
           commonPrefix = QString();  // isEmpty() = true, isNull() = false
       }else{

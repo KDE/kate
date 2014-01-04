@@ -122,7 +122,7 @@ QIcon KateFileTreePlugin::configPageIcon (int number) const
   if(number != 0)
     return QIcon();
 
-  return QIcon::fromTheme("view-list-tree");
+  return QIcon::fromTheme(QLatin1String("view-list-tree"));
 }
 
 KTextEditor::ConfigPage *KateFileTreePlugin::configPage (int number, QWidget *parent)
@@ -229,7 +229,7 @@ KateFileTreePluginView::KateFileTreePluginView (KTextEditor::MainWindow *mainWin
 
   QAction *show_active = actionCollection()->addAction("filetree_show_active_document", mainWindow);
   show_active->setText(i18n("&Show Active"));
-  show_active->setIcon(QIcon::fromTheme("folder-sync"));
+  show_active->setIcon(QIcon::fromTheme(QLatin1String("folder-sync")));
   connect( show_active, SIGNAL(triggered(bool)), this, SLOT(showActiveDocument()) );
 
   /**

@@ -60,7 +60,7 @@ QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
 
     QToolButton* button = new QToolButton;
     button->setText(i18n("Help"));
-    button->setIcon(QIcon::fromTheme("help-contents"));
+    button->setIcon(QIcon::fromTheme(QLatin1String("help-contents")));
     button->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     hlayout->addWidget(button);
     layout->addLayout(hlayout);

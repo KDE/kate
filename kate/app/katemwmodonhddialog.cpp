@@ -110,7 +110,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   hb = new QHBoxLayout;
   mainLayout->addLayout(hb);
 
-  QPushButton *btnDiff = new QPushButton(QIcon::fromTheme("document-preview"), i18n("&View Difference"), this);
+  QPushButton *btnDiff = new QPushButton(QIcon::fromTheme(QLatin1String("document-preview")), i18n("&View Difference"), this);
   btnDiff->setWhatsThis(i18n(
                           "Calculates the difference between the editor contents and the disk "
                           "file for the selected document, and shows the difference with the "
@@ -122,7 +122,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   QDialogButtonBox *buttons = new QDialogButtonBox(this);
   mainLayout->addWidget(buttons);
 
-  QPushButton *ignoreButton = new QPushButton(QIcon::fromTheme("dialog-warning"), i18n("&Ignore Changes"));
+  QPushButton *ignoreButton = new QPushButton(QIcon::fromTheme(QLatin1String("dialog-warning")), i18n("&Ignore Changes"));
   ignoreButton->setToolTip(i18n("Remove modified flag from selected documents"));
   buttons->addButton(ignoreButton, QDialogButtonBox::RejectRole);
   connect(ignoreButton, SIGNAL(clicked()), this, SLOT(slotIgnore()));
@@ -133,7 +133,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   connect(overwriteButton, SIGNAL(clicked()), this, SLOT(slotOverwrite()));
 
 
-  QPushButton *reloadButton = new QPushButton(QIcon::fromTheme("view-refresh"), i18n("&Reload"));
+  QPushButton *reloadButton = new QPushButton(QIcon::fromTheme(QLatin1String("view-refresh")), i18n("&Reload"));
   reloadButton->setDefault(true);
   reloadButton->setToolTip(i18n("Reload selected documents from disk"));
   connect(reloadButton, SIGNAL(clicked()), this, SLOT(slotReload()));

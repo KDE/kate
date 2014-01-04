@@ -908,7 +908,7 @@ KateHlItem *KateHighlighting::createKateHlItem(KateSyntaxContextData *data,
     return 0;
 
   // get the (tagname) itemd type
-  QString dataname=KateHlManager::self()->syntax->groupItemData(data,QString(""));
+  QString dataname=KateHlManager::self()->syntax->groupItemData(data,QString());
 
   // code folding region handling:
   QString beginRegionStr=KateHlManager::self()->syntax->groupItemData(data,QString("beginRegion"));
@@ -1296,7 +1296,7 @@ void KateHighlighting::readGlobalKeywordConfig()
   {
     //Default values
     casesensitive=true;
-    weakDeliminator=QString("");
+    weakDeliminator=QString();
   }
 
 #ifdef HIGHLIGHTING_DEBUG
@@ -2001,7 +2001,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
 
         // KateHlIncludeRules : add a pointer to each item in that context
         // TODO add a attrib includeAttrib
-        QString tag = KateHlManager::self()->syntax->groupItemData(data,QString(""));
+        QString tag = KateHlManager::self()->syntax->groupItemData(data,QString());
         if ( tag == "IncludeRules" ) //if the new item is an Include rule, we have to take special care
         {
           QString incCtx = KateHlManager::self()->syntax->groupItemData( data, QString("context"));
@@ -2049,7 +2049,7 @@ int KateHighlighting::addToContextList(const QString &ident, int ctx0)
         }
 // TODO -- can we remove the block below??
 #if 0
-                QString tag = KateHlManager::self()->syntax->groupKateExtendedAttribute(data,QString(""));
+                QString tag = KateHlManager::self()->syntax->groupKateExtendedAttribute(data,QString());
                 if ( tag == "IncludeRules" ) {
                   // attrib context: the index (jowenn, i think using names here
                   // would be a cool feat, goes for mentioning the context in

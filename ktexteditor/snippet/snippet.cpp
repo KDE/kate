@@ -31,7 +31,7 @@
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>")), m_action(0)
 {
-    setIcon(QIcon::fromTheme("text-plain"));
+    setIcon(QIcon::fromTheme(QLatin1String("text-plain")));
 }
 
 Snippet::~Snippet()

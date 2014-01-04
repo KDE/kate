@@ -167,7 +167,7 @@ void KWrite::setupActions()
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
   QAction *a = actionCollection()->addAction( "view_new_view" );
-  a->setIcon( QIcon::fromTheme("window-new") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("window-new")) );
   a->setText( i18n("&New Window") );
   connect( a, SIGNAL(triggered()), this, SLOT(newView()) );
   a->setWhatsThis(i18n("Create another view containing the current document"));
@@ -578,7 +578,7 @@ void KWrite::modifiedChanged()
     bool mod = m_view->document()->isModified();
 
     if (mod && m_modPm.isNull()) {
-        m_modPm = QIcon::fromTheme("document-properties").pixmap(16);
+        m_modPm = QIcon::fromTheme(QLatin1String("document-properties")).pixmap(16);
     }
 
    /* const KateDocumentInfo *info

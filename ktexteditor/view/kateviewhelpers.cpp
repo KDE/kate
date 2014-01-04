@@ -805,7 +805,7 @@ KateCommandLineBar::KateCommandLineBar (KateView *view, QWidget *parent)
 
     QToolButton *helpButton = new QToolButton(this);
     helpButton->setAutoRaise(true);
-    helpButton->setIcon(QIcon::fromTheme("help-contextual"));
+    helpButton->setIcon(QIcon::fromTheme(QLatin1String("help-contextual")));
     topLayout->addWidget(helpButton);
     connect (helpButton,SIGNAL(clicked()),this,SLOT(showHelpPage()));
 
@@ -1258,7 +1258,7 @@ KateIconBorder::KateIconBorder ( KateViewInternal* internalView, QWidget *parent
   setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Minimum );
   setMouseTracking(true);
   m_doc->setMarkDescription( MarkInterface::markType01, i18n("Bookmark") );
-  m_doc->setMarkPixmap( MarkInterface::markType01, QIcon::fromTheme("bookmarks").pixmap(16, 16) );
+  m_doc->setMarkPixmap( MarkInterface::markType01, QIcon::fromTheme(QLatin1String("bookmarks")).pixmap(16, 16) );
 
   updateFont();
 
@@ -2144,7 +2144,7 @@ void KateIconBorder::showAnnotationMenu( int line, const QPoint& pos)
 {
   QMenu menu;
   QAction a(i18n("Disable Annotation Bar"), &menu);
-  a.setIcon(QIcon::fromTheme("dialog-close"));
+  a.setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
   menu.addAction(&a);
   emit m_view->annotationContextMenuAboutToShow( m_view, &menu, line  );
   if (menu.exec(pos) == &a)
@@ -2378,7 +2378,7 @@ KateViewBarWidget::KateViewBarWidget (bool addCloseButton, QWidget *parent)
   if (addCloseButton) {
     QToolButton *hideButton = new QToolButton(this);
     hideButton->setAutoRaise(true);
-    hideButton->setIcon(QIcon::fromTheme("dialog-close"));
+    hideButton->setIcon(QIcon::fromTheme(QLatin1String("dialog-close")));
     connect(hideButton, SIGNAL(clicked()), SIGNAL(hideMe()));
     layout->addWidget(hideButton);
     layout->setAlignment( hideButton, Qt::AlignLeft|Qt::AlignTop );

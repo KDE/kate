@@ -434,7 +434,7 @@ void KateView::setupActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(userInvokedCompletion()));
 
     a = ac->addAction( "tools_create_snippet" );
-    a->setIcon (QIcon::fromTheme("document-new"));
+    a->setIcon (QIcon::fromTheme(QLatin1String("document-new")));
     a->setText( i18n("Create Snippet") );
     connect(a, SIGNAL(triggered(bool)), SLOT(createSnippet()));
 
@@ -458,7 +458,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Show print preview of current document"));
 
   a = ac->addAction( "file_reload" );
-  a->setIcon(QIcon::fromTheme("view-refresh"));
+  a->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
   a->setText(i18n("Reloa&d"));
   a->setShortcuts(KStandardShortcut::reload());
   a->setWhatsThis(i18n("Reload the current document from disk."));
@@ -468,7 +468,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
 
   a = ac->addAction("file_save_copy_as");
-  a->setIcon(QIcon::fromTheme("document-save-as"));
+  a->setIcon(QIcon::fromTheme(QLatin1String("document-save-as")));
   a->setText(i18n("Save &Copy As..."));
   a->setWhatsThis(i18n("Save a copy of the current document to disk."));
   connect(a, SIGNAL(triggered(bool)), m_doc, SLOT(documentSaveCopyAs()));
@@ -506,14 +506,14 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
   a = ac->addAction("view_inc_font_sizes");
-  a->setIcon(QIcon::fromTheme("zoom-in"));
+  a->setIcon(QIcon::fromTheme(QLatin1String("zoom-in")));
   a->setText(i18n("Enlarge Font"));
   a->setShortcuts(KStandardShortcut::zoomIn());
   a->setWhatsThis(i18n("This increases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotIncFontSizes()));
 
   a = ac->addAction("view_dec_font_sizes");
-  a->setIcon(QIcon::fromTheme("zoom-out"));
+  a->setIcon(QIcon::fromTheme(QLatin1String("zoom-out")));
   a->setText(i18n("Shrink Font"));
   a->setShortcuts(KStandardShortcut::zoomOut());
   a->setWhatsThis(i18n("This decreases the display font size."));
@@ -985,7 +985,7 @@ void KateView::setupEditActions()
     m_editActions << a;
 
     a = ac->addAction("tools_indent");
-    a->setIcon(QIcon::fromTheme("format-indent-more"));
+    a->setIcon(QIcon::fromTheme(QLatin1String("format-indent-more")));
     a->setText(i18n("&Indent"));
     a->setWhatsThis(i18n("Use this to indent a selected block of text.<br /><br />"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
@@ -993,7 +993,7 @@ void KateView::setupEditActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
 
     a = ac->addAction("tools_unindent");
-    a->setIcon(QIcon::fromTheme("format-indent-less"));
+    a->setIcon(QIcon::fromTheme(QLatin1String("format-indent-less")));
     a->setText(i18n("&Unindent"));
     a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_I));

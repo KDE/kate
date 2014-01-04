@@ -276,7 +276,7 @@ void KateMainWindow::setupActions()
   fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
   a = actionCollection()->addAction( "file_save_all" );
-  a->setIcon( QIcon::fromTheme("document-save-all") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("document-save-all")) );
   a->setText( i18n("Save A&ll") );
   a->setShortcut( QKeySequence(Qt::CTRL + Qt::Key_L) );
   connect( a, SIGNAL(triggered()), KateDocManager::self(), SLOT(saveAll()) );
@@ -311,13 +311,13 @@ void KateMainWindow::setupActions()
   a->setWhatsThis(i18n("Close this window"));
 
   a = actionCollection()->addAction( "view_new_view" );
-  a->setIcon( QIcon::fromTheme("window-new") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("window-new")) );
   a->setText( i18n("&New Window") );
   connect( a, SIGNAL(triggered()), this, SLOT(newWindow()) );
   a->setWhatsThis(i18n("Create a new Kate view (a new window with the same document list)."));
 
   a = actionCollection()->addAction( "view_quick_open" );
-  a->setIcon( QIcon::fromTheme("fork") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("fork")) );
   a->setText( i18n("&Quick Open") );
   QList<QKeySequence> scuts;
   scuts << QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_O)
@@ -374,25 +374,25 @@ void KateMainWindow::setupActions()
 
   // session actions
   a = actionCollection()->addAction( "sessions_new" );
-  a->setIcon( QIcon::fromTheme("document-new") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("document-new")) );
   a->setText( i18nc("Menu entry Session->New", "&New") );
   // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
   connect( a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionNew()), Qt::QueuedConnection );
   a = actionCollection()->addAction( "sessions_open" );
-  a->setIcon( QIcon::fromTheme("document-open") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("document-open")) );
   a->setText( i18n("&Open Session") );
   // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
   connect( a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionOpen()), Qt::QueuedConnection );
   a = actionCollection()->addAction( "sessions_save" );
-  a->setIcon( QIcon::fromTheme("document-save") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("document-save")) );
   a->setText( i18n("&Save Session") );
   connect( a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionSave()) );
   a = actionCollection()->addAction( "sessions_save_as" );
-  a->setIcon( QIcon::fromTheme("document-save-as") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("document-save-as")) );
   a->setText( i18n("Save Session &As...") );
   connect( a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionSaveAs()) );
   a = actionCollection()->addAction( "sessions_manage" );
-  a->setIcon( QIcon::fromTheme("view-choose") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("view-choose")) );
   a->setText( i18n("&Manage Sessions...") );
   // Qt::QueuedConnection to avoid deletion of code that is executed when reducing the amount of mainwindows. (bug #227008)
   connect( a, SIGNAL(triggered()), KateSessionManager::self(), SLOT(sessionManage()), Qt::QueuedConnection );

@@ -450,25 +450,25 @@ QIcon KateGlobal::configPageIcon (int number) const
   switch( number )
   {
     case 0:
-      return QIcon::fromTheme("preferences-desktop-theme");
+      return QIcon::fromTheme(QLatin1String("preferences-desktop-theme"));
 
     case 1:
-      return QIcon::fromTheme("preferences-desktop-color");
+      return QIcon::fromTheme(QLatin1String("preferences-desktop-color"));
 
     case 2:
-      return QIcon::fromTheme("accessories-text-editor");
+      return QIcon::fromTheme(QLatin1String("accessories-text-editor"));
 
     case 3:
-      return QIcon::fromTheme("document-save");
+      return QIcon::fromTheme(QLatin1String("document-save"));
 
     case 4:
-      return QIcon::fromTheme("preferences-plugin");
+      return QIcon::fromTheme(QLatin1String("preferences-plugin"));
 
     default:
-      return QIcon::fromTheme("document-properties");
+      return QIcon::fromTheme(QLatin1String("document-properties"));
   }
 
-  return QIcon::fromTheme("document-properties");
+  return QIcon::fromTheme(QLatin1String("document-properties"));
 }
 
 /**

@@ -329,10 +329,10 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
 #endif
 
   installEventFilter( this );
-  m_modPm = QIcon::fromTheme("document-save").pixmap(16);
-  m_modDiscPm = QIcon::fromTheme("dialog-warning").pixmap(16);
-  QIcon icon = KIconUtils::addOverlay(QIcon::fromTheme("document-save"),
-                                      QIcon::fromTheme("emblem-important"),
+  m_modPm = QIcon::fromTheme(QLatin1String("document-save")).pixmap(16);
+  m_modDiscPm = QIcon::fromTheme(QLatin1String("dialog-warning")).pixmap(16);
+  QIcon icon = KIconUtils::addOverlay(QIcon::fromTheme(QLatin1String("document-save")),
+                                      QIcon::fromTheme(QLatin1String("emblem-important")),
                                       Qt::TopLeftCorner);
   m_modmodPm = icon.pixmap(16);
 }

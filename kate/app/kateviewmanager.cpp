@@ -116,7 +116,7 @@ void KateViewManager::setupActions ()
    * view splitting
    */
   a = m_mainWindow->actionCollection()->addAction("view_split_vert");
-  a->setIcon( QIcon::fromTheme("view-split-left-right") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("view-split-left-right")) );
   a->setText( i18n("Split Ve&rtical") );
   a->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_L );
   connect(a, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceVert()));
@@ -124,7 +124,7 @@ void KateViewManager::setupActions ()
   a->setWhatsThis(i18n("Split the currently active view vertically into two views."));
 
   a = m_mainWindow->actionCollection()->addAction("view_split_horiz");
-  a->setIcon( QIcon::fromTheme("view-split-top-bottom") );
+  a->setIcon( QIcon::fromTheme(QLatin1String("view-split-top-bottom")) );
   a->setText( i18n("Split &Horizontal") );
   a->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_T );
   connect(a, SIGNAL(triggered()), this, SLOT(slotSplitViewSpaceHoriz()));
@@ -132,7 +132,7 @@ void KateViewManager::setupActions ()
   a->setWhatsThis(i18n("Split the currently active view horizontally into two views."));
 
   m_closeView = m_mainWindow->actionCollection()->addAction("view_close_current_space");
-  m_closeView->setIcon( QIcon::fromTheme("view-close") );
+  m_closeView->setIcon( QIcon::fromTheme(QLatin1String("view-close")) );
   m_closeView->setText( i18n("Cl&ose Current View") );
   m_closeView->setShortcut( Qt::CTRL + Qt::SHIFT + Qt::Key_R );
   connect(m_closeView, SIGNAL(triggered()), this, SLOT(slotCloseCurrentViewSpace()));
@@ -140,7 +140,7 @@ void KateViewManager::setupActions ()
   m_closeView->setWhatsThis(i18n("Close the currently active split view"));
 
   m_closeOtherViews = m_mainWindow->actionCollection()->addAction("view_close_others");
-  m_closeOtherViews->setIcon(QIcon::fromTheme("view-close"));
+  m_closeOtherViews->setIcon(QIcon::fromTheme(QLatin1String("view-close")));
   m_closeOtherViews->setText(i18n("Close Inactive Views"));
   connect(m_closeOtherViews, SIGNAL(triggered()), this, SLOT(slotCloseOtherViews()));
 

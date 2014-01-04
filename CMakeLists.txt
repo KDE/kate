@@ -52,7 +52,6 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
   Sonnet
   WindowSystem
   XmlGui
-  KDE4Support # TODO: waiting for Title case include files
 )
 
 # use sane compile flags

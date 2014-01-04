@@ -231,13 +231,6 @@ rpedersen (   1 LOC): 8888404
  mwoehlke (  46 LOC): b00bda6,096e56e 
   yurchor (   1 LOC): ac01197 
 
-ktexteditor/syntax/katesyntaxdocument.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
-
-- lgplv2+: staniek iastrubni tsdgeos@terra.es rpedersen jtamate
-  staniek (   6 LOC): 77f91ac 
-tsdgeos@terra.es (   3 LOC): 605fb10,69ff427 
-rpedersen (   3 LOC): 8888404 
-
 ktexteditor/syntax/katesyntaxmanager.cpp;LibraryGPLv2;1;1;4;2;0;Copyright,,1,-1,-1,-1,-1
 
 - lgplv2+: jowenn@kde.org mwoehlke

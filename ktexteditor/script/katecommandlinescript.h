@@ -24,7 +24,7 @@
 #include "katescript.h"
 #include "kateview.h"
 
-#include <ktexteditor/commandinterface.h>
+#include <KTextEditor/CommandInterface>
 
 class KateCommandLineScriptHeader
 {

@@ -24,10 +24,10 @@
 #include "katedocument.h"
 #include "kateglobal.h"
 #include "kateviewhelpers.h"
-#include "kactioncollection.h"
 #include "katepartdebug.h"
 
 #include <KXMLGUIFactory>
+#include <KActionCollection>
 
 //BEGIN KateScriptAction
 KateScriptAction::KateScriptAction(const ScriptActionInfo& info, KateView* view)

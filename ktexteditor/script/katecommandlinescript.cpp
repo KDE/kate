@@ -24,11 +24,11 @@
 #include <QScriptEngine>
 
 #include <KLocalizedString>
+#include <KShell>
 
 #include "katedocument.h"
 #include "kateview.h"
 #include "katecmd.h"
-#include "kshell.h"
 #include "katepartdebug.h"
 
 KateCommandLineScript::KateCommandLineScript(const QString &url, const KateCommandLineScriptHeader &header)

@@ -788,7 +788,7 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
         doc = m_replacer.findNamed(fName);
     }
     else {
-        doc = m_kateApp->findUrl(url);
+        doc = m_kateApp->findUrl(QUrl(url));
     }
     addMatchMark(doc, line, column, matchLen);
 }
@@ -1345,7 +1345,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     KTextEditor::Document* doc;
     QString url = item->data(0, ReplaceMatches::FileUrlRole).toString();
     if (!url.isEmpty()) {
-        doc = m_kateApp->findUrl(url);
+        doc = m_kateApp->findUrl(QUrl(url));
     }
     else {
         doc = m_replacer.findNamed(item->data(0, ReplaceMatches::FileNameRole).toString());
@@ -1353,7 +1353,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 
     // add the marks to the document if it is not already open
     if (!doc) {
-        doc = m_kateApp->openUrl(url);
+        doc = m_kateApp->openUrl(QUrl(url));
         if (doc) {
             int line;
             int column;

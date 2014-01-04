@@ -1111,7 +1111,7 @@ void KateSaveConfigTab::reload()
   uiadv->edtBackupPrefix->setText( KateDocumentConfig::global()->backupPrefix() );
   uiadv->edtBackupSuffix->setText( KateDocumentConfig::global()->backupSuffix() );
   uiadv->cmbSwapFileMode->setCurrentIndex( KateDocumentConfig::global()->swapFileModeRaw() );
-  uiadv->kurlSwapDirectory->setUrl( KateDocumentConfig::global()->swapDirectory() );
+  uiadv->kurlSwapDirectory->setUrl( QUrl::fromLocalFile(KateDocumentConfig::global()->swapDirectory()) );
   uiadv->spbSwapFileSync->setValue( KateDocumentConfig::global()->swapSyncInterval() );
   swapFileModeChanged( KateDocumentConfig::global()->swapFileMode() );
 }
@@ -1364,7 +1364,7 @@ void KateHlDownloadDialog::slotInstall()
     if (filename.isEmpty())
       filename = src.path().replace(QLatin1Char('/'), QLatin1Char('_'));
 
-    QString dest = destdir + filename;
+    QUrl dest = QUrl::fromLocalFile(destdir + filename);
 
     KIO::FileCopyJob *job = KIO::file_copy(src, dest);
     KJobWidgets::setWindow(job, this);

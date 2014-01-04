@@ -107,9 +107,9 @@ void ReplaceMatches::doReplaceNextMatch()
         doc = findNamed(rootItem->data(0, FileNameRole).toString());
     }
     else {
-        doc = m_manager->findUrl(docUrl);
+        doc = m_manager->findUrl(QUrl(docUrl));
         if (!doc) {
-            doc = m_manager->openUrl(rootItem->data(0, FileUrlRole).toString());
+            doc = m_manager->openUrl(QUrl(rootItem->data(0, FileUrlRole).toString()));
         }
     }
 

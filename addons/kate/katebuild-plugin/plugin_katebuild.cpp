@@ -45,12 +45,11 @@
 #include <QDir>
 
 
-#include <kaction.h>
+#include <QAction>
 #include <kactioncollection.h>
 #include <kcursor.h>
-#include <kdebug.h>
 #include <kcomponentdata.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <kpassivepopup.h>
@@ -487,7 +486,7 @@ KUrl KateBuildView::docUrl()
 {
     KTextEditor::View *kv = mainWindow()->activeView();
     if (!kv) {
-        kDebug() << "no KTextEditor::View" << endl;
+        qDebug() << "no KTextEditor::View" << endl;
         return KUrl();
     }
 
@@ -749,13 +748,13 @@ void KateBuildView::slotReadReadyStdOut()
         tmp = m_output_lines.mid(0, end);
         tmp.remove('\n');
         m_buildUi.plainTextEdit->appendPlainText(tmp);
-        //kDebug() << tmp;
+        //qDebug() << tmp;
         if (tmp.indexOf(m_newDirDetector) >=0) {
-            //kDebug() << "Enter/Exit dir found";
+            //qDebug() << "Enter/Exit dir found";
             int open = tmp.indexOf("`");
             int close = tmp.indexOf("'");
             KUrl newDir = KUrl(tmp.mid(open+1, close-open-1));
-            kDebug () << "New dir = " << newDir;
+            qDebug () << "New dir = " << newDir;
 
             if ((m_make_dir_stack.size() > 1) && (m_make_dir_stack.top() == newDir)) {
                 m_make_dir_stack.pop();
@@ -807,13 +806,13 @@ void KateBuildView::slotReadReadyStdErr()
 void KateBuildView::processLine(const QString &line)
 {
     QString l = line;
-    //kDebug() << l ;
+    //qDebug() << l ;
 
     //look for a filename
     if (l.indexOf(m_filenameDetector)<0)
     {
         addError(QString(), 0, QString(), l);
-        //kDebug() << "A filename was not found in the line ";
+        //qDebug() << "A filename was not found in the line ";
         return;
     }
 
@@ -827,7 +826,7 @@ void KateBuildView::processLine(const QString &line)
     QString line_n = file_n_line.mid(name_end+1);
     QString msg = l.remove(m_filenameDetector);
 
-    //kDebug() << "File Name:"<<filename<< " msg:"<< msg;
+    //qDebug() << "File Name:"<<filename<< " msg:"<< msg;
     //add path to file
     if (QFile::exists(m_make_dir.toLocalFile(KUrl::AddTrailingSlash)+filename)) {
         filename = m_make_dir.toLocalFile(KUrl::AddTrailingSlash)+filename;
@@ -1038,7 +1037,7 @@ void KateBuildView::slotDeleteTargetClicked()
 void KateBuildView::targetSelected(int index)
 {
     if (index >= m_targetList.size() || (index < 0)) {
-        kDebug() << "Invalid target";
+        qDebug() << "Invalid target";
         return;
     }
 

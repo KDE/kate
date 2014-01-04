@@ -151,7 +151,7 @@ class ColorChooser(QFrame):
     def color_selected(self, row, column):
         '''Smth has selected in KColorCells'''
         color = self.colors.item(row, column).data(Qt.BackgroundRole)
-        #kate.kDebug('ColorUtils: activated row={}, column={}, color={}'.format(row, column, color))
+        #kate.qDebug('ColorUtils: activated row={}, column={}, color={}'.format(row, column, color))
         self.emitSelectedColorHideSelf(color)
 
 
@@ -211,7 +211,7 @@ def _collect_colors(document):
             color = QColor(color_str)
             if color.isValid() and color not in result:
                 result.append(color)
-                kate.kDebug('ColorUtils: scan for #colors found {}'.format(color_str))
+                kate.qDebug('ColorUtils: scan for #colors found {}'.format(color_str))
             start = end
     return result
 
@@ -252,7 +252,7 @@ def insertColor():
 @pyqtSlot(QColor)
 def _insertColorIntoActiveDocument(color):
     color_str = color.name()                                # Get it as color string
-    #kate.kDebug('ColorUtils: selected color: {}'.format(color_str))
+    #kate.qDebug('ColorUtils: selected color: {}'.format(color_str))
     document = kate.activeDocument()
     view = kate.activeView()
     cursor = view.cursorPosition()
@@ -397,7 +397,7 @@ class PaletteView(QObject):
                 color = QColor(color_str)
                 if color.isValid():
                     self.colors.append(ColorRangePair(color, color_range))
-                    kate.kDebug('ColorUtilsToolView: scan for #colors found {}'.format(color_str))
+                    kate.qDebug('ColorUtilsToolView: scan for #colors found {}'.format(color_str))
                 start = end
 
     def updateColorCells(self):

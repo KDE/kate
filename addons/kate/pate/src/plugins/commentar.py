@@ -808,7 +808,7 @@ def toggleDocTypeSeisitiveActions():
     if view is None:
         return
     doc_type = view.document().highlightingMode()
-    kate.kDebug('toggleDocTypeSeisitiveActions: doc_type={}'.format(doc_type))
+    kate.qDebug('toggleDocTypeSeisitiveActions: doc_type={}'.format(doc_type))
     clnt = kate.getXmlGuiClient()
 
     if doc_type in ['C++', 'C++11', 'C++11/Qt4', 'C']:

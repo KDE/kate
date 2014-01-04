@@ -43,11 +43,10 @@
 #include <QHeaderView>
 
 #include <kdefakes.h> // for setenv
-#include <kaction.h>
+#include <QAction>
 #include <kcursor.h>
-#include <kdebug.h>
 #include <kcomponentdata.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
@@ -107,7 +106,7 @@ PluginKateXMLCheckView::PluginKateXMLCheckView(Kate::MainWindow *mainwin)
 /* TODO?: invalidate the listview when document has changed
    Kate::View *kv = application()->activeMainWindow()->activeView();
    if( ! kv ) {
-   kDebug() << "Warning: no Kate::View";
+   qDebug() << "Warning: no Kate::View";
    return;
    }
    connect(kv, SIGNAL(modifiedChanged()), this, SLOT(slotUpdate()));
@@ -146,7 +145,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
         return;
     }
 
-    kDebug() << "slotProcExited()";
+    qDebug() << "slotProcExited()";
     QApplication::restoreOverrideCursor();
     delete m_tmp_file;
     QString proc_stderr = QString::fromLocal8Bit(m_proc->readAllStandardError());
@@ -225,7 +224,7 @@ void PluginKateXMLCheckView::slotProcExited(int exitCode, QProcess::ExitStatus e
 void PluginKateXMLCheckView::slotClicked(QTreeWidgetItem *item, int column)
 {
 	Q_UNUSED(column);
-	kDebug() << "slotClicked";
+	qDebug() << "slotClicked";
 	if( item ) {
 		bool ok = true;
 		uint line = item->text(1).toUInt(&ok);
@@ -244,13 +243,13 @@ void PluginKateXMLCheckView::slotClicked(QTreeWidgetItem *item, int column)
 
 void PluginKateXMLCheckView::slotUpdate()
 {
-	kDebug() << "slotUpdate() (not implemented yet)";
+	qDebug() << "slotUpdate() (not implemented yet)";
 }
 
 
 bool PluginKateXMLCheckView::slotValidate()
 {
-	kDebug() << "slotValidate()";
+	qDebug() << "slotValidate()";
 
 	win->showToolView (dock);
 
@@ -264,7 +263,7 @@ bool PluginKateXMLCheckView::slotValidate()
         delete m_tmp_file;
 	m_tmp_file = new KTemporaryFile();
 	if( !m_tmp_file->open() ) {
-		kDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();
+		qDebug() << "Error (slotValidate()): could not create '" << m_tmp_file->fileName() << "': " << m_tmp_file->errorString();
 		KMessageBox::error(0, i18n("<b>Error:</b> Could not create "
 			"temporary file '%1'.", m_tmp_file->fileName()));
 		delete m_tmp_file;
@@ -285,17 +284,17 @@ bool PluginKateXMLCheckView::slotValidate()
 		KComponentData ins("katexmlcheckplugin");
 		QString catalogs;
 		catalogs += ins.dirs()->findResource("data", "ksgmltools2/customization/catalog.xml");
-		kDebug() << "catalogs: " << catalogs;
+		qDebug() << "catalogs: " << catalogs;
 		setenv("XML_CATALOG_FILES", QFile::encodeName( catalogs ).data(), 1);
 	}
-	//kDebug() << "**catalogs: " << getenv("XML_CATALOG_FILES");
+	//qDebug() << "**catalogs: " << getenv("XML_CATALOG_FILES");
 
 	*m_proc << exe << "--noout";
 
 	// tell xmllint the working path of the document's file, if possible.
 	// otherweise it will not find relative DTDs
 	QString path = kv->document()->url().directory();
-	kDebug() << path;
+	qDebug() << path;
 	if (!path.isEmpty()) {
 		*m_proc << "--path" << path;
 	}

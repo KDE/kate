@@ -26,7 +26,7 @@
 #include <ktexteditor/application.h>
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
-#include <kaction.h>
+#include <QAction>
 
 #include <QTreeWidget>
 #include <QTimer>

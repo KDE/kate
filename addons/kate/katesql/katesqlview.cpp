@@ -35,10 +35,9 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
-#include <kaction.h>
+#include <QAction>
 #include <kactioncollection.h>
-#include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 #include <kcombobox.h>

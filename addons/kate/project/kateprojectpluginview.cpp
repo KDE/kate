@@ -26,7 +26,6 @@
 #include <ktexteditor/document.h>
 #include <ktexteditor/codecompletioninterface.h>
 
-#include <kaction.h>
 #include <kactioncollection.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
@@ -35,6 +34,7 @@
 #include <KXMLGUIFactory>
 #include <KIconLoader>
 
+#include <QAction>
 #include <QDialog>
 #include <QHBoxLayout>
 #include <QVBoxLayout>

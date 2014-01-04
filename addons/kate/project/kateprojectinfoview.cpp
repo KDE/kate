@@ -25,7 +25,7 @@
 #include "kateprojectinfoviewcodeanalysis.h"
 #include "kateprojectinfoviewnotes.h"
 
-#include "klocale.h"
+#include "klocalizedstring.h"
 
 KateProjectInfoView::KateProjectInfoView (KateProjectPluginView *pluginView, KateProject *project)
   : QTabWidget ()

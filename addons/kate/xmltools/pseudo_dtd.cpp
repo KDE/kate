@@ -27,7 +27,7 @@
 #include <qdom.h>
 #include <qregexp.h>
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 
 PseudoDTD::PseudoDTD()
@@ -453,7 +453,7 @@ QStringList PseudoDTD::entities( QString start )
       uint ch = re.cap( 1).toUInt();
       str += " -- " + QChar( ch).decomposition();
     }
-    //kDebug() << "#" << it.data();
+    //qDebug() << "#" << it.data();
     }
    */
       entities.append( str );

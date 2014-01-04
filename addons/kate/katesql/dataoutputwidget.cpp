@@ -30,11 +30,10 @@
 #include <kapplication.h>
 #include <ktoolbar.h>
 #include <ktoggleaction.h>
-#include <kaction.h>
+#include <QAction>
 #include <kicon.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kdebug.h>
 
 #include <qheaderview.h>
 #include <qlayout.h>
@@ -375,5 +374,5 @@ void DataOutputWidget::exportData(QTextStream &stream,
     stream << "\n";
   }
 
-  kDebug() << "Export in" << t.elapsed() << "msecs";
+  qDebug() << "Export in" << t.elapsed() << "msecs";
 }

@@ -21,7 +21,7 @@
 #include "kateprojectinfoviewterminal.h"
 #include "kateprojectpluginview.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kde_terminal_interface.h>
 #include <kservice.h>
 

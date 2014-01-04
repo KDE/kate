@@ -131,7 +131,7 @@ void CloseConfirmDialog::updateDocsList()
     {
         KateDocItem* item = static_cast<KateDocItem*>(*it);
         m_docs.removeAll(item->document);
-        kDebug() << "do not close the file " << item->document->url().prettyUrl();
+        qDebug() << "do not close the file " << item->document->url().prettyUrl();
     }
 }
 

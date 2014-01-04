@@ -160,8 +160,8 @@ def cl(*args, **kw):
     ''' NOTE Class name can be given as a named parameter. If no named parameter present,
         first 'unknown' parameter will be used as class name.
     '''
-    kate.kDebug('@class renderer: arguments: {}'.format(repr(args)))
-    kate.kDebug('@class renderer: named arguments: {}'.format(repr(kw)))
+    kate.qDebug('@class renderer: arguments: {}'.format(repr(args)))
+    kate.qDebug('@class renderer: named arguments: {}'.format(repr(kw)))
 
     data = {}
     data['entity_type'] = 'class'
@@ -187,7 +187,7 @@ def cl(*args, **kw):
             if fn_val in _CL_SHORTCUT_MAPPINGS:
                 data[_CL_SHORTCUT_MAPPINGS[fn_val]] = fn_kind
             else:
-                kate.kDebug('Ignore invalid param: {}'.format(arg))
+                kate.qDebug('Ignore invalid param: {}'.format(arg))
         elif arg in _CL_SHORTCUT_MAPPINGS:
             data[_CL_SHORTCUT_MAPPINGS[arg]] = True
         elif 1 < len(arg) and arg[0] == 'c':                # get default ctor arity
@@ -198,7 +198,7 @@ def cl(*args, **kw):
                 elif arity == 0:
                     data['default_ctor'] = True
             except:
-                kate.kDebug('Ignore invalid param: {}'.format(arg))
+                kate.qDebug('Ignore invalid param: {}'.format(arg))
         elif arg == 't':                                    # 't' == class is a template, next params are names
             data['template'] = True
             template_mode = True
@@ -207,7 +207,7 @@ def cl(*args, **kw):
             # (if latter was not provided via named parameters)
             data['entity_name'] = arg
         else:
-            kate.kDebug('Ignore invalid param: {}'.format(arg))
+            kate.qDebug('Ignore invalid param: {}'.format(arg))
 
     if template_params:
         data['template_params'] = template_params
@@ -344,7 +344,7 @@ def sw(*args):
 @expand.postprocess
 def _dynamic_function(params, match):
     '''Generate function w/ desired number of parameters'''
-    kate.kDebug('@dynamic function: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic function: got params={}, match={}'.format(params, match.groups()))
     data = {}
 
     data['arity'] = int(match.group('arity')) if match.group('arity') else 0
@@ -398,7 +398,7 @@ def _dynamic_function(params, match):
 @expand.jinja('for.cpp.tpl')
 @expand.postprocess
 def _dynamic_for(params, match):
-    kate.kDebug('@dynamic `for`: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic `for`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     for_type = match.group('type')
     if for_type == 'a':
@@ -439,7 +439,7 @@ def _dynamic_for(params, match):
 @expand.jinja('if-else.cpp.tpl')
 @expand.postprocess
 def _dynamic_if(params, match):
-    kate.kDebug('@dynamic `if`: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic `if`: got params={}, match={}'.format(params, match.groups()))
     data = {}
 
     if match.group(1) is not None:
@@ -456,7 +456,7 @@ def _dynamic_if(params, match):
 @expand.jinja('switch.cpp.tpl')
 @expand.postprocess
 def _dynamic_switch(params, match):
-    kate.kDebug('@dynamic `switch`: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic `switch`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     cases = []
 
@@ -483,7 +483,7 @@ def _dynamic_switch(params, match):
 @expand.jinja('enum.cpp.tpl')
 @expand.postprocess
 def _dynamic_enum(params, match):
-    kate.kDebug('@dynamic `enum`: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic `enum`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     data['is_class'] = match.group('is_class') is not None
     data['has_type'] = match.group('has_type') is not None
@@ -494,7 +494,7 @@ def _dynamic_enum(params, match):
 @expand.jinja('try.cpp.tpl')
 @expand.postprocess
 def _dynamic_try(params, match):
-    kate.kDebug('@dynamic `try`: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic `try`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     data['catch_count'] = int(match.group('count')) if match.group('count') is not None else 0
     data['catch_all'] = match.group('catch_all') is not None
@@ -512,7 +512,7 @@ def _dynamic_try(params, match):
 @expand.jinja('class.cpp.tpl')
 @expand.postprocess
 def _dynamic_class(params, match):
-    kate.kDebug('@dynamic `class`: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic `class`: got params={}, match={}'.format(params, match.groups()))
     data = {}
 
     data['entity_type'] = 'class'
@@ -563,7 +563,7 @@ def _dynamic_class(params, match):
 @expand.jinja('namespace.cpp.tpl')
 @expand.postprocess
 def _dynamic_namespace(params, match):
-    kate.kDebug('@dynamic `namespace`: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic `namespace`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     if match.group('names'):
         # TODO Move this shared configuration settings to some module
@@ -583,7 +583,7 @@ def _dynamic_namespace(params, match):
 @expand.jinja('struct.cpp.tpl')
 @expand.postprocess
 def _dynamic_struct(params, match):
-    kate.kDebug('@dynamic `struct`: got params={}, match={}'.format(params, match.groups()))
+    kate.qDebug('@dynamic `struct`: got params={}, match={}'.format(params, match.groups()))
     data = {}
     data['entity_type'] = 'struct'
     data['entity_name'] = 'name'

@@ -31,8 +31,7 @@
 #include <kmessagebox.h>
 #include <kurlrequester.h>
 #include <kurl.h>
-#include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <signal.h>
 #include <stdlib.h>
@@ -508,7 +507,7 @@ void DebugView::processErrors()
     QString error;
     while (m_errorList.size() > 0) {
         error = m_errorList.takeFirst();
-        //kDebug() << error;
+        //qDebug() << error;
         if( error == "The program is not being run." )
         {
             if ( m_lastCommand == "continue" ) 
@@ -613,7 +612,7 @@ void DebugView::issueNextCommand()
         if( m_nextCommands.size() > 0)
         {
             QString cmd = m_nextCommands.takeFirst();
-            //kDebug() << "Next command" << cmd;
+            //qDebug() << "Next command" << cmd;
             issueCommand( cmd );
         }
         else 

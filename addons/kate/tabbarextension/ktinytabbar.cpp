@@ -30,9 +30,7 @@
 #include "ktinytabbarconfigpage.h"
 #include "ktinytabbarconfigdialog.h"
 
-#include <kdebug.h>
 #include <kconfig.h>
-#include <kglobal.h>
 #include <kiconloader.h>
 #include <kstringhandler.h>
 
@@ -924,7 +922,7 @@ void KTinyTabBar::tabButtonCloseAllRequest( )
  */
 void KTinyTabBar::resizeEvent( QResizeEvent* event )
 {
-//     kDebug() << "resizeEvent";
+//     qDebug() << "resizeEvent";
     // if there are no tabs there is nothing to do. Do not delete otherwise
     // division by zero is possible.
     if( m_tabButtons.count() == 0 )

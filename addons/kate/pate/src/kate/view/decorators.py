@@ -24,7 +24,7 @@ import sys
 
 from PyQt4 import QtCore
 
-from ..api import kDebug
+from ..api import qDebug
 from ..document_view_helpers import _make_sure_subscribers_queue_exists, _on_view_created, _SubscriberInfo
 
 

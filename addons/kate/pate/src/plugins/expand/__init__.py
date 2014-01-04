@@ -162,6 +162,6 @@ def _moved(view, cursor):
 @kate.view.textInserted
 def _feedTracker(view, cursor, text):
     global _input_tracker
-    kate.kDebug('@input={},c=({},{})'.format(text, cursor.line(), cursor.column()))
+    kate.qDebug('@input={},c=({},{})'.format(text, cursor.line(), cursor.column()))
     if _input_tracker is not None:
         _input_tracker.track_input(text, cursor)

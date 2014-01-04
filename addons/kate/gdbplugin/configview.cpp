@@ -29,7 +29,7 @@
 #include <QtGui/QLayout>
 #include <QtCore/QTimer>
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kicon.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>

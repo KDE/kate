@@ -33,7 +33,7 @@
 
 #include "kacceleratormanager.h"
 #include <kactioncollection.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
@@ -816,7 +816,7 @@ void KatePluginSearchView::clearMarks()
 
 void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
 {
-    //kDebug() << sender();
+    //qDebug() << sender();
     // FIXME: check for ongoing search...
     KTextEditor::MarkInterface* iface;
     iface = qobject_cast<KTextEditor::MarkInterface*>(doc);
@@ -834,7 +834,7 @@ void KatePluginSearchView::clearDocMarks(KTextEditor::Document* doc)
     int i = 0;
     while (i<m_matchRanges.size()) {
         if (m_matchRanges.at(i)->document() == doc) {
-            //kDebug() << "removing mark in" << doc->url();
+            //qDebug() << "removing mark in" << doc->url();
             delete m_matchRanges.at(i);
             m_matchRanges.removeAt(i);
         }

@@ -173,7 +173,7 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         column = tmpRegExp.indexIn(m_fullDoc, column + tmpRegExp.matchedLength());
 
         if (time.elapsed() > 100) {
-            //kDebug() << "Search time exceeded" << time.elapsed() << line;
+            //qDebug() << "Search time exceeded" << time.elapsed() << line;
             return line;
         }
     }

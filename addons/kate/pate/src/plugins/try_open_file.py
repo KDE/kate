@@ -60,7 +60,7 @@ def tryOpen():
     doc_url = doc.url()
     new_url = KUrl(_try_make_url_from_text(view.selectionText()))
 
-    kate.kDebug('Current document URI: {}'.format(repr(doc_url)))
+    kate.qDebug('Current document URI: {}'.format(repr(doc_url)))
 
     # 0) Make sure it is valid
     if not new_url.isValid():
@@ -77,7 +77,7 @@ def tryOpen():
         new_url = doc_url.upUrl()
         new_url.addPath(view.selectionText())
 
-    kate.kDebug('Trying URI: {}'.format(repr(new_url)))
+    kate.qDebug('Trying URI: {}'.format(repr(new_url)))
     # Ok, try to open it finally
     _try_open_show_error(new_url)
 
@@ -86,7 +86,7 @@ def tryOpen():
 def toggleSelectionSensitiveActions(view):
     clnt = kate.getXmlGuiClient()
     filename = _try_make_url_from_text(view.selectionText())
-    kate.kDebug('Original new filename: {}'.format(repr(filename)))
+    kate.qDebug('Original new filename: {}'.format(repr(filename)))
 
     if view.selection() and len(filename) < _SANE_URI_LENGTH:
         clnt.stateChanged('has_selection')
@@ -96,7 +96,7 @@ def toggleSelectionSensitiveActions(view):
             tail_pos = -int(_URI_LENGTH_SHOW_THRESHOLD / 3)
             filename = filename[:lead_pos] + '...' + filename[tail_pos:]
         assert('Sanity check' and hasattr(tryOpen, 'action'))
-        kate.kDebug('New filename: {}'.format(filename))
+        kate.qDebug('New filename: {}'.format(filename))
         tryOpen.action.setText(
             i18nc('@ation:inmenu', 'Open <filename>%1</filename>', filename)
           )

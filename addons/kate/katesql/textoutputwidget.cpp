@@ -20,10 +20,9 @@
 #include "connection.h"
 
 #include <kglobalsettings.h>
-#include <kdebug.h>
 #include <ktoolbar.h>
-#include <kaction.h>
-#include <klocale.h>
+#include <QAction>
+#include <klocalizedstring.h>
 
 #include <qlayout.h>
 #include <qtextedit.h>

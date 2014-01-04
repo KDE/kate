@@ -19,8 +19,7 @@
 
 #include "targets.h"
 #include "targets.moc"
-#include <klocale.h>
-#include <kdebug.h>
+#include <klocalizedstring.h>
 #include <QApplication>
 #include <QHeaderView>
 

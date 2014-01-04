@@ -29,9 +29,8 @@
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
-#include <kaction.h>
-#include <klocale.h>
-#include <kdebug.h>
+#include <QAction>
+#include <klocalizedstring.h>
 #include <kurl.h>
 #include <kio/netaccess.h>
 #include <kactioncollection.h>
@@ -117,7 +116,7 @@ void PluginKateOpenHeader::tryOpen( const KUrl& url, const QStringList& extensio
   if (!application()->activeMainWindow())
     return;
 
-  kDebug() << "Trying to open " << url.pathOrUrl() << " with extensions " << extensions.join(" ");
+  qDebug() << "Trying to open " << url.pathOrUrl() << " with extensions " << extensions.join(" ");
   QString basename = QFileInfo( url.path() ).baseName();
   KUrl newURL( url );
   for( QStringList::ConstIterator it = extensions.begin(); it != extensions.end(); ++it ) {

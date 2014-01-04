@@ -104,7 +104,7 @@ void Pate::Plugin::readSessionConfig(KConfigBase* const config, const QString& g
     if (m_engine)
     {
         m_engine.readGlobalPluginsConfiguration();
-        kDebug() << "Reading session config from:" << getSessionPrivateStorageFilename(config);
+        qDebug() << "Reading session config from:" << getSessionPrivateStorageFilename(config);
         KConfig session_config(getSessionPrivateStorageFilename(config), KConfig::SimpleConfig);
         m_engine.readSessionPluginsConfiguration(&session_config);
         m_engine.setEnabledPlugins(group.readEntry("Enabled Plugins", QStringList()));
@@ -118,7 +118,7 @@ void Pate::Plugin::writeSessionConfig(KConfigBase* const config, const QString& 
     if (m_engine)
     {
         group.writeEntry("Enabled Plugins", m_engine.enabledPlugins());
-        kDebug() << "Writing session config to:" << getSessionPrivateStorageFilename(config);
+        qDebug() << "Writing session config to:" << getSessionPrivateStorageFilename(config);
         m_engine.saveGlobalPluginsConfiguration();
         KConfig session_config(getSessionPrivateStorageFilename(config), KConfig::SimpleConfig);
         m_engine.writeSessionPluginsConfiguration(&session_config);

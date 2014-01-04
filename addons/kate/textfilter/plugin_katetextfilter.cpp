@@ -24,12 +24,11 @@
 #include <ktexteditor/messageinterface.h>
 
 #include <kdialog.h>
-#include <kaction.h>
+#include <QAction>
 #include <kcomponentdata.h>
 #include <kmessagebox.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <cassert>
-#include <kdebug.h>
 #include <qstring.h>
 #include <klineedit.h>
 #include <kinputdialog.h>

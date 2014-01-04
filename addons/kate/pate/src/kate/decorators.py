@@ -48,7 +48,7 @@ def getXmlGuiClient(plugin=None, ef=1, use_inspect=False):
         else:
             plugin = sys._getframe(1).f_globals['__name__']
 
-    kDebug('Getting XMLGUIClient for {}/{}/{}'.format(plugin, ef, use_inspect))
+    qDebug('Getting XMLGUIClient for {}/{}/{}'.format(plugin, ef, use_inspect))
     if plugin in _registered_xml_gui_clients:
         return _registered_xml_gui_clients[plugin]
 
@@ -101,7 +101,7 @@ def init(func):
         and the configuration has been initiated
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    kDebug('@init: {}/{}'.format(plugin, func.__name__))
+    qDebug('@init: {}/{}'.format(plugin, func.__name__))
     return _registerCallback(plugin, init, func)
 
 
@@ -116,9 +116,9 @@ def unload(func):
             quit everything is dead already!
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    kDebug('@unload: {}/{}'.format(plugin, func.__name__))
+    qDebug('@unload: {}/{}'.format(plugin, func.__name__))
     def _module_cleaner():
-        kDebug('@unload/cleaner: {}/{}'.format(plugin, func.__name__))
+        qDebug('@unload/cleaner: {}/{}'.format(plugin, func.__name__))
         if plugin in _registered_xml_gui_clients and mainInterfaceWindow() is not None:
             clnt = _registered_xml_gui_clients[plugin]
             clnt.actionCollection().clearAssociatedWidgets()
@@ -127,7 +127,7 @@ def unload(func):
             del _registered_xml_gui_clients[plugin]
 
         if plugin in init.functions:
-            kDebug('@unload/init-cleaner: {}/{}'.format(plugin, func.__name__))
+            qDebug('@unload/init-cleaner: {}/{}'.format(plugin, func.__name__))
             del init.functions[plugin]
 
         func()
@@ -235,7 +235,7 @@ def action(func):
     '''
     frame = sys._getframe(1)
     plugin = frame.f_globals['__name__']
-    kDebug('@action: {}/{}'.format(plugin, func.__name__))
+    qDebug('@action: {}/{}'.format(plugin, func.__name__))
 
     # Get directory where plugin resides
     filename = frame.f_globals['__file__']
@@ -252,12 +252,12 @@ def action(func):
             return func
 
     # Found UI resource file
-    kDebug('ui_file={}'.format(repr(ui_file)))
+    qDebug('ui_file={}'.format(repr(ui_file)))
 
     # Get the XML GUI client or create a new one
     clnt = None
     if plugin not in _registered_xml_gui_clients:
-        kDebug('@action: make XMLGUIClient for plugin={}'.format(plugin))
+        qDebug('@action: make XMLGUIClient for plugin={}'.format(plugin))
         clnt = kdeui.KXMLGUIClient()
         clnt.replaceXMLFile(ui_file,ui_file)
     else:
@@ -280,7 +280,7 @@ def action(func):
             text = tag.attributes['text'].value
             act = clnt.actionCollection().addAction(name)
             act.setText(text)
-            kDebug('@action/found: {} --> "{}"'.format(name, text))
+            qDebug('@action/found: {} --> "{}"'.format(name, text))
             # Get optional attributes
             if 'shortcut' in tag.attributes.keys():
                 act.setShortcut(QtGui.QKeySequence(tag.attributes['shortcut'].value))

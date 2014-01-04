@@ -22,7 +22,7 @@
 #include "kateprojectpluginview.h"
 
 #include <QVBoxLayout>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagewidget.h>
 
 KateProjectInfoViewIndex::KateProjectInfoViewIndex (KateProjectPluginView *pluginView, KateProject *project)

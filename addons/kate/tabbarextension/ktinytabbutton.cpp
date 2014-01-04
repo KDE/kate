@@ -28,9 +28,8 @@
 #include "ktinytabbutton.moc"
 
 #include <kcolordialog.h>
-#include <kdebug.h>
 #include <kiconloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kglobalsettings.h>
 
 #include <QApplication>

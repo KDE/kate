@@ -23,7 +23,7 @@
 #include <QTreeWidgetItem>
 #include <ktexteditor/movinginterface.h>
 #include <ktexteditor/movingrange.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 ReplaceMatches::ReplaceMatches(QObject *parent) : QObject(parent),
 m_manager(0),

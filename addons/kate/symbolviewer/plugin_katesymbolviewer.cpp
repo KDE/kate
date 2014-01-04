@@ -41,8 +41,8 @@
 #include "plugin_katesymbolviewer.h"
 #include "plugin_katesymbolviewer.moc"
 
-#include <kaction.h>
-#include <klocale.h>
+#include <QAction>
+#include <klocalizedstring.h>
 #include <kstandarddirs.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
@@ -213,7 +213,7 @@ void KatePluginSymbolViewerView::slotDocChanged()
  slotRefreshSymbol();
 
  KTextEditor::View *view = mainWindow()->activeView();
- //kDebug()<<"Document changed !!!!" << view;
+ //qDebug()<<"Document changed !!!!" << view;
  if (view) {
    connect(view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)),
            this, SLOT(cursorPositionChanged()), Qt::UniqueConnection);
@@ -351,7 +351,7 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
   if (!kv)
     return;
 
-  kDebug(13000)<<"Slot Activated at pos: "<<m_symbols->indexOfTopLevelItem(it);
+  qDebug(13000)<<"Slot Activated at pos: "<<m_symbols->indexOfTopLevelItem(it);
 
   kv->setCursorPosition (KTextEditor::Cursor (it->text(1).toInt(NULL, 10), 0));
 }
@@ -359,12 +359,12 @@ void KatePluginSymbolViewerView::goToSymbol(QTreeWidgetItem *it)
 KatePluginSymbolViewer::KatePluginSymbolViewer( QObject* parent, const QList<QVariant>& )
     : Kate::Plugin ( (Kate::Application*)parent, "katesymbolviewerplugin" )
 {
- kDebug(13000)<<"KatePluginSymbolViewer";
+ qDebug(13000)<<"KatePluginSymbolViewer";
 }
 
 KatePluginSymbolViewer::~KatePluginSymbolViewer()
 {
-  kDebug(13000)<<"~KatePluginSymbolViewer";
+  qDebug(13000)<<"~KatePluginSymbolViewer";
 }
 
 Kate::PluginView *KatePluginSymbolViewer::createView (Kate::MainWindow *mainWindow)

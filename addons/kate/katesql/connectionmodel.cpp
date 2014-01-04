@@ -18,7 +18,6 @@
 
 #include "connectionmodel.h"
 
-#include <kdebug.h>
 #include <kicon.h>
 #include <kglobalsettings.h>
 

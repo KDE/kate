@@ -27,8 +27,7 @@
 
 #include <kpluginloader.h>
 #include <kaboutdata.h>
-#include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 K_PLUGIN_FACTORY_DEFINITION(KateSQLFactory, registerPlugin<KateSQLPlugin>();)
 K_EXPORT_PLUGIN(KateSQLFactory(KAboutData("katesql", "katesql",

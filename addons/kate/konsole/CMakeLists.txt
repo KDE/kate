@@ -14,6 +14,7 @@ target_link_libraries(katekonsoleplugin
     KF5::Parts
     KF5::IconThemes
     KF5::I18n
+    KF5::Service
 )
 
 install(TARGETS katekonsoleplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )

@@ -71,6 +71,6 @@ def dynamic(regex):
             dynamic.registered_handlers[mimeType] = list()
         dynamic.registered_handlers[mimeType].append(func)
         setattr(func, 'match_regex', regex)
-        kate.kDebug('Set KS expander for {} to {}'.format(mimeType, func.__name__))
+        kate.qDebug('Set KS expander for {} to {}'.format(mimeType, func.__name__))
         return func
     return _decorator

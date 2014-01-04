@@ -20,7 +20,7 @@
 #include "outputstylewidget.h"
 
 #include <kconfiggroup.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <qboxlayout.h>
 #include <qgroupbox.h>

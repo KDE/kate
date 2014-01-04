@@ -69,6 +69,6 @@ QSize SPHtmlDelegate::sizeHint(const QStyleOptionViewItem& /*option*/, const QMo
     QTextDocument doc;
     //doc.setDocumentMargin(0);
     doc.setHtml(index.data().toString());
-    //kDebug() << doc.toPlainText() << doc.size().toSize();
+    //qDebug() << doc.toPlainText() << doc.size().toSize();
     return doc.size().toSize() + QSize(30, 0); // add margin for the check-box
 }

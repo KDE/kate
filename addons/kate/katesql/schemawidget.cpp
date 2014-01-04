@@ -22,9 +22,8 @@
 #include <kate/application.h>
 #include <kate/mainwindow.h>
 #include <ktexteditor/view.h>
-#include <kdebug.h>
 #include <kicon.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kapplication.h>
 
 #include <qvariant.h>
@@ -384,7 +383,7 @@ void SchemaWidget::generateStatement(QSqlDriver::StatementType statementType)
     kv->setFocus();
   }
 
-  kDebug() << "Generated statement:" << statement;
+  qDebug() << "Generated statement:" << statement;
 }
 
 

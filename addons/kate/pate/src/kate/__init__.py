@@ -65,11 +65,11 @@ def on_unload(plugin):
 @pateEventHandler('_pateLoaded')
 def on_pate_loaded():
     assert(mainWindow is not None)
-    kDebug('PATE LOADED')
+    qDebug('PATE LOADED')
     return True
 
 
 @pateEventHandler('_pateUnloading')
 def on_pate_unloading():
-    kDebug('UNLOADING PATE')
+    qDebug('UNLOADING PATE')
     return True

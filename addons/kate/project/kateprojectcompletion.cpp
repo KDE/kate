@@ -22,7 +22,7 @@
 #include "kateprojectcompletion.h"
 #include "kateprojectplugin.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <QIcon>
 

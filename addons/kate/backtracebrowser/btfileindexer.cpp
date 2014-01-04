@@ -20,7 +20,6 @@
 #include "btdatabase.h"
 
 #include <QDir>
-#include <kdebug.h>
 
 BtFileIndexer::BtFileIndexer(KateBtDatabase* database)
   : QThread()
@@ -46,13 +45,13 @@ void BtFileIndexer::setSearchPaths(const QStringList& urls)
 void BtFileIndexer::setFilter(const QStringList& fileFilter)
 {
   filter = fileFilter;
-  kDebug() << filter;
+  qDebug() << filter;
 }
 
 void BtFileIndexer::run()
 {
   if (filter.size() == 0) {
-    kDebug() << "Filter is empty. Aborting.";
+    qDebug() << "Filter is empty. Aborting.";
     return;
   }
 
@@ -61,7 +60,7 @@ void BtFileIndexer::run()
     if (cancelAsap) { break; }
     indexFiles(searchPaths[i]);
   }
-  kDebug() << QString("Backtrace file database contains %1 files").arg(db->size());
+  qDebug() << QString("Backtrace file database contains %1 files").arg(db->size());
 }
 
 void BtFileIndexer::cancel()

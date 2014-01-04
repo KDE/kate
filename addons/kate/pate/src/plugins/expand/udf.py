@@ -135,7 +135,7 @@ def _matchingParenthesisPosition(document, position, opening='('):
 
 
 def _loadExpansionsFromFile(path):
-    kate.kDebug('Loading expansions from {}'.format(path))
+    kate.qDebug('Loading expansions from {}'.format(path))
     name = os.path.basename(path).split('.')[0]
     module = imp.load_source(name, path)
     expansions = {}
@@ -149,7 +149,7 @@ def _loadExpansionsFromFile(path):
         # NOTE Detect ONLY a real function!
         if not name.startswith('__') and inspect.isfunction(o):
             expansions[o.__name__] = (o, path)
-            kate.kDebug('Adding expansion `{}`'.format(o.__name__))
+            kate.qDebug('Adding expansion `{}`'.format(o.__name__))
     return expansions
 
 
@@ -161,8 +161,8 @@ def _mergeExpansions(left, right):
             result[exp_key] = exp_tuple
         else:
             result[exp_key] = result[exp_key]
-            kate.kDebug('WARNING: Ignore duplicate expansion `{}` from {}'.format(exp_key, exp_tuple[1]))
-            kate.kDebug('WARNING: First defined here {}'.format(result[exp_key][1]))
+            kate.qDebug('WARNING: Ignore duplicate expansion `{}` from {}'.format(exp_key, exp_tuple[1]))
+            kate.qDebug('WARNING: First defined here {}'.format(result[exp_key][1]))
     return result
 
 
@@ -181,9 +181,9 @@ def _collectExpansionsForType(mime):
 
 @functools.lru_cache()
 def getExpansionsFor(mime):
-    kate.kDebug('Collecting expansions for MIME {}'.format(mime))
+    kate.qDebug('Collecting expansions for MIME {}'.format(mime))
     result = _mergeExpansions(_collectExpansionsForType(mime), _collectExpansionsForType('all'))
-    kate.kDebug('Got {} expansions at the end'.format(len(result)))
+    kate.qDebug('Got {} expansions at the end'.format(len(result)))
     return result
 
 
@@ -219,7 +219,7 @@ def expandUDFAtCursor():
     if argument_range is not None:
         # strip parentheses and split arguments by comma
         preArgs = [arg.strip() for arg in document.text(argument_range)[1:-1].split(',') if bool(arg.strip())]
-        kate.kDebug('Arguments = {}'.format(arguments))
+        kate.qDebug('Arguments = {}'.format(arguments))
         # form a dictionary from args w/ '=' character, leave others in a list
         for arg in preArgs:
             if '=' in arg:
@@ -230,8 +230,8 @@ def expandUDFAtCursor():
     # Call user expand function w/ parsed arguments and
     # possible w/ named params dict
     try:
-        kate.kDebug('Arguments = {}'.format(arguments))
-        kate.kDebug('Named arguments = {}'.format(namedArgs))
+        kate.qDebug('Arguments = {}'.format(arguments))
+        kate.qDebug('Named arguments = {}'.format(namedArgs))
         if len(namedArgs):
             replacement = func(*arguments, **namedArgs)
         else:
@@ -265,7 +265,7 @@ def expandUDFAtCursor():
           , replaceAbsolutePathWithLinkCallback
           , s
           )
-        kate.kDebug('EXPAND FAILURE: {}'.format(s))
+        kate.qDebug('EXPAND FAILURE: {}'.format(s))
         kate.ui.popup(
             i18nc('@title:window', 'Error')
           , i18nc('@info:tooltip', '<bcode>%1</bcode>', s)
@@ -285,13 +285,13 @@ def expandUDFAtCursor():
             document.removeText(argument_range)
         document.removeText(word_range)
 
-        kate.kDebug('Expanded text:\n{}'.format(replacement))
+        kate.qDebug('Expanded text:\n{}'.format(replacement))
 
         # Check if expand function requested a TemplateInterface2 to render
         # result content...
         if hasattr(func, 'use_template_iface') and func.use_template_iface:
             # Use TemplateInterface2 to insert a code snippet
-            kate.kDebug('TI2 requested!')
+            kate.qDebug('TI2 requested!')
             ti2 = view.templateInterface2()
             if ti2 is not None:
                 ti2.insertTemplateText(word_range.start(), replacement, {}, None)

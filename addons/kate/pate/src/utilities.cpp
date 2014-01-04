@@ -36,7 +36,6 @@
 
 #include <kconfigbase.h>
 #include <kconfiggroup.h>
-#include <kdebug.h>
 #include <KLocale>
 
 #define THREADED 1
@@ -164,7 +163,7 @@ void Python::libraryLoad()
 {
     if (!s_pythonLibrary)
     {
-        kDebug() << "Creating s_pythonLibrary";
+        qDebug() << "Creating s_pythonLibrary";
         s_pythonLibrary = new QLibrary(PATE_PYTHON_LIBRARY);
         if (!s_pythonLibrary)
             kError() << "Could not create" << PATE_PYTHON_LIBRARY;
@@ -479,7 +478,7 @@ void Python::updateConfigurationFromDictionary(KConfigBase* const config, PyObje
 
 void Python::updateDictionaryFromConfiguration(PyObject* const dictionary, const KConfigBase* const config)
 {
-    kDebug() << config->groupList();
+    qDebug() << config->groupList();
     Q_FOREACH(QString groupName, config->groupList())
     {
         KConfigGroup group = config->group(groupName);

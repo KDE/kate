@@ -108,7 +108,7 @@ def getTextBlockAroundCursor(doc, pos, upPred, downPred):
     if start != end:
         start += 1
 
-    kate.kDebug(
+    kate.qDebug(
         'getTextBlockAroundCursor[pos={},{}]: ({},{}), ({},{})'.format(
             pos.line()
           , pos.column()

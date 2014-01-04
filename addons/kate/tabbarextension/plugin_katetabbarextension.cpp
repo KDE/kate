@@ -30,12 +30,11 @@
 #include <kate/documentmanager.h>
 #include <kate/application.h>
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 
-#include <kdebug.h>
 
 #include <QBoxLayout>
 //END
@@ -129,7 +128,7 @@ void PluginView::slotDocumentCreated( KTextEditor::Document* document )
 
 void PluginView::slotDocumentDeleted( KTextEditor::Document* document )
 {
-  //  kDebug() << "slotDocumentDeleted ";
+  //  qDebug() << "slotDocumentDeleted ";
   int tabID = doc2id[document];
 
   tabbar->removeTab( tabID );
@@ -176,7 +175,7 @@ void PluginView::slotNameChanged( KTextEditor::Document* document )
 void PluginView::slotModifiedOnDisc( KTextEditor::Document* document, bool modified,
                                      KTextEditor::ModificationInterface::ModifiedOnDiskReason reason )
 {
-  kDebug() << "modified: " << modified << ", id: " << reason;
+  qDebug() << "modified: " << modified << ", id: " << reason;
   int tabID = doc2id[document];
   if( !modified )
   {

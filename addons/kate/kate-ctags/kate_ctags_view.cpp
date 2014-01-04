@@ -270,7 +270,7 @@ void KateCTagsView::gotoTagForTypes(const QString &word, const QStringList &type
     Tags::TagList list = Tags::getMatches(m_ctagsUi.tagsFile->text(), word, false, types);
     if (list.size() == 0) list = Tags::getMatches(m_commonDB, word, false, types);
  
-    //kDebug() << "found" << list.count() << word << types;
+    //qDebug() << "found" << list.count() << word << types;
     setNewLookupText(word);
     
     if ( list.count() < 1) {
@@ -369,7 +369,7 @@ QString KateCTagsView::currentWord( )
 {
     KTextEditor::View *kv = mainWindow()->activeView();
     if (!kv) {
-        kDebug() << "no KTextEditor::View" << endl;
+        qDebug() << "no KTextEditor::View" << endl;
         return QString();
     }
 
@@ -378,7 +378,7 @@ QString KateCTagsView::currentWord( )
     }
 
     if (!kv->cursorPosition().isValid()) {
-        kDebug() << "cursor not valid!" << endl;
+        qDebug() << "cursor not valid!" << endl;
         return QString();
     }
 
@@ -403,7 +403,7 @@ QString KateCTagsView::currentWord( )
         endPos++;
     }
     if  (startPos == endPos) {
-        kDebug() << "no word found!" << endl;
+        qDebug() << "no word found!" << endl;
         return QString();
     }
 
@@ -417,7 +417,7 @@ QString KateCTagsView::currentWord( )
       linestr.remove(0, 1);
     }
 
-    //kDebug() << linestr;
+    //qDebug() << linestr;
     return linestr;
 }
 
@@ -470,7 +470,7 @@ void KateCTagsView::jumpToTag(const QString &file, const QString &pattern, const
         url.setPath(abs.absoluteFilePath());
     }
 
-    //kDebug() << url << pattern;
+    //qDebug() << url << pattern;
 
     // save current location
     TagJump from;

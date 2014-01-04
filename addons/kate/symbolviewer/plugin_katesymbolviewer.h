@@ -26,7 +26,6 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/configpageinterface.h>
 
-#include <kdebug.h>
 #include <QMenu>
 #include <qevent.h>
 #include <qcheckbox.h>
@@ -37,8 +36,7 @@
 #include <QTreeWidget>
 #include <QList>
 #include <QTimer>
-#include <klibloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kconfig.h>
 

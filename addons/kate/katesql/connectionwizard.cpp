@@ -19,12 +19,11 @@
 #include "connectionwizard.h"
 #include "sqlmanager.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kcombobox.h>
 #include <kmessagebox.h>
 #include <klineedit.h>
 #include <kurlrequester.h>
-#include <kdebug.h>
 #include <knuminput.h>
 
 #include <qformlayout.h>

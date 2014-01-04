@@ -29,13 +29,11 @@
 #include <ktexteditor/view.h>
 
 #include <kparts/part.h>
-#include <kaction.h>
+#include <QAction>
 #include <kactioncollection.h>
 
 #include <kurl.h>
-#include <klibloader.h>
-#include <klocale.h>
-#include <kdebug.h>
+#include <klocalizedstring.h>
 #include <kmessagebox.h>
 #include <KToolInvocation>
 

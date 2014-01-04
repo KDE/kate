@@ -30,7 +30,7 @@ from PyKDE4.kdecore import i18n
 from PyQt4 import uic
 from PyQt4.QtGui import QWidget
 
-from kate import kDebug
+from kate import qDebug
 
 from libkatepate import selection
 from libkatepate.errors import showError

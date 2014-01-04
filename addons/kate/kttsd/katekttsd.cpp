@@ -28,8 +28,8 @@
 
 // KDE includes.
 #include <kmessagebox.h>
-#include <kaction.h>
-#include <klocale.h>
+#include <QAction>
+#include <klocalizedstring.h>
 #include <kstandarddirs.h>
 #include <ktoolinvocation.h>
 #include <KActionCollection>

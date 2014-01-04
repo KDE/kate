@@ -37,13 +37,11 @@
 #include <QSlider>
 
 #include <kdialog.h>
-#include <klocale.h>
-#include <kglobal.h>
+#include <klocalizedstring.h>
 #include <kiconloader.h>
 #include <kcolorbutton.h>
 #include <ktabwidget.h>
 
-#include <kdebug.h>
 
 KTinyTabBarConfigPage::KTinyTabBarConfigPage( QWidget *parent )
     : QWidget( parent )

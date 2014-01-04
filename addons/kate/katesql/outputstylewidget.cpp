@@ -25,13 +25,11 @@
 
 #include <kcolorbutton.h>
 #include <kicon.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobal.h>
 #include <kglobalsettings.h>
 #include <kcolorscheme.h>
-#include <kdebug.h>
 
 OutputStyleWidget::OutputStyleWidget(QWidget *parent)
 : QTreeWidget(parent)

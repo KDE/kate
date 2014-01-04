@@ -22,18 +22,16 @@
 #include "kateconsole.h"
 
 #include <kiconloader.h>
+#include <klocalizedstring.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
 #include <kde_terminal_interface.h>
 #include <kshell.h>
 #include <kparts/part.h>
-#include <kaction.h>
+#include <QAction>
 #include <kactioncollection.h>
 
-#include <kurl.h>
-#include <klibloader.h>
-#include <kdebug.h>
 #include <kmessagebox.h>
 
 #include <QApplication>

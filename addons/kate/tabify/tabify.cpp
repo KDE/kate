@@ -21,18 +21,16 @@
 #include <kate/application.h>
 
 #include <kacceleratormanager.h>
-#include <kaction.h>
-#include <klocale.h>
+#include <QAction>
+#include <klocalizedstring.h>
 #include <kstandarddirs.h>
 #include <kglobalsettings.h>
-#include <kglobal.h>
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 
 #include <kiconloader.h>
 #include <ktabbar.h>
-#include <kdebug.h>
 #include <QtGui/QBoxLayout>
 
 K_PLUGIN_FACTORY(TabBarFactory, registerPlugin<TabBarPlugin>();)

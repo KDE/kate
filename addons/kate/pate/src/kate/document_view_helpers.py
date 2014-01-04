@@ -24,7 +24,7 @@
 
 from PyQt4 import QtCore
 
-from .api import kDebug
+from .api import qDebug
 from .decorators import viewCreated
 
 
@@ -39,7 +39,7 @@ def _subscribe_for_events(subscribedPlugins, source):
     for plugin, subscribers in subscribedPlugins.items():
         assert(isinstance(subscribers, list))
         for subscriber in subscribers:
-            kDebug('Subscribe {}/{} to receive {}'.format(
+            qDebug('Subscribe {}/{} to receive {}'.format(
                 plugin
               , subscriber.receiver.__name__
               , subscriber.signal

@@ -19,8 +19,7 @@
 #include "sqlmanager.h"
 #include "connectionmodel.h"
 
-#include <kdebug.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
 
@@ -56,7 +55,7 @@ void SQLManager::createConnection(const Connection &conn)
 {
   if (QSqlDatabase::contains(conn.name))
   {
-    kDebug() << "connection" << conn.name << "already exist";
+    qDebug() << "connection" << conn.name << "already exist";
     QSqlDatabase::removeDatabase(conn.name);
   }
 
@@ -142,7 +141,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
 
   if (!db.isOpen())
   {
-    kDebug() << "database connection is not open. trying to open it...";
+    qDebug() << "database connection is not open. trying to open it...";
 
     if (m_model->status(connection) == Connection::REQUIRE_PASSWORD)
     {
@@ -150,7 +149,7 @@ bool SQLManager::isValidAndOpen(const QString &connection)
       int ret = readCredentials(connection, password);
 
       if (ret != 0)
-        kDebug() << "Can't retrieve password from kwallet. returned code" << ret;
+        qDebug() << "Can't retrieve password from kwallet. returned code" << ret;
       else
       {
         db.setPassword(password);
@@ -276,7 +275,7 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
 
   foreach ( const QString& groupName, connectionsGroup->groupList() )
   {
-    kDebug() << "reading group:" << groupName;
+    qDebug() << "reading group:" << groupName;
 
     KConfigGroup group = connectionsGroup->group(groupName);
 
@@ -313,7 +312,7 @@ void SQLManager::saveConnections(KConfigGroup *connectionsGroup)
 /// TODO: write KUrl instead of QString for sqlite paths
 void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection &conn)
 {
-  kDebug() << "saving connection" << conn.name;
+  qDebug() << "saving connection" << conn.name;
 
   KConfigGroup group = connectionsGroup->group(conn.name);
 
@@ -332,8 +331,8 @@ void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection
 
 void SQLManager::runQuery(const QString &text, const QString &connection)
 {
-  kDebug() << "connection:" << connection;
-  kDebug() << "text:"       << text;
+  qDebug() << "connection:" << connection;
+  qDebug() << "text:"       << text;
 
   if (text.isEmpty())
     return;

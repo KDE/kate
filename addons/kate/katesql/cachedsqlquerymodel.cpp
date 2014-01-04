@@ -18,7 +18,6 @@ Boston, MA 02110-1301, USA.
 
 #include "cachedsqlquerymodel.h"
 
-#include <kdebug.h>
 
 CachedSqlQueryModel::CachedSqlQueryModel(QObject *parent, int cacheCapacity)
 : QSqlQueryModel(parent)
@@ -88,7 +87,7 @@ void CachedSqlQueryModel::clear()
 
 void CachedSqlQueryModel::cacheRecords(int from, int to) const
 {
-  kDebug() << "caching records from" << from << "to" << to;
+  qDebug() << "caching records from" << from << "to" << to;
 
   for (int i = from; i <= to; ++i)
     cache.insert(i, QSqlQueryModel::record(i));
@@ -106,7 +105,7 @@ int CachedSqlQueryModel::cacheCapacity() const
 
 void CachedSqlQueryModel::setCacheCapacity(int capacity)
 {
-  kDebug() << "cache capacity set to" << capacity;
+  qDebug() << "cache capacity set to" << capacity;
 
   cache.setCapacity(capacity);
 }

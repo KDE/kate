@@ -19,8 +19,7 @@
 
 #include "localsview.h"
 #include <QLabel>
-#include <klocale.h>
-#include <kdebug.h>
+#include <klocalizedstring.h>
 
 
 LocalsView::LocalsView(QWidget *parent)
@@ -103,7 +102,7 @@ void LocalsView::addLocal(const QString &vString)
             return; /* this is not an error */
         }
         if (!isValue.exactMatch(vString)) {
-            kDebug() << "Could not parse:" << vString;
+            qDebug() << "Could not parse:" << vString;
             return;
         }
         symbolAndValue << isValue.cap(1);
@@ -115,7 +114,7 @@ void LocalsView::addLocal(const QString &vString)
     }
     else {
         if (!isPrettyValue.exactMatch(m_local)) {
-            kDebug() << "Could not parse:" << m_local;
+            qDebug() << "Could not parse:" << m_local;
             m_local.clear();
             return;
         }
@@ -166,7 +165,7 @@ void LocalsView::addStruct(QTreeWidgetItem *parent, const QString &vString)
             break;
         }
         symbolAndValue << vString.mid(start, end-start);
-        //kDebug() << symbolAndValue;
+        //qDebug() << symbolAndValue;
         // Value
         start = end + 3;
         end = start;

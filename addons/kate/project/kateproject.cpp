@@ -21,7 +21,7 @@
 #include "kateproject.h"
 #include "kateprojectworker.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <ktexteditor/document.h>
 

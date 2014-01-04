@@ -26,7 +26,7 @@
 #include <QProcess>
 #include <QFileInfo>
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kmessagewidget.h>
 
 KateProjectInfoViewCodeAnalysis::KateProjectInfoViewCodeAnalysis (KateProjectPluginView *pluginView, KateProject *project)

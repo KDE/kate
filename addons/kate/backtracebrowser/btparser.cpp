@@ -20,7 +20,6 @@
 
 #include <QStringList>
 
-#include <kdebug.h>
 
 static QString eolDelimiter(const QString& str)
 {
@@ -145,7 +144,7 @@ static BtInfo parseBtLine(const QString& line)
     return info;
   }
 
-  kDebug() << "Unknown backtrace line:" << line;
+  qDebug() << "Unknown backtrace line:" << line;
 
   BtInfo info;
   info.type = BtInfo::Invalid;

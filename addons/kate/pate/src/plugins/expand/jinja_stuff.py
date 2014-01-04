@@ -47,7 +47,7 @@ def jinja_environment_configurator(func):
         setattr(jinja_environment_configurator, 'registered_configurators', dict())
     mimeType = kate.activeDocument().mimeType()
     jinja_environment_configurator.registered_configurators[mimeType] = func
-    kate.kDebug('Set jinja2 environment configurator for {} to {}'.format(mimeType, func.__name__))
+    kate.qDebug('Set jinja2 environment configurator for {} to {}'.format(mimeType, func.__name__))
     return func
 
 
@@ -70,7 +70,7 @@ def _is_int(s):
 
 @functools.lru_cache()
 def _getJinjaEnvironment(baseDir):
-    kate.kDebug('Make a templates loader for a base dir: {}'.format(baseDir))
+    kate.qDebug('Make a templates loader for a base dir: {}'.format(baseDir))
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(baseDir))
 
     env.filters['editable'] = _makeEditableField
@@ -80,7 +80,7 @@ def _getJinjaEnvironment(baseDir):
     if hasattr(jinja_environment_configurator, 'registered_configurators'):
         mimeType = kate.activeDocument().mimeType()
         configurator = jinja_environment_configurator.registered_configurators[mimeType]
-        kate.kDebug('Setup jinja2 environment for {} [{}]'.format(mimeType, configurator.__name__))
+        kate.qDebug('Setup jinja2 environment for {} [{}]'.format(mimeType, configurator.__name__))
         env = configurator(env)
 
     return env
@@ -112,7 +112,7 @@ def render_jinja_template(template, data):
             )
         return result
 
-    kate.kDebug('found abs template: {}'.format(filename))
+    kate.qDebug('found abs template: {}'.format(filename))
 
     # Get a corresponding environment for jinja!
     base_dir_pos = filename.find(_JINJA_TEMPLATES_BASE_DIR)
@@ -120,10 +120,10 @@ def render_jinja_template(template, data):
     basedir = filename[:base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR)]
     filename = filename[base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR) + 1:]
     env = _getJinjaEnvironment(basedir)
-    kate.kDebug('basedir={}, template_rel={}'.format(basedir, filename))
+    kate.qDebug('basedir={}, template_rel={}'.format(basedir, filename))
     try:
         tpl = env.get_template(filename)
-        kate.kDebug('data dict={}'.format(data))
+        kate.qDebug('data dict={}'.format(data))
         result = tpl.render(data)
     except jinja2.TemplateError as e:
         kate.ui.popup(

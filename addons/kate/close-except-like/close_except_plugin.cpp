@@ -231,7 +231,7 @@ void CloseExceptPluginView::updateMenu()
     const QList<KTextEditor::Document*>& docs = m_plugin->application()->documentManager()->documents();
     if (docs.size() < 2)
     {
-        kDebug() << "No docs r (or the only) opened right now --> disable menu";
+        qDebug() << "No docs r (or the only) opened right now --> disable menu";
         m_except_menu->setEnabled(false);
         m_except_menu->addSeparator();
         m_like_menu->setEnabled(false);
@@ -252,7 +252,7 @@ void CloseExceptPluginView::updateMenu()
             doc_paths.insert(document->url().upUrl().path());
         }
         paths_set_type paths = doc_paths;
-        kDebug() << "stage #1: Collected" << paths.size() << "paths and" << masks.size() << "masks";
+        qDebug() << "stage #1: Collected" << paths.size() << "paths and" << masks.size() << "masks";
         // Add common paths to the collection
         for (paths_set_type::iterator it = doc_paths.begin(), last = doc_paths.end(); it != last; ++it)
         {
@@ -273,7 +273,7 @@ void CloseExceptPluginView::updateMenu()
                 }
             }
         }
-        kDebug() << "stage #2: Collected" << paths.size() << "paths and" << masks.size() << "masks";
+        qDebug() << "stage #2: Collected" << paths.size() << "paths and" << masks.size() << "masks";
         //
         m_except_mapper = updateMenu(paths, masks, m_except_actions, m_except_menu);
         m_like_mapper = updateMenu(paths, masks, m_like_actions, m_like_menu);
@@ -291,7 +291,7 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
 
     const bool is_path = item[0] != '*';
     const QString mask = is_path ? item.left(item.size() - 1) : item;
-    kDebug() << "Going to close items [" << close_if_match << "/" << is_path << "]: " << mask;
+    qDebug() << "Going to close items [" << close_if_match << "/" << is_path << "]: " << mask;
 
     QList<KTextEditor::Document*> docs2close;
     const QList<KTextEditor::Document*>& docs = m_plugin->application()->documentManager()->documents();
@@ -305,7 +305,7 @@ void CloseExceptPluginView::close(const QString& item, const bool close_if_match
           ;
         if (match == close_if_match)
         {
-            kDebug() << "*** Will close: " << document->url();
+            qDebug() << "*** Will close: " << document->url();
             docs2close.push_back(document);
         }
     }

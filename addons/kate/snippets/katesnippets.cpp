@@ -28,8 +28,7 @@
 #include <KToolBar>
 
 #include <kurl.h>
-#include <klibloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 #include <kpluginloader.h>
 #include <kaboutdata.h>

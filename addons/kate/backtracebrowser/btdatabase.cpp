@@ -22,7 +22,6 @@
 #include <QDataStream>
 #include <QDir>
 
-#include <kdebug.h>
 
 void KateBtDatabase::loadFromFile(const QString& url)
 {
@@ -32,7 +31,7 @@ void KateBtDatabase::loadFromFile(const QString& url)
     QDataStream ds(&file);
     ds >> db;
   }
-  kDebug() << "Number of entries in the backtrace database:" << db.size();
+  qDebug() << "Number of entries in the backtrace database:" << db.size();
 }
 
 void KateBtDatabase::saveToFile(const QString& url) const

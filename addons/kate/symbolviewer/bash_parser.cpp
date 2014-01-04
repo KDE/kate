@@ -68,7 +68,7 @@ void KatePluginSymbolViewerView::parseBashSymbols(void)
                currline = currline.simplified();
 
                bool comment = false;
-               //kDebug(13000)<<currline<<endl;
+               //qDebug(13000)<<currline<<endl;
                if(currline == "") continue;
                if(currline.at(0) == '#') comment = true;
 

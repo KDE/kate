@@ -62,7 +62,7 @@ PyObject* debug(PyObject* /*self*/, PyObject* args)
     const char* text;
 
     if (PyArg_ParseTuple(args, "s", &text))
-        kDebug() << text;
+        qDebug() << text;
     Py_INCREF(Py_None);
     return Py_None;
 }
@@ -116,7 +116,7 @@ PyMethodDef pateMethods[] =
       , "Save the configuration of the plugin into " CONFIG_FILE
     }
   , {
-        "kDebug"
+        "qDebug"
       , &PATE::debug
       , METH_VARARGS
       , "True KDE way to show debug info"
@@ -181,7 +181,7 @@ Pate::Engine::Engine()
 /// initialize attempt...
 Pate::Engine::~Engine()
 {
-    kDebug() << "Going to destroy the Python engine";
+    qDebug() << "Going to destroy the Python engine";
 
     // Notify Python that engine going to die
     {
@@ -215,7 +215,7 @@ void Pate::Engine::unloadAllModules()
  */
 QString Pate::Engine::tryInitializeGetFailureReason()
 {
-    kDebug() << "Construct the Python engine for Python" << PY_MAJOR_VERSION << PY_MINOR_VERSION;
+    qDebug() << "Construct the Python engine for Python" << PY_MAJOR_VERSION << PY_MINOR_VERSION;
     if (0 != PyImport_AppendInittab(Python::PATE_ENGINE, PATE_INIT))
         return i18nc("@info:tooltip ", "Cannot load built-in <icode>pate</icode> module");
 
@@ -231,7 +231,7 @@ QString Pate::Engine::tryInitializeGetFailureReason()
       << KStandardDirs::locate("appdata", "plugins/pate/")
       << QLatin1String(PATE_PYTHON_SITE_PACKAGES_INSTALL_DIR)
       ;
-    kDebug() << "Plugin Directories: " << pluginDirectories;
+    qDebug() << "Plugin Directories: " << pluginDirectories;
     if (!py.prependPythonPaths(pluginDirectories))
         return i18nc("@info:tooltip ", "Cannot update Python paths");
 
@@ -430,18 +430,18 @@ void Pate::Engine::writeSessionPluginsConfiguration(KConfigBase* const config)
 
 bool Pate::Engine::isServiceUsable(const KService::Ptr& service)
 {
-    kDebug() << "Got Kate/PythonPlugin: " << service->name()
+    qDebug() << "Got Kate/PythonPlugin: " << service->name()
         << ", module-path=" << service->library()
         ;
     // Make sure mandatory properties are here
     if (service->name().isEmpty())
     {
-        kDebug() << "Ignore desktop file w/o a name";
+        qDebug() << "Ignore desktop file w/o a name";
         return false;
     }
     if (service->library().isEmpty())
     {
-        kDebug() << "Ignore desktop file w/o a module to import";
+        qDebug() << "Ignore desktop file w/o a module to import";
         return false;
     }
     // Check Python compatibility
@@ -452,7 +452,7 @@ bool Pate::Engine::isServiceUsable(const KService::Ptr& service)
     const QVariant is_compatible = service->property("X-Python-2-Compatible", QVariant::Bool);
     if (!(is_compatible.isValid() && is_compatible.toBool()))
     {
-        kDebug() << service->name() << "is incompatible w/ embedded Python version";
+        qDebug() << service->name() << "is incompatible w/ embedded Python version";
         // Do not even show incompatible modules in the manager...
         return false;
     }
@@ -462,7 +462,7 @@ bool Pate::Engine::isServiceUsable(const KService::Ptr& service)
     const QVariant is_py2_only = service->property("X-Python-2-Only", QVariant::Bool);
     if (is_py2_only.isValid())
     {
-        kDebug() << service->name() << "is marked as Python 2 ONLY... >/dev/null";
+        qDebug() << service->name() << "is marked as Python 2 ONLY... >/dev/null";
         // Do not even show incompatible modules in the manager...
         return false;
     }
@@ -497,7 +497,7 @@ bool Pate::Engine::setModuleProperties(PluginState& plugin)
             );
         return false;
     }
-    kDebug() << "Found module path:" << module_path;
+    qDebug() << "Found module path:" << module_path;
     return true;
 }
 
@@ -509,11 +509,11 @@ QPair<QString, Pate::version_checker> Pate::Engine::parseDependency(const QStrin
     {
         QString dependency = d.mid(0, pnfo);
         QString version_str = d.mid(pnfo + 1, d.size() - pnfo - 2).trimmed();
-        kDebug() << "Desired version spec [" << dependency << "]:" << version_str;
+        qDebug() << "Desired version spec [" << dependency << "]:" << version_str;
         version_checker checker = version_checker::fromString(version_str);
         if (!(checker.isValid() && d.endsWith(')')))
         {
-            kDebug() << "Invalid version spec " << d;
+            qDebug() << "Invalid version spec " << d;
             QString reason = i18nc(
                 "@info:tooltip"
                 , "<p>Specified version has invalid format for dependency <application>%1</application>: "
@@ -608,7 +608,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
             continue;
         }
 
-        kDebug() << "Try to import dependency module/package:" << d;
+        qDebug() << "Try to import dependency module/package:" << d;
 
         // Try to import a module
         const QString& dependency = info_pair.first;
@@ -617,7 +617,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
         {
             if (checker.isEmpty())                          // Need to check smth?
             {
-                kDebug() << "No version to check, just make sure it's loaded:" << dependency;
+                qDebug() << "No version to check, just make sure it's loaded:" << dependency;
                 Py_DECREF(module);
                 continue;
             }
@@ -626,7 +626,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
             PyObject* version_obj = py.itemString("__version__", PQ(dependency));
             if (!version_obj)
             {
-                kDebug() << "No __version__ for " << dependency
+                qDebug() << "No __version__ for " << dependency
                   << "[" << plugin.m_service->name() << "]:\n" << py.lastTraceback()
                   ;
                 plugin.m_unstable = true;
@@ -648,7 +648,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
             if (!dep_version.isValid())
             {
                 // Dunno what is this... Giving up!
-                kDebug() << "***: Can't parse module version for" << dependency;
+                qDebug() << "***: Can't parse module version for" << dependency;
                 plugin.m_unstable = true;
                 reason += i18nc(
                     "@info:tooltip"
@@ -658,7 +658,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
             }
             else if (!checker(dep_version))
             {
-                kDebug() << "Version requerement check failed ["
+                qDebug() << "Version requerement check failed ["
                   << plugin.m_service->name() << "] for "
                   << dependency << ": wanted " << checker.operationToString()
                   << QString(checker.required())
@@ -680,7 +680,7 @@ void Pate::Engine::verifyDependenciesSetStatus(PluginState& plugin)
         }
         else
         {
-            kDebug() << "Load failure [" << plugin.m_service->name() << "]:\n" << py.lastTraceback();
+            qDebug() << "Load failure [" << plugin.m_service->name() << "]:\n" << py.lastTraceback();
             plugin.m_broken = true;
             reason += i18nc(
                 "@info:tooltip"
@@ -703,7 +703,7 @@ void Pate::Engine::scanPlugins()
     KService::List services;
     KServiceTypeTrader* trader = KServiceTypeTrader::self();
 
-    kDebug() << "Seeking for installed plugins...";
+    qDebug() << "Seeking for installed plugins...";
     services = trader->query("Kate/PythonPlugin");
     Q_FOREACH(KService::Ptr service, services)
     {
@@ -746,7 +746,7 @@ void Pate::Engine::loadModule(const int idx)
       );
 
     QString module_name = plugin.pythonModuleName();
-    kDebug() << "Loading module: " << module_name;
+    qDebug() << "Loading module: " << module_name;
 
     Python py = Python();
 
@@ -794,7 +794,7 @@ void Pate::Engine::unloadModule(int idx)
     PluginState& plugin = m_plugins[idx];
     Q_ASSERT("Why to call unloadModule() for broken plugin?" && !plugin.isBroken());
 
-    kDebug() << "Unloading module: " << plugin.pythonModuleName();
+    qDebug() << "Unloading module: " << plugin.pythonModuleName();
 
     Python py = Python();
 

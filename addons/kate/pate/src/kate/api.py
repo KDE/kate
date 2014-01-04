@@ -110,13 +110,13 @@ def objectIsAlive(obj):
     return True
 
 
-def kDebug(text):
+def qDebug(text):
     '''Use KDE way to show debug info
 
         TODO Add a way to control debug output from partucular plugins (?)
     '''
     plugin = sys._getframe(1).f_globals['__name__']
-    pate.kDebug('{}: {}'.format(plugin, text))
+    pate.qDebug('{}: {}'.format(plugin, text))
 
 
 @contextlib.contextmanager

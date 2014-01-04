@@ -23,14 +23,13 @@
 #include "btparser.h"
 #include "btfileindexer.h"
 
-#include <klocale.h>          // i18n
+#include <klocalizedstring.h>          // i18n
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
 #include <KStandardDirs>
 #include <ktexteditor/view.h>
 #include <ksharedconfig.h>
-#include <kdebug.h>
 #include <klineedit.h>
 #include <kfiledialog.h>
 
@@ -263,7 +262,7 @@ void KateBtBrowserPluginView::itemActivated(QTreeWidgetItem* item, int column)
         if (idx != -1) {
           // file is of correct form
         } else {
-          kDebug() << "file patter did not match:" << file;
+          qDebug() << "file patter did not match:" << file;
           setStatus(i18n("File not found: %1", file));
           return;
         }

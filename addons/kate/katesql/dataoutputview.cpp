@@ -18,7 +18,7 @@
 
 #include "dataoutputview.h"
 
-#include <kaction.h>
+#include <QAction>
 
 #include <qcursor.h>
 #include <qmenu.h>

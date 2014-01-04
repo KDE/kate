@@ -20,9 +20,7 @@
 #include "outputstyle.h"
 
 #include <kcolorscheme.h>
-#include <kdebug.h>
-#include <kglobal.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kconfiggroup.h>
 #include <kglobalsettings.h>
 

@@ -27,7 +27,7 @@
 #include "ktinytabbar.h"
 #include "ktinytabbutton.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 
 
 KTinyTabBarConfigDialog::KTinyTabBarConfigDialog( const KTinyTabBar* tabbar,

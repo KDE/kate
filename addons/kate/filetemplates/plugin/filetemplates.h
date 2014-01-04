@@ -28,8 +28,7 @@
 #include <kate/plugin.h>
 #include <ktexteditor/view.h>
 
-#include <klibloader.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kurl.h>
 
 #include <qlist.h>

@@ -33,9 +33,9 @@
 #include <QtGui/QTreeWidget>
 #include <QtGui/QKeyEvent>
 
-#include <kaction.h>
+#include <QAction>
 #include <kactioncollection.h>
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kglobalsettings.h>
 #include <kcolorscheme.h>
 #include <kpluginfactory.h>
@@ -642,12 +642,12 @@ QString KatePluginGDBView::currentWord( )
 {
     KTextEditor::View *kv = mainWindow()->activeView();
     if (!kv) {
-        kDebug() << "no KTextEditor::View" << endl;
+        qDebug() << "no KTextEditor::View" << endl;
         return QString();
     }
 
     if (!kv->cursorPosition().isValid()) {
-        kDebug() << "cursor not valid!" << endl;
+        qDebug() << "cursor not valid!" << endl;
         return QString();
     }
 
@@ -685,11 +685,11 @@ QString KatePluginGDBView::currentWord( )
         endPos++;
     }
     if  (startPos == endPos) {
-        kDebug() << "no word found!" << endl;
+        qDebug() << "no word found!" << endl;
         return QString();
     }
 
-    //kDebug() << linestr.mid(startPos+1, endPos-startPos-1);
+    //qDebug() << linestr.mid(startPos+1, endPos-startPos-1);
     return linestr.mid(startPos+1, endPos-startPos-1);
 }
 

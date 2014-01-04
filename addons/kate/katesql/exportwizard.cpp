@@ -19,7 +19,7 @@
 #include "exportwizard.h"
 #include "dataoutputwidget.h"
 
-#include <klocale.h>
+#include <klocalizedstring.h>
 #include <kurlrequester.h>
 #include <klineedit.h>
 

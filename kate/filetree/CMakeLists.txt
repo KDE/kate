@@ -1,17 +1,21 @@
 
 project(katefiletreeplugin)
 
-set(katefiletreeplugin_PART_SRCS katefiletreeplugin.cpp katefiletree.cpp katefiletreemodel.cpp katefiletreeproxymodel.cpp katefiletreeconfigpage.cpp katefiletreepluginsettings.cpp )
+set(katefiletree_PART_SRCS katefiletree.cpp katefiletreemodel.cpp katefiletreeproxymodel.cpp )
+set(katefiletreeplugin_PART_SRCS katefiletreeplugin.cpp katefiletreeconfigpage.cpp katefiletreepluginsettings.cpp )
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
-add_library (katefiletreeplugin MODULE  ${katefiletreeplugin_PART_SRCS})
+add_library (katefiletree STATIC  ${katefiletree_PART_SRCS})
 
-target_link_libraries(katefiletreeplugin ktexteditor
+target_link_libraries(katefiletree ktexteditor
   KF5::I18n
   KF5::GuiAddons
   KF5::IconThemes
 )
+
+add_library (katefiletreeplugin MODULE  ${katefiletreeplugin_PART_SRCS})
+target_link_libraries(katefiletreeplugin katefiletree)
 
 install(TARGETS katefiletreeplugin  DESTINATION ${PLUGIN_INSTALL_DIR} )
 

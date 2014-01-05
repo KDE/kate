@@ -109,7 +109,7 @@ EditSnippet::EditSnippet(SnippetRepository* repository, Snippet* snippet, QWidge
     ///TODO: highlighting and documentation of KTextEditor API
     pair = getViewForTab(m_ui->scriptTab);
     m_scriptsView = pair.first;
-    m_scriptsView->document()->setMode("JavaScript");
+    m_scriptsView->document()->setMode(QLatin1String("JavaScript"));
     m_scriptsView->document()->setText(m_repo->script());
     m_scriptsView->document()->setModified(false);
     connect(pair.second, SIGNAL(clicked(bool)),
@@ -220,12 +220,12 @@ void EditSnippet::save()
 
 void EditSnippet::slotSnippetDocumentation()
 {
-    KHelpClient::invokeHelp("kate-application-plugin-snippets", "kate");
+    KHelpClient::invokeHelp(QLatin1String("kate-application-plugin-snippets"), QLatin1String("kate"));
 }
 
 void EditSnippet::slotScriptDocumentation()
 {
-    KHelpClient::invokeHelp("dev-scripting-api", "kate");
+    KHelpClient::invokeHelp(QLatin1String("dev-scripting-api"), QLatin1String("kate"));
 }
 
 void EditSnippet::reject()

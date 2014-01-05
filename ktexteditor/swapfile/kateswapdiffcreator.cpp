@@ -96,7 +96,7 @@ void SwapDiffCreator::viewDiff()
   // create a KProcess proc for diff
   m_proc = new KProcess(this);
   m_proc->setOutputChannelMode(KProcess::MergedChannels);
-  *m_proc << "diff" << "-u" <<  m_originalFile.fileName() << m_recoveredFile.fileName();
+  *m_proc << QLatin1String("diff") << QLatin1String("-u") <<  m_originalFile.fileName() << m_recoveredFile.fileName();
 
   connect(m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()));
   connect(m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotDiffFinished()));
@@ -155,7 +155,7 @@ void SwapDiffCreator::slotDiffFinished()
   m_diffFile.setAutoRemove (false);
 
   // KRun::runUrl should delete the file, once the client exits
-  KRun::runUrl (QUrl::fromLocalFile(m_diffFile.fileName()), "text/x-patch", m_swapFile->document()->activeView(), true );
+  KRun::runUrl (QUrl::fromLocalFile(m_diffFile.fileName()), QLatin1String("text/x-patch"), m_swapFile->document()->activeView(), true );
 
   deleteLater();
 }

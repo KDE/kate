@@ -78,7 +78,7 @@ EditRepository::EditRepository(SnippetRepository* repository, QWidget* parent)
   delete document;
 
   // add default licenses
-  repoLicenseEdit->addItems(QStringList() << "Artistic" << "BSD" << "LGPL v2+" << "LGPL v3+");
+  repoLicenseEdit->addItems(QStringList() << QLatin1String("Artistic") << QLatin1String("BSD") << QLatin1String("LGPL v2+") << QLatin1String("LGPL v3+"));
   repoLicenseEdit->setCurrentIndex(1); // preselect BSD
   repoLicenseEdit->setEditable(true);
 
@@ -120,7 +120,7 @@ EditRepository::~EditRepository()
 
 void EditRepository::validate()
 {
-  bool valid = !repoNameEdit->text().isEmpty() && !repoNameEdit->text().contains('/');
+  bool valid = !repoNameEdit->text().isEmpty() && !repoNameEdit->text().contains(QLatin1Char('/'));
   m_okButton->setEnabled(valid);
   m_applyButton->setEnabled(valid);
 }
@@ -162,7 +162,7 @@ void EditRepository::updateFileTypes()
     if ( types.isEmpty() ) {
         repoFileTypesListLabel->setText(i18n("<i>leave empty for general purpose snippets</i>"));
     } else {
-        repoFileTypesListLabel->setText(types.join(", "));
+        repoFileTypesListLabel->setText(types.join(QLatin1String(", ")));
     }
 }
 

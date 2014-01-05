@@ -287,18 +287,18 @@ void SnippetView::slotFilterChanged()
 
 void SnippetView::slotGHNS()
 {
-    KNS3::DownloadDialog dialog("ktexteditor_codesnippets_core.knsrc", this);
+    KNS3::DownloadDialog dialog(QLatin1String("ktexteditor_codesnippets_core.knsrc"), this);
     dialog.exec();
     foreach ( const KNS3::Entry& entry, dialog.changedEntries() ) {
         foreach ( const QString& path, entry.uninstalledFiles() ) {
-            if ( path.endsWith(".xml") ) {
+            if ( path.endsWith(QLatin1String(".xml")) ) {
                 if ( SnippetRepository* repo = SnippetStore::self()->repositoryForFile(path) ) {
                     repo->remove();
                 }
             }
         }
         foreach ( const QString& path, entry.installedFiles() ) {
-            if ( path.endsWith(".xml") ) {
+            if ( path.endsWith(QLatin1String(".xml")) ) {
                 SnippetStore::self()->appendRow(new SnippetRepository(path));
             }
         }
@@ -315,7 +315,7 @@ void SnippetView::slotSnippetToGHNS()
     if ( !repo )
         return;
 
-    KNS3::UploadDialog dialog("ktexteditor_codesnippets_core.knsrc", this);
+    KNS3::UploadDialog dialog(QLatin1String("ktexteditor_codesnippets_core.knsrc"), this);
     dialog.setUploadFile(QUrl::fromLocalFile(repo->file()));
     dialog.setUploadName(repo->text());
     dialog.exec();

@@ -35,7 +35,7 @@
 
 //BEGIN KateSchemaManager
 KateSchemaManager::KateSchemaManager ()
-    : m_config ("kateschemarc", KConfig::NoGlobals)
+    : m_config (QLatin1String("kateschemarc"), KConfig::NoGlobals)
 {
 }
 

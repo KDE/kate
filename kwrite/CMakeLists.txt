@@ -5,6 +5,8 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS DBusAddons)
 
 set(kwrite_KDEINIT_SRCS kwritemain.cpp kwriteapp.cpp)
 
+remove_definitions(-DQT_NO_CAST_FROM_ASCII)
+
 # FIXME KF5
 #kde4_add_app_icon(kwrite_KDEINIT_SRCS "${KDE4_INSTALL_DIR}/share/icons/oxygen/*/apps/accessories-text-editor.png")
 

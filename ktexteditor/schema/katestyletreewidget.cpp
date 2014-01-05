@@ -605,7 +605,7 @@ void KateStyleTreeWidgetItem::toggleDefStyle()
     KMessageBox::information( treeWidget(),
          i18n("\"Use Default Style\" will be automatically unset when you change any style properties."),
          i18n("Kate Styles"),
-         "Kate hl config use defaults" );
+         QLatin1String("Kate hl config use defaults") );
   }
   else {
     currentStyle = KTextEditor::Attribute::Ptr(new KTextEditor::Attribute( *defaultStyle ));

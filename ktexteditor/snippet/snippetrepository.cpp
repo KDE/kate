@@ -68,10 +68,10 @@ SnippetRepository::~SnippetRepository()
 SnippetRepository* SnippetRepository::createRepoFromName(const QString& name)
 {
     QString cleanName = name;
-    cleanName.replace('/', '-');
+    cleanName.replace(QLatin1Char('/'), QLatin1Char('-'));
 
     const QString path = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                                "ktexteditor_snippets/data/" + cleanName + ".xml");
+                                                QLatin1String("ktexteditor_snippets/data/") + cleanName + QLatin1String(".xml"));
     SnippetRepository* repo = new SnippetRepository(path);
 
     repo->setText(name);
@@ -104,7 +104,7 @@ QStringList SnippetRepository::fileTypes() const
 
 void SnippetRepository::setFileTypes(const QStringList& filetypes)
 {
-    if ( filetypes.contains("*") ) {
+    if ( filetypes.contains(QLatin1String("*")) ) {
         m_filetypes.clear();
     } else {
         m_filetypes = filetypes;
@@ -190,34 +190,34 @@ void SnippetRepository::save()
     */
     QDomDocument doc;
 
-    QDomElement root = doc.createElement("snippets");
-    root.setAttribute("name", text());
-    root.setAttribute("filetypes", m_filetypes.isEmpty() ? "*" : m_filetypes.join(";"));
-    root.setAttribute("authors", m_authors);
-    root.setAttribute("license", m_license);
-    root.setAttribute("namespace", m_namespace);
+    QDomElement root = doc.createElement(QLatin1String("snippets"));
+    root.setAttribute(QLatin1String("name"), text());
+    root.setAttribute(QLatin1String("filetypes"), m_filetypes.isEmpty() ? QLatin1String("*") : m_filetypes.join(QLatin1String(";")));
+    root.setAttribute(QLatin1String("authors"), m_authors);
+    root.setAttribute(QLatin1String("license"), m_license);
+    root.setAttribute(QLatin1String("namespace"), m_namespace);
 
     doc.appendChild(root);
 
-    addAndCreateElement(doc, root, "script", m_script);
+    addAndCreateElement(doc, root, QLatin1String("script"), m_script);
 
     for ( int i = 0; i < rowCount(); ++i ) {
         Snippet* snippet = dynamic_cast<Snippet*>(child(i));
         if ( !snippet ) {
             continue;
         }
-        QDomElement item = doc.createElement("item");
-        addAndCreateElement(doc, item, "displayprefix", snippet->prefix());
-        addAndCreateElement(doc, item, "match", snippet->text());
-        addAndCreateElement(doc, item, "displaypostfix", snippet->postfix());
-        addAndCreateElement(doc, item, "displayarguments", snippet->arguments());
-        addAndCreateElement(doc, item, "fillin", snippet->snippet());
+        QDomElement item = doc.createElement(QLatin1String("item"));
+        addAndCreateElement(doc, item, QLatin1String("displayprefix"), snippet->prefix());
+        addAndCreateElement(doc, item, QLatin1String("match"), snippet->text());
+        addAndCreateElement(doc, item, QLatin1String("displaypostfix"), snippet->postfix());
+        addAndCreateElement(doc, item, QLatin1String("displayarguments"), snippet->arguments());
+        addAndCreateElement(doc, item, QLatin1String("fillin"), snippet->snippet());
         root.appendChild(item);
     }
     //KMessageBox::information(0,doc.toString());
     QFileInfo fi(m_file);
     QString outname = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                             "ktexteditor_snippets/data/" + fi.fileName());
+                                             QLatin1String("ktexteditor_snippets/data/") + fi.fileName());
     if ( m_file != outname) {
         QFileInfo fiout(outname);
 //      if (fiout.exists()) {
@@ -225,7 +225,7 @@ void SnippetRepository::save()
         int i = 0;
         while(QFile::exists(outname)) {
             outname = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                             "ktexteditor_snippets/data/"+QString("%1_").arg(i++)+fi.fileName());
+                                             QString::fromLatin1("ktexteditor_snippets/data/%1_").arg(i++) + fi.fileName());
         }
         KMessageBox::information(QApplication::activeWindow(),
             i18n("You have edited a data file not located in your personal data directory; as such, a renamed clone of the original data file has been created within your personal data directory."));
@@ -241,7 +241,7 @@ void SnippetRepository::save()
     m_file = outname;
 
     // save shortcuts
-    KConfigGroup config = SnippetStore::self()->getConfig().group("repository " + m_file);
+    KConfigGroup config = SnippetStore::self()->getConfig().group(QLatin1String("repository ") + m_file);
     for ( int i = 0; i < rowCount(); ++i ) {
         Snippet* snippet = dynamic_cast<Snippet*>(child(i));
         if ( !snippet ) {
@@ -254,7 +254,7 @@ void SnippetRepository::save()
           shortcuts << keys.toString();
         }
 
-        config.writeEntry( "shortcut " + snippet->text(), shortcuts );
+        config.writeEntry( QLatin1String("shortcut ") + snippet->text(), shortcuts );
     }
     config.sync();
 }
@@ -286,18 +286,18 @@ void SnippetRepository::slotParseFile()
 
     // parse root item
     const QDomElement& docElement = doc.documentElement();
-    if (docElement.tagName() != "snippets") {
+    if (docElement.tagName() != QLatin1String("snippets")) {
         KMessageBox::error( QApplication::activeWindow(), i18n("Invalid XML snippet file: %1", m_file) );
         return;
     }
-    setLicense(docElement.attribute("license"));
-    setAuthors(docElement.attribute("authors"));
-    setFileTypes(docElement.attribute("filetypes").split(';', QString::SkipEmptyParts));
-    setText(docElement.attribute("name"));
-    setCompletionNamespace(docElement.attribute("namespace"));
+    setLicense(docElement.attribute(QLatin1String("license")));
+    setAuthors(docElement.attribute(QLatin1String("authors")));
+    setFileTypes(docElement.attribute(QLatin1String("filetypes")).split(QLatin1Char(';'), QString::SkipEmptyParts));
+    setText(docElement.attribute(QLatin1String("name")));
+    setCompletionNamespace(docElement.attribute(QLatin1String("namespace")));
 
     // load shortcuts
-    KConfigGroup config = SnippetStore::self()->getConfig().group("repository " + m_file);
+    KConfigGroup config = SnippetStore::self()->getConfig().group(QLatin1String("repository ") + m_file);
 
     // parse children, i.e. <item>'s
     const QDomNodeList& nodes = docElement.childNodes();
@@ -307,10 +307,10 @@ void SnippetRepository::slotParseFile()
             continue;
         }
         const QDomElement& item = node.toElement();
-        if ( item.tagName() == "script" ) {
+        if ( item.tagName() == QLatin1String("script") ) {
             setScript(item.text());
         }
-        if ( item.tagName() != "item" ) {
+        if ( item.tagName() != QLatin1String("item") ) {
             continue;
         }
         Snippet* snippet = new Snippet;
@@ -321,15 +321,15 @@ void SnippetRepository::slotParseFile()
                 continue;
             }
             const QDomElement& child = childNode.toElement();
-            if ( child.tagName() == "match" ) {
+            if ( child.tagName() == QLatin1String("match") ) {
                 snippet->setText(child.text());
-            } else if ( child.tagName() == "fillin" ) {
+            } else if ( child.tagName() == QLatin1String("fillin") ) {
                 snippet->setSnippet(child.text());
-            } else if ( child.tagName() == "displayprefix" ) {
+            } else if ( child.tagName() == QLatin1String("displayprefix") ) {
                 snippet->setPrefix(child.text());
-            } else if ( child.tagName() == "displaypostfix" ) {
+            } else if ( child.tagName() == QLatin1String("displaypostfix") ) {
                 snippet->setPostfix(child.text());
-            } else if ( child.tagName() == "displayarguments" ) {
+            } else if ( child.tagName() == QLatin1String("displayarguments") ) {
                 snippet->setArguments(child.text());
             }
         }
@@ -338,7 +338,7 @@ void SnippetRepository::slotParseFile()
             delete snippet;
             continue;
         } else {
-            const QStringList shortcuts = config.readEntry("shortcut " + snippet->text(), QStringList());
+            const QStringList shortcuts = config.readEntry(QLatin1String("shortcut ") + snippet->text(), QStringList());
 
             QList<QKeySequence> sequences;
 
@@ -362,7 +362,7 @@ QVariant SnippetRepository::data(int role) const
         if ( m_filetypes.isEmpty() ) {
             return i18n("Applies to all filetypes");
         } else {
-            return i18n("Applies to the following filetypes: %1", m_filetypes.join(", "));
+            return i18n("Applies to the following filetypes: %1", m_filetypes.join(QLatin1String(", ")));
         }
     } else if ( role == Qt::ForegroundRole && checkState() != Qt::Checked ) {
         ///TODO: make the selected items also "disalbed" so the toggle action is seen directly

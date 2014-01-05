@@ -44,7 +44,7 @@ QVariant SnippetFilterProxyModel::data(const QModelIndex& index, int role) const
         // in the view, also show prefix, postfix and arguments
         Snippet* snippet = dynamic_cast<Snippet*>( SnippetStore::self()->itemFromIndex(mapToSource(index)) );
         if (snippet) {
-            QString ret = snippet->prefix() + ' ' + snippet->text() + snippet->arguments() + ' ' + snippet->postfix();
+            QString ret = snippet->prefix() + QLatin1Char(' ') + snippet->text() + snippet->arguments() + QLatin1Char(' ') + snippet->postfix();
             return ret.trimmed();
         }
     }

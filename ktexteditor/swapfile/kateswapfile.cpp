@@ -551,7 +551,7 @@ void SwapFile::removeSwapFile()
 bool SwapFile::updateFileName()
 {
   // first clear filename
-  m_swapfile.setFileName ("");
+  m_swapfile.setFileName(QString());
 
   // get the new path
   QString path = fileName();
@@ -574,15 +574,15 @@ QString SwapFile::fileName()
   {
     path = KateDocumentConfig::global()->swapDirectory();
     path.append( QDir::separator() );
-    path.append( m_document->buffer().digest() );
-    path.append( ".kate-swp" );
+    path.append( QString::fromLatin1(m_document->buffer().digest()) );
+    path.append( QLatin1String(".kate-swp") );
   }
   else
   {
     path = url.toLocalFile();
     int poz = path.lastIndexOf(QDir::separator());
-    path.insert(poz+1, ".");
-    path.append(".kate-swp");
+    path.insert(poz + 1, QLatin1String("."));
+    path.append(QLatin1String(".kate-swp"));
   }
 
   return path;

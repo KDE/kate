@@ -42,13 +42,13 @@ SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
     QStringList files;
 
     const QStringList dirs =
-      QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktexteditor_snippets/data", QStandardPaths::LocateDirectory)
-      << QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "ktexteditor_snippets/ghns", QStandardPaths::LocateDirectory);
+      QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("ktexteditor_snippets/data"), QStandardPaths::LocateDirectory)
+      << QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("ktexteditor_snippets/ghns"), QStandardPaths::LocateDirectory);
 
     foreach (const QString& dir, dirs) {
       const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.xml"));
       foreach (const QString& file, fileNames) {
-        files.append(dir + '/' + file);
+        files.append(dir + QLatin1Char('/') + file);
       }
     }
 

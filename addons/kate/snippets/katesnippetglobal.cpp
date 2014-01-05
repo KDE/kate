@@ -138,14 +138,14 @@ void KateSnippetGlobal::insertSnippetFromActionData()
 
 void KateSnippetGlobal::createSnippet (KTextEditor::View *view)
 {
-   // invalid range? skip to do anything, it will fail!
-   if (!view || !view->selectionRange().isValid())
+   // no active view, bad
+   if (!view)
      return;
 
     // get mode
     QString mode;
     if (auto iface = qobject_cast<KTextEditor::HighlightInterface *> (view->document()))
-      mode = iface->highlightingModeAt(view->selectionRange().start());
+      mode = iface->highlightingModeAt(view->selectionRange().isValid() ? view->selectionRange().start() : view->cursorPosition());
     if ( mode.isEmpty() )
         mode = view->document()->mode();
 

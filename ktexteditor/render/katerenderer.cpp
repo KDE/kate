@@ -41,10 +41,10 @@
 
 #include <ktexteditor/highlightinterface.h>
 
-static const QChar tabChar('\t');
-static const QChar spaceChar(' ');
+static const QChar tabChar(QLatin1Char('\t'));
+static const QChar spaceChar(QLatin1Char(' '));
 static const QChar nbSpaceChar(0xa0); // non-breaking space
-static const QRegularExpression nonPrintableSpacesRegExp("[\\x{2000}-\\x{200F}\\x{2028}-\\x{202F}\\x{205F}-\\x{2064}\\x{206A}-\\x{206F}]");
+static const QRegularExpression nonPrintableSpacesRegExp(QLatin1String("[\\x{2000}-\\x{200F}\\x{2028}-\\x{202F}\\x{205F}-\\x{2064}\\x{206A}-\\x{206F}]"));
 
 KateRenderer::KateRenderer(KateDocument* doc, Kate::TextFolding &folding, KateView *view)
   : m_doc(doc)
@@ -710,7 +710,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
           trailingPos = 0;
         if (spaceIndex >= trailingPos) {
           while (spaceIndex >= line.startCol() && text.at(spaceIndex).isSpace()) {
-            if (text.at(spaceIndex) != '\t' || !showTabs())
+            if (text.at(spaceIndex) != QLatin1Char('\t') || !showTabs())
               paintTrailingSpace(paint, line.lineLayout().cursorToX(spaceIndex) - xStart + spaceWidth()/2.0, y);
             --spaceIndex;
           }
@@ -844,7 +844,7 @@ void KateRenderer::paintTextLine(QPainter& paint, KateLineLayoutPtr range, int x
     const QPainter::RenderHints backupRenderHints = paint.renderHints();
     paint.setRenderHint(QPainter::Antialiasing, false);
     paint.setPen( config()->wordWrapMarkerColor() );
-    int _x = qreal(m_doc->config()->wordWrapAt()) * fm.width('x') - xStart;
+    int _x = qreal(m_doc->config()->wordWrapAt()) * fm.width(QLatin1Char('x')) - xStart;
     paint.drawLine( _x,0,_x,lineHeight() );
     paint.setRenderHints(backupRenderHints);
   }

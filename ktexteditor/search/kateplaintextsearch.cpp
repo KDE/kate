@@ -55,7 +55,7 @@ KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTex
   if (m_wholeWords)
   {
     // escape dot and friends
-    const QString workPattern = "\\b" + QRegExp::escape(text) + "\\b";
+    const QString workPattern = QString::fromLatin1("\\b%1\\b").arg(QRegExp::escape(text));
 
     return KateRegExpSearch(m_document, m_caseSensitivity).search(workPattern, inputRange, backwards)[0];
   }
@@ -66,7 +66,7 @@ KTextEditor::Range KatePlainTextSearch::search (const QString & text, const KTex
   }
 
   // split multi-line needle into single lines
-  const QStringList needleLines = text.split("\n");
+  const QStringList needleLines = text.split(QLatin1String("\n"));
 
   if (needleLines.count() > 1)
   {

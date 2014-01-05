@@ -241,18 +241,18 @@ KatePrintHeaderFooter::KatePrintHeaderFooter( QWidget *parent )
 
   // set defaults
   cbEnableHeader->setChecked( true );
-  leHeaderLeft->setText( "%y" );
-  leHeaderCenter->setText( "%f" );
-  leHeaderRight->setText( "%p" );
-  kcbtnHeaderFg->setColor( QColor("black") );
+  leHeaderLeft->setText( QLatin1String("%y") );
+  leHeaderCenter->setText( QLatin1String("%f") );
+  leHeaderRight->setText( QLatin1String("%p") );
+  kcbtnHeaderFg->setColor( Qt::black );
   cbHeaderEnableBgColor->setChecked( false );
-  kcbtnHeaderBg->setColor( QColor("lightgrey") );
+  kcbtnHeaderBg->setColor( Qt::lightGray );
 
   cbEnableFooter->setChecked( true );
-  leFooterRight->setText( "%U" );
-  kcbtnFooterFg->setColor( QColor("black") );
+  leFooterRight->setText( QLatin1String("%U") );
+  kcbtnFooterFg->setColor( Qt::black );
   cbFooterEnableBgColor->setChecked( false );
-  kcbtnFooterBg->setColor( QColor("lightgrey") );
+  kcbtnFooterBg->setColor( Qt::lightGray );
 
   // whatsthis
   QString  s = i18n("<p>Format of the page header. The following tags are supported:</p>");
@@ -371,26 +371,26 @@ void KatePrintHeaderFooter::showContextMenu(const QPoint& pos)
   // create original context menu
   QMenu* menu = contextMenu->addMenu(i18n("Add Placeholder..."));
   menu->setIcon(QIcon::fromTheme(QLatin1String("list-add")));
-  QAction* a = menu->addAction(i18n("Current User Name") + "\t%u");
-  a->setData("%u");
-  a = menu->addAction(i18n("Complete Date/Time (short format)") + "\t%d");
-  a->setData("%d");
-  a = menu->addAction(i18n("Complete Date/Time (long format)") + "\t%D");
-  a->setData("%D");
-  a = menu->addAction(i18n("Current Time") + "\t%h");
-  a->setData("%h");
-  a = menu->addAction(i18n("Current Date (short format)") + "\t%y");
-  a->setData("%y");
-  a = menu->addAction(i18n("Current Date (long format)") + "\t%Y");
-  a->setData("%Y");
-  a = menu->addAction(i18n("File Name") + "\t%f");
-  a->setData("%f");
-  a = menu->addAction(i18n("Full document URL") + "\t%U");
-  a->setData("%U");
-  a = menu->addAction(i18n("Page Number") + "\t%p");
-  a->setData("%p");
-  a = menu->addAction(i18n("Total Amount of Pages") + "\t%P");
-  a->setData("%P");
+  QAction* a = menu->addAction(i18n("Current User Name") + QLatin1String("\t%u"));
+  a->setData(QLatin1String("%u"));
+  a = menu->addAction(i18n("Complete Date/Time (short format)") + QLatin1String("\t%d"));
+  a->setData(QLatin1String("%d"));
+  a = menu->addAction(i18n("Complete Date/Time (long format)") + QLatin1String("\t%D"));
+  a->setData(QLatin1String("%D"));
+  a = menu->addAction(i18n("Current Time") + QLatin1String("\t%h"));
+  a->setData(QLatin1String("%h"));
+  a = menu->addAction(i18n("Current Date (short format)") + QLatin1String("\t%y"));
+  a->setData(QLatin1String("%y"));
+  a = menu->addAction(i18n("Current Date (long format)") + QLatin1String("\t%Y"));
+  a->setData(QLatin1String("%Y"));
+  a = menu->addAction(i18n("File Name") + QLatin1String("\t%f"));
+  a->setData(QLatin1String("%f"));
+  a = menu->addAction(i18n("Full document URL") + QLatin1String("\t%U"));
+  a->setData(QLatin1String("%U"));
+  a = menu->addAction(i18n("Page Number") + QLatin1String("\t%p"));
+  a->setData(QLatin1String("%p"));
+  a = menu->addAction(i18n("Total Amount of Pages") + QLatin1String("\t%P"));
+  a->setData(QLatin1String("%P"));
 
   QAction* const result = contextMenu->exec(lineEdit->mapToGlobal(pos));
   if (result) {
@@ -454,7 +454,7 @@ void KatePrintHeaderFooter::readSettings()
   // Font
   QFont headerFooterFont = headerFooterGroup.readEntry( "HeaderFooterFont", QFont() );
   lFontPreview->setFont( headerFooterFont );
-  lFontPreview->setText( QString(headerFooterFont.family() + ", %1pt").arg( headerFooterFont.pointSize() ) );
+  lFontPreview->setText( QString(headerFooterFont.family() + QLatin1String(", %1pt")).arg( headerFooterFont.pointSize() ) );
 }
 
 void KatePrintHeaderFooter::writeSettings()
@@ -555,7 +555,7 @@ KatePrintLayout::KatePrintLayout( QWidget *parent)
     cmbSchema->addItem (schema.translatedName(), QVariant (schema.rawName));
 
   // default is printing, MUST BE THERE
-  cmbSchema->setCurrentIndex (cmbSchema->findData (QVariant("Printing")));
+  cmbSchema->setCurrentIndex (cmbSchema->findData (QVariant(QString::fromLatin1("Printing"))));
 
   // whatsthis
   cmbSchema->setWhatsThis(i18n(

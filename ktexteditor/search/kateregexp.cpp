@@ -89,7 +89,7 @@ int KateRegExp::repairPattern(bool & stillMultiLine)
 
         case L's':
           // replace "\s" with "[ \t]"
-          output.append(" \\t");
+          output.append(QLatin1String(" \\t"));
           input += 2;
           replaceCount++;
           break;
@@ -157,7 +157,7 @@ int KateRegExp::repairPattern(bool & stillMultiLine)
 
         case L's':
           // replace "\s" with "[ \t]"
-          output.append("[ \\t]");
+          output.append(QLatin1String("[ \\t]"));
           input += 2;
           replaceCount++;
           break;
@@ -175,7 +175,7 @@ int KateRegExp::repairPattern(bool & stillMultiLine)
 
       case L'.':
         // replace " with "[^\n]"
-        output.append("[^\\n]");
+        output.append(QLatin1String("[^\\n]"));
         input++;
         replaceCount++;
         break;

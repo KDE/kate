@@ -112,8 +112,8 @@ PrintPainter::PrintPainter(KateDocument *doc)
   m_fontHeight = m_renderer->fontHeight();
 
   // figure out the horiizontal space required
-  QString s = QString("%1 ").arg(m_doc->lines());
-  s.fill('5', -1); // some non-fixed fonts haven't equally wide numbers
+  QString s = QString::fromLatin1("%1 ").arg(m_doc->lines());
+  s.fill(QLatin1Char('5'), -1); // some non-fixed fonts haven't equally wide numbers
   // FIXME calculate which is actually the widest...
   m_lineNumberWidth = m_renderer->currentFontMetrics().width(s);
 }
@@ -227,7 +227,7 @@ void PrintPainter::configure(const QPrinter *printer, PageLayout &pl) const
 
   if (m_printLineNumbers) {
     // a small space between the line numbers and the text
-    int _adj = m_renderer->currentFontMetrics().width("5");
+    int _adj = m_renderer->currentFontMetrics().width(QLatin1String("5"));
     // adjust available width and set horizontal start point for data
     pl.maxWidth -= m_lineNumberWidth + _adj;
     pl.xstart += m_lineNumberWidth + _adj;
@@ -243,23 +243,23 @@ void PrintPainter::configure(const QPrinter *printer, PageLayout &pl) const
     QMap<QString,QString> tags;
 
     KUser u (KUser::UseRealUserID);
-    tags["u"] = u.loginName();
+    tags[QString::fromLatin1("u")] = u.loginName();
 
-    tags["d"] =  QLocale().toString(dt, QLocale::ShortFormat);
-    tags["D"] =  QLocale().toString(dt, QLocale::LongFormat);
-    tags["h"] =  QLocale().toString(dt.time(), QLocale::ShortFormat);
-    tags["y"] =  QLocale().toString(dt.date(), QLocale::ShortFormat);
-    tags["Y"] =  QLocale().toString(dt.date(), QLocale::LongFormat);
-    tags["f"] =  m_doc->url().fileName();
-    tags["U"] =  m_doc->url().toString();
+    tags[QString::fromLatin1("d")] =  QLocale().toString(dt, QLocale::ShortFormat);
+    tags[QString::fromLatin1("D")] =  QLocale().toString(dt, QLocale::LongFormat);
+    tags[QString::fromLatin1("h")] =  QLocale().toString(dt.time(), QLocale::ShortFormat);
+    tags[QString::fromLatin1("y")] =  QLocale().toString(dt.date(), QLocale::ShortFormat);
+    tags[QString::fromLatin1("Y")] =  QLocale().toString(dt.date(), QLocale::LongFormat);
+    tags[QString::fromLatin1("f")] =  m_doc->url().fileName();
+    tags[QString::fromLatin1("U")] =  m_doc->url().toString();
     if (pl.selectionOnly)
     {
       QString s( i18n("(Selection of) ") );
-      tags["f"].prepend( s );
-      tags["U"].prepend( s );
+      tags[QString::fromLatin1("f")].prepend( s );
+      tags[QString::fromLatin1("U")].prepend( s );
     }
 
-    QRegExp reTags( "%([dDfUhuyY])" ); // TODO tjeck for "%%<TAG>"
+    QRegExp reTags(QLatin1String("%([dDfUhuyY])")); // TODO tjeck for "%%<TAG>"
 
     if (m_useHeader) {
       pl.headerHeight = QFontMetrics( m_fhFont ).height();
@@ -345,7 +345,7 @@ void PrintPainter::configure(const QPrinter *printer, PageLayout &pl) const
   // now that we know the vertical amount of space needed,
   // it is possible to calculate the total number of pages
   // if needed, that is if any header/footer tag contains "%P".
-  if ( !pl.headerTagList.filter("%P").isEmpty() || !pl.footerTagList.filter("%P").isEmpty() ) {
+  if ( !pl.headerTagList.filter(QLatin1String("%P")).isEmpty() || !pl.footerTagList.filter(QLatin1String("%P")).isEmpty() ) {
     qCDebug(LOG_PART)<<"'%P' found! calculating number of pages...";
 
     // calculate total layouted lines in the document
@@ -366,7 +366,7 @@ void PrintPainter::configure(const QPrinter *printer, PageLayout &pl) const
 //           _lt += (guideHeight + (fontHeight /2)) / fontHeight;
 
     // substitute both tag lists
-    QString re("%P");
+    QString re(QLatin1String("%P"));
     QStringList::Iterator it;
 
     for (it = pl.headerTagList.begin(); it != pl.headerTagList.end(); ++it) {
@@ -421,8 +421,8 @@ void PrintPainter::paintHeader(QPainter &painter, const uint currentPage, uint &
     QString s;
     for (int i = 0; i < 3; i++) {
       s = pl.headerTagList[i];
-      if (s.indexOf("%p") != -1) {
-        s.replace("%p", QString::number(currentPage));
+      if (s.indexOf(QLatin1String("%p")) != -1) {
+        s.replace(QLatin1String("%p"), QString::number(currentPage));
       }
 
       painter.drawText(marg, 0, pl.headerWidth - (marg * 2), pl.headerHeight, align, s);
@@ -462,8 +462,8 @@ void PrintPainter::paintFooter(QPainter &painter, const uint currentPage, const 
     QString s;
     for (int i = 0; i < 3; i++) {
       s = pl.footerTagList[i];
-      if (s.indexOf("%p") != -1) {
-        s.replace("%p", QString::number(currentPage));
+      if (s.indexOf(QLatin1String("%p")) != -1) {
+        s.replace(QLatin1String("%p"), QString::number(currentPage));
       }
       painter.drawText(marg, pl.maxHeight + pl.innerMargin, pl.headerWidth - (marg * 2), pl.footerHeight, align, s);
       align = Qt::AlignVCenter | (i == 0 ? Qt::AlignHCenter : Qt::AlignRight);
@@ -516,7 +516,7 @@ void PrintPainter::paintGuide(QPainter &painter, uint &y, const PageLayout &pl) 
 
   int _widest( 0 );
   foreach (const KateExtendedAttribute::Ptr &attribute, _attributes) {
-    _widest = qMax(QFontMetrics(attribute->font()).width(attribute->name().section(':',1,1)), _widest);
+    _widest = qMax(QFontMetrics(attribute->font()).width(attribute->name().section(QLatin1Char(':'), 1, 1)), _widest);
   }
 
   const int _guideCols = _w / (_widest + pl.innerMargin);
@@ -528,8 +528,8 @@ void PrintPainter::paintGuide(QPainter &painter, uint &y, const PageLayout &pl) 
   _titleFont.setUnderline(true);
   QString _currentHlName;
   foreach (const KateExtendedAttribute::Ptr &attribute, _attributes) {
-    QString _hl = attribute->name().section(':',0,0);
-    QString _name = attribute->name().section(':',1,1);
+    QString _hl = attribute->name().section(QLatin1Char(':'), 0, 0);
+    QString _name = attribute->name().section(QLatin1Char(':'), 1, 1);
     if (_hl != _hlName && _hl != _currentHlName) {
       _currentHlName = _hl;
       if (_i % _guideCols) {
@@ -538,7 +538,7 @@ void PrintPainter::paintGuide(QPainter &painter, uint &y, const PageLayout &pl) 
       y += pl.innerMargin;
       painter.setFont(_titleFont);
       painter.setPen(_defaultPen);
-      painter.drawText(_x, y, _w, m_fontHeight, Qt::AlignTop, _hl + ' ' + i18n("text"));
+      painter.drawText(_x, y, _w, m_fontHeight, Qt::AlignTop, _hl + QLatin1Char(' ') + i18n("text"));
       y += m_fontHeight;
       _i = 0;
     }

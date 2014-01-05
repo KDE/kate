@@ -105,7 +105,7 @@ QScriptValue require(QScriptContext *context, QScriptEngine *engine)
      */
     const QString name = context->argument(i).toString();
     const QString fullName = QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                                    "katepart/script/libraries/" + name);
+                                                    QLatin1String("katepart/script/libraries/") + name);
     if (fullName.isEmpty())
       continue;
 

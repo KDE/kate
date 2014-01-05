@@ -137,7 +137,7 @@ void VariableEditor::paintEvent(QPaintEvent* event)
 void VariableEditor::itemEnabled(bool enabled)
 {
   if (enabled) {
-    m_variable->setText("<b>" + m_item->variable() + "</b>");
+    m_variable->setText(QLatin1String("<b>") + m_item->variable() + QLatin1String("</b>"));
   } else {
     m_variable->setText(m_item->variable());
   }

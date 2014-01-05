@@ -175,13 +175,13 @@ void VariableBoolItem::setValue(bool enabled)
 void VariableBoolItem::setValueByString(const QString& value)
 {
   QString tmp = value.trimmed().toLower();
-  bool enabled = (tmp == "on") || (tmp == "1") || (tmp == "true");
+  bool enabled = (tmp == QLatin1String("on")) || (tmp == QLatin1String("1")) || (tmp == QLatin1String("true"));
   setValue(enabled);
 }
 
 QString VariableBoolItem::valueAsString() const
 {
-  return value() ? QString("true") : QString("false");
+  return value() ? QString::fromLatin1("true") : QString::fromLatin1("false");
 }
 
 VariableEditor* VariableBoolItem::createEditor(QWidget* parent)
@@ -349,11 +349,11 @@ void VariableRemoveSpacesItem::setValue(int value)
 QString VariableRemoveSpacesItem::valueAsString() const
 {
   if (m_value == 2) {
-    return "all";
+    return QString::fromLatin1("all");
   } else if (m_value == 1) {
-    return "modified";
+    return QString::fromLatin1("modified");
   } else {
-    return "none";
+    return QString::fromLatin1("none");
   }
 }
 
@@ -361,9 +361,9 @@ void VariableRemoveSpacesItem::setValueByString(const QString &value)
 {
   QString tmp = value.trimmed().toLower();
 
-  if (tmp == "1" || tmp == "modified" || tmp == "mod" || tmp == "+") {
+  if (tmp == QLatin1String("1") || tmp == QLatin1String("modified") || tmp == QLatin1String("mod") || tmp == QLatin1String("+")) {
     m_value = 1;
-  } else if (tmp == "2" || tmp == "all" || tmp == "*") {
+  } else if (tmp == QLatin1String("2") || tmp == QLatin1String("all") || tmp == QLatin1String("*")) {
     m_value = 2;
   } else {
     m_value = 0;

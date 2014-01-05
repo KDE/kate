@@ -134,7 +134,7 @@ KateRegExpSearch::ReplacementStream &KateRegExpSearch::ReplacementStream::operat
 KateRegExpSearch::ReplacementStream &KateRegExpSearch::ReplacementStream::operator<<(const counter &c)
 {
   // Zero padded counter value
-  m_str.append(QString("%1").arg(c.value, c.minWidth, 10, QLatin1Char('0')));
+  m_str.append(QString::fromLatin1("%1").arg(c.value, c.minWidth, 10, QLatin1Char('0')));
 
   return *this;
 }
@@ -261,7 +261,7 @@ QVector<KTextEditor::Range> KateRegExpSearch::search(
     FAST_DEBUG("  line" << 0 << "has length" << lineLens[0]);
 
     // second line and after
-    const QString sep("\n");
+    const QString sep = QString::fromLatin1("\n");
     for (int i = 1; i < inputLineCount; i++)
     {
       const int lineNum = firstLineIndex + i;

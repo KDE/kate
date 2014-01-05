@@ -41,13 +41,13 @@ VariableListView::~VariableListView()
 void VariableListView::parseVariables(const QString& line)
 {
   QString tmp = line.trimmed();
-  if (tmp.startsWith("kate:")) {
+  if (tmp.startsWith(QLatin1String("kate:"))) {
     tmp.remove(0, 5);
   }
 
-  QStringList variables = tmp.split(';', QString::SkipEmptyParts);
+  QStringList variables = tmp.split(QLatin1Char(';'), QString::SkipEmptyParts);
 
-  QRegExp sep("\\s+");
+  QRegExp sep(QLatin1String("\\s+"));
   for (int i = 0; i < variables.size(); ++i) {
     QStringList pair = variables[i].split(sep, QString::SkipEmptyParts);
     if (pair.size() < 2) {
@@ -56,7 +56,7 @@ void VariableListView::parseVariables(const QString& line)
     if (pair.size() > 2) { // e.g. fonts have spaces in the value. Hence, join all value items again
       QString key = pair[0];
       pair.removeAt(0);
-      QString value = pair.join(" ");
+      QString value = pair.join(QLatin1String(" "));
       pair.clear();
       pair << key << value;
     }
@@ -128,14 +128,14 @@ QString VariableListView::variableLine()
   QMap<QString, QString>::const_iterator it = m_variables.constBegin();
   while (it != m_variables.constEnd()) {
     if (!line.isEmpty()) {
-      line += " ";
+      line += QLatin1String(" ");
     }
-    line += it.key() + ' ' + it.value() + ';';
+    line += it.key() + QLatin1Char(' ') + it.value() + QLatin1Char(';');
     
     ++it;
   }
 
-  line.prepend("kate: ");
+  line.prepend(QLatin1String("kate: "));
 
   return line;
 }

@@ -870,21 +870,21 @@ void KateCmdLineEdit::hideEvent(QHideEvent *e)
 
 QString KateCmdLineEdit::helptext( const QPoint & ) const
 {
-  QString beg = "<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>";
-  QString mid = "</big></b></font></td></tr><tr><td>";
-  QString end = "</td></tr></table></div><qt>";
+  QString beg = QString::fromLatin1("<qt background=\"white\"><div><table width=\"100%\"><tr><td bgcolor=\"brown\"><font color=\"white\"><b>Help: <big>");
+  QString mid = QString::fromLatin1("</big></b></font></td></tr><tr><td>");
+  QString end = QString::fromLatin1("</td></tr></table></div><qt>");
 
   QString t = text();
-  QRegExp re( "\\s*help\\s+(.*)" );
+  QRegExp re( QLatin1String("\\s*help\\s+(.*)") );
   if ( re.indexIn( t ) > -1 )
   {
     QString s;
     // get help for command
     QString name = re.cap( 1 );
-    if ( name == "list" )
+    if ( name == QLatin1String("list") )
     {
       return beg + i18n("Available Commands") + mid
-          + KateCmd::self()->commandList().join(" ")
+          + KateCmd::self()->commandList().join(QLatin1String(" "))
           + i18n("<p>For help on individual commands, do <code>'help &lt;command&gt;'</code></p>")
           + end;
     }
@@ -954,7 +954,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   // silently ignore leading space characters and colon characters (for vi-heads)
   uint n = 0;
   const uint textlen=text.length();
-  while( (n<textlen) && ( text[n].isSpace() || text[n] == ':' ) )
+  while( (n<textlen) && ( text[n].isSpace() || text[n] == QLatin1Char(':') ) )
     n++;
 
   if (n>=textlen) return;
@@ -985,7 +985,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_msgMode = true;
 
     // the following commands changes the focus themselves, so bar should be hidden before execution.
-    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(QLatin1String(" ")).at(0))) {
+    if (QRegExp(QLatin1String("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e")).exactMatch(cmd.split(QLatin1String(" ")).at(0))) {
       emit hideRequested();
     }
 
@@ -1018,7 +1018,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
         else
         {
           if (msg.length() > 0) {
-            if (msg.contains('\n')) {
+            if (msg.contains(QLatin1Char('\n'))) {
               // multiline error, use widget with more space
               QWhatsThis::showText(mapToGlobal(QPoint(0,0)), msg);
             } else {

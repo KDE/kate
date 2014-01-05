@@ -200,32 +200,32 @@ void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const
 
       // remove the angle brackets
       decoded.remove(0, 1);
-      decoded.remove(decoded.indexOf(">"), 1);
-      qCDebug(LOG_PART) << "\t Special key:" << decoded;
+      decoded.remove(decoded.indexOf(QLatin1String(">")), 1);
+      qCDebug(LOG_PART) << QLatin1String("\t Special key:") << decoded;
 
       // check if one or more modifier keys where used
-      if (decoded.indexOf("s-") != -1 || decoded.indexOf("c-") != -1
-          || decoded.indexOf("m-") != -1 || decoded.indexOf("a-") != -1) {
+      if (decoded.indexOf(QLatin1String("s-")) != -1 || decoded.indexOf(QLatin1String("c-")) != -1
+          || decoded.indexOf(QLatin1String("m-")) != -1 || decoded.indexOf(QLatin1String("a-")) != -1) {
 
-        int s = decoded.indexOf("s-");
+        int s = decoded.indexOf(QLatin1String("s-"));
         if (s != -1) {
           mods |= Qt::ShiftModifier;
           decoded.remove(s, 2);
         }
 
-        int c = decoded.indexOf("c-");
+        int c = decoded.indexOf(QLatin1String("c-"));
         if (c != -1) {
           mods |= Qt::ControlModifier;
           decoded.remove(c, 2);
         }
 
-        int a = decoded.indexOf("a-");
+        int a = decoded.indexOf(QLatin1String("a-"));
         if (a != -1) {
           mods |= Qt::AltModifier;
           decoded.remove(a, 2);
         }
 
-        int m = decoded.indexOf("m-");
+        int m = decoded.indexOf(QLatin1String("m-"));
         if (m != -1) {
           mods |= Qt::MetaModifier;
           decoded.remove(m, 2);
@@ -309,13 +309,13 @@ void KateViInputModeManager::storeLastChangeCommand()
         || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier ) ) {
       QString keyPress;
 
-      keyPress.append( '<' );
-      keyPress.append( ( mods & Qt::ShiftModifier ) ? "s-" : "" );
-      keyPress.append( ( mods & Qt::ControlModifier ) ? "c-" : "" );
-      keyPress.append( ( mods & Qt::AltModifier ) ? "a-" : "" );
-      keyPress.append( ( mods & Qt::MetaModifier ) ? "m-" : "" );
+      keyPress.append( QLatin1Char('<') );
+      keyPress.append( ( mods & Qt::ShiftModifier )   ? QLatin1String("s-") : QString() );
+      keyPress.append( ( mods & Qt::ControlModifier ) ? QLatin1String("c-") : QString() );
+      keyPress.append( ( mods & Qt::AltModifier )     ? QLatin1String("a-") : QString() );
+      keyPress.append( ( mods & Qt::MetaModifier )    ? QLatin1String("m-") : QString() );
       keyPress.append( keyCode <= 0xFF ? QChar( keyCode ) : KateViKeyParser::self()->qt2vi( keyCode ) );
-      keyPress.append( '>' );
+      keyPress.append( QLatin1Char('>') );
 
       key = KateViKeyParser::self()->encodeKeySequence( keyPress ).at( 0 );
     }
@@ -368,7 +368,7 @@ bool KateViInputModeManager::isRecordingMacro()
 
 void KateViInputModeManager::replayMacro(QChar macroRegister)
 {
-  if (macroRegister == '@')
+  if (macroRegister == QLatin1Char('@'))
   {
     macroRegister = m_lastPlayedMacroRegister;
   }
@@ -398,7 +398,7 @@ void KateViInputModeManager::logCompletionEvent(const KateViInputModeManager::Co
 {
   // Ctrl-space is a special code that means: if you're replaying a macro, fetch and execute
   // the next logged completion.
-  QKeyEvent ctrlSpace( QKeyEvent::KeyPress, Qt::Key_Space, Qt::ControlModifier, " ");
+  QKeyEvent ctrlSpace( QKeyEvent::KeyPress, Qt::Key_Space, Qt::ControlModifier, QLatin1String(" "));
   if (isRecordingMacro())
   {
     m_currentMacroKeyEventsLog.append(ctrlSpace);
@@ -416,7 +416,7 @@ KateViInputModeManager::Completion KateViInputModeManager::nextLoggedCompletion(
     if (m_nextLoggedLastChangeComplexIndex >= m_lastChangeCompletionsLog.length())
     {
       qCDebug(LOG_PART) << "Something wrong here: requesting more completions for last change than we actually have.  Returning dummy.";
-      return Completion("", false, Completion::PlainText);
+      return Completion(QString(), false, Completion::PlainText);
     }
     return m_lastChangeCompletionsLog[m_nextLoggedLastChangeComplexIndex++];
   }
@@ -425,7 +425,7 @@ KateViInputModeManager::Completion KateViInputModeManager::nextLoggedCompletion(
     if (m_nextLoggedMacroCompletionIndex.top() >= m_macroCompletionsToReplay.top().length())
     {
       qCDebug(LOG_PART) << "Something wrong here: requesting more completions for macro than we actually have.  Returning dummy.";
-      return Completion("", false, Completion::PlainText);
+      return Completion(QString(), false, Completion::PlainText);
     }
     return m_macroCompletionsToReplay.top()[m_nextLoggedMacroCompletionIndex.top()++];
   }
@@ -499,14 +499,14 @@ void KateViInputModeManager::viEnterNormalMode()
   if ( !isReplayingLastChange() && m_currentViMode == InsertMode ) {
     // '^ is the insert mark and "^ is the insert register,
     // which holds the last inserted text
-    Range r( m_view->cursorPosition(), getMarkPosition( '^' ) );
+    Range r( m_view->cursorPosition(), getMarkPosition( QLatin1Char('^') ) );
 
     if ( r.isValid() ) {
       QString insertedText = m_view->doc()->text( r );
-      KateGlobal::self()->viInputModeGlobal()->fillRegister( '^', insertedText );
+      KateGlobal::self()->viInputModeGlobal()->fillRegister( QLatin1Char('^'), insertedText );
     }
 
-    addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
+    addMark( m_view->doc(), QLatin1Char('^'), Cursor( m_view->cursorPosition() ), false, false );
   }
 
   changeViMode(NormalMode);
@@ -521,12 +521,12 @@ void KateViInputModeManager::viEnterNormalMode()
 void KateViInputModeManager::viEnterInsertMode()
 {
   changeViMode(InsertMode);
-  addMark( m_view->doc(), '^', Cursor( m_view->cursorPosition() ), false, false );
+  addMark( m_view->doc(), QLatin1Char('^'), Cursor( m_view->cursorPosition() ), false, false );
   if (getTemporaryNormalMode())
   {
     // Ensure the key log contains a request to re-enter Insert mode, else the keystrokes made
     // after returning from temporary normal mode will be treated as commands!
-    m_currentChangeKeyEventsLog.append(QKeyEvent(QEvent::KeyPress, QString("i")[0].unicode(), Qt::NoModifier, "i"));
+    m_currentChangeKeyEventsLog.append(QKeyEvent(QEvent::KeyPress, Qt::Key_I, Qt::NoModifier, QLatin1String("i")));
   }
   m_view->setCaretStyle( KateRenderer::Line, true );
   setTemporaryNormalMode(false);
@@ -773,7 +773,7 @@ void KateViInputModeManager::addMark( KateDocument* doc, const QChar& mark, cons
   m_marks.insert( mark, doc->newMovingCursor( pos, behavior ) );
 
   // Showing what mark we set:
-  if ( showmark && mark != '>' && mark != '<' && mark != '[' && mark != '.' && mark != ']') {
+  if ( showmark && mark != QLatin1Char('>') && mark != QLatin1Char('<') && mark != QLatin1Char('[') && mark != QLatin1Char('.') && mark != QLatin1Char(']')) {
     if( !marktype & MarkInterface::markType01 ) {
       m_view->doc()->addMark( pos.line(),
           MarkInterface::markType01 );
@@ -816,8 +816,8 @@ void KateViInputModeManager::markChanged (Document* doc,
   } else if (action == MarkInterface::MarkAdded) {
     bool freeMarkerCharFound = false;
     for( char markerChar = 'a'; markerChar <= 'z'; markerChar++) {
-      if (!m_marks.value(markerChar)) {
-        addMark(m_view->doc(), markerChar, Cursor(mark.line, 0));
+      if (!m_marks.value(QChar::fromLatin1(markerChar))) {
+        addMark(m_view->doc(), QChar::fromLatin1(markerChar), Cursor(mark.line, 0));
         freeMarkerCharFound = true;
         break;
       }
@@ -843,8 +843,8 @@ void KateViInputModeManager::syncViMarksAndBookmarks() {
       }
       if ( !thereIsViMarkForThisLine ) {
         for( char markerChar = 'a'; markerChar <= 'z'; markerChar++ ) {
-          if ( ! m_marks.value(markerChar) ) {
-            addMark( m_view->doc(), markerChar, Cursor( it.value()->line, 0 ) );
+          if ( ! m_marks.value(QChar::fromLatin1(markerChar)) ) {
+            addMark( m_view->doc(), QChar::fromLatin1(markerChar), Cursor( it.value()->line, 0 ) );
             break;
           }
         }
@@ -872,12 +872,12 @@ void KateViInputModeManager::syncViMarksAndBookmarks() {
 
 // Returns a string of marks and columns.
 QString KateViInputModeManager::getMarksOnTheLine(int line) {
-  QString res = "";
+  QString res;
 
   if ( m_view->viInputMode() ) {
     foreach (QChar markerChar, m_marks.keys()) {
       if  ( m_marks.value(markerChar)->line() == line )
-        res += markerChar + ":" + QString::number(m_marks.value(markerChar)->column()) + " ";
+        res += markerChar + QLatin1String(":") + QString::number(m_marks.value(markerChar)->column()) + QLatin1String(" ");
     }
   }
 

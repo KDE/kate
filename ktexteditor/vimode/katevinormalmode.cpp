@@ -47,10 +47,10 @@ using KTextEditor::Cursor;
 using KTextEditor::Range;
 
 #define ADDCMD(STR, FUNC, FLGS) m_commands.push_back( \
-    new KateViCommand( this, STR, &KateViNormalMode::FUNC, FLGS ) );
+    new KateViCommand( this, QLatin1String(STR), &KateViNormalMode::FUNC, FLGS ) );
 
 #define ADDMOTION(STR, FUNC, FLGS) m_motions.push_back( \
-    new KateViMotion( this, STR, &KateViNormalMode::FUNC, FLGS ) );
+    new KateViMotion( this, QLatin1String(STR), &KateViNormalMode::FUNC, FLGS ) );
 
 KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, KateView * view,
     KateViewInternal * viewInternal ) : KateViModeBase()
@@ -63,13 +63,13 @@ KateViNormalMode::KateViNormalMode( KateViInputModeManager *viInputModeManager, 
   m_currentMotionWasVisualLineUpOrDown = false;
 
   // FIXME: make configurable
-  m_extraWordCharacters = "";
-  m_matchingItems["/*"] = "*/";
-  m_matchingItems["*/"] = "-/*";
+  m_extraWordCharacters = QString();
+  m_matchingItems[QLatin1String("/*")] = QLatin1String("*/");
+  m_matchingItems[QLatin1String("*/")] = QLatin1String("-/*");
 
   m_matchItemRegex = generateMatchingItemRegex();
 
-  m_defaultRegister = '"';
+  m_defaultRegister = QLatin1Char('"');
 
   m_scroll_count_limit = 1000; // Limit of count for scroll commands.
 
@@ -136,13 +136,13 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   const bool waitingForRegisterOrCharToSearch = this->waitingForRegisterOrCharToSearch();
 
   // Use replace caret when reading a character for "r"
-  if ( key == 'r' && !waitingForRegisterOrCharToSearch) {
+  if ( key == QLatin1Char('r') && !waitingForRegisterOrCharToSearch) {
     m_view->setCaretStyle( KateRenderer::Underline, true );
   }
 
   m_keysVerbatim.append( KateViKeyParser::self()->decodeKeySequence( key ) );
 
-  if ( ( keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9 && lastChar != '"' )       // key 0-9
+  if ( ( keyCode >= Qt::Key_0 && keyCode <= Qt::Key_9 && lastChar != QLatin1Char('"') )       // key 0-9
       && ( m_countTemp != 0 || keyCode != Qt::Key_0 )                     // first digit can't be 0
       && (!waitingForRegisterOrCharToSearch) // Not in the middle of "find char" motions or replacing char.
       && e->modifiers() == Qt::NoModifier) {
@@ -161,7 +161,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
 
   m_keys.append( key );
 
-  if (m_viInputModeManager->isRecordingMacro() && key == 'q')
+  if (m_viInputModeManager->isRecordingMacro() && key == QLatin1Char('q'))
   {
     // Need to special case this "finish macro" q, as the "begin macro" q
     // needs a parameter whereas the finish macro does not.
@@ -170,7 +170,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return true;
   }
 
-  if ((key == '/' || key == '?') && !waitingForRegisterOrCharToSearch)
+  if ((key == QLatin1Char('/') || key == QLatin1Char('?')) && !waitingForRegisterOrCharToSearch)
   {
     // Special case for "/" and "?": these should be motions, but this is complicated by
     // the fact that the user must interact with the search bar before the range of the
@@ -180,7 +180,7 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     // that will either abort everything (if the search was aborted) or "complete" the motion
     // otherwise.
     m_positionWhenIncrementalSearchBegan = m_view->cursorPosition();
-    if (key == '/')
+    if (key == QLatin1Char('/'))
     {
       commandSearchForward();
     }
@@ -194,21 +194,21 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
   // Special case: "cw" and "cW" work the same as "ce" and "cE" if the cursor is
   // on a non-blank.  This is because Vim interprets "cw" as change-word, and a
   // word does not include the following white space. (:help cw in vim)
-  if ( ( m_keys == "cw" || m_keys == "cW" ) && !getCharUnderCursor().isSpace() ) {
+  if ( ( m_keys == QLatin1String("cw") || m_keys == QLatin1String("cW") ) && !getCharUnderCursor().isSpace() ) {
     // Special case of the special case: :-)
     // If the cursor is at the end of the current word rewrite to "cl"
-    const bool isWORD = (m_keys.at(1) == 'W');
+    const bool isWORD = (m_keys.at(1) == QLatin1Char('W'));
     const Cursor currentPosition( m_view->cursorPosition() );
     const Cursor endOfWordOrWORD = (isWORD ? findWORDEnd(currentPosition.line(), currentPosition.column()-1, true) :
                                              findWordEnd(currentPosition.line(), currentPosition.column()-1, true));
 
     if ( currentPosition == endOfWordOrWORD ) {
-      m_keys = "cl";
+      m_keys = QLatin1String("cl");
     } else {
       if (isWORD) {
-        m_keys = "cE";
+        m_keys = QLatin1String("cE");
       } else {
-        m_keys = "ce";
+        m_keys = QLatin1String("ce");
       }
     }
   }
@@ -220,8 +220,8 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     else {
       QChar r = m_keys[ 1 ].toLower();
 
-      if ( ( r >= '0' && r <= '9' ) || ( r >= 'a' && r <= 'z' ) ||
-           r == '_' || r == '+' || r == '*' || r == '#' || r == '^' ) {
+      if ( ( r >= QLatin1Char('0') && r <= QLatin1Char('9') ) || ( r >= QLatin1Char('a') && r <= QLatin1Char('z') ) ||
+           r == QLatin1Char('_') || r == QLatin1Char('+') || r == QLatin1Char('*') || r == QLatin1Char('#') || r == QLatin1Char('^') ) {
         m_register = r;
         qCDebug(LOG_PART) << "Register set to " << r;
         m_keys.clear();
@@ -365,9 +365,9 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
             // special case: When using the "w" motion in combination with an operator and
             // the last word moved over is at the end of a line, the end of that word
             // becomes the end of the operated text, not the first word in the next line.
-            if ( m_motions.at(i)->pattern() == "w" || m_motions.at(i)->pattern() == "W" ) {
+            if ( m_motions.at(i)->pattern() == QLatin1String("w") || m_motions.at(i)->pattern() == QLatin1String("W") ) {
                if(m_commandRange.endLine != m_commandRange.startLine &&
-                   m_commandRange.endColumn == getLine(m_commandRange.endLine).indexOf( QRegExp("\\S") )){
+                   m_commandRange.endColumn == getLine(m_commandRange.endLine).indexOf( QRegExp(QLatin1String("\\S")) )){
                      m_commandRange.endLine--;
                      m_commandRange.endColumn = doc()->lineLength(m_commandRange.endLine );
                    }
@@ -599,7 +599,7 @@ bool KateViNormalMode::commandEnterInsertModeAppendEOL()
 bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
 {
   Cursor cursor( m_view->cursorPosition() );
-  QRegExp nonSpace( "\\S" );
+  QRegExp nonSpace(QLatin1String("\\S"));
   int c = getLine().indexOf( nonSpace );
   if ( c == -1 ) {
     c = 0;
@@ -618,7 +618,7 @@ bool KateViNormalMode::commandEnterInsertModeBeforeFirstNonBlankInLine()
 
 bool KateViNormalMode::commandEnterInsertModeLast()
 {
-  Cursor c = m_view->getViInputModeManager()->getMarkPosition( '^' );
+  Cursor c = m_view->getViInputModeManager()->getMarkPosition(QLatin1Char('^'));
   if ( c.isValid() ) {
     updateCursor( c );
   }
@@ -650,8 +650,8 @@ bool KateViNormalMode::commandEnterVisualBlockMode()
 bool KateViNormalMode::commandReselectVisual()
 {
   // start last visual mode and set start = `< and cursor = `>
-  Cursor c1 = m_view->getViInputModeManager()->getMarkPosition( '<' );
-  Cursor c2 = m_view->getViInputModeManager()->getMarkPosition( '>' );
+  Cursor c1 = m_view->getViInputModeManager()->getMarkPosition( QLatin1Char('<') );
+  Cursor c2 = m_view->getViInputModeManager()->getMarkPosition( QLatin1Char('>') );
 
   // we should either get two valid cursors or two invalid cursors
   Q_ASSERT( c1.isValid() == c2.isValid() );
@@ -676,7 +676,7 @@ bool KateViNormalMode::commandReselectVisual()
     m_viInputModeManager->getViVisualMode()->goToPos(c2);
     return returnValue;
   } else {
-    error("No previous visual selection");
+    error(QLatin1String("No previous visual selection"));
   }
 
   return false;
@@ -1102,7 +1102,7 @@ bool KateViNormalMode::commandJoinLines()
   if (nonEmptyLineFound && leftTrimmedLastLine.isEmpty())
   {
     // joinLines won't have added a trailing " ", whereas Vim does - follow suit.
-    doc()->insertText(Cursor(from, doc()->lineLength(from)), " ");
+    doc()->insertText(Cursor(from, doc()->lineLength(from)), QLatin1String(" "));
   }
 
   // Position cursor just before first non-whitesspace character of what was the last line joined.
@@ -1229,7 +1229,7 @@ bool KateViNormalMode::commandYank()
 
   highlightYank(m_commandRange, m);
 
-  QChar  chosen_register =  getChosenRegister( '0' );
+  QChar  chosen_register =  getChosenRegister( QLatin1Char('0') );
   fillRegister(chosen_register, yankedText, m );
   yankToClipBoard(chosen_register, yankedText);
 
@@ -1243,13 +1243,13 @@ bool KateViNormalMode::commandYankLine()
   int linenum = c.line();
 
   for ( unsigned int i = 0; i < getCount(); i++ ) {
-      lines.append( getLine( linenum + i ) + '\n' );
+      lines.append( getLine( linenum + i ) + QLatin1Char('\n') );
   }
 
   KateViRange yankRange(linenum, 0, linenum + getCount() - 1, getLine(linenum + getCount() - 1).length(), ViMotion::InclusiveMotion);
   highlightYank(yankRange);
 
-  QChar  chosen_register =  getChosenRegister( '0' );
+  QChar  chosen_register =  getChosenRegister( QLatin1Char('0') );
   fillRegister(chosen_register, lines, LineWise );
   yankToClipBoard(chosen_register, lines);
 
@@ -1286,7 +1286,7 @@ bool KateViNormalMode::commandYankToEOL()
 
   highlightYank(m_commandRange);
 
-  QChar  chosen_register =  getChosenRegister( '0' );
+  QChar  chosen_register =  getChosenRegister( QLatin1Char('0') );
   fillRegister(chosen_register,  yankedText, m );
   yankToClipBoard(chosen_register, yankedText);
 
@@ -1400,7 +1400,7 @@ bool KateViNormalMode::commandReplaceCharacter()
     if (m == LineWise)
       text = text.left(text.size() - 1); // don't need '\n' at the end;
 
-    text.replace( QRegExp( "[^\n]" ), m_keys.right( 1 ) );
+    text.replace( QRegExp( QLatin1String("[^\n]") ), m_keys.right( 1 ) );
 
     m_commandRange.normalize();
     Cursor start( m_commandRange.startLine, m_commandRange.startColumn );
@@ -1436,12 +1436,12 @@ bool KateViNormalMode::commandSwitchToCmdLine()
     if ( m_viInputModeManager->isAnyVisualMode()) {
       // if in visual mode, make command range == visual selection
       m_viInputModeManager->getViVisualMode()->saveRangeMarks();
-      initialText = "'<,'>";
+      initialText = QLatin1String("'<,'>");
     }
     else if ( getCount() != 1 ) {
       // if a count is given, the range [current line] to [current line] +
       // count should be prepended to the command line
-      initialText = ".,.+" +QString::number( getCount()-1 );
+      initialText = QLatin1String(".,.+") + QString::number( getCount()-1 );
     }
 
     m_view->showViModeEmulatedCommandBar();
@@ -1600,7 +1600,7 @@ bool KateViNormalMode::commandPrintCharacterCode()
   QChar ch = getCharUnderCursor();
 
   if ( ch == QChar::Null ) {
-      message( QString( "NUL" ) );
+      message( QLatin1String( "NUL" ) );
   } else {
 
     int code = ch.unicode();
@@ -1608,8 +1608,8 @@ bool KateViNormalMode::commandPrintCharacterCode()
     QString dec = QString::number( code );
     QString hex = QString::number( code, 16 );
     QString oct = QString::number( code, 8 );
-    if ( oct.length() < 3 ) { oct.prepend( '0' ); }
-    if ( code > 0x80 && code < 0x1000 ) { hex.prepend( ( code < 0x100 ? "00" : "0" ) ); }
+    if ( oct.length() < 3 ) { oct.prepend( QLatin1Char('0') ); }
+    if ( code > 0x80 && code < 0x1000 ) { hex.prepend( ( code < 0x100 ? QLatin1String("00") : QLatin1String("0") ) ); }
     message( i18n("'%1' %2,  Hex %3,  Octal %4", ch, dec, hex, oct ) );
   }
 
@@ -1747,30 +1747,30 @@ bool KateViNormalMode::commandSwitchToNextView() {
 }
 
 bool KateViNormalMode::commandSplitHoriz() {
-  m_view->cmdLineBar()->execute("split");
+  m_view->cmdLineBar()->execute(QLatin1String("split"));
   return true;
 }
 
 bool KateViNormalMode::commandSplitVert() {
-  m_view->cmdLineBar()->execute("vsplit");
+  m_view->cmdLineBar()->execute(QLatin1String("vsplit"));
   return true;
 }
 
 bool KateViNormalMode::commandSwitchToNextTab() {
-  QString command = "bn";
+  QString command = QString::fromLatin1("bn");
 
   if ( m_iscounted )
-    command = command + ' ' + QString::number(getCount());
+    command = command + QLatin1Char(' ') + QString::number(getCount());
 
   m_view->cmdLineBar()->execute(command);
   return true;
 }
 
 bool KateViNormalMode::commandSwitchToPrevTab() {
-  QString command = "bp";
+  QString command = QString::fromLatin1("bp");
 
   if ( m_iscounted )
-    command = command + ' ' + QString::number(getCount());
+    command = command + QLatin1Char(' ') + QString::number(getCount());
 
   m_view->cmdLineBar()->execute(command);
   return true;
@@ -1827,13 +1827,13 @@ bool KateViNormalMode::commandReplayMacro()
 
 bool KateViNormalMode::commandCloseNocheck()
 {
-  m_view->cmdLineBar()->execute("q!");
+  m_view->cmdLineBar()->execute(QLatin1String("q!"));
   return true;
 }
 
 bool KateViNormalMode::commandCloseWrite()
 {
-  m_view->cmdLineBar()->execute("wq");
+  m_view->cmdLineBar()->execute(QLatin1String("wq"));
   return true;
 }
 
@@ -1952,7 +1952,7 @@ KateViRange KateViNormalMode::motionDownToFirstNonBlank()
   Cursor c( m_view->cursorPosition() );
   KateViRange r = goLineDown();
 
-  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\\S" ) );
+  r.endColumn = getLine( r.endLine ).indexOf( QRegExp(QLatin1String("\\S")) );
 
   if ( r.endColumn < 0 ) {
     r.endColumn = 0;
@@ -1966,7 +1966,7 @@ KateViRange KateViNormalMode::motionUpToFirstNonBlank()
   Cursor c( m_view->cursorPosition() );
   KateViRange r = goLineUp();
 
-  r.endColumn = getLine( r.endLine ).indexOf( QRegExp( "\\S" ) );
+  r.endColumn = getLine( r.endLine ).indexOf( QRegExp(QLatin1String("\\S")) );
 
   if ( r.endColumn < 0 ) {
     r.endColumn = 0;
@@ -2198,7 +2198,7 @@ KateViRange KateViNormalMode::motionToFirstCharacterOfLine()
   m_stickyColumn = -1;
 
   Cursor cursor ( m_view->cursorPosition() );
-  QRegExp nonSpace( "\\S" );
+  QRegExp nonSpace(QLatin1String("\\S"));
   int c = getLine().indexOf( nonSpace );
 
   KateViRange r( cursor.line(), c, ViMotion::ExclusiveMotion );
@@ -2359,16 +2359,16 @@ KateViRange KateViNormalMode::motionRepeatlastTF()
   if ( !m_lastTFcommand.isEmpty() ) {
     m_isRepeatedTFcommand = true;
     m_keys = m_lastTFcommand;
-    if ( m_keys.at( 0 ) == 'f' ) {
+    if ( m_keys.at( 0 ) == QLatin1Char('f') ) {
       return motionFindChar();
     }
-    else if ( m_keys.at( 0 ) == 'F' ) {
+    else if ( m_keys.at( 0 ) == QLatin1Char('F') ) {
       return motionFindCharBackward();
     }
-    else if ( m_keys.at( 0 ) == 't' ) {
+    else if ( m_keys.at( 0 ) == QLatin1Char('t') ) {
       return motionToChar();
     }
-    else if ( m_keys.at( 0 ) == 'T' ) {
+    else if ( m_keys.at( 0 ) == QLatin1Char('T') ) {
       return motionToCharBackward();
     }
   }
@@ -2382,16 +2382,16 @@ KateViRange KateViNormalMode::motionRepeatlastTFBackward()
   if ( !m_lastTFcommand.isEmpty() ) {
     m_isRepeatedTFcommand = true;
     m_keys = m_lastTFcommand;
-    if ( m_keys.at( 0 ) == 'f' ) {
+    if ( m_keys.at( 0 ) == QLatin1Char('f') ) {
       return motionFindCharBackward();
     }
-    else if ( m_keys.at( 0 ) == 'F' ) {
+    else if ( m_keys.at( 0 ) == QLatin1Char('F') ) {
       return motionFindChar();
     }
-    else if ( m_keys.at( 0 ) == 't' ) {
+    else if ( m_keys.at( 0 ) == QLatin1Char('t') ) {
       return motionToCharBackward();
     }
-    else if ( m_keys.at( 0 ) == 'T' ) {
+    else if ( m_keys.at( 0 ) == QLatin1Char('T') ) {
       return motionToChar();
     }
   }
@@ -2455,8 +2455,8 @@ KateViRange KateViNormalMode::motionToMark()
   QChar reg = m_keys.at( m_keys.size()-1 );
 
   // ` and ' is the same register (position before jump)
-  if ( reg == '`' ) {
-      reg = '\'';
+  if ( reg == QLatin1Char('`') ) {
+      reg = QLatin1Char('\'');
   }
 
   Cursor c = m_view->getViInputModeManager()->getMarkPosition( reg );
@@ -2513,7 +2513,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
     return KateViRange::invalid();
   }
 
-  QRegExp brackets( "[(){}\\[\\]]" );
+  QRegExp brackets( QLatin1String("[(){}\\[\\]]") );
 
   // use Kate's built-in matching bracket finder for brackets
   if ( brackets.indexIn ( l, n1 ) == n1 ) {
@@ -2533,7 +2533,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
     m_view->setCursorPosition(oldCursorPos);
   } else {
     // text item we want to find a matching item for
-    int n2 = l.indexOf( QRegExp( "\\b|\\s|$" ), n1 );
+    int n2 = l.indexOf( QRegExp(QLatin1String("\\b|\\s|$")), n1 );
     QString item = l.mid( n1, n2 - n1 );
     QString matchingItem = m_matchingItems[ item ];
 
@@ -2542,7 +2542,7 @@ KateViRange KateViNormalMode::motionToMatchingItem()
     int column = n2 - item.length();
     bool reverse = false;
 
-    if ( matchingItem.left( 1 ) == "-" ) {
+    if ( matchingItem.left( 1 ) == QLatin1String("-") ) {
       matchingItem.remove( 0, 1 ); // remove the '-'
       reverse = true;
     }
@@ -2613,7 +2613,7 @@ KateViRange KateViNormalMode::motionToNextBraceBlockStart()
 
   m_stickyColumn = -1;
 
-  int line = findLineStartingWitchChar( '{', getCount() );
+  int line = findLineStartingWitchChar( QLatin1Char('{'), getCount() );
 
   if ( line == -1 ) {
     return KateViRange::invalid();
@@ -2644,7 +2644,7 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockStart()
 
   m_stickyColumn = -1;
 
-  int line = findLineStartingWitchChar( '{', getCount(), false );
+  int line = findLineStartingWitchChar( QLatin1Char('{'), getCount(), false );
 
   if ( line == -1 ) {
     return KateViRange::invalid();
@@ -2669,7 +2669,7 @@ KateViRange KateViNormalMode::motionToNextBraceBlockEnd()
 
   m_stickyColumn = -1;
 
-  int line = findLineStartingWitchChar( '}', getCount() );
+  int line = findLineStartingWitchChar( QLatin1Char('}'), getCount() );
 
   if ( line == -1 ) {
     return KateViRange::invalid();
@@ -2700,7 +2700,7 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
 
   m_stickyColumn = -1;
 
-  int line = findLineStartingWitchChar( '}', getCount(), false );
+  int line = findLineStartingWitchChar( QLatin1Char('}'), getCount(), false );
 
   if ( line == -1 ) {
     return KateViRange::invalid();
@@ -2721,8 +2721,8 @@ KateViRange KateViNormalMode::motionToPreviousBraceBlockEnd()
 KateViRange KateViNormalMode::motionToNextOccurrence()
 {
   QString word = getWordUnderCursor();
-  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("\\<" + word + "\\>");
-  word.prepend("\\b").append("\\b");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(QString::fromLatin1("\\<%1\\>").arg(word));
+  word.prepend(QLatin1String("\\b")).append(QLatin1String("\\b"));
 
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( false );
@@ -2736,8 +2736,8 @@ KateViRange KateViNormalMode::motionToNextOccurrence()
 KateViRange KateViNormalMode::motionToPrevOccurrence()
 {
   QString word = getWordUnderCursor();
-  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem("\\<" + word + "\\>");
-  word.prepend("\\b").append("\\b");
+  KateGlobal::self()->viInputModeGlobal()->appendSearchHistoryItem(QString::fromLatin1("\\<%1\\>").arg(word));
+  word.prepend(QLatin1String("\\b")).append(QLatin1String("\\b"));
 
   m_viInputModeManager->setLastSearchPattern( word );
   m_viInputModeManager->setLastSearchBackwards( true );
@@ -2760,7 +2760,7 @@ KateViRange KateViNormalMode::motionToFirstLineOfWindow() {
     KateViRange r = goLineUpDown(lines_to_go);
 
     // Finding first non-blank character
-    QRegExp nonSpace( "\\S" );
+    QRegExp nonSpace(QLatin1String("\\S"));
     int c = getLine(r.endLine).indexOf( nonSpace );
     if ( c == -1 )
       c = 0;
@@ -2778,7 +2778,7 @@ KateViRange KateViNormalMode::motionToMiddleLineOfWindow() {
     KateViRange r = goLineUpDown(lines_to_go);
 
     // Finding first non-blank character
-    QRegExp nonSpace( "\\S" );
+    QRegExp nonSpace(QLatin1String("\\S"));
     int c = getLine(r.endLine).indexOf( nonSpace );
     if ( c == -1 )
       c = 0;
@@ -2797,7 +2797,7 @@ KateViRange KateViNormalMode::motionToLastLineOfWindow() {
     KateViRange r = goLineUpDown(lines_to_go);
 
     // Finding first non-blank character
-    QRegExp nonSpace( "\\S" );
+    QRegExp nonSpace(QLatin1String("\\S"));
     int c = getLine(r.endLine).indexOf( nonSpace );
     if ( c == -1 )
       c = 0;
@@ -3110,68 +3110,68 @@ KateViRange KateViNormalMode::textObjectInnerWORD()
 
 KateViRange KateViNormalMode::textObjectAQuoteDouble()
 {
-    return findSurroundingQuotes( '"', false );
+    return findSurroundingQuotes( QLatin1Char('"'), false );
 }
 
 KateViRange KateViNormalMode::textObjectInnerQuoteDouble()
 {
-    return findSurroundingQuotes( '"', true );
+    return findSurroundingQuotes( QLatin1Char('"'), true );
 }
 
 KateViRange KateViNormalMode::textObjectAQuoteSingle()
 {
-    return findSurroundingQuotes( '\'', false );
+    return findSurroundingQuotes( QLatin1Char('\''), false );
 }
 
 KateViRange KateViNormalMode::textObjectInnerQuoteSingle()
 {
-    return findSurroundingQuotes( '\'', true );
+    return findSurroundingQuotes( QLatin1Char('\''), true );
 }
 
 KateViRange KateViNormalMode::textObjectABackQuote()
 {
-    return findSurroundingQuotes( '`', false );
+    return findSurroundingQuotes( QLatin1Char('`'), false );
 }
 
 KateViRange KateViNormalMode::textObjectInnerBackQuote()
 {
-    return findSurroundingQuotes( '`', true );
+    return findSurroundingQuotes( QLatin1Char('`'), true );
 }
 
 
 KateViRange KateViNormalMode::textObjectAParen()
 {
 
-    return findSurroundingBrackets( '(', ')', false,  '(', ')' );
+    return findSurroundingBrackets( QLatin1Char('('), QLatin1Char(')'), false,  QLatin1Char('('), QLatin1Char(')') );
 }
 
 KateViRange KateViNormalMode::textObjectInnerParen()
 {
 
-    return findSurroundingBrackets( '(', ')', true, '(', ')');
+    return findSurroundingBrackets( QLatin1Char('('), QLatin1Char(')'), true, QLatin1Char('('), QLatin1Char(')'));
 }
 
 KateViRange KateViNormalMode::textObjectABracket()
 {
 
-    return findSurroundingBrackets( '[', ']', false,  '[', ']' );
+    return findSurroundingBrackets( QLatin1Char('['), QLatin1Char(']'), false,  QLatin1Char('['), QLatin1Char(']') );
 }
 
 KateViRange KateViNormalMode::textObjectInnerBracket()
 {
 
-    return findSurroundingBrackets( '[', ']', true, '[', ']' );
+    return findSurroundingBrackets( QLatin1Char('['), QLatin1Char(']'), true, QLatin1Char('['), QLatin1Char(']') );
 }
 
 KateViRange KateViNormalMode::textObjectACurlyBracket()
 {
 
-    return findSurroundingBrackets( '{', '}', false,  '{', '}' );
+    return findSurroundingBrackets( QLatin1Char('{'), QLatin1Char('}'), false,  QLatin1Char('{'), QLatin1Char('}') );
 }
 
 KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
 {
-  const KateViRange allBetweenCurlyBrackets = findSurroundingBrackets( '{', '}', true, '{', '}' );
+  const KateViRange allBetweenCurlyBrackets = findSurroundingBrackets( QLatin1Char('{'), QLatin1Char('}'), true, QLatin1Char('{'), QLatin1Char('}') );
   // Emulate the behaviour of vim, which tries to leave the closing bracket on its own line
   // if it was originally on a line different to that of the opening bracket.
   KateViRange innerCurlyBracket(allBetweenCurlyBrackets);
@@ -3225,13 +3225,13 @@ KateViRange KateViNormalMode::textObjectInnerCurlyBracket()
 KateViRange KateViNormalMode::textObjectAInequalitySign()
 {
 
-    return findSurroundingBrackets( '<', '>', false,  '<', '>' );
+    return findSurroundingBrackets( QLatin1Char('<'), QLatin1Char('>'), false,  QLatin1Char('<'), QLatin1Char('>') );
 }
 
 KateViRange KateViNormalMode::textObjectInnerInequalitySign()
 {
 
-    return findSurroundingBrackets( '<', '>', true, '<', '>' );
+    return findSurroundingBrackets( QLatin1Char('<'), QLatin1Char('>'), true, QLatin1Char('<'), QLatin1Char('>') );
 }
 
 KateViRange KateViNormalMode::textObjectAComma()
@@ -3439,25 +3439,25 @@ void KateViNormalMode::initializeCommands()
 
 QRegExp KateViNormalMode::generateMatchingItemRegex()
 {
-  QString pattern("\\[|\\]|\\{|\\}|\\(|\\)|");
+  QString pattern(QLatin1String("\\[|\\]|\\{|\\}|\\(|\\)|"));
   QList<QString> keys = m_matchingItems.keys();
 
   for ( int i = 0; i < keys.size(); i++ ) {
     QString s = m_matchingItems[ keys[ i ] ];
-    s = s.replace( QRegExp( "^-" ), QChar() );
-    s = s.replace( QRegExp( "\\*" ), "\\*" );
-    s = s.replace( QRegExp( "\\+" ), "\\+" );
-    s = s.replace( QRegExp( "\\[" ), "\\[" );
-    s = s.replace( QRegExp( "\\]" ), "\\]" );
-    s = s.replace( QRegExp( "\\(" ), "\\(" );
-    s = s.replace( QRegExp( "\\)" ), "\\)" );
-    s = s.replace( QRegExp( "\\{" ), "\\{" );
-    s = s.replace( QRegExp( "\\}" ), "\\}" );
+    s = s.replace( QRegExp( QLatin1String("^-") ), QChar() );
+    s = s.replace( QRegExp( QLatin1String("\\*") ), QLatin1String("\\*") );
+    s = s.replace( QRegExp( QLatin1String("\\+") ), QLatin1String("\\+") );
+    s = s.replace( QRegExp( QLatin1String("\\[") ), QLatin1String("\\[") );
+    s = s.replace( QRegExp( QLatin1String("\\]") ), QLatin1String("\\]") );
+    s = s.replace( QRegExp( QLatin1String("\\(") ), QLatin1String("\\(") );
+    s = s.replace( QRegExp( QLatin1String("\\)") ), QLatin1String("\\)") );
+    s = s.replace( QRegExp( QLatin1String("\\{") ), QLatin1String("\\{") );
+    s = s.replace( QRegExp( QLatin1String("\\}") ), QLatin1String("\\}") );
 
     pattern.append( s );
 
     if ( i != keys.size()-1 ) {
-      pattern.append( '|' );
+      pattern.append( QLatin1Char('|') );
     }
   }
 
@@ -3498,7 +3498,7 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste, bool is
 
   OperationMode m = getRegisterFlag( reg );
   QString textToInsert = getRegisterContent( reg );
-  const bool isTextMultiLine = textToInsert.split("\n").count() > 1;
+  const bool isTextMultiLine = textToInsert.split(QLatin1String("\n")).count() > 1;
 
   // In temporary normal mode, p/P act as gp/gP.
   isgPaste |= m_viInputModeManager->getTemporaryNormalMode();
@@ -3519,8 +3519,8 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste, bool is
     {
       // Note that this does indeed work if there is no non-whitespace on the current line or if
       // the line is empty!
-      const QString leadingWhiteSpaceOnCurrentLine = doc()->line(pasteAt.line()).mid(0, doc()->line(pasteAt.line()).indexOf(QRegExp("[^\\s]")));
-      const QString leadingWhiteSpaceOnFirstPastedLine = textToInsert.mid(0, textToInsert.indexOf(QRegExp("[^\\s]")));
+      const QString leadingWhiteSpaceOnCurrentLine = doc()->line(pasteAt.line()).mid(0, doc()->line(pasteAt.line()).indexOf(QRegExp(QLatin1String("[^\\s]"))));
+      const QString leadingWhiteSpaceOnFirstPastedLine = textToInsert.mid(0, textToInsert.indexOf(QRegExp(QLatin1String("[^\\s]"))));
       // QString has no "left trim" method, bizarrely.
       while (textToInsert[0].isSpace())
       {
@@ -3530,20 +3530,20 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste, bool is
       // Remove the last \n, temporarily: we're going to alter the indentation of each pasted line
       // by doing a search and replace on '\n's, but don't want to alter this one.
       textToInsert.chop( 1 );
-      textToInsert.replace(QString('\n') + leadingWhiteSpaceOnFirstPastedLine, QString('\n') + leadingWhiteSpaceOnCurrentLine);
-      textToInsert.append('\n'); // Re-add the temporarily removed last '\n'.
+      textToInsert.replace(QLatin1Char('\n') + leadingWhiteSpaceOnFirstPastedLine, QLatin1Char('\n') + leadingWhiteSpaceOnCurrentLine);
+      textToInsert.append(QLatin1Char('\n')); // Re-add the temporarily removed last '\n'.
     }
     if (pasteLocation == AfterCurrentPosition)
     {
       textToInsert.chop( 1 ); // remove the last \n
       pasteAt.setColumn( doc()->lineLength( pasteAt.line() ) ); // paste after the current line and ...
-      textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
+      textToInsert.prepend( QLatin1Char( '\n' ) ); // ... prepend a \n, so the text starts on a new line
 
       cursorAfterPaste.setLine( cursorAfterPaste.line()+1 );
     }
     if (isgPaste)
     {
-      cursorAfterPaste.setLine(cursorAfterPaste.line() + textToInsert.split("\n").length() - 1);
+      cursorAfterPaste.setLine(cursorAfterPaste.line() + textToInsert.split(QLatin1String("\n")).length() - 1);
     }
   } else {
     if (pasteLocation == AfterCurrentPosition)
@@ -3587,7 +3587,7 @@ bool KateViNormalMode::paste(PasteLocation pasteLocation, bool isgPaste, bool is
 Cursor KateViNormalMode::cursorPosAtEndOfPaste(const Cursor& pasteLocation, const QString& pastedText)
 {
   Cursor cAfter = pasteLocation;
-  const QStringList textLines = pastedText.split("\n");
+  const QStringList textLines = pastedText.split(QLatin1String("\n"));
   if (textLines.length() == 1)
   {
     cAfter.setColumn(cAfter.column() + pastedText.length());
@@ -3691,15 +3691,15 @@ KateViRange KateViNormalMode::textObjectComma(bool inner)
   // closest to the cursor that surrounds the cursor.
   KateViRange r(0, 0, m_view->doc()->lines(), m_view->doc()->line(m_view->doc()->lastLine()).length(), ViMotion::InclusiveMotion);
 
-  shrinkRangeAroundCursor(r, findSurroundingQuotes( ',', inner ));
-  shrinkRangeAroundCursor(r, findSurroundingBrackets( '(', ')', inner, '(', ')' ));
-  shrinkRangeAroundCursor(r, findSurroundingBrackets( '{', '}', inner, '{', '}' ));
-  shrinkRangeAroundCursor(r, findSurroundingBrackets( ',', ')', inner, '(', ')' ));
-  shrinkRangeAroundCursor(r, findSurroundingBrackets( ',', ']', inner, '[', ']' ));
-  shrinkRangeAroundCursor(r, findSurroundingBrackets( ',', '}', inner, '{', '}' ));
-  shrinkRangeAroundCursor(r, findSurroundingBrackets( '(', ',', inner, '(', ')'  ));
-  shrinkRangeAroundCursor(r, findSurroundingBrackets( '[', ',', inner, '[', ']' ));
-  shrinkRangeAroundCursor(r, findSurroundingBrackets( '{', ',', inner, '{', '}' ));
+  shrinkRangeAroundCursor(r, findSurroundingQuotes( QLatin1Char(','), inner ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( QLatin1Char('('), QLatin1Char(')'), inner, QLatin1Char('('), QLatin1Char(')') ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( QLatin1Char('{'), QLatin1Char('}'), inner, QLatin1Char('{'), QLatin1Char('}') ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( QLatin1Char(','), QLatin1Char(')'), inner, QLatin1Char('('), QLatin1Char(')') ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( QLatin1Char(','), QLatin1Char(']'), inner, QLatin1Char('['), QLatin1Char(']') ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( QLatin1Char(','), QLatin1Char('}'), inner, QLatin1Char('{'), QLatin1Char('}') ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( QLatin1Char('('), QLatin1Char(','), inner, QLatin1Char('('), QLatin1Char(')')  ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( QLatin1Char('['), QLatin1Char(','), inner, QLatin1Char('['), QLatin1Char(']') ));
+  shrinkRangeAroundCursor(r, findSurroundingBrackets( QLatin1Char('{'), QLatin1Char(','), inner, QLatin1Char('{'), QLatin1Char('}') ));
   return r;
 }
 
@@ -3768,7 +3768,7 @@ QSet<KTextEditor::MovingRange *> &KateViNormalMode::highlightedYankForDocument()
 bool KateViNormalMode::waitingForRegisterOrCharToSearch()
 {
   const QChar lastChar = m_keys.isEmpty() ?  QChar::Null : m_keys.at(m_keys.size() - 1);
-  return m_keys.size() > 0 && (lastChar == 'f' || lastChar == 't' || lastChar == 'F' || lastChar == 'T' || lastChar == 'r');
+  return m_keys.size() > 0 && (lastChar == QLatin1Char('f') || lastChar == QLatin1Char('t') || lastChar == QLatin1Char('F') || lastChar == QLatin1Char('T') || lastChar == QLatin1Char('r'));
 }
 
 void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range)
@@ -3776,7 +3776,7 @@ void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range
   Q_UNUSED(document);
   const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
   const bool continuesInsertion = range.start().line() == m_currentChangeEndMarker.line() && range.start().column() == m_currentChangeEndMarker.column();
-  const bool beginsWithNewline = doc()->text(range)[0] == '\n';
+  const bool beginsWithNewline = doc()->text(range)[0] == QLatin1Char('\n');
   if (!continuesInsertion)
   {
     Cursor newBeginMarkerPos = range.start();
@@ -3785,29 +3785,29 @@ void KateViNormalMode::textInserted(KTextEditor::Document* document, Range range
       // Presumably a linewise paste, in which case we ignore the leading '\n'
       newBeginMarkerPos = Cursor(newBeginMarkerPos.line() + 1, 0);
     }
-    m_viInputModeManager->addMark(doc(), '[', newBeginMarkerPos, false);
+    m_viInputModeManager->addMark(doc(), QLatin1Char('['), newBeginMarkerPos, false);
   }
-  m_viInputModeManager->addMark(doc(), '.', range.start());
+  m_viInputModeManager->addMark(doc(), QLatin1Char('.'), range.start());
   Cursor editEndMarker = range.end();
   if (!isInsertMode)
   {
     editEndMarker.setColumn(editEndMarker.column() - 1);
   }
-  m_viInputModeManager->addMark(doc(), ']', editEndMarker);
+  m_viInputModeManager->addMark(doc(), QLatin1Char(']'), editEndMarker);
   m_currentChangeEndMarker = range.end();
   if (m_isUndo)
   {
     const bool addsMultipleLines = range.start().line() != range.end().line();
-    m_viInputModeManager->addMark(doc(), '[', Cursor(m_viInputModeManager->getMarkPosition('[').line(), 0));
+    m_viInputModeManager->addMark(doc(), QLatin1Char('['), Cursor(m_viInputModeManager->getMarkPosition(QLatin1Char('[')).line(), 0));
     if (addsMultipleLines)
     {
-      m_viInputModeManager->addMark(doc(), ']', Cursor(m_viInputModeManager->getMarkPosition(']').line() + 1, 0));
-      m_viInputModeManager->addMark(doc(), '.', Cursor(m_viInputModeManager->getMarkPosition('.').line() + 1, 0));
+      m_viInputModeManager->addMark(doc(), QLatin1Char(']'), Cursor(m_viInputModeManager->getMarkPosition(QLatin1Char(']')).line() + 1, 0));
+      m_viInputModeManager->addMark(doc(), QLatin1Char('.'), Cursor(m_viInputModeManager->getMarkPosition(QLatin1Char('.')).line() + 1, 0));
     }
     else
     {
-      m_viInputModeManager->addMark(doc(), ']', Cursor(m_viInputModeManager->getMarkPosition(']').line(), 0));
-      m_viInputModeManager->addMark(doc(), '.', Cursor(m_viInputModeManager->getMarkPosition('.').line(), 0));
+      m_viInputModeManager->addMark(doc(), QLatin1Char(']'), Cursor(m_viInputModeManager->getMarkPosition(QLatin1Char(']')).line(), 0));
+      m_viInputModeManager->addMark(doc(), QLatin1Char('.'), Cursor(m_viInputModeManager->getMarkPosition(QLatin1Char('.')).line(), 0));
     }
   }
 }
@@ -3816,27 +3816,27 @@ void KateViNormalMode::textRemoved(KTextEditor::Document* document , Range range
 {
   Q_UNUSED(document);
   const bool isInsertMode = m_viInputModeManager->getCurrentViMode() == InsertMode;
-  m_viInputModeManager->addMark(doc(), '.', range.start());
+  m_viInputModeManager->addMark(doc(), QLatin1Char('.'), range.start());
   if (!isInsertMode)
   {
     // Don't go resetting [ just because we did a Ctrl-h!
-    m_viInputModeManager->addMark(doc(), '[', range.start());
+    m_viInputModeManager->addMark(doc(), QLatin1Char('['), range.start());
   }
   else
   {
     // Don't go disrupting our continued insertion just because we did a Ctrl-h!
     m_currentChangeEndMarker = range.start();
   }
-  m_viInputModeManager->addMark(doc(), ']', range.start());
+  m_viInputModeManager->addMark(doc(), QLatin1Char(']'), range.start());
   if (m_isUndo)
   {
     // Slavishly follow Vim's weird rules: if an undo removes several lines, then all markers should
     // be at the beginning of the line after the last line removed, else they should at the beginning
     // of the line above that.
     const int markerLineAdjustment = (range.start().line() != range.end().line()) ? 1 : 0;
-    m_viInputModeManager->addMark(doc(), '[', Cursor(m_viInputModeManager->getMarkPosition('[').line() + markerLineAdjustment, 0));
-    m_viInputModeManager->addMark(doc(), ']', Cursor(m_viInputModeManager->getMarkPosition(']').line() + markerLineAdjustment, 0));
-    m_viInputModeManager->addMark(doc(), '.', Cursor(m_viInputModeManager->getMarkPosition('.').line() + markerLineAdjustment, 0));
+    m_viInputModeManager->addMark(doc(), QLatin1Char('['), Cursor(m_viInputModeManager->getMarkPosition(QLatin1Char('[')).line() + markerLineAdjustment, 0));
+    m_viInputModeManager->addMark(doc(), QLatin1Char(']'), Cursor(m_viInputModeManager->getMarkPosition(QLatin1Char(']')).line() + markerLineAdjustment, 0));
+    m_viInputModeManager->addMark(doc(), QLatin1Char('.'), Cursor(m_viInputModeManager->getMarkPosition(QLatin1Char('.')).line() + markerLineAdjustment, 0));
   }
 }
 

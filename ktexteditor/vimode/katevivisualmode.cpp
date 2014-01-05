@@ -30,10 +30,10 @@ using KTextEditor::Range;
 using KTextEditor::View;
 
 #define ADDCMD(STR,FUNC, FLGS) m_commands.push_back( \
-    new KateViCommand( this, STR, &KateViNormalMode::FUNC, FLGS ) );
+    new KateViCommand( this, QLatin1String(STR), &KateViNormalMode::FUNC, FLGS ) );
 
 #define ADDMOTION(STR, FUNC, FLGS) m_motions.push_back( new \
-    KateViMotion( this, STR, &KateViNormalMode::FUNC, FLGS ) );
+    KateViMotion( this, QLatin1String(STR), &KateViNormalMode::FUNC, FLGS ) );
 
 KateViVisualMode::KateViVisualMode( KateViInputModeManager* viInputModeManager, KateView *view, KateViewInternal *viewInternal )
   : KateViNormalMode( viInputModeManager, view, viewInternal )
@@ -189,8 +189,8 @@ void KateViVisualMode::saveRangeMarks()
     // DO NOT save these marks if the
     // action that exited visual mode deleted the selection
   if (m_deleteCommand == false) {
-    m_view->getViInputModeManager()->addMark( doc(), '<', m_start );
-    m_view->getViInputModeManager()->addMark( doc(), '>', m_view->cursorPosition() );
+    m_view->getViInputModeManager()->addMark( doc(), QLatin1Char('<'), m_start );
+    m_view->getViInputModeManager()->addMark( doc(), QLatin1Char('>'), m_view->cursorPosition() );
   }
 }
 

@@ -55,7 +55,7 @@ using KTextEditor::Range;
 
 void KateViModeBase::yankToClipBoard(QChar chosen_register, QString text)
 {
- if ((chosen_register == '0' || chosen_register == '-')  && text.length() > 1) { //only yank to the clipboard if no register was specified and textlength > 1
+ if ((chosen_register == QLatin1Char('0') || chosen_register == QLatin1Char('-'))  && text.length() > 1) { //only yank to the clipboard if no register was specified and textlength > 1
    KateGlobal::self()->copyToClipboard(text);
  }
 }
@@ -76,10 +76,10 @@ bool KateViModeBase::deleteRange( KateViRange &r, OperationMode mode, bool addTo
       res = doc()->removeText( Range( r.startLine, r.startColumn, r.endLine, r.endColumn), mode == Block );
   }
 
-  QChar chosenRegister = getChosenRegister( '0' );
+  QChar chosenRegister = getChosenRegister(QLatin1Char('0'));
   if ( addToRegister ) {
     if ( r.startLine == r.endLine ) {
-      chosenRegister = getChosenRegister( '-' );
+      chosenRegister = getChosenRegister(QLatin1Char('-'));
       fillRegister( chosenRegister    , removedText, mode );
     } else {
       fillRegister(chosenRegister,  removedText, mode );
@@ -107,8 +107,8 @@ const QString KateViModeBase::getRange( KateViRange &r, OperationMode mode) cons
   Range range( r.startLine, r.startColumn, r.endLine, r.endColumn);
 
   if ( mode == LineWise ) {
-    s = doc()->textLines( range ).join( QChar( '\n' ) );
-    s.append( QChar( '\n' ) );
+    s = doc()->textLines( range ).join( QLatin1Char( '\n' ) );
+    s.append( QLatin1Char( '\n' ) );
   } else if ( mode == Block ) {
       s = doc()->text( range, true );
   } else {
@@ -158,7 +158,7 @@ const Range KateViModeBase::getWordRangeUnderCursor() const
   // find first character that is a “word letter” and start the search there
   QChar ch = doc()->characterAt( c );
   int i = 0;
-  while ( !ch.isLetterOrNumber() && ! ch.isMark() && ch != '_'
+  while ( !ch.isLetterOrNumber() && ! ch.isMark() && ch != QLatin1Char('_')
       && m_extraWordCharacters.indexOf( ch) == -1 ) {
 
     // advance cursor one position
@@ -321,15 +321,15 @@ Cursor KateViModeBase::findNextWordStart( int fromLine, int fromColumn, bool onl
   QString line = getLine( fromLine );
 
   // the start of word pattern need to take m_extraWordCharacters into account if defined
-  QString startOfWordPattern("\\b(\\w");
+  QString startOfWordPattern = QString::fromLatin1("\\b(\\w");
   if ( m_extraWordCharacters.length() > 0 ) {
-    startOfWordPattern.append( QLatin1String( "|[" )+m_extraWordCharacters+']' );
+    startOfWordPattern.append( QLatin1String( "|[" ) + m_extraWordCharacters + QLatin1Char(']') );
   }
-  startOfWordPattern.append( ')' );
+  startOfWordPattern.append(QLatin1Char(')'));
 
   QRegExp startOfWord( startOfWordPattern );    // start of a word
-  QRegExp nonSpaceAfterSpace( "\\s\\S" );       // non-space right after space
-  QRegExp nonWordAfterWord( "\\b(?!\\s)\\W" );  // word-boundary followed by a non-word which is not a space
+  QRegExp nonSpaceAfterSpace(QLatin1String("\\s\\S"));       // non-space right after space
+  QRegExp nonWordAfterWord(QLatin1String("\\b(?!\\s)\\W"));  // word-boundary followed by a non-word which is not a space
 
   int l = fromLine;
   int c = fromColumn;
@@ -388,7 +388,7 @@ Cursor KateViModeBase::findNextWORDStart( int fromLine, int fromColumn, bool onl
   int c = fromColumn;
 
   bool found = false;
-  QRegExp startOfWORD("\\s\\S");
+  QRegExp startOfWORD(QLatin1String("\\s\\S"));
 
   while ( !found ) {
     c = startOfWORD.indexIn( line, c );
@@ -424,10 +424,10 @@ Cursor KateViModeBase::findPrevWordEnd( int fromLine, int fromColumn, bool onlyC
 {
   QString line = getLine( fromLine );
 
-  QString endOfWordPattern = "\\S\\s|\\S$|\\w\\W|\\S\\b|^$";
+  QString endOfWordPattern = QString::fromLatin1("\\S\\s|\\S$|\\w\\W|\\S\\b|^$");
 
   if ( m_extraWordCharacters.length() > 0 ) {
-   endOfWordPattern.append( "|["+m_extraWordCharacters+"][^" +m_extraWordCharacters+']' );
+   endOfWordPattern.append( QLatin1String("|[") + m_extraWordCharacters+ QLatin1String("][^") + m_extraWordCharacters + QLatin1Char(']') );
   }
 
   QRegExp endOfWord( endOfWordPattern );
@@ -464,7 +464,7 @@ Cursor KateViModeBase::findPrevWORDEnd( int fromLine, int fromColumn, bool onlyC
 {
   QString line = getLine( fromLine );
 
-  QRegExp endOfWORDPattern( "\\S\\s|\\S$|^$" );
+  QRegExp endOfWORDPattern(QLatin1String("\\S\\s|\\S$|^$"));
 
   QRegExp endOfWORD( endOfWORDPattern );
 
@@ -502,16 +502,16 @@ Cursor KateViModeBase::findPrevWordStart( int fromLine, int fromColumn, bool onl
   QString line = getLine( fromLine );
 
   // the start of word pattern need to take m_extraWordCharacters into account if defined
-  QString startOfWordPattern("\\b(\\w");
+  QString startOfWordPattern = QString::fromLatin1("\\b(\\w");
   if ( m_extraWordCharacters.length() > 0 ) {
-    startOfWordPattern.append( QLatin1String( "|[" )+m_extraWordCharacters+']' );
+    startOfWordPattern.append( QLatin1String( "|[" )+m_extraWordCharacters + QLatin1Char(']') );
   }
-  startOfWordPattern.append( ')' );
+  startOfWordPattern.append(QLatin1Char(')'));
 
   QRegExp startOfWord( startOfWordPattern );    // start of a word
-  QRegExp nonSpaceAfterSpace( "\\s\\S" );       // non-space right after space
-  QRegExp nonWordAfterWord( "\\b(?!\\s)\\W" );  // word-boundary followed by a non-word which is not a space
-  QRegExp startOfLine( "^\\S" );                // non-space at start of line
+  QRegExp nonSpaceAfterSpace(QLatin1String("\\s\\S"));       // non-space right after space
+  QRegExp nonWordAfterWord(QLatin1String("\\b(?!\\s)\\W"));  // word-boundary followed by a non-word which is not a space
+  QRegExp startOfLine(QLatin1String("^\\S"));                // non-space at start of line
 
   int l = fromLine;
   int c = fromColumn;
@@ -565,8 +565,8 @@ Cursor KateViModeBase::findPrevWORDStart( int fromLine, int fromColumn, bool onl
 {
   QString line = getLine( fromLine );
 
-  QRegExp startOfWORD("\\s\\S");
-  QRegExp startOfLineWORD("^\\S");
+  QRegExp startOfWORD(QLatin1String("\\s\\S"));
+  QRegExp startOfLineWORD(QLatin1String("^\\S"));
 
   int l = fromLine;
   int c = fromColumn;
@@ -612,10 +612,10 @@ Cursor KateViModeBase::findWordEnd( int fromLine, int fromColumn, bool onlyCurre
 {
   QString line = getLine( fromLine );
 
-  QString endOfWordPattern = "\\S\\s|\\S$|\\w\\W|\\S\\b";
+  QString endOfWordPattern = QString::fromLatin1("\\S\\s|\\S$|\\w\\W|\\S\\b");
 
   if ( m_extraWordCharacters.length() > 0 ) {
-   endOfWordPattern.append( "|["+m_extraWordCharacters+"][^" +m_extraWordCharacters+']' );
+   endOfWordPattern.append( QLatin1String("|[") + m_extraWordCharacters+ QLatin1String("][^") +m_extraWordCharacters + QLatin1Char(']') );
   }
 
   QRegExp endOfWORD( endOfWordPattern );
@@ -653,7 +653,7 @@ Cursor KateViModeBase::findWORDEnd( int fromLine, int fromColumn, bool onlyCurre
 {
   QString line = getLine( fromLine );
 
-  QRegExp endOfWORD( "\\S\\s|\\S$" );
+  QRegExp endOfWORD(QLatin1String("\\S\\s|\\S$"));
 
   int l = fromLine;
   int c = fromColumn;
@@ -1306,7 +1306,7 @@ const QChar KateViModeBase::getCharAtVirtualColumn( QString &line, int virtualCo
   }
 
   while ( tempCol < virtualColumn ) {
-    if ( line.at( column ) == '\t' ) {
+    if ( line.at( column ) == QLatin1Char('\t') ) {
       tempCol += tabWidth - ( tempCol % tabWidth );
     } else {
       tempCol++;
@@ -1339,7 +1339,7 @@ void KateViModeBase::addToNumberUnderCursor( int count )
 
     int numberStartPos = -1;
     QString numberAsString;
-    QRegExp numberRegex( "(0x)([0-9a-fA-F]+)|\\-?\\d+" );
+    QRegExp numberRegex(QLatin1String("(0x)([0-9a-fA-F]+)|\\-?\\d+"));
     const int cursorColumn = c.column();
     const int currentLineLength = doc()->lineLength(c.line());
     const Cursor prevWordStart = findPrevWordStart(c.line(), cursorColumn);
@@ -1349,7 +1349,7 @@ void KateViModeBase::addToNumberUnderCursor( int count )
       // The previous word starts on the previous line: ignore.
       wordStartPos = 0;
     }
-    if (wordStartPos > 0 && line.at(wordStartPos - 1) == '-') wordStartPos--;
+    if (wordStartPos > 0 && line.at(wordStartPos - 1) == QLatin1Char('-')) wordStartPos--;
     for (int searchFromColumn = wordStartPos; searchFromColumn < currentLineLength; searchFromColumn++)
     {
       numberStartPos = numberRegex.indexIn( line, searchFromColumn );
@@ -1372,7 +1372,7 @@ void KateViModeBase::addToNumberUnderCursor( int count )
 
     bool parsedNumberSuccessfully = false;
     int base = numberRegex.cap( 1 ).isEmpty() ? 10 : 16;
-    if (base != 16 && numberAsString.startsWith("0") && numberAsString.length() > 1)
+    if (base != 16 && numberAsString.startsWith(QLatin1String("0")) && numberAsString.length() > 1)
     {
       // If a non-hex number with a leading 0 can be parsed as octal, then assume
       // it is octal.
@@ -1395,11 +1395,11 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     QString basePrefix;
     if (base == 16)
     {
-      basePrefix = "0x";
+      basePrefix = QLatin1String("0x");
     }
     else if (base == 8)
     {
-      basePrefix = "0";
+      basePrefix = QLatin1String("0");
     }
     const QString withoutBase = numberAsString.mid(basePrefix.length());
 
@@ -1408,8 +1408,8 @@ void KateViModeBase::addToNumberUnderCursor( int count )
     // Create the new text string to be inserted. Prepend with “0x” if in base 16, and "0" if base 8.
     // For non-decimal numbers, try to keep the length of the number the same (including leading 0's).
     const QString newNumberPadded = (base == 10) ?
-        QString("%1").arg(newNumber, 0, base) :
-        QString("%1").arg(newNumber, withoutBase.length(), base, QChar('0'));
+        QString::fromLatin1("%1").arg(newNumber, 0, base) :
+        QString::fromLatin1("%1").arg(newNumber, withoutBase.length(), base, QLatin1Char('0'));
     const QString newNumberText = basePrefix + newNumberPadded;
 
     // Replace the old number string with the new.

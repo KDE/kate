@@ -134,7 +134,7 @@ bool KateViInsertMode::commandDeleteLine()
          * Remove backwards until the first non-space character. If no
          * non-space was found, remove backwards to the first column.
          */
-        QRegExp nonSpace("\\S");
+        QRegExp nonSpace(QLatin1String("\\S"));
         r.startColumn = getLine().indexOf(nonSpace);
         if (r.startColumn == -1 || r.startColumn >= c.column())
             r.startColumn = 0;
@@ -284,7 +284,7 @@ bool KateViInsertMode::commandInsertContentOfRegister(){
     if ( m == LineWise ) {
       textToInsert.chop( 1 ); // remove the last \n
       c.setColumn( doc()->lineLength( c.line() ) ); // paste after the current line and ...
-      textToInsert.prepend( QChar( '\n' ) ); // ... prepend a \n, so the text starts on a new line
+      textToInsert.prepend( QLatin1Char('\n') ); // ... prepend a \n, so the text starts on a new line
 
       cAfter.setLine( cAfter.line()+1 );
       cAfter.setColumn( 0 );
@@ -465,7 +465,7 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
       return true;
       break;
     case Qt::Key_R:
-      m_keys = "cR";
+      m_keys = QLatin1String("cR");
       // Waiting for register
       return true;
       break;
@@ -490,20 +490,20 @@ bool KateViInsertMode::handleKeypress( const QKeyEvent *e )
 } else {
 
     // Was waiting for register for Ctrl-R
-    if (m_keys == "cR"){
+    if (m_keys == QLatin1String("cR")){
         QChar key = KateViKeyParser::self()->KeyEventToQChar(*e);
         key = key.toLower();
 
         // is it register ?
-        if ( ( key >= '0' && key <= '9' ) || ( key >= 'a' && key <= 'z' ) ||
-                key == '_' || key == '+' || key == '*' ) {
+        if ( ( key >= QLatin1Char('0') && key <= QLatin1Char('9') ) || ( key >= QLatin1Char('a') && key <= QLatin1Char('z') ) ||
+                key == QLatin1Char('_') || key == QLatin1Char('+') || key == QLatin1Char('*') ) {
           m_register = key;
         } else {
-          m_keys = "";
+          m_keys = QString();
           return false;
         }
         commandInsertContentOfRegister();
-        m_keys = "";
+        m_keys = QString();
         return true;
     }
   }
@@ -557,7 +557,7 @@ void KateViInsertMode::leaveInsertMode( bool force )
                   }
                   break;
               default:
-                  error("not supported");
+                  error(QLatin1String("not supported"));
               }
           }
 
@@ -565,7 +565,7 @@ void KateViInsertMode::leaveInsertMode( bool force )
       }
       else
       {
-          const QString added = doc()->text(Range(m_viInputModeManager->getMarkPosition('^'), m_view->cursorPosition()));
+          const QString added = doc()->text(Range(m_viInputModeManager->getMarkPosition(QLatin1Char('^')), m_view->cursorPosition()));
 
           if (m_count > 1)
           {
@@ -616,7 +616,7 @@ void KateViInsertMode::completionFinished()
   {
     completionType = KateViInputModeManager::Completion::FunctionWithArgs;
   }
-  else if (m_textInsertedByCompletion.endsWith("()") || m_textInsertedByCompletion.endsWith("();"))
+  else if (m_textInsertedByCompletion.endsWith(QLatin1String("()")) || m_textInsertedByCompletion.endsWith(QLatin1String("();")))
   {
     completionType = KateViInputModeManager::Completion::FunctionWithoutArgs;
   }
@@ -629,11 +629,11 @@ void KateViInsertMode::replayCompletion()
   // Find beginning of the word.
   Cursor cursorPos = m_view->cursorPosition();
   Cursor wordStart = Cursor::invalid();
-  if (!doc()->characterAt(cursorPos).isLetterOrNumber() && doc()->characterAt(cursorPos) != '_')
+  if (!doc()->characterAt(cursorPos).isLetterOrNumber() && doc()->characterAt(cursorPos) != QLatin1Char('_'))
   {
     cursorPos.setColumn(cursorPos.column() - 1);
   }
-  while (cursorPos.column() >= 0 && (doc()->characterAt(cursorPos).isLetterOrNumber() || doc()->characterAt(cursorPos) == '_'))
+  while (cursorPos.column() >= 0 && (doc()->characterAt(cursorPos).isLetterOrNumber() || doc()->characterAt(cursorPos) == QLatin1Char('_')))
   {
     wordStart = cursorPos;
     cursorPos.setColumn(cursorPos.column() - 1);
@@ -641,7 +641,7 @@ void KateViInsertMode::replayCompletion()
   // Find end of current word.
   cursorPos = m_view->cursorPosition();
   Cursor wordEnd = Cursor(cursorPos.line(), cursorPos.column() - 1);
-  while (cursorPos.column() < doc()->lineLength(cursorPos.line()) && (doc()->characterAt(cursorPos).isLetterOrNumber() || doc()->characterAt(cursorPos) == '_'))
+  while (cursorPos.column() < doc()->lineLength(cursorPos.line()) && (doc()->characterAt(cursorPos).isLetterOrNumber() || doc()->characterAt(cursorPos) == QLatin1Char('_')))
   {
     wordEnd = cursorPos;
     cursorPos.setColumn(cursorPos.column() + 1);
@@ -656,12 +656,12 @@ void KateViInsertMode::replayCompletion()
     const int nextMergableBracketAfterCursorPos = findNextMergeableBracketPos(currentWord.end());
     if (nextMergableBracketAfterCursorPos != -1)
     {
-      if (completionText.endsWith("()"))
+      if (completionText.endsWith(QLatin1String("()")))
       {
         // Strip "()".
         completionText = completionText.left(completionText.length() - 2);
       }
-      else if (completionText.endsWith("();"))
+      else if (completionText.endsWith(QLatin1String("();")))
       {
         // Strip "();".
         completionText = completionText.left(completionText.length() - 3);
@@ -671,14 +671,14 @@ void KateViInsertMode::replayCompletion()
     }
     else
     {
-      if (!completionText.endsWith("()") && !completionText.endsWith("();"))
+      if (!completionText.endsWith(QLatin1String("()")) && !completionText.endsWith(QLatin1String("();")))
       {
         // Original completion merged with an opening bracket; we'll have to add our own brackets.
-        completionText.append("()");
+        completionText.append(QLatin1String("()"));
       }
       // Position cursor correctly i.e. we'll have added "functionname()" or "functionname();"; need to step back by
       // one or two to be after the opening bracket.
-      offsetFinalCursorPosBy = completionText.endsWith(';') ? -2 : -1;
+      offsetFinalCursorPosBy = completionText.endsWith(QLatin1Char(';')) ? -2 : -1;
     }
   }
   Cursor deleteEnd =  completion.removeTail() ? currentWord.end() :
@@ -715,7 +715,7 @@ void KateViInsertMode::replayCompletion()
 int KateViInsertMode::findNextMergeableBracketPos(const Cursor& startPos)
 {
   const QString lineAfterCursor = doc()->text(Range(startPos, Cursor(startPos.line(), doc()->lineLength(startPos.line()))));
-  QRegExp whitespaceThenOpeningBracket("^\\s*(\\()");
+  QRegExp whitespaceThenOpeningBracket(QLatin1String("^\\s*(\\()"));
   int nextMergableBracketAfterCursorPos = -1;
   if (lineAfterCursor.contains(whitespaceThenOpeningBracket))
   {

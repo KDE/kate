@@ -1235,7 +1235,7 @@ void KateView::slotReadWriteChanged ()
 
   QAction *a = 0;
   for (int z = 0; z < l.size(); z++)
-    if ((a = actionCollection()->action( l[z].toLatin1().constData() )))
+    if ((a = actionCollection()->action( l[z] )))
       a->setEnabled (m_doc->isReadWrite());
   slotUpdateUndo();
 
@@ -1675,7 +1675,7 @@ void KateView::switchToCmdLine ()
     // if the user has selected text, insert the selection's range (start line to end line) in the
     // command line when opened
     if (selectionRange().start().line() != -1 && selectionRange().end().line() != -1) {
-      cmdLineBar()->setText(QString::number(selectionRange().start().line()+1)+','
+      cmdLineBar()->setText(QString::number(selectionRange().start().line()+1) + QLatin1Char(',')
           +QString::number(selectionRange().end().line()+1));
     }
     bottomViewBar()->showBarWidget(cmdLineBar());
@@ -2200,7 +2200,7 @@ void KateView::copy() const
   if (!selection()) {
     if (!m_config->smartCopyCut())
       return;
-    text = m_doc->line(m_viewInternal->m_cursor.line()) + '\n';
+    text = m_doc->line(m_viewInternal->m_cursor.line()) + QLatin1Char('\n');
     m_viewInternal->moveEdge(KateViewInternal::left, false);
   }
 

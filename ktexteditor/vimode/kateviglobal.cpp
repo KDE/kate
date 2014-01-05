@@ -42,10 +42,10 @@ KateViGlobal::~KateViGlobal()
 
 void KateViGlobal::writeConfig( KConfigGroup &config ) const
 {
-  writeMappingsToConfig(config, "Normal", NormalModeMapping);
-  writeMappingsToConfig(config, "Visual", VisualModeMapping);
-  writeMappingsToConfig(config, "Insert", InsertModeMapping);
-  writeMappingsToConfig(config, "Command", CommandModeMapping);
+  writeMappingsToConfig(config, QLatin1String("Normal"), NormalModeMapping);
+  writeMappingsToConfig(config, QLatin1String("Visual"), VisualModeMapping);
+  writeMappingsToConfig(config, QLatin1String("Insert"), InsertModeMapping);
+  writeMappingsToConfig(config, QLatin1String("Command"), CommandModeMapping);
 
   QStringList macroRegisters;
   foreach(const QChar& macroRegister, m_macroForRegister.keys())
@@ -73,10 +73,10 @@ void KateViGlobal::writeConfig( KConfigGroup &config ) const
 
 void KateViGlobal::readConfig( const KConfigGroup &config )
 {
-  readMappingsFromConfig(config, "Normal", NormalModeMapping);
-  readMappingsFromConfig(config, "Visual", VisualModeMapping);
-  readMappingsFromConfig(config, "Insert", InsertModeMapping);
-  readMappingsFromConfig(config, "Command", CommandModeMapping);
+  readMappingsFromConfig(config, QLatin1String("Normal"), NormalModeMapping);
+  readMappingsFromConfig(config, QLatin1String("Visual"), VisualModeMapping);
+  readMappingsFromConfig(config, QLatin1String("Insert"), InsertModeMapping);
+  readMappingsFromConfig(config, QLatin1String("Command"), CommandModeMapping);
 
   const QStringList macroRegisters = config.readEntry("Macro Registers", QStringList());
   const QStringList macroContents = config.readEntry("Macro Contents", QStringList());
@@ -96,17 +96,17 @@ void KateViGlobal::readConfig( const KConfigGroup &config )
 KateViRegister KateViGlobal::getRegister( const QChar &reg ) const
 {
   KateViRegister regPair;
-  QChar _reg = ( reg != '"' ? reg : m_defaultRegister );
+  QChar _reg = ( reg != QLatin1Char('"') ? reg : m_defaultRegister );
 
-  if ( _reg >= '1' && _reg <= '9' ) { // numbered register
+  if ( _reg >= QLatin1Char('1') && _reg <= QLatin1Char('9') ) { // numbered register
     int index = QString( _reg ).toInt()-1;
     if ( m_numberedRegisters.size() > index) {
       regPair = m_numberedRegisters.at( index );
     }
-  } else if ( _reg == '+' ) { // system clipboard register
+  } else if ( _reg == QLatin1Char('+') ) { // system clipboard register
       QString regContent = QApplication::clipboard()->text( QClipboard::Clipboard );
       regPair = KateViRegister( regContent, CharWise );
-  } else if ( _reg == '*' ) { // system selection register
+  } else if ( _reg == QLatin1Char('*') ) { // system selection register
       QString regContent = QApplication::clipboard()->text( QClipboard::Selection );
       regPair = KateViRegister( regContent, CharWise );
   } else { // regular, named register
@@ -146,15 +146,15 @@ void KateViGlobal::addToNumberedRegister( const QString &text, OperationMode fla
 void KateViGlobal::fillRegister( const QChar &reg, const QString &text, OperationMode flag )
 {
   // the specified register is the "black hole register", don't do anything
-  if ( reg == '_' ) {
+  if ( reg == QLatin1Char('_') ) {
     return;
   }
 
-  if ( reg >= '1' && reg <= '9' ) { // "kill ring" registers
+  if ( reg >= QLatin1Char('1') && reg <= QLatin1Char('9') ) { // "kill ring" registers
     addToNumberedRegister( text );
-  } else if ( reg == '+' ) { // system clipboard register
+  } else if ( reg == QLatin1Char('+') ) { // system clipboard register
       QApplication::clipboard()->setText( text,  QClipboard::Clipboard );
-  } else if ( reg == '*' ) { // system selection register
+  } else if ( reg == QLatin1Char('*') ) { // system selection register
       QApplication::clipboard()->setText( text, QClipboard::Selection );
   } else {
     m_registers.insert( reg, KateViRegister(text, flag) );
@@ -162,7 +162,7 @@ void KateViGlobal::fillRegister( const QChar &reg, const QString &text, Operatio
 
   qCDebug(LOG_PART) << "Register " << reg << " set to " << getRegisterContent( reg );
 
-  if ( reg == '0' || reg == '1' || reg == '-' ) {
+  if ( reg == QLatin1Char('0') || reg == QLatin1Char('1') || reg == QLatin1Char('-') ) {
     m_defaultRegister = reg;
     qCDebug(LOG_PART) << "Register " << '"' << " set to point to \"" << reg;
   }
@@ -325,22 +325,22 @@ QList< KateViInputModeManager::Completion > KateViGlobal::getMacroCompletions(QC
 
 void KateViGlobal::writeMappingsToConfig(KConfigGroup& config, const QString& mappingModeName, MappingMode mappingMode) const
 {
-  config.writeEntry( mappingModeName + " Mode Mapping Keys", getMappings( mappingMode, true ) );
+  config.writeEntry( mappingModeName + QLatin1String(" Mode Mapping Keys"), getMappings( mappingMode, true ) );
   QStringList l;
   QList<bool> isRecursive;
   foreach( const QString &s, getMappings( mappingMode ) ) {
     l << KateViKeyParser::self()->decodeKeySequence( getMapping( mappingMode, s ) );
     isRecursive << isMappingRecursive( mappingMode, s );
   }
-  config.writeEntry( mappingModeName + " Mode Mappings", l );
-  config.writeEntry( mappingModeName + " Mode Mappings Recursion", isRecursive );
+  config.writeEntry( mappingModeName + QLatin1String(" Mode Mappings"), l );
+  config.writeEntry( mappingModeName + QLatin1String(" Mode Mappings Recursion"), isRecursive );
 }
 
 void KateViGlobal::readMappingsFromConfig(const KConfigGroup& config, const QString& mappingModeName, MappingMode mappingMode)
 {
-  const QStringList keys = config.readEntry( mappingModeName + " Mode Mapping Keys", QStringList() );
-  const QStringList mappings = config.readEntry( mappingModeName + " Mode Mappings", QStringList() );
-  const QList<bool> isRecursive = config.readEntry( mappingModeName + " Mode Mappings Recursion", QList<bool>());
+  const QStringList keys = config.readEntry( mappingModeName + QLatin1String(" Mode Mapping Keys"), QStringList() );
+  const QStringList mappings = config.readEntry( mappingModeName + QLatin1String(" Mode Mappings"), QStringList() );
+  const QList<bool> isRecursive = config.readEntry( mappingModeName + QLatin1String(" Mode Mappings Recursion"), QList<bool>());
 
   // sanity check
   if ( keys.length() == mappings.length() ) {
@@ -357,7 +357,7 @@ void KateViGlobal::readMappingsFromConfig(const KConfigGroup& config, const QStr
       qCDebug(LOG_PART) <<  + " mapping " << keys.at( i ) << " -> " << mappings.at( i );
     }
   } else {
-    qCDebug(LOG_PART) << "Error when reading mappings from " + mappingModeName + " config: number of keys != number of values";
+    qCDebug(LOG_PART) << "Error when reading mappings from " << mappingModeName << " config: number of keys != number of values";
   }
 }
 
@@ -383,41 +383,41 @@ int KateViGlobal::readMacroCompletions(QChar macroRegister, const QStringList& e
 
 QString KateViGlobal::encodeMacroCompletionForConfig(const KateViInputModeManager::Completion& completionForMacro) const
 {
-  const bool endedWithSemiColon = completionForMacro.completedText().endsWith(";");
-  QString encodedMacroCompletion = completionForMacro.completedText().remove("()").remove(";");
+  const bool endedWithSemiColon = completionForMacro.completedText().endsWith(QLatin1String(";"));
+  QString encodedMacroCompletion = completionForMacro.completedText().remove(QLatin1String("()")).remove(QLatin1String(";"));
   if (completionForMacro.completionType() == KateViInputModeManager::Completion::FunctionWithArgs)
   {
-    encodedMacroCompletion += "(...)";
+    encodedMacroCompletion += QLatin1String("(...)");
   }
   else if (completionForMacro.completionType() == KateViInputModeManager::Completion::FunctionWithoutArgs)
   {
-    encodedMacroCompletion += "()";
+    encodedMacroCompletion += QLatin1String("()");
   }
   if (endedWithSemiColon)
   {
-    encodedMacroCompletion += ';';
+    encodedMacroCompletion += QLatin1Char(';');
   }
   if (completionForMacro.removeTail())
   {
-    encodedMacroCompletion += '|';
+    encodedMacroCompletion += QLatin1Char('|');
   }
   return encodedMacroCompletion;
 }
 
 KateViInputModeManager::Completion KateViGlobal::decodeMacroCompletionFromConfig(const QString& encodedMacroCompletion)
 {
-  const bool removeTail = encodedMacroCompletion.endsWith("|");
+  const bool removeTail = encodedMacroCompletion.endsWith(QLatin1String("|"));
   KateViInputModeManager::Completion::CompletionType completionType = KateViInputModeManager::Completion::PlainText;
-  if (encodedMacroCompletion.contains("(...)"))
+  if (encodedMacroCompletion.contains(QLatin1String("(...)")))
   {
     completionType = KateViInputModeManager::Completion::FunctionWithArgs;
   }
-  else if (encodedMacroCompletion.contains("()"))
+  else if (encodedMacroCompletion.contains(QLatin1String("()")))
   {
     completionType = KateViInputModeManager::Completion::FunctionWithoutArgs;
   }
   QString completionText = encodedMacroCompletion;
-  completionText.replace("(...)", "()").remove("|");
+  completionText.replace(QLatin1String("(...)"), QLatin1String("()")).remove(QLatin1String("|"));
 
   qCDebug(LOG_PART) << "Loaded completion: " << completionText << " , " << removeTail << " , " << completionType;
 

@@ -60,15 +60,15 @@ KateSnippetsPluginView::KateSnippetsPluginView (KateSnippetsPlugin* plugin, KTex
   // Toolview for snippets
   m_toolView = mainWindow->createToolView (0,"kate_private_plugin_katesnippetsplugin", KTextEditor::MainWindow::Right, SmallIcon("document-new"), i18n("Snippets"));
   
+  // add snippets widget
+  m_snippets = KateSnippetGlobal::self()->snippetWidget();
+  m_snippets->setParent (m_toolView);
+  
   // snippets toolbar
   KToolBar *topToolbar = new KToolBar (m_toolView, "snippetsToolBar");
   topToolbar->setToolButtonStyle (Qt::ToolButtonIconOnly);
   topToolbar->addActions (m_snippets->actions());
 
-  // add snippets widget
-  m_snippets = KateSnippetGlobal::self()->snippetWidget();
-  m_snippets->setParent (m_toolView);
-  
   // register this view
   m_plugin->mViews.append ( this );
   

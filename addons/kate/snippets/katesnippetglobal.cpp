@@ -139,7 +139,7 @@ void KateSnippetGlobal::insertSnippetFromActionData()
 void KateSnippetGlobal::createSnippet (KTextEditor::View *view)
 {
    // invalid range? skip to do anything, it will fail!
-   if (!view->selectionRange().isValid())
+   if (!view || !view->selectionRange().isValid())
      return;
 
     // get mode

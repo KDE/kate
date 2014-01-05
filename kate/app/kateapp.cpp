@@ -206,7 +206,8 @@ bool KateApp::startupKate ()
     if (withProtocol.indexIn(positionalArgument) == 0) {
       url = QUrl::fromUserInput(positionalArgument);
     } else {
-      url = QUrl::fromLocalFile(positionalArgument);
+      const QString path = QDir::current().absoluteFilePath(positionalArgument);
+      url = QUrl::fromLocalFile(path);
     }
 
     // this file is no local dir, open it, else warn

@@ -41,6 +41,7 @@
 #include <QDBusMessage>
 #include <QDBusReply>
 #include <QApplication>
+#include <QDir>
 
 class KateWaiter : public QObject {
   Q_OBJECT
@@ -315,7 +316,8 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
       if (withProtocol.indexIn(url) == 0) {
         dbusargs.append(QUrl::fromUserInput(url));
       } else {
-        dbusargs.append(QUrl::fromLocalFile(url));
+        const QString path = QDir::current().absoluteFilePath(url);
+        dbusargs.append(QUrl::fromLocalFile(path));
       }
       
       dbusargs.append(enc);

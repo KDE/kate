@@ -132,6 +132,7 @@ QDebug operator<<(QDebug dbg, ProxyItemDir *item)
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 
+//BEGIN ProxyItem
 ProxyItem::ProxyItem(QString d, ProxyItemDir *p, ProxyItem::Flags f)
   : m_path(d), m_parent(p), m_row(-1), m_flags(f), m_doc(0)
 {
@@ -322,6 +323,7 @@ const QString& ProxyItem::host() const
 {
   return m_host;
 }
+//END ProxyItem
 
 KateFileTreeModel::KateFileTreeModel(QObject *p)
   : QAbstractItemModel(p),

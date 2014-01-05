@@ -195,9 +195,6 @@ KateFileTreePluginView::KateFileTreePluginView (KTextEditor::MainWindow *mainWin
   m_documentModel->setViewShade(m_plug->settings().viewShade());
   m_documentModel->setEditShade(m_plug->settings().editShade());
 
-  connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentCreated(KTextEditor::Document*)),
-          m_documentModel, SLOT(documentOpened(KTextEditor::Document*)));
-
   connect(KTextEditor::Editor::instance()->application(), SIGNAL(documentWillBeDeleted(KTextEditor::Document*)),
           m_documentModel, SLOT(documentClosed(KTextEditor::Document*)));
 

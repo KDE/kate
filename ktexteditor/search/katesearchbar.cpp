@@ -29,7 +29,6 @@
 #include "kateundomanager.h"
 #include "kateconfig.h"
 #include "katerenderer.h"
-#include "kateglobal.h"
 
 #include <ktexteditor/movingcursor.h>
 #include <ktexteditor/movingrange.h>

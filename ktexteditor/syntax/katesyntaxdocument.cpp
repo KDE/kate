@@ -280,7 +280,7 @@ KateSyntaxContextData* KateSyntaxDocument::getConfig(const QString& mainGroupNam
 KateSyntaxContextData* KateSyntaxDocument::getGroupInfo(const QString& mainGroupName, const QString &group)
 {
   QDomElement element;
-  if (getElement(element, mainGroupName, group+'s'))
+  if (getElement(element, mainGroupName, group + QLatin1Char('s')))
   {
     KateSyntaxContextData *data = new KateSyntaxContextData;
     data->parent = element;
@@ -310,11 +310,11 @@ QStringList& KateSyntaxDocument::finddata(const QString& mainGroup, const QStrin
       qCDebug(LOG_PART)<<"\""<<mainGroup<<"\" found.";
 #endif
 
-      QDomNodeList nodelist1 = elem.elementsByTagName("list");
+      QDomNodeList nodelist1 = elem.elementsByTagName(QLatin1String("list"));
 
       for (int l=0; l<nodelist1.count(); l++)
       {
-        if (nodelist1.item(l).toElement().attribute("name") == type)
+        if (nodelist1.item(l).toElement().attribute(QLatin1String("name")) == type)
         {
 #ifdef KSD_OVER_VERBOSE
           qCDebug(LOG_PART)<<"List with attribute name=\""<<type<<"\" found.";
@@ -375,11 +375,11 @@ void KateSyntaxDocument::setupModeList (bool force)
   // Let's get a list of all the xml files for hl
   QStringList list;
 
-  const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, "katepart/syntax", QStandardPaths::LocateDirectory);
+  const QStringList dirs = QStandardPaths::locateAll(QStandardPaths::GenericDataLocation, QLatin1String("katepart/syntax"), QStandardPaths::LocateDirectory);
   foreach (const QString& dir, dirs) {
     const QStringList fileNames = QDir(dir).entryList(QStringList() << QStringLiteral("*.xml"));
     foreach (const QString& file, fileNames) {
-      list.append(dir + '/' + file);
+      list.append(dir + QLatin1Char('/') + file);
     }
   }
 
@@ -443,24 +443,24 @@ void KateSyntaxDocument::setupModeList (bool force)
           if (!root.isNull())
           {
             // If the 'first' tag is language, go on
-            if (root.tagName()=="language")
+            if (root.tagName()==QLatin1String("language"))
             {
               // let's make the mode list item.
               KateSyntaxModeListItem *mli = new KateSyntaxModeListItem;
 
-              mli->name      = root.attribute("name");
-              mli->section   = root.attribute("section");
-              mli->mimetype  = root.attribute("mimetype");
-              mli->extension = root.attribute("extensions");
-              mli->version   = root.attribute("version");
-              mli->priority  = root.attribute("priority");
-              mli->style     = root.attribute("style");
-              mli->author    = root.attribute("author");
-              mli->license   = root.attribute("license");
-              mli->indenter   = root.attribute("indenter");
+              mli->name      = root.attribute(QLatin1String("name"));
+              mli->section   = root.attribute(QLatin1String("section"));
+              mli->mimetype  = root.attribute(QLatin1String("mimetype"));
+              mli->extension = root.attribute(QLatin1String("extensions"));
+              mli->version   = root.attribute(QLatin1String("version"));
+              mli->priority  = root.attribute(QLatin1String("priority"));
+              mli->style     = root.attribute(QLatin1String("style"));
+              mli->author    = root.attribute(QLatin1String("author"));
+              mli->license   = root.attribute(QLatin1String("license"));
+              mli->indenter   = root.attribute(QLatin1String("indenter"));
 
-              QString hidden = root.attribute("hidden");
-              mli->hidden    = (hidden == "true" || hidden == "TRUE");
+              QString hidden = root.attribute(QLatin1String("hidden"));
+              mli->hidden    = (hidden == QLatin1String("true") || hidden == QLatin1String("TRUE"));
 
               mli->identifier = *it;
 
@@ -495,10 +495,10 @@ void KateSyntaxDocument::setupModeList (bool force)
           KateSyntaxModeListItem *emli=new KateSyntaxModeListItem;
 
           emli->section=i18n("Errors!");
-          emli->mimetype="invalid_file/invalid_file";
-          emli->extension="invalid_file.invalid_file";
-          emli->version="1.";
-          emli->name=QString ("Error: %1").arg(*it); // internal
+          emli->mimetype= QString::fromLatin1("invalid_file/invalid_file");
+          emli->extension=QString::fromLatin1("invalid_file.invalid_file");
+          emli->version= QString::fromLatin1("1.");
+          emli->name=QString::fromLatin1("Error: %1").arg(*it); // internal
           emli->nameTranslated=i18n("Error: %1", *it); // translated
           emli->identifier=(*it);
 

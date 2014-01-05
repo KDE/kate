@@ -254,7 +254,7 @@ class SedReplace : public KTextEditor::Command, public KTextEditor::RangeCommand
      * supported commands as prefixes
      * @return prefix list
      */
-    const QStringList &cmds () { static QStringList l("s"); if (l.isEmpty()) l << "%s" << "$s"; return l; }
+    const QStringList &cmds () { static QStringList l(QString::fromLatin1("s")); if (l.isEmpty()) l << QLatin1String("%s") << QLatin1String("$s"); return l; }
 
     static SedReplace* self() {
       if (m_instance == 0) {
@@ -338,7 +338,7 @@ class Character : public KTextEditor::Command
      * supported commands as prefixes
      * @return prefix list
      */
-    const QStringList &cmds () { static QStringList test("char"); return test; }
+    const QStringList &cmds () { static QStringList test(QString::fromLatin1("char")); return test; }
 
     static Character* self() {
       if (m_instance == 0) {
@@ -375,7 +375,7 @@ class Date : public KTextEditor::Command
      * supported commands as prefixes
      * @return prefix list
      */
-    const QStringList &cmds () { static QStringList test("date"); return test; }
+    const QStringList &cmds () { static QStringList test(QString::fromLatin1("date")); return test; }
 
     static Date* self() {
       if (m_instance == 0) {

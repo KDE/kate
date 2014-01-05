@@ -97,7 +97,7 @@ public:
         if (m_menu == NULL) {
             return;
         }
-        QAction * const action = m_menu->addAction(before + after + '\t' + description);
+        QAction * const action = m_menu->addAction(before + after + QLatin1Char('\t') + description);
         m_insertBefore[m_indexWalker] = QString(realBefore.isEmpty() ? before : realBefore);
         m_insertAfter[m_indexWalker] = QString(realAfter.isEmpty() ? after : realAfter);
         action->setData(QVariant(m_indexWalker++));
@@ -617,7 +617,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
         QString question = searchDirection == SearchForward  ? i18n("Bottom of file reached. Continue from top?")
                                                              : i18n("Top of file reached. Continue from bottom?");
         wrap = (KMessageBox::questionYesNo( 0, question, i18n("Continue search?"), KStandardGuiItem::yes(), KStandardGuiItem::no(),
-                                            QString("DoNotShowAgainContinueSearchDialog")) == KMessageBox::Yes );
+                                            QLatin1String("DoNotShowAgainContinueSearchDialog")) == KMessageBox::Yes );
 
     }
     if (wrap) {
@@ -1122,24 +1122,24 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
         // Build menu
         if (forPattern) {
             if (regexMode) {
-                addMenuManager.addEntry("^", "", i18n("Beginning of line"));
-                addMenuManager.addEntry("$", "", i18n("End of line"));
+                addMenuManager.addEntry(QLatin1String("^"), QString(), i18n("Beginning of line"));
+                addMenuManager.addEntry(QLatin1String("$"), QString(), i18n("End of line"));
                 addMenuManager.addSeparator();
-                addMenuManager.addEntry(".", "", i18n("Any single character (excluding line breaks)"));
+                addMenuManager.addEntry(QLatin1String("."), QString(), i18n("Any single character (excluding line breaks)"));
                 addMenuManager.addSeparator();
-                addMenuManager.addEntry("+", "", i18n("One or more occurrences"));
-                addMenuManager.addEntry("*", "", i18n("Zero or more occurrences"));
-                addMenuManager.addEntry("?", "", i18n("Zero or one occurrences"));
-                addMenuManager.addEntry("{a", ",b}", i18n("<a> through <b> occurrences"), "{", ",}");
+                addMenuManager.addEntry(QLatin1String("+"), QString(), i18n("One or more occurrences"));
+                addMenuManager.addEntry(QLatin1String("*"), QString(), i18n("Zero or more occurrences"));
+                addMenuManager.addEntry(QLatin1String("?"), QString(), i18n("Zero or one occurrences"));
+                addMenuManager.addEntry(QLatin1String("{a"), QLatin1String(",b}"), i18n("<a> through <b> occurrences"), QLatin1String("{"), QLatin1String(",}"));
                 addMenuManager.addSeparator();
-                addMenuManager.addEntry("(", ")", i18n("Group, capturing"));
-                addMenuManager.addEntry("|", "", i18n("Or"));
-                addMenuManager.addEntry("[", "]", i18n("Set of characters"));
-                addMenuManager.addEntry("[^", "]", i18n("Negative set of characters"));
+                addMenuManager.addEntry(QLatin1String("("), QLatin1String(")"), i18n("Group, capturing"));
+                addMenuManager.addEntry(QLatin1String("|"), QString(), i18n("Or"));
+                addMenuManager.addEntry(QLatin1String("["), QLatin1String("]"), i18n("Set of characters"));
+                addMenuManager.addEntry(QLatin1String("[^"), QLatin1String("]"), i18n("Negative set of characters"));
                 addMenuManager.addSeparator();
             }
         } else {
-            addMenuManager.addEntry("\\0", "", i18n("Whole match reference"));
+            addMenuManager.addEntry(QLatin1String("\\0"), QString(), i18n("Whole match reference"));
             addMenuManager.addSeparator();
             if (regexMode) {
                 const QString pattern = m_powerUi->pattern->currentText();
@@ -1149,49 +1149,49 @@ void KateSearchBar::showExtendedContextMenu(bool forPattern, const QPoint& pos) 
                 for (int i = 1; i <= 9; i++) {
                     const QString number = QString::number(i);
                     const QString & captureDetails = (i <= captureCount)
-                            ? (QString(" = (") + capturePatterns[i - 1].left(30)) + QString(")")
+                            ? (QString::fromLatin1(" = (") + capturePatterns[i - 1].left(30)) + QLatin1String(")")
                             : QString();
-                    addMenuManager.addEntry("\\" + number, "",
-                            i18n("Reference") + ' ' + number + captureDetails);
+                    addMenuManager.addEntry(QLatin1String("\\") + number, QString(),
+                            i18n("Reference") + QLatin1Char(' ') + number + captureDetails);
                 }
 
                 addMenuManager.addSeparator();
             }
         }
 
-        addMenuManager.addEntry("\\n", "", i18n("Line break"));
-        addMenuManager.addEntry("\\t", "", i18n("Tab"));
+        addMenuManager.addEntry(QLatin1String("\\n"), QString(), i18n("Line break"));
+        addMenuManager.addEntry(QLatin1String("\\t"), QString(), i18n("Tab"));
 
         if (forPattern && regexMode) {
-            addMenuManager.addEntry("\\b", "", i18n("Word boundary"));
-            addMenuManager.addEntry("\\B", "", i18n("Not word boundary"));
-            addMenuManager.addEntry("\\d", "", i18n("Digit"));
-            addMenuManager.addEntry("\\D", "", i18n("Non-digit"));
-            addMenuManager.addEntry("\\s", "", i18n("Whitespace (excluding line breaks)"));
-            addMenuManager.addEntry("\\S", "", i18n("Non-whitespace (excluding line breaks)"));
-            addMenuManager.addEntry("\\w", "", i18n("Word character (alphanumerics plus '_')"));
-            addMenuManager.addEntry("\\W", "", i18n("Non-word character"));
+            addMenuManager.addEntry(QLatin1String("\\b"), QString(), i18n("Word boundary"));
+            addMenuManager.addEntry(QLatin1String("\\B"), QString(), i18n("Not word boundary"));
+            addMenuManager.addEntry(QLatin1String("\\d"), QString(), i18n("Digit"));
+            addMenuManager.addEntry(QLatin1String("\\D"), QString(), i18n("Non-digit"));
+            addMenuManager.addEntry(QLatin1String("\\s"), QString(), i18n("Whitespace (excluding line breaks)"));
+            addMenuManager.addEntry(QLatin1String("\\S"), QString(), i18n("Non-whitespace (excluding line breaks)"));
+            addMenuManager.addEntry(QLatin1String("\\w"), QString(), i18n("Word character (alphanumerics plus '_')"));
+            addMenuManager.addEntry(QLatin1String("\\W"), QString(), i18n("Non-word character"));
         }
 
-        addMenuManager.addEntry("\\0???", "", i18n("Octal character 000 to 377 (2^8-1)"), "\\0");
-        addMenuManager.addEntry("\\x????", "", i18n("Hex character 0000 to FFFF (2^16-1)"), "\\x");
-        addMenuManager.addEntry("\\\\", "", i18n("Backslash"));
+        addMenuManager.addEntry(QLatin1String("\\0???"), QString(), i18n("Octal character 000 to 377 (2^8-1)"), QLatin1String("\\0"));
+        addMenuManager.addEntry(QLatin1String("\\x????"), QString(), i18n("Hex character 0000 to FFFF (2^16-1)"), QLatin1String("\\x"));
+        addMenuManager.addEntry(QLatin1String("\\\\"), QString(), i18n("Backslash"));
 
         if (forPattern && regexMode) {
             addMenuManager.addSeparator();
-            addMenuManager.addEntry("(?:E", ")", i18n("Group, non-capturing"), "(?:");
-            addMenuManager.addEntry("(?=E", ")", i18n("Lookahead"), "(?=");
-            addMenuManager.addEntry("(?!E", ")", i18n("Negative lookahead"), "(?!");
+            addMenuManager.addEntry(QLatin1String("(?:E"), QLatin1String(")"), i18n("Group, non-capturing"), QLatin1String("(?:"));
+            addMenuManager.addEntry(QLatin1String("(?=E"), QLatin1String(")"), i18n("Lookahead"), QLatin1String("(?="));
+            addMenuManager.addEntry(QLatin1String("(?!E"), QLatin1String(")"), i18n("Negative lookahead"), QLatin1String("(?!"));
         }
 
         if (!forPattern) {
             addMenuManager.addSeparator();
-            addMenuManager.addEntry("\\L", "", i18n("Begin lowercase conversion"));
-            addMenuManager.addEntry("\\U", "", i18n("Begin uppercase conversion"));
-            addMenuManager.addEntry("\\E", "", i18n("End case conversion"));
-            addMenuManager.addEntry("\\l", "", i18n("Lowercase first character conversion"));
-            addMenuManager.addEntry("\\u", "", i18n("Uppercase first character conversion"));
-            addMenuManager.addEntry("\\#[#..]", "", i18n("Replacement counter (for Replace All)"), "\\#");
+            addMenuManager.addEntry(QLatin1String("\\L"), QString(), i18n("Begin lowercase conversion"));
+            addMenuManager.addEntry(QLatin1String("\\U"), QString(), i18n("Begin uppercase conversion"));
+            addMenuManager.addEntry(QLatin1String("\\E"), QString(), i18n("End case conversion"));
+            addMenuManager.addEntry(QLatin1String("\\l"), QString(), i18n("Lowercase first character conversion"));
+            addMenuManager.addEntry(QLatin1String("\\u"), QString(), i18n("Uppercase first character conversion"));
+            addMenuManager.addEntry(QLatin1String("\\#[#..]"), QString(), i18n("Replacement counter (for Replace All)"), QLatin1String("\\#"));
         }
     }
 
@@ -1368,7 +1368,7 @@ void KateSearchBar::enterPowerMode() {
     // Set initial replacement text
     QLineEdit * const replacementLineEdit = m_powerUi->replacement->lineEdit();
     Q_ASSERT(replacementLineEdit != NULL);
-    replacementLineEdit->setText("");
+    replacementLineEdit->setText(QString());
 
     // Propagate settings (slots are still inactive on purpose)
     onPowerPatternChanged(initialPattern);

@@ -64,7 +64,7 @@ void KateHlItem::dynamicSubstitute(QString &str, const QStringList *args)
 {
   for (int i = 0; i < str.length() - 1; ++i)
   {
-    if (str[i] == '%')
+    if (str[i] == QLatin1Char('%'))
     {
       char c = str[i + 1].toLatin1();
       if (c == '%')
@@ -404,7 +404,7 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
     b = true;
   }
 
-  if ((len > 0) && (p = (text[offset] == '.')))
+  if ((len > 0) && (p = (text[offset] == QLatin1Char('.'))))
   {
     offset++;
     len--;
@@ -446,7 +446,7 @@ int KateHlFloat::checkHgl(const QString& text, int offset, int len)
     }
   }
 
-  if ((len > 0) && (text[offset] == '-' || text[offset] =='+'))
+  if ((len > 0) && (text[offset] == QLatin1Char('-') || text[offset] == QLatin1Char('+')))
   {
     offset++;
     len--;
@@ -614,7 +614,7 @@ int KateHlAnyChar::checkHgl(const QString& text, int offset, int)
 //BEGIN KateHlRegExpr
 KateHlRegExpr::KateHlRegExpr( int attribute, KateHlContextModification context, signed char regionId,signed char regionId2, const QString &regexp, bool insensitive, bool minimal)
   : KateHlItem(attribute, context, regionId,regionId2)
-  , handlesLinestart (regexp.startsWith('^'))
+  , handlesLinestart (regexp.startsWith(QLatin1Char('^')))
   , _regexp(regexp)
   , _insensitive(insensitive)
   , _minimal(minimal)
@@ -669,7 +669,7 @@ KateHlItem *KateHlRegExpr::clone(const QStringList *args)
 
   for (QStringList::Iterator it = escArgs.begin(); it != escArgs.end(); ++it)
   {
-    (*it).replace(QRegExp("(\\W)"), "\\\\1");
+    (*it).replace(QRegExp(QLatin1String("(\\W)")), QLatin1String("\\\\1"));
   }
 
   dynamicSubstitute(regexp, &escArgs);
@@ -692,7 +692,7 @@ KateHlLineContinue::KateHlLineContinue(int attribute, KateHlContextModification 
 
 int KateHlLineContinue::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len == 1) && (text[offset] == '\\'))
+  if ((len == 1) && (text[offset] == QLatin1Char('\\')))
     return ++offset;
 
   return 0;
@@ -708,7 +708,7 @@ KateHlCStringChar::KateHlCStringChar(int attribute, KateHlContextModification co
 static int checkEscapedChar(const QString& text, int offset, int& len)
 {
   int i;
-  if (text[offset] == '\\' && len > 1)
+  if (text[offset] == QLatin1Char('\\') && len > 1)
   {
     offset++;
     len--;
@@ -757,7 +757,7 @@ static int checkEscapedChar(const QString& text, int offset, int& len)
 
       case '0': case '1': case '2': case '3' :
       case '4': case '5': case '6': case '7' :
-        for (i = 0; (len > 0) && (i < 3) && (text[offset] >='0'&& text[offset] <='7'); i++)
+        for (i = 0; (len > 0) && (i < 3) && (text[offset] >= QLatin1Char('0') && text[offset] <= QLatin1Char('7')); i++)
         {
           offset++;
           len--;
@@ -787,7 +787,7 @@ KateHlCChar::KateHlCChar(int attribute, KateHlContextModification context,signed
 
 int KateHlCChar::checkHgl(const QString& text, int offset, int len)
 {
-  if ((len > 1) && (text[offset] == '\'') && (text[offset+1] != '\''))
+  if ((len > 1) && (text[offset] == QLatin1Char('\'')) && (text[offset+1] != QLatin1Char('\'')))
   {
     int oldl;
     oldl = len;
@@ -809,7 +809,7 @@ int KateHlCChar::checkHgl(const QString& text, int offset, int len)
       }
     }
 
-    if ((len > 0) && (text[offset2] == '\''))
+    if ((len > 0) && (text[offset2] == QLatin1Char('\'')))
       return ++offset2;
   }
 
@@ -840,7 +840,7 @@ KateHlContext::KateHlContext (const QString &_hlId, int attribute, KateHlContext
   noIndentationBasedFolding=_noIndentationBasedFolding;
   emptyLineContext = _emptyLineContext;
   emptyLineContextModification = _emptyLineContextModification;
-  if (_noIndentationBasedFolding) qCDebug(LOG_PART)<<QString("**********************_noIndentationBasedFolding is TRUE*****************");
+  if (_noIndentationBasedFolding) qCDebug(LOG_PART)<< "**********************_noIndentationBasedFolding is TRUE*****************";
 
 }
 

@@ -77,14 +77,14 @@ void KateHighlightingMenu::slotAboutToShow()
         if (!subMenusName.contains(hlSection))
         {
           subMenusName << hlSection;
-          QMenu *qmenu = new QMenu ('&'+hlSection);
+          QMenu *qmenu = new QMenu (QLatin1Char('&') + hlSection);
           subMenus.append(qmenu);
           menu()->addMenu( qmenu );
         }
 
         int m = subMenusName.indexOf (hlSection);
         names << hlName;
-        QAction *a=subMenus.at(m)->addAction( '&' + hlName, this, SLOT(setHl()));
+        QAction *a=subMenus.at(m)->addAction( QLatin1Char('&') + hlName, this, SLOT(setHl()));
         m_actionGroup->addAction(a);
         a->setData(KateHlManager::self()->hlName (z));
         a->setCheckable(true);
@@ -93,7 +93,7 @@ void KateHighlightingMenu::slotAboutToShow()
       else if (!names.contains(hlName))
       {
         names << hlName;
-        QAction *a=menu()->addAction ( '&' + hlName, this, SLOT(setHl()));
+        QAction *a=menu()->addAction ( QLatin1Char('&') + hlName, this, SLOT(setHl()));
         m_actionGroup->addAction(a);
         a->setData(KateHlManager::self()->hlName (z));
         a->setCheckable(true);

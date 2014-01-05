@@ -62,8 +62,8 @@ bool compareKateHighlighting(const KateHighlighting* const left, const KateHighl
 //BEGIN KateHlManager
 KateHlManager::KateHlManager()
   : QObject()
-  , m_config ("katesyntaxhighlightingrc", KConfig::NoGlobals)
-  , commonSuffixes (QString(".orig;.new;~;.bak;.BAK").split(';'))
+  , m_config (QLatin1String("katesyntaxhighlightingrc"), KConfig::NoGlobals)
+  , commonSuffixes (QString::fromLatin1(".orig;.new;~;.bak;.BAK").split(QLatin1Char(';')))
   , syntax (new KateSyntaxDocument(&m_config))
   , dynamicCtxsCount(0)
   , forceNoDCReset(false)
@@ -129,22 +129,22 @@ QString KateHlManager::defaultStyleName(int n, bool translateNames)
 
   if (names.isEmpty())
   {
-    names << "Normal";
-    names << "Keyword";
-    names << "Data Type";
-    names << "Decimal/Value";
-    names << "Base-N Integer";
-    names << "Floating Point";
-    names << "Character";
-    names << "String";
-    names << "Comment";
-    names << "Others";
-    names << "Alert";
-    names << "Function";
+    names << QLatin1String("Normal");
+    names << QLatin1String("Keyword");
+    names << QLatin1String("Data Type");
+    names << QLatin1String("Decimal/Value");
+    names << QLatin1String("Base-N Integer");
+    names << QLatin1String("Floating Point");
+    names << QLatin1String("Character");
+    names << QLatin1String("String");
+    names << QLatin1String("Comment");
+    names << QLatin1String("Others");
+    names << QLatin1String("Alert");
+    names << QLatin1String("Function");
     // this next one is for denoting the beginning/end of a user defined folding region
-    names << "Region Marker";
+    names << QLatin1String("Region Marker");
     // this one is for marking invalid input
-    names << "Error";
+    names << QLatin1String("Error");
 
     translatedNames << i18nc("@item:intable Text context", "Normal");
     translatedNames << i18nc("@item:intable Text context", "Keyword");
@@ -265,8 +265,8 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list, 
     list.append(attrib);
   }
 
-  KConfigGroup config(cfg?cfg:KateHlManager::self()->self()->getKConfig(),
-                      "Default Item Styles - Schema " + schema);
+  KConfigGroup config(cfg ? cfg:KateHlManager::self()->self()->getKConfig(),
+                      QLatin1String("Default Item Styles - Schema ") + schema);
 
   for (uint z = 0; z < defaultStyles(); z++)
   {
@@ -275,7 +275,7 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list, 
     if (!s.isEmpty())
     {
       while( s.count()<9)
-        s << "";
+        s << QString();
 
       QString tmp;
       QRgb col;
@@ -286,16 +286,16 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list, 
       tmp=s[1]; if (!tmp.isEmpty()) {
          col=tmp.toUInt(0,16); i->setSelectedForeground(QColor(col)); }
 
-      tmp=s[2]; if (!tmp.isEmpty()) i->setFontBold(tmp!="0");
+      tmp=s[2]; if (!tmp.isEmpty()) i->setFontBold(tmp != QLatin1String("0"));
 
-      tmp=s[3]; if (!tmp.isEmpty()) i->setFontItalic(tmp!="0");
+      tmp=s[3]; if (!tmp.isEmpty()) i->setFontItalic(tmp != QLatin1String("0"));
 
-      tmp=s[4]; if (!tmp.isEmpty()) i->setFontStrikeOut(tmp!="0");
+      tmp=s[4]; if (!tmp.isEmpty()) i->setFontStrikeOut(tmp != QLatin1String("0"));
 
-      tmp=s[5]; if (!tmp.isEmpty()) i->setFontUnderline(tmp!="0");
+      tmp=s[5]; if (!tmp.isEmpty()) i->setFontUnderline(tmp != QLatin1String("0"));
 
       tmp=s[6]; if (!tmp.isEmpty()) {
-        if ( tmp != "-" )
+        if ( tmp != QLatin1String("-") )
         {
           col=tmp.toUInt(0,16);
           i->setBackground(QColor(col));
@@ -304,7 +304,7 @@ void KateHlManager::getDefaults(const QString &schema, KateAttributeList &list, 
           i->clearBackground();
       }
       tmp=s[7]; if (!tmp.isEmpty()) {
-        if ( tmp != "-" )
+        if ( tmp != QLatin1String("-") )
         {
           col=tmp.toUInt(0,16);
           i->setSelectedBackground(QColor(col));
@@ -321,23 +321,23 @@ void KateHlManager::setDefaults(const QString &schema, KateAttributeList &list,K
 {  
   cfg=cfg?cfg:KateHlManager::self()->self()->getKConfig();
   KConfigGroup config(cfg,
-                      "Default Item Styles - Schema " + schema);
+                      QLatin1String("Default Item Styles - Schema ") + schema);
 
   for (uint z = 0; z < defaultStyles(); z++)
   {
     QStringList settings;
     KTextEditor::Attribute::Ptr p = list.at(z);
 
-    settings<<(p->hasProperty(QTextFormat::ForegroundBrush)?QString::number(p->foreground().color().rgb(),16):"");
-    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedForeground)?QString::number(p->selectedForeground().color().rgb(),16):"");
-    settings<<(p->hasProperty(QTextFormat::FontWeight)?(p->fontBold()?"1":"0"):"");
-    settings<<(p->hasProperty(QTextFormat::FontItalic)?(p->fontItalic()?"1":"0"):"");
-    settings<<(p->hasProperty(QTextFormat::FontStrikeOut)?(p->fontStrikeOut()?"1":"0"):"");
-    settings<<(p->hasProperty(QTextFormat::FontUnderline)?(p->fontUnderline()?"1":"0"):"");
-    settings<<(p->hasProperty(QTextFormat::BackgroundBrush)?QString::number(p->background().color().rgb(),16):"-");
-    settings<<(p->hasProperty(KTextEditor::Attribute::SelectedBackground)?QString::number(p->selectedBackground().color().rgb(),16):"-");
-    settings<<(p->hasProperty(QTextFormat::FontFamily)?(p->fontFamily()):QString());
-    settings<<"---";
+    settings << (p->hasProperty(QTextFormat::ForegroundBrush) ? QString::number(p->foreground().color().rgb(), 16) : QString());
+    settings << (p->hasProperty(KTextEditor::Attribute::SelectedForeground) ? QString::number(p->selectedForeground().color().rgb(), 16) : QString());
+    settings << (p->hasProperty(QTextFormat::FontWeight) ? (p->fontBold() ? QLatin1String("1") : QLatin1String("0")) : QString());
+    settings << (p->hasProperty(QTextFormat::FontItalic) ? (p->fontItalic() ? QLatin1String("1") : QLatin1String("0")) : QString());
+    settings << (p->hasProperty(QTextFormat::FontStrikeOut) ? (p->fontStrikeOut() ? QLatin1String("1") : QLatin1String("0")) : QString());
+    settings << (p->hasProperty(QTextFormat::FontUnderline) ? (p->fontUnderline() ? QLatin1String("1") : QLatin1String("0")) : QString());
+    settings << (p->hasProperty(QTextFormat::BackgroundBrush) ? QString::number(p->background().color().rgb(), 16) : QLatin1String("-"));
+    settings << (p->hasProperty(KTextEditor::Attribute::SelectedBackground) ? QString::number(p->selectedBackground().color().rgb(), 16) : QLatin1String("-"));
+    settings << (p->hasProperty(QTextFormat::FontFamily) ? (p->fontFamily()) : QString());
+    settings << QLatin1String("---");
 
     config.writeEntry(defaultStyleName(z),settings);
   }

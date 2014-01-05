@@ -422,7 +422,7 @@ bool KateSessionManager::chooseSession ()
 
 void KateSessionManager::sessionNew ()
 {
-  activateSession(giveSession(QLatin1String("")));
+  activateSession(giveSession(QString()));
 }
 
 void KateSessionManager::sessionOpen ()

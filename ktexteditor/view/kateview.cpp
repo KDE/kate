@@ -239,7 +239,7 @@ KateView::KateView( KateDocument *doc, QWidget *parent, KTextEditor::MainWindow 
   setFocusProxy( m_viewInternal );
   setFocusPolicy( Qt::StrongFocus );
 
-  setXMLFile( "katepartui.rc" );
+  setXMLFile(QLatin1String("katepartui.rc"));
 
   setupConnections();
   setupActions();
@@ -341,7 +341,7 @@ void KateView::setupActions()
   m_copy = a = ac->addAction(KStandardAction::Copy, this, SLOT(copy()));
   a->setWhatsThis(i18n( "Use this command to copy the currently selected text to the system clipboard."));
 
-  m_pasteMenu = ac->addAction("edit_paste_menu", new KatePasteMenu (i18n("Clipboard &History"), this));
+  m_pasteMenu = ac->addAction(QLatin1String("edit_paste_menu"), new KatePasteMenu (i18n("Clipboard &History"), this));
   connect (KateGlobal::self(), SIGNAL(clipboardHistoryChanged()), this, SLOT(slotClipboardHistoryChanged()));
 
   if (!m_doc->readOnly())
@@ -357,41 +357,41 @@ void KateView::setupActions()
 
     // Tools > Scripts
     KateScriptActionMenu* scriptActionMenu = new KateScriptActionMenu(this, i18n("&Scripts"));
-    ac->addAction("tools_scripts", scriptActionMenu);
+    ac->addAction(QLatin1String("tools_scripts"), scriptActionMenu);
 
-    a = ac->addAction("tools_apply_wordwrap");
+    a = ac->addAction(QLatin1String("tools_apply_wordwrap"));
     a->setText(i18n("Apply &Word Wrap"));
     a->setWhatsThis(i18n("Use this command to wrap all lines of the current document which are longer than the width of the"
     " current view, to fit into this view.<br /><br /> This is a static word wrap, meaning it is not updated"
     " when the view is resized."));
     connect(a, SIGNAL(triggered(bool)), SLOT(applyWordWrap()));
 
-    a = ac->addAction("tools_cleanIndent");
+    a = ac->addAction(QLatin1String("tools_cleanIndent"));
     a->setText(i18n("&Clean Indentation"));
     a->setWhatsThis(i18n("Use this to clean the indentation of a selected block of text (only tabs/only spaces).<br /><br />"
         "You can configure whether tabs should be honored and used or replaced with spaces, in the configuration dialog."));
     connect(a, SIGNAL(triggered(bool)), SLOT(cleanIndent()));
 
-    a = ac->addAction("tools_align");
+    a = ac->addAction(QLatin1String("tools_align"));
     a->setText(i18n("&Align"));
     a->setWhatsThis(i18n("Use this to align the current line or block of text to its proper indent level."));
     connect(a, SIGNAL(triggered(bool)), SLOT(align()));
 
-    a = ac->addAction("tools_comment");
+    a = ac->addAction(QLatin1String("tools_comment"));
     a->setText(i18n("C&omment"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_D));
     a->setWhatsThis(i18n("This command comments out the current line or a selected block of text.<br /><br />"
         "The characters for single/multiple line comments are defined within the language's highlighting."));
     connect(a, SIGNAL(triggered(bool)), SLOT(comment()));
 
-    a = ac->addAction("tools_uncomment");
+    a = ac->addAction(QLatin1String("tools_uncomment"));
     a->setText(i18n("Unco&mment"));
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_D));
     a->setWhatsThis(i18n("This command removes comments from the current line or a selected block of text.<br /><br />"
     "The characters for single/multiple line comments are defined within the language's highlighting."));
     connect(a, SIGNAL(triggered(bool)), SLOT(uncomment()));
 
-    a = ac->addAction("tools_toggle_comment");
+    a = ac->addAction(QLatin1String("tools_toggle_comment"));
     a->setText(i18n("Toggle Comment"));
     connect(a, SIGNAL(triggered(bool)), SLOT(toggleComment()));
 
@@ -399,46 +399,46 @@ void KateView::setupActions()
     a->setWhatsThis( i18n("Lock/unlock the document for writing") );
     a->setChecked( !m_doc->isReadWrite() );
     connect(a, SIGNAL(triggered(bool)), SLOT(toggleWriteLock()));
-    ac->addAction("tools_toggle_write_lock", a);
+    ac->addAction(QLatin1String("tools_toggle_write_lock"), a);
 
-    a = ac->addAction("tools_uppercase");
+    a = ac->addAction(QLatin1String("tools_uppercase"));
     a->setText(i18n("Uppercase"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_U));
     a->setWhatsThis( i18n("Convert the selection to uppercase, or the character to the "
       "right of the cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(uppercase()));
 
-    a = ac->addAction( "tools_lowercase" );
+    a = ac->addAction( QLatin1String("tools_lowercase") );
     a->setText( i18n("Lowercase") );
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_U));
     a->setWhatsThis( i18n("Convert the selection to lowercase, or the character to the "
       "right of the cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(lowercase()));
 
-    a = ac->addAction( "tools_capitalize" );
+    a = ac->addAction( QLatin1String("tools_capitalize") );
     a->setText( i18n("Capitalize") );
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::ALT + Qt::Key_U));
     a->setWhatsThis( i18n("Capitalize the selection, or the word under the "
       "cursor if no text is selected.") );
     connect(a, SIGNAL(triggered(bool)), SLOT(capitalize()));
 
-    a = ac->addAction( "tools_join_lines" );
+    a = ac->addAction( QLatin1String("tools_join_lines") );
     a->setText( i18n("Join Lines") );
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_J));
     connect(a, SIGNAL(triggered(bool)), SLOT(joinLines()));
 
-    a = ac->addAction( "tools_invoke_code_completion" );
+    a = ac->addAction( QLatin1String("tools_invoke_code_completion") );
     a->setText( i18n("Invoke Code Completion") );
     a->setWhatsThis(i18n("Manually invoke command completion, usually by using a shortcut bound to this action."));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Space));
     connect(a, SIGNAL(triggered(bool)), SLOT(userInvokedCompletion()));
 
-    a = ac->addAction( "tools_create_snippet" );
+    a = ac->addAction( QLatin1String("tools_create_snippet") );
     a->setIcon (QIcon::fromTheme(QLatin1String("document-new")));
     a->setText( i18n("Create Snippet") );
     connect(a, SIGNAL(triggered(bool)), SLOT(createSnippet()));
 
-    a = ac->addAction( "tools_snippets" );
+    a = ac->addAction( QLatin1String("tools_snippets") );
     a->setText( i18n("Snippets...") );
     connect(a, SIGNAL(triggered(bool)), SLOT(showSnippetsDialog()));
   }
@@ -457,7 +457,7 @@ void KateView::setupActions()
   a = ac->addAction(KStandardAction::PrintPreview, m_doc, SLOT(printPreview()));
   a->setWhatsThis(i18n("Show print preview of current document"));
 
-  a = ac->addAction( "file_reload" );
+  a = ac->addAction( QLatin1String("file_reload") );
   a->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
   a->setText(i18n("Reloa&d"));
   a->setShortcuts(KStandardShortcut::reload());
@@ -467,7 +467,7 @@ void KateView::setupActions()
   a = ac->addAction( KStandardAction::SaveAs, m_doc, SLOT(documentSaveAs()) );
   a->setWhatsThis(i18n("Save the current document to disk, with a name of your choice."));
 
-  a = ac->addAction("file_save_copy_as");
+  a = ac->addAction(QLatin1String("file_save_copy_as"));
   a->setIcon(QIcon::fromTheme(QLatin1String("document-save-as")));
   a->setText(i18n("Save &Copy As..."));
   a->setWhatsThis(i18n("Save a copy of the current document to disk."));
@@ -476,28 +476,28 @@ void KateView::setupActions()
   a = ac->addAction( KStandardAction::GotoLine, this, SLOT(gotoLine()) );
   a->setWhatsThis(i18n("This command opens a dialog and lets you choose a line that you want the cursor to move to."));
 
-  a = ac->addAction("set_confdlg");
+  a = ac->addAction(QLatin1String("set_confdlg"));
   a->setText(i18n("&Configure Editor..."));
   a->setWhatsThis(i18n("Configure various aspects of this editor."));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotConfigDialog()));
 
   KateModeMenu *ftm = new KateModeMenu (i18n("&Mode"), this);
-  ac->addAction("tools_mode", ftm);
+  ac->addAction(QLatin1String("tools_mode"), ftm);
   ftm->setWhatsThis(i18n("Here you can choose which mode should be used for the current document. This will influence the highlighting and folding being used, for example."));
   ftm->updateMenu (m_doc);
 
   KateHighlightingMenu *menu = new KateHighlightingMenu (i18n("&Highlighting"), this);
-  ac->addAction("tools_highlighting", menu);
+  ac->addAction(QLatin1String("tools_highlighting"), menu);
   menu->setWhatsThis(i18n("Here you can choose how the current document should be highlighted."));
   menu->updateMenu (m_doc);
 
   KateViewSchemaAction *schemaMenu = new KateViewSchemaAction (i18n("&Schema"), this);
-  ac->addAction("view_schemas", schemaMenu);
+  ac->addAction(QLatin1String("view_schemas"), schemaMenu);
   schemaMenu->updateMenu (this);
 
   // indentation menu
   KateViewIndentationAction *indentMenu = new KateViewIndentationAction(m_doc, i18n("&Indentation"), this);
-  ac->addAction("tools_indentation", indentMenu);
+  ac->addAction(QLatin1String("tools_indentation"), indentMenu);
 
   m_selectAll = a= ac->addAction( KStandardAction::SelectAll, this, SLOT(selectAll()) );
   a->setWhatsThis(i18n("Select the entire text of the current document."));
@@ -505,14 +505,14 @@ void KateView::setupActions()
   m_deSelect = a= ac->addAction( KStandardAction::Deselect, this, SLOT(clearSelection()) );
   a->setWhatsThis(i18n("If you have selected something within the current document, this will no longer be selected."));
 
-  a = ac->addAction("view_inc_font_sizes");
+  a = ac->addAction(QLatin1String("view_inc_font_sizes"));
   a->setIcon(QIcon::fromTheme(QLatin1String("zoom-in")));
   a->setText(i18n("Enlarge Font"));
   a->setShortcuts(KStandardShortcut::zoomIn());
   a->setWhatsThis(i18n("This increases the display font size."));
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotIncFontSizes()));
 
-  a = ac->addAction("view_dec_font_sizes");
+  a = ac->addAction(QLatin1String("view_dec_font_sizes"));
   a->setIcon(QIcon::fromTheme(QLatin1String("zoom-out")));
   a->setText(i18n("Shrink Font"));
   a->setShortcuts(KStandardShortcut::zoomOut());
@@ -520,26 +520,26 @@ void KateView::setupActions()
   connect(a, SIGNAL(triggered(bool)), m_viewInternal, SLOT(slotDecFontSizes()));
 
   a = m_toggleBlockSelection = new KToggleAction(i18n("Bl&ock Selection Mode"), this);
-  ac->addAction("set_verticalSelect", a);
+  ac->addAction(QLatin1String("set_verticalSelect"), a);
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_B));
   a->setWhatsThis(i18n("This command allows switching between the normal (line based) selection mode and the block selection mode."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleBlockSelection()));
 
   a = m_toggleInsert = new KToggleAction(i18n("Overwr&ite Mode"), this);
-  ac->addAction("set_insert", a);
+  ac->addAction(QLatin1String("set_insert"), a);
   a->setShortcut(QKeySequence(Qt::Key_Insert));
   a->setWhatsThis(i18n("Choose whether you want the text you type to be inserted or to overwrite existing text."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleInsert()));
 
   KToggleAction *toggleAction;
   a = m_toggleDynWrap = toggleAction = new KToggleAction(i18n("&Dynamic Word Wrap"), this);
-  ac->addAction("view_dynamic_word_wrap", a);
+  ac->addAction(QLatin1String("view_dynamic_word_wrap"), a);
   a->setShortcut(QKeySequence(Qt::Key_F10));
   a->setWhatsThis(i18n("If this option is checked, the text lines will be wrapped at the view border on the screen."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleDynWordWrap()));
 
   a = m_setDynWrapIndicators = new KSelectAction(i18n("Dynamic Word Wrap Indicators"), this);
-  ac->addAction("dynamic_word_wrap_indicators", a);
+  ac->addAction(QLatin1String("dynamic_word_wrap_indicators"), a);
   a->setWhatsThis(i18n("Choose when the Dynamic Word Wrap Indicators should be displayed"));
 
   connect(m_setDynWrapIndicators, SIGNAL(triggered(int)), this, SLOT(setDynWrapIndicators(int)));
@@ -551,70 +551,70 @@ void KateView::setupActions()
   m_setDynWrapIndicators->setEnabled(m_toggleDynWrap->isChecked()); // only synced on real change, later
 
   a = toggleAction = m_toggleFoldingMarkers = new KToggleAction(i18n("Show Folding &Markers"), this);
-  ac->addAction("view_folding_markers", a);
+  ac->addAction(QLatin1String("view_folding_markers"), a);
   a->setShortcut(QKeySequence(Qt::Key_F9));
   a->setWhatsThis(i18n("You can choose if the codefolding marks should be shown, if codefolding is possible."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleFoldingMarkers()));
 
   a = m_toggleIconBar = toggleAction = new KToggleAction(i18n("Show &Icon Border"), this);
-  ac->addAction("view_border", a);
+  ac->addAction(QLatin1String("view_border"), a);
   a->setShortcut(QKeySequence(Qt::Key_F6));
   a->setWhatsThis(i18n("Show/hide the icon border.<br /><br />The icon border shows bookmark symbols, for instance."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleIconBorder()));
 
   a = toggleAction = m_toggleLineNumbers = new KToggleAction(i18n("Show &Line Numbers"), this);
-  ac->addAction("view_line_numbers", a);
+  ac->addAction(QLatin1String("view_line_numbers"), a);
   a->setShortcut(QKeySequence(Qt::Key_F11));
   a->setWhatsThis(i18n("Show/hide the line numbers on the left hand side of the view."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleLineNumbersOn()));
 
   a = m_toggleScrollBarMarks = toggleAction = new KToggleAction(i18n("Show Scroll&bar Marks"), this);
-  ac->addAction("view_scrollbar_marks", a);
+  ac->addAction(QLatin1String("view_scrollbar_marks"), a);
   a->setWhatsThis(i18n("Show/hide the marks on the vertical scrollbar.<br /><br />The marks show bookmarks, for instance."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMarks()));
 
   a = m_toggleScrollBarMiniMap = toggleAction = new KToggleAction(i18n("Show Scrollbar Mini-Map"), this);
-  ac->addAction("view_scrollbar_minimap", a);
+  ac->addAction(QLatin1String("view_scrollbar_minimap"), a);
   a->setWhatsThis(i18n("Show/hide the mini-map on the vertical scrollbar.<br /><br />The mini-map shows an overview of the whole document."));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMiniMap()));
 
 //   a = m_toggleScrollBarMiniMapAll = toggleAction = new KToggleAction(i18n("Show the whole document in the Mini-Map"), this);
-//   ac->addAction("view_scrollbar_minimap_all", a);
+//   ac->addAction(QLatin1String("view_scrollbar_minimap_all"), a);
 //   a->setWhatsThis(i18n("Display the whole document in the mini-map.<br /><br />With this option set the whole document will be visible in the mini-map."));
 //   connect(a, SIGNAL(triggered(bool)), SLOT(toggleScrollBarMiniMapAll()));
 //   connect(m_toggleScrollBarMiniMap, SIGNAL(triggered(bool)), m_toggleScrollBarMiniMapAll, SLOT(setEnabled(bool)));
 
   a = toggleAction = m_toggleWWMarker = new KToggleAction(i18n("Show Static &Word Wrap Marker"), this);
-  ac->addAction("view_word_wrap_marker", a);
+  ac->addAction(QLatin1String("view_word_wrap_marker"), a);
   a->setWhatsThis( i18n(
         "Show/hide the Word Wrap Marker, a vertical line drawn at the word "
         "wrap column as defined in the editing properties" ));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleWWMarker()));
 
   a = m_toggleNPSpaces = new KToggleAction(i18n("Show Non-Printable Spaces"), this);
-  ac->addAction("view_non_printable_spaces", a);
+  ac->addAction(QLatin1String("view_non_printable_spaces"), a);
   a->setWhatsThis(i18n("Show/hide bounding box around non-printable spaces"));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleNPSpaces()));
 
-  a = m_switchCmdLine = ac->addAction("switch_to_cmd_line");
+  a = m_switchCmdLine = ac->addAction(QLatin1String("switch_to_cmd_line"));
   a->setText(i18n("Switch to Command Line"));
   a->setShortcut(QKeySequence(Qt::Key_F7));
   a->setWhatsThis(i18n("Show/hide the command line on the bottom of the view."));
   connect(a, SIGNAL(triggered(bool)), SLOT(switchToCmdLine()));
 
-  a = m_switchConsole = ac->addAction("switch_to_console");
+  a = m_switchConsole = ac->addAction(QLatin1String("switch_to_console"));
   a->setText(i18n("Show the JavaScript Console"));
   a->setWhatsThis(i18n("Show/hide the JavaScript Console on the bottom of the view."));
   connect(a, SIGNAL(triggered(bool)), SLOT(switchToConsole()));
 
   a = m_viInputModeAction = new KToggleAction(i18n("&VI Input Mode"), this);
-  ac->addAction("view_vi_input_mode", a);
+  ac->addAction(QLatin1String("view_vi_input_mode"), a);
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::META + Qt::Key_V));
   a->setWhatsThis( i18n("Activate/deactivate VI input mode" ));
   connect(a, SIGNAL(triggered(bool)), SLOT(toggleViInputMode()));
 
   a = m_setEndOfLine = new KSelectAction(i18n("&End of Line"), this);
-  ac->addAction("set_eol", a);
+  ac->addAction(QLatin1String("set_eol"), a);
   a->setWhatsThis(i18n("Choose which line endings should be used, when you save the document"));
   QStringList list;
   list.append(i18nc("@item:inmenu End of Line", "&UNIX"));
@@ -626,24 +626,24 @@ void KateView::setupActions()
 
   a=m_addBom=new KToggleAction(i18n("Add &Byte Order Mark (BOM)"),this);
   m_addBom->setChecked(m_doc->config()->bom());
-  ac->addAction("add_bom",a);
+  ac->addAction(QLatin1String("add_bom"),a);
   a->setWhatsThis(i18n("Enable/disable adding of byte order markers for UTF-8/UTF-16 encoded files while saving"));
   connect(m_addBom,SIGNAL(triggered(bool)),this,SLOT(setAddBom(bool)));
   // encoding menu
   KateViewEncodingAction *encodingAction = new KateViewEncodingAction(m_doc, this, i18n("E&ncoding"), this);
-  ac->addAction("set_encoding", encodingAction);
+  ac->addAction(QLatin1String("set_encoding"), encodingAction);
 
   a = ac->addAction( KStandardAction::Find, this, SLOT(find()) );
   a->setWhatsThis(i18n("Look up the first occurrence of a piece of text or regular expression."));
   addAction(a);
 
-  a = ac->addAction("edit_find_selected");
+  a = ac->addAction(QLatin1String("edit_find_selected"));
   a->setText(i18n("Find Selected"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_H));
   a->setWhatsThis(i18n("Finds next occurrence of selected text."));
   connect(a, SIGNAL(triggered(bool)), SLOT(findSelectedForwards()));
 
-  a = ac->addAction("edit_find_selected_backwards");
+  a = ac->addAction(QLatin1String("edit_find_selected_backwards"));
   a->setText(i18n("Find Selected Backwards"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_H));
   a->setWhatsThis(i18n("Finds previous occurrence of selected text."));
@@ -653,7 +653,7 @@ void KateView::setupActions()
   a->setWhatsThis(i18n("Look up the next occurrence of the search phrase."));
   addAction(a);
 
-  a = ac->addAction( KStandardAction::FindPrev, "edit_find_prev", this, SLOT(findPrevious()) );
+  a = ac->addAction( KStandardAction::FindPrev, QLatin1String("edit_find_prev"), this, SLOT(findPrevious()) );
   a->setWhatsThis(i18n("Look up the previous occurrence of the search phrase."));
   addAction(a);
 
@@ -665,14 +665,14 @@ void KateView::setupActions()
   m_toggleOnTheFlySpellCheck->setWhatsThis(i18n("Enable/disable automatic spell checking"));
   m_toggleOnTheFlySpellCheck->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_O));
   connect(m_toggleOnTheFlySpellCheck, SIGNAL(triggered(bool)), SLOT(toggleOnTheFlySpellCheck(bool)));
-  ac->addAction("tools_toggle_automatic_spell_checking", m_toggleOnTheFlySpellCheck);
+  ac->addAction(QLatin1String("tools_toggle_automatic_spell_checking"), m_toggleOnTheFlySpellCheck);
 
-  a = ac->addAction("tools_change_dictionary");
+  a = ac->addAction(QLatin1String("tools_change_dictionary"));
   a->setText(i18n("Change Dictionary..."));
   a->setWhatsThis(i18n("Change the dictionary that is used for spell checking."));
   connect(a, SIGNAL(triggered()), SLOT(changeDictionary()));
 
-  a = ac->addAction("tools_clear_dictionary_ranges");
+  a = ac->addAction(QLatin1String("tools_clear_dictionary_ranges"));
   a->setText(i18n("Clear Dictionary Ranges"));
   a->setVisible(false);
   a->setWhatsThis(i18n("Remove all the separate dictionary ranges that were set for spell checking."));
@@ -725,202 +725,202 @@ void KateView::setupEditActions()
   //m_editActions << a after creating the action
   KActionCollection* ac = actionCollection();
 
-  QAction* a = ac->addAction("word_left");
+  QAction* a = ac->addAction(QLatin1String("word_left"));
   a->setText(i18n("Move Word Left"));
   a->setShortcuts(KStandardShortcut::backwardWord());
   connect(a, SIGNAL(triggered(bool)),  SLOT(wordLeft()));
   m_editActions << a;
 
-  a = ac->addAction("select_char_left");
+  a = ac->addAction(QLatin1String("select_char_left"));
   a->setText(i18n("Select Character Left"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorLeft()));
   m_editActions << a;
 
-  a = ac->addAction("select_word_left");
+  a = ac->addAction(QLatin1String("select_word_left"));
   a->setText(i18n("Select Word Left"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordLeft()));
   m_editActions << a;
 
-  a = ac->addAction("word_right");
+  a = ac->addAction(QLatin1String("word_right"));
   a->setText(i18n("Move Word Right"));
   a->setShortcuts(KStandardShortcut::forwardWord());
   connect(a, SIGNAL(triggered(bool)), SLOT(wordRight()));
   m_editActions << a;
 
-  a = ac->addAction("select_char_right");
+  a = ac->addAction(QLatin1String("select_char_right"));
   a->setText(i18n("Select Character Right"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftCursorRight()));
   m_editActions << a;
 
-  a = ac->addAction("select_word_right");
+  a = ac->addAction(QLatin1String("select_word_right"));
   a->setText(i18n("Select Word Right"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftWordRight()));
   m_editActions << a;
 
-  a = ac->addAction("beginning_of_line");
+  a = ac->addAction(QLatin1String("beginning_of_line"));
   a->setText(i18n("Move to Beginning of Line"));
   a->setShortcuts(KStandardShortcut::beginningOfLine());
   connect(a, SIGNAL(triggered(bool)), SLOT(home()));
   m_editActions << a;
 
-  a = ac->addAction("beginning_of_document");
+  a = ac->addAction(QLatin1String("beginning_of_document"));
   a->setText(i18n("Move to Beginning of Document"));
   a->setShortcuts(KStandardShortcut::begin());
   connect(a, SIGNAL(triggered(bool)), SLOT(top()));
   m_editActions << a;
 
-  a = ac->addAction("select_beginning_of_line");
+  a = ac->addAction(QLatin1String("select_beginning_of_line"));
   a->setText(i18n("Select to Beginning of Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftHome()));
   m_editActions << a;
 
-  a = ac->addAction("select_beginning_of_document");
+  a = ac->addAction(QLatin1String("select_beginning_of_document"));
   a->setText(i18n("Select to Beginning of Document"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_Home));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftTop()));
   m_editActions << a;
 
 
-  a = ac->addAction("end_of_line");
+  a = ac->addAction(QLatin1String("end_of_line"));
   a->setText(i18n("Move to End of Line"));
   a->setShortcuts(KStandardShortcut::endOfLine());
   connect(a, SIGNAL(triggered(bool)), SLOT(end()));
   m_editActions << a;
 
-  a = ac->addAction("end_of_document");
+  a = ac->addAction(QLatin1String("end_of_document"));
   a->setText(i18n("Move to End of Document"));
   a->setShortcuts(KStandardShortcut::end());
   connect(a, SIGNAL(triggered(bool)), SLOT(bottom()));
   m_editActions << a;
 
-  a = ac->addAction("select_end_of_line");
+  a = ac->addAction(QLatin1String("select_end_of_line"));
   a->setText(i18n("Select to End of Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftEnd()));
   m_editActions << a;
 
-  a = ac->addAction("select_end_of_document");
+  a = ac->addAction(QLatin1String("select_end_of_document"));
   a->setText(i18n("Select to End of Document"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_End));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftBottom()));
   m_editActions << a;
 
 
-  a = ac->addAction("select_line_up");
+  a = ac->addAction(QLatin1String("select_line_up"));
   a->setText(i18n("Select to Previous Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftUp()));
   m_editActions << a;
 
-  a = ac->addAction("scroll_line_up");
+  a = ac->addAction(QLatin1String("scroll_line_up"));
   a->setText(i18n("Scroll Line Up"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(scrollUp()));
   m_editActions << a;
 
 
-  a = ac->addAction("move_line_down");
+  a = ac->addAction(QLatin1String("move_line_down"));
   a->setText(i18n("Move to Next Line"));
   a->setShortcut(QKeySequence(Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(down()));
   m_editActions << a;
 
 
-  a = ac->addAction("move_line_up");
+  a = ac->addAction(QLatin1String("move_line_up"));
   a->setText(i18n("Move to Previous Line"));
   a->setShortcut(QKeySequence(Qt::Key_Up));
   connect(a, SIGNAL(triggered(bool)), SLOT(up()));
   m_editActions << a;
 
 
-  a = ac->addAction("move_cursor_right");
+  a = ac->addAction(QLatin1String("move_cursor_right"));
   a->setText(i18n("Move Cursor Right"));
   a->setShortcut(QKeySequence(Qt::Key_Right));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorRight()));
   m_editActions << a;
 
 
-  a = ac->addAction("move_cusor_left");
+  a = ac->addAction(QLatin1String("move_cusor_left"));
   a->setText(i18n("Move Cursor Left"));
   a->setShortcut(QKeySequence(Qt::Key_Left));
   connect(a, SIGNAL(triggered(bool)), SLOT(cursorLeft()));
   m_editActions << a;
 
 
-  a = ac->addAction("select_line_down");
+  a = ac->addAction(QLatin1String("select_line_down"));
   a->setText(i18n("Select to Next Line"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftDown()));
   m_editActions << a;
 
-  a = ac->addAction("scroll_line_down");
+  a = ac->addAction(QLatin1String("scroll_line_down"));
   a->setText(i18n("Scroll Line Down"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Down));
   connect(a, SIGNAL(triggered(bool)), SLOT(scrollDown()));
   m_editActions << a;
 
 
-  a = ac->addAction("scroll_page_up");
+  a = ac->addAction(QLatin1String("scroll_page_up"));
   a->setText(i18n("Scroll Page Up"));
   a->setShortcuts(KStandardShortcut::prior());
   connect(a, SIGNAL(triggered(bool)), SLOT(pageUp()));
   m_editActions << a;
 
-  a = ac->addAction("select_page_up");
+  a = ac->addAction(QLatin1String("select_page_up"));
   a->setText(i18n("Select Page Up"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftPageUp()));
   m_editActions << a;
 
-  a = ac->addAction("move_top_of_view");
+  a = ac->addAction(QLatin1String("move_top_of_view"));
   a->setText(i18n("Move to Top of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(topOfView()));
   m_editActions << a;
 
-  a = ac->addAction("select_top_of_view");
+  a = ac->addAction(QLatin1String("select_top_of_view"));
   a->setText(i18n("Select to Top of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT +  Qt::Key_PageUp));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftTopOfView()));
   m_editActions << a;
 
 
-  a = ac->addAction("scroll_page_down");
+  a = ac->addAction(QLatin1String("scroll_page_down"));
   a->setText(i18n("Scroll Page Down"));
   a->setShortcuts(KStandardShortcut::next());
   connect(a, SIGNAL(triggered(bool)), SLOT(pageDown()));
   m_editActions << a;
 
-  a = ac->addAction("select_page_down");
+  a = ac->addAction(QLatin1String("select_page_down"));
   a->setText(i18n("Select Page Down"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftPageDown()));
   m_editActions << a;
 
-  a = ac->addAction("move_bottom_of_view");
+  a = ac->addAction(QLatin1String("move_bottom_of_view"));
   a->setText(i18n("Move to Bottom of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(bottomOfView()));
   m_editActions << a;
 
-  a = ac->addAction("select_bottom_of_view");
+  a = ac->addAction(QLatin1String("select_bottom_of_view"));
   a->setText(i18n("Select to Bottom of View"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::SHIFT + Qt::Key_PageDown));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftBottomOfView()));
   m_editActions << a;
 
-  a = ac->addAction("to_matching_bracket");
+  a = ac->addAction(QLatin1String("to_matching_bracket"));
   a->setText(i18n("Move to Matching Bracket"));
   a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_6));
   connect(a, SIGNAL(triggered(bool)), SLOT(toMatchingBracket()));
   m_editActions << a;
 
-  a = ac->addAction("select_matching_bracket");
+  a = ac->addAction(QLatin1String("select_matching_bracket"));
   a->setText(i18n("Select to Matching Bracket"));
   a->setShortcut(QKeySequence(Qt::SHIFT + Qt::CTRL + Qt::Key_6));
   connect(a, SIGNAL(triggered(bool)), SLOT(shiftToMatchingBracket()));
@@ -930,37 +930,37 @@ void KateView::setupEditActions()
   // anders: shortcuts doing any changes should not be created in browserextension
   if ( !m_doc->readOnly() )
   {
-    a = ac->addAction("transpose_char");
+    a = ac->addAction(QLatin1String("transpose_char"));
     a->setText(i18n("Transpose Characters"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_T));
     connect(a, SIGNAL(triggered(bool)), SLOT(transpose()));
     m_editActions << a;
 
-    a = ac->addAction("delete_line");
+    a = ac->addAction(QLatin1String("delete_line"));
     a->setText(i18n("Delete Line"));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_K));
     connect(a, SIGNAL(triggered(bool)), SLOT(killLine()));
     m_editActions << a;
 
-    a = ac->addAction("delete_word_left");
+    a = ac->addAction(QLatin1String("delete_word_left"));
     a->setText(i18n("Delete Word Left"));
     a->setShortcuts(KStandardShortcut::deleteWordBack());
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordLeft()));
     m_editActions << a;
 
-    a = ac->addAction("delete_word_right");
+    a = ac->addAction(QLatin1String("delete_word_right"));
     a->setText(i18n("Delete Word Right"));
     a->setShortcuts(KStandardShortcut::deleteWordForward());
     connect(a, SIGNAL(triggered(bool)), SLOT(deleteWordRight()));
     m_editActions << a;
 
-    a = ac->addAction("delete_next_character");
+    a = ac->addAction(QLatin1String("delete_next_character"));
     a->setText(i18n("Delete Next Character"));
     a->setShortcut(QKeySequence(Qt::Key_Delete));
     connect(a, SIGNAL(triggered(bool)), SLOT(keyDelete()));
     m_editActions << a;
 
-    a = ac->addAction("backspace");
+    a = ac->addAction(QLatin1String("backspace"));
     a->setText(i18n("Backspace"));
     QList<QKeySequence> scuts;
     scuts << QKeySequence(Qt::Key_Backspace)
@@ -969,12 +969,12 @@ void KateView::setupEditActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(backspace()));
     m_editActions << a;
 
-    a = ac->addAction("insert_tabulator");
+    a = ac->addAction(QLatin1String("insert_tabulator"));
     a->setText(i18n("Insert Tab"));
     connect(a, SIGNAL(triggered(bool)), SLOT(insertTab()));
     m_editActions << a;
 
-    a = ac->addAction("smart_newline");
+    a = ac->addAction(QLatin1String("smart_newline"));
     a->setText(i18n("Insert Smart Newline"));
     a->setWhatsThis(i18n("Insert newline including leading characters of the current line which are not letters or numbers."));
     scuts.clear();
@@ -984,7 +984,7 @@ void KateView::setupEditActions()
     connect(a, SIGNAL(triggered(bool)), SLOT(smartNewline()));
     m_editActions << a;
 
-    a = ac->addAction("tools_indent");
+    a = ac->addAction(QLatin1String("tools_indent"));
     a->setIcon(QIcon::fromTheme(QLatin1String("format-indent-more")));
     a->setText(i18n("&Indent"));
     a->setWhatsThis(i18n("Use this to indent a selected block of text.<br /><br />"
@@ -992,7 +992,7 @@ void KateView::setupEditActions()
     a->setShortcut(QKeySequence(Qt::CTRL+Qt::Key_I));
     connect(a, SIGNAL(triggered(bool)), SLOT(indent()));
 
-    a = ac->addAction("tools_unindent");
+    a = ac->addAction(QLatin1String("tools_unindent"));
     a->setIcon(QIcon::fromTheme(QLatin1String("format-indent-less")));
     a->setText(i18n("&Unindent"));
     a->setWhatsThis(i18n("Use this to unindent a selected block of text."));
@@ -1013,29 +1013,29 @@ void KateView::setupCodeFolding()
 
   QAction* a;
 
-  a = ac->addAction("folding_toplevel");
+  a = ac->addAction(QLatin1String("folding_toplevel"));
   a->setText(i18n("Fold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Minus));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotFoldToplevelNodes()));
 
-  /*a = ac->addAction("folding_expandtoplevel");
+  /*a = ac->addAction(QLatin1String("folding_expandtoplevel"));
   a->setText(i18n("Unfold Toplevel Nodes"));
   a->setShortcut(QKeySequence(Qt::CTRL+Qt::SHIFT+Qt::Key_Plus));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(expandToplevelNodes()));
 
-  a = ac->addAction("folding_expandall");
+  a = ac->addAction(QLatin1String("folding_expandall"));
   a->setText(i18n("Unfold All Nodes"));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(expandAll()));
 
-  a = ac->addAction("folding_collapse_dsComment");
+  a = ac->addAction(QLatin1String("folding_collapse_dsComment"));
   a->setText(i18n("Fold Multiline Comments"));
   connect(a, SIGNAL(triggered(bool)), m_doc->foldingTree(), SLOT(collapseAll_dsComments()));
 */
-  a = ac->addAction("folding_collapselocal");
+  a = ac->addAction(QLatin1String("folding_collapselocal"));
   a->setText(i18n("Fold Current Node"));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotCollapseLocal()));
 
-  a = ac->addAction("folding_expandlocal");
+  a = ac->addAction(QLatin1String("folding_expandlocal"));
   a->setText(i18n("Unfold Current Node"));
   connect(a, SIGNAL(triggered(bool)), SLOT(slotExpandLocal()));
 }
@@ -1138,7 +1138,7 @@ QString KateView::viewMode () const
 
     if (m_viewInternal->getViInputModeManager()->isRecordingMacro())
     {
-      currentMode += " (" + i18n("recording") + ") ";
+      currentMode += QLatin1String(" (") + i18n("recording") + QLatin1String(") ");
     }
 
     /**
@@ -1146,12 +1146,12 @@ QString KateView::viewMode () const
      */
     QString cmd = m_viewInternal->getViInputModeManager()->getVerbatimKeys();
     if (!cmd.isEmpty())
-      currentMode.append (QString (" <em>%1</em>").arg (cmd));
+      currentMode.append (QString::fromLatin1(" <em>%1</em>").arg (cmd));
     
     /**
      * make it bold
      */
-    currentMode = QString ("<b>%1</b>").arg (currentMode);
+    currentMode = QString::fromLatin1("<b>%1</b>").arg (currentMode);
   }
   
   /**
@@ -1215,12 +1215,23 @@ void KateView::slotReadWriteChanged ()
 
   QStringList l;
 
-  l << "edit_replace" << "tools_spelling" << "tools_indent"
-      << "tools_unindent" << "tools_cleanIndent" << "tools_align"  << "tools_comment"
-      << "tools_uncomment" << "tools_toggle_comment" << "tools_uppercase" << "tools_lowercase"
-      << "tools_capitalize" << "tools_join_lines" << "tools_apply_wordwrap"
-      << "tools_spelling_from_cursor"
-      << "tools_spelling_selection" << "tools_create_snippet";
+  l << QLatin1String("edit_replace")
+    << QLatin1String("tools_spelling")
+    << QLatin1String("tools_indent")
+    << QLatin1String("tools_unindent")
+    << QLatin1String("tools_cleanIndent")
+    << QLatin1String("tools_align")
+    << QLatin1String("tools_comment")
+    << QLatin1String("tools_uncomment")
+    << QLatin1String("tools_toggle_comment")
+    << QLatin1String("tools_uppercase")
+    << QLatin1String("tools_lowercase")
+    << QLatin1String("tools_capitalize")
+    << QLatin1String("tools_join_lines")
+    << QLatin1String("tools_apply_wordwrap")
+    << QLatin1String("tools_spelling_from_cursor")
+    << QLatin1String("tools_spelling_selection")
+    << QLatin1String("tools_create_snippet");
 
   QAction *a = 0;
   for (int z = 0; z < l.size(); z++)
@@ -1283,7 +1294,7 @@ bool KateView::setCursorPositionInternal( const KTextEditor::Cursor& position, u
   int x = 0;
   int z = 0;
   for (; z < line_str.length() && z < position.column(); z++) {
-    if (line_str[z] == QChar('\t')) x += tabwidth - (x % tabwidth); else x++;
+    if (line_str[z] == QLatin1Char('\t')) x += tabwidth - (x % tabwidth); else x++;
   }
 
   if (blockSelection())
@@ -1650,7 +1661,7 @@ void KateView::slotSelectionChanged ()
 
   m_cut->setEnabled (selection() || m_config->smartCopyCut() );
 
-  actionCollection()->action ("tools_create_snippet")->setEnabled (selection());
+  actionCollection()->action (QLatin1String("tools_create_snippet"))->setEnabled (selection());
 
   m_spell->updateActions ();
 }
@@ -1934,14 +1945,14 @@ void KateView::slotHlChanged()
   KateHighlighting *hl = m_doc->highlight();
   bool ok ( !hl->getCommentStart(0).isEmpty() || !hl->getCommentSingleLineStart(0).isEmpty() );
 
-  if (actionCollection()->action("tools_comment"))
-    actionCollection()->action("tools_comment")->setEnabled( ok );
+  if (actionCollection()->action(QLatin1String("tools_comment")))
+    actionCollection()->action(QLatin1String("tools_comment"))->setEnabled( ok );
 
-  if (actionCollection()->action("tools_uncomment"))
-    actionCollection()->action("tools_uncomment")->setEnabled( ok );
+  if (actionCollection()->action(QLatin1String("tools_uncomment")))
+    actionCollection()->action(QLatin1String("tools_uncomment"))->setEnabled( ok );
 
-  if (actionCollection()->action("tools_toggle_comment"))
-    actionCollection()->action("tools_toggle_comment")->setEnabled( ok );
+  if (actionCollection()->action(QLatin1String("tools_toggle_comment")))
+    actionCollection()->action(QLatin1String("tools_toggle_comment"))->setEnabled( ok );
 
   // show folding bar if "view defaults" says so, otherwise enable/disable only the menu entry
   updateFoldingConfig ();
@@ -2814,10 +2825,10 @@ QMenu *KateView::contextMenu( ) const
 
     //qCDebug(LOG_PART) << "looking up all menu containers";
     if (client->factory()){
-      QList<QWidget*> conts = client->factory()->containers("menu");
+      QList<QWidget*> conts = client->factory()->containers(QLatin1String("menu"));
       foreach (QWidget *w, conts)
       {
-        if (w->objectName() == "ktexteditor_popup")
+        if (w->objectName() == QLatin1String("ktexteditor_popup"))
         {//perhaps optimize this block
               QMenu* menu=(QMenu*)w;
               disconnect(menu, SIGNAL(aboutToShow()), this, SLOT(aboutToShowContextMenu()));
@@ -2846,11 +2857,11 @@ QMenu * KateView::defaultContextMenu(QMenu* menu) const
     menu->addSeparator();
     menu->addAction(m_selectAll);
     menu->addAction(m_deSelect);
-    if (QAction *spellingSuggestions = actionCollection()->action("spelling_suggestions")) {
+    if (QAction *spellingSuggestions = actionCollection()->action(QLatin1String("spelling_suggestions"))) {
       menu->addSeparator();
       menu->addAction(spellingSuggestions);
     }
-    if (QAction* bookmark = actionCollection()->action("bookmarks")) {
+    if (QAction* bookmark = actionCollection()->action(QLatin1String("bookmarks"))) {
       menu->addSeparator();
       menu->addAction(bookmark);
     }
@@ -2874,33 +2885,33 @@ void KateView::aboutToHideContextMenu( )
 // BEGIN ConfigInterface stff
 QStringList KateView::configKeys() const
 {
-  return QStringList() << "icon-bar" << "line-numbers" << "dynamic-word-wrap"
-                       << "background-color" << "selection-color"
-                       << "search-highlight-color" << "replace-highlight-color"
-                       << "folding-bar";
+  return QStringList()  << QLatin1String("icon-bar")  << QLatin1String("line-numbers") << QLatin1String("dynamic-word-wrap")
+                        << QLatin1String("background-color")  << QLatin1String("selection-color")
+                        << QLatin1String("search-highlight-color")  << QLatin1String("replace-highlight-color")
+                        << QLatin1String("folding-bar");
 }
 
 QVariant KateView::configValue(const QString &key)
 {
-  if (key == "icon-bar")
+  if (key ==QLatin1String("icon-bar"))
     return config()->iconBar();
-  else if (key == "line-numbers")
+  else if (key ==QLatin1String("line-numbers"))
     return config()->lineNumbers();
-  else if (key == "dynamic-word-wrap")
+  else if (key ==QLatin1String("dynamic-word-wrap"))
     return config()->dynWordWrap();
-  else if (key == "background-color")
+  else if (key ==QLatin1String("background-color"))
     return renderer()->config()->backgroundColor();
-  else if (key == "selection-color")
+  else if (key ==QLatin1String("selection-color"))
     return renderer()->config()->selectionColor();
-  else if (key == "search-highlight-color")
+  else if (key ==QLatin1String("search-highlight-color"))
     return renderer()->config()->searchHighlightColor();
-  else if (key == "replace-highlight-color")
+  else if (key ==QLatin1String("replace-highlight-color"))
     return renderer()->config()->replaceHighlightColor();
-  else if (key == "default-mark-type")
+  else if (key ==QLatin1String("default-mark-type"))
     return config()->defaultMarkType();
-  else if (key == "allow-mark-menu")
+  else if (key ==QLatin1String("allow-mark-menu"))
     return config()->allowMarkMenu();
-  else if (key == "folding-bar")
+  else if (key ==QLatin1String("folding-bar"))
     return config()->foldingBar();
 
   // return invalid variant
@@ -2910,29 +2921,29 @@ QVariant KateView::configValue(const QString &key)
 void KateView::setConfigValue(const QString &key, const QVariant &value)
 {
   if ( value.canConvert(QVariant::Color) ) {
-     if (key == "background-color")
+     if (key == QLatin1String("background-color"))
       renderer()->config()->setBackgroundColor(value.value<QColor>());
-    else if (key == "selection-color")
+    else if (key == QLatin1String("selection-color"))
       renderer()->config()->setSelectionColor(value.value<QColor>());
-    else if (key == "search-highlight-color")
+    else if (key == QLatin1String("search-highlight-color"))
       renderer()->config()->setSearchHighlightColor(value.value<QColor>());
-    else if (key == "replace-highlight-color")
+    else if (key == QLatin1String("replace-highlight-color"))
       renderer()->config()->setReplaceHighlightColor(value.value<QColor>());
   } else if ( value.type() == QVariant::Bool ) {
     // Note explicit type check above. If we used canConvert, then
     // values of type UInt will be trapped here.
-    if (key == "icon-bar")
+    if (key == QLatin1String("icon-bar"))
       config()->setIconBar(value.toBool());
-    else if (key == "line-numbers")
+    else if (key == QLatin1String("line-numbers"))
       config()->setLineNumbers(value.toBool());
-    else if (key == "dynamic-word-wrap")
+    else if (key == QLatin1String("dynamic-word-wrap"))
       config()->setDynWordWrap(value.toBool());
-    else if (key == "allow-mark-menu")
+    else if (key == QLatin1String("allow-mark-menu"))
       config()->setAllowMarkMenu(value.toBool());
-    else if (key == "folding-bar")
+    else if (key == QLatin1String("folding-bar"))
       config()->setFoldingBar(value.toBool());
   } else if ( value.canConvert(QVariant::UInt) ) {
-    if (key == "default-mark-type")
+    if (key == QLatin1String("default-mark-type"))
       config()->setDefaultMarkType(value.toUInt());
   }
 }

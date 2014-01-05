@@ -603,7 +603,7 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
     m_columnScroll->setValue(m_startX);
 
     // Approximate linescroll
-    m_columnScroll->setSingleStep(renderer()->config()->fontMetrics().width('a'));
+    m_columnScroll->setSingleStep(renderer()->config()->fontMetrics().width(QLatin1Char('a')));
     m_columnScroll->setPageStep(width());
 
     m_columnScroll->blockSignals(blocked);
@@ -2426,7 +2426,7 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
       }
 
       if (tabHandling == KateDocumentConfig::tabInsertsTab)
-        doc()->typeChars( m_view, QString("\t") );
+        doc()->typeChars( m_view, QLatin1String("\t") );
       else
         doc()->indent( m_view->selection() ? m_view->selectionRange() : KTextEditor::Range(m_cursor.line(), 0, m_cursor.line(), 0), 1 );
 

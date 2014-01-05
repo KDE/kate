@@ -412,10 +412,10 @@ void KateScrollBar::updatePixmap()
         }
 
         // draw the pixels
-        if (lineText[x] == ' ') {
+        if (lineText[x] == QLatin1Char(' ')) {
           pixelX++;
         }
-        else if (lineText[x] == '\t') {
+        else if (lineText[x] == QLatin1Char('\t')) {
           pixelX += qMax(4/charIncrement, 1); // FIXME: tab width...
         }
         else {
@@ -814,7 +814,7 @@ KateCommandLineBar::KateCommandLineBar (KateView *view, QWidget *parent)
 
 void KateCommandLineBar::showHelpPage()
 {
-  KHelpClient::invokeHelp("advanced-editing-tools-commandline", "kate");
+  KHelpClient::invokeHelp(QLatin1String("advanced-editing-tools-commandline"), QLatin1String("kate"));
 }
 
 KateCommandLineBar::~KateCommandLineBar()
@@ -985,7 +985,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
     m_msgMode = true;
 
     // the following commands changes the focus themselves, so bar should be hidden before execution.
-    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))) {
+    if (QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(QLatin1String(" ")).at(0))) {
       emit hideRequested();
     }
 
@@ -1049,7 +1049,7 @@ void KateCmdLineEdit::slotReturnPressed ( const QString& text )
   m_cmdend = 0;
 
   // the following commands change the focus themselves
-  if (!QRegExp("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e").exactMatch(cmd.split(" ").at(0))) {
+  if (!QRegExp(QLatin1String("buffer|b|new|vnew|bp|bprev|bn|bnext|bf|bfirst|bl|blast|edit|e")).exactMatch(cmd.split(QLatin1String(" ")).at(0))) {
     m_view->setFocus ();
   }
 
@@ -1110,7 +1110,7 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
 
     if ( ! m_cmdend && ! c.isNull() ) // we have no command, so lets see if we got one
     {
-      if ( ! c.isLetterOrNumber() && c != '-' && c != '_' )
+      if ( ! c.isLetterOrNumber() && c != QLatin1Char('-') && c != QLatin1Char('_') )
       {
         m_command = KateCmd::self()->queryCommand( text().trimmed() );
         if ( m_command )
@@ -1139,11 +1139,11 @@ void KateCmdLineEdit::keyPressEvent( QKeyEvent *ev )
         {
           if ( t[m_cmdend].isLetter() )
             b = true;
-          if ( b && ( ! t[m_cmdend].isLetterOrNumber() && t[m_cmdend] != '-' && t[m_cmdend] != '_' ) )
+          if ( b && ( ! t[m_cmdend].isLetterOrNumber() && t[m_cmdend] != QLatin1Char('-') && t[m_cmdend] != QLatin1Char('_') ) )
             break;
         }
 
-        if ( c == ':' && cursorpos == m_cmdend )
+        if ( c == QLatin1Char(':') && cursorpos == m_cmdend )
         {
           // check if this command wants to complete flags
           //qCDebug(LOG_PART)<<"keypress in commandline: Checking if flag completion is desired!";
@@ -1223,7 +1223,7 @@ void KateCmdLineEdit::fromHistory( bool up )
   {
     // Select the argument part of the command, so that it is easy to overwrite
     setText( s );
-    static QRegExp reCmd = QRegExp(".*[\\w\\-]+(?:[^a-zA-Z0-9_-]|:\\w+)(.*)");
+    static QRegExp reCmd = QRegExp(QLatin1String(".*[\\w\\-]+(?:[^a-zA-Z0-9_-]|:\\w+)(.*)"));
     if ( reCmd.indexIn( text() ) == 0 )
       setSelection( text().length() - reCmd.cap(1).length(), reCmd.cap(1).length() );
   }
@@ -1664,7 +1664,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         if (m_viewInternal->cache()->viewLine(z).startCol() == 0) {
           if (m_lineNumbersOn) {
             p.drawText( lnX + m_maxCharWidth / 2, y, lnWidth - m_maxCharWidth, h,
-                        Qt::TextDontClip|Qt::AlignRight|Qt::AlignVCenter, QString("%1").arg( realLine + 1 ) );
+                        Qt::TextDontClip|Qt::AlignRight|Qt::AlignVCenter, QString::fromLatin1("%1").arg( realLine + 1 ) );
           }
         } else if (m_view->dynWordWrap() && m_dynWrapIndicatorsOn) {
           p.drawPixmap(lnX + lnWidth - m_arrow.width() - 2, y, m_arrow);
@@ -2565,8 +2565,8 @@ void KatePasteMenu::slotAboutToShow()
     /**
      * get text for the menu ;)
      */
-    QString leftPart = (text.size() > 48) ? (text.left(48) + "...") : text;
-    QAction *a=menu()->addAction (leftPart.replace ("\n", " "), this, SLOT(paste()));
+    QString leftPart = (text.size() > 48) ? (text.left(48) + QLatin1String("...")) : text;
+    QAction *a=menu()->addAction (leftPart.replace (QLatin1String("\n"), QLatin1String(" ")), this, SLOT(paste()));
     a->setData(i++);
   }
 }

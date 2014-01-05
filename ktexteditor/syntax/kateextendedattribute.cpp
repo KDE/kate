@@ -34,20 +34,20 @@ KateExtendedAttribute::KateExtendedAttribute(const QString& name, int defaultSty
 
 int KateExtendedAttribute::indexForStyleName( const QString & name )
 {
-  if (name=="dsNormal") return KTextEditor::HighlightInterface::dsNormal;
-  else if (name=="dsKeyword") return KTextEditor::HighlightInterface::dsKeyword;
-  else if (name=="dsDataType") return KTextEditor::HighlightInterface::dsDataType;
-  else if (name=="dsDecVal") return KTextEditor::HighlightInterface::dsDecVal;
-  else if (name=="dsBaseN") return KTextEditor::HighlightInterface::dsBaseN;
-  else if (name=="dsFloat") return KTextEditor::HighlightInterface::dsFloat;
-  else if (name=="dsChar") return KTextEditor::HighlightInterface::dsChar;
-  else if (name=="dsString") return KTextEditor::HighlightInterface::dsString;
-  else if (name=="dsComment") return KTextEditor::HighlightInterface::dsComment;
-  else if (name=="dsOthers")  return KTextEditor::HighlightInterface::dsOthers;
-  else if (name=="dsAlert") return KTextEditor::HighlightInterface::dsAlert;
-  else if (name=="dsFunction") return KTextEditor::HighlightInterface::dsFunction;
-  else if (name=="dsRegionMarker") return KTextEditor::HighlightInterface::dsRegionMarker;
-  else if (name=="dsError") return KTextEditor::HighlightInterface::dsError;
+  if (name== QLatin1String("dsNormal")) return KTextEditor::HighlightInterface::dsNormal;
+  else if (name== QLatin1String("dsKeyword")) return KTextEditor::HighlightInterface::dsKeyword;
+  else if (name== QLatin1String("dsDataType")) return KTextEditor::HighlightInterface::dsDataType;
+  else if (name== QLatin1String("dsDecVal")) return KTextEditor::HighlightInterface::dsDecVal;
+  else if (name== QLatin1String("dsBaseN")) return KTextEditor::HighlightInterface::dsBaseN;
+  else if (name== QLatin1String("dsFloat")) return KTextEditor::HighlightInterface::dsFloat;
+  else if (name== QLatin1String("dsChar")) return KTextEditor::HighlightInterface::dsChar;
+  else if (name== QLatin1String("dsString")) return KTextEditor::HighlightInterface::dsString;
+  else if (name== QLatin1String("dsComment")) return KTextEditor::HighlightInterface::dsComment;
+  else if (name== QLatin1String("dsOthers"))  return KTextEditor::HighlightInterface::dsOthers;
+  else if (name== QLatin1String("dsAlert")) return KTextEditor::HighlightInterface::dsAlert;
+  else if (name== QLatin1String("dsFunction")) return KTextEditor::HighlightInterface::dsFunction;
+  else if (name== QLatin1String("dsRegionMarker")) return KTextEditor::HighlightInterface::dsRegionMarker;
+  else if (name== QLatin1String("dsError")) return KTextEditor::HighlightInterface::dsError;
 
   return KTextEditor::HighlightInterface::dsNormal;
 }

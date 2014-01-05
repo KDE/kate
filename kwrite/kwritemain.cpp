@@ -107,7 +107,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
   setAcceptDrops(true);
   connect(m_view,SIGNAL(dropEventPass(QDropEvent*)),this,SLOT(slotDropEvent(QDropEvent*)));
 
-  setXMLFile( "kwriteui.rc" );
+  setXMLFile(QLatin1String("kwriteui.rc"));
   createShellGUI( true );
   guiFactory()->addClient( m_view );
 
@@ -117,7 +117,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 */
 
   // FIXME: make sure the config dir exists, any idea how to do it more cleanly?
-  QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(".");
+  QDir(QStandardPaths::writableLocation(QStandardPaths::DataLocation)).mkpath(QLatin1String("."));
 
   // call it as last thing, must be sure everything is already set up ;)
   setAutoSaveSettings ();
@@ -153,20 +153,20 @@ KWrite::~KWrite()
 
 void KWrite::setupActions()
 {
-  actionCollection()->addAction( KStandardAction::Close, "file_close", this, SLOT(slotFlush()) )
+  actionCollection()->addAction( KStandardAction::Close, QLatin1String("file_close"), this, SLOT(slotFlush()) )
     ->setWhatsThis(i18n("Use this command to close the current document"));
 
   // setup File menu
-  actionCollection()->addAction( KStandardAction::New, "file_new", this, SLOT(slotNew()) )
+  actionCollection()->addAction( KStandardAction::New, QLatin1String("file_new"), this, SLOT(slotNew()) )
     ->setWhatsThis(i18n("Use this command to create a new document"));
-  actionCollection()->addAction( KStandardAction::Open, "file_open", this, SLOT(slotOpen()) )
+  actionCollection()->addAction( KStandardAction::Open, QLatin1String("file_open"), this, SLOT(slotOpen()) )
     ->setWhatsThis(i18n("Use this command to open an existing document for editing"));
 
   m_recentFiles = KStandardAction::openRecent(this, SLOT(slotOpen(QUrl)), this);
   actionCollection()->addAction(m_recentFiles->objectName(), m_recentFiles);
   m_recentFiles->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
-  QAction *a = actionCollection()->addAction( "view_new_view" );
+  QAction *a = actionCollection()->addAction( QLatin1String("view_new_view") );
   a->setIcon( QIcon::fromTheme(QLatin1String("window-new")) );
   a->setText( i18n("&New Window") );
   connect( a, SIGNAL(triggered()), this, SLOT(newView()) );
@@ -179,22 +179,22 @@ void KWrite::setupActions()
   setStandardToolBarMenuEnabled(true);
 
   m_paShowStatusBar = KStandardAction::showStatusbar(this, SLOT(toggleStatusBar()), this);
-  actionCollection()->addAction( "settings_show_statusbar", m_paShowStatusBar);
+  actionCollection()->addAction( QLatin1String("settings_show_statusbar"), m_paShowStatusBar);
   m_paShowStatusBar->setWhatsThis(i18n("Use this command to show or hide the view's statusbar"));
 
   m_paShowPath = new KToggleAction( i18n("Sho&w Path"), this );
-  actionCollection()->addAction( "set_showPath", m_paShowPath );
+  actionCollection()->addAction( QLatin1String("set_showPath"), m_paShowPath );
   connect( m_paShowPath, SIGNAL(triggered()), this, SLOT(documentNameChanged()) );
   m_paShowPath->setWhatsThis(i18n("Show the complete document path in the window caption"));
 
   a= actionCollection()->addAction( KStandardAction::KeyBindings, this, SLOT(editKeys()) );
   a->setWhatsThis(i18n("Configure the application's keyboard shortcut assignments."));
 
-  a = actionCollection()->addAction( KStandardAction::ConfigureToolbars, "options_configure_toolbars",
+  a = actionCollection()->addAction( KStandardAction::ConfigureToolbars, QLatin1String("options_configure_toolbars"),
                                      this, SLOT(editToolbars()) );
   a->setWhatsThis(i18n("Configure which items should appear in the toolbar(s)."));
 
-  a = actionCollection()->addAction( "help_about_editor" );
+  a = actionCollection()->addAction( QLatin1String("help_about_editor") );
   a->setText( i18n("&About Editor Component") );
   connect( a, SIGNAL(triggered()), this, SLOT(aboutEditor()) );
 
@@ -470,7 +470,7 @@ void KWrite::saveGlobalProperties(KConfig *config) //save documents
 
   for (int z = 1; z <= docList.count(); z++)
   {
-     QString buf = QString("Document %1").arg(z);
+     QString buf = QString::fromLatin1("Document %1").arg(z);
      KConfigGroup cg( config, buf );
      KTextEditor::Document *doc = docList.at(z - 1);
 
@@ -480,7 +480,7 @@ void KWrite::saveGlobalProperties(KConfig *config) //save documents
 
   for (int z = 1; z <= winList.count(); z++)
   {
-     QString buf = QString("Window %1").arg(z);
+     QString buf = QString::fromLatin1("Window %1").arg(z);
      KConfigGroup cg( config, buf );
      cg.writeEntry("DocumentNumber",docList.indexOf(winList.at(z-1)->view()->document()) + 1);
   }
@@ -508,7 +508,7 @@ void KWrite::restore()
 
   for (int z = 1; z <= docs; z++)
   {
-     buf = QString("Document %1").arg(z);
+     buf = QString::fromLatin1("Document %1").arg(z);
      KConfigGroup cg(config, buf);
      doc=editor->createDocument(0);
 
@@ -519,7 +519,7 @@ void KWrite::restore()
 
   for (int z = 1; z <= windows; z++)
   {
-    buf = QString("Window %1").arg(z);
+    buf = QString::fromLatin1("Window %1").arg(z);
     KConfigGroup cg(config, buf);
     t = new KWrite(docList.at(cg.readEntry("DocumentNumber", 0) - 1));
     t->restore(config,z);
@@ -601,7 +601,7 @@ void KWrite::modifiedChanged()
 
 void KWrite::documentNameChanged ()
 {
-  m_fileNameLabel->setText( QString (" %1 ").arg (KStringHandler::lsqueeze(m_view->document()->documentName (), 64)));
+  m_fileNameLabel->setText( QString::fromLatin1(" %1 ").arg (KStringHandler::lsqueeze(m_view->document()->documentName (), 64)));
 
   QString readOnlyCaption;
   if  (!m_view->document()->isReadWrite())
@@ -619,7 +619,7 @@ void KWrite::documentNameChanged ()
 
       //File name shouldn't be too long - Maciek
       if (c.length() > 64)
-        c = c.left(64) + "...";
+        c = c.left(64) + QLatin1String("...");
     }
     else
     {
@@ -627,7 +627,7 @@ void KWrite::documentNameChanged ()
 
       //File name shouldn't be too long - Maciek
       if (c.length() > 64)
-        c = "..." + c.right(64);
+        c = QLatin1String("...") + c.right(64);
     }
 
     setCaption (c+readOnlyCaption, m_view->document()->isModified());
@@ -646,38 +646,38 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 {
   QLoggingCategory::setFilterRules(QStringLiteral("kwrite = true"));
 
-  KAboutData aboutData ( QString ("kwrite"), QString(),
+  KAboutData aboutData ( QLatin1String("kwrite"), QString(),
                          i18n("KWrite"),
                          QLatin1String(KATE_VERSION),
                          i18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
-                         i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QString ("http://kate-editor.org") );
+                         i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QLatin1String("http://kate-editor.org") );
   
   /**
    * right dbus prefix == org.kde.
    */
-  aboutData.setOrganizationDomain ("kde.org");
+  aboutData.setOrganizationDomain (QByteArray("kde.org"));
   
-  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
-  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
-  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
-  aboutData.addAuthor (i18n("Hamish Rodda"),i18n("Core Developer"), "rodda@kde.org");
-  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), "dhdev@gmx.de");
-  aboutData.addAuthor (i18n("Waldo Bastian"), i18n( "The cool buffersystem" ), "bastian@kde.org" );
-  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), "charles@kde.org");
-  aboutData.addAuthor (i18n("Matt Newell"), i18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), "newellm@proaxis.com");
-  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), "michael.bartl1@chello.at");
-  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), "gholam@xtra.co.nz");
-  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n( "KWrite Author" ), "digisnap@cs.tu-berlin.de" );
-  aboutData.addAuthor (i18n("Michael Koch"),i18n("KWrite port to KParts"), "koch@kde.org");
-  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), "gebauer@kde.org" );
-  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), "hausmann@kde.org" );
-  aboutData.addAuthor (i18n("Glen Parker"),i18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
-  aboutData.addAuthor (i18n("Scott Manson"),i18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
-  aboutData.addAuthor (i18n("John Firebaugh"),i18n("Patches and more"), "jfirebaugh@kde.org");
-  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
+  aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), QLatin1String("cullmann@kde.org"), QLatin1String("http://www.cullmann.io"));
+  aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), QLatin1String("anders@alweb.dk"), QLatin1String("http://www.alweb.dk"));
+  aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), QLatin1String("jowenn@kde.org"), QLatin1String("http://stud3.tuwien.ac.at/~e9925371"));
+  aboutData.addAuthor (i18n("Hamish Rodda"),i18n("Core Developer"), QLatin1String("rodda@kde.org"));
+  aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Developer & Highlight wizard"), QLatin1String("dhdev@gmx.de"));
+  aboutData.addAuthor (i18n("Waldo Bastian"), i18n("The cool buffersystem"), QLatin1String("bastian@kde.org") );
+  aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), QLatin1String("charles@kde.org"));
+  aboutData.addAuthor (i18n("Matt Newell"), i18nc("Credit text for someone that did testing and some other similar things", "Testing, ..."), QLatin1String("newellm@proaxis.com"));
+  aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), QLatin1String("michael.bartl1@chello.at"));
+  aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), QLatin1String("gholam@xtra.co.nz"));
+  aboutData.addAuthor (i18n("Jochen Wilhemly"), i18n("KWrite Author"), QLatin1String("digisnap@cs.tu-berlin.de") );
+  aboutData.addAuthor (i18n("Michael Koch"),i18n("KWrite port to KParts"), QLatin1String("koch@kde.org"));
+  aboutData.addAuthor (i18n("Christian Gebauer"), QString(), QLatin1String("gebauer@kde.org") );
+  aboutData.addAuthor (i18n("Simon Hausmann"), QString(), QLatin1String("hausmann@kde.org") );
+  aboutData.addAuthor (i18n("Glen Parker"),i18n("KWrite Undo History, Kspell integration"), QLatin1String("glenebob@nwlink.com"));
+  aboutData.addAuthor (i18n("Scott Manson"),i18n("KWrite XML Syntax highlighting support"), QLatin1String("sdmanson@alltel.net"));
+  aboutData.addAuthor (i18n("John Firebaugh"),i18n("Patches and more"), QLatin1String("jfirebaugh@kde.org"));
+  aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QLatin1String("oss@senarclens.eu"), QLatin1String("http://find-santa.eu/"));
 
-  aboutData.addCredit (i18n("Matteo Merli"),i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
-  aboutData.addCredit (i18n("Rocky Scaletta"),i18n("Highlighting for VHDL"), "rocky@purdue.edu");
+  aboutData.addCredit (i18n("Matteo Merli"),i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QLatin1String("merlim@libero.it"));
+  aboutData.addCredit (i18n("Rocky Scaletta"),i18n("Highlighting for VHDL"), QLatin1String("rocky@purdue.edu"));
   aboutData.addCredit (i18n("Yury Lebedev"),i18n("Highlighting for SQL"));
   aboutData.addCredit (i18n("Chris Ross"),i18n("Highlighting for Ferite"));
   aboutData.addCredit (i18n("Nick Roux"),i18n("Highlighting for ILERPG"));
@@ -690,8 +690,8 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
   aboutData.addCredit (i18n("Carsten Pfeiffer"), i18nc("Credit text for someone that helped a lot", "Very nice help"));
   aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
 
-  aboutData.setProgramIconName ("accessories-text-editor");
-  aboutData.setProductName("kate/kwrite");
+  aboutData.setProgramIconName (QLatin1String("accessories-text-editor"));
+  aboutData.setProductName(QByteArray("kate/kwrite"));
   
   /**
    * register about data
@@ -717,27 +717,27 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
   parser.addVersionOption();
   
   // -e/--encoding option
-  const QCommandLineOption useEncoding (QStringList () << "e" << "encoding", i18n("Set encoding for the file to open."), "encoding");
+  const QCommandLineOption useEncoding (QStringList () << QLatin1String("e") << QLatin1String("encoding"), i18n("Set encoding for the file to open."), QLatin1String("encoding"));
   parser.addOption (useEncoding);
   
   // -l/--line option
-  const QCommandLineOption gotoLine (QStringList () << "l" << "line", i18n("Navigate to this line."), "line");
+  const QCommandLineOption gotoLine (QStringList () << QLatin1String("l") << QLatin1String("line"), i18n("Navigate to this line."), QLatin1String("line"));
   parser.addOption (gotoLine);
   
   // -c/--column option
-  const QCommandLineOption gotoColumn (QStringList () << "c" << "column", i18n("Navigate to this column."), "column");
+  const QCommandLineOption gotoColumn (QStringList () << QLatin1String("c") << QLatin1String("column"), i18n("Navigate to this column."), QLatin1String("column"));
   parser.addOption (gotoColumn);
 
   // -i/--stdin option
-  const QCommandLineOption readStdIn (QStringList () << "i" << "stdin", i18n("Read the contents of stdin."));
+  const QCommandLineOption readStdIn (QStringList () << QLatin1String("i") << QLatin1String("stdin"), i18n("Read the contents of stdin."));
   parser.addOption (readStdIn);
 
   // --tempfile option
-  const QCommandLineOption tempfile (QStringList () << "tempfile", i18n("The files/URLs opened by the application will be deleted after use"));
+  const QCommandLineOption tempfile (QStringList () << QLatin1String("tempfile"), i18n("The files/URLs opened by the application will be deleted after use"));
   parser.addOption (tempfile);
   
   // urls to open
-  parser.addPositionalArgument("urls", i18n("Documents to open."), "[urls...]");
+  parser.addPositionalArgument(QLatin1String("urls"), i18n("Documents to open."), QLatin1String("[urls...]"));
   
   /**
    * do the command line parsing

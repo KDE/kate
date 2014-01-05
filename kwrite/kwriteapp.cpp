@@ -70,17 +70,17 @@ void KWriteApp::init()
     bool nav = false;
     int line = 0, column = 0;
 
-    QTextCodec *codec = m_args.isSet("encoding") ? QTextCodec::codecForName(m_args.value("encoding").toLocal8Bit()) : 0;
+    QTextCodec *codec = m_args.isSet(QLatin1String("encoding")) ? QTextCodec::codecForName(m_args.value(QLatin1String("encoding")).toLocal8Bit()) : 0;
 
-    if (m_args.isSet ("line"))
+    if (m_args.isSet (QLatin1String("line")))
     {
-      line = m_args.value ("line").toInt() - 1;
+      line = m_args.value (QLatin1String("line")).toInt() - 1;
       nav = true;
     }
 
-    if (m_args.isSet ("column"))
+    if (m_args.isSet (QLatin1String("column")))
     {
-      column = m_args.value ("column").toInt() - 1;
+      column = m_args.value (QLatin1String("column")).toInt() - 1;
       nav = true;
     }
 
@@ -88,7 +88,7 @@ void KWriteApp::init()
     {
         KWrite *t = new KWrite;
 
-        if( m_args.isSet( "stdin" ) )
+        if( m_args.isSet( QLatin1String("stdin") ) )
         {
           QTextStream input(stdin, QIODevice::ReadOnly);
 
@@ -102,7 +102,7 @@ void KWriteApp::init()
           do
           {
             line = input.readLine();
-            text.append( line + '\n' );
+            text.append( line + QLatin1Char('\n') );
           } while( !line.isNull() );
 
 
@@ -122,7 +122,7 @@ void KWriteApp::init()
         QUrl url;
 
         // convert to an url
-        QRegExp withProtocol("^[a-zA-Z]+:"); // TODO: remove after Qt supports this on its own
+        QRegExp withProtocol(QLatin1String("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
         if (withProtocol.indexIn(positionalArgument) == 0) {
           url = QUrl::fromUserInput(positionalArgument);
         } else {
@@ -140,7 +140,7 @@ void KWriteApp::init()
           t->view()->document()->setSuppressOpeningErrorDialogs (true);
 
           if (codec)
-            t->view()->document()->setEncoding(codec->name());
+            t->view()->document()->setEncoding(QString::fromLatin1(codec->name()));
 
           t->loadURL( url );
 

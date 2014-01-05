@@ -56,7 +56,7 @@ SnippetRepository::SnippetRepository(const QString& file)
         QTimer::singleShot(0, this, SLOT(slotParseFile()));
     }
 
-    qCDebug(LOG_PART) << "created new snippet repo" << file << this;
+    qDebug() << "created new snippet repo" << file << this;
 }
 
 SnippetRepository::~SnippetRepository()

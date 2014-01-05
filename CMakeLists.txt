@@ -46,7 +46,6 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
   JobWidgets
   KCMUtils
   KIO
-  NewStuff
   Parts
   PrintUtils
   Sonnet

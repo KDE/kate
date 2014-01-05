@@ -56,8 +56,6 @@
 #include "script/katescriptmanager.h"
 #include "script/katescriptaction.h"
 #include "script/katescriptconsole.h"
-#include "snippet/katesnippetglobal.h"
-#include "snippet/snippetcompletionmodel.h"
 #include "katemessagewidget.h"
 #include "katetemplatehandler.h"
 #include "katepartdebug.h"
@@ -432,15 +430,6 @@ void KateView::setupActions()
     a->setWhatsThis(i18n("Manually invoke command completion, usually by using a shortcut bound to this action."));
     a->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Space));
     connect(a, SIGNAL(triggered(bool)), SLOT(userInvokedCompletion()));
-
-    a = ac->addAction( QLatin1String("tools_create_snippet") );
-    a->setIcon (QIcon::fromTheme(QLatin1String("document-new")));
-    a->setText( i18n("Create Snippet") );
-    connect(a, SIGNAL(triggered(bool)), SLOT(createSnippet()));
-
-    a = ac->addAction( QLatin1String("tools_snippets") );
-    a->setText( i18n("Snippets...") );
-    connect(a, SIGNAL(triggered(bool)), SLOT(showSnippetsDialog()));
   }
   else
   {
@@ -697,16 +686,6 @@ void KateView::setupActions()
       action->setShortcutContext(Qt::WidgetWithChildrenShortcut);
 
   connect (this, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(slotSelectionChanged()));
-}
-
-void KateView::createSnippet ()
-{
-  KateGlobal::self()->snippetGlobal()->createSnippet (this);
-}
-
-void KateView::showSnippetsDialog ()
-{
-  KateGlobal::self()->snippetGlobal()->showDialog (this);
 }
 
 void KateView::slotConfigDialog ()
@@ -1230,8 +1209,7 @@ void KateView::slotReadWriteChanged ()
     << QLatin1String("tools_join_lines")
     << QLatin1String("tools_apply_wordwrap")
     << QLatin1String("tools_spelling_from_cursor")
-    << QLatin1String("tools_spelling_selection")
-    << QLatin1String("tools_create_snippet");
+    << QLatin1String("tools_spelling_selection");
 
   QAction *a = 0;
   for (int z = 0; z < l.size(); z++)
@@ -1661,8 +1639,6 @@ void KateView::slotSelectionChanged ()
 
   m_cut->setEnabled (selection() || m_config->smartCopyCut() );
 
-  actionCollection()->action (QLatin1String("tools_create_snippet"))->setEnabled (selection());
-
   m_spell->updateActions ();
 }
 
@@ -1766,11 +1742,6 @@ void KateView::updateConfig ()
   unregisterCompletionModel (KateGlobal::self()->wordCompletionModel());
   if (config()->wordCompletion ())
     registerCompletionModel (KateGlobal::self()->wordCompletionModel());
-
-  // add snippet completion, later with option
-  unregisterCompletionModel (KateGlobal::self()->snippetGlobal()->completionModel());
-  if (1)
-    registerCompletionModel (KateGlobal::self()->snippetGlobal()->completionModel());
 
   m_cut->setEnabled(m_doc->isReadWrite() && (selection() || m_config->smartCopyCut()));
   m_copy->setEnabled(selection() || m_config->smartCopyCut());

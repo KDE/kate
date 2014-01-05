@@ -26,6 +26,8 @@
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
 
+#include "katesnippetglobal.h"
+
 class KateSnippetsPluginView;
 
 class KateSnippetsPlugin: public KTextEditor::ApplicationPlugin
@@ -41,10 +43,11 @@ class KateSnippetsPlugin: public KTextEditor::ApplicationPlugin
     QObject *createView (KTextEditor::MainWindow *mainWindow);
   
   private:
+    KateSnippetGlobal *m_snippetGlobal;
     QList<KateSnippetsPluginView*> mViews;
 };
 
-class KateSnippetsPluginView : public QObject
+class KateSnippetsPluginView : public QObject, public KXMLGUIClient
 {
     Q_OBJECT
 
@@ -60,11 +63,33 @@ class KateSnippetsPluginView : public QObject
     ~KateSnippetsPluginView ();
 
     void readConfig();
+ 
+  private Q_SLOTS:
+    /**
+     * New view got created, we need to update our connections
+     * @param view new created view
+     */
+    void slotViewCreated (KTextEditor::View *view);
+
+    /**
+     * View got destroyed.
+     * @param view deleted view
+     */
+    void slotViewDestroyed (QObject *view);
+    
+    void createSnippet ();
+    void showSnippetsDialog ();
 
   private:
     KateSnippetsPlugin *m_plugin;
+    KTextEditor::MainWindow *m_mainWindow;
     QWidget *m_toolView;
     QWidget *m_snippets;
+
+    /**
+     * remember for which text views we might need to cleanup stuff
+     */
+    QSet<QObject *> m_textViews;
 };
 
 #endif

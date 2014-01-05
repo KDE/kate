@@ -36,6 +36,7 @@
 #include <KMessageBox>
 
 #include <QContextMenuEvent>
+#include <QMenu>
 
 #include <knewstuff3/downloaddialog.h>
 #include <knewstuff3/uploaddialog.h>

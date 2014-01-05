@@ -120,9 +120,6 @@
     <Separator group="tools_operations" />
     <Action name="tools_join_lines" group="tools_operations" />
     <Action name="tools_apply_wordwrap" group="tools_operations" />
-    <Separator group="tools_operations" />
-    <Action name="tools_create_snippet" group="tools_operations" />
-    <Action name="tools_snippets" group="tools_operations" />
   </Menu>
 
   <Menu name="settings" noMerge="1"><text>&amp;Settings</text>

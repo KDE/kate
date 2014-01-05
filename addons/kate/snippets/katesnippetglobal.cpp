@@ -36,16 +36,24 @@
 #include <KPluginLoader>
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/codecompletioninterface.h>
+#include <ktexteditor/highlightinterface.h>
 #include <KToolBar>
 #include <KLocalizedString>
 
 #include <QDialogButtonBox>
 #include <QMenu>
 
+KateSnippetGlobal *KateSnippetGlobal::s_self = nullptr;
+
 KateSnippetGlobal::KateSnippetGlobal(QObject *parent, const QVariantList &)
   : QObject(parent)
 {
+    s_self = this;
+  
     SnippetStore::init(this);
     m_model = new SnippetCompletionModel;
 }
@@ -54,9 +62,11 @@ KateSnippetGlobal::~KateSnippetGlobal ()
 {
     delete m_model;
     delete SnippetStore::self();
+    
+    s_self = nullptr;
 }
 
-void KateSnippetGlobal::showDialog (KateView *view)
+void KateSnippetGlobal::showDialog (KTextEditor::View *view)
 {
   QDialog dialog;
   dialog.setWindowTitle(i18n("Snippets"));
@@ -95,7 +105,7 @@ QWidget *KateSnippetGlobal::snippetWidget ()
 void KateSnippetGlobal::insertSnippet(Snippet* snippet)
 {
   // query active view, always prefer that!
-  KTextEditor::View *view = KateGlobal::self()->application()->activeMainWindow()->activeView ();
+  KTextEditor::View *view = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView ();
   
   // fallback to stuff set for dialog
   if (!view)
@@ -126,16 +136,18 @@ void KateSnippetGlobal::insertSnippetFromActionData()
     insertSnippet(snippet);
 }
 
-void KateSnippetGlobal::createSnippet (KateView *view)
+void KateSnippetGlobal::createSnippet (KTextEditor::View *view)
 {
    // invalid range? skip to do anything, it will fail!
    if (!view->selectionRange().isValid())
      return;
 
     // get mode
-    QString mode = view->doc()->highlightingModeAt(view->selectionRange().start());
+    QString mode;
+    if (auto iface = qobject_cast<KTextEditor::HighlightInterface *> (view->document()))
+      mode = iface->highlightingModeAt(view->selectionRange().start());
     if ( mode.isEmpty() )
-        mode = view->doc()->mode();
+        mode = view->document()->mode();
 
     // try to look for a fitting repo
     SnippetRepository* match = 0;
@@ -163,5 +175,3 @@ void KateSnippetGlobal::createSnippet (KateView *view)
         match->remove();
     }
 }
-
-#include "katesnippetglobal.moc"

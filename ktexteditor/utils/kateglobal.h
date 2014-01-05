@@ -52,7 +52,6 @@ class KatePartPluginManager;
 class KateSpellCheckManager;
 class KateViGlobal;
 class KateWordCompletionModel;
-class KateSnippetGlobal;
 
 Q_DECLARE_METATYPE(KSharedConfig::Ptr)
 
@@ -70,18 +69,6 @@ class KTEXTEDITOR_EXPORT KateGlobal : public KTextEditor::Editor, public KTextEd
   Q_INTERFACES(KTextEditor::TemplateScriptRegistrar)
 
   public:
-    /**
-     * property to create a new snippet widget.
-     * caller must handle the delete then, is a variant with a widget inside
-     */
-    Q_PROPERTY (QWidget *snippetWidget READ snippetWidget)
-
-    /**
-     * Create a new snippet widget, to allow to manage and insert snippets
-     * @return new snippet widget
-     */
-    QWidget *snippetWidget ();
-
     /**
      * property to tell the editor to use a given session config for session related
      * configuration instead of KSharedConfig::openConfig().
@@ -351,14 +338,6 @@ class KTEXTEDITOR_EXPORT KateGlobal : public KTextEditor::Editor, public KTextEd
     KateWordCompletionModel *wordCompletionModel () { return m_wordCompletionModel; }
 
     /**
-     * global instance of the snippet handling
-     * lazy constructed on first use to allow it to use the session config
-     * set after editor is constructed
-     * @return global instance of the snippet handling
-     */
-    KateSnippetGlobal *snippetGlobal();
-
-    /**
      * register given command
      * this works global, for all documents
      * @param cmd command to register
@@ -518,11 +497,6 @@ class KTEXTEDITOR_EXPORT KateGlobal : public KTextEditor::Editor, public KTextEd
      * global instance of the simple word completion mode
      */
     KateWordCompletionModel *m_wordCompletionModel;
-
-    /**
-     * global instance of the snippet handling
-     */
-    KateSnippetGlobal *m_snippetGlobal;
 
     /**
      * session config

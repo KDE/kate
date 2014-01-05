@@ -207,21 +207,12 @@ schema/katecategorydrawer.cpp
 # swapfile
 swapfile/kateswapdiffcreator.cpp
 swapfile/kateswapfile.cpp
-
-# snippets
-snippet/katesnippetglobal.cpp
-snippet/snippetview.cpp
-snippet/snippetstore.cpp
-snippet/snippetrepository.cpp
-snippet/snippetfilterproxymodel.cpp
-snippet/snippetcompletionmodel.cpp
-snippet/snippetcompletionitem.cpp
-snippet/snippet.cpp
-snippet/editrepository.cpp
-snippet/editsnippet.cpp
    )
 
 set( katepart_PART_UI
+)
+
+qt5_wrap_ui(ktexteditor_LIB_SRCS 
 dialogs/textareaappearanceconfigwidget.ui
 dialogs/bordersappearanceconfigwidget.ui
 dialogs/commandmenuconfigwidget.ui
@@ -239,13 +230,7 @@ search/searchbarincremental.ui
 search/searchbarpower.ui
 dialogs/viinputmodeconfigwidget.ui
 dialogs/spellcheckconfigwidget.ui
-schema/howtoimportschema.ui
-snippet/snippetview.ui
-snippet/editrepository.ui
-snippet/editsnippet.ui
-)
-
-qt5_wrap_ui(ktexteditor_LIB_SRCS ${katepart_PART_UI} )
+schema/howtoimportschema.ui )
    
 add_library (ktexteditor SHARED ${ktexteditor_LIB_SRCS} ${KTEXTEDITOR_PUBLIC_HEADERS})
 
@@ -259,7 +244,6 @@ target_link_libraries(ktexteditor LINK_PUBLIC KF5::Parts
     KF5::ItemViews
     KF5::KCMUtils
     KF5::KIOFileWidgets
-    KF5::NewStuff
     KF5::Notifications
     KF5::Parts
     KF5::PrintUtils
@@ -294,6 +278,3 @@ target_link_libraries (katepart ktexteditor Qt5::Script)
 
 # install the part
 install (TARGETS katepart DESTINATION ${PLUGIN_INSTALL_DIR})
-
-# install the snippet stuff
-install( FILES snippet/ktexteditor_codesnippets_core.knsrc DESTINATION  ${CONFIG_INSTALL_DIR} )

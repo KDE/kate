@@ -35,24 +35,25 @@
 #include <KMessageBox>
 #include <KMessageWidget>
 
-#include "katedocument.h"
-#include "kateview.h"
-
 #include <QToolButton>
 #include <QPushButton>
+
+#include <KTextEditor/Editor>
+#include <KTextEditor/Document>
+#include <KTextEditor/View>
 
 QPair<KTextEditor::View*, QToolButton*> getViewForTab(QWidget* tabWidget)
 {
     QVBoxLayout* layout = new QVBoxLayout;
     tabWidget->setLayout(layout);
 
-    KateDocument *document = new KateDocument(true, false, false, tabWidget, tabWidget);
+    KTextEditor::Document *document = KTextEditor::Editor::instance()->createDocument (tabWidget);
+    KTextEditor::View *view = document->createView (tabWidget);
 
-    Q_ASSERT(document);
-    Q_ASSERT(document->action("file_save"));
-    document->action("file_save")->setEnabled(false);
+    Q_ASSERT(view);
+    Q_ASSERT(view->action("file_save"));
+    view->action("file_save")->setEnabled(false);
 
-    KateView *view = qobject_cast<KateView *>(document->widget());
     layout->addWidget(view);
 
     QHBoxLayout* hlayout = new QHBoxLayout;

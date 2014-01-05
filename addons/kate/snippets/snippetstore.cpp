@@ -28,9 +28,14 @@
 #include "katepartdebug.h"
 
 #include <QDir>
+#include <QStandardPaths>
+
+#include <KSharedConfig>
 
 #include <ktexteditor/editor.h>
 #include <ktexteditor/templateinterface2.h>
+
+Q_DECLARE_METATYPE(KSharedConfig::Ptr)
 
 SnippetStore* SnippetStore::m_self = 0;
 
@@ -38,6 +43,8 @@ SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
     : m_plugin(plugin), m_scriptregistrar(0)
 {
     m_self = this;
+  //required for setting sessionConfig property
+  qRegisterMetaType<KSharedConfig::Ptr>("KSharedConfig::Ptr");
 
     QStringList files;
 
@@ -57,7 +64,7 @@ SnippetStore::SnippetStore(KateSnippetGlobal* plugin)
         appendRow(repo);
     }
 
-    m_scriptregistrar = KateGlobal::self();
+    m_scriptregistrar = qobject_cast<KTextEditor::TemplateScriptRegistrar *> (KTextEditor::Editor::instance());
 }
 
 SnippetStore::~SnippetStore()
@@ -91,7 +98,7 @@ KConfigGroup SnippetStore::getConfig()
   /**
    * use KTextEditor::Editor session config object
    */
-  return KateGlobal::self()->sessionConfig()->group("Snippets");
+  return KTextEditor::Editor::instance()->property("sessionConfig").value<KSharedConfig::Ptr>()->group("Snippets");
 }
 
 bool SnippetStore::setData(const QModelIndex& index, const QVariant& value, int role)

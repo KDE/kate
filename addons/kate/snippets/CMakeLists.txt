@@ -1,9 +1,26 @@
+project (katesnippets)
 
+# Load the frameworks we need
+find_package(KF5 CONFIG REQUIRED COMPONENTS NewStuff)
 
 ########### next target ###############
 
-set(katesnippetsplugin_PART_SRCS katesnippets.cpp )
+set(katesnippetsplugin_PART_SRCS katesnippets.cpp
+katesnippetglobal.cpp
+snippetview.cpp
+snippetstore.cpp
+snippetrepository.cpp
+snippetfilterproxymodel.cpp
+snippetcompletionmodel.cpp
+snippetcompletionitem.cpp
+snippet.cpp
+editrepository.cpp
+editsnippet.cpp )
 
+qt5_wrap_ui(katesnippetsplugin_PART_SRCS 
+snippetview.ui
+editrepository.ui
+editsnippet.ui)
 
 add_library (katesnippetsplugin MODULE ${katesnippetsplugin_PART_SRCS})
 
@@ -18,3 +35,8 @@ install(TARGETS katesnippetsplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 kservice_desktop_to_json (katesnippetsplugin.desktop)
 install( FILES katesnippetsplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )
+
+# install the snippet stuff
+install( FILES ktexteditor_codesnippets_core.knsrc DESTINATION  ${CONFIG_INSTALL_DIR} )
+
+install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katesnippets)

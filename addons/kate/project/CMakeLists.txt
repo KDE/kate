@@ -27,7 +27,7 @@ add_library (kateprojectplugin MODULE ${kateprojectplugin_PART_SRCS})
 
 target_link_libraries(kateprojectplugin ktexteditor
     KF5::Parts KF5::I18n
-    KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews KF5::ItemModels KF5::IconThemes)
+    Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews KF5::ItemModels KF5::IconThemes)
 
 ########### install files ###############
 install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR} )

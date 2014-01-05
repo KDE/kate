@@ -39,7 +39,6 @@
 #include "kateviglobal.h"
 #include "katewordcompletion.h"
 #include "spellcheck/spellcheck.h"
-#include "snippet/katesnippetglobal.h"
 #include "katepartdebug.h"
 
 #include <KServiceTypeTrader>
@@ -75,7 +74,6 @@ KateGlobal::KateGlobal (QPointer<KateGlobal> &staticInstance)
  , m_aboutData (QLatin1String("katepart"), QString(), i18n("Kate Part"), QLatin1String (KATE_VERSION),
              i18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
              i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QLatin1String("http://www.kate-editor.org"))
- , m_snippetGlobal (0) // lazy constructed
  , m_sessionConfig (KSharedConfig::openConfig())
  , m_application (nullptr)
 { 
@@ -221,7 +219,6 @@ KateGlobal::KateGlobal (QPointer<KateGlobal> &staticInstance)
 
 KateGlobal::~KateGlobal()
 {
-  delete m_snippetGlobal;
   delete m_pluginManager;
 
   delete m_globalConfig;
@@ -262,13 +259,6 @@ KTextEditor::Document *KateGlobal::createDocument ( QObject *parent )
 const QList<KTextEditor::Document*> &KateGlobal::documents ()
 {
   return m_docs;
-}
-
-KateSnippetGlobal *KateGlobal::snippetGlobal()
-{
-  if (!m_snippetGlobal)
-    m_snippetGlobal = new KateSnippetGlobal (this);
-  return m_snippetGlobal;
 }
 
 //BEGIN KTextEditor::Editor config stuff
@@ -556,11 +546,6 @@ QList<KTextEditor::Command*> KateGlobal::commands() const
 QStringList KateGlobal::commandList() const
 {return m_cmdManager->commandList();}
 //END command interface
-
-QWidget *KateGlobal::snippetWidget ()
-{
-  return snippetGlobal()->snippetWidget ();
-}
 
 KTextEditor::TemplateScript* KateGlobal::registerTemplateScript (QObject* owner, const QString& script)
 {

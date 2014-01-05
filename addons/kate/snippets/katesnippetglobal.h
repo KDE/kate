@@ -26,8 +26,7 @@
 #include <QVariant>
 #include <QPointer>
 
-#include <kateglobal.h>
-#include <kateview.h>
+#include <KTextEditor/View>
 
 class SnippetCompletionModel;
 class Snippet;
@@ -51,7 +50,7 @@ public:
      */
     void insertSnippet(Snippet* snippet);
 
-    static KateSnippetGlobal* self() { return KateGlobal::self()->snippetGlobal(); }
+    static KateSnippetGlobal* self() { return s_self; }
 
     /**
      * Code completion model.
@@ -70,20 +69,21 @@ public Q_SLOTS:
      * Create snippet for given view, e.g. by using the selection
      * @param view view to create snippet for
      */
-    void createSnippet (KateView *view);
+    void createSnippet (KTextEditor::View *view);
 
     /**
      * Show the snippet dialog, used by most simple apps using just
      * KatePart.
      * @param view view to show dialog for
      */
-    void showDialog (KateView *view);
+    void showDialog (KTextEditor::View *view);
 
     void insertSnippetFromActionData();
 
 private:
+    static KateSnippetGlobal *s_self;
     class SnippetCompletionModel* m_model;
-    QPointer<KateView> m_activeViewForDialog;
+    QPointer<KTextEditor::View> m_activeViewForDialog;
 };
 
 #endif

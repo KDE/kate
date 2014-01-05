@@ -28,6 +28,8 @@
 #include <KColorScheme>
 #include <KActionCollection>
 
+#include <QAction>
+
 Snippet::Snippet()
     : QStandardItem(i18n("<empty snippet>")), m_action(0)
 {

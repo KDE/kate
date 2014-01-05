@@ -142,7 +142,7 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * @param sgroup session group for this window
      * @return new constructed main window
      */
-    KateMainWindow *newMainWindow (KConfig *sconfig = 0, const QString &sgroup = "");
+    KateMainWindow *newMainWindow (KConfig *sconfig = 0, const QString &sgroup = QString());
 
     /**
      * add the mainwindow given

@@ -66,7 +66,7 @@ KateDocManager::KateDocManager (QObject *parent)
   // read in editor config
   m_editor->readConfig(KSharedConfig::openConfig().data());
 
-  m_metaInfos = new KConfig("metainfos", KConfig::NoGlobals, QStandardPaths::DataLocation );
+  m_metaInfos = new KConfig(QLatin1String("metainfos"), KConfig::NoGlobals, QStandardPaths::DataLocation );
 
   createDoc ();
 }
@@ -140,7 +140,7 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
 
 void KateDocManager::deleteDoc (KTextEditor::Document *doc)
 {
-  KateApp::self()->emitDocumentClosed(QString("%1").arg((qptrdiff)doc));
+  KateApp::self()->emitDocumentClosed(QString::number((qptrdiff)doc));
   qCDebug(LOG_KATE)<<"deleting document with name:"<<doc->documentName();
 
   // document will be deleted, soon
@@ -527,7 +527,7 @@ void KateDocManager::saveDocumentList (KConfig* config)
   int i = 0;
   foreach ( KTextEditor::Document *doc, m_docList)
   {
-    KConfigGroup cg( config, QString("Document %1").arg(i) );
+    KConfigGroup cg( config, QString::fromLatin1("Document %1").arg(i) );
     if (KTextEditor::ParameterizedSessionConfigInterface *iface =
       qobject_cast<KTextEditor::ParameterizedSessionConfigInterface*>(doc))
     {
@@ -559,7 +559,7 @@ void KateDocManager::restoreDocumentList (KConfig* config)
   m_openingErrors.clear();
   for (unsigned int i = 0; i < count; i++)
   {
-    KConfigGroup cg( config, QString("Document %1").arg(i));
+    KConfigGroup cg( config, QString::fromLatin1("Document %1").arg(i));
     KTextEditor::Document *doc = 0;
 
     if (i == 0) {
@@ -609,7 +609,7 @@ bool KateDocManager::loadMetaInfos(KTextEditor::Document *doc, const QUrl &url)
     KConfigGroup urlGroup( m_metaInfos, url.toDisplayString() );
     const QString old_md5 = urlGroup.readEntry("MD5");
 
-    if (QString (md5) == old_md5)
+    if (QString::fromLatin1(md5) == old_md5)
     {
       if (KTextEditor::ParameterizedSessionConfigInterface *iface =
         qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc))
@@ -715,7 +715,7 @@ void KateDocManager::documentOpened()
   disconnect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
   if (doc->openingError())
   {
-    m_openingErrors += '\n' + doc->openingErrorMessage()+"\n\n";
+    m_openingErrors += QLatin1Char('\n') + doc->openingErrorMessage() + QLatin1String("\n\n");
     KateDocumentInfo* info = documentInfo(doc);
     if (info) {
       info->openSuccess = false;

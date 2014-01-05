@@ -49,7 +49,7 @@ KateViewSpace::KateViewSpace( KateViewManager *viewManager,
     : QFrame(parent),
     m_viewManager( viewManager )
 {
-  setObjectName(name);
+  setObjectName(QString::fromLatin1(name));
   QVBoxLayout *layout = new QVBoxLayout(this);
   layout->setSpacing(0);
   layout->setMargin(0);
@@ -115,7 +115,7 @@ void KateViewSpace::addView(KTextEditor::View* v, bool show)
     QString fn = v->document()->url().toString();
     if ( ! fn.isEmpty() )
     {
-      QString vgroup = QString("%1 %2").arg(m_group).arg(fn);
+      QString vgroup = QString::fromLatin1("%1 %2").arg(m_group).arg(fn);
 
       KateSession::Ptr as = KateSessionManager::self()->activeSession ();
       if ( as->config() && as->config()->hasGroup( vgroup ) )
@@ -215,7 +215,7 @@ void KateViewSpace::setActive( bool active, bool )
 void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QString& viewConfGrp)
 {
 //   qCDebug(LOG_KATE)<<"KateViewSpace::saveConfig("<<myIndex<<", "<<viewConfGrp<<") - currentView: "<<currentView()<<")";
-  QString groupname = QString(viewConfGrp + "-ViewSpace %1").arg( myIndex );
+  QString groupname = QString(viewConfGrp + QLatin1String("-ViewSpace %1")).arg( myIndex );
 
   KConfigGroup group (config, groupname);
   group.writeEntry ("Count", mViewList.count());
@@ -230,10 +230,10 @@ void KateViewSpace::saveConfig ( KConfigBase* config, int myIndex , const QStrin
   {
     if ( !(*it)->document()->url().isEmpty() )
     {
-      group.writeEntry( QString("View %1").arg( idx ), (*it)->document()->url().toString() );
+      group.writeEntry( QString::fromLatin1("View %1").arg( idx ), (*it)->document()->url().toString() );
 
       // view config, group: "ViewSpace <n> url"
-      QString vgroup = QString("%1 %2").arg(groupname).arg((*it)->document()->url().toString());
+      QString vgroup = QString::fromLatin1("%1 %2").arg(groupname).arg((*it)->document()->url().toString());
       KConfigGroup viewGroup( config, vgroup );
 
       if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(*it))
@@ -256,7 +256,7 @@ void KateViewSpace::restoreConfig ( KateViewManager *viewMan, const KConfigBase*
     if (doc)
     {
       // view config, group: "ViewSpace <n> url"
-      QString vgroup = QString("%1 %2").arg(groupname).arg(fn);
+      QString vgroup = QString::fromLatin1("%1 %2").arg(groupname).arg(fn);
       KConfigGroup configGroup( config, vgroup );
 
       viewMan->createView (doc);
@@ -318,7 +318,7 @@ KateVSStatusBar::KateVSStatusBar ( KateViewSpace *parent)
   m_fileNameLabel->setAlignment(Qt::AlignVCenter | Qt::AlignRight);
   m_fileNameLabel->installEventFilter( this );
 
-  m_encodingLabel = new QLabel( "", this );
+  m_encodingLabel = new QLabel( QString(), this );
   addPermanentWidget( m_encodingLabel, 0 );
   m_encodingLabel->setAlignment( Qt::AlignCenter );
   m_encodingLabel->installEventFilter( this );
@@ -343,7 +343,7 @@ KateVSStatusBar::~KateVSStatusBar ()
 void KateVSStatusBar::showMenu()
 {
   KXmlGuiWindow* mainWindow = static_cast<KXmlGuiWindow*>( window() );
-  QMenu* menu = static_cast<QMenu*>( mainWindow->factory()->container("viewspace_popup", mainWindow ) );
+  QMenu* menu = static_cast<QMenu*>( mainWindow->factory()->container(QLatin1String("viewspace_popup"), mainWindow ) );
 
   if (menu)
     menu->exec(QCursor::pos());
@@ -384,7 +384,7 @@ void KateVSStatusBar::viewModeChanged ( KTextEditor::View *view )
   if (view != m_viewSpace->currentView())
     return;
 
-  m_insertModeLabel->setText( QString (" %1 ").arg (view->viewMode()) );
+  m_insertModeLabel->setText( QString::fromLatin1(" %1 ").arg (view->viewMode()) );
 }
 
 void KateVSStatusBar::cursorPositionChanged ( KTextEditor::View *view )
@@ -467,7 +467,7 @@ void KateVSStatusBar::documentConfigChanged ()
   KTextEditor::View *v = m_viewSpace->currentView();
 
   if ( v )
-    m_encodingLabel->setText( QString (" %1 ").arg (v->document()->encoding()) );
+    m_encodingLabel->setText( QString::fromLatin1(" %1 ").arg (v->document()->encoding()) );
 }
 
 void KateVSStatusBar::cursorPositionItemVisibilityChanged(bool visible)

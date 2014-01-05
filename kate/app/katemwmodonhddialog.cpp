@@ -65,7 +65,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
       m_diffFile( 0 )
 {
   setWindowTitle(i18n("Documents Modified on Disk"));
-  setObjectName(name);
+  setObjectName(QString::fromLatin1(name));
   setModal(true);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -78,7 +78,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   // dialog text
   QLabel *icon = new QLabel(this);
   hb->addWidget(icon);
-  icon->setPixmap( DesktopIcon("dialog-warning") );
+  icon->setPixmap( DesktopIcon(QLatin1String("dialog-warning")) );
 
   QLabel *t = new QLabel(i18n(
                             "<qt>The documents listed below have changed on disk.<p>Select one "
@@ -95,7 +95,7 @@ KateMwModOnHdDialog::KateMwModOnHdDialog( DocVector docs, QWidget *parent, const
   twDocuments->setSelectionMode( QAbstractItemView::SingleSelection );
   twDocuments->setRootIsDecorated( false );
 
-  m_stateTexts << "" << i18n("Modified") << i18n("Created") << i18n("Deleted");
+  m_stateTexts << QString() << i18n("Modified") << i18n("Created") << i18n("Deleted");
   for ( int i = 0; i < docs.size(); i++ )
   {
     new KateDocItem( docs[i], m_stateTexts[ (uint)KateDocManager::self()->documentInfo( docs[i] )->modifiedOnDiscReason ], twDocuments );
@@ -254,7 +254,7 @@ void KateMwModOnHdDialog::slotDiff()
   // Start a KProcess that creates a diff
   m_proc = new KProcess( this );
   m_proc->setOutputChannelMode( KProcess::MergedChannels );
-  *m_proc << "diff" << "-ub" << "-" << doc->url().toLocalFile();
+  *m_proc << QLatin1String("diff") << QLatin1String("-ub") << QLatin1String("-") << doc->url().toLocalFile();
   connect( m_proc, SIGNAL(readyRead()), this, SLOT(slotDataAvailable()) );
   connect( m_proc, SIGNAL(finished(int,QProcess::ExitStatus)), this, SLOT(slotPDone()) );
 
@@ -266,7 +266,7 @@ void KateMwModOnHdDialog::slotDiff()
   QTextStream ts(m_proc);
   int lastln = doc->lines() - 1;
   for ( int l = 0; l < lastln; ++l ) {
-    ts << doc->line( l ) << '\n';
+    ts << doc->line( l ) << QLatin1Char('\n');
   }
   ts << doc->line(lastln);
   ts.flush();
@@ -314,7 +314,7 @@ void KateMwModOnHdDialog::slotPDone()
   m_diffFile = 0;
 
   // KRun::runUrl should delete the file, once the client exits
-  KRun::runUrl( url, "text/x-patch", this, true );
+  KRun::runUrl( url, QLatin1String("text/x-patch"), this, true );
 }
 
 void KateMwModOnHdDialog::addDocument(KTextEditor::Document *doc)

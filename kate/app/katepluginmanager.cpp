@@ -58,7 +58,7 @@ KatePluginManager *KatePluginManager::self()
 
 void KatePluginManager::setupPluginList ()
 {
-  KService::List traderList = KServiceTypeTrader::self()->query("KTextEditor/ApplicationPlugin");
+  KService::List traderList = KServiceTypeTrader::self()->query(QLatin1String("KTextEditor/ApplicationPlugin"));
 
   KatePluginList alwaysLoad;
   KatePluginList others;
@@ -66,7 +66,7 @@ void KatePluginManager::setupPluginList ()
   {
     KatePluginInfo info;
     info.service = ptr;
-    info.alwaysLoad=info.service->property("X-Kate-LoadAlways").toBool();
+    info.alwaysLoad=info.service->property(QLatin1String("X-Kate-LoadAlways")).toBool();
     info.load = false;
     info.plugin = 0L;
 
@@ -99,18 +99,18 @@ void KatePluginManager::loadConfig (KConfig* config)
    * ask config object
    */
   if (config) {
-    KConfigGroup cg = KConfigGroup(config, "Kate Plugins");
+    KConfigGroup cg = KConfigGroup(config, QLatin1String("Kate Plugins"));
 
     // disable all plugin if no config..., beside if marked with load
     for (int i = 0; i < m_pluginList.size(); ++i)
-      m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), m_pluginList[i].service->property("X-Kate-Load").toBool());
+      m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), m_pluginList[i].service->property(QLatin1String("X-Kate-Load")).toBool());
   }
 
   /**
    * some plugins should be always loaded, like the holy filetree
    */
   for (int i = 0; i < m_pluginList.size(); ++i)
-    if (m_pluginList[i].service->property("X-Kate-LoadAlways").toBool())
+    if (m_pluginList[i].service->property(QLatin1String("X-Kate-LoadAlways")).toBool())
       m_pluginList[i].load = true;
 
   for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
@@ -121,7 +121,7 @@ void KatePluginManager::loadConfig (KConfig* config)
 
       // restore config
       if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (it->plugin)) {
-        KConfigGroup group (config, QString("Plugin:%1:").arg(it->saveName()));
+        KConfigGroup group (config, QString::fromLatin1("Plugin:%1:").arg(it->saveName()));
         interface->readSessionConfig (group);
       }
     }
@@ -132,7 +132,7 @@ void KatePluginManager::writeConfig(KConfig* config)
 {
   Q_ASSERT( config );
 
-  KConfigGroup cg = KConfigGroup( config, "Kate Plugins" );
+  KConfigGroup cg = KConfigGroup( config, QLatin1String("Kate Plugins") );
   foreach(const KatePluginInfo &plugin, m_pluginList)
   {
     QString saveName = plugin.saveName();
@@ -141,7 +141,7 @@ void KatePluginManager::writeConfig(KConfig* config)
 
     // save config
     if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (plugin.plugin)) {
-      KConfigGroup group (config, QString("Plugin:%1:").arg(saveName));
+      KConfigGroup group (config, QString::fromLatin1("Plugin:%1:").arg(saveName));
       interface->writeSessionConfig (group);
     }
   }
@@ -212,7 +212,7 @@ void KatePluginManager::enablePluginGUI (KatePluginInfo *item, KateMainWindow *w
   if (config && win->pluginViews().contains(item->plugin))
   {
     if (auto interface = qobject_cast<KTextEditor::SessionConfigInterface *> (win->pluginViews().value(item->plugin))) {
-      KConfigGroup group (config, QString("Plugin:%1:MainWindow:0").arg(item->saveName()));
+      KConfigGroup group (config, QString::fromLatin1("Plugin:%1:MainWindow:0").arg(item->saveName()));
       interface->readSessionConfig (group);
     }
   }

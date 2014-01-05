@@ -55,7 +55,7 @@ void KateSessionsAction::slotAboutToShow()
 
   foreach(const KateSession::Ptr &session, slist) {
     QString sessionName = session->name();
-    sessionName.replace("&", "&&");
+    sessionName.replace(QLatin1String("&"), QLatin1String("&&"));
     QAction *action = new QAction(sessionName, sessionsGroup);
     action->setData(QVariant(session->name()));
     menu()->addAction(action);

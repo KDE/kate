@@ -221,12 +221,12 @@ void KateFileTree::slotFixOpenWithMenu()
   QMimeType mime = db.mimeTypeForName( doc->mimeType() );
 
   QAction *a = 0;
-  KService::List offers = KMimeTypeTrader::self()->query(mime.name(), "Application");
+  KService::List offers = KMimeTypeTrader::self()->query(mime.name(), QLatin1String("Application"));
   // for each one, insert a menu item...
   for(KService::List::Iterator it = offers.begin(); it != offers.end(); ++it)
   {
     KService::Ptr service = *it;
-    if (service->name() == "Kate") continue;
+    if (service->name() == QLatin1String("Kate")) continue;
     a = menu->addAction(QIcon::fromTheme(service->icon()), service->name());
     a->setData(service->entryPath());
   }

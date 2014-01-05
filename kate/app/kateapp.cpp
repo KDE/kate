@@ -106,7 +106,7 @@ bool KateApp::init ()
 {
 
   qCDebug(LOG_KATE) << "Setting KATE_PID: '" << QCoreApplication::applicationPid() << "'";
-  ::setenv( "KATE_PID", QString("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData(), 1 );
+  ::setenv( "KATE_PID", QString::fromLatin1("%1").arg(QCoreApplication::applicationPid()).toLatin1().constData(), 1 );
 
   // handle restore different
   if (qApp->isSessionRestored())
@@ -145,7 +145,7 @@ void KateApp::restoreKate ()
 
   // restore all windows ;)
   for (int n = 1; KMainWindow::canBeRestored(n); n++)
-    newMainWindow(sessionConfig, QString ("%1").arg(n));
+    newMainWindow(sessionConfig, QString::number(n));
   
   // oh, no mainwindow, create one, should not happen, but make sure ;)
   if (mainWindowsCount() == 0)
@@ -155,15 +155,15 @@ void KateApp::restoreKate ()
 bool KateApp::startupKate ()
 {
   // user specified session to open
-  if (m_args.isSet ("start"))
+  if (m_args.isSet (QLatin1String("start")))
   {
-    sessionManager()->activateSession (m_args.value("start"), false);
+    sessionManager()->activateSession (m_args.value(QLatin1String("start")), false);
   }
-  else if (m_args.isSet("startanon"))
+  else if (m_args.isSet(QLatin1String("startanon")))
   {
     sessionManager()->activateAnonymousSession();
   }
-  else if (!m_args.isSet( "stdin" ) && (m_args.positionalArguments().count() == 0)) // only start session if no files specified
+  else if (!m_args.isSet( QLatin1String("stdin") ) && (m_args.positionalArguments().count() == 0)) // only start session if no files specified
   {
     // let the user choose session if possible
     if (!sessionManager()->chooseSession ())
@@ -190,11 +190,11 @@ bool KateApp::startupKate ()
   KStartupInfo::setNewStartupId( activeKateMainWindow(), startupId());
 #endif
   
-  QTextCodec *codec = m_args.isSet("encoding") ? QTextCodec::codecForName(m_args.value("encoding").toUtf8()) : 0;
-  bool tempfileSet = m_args.isSet("tempfile");
+  QTextCodec *codec = m_args.isSet(QLatin1String("encoding")) ? QTextCodec::codecForName(m_args.value(QLatin1String("encoding")).toUtf8()) : 0;
+  bool tempfileSet = m_args.isSet(QLatin1String("tempfile"));
 
   KTextEditor::Document *doc = 0;
-  const QString codec_name = codec ? codec->name() : QString();
+  const QString codec_name = codec ? QString::fromLatin1(codec->name()) : QString();
 
   QList<QUrl> urls;
   Q_FOREACH (const QString positionalArgument, m_args.positionalArguments())
@@ -202,7 +202,7 @@ bool KateApp::startupKate ()
     QUrl url;
 
     // convert to an url
-    QRegExp withProtocol("^[a-zA-Z]+:"); // TODO: remove after Qt supports this on its own
+    QRegExp withProtocol(QLatin1String("^[a-zA-Z]+:")); // TODO: remove after Qt supports this on its own
     if (withProtocol.indexIn(positionalArgument) == 0) {
       url = QUrl::fromUserInput(positionalArgument);
     } else {
@@ -224,7 +224,7 @@ bool KateApp::startupKate ()
   KateDocManager::self()->setSuppressOpeningErrorDialogs(false);
 
   // handle stdin input
-  if( m_args.isSet( "stdin" ) )
+  if( m_args.isSet( QLatin1String("stdin") ) )
   {
     QTextStream input(stdin, QIODevice::ReadOnly);
 
@@ -238,7 +238,7 @@ bool KateApp::startupKate ()
     do
     {
       line = input.readLine();
-      text.append( line + '\n' );
+      text.append( line + QLatin1Char('\n') );
     }
     while( !line.isNull() );
 
@@ -254,15 +254,15 @@ bool KateApp::startupKate ()
   int column = 0;
   bool nav = false;
 
-  if (m_args.isSet ("line"))
+  if (m_args.isSet (QLatin1String("line")))
   {
-    line = m_args.value ("line").toInt() - 1;
+    line = m_args.value (QLatin1String("line")).toInt() - 1;
     nav = true;
   }
 
-  if (m_args.isSet ("column"))
+  if (m_args.isSet (QLatin1String("column")))
   {
-    column = m_args.value ("column").toInt() - 1;
+    column = m_args.value (QLatin1String("column")).toInt() - 1;
     nav = true;
   }
 
@@ -336,7 +336,7 @@ KTextEditor::Document* KateApp::openDocUrl (const QUrl &url, const QString &enco
 
     // open a normal file
     if (codec)
-      doc=mainWindow->viewManager()->openUrl( url, codec->name(), true, isTempFile);
+      doc=mainWindow->viewManager()->openUrl( url, QString::fromLatin1(codec->name()), true, isTempFile);
     else
       doc=mainWindow->viewManager()->openUrl( url, QString(), true, isTempFile );
     
@@ -365,7 +365,7 @@ bool KateApp::setCursor (int line, int column)
 
 bool KateApp::openInput (const QString &text)
 {
-  activeKateMainWindow()->viewManager()->openUrl( QUrl(), "", true );
+  activeKateMainWindow()->viewManager()->openUrl( QUrl(), QString(), true );
 
   if (!activeKateMainWindow()->viewManager()->activeView ())
     return false;
@@ -381,7 +381,7 @@ bool KateApp::openInput (const QString &text)
 KateMainWindow *KateApp::newMainWindow (KConfig *sconfig_, const QString &sgroup_)
 {
   KConfig *sconfig = sconfig_ ? sconfig_ : KSharedConfig::openConfig().data();
-  QString sgroup = !sgroup_.isEmpty() ? sgroup_ : "MainWindow0";
+  QString sgroup = !sgroup_.isEmpty() ? sgroup_ : QLatin1String("MainWindow0");
 
   KateMainWindow *mainWindow = new KateMainWindow (sconfig, sgroup);
   mainWindow->show ();

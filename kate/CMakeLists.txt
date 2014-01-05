@@ -1,7 +1,5 @@
 project(kate)
 
-remove_definitions(-DQT_NO_CAST_FROM_ASCII)
-
 # Load the frameworks we need
 find_package(KF5 CONFIG REQUIRED COMPONENTS DBusAddons)
 

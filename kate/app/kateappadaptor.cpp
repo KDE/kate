@@ -63,16 +63,16 @@ bool KateAppAdaptor::openUrl (QString url, QString encoding, bool isTempFile)
 QString KateAppAdaptor::tokenOpenUrl (QString url, QString encoding)
 {
   KTextEditor::Document *doc=m_app->openDocUrl (QUrl(url), encoding, false);
-  if (!doc) return QString("ERROR");
-  return QString("%1").arg((qptrdiff)doc);
+  if (!doc) return QLatin1String("ERROR");
+  return QString::fromLatin1("%1").arg((qptrdiff)doc);
 }
 
 QString KateAppAdaptor::tokenOpenUrl (QString url, QString encoding, bool isTempFile)
 {
   qCDebug(LOG_KATE) << "openURL";
   KTextEditor::Document *doc=m_app->openDocUrl (QUrl(url), encoding, isTempFile);
-  if (!doc) return QString("ERROR");
-  return QString("%1").arg((qptrdiff)doc);
+  if (!doc) return QLatin1String("ERROR");
+  return QString::fromLatin1("%1").arg((qptrdiff)doc);
 }
 //--------
 

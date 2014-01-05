@@ -89,16 +89,16 @@ namespace KateMDI
 
 //BEGIN GUICLIENT
 
-  static const char *actionListName = "kate_mdi_view_actions";
+  static const QString actionListName = QLatin1String("kate_mdi_view_actions");
 
-  static const char *guiDescription = ""
+  static const QString guiDescription = QLatin1String(""
                                       "<!DOCTYPE kpartgui><kpartgui name=\"kate_mdi_view_actions\">"
                                       "<MenuBar>"
                                       "    <Menu name=\"view\">"
                                       "        <ActionList name=\"%1\" />"
                                       "    </Menu>"
                                       "</MenuBar>"
-                                      "</kpartgui>";
+                                      "</kpartgui>");
 
   GUIClient::GUIClient ( MainWindow *mw )
       : QObject ( mw )
@@ -110,16 +110,15 @@ namespace KateMDI
 
     if ( domDocument().documentElement().isNull() )
     {
-      QString completeDescription = QString::fromLatin1( guiDescription )
-                                    .arg( actionListName );
+      QString completeDescription = guiDescription.arg(actionListName);
 
       setXML( completeDescription, false /*merge*/ );
     }
 
     m_toolMenu = new KActionMenu(i18n("Tool &Views"), this);
-    actionCollection()->addAction("kate_mdi_toolview_menu", m_toolMenu);
+    actionCollection()->addAction(QLatin1String("kate_mdi_toolview_menu"), m_toolMenu);
     m_showSidebarsAction = new KToggleAction( i18n("Show Side&bars"), this );
-    actionCollection()->addAction( "kate_mdi_sidebar_visibility", m_showSidebarsAction );
+    actionCollection()->addAction( QLatin1String("kate_mdi_sidebar_visibility"), m_showSidebarsAction );
     m_showSidebarsAction->setShortcut(  Qt::CTRL | Qt::ALT | Qt::SHIFT | Qt::Key_F );
 
     m_showSidebarsAction->setChecked( m_mw->sidebarsVisible() );
@@ -132,7 +131,7 @@ namespace KateMDI
     m_toolMenu->addAction( sep_act );
 
     // read shortcuts
-    actionCollection()->setConfigGroup( "Shortcuts" );
+    actionCollection()->setConfigGroup( QLatin1String("Shortcuts") );
     actionCollection()->readSettings();
 
     actionCollection()->addAssociatedWidget(m_mw);
@@ -150,7 +149,7 @@ namespace KateMDI
 
   void GUIClient::registerToolView (ToolView *tv)
   {
-    QString aname = QString("kate_mdi_toolview_") + tv->id;
+    QString aname = QString::fromLatin1("kate_mdi_toolview_") + tv->id;
 
     // try to read the action shortcut
     QList<QKeySequence> shortcuts;
@@ -158,13 +157,13 @@ namespace KateMDI
     KSharedConfigPtr cfg = KSharedConfig::openConfig();
     QString shortcutString = cfg->group("Shortcuts").readEntry(aname, QString());
 
-    foreach (const QString &shortcut, shortcutString.split(";")) {
+    foreach (const QString &shortcut, shortcutString.split(QLatin1String(";"))) {
       shortcuts << QKeySequence::fromString(shortcut);
     }
 
     KToggleAction *a = new ToggleToolViewAction(i18n("Show %1", tv->text), tv, this );
     a->setShortcuts(shortcuts);
-    actionCollection()->addAction( aname.toLatin1(), a );
+    actionCollection()->addAction( aname, a );
 
     m_toolViewActions.append(a);
     m_toolMenu->addAction(a);
@@ -500,12 +499,12 @@ namespace KateMDI
             }
           }
 
-          menu->addSection(SmallIcon("view_remove"), i18n("Behavior"));
+          menu->addSection(SmallIcon(QLatin1String("view_remove")), i18n("Behavior"));
 
-          menu->addAction(w->persistent ? QIcon::fromTheme(QLatin1String("view-restore")) : QIcon::fromTheme("view-fullscreen"),
+          menu->addAction(w->persistent ? QIcon::fromTheme(QLatin1String("view-restore")) : QIcon::fromTheme(QLatin1String("view-fullscreen")),
                        w->persistent ? i18n("Make Non-Persistent") : i18n("Make Persistent") ) -> setData(10);
 
-          menu->addSection(SmallIcon("move"), i18n("Move To"));
+          menu->addSection(SmallIcon(QLatin1String("move")), i18n("Move To"));
 
           if (position() != 0)
             menu->addAction(QIcon::fromTheme(QLatin1String("go-previous")), i18n("Left Sidebar"))->setData(0);
@@ -602,7 +601,7 @@ namespace KateMDI
     {
       ToolView *tv = m_toolviews[firstWrong];
 
-      int pos = config.readEntry (QString ("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), firstWrong);
+      int pos = config.readEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), firstWrong);
 
       if (pos != firstWrong)
         break;
@@ -617,7 +616,7 @@ namespace KateMDI
       {
         TmpToolViewSorter s;
         s.tv = m_toolviews[i];
-        s.pos = config.readEntry (QString ("Kate-MDI-ToolView-%1-Sidebar-Position").arg(m_toolviews[i]->id), i);
+        s.pos = config.readEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Sidebar-Position").arg(m_toolviews[i]->id), i);
         toSort.push_back (s);
       }
 
@@ -660,7 +659,7 @@ namespace KateMDI
     updateLastSize ();
 
     // restore the own splitter sizes
-    QList<int> s = config.readEntry (QString ("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
+    QList<int> s = config.readEntry (QString::fromLatin1("Kate-MDI-Sidebar-%1-Splitter").arg(position()), QList<int>());
     m_ownSplit->setSizes (s);
 
     // show only correct toolviews, remember persistent values ;)
@@ -669,8 +668,8 @@ namespace KateMDI
     {
       ToolView *tv = m_toolviews[i];
 
-      tv->persistent = config.readEntry (QString ("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
-      tv->setToolVisible (config.readEntry (QString ("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
+      tv->persistent = config.readEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), false);
+      tv->setToolVisible (config.readEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Visible").arg(tv->id), false));
 
       if (!anyVis)
         anyVis = tv->toolVisible();
@@ -693,17 +692,17 @@ namespace KateMDI
   {
     // store the own splitter sizes
     QList<int> s = m_ownSplit->sizes();
-    config.writeEntry (QString ("Kate-MDI-Sidebar-%1-Splitter").arg(position()), s);
+    config.writeEntry (QString::fromLatin1("Kate-MDI-Sidebar-%1-Splitter").arg(position()), s);
 
     // store the data about all toolviews in this sidebar ;)
     for ( int i = 0; i < m_toolviews.size(); ++i )
     {
       ToolView *tv = m_toolviews[i];
 
-      config.writeEntry (QString ("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
-      config.writeEntry (QString ("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
-      config.writeEntry (QString ("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
-      config.writeEntry (QString ("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), tv->persistent);
+      config.writeEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(tv->id), int(tv->sidebar()->position()));
+      config.writeEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Sidebar-Position").arg(tv->id), i);
+      config.writeEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Visible").arg(tv->id), tv->toolVisible());
+      config.writeEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Persistent").arg(tv->id), tv->persistent);
     }
   }
 
@@ -801,7 +800,7 @@ namespace KateMDI
     if (m_restoreConfig && m_restoreConfig->hasGroup (m_restoreGroup))
     {
       KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-      pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry (QString ("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos));
+      pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(identifier), int(pos));
     }
 
     ToolView *v  = m_sidebars[pos]->addWidget (icon, text, 0);
@@ -864,7 +863,7 @@ namespace KateMDI
                                      "invoke <b>View &gt; Tool Views &gt; Show Sidebars</b> "
                                      "in the menu. It is still possible to show/hide "
                                      "the tool views with the assigned shortcuts.</qt>"),
-                                QString(), "Kate hide sidebars notification message" );
+                                QString(), QLatin1String("Kate hide sidebars notification message") );
     }
   }
 
@@ -896,7 +895,7 @@ namespace KateMDI
     if (m_restoreConfig && m_restoreConfig->hasGroup (m_restoreGroup))
     {
       KConfigGroup cg(m_restoreConfig, m_restoreGroup);
-      pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry (QString ("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos));
+      pos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(widget->id), int(pos));
     }
 
     m_sidebars[pos]->addWidget (widget->icon, widget->text, widget);
@@ -978,7 +977,7 @@ namespace KateMDI
       // reshuffle toolviews only if needed
       for ( int i = 0; i < m_toolviews.size(); ++i )
       {
-        KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry (QString ("Kate-MDI-ToolView-%1-Position").arg(m_toolviews[i]->id), int(m_toolviews[i]->sidebar()->position()));
+        KMultiTabBar::KMultiTabBarPosition newPos = (KMultiTabBar::KMultiTabBarPosition) cg.readEntry (QString::fromLatin1("Kate-MDI-ToolView-%1-Position").arg(m_toolviews[i]->id), int(m_toolviews[i]->sidebar()->position()));
 
         if (m_toolviews[i]->sidebar()->position() != newPos)
         {

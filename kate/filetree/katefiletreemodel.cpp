@@ -154,12 +154,12 @@ void ProxyItem::initDisplay()
   if (flag(ProxyItem::Dir) && m_parent && !m_parent->m_parent && m_parent->flag(ProxyItem::ShowFullPath)) {
     m_display = m_path;
     if(m_display.startsWith(QDir::homePath())) {
-      m_display.replace(0, QDir::homePath().length(), "~");
+      m_display.replace(0, QDir::homePath().length(), QLatin1String("~"));
     }
   } else {
     m_display = m_path.section(QLatin1Char('/'), -1, -1);
     if (flag(ProxyItem::Host) && (!m_parent || (m_parent && !m_parent->m_parent))) {
-      QString hostPrefix="["+host()+"]";
+      QString hostPrefix = QString::fromLatin1("[%1]").arg(host());
       if (hostPrefix!=m_display)
         m_display=hostPrefix+m_display;
     }
@@ -258,9 +258,9 @@ void ProxyItem::setDoc(KTextEditor::Document *doc)
   else {
         QString docName=doc->documentName();
         if (flag(ProxyItem::Host))
-          m_documentName="["+m_host+"]"+docName;
+          m_documentName = QString::fromLatin1("[%1]").arg(m_host) + docName;
         else
-          m_documentName=docName;
+          m_documentName = docName;
   }
 }
 
@@ -311,7 +311,7 @@ void ProxyItem::setHost(const QString& host)
     m_documentName=docName;
   } else {
     setFlag(Host);
-    m_documentName="["+host+"]"+docName;
+    m_documentName = QString::fromLatin1("[%1]").arg(host) + docName;
   }
   m_host=host;
 
@@ -325,7 +325,7 @@ const QString& ProxyItem::host() const
 
 KateFileTreeModel::KateFileTreeModel(QObject *p)
   : QAbstractItemModel(p),
-    m_root(new ProxyItemDir(QString("m_root"), 0))
+    m_root(new ProxyItemDir(QLatin1String("m_root"), 0))
 {
 
   // setup default settings
@@ -414,7 +414,7 @@ void KateFileTreeModel::clearModel()
   beginRemoveRows(QModelIndex(), 0, m_root->childCount()-1);
 
   delete m_root;
-  m_root = new ProxyItemDir(QString("m_root"), 0);
+  m_root = new ProxyItemDir(QLatin1String("m_root"), 0);
 
   m_docmap.clear();
   m_viewHistory.clear();
@@ -525,7 +525,7 @@ QVariant KateFileTreeModel::headerData( int section, Qt::Orientation orientation
   Q_UNUSED(role);
 
   if(section == 0)
-    return QString("a header");
+    return QLatin1String("a header");
 
   return QVariant();
 }
@@ -647,7 +647,7 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
   } else {
     host=doc->url().host();
     if (!host.isEmpty())
-      path="["+host+"]"+path;
+      path = QString::fromLatin1("[%1]").arg(host) + path;
 
   }
 
@@ -939,7 +939,7 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
     item->clearFlag(ProxyItem::Empty);
     host=doc->url().host();
     if (!host.isEmpty())
-      path="["+host+"]"+path;
+      path = QString::fromLatin1("[%1]").arg(host) + path;
   }
 
   if(m_shadingEnabled) {
@@ -1177,7 +1177,7 @@ void KateFileTreeModel::setupIcon(ProxyItem *item)
   QString icon_name;
 
   if(item->flag(ProxyItem::Modified)) {
-    icon_name = "document-save";
+    icon_name = QLatin1String("document-save");
   }
   else {
     QUrl url(item->path());
@@ -1187,7 +1187,7 @@ void KateFileTreeModel::setupIcon(ProxyItem *item)
   QIcon icon = QIcon::fromTheme(icon_name);
 
   if(item->flag(ProxyItem::ModifiedExternally) || item->flag(ProxyItem::DeletedExternally)) {
-    icon = KIconUtils::addOverlay(icon, QIcon("emblem-important"), Qt::TopLeftCorner);
+    icon = KIconUtils::addOverlay(icon, QIcon(QLatin1String("emblem-important")), Qt::TopLeftCorner);
   }
 
   item->setIcon(icon);

@@ -37,11 +37,11 @@ bool fillinRunningKateAppInstances(KateRunningInstanceMap *map)
 
   QString serviceName;
 
-  QString my_pid(QString("%1").arg(QCoreApplication::applicationPid()).toLatin1());
+  QString my_pid = QString::number(QCoreApplication::applicationPid());
 
   foreach (const QString &s, services)
   {
-    if (s.startsWith ("org.kde.kate-"))
+    if (s.startsWith (QLatin1String("org.kde.kate-")))
     {
       if (s.contains(my_pid)) continue;
       KateRunningInstanceInfo* rii=new KateRunningInstanceInfo(s);

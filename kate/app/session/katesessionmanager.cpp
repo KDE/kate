@@ -83,7 +83,7 @@ void KateSessionManager::updateSessionList()
   QStringList list;
 
   // Let's get a list of all session we have atm
-  QDir dir (m_sessionsDir, "*.katesession");
+  QDir dir (m_sessionsDir, QLatin1String("*.katesession"));
 
   for (unsigned int i = 0; i < dir.count(); ++i) {
     QString name = dir[i];
@@ -133,9 +133,9 @@ bool KateSessionManager::activateSession (KateSession::Ptr session,
     if (instances.contains(session->name()))
     {
       if (KMessageBox::questionYesNo(0,i18n("Session '%1' is already opened in another kate instance, change there instead of reopening?",session->name()),
-            QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),"katesessionmanager_switch_instance")==KMessageBox::Yes)
+            QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),QLatin1String("katesessionmanager_switch_instance"))==KMessageBox::Yes)
       {
-        instances[session->name()]->dbus_if->call("activate");
+        instances[session->name()]->dbus_if->call(QLatin1String("activate"));
         cleanupRunningKateAppInstanceMap(&instances);
         return false;
       }
@@ -205,14 +205,14 @@ void KateSessionManager::loadSession(const KateSession::Ptr& session) const
     {
       if (i >= KateApp::self()->mainWindowsCount())
       {
-        KateApp::self()->newMainWindow(cfg, QString ("MainWindow%1").arg(i));
+        KateApp::self()->newMainWindow(cfg, QString::fromLatin1("MainWindow%1").arg(i));
       }
       else
       {
-        KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(cfg, QString ("MainWindow%1").arg(i) ));
+        KateApp::self()->mainWindow(i)->readProperties(KConfigGroup(cfg, QString::fromLatin1("MainWindow%1").arg(i) ));
       }
 
-      KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(cfg, QString ("MainWindow%1 Settings").arg(i)));
+      KateApp::self()->mainWindow(i)->restoreWindowConfig(KConfigGroup(cfg, QString::fromLatin1("MainWindow%1 Settings").arg(i)));
     }
 
     if (delete_cfg) {
@@ -317,10 +317,10 @@ void KateSessionManager::saveSessionTo(KConfig *sc) const
   bool saveWindowConfig = KConfigGroup(KSharedConfig::openConfig(), "General").readEntry("Restore Window Configuration", true);
   for (int i = 0; i < KateApp::self()->mainWindowsCount (); ++i )
   {
-    KConfigGroup cg(sc, QString ("MainWindow%1").arg(i) );
+    KConfigGroup cg(sc, QString::fromLatin1("MainWindow%1").arg(i) );
     KateApp::self()->mainWindow(i)->saveProperties (cg);
     if (saveWindowConfig)
-      KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QString ("MainWindow%1 Settings").arg(i)));
+      KateApp::self()->mainWindow(i)->saveWindowConfig(KConfigGroup(sc, QString::fromLatin1("MainWindow%1 Settings").arg(i)));
   }
 
   sc->sync();
@@ -364,13 +364,13 @@ bool KateSessionManager::chooseSession ()
   const QString sesStart (c.readEntry ("Startup Session", "manual"));
 
   // uhh, just open last used session, show no chooser
-  if (sesStart == "last") {
+  if (sesStart == QLatin1String("last")) {
     activateSession(lastSession, false);
     return true;
   }
 
   // start with empty new session or in case no sessions exist
-  if (sesStart == "new" || sessionList().size() == 0) {
+  if (sesStart == QLatin1String("new") || sessionList().size() == 0) {
     activateAnonymousSession();
     return true;
   }
@@ -406,7 +406,7 @@ bool KateSessionManager::chooseSession ()
   // write back our nice boolean :)
   if (success && chooser->reopenLastSession())
   {
-    KConfigGroup generalConfig(KSharedConfig::openConfig(), "General");
+    KConfigGroup generalConfig(KSharedConfig::openConfig(), QLatin1String("General"));
 
     if (res == KateSessionChooser::resultOpen) {
       generalConfig.writeEntry ("Startup Session", "last");
@@ -507,7 +507,7 @@ QString KateSessionManager::anonymousSessionFile() const
 QString KateSessionManager::sessionFileForName(const QString &name) const
 {
   Q_ASSERT(!name.isEmpty());
-  const QString sname = QString(QUrl::toPercentEncoding(name, "", "."));
+  const QString sname = QString::fromLatin1(QUrl::toPercentEncoding(name, QByteArray(), QByteArray(".")));
   return m_sessionsDir + QLatin1String("/") + sname + QLatin1String(".katesession");
 }
 

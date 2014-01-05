@@ -172,7 +172,7 @@ void KateQuickOpen::update ()
         QStandardItem *itemName = new QStandardItem(doc->documentName());
 
         itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document> (doc)), DocumentRole);
-        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().toString()), SortFilterRole);
+        itemName->setData(QString::fromLatin1("%1: %2").arg(doc->documentName()).arg(doc->url().toString()), SortFilterRole);
         itemName->setEditable(false);
         QFont font = itemName->font();
         font.setBold(true);
@@ -207,7 +207,7 @@ void KateQuickOpen::update ()
         QStandardItem *itemName = new QStandardItem(doc->documentName());
 
         itemName->setData(qVariantFromValue(QPointer<KTextEditor::Document> (doc)), DocumentRole);
-        itemName->setData(QString("%1: %2").arg(doc->documentName()).arg(doc->url().toString()), SortFilterRole);
+        itemName->setData(QString::fromLatin1("%1: %2").arg(doc->documentName()).arg(doc->url().toString()), SortFilterRole);
         itemName->setEditable(false);
         QFont font = itemName->font();
         font.setBold(true);
@@ -226,7 +226,7 @@ void KateQuickOpen::update ()
     /**
      * insert all project files, if any project around
      */
-    if (QObject *projectView = m_mainWindow->pluginView ("kateprojectplugin")) {
+    if (QObject *projectView = m_mainWindow->pluginView (QLatin1String("kateprojectplugin"))) {
       QStringList projectFiles = projectView->property ("projectFiles").toStringList();
       foreach (const QString &file, projectFiles) {
         /**
@@ -239,7 +239,7 @@ void KateQuickOpen::update ()
         QStandardItem *itemName = new QStandardItem(fi.fileName());
 
         itemName->setData(qVariantFromValue(QUrl::fromLocalFile(file)), UrlRole);
-        itemName->setData(QString("%1: %2").arg(fi.fileName()).arg(file), SortFilterRole);
+        itemName->setData(QString::fromLatin1("%1: %2").arg(fi.fileName()).arg(file), SortFilterRole);
         itemName->setEditable(false);
         QFont font = itemName->font();
         font.setBold(true);

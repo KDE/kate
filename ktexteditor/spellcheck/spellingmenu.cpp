@@ -96,7 +96,7 @@ void KateSpellingMenu::setVisible(bool b)
 void KateSpellingMenu::createActions(KActionCollection *ac)
 {
   m_spellingMenuAction = new KActionMenu(i18n("Spelling"), this);
-  ac->addAction("spelling_suggestions", m_spellingMenuAction);
+  ac->addAction(QLatin1String("spelling_suggestions"), m_spellingMenuAction);
   m_spellingMenu = m_spellingMenuAction->menu();
   connect(m_spellingMenu, SIGNAL(aboutToShow()), this, SLOT(populateSuggestionsMenu()));
 

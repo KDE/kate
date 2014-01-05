@@ -90,7 +90,7 @@ bool KatePartPluginInfo::isEnabledByDefault() const
 
 KatePartPluginManager::KatePartPluginManager()
   : QObject(),
-    m_config(new KConfig("katepartpluginsrc", KConfig::NoGlobals))
+    m_config(new KConfig(QLatin1String("katepartpluginsrc"), KConfig::NoGlobals))
 {
   setupPluginList ();
   loadConfig ();
@@ -121,12 +121,12 @@ static const unsigned MinPluginVersion = MAKE_VERSION(4, 0, 0);
 void KatePartPluginManager::setupPluginList ()
 {
   KService::List traderList = KServiceTypeTrader::self()->
-      query("KTextEditor/Plugin");
+      query(QLatin1String("KTextEditor/Plugin"));
 
   foreach(const KService::Ptr &ptr, traderList)
   {
-    QVariant version = ptr->property("X-KDE-Version", QVariant::String);
-    QStringList numbers = qvariant_cast<QString>(version).split('.');
+    QVariant version = ptr->property(QLatin1String("X-KDE-Version"), QVariant::String);
+    QStringList numbers = qvariant_cast<QString>(version).split(QLatin1Char('.'));
     unsigned int kdeVersion = MAKE_VERSION(numbers.value(0).toUInt(),
                                            numbers.value(1).toUInt(),
                                            numbers.value(2).toUInt());

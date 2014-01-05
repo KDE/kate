@@ -36,25 +36,25 @@ namespace
 
 CommandRangeExpressionParser::CommandRangeExpressionParser()
 {
-  m_line.setPattern("\\d+");
-  m_lastLine.setPattern("\\$");
-  m_thisLine.setPattern("\\.");
-  m_mark.setPattern("\\'[0-9a-z><\\+\\*\\_]");
-  m_forwardSearch.setPattern("/([^/]*)/?");
-  m_forwardSearch2.setPattern("/[^/]*/?"); // no group
-  m_backwardSearch.setPattern("\\?([^?]*)\\??");
-  m_backwardSearch2.setPattern("\\?[^?]*\\??"); // no group
-  m_base.setPattern("(?:" + m_mark.pattern() + ")|(?:" +
-                        m_line.pattern() + ")|(?:" +
-                        m_thisLine.pattern() + ")|(?:" +
-                        m_lastLine.pattern() + ")|(?:" +
-                        m_forwardSearch2.pattern() + ")|(?:" +
-                        m_backwardSearch2.pattern() + ")");
-  m_offset.setPattern("[+-](?:" + m_base.pattern() + ")?");
+  m_line.setPattern(QLatin1String("\\d+"));
+  m_lastLine.setPattern(QLatin1String("\\$"));
+  m_thisLine.setPattern(QLatin1String("\\."));
+  m_mark.setPattern(QLatin1String("\\'[0-9a-z><\\+\\*\\_]"));
+  m_forwardSearch.setPattern(QLatin1String("/([^/]*)/?"));
+  m_forwardSearch2.setPattern(QLatin1String("/[^/]*/?")); // no group
+  m_backwardSearch.setPattern(QLatin1String("\\?([^?]*)\\??"));
+  m_backwardSearch2.setPattern(QLatin1String("\\?[^?]*\\??")); // no group
+  m_base.setPattern(QLatin1String("(?:") + m_mark.pattern() + QLatin1String(")|(?:") +
+                        m_line.pattern() + QLatin1String(")|(?:") +
+                        m_thisLine.pattern() + QLatin1String(")|(?:") +
+                        m_lastLine.pattern() + QLatin1String(")|(?:") +
+                        m_forwardSearch2.pattern() + QLatin1String(")|(?:") +
+                        m_backwardSearch2.pattern() + QLatin1String(")"));
+  m_offset.setPattern(QLatin1String("[+-](?:") + m_base.pattern() + QLatin1String(")?"));
 
   // The position regexp contains two groups: the base and the offset.
   // The offset may be empty.
-  m_position.setPattern("(" + m_base.pattern() + ")((?:" + m_offset.pattern() + ")*)");
+  m_position.setPattern(QLatin1String("(") + m_base.pattern() + QLatin1String(")((?:") + m_offset.pattern() + QLatin1String(")*)"));
 
   // The range regexp contains seven groups: the first is the start position, the second is
   // the base of the start position, the third is the offset of the start position, the
@@ -62,7 +62,7 @@ CommandRangeExpressionParser::CommandRangeExpressionParser()
   // without the comma, the sixth is the base of the end position, and the seventh is the
   // offset of the end position. The third and fourth groups may be empty, and the
   // fifth, sixth and seventh groups are contingent on the fourth group.
-  m_cmdRange.setPattern("^(" + m_position.pattern() + ")((?:,(" + m_position.pattern() + "))?)");
+  m_cmdRange.setPattern(QLatin1String("^(") + m_position.pattern() + QLatin1String(")((?:,(") + m_position.pattern() + QLatin1String("))?)"));
 }
 
 Range CommandRangeExpressionParser::parseRangeExpression(const QString& command, KateView* view, QString& destRangeExpression, QString& destTransformedCommand)
@@ -80,8 +80,8 @@ Range CommandRangeExpressionParser::parseRangeExpression(const QString& command,
   QString commandTmp = command;
   bool leadingRangeWasPercent = false;
   // expand '%' to '1,$' ("all lines") if at the start of the line
-  if ( commandTmp.at( 0 ) == '%' ) {
-    commandTmp.replace( 0, 1, "1,$" );
+  if ( commandTmp.at( 0 ) == QLatin1Char('%') ) {
+    commandTmp.replace( 0, 1, QLatin1String("1,$") );
     leadingRangeWasPercent = true;
   }
   if (m_cmdRange.indexIn(commandTmp) != -1 && m_cmdRange.matchedLength() > 0) {
@@ -102,12 +102,12 @@ Range CommandRangeExpressionParser::parseRangeExpression(const QString& command,
 
     // special case: if the command is just a number with an optional +/- prefix, rewrite to "goto"
     if (commandTmp.isEmpty()) {
-      commandTmp = QString("goto %1").arg(position1);
+      commandTmp = QString::fromLatin1("goto %1").arg(position1);
     } else {
       parsedRange.setRange(KTextEditor::Range(position1 - 1, 0, position2 - 1, 0));
     }
 
-    destRangeExpression = (leadingRangeWasPercent ? "%" : m_cmdRange.cap(0));
+    destRangeExpression = (leadingRangeWasPercent ? QLatin1String("%") : m_cmdRange.cap(0));
     destTransformedCommand = commandTmp;
   }
 
@@ -118,16 +118,16 @@ int CommandRangeExpressionParser::calculatePosition(const QString& string, KateV
 
   int pos = 0;
   QList<bool> operators_list;
-  QStringList split = string.split(QRegExp("[-+](?!([+-]|$))"));
+  QStringList split = string.split(QRegExp(QLatin1String("[-+](?!([+-]|$))")));
   QList<int> values;
 
   foreach ( QString line, split ) {
     pos += line.size();
 
     if ( pos < string.size() ) {
-      if ( string.at(pos) == '+' ) {
+      if ( string.at(pos) == QLatin1Char('+') ) {
         operators_list.push_back( true );
-      } else if ( string.at(pos) == '-' ) {
+      } else if ( string.at(pos) == QLatin1Char('-') ) {
         operators_list.push_back( false );
       } else {
         Q_ASSERT( false );

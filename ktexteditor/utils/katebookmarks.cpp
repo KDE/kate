@@ -44,7 +44,7 @@ KateBookmarks::KateBookmarks( KateView* view, Sorting sort )
   , m_bookmarkClear (0)
   , m_sorting( sort )
 {
-  setObjectName( "kate bookmarks" );
+  setObjectName(QLatin1String("kate bookmarks"));
   connect (view->doc(), SIGNAL(marksChanged(KTextEditor::Document*)), this, SLOT(marksChanged()));
   _tries=0;
   m_bookmarksMenu = 0L;
@@ -57,33 +57,33 @@ KateBookmarks::~KateBookmarks()
 void KateBookmarks::createActions( KActionCollection* ac )
 {
     m_bookmarkToggle = new KToggleAction( i18n("Set &Bookmark"), this );
-    ac->addAction( "bookmarks_toggle", m_bookmarkToggle );
-    m_bookmarkToggle->setIcon( QIcon::fromTheme( "bookmark-new" ) );
+    ac->addAction( QLatin1String("bookmarks_toggle"), m_bookmarkToggle );
+    m_bookmarkToggle->setIcon( QIcon::fromTheme( QLatin1String("bookmark-new") ) );
     m_bookmarkToggle->setShortcut( Qt::CTRL+Qt::Key_B );
     m_bookmarkToggle->setWhatsThis(i18n("If a line has no bookmark then add one, otherwise remove it."));
     connect( m_bookmarkToggle, SIGNAL(triggered()), this, SLOT(toggleBookmark()) );
 
     m_bookmarkClear = new QAction( i18n("Clear &All Bookmarks"), this );
-    ac->addAction("bookmarks_clear", m_bookmarkClear);
+    ac->addAction(QLatin1String("bookmarks_clear"), m_bookmarkClear);
     m_bookmarkClear->setWhatsThis(i18n("Remove all bookmarks of the current document."));
     connect( m_bookmarkClear, SIGNAL(triggered()), this, SLOT(clearBookmarks()) );
 
     m_goNext = new QAction( i18n("Next Bookmark"), this);
-    ac->addAction("bookmarks_next", m_goNext);
-    m_goNext->setIcon( QIcon::fromTheme( "go-down-search" ) );
+    ac->addAction(QLatin1String("bookmarks_next"), m_goNext);
+    m_goNext->setIcon( QIcon::fromTheme( QLatin1String("go-down-search") ) );
     m_goNext->setShortcut( Qt::ALT + Qt::Key_PageDown );
     m_goNext->setWhatsThis(i18n("Go to the next bookmark."));
     connect( m_goNext, SIGNAL(triggered()), this, SLOT(goNext()) );
 
     m_goPrevious = new QAction( i18n("Previous Bookmark"), this);
-    ac->addAction("bookmarks_previous", m_goPrevious);
-    m_goPrevious->setIcon( QIcon::fromTheme( "go-up-search" ) );
+    ac->addAction(QLatin1String("bookmarks_previous"), m_goPrevious);
+    m_goPrevious->setIcon( QIcon::fromTheme( QLatin1String("go-up-search") ) );
     m_goPrevious->setShortcut( Qt::ALT + Qt::Key_PageUp );
     m_goPrevious->setWhatsThis(i18n("Go to the previous bookmark."));
     connect( m_goPrevious, SIGNAL(triggered()), this, SLOT(goPrevious()) );
 
     KActionMenu *actionMenu = new KActionMenu(i18n("&Bookmarks"), this);
-    ac->addAction("bookmarks", actionMenu);
+    ac->addAction(QLatin1String("bookmarks"), actionMenu);
     m_bookmarksMenu = actionMenu->menu();
 
     connect( m_bookmarksMenu, SIGNAL(aboutToShow()), this, SLOT(bookmarkMenuAboutToShow()));
@@ -122,7 +122,7 @@ void KateBookmarks::clearBookmarks ()
 void KateBookmarks::insertBookmarks( QMenu& menu )
 {
   int line = m_view->cursorPosition().line();
-  const QRegExp re("&(?!&)");
+  const QRegExp re(QLatin1String("&(?!&)"));
   int next = -1; // -1 means next bookmark doesn't exist
   int prev = -1; // -1 means previous bookmark doesn't exist
 
@@ -155,8 +155,8 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
                     ( m_view->doc()->line( bookmarkLineArray.at(i) ),
                       Qt::ElideRight,
                       menu.fontMetrics().maxWidth() * 32 );
-    bText.replace(re, "&&"); // kill undesired accellerators!
-    bText.replace('\t', ' '); // kill tabs, as they are interpreted as shortcuts
+    bText.replace(re, QLatin1String("&&")); // kill undesired accellerators!
+    bText.replace(QLatin1Char('\t'), QLatin1Char(' ')); // kill tabs, as they are interpreted as shortcuts
 
     QAction *before=0;
     if ( m_sorting == Position )
@@ -170,7 +170,7 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
 
     // Adding action for this bookmark in menu
     if (before) {
-        QAction *a=new QAction(QString("%1  %3  - \"%2\"")
+        QAction *a=new QAction(QString::fromLatin1("%1  %3  - \"%2\"")
                                  .arg( bookmarkLineArray.at(i) + 1 ).arg( bText )
                                  .arg(m_view->getViInputModeManager()->getMarksOnTheLine(bookmarkLineArray.at(i))),&menu);
         menu.insertAction(before,a);
@@ -179,7 +179,7 @@ void KateBookmarks::insertBookmarks( QMenu& menu )
         if (!firstNewAction) firstNewAction = a;
 
       } else {
-        QAction* a = menu.addAction(QString("%1  %3  - \"%2\"")
+        QAction* a = menu.addAction(QString::fromLatin1("%1  %3  - \"%2\"")
                                       .arg( bookmarkLineArray.at(i) + 1 ).arg( bText )
                                       .arg(m_view->getViInputModeManager()->getMarksOnTheLine(bookmarkLineArray.at(i))),
                                       this, SLOT(gotoLine()));

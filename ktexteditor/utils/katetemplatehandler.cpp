@@ -84,9 +84,9 @@ KateTemplateHandler::KateTemplateHandler(KateView *view,
 
   QMap<QString, QString> initial_Values(initialValues);
 
-  if (initial_Values.contains("selection")) {
-    if (initial_Values["selection"].isEmpty()) {
-      initial_Values[ "selection" ] = m_view->selectionText();
+  if (initial_Values.contains(QLatin1String("selection"))) {
+    if (initial_Values[QLatin1String("selection")].isEmpty()) {
+      initial_Values[QLatin1String("selection")] = m_view->selectionText();
     }
   }
 
@@ -461,7 +461,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   for (int i = 0; i < templateString.size(); ++i) {
     ifDebug(qCDebug(LOG_PART) << "checking character:" << templateString[i];)
 
-    if (templateString[i] == '\n') {
+    if (templateString[i] == QLatin1Char('\n')) {
       lastWasBrace = false;
       ++line;
       column = 0;
@@ -471,13 +471,13 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         startPos = -1;
       }
 
-    } else if ((templateString[i] == '%' || templateString[i] == '$')
-               && i + 1 < templateString.size() && templateString[i+1] == '{') {
+    } else if ((templateString[i] == QLatin1Char('%') || templateString[i] == QLatin1Char('$'))
+               && i + 1 < templateString.size() && templateString[i+1] == QLatin1Char('{')) {
 
       // check whether this var is escaped
       int escapeChars = 0;
 
-      while (i - escapeChars > 0 && templateString[i - escapeChars - 1] == '\\') {
+      while (i - escapeChars > 0 && templateString[i - escapeChars - 1] == QLatin1Char('\\')) {
         ++escapeChars;
       }
 
@@ -495,7 +495,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       if (escapeChars % 2 == 0) {
         // don't check for startPos == -1 here, overwrite blindly since nested variables are not supported
         if (lastWasBrace) {
-          templateString.insert(i, " ");
+          templateString.insert(i, QLatin1String(" "));
           spacers.append(Range(line, column, line, column + 1));
           ++i;
           ++column;
@@ -510,13 +510,13 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       ++i;
       column += 2;
 
-    } else if ((startPos != -1) && (templateString[i] == ':')) {      // skip init value, handled by KTE
+    } else if ((startPos != -1) && (templateString[i] == QLatin1Char(':'))) {      // skip init value, handled by KTE
       i++;
       column++;
       int backslash_count = 0;
 
       for (;i < templateString.size();i++, column++) {
-        if (templateString[i] == '\n') {
+        if (templateString[i] == QLatin1Char('\n')) {
           ++line;
           column = 0;
 
@@ -528,7 +528,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           break;
         }
 
-        if (templateString[i] == '}') {
+        if (templateString[i] == QLatin1Char('}')) {
           if ((backslash_count % 2) == 0) {
             i--;
             //column--;
@@ -538,7 +538,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
             backslash_count = 0;
           }
 
-        } else if (templateString[i] == '\\') {
+        } else if (templateString[i] == QLatin1Char('\\')) {
           backslash_count++;
 
         } else { // any character teminates a backslash sequence
@@ -546,14 +546,14 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         }
       }
 
-    } else if ((startPos != -1) && (templateString[i] == '/')) {      // skip regexp
+    } else if ((startPos != -1) && (templateString[i] == QLatin1Char('/'))) {      // skip regexp
       i++;
       column++;
       int backslash_count = 0;
       int slashcount = 1;
 
       for (;i < templateString.size();i++, column++) {
-        if (templateString[i] == '\n') {
+        if (templateString[i] == QLatin1Char('\n')) {
           ++line;
           column = 0;
 
@@ -565,13 +565,13 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           break;
         }
 
-        if (templateString[i] == '/') {
+        if (templateString[i] == QLatin1Char('/')) {
           if ((backslash_count % 2) == 0)
             slashcount++;
 
           backslash_count = 0;
 
-        } else if (templateString[i] == '\\') {
+        } else if (templateString[i] == QLatin1Char('\\')) {
           backslash_count++;
 
         } else { // any character teminates a backslash sequence
@@ -584,7 +584,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         }
       }
 
-    } else if (templateString[i] == '}' && startPos != -1) {
+    } else if (templateString[i] == QLatin1Char('}') && startPos != -1) {
       lastWasBrace = true;
       bool force_first = false;
       // get key, i.e. contents between ${..}
@@ -595,9 +595,9 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
       bool check_slash = false;
       bool check_colon = false;
       bool check_backtick = false;
-      int pos_slash = key.indexOf("/");
-      int pos_colon = key.indexOf(":");
-      int pos_backtick = key.indexOf("`");
+      int pos_slash = key.indexOf(QLatin1String("/"));
+      int pos_colon = key.indexOf(QLatin1String(":"));
+      int pos_backtick = key.indexOf(QLatin1String("`"));
 
       if ((pos_slash == -1) && (pos_colon == -1)) {
         // do nothing
@@ -628,13 +628,13 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         ifDebug(qCDebug(LOG_PART) << "real key found:" << key;)
       } else if (check_backtick) {
         functionName = key.mid(pos_backtick + 1);
-        functionName = functionName.left(functionName.indexOf("`"));
+        functionName = functionName.left(functionName.indexOf(QLatin1String("`")));
         key = key.left(pos_backtick);
         ifDebug(qCDebug(LOG_PART) << "real key found:" << key << "function:" << functionName;)
       }
 
-      if (key.contains("@")) {
-        key = key.left(key.indexOf("@"));
+      if (key.contains(QLatin1String("@"))) {
+        key = key.left(key.indexOf(QLatin1String("@")));
         force_first = true;
       }
 
@@ -642,7 +642,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
       if (!initialValues.contains(key)) {
         qCWarning(LOG_PART) << "unknown variable key:" << key;
-      } else if (key == "cursor") {
+      } else if (key == QLatin1String("cursor")) {
         finalCursorPosition = Cursor(line, column - keyLength - 2);
         // don't insert anything, just remove the placeholder
         templateString.remove(startPos, i - startPos + 1);
@@ -664,9 +664,9 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           while (!searchReplace.isEmpty()) {
             ifDebug(qCDebug(LOG_PART) << "searchReplace=" << searchReplace;)
             int regescapes = 0;
-            int pos = searchReplace.indexOf("/");
+            int pos = searchReplace.indexOf(QLatin1String("/"));
 
-            for (int epos = pos - 1; epos >= 0 && searchReplace.at(epos) == '\\'; epos--) {
+            for (int epos = pos - 1; epos >= 0 && searchReplace.at(epos) == QLatin1Char('\\'); epos--) {
               regescapes++;
             }
 
@@ -688,7 +688,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           //replace part
 
           if (searchValid) {
-            int last_slash = searchReplace.lastIndexOf("/");
+            int last_slash = searchReplace.lastIndexOf(QLatin1String("/"));
 
             if (last_slash != -1) {
               replace = searchReplace.left(last_slash);
@@ -723,7 +723,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
         // always add ${...} to the editable ranges
         // only add %{...} to the editable ranges when its value equals the key
         ifDebug(qCDebug(LOG_PART) << "char is:" << c << "initial value is:" << initialValues[key] << " after fixup is:" << initialVal;)
-        if (c == '$' || key == initialValues[key]) {
+        if (c == QLatin1Char('$') || key == initialValues[key]) {
           if (!keyQueue.contains(key)) {
             keyQueue.append(key);
           }
@@ -732,7 +732,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
           int endColumn = column - initialVal.length();
           int endLine = line;
           for (int j = 0; j < initialVal.length(); ++j) {
-            if (initialVal.at(j) == '\n') {
+            if (initialVal.at(j) == QLatin1Char('\n')) {
               endColumn = 0;
               ++endLine;
             } else {
@@ -768,7 +768,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
   }
 
   if (lastWasBrace && (!finalCursorPosition.isValid())) {
-    templateString += " ";
+    templateString += QLatin1String(" ");
     spacers.append(Range(line, column, line, column + 1));
     ++column;
   }
@@ -845,7 +845,7 @@ void KateTemplateHandler::handleTemplateString(const QMap< QString, QString >& i
 
   // create spacers, only once create the attribute
   Attribute::Ptr attribute(new Attribute());
-  attribute->setFont(QFont("fixed", 1));
+  attribute->setFont(QFont(QLatin1String("fixed"), 1));
   attribute->setFontStrikeOut(true);
   attribute->setFontOverline(true);
   attribute->setFontUnderline(true);
@@ -1035,8 +1035,8 @@ KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(const QString &regexp,
   , m_search(regexp)
   , m_replace(replacement)
 {
-  m_global = flags.contains("g");
-  m_expr = QRegExp(regexp, flags.contains("i") ? Qt::CaseInsensitive : Qt::CaseSensitive, QRegExp::RegExp2);
+  m_global = flags.contains(QLatin1String("g"));
+  m_expr = QRegExp(regexp, flags.contains(QLatin1String("i")) ? Qt::CaseInsensitive : Qt::CaseSensitive, QRegExp::RegExp2);
 }
 
 KateTemplateHandler::MirrorBehaviour::MirrorBehaviour(KateTemplateScript* templateScript,

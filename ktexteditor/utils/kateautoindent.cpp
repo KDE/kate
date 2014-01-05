@@ -129,10 +129,10 @@ QString KateAutoIndent::tabString (int length, int align) const
 
   if (!useSpaces)
   {
-    s.append (QString (length / tabWidth, '\t'));
+    s.append (QString (length / tabWidth, QLatin1Char('\t')));
     length = length % tabWidth;
   }
-  s.append(QString(length + spaces, ' '));
+  s.append(QString(length + spaces, QLatin1Char(' ')));
 
   return s;
 }
@@ -164,7 +164,7 @@ bool KateAutoIndent::doIndent(int line, int indentDepth, int align)
   {
     // Count the number of consecutive spaces at the end of the existing indentation
     int i = oldIndentation.size() - 1;
-    while (i >= 0 && oldIndentation.at(i) == ' ')
+    while (i >= 0 && oldIndentation.at(i) == QLatin1Char(' '))
       --i;
     // Use the passed indentDepth as the alignment, and set the indentDepth to
     // that value minus the number of spaces found (but don't let it get negative).
@@ -438,7 +438,7 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
   if (m_mode == MODE_NORMAL)
   {
     // only indent on new line, per default
-    if (typedChar != '\n')
+    if (typedChar != QLatin1Char('\n'))
       return;
 
     // keep indent of previous line
@@ -451,7 +451,7 @@ void KateAutoIndent::userTypedChar (KateView *view, const KTextEditor::Cursor &p
     return;
 
   // does the script allow this char as trigger?
-  if (typedChar != '\n' && !m_script->triggerCharacters().contains(typedChar))
+  if (typedChar != QLatin1Char('\n') && !m_script->triggerCharacters().contains(typedChar))
     return;
 
   // let the script indent for us...
@@ -476,7 +476,7 @@ void KateViewIndentationAction::slotAboutToShow()
     actionGroup->removeAction(action);
   }
   for (int z=0; z<modes.size(); ++z) {
-    QAction *action = menu()->addAction( '&' + KateAutoIndent::modeDescription(z).replace('&', "&&") );
+    QAction *action = menu()->addAction( QLatin1Char('&') + KateAutoIndent::modeDescription(z).replace(QLatin1Char('&'), QLatin1String("&&")) );
     actionGroup->addAction(action);
     action->setCheckable( true );
     action->setData( z );

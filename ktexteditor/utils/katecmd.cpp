@@ -28,7 +28,7 @@
 
 KateCmd::KateCmd ()
 {
-  m_cmdCompletion.addItem("help");
+  m_cmdCompletion.addItem(QLatin1String("help"));
 }
 
 KateCmd::~KateCmd ()
@@ -85,15 +85,15 @@ KTextEditor::Command *KateCmd::queryCommand (const QString &cmd) const
   // special case: '-' and '_' can be part of a command name, but if the
   // command is 's' (substitute), it should be considered the delimiter and
   // should not be counted as part of the command name
-  if ( cmd.length() >= 2 && cmd.at(0) == 's' && ( cmd.at(1) == '-' || cmd.at(1) == '_') ) {
-    return m_dict.value(QString("s"));
+  if ( cmd.length() >= 2 && cmd.at(0) == QLatin1Char('s') && ( cmd.at(1) == QLatin1Char('-') || cmd.at(1) == QLatin1Char('_')) ) {
+    return m_dict.value(QLatin1String("s"));
   }
 
   for ( ; f < cmd.length(); f++ )
   {
     if ( cmd[f].isLetter() )
       b = true;
-    if ( b && ( ! cmd[f].isLetterOrNumber() && cmd[f] != '-' && cmd[f] != '_' ) )
+    if ( b && ( ! cmd[f].isLetterOrNumber() && cmd[f] != QLatin1Char('-') && cmd[f] != QLatin1Char('_') ) )
       break;
   }
   return m_dict.value(cmd.left(f));
@@ -149,10 +149,10 @@ KCompletion* KateCmd::commandCompletionObject()
 KateCmdShellCompletion::KateCmdShellCompletion()
   : KCompletion()
 {
-  m_word_break_char = ' ';
-  m_quote_char1 = '\"';
-  m_quote_char2 = '\'';
-  m_escape_char = '\\';
+  m_word_break_char = QLatin1Char(' ');
+  m_quote_char1 = QLatin1Char('\"');
+  m_quote_char2 = QLatin1Char('\'');
+  m_escape_char = QLatin1Char('\\');
 }
 
 QString KateCmdShellCompletion::makeCompletion( const QString &text )

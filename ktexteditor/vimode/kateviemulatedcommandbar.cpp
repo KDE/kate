@@ -56,7 +56,7 @@ namespace
     }
     int numContiguousBackslashesToLeft = 0;
     charPos--;
-    while (charPos >= 0 && string[charPos] == '\\')
+    while (charPos >= 0 && string[charPos] == QLatin1Char('\\'))
     {
       numContiguousBackslashesToLeft++;
       charPos--;
@@ -78,7 +78,7 @@ namespace
       if (!isCharEscaped(toggledEscapedString, indexOfEscapeChar))
       {
         // Escape.
-        toggledEscapedString.replace(indexOfEscapeChar, 1, QString("\\") + escapeChar);
+        toggledEscapedString.replace(indexOfEscapeChar, 1, QLatin1String("\\") + escapeChar);
         searchFrom = indexOfEscapeChar + 2;
       }
       else
@@ -99,7 +99,7 @@ namespace
       {
         if (escapedString[i] == charToEscape && !isCharEscaped(escapedString, i))
         {
-          escapedString.replace(i, 1, QString("\\") + charToEscape);
+          escapedString.replace(i, 1, QLatin1String("\\") + charToEscape);
         }
       }
       return escapedString;
@@ -108,11 +108,11 @@ namespace
   QString vimRegexToQtRegexPattern(const QString& vimRegexPattern)
   {
     QString qtRegexPattern = vimRegexPattern;
-    qtRegexPattern = toggledEscaped(qtRegexPattern, '(');
-    qtRegexPattern = toggledEscaped(qtRegexPattern, ')');
-    qtRegexPattern = toggledEscaped(qtRegexPattern, '+');
-    qtRegexPattern = toggledEscaped(qtRegexPattern, '|');
-    qtRegexPattern = ensuredCharEscaped(qtRegexPattern, '?');
+    qtRegexPattern = toggledEscaped(qtRegexPattern, QLatin1Char('('));
+    qtRegexPattern = toggledEscaped(qtRegexPattern, QLatin1Char(')'));
+    qtRegexPattern = toggledEscaped(qtRegexPattern, QLatin1Char('+'));
+    qtRegexPattern = toggledEscaped(qtRegexPattern, QLatin1Char('|'));
+    qtRegexPattern = ensuredCharEscaped(qtRegexPattern, QLatin1Char('?'));
     {
       // All curly brackets, except the closing curly bracket of a matching pair where the opening bracket is escaped,
       // must have their escaping toggled.
@@ -120,11 +120,11 @@ namespace
       QList<int> matchingClosedCurlyBracketPositions;
       for (int i = 0; i < qtRegexPattern.length(); i++)
       {
-        if (qtRegexPattern[i] == '{' && isCharEscaped(qtRegexPattern, i))
+        if (qtRegexPattern[i] == QLatin1Char('{') && isCharEscaped(qtRegexPattern, i))
         {
           lookingForMatchingCloseBracket = true;
         }
-        if (qtRegexPattern[i] == '}' && lookingForMatchingCloseBracket && qtRegexPattern[i - 1] != '\\')
+        if (qtRegexPattern[i] == QLatin1Char('}') && lookingForMatchingCloseBracket && qtRegexPattern[i - 1] != QLatin1Char('\\'))
         {
           matchingClosedCurlyBracketPositions.append(i);
         }
@@ -132,8 +132,8 @@ namespace
       if (matchingClosedCurlyBracketPositions.isEmpty())
       {
         // Escape all {'s and }'s - there are no matching pairs.
-        qtRegexPattern = toggledEscaped(qtRegexPattern, '{');
-        qtRegexPattern = toggledEscaped(qtRegexPattern, '}');
+        qtRegexPattern = toggledEscaped(qtRegexPattern, QLatin1Char('{'));
+        qtRegexPattern = toggledEscaped(qtRegexPattern, QLatin1Char('}'));
       }
       else
       {
@@ -146,15 +146,15 @@ namespace
         foreach (int matchingClosedCurlyPos, matchingClosedCurlyBracketPositions)
         {
           QString chunkExcludingMatchingCurlyClosed = qtRegexPattern.mid(previousNonMatchingClosedCurlyPos, matchingClosedCurlyPos - previousNonMatchingClosedCurlyPos);
-          chunkExcludingMatchingCurlyClosed = toggledEscaped(chunkExcludingMatchingCurlyClosed, '{');
-          chunkExcludingMatchingCurlyClosed = toggledEscaped(chunkExcludingMatchingCurlyClosed, '}');
+          chunkExcludingMatchingCurlyClosed = toggledEscaped(chunkExcludingMatchingCurlyClosed, QLatin1Char('{'));
+          chunkExcludingMatchingCurlyClosed = toggledEscaped(chunkExcludingMatchingCurlyClosed, QLatin1Char('}'));
           qtRegexPatternNonMatchingCurliesToggled += chunkExcludingMatchingCurlyClosed +
                                                      qtRegexPattern[matchingClosedCurlyPos];
           previousNonMatchingClosedCurlyPos = matchingClosedCurlyPos + 1;
         }
         QString chunkAfterLastMatchingClosedCurly = qtRegexPattern.mid(matchingClosedCurlyBracketPositions.last() + 1);
-        chunkAfterLastMatchingClosedCurly = toggledEscaped(chunkAfterLastMatchingClosedCurly, '{');
-        chunkAfterLastMatchingClosedCurly = toggledEscaped(chunkAfterLastMatchingClosedCurly, '}');
+        chunkAfterLastMatchingClosedCurly = toggledEscaped(chunkAfterLastMatchingClosedCurly, QLatin1Char('{'));
+        chunkAfterLastMatchingClosedCurly = toggledEscaped(chunkAfterLastMatchingClosedCurly, QLatin1Char('}'));
         qtRegexPatternNonMatchingCurliesToggled += chunkAfterLastMatchingClosedCurly;
 
         qtRegexPattern = qtRegexPatternNonMatchingCurliesToggled;
@@ -169,12 +169,12 @@ namespace
     QList<int> matchingSquareBracketPositions;
     for (int i = 0; i < qtRegexPattern.length(); i++)
     {
-      if (qtRegexPattern[i] == '[' && !isCharEscaped(qtRegexPattern, i) && !lookingForMatchingCloseBracket)
+      if (qtRegexPattern[i] == QLatin1Char('[') && !isCharEscaped(qtRegexPattern, i) && !lookingForMatchingCloseBracket)
       {
         lookingForMatchingCloseBracket = true;
         openingBracketPos = i;
       }
-      if (qtRegexPattern[i] == ']' && lookingForMatchingCloseBracket && !isCharEscaped(qtRegexPattern, i))
+      if (qtRegexPattern[i] == QLatin1Char(']') && lookingForMatchingCloseBracket && !isCharEscaped(qtRegexPattern, i))
       {
         lookingForMatchingCloseBracket = false;
         matchingSquareBracketPositions.append(openingBracketPos);
@@ -185,8 +185,8 @@ namespace
     if (matchingSquareBracketPositions.isEmpty())
     {
       // Escape all ['s and ]'s - there are no matching pairs.
-      qtRegexPattern = ensuredCharEscaped(qtRegexPattern, '[');
-      qtRegexPattern = ensuredCharEscaped(qtRegexPattern, ']');
+      qtRegexPattern = ensuredCharEscaped(qtRegexPattern, QLatin1Char('['));
+      qtRegexPattern = ensuredCharEscaped(qtRegexPattern, QLatin1Char(']'));
     }
     else
     {
@@ -199,22 +199,22 @@ namespace
       foreach (int matchingSquareBracketPos, matchingSquareBracketPositions)
       {
         QString chunkExcludingMatchingSquareBrackets = qtRegexPattern.mid(previousNonMatchingSquareBracketPos, matchingSquareBracketPos - previousNonMatchingSquareBracketPos);
-        chunkExcludingMatchingSquareBrackets = ensuredCharEscaped(chunkExcludingMatchingSquareBrackets, '[');
-        chunkExcludingMatchingSquareBrackets = ensuredCharEscaped(chunkExcludingMatchingSquareBrackets, ']');
+        chunkExcludingMatchingSquareBrackets = ensuredCharEscaped(chunkExcludingMatchingSquareBrackets, QLatin1Char('['));
+        chunkExcludingMatchingSquareBrackets = ensuredCharEscaped(chunkExcludingMatchingSquareBrackets, QLatin1Char(']'));
         qtRegexPatternNonMatchingSquaresMadeLiteral += chunkExcludingMatchingSquareBrackets + qtRegexPattern[matchingSquareBracketPos];
         previousNonMatchingSquareBracketPos = matchingSquareBracketPos + 1;
       }
       QString chunkAfterLastMatchingSquareBracket = qtRegexPattern.mid(matchingSquareBracketPositions.last() + 1);
-      chunkAfterLastMatchingSquareBracket = ensuredCharEscaped(chunkAfterLastMatchingSquareBracket, '[');
-      chunkAfterLastMatchingSquareBracket = ensuredCharEscaped(chunkAfterLastMatchingSquareBracket, ']');
+      chunkAfterLastMatchingSquareBracket = ensuredCharEscaped(chunkAfterLastMatchingSquareBracket, QLatin1Char('['));
+      chunkAfterLastMatchingSquareBracket = ensuredCharEscaped(chunkAfterLastMatchingSquareBracket, QLatin1Char(']'));
       qtRegexPatternNonMatchingSquaresMadeLiteral += chunkAfterLastMatchingSquareBracket;
 
       qtRegexPattern = qtRegexPatternNonMatchingSquaresMadeLiteral;
     }
 
 
-    qtRegexPattern = qtRegexPattern.replace("\\>", "\\b");
-    qtRegexPattern = qtRegexPattern.replace("\\<", "\\b");
+    qtRegexPattern = qtRegexPattern.replace(QLatin1String("\\>"), QLatin1String("\\b"));
+    qtRegexPattern = qtRegexPattern.replace(QLatin1String("\\<"), QLatin1String("\\b"));
 
     return qtRegexPattern;
   }
@@ -226,15 +226,15 @@ namespace
   QString escapedForSearchingAsLiteral(const QString& originalQtRegex)
   {
     QString escapedForSearchingAsLiteral = originalQtRegex;
-    escapedForSearchingAsLiteral.replace('\\', "\\\\");
-    escapedForSearchingAsLiteral.replace('$', "\\$");
-    escapedForSearchingAsLiteral.replace('^', "\\^");
-    escapedForSearchingAsLiteral.replace('.', "\\.");
-    escapedForSearchingAsLiteral.replace('*', "\\*");
-    escapedForSearchingAsLiteral.replace('/', "\\/");
-    escapedForSearchingAsLiteral.replace('[', "\\[");
-    escapedForSearchingAsLiteral.replace(']', "\\]");
-    escapedForSearchingAsLiteral.replace('\n', "\\n");
+    escapedForSearchingAsLiteral.replace(QLatin1Char('\\'), QLatin1String("\\\\"));
+    escapedForSearchingAsLiteral.replace(QLatin1Char('$'), QLatin1String("\\$"));
+    escapedForSearchingAsLiteral.replace(QLatin1Char('^'), QLatin1String("\\^"));
+    escapedForSearchingAsLiteral.replace(QLatin1Char('.'), QLatin1String("\\."));
+    escapedForSearchingAsLiteral.replace(QLatin1Char('*'), QLatin1String("\\*"));
+    escapedForSearchingAsLiteral.replace(QLatin1Char('/'), QLatin1String("\\/"));
+    escapedForSearchingAsLiteral.replace(QLatin1Char('['), QLatin1String("\\["));
+    escapedForSearchingAsLiteral.replace(QLatin1Char(']'), QLatin1String("\\]"));
+    escapedForSearchingAsLiteral.replace(QLatin1Char('\n'), QLatin1String("\\n"));
     return escapedForSearchingAsLiteral;
   }
 
@@ -253,9 +253,9 @@ namespace
     QString caseSensitivityMarkersStripped = originalSearchTerm;
     while (pos < caseSensitivityMarkersStripped.length())
     {
-      if (caseSensitivityMarkersStripped.at(pos) == 'C' && isCharEscaped(caseSensitivityMarkersStripped, pos))
+      if (caseSensitivityMarkersStripped.at(pos) == QLatin1Char('C') && isCharEscaped(caseSensitivityMarkersStripped, pos))
       {
-        caseSensitivityMarkersStripped.replace(pos - 1, 2, "");
+        caseSensitivityMarkersStripped.replace(pos - 1, 2, QString());
         pos--;
       }
       pos++;
@@ -265,7 +265,7 @@ namespace
 
   int findPosOfSearchConfigMarker(const QString& searchText, const bool isSearchBackwards)
   {
-    const QChar searchConfigMarkerChar = (isSearchBackwards ? '?' : '/');
+    const QChar searchConfigMarkerChar = (isSearchBackwards ? QLatin1Char('?') : QLatin1Char('/'));
     for (int pos = 0; pos < searchText.length(); pos++)
     {
       if (searchText.at(pos) == searchConfigMarkerChar)
@@ -297,7 +297,7 @@ namespace
     const int posOfSearchConfigMarker = findPosOfSearchConfigMarker(searchText, isSearchBackwards);
     if (posOfSearchConfigMarker != -1)
     {
-      if (searchText.length() > posOfSearchConfigMarker + 1 && searchText.at(posOfSearchConfigMarker + 1) == 'e')
+      if (searchText.length() > posOfSearchConfigMarker + 1 && searchText.at(posOfSearchConfigMarker + 1) == QLatin1Char('e'))
       {
         return true;
       }
@@ -339,26 +339,26 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   QHBoxLayout * layout = new QHBoxLayout();
   centralWidget()->setLayout(layout);
   m_barTypeIndicator = new QLabel(this);
-  m_barTypeIndicator->setObjectName("bartypeindicator");
+  m_barTypeIndicator->setObjectName(QLatin1String("bartypeindicator"));
   layout->addWidget(m_barTypeIndicator);
 
   m_edit = new QLineEdit(this);
-  m_edit->setObjectName("commandtext");
+  m_edit->setObjectName(QLatin1String("commandtext"));
   layout->addWidget(m_edit);
 
   m_commandResponseMessageDisplay = new QLabel(this);
-  m_commandResponseMessageDisplay->setObjectName("commandresponsemessage");
+  m_commandResponseMessageDisplay->setObjectName(QLatin1String("commandresponsemessage"));
   m_commandResponseMessageDisplay->setAlignment(Qt::AlignLeft);
   layout->addWidget(m_commandResponseMessageDisplay);
 
   m_waitingForRegisterIndicator = new QLabel(this);
-  m_waitingForRegisterIndicator->setObjectName("waitingforregisterindicator");
+  m_waitingForRegisterIndicator->setObjectName(QLatin1String("waitingforregisterindicator"));
   m_waitingForRegisterIndicator->setVisible(false);
-  m_waitingForRegisterIndicator->setText("\"");
+  m_waitingForRegisterIndicator->setText(QLatin1String("\""));
   layout->addWidget(m_waitingForRegisterIndicator);
 
   m_interactiveSedReplaceLabel = new QLabel(this);
-  m_interactiveSedReplaceLabel->setObjectName("interactivesedreplace");
+  m_interactiveSedReplaceLabel->setObjectName(QLatin1String("interactivesedreplace"));
   m_interactiveSedReplaceActive = false;
   layout->addWidget(m_interactiveSedReplaceLabel);
 
@@ -379,7 +379,7 @@ KateViEmulatedCommandBar::KateViEmulatedCommandBar(KateView* view, QWidget* pare
   // Can't find a way to stop the QCompleter from auto-completing when attached to a QLineEdit,
   // so don't actually set it as the QLineEdit's completer.
   m_completer->setWidget(m_edit);
-  m_completer->setObjectName("completer");
+  m_completer->setObjectName(QLatin1String("completer"));
   m_completionModel = new QStringListModel;
   m_completer->setModel(m_completionModel);
   m_completer->setCaseSensitivity(Qt::CaseInsensitive);
@@ -556,7 +556,7 @@ bool KateViEmulatedCommandBar::eventFilter(QObject* object, QEvent* event)
 
 void KateViEmulatedCommandBar::deleteSpacesToLeftOfCursor()
 {
-  while (m_edit->cursorPosition() != 0 && m_edit->text()[m_edit->cursorPosition() - 1] == ' ')
+  while (m_edit->cursorPosition() != 0 && m_edit->text()[m_edit->cursorPosition() - 1] == QLatin1Char(' '))
   {
     m_edit->backspace();
   }
@@ -567,7 +567,7 @@ void KateViEmulatedCommandBar::deleteWordCharsToLeftOfCursor()
   while (m_edit->cursorPosition() != 0)
   {
     const QChar charToTheLeftOfCursor = m_edit->text()[m_edit->cursorPosition() - 1];
-    if (!charToTheLeftOfCursor.isLetterOrNumber() && charToTheLeftOfCursor != '_')
+    if (!charToTheLeftOfCursor.isLetterOrNumber() && charToTheLeftOfCursor != QLatin1Char('_'))
     {
       break;
     }
@@ -582,7 +582,7 @@ bool KateViEmulatedCommandBar::deleteNonWordCharsToLeftOfCursor()
   while (m_edit->cursorPosition() != 0)
   {
     const QChar charToTheLeftOfCursor = m_edit->text()[m_edit->cursorPosition() - 1];
-    if (charToTheLeftOfCursor.isLetterOrNumber() || charToTheLeftOfCursor == '_' || charToTheLeftOfCursor == ' ')
+    if (charToTheLeftOfCursor.isLetterOrNumber() || charToTheLeftOfCursor == QLatin1Char('_') || charToTheLeftOfCursor == QLatin1Char(' '))
     {
       break;
     }
@@ -596,7 +596,7 @@ bool KateViEmulatedCommandBar::deleteNonWordCharsToLeftOfCursor()
 QString KateViEmulatedCommandBar::wordBeforeCursor()
 {
   int wordBeforeCursorBegin = m_edit->cursorPosition() - 1;
-  while (wordBeforeCursorBegin >= 0 && (m_edit->text()[wordBeforeCursorBegin].isLetterOrNumber() || m_edit->text()[wordBeforeCursorBegin] == '_'))
+  while (wordBeforeCursorBegin >= 0 && (m_edit->text()[wordBeforeCursorBegin].isLetterOrNumber() || m_edit->text()[wordBeforeCursorBegin] == QLatin1Char('_')))
   {
     wordBeforeCursorBegin--;
   }
@@ -609,7 +609,7 @@ QString KateViEmulatedCommandBar::commandBeforeCursor()
   const QString textWithoutRangeExpression = withoutRangeExpression();
   const int cursorPositionWithoutRangeExpression = m_edit->cursorPosition() - rangeExpression().length();
   int commandBeforeCursorBegin = cursorPositionWithoutRangeExpression - 1;
-  while (commandBeforeCursorBegin >= 0 && (textWithoutRangeExpression[commandBeforeCursorBegin].isLetterOrNumber() || textWithoutRangeExpression[commandBeforeCursorBegin] == '_' || textWithoutRangeExpression[commandBeforeCursorBegin] == '-'))
+  while (commandBeforeCursorBegin >= 0 && (textWithoutRangeExpression[commandBeforeCursorBegin].isLetterOrNumber() || textWithoutRangeExpression[commandBeforeCursorBegin] == QLatin1Char('_') || textWithoutRangeExpression[commandBeforeCursorBegin] == QLatin1Char('-')))
   {
     commandBeforeCursorBegin--;
   }
@@ -648,7 +648,7 @@ void KateViEmulatedCommandBar::activateSearchHistoryCompletion()
 void KateViEmulatedCommandBar::activateWordFromDocumentCompletion()
 {
   m_currentCompletionType = WordFromDocument;
-  QRegExp wordRegEx("\\w{1,}");
+  QRegExp wordRegEx(QLatin1String("\\w{1,}"));
   QStringList foundWords;
   // Narrow the range of lines we search around the cursor so that we don't die on huge files.
   const int startLine = qMax(0, m_view->cursorPosition().line() - 4096);
@@ -947,10 +947,10 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
     // TODO - it would be better to use e.g. keyEvent->key() == Qt::Key_Y instead of keyEvent->text() == "y",
     // but this would require some slightly dicey changes to the "feed key press" code in order to make it work
     // with mappings and macros.
-    if (keyEvent->text() == "y" || keyEvent->text() == "n")
+    if (keyEvent->text() == QLatin1String("y") || keyEvent->text() == QLatin1String("n"))
     {
       const Cursor cursorPosIfFinalMatch = m_interactiveSedReplacer->currentMatch().start();
-      if (keyEvent->text() == "y")
+      if (keyEvent->text() == QLatin1String("y"))
       {
         m_interactiveSedReplacer->replaceCurrentMatch();
       }
@@ -969,18 +969,18 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
       }
       return true;
     }
-    else if (keyEvent->text() == "l")
+    else if (keyEvent->text() == QLatin1String("l"))
     {
       m_interactiveSedReplacer->replaceCurrentMatch();
       finishInteractiveSedReplace();
       return true;
     }
-    else if (keyEvent->text() == "q")
+    else if (keyEvent->text() == QLatin1String("q"))
     {
       finishInteractiveSedReplace();
       return true;
     }
-    else if (keyEvent->text() == "a")
+    else if (keyEvent->text() == QLatin1String("a"))
     {
       m_interactiveSedReplacer->replaceAllRemaining();
       finishInteractiveSedReplace();
@@ -1141,13 +1141,13 @@ bool KateViEmulatedCommandBar::handleKeyPress(const QKeyEvent* keyEvent)
           if (clearFindTerm)
           {
             m_edit->setSelection(parsedSedExpression.findBeginPos, parsedSedExpression.findEndPos - parsedSedExpression.findBeginPos + 1);
-            m_edit->insert("");
+            m_edit->insert(QString());
           }
           else
           {
             // Clear replace term.
             m_edit->setSelection(parsedSedExpression.replaceBeginPos, parsedSedExpression.replaceEndPos - parsedSedExpression.replaceBeginPos + 1);
-            m_edit->insert("");
+            m_edit->insert(QString());
           }
         }
       }
@@ -1255,13 +1255,13 @@ void KateViEmulatedCommandBar::showBarTypeIndicator(KateViEmulatedCommandBar::Mo
   switch(mode)
   {
     case SearchForward:
-      barTypeIndicator = '/';
+      barTypeIndicator = QLatin1Char('/');
       break;
     case SearchBackward:
-      barTypeIndicator = '?';
+      barTypeIndicator = QLatin1Char('?');
       break;
     case Command:
-      barTypeIndicator = ':';
+      barTypeIndicator = QLatin1Char(':');
       break;
     default:
       Q_ASSERT(false && "Unknown mode!");
@@ -1275,7 +1275,7 @@ QString KateViEmulatedCommandBar::executeCommand(const QString& commandToExecute
   // TODO - this is a hack-ish way of finding the response from the command; maybe
   // add another overload of "execute" to KateCommandLineBar that returns the
   // response message ... ?
-  m_view->cmdLineBar()->setText("");
+  m_view->cmdLineBar()->setText(QString());
   m_view->cmdLineBar()->execute(commandToExecute);
   KateCmdLineEdit *kateCommandLineEdit = m_view->cmdLineBar()->findChild<KateCmdLineEdit*>();
   Q_ASSERT(kateCommandLineEdit);
@@ -1297,7 +1297,7 @@ void KateViEmulatedCommandBar::switchToCommandResponseDisplay(const QString& com
 
 void KateViEmulatedCommandBar::updateInteractiveSedReplaceLabelText()
 {
-  m_interactiveSedReplaceLabel->setText(m_interactiveSedReplacer->currentMatchReplacementConfirmationMessage() + " (y/n/a/q/l)");
+  m_interactiveSedReplaceLabel->setText(m_interactiveSedReplacer->currentMatchReplacementConfirmationMessage() + QLatin1String(" (y/n/a/q/l)"));
 }
 
 void KateViEmulatedCommandBar::finishInteractiveSedReplace()

@@ -64,14 +64,14 @@ void KateSpellCheckDialog::createActions( KActionCollection* ac )
     ac->addAction( KStandardAction::Spelling, this, SLOT(spellcheck()) );
 
     QAction *a = new QAction( i18n("Spelling (from cursor)..."), this);
-    ac->addAction("tools_spelling_from_cursor", a );
-    a->setIcon( QIcon::fromTheme( "tools-check-spelling" ) );
+    ac->addAction(QLatin1String("tools_spelling_from_cursor"), a );
+    a->setIcon( QIcon::fromTheme(QLatin1String("tools-check-spelling") ) );
     a->setWhatsThis(i18n("Check the document's spelling from the cursor and forward"));
     connect( a, SIGNAL(triggered()), this, SLOT(spellcheckFromCursor()) );
 
     m_spellcheckSelection = new QAction( i18n("Spellcheck Selection..."), this );
-    ac->addAction("tools_spelling_selection", m_spellcheckSelection);
-    m_spellcheckSelection->setIcon( QIcon::fromTheme( "tools-check-spelling" ) );
+    ac->addAction(QLatin1String("tools_spelling_selection"), m_spellcheckSelection);
+    m_spellcheckSelection->setIcon( QIcon::fromTheme(QLatin1String("tools-check-spelling")) );
     m_spellcheckSelection->setWhatsThis(i18n("Check spelling of the selected text"));
     connect( m_spellcheckSelection, SIGNAL(triggered()), this, SLOT(spellcheckSelection()) );
 }

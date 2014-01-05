@@ -110,7 +110,7 @@ void KateOnTheFlyChecker::clearMisspellingForWord(const QString& word)
 }
 
 const KateOnTheFlyChecker::SpellCheckItem KateOnTheFlyChecker::invalidSpellCheckQueueItem =
-                           SpellCheckItem(NULL, "");
+                           SpellCheckItem(NULL, QString());
 
 void KateOnTheFlyChecker::handleRespellCheckBlock(KateDocument *kateDocument, int start, int end)
 {
@@ -541,10 +541,10 @@ KTextEditor::Range KateOnTheFlyChecker::findWordBoundaries(const KTextEditor::Cu
 {
   // FIXME: QTextBoundaryFinder should be ideally used for this, but it is currently
   //        still broken in Qt
-  const QRegExp boundaryRegExp("\\b");
-  const QRegExp boundaryQuoteRegExp("\\b\\w+'\\w*$");  // handle spell checking of "isn't", "doesn't", etc.
-  const QRegExp extendedBoundaryRegExp("(\\W|$)");
-  const QRegExp extendedBoundaryQuoteRegExp("^\\w*'\\w+\\b"); // see above
+  const QRegExp boundaryRegExp(QLatin1String("\\b"));
+  const QRegExp boundaryQuoteRegExp(QLatin1String("\\b\\w+'\\w*$"));  // handle spell checking of QLatin1String("isn't"), QLatin1String("doesn't"), etc.
+  const QRegExp extendedBoundaryRegExp(QLatin1String("(\\W|$)"));
+  const QRegExp extendedBoundaryQuoteRegExp(QLatin1String("^\\w*'\\w+\\b")); // see above
   KateDocument::OffsetList decToEncOffsetList, encToDecOffsetList;
   const int startLine = begin.line();
   const int startColumn = begin.column();

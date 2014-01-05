@@ -153,7 +153,7 @@ bool KateGlobalConfig::setFallbackEncoding (const QString &encoding)
     return false;
 
   configStart ();
-  m_fallbackEncoding = codec->name();
+  m_fallbackEncoding = QString::fromLatin1(codec->name());
   configEnd ();
   return true;
 }
@@ -360,9 +360,9 @@ void KateDocumentConfig::readConfig (const KConfigGroup &config)
 
   setSearchDirConfigDepth (config.readEntry(KEY_SEARCH_DIR_CONFIG_DEPTH, 9));
 
-  setBackupPrefix (config.readEntry(KEY_BACKUP_PREFIX, QString ("")));
+  setBackupPrefix (config.readEntry(KEY_BACKUP_PREFIX, QString()));
 
-  setBackupSuffix (config.readEntry(KEY_BACKUP_SUFFIX, QString ("~")));
+  setBackupSuffix (config.readEntry(KEY_BACKUP_SUFFIX, QString::fromLatin1("~")));
 
   setSwapFileMode (config.readEntry(KEY_SWAP_FILE_MODE, (uint)EnableSwapFile));
   setSwapDirectory (config.readEntry(KEY_SWAP_DIRECTORY, QString()));
@@ -865,7 +865,7 @@ bool KateDocumentConfig::setEncoding (const QString &encoding)
 
   configStart ();
   m_encodingSet = true;
-  m_encoding = codec->name();
+  m_encoding = QString::fromLatin1(codec->name());
 
   if (isGlobal())
     KateGlobal::self()->setDefaultEncoding (m_encoding);
@@ -890,13 +890,13 @@ int KateDocumentConfig::eol () const
 QString KateDocumentConfig::eolString ()
 {
   if (eol() == KateDocumentConfig::eolUnix)
-    return QString ("\n");
+    return QString (QLatin1String("\n"));
   else if (eol() == KateDocumentConfig::eolDos)
-    return QString ("\r\n");
+    return QString (QLatin1String("\r\n"));
   else if (eol() == KateDocumentConfig::eolMac)
-    return QString ("\r");
+    return QString (QLatin1String("\r"));
 
-  return QString ("\n");
+  return QString (QLatin1String("\n"));
 }
 
 void KateDocumentConfig::setEol (int mode)
@@ -2206,7 +2206,7 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   mark[6] = Qt::red;
 
   for (int i = 1; i <= KTextEditor::MarkInterface::reservedMarkersCount(); i++) {
-    QColor col = config.readEntry(QString("Color MarkType %1").arg(i), mark[i - 1]);
+    QColor col = config.readEntry(QString::fromLatin1("Color MarkType %1").arg(i), mark[i - 1]);
     int index = i-1;
     m_lineMarkerColorSet[index] = true;
     m_lineMarkerColor[index] = col;
@@ -2219,16 +2219,16 @@ void KateRendererConfig::setSchemaInternal( const QString &schema )
   m_fontSet = true;
 
   QColor c = schemeWindow.background().color();
-  m_templateBackgroundColor = config.readEntry(QString("Color Template Background"), c);
+  m_templateBackgroundColor = config.readEntry(QLatin1String("Color Template Background"), c);
 
   c = schemeView.background(KColorScheme::PositiveBackground).color();
-  m_templateFocusedEditablePlaceholderColor = config.readEntry(QString("Color Template Focused Editable Placeholder"), c);
+  m_templateFocusedEditablePlaceholderColor = config.readEntry(QLatin1String("Color Template Focused Editable Placeholder"), c);
 
   c = schemeWindow.background(KColorScheme::PositiveBackground).color();
-  m_templateEditablePlaceholderColor = config.readEntry(QString("Color Template Editable Placeholder"), c);
+  m_templateEditablePlaceholderColor = config.readEntry(QLatin1String("Color Template Editable Placeholder"), c);
 
   c = schemeView.background(KColorScheme::NegativeBackground).color();
-  m_templateNotEditablePlaceholderColor = config.readEntry(QString("Color Template Not Editable Placeholder"), c);
+  m_templateNotEditablePlaceholderColor = config.readEntry(QLatin1String("Color Template Not Editable Placeholder"), c);
 
   m_templateColorsSet=true;
 }

@@ -72,9 +72,9 @@ bool KateGlobal::unitTestMode()
 
 KateGlobal::KateGlobal (QPointer<KateGlobal> &staticInstance)
  : KTextEditor::Editor (0)
- , m_aboutData (QString ("katepart"), QString(), i18n("Kate Part"), QLatin1String (KATE_VERSION),
+ , m_aboutData (QLatin1String("katepart"), QString(), i18n("Kate Part"), QLatin1String (KATE_VERSION),
              i18n( "Embeddable editor component" ), KAboutData::License_LGPL_V2,
-             i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QString ("http://www.kate-editor.org"))
+             i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QLatin1String("http://www.kate-editor.org"))
  , m_snippetGlobal (0) // lazy constructed
  , m_sessionConfig (KSharedConfig::openConfig())
  , m_application (nullptr)
@@ -99,48 +99,48 @@ KateGlobal::KateGlobal (QPointer<KateGlobal> &staticInstance)
   //
   // fill about data
   //
-  m_aboutData.setProgramIconName("preferences-plugin");
-  m_aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), "cullmann@kde.org", "http://www.cullmann.io");
-  m_aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Core Developer"), "dhaumann@kde.org");
-  m_aboutData.addAuthor (i18n("Milian Wolff"), i18n("Core Developer"), "mail@milianw.de", "http://milianw.de");
-  m_aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), "jowenn@kde.org","http://stud3.tuwien.ac.at/~e9925371");
-  m_aboutData.addAuthor (i18n("Erlend Hamberg"), i18n("Vi Input Mode"), "ehamberg@gmail.com", "http://hamberg.no/erlend");
-  m_aboutData.addAuthor (i18n("Bernhard Beschow"), i18n("Developer"), "bbeschow@cs.tu-berlin.de", "https://user.cs.tu-berlin.de/~bbeschow");
-  m_aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), "anders@alweb.dk", "http://www.alweb.dk");
-  m_aboutData.addAuthor (i18n("Michel Ludwig"), i18n("On-the-fly spell checking"), "michel.ludwig@kdemail.net");
-  m_aboutData.addAuthor (i18n("Pascal Létourneau"), i18n("Large scale bug fixing"), "pascal.letourneau@gmail.com");
-  m_aboutData.addAuthor (i18n("Hamish Rodda"), i18n("Core Developer"), "rodda@kde.org");
-  m_aboutData.addAuthor (i18n("Waldo Bastian"), i18n( "The cool buffersystem" ), "bastian@kde.org" );
-  m_aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), "charles@kde.org");
-  m_aboutData.addAuthor (i18n("Matt Newell"), i18n("Testing, ..."), "newellm@proaxis.com");
-  m_aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), "michael.bartl1@chello.at");
-  m_aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), "gholam@xtra.co.nz");
-  m_aboutData.addAuthor (i18n("Michael Koch"), i18n("KWrite port to KParts"), "koch@kde.org");
-  m_aboutData.addAuthor (i18n("Christian Gebauer"), QString(), "gebauer@kde.org" );
-  m_aboutData.addAuthor (i18n("Simon Hausmann"), QString(), "hausmann@kde.org" );
-  m_aboutData.addAuthor (i18n("Glen Parker"), i18n("KWrite Undo History, Kspell integration"), "glenebob@nwlink.com");
-  m_aboutData.addAuthor (i18n("Scott Manson"), i18n("KWrite XML Syntax highlighting support"), "sdmanson@alltel.net");
-  m_aboutData.addAuthor (i18n("John Firebaugh"), i18n("Patches and more"), "jfirebaugh@kde.org");
-  m_aboutData.addAuthor (i18n("Andreas Kling"), i18n("Developer"), "kling@impul.se");
-  m_aboutData.addAuthor (i18n("Mirko Stocker"), i18n("Various bugfixes"), "me@misto.ch", "http://misto.ch/");
-  m_aboutData.addAuthor (i18n("Matthew Woehlke"), i18n("Selection, KColorScheme integration"), "mw_triad@users.sourceforge.net");
-  m_aboutData.addAuthor (i18n("Sebastian Pipping"), i18n("Search bar back- and front-end"), "webmaster@hartwork.org", "http://www.hartwork.org/");
-  m_aboutData.addAuthor (i18n("Jochen Wilhelmy"), i18n( "Original KWrite Author" ), "digisnap@cs.tu-berlin.de" );
-  m_aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), "oss@senarclens.eu", "http://find-santa.eu/");
+  m_aboutData.setProgramIconName(QLatin1String("preferences-plugin"));
+  m_aboutData.addAuthor (i18n("Christoph Cullmann"), i18n("Maintainer"), QLatin1String("cullmann@kde.org"), QLatin1String("http://www.cullmann.io"));
+  m_aboutData.addAuthor (i18n("Dominik Haumann"), i18n("Core Developer"), QLatin1String("dhaumann@kde.org"));
+  m_aboutData.addAuthor (i18n("Milian Wolff"), i18n("Core Developer"), QLatin1String("mail@milianw.de"), QLatin1String("http://milianw.de"));
+  m_aboutData.addAuthor (i18n("Joseph Wenninger"), i18n("Core Developer"), QLatin1String("jowenn@kde.org"), QLatin1String("http://stud3.tuwien.ac.at/~e9925371"));
+  m_aboutData.addAuthor (i18n("Erlend Hamberg"), i18n("Vi Input Mode"), QLatin1String("ehamberg@gmail.com"), QLatin1String("http://hamberg.no/erlend"));
+  m_aboutData.addAuthor (i18n("Bernhard Beschow"), i18n("Developer"), QLatin1String("bbeschow@cs.tu-berlin.de"), QLatin1String("https://user.cs.tu-berlin.de/~bbeschow"));
+  m_aboutData.addAuthor (i18n("Anders Lund"), i18n("Core Developer"), QLatin1String("anders@alweb.dk"), QLatin1String("http://www.alweb.dk"));
+  m_aboutData.addAuthor (i18n("Michel Ludwig"), i18n("On-the-fly spell checking"), QLatin1String("michel.ludwig@kdemail.net"));
+  m_aboutData.addAuthor (i18n("Pascal Létourneau"), i18n("Large scale bug fixing"), QLatin1String("pascal.letourneau@gmail.com"));
+  m_aboutData.addAuthor (i18n("Hamish Rodda"), i18n("Core Developer"), QLatin1String("rodda@kde.org"));
+  m_aboutData.addAuthor (i18n("Waldo Bastian"), i18n("The cool buffersystem"), QLatin1String("bastian@kde.org") );
+  m_aboutData.addAuthor (i18n("Charles Samuels"), i18n("The Editing Commands"), QLatin1String("charles@kde.org"));
+  m_aboutData.addAuthor (i18n("Matt Newell"), i18n("Testing, ..."), QLatin1String("newellm@proaxis.com"));
+  m_aboutData.addAuthor (i18n("Michael Bartl"), i18n("Former Core Developer"), QLatin1String("michael.bartl1@chello.at"));
+  m_aboutData.addAuthor (i18n("Michael McCallum"), i18n("Core Developer"), QLatin1String("gholam@xtra.co.nz"));
+  m_aboutData.addAuthor (i18n("Michael Koch"), i18n("KWrite port to KParts"), QLatin1String("koch@kde.org"));
+  m_aboutData.addAuthor (i18n("Christian Gebauer"), QString(), QLatin1String("gebauer@kde.org") );
+  m_aboutData.addAuthor (i18n("Simon Hausmann"), QString(), QLatin1String("hausmann@kde.org") );
+  m_aboutData.addAuthor (i18n("Glen Parker"), i18n("KWrite Undo History, Kspell integration"), QLatin1String("glenebob@nwlink.com"));
+  m_aboutData.addAuthor (i18n("Scott Manson"), i18n("KWrite XML Syntax highlighting support"), QLatin1String("sdmanson@alltel.net"));
+  m_aboutData.addAuthor (i18n("John Firebaugh"), i18n("Patches and more"), QLatin1String("jfirebaugh@kde.org"));
+  m_aboutData.addAuthor (i18n("Andreas Kling"), i18n("Developer"), QLatin1String("kling@impul.se"));
+  m_aboutData.addAuthor (i18n("Mirko Stocker"), i18n("Various bugfixes"), QLatin1String("me@misto.ch"), QLatin1String("http://misto.ch/"));
+  m_aboutData.addAuthor (i18n("Matthew Woehlke"), i18n("Selection, KColorScheme integration"), QLatin1String("mw_triad@users.sourceforge.net"));
+  m_aboutData.addAuthor (i18n("Sebastian Pipping"), i18n("Search bar back- and front-end"), QLatin1String("webmaster@hartwork.org"), QLatin1String("http://www.hartwork.org/"));
+  m_aboutData.addAuthor (i18n("Jochen Wilhelmy"), i18n("Original KWrite Author"), QLatin1String("digisnap@cs.tu-berlin.de") );
+  m_aboutData.addAuthor (i18n("Gerald Senarclens de Grancy"), i18n("QA and Scripting"), QLatin1String("oss@senarclens.eu"), QLatin1String("http://find-santa.eu/"));
 
-  m_aboutData.addCredit (i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), "merlim@libero.it");
-  m_aboutData.addCredit (i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), "rocky@purdue.edu");
-  m_aboutData.addCredit (i18n("Yury Lebedev"), i18n("Highlighting for SQL"),"");
-  m_aboutData.addCredit (i18n("Chris Ross"), i18n("Highlighting for Ferite"),"");
-  m_aboutData.addCredit (i18n("Nick Roux"), i18n("Highlighting for ILERPG"),"");
-  m_aboutData.addCredit (i18n("Carsten Niehaus"), i18n("Highlighting for LaTeX"),"");
-  m_aboutData.addCredit (i18n("Per Wigren"), i18n("Highlighting for Makefiles, Python"),"");
-  m_aboutData.addCredit (i18n("Jan Fritz"), i18n("Highlighting for Python"),"");
+  m_aboutData.addCredit (i18n("Matteo Merli"), i18n("Highlighting for RPM Spec-Files, Perl, Diff and more"), QLatin1String("merlim@libero.it"));
+  m_aboutData.addCredit (i18n("Rocky Scaletta"), i18n("Highlighting for VHDL"), QLatin1String("rocky@purdue.edu"));
+  m_aboutData.addCredit (i18n("Yury Lebedev"), i18n("Highlighting for SQL"),QString());
+  m_aboutData.addCredit (i18n("Chris Ross"), i18n("Highlighting for Ferite"),QString());
+  m_aboutData.addCredit (i18n("Nick Roux"), i18n("Highlighting for ILERPG"),QString());
+  m_aboutData.addCredit (i18n("Carsten Niehaus"), i18n("Highlighting for LaTeX"),QString());
+  m_aboutData.addCredit (i18n("Per Wigren"), i18n("Highlighting for Makefiles, Python"),QString());
+  m_aboutData.addCredit (i18n("Jan Fritz"), i18n("Highlighting for Python"),QString());
   m_aboutData.addCredit (i18n("Daniel Naber"));
-  m_aboutData.addCredit (i18n("Roland Pabel"), i18n("Highlighting for Scheme"),"");
-  m_aboutData.addCredit (i18n("Cristi Dumitrescu"), i18n("PHP Keyword/Datatype list"),"");
-  m_aboutData.addCredit (i18n("Carsten Pfeiffer"), i18n("Very nice help"), "");
-  m_aboutData.addCredit (i18n("Bruno Massa"), i18n("Highlighting for Lua"), "brmassa@gmail.com");
+  m_aboutData.addCredit (i18n("Roland Pabel"), i18n("Highlighting for Scheme"),QString());
+  m_aboutData.addCredit (i18n("Cristi Dumitrescu"), i18n("PHP Keyword/Datatype list"),QString());
+  m_aboutData.addCredit (i18n("Carsten Pfeiffer"), i18n("Very nice help"), QString());
+  m_aboutData.addCredit (i18n("Bruno Massa"), i18n("Highlighting for Lua"), QLatin1String("brmassa@gmail.com"));
 
   m_aboutData.addCredit (i18n("All people who have contributed and I have forgotten to mention"));
 
@@ -413,10 +413,10 @@ QString KateGlobal::configPageName (int number) const
       return i18n ("Extensions");
 
     default:
-      return QString ("");
+      return QString();
   }
 
-  return QString ("");
+  return QString();
 }
 
 QString KateGlobal::configPageFullName (int number) const
@@ -439,10 +439,10 @@ QString KateGlobal::configPageFullName (int number) const
       return i18n ("Extensions Manager");
 
     default:
-      return QString ("");
+      return QString();
   }
 
-  return QString ("");
+  return QString();
 }
 
 QIcon KateGlobal::configPageIcon (int number) const

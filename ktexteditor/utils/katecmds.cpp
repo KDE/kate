@@ -53,13 +53,13 @@ static bool getBoolArg( const QString &t, bool *val  )
 {
   bool res( false );
   QString s = t.toLower();
-  res = (s == "on" || s == "1" || s == "true");
+  res = (s == QLatin1String("on") || s == QLatin1String("1") || s == QLatin1String("true"));
   if ( res )
   {
     *val = true;
     return true;
   }
-  res = (s == "off" || s == "0" || s == "false");
+  res = (s == QLatin1String("off") || s == QLatin1String("0") || s == QLatin1String("false"));
   if ( res )
   {
     *val = false;
@@ -73,16 +73,16 @@ const QStringList &KateCommands::CoreCommands::cmds()
   static QStringList l;
 
   if (l.isEmpty())
-  l << "indent" << "unindent" << "cleanindent" << "fold" << "tfold" << "unfold"
-    << "comment" << "uncomment" << "goto" << "kill-line"
-    << "set-tab-width" << "set-replace-tabs" << "set-show-tabs"
-    << "set-indent-width"
-    << "set-indent-mode" << "set-auto-indent"
-    << "set-line-numbers" << "set-folding-markers" << "set-icon-border"
-    << "set-indent-pasted-text" << "set-word-wrap" << "set-word-wrap-column"
-    << "set-replace-tabs-save" << "set-remove-trailing-spaces"
-    << "set-highlight" << "set-mode" << "set-show-indent"
-    << "print";
+  l << QLatin1String("indent") << QLatin1String("unindent") << QLatin1String("cleanindent") << QLatin1String("fold") << QLatin1String("tfold") << QLatin1String("unfold")
+    << QLatin1String("comment") << QLatin1String("uncomment") << QLatin1String("goto") << QLatin1String("kill-line")
+    << QLatin1String("set-tab-width") << QLatin1String("set-replace-tabs") << QLatin1String("set-show-tabs")
+    << QLatin1String("set-indent-width")
+    << QLatin1String("set-indent-mode") << QLatin1String("set-auto-indent")
+    << QLatin1String("set-line-numbers") << QLatin1String("set-folding-markers") << QLatin1String("set-icon-border")
+    << QLatin1String("set-indent-pasted-text") << QLatin1String("set-word-wrap") << QLatin1String("set-word-wrap-column")
+    << QLatin1String("set-replace-tabs-save") << QLatin1String("set-remove-trailing-spaces")
+    << QLatin1String("set-highlight") << QLatin1String("set-mode") << QLatin1String("set-show-indent")
+    << QLatin1String("print");
 
   return l;
 }
@@ -90,56 +90,56 @@ const QStringList &KateCommands::CoreCommands::cmds()
 bool KateCommands::CoreCommands::help(KTextEditor::View *, const QString &cmd, QString &msg)
 {
   QString realcmd=cmd.trimmed();
-  if (realcmd=="indent") {
+  if (realcmd == QLatin1String("indent")) {
     msg=i18n("<p>indent</p>"
       "<p>Indents the selected lines or the current line</p>");
     return true;
-  } else   if (realcmd=="unindent") {
+  } else   if (realcmd == QLatin1String("unindent")) {
     msg=i18n("<p>unindent</p>"
       "<p>Unindents the selected lines or current line.</p>");
     return true;
-  } else   if (realcmd=="cleanindent") {
+  } else   if (realcmd == QLatin1String("cleanindent")) {
     msg=i18n("<p>cleanindent</p>"
       "<p>Cleans up the indentation of the selected lines or current line according to the indentation settings in the document. </p>");
     return true;
-  } else   if (realcmd=="comment") {
+  } else   if (realcmd == QLatin1String("comment")) {
     msg=i18n("<p>comment</p>"
       "<p>Inserts comment markers to make the selection or selected lines or current line a comment according to the text format as defined by the syntax highlight definition for the document.</p>");
     return true;
-  } else   if (realcmd=="uncomment") {
+  } else   if (realcmd == QLatin1String("uncomment")) {
     msg=i18n("<p>uncomment</p>"
       "<p>Removes comment markers from the selection or selected lines or current line according to the text format as defined by the syntax highlight definition for the document.</p>");
     return true;
-  } else   if (realcmd=="goto") {
+  } else   if (realcmd == QLatin1String("goto")) {
     msg=i18n("<p>goto <b>line number</b></p>"
       "<p>This command navigates to the specified line number.</p>");
     return true;
-  } else   if (realcmd=="set-indent-pasted-text") {
+  } else   if (realcmd == QLatin1String("set-indent-pasted-text")) {
     msg=i18n("<p>set-indent-pasted-text <b>enable</b></p>"
       "<p>If enabled, indentation of text pasted from the clipboard is adjusted using the current indenter.</p>"
       "<p>Possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="kill-line") {
+  } else   if (realcmd == QLatin1String("kill-line")) {
     msg=i18n("Deletes the current line.");
     return true;
-  } else   if (realcmd=="set-tab-width") {
+  } else   if (realcmd == QLatin1String("set-tab-width")) {
     msg=i18n("<p>set-tab-width <b>width</b></p>"
       "<p>Sets the tab width to the number <b>width</b></p>");
     return true;
-  } else   if (realcmd=="set-replace-tab") {
+  } else   if (realcmd == QLatin1String("set-replace-tab")) {
     msg=i18n("<p>set-replace-tab <b>enable</b></p>"
       "<p>If enabled, tabs are replaced with spaces as you type.</p>"
       "<p>Possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-show-tabs") {
+  } else   if (realcmd == QLatin1String("set-show-tabs")) {
     msg=i18n("<p>set-show-tabs <b>enable</b></p>"
       "<p>If enabled, TAB characters and trailing whitespace will be visualized by a small dot.</p>"
       "<p>Possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-remove-trailing-spaces") {
+  } else   if (realcmd == QLatin1String("set-remove-trailing-spaces")) {
     msg=i18n("<p>set-remove-trailing-spaces <b>mode</b></p>"
       "<p>Removes the trailing spaces in the document depending on the <b>mode</b>.</p>"
       "<p>Possible values:"
@@ -149,69 +149,69 @@ bool KateCommands::CoreCommands::help(KTextEditor::View *, const QString &cmd, Q
       "<li><b>all</b>: remove trailing spaces in the entire document.</li>"
       "</ul></p>");
     return true;
-  } else   if (realcmd=="set-indent-width") {
+  } else   if (realcmd == QLatin1String("set-indent-width")) {
     msg=i18n("<p>set-indent-width <b>width</b></p>"
       "<p>Sets the indentation width to the number <b>width</b>. Used only if you are indenting with spaces.</p>");
     return true;
-  } else   if (realcmd=="set-indent-mode") {
+  } else   if (realcmd == QLatin1String("set-indent-mode")) {
     msg=i18n("<p>set-indent-mode <b>mode</b></p>"
       "<p>The mode parameter is a value as seen in the Tools - Indentation menu</p>");
     return true;
-  } else   if (realcmd=="set-auto-indent") {
+  } else   if (realcmd == QLatin1String("set-auto-indent")) {
     msg=i18n("<p>set-auto-indent <b>enable</b></p>"
       "<p>Enable or disable autoindentation.</p>"
       "<p>possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-line-numbers") {
+  } else   if (realcmd == QLatin1String("set-line-numbers")) {
     msg=i18n("<p>set-line-numbers <b>enable</b></p>"
       "<p>Sets the visibility of the line numbers pane.</p>"
       "<p> possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-folding-markers") {
+  } else   if (realcmd == QLatin1String("set-folding-markers")) {
     msg=i18n("<p>set-folding-markers <b>enable</b></p>"
       "<p>Sets the visibility of the folding markers pane.</p>"
       "<p> possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-icon-border") {
+  } else   if (realcmd == QLatin1String("set-icon-border")) {
     msg=i18n("<p>set-icon-border <b>enable</b></p>"
       "<p>Sets the visibility of the icon border.</p>"
       "<p> possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-word-wrap") {
+  } else   if (realcmd == QLatin1String("set-word-wrap")) {
     msg=i18n("<p>set-word-wrap <b>enable</b></p>"
       "<p>Enables dynamic word wrap according to <b>enable</b></p>"
       "<p> possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-word-wrap-column") {
+  } else   if (realcmd == QLatin1String("set-word-wrap-column")) {
     msg=i18n("<p>set-word-wrap-column <b>width</b></p>"
       "<p>Sets the line width for hard wrapping to <b>width</b>. This is used if you are having your text wrapped automatically.</p>");
     return true;
-  } else   if (realcmd=="set-replace-tabs-save") {
+  } else   if (realcmd == QLatin1String("set-replace-tabs-save")) {
     msg=i18n("<p>set-replace-tabs-save <b>enable</b></p>"
       "<p>When enabled, tabs will be replaced with whitespace whenever the document is saved.</p>"
       "<p> possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="set-highlight") {
+  } else   if (realcmd == QLatin1String("set-highlight")) {
     msg=i18n("<p>set-highlight <b>highlight</b></p>"
         "<p>Sets the syntax highlighting system for the document. The argument must be a valid highlight name, as seen in the Tools → Highlighting menu. This command provides an autocompletion list for its argument.</p>");
     return true;
-  } else   if (realcmd=="set-mode") {
+  } else   if (realcmd == QLatin1String("set-mode")) {
     msg=i18n("<p>set-mode <b>mode</b></p>"
       "<p>Sets the mode as seen in Tools - Mode</p>");
     return true;
-  } else   if (realcmd=="set-show-indent") {
+  } else   if (realcmd == QLatin1String("set-show-indent")) {
     msg=i18n("<p>set-show-indent <b>enable</b></p>"
       "<p>If enabled, indentation will be visualized by a vertical dotted line.</p>"
       "<p> possible true values: 1 on true<br/>"
       "possible false values: 0 off false</p>");
     return true;
-  } else   if (realcmd=="print") {
+  } else   if (realcmd == QLatin1String("print")) {
     msg=i18n("<p>Open the Print dialog to print the current document.</p>");
     return true;
   } else
@@ -238,11 +238,11 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     KCC_ERR( i18n("Could not access view") );
 
   //create a list of args
-  QStringList args(_cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
+  QStringList args(_cmd.split( QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) ;
   QString cmd ( args.takeFirst() );
 
   // ALL commands that takes no arguments.
-  if ( cmd == "indent" )
+  if ( cmd == QLatin1String("indent") )
   {
     if ( range.isValid() ) {
       v->doc()->editStart();
@@ -255,7 +255,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return true;
   }
-  else if ( cmd == "unindent" )
+  else if ( cmd == QLatin1String("unindent") )
   {
     if ( range.isValid() ) {
       v->doc()->editStart();
@@ -268,7 +268,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return true;
   }
-  else if ( cmd == "cleanindent" )
+  else if ( cmd == QLatin1String("cleanindent") )
   {
     if ( range.isValid() ) {
       v->doc()->editStart();
@@ -281,15 +281,15 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return true;
   }
-  else if ( cmd == "fold" )
+  else if ( cmd == QLatin1String("fold") )
   {
     return (v->textFolding().newFoldingRange (range.isValid() ? range : v->selectionRange(), Kate::TextFolding::Persistent | Kate::TextFolding::Folded) != -1);
   }
-  else if ( cmd == "tfold" )
+  else if ( cmd == QLatin1String("tfold") )
   {
     return (v->textFolding().newFoldingRange (range.isValid() ? range : v->selectionRange(), Kate::TextFolding::Folded) != -1);
   }
-  else if ( cmd == "unfold" )
+  else if ( cmd == QLatin1String("unfold") )
   {
     QVector<QPair<qint64, Kate::TextFolding::FoldingRangeFlags> > startingRanges = v->textFolding().foldingRangesStartingOnLine (v->cursorPosition().line());
     bool unfolded = false;
@@ -300,7 +300,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return unfolded;
   }
-  else if ( cmd == "comment" )
+  else if ( cmd == QLatin1String("comment") )
   {
     if ( range.isValid() ) {
       v->doc()->editStart();
@@ -313,7 +313,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return true;
   }
-  else if ( cmd == "uncomment" )
+  else if ( cmd == QLatin1String("uncomment") )
   {
     if ( range.isValid() ) {
       v->doc()->editStart();
@@ -326,7 +326,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return true;
   }
-  else if ( cmd == "kill-line" )
+  else if ( cmd == QLatin1String("kill-line") )
   {
     if ( range.isValid() ) {
       v->doc()->editStart();
@@ -339,28 +339,28 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
     return true;
   }
-  else if ( cmd == "print" )
+  else if ( cmd == QLatin1String("print") )
   {
     v->doc()->printDialog();
     return true;
   }
 
   // ALL commands that take a string argument
-  else if ( cmd == "set-indent-mode" ||
-            cmd == "set-highlight" ||
-            cmd == "set-mode" )
+  else if ( cmd == QLatin1String("set-indent-mode") ||
+            cmd == QLatin1String("set-highlight") ||
+            cmd == QLatin1String("set-mode") )
   {
     // need at least one item, otherwise args.first() crashes
     if ( ! args.count() )
       KCC_ERR( i18n("Missing argument. Usage: %1 <value>",  cmd ) );
 
-    if ( cmd == "set-indent-mode" )
+    if ( cmd == QLatin1String("set-indent-mode") )
     {
-      v->doc()->config()->setIndentationMode( args.join(" ") );
+      v->doc()->config()->setIndentationMode( args.join(QLatin1String(" ")) );
       v->doc()->rememberUserDidSetIndentationMode ();
       return true;
     }
-    else if ( cmd == "set-highlight" )
+    else if ( cmd == QLatin1String("set-highlight") )
     {
       if ( v->doc()->setHighlightingMode( args.first()) )
       {
@@ -370,7 +370,7 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
 
       KCC_ERR( i18n("No such highlighting '%1'",  args.first() ) );
     }
-    else if ( cmd == "set-mode" )
+    else if ( cmd == QLatin1String("set-mode") )
     {
       if ( v->doc()->setMode( args.first()) )
         return true;
@@ -379,10 +379,10 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     }
   }
   // ALL commands that takes exactly one integer argument.
-  else if ( cmd == "set-tab-width" ||
-            cmd == "set-indent-width" ||
-            cmd == "set-word-wrap-column" ||
-            cmd == "goto" )
+  else if ( cmd == QLatin1String("set-tab-width") ||
+            cmd == QLatin1String("set-indent-width") ||
+            cmd == QLatin1String("set-word-wrap-column") ||
+            cmd == QLatin1String("goto") )
   {
     // find a integer value > 0
     if ( ! args.count() )
@@ -393,27 +393,27 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
       KCC_ERR( i18n("Failed to convert argument '%1' to integer.",
                   args.first() ) );
 
-    if ( cmd == "set-tab-width" )
+    if ( cmd == QLatin1String("set-tab-width") )
     {
       if ( val < 1 )
         KCC_ERR( i18n("Width must be at least 1.") );
       v->doc()->config()->setTabWidth( val );
     }
-    else if ( cmd == "set-indent-width" )
+    else if ( cmd == QLatin1String("set-indent-width") )
     {
       if ( val < 1 )
         KCC_ERR( i18n("Width must be at least 1.") );
       v->doc()->config()->setIndentationWidth( val );
     }
-    else if ( cmd == "set-word-wrap-column" )
+    else if ( cmd == QLatin1String("set-word-wrap-column") )
     {
       if ( val < 2 )
         KCC_ERR( i18n("Column must be at least 1.") );
       v->doc()->setWordWrapAt( val );
     }
-    else if ( cmd == "goto" )
+    else if ( cmd == QLatin1String("goto") )
     {
-      if ( args.first().at(0) == '-' || args.first().at(0) == '+' ) {
+      if ( args.first().at(0) == QLatin1Char('-') || args.first().at(0) == QLatin1Char('+') ) {
         // if the number starts with a minus or plus sign, add/subract the number
         val = v->cursorPosition().line() + val;
       } else {
@@ -434,16 +434,16 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
   }
 
   // ALL commands that takes 1 boolean argument.
-  else if ( cmd == "set-icon-border" ||
-            cmd == "set-folding-markers" ||
-            cmd == "set-indent-pasted-text" ||
-            cmd == "set-line-numbers" ||
-            cmd == "set-replace-tabs" ||
-            cmd == "set-show-tabs" ||
-            cmd == "set-word-wrap" ||
-            cmd == "set-wrap-cursor" ||
-            cmd == "set-replace-tabs-save" ||
-            cmd == "set-show-indent" )
+  else if ( cmd == QLatin1String("set-icon-border") ||
+            cmd == QLatin1String("set-folding-markers") ||
+            cmd == QLatin1String("set-indent-pasted-text") ||
+            cmd == QLatin1String("set-line-numbers") ||
+            cmd == QLatin1String("set-replace-tabs") ||
+            cmd == QLatin1String("set-show-tabs") ||
+            cmd == QLatin1String("set-word-wrap") ||
+            cmd == QLatin1String("set-wrap-cursor") ||
+            cmd == QLatin1String("set-replace-tabs-save") ||
+            cmd == QLatin1String("set-show-indent") )
   {
     if ( ! args.count() )
       KCC_ERR( i18n("Usage: %1 on|off|1|0|true|false",  cmd ) );
@@ -451,23 +451,23 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
     KateDocumentConfig * const config = v->doc()->config();
     if ( getBoolArg( args.first(), &enable ) )
     {
-      if ( cmd == "set-icon-border" )
+      if ( cmd == QLatin1String("set-icon-border") )
         v->setIconBorder( enable );
-      else if (cmd == "set-folding-markers")
+      else if (cmd == QLatin1String("set-folding-markers"))
         v->setFoldingMarkersOn( enable );
-      else if ( cmd == "set-line-numbers" )
+      else if ( cmd == QLatin1String("set-line-numbers") )
         v->setLineNumbersOn( enable );
-      else if ( cmd == "set-show-indent" )
+      else if ( cmd == QLatin1String("set-show-indent") )
         v->renderer()->setShowIndentLines( enable );
-      else if (cmd == "set-indent-pasted-text")
+      else if (cmd == QLatin1String("set-indent-pasted-text"))
         config->setIndentPastedText( enable );
-      else if ( cmd == "set-replace-tabs" )
+      else if ( cmd == QLatin1String("set-replace-tabs") )
         config->setReplaceTabsDyn( enable );
-      else if ( cmd == "set-show-tabs" )
+      else if ( cmd == QLatin1String("set-show-tabs") )
         config->setShowTabs( enable );
-      else if ( cmd == "set-show-trailing-spaces" )
+      else if ( cmd == QLatin1String("set-show-trailing-spaces") )
         config->setShowSpaces( enable );
-      else if ( cmd == "set-word-wrap" )
+      else if ( cmd == QLatin1String("set-word-wrap") )
         v->doc()->setWordWrap( enable );
 
       return true;
@@ -476,15 +476,15 @@ bool KateCommands::CoreCommands::exec(KTextEditor::View *view,
       KCC_ERR( i18n("Bad argument '%1'. Usage: %2 on|off|1|0|true|false",
                  args.first() ,  cmd ) );
   }
-  else if ( cmd == "set-remove-trailing-spaces" ) {
+  else if ( cmd == QLatin1String("set-remove-trailing-spaces") ) {
     // need at least one item, otherwise args.first() crashes
     if ( args.count() != 1 )
       KCC_ERR( i18n("Usage: set-remove-trailing-spaces 0|-|none or 1|+|mod|modified or 2|*|all") );
 
     QString tmp = args.first().toLower().trimmed();
-    if (tmp == "1" || tmp == "modified" || tmp == "mod" || tmp == "+") {
+    if (tmp == QLatin1String("1") || tmp == QLatin1String("modified") || tmp == QLatin1String("mod") || tmp == QLatin1String("+")) {
       v->doc()->config()->setRemoveSpaces(1);
-    } else if (tmp == "2" || tmp == "all" || tmp == "*") {
+    } else if (tmp == QLatin1String("2") || tmp == QLatin1String("all") || tmp == QLatin1String("*")) {
       v->doc()->config()->setRemoveSpaces(2);
     } else {
       v->doc()->config()->setRemoveSpaces(0);
@@ -500,8 +500,8 @@ bool KateCommands::CoreCommands::supportsRange(const QString &range)
   static QStringList l;
 
   if (l.isEmpty())
-  l << "indent" << "unindent" << "cleanindent"
-    << "comment" << "uncomment" << "kill-line" << "fold" << "tfold";
+  l << QLatin1String("indent") << QLatin1String("unindent") << QLatin1String("cleanindent")
+    << QLatin1String("comment") << QLatin1String("uncomment") << QLatin1String("kill-line") << QLatin1String("fold") << QLatin1String("tfold");
 
   return l.contains(range);
 }
@@ -510,7 +510,7 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
 {
   Q_UNUSED(view)
 
-  if ( cmd == "set-highlight" )
+  if ( cmd == QLatin1String("set-highlight") )
   {
     QStringList l;
     for ( int i = 0; i < KateHlManager::self()->highlights(); i++ )
@@ -521,17 +521,17 @@ KCompletion *KateCommands::CoreCommands::completionObject( KTextEditor::View *vi
     co->setIgnoreCase( true );
     return co;
   }
-  else if ( cmd == "set-remove-trailing-spaces" )
+  else if ( cmd == QLatin1String("set-remove-trailing-spaces") )
   {
     QStringList l;
-    l << "none" << "modified" << "all";
+    l << QLatin1String("none") << QLatin1String("modified") << QLatin1String("all");
 
     KateCmdShellCompletion *co = new KateCmdShellCompletion();
     co->setItems( l );
     co->setIgnoreCase( true );
     return co;
   }
-  else if ( cmd == "set-indent-mode" )
+  else if ( cmd == QLatin1String("set-indent-mode") )
   {
     QStringList l = KateAutoIndent::listIdentifiers();
     KateCmdShellCompletion *co = new KateCmdShellCompletion();
@@ -552,8 +552,8 @@ const QStringList &KateCommands::ViCommands::cmds()
   static QStringList l;
 
   if (l.isEmpty())
-  l << mappingCommands() << "d" << "delete" << "j" << "c" << "change" << "<" << ">" << "y" << "yank" <<
-       "ma" << "mark" << "k";
+  l << mappingCommands() << QLatin1String("d") << QLatin1String("delete") << QLatin1String("j") << QLatin1String("c") << QLatin1String("change") << QLatin1String("<") << QLatin1String(">") << QLatin1String("y") << QLatin1String("yank") <<
+       QLatin1String("ma") << QLatin1String("mark") << QLatin1String("k");
 
   return l;
 }
@@ -580,14 +580,14 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
   }
 
   //create a list of args
-  QStringList args(_cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
+  QStringList args(_cmd.split( QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) ;
   QString cmd ( args.takeFirst() );
 
 
   // ALL commands that takes no arguments.
   if (mappingCommands().contains(cmd))
   {
-    if (cmd.endsWith("unmap"))
+    if (cmd.endsWith(QLatin1String("unmap")))
     {
       if (args.count() == 1)
       {
@@ -621,9 +621,9 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
 
   KateViNormalMode* nm = v->getViInputModeManager()->getViNormalMode();
 
-  if (cmd == "d" || cmd == "delete" || cmd == "j" ||
-      cmd == "c" || cmd == "change" ||  cmd == "<" || cmd == ">" ||
-      cmd == "y" || cmd == "yank") {
+  if (cmd == QLatin1String("d") || cmd == QLatin1String("delete") || cmd == QLatin1String("j") ||
+      cmd == QLatin1String("c") || cmd == QLatin1String("change") ||  cmd == QLatin1String("<") || cmd == QLatin1String(">") ||
+      cmd == QLatin1String("y") || cmd == QLatin1String("yank")) {
 
     KTextEditor::Cursor start_cursor_position = v->cursorPosition();
 
@@ -634,29 +634,29 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
                                                       range.end().line()),0));
     }
 
-    QRegExp number("^(\\d+)$");
+    QRegExp number(QLatin1String("^(\\d+)$"));
     for (int i = 0; i < args.count(); i++) {
         if (number.indexIn(args.at(i)) != -1)
             count += number.cap().toInt() - 1;
 
         QChar r = args.at(i).at(0);
-        if (args.at(i).size() == 1 && ( (r >= 'a' && r <= 'z') || r == '_' || r == '+' || r == '*' ))
+        if (args.at(i).size() == 1 && ( (r >= QLatin1Char('a') && r <= QLatin1Char('z')) || r == QLatin1Char('_') || r == QLatin1Char('+') || r == QLatin1Char('*') ))
                 nm->setRegister(r);
     }
 
     nm->setCount(count);
 
-    if (cmd == "d" || cmd == "delete" )
+    if (cmd == QLatin1String("d") || cmd == QLatin1String("delete") )
         nm->commandDeleteLine();
-    if (cmd == "j")
+    if (cmd == QLatin1String("j"))
         nm->commandJoinLines();
-    if (cmd == "c" || cmd == "change" )
+    if (cmd == QLatin1String("c") || cmd == QLatin1String("change") )
         nm->commandChangeLine();
-    if (cmd == "<")
+    if (cmd == QLatin1String("<"))
         nm->commandUnindentLine();
-    if (cmd == ">")
+    if (cmd == QLatin1String(">"))
         nm->commandIndentLine();
-    if (cmd == "y" || cmd == "yank" ){
+    if (cmd == QLatin1String("y") || cmd == QLatin1String("yank") ){
         nm->commandYankLine();
         v->setCursorPosition(start_cursor_position);
     }
@@ -668,9 +668,9 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
     return true;
   }
 
-  if (cmd == "mark" || cmd == "ma" || cmd == "k" ) {
+  if (cmd == QLatin1String("mark") || cmd == QLatin1String("ma") || cmd == QLatin1String("k") ) {
       if (args.count() == 0){
-          if (cmd == "mark"){
+          if (cmd == QLatin1String("mark")){
               // TODO: show up mark list;
           } else {
               msg = i18n("Wrong arguments");
@@ -680,7 +680,7 @@ bool KateCommands::ViCommands::exec(KTextEditor::View *view,
 
         QChar r = args.at(0).at(0);
         int line;
-        if ( (r >= 'a' && r <= 'z') || r == '_' || r == '+' || r == '*' ) {
+        if ( (r >= QLatin1Char('a') && r <= QLatin1Char('z')) || r == QLatin1Char('_') || r == QLatin1Char('+') || r == QLatin1Char('*') ) {
             if (range.isValid())
                 line = qMax(range.end().line(),range.start().line());
             else
@@ -705,10 +705,10 @@ bool KateCommands::ViCommands::supportsRange(const QString &range)
   static QStringList l;
 
   if (l.isEmpty())
-  l << "d" << "delete" << "j" << "c" << "change" << "<" <<
-       ">" << "y" << "yank" << "ma" << "mark" << "k";
+  l << QLatin1String("d") << QLatin1String("delete") << QLatin1String("j") << QLatin1String("c") << QLatin1String("change") << QLatin1String("<") <<
+       QLatin1String(">") << QLatin1String("y") << QLatin1String("yank") << QLatin1String("ma") << QLatin1String("mark") << QLatin1String("k");
 
-  return l.contains(range.split(" ").at(0));
+  return l.contains(range.split(QLatin1String(" ")).at(0));
 }
 
 KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view, const QString &cmd )
@@ -717,7 +717,7 @@ KCompletion *KateCommands::ViCommands::completionObject( KTextEditor::View *view
 
   KateView *v = static_cast<KateView*>(view);
 
-  if ( v && ( cmd == "nn" || cmd == "nnoremap" ) )
+  if ( v && ( cmd == QLatin1String("nn") || cmd == QLatin1String("nnoremap") ) )
   {
     QStringList l = KateGlobal::self()->viInputModeGlobal()->getMappings( KateViGlobal::NormalModeMapping );
 
@@ -734,12 +734,12 @@ const QStringList& KateCommands::ViCommands::mappingCommands()
   static QStringList mappingsCommands;
   if (mappingsCommands.isEmpty())
   {
-    mappingsCommands << "nmap"  << "nm"  << "noremap" << "nnoremap" << "nn" << "no"
-                     << "vmap" << "vm" << "vnoremap" << "vn"
-                     << "imap" << "im" << "inoremap" << "ino"
-                     << "cmap" << "cm" << "cnoremap" << "cno";
+    mappingsCommands << QLatin1String("nmap")  << QLatin1String("nm")  << QLatin1String("noremap") << QLatin1String("nnoremap") << QLatin1String("nn") << QLatin1String("no")
+                     << QLatin1String("vmap") << QLatin1String("vm") << QLatin1String("vnoremap") << QLatin1String("vn")
+                     << QLatin1String("imap") << QLatin1String("im") << QLatin1String("inoremap") << QLatin1String("ino")
+                     << QLatin1String("cmap") << QLatin1String("cm") << QLatin1String("cnoremap") << QLatin1String("cno");
 
-    mappingsCommands << "nunmap" << "vunmap" << "iunmap" << "cunmap";
+    mappingsCommands << QLatin1String("nunmap") << QLatin1String("vunmap") << QLatin1String("iunmap") << QLatin1String("cunmap");
   }
   return mappingsCommands;
 }
@@ -750,23 +750,23 @@ KateViGlobal::MappingMode KateCommands::ViCommands::modeForMapCommand(const QStr
   if (modeForMapCommand.isEmpty())
   {
     // Normal is the default.
-    modeForMapCommand.insert("vmap", KateViGlobal::VisualModeMapping);
-    modeForMapCommand.insert("vm", KateViGlobal::VisualModeMapping);
-    modeForMapCommand.insert("vnoremap", KateViGlobal::VisualModeMapping);
-    modeForMapCommand.insert("vn", KateViGlobal::VisualModeMapping);
-    modeForMapCommand.insert("imap", KateViGlobal::InsertModeMapping);
-    modeForMapCommand.insert("im", KateViGlobal::InsertModeMapping);
-    modeForMapCommand.insert("inoremap", KateViGlobal::InsertModeMapping);
-    modeForMapCommand.insert("ino", KateViGlobal::InsertModeMapping);
-    modeForMapCommand.insert("cmap", KateViGlobal::CommandModeMapping);
-    modeForMapCommand.insert("cm", KateViGlobal::CommandModeMapping);
-    modeForMapCommand.insert("cnoremap", KateViGlobal::CommandModeMapping);
-    modeForMapCommand.insert("cno", KateViGlobal::CommandModeMapping);
+    modeForMapCommand.insert(QLatin1String("vmap"), KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert(QLatin1String("vm"), KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert(QLatin1String("vnoremap"), KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert(QLatin1String("vn"), KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert(QLatin1String("imap"), KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert(QLatin1String("im"), KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert(QLatin1String("inoremap"), KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert(QLatin1String("ino"), KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert(QLatin1String("cmap"), KateViGlobal::CommandModeMapping);
+    modeForMapCommand.insert(QLatin1String("cm"), KateViGlobal::CommandModeMapping);
+    modeForMapCommand.insert(QLatin1String("cnoremap"), KateViGlobal::CommandModeMapping);
+    modeForMapCommand.insert(QLatin1String("cno"), KateViGlobal::CommandModeMapping);
 
-    modeForMapCommand.insert("nunmap", KateViGlobal::NormalModeMapping);
-    modeForMapCommand.insert("vunmap", KateViGlobal::VisualModeMapping);
-    modeForMapCommand.insert("iunmap", KateViGlobal::InsertModeMapping);
-    modeForMapCommand.insert("cunmap", KateViGlobal::CommandModeMapping);
+    modeForMapCommand.insert(QLatin1String("nunmap"), KateViGlobal::NormalModeMapping);
+    modeForMapCommand.insert(QLatin1String("vunmap"), KateViGlobal::VisualModeMapping);
+    modeForMapCommand.insert(QLatin1String("iunmap"), KateViGlobal::InsertModeMapping);
+    modeForMapCommand.insert(QLatin1String("cunmap"), KateViGlobal::CommandModeMapping);
   }
   return modeForMapCommand[mapCommand];
 }
@@ -775,14 +775,14 @@ bool KateCommands::ViCommands::isMapCommandRecursive(const QString& mapCommand)
 {
   static QMap<QString, bool> isMapCommandRecursive;
   {
-    isMapCommandRecursive.insert("nmap", true);
-    isMapCommandRecursive.insert("nm", true);
-    isMapCommandRecursive.insert("vmap", true);
-    isMapCommandRecursive.insert("vm", true);
-    isMapCommandRecursive.insert("imap", true);
-    isMapCommandRecursive.insert("im", true);
-    isMapCommandRecursive.insert("cmap", true);
-    isMapCommandRecursive.insert("cm", true);
+    isMapCommandRecursive.insert(QLatin1String("nmap"), true);
+    isMapCommandRecursive.insert(QLatin1String("nm"), true);
+    isMapCommandRecursive.insert(QLatin1String("vmap"), true);
+    isMapCommandRecursive.insert(QLatin1String("vm"), true);
+    isMapCommandRecursive.insert(QLatin1String("imap"), true);
+    isMapCommandRecursive.insert(QLatin1String("im"), true);
+    isMapCommandRecursive.insert(QLatin1String("cmap"), true);
+    isMapCommandRecursive.insert(QLatin1String("cm"), true);
   }
   return isMapCommandRecursive[mapCommand];
 }
@@ -796,7 +796,7 @@ KateCommands::AppCommands* KateCommands::AppCommands::m_instance = 0;
 KateCommands::AppCommands::AppCommands()
     : KTextEditor::Command()
 {
-    re_write.setPattern("w"); // temporarily add :w
+    re_write.setPattern(QLatin1String("w")); // temporarily add :w
     //re_write.setPattern("w(a)?");
     //re_quit.setPattern("(w)?q?(a)?");
     //re_exit.setPattern("x(a)?");
@@ -812,7 +812,7 @@ const QStringList& KateCommands::AppCommands::cmds()
     if (l.empty()) {
         //l << "q" << "qa" << "w" << "wq" << "wa" << "wqa" << "x" << "xa"
           //<< "bn" << "bp" << "new" << "vnew" << "e" << "edit" << "enew";
-        l << "w";
+        l << QLatin1String("w");
     }
 
     return l;
@@ -825,9 +825,9 @@ const QStringList& KateCommands::AppCommands::cmds()
 bool KateCommands::AppCommands::exec(KTextEditor::View *view,
                                      const QString &cmd, QString &msg )
 {
-    QStringList args(cmd.split( QRegExp("\\s+"), QString::SkipEmptyParts)) ;
+    QStringList args(cmd.split( QRegExp(QLatin1String("\\s+")), QString::SkipEmptyParts)) ;
     QString command( args.takeFirst() );
-    QString file = args.join(QString(' '));
+    QString file = args.join(QLatin1Char(' '));
 
     if (re_write.exactMatch(command)) { // w, wa
         /*        if (!re_write.cap(1).isEmpty()) { // [a]ll
@@ -881,7 +881,7 @@ static int backslashString(const QString &haystack, const QString &needle, int i
   bool evenCount = true;
   while (index < len)
   {
-    if (haystack[index] == '\\')
+    if (haystack[index] == QLatin1Char('\\'))
     {
       evenCount = !evenCount;
     }
@@ -913,7 +913,7 @@ static void exchangeAbbrevs(QString &str)
     char replace = magic[1];
     while ((index = backslashString(str, QString (QChar::fromLatin1(*magic)), index)) != -1)
     {
-      str.replace(index, 2, QChar(replace));
+      str.replace(index, 2, QChar::fromLatin1(replace));
       ++index;
     }
     ++magic;
@@ -945,9 +945,9 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
   }
 
   const QString searchParamsString = cmd.mid(cmd.lastIndexOf(delimiter));
-  const bool noCase = searchParamsString.contains('i');
-  const bool repeat = searchParamsString.contains('g');
-  const bool interactive = searchParamsString.contains('c');
+  const bool noCase = searchParamsString.contains(QLatin1Char('i'));
+  const bool repeat = searchParamsString.contains(QLatin1Char('g'));
+  const bool interactive = searchParamsString.contains(QLatin1Char('c'));
 
   QString find = cmd.mid(findBeginPos, findEndPos - findBeginPos + 1);
   qCDebug(LOG_PART) << "SedReplace: find =" << find;
@@ -1003,14 +1003,14 @@ bool KateCommands::SedReplace::exec (class KTextEditor::View *view, const QStrin
 bool KateCommands::SedReplace::parse(const QString& sedReplaceString, QString& destDelim, int& destFindBeginPos, int& destFindEndPos, int& destReplaceBeginPos, int& destReplaceEndPos)
 {
   // valid delimiters are all non-word, non-space characters plus '_'
-  QRegExp delim("^s\\s*([^\\w\\s]|_)");
+  QRegExp delim(QLatin1String("^s\\s*([^\\w\\s]|_)"));
   if ( delim.indexIn( sedReplaceString ) < 0 ) return false;
 
   QString d = delim.cap(1);
   qCDebug(LOG_PART) << "SedReplace: delimiter is '" << d << "'";
 
-  QRegExp splitter( QString("^s\\s*") + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)\\"
-      + d + "((?:[^\\\\\\" + d + "]|\\\\.)*)(\\" + d + "[igc]{0,3})?$" );
+  QRegExp splitter( QString::fromLatin1("^s\\s*") + d + QLatin1String("((?:[^\\\\\\") + d + QLatin1String("]|\\\\.)*)\\")
+      + d + QLatin1String("((?:[^\\\\\\") + d + QLatin1String("]|\\\\.)*)(\\") + d + QLatin1String("[igc]{0,3})?$") );
   if (splitter.indexIn(sedReplaceString) < 0) return false;
 
   const QString find = splitter.cap(1);
@@ -1072,14 +1072,14 @@ void KateCommands::SedReplace::InteractiveSedReplacer::replaceCurrentMatch()
   m_doc->editEnd();
 
   // Begin next search from directly after replacement.
-  if (!replacementText.contains('\n'))
+  if (!replacementText.contains(QLatin1Char('\n')))
   {
     m_currentSearchPos = Cursor(currentMatch.start().line(), currentMatch.start().column() + replacementText.length());
   }
   else
   {
-    m_currentSearchPos = Cursor(currentMatch.start().line() + replacementText.count('\n'),
-                                replacementText.length() - replacementText.lastIndexOf('\n') - 1);
+    m_currentSearchPos = Cursor(currentMatch.start().line() + replacementText.count(QLatin1Char('\n')),
+                                replacementText.length() - replacementText.lastIndexOf(QLatin1Char('\n')) - 1);
   }
   if (m_onlyOnePerLine)
   {
@@ -1088,14 +1088,14 @@ void KateCommands::SedReplace::InteractiveSedReplacer::replaceCurrentMatch()
   }
 
   // Adjust end line down by the number of new newlines just added, minus the number taken away.
-  m_endLine += replacementText.count('\n');
-  m_endLine -= currentMatchText.count('\n');
+  m_endLine += replacementText.count(QLatin1Char('\n'));
+  m_endLine -= currentMatchText.count(QLatin1Char('\n'));
 
   m_numReplacementsDone++;
   if (m_lastChangedLineNum != currentMatch.start().line())
   {
     // Counting "swallowed" lines as being "touched".
-    m_numLinesTouched += currentMatchText.count('\n') + 1;
+    m_numLinesTouched += currentMatchText.count(QLatin1Char('\n')) + 1;
   }
   m_lastChangedLineNum = m_currentSearchPos.line();
 }
@@ -1112,7 +1112,7 @@ void KateCommands::SedReplace::InteractiveSedReplacer::replaceAllRemaining()
 
 QString KateCommands::SedReplace::InteractiveSedReplacer::currentMatchReplacementConfirmationMessage()
 {
-  return i18n("replace with %1?", replacementTextForCurrentMatch().replace('\n', "\\n"));
+  return i18n("replace with %1?", replacementTextForCurrentMatch().replace(QLatin1Char('\n'), QLatin1String("\\n")));
 }
 
 QString KateCommands::SedReplace::InteractiveSedReplacer::finalStatusReportMessage()
@@ -1152,7 +1152,7 @@ KateCommands::Character* KateCommands::Character::m_instance = 0;
 
 bool KateCommands::Character::help (class KTextEditor::View *, const QString &cmd, QString &msg)
 {
-      if (cmd.trimmed()=="char") {
+      if (cmd.trimmed()==QLatin1String("char")) {
         msg = i18n("<p> char <b>identifier</b> </p>"
         "<p>This command allows you to insert literal characters by their numerical identifier, in decimal, octal or hexadecimal form.</p>"
           "<p>Examples:<ul>"
@@ -1169,7 +1169,7 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
   QString cmd = _cmd;
 
   // hex, octal, base 9+1
-  QRegExp num("^char *(0?x[0-9A-Fa-f]{1,4}|0[0-7]{1,6}|[0-9]{1,5})$");
+  QRegExp num(QLatin1String("^char *(0?x[0-9A-Fa-f]{1,4}|0[0-7]{1,6}|[0-9]{1,5})$"));
   if (num.indexIn(cmd)==-1) return false;
 
   cmd=num.cap(1);
@@ -1178,12 +1178,12 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
 
   unsigned short int number=0;
   int base=10;
-  if (cmd[0]=='x' || cmd.startsWith(QLatin1String("0x")))
+  if (cmd[0]==QLatin1Char('x') || cmd.startsWith(QLatin1String("0x")))
   {
-    cmd.remove(QRegExp("^0?x"));
+    cmd.remove(QRegExp(QLatin1String("^0?x")));
     base=16;
   }
-  else if (cmd[0]=='0')
+  else if (cmd[0]==QLatin1Char('0'))
     base=8;
   bool ok;
   number=cmd.toUShort(&ok, base);
@@ -1194,7 +1194,7 @@ bool KateCommands::Character::exec (KTextEditor::View *view, const QString &_cmd
     buf[0]=(char)number;
     buf[1]=0;
 
-    view->document()->insertText(view->cursorPosition(), QString(buf));
+    view->document()->insertText(view->cursorPosition(), QString::fromLatin1(buf));
   }
   else
   { // do the unicode thing
@@ -1213,7 +1213,7 @@ KateCommands::Date* KateCommands::Date::m_instance = 0;
 
 bool KateCommands::Date::help (class KTextEditor::View *, const QString &cmd, QString &msg)
 {
-      if (cmd.trimmed()=="date") {
+      if (cmd.trimmed()== QLatin1String("date")) {
         msg = i18n("<p>date or date <b>format</b></p>"
         "<p>Inserts a date/time string as defined by the specified format, or the format yyyy-MM-dd hh:mm:ss if none is specified.</p>"
         "<p>Possible format specifiers are:"
@@ -1251,7 +1251,7 @@ bool KateCommands::Date::exec (KTextEditor::View *view, const QString &cmd, QStr
   if (QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)).length() > 0)
     view->document()->insertText(view->cursorPosition(), QDateTime::currentDateTime().toString(cmd.mid(5, cmd.length()-5)));
   else
-    view->document()->insertText(view->cursorPosition(), QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"));
+    view->document()->insertText(view->cursorPosition(), QDateTime::currentDateTime().toString(QLatin1String("yyyy-MM-dd hh:mm:ss")));
 
   return true;
 }

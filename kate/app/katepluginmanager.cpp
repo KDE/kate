@@ -66,7 +66,13 @@ void KatePluginManager::setupPluginList ()
   {
     KatePluginInfo info;
     info.service = ptr;
-    info.alwaysLoad=info.service->property(QLatin1String("X-Kate-LoadAlways")).toBool();
+    
+    // decide if this is an integral plugin
+    if (info.service->library() == QLatin1String("katefiletreeplugin"))
+      info.alwaysLoad = true;
+    else
+      info.alwaysLoad = false;
+    
     info.load = false;
     info.plugin = 0L;
 
@@ -107,15 +113,11 @@ void KatePluginManager::loadConfig (KConfig* config)
   }
 
   /**
-   * some plugins should be always loaded, like the holy filetree
+   * load plugins, some are always enforced to load!
    */
-  for (int i = 0; i < m_pluginList.size(); ++i)
-    if (m_pluginList[i].service->property(QLatin1String("X-Kate-LoadAlways")).toBool())
-      m_pluginList[i].load = true;
-
   for (KatePluginList::iterator it = m_pluginList.begin();it != m_pluginList.end(); ++it)
   {
-    if (it->load)
+    if (it->load || it->alwaysLoad)
     {
       loadPlugin(&(*it));
 

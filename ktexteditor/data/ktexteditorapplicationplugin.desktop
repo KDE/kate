@@ -3,6 +3,3 @@ Type=ServiceType
 X-KDE-ServiceType=KTextEditor/ApplicationPlugin
 X-KDE-Derived=
 Comment=KTextEditor Application Plugin
-
-[PropertyDef::X-KDE-Version]
-Type=double

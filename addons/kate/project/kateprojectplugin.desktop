@@ -2,8 +2,6 @@
 Type=Service
 ServiceTypes=KTextEditor/ApplicationPlugin
 X-KDE-Library=kateprojectplugin
-X-Kate-Version=2.9
-X-Kate-Load=True
 Name=Project Plugin
 Name[bg]=Приставка за проекти
 Name[bs]=Priključak projekta

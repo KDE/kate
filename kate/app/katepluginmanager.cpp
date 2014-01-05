@@ -107,9 +107,9 @@ void KatePluginManager::loadConfig (KConfig* config)
   if (config) {
     KConfigGroup cg = KConfigGroup(config, QLatin1String("Kate Plugins"));
 
-    // disable all plugin if no config..., beside if marked with load
+    // disable all plugin if no config...
     for (int i = 0; i < m_pluginList.size(); ++i)
-      m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), m_pluginList[i].service->property(QLatin1String("X-Kate-Load")).toBool());
+      m_pluginList[i].load = cg.readEntry (m_pluginList[i].service->library(), false);
   }
 
   /**

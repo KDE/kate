@@ -2,7 +2,6 @@
 Type=Service
 ServiceTypes=KTextEditor/ApplicationPlugin
 X-KDE-Library=katekonsoleplugin
-X-Kate-Version=2.8
 Name=Terminal tool view
 Name[ast]=Vista de la ferramienta de terminal
 Name[bs]=Prikaz terminala

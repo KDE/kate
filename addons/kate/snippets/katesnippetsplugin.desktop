@@ -2,7 +2,6 @@
 Type=Service
 ServiceTypes=KTextEditor/ApplicationPlugin
 X-KDE-Library=katesnippetsplugin
-X-Kate-Version=2.8
 Name=Snippets tool view
 Name[bs]=Pregledač isječaka
 Name[ca]=Vista d'eines de retalls

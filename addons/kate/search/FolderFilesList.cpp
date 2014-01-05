@@ -57,13 +57,13 @@ void FolderFilesList::generateList(const QString &folder,
     m_hidden       = hidden;
     m_symlinks     = symlinks;
     m_binary       = binary;
-    m_types        = types.split(',', QString::SkipEmptyParts);
+    m_types        = types.split(QLatin1Char(','), QString::SkipEmptyParts);
 
     if (m_types.isEmpty()) {
-        m_types << "*";
+        m_types << QLatin1String("*");
     }
 
-    QStringList tmpExcludes = excludes.split(',');
+    QStringList tmpExcludes = excludes.split(QLatin1Char(','));
     m_excludeList.clear();
     for (int i=0; i<tmpExcludes.size(); i++) {
         QRegExp rx(tmpExcludes[i]);

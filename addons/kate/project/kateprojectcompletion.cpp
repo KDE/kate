@@ -62,7 +62,7 @@ QVariant KateProjectCompletion::data(const QModelIndex& index, int role) const
     return m_matches.item ( index.row() )->data (Qt::DisplayRole);
 
   if( index.column() == KTextEditor::CodeCompletionModel::Icon && role == Qt::DecorationRole ) {
-    static QIcon icon(QIcon::fromTheme("insert-text").pixmap(QSize(16, 16)));
+    static QIcon icon(QIcon::fromTheme(QLatin1String("insert-text")).pixmap(QSize(16, 16)));
     return icon;
   }
 
@@ -122,7 +122,7 @@ bool KateProjectCompletion::shouldStartCompletion(KTextEditor::View* view, const
     if (end<0) return false;
     for (int i=start-1;i>=end;i--) {
       QChar c=text.at(i);
-      if (! (c.isLetter() || (c.isNumber()) || c=='_') ) return false;
+      if (! (c.isLetter() || (c.isNumber()) || c==QLatin1Char('_')) ) return false;
     }
 
     return true;
@@ -193,7 +193,7 @@ KTextEditor::Range KateProjectCompletion::completionRange(KTextEditor::View* vie
   while ( col > 0 )
   {
     QChar c = ( doc->characterAt( KTextEditor::Cursor( line, col-1 ) ) );
-    if ( c.isLetterOrNumber() || c.isMark() || c == '_' )
+    if ( c.isLetterOrNumber() || c.isMark() || c == QLatin1Char('_') )
     {
       col--;
       continue;

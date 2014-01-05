@@ -63,7 +63,7 @@ HighlightSelectionPluginView::HighlightSelectionPluginView( KTextEditor::View *v
   : QObject( view )
 //   , KXMLGUIClient( view ) // XMLGUI stuff not needed right now
 {
-  setObjectName("highlight-selection-plugin");
+  setObjectName(QLatin1String("highlight-selection-plugin"));
 
   m_view = view;
 
@@ -142,7 +142,7 @@ void HighlightSelectionPluginView::createHighlights()
   KTextEditor::ConfigInterface* ciface =
     qobject_cast<KTextEditor::ConfigInterface*>(m_view);
   if (ciface) {
-    QColor color = ciface->configValue("search-highlight-color").value<QColor>();
+    QColor color = ciface->configValue(QLatin1String("search-highlight-color")).value<QColor>();
     attr->setBackground(color);
   }
 
@@ -154,10 +154,10 @@ void HighlightSelectionPluginView::createHighlights()
    * fixes $lala hl
    */
   QString regex = QRegExp::escape (m_currentText);
-  if (QRegExp (QString ("\\b%1").arg(regex)).indexIn (QString (" %1 ").arg(m_currentText)) != -1)
-    regex = QString ("\\b%1").arg(regex);
-  if (QRegExp (QString ("%1\\b").arg(regex)).indexIn (QString (" %1 ").arg(m_currentText)) != -1)
-    regex = QString ("%1\\b").arg(regex);
+  if (QRegExp (QString::fromLatin1("\\b%1").arg(regex)).indexIn (QString::fromLatin1(" %1 ").arg(m_currentText)) != -1)
+    regex = QString::fromLatin1("\\b%1").arg(regex);
+  if (QRegExp (QString::fromLatin1("%1\\b").arg(regex)).indexIn (QString::fromLatin1(" %1 ").arg(m_currentText)) != -1)
+    regex = QString::fromLatin1("%1\\b").arg(regex);
 
   QVector<KTextEditor::Range> matches;
   do {

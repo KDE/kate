@@ -46,21 +46,21 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, KTextEd
     , m_plugin (plugin)
     , m_mainWindow (mainWin)
 {
-  KXMLGUIClient::setComponentName ("kateproject", i18n ("Kate Project Manager"));
-  setXMLFile( "ui.rc" );
+  KXMLGUIClient::setComponentName (QLatin1String("kateproject"), i18n ("Kate Project Manager"));
+  setXMLFile( QLatin1String("ui.rc") );
   
   /**
    * create toolviews
    */
-  m_toolView = m_mainWindow->createToolView (m_plugin, "kateproject", KTextEditor::MainWindow::Left, SmallIcon("project-open"), i18n("Projects"));
-  m_toolInfoView = m_mainWindow->createToolView (m_plugin, "kateprojectinfo", KTextEditor::MainWindow::Bottom, SmallIcon("view-choose"), i18n("Current Project"));
+  m_toolView = m_mainWindow->createToolView (m_plugin, QLatin1String("kateproject"), KTextEditor::MainWindow::Left, SmallIcon(QLatin1String("project-open")), i18n("Projects"));
+  m_toolInfoView = m_mainWindow->createToolView (m_plugin, QLatin1String("kateprojectinfo"), KTextEditor::MainWindow::Bottom, SmallIcon(QLatin1String("view-choose")), i18n("Current Project"));
 
   /**
    * create the combo + buttons for the toolViews + stacked widgets
    */
   m_projectsCombo = new QComboBox (m_toolView);
   m_reloadButton = new QToolButton (m_toolView);
-  m_reloadButton->setIcon (SmallIcon("view-refresh"));
+  m_reloadButton->setIcon (SmallIcon(QLatin1String("view-refresh")));
   QHBoxLayout *layout = new QHBoxLayout ();
   layout->setSpacing (0);
   layout->addWidget (m_projectsCombo);
@@ -99,8 +99,8 @@ KateProjectPluginView::KateProjectPluginView( KateProjectPlugin *plugin, KTextEd
   /**
    * back + forward
    */
-  actionCollection()->addAction (KStandardAction::Back, "projects_prev_project", this, SLOT(slotProjectPrev()))->setShortcut (Qt::CTRL | Qt::ALT | Qt::Key_Left);
-  actionCollection()->addAction (KStandardAction::Forward, "projects_next_project", this, SLOT(slotProjectNext()))->setShortcut (Qt::CTRL | Qt::ALT | Qt::Key_Right);
+  actionCollection()->addAction (KStandardAction::Back, QLatin1String("projects_prev_project"), this, SLOT(slotProjectPrev()))->setShortcut (Qt::CTRL | Qt::ALT | Qt::Key_Left);
+  actionCollection()->addAction (KStandardAction::Forward, QLatin1String("projects_next_project"), this, SLOT(slotProjectNext()))->setShortcut (Qt::CTRL | Qt::ALT | Qt::Key_Right);
 
   /**
    * add us to gui
@@ -156,7 +156,7 @@ QPair<KateProjectView *,KateProjectInfoView *> KateProjectPluginView::viewForPro
     */
    m_stackedProjectViews->addWidget (view);
    m_stackedProjectInfoViews->addWidget (infoView);
-   m_projectsCombo->addItem (SmallIcon("project-open"), project->name(), project->fileName());
+   m_projectsCombo->addItem (SmallIcon(QLatin1String("project-open")), project->name(), project->fileName());
 
    /**
     * remember and return it

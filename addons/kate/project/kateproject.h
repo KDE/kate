@@ -150,7 +150,7 @@ class KateProject : public QObject
      */
     QString name () const
     {
-      return m_projectMap["name"].toString ();
+      return m_projectMap[QLatin1String("name")].toString ();
     }
 
     /**

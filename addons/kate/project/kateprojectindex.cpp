@@ -29,7 +29,7 @@
 #include "ctags/readtags.c"
 
 KateProjectIndex::KateProjectIndex (const QStringList &files)
- : m_ctagsIndexFile (QDir::tempPath () + "/kate.project.ctags")
+ : m_ctagsIndexFile (QDir::tempPath () + QLatin1String("/kate.project.ctags"))
  , m_ctagsIndexHandle (0)
 {
   /**
@@ -69,15 +69,15 @@ void KateProjectIndex::loadCtags (const QStringList &files)
    */
   QProcess ctags;
   QStringList args;
-  args << "-L" << "-" << "-f" << m_ctagsIndexFile.fileName() << "--fields=+K+n";
-  ctags.start("ctags", args);
+  args << QLatin1String("-L") << QLatin1String("-") << QLatin1String("-f") << m_ctagsIndexFile.fileName() << QLatin1String("--fields=+K+n");
+  ctags.start(QLatin1String("ctags"), args);
   if (!ctags.waitForStarted())
     return;
   
   /**
    * write files list and close write channel
    */
-  ctags.write(files.join("\n").toLocal8Bit());
+  ctags.write(files.join(QLatin1String("\n")).toLocal8Bit());
   ctags.closeWriteChannel();
     
   /**
@@ -183,7 +183,7 @@ void KateProjectIndex::findMatches (QStandardItemModel &model, const QString &se
         items << new QStandardItem (name);
         items << new QStandardItem (entry.kind ? QString::fromLocal8Bit(entry.kind) : QString());
         items << new QStandardItem (entry.file ? QString::fromLocal8Bit(entry.file) : QString());
-        items << new QStandardItem (QString("%1").arg(entry.address.lineNumber));
+        items << new QStandardItem (QString::number(entry.address.lineNumber));
         model.appendRow (items);
         break;
     }

@@ -82,7 +82,7 @@ int SearchOpenFiles::searchOpenFile(KTextEditor::Document *doc, const QRegExp &r
         emit searching(doc->url().toString());
     }
 
-    if (regExp.pattern().contains("\\n")) {
+    if (regExp.pattern().contains(QLatin1String("\\n"))) {
         return searchMultiLineRegExp(doc, regExp, startLine);
     }
 
@@ -125,10 +125,10 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         m_lineStart.clear();
         m_lineStart << 0;
         for (int i=0; i<doc->lines(); i++) {
-            m_fullDoc += doc->line(i) + '\n';
+            m_fullDoc += doc->line(i) + QLatin1Char('\n');
             m_lineStart << m_fullDoc.size();
         }
-        if (!regExp.pattern().endsWith("$")) {
+        if (!regExp.pattern().endsWith(QLatin1String("$"))) {
             // if regExp ends with '$' leave the extra newline at the end as
             // '$' will be replaced with (?=\\n), which needs the extra newline
             m_fullDoc.remove(m_fullDoc.size()-1, 1);
@@ -144,9 +144,9 @@ int SearchOpenFiles::searchMultiLineRegExp(KTextEditor::Document *doc, const QRe
         }
     }
 
-    if (regExp.pattern().endsWith("$")) {
+    if (regExp.pattern().endsWith(QLatin1String("$"))) {
         QString newPatern = tmpRegExp.pattern();
-        newPatern.replace("$", "(?=\\n)");
+        newPatern.replace(QLatin1String("$"), QLatin1String("(?=\\n)"));
         tmpRegExp.setPattern(newPatern);
     }
 

@@ -142,7 +142,7 @@ void ReplaceMatches::doReplaceNextMatch()
         while (matchLines.size() < matchLen) {
             if (endLine+1 >= doc->lines()) break;
             endLine++;
-            matchLines+= '\n' + doc->line(endLine);
+            matchLines+= QLatin1Char('\n') + doc->line(endLine);
         }
 
         if (m_regExp.indexIn(matchLines) != 0) {
@@ -151,18 +151,18 @@ void ReplaceMatches::doReplaceNextMatch()
         }
 
         QString replaceText = m_replaceText;
-        replaceText.replace("\\\\", "¤Search&Replace¤");
+        replaceText.replace(QLatin1String("\\\\"), QLatin1String("¤Search&Replace¤"));
         for (int j=1; j<=m_regExp.captureCount(); j++) {
-            replaceText.replace(QString("\\%1").arg(j), m_regExp.cap(j));
+            replaceText.replace(QString::fromLatin1("\\%1").arg(j), m_regExp.cap(j));
         }
-        replaceText.replace("\\n", "\n");
-        replaceText.replace("¤Search&Replace¤", "\\\\");
+        replaceText.replace(QLatin1String("\\n"), QLatin1String("\n"));
+        replaceText.replace(QLatin1String("¤Search&Replace¤"), QLatin1String("\\\\"));
         rTexts << replaceText;
 
-        replaceText.replace('\n', "\\n");
+        replaceText.replace(QLatin1Char('\n'), QLatin1String("\\n"));
         QString html = item->data(0, PreMatchRole).toString();
-        html += "<i><s>" + item->data(0, MatchRole).toString() + "</s></i> ";
-        html += "<b>" + replaceText + "</b>";
+        html += QLatin1String("<i><s>") + item->data(0, MatchRole).toString() + QLatin1String("</s></i> ");
+        html += QLatin1String("<b>") + replaceText + QLatin1String("</b>");
         html += item->data(0, PostMatchRole).toString();
         item->setData(0, Qt::DisplayRole, i18n("Line: <b>%1</b>: %2",line+1, html));
 

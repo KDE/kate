@@ -59,9 +59,9 @@ void KateProjectItem::slotModifiedChanged(KTextEditor::Document *doc)
     if (m_emblem) {
       QStringList emblems;
       emblems << *m_emblem;
-      m_icon = new QIcon (KIconLoader::global ()->loadIcon ("document-save" , KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
+      m_icon = new QIcon (KIconLoader::global ()->loadIcon (QLatin1String("document-save") , KIconLoader::Small, 0, KIconLoader::DefaultState, emblems));
     } else {
-      m_icon = new QIcon (KIconLoader::global ()->loadIcon ("document-save", KIconLoader::Small));
+      m_icon = new QIcon (KIconLoader::global ()->loadIcon (QLatin1String("document-save"), KIconLoader::Small));
     }
   }
   emitDataChanged();
@@ -84,7 +84,7 @@ void KateProjectItem::slotModifiedOnDisk (KTextEditor::Document *document,
   }
 
   if (reason != KTextEditor::ModificationInterface::OnDiskUnmodified) {
-    m_emblem = new QString("emblem-important");
+    m_emblem = new QString(QLatin1String("emblem-important"));
   }
   emitDataChanged();
 }
@@ -111,11 +111,11 @@ QVariant KateProjectItem::data (int role) const
        */
       switch (m_type) {
         case Project:
-          m_icon = new QIcon (KIconLoader::global ()->loadIcon ("folder-documents", KIconLoader::Small));
+          m_icon = new QIcon (KIconLoader::global ()->loadIcon (QLatin1String("folder-documents"), KIconLoader::Small));
           break;
 
         case Directory:
-          m_icon = new QIcon (KIconLoader::global ()->loadIcon ("folder", KIconLoader::Small));
+          m_icon = new QIcon (KIconLoader::global ()->loadIcon (QLatin1String("folder"), KIconLoader::Small));
           break;
 
         case File: {

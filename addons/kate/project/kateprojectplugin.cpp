@@ -151,14 +151,14 @@ KateProject *KateProjectPlugin::projectForDir (QDir dir)
      * check for project and load it if found
      */
     QString canonicalPath = dir.canonicalPath();
-    QString canonicalFileName = canonicalPath + QString("/.kateproject");
+    QString canonicalFileName = canonicalPath + QLatin1String("/.kateproject");
 
     foreach (KateProject *project, m_projects) {
       if (project->baseDir() == canonicalPath || project->fileName() == canonicalFileName)
         return project;
     }
 
-    if (dir.exists (".kateproject"))
+    if (dir.exists (QLatin1String(".kateproject")))
       return createProjectForFileName (canonicalFileName);
 
     /**
@@ -250,7 +250,7 @@ void KateProjectPlugin::slotDirectoryChanged (const QString &path)
   /**
    * auto-reload, if there
    */
-  QString fileName = path + QString("/.kateproject");
+  QString fileName = path + QLatin1String("/.kateproject");
   foreach (KateProject *project, m_projects) {
     if (project->fileName() == fileName) {
       project->reload();

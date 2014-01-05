@@ -28,6 +28,7 @@
 #include <kateglobal.h>
 #include <katesearchbar.h>
 #include <ktexteditor/movingrange.h>
+#include <KMessageBox>
 
 #include <QtTestWidgets>
 
@@ -62,7 +63,7 @@ SearchBarTest::~SearchBarTest()
 
 void SearchBarTest::initTestCase()
 {
-  KateGlobal::enableUnitTestMode();
+  KMessageBox::saveDontShowAgainYesNo(QLatin1String("DoNotShowAgainContinueSearchDialog"), KMessageBox::Yes);
 }
 
 void SearchBarTest::cleanupTestCase()

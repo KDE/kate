@@ -607,7 +607,7 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
     bool askWrap = !match.isValid() && (!selection.isValid() || !selectionOnly());
     bool wrap = false;
 
-    if (KateGlobal::unitTestMode() && askWrap)
+    if (askWrap)
     {
         askWrap = false;
         wrap = true;

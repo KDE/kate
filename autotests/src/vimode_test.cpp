@@ -1494,6 +1494,19 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("foo\n\n\nbar","10}{{x","oo\n\n\nbar");
   DoTest("foo\n\n\nbar","}}x","foo\n\n\nba");
   DoTest("foo\n\n\nbar\n","}}dd","foo\n\n\nbar");
+
+  // Testing the position of the cursor in some cases of the "c" command.
+  DoTest("(a, b, c)", "cibX", "(X)");
+  DoTest("(a, b, c)", "f)cibX", "(X)");
+  DoTest("(a, b, c)", "ci(X", "(X)");
+  DoTest("(a, b, c)", "ci)X", "(X)");
+  DoTest("[a, b, c]", "ci[X", "[X]");
+  DoTest("[a, b, c]", "ci]X", "[X]");
+  DoTest("{a, b, c}", "ciBX", "{X}");
+  DoTest("{a, b, c}", "ci{X", "{X}");
+  DoTest("{a, b, c}", "ci}X", "{X}");
+  DoTest("<a, b, c>", "ci<X", "<X>");
+  DoTest("<a, b, c>", "ci>X", "<X>");
 }
 
 void ViModeTest::NormalModeCommandsTest() {

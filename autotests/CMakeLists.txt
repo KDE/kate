@@ -1,8 +1,8 @@
-remove_definitions(-DQT_NO_CAST_FROM_ASCII)
-
 if(BUILD_kate)
   add_subdirectory(kate)
 endif()
+
+remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 
 set( EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_BINARY_DIR} )
 

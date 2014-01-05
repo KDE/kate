@@ -102,10 +102,10 @@ void PlainTextSearchTest::testSearchBackward()
   QFETCH(KTextEditor::Range, searchRange);
   QFETCH(KTextEditor::Range, expectedResult);
 
-  m_doc->setText("aaaa aaaa aaaa\n"
-                 "aaaa  aaaa");
+  m_doc->setText(QLatin1String("aaaa aaaa aaaa\n"
+                 "aaaa  aaaa"));
 
-  QCOMPARE(m_search->search("aaaa", searchRange, true), expectedResult);
+  QCOMPARE(m_search->search(QLatin1String("aaaa"), searchRange, true), expectedResult);
 }
 
 void PlainTextSearchTest::testSingleLineDocument_data()
@@ -136,10 +136,10 @@ void PlainTextSearchTest::testSingleLineDocument()
   QFETCH(KTextEditor::Range, forwardResult);
   QFETCH(KTextEditor::Range, backwardResult);
 
-  m_doc->setText("a a a a a a a a a a a a");
+  m_doc->setText(QLatin1String("a a a a a a a a a a a a"));
 
-  QCOMPARE(m_search->search("a a a", searchRange, false), forwardResult);
-  QCOMPARE(m_search->search("a a a", searchRange, true), backwardResult);
+  QCOMPARE(m_search->search(QLatin1String("a a a"), searchRange, false), forwardResult);
+  QCOMPARE(m_search->search(QLatin1String("a a a"), searchRange, true), backwardResult);
 }
 
 void PlainTextSearchTest::testMultilineSearch_data()
@@ -173,9 +173,9 @@ void PlainTextSearchTest::testMultilineSearch()
   QFETCH(KTextEditor::Range, inputRange);
   QFETCH(KTextEditor::Range, forwardResult);
 
-  m_doc->setText("a a a\n"
+  m_doc->setText(QLatin1String("a a a\n"
                  "a a\n"
-                 "a a a");
+                 "a a a"));
 
   QCOMPARE(m_search->search(pattern, inputRange, false), forwardResult);
 }

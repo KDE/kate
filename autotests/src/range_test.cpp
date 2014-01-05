@@ -108,11 +108,11 @@ void RangeTest::testInsertText()
   KTextEditor::MovingCursor* cursor1 = doc.newMovingCursor(KTextEditor::Cursor(), KTextEditor::MovingCursor::StayOnInsert);
   KTextEditor::MovingCursor* cursor2 = doc.newMovingCursor(KTextEditor::Cursor(), KTextEditor::MovingCursor::MoveOnInsert);
 
-  doc.insertText(KTextEditor::Cursor(), "Test Text\nMore Test Text");
+  doc.insertText(KTextEditor::Cursor(), QLatin1String("Test Text\nMore Test Text"));
   QCOMPARE(doc.documentEnd(), KTextEditor::Cursor(1,14));
 
   QString text = doc.text(KTextEditor::Range(1,0,1,14));
-  QCOMPARE(text, QString("More Test Text"));
+  QCOMPARE(text, QLatin1String("More Test Text"));
 
   // Check cursors and ranges have moved properly
   QCOMPARE(cursor1->toCursor(), KTextEditor::Cursor(0,0));
@@ -121,7 +121,7 @@ void RangeTest::testInsertText()
   KTextEditor::Cursor cursor3 = doc.endOfLine(1);
 
   // Set up a few more lines
-  doc.insertText(*cursor2, "\nEven More Test Text");
+  doc.insertText(*cursor2, QLatin1String("\nEven More Test Text"));
   QCOMPARE(doc.documentEnd(), KTextEditor::Cursor(2,19));
   QCOMPARE(cursor3, doc.endOfLine(1));
 }
@@ -136,7 +136,7 @@ void RangeTest::testCornerCaseInsertion()
   KTextEditor::MovingRange* rangeEdit = doc.newMovingRange(KTextEditor::Range(0,0,0,0));
   QCOMPARE(rangeEdit->toRange(), KTextEditor::Range(0,0,0,0));
 
-  doc.insertText(KTextEditor::Cursor(0,0), "\n");
+  doc.insertText(KTextEditor::Cursor(0,0), QLatin1String("\n"));
   QCOMPARE(rangeEdit->toRange(), KTextEditor::Range(1,0,1,0));
 
   // test translate

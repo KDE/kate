@@ -103,15 +103,15 @@ void KateDocumentTest::testWordWrap()
     doc.setWordWrap(true);
     doc.setWordWrapAt(80);
 
-    const QString content = ".........1.........2.........3.........4.........5.........6 ........7 ........8";
+    const QString content = QLatin1String(".........1.........2.........3.........4.........5.........6 ........7 ........8");
     
     // space after 7 is now kept
     // else we kill indentation...
-    const QString firstWrap = ".........1.........2.........3.........4.........5.........6 ........7 \n....x....8";
+    const QString firstWrap = QLatin1String(".........1.........2.........3.........4.........5.........6 ........7 \n....x....8");
     
     // space after 6 is now kept
     // else we kill indentation...
-    const QString secondWrap = ".........1.........2.........3.........4.........5.........6 \n....ooooooooooo....7 ....x....8";
+    const QString secondWrap = QLatin1String(".........1.........2.........3.........4.........5.........6 \n....ooooooooooo....7 ....x....8");
     
     doc.setText(content);
     MovingCursor* c = doc.newMovingCursor(Cursor(0, 75), MovingCursor::MoveOnInsert);
@@ -120,13 +120,13 @@ void KateDocumentTest::testWordWrap()
     QCOMPARE(c->toCursor(), Cursor(0, 75));
 
     // type a character at (0, 75)
-    doc.insertText (c->toCursor(), "x");
+    doc.insertText (c->toCursor(), QLatin1String("x"));
     QCOMPARE(doc.text(), firstWrap);
     QCOMPARE(c->toCursor(), Cursor(1, 5));
 
     // set cursor to (0, 65) and type "ooooooooooo"
     c->setPosition(Cursor(0, 65));
-    doc.insertText (c->toCursor(), "ooooooooooo");
+    doc.insertText (c->toCursor(), QLatin1String("ooooooooooo"));
     QCOMPARE(doc.text(), secondWrap);
     QCOMPARE(c->toCursor(), Cursor(1, 15));
 }
@@ -135,12 +135,12 @@ void KateDocumentTest::testReplaceQStringList()
 {
     KateDocument doc(false, false, false);
     doc.setWordWrap(false);
-    doc.setText("asdf\n"
+    doc.setText(QLatin1String("asdf\n"
                 "foo\n"
                 "foo\n"
-                "bar\n");
+                "bar\n"));
     doc.replaceText( Range(1, 0, 3, 0), QStringList() << "new" << "text" << "", false );
-    QCOMPARE(doc.text(), QString("asdf\n"
+    QCOMPARE(doc.text(), QLatin1String("asdf\n"
                                  "new\n"
                                  "text\n"
                                  "bar\n"));

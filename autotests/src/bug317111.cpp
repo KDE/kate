@@ -65,9 +65,9 @@ void BugTest::tryCrash()
   QFile scriptFile(QLatin1String(JS_DATA_DIR"commands/utils.js"));
   QVERIFY(scriptFile.exists());
   QVERIFY(scriptFile.open(QFile::ReadOnly));
-  QScriptValue result = env->engine()->evaluate(scriptFile.readAll(), scriptFile.fileName());
-  QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + "\nat "
-  + env->engine()->uncaughtExceptionBacktrace().join("\n"))) );
+  QScriptValue result = env->engine()->evaluate(QString::fromLatin1(scriptFile.readAll()), scriptFile.fileName());
+  QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + QLatin1String("\nat ")
+  + env->engine()->uncaughtExceptionBacktrace().join(QLatin1String("\n")))) );
 
   // view must be visible...
   view->show();
@@ -76,14 +76,14 @@ void BugTest::tryCrash()
 
   // evaluate test-script
   qDebug() << "attempting crash by calling KateDocument::defStyle(-1, 0)";
-  QFile sourceFile(TEST_DATA_DIR + QString("bug317111.js"));
+  QFile sourceFile(QLatin1String(TEST_DATA_DIR "bug317111.js"));
   QVERIFY(sourceFile.open(QFile::ReadOnly));
   QTextStream stream(&sourceFile);
   stream.setCodec("UTF8");
   QString code = stream.readAll();
   sourceFile.close();
   // execute script
-  result = env->engine()->evaluate(code, TEST_DATA_DIR + QLatin1String("bug317111.txt"), 1);
+  result = env->engine()->evaluate(code, QLatin1String(TEST_DATA_DIR "bug317111.txt"), 1);
   QVERIFY2( !result.isError(), result.toString().toUtf8().constData() );
 
   qDebug() << "PASS (no crash)";

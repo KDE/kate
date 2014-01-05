@@ -56,7 +56,7 @@ void BugTest::tryCrash()
   const QUrl url = QUrl::fromLocalFile(QLatin1String(TEST_DATA_DIR"bug313769.cpp"));
   doc.openUrl(url);
   doc.discardDataRecovery();
-  doc.setHighlightingMode("C++");
+  doc.setHighlightingMode(QLatin1String("C++"));
   doc.buffer().ensureHighlighted (doc.lines());
 
   // view must be visible...

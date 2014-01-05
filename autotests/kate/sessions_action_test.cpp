@@ -65,7 +65,7 @@ void KateSessionsActionTest::basic()
 void KateSessionsActionTest::limit()
 {
   for (int i = 0; i < 14; i++) {
-    m_manager->activateSession(QString("session %1").arg(i));
+    m_manager->activateSession(QString::fromLatin1("session %1").arg(i));
   }
 
   QCOMPARE(m_manager->activeSession()->isAnonymous(), false);

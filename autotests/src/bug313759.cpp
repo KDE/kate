@@ -62,12 +62,12 @@ void BugTest::tryCrash()
   doc->openUrl(url);
 
   // load moveLinesDown and moveLinesUp
-  QFile scriptFile(JS_DATA_DIR + QLatin1String("commands/utils.js"));
+  QFile scriptFile(QLatin1String(JS_DATA_DIR "commands/utils.js"));
   QVERIFY(scriptFile.exists());
   QVERIFY(scriptFile.open(QFile::ReadOnly));
-  QScriptValue result = env->engine()->evaluate(scriptFile.readAll(), scriptFile.fileName());
-  QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + "\nat "
-  + env->engine()->uncaughtExceptionBacktrace().join("\n"))) );
+  QScriptValue result = env->engine()->evaluate(QString::fromLatin1(scriptFile.readAll()), scriptFile.fileName());
+  QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + QLatin1String("\nat ")
+  + env->engine()->uncaughtExceptionBacktrace().join(QLatin1String("\n")))) );
 
   // enable on the fly spell checking
   doc->onTheFlySpellCheckingEnabled(true);
@@ -81,14 +81,14 @@ void BugTest::tryCrash()
 
   // evaluate test-script
   qDebug() << "attempting crash by moving lines w/ otf spell checking enabled";
-  QFile sourceFile(TEST_DATA_DIR + QLatin1String("bug313759.js"));
+  QFile sourceFile(QLatin1String(TEST_DATA_DIR"bug313759.js"));
   QVERIFY(sourceFile.open(QFile::ReadOnly));
   QTextStream stream(&sourceFile);
   stream.setCodec("UTF8");
   QString code = stream.readAll();
   sourceFile.close();
   // execute script
-  result = env->engine()->evaluate(code, TEST_DATA_DIR + QLatin1String("bug313759.txt"), 1);
+  result = env->engine()->evaluate(code, QLatin1String(TEST_DATA_DIR"bug313759.txt"), 1);
   QVERIFY2( !result.isError(), result.toString().toUtf8().constData() );
 
   doc->editEnd();

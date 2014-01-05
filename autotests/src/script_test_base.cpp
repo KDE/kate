@@ -42,7 +42,7 @@
 #include "script_test_base.h"
 
 
-const QString testDataPath(TEST_DATA_DIR);
+const QString testDataPath(QLatin1String(TEST_DATA_DIR));
 
 
 QtMessageHandler ScriptTestBase::m_msgHandler = 0;
@@ -77,24 +77,24 @@ void ScriptTestBase::getTestData(const QString& script)
 
   // make sure the script files are valid
   if (!m_script_dir.isEmpty()) {
-    QFile scriptFile(JS_DATA_DIR + m_script_dir + '/' + script + ".js");
+    QFile scriptFile(QLatin1String(JS_DATA_DIR) + m_script_dir + QLatin1Char('/') + script + QLatin1String(".js"));
     if (!scriptFile.exists()) {
-      QSKIP(qPrintable(QString(scriptFile.fileName() + " does not exist")), SkipAll);
+      QSKIP(qPrintable(QString(scriptFile.fileName() + QLatin1String(" does not exist"))), SkipAll);
     }
     QVERIFY(scriptFile.open(QFile::ReadOnly));
-    QScriptValue result = m_env->engine()->evaluate(scriptFile.readAll(), scriptFile.fileName());
-    QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + "\nat "
-                                            + m_env->engine()->uncaughtExceptionBacktrace().join("\n"))) );
+    QScriptValue result = m_env->engine()->evaluate(QString::fromLatin1(scriptFile.readAll()), scriptFile.fileName());
+    QVERIFY2(!result.isError(), qPrintable(QString(result.toString() + QLatin1String("\nat ")
+                                            + m_env->engine()->uncaughtExceptionBacktrace().join(QLatin1String("\n")))) );
   }
 
-  const QString testDir(testDataPath + m_section + '/' + script + '/');
+  const QString testDir(testDataPath + m_section + QLatin1Char('/') + script + QLatin1Char('/'));
   if ( !QFile::exists(testDir) ) {
-    QSKIP(qPrintable(QString(testDir + " does not exist")), SkipAll);
+    QSKIP(qPrintable(QString(testDir + QLatin1String(" does not exist"))), SkipAll);
   }
   QDirIterator contents( testDir );
   while ( contents.hasNext() ) {
     QString entry = contents.next();
-    if ( entry.endsWith('.') ) {
+    if ( entry.endsWith(QLatin1Char('.')) ) {
       continue;
     }
     QFileInfo info(entry);
@@ -108,7 +108,7 @@ void ScriptTestBase::getTestData(const QString& script)
 void ScriptTestBase::runTest(const ExpectedFailures& failures)
 {
   if ( !QFile::exists(testDataPath + m_section) )
-    QSKIP(qPrintable(QString(testDataPath + m_section + " does not exist")), SkipAll);
+    QSKIP(qPrintable(QString(testDataPath + m_section + QLatin1String(" does not exist"))), SkipAll);
 
   QFETCH(QString, testcase);
 
@@ -116,14 +116,14 @@ void ScriptTestBase::runTest(const ExpectedFailures& failures)
 
   // load page
   QUrl url;
-  url.setScheme("file");
-  url.setPath(testcase + "/origin");
+  url.setScheme(QLatin1String("file"));
+  url.setPath(testcase + QLatin1String("/origin"));
   m_document->openUrl(url);
 
   // evaluate test-script
-  QFile sourceFile(testcase + "/input.js");
+  QFile sourceFile(testcase + QLatin1String("/input.js"));
   if ( !sourceFile.open(QFile::ReadOnly) ) {
-    QFAIL(qPrintable(QString("Failed to open file: %1").arg(sourceFile.fileName())));
+    QFAIL(qPrintable(QString::fromLatin1("Failed to open file: %1").arg(sourceFile.fileName())));
   }
 
   QTextStream stream(&sourceFile);
@@ -132,17 +132,17 @@ void ScriptTestBase::runTest(const ExpectedFailures& failures)
   sourceFile.close();
 
   // Execute script
-  QScriptValue result = m_env->engine()->evaluate(code, testcase + "/input.js", 1);
+  QScriptValue result = m_env->engine()->evaluate(code, testcase + QLatin1String("/input.js"), 1);
   QVERIFY2( !result.isError(), result.toString().toUtf8().constData() );
 
-  url.setPath(testcase + "/actual");
+  url.setPath(testcase + QLatin1String("/actual"));
   m_document->saveAs(url);
 
   // diff actual and expected
   QProcess diff;
   QStringList args;
-  args << "-u" << (testcase + "/expected") << (testcase + "/actual");
-  diff.start("diff", args);
+  args << QLatin1String("-u") << (testcase + QLatin1String("/expected")) << (testcase + QLatin1String("/actual"));
+  diff.start(QLatin1String("diff"), args);
   diff.waitForFinished();
   QByteArray out = diff.readAllStandardOutput();
   QByteArray err = diff.readAllStandardError();

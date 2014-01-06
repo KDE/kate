@@ -978,6 +978,9 @@ KateSessionsAction::KateSessionsAction(const QString& text, QObject* parent)
   // a session switch without queued connection deletes a mainwindow in which
   // the current code path is executed ---> crash. See bug #227008.
   connect(sessionsGroup, SIGNAL(triggered(QAction*)), this, SLOT(openSession(QAction*)), Qt::QueuedConnection);
+
+  connect(KateSessionManager::self(), SIGNAL(sessionChanged()), this, SLOT(slotSessionChanged()));
+  setDisabled(KateSessionManager::self()->sessionList().size() == 0);
 }
 
 void KateSessionsAction::slotAboutToShow()
@@ -1004,6 +1007,11 @@ void KateSessionsAction::openSession (QAction *action)
     return;
 
   KateSessionManager::self()->activateSession(slist[i]);
+}
+
+void KateSessionsAction::slotSessionChanged()
+{
+  setDisabled(KateSessionManager::self()->sessionList().size() == 0);
 }
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

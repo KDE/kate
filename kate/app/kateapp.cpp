@@ -207,24 +207,22 @@ bool KateApp::startupKate ()
   bool tempfileSet = KCmdLineArgs::isTempFileSet();
 
   KTextEditor::Document *doc = 0;
+  const QString codec_name = codec ? codec->name() : QString();
   KateDocManager::self()->setSuppressOpeningErrorDialogs(true);
+  QList<KUrl> urls;
   for (int z = 0; z < m_args->count(); z++)
   {
     // this file is no local dir, open it, else warn
-    bool noDir = !m_args->url(z).isLocalFile() || !QFileInfo (m_args->url(z).toLocalFile()).isDir();
+    const bool noDir = !m_args->url(z).isLocalFile() || !QFileInfo (m_args->url(z).toLocalFile()).isDir();
 
-    if (noDir)
-    {
-      // open a normal file
-      if (codec)
-        doc = activeMainWindow()->viewManager()->openUrl( m_args->url(z), codec->name(), false, tempfileSet);
-      else
-        doc = activeMainWindow()->viewManager()->openUrl( m_args->url(z), QString(), false, tempfileSet);
-    }
-    else
+    if (noDir) {
+      urls << m_args->url(z);
+    } else {
       KMessageBox::sorry( activeMainWindow(),
                           i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", m_args->url(z).url()) );
+    }
   }
+  doc = activeMainWindow()->viewManager()->openUrls(urls, codec_name, tempfileSet);
   KateDocManager::self()->setSuppressOpeningErrorDialogs(false);
 
   // handle stdin input

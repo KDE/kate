@@ -26,37 +26,15 @@
  This file is included in every file that highlights the "alerts" keywords.
  That's why extensions and mimetype are empty.
 -->
-<language version="1.08" kateversion="2.3" name="Alerts_indent" section="Other" extensions="" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" hidden="true">
+<language version="1.09" kateversion="2.3" name="Alerts_indent" section="Other" extensions="" mimetype="" author="Dominik Haumann (dhdev@gmx.de)" license="LGPL" hidden="true">
   <highlighting>
-    <list name="alerts">
-      <item> ### </item>
-      <item> ALERT </item>
-      <item> BUG </item>
-      <item> DANGER </item>
-      <item> DEPRECATED </item>
-      <item> FIXME </item>
-      <item> HACK </item>
-      <item> NOTE </item>
-      <item> NOTICE </item>
-      <item> SECURITY </item>
-      <item> TASK </item>
-      <item> TEST </item>
-      <item> TESTING </item>
-      <item> TODO </item>
-      <item> WARNING </item>
-    </list>
     <contexts>
       <context attribute="Normal Text" lineEndContext="#pop" name="Normal Text" >
-        <keyword attribute="Alert" context="#stay" String="alerts" />
+        <IncludeRules context="##Alerts" />
       </context>
     </contexts>
-    <itemDatas>
-      <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Alert" defStyleNum="dsAlert"/>
-    </itemDatas>
   </highlighting>
   <general>
     <folding indentationsensitive="1" />
-    <keywords casesensitive="1"/>
   </general>
 </language>

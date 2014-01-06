@@ -783,6 +783,7 @@
       <item> TARGET_LINKER_DIR </item>
       <item> TARGET_SONAME_DIR </item>
       <item> TARGET_PROPERTY </item>
+      <item> TARGET_OBJECTS </item>
       <item> TARGET_POLICY </item>
       <item> AND </item>
       <item> OR </item>

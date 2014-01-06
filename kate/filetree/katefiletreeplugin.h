@@ -114,6 +114,7 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     KateFileTreeProxyModel *m_proxyModel;
     KateFileTreeModel *m_documentModel;
     bool m_hasLocalPrefs;
+    bool m_loadingDocuments;
     KateFileTreePlugin *m_plug;
 
   private Q_SLOTS:
@@ -127,7 +128,8 @@ class KateFileTreePluginView : public Kate::PluginView, public Kate::XMLGUIClien
     void documentClosed(KTextEditor::Document *);
     void viewModeChanged(bool);
     void sortRoleChanged(int);
-
+    void slotAboutToLoadDocuments();
+    void slotDocumentsLoaded(const QList<KTextEditor::Document *> &);
 };
 
 class KateFileTreeCommand : public QObject, public KTextEditor::Command

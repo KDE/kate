@@ -37,5 +37,5 @@ target_link_libraries(kateprojectplugin  ${KDE4_KDEUI_LIBS} ${QJSON_LIBRARIES} $
 
 ########### install files ###############
 install(TARGETS kateprojectplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
-install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/project )
+install( FILES ui.rc  kateproject.example DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/project )
 install( FILES kateprojectplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

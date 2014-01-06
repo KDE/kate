@@ -668,8 +668,7 @@ const QChar KateViKeyParser::KeyEventToQChar(const QKeyEvent& keyEvent)
   // If previous key press was AltGr, return key value right away and don't go
   // down the "handle modifiers" code path. AltGr is really confusing...
   if ( m_altGrPressed ) {
-      setAltGrStatus( false );
-      return ( !text.isEmpty() ) ? text.at(0) : QChar();
+    return ( !text.isEmpty() ) ? text.at(0) : QChar();
   }
 
   if ( text.isEmpty() || ( text.length() == 1 && text.at(0) < 0x20 ) || keyCode == Qt::Key_Delete

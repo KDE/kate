@@ -21,6 +21,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import re
 import sys
 
 from PyKDE4.kdecore import i18nc
@@ -43,17 +44,18 @@ _CL_SHORTCUT_MAPPINGS = {
 }
 
 
-_NS_TPL = '''namespace {0} {{
-%{{cursor}}
-{1}{2}// namespace {3}
-'''
+@expand.jinja_environment_configurator
+def __setup_jinga__(env):
+    env.block_start_string = '/*%'
+    env.block_end_string = '%*/'
+    env.variable_start_string = '/*<'
+    env.variable_end_string = '>*/'
+    env.line_statement_prefix = '//%'
+    env.line_comment_prefix = '//#'
+    return env
 
-_ANONYMOUS_NS_TPL = '''namespace {{
-%{{cursor}}
-}}                                                           // anonymous namespace
-'''
 
-@expand.jinja('struct.tpl')
+@expand.jinja('struct.cpp.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'Insert a structure definition'))
 @expand.details(i18nc('@info', '''<icode>st(foo, T1..3, U, V)</icode><nl/>
@@ -87,7 +89,7 @@ def st(*args, **kw):
     return data
 
 
-@expand.jinja('metafunction-class.tpl')
+@expand.jinja('metafunction-class.cpp.tpl')
 @expand.postprocess
 @expand.description(
     i18nc(
@@ -133,7 +135,7 @@ def mfc(*argc, **kw):
     return data
 
 
-@expand.jinja('class.tpl')
+@expand.jinja('class.cpp.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'C++ skeleton class generator'))
 @expand.details(i18nc('@info "namespace" is a C++ term', '''<icode>cl(name,c,cc,mc,d,vd,t,template-params)</icode><nl/>
@@ -150,7 +152,7 @@ All parameters are optional and their order is not important. Class name can be 
 <icode>c</icode>, <icode>cc</icode>, <icode>mc</icode> may have the following prefixes:
 <ul>
 <li> <icode>@</icode> to generate defaulted member </li>
-<li> <icode>!</icode> to generate deleted member</li>
+<li> <icode>-</icode> to generate deleted member</li>
 </ul>
 Any template parameter may have a numeric range at the end (like <icode>T0..4</icode>).
 '''))
@@ -179,7 +181,7 @@ def cl(*args, **kw):
                 template_mode = False
             else:
                 template_params += arg_helpers.try_expand_params_seq(arg)
-        elif arg[0] == '@' or arg[0] == '!':                # Handle defaulted and deleted functions
+        elif arg[0] == '@' or arg[0] == '-':                # Handle defaulted and deleted functions
             fn_kind = 'default' if arg[0] == '@' else 'delete'
             fn_val = arg[1:]
             if fn_val in _CL_SHORTCUT_MAPPINGS:
@@ -218,7 +220,7 @@ def cl(*args, **kw):
 
     return data
 
-@expand.jinja('t.tpl')
+@expand.jinja('t.cpp.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'Render a <icode>template</icode> header with a given parameters list'))
 @expand.details(i18nc('@info', '''<icode>t(type1, ..., typeN)</icode><nl/>
@@ -234,7 +236,8 @@ def t(*args):
     return data
 
 
-@expand.jinja('brief.tpl')
+@expand.jinja('brief.cpp.tpl')
+@expand.postprocess
 @expand.description(
     i18nc('@item:inlistbox', 'Render a <application>Doxygen</application> <icode>brief</icode> header')
   )
@@ -242,7 +245,7 @@ def brief():
     return {}
 
 
-@expand.jinja('namespace.tpl')
+@expand.jinja('namespace.cpp.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'Insert named or anonymous namespace'))
 @expand.details(i18nc('@info "namespace" is a C++ term', '''<icode>ns([name[::nested[::name]]])</icode><nl/>
@@ -264,7 +267,7 @@ def ns(name = None):
     return data
 
 
-@expand.jinja('getter-setter.tpl')
+@expand.jinja('getter-setter.cpp.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'Insert getter/setter for a data member'))
 @expand.details(i18nc('@info', '''<icode>gs(member-name, member-type[, ref=0][, srs=0])</icode><nl/>
@@ -296,7 +299,7 @@ def gs(member_name=None, member_type=None, ref = False, srs = False):
     return data
 
 
-@expand.jinja('main.tpl')
+@expand.jinja('main.cpp.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'Render a <icode>main()</icode> function skeleton'))
 @expand.details(i18nc('@info', '''<icode>main([1])</icode><nl/>
@@ -306,7 +309,7 @@ def main(need_args=False):
     return {'need_args': arg_helpers.looks_like_true(need_args) }
 
 
-@expand.jinja('switch.tpl')
+@expand.jinja('switch.cpp.tpl')
 @expand.postprocess
 @expand.description(i18nc('@item:inlistbox', 'Render a <icode>switch()</icode> statement w/ a list of cases'))
 @expand.details(i18nc('@info', '''<icode>sw(expr, case1, ..., caseN)</icode><nl/>
@@ -331,4 +334,266 @@ def sw(*args):
     return data
 
 
-# kate: hl python; indent-width 4;
+@expand.dynamic(re.compile(
+    '^fn(?P<arity>[0-9]*)?'
+    '(?P<template>t(?P<tarity>[0-9]+))?'
+    '((?P<inline>i)|(?P<static>s)|(?P<virtual>v)|(?P<const>c)|(?P<pure>p)|(?P<final>f)|(?P<override>o))*'
+    '(?P<br>{)?'
+  ))
+@expand.jinja('function.cpp.tpl')
+@expand.postprocess
+def _dynamic_function(params, match):
+    '''Generate function w/ desired number of parameters'''
+    kate.kDebug('@dynamic function: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+
+    data['arity'] = int(match.group('arity')) if match.group('arity') else 0
+    data['static'] = 'static ' if match.group('static') is not None else ''
+    data['inline'] = 'inline ' if match.group('inline') is not None else ''
+    data['virtual'] = 'virtual ' if match.group('virtual') is not None else ''
+    data['const'] = ' const' if match.group('const') is not None else ''
+    data['final'] = ' final' if match.group('final') is not None else ''
+    data['override'] = ' override' if match.group('override') is not None else ''
+    data['pure'] = ' = 0' if match.group('pure') is not None else ''
+    data['template'] = match.group('template') is not None
+    data['template_arity'] = int(match.group('tarity')) if match.group('tarity') is not None else 0
+    data['br'] = match.group('br') is not None
+
+    # Turn some invalid combinations to a (some) valid state
+    if not data['virtual']:
+        if data['final']:
+            # TODO Issue a warning?
+            data['final'] = ''
+        if data['override']:
+            # TODO Issue a warning?
+            data['override'] = ''
+        if data['pure']:
+            # TODO Issue a warning?
+            data['pure'] = ''
+    else:
+        if data['static']:
+            # TODO Issue a warning?
+            data['static'] = ''
+        if data['pure']:
+            if data['final']:
+                # TODO Issue a warning?
+                data['final'] = ''
+            if data['override']:
+                # TODO Issue a warning?
+                data['override'] = ''
+
+    if data['static'] and data['const']:
+        # TODO Issue a warning?
+        pass
+
+    return data
+
+
+@expand.dynamic(re.compile(
+    '^f(?:or)?'
+    '(?P<type>a|i(?P<subtype>3|11)?)?'
+    '(?P<const>c)?(?P<ref1>&|r|ref)?(?P<ref2>&|r|ref)?'
+    '(?P<tail1>[^{]*)?(?P<br>{)?(?P<tail2>.*)'
+  ))
+@expand.jinja('for.cpp.tpl')
+@expand.postprocess
+def _dynamic_for(params, match):
+    kate.kDebug('@dynamic `for`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    for_type = match.group('type')
+    if for_type == 'a':
+        data['for_type'] = 'auto'
+    elif for_type.startswith('i'):
+        data['for_type'] = 'iter'
+    else:
+        data['for_sub_type'] = ''
+
+    for_sub_type = match.group('subtype')
+    if for_sub_type == '3':
+        data['for_sub_type'] = 'c++03'
+    elif for_sub_type == '11':
+        data['for_sub_type'] = 'c++11'
+    else:
+        # NOTE Default is C++11 w/ ADL
+        data['for_sub_type'] = ''
+
+    data['const'] = (match.group('const') is not None)
+
+    if match.group('ref2') is not None:
+        data['ref'] = '&&'
+        if data['const']:
+            # TODO Issue a warning?
+            data['const'] = False
+    elif match.group('ref1') is not None:
+        data['ref'] = '&'
+    else:
+        data['ref'] = ''
+
+    data['br'] = match.group('br') is not None
+    data['var'] = match.group('tail2') if data['br'] else match.group('tail1')
+
+    return data
+
+
+@expand.dynamic(re.compile('^if((?P<else_count>[0-9]+)?e)?(?P<br>{)?'))
+@expand.jinja('if-else.cpp.tpl')
+@expand.postprocess
+def _dynamic_if(params, match):
+    kate.kDebug('@dynamic `if`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+
+    if match.group(1) is not None:
+        data['else_count'] = int(match.group('else_count')) if match.group('else_count') else 1
+    else:
+        data['else_count'] = 0
+
+    data['br'] = match.group('br') is not None
+
+    return data
+
+
+@expand.dynamic(re.compile('^sw((?P<case_count>[0-9]+)?c)?(?P<default>d)?'))
+@expand.jinja('switch.cpp.tpl')
+@expand.postprocess
+def _dynamic_switch(params, match):
+    kate.kDebug('@dynamic `switch`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    cases = []
+
+    data['default'] = match.group('default') is not None
+
+    if match.group(1) is not None:
+        data['case_count'] = int(match.group('case_count')) if match.group('case_count') else 1
+    else:
+        data['case_count'] = 0
+
+    if data['case_count']:
+        for c in range(0, data['case_count']):
+            cases.append('case_{}'.format(c))
+
+    if cases:
+        data['cases'] = cases
+
+    data['editable_cases'] = True
+
+    return data
+
+
+@expand.dynamic(re.compile('^e(?P<is_class>c)?(?P<has_type>:)?'))
+@expand.jinja('enum.cpp.tpl')
+@expand.postprocess
+def _dynamic_enum(params, match):
+    kate.kDebug('@dynamic `enum`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['is_class'] = match.group('is_class') is not None
+    data['has_type'] = match.group('has_type') is not None
+    return data
+
+
+@expand.dynamic(re.compile('^try(?P<count>[0-9]+)?(?P<catch_all>(?:a|\.))?'))
+@expand.jinja('try.cpp.tpl')
+@expand.postprocess
+def _dynamic_try(params, match):
+    kate.kDebug('@dynamic `try`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['catch_count'] = int(match.group('count')) if match.group('count') is not None else 0
+    data['catch_all'] = match.group('catch_all') is not None
+    if not data['catch_all'] and data['catch_count'] == 0:
+        data['catch_count'] = 1
+    return data
+
+
+@expand.dynamic(re.compile(
+    '^cl('
+        '(?P<cctor>[@\-]?cc)|(?P<ctor>c(?P<ctor_arity>[0-9]+)?)|(?P<mctor>[@\-]?mc)|'
+        '(?P<vdtor>vd)|(?P<dtor>d)|(?P<template>t(?P<tarity>[0-9]+)?)'
+    ')*'
+  ))
+@expand.jinja('class.cpp.tpl')
+@expand.postprocess
+def _dynamic_class(params, match):
+    kate.kDebug('@dynamic `class`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+
+    data['entity_type'] = 'class'
+    data['entity_name'] = 'name'
+    data['ctor_arity'] = 0
+
+    if match.group('ctor'):
+        data['ctor_arity'] = int(match.group('ctor_arity')) if match.group('ctor_arity') is not None else 0
+        if data['ctor_arity'] == 0:
+            data['default_ctor'] = True
+
+    if match.group('cctor') is not None:
+        fn_val = match.group('cctor')
+        if fn_val[0] == '@':
+            data['default_copy_ctor'] = 'default'
+        elif fn_val[0] == '-':
+            data['default_copy_ctor'] = 'delete'
+        else:
+            data['default_copy_ctor'] = True
+
+    if match.group('mctor') is not None:
+        fn_val = match.group('cctor')
+        if fn_val[0] == '@':
+            data['default_move_ctor'] = 'default'
+        elif fn_val[0] == '-':
+            data['default_move_ctor'] = 'delete'
+        else:
+            data['default_move_ctor'] = True
+
+    data['virtual_destructor'] = match.group('vdtor') is not None
+    data['destructor'] = match.group('dtor') is not None
+
+    if data['virtual_destructor']:
+        data['destructor'] = True
+
+    if match.group('template') is not None:
+        data['template'] = True
+        tarity = int(match.group('tarity')) if match.group('tarity') is not None else 1
+        template_params = []
+        for tp in range(0, tarity):
+            template_params.append('T{}'.format(tp))
+        data['template_params'] = template_params
+
+    return data
+
+
+@expand.dynamic(re.compile('^ns(?P<names>.*)?'))
+@expand.jinja('namespace.cpp.tpl')
+@expand.postprocess
+def _dynamic_namespace(params, match):
+    kate.kDebug('@dynamic `namespace`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    if match.group('names'):
+        # TODO Move this shared configuration settings to some module
+        pos = 60
+        if 'commentStartPos' in kate.configuration:
+            pos = kate.configuration['commentStartPos']
+
+        namespaces = [ns.strip() for ns in match.group('names').split('::')]
+        data['namespaces'] = namespaces
+        data['close_braces'] = '}' * len(namespaces)
+        assert(len(namespaces) < pos)
+        data['padding'] = ' ' * (pos - len(namespaces))
+    return data
+
+
+@expand.dynamic(re.compile('^st(?P<template>t(?P<tarity>[0-9]+)?)?'))
+@expand.jinja('struct.cpp.tpl')
+@expand.postprocess
+def _dynamic_struct(params, match):
+    kate.kDebug('@dynamic `struct`: got params={}, match={}'.format(params, match.groups()))
+    data = {}
+    data['entity_type'] = 'struct'
+    data['entity_name'] = 'name'
+
+    data['template'] = match.group('template') is not None
+    if data['template']:
+        tarity = int(match.group('tarity')) if match.group('tarity') is not None else 1
+        template_params = []
+        for tp in range(0, tarity):
+            template_params.append('T{}'.format(tp))
+        data['template_params'] = template_params
+
+    return data

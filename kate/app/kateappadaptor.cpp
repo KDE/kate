@@ -45,6 +45,7 @@ void KateAppAdaptor::activate ()
 #ifdef Q_WS_X11
   KWindowSystem::forceActiveWindow (win->winId ());
   KWindowSystem::raiseWindow (win->winId ());
+  KWindowSystem::demandAttention (win->winId ());
 #endif
 }
 

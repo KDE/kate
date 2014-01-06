@@ -32,7 +32,6 @@ import traceback
 
 import jinja2
 
-from PyQt4.QtGui import QToolTip
 from PyKDE4.kdecore import KConfig, i18nc
 from PyKDE4.ktexteditor import KTextEditor
 
@@ -41,16 +40,15 @@ import kate.ui
 
 from libkatepate import common
 
+from .settings import *
+from .jinja_stuff import render_jinja_template
 
-_EXPANDS_EXT = '.expand'
-_EXPANDS_BASE_DIR = 'expand'
-_JINJA_TEMPLATES_BASE_DIR = os.path.join(_EXPANDS_BASE_DIR, 'templates')
 
 class ParseError(Exception):
     pass
 
 
-def wordAndArgumentAtCursorRanges(document, cursor):
+def _wordAndArgumentAtCursorRanges(document, cursor):
     line = document.line(cursor.line())
 
     argument_range = None
@@ -59,7 +57,7 @@ def wordAndArgumentAtCursorRanges(document, cursor):
         if cursor.column() < len(line) and line[cursor.column()] == ')':
             # special case: cursor just right before a closing brace
             argument_end = KTextEditor.Cursor(cursor.line(), cursor.column())
-            argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
+            argument_start = _matchingParenthesisPosition(document, argument_end, opening=')')
             argument_end.setColumn(argument_end.column() + 1)
             argument_range = KTextEditor.Range(argument_start, argument_end)
             cursor = argument_start                         #  NOTE Reassign
@@ -67,7 +65,7 @@ def wordAndArgumentAtCursorRanges(document, cursor):
         if line[cursor.column() - 1] == ')':
             # one more special case: cursor past end of arguments
             argument_end = KTextEditor.Cursor(cursor.line(), cursor.column() - 1)
-            argument_start = matchingParenthesisPosition(document, argument_end, opening=')')
+            argument_start = _matchingParenthesisPosition(document, argument_end, opening=')')
             argument_end.setColumn(argument_end.column() + 1)
             argument_range = KTextEditor.Range(argument_start, argument_end)
             cursor = argument_start                         #  NOTE Reassign
@@ -84,13 +82,13 @@ def wordAndArgumentAtCursorRanges(document, cursor):
             # ruddy lack of attribute type access from the KTextEditor
             # interfaces.
             argument_start = KTextEditor.Cursor(cursor.line(), end)
-            argument_end = matchingParenthesisPosition(document, argument_start, opening='(')
+            argument_end = _matchingParenthesisPosition(document, argument_start, opening='(')
             argument_range = KTextEditor.Range(argument_start, argument_end)
     return word_range, argument_range
 
 
 # TODO Generalize this and move to `common' package
-def matchingParenthesisPosition(document, position, opening='('):
+def _matchingParenthesisPosition(document, position, opening='('):
     closing = ')' if opening == '(' else '('
     delta = 1 if opening == '(' else -1
     # take a copy, Cursors are mutable
@@ -136,7 +134,7 @@ def matchingParenthesisPosition(document, position, opening='('):
     return position
 
 
-def loadExpansionsFromFile(path):
+def _loadExpansionsFromFile(path):
     kate.kDebug('Loading expansions from {}'.format(path))
     name = os.path.basename(path).split('.')[0]
     module = imp.load_source(name, path)
@@ -155,7 +153,7 @@ def loadExpansionsFromFile(path):
     return expansions
 
 
-def mergeExpansions(left, right):
+def _mergeExpansions(left, right):
     assert(isinstance(left, dict) and isinstance(right, dict))
     result = left
     for exp_key, exp_tuple in right.items():
@@ -168,15 +166,15 @@ def mergeExpansions(left, right):
     return result
 
 
-def _getExpansionsFor(mime):
+def _collectExpansionsForType(mime):
     expansions = {}
     # TODO What about other (prohibited in filesystem) symbols?
-    mime_filename = mime.replace('/', '_') + _EXPANDS_EXT
-    for directory in kate.applicationDirectories(_EXPANDS_BASE_DIR):
+    mime_filename = mime.replace('/', '_') + EXPANDS_EXT
+    for directory in kate.applicationDirectories(EXPANDS_BASE_DIR):
         if os.path.exists(os.path.join(directory, mime_filename)):
-            expansions = mergeExpansions(
+            expansions = _mergeExpansions(
                 expansions
-              , loadExpansionsFromFile(os.path.join(directory, mime_filename))
+              , _loadExpansionsFromFile(os.path.join(directory, mime_filename))
               )
     return expansions
 
@@ -184,47 +182,12 @@ def _getExpansionsFor(mime):
 @functools.lru_cache()
 def getExpansionsFor(mime):
     kate.kDebug('Collecting expansions for MIME {}'.format(mime))
-    result = mergeExpansions(_getExpansionsFor(mime), _getExpansionsFor('all'))
+    result = _mergeExpansions(_collectExpansionsForType(mime), _collectExpansionsForType('all'))
     kate.kDebug('Got {} expansions at the end'.format(len(result)))
     return result
 
 
-def _makeEditableField(param, **kw):
-    act = '@' if 'active' in kw else ''
-    if 'name' in kw:
-        name = kw['name']
-    else:
-        name = param.strip()
-    return '${{{}{}:{}}}'.format(name, act, param)
-
-
-def _is_bool(s):
-    return isinstance(s,bool)
-
-
-def _is_int(s):
-    return isinstance(s,int)
-
-
-@functools.lru_cache()
-def getJinjaEnvironment(baseDir):
-    kate.kDebug('Make a templates loader for a base dir: {}'.format(baseDir))
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(baseDir))
-    #env.trim_blocks = True
-    #env.lstrip_blocks = True
-    env.block_start_string = '/*%'
-    env.block_end_string = '%*/'
-    env.variable_start_string = '/*<'
-    env.variable_end_string = '>*/'
-    env.line_statement_prefix = '//%'
-    env.line_comment_prefix = '//#'
-    env.filters['editable'] = _makeEditableField
-    env.tests['boolean'] = _is_bool
-    env.tests['integer'] = _is_int
-    return env
-
-
-def expandAtCursor():
+def expandUDFAtCursor():
     ''' Attempt text expansion on the word at the cursor.
 
         The expansions available are based firstly on the mimetype of the
@@ -233,10 +196,10 @@ def expandAtCursor():
 
         TODO Split this function!
     '''
-    document = kate.activeDocument()
-    view = document.activeView()
+    view = kate.activeView()
+    document = view.document()
     try:
-        word_range, argument_range = wordAndArgumentAtCursorRanges(document, view.cursorPosition())
+        word_range, argument_range = _wordAndArgumentAtCursorRanges(document, view.cursorPosition())
     except ParseError as e:
         kate.ui.popup(i18nc('@title:window', 'Parse error'), e, 'dialog-warning')
         return
@@ -312,42 +275,9 @@ def expandAtCursor():
 
     # Check what type of expand function it was
     if hasattr(func, 'template'):
-        assert(isinstance(replacement, dict))
-        # Ok, going to render some jinja2 template...
-        filename = kate.findApplicationResource('{}/{}'.format(_JINJA_TEMPLATES_BASE_DIR, func.template))
-        if not filename:
-            kate.ui.popup(
-                i18nc('@title:window', 'Error')
-              , i18nc('@info:tooltip', 'Template file not found <filename>%1</filename>', func.template)
-              , 'dialog-error'
-              )
-            return
+        replacement = render_jinja_template(func.template, replacement)
 
-        kate.kDebug('found abs template: {}'.format(filename))
-
-        # Get a corresponding environment for jinja!
-        base_dir_pos = filename.find(_JINJA_TEMPLATES_BASE_DIR)
-        assert(base_dir_pos != -1)
-        basedir = filename[:base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR)]
-        filename = filename[base_dir_pos + len(_JINJA_TEMPLATES_BASE_DIR) + 1:]
-        env = getJinjaEnvironment(basedir)
-        kate.kDebug('basedir={}, template_rel={}'.format(basedir, filename))
-        try:
-            tpl = env.get_template(filename)
-            kate.kDebug('data dict={}'.format(replacement))
-            replacement = tpl.render(replacement)
-        except jinja2.TemplateError as e:
-            kate.ui.popup(
-                i18nc('@title:window', 'Error')
-              , i18nc(
-                    '@info:tooltip'
-                  , 'Template file error [<filename>%1</filename>]: <status>%2</status>'
-                  , func.template
-                  , e.message
-                  )
-              , 'dialog-error'
-              )
-            return
+    assert(isinstance(replacement, str))
 
     with kate.makeAtomicUndo(document):
         # Remove old text

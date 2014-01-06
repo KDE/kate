@@ -605,6 +605,8 @@ void KateViewInternal::doUpdateView(bool changed, int viewLinesScrolled)
     m_columnScroll->setPageStep(width());
 
     m_columnScroll->blockSignals(blocked);
+  } else {
+    visible_dummy = false;
   }
 
   m_dummy->setVisible( visible_dummy );
@@ -2438,6 +2440,12 @@ void KateViewInternal::keyPressEvent( QKeyEvent* e )
 
 void KateViewInternal::keyReleaseEvent( QKeyEvent* e )
 {
+  if (m_view->viInputMode()) {
+    if (getViInputModeManager()->handleKeyRelease(e)) {
+      return;
+    }
+  }
+
   if( e->key() == Qt::Key_Alt && m_view->completionWidget()->isCompletionActive() && ((m_completionItemExpanded && (m_view->completionWidget()->hadNavigation() || m_altDownTime.msecsTo(QTime::currentTime()) > 300)) || (!m_completionItemExpanded && !m_view->completionWidget()->hadNavigation())) ) {
 
     m_view->completionWidget()->toggleExpanded(false, true);

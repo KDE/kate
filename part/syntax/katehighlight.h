@@ -131,6 +131,8 @@ class KateHighlighting
      */
     void cleanup ();
 
+    void makeNoneContext();
+
   public:
     /**
      * Parse the text and fill in the context array and folding list array

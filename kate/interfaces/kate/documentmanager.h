@@ -148,6 +148,30 @@ namespace Kate
        */
       void documentDeleted (KTextEditor::Document *document);
 
+      /**
+       * will be loading a bunch of documents, you can step back for a while
+       */
+      void aboutToLoadDocuments();
+
+      /**
+       * bunch of documents have been loaded, you can come back
+       */
+      void documentsLoaded(const QList<KTextEditor::Document *> &);
+
+      /**
+       * signal which documents are going to be deleted soon
+       *
+       * note that the batch can be interupted in the middle and only some
+       * of the documents may be actually deleted. See @documentsDeleted signal.
+       */
+      void aboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
+
+      /**
+       * the batch closing signal for @aboutToDeleteDocuments
+       * @documents the documents that weren't deleted after all
+       */
+      void documentsDeleted(const QList<KTextEditor::Document *> &documents);
+
     private:
       class PrivateDocumentManager *d;
   };

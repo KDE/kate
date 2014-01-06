@@ -809,7 +809,14 @@ void Pate::Engine::unloadModule(int idx)
     py.functionCall("_pluginUnloading", Python::PATE_ENGINE, args);
     Py_DECREF(args);
 
+    // This will just decrement a reference count for module instance
     PyDict_DelItemString(plugins, PQ(plugin.pythonModuleName()));
+
+    // Remove the module also from 'sys.modules' dict to really unload it,
+    // so if reloaded all @init actions will work again!
+    PyObject* sys_modules = py.itemString("modules", "sys");
+    Q_ASSERT("Sanity check" && sys_modules);
+    PyDict_DelItemString(sys_modules, PQ(plugin.pythonModuleName()));
 }
 
 // kate: space-indent on; indent-width 4;

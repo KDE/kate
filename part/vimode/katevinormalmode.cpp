@@ -115,11 +115,6 @@ bool KateViNormalMode::handleKeypress( const QKeyEvent *e )
     return false;
   }
 
-  if ( keyCode == Qt::Key_AltGr ) {
-    KateViKeyParser::self()->setAltGrStatus( true );
-    return true;
-  }
-
   clearYankHighlight();
 
   if ( keyCode == Qt::Key_Escape || (keyCode == Qt::Key_C && e->modifiers() == Qt::ControlModifier) || (keyCode == Qt::Key_BracketLeft && e->modifiers() == Qt::ControlModifier)) {
@@ -1146,23 +1141,19 @@ bool KateViNormalMode::commandChange()
 
   commandDelete();
 
-  // if we deleted several lines, insert an empty line and put the cursor there
   if ( m == LineWise ) {
+    // if we deleted several lines, insert an empty line and put the cursor there.
     doc()->insertLine( m_commandRange.startLine, QString() );
     c.setLine( m_commandRange.startLine );
     c.setColumn(0);
-  }
-
-  if ( m == LineWise ) {
-    updateCursor( c );
-  }
-
-  // block substitute can be simulated by first deleting the text (done above) and then starting
-  // block prepend
-  if ( m == Block ) {
+  } else if (m == Block) {
+    // block substitute can be simulated by first deleting the text
+    // (done above) and then starting block prepend.
     return commandPrependToBlock();
-  }
+  } else
+    c.setColumn(m_commandRange.startColumn);
 
+  updateCursor(c);
   setCount(0); // The count was for the motion, not the insertion.
   commandEnterInsertMode();
 

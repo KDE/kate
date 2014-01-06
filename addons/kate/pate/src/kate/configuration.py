@@ -104,7 +104,7 @@ class Configuration:
         '''
         plugin = sys._getframe(1).f_globals['__name__']
         try:
-            return self[plugin][key]
+            return self.root.get(plugin, {})[key]
         except KeyError:
             return default
 
@@ -113,9 +113,14 @@ class Configuration:
 
         Parameters:
             * key -             String key for item.
+        Returns:
+            The value of the removed item.
+        Throws:
+            KeyError if key doesn't exist.
         '''
-        value = self[key]
-        del self[key]
+        plugin = sys._getframe(1).f_globals['__name__']
+        value = self.root.get(plugin, {})[key]
+        del self.root.get(plugin, {})[key]
         return value
 
     def save(self):

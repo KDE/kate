@@ -325,7 +325,8 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
 
   m_lastInvocationType = invocationType;
 
-  disconnect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
+  disconnect(this->model(), SIGNAL(layoutChanged()), this, SLOT(modelContentChanged()));
+  disconnect(this->model(), SIGNAL(modelReset()), this, SLOT(modelContentChanged()));
 
   m_dontShowArgumentHints = true;
 
@@ -412,7 +413,8 @@ void KateCompletionWidget::startCompletion(const KTextEditor::Range& word, const
   cursorPositionChanged();
 
   if (!m_completionRanges.isEmpty()) {
-    connect(this->model(), SIGNAL(contentGeometryChanged()), this, SLOT(modelContentChanged()));
+    connect(this->model(), SIGNAL(layoutChanged()), this, SLOT(modelContentChanged()));
+    connect(this->model(), SIGNAL(modelReset()), this, SLOT(modelContentChanged()));
     //Now that all models have been notified, check whether the widget should be displayed instantly
     modelContentChanged();
   }

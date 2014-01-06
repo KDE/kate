@@ -218,6 +218,21 @@ bool KateDocManager::isOpen(KUrl url)
   return findDocument (url) != 0;
 }
 
+QList<KTextEditor::Document *> KateDocManager::openUrls(const QList<KUrl> &urls, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
+{
+  QList<KTextEditor::Document *> docs;
+
+  emit m_documentManager->aboutToLoadDocuments();
+
+  foreach (const KUrl &url, urls) {
+    docs << openUrl(url, encoding, isTempFile, docInfo);
+  }
+
+  emit m_documentManager->documentsLoaded(docs);
+
+  return docs;
+}
+
 KTextEditor::Document *KateDocManager::openUrl (const KUrl& url, const QString &encoding, bool isTempFile, const KateDocumentInfo& docInfo)
 {
   KUrl u(url);
@@ -291,6 +306,9 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
 
   saveMetaInfos( documents );
 
+  emit m_documentManager->aboutToDeleteDocuments(documents);
+
+  int last = 0;
   foreach(KTextEditor::Document *doc, documents)
   {
     if (closeUrl && !doc->closeUrl())
@@ -321,7 +339,10 @@ bool KateDocManager::closeDocuments(const QList<KTextEditor::Document *> &docume
     }
 
     deleteDoc (doc);
+    last++;
   }
+
+  emit m_documentManager->documentsDeleted(documents.mid(last));
 
   // never ever empty the whole document list
   if (m_docList.isEmpty())

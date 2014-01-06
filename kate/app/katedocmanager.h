@@ -114,6 +114,11 @@ class KateDocManager : public QObject
                                    bool isTempFile = false,
                                    const KateDocumentInfo& docInfo = KateDocumentInfo());
 
+    QList<KTextEditor::Document *> openUrls(const QList<KUrl>&,
+                                            const QString &encoding = QString(),
+                                            bool isTempFile = false,
+                                            const KateDocumentInfo& docInfo = KateDocumentInfo());
+
     bool closeDocument(KTextEditor::Document *, bool closeUrl = true);
     bool closeDocuments(const QList<KTextEditor::Document *> &documents, bool closeUrl = true);
     bool closeDocumentList(QList<KTextEditor::Document*> documents);

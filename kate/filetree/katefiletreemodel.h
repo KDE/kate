@@ -78,10 +78,14 @@ class KateFileTreeModel : public QAbstractItemModel
     void documentNameChanged(KTextEditor::Document *);
     void documentModifiedChanged(KTextEditor::Document *);
     void documentModifiedOnDisc(KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
+    void documentsOpened(const QList<KTextEditor::Document *> &);
 
     /* used strictly for the item coloring */
     void documentActivated(KTextEditor::Document*);
     void documentEdited(KTextEditor::Document*);
+
+    void slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
+    void slotDocumentsDeleted(const QList<KTextEditor::Document *> &);
 
   Q_SIGNALS:
     void triggerViewChangeAfterNameChange();
@@ -113,6 +117,7 @@ class KateFileTreeModel : public QAbstractItemModel
 
     void initModel();
     void clearModel();
+    void connectDocument(const KTextEditor::Document *);
 
     // Debug crap
     QHash<ProxyItem *, ProxyItem *> m_debugmap;

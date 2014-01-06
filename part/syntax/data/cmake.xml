@@ -816,6 +816,7 @@
         <keyword attribute="Third-Party Commands" context="#stay" String="itkvtk_commands" insensitive="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
+        <RegExpr attribute="DocumentationBracketBlock" context="DocumentationBracketBlock" String="^#\[(=*)\[\.rst:"  />
         <DetectChar attribute="Comment" context="Comment" char="#"/>
         <IncludeRules context="Detect Variables"/>
         <RegExpr attribute="Macros" context="Macro Args" String="\w+\s*(?=\()"/>
@@ -909,6 +910,10 @@
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
         <IncludeRules context="##Alerts" />
         <IncludeRules context="##Modelines" />
+      </context>
+      <context name="DocumentationBracketBlock" lineEndContext="#stay" dynamic="true">
+        <IncludeRules context="##reStructuredText" includeAttrib="true"/>
+        <RegExpr attribute="Normal Text" String="\]%1\]" lookAhead="true" context="#pop#pop" dynamic="true" />
       </context>
       <context attribute="Strings" lineEndContext="#stay" name="String">
         <RegExpr attribute="Strings" context="#pop" String="&quot;(?=[ );]|$)" />

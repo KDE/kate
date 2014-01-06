@@ -38,7 +38,7 @@
 			<itemData name="Normal" defStyleNum="dsNormal" />
 			<itemData name="Bold" defStyleNum="dsNormal" bold="1" />
 			<itemData name="Italic" defStyleNum="dsNormal" italic="1" />
-			<itemData name="InlineLiteral" defStyleNum="dsString" />
+			<itemData name="InlineLiteral" defStyleNum="dsDataType" />
 			<itemData name="SubstitutionReference" defStyleNum="dsFunction" />
 			<itemData name="InlineInternalTarget" defStyleNum="dsFunction" />
 			<itemData name="FootnoteReference" defStyleNum="dsOthers" />

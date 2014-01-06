@@ -6,7 +6,7 @@
         <!ENTITY SimpleReferenceNameChars "\w-_\.:\+">
 ]>
 <!-- Copyright Matt Williams <matt@milliams.com> June 2010 -->
-<language name="reStructuredText" extensions="*.rst" section="Markup" mimetype="text/x-rst" version="1.01" kateversion="2.4" casesensitive="1">
+<language name="reStructuredText" extensions="*.rst" section="Markup" mimetype="text/x-rst" version="1.02" kateversion="2.4" casesensitive="1">
 	
 	<highlighting>
 		
@@ -26,7 +26,10 @@
 				<RegExpr attribute="Footnote" context="#stay" String="^\s*\.\. \[(\d+|#|\*|#[&SimpleReferenceNameChars;]+)\]\s" minimal="true" firstNonSpace="true"/>
 				<RegExpr attribute="Citation" context="#stay" String="^\s*\.\. \[[&SimpleReferenceNameChars;]+\]\s" minimal="true" firstNonSpace="true"/>
 				<RegExpr attribute="HyperlinkTarget" context="#stay" String="^\s*(\.\. (__:|_[&SimpleReferenceNameChars; ]+:(\s|$))|__ )" minimal="true" firstNonSpace="true"/>
+        <RegExpr attribute="CMakeCode" String="\s*\.\. code-block::\s*cmake$" context="CMakeCodeBlock" />
+        <RegExpr attribute="CppCode" String="\s*\.\. code-block::\s*c\+\+" context="CppCodeBlock" />
 				<RegExpr attribute="Directive" context="#stay" String="^\s*\.\. [\w-_\.]+::(\s|$)" minimal="true" firstNonSpace="true"/>
+				<RegExpr attribute="Code" String="::$" context="CodeBlock" />
 				<RegExpr attribute="SubstitutionDefinition" context="#stay" String="^\s*\.\. \|[&SimpleReferenceNameChars; ]+\|\s+[&SimpleReferenceNameChars;]+::\s" minimal="true" firstNonSpace="true"/>
 			</context>
 			<context name="Field" attribute="Field" lineEndContext="#stay">
@@ -39,6 +42,27 @@
       <context name="Role" attribute="Role" lineEndContext="#pop">
         <RegExpr attribute="Keyword" String="\w+" context="#stay" />
         <DetectChar attribute="HyperlinkRefOrInterpretedText" char="`" context="#pop!HyperlinkRefOrInterpretedText" />
+      </context>
+      <context name="CMakeCodeBlock" attribute="CMakeCode" lineEndContext="#stay">
+        <RegExpr attribute="CMakeCode" String="^\s" context="CMakeCode" />
+      </context>
+      <context name="CppCodeBlock" attribute="CppCode" lineEndContext="#stay">
+        <RegExpr attribute="CppCode" String="^\s" context="CppCode" />
+      </context>
+      <context name="CodeBlock" attribute="Code" lineEndContext="#stay">
+        <RegExpr attribute="Code" String="^\s" context="Code" />
+      </context>
+
+      <context name="CMakeCode" attribute="CMakeCode" lineEndContext="#stay">
+        <RegExpr attribute="Normal" String="^\S" lookAhead="true" context="#pop#pop" />
+        <IncludeRules context="##CMake" includeAttrib="true"/>
+      </context>
+      <context name="CppCode" attribute="CppCode" lineEndContext="#stay">
+        <RegExpr attribute="Normal" String="^\S" lookAhead="true" context="#pop#pop" />
+        <IncludeRules context="##C++" includeAttrib="true"/>
+      </context>
+      <context name="Code" attribute="Code" lineEndContext="#stay">
+        <RegExpr attribute="Normal" String="^\S" lookAhead="true" context="#pop#pop" />
       </context>
 		</contexts>
 		
@@ -60,6 +84,9 @@
 			<itemData name="Directive" defStyleNum="dsDataType" />
 			<itemData name="SubstitutionDefinition" defStyleNum="dsDataType" />
       <itemData name="Role" defStyleNum="dsNormal" bold="1" />
+      <itemData name="CMakeCode" defStyleNum="dsDataType" />
+      <itemData name="CppCode" defStyleNum="dsDataType" />
+      <itemData name="Code" defStyleNum="dsDataType" />
 		</itemDatas>
 		
 	</highlighting>

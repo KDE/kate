@@ -23,6 +23,7 @@ include(ECMInstallIcons)
 include(ECMSetupVersion)
 include(ECMMarkNonGuiExecutable)
 include(ECMGenerateHeaders)
+include(GenerateExportHeader)
 
 include(CMakePackageConfigHelpers)
 include(FeatureSummary)

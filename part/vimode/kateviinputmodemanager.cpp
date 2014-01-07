@@ -130,8 +130,7 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   if (!isReplayingLastChange() && !isSyntheticSearchCompletedKeyPress)
   {
     if (e->key() == Qt::Key_AltGr) {
-      KateViKeyParser::self()->setAltGrStatus(true);
-      return true;
+      return true; // do nothing:)
     }
 
     // Hand off to the key mapper, and decide if this key is part of a mapping.
@@ -168,16 +167,6 @@ bool KateViInputModeManager::handleKeypress(const QKeyEvent *e)
   Q_ASSERT(m_insideHandlingKeyPressCount >= 0);
 
   return res;
-}
-
-bool KateViInputModeManager::handleKeyRelease(const QKeyEvent *e)
-{
-  if (e->key() == Qt::Key_AltGr) {
-    KateViKeyParser::self()->setAltGrStatus(false);
-    return true;
-  }
-
-  return false;
 }
 
 void KateViInputModeManager::feedKeyPresses(const QString &keyPresses) const

@@ -31,7 +31,6 @@ KateViKeyParser::KateViKeyParser()
   m_katevi2qt = new QHash<QString, int>;
   m_nameToKeyCode = new QHash<QString, int>;
   m_keyCodeToName = new QHash<int, QString>;
-  m_altGrPressed = false;
 
   initKeyTables();
 }
@@ -667,12 +666,13 @@ const QChar KateViKeyParser::KeyEventToQChar(const QKeyEvent& keyEvent)
 
   // If previous key press was AltGr, return key value right away and don't go
   // down the "handle modifiers" code path. AltGr is really confusing...
-  if ( m_altGrPressed ) {
+  //if ( m_altGrPressed ) {
+  if ( mods & Qt::GroupSwitchModifier ) {
     return ( !text.isEmpty() ) ? text.at(0) : QChar();
   }
 
   if ( text.isEmpty() || ( text.length() == 1 && text.at(0) < 0x20 ) || keyCode == Qt::Key_Delete
-      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier && mods != Qt::KeypadModifier && mods != Qt::GroupSwitchModifier) ) {
+      || ( mods != Qt::NoModifier && mods != Qt::ShiftModifier && mods != Qt::KeypadModifier) ) {
     QString keyPress;
 
     keyPress.append( '<' );

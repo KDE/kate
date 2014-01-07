@@ -79,8 +79,6 @@ public:
    */
   bool handleKeypress(const QKeyEvent *e);
 
-  bool handleKeyRelease(const QKeyEvent *e);
-
   /**
    * feed key the given list of key presses to the key handling code, one by one
    */

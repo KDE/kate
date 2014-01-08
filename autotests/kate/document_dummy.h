@@ -33,7 +33,8 @@ class DummyDocument : public KTextEditor::Document
       , m_encoding()
       , m_views()
     {
-      KParts::ReadOnlyPart::setUrl(QUrl(url));
+      setUrl(url);
+      m_name = url.section(QLatin1Char('/'), -1); // some nice default to mimic the KateDocument
     }
     DummyDocument (const char *url) : DummyDocument(QString::fromLatin1(url)) {}
 
@@ -88,9 +89,13 @@ class DummyDocument : public KTextEditor::Document
     // KParts::ReadWritePart
     virtual bool saveFile() { return false; }
 
-    private:
-      QString m_name, m_encoding;
-      QList<KTextEditor::View*> m_views;
+  public:
+    void setUrl(const QString &url) { KParts::ReadOnlyPart::setUrl(QUrl(url)); }
+    void setName(const QString &name) { m_name = name; }
+
+  private:
+    QString m_name, m_encoding;
+    QList<KTextEditor::View*> m_views;
 };
 
 #endif

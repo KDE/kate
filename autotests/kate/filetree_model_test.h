@@ -35,8 +35,23 @@ class FileTreeModelTest : public QObject
     void cleanupTestCase();
 
     void basic();
+
     void buildTree_data();
     void buildTree();
+    void buildTreeFullPath_data();
+    void buildTreeFullPath();
+    void buildTreeBatch_data();
+    void buildTreeBatch();
+    void listMode_data();
+    void listMode();
+
+    void deleteDocument_data();
+    void deleteDocument();
+    void deleteDocumentBatch_data();
+    void deleteDocumentBatch();
+
+    void rename_data();
+    void rename();
 
   private:
     void walkTree(KateFileTreeModel &model, const QModelIndex &i, ResultNode &node);

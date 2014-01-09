@@ -779,7 +779,7 @@ void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
   updateBackgrounds();
 }
 
-void KateFileTreeModel::slotAboutToDeleteDocuments(QList<KTextEditor::Document*> docs)
+void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Document*> &docs)
 {
   foreach (const KTextEditor::Document *doc, docs) {
     disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
@@ -790,7 +790,7 @@ void KateFileTreeModel::slotAboutToDeleteDocuments(QList<KTextEditor::Document*>
   }
 }
 
-void KateFileTreeModel::slotDocumentsDeleted(QList<KTextEditor::Document*> docs)
+void KateFileTreeModel::slotDocumentsDeleted(const QList<KTextEditor::Document*> &docs)
 {
   foreach (const KTextEditor::Document *doc, docs) {
     connectDocument(doc);

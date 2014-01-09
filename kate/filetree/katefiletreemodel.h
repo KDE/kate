@@ -83,8 +83,8 @@ class KateFileTreeModel : public QAbstractItemModel
     void documentNameChanged(KTextEditor::Document *);
     void documentModifiedChanged( KTextEditor::Document *);
     void documentModifiedOnDisc(KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
-    void slotAboutToDeleteDocuments(QList<KTextEditor::Document *>);
-    void slotDocumentsDeleted(QList<KTextEditor::Document *>);
+    void slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
+    void slotDocumentsDeleted(const QList<KTextEditor::Document *> &);
 
   Q_SIGNALS:
     void triggerViewChangeAfterNameChange();

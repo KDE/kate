@@ -43,39 +43,39 @@ class ProxyItem {
     enum Flag { None = 0, Dir = 1, Modified = 2, ModifiedExternally = 4, DeletedExternally = 8, Empty = 16, ShowFullPath = 32, Host=64 };
     Q_DECLARE_FLAGS(Flags, Flag)
 
-    ProxyItem(QString n, ProxyItemDir *p = 0, Flags f = ProxyItem::None);
+    ProxyItem(const QString &n, ProxyItemDir *p = 0, Flags f = ProxyItem::None);
     ~ProxyItem();
 
     int addChild(ProxyItem *p);
     void remChild(ProxyItem *p);
 
-    ProxyItemDir *parent();
+    ProxyItemDir *parent() const;
 
-    ProxyItem *child(int idx);
-    int childCount();
+    ProxyItem *child(int idx) const;
+    int childCount() const;
 
-    int row();
+    int row() const;
 
-    QString display();
-    QString path();
-    QString documentName();
+    const QString &display() const;
+    const QString &path() const;
+    const QString &documentName() const;
     void setPath(const QString &str);
 
-    void setIcon(QIcon i);
-    QIcon icon();
+    void setIcon(const QIcon &i);
+    QIcon icon() const;
 
-    QList<ProxyItem*> &children();
+    const QList<ProxyItem*> &children() const;
 
     void setDoc(KTextEditor::Document *doc);
-    KTextEditor::Document *doc();
+    KTextEditor::Document *doc() const;
     QList<KTextEditor::Document*> docTree() const;
 
     void setFlags(Flags flags);
     void setFlag(Flag flag);
     void clearFlag(Flag flag);
-    bool flag(Flag flag);
+    bool flag(Flag flag) const;
     void setHost(const QString &host);
-    const QString& host() const;
+    const QString &host() const;
 
   private:
     QString m_path;
@@ -100,7 +100,7 @@ QDebug operator<<(QDebug dbg, ProxyItem *item)
     return dbg.maybeSpace();
   }
 
-  void *parent = static_cast<void *>(item->parent());
+  const void *parent = static_cast<void *>(item->parent());
 
   dbg.nospace() << "ProxyItem(" << (void*)item << ",";
   dbg.nospace() << parent << "," << item->row() << ",";
@@ -122,7 +122,7 @@ QDebug operator<<(QDebug dbg, ProxyItemDir *item)
     return dbg.maybeSpace();
   }
 
-  void *parent = static_cast<void *>(item->parent());
+  const void *parent = static_cast<void *>(item->parent());
 
   dbg.nospace() << "ProxyItemDir(" << (void*)item << ",";
   dbg.nospace() << parent << "," << item->row() << ",";
@@ -133,20 +133,19 @@ QDebug operator<<(QDebug dbg, ProxyItemDir *item)
 Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 
 //BEGIN ProxyItem
-ProxyItem::ProxyItem(QString d, ProxyItemDir *p, ProxyItem::Flags f)
+ProxyItem::ProxyItem(const QString &d, ProxyItemDir *p, ProxyItem::Flags f)
   : m_path(d), m_parent(p), m_row(-1), m_flags(f), m_doc(0)
 {
   initDisplay();
 
-  if(p)
+  if(p) {
     p->addChild(this);
+  }
 }
 
 ProxyItem::~ProxyItem()
 {
-  foreach(ProxyItem *item, m_children) {
-    delete item;
-  }
+  qDeleteAll(m_children);
 }
 
 void ProxyItem::initDisplay()
@@ -170,7 +169,7 @@ void ProxyItem::initDisplay()
 
 int ProxyItem::addChild(ProxyItem *item)
 {
-  int item_row = m_children.count();
+  const int item_row = m_children.count();
   item->m_row = item_row;
   m_children.append(item);
   item->m_parent = static_cast<ProxyItemDir*>(this);
@@ -192,50 +191,51 @@ void ProxyItem::remChild(ProxyItem *item)
   item->m_parent = 0;
 }
 
-ProxyItemDir *ProxyItem::parent()
+ProxyItemDir *ProxyItem::parent() const
 {
   return m_parent;
 }
 
-ProxyItem *ProxyItem::child(int idx)
+ProxyItem *ProxyItem::child(int idx) const
 {
-  if(idx < 0 || idx >= m_children.count()) return 0;
-  return m_children[idx];
+  return (idx < 0 || idx >= m_children.count()) ? 0 : m_children[idx];
 }
 
-int ProxyItem::childCount()
+int ProxyItem::childCount() const
 {
   return m_children.count();
 }
 
-int ProxyItem::row()
+int ProxyItem::row() const
 {
   return m_row;
 }
 
-QIcon ProxyItem::icon()
+QIcon ProxyItem::icon() const
 {
-  if(m_children.count())
+  if(m_children.count()) {
     return QIcon::fromTheme(QLatin1String("folder"));
+  }
 
   return m_icon;
 }
 
-void ProxyItem::setIcon(QIcon i)
+void ProxyItem::setIcon(const QIcon &i)
 {
   m_icon = i;
 }
 
-QString ProxyItem::documentName() {
+const QString &ProxyItem::documentName() const
+{
   return m_documentName;
 }
 
-QString ProxyItem::display()
+const QString &ProxyItem::display() const
 {
   return m_display;
 }
 
-QString ProxyItem::path()
+const QString &ProxyItem::path() const
 {
   return m_path;
 }
@@ -246,7 +246,7 @@ void ProxyItem::setPath(const QString &p)
   initDisplay();
 }
 
-QList<ProxyItem*> &ProxyItem::children()
+const QList<ProxyItem*> &ProxyItem::children() const
 {
   return m_children;
 }
@@ -254,18 +254,18 @@ QList<ProxyItem*> &ProxyItem::children()
 void ProxyItem::setDoc(KTextEditor::Document *doc)
 {
   m_doc = doc;
-  if (!doc)
-    m_documentName=QString();
-  else {
-        QString docName=doc->documentName();
-        if (flag(ProxyItem::Host))
-          m_documentName = QString::fromLatin1("[%1]").arg(m_host) + docName;
-        else
-          m_documentName = docName;
+  if (!doc) {
+    m_documentName = QString();
+  } else {
+    const QString docName = doc->documentName();
+    if (flag(ProxyItem::Host))
+      m_documentName = QString::fromLatin1("[%1]%2").arg(m_host).arg(docName);
+    else
+      m_documentName = docName;
   }
 }
 
-KTextEditor::Document *ProxyItem::doc()
+KTextEditor::Document *ProxyItem::doc() const
 {
   return m_doc;
 }
@@ -282,7 +282,7 @@ QList<KTextEditor::Document*> ProxyItem::docTree() const
   return result;
 }
 
-bool ProxyItem::flag(Flag f)
+bool ProxyItem::flag(Flag f) const
 {
   return m_flags & f;
 }
@@ -302,19 +302,21 @@ void ProxyItem::clearFlag(Flag f)
   m_flags &= ~f;
 }
 
-void ProxyItem::setHost(const QString& host)
+void ProxyItem::setHost(const QString &host)
 {
   QString docName;
-  if (m_doc)
-    docName=m_doc->documentName();
+  if (m_doc) {
+    docName = m_doc->documentName();
+  }
+
   if (host.isEmpty()) {
     clearFlag(Host);
-    m_documentName=docName;
+    m_documentName = docName;
   } else {
     setFlag(Host);
-    m_documentName = QString::fromLatin1("[%1]").arg(host) + docName;
+    m_documentName = QString::fromLatin1("[%1]%2").arg(host).arg(docName);
   }
-  m_host=host;
+  m_host = host;
 
   initDisplay();
 }
@@ -326,14 +328,13 @@ const QString& ProxyItem::host() const
 //END ProxyItem
 
 KateFileTreeModel::KateFileTreeModel(QObject *p)
-  : QAbstractItemModel(p),
-    m_root(new ProxyItemDir(QLatin1String("m_root"), 0))
+  : QAbstractItemModel(p)
+  , m_root(new ProxyItemDir(QLatin1String("m_root"), 0))
 {
-
   // setup default settings
   // session init will set these all soon
-  KColorScheme colors(QPalette::Active);
-  QColor bg = colors.background().color();
+  const KColorScheme colors(QPalette::Active);
+  const QColor bg = colors.background().color();
   m_editShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::ActiveText).color(), 0.5);
   m_viewShade = KColorUtils::tint(bg, colors.foreground(KColorScheme::VisitedText).color(), 0.5);
   m_shadingEnabled = true;
@@ -344,7 +345,6 @@ KateFileTreeModel::KateFileTreeModel(QObject *p)
 
 KateFileTreeModel::~KateFileTreeModel()
 {
-
 }
 
 bool KateFileTreeModel::shadingEnabled() const
@@ -360,52 +360,50 @@ void KateFileTreeModel::setShadingEnabled(bool se)
   }
 }
 
-QColor KateFileTreeModel::editShade() const
+const QColor &KateFileTreeModel::editShade() const
 {
   return m_editShade;
 }
 
-void KateFileTreeModel::setEditShade(QColor es)
+void KateFileTreeModel::setEditShade(const QColor &es)
 {
   m_editShade = es;
 }
 
-QColor KateFileTreeModel::viewShade() const
+const QColor &KateFileTreeModel::viewShade() const
 {
   return m_viewShade;
 }
 
-void KateFileTreeModel::setViewShade(QColor vs)
+void KateFileTreeModel::setViewShade(const QColor &vs)
 {
   m_viewShade = vs;
 }
 
-bool KateFileTreeModel::showFullPathOnRoots(void)
+bool KateFileTreeModel::showFullPathOnRoots(void) const
 {
   return m_root->flag(ProxyItem::ShowFullPath);
 }
 
 void KateFileTreeModel::setShowFullPathOnRoots(bool s)
 {
-  if(s)
+  if (s) {
     m_root->setFlag(ProxyItem::ShowFullPath);
-  else
+  } else {
     m_root->clearFlag(ProxyItem::ShowFullPath);
+  }
 
-  foreach(ProxyItem *root, m_root->children()) {
+  foreach (ProxyItem *root, m_root->children()) {
     root->initDisplay();
   }
 }
 
-// FIXME: optimize this later to insert all at once if possible
-// maybe add a "bool emitSignals" to documentOpened
-// and possibly use beginResetModel here? I dunno.
-
 void KateFileTreeModel::initModel()
 {
   // add already existing documents
-  foreach( KTextEditor::Document* doc, KTextEditor::Editor::instance()->application()->documents() )
-    documentOpened( doc );
+  foreach (KTextEditor::Document *doc, KTextEditor::Editor::instance()->application()->documents()) {
+    documentOpened(doc);
+  }
 }
 
 void KateFileTreeModel::clearModel()
@@ -413,7 +411,7 @@ void KateFileTreeModel::clearModel()
   // remove all items
   // can safely ignore documentClosed here
 
-  beginRemoveRows(QModelIndex(), 0, m_root->childCount()-1);
+  beginRemoveRows(QModelIndex(), 0, m_root->childCount() - 1);
 
   delete m_root;
   m_root = new ProxyItemDir(QLatin1String("m_root"), 0);
@@ -435,12 +433,13 @@ void KateFileTreeModel::connectDocument(const KTextEditor::Document *doc)
           this,  SLOT(documentModifiedOnDisc(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)) );
 }
 
-QModelIndex KateFileTreeModel::docIndex(KTextEditor::Document *d) const
+QModelIndex KateFileTreeModel::docIndex(const KTextEditor::Document *doc) const
 {
-  ProxyItem *item = m_docmap[d];
-  if(!item) {
+  if(!m_docmap.contains(doc)) {
     return QModelIndex();
   }
+
+  ProxyItem *item = m_docmap[doc];
 
   return createIndex(item->row(), 0, item);
 }
@@ -449,10 +448,11 @@ Qt::ItemFlags KateFileTreeModel::flags( const QModelIndex &index ) const
 {
   Qt::ItemFlags flags = Qt::ItemIsEnabled;
 
-  if(!index.isValid())
+  if(!index.isValid()) {
     return 0;
+  }
 
-  ProxyItem *item = static_cast<ProxyItem*>(index.internalPointer());
+  const ProxyItem *item = static_cast<ProxyItem*>(index.internalPointer());
   if(item && !item->childCount()) {
     flags |= Qt::ItemIsSelectable;
   }
@@ -491,8 +491,9 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
       // in list mode we want to use kate's fancy names.
       if(m_listMode) {
         return item->documentName();
-      } else
+      } else {
         return item->display();
+      }
 
     case Qt::DecorationRole:
       return item->icon();
@@ -507,14 +508,18 @@ QVariant KateFileTreeModel::data( const QModelIndex &index, int role ) const
     }
 
     case Qt::ForegroundRole: {
-      KColorScheme colors(QPalette::Active);
-      if(!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) return colors.foreground(KColorScheme::InactiveText).color();
-    } break;
+      const KColorScheme colors(QPalette::Active);
+      if (!item->flag(ProxyItem::Dir) && (!item->doc() || item->doc()->openingError())) {
+        return colors.foreground(KColorScheme::InactiveText).color();
+      }
+    }
+    break;
 
     case Qt::BackgroundRole:
       // TODO: do that funky shading the file list does...
-      if(m_shadingEnabled && m_brushes.contains(item))
+      if(m_shadingEnabled && m_brushes.contains(item)) {
         return m_brushes[item];
+      }
       break;
   }
 
@@ -526,8 +531,9 @@ QVariant KateFileTreeModel::headerData( int section, Qt::Orientation orientation
   Q_UNUSED(orientation);
   Q_UNUSED(role);
 
-  if(section == 0)
-    return QLatin1String("a header");
+  if(section == 0) {
+    return QLatin1String("name");
+  }
 
   return QVariant();
 }
@@ -537,7 +543,7 @@ int KateFileTreeModel::rowCount( const QModelIndex &parent ) const
   if(!parent.isValid())
     return m_root->childCount();
 
-  ProxyItem *item = static_cast<ProxyItem *>(parent.internalPointer());
+  const ProxyItem *item = static_cast<ProxyItem *>(parent.internalPointer());
   if(!item) {
     return 0;
   }
@@ -551,45 +557,46 @@ int KateFileTreeModel::columnCount( const QModelIndex &parent ) const
   return 1;
 }
 
-
 QModelIndex KateFileTreeModel::parent( const QModelIndex &index ) const
 {
-  if(!index.isValid()) {
+  if (!index.isValid()) {
     return QModelIndex();
   }
 
-  ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
-  if(!item) {
+  const ProxyItem *item = static_cast<ProxyItem *>(index.internalPointer());
+  if (!item) {
     return QModelIndex();
   }
 
-  if(!item->parent()) {
+  if (!item->parent()) {
     return QModelIndex();
   }
 
-  if(item->parent() == m_root)
+  if (item->parent() == m_root) {
     return QModelIndex();
+  }
 
   return createIndex(item->parent()->row(), 0, item->parent());
 }
 
 QModelIndex KateFileTreeModel::index( int row, int column, const QModelIndex &parent ) const
 {
-  ProxyItem *p = 0;
-  if(column != 0) {
+  const ProxyItem *p = 0;
+  if (column != 0) {
     return QModelIndex();
   }
 
-  if(!parent.isValid())
+  if (!parent.isValid()) {
     p = m_root;
-  else
+  } else {
     p = static_cast<ProxyItem *>(parent.internalPointer());
+  }
 
-  if(!p) {
+  if (!p) {
     return QModelIndex();
   }
 
-  if(row < 0 || row >= p->childCount()) {
+  if (row < 0 || row >= p->childCount()) {
     return QModelIndex();
   }
 
@@ -598,10 +605,11 @@ QModelIndex KateFileTreeModel::index( int row, int column, const QModelIndex &pa
 
 bool KateFileTreeModel::hasChildren( const QModelIndex & parent ) const
 {
-  if(!parent.isValid())
+  if (!parent.isValid()) {
     return m_root->childCount() > 0;
+  }
 
-  ProxyItem *item = static_cast<ProxyItem*>(parent.internalPointer());
+  const ProxyItem *item = static_cast<ProxyItem*>(parent.internalPointer());
   if(!item) {
     return false;
   }
@@ -611,10 +619,11 @@ bool KateFileTreeModel::hasChildren( const QModelIndex & parent ) const
 
 bool KateFileTreeModel::isDir(const QModelIndex &index) const
 {
-  if(!index.isValid())
+  if(!index.isValid()) {
     return true;
+  }
 
-  ProxyItem *item = static_cast<ProxyItem*>(index.internalPointer());
+  const ProxyItem *item = static_cast<ProxyItem*>(index.internalPointer());
   if(!item) {
     return false;
   }
@@ -647,16 +656,17 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
     path = doc->documentName();
     isEmpty = true;
   } else {
-    host=doc->url().host();
-    if (!host.isEmpty())
-      path = QString::fromLatin1("[%1]").arg(host) + path;
-
+    host = doc->url().host();
+    if (!host.isEmpty()) {
+      path = QString::fromLatin1("[%1]%2").arg(host).arg(path);
+    }
   }
 
   ProxyItem *item = new ProxyItem(path, 0);
 
-  if(isEmpty)
+  if(isEmpty) {
     item->setFlag(ProxyItem::Empty);
+  }
 
   item->setDoc(doc);
   item->setHost(host);
@@ -664,14 +674,13 @@ void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
   handleInsert(item);
   m_docmap[doc] = item;
   connectDocument(doc);
-
 }
 
 void KateFileTreeModel::documentsOpened(const QList<KTextEditor::Document*> &docs)
 {
   beginResetModel();
 
-  foreach(KTextEditor::Document *doc, docs) {
+  foreach (KTextEditor::Document *doc, docs) {
     if (m_docmap.contains(doc)) {
       documentNameChanged(doc);
     } else {
@@ -684,14 +693,15 @@ void KateFileTreeModel::documentsOpened(const QList<KTextEditor::Document*> &doc
 
 void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 {
-  ProxyItem *item = m_docmap[doc];
-  if(!item)
+  if (!m_docmap.contains(doc)) {
     return;
-
-  if(doc->isModified()) {
-    item->setFlag(ProxyItem::Modified);
   }
-  else {
+
+  ProxyItem *item = m_docmap[doc];
+
+  if (doc->isModified()) {
+    item->setFlag(ProxyItem::Modified);
+  } else {
     item->clearFlag(ProxyItem::Modified);
     item->clearFlag(ProxyItem::ModifiedExternally);
     item->clearFlag(ProxyItem::DeletedExternally);
@@ -699,30 +709,32 @@ void KateFileTreeModel::documentModifiedChanged(KTextEditor::Document *doc)
 
   setupIcon(item);
 
-  QModelIndex idx = createIndex(item->row(), 0, item);
+  const QModelIndex idx = createIndex(item->row(), 0, item);
   emit dataChanged(idx, idx);
 }
 
-void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason )
+void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool modified, KTextEditor::ModificationInterface::ModifiedOnDiskReason reason)
 {
   Q_UNUSED(modified);
-  ProxyItem *item = m_docmap[doc];
-  if(!item)
+  if(!m_docmap.contains(doc)) {
     return;
+  }
+
+  ProxyItem *item = m_docmap[doc];
 
   // This didn't do what I thought it did, on an ignore
   // we'd get !modified causing the warning icons to disappear
-  if(!modified) {
+  if (!modified) {
     item->clearFlag(ProxyItem::ModifiedExternally);
     item->clearFlag(ProxyItem::DeletedExternally);
   } else {
-    if(reason == KTextEditor::ModificationInterface::OnDiskDeleted) {
+    if (reason == KTextEditor::ModificationInterface::OnDiskDeleted) {
       item->setFlag(ProxyItem::DeletedExternally);
     }
-    else if(reason == KTextEditor::ModificationInterface::OnDiskModified) {
+    else if (reason == KTextEditor::ModificationInterface::OnDiskModified) {
       item->setFlag(ProxyItem::ModifiedExternally);
     }
-    else if(reason == KTextEditor::ModificationInterface::OnDiskCreated) {
+    else if (reason == KTextEditor::ModificationInterface::OnDiskCreated) {
       // with out this, on "reload" we don't get the icons removed :(
       item->clearFlag(ProxyItem::ModifiedExternally);
       item->clearFlag(ProxyItem::DeletedExternally);
@@ -731,13 +743,13 @@ void KateFileTreeModel::documentModifiedOnDisc(KTextEditor::Document *doc, bool 
 
   setupIcon(item);
 
-  QModelIndex idx = createIndex(item->row(), 0, item);
+  const QModelIndex idx = createIndex(item->row(), 0, item);
   emit dataChanged(idx, idx);
 }
 
-void KateFileTreeModel::documentActivated(KTextEditor::Document *doc)
+void KateFileTreeModel::documentActivated(const KTextEditor::Document *doc)
 {
-  if(!m_docmap.contains(doc)) {
+  if (!m_docmap.contains(doc)) {
     return;
   }
 
@@ -745,26 +757,32 @@ void KateFileTreeModel::documentActivated(KTextEditor::Document *doc)
   m_viewHistory.removeAll(item);
   m_viewHistory.prepend(item);
 
-  while (m_viewHistory.count() > 10) m_viewHistory.removeLast();
+  while (m_viewHistory.count() > 10) {
+    m_viewHistory.removeLast();
+  }
 
   updateBackgrounds();
 }
 
-void KateFileTreeModel::documentEdited(KTextEditor::Document *doc)
+/*
+void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
 {
-  if(!m_docmap.contains(doc)) {
+  if (!m_docmap.contains(doc)) {
     return;
   }
 
   ProxyItem *item = m_docmap[doc];
   m_editHistory.removeAll(item);
   m_editHistory.prepend(item);
-  while (m_editHistory.count() > 10) m_editHistory.removeLast();
+  while (m_editHistory.count() > 10) {
+    m_editHistory.removeLast();
+  }
 
   updateBackgrounds();
 }
+*/
 
-void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Document*> &docs)
+void KateFileTreeModel::slotAboutToDeleteDocuments(QList<KTextEditor::Document*> docs)
 {
   foreach (const KTextEditor::Document *doc, docs) {
     disconnect(doc, SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged(KTextEditor::Document*)));
@@ -775,7 +793,7 @@ void KateFileTreeModel::slotAboutToDeleteDocuments(const QList<KTextEditor::Docu
   }
 }
 
-void KateFileTreeModel::slotDocumentsDeleted(const QList<KTextEditor::Document*> &docs)
+void KateFileTreeModel::slotDocumentsDeleted(QList<KTextEditor::Document*> docs)
 {
   foreach (const KTextEditor::Document *doc, docs) {
     connectDocument(doc);
@@ -793,7 +811,9 @@ class EditViewCount
 
 void KateFileTreeModel::updateBackgrounds(bool force)
 {
-  if (!m_shadingEnabled && !force) return;
+  if (!m_shadingEnabled && !force) {
+    return;
+  }
 
   QMap <ProxyItem *, EditViewCount> helper;
   int i = 1;
@@ -812,46 +832,42 @@ void KateFileTreeModel::updateBackgrounds(bool force)
   QMap<ProxyItem *, QBrush> oldBrushes = m_brushes;
   m_brushes.clear();
 
-  int hc = m_viewHistory.count();
-  int ec = m_editHistory.count();
+  const int hc = m_viewHistory.count();
+  const int ec = m_editHistory.count();
 
-  for (QMap<ProxyItem *, EditViewCount>::iterator it = helper.begin();it != helper.end();++it)
-  {
-    QColor shade( m_viewShade );
-    QColor eshade( m_editShade );
+  for (QMap<ProxyItem *, EditViewCount>::iterator it = helper.begin(); it != helper.end(); ++it) {
+    QColor shade(m_viewShade);
+    QColor eshade(m_editShade);
 
-    if (it.value().edit > 0)
-    {
+    if (it.value().edit > 0) {
       int v = hc - it.value().view;
       int e = ec - it.value().edit + 1;
 
       e = e * e;
 
-      int n = qMax(v + e, 1);
+      const int n = qMax(v + e, 1);
 
       shade.setRgb(
-        ((shade.red()*v) + (eshade.red()*e)) / n,
-        ((shade.green()*v) + (eshade.green()*e)) / n,
-        ((shade.blue()*v) + (eshade.blue()*e)) / n
+        ((shade.red() * v) + (eshade.red() * e)) / n,
+        ((shade.green() * v) + (eshade.green() * e)) / n,
+        ((shade.blue() * v) + (eshade.blue() * e)) / n
       );
     }
 
     // blend in the shade color; latest is most colored.
-    double t = double(hc - it.value().view + 1) / double(hc);
+    const double t = double(hc - it.value().view + 1) / double(hc);
 
     m_brushes[it.key()] = QBrush(KColorUtils::mix(QPalette().color(QPalette::Base), shade, t));
   }
 
-  foreach(ProxyItem *item, m_brushes.keys())
-  {
+  foreach (ProxyItem *item, m_brushes.keys()) {
     oldBrushes.remove(item);
-    QModelIndex idx = createIndex(item->row(), 0, item);
+    const QModelIndex idx = createIndex(item->row(), 0, item);
     dataChanged(idx, idx);
   }
 
-  foreach(ProxyItem *item, oldBrushes.keys())
-  {
-    QModelIndex idx = createIndex(item->row(), 0, item);
+  foreach (ProxyItem *item, oldBrushes.keys()) {
+    const QModelIndex idx = createIndex(item->row(), 0, item);
     dataChanged(idx, idx);
   }
 }
@@ -860,22 +876,20 @@ void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
 {
   Q_ASSERT(item != 0);
 
-  if(!item || !item->parent()) {
+  if(!item->parent()) {
     return;
   }
 
   ProxyItemDir *parent = item->parent();
-  //emit layoutAboutToBeChanged();
 
-  while(parent) {
-    if(!item->childCount()) {
-      QModelIndex parent_index = parent == m_root ? QModelIndex() : createIndex(parent->row(), 0, parent);
+  while (parent) {
+    if (!item->childCount()) {
+      const QModelIndex parent_index = (parent == m_root) ? QModelIndex() : createIndex(parent->row(), 0, parent);
       beginRemoveRows(parent_index, item->row(), item->row());
       parent->remChild(item);
       endRemoveRows();
       delete item;
-    }
-    else {
+    } else {
       // breakout early, if this node isn't empty, theres no use in checking its parents
       return;
     }
@@ -883,14 +897,10 @@ void KateFileTreeModel::handleEmptyParents(ProxyItemDir *item)
     item = parent;
     parent = item->parent();
   }
-
-  //emit layoutChanged();
 }
 
 void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
 {
-  QString path = doc->url().path();
-
   if(!m_docmap.contains(doc)) {
     return;
   }
@@ -913,9 +923,9 @@ void KateFileTreeModel::documentClosed(KTextEditor::Document *doc)
   ProxyItem *node = m_docmap[doc];
   ProxyItemDir *parent = node->parent();
 
-  QModelIndex parent_index = parent == m_root ? QModelIndex() : createIndex(parent->row(), 0, parent);
+  const QModelIndex parent_index = (parent == m_root) ? QModelIndex() : createIndex(parent->row(), 0, parent);
   beginRemoveRows(parent_index, node->row(), node->row());
-    node->parent()->remChild(node);
+  node->parent()->remChild(node);
   endRemoveRows();
 
   delete node;
@@ -936,44 +946,44 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
   if(doc->url().isEmpty()) {
     path = doc->documentName();
     item->setFlag(ProxyItem::Empty);
-  }
-  else {
+  } else {
     item->clearFlag(ProxyItem::Empty);
-    host=doc->url().host();
-    if (!host.isEmpty())
-      path = QString::fromLatin1("[%1]").arg(host) + path;
+    host = doc->url().host();
+    if (!host.isEmpty()) {
+      path = QString::fromLatin1("[%1]%2").arg(host).arg(path);
+    }
   }
 
-  if(m_shadingEnabled) {
+  if (m_shadingEnabled) {
     ProxyItem *toRemove = m_docmap[doc];
-    if(m_brushes.contains(toRemove)) {
-      QBrush brush=m_brushes[toRemove];
+    if (m_brushes.contains(toRemove)) {
+      QBrush brush = m_brushes[toRemove];
       m_brushes.remove(toRemove);
-      m_brushes.insert(item,brush);
+      m_brushes.insert(item, brush);
     }
 
-    if(m_viewHistory.contains(toRemove)) {
-      int idx=m_viewHistory.indexOf(toRemove);
-      if (idx!=-1)
-        m_viewHistory.replace(idx,item);
+    if (m_viewHistory.contains(toRemove)) {
+      const int idx = m_viewHistory.indexOf(toRemove);
+      if (idx != -1) {
+        m_viewHistory.replace(idx, item);
+      }
     }
 
     if(m_editHistory.contains(toRemove)) {
-      int idx=m_editHistory.indexOf(toRemove);
-      if (idx!=-1)
-        m_editHistory.replace(idx,item);
+      const int idx = m_editHistory.indexOf(toRemove);
+      if (idx != -1) {
+        m_editHistory.replace(idx, item);
+      }
     }
   }
 
   handleNameChange(item, path, host);
-
-  triggerViewChangeAfterNameChange();
+  triggerViewChangeAfterNameChange(); // FIXME: heh, non-standard signal?
 }
 
-ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
+ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) const
 {
-  QString base = name.section(QLatin1Char('/'), 0, -2);
-  foreach(ProxyItem *item, m_root->children()) {
+  foreach (ProxyItem *item, m_root->children()) {
     QString path = item->path().section(QLatin1Char('/'), 0, -r);
     if (!item->flag(ProxyItem::Host) && !QFileInfo(path).isAbsolute()) {
       continue;
@@ -994,17 +1004,17 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, int r)
   return 0;
 }
 
-ProxyItemDir *KateFileTreeModel::findChildNode(ProxyItemDir *parent, const QString &name)
+ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const QString &name) const
 {
   Q_ASSERT(parent != 0);
 
-  if(!parent || !parent->childCount()) {
+  if (!parent->childCount()) {
     return 0;
   }
 
-  foreach(ProxyItem *item, parent->children()) {
-    if(item->display() == name) {
-      if(!item->flag(ProxyItem::Dir)) {
+  foreach (ProxyItem *item, parent->children()) {
+    if (item->display() == name) {
+      if (!item->flag(ProxyItem::Dir)) {
         return 0;
       }
 
@@ -1020,7 +1030,6 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
   Q_ASSERT(root != 0);
   Q_ASSERT(item != 0);
 
-  QString sep;
   QString tail = item->path();
   tail.remove(0, root->path().length());
   QStringList parts = tail.split(QLatin1Char('/'), QString::SkipEmptyParts);
@@ -1029,27 +1038,27 @@ void KateFileTreeModel::insertItemInto(ProxyItemDir *root, ProxyItem *item)
   current_parts.append(root->path());
 
   // seems this can be empty, see bug 286191
-  if (!parts.isEmpty())
+  if (!parts.isEmpty()) {
     parts.pop_back();
+  }
 
-  foreach(const QString &part, parts) {
+  foreach (const QString &part, parts) {
     current_parts.append(part);
     ProxyItemDir *find = findChildNode(ptr, part);
-    if(!find) {
-      QString new_name = current_parts.join(QLatin1String("/"));
-      QModelIndex parent_index = createIndex(ptr->row(), 0, ptr);
-      beginInsertRows(ptr == m_root ? QModelIndex() : parent_index, ptr->childCount(), ptr->childCount());
+    if (!find) {
+      const QString new_name = current_parts.join(QLatin1String("/"));
+      const QModelIndex parent_index = (ptr == m_root) ? QModelIndex() : createIndex(ptr->row(), 0, ptr);
+      beginInsertRows(parent_index, ptr->childCount(), ptr->childCount());
       ptr = new ProxyItemDir(new_name, ptr);
       endInsertRows();
-    }
-    else {
+    } else {
         ptr = find;
     }
   }
 
-  QModelIndex parent_index = createIndex(ptr->row(), 0, ptr);
-  beginInsertRows(ptr == m_root ? QModelIndex() : parent_index, ptr->childCount(), ptr->childCount());
-    ptr->addChild(item);
+  const QModelIndex parent_index = (ptr == m_root) ? QModelIndex() : createIndex(ptr->row(), 0, ptr);
+  beginInsertRows(parent_index, ptr->childCount(), ptr->childCount());
+  ptr->addChild(item);
   endInsertRows();
 }
 
@@ -1057,14 +1066,14 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
 {
   Q_ASSERT(item != 0);
 
-  if(m_listMode) {
+  if (m_listMode) {
     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
     m_root->addChild(item);
     endInsertRows();
     return;
   }
 
-  if(item->flag(ProxyItem::Empty)) {
+  if (item->flag(ProxyItem::Empty)) {
     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
     m_root->addChild(item);
     endInsertRows();
@@ -1074,72 +1083,71 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
   ProxyItemDir *root = findRootNode(item->path());
   if(root) {
     insertItemInto(root, item);
-  } else {
+    return;
+  }
 
-    // trim off trailing file and dir
-    QString base = item->path().section(QLatin1Char('/'), 0, -2);
+  // trim off trailing file and dir
+  QString base = item->path().section(QLatin1Char('/'), 0, -2);
 
-    // create new root
-    ProxyItemDir *new_root = new ProxyItemDir(base, 0);
-    new_root->setHost(item->host());
+  // create new root
+  ProxyItemDir *new_root = new ProxyItemDir(base, 0);
+  new_root->setHost(item->host());
 
-    // add new root to m_root
-    beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
-      m_root->addChild(new_root);
-    endInsertRows();
+  // add new root to m_root
+  beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
+  m_root->addChild(new_root);
+  endInsertRows();
 
-    // same fix as in findRootNode, try to match a full dir, instead of a partial path
-    base += QLatin1Char('/');
+  // same fix as in findRootNode, try to match a full dir, instead of a partial path
+  base += QLatin1Char('/');
 
-    // try and merge existing roots with the new root node.
-    foreach(ProxyItem *root, m_root->children()) {
-      if(root == new_root || !root->flag(ProxyItem::Dir))
-        continue;
-
-      if(root->path().startsWith(base)) {
-        beginRemoveRows(QModelIndex(), root->row(), root->row());
-          m_root->remChild(root);
-        endRemoveRows();
-
-        //beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
-          // this can't use new_root->addChild directly, or it'll potentially miss a bunch of subdirs
-          insertItemInto(new_root, root);
-        //endInsertRows();
-      }
+  // try and merge existing roots with the new root node.
+  foreach (ProxyItem *root, m_root->children()) {
+    if (root == new_root || !root->flag(ProxyItem::Dir)) {
+      continue;
     }
 
-    // add item to new root
-    // have to call begin/endInsertRows here, or the new item won't show up.
-    QModelIndex new_root_index = createIndex(new_root->row(), 0, new_root);
-    beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
-      new_root->addChild(item);
-    endInsertRows();
+    if (root->path().startsWith(base)) {
+      beginRemoveRows(QModelIndex(), root->row(), root->row());
+      m_root->remChild(root);
+      endRemoveRows();
 
+      //beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
+      // this can't use new_root->addChild directly, or it'll potentially miss a bunch of subdirs
+      insertItemInto(new_root, root);
+      //endInsertRows();
+    }
   }
+
+  // add item to new root
+  // have to call begin/endInsertRows here, or the new item won't show up.
+  const QModelIndex new_root_index = createIndex(new_root->row(), 0, new_root);
+  beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
+  new_root->addChild(item);
+  endInsertRows();
 }
 
 void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_name, const QString& new_host)
 {
   Q_ASSERT(item != 0);
 
-  if(m_listMode) {
+  if (m_listMode) {
     item->setPath(new_name);
     item->setHost(new_host);
-    QModelIndex idx = createIndex(item->row(), 0, item);
+    const QModelIndex idx = createIndex(item->row(), 0, item);
     setupIcon(item);
     emit dataChanged(idx, idx);
     return;
   }
 
-  // for some reason we get useless name changes
-  if(item->path() == new_name) {
+  // for some reason we get useless name changes [should be fixed in 5.0]
+  if (item->path() == new_name) {
     return;
   }
 
   // in either case (new/change) we want to remove the item from its parent
-
   ProxyItemDir *parent = item->parent();
-  if(!parent) {
+  if (!parent) {
     item->setPath(new_name);
     item->setHost(new_host);
     return;
@@ -1148,47 +1156,40 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
   item->setPath(new_name);
   item->setHost(new_host);
 
-  QModelIndex parent_index = parent == m_root ? QModelIndex() : createIndex(parent->row(), 0, parent);
+  const QModelIndex parent_index = (parent == m_root) ? QModelIndex() : createIndex(parent->row(), 0, parent);
   beginRemoveRows(parent_index, item->row(), item->row());
-    parent->remChild(item);
+  parent->remChild(item);
   endRemoveRows();
 
-  // remove empty parent nodes here, recursively.
   handleEmptyParents(parent);
 
-  // set new path
-  //item->setPath(new_name);
-
   // clear all but Empty flag
-  if(item->flag(ProxyItem::Empty))
+  if (item->flag(ProxyItem::Empty)) {
     item->setFlags(ProxyItem::Empty);
-  else
+  } else {
     item->setFlags(ProxyItem::None);
+  }
 
   setupIcon(item);
-
-  // new item
   handleInsert(item);
 }
 
-void KateFileTreeModel::setupIcon(ProxyItem *item)
+void KateFileTreeModel::setupIcon(ProxyItem *item) const
 {
   Q_ASSERT(item != 0);
 
-  QStringList emblems;
   QString icon_name;
 
-  if(item->flag(ProxyItem::Modified)) {
+  if (item->flag(ProxyItem::Modified)) {
     icon_name = QLatin1String("document-save");
-  }
-  else {
-    QUrl url(item->path());
+  } else {
+    const QUrl url(item->path());
     icon_name = QMimeDatabase().mimeTypeForFile(url.path(), QMimeDatabase::MatchExtension).iconName();
   }
 
   QIcon icon = QIcon::fromTheme(icon_name);
 
-  if(item->flag(ProxyItem::ModifiedExternally) || item->flag(ProxyItem::DeletedExternally)) {
+  if (item->flag(ProxyItem::ModifiedExternally) || item->flag(ProxyItem::DeletedExternally)) {
     icon = KIconUtils::addOverlay(icon, QIcon(QLatin1String("emblem-important")), Qt::TopLeftCorner);
   }
 

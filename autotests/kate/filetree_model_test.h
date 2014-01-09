@@ -42,6 +42,8 @@ class FileTreeModelTest : public QObject
     void buildTreeFullPath();
     void buildTreeBatch_data();
     void buildTreeBatch();
+    void buildTreeBatchPrefill_data();
+    void buildTreeBatchPrefill();
     void listMode_data();
     void listMode();
 

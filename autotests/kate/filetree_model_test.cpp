@@ -288,6 +288,61 @@ void FileTreeModelTest::buildTreeBatch()
   QCOMPARE(root, nodes);
 }
 
+void FileTreeModelTest::buildTreeBatchPrefill_data()
+{
+  QTest::addColumn<QList<DummyDocument *>>("prefill");
+  QTest::addColumn<QList<DummyDocument *>>("documents");
+  QTest::addColumn<ResultNode>("nodes");
+
+  QTest::newRow("easy") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///a/foo.txt")
+  ) << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///a/bar.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("a", true)
+        << ResultNode("foo.txt")
+        << ResultNode("bar.txt"))
+  );
+
+  QTest::newRow("split") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///a/foo.txt")
+  ) << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///b/foo.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("a", true)
+        << ResultNode("foo.txt"))
+      << (ResultNode("b", true)
+        << ResultNode("foo.txt"))
+  );
+}
+
+void FileTreeModelTest::buildTreeBatchPrefill()
+{
+  KateFileTreeModel m(this);
+  QFETCH(QList<DummyDocument *>, prefill);
+  QFETCH(QList<DummyDocument *>, documents);
+  QFETCH(ResultNode, nodes);
+
+  foreach(DummyDocument *doc, prefill) {
+    m.documentOpened(doc);
+  }
+
+  QList<KTextEditor::Document *> list;
+
+  foreach(DummyDocument *doc, documents) {
+    list << doc;
+  }
+
+  m.documentsOpened(list);
+
+  ResultNode root;
+  walkTree(m, QModelIndex(), root);
+
+  QCOMPARE(root, nodes);
+}
+
 void FileTreeModelTest::walkTree(KateFileTreeModel &model, const QModelIndex &rootIndex, ResultNode &rootNode)
 {
   if (!model.hasChildren(rootIndex)) {

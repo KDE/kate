@@ -51,9 +51,9 @@ class KateFileTreeModel : public QAbstractItemModel
 
     virtual QModelIndex parent( const QModelIndex & index ) const;
     virtual QModelIndex index( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
-    virtual bool hasChildren ( const QModelIndex & parent = QModelIndex() ) const;
+    virtual bool hasChildren( const QModelIndex & parent = QModelIndex() ) const;
 
-    QModelIndex docIndex(KTextEditor::Document *) const;
+    QModelIndex docIndex(const KTextEditor::Document *) const;
 
     bool isDir(const QModelIndex &index) const;
 
@@ -63,36 +63,36 @@ class KateFileTreeModel : public QAbstractItemModel
     bool shadingEnabled() const;
     void setShadingEnabled(bool);
 
-    QColor editShade() const;
-    void setEditShade(QColor);
+    const QColor &editShade() const;
+    void setEditShade(const QColor &);
 
-    QColor viewShade() const;
-    void setViewShade(QColor);
+    const QColor &viewShade() const;
+    void setViewShade(const QColor &);
 
-    bool showFullPathOnRoots(void);
+    bool showFullPathOnRoots(void) const;
     void setShowFullPathOnRoots(bool);
+
+    void documentsOpened(const QList<KTextEditor::Document *> &);
+    void documentActivated(const KTextEditor::Document *);
+    /* used strictly for the item coloring */
+    /*
+    void documentEdited(const KTextEditor::Document *);
+    */
 
   public Q_SLOTS:
     void documentOpened(KTextEditor::Document *);
     void documentClosed(KTextEditor::Document *);
     void documentNameChanged(KTextEditor::Document *);
-    void documentModifiedChanged(KTextEditor::Document *);
+    void documentModifiedChanged( KTextEditor::Document *);
     void documentModifiedOnDisc(KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
-    void documentsOpened(const QList<KTextEditor::Document *> &);
-
-    /* used strictly for the item coloring */
-    void documentActivated(KTextEditor::Document*);
-    void documentEdited(KTextEditor::Document*);
-
-    void slotAboutToDeleteDocuments(const QList<KTextEditor::Document *> &);
-    void slotDocumentsDeleted(const QList<KTextEditor::Document *> &);
+    void slotAboutToDeleteDocuments(QList<KTextEditor::Document *>);
+    void slotDocumentsDeleted(QList<KTextEditor::Document *>);
 
   Q_SIGNALS:
     void triggerViewChangeAfterNameChange();
   private:
     ProxyItemDir *m_root;
-    QHash<KTextEditor::Document *, ProxyItem *> m_docmap;
-    QString m_base;
+    QHash<const KTextEditor::Document *, ProxyItem *> m_docmap;
 
     bool m_shadingEnabled;
 
@@ -105,13 +105,13 @@ class KateFileTreeModel : public QAbstractItemModel
 
     bool m_listMode;
 
-    ProxyItemDir *findRootNode(const QString &name, int r = 1);
-    ProxyItemDir *findChildNode(ProxyItemDir *parent, const QString &name);
+    ProxyItemDir *findRootNode(const QString &name, const int r = 1) const;
+    ProxyItemDir *findChildNode(const ProxyItemDir *parent, const QString &name) const;
     void insertItemInto(ProxyItemDir *root, ProxyItem *item);
     void handleInsert(ProxyItem *item);
     void handleNameChange(ProxyItem *item, const QString &new_name, const QString& new_host);
     void handleEmptyParents(ProxyItemDir *item);
-    void setupIcon(ProxyItem *item);
+    void setupIcon(ProxyItem *item) const;
 
     void updateBackgrounds(bool force = false);
 

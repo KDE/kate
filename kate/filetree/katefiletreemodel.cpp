@@ -57,25 +57,32 @@ class ProxyItem {
     int row() const;
 
     const QString &display() const;
-    const QString &path() const;
     const QString &documentName() const;
+
+    const QString &path() const;
     void setPath(const QString &str);
 
+    void setHost(const QString &host);
+    const QString &host() const;
+
     void setIcon(const QIcon &i);
-    QIcon icon() const;
+    const QIcon &icon() const;
 
     const QList<ProxyItem*> &children() const;
 
     void setDoc(KTextEditor::Document *doc);
     KTextEditor::Document *doc() const;
+
+    /**
+     * the view usess this to close all the documents under the folder
+     * @returns list of all the (nested) documents under this node
+     */
     QList<KTextEditor::Document*> docTree() const;
 
     void setFlags(Flags flags);
     void setFlag(Flag flag);
     void clearFlag(Flag flag);
     bool flag(Flag flag) const;
-    void setHost(const QString &host);
-    const QString &host() const;
 
   private:
     QString m_path;
@@ -89,8 +96,10 @@ class ProxyItem {
     QIcon m_icon;
     KTextEditor::Document *m_doc;
     QString m_host;
+
   protected:
-    void initDisplay();
+    void updateDisplay();
+    void updateDocumentName();
 };
 
 QDebug operator<<(QDebug dbg, ProxyItem *item)
@@ -112,7 +121,13 @@ QDebug operator<<(QDebug dbg, ProxyItem *item)
 class ProxyItemDir : public ProxyItem
 {
   public:
-    ProxyItemDir(QString n, ProxyItemDir *p = 0) : ProxyItem(n, p) { setFlag(ProxyItem::Dir); initDisplay();}
+    ProxyItemDir(QString n, ProxyItemDir *p = 0) : ProxyItem(n, p)
+    {
+      setFlag(ProxyItem::Dir);
+      updateDisplay();
+
+      setIcon(QIcon::fromTheme(QLatin1String("folder")));
+    }
 };
 
 QDebug operator<<(QDebug dbg, ProxyItemDir *item)
@@ -136,7 +151,7 @@ Q_DECLARE_OPERATORS_FOR_FLAGS(ProxyItem::Flags)
 ProxyItem::ProxyItem(const QString &d, ProxyItemDir *p, ProxyItem::Flags f)
   : m_path(d), m_parent(p), m_row(-1), m_flags(f), m_doc(0)
 {
-  initDisplay();
+  updateDisplay();
 
   if(p) {
     p->addChild(this);
@@ -148,23 +163,23 @@ ProxyItem::~ProxyItem()
   qDeleteAll(m_children);
 }
 
-void ProxyItem::initDisplay()
+void ProxyItem::updateDisplay()
 {
   // triggers only if this is a top level node and the root has the show full path flag set.
   if (flag(ProxyItem::Dir) && m_parent && !m_parent->m_parent && m_parent->flag(ProxyItem::ShowFullPath)) {
     m_display = m_path;
-    if(m_display.startsWith(QDir::homePath())) {
+    if (m_display.startsWith(QDir::homePath())) {
       m_display.replace(0, QDir::homePath().length(), QLatin1String("~"));
     }
   } else {
     m_display = m_path.section(QLatin1Char('/'), -1, -1);
     if (flag(ProxyItem::Host) && (!m_parent || (m_parent && !m_parent->m_parent))) {
-      QString hostPrefix = QString::fromLatin1("[%1]").arg(host());
-      if (hostPrefix!=m_display)
-        m_display=hostPrefix+m_display;
+      const QString hostPrefix = QString::fromLatin1("[%1]").arg(host());
+      if (hostPrefix != m_display) {
+        m_display = hostPrefix + m_display;
+      }
     }
   }
-
 }
 
 int ProxyItem::addChild(ProxyItem *item)
@@ -174,17 +189,19 @@ int ProxyItem::addChild(ProxyItem *item)
   m_children.append(item);
   item->m_parent = static_cast<ProxyItemDir*>(this);
 
-  item->initDisplay();
+  item->updateDisplay();
 
   return item_row;
 }
 
 void ProxyItem::remChild(ProxyItem *item)
 {
-  m_children.removeOne(item);
-  // fix up item rows
-  // could be done a little better, but this'll work.
-  for(int i = 0; i < m_children.count(); i++) {
+  const int idx = m_children.indexOf(item);
+  Q_ASSERT(idx != -1);
+
+  m_children.removeAt(idx);
+
+  for (int i = idx; i < m_children.count(); i++) {
     m_children[i]->m_row = i;
   }
 
@@ -211,12 +228,8 @@ int ProxyItem::row() const
   return m_row;
 }
 
-QIcon ProxyItem::icon() const
+const QIcon &ProxyItem::icon() const
 {
-  if(m_children.count()) {
-    return QIcon::fromTheme(QLatin1String("folder"));
-  }
-
   return m_icon;
 }
 
@@ -243,7 +256,7 @@ const QString &ProxyItem::path() const
 void ProxyItem::setPath(const QString &p)
 {
   m_path = p;
-  initDisplay();
+  updateDisplay();
 }
 
 const QList<ProxyItem*> &ProxyItem::children() const
@@ -253,16 +266,9 @@ const QList<ProxyItem*> &ProxyItem::children() const
 
 void ProxyItem::setDoc(KTextEditor::Document *doc)
 {
+  Q_ASSERT(doc);
   m_doc = doc;
-  if (!doc) {
-    m_documentName = QString();
-  } else {
-    const QString docName = doc->documentName();
-    if (flag(ProxyItem::Host))
-      m_documentName = QString::fromLatin1("[%1]%2").arg(m_host).arg(docName);
-    else
-      m_documentName = docName;
-  }
+  updateDocumentName();
 }
 
 KTextEditor::Document *ProxyItem::doc() const
@@ -273,12 +279,16 @@ KTextEditor::Document *ProxyItem::doc() const
 QList<KTextEditor::Document*> ProxyItem::docTree() const
 {
   QList<KTextEditor::Document*> result;
+
   if (m_doc) {
     result.append(m_doc);
+    return result;
   }
-  for (QList<ProxyItem*>::const_iterator iter = m_children.constBegin(); iter != m_children.constEnd(); ++iter) {
-    result.append((*iter)->docTree());
+
+  foreach (const ProxyItem *item, m_children) {
+    result.append(item->docTree());
   }
+
   return result;
 }
 
@@ -304,27 +314,34 @@ void ProxyItem::clearFlag(Flag f)
 
 void ProxyItem::setHost(const QString &host)
 {
-  QString docName;
-  if (m_doc) {
-    docName = m_doc->documentName();
-  }
+  m_host = host;
 
   if (host.isEmpty()) {
     clearFlag(Host);
-    m_documentName = docName;
   } else {
     setFlag(Host);
-    m_documentName = QString::fromLatin1("[%1]%2").arg(host).arg(docName);
   }
-  m_host = host;
 
-  initDisplay();
+  updateDocumentName();
+  updateDisplay();
 }
 
 const QString& ProxyItem::host() const
 {
   return m_host;
 }
+
+void ProxyItem::updateDocumentName()
+{
+  const QString docName = m_doc ? m_doc->documentName() : QString();
+
+  if (flag(ProxyItem::Host)) {
+    m_documentName = QString::fromLatin1("[%1]%2").arg(m_host).arg(docName);
+  } else {
+    m_documentName = docName;
+  }
+}
+
 //END ProxyItem
 
 KateFileTreeModel::KateFileTreeModel(QObject *p)
@@ -394,7 +411,7 @@ void KateFileTreeModel::setShowFullPathOnRoots(bool s)
   }
 
   foreach (ProxyItem *root, m_root->children()) {
-    root->initDisplay();
+    root->updateDisplay();
   }
 }
 
@@ -648,28 +665,10 @@ void KateFileTreeModel::setListMode(bool lm)
 
 void KateFileTreeModel::documentOpened(KTextEditor::Document *doc)
 {
-  QString path = doc->url().path();
-  bool isEmpty = false;
-  QString host;
-
-  if(doc->url().isEmpty()) {
-    path = doc->documentName();
-    isEmpty = true;
-  } else {
-    host = doc->url().host();
-    if (!host.isEmpty()) {
-      path = QString::fromLatin1("[%1]%2").arg(host).arg(path);
-    }
-  }
-
-  ProxyItem *item = new ProxyItem(path, 0);
-
-  if(isEmpty) {
-    item->setFlag(ProxyItem::Empty);
-  }
-
+  ProxyItem *item = new ProxyItem(QString());
   item->setDoc(doc);
-  item->setHost(host);
+
+  updateItemPathAndHost(item);
   setupIcon(item);
   handleInsert(item);
   m_docmap[doc] = item;
@@ -764,7 +763,6 @@ void KateFileTreeModel::documentActivated(const KTextEditor::Document *doc)
   updateBackgrounds();
 }
 
-/*
 void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
 {
   if (!m_docmap.contains(doc)) {
@@ -780,7 +778,6 @@ void KateFileTreeModel::documentEdited(const KTextEditor::Document *doc)
 
   updateBackgrounds();
 }
-*/
 
 void KateFileTreeModel::slotAboutToDeleteDocuments(QList<KTextEditor::Document*> docs)
 {
@@ -941,18 +938,6 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
   }
 
   ProxyItem *item = m_docmap[doc];
-  QString path = doc->url().path();
-  QString host;
-  if(doc->url().isEmpty()) {
-    path = doc->documentName();
-    item->setFlag(ProxyItem::Empty);
-  } else {
-    item->clearFlag(ProxyItem::Empty);
-    host = doc->url().host();
-    if (!host.isEmpty()) {
-      path = QString::fromLatin1("[%1]%2").arg(host).arg(path);
-    }
-  }
 
   if (m_shadingEnabled) {
     ProxyItem *toRemove = m_docmap[doc];
@@ -977,8 +962,8 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
     }
   }
 
-  handleNameChange(item, path, host);
-  triggerViewChangeAfterNameChange(); // FIXME: heh, non-standard signal?
+  handleNameChange(item);
+  emit triggerViewChangeAfterNameChange(); // FIXME: heh, non-standard signal?
 }
 
 ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) const
@@ -1127,34 +1112,22 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
   endInsertRows();
 }
 
-void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_name, const QString& new_host)
+void KateFileTreeModel::handleNameChange(ProxyItem *item)
 {
   Q_ASSERT(item != 0);
+  Q_ASSERT(item->parent());
+
+  updateItemPathAndHost(item);
 
   if (m_listMode) {
-    item->setPath(new_name);
-    item->setHost(new_host);
     const QModelIndex idx = createIndex(item->row(), 0, item);
     setupIcon(item);
     emit dataChanged(idx, idx);
     return;
   }
 
-  // for some reason we get useless name changes [should be fixed in 5.0]
-  if (item->path() == new_name) {
-    return;
-  }
-
   // in either case (new/change) we want to remove the item from its parent
   ProxyItemDir *parent = item->parent();
-  if (!parent) {
-    item->setPath(new_name);
-    item->setHost(new_host);
-    return;
-  }
-
-  item->setPath(new_name);
-  item->setHost(new_host);
 
   const QModelIndex parent_index = (parent == m_root) ? QModelIndex() : createIndex(parent->row(), 0, parent);
   beginRemoveRows(parent_index, item->row(), item->row());
@@ -1172,6 +1145,33 @@ void KateFileTreeModel::handleNameChange(ProxyItem *item, const QString &new_nam
 
   setupIcon(item);
   handleInsert(item);
+}
+
+void KateFileTreeModel::updateItemPathAndHost(ProxyItem* item) const
+{
+  const KTextEditor::Document *doc = item->doc();
+  Q_ASSERT(doc); // this method should not be called at directory items
+
+  QString path = doc->url().path();
+  QString host;
+  if (doc->url().isEmpty()) {
+    path = doc->documentName();
+    item->setFlag(ProxyItem::Empty);
+  } else {
+    item->clearFlag(ProxyItem::Empty);
+    host = doc->url().host();
+    if (!host.isEmpty()) {
+      path = QString::fromLatin1("[%1]%2").arg(host).arg(path);
+    }
+  }
+
+  // for some reason we get useless name changes [should be fixed in 5.0]
+  if (item->path() == path) {
+    return;
+  }
+
+  item->setPath(path);
+  item->setHost(host);
 }
 
 void KateFileTreeModel::setupIcon(ProxyItem *item) const

@@ -26,6 +26,8 @@
 
 class DummyDocument : public KTextEditor::Document
 {
+  Q_OBJECT
+
   public:
     DummyDocument (const QString &url = QString())
       : KTextEditor::Document()
@@ -88,6 +90,10 @@ class DummyDocument : public KTextEditor::Document
 
     // KParts::ReadWritePart
     virtual bool saveFile() { return false; }
+
+  // make QObject happy
+  Q_SIGNALS:
+    void modifiedOnDisk(KTextEditor::Document*, bool, KTextEditor::ModificationInterface::ModifiedOnDiskReason);
 
   public:
     void setUrl(const QString &url) { KParts::ReadOnlyPart::setUrl(QUrl(url)); }

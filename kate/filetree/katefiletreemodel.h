@@ -73,11 +73,9 @@ class KateFileTreeModel : public QAbstractItemModel
     void setShowFullPathOnRoots(bool);
 
     void documentsOpened(const QList<KTextEditor::Document *> &);
-    void documentActivated(const KTextEditor::Document *);
     /* used strictly for the item coloring */
-    /*
+    void documentActivated(const KTextEditor::Document *);
     void documentEdited(const KTextEditor::Document *);
-    */
 
   public Q_SLOTS:
     void documentOpened(KTextEditor::Document *);
@@ -109,9 +107,10 @@ class KateFileTreeModel : public QAbstractItemModel
     ProxyItemDir *findChildNode(const ProxyItemDir *parent, const QString &name) const;
     void insertItemInto(ProxyItemDir *root, ProxyItem *item);
     void handleInsert(ProxyItem *item);
-    void handleNameChange(ProxyItem *item, const QString &new_name, const QString& new_host);
+    void handleNameChange(ProxyItem *item);
     void handleEmptyParents(ProxyItemDir *item);
     void setupIcon(ProxyItem *item) const;
+    void updateItemPathAndHost(ProxyItem *item) const;
 
     void updateBackgrounds(bool force = false);
 

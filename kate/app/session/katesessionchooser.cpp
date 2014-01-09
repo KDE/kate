@@ -41,16 +41,10 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
 {
   setWindowTitle(i18n("Session Chooser"));
   QVBoxLayout *mainLayout = new QVBoxLayout(this);
-  setLayout(mainLayout);
 
-  // Main Tree
-  QFrame *page = new QFrame (this);
-  QVBoxLayout *tll = new QVBoxLayout(page);
-  page->setMinimumSize (400, 200);
-  mainLayout->addWidget(page);
-
-  m_sessions = new QTreeWidget (page);
-  tll->addWidget(m_sessions);
+  m_sessions = new QTreeWidget(this);
+  m_sessions->setMinimumSize(400, 200);
+  mainLayout->addWidget(m_sessions);
   QStringList header;
   header << i18n("Session Name");
   header << i18nc("The number of open documents", "Open Documents");
@@ -78,10 +72,11 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
   connect(m_sessions, SIGNAL(itemDoubleClicked(QTreeWidgetItem*,int)), this, SLOT(slotOpen()));
 
   // bottom box
-  QHBoxLayout *hb = new QHBoxLayout(this);
+  QHBoxLayout *hb = new QHBoxLayout();
+  hb->setMargin(0);
   mainLayout->addLayout(hb);
 
-  m_useLast = new QCheckBox (i18n ("&Always use this choice"), page);
+  m_useLast = new QCheckBox (i18n ("&Always use this choice"), this);
   hb->addWidget(m_useLast);
 
   // buttons

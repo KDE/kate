@@ -44,13 +44,11 @@ KateSessionManageDialog::KateSessionManageDialog (QWidget *parent)
   QVBoxLayout *mainLayout = new QVBoxLayout(this);
   setLayout(mainLayout);
 
-  QFrame *page = new QFrame (this);
-  page->setMinimumSize(400, 200);
-  mainLayout->addWidget(page);
+  QHBoxLayout *hb = new QHBoxLayout();
+  mainLayout->addLayout(hb);
 
-  QHBoxLayout *hb = new QHBoxLayout(page);
-
-  m_sessions = new QTreeWidget (page);
+  m_sessions = new QTreeWidget(this);
+  m_sessions->setMinimumSize(400, 200);
   hb->addWidget(m_sessions);
   m_sessions->setColumnCount(2);
   QStringList header;

@@ -211,7 +211,7 @@ KateFileTreePluginView::KateFileTreePluginView (Kate::MainWindow *mainWindow, Ka
   connect(dm, SIGNAL(aboutToDeleteDocuments(QList<KTextEditor::Document *>)),
           m_documentModel, SLOT(slotAboutToDeleteDocuments(QList<KTextEditor::Document *>)));
   connect(dm, SIGNAL(documentsDeleted(QList<KTextEditor::Document *>)),
-          m_documentModel, SLOT(documentsDeleted(QList<KTextEditor::Document *>)));
+          m_documentModel, SLOT(slotDocumentsDeleted(QList<KTextEditor::Document *>)));
 
   connect(m_documentModel,SIGNAL(triggerViewChangeAfterNameChange()),this,SLOT(viewChanged()));
   m_fileTree->setModel(m_proxyModel);

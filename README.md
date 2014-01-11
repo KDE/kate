@@ -21,7 +21,3 @@ Kate & KWrite manuals
 ## autotests
 
 Automated unit tests
-
-## examples
-
-Examples for syntax highlighting and co

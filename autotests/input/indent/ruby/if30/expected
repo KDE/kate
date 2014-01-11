@@ -1,2 +1,0 @@
-  if foo; 42 else 37 end
-  blah

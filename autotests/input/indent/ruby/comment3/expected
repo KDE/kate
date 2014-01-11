@@ -1,6 +1,0 @@
-# comment3.txt
-if foo
-  # Comment
-  bar
-  # Another comment
-end

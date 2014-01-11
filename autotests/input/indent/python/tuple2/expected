@@ -1,4 +1,0 @@
-a_tuple = (1,  # opening tuple w/ elements indents to opening
-           2,
-           3)
-pass

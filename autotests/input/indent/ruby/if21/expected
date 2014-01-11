@@ -1,3 +1,0 @@
-  var = if foo
-    blah
-  end

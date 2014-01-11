@@ -1,3 +1,0 @@
-    for (auto i : container)
-        if (some)
-            break;

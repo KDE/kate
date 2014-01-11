@@ -1,8 +1,0 @@
-// kate: cfgIndentCase off;
-begin
-   case ce of
-   1: s1;
-   2222: begin
-         s2;
-         s3
-      end;

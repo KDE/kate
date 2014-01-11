@@ -1,5 +1,0 @@
-# multiline4.txt
-s = "hello" +
-    # Comment
-    "world"
-bar

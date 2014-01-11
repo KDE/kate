@@ -1,5 +1,0 @@
-# multiline5.txt
-s = "hello" +
-# Misplaced comment
-    "world"
-bar

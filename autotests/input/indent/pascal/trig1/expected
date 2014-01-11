@@ -1,4 +1,0 @@
-begin
-   repeat
-      ok
-   until c;

@@ -1,7 +1,0 @@
-Test
-Straße
-Christoph
-Äußerung
-Überall
-Köhler
-$perlvar

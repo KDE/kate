@@ -1,4 +1,0 @@
-mylist = [  # opening list w/out elements should indent once
-    1,
-    2]
-pass

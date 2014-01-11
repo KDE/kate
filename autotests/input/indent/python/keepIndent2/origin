@@ -1,4 +1,0 @@
-class my_class():
-    def my_fun():
-        print("Foo")
-        print(3)

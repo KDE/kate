@@ -252,7 +252,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
         m_targetList[0].cleanTarget = QString("clean");
         m_targetList[0].defaultDir = cg.readEntry(QString("Make Path"), QString());
 
-        m_targetList[0].prevTarget = m_targetList[0].defaultTarget;
+        m_targetList[0].prevTarget.clear();
 
         m_targetList[0].targets["config"] = DefConfigCmd;
         m_targetList[0].targets["build"] = cg.readEntry(QString("Make Command"), DefBuildCmd);
@@ -274,13 +274,12 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
             QStringList targetNames = cg.readEntry(QString("%1 Target Names").arg(i), QStringList());
             QString defaultTarget = cg.readEntry(QString("%1 Target Default").arg(i), QString());
             QString cleanTarget = cg.readEntry(QString("%1 Target Clean").arg(i), QString());
-            QString prevTarget = cg.readEntry(QString("%1 Target Previous").arg(i), defaultTarget);
             QString defaultDir = cg.readEntry(QString("%1 BuildPath").arg(i), QString());
 
             if (targetNames.isEmpty()) {
                 m_targetList[i].defaultTarget = QString("build");
                 m_targetList[i].cleanTarget = QString("clean");
-                m_targetList[i].prevTarget = m_targetList[i].defaultTarget;
+                m_targetList[i].prevTarget.clear();
                 m_targetList[i].defaultDir = defaultDir;
 
                 m_targetList[i].targets["build"] = cg.readEntry(QString("%1 BuildCmd").arg(i), DefBuildCmd);
@@ -302,7 +301,7 @@ void KateBuildView::readSessionConfig (KConfigBase* config, const QString& group
 
                 m_targetList[i].defaultTarget = defaultTarget;
                 m_targetList[i].cleanTarget = cleanTarget;
-                m_targetList[i].prevTarget = prevTarget;
+                m_targetList[i].prevTarget.clear();
                 m_targetList[i].defaultDir = defaultDir;
             }
 
@@ -333,7 +332,6 @@ void KateBuildView::writeSessionConfig (KConfigBase* config, const QString& grou
         cg.writeEntry(QString("%1 Target").arg(i), m_targetList[i].name);
         cg.writeEntry(QString("%1 Target Default").arg(i), m_targetList[i].defaultTarget);
         cg.writeEntry(QString("%1 Target Clean").arg(i), m_targetList[i].cleanTarget);
-        cg.writeEntry(QString("%1 Target Previous").arg(i), m_targetList[i].prevTarget);
         cg.writeEntry(QString("%1 BuildPath").arg(i), m_targetList[i].defaultDir);
 
         QStringList targetNames;
@@ -520,7 +518,7 @@ void KateBuildView::slotBuildPreviousTarget() {
     }
 
     if (tgtSet->prevTarget.isEmpty()) {
-        KMessageBox::sorry(0, i18n("No previous target."));
+        KMessageBox::sorry(0, i18n("No previous target to build."));
         return;
     }
 
@@ -1134,7 +1132,7 @@ void KateBuildView::targetNew()
     m_targetIndex = m_targetList.size()-1;
     m_targetList[m_targetIndex].name = makeUniqueTargetSetName();
     m_targetList[m_targetIndex].defaultTarget = "Build";
-    m_targetList[m_targetIndex].prevTarget = "Build";
+    m_targetList[m_targetIndex].prevTarget.clear();
     m_targetList[m_targetIndex].cleanTarget = "Clean";
     m_targetList[m_targetIndex].defaultDir = QString();
 
@@ -1186,7 +1184,7 @@ void KateBuildView::targetDelete()
         m_targetList[0].name = i18n("Target");
         m_targetList[0].defaultTarget = "Build";
         m_targetList[0].cleanTarget = "Clean";
-        m_targetList[0].prevTarget = m_targetList[0].defaultTarget;
+        m_targetList[0].prevTarget.clear();
         m_targetList[0].defaultDir = QString();
 
         m_targetList[0].targets["Build"] = DefBuildCmd;
@@ -1339,7 +1337,7 @@ void KateBuildView::slotAddProjectTarget()
     m_targetList[index].name = i18n("Project Plugin Targets");
     m_targetList[index].cleanTarget = buildMap.value("clean_target").toString();
     m_targetList[index].defaultTarget = buildMap.value("default_target").toString();
-    m_targetList[index].prevTarget = buildMap.value("default_target").toString();
+    m_targetList[index].prevTarget.clear();
     m_targetList[index].defaultDir = buildMap.value("directory").toString();
 
     // get build dir
@@ -1367,7 +1365,7 @@ void KateBuildView::slotAddProjectTarget()
             // we have loaded an "old" project file (<= 4.12)
             m_targetList[index].cleanTarget = "clean";
             m_targetList[index].defaultTarget = "build";
-            m_targetList[index].prevTarget = "build";
+            m_targetList[index].prevTarget.clear();
             m_targetList[index].targets["build"] = buildCmd;
             m_targetList[index].targets["clean"] = cleanCmd;
             m_targetList[index].targets["quick"] = quickCmd;

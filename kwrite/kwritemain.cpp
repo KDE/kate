@@ -650,7 +650,7 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
                          i18n("KWrite"),
                          QLatin1String(KATE_VERSION),
                          i18n( "KWrite - Text Editor" ), KAboutData::License_LGPL_V2,
-                         i18n( "(c) 2000-2013 The Kate Authors" ), QString(), QLatin1String("http://kate-editor.org") );
+                         i18n( "(c) 2000-2014 The Kate Authors" ), QString(), QLatin1String("http://kate-editor.org") );
   
   /**
    * right dbus prefix == org.kde.

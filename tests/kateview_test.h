@@ -41,6 +41,7 @@ private Q_SLOTS:
   void testBug287291();
 
   void testSelection();
+  void testKillline();
 };
 
 #endif // KATE_VIEW_TEST_H

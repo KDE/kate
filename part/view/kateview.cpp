@@ -2517,7 +2517,15 @@ void KateView::uppercase( )
 
 void KateView::killLine( )
 {
-  m_doc->removeLine( cursorPosition().line() );
+  if (m_selection.isEmpty()) {
+    m_doc->removeLine(cursorPosition().line());
+  } else {
+    m_doc->editStart();
+    for (int line = m_selection.end().line(); line >= m_selection.start().line(); line--) {
+      m_doc->removeLine(line);
+    }
+    m_doc->editEnd();
+  }
 }
 
 void KateView::lowercase( )

@@ -296,3 +296,36 @@ void KateViewTest::testSelection()
     QCOMPARE(view->cursorPosition(), Cursor(1, 1));
     QCOMPARE(view->selectionRange(), Range(1, 1, 2, 1));
 }
+
+void KateViewTest::testKillline()
+{
+    KateDocument doc(false, false, false);
+    doc.insertLines(0, QStringList()
+      << "foo"
+      << "bar"
+      << "baz"
+    );
+
+    KateView *view = new KateView(&doc, 0);
+
+    view->setCursorPositionInternal(KTextEditor::Cursor(1, 2));
+    view->killLine();
+
+    QCOMPARE(doc.text(), QLatin1String("foo\nbaz\n"));
+
+    doc.clear();
+    QVERIFY(doc.isEmpty());
+
+    doc.insertLines(0, QStringList()
+      << "foo"
+      << "bar"
+      << "baz"
+      << "xxx"
+    );
+
+    view->setCursorPositionInternal(KTextEditor::Cursor(1, 2));
+    view->shiftDown();
+    view->killLine();
+
+    QCOMPARE(doc.text(), QLatin1String("foo\nxxx\n"));
+}

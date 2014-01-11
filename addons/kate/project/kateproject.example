@@ -96,7 +96,7 @@ A more advanced project file, get the files from svn, set up three commands for 
 
 {
    "name": "Foo",
-   "files": [ { "svn" : 1  } ]
+   "files": [ { "svn" : 1  } ],
 
    "build": {
       "directory": "build",

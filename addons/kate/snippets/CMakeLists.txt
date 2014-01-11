@@ -24,7 +24,8 @@ editsnippet.ui)
 
 add_library (katesnippetsplugin MODULE ${katesnippetsplugin_PART_SRCS})
 
-target_link_libraries(katesnippetsplugin ktexteditor
+target_link_libraries(katesnippetsplugin
+    KF5::TextEditor
     KF5::Parts KF5::I18n
     KF5::NewStuff Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews KF5::IconThemes)
 

@@ -11,7 +11,8 @@ qt5_wrap_ui (katesearchplugin_PART_SRCS search.ui results.ui)
 
 add_library(katesearchplugin MODULE ${katesearchplugin_PART_SRCS})
 
-target_link_libraries(katesearchplugin ktexteditor
+target_link_libraries(katesearchplugin
+    KF5::TextEditor
     KF5::Parts KF5::I18n KF5::IconThemes
     Qt5::Script KF5::SonnetCore KF5::Archive KF5::KCMUtils KF5::PrintUtils KF5::ItemViews)
 

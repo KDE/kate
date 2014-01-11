@@ -25,7 +25,6 @@
 
 #include "katesnippetglobal.h"
 #include "snippetrepository.h"
-#include "katepartdebug.h"
 
 #include <QDir>
 #include <QStandardPaths>

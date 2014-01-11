@@ -37,7 +37,8 @@ set (KATE_APPLICATION_SRCS
 
 # create kde init executable
 kf5_add_kdeinit_executable(kate ${KATE_APPLICATION_SRCS})
-target_link_libraries(kdeinit_kate ktexteditor
+target_link_libraries(kdeinit_kate
+    KF5::TextEditor
     KF5::I18n
     KF5::KIOFileWidgets
     KF5::IconThemes

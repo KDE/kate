@@ -10,7 +10,7 @@ set(katekonsoleplugin_PART_SRCS kateconsole.cpp )
 add_library (katekonsoleplugin MODULE ${katekonsoleplugin_PART_SRCS})
 
 target_link_libraries(katekonsoleplugin
-    ktexteditor
+    KF5::TextEditor
     KF5::Parts
     KF5::IconThemes
     KF5::I18n

@@ -30,7 +30,6 @@
 #include "editrepository.h"
 #include "editsnippet.h"
 #include "snippetfilterproxymodel.h"
-#include "katepartdebug.h"
 
 #include <KLocalizedString>
 #include <KMessageBox>

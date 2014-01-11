@@ -50,6 +50,7 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
   Parts
   PrintUtils
   Sonnet
+  TextEditor
   WindowSystem
   XmlGui
 )
@@ -67,18 +68,14 @@ add_definitions(
 )
 
 # config.h
-if(NOT APPLE)
-  check_function_exists (fdatasync HAVE_FDATASYNC)
-  check_function_exists (ctermid HAVE_CTERMID)
-endif(NOT APPLE)
-
+check_function_exists (ctermid HAVE_CTERMID)
 configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
-# let our config.h and local ktexteditor stuff be found first in any case
-include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/ktexteditor/include ${CMAKE_CURRENT_BINARY_DIR}/ktexteditor/include/KTextEditor)
+# let our config.h be found first in any case
+include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR})
 
 # ktexteditor library, including the editor component called KatePart
-ecm_optional_add_subdirectory (ktexteditor)
+#ecm_optional_add_subdirectory (ktexteditor)
 
 # kwrite
 ecm_optional_add_subdirectory (kwrite)

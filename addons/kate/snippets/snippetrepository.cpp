@@ -36,13 +36,13 @@
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <QApplication>
+#include <QDebug>
 
 #include <KColorScheme>
 
 #include <KUser>
 
 #include "snippetstore.h"
-#include "katepartdebug.h"
 
 SnippetRepository::SnippetRepository(const QString& file)
  : QStandardItem(i18n("<empty repository>")), m_file(file), m_registeredScript(0)

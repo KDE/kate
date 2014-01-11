@@ -1,17 +1,5 @@
 # kate.git content
 
-## ktexteditor 
-
-KTextEditor library, public interface to Kate Part and stuff like plugins
-
-For licensing and more see ktexteditor/README.md
-
-## part
-
-Kate Part
-
-For licensing and more see part/README.md
-
 ## kate
 
 Kate Application
@@ -30,7 +18,7 @@ Plugins
 
 Kate & KWrite manuals
 
-## tests
+## autotests
 
 Automated unit tests
 

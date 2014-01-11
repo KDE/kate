@@ -74,16 +74,13 @@ configure_file (config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 # let our config.h be found first in any case
 include_directories (BEFORE ${CMAKE_CURRENT_BINARY_DIR})
 
-# ktexteditor library, including the editor component called KatePart
-#ecm_optional_add_subdirectory (ktexteditor)
-
 # kwrite
 ecm_optional_add_subdirectory (kwrite)
 
 # kate application
 ecm_optional_add_subdirectory (kate)
 
-# addons, e.g. ktexteditor plugins, kate plugins, plasma applets, ...
+# addons, e.g. kate plugins, plasma applets, ...
 ecm_optional_add_subdirectory (addons)
 
 # docs

@@ -23,6 +23,7 @@
 #include <QList>
 #include <QMimeDatabase>
 #include <QIcon>
+#include <QStack>
 
 #include <KColorScheme>
 #include <KColorUtils>
@@ -69,6 +70,7 @@ class ProxyItem {
     const QIcon &icon() const;
 
     const QList<ProxyItem*> &children() const;
+    QList<ProxyItem*> &children();
 
     void setDoc(KTextEditor::Document *doc);
     KTextEditor::Document *doc() const;
@@ -264,6 +266,12 @@ const QList<ProxyItem*> &ProxyItem::children() const
   return m_children;
 }
 
+QList<ProxyItem*> &ProxyItem::children()
+{
+  return m_children;
+}
+
+
 void ProxyItem::setDoc(KTextEditor::Document *doc)
 {
   Q_ASSERT(doc);
@@ -362,6 +370,7 @@ KateFileTreeModel::KateFileTreeModel(QObject *p)
 
 KateFileTreeModel::~KateFileTreeModel()
 {
+  delete m_root;
 }
 
 bool KateFileTreeModel::shadingEnabled() const
@@ -1051,22 +1060,16 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
 {
   Q_ASSERT(item != 0);
 
-  if (m_listMode) {
+  if (m_listMode || item->flag(ProxyItem::Empty)) {
     beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
     m_root->addChild(item);
     endInsertRows();
     return;
   }
 
-  if (item->flag(ProxyItem::Empty)) {
-    beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
-    m_root->addChild(item);
-    endInsertRows();
-    return;
-  }
-
+  // case (item.path > root.path)
   ProxyItemDir *root = findRootNode(item->path());
-  if(root) {
+  if (root) {
     insertItemInto(root, item);
     return;
   }
@@ -1075,7 +1078,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
   QString base = item->path().section(QLatin1Char('/'), 0, -2);
 
   // create new root
-  ProxyItemDir *new_root = new ProxyItemDir(base, 0);
+  ProxyItemDir *new_root = new ProxyItemDir(base);
   new_root->setHost(item->host());
 
   // add new root to m_root
@@ -1086,7 +1089,7 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
   // same fix as in findRootNode, try to match a full dir, instead of a partial path
   base += QLatin1Char('/');
 
-  // try and merge existing roots with the new root node.
+  // try and merge existing roots with the new root node (new_root.path < root.path)
   foreach (ProxyItem *root, m_root->children()) {
     if (root == new_root || !root->flag(ProxyItem::Dir)) {
       continue;
@@ -1110,6 +1113,87 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
   beginInsertRows(new_root_index, new_root->childCount(), new_root->childCount());
   new_root->addChild(item);
   endInsertRows();
+
+  checkDuplicitRootDisplay(new_root);
+}
+
+void KateFileTreeModel::checkDuplicitRootDisplay(ProxyItemDir *init)
+{
+  QStack<ProxyItemDir *> rootsToCheck;
+  rootsToCheck.push(init);
+
+  // make sure the roots don't match (recursively)
+  while (!rootsToCheck.isEmpty()) {
+    ProxyItemDir *check_root = rootsToCheck.pop();
+
+    if (check_root->parent() != m_root) {
+      continue;
+    }
+
+    foreach (ProxyItem *root, m_root->children()) {
+      if (root == check_root || !root->flag(ProxyItem::Dir)) {
+        continue;
+      }
+
+      if (check_root->display() == root->display()) {
+        bool changed = false;
+
+        const QString rdir = root->path().section(QLatin1Char('/'), 0, -2);
+        if (!rdir.isEmpty()) {
+          beginRemoveRows(QModelIndex(), root->row(), root->row());
+          m_root->remChild(root);
+          endRemoveRows();
+
+          ProxyItemDir *irdir = new ProxyItemDir(rdir);
+          beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
+          m_root->addChild(irdir);
+          endInsertRows();
+
+          insertItemInto(irdir, root);
+
+          foreach (ProxyItem *node, m_root->children()) {
+            if (node == irdir || !root->flag(ProxyItem::Dir)) {
+              continue;
+            }
+
+            const QString xy = rdir + QLatin1Char('/');
+            if (node->path().startsWith(xy)) {
+              beginRemoveRows(QModelIndex(), node->row(), node->row());
+              m_root->remChild(node);
+              endRemoveRows();
+              insertItemInto(irdir, node);
+            }
+          }
+
+          rootsToCheck.push(irdir);
+          changed = true;
+        }
+
+        const QString nrdir = check_root->path().section(QLatin1Char('/'), 0, -2);
+        if (!nrdir.isEmpty()) {
+          beginRemoveRows(QModelIndex(), check_root->row(), check_root->row());
+          m_root->remChild(check_root);
+          endRemoveRows();
+
+          ProxyItemDir *irdir = new ProxyItemDir(nrdir);
+          beginInsertRows(QModelIndex(), m_root->childCount(), m_root->childCount());
+          m_root->addChild(irdir);
+          endInsertRows();
+
+          insertItemInto(irdir, check_root);
+
+          rootsToCheck.push(irdir);
+          changed = true;
+        }
+
+        if (changed) {
+          break; // restart
+        }
+      }
+    } // foreach root
+
+  }
+
 }
 
 void KateFileTreeModel::handleNameChange(ProxyItem *item)

@@ -60,10 +60,17 @@ class ResultNode
         s += QLatin1String(" )");
       } else {
         s += QLatin1String(",\n");
-        foreach (const ResultNode &node, rootNode.children) {
+
+        for (int i = 0; i < rootNode.children.size(); i++) {
+          const ResultNode &node = rootNode.children[i];
+
           debugOutput(s, node, level + 1);
+
+          if ((i + 1) < rootNode.children.size()) {
+            s+= QLatin1String("\n");
+          }
         }
-        s += (level == 0) ? QLatin1String(");") : QLatin1String(")\n");
+        s += (level == 0) ? QLatin1String("\n);") : QLatin1String(")");
       }
     }
 
@@ -96,7 +103,7 @@ inline bool qCompare(const ResultNode &t1, const ResultNode &t2, const char *act
   memcpy(val2, b.constData(), b.size() + 1);
 
   return compare_helper(t1 == t2,
-                        "Compared ResultNode Trees are not ths same",
+                        "Compared ResultNode trees are not ths same",
                         val1, val2,
                         actual, expected, file, line);
 }
@@ -184,38 +191,123 @@ void FileTreeModelTest::buildTree_data()
         << ResultNode("bar.txt"))
   );
 
-  /* TODO: not implemented; not a nice tree :(
+  QTest::newRow("stairs") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///c/a/foo.txt")
+    << new DummyDocument("file:///c/bar.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("c", true)
+        << (ResultNode("a", true)
+          << ResultNode("foo.txt"))
+        << ResultNode("bar.txt"))
+  );
+
+  QTest::newRow("reverse stairs") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///c/bar.txt")
+    << new DummyDocument("file:///c/a/foo.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("c", true)
+        << ResultNode("bar.txt")
+        << (ResultNode("a", true)
+          << ResultNode("foo.txt")))
+  );
+
+  QTest::newRow("matching") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///a/x/foo.txt")
+    << new DummyDocument("file:///b/x/bar.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("a", true)
+        << (ResultNode("x", true)
+          << ResultNode("foo.txt")))
+      << (ResultNode("b", true)
+        << (ResultNode("x", true)
+          << ResultNode("bar.txt")))
+  );
+
+  QTest::newRow("matching even more") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///a/x/y/z/foo.txt")
+    << new DummyDocument("file:///b/x/y/z/bar.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("a", true)
+        << (ResultNode("x", true)
+          << (ResultNode("y", true)
+            << (ResultNode("z", true)
+            << ResultNode("foo.txt")))))
+      << (ResultNode("b", true)
+        << (ResultNode("x", true)
+          << (ResultNode("y", true)
+            << (ResultNode("z", true)
+              << ResultNode("bar.txt")))))
+  );
+
+  QTest::newRow("matching with booby trap") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///x/y/foo.txt")
+    << new DummyDocument("file:///c/x/bar.txt")
+    << new DummyDocument("file:///d/y/baz.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("x", true)
+        << (ResultNode("y", true)
+          << ResultNode("foo.txt")))
+      << (ResultNode("d", true)
+        << (ResultNode("y", true)
+          << ResultNode("baz.txt")))
+      << (ResultNode("c", true)
+        << (ResultNode("x", true)
+          << ResultNode("bar.txt")))
+  );
+
   QTest::newRow("branches") << ( QList<DummyDocument *>()
     << new DummyDocument("file:///c/a/foo.txt")
     << new DummyDocument("file:///c/b/bar.txt")
     << new DummyDocument("file:///d/a/foo.txt")
   ) << (
     ResultNode()
-      << (ResultNode("c")
-        << (ResultNode("a")
-          << ResultNode("foo.txt")
-          << ResultNode("bar.txt"))
-        << (ResultNode("d/a")
+      << (ResultNode("c", true)
+        << (ResultNode("a", true)
+          << ResultNode("foo.txt"))
+        << (ResultNode("b", true)
+          << ResultNode("bar.txt")))
+      << (ResultNode("d", true)
+        << (ResultNode("a", true)
           << ResultNode("foo.txt")))
   );
-  */
 
-  /* TODO: not implemented; not a nice tree :(
+  QTest::newRow("branches (more)") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///c/a/foo.txt")
+    << new DummyDocument("file:///c/b/bar.txt")
+    << new DummyDocument("file:///c/c/bar.txt")
+    << new DummyDocument("file:///d/a/foo.txt")
+  ) << (
+    ResultNode()
+      << (ResultNode("c", true)
+        << (ResultNode("a", true)
+          << ResultNode("foo.txt"))
+        << (ResultNode("b", true)
+          << ResultNode("bar.txt"))
+        << (ResultNode("c", true)
+          << ResultNode("bar.txt")))
+      << (ResultNode("d", true)
+        << (ResultNode("a", true)
+          << ResultNode("foo.txt")))
+  );
+
   QTest::newRow("levels") << ( QList<DummyDocument *>()
     << new DummyDocument("file:///c/a/foo.txt")
     << new DummyDocument("file:///c/b/bar.txt")
     << new DummyDocument("file:///d/foo.txt")
   ) << (
     ResultNode()
-      << (ResultNode("c")
-        << (ResultNode("a")
-          << ResultNode("foo.txt"))
-        << (ResultNode("b")
-          << ResultNode("bar.txt")))
-      << (ResultNode("d")
+      << (ResultNode("a", true)
+        << ResultNode("foo.txt"))
+      << (ResultNode("b", true)
+        << ResultNode("bar.txt"))
+      << (ResultNode("d", true)
         << ResultNode("foo.txt"))
   );
-  */
 
   QTest::newRow("remote simple") << ( QList<DummyDocument *>()
     << new DummyDocument("http://example.org/foo.txt")
@@ -260,6 +352,7 @@ void FileTreeModelTest::buildTree()
   walkTree(m, QModelIndex(), root);
 
   QCOMPARE(root, nodes);
+  qDeleteAll(documents);
 }
 
 void FileTreeModelTest::buildTreeBatch_data()
@@ -286,6 +379,7 @@ void FileTreeModelTest::buildTreeBatch()
   walkTree(m, QModelIndex(), root);
 
   QCOMPARE(root, nodes);
+  qDeleteAll(documents);
 }
 
 void FileTreeModelTest::buildTreeBatchPrefill_data()
@@ -341,6 +435,8 @@ void FileTreeModelTest::buildTreeBatchPrefill()
   walkTree(m, QModelIndex(), root);
 
   QCOMPARE(root, nodes);
+  qDeleteAll(prefill);
+  qDeleteAll(documents);
 }
 
 void FileTreeModelTest::walkTree(KateFileTreeModel &model, const QModelIndex &rootIndex, ResultNode &rootNode)
@@ -393,12 +489,14 @@ void FileTreeModelTest::buildTreeFullPath_data()
     << new DummyDocument("file:///d/a/foo.txt")
   ) << (
     ResultNode()
-      << (ResultNode("c")
+      << (ResultNode("/c")
         << (ResultNode("a")
           << ResultNode("foo.txt")
-          << ResultNode("bar.txt"))
-        << (ResultNode("d/a")
-          << ResultNode("foo.txt")))
+        << (ResultNode("b")
+          << ResultNode("bar.txt")))
+      << (ResultNode("/d")
+        << (ResultNode("a")
+          << ResultNode("foo.txt"))))
   );
   */
 
@@ -409,12 +507,12 @@ void FileTreeModelTest::buildTreeFullPath_data()
     << new DummyDocument("file:///d/foo.txt")
   ) << (
     ResultNode()
-      << (ResultNode("c")
+      << (ResultNode("/c")
         << (ResultNode("a")
           << ResultNode("foo.txt"))
         << (ResultNode("b")
           << ResultNode("bar.txt")))
-      << (ResultNode("d")
+      << (ResultNode("/d")
         << ResultNode("foo.txt"))
   );
   */
@@ -464,6 +562,7 @@ void FileTreeModelTest::buildTreeFullPath()
   walkTree(m, QModelIndex(), root);
 
   QCOMPARE(root, nodes);
+  qDeleteAll(documents);
 }
 
 void FileTreeModelTest::listMode_data()
@@ -524,6 +623,7 @@ void FileTreeModelTest::listMode()
   walkTree(m, QModelIndex(), root);
 
   QCOMPARE(root, nodes);
+  qDeleteAll(documents);
 }
 
 void FileTreeModelTest::deleteDocument_data()
@@ -582,7 +682,6 @@ void FileTreeModelTest::deleteDocument_data()
         << ResultNode("foo.txt"))
   );
 
-  /* TODO: still not a nice tree
   QTest::newRow("branches") << ( QList<DummyDocument *>()
     << new DummyDocument("file:///c/a/foo.txt")
     << new DummyDocument("file:///c/b/bar.txt")
@@ -591,9 +690,11 @@ void FileTreeModelTest::deleteDocument_data()
     << 1
   ) << (
     ResultNode()
-      << (ResultNode("c/a")
-        << ResultNode("foo.txt")
-      << (ResultNode("d/a")
+      << (ResultNode("c", true)
+        << (ResultNode("a", true)
+          << ResultNode("foo.txt")))
+      << (ResultNode("d", true)
+        << (ResultNode("a", true)
         << ResultNode("foo.txt")))
   );
 
@@ -605,12 +706,25 @@ void FileTreeModelTest::deleteDocument_data()
     << 0
   ) << (
     ResultNode()
-      << (ResultNode("c/b")
+      << (ResultNode("b", true)
         << ResultNode("bar.txt"))
-      << (ResultNode("d")
+      << (ResultNode("d", true)
         << ResultNode("foo.txt"))
   );
-  */
+
+  QTest::newRow("levels extra") << ( QList<DummyDocument *>()
+    << new DummyDocument("file:///c/a/foo.txt")
+    << new DummyDocument("file:///c/b/bar.txt")
+    << new DummyDocument("file:///d/foo.txt")
+  ) << ( QList<int>()
+    << 2
+  ) << (
+    ResultNode()
+      << (ResultNode("a", true)
+        << ResultNode("foo.txt"))
+      << (ResultNode("b", true)
+        << ResultNode("bar.txt"))
+  );
 
   QTest::newRow("remote diverge") << ( QList<DummyDocument *>()
     << new DummyDocument("http://example.org/a/foo.txt")
@@ -643,6 +757,7 @@ void FileTreeModelTest::deleteDocument()
   walkTree(m, QModelIndex(), root);
 
   QCOMPARE(root, nodes);
+  qDeleteAll(documents);
 }
 
 void FileTreeModelTest::deleteDocumentBatch_data()
@@ -713,6 +828,7 @@ void FileTreeModelTest::deleteDocumentBatch()
   walkTree(m, QModelIndex(), root);
 
   QCOMPARE(root, nodes);
+  qDeleteAll(documents);
 }
 
 void FileTreeModelTest::rename_data()
@@ -772,6 +888,7 @@ void FileTreeModelTest::rename()
   walkTree(m, QModelIndex(), root);
 
   QCOMPARE(root, nodes);
+  qDeleteAll(documents);
 }
 
 #include "filetree_model_test.moc"

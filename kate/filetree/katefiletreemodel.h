@@ -111,6 +111,7 @@ class KateFileTreeModel : public QAbstractItemModel
     void handleEmptyParents(ProxyItemDir *item);
     void setupIcon(ProxyItem *item) const;
     void updateItemPathAndHost(ProxyItem *item) const;
+    void checkDuplicitRootDisplay(ProxyItemDir *item);
 
     void updateBackgrounds(bool force = false);
 

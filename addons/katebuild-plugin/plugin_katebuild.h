@@ -99,6 +99,8 @@ class KateBuildView : public QObject, public KXMLGUIClient, public KTextEditor::
         void targetCopy();
         void targetDelete();
         void targetNext();
+        void slotBuildDirChanged(const QString& dir);
+        void slotTargetSetNameChanged(const QString& name);
 
         void slotShowErrors(bool);
         void slotShowWarnings(bool);

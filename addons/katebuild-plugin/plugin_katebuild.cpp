@@ -181,10 +181,11 @@ KateBuildView::KateBuildView(KTextEditor::Plugin *plugin, KTextEditor::MainWindo
     connect(m_proc, SIGNAL(readyReadStandardOutput()),this, SLOT(slotReadReadyStdOut()));
 
     connect(m_targetsUi->targetCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(targetSelected(int)));
-    connect(m_targetsUi->targetCombo, SIGNAL(editTextChanged(QString)), this, SLOT(targetsChanged()));
+    connect(m_targetsUi->targetCombo->lineEdit(), SIGNAL(textEdited(QString)), this, SLOT(slotTargetSetNameChanged(const QString&)));
     connect(m_targetsUi->newTarget, SIGNAL(clicked()), this, SLOT(targetNew()));
     connect(m_targetsUi->copyTarget, SIGNAL(clicked()), this, SLOT(targetCopy()));
     connect(m_targetsUi->deleteTarget, SIGNAL(clicked()), this, SLOT(targetDelete()));
+    connect(m_targetsUi->buildDir, SIGNAL(textChanged(const QString&)), this, SLOT(slotBuildDirChanged(const QString&)));
 
     connect(m_win, SIGNAL(unhandledShortcutOverride(QEvent*)),
             this, SLOT(handleEsc(QEvent*)));
@@ -302,14 +303,15 @@ void KateBuildView::readSessionConfig(const KConfigGroup& cg)
         m_targetsUi->targetCombo->addItem(m_targetList[i].name);
     }
 
-    m_targetsUi->targetCombo->blockSignals(false);
 
     // update the targets menu
     targetsChanged();
 
     // select the last active target if possible
     m_targetsUi->targetCombo->setCurrentIndex(tmpIndex);
+    targetSelected(tmpIndex);
 
+    m_targetsUi->targetCombo->blockSignals(false);
 }
 
 /******************************************************************/
@@ -879,6 +881,17 @@ void KateBuildView::slotBrowseClicked()
 }
 
 /******************************************************************/
+void KateBuildView::slotBuildDirChanged(const QString& dir)
+{
+    TargetSet* tgtSet = currentTargetSet();
+    if (tgtSet == 0) {
+        return;
+    }
+
+    tgtSet->defaultDir = dir;
+}
+
+/******************************************************************/
 void KateBuildView::slotCellChanged(int row, int column)
 {
     TargetSet* tgtSet = currentTargetSet();
@@ -1065,6 +1078,7 @@ void KateBuildView::targetSelected(int index)
 
     // Set the new values
     bool wasBlocked = m_targetsUi->targetsList->blockSignals(true);
+    bool dirWasBlocked = m_targetsUi->buildDir->blockSignals(true);
 
     m_targetsUi->buildDir->setText(m_targetList[index].defaultDir);
 
@@ -1077,6 +1091,7 @@ void KateBuildView::targetSelected(int index)
     }
 
     m_targetsUi->targetsList->blockSignals(wasBlocked);
+    m_targetsUi->buildDir->blockSignals(dirWasBlocked);
 
     m_targetsUi->targetsList->resizeColumnsToContents();
 
@@ -1112,6 +1127,18 @@ void KateBuildView::setTargetRowContents(int row, const TargetSet& tgtSet, const
     m_targetsUi->targetsList->setItem(row, COL_COMMAND, cmdItem);
 }
 
+
+/******************************************************************/
+void KateBuildView::slotTargetSetNameChanged(const QString& name)
+{
+    TargetSet* tgtSet = currentTargetSet();
+    if (tgtSet == 0) {
+        return;
+    }
+
+    tgtSet->name = name;
+    targetsChanged();
+}
 
 /******************************************************************/
 void KateBuildView::targetsChanged()

@@ -1280,4 +1280,19 @@ void KateFileTreeModel::setupIcon(ProxyItem *item) const
   item->setIcon(icon);
 }
 
+void KateFileTreeModel::resetHistory()
+{
+  QSet<ProxyItem *> list = QSet<ProxyItem *>::fromList(m_viewHistory);
+  list += QSet<ProxyItem *>::fromList(m_editHistory);
+
+  m_viewHistory.clear();
+  m_editHistory.clear();
+  m_brushes.clear();
+
+  foreach (ProxyItem *item, list) {
+    QModelIndex idx = createIndex(item->row(), 0, item);
+    dataChanged(idx, idx, QVector<int>(1, Qt::BackgroundRole));
+  }
+}
+
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

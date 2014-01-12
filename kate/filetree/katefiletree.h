@@ -51,7 +51,8 @@ class KateFileTree: public QTreeView
     void slotDocumentPrev();
     void slotPrintDocument();
     void slotPrintDocumentPreview();
-    
+    void slotResetHistory();
+
   protected:
     virtual void contextMenuEvent ( QContextMenuEvent * event );
 
@@ -94,6 +95,7 @@ class KateFileTree: public QTreeView
     QAction *m_sortByFile;
     QAction *m_sortByPath;
     QAction *m_sortByOpeningOrder;
+    QAction *m_resetHistory;
 
     QPersistentModelIndex m_previouslySelected;
     QPersistentModelIndex m_indexContextMenu;

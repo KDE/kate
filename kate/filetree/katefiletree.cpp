@@ -99,6 +99,10 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
                              i18n("Sort by Opening Order"),
                              SLOT(slotSortOpeningOrder()), false);
 
+  m_resetHistory = new QAction(QIcon::fromTheme(QLatin1String("edit-clear-history")), i18nc("@action:inmenu", "Clear History"), this);
+  connect(m_resetHistory, SIGNAL(triggered()), this, SLOT(slotResetHistory()) );
+  m_resetHistory->setWhatsThis(i18n("Clear edit/view history."));
+
   QPalette p = palette();
   p.setColor(QPalette::Inactive, QPalette::Highlight, p.color(QPalette::Active, QPalette::Highlight));
   p.setColor(QPalette::Inactive, QPalette::HighlightedText, p.color(QPalette::Active, QPalette::HighlightedText));
@@ -219,6 +223,8 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
   sort_menu->addAction(m_sortByFile);
   sort_menu->addAction(m_sortByPath);
   sort_menu->addAction(m_sortByOpeningOrder);
+
+  menu.addAction(m_resetHistory);
 
   menu.exec(viewport()->mapToGlobal(event->pos()));
 
@@ -558,6 +564,14 @@ void KateFileTree::slotPrintDocumentPreview()
 
   doc->printPreview();
 }
+
+void KateFileTree::slotResetHistory()
+{
+  KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
+  KateFileTreeModel *ftm = static_cast<KateFileTreeModel*>(ftpm->sourceModel());
+  ftm->resetHistory();
+}
+
 //END KateFileTree
 
 // kate: space-indent on; indent-width 2; replace-tabs on;

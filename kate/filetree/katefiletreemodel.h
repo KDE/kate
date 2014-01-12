@@ -43,6 +43,7 @@ class KateFileTreeModel : public QAbstractItemModel
     KateFileTreeModel(QObject *p);
     virtual ~KateFileTreeModel();
 
+    /* QAbstractItemModel implementations */
     virtual Qt::ItemFlags flags( const QModelIndex & index ) const;
     virtual QVariant data( const QModelIndex & index, int role = Qt::DisplayRole ) const;
     virtual QVariant headerData( int section, Qt::Orientation orientation, int role = Qt::DisplayRole ) const;
@@ -53,6 +54,7 @@ class KateFileTreeModel : public QAbstractItemModel
     virtual QModelIndex index( int row, int column, const QModelIndex & parent = QModelIndex() ) const;
     virtual bool hasChildren( const QModelIndex & parent = QModelIndex() ) const;
 
+    /* extra api for view */
     QModelIndex docIndex(const KTextEditor::Document *) const;
 
     bool isDir(const QModelIndex &index) const;
@@ -76,6 +78,7 @@ class KateFileTreeModel : public QAbstractItemModel
     /* used strictly for the item coloring */
     void documentActivated(const KTextEditor::Document *);
     void documentEdited(const KTextEditor::Document *);
+    void resetHistory();
 
   public Q_SLOTS:
     void documentOpened(KTextEditor::Document *);

@@ -81,6 +81,7 @@
         </Float>
         <HlCOct attribute="Octal" context="#stay"/>
         <HlCHex attribute="Hex" context="#stay"/>
+        <RegExpr attribute="Binary" context="#stay" String="0b[01]+[ul]{0,3}" insensitive="true" />
         <Int attribute="Decimal" context="#stay" >
           <StringDetect attribute="Decimal" context="#stay" String="ULL" insensitive="TRUE"/>
           <StringDetect attribute="Decimal" context="#stay" String="LUL" insensitive="TRUE"/>
@@ -181,6 +182,7 @@
       <itemData name="Decimal"      defStyleNum="dsDecVal" spellChecking="false"/>
       <itemData name="Octal"        defStyleNum="dsBaseN" spellChecking="false"/>
       <itemData name="Hex"          defStyleNum="dsBaseN" spellChecking="false"/>
+      <itemData name="Binary"       defStyleNum="dsBaseN" spellChecking="false"/>
       <itemData name="Float"        defStyleNum="dsFloat" spellChecking="false"/>
       <itemData name="Char"         defStyleNum="dsChar" spellChecking="false"/>
       <itemData name="String"       defStyleNum="dsString"/>

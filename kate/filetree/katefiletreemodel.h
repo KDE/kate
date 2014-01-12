@@ -38,7 +38,7 @@ class KateFileTreeModel : public QAbstractItemModel
   Q_OBJECT
 
   public:
-    enum { DocumentRole = Qt::UserRole+1, PathRole, OpeningOrderRole, DocumentTreeRole };
+    enum { DocumentRole = Qt::UserRole + 1, PathRole, OpeningOrderRole, DocumentTreeRole };
 
     KateFileTreeModel(QObject *p);
     virtual ~KateFileTreeModel();
@@ -88,6 +88,24 @@ class KateFileTreeModel : public QAbstractItemModel
 
   Q_SIGNALS:
     void triggerViewChangeAfterNameChange();
+
+  private:
+    ProxyItemDir *findRootNode(const QString &name, const int r = 1) const;
+    ProxyItemDir *findChildNode(const ProxyItemDir *parent, const QString &name) const;
+    void insertItemInto(ProxyItemDir *root, ProxyItem *item);
+    void handleInsert(ProxyItem *item);
+    void handleNameChange(ProxyItem *item);
+    void handleEmptyParents(ProxyItemDir *item);
+    void setupIcon(ProxyItem *item) const;
+    void updateItemPathAndHost(ProxyItem *item) const;
+    void handleDuplicitRootDisplay(ProxyItemDir *item);
+
+    void updateBackgrounds(bool force = false);
+
+    void initModel();
+    void clearModel();
+    void connectDocument(const KTextEditor::Document *);
+
   private:
     ProxyItemDir *m_root;
     QHash<const KTextEditor::Document *, ProxyItem *> m_docmap;
@@ -102,22 +120,6 @@ class KateFileTreeModel : public QAbstractItemModel
     QColor m_viewShade;
 
     bool m_listMode;
-
-    ProxyItemDir *findRootNode(const QString &name, const int r = 1) const;
-    ProxyItemDir *findChildNode(const ProxyItemDir *parent, const QString &name) const;
-    void insertItemInto(ProxyItemDir *root, ProxyItem *item);
-    void handleInsert(ProxyItem *item);
-    void handleNameChange(ProxyItem *item);
-    void handleEmptyParents(ProxyItemDir *item);
-    void setupIcon(ProxyItem *item) const;
-    void updateItemPathAndHost(ProxyItem *item) const;
-    void checkDuplicitRootDisplay(ProxyItemDir *item);
-
-    void updateBackgrounds(bool force = false);
-
-    void initModel();
-    void clearModel();
-    void connectDocument(const KTextEditor::Document *);
 };
 
 #endif /* KATEFILETREEMODEL_H */

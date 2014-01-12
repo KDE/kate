@@ -103,7 +103,7 @@ inline bool qCompare(const ResultNode &t1, const ResultNode &t2, const char *act
   memcpy(val2, b.constData(), b.size() + 1);
 
   return compare_helper(t1 == t2,
-                        "Compared ResultNode trees are not ths same",
+                        "Compared ResultNode trees are not the same",
                         val1, val2,
                         actual, expected, file, line);
 }
@@ -325,7 +325,10 @@ void FileTreeModelTest::buildTree_data()
         << ResultNode("foo.txt"))
   );
 
-  /* TODO: this one is also not completely ok, is it? */
+  /* NOTE: this one is also not completely ok, is it?
+   * on other hand, it would get confusing or overly leveled if opening
+   * something like http://example.org/a/b/c/d/e/f/g.txt
+   */
   QTest::newRow("remote diverge") << ( QList<DummyDocument *>()
     << new DummyDocument("http://example.org/a/foo.txt")
     << new DummyDocument("http://example.org/b/foo.txt")
@@ -482,37 +485,36 @@ void FileTreeModelTest::buildTreeFullPath_data()
         << ResultNode("bar.txt"))
   );
 
-  /* TODO: not implemented; not a nice tree :(
+  /* This one and the case after can get a little bit tricky and
+   * in some situation could end up in little bit confusing layout.
+   * current root merge algorithm sees the divergent paths, so it
+   * doesn't invoke merging.
   QTest::newRow("branches") << ( QList<DummyDocument *>()
     << new DummyDocument("file:///c/a/foo.txt")
     << new DummyDocument("file:///c/b/bar.txt")
-    << new DummyDocument("file:///d/a/foo.txt")
   ) << (
     ResultNode()
-      << (ResultNode("/c")
-        << (ResultNode("a")
-          << ResultNode("foo.txt")
-        << (ResultNode("b")
+      << (ResultNode("/c", true)
+        << (ResultNode("a", true)
+          << ResultNode("foo.txt"))
+        << (ResultNode("b", true)
           << ResultNode("bar.txt")))
-      << (ResultNode("/d")
-        << (ResultNode("a")
-          << ResultNode("foo.txt"))))
   );
   */
 
-  /* TODO: not implemented; not a nice tree :(
+  /*
   QTest::newRow("levels") << ( QList<DummyDocument *>()
     << new DummyDocument("file:///c/a/foo.txt")
     << new DummyDocument("file:///c/b/bar.txt")
     << new DummyDocument("file:///d/foo.txt")
   ) << (
     ResultNode()
-      << (ResultNode("/c")
-        << (ResultNode("a")
+      << (ResultNode("/c", true)
+        << (ResultNode("a", true)
           << ResultNode("foo.txt"))
-        << (ResultNode("b")
+        << (ResultNode("b", true)
           << ResultNode("bar.txt")))
-      << (ResultNode("/d")
+      << (ResultNode("/d", true)
         << ResultNode("foo.txt"))
   );
   */
@@ -533,7 +535,7 @@ void FileTreeModelTest::buildTreeFullPath_data()
         << ResultNode("foo.txt"))
   );
 
-  /* TODO: this one is also not completely ok, is it? */
+  /* NOTE: see the similar testcase in buildTree */
   QTest::newRow("remote diverge") << ( QList<DummyDocument *>()
     << new DummyDocument("http://example.org/c/a/foo.txt")
     << new DummyDocument("http://example.org/c/b/foo.txt")

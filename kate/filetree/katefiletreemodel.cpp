@@ -978,8 +978,7 @@ void KateFileTreeModel::documentNameChanged(KTextEditor::Document *doc)
 ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) const
 {
   foreach (ProxyItem *item, m_root->children()) {
-    QString path = item->path().section(QLatin1Char('/'), 0, -r);
-    if (!item->flag(ProxyItem::Host) && !QFileInfo(path).isAbsolute()) {
+    if (!item->flag(ProxyItem::Dir)) {
       continue;
     }
 
@@ -988,9 +987,9 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) 
     // and return /foo/x rather than /foo/xy
     // this seems a bit hackish, but is the simplest way to solve the
     // current issue.
-    path += QLatin1Char('/');
+    QString path = item->path().section(QLatin1Char('/'), 0, -r) + QLatin1Char('/');
 
-    if(name.startsWith(path) && item->flag(ProxyItem::Dir)) {
+    if (name.startsWith(path)) {
       return static_cast<ProxyItemDir*>(item);
     }
   }
@@ -1001,17 +1000,18 @@ ProxyItemDir *KateFileTreeModel::findRootNode(const QString &name, const int r) 
 ProxyItemDir *KateFileTreeModel::findChildNode(const ProxyItemDir *parent, const QString &name) const
 {
   Q_ASSERT(parent != 0);
+  Q_ASSERT(!name.isEmpty());
 
   if (!parent->childCount()) {
     return 0;
   }
 
   foreach (ProxyItem *item, parent->children()) {
-    if (item->display() == name) {
-      if (!item->flag(ProxyItem::Dir)) {
-        return 0;
-      }
+    if (!item->flag(ProxyItem::Dir)) {
+      continue;
+    }
 
+    if (item->display() == name) {
       return static_cast<ProxyItemDir*>(item);
     }
   }
@@ -1114,10 +1114,10 @@ void KateFileTreeModel::handleInsert(ProxyItem *item)
   new_root->addChild(item);
   endInsertRows();
 
-  checkDuplicitRootDisplay(new_root);
+  handleDuplicitRootDisplay(new_root);
 }
 
-void KateFileTreeModel::checkDuplicitRootDisplay(ProxyItemDir *init)
+void KateFileTreeModel::handleDuplicitRootDisplay(ProxyItemDir *init)
 {
   QStack<ProxyItemDir *> rootsToCheck;
   rootsToCheck.push(init);

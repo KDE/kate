@@ -87,6 +87,8 @@ class DummyDocument : public KTextEditor::Document
     virtual bool setHighlightingMode(const QString &) { return false; }
     virtual QString highlightingModeSection( int ) const { return QString(); }
     virtual QString modeSection( int ) const { return QString(); }
+    virtual bool print() { return false; }
+    virtual void printPreview() {}
 
     // KParts::ReadWritePart
     virtual bool saveFile() { return false; }

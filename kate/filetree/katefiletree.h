@@ -38,23 +38,10 @@ class KateFileTree: public QTreeView
     KateFileTree(QWidget * parent);
     virtual ~KateFileTree();
 
-  private:
-    QAction *m_filelistCloseDocument;
-    QAction *m_filelistCopyFilename;
-
-
-    QAction *m_treeModeAction;
-    QAction *m_listModeAction;
-
-    QAction *m_sortByFile;
-    QAction *m_sortByPath;
-    QAction *m_sortByOpeningOrder;
-    
-    QPersistentModelIndex m_previouslySelected;
-    QPersistentModelIndex m_indexContextMenu;
-
   public Q_SLOTS:
     void slotDocumentClose();
+    void slotDocumentCloseOther();
+    void slotDocumentReload();
     void slotCopyFilename();
     void slotCurrentChanged( const QModelIndex &current, const QModelIndex &previous );
     void switchDocument( const QString &doc );
@@ -62,6 +49,8 @@ class KateFileTree: public QTreeView
     void slotDocumentLast();
     void slotDocumentNext();
     void slotDocumentPrev();
+    void slotPrintDocument();
+    void slotPrintDocumentPreview();
     
   protected:
     virtual void contextMenuEvent ( QContextMenuEvent * event );
@@ -89,6 +78,25 @@ class KateFileTree: public QTreeView
     
   private:
     QAction *setupOption(QActionGroup *group, const QIcon &, const QString &, const QString &, const char *slot, bool checked=false);
+
+  private:
+    QAction *m_filelistCloseDocument;
+    QAction *m_filelistCloseOtherDocument;
+    QAction *m_filelistReloadDocument;
+    QAction *m_filelistCopyFilename;
+    QAction *m_filelistPrintDocument;
+    QAction *m_filelistPrintDocumentPreview;
+
+
+    QAction *m_treeModeAction;
+    QAction *m_listModeAction;
+
+    QAction *m_sortByFile;
+    QAction *m_sortByPath;
+    QAction *m_sortByOpeningOrder;
+
+    QPersistentModelIndex m_previouslySelected;
+    QPersistentModelIndex m_indexContextMenu;
 };
 
 #endif // KATE_FILETREE_H

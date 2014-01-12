@@ -32,6 +32,7 @@
 #include <KRun>
 #include <KMessageBox>
 #include <KLocalizedString>
+#include <KStandardAction>
 
 #include <QMimeDatabase>
 #include <QClipboard>
@@ -49,38 +50,52 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
   setIndentation(12);
   setAllColumnsShowFocus(true);
 
-  connect( this, SIGNAL(activated(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));
+  connect(this, SIGNAL(activated(QModelIndex)), this, SLOT(mouseClicked(QModelIndex)));
 
-  m_filelistCloseDocument = new QAction( QIcon::fromTheme(QLatin1String("window-close")), i18n( "Close" ), this );
+  m_filelistReloadDocument = new QAction(QIcon::fromTheme(QLatin1String("view-refresh")), i18nc("@action:inmenu", "Reloa&d"), this);
+  connect(m_filelistReloadDocument, SIGNAL(triggered(bool)), SLOT(slotDocumentReload()));
+  m_filelistReloadDocument->setWhatsThis(i18n("Reload selected document(s) from disk."));
+
+  m_filelistCloseDocument = new QAction( QIcon::fromTheme(QLatin1String("document-close")), i18nc("@action:inmenu", "Close"), this );
   connect( m_filelistCloseDocument, SIGNAL(triggered()), this, SLOT(slotDocumentClose()) );
   m_filelistCloseDocument->setWhatsThis(i18n("Close the current document."));
 
-  m_filelistCopyFilename = new QAction( QIcon::fromTheme(QLatin1String("edit-copy")), i18n( "Copy Filename" ), this );
+  m_filelistCloseOtherDocument = new QAction( QIcon::fromTheme(QLatin1String("window-close")), i18nc("@action:inmenu", "Close Other"), this );
+  connect( m_filelistCloseOtherDocument, SIGNAL(triggered()), this, SLOT(slotDocumentCloseOther()) );
+  m_filelistCloseOtherDocument->setWhatsThis(i18n("Close other documents in this folder."));
+
+  m_filelistCopyFilename = new QAction( QIcon::fromTheme(QLatin1String("edit-copy")), i18nc("@action:inmenu", "Copy Filename"), this );
   connect( m_filelistCopyFilename, SIGNAL(triggered()), this, SLOT(slotCopyFilename()) );
   m_filelistCopyFilename->setWhatsThis(i18n("Copy the filename of the file."));
 
+  m_filelistPrintDocument = KStandardAction::print(this, SLOT(slotPrintDocument()), this);
+  m_filelistPrintDocument->setWhatsThis(i18n("Print selected document."));
+
+  m_filelistPrintDocumentPreview = KStandardAction::printPreview(this, SLOT(slotPrintDocumentPreview()), this);
+  m_filelistPrintDocumentPreview->setWhatsThis(i18n("Show print preview of current document"));
+
   QActionGroup *modeGroup = new QActionGroup(this);
 
-  m_treeModeAction = setupOption(modeGroup, QIcon::fromTheme(QLatin1String("view-list-tree")), i18n("Tree Mode"),
+  m_treeModeAction = setupOption(modeGroup, QIcon::fromTheme(QLatin1String("view-list-tree")), i18nc("@action:inmenu", "Tree Mode"),
                                  i18n("Set view style to Tree Mode"),
                                  SLOT(slotTreeMode()), true);
 
-  m_listModeAction = setupOption(modeGroup, QIcon::fromTheme(QLatin1String("view-list-text")), i18n("List Mode"),
+  m_listModeAction = setupOption(modeGroup, QIcon::fromTheme(QLatin1String("view-list-text")), i18nc("@action:inmenu", "List Mode"),
                                  i18n("Set view style to List Mode"),
                                  SLOT(slotListMode()), false);
 
   QActionGroup *sortGroup = new QActionGroup(this);
 
-  m_sortByFile = setupOption(sortGroup, QIcon(), i18n("Document Name"),
+  m_sortByFile = setupOption(sortGroup, QIcon(), i18nc("@action:inmenu sorting option", "Document Name"),
                              i18n("Sort by Document Name"),
                              SLOT(slotSortName()), true);
 
 
-  m_sortByPath = setupOption(sortGroup, QIcon(), i18n("Document Path"),
+  m_sortByPath = setupOption(sortGroup, QIcon(), i18nc("@action:inmenu sorting option", "Document Path"),
                              i18n("Sort by Document Path"),
                              SLOT(slotSortPath()), false);
 
-  m_sortByOpeningOrder =  setupOption(sortGroup, QIcon(), i18n("Opening Order"),
+  m_sortByOpeningOrder =  setupOption(sortGroup, QIcon(), i18nc("@action:inmenu sorting option", "Opening Order"),
                              i18n("Sort by Opening Order"),
                              SLOT(slotSortOpeningOrder()), false);
 
@@ -181,19 +196,26 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
   const bool isFile = (0 != m_indexContextMenu.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>());
 
   QMenu menu;
+  menu.addAction(m_filelistReloadDocument);
   menu.addAction(m_filelistCloseDocument);
+
   if (isFile) {
+    menu.addAction(m_filelistCloseOtherDocument);
+    menu.addSeparator();
     menu.addAction(m_filelistCopyFilename);
-    QMenu *openWithMenu=menu.addMenu(i18n("Open With"));
+    menu.addAction(m_filelistPrintDocument);
+    menu.addAction(m_filelistPrintDocumentPreview);
+    QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
     connect(openWithMenu, SIGNAL(aboutToShow()), this, SLOT(slotFixOpenWithMenu()));
     connect(openWithMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotOpenWithMenuAction(QAction*)));
   }
+
   menu.addSeparator();
-  QMenu *view_menu = menu.addMenu(i18n("View Mode"));
+  QMenu *view_menu = menu.addMenu(i18nc("@action:inmenu", "View Mode"));
   view_menu->addAction(m_treeModeAction);
   view_menu->addAction(m_listModeAction);
 
-  QMenu *sort_menu = menu.addMenu(i18n("Sort By"));
+  QMenu *sort_menu = menu.addMenu(i18nc("@action:inmenu", "Sort By"));
   sort_menu->addAction(m_sortByFile);
   sort_menu->addAction(m_sortByPath);
   sort_menu->addAction(m_sortByOpeningOrder);
@@ -275,6 +297,34 @@ void KateFileTree::slotDocumentClose()
   if (!v.isValid()) return;
   QList<KTextEditor::Document*> closingDocuments = v.value<QList<KTextEditor::Document*> >();
   KTextEditor::Editor::instance()->application()->closeDocuments(closingDocuments);
+}
+
+void KateFileTree::slotDocumentCloseOther()
+{
+  QVariant v = model()->data(m_indexContextMenu.parent(), KateFileTreeModel::DocumentTreeRole);
+  if (!v.isValid()) {
+    return;
+  }
+
+  QList<KTextEditor::Document*> closingDocuments = v.value<QList<KTextEditor::Document*> >();
+  KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+
+  closingDocuments.removeOne(doc);
+
+  KTextEditor::Editor::instance()->application()->closeDocuments(closingDocuments);
+}
+
+void KateFileTree::slotDocumentReload()
+{
+  QVariant v = m_indexContextMenu.data(KateFileTreeModel::DocumentTreeRole);
+  if (!v.isValid()) {
+    return;
+  }
+
+  QList<KTextEditor::Document*> docs = v.value<QList<KTextEditor::Document*> >();
+  foreach(KTextEditor::Document *doc, docs) {
+    doc->documentReload();
+  }
 }
 
 void KateFileTree::slotCopyFilename()
@@ -485,6 +535,28 @@ void KateFileTree::slotDocumentNext()
     KTextEditor::Document *doc = model()->data(next, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
     emit activateDocument(doc);
   }
+}
+
+void KateFileTree::slotPrintDocument()
+{
+  KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+
+  if (!doc) {
+    return;
+  }
+
+  doc->print();
+}
+
+void KateFileTree::slotPrintDocumentPreview()
+{
+  KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+
+  if (!doc) {
+    return;
+  }
+
+  doc->printPreview();
 }
 //END KateFileTree
 

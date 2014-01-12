@@ -33,6 +33,7 @@
 #include <KMessageBox>
 #include <KLocalizedString>
 #include <KStandardAction>
+#include <KIO/DeleteJob>
 
 #include <QMimeDatabase>
 #include <QClipboard>
@@ -73,6 +74,10 @@ KateFileTree::KateFileTree(QWidget *parent): QTreeView(parent)
 
   m_filelistPrintDocumentPreview = KStandardAction::printPreview(this, SLOT(slotPrintDocumentPreview()), this);
   m_filelistPrintDocumentPreview->setWhatsThis(i18n("Show print preview of current document"));
+
+  m_filelistDeleteDocument = new QAction(QIcon::fromTheme(QLatin1String("edit-delete-shred")), i18nc("@action:inmenu", "Delete Document"), this);
+  connect(m_filelistDeleteDocument, SIGNAL(triggered()), this, SLOT(slotDocumentDelete()));
+  m_filelistDeleteDocument->setWhatsThis(i18n("Close and delete selected file from storage."));
 
   QActionGroup *modeGroup = new QActionGroup(this);
 
@@ -197,7 +202,8 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
   m_sortByPath->setChecked(sortRole == KateFileTreeModel::PathRole);
   m_sortByOpeningOrder->setChecked(sortRole == KateFileTreeModel::OpeningOrderRole);
 
-  const bool isFile = (0 != m_indexContextMenu.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>());
+  KTextEditor::Document *doc = m_indexContextMenu.data(KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+  const bool isFile = (0 != doc);
 
   QMenu menu;
   menu.addAction(m_filelistReloadDocument);
@@ -212,6 +218,9 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
     QMenu *openWithMenu = menu.addMenu(i18nc("@action:inmenu", "Open With"));
     connect(openWithMenu, SIGNAL(aboutToShow()), this, SLOT(slotFixOpenWithMenu()));
     connect(openWithMenu, SIGNAL(triggered(QAction*)), this, SLOT(slotOpenWithMenuAction(QAction*)));
+
+    m_filelistDeleteDocument->setEnabled(doc->url().isValid());
+    menu.addAction(m_filelistDeleteDocument);
   }
 
   menu.addSeparator();
@@ -219,7 +228,7 @@ void KateFileTree::contextMenuEvent ( QContextMenuEvent * event )
   view_menu->addAction(m_treeModeAction);
   view_menu->addAction(m_listModeAction);
 
-  QMenu *sort_menu = menu.addMenu(i18nc("@action:inmenu", "Sort By"));
+  QMenu *sort_menu = menu.addMenu(QIcon::fromTheme(QLatin1String("view-sort-ascending")), i18nc("@action:inmenu", "Sort By"));
   sort_menu->addAction(m_sortByFile);
   sort_menu->addAction(m_sortByPath);
   sort_menu->addAction(m_sortByOpeningOrder);
@@ -570,6 +579,38 @@ void KateFileTree::slotResetHistory()
   KateFileTreeProxyModel *ftpm = static_cast<KateFileTreeProxyModel*>(model());
   KateFileTreeModel *ftm = static_cast<KateFileTreeModel*>(ftpm->sourceModel());
   ftm->resetHistory();
+}
+
+void KateFileTree::slotDocumentDelete()
+{
+  KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
+
+  if (!doc) {
+    return;
+  }
+
+  QUrl url = doc->url();
+
+  bool go = (KMessageBox::warningContinueCancel(this,
+              i18n("Do you realy want to delete file \"%1\" from storage?", url.toDisplayString()),
+              i18n("Delete file?"),
+              KStandardGuiItem::yes(), KStandardGuiItem::no(), QLatin1String("filetreedeletefile")
+            ) == KMessageBox::Continue);
+
+  if (!go) {
+    return;
+  }
+
+  if (!KTextEditor::Editor::instance()->application()->closeDocument(doc)) {
+    return; // no extra message, the internals of ktexteditor should take care of that.
+  }
+
+  if (url.isValid()) {
+    KIO::DeleteJob *job = KIO::del(url);
+    if (!job->exec()) {
+      KMessageBox::sorry(this, i18n("File \"%1\" could not be deleted.", url.toDisplayString()));
+    }
+  }
 }
 
 //END KateFileTree

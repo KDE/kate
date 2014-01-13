@@ -21,7 +21,7 @@
 #ifndef __KATE_CONSOLE_H__
 #define __KATE_CONSOLE_H__
 
-#include <ktexteditor/applicationplugin.h>
+#include <KTextEditor/Plugin>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpageinterface.h>
 #include <ktexteditor/configpage.h>
@@ -41,7 +41,7 @@ namespace KParts
 class KateConsole;
 class KateKonsolePluginView;
 
-class KateKonsolePlugin: public KTextEditor::ApplicationPlugin, public KTextEditor::ConfigPageInterface
+class KateKonsolePlugin: public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::ConfigPageInterface)

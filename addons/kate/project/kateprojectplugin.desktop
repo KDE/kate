@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=KTextEditor/ApplicationPlugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=kateprojectplugin
 Name=Project Plugin
 Name[bg]=Приставка за проекти

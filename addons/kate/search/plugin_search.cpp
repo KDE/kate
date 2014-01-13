@@ -120,7 +120,7 @@ Results::Results(QWidget *parent): QWidget(parent), matches(0)
 K_PLUGIN_FACTORY_WITH_JSON (KatePluginSearchFactory, "katesearch.json", registerPlugin<KatePluginSearch>();)
 
 KatePluginSearch::KatePluginSearch(QObject* parent, const QList<QVariant>&)
-    : KTextEditor::ApplicationPlugin (parent),
+    : KTextEditor::Plugin (parent),
     m_searchCommand(0)
 {
     // FIXME KF5
@@ -225,7 +225,7 @@ void KatePluginSearchView::nextFocus(QWidget *currentWidget, bool *found, bool n
     }
 }
 
-KatePluginSearchView::KatePluginSearchView(KTextEditor::ApplicationPlugin *plugin, KTextEditor::MainWindow *mainWin, KTextEditor::Application* application)
+KatePluginSearchView::KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin, KTextEditor::Application* application)
 : QObject (mainWin),
 m_kateApp(application),
 m_curResults(0),

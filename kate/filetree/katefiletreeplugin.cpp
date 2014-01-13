@@ -50,7 +50,7 @@ Q_LOGGING_CATEGORY(FILETREE, "kate-filetree")
 
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
-  : KTextEditor::ApplicationPlugin (parent),
+  : KTextEditor::Plugin (parent),
     m_fileCommand(0)
 {
 // TODO: Remove once Qt allows an external app to change a debug category (ETA Qt 5.3)

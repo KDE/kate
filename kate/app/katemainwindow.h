@@ -223,7 +223,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
   public:
     void openUrl (const QString &name = QString());
 
-    QHash<KTextEditor::ApplicationPlugin*, QObject*> &pluginViews ()
+    QHash<KTextEditor::Plugin*, QObject*> &pluginViews ()
     {
       return m_pluginViews;
     }
@@ -357,7 +357,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * \param text translated text (i18n()) to use in addition to icon
      * \return created toolview on success, otherwise NULL
      */
-    QWidget *createToolView (KTextEditor::ApplicationPlugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text);
+    QWidget *createToolView (KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text);
 
     /**
      * Move the toolview \p widget to position \p pos.
@@ -431,7 +431,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     bool m_modignore;
 
     // all plugin views for this mainwindow, used by the pluginmanager
-    QHash<KTextEditor::ApplicationPlugin*, QObject*> m_pluginViews;
+    QHash<KTextEditor::Plugin*, QObject*> m_pluginViews;
 
     // options: show statusbar + show path
     KToggleAction *m_paShowPath;

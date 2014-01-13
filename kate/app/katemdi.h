@@ -21,7 +21,7 @@
 #ifndef __KATE_MDI_H__
 #define __KATE_MDI_H__
 
-#include <KTextEditor/ApplicationPlugin>
+#include <KTextEditor/Plugin>
 
 #include <KParts/MainWindow>
 
@@ -154,7 +154,7 @@ namespace KateMDI
       Sidebar *m_sidebar;
 
       ///plugin this view belongs to, may be 0
-      QPointer<KTextEditor::ApplicationPlugin> plugin;
+      QPointer<KTextEditor::Plugin> plugin;
 
       /**
        * unique id
@@ -293,7 +293,7 @@ namespace KateMDI
        * @param text text to use in addition to icon
        * @return created toolview on success or 0
        */
-      ToolView *createToolView (KTextEditor::ApplicationPlugin *plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text);
+      ToolView *createToolView (KTextEditor::Plugin *plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text);
 
       /**
        * give you handle to toolview for the given name, 0 if no toolview around

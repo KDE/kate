@@ -791,7 +791,7 @@ namespace KateMDI
     return m_centralWidget;
   }
 
-  ToolView *MainWindow::createToolView (KTextEditor::ApplicationPlugin* plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text)
+  ToolView *MainWindow::createToolView (KTextEditor::Plugin* plugin, const QString &identifier, KMultiTabBar::KMultiTabBarPosition pos, const QPixmap &icon, const QString &text)
   {
     if (m_idToWidget[identifier])
       return 0;

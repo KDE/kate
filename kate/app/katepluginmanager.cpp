@@ -58,7 +58,7 @@ KatePluginManager *KatePluginManager::self()
 
 void KatePluginManager::setupPluginList ()
 {
-  KService::List traderList = KServiceTypeTrader::self()->query(QLatin1String("KTextEditor/ApplicationPlugin"));
+  KService::List traderList = KServiceTypeTrader::self()->query(QLatin1String("KTextEditor/Plugin"));
 
   KatePluginList alwaysLoad;
   KatePluginList others;
@@ -179,7 +179,7 @@ void KatePluginManager::disableAllPluginsGUI (KateMainWindow *win)
 void KatePluginManager::loadPlugin (KatePluginInfo *item)
 {
   const QString pluginName = item->service->library();
-  item->load = (item->plugin = item->service->createInstance<KTextEditor::ApplicationPlugin>(this, QVariantList() << pluginName));
+  item->load = (item->plugin = item->service->createInstance<KTextEditor::Plugin>(this, QVariantList() << pluginName));
   if (item->plugin)
     emit KateApp::self ()->wrapper()->pluginCreated (pluginName, item->plugin);
 }
@@ -188,7 +188,7 @@ void KatePluginManager::unloadPlugin (KatePluginInfo *item)
 {
   disablePluginGUI (item);
   delete item->plugin;
-  KTextEditor::ApplicationPlugin *plugin = item->plugin;
+  KTextEditor::Plugin *plugin = item->plugin;
   item->plugin = 0L;
   item->load=false;
   emit KateApp::self ()->wrapper()->pluginDeleted (item->service->library(), plugin);
@@ -262,7 +262,7 @@ void KatePluginManager::disablePluginGUI (KatePluginInfo *item)
     disablePluginGUI (item, KateApp::self()->mainWindow(i));
 }
 
-KTextEditor::ApplicationPlugin *KatePluginManager::plugin (const QString &name)
+KTextEditor::Plugin *KatePluginManager::plugin (const QString &name)
 {
   /**
    * name known?
@@ -281,7 +281,7 @@ bool KatePluginManager::pluginAvailable (const QString &name)
   return m_name2Plugin.contains (name);
 }
 
-class KTextEditor::ApplicationPlugin *KatePluginManager::loadPlugin (const QString &name, bool permanent)
+class KTextEditor::Plugin *KatePluginManager::loadPlugin (const QString &name, bool permanent)
 {
   /**
    * name known?

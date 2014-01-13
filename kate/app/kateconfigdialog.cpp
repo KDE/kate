@@ -246,7 +246,7 @@ void KateConfigDialog::addEditorPages() {
   }
 }
 
-void KateConfigDialog::addPluginPage (KTextEditor::ApplicationPlugin *plugin)
+void KateConfigDialog::addPluginPage (KTextEditor::Plugin *plugin)
 {
   if (!qobject_cast<KTextEditor::ConfigPageInterface*>(plugin))
     return;
@@ -286,7 +286,7 @@ void KateConfigDialog::slotCurrentPageChanged( KPageWidgetItem *current, KPageWi
   connect( info->pluginPage, SIGNAL(changed()), this, SLOT(slotChanged()) );
 }
 
-void KateConfigDialog::removePluginPage (KTextEditor::ApplicationPlugin *plugin)
+void KateConfigDialog::removePluginPage (KTextEditor::Plugin *plugin)
 {
   if (!qobject_cast<KTextEditor::ConfigPageInterface*>(plugin))
     return;

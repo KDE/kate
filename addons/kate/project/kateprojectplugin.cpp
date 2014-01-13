@@ -42,7 +42,7 @@
 #endif
 
 KateProjectPlugin::KateProjectPlugin (QObject* parent, const QList<QVariant>&)
-  : KTextEditor::ApplicationPlugin (parent)
+  : KTextEditor::Plugin (parent)
   , m_completion (this)
 {
   /**

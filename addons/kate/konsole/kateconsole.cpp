@@ -54,7 +54,7 @@
 K_PLUGIN_FACTORY_WITH_JSON (KateKonsolePluginFactory, "katekonsoleplugin.json", registerPlugin<KateKonsolePlugin>();)
 
 KateKonsolePlugin::KateKonsolePlugin( QObject* parent, const QList<QVariant>& ):
-    KTextEditor::ApplicationPlugin ( parent )
+    KTextEditor::Plugin ( parent )
 {
   m_previousEditorEnv=qgetenv("EDITOR");
   if (!KAuthorized::authorizeKAction(QLatin1String("shell_access")))

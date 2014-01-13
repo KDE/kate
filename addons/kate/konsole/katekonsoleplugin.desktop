@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=KTextEditor/ApplicationPlugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katekonsoleplugin
 Name=Terminal tool view
 Name[ast]=Vista de la ferramienta de terminal

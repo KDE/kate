@@ -22,7 +22,7 @@
 #ifndef __kate_configdialog_h__
 #define __kate_configdialog_h__
 
-#include <ktexteditor/applicationplugin.h>
+#include <KTextEditor/Plugin>
 #include <ktexteditor/configpageinterface.h>
 
 #include <ktexteditor/editor.h>
@@ -39,7 +39,7 @@ class KateMainWindow;
 
 struct PluginPageListItem
 {
-  KTextEditor::ApplicationPlugin *plugin;
+  KTextEditor::Plugin *plugin;
   KTextEditor::ConfigPageInterface *configPageInterface;
   uint idInPlugin;
   KTextEditor::ConfigPage *pluginPage;
@@ -56,8 +56,8 @@ class KateConfigDialog : public KPageDialog
     ~KateConfigDialog ();
 
   public:
-    void addPluginPage (KTextEditor::ApplicationPlugin *plugin);
-    void removePluginPage (KTextEditor::ApplicationPlugin *plugin);
+    void addPluginPage (KTextEditor::Plugin *plugin);
+    void removePluginPage (KTextEditor::Plugin *plugin);
     void showAppPluginPage(KTextEditor::ConfigPageInterface *configpageinterface,uint id);
   protected Q_SLOTS:
     void slotApply();

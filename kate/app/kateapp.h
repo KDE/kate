@@ -303,7 +303,7 @@ class KATE_TESTS_EXPORT KateApp : public QObject
      * \param name the plugin's name
      * \return pointer to the plugin if a plugin with \p name is loaded, otherwise nullptr
      */
-    KTextEditor::ApplicationPlugin *plugin (const QString &name);
+    KTextEditor::Plugin *plugin (const QString &name);
 
   private:
     /**

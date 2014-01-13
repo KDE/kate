@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=KTextEditor/ApplicationPlugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katefiletreeplugin
 Name=File Tree
 Name[ar]=شجرة الملفات

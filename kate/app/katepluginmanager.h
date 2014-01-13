@@ -22,7 +22,7 @@
 #ifndef __KATE_PLUGINMANAGER_H__
 #define __KATE_PLUGINMANAGER_H__
 
-#include <KTextEditor/ApplicationPlugin>
+#include <KTextEditor/Plugin>
 
 #include <KService>
 #include <KConfigBase>
@@ -38,7 +38,7 @@ class KatePluginInfo
     bool load;
     bool alwaysLoad;
     KService::Ptr service;
-    KTextEditor::ApplicationPlugin *plugin;
+    KTextEditor::Plugin *plugin;
     QString saveName() const;
 };
 
@@ -76,10 +76,10 @@ class KatePluginManager : public QObject
       return m_pluginList;
     }
 
-    KTextEditor::ApplicationPlugin *plugin (const QString &name);
+    KTextEditor::Plugin *plugin (const QString &name);
     bool pluginAvailable (const QString &name);
 
-    KTextEditor::ApplicationPlugin *loadPlugin (const QString &name, bool permanent = true);
+    KTextEditor::Plugin *loadPlugin (const QString &name, bool permanent = true);
     void unloadPlugin (const QString &name, bool permanent = true);
 
   private:

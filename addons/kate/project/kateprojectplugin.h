@@ -26,14 +26,14 @@
 
 #include <ktexteditor/document.h>
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/applicationplugin.h>
+#include <KTextEditor/Plugin>
 
 #include <kxmlguiclient.h>
 
 #include "kateproject.h"
 #include "kateprojectcompletion.h"
 
-class KateProjectPlugin : public KTextEditor::ApplicationPlugin
+class KateProjectPlugin : public KTextEditor::Plugin
 {
   Q_OBJECT
 

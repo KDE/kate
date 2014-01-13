@@ -21,7 +21,7 @@
 #ifndef __KATE_SNIPPETS_H__
 #define __KATE_SNIPPETS_H__
 
-#include <KTextEditor/ApplicationPlugin>
+#include <KTextEditor/Plugin>
 #include <KTextEditor/MainWindow>
 #include <KTextEditor/Application>
 #include <KTextEditor/Editor>
@@ -30,7 +30,7 @@
 
 class KateSnippetsPluginView;
 
-class KateSnippetsPlugin: public KTextEditor::ApplicationPlugin
+class KateSnippetsPlugin: public KTextEditor::Plugin
 {
     Q_OBJECT
     

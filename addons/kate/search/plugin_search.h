@@ -22,7 +22,7 @@
 #define _PLUGIN_SEARCH_H_
 
 #include <ktexteditor/mainwindow.h>
-#include <ktexteditor/applicationplugin.h>
+#include <KTextEditor/Plugin>
 #include <ktexteditor/application.h>
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
@@ -71,7 +71,7 @@ protected:
 };
 
 
-class KatePluginSearch : public KTextEditor::ApplicationPlugin
+class KatePluginSearch : public KTextEditor::Plugin
 {
     Q_OBJECT
 
@@ -93,7 +93,7 @@ class KatePluginSearchView : public QObject, public KXMLGUIClient, public KTextE
     Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-    KatePluginSearchView(KTextEditor::ApplicationPlugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application* application);
+    KatePluginSearchView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow, KTextEditor::Application* application);
     ~KatePluginSearchView();
 
     void readSessionConfig (const KConfigGroup& config);

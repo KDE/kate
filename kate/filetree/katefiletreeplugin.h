@@ -24,7 +24,7 @@
 #include <ktexteditor/commandinterface.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/editor.h>
-#include <ktexteditor/applicationplugin.h>
+#include <KTextEditor/Plugin>
 #include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpageinterface.h>
 #include <ktexteditor/sessionconfiginterface.h>
@@ -40,7 +40,7 @@ class KateFileTreeConfigPage;
 class KateFileTreePluginView;
 class KateFileTreeCommand;
 
-class KateFileTreePlugin: public KTextEditor::ApplicationPlugin, public KTextEditor::ConfigPageInterface
+class KateFileTreePlugin: public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::ConfigPageInterface)

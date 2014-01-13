@@ -1006,7 +1006,7 @@ bool KateMainWindow::event( QEvent *e )
 
 QObject *KateMainWindow::pluginView (const QString &name)
 {
-  KTextEditor::ApplicationPlugin *plugin = KateApp::self()->pluginManager()->plugin (name);
+  KTextEditor::Plugin *plugin = KateApp::self()->pluginManager()->plugin (name);
   if (!plugin)
     return 0;
 
@@ -1042,7 +1042,7 @@ void KateMainWindow::slotQuickOpen ()
   }
 }
 
-QWidget *KateMainWindow::createToolView (KTextEditor::ApplicationPlugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)
+QWidget *KateMainWindow::createToolView (KTextEditor::Plugin *plugin, const QString &identifier, KTextEditor::MainWindow::ToolViewPosition pos, const QIcon &icon, const QString &text)
 {
   // FIXME KF5
   return KateMDI::MainWindow::createToolView (plugin, identifier, (KMultiTabBar::KMultiTabBarPosition) (pos), icon.pixmap(QSize (16, 16)), text);

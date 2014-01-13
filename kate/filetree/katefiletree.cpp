@@ -119,7 +119,7 @@ KateFileTree::~KateFileTree()
 
 void KateFileTree::setModel(QAbstractItemModel *model)
 {
-  Q_ASSERT(static_cast<KateFileTreeProxyModel*>(model)); // we dont' realy work with anything else
+  Q_ASSERT(qobject_cast<KateFileTreeProxyModel*>(model)); // we dont' realy work with anything else
   QTreeView::setModel(model);
 }
 

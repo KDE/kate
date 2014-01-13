@@ -11,7 +11,7 @@
 <language
     name="C++11"
     section="Sources"
-    version="1.62"
+    version="1.65"
     kateversion="2.4"
     indenter="cppstyle"
     mimetype="text/x-c++src;text/x-c++hdr;text/x-chdr"
@@ -105,8 +105,11 @@
 
     <!-- 7.6 Attributes -->
     <list name="attributes">
+      <!-- C++11 -->
       <item> noreturn </item>
       <item> carries_dependency </item>
+      <!-- C++1y -->
+      <item> deprecated </item>
     </list>
 
     <list name="types">
@@ -181,18 +184,16 @@
         <!-- Match keywords -->
         <keyword attribute="Keyword" context="#stay" String="keywords" />
         <!-- Detect attributes -->
-        <Detect2Chars attribute="Normal Text" context="Attribute" char="[" char1="[" />
-        <!-- Match GCC extensions -->
-        <IncludeRules context="DetectGccExtensions##GCCExtensions" />
+        <Detect2Chars attribute="Symbol" context="Attribute" char="[" char1="[" />
         <!-- Match numbers -->
-        <!-- ATTENTION Builtin number detectors have strange behaviour and definitely lack of required features
-          -->
+        <!-- ATTENTION Builtin number detectors have strange behaviour and definitely lack of required features -->
         <!-- NOTE Order is important! -->
-        <RegExpr attribute="Hex" context="#stay" String="[\+\-]?0x[0-9A-Fa-f]+([Uu][Ll]{0,2}|[Ll]{0,2}[Uu]?|_[_0-9A-Za-z]*)?\b" />
+        <RegExpr attribute="Hex" context="#stay" String="[\+\-]?0x[0-9A-Fa-f]('?[0-9A-Fa-f]+)*([Uu][Ll]{0,2}|[Ll]{0,2}[Uu]?|_[_0-9A-Za-z]*)?\b" />
+        <RegExpr attribute="Binary" context="#stay" String="0[Bb][01]('?[01]+)*([Uu][Ll]{0,2}|[Ll]{0,2}[Uu]?|_[_0-9A-Za-z]*)?\b" />
         <RegExpr attribute="Float" context="#stay" String="[\+\-]?([0-9]+[Ee][\+\-]?[0-9]+|([0-9]+\.|\.[0-9]+|[0-9]+\.[0-9]+)([Ee][\+\-]?[0-9]+)?)[FfLl]?" />
-        <RegExpr attribute="Octal" context="#stay" String="[\+\-]?0[0-7]+([Uu][Ll]{0,2}|[Ll]{0,2}[Uu]?|_[_0-9A-Za-z]*)?\b" />
-        <RegExpr attribute="Decimal" context="#stay" String="[\+\-]?(0|[1-9][0-9]*)([Uu][Ll]{0,2}|[Ll]{0,2}[Uu]?|_[_0-9A-Za-z]*)?\b" />
-        <RegExpr attribute="Error" context="#stay" String="[\+\-]?(0|[1-9][0-9]*)[0-9A-Za-z][_0-9A-Za-z]*\b" />
+        <RegExpr attribute="Octal" context="#stay" String="[\+\-]?0'?[0-7]('?[0-7]+)*([Uu][Ll]{0,2}|[Ll]{0,2}[Uu]?|_[_0-9A-Za-z]*)?\b" />
+        <RegExpr attribute="Decimal" context="#stay" String="[\+\-]?(0|[1-9]('?[0-9]+)*)([Uu][Ll]{0,2}|[Ll]{0,2}[Uu]?|_[_0-9A-Za-z]*)?\b" />
+        <RegExpr attribute="Error" context="#stay" String="[\+\-]?(0x?|[1-9][0-9]*)[0-9A-Za-z][_0-9A-Za-z]*\b" />
         <!-- Match string literals -->
         <DetectChar attribute="String" context="String" char="&quot;" />
         <Detect2Chars attribute="String" context="String" char="U" char1="&quot;" />
@@ -205,6 +206,8 @@
         <Detect2Chars attribute="String" context="Char Literal" char="L" char1="'" />
         <Detect2Chars attribute="String" context="U-Char Literal" char="u" char1="'" />
         <Detect2Chars attribute="String" context="U-Char Literal" char="U" char1="'" />
+        <!-- Match GCC extensions -->
+        <IncludeRules context="DetectGccExtensions##GCCExtensions" />
         <!-- Match most used namespaces and styles -->
         <StringDetect attribute="Standard Classes" context="Standard Classes" String="std::" />
         <StringDetect attribute="Boost Stuff" context="Boost Stuff" String="boost::" />
@@ -291,9 +294,11 @@
       </context>
 
       <context name="Attribute" attribute="Attribute" lineEndContext="#stay">
-        <keyword attribute="Attribute" context="#stay" String="attributes" />
-        <Detect2Chars attribute="Normal Text" context="#pop" char="]" char1="]" />
-        <DetectIdentifier context="#stay" attribute="Error" />
+        <keyword attribute="Standard Attribute" context="#stay" String="attributes" />
+        <Detect2Chars attribute="Symbol" context="#pop" char="]" char1="]" />
+        <AnyChar context="#stay" String="&ns_punctuators;" attribute="Symbol" />
+        <!-- Attributes may contain some text: [[deprecated("Reason text")]] -->
+        <DetectChar attribute="String" context="String" char="&quot;" />
       </context>
 
       <context name="RawString" attribute="String" lineEndContext="#stay" dynamic="true">
@@ -453,9 +458,11 @@
       <itemData name="Data Type"          defStyleNum="dsDataType" spellChecking="false" />
       <itemData name="Type Modifiers"     defStyleNum="dsDataType" spellChecking="false" />
       <itemData name="Attribute"          defStyleNum="dsKeyword"  spellChecking="false" bold="false" italic="true" />
+      <itemData name="Standard Attribute" defStyleNum="dsKeyword"  spellChecking="false" bold="false" italic="true" />
       <itemData name="Decimal"            defStyleNum="dsDecVal"   spellChecking="false" />
       <itemData name="Octal"              defStyleNum="dsBaseN"    spellChecking="false" />
       <itemData name="Hex"                defStyleNum="dsBaseN"    spellChecking="false" />
+      <itemData name="Binary"             defStyleNum="dsBaseN"    spellChecking="false" />
       <itemData name="Float"              defStyleNum="dsFloat"    spellChecking="false" />
       <itemData name="Char"               defStyleNum="dsChar"     spellChecking="false" />
       <itemData name="String"             defStyleNum="dsString"   spellChecking="true"  />

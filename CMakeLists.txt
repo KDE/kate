@@ -45,7 +45,6 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
   I18n
   Init
   JobWidgets
-  KCMUtils
   KIO
   Parts
   PrintUtils

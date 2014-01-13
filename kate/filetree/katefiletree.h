@@ -34,9 +34,11 @@ class KateFileTree: public QTreeView
     Q_OBJECT
 
   public:
-    
+
     KateFileTree(QWidget * parent);
     virtual ~KateFileTree();
+
+    virtual void setModel(QAbstractItemModel *model);
 
   public Q_SLOTS:
     void slotDocumentClose();
@@ -60,12 +62,12 @@ class KateFileTree: public QTreeView
   Q_SIGNALS:
     void closeDocument(KTextEditor::Document*);
     void activateDocument(KTextEditor::Document*);
-    
+
     void openDocument(QUrl);
 
     void viewModeChanged(bool treeMode);
     void sortRoleChanged(int);
-    
+
   private Q_SLOTS:
     void mouseClicked(const QModelIndex &index);
 
@@ -77,7 +79,7 @@ class KateFileTree: public QTreeView
     void slotSortOpeningOrder();
     void slotFixOpenWithMenu();
     void slotOpenWithMenuAction(QAction* a);
-    
+
   private:
     QAction *setupOption(QActionGroup *group, const QIcon &, const QString &, const QString &, const char *slot, bool checked=false);
 

@@ -33,6 +33,7 @@ class KateFileTreeProxyModel : public QSortFilterProxyModel
     KateFileTreeProxyModel(QObject *p = 0);
     QModelIndex docIndex(const KTextEditor::Document *) const;
     bool isDir(const QModelIndex &i) const;
+    virtual void setSourceModel(QAbstractItemModel *model);
 
   protected:
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const;

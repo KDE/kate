@@ -1,9 +1,0 @@
-<!DOCTYPE kpartgui>
-<gui name="ktexteditor_insertfile" library="ktexteditor_insertfile" version="2">
-<MenuBar>
- <Menu name="tools"><text>&amp;Tools</text>
-    <Separator group="tools_operations" />
-    <Action name="tools_insert_file" group="tools_operations"/>
- </Menu>
-</MenuBar>
-</gui>

@@ -37,8 +37,8 @@
 #include <QContextMenuEvent>
 #include <QMenu>
 
-#include <knewstuff3/downloaddialog.h>
-#include <knewstuff3/uploaddialog.h>
+#include <kns3/downloaddialog.h>
+#include <kns3/uploaddialog.h>
 
 SnippetView::SnippetView(KateSnippetGlobal* plugin, QWidget* parent)
  : QWidget(parent), Ui::SnippetViewBase(), m_plugin(plugin)

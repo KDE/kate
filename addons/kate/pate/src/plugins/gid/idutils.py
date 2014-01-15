@@ -79,31 +79,30 @@ class _FileLinkDb():
         FL_TYPE_FILE        = 1 << 6
         FL_PRUNE        = 1 << 7
         FL_TYPE_MASK    = FL_TYPE_DIR | FL_TYPE_FILE
-        flags = None
 
         def __init__(self, flags):
             self.flags = flags
 
         def isCmdLineArg(self):
-            return ((self.flags & self.FL_CMD_LINE_ARG) != 0)
+            return ((self.flags & _FileLinkDb.Flags.FL_CMD_LINE_ARG) != 0)
 
         def isUsed(self):
-            return ((self.flags & self.FL_USED) != 0)
+            return ((self.flags & _FileLinkDb.Flags.FL_USED) != 0)
 
         def isMember(self):
-            return ((self.flags & self.FL_MEMBER) != 0)
+            return ((self.flags & _FileLinkDb.Flags.FL_MEMBER) != 0)
 
         def isSymLink(self):
-            return ((self.flags & self.FL_SYM_LINK) != 0)
+            return ((self.flags & _FileLinkDb.Flags.FL_SYM_LINK) != 0)
 
         def isDir(self):
-            return ((self.flags & self.FL_TYPE_MASK) == self.FL_TYPE_DIR)
+            return ((self.flags & _FileLinkDb.Flags.FL_TYPE_MASK) == _FileLinkDb.Flags.FL_TYPE_DIR)
 
         def isFile(self):
-            return ((self.flags & self.FL_TYPE_MASK) == self.FL_TYPE_FILE)
+            return ((self.flags & _FileLinkDb.Flags.FL_TYPE_MASK) == _FileLinkDb.Flags.FL_TYPE_FILE)
 
         def isPrune(self):
-            return ((self.flags & self.FL_PRUNE) != 0)
+            return ((self.flags & _FileLinkDb.Flags.FL_PRUNE) != 0)
 
         def __repr__(self):
             result = "("
@@ -205,10 +204,6 @@ class _TokenDb():
 
     class TokenData():
         """Memory mapped access to token data."""
-        mapped = None
-        offset = None
-        length = None
-
         def __init__(self, f):
             """Initialise with a file object."""
             self.mapped = mmap.mmap(f.fileno(), 0, access = mmap.ACCESS_READ)
@@ -252,34 +247,33 @@ class _TokenDb():
         TOK_UNUSED        = 0x40
         # count is two bytes
         TOK_SHORT_COUNT    = 0x80
-        flags = None
 
         def __init__(self, flags):
             self.flags = flags
 
         def isVector(self):
-            return ((self.flags & self.TOK_VECTOR) != 0)
+            return ((self.flags & _TokenDb.Flags.TOK_VECTOR) != 0)
 
         def isNumber(self):
-            return ((self.flags & self.TOK_NUMBER) != 0)
+            return ((self.flags & _TokenDb.Flags.TOK_NUMBER) != 0)
 
         def isName(self):
-            return ((self.flags & self.TOK_NAME) != 0)
+            return ((self.flags & _TokenDb.Flags.TOK_NAME) != 0)
 
         def isString(self):
-            return ((self.flags & self.TOK_STRING) != 0)
+            return ((self.flags & _TokenDb.Flags.TOK_STRING) != 0)
 
         def isLiteral(self):
-            return ((self.flags & self.TOK_LITERAL) != 0)
+            return ((self.flags & _TokenDb.Flags.TOK_LITERAL) != 0)
 
         def isComment(self):
-            return ((self.flags & self.TOK_COMMENT) != 0)
+            return ((self.flags & _TokenDb.Flags.TOK_COMMENT) != 0)
 
         def isUnused(self):
-            return ((self.flags & self.TOK_UNUSED) != 0)
+            return ((self.flags & _TokenDb.Flags.TOK_UNUSED) != 0)
 
         def isShortCount(self):
-            return ((self.flags & self.TOK_SHORT_COUNT) != 0)
+            return ((self.flags & _TokenDb.Flags.TOK_SHORT_COUNT) != 0)
 
         def __repr__(self):
             result = "("
@@ -304,15 +298,10 @@ class _TokenDb():
             else:
                 return "()"
 
-    # The raw bytearray.
-    rawData = None
-    # Number of items.
-    maxItems = None
-    #
-    bitsVec = None
-
     def __init__(self, file, maxItems, maxFiles, fileLinkDb):
+        # The raw bytearray.
         self.rawData = self.TokenData(file)
+        # Number of items.
         self.maxItems = maxItems
         self.fileLinkDb = fileLinkDb
         #
@@ -580,55 +569,54 @@ class _TokenDb():
 class Lookup():
     _IO_TYPE_FIX = ">"
     _IO_TYPE_INT = "<"
-    file = None
-    #
-    # Header information.
-    #
-    headerSize = None
-    magic = None
-    pad = None
-    version = None
-    flags = None
-    fileLinks = None
-    files = None
-    tokens = None
-    bufSize = None
-    vecSize = None
-    tokensOffset = None
-    flinksOffset = None
-    endOffset = None
-    maxLink = None
-    maxPath = None
-    #
-    # File links database.
-    #
-    fileLinkDb = None
-    #
-    # _TokenDb database.
-    #
-    tokenDb = None
 
     def __init__(self):
-        pass
+        self.file = None
+        #
+        # Header information.
+        #
+        self.headerSize = None
+        self.magic = None
+        self.pad = None
+        self.version = None
+        self.flags = None
+        self.fileLinks = None
+        self.files = None
+        self.tokens = None
+        self.bufSize = None
+        self.vecSize = None
+        self.tokensOffset = None
+        self.flinksOffset = None
+        self.endOffset = None
+        self.maxLink = None
+        self.maxPath = None
+        #
+        # File links database.
+        #
+        self.fileLinkDb = None
+        #
+        # _TokenDb database.
+        #
+        self.tokenDb = None
 
     def setFile(self, name):
         self.file = open(name.encode("utf-8"), "rb")
         self.file.seek(0, os.SEEK_SET)
         self.headerSize = 0
-        self.magic = self._read(2, self._IO_TYPE_FIX)
-        self.pad = self._read(1, self._IO_TYPE_FIX)
-        self.version = self._read(1, self._IO_TYPE_FIX)
-        self.flags = self._read(2, self._IO_TYPE_INT)
-        self.fileLinks = self._read(4, self._IO_TYPE_INT)
-        self.files = self._read(4, self._IO_TYPE_INT)
-        self.tokens = self._read(4, self._IO_TYPE_INT)
-        self.bufSize = self._read(4, self._IO_TYPE_INT)
-        self.vecSize = self._read(4, self._IO_TYPE_INT)
-        self.tokensOffset = self._read(4, self._IO_TYPE_INT)
-        self.flinksOffset = self._read(4, self._IO_TYPE_INT)
-        self.endOffset = self._read(4, self._IO_TYPE_INT)
-        self.maxLink = self._read(2, self._IO_TYPE_INT)
-        self.maxPath = self._read(2, self._IO_TYPE_INT)
+        self.magic = self._read(2, Lookup._IO_TYPE_FIX)
+        self.pad = self._read(1, Lookup._IO_TYPE_FIX)
+        self.version = self._read(1, Lookup._IO_TYPE_FIX)
+        self.flags = self._read(2, Lookup._IO_TYPE_INT)
+        self.fileLinks = self._read(4, Lookup._IO_TYPE_INT)
+        self.files = self._read(4, Lookup._IO_TYPE_INT)
+        self.tokens = self._read(4, Lookup._IO_TYPE_INT)
+        self.bufSize = self._read(4, Lookup._IO_TYPE_INT)
+        self.vecSize = self._read(4, Lookup._IO_TYPE_INT)
+        self.tokensOffset = self._read(4, Lookup._IO_TYPE_INT)
+        self.flinksOffset = self._read(4, Lookup._IO_TYPE_INT)
+        self.endOffset = self._read(4, Lookup._IO_TYPE_INT)
+        self.maxLink = self._read(2, Lookup._IO_TYPE_INT)
+        self.maxPath = self._read(2, Lookup._IO_TYPE_INT)
         #
         # Initialise file link reading.
         #

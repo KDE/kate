@@ -55,25 +55,24 @@ def toStr(_bytes):
 
 class ConfigWidget(QWidget):
     """Configuration widget for this plugin."""
-    #
-    # Location of ID file.
-    #
-    idFile = None
-    #
-    # Completion string minimum size.
-    #
-    keySize = None
-    #
-    # Original file prefix.
-    #
-    srcIn = None
-    #
-    # Replacement file prefix.
-    #
-    srcOut = None
-
     def __init__(self, parent = None, name = None):
         super(ConfigWidget, self).__init__(parent)
+        #
+        # Location of ID file.
+        #
+        self.idFile = None
+        #
+        # Completion string minimum size.
+        #
+        self.keySize = None
+        #
+        # Original file prefix.
+        #
+        self.srcIn = None
+        #
+        # Replacement file prefix.
+        #
+        self.srcOut = None
 
         # Set up the user interface from Designer.
         uic.loadUi(os.path.join(os.path.dirname(__file__), "config.ui"), self)
@@ -238,7 +237,6 @@ class MatchesModel(HistoryModel):
     """
 
     _boredomInterval = 20
-    dataSource = None
 
     def __init__(self, dataSource):
         """Constructor.
@@ -371,7 +369,7 @@ class MatchesModel(HistoryModel):
             declarationRe = "(" + declarationRe.replace(".", "\.") + ")$"
             declarationRe = re.compile(declarationRe, re.IGNORECASE)
         startBoredomQuery = time.time()
-        previousBoredomQuery = startBoredomQuery - self._boredomInterval // 2
+        previousBoredomQuery = startBoredomQuery - MatchesModel._boredomInterval // 2
         #
         # For each file, list the lines where a match is found.
         #
@@ -390,11 +388,11 @@ class MatchesModel(HistoryModel):
             #
             # Time to query the user's boredom level?
             #
-            if time.time() - previousBoredomQuery > self._boredomInterval:
+            if time.time() - previousBoredomQuery > MatchesModel._boredomInterval:
                 r = KMessageBox.questionYesNoCancel(parent.parent(), i18n("Scanned %1 of %2 files in %3 seconds", filesListed, len(files), int(time.time() - startBoredomQuery)),
                         i18n("Scan more files?"), KGuiItem(i18n("All Files")), KGuiItem(i18n("More Files")), KStandardGuiItem.cancel())
                 if r == KMessageBox.Yes:
-                    previousBoredomQuery = time.time() + 10 * self._boredomInterval
+                    previousBoredomQuery = time.time() + 10 * MatchesModel._boredomInterval
                 elif r == KMessageBox.No:
                     previousBoredomQuery = time.time()
                 else:
@@ -407,10 +405,6 @@ class MatchesModel(HistoryModel):
 class CompletionModel(KTextEditor.CodeCompletionModel):
     """Support Kate code completion.
     """
-
-    dataSource = None
-    completionObj = None
-
     def __init__(self, parent, dataSource):
         """Constructor.
 
@@ -467,15 +461,12 @@ class CompletionModel(KTextEditor.CodeCompletionModel):
             return None
 
 class SearchBar(QObject):
-    dataSource = None
-    toolView = None
-    lastToken = None
-    lastOffset = None
-    lastName = None
-    gotSettings = False
-
     def __init__(self, parent, dataSource):
         super(SearchBar, self).__init__(parent)
+        self.lastToken = None
+        self.lastOffset = None
+        self.lastName = None
+        self.gotSettings = False
         self.dataSource = dataSource
         self.toolView = kate.mainInterfaceWindow().createToolView("idutils_gid_plugin", kate.Kate.MainWindow.Bottom, SmallIcon("edit-find"), i18n("gid Search"))
         # By default, the toolview has box layout, which is not easy to delete.

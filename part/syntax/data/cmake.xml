@@ -5,7 +5,7 @@
 
   Copyright 2004 Alexander Neundorf (neundorf@kde.org)
   Copyright 2005 Dominik Haumann (dhdev@gmx.de)
-  Copyright 2007,2008 Matthew Woehlke (mw_triad@users.sourceforge.net)
+  Copyright 2007,2008,2013 Matthew Woehlke (mw_triad@users.sourceforge.net)
   Copyright 2013 Alex Turbov (i.zaufi@gmail.com)
 
  **********************************************************************
@@ -26,7 +26,7 @@
  **********************************************************************
  -->
 <!-- generated for "cmake version 2.8.11.1" -->
-<language name="CMake" version="1.23" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
+<language name="CMake" version="1.24" kateversion="2.4" section="Other" extensions="CMakeLists.txt;*.cmake;" mimetype="" author="Alexander Neundorf (neundorf@kde.org)" license="LGPL">
   <highlighting>
 
     <!-- ATTENTION Do not change the list name! Or change a generation script accordingly -->
@@ -816,7 +816,8 @@
         <keyword attribute="Third-Party Commands" context="#stay" String="itkvtk_commands" insensitive="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*BEGIN.*$" beginRegion="block" firstNonSpace="true"/>
         <RegExpr attribute="Region Marker" context="#stay" String="#\s*END.*$" endRegion="block" firstNonSpace="true"/>
-        <RegExpr attribute="DocumentationBracketBlock" context="DocumentationBracketBlock" String="^#\[(=*)\[\.rst:"  />
+        <RegExpr attribute="Region Marker" context="RST Documentation" String="^#\[(=*)\[\.rst:" column="0" />
+        <RegExpr attribute="Comment" context="Bracketed Comment" String="^#\[(=*)\[" column="0" />
         <DetectChar attribute="Comment" context="Comment" char="#"/>
         <IncludeRules context="Detect Variables"/>
         <RegExpr attribute="Macros" context="Macro Args" String="\w+\s*(?=\()"/>
@@ -902,6 +903,7 @@
         <!-- TODO Hmm... this rule looks strange... being in the Normal context -->
         <StringDetect attribute="Escapes" context="#stay" String="\&quot;"/>
         <DetectChar attribute="Strings" context="String" char="&quot;"/>
+        <RegExpr attribute="Strings" context="Bracketed String" String="\[(=*)\[" />
         <DetectChar attribute="Comment" context="Comment" char="#"/>
         <IncludeRules context="Detect Builtin Variables"/>
         <IncludeRules context="Detect Variables"/>
@@ -911,15 +913,23 @@
         <IncludeRules context="##Alerts" />
         <IncludeRules context="##Modelines" />
       </context>
-      <context name="DocumentationBracketBlock" lineEndContext="#stay" dynamic="true">
-        <IncludeRules context="##reStructuredText" includeAttrib="true"/>
-        <RegExpr attribute="Normal Text" String="\]%1\]" lookAhead="true" context="#pop#pop" dynamic="true" />
+      <context attribute="Comment" lineEndContext="#stay" name="RST Documentation" dynamic="true">
+        <RegExpr attribute="Region Marker" context="#pop" String="^#?\]%1\]" dynamic="true" column="0" />
+        <IncludeRules context="##reStructuredText" />
+      </context>
+      <context attribute="Comment" lineEndContext="#stay" name="Bracketed Comment" dynamic="true">
+        <RegExpr attribute="Comment" context="#pop" String="^#?\]%1\]" dynamic="true" column="0" />
+        <IncludeRules context="##Alerts" />
+        <IncludeRules context="##Modelines" />
       </context>
       <context attribute="Strings" lineEndContext="#stay" name="String">
         <RegExpr attribute="Strings" context="#pop" String="&quot;(?=[ );]|$)" />
         <RegExpr attribute="Escapes" context="#stay" String="\\[&quot;$n\\]" />
         <IncludeRules context="Detect Variables"/>
         <IncludeRules context="Detect Generator Expressions"/>
+      </context>
+      <context attribute="Strings" lineEndContext="#stay" name="Bracketed String" dynamic="true">
+        <RegExpr attribute="Strings" context="#pop" String="\]%1\]" dynamic="true" />
       </context>
 
     </contexts>

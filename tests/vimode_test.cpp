@@ -1350,6 +1350,38 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("fo(o", "llldiW", "");
   DoTest("foo \"\"B!!", "fBdaW", "foo");
 
+  // Inner / Sentence text object ("is")
+  DoTest("", "cis", "");
+  DoTest("hello", "cis", "");
+  DoTest("hello", "flcis", "");
+  DoTest("hello. bye", "cisX", "X bye");
+  DoTest("hello. bye", "f.cisX", "X bye");
+  DoTest("hello.  bye", "fbcisX", "hello.  X");
+  DoTest("hello\n\nbye.", "cisX", "X\n\nbye.");
+  DoTest("Hello. Bye.\n", "GcisX", "Hello. Bye.\nX");
+  DoTest("hello. by.. another.", "cisX", "X by.. another.");
+  DoTest("hello. by.. another.", "fbcisX", "hello. X another.");
+  DoTest("hello. by.. another.\n", "GcisX", "hello. by.. another.\nX");
+  DoTest("hello. yay\nis this a string?!?.. another.\n", "fycisX", "hello. X another.\n");
+  DoTest("hello. yay\nis this a string?!?.. another.\n", "jcisX", "hello. X another.\n");
+
+  // Around / Sentence text object ("as")
+  DoTest("", "cas", "");
+  DoTest("hello", "cas", "");
+  DoTest("hello", "flcas", "");
+  DoTest("hello. bye", "casX", "Xbye");
+  DoTest("hello. bye", "f.casX", "Xbye");
+  DoTest("hello. bye.", "fbcasX", "hello.X");
+  DoTest("hello. bye", "fbcasX", "hello.X");
+  DoTest("hello\n\nbye.", "casX", "X\n\nbye.");
+  DoTest("Hello. Bye.\n", "GcasX", "Hello. Bye.\nX");
+  DoTest("hello. by.. another.", "casX", "Xby.. another.");
+  DoTest("hello. by.. another.", "fbcasX", "hello. Xanother.");
+  DoTest("hello. by.. another.\n", "GcasX", "hello. by.. another.\nX");
+  DoTest("hello. yay\nis this a string?!?.. another.\n", "fycasX", "hello. Xanother.\n");
+  DoTest("hello. yay\nis this a string?!?.. another.\n", "jcasX", "hello. Xanother.\n");
+  DoTest("hello. yay\nis this a string?!?.. \t       another.\n", "jcasX", "hello. Xanother.\n");
+
   DoTest( "{\nfoo\n}", "jdiB", "{\n}");
   DoTest( "{\n}", "diB", "{\n}");
   DoTest( "{\nfoo}", "jdiB", "{\n}");

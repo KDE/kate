@@ -3181,6 +3181,124 @@ KateViRange KateViNormalMode::textObjectInnerWORD()
     return r;
 }
 
+Cursor KateViNormalMode::findSentenceStart()
+{
+  Cursor c(m_view->cursorPosition());
+  int linenum = c.line(), column = c.column();
+  int prev = column;
+
+  for (int i = linenum; i >= 0; i--) {
+    const QString &line = doc()->line(i);
+    if (i != linenum) {
+      column = line.size() - 1;
+    }
+
+    // An empty line is the end of a paragraph.
+    if (line.isEmpty()) {
+      return Cursor((i != linenum) ? i + 1 : i, prev);
+    }
+
+    prev = column;
+    for (int j = column; j >= 0; j--) {
+      if (line.at(j).isSpace()) {
+        int lastSpace = j--;
+        for (; j >= 0 && QString::fromLatin1("\"')]").indexOf(line.at(j)) != -1; j--);
+
+        if (QString::fromLatin1(".!?").indexOf(line.at(j)) != -1) {
+          return Cursor(i, prev);
+        }
+        j = lastSpace;
+      } else
+        prev = j;
+    }
+  }
+
+  return Cursor(0, 0);
+}
+
+Cursor KateViNormalMode::findSentenceEnd()
+{
+  Cursor c(m_view->cursorPosition());
+  int linenum = c.line(), column = c.column();
+  int j = 0, prev = 0;
+
+  for (int i = linenum; i < doc()->lines(); i++) {
+    const QString &line = doc()->line(i);
+
+    // An empty line is the end of a paragraph.
+    if (line.isEmpty()) {
+      return Cursor(linenum, j);
+    }
+
+    // Iterating over the line to reach any '.', '!', '?'
+    for (j = column; j < line.size(); j++) {
+      if (QString::fromLatin1(".!?").indexOf(line.at(j)) != -1) {
+        prev = j++;
+        // Skip possible closing characters.
+        for (; j < line.size() && QString::fromLatin1("\"')]").indexOf(line.at(j)) != -1; j++);
+
+        if (j >= line.size()) {
+          return Cursor(i, j - 1);
+        }
+
+        // And hopefully we're done...
+        if (line.at(j).isSpace()) {
+          return Cursor(i, j - 1);
+        }
+        j = prev;
+      }
+    }
+    linenum = i;
+    prev = column;
+    column = 0;
+  }
+
+  return Cursor(linenum, j - 1);
+}
+
+KateViRange KateViNormalMode::textObjectInnerSentence()
+{
+  KateViRange r;
+  Cursor c1 = findSentenceStart();
+  Cursor c2 = findSentenceEnd();
+  updateCursor(c1);
+
+  r.startLine = c1.line();
+  r.startColumn = c1.column();
+  r.endLine = c2.line();
+  r.endColumn = c2.column();
+  return r;
+}
+
+KateViRange KateViNormalMode::textObjectASentence()
+{
+  int i;
+  KateViRange r = textObjectInnerSentence();
+  const QString &line = doc()->line(r.endLine);
+
+  // Skip whitespaces and tabs.
+  for (i = r.endColumn + 1; i < line.size(); i++) {
+    if (!line.at(i).isSpace()) {
+      break;
+    }
+  }
+  r.endColumn = i - 1;
+
+  // Remove preceding spaces.
+  if (r.startColumn != 0) {
+    if (r.endColumn == line.size() - 1 && !line.at(r.endColumn).isSpace()) {
+      const QString &line = doc()->line(r.startLine);
+      for (i = r.startColumn - 1; i >= 0; i--) {
+        if (!line.at(i).isSpace()) {
+          break;
+        }
+      }
+      r.startColumn = i + 1;
+    }
+  }
+  return r;
+}
+
 KateViRange KateViNormalMode::textObjectAQuoteDouble()
 {
     return findSurroundingQuotes( '"', false );
@@ -3489,6 +3607,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("aw", textObjectAWord, IS_NOT_LINEWISE );
   ADDMOTION("iW", textObjectInnerWORD, 0 );
   ADDMOTION("aW", textObjectAWORD, IS_NOT_LINEWISE );
+  ADDMOTION("is", textObjectInnerSentence, IS_NOT_LINEWISE );
+  ADDMOTION("as", textObjectASentence, IS_NOT_LINEWISE );
   ADDMOTION("i\"", textObjectInnerQuoteDouble, IS_NOT_LINEWISE );
   ADDMOTION("a\"", textObjectAQuoteDouble, IS_NOT_LINEWISE );
   ADDMOTION("i'", textObjectInnerQuoteSingle, IS_NOT_LINEWISE );

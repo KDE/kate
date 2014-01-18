@@ -6544,6 +6544,9 @@ void ViModeTest::MacroTests()
   // Recording a macro in Visual Mode does not exit Visual Mode.
   clearAllMacros();
   DoTest("foo bar", "vqblql~", "FOO bar");
+  // Recognize correctly numbered registers
+  clearAllMacros();
+  DoTest("foo", "q1iX\\escq@1", "XXfoo");
 
   {
     // Ensure that we can call emulated command bar searches, and that we don't record

@@ -402,9 +402,8 @@ void KWrite::readConfig(KSharedConfigPtr config)
   // editor config already read from KSharedConfig::openConfig() in KWriteApp constructor.
   // so only load, if the config is a different one (this is only the case on
   // session restore)
-  if (config != KSharedConfig::openConfig()) {
-    m_view->document()->editor()->readConfig(config.data());
-  }
+  if (config != KSharedConfig::openConfig())
+    KWriteApp::self()->editor()->readConfig(config.data());
 
   if( m_paShowStatusBar->isChecked() )
     statusBar()->show();
@@ -422,7 +421,7 @@ void KWrite::writeConfig(KSharedConfigPtr config)
   m_recentFiles->saveEntries(KConfigGroup(config, "Recent Files"));
 
   // Writes into its own group
-  m_view->document()->editor()->writeConfig(config.data());
+  KWriteApp::self()->editor()->writeConfig(config.data());
 
   config->sync ();
 }
@@ -528,7 +527,7 @@ void KWrite::restore()
 
 void KWrite::aboutEditor()
 {
-  KAboutApplicationDialog dlg(m_view->document()->editor()->aboutData(), this);
+  KAboutApplicationDialog dlg(KWriteApp::self()->editor()->aboutData(), this);
   dlg.exec();
 }
 

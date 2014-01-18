@@ -35,7 +35,7 @@
 #include <KLocalizedString>
 
 SnippetCompletionModel::SnippetCompletionModel()
-    : KTextEditor::CodeCompletionModel2(0)
+    : KTextEditor::CodeCompletionModel(0)
 {
     setHasGroups(false);
 }
@@ -69,12 +69,10 @@ QVariant SnippetCompletionModel::data( const QModelIndex& idx, int role ) const
     }
 }
 
-void SnippetCompletionModel::executeCompletionItem2(KTextEditor::Document* /*document*/,
-                                                    const KTextEditor::Range& word,
-                                                    const QModelIndex& index) const
+void SnippetCompletionModel::executeCompletionItem (KTextEditor::View *view, const KTextEditor::Range &word, const QModelIndex &index) const
 {
-    if ( index.parent().isValid() && m_viewToUse ) {
-        m_snippets[index.row()]->execute(m_viewToUse, word);
+    if ( index.parent().isValid() ) {
+        m_snippets[index.row()]->execute(view, word);
     }
 }
 
@@ -87,8 +85,6 @@ void SnippetCompletionModel::completionInvoked(KTextEditor::View *view, const KT
 
 void SnippetCompletionModel::initData(KTextEditor::View* view)
 {
-    m_viewToUse = view;
-  
     QString mode;
     if ( KTextEditor::HighlightInterface* iface = qobject_cast<KTextEditor::HighlightInterface*>(view->document()) ) {
             mode = iface->highlightingModeAt(view->cursorPosition());

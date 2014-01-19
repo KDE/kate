@@ -5,6 +5,7 @@ include_directories(
   ${CMAKE_SOURCE_DIR}/kate/app
   ${CMAKE_SOURCE_DIR}/kate/app/session
   ${CMAKE_SOURCE_DIR}/kate/filetree
+  ${CMAKE_SOURCE_DIR}/addons/kate/backtracebrowser
 )
 
 macro(kate_executable_tests)
@@ -34,3 +35,10 @@ endmacro(filetree_executable_tests)
 filetree_executable_tests(
   filetree_model_test
 )
+
+# Plugin Kate Backtrace Browser
+set(BtBrowserSrc btbrowsertest.cpp ${CMAKE_SOURCE_DIR}/addons/kate/backtracebrowser/btparser.cpp)
+add_executable(btbrowser_test ${BtBrowserSrc})
+add_test(plugin-btbrowser_test btbrowser_test)
+target_link_libraries(btbrowser_test kdeinit_kate Qt5::Test)
+ecm_mark_as_test(btbrowser_test)

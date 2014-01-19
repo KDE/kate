@@ -142,7 +142,7 @@ class KateConsole : public QWidget, public KXMLGUIClient
     /**
      * synchronize the konsole with the current document (cd to the directory)
      */
-    void slotSync();
+    void slotSync(KTextEditor::View *view = 0);
     /**
      * When syncing is done by the user, also show the terminal if it is hidden
      */

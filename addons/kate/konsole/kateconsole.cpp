@@ -139,7 +139,7 @@ KateConsole::KateConsole (KateKonsolePlugin* plugin, KTextEditor::MainWindow *mw
     , m_toolView (parent)
     , m_plugin(plugin)
 {
-  KXMLGUIClient::setComponentName (QLatin1String("kateconsole"), i18n ("Kate Terminal"));
+  KXMLGUIClient::setComponentName (QLatin1String("katekonsole"), i18n ("Kate Terminal"));
   setXMLFile( QLatin1String("ui.rc") );
   
   // make sure we have a vertical layout
@@ -277,7 +277,7 @@ void KateConsole::slotPipeToConsole ()
     sendInput (v->document()->text());
 }
 
-void KateConsole::slotSync()
+void KateConsole::slotSync(KTextEditor::View *)
 {
   if (m_mw->activeView() ) {
     QUrl u = m_mw->activeView()->document()->url();
@@ -324,11 +324,11 @@ void KateConsole::slotToggleFocus()
 
 void KateConsole::readConfig()
 {
-  disconnect( m_mw, SIGNAL(viewChanged()), this, SLOT(slotSync()) );
-  if ( KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("AutoSyncronize", false) )
-    connect( m_mw, SIGNAL(viewChanged()), SLOT(slotSync()) );
-    
-  
+  disconnect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotSync);
+  if ( KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("AutoSyncronize", false) ) {
+    connect(m_mw, &KTextEditor::MainWindow::viewChanged, this, &KateConsole::slotSync);
+  }
+
   if ( KConfigGroup(KSharedConfig::openConfig(), "Konsole").readEntry("SetEditor", false) )
     ::setenv( "EDITOR", "kate -b",1);
   else

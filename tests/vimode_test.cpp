@@ -1382,6 +1382,25 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("hello. yay\nis this a string?!?.. another.\n", "jcasX", "hello. Xanother.\n");
   DoTest("hello. yay\nis this a string?!?.. \t       another.\n", "jcasX", "hello. Xanother.\n");
 
+  // Inner / Paragraph text object ("ip")
+  DoTest("", "cip", "");
+  DoTest("\nhello", "cipX", "X\nhello");
+  DoTest("\nhello\n\nanother. text.", "jcipX", "\nX\n\nanother. text.");
+  DoTest("\nhello\n\n\nanother. text.", "jjcipX", "\nhello\nX\nanother. text.");
+  DoTest("\nhello\n\n\nanother. text.", "jjjcipX", "\nhello\nX\nanother. text.");
+  DoTest("\nhello\n\n\nanother. text.", "jjjjcipX", "\nhello\n\n\nX");
+  DoTest("hello\n\n", "jcipX", "hello\nX");
+  DoTest("hello\n\n", "jjcipX", "hello\nX");
+
+  // Around / Paragraph text object ("ap")
+  DoTest("", "cap", "");
+  DoTest("\nhello", "capX", "X");
+  DoTest("\nhello\n\nanother.text.", "jcapX", "\nX\nanother.text.");
+  DoTest("\nhello\n\nanother.text.\n\n\nAnother.", "jjjcapX", "\nhello\n\nX\nAnother.");
+  DoTest("\nhello\n\nanother.text.\n\n\nAnother.", "jjjjjcapX", "\nhello\n\nanother.text.\nX");
+  DoTest("hello\n\n\n", "jjcapX", "hello\n\n\n");
+  DoTest("hello\n\nasd", "jjjcapX", "hello\nX");
+
   DoTest( "{\nfoo\n}", "jdiB", "{\n}");
   DoTest( "{\n}", "diB", "{\n}");
   DoTest( "{\nfoo}", "jdiB", "{\n}");

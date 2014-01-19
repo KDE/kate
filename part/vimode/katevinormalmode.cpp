@@ -3317,6 +3317,53 @@ Cursor KateViNormalMode::findSentenceEnd()
   return Cursor(linenum, j - 1);
 }
 
+Cursor KateViNormalMode::findParagraphStart()
+{
+  Cursor c(m_view->cursorPosition());
+  const bool firstBlank = doc()->line(c.line()).isEmpty();
+  int prev = c.line();
+
+  for (int i = prev; i >= 0; i--) {
+    if (doc()->line(i).isEmpty()) {
+      if (i != prev) {
+        prev = i + 1;
+      }
+
+      /* Skip consecutive empty lines. */
+      if (firstBlank) {
+        i--;
+        for (; i >= 0 && doc()->line(i).isEmpty(); i--, prev--);
+      }
+      return Cursor(prev, 0);
+    }
+  }
+  return Cursor(0, 0);
+}
+
+Cursor KateViNormalMode::findParagraphEnd()
+{
+  Cursor c(m_view->cursorPosition());
+  int prev = c.line(), lines = doc()->lines();
+  const bool firstBlank = doc()->line(prev).isEmpty();
+
+  for (int i = prev; i < lines; i++) {
+    if (doc()->line(i).isEmpty()) {
+      if (i != prev) {
+        prev = i - 1;
+      }
+
+      /* Skip consecutive empty lines. */
+      if (firstBlank) {
+        i++;
+        for (; i < lines && doc()->line(i).isEmpty(); i++, prev++);
+      }
+      int length = doc()->lineLength(prev);
+      return Cursor(prev, (length <= 0) ? 0 : length - 1);
+    }
+  }
+  return doc()->documentEnd();
+}
+
 KateViRange KateViNormalMode::textObjectInnerSentence()
 {
   KateViRange r;
@@ -3356,6 +3403,57 @@ KateViRange KateViNormalMode::textObjectASentence()
       }
       r.startColumn = i + 1;
     }
+  }
+  return r;
+}
+
+KateViRange KateViNormalMode::textObjectInnerParagraph()
+{
+  KateViRange r;
+  Cursor c1 = findParagraphStart();
+  Cursor c2 = findParagraphEnd();
+  updateCursor(c1);
+
+  r.startLine = c1.line();
+  r.startColumn = c1.column();
+  r.endLine = c2.line();
+  r.endColumn = c2.column();
+  return r;
+}
+
+KateViRange KateViNormalMode::textObjectAParagraph()
+{
+  Cursor original(m_view->cursorPosition());
+  KateViRange r = textObjectInnerParagraph();
+  int lines = doc()->lines();
+
+  if (r.endLine + 1 < lines) {
+    // If the next line is empty, remove all subsequent empty lines.
+    // Otherwise we'll grab the next paragraph.
+    if (doc()->line(r.endLine + 1).isEmpty()) {
+      for (int i = r.endLine + 1; i < lines && doc()->line(i).isEmpty(); i++) {
+        r.endLine++;
+      }
+    } else {
+      Cursor prev = m_view->cursorPosition();
+      Cursor c(r.endLine + 1, 0);
+      updateCursor(c);
+      c = findParagraphEnd();
+      updateCursor(prev);
+      r.endLine = c.line();
+      r.endColumn = c.column();
+    }
+  } else if (doc()->lineLength(r.startLine) > 0) {
+    // We went too far, but maybe we can grab previous empty lines.
+    for (int i = r.startLine - 1; i >= 0 && doc()->line(i).isEmpty(); i--) {
+      r.startLine--;
+    }
+    r.startColumn = 0;
+    updateCursor(Cursor(r.startLine, r.startColumn));
+  } else {
+    // We went too far and we're on empty lines, do nothing.
+    updateCursor(original);
+    return KateViRange::invalid();
   }
   return r;
 }
@@ -3672,6 +3770,8 @@ void KateViNormalMode::initializeCommands()
   ADDMOTION("aW", textObjectAWORD, IS_NOT_LINEWISE );
   ADDMOTION("is", textObjectInnerSentence, IS_NOT_LINEWISE );
   ADDMOTION("as", textObjectASentence, IS_NOT_LINEWISE );
+  ADDMOTION("ip", textObjectInnerParagraph, IS_NOT_LINEWISE );
+  ADDMOTION("ap", textObjectAParagraph, IS_NOT_LINEWISE );
   ADDMOTION("i\"", textObjectInnerQuoteDouble, IS_NOT_LINEWISE );
   ADDMOTION("a\"", textObjectAQuoteDouble, IS_NOT_LINEWISE );
   ADDMOTION("i'", textObjectInnerQuoteSingle, IS_NOT_LINEWISE );

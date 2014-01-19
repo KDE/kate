@@ -256,6 +256,9 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     KateViRange textObjectInnerSentence();
     KateViRange textObjectASentence();
 
+    KateViRange textObjectInnerParagraph();
+    KateViRange textObjectAParagraph();
+
     KateViRange textObjectAQuoteDouble();
     KateViRange textObjectInnerQuoteDouble();
 
@@ -305,6 +308,8 @@ class KATEPART_TESTS_EXPORT KateViNormalMode : public KateViModeBase
     void shrinkRangeAroundCursor(KateViRange& toShrink, const KateViRange& rangeToShrinkTo);
     Cursor findSentenceStart();
     Cursor findSentenceEnd();
+    Cursor findParagraphStart();
+    Cursor findParagraphEnd();
 
     QString m_keys;
     unsigned int m_countTemp;

@@ -48,7 +48,6 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
   KIO
   Parts
   PrintUtils
-  Sonnet
   TextEditor
   WindowSystem
   XmlGui

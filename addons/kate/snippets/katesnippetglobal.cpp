@@ -143,9 +143,7 @@ void KateSnippetGlobal::createSnippet (KTextEditor::View *view)
      return;
 
     // get mode
-    QString mode;
-    if (auto iface = qobject_cast<KTextEditor::HighlightInterface *> (view->document()))
-      mode = iface->highlightingModeAt(view->selectionRange().isValid() ? view->selectionRange().start() : view->cursorPosition());
+    QString mode = view->document()->highlightingModeAt(view->selectionRange().isValid() ? view->selectionRange().start() : view->cursorPosition());
     if ( mode.isEmpty() )
         mode = view->document()->mode();
 

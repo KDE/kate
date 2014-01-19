@@ -85,11 +85,7 @@ void SnippetCompletionModel::completionInvoked(KTextEditor::View *view, const KT
 
 void SnippetCompletionModel::initData(KTextEditor::View* view)
 {
-    QString mode;
-    if ( KTextEditor::HighlightInterface* iface = qobject_cast<KTextEditor::HighlightInterface*>(view->document()) ) {
-            mode = iface->highlightingModeAt(view->cursorPosition());
-    }
-
+    QString mode = view->document()->highlightingModeAt(view->cursorPosition());
     if ( mode.isEmpty() ) {
         mode = view->document()->highlightingMode();
     }

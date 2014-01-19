@@ -88,6 +88,8 @@ class DummyDocument : public KTextEditor::Document
     virtual QString modeSection( int ) const { return QString(); }
     virtual bool print() { return false; }
     virtual void printPreview() {}
+    virtual QStringList embeddedHighlightingModes() const { return QStringList(); }
+    virtual QString highlightingModeAt(const KTextEditor::Cursor &) { return QString(); }
 
     // KParts::ReadWritePart
     virtual bool saveFile() { return false; }

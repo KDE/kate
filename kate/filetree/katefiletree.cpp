@@ -560,6 +560,7 @@ void KateFileTree::slotDocumentNext()
 
 void KateFileTree::slotPrintDocument()
 {
+#if 0 //FIXME KF5, we need a view!
   KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
 
   if (!doc) {
@@ -567,10 +568,12 @@ void KateFileTree::slotPrintDocument()
   }
 
   doc->print();
+#endif
 }
 
 void KateFileTree::slotPrintDocumentPreview()
 {
+#if 0 //FIXME KF5, we need a view!
   KTextEditor::Document *doc = model()->data(m_indexContextMenu, KateFileTreeModel::DocumentRole).value<KTextEditor::Document *>();
 
   if (!doc) {
@@ -578,6 +581,7 @@ void KateFileTree::slotPrintDocumentPreview()
   }
 
   doc->printPreview();
+#endif
 }
 
 void KateFileTree::slotResetHistory()

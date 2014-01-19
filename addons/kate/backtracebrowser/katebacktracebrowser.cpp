@@ -410,17 +410,13 @@ KateBtConfigDialog::KateBtConfigDialog(QWidget* parent)
   layout->addWidget(m_configWidget);
   layout->addWidget(box);
 
-  connect(box->button(QDialogButtonBox::Ok), SIGNAL(clicked()), m_configWidget, SLOT(apply()));
-  connect(m_configWidget, SIGNAL(changed()), this, SLOT(changed()));
+  connect(this, SIGNAL(accepted()), m_configWidget, SLOT(apply()));
+  connect(box, SIGNAL(accepted()), this, SLOT(accept()));
+  connect(box, SIGNAL(rejected()), this, SLOT(reject()));
 }
 
 KateBtConfigDialog::~KateBtConfigDialog()
 {
-}
-
-void KateBtConfigDialog::changed()
-{
-//   enableButtonApply(true); // FIXME KF5
 }
 
 #include "katebacktracebrowser.moc"

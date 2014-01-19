@@ -148,9 +148,6 @@ class KateBtConfigDialog : public QDialog
     KateBtConfigDialog(QWidget* parent = 0);
     ~KateBtConfigDialog();
 
-  public Q_SLOTS:
-    void changed();
-
 private:
     KateBtConfigWidget* m_configWidget;
 };

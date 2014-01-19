@@ -27,7 +27,7 @@ ecm_optional_add_subdirectory ( snippets )
 
 #add_subdirectory( tabbarextension )
 #add_subdirectory( symbolviewer )
-#add_subdirectory( backtracebrowser )
+ecm_optional_add_subdirectory ( backtracebrowser )
 
 #add_subdirectory( filetemplates )
 

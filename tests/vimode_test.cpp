@@ -1512,6 +1512,32 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("bar\n{\nfoo\n}", "ld]]", "b\n{\nfoo\n}");
   DoTest("{\nfoo\n}\nbar", "jjjld[]", "{\nfoo\nar");
 
+  // Testing the "(" motion
+  DoTest("", "(", "");
+  DoTest("\nhello.", "fh(iX", "X\nhello.");
+  DoTest("hello. world.", "fr(iX", "Xhello. world.");
+  DoTest("hello. world.\n", "j(iX", "hello. Xworld.\n");
+  DoTest("hello. world\nyay. lol.\n", "jfl(iX", "hello. Xworld\nyay. lol.\n");
+  DoTest("Hello.\n\n", "jj(iX", "XHello.\n\n");
+  DoTest("\nHello.", "j(iX", "X\nHello.");
+  DoTest("\n\n\nHello.", "jj(iX", "X\n\n\nHello.");
+  DoTest("Hello! Bye!", "fB(iX", "XHello! Bye!");
+  DoTest("Hello! Bye! Hye!", "fH(iX", "Hello! XBye! Hye!");
+
+  // Testing the ")" motion
+  DoTest("", ")", "");
+  DoTest("\nhello.", ")iX", "\nXhello.");
+  DoTest("hello. world.", ")iX", "hello. Xworld.");
+  DoTest("hello. world\n\nasd.", "))iX", "hello. world\nX\nasd.");
+  DoTest("hello. wor\nld.?? Asd", "))iX", "hello. wor\nld.?? XAsd");
+  DoTest("hello. wor\nld.?? Asd", "jfA(iX", "hello. Xwor\nld.?? Asd");
+  DoTest("Hello.\n\n\nWorld.", ")iX", "Hello.\nX\n\nWorld.");
+  DoTest("Hello.\n\n\nWorld.", "))iX", "Hello.\n\n\nXWorld.");
+  DoTest("Hello.\n\n", ")iX", "Hello.\nX\n");
+  DoTest("Hello.\n\n", "))iX", "Hello.\n\nX");
+  DoTest("Hello. ", ")aX", "Hello. X");
+  DoTest("Hello?? Bye!", ")iX", "Hello?? XBye!");
+
   // Testing "{" and "}" motions
   DoTest("","{}","");
   DoTest("foo","{}dd","");

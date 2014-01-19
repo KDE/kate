@@ -30,7 +30,7 @@ class DummyDocument : public KTextEditor::Document
 
   public:
     DummyDocument (const QString &url = QString())
-      : KTextEditor::Document()
+      : KTextEditor::Document(nullptr, nullptr)
       , m_name(QLatin1String("foo"))
       , m_encoding()
       , m_views()
@@ -45,11 +45,11 @@ class DummyDocument : public KTextEditor::Document
     virtual KTextEditor::View *activeView() const { return 0; }
     virtual const QList<KTextEditor::View*> &views() const { return m_views; }
 
-    virtual const QString &documentName() const { return m_name; }
+    virtual QString documentName() const { return m_name; }
 
     virtual QString mimeType() { return QString(); }
     virtual bool setEncoding (const QString &) { return false; }
-    virtual const QString &encoding () const { return m_encoding; }
+    virtual QString encoding () const { return m_encoding; }
 
     virtual bool documentReload () { return true; }
     virtual bool documentSave () { return true; }

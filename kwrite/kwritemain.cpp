@@ -76,7 +76,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 {
   if ( !doc )
   {
-    doc = KWriteApp::self()->editor()->createDocument(0);
+    doc = KTextEditor::Editor::instance()->createDocument(0);
 
     // enable the modified on disk warning dialogs if any
     if (qobject_cast<KTextEditor::ModificationInterface *>(doc))
@@ -85,7 +85,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
     docList.append(doc);
   }
 
-  m_view = qobject_cast<KTextEditor::View*>(doc->createView (this));
+  m_view = doc->createView (this);
 
   setCentralWidget(m_view);
 
@@ -275,7 +275,7 @@ void KWrite::slotNew()
 
 void KWrite::slotOpen()
 {
-  const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(KWriteApp::self()->editor()->defaultEncoding(), m_view->document()->url(),QString(),this,i18n("Open File"));
+  const KEncodingFileDialog::Result r=KEncodingFileDialog::getOpenUrlsAndEncoding(KTextEditor::Editor::instance()->defaultEncoding(), m_view->document()->url(),QString(),this,i18n("Open File"));
   Q_FOREACH (QUrl url, r.URLs) {
     encoding = r.encoding;
     slotOpen ( url );
@@ -403,7 +403,7 @@ void KWrite::readConfig(KSharedConfigPtr config)
   // so only load, if the config is a different one (this is only the case on
   // session restore)
   if (config != KSharedConfig::openConfig())
-    KWriteApp::self()->editor()->readConfig(config.data());
+    KTextEditor::Editor::instance()->readConfig(config.data());
 
   if( m_paShowStatusBar->isChecked() )
     statusBar()->show();
@@ -421,7 +421,7 @@ void KWrite::writeConfig(KSharedConfigPtr config)
   m_recentFiles->saveEntries(KConfigGroup(config, "Recent Files"));
 
   // Writes into its own group
-  KWriteApp::self()->editor()->writeConfig(config.data());
+  KTextEditor::Editor::instance()->writeConfig(config.data());
 
   config->sync ();
 }
@@ -493,9 +493,6 @@ void KWrite::restore()
   if (!config)
     return;
 
-  KTextEditor::Editor *editor = KTextEditor::Editor::instance();
-  Q_ASSERT (editor);
-
   int docs, windows;
   QString buf;
   KTextEditor::Document *doc;
@@ -509,7 +506,7 @@ void KWrite::restore()
   {
      buf = QString::fromLatin1("Document %1").arg(z);
      KConfigGroup cg(config, buf);
-     doc=editor->createDocument(0);
+     doc=KTextEditor::Editor::instance()->createDocument(0);
 
      if (KTextEditor::SessionConfigInterface *iface = qobject_cast<KTextEditor::SessionConfigInterface *>(doc))
        iface->readSessionConfig(cg);
@@ -527,7 +524,7 @@ void KWrite::restore()
 
 void KWrite::aboutEditor()
 {
-  KAboutApplicationDialog dlg(KWriteApp::self()->editor()->aboutData(), this);
+  KAboutApplicationDialog dlg(KTextEditor::Editor::instance()->aboutData(), this);
   dlg.exec();
 }
 

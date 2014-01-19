@@ -41,11 +41,8 @@ KWriteApp::KWriteApp(const QCommandLineParser &args)
 {
   s_self = this;
   
-  m_editor = KTextEditor::Editor::instance();
-  Q_ASSERT (m_editor);
-
   // read from global config once
-  m_editor->readConfig(KSharedConfig::openConfig().data());
+  KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());
 
   init();
 }

@@ -68,11 +68,6 @@ class KWriteApp : public QObject
      */
     void init();
 
-    /**
-     * Editor instance
-     */
-    KTextEditor::Editor *editor () { return m_editor; }
-
   private:
     /**
      * Static instance of KWriteApp
@@ -88,11 +83,6 @@ class KWriteApp : public QObject
      * known main windows
      */
     QList<KWrite*> m_mainWindows;
-
-    /**
-     * editor instance
-     */
-    KTextEditor::Editor *m_editor;
 };
 
 #endif

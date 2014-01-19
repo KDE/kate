@@ -1621,7 +1621,7 @@ void KateIconBorder::paintBorder (int /*x*/, int y, int /*width*/, int height)
         // Set the pen for drawing the foreground
         if( foreground.isValid() )
         {
-          p.setBrush( foreground.value<QBrush>() );
+          p.setPen( foreground.value<QPen>() );
         }
 
         // Draw a border around all adjacent entries that have the same text as the currently hovered one

@@ -137,14 +137,10 @@ void KWriteApp::init()
           ++docs_opened;
           KWrite *t = new KWrite();
 
-          t->view()->document()->setSuppressOpeningErrorDialogs (true);
-
           if (codec)
             t->view()->document()->setEncoding(QString::fromLatin1(codec->name()));
 
           t->loadURL( url );
-
-          t->view()->document()->setSuppressOpeningErrorDialogs (false);
 
           if (nav)
             t->view()->setCursorPosition (KTextEditor::Cursor (line, column));

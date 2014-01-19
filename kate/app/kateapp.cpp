@@ -220,9 +220,8 @@ bool KateApp::startupKate ()
                           i18n("The file '%1' could not be opened: it is not a normal file, it is a folder.", url.toString()) );
     }
   }
-  KateDocManager::self()->setSuppressOpeningErrorDialogs(true);
+
   doc = activeKateMainWindow()->viewManager()->openUrls(urls, codec_name, tempfileSet);
-  KateDocManager::self()->setSuppressOpeningErrorDialogs(false);
 
   // handle stdin input
   if( m_args.isSet( QLatin1String("stdin") ) )
@@ -332,17 +331,11 @@ KTextEditor::Document* KateApp::openDocUrl (const QUrl &url, const QString &enco
   
   if (noDir)
   {
-    // show no errors...
-    documentManager()->setSuppressOpeningErrorDialogs (true);
-
     // open a normal file
     if (codec)
       doc=mainWindow->viewManager()->openUrl( url, QString::fromLatin1(codec->name()), true, isTempFile);
     else
       doc=mainWindow->viewManager()->openUrl( url, QString(), true, isTempFile );
-    
-    // back to normal....
-    documentManager()->setSuppressOpeningErrorDialogs (false);
   }
   else
     KMessageBox::sorry( mainWindow,

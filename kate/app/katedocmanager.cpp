@@ -54,7 +54,6 @@ KateDocManager::KateDocManager (QObject *parent)
     , m_saveMetaInfos(true)
     , m_daysMetaInfos(0)
     , m_documentStillToRestore (0)
-    , m_suppressOpeningErrorDialogs (false)
 {
   // Constructed the beloved editor ;)
   m_editor = KTextEditor::Editor::instance();
@@ -103,11 +102,6 @@ KateDocManager::~KateDocManager ()
 KateDocManager *KateDocManager::self ()
 {
   return KateApp::self()->documentManager ();
-}
-
-void KateDocManager::setSuppressOpeningErrorDialogs (bool suppress)
-{
-  m_suppressOpeningErrorDialogs = suppress;
 }
 
 KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInfo)
@@ -237,12 +231,8 @@ KTextEditor::Document *KateDocManager::openUrl (const QUrl& url, const QString &
 
     if (!u.isEmpty())
     {
-      doc->setSuppressOpeningErrorDialogs (m_suppressOpeningErrorDialogs);
-
       if (!loadMetaInfos(doc, u))
         doc->openUrl (u);
-
-      doc->setSuppressOpeningErrorDialogs (false);
     }
   }
 
@@ -567,9 +557,10 @@ void KateDocManager::restoreDocumentList (KConfig* config)
     }
     else
       doc = createDoc ();
-    doc->setSuppressOpeningErrorDialogs(true);
+
     connect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
     connect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
+
     if (KTextEditor::ParameterizedSessionConfigInterface *iface =
       qobject_cast<KTextEditor::ParameterizedSessionConfigInterface *>(doc))
     {
@@ -710,7 +701,6 @@ void KateDocManager::documentOpened()
 
   KTextEditor::Document *doc = qobject_cast<KTextEditor::Document*>(sender());
   if (!doc) return; // should never happen, but who knows
-  doc->setSuppressOpeningErrorDialogs(false);
   disconnect(doc, SIGNAL(completed()), this, SLOT(documentOpened()));
   disconnect(doc, SIGNAL(canceled(QString)), this, SLOT(documentOpened()));
   if (doc->openingError())

@@ -63,12 +63,6 @@ class KateDocManager : public QObject
     KateDocManager (QObject *parent);
     ~KateDocManager ();
 
-    /**
-     * should the document manager suppress all opening error dialogs on openUrl?
-     + @param suppress suppress dialogs?
-     */
-    void setSuppressOpeningErrorDialogs (bool suppress);
-
     static KateDocManager *self ();
 
     KTextEditor::Editor *editor()
@@ -246,9 +240,6 @@ class KateDocManager : public QObject
     QMap<KTextEditor::Document *, TPair> m_tempFiles;
     QString m_openingErrors;
     int m_documentStillToRestore;
-
-    // suppress error dialogs while opening?
-    bool m_suppressOpeningErrorDialogs;
 
   private Q_SLOTS:
     void documentOpened();

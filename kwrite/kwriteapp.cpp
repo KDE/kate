@@ -34,13 +34,9 @@
 Q_DECLARE_LOGGING_CATEGORY(LOG_KWRITE)
 Q_LOGGING_CATEGORY(LOG_KWRITE, "kwrite")
 
-KWriteApp *KWriteApp::s_self = 0;
-
 KWriteApp::KWriteApp(const QCommandLineParser &args)
   : m_args(args)
 {
-  s_self = this;
-  
   // read from global config once
   KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());
 
@@ -49,11 +45,6 @@ KWriteApp::KWriteApp(const QCommandLineParser &args)
 
 KWriteApp::~KWriteApp()
 {
-}
-
-KWriteApp *KWriteApp::self ()
-{
-  return s_self;
 }
 
 void KWriteApp::init()

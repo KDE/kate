@@ -58,22 +58,11 @@ class KWriteApp : public QObject
     ~KWriteApp();
 
     /**
-     * static accessor to avoid casting ;)
-     * @return app instance
-     */
-    static KWriteApp *self ();
-
-    /**
      * further initialization
      */
     void init();
 
   private:
-    /**
-     * Static instance of KWriteApp
-     */
-    static KWriteApp *s_self;
-    
     /**
      * kate's command line args
      */

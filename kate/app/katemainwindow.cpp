@@ -805,7 +805,7 @@ void KateMainWindow::pluginHelp()
 
 void KateMainWindow::aboutEditor()
 {
-  KAboutApplicationDialog ad(KateDocManager::self()->editor()->aboutData(),this);
+  KAboutApplicationDialog ad(KTextEditor::Editor::instance()->aboutData(),this);
   ad.exec();
 }
 

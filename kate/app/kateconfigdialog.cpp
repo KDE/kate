@@ -235,14 +235,14 @@ KateConfigDialog::~KateConfigDialog()
 
 void KateConfigDialog::addEditorPages() {
 
-  for (int i = 0; i < KateDocManager::self()->editor()->configPages (); ++i)
+  for (int i = 0; i < KTextEditor::Editor::instance()->configPages (); ++i)
   {
-    KTextEditor::ConfigPage *page = KateDocManager::self()->editor()->configPage(i, this);
+    KTextEditor::ConfigPage *page = KTextEditor::Editor::instance()->configPage(i, this);
     connect( page, SIGNAL(changed()), this, SLOT(slotChanged()) );
     m_editorPages.push_back (page);
-    KPageWidgetItem *item=addSubPage( m_editorPage, page, KateDocManager::self()->editor()->configPageName(i) );
-    item->setHeader( KateDocManager::self()->editor()->configPageFullName(i) );
-    item->setIcon( KateDocManager::self()->editor()->configPageIcon(i) );
+    KPageWidgetItem *item=addSubPage( m_editorPage, page, KTextEditor::Editor::instance()->configPageName(i) );
+    item->setHeader( KTextEditor::Editor::instance()->configPageFullName(i) );
+    item->setIcon( KTextEditor::Editor::instance()->configPageIcon(i) );
   }
 }
 
@@ -363,7 +363,7 @@ void KateConfigDialog::slotApply()
     page->apply();
 
   // write back the editor config
-  KateDocManager::self()->editor()->writeConfig(config.data());
+  KTextEditor::Editor::instance()->writeConfig(config.data());
 
   config->sync();
 

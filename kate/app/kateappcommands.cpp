@@ -33,8 +33,7 @@ KateAppCommands* KateAppCommands::m_instance = 0;
 KateAppCommands::KateAppCommands()
     : KTextEditor::Command()
 {
-    KTextEditor::Editor *editor = KateDocManager::self()->editor();
-    KTextEditor::CommandInterface *iface = qobject_cast<KTextEditor::CommandInterface*>(editor);
+    KTextEditor::CommandInterface *iface = qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
 
     if (iface) {
         iface->registerCommand(this);
@@ -53,8 +52,7 @@ KateAppCommands::KateAppCommands()
 
 KateAppCommands::~KateAppCommands()
 {
-    KTextEditor::Editor *editor = KateDocManager::self()->editor();
-    KTextEditor::CommandInterface *iface = qobject_cast<KTextEditor::CommandInterface*>(editor);
+    KTextEditor::CommandInterface *iface = qobject_cast<KTextEditor::CommandInterface*>(KTextEditor::Editor::instance());
 
     if (iface) {
         iface->unregisterCommand(this);

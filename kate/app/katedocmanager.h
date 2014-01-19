@@ -65,11 +65,6 @@ class KateDocManager : public QObject
 
     static KateDocManager *self ();
 
-    KTextEditor::Editor *editor()
-    {
-      return m_editor;
-    }
-
     KTextEditor::Document *createDoc (const KateDocumentInfo& docInfo = KateDocumentInfo());
     
     void deleteDoc (KTextEditor::Document *doc);
@@ -231,10 +226,6 @@ class KateDocManager : public QObject
     KConfig *m_metaInfos;
     bool m_saveMetaInfos;
     int m_daysMetaInfos;
-
-
-    //KParts::Factory *m_factory;
-    KTextEditor::Editor *m_editor;
 
     typedef QPair<QUrl, QDateTime> TPair;
     QMap<KTextEditor::Document *, TPair> m_tempFiles;

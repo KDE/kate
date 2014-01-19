@@ -55,15 +55,11 @@ KateDocManager::KateDocManager (QObject *parent)
     , m_daysMetaInfos(0)
     , m_documentStillToRestore (0)
 {
-  // Constructed the beloved editor ;)
-  m_editor = KTextEditor::Editor::instance();
-  Q_ASSERT (m_editor);
-  
   // set our application wrapper
-  m_editor->setApplication (KateApp::self()->wrapper());
+  KTextEditor::Editor::instance()->setApplication (KateApp::self()->wrapper());
   
   // read in editor config
-  m_editor->readConfig(KSharedConfig::openConfig().data());
+  KTextEditor::Editor::instance()->readConfig(KSharedConfig::openConfig().data());
 
   m_metaInfos = new KConfig(QLatin1String("metainfos"), KConfig::NoGlobals, QStandardPaths::DataLocation );
 
@@ -73,7 +69,7 @@ KateDocManager::KateDocManager (QObject *parent)
 KateDocManager::~KateDocManager ()
 {
   // write editor config
-  m_editor->writeConfig(KSharedConfig::openConfig().data());
+  KTextEditor::Editor::instance()->writeConfig(KSharedConfig::openConfig().data());
 
   // write metainfos?
   if (m_saveMetaInfos)
@@ -108,7 +104,7 @@ KTextEditor::Document *KateDocManager::createDoc (const KateDocumentInfo& docInf
 {
   qCDebug(LOG_KATE)<<"createDoc"<<endl;
 
-  KTextEditor::Document *doc = (KTextEditor::Document *) m_editor->createDocument(this);
+  KTextEditor::Document *doc = KTextEditor::Editor::instance()->createDocument(this);
   
   // turn of the editorpart's own modification dialog, we have our own one, too!
   const KConfigGroup generalGroup(KSharedConfig::openConfig(), "General");

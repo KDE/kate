@@ -14,7 +14,7 @@ add_library(katesearchplugin MODULE ${katesearchplugin_PART_SRCS})
 target_link_libraries(katesearchplugin
     KF5::TextEditor
     KF5::Parts KF5::I18n KF5::IconThemes
-    Qt5::Script KF5::Archive KF5::PrintUtils KF5::ItemViews)
+    Qt5::Script KF5::ItemViews)
 
 ########### install files ###############
 install(TARGETS katesearchplugin DESTINATION ${PLUGIN_INSTALL_DIR})

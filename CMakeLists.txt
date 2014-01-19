@@ -38,7 +38,6 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED Core DBus Widgets Script Test
 
 # Load the frameworks we need
 find_package(KF5 CONFIG REQUIRED COMPONENTS
-  Archive
   Config
   DocTools
   GuiAddons
@@ -47,7 +46,6 @@ find_package(KF5 CONFIG REQUIRED COMPONENTS
   JobWidgets
   KIO
   Parts
-  PrintUtils
   TextEditor
   WindowSystem
   XmlGui

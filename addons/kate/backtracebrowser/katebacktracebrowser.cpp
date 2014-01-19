@@ -215,7 +215,7 @@ void KateBtBrowserWidget::loadBacktrace(const QString &bt)
     QList<BtInfo> infos = KateBtParser::parseBacktrace(bt);
 
     lstBacktrace->clear();
-    foreach(const BtInfo & info, infos) {
+    foreach(const BtInfo &info, infos) {
         QTreeWidgetItem *it = new QTreeWidgetItem(lstBacktrace);
         it->setData(0, Qt::DisplayRole, QString::number(info.step));
         it->setData(0, Qt::ToolTipRole, QString::number(info.step));

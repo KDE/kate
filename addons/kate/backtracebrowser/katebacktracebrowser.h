@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright 2008 Dominik Haumann <dhaumann kde org>
+   Copyright 2008-2014 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -42,54 +42,54 @@ class KateBtBrowserPlugin : public KTextEditor::Plugin, public KTextEditor::Conf
     Q_OBJECT
     Q_INTERFACES(KTextEditor::ConfigPageInterface)
 
-  public:
-    explicit KateBtBrowserPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
+public:
+    explicit KateBtBrowserPlugin(QObject *parent = 0, const QList<QVariant> & = QList<QVariant>());
     virtual ~KateBtBrowserPlugin();
 
-    static KateBtBrowserPlugin& self();
+    static KateBtBrowserPlugin &self();
 
-    QObject *createView (KTextEditor::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow);
 
-    KateBtDatabase& database();
-    BtFileIndexer& fileIndexer();
+    KateBtDatabase &database();
+    BtFileIndexer &fileIndexer();
 
     void startIndexer();
 
-  Q_SIGNALS:
-    void newStatus(const QString&);
+Q_SIGNALS:
+    void newStatus(const QString &);
 
-  //
-  // PluginConfigPageInterface
-  //
-  public:
+    //
+    // PluginConfigPageInterface
+    //
+public:
     virtual int configPages() const;
-    virtual KTextEditor::ConfigPage* configPage (int number, QWidget *parent = 0);
+    virtual KTextEditor::ConfigPage *configPage(int number, QWidget *parent = 0);
     virtual QString configPageName(int number) const;
     virtual QString configPageFullName(int number) const;
     virtual QIcon configPageIcon(int number) const;
 
-  //
-  // private data
-  //
-  private:
+    //
+    // private data
+    //
+private:
     KateBtDatabase db;
     BtFileIndexer indexer;
-    static KateBtBrowserPlugin* s_self;
+    static KateBtBrowserPlugin *s_self;
 };
 
 class KateBtBrowserPluginView : public QObject
 {
     Q_OBJECT
 
-  public:
-    KateBtBrowserPluginView (KateBtBrowserPlugin* plugin, KTextEditor::MainWindow *mainWindow);
+public:
+    KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
     * Virtual destructor.
     */
-    ~KateBtBrowserPluginView ();
+    ~KateBtBrowserPluginView();
 
-  private:
+private:
     KateBtBrowserPlugin *m_plugin;
     KateBtBrowserWidget *m_widget;
 };
@@ -98,60 +98,60 @@ class KateBtBrowserWidget : public QWidget, public Ui::BtBrowserWidget
 {
     Q_OBJECT
 
-  public:
-    KateBtBrowserWidget(KTextEditor::MainWindow *mainwindow, QWidget* parent);
+public:
+    KateBtBrowserWidget(KTextEditor::MainWindow *mainwindow, QWidget *parent);
 
     ~KateBtBrowserWidget();
 
-    void loadBacktrace(const QString& bt);
+    void loadBacktrace(const QString &bt);
 
-  public Q_SLOTS:
+public Q_SLOTS:
     void loadFile();
     void loadClipboard();
     void configure();
     void clearStatus();
-    void setStatus(const QString& status);
+    void setStatus(const QString &status);
 
-  private Q_SLOTS:
-    void itemActivated(QTreeWidgetItem* item, int column);
+private Q_SLOTS:
+    void itemActivated(QTreeWidgetItem *item, int column);
 
-  private:
-    KTextEditor::MainWindow* mw;
+private:
+    KTextEditor::MainWindow *mw;
     QTimer timer;
 };
 
 class KateBtConfigWidget : public KTextEditor::ConfigPage, private Ui::BtConfigWidget
 {
     Q_OBJECT
-  public:
-    explicit KateBtConfigWidget(QWidget* parent = 0);
+public:
+    explicit KateBtConfigWidget(QWidget *parent = 0);
     virtual ~KateBtConfigWidget();
 
-  public Q_SLOTS:
+public Q_SLOTS:
     virtual void apply();
     virtual void reset();
     virtual void defaults();
 
-  private Q_SLOTS:
+private Q_SLOTS:
     void add();
     void remove();
     void textChanged();
 
-  private:
+private:
     bool m_changed;
 };
 
 class KateBtConfigDialog : public QDialog
 {
     Q_OBJECT
-  public:
-    KateBtConfigDialog(QWidget* parent = 0);
+public:
+    KateBtConfigDialog(QWidget *parent = 0);
     ~KateBtConfigDialog();
 
 private:
-    KateBtConfigWidget* m_configWidget;
+    KateBtConfigWidget *m_configWidget;
 };
 
 #endif //KATE_BACKTRACEBROWSER_H
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+// kate: space-indent on; indent-width 4; replace-tabs on;

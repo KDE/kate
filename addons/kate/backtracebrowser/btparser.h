@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright 2008 Dominik Haumann <dhaumann kde org>
+   Copyright 2008-2014 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -24,25 +24,24 @@
 
 class BtInfo
 {
-  public:
+public:
     enum Type {
-      Source = 0,
-      Lib,
-      Unknown,
-      Invalid
+        Source = 0,
+        Lib,
+        Unknown,
+        Invalid
     };
-    
+
     /**
      * Default constructor => invalid element
      */
-    BtInfo ()
-      : step (-1)
-      , line (-1)
-      , type (Invalid)
-    {
+    BtInfo()
+        : step(-1)
+        , line(-1)
+        , type(Invalid) {
     }
 
-  public:
+public:
     QString original;
     QString filename;
     QString function;
@@ -53,12 +52,13 @@ class BtInfo
     Type type;
 };
 
-namespace KateBtParser {
+namespace KateBtParser
+{
 
-QList<BtInfo> parseBacktrace(const QString& bt);
+QList<BtInfo> parseBacktrace(const QString &bt);
 
 }
 
 #endif //KATE_BACKTRACEPARSER_H
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+// kate: space-indent on; indent-width 4; replace-tabs on;

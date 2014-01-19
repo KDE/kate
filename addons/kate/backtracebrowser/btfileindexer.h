@@ -1,5 +1,5 @@
 /* This file is part of the KDE project
-   Copyright 2008 Dominik Haumann <dhaumann kde org>
+   Copyright 2008-2014 Dominik Haumann <dhaumann kde org>
 
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Library General Public
@@ -27,28 +27,28 @@ class KateBtDatabase;
 
 class BtFileIndexer : public QThread
 {
-  Q_OBJECT
-  public:
-    BtFileIndexer(KateBtDatabase* db);
+    Q_OBJECT
+public:
+    BtFileIndexer(KateBtDatabase *db);
     virtual ~BtFileIndexer();
-    void setSearchPaths(const QStringList& urls);
+    void setSearchPaths(const QStringList &urls);
 
-    void setFilter(const QStringList& filter);
+    void setFilter(const QStringList &filter);
 
     void cancel();
 
-  protected:
+protected:
     virtual void run();
-    void indexFiles(const QString& url);
+    void indexFiles(const QString &url);
 
-  private:
+private:
     bool cancelAsap;
     QStringList searchPaths;
     QStringList filter;
 
-    KateBtDatabase* db;
+    KateBtDatabase *db;
 };
 
 #endif
 
-// kate: space-indent on; indent-width 2; replace-tabs on;
+// kate: space-indent on; indent-width 4; replace-tabs on;

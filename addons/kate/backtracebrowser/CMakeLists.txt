@@ -1,7 +1,5 @@
 ########### next target ###############
 
-find_package(KF5 CONFIG REQUIRED COMPONENTS ItemModels KDE4Support)
-
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(katebacktracebrowserplugin_PART_SRCS
@@ -19,11 +17,7 @@ qt5_wrap_ui(katebacktracebrowserplugin_PART_SRCS ${katebacktracebrowserplugin_PA
 add_library(katebacktracebrowserplugin MODULE ${katebacktracebrowserplugin_PART_SRCS})
 target_link_libraries(katebacktracebrowserplugin
     KF5::TextEditor
-    KF5::Parts
-    KF5::IconThemes
     KF5::I18n
-    KF5::Service
-    KF5::KDE4Support
 )
 
 ########### install files ###############

@@ -25,18 +25,18 @@
 static QString eolDelimiter(const QString& str)
 {
   // find the split character
-  QString separator('\n');
-  if (str.indexOf("\r\n") != -1) {
-    separator = "\r\n";
-  } else if (str.indexOf('\r') != -1 ) {
-    separator = '\r';
+  QString separator(QLatin1Char('\n'));
+  if (str.indexOf(QLatin1String("\r\n")) != -1) {
+    separator = QLatin1String("\r\n");
+  } else if (str.indexOf(QLatin1Char('\r')) != -1 ) {
+    separator = QLatin1Char('\r');
   }
   return separator;
 }
 
 static bool lineNoLessThan(const QString& lhs, const QString& rhs)
 {
-  QRegExp rx("^#(\\d+)");
+  QRegExp rx(QLatin1String("^#(\\d+)"));
   int ilhs = rx.indexIn(lhs);
   int lhsLn = rx.cap(1).toInt();
   int irhs = rx.indexIn(rhs);
@@ -57,11 +57,11 @@ static QStringList normalizeBt(const QStringList& l)
   for (int i = 0; i < l.size(); ++i) {
     QString str = l[i].trimmed();
     if (str.length()) {
-      if (str[0] == QChar('#')) {
+      if (str[0] == QLatin1Char('#')) {
         normalized << str;
         append = true;
       } else if (append) {
-        normalized.last() += ' ' + str;
+        normalized.last() += QLatin1Char(' ') + str;
       }
     } else {
       append = false;
@@ -86,7 +86,7 @@ static BtInfo parseBtLine(const QString& line)
 
 
   // try a) cap #number(1), address(2), function(3), filename(4), linenumber(5)
-  static QRegExp rxa("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+at\\s+(.+):(\\d+)$");
+  static QRegExp rxa(QLatin1String("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+at\\s+(.+):(\\d+)$"));
   index = rxa.indexIn(line);
   if (index == 0) {
     BtInfo info;
@@ -101,7 +101,7 @@ static BtInfo parseBtLine(const QString& line)
   }
 
   // try b) cap #number(1), address(2), function(3), lib(4)
-  static QRegExp rxb("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+from\\s+(.+)$");
+  static QRegExp rxb(QLatin1String("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)\\s+from\\s+(.+)$"));
   index = rxb.indexIn(line);
   if (index == 0) {
     BtInfo info;
@@ -116,7 +116,7 @@ static BtInfo parseBtLine(const QString& line)
   }
 
   // try c) #41 0x0805e690 in ?? ()
-  static QRegExp rxc("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+\\?\\?\\s+\\(\\)$");
+  static QRegExp rxc(QLatin1String("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+\\?\\?\\s+\\(\\)$"));
   index = rxc.indexIn(line);
   if (index == 0) {
     BtInfo info;
@@ -131,7 +131,7 @@ static BtInfo parseBtLine(const QString& line)
   }
 
   // try d) #5  0xffffe410 in __kernel_vsyscall ()
-  static QRegExp rxd("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)$");
+  static QRegExp rxd(QLatin1String("^#(\\d+)\\s+(0x\\w+)\\s+in\\s+(.+)$"));
   index = rxd.indexIn(line);
   if (index == 0) {
     BtInfo info;

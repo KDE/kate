@@ -31,8 +31,8 @@
 
 #include <QString>
 #include <QTimer>
+#include <QDialog>
 
-#include "kdialog.h"
 
 class KateBtConfigWidget;
 class KateBtBrowserWidget;
@@ -99,7 +99,7 @@ class KateBtBrowserWidget : public QWidget, public Ui::BtBrowserWidget
     Q_OBJECT
 
   public:
-    KateBtBrowserWidget(KateBtBrowserPlugin* plugin, KTextEditor::MainWindow *mainwindow, QWidget* parent);
+    KateBtBrowserWidget(KTextEditor::MainWindow *mainwindow, QWidget* parent);
 
     ~KateBtBrowserWidget();
 
@@ -141,7 +141,7 @@ class KateBtConfigWidget : public KTextEditor::ConfigPage, private Ui::BtConfigW
     bool m_changed;
 };
 
-class KateBtConfigDialog : public KDialog
+class KateBtConfigDialog : public QDialog
 {
     Q_OBJECT
   public:

@@ -26,29 +26,30 @@
 #include <kpluginfactory.h>
 #include <kpluginloader.h>
 #include <kaboutdata.h>
-#include <QStandardPaths>
 #include <ktexteditor/view.h>
 #include <ksharedconfig.h>
-#include <klineedit.h>
-#include <kfiledialog.h>
-#include <kurl.h>
+#include <KConfigGroup>
+#include <KLineEdit>
 
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QFileDialog>
 #include <QDataStream>
+#include <QStandardPaths>
 #include <QTimer>
 #include <QClipboard>
-
+#include <QDialogButtonBox>
+#include <QUrl>
 //END Includes
 
 K_PLUGIN_FACTORY_WITH_JSON (KateBtBrowserFactory, "katebacktracebrowserplugin.json", registerPlugin<KateBtBrowserPlugin>();)
 
 KateBtBrowserPlugin* KateBtBrowserPlugin::s_self = 0L;
 static QStringList fileExtensions =
-    QStringList() << "*.cpp" << "*.cxx" << "*.c" << "*.cc"
-                  << "*.h" << "*.hpp" << "*.hxx"
-                  << "*.moc";
+    QStringList() << QLatin1String("*.cpp") << QLatin1String("*.cxx") <<
+    QLatin1String("*.c") << QLatin1String("*.cc") << QLatin1String("*.h") <<
+    QLatin1String("*.hpp") << QLatin1String("*.hxx") << QLatin1String("*.moc");
 
 KateBtBrowserPlugin::KateBtBrowserPlugin(QObject* parent, const QList<QVariant>&)
   : KTextEditor::Plugin(parent)
@@ -56,7 +57,8 @@ KateBtBrowserPlugin::KateBtBrowserPlugin(QObject* parent, const QList<QVariant>&
   , indexer(&db)
 {
   s_self = this;
-  db.loadFromFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kate/backtracedatabase"));
+  db.loadFromFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                         QLatin1String("kate/backtracedatabase")));
 }
 
 KateBtBrowserPlugin::~KateBtBrowserPlugin()
@@ -66,7 +68,8 @@ KateBtBrowserPlugin::~KateBtBrowserPlugin()
     indexer.wait();
   }
 
-  db.saveToFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation, "kate/backtracedatabase"));
+  db.saveToFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
+                                       QLatin1String("kate/backtracedatabase")));
 
   s_self = 0L;
 }
@@ -153,7 +156,7 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin* plugin, KT
                                                   KTextEditor::MainWindow::Bottom,
                                                   QIcon::fromTheme(QLatin1String("kbugbuster")),
                                                   i18n("Backtrace Browser"));
-  m_widget = new KateBtBrowserWidget(m_plugin, mainWindow, toolview);
+  m_widget = new KateBtBrowserWidget(mainWindow, toolview);
 
   connect(plugin, SIGNAL(newStatus(QString)),
           this, SLOT(setStatus(QString)));
@@ -172,7 +175,7 @@ KateBtBrowserPluginView::~KateBtBrowserPluginView ()
 
 
 
-KateBtBrowserWidget::KateBtBrowserWidget(KateBtBrowserPlugin* plugin, KTextEditor::MainWindow *mainwindow, QWidget* parent)
+KateBtBrowserWidget::KateBtBrowserWidget(KTextEditor::MainWindow *mainwindow, QWidget* parent)
   : QWidget(parent)
   , mw(mainwindow)
 {
@@ -193,10 +196,10 @@ KateBtBrowserWidget::~KateBtBrowserWidget ()
 
 void KateBtBrowserWidget::loadFile()
 {
-  QString url = KFileDialog::getOpenFileName(KUrl(), QString(), mw->window(), i18n("Load Backtrace"));
+  QString url = QFileDialog::getOpenFileName(mw->window(), i18n("Load Backtrace"));
   QFile f(url);
   if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
-    QString str = f.readAll();
+    QString str = QString::fromUtf8(f.readAll());
     loadBacktrace(str);
   }
 }
@@ -262,12 +265,12 @@ void KateBtBrowserWidget::itemActivated(QTreeWidgetItem* item, int column)
     // if not absolute path + exists, try to find with index
     if (!QFile::exists(path)) {
       // try to match the backtrace forms ".*/foo/bar.txt" and "foo/bar.txt"
-      static QRegExp rx1("/([^/]+)/([^/]+)$");
+      static QRegExp rx1(QLatin1String("/([^/]+)/([^/]+)$"));
       int idx = rx1.indexIn(file);
       if (idx != -1) {
-        file = rx1.cap(1) + '/' + rx1.cap(2);
+        file = rx1.cap(1) + QLatin1Char('/') + rx1.cap(2);
       } else {
-        static QRegExp rx2("([^/]+)/([^/]+)$");
+        static QRegExp rx2(QLatin1String("([^/]+)/([^/]+)$"));
         idx = rx2.indexIn(file);
         if (idx != -1) {
           // file is of correct form
@@ -281,8 +284,7 @@ void KateBtBrowserWidget::itemActivated(QTreeWidgetItem* item, int column)
     }
 
     if (!path.isEmpty() && QFile::exists(path)) {
-      KUrl url(path);
-      KTextEditor::View* kv = mw->openUrl(url);
+      KTextEditor::View* kv = mw->openUrl(QUrl(path));
       kv->setCursorPosition(KTextEditor::Cursor(line - 1, 0));
       kv->setFocus();
       setStatus(i18n("Opened file: %1", file));
@@ -311,7 +313,7 @@ KateBtConfigWidget::KateBtConfigWidget(QWidget* parent)
 {
   setupUi(this);
   edtUrl->setMode(KFile::Directory);
-  edtUrl->setUrl(KUrl(QDir().absolutePath()));
+  edtUrl->setUrl(QUrl(QDir().absolutePath()));
 
   reset();
 
@@ -337,8 +339,8 @@ void KateBtConfigWidget::apply()
     cg.writeEntry("search-folders", sl);
 
     QString filter = edtExtensions->text();
-    filter.replace(',', ' ').replace(';', ' ');
-    cg.writeEntry("file-extensions", filter.split(' ', QString::SkipEmptyParts));
+    filter.replace(QLatin1Char(','), QLatin1Char(' ')).replace(QLatin1Char(';'), QLatin1Char(' '));
+    cg.writeEntry("file-extensions", filter.split(QLatin1Char(' '), QString::SkipEmptyParts));
 
     KateBtBrowserPlugin::self().startIndexer();
     m_changed = false;
@@ -350,13 +352,13 @@ void KateBtConfigWidget::reset()
   KConfigGroup cg(KSharedConfig::openConfig(), "backtracebrowser");
   lstFolders->clear();
   lstFolders->addItems(cg.readEntry("search-folders", QStringList()));
-  edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions).join(" "));
+  edtExtensions->setText(cg.readEntry("file-extensions", fileExtensions).join(QLatin1String(" ")));
 }
 
 void KateBtConfigWidget::defaults()
 {
   lstFolders->clear();
-  edtExtensions->setText(fileExtensions.join(" "));
+  edtExtensions->setText(fileExtensions.join(QLatin1String(" ")));
 
   m_changed = true;
 }
@@ -393,16 +395,22 @@ void KateBtConfigWidget::textChanged()
 
 
 KateBtConfigDialog::KateBtConfigDialog(QWidget* parent)
-  : KDialog(parent)
+  : QDialog(parent)
 {
-  setCaption(i18n("Backtrace Browser Settings"));
-  setButtons(KDialog::Ok | KDialog::Cancel);
+  setWindowTitle(i18n("Backtrace Browser Settings"));
+
 
   m_configWidget = new KateBtConfigWidget(this);
-  setMainWidget(m_configWidget);
 
-  connect(this, SIGNAL(applyClicked()), m_configWidget, SLOT(apply()));
-  connect(this, SIGNAL(okClicked()), m_configWidget, SLOT(apply()));
+  QVBoxLayout * layout = new QVBoxLayout(this);
+
+  QDialogButtonBox * box = new QDialogButtonBox(this);
+  box->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+
+  layout->addWidget(m_configWidget);
+  layout->addWidget(box);
+
+  connect(box->button(QDialogButtonBox::Ok), SIGNAL(clicked()), m_configWidget, SLOT(apply()));
   connect(m_configWidget, SIGNAL(changed()), this, SLOT(changed()));
 }
 
@@ -412,7 +420,7 @@ KateBtConfigDialog::~KateBtConfigDialog()
 
 void KateBtConfigDialog::changed()
 {
-  enableButtonApply(true);
+//   enableButtonApply(true); // FIXME KF5
 }
 
 #include "katebacktracebrowser.moc"

@@ -61,7 +61,7 @@ void BtFileIndexer::run()
     if (cancelAsap) { break; }
     indexFiles(searchPaths[i]);
   }
-  qDebug() << QString("Backtrace file database contains %1 files").arg(db->size());
+  qDebug() << QStringLiteral("Backtrace file database contains %1 files").arg(db->size());
 }
 
 void BtFileIndexer::cancel()
@@ -82,7 +82,7 @@ void BtFileIndexer::indexFiles(const QString& url)
   QStringList subdirs = dir.entryList(QDir::Dirs | QDir::NoSymLinks | QDir::Readable | QDir::NoDotAndDotDot | QDir::CaseSensitive);
   for (int i = 0; i < subdirs.size(); ++i) {
     if (cancelAsap) { break; }
-    indexFiles(url + '/' + subdirs[i]);
+    indexFiles(url + QLatin1Char('/') + subdirs[i]);
   }
 }
 

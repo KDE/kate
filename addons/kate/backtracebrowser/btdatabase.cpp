@@ -21,6 +21,7 @@
 #include <QFile>
 #include <QDataStream>
 #include <QDir>
+#include <QDebug>
 
 
 void KateBtDatabase::loadFromFile(const QString& url)

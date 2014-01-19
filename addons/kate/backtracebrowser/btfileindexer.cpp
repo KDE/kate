@@ -20,6 +20,7 @@
 #include "btdatabase.h"
 
 #include <QDir>
+#include <QDebug>
 
 BtFileIndexer::BtFileIndexer(KateBtDatabase* database)
   : QThread()

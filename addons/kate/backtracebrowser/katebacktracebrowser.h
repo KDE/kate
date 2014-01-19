@@ -19,11 +19,10 @@
 #ifndef KATE_BACKTRACEBROWSER_H
 #define KATE_BACKTRACEBROWSER_H
 
-#include <ktexteditor/document.h>
-#include <ktexteditor/configpage.h>
-#include <kate/plugin.h>
+#include <KTextEditor/Plugin>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpageinterface.h>
-#include <kate/mainwindow.h>
+#include <ktexteditor/configpage.h>
 
 #include "ui_btbrowserwidget.h"
 #include "ui_btconfigwidget.h"
@@ -33,17 +32,23 @@
 #include <QString>
 #include <QTimer>
 
-class KateBtBrowserPlugin: public Kate::Plugin, public KTextEditor::ConfigPageInterface
+#include "kdialog.h"
+
+class KateBtConfigWidget;
+class KateBtBrowserWidget;
+
+class KateBtBrowserPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::ConfigPageInterface)
+
   public:
     explicit KateBtBrowserPlugin( QObject* parent = 0, const QList<QVariant>& = QList<QVariant>() );
     virtual ~KateBtBrowserPlugin();
 
     static KateBtBrowserPlugin& self();
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow);
 
     KateBtDatabase& database();
     BtFileIndexer& fileIndexer();
@@ -57,11 +62,11 @@ class KateBtBrowserPlugin: public Kate::Plugin, public KTextEditor::ConfigPageIn
   // PluginConfigPageInterface
   //
   public:
-    virtual uint configPages() const;
-    virtual KTextEditor::ConfigPage* configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
-    virtual QString configPageName(uint number = 0) const;
-    virtual QString configPageFullName(uint number = 0) const;
-    virtual KIcon configPageIcon(uint number = 0) const;
+    virtual int configPages() const;
+    virtual KTextEditor::ConfigPage* configPage (int number, QWidget *parent = 0);
+    virtual QString configPageName(int number) const;
+    virtual QString configPageFullName(int number) const;
+    virtual QIcon configPageIcon(int number) const;
 
   //
   // private data
@@ -72,17 +77,31 @@ class KateBtBrowserPlugin: public Kate::Plugin, public KTextEditor::ConfigPageIn
     static KateBtBrowserPlugin* s_self;
 };
 
-class KateBtBrowserPluginView : public Kate::PluginView, public Ui::BtBrowserWidget
+class KateBtBrowserPluginView : public QObject
 {
     Q_OBJECT
 
   public:
-    KateBtBrowserPluginView(Kate::MainWindow* mainWindow);
+    KateBtBrowserPluginView (KateBtBrowserPlugin* plugin, KTextEditor::MainWindow *mainWindow);
 
-    ~KateBtBrowserPluginView();
+    /**
+    * Virtual destructor.
+    */
+    ~KateBtBrowserPluginView ();
 
-    virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-    virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+  private:
+    KateBtBrowserPlugin *m_plugin;
+    KateBtBrowserWidget *m_widget;
+};
+
+class KateBtBrowserWidget : public QWidget, public Ui::BtBrowserWidget
+{
+    Q_OBJECT
+
+  public:
+    KateBtBrowserWidget(KateBtBrowserPlugin* plugin, KTextEditor::MainWindow *mainwindow, QWidget* parent);
+
+    ~KateBtBrowserWidget();
 
     void loadBacktrace(const QString& bt);
 
@@ -97,8 +116,7 @@ class KateBtBrowserPluginView : public Kate::PluginView, public Ui::BtBrowserWid
     void itemActivated(QTreeWidgetItem* item, int column);
 
   private:
-    QWidget* toolView;
-    Kate::MainWindow* mw;
+    KTextEditor::MainWindow* mw;
     QTimer timer;
 };
 
@@ -106,7 +124,7 @@ class KateBtConfigWidget : public KTextEditor::ConfigPage, private Ui::BtConfigW
 {
     Q_OBJECT
   public:
-    explicit KateBtConfigWidget(QWidget* parent = 0, const char* name = 0);
+    explicit KateBtConfigWidget(QWidget* parent = 0);
     virtual ~KateBtConfigWidget();
 
   public Q_SLOTS:

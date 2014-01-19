@@ -56,14 +56,14 @@ p, li { white-space: pre-wrap; }
          </spacer>
         </item>
         <item>
-         <widget class="KPushButton" name="btnRemove" >
+         <widget class="QPushButton" name="btnRemove" >
           <property name="text" >
            <string>&amp;Remove</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="KPushButton" name="btnAdd" >
+         <widget class="QPushButton" name="btnAdd" >
           <property name="text" >
            <string>&amp;Add</string>
           </property>
@@ -111,11 +111,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>

@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katebacktracebrowserplugin
-X-Kate-Version=3.0
 Name=Backtrace Browser
 Name[ast]=Desaminador de trazaos inversos
 Name[bg]=Преглед на backtrace
@@ -110,4 +109,4 @@ Comment[wa]=Vuwe di l' usteye di naiviaedje emey les backtraces
 Comment[x-test]=xxBacktrace navigation tool viewxx
 Comment[zh_CN]=回溯导航工具视图
 Comment[zh_TW]=回溯追蹤導覽工具檢視
-author=Dominik Haumann, dhdev@gmx.de
+author=Dominik Haumann, dhaumann@kde.org

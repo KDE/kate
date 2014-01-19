@@ -43,7 +43,7 @@ class DummyDocument : public KTextEditor::Document
     virtual ~DummyDocument () {};
     virtual KTextEditor::View *createView ( QWidget *, KTextEditor::MainWindow * = nullptr ) { return 0; }
     virtual KTextEditor::View *activeView() const { return 0; }
-    virtual const QList<KTextEditor::View*> &views() const { return m_views; }
+    virtual QList<KTextEditor::View*> views() const { return m_views; }
 
     virtual QString documentName() const { return m_name; }
 

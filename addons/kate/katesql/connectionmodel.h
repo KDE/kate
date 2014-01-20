@@ -21,8 +21,7 @@
 
 #include "connection.h"
 
-#include <kicon.h>
-
+#include <QIcon>
 #include <QAbstractListModel>
 #include <qstring.h>
 #include <qhash.h>
@@ -53,7 +52,7 @@ class ConnectionModel : public QAbstractListModel
 
   private:
     QHash<QString, Connection> m_connections;
-    QHash<Connection::Status, KIcon> m_icons;
+    QHash<Connection::Status, QIcon> m_icons;
 };
 
 #endif // CONNECTIONMODEL_H

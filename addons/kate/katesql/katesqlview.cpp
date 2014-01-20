@@ -29,9 +29,9 @@
 #include "connectionwizard.h"
 #include "outputwidget.h"
 
-#include <kate/plugin.h>
-#include <kate/mainwindow.h>
-#include <kate/documentmanager.h>
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/mainwindow.h>
+#include <ktexteditor/application.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 
@@ -49,21 +49,22 @@
 #include <QVBoxLayout>
 #include <QApplication>
 
-KateSQLView::KateSQLView(Kate::MainWindow *mw)
-: Kate::PluginView (mw)
-, Kate::XMLGUIClient(KateSQLFactory::componentData())
+KateSQLView::KateSQLView(KTextEditor::MainWindow *mw)
+: QObject (mw)
+, KXMLGUIClient()
 , m_manager (new SQLManager(this))
+, m_mainWindow (mw)
 {
 
-  m_outputToolView    = mw->createToolView("kate_private_plugin_katesql_output",
-                                               Kate::MainWindow::Bottom,
-                                               SmallIcon("view-form-table"),
+  m_outputToolView    = mw->createToolView(QLatin1String ("kate_private_plugin_katesql_output"),
+                                               KTextEditor::MainWindow::Bottom,
+                                               QIcon::fromTheme ("view-form-table"),
                                                i18nc("@title:window", "SQL Results")
                                                );
 
-  m_schemaBrowserToolView = mw->createToolView("kate_private_plugin_katesql_schemabrowser",
-                                               Kate::MainWindow::Left,
-                                               SmallIcon("view-list-tree"),
+  m_schemaBrowserToolView = mw->createToolView(QLatin1String ("kate_private_plugin_katesql_schemabrowser"),
+                                               KTextEditor::MainWindow::Left,
+                                               QIcon::fromTheme ("view-list-tree"),
                                                i18nc("@title:window", "SQL Schema Browser")
                                                );
 
@@ -79,7 +80,7 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
 
   setupActions();
 
-  mainWindow()->guiFactory()->addClient(this);
+  m_mainWindow->guiFactory()->addClient(this);
 
   QMenu *sqlMenu = (QMenu*)factory()->container("SQL", this);
 
@@ -102,7 +103,7 @@ KateSQLView::KateSQLView(Kate::MainWindow *mw)
 
 KateSQLView::~KateSQLView()
 {
-  mainWindow()->guiFactory()->removeClient( this );
+  m_mainWindow->guiFactory()->removeClient( this );
 
   delete m_outputToolView;
   delete m_schemaBrowserToolView;
@@ -330,10 +331,7 @@ void KateSQLView::slotRunQuery()
     return;
   }
 
-  if (!mainWindow())
-    return;
-
-  KTextEditor::View *view = mainWindow()->activeView();
+  KTextEditor::View *view = m_mainWindow->activeView();
 
   if (!view)
     return;
@@ -352,7 +350,7 @@ void KateSQLView::slotError(const QString &message)
 {
   m_outputWidget->textOutputWidget()->showErrorMessage(message);
   m_outputWidget->setCurrentWidget(m_outputWidget->textOutputWidget());
-  mainWindow()->showToolView(m_outputToolView);
+  m_mainWindow->showToolView(m_outputToolView);
   
 }
 
@@ -361,7 +359,7 @@ void KateSQLView::slotSuccess(const QString &message)
 {
   m_outputWidget->textOutputWidget()->showSuccessMessage(message);
   m_outputWidget->setCurrentWidget(m_outputWidget->textOutputWidget());
-  mainWindow()->showToolView(m_outputToolView);
+  m_mainWindow->showToolView(m_outputToolView);
 
 }
 
@@ -374,7 +372,7 @@ void KateSQLView::slotQueryActivated(QSqlQuery &query, const QString &connection
 
     m_outputWidget->dataOutputWidget()->showQueryResultSets(query);
     m_outputWidget->setCurrentWidget(m_outputWidget->dataOutputWidget());
-    mainWindow()->showToolView(m_outputToolView);
+    m_mainWindow->showToolView(m_outputToolView);
     
   }
 }

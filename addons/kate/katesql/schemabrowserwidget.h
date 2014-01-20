@@ -22,9 +22,9 @@
 class SQLManager;
 class SchemaWidget;
 
-#include <kvbox.h>
+#include <QWidget>
 
-class SchemaBrowserWidget : public KVBox
+class SchemaBrowserWidget : public QWidget
 {
   Q_OBJECT
 

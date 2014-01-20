@@ -160,7 +160,7 @@ void KateSQLView::slotSQLMenuAboutToShow()
 {
   qDeleteAll( m_connectionsGroup->actions() );
 
-  QMenu *sqlMenu = (QMenu*)factory()->container("SQL", this);
+  QMenu *sqlMenu = (QMenu*)factory()->container(QLatin1String ("SQL"), this);
   QAction *before = action("query_run");
   QAbstractItemModel *model = m_manager->connectionModel();
 
@@ -195,7 +195,7 @@ void KateSQLView::slotConnectionSelectedFromMenu(QAction *action)
 
 void KateSQLView::slotConnectionChanged(const QString &connection)
 {
-  stateChanged("has_connection_selected", (connection.isEmpty()) ? KXMLGUIClient::StateReverse : KXMLGUIClient::StateNoReverse);
+  stateChanged(QLatin1String ("has_connection_selected"), (connection.isEmpty()) ? KXMLGUIClient::StateReverse : KXMLGUIClient::StateNoReverse);
 
   m_schemaBrowserWidget->schemaWidget()->buildTree(connection);
 }
@@ -257,12 +257,12 @@ void KateSQLView::slotConnectionCreate()
     return;
 
   for (int i = 1; QSqlDatabase::contains(c.name); i++)
-    c.name = QString("%1 (%2)").arg(c.name).arg(i);
+    c.name = QString::fromLatin1("%1 (%2)").arg(c.name).arg(i);
 
   m_manager->createConnection(c);
 
   if (m_manager->storeCredentials(c) != 0)
-    kWarning() << "Connection credentials not saved";
+    qDebug() << "Connection credentials not saved";
 }
 
 
@@ -287,7 +287,7 @@ void KateSQLView::slotConnectionEdit()
   m_manager->createConnection(c);
 
   if (m_manager->storeCredentials(c) != 0)
-    kWarning() << "Connection credentials not saved";
+    qDebug() << "Connection credentials not saved";
 }
 
 

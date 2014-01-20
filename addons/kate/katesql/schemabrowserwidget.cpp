@@ -28,6 +28,7 @@ SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, SQLManager *manager)
 {
   QVBoxLayout *layout = new QVBoxLayout (this);
   layout->addWidget (m_schemaWidget);
+  setLayout (layout);
 }
 
 SchemaBrowserWidget::~SchemaBrowserWidget()

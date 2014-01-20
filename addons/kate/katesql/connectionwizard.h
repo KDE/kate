@@ -22,7 +22,7 @@
 class SQLManager;
 class KComboBox;
 class KLineEdit;
-class KIntSpinBox;
+class QSpinBox;
 class KUrlRequester;
 
 #include "connection.h"
@@ -80,7 +80,7 @@ class ConnectionStandardServerPage : public QWizardPage
     KLineEdit *passwordLineEdit;
     KLineEdit *databaseLineEdit;
     KLineEdit *optionsLineEdit;
-    KIntSpinBox *portSpinBox;
+    QSpinBox  *portSpinBox;
 };
 
 class ConnectionSQLiteServerPage : public QWizardPage

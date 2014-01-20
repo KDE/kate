@@ -26,21 +26,19 @@
 
 #include "advanced_settings.h"
 
-#include <QtGui/QWidget>
-#include <QtGui/QLabel>
-#include <QtGui/QToolButton>
-#include <QtGui/QComboBox>
-#include <QtGui/QCheckBox>
-#include <QtGui/QBoxLayout>
-#include <QtGui/QResizeEvent>
+#include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QToolButton>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QBoxLayout>
+#include <QResizeEvent>
 
-#include <QtCore/QList>
+#include <QList>
 
-#include <kate/mainwindow.h>
+#include <KTextEditor/MainWindow>
 #include <kconfiggroup.h>
-#include <kcombobox.h>
-#include <klineedit.h>
-#include <kpushbutton.h>
 #include <kactioncollection.h>
 #include <kselectaction.h>
 
@@ -65,14 +63,14 @@ public:
         CustomStartIndex
     };
 
-    ConfigView(QWidget* parent, Kate::MainWindow* mainWin);
+    ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin);
     ~ConfigView();
 
 public:
     void registerActions(KActionCollection* actionCollection);
 
-    void readConfig(KConfigBase* config, QString const& groupPrefix);
-    void writeConfig(KConfigBase* config, QString const& groupPrefix);
+    void readConfig (const KConfigGroup& config);
+    void writeConfig (KConfigGroup& config);
 
     const GDBTargetConf currentTarget() const;
     bool  takeFocusAlways() const;
@@ -99,25 +97,25 @@ private:
     void loadFromIndex(int index);
  
 private:
-    Kate::MainWindow*   m_mainWindow;
-    KComboBox*          m_targetCombo;
+    KTextEditor::MainWindow*   m_mainWindow;
+    QComboBox*          m_targetCombo;
     int                 m_currentTarget;
     QToolButton*        m_addTarget;
     QToolButton*        m_copyTarget;
     QToolButton*        m_deleteTarget;
     QFrame*             m_line;
 
-    KLineEdit*          m_executable;
+    QLineEdit*          m_executable;
     QToolButton*        m_browseExe;
 
-    KLineEdit*          m_workingDirectory;
+    QLineEdit*          m_workingDirectory;
     QToolButton*        m_browseDir;
 
-    KLineEdit*          m_arguments;
+    QLineEdit*          m_arguments;
 
     QCheckBox*          m_takeFocus;
     QCheckBox*          m_redirectTerminal;
-    KPushButton*        m_advancedSettings;
+    QPushButton*        m_advancedSettings;
     QBoxLayout*         m_checBoxLayout;
 
     bool                m_useBottomLayout;

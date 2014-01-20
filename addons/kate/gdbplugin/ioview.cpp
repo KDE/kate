@@ -21,18 +21,17 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "ioview.h"
-#include "ioview.moc"
 
-#include <QtGui/QVBoxLayout>
-#include <QtCore/QFile>
-#include <QtGui/QTextEdit>
-#include <QtGui/QLineEdit>
-#include <QtGui/QScrollBar>
+#include <QVBoxLayout>
+#include <QFile>
+#include <QTextEdit>
+#include <QLineEdit>
+#include <QScrollBar>
 #include <QSocketNotifier>
+#include <QString>
+#include <QFontDatabase>
 
-#include <kglobalsettings.h>
 #include <kcolorscheme.h>
-#include <kstandarddirs.h>
 #include <krandom.h>
 
 #include <sys/types.h>
@@ -48,7 +47,7 @@ IOView::IOView(QWidget *parent)
     m_output->setUndoRedoEnabled(false);
     m_output->setAcceptRichText(false);
     // fixed wide font, like konsole
-    m_output->setFont(KGlobalSettings::fixedFont());
+    m_output->setFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
     // alternate color scheme, like konsole
     KColorScheme schemeView(QPalette::Active, KColorScheme::View);
     m_output->setTextBackgroundColor(schemeView.foreground().color());
@@ -89,9 +88,9 @@ IOView::~IOView()
 
 void IOView::createFifos()
 {
-    m_stdinFifo = createFifo("stdInFifo");
-    m_stdoutFifo = createFifo("stdOutFifo");
-    m_stderrFifo = createFifo("stdErrFifo");
+    m_stdinFifo = createFifo(QStringLiteral("stdInFifo"));
+    m_stdoutFifo = createFifo(QStringLiteral("stdOutFifo"));
+    m_stderrFifo = createFifo(QStringLiteral("stdErrFifo"));
 
     m_stdin.setFileName(m_stdinFifo);
     if (!m_stdin.open(QIODevice::ReadWrite)) return;
@@ -100,7 +99,7 @@ void IOView::createFifos()
     m_stdoutD.open(QIODevice::ReadWrite);
     
     m_stdout.setFileName(m_stdoutFifo);
-    m_stdoutFD = ::open(m_stdoutFifo.toLocal8Bit(), O_RDWR|O_NONBLOCK );
+    m_stdoutFD = ::open(m_stdoutFifo.toLocal8Bit().data(), O_RDWR|O_NONBLOCK);
     if (m_stdoutFD == -1) return;
     if (!m_stdout.open(m_stdoutFD, QIODevice::ReadWrite)) return;
     
@@ -113,7 +112,7 @@ void IOView::createFifos()
     m_stderrD.open(QIODevice::ReadWrite);
 
     m_stderr.setFileName(m_stderrFifo);
-    m_stderrFD = ::open(m_stderrFifo.toLocal8Bit(), O_RDONLY|O_NONBLOCK );
+    m_stderrFD = ::open(m_stderrFifo.toLocal8Bit().data(), O_RDONLY|O_NONBLOCK);
     if (m_stderrFD == -1) return;
     if (!m_stderr.open(m_stderrFD, QIODevice::ReadOnly)) return;
     
@@ -203,8 +202,8 @@ void IOView::addStdErrText(const QString &text)
 
 QString IOView::createFifo(const QString &prefix)
 {
-    QString fifo = KStandardDirs::locateLocal("socket", prefix + KRandom::randomString(3));
-    int result = mkfifo(QFile::encodeName(fifo), 0666);
+    QString fifo = QStandardPaths::writableLocation(QStandardPaths::RuntimeLocation) + prefix + KRandom::randomString(3);
+    int result = mkfifo(QFile::encodeName(fifo).data(), 0666);
     if (result != 0) return QString();
     return fifo;
 }
@@ -216,3 +215,4 @@ const QString IOView::stderrFifo() { return m_stderrFifo; }
 void IOView::enableInput(bool enable) { m_input->setEnabled(enable); }
 
 void IOView::clearOutput() { m_output->clear(); }
+

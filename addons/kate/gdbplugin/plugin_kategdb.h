@@ -3,7 +3,7 @@
 //
 //
 // Copyright (c) 2010 Ian Wakeling <ian.wakeling@ntlworld.com>
-// Copyright (c) 2010-2013 Kåre Särs <kare.sars@iki.fi>
+// Copyright (c) 2010-2014 Kåre Särs <kare.sars@iki.fi>
 //
 //  This library is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU Library General Public
@@ -24,11 +24,12 @@
 
 #include <QPointer>
 
-#include <kate/mainwindow.h>
-#include <kate/plugin.h>
-
-#include <kdeversion.h>
-#include <kactionmenu.h>
+#include <KTextEditor/Application>
+#include <KTextEditor/MainWindow>
+#include <KTextEditor/Plugin>
+#include <KXMLGUIClient>
+#include <KActionMenu>
+#include <KTextEditor/SessionConfigInterface>
 
 #include "debugview.h"
 #include "configview.h"
@@ -41,27 +42,29 @@ class QTreeWidget;
 
 typedef QList<QVariant> VariantList;
 
-class KatePluginGDB : public Kate::Plugin
+class KatePluginGDB : public KTextEditor::Plugin
 {
     Q_OBJECT
 
 public:
-    explicit KatePluginGDB( QObject* parent = NULL, const VariantList& = VariantList() );
+    explicit KatePluginGDB(QObject* parent = NULL, const VariantList& = VariantList());
     virtual ~KatePluginGDB();
 
-    Kate::PluginView* createView( Kate::MainWindow* mainWindow );
+    QObject* createView(KTextEditor::MainWindow* mainWindow);
 };
 
-class KatePluginGDBView : public Kate::PluginView, public Kate::XMLGUIClient
+class KatePluginGDBView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
 public:
-    KatePluginGDBView( Kate::MainWindow* mainWindow, Kate::Application* application );
+  KatePluginGDBView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
     ~KatePluginGDBView();
 
-    virtual void readSessionConfig( KConfigBase* config, const QString& groupPrefix );
-    virtual void writeSessionConfig( KConfigBase* config, const QString& groupPrefix );
+    // reimplemented: read and write session config
+    void readSessionConfig (const KConfigGroup& config);
+    void writeSessionConfig (KConfigGroup& config);
 
 private Q_SLOTS:
     void slotDebug();
@@ -69,27 +72,27 @@ private Q_SLOTS:
     void slotToggleBreakpoint();
     void slotMovePC();
     void slotRunToCursor();
-    void slotGoTo( const KUrl &fileName, int lineNum );
+    void slotGoTo(const QUrl &fileName, int lineNum);
     void slotValue();
 
     void aboutToShowMenu();
-    void slotBreakpointSet( const KUrl &file, int line );
-    void slotBreakpointCleared( const KUrl &file, int line );
+    void slotBreakpointSet(const QUrl &file, int line);
+    void slotBreakpointCleared(const QUrl &file, int line);
     void slotSendCommand();
-    void enableDebugActions( bool enable );
+    void enableDebugActions(bool enable);
     void programEnded();
     void gdbEnded();
 
-    void insertStackFrame( QString const& level, QString const& info );
-    void stackFrameChanged( int level );
+    void insertStackFrame(QString const& level, QString const& info);
+    void stackFrameChanged(int level);
     void stackFrameSelected();
 
-    void insertThread( int number, bool active );
-    void threadSelected( int thread );
+    void insertThread(int number, bool active);
+    void threadSelected(int thread);
 
-    void showIO( bool show );
-    void addOutputText( QString const& text );
-    void addErrorText( QString const& text );
+    void showIO(bool show);
+    void addOutputText(QString const& text);
+    void addErrorText(QString const& text);
     void clearMarks();
     void handleEsc(QEvent *e);
 
@@ -100,7 +103,8 @@ private:
     QString currentWord();
 
 
-    Kate::Application*    m_kateApplication;
+    KTextEditor::Application *m_kateApplication;
+    KTextEditor::MainWindow  *m_mainWin;
     QWidget*              m_toolView;
     QWidget*              m_localsStackToolView;
     QTabWidget*           m_tabWidget;
@@ -117,7 +121,7 @@ private:
     LocalsView*           m_localsView;
     QPointer<KActionMenu> m_menu;
     QAction*              m_breakpoint;
-    KUrl                  m_lastExecUrl;
+    QUrl                  m_lastExecUrl;
     int                   m_lastExecLine;
     int                   m_lastExecFrame;
     bool                  m_focusOnInput;

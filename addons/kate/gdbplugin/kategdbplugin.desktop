@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=kategdbplugin
-X-Kate-Version=2.9
 Name=GDB
 Name[ast]=GDB
 Name[bg]=GDB

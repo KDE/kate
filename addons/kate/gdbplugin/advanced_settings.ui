@@ -13,7 +13,7 @@
    <item row="0" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
-      <widget class="KLineEdit" name="u_gdbCmd">
+      <widget class="QLineEdit" name="u_gdbCmd">
        <property name="showClearButton" stdset="0">
         <bool>true</bool>
        </property>
@@ -36,7 +36,7 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="KLineEdit" name="u_soAbsPrefix">
+    <widget class="QLineEdit" name="u_soAbsPrefix">
      <property name="showClearButton" stdset="0">
       <bool>true</bool>
      </property>
@@ -50,7 +50,7 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="KLineEdit" name="u_soSearchPath">
+    <widget class="QLineEdit" name="u_soSearchPath">
      <property name="showClearButton" stdset="0">
       <bool>true</bool>
      </property>
@@ -116,7 +116,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KLineEdit" name="u_tcpHost">
+        <widget class="QLineEdit" name="u_tcpHost">
          <property name="showClearButton" stdset="0">
           <bool>true</bool>
          </property>
@@ -130,7 +130,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KLineEdit" name="u_tcpPort">
+        <widget class="QLineEdit" name="u_tcpPort">
          <property name="showClearButton" stdset="0">
           <bool>true</bool>
          </property>
@@ -155,7 +155,7 @@
         </widget>
        </item>
        <item>
-        <widget class="KLineEdit" name="u_ttyPort">
+        <widget class="QLineEdit" name="u_ttyPort">
          <property name="text">
           <string comment="KDE::DoNotExtract">/dev/ttyUSB0</string>
          </property>
@@ -221,7 +221,7 @@
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KLineEdit</class>
+   <class>QLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
   </customwidget>

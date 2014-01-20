@@ -1,13 +1,3 @@
-cmake_minimum_required( VERSION 2.6 )
-
-# building separately or as part of kdesdk?
-if(NOT KDE4_FOUND)
-    find_package(KDE4 REQUIRED)
-    ADD_DEFINITIONS(-DKDE_DEFAULT_DEBUG_AREA=13040)
-endif(NOT KDE4_FOUND)
-
-include_directories(${KDE4_INCLUDES})
-include_directories(${KDE4_KIO_INCLUDES})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 
@@ -20,12 +10,15 @@ set(kategdbplugin_PART_SRCS
     advanced_settings.cpp
 )
 
-kde4_add_ui_files(kategdbplugin_PART_SRCS advanced_settings.ui)
+qt5_wrap_ui(kategdbplugin_PART_SRCS advanced_settings.ui)
 
-kde4_add_plugin( kategdbplugin ${kategdbplugin_PART_SRCS} )
-target_link_libraries( kategdbplugin ${KDE4_KDEUI_LIBS} ${KDE4_KDECORE_LIBS} ktexteditor kateinterfaces )
+add_library(kategdbplugin MODULE ${kategdbplugin_PART_SRCS})
 
-install( FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/kategdb )
-install( TARGETS kategdbplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
-install( FILES kategdbplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR} )
-kde4_install_icons( ${ICON_INSTALL_DIR} )
+target_link_libraries(kategdbplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
+
+########### install files ###############
+install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/kategdb)
+install(TARGETS kategdbplugin DESTINATION ${PLUGIN_INSTALL_DIR})
+install(FILES kategdbplugin.desktop DESTINATION ${SERVICES_INSTALL_DIR})
+ecm_install_icons (${ICON_INSTALL_DIR})
+kservice_desktop_to_json (kategdbplugin.desktop)

@@ -22,25 +22,25 @@
 //  Boston, MA 02110-1301, USA.
 
 #include "configview.h"
-#include "configview.moc"
 
-#include <QtGui/QCompleter>
-#include <QtGui/QDirModel>
-#include <QtGui/QLayout>
-#include <QtCore/QTimer>
+#include <QCompleter>
+#include <QDirModel>
+#include <QLayout>
+#include <QTimer>
+#include <QPushButton>
+#include <QFileDialog>
+
+#include <KTextEditor/View>
+#include <KTextEditor/Document>
 
 #include <klocalizedstring.h>
-#include <kicon.h>
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
-#include <kfiledialog.h>
 #include <kmessagebox.h>
 
-ConfigView::ConfigView(QWidget* parent, Kate::MainWindow* mainWin)
+ConfigView::ConfigView(QWidget* parent, KTextEditor::MainWindow* mainWin)
 :   QWidget(parent),
     m_mainWindow(mainWin)
 {
-    m_targetCombo = new KComboBox();
+    m_targetCombo = new QComboBox();
     m_targetCombo->setEditable(true);
     // don't let Qt insert items when the user edits; new targets are only
     // added when the user explicitly says so
@@ -48,15 +48,15 @@ ConfigView::ConfigView(QWidget* parent, Kate::MainWindow* mainWin)
     m_targetCombo->setDuplicatesEnabled(true);
 
     m_addTarget = new QToolButton();
-    m_addTarget->setIcon(SmallIcon("document-new"));
+    m_addTarget->setIcon(QIcon::fromTheme(QStringLiteral("document-new")));
     m_addTarget->setToolTip(i18n("Add new target"));
 
     m_copyTarget = new QToolButton();
-    m_copyTarget->setIcon(SmallIcon("document-copy"));
+    m_copyTarget->setIcon(QIcon::fromTheme(QStringLiteral("document-copy")));
     m_copyTarget->setToolTip(i18n("Copy target"));
 
     m_deleteTarget = new QToolButton();
-    m_deleteTarget->setIcon(SmallIcon("edit-delete"));
+    m_deleteTarget->setIcon(QIcon::fromTheme(QStringLiteral("edit-delete")));
     m_deleteTarget->setToolTip(i18n("Delete target"));
 
     m_line = new QFrame(this);
@@ -65,28 +65,28 @@ ConfigView::ConfigView(QWidget* parent, Kate::MainWindow* mainWin)
     m_execLabel = new QLabel(i18n("Executable:"));
     m_execLabel->setBuddy(m_targetCombo);
 
-    m_executable = new KLineEdit();
+    m_executable = new QLineEdit();
     QCompleter* completer1 = new QCompleter(this);
     completer1->setModel(new QDirModel(QStringList(),
                                          QDir::AllDirs|QDir::NoDotAndDotDot,
                                          QDir::Name, this));
     m_executable->setCompleter(completer1);
-    m_executable->setClearButtonShown(true);
+    // FIXME KF5 m_executable->setClearButtonShown(true);
     m_browseExe = new QToolButton(this);
-    m_browseExe->setIcon(KIcon("application-x-executable"));
+    m_browseExe->setIcon(QIcon::fromTheme(QStringLiteral("application-x-executable")));
 
-    m_workingDirectory = new KLineEdit();
+    m_workingDirectory = new QLineEdit();
     QCompleter* completer2 = new QCompleter(this);
     completer2->setModel(new QDirModel(completer2));
     m_workingDirectory->setCompleter(completer2);
-    m_workingDirectory->setClearButtonShown(true);
+    // FIXME KF5 m_workingDirectory->setClearButtonShown(true);
     m_workDirLabel = new QLabel(i18n("Working Directory:"));
     m_workDirLabel->setBuddy(m_workingDirectory);
     m_browseDir = new QToolButton(this);
-    m_browseDir->setIcon(KIcon("inode-directory"));
+    m_browseDir->setIcon(QIcon::fromTheme(QStringLiteral("inode-directory")));
 
-    m_arguments = new KLineEdit();
-    m_arguments->setClearButtonShown(true);
+    m_arguments = new QLineEdit();
+    // FIXME KF5 m_arguments->setClearButtonShown(true);
     m_argumentsLabel = new QLabel(i18nc("Program argument list", "Arguments:"));
     m_argumentsLabel->setBuddy(m_arguments);
 
@@ -97,7 +97,7 @@ ConfigView::ConfigView(QWidget* parent, Kate::MainWindow* mainWin)
     m_redirectTerminal = new QCheckBox(i18n("Redirect IO"));
     m_redirectTerminal->setToolTip(i18n("Redirect the debugged programs IO to a separate tab"));
 
-    m_advancedSettings = new KPushButton(i18n("Advanced Settings"));
+    m_advancedSettings = new QPushButton(i18n("Advanced Settings"));
 
     m_checBoxLayout = 0;
 
@@ -130,21 +130,20 @@ ConfigView::~ConfigView()
 
 void ConfigView::registerActions(KActionCollection* actionCollection)
 {
-    m_targetSelectAction = actionCollection->add<KSelectAction>("targets");
+    m_targetSelectAction = actionCollection->add<KSelectAction>(QStringLiteral("targets"));
     m_targetSelectAction->setText(i18n("Targets"));
     connect(m_targetSelectAction, SIGNAL(triggered(int)),
             this, SLOT(slotTargetSelected(int)));
 }
 
-void ConfigView::readConfig(KConfigBase* config, QString const& groupPrefix)
+void ConfigView::readConfig(const KConfigGroup& group)
 {
     m_targetCombo->clear();
 
-    KConfigGroup group = config->group(groupPrefix);
-    int          version = group.readEntry("version", 4);
-    int          targetCount = group.readEntry("targetCount", 1);
-    int          lastTarget = group.readEntry("lastTarget", 0);
-    QString      targetKey("target_%1");
+    int          version = group.readEntry(QStringLiteral("version"), 4);
+    int          targetCount = group.readEntry(QStringLiteral("targetCount"), 1);
+    int          lastTarget = group.readEntry(QStringLiteral("lastTarget"), 0);
+    QString      targetKey(QStringLiteral("target_%1"));
 
     QStringList  targetConfStrs;
 
@@ -172,9 +171,9 @@ void ConfigView::readConfig(KConfigBase* config, QString const& groupPrefix)
 
     if (version < 4) {
         // all targets now have only one argument string
-        int     argListsCount = group.readEntry("argsCount", 0);
-        QString argsKey("args_%1");
-        QString targetName("%1<%2>");
+        int     argListsCount = group.readEntry(QStringLiteral("argsCount"), 0);
+        QString argsKey(QStringLiteral("args_%1"));
+        QString targetName(QStringLiteral("%1<%2>"));
 
         QString argStr;
         int count = m_targetCombo->count();
@@ -210,16 +209,14 @@ void ConfigView::readConfig(KConfigBase* config, QString const& groupPrefix)
     m_redirectTerminal->setChecked(group.readEntry("redirectTerminal",false));
 }
 
-void ConfigView::writeConfig(KConfigBase* config, QString const& groupPrefix)
+void ConfigView::writeConfig(KConfigGroup& group)
 {
     // make sure the data is up to date before writing
     saveCurrentToIndex(m_currentTarget);
 
-    KConfigGroup    group = config->group(groupPrefix);
-
     group.writeEntry("version", 4);
 
-    QString targetKey("target_%1");
+    QString targetKey(QStringLiteral("target_%1"));
     QStringList targetConfStrs;
 
     group.writeEntry("targetCount", m_targetCombo->count());
@@ -246,7 +243,7 @@ const GDBTargetConf ConfigView::currentTarget() const
         cfg.customInit.removeFirst();
     }
     else {
-        cfg.gdbCmd = "gdb";
+        cfg.gdbCmd = QStringLiteral("gdb");
     }
     // remove empty strings in the customInit
     int i = cfg.customInit.size()-1;
@@ -419,7 +416,7 @@ void ConfigView::slotAdvancedClicked()
     while (tmp.count() < CustomStartIndex) tmp << QString();
 
     if (tmp[GDBIndex].isEmpty()) {
-        tmp[GDBIndex] = "gdb";
+        tmp[GDBIndex] = QStringLiteral("gdb");
     }
 
     // Remove the strings that are not part of the advanced settings
@@ -437,32 +434,32 @@ void ConfigView::slotAdvancedClicked()
 
 void ConfigView::slotBrowseExec()
 {
-    KUrl exe(m_executable->text());
+    QString exe = m_executable->text();
 
     if (m_executable->text().isEmpty()) {
         // try current document dir
         KTextEditor::View*  view = m_mainWindow->activeView();
 
         if (view != NULL) {
-            exe = view->document()->url();
+            exe = view->document()->url().toLocalFile();
         }
     }
-    m_executable->setText(KFileDialog::getOpenFileName(exe, "application/x-executable"));
+    m_executable->setText(QFileDialog::getOpenFileName((QWidget *)0, QString(), exe, QStringLiteral("application/x-executable")));
 }
 
 void ConfigView::slotBrowseDir()
 {
-    KUrl dir(m_workingDirectory->text());
+    QString dir = m_workingDirectory->text();
 
     if (m_workingDirectory->text().isEmpty()) {
         // try current document dir
         KTextEditor::View*  view = m_mainWindow->activeView();
 
         if (view != NULL) {
-            dir = view->document()->url();
+            dir = view->document()->url().toLocalFile();
         }
     }
-    m_workingDirectory->setText(KFileDialog::getExistingDirectory (dir));
+    m_workingDirectory->setText(QFileDialog::getExistingDirectory(this, QString(), dir));
 }
 
 void ConfigView::saveCurrentToIndex(int index)
@@ -470,16 +467,16 @@ void ConfigView::saveCurrentToIndex(int index)
     if ((index < 0) || (index >= m_targetCombo->count())) {
         return;
     }
-    
+
     QStringList tmp = m_targetCombo->itemData(index).toStringList();
     // make sure we have enough strings. The custom init strings are set in slotAdvancedClicked().
     while (tmp.count() < CustomStartIndex) tmp << QString();
-    
+
     tmp[NameIndex] = m_targetCombo->itemText(index);
     tmp[ExecIndex] = m_executable->text();
     tmp[WorkDirIndex] = m_workingDirectory->text();
     tmp[ArgsIndex] = m_arguments->text();
-    
+
     m_targetCombo->setItemData(index, tmp);
 }
 
@@ -498,4 +495,5 @@ void ConfigView::loadFromIndex(int index)
     m_arguments->setText(tmp[ArgsIndex]);
 }
 
+#include "configview.moc"
 

@@ -28,9 +28,9 @@ ecm_optional_add_subdirectory (filebrowser)
 # xml completion
 ecm_optional_add_subdirectory (xmltools)
 
-#if(NOT WIN32)
-#   add_subdirectory( gdbplugin )   # reading /proc/...
-#endif(NOT WIN32)
+if(NOT WIN32)
+  add_subdirectory( gdbplugin )  # should be tested on windows...
+endif(NOT WIN32)
 
 #add_subdirectory( textfilter )
 

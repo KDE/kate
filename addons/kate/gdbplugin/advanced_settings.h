@@ -22,9 +22,9 @@
 
 #include "ui_advanced_settings.h"
 #include <QStringList>
-#include <KDialog>
+#include <QDialog>
 
-class AdvancedGDBSettings : public KDialog, public Ui::AdvancedGDBSettings
+class AdvancedGDBSettings : public QDialog, public Ui::AdvancedGDBSettings
 {
 Q_OBJECT
 public:

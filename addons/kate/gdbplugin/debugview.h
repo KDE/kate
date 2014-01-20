@@ -24,10 +24,10 @@
 #ifndef DEBUGVIEW_H
 #define DEBUGVIEW_H
 
-#include <QtCore/QObject>
+#include <QObject>
 
-#include <kprocess.h>
-#include <kurl.h>
+#include <QProcess>
+#include <QUrl>
 
 #include "configview.h"
 
@@ -35,19 +35,19 @@ class DebugView : public QObject
 {
 Q_OBJECT
 public:
-    DebugView( QObject* parent );
+    DebugView(QObject* parent);
     ~DebugView();
 
     void runDebugger(const GDBTargetConf &conf, const QStringList &ioFifos);
     bool debuggerRunning() const;
     bool debuggerBusy() const;
-    bool hasBreakpoint( KUrl const& url, int line );
+    bool hasBreakpoint(QUrl const& url, int line);
 
-    void toggleBreakpoint( KUrl const& url, int line );
-    void movePC( KUrl const& url, int line );
-    void runToCursor( KUrl const& url, int line );
+    void toggleBreakpoint(QUrl const& url, int line);
+    void movePC(QUrl const& url, int line);
+    void runToCursor(QUrl const& url, int line);
 
-    void issueCommand( QString const& cmd );
+    void issueCommand(QString const& cmd);
 
 
 public Q_SLOTS:
@@ -65,23 +65,23 @@ private Q_SLOTS:
     void slotError();
     void slotReadDebugStdOut();
     void slotReadDebugStdErr();
-    void slotDebugFinished( int exitCode, QProcess::ExitStatus status );
+    void slotDebugFinished(int exitCode, QProcess::ExitStatus status);
     void issueNextCommand();
 
 Q_SIGNALS:
-    void debugLocationChanged( const KUrl &file, int lineNum );
-    void breakPointSet( const KUrl &file, int lineNum );
-    void breakPointCleared( const KUrl &file, int lineNum );
+    void debugLocationChanged(const QUrl &file, int lineNum);
+    void breakPointSet(const QUrl &file, int lineNum);
+    void breakPointCleared(const QUrl &file, int lineNum);
     void clearBreakpointMarks();
-    void stackFrameInfo( QString const& level, QString const& info );
-    void stackFrameChanged( int level );
-    void threadInfo( int number, bool avtive );
+    void stackFrameInfo(QString const& level, QString const& info);
+    void stackFrameChanged(int level);
+    void threadInfo(int number, bool avtive);
 
-    void infoLocal( QString const& line );
+    void infoLocal(QString const& line);
 
-    void outputText( const QString &text );
-    void outputError( const QString &text );
-    void readyForInput( bool ready );
+    void outputText(const QString &text);
+    void outputError(const QString &text);
+    void readyForInput(bool ready);
     void programEnded();
     void gdbEnded();
 
@@ -109,18 +109,18 @@ private:
     struct BreakPoint
     {
         int  number;
-        KUrl file;
+        QUrl file;
         int  line;
     };
 
 private:
-    void processLine( QString output );
+    void processLine(QString output);
     void processErrors();
-    void outputTextMaybe( const QString &text );
-    KUrl resolveFileName( const QString &fileName );
+    void outputTextMaybe(const QString &text);
+    QUrl resolveFileName(const QString &fileName);
 
 private:
-    KProcess            m_debugProcess;
+    QProcess            m_debugProcess;
     GDBTargetConf       m_targetConf;
     QString             m_ioPipeString;
 

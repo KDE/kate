@@ -4,7 +4,7 @@ include(ECMMarkAsTest)
 include_directories(
   ${CMAKE_SOURCE_DIR}/kate/app
   ${CMAKE_SOURCE_DIR}/kate/app/session
-  ${CMAKE_SOURCE_DIR}/kate/filetree
+  ${CMAKE_SOURCE_DIR}/addons/kate/filetree
 )
 
 macro(kate_executable_tests)

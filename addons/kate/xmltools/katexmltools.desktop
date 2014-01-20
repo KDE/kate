@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katexmltoolsplugin
-X-Kate-Version=2.9
 Name=XML Completion
 Name[ast]=Terminación XML
 Name[bg]=Довършване на XML

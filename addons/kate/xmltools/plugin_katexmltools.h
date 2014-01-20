@@ -27,11 +27,9 @@
 
 #include <qstring.h>
 
-#include <kate/plugin.h>
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
-
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/application.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
@@ -39,22 +37,22 @@
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 #include <kcombobox.h>
-#include <kdialog.h>
+#include <KDE4Support/kdialog.h>
 #include <QVariantList>
 
 
-class PluginKateXMLTools : public Kate::Plugin
+class PluginKateXMLTools : public KTextEditor::Plugin
 {
   Q_OBJECT
 
   public:
     explicit PluginKateXMLTools( QObject* parent = 0, const QVariantList& = QVariantList() );
     ~PluginKateXMLTools();
-    Kate::PluginView *createView(Kate::MainWindow *mainWindow);
+    virtual QObject *createView(KTextEditor::MainWindow *mainWindow);
 };
 
 class PluginKateXMLToolsCompletionModel
-  : public KTextEditor::CodeCompletionModel2
+  : public KTextEditor::CodeCompletionModel
   , public KTextEditor::CodeCompletionModelControllerInterface
 {
   Q_OBJECT
@@ -64,24 +62,28 @@ class PluginKateXMLToolsCompletionModel
     PluginKateXMLToolsCompletionModel( QObject *parent );
     virtual ~PluginKateXMLToolsCompletionModel();
 
+  //
+  // KTextEditor::CodeCompletionModel
+  //
+  public:
     virtual int columnCount(const QModelIndex&) const;
     virtual int rowCount(const QModelIndex &parent) const;
     virtual QModelIndex parent(const QModelIndex& index) const;
     virtual QModelIndex index(int row, int column, const QModelIndex& parent) const;
     virtual QVariant data(const QModelIndex &idx, int role) const;
 
-    virtual void executeCompletionItem2(
-        KTextEditor::Document *document
-      , const KTextEditor::Range &word
-      , const QModelIndex &index
-      ) const;
+    virtual void executeCompletionItem(KTextEditor::View *view,
+                                       const KTextEditor::Range &word,
+                                       const QModelIndex &index) const;
 
-    virtual bool shouldStartCompletion(
-        KTextEditor::View *view
-      , const QString &insertedText
-      , bool userInsertion
-      , const KTextEditor::Cursor &position
-      );
+  //
+  // KTextEditor::CodeCompletionModelControllerInterface
+  //
+  public:
+    virtual bool shouldStartCompletion(KTextEditor::View *view,
+                                       const QString &insertedText,
+                                       bool userInsertion,
+                                       const KTextEditor::Cursor &position);
 
   public Q_SLOTS:
 
@@ -119,13 +121,13 @@ class PluginKateXMLToolsCompletionModel
 
     enum Level {groupNode = 1};
 
-    /// Assign the PseudoDTD @p dtd to the Kate::Document @p doc
-    void assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc );
+    /// Assign the PseudoDTD @p dtd to the Kate::View @p view
+    void assignDTD(PseudoDTD *dtd, KTextEditor::View *view);
 
     /// temporary placeholder for the metaDTD file
     QString m_dtdString;
-    /// temporary placeholder for the document to assign a DTD to while the file is loaded
-    KTextEditor::Document *m_docToAssignTo;
+    /// temporary placeholder for the view to assign a DTD to while the file is loaded
+    KTextEditor::View *m_viewToAssignTo;
     /// URL of the last loaded meta DTD
     QString m_urlString;
 
@@ -144,18 +146,18 @@ class PluginKateXMLToolsCompletionModel
     QHash<QString, PseudoDTD *> m_dtds;
 };
 
-class PluginKateXMLToolsView : public Kate::PluginView, public Kate::XMLGUIClient
+class PluginKateXMLToolsView : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
 
   public:
 
-    explicit PluginKateXMLToolsView( Kate::MainWindow *win);
+    explicit PluginKateXMLToolsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
     virtual ~PluginKateXMLToolsView();
 
   protected:
+    KTextEditor::MainWindow *m_mainWindow;
     PluginKateXMLToolsCompletionModel m_model;
-    Kate::DocumentManager *m_documentManager;
 };
 
 class InsertElement : public KDialog

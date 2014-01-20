@@ -66,7 +66,6 @@ TODO:
 */
 
 #include "plugin_katexmltools.h"
-#include "plugin_katexmltools.moc"
 
 #include <assert.h>
 
@@ -80,8 +79,11 @@ TODO:
 #include <qtimer.h>
 #include <QLabel>
 #include <QVBoxLayout>
-
 #include <QAction>
+#include <QStandardPaths>
+
+#include <ktexteditor/editor.h>
+#include <kaction.h>
 #include <kactioncollection.h>
 #include <kapplication.h>
 #include <klineedit.h>
@@ -94,15 +96,16 @@ TODO:
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
 #include <kpluginfactory.h>
+#include <kxmlguiclient.h>
+#include <kxmlguifactory.h>
+#include <kurl.h>
 
-K_PLUGIN_FACTORY(PluginKateXMLToolsFactory, registerPlugin<PluginKateXMLTools>();)
-K_EXPORT_PLUGIN(PluginKateXMLToolsFactory("katexmltools"))
-
-using Kate::application;
-
+K_PLUGIN_FACTORY_WITH_JSON (PluginKateXMLToolsFactory,
+                            "katexmltools.json",
+                            registerPlugin<PluginKateXMLTools>();)
 
 PluginKateXMLTools::PluginKateXMLTools( QObject* const parent, const QVariantList& )
-    : Kate::Plugin ( (Kate::Application *)parent )
+    : KTextEditor::Plugin(parent)
 {
 }
 
@@ -110,18 +113,23 @@ PluginKateXMLTools::~PluginKateXMLTools()
 {
 }
 
-Kate::PluginView *PluginKateXMLTools::createView(Kate::MainWindow *mainWindow)
+QObject *PluginKateXMLTools::createView(KTextEditor::MainWindow *mainWindow)
 {
-  return new PluginKateXMLToolsView(mainWindow);
+  return new PluginKateXMLToolsView(this, mainWindow);
 }
 
 
-PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow* const win)
-  : Kate::PluginView ( win ), Kate::XMLGUIClient ( PluginKateXMLToolsFactory::componentData() ),
-    m_model ( this )
+PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::Plugin *plugin,
+                                               KTextEditor::MainWindow *mainWin)
+  : QObject(mainWin)
+  , KXMLGUIClient()
+  , m_mainWindow(mainWin)
+  , m_model(this)
 {
   //qDebug() << "PluginKateXMLTools constructor called";
 
+  KXMLGUIClient::setComponentName(QLatin1String("katexmltools"), i18n ("Kate XML Tools"));
+  setXMLFile(QLatin1String("ui.rc"));
 
   KAction *actionInsert = new KAction ( i18n("&Insert Element..."), this );
   actionInsert->setShortcut( Qt::CTRL+Qt::Key_Return );
@@ -137,24 +145,23 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(Kate::MainWindow* const win)
   connect( actionAssignDTD, SIGNAL(triggered()), &m_model, SLOT(getDTD()) );
   actionCollection()->addAction( "xml_tool_assign", actionAssignDTD );
 
-  win->guiFactory()->addClient( this );
+  mainWin->guiFactory()->addClient( this );
 
-  connect( application()->documentManager(), SIGNAL(documentDeleted(KTextEditor::Document*)),
+  connect( KTextEditor::Editor::instance()->application(), SIGNAL(documentDeleted(KTextEditor::Document*)),
             &m_model, SLOT(slotDocumentDeleted(KTextEditor::Document*)) );
-
 }
 
 PluginKateXMLToolsView::~PluginKateXMLToolsView()
 {
-  mainWindow()->guiFactory()->removeClient (this);
+  m_mainWindow->guiFactory()->removeClient (this);
 
   //qDebug() << "xml tools descructor 1...";
   //TODO: unregister the model
 }
 
 PluginKateXMLToolsCompletionModel::PluginKateXMLToolsCompletionModel( QObject* const parent )
-  : CodeCompletionModel2 (parent)
-  , m_docToAssignTo(0)
+  : CodeCompletionModel (parent)
+  , m_viewToAssignTo(0)
   , m_mode(none)
   , m_correctPos(0)
 {
@@ -192,11 +199,9 @@ void PluginKateXMLToolsCompletionModel::slotDocumentDeleted( KTextEditor::Docume
 }
 
 
-void PluginKateXMLToolsCompletionModel::completionInvoked(
-    KTextEditor::View *kv
-  , const KTextEditor::Range &range
-  , const InvocationType invocationType
-  )
+void PluginKateXMLToolsCompletionModel::completionInvoked(KTextEditor::View *kv,
+                                                          const KTextEditor::Range &range,
+                                                          const InvocationType invocationType)
 {
   Q_UNUSED( range )
   Q_UNUSED( invocationType )
@@ -322,7 +327,9 @@ QModelIndex PluginKateXMLToolsCompletionModel::parent(const QModelIndex& index) 
   return createIndex(0, 0, groupNode);
 }
 
-QModelIndex PluginKateXMLToolsCompletionModel::index(const int row, const int column, const QModelIndex &parent) const
+QModelIndex PluginKateXMLToolsCompletionModel::index(const int row,
+                                                     const int column,
+                                                     const QModelIndex &parent) const
 {
   if (!parent.isValid())
   {
@@ -332,7 +339,7 @@ QModelIndex PluginKateXMLToolsCompletionModel::index(const int row, const int co
   if (parent.internalId() == groupNode)                     // Is this a group node?
   {
     if (0 <= row && row < m_allowed.size())                 // Make sure to return only valid indices
-      return createIndex(row, column, 0);                   // Just return a leaf-level index
+      return createIndex(row, column, (void*)0);            // Just return a leaf-level index
   }
   // Leaf node has no children... nothing to return
   return QModelIndex();
@@ -393,10 +400,10 @@ bool PluginKateXMLToolsCompletionModel::shouldStartCompletion( KTextEditor::View
  */
 void PluginKateXMLToolsCompletionModel::getDTD()
 {
-  if ( !application()->activeMainWindow() )
+  if ( !KTextEditor::Editor::instance()->application()->activeMainWindow() )
     return;
 
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
+  KTextEditor::View *kv = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
   if( ! kv )
   {
     qDebug() << "Warning: no KTextEditor::View";
@@ -406,8 +413,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
   // ### replace this with something more sane
   // Start where the supplied XML-DTDs are fed by default unless
   // user changed directory last time:
-
-  QString defaultDir = KGlobal::dirs()->findResourceDir("data", "katexmltools/" ) + "katexmltools/";
+  QString defaultDir = QStandardPaths::locate(QStandardPaths::GenericDataLocation, "katexmltools") + "/katexmltools/";
   if( m_urlString.isNull() ) {
     m_urlString = defaultDir;
   }
@@ -485,11 +491,11 @@ void PluginKateXMLToolsCompletionModel::getDTD()
   m_urlString = url.url();	// remember directory for next time
 
   if ( m_dtds[ m_urlString ] )
-    assignDTD( m_dtds[ m_urlString ], kv->document() );
+    assignDTD( m_dtds[ m_urlString ], kv );
   else
   {
     m_dtdString.clear();
-    m_docToAssignTo = kv->document();
+    m_viewToAssignTo = kv;
 
     KApplication::setOverrideCursor( Qt::WaitCursor );
     KIO::Job *job = KIO::get( url );
@@ -520,10 +526,10 @@ void PluginKateXMLToolsCompletionModel::slotFinished( KJob *job )
     dtd->analyzeDTD( m_urlString, m_dtdString );
 
     m_dtds.insert( m_urlString, dtd );
-    assignDTD( dtd, m_docToAssignTo );
+    assignDTD( dtd, m_viewToAssignTo );
 
     // clean up a bit
-    m_docToAssignTo = 0;
+    m_viewToAssignTo = 0;
     m_dtdString.clear();
   }
   QApplication::restoreOverrideCursor();
@@ -534,20 +540,19 @@ void PluginKateXMLToolsCompletionModel::slotData( KIO::Job *, const QByteArray &
   m_dtdString += QString( data );
 }
 
-void PluginKateXMLToolsCompletionModel::assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc )
+void PluginKateXMLToolsCompletionModel::assignDTD( PseudoDTD *dtd, KTextEditor::View *view)
 {
-  m_docDtds.insert( doc, dtd );
+  m_docDtds.insert( view->document(), dtd );
 
   //TODO:perhaps foreach views()?
-  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(doc->activeView());
+  KTextEditor::CodeCompletionInterface *cci = qobject_cast<KTextEditor::CodeCompletionInterface *>(view);
 
-  if( cci ) {
+  if (cci) {
     cci->registerCompletionModel( this );
     cci->setAutomaticInvocationEnabled( true );
     qDebug() << "PluginKateXMLToolsView: completion model registered";
-  }
-  else {
-    kWarning() << "PluginKateXMLToolsView: completion interface unavailable";
+  } else {
+    qWarning() << "PluginKateXMLToolsView: completion interface unavailable";
   }
 }
 
@@ -558,10 +563,10 @@ void PluginKateXMLToolsCompletionModel::assignDTD( PseudoDTD *dtd, KTextEditor::
  */
 void PluginKateXMLToolsCompletionModel::slotInsertElement()
 {
-  if ( !application()->activeMainWindow() )
+  if ( !KTextEditor::Editor::instance()->application()->activeMainWindow() )
     return;
 
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
+  KTextEditor::View *kv = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
   if( ! kv )
   {
     qDebug() << "Warning: no KTextEditor::View";
@@ -577,7 +582,7 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
     allowed = dtd->allowedElements(parentElement );
 
   InsertElement *dialog = new InsertElement(
-      ( QWidget *)application()->activeMainWindow()->activeView(), "insertXml" );
+      ( QWidget *)KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView(), "insertXml" );
   QString text = dialog->showDialog( allowed );
   delete dialog;
 
@@ -632,10 +637,10 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
  */
 void PluginKateXMLToolsCompletionModel::slotCloseElement()
 {
-  if ( !application()->activeMainWindow() )
+  if ( !KTextEditor::Editor::instance()->application()->activeMainWindow() )
     return;
 
-  KTextEditor::View *kv = application()->activeMainWindow()->activeView();
+  KTextEditor::View *kv = KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView();
   if( ! kv )
   {
     qDebug() << "Warning: no KTextEditor::View";
@@ -651,25 +656,19 @@ void PluginKateXMLToolsCompletionModel::slotCloseElement()
 
 
 // modify the completion string before it gets inserted
-void PluginKateXMLToolsCompletionModel::executeCompletionItem2( KTextEditor::Document *document,
-                                                                const KTextEditor::Range &word,
-                                                                const QModelIndex &index ) const
+void PluginKateXMLToolsCompletionModel::executeCompletionItem(KTextEditor::View *view,
+                                                              const KTextEditor::Range &word,
+                                                              const QModelIndex &index) const
 {
   KTextEditor::Range toReplace = word;
+  KTextEditor::Document * document = view->document();
 
   QString text = data( index.sibling( index.row(), Name ), Qt::DisplayRole ).toString();
 
   qDebug() << "executeCompletionItem text: " << text;
 
-  KTextEditor::View *kv = document->activeView();
-  if( ! kv )
-  {
-    qDebug() << "Warning (filterInsertString() ): no KTextEditor::View";
-    return;
-  }
-
   int line, col;
-  kv->cursorPosition().position( line, col );
+  view->cursorPosition().position( line, col );
   QString lineStr = document->line( line );
   QString leftCh = lineStr.mid( col-1, 1 );
   QString rightCh = lineStr.mid( col, 1 );
@@ -749,9 +748,9 @@ void PluginKateXMLToolsCompletionModel::executeCompletionItem2( KTextEditor::Doc
   document->replaceText( toReplace, text );
 
   // move the cursor to desired position
-  KTextEditor::Cursor curPos = kv->cursorPosition();
+  KTextEditor::Cursor curPos = view->cursorPosition();
   curPos.setColumn( curPos.column() + posCorrection );
-  kv->setCursorPosition( curPos );
+  view->setCursorPosition( curPos );
 }
 
 
@@ -1132,4 +1131,7 @@ QString InsertElement::showDialog( QStringList &completions )
   return QString();
 }
 //END InsertElement dialog
+
+#include "plugin_katexmltools.moc"
+
 // kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;

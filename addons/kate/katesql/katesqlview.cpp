@@ -141,7 +141,7 @@ void KateSQLView::setupActions()
 
   action = collection->addAction(QLatin1String ("connection_chooser"));
   action->setText( i18nc("@action:intoolbar", "Connection") );
-  action->setDefaultWidget(m_connectionsComboBox);
+  // FIXME KF5 action->setDefaultWidget(m_connectionsComboBox);
 
   action = collection->addAction(QLatin1String ("query_run"));
   action->setText( i18nc("@action:inmenu", "Run query") );
@@ -211,14 +211,14 @@ void KateSQLView::slotGlobalSettingsChanged()
 
 void KateSQLView::readSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
-  KConfigGroup globalConfig(KGlobal::config(), "KateSQLPlugin");
+  KConfigGroup globalConfig(KSharedConfig::openConfig(), "KateSQLPlugin");
 
   bool saveConnections = globalConfig.readEntry("SaveConnections", true);
 
   if (!saveConnections)
     return;
 
-  KConfigGroup group(config, groupPrefix + ":connections");
+  KConfigGroup group(config, groupPrefix + QLatin1String (":connections"));
 
   m_manager->loadConnections(&group);
 
@@ -231,7 +231,7 @@ void KateSQLView::readSessionConfig (KConfigBase* config, const QString& groupPr
 
 void KateSQLView::writeSessionConfig (KConfigBase* config, const QString& groupPrefix)
 {
-  KConfigGroup group(config, groupPrefix + ":connections");
+  KConfigGroup group(config, groupPrefix + QLatin1String (":connections"));
 
   group.deleteGroup();
 
@@ -276,7 +276,7 @@ void KateSQLView::slotConnectionEdit()
     return;
 
   ConnectionModel *model = m_manager->connectionModel();
-  Connection c = qVariantValue<Connection>(model->data(model->index(i), Qt::UserRole));
+  Connection c = model->data(model->index(i), Qt::UserRole).value<Connection>();
 
   QString previousName = c.name;
 

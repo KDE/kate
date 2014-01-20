@@ -3265,7 +3265,7 @@ Cursor KateViNormalMode::findSentenceStart()
         int lastSpace = j--;
         for (; j >= 0 && QString::fromLatin1("\"')]").indexOf(line.at(j)) != -1; j--);
 
-        if (QString::fromLatin1(".!?").indexOf(line.at(j)) != -1) {
+        if (j >= 0 && QString::fromLatin1(".!?").indexOf(line.at(j)) != -1) {
           return Cursor(i, prev);
         }
         j = lastSpace;

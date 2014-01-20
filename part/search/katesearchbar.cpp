@@ -642,12 +642,22 @@ bool KateSearchBar::find(SearchDirection searchDirection, const QString * replac
 
     }
     if (wrap) {
-        const QString msg = (searchDirection == SearchForward) ? i18n("Continuing search from top") : i18n("Continuing search from bottom");
-        QPointer<KTextEditor::Message> message = new KTextEditor::Message(msg, KTextEditor::Message::Information);
-        message->setPosition((searchDirection == KateSearchBar::SearchForward) ? KTextEditor::Message::TopInView : KTextEditor::Message::BottomInView);
-        message->setAutoHide(2000);
-        message->setAutoHideMode(KTextEditor::Message::Immediate);
-        m_view->doc()->postMessage(message);
+        // show message widget when wrapping (if not already present)
+        if (searchDirection == SearchForward && !m_wrappedTopMessage) {
+            const QString msg = i18n("Continuing search from top");
+            m_wrappedTopMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+            m_wrappedTopMessage->setPosition(KTextEditor::Message::TopInView);
+            m_wrappedTopMessage->setAutoHide(2000);
+            m_wrappedTopMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+            m_view->doc()->postMessage(m_wrappedTopMessage);
+        } else if (searchDirection == SearchBackward && !m_wrappedBottomMessage) {
+            const QString msg = i18n("Continuing search from bottom");
+            m_wrappedBottomMessage = new KTextEditor::Message(msg, KTextEditor::Message::Information);
+            m_wrappedBottomMessage->setPosition(KTextEditor::Message::BottomInView);
+            m_wrappedBottomMessage->setAutoHide(2000);
+            m_wrappedBottomMessage->setAutoHideMode(KTextEditor::Message::Immediate);
+            m_view->doc()->postMessage(m_wrappedBottomMessage);
+        }
 
         inputRange = m_view->document()->documentRange();
         match.searchText(inputRange, searchPattern());

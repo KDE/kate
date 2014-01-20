@@ -1480,6 +1480,13 @@ bool KateCompletionModel::Item::operator <( const Item & rhs ) const
   }
 
   if( ret == 0 ) {
+    const QString& filter = rhs.model->currentCompletion(rhs.m_sourceRow.first);
+    if( m_nameColumn.startsWith(filter, Qt::CaseSensitive) ) {
+      return true;
+    }
+    if( rhs.m_nameColumn.startsWith(filter, Qt::CaseSensitive) ) {
+      return false;
+    }
     // FIXME need to define a better default ordering for multiple model display
     ret = m_sourceRow.second.row() - rhs.m_sourceRow.second.row();
   }

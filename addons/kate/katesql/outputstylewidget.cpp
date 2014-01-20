@@ -120,7 +120,7 @@ void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
   KColorButton *foregroundColorButton = static_cast<KColorButton*>(itemWidget(item, 5));
   KColorButton *backgroundColorButton = static_cast<KColorButton*>(itemWidget(item, 6));
 
-  const QFont font = g.readEntry("font", KGlobalSettings::generalFont());
+  const QFont font = g.readEntry("font", QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 
   boldCheckBox->setChecked(font.bold());
   italicCheckBox->setChecked(font.italic());
@@ -145,7 +145,7 @@ void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
   KColorButton *foregroundColorButton = static_cast<KColorButton*>(itemWidget(item, 5));
   KColorButton *backgroundColorButton = static_cast<KColorButton*>(itemWidget(item, 6));
 
-  QFont f(KGlobalSettings::generalFont());
+  QFont f(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 
   f.setBold(boldCheckBox->isChecked());
   f.setItalic(italicCheckBox->isChecked());
@@ -194,7 +194,7 @@ void OutputStyleWidget::updatePreviews()
     const KColorButton *foregroundColorButton = static_cast<KColorButton*>(itemWidget(item, 5));
     const KColorButton *backgroundColorButton = static_cast<KColorButton*>(itemWidget(item, 6));
 
-    QFont f(KGlobalSettings::generalFont());
+    QFont f(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 
     f.setBold(boldCheckBox->isChecked());
     f.setItalic(italicCheckBox->isChecked());

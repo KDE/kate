@@ -24,6 +24,9 @@
 #include <kconfiggroup.h>
 #include <KSharedConfig>
 
+#include <QFontDatabase>
+#include <QLocale>
+
 inline bool isNumeric(const QVariant::Type type)
 {
   return (type > 1 && type < 7);
@@ -78,9 +81,9 @@ void DataOutputModel::readConfig()
 
     s->foreground = scheme.foreground();
     s->background = scheme.background();
-    s->font = KGlobalSettings::generalFont();
+    s->font = QFontDatabase::systemFont(QFontDatabase::GeneralFont);
 
-    QFont dummy = g.readEntry("font", KGlobalSettings::generalFont());
+    QFont dummy = g.readEntry("font", QFontDatabase::systemFont(QFontDatabase::GeneralFont));
 
     s->font.setBold(dummy.bold());
     s->font.setItalic(dummy.italic());
@@ -153,7 +156,7 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
     if (role == Qt::DisplayRole || role == Qt::UserRole)
     {
       if (useSystemLocale())
-        return QVariant(KGlobal::locale()->formatNumber(value.toString(), false));
+        return QVariant(value.toString()); //FIXME KF5 KGlobal::locale()->formatNumber(value.toString(), false));
       else
         return QVariant(value.toString());
     }
@@ -168,7 +171,7 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
     if (role == Qt::BackgroundRole)
       return QVariant(m_styles.value(QLatin1String ("bool"))->background);
     if (role == Qt::DisplayRole)
-      return QVariant(value.toBool() ? "True" : "False");
+      return QVariant(value.toBool() ? QLatin1String ("True") : QLatin1String ("False"));
   }
 
   if (type == QVariant::Date ||
@@ -186,11 +189,11 @@ QVariant DataOutputModel::data(const QModelIndex &index, int role) const
       if (useSystemLocale())
       {
         if (type == QVariant::Date)
-          return QVariant(KGlobal::locale()->formatDate(value.toDate(), KLocale::ShortDate));
+          return QVariant(QLocale().toString(value.toDate(), QLocale::ShortFormat));
         if (type == QVariant::Time)
-          return QVariant(KGlobal::locale()->formatTime(value.toTime(), true));
+          return QVariant(QLocale().toString(value.toTime()));
         if (type == QVariant::DateTime)
-          return QVariant(KGlobal::locale()->formatDateTime(value.toDateTime(), KLocale::ShortDate, true));
+          return QVariant(QLocale().toString(value.toDateTime(), QLocale::ShortFormat));
       }
       else // return sql server format
         return QVariant(value.toString());

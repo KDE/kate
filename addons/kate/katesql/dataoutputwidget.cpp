@@ -21,17 +21,15 @@
 #include "dataoutputview.h"
 #include "exportwizard.h"
 
-#include <kate/application.h>
-#include <kate/mainwindow.h>
-#include <kate/documentmanager.h>
+#include <ktexteditor/editor.h>
+#include <ktexteditor/application.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
-#include <kfiledialog.h>
-#include <kapplication.h>
+
 #include <ktoolbar.h>
 #include <ktoggleaction.h>
 #include <QAction>
-#include <kicon.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
 
@@ -44,6 +42,9 @@
 #include <qtextstream.h>
 #include <qfile.h>
 #include <qtimer.h>
+#include <QApplication>
+#include <QClipboard>
+#include <QTime>
 
 DataOutputWidget::DataOutputWidget(QWidget *parent)
 : QWidget(parent)
@@ -63,33 +64,33 @@ DataOutputWidget::DataOutputWidget(QWidget *parent)
 
   /// TODO: disable actions if no results are displayed or selected
 
-  KAction *action;
+  QAction *action;
 
-  action = new KAction( KIcon("distribute-horizontal-x"), i18nc("@action:intoolbar", "Resize columns to contents"), this);
+  action = new QAction( QIcon::fromTheme(QLatin1String("distribute-horizontal-x")), i18nc("@action:intoolbar", "Resize columns to contents"), this);
   toolbar->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(resizeColumnsToContents()));
 
-  action = new KAction( KIcon("distribute-vertical-y"), i18nc("@action:intoolbar", "Resize rows to contents"), this);
+  action = new QAction( QIcon::fromTheme(QLatin1String("distribute-vertical-y")), i18nc("@action:intoolbar", "Resize rows to contents"), this);
   toolbar->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(resizeRowsToContents()));
 
-  action = new KAction( KIcon("edit-copy"), i18nc("@action:intoolbar", "Copy"), this);
+  action = new QAction( QIcon::fromTheme(QLatin1String("edit-copy")), i18nc("@action:intoolbar", "Copy"), this);
   toolbar->addAction(action);
   m_view->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(slotCopySelected()));
 
-  action = new KAction( KIcon("document-export-table"), i18nc("@action:intoolbar", "Export..."), this);
+  action = new QAction( QIcon::fromTheme(QLatin1String("document-export-table")), i18nc("@action:intoolbar", "Export..."), this);
   toolbar->addAction(action);
   m_view->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(slotExport()));
 
-  action = new KAction( KIcon("edit-clear"), i18nc("@action:intoolbar", "Clear"), this);
+  action = new QAction( QIcon::fromTheme(QLatin1String("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
   toolbar->addAction(action);
   connect(action, SIGNAL(triggered()), this, SLOT(clearResults()));
 
   toolbar->addSeparator();
 
-  KToggleAction *toggleAction = new KToggleAction( KIcon("applications-education-language"), i18nc("@action:intoolbar", "Use system locale"), this);
+  KToggleAction *toggleAction = new KToggleAction( QIcon::fromTheme(QLatin1String("applications-education-language")), i18nc("@action:intoolbar", "Use system locale"), this);
   toolbar->addAction(toggleAction);
   connect(toggleAction, SIGNAL(triggered()), this, SLOT(slotToggleLocale()));
 
@@ -193,7 +194,7 @@ void DataOutputWidget::slotCopySelected()
   exportData(stream);
 
   if (!text.isEmpty())
-    kapp->clipboard()->setText(text);
+    QApplication::clipboard()->setText(text);
 }
 
 
@@ -213,12 +214,12 @@ void DataOutputWidget::slotExport()
   if (wizard.exec() != QDialog::Accepted)
     return;
 
-  bool outputInDocument = wizard.field("outDocument").toBool();
-  bool outputInClipboard = wizard.field("outClipboard").toBool();
-  bool outputInFile = wizard.field("outFile").toBool();
+  bool outputInDocument = wizard.field(QLatin1String("outDocument")).toBool();
+  bool outputInClipboard = wizard.field(QLatin1String("outClipboard")).toBool();
+  bool outputInFile = wizard.field(QLatin1String("outFile")).toBool();
 
-  bool exportColumnNames = wizard.field("exportColumnNames").toBool();
-  bool exportLineNumbers = wizard.field("exportLineNumbers").toBool();
+  bool exportColumnNames = wizard.field(QLatin1String("exportColumnNames")).toBool();
+  bool exportLineNumbers = wizard.field(QLatin1String("exportLineNumbers")).toBool();
 
   Options opt = NoOptions;
 
@@ -227,17 +228,17 @@ void DataOutputWidget::slotExport()
   if (exportLineNumbers)
     opt |= ExportLineNumbers;
 
-  bool quoteStrings = wizard.field("checkQuoteStrings").toBool();
-  bool quoteNumbers = wizard.field("checkQuoteNumbers").toBool();
+  bool quoteStrings = wizard.field(QLatin1String("checkQuoteStrings")).toBool();
+  bool quoteNumbers = wizard.field(QLatin1String("checkQuoteNumbers")).toBool();
 
-  QChar stringsQuoteChar = (quoteStrings) ? wizard.field("quoteStringsChar").toString().at(0) : '\0';
-  QChar numbersQuoteChar = (quoteNumbers) ? wizard.field("quoteNumbersChar").toString().at(0) : '\0';
+  QChar stringsQuoteChar = (quoteStrings) ? wizard.field(QLatin1String("quoteStringsChar")).toString().at(0) : QLatin1Char('\0');
+  QChar numbersQuoteChar = (quoteNumbers) ? wizard.field(QLatin1String("quoteNumbersChar")).toString().at(0) : QLatin1Char('\0');
 
-  QString fieldDelimiter = wizard.field("fieldDelimiter").toString();
+  QString fieldDelimiter = wizard.field(QLatin1String("fieldDelimiter")).toString();
 
   if (outputInDocument)
   {
-    Kate::MainWindow *mw = Kate::application()->activeMainWindow();
+    KTextEditor::MainWindow *mw = KTextEditor::Editor::instance()->application()->activeMainWindow();
     KTextEditor::View *kv = mw->activeView();
 
     if (!kv)
@@ -258,11 +259,11 @@ void DataOutputWidget::slotExport()
 
     exportData(stream, stringsQuoteChar, numbersQuoteChar, fieldDelimiter, opt);
 
-    kapp->clipboard()->setText(text);
+    QApplication::clipboard()->setText(text);
   }
   else if (outputInFile)
   {
-    QString url = wizard.field("outFileUrl").toString();
+    QString url = wizard.field(QLatin1String ("outFileUrl")).toString();
     QFile data(url);
     if (data.open(QFile::WriteOnly | QFile::Truncate))
     {
@@ -294,9 +295,9 @@ void DataOutputWidget::exportData(QTextStream &stream,
   QString fixedFieldDelimiter = fieldDelimiter;
 
   /// FIXME: ugly workaround...
-  fixedFieldDelimiter = fixedFieldDelimiter.replace("\\t", "\t");
-  fixedFieldDelimiter = fixedFieldDelimiter.replace("\\r", "\r");
-  fixedFieldDelimiter = fixedFieldDelimiter.replace("\\n", "\n");
+  fixedFieldDelimiter = fixedFieldDelimiter.replace(QLatin1String ("\\t"), QLatin1String ("\t"));
+  fixedFieldDelimiter = fixedFieldDelimiter.replace(QLatin1String ("\\r"), QLatin1String ("\r"));
+  fixedFieldDelimiter = fixedFieldDelimiter.replace(QLatin1String ("\\n"), QLatin1String ("\n"));
 
   QTime t;
   t.start();
@@ -323,14 +324,14 @@ void DataOutputWidget::exportData(QTextStream &stream,
 
     if (data.type() < 7) // is numeric or boolean
     {
-      if (numbersQuoteChar != '\0')
+      if (numbersQuoteChar != QLatin1Char ('\0'))
         snapshot[qMakePair(row,col)] = numbersQuoteChar + data.toString() + numbersQuoteChar;
       else
         snapshot[qMakePair(row,col)] = data.toString();
     }
     else
     {
-      if (stringsQuoteChar != '\0')
+      if (stringsQuoteChar != QLatin1Char ('\0'))
         snapshot[qMakePair(row,col)] = stringsQuoteChar + data.toString() + stringsQuoteChar;
       else
         snapshot[qMakePair(row,col)] = data.toString();
@@ -347,7 +348,7 @@ void DataOutputWidget::exportData(QTextStream &stream,
     {
       const QVariant data = m_model->headerData(j.next(), Qt::Horizontal);
 
-      if (stringsQuoteChar != '\0')
+      if (stringsQuoteChar != QLatin1Char ('\0'))
         stream << stringsQuoteChar + data.toString() + stringsQuoteChar;
       else
         stream << data.toString();

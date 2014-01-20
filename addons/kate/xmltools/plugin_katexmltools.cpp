@@ -67,38 +67,32 @@ TODO:
 
 #include "plugin_katexmltools.h"
 
-#include <assert.h>
-
-#include <qdatetime.h>
-#include <qdom.h>
-#include <qfile.h>
-#include <qlayout.h>
-#include <qpushbutton.h>
-#include <qregexp.h>
-#include <qstring.h>
-#include <qtimer.h>
-#include <QLabel>
-#include <QVBoxLayout>
 #include <QAction>
+#include <QComboBox>
+#include <QFile>
+#include <QFileDialog>
+#include <QGuiApplication>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QRegExp>
 #include <QStandardPaths>
+#include <QString>
+#include <QUrl>
+#include <QVBoxLayout>
 
 #include <ktexteditor/editor.h>
-#include <kaction.h>
+#include <ktexteditor/mainwindow.h>
+
 #include <kactioncollection.h>
-#include <kapplication.h>
-#include <klineedit.h>
-#include <kfiledialog.h>
 #include <khistorycombobox.h>
-#include <kcomponentdata.h>
 #include <kio/job.h>
 #include <kio/jobuidelegate.h>
 #include <klocalizedstring.h>
 #include <kmessagebox.h>
-#include <kstandarddirs.h>
 #include <kpluginfactory.h>
 #include <kxmlguiclient.h>
 #include <kxmlguifactory.h>
-#include <kurl.h>
 
 K_PLUGIN_FACTORY_WITH_JSON(PluginKateXMLToolsFactory,
                            "katexmltools.json",
@@ -115,12 +109,11 @@ PluginKateXMLTools::~PluginKateXMLTools()
 
 QObject *PluginKateXMLTools::createView(KTextEditor::MainWindow *mainWindow)
 {
-    return new PluginKateXMLToolsView(this, mainWindow);
+    return new PluginKateXMLToolsView(mainWindow);
 }
 
 
-PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::Plugin *plugin,
-        KTextEditor::MainWindow *mainWin)
+PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin)
     : QObject(mainWin)
     , KXMLGUIClient()
     , m_mainWindow(mainWin)
@@ -131,17 +124,17 @@ PluginKateXMLToolsView::PluginKateXMLToolsView(KTextEditor::Plugin *plugin,
     KXMLGUIClient::setComponentName(QLatin1String("katexmltools"), i18n("Kate XML Tools"));
     setXMLFile(QLatin1String("ui.rc"));
 
-    KAction *actionInsert = new KAction(i18n("&Insert Element..."), this);
+    QAction *actionInsert = new QAction(i18n("&Insert Element..."), this);
     actionInsert->setShortcut(Qt::CTRL + Qt::Key_Return);
     connect(actionInsert, SIGNAL(triggered()), &m_model, SLOT(slotInsertElement()));
     actionCollection()->addAction("xml_tool_insert_element", actionInsert);
 
-    KAction *actionClose = new KAction(i18n("&Close Element"), this);
+    QAction *actionClose = new QAction(i18n("&Close Element"), this);
     actionClose->setShortcut(Qt::CTRL + Qt::Key_Less);
     connect(actionClose, SIGNAL(triggered()), &m_model, SLOT(slotCloseElement()));
     actionCollection()->addAction("xml_tool_close_element", actionClose);
 
-    KAction *actionAssignDTD = new KAction(i18n("Assign Meta &DTD..."), this);
+    QAction *actionAssignDTD = new QAction(i18n("Assign Meta &DTD..."), this);
     connect(actionAssignDTD, SIGNAL(triggered()), &m_model, SLOT(getDTD()));
     actionCollection()->addAction("xml_tool_assign", actionAssignDTD);
 
@@ -402,7 +395,6 @@ void PluginKateXMLToolsCompletionModel::getDTD()
     if (m_urlString.isNull()) {
         m_urlString = defaultDir;
     }
-    KUrl url;
 
     // Guess the meta DTD by looking at the doctype's public identifier.
     // XML allows comments etc. before the doctype, so look further than
@@ -455,12 +447,15 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         qDebug() << "No doctype found";
     }
 
+    QUrl url;
     if (filename.isEmpty()) {
         // no meta dtd found for this file
-        url = KFileDialog::getOpenUrl(m_urlString, "*.xml",
-                                      0, i18n("Assign Meta DTD in XML Format"));
+        url = QFileDialog::getOpenFileUrl(KTextEditor::Editor::instance()->application()->activeMainWindow()->window(),
+                                          i18n("Assign Meta DTD in XML Format"),
+                                          m_urlString,
+                                          "*.xml");
     } else {
-        url.setFileName(defaultDir + filename);
+        url.setUrl(defaultDir + filename);
         KMessageBox::information(0, i18n("The current file has been identified "
                                          "as a document of type \"%1\". The meta DTD for this document type "
                                          "will now be loaded.", doctype),
@@ -480,7 +475,7 @@ void PluginKateXMLToolsCompletionModel::getDTD()
         m_dtdString.clear();
         m_viewToAssignTo = kv;
 
-        KApplication::setOverrideCursor(Qt::WaitCursor);
+        QGuiApplication::setOverrideCursor(Qt::WaitCursor);
         KIO::Job *job = KIO::get(url);
         connect(job, SIGNAL(result(KJob *)), this, SLOT(slotFinished(KJob *)));
         connect(job, SIGNAL(data(KIO::Job *, QByteArray)),
@@ -510,7 +505,7 @@ void PluginKateXMLToolsCompletionModel::slotFinished(KJob *job)
         m_viewToAssignTo = 0;
         m_dtdString.clear();
     }
-    QApplication::restoreOverrideCursor();
+    QGuiApplication::restoreOverrideCursor();
 }
 
 void PluginKateXMLToolsCompletionModel::slotData(KIO::Job *, const QByteArray &data)
@@ -560,10 +555,11 @@ void PluginKateXMLToolsCompletionModel::slotInsertElement()
         allowed = dtd->allowedElements(parentElement);
     }
 
-    InsertElement *dialog = new InsertElement(
-        (QWidget *)KTextEditor::Editor::instance()->application()->activeMainWindow()->activeView(), "insertXml");
-    QString text = dialog->showDialog(allowed);
-    delete dialog;
+    QString text;
+    InsertElement dialog(allowed, kv);
+    if (dialog.exec() == QDialog::Accepted) {
+        text = dialog.text();
+    }
 
     if (!text.isEmpty()) {
         QStringList list = text.split(QChar(' '));
@@ -1065,15 +1061,38 @@ QStringList PluginKateXMLToolsCompletionModel::sortQStringList(QStringList list)
 }
 
 //BEGIN InsertElement dialog
-InsertElement::InsertElement(QWidget *const parent, const char *name)
-    : KDialog(parent)
+InsertElement::InsertElement(const QStringList & completions, QWidget * parent)
+    : QDialog(parent)
 {
-    Q_UNUSED(name)
+    setWindowTitle(i18n("Insert XML Element"));
 
-    setCaption(i18n("Insert XML Element"));
-    setButtons(KDialog::Ok | KDialog::Cancel);
-    setDefaultButton(KDialog::Ok);
-    setModal(true);
+    QVBoxLayout *topLayout = new QVBoxLayout(this);
+
+    // label
+    QString text = i18n("Enter XML tag name and attributes (\"<\", \">\" and closing tag will be supplied):");
+    QLabel *label = new QLabel(text, this);
+
+    // combo box
+    m_cmbElements = new KHistoryComboBox(this);
+    static_cast<KHistoryComboBox*>(m_cmbElements)->setHistoryItems(completions, true);
+    connect(m_cmbElements->lineEdit(), SIGNAL(textChanged(QString)),
+            this, SLOT(slotHistoryTextChanged(QString)));
+
+    // button box
+    QDialogButtonBox * box = new QDialogButtonBox(this);
+    box->setStandardButtons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    m_okButton = box->button(QDialogButtonBox::Ok);
+    m_okButton->setDefault(true);
+
+    // fill layout
+    topLayout->addWidget(label);
+    topLayout->addWidget(m_cmbElements);
+    topLayout->addWidget(box);
+
+    m_cmbElements->setFocus();
+
+    // make sure the ok button is enabled/disabled correctly
+    slotHistoryTextChanged(m_cmbElements->lineEdit()->text());
 }
 
 InsertElement::~InsertElement()
@@ -1082,32 +1101,12 @@ InsertElement::~InsertElement()
 
 void InsertElement::slotHistoryTextChanged(const QString &text)
 {
-    enableButtonOk(!text.isEmpty());
+    m_okButton->setEnabled(!text.isEmpty());
 }
 
-QString InsertElement::showDialog(QStringList &completions)
+QString InsertElement::text() const
 {
-    QWidget *page = new QWidget(this);
-    setMainWidget(page);
-    QVBoxLayout *topLayout = new QVBoxLayout(page);
-
-    KHistoryComboBox *combo = new KHistoryComboBox(page);
-    combo->setHistoryItems(completions, true);
-    connect(combo->lineEdit(), SIGNAL(textChanged(QString)),
-            this, SLOT(slotHistoryTextChanged(QString)));
-    QString text = i18n("Enter XML tag name and attributes (\"<\", \">\" and closing tag will be supplied):");
-    QLabel *label = new QLabel(text, page);
-
-    topLayout->addWidget(label);
-    topLayout->addWidget(combo);
-
-    combo->setFocus();
-    slotHistoryTextChanged(combo->lineEdit()->text());
-    if (exec()) {
-        return combo->currentText();
-    }
-
-    return QString();
+    return m_cmbElements->currentText();
 }
 //END InsertElement dialog
 

@@ -25,21 +25,20 @@
 
 #include "pseudo_dtd.h"
 
-#include <qstring.h>
-
-#include <ktexteditor/plugin.h>
 #include <ktexteditor/application.h>
-#include <ktexteditor/mainwindow.h>
-#include <ktexteditor/document.h>
-#include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
 #include <ktexteditor/codecompletionmodel.h>
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
+#include <ktexteditor/document.h>
+#include <ktexteditor/mainwindow.h>
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/view.h>
 
-#include <kcombobox.h>
-#include <KDE4Support/kdialog.h>
+#include <QString>
 #include <QVariantList>
 
+class QComboBox;
+class QPushButton;
 
 class PluginKateXMLTools : public KTextEditor::Plugin
 {
@@ -152,7 +151,7 @@ class PluginKateXMLToolsView : public QObject, public KXMLGUIClient
 
 public:
 
-    explicit PluginKateXMLToolsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
+    explicit PluginKateXMLToolsView(KTextEditor::MainWindow *mainWin);
     virtual ~PluginKateXMLToolsView();
 
 protected:
@@ -160,18 +159,22 @@ protected:
     PluginKateXMLToolsCompletionModel m_model;
 };
 
-class InsertElement : public KDialog
+class InsertElement : public QDialog
 {
-
     Q_OBJECT
 
 public:
-    InsertElement(QWidget *parent, const char *name);
-    ~InsertElement();
-    QString showDialog(QStringList &completions);
+    InsertElement(const QStringList &completions, QWidget *parent);
+    virtual ~InsertElement();
+
+    QString text() const;
+
 private Q_SLOTS:
     void slotHistoryTextChanged(const QString &);
 
+private:
+    QComboBox * m_cmbElements;
+    QPushButton * m_okButton;
 };
 
 #endif // PLUGIN_KATEXMLTOOLS_H

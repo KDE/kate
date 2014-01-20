@@ -1,9 +1,6 @@
 project(katexmltoolsplugin)
 
-# Load the frameworks we need
-find_package(KF5 CONFIG REQUIRED COMPONENTS KDE4Support)
-
-# TODO: Remove these later
+# Maybe remove these later
 remove_definitions(-DQT_NO_CAST_TO_ASCII)
 remove_definitions(-DQT_NO_CAST_FROM_ASCII)
 remove_definitions(-DQT_NO_URL_CAST_FROM_STRING)
@@ -22,7 +19,6 @@ target_link_libraries(katexmltoolsplugin
     KF5::IconThemes
     KF5::I18n
     KF5::Service
-    KF5::KDE4Support
 )
 
 ########### install files ###############

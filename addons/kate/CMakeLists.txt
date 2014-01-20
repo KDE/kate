@@ -22,6 +22,9 @@ ecm_optional_add_subdirectory (katesql)
 # file browser
 ecm_optional_add_subdirectory (filebrowser)
 
+# xml completion
+ecm_optional_add_subdirectory ( xmltools )
+
 #if(NOT WIN32)
 #   add_subdirectory( gdbplugin )   # reading /proc/...
 #endif(NOT WIN32)
@@ -40,7 +43,7 @@ ecm_optional_add_subdirectory (filebrowser)
 #add_subdirectory( kttsd )
 
 #add_subdirectory( openheader )
-#add_subdirectory( xmltools )
+
 #add_subdirectory( xmlcheck )
 
 

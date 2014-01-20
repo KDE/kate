@@ -22,8 +22,6 @@
 
 #include "pseudo_dtd.h"
 
-#include <assert.h>
-
 #include <qdom.h>
 #include <qregexp.h>
 

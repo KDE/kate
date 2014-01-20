@@ -38,7 +38,7 @@ class KateSQLView : public QObject, public KXMLGUIClient
   Q_OBJECT
 
   public:
-    explicit KateSQLView(KTextEditor::MainWindow *mw);
+    KateSQLView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mw);
     ~KateSQLView();
 
     void readSessionConfig (KConfigBase* config, const QString& groupPrefix);

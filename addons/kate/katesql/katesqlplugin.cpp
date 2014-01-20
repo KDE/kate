@@ -44,7 +44,7 @@ KateSQLPlugin::~KateSQLPlugin()
 
 QObject *KateSQLPlugin::createView (KTextEditor::MainWindow *mainWindow)
 {
-  KateSQLView *view = new KateSQLView(mainWindow);
+  KateSQLView *view = new KateSQLView(this, mainWindow);
 
   connect(this, SIGNAL(globalSettingsChanged()), view, SLOT(slotGlobalSettingsChanged()));
 

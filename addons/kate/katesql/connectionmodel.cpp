@@ -18,9 +18,7 @@
 
 #include "connectionmodel.h"
 
-#include <kicon.h>
-#include <kglobalsettings.h>
-
+#include <QIcon>
 #include <qfontmetrics.h>
 #include <qfont.h>
 #include <qsize.h>
@@ -30,10 +28,10 @@
 ConnectionModel::ConnectionModel(QObject *parent)
 : QAbstractListModel(parent)
 {
-  m_icons[Connection::UNKNOWN]          = KIcon("user-offline");
-  m_icons[Connection::ONLINE]           = KIcon("user-online");
-  m_icons[Connection::OFFLINE]          = KIcon("user-offline");
-  m_icons[Connection::REQUIRE_PASSWORD] = KIcon("user-invisible");
+  m_icons[Connection::UNKNOWN]          = QIcon::fromTheme(QLatin1String("user-offline"));
+  m_icons[Connection::ONLINE]           = QIcon::fromTheme(QLatin1String("user-online"));
+  m_icons[Connection::OFFLINE]          = QIcon::fromTheme(QLatin1String("user-offline"));
+  m_icons[Connection::REQUIRE_PASSWORD] = QIcon::fromTheme(QLatin1String("user-invisible"));
 }
 
 ConnectionModel::~ConnectionModel()

@@ -1084,6 +1084,9 @@ InsertElement::InsertElement(const QStringList & completions, QWidget * parent)
     m_okButton = box->button(QDialogButtonBox::Ok);
     m_okButton->setDefault(true);
 
+    connect(box, SIGNAL(accepted()), this, SLOT(accept()));
+    connect(box, SIGNAL(rejected()), this, SLOT(reject()));
+
     // fill layout
     topLayout->addWidget(label);
     topLayout->addWidget(m_cmbElements);

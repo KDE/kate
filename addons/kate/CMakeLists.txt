@@ -23,7 +23,7 @@ ecm_optional_add_subdirectory (katesql)
 ecm_optional_add_subdirectory (filebrowser)
 
 # xml completion
-ecm_optional_add_subdirectory ( xmltools )
+ecm_optional_add_subdirectory (xmltools)
 
 #if(NOT WIN32)
 #   add_subdirectory( gdbplugin )   # reading /proc/...

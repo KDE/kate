@@ -32,7 +32,7 @@ void KateBtDatabase::loadFromFile(const QString &url)
         QDataStream ds(&file);
         ds >> db;
     }
-    qDebug() << "Number of entries in the backtrace database:" << db.size();
+//     qDebug() << "Number of entries in the backtrace database" << url << ":" << db.size();
 }
 
 void KateBtDatabase::saveToFile(const QString &url) const
@@ -43,6 +43,7 @@ void KateBtDatabase::saveToFile(const QString &url) const
         QDataStream ds(&file);
         ds << db;
     }
+//     qDebug() << "Saved backtrace database to" << url;
 }
 
 QString KateBtDatabase::value(const QString &key)

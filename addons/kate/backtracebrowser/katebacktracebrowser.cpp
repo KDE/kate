@@ -57,8 +57,8 @@ KateBtBrowserPlugin::KateBtBrowserPlugin(QObject *parent, const QList<QVariant> 
     , indexer(&db)
 {
     s_self = this;
-    db.loadFromFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                           QLatin1String("kate/backtracedatabase")));
+    db.loadFromFile(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+                    + QLatin1String("/katebtbrowser/backtracedatabase.db"));
 }
 
 KateBtBrowserPlugin::~KateBtBrowserPlugin()
@@ -68,10 +68,12 @@ KateBtBrowserPlugin::~KateBtBrowserPlugin()
         indexer.wait();
     }
 
-    db.saveToFile(QStandardPaths::locate(QStandardPaths::GenericDataLocation,
-                                         QLatin1String("kate/backtracedatabase")));
+    const QString path = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation)
+                       + QLatin1String("/katebtbrowser");
+    QDir().mkpath(path);
+    db.saveToFile(path + QLatin1String("/backtracedatabase.db"));
 
-    s_self = 0L;
+    s_self = 0;
 }
 
 KateBtBrowserPlugin &KateBtBrowserPlugin::self()
@@ -159,7 +161,7 @@ KateBtBrowserPluginView::KateBtBrowserPluginView(KateBtBrowserPlugin *plugin, KT
     m_widget = new KateBtBrowserWidget(mainWindow, toolview);
 
     connect(plugin, SIGNAL(newStatus(QString)),
-            this, SLOT(setStatus(QString)));
+            m_widget, SLOT(setStatus(QString)));
 }
 
 KateBtBrowserPluginView::~KateBtBrowserPluginView()

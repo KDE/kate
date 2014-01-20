@@ -28,7 +28,6 @@
 #include "katedebug.h"
 
 #include <KConfig>
-#include <ktip.h>
 #include <KMessageBox>
 #include <KStartupInfo>
 #include <KLocalizedString>
@@ -268,9 +267,6 @@ bool KateApp::startupKate ()
   if (nav && activeKateMainWindow()->viewManager()->activeView ())
     activeKateMainWindow()->viewManager()->activeView ()->setCursorPosition (KTextEditor::Cursor (line, column));
   
-  // show the nice tips
-  KTipDialog::showTip(activeKateMainWindow());
-
   activeKateMainWindow()->setAutoSaveSettings();
 
   qCDebug(LOG_KATE) << "KateApplication::init finished successful";

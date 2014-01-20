@@ -45,7 +45,6 @@
 #include <KStandardAction>
 #include <KMimeTypeTrader>
 #include <KMultiTabBar>
-#include <ktip.h>
 #include <khelpclient.h>
 #include <KRun>
 #include <KRecentFilesAction>
@@ -343,10 +342,6 @@ void KateMainWindow::setupActions()
 
   QAction* settingsConfigure = KStandardAction::preferences(this, SLOT(slotConfigure()), actionCollection());
   settingsConfigure->setWhatsThis(i18n("Configure various aspects of this application and the editing component."));
-
-  // tip of the day :-)
-  actionCollection()->addAction( KStandardAction::TipofDay, this, SLOT(tipOfTheDay()) )
-  ->setWhatsThis(i18n("This shows useful tips on the use of this application."));
 
   if (KatePluginManager::self()->pluginList().count() > 0)
   {
@@ -806,11 +801,6 @@ void KateMainWindow::aboutEditor()
 {
   KAboutApplicationDialog ad(KTextEditor::Editor::instance()->aboutData(),this);
   ad.exec();
-}
-
-void KateMainWindow::tipOfTheDay()
-{
-  KTipDialog::showTip( /*0*/this, QString(), true );
 }
 
 void KateMainWindow::slotFullScreen(bool t)

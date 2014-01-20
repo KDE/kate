@@ -196,8 +196,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     void slotPreQuickOpen ();
     void slotQuickOpen ();
     
-    void tipOfTheDay();
-
     /* to update the caption */
     void slotDocumentCreated (KTextEditor::Document *doc);
     void updateCaption (KTextEditor::Document *doc);

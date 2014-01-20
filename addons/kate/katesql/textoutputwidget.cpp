@@ -19,11 +19,11 @@
 #include "textoutputwidget.h"
 #include "connection.h"
 
-#include <kglobalsettings.h>
 #include <ktoolbar.h>
 #include <QAction>
 #include <klocalizedstring.h>
 
+#include <QFontDatabase>
 #include <qlayout.h>
 #include <qtextedit.h>
 #include <qdatetime.h>
@@ -42,7 +42,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
   m_output = new QTextEdit();
   m_output->setReadOnly(true);
 
-  QFont fixedFont(KGlobalSettings::fixedFont());
+  QFont fixedFont(QFontDatabase::systemFont(QFontDatabase::FixedFont));
 
   m_output->setCurrentFont(fixedFont);
 
@@ -53,9 +53,7 @@ TextOutputWidget::TextOutputWidget(QWidget *parent)
 
   /// TODO: disable actions if no results are displayed
 
-  KAction *action;
-
-  action = new KAction( KIcon("edit-clear"), i18nc("@action:intoolbar", "Clear"), this);
+  QAction *action = new QAction( QIcon::fromTheme(QLatin1String("edit-clear")), i18nc("@action:intoolbar", "Clear"), this);
   toolbar->addAction(action);
   connect(action, SIGNAL(triggered()), m_output, SLOT(clear()));
 
@@ -102,7 +100,7 @@ void TextOutputWidget::showSuccessMessage(const QString &message)
 
 void TextOutputWidget::writeMessage(const QString& msg)
 {
-  m_output->append(QString("%1: %2\n").arg(QDateTime::currentDateTime().toString(Qt::SystemLocaleDate)).arg(msg));
+  m_output->append(QString::fromLatin1("%1: %2\n").arg(QDateTime::currentDateTime().toString(Qt::SystemLocaleDate)).arg(msg));
 
   raise();
 }

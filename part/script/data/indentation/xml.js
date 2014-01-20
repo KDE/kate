@@ -70,14 +70,14 @@ function getCode(lineNr) {
         if (document.isCode(lineNr, col))
             code += line[col];
     }
-    code = removeSelfClosing(code);
+    code = replaceSelfClosing(code);
     return code.trim();
 }
 
 
 // Return given code with all self-closing tags removed.
-function removeSelfClosing(code) {
-    return code.replace(/<[^<>]*\/>/g, '');
+function replaceSelfClosing(code) {
+    return code.replace(/<[^<>]*\/>/g, '<tag></tag>');
 }
 
 
@@ -105,7 +105,7 @@ function _calcAttributeIndent(lineNr, indentWidth) {
         } while ((line.countMatches(open_tag) <= line.countMatches(close_tag)) &&
                  (lineNr > 0));
         var prevIndent = Math.max(document.firstVirtualColumn(lineNr), 0);
-        code = removeSelfClosing(code);
+        code = replaceSelfClosing(code);
         var steps = calcSteps(code);
         return prevIndent + indentWidth * steps;
     }

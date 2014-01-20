@@ -63,7 +63,6 @@ class KateViewBar;
 class KateGotoBar;
 class KateDictionaryBar;
 class KateSpellingMenu;
-class KateScriptConsole;
 class KateMessageWidget;
 
 class KToggleAction;
@@ -559,7 +558,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     void toggleWWMarker();
     void toggleWriteLock();
     void switchToCmdLine ();
-    void switchToConsole ();
     void slotReadWriteChanged ();
     void slotClipboardHistoryChanged ();
 
@@ -616,7 +614,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KSelectAction*         m_setDynWrapIndicators;
     KToggleAction*         m_toggleWWMarker;
     KAction*               m_switchCmdLine;
-    KAction*               m_switchConsole;
     KToggleAction*         m_viInputModeAction;
 
     KSelectAction*         m_setEndOfLine;
@@ -685,7 +682,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateViewBar *topViewBar() const;
     KateViewBar *bottomViewBar() const;
     KateCommandLineBar *cmdLineBar ();
-    KateScriptConsole *consoleBar ();
     KateDictionaryBar *dictionaryBar();
     KateViEmulatedCommandBar *viModeEmulatedCommandBar();
 
@@ -704,7 +700,6 @@ class KATEPART_TESTS_EXPORT KateView : public KTextEditor::View,
     KateViewBar *m_topViewBar;
     // created on demand..., only access them through the above accessors....
     KateCommandLineBar *m_cmdLine;
-    KateScriptConsole *m_console;
     KateSearchBar *m_searchBar;
     KateViEmulatedCommandBar *m_viModeEmulatedCommandBar;
     KateGotoBar *m_gotoBar;

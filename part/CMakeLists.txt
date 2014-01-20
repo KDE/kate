@@ -81,7 +81,6 @@ script/katecommandlinescript.cpp
 script/katetemplatescript.cpp
 script/katescriptmanager.cpp
 script/katescriptaction.cpp
-script/katescriptconsole.cpp
 
 # scripting wrappers
 script/katescriptdocument.cpp

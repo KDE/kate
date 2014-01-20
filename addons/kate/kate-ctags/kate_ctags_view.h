@@ -22,45 +22,46 @@
  */
 
 
-#include <ktexteditor/view.h>
-#include <ktexteditor/document.h>
+#include <KTextEditor/View>
+#include <KTextEditor/Document>
 
-#include <kate/plugin.h>
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
-#include <ktexteditor/configpageinterface.h>
+#include <KTextEditor/Application>
+#include <KTextEditor/MainWindow>
+#include <ktexteditor/sessionconfiginterface.h>
 
-#include <kprocess.h>
-#include <kactionmenu.h>
+#include <QProcess>
+#include <KXMLGUIClient>
 
 #include <QStack>
 #include <QTimer>
+#include <KActionMenu>
+#include <QPointer>
 
 #include "tags.h"
 
 #include "ui_kate_ctags.h"
 
-#define DEFAULT_CTAGS_CMD "ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=."
+const static QString DEFAULT_CTAGS_CMD = QLatin1String("ctags -R --c++-types=+px --extra=+q --excmd=pattern --exclude=Makefile --exclude=.");
 
 typedef struct
 {
-    KUrl url;
+    QUrl url;
     KTextEditor::Cursor cursor;
 } TagJump;
 
 /******************************************************************/
-class KateCTagsView : public Kate::PluginView, public Kate::XMLGUIClient
+class KateCTagsView : public QObject, public KXMLGUIClient, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
-    
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
+
 public:
-    KateCTagsView(Kate::MainWindow *mw, const KComponentData& componentData);
+  KateCTagsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
     ~KateCTagsView();
 
-    // overwritten: read and write session config
-    void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-    void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    // reimplemented: read and write session config
+    void readSessionConfig (const KConfigGroup& config);
+    void writeSessionConfig (KConfigGroup& config);
 
 public Q_SLOTS:
     void gotoDefinition();
@@ -97,7 +98,7 @@ private:
     void jumpToTag(const QString &file, const QString &pattern, const QString &word);
     
 
-    Kate::MainWindow      *m_mWin;
+    KTextEditor::MainWindow *m_mWin;
     QWidget               *m_toolView;
     Ui::kateCtags          m_ctagsUi;
 
@@ -106,7 +107,7 @@ private:
     QAction               *m_gotoDec;
     QAction               *m_lookup;
 
-    KProcess               m_proc;
+    QProcess               m_proc;
     QString                m_commonDB;
 
     QTimer                 m_editTimer;

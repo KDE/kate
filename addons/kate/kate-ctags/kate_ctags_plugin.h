@@ -25,17 +25,17 @@
 #include <ktexteditor/view.h>
 #include <ktexteditor/document.h>
 
-#include <kate/plugin.h>
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
+#include <ktexteditor/application.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpageinterface.h>
+#include <KTextEditor/ConfigPage>
+#include <KTextEditor/Plugin>
 
 #include "kate_ctags_view.h"
 #include "ui_CTagsGlobalConfig.h"
 
 //******************************************************************/
-class KateCTagsPlugin : public Kate::Plugin, public KTextEditor::ConfigPageInterface
+class KateCTagsPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::ConfigPageInterface)
@@ -44,14 +44,14 @@ class KateCTagsPlugin : public Kate::Plugin, public KTextEditor::ConfigPageInter
         explicit KateCTagsPlugin(QObject* parent = 0, const QList<QVariant> & = QList<QVariant>());
         virtual ~KateCTagsPlugin() {}
 
-        Kate::PluginView *createView(Kate::MainWindow *mainWindow);
+        QObject *createView(KTextEditor::MainWindow *mainWindow);
    
         // PluginConfigPageInterface
-        uint configPages() const { return 1; };
-        KTextEditor::ConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
-        QString configPageName (uint number = 0) const;
-        QString configPageFullName (uint number = 0) const;
-        KIcon configPageIcon (uint number = 0) const;
+        int configPages() const { return 1; };
+        KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
+        QString configPageName (int number = 0) const;
+        QString configPageFullName (int number = 0) const;
+        QIcon configPageIcon (int number = 0) const;
         void readConfig();
         
         KateCTagsView *m_view;
@@ -78,7 +78,7 @@ private:
 
     bool listContains(const QString &target);
 
-    KProcess              m_proc;
+    QProcess              m_proc;
     KateCTagsPlugin      *m_plugin;
     Ui_CTagsGlobalConfig  m_confUi;
 };

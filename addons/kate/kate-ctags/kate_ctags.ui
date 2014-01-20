@@ -4,7 +4,7 @@
  <widget class="QWidget" name="kateCtags">
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="KTabWidget" name="tabWidget">
+    <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
       <number>0</number>
      </property>
@@ -14,14 +14,14 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout">
        <item row="0" column="0">
-        <widget class="KLineEdit" name="inputEdit">
+        <widget class="QLineEdit" name="inputEdit">
          <property name="showClearButton" stdset="0">
           <bool>true</bool>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="KPushButton" name="updateButton">
+        <widget class="QPushButton" name="updateButton">
          <property name="text">
           <string>Update Index</string>
          </property>
@@ -57,7 +57,7 @@
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2" columnstretch="1,0,0">
        <item row="0" column="0" rowspan="4" colspan="2">
-        <widget class="KListWidget" name="targetList"/>
+        <widget class="QListWidget" name="targetList"/>
        </item>
        <item row="0" column="2">
         <widget class="QPushButton" name="addButton">
@@ -121,7 +121,7 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="KLineEdit" name="cmdEdit">
+        <widget class="QLineEdit" name="cmdEdit">
          <property name="frame">
           <bool>true</bool>
          </property>
@@ -167,27 +167,6 @@
    <class>KUrlRequester</class>
    <extends>QFrame</extends>
    <header>kurlrequester.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KTabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>ktabwidget.h</header>
-   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

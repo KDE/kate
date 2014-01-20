@@ -31,7 +31,7 @@ ecm_optional_add_subdirectory ( backtracebrowser )
 
 #add_subdirectory( filetemplates )
 
-#add_subdirectory( kate-ctags )
+add_subdirectory( kate-ctags )
 #add_subdirectory( katebuild-plugin )
 
 #add_subdirectory( kttsd )

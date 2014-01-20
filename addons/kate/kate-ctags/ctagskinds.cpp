@@ -274,7 +274,7 @@ static CTagsExtensionMapping extensionMapping[] = {
 
 static CTagsKindMapping *findKindMapping(const QString &extension)
 {
-    const char *pextension = extension.toLocal8Bit();
+    const char *pextension = extension.toLocal8Bit().constData();
 
     CTagsExtensionMapping *pem = extensionMapping;
     while (pem->extension != 0) {

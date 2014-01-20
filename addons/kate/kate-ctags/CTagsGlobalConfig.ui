@@ -10,7 +10,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="KListWidget" name="targetList"/>
+       <widget class="QListWidget" name="targetList"/>
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -49,7 +49,7 @@
          </widget>
         </item>
         <item row="3" column="0">
-         <widget class="KPushButton" name="updateDB">
+         <widget class="QPushButton" name="updateDB">
           <property name="text">
            <string>Update</string>
           </property>
@@ -67,7 +67,7 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="KLineEdit" name="cmdEdit">
+       <widget class="QLineEdit" name="cmdEdit">
         <property name="frame">
          <bool>true</bool>
         </property>
@@ -78,23 +78,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KListWidget</class>
-   <extends>QListWidget</extends>
-   <header>klistwidget.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

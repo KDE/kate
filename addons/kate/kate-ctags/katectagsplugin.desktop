@@ -1,8 +1,7 @@
 [Desktop Entry]
 Type=Service
-ServiceTypes=Kate/Plugin
+ServiceTypes=KTextEditor/Plugin
 X-KDE-Library=katectagsplugin
-X-Kate-Version=2.9
 Name=CTags
 Name[bg]=CTags
 Name[bs]=C‑tags

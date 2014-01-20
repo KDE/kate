@@ -30,10 +30,10 @@ Tags::TagEntry::TagEntry( const QString & tag, const QString & type, const QStri
 bool Tags::hasTag( const QString & tag )
 {
 	ctags::tagFileInfo info;
-	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit(), &info );
+	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit().constData(), &info );
 	ctags::tagEntry entry;
 
-	bool found = ( ctags::tagsFind( file, &entry, tag.toLocal8Bit(), TAG_FULLMATCH | TAG_OBSERVECASE ) == ctags::TagSuccess );
+	bool found = ( ctags::tagsFind( file, &entry, tag.toLocal8Bit().constData(), TAG_FULLMATCH | TAG_OBSERVECASE ) == ctags::TagSuccess );
 
 	ctags::tagsClose( file );
 
@@ -47,7 +47,7 @@ unsigned int Tags::numberOfMatches( const QString & tagpart, bool partial )
 	if ( tagpart.isEmpty() ) return 0;
 
 	ctags::tagFileInfo info;
-	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit(), &info );
+	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit().constData(), &info );
 	ctags::tagEntry entry;
 
 	QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
@@ -72,7 +72,7 @@ Tags::TagList Tags::getMatches( const QString & tagpart, bool partial, const QSt
 	if ( tagpart.isEmpty() ) return list;
 
 	ctags::tagFileInfo info;
-	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit(), &info );
+	ctags::tagFile * file = ctags::tagsOpen( _tagsfile.toLocal8Bit().constData(), &info );
 	ctags::tagEntry entry;
 
 	QByteArray tagpartBArray = tagpart.toLocal8Bit(); // for holding the char *
@@ -80,16 +80,16 @@ Tags::TagList Tags::getMatches( const QString & tagpart, bool partial, const QSt
 	{
 		do
 		{
-			QString type( CTagsKinds::findKind( entry.kind, QString( entry.file ).section( '.', -1 ) ) );
-			QString file( entry.file );
+			QString type( CTagsKinds::findKind( entry.kind, QString::fromLocal8Bit(entry.file).section( QLatin1Char('.') , -1 ) ) );
+			QString file = QString::fromLocal8Bit( entry.file );
 
-			if ( type.isEmpty() && file.endsWith( "Makefile" ) )
+			if ( type.isEmpty() && file.endsWith( QLatin1String("Makefile") ) )
 			{
-				type = "macro";
+				type = QLatin1String("macro");
 			}
-			if ( types.isEmpty() || types.contains( entry.kind ) )
+			if ( types.isEmpty() || types.contains( QString::fromLocal8Bit(entry.kind) ) )
 			{
-				list << TagEntry( QString( entry.name ), type, file, QString( entry.address.pattern ) );
+				list << TagEntry( QString::fromLocal8Bit( entry.name ), type, file, QString::fromLocal8Bit( entry.address.pattern ) );
 			}
 		}
 		while ( ctags::tagsFindNext( file, &entry ) == ctags::TagSuccess );
@@ -102,7 +102,7 @@ Tags::TagList Tags::getMatches( const QString & tagpart, bool partial, const QSt
 
 void Tags::setTagsFile( const QString & file )
 {
-	_tagsfile = file.toLocal8Bit();
+	_tagsfile = file;
 }
 
 QString Tags::getTagsFile( )
@@ -148,6 +148,6 @@ Tags::TagList Tags::getMatches( const QString & file, const QString & tagpart,  
 	return getMatches( tagpart, partial, types);
 }
 
-	// kate: space-indent off; indent-width 4; tab-width 4; show-tabs off;
+	// kate: space-indent off; indent-width 4; tab-width 4; show-tabs on;
 
 

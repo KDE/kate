@@ -1,10 +1,3 @@
-# building separately or as part of kdesdk?
-if(NOT KDE4_FOUND)
-    find_package(KDE4 REQUIRED)
-endif(NOT KDE4_FOUND)
-
-include_directories (${KDE4_INCLUDES})
-include_directories( ${KDE4_KIO_INCLUDES} )
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(ctagsplugin_SRC
@@ -15,15 +8,15 @@ set(ctagsplugin_SRC
     kate_ctags_plugin.cpp
 )
 
-kde4_add_ui_files(ctagsplugin_SRC kate_ctags.ui CTagsGlobalConfig.ui)
+qt5_wrap_ui(ctagsplugin_SRC kate_ctags.ui CTagsGlobalConfig.ui)
 
-kde4_add_plugin(katectagsplugin ${ctagsplugin_SRC})
+add_library(katectagsplugin MODULE ${ctagsplugin_SRC})
 
-target_link_libraries(katectagsplugin ${KDE4_KDECORE_LIBS} kateinterfaces ktexteditor )
-
-install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
+target_link_libraries(katectagsplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
 
 ########### install files ###############
+install(TARGETS katectagsplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
+install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katectags)
 
-install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/kate/plugins/katectags)
+kservice_desktop_to_json (katectagsplugin.desktop)
 install(FILES katectagsplugin.desktop DESTINATION  ${SERVICES_INSTALL_DIR} )

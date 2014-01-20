@@ -30,19 +30,13 @@
 #include <KDBusService>
 
 #include <QCommandLineParser>
-#include <QLoggingCategory>
 #include <QApplication>
 #include <QTextCodec>
 #include <QFileInfo>
 #include <QDir>
 
-Q_DECLARE_LOGGING_CATEGORY(LOG_KWRITE)
-Q_LOGGING_CATEGORY(LOG_KWRITE, "kwrite")
-
 extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 {
-  QLoggingCategory::setFilterRules(QStringLiteral("kwrite = true"));
-
   KAboutData aboutData ( QLatin1String("kwrite"), QString(),
                          i18n("KWrite"),
                          QLatin1String(KATE_VERSION),

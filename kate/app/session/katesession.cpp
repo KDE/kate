@@ -19,7 +19,7 @@
  */
 
 #include "katesession.h"
-#include "katesession.moc"
+
 #include "katesessionmanager.h"
 #include "katedebug.h"
 

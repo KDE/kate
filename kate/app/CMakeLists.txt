@@ -33,7 +33,7 @@ set (KATE_APPLICATION_SRCS
    katerunninginstanceinfo.cpp
    kateappcommands.cpp
    katequickopen.cpp
-   katemain.cpp)
+   main.cpp)
 
 # create kde init executable
 kf5_add_kdeinit_executable(kate ${KATE_APPLICATION_SRCS})
@@ -50,6 +50,7 @@ generate_export_header(kdeinit_kate
   EXPORT_FILE_NAME kateprivate_export.h
   EXPORT_MACRO_NAME KATE_TESTS_EXPORT
 )
+
 # install executable + kdeinit lib
 install(TARGETS kate         ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kate ${INSTALL_TARGETS_DEFAULT_ARGS})

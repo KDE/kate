@@ -21,7 +21,6 @@
 #include "config.h"
 
 #include "katepluginmanager.h"
-#include "katepluginmanager.moc"
 
 #include "kateapp.h"
 #include "katemainwindow.h"

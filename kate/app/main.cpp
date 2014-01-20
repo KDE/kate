@@ -1,5 +1,3 @@
-
-
 /* This file is part of the KDE project
    Copyright (C) 2001 Christoph Cullmann <cullmann@kde.org>
    Copyright (C) 2002 Joseph Wenninger <jowenn@kde.org>
@@ -449,6 +447,4 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
   return app.exec();
 }
 
-#include "katemain.moc"
-
-// kate: space-indent on; indent-width 2; replace-tabs on;
+#include "main.moc"

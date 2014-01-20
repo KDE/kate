@@ -19,7 +19,6 @@
 */
 
 #include "kateconfigdialog.h"
-#include "kateconfigdialog.moc"
 
 #include "katemainwindow.h"
 

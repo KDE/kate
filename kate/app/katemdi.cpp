@@ -21,7 +21,6 @@
 */
 
 #include "katemdi.h"
-#include "katemdi.moc"
 
 #include <ktexteditor/configpageinterface.h>
 #include "katedebug.h"

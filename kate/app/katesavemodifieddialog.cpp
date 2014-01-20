@@ -17,10 +17,8 @@
 */
 
 #include "katesavemodifieddialog.h"
-#include "katesavemodifieddialog.moc"
 
 #include "katedebug.h"
-
 
 #include <KGuiItem>
 #include <KStandardGuiItem>

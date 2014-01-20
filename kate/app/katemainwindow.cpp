@@ -21,7 +21,6 @@
 
 //BEGIN Includes
 #include "katemainwindow.h"
-#include "katemainwindow.moc"
 
 #include "kateconfigdialog.h"
 #include "katedocmanager.h"

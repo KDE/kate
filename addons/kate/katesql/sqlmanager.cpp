@@ -98,7 +98,7 @@ void SQLManager::createConnection(const Connection &conn)
 
 bool SQLManager::testConnection(const Connection &conn, QSqlError &error)
 {
-  QString connectionName = (conn.name.isEmpty()) ? "katesql-test" : conn.name;
+  QString connectionName = (conn.name.isEmpty()) ? QString::fromLatin1 ("katesql-test") : conn.name;
 
   QSqlDatabase db = QSqlDatabase::addDatabase(conn.driver, connectionName);
 
@@ -192,7 +192,7 @@ Wallet *SQLManager::openWallet()
   if (!m_wallet)
     return 0;
 
-  QString folder("SQL Connections");
+  QString folder (QLatin1String ("SQL Connections"));
 
   if (!m_wallet->hasFolder(folder))
     m_wallet->createFolder(folder);
@@ -207,7 +207,7 @@ Wallet *SQLManager::openWallet()
 int SQLManager::storeCredentials(const Connection &conn)
 {
   // Sqlite is without password, avoid to open wallet
-  if (conn.driver.contains("QSQLITE"))
+  if (conn.driver.contains(QLatin1String ("QSQLITE")))
     return 0;
 
   Wallet *wallet = openWallet();
@@ -217,12 +217,12 @@ int SQLManager::storeCredentials(const Connection &conn)
 
   QMap<QString, QString> map;
 
-  map["driver"] = conn.driver.toUpper();
-  map["hostname"] = conn.hostname.toUpper();
-  map["port"] = QString::number(conn.port);
-  map["database"] = conn.database.toUpper();
-  map["username"] = conn.username;
-  map["password"] = conn.password;
+  map[QLatin1String ("driver")] = conn.driver.toUpper();
+  map[QLatin1String ("hostname")] = conn.hostname.toUpper();
+  map[QLatin1String ("port")] = QString::number(conn.port);
+  map[QLatin1String ("database")] = conn.database.toUpper();
+  map[QLatin1String ("username")] = conn.username;
+  map[QLatin1String ("password")] = conn.password;
 
   return (wallet->writeMap(conn.name, map) == 0) ? 0 : -1;
 }
@@ -243,7 +243,7 @@ int SQLManager::readCredentials(const QString &name, QString &password)
   {
     if (!map.isEmpty())
     {
-      password = map.value("password");
+      password = map.value(QLatin1String("password"));
       return 0;
     }
   }
@@ -285,7 +285,7 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
     c.database = group.readEntry("database");
     c.options  = group.readEntry("options");
 
-    if (!c.driver.contains("QSQLITE"))
+    if (!c.driver.contains(QLatin1String("QSQLITE")))
     {
       c.hostname = group.readEntry("hostname");
       c.username = group.readEntry("username");
@@ -307,7 +307,7 @@ void SQLManager::loadConnections(KConfigGroup *connectionsGroup)
 void SQLManager::saveConnections(KConfigGroup *connectionsGroup)
 {
   for(int i = 0; i < m_model->rowCount(); i++)
-    saveConnection(connectionsGroup, qVariantValue<Connection>(m_model->data(m_model->index(i), Qt::UserRole)));
+    saveConnection(connectionsGroup, m_model->data(m_model->index(i), Qt::UserRole).value<Connection>());
 }
 
 /// TODO: write KUrl instead of QString for sqlite paths
@@ -321,7 +321,7 @@ void SQLManager::saveConnection(KConfigGroup *connectionsGroup, const Connection
   group.writeEntry("database", conn.database);
   group.writeEntry("options" , conn.options);
 
-  if (!conn.driver.contains("QSQLITE"))
+  if (!conn.driver.contains(QLatin1String("QSQLITE")))
   {
     group.writeEntry("hostname", conn.hostname);
     group.writeEntry("username", conn.username);

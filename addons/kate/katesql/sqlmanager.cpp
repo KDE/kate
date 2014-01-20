@@ -23,6 +23,7 @@
 #include <kconfig.h>
 #include <kconfiggroup.h>
 
+#include <QDebug>
 #include <qsqldatabase.h>
 #include <qsqlquery.h>
 #include <qsqlerror.h>

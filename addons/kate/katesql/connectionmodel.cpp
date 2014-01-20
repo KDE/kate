@@ -18,6 +18,8 @@
 
 #include "connectionmodel.h"
 
+#include <QDebug>
+#include <QFontDatabase>
 #include <QIcon>
 #include <qfontmetrics.h>
 #include <qfont.h>
@@ -68,7 +70,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 
     case Qt::SizeHintRole:
     {
-      const QFontMetrics metrics(KGlobalSettings::generalFont());
+      const QFontMetrics metrics(QFontDatabase::systemFont(QFontDatabase::GeneralFont));
       return QSize(metrics.width(m_connections.value(key).name), 22);
     }
     break;
@@ -86,7 +88,7 @@ int ConnectionModel::addConnection( Connection conn )
   /// FIXME
   if (m_connections.contains(conn.name))
   {
-    kWarning() << "a connection named" << conn.name << "already exists!";
+    qDebug() << "a connection named" << conn.name << "already exists!";
     return -1;
   }
 

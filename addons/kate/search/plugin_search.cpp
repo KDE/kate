@@ -648,7 +648,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
     }
 
     // FIXME KF5
-    QUrl kurl(url);
+    QUrl kurl = QUrl::fromUserInput(url);
     QString path = kurl.isLocalFile() ? localFileDirUp (kurl).path() : kurl.url();
     path.replace(m_resultBaseDir, QString());
     QString name = kurl.fileName();
@@ -669,7 +669,7 @@ QTreeWidgetItem * KatePluginSearchView::rootFileItem(const QString &url, const Q
     }
 
     for (int i=0; i<root->childCount(); i++) {
-        qDebug() << root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() << fName;
+        //qDebug() << root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() << fName;
         if ((root->child(i)->data(0, ReplaceMatches::FileUrlRole).toString() == url)&&
             (root->child(i)->data(0, ReplaceMatches::FileNameRole).toString() == fName)) {
             int matches = root->child(i)->data(0, ReplaceMatches::LineRole).toInt() + 1;
@@ -788,7 +788,7 @@ void KatePluginSearchView::matchFound(const QString &url, const QString &fName, 
         doc = m_replacer.findNamed(fName);
     }
     else {
-        doc = m_kateApp->findUrl(QUrl(url));
+        doc = m_kateApp->findUrl(QUrl::fromUserInput(url));
     }
     addMatchMark(doc, line, column, matchLen);
 }
@@ -1345,7 +1345,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
     KTextEditor::Document* doc;
     QString url = item->data(0, ReplaceMatches::FileUrlRole).toString();
     if (!url.isEmpty()) {
-        doc = m_kateApp->findUrl(QUrl(url));
+        doc = m_kateApp->findUrl(QUrl::fromUserInput(url));
     }
     else {
         doc = m_replacer.findNamed(item->data(0, ReplaceMatches::FileNameRole).toString());
@@ -1353,7 +1353,7 @@ void KatePluginSearchView::itemSelected(QTreeWidgetItem *item)
 
     // add the marks to the document if it is not already open
     if (!doc) {
-        doc = m_kateApp->openUrl(QUrl(url));
+        doc = m_kateApp->openUrl(QUrl::fromUserInput(url));
         if (doc) {
             int line;
             int column;

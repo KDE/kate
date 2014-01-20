@@ -17,7 +17,3 @@ Plugins
 ## doc
 
 Kate & KWrite manuals
-
-## autotests
-
-Automated unit tests

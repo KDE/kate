@@ -22,13 +22,14 @@
 #include <qfont.h>
 #include <qbrush.h>
 #include <qvariant.h>
+#include <QIcon>
+#include <QFontDatabase>
+#include <KSharedConfig>
 
 #include <kcolorbutton.h>
-#include <kicon.h>
 #include <klocalizedstring.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>
-#include <kglobalsettings.h>
 #include <kcolorscheme.h>
 
 OutputStyleWidget::OutputStyleWidget(QWidget *parent)
@@ -45,17 +46,17 @@ OutputStyleWidget::OutputStyleWidget(QWidget *parent)
 
   setHeaderLabels(headerLabels);
 
-  headerItem()->setIcon(1, KIcon("format-text-bold"));
-  headerItem()->setIcon(2, KIcon("format-text-italic"));
-  headerItem()->setIcon(3, KIcon("format-text-underline"));
-  headerItem()->setIcon(4, KIcon("format-text-strikethrough"));
+  headerItem()->setIcon(1, QIcon::fromTheme(QLatin1String("format-text-bold")));
+  headerItem()->setIcon(2, QIcon::fromTheme(QLatin1String("format-text-italic")));
+  headerItem()->setIcon(3, QIcon::fromTheme(QLatin1String("format-text-underline")));
+  headerItem()->setIcon(4, QIcon::fromTheme(QLatin1String("format-text-strikethrough")));
 
-  addContext("text", i18nc("@item:intable", "Text"));
-  addContext("number", i18nc("@item:intable", "Number"));
-  addContext("bool", i18nc("@item:intable", "Bool"));
-  addContext("datetime", i18nc("@item:intable", "Date & Time"));
-  addContext("null", i18nc("@item:intable", "NULL"));
-  addContext("blob", i18nc("@item:intable", "BLOB"));
+  addContext(QLatin1String("text"), i18nc("@item:intable", "Text"));
+  addContext(QLatin1String("number"), i18nc("@item:intable", "Number"));
+  addContext(QLatin1String("bool"), i18nc("@item:intable", "Bool"));
+  addContext(QLatin1String("datetime"), i18nc("@item:intable", "Date & Time"));
+  addContext(QLatin1String("null"), i18nc("@item:intable", "NULL"));
+  addContext(QLatin1String("blob"), i18nc("@item:intable", "BLOB"));
 
   for (int i = 0; i < columnCount(); ++i)
     resizeColumnToContents(i);
@@ -110,7 +111,7 @@ QTreeWidgetItem* OutputStyleWidget::addContext(const QString &key, const QString
 
 void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
 {
-  KConfigGroup config(KGlobal::config(), "KateSQLPlugin");
+  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
   KConfigGroup g = config.group("OutputCustomization").group(item->data(0, Qt::UserRole).toString());
 
   QCheckBox *boldCheckBox             = static_cast<QCheckBox*>(itemWidget(item, 1));
@@ -134,7 +135,7 @@ void OutputStyleWidget::readConfig(QTreeWidgetItem *item)
 
 void OutputStyleWidget::writeConfig(QTreeWidgetItem *item)
 {
-  KConfigGroup config(KGlobal::config(), "KateSQLPlugin");
+  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
 
   KConfigGroup g = config.group("OutputCustomization").group(item->data(0, Qt::UserRole).toString());
 
@@ -169,7 +170,7 @@ void OutputStyleWidget::readConfig()
 
 void OutputStyleWidget::writeConfig()
 {
-  KConfigGroup config(KGlobal::config(), "KateSQLPlugin");
+  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
   config.deleteGroup("OutputCustomization");
 
   QTreeWidgetItem *root = invisibleRootItem();

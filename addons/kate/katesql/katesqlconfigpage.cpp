@@ -21,6 +21,7 @@
 
 #include <kconfiggroup.h>
 #include <klocalizedstring.h>
+#include <KSharedConfig>
 
 #include <qboxlayout.h>
 #include <qgroupbox.h>
@@ -59,7 +60,7 @@ KateSQLConfigPage::~KateSQLConfigPage()
 
 void KateSQLConfigPage::apply()
 {
-  KConfigGroup config(KGlobal::config(), "KateSQLPlugin");
+  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
 
   config.writeEntry("SaveConnections", m_box->isChecked());
 
@@ -73,7 +74,7 @@ void KateSQLConfigPage::apply()
 
 void KateSQLConfigPage::reset()
 {
-  KConfigGroup config(KGlobal::config(), "KateSQLPlugin");
+  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
 
   m_box->setChecked(config.readEntry("SaveConnections", true));
 
@@ -83,7 +84,7 @@ void KateSQLConfigPage::reset()
 
 void KateSQLConfigPage::defaults()
 {
-  KConfigGroup config(KGlobal::config(), "KateSQLPlugin");
+  KConfigGroup config(KSharedConfig::openConfig(), "KateSQLPlugin");
 
   config.revertToDefault("SaveConnections");
   config.revertToDefault("OutputCustomization");

@@ -66,7 +66,7 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
 
   fileUrl = new KUrlRequester(this);
   fileUrl->setMode(KFile::File);
-  fileUrl->setFilter("*.csv|Comma Separated Values\n*|All files");
+  fileUrl->setFilter(i18n("*.csv|Comma Separated Values\n*|All files"));
 
   fileLayout->addWidget(fileUrl);
 
@@ -77,10 +77,10 @@ ExportOutputPage::ExportOutputPage(QWidget *parent)
 
   setLayout(layout);
 
-  registerField("outDocument", documentRadioButton);
-  registerField("outClipboard", clipboardRadioButton);
-  registerField("outFile", fileRadioButton);
-  registerField("outFileUrl", fileUrl, "text");
+  registerField(QLatin1String("outDocument"), documentRadioButton);
+  registerField(QLatin1String("outClipboard"), clipboardRadioButton);
+  registerField(QLatin1String("outFile"), fileRadioButton);
+  registerField(QLatin1String("outFileUrl"), fileUrl, "text");
 
   connect(fileRadioButton, SIGNAL(toggled(bool)), fileUrl, SLOT(setEnabled(bool)));
 }
@@ -165,13 +165,13 @@ ExportFormatPage::ExportFormatPage(QWidget *parent)
 
   setLayout(layout);
 
-  registerField("exportColumnNames", exportColumnNamesCheckBox);
-  registerField("exportLineNumbers", exportLineNumbersCheckBox);
-  registerField("checkQuoteStrings", quoteStringsCheckBox);
-  registerField("checkQuoteNumbers", quoteNumbersCheckBox);
-  registerField("quoteStringsChar", quoteStringsLine);
-  registerField("quoteNumbersChar", quoteNumbersLine);
-  registerField("fieldDelimiter*", fieldDelimiterLine);
+  registerField(QLatin1String("exportColumnNames"), exportColumnNamesCheckBox);
+  registerField(QLatin1String("exportLineNumbers"), exportLineNumbersCheckBox);
+  registerField(QLatin1String("checkQuoteStrings"), quoteStringsCheckBox);
+  registerField(QLatin1String("checkQuoteNumbers"), quoteNumbersCheckBox);
+  registerField(QLatin1String("quoteStringsChar"), quoteStringsLine);
+  registerField(QLatin1String("quoteNumbersChar"), quoteNumbersLine);
+  registerField(QLatin1String("fieldDelimiter*"), fieldDelimiterLine);
 
   connect(quoteStringsCheckBox, SIGNAL(toggled(bool)), quoteStringsLine, SLOT(setEnabled(bool)));
   connect(quoteNumbersCheckBox, SIGNAL(toggled(bool)), quoteNumbersLine, SLOT(setEnabled(bool)));
@@ -187,9 +187,9 @@ void ExportFormatPage::initializePage()
   quoteStringsLine->setEnabled(false);
   quoteNumbersLine->setEnabled(false);
 
-  quoteStringsLine->setText("\"");
-  quoteNumbersLine->setText("\"");
-  fieldDelimiterLine->setText("\\t");
+  quoteStringsLine->setText(QLatin1String("\""));
+  quoteNumbersLine->setText(QLatin1String("\""));
+  fieldDelimiterLine->setText(QLatin1String("\\t"));
 }
 
 

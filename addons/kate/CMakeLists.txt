@@ -43,7 +43,7 @@ add_subdirectory( kate-ctags )
 
 #add_subdirectory( tabify )
 
-#add_subdirectory( katesql )
+ecm_optional_add_subdirectory ( katesql )
 
 #add_subdirectory( close-except-like )
 

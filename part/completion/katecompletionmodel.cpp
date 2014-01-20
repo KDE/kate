@@ -955,6 +955,8 @@ void KateCompletionModel::setCurrentCompletion( KTextEditor::CodeCompletionModel
   }
 
   clearExpanding(); //We need to do this, or be aware of expanding-widgets while filtering.
+
+  emit layoutChanged();
 }
 
 QString KateCompletionModel::commonPrefixInternal(const QString &forcePrefix) const

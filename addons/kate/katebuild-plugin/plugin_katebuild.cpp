@@ -99,8 +99,12 @@ KateBuildView::KateBuildView(Kate::MainWindow *mw)
                )
     , m_proc(0)
     // NOTE this will not allow spaces in file names.
-    , m_filenameDetector("([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+:[0-9]+"),
-    m_newDirDetector("make\\[.+\\]: .+ `.*'")
+    // e.g. from gcc: "main.cpp:14: error: cannot convert ‘std::string’ to ‘int’ in return"
+    , m_filenameDetector("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+):([0-9]+)(.*)")
+    // e.g. from icpc: "main.cpp(14): error: no suitable conversion function from "std::string" to "int" exists"
+    , m_filenameDetectorIcpc("(([a-np-zA-Z]:[\\\\/])?[a-zA-Z0-9_\\.\\-/\\\\]+\\.[a-zA-Z0-9]+)\\(([0-9]+)\\)(:.*)")
+    , m_filenameDetectorGccWorked(false)
+    , m_newDirDetector("make\\[.+\\]: .+ `.*'")
 {
     m_targetList.append(Target());
 
@@ -512,6 +516,8 @@ bool KateBuildView::startProcess(const KUrl &dir, const QString &command)
         return false;
     }
 
+    m_filenameDetectorGccWorked = false;
+
     // clear previous runs
     m_buildUi.plainTextEdit->clear();
     m_buildUi.errTreeWidget->clear();
@@ -667,26 +673,45 @@ void KateBuildView::slotReadReadyStdErr()
 /******************************************************************/
 void KateBuildView::processLine(const QString &line)
 {
-    QString l = line;
-    //kDebug() << l ;
+    //kDebug() << line ;
 
     //look for a filename
-    if (l.indexOf(m_filenameDetector)<0)
+    int index = m_filenameDetector.indexIn(line);
+
+    QRegExp* rx = 0;
+    if (index >= 0)
     {
-        addError(QString(), 0, QString(), l);
+        m_filenameDetectorGccWorked = true;
+        rx = &m_filenameDetector;
+    }
+    else
+    {
+        if (!m_filenameDetectorGccWorked)
+        {
+            // let's see whether the icpc regexp works:
+            // so for icpc users error detection will be a bit slower,
+            // since always both regexps are checked.
+            // But this should be the minority, for gcc and clang users
+            // both regexes will only be checked until the first regex
+            // matched the first time.
+            index = m_filenameDetectorIcpc.indexIn(line);
+            if (index >= 0)
+            {
+                rx = &m_filenameDetectorIcpc;
+            }
+        }
+    }
+
+    if (!rx)
+    {
+        addError(QString(), 0, QString(), line);
         //kDebug() << "A filename was not found in the line ";
         return;
     }
 
-    int match_start = m_filenameDetector.indexIn(l, 0);
-    int match_len = m_filenameDetector.matchedLength();
-
-    QString file_n_line = l.mid(match_start, match_len);
-
-    int name_end = file_n_line.lastIndexOf(':');
-    QString filename = file_n_line.left(name_end);
-    QString line_n = file_n_line.mid(name_end+1);
-    QString msg = l.remove(m_filenameDetector);
+    QString filename = rx->cap(1);
+    QString line_n = rx->cap(3);
+    QString msg = rx->cap(4);
 
     //kDebug() << "File Name:"<<filename<< " msg:"<< msg;
     //add path to file

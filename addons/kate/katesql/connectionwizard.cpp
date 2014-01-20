@@ -24,7 +24,6 @@
 #include <kmessagebox.h>
 #include <klineedit.h>
 #include <kurlrequester.h>
-#include <knuminput.h>
 
 #include <qformlayout.h>
 #include <qsqldatabase.h>

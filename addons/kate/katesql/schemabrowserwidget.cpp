@@ -20,11 +20,14 @@
 #include "schemawidget.h"
 
 #include <qtreeview.h>
+#include <QVBoxLayout>
 
 SchemaBrowserWidget::SchemaBrowserWidget(QWidget *parent, SQLManager *manager)
-: KVBox(parent)
+: QWidget (parent)
 , m_schemaWidget(new SchemaWidget(this, manager))
 {
+  QVBoxLayout *layout = new QVBoxLayout (this);
+  layout->addWidget (m_schemaWidget);
 }
 
 SchemaBrowserWidget::~SchemaBrowserWidget()

@@ -1,11 +1,14 @@
+# document switcher
+ecm_optional_add_subdirectory (filetree)
+
+# search in open documents and files
+ecm_optional_add_subdirectory (search)
+
 # small & smart project manager
 ecm_optional_add_subdirectory (project)
 
 # terminal tool view
 ecm_optional_add_subdirectory (konsole)
-
-# search in open documents and files
-ecm_optional_add_subdirectory (search)
 
 # snippets
 ecm_optional_add_subdirectory (snippets)

@@ -1,8 +1,8 @@
- /***************************************************************************
-    pluginKatexmltools.cpp
-    copyright            : (C) 2001-2002 by Daniel Naber
-    email                : daniel.naber@t-online.de
- ***************************************************************************/
+/***************************************************************************
+   pluginKatexmltools.cpp
+   copyright            : (C) 2001-2002 by Daniel Naber
+   email                : daniel.naber@t-online.de
+***************************************************************************/
 
 /***************************************************************************
  This program is free software; you can redistribute it and/or
@@ -27,11 +27,9 @@
 
 #include <qstring.h>
 
-#include <kate/plugin.h>
-#include <kate/application.h>
-#include <kate/documentmanager.h>
-#include <kate/mainwindow.h>
-
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/application.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/document.h>
 #include <ktexteditor/view.h>
 #include <ktexteditor/codecompletioninterface.h>
@@ -39,93 +37,97 @@
 #include <ktexteditor/codecompletionmodelcontrollerinterface.h>
 
 #include <kcombobox.h>
-#include <kdialog.h>
+#include <KDE4Support/kdialog.h>
 #include <QVariantList>
 
 
-class PluginKateXMLTools : public Kate::Plugin
+class PluginKateXMLTools : public KTextEditor::Plugin
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    explicit PluginKateXMLTools( QObject* parent = 0, const QVariantList& = QVariantList() );
+public:
+    explicit PluginKateXMLTools(QObject *parent = 0, const QVariantList& = QVariantList());
     ~PluginKateXMLTools();
-    Kate::PluginView *createView(Kate::MainWindow *mainWindow);
+    virtual QObject *createView(KTextEditor::MainWindow *mainWindow);
 };
 
 class PluginKateXMLToolsCompletionModel
-  : public KTextEditor::CodeCompletionModel2
-  , public KTextEditor::CodeCompletionModelControllerInterface
+    : public KTextEditor::CodeCompletionModel
+    , public KTextEditor::CodeCompletionModelControllerInterface
 {
-  Q_OBJECT
-  Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
+    Q_OBJECT
+    Q_INTERFACES(KTextEditor::CodeCompletionModelControllerInterface)
 
-  public:
-    PluginKateXMLToolsCompletionModel( QObject *parent );
+public:
+    PluginKateXMLToolsCompletionModel(QObject *parent);
     virtual ~PluginKateXMLToolsCompletionModel();
 
-    virtual int columnCount(const QModelIndex&) const;
+//
+// KTextEditor::CodeCompletionModel
+//
+public:
+    virtual int columnCount(const QModelIndex &) const;
     virtual int rowCount(const QModelIndex &parent) const;
-    virtual QModelIndex parent(const QModelIndex& index) const;
-    virtual QModelIndex index(int row, int column, const QModelIndex& parent) const;
+    virtual QModelIndex parent(const QModelIndex &index) const;
+    virtual QModelIndex index(int row, int column, const QModelIndex &parent) const;
     virtual QVariant data(const QModelIndex &idx, int role) const;
 
-    virtual void executeCompletionItem2(
-        KTextEditor::Document *document
-      , const KTextEditor::Range &word
-      , const QModelIndex &index
-      ) const;
+    virtual void executeCompletionItem(KTextEditor::View *view,
+                                       const KTextEditor::Range &word,
+                                       const QModelIndex &index) const;
 
-    virtual bool shouldStartCompletion(
-        KTextEditor::View *view
-      , const QString &insertedText
-      , bool userInsertion
-      , const KTextEditor::Cursor &position
-      );
+//
+// KTextEditor::CodeCompletionModelControllerInterface
+//
+public:
+    virtual bool shouldStartCompletion(KTextEditor::View *view,
+                                       const QString &insertedText,
+                                       bool userInsertion,
+                                       const KTextEditor::Cursor &position);
 
-  public Q_SLOTS:
+public Q_SLOTS:
 
     void getDTD();
 
     void slotInsertElement();
     void slotCloseElement();
 
-    void slotFinished( KJob *job );
-    void slotData( KIO::Job *, const QByteArray &data );
+    void slotFinished(KJob *job);
+    void slotData(KIO::Job *, const QByteArray &data);
 
-    void completionInvoked( KTextEditor::View *kv, const KTextEditor::Range &range, InvocationType invocationType );
+    void completionInvoked(KTextEditor::View *kv, const KTextEditor::Range &range, InvocationType invocationType);
 
     /// Connected to the document manager, to manage the dtd collection.
-    void slotDocumentDeleted( KTextEditor::Document *doc );
+    void slotDocumentDeleted(KTextEditor::Document *doc);
 
-  protected:
+protected:
 
     QString currentModeToString() const;
-    static QStringList sortQStringList( QStringList list );
+    static QStringList sortQStringList(QStringList list);
     //bool eventFilter( QObject *object, QEvent *event );
 
-    QString insideTag( KTextEditor::View &kv );
-    QString insideAttribute( KTextEditor::View &kv );
+    QString insideTag(KTextEditor::View &kv);
+    QString insideAttribute(KTextEditor::View &kv);
 
-    static bool isOpeningTag( const QString& tag );
-    static bool isClosingTag( const QString& tag );
-    static bool isEmptyTag( const QString& tag );
-    static bool isQuote( const QString& ch );
+    static bool isOpeningTag(const QString &tag);
+    static bool isClosingTag(const QString &tag);
+    static bool isEmptyTag(const QString &tag);
+    static bool isQuote(const QString &ch);
 
-    QString getParentElement( KTextEditor::View &view, int skipCharacters );
+    QString getParentElement(KTextEditor::View &view, int skipCharacters);
 
     enum Mode {none, entities, attributevalues, attributes, elements, closingtag};
     enum PopupMode {noPopup, tagname, attributename, attributevalue, entityname};
 
     enum Level {groupNode = 1};
 
-    /// Assign the PseudoDTD @p dtd to the Kate::Document @p doc
-    void assignDTD( PseudoDTD *dtd, KTextEditor::Document *doc );
+    /// Assign the PseudoDTD @p dtd to the Kate::View @p view
+    void assignDTD(PseudoDTD *dtd, KTextEditor::View *view);
 
     /// temporary placeholder for the metaDTD file
     QString m_dtdString;
-    /// temporary placeholder for the document to assign a DTD to while the file is loaded
-    KTextEditor::Document *m_docToAssignTo;
+    /// temporary placeholder for the view to assign a DTD to while the file is loaded
+    KTextEditor::View *m_viewToAssignTo;
     /// URL of the last loaded meta DTD
     QString m_urlString;
 
@@ -135,7 +137,7 @@ class PluginKateXMLToolsCompletionModel
     int m_correctPos;
 
     // code completion stuff:
-    KTextEditor::CodeCompletionInterface* m_codeInterface;
+    KTextEditor::CodeCompletionInterface *m_codeInterface;
 
     /// maps KTE::Document -> DTD
     QHash<KTextEditor::Document *, PseudoDTD *> m_docDtds;
@@ -144,34 +146,34 @@ class PluginKateXMLToolsCompletionModel
     QHash<QString, PseudoDTD *> m_dtds;
 };
 
-class PluginKateXMLToolsView : public Kate::PluginView, public Kate::XMLGUIClient
+class PluginKateXMLToolsView : public QObject, public KXMLGUIClient
 {
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
+public:
 
-    explicit PluginKateXMLToolsView( Kate::MainWindow *win);
+    explicit PluginKateXMLToolsView(KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWin);
     virtual ~PluginKateXMLToolsView();
 
-  protected:
+protected:
+    KTextEditor::MainWindow *m_mainWindow;
     PluginKateXMLToolsCompletionModel m_model;
-    Kate::DocumentManager *m_documentManager;
 };
 
 class InsertElement : public KDialog
 {
 
-  Q_OBJECT
+    Q_OBJECT
 
-  public:
-    InsertElement( QWidget *parent, const char *name );
+public:
+    InsertElement(QWidget *parent, const char *name);
     ~InsertElement();
-    QString showDialog( QStringList &completions );
-  private Q_SLOTS:
-    void slotHistoryTextChanged( const QString& );
+    QString showDialog(QStringList &completions);
+private Q_SLOTS:
+    void slotHistoryTextChanged(const QString &);
 
 };
 
 #endif // PLUGIN_KATEXMLTOOLS_H
 
-// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;
+// kate: space-indent on; indent-width 4; replace-tabs on; mixed-indent off;

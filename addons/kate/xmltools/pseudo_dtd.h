@@ -1,8 +1,8 @@
- /***************************************************************************
-    pseudoDtd.cpp
-    copyright            : (C) 2001-2002 by Daniel Naber
-    email                : daniel.naber@t-online.de
- ***************************************************************************/
+/***************************************************************************
+   pseudoDtd.cpp
+   copyright            : (C) 2001-2002 by Daniel Naber
+   email                : daniel.naber@t-online.de
+***************************************************************************/
 
 /***************************************************************************
  This program is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
  */
 class ElementAttributes
 {
-  public:
+public:
     QStringList optionalAttributes;
     QStringList requiredAttributes;
 };
@@ -41,38 +41,38 @@ class ElementAttributes
 class PseudoDTD
 {
 
-  public:
+public:
     PseudoDTD();
     ~PseudoDTD();
 
-    void analyzeDTD( QString &metaDtdUrl, QString &metaDtd );
+    void analyzeDTD(QString &metaDtdUrl, QString &metaDtd);
 
-    QStringList allowedElements( QString parentElement );
-    QStringList allowedAttributes( QString parentElement );
-    QStringList attributeValues( QString element, QString attribute );
-    QStringList entities( QString start );
-    QStringList requiredAttributes( const QString &parentElement ) const;
+    QStringList allowedElements(QString parentElement);
+    QStringList allowedAttributes(QString parentElement);
+    QStringList attributeValues(QString element, QString attribute);
+    QStringList entities(QString start);
+    QStringList requiredAttributes(const QString &parentElement) const;
 
-  protected:
+protected:
 
-    bool parseElements( QDomDocument *doc, QProgressDialog *progress );
-    bool parseAttributes( QDomDocument *doc, QProgressDialog *progress );
-    bool parseAttributeValues( QDomDocument *doc, QProgressDialog *progress );
-    bool parseEntities( QDomDocument *doc, QProgressDialog *progress );
+    bool parseElements(QDomDocument *doc, QProgressDialog *progress);
+    bool parseAttributes(QDomDocument *doc, QProgressDialog *progress);
+    bool parseAttributeValues(QDomDocument *doc, QProgressDialog *progress);
+    bool parseEntities(QDomDocument *doc, QProgressDialog *progress);
 
     bool m_sgmlSupport;
 
     // Entities, e.g. <"nbsp", "160">
-    QMap<QString,QString> m_entityList;
+    QMap<QString, QString> m_entityList;
     // Elements, e.g. <"a", ( "b", "i", "em", "strong" )>
-    QMap<QString,QStringList> m_elementsList;
+    QMap<QString, QStringList> m_elementsList;
     // Attributes e.g. <"a", ( "href", "lang", "title" )>
-    QMap<QString,ElementAttributes> m_attributesList;
+    QMap<QString, ElementAttributes> m_attributesList;
     // Attribute values e.g. <"td", <"align", ( "left", "right", "justify" )>>
-    QMap< QString,QMap<QString,QStringList> > m_attributevaluesList;
+    QMap< QString, QMap<QString, QStringList> > m_attributevaluesList;
 
 };
 
 #endif // PSEUDO_DTD_H
 
-// kate: space-indent on; indent-width 2; replace-tabs on; mixed-indent off;
+// kate: space-indent on; indent-width 4; replace-tabs on; mixed-indent off;

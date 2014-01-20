@@ -26,13 +26,13 @@
 #include <kaboutdata.h>
 #include <klocalizedstring.h>
 
-K_PLUGIN_FACTORY_DEFINITION(KateSQLFactory, registerPlugin<KateSQLPlugin>();)
-K_EXPORT_PLUGIN(KateSQLFactory(KAboutData("katesql", "katesql",
-                                          ki18n("SQL Plugin"), "0.3", ki18n("Execute query on SQL databases"), KAboutData::License_LGPL_V2)))
+#include <QIcon>
+
+K_PLUGIN_FACTORY_WITH_JSON(KateSQLFactory, "katesql.json", registerPlugin<KateSQLPlugin>();)
 
 //BEGIN KateSQLPLugin
 KateSQLPlugin::KateSQLPlugin(QObject *parent, const QList<QVariant>&)
-: Kate::Plugin ((Kate::Application*)parent, "katesql")
+    : KTextEditor::Plugin (parent)
 {
 }
 
@@ -42,7 +42,7 @@ KateSQLPlugin::~KateSQLPlugin()
 }
 
 
-Kate::PluginView *KateSQLPlugin::createView (Kate::MainWindow *mainWindow)
+QObject *KateSQLPlugin::createView (KTextEditor::MainWindow *mainWindow)
 {
   KateSQLView *view = new KateSQLView(mainWindow);
 
@@ -52,10 +52,8 @@ Kate::PluginView *KateSQLPlugin::createView (Kate::MainWindow *mainWindow)
 }
 
 
-KTextEditor::ConfigPage* KateSQLPlugin::configPage(uint number, QWidget *parent, const char *name)
+KTextEditor::ConfigPage* KateSQLPlugin::configPage(int number, QWidget *parent)
 {
-  Q_UNUSED(name)
-
   if (number != 0)
     return 0;
 
@@ -67,25 +65,26 @@ KTextEditor::ConfigPage* KateSQLPlugin::configPage(uint number, QWidget *parent,
 }
 
 
-QString KateSQLPlugin::configPageName (uint number) const
+QString KateSQLPlugin::configPageName (int number) const
 {
   if (number != 0) return QString();
     return i18nc("@title", "SQL");
 }
 
 
-QString KateSQLPlugin::configPageFullName (uint number) const
+QString KateSQLPlugin::configPageFullName (int number) const
 {
   if (number != 0) return QString();
     return i18nc("@title:window", "SQL Plugin Settings");
 }
 
 
-KIcon KateSQLPlugin::configPageIcon (uint number) const
+QIcon KateSQLPlugin::configPageIcon (int number) const
 {
-  if (number != 0) return KIcon();
-  return KIcon("server-database");
+  if (number != 0) return QIcon();
+  return QIcon::fromTheme(QLatin1String ("server-database"));
 }
 
 //END KateSQLPlugin
 
+#include "katesqlplugin.moc"

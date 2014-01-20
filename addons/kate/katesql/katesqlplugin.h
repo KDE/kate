@@ -42,10 +42,10 @@ class KateSQLPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPage
     // PluginConfigPageInterface
 
     int configPages() const { return 1; };
-    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0, const char *name = 0);
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
     QString configPageName (int number = 0) const;
     QString configPageFullName (int number = 0) const;
-    KIcon configPageIcon (int number = 0) const;
+    QIcon configPageIcon (int number = 0) const;
 
   Q_SIGNALS:
     void globalSettingsChanged();

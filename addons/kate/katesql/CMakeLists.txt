@@ -1,5 +1,8 @@
 project(katesqlplugin)
 
+# Load the frameworks we need
+find_package(KF5 CONFIG REQUIRED COMPONENTS Wallet)
+
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
 set(katesql_SRCS
@@ -28,8 +31,8 @@ add_subdirectory(pics)
 
 target_link_libraries(katesqlplugin
     KF5::TextEditor
-    KF5::Parts KF5::I18n
-    Qt5::Script KF5::ItemViews KF5::IconThemes)
+    KF5::Parts KF5::I18n KF5::Wallet
+    Qt5::Script Qt5::Sql KF5::ItemViews KF5::IconThemes)
 
 install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 

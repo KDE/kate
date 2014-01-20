@@ -29,15 +29,16 @@ class KComboBox;
 class QSqlQuery;
 class QActionGroup;
 
-#include <kate/plugin.h>
-#include <kate/mainwindow.h>
+#include <KXMLGUIClient>
 
-class KateSQLView : public Kate::PluginView, public Kate::XMLGUIClient
+#include <ktexteditor/mainwindow.h>
+
+class KateSQLView : public QObject, public KXMLGUIClient
 {
   Q_OBJECT
 
   public:
-    explicit KateSQLView(Kate::MainWindow *mw);
+    explicit KateSQLView(KTextEditor::MainWindow *mw);
     ~KateSQLView();
 
     void readSessionConfig (KConfigBase* config, const QString& groupPrefix);

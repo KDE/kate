@@ -20,9 +20,6 @@
 #include "katesqlconfigpage.h"
 #include "katesqlview.h"
 
-#include <kate/plugin.h>
-#include <kate/mainwindow.h>
-#include <kate/documentmanager.h>
 #include <ktexteditor/document.h>
 
 #include <kpluginloader.h>

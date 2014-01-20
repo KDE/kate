@@ -1,7 +1,4 @@
-if(NOT KDE4_FOUND)
-  find_package(KDE4 REQUIRED)
-  include_directories( ${KDE4_INCLUDES} ${QT_INCLUDES} )
-endif(NOT KDE4_FOUND)
+project(katesqlplugin)
 
 include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
 
@@ -24,15 +21,21 @@ set(katesql_SRCS
   outputwidget.cpp
 )
 
-kde4_add_plugin(katesqlplugin ${katesql_SRCS})
+add_library (katesqlplugin MODULE ${katesql_SRCS})
 
 add_subdirectory(pics)
 
-target_link_libraries(katesqlplugin ${KDE4_KDECORE_LIBS} ${KDE4_KDEUI_LIBS} ${QT_QTSQL_LIBRARY} kateinterfaces ktexteditor )
+
+target_link_libraries(katesqlplugin
+    KF5::TextEditor
+    KF5::Parts KF5::I18n
+    Qt5::Script KF5::ItemViews KF5::IconThemes)
 
 install(TARGETS katesqlplugin DESTINATION ${PLUGIN_INSTALL_DIR} )
 
 ########### install files ###############
 
-install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/kate/plugins/katesql )
+install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/katesql )
+
+kservice_desktop_to_json (katesql.desktop)
 install( FILES katesql.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} )

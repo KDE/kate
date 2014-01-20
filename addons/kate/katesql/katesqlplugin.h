@@ -19,17 +19,15 @@
 #ifndef KATESQLPLUGIN_H
 #define KATESQLPLUGIN_H
 
-
-
 #include <ktexteditor/view.h>
-#include <kate/plugin.h>
-#include <kate/application.h>
-#include <kate/mainwindow.h>
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/application.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpageinterface.h>
 
 #include <kpluginfactory.h>
 
-class KateSQLPlugin : public Kate::Plugin, public KTextEditor::ConfigPageInterface
+class KateSQLPlugin : public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
 {
   Q_OBJECT
   Q_INTERFACES(KTextEditor::ConfigPageInterface)
@@ -39,21 +37,19 @@ class KateSQLPlugin : public Kate::Plugin, public KTextEditor::ConfigPageInterfa
 
     virtual ~KateSQLPlugin();
 
-    Kate::PluginView *createView(Kate::MainWindow *mainWindow);
+    QObject *createView(KTextEditor::MainWindow *mainWindow);
 
     // PluginConfigPageInterface
 
-    uint configPages() const { return 1; };
-    KTextEditor::ConfigPage *configPage (uint number = 0, QWidget *parent = 0, const char *name = 0);
-    QString configPageName (uint number = 0) const;
-    QString configPageFullName (uint number = 0) const;
-    KIcon configPageIcon (uint number = 0) const;
+    int configPages() const { return 1; };
+    KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0, const char *name = 0);
+    QString configPageName (int number = 0) const;
+    QString configPageFullName (int number = 0) const;
+    KIcon configPageIcon (int number = 0) const;
 
   Q_SIGNALS:
     void globalSettingsChanged();
 };
-
-K_PLUGIN_FACTORY_DECLARATION(KateSQLFactory)
 
 #endif // KATESQLPLUGIN_H
 

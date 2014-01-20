@@ -30,7 +30,6 @@
 
 #include <kmessagebox.h>
 #include <kurlrequester.h>
-#include <kurl.h>
 #include <klocalizedstring.h>
 
 #include <signal.h>

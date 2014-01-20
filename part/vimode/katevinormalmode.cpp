@@ -2909,6 +2909,10 @@ KateViRange KateViNormalMode::motionToPreviousSentence()
       return KateViRange(i, 0, ViMotion::InclusiveMotion);
     }
 
+    if (column < 0 && line.size() > 0) {
+      column = line.size() - 1;
+    }
+
     for (int j = column; j >= 0; j--) {
       if (skipSpaces || QString::fromLatin1(".?!").indexOf(line.at(j)) != -1) {
         c.setLine(i);
@@ -3264,7 +3268,6 @@ Cursor KateViNormalMode::findSentenceStart()
       if (line.at(j).isSpace()) {
         int lastSpace = j--;
         for (; j >= 0 && QString::fromLatin1("\"')]").indexOf(line.at(j)) != -1; j--);
-
         if (j >= 0 && QString::fromLatin1(".!?").indexOf(line.at(j)) != -1) {
           return Cursor(i, prev);
         }

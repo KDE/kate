@@ -1543,6 +1543,7 @@ void ViModeTest::NormalModeMotionsTest() {
   DoTest("\n\n\nHello.", "jj(iX", "X\n\n\nHello.");
   DoTest("Hello! Bye!", "fB(iX", "XHello! Bye!");
   DoTest("Hello! Bye! Hye!", "fH(iX", "Hello! XBye! Hye!");
+  DoTest("\nHello. Bye.. Asd.\n\n\n\nAnother.", "jjjj(iX", "\nHello. Bye.. XAsd.\n\n\n\nAnother.");
 
   // Testing the ")" motion
   DoTest("", ")", "");

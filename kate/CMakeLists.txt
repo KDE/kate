@@ -65,3 +65,6 @@ generate_export_header(kdeinit_kate
 # install executable + kdeinit lib
 install(TARGETS kate         ${INSTALL_TARGETS_DEFAULT_ARGS})
 install(TARGETS kdeinit_kate ${INSTALL_TARGETS_DEFAULT_ARGS})
+
+# automatic unit tests
+ecm_optional_add_subdirectory (autotests)

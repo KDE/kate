@@ -1502,16 +1502,23 @@ bool KateViNormalMode::commandSearchForward()
 
 bool KateViNormalMode::commandUndo()
 {
+  // See BUG #328277
+  m_viInputModeManager->clearCurrentChangeLog();
+
+  if (doc()->undoCount() > 0) {
     doc()->undo();
-    // See BUG #328277
-    m_viInputModeManager->clearCurrentChangeLog();
     return true;
+  }
+  return false;
 }
 
 bool KateViNormalMode::commandRedo()
 {
+  if (doc()->redoCount() > 0) {
     doc()->redo();
     return true;
+  }
+  return false;
 }
 
 bool KateViNormalMode::commandSetMark()

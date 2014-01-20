@@ -7298,6 +7298,23 @@ void ViModeTest::MacroTests()
     FinishTest("functionwithargs(firstArg)\nnoargfunction()\ncompletionA\ncompletionAtail\ncompletionB\nsemicolonfunctionwithargs(X);\nsemicolonfunctionnoargs();X");
   }
 
+  // Check that undo/redo operations work properly with macros.
+  {
+    clearAllMacros();
+    BeginTest("");
+    TestPressKey("ihello\\ctrl-cqauq");
+    TestPressKey("@a\\enter");
+    FinishTest("");
+  }
+  {
+    clearAllMacros();
+    BeginTest("");
+    TestPressKey("ihello\\ctrl-cui.bye\\ctrl-cu");
+    TestPressKey("qa\\ctrl-r\\enterq");
+    TestPressKey("@a\\enter");
+    FinishTest(".bye");
+  }
+
   // When replaying a last change in the process of replaying a macro, take the next completion
   // event from the last change completions log, rather than the macro completions log.
   // Ensure that the last change completions log is kept up to date even while we're replaying the macro.

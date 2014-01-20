@@ -51,8 +51,6 @@
 #include <QTimer>
 #include <QTextCodec>
 #include <QMimeData>
-#include <QCommandLineParser>
-#include <QLoggingCategory>
 #include <QApplication>
 #include <QLabel>
 #include <QStatusBar>

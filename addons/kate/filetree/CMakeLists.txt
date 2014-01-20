@@ -26,3 +26,6 @@ install( FILES katefiletreeplugin.desktop  DESTINATION  ${SERVICES_INSTALL_DIR} 
 ########### install files ###############
 
 install( FILES ui.rc  DESTINATION  ${DATA_INSTALL_DIR}/katefiletree )
+
+############# unit tests ################
+ecm_optional_add_subdirectory (autotests)

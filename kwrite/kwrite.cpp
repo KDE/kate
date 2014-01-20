@@ -27,12 +27,10 @@
 #include <ktexteditor/editor.h>
 
 #include <KAboutApplicationDialog>
-#include <KAboutData>
 #include <KActionCollection>
-#include <KDirOperator>
+#include <KToggleAction>
 #include <KEditToolBar>
 #include <KEncodingFileDialog>
-#include <KIconLoader>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KRecentFilesAction>
@@ -42,10 +40,9 @@
 #include <KStringHandler>
 #include <KXMLGUIFactory>
 #include <KConfig>
-#include <kconfiggui.h>
+#include <KConfigGui>
 #include <KIO/Job>
-#include <kjobwidgets.h>
-#include <kdbusservice.h>
+#include <KJobWidgets>
 
 #ifdef KActivities_FOUND
 #include <kactivities/resourceinstance.h>

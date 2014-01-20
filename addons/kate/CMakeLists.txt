@@ -19,13 +19,15 @@ ecm_optional_add_subdirectory (backtracebrowser)
 # kate sql
 ecm_optional_add_subdirectory (katesql)
 
+# file browser
+ecm_optional_add_subdirectory (filebrowser)
+
 #if(NOT WIN32)
 #   add_subdirectory( gdbplugin )   # reading /proc/...
 #endif(NOT WIN32)
 
 #add_subdirectory( textfilter )
 
-#ecm_optional_add_subdirectory ( filebrowser )
 #add_subdirectory( mailfiles )
 
 #add_subdirectory( tabbarextension )

@@ -104,7 +104,7 @@ void KateFileBrowserConfigPage::apply()
   KConfigGroup config(KSharedConfig::openConfig(), "filebrowser");
   QStringList l;
   ActionLBItem *aItem;
-  QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QString("*"), Qt::MatchWildcard);
+  QList<QListWidgetItem *> list = acSel->selectedListWidget()->findItems(QLatin1String("*"), Qt::MatchWildcard);
   foreach(QListWidgetItem *item, list)
   {
     aItem = static_cast<ActionLBItem*>(item);
@@ -128,27 +128,27 @@ void KateFileBrowserConfigPage::init()
   // toolbar
   QStringList l = config.readEntry( "toolbar actions", QStringList() );
   if ( l.isEmpty() ) // default toolbar
-    l << "back" << "forward" << "bookmarks" << "sync_dir" << "configure";
+    l << QLatin1String("back") << QLatin1String("forward") << QLatin1String("bookmarks") << QLatin1String("sync_dir") << QLatin1String("configure");
 
   // actions from diroperator + two of our own
   QStringList allActions;
-  allActions << "up" << "back" << "forward" << "home"
-             << "reload" << "mkdir" << "delete"
-             << "short view" << "detailed view"
-             << "tree view" << "detailed tree view"
-             << "show hidden" /*<< "view menu" << "properties"*/
-             << "bookmarks" << "sync_dir" << "configure";
-  QRegExp re("&(?=[^&])");
+  allActions << QLatin1String("up") << QLatin1String("back") << QLatin1String("forward") << QLatin1String("home")
+             << QLatin1String("reload") << QLatin1String("mkdir") << QLatin1String("delete")
+             << QLatin1String("short view") << QLatin1String("detailed view")
+             << QLatin1String("tree view") << QLatin1String("detailed tree view")
+             << QLatin1String("show hidden") /*<< QLatin1String("view menu") << QLatin1String("properties")*/
+             << QLatin1String("bookmarks") << QLatin1String("sync_dir") << QLatin1String("configure");
+  QRegExp re(QLatin1String ("&(?=[^&])"));
   QAction *ac = 0;
   QListWidget *lb;
   for ( QStringList::Iterator it = allActions.begin(); it != allActions.end(); ++it )
   {
     lb = l.contains( *it ) ? acSel->selectedListWidget() : acSel->availableListWidget();
 
-    if ( *it == "bookmarks" || *it == "sync_dir" || *it == "configure" )
-      ac = fileBrowser->actionCollection()->action( (*it).toLatin1().constData() );
+    if ( *it == QLatin1String ("bookmarks") || *it == QLatin1String ("sync_dir") || *it == QLatin1String ("configure") )
+      ac = fileBrowser->actionCollection()->action( *it );
     else
-      ac = fileBrowser->dirOperator()->actionCollection()->action( (*it).toLatin1().constData() );
+      ac = fileBrowser->dirOperator()->actionCollection()->action( *it );
 
     if ( ac )
     {

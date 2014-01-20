@@ -23,14 +23,14 @@
 #ifndef KATE_FILEBROWSER_PLUGIN_H
 #define KATE_FILEBROWSER_PLUGIN_H
 
-
 #include <ktexteditor/document.h>
-#include <kate/plugin.h>
-#include <kate/mainwindow.h>
-#include <ktexteditor/configpage.h>
+#include <ktexteditor/plugin.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/configpageinterface.h>
-#include <kurlcombobox.h>
+#include <ktexteditor/configpage.h>
+#include <KTextEditor/SessionConfigInterface>
 
+#include <kurlcombobox.h>
 #include <KFile>
 
 class KActionCollection;
@@ -47,7 +47,7 @@ class QSpinBox;
 class KateFileBrowser;
 class KateFileBrowserPluginView;
 
-class KateFileBrowserPlugin: public Kate::Plugin, public KTextEditor::ConfigPageInterface
+class KateFileBrowserPlugin: public KTextEditor::Plugin, public KTextEditor::ConfigPageInterface
 {
     Q_OBJECT
     Q_INTERFACES(KTextEditor::ConfigPageInterface)
@@ -57,7 +57,7 @@ class KateFileBrowserPlugin: public Kate::Plugin, public KTextEditor::ConfigPage
     virtual ~KateFileBrowserPlugin()
     {}
 
-    Kate::PluginView *createView (Kate::MainWindow *mainWindow);
+    QObject *createView (KTextEditor::MainWindow *mainWindow);
 
     virtual int configPages() const;
     virtual KTextEditor::ConfigPage *configPage (int number = 0, QWidget *parent = 0);
@@ -72,29 +72,31 @@ class KateFileBrowserPlugin: public Kate::Plugin, public KTextEditor::ConfigPage
     QList<KateFileBrowserPluginView *> m_views;
 };
 
-class KateFileBrowserPluginView : public Kate::PluginView
+class KateFileBrowserPluginView : public QObject, public KTextEditor::SessionConfigInterface
 {
     Q_OBJECT
+    Q_INTERFACES(KTextEditor::SessionConfigInterface)
 
   public:
     /**
       * Constructor.
       */
-    KateFileBrowserPluginView (Kate::MainWindow *mainWindow);
+    KateFileBrowserPluginView (KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow);
 
     /**
      * Virtual destructor.
      */
     ~KateFileBrowserPluginView ();
 
-    virtual void readSessionConfig (KConfigBase* config, const QString& groupPrefix);
-    virtual void writeSessionConfig (KConfigBase* config, const QString& groupPrefix);
+    void readSessionConfig (const KConfigGroup& config);
+    void writeSessionConfig (KConfigGroup& config);
 
   private:
     bool eventFilter(QObject*, QEvent*);
 
     QWidget *m_toolView;
     KateFileBrowser *m_fileBrowser;
+    KTextEditor::MainWindow *m_mainWindow;
     friend class KateFileBrowserPlugin;
 };
 

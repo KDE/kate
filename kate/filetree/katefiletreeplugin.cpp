@@ -46,8 +46,6 @@ K_PLUGIN_FACTORY_WITH_JSON (KateFileTreeFactory, "katefiletreeplugin.json", regi
 
 Q_LOGGING_CATEGORY(FILETREE, "kate-filetree")
 
-//K_EXPORT_PLUGIN(KateFileTreeFactory(KAboutData("filetree","katefiletreeplugin",ki18n("Document Tree"), "0.1", ki18n("Show open documents in a tree"), KAboutData::License_LGPL_V2)) )
-
 //BEGIN KateFileTreePlugin
 KateFileTreePlugin::KateFileTreePlugin(QObject* parent, const QList<QVariant>&)
   : KTextEditor::Plugin (parent),
@@ -514,5 +512,3 @@ bool KateFileTreeCommand::help(KTextEditor::View * /*view*/, const QString &cmd,
 //END KateFileTreeCommand
 
 #include "katefiletreeplugin.moc"
-
-// kate: space-indent on; indent-width 2; replace-tabs on;

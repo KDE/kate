@@ -25,31 +25,29 @@
 #include "katefilebrowserconfig.h"
 #include "katefilebrowser.h"
 
-#include <kate/mainwindow.h>
+#include <ktexteditor/mainwindow.h>
 #include <ktexteditor/view.h>
 
 #include <kaboutdata.h>
 #include <KLocalizedString>
 #include <KPluginFactory>
-#include <KIconLoader>
 
-#include <QtGui/QKeyEvent>
+#include <QKeyEvent>
 //END Includes
 
 K_PLUGIN_FACTORY_WITH_JSON (KateFileBrowserPluginFactory, "katefilebrowserplugin.json", registerPlugin<KateFileBrowserPlugin>();)
 
 //BEGIN KateFileBrowserPlugin
 KateFileBrowserPlugin::KateFileBrowserPlugin(QObject* parent, const QList<QVariant>&)
-  : Kate::Plugin ((Kate::Application*)parent)
+  : KTextEditor::Plugin (parent)
 {
 }
 
-Kate::PluginView *KateFileBrowserPlugin::createView (Kate::MainWindow *mainWindow)
+QObject *KateFileBrowserPlugin::createView (KTextEditor::MainWindow *mainWindow)
 {
-  KateFileBrowserPluginView* view = new KateFileBrowserPluginView (mainWindow);
+  KateFileBrowserPluginView* view = new KateFileBrowserPluginView (this, mainWindow);
   connect(view, SIGNAL(destroyed(QObject*)), this, SLOT(viewDestroyed(QObject*)));
   m_views.append(view);
-
   return view;
 }
 
@@ -86,24 +84,25 @@ QString KateFileBrowserPlugin::configPageFullName (int number) const
 QIcon KateFileBrowserPlugin::configPageIcon (int number) const
 {
   if (number != 0) return QIcon();
-  return QIcon::fromTheme("document-open");
+  return QIcon::fromTheme(QLatin1String("document-open"));
 }
 //END KateFileBrowserPlugin
 
 
 
 //BEGIN KateFileBrowserPluginView
-KateFileBrowserPluginView::KateFileBrowserPluginView (Kate::MainWindow *mainWindow)
-  : Kate::PluginView (mainWindow)
+KateFileBrowserPluginView::KateFileBrowserPluginView (KTextEditor::Plugin *plugin, KTextEditor::MainWindow *mainWindow)
+  : QObject (mainWindow)
   , m_toolView(
-        mainWindow->createToolView(
-            "kate_private_plugin_katefileselectorplugin"
-          , Kate::MainWindow::Left
-          , KIconLoader::global()->loadIcon("document-open", KIconLoader::Small)
+        mainWindow->createToolView(plugin,
+            QLatin1String ("kate_private_plugin_katefileselectorplugin")
+          , KTextEditor::MainWindow::Left
+          , QIcon::fromTheme(QLatin1String("document-open"))
           , i18n("Filesystem Browser")
           )
       )
   , m_fileBrowser(new KateFileBrowser(mainWindow, m_toolView))
+  , m_mainWindow (mainWindow)
 {
   m_toolView->installEventFilter(this);
 }
@@ -114,14 +113,14 @@ KateFileBrowserPluginView::~KateFileBrowserPluginView ()
   delete m_fileBrowser->parentWidget();
 }
 
-void KateFileBrowserPluginView::readSessionConfig(KConfigBase* config, const QString& group)
+void KateFileBrowserPluginView::readSessionConfig (const KConfigGroup& config)
 {
-  m_fileBrowser->readSessionConfig(config, group);
+  m_fileBrowser->readSessionConfig(config);
 }
 
-void KateFileBrowserPluginView::writeSessionConfig(KConfigBase* config, const QString& group)
+void KateFileBrowserPluginView::writeSessionConfig (KConfigGroup& config)
 {
-  m_fileBrowser->writeSessionConfig(config, group);
+  m_fileBrowser->writeSessionConfig(config);
 }
 
 bool KateFileBrowserPluginView::eventFilter(QObject* obj, QEvent* event)
@@ -131,7 +130,7 @@ bool KateFileBrowserPluginView::eventFilter(QObject* obj, QEvent* event)
     QKeyEvent* ke = static_cast<QKeyEvent*>(event);
     if ((obj == m_toolView) && (ke->key() == Qt::Key_Escape))
     {
-      mainWindow()->hideToolView(m_toolView);
+      m_mainWindow->hideToolView(m_toolView);
       event->accept();
       return true;
     }

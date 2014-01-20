@@ -23,7 +23,7 @@
 #ifndef KATE_FILEBROWSER_H
 #define KATE_FILEBROWSER_H
 
-#include <kate/mainwindow.h>
+#include <ktexteditor/mainwindow.h>
 
 #include <KFile>
 
@@ -36,7 +36,7 @@ class KDirOperator;
 class KFileItem;
 class KHistoryComboBox;
 class KToolBar;
-
+class KConfigGroup;
 class KUrlNavigator;
 class KConfigBase;
 
@@ -56,12 +56,12 @@ class KateFileBrowser : public QWidget
     Q_OBJECT
 
   public:
-    explicit KateFileBrowser( Kate::MainWindow *mainWindow = 0,
+    explicit KateFileBrowser( KTextEditor::MainWindow *mainWindow = 0,
                       QWidget * parent = 0, const char * name = 0 );
     ~KateFileBrowser();
 
-    virtual void readSessionConfig( KConfigBase *, const QString & );
-    virtual void writeSessionConfig( KConfigBase *, const QString & );
+    void readSessionConfig (const KConfigGroup& config);
+    void writeSessionConfig (KConfigGroup& config);
 
     void setupToolbar();
     void setView( KFile::FileView );
@@ -89,7 +89,7 @@ class KateFileBrowser : public QWidget
     void setupActions();
 
   public:
-    Kate::MainWindow* mainWindow()
+    KTextEditor::MainWindow* mainWindow()
     {
       return m_mainWindow;
     }
@@ -102,7 +102,7 @@ class KateFileBrowser : public QWidget
     KHistoryComboBox * m_filter;
     QAction *m_autoSyncFolder;
 
-    Kate::MainWindow *m_mainWindow;
+    KTextEditor::MainWindow *m_mainWindow;
 };
 
 #endif //KATE_FILEBROWSER_H

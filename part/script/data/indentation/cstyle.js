@@ -387,7 +387,9 @@ function tryBrace(line)
 
 
     var currentString = document.line(currentLine);
-    if (currentString.search(/\{[^\}]*$/) != -1) {
+    var matchColumn = currentString.search(/\{[^\}]*$/);
+
+    if (matchColumn != -1 && document.isCode(currentLine, matchColumn)) {
         dbg("tryBrace: Closing bracket in line " + currentLine);
         var cursor = tryParenthesisBeforeBrace(currentLine, lastPos);
         if (cursor.isValid()) {

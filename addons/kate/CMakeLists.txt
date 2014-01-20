@@ -1,9 +1,3 @@
-# Kate interfaces used for the plugins
-include_directories (${CMAKE_SOURCE_DIR}/kate/interfaces)
-
-# default debug area
-add_definitions ( -DKDE_DEFAULT_DEBUG_AREA=13040 )
-
 # small & smart project manager
 ecm_optional_add_subdirectory (project)
 
@@ -14,7 +8,16 @@ ecm_optional_add_subdirectory (konsole)
 ecm_optional_add_subdirectory (search)
 
 # snippets
-ecm_optional_add_subdirectory ( snippets )
+ecm_optional_add_subdirectory (snippets)
+
+# ctags
+ecm_optional_add_subdirectory (kate-ctags)
+
+# backtrace
+ecm_optional_add_subdirectory (backtracebrowser)
+
+# kate sql
+ecm_optional_add_subdirectory (katesql)
 
 #if(NOT WIN32)
 #   add_subdirectory( gdbplugin )   # reading /proc/...
@@ -27,11 +30,9 @@ ecm_optional_add_subdirectory ( snippets )
 
 #add_subdirectory( tabbarextension )
 #add_subdirectory( symbolviewer )
-ecm_optional_add_subdirectory ( backtracebrowser )
 
 #add_subdirectory( filetemplates )
 
-add_subdirectory( kate-ctags )
 #add_subdirectory( katebuild-plugin )
 
 #add_subdirectory( kttsd )
@@ -43,7 +44,6 @@ add_subdirectory( kate-ctags )
 
 #add_subdirectory( tabify )
 
-ecm_optional_add_subdirectory ( katesql )
 
 #add_subdirectory( close-except-like )
 

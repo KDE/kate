@@ -41,6 +41,14 @@
 
 extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
 {
+  /**
+   * Create application first
+   */
+  QApplication app (argc, argv);
+
+  /**
+   * FIXME: activate debug
+   */
   QLoggingCategory::setFilterRules(QStringLiteral("kate = true"));
 
   /**
@@ -95,10 +103,8 @@ extern "C" Q_DECL_EXPORT int kdemain( int argc, char **argv )
   KAboutData::setApplicationData (aboutData);
   
   /**
-   * Create the QApplication with the right options set
    * take component name and org. name from KAboutData
    */
-  QApplication app (argc, argv);
   app.setApplicationName (aboutData.componentName());
   app.setApplicationDisplayName (aboutData.displayName());
   app.setOrganizationDomain (aboutData.organizationDomain());

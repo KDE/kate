@@ -37,6 +37,14 @@
 
 extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
 {
+  /**
+   * first init the app
+   */
+  QApplication app (argc, argv);
+
+  /**
+   * then use i18n and co
+   */
   KAboutData aboutData ( QStringLiteral("kwrite"), QString(),
                          i18n("KWrite"),
                          QStringLiteral(KATE_VERSION),
@@ -90,10 +98,8 @@ extern "C" Q_DECL_EXPORT int kdemain(int argc, char **argv)
   KAboutData::setApplicationData (aboutData);
 
   /**
-   * Create the QApplication with the right options set
-   * take component name and org. name from KAboutData
+   * set app stuff from about data component name and org. name from KAboutData
    */
-  QApplication app (argc, argv);
   app.setApplicationName (aboutData.componentName());
   app.setApplicationDisplayName (aboutData.displayName());
   app.setOrganizationDomain (aboutData.organizationDomain());

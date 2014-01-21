@@ -1,10 +1,13 @@
+# Load the frameworks we need
+find_package(KF5 CONFIG REQUIRED COMPONENTS Notifications)
+
 set(katebuild_SRCS plugin_katebuild.cpp targets.cpp selecttargetdialog.cpp)
 
 qt5_wrap_ui(katebuild_SRCS build.ui)
 
 add_library(katebuildplugin MODULE ${katebuild_SRCS})
 
-target_link_libraries(katebuildplugin KF5::TextEditor KF5::I18n KF5::IconThemes)
+target_link_libraries(katebuildplugin KF5::TextEditor KF5::I18n KF5::IconThemes KF5::Notifications)
 
 ########### install files ###############
 install(FILES ui.rc DESTINATION ${DATA_INSTALL_DIR}/katebuild)

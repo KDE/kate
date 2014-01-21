@@ -53,7 +53,6 @@
 #include <QMimeData>
 #include <QApplication>
 #include <QLabel>
-#include <QStatusBar>
 #include <QDragEnterEvent>
 
 QList<KTextEditor::Document*> KWrite::docList;
@@ -84,19 +83,12 @@ KWrite::KWrite (KTextEditor::Document *doc)
   setCentralWidget(m_view);
 
   setupActions();
-  setupStatusBar();
 
   // signals for the statusbar
-  connect(m_view, SIGNAL(cursorPositionChanged(KTextEditor::View*,KTextEditor::Cursor)), this, SLOT(cursorPositionChanged(KTextEditor::View*)));
-  connect(m_view, SIGNAL(viewModeChanged(KTextEditor::View*)), this, SLOT(viewModeChanged(KTextEditor::View*)));
-  connect(m_view, SIGNAL(selectionChanged(KTextEditor::View*)), this, SLOT(selectionChanged(KTextEditor::View*)));
-  connect(m_view, SIGNAL(informationMessage(KTextEditor::View*,QString)), this, SLOT(informationMessage(KTextEditor::View*,QString)));
-  connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(modifiedChanged()));
-  connect(m_view->document(), SIGNAL(modifiedOnDisk(KTextEditor::Document*,bool,KTextEditor::ModificationInterface::ModifiedOnDiskReason)), this, SLOT(modifiedChanged()) );
+  connect(m_view->document(), SIGNAL(modifiedChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
   connect(m_view->document(), SIGNAL(documentNameChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
   connect(m_view->document(), SIGNAL(readWriteChanged(KTextEditor::Document*)), this, SLOT(documentNameChanged()));
   connect(m_view->document(),SIGNAL(documentUrlChanged(KTextEditor::Document*)), this, SLOT(urlChanged()));
-  connect(m_view->document(), SIGNAL(modeChanged(KTextEditor::Document*)), this, SLOT(modeChanged(KTextEditor::Document*)));
 
   setAcceptDrops(true);
   connect(m_view,SIGNAL(dropEventPass(QDropEvent*)),this,SLOT(slotDropEvent(QDropEvent*)));
@@ -120,7 +112,7 @@ KWrite::KWrite (KTextEditor::Document *doc)
 
   winList.append (this);
 
-  updateStatus ();
+  documentNameChanged ();
   show ();
 
   // give view focus
@@ -192,41 +184,6 @@ void KWrite::setupActions()
   a->setText( i18n("&About Editor Component") );
   connect( a, SIGNAL(triggered()), this, SLOT(aboutEditor()) );
 
-}
-
-void KWrite::setupStatusBar()
-{
-  // statusbar stuff
-  QString lineColText = i18nc("@info:status Statusbar label for cursor line and column position",
-    " Line: %1 Col: %2 ", 4444, 44);
-
-  m_lineColLabel = new QLabel( statusBar() );
-  m_lineColLabel->setMinimumWidth( m_lineColLabel->fontMetrics().width( lineColText ) );
-  statusBar()->addWidget( m_lineColLabel, 0 );
-
-  m_modifiedLabel = new QLabel( statusBar() );
-  m_modifiedLabel->setFixedSize( 16, 16 );
-  statusBar()->addWidget( m_modifiedLabel, 0 );
-  m_modifiedLabel->setAlignment( Qt::AlignCenter );
-
-  m_selectModeLabel = new QLabel( i18nc("@info:status Statusbar label for line selection mode", " LINE "), statusBar() );
-  statusBar()->addWidget( m_selectModeLabel, 0 );
-  m_selectModeLabel->setAlignment( Qt::AlignCenter );
-
-  m_insertModeLabel = new QLabel( i18n(" INS "), statusBar() );
-  statusBar()->addWidget( m_insertModeLabel, 0 );
-  m_insertModeLabel->setAlignment( Qt::AlignCenter );
-
-  m_modeLabel = new QLabel( QString(), statusBar() );
-  statusBar()->addWidget( m_modeLabel, 0 );
-  m_modeLabel->setAlignment( Qt::AlignVCenter | Qt::AlignLeft );
-
-  m_fileNameLabel=new KSqueezedTextLabel( statusBar() );
-  statusBar()->addPermanentWidget( m_fileNameLabel, 1 );
-  m_fileNameLabel->setTextFormat(Qt::PlainText);
-  m_fileNameLabel->setMinimumSize( 0, 0 );
-  m_fileNameLabel->setSizePolicy(QSizePolicy( QSizePolicy::Ignored, QSizePolicy::Fixed ));
-  m_fileNameLabel->setAlignment( Qt::AlignVCenter | Qt::AlignRight );
 }
 
 // load on url
@@ -317,10 +274,10 @@ void KWrite::newView()
 
 void KWrite::toggleStatusBar()
 {
-  if( m_paShowStatusBar->isChecked() )
+ /* FIXME KF5 if( m_paShowStatusBar->isChecked() )
     statusBar()->show();
   else
-    statusBar()->hide();
+    statusBar()->hide();*/
 }
 
 void KWrite::editKeys()
@@ -399,10 +356,12 @@ void KWrite::readConfig(KSharedConfigPtr config)
   if (config != KSharedConfig::openConfig())
     KTextEditor::Editor::instance()->readConfig(config.data());
 
+  /* FIXME KF5
   if( m_paShowStatusBar->isChecked() )
     statusBar()->show();
   else
     statusBar()->hide();
+  */
 }
 
 void KWrite::writeConfig(KSharedConfigPtr config)
@@ -522,77 +481,8 @@ void KWrite::aboutEditor()
   dlg.exec();
 }
 
-void KWrite::updateStatus ()
-{
-  viewModeChanged (m_view);
-  cursorPositionChanged (m_view);
-  selectionChanged (m_view);
-  modifiedChanged ();
-  documentNameChanged ();
-  modeChanged (m_view->document());
-}
-
-void KWrite::viewModeChanged ( KTextEditor::View *view )
-{
-  m_insertModeLabel->setText( view->viewMode() );
-}
-
-void KWrite::cursorPositionChanged ( KTextEditor::View *view )
-{
-  KTextEditor::Cursor position (view->cursorPositionVirtual());
-
-  m_lineColLabel->setText(
-    i18nc("@info:status Statusbar label for cursor line and column position",
-    	" Line: %1 Col: %2 ", position.line()+1, position.column()+1) ) ;
-}
-
-void KWrite::selectionChanged (KTextEditor::View *view)
-{
-  m_selectModeLabel->setText(
-  	view->blockSelection() ? i18nc("@info:status Statusbar label for block selection mode", " BLOCK ") :
-				i18nc("@info:status Statusbar label for line selection mode", " LINE ") );
-}
-
-void KWrite::informationMessage (KTextEditor::View *view, const QString &message)
-{
-  Q_UNUSED(view)
-
-  m_fileNameLabel->setText( message );
-
-  // timer to reset this after 4 seconds
-  QTimer::singleShot(4000, this, SLOT(documentNameChanged()));
-}
-
-void KWrite::modifiedChanged()
-{
-    bool mod = m_view->document()->isModified();
-
-    if (mod && m_modPm.isNull()) {
-        m_modPm = QIcon::fromTheme(QStringLiteral("document-properties")).pixmap(16);
-    }
-
-   /* const KateDocumentInfo *info
-      = KateDocManager::self()->documentInfo ( m_view->document() );
-*/
-//    bool modOnHD = false; //info && info->modifiedOnDisc;
-
-    m_modifiedLabel->setPixmap(
-        mod ? m_modPm : QPixmap()
-          /*info && modOnHD ?
-            m_modmodPm :
-            m_modPm :
-          info && modOnHD ?
-            m_modDiscPm :
-        QPixmap()*/
-        );
-
-    documentNameChanged(); // update the modified flag in window title
-}
-
 void KWrite::documentNameChanged ()
 {
-  m_fileNameLabel->setText( QString::fromLatin1(" %1 ").arg (KStringHandler::lsqueeze(m_view->document()->documentName (), 64)));
-
   QString readOnlyCaption;
   if  (!m_view->document()->isReadWrite())
     readOnlyCaption=i18n(" [read only]");
@@ -622,12 +512,4 @@ void KWrite::documentNameChanged ()
 
     setCaption (c+readOnlyCaption, m_view->document()->isModified());
   }
-}
-
-void KWrite::modeChanged ( KTextEditor::Document *document )
-{
-  QString mode = document->mode();
-  if (!mode.isEmpty())
-    mode = i18nc("Language", document->mode().toUtf8().data());
-  m_modeLabel->setText(mode);
 }

@@ -56,7 +56,6 @@ class KWrite : public KParts::MainWindow
 
   private:
     void setupActions();
-    void setupStatusBar();
 
     bool queryClose();
 
@@ -121,34 +120,8 @@ class KWrite : public KParts::MainWindow
     static QList<KTextEditor::Document*> docList;
     static QList<KWrite*> winList;
 
-  /**
-   * Stuff for the status bar
-   */
   public Q_SLOTS:
-    void updateStatus ();
-
-    void viewModeChanged ( KTextEditor::View *view );
-
-    void modeChanged ( KTextEditor::Document *document );
-
-    void cursorPositionChanged ( KTextEditor::View *view );
-
-    void selectionChanged (KTextEditor::View *view);
-
-    void modifiedChanged();
-
     void documentNameChanged ();
-
-    void informationMessage (KTextEditor::View *view, const QString &message);
-
-   private:
-      QLabel* m_lineColLabel;
-      QLabel* m_modifiedLabel;
-      QLabel* m_insertModeLabel;
-      QLabel* m_selectModeLabel;
-      QLabel* m_modeLabel;
-      KSqueezedTextLabel* m_fileNameLabel;
-      QPixmap m_modPm; //, m_modDiscPm, m_modmodPm;
 };
 
 #endif

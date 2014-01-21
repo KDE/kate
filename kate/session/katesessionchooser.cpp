@@ -68,7 +68,7 @@ KateSessionChooser::KateSessionChooser (QWidget *parent, const QString &lastSess
 
   foreach(const KateSession::Ptr &session, slist) {
     KateSessionChooserItem *item = new KateSessionChooserItem (m_sessions, session);
-    QPushButton *tmp=new QPushButton(QIcon::fromTheme(QStringLiteral("")),QString(),m_sessions);
+    QPushButton *tmp=new QPushButton(QIcon::fromTheme(QStringLiteral("document")),QString(),m_sessions);
     QMenu* popup = new QMenu(this);
     QAction *a = popup->addAction(i18n("New cloned session"));
     a->setData(QVariant::fromValue((void*)item));

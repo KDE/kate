@@ -57,7 +57,7 @@ class KateFileBrowser : public QWidget
 
   public:
     explicit KateFileBrowser( KTextEditor::MainWindow *mainWindow = 0,
-                      QWidget * parent = 0, const char * name = 0 );
+                      QWidget * parent = 0);
     ~KateFileBrowser();
 
     void readSessionConfig (const KConfigGroup& config);

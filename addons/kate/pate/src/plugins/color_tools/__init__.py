@@ -63,7 +63,7 @@ def insertColor():
     view = kate.activeView()
 
     global colorChooserWidget
-    assert(colorChooserWidget is not None)
+    assert colorChooserWidget is not None
     colorChooserWidget.updateColors(document)
     colorChooserWidget.moveAround(view.cursorPositionCoordinates())
 
@@ -90,27 +90,32 @@ def init():
 
     # Make an instance of a palette tool view
     global paletteView
-    assert(paletteView is None)
+    assert paletteView is None
     paletteView = PaletteView()
 
     # Make an instance of a color chooser widget,
     # connect it to active document updater
     global colorChooserWidget
-    assert(colorChooserWidget is None)
+    assert colorChooserWidget is None
     colorChooserWidget = ColorChooser()
 
 
 @kate.unload
 def destroy():
     global paletteView
-    assert(paletteView is not None)
+    assert paletteView is not None
     del paletteView
     paletteView = None
 
     global colorChooserWidget
-    assert(colorChooserWidget is not None)
+    assert colorChooserWidget is not None
     del colorChooserWidget
     colorChooserWidget = None
+
+    global swatcher
+    assert swatcher is not None
+    del swatcher
+    swatcher = None
 
     del sys.modules['color_tools.color_palette']
     del sys.modules['color_tools.color_chooser']

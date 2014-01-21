@@ -30,7 +30,7 @@ class ColorSwatcher:
     _SWATCH_TEMPLATE = '<div>{}</div>'.format('&nbsp;' * 10)
 
     def __init__(self):
-        self.old_palette = None
+        self.default_palette = QToolTip.palette()
 
 
     def show_swatch(self, view):
@@ -38,7 +38,7 @@ class ColorSwatcher:
         if view.selection():
             color = QColor(view.selectionText())
             if color.isValid():
-                cursor_pos = view.cursorPositionCoordinates()
+                cursor_pos = view.mapToGlobal(view.cursorPositionCoordinates())
                 QToolTip.showText(cursor_pos, ColorSwatcher._SWATCH_TEMPLATE)
                 self.change_palette(color)
         else:
@@ -47,8 +47,7 @@ class ColorSwatcher:
 
     def change_palette(self, color):
         '''Sets the global tooltip background to the given color and initializes reset'''
-        self.old_palette = QToolTip.palette()
-        p = QPalette(self.old_palette)
+        p = QPalette(self.default_palette)
         p.setColor(QPalette.All, QPalette.ToolTipBase, color)
         QToolTip.setPalette(p)
 
@@ -59,6 +58,5 @@ class ColorSwatcher:
 
     def try_reset_palette(self):
         '''Resets the global tooltip background color as soon as the swatch is hidden'''
-        if self.old_palette is not None and not QToolTip.isVisible():
-            QToolTip.setPalette(self.old_palette)
-            self.old_palette = None
+        if not QToolTip.isVisible():
+            QToolTip.setPalette(self.default_palette)

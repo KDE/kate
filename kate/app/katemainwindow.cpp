@@ -188,7 +188,7 @@ KateMainWindow::KateMainWindow (KConfig *sconfig, const QString &sgroup)
 
   finishRestore ();
 
-  fileOpenRecent->loadEntries( KConfigGroup(sconfig, "Recent Files" ) );
+  m_fileOpenRecent->loadEntries( KConfigGroup(sconfig, "Recent Files" ) );
 
   setAcceptDrops(true);
 
@@ -269,9 +269,9 @@ void KateMainWindow::setupActions()
   actionCollection()->addAction( KStandardAction::Open, QStringLiteral("file_open"), m_viewManager, SLOT(slotDocumentOpen()) )
   ->setWhatsThis(i18n("Open an existing document for editing"));
 
-  fileOpenRecent = KStandardAction::openRecent (m_viewManager, SLOT(openUrl(QUrl)), this);
-  actionCollection()->addAction(fileOpenRecent->objectName(), fileOpenRecent);
-  fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
+  m_fileOpenRecent = KStandardAction::openRecent (m_viewManager, SLOT(openUrl(QUrl)), this);
+  actionCollection()->addAction(m_fileOpenRecent->objectName(), m_fileOpenRecent);
+  m_fileOpenRecent->setWhatsThis(i18n("This lists files which you have opened recently, and allows you to easily open them again."));
 
   a = actionCollection()->addAction( QStringLiteral("file_save_all") );
   a->setIcon( QIcon::fromTheme(QStringLiteral("document-save-all")) );
@@ -534,7 +534,7 @@ void KateMainWindow::readOptions ()
   KSharedConfig::Ptr config = KSharedConfig::openConfig();
 
   const KConfigGroup generalGroup(config, "General");
-  modNotification = generalGroup.readEntry("Modified Notification", false);
+  m_modNotification = generalGroup.readEntry("Modified Notification", false);
   KateDocManager::self()->setSaveMetaInfos(generalGroup.readEntry("Save Meta Infos", true));
   KateDocManager::self()->setDaysMetaInfos(generalGroup.readEntry("Days Meta Infos", 30));
 
@@ -899,7 +899,7 @@ void KateMainWindow::saveProperties(KConfigGroup& config)
     }
   }
 
-  fileOpenRecent->saveEntries( KConfigGroup(config.config(), "Recent Files" ) );
+  m_fileOpenRecent->saveEntries( KConfigGroup(config.config(), "Recent Files" ) );
   m_viewManager->saveViewConfiguration (config);
 }
 
@@ -915,7 +915,7 @@ void KateMainWindow::readProperties(const KConfigGroup& config)
 
   finishRestore ();
 
-  fileOpenRecent->loadEntries( KConfigGroup(config.config(), "Recent Files" ) );
+  m_fileOpenRecent->loadEntries( KConfigGroup(config.config(), "Recent Files" ) );
   m_viewManager->restoreViewConfiguration (config);
 }
 
@@ -967,7 +967,7 @@ void KateMainWindow::slotUpdateBottomViewBar()
 
 void KateMainWindow::queueModifiedOnDisc(KTextEditor::Document *doc)
 {
-  if (!modNotification) return;
+  if (!m_modNotification) return;
 
   if (s_modOnHdDialog==0) {
     DocVector list;

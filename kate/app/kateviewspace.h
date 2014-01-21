@@ -90,14 +90,12 @@ class KateVSStatusBar : public QStatusBar
 
 class KateViewSpace : public QFrame
 {
-    friend class KateVSStatusBar;
-
     Q_OBJECT
 
   public:
     explicit KateViewSpace(KateViewManager *, QWidget* parent = 0, const char* name = 0);
     ~KateViewSpace();
-    
+
     bool isActiveSpace();
     void setActive(bool b, bool showled = false);
 
@@ -141,4 +139,3 @@ class KateViewSpace : public QFrame
 };
 
 #endif
-// kate: space-indent on; indent-width 2; replace-tabs on;

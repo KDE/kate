@@ -296,8 +296,6 @@ class KateViewManager : public QSplitter
      * current minimal age
      */
     qint64 m_minAge;
-
-    friend class KateContainer;
 };
 
 #endif

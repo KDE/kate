@@ -70,9 +70,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
 {
     Q_OBJECT
 
-    friend class KateConfigDialog;
-    friend class KateViewManager;
-
   public:
     /**
      * Construct the window and restore its state from given config if any
@@ -142,6 +139,11 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      */
     void restoreWindowConfig(const KConfigGroup &);
 
+    /**
+     * save some global options to katerc
+     */
+    void saveOptions();
+
   private:
     /**
      * Setup actions which pointers are needed already in setupMainWindow
@@ -156,11 +158,6 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      * read some global options from katerc
      */
     void readOptions();
-
-    /**
-     * save some global options to katerc
-     */
-    void saveOptions();
 
     void dragEnterEvent( QDragEnterEvent * );
     void dropEvent( QDropEvent * );
@@ -231,6 +228,21 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     inline void hideBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.value(view); bar=state.bar(); if (bar) {m_bottomContainerStack->setCurrentWidget(bar); bar->hide(); state.setState(false); m_bottomViewBarMapping[view]=state;} m_bottomViewBarContainer->hide();}
     inline void showBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.value(view); bar=state.bar();  if (bar) {m_bottomContainerStack->setCurrentWidget(bar); bar->show(); state.setState(true); m_bottomViewBarMapping[view]=state;  m_bottomViewBarContainer->show();}}
     inline void deleteBottomViewBarForView(KTextEditor::View *view) {QWidget *bar; BarState state=m_bottomViewBarMapping.take(view); bar=state.bar();  if (bar) {if (m_bottomContainerStack->currentWidget()==bar) m_bottomViewBarContainer->hide(); delete bar;}}
+
+    bool modNotificationEnabled () const
+    {
+      return m_modNotification;
+    }
+
+    void setModNotificationEnabled (bool e)
+    {
+      m_modNotification = e;
+    }
+
+    KRecentFilesAction *fileOpenRecent () const
+    {
+      return m_fileOpenRecent;
+    }
 
   //
   // KTextEditor::MainWindow interface, get called by invokeMethod from our wrapper object!
@@ -403,7 +415,10 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
     static uint uniqueID;
     uint myID;
 
-    bool modNotification;
+    /**
+     * Notify about file modifications from other processes?
+     */
+    bool m_modNotification;
 
     /**
      * stacked widget containing the central area, aka view manager, quickopen, ...
@@ -420,7 +435,7 @@ class KateMainWindow : public KateMDI::MainWindow, virtual public KParts::PartBa
      */
     KateViewManager *m_viewManager;
 
-    KRecentFilesAction *fileOpenRecent;
+    KRecentFilesAction *m_fileOpenRecent;
 
     KActionMenu* documentOpenWith;
 

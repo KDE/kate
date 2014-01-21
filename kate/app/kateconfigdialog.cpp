@@ -85,7 +85,7 @@ KateConfigDialog::KateConfigDialog ( KateMainWindow *parent, KTextEditor::View *
   // modified files notification
   m_modNotifications = new QCheckBox(
                           i18n("Wa&rn about files modified by foreign processes"), buttonGroup );
-  m_modNotifications->setChecked( parent->modNotification );
+  m_modNotifications->setChecked( parent->modNotificationEnabled() );
   m_modNotifications->setWhatsThis( i18n(
                                        "If enabled, when Kate receives focus you will be asked what to do with "
                                        "files that have been modified on the hard disk. If not enabled, you will "
@@ -334,7 +334,7 @@ void KateConfigDialog::slotApply()
     KateDocManager::self()->setDaysMetaInfos(m_daysMetaInfos->value());
 
     cg.writeEntry("Modified Notification", m_modNotifications->isChecked());
-    m_mainWindow->modNotification = m_modNotifications->isChecked();
+    m_mainWindow->setModNotificationEnabled (m_modNotifications->isChecked());
 
     // patch document modified warn state
     const QList<KTextEditor::Document*> &docs = KateDocManager::self()->documentList ();
